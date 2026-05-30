@@ -9,6 +9,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 public class SearchPageViewModel extends ViewModel
 {
   private final MutableLiveData<Integer> mSearchPageDistanceToTop = new MutableLiveData<>();
+  private final MutableLiveData<Integer> mExpandedOffset = new MutableLiveData<>(0);
   private final MutableLiveData<Integer> mSearchPageWidth = new MutableLiveData<>();
   private final MutableLiveData<Integer> mHistoryRefreshRequest = new MutableLiveData<>(0);
   // Stores the BottomSheet's last stable non-hidden state (set from onStateChanged). Used to restore
@@ -47,6 +48,17 @@ public class SearchPageViewModel extends ViewModel
   public void setSearchPageDistanceToTop(int top)
   {
     mSearchPageDistanceToTop.setValue(top);
+  }
+
+  @NonNull
+  public LiveData<Integer> getExpandedOffset()
+  {
+    return mExpandedOffset;
+  }
+
+  public void setExpandedOffset(int offset)
+  {
+    mExpandedOffset.setValue(offset);
   }
 
   @NonNull

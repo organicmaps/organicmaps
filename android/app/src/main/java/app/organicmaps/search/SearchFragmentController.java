@@ -254,8 +254,6 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
       mCurrentWindowInsets = insets;
       int navH = navBarHeight();
-      mSearchPageContainer.setPadding(mSearchPageContainer.getPaddingLeft(), mSearchPageContainer.getPaddingTop(),
-                                      mSearchPageContainer.getPaddingRight(), navH);
       Integer toolbarH = mViewModel.getToolbarHeight().getValue();
       if (toolbarH != null && toolbarH > 0)
         mBottomSheetBehavior.setPeekHeight(Math.max(toolbarH, mMinCollapsedPeekHeight) + navH);
@@ -348,7 +346,9 @@ public class SearchFragmentController extends Fragment implements SearchFragment
       int cutoutTop = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.displayCutout()).top;
       topInset = Math.max(systemBarsTop, cutoutTop);
     }
-    mBottomSheetBehavior.setExpandedOffset(topInset + mTopHeaderHeight);
+    int expandedOffset = topInset + mTopHeaderHeight;
+    mBottomSheetBehavior.setExpandedOffset(expandedOffset);
+    mViewModel.setExpandedOffset(expandedOffset);
   }
 
   private void updateMapTouchListener(int state)

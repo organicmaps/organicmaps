@@ -57,6 +57,10 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   private long mLastQueryTimestamp;
   private SearchFragmentListener mSearchFragmentListener;
   private View mResultsFrame;
+  @Nullable
+  private RecyclerView mResults;
+  private int mNavH = 0;
+  private int mExpandedOffset = 0;
   private View mTabFrame;
   private View mPages;
   private View mAppBar;
@@ -186,7 +190,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       showDownloadSuggest();
     else
       hideDownloadSuggest();
-
+    syncNestedScrollingState();
     updatePeekHeight();
   }
 
@@ -259,8 +263,17 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     TabLayout tabLayout = root.findViewById(R.id.tabs);
     mTabFrame = root.findViewById(R.id.tab_frame);
     mResultsFrame = root.findViewById(R.id.results_frame);
-    RecyclerView mResults = mResultsFrame.findViewById(R.id.recycler);
+    mResults = mResultsFrame.findViewById(R.id.recycler);
     setRecyclerScrollListener(mResults);
+    ViewCompat.setOnApplyWindowInsetsListener(mResults, (v, insets) -> {
+      mNavH = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom;
+      updateAllRecyclerBottomPadding();
+      return insets;
+    });
+    mSearchViewModel.getExpandedOffset().observe(getViewLifecycleOwner(), offset -> {
+      mExpandedOffset = offset != null ? offset : 0;
+      updateAllRecyclerBottomPadding();
+    });
     mResultsPlaceholder = mResultsFrame.findViewById(R.id.placeholder);
     mResultsPlaceholder.setContent(R.string.search_not_found, R.string.search_not_found_query);
     mShimmerView = mResultsFrame.findViewById(R.id.search_shimmer);
@@ -581,26 +594,70 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
   private void updateNestedScrollingForTab(@NonNull TabAdapter tabAdapter, int selectedPosition)
   {
-    for (int i = 0; i < tabAdapter.getCount(); i++)
-    {
-      Fragment fragment = tabAdapter.getItem(i);
-      if (fragment == null || fragment.getView() == null)
-        continue;
-
-      RecyclerView rv = fragment.getView().findViewById(R.id.recycler);
-      if (rv != null)
-        ViewCompat.setNestedScrollingEnabled(rv, i == selectedPosition);
-    }
-
     // Replay the last known insets to any tab fragment views that are now attached.
     // This handles the timing gap where ViewPager creates fragment views lazily,
     // after the initial window-insets dispatch has already completed.
     if (mLastKnownInsets != null)
       dispatchInsetsToTabFragments(mLastKnownInsets);
 
+    updateAllRecyclerBottomPadding();
+
+    syncNestedScrollingState();
+  }
+
+  /**
+   * Ensures exactly one RecyclerView participates in nested scrolling at any time so
+   * BottomSheetBehavior.findScrollingChild() always resolves to the visible list.
+   *
+   * - In search mode (hasQuery): enable results RV, disable all tab RVs.
+   * - In tab mode (!hasQuery): disable results RV, enable only the active tab's RV.
+   *
+   * After updating flags, requestLayout() is called on the bottom sheet so
+   * BottomSheetBehavior.onLayoutChild() re-runs findScrollingChild() and refreshes
+   * its internal nestedScrollingChildRef before the next touch gesture.
+   */
+  private void syncNestedScrollingState()
+  {
+    boolean hasQuery = mToolbarController.hasQuery();
+    int activeTab = (mPager != null) ? mPager.getCurrentItem() : -1;
+
+    if (mResults != null)
+      ViewCompat.setNestedScrollingEnabled(mResults, hasQuery);
+
+    if (mTabAdapter != null)
+    {
+      for (int i = 0; i < mTabAdapter.getCount(); i++)
+      {
+        Fragment f = mTabAdapter.getItem(i);
+        if (f == null || f.getView() == null)
+          continue;
+        RecyclerView rv = f.getView().findViewById(R.id.recycler);
+        if (rv != null)
+          ViewCompat.setNestedScrollingEnabled(rv, !hasQuery && i == activeTab);
+      }
+    }
+
     View bottomSheet = getBottomSheetContainer();
     if (bottomSheet != null)
       bottomSheet.requestLayout();
+  }
+
+  private void updateAllRecyclerBottomPadding()
+  {
+    int padding = mNavH + mExpandedOffset;
+    if (mResults != null)
+      mResults.setPadding(mResults.getPaddingLeft(), mResults.getPaddingTop(), mResults.getPaddingRight(), padding);
+    if (mTabAdapter == null)
+      return;
+    for (int i = 0; i < mTabAdapter.getCount(); i++)
+    {
+      Fragment f = mTabAdapter.getItem(i);
+      if (f == null || f.getView() == null)
+        continue;
+      RecyclerView rv = f.getView().findViewById(R.id.recycler);
+      if (rv != null)
+        rv.setPadding(rv.getPaddingLeft(), rv.getPaddingTop(), rv.getPaddingRight(), padding);
+    }
   }
 
   private void dispatchInsetsToTabFragments(@NonNull WindowInsetsCompat insets)
