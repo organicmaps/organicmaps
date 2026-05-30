@@ -13,8 +13,42 @@ namespace downloader_tests
 
 class DownloaderStub : public storage::MapFilesDownloaderWithPing
 {
-  virtual void Download(storage::QueuedCountry && queuedCountry) {}
+public:
+  using storage::MapFilesDownloader::MakeUrlList;
+
+  void Download(storage::QueuedCountry &&) override {}
 };
+
+UNIT_TEST(NormalizeDebugMapDownloadServer)
+{
+  std::string normalized;
+
+  TEST(storage::NormalizeDebugMapDownloadServer("https://example.com", normalized), ());
+  TEST_EQUAL(normalized, "https://example.com/", ());
+
+  TEST(storage::NormalizeDebugMapDownloadServer(" http://localhost:8000/maps ", normalized), ());
+  TEST_EQUAL(normalized, "http://localhost:8000/maps/", ());
+
+  TEST(!storage::NormalizeDebugMapDownloadServer("", normalized), ());
+  TEST(!storage::NormalizeDebugMapDownloadServer("http:/example.com", normalized), ());
+  TEST(!storage::NormalizeDebugMapDownloadServer("https:///example.com", normalized), ());
+  TEST(!storage::NormalizeDebugMapDownloadServer("ftp://example.com", normalized), ());
+  TEST(!storage::NormalizeDebugMapDownloadServer("https://example.com?token=1", normalized), ());
+  TEST(!storage::NormalizeDebugMapDownloadServer("https://exa mple.com", normalized), ());
+}
+
+UNIT_TEST(MapFilesDownloader_DebugServerList)
+{
+  DownloaderStub downloader;
+  downloader.SetServersList({"https://example.com/base/"});
+
+  auto urls = downloader.MakeUrlList("maps/1/Germany.mwm");
+  TEST_EQUAL(urls.size(), 1, ());
+  TEST_EQUAL(urls[0], "https://example.com/base/maps/1/Germany.mwm", ());
+
+  downloader.ResetServersList();
+  TEST(downloader.MakeUrlList("maps/1/Germany.mwm").empty(), ());
+}
 
 UNIT_TEST(GetMetaConfig)
 {

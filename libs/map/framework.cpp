@@ -148,6 +148,19 @@ bool ParseSetGpsTrackMinAccuracyCommand(std::string const & query)
   return true;
 }
 
+void EmitDebugCommandResult(search::SearchParams const & params, std::string const & message)
+{
+  if (!params.m_onResults)
+    return;
+
+  search::Results results;
+  results.AddResultNoChecks(search::Result(message, std::string(params.m_query)));
+  params.m_onResults(results);
+
+  results.SetEndMarker(false /* isCancelled */);
+  params.m_onResults(results);
+}
+
 void UpdateTrackSelectionColor(dp::Color & color)
 {
   if (color == feature::RouteRelationBase::kEmptyColor)
@@ -3125,6 +3138,49 @@ bool Framework::ParseRoutingDebugCommand(search::SearchParams const & params)
   return false;
 }
 
+bool Framework::ParseDownloaderDebugCommand(search::SearchParams const & params)
+{
+  char const kSetCommand[] = "?map-download-server:";
+  char const kStatusCommand[] = "?map-download-server";
+  char const kResetCommand[] = "?no-map-download-server";
+
+  if (params.m_query == kStatusCommand)
+  {
+    std::string serverUrl;
+    if (m_storage.GetDebugMapDownloadServer(serverUrl))
+      EmitDebugCommandResult(params, "Map download server: " + serverUrl);
+    else
+      EmitDebugCommandResult(params, "Map download server: default");
+    return true;
+  }
+
+  bool const reset = params.m_query == kResetCommand;
+  if (!reset && !params.m_query.starts_with(kSetCommand))
+    return false;
+
+  // Both setting and resetting the server affect ongoing downloads.
+  if (m_storage.IsDownloadInProgress())
+  {
+    EmitDebugCommandResult(params, "Cancel active map downloads before changing the map download server.");
+    return true;
+  }
+
+  if (reset)
+  {
+    m_storage.ResetDebugMapDownloadServer();
+    EmitDebugCommandResult(params, "Map download server reset to default.");
+  }
+  else
+  {
+    std::string normalizedUrl;
+    if (m_storage.SetDebugMapDownloadServer(params.m_query.substr(sizeof(kSetCommand) - 1), normalizedUrl))
+      EmitDebugCommandResult(params, "Map download server: " + normalizedUrl);
+    else
+      EmitDebugCommandResult(params, "Invalid map download server URL. Use http:// or https:// without query.");
+  }
+  return true;
+}
+
 bool Framework::ParseAllTypesDebugCommand(search::SearchParams const & params)
 {
   if (params.m_query == "?all-types")
@@ -3518,6 +3574,8 @@ bool Framework::ParseSearchQueryCommand(search::SearchParams const & params)
   if (ParseEditorDebugCommand(params))
     return true;
   if (ParseRoutingDebugCommand(params))
+    return true;
+  if (ParseDownloaderDebugCommand(params))
     return true;
   if (ParseAllTypesDebugCommand(params))
     return true;

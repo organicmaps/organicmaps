@@ -62,6 +62,12 @@ All the following commands require an app restart:
 - `?debug-cam`: Force-enables speed cameras in all countries.
 - `?no-debug-cam`: Reverts speed camera setting to default.
 
+## Downloader
+
+- `?map-download-server`: Shows the currently configured map download server, or `default`.
+- `?map-download-server:https://example.com/`: Downloads maps from the specified HTTP(S) server instead of the server list from the metaserver/default configuration. The server must provide the same version of mwm map files as in data/countries.txt, and mush use the same path layout as the official CDN, for example `maps/<version>/<file>.mwm` under the configured base URL. This setting persists across restarts.
+- `?no-map-download-server`: Removes the custom map download server and falls back to the default server selection logic. Changing this setting is rejected while map downloads are active.
+
 ## GPS
 
 - `?gpstrackaccuracy:XXX`: Changes the accuracy of the GPS while recording tracks. Replace `XXX` by the desired horizontal accuracy. Works only on iOS for now.
