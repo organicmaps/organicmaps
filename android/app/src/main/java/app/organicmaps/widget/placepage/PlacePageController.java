@@ -257,7 +257,9 @@ public class PlacePageController
     });
   }
 
-  @NonNull
+  // Returns the "avoid" routing button for an avoidable warning, or null otherwise.
+  // STEPS/GATE/LIFT_GATE warnings have no routing option to avoid them, and UNKNOWN is not a warning.
+  @Nullable
   private static PlacePageButtons.ButtonType toPlacePageButton(@NonNull RoadWarningMarkType type)
   {
     return switch (type)
@@ -265,7 +267,7 @@ public class PlacePageController
       case DIRTY -> PlacePageButtons.ButtonType.ROUTE_AVOID_UNPAVED;
       case FERRY -> PlacePageButtons.ButtonType.ROUTE_AVOID_FERRY;
       case TOLL -> PlacePageButtons.ButtonType.ROUTE_AVOID_TOLL;
-      default -> throw new AssertionError("Unsupported road warning type: " + type);
+      default -> null;
     };
   }
 
@@ -695,11 +697,10 @@ public class PlacePageController
   private void updateButtons(MapObject mapObject, boolean showBackButton, boolean showRoutingButton)
   {
     List<PlacePageButtons.ButtonType> buttons = new ArrayList<>();
-    if (mapObject.getRoadWarningMarkType() != RoadWarningMarkType.UNKNOWN)
+    PlacePageButtons.ButtonType roadAvoidButton = toPlacePageButton(mapObject.getRoadWarningMarkType());
+    if (roadAvoidButton != null)
     {
-      RoadWarningMarkType markType = mapObject.getRoadWarningMarkType();
-      PlacePageButtons.ButtonType roadType = toPlacePageButton(markType);
-      buttons.add(roadType);
+      buttons.add(roadAvoidButton);
     }
     else if (RoutingController.get().isRoutePoint(mapObject))
     {

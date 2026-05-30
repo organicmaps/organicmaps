@@ -470,11 +470,6 @@ void Info::SetRoadType(FeatureType & ft, RoadWarningMarkType type, std::string c
       addSubtitle(localizedType);
     addSubtitle(distance);
   }
-  else if (type == RoadWarningMarkType::Dirty)
-  {
-    m_uiTitle = localizedType;
-    addSubtitle(distance);
-  }
   else if (type == RoadWarningMarkType::Ferry)
   {
     m_uiTitle = m_primaryFeatureName;
@@ -483,6 +478,13 @@ void Info::SetRoadType(FeatureType & ft, RoadWarningMarkType type, std::string c
     auto const operatorName = GetMetadata(feature::Metadata::FMD_OPERATOR);
     if (!operatorName.empty())
       addSubtitle(operatorName);
+  }
+  else  // Dirty / Steps / Gate / LiftGate
+  {
+    m_uiTitle = localizedType;
+    // Point warnings (gate/lift_gate) carry no span length.
+    if (!distance.empty())
+      addSubtitle(distance);
   }
 }
 

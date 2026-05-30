@@ -685,6 +685,9 @@ uint16_t RoadWarningMark::GetPriority() const
     case Toll: return static_cast<uint16_t>(Priority::RoadWarningFirstToll);
     case Ferry: return static_cast<uint16_t>(Priority::RoadWarningFirstFerry);
     case Dirty: return static_cast<uint16_t>(Priority::RoadWarningFirstDirty);
+    case Steps: return static_cast<uint16_t>(Priority::RoadWarningFirstSteps);
+    case Gate: return static_cast<uint16_t>(Priority::RoadWarningFirstGate);
+    case LiftGate: return static_cast<uint16_t>(Priority::RoadWarningFirstLiftGate);
     case Count: CHECK(false, ()); break;
     }
   }
@@ -724,6 +727,9 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> RoadWarningMark::GetSymbolNames
   case Toll: symbolName = "warning-paid_road"; break;
   case Ferry: symbolName = "warning-ferry"; break;
   case Dirty: symbolName = "warning-unpaved_road"; break;
+  case Steps: symbolName = "warning-steps"; break;
+  case Gate: symbolName = "warning-gate"; break;
+  case LiftGate: symbolName = "warning-lift_gate"; break;
   case Count: CHECK(false, ()); break;
   }
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
@@ -740,6 +746,9 @@ std::string RoadWarningMark::GetLocalizedRoadWarningType(RoadWarningMarkType typ
   case Toll: return platform::GetLocalizedString("toll_road");
   case Ferry: return platform::GetLocalizedString("ferry_crossing");
   case Dirty: return platform::GetLocalizedString("unpaved_road");
+  case Steps: return platform::GetLocalizedString("road_warning_steps");
+  case Gate: return platform::GetLocalizedString("road_warning_gate");
+  case LiftGate: return platform::GetLocalizedString("road_warning_lift_gate");
   case Count: CHECK(false, ("Invalid road warning mark type", type)); break;
   }
   return {};
@@ -753,7 +762,52 @@ std::string DebugPrint(RoadWarningMarkType type)
   case Toll: return "Toll";
   case Ferry: return "Ferry";
   case Dirty: return "Dirty";
+  case Steps: return "Steps";
+  case Gate: return "Gate";
+  case LiftGate: return "LiftGate";
   case Count: return "Count";
   }
   UNREACHABLE();
+}
+
+bool IsWarningShownFor(RoadWarningMarkType type, routing::RouterType router)
+{
+  using routing::RouterType;
+  bool const isCar = (router == RouterType::Vehicle);
+  bool const isPedestrianOrBicycle = (router == RouterType::Pedestrian || router == RouterType::Bicycle);
+  switch (type)
+  {
+    using enum RoadWarningMarkType;
+  case Toll:
+  case Dirty:
+  case LiftGate: return isCar;
+  case Steps: return isPedestrianOrBicycle;
+  case Ferry:
+  case Gate: return isCar || isPedestrianOrBicycle;
+  case Count: break;
+  }
+  return false;
+}
+
+RoadWarningMarkType ChooseRoadWarning(routing::RoutingOptions options, routing::RouterType router)
+{
+  using Road = routing::RoutingOptions::Road;
+  // Priority order, highest first. Router-type filtering is applied here, so Steps (pedestrian/
+  // bicycle) and Dirty (car) never compete: an unpaved staircase still yields Steps for a pedestrian.
+  std::pair<Road, RoadWarningMarkType> const order[] = {
+      {Road::Toll, RoadWarningMarkType::Toll},
+      {Road::Ferry, RoadWarningMarkType::Ferry},
+      {Road::Steps, RoadWarningMarkType::Steps},
+      {Road::Dirty, RoadWarningMarkType::Dirty},
+  };
+  for (auto const & [road, mark] : order)
+    if (options.Has(road) && IsWarningShownFor(mark, router))
+      return mark;
+  return RoadWarningMarkType::Count;
+}
+
+bool IsAvoidableRoadWarning(RoadWarningMarkType type)
+{
+  using enum RoadWarningMarkType;
+  return type == Toll || type == Ferry || type == Dirty;
 }

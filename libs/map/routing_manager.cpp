@@ -13,6 +13,12 @@
 #include "storage/country_info_getter.hpp"
 #include "storage/routing_helpers.hpp"
 
+#include "indexer/classificator.hpp"
+#include "indexer/data_source.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/feature_data.hpp"
+#include "indexer/scales.hpp"
+
 #include "drape_frontend/drape_engine.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
@@ -26,6 +32,7 @@
 #include "coding/file_writer.hpp"
 
 #include "base/scope_guard.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <glaze/json.hpp>
@@ -184,19 +191,6 @@ VehicleType GetVehicleType(RouterType routerType)
   case RouterType::Count: CHECK(false, ("Invalid type", routerType)); return VehicleType::Count;
   }
   UNREACHABLE();
-}
-
-RoadWarningMarkType GetRoadType(RoutingOptions::Road road)
-{
-  if (road == RoutingOptions::Road::Toll)
-    return RoadWarningMarkType::Toll;
-  if (road == RoutingOptions::Road::Ferry)
-    return RoadWarningMarkType::Ferry;
-  if (road == RoutingOptions::Road::Dirty)
-    return RoadWarningMarkType::Dirty;
-
-  CHECK(false, ("Invalid road type to avoid:", road));
-  return RoadWarningMarkType::Count;
 }
 
 drape_ptr<df::Subroute> CreateDrapeSubroute(std::vector<RouteSegment> const & segments, m2::PointD const & startPt,
@@ -568,42 +562,112 @@ void RoutingManager::CollectRoadWarnings(std::vector<routing::RouteSegment> cons
                                          m2::PointD const & startPt, double baseDistance, GetMwmIdFn const & getMwmIdFn,
                                          RoadWarningsCollection & roadWarnings)
 {
-  auto const isWarnedType = [](RoutingOptions::Road roadType)
-  {
-    return (roadType == RoutingOptions::Road::Toll || roadType == RoutingOptions::Road::Ferry ||
-            roadType == RoutingOptions::Road::Dirty);
-  };
-
-  bool const isCarRouter = (m_currentRouterType == RouterType::Vehicle);
-
   double currentDistance = baseDistance;
   double startDistance = baseDistance;
-  RoutingOptions::Road lastType = RoutingOptions::Road::Usual;
+  RoadWarningMarkType lastWarn = RoadWarningMarkType::Count;
   for (size_t i = 0; i < segments.size(); ++i)
   {
-    auto const currentType = ChooseMainRoutingOptionRoad(segments[i].GetRoadTypes(), isCarRouter);
-    if (currentType != lastType)
+    auto const currentWarn = ChooseRoadWarning(segments[i].GetRoadTypes(), m_currentRouterType);
+    if (currentWarn != lastWarn)
     {
-      if (isWarnedType(lastType))
+      if (lastWarn != RoadWarningMarkType::Count)
       {
-        ASSERT(!roadWarnings[lastType].empty(), ());
-        roadWarnings[lastType].back().m_distance = segments[i].GetDistFromBeginningMeters() - startDistance;
+        ASSERT(!roadWarnings[lastWarn].empty(), ());
+        roadWarnings[lastWarn].back().m_distance = segments[i].GetDistFromBeginningMeters() - startDistance;
       }
 
-      if (isWarnedType(currentType))
+      if (currentWarn != RoadWarningMarkType::Count)
       {
         startDistance = currentDistance;
         auto const featureId =
             FeatureID(getMwmIdFn(segments[i].GetSegment().GetMwmId()), segments[i].GetSegment().GetFeatureId());
         auto const markPoint = i == 0 ? startPt : segments[i - 1].GetJunction().GetPoint();
-        roadWarnings[currentType].push_back(RoadInfo(markPoint, featureId));
+        roadWarnings[currentWarn].push_back(RoadInfo(markPoint, featureId));
       }
-      lastType = currentType;
+      lastWarn = currentWarn;
     }
     currentDistance = segments[i].GetDistFromBeginningMeters();
   }
-  if (isWarnedType(lastType))
-    roadWarnings[lastType].back().m_distance = segments.back().GetDistFromBeginningMeters() - startDistance;
+  if (lastWarn != RoadWarningMarkType::Count)
+    roadWarnings[lastWarn].back().m_distance = segments.back().GetDistFromBeginningMeters() - startDistance;
+}
+
+void RoutingManager::CollectRoadPointWarnings(std::vector<routing::RouteSegment> const & segments,
+                                              m2::PointD const & startPt, GetMwmIdFn const & getMwmIdFn,
+                                              RoadWarningsCollection & roadWarnings)
+{
+  bool const gateShown = IsWarningShownFor(RoadWarningMarkType::Gate, m_currentRouterType);
+  bool const liftGateShown = IsWarningShownFor(RoadWarningMarkType::LiftGate, m_currentRouterType);
+  if (!gateShown && !liftGateShown)
+    return;
+
+  // Group route vertices by the MWM they belong to, so we can scan each MWM only once.
+  // Fake segments (e.g. route ends) have no real MWM id, so they are skipped here.
+  std::map<MwmSet::MwmId, std::vector<m2::PointD>> verticesByMwm;
+  bool addedStart = false;
+  for (auto const & segment : segments)
+  {
+    if (!segment.GetSegment().IsRealSegment())
+      continue;
+    auto & vertices = verticesByMwm[getMwmIdFn(segment.GetSegment().GetMwmId())];
+    if (!addedStart)
+    {
+      vertices.push_back(startPt);
+      addedStart = true;
+    }
+    vertices.push_back(segment.GetJunction().GetPoint());
+  }
+
+  auto const & cl = classif();
+  uint32_t const gateType = cl.GetTypeByPath({"barrier", "gate"});
+  uint32_t const liftGateType = cl.GetTypeByPath({"barrier", "lift_gate"});
+
+  auto const classifyBarrier = [&](FeatureType & ft) -> std::optional<RoadWarningMarkType>
+  {
+    feature::TypesHolder const types(ft);
+    if (gateShown && types.Has(gateType))
+      return RoadWarningMarkType::Gate;
+    if (liftGateShown && types.Has(liftGateType))
+      return RoadWarningMarkType::LiftGate;
+    return std::nullopt;
+  };
+
+  DataSource const & dataSource = m_callbacks.m_dataSourceGetter();
+  for (auto const & [mwmId, vertices] : verticesByMwm)
+  {
+    if (!mwmId.IsAlive())
+      continue;
+
+    // Bounding box of this MWM's part of the route; barrier features outside it can't match a vertex.
+    m2::RectD rect;
+    for (auto const & v : vertices)
+      rect.Add(v);
+    rect.Inflate(mercator::kPointEqualityEps, mercator::kPointEqualityEps);
+
+    dataSource.ForEachInRectForMWM([&](FeatureType & ft)
+    {
+      if (ft.GetGeomType() != feature::GeomType::Point)
+        return;
+
+      auto const markType = classifyBarrier(ft);
+      if (!markType)
+        return;
+
+      // The barrier feature must sit exactly on one of the route vertices.
+      auto const center = ft.GetCenter();
+      if (!base::AnyOf(vertices,
+                       [&center](m2::PointD const & v) { return center.EqualDxDy(v, mercator::kPointEqualityEps); }))
+        return;
+
+      auto const featureId = ft.GetID();
+      auto & marks = roadWarnings[*markType];
+      // The same barrier can be reached from two subroutes sharing an intermediate point.
+      if (base::AnyOf(marks, [&featureId](RoadInfo const & ri) { return ri.m_featureId == featureId; }))
+        return;
+
+      marks.push_back(RoadInfo(center, featureId));
+    }, rect, scales::GetUpperScale(), mwmId);
+  }
 }
 
 void RoutingManager::CreateRoadWarningMarks(RoadWarningsCollection && roadWarnings)
@@ -616,7 +680,7 @@ void RoutingManager::CreateRoadWarningMarks(RoadWarningsCollection && roadWarnin
     auto es = m_bmManager->GetEditSession();
     for (auto const & typeInfo : roadWarnings)
     {
-      auto const type = GetRoadType(typeInfo.first);
+      auto const type = typeInfo.first;
       for (size_t i = 0; i < typeInfo.second.size(); ++i)
       {
         auto const & routeInfo = typeInfo.second[i];
@@ -624,8 +688,9 @@ void RoutingManager::CreateRoadWarningMarks(RoadWarningsCollection && roadWarnin
         mark->SetIndex(static_cast<uint32_t>(i));
         mark->SetRoadWarningType(type);
         mark->SetFeatureId(routeInfo.m_featureId);
-        std::string distanceStr = platform::Distance::CreateFormatted(routeInfo.m_distance).ToString();
-        mark->SetDistance(distanceStr);
+        // Point warnings (gate/lift_gate) sit on a single vertex and carry no span length.
+        if (routeInfo.m_distance > 0.0)
+          mark->SetDistance(platform::Distance::CreateFormatted(routeInfo.m_distance).ToString());
       }
     }
   });
@@ -705,6 +770,7 @@ bool RoutingManager::InsertRoute(Route const & route)
     }
 
     CollectRoadWarnings(segments, startPt, subroute->m_baseDistance, getMwmId, roadWarnings);
+    CollectRoadPointWarnings(segments, startPt, getMwmId, roadWarnings);
 
     auto const subrouteId =
         m_drapeEngine.SafeCallWithResult(&df::DrapeEngine::AddSubroute, df::SubrouteConstPtr(subroute.release()));
@@ -726,11 +792,17 @@ bool RoutingManager::InsertRoute(Route const & route)
     { transitRouteDisplay->CreateTransitMarks(); });
   }
 
-  bool const hasWarnings = !roadWarnings.empty();
-  if (hasWarnings && m_currentRouterType == RouterType::Vehicle)
+  // We render marks for every warning, but only an avoidable warning (toll/ferry/dirty) on a car
+  // route should surface the "driving options" affordance via RouterResultCode::HasWarnings.
+  // Steps/gate/lift_gate have no avoid option, and non-car routes have no driving options at all.
+  bool const hasDrivingOptionsWarning =
+      m_currentRouterType == RouterType::Vehicle &&
+      base::AnyOf(roadWarnings, [](auto const & w) { return IsAvoidableRoadWarning(w.first); });
+
+  if (!roadWarnings.empty())
     CreateRoadWarningMarks(std::move(roadWarnings));
 
-  return hasWarnings;
+  return hasDrivingOptionsWarning;
 }
 
 void RoutingManager::FollowRoute()

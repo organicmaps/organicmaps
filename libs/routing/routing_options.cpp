@@ -63,7 +63,9 @@ RoutingOptionsClassifier::RoutingOptionsClassifier()
       {{"highway", "track"}, RoutingOptions::Road::Dirty},
       {{"highway", "road"}, RoutingOptions::Road::Dirty},
       {{"psurface", "unpaved_bad"}, RoutingOptions::Road::Dirty},
-      {{"psurface", "unpaved_good"}, RoutingOptions::Road::Dirty}};
+      {{"psurface", "unpaved_good"}, RoutingOptions::Road::Dirty},
+
+      {{"highway", "steps"}, RoutingOptions::Road::Steps}};
 
   m_data.Reserve(std::size(types));
   for (auto const & data : types)
@@ -87,23 +89,6 @@ RoutingOptionsClassifier const & RoutingOptionsClassifier::Instance()
   return instance;
 }
 
-RoutingOptions::Road ChooseMainRoutingOptionRoad(RoutingOptions options, bool isCarRouter)
-{
-  if (isCarRouter && options.Has(RoutingOptions::Road::Toll))
-    return RoutingOptions::Road::Toll;
-
-  if (options.Has(RoutingOptions::Road::Ferry))
-    return RoutingOptions::Road::Ferry;
-
-  if (options.Has(RoutingOptions::Road::Dirty))
-    return RoutingOptions::Road::Dirty;
-
-  if (options.Has(RoutingOptions::Road::Motorway))
-    return RoutingOptions::Road::Motorway;
-
-  return RoutingOptions::Road::Usual;
-}
-
 std::string DebugPrint(RoutingOptions const & routingOptions)
 {
   std::ostringstream ss;
@@ -124,6 +109,7 @@ std::string DebugPrint(RoutingOptions const & routingOptions)
   append(RoutingOptions::Road::Motorway);
   append(RoutingOptions::Road::Ferry);
   append(RoutingOptions::Road::Dirty);
+  append(RoutingOptions::Road::Steps);
 
   if (wasAppended)
     ss << " | ";
@@ -141,6 +127,7 @@ std::string DebugPrint(RoutingOptions::Road type)
   case RoutingOptions::Road::Motorway: return "motorway";
   case RoutingOptions::Road::Ferry: return "ferry";
   case RoutingOptions::Road::Dirty: return "dirty";
+  case RoutingOptions::Road::Steps: return "steps";
   case RoutingOptions::Road::Usual: return "usual";
   case RoutingOptions::Road::Max: return "max";
   }

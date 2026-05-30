@@ -14,6 +14,7 @@ set(SRC
   kmz_unarchive_test.cpp
   mwm_url_tests.cpp
   power_manager_tests.cpp
+  road_warning_tests.cpp
   search_api_tests.cpp
   transliteration_test.cpp
   relation_track_tests.cpp
