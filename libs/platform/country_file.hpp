@@ -21,7 +21,7 @@ class CountryFile
 public:
   CountryFile();
   explicit CountryFile(std::string name);
-  CountryFile(std::string name, MwmSize size, std::string sha1);
+  CountryFile(std::string name, MwmSize size, std::string hash);
 
   std::string GetFileName(MapFileType type) const { return platform::GetFileName(m_name, type); }
 
@@ -30,7 +30,7 @@ public:
 
   std::string const & GetName() const { return m_name; }
   MwmSize GetRemoteSize() const { return m_mapSize; }
-  std::string const & GetSha1() const { return m_sha1; }
+  std::string const & GetHash() const { return m_hash; }
 
   inline bool operator<(CountryFile const & rhs) const { return m_name < rhs.m_name; }
   inline bool operator==(CountryFile const & rhs) const { return m_name == rhs.m_name; }
@@ -42,8 +42,8 @@ private:
   /// Base name (without any extensions) of the file. Same as id of country/region.
   std::string m_name;
   MwmSize m_mapSize = 0;
-  /// \note SHA1 is encoded to base64.
-  std::string m_sha1;
+  /// \note BLAKE3 integrity hash, truncated and base64-encoded. See coding::Blake3::CalculateMwmBase64.
+  std::string m_hash;
 };
 
 std::string DebugPrint(CountryFile const & file);

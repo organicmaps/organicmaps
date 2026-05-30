@@ -10,8 +10,8 @@
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/writable_dir_changer.hpp"
 
+#include "coding/blake3.hpp"
 #include "coding/file_writer.hpp"
-#include "coding/sha1.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
@@ -160,7 +160,7 @@ UNIT_CLASS_TEST(Runner, DownloadIntegrity_Test)
   WritableDirChanger writableDirChanger(kMapTestDir);
 
   string mapPath;
-  coding::SHA1::Hash mapHash;
+  coding::Blake3::Hash mapHash;
   {
     SCOPE_GUARD(deleteTestFileGuard, bind(&FileWriter::DeleteFileX, ref(mapPath)));
 
@@ -175,9 +175,9 @@ UNIT_CLASS_TEST(Runner, DownloadIntegrity_Test)
 
     auto localFile = storage.GetLatestLocalFile(kCountryId);
     mapPath = localFile->GetPath(MapFileType::Map);
-    mapHash = coding::SHA1::Calculate(mapPath);
+    mapHash = coding::Blake3::Calculate(mapPath);
   }
-  TEST_NOT_EQUAL(mapHash, coding::SHA1::Hash(), ());
+  TEST_NOT_EQUAL(mapHash, coding::Blake3::Hash(), ());
 
   uint32_t constexpr kIterationsCount = TEST_INTEGRITY_ITERATIONS;
   for (uint32_t i = 0; i < kIterationsCount; ++i)
@@ -207,7 +207,7 @@ UNIT_CLASS_TEST(Runner, DownloadIntegrity_Test)
     }
 
     // Continue downloading.
-    coding::SHA1::Hash newHash;
+    coding::Blake3::Hash newHash;
     {
       Storage storage(COUNTRIES_FILE);
 
@@ -222,7 +222,7 @@ UNIT_CLASS_TEST(Runner, DownloadIntegrity_Test)
       TEST(storage.IsDownloadInProgress(), ());
       testing::RunEventLoop();
 
-      newHash = coding::SHA1::Calculate(mapPath);
+      newHash = coding::Blake3::Calculate(mapPath);
     }
 
     // Check hashes.

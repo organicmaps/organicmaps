@@ -14,16 +14,35 @@
 # 4. Comma-separated list of language ISO codes for the region
 
 import base64
-import hashlib
 import json
 import os.path
 import re
+
+from blake3 import blake3
+
+# Length in bytes of the per-map integrity hash written to countries.txt.
+# A BLAKE3 digest can be safely truncated (any prefix is itself a valid hash).
+# 9 bytes -> 12 base64 chars without padding.
+# Must match coding::Blake3::CalculateMwmBase64 in libs/coding/blake3.cpp.
+HASH_NUM_BYTES = 9
+
+# JSON key holding the integrity hash. LEGACY_HASH_KEY (SHA-1) is replaced by it.
+HASH_KEY = "h"
+LEGACY_HASH_KEY = "sha1_base64"
+
+
+def file_hash_base64(filepath, num_bytes=HASH_NUM_BYTES):
+    h = blake3()
+    with open(filepath, "rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
+            h.update(chunk)
+    return base64.b64encode(h.digest(length=num_bytes)).decode("utf-8")
 
 
 class CountryDict(dict):
     def __init__(self, *args, **kwargs):
         dict.__init__(self, *args, **kwargs)
-        self.order = ["id", "n", "v", "c", "s", "sha1_base64", "rs", "g"]
+        self.order = ["id", "n", "v", "c", "s", HASH_KEY, "rs", "g"]
 
     def __iter__(self):
         for key in self.order:
@@ -39,12 +58,7 @@ class CountryDict(dict):
 
 
 def get_mwm_hash(path, name):
-    filename = os.path.join(path, f"{name}.mwm")
-    h = hashlib.sha1()
-    with open(filename, "rb") as f:
-        for chunk in iter(lambda: f.read(4096), b""):
-            h.update(chunk)
-    return str(base64.b64encode(h.digest()), "utf-8")
+    return file_hash_base64(os.path.join(path, f"{name}.mwm"))
 
 
 def get_mwm_size(path, name):
@@ -139,7 +153,7 @@ def hierarchy_to_countries(
         if not os.path.exists(os.path.join(target_path, f"{name}.mwm")):
             return
         last["s"] = get_mwm_size(target_path, name)
-        last["sha1_base64"] = get_mwm_hash(target_path, name)
+        last[HASH_KEY] = get_mwm_hash(target_path, name)
         if last["s"] >= 0:
             stack[-1]["g"].append(last)
 

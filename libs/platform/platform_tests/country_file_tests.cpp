@@ -21,13 +21,13 @@ UNIT_TEST(CountryFile_Smoke)
   }
 
   {
-    CountryFile cf("Three", 666, "xxxSHAxxx");
+    CountryFile cf("Three", 666, "xxxHASHxxx");
     TEST_EQUAL("Three", cf.GetName(), ());
     auto const mapFileName = cf.GetFileName(MapFileType::Map);
 
     TEST_EQUAL("Three" DATA_FILE_EXTENSION, mapFileName, ());
     TEST_EQUAL(666, cf.GetRemoteSize(), ());
-    TEST_EQUAL("xxxSHAxxx", cf.GetSha1(), ());
+    TEST_EQUAL("xxxHASHxxx", cf.GetHash(), ());
   }
 }
 }  // namespace platform

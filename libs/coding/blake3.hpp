@@ -37,6 +37,9 @@ public:
   // One-shot helpers.
   static Hash Calculate(std::string const & filePath);
   static std::string CalculateBase64(std::string const & filePath, size_t numBytes = kHashSizeInBytes);
+  // Same as CalculateBase64, but truncated to the per-map integrity hash size used
+  // for map files referenced in countries.json. See the definition for details.
+  static std::string CalculateMwmBase64(std::string const & filePath);
   static Hash CalculateForString(std::string_view str);
 
 private:

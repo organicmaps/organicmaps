@@ -73,6 +73,18 @@ std::string Blake3::CalculateBase64(std::string const & filePath, size_t numByte
 }
 
 // static
+std::string Blake3::CalculateMwmBase64(std::string const & filePath)
+{
+  // Length in bytes of the per-map integrity hash stored in countries.json and
+  // recomputed on the client. The full BLAKE3 digest is truncated to this size
+  // (any prefix of a BLAKE3 digest is itself a valid hash). 9 bytes -> 12 base64
+  // chars without padding. Must match HASH_NUM_BYTES in
+  // tools/python/post_generation/hierarchy_to_countries.py.
+  size_t constexpr kMwmHashSizeInBytes = 9;
+  return CalculateBase64(filePath, kMwmHashSizeInBytes);
+}
+
+// static
 Blake3::Hash Blake3::CalculateForString(std::string_view str)
 {
   Blake3 hasher;
