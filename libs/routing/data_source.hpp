@@ -103,6 +103,13 @@ public:
     m_dataSource.ForEachInRect(fn, rect, scales::GetUpperScale());
   }
 
+  // Scans features of a single MWM covered by the aggregated |covering| (built at GetUpperScale()).
+  template <class FnT>
+  void ForEachInCovering(FnT && fn, covering::Covering & covering, MwmSet::MwmId const & mwmId)
+  {
+    m_dataSource.ForEachInCoveringForMWM(fn, covering, scales::GetUpperScale(), mwmId);
+  }
+
   MwmSet::MwmHandle const & GetHandle(MwmSet::MwmId const & mwmId)
   {
     if (m_numMwmIDs)

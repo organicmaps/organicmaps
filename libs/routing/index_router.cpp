@@ -29,7 +29,12 @@
 #include "routing_common/car_model.hpp"
 #include "routing_common/pedestrian_model.hpp"
 
+#include "indexer/classificator.hpp"
 #include "indexer/data_source.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/feature_covering.hpp"
+#include "indexer/feature_data.hpp"
+#include "indexer/scales.hpp"
 
 #include "platform/settings.hpp"
 
@@ -184,6 +189,71 @@ bool IsDeadEndCached(Segment const & segment, bool isOutgoing, bool useRoutingOp
   }
 
   return false;
+}
+
+// Finds point-like barrier features (barrier=gate / barrier=lift_gate / ...) sitting exactly on a
+// route vertex and returns them as RouteWarning-s. Runs on the routing worker thread (once per route),
+// so the feature reads don't block the GUI thread. The UI layer decides which barrier types to show.
+std::vector<RouteWarning> CollectRouteWarnings(std::vector<Segment> const & segments, RouteJunctions const & junctions,
+                                               MwmDataSource & dataSource)
+{
+  ASSERT_EQUAL(junctions.size(), segments.size() + 1, ());
+
+  // Group route vertices by the MWM they belong to, so each MWM is scanned once.
+  // Fake segments have no real MWM id, so they are skipped.
+  std::map<MwmSet::MwmId, std::vector<m2::PointD>> verticesByMwm;
+  for (size_t i = 0; i < segments.size(); ++i)
+  {
+    if (!segments[i].IsRealSegment())
+      continue;
+    auto const mwmId = dataSource.GetMwmId(segments[i].GetMwmId());
+    if (!mwmId.IsAlive())
+      continue;
+    auto & vertices = verticesByMwm[mwmId];
+    vertices.push_back(junctions[i].GetPoint());
+    vertices.push_back(junctions[i + 1].GetPoint());
+  }
+
+  if (verticesByMwm.empty())
+    return {};
+
+  uint32_t const barrierRoot = classif().GetTypeByPath({"barrier"});
+
+  std::vector<RouteWarning> warnings;
+  for (auto const & [mwmId, vertices] : verticesByMwm)
+  {
+    covering::Covering covering(scales::GetUpperScale());
+    for (auto const & v : vertices)
+      covering.Add(m2::RectD(v, mercator::kPointEqualityEps, mercator::kPointEqualityEps));
+
+    dataSource.ForEachInCovering([&](FeatureType & ft)
+    {
+      if (ft.GetGeomType() != feature::GeomType::Point)
+        return;
+
+      // Keep only barrier nodes; the UI layer maps the concrete type (gate/lift_gate/...) to an icon.
+      uint32_t barrierType = 0;
+      for (uint32_t const t : feature::TypesHolder(ft))
+        if (ftype::Trunc(t, 1) == barrierRoot)
+        {
+          barrierType = t;
+          break;
+        }
+
+      if (barrierType == 0)
+        return;
+
+      // The barrier feature must sit exactly on one of the route vertices.
+      auto const center = ft.GetCenter();
+      if (!base::AnyOf(vertices,
+                       [&center](m2::PointD const & v) { return center.EqualDxDy(v, mercator::kPointEqualityEps); }))
+        return;
+
+      warnings.emplace_back(center, ft.GetID(), barrierType);
+    }, covering, mwmId);
+  }
+
+  return warnings;
 }
 }  // namespace
 
@@ -1833,6 +1903,8 @@ RouterResultCode IndexRouter::RedressRoute(std::vector<Segment> const & segments
   std::vector<platform::CountryFile> speedCamProhibited;
   FillSpeedCamProhibitedMwms(segments, speedCamProhibited);
   route.SetMwmsPartlyProhibitedForSpeedCams(std::move(speedCamProhibited));
+
+  route.SetWarnings(CollectRouteWarnings(segments, junctions, m_dataSource));
 
   return RouterResultCode::NoError;
 }
