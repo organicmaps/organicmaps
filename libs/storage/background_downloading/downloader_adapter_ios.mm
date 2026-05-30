@@ -124,7 +124,10 @@ void BackgroundDownloaderAdapter::DownloadFromLastUrl(CountryId const & countryI
   };
 
   BackgroundDownloader * downloader = [BackgroundDownloader sharedBackgroundMapDownloader];
-  NSUInteger taskId = [downloader downloadWithUrl:url completion:onFinish progress:onProgress];
+  NSUInteger taskId = [downloader downloadWithUrl:url
+                                         filePath:@(downloadPath.c_str())
+                                       completion:onFinish
+                                         progress:onProgress];
 
   m_queue.SetTaskInfoForCountryId(countryId, taskId);
 }

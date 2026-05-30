@@ -615,6 +615,9 @@ private:
   /// This function can be used for enabling some experimental features for routing.
   bool ParseRoutingDebugCommand(search::SearchParams const & params);
 
+  /// @returns true if command was handled by downloader debug commands.
+  bool ParseDownloaderDebugCommand(search::SearchParams const & params);
+
   static bool ParseAllTypesDebugCommand(search::SearchParams const & params);
 
   void FillUserMarkInfo(UserMark const * mark, place_page::Info & outInfo);

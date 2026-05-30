@@ -13,6 +13,7 @@ typedef void (^DownloadProgressBlock)(int64_t bytesWritten, int64_t bytesExpecte
 + (BackgroundDownloader *)sharedBackgroundMapDownloader;
 
 - (NSUInteger)downloadWithUrl:(NSURL *)url
+                     filePath:(NSString *)filePath
                    completion:(DownloadCompleteBlock)completion
                      progress:(DownloadProgressBlock)progress;
 - (void)cancelTaskWithIdentifier:(NSUInteger)taskIdentifier;

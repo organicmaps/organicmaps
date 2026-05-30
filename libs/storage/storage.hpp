@@ -297,6 +297,13 @@ public:
 
   void SetDownloadingPolicy(DownloadingPolicy * policy);
 
+  // Validates serverUrl and, if valid, makes it the sole map download server (persisted across
+  // restarts). @param[out] normalizedUrl receives the canonical URL actually applied.
+  // @returns false and changes nothing if serverUrl is not a valid http(s) base URL.
+  bool SetDebugMapDownloadServer(std::string const & serverUrl, std::string & normalizedUrl);
+  void ResetDebugMapDownloadServer();
+  bool GetDebugMapDownloadServer(std::string & serverUrl) const;
+
   bool CheckFailedCountries(CountriesVec const & countries) const;
 
   /// @name Countries update functions. Public for unit tests.
