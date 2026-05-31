@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "routing/bike_sharing_heuristic.hpp"
+#include "routing/bicycle_rental.hpp"
 #include "routing/data_source.hpp"
 #include "routing/index_router.hpp"
 #include "routing/route.hpp"
@@ -21,7 +21,7 @@
 #include <string>
 #include <vector>
 
-namespace bike_sharing_heuristic_tests
+namespace bicycle_rental_tests
 {
 using namespace generator::tests_support;
 using namespace routing;
@@ -357,4 +357,4 @@ UNIT_CLASS_TEST(BikeSharingHeuristicTest, IndexRouterRejectsPublicBicycleRouteWi
 
   TEST_EQUAL(result, RouterResultCode::RouteNotFound, ());
 }
-}  // namespace bike_sharing_heuristic_tests
+}  // namespace bicycle_rental_tests
