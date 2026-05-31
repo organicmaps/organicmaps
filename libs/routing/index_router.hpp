@@ -273,7 +273,6 @@ private:
   VehicleType m_vehicleType;
   bool m_loadAltitudes;
   std::string const m_name;
-  DataSource & m_indexDataSource;
   MwmDataSource m_dataSource;
   std::shared_ptr<VehicleModelFactoryInterface> m_vehicleModelFactory;
 
