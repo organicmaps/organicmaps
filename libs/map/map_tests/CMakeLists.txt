@@ -22,6 +22,7 @@ set(SRC
   relation_track_tests.cpp
   routing_manager_tests.cpp
   track_tests.cpp
+  transit_route_info_tests.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC} REQUIRE_QT REQUIRE_SERVER)
