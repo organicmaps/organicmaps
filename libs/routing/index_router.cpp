@@ -372,7 +372,6 @@ IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
   : m_vehicleType(vehicleType)
   , m_loadAltitudes(loadAltitudes)
   , m_name("astar-bidirectional-" + ToString(m_vehicleType))
-  , m_indexDataSource(dataSource)
   , m_dataSource(dataSource, numMwmIds)
   , m_vehicleModelFactory(CreateVehicleModelFactory(m_vehicleType, countryParentNameGetterFn))
   , m_countryFileFn(countryFileFn)
@@ -608,7 +607,8 @@ RouterResultCode IndexRouter::CalculatePublicBicycleRoute(Checkpoints const & ch
   };
 
   IndexRouter pedestrianRouter(VehicleType::Pedestrian, m_loadAltitudes, m_countryParentNameGetterFn, m_countryFileFn,
-                               m_countryRectFn, m_numMwmIds, m_numMwmTree, m_trafficCache, m_indexDataSource);
+                               m_countryRectFn, m_numMwmIds, m_numMwmTree, m_trafficCache,
+                               m_dataSource.GetDataSource());
   std::map<BicycleRentalStation const *, PedestrianRouteResult> walkToBikeRoutes;
   std::map<BicycleRentalStation const *, PedestrianRouteResult> walkFromBikeRoutes;
 
