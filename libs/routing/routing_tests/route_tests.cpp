@@ -120,7 +120,7 @@ UNIT_TEST(SubrouteAttrsCopyPreservesVehicleType)
   TEST_EQUAL(shiftedSubroute.GetVehicleType(), VehicleType::Bicycle, ());
 }
 
-UNIT_TEST(PublicBikeSharingSubroutesPreserveLegTypes)
+UNIT_TEST(PublicBikeSharingRouteKeepsNavigationSubrouteSeparateFromRenderLegs)
 {
   Route route("public-bicycle-route", 0 /* route id */);
 
@@ -133,25 +133,23 @@ UNIT_TEST(PublicBikeSharingSubroutesPreserveLegTypes)
   route.SetCurrentSubrouteIdx(0);
   route.SetSubroteAttrs(vector<Route::SubrouteAttrs>{
       {geometry::PointWithAltitude(kTestGeometry[1], geometry::kDefaultAltitudeMeters),
-       geometry::PointWithAltitude(kTestGeometry[3], geometry::kDefaultAltitudeMeters), 0, 2, VehicleType::Pedestrian},
-      {geometry::PointWithAltitude(kTestGeometry[3], geometry::kDefaultAltitudeMeters),
-       geometry::PointWithAltitude(kTestGeometry[4], geometry::kDefaultAltitudeMeters), 2, 3, VehicleType::Bicycle},
-      {geometry::PointWithAltitude(kTestGeometry[4], geometry::kDefaultAltitudeMeters),
-       geometry::PointWithAltitude(kTestGeometry[5], geometry::kDefaultAltitudeMeters), 3, 5,
-       VehicleType::Pedestrian}});
+       geometry::PointWithAltitude(kTestGeometry[5], geometry::kDefaultAltitudeMeters), 0, 5}});
+  route.SetRenderSegments(vector<Route::RenderSegment>{{0, 2, VehicleType::Pedestrian},
+                                                       {2, 3, VehicleType::Bicycle},
+                                                       {3, 5, VehicleType::Pedestrian}});
 
-  TEST_EQUAL(route.GetSubrouteCount(), 3, ());
-  TEST_EQUAL(route.GetSubrouteAttrs(0).GetVehicleType(), VehicleType::Pedestrian, ());
-  TEST_EQUAL(route.GetSubrouteAttrs(1).GetVehicleType(), VehicleType::Bicycle, ());
-  TEST_EQUAL(route.GetSubrouteAttrs(2).GetVehicleType(), VehicleType::Pedestrian, ());
+  TEST_EQUAL(route.GetSubrouteCount(), 1, ());
+  TEST_EQUAL(route.GetSubrouteAttrs(0).GetVehicleType(), VehicleType::Count, ());
 
   vector<RouteSegment> segments;
   route.GetSubrouteInfo(0, segments);
-  TEST_EQUAL(segments.size(), 2, ());
-  route.GetSubrouteInfo(1, segments);
-  TEST_EQUAL(segments.size(), 1, ());
-  route.GetSubrouteInfo(2, segments);
-  TEST_EQUAL(segments.size(), 2, ());
+  TEST_EQUAL(segments.size(), 5, ());
+
+  auto const & renderSegments = route.GetRenderSegments();
+  TEST_EQUAL(renderSegments.size(), 3, ());
+  TEST_EQUAL(renderSegments[0].m_vehicleType, VehicleType::Pedestrian, ());
+  TEST_EQUAL(renderSegments[1].m_vehicleType, VehicleType::Bicycle, ());
+  TEST_EQUAL(renderSegments[2].m_vehicleType, VehicleType::Pedestrian, ());
 }
 
 UNIT_TEST(DistanceAndTimeToCurrentTurnTest)

@@ -197,7 +197,8 @@ bool IsPublicBicycleWalkRouteTooLong(Route const & route)
 }
 
 void AppendLeg(Route const & leg, bool isLastLeg, VehicleType vehicleType, std::vector<m2::PointD> & geometry,
-               std::vector<RouteSegment> & segments, std::vector<Route::SubrouteAttrs> & subroutes)
+               std::vector<RouteSegment> & segments, std::vector<Route::RenderSegment> & renderSegments,
+               std::vector<Route::SubrouteAttrs> * subroutes = nullptr)
 {
   auto const & poly = leg.GetPoly();
   CHECK_GREATER(poly.GetSize(), 0, ());
@@ -210,6 +211,7 @@ void AppendLeg(Route const & leg, bool isLastLeg, VehicleType vehicleType, std::
 
   for (size_t i = 0; i < poly.GetSize(); ++i)
   {
+    // Adjacent legs share their join point, so skip the first point of each non-first leg.
     if (!geometry.empty() && i == 0)
       continue;
     geometry.push_back(poly.GetPoint(i));
@@ -230,27 +232,52 @@ void AppendLeg(Route const & leg, bool isLastLeg, VehicleType vehicleType, std::
 
   for (auto const & subroute : leg.GetSubroutes())
   {
-    subroutes.emplace_back(subroute.GetStart(), subroute.GetFinish(), beginSegmentIdx + subroute.GetBeginSegmentIdx(),
-                           beginSegmentIdx + subroute.GetEndSegmentIdx(), vehicleType);
+    if (subroutes != nullptr)
+    {
+      subroutes->emplace_back(subroute.GetStart(), subroute.GetFinish(), beginSegmentIdx + subroute.GetBeginSegmentIdx(),
+                              beginSegmentIdx + subroute.GetEndSegmentIdx());
+    }
   }
+
+  renderSegments.push_back({beginSegmentIdx, segments.size(), vehicleType});
 }
 
 void BuildMergedRoute(std::vector<Route> const & legs, std::vector<VehicleType> const & legVehicleTypes, Route & route)
 {
-  CHECK(!legs.empty(), ());
+  CHECK_EQUAL(legs.size(), 3, ());
   CHECK_EQUAL(legs.size(), legVehicleTypes.size(), ());
 
   std::vector<m2::PointD> geometry;
   std::vector<RouteSegment> segments;
-  std::vector<Route::SubrouteAttrs> subroutes;
+  std::vector<Route::RenderSegment> renderSegments;
+  std::vector<Route::SubrouteAttrs> bikeSubroutes;
 
-  for (size_t i = 0; i < legs.size(); ++i)
-    AppendLeg(legs[i], i + 1 == legs.size(), legVehicleTypes[i], geometry, segments, subroutes);
+  AppendLeg(legs[0], false /* isLastLeg */, legVehicleTypes[0], geometry, segments, renderSegments);
+  AppendLeg(legs[1], false /* isLastLeg */, legVehicleTypes[1], geometry, segments, renderSegments, &bikeSubroutes);
+  AppendLeg(legs[2], true /* isLastLeg */, legVehicleTypes[2], geometry, segments, renderSegments);
+
+  CHECK(!bikeSubroutes.empty(), ());
+
+  std::vector<Route::SubrouteAttrs> subroutes;
+  subroutes.reserve(bikeSubroutes.size());
+  // Navigation subroutes must stay aligned with the user's checkpoints. Pickup and drop-off stations are internal
+  // bike-sharing points, so they are kept only in render metadata.
+  for (size_t i = 0; i < bikeSubroutes.size(); ++i)
+  {
+    auto const & bikeSubroute = bikeSubroutes[i];
+    auto const & start = i == 0 ? legs[0].GetSubrouteAttrs(0).GetStart() : bikeSubroute.GetStart();
+    auto const & finish = i + 1 == bikeSubroutes.size() ? legs[2].GetSubrouteAttrs(0).GetFinish()
+                                                        : bikeSubroute.GetFinish();
+    size_t const beginSegmentIdx = i == 0 ? 0 : bikeSubroute.GetBeginSegmentIdx();
+    size_t const endSegmentIdx = i + 1 == bikeSubroutes.size() ? segments.size() : bikeSubroute.GetEndSegmentIdx();
+    subroutes.emplace_back(start, finish, beginSegmentIdx, endSegmentIdx);
+  }
 
   route.SetCurrentSubrouteIdx(0);
   route.SetRouteSegments(std::move(segments));
   route.SetGeometry(geometry.begin(), geometry.end());
   route.SetSubroteAttrs(std::move(subroutes));
+  route.SetRenderSegments(std::move(renderSegments));
 }
 
 struct BicycleRentalStationPair

@@ -282,10 +282,29 @@ public:
     VehicleType m_vehicleType = VehicleType::Count;
   };
 
+  struct RenderSegment
+  {
+    // Index of the first route segment using |m_vehicleType|.
+    size_t m_beginSegmentIdx = 0;
+
+    // Non inclusive index of the last route segment using |m_vehicleType|.
+    size_t m_endSegmentIdx = 0;
+
+    VehicleType m_vehicleType = VehicleType::Count;
+  };
+
   RouteBase() = default;
 
   std::vector<RouteSegment> & GetRouteSegments() { return m_routeSegments; }
   std::vector<RouteSegment> const & GetRouteSegments() const { return m_routeSegments; }
+
+  template <class V>
+  void SetRenderSegments(V && segments)
+  {
+    m_renderSegments = std::forward<V>(segments);
+  }
+
+  std::vector<RenderSegment> const & GetRenderSegments() const { return m_renderSegments; }
 
   void SetCurrentSubrouteIdx(size_t currentIdx)
   {
@@ -374,6 +393,7 @@ protected:
   // Subroute
   size_t m_currentSubrouteIdx = 0;
   std::vector<SubrouteAttrs> m_subrouteAttrs;
+  std::vector<RenderSegment> m_renderSegments;
 
   // Mwms which are crossed by the route where speed cameras are prohibited.
   std::vector<platform::CountryFile> m_speedCamPartlyProhibitedMwms;
@@ -422,6 +442,12 @@ public:
     UpdatePolySubrouteIdx();
   }
 
+  template <class V>
+  void SetRenderSegments(V && segments)
+  {
+    m_renderSegments = std::forward<V>(segments);
+  }
+
   void PassNextSubroute()
   {
     ASSERT_LESS(m_currentSubrouteIdx, m_subrouteAttrs.size(), ());
@@ -439,6 +465,7 @@ public:
   double GetCurrentTimeToNearestTurnSec() const;
 
   // A Route is "valid for following" when the followed polyline has >= 2 points and a valid iterator.
+  FollowedPolyline const & GetFollowedPolyline() const { return m_poly; }
   bool IsValid() const { return m_poly.IsValid(); }
 
   // Used in tests only.

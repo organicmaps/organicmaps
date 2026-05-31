@@ -270,10 +270,14 @@ UNIT_CLASS_TEST(BikeSharingHeuristicTest, IndexRouterBuildsPublicBicycleRouteWit
                                             false /* adjustToPrevRoute */, delegate, route);
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
-  TEST_EQUAL(route.GetSubrouteCount(), 3, ());
-  TEST_EQUAL(route.GetSubrouteAttrs(0).GetVehicleType(), VehicleType::Pedestrian, ());
-  TEST_EQUAL(route.GetSubrouteAttrs(1).GetVehicleType(), VehicleType::Bicycle, ());
-  TEST_EQUAL(route.GetSubrouteAttrs(2).GetVehicleType(), VehicleType::Pedestrian, ());
+  TEST_EQUAL(route.GetSubrouteCount(), 1, ());
+  TEST_EQUAL(route.GetSubrouteAttrs(0).GetVehicleType(), VehicleType::Count, ());
+
+  auto const & renderSegments = route.GetRenderSegments();
+  TEST_EQUAL(renderSegments.size(), 3, ());
+  TEST_EQUAL(renderSegments[0].m_vehicleType, VehicleType::Pedestrian, ());
+  TEST_EQUAL(renderSegments[1].m_vehicleType, VehicleType::Bicycle, ());
+  TEST_EQUAL(renderSegments[2].m_vehicleType, VehicleType::Pedestrian, ());
   TEST_GREATER(route.GetTotalDistanceMeters(), 0.0, ());
 }
 
