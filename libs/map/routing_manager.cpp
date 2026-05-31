@@ -871,7 +871,8 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
   {
     route.GetSubrouteInfo(subrouteIndex, segments);
 
-    auto const startPt = route.GetSubrouteAttrs(subrouteIndex).GetStart().GetPoint();
+    auto const & subrouteAttrs = route.GetSubrouteAttrs(subrouteIndex);
+    auto const startPt = subrouteAttrs.GetStart().GetPoint();
     auto subroute =
         CreateDrapeSubroute(segments, startPt, distance,
                             static_cast<double>(subroutesCount - subrouteIndex - 1) + depthOffset, m_currentRouterType);
@@ -909,7 +910,10 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
     case RouterType::Bicycle:
     {
       subroute->m_routeType = df::RouteType::Bicycle;
-      subroute->AddStyle(df::SubrouteStyle(df::kRouteBicycle, df::RoutePattern(8.0, 2.0)));
+      if (subrouteAttrs.GetVehicleType() == VehicleType::Bicycle)
+        subroute->AddStyle(df::SubrouteStyle(df::kRouteBicycle));
+      else
+        subroute->AddStyle(df::SubrouteStyle(df::kRouteBicycle, df::RoutePattern(8.0, 2.0)));
       if (isActive)
         FillTurnsDistancesForRendering(segments, subroute->m_baseDistance, subroute->m_turns);
       break;
