@@ -25,17 +25,6 @@
 		347F337F1C454242009758CC /* trie_builder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F33761C454242009758CC /* trie_builder.hpp */; };
 		347F33801C454242009758CC /* trie_reader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F33771C454242009758CC /* trie_reader.hpp */; };
 		347F33811C454242009758CC /* trie.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F33781C454242009758CC /* trie.hpp */; };
-		3496AB951DC1F9FA00C5DDBA /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3496AB941DC1F9FA00C5DDBA /* classificator.txt */; };
-		3496AB971DC1FA2000C5DDBA /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3496AB961DC1FA2000C5DDBA /* types.txt */; };
-		3496AB9D1DC1FA5200C5DDBA /* drules_proto_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 3496AB981DC1FA5200C5DDBA /* drules_proto_clear.bin */; };
-		3496AB9E1DC1FA5200C5DDBA /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 3496AB991DC1FA5200C5DDBA /* drules_proto_dark.bin */; };
-		3496ABA11DC1FA5200C5DDBA /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = 3496AB9C1DC1FA5200C5DDBA /* drules_proto.bin */; };
-		3496ABA31DC1FA7200C5DDBA /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABA21DC1FA7200C5DDBA /* editor.config */; };
-		3496ABA91DC1FA9E00C5DDBA /* categories.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABA41DC1FA9E00C5DDBA /* categories.txt */; };
-		3496ABAA1DC1FA9E00C5DDBA /* countries_meta.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABA51DC1FA9E00C5DDBA /* countries_meta.txt */; };
-		3496ABAB1DC1FA9E00C5DDBA /* countries_names.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABA61DC1FA9E00C5DDBA /* countries_names.txt */; };
-		3496ABAD1DC1FA9E00C5DDBA /* countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABA81DC1FA9E00C5DDBA /* countries.json */; };
-		3496ABAF1DC1FAC900C5DDBA /* minsk-pass.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABAE1DC1FAC900C5DDBA /* minsk-pass.mwm */; };
 		391C0C8322BD2551003DC252 /* feature_to_osm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 391C0C8122BD2551003DC252 /* feature_to_osm.cpp */; };
 		391C0C8422BD2551003DC252 /* feature_to_osm.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 391C0C8222BD2551003DC252 /* feature_to_osm.hpp */; };
 		391C0C8822BD2561003DC252 /* feature_to_osm_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 391C0C8522BD255E003DC252 /* feature_to_osm_tests.cpp */; };
@@ -177,9 +166,7 @@
 		F6DF5F2D1CD0FC9D00A87154 /* categories_index.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6DF5F2C1CD0FC9D00A87154 /* categories_index.cpp */; };
 		F6DF5F311CD0FD9A00A87154 /* categories_index.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6DF5F301CD0FD9A00A87154 /* categories_index.hpp */; };
 		F6F1DABE1F13D8B4006A69B7 /* ftraits.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6F1DABD1F13D8B4006A69B7 /* ftraits.hpp */; };
-		FA67C84626BB356800B33DCA /* categories_cuisines.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4052928E21496D2B00D821F1 /* categories_cuisines.txt */; };
 		FA67C84926BB35A400B33DCA /* bounds.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40C3C090205BF9F400CED188 /* bounds.hpp */; };
-		FA67C84F26BB36D700B33DCA /* categories_brands.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA67C84E26BB36D600B33DCA /* categories_brands.txt */; };
 		FA7F9B84273F32680093EA08 /* validate_and_format_contacts.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FA7F9B82273F32680093EA08 /* validate_and_format_contacts.hpp */; };
 		FA7F9B85273F32680093EA08 /* validate_and_format_contacts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA7F9B83273F32680093EA08 /* validate_and_format_contacts.cpp */; };
 		FACB7C0B26B9176500810C9C /* brands_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 406970A121AEF2F10024DDB2 /* brands_tests.cpp */; };
@@ -242,17 +229,6 @@
 		347F33761C454242009758CC /* trie_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = trie_builder.hpp; sourceTree = "<group>"; };
 		347F33771C454242009758CC /* trie_reader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = trie_reader.hpp; sourceTree = "<group>"; };
 		347F33781C454242009758CC /* trie.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = trie.hpp; sourceTree = "<group>"; };
-		3496AB941DC1F9FA00C5DDBA /* classificator.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = classificator.txt; path = ../../data/classificator.txt; sourceTree = "<group>"; };
-		3496AB961DC1FA2000C5DDBA /* types.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = types.txt; path = ../../data/types.txt; sourceTree = "<group>"; };
-		3496AB981DC1FA5200C5DDBA /* drules_proto_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_clear.bin; path = ../../data/drules_proto_clear.bin; sourceTree = "<group>"; };
-		3496AB991DC1FA5200C5DDBA /* drules_proto_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_dark.bin; path = ../../data/drules_proto_dark.bin; sourceTree = "<group>"; };
-		3496AB9C1DC1FA5200C5DDBA /* drules_proto.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto.bin; path = ../../data/drules_proto.bin; sourceTree = "<group>"; };
-		3496ABA21DC1FA7200C5DDBA /* editor.config */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = editor.config; path = ../../data/editor.config; sourceTree = "<group>"; };
-		3496ABA41DC1FA9E00C5DDBA /* categories.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = categories.txt; path = ../../data/categories.txt; sourceTree = "<group>"; };
-		3496ABA51DC1FA9E00C5DDBA /* countries_meta.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = countries_meta.txt; path = ../../data/countries_meta.txt; sourceTree = "<group>"; };
-		3496ABA61DC1FA9E00C5DDBA /* countries_names.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = countries_names.txt; path = ../../data/countries_names.txt; sourceTree = "<group>"; };
-		3496ABA81DC1FA9E00C5DDBA /* countries.json */ = {isa = PBXFileReference; lastKnownFileType = text; name = countries.json; path = ../../data/countries.json; sourceTree = "<group>"; };
-		3496ABAE1DC1FAC900C5DDBA /* minsk-pass.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = "minsk-pass.mwm"; path = "../../data/minsk-pass.mwm"; sourceTree = "<group>"; };
 		34AF87D11DBE540700E5E7DC /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		34AF87D21DBE540700E5E7DC /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
 		391C0C8122BD2551003DC252 /* feature_to_osm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = feature_to_osm.cpp; sourceTree = "<group>"; };
@@ -275,7 +251,6 @@
 		40037759252759020014A5B8 /* metadata_serdes_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = metadata_serdes_tests.cpp; sourceTree = "<group>"; };
 		4043C0B724ACBA3200545FD8 /* transliteration_loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transliteration_loader.cpp; sourceTree = "<group>"; };
 		4043C0B824ACBA3300545FD8 /* transliteration_loader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transliteration_loader.hpp; sourceTree = "<group>"; };
-		4052928E21496D2B00D821F1 /* categories_cuisines.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = categories_cuisines.txt; path = ../../data/categories_cuisines.txt; sourceTree = "<group>"; };
 		40662D2F236059BF006A124D /* tree_node.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = tree_node.hpp; path = complex/tree_node.hpp; sourceTree = "<group>"; };
 		4067554B242BB04800EB8F8B /* read_features_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = read_features_tests.cpp; sourceTree = "<group>"; };
 		406970A121AEF2F10024DDB2 /* brands_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = brands_tests.cpp; sourceTree = "<group>"; };
@@ -407,7 +382,6 @@
 		F6DF5F2C1CD0FC9D00A87154 /* categories_index.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = categories_index.cpp; sourceTree = "<group>"; };
 		F6DF5F301CD0FD9A00A87154 /* categories_index.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = categories_index.hpp; sourceTree = "<group>"; };
 		F6F1DABD1F13D8B4006A69B7 /* ftraits.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ftraits.hpp; sourceTree = "<group>"; };
-		FA67C84E26BB36D600B33DCA /* categories_brands.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = categories_brands.txt; path = ../../data/categories_brands.txt; sourceTree = "<group>"; };
 		FA7F9B82273F32680093EA08 /* validate_and_format_contacts.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = validate_and_format_contacts.hpp; sourceTree = "<group>"; };
 		FA7F9B83273F32680093EA08 /* validate_and_format_contacts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = validate_and_format_contacts.cpp; sourceTree = "<group>"; };
 		FACB7C1A26B919AD00810C9C /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -471,26 +445,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3496ABB01DC1FB1500C5DDBA /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				FA67C84E26BB36D600B33DCA /* categories_brands.txt */,
-				4052928E21496D2B00D821F1 /* categories_cuisines.txt */,
-				3496ABA41DC1FA9E00C5DDBA /* categories.txt */,
-				3496AB941DC1F9FA00C5DDBA /* classificator.txt */,
-				3496ABA51DC1FA9E00C5DDBA /* countries_meta.txt */,
-				3496ABA61DC1FA9E00C5DDBA /* countries_names.txt */,
-				3496ABA81DC1FA9E00C5DDBA /* countries.json */,
-				3496AB981DC1FA5200C5DDBA /* drules_proto_clear.bin */,
-				3496AB991DC1FA5200C5DDBA /* drules_proto_dark.bin */,
-				3496AB9C1DC1FA5200C5DDBA /* drules_proto.bin */,
-				3496ABA21DC1FA7200C5DDBA /* editor.config */,
-				3496ABAE1DC1FAC900C5DDBA /* minsk-pass.mwm */,
-				3496AB961DC1FA2000C5DDBA /* types.txt */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
 		45C108BB1E9D0067000FE1F6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -569,7 +523,6 @@
 				6753409C1A3F53CB00A0A8C3 /* indexer */,
 				670C60F81AB0657700C38A8C /* indexer_tests */,
 				6753409B1A3F53CB00A0A8C3 /* Products */,
-				3496ABB01DC1FB1500C5DDBA /* Resources */,
 				45C108BB1E9D0067000FE1F6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -904,19 +857,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3496ABAF1DC1FAC900C5DDBA /* minsk-pass.mwm in Resources */,
-				3496ABA91DC1FA9E00C5DDBA /* categories.txt in Resources */,
-				3496ABAA1DC1FA9E00C5DDBA /* countries_meta.txt in Resources */,
-				3496ABAB1DC1FA9E00C5DDBA /* countries_names.txt in Resources */,
-				3496ABAD1DC1FA9E00C5DDBA /* countries.json in Resources */,
-				3496ABA31DC1FA7200C5DDBA /* editor.config in Resources */,
-				3496AB9D1DC1FA5200C5DDBA /* drules_proto_clear.bin in Resources */,
-				3496AB9E1DC1FA5200C5DDBA /* drules_proto_dark.bin in Resources */,
-				FA67C84F26BB36D700B33DCA /* categories_brands.txt in Resources */,
-				FA67C84626BB356800B33DCA /* categories_cuisines.txt in Resources */,
-				3496ABA11DC1FA5200C5DDBA /* drules_proto.bin in Resources */,
-				3496AB971DC1FA2000C5DDBA /* types.txt in Resources */,
-				3496AB951DC1F9FA00C5DDBA /* classificator.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
