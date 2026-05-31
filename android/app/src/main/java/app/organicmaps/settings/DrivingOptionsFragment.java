@@ -12,6 +12,8 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.view.ViewCompat;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
+import app.organicmaps.sdk.Router;
+import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.settings.RoadType;
 import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
@@ -114,7 +116,8 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     dirtyRoadsBtn.setOnCheckedChangeListener(dirtyBtnListener);
 
     View publicBikeSharingContainer = root.findViewById(R.id.public_bike_sharing_container);
-    publicBikeSharingContainer.setVisibility(View.VISIBLE);
+    boolean isBicycleRouter = RoutingController.get().getLastRouterType() == Router.Bicycle;
+    publicBikeSharingContainer.setVisibility(isBicycleRouter ? View.VISIBLE : View.GONE);
 
     SwitchCompat publicBikeSharingBtn = root.findViewById(R.id.public_bike_sharing_btn);
     publicBikeSharingBtn.setChecked(RoutingOptions.hasOption(RoadType.PublicBicycle));
