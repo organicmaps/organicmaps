@@ -279,6 +279,17 @@ public:
     VehicleType m_vehicleType = VehicleType::Count;
   };
 
+  struct RenderSegment
+  {
+    // Index of the first route segment using |m_vehicleType|.
+    size_t m_beginSegmentIdx = 0;
+
+    // Non inclusive index of the last route segment using |m_vehicleType|.
+    size_t m_endSegmentIdx = 0;
+
+    VehicleType m_vehicleType = VehicleType::Count;
+  };
+
   /// \brief For every subroute some attributes are kept in the following structure.
   struct SubrouteSettings final
   {
@@ -348,6 +359,12 @@ public:
     m_poly.SetNextCheckpointIndex(m_subrouteAttrs[m_currentSubrouteIdx].GetEndSegmentIdx());
   }
 
+  template <class V>
+  void SetRenderSegments(V && segments)
+  {
+    m_renderSegments = std::forward<V>(segments);
+  }
+
   void PassNextSubroute()
   {
     ASSERT_GREATER(m_subrouteAttrs.size(), m_currentSubrouteIdx, ());
@@ -374,6 +391,7 @@ public:
 
   size_t GetCurrentSubrouteIdx() const { return m_currentSubrouteIdx; }
   std::vector<SubrouteAttrs> const & GetSubroutes() const { return m_subrouteAttrs; }
+  std::vector<RenderSegment> const & GetRenderSegments() const { return m_renderSegments; }
 
   std::vector<double> const & GetSegDistanceMeters() const { return m_poly.GetSegDistanceMeters(); }
   bool IsValid() const { return m_poly.IsValid(); }
@@ -500,6 +518,7 @@ private:
   SubrouteUid m_subrouteUid = kInvalidSubrouteId;
   size_t m_currentSubrouteIdx = 0;
   std::vector<SubrouteAttrs> m_subrouteAttrs;
+  std::vector<RenderSegment> m_renderSegments;
   // Route identifier. It's unique within single program session.
   uint64_t m_routeId = 0;
 

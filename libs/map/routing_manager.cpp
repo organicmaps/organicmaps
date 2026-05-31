@@ -37,6 +37,7 @@
 
 #include <glaze/json.hpp>
 
+#include <algorithm>
 #include <map>
 
 using namespace routing;
@@ -97,6 +98,48 @@ RouterType GetRouterTypeForSubroute(Route::SubrouteAttrs const & subrouteAttrs, 
   }
 
   UNREACHABLE();
+}
+
+bool AddRenderSegmentStyles(Route const & route, Route::SubrouteAttrs const & subrouteAttrs, df::Subroute & subroute)
+{
+  auto const & renderSegments = route.GetRenderSegments();
+  if (renderSegments.empty())
+    return false;
+
+  size_t const subrouteBeginSegmentIdx = subrouteAttrs.GetBeginSegmentIdx();
+  size_t const subrouteEndSegmentIdx = subrouteAttrs.GetEndSegmentIdx();
+  for (auto const & renderSegment : renderSegments)
+  {
+    size_t const beginSegmentIdx = std::max(renderSegment.m_beginSegmentIdx, subrouteBeginSegmentIdx);
+    size_t const endSegmentIdx = std::min(renderSegment.m_endSegmentIdx, subrouteEndSegmentIdx);
+    if (beginSegmentIdx >= endSegmentIdx)
+      continue;
+
+    df::SubrouteStyle style;
+    switch (renderSegment.m_vehicleType)
+    {
+    case VehicleType::Pedestrian:
+      style = df::SubrouteStyle(df::kRoutePedestrian, df::RoutePattern(4.0, 2.0));
+      break;
+    case VehicleType::Bicycle:
+      style = df::SubrouteStyle(df::kRouteBicycle);
+      break;
+    case VehicleType::Transit:
+    case VehicleType::Car:
+    case VehicleType::Count:
+      continue;
+    }
+
+    style.m_startIndex = beginSegmentIdx - subrouteBeginSegmentIdx;
+    style.m_endIndex = endSegmentIdx - subrouteBeginSegmentIdx;
+    subroute.AddStyle(style);
+  }
+
+  if (subroute.m_style.empty())
+    return false;
+
+  subroute.m_styleType = df::SubrouteStyleType::Multiple;
+  return true;
 }
 
 void FillTurnsDistancesForRendering(std::vector<RouteSegment> const & segments, double baseDistance,
@@ -772,10 +815,13 @@ bool RoutingManager::InsertRoute(Route const & route)
     case RouterType::Bicycle:
     {
       subroute->m_routeType = df::RouteType::Bicycle;
-      if (subrouteAttrs.GetVehicleType() == VehicleType::Bicycle)
-        subroute->AddStyle(df::SubrouteStyle(df::kRouteBicycle));
-      else
-        subroute->AddStyle(df::SubrouteStyle(df::kRouteBicycle, df::RoutePattern(8.0, 2.0)));
+      if (!AddRenderSegmentStyles(route, subrouteAttrs, *subroute))
+      {
+        if (subrouteAttrs.GetVehicleType() == VehicleType::Bicycle)
+          subroute->AddStyle(df::SubrouteStyle(df::kRouteBicycle));
+        else
+          subroute->AddStyle(df::SubrouteStyle(df::kRouteBicycle, df::RoutePattern(8.0, 2.0)));
+      }
       FillTurnsDistancesForRendering(segments, subroute->m_baseDistance, subroute->m_turns);
       break;
     }
