@@ -54,10 +54,15 @@ public:
 
 private:
   void BeforeUpdate();
+#ifdef DEBUG
+  void CheckOverlayCounters() const;
+#endif
 
   int m_featuresMinZoom = std::numeric_limits<int>::max();
 
   std::vector<drape_ptr<OverlayHandle>> m_overlay;
+  size_t m_indexedOverlayCount = 0;
+  size_t m_dynamicOverlayCount = 0;
   drape_ptr<VertexArrayBuffer> m_buffer;
 };
 }  // namespace dp
