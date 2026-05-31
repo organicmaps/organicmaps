@@ -74,15 +74,16 @@ private:
 class BicycleOptionsGuard
 {
 public:
-  explicit BicycleOptionsGuard(RoutingOptions options) : m_saved(RoutingOptions::LoadBicycleOptionsFromSettings())
+  BicycleOptionsGuard()
+    : m_saved(RoutingOptions::IsPublicBicycleEnabled())
   {
-    RoutingOptions::SaveBicycleOptionsToSettings(options);
+    RoutingOptions::SetPublicBicycleEnabled(true);
   }
 
-  ~BicycleOptionsGuard() { RoutingOptions::SaveBicycleOptionsToSettings(m_saved); }
+  ~BicycleOptionsGuard() { RoutingOptions::SetPublicBicycleEnabled(m_saved); }
 
 private:
-  RoutingOptions m_saved;
+  bool m_saved;
 };
 
 UNIT_CLASS_TEST(BikeSharingHeuristicTest, NearestStationsAreLimitedAndSortedByDistance)
@@ -258,9 +259,7 @@ UNIT_CLASS_TEST(BikeSharingHeuristicTest, IndexRouterBuildsPublicBicycleRouteWit
   });
   BuildRoutingSection(kCountryName);
 
-  RoutingOptions options;
-  options.Add(RoutingOptions::Road::PublicBicycle);
-  BicycleOptionsGuard const optionsGuard(options);
+  BicycleOptionsGuard const optionsGuard;
 
   auto router = MakeBicycleRouter(kCountryName, countryRect);
   RouterDelegate const delegate;
@@ -302,9 +301,7 @@ UNIT_CLASS_TEST(BikeSharingHeuristicTest, IndexRouterRejectsPublicBicycleRouteWi
   });
   BuildRoutingSection(kCountryName);
 
-  RoutingOptions options;
-  options.Add(RoutingOptions::Road::PublicBicycle);
-  BicycleOptionsGuard const optionsGuard(options);
+  BicycleOptionsGuard const optionsGuard;
 
   auto router = MakeBicycleRouter(kCountryName, countryRect);
   RouterDelegate const delegate;
@@ -344,9 +341,7 @@ UNIT_CLASS_TEST(BikeSharingHeuristicTest, IndexRouterRejectsPublicBicycleRouteWi
   });
   BuildRoutingSection(kCountryName);
 
-  RoutingOptions options;
-  options.Add(RoutingOptions::Road::PublicBicycle);
-  BicycleOptionsGuard const optionsGuard(options);
+  BicycleOptionsGuard const optionsGuard;
 
   auto router = MakeBicycleRouter(kCountryName, countryRect);
   RouterDelegate const delegate;

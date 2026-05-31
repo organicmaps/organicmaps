@@ -205,12 +205,7 @@ bool RoutingSettings::SaveSettings()
   settings::Set(kUseCachedRoutingSettings, m_saveSessionCheckbox->isChecked());
   settings::Set(kRouterTypeCachedSettings, m_routerType->currentIndex());
 
-  routing::RoutingOptions bicycleOptions = routing::RoutingOptions::LoadBicycleOptionsFromSettings();
-  if (m_publicBikeSharingCheckbox->isChecked())
-    bicycleOptions.Add(routing::RoutingOptions::Road::PublicBicycle);
-  else
-    bicycleOptions.Remove(routing::RoutingOptions::Road::PublicBicycle);
-  routing::RoutingOptions::SaveBicycleOptionsToSettings(bicycleOptions);
+  routing::RoutingOptions::SetPublicBicycleEnabled(m_publicBikeSharingCheckbox->isChecked());
 
   return ValidateAndSaveCoordsFromInput();
 }
@@ -229,8 +224,7 @@ void RoutingSettings::LoadSettings()
   settings::TryGet(kRouterTypeCachedSettings, routerType);
   m_routerType->setCurrentIndex(routerType);
 
-  routing::RoutingOptions bicycleOptions = routing::RoutingOptions::LoadBicycleOptionsFromSettings();
-  m_publicBikeSharingCheckbox->setChecked(bicycleOptions.Has(routing::RoutingOptions::Road::PublicBicycle));
+  m_publicBikeSharingCheckbox->setChecked(routing::RoutingOptions::IsPublicBicycleEnabled());
   UpdateBicycleOptionsVisibility();
 
   bool showTurns = false;
