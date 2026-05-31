@@ -590,20 +590,6 @@ RouterResultCode IndexRouter::CalculatePublicBicycleRoute(Checkpoints const & ch
                                                           m2::PointD const & startDirection,
                                                           RouterDelegate const & delegate, Route & route)
 {
-  auto makePedestrianRouter = [this]()
-  {
-    return IndexRouter(VehicleType::Pedestrian, m_loadAltitudes, m_countryParentNameGetterFn, m_countryFileFn,
-                       m_countryRectFn, m_numMwmIds, m_numMwmTree, m_trafficCache, m_indexDataSource);
-  };
-
-  auto calculatePedestrianRoute =
-      [&](Checkpoints const & legCheckpoints, m2::PointD const & legStartDirection, Route & legRoute)
-  {
-    auto pedestrianRouter = makePedestrianRouter();
-    return pedestrianRouter.CalculateRoute(legCheckpoints, legStartDirection, false /* adjustToPrevRoute */, delegate,
-                                           legRoute);
-  };
-
   auto const & start = checkpoints.GetPointFrom();
   auto const & finish = checkpoints.GetFinish();
   auto const startStations =
@@ -618,23 +604,49 @@ RouterResultCode IndexRouter::CalculatePublicBicycleRoute(Checkpoints const & ch
   if (stationPairs.empty())
     return RouterResultCode::RouteNotFound;
 
+  struct PedestrianRouteResult
+  {
+    RouterResultCode m_result;
+    Route m_route;
+  };
+
+  IndexRouter pedestrianRouter(VehicleType::Pedestrian, m_loadAltitudes, m_countryParentNameGetterFn, m_countryFileFn,
+                               m_countryRectFn, m_numMwmIds, m_numMwmTree, m_trafficCache, m_indexDataSource);
+  std::map<BicycleRentalStation const *, PedestrianRouteResult> walkToBikeRoutes;
+  std::map<BicycleRentalStation const *, PedestrianRouteResult> walkFromBikeRoutes;
+
+  auto getPedestrianRoute = [&](std::map<BicycleRentalStation const *, PedestrianRouteResult> & cache,
+                                BicycleRentalStation const & station, Checkpoints const & legCheckpoints,
+                                m2::PointD const & legStartDirection) -> PedestrianRouteResult const &
+  {
+    if (auto const it = cache.find(&station); it != cache.end())
+      return it->second;
+
+    Route pedestrianRoute("public-bicycle-walk", 0 /* routeId */);
+    auto result = pedestrianRouter.CalculateRoute(legCheckpoints, legStartDirection, false /* adjustToPrevRoute */,
+                                                  delegate, pedestrianRoute);
+    if (result == RouterResultCode::NoError && IsPublicBicycleWalkRouteTooLong(pedestrianRoute))
+      result = RouterResultCode::RouteNotFound;
+
+    auto const [it, inserted] = cache.emplace(&station, PedestrianRouteResult{result, std::move(pedestrianRoute)});
+    CHECK(inserted, ());
+    return it->second;
+  };
+
+  RoutingOptions const bicycleOptions = GetBicycleOptionsWithoutPublicBicycle();
   RouterResultCode lastError = RouterResultCode::RouteNotFound;
   for (auto const & stationPair : stationPairs)
   {
     auto const & startStation = *stationPair.m_startStation;
     auto const & finishStation = *stationPair.m_finishStation;
 
-    Route walkToBikeRoute("public-bicycle-walk-to-bike", 0 /* routeId */);
-    lastError = calculatePedestrianRoute(Checkpoints(start, startStation.m_point), startDirection, walkToBikeRoute);
+    auto const & walkToBikeRoute =
+        getPedestrianRoute(walkToBikeRoutes, startStation, Checkpoints(start, startStation.m_point), startDirection);
+    lastError = walkToBikeRoute.m_result;
     if (lastError == RouterResultCode::Cancelled)
       return lastError;
     if (lastError != RouterResultCode::NoError)
       continue;
-    if (IsPublicBicycleWalkRouteTooLong(walkToBikeRoute))
-    {
-      lastError = RouterResultCode::RouteNotFound;
-      continue;
-    }
 
     CheckpointsGeometry bikeCheckpoints;
     bikeCheckpoints.push_back(startStation.m_point);
@@ -643,33 +655,26 @@ RouterResultCode IndexRouter::CalculatePublicBicycleRoute(Checkpoints const & ch
     bikeCheckpoints.push_back(finishStation.m_point);
 
     Route bikeRoute("public-bicycle-bike", 0 /* routeId */);
-    {
-      RoutingOptions const options = GetBicycleOptionsWithoutPublicBicycle();
-      lastError = DoCalculateRoute(Checkpoints(std::move(bikeCheckpoints)), m2::PointD::Zero() /* startDirection */,
-                                   delegate, bikeRoute, &options);
-    }
+    lastError = DoCalculateRoute(Checkpoints(std::move(bikeCheckpoints)), m2::PointD::Zero() /* startDirection */,
+                                 delegate, bikeRoute, &bicycleOptions);
     if (lastError == RouterResultCode::Cancelled)
       return lastError;
     if (lastError != RouterResultCode::NoError)
       continue;
 
-    Route walkFromBikeRoute("public-bicycle-walk-from-bike", 0 /* routeId */);
-    lastError = calculatePedestrianRoute(Checkpoints(finishStation.m_point, finish),
-                                         m2::PointD::Zero() /* startDirection */, walkFromBikeRoute);
+    auto const & walkFromBikeRoute = getPedestrianRoute(walkFromBikeRoutes, finishStation,
+                                                        Checkpoints(finishStation.m_point, finish),
+                                                        m2::PointD::Zero() /* startDirection */);
+    lastError = walkFromBikeRoute.m_result;
     if (lastError == RouterResultCode::Cancelled)
       return lastError;
     if (lastError != RouterResultCode::NoError)
       continue;
-    if (IsPublicBicycleWalkRouteTooLong(walkFromBikeRoute))
-    {
-      lastError = RouterResultCode::RouteNotFound;
-      continue;
-    }
 
     std::vector<Route> legs;
-    legs.push_back(std::move(walkToBikeRoute));
+    legs.push_back(walkToBikeRoute.m_route);
     legs.push_back(std::move(bikeRoute));
-    legs.push_back(std::move(walkFromBikeRoute));
+    legs.push_back(walkFromBikeRoute.m_route);
     std::vector<VehicleType> const legVehicleTypes = {VehicleType::Pedestrian, VehicleType::Bicycle,
                                                       VehicleType::Pedestrian};
     BuildMergedRoute(legs, legVehicleTypes, route);
