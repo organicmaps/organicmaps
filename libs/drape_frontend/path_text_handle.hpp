@@ -19,7 +19,8 @@ public:
   void SetLayout(drape_ptr<PathTextLayout> && layout, double baseGtoPScale);
   ref_ptr<PathTextLayout> const GetLayout() const;
 
-  bool GetPivot(size_t textIndex, m2::PointD & pivot, m2::Spline::iterator & centerPointIter) const;
+  bool GetPivot(size_t textIndex, ScreenBase const & screen, m2::PointD & pivot,
+                m2::Spline::iterator & centerPointIter);
 
   void BeforeUpdate();
   void Update(ScreenBase const & screen);
@@ -27,7 +28,21 @@ public:
   std::vector<double> const & GetOffsets() const;
 
 private:
-  m2::Spline::iterator GetProjectedPoint(m2::PointD const & pt) const;
+  struct ProjectionCursor
+  {
+    size_t m_splineIndex = 0;
+    size_t m_segmentIndex = 0;
+    double m_segmentStep = 0.0;
+  };
+
+  struct PivotInfo
+  {
+    m2::Spline::iterator m_centerPointIter;
+    bool m_isCalculated = false;
+    bool m_isValid = false;
+  };
+
+  m2::Spline::iterator GetProjectedPoint(m2::PointD const & pt, ProjectionCursor & cursor) const;
 
 private:
   std::vector<m2::PointD> m_globalPivots;
@@ -35,8 +50,8 @@ private:
   m2::SharedSpline m_globalSpline;
 
   std::vector<m2::SplineEx> m_pixel3dSplines;
-  std::vector<m2::Spline::iterator> m_centerPointIters;
-  std::vector<m2::PointD> m_centerGlobalPivots;
+  std::vector<PivotInfo> m_pivots;
+  ProjectionCursor m_projectionCursor;
 
   drape_ptr<PathTextLayout> m_layout;
   double m_xOffset = 0.0;

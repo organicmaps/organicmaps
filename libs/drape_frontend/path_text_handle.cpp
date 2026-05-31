@@ -14,6 +14,14 @@ double const kValidPathSplineTurn = 15 * math::pi / 180;
 double const kCosTurn = cos(kValidPathSplineTurn);
 double const kRoundStep = 23;
 int const kMaxStepsCount = 7;
+
+size_t GetRoundedSplineReserve(size_t sourcePointCount)
+{
+  if (sourcePointCount < 2)
+    return 2;
+
+  return sourcePointCount + (sourcePointCount - 2) * static_cast<size_t>(kMaxStepsCount);
+}
 }  // namespace
 
 bool IsValidSplineTurn(m2::PointD const & normalizedDir1, m2::PointD const & normalizedDir2)
@@ -128,13 +136,32 @@ std::vector<double> const & PathTextContext::GetOffsets() const
   return m_globalOffsets;
 }
 
-bool PathTextContext::GetPivot(size_t textIndex, m2::PointD & pivot, m2::Spline::iterator & centerPointIter) const
+bool PathTextContext::GetPivot(size_t textIndex, ScreenBase const & screen, m2::PointD & pivot,
+                               m2::Spline::iterator & centerPointIter)
 {
-  if (textIndex >= m_centerGlobalPivots.size())
+  if (textIndex >= m_pivots.size() || m_pixel3dSplines.empty())
     return false;
 
-  pivot = m_centerGlobalPivots[textIndex];
-  centerPointIter = m_centerPointIters[textIndex];
+  auto const & globalPivot = m_globalPivots[textIndex];
+  m2::PointD const shiftedPivot(globalPivot.x + m_xOffset, globalPivot.y);
+
+  auto & pivotInfo = m_pivots[textIndex];
+  if (!pivotInfo.m_isCalculated)
+  {
+    pivotInfo.m_isCalculated = true;
+    m2::PointD const pt2d = screen.GtoP(shiftedPivot);
+    if (!screen.IsReverseProjection3d(pt2d))
+    {
+      pivotInfo.m_centerPointIter = GetProjectedPoint(screen.PtoP3d(pt2d), m_projectionCursor);
+      pivotInfo.m_isValid = pivotInfo.m_centerPointIter.IsAttached();
+    }
+  }
+
+  if (!pivotInfo.m_isValid)
+    return false;
+
+  pivot = shiftedPivot;
+  centerPointIter = pivotInfo.m_centerPointIter;
   return true;
 }
 
@@ -145,10 +172,11 @@ void PathTextContext::Update(ScreenBase const & screen)
   m_updated = true;
 
   m_pixel3dSplines.clear();
-  m_centerPointIters.clear();
-  m_centerGlobalPivots.clear();
+  m_pivots.clear();
+  m_pivots.resize(m_globalPivots.size());
+  m_projectionCursor = {};
 
-  m2::SplineEx pixelSpline(m_globalSpline->GetSize());
+  m2::SplineEx pixelSpline(GetRoundedSplineReserve(m_globalSpline->GetSize()));
   for (auto pos : m_globalSpline->GetPath())
   {
     pos.x += m_xOffset;
@@ -156,7 +184,7 @@ void PathTextContext::Update(ScreenBase const & screen)
     if (screen.IsReverseProjection3d(pos))
     {
       if (pixelSpline.GetSize() > 1)
-        m_pixel3dSplines.push_back(std::move(pixelSpline));
+        m_pixel3dSplines.push_back(pixelSpline);
       pixelSpline.Clear();
       continue;
     }
@@ -166,41 +194,39 @@ void PathTextContext::Update(ScreenBase const & screen)
   if (pixelSpline.GetSize() > 1)
     m_pixel3dSplines.emplace_back(std::move(pixelSpline));
 
-  if (m_pixel3dSplines.empty())
-    return;
-
   ASSERT_EQUAL(m_globalPivots.size(), m_globalOffsets.size(), ());
-  for (auto const & pivot : m_globalPivots)
-  {
-    m2::PointD const pt2d = screen.GtoP(m2::PointD(pivot.x + m_xOffset, pivot.y));
-    if (!screen.IsReverseProjection3d(pt2d))
-    {
-      auto projectionIter = GetProjectedPoint(screen.PtoP3d(pt2d));
-      if (!projectionIter.IsAttached())
-        continue;
-      m_centerPointIters.push_back(projectionIter);
-      m_centerGlobalPivots.push_back(m2::PointD(pivot.x + m_xOffset, pivot.y));
-    }
-  }
 }
 
-m2::Spline::iterator PathTextContext::GetProjectedPoint(m2::PointD const & pt) const
+m2::Spline::iterator PathTextContext::GetProjectedPoint(m2::PointD const & pt, ProjectionCursor & cursor) const
 {
   double minDist = std::numeric_limits<double>::max();
   double resStep = 0.;
   m2::SplineEx const * resSpline = nullptr;
+  ProjectionCursor bestCursor;
 
-  for (auto const & spline : m_pixel3dSplines)
+  auto const updateNearest =
+      [&](size_t splineIndex, size_t segmentIndex, double segmentStep, m2::PointD const & nearestPt, double nearestStep)
   {
-    auto const & path = spline.GetPath();
-    if (path.size() < 2)
-      continue;
+    double const dist = pt.SquaredLength(nearestPt);
+    if (dist >= minDist)
+      return false;
 
+    minDist = dist;
+    resSpline = &m_pixel3dSplines[splineIndex];
+    resStep = nearestStep;
+    bestCursor = {splineIndex, segmentIndex, segmentStep};
+    return minDist < kMwmPointAccuracy;
+  };
+
+  auto const scanSegments = [&](size_t splineIndex, size_t firstSegment, size_t lastSegment, double firstStep)
+  {
+    auto const & spline = m_pixel3dSplines[splineIndex];
+    auto const & path = spline.GetPath();
     auto const & lengths = spline.GetLengths();
     auto const & dirs = spline.GetDirections();
 
-    double step = 0;
-    for (size_t i = 0, sz = path.size() - 1; i < sz; ++i)
+    double step = firstStep;
+    for (size_t i = firstSegment; i < lastSegment; ++i)
     {
       double const segLength = lengths[i];
       m2::PointD const & segDir = dirs[i];
@@ -225,22 +251,42 @@ m2::Spline::iterator PathTextContext::GetProjectedPoint(m2::PointD const & pt) c
         nearestStep = step + t;
       }
 
-      double const dist = pt.SquaredLength(nearestPt);
-      if (dist < minDist)
-      {
-        minDist = dist;
-        resSpline = &spline;
-        resStep = nearestStep;
-
-        if (minDist < kMwmPointAccuracy)
-          goto end;
-      }
+      if (updateNearest(splineIndex, i, step, nearestPt, nearestStep))
+        return true;
 
       step += segLength;
     }
+
+    return false;
+  };
+
+  ProjectionCursor const startCursor = cursor;
+  for (size_t idx = startCursor.m_splineIndex; idx < m_pixel3dSplines.size(); ++idx)
+  {
+    auto const & path = m_pixel3dSplines[idx].GetPath();
+    ASSERT_GREATER(path.size(), 1, ());
+
+    size_t const segmentCount = path.size() - 1;
+    size_t const firstSegment = idx == startCursor.m_splineIndex ? startCursor.m_segmentIndex : 0;
+    double const firstStep = idx == startCursor.m_splineIndex ? startCursor.m_segmentStep : 0.0;
+    if (scanSegments(idx, firstSegment, segmentCount, firstStep))
+      goto end;
+  }
+
+  for (size_t idx = 0; idx <= startCursor.m_splineIndex; ++idx)
+  {
+    auto const & path = m_pixel3dSplines[idx].GetPath();
+    ASSERT_GREATER(path.size(), 1, ());
+
+    size_t const segmentCount = path.size() - 1;
+    size_t const lastSegment = idx == startCursor.m_splineIndex ? startCursor.m_segmentIndex : segmentCount;
+    if (scanSegments(idx, 0, lastSegment, 0.0))
+      goto end;
   }
 
 end:
+  if (resSpline != nullptr)
+    cursor = bestCursor;
   return resSpline ? resSpline->GetPoint(resStep) : m2::Spline::iterator();
 }
 
@@ -264,7 +310,7 @@ bool PathTextHandle::Update(ScreenBase const & screen)
   m_context->Update(screen);
 
   m2::Spline::iterator centerPointIter;
-  if (!m_context->GetPivot(m_textIndex, m_globalPivot, centerPointIter))
+  if (!m_context->GetPivot(m_textIndex, screen, m_globalPivot, centerPointIter))
     return false;
 
   return m_context->GetLayout()->CacheDynamicGeometry(centerPointIter, m_depth, m_globalPivot, m_buffer);
