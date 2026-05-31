@@ -314,10 +314,6 @@ std::vector<BicycleRentalStationPair> GetBestCompatibleStationPairs(
             [](BicycleRentalStationPair const & lhs, BicycleRentalStationPair const & rhs)
   { return lhs.m_walkDistanceM < rhs.m_walkDistanceM; });
 
-  size_t constexpr kMaxStationPairs = kPublicBicycleMaxStationsPerSide * kPublicBicycleMaxStationsPerSide;
-  if (stationPairs.size() > kMaxStationPairs)
-    stationPairs.resize(kMaxStationPairs);
-
   return stationPairs;
 }
 }  // namespace
