@@ -205,8 +205,8 @@
 		AC53BEF0282BE95B00E6DE59 /* turns_generator_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AC53BEEE282BE95B00E6DE59 /* turns_generator_utils.hpp */; };
 		AC53BEF1282BE95B00E6DE59 /* turns_generator_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC53BEEF282BE95B00E6DE59 /* turns_generator_utils.cpp */; };
 		ACAE44A427426EDB0054DD15 /* junction_visitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACAE44A327426EDB0054DD15 /* junction_visitor.cpp */; };
-		C8AAC1E72FC5DDC400974BF8 /* bike_sharing_heuristic.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C8AAC1E52FC5DDC400974BF8 /* bike_sharing_heuristic.hpp */; };
-		C8AAC1E82FC5DDC400974BF8 /* bike_sharing_heuristic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8AAC1E62FC5DDC400974BF8 /* bike_sharing_heuristic.cpp */; };
+		C8AAC1E72FC5DDC400974BF8 /* bicycle_rental.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C8AAC1E52FC5DDC400974BF8 /* bicycle_rental.hpp */; };
+		C8AAC1E82FC5DDC400974BF8 /* bicycle_rental.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8AAC1E62FC5DDC400974BF8 /* bicycle_rental.cpp */; };
 		D51A9C14242E379D00F750F8 /* fake_graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D51A9C13242E379C00F750F8 /* fake_graph.cpp */; };
 		D526BA79241FC5580076E0B0 /* guides_graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D526BA75241FC5580076E0B0 /* guides_graph.cpp */; };
 		D526BA7A241FC5580076E0B0 /* guides_connections.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D526BA76241FC5580076E0B0 /* guides_connections.cpp */; };
@@ -493,8 +493,8 @@
 		AC53BEEE282BE95B00E6DE59 /* turns_generator_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = turns_generator_utils.hpp; sourceTree = "<group>"; };
 		AC53BEEF282BE95B00E6DE59 /* turns_generator_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = turns_generator_utils.cpp; sourceTree = "<group>"; };
 		ACAE44A327426EDB0054DD15 /* junction_visitor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = junction_visitor.cpp; sourceTree = "<group>"; };
-		C8AAC1E52FC5DDC400974BF8 /* bike_sharing_heuristic.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = bike_sharing_heuristic.hpp; sourceTree = "<group>"; };
-		C8AAC1E62FC5DDC400974BF8 /* bike_sharing_heuristic.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = bike_sharing_heuristic.cpp; sourceTree = "<group>"; };
+		C8AAC1E52FC5DDC400974BF8 /* bicycle_rental.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = bicycle_rental.hpp; sourceTree = "<group>"; };
+		C8AAC1E62FC5DDC400974BF8 /* bicycle_rental.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = bicycle_rental.cpp; sourceTree = "<group>"; };
 		D51A9C13242E379C00F750F8 /* fake_graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fake_graph.cpp; sourceTree = "<group>"; };
 		D5208C632423681300A9A8B6 /* guides_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = guides_tests.cpp; sourceTree = "<group>"; };
 		D526BA75241FC5580076E0B0 /* guides_graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = guides_graph.cpp; sourceTree = "<group>"; };
@@ -740,8 +740,8 @@
 				0C5BC9CF1E28FD4E0071BFDD /* index_road_graph.cpp */,
 				0C12ED221E5C822A0080D0F4 /* index_router.hpp */,
 				0C12ED211E5C822A0080D0F4 /* index_router.cpp */,
-				C8AAC1E52FC5DDC400974BF8 /* bike_sharing_heuristic.hpp */,
-				C8AAC1E62FC5DDC400974BF8 /* bike_sharing_heuristic.cpp */,
+				C8AAC1E52FC5DDC400974BF8 /* bicycle_rental.hpp */,
+				C8AAC1E62FC5DDC400974BF8 /* bicycle_rental.cpp */,
 				0C5FEC5D1DDE192A0017688C /* joint.hpp */,
 				0C5FEC5C1DDE192A0017688C /* joint.cpp */,
 				0C5FEC5B1DDE192A0017688C /* joint_index.hpp */,
@@ -895,7 +895,7 @@
 				0C470E701E0D4EB1005B824D /* segment.hpp in Headers */,
 				A120B3531B4A7C1C002F3808 /* astar_algorithm.hpp in Headers */,
 				0C5FEC5F1DDE192A0017688C /* geometry.hpp in Headers */,
-				C8AAC1E72FC5DDC400974BF8 /* bike_sharing_heuristic.hpp in Headers */,
+				C8AAC1E72FC5DDC400974BF8 /* bicycle_rental.hpp in Headers */,
 				D526BA7B241FC5580076E0B0 /* guides_connections.hpp in Headers */,
 				67AB92E71B7B3E6E00AB5194 /* turns_tts_text.hpp in Headers */,
 				56099E2A1CC7C97D00A7772A /* routing_result_graph.hpp in Headers */,
@@ -1269,7 +1269,7 @@
 				4433A8E923993BD200E1350B /* leaps_graph.cpp in Sources */,
 				67C79BA11E2CEE1400C40034 /* restriction_loader.cpp in Sources */,
 				67C7D42D1B4EB48F00FE41AA /* turns_sound_settings.cpp in Sources */,
-				C8AAC1E82FC5DDC400974BF8 /* bike_sharing_heuristic.cpp in Sources */,
+				C8AAC1E82FC5DDC400974BF8 /* bicycle_rental.cpp in Sources */,
 				40F7F3E51F7D246D0082D564 /* single_vehicle_world_graph.cpp in Sources */,
 				4443DC3722789793000C8E32 /* leaps_postprocessor.cpp in Sources */,
 				0C5FEC541DDE191E0017688C /* edge_estimator.cpp in Sources */,
