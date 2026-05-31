@@ -38,6 +38,7 @@ public:
   ~AttributeBufferMutator();
   void AddMutation(BindingInfo const & info, MutateRegion region, ref_ptr<void> data);
   void * AllocateMutationBuffer(size_t byteCount);
+  bool IsEmpty() const { return m_data.empty(); }
 
 private:
   friend class VertexArrayBuffer;
