@@ -703,6 +703,7 @@
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Kompátkelők elkerülése";
 "avoid_motorways" = "Autópályák elkerülése";
+"public_bike_sharing" = "Public Bike-Sharing";
 "unable_to_calc_alert_title" = "Nem lehet kiszámítani az útvonalat";
 "unable_to_calc_alert_subtitle" = "Nem sikerült útvonalat találni. Ennek oka lehet az útvonaltervezési beállítások vagy a hiányos OpenStreetMap-adatok. Módosítsa az útvonaltervezési beállításokat, és próbálja meg újra.";
 "define_to_avoid_btn" = "Elkerülendő utak meghatározása";
