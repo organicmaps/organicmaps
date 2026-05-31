@@ -718,6 +718,7 @@
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Izogibaj se trajektom";
 "avoid_motorways" = "Izogibaj se avtocestam";
+"public_bike_sharing" = "Public Bike-Sharing";
 "unable_to_calc_alert_title" = "Poti ni mogoče izračunati";
 "unable_to_calc_alert_subtitle" = "Poti ni bilo mogoče najti. To je lahko posledica vaših možnosti načrtovanja poti ali nepopolnih podatkov OpenStreetMap. Spremenite možnosti načrtovanja poti in poskusite znova.";
 "define_to_avoid_btn" = "Določite ceste, ki se jim želite izogniti";
