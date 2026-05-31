@@ -187,6 +187,7 @@ bool IsDeadEndCached(Segment const & segment, bool isOutgoing, bool useRoutingOp
 RoutingOptions GetBicycleOptionsWithoutPublicBicycle()
 {
   RoutingOptions options = RoutingOptions::LoadBicycleOptionsFromSettings();
+  // PublicBicycle is a route construction mode. Keep the inner bicycle leg from recursively building a public bicycle route.
   options.Remove(RoutingOptions::Road::PublicBicycle);
   return options;
 }
