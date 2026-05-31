@@ -16,6 +16,7 @@ namespace routing
 
 std::string_view constexpr kAvoidRoutingOptionSettingsForCar = "avoid_routing_options_car";
 std::string_view constexpr kRoutingOptionSettingsForBicycle = "routing_options_bicycle";
+std::string_view constexpr kPublicBicycleRoutingSettings = "routing_option_public_bicycle";
 
 RoutingOptions LoadOptionsFromSettings(std::string_view key)
 {
@@ -23,6 +24,7 @@ RoutingOptions LoadOptionsFromSettings(std::string_view key)
   if (!settings::Get(key, mode))
     mode = 0;
 
+  mode &= static_cast<uint32_t>(RoutingOptions::Road::Max) - 1;
   return RoutingOptions(base::checked_cast<RoutingOptions::RoadType>(mode));
 }
 
@@ -53,6 +55,20 @@ RoutingOptions RoutingOptions::LoadBicycleOptionsFromSettings()
 void RoutingOptions::SaveBicycleOptionsToSettings(RoutingOptions options)
 {
   SaveOptionsToSettings(options, kRoutingOptionSettingsForBicycle);
+}
+
+// static
+bool RoutingOptions::IsPublicBicycleEnabled()
+{
+  bool enabled = false;
+  settings::TryGet(kPublicBicycleRoutingSettings, enabled);
+  return enabled;
+}
+
+// static
+void RoutingOptions::SetPublicBicycleEnabled(bool enabled)
+{
+  settings::Set(kPublicBicycleRoutingSettings, enabled);
 }
 
 void RoutingOptions::Add(RoutingOptions::Road type)
@@ -133,7 +149,6 @@ std::string DebugPrint(RoutingOptions const & routingOptions)
   append(RoutingOptions::Road::Ferry);
   append(RoutingOptions::Road::Dirty);
   append(RoutingOptions::Road::Steps);
-  append(RoutingOptions::Road::PublicBicycle);
 
   if (wasAppended)
     ss << " | ";
@@ -152,7 +167,6 @@ std::string DebugPrint(RoutingOptions::Road type)
   case RoutingOptions::Road::Ferry: return "ferry";
   case RoutingOptions::Road::Dirty: return "dirty";
   case RoutingOptions::Road::Steps: return "steps";
-  case RoutingOptions::Road::PublicBicycle: return "public_bicycle";
   case RoutingOptions::Road::Usual: return "usual";
   case RoutingOptions::Road::Max: return "max";
   }

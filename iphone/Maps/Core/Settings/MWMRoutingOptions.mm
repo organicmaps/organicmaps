@@ -8,6 +8,7 @@
 {
   routing::RoutingOptions _options;
   routing::RoutingOptions _bicycleOptions;
+  BOOL _publicBicycle;
 }
 
 @end
@@ -26,6 +27,7 @@
   {
     _options = routing::RoutingOptions::LoadCarOptionsFromSettings();
     _bicycleOptions = routing::RoutingOptions::LoadBicycleOptionsFromSettings();
+    _publicBicycle = routing::RoutingOptions::IsPublicBicycleEnabled();
   }
 
   return self;
@@ -73,21 +75,19 @@
 
 - (BOOL)publicBicycle
 {
-  return _bicycleOptions.Has(routing::RoutingOptions::Road::PublicBicycle);
+  return _publicBicycle;
 }
 
 - (void)setPublicBicycle:(BOOL)enabled
 {
-  if (enabled)
-    _bicycleOptions.Add(routing::RoutingOptions::Road::PublicBicycle);
-  else
-    _bicycleOptions.Remove(routing::RoutingOptions::Road::PublicBicycle);
+  _publicBicycle = enabled;
 }
 
 - (void)save
 {
   routing::RoutingOptions::SaveCarOptionsToSettings(_options);
   routing::RoutingOptions::SaveBicycleOptionsToSettings(_bicycleOptions);
+  routing::RoutingOptions::SetPublicBicycleEnabled(_publicBicycle);
 }
 
 - (void)setOption:(routing::RoutingOptions::Road)option enabled:(BOOL)enabled

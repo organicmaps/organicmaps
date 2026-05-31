@@ -70,8 +70,6 @@ UNIT_TEST(RoutingOptionTest)
   Checker({RoutingOptions::Road::Dirty});
   Checker({RoutingOptions::Road::Toll});
   Checker({RoutingOptions::Road::Dirty, RoutingOptions::Road::Motorway});
-  Checker({RoutingOptions::Road::PublicBicycle});
-  Checker({RoutingOptions::Road::PublicBicycle, RoutingOptions::Road::Dirty});
   Checker({});
 }
 
@@ -89,8 +87,7 @@ UNIT_CLASS_TEST(RoutingOptionsTests, GetSetTest)
 UNIT_CLASS_TEST(RoutingOptionsTests, BicycleOptionsAreStoredSeparatelyFromCarOptions)
 {
   RoutingOptions const carOptions = CreateOptions({RoutingOptions::Road::Toll, RoutingOptions::Road::Motorway});
-  RoutingOptions const bicycleOptions =
-      CreateOptions({RoutingOptions::Road::PublicBicycle, RoutingOptions::Road::Dirty});
+  RoutingOptions const bicycleOptions = CreateOptions({RoutingOptions::Road::Dirty});
 
   RoutingOptions::SaveCarOptionsToSettings(carOptions);
   RoutingOptions::SaveBicycleOptionsToSettings(bicycleOptions);
@@ -104,7 +101,7 @@ UNIT_CLASS_TEST(RoutingOptionsTests, BicycleOptionsAreStoredSeparatelyFromCarOpt
   TEST_EQUAL(RoutingOptions::LoadCarOptionsFromSettings().GetOptions(), updatedCarOptions.GetOptions(), ());
   TEST_EQUAL(RoutingOptions::LoadBicycleOptionsFromSettings().GetOptions(), bicycleOptions.GetOptions(), ());
 
-  RoutingOptions const updatedBicycleOptions = CreateOptions({RoutingOptions::Road::PublicBicycle});
+  RoutingOptions const updatedBicycleOptions = CreateOptions({RoutingOptions::Road::Ferry});
   RoutingOptions::SaveBicycleOptionsToSettings(updatedBicycleOptions);
 
   TEST_EQUAL(RoutingOptions::LoadCarOptionsFromSettings().GetOptions(), updatedCarOptions.GetOptions(), ());

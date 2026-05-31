@@ -6,6 +6,5 @@ public enum RoadType
   Toll,
   Motorway,
   Ferry,
-  Dirty,
-  PublicBicycle
+  Dirty
 }

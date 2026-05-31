@@ -114,10 +114,9 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     publicBikeSharingContainer.setVisibility(isBicycleRouter ? View.VISIBLE : View.GONE);
 
     SwitchCompat publicBikeSharingBtn = root.findViewById(R.id.public_bike_sharing_btn);
-    publicBikeSharingBtn.setChecked(RoutingOptions.hasOption(RoadType.PublicBicycle));
-    CompoundButton.OnCheckedChangeListener publicBikeSharingBtnListener =
-        new ToggleRoutingOptionListener(RoadType.PublicBicycle);
-    publicBikeSharingBtn.setOnCheckedChangeListener(publicBikeSharingBtnListener);
+    publicBikeSharingBtn.setChecked(RoutingOptions.isPublicBicycleEnabled());
+    publicBikeSharingBtn.setOnCheckedChangeListener(
+        (buttonView, isChecked) -> RoutingOptions.setPublicBicycleEnabled(isChecked));
   }
 
   private static class ToggleRoutingOptionListener implements CompoundButton.OnCheckedChangeListener

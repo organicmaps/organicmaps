@@ -184,14 +184,6 @@ bool IsDeadEndCached(Segment const & segment, bool isOutgoing, bool useRoutingOp
   return false;
 }
 
-RoutingOptions GetBicycleOptionsWithoutPublicBicycle()
-{
-  RoutingOptions options = RoutingOptions::LoadBicycleOptionsFromSettings();
-  // PublicBicycle is a route construction mode. Keep the inner bicycle leg from recursively building a public bicycle route.
-  options.Remove(RoutingOptions::Road::PublicBicycle);
-  return options;
-}
-
 bool IsPublicBicycleWalkRouteTooLong(Route const & route)
 {
   return route.GetTotalDistanceMeters() > kPublicBicycleMaxWalkRadiusM;
@@ -465,11 +457,8 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
   {
     SCOPE_GUARD(featureRoadGraphClear, [this] { ClearState(); });
 
-    if (m_vehicleType == VehicleType::Bicycle &&
-        RoutingOptions::LoadBicycleOptionsFromSettings().Has(RoutingOptions::Road::PublicBicycle))
-    {
+    if (m_vehicleType == VehicleType::Bicycle && RoutingOptions::IsPublicBicycleEnabled())
       return CalculatePublicBicycleRoute(checkpoints, startDirection, delegate, route);
-    }
 
     if (adjustToPrevRoute && m_lastRoute && m_lastFakeEdges && finalPoint == m_lastRoute->GetFinish())
     {
@@ -544,7 +533,7 @@ RouterResultCode IndexRouter::CalculatePublicBicycleRoute(Checkpoints const & ch
     return it->second;
   };
 
-  RoutingOptions const bicycleOptions = GetBicycleOptionsWithoutPublicBicycle();
+  RoutingOptions const bicycleOptions = RoutingOptions::LoadBicycleOptionsFromSettings();
   RouterResultCode lastError = RouterResultCode::RouteNotFound;
   for (auto const & stationPair : stationPairs)
   {

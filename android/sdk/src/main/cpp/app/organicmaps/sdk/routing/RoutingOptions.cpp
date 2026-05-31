@@ -17,20 +17,15 @@ routing::RoutingOptions::Road makeValue(jint option)
   return static_cast<routing::RoutingOptions::Road>(road);
 }
 
-bool UseBicycleOptions(routing::RoutingOptions::Road road)
+routing::RoutingOptions LoadRoutingOptions()
 {
-  return road == routing::RoutingOptions::Road::PublicBicycle || IsBicycleRouter();
+  return IsBicycleRouter() ? routing::RoutingOptions::LoadBicycleOptionsFromSettings()
+                           : routing::RoutingOptions::LoadCarOptionsFromSettings();
 }
 
-routing::RoutingOptions LoadRoutingOptions(routing::RoutingOptions::Road road)
+void SaveRoutingOptions(routing::RoutingOptions const & routingOptions)
 {
-  return UseBicycleOptions(road) ? routing::RoutingOptions::LoadBicycleOptionsFromSettings()
-                                 : routing::RoutingOptions::LoadCarOptionsFromSettings();
-}
-
-void SaveRoutingOptions(routing::RoutingOptions const & routingOptions, routing::RoutingOptions::Road road)
-{
-  if (UseBicycleOptions(road))
+  if (IsBicycleRouter())
     routing::RoutingOptions::SaveBicycleOptionsToSettings(routingOptions);
   else
     routing::RoutingOptions::SaveCarOptionsToSettings(routingOptions);
@@ -42,23 +37,34 @@ extern "C"
 JNIEXPORT jboolean Java_app_organicmaps_sdk_routing_RoutingOptions_nativeHasOption(JNIEnv *, jclass, jint option)
 {
   routing::RoutingOptions::Road road = makeValue(option);
-  routing::RoutingOptions routingOptions = LoadRoutingOptions(road);
+  routing::RoutingOptions routingOptions = LoadRoutingOptions();
   return static_cast<jboolean>(routingOptions.Has(road));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_routing_RoutingOptions_nativeAddOption(JNIEnv *, jclass, jint option)
 {
   routing::RoutingOptions::Road road = makeValue(option);
-  routing::RoutingOptions routingOptions = LoadRoutingOptions(road);
+  routing::RoutingOptions routingOptions = LoadRoutingOptions();
   routingOptions.Add(road);
-  SaveRoutingOptions(routingOptions, road);
+  SaveRoutingOptions(routingOptions);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_routing_RoutingOptions_nativeRemoveOption(JNIEnv *, jclass, jint option)
 {
   routing::RoutingOptions::Road road = makeValue(option);
-  routing::RoutingOptions routingOptions = LoadRoutingOptions(road);
+  routing::RoutingOptions routingOptions = LoadRoutingOptions();
   routingOptions.Remove(road);
-  SaveRoutingOptions(routingOptions, road);
+  SaveRoutingOptions(routingOptions);
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_routing_RoutingOptions_nativeSetPublicBicycleEnabled(JNIEnv *, jclass,
+                                                                                             jboolean enabled)
+{
+  routing::RoutingOptions::SetPublicBicycleEnabled(static_cast<bool>(enabled));
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_routing_RoutingOptions_nativeIsPublicBicycleEnabled(JNIEnv *, jclass)
+{
+  return static_cast<jboolean>(routing::RoutingOptions::IsPublicBicycleEnabled());
 }
 }
