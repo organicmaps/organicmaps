@@ -2,7 +2,7 @@
 
 #include "routing/base/astar_progress.hpp"
 
-#include "routing/bike_sharing_heuristic.hpp"
+#include "routing/bicycle_rental.hpp"
 #include "routing/car_directions.hpp"
 #include "routing/fake_ending.hpp"
 #include "routing/index_graph.hpp"

@@ -1,4 +1,4 @@
-#include "routing/bike_sharing_heuristic.hpp"
+#include "routing/bicycle_rental.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
