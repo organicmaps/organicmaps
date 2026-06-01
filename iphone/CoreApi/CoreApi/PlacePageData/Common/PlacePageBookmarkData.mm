@@ -15,10 +15,10 @@
     _bookmarkId = rawData.GetBookmarkId();
     _bookmarkGroupId = rawData.GetBookmarkCategoryId();
     _externalTitle = rawData.GetSecondaryTitle().empty() ? nil : @(rawData.GetSecondaryTitle().c_str());
-    _bookmarkDescription =
-        rawData.IsBookmark() ? @(GetPreferredBookmarkStr(rawData.GetBookmarkData().m_description).c_str()) : nil;
+    std::string const description = GetPreferredBookmarkStr(rawData.GetBookmarkData().m_description);
+    _bookmarkDescription = rawData.IsBookmark() ? @(description.c_str()) : nil;
     _bookmarkCategory = rawData.IsBookmark() ? @(rawData.GetBookmarkCategoryName().c_str()) : nil;
-    _isHtmlDescription = strings::IsHTML(GetPreferredBookmarkStr(rawData.GetBookmarkData().m_description));
+    _isHtmlDescription = strings::IsHTML(description);
     _color = convertKmlColor(rawData.GetBookmarkData().m_color.m_predefinedColor);
   }
   return self;
