@@ -1255,9 +1255,20 @@ UNIT_TEST(IsHTML)
 
   TEST(IsHTML("<a href=\"link\">some link</a>"), ());
   TEST(IsHTML("This is: ---> a <b>broken</b> html"), ());
+  TEST(IsHTML("Leading text, then a <p>paragraph</p>"), ());
+  TEST(IsHTML("<!-- comment --> and some text"), ());
   TEST(!IsHTML("This is not html"), ());
   TEST(!IsHTML("This is not html < too!"), ());
   TEST(!IsHTML("I am > not html"), ());
+  TEST(!IsHTML(""), ());
+  // Plain text with stray comparison/arrow characters must stay plain, so it is
+  // not garbled by (or needlessly routed through) the HTML renderer.
+  TEST(!IsHTML("Pace <5 min, route A->B"), ());
+  TEST(!IsHTML("2 < 3 and 5 > 4"), ());
+  TEST(!IsHTML("temp <0, climb >2000m"), ());
+  TEST(!IsHTML(">_< emoticon"), ());
+  // A closing-tag fragment with no opening tag is treated as plain text.
+  TEST(!IsHTML("the </summary> section runs > 50 pages"), ());
 }
 
 UNIT_TEST(AlmostEqual)

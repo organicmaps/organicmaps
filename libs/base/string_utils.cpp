@@ -340,18 +340,24 @@ std::string to_string_dac(double d, uint8_t dac)
 
 bool IsHTML(std::string const & utf8)
 {
-  auto it = utf8.begin();
-  size_t ltCount = 0;
-  size_t gtCount = 0;
-  while (it != utf8.end())
+  // HTML opens with '<' + a tag name ('<p', '<a') or a markup/comment marker
+  // ('<!'), followed by a '>'. Well-formed HTML always leads with an opening
+  // tag (every closer is preceded by its opener), so there's no need to look
+  // for closing tags. Plain text with stray comparisons or arrows ("a < b",
+  // "A->B", "<5") stays plain, so it is not garbled by (or needlessly routed
+  // through) the HTML renderer. ASCII checks are UTF-8 safe: multibyte bytes
+  // are all >= 0x80 and never collide with these markers.
+  auto const isAlpha = [](char c) { return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'); };
+  size_t const size = utf8.size();
+  for (size_t i = 0; i + 1 < size; ++i)
   {
-    UniChar const c = utf8::unchecked::next(it);
-    if (c == '<')
-      ++ltCount;
-    else if (c == '>')
-      ++gtCount;
+    if (utf8[i] != '<')
+      continue;
+    char const next = utf8[i + 1];
+    if (isAlpha(next) || next == '!')
+      return utf8.find('>', i + 2) != std::string::npos;
   }
-  return (ltCount > 0 && gtCount > 0);
+  return false;
 }
 
 bool AlmostEqual(std::string const & str1, std::string const & str2, size_t mismatchedCount)
