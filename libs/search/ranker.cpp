@@ -416,10 +416,10 @@ private:
     // Use brand instead of empty result name. If no brand try to use operator.
     if (!m_isViewportMode && name.empty())
     {
-    if (auto const brand = ft->GetMetadata(feature::Metadata::FMD_BRAND); !brand.empty())
-      name = platform::GetLocalizedBrandName(std::string{brand});
-    else if (auto const op = ft->GetMetadata(feature::Metadata::FMD_OPERATOR); !op.empty())
-      name = op;
+      if (auto const brand = ft->GetMetadata(feature::Metadata::FMD_BRAND); !brand.empty())
+        name = platform::GetLocalizedBrandName(std::string{brand});
+      else if (auto const op = ft->GetMetadata(feature::Metadata::FMD_OPERATOR); !op.empty())
+        name = op;
     }
 
     /// @todo Ensure that we actually need to get and assign address here? Needed for the ranking?
