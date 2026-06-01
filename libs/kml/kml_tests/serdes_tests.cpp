@@ -97,7 +97,6 @@ kml::FileData GenerateKmlFileData()
   bookmarkData1.m_compilations = {1, 2, 3, 4, 5};
   result.m_bookmarksData.emplace_back(std::move(bookmarkData1));
 
-
   kml::BookmarkData bookmarkData2;
   bookmarkData2.m_name[kDefaultLang] = "Miami Beach";
   bookmarkData2.m_name[kRuLang] = "Маями";
@@ -119,7 +118,6 @@ kml::FileData GenerateKmlFileData()
   bookmarkData2.m_properties = {{"om_property1", "value1"}, {"om_property2", "value2"}, {"score", "A"}};
   bookmarkData2.m_compilations = {1, 3, 5};
   result.m_bookmarksData.emplace_back(std::move(bookmarkData2));
-
 
   kml::TrackData trackData;
   trackData.m_localId = 0;
@@ -391,7 +389,6 @@ UNIT_TEST(Kml_Serialization_Bin_File)
     bookmark.m_modifiedTimestamp = kml::Timestamp();
   for (auto & track : data.m_tracksData)
     track.m_modifiedTimestamp = kml::Timestamp();
-
 
   std::string const kmbFile = base::JoinPath(GetPlatform().TmpDir(), "tmp.kmb");
   SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, kmbFile));
