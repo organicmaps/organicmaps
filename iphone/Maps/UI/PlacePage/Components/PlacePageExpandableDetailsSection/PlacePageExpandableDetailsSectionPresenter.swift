@@ -31,11 +31,10 @@ final class PlacePageExpandableDetailsSectionPresenter {
       viewModel.accessory = image
     case .updateExpandableText(let string, let isHTML):
       if isHTML, let string {
+        // HTML is parsed off the main thread and applied in the completion below;
+        // title, icon and accessory still render synchronously via process().
         Self.buildAttributedString(from: string) { [weak self] attributedString in
-          guard let self else { return }
-          self.viewModel.expandableText = .html(attributedString)
-          self.viewModel.expandedState = attributedString.string.isEmpty ? .hidden : .collapsed
-          self.view?.render(self.viewModel)
+          self?.applyHtmlExpandableText(attributedString)
         }
       } else {
         viewModel.expandableText = string.map { .plain($0) }
@@ -43,6 +42,14 @@ final class PlacePageExpandableDetailsSectionPresenter {
       }
     }
     return viewModel
+  }
+
+  private func applyHtmlExpandableText(_ attributedString: NSAttributedString) {
+    let isEmpty = attributedString.string.isEmpty
+    // Hide the section on an empty parse instead of showing a blank label.
+    viewModel.expandableText = isEmpty ? nil : .html(attributedString)
+    viewModel.expandedState = isEmpty ? .hidden : .collapsed
+    view?.render(viewModel)
   }
 
   private static func buildAttributedString(from htmlString: String, completion: @escaping (NSAttributedString) -> Void) {
