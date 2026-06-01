@@ -100,7 +100,7 @@ kml::FileData GenerateKmlFileData()
   bookmarkData2.m_name[kRuLang] = "Маями";
   bookmarkData2.m_description[kDefaultLang] = "Nice place to tan";
   bookmarkData2.m_description[kRuLang] = "Отличное место для солнечных ванн";
-  bookmarkData2.m_featureTypes = {718, 715};
+  bookmarkData2.m_featureTypes = {cl.GetTypeByPath({"leisure", "beach_resort"})};
   bookmarkData2.m_customName[kDefaultLang] = "Хочу побывать";
   bookmarkData2.m_customName[kEnLang] = "Place I want to visit";
   bookmarkData2.m_color = {kml::PredefinedColor::Red, 0};
