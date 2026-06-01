@@ -413,12 +413,18 @@ private:
     center = feature::GetCenter(*ft);
     m_ranker.GetBestMatchName(*ft, name);
 
-    // Use brand instead of empty result name.
+    // Use brand instead of empty result name. If no brand try to use operator.
     if (!m_isViewportMode && name.empty())
     {
       std::string_view brand = (*ft).GetMetadata(feature::Metadata::FMD_BRAND);
       if (!brand.empty())
         name = platform::GetLocalizedBrandName(std::string{brand});
+      else
+      {
+        std::string_view op = (*ft).GetMetadata(feature::Metadata::FMD_OPERATOR);
+        if (!op.empty())
+          name = op;
+      }
     }
 
     /// @todo Ensure that we actually need to get and assign address here? Needed for the ranking?
