@@ -54,6 +54,8 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   private final NavigationManager mNavigationManager;
   @NonNull
   private final LocationListener mLocationListener = this::updateTrip;
+  @NonNull
+  private final Runnable mTtsStateListener = this::invalidate;
 
   @NonNull
   private Trip mTrip = new Trip.Builder().setLoading(true).build();
@@ -153,6 +155,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     mNavigationManager.navigationStarted();
 
     getLocationHelper().addListener(mLocationListener);
+    TtsPlayer.addStateChangedListener(mTtsStateListener);
     if (LocationUtils.checkFineLocationPermission(getCarContext()))
       NavigationService.startForegroundService(getCarContext());
     updateTrip(/* location */ null);
@@ -173,6 +176,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
       onAutodriveDisabled();
     NavigationService.stopService(getCarContext());
     getLocationHelper().removeListener(mLocationListener);
+    TtsPlayer.removeStateChangedListener(mTtsStateListener);
 
     if (mRoutingController.isNavigating())
       mRoutingController.onSaveState();
@@ -252,16 +256,34 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   @NonNull
   private Action createTtsAction()
   {
-    final Action.Builder ttsActionBuilder = new Action.Builder();
-    @DrawableRes
-    final int imgRes = TtsPlayer.isEnabled() ? R.drawable.ic_voice_on : R.drawable.ic_voice_off;
-    ttsActionBuilder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), imgRes)).build());
-    ttsActionBuilder.setOnClickListener(() -> {
-      TtsPlayer.setEnabled(!TtsPlayer.isEnabled());
-      invalidate();
-    });
+    final TtsPlayer.State state = TtsPlayer.getState();
 
-    return ttsActionBuilder.build();
+    @DrawableRes
+    final int imgRes = state == TtsPlayer.State.READY_ON ? R.drawable.ic_voice_on : R.drawable.ic_voice_off;
+    final CarIcon.Builder iconBuilder = new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), imgRes));
+    if (!state.isReady())
+      iconBuilder.setTint(CarColor.SECONDARY);
+
+    return new Action.Builder().setIcon(iconBuilder.build()).setOnClickListener(this::onTtsActionClicked).build();
+  }
+
+  private void onTtsActionClicked()
+  {
+    switch (TtsPlayer.getState())
+    {
+    case READY_ON:
+    case READY_OFF: TtsPlayer.setEnabled(!TtsPlayer.isEnabled()); return;
+    case UNAVAILABLE:
+    case NEEDS_LANGUAGE: showVoiceUnavailableToast(); return;
+    default:
+      // INITIALIZING — transient, silent.
+    }
+  }
+
+  // The car can't open phone settings, so surface the recovery hint as a toast.
+  private void showVoiceUnavailableToast()
+  {
+    CarToast.makeText(getCarContext(), R.string.pref_tts_unavailable, CarToast.LENGTH_SHORT).show();
   }
 
   @NonNull

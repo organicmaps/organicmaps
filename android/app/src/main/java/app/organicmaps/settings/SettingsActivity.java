@@ -1,7 +1,11 @@
 package app.organicmaps.settings;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
@@ -13,6 +17,14 @@ public class SettingsActivity
     extends BaseToolbarActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback,
                                            PreferenceFragmentCompat.OnPreferenceStartScreenCallback
 {
+  private static final String EXTRA_OPEN_VOICE_INSTRUCTIONS = "open_voice_instructions";
+
+  public static void startForVoiceInstructions(@NonNull Context context)
+  {
+    final Intent intent = new Intent(context, SettingsActivity.class).putExtra(EXTRA_OPEN_VOICE_INSTRUCTIONS, true);
+    context.startActivity(intent);
+  }
+
   @Override
   protected int getContentLayoutResId()
   {
@@ -23,6 +35,15 @@ public class SettingsActivity
   protected Class<? extends Fragment> getFragmentClass()
   {
     return SettingsPrefsFragment.class;
+  }
+
+  @Override
+  protected void onSafeCreate(@Nullable Bundle savedInstanceState)
+  {
+    super.onSafeCreate(savedInstanceState);
+
+    if (savedInstanceState == null && getIntent().getBooleanExtra(EXTRA_OPEN_VOICE_INSTRUCTIONS, false))
+      stackFragment(VoiceInstructionsSettingsFragment.class, getString(R.string.pref_tts_enable_title), null);
   }
 
   @Override

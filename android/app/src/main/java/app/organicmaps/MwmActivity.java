@@ -577,8 +577,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     initNavigationButtons();
 
-    mNavigationController =
-        new NavigationController(this, v -> onSettingsOptionSelected(), this::updateBottomWidgetsOffset);
+    mNavigationController = new NavigationController(
+        this, v -> onSettingsOptionSelected(), v -> openVoiceInstructionsSettings(), this::updateBottomWidgetsOffset);
     // TrafficManager.INSTANCE.attach(mNavigationController);
     initOnmapDownloader();
     initPositionChooser();
@@ -1895,6 +1895,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Intent intent = new Intent(this, SettingsActivity.class);
     closeFloatingPanels();
     startActivity(intent);
+  }
+
+  private void openVoiceInstructionsSettings()
+  {
+    SettingsActivity.startForVoiceInstructions(this);
   }
 
   private boolean startTrackRecording()
