@@ -385,7 +385,7 @@ UNIT_TEST(Kml_Deserialization_Bin_File)
 UNIT_TEST(Kml_Serialization_Bin_File)
 {
   classificator::Load();
-  auto const data = GenerateKmlFileData();
+  auto data = GenerateKmlFileData();
   // KMB format doesn't have 'm_modifiedTimestamp' field. Let's erase this field.
   for (auto & bookmark : data.m_bookmarksData)
     bookmark.m_modifiedTimestamp = kml::Timestamp();
