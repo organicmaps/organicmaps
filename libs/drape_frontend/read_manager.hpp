@@ -27,7 +27,7 @@ namespace df
 class MapDataProvider;
 class MetalineManager;
 
-uint8_t constexpr kReadingThreadsCount = 2;
+uint8_t GetReadingThreadsCount();
 
 class ReadManager
 {

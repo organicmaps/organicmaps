@@ -113,7 +113,7 @@ private:
     return *instance;
   }
 
-  DrapeRoutine() : m_workerThread(4 /* threads count */) {}
+  DrapeRoutine() : m_workerThread(2 /* threads count */) {}
 
   uint64_t GetNextId()
   {
