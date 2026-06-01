@@ -3,6 +3,8 @@
 #include "drape_frontend/metaline_manager.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "platform/platform.hpp"
+
 #include "base/buffer_vector.hpp"
 
 #include <algorithm>
@@ -24,6 +26,11 @@ struct LessCoverageCell
   }
 };
 }  // namespace
+
+uint8_t GetReadingThreadsCount()
+{
+  return Platform::CpuCores() >= 6 ? 3 : 2;
+}
 
 bool ReadManager::LessByTileInfo::operator()(std::shared_ptr<TileInfo> const & l,
                                              std::shared_ptr<TileInfo> const & r) const
@@ -57,7 +64,7 @@ void ReadManager::Start()
 
   ASSERT_EQUAL(m_counter, 0, ());
 
-  m_pool = make_unique_dp<base::ThreadPool>(kReadingThreadsCount,
+  m_pool = make_unique_dp<base::ThreadPool>(GetReadingThreadsCount(),
                                             std::bind(&ReadManager::OnTaskFinished, this, std::placeholders::_1));
 }
 
