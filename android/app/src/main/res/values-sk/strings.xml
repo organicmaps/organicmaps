@@ -675,6 +675,12 @@
     <string name="toll_road">Spoplatnená cesta</string>
     <string name="unpaved_road">Nespevnená cesta</string>
     <string name="ferry_crossing">Prechod trajektom</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_steps">Schody</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_gate">Brána</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_lift_gate">Závora</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Áno</string>
     <!-- A generic "No" button in dialogs -->

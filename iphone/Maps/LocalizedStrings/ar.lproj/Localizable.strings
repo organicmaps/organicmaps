@@ -711,6 +711,15 @@
 "unpaved_road" = "طريق غير معبد";
 "ferry_crossing" = "استخدام عبّارة";
 
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_steps" = "درج";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_gate" = "بوابة";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_lift_gate" = "حاجز بوابة";
+
 /* A generic "Yes" button in dialogs */
 "yes" = "نعم";
 

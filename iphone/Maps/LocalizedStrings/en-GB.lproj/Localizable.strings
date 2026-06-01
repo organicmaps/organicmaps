@@ -711,6 +711,15 @@
 "unpaved_road" = "Unpaved road";
 "ferry_crossing" = "Ferry crossing";
 
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_steps" = "Stairs";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_gate" = "Gate";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_lift_gate" = "Lift Gate";
+
 /* A generic "Yes" button in dialogs */
 "yes" = "Yes";
 

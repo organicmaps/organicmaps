@@ -677,6 +677,12 @@
     <string name="toll_road">Tasuline tee</string>
     <string name="unpaved_road">Sillutamata tee</string>
     <string name="ferry_crossing">Praamiületus</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_steps">Trepp</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_gate">Värav</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_lift_gate">Tõkkepuu</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Jah</string>
     <!-- A generic "No" button in dialogs -->

@@ -711,6 +711,15 @@
 "unpaved_road" = "Ikke-asfalteret vej";
 "ferry_crossing" = "Færgeoverfart";
 
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_steps" = "Trappe";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_gate" = "Port";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_lift_gate" = "Bom";
+
 /* A generic "Yes" button in dialogs */
 "yes" = "Ja";
 

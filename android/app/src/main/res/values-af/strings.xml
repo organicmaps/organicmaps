@@ -671,6 +671,12 @@
     <string name="toll_road">Tolpaaie</string>
     <string name="unpaved_road">Grondpaaie</string>
     <string name="ferry_crossing">Veerbootkruisings</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_steps">Trap</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_gate">Hek</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_lift_gate">Valboom</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Ja</string>
     <!-- A generic "No" button in dialogs -->

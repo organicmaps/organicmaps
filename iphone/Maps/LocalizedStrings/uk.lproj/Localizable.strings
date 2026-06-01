@@ -711,6 +711,15 @@
 "unpaved_road" = "Ґрунтова дорога";
 "ferry_crossing" = "Поромна переправа";
 
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_steps" = "Сходи";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_gate" = "Ворота";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_lift_gate" = "Шлагбаум";
+
 /* A generic "Yes" button in dialogs */
 "yes" = "Так";
 

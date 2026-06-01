@@ -711,6 +711,15 @@
 "unpaved_road" = "未舗装道路";
 "ferry_crossing" = "フェリー";
 
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_steps" = "階段";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_gate" = "ゲート";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_lift_gate" = "ブームバリア";
+
 /* A generic "Yes" button in dialogs */
 "yes" = "はい";
 

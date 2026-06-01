@@ -711,6 +711,15 @@
 "unpaved_road" = "Droga gruntowa";
 "ferry_crossing" = "Przeprawa promowa";
 
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_steps" = "Schody";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_gate" = "Brama";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_lift_gate" = "Szlaban";
+
 /* A generic "Yes" button in dialogs */
 "yes" = "Tak";
 

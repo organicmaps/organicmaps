@@ -711,6 +711,15 @@
 "unpaved_road" = "Burkolatlan utak";
 "ferry_crossing" = "Kompátkelők";
 
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_steps" = "Lépcső";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_gate" = "Kapu";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_lift_gate" = "Emelkedő sorompó";
+
 /* A generic "Yes" button in dialogs */
 "yes" = "Igen";
 

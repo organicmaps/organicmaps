@@ -673,6 +673,12 @@
     <string name="toll_road">有料道路</string>
     <string name="unpaved_road">未舗装道路</string>
     <string name="ferry_crossing">フェリー</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_steps">階段</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_gate">ゲート</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_lift_gate">ブームバリア</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">はい</string>
     <!-- A generic "No" button in dialogs -->

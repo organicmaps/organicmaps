@@ -711,6 +711,15 @@
 "unpaved_road" = "Asfaltsız yol";
 "ferry_crossing" = "Bərə keçidi";
 
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_steps" = "Pilləkənlər";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_gate" = "Qapı";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_lift_gate" = "Şlaqbaum";
+
 /* A generic "Yes" button in dialogs */
 "yes" = "Bəli";
 
