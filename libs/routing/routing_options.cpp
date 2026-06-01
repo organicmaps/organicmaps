@@ -30,7 +30,7 @@ RoutingOptions LoadOptionsFromSettings(std::string_view key)
 
 void SaveOptionsToSettings(RoutingOptions options, std::string_view key)
 {
-  settings::Set(key, strings::to_string(static_cast<int32_t>(options.GetOptions())));
+  settings::Set(key, static_cast<uint32_t>(options.GetOptions()));
 }
 
 // static

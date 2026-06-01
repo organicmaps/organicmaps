@@ -20,7 +20,7 @@ public:
     Dirty = 1u << 4,
     Steps = 1u << 5,
 
-    Max = (1u << 5) + 1
+    Max = 1u << 6
   };
 
   using RoadType = std::underlying_type_t<Road>;
