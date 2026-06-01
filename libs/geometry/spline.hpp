@@ -60,14 +60,15 @@ public:
   bool IsProlonging(PointD const & pt) const;
 
   m2::RectD GetRect() const;
-  size_t GetSize() const;
+
+  size_t GetSize() const { return m_position.size(); }
+  bool IsEmpty() const { return m_position.empty(); }
+  bool IsValid() const { return m_position.size() > 1; }
   std::vector<PointD> const & GetPath() const { return m_position; }
+
   void Clear();
 
   iterator GetPoint(double step) const;
-
-  bool IsEmpty() const;
-  bool IsValid() const;
 
   double GetLength() const;
   /// @return for (i) -> (i + 1) section.

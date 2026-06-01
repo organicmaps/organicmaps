@@ -5,6 +5,11 @@
 
 namespace m2
 {
+namespace
+{
+double constexpr kMinSegmentLengthSqr = 1e-14;
+}  // namespace
+
 Spline::Spline(std::vector<PointD> path) : m_position(std::move(path))
 {
   // Splines must have at least 2 points to be meaningful: a single-point
@@ -36,10 +41,11 @@ void Spline::AddPoint(PointD const & pt)
     /// Now we have line objects with zero length segments
     /// https://jira.mail.ru/browse/MAPSME-3561
     PointD const dir = pt - m_position.back();
-    if (dir.IsAlmostZero())
+    double const lenSqr = dir.SquaredLength();
+    if (lenSqr < kMinSegmentLengthSqr)
       return;
 
-    double const len = dir.Length();
+    double const len = sqrt(lenSqr);
     ASSERT_GREATER(len, 0, ());
     m_length.push_back(len);
     m_direction.push_back(dir / len);
@@ -92,26 +98,11 @@ m2::RectD Spline::GetRect() const
   return r;
 }
 
-size_t Spline::GetSize() const
-{
-  return m_position.size();
-}
-
 void Spline::Clear()
 {
   m_position.clear();
   m_direction.clear();
   m_length.clear();
-}
-
-bool Spline::IsEmpty() const
-{
-  return m_position.empty();
-}
-
-bool Spline::IsValid() const
-{
-  return m_position.size() > 1;
 }
 
 Spline::iterator Spline::GetPoint(double step) const
