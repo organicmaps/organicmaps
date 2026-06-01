@@ -285,8 +285,7 @@
         <mwm:lang code="default">Nice place to tan</mwm:lang>
       </mwm:description>
       <mwm:featureTypes>
-        <mwm:value>historic-castle</mwm:value>
-        <mwm:value>historic-memorial</mwm:value>
+        <mwm:value>leisure-beach_resort</mwm:value>
       </mwm:featureTypes>
       <mwm:customName>
         <mwm:lang code="en">Place I want to visit</mwm:lang>
