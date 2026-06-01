@@ -2,6 +2,8 @@
 
 #include "geometry/tree4d.hpp"
 
+#include "base/stl_helpers.hpp"
+
 #include <functional>
 
 namespace tree_test
