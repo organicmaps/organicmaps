@@ -74,8 +74,7 @@ private:
 class BicycleOptionsGuard
 {
 public:
-  BicycleOptionsGuard()
-    : m_saved(RoutingOptions::IsPublicBicycleEnabled())
+  BicycleOptionsGuard() : m_saved(RoutingOptions::IsPublicBicycleEnabled())
   {
     RoutingOptions::SetPublicBicycleEnabled(true);
   }

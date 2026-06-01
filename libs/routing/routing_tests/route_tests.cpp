@@ -134,9 +134,8 @@ UNIT_TEST(PublicBikeSharingRouteKeepsNavigationSubrouteSeparateFromRenderLegs)
   route.SetSubroteAttrs(vector<Route::SubrouteAttrs>{
       {geometry::PointWithAltitude(kTestGeometry[1], geometry::kDefaultAltitudeMeters),
        geometry::PointWithAltitude(kTestGeometry[5], geometry::kDefaultAltitudeMeters), 0, 5}});
-  route.SetRenderSegments(vector<Route::RenderSegment>{{0, 2, VehicleType::Pedestrian},
-                                                       {2, 3, VehicleType::Bicycle},
-                                                       {3, 5, VehicleType::Pedestrian}});
+  route.SetRenderSegments(vector<Route::RenderSegment>{
+      {0, 2, VehicleType::Pedestrian}, {2, 3, VehicleType::Bicycle}, {3, 5, VehicleType::Pedestrian}});
 
   TEST_EQUAL(route.GetSubrouteCount(), 1, ());
   TEST_EQUAL(route.GetSubrouteAttrs(0).GetVehicleType(), VehicleType::Count, ());

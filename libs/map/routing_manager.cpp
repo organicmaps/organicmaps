@@ -118,16 +118,11 @@ bool AddRenderSegmentStyles(Route const & route, Route::SubrouteAttrs const & su
     df::SubrouteStyle style;
     switch (renderSegment.m_vehicleType)
     {
-    case VehicleType::Pedestrian:
-      style = df::SubrouteStyle(df::kRoutePedestrian, df::RoutePattern(4.0, 2.0));
-      break;
-    case VehicleType::Bicycle:
-      style = df::SubrouteStyle(df::kRouteBicycle);
-      break;
+    case VehicleType::Pedestrian: style = df::SubrouteStyle(df::kRoutePedestrian, df::RoutePattern(4.0, 2.0)); break;
+    case VehicleType::Bicycle: style = df::SubrouteStyle(df::kRouteBicycle); break;
     case VehicleType::Transit:
     case VehicleType::Car:
-    case VehicleType::Count:
-      continue;
+    case VehicleType::Count: continue;
     }
 
     style.m_startIndex = beginSegmentIdx - subrouteBeginSegmentIdx;

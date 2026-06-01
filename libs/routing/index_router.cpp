@@ -227,7 +227,8 @@ void AppendLeg(Route const & leg, bool isLastLeg, VehicleType vehicleType, std::
   {
     if (subroutes != nullptr)
     {
-      subroutes->emplace_back(subroute.GetStart(), subroute.GetFinish(), beginSegmentIdx + subroute.GetBeginSegmentIdx(),
+      subroutes->emplace_back(subroute.GetStart(), subroute.GetFinish(),
+                              beginSegmentIdx + subroute.GetBeginSegmentIdx(),
                               beginSegmentIdx + subroute.GetEndSegmentIdx());
     }
   }
@@ -259,8 +260,8 @@ void BuildMergedRoute(std::vector<Route> const & legs, std::vector<VehicleType> 
   {
     auto const & bikeSubroute = bikeSubroutes[i];
     auto const & start = i == 0 ? legs[0].GetSubrouteAttrs(0).GetStart() : bikeSubroute.GetStart();
-    auto const & finish = i + 1 == bikeSubroutes.size() ? legs[2].GetSubrouteAttrs(0).GetFinish()
-                                                        : bikeSubroute.GetFinish();
+    auto const & finish =
+        i + 1 == bikeSubroutes.size() ? legs[2].GetSubrouteAttrs(0).GetFinish() : bikeSubroute.GetFinish();
     size_t const beginSegmentIdx = i == 0 ? 0 : bikeSubroute.GetBeginSegmentIdx();
     size_t const endSegmentIdx = i + 1 == bikeSubroutes.size() ? segments.size() : bikeSubroute.GetEndSegmentIdx();
     subroutes.emplace_back(start, finish, beginSegmentIdx, endSegmentIdx);
@@ -562,9 +563,9 @@ RouterResultCode IndexRouter::CalculatePublicBicycleRoute(Checkpoints const & ch
     if (lastError != RouterResultCode::NoError)
       continue;
 
-    auto const & walkFromBikeRoute = getPedestrianRoute(walkFromBikeRoutes, finishStation,
-                                                        Checkpoints(finishStation.m_point, finish),
-                                                        m2::PointD::Zero() /* startDirection */);
+    auto const & walkFromBikeRoute =
+        getPedestrianRoute(walkFromBikeRoutes, finishStation, Checkpoints(finishStation.m_point, finish),
+                           m2::PointD::Zero() /* startDirection */);
     lastError = walkFromBikeRoute.m_result;
     if (lastError == RouterResultCode::Cancelled)
       return lastError;
