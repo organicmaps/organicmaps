@@ -975,7 +975,7 @@
 "outdoor_seating" = "Places en terrasse";
 
 /* Prompt to start recording a track. */
-"start_track_recording" = "Enregistrer la trace";
+"start_track_recording" = "Enregistrer le trajet";
 
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Arrêter l'enregistrement de la trace";

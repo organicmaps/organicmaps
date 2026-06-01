@@ -848,7 +848,7 @@
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Pour une navigation plus précise, nous vous recommandons de désactiver le mode d\'économie d\'énergie dans les paramètres de la batterie du téléphone.</string>
     <!-- Prompt to start recording a track. -->
-    <string name="start_track_recording">Enregistrer la trace</string>
+    <string name="start_track_recording">Enregistrer le trajet</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Arrêter l\'enregistrement de la trace</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
