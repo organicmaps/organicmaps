@@ -1,17 +1,12 @@
 #pragma once
 
-#include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
-#include "base/logging.hpp"
-#include "base/stl_helpers.hpp"
+#include "3party/kdtree++/kdtree.hpp"
 
 #include <sstream>
 #include <string>
-#include <utility>
 #include <vector>
-
-#include "3party/kdtree++/kdtree.hpp"
 
 namespace m4
 {
@@ -35,9 +30,11 @@ class Tree
       SetRect(r);
     }
 
-    bool IsIntersect(m2::RectD const & r) const
+    bool IsIntersect(m2::RectD const & r) const { return IsIntersect(r.minX(), r.minY(), r.maxX(), r.maxY()); }
+
+    bool IsIntersect(double minX, double minY, double maxX, double maxY) const
     {
-      return !((m_pts[2] <= r.minX()) || (m_pts[0] >= r.maxX()) || (m_pts[3] <= r.minY()) || (m_pts[1] >= r.maxY()));
+      return !((m_pts[2] <= minX) || (m_pts[0] >= maxX) || (m_pts[3] <= minY) || (m_pts[1] >= maxY));
     }
 
     bool operator==(Value const & r) const { return (m_val == r.m_val); }
@@ -75,14 +72,20 @@ class Tree
   class for_each_helper
   {
   public:
-    for_each_helper(m2::RectD const & r, ToDo && toDo) : m_rect(r), m_toDo(std::forward<ToDo>(toDo)) {}
+    for_each_helper(m2::RectD const & r, ToDo && toDo)
+      : m_minX(r.minX())
+      , m_minY(r.minY())
+      , m_maxX(r.maxX())
+      , m_maxY(r.maxY())
+      , m_toDo(std::forward<ToDo>(toDo))
+    {}
 
     bool ScanLeft(size_t plane, Value const & v) const
     {
       switch (plane & 3)  // % 4
       {
-      case 2: return m_rect.minX() < v[2];
-      case 3: return m_rect.minY() < v[3];
+      case 2: return m_minX < v[2];
+      case 3: return m_minY < v[3];
       default: return true;
       }
     }
@@ -91,27 +94,30 @@ class Tree
     {
       switch (plane & 3)  // % 4
       {
-      case 0: return m_rect.maxX() > v[0];
-      case 1: return m_rect.maxY() > v[1];
+      case 0: return m_maxX > v[0];
+      case 1: return m_maxY > v[1];
       default: return true;
       }
     }
 
     void operator()(Value const & v) const
     {
-      if (v.IsIntersect(m_rect))
+      if (v.IsIntersect(m_minX, m_minY, m_maxX, m_maxY))
         m_toDo(v);
     }
 
     bool DoIfIntersects(Value const & v) const
     {
-      if (v.IsIntersect(m_rect))
+      if (v.IsIntersect(m_minX, m_minY, m_maxX, m_maxY))
         return m_toDo(v);
       return false;
     }
 
   private:
-    m2::RectD const & m_rect;
+    double const m_minX;
+    double const m_minY;
+    double const m_maxX;
+    double const m_maxY;
     ToDo m_toDo;
   };
 
