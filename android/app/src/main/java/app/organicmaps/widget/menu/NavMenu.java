@@ -1,5 +1,6 @@
 package app.organicmaps.widget.menu;
 
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.util.Pair;
 import android.view.View;
@@ -126,8 +127,15 @@ public class NavMenu
 
   private void onTtsClicked()
   {
-    TtsPlayer.setEnabled(!TtsPlayer.isEnabled());
-    refreshTts();
+    if (!TtsPlayer.isReady())
+    {
+      mNavMenuListener.onTtsVoiceSettingsClicked();
+    }
+    else
+    {
+      TtsPlayer.setEnabled(!TtsPlayer.isEnabled());
+      refreshTts();
+    }
   }
 
   private void toggleNavMenu()
@@ -166,9 +174,14 @@ public class NavMenu
 
   public void refreshTts()
   {
-    mTts.setImageDrawable(TtsPlayer.isEnabled()
-                              ? Graphics.tint(mActivity, R.drawable.ic_voice_on, androidx.appcompat.R.attr.colorAccent)
-                              : Graphics.tint(mActivity, R.drawable.ic_voice_off));
+    final Drawable icon;
+    if (!TtsPlayer.isReady())
+      icon = Graphics.tint(mActivity, R.drawable.ic_voice_off, R.attr.iconTintDisabled);
+    else if (TtsPlayer.isEnabled())
+      icon = Graphics.tint(mActivity, R.drawable.ic_voice_on, androidx.appcompat.R.attr.colorAccent);
+    else
+      icon = Graphics.tint(mActivity, R.drawable.ic_voice_off);
+    mTts.setImageDrawable(icon);
   }
 
   private void updateTime(int seconds)
@@ -239,5 +252,7 @@ public class NavMenu
     void onStopClicked();
 
     void onSettingsClicked();
+
+    void onTtsVoiceSettingsClicked();
   }
 }
