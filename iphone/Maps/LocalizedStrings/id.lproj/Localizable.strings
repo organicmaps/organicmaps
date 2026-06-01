@@ -711,6 +711,15 @@
 "unpaved_road" = "Jalan tanah";
 "ferry_crossing" = "Penyeberangan kapal feri";
 
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_steps" = "Tangga";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_gate" = "Gerbang";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_lift_gate" = "Palang pintu";
+
 /* A generic "Yes" button in dialogs */
 "yes" = "Ya";
 

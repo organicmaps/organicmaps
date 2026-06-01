@@ -711,6 +711,15 @@
 "unpaved_road" = "Rrugë e paasfaltuar";
 "ferry_crossing" = "Kalim me traget";
 
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_steps" = "Shkallë";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_gate" = "Portë";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_lift_gate" = "Tra";
+
 /* A generic "Yes" button in dialogs */
 "yes" = "Po";
 

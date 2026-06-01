@@ -711,6 +711,15 @@
 "unpaved_road" = "Carretera sin asfaltar";
 "ferry_crossing" = "Travesía en transbordador";
 
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_steps" = "Escaleras";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_gate" = "Puerta";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_lift_gate" = "Pluma de acceso";
+
 /* A generic "Yes" button in dialogs */
 "yes" = "Sí";
 

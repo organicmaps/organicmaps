@@ -711,6 +711,15 @@
 "unpaved_road" = "Neasfaltirana cesta";
 "ferry_crossing" = "Prijevoz trajektom";
 
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_steps" = "Stairs";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_gate" = "Gate";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_lift_gate" = "Lift Gate";
+
 /* A generic "Yes" button in dialogs */
 "yes" = "Da";
 

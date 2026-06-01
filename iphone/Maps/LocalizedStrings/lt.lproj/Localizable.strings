@@ -711,6 +711,15 @@
 "unpaved_road" = "Negrįstas kelias";
 "ferry_crossing" = "Persikėlimas keltu";
 
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_steps" = "Laiptai";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_gate" = "Vartai";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_lift_gate" = "Pakeliamas užtvaras";
+
 /* A generic "Yes" button in dialogs */
 "yes" = "Taip";
 

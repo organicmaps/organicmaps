@@ -711,6 +711,15 @@
 "unpaved_road" = "비포장 도로";
 "ferry_crossing" = "여객선 횡단길";
 
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_steps" = "계단";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_gate" = "게이트";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_lift_gate" = "차량차단기";
+
 /* A generic "Yes" button in dialogs */
 "yes" = "네";
 

@@ -711,6 +711,15 @@
 "unpaved_road" = "ถนนดิน";
 "ferry_crossing" = "เรือข้ามฟาก";
 
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_steps" = "บันได";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_gate" = "ประตู";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_lift_gate" = "ไม้กั้น";
+
 /* A generic "Yes" button in dialogs */
 "yes" = "ใช่";
 

@@ -628,6 +628,12 @@
     <string name="toll_road">ທາງເສຍຄ່າທຳນຽມ</string>
     <string name="unpaved_road">ທາງບໍ່ປູຢາງ</string>
     <string name="ferry_crossing">ຈຸດຂ້າມເຮືອຟາກ</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_steps">ຂັ້ນໄດ</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_gate">ປະຕູຮົ້ວ</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_lift_gate">ໄມ້ກັ້ນຍົກ</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">ແມ່ນ</string>
     <!-- A generic "No" button in dialogs -->

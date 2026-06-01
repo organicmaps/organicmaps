@@ -680,6 +680,12 @@
     <string name="toll_road">Via de peatge</string>
     <string name="unpaved_road">Via sense pavimentar</string>
     <string name="ferry_crossing">Ferris</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_steps">Escales</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_gate">Porta</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_lift_gate">Barrera llevadissa</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Sí</string>
     <!-- A generic "No" button in dialogs -->

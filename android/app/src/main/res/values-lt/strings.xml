@@ -677,6 +677,12 @@
     <string name="toll_road">Mokamas kelias</string>
     <string name="unpaved_road">Negrįstas kelias</string>
     <string name="ferry_crossing">Persikėlimas keltu</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_steps">Laiptai</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_gate">Vartai</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_lift_gate">Pakeliamas užtvaras</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Taip</string>
     <!-- A generic "No" button in dialogs -->

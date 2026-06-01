@@ -711,6 +711,15 @@
 "unpaved_road" = "Drum neasfaltat";
 "ferry_crossing" = "Trecere cu bac";
 
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_steps" = "Scări";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_gate" = "Poartă";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_lift_gate" = "Barieră cu braț";
+
 /* A generic "Yes" button in dialogs */
 "yes" = "Da";
 

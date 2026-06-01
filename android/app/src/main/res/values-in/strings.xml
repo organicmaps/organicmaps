@@ -672,6 +672,12 @@
     <string name="toll_road">Jalan tol</string>
     <string name="unpaved_road">Jalan tanah</string>
     <string name="ferry_crossing">Penyeberangan kapal feri</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_steps">Tangga</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_gate">Gerbang</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_lift_gate">Palang pintu</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Ya</string>
     <!-- A generic "No" button in dialogs -->

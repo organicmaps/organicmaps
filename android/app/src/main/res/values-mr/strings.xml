@@ -674,6 +674,12 @@
     <string name="toll_road">टोल मार्ग</string>
     <string name="unpaved_road">कच्चे मार्ग</string>
     <string name="ferry_crossing">जल मार्ग</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_steps">पायऱ्या</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_gate">दार</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_lift_gate">आडकाठी</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">होय</string>
     <!-- A generic "No" button in dialogs -->

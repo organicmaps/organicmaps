@@ -711,6 +711,15 @@
 "unpaved_road" = "未铺砌道路";
 "ferry_crossing" = "轮渡";
 
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_steps" = "阶梯";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_gate" = "门";
+
+/* Route warning shown on the map for this obstacle type. */
+"road_warning_lift_gate" = "道闸";
+
 /* A generic "Yes" button in dialogs */
 "yes" = "是";
 

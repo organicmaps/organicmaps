@@ -677,6 +677,12 @@
     <string name="toll_road">Путеви са путаринама</string>
     <string name="unpaved_road">Неасфалтирани путеви</string>
     <string name="ferry_crossing">Линије трајекта</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_steps">Степенице</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_gate">Капија</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_lift_gate">Рампа</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Да</string>
     <!-- A generic "No" button in dialogs -->
