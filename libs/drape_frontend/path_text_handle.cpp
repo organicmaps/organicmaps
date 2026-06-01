@@ -1,9 +1,9 @@
 #include "drape_frontend/path_text_handle.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "base/math.hpp"
+#include "drape/constants.hpp"
 
-#include <utility>
+#include "base/math.hpp"
 
 namespace df
 {
@@ -12,8 +12,9 @@ namespace
 {
 double const kValidPathSplineTurn = 15 * math::pi / 180;
 double const kCosTurn = cos(kValidPathSplineTurn);
-double const kRoundStep = 23;
-int const kMaxStepsCount = 7;
+double constexpr kRoundStep = 23;
+int constexpr kMaxStepsCount = 7;
+double constexpr kMinSegmentLengthSqr = 1e-12;
 
 size_t GetRoundedSplineReserve(size_t sourcePointCount)
 {
@@ -22,14 +23,6 @@ size_t GetRoundedSplineReserve(size_t sourcePointCount)
 
   return sourcePointCount + (sourcePointCount - 2) * static_cast<size_t>(kMaxStepsCount);
 }
-}  // namespace
-
-bool IsValidSplineTurn(m2::PointD const & normalizedDir1, m2::PointD const & normalizedDir2)
-{
-  double const dotProduct = m2::DotProduct(normalizedDir1, normalizedDir2);
-  double const kEps = 1e-5;
-  return dotProduct > kCosTurn || fabs(dotProduct - kCosTurn) < kEps;
-}
 
 // Append pt to the pixel-space spline, rounding the previous corner with a circular-arc fillet when the
 // turn is sharper than kValidPathSplineTurn. The arc is tangent to both segments and turns its tangent
@@ -37,7 +30,7 @@ bool IsValidSplineTurn(m2::PointD const & normalizedDir1, m2::PointD const & nor
 // keeps every sub-turn within the limit the glyph layout (CacheDynamicGeometry) accepts. Very acute
 // corners (> kMaxStepsCount * kValidPathSplineTurn) are left sharp so the layout drops text spanning
 // them instead of bending it around a large arc unrelated to the road.
-void AddPointAndRound(m2::SplineEx & spline, m2::PointD const & pt)
+void AddPointAndRound(m2::SplineEx & spline, m2::PointD const & pt, double visualScale)
 {
   if (spline.GetSize() < 2)
   {
@@ -48,10 +41,11 @@ void AddPointAndRound(m2::SplineEx & spline, m2::PointD const & pt)
   m2::PointD const p2 = spline.GetPath().back();
   m2::PointD const dir1 = spline.GetDirections().back();
   m2::PointD const seg2 = pt - p2;
-  if (seg2.IsAlmostZero())  // same as Spline::AddPoint
+  double const len2Sqr = seg2.SquaredLength();
+  if (len2Sqr < kMinSegmentLengthSqr)
     return;
 
-  double const len2 = seg2.Length();
+  double const len2 = sqrt(len2Sqr);
   m2::PointD const dir2 = seg2 / len2;
 
   double const dotProduct = m2::DotProduct(dir1, dir2);
@@ -68,9 +62,8 @@ void AddPointAndRound(m2::SplineEx & spline, m2::PointD const & pt)
     return;
   }
 
-  double const vs = df::VisualParams::Instance().GetVisualScale();
   double const len1 = spline.GetLengths().back();
-  double const cut = std::min(kRoundStep * vs, 0.5 * std::min(len1, len2));
+  double const cut = std::min(kRoundStep * visualScale, 0.5 * std::min(len1, len2));
 
   m2::PointD const a = p2 - dir1 * cut;  // Tangent point on the incoming segment.
   spline.ReplacePoint(a);                // Replace the sharp corner with the fillet.
@@ -103,9 +96,23 @@ void AddPointAndRound(m2::SplineEx & spline, m2::PointD const & pt)
 
   spline.AddPoint(pt);
 }
+}  // namespace
+
+bool IsValidSplineTurn(m2::PointD const & normalizedDir1, m2::PointD const & normalizedDir2)
+{
+  double const dotProduct = m2::DotProduct(normalizedDir1, normalizedDir2);
+  double const kEps = 1e-5;
+  return dotProduct > kCosTurn || fabs(dotProduct - kCosTurn) < kEps;
+}
+
+void AddPointAndRound(m2::SplineEx & spline, m2::PointD const & pt)
+{
+  AddPointAndRound(spline, pt, df::VisualParams::Instance().GetVisualScale());
+}
 
 PathTextContext::PathTextContext(m2::SharedSpline const & spline, double xOffset)
   : m_globalSpline(spline)
+  , m_visualScale(df::VisualParams::Instance().GetVisualScale())
   , m_xOffset(xOffset)
 {}
 
@@ -136,20 +143,30 @@ std::vector<double> const & PathTextContext::GetOffsets() const
   return m_globalOffsets;
 }
 
+bool PathTextContext::GetGlobalPivot(size_t textIndex, m2::PointD & pivot) const
+{
+  if (textIndex >= m_globalPivots.size())
+    return false;
+
+  auto const & globalPivot = m_globalPivots[textIndex];
+  pivot = m2::PointD(globalPivot.x + m_xOffset, globalPivot.y);
+  return true;
+}
+
 bool PathTextContext::GetPivot(size_t textIndex, ScreenBase const & screen, m2::PointD & pivot,
                                m2::Spline::iterator & centerPointIter)
 {
   if (textIndex >= m_pivots.size() || m_pixel3dSplines.empty())
     return false;
 
-  auto const & globalPivot = m_globalPivots[textIndex];
-  m2::PointD const shiftedPivot(globalPivot.x + m_xOffset, globalPivot.y);
+  if (!GetGlobalPivot(textIndex, pivot))
+    return false;
 
   auto & pivotInfo = m_pivots[textIndex];
   if (!pivotInfo.m_isCalculated)
   {
     pivotInfo.m_isCalculated = true;
-    m2::PointD const pt2d = screen.GtoP(shiftedPivot);
+    m2::PointD const pt2d = screen.GtoP(pivot);
     if (!screen.IsReverseProjection3d(pt2d))
     {
       pivotInfo.m_centerPointIter = GetProjectedPoint(screen.PtoP3d(pt2d), m_projectionCursor);
@@ -160,7 +177,6 @@ bool PathTextContext::GetPivot(size_t textIndex, ScreenBase const & screen, m2::
   if (!pivotInfo.m_isValid)
     return false;
 
-  pivot = shiftedPivot;
   centerPointIter = pivotInfo.m_centerPointIter;
   return true;
 }
@@ -183,15 +199,15 @@ void PathTextContext::Update(ScreenBase const & screen)
     pos = screen.GtoP(pos);
     if (screen.IsReverseProjection3d(pos))
     {
-      if (pixelSpline.GetSize() > 1)
+      if (pixelSpline.IsValid())
         m_pixel3dSplines.push_back(pixelSpline);
       pixelSpline.Clear();
       continue;
     }
-    AddPointAndRound(pixelSpline, screen.PtoP3d(pos));
+    AddPointAndRound(pixelSpline, screen.PtoP3d(pos), m_visualScale);
   }
 
-  if (pixelSpline.GetSize() > 1)
+  if (pixelSpline.IsValid())
     m_pixel3dSplines.emplace_back(std::move(pixelSpline));
 
   ASSERT_EQUAL(m_globalPivots.size(), m_globalOffsets.size(), ());
@@ -307,13 +323,25 @@ bool PathTextHandle::Update(ScreenBase const & screen)
   if (!df::TextHandle::Update(screen))
     return false;
 
+  m_hasDynamicGeometry = false;
+  if (!m_context->GetGlobalPivot(m_textIndex, m_globalPivot))
+    return false;
+
+  if (CanSkipPreciseGeometry(screen))
+    return true;
+
   m_context->Update(screen);
 
   m2::Spline::iterator centerPointIter;
   if (!m_context->GetPivot(m_textIndex, screen, m_globalPivot, centerPointIter))
     return false;
 
-  return m_context->GetLayout()->CacheDynamicGeometry(centerPointIter, m_depth, m_globalPivot, m_buffer);
+  if (!m_context->GetLayout()->CacheDynamicGeometry(centerPointIter, m_depth, m_globalPivot, m_buffer))
+    return false;
+
+  m_hasDynamicGeometry = true;
+  m_dynamicGeometryDirty = true;
+  return true;
 }
 
 void PathTextHandle::BeforeUpdate()
@@ -324,6 +352,8 @@ void PathTextHandle::BeforeUpdate()
 m2::RectD PathTextHandle::GetPixelRect(ScreenBase const & screen, bool perspective) const
 {
   m2::PointD const pixelPivot(screen.GtoP(m_globalPivot));
+  if (!m_hasDynamicGeometry)
+    return GetCoarsePixelRect(screen, pixelPivot, perspective);
 
   if (perspective)
   {
@@ -333,7 +363,6 @@ m2::RectD PathTextHandle::GetPixelRect(ScreenBase const & screen, bool perspecti
       m2::PointD pixelPivotPerspective = screen.PtoP3d(pixelPivot);
       r.Offset(-pixelPivot);
       r.Offset(pixelPivotPerspective);
-
       return r;
     }
     return GetPixelRectPerspective(screen);
@@ -349,6 +378,12 @@ m2::RectD PathTextHandle::GetPixelRect(ScreenBase const & screen, bool perspecti
 void PathTextHandle::GetPixelShape(ScreenBase const & screen, bool perspective, Rects & rects) const
 {
   m2::PointD const pixelPivot(screen.GtoP(m_globalPivot));
+  if (!m_hasDynamicGeometry)
+  {
+    rects.emplace_back(GetCoarsePixelRect(screen, pixelPivot, perspective));
+    return;
+  }
+
   for (size_t quadIndex = 0; quadIndex < m_buffer.size(); quadIndex += 4)
   {
     m2::RectF r;
@@ -380,9 +415,13 @@ void PathTextHandle::GetPixelShape(ScreenBase const & screen, bool perspective, 
 
 void PathTextHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator) const
 {
-  // We always update normals for visible text paths.
-  SetForceUpdateNormals(IsVisible());
+  // Path text geometry changes during screen movement. Upload it once after a successful Update(),
+  // not once per render pass: outlined text renders outline and fill using the same dynamic vertices.
+  bool const isVisible = IsVisible();
+  SetForceUpdateNormals(isVisible && m_dynamicGeometryDirty);
   TextHandle::GetAttributeMutation(mutator);
+  if (isVisible)
+    m_dynamicGeometryDirty = false;
 }
 
 bool PathTextHandle::Enable3dExtention() const
@@ -394,6 +433,31 @@ bool PathTextHandle::Enable3dExtention() const
 bool PathTextHandle::HasLinearFeatureShape() const
 {
   return true;
+}
+
+m2::RectD PathTextHandle::GetCoarsePixelRect(ScreenBase const & screen, m2::PointD const & pixelPivot,
+                                             bool perspective) const
+{
+  m2::PointD const center =
+      perspective && !screen.IsReverseProjection3d(pixelPivot) ? screen.PtoP3d(pixelPivot) : pixelPivot;
+
+  auto const layout = m_context->GetLayout();
+  double const radius = 0.5 * layout->GetPixelLength() + layout->GetPixelHeight();
+  return m2::RectD(center, radius, radius);
+}
+
+bool PathTextHandle::CanSkipPreciseGeometry(ScreenBase const & screen) const
+{
+  m2::PointD const pixelPivot = screen.GtoP(m_globalPivot);
+  if (screen.IsReverseProjection3d(pixelPivot))
+    return true;
+
+  // Calc _the same_ rect as in detail::OverlayTraits::SetModelView.
+  // This handle will be skipped in OverlayTree rendering anyway.
+  m2::RectD screenRect = screen.PixelRectIn3d();
+  double const extension = m_context->GetVisualScale() * dp::kScreenPixelRectExtension;
+  screenRect.Inflate(extension, extension);
+  return !screenRect.IsIntersect(GetCoarsePixelRect(screen, pixelPivot, screen.isPerspective()));
 }
 
 }  // namespace df

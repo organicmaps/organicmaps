@@ -5,7 +5,6 @@
 
 #include "geometry/spline.hpp"
 
-#include <algorithm>
 #include <memory>
 #include <vector>
 
@@ -18,7 +17,9 @@ public:
 
   void SetLayout(drape_ptr<PathTextLayout> && layout, double baseGtoPScale);
   ref_ptr<PathTextLayout> const GetLayout() const;
+  double GetVisualScale() const { return m_visualScale; }
 
+  bool GetGlobalPivot(size_t textIndex, m2::PointD & pivot) const;
   bool GetPivot(size_t textIndex, ScreenBase const & screen, m2::PointD & pivot,
                 m2::Spline::iterator & centerPointIter);
 
@@ -54,6 +55,7 @@ private:
   ProjectionCursor m_projectionCursor;
 
   drape_ptr<PathTextLayout> m_layout;
+  double const m_visualScale;
   double m_xOffset = 0.0;
   bool m_updated = false;
 };
@@ -75,13 +77,21 @@ public:
   bool HasLinearFeatureShape() const override;
 
 private:
-  m2::SharedSpline m_spline;
+  m2::RectD GetCoarsePixelRect(ScreenBase const & screen, m2::PointD const & pixelPivot, bool perspective) const;
+  bool CanSkipPreciseGeometry(ScreenBase const & screen) const;
+
+  m2::PointD m_globalPivot;
   std::shared_ptr<PathTextContext> m_context;
   uint32_t const m_textIndex;
-  m2::PointD m_globalPivot;
   float const m_depth;
+
+  bool m_hasDynamicGeometry = false;
+  mutable bool m_dynamicGeometryDirty = true;
 };
 
+/// @name Used in unit-tests only.
+/// @{
 bool IsValidSplineTurn(m2::PointD const & normalizedDir1, m2::PointD const & normalizedDir2);
 void AddPointAndRound(m2::SplineEx & spline, m2::PointD const & pt);
+/// @}
 }  // namespace df
