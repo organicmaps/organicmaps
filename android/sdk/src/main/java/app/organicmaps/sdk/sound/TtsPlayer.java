@@ -231,7 +231,7 @@ public enum TtsPlayer
     }
   }
 
-  private static boolean isReady()
+  public static boolean isReady()
   {
     return INSTANCE.mTts != null && !INSTANCE.mUnavailable && !INSTANCE.mInitializing;
   }
