@@ -36,7 +36,14 @@ public:
   void ForClosestToPoint(FeatureCallback const & f, StopSearchCallback const & stopCallback, m2::PointD const & center,
                          double sizeM, int scale) const;
   void ForEachInScale(FeatureCallback const & f, int scale) const;
+
+  // Like ForEachInRectForMWM, but reads features of a single MWM covered by an aggregated multi-rect
+  // |covering| (see covering::Covering) instead of a single rect, to avoid one large bounding-rect
+  // query. |covering| must have been built at the MWM's coding scale (see covering::Covering).
+  void ForEachInCoveringForMWM(FeatureCallback const & f, covering::Covering & covering, int scale,
+                               MwmId const & id) const;
   void ForEachInRectForMWM(FeatureCallback const & f, m2::RectD const & rect, int scale, MwmId const & id) const;
+
   // "features" must be sorted using FeatureID::operator< as predicate.
   void ReadFeatures(FeatureCallback const & fn, std::vector<FeatureID> const & features) const;
 
