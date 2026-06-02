@@ -21,7 +21,6 @@ class MwmValue;
 
 namespace search
 {
-void CoverRect(m2::RectD const & rect, int scale, covering::Intervals & result);
 
 class MwmContextBase
 {
@@ -45,11 +44,9 @@ public:
   template <class Fn>
   void ForEachFeature(m2::RectD const & rect, Fn && fn) const
   {
-    uint32_t const scale = m_value.GetHeader().GetLastScale();
-    covering::Intervals intervals;
-    CoverRect(rect, scale, intervals);
-
-    ForEachIndexImpl(intervals, scale, [&](uint32_t index)
+    int const scale = GetMwmScale();
+    covering::CoveringGetter covering(rect, covering::ViewportWithLowLevels);
+    ForEachIndexImpl(covering.Get(scale), scale, [&](uint32_t index)
     {
       auto ft = GetFeature(index);
       if (ft)
@@ -60,8 +57,10 @@ public:
   virtual std::unique_ptr<FeatureType> GetFeature(uint32_t index) const;
 
 protected:
+  int GetMwmScale() const { return m_value.GetHeader().GetLastScale(); }
+
   template <class Fn>
-  void ForEachIndexImpl(covering::Intervals const & intervals, uint32_t scale, Fn && fn) const
+  void ForEachIndexImpl(covering::Intervals const & intervals, int scale, Fn && fn) const
   {
     CheckUniqueIndexes checkUnique;
     for (auto const & i : intervals)
@@ -106,12 +105,11 @@ public:
   }
 
   template <typename Fn>
-  void ForEachIndex(covering::Intervals const & intervals, uint32_t scale, Fn && fn) const
+  void ForEachIndex(covering::Intervals const & intervals, int scale, Fn && fn) const
   {
     ForEachIndexImpl(intervals, scale, [&](uint32_t index)
     {
-      // TODO: Optimize deleted checks by getting vector of deleted indexes from
-      // the Editor.
+      // TODO: Optimize deleted checks by getting vector of deleted indexes from the Editor.
       if (GetEditedStatus(index) != FeatureStatus::Deleted)
         fn(index);
     });
@@ -120,16 +118,14 @@ public:
   template <typename Fn>
   void ForEachIndex(m2::RectD const & rect, Fn && fn) const
   {
-    uint32_t const scale = m_value.GetHeader().GetLastScale();
-    ForEachIndex(rect, scale, std::forward<Fn>(fn));
+    ForEachIndex(rect, GetMwmScale(), fn);
   }
 
   template <typename Fn>
   void ForEachIndex(m2::RectD const & rect, uint32_t scale, Fn && fn) const
   {
-    covering::Intervals intervals;
-    CoverRect(rect, m_value.GetHeader().GetLastScale(), intervals);
-    ForEachIndex(intervals, scale, std::forward<Fn>(fn));
+    covering::CoveringGetter covering(rect, covering::ViewportWithLowLevels);
+    ForEachIndex(covering.Get(GetMwmScale()), scale, fn);
   }
 
   /// @return nullptr if feature was deleted by user.
