@@ -706,7 +706,7 @@
    ]
   },
   {
-   "id": "Azerbaijan Region",
+   "id": "Azerbaijan",
    "g": [
     {
      "id": "Nagorno-Karabakh",
