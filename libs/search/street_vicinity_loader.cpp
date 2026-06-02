@@ -1,6 +1,5 @@
 #include "search/street_vicinity_loader.hpp"
 
-#include "indexer/cell_id.hpp"
 #include "indexer/feature_covering.hpp"
 #include "indexer/feature_decl.hpp"
 #include "indexer/ftypes_matcher.hpp"
@@ -70,7 +69,7 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
   ASSERT(street.m_rect.IsValid(), ());
 
   covering::CoveringGetter coveringGetter(street.m_rect, covering::ViewportWithLowLevels);
-  auto const & intervals = coveringGetter.Get<RectId::DEPTH_LEVELS>(m_scale);
+  auto const & intervals = coveringGetter.Get(m_scale);
   m_context->ForEachIndex(intervals, m_scale, [this, &street, featureId](uint32_t id)
   {
     if (m_context->GetStreet(id) == featureId)
