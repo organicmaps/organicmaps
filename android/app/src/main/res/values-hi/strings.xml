@@ -897,4 +897,19 @@
     <string name="color_picker_hex_label">sRGB हेक्स रंग #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">ग्रिड</string>
+    <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
+    <string name="transit_details_title">यात्रा का विवरण</string>
+    <!-- Label preceding the boarding stop name in transit details (%1$s = stop name). -->
+    <string name="transit_board_at">%1$s से चढ़ें</string>
+    <!-- Label for an intermediate transit leg's end stop, where the user switches lines (%1$s = stop name). -->
+    <string name="transit_transfer_at">%1$s पर बदलें</string>
+    <!-- Label for the final transit leg's end stop, where the user leaves transit for good (%1$s = stop name). -->
+    <string name="transit_exit_at">%1$s पर उतरें</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">पैदल</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d स्टॉप</item>
+        <item quantity="other">%d स्टॉप</item>
+    </plurals>
 </resources>

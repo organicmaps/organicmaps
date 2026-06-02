@@ -904,4 +904,18 @@
     <string name="color_picker_hex_label">sRGB 16진수 색상 #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">그리드</string>
+    <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
+    <string name="transit_details_title">경로 세부 정보</string>
+    <!-- Label preceding the boarding stop name in transit details (%1$s = stop name). -->
+    <string name="transit_board_at">%1$s에서 승차</string>
+    <!-- Label for an intermediate transit leg's end stop, where the user switches lines (%1$s = stop name). -->
+    <string name="transit_transfer_at">%1$s에서 환승</string>
+    <!-- Label for the final transit leg's end stop, where the user leaves transit for good (%1$s = stop name). -->
+    <string name="transit_exit_at">%1$s에서 하차</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">도보</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="other">%d 정거장</item>
+    </plurals>
 </resources>

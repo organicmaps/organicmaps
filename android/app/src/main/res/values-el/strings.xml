@@ -915,4 +915,19 @@
     <string name="color_picker_hex_label">Εξάγωνο χρώμα sRGB #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Πλέγμα</string>
+    <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
+    <string name="transit_details_title">Λεπτομέρειες διαδρομής</string>
+    <!-- Label preceding the boarding stop name in transit details (%1$s = stop name). -->
+    <string name="transit_board_at">Επιβίβαση στο %1$s</string>
+    <!-- Label for an intermediate transit leg's end stop, where the user switches lines (%1$s = stop name). -->
+    <string name="transit_transfer_at">Μετεπιβίβαση στο %1$s</string>
+    <!-- Label for the final transit leg's end stop, where the user leaves transit for good (%1$s = stop name). -->
+    <string name="transit_exit_at">Αποβίβαση στο %1$s</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">Με τα πόδια</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d στάση</item>
+        <item quantity="other">%d στάσεις</item>
+    </plurals>
 </resources>
