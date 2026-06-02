@@ -10,11 +10,6 @@
 #include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
 
-#include "base/logging.hpp"
-
-#include <cstdint>
-#include <set>
-#include <utility>
 #include <vector>
 
 class FeatureType;
@@ -33,8 +28,7 @@ typedef std::vector<Interval> Intervals;
 std::vector<int64_t> CoverFeature(FeatureType & feature, int cellDepth, uint64_t cellPenaltyArea);
 
 // Given a vector of intervals [a, b), sort them and merge overlapping intervals.
-Intervals SortAndMergeIntervals(Intervals const & intervals);
-void SortAndMergeIntervals(Intervals v, Intervals & res);
+Intervals SortAndMergeIntervals(Intervals intervals);
 
 template <int DEPTH_LEVELS>
 m2::CellId<DEPTH_LEVELS> GetRectIdAsIs(m2::RectD const & r)
@@ -56,7 +50,7 @@ int GetCodingDepth(int scale)
 }
 
 template <int DEPTH_LEVELS, typename ToDo>
-void AppendLowerLevels(m2::CellId<DEPTH_LEVELS> id, int cellDepth, ToDo const & toDo)
+void AppendLowerLevels(m2::CellId<DEPTH_LEVELS> id, int cellDepth, ToDo && toDo)
 {
   int64_t idInt64 = id.ToInt64(cellDepth);
   toDo(std::make_pair(idInt64, idInt64 + id.SubTreeSize(cellDepth)));
@@ -69,7 +63,7 @@ void AppendLowerLevels(m2::CellId<DEPTH_LEVELS> id, int cellDepth, ToDo const & 
 }
 
 template <int DEPTH_LEVELS>
-void CoverViewportAndAppendLowerLevels(m2::RectD const & r, int cellDepth, Intervals & res)
+Intervals CoverViewportAndAppendLowerLevels(m2::RectD const & r, int cellDepth)
 {
   std::vector<m2::CellId<DEPTH_LEVELS>> ids;
   ids.reserve(SPLIT_RECT_CELLS_COUNT);
@@ -82,7 +76,7 @@ void CoverViewportAndAppendLowerLevels(m2::RectD const & r, int cellDepth, Inter
                                     [&intervals](Interval const & interval) { intervals.push_back(interval); });
   }
 
-  SortAndMergeIntervals(intervals, res);
+  return SortAndMergeIntervals(std::move(intervals));
 }
 
 enum CoveringMode
@@ -105,62 +99,39 @@ public:
 
   m2::RectD const & GetRect() const { return m_rect; }
 
-  template <int DEPTH_LEVELS>
-  Intervals const & Get(int scale)
-  {
-    int const cellDepth = GetCodingDepth<DEPTH_LEVELS>(scale);
-    int const ind = (cellDepth == DEPTH_LEVELS ? 0 : 1);
+  Intervals const & Get(int scale);
+};
 
-    if (m_res[ind].empty())
-    {
-      switch (m_mode)
-      {
-      case ViewportWithLowLevels: CoverViewportAndAppendLowerLevels<DEPTH_LEVELS>(m_rect, cellDepth, m_res[ind]); break;
+// Aggregates the covering of several rects into one merged set of cell-id intervals, built
+// incrementally as rects are Add()-ed. Unlike CoveringGetter (a single rect, computed lazily), the
+// coding |scale| is fixed at construction, so a geometry-index query reads only the cells near the
+// added rects instead of one big bounding rect. Mirrors CoveringGetter's Get()/GetRect() interface,
+// so the same MWM-reading path can consume either.
+// Only ViewportWithLowLevels semantics are supported - the meaningful mode for multi-rect queries.
+class Covering
+{
+public:
+  // |scale| is the geometry coding scale at which the cell intervals are built - typically the
+  // target MWM's last coding scale (scales::GetUpperScale() for country MWMs).
+  /// @todo Pass the MWM type (World, WorldCoasts, Country).
+  explicit Covering(int scale) : m_cellDepth(GetCodingDepth<RectId::DEPTH_LEVELS>(scale)) {}
 
-      case LowLevelsOnly:
-      {
-        m2::CellId<DEPTH_LEVELS> id = GetRectIdAsIs<DEPTH_LEVELS>(m_rect);
-        while (id.Level() >= cellDepth)
-          id = id.Parent();
-        AppendLowerLevels<DEPTH_LEVELS>(id, cellDepth,
-                                        [this, ind](Interval const & interval) { m_res[ind].push_back(interval); });
+  // Covers |rect| and appends its intervals to the accumulated set (sorted/merged lazily in Get()).
+  void Add(m2::RectD const & rect);
 
-        // Check for optimal result intervals.
-#if 0
-        size_t oldSize = m_res[ind].size();
-        Intervals res;
-        SortAndMergeIntervals(m_res[ind], res);
-        if (res.size() != oldSize)
-          LOG(LINFO, ("Old =", oldSize, "; New =", res.size()));
-        res.swap(m_res[ind]);
-#endif
-        break;
-      }
+  bool IsEmpty() const { return m_intervals.empty(); }
 
-      case FullCover:
-        m_res[ind].push_back(Intervals::value_type(0, static_cast<int64_t>((uint64_t{1} << 63) - 1)));
-        break;
+  // Bounding rect of all added rects; used to read edited features.
+  m2::RectD const & GetRect() const { return m_unionRect; }
 
-      case Spiral:
-      {
-        std::vector<m2::CellId<DEPTH_LEVELS>> ids;
-        CoverSpiral<mercator::Bounds, m2::CellId<DEPTH_LEVELS>>(m_rect, cellDepth - 1, ids);
+  // Kept for interface compatibility with CoveringGetter; |scale| is ignored - the intervals were
+  // built at the construction scale. Sorts and merges the accumulated intervals on the first call.
+  Intervals const & Get(int scale);
 
-        std::set<Interval> uniqueIds;
-        auto insertInterval = [this, ind, &uniqueIds](Interval const & interval)
-        {
-          if (uniqueIds.insert(interval).second)
-            m_res[ind].push_back(interval);
-        };
-
-        for (auto const & id : ids)
-          if (cellDepth > id.Level())
-            AppendLowerLevels<DEPTH_LEVELS>(id, cellDepth, insertInterval);
-      }
-      }
-    }
-
-    return m_res[ind];
-  }
+private:
+  int m_cellDepth;
+  m2::RectD m_unionRect;
+  Intervals m_intervals;
+  bool m_sorted = false;
 };
 }  // namespace covering

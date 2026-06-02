@@ -10,7 +10,7 @@ namespace search
 void CoverRect(m2::RectD const & rect, int scale, covering::Intervals & result)
 {
   covering::CoveringGetter covering(rect, covering::ViewportWithLowLevels);
-  auto const & intervals = covering.Get<RectId::DEPTH_LEVELS>(scale);
+  auto const & intervals = covering.Get(scale);
   result.insert(result.end(), intervals.begin(), intervals.end());
 }
 
