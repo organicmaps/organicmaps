@@ -227,14 +227,20 @@
 /* Settings «Route» category: «Tts announce street names» description */
 "pref_tts_street_names_description" = "When enabled, the name of the street or exit to turn onto will be spoken aloud.";
 
-/* Settings «Route» category: «Tts voice» title */
-"pref_tts_voice_title" = "Voice";
-
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Voice Language";
 
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "To download a higher-quality voice, open the Settings app and go to Accessibility → VoiceOver → Speech → Voice.";
+
+/* Settings «Route» category: «Tts voice» title (the specific voice, e.g. Samantha, used to read out the selected language) */
+"pref_tts_voice_title" = "Voice";
+
+/* Suffix appended to a TTS voice name for Apple's higher-quality "Enhanced" voice tier, e.g. "Samantha (Enhanced)". */
+"pref_tts_voice_quality_enhanced" = "Enhanced";
+
+/* Suffix appended to a TTS voice name for Apple's highest-quality "Premium" voice tier, e.g. "Samantha (Premium)". */
+"pref_tts_voice_quality_premium" = "Premium";
 
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Test Voice Directions (TTS, Text-To-Speech)";
