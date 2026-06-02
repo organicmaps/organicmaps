@@ -16,6 +16,7 @@ set(SRC
   data_source_test.cpp
   drules_selector_parser_test.cpp
   editable_map_object_test.cpp
+  feature_covering_test.cpp
   feature_metadata_test.cpp
   feature_names_test.cpp
   feature_to_osm_tests.cpp
