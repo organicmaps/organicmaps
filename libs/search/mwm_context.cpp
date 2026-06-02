@@ -1,18 +1,11 @@
 #include "search/mwm_context.hpp"
 #include "search/house_to_street_table.hpp"
 
-#include "indexer/cell_id.hpp"
 #include "indexer/fake_feature_ids.hpp"
 #include "indexer/feature_source.hpp"
 
 namespace search
 {
-void CoverRect(m2::RectD const & rect, int scale, covering::Intervals & result)
-{
-  covering::CoveringGetter covering(rect, covering::ViewportWithLowLevels);
-  auto const & intervals = covering.Get(scale);
-  result.insert(result.end(), intervals.begin(), intervals.end());
-}
 
 // MwmContextBase ---------------------------------------------------------------------------------
 
