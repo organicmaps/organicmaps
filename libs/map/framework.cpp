@@ -931,8 +931,7 @@ void Framework::SelectTrackCandidate(kml::TrackId trackId, FeatureID const & fea
 
   BuildTrackPlacePage(*candidate, m_currentPlacePageInfo.value());
 
-  if (!isRelationTrack)
-    GetBookmarkManager().UpdateElevationMyPosition(trackId);
+  GetBookmarkManager().UpdateElevationMyPosition(trackId, true /* ignoreLocationCache */);
   ActivateMapSelection();
 }
 
@@ -2283,7 +2282,7 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
         }
         return;
       }
-      GetBookmarkManager().UpdateElevationMyPosition(newTrackId);
+      GetBookmarkManager().UpdateElevationMyPosition(newTrackId, true /* ignoreLocationCache */);
     }
 
     ActivateMapSelection();
@@ -2343,7 +2342,10 @@ void Framework::BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelec
     }
   }
   else
+  {
+    bm.ClearTempRelationTrack();
     track = bm.GetTrack(selectedInfo.m_trackId);
+  }
 
   CHECK(track, ("Failed to build track for selection info:", &trackSelectionInfo));
 

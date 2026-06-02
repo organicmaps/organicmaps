@@ -836,7 +836,7 @@ std::string BookmarkManager::GetLocalizedRegionAddress(m2::PointD const & pt)
   return m_regionAddressGetter->GetLocalizedRegionAddress(pt);
 }
 
-void BookmarkManager::UpdateElevationMyPosition(kml::TrackId const & trackId)
+void BookmarkManager::UpdateElevationMyPosition(kml::TrackId const & trackId, bool ignoreLocationCache)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
@@ -845,14 +845,16 @@ void BookmarkManager::UpdateElevationMyPosition(kml::TrackId const & trackId)
   if (m_myPositionMark->HasPosition())
   {
     double const kEps = 1e-5;
-    if (m_lastElevationMyPosition.EqualDxDy(m_myPositionMark->GetPivot(), kEps))
+    if (!ignoreLocationCache && m_lastElevationMyPosition.EqualDxDy(m_myPositionMark->GetPivot(), kEps))
       return;
     m_lastElevationMyPosition = m_myPositionMark->GetPivot();
 
     auto const snapRect =
         mercator::RectByCenterXYAndSizeInMeters(m_myPositionMark->GetPivot(), kMyPositionTrackSnapInMeters);
-    auto const selectionInfo =
-        FindNearestTrack(snapRect, [trackId](Track const * track) { return track->GetId() == trackId; });
+    Track::TrackSelectionInfo selectionInfo;
+    selectionInfo.SetDistanceFilter(snapRect);
+    if (auto const * track = GetTrack(trackId))
+      track->UpdateSelectionInfo(m_myPositionMark->GetPivot(), selectionInfo);
     if (selectionInfo.m_trackId == trackId)
       myPositionDistance = selectionInfo.m_distFromBegM;
   }
@@ -862,7 +864,7 @@ void BookmarkManager::UpdateElevationMyPosition(kml::TrackId const & trackId)
   }
 
   auto const markId = GetTrackSelectionMarkId(trackId);
-  if (markId == kml::kInvalidTrackId)
+  if (markId == kml::kInvalidMarkId)
     return;
 
   auto es = GetEditSession();
@@ -927,13 +929,6 @@ void BookmarkManager::SetElevationActivePointChangedCallback(ElevationActivePoin
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   m_elevationActivePointChanged = cb;
-}
-
-Track::TrackSelectionInfo BookmarkManager::FindNearestTrack(m2::RectD const & touchRect,
-                                                            TracksFilter const & tracksFilter) const
-{
-  auto const tracks = FindTracksInRect(touchRect, tracksFilter);
-  return tracks.empty() ? Track::TrackSelectionInfo{} : tracks.front();
 }
 
 std::vector<Track::TrackSelectionInfo> BookmarkManager::FindTracksInRect(m2::RectD const & touchRect,
@@ -1270,7 +1265,6 @@ void BookmarkManager::ClearTempRelationTrack()
   if (!m_tempRelationTrack)
     return;
 
-  DeleteTrackSelectionMark(kml::kTempRelationTrackId);
   m_changesTracker.OnDeleteLine(kml::kTempRelationTrackId);
   m_tempRelationTrack.reset();
 
