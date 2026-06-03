@@ -82,9 +82,41 @@ double RouteBase::GetTotalTimeSec() const
   return m_routeSegments.empty() ? 0.0 : m_routeSegments.back().GetTimeFromBeginningSec();
 }
 
-bool RouteBase::IsGoodAlt(std::vector<RouteSegment> const & origin) const
+m2::PointD RouteBase::GetMidpoint(size_t beginIdx, size_t endIdx) const
 {
-  // (mwmId, featureId) pairs of the origin route.
+  ASSERT(IsValid(), ());
+  ASSERT(beginIdx <= endIdx && endIdx < m_routeSegments.size(), (beginIdx, endIdx));
+
+  double const startM = beginIdx == 0 ? 0.0 : m_routeSegments[beginIdx - 1].GetDistFromBeginningMeters();
+  double const endM = m_routeSegments[endIdx].GetDistFromBeginningMeters();
+  double const midM = startM + 0.5 * (endM - startM);
+  for (size_t i = beginIdx; i <= endIdx; ++i)
+  {
+    double const e = m_routeSegments[i].GetDistFromBeginningMeters();
+    if (e < midM)
+      continue;
+    double const s = i == 0 ? 0.0 : m_routeSegments[i - 1].GetDistFromBeginningMeters();
+    double const t = (e > s) ? (midM - s) / (e - s) : 0.0;
+    auto const & a =
+        i == 0 ? m_subrouteAttrs.front().GetStart().GetPoint() : m_routeSegments[i - 1].GetJunction().GetPoint();
+    auto const & b = m_routeSegments[i].GetJunction().GetPoint();
+    return a + (b - a) * t;
+  }
+  return m_routeSegments[endIdx].GetJunction().GetPoint();
+}
+
+std::optional<m2::PointD> RouteBase::FindMaxDiffMidpoint(std::vector<RouteSegment> const & origin) const
+{
+  ASSERT(IsValid(), ());
+  // Treat this route as a meaningful alternative only when the *total* geodesic length of segments
+  // it doesn't share with |origin| is at least this fraction of its own total length. Below the
+  // threshold the routes overlap enough that the user wouldn't tell them apart on the map.
+  double constexpr kMinAltDiffFraction = 0.05;
+
+  double const totalLenM = m_routeSegments.back().GetDistFromBeginningMeters();
+
+  // (mwmId, featureId) pairs of the origin route. Fake start/end segments are skipped on both
+  // sides — they're not real road features and would otherwise produce spurious "diff" hits.
   std::unordered_set<uint64_t> originFeatures;
   originFeatures.reserve(origin.size());
   auto const key = [](RouteSegment const & s)
@@ -92,16 +124,62 @@ bool RouteBase::IsGoodAlt(std::vector<RouteSegment> const & origin) const
     auto const & seg = s.GetSegment();
     return (static_cast<uint64_t>(seg.GetMwmId()) << 32) | seg.GetFeatureId();
   };
-
   for (auto const & s : origin)
     if (s.GetSegment().IsRealSegment())
       originFeatures.insert(key(s));
 
-  for (auto const & s : m_routeSegments)
-    if (s.GetSegment().IsRealSegment() && originFeatures.find(key(s)) == originFeatures.end())
-      return true;
+  // Single walk that tracks (a) total diff length — the significance signal that decides whether
+  // this is really an alternative — and (b) the longest contiguous diff run, whose midpoint is
+  // returned as the balloon pivot.
+  double totalDiffLen = 0.0;
+  double bestLen = 0.0;
+  size_t bestRunStart = 0;
+  size_t bestRunEnd = 0;
+  bool haveBest = false;
 
-  return false;
+  size_t runStartIdx = 0;
+  bool inRun = false;
+
+  auto closeRun = [&](size_t endIdx)
+  {
+    double const startM = runStartIdx == 0 ? 0.0 : m_routeSegments[runStartIdx - 1].GetDistFromBeginningMeters();
+    double const endM = m_routeSegments[endIdx].GetDistFromBeginningMeters();
+    double const len = endM - startM;
+    totalDiffLen += len;
+    if (len > bestLen)
+    {
+      bestLen = len;
+      bestRunStart = runStartIdx;
+      bestRunEnd = endIdx;
+      haveBest = true;
+    }
+  };
+
+  for (size_t i = 0; i < m_routeSegments.size(); ++i)
+  {
+    auto const & s = m_routeSegments[i];
+    bool const diff = s.GetSegment().IsRealSegment() && !originFeatures.contains(key(s));
+    if (diff)
+    {
+      if (!inRun)
+      {
+        inRun = true;
+        runStartIdx = i;
+      }
+    }
+    else if (inRun)
+    {
+      closeRun(i - 1);
+      inRun = false;
+    }
+  }
+  if (inRun)
+    closeRun(m_routeSegments.size() - 1);
+
+  if (!haveBest || totalDiffLen < kMinAltDiffFraction * totalLenM)
+    return std::nullopt;
+
+  return GetMidpoint(bestRunStart, bestRunEnd);
 }
 
 m2::RectD RouteBase::GetLimitRect() const
