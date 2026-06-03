@@ -41,6 +41,9 @@
 		479F704B234F78AB00011E2E /* MWMFrameworkHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 479F7045234F774000011E2E /* MWMFrameworkHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		479F7056234FB7F200011E2E /* MWMBookmarksManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 479F7054234FB7F100011E2E /* MWMBookmarksManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		479F7057234FB7F200011E2E /* MWMBookmarksManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 479F7055234FB7F100011E2E /* MWMBookmarksManager.mm */; };
+		EDBEEF042F22A00100123456 /* BookmarksCategoryLoadingResult.h in Headers */ = {isa = PBXBuildFile; fileRef = EDBEEF012F22A00100123456 /* BookmarksCategoryLoadingResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EDBEEF052F22A00100123456 /* BookmarksCategoryLoadingResult.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDBEEF022F22A00100123456 /* BookmarksCategoryLoadingResult.mm */; };
+		EDBEEF062F22A00100123456 /* BookmarksCategoryLoadingResult+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = EDBEEF032F22A00100123456 /* BookmarksCategoryLoadingResult+Core.h */; };
 		479F705E234FBB8C00011E2E /* MWMBookmarkGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 479F705C234FBB8B00011E2E /* MWMBookmarkGroup.m */; };
 		479F705F234FBB8F00011E2E /* MWMBookmarkGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 479F705D234FBB8C00011E2E /* MWMBookmarkGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		479F7062234FBC4700011E2E /* MWMCarPlayBookmarkObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = 479F7061234FBC4600011E2E /* MWMCarPlayBookmarkObject.mm */; };
@@ -159,6 +162,9 @@
 		479F7049234F785B00011E2E /* MWMTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTypes.h; sourceTree = "<group>"; };
 		479F7054234FB7F100011E2E /* MWMBookmarksManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBookmarksManager.h; sourceTree = "<group>"; };
 		479F7055234FB7F100011E2E /* MWMBookmarksManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBookmarksManager.mm; sourceTree = "<group>"; };
+		EDBEEF012F22A00100123456 /* BookmarksCategoryLoadingResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookmarksCategoryLoadingResult.h; sourceTree = "<group>"; };
+		EDBEEF022F22A00100123456 /* BookmarksCategoryLoadingResult.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BookmarksCategoryLoadingResult.mm; sourceTree = "<group>"; };
+		EDBEEF032F22A00100123456 /* BookmarksCategoryLoadingResult+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BookmarksCategoryLoadingResult+Core.h"; sourceTree = "<group>"; };
 		479F705C234FBB8B00011E2E /* MWMBookmarkGroup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMBookmarkGroup.m; sourceTree = "<group>"; };
 		479F705D234FBB8C00011E2E /* MWMBookmarkGroup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMBookmarkGroup.h; sourceTree = "<group>"; };
 		479F7060234FBC4500011E2E /* MWMCarPlayBookmarkObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCarPlayBookmarkObject.h; sourceTree = "<group>"; };
@@ -396,6 +402,9 @@
 			children = (
 				479F7054234FB7F100011E2E /* MWMBookmarksManager.h */,
 				479F7055234FB7F100011E2E /* MWMBookmarksManager.mm */,
+				EDBEEF012F22A00100123456 /* BookmarksCategoryLoadingResult.h */,
+				EDBEEF032F22A00100123456 /* BookmarksCategoryLoadingResult+Core.h */,
+				EDBEEF022F22A00100123456 /* BookmarksCategoryLoadingResult.mm */,
 				479F705D234FBB8C00011E2E /* MWMBookmarkGroup.h */,
 				479F705C234FBB8B00011E2E /* MWMBookmarkGroup.m */,
 				479F7060234FBC4500011E2E /* MWMCarPlayBookmarkObject.h */,
@@ -579,6 +588,8 @@
 				47942D72237CC40B00DEFAE3 /* OpeningHours.h in Headers */,
 				ED965B232CD8F5AA0049E39E /* DurationFormatter.h in Headers */,
 				ED0B1FF42CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.h in Headers */,
+				EDBEEF042F22A00100123456 /* BookmarksCategoryLoadingResult.h in Headers */,
+				EDBEEF062F22A00100123456 /* BookmarksCategoryLoadingResult+Core.h in Headers */,
 				47942D6B237CC3D600DEFAE3 /* PlacePageData.h in Headers */,
 				47D609DC234FE625008ECC47 /* MWMBookmarksObserver.h in Headers */,
 				471AB98D23AB925D00F56D49 /* MWMMapSearchResult.h in Headers */,
@@ -676,6 +687,7 @@
 				479F705E234FBB8C00011E2E /* MWMBookmarkGroup.m in Sources */,
 				ED7306F42D0C5D2400523AA1 /* TrackInfo.mm in Sources */,
 				47F0D2162516847F00BC685E /* MWMBookmarksSection.m in Sources */,
+				EDBEEF052F22A00100123456 /* BookmarksCategoryLoadingResult.mm in Sources */,
 				479F7057234FB7F200011E2E /* MWMBookmarksManager.mm in Sources */,
 				47942D71237CC40800DEFAE3 /* PlacePageInfoData.mm in Sources */,
 				479F7047234F774100011E2E /* MWMFrameworkHelper.mm in Sources */,

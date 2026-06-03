@@ -161,7 +161,7 @@ extension BMCDefaultViewModel {
 }
 
 extension BMCDefaultViewModel: BookmarksObserver {
-  func onBookmarksLoadFinished() {
+  func onBookmarksCategoryLoadingFinished(_: [BookmarksCategoryLoadingResult]) {
     reloadData()
   }
 

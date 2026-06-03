@@ -162,7 +162,7 @@ extension RecentlyDeletedCategoriesViewModel {
 // MARK: - BookmarksObserver
 
 extension RecentlyDeletedCategoriesViewModel: BookmarksObserver {
-  func onBookmarksLoadFinished() {
+  func onBookmarksCategoryLoadingFinished(_: [BookmarksCategoryLoadingResult]) {
     fetchRecentlyDeletedCategories()
   }
 

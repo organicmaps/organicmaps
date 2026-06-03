@@ -5,6 +5,7 @@ FOUNDATION_EXPORT double CoreApiVersionNumber;
 FOUNDATION_EXPORT const unsigned char CoreApiVersionString[];
 
 #import <CoreApi/AppInfo.h>
+#import <CoreApi/BookmarksCategoryLoadingResult.h>
 #import <CoreApi/DeepLinkInAppFeatureHighlightData.h>
 #import <CoreApi/DeepLinkParser.h>
 #import <CoreApi/DeepLinkSearchData.h>

@@ -1004,14 +1004,16 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 }
 
 #pragma mark - MWMBookmarksObserver
-- (void)onBookmarksFileLoadSuccess
+- (void)onBookmarksCategoryLoadingFinished:(NSArray<BookmarksCategoryLoadingResult *> *)results
 {
-  [[MWMAlertViewController activeAlertController] presentInfoAlert:L(@"load_kmz_title") text:L(@"load_kmz_successful")];
-}
+  for (BookmarksCategoryLoadingResult * result in results)
+  {
+    if (result.source != BookmarksCategoryLoadingSourceImport)
+      continue;
 
-- (void)onBookmarksFileLoadError
-{
-  [[MWMAlertViewController activeAlertController] presentInfoAlert:L(@"load_kmz_title") text:L(@"load_kmz_failed")];
+    NSString * const message = result.success ? L(@"load_kmz_successful") : L(@"load_kmz_failed");
+    [[MWMAlertViewController activeAlertController] presentInfoAlert:L(@"load_kmz_title") text:message];
+  }
 }
 
 - (BOOL)canBecomeFirstResponder

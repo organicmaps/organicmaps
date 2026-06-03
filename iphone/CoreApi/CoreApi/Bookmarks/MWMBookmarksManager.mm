@@ -1,5 +1,6 @@
 #import "MWMBookmarksManager.h"
 
+#import "BookmarksCategoryLoadingResult+Core.h"
 #import "MWMBookmark+Core.h"
 #import "MWMBookmarkColor+Core.h"
 #import "MWMBookmarkGroup.h"
@@ -129,48 +130,45 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
 
 - (void)registerBookmarksObserver
 {
-  BookmarkManager::AsyncLoadingCallbacks bookmarkCallbacks;
+  BookmarkManager::CategoryLoadingCallbacks bookmarkCallbacks;
   {
     __weak auto wSelf = self;
-    bookmarkCallbacks.m_onStarted = [wSelf]() { wSelf.areBookmarksLoaded = NO; };
+    bookmarkCallbacks.m_onStarted = [wSelf]()
+    {
+      __strong auto self = wSelf;
+      if (!self)
+        return;
+
+      self.areBookmarksLoaded = NO;
+      [self loopObservers:^(id<MWMBookmarksObserver> observer) {
+        if ([observer respondsToSelector:@selector(onBookmarksCategoryLoadingStarted)])
+          [observer onBookmarksCategoryLoadingStarted];
+      }];
+    };
   }
   {
     __weak auto wSelf = self;
-    bookmarkCallbacks.m_onFinished = [wSelf]()
+    bookmarkCallbacks.m_onFinished = [wSelf](BookmarkManager::CategoryLoadingResults const & results)
     {
       __strong auto self = wSelf;
       if (!self)
         return;
       self.areBookmarksLoaded = YES;
+      NSMutableArray<BookmarksCategoryLoadingResult *> * loadingResults =
+          [NSMutableArray arrayWithCapacity:results.size()];
+      for (auto const & result : results)
+      {
+        auto * loadingResult = [[BookmarksCategoryLoadingResult alloc] initWithCoreResult:result];
+        [loadingResults addObject:loadingResult];
+      }
+
       [self loopObservers:^(id<MWMBookmarksObserver> observer) {
-        if ([observer respondsToSelector:@selector(onBookmarksLoadFinished)])
-          [observer onBookmarksLoadFinished];
+        if ([observer respondsToSelector:@selector(onBookmarksCategoryLoadingFinished:)])
+          [observer onBookmarksCategoryLoadingFinished:loadingResults];
       }];
     };
   }
-  {
-    __weak auto wSelf = self;
-    bookmarkCallbacks.m_onFileSuccess = [wSelf](std::string const & filePath, bool isTemporaryFile)
-    {
-      __strong __typeof(self) self = wSelf;
-      [self loopObservers:^(id<MWMBookmarksObserver> observer) {
-        if ([observer respondsToSelector:@selector(onBookmarksFileLoadSuccess)])
-          [observer onBookmarksFileLoadSuccess];
-      }];
-    };
-  }
-  {
-    __weak auto wSelf = self;
-    bookmarkCallbacks.m_onFileError = [wSelf](std::string const & filePath, bool isTemporaryFile)
-    {
-      __strong __typeof(self) self = wSelf;
-      [self loopObservers:^(id<MWMBookmarksObserver> observer) {
-        if ([observer respondsToSelector:@selector(onBookmarksFileLoadError)])
-          [observer onBookmarksFileLoadError];
-      }];
-    };
-  }
-  self.bm.SetAsyncLoadingCallbacks(std::move(bookmarkCallbacks));
+  self.bm.SetCategoriesLoadingCallbacks(std::move(bookmarkCallbacks));
 }
 
 #pragma mark - Bookmarks loading
