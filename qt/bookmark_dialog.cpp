@@ -71,32 +71,31 @@ BookmarkDialog::BookmarkDialog(QWidget * parent, Framework & framework)
   setWindowTitle(tr("Bookmarks and tracks"));
   resize(700, 600);
 
-  BookmarkManager::AsyncLoadingCallbacks callbacks;
-  callbacks.m_onStarted = std::bind(&BookmarkDialog::OnAsyncLoadingStarted, this);
-  callbacks.m_onFinished = std::bind(&BookmarkDialog::OnAsyncLoadingFinished, this);
-  callbacks.m_onFileSuccess = std::bind(&BookmarkDialog::OnAsyncLoadingFileSuccess, this, _1, _2);
-  callbacks.m_onFileError = std::bind(&BookmarkDialog::OnAsyncLoadingFileError, this, _1, _2);
-  m_framework.GetBookmarkManager().SetAsyncLoadingCallbacks(std::move(callbacks));
+  BookmarkManager::CategoryLoadingCallbacks callbacks;
+  callbacks.m_onStarted = std::bind(&BookmarkDialog::OnCategoryLoadingStarted, this);
+  callbacks.m_onFinished = std::bind(&BookmarkDialog::OnCategoryLoadingFinished, this, _1);
+  m_framework.GetBookmarkManager().SetCategoriesLoadingCallbacks(std::move(callbacks));
 }
 
-void BookmarkDialog::OnAsyncLoadingStarted()
+void BookmarkDialog::OnCategoryLoadingStarted()
 {
   FillTree();
 }
 
-void BookmarkDialog::OnAsyncLoadingFinished()
+void BookmarkDialog::OnCategoryLoadingFinished(BookmarkManager::CategoryLoadingResults const & results)
 {
   FillTree();
-}
 
-void BookmarkDialog::OnAsyncLoadingFileSuccess(std::string const & fileName, bool isTemporaryFile)
-{
-  LOG(LINFO, ("OnAsyncLoadingFileSuccess", fileName, isTemporaryFile));
-}
+  for (auto const & result : results)
+  {
+    if (result.m_source == BookmarkManager::CategoryLoadingSource::Initial)
+      continue;
 
-void BookmarkDialog::OnAsyncLoadingFileError(std::string const & fileName, bool isTemporaryFile)
-{
-  LOG(LERROR, ("OnAsyncLoadingFileError", fileName, isTemporaryFile));
+    if (result.m_success)
+      LOG(LINFO, ("OnCategoryLoadingFinished", result.m_filePath, result.m_isTemporaryFile, result.m_groupIds.size()));
+    else
+      LOG(LERROR, ("OnCategoryLoadingFinished", result.m_filePath, result.m_isTemporaryFile));
+  }
 }
 
 void BookmarkDialog::OnItemClick(QTreeWidgetItem * item, int column)
@@ -288,7 +287,7 @@ void BookmarkDialog::FillTree()
 
   auto const & bm = m_framework.GetBookmarkManager();
 
-  if (!bm.IsAsyncLoadingInProgress())
+  if (!bm.IsCategoryLoadingInProgress())
   {
     for (auto catId : bm.GetUnsortedBmGroupsIdList())
     {

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "map/bookmark_helpers.hpp"
+#include "map/bookmark_manager.hpp"
 
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialog>
@@ -36,10 +37,8 @@ private slots:
 private:
   void FillTree();
   QTreeWidgetItem * CreateTreeItem(std::string const & title, QTreeWidgetItem * parent);
-  void OnAsyncLoadingStarted();
-  void OnAsyncLoadingFinished();
-  void OnAsyncLoadingFileSuccess(std::string const & fileName, bool isTemporaryFile);
-  void OnAsyncLoadingFileError(std::string const & fileName, bool isTemporaryFile);
+  void OnCategoryLoadingStarted();
+  void OnCategoryLoadingFinished(BookmarkManager::CategoryLoadingResults const & results);
 
   QTreeWidget * m_tree;
   Framework & m_framework;

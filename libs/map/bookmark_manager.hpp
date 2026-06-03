@@ -55,16 +55,29 @@ public:
 
   using OnSymbolSizesAcquiredCallback = std::function<void()>;
 
-  using AsyncLoadingStartedCallback = std::function<void()>;
-  using AsyncLoadingFinishedCallback = std::function<void()>;
-  using AsyncLoadingFileCallback = std::function<void(std::string const &, bool)>;
-
-  struct AsyncLoadingCallbacks
+  enum class CategoryLoadingSource
   {
-    AsyncLoadingStartedCallback m_onStarted;
-    AsyncLoadingFinishedCallback m_onFinished;
-    AsyncLoadingFileCallback m_onFileError;
-    AsyncLoadingFileCallback m_onFileSuccess;
+    Initial,
+    Import,
+    Reload
+  };
+
+  struct CategoryLoadingResult
+  {
+    CategoryLoadingSource m_source;
+    kml::GroupIdCollection m_groupIds;
+    bool m_success = false;
+    std::string m_filePath;
+    bool m_isTemporaryFile = false;
+  };
+  using CategoryLoadingResults = std::vector<CategoryLoadingResult>;
+  using CategoryLoadingStartedCallback = std::function<void()>;
+  using CategoryLoadingFinishedCallback = std::function<void(CategoryLoadingResults const &)>;
+
+  struct CategoryLoadingCallbacks
+  {
+    CategoryLoadingStartedCallback m_onStarted;
+    CategoryLoadingFinishedCallback m_onFinished;
   };
 
   struct Callbacks
@@ -181,8 +194,8 @@ public:
 
   void SetBookmarksChangedCallback(BookmarksChangedCallback && callback);
   void SetCategoriesChangedCallback(CategoriesChangedCallback && callback);
-  void SetAsyncLoadingCallbacks(AsyncLoadingCallbacks && callbacks);
-  bool IsAsyncLoadingInProgress() const { return m_asyncLoadingInProgress; }
+  void SetCategoriesLoadingCallbacks(CategoryLoadingCallbacks && callbacks);
+  bool IsCategoryLoadingInProgress() const { return m_categoriesLoadingInProgress; }
 
   bool AreSymbolSizesAcquired(OnSymbolSizesAcquiredCallback && callback);
 
@@ -385,7 +398,7 @@ public:
   void DeleteRecentlyDeletedCategoriesAtPaths(std::vector<std::string> const & filePaths);
 
   // Used for LoadBookmarks() and unit tests only. Does *not* update last modified time.
-  void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = false);
+  kml::GroupIdCollection CreateCategories(KMLDataCollection && dataCollection, bool autoSave = false);
 
   static std::string GetTracksSortedBlockName();
   static std::string GetBookmarksSortedBlockName();
@@ -628,9 +641,9 @@ private:
   std::string GetMetadataEntryName(kml::MarkGroupId groupId) const;
 
   std::string GenerateSavedRouteName(std::string const & from, std::string const & to);
-  void NotifyAboutStartAsyncLoading();
-  void NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && collection);
-  void NotifyAboutFile(bool success, std::string const & filePath, bool isTemporaryFile);
+  void NotifyAboutStartCategoriesLoading();
+  void NotifyAboutFinishCategoryLoading(KMLDataCollectionPtr && collection, CategoryLoadingSource source,
+                                        std::string const & filePath = {}, bool isTemporaryFile = false);
   void LoadBookmarkRoutine(std::string const & filePath, bool isTemporaryFile);
   void ReloadBookmarkRoutine(std::string const & filePath);
 
@@ -747,7 +760,8 @@ private:
   OnSymbolSizesAcquiredCallback m_onSymbolSizesAcquiredFn;
   bool m_symbolSizesAcquired = false;
 
-  AsyncLoadingCallbacks m_asyncLoadingCallbacks;
+  CategoryLoadingCallbacks m_categoriesLoadingCallbacks;
+  CategoryLoadingResults m_categoriesLoadingResult;
   std::atomic<bool> m_needTeardown;
   size_t m_openedEditSessionsCount = 0;
   bool m_loadBookmarksCalled = false;
@@ -779,7 +793,7 @@ private:
 
   std::unique_ptr<Bookmark> m_recentlyDeletedBookmark;
 
-  bool m_asyncLoadingInProgress = false;
+  bool m_categoriesLoadingInProgress = false;
   struct BookmarkLoaderInfo
   {
     BookmarkLoaderInfo(std::string const & filename, bool isTemporaryFile, bool isReloading)
