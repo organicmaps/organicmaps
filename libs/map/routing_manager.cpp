@@ -715,35 +715,6 @@ namespace
 // Multiplier applied to the alpha channel of subroute colors for alternative (non-active) routes.
 float constexpr kAlternativeRouteAlphaMul = 0.5f;
 
-/// \brief Total geodesic length of a RouteBase derived from its cumulative segment distances.
-/// |GetTotalDistanceMeters| lives only on the followed Route, so alternatives compute it from segments.
-double GetRouteTotalDistanceMeters(routing::RouteBase const & route)
-{
-  auto const & segs = route.GetRouteSegments();
-  return segs.empty() ? 0.0 : segs.back().GetDistFromBeginningMeters();
-}
-
-/// \brief Returns the point on |route|'s polyline closest to half its total geodesic length.
-/// Falls back to the first/last junction when the route is degenerate.
-m2::PointD GetRouteMidpoint(routing::RouteBase const & route)
-{
-  double const halfM = 0.5 * GetRouteTotalDistanceMeters(route);
-
-  auto const & segs = route.GetRouteSegments();
-  for (size_t i = 0; i < segs.size(); ++i)
-  {
-    double const end = segs[i].GetDistFromBeginningMeters();
-    if (end < halfM)
-      continue;
-    double const start = (i == 0) ? 0.0 : segs[i - 1].GetDistFromBeginningMeters();
-    double const t = (end > start) ? (halfM - start) / (end - start) : 0.0;
-    auto const & a = (i == 0) ? route.GetSubrouteAttrs(0).GetStart().GetPoint() : segs[i - 1].GetJunction().GetPoint();
-    auto const & b = segs[i].GetJunction().GetPoint();
-    return a + (b - a) * t;
-  }
-  return segs.back().GetJunction().GetPoint();
-}
-
 }  // namespace
 
 void RoutingManager::CreateRouteAltMarks(routing::RoutesResult const & result)
@@ -768,8 +739,13 @@ void RoutingManager::CreateRouteAltMarks(routing::RoutesResult const & result)
     if (!r.IsValid())
       continue;
 
-    infos.push_back({GetRouteMidpoint(r), platform::Duration(std::lround(r.GetTotalTimeSec())).GetHoursMinutesString(),
-                     i, i == result.m_activeIdx});
+    // Alts carry a divergence midpoint (set by IndexRouter::CalculateRoute) so the balloon lands
+    // where the alt actually differs from the active route. Active route has no diff — fall back
+    // to the geometric midpoint of the whole route.
+    auto const & diffMid = r.GetDiffMidpoint();
+    m2::PointD const pivot = diffMid ? *diffMid : r.GetMidpoint();
+    infos.push_back({pivot, platform::Duration(std::lround(r.GetTotalTimeSec())).GetHoursMinutesString(), i,
+                     i == result.m_activeIdx});
   }
 
   GetPlatform().RunTask(Platform::Thread::Gui, [this, infos = std::move(infos)]()

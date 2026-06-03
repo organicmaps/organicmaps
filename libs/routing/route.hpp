@@ -23,6 +23,7 @@
 
 #include <limits>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -287,9 +288,25 @@ public:
   // A route is "valid" (for display purposes) when it has at least one segment and a starting subroute.
   bool IsValid() const { return !m_routeSegments.empty() && !m_subrouteAttrs.empty(); }
 
-  /// \returns true if |this| route has at least one segment whose (mwmId, featureId) is not present
-  /// in |origin|. Used to reject an alternative route that fully overlaps the original by feature.
-  bool IsGoodAlt(std::vector<RouteSegment> const & origin) const;
+  /// \returns The midpoint of the longest divergence span — used to place the ETA balloon
+  /// where the alt actually differs from |origin| — or nullopt if the route fails the threshold (equal).
+  std::optional<m2::PointD> FindMaxDiffMidpoint(std::vector<RouteSegment> const & origin) const;
+
+  /// \brief Polyline midpoint of segments [beginIdx, endIdx] interpolated to half their geodesic
+  /// length. The 0-based indexing is into m_routeSegments; the previous "junction" of segment 0
+  /// is the first subroute's start point. Both bounds are inclusive.
+  m2::PointD GetMidpoint(size_t beginIdx, size_t endIdx) const;
+  /// \returns Midpoint of the whole route, or PointD{} when the route has no segments.
+  m2::PointD GetMidpoint() const
+  {
+    ASSERT(IsValid(), ());
+    return GetMidpoint(0, m_routeSegments.size() - 1);
+  }
+
+  /// \returns Pivot point for the alt's ETA balloon, set by FindMaxDiffMidpoint on the alt side
+  /// and used by RoutingManager::CreateRouteAltMarks. Unset on the active route.
+  std::optional<m2::PointD> const & GetDiffMidpoint() const { return m_diffMidpoint; }
+  void SetDiffMidpoint(m2::PointD const & pt) { m_diffMidpoint = pt; }
 
   double GetTotalTimeSec() const;
 
@@ -349,6 +366,9 @@ protected:
 
   // Mwms which are crossed by the route where speed cameras are prohibited.
   std::vector<platform::CountryFile> m_speedCamPartlyProhibitedMwms;
+
+  // Pivot for the alternative-route ETA balloon — midpoint of the longest segment span.
+  std::optional<m2::PointD> m_diffMidpoint;
 };
 
 /// \brief A RouteBase that the user is actively following: adds the matched position on the polyline,
