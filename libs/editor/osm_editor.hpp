@@ -213,7 +213,7 @@ private:
   bool MarkFeatureAsObsolete(FeatureID const & fid);
   bool RemoveFeature(FeatureID const & fid);
 
-  FeatureID GenerateNewFeatureId(FeaturesContainer const & features, MwmId const & id) const;
+  static FeatureID GenerateNewFeatureId(FeaturesContainer const & features, MwmId const & id);
   EditableProperties GetEditablePropertiesForTypes(feature::TypesHolder const & types) const;
 
   bool FillFeatureInfo(FeatureStatus status, editor::XMLFeature const & xml, FeatureID const & fid,
