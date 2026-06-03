@@ -1006,14 +1006,39 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 #pragma mark - MWMBookmarksObserver
 - (void)onBookmarksCategoryLoadingFinished:(NSArray<BookmarksCategoryLoadingResult *> *)results
 {
+  NSMutableArray<NSNumber *> * importedCategoryIds = [NSMutableArray array];
+  BOOL hasImportError = NO;
+
   for (BookmarksCategoryLoadingResult * result in results)
   {
     if (result.source != BookmarksCategoryLoadingSourceImport)
       continue;
 
-    NSString * const message = result.success ? L(@"load_kmz_successful") : L(@"load_kmz_failed");
-    [[MWMAlertViewController activeAlertController] presentInfoAlert:L(@"load_kmz_title") text:message];
+    if (!result.success)
+    {
+      hasImportError = YES;
+      continue;
+    }
+
+    [importedCategoryIds addObjectsFromArray:result.groupIds];
   }
+
+  if (hasImportError)
+  {
+    [[MWMAlertViewController activeAlertController] presentInfoAlert:L(@"load_kmz_title") text:L(@"load_kmz_failed")];
+    return;
+  }
+
+  if (importedCategoryIds.count == 1)
+  {
+    MWMMarkGroupID const categoryId = importedCategoryIds.firstObject.unsignedLongLongValue;
+    [self.bookmarksCoordinator openCategory:categoryId];
+    return;
+  }
+
+  if (importedCategoryIds.count > 1)
+    [[MWMAlertViewController activeAlertController] presentInfoAlert:L(@"load_kmz_title")
+                                                                text:L(@"load_kmz_successful")];
 }
 
 - (BOOL)canBecomeFirstResponder

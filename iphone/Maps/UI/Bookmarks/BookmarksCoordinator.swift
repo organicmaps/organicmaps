@@ -23,6 +23,12 @@ import UIKit
     state = .opened
   }
 
+  @objc(openCategory:)
+  func openCategory(_ groupId: MWMMarkGroupID) {
+    let bookmarksList = BookmarksListBuilder.build(markGroupId: groupId, bookmarksCoordinator: self)
+    navigationController?.pushViewController(bookmarksList, animated: true)
+  }
+
   @objc func close() {
     state = .closed
   }
