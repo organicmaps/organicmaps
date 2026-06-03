@@ -15,10 +15,7 @@ namespace platform
 using CancelChecker = HttpClient::CancelChecker;
 
 // True for OpenStreetMap hosts: production www.openstreetmap.org / api.openstreetmap.org and
-// the dev server master.apis.dev.openstreetmap.org (any *.openstreetmap.org subdomain plus the
-// bare apex). Their TLS-negotiated HTTP/2 can hang a QNetworkReply on Qt <= 6.4 (QTBUG-111417),
-// so RunHttpRequestAsync forces HTTP/1.1 for them on affected Qt versions. Free function with
-// external linkage so platform_tests can exercise it directly.
+// the dev server master.apis.dev.openstreetmap.org (any *.openstreetmap.org subdomain plus the bare apex).
 bool IsOsmHost(QString const & host);
 
 // QObject helper that bridges Qt signals to HttpClient::CompletionHandler.
