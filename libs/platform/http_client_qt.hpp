@@ -14,6 +14,10 @@ namespace platform
 {
 using CancelChecker = HttpClient::CancelChecker;
 
+// True for OpenStreetMap hosts: production www.openstreetmap.org / api.openstreetmap.org and
+// the dev server master.apis.dev.openstreetmap.org (any *.openstreetmap.org subdomain plus the bare apex).
+bool IsOsmHost(QString const & host);
+
 // QObject helper that bridges Qt signals to HttpClient::CompletionHandler.
 // Lives on the network thread, destroyed when the reply finishes.
 class HttpClientReply : public QObject

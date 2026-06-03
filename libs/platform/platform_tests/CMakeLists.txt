@@ -24,6 +24,7 @@ set(SRC
 # (macOS uses http_client_apple.mm instead).
 if (PLATFORM_DESKTOP AND NOT PLATFORM_MAC)
   list(APPEND SRC http_client_qt_retry_test.cpp)
+  list(APPEND SRC http_client_qt_http2_test.cpp)
 endif()
 
 omim_add_test(${PROJECT_NAME} ${SRC} REQUIRE_QT REQUIRE_SERVER)

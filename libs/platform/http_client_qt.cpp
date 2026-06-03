@@ -8,6 +8,7 @@
 #include <QPointer>
 #include <QThread>
 #include <QUrl>
+#include <QtGlobal>  // QT_VERSION, QT_VERSION_CHECK
 
 namespace
 {
@@ -79,6 +80,12 @@ QNetworkReply * IssueRequest(QNetworkAccessManager & manager, std::string const 
 
 namespace platform
 {
+bool IsOsmHost(QString const & host)
+{
+  return host.compare(QLatin1String("openstreetmap.org"), Qt::CaseInsensitive) == 0 ||
+         host.endsWith(QLatin1String(".openstreetmap.org"), Qt::CaseInsensitive);
+}
+
 HttpClientReply::HttpClientReply(QNetworkReply * reply, HttpClient::CompletionHandler handler,
                                  HttpClient::ProgressHandler progressHandler, HttpClient::DataHandler dataHandler,
                                  CancelChecker cancelChecker, bool loadHeaders, bool followRedirects,
@@ -473,6 +480,16 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
   QNetworkRequest request(QUrl(QString::fromStdString(m_urlRequested)));
 
   request.setTransferTimeout(static_cast<int>(m_timeoutSec * 1000));
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 5, 1)
+  // QTBUG-111417: on Qt <= 6.4 an HTTP/2 QNetworkReply can stall without ever emitting
+  // finished() until the peer closes the connection, hanging the blocking RunHttpRequest()
+  // far past setTransferTimeout. OSM login/OAuth (www) and the editing API negotiate HTTP/2,
+  // so force HTTP/1.1 for OSM hosts. Fixed in Qt 6.5.1/6.6.0 — this block compiles out on
+  // newer Qt, where HTTP/2 is used again.
+  if (IsOsmHost(request.url().host()))
+    request.setAttribute(QNetworkRequest::Http2AllowedAttribute, false);
+#endif
 
   // Disable Qt's automatic cookie handling — we manage cookies manually via
   // SetCookies() / CombinedCookies(), matching Apple's HTTPShouldHandleCookies=NO.
