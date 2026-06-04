@@ -65,11 +65,11 @@ public:
     /// @return true  Data is initialized and correct (after UpdateSelectionInfo call).
     /// Can be false if input m_squareDist filtered all track's segments.
     bool IsValid() const { return m_trackId != kml::kInvalidTrackId; }
-    bool IsRelation() const { return m_trackId == kml::kTempRelationTrackId && m_featureId.IsValid(); }
+    bool IsRelation() const { return m_trackId == kml::kTempRelationTrackId && m_relationId.IsValid(); }
 
     kml::TrackId m_trackId = kml::kInvalidTrackId;
     m2::PointD m_trackPoint;
-    FeatureID m_featureId;  // Relation only.
+    RelationID m_relationId;  // Relation only.
     std::string m_title;
     dp::Color m_color = dp::Color::Transparent();
 

@@ -23,10 +23,6 @@ class CountryInfoGetter;
 class RelationTrackBuilder
 {
 public:
-  /// Reference to a Relation in a particular MWM. {m_mwmId, m_index} == {MwmId, in-MWM relIdx}.
-  /// FeatureID's structure matches our needs exactly so we reuse it.
-  using RelationID = FeatureID;
-
   /// Geometry of a (possibly chained) line, plus the ordered list of source Relations
   /// that contributed runs of points to it. Way-orientation inside a Relation is
   /// arbitrary, so we record only *which* Relation each run came from — never a
@@ -86,7 +82,7 @@ public:
                        storage::CountryInfoGetter const * infoGetter = nullptr);
 
   /// Builds relation track candidates metadata.
-  std::vector<Metadata> BuildMetadata(std::unordered_set<RelationID> * processedRelations = nullptr);
+  std::vector<Metadata> BuildMetadata();
   /// Builds full relation track geometry.
   std::optional<Data> Build(RelationID const & relationId);
 

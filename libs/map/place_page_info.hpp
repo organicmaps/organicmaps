@@ -160,8 +160,8 @@ public:
   /// Track
   void SetTrackId(kml::TrackId trackId) { m_trackId = trackId; }
   kml::TrackId GetTrackId() const { return m_trackId; }
-  void SetTrackRelationId(FeatureID const & relationId) { m_trackRelationId = relationId; }
-  FeatureID const & GetTrackRelationId() const { return m_trackRelationId; }
+  void SetTrackRelationId(RelationID const & relationId) { m_trackRelationId = relationId; }
+  RelationID const & GetTrackRelationId() const { return m_trackRelationId; }
 
   void SetTrackCandidates(std::vector<Track::TrackSelectionInfo> candidates);
   // Returns only actionable candidates: empty when there is no real choice, otherwise 2 or more tracks.
@@ -275,7 +275,7 @@ private:
   /// If not invalid, track is bound to this place page.
   kml::TrackId m_trackId = kml::kInvalidTrackId;
   /// If valid, relation track is bound to this place page.
-  FeatureID m_trackRelationId;
+  RelationID m_trackRelationId;
   std::vector<Track::TrackSelectionInfo> m_trackSelectionCandidates;
   /// Whether to treat it as plain feature.
   bool m_hasMetadata = false;

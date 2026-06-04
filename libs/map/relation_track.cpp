@@ -27,7 +27,6 @@ namespace relation_track_merger  // Unity build protect
 namespace  // Avoid exposing symbols
 {
 using Geometry = RelationTrackBuilder::Geometry;
-using RelationID = RelationTrackBuilder::RelationID;
 
 bool IsEqual(m2::PointD const & lhs, m2::PointD const & rhs)
 {
@@ -239,8 +238,7 @@ RelationTrackBuilder::RelationTrackBuilder(DataSource const & dataSource, Featur
   , m_infoGetter(infoGetter)
 {}
 
-std::vector<RelationTrackBuilder::Metadata> RelationTrackBuilder::BuildMetadata(
-    std::unordered_set<RelationID> * processedRelations)
+std::vector<RelationTrackBuilder::Metadata> RelationTrackBuilder::BuildMetadata()
 {
   df::RelationsDrawSettings sett;
   sett.Load();
@@ -260,14 +258,10 @@ std::vector<RelationTrackBuilder::Metadata> RelationTrackBuilder::BuildMetadata(
     if (!sett.MatchHikingOrCycling(ft->ReadRelationType(relID)))
       continue;
 
-    RelationID const relationId(m_fid.m_mwmId, relID);
-    if (processedRelations != nullptr && !processedRelations->insert(relationId).second)
-      continue;
-
     auto const rel = ft->ReadRelation<feature::RouteRelationBase>(relID);
 
     Metadata info;
-    info.m_relationId = relationId;
+    info.m_relationId = {m_fid.m_mwmId, relID};
     info.m_name = std::string(rel.GetDefaultName());
     info.m_color = rel.GetColor();
     result.emplace_back(info);

@@ -697,7 +697,7 @@ void Framework::FillTrackInfo(Track const & track, Track::TrackSelectionInfo con
                               place_page::Info & info) const
 {
   info.SetTrackId(track.GetId());
-  info.SetTrackRelationId(trackSelectionInfo.m_featureId);
+  info.SetTrackRelationId(trackSelectionInfo.m_relationId);
   auto const groupId = track.GetGroupId();
   info.SetBookmarkCategoryId(groupId);
   if (groupId != kml::kInvalidMarkGroupId)
@@ -719,7 +719,6 @@ std::vector<Track::TrackSelectionInfo> Framework::FindRelationTracksInTapPositio
 {
   std::vector<Track::TrackSelectionInfo> selectionCandidates;
   selectionCandidates.reserve(lineCandidates.size());
-  std::unordered_set<RelationTrackBuilder::RelationID> processedRelations;
 
   for (auto const & [dist, fid] : lineCandidates)
   {
@@ -727,13 +726,13 @@ std::vector<Track::TrackSelectionInfo> Framework::FindRelationTracksInTapPositio
       continue;
 
     RelationTrackBuilder builder(m_featuresFetcher.GetDataSource(), fid, m_infoGetter.get());
-    auto const relationTracksMetadata = builder.BuildMetadata(&processedRelations);
+    auto const relationTracksMetadata = builder.BuildMetadata();
     for (auto const & metadata : relationTracksMetadata)
     {
       Track::TrackSelectionInfo trackSelInfo;
       trackSelInfo.m_trackId = kml::kTempRelationTrackId;
       trackSelInfo.m_trackPoint = mercator;
-      trackSelInfo.m_featureId = metadata.m_relationId;
+      trackSelInfo.m_relationId = metadata.m_relationId;
       trackSelInfo.m_title = metadata.m_name;
       trackSelInfo.m_color = metadata.m_color;
       UpdateTrackSelectionColor(trackSelInfo.m_color);
@@ -747,10 +746,10 @@ std::vector<Track::TrackSelectionInfo> Framework::FindRelationTracksInTapPositio
 
 kml::TrackData Framework::BuildRelationTrack(Track::TrackSelectionInfo const & trackSelectionInfo)
 {
-  auto const relationId = trackSelectionInfo.m_featureId;
+  auto const relationId = trackSelectionInfo.m_relationId;
   CHECK(trackSelectionInfo.IsRelation(), ());
 
-  RelationTrackBuilder builder(m_featuresFetcher.GetDataSource(), trackSelectionInfo.m_featureId, m_infoGetter.get());
+  RelationTrackBuilder builder(m_featuresFetcher.GetDataSource(), trackSelectionInfo.m_relationId, m_infoGetter.get());
   auto trackData = builder.Build(relationId);
   if (!trackData)
     return {};
@@ -917,14 +916,14 @@ void Framework::ShowTrack(kml::TrackId trackId)
   ActivateMapSelection();
 }
 
-void Framework::SelectTrackCandidate(kml::TrackId trackId, FeatureID const & featureId)
+void Framework::SelectTrackCandidate(kml::TrackId trackId, RelationID const & relationId)
 {
   CHECK(m_currentPlacePageInfo, ());
   auto const & candidates = m_currentPlacePageInfo->GetTrackCandidates();
   auto const isRelationTrack = trackId == kml::kTempRelationTrackId;
-  auto const candidate =
-      std::find_if(candidates.begin(), candidates.end(), [&trackId, &featureId, isRelationTrack](auto const & candidate)
-  { return isRelationTrack ? candidate.m_featureId == featureId : candidate.m_trackId == trackId; });
+  auto const candidate = std::find_if(candidates.begin(), candidates.end(),
+                                      [&trackId, &relationId, isRelationTrack](auto const & candidate)
+  { return isRelationTrack ? candidate.m_relationId == relationId : candidate.m_trackId == trackId; });
 
   CHECK(candidate != candidates.end(), ());
   CHECK(candidate->IsValid(), ());
