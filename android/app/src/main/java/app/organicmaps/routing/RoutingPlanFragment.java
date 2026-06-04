@@ -225,7 +225,10 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     final RoutingController controller = RoutingController.get();
 
     if (controller.isPlanning())
+    {
       setRoutingContentActive(false);
+      mRoutingBottomMenuController.refreshManageRoute();
+    }
 
     if (controller.isBuilt())
       setRoutingContentActive(true);
