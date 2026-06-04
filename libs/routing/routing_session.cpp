@@ -579,6 +579,17 @@ bool RoutingSession::SwapActiveAlternative(size_t idx)
   auto route = std::make_shared<Route>(m_lastResult->GetActive());
   route->SetRoutingSettings(m_routingSettings);
   m_route = route;
+
+  // Reset all per-route state tied to the previous active's geometry so the new alternative
+  // starts with a clean follow/match/notify pipeline. Mirrors RemoveRoute() + AssignRoute()
+  // for the bits that matter when m_lastResult itself is reused.
+  m_lastDistance = 0.0;
+  m_moveAwayCounter = 0;
+  m_lastCompletionPercent = 0;
+  m_passedDistanceOnRouteMeters = 0.0;
+  m_turnNotificationsMgr.Reset();
+  m_checkpoints.SetPointFrom(m_route->GetPoly().Front());
+
   m_speedCameraManager.Reset();
   m_speedCameraManager.SetRoute(m_route);
   if (m_router)

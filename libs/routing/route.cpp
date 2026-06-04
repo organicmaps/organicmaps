@@ -11,7 +11,8 @@
 #include "geometry/point2d.hpp"
 
 #include <algorithm>
-#include <unordered_set>
+#include <set>
+#include <tuple>
 #include <utility>
 
 namespace routing
@@ -115,14 +116,14 @@ std::optional<m2::PointD> RouteBase::FindMaxDiffMidpoint(std::vector<RouteSegmen
 
   double const totalLenM = m_routeSegments.back().GetDistFromBeginningMeters();
 
-  // (mwmId, featureId) pairs of the origin route. Fake start/end segments are skipped on both
-  // sides — they're not real road features and would otherwise produce spurious "diff" hits.
-  std::unordered_set<uint64_t> originFeatures;
-  originFeatures.reserve(origin.size());
+  // (mwmId, featureId, segmentIdx) tuples of the origin route, direction-normalized so the same
+  // edge traversed forward vs reverse is treated as identical. Fake start/end segments are skipped
+  // on both sides — they're not real road features and would otherwise produce spurious "diff" hits.
+  std::set<std::tuple<NumMwmId, uint32_t, uint32_t>> originFeatures;
   auto const key = [](RouteSegment const & s)
   {
     auto const & seg = s.GetSegment();
-    return (static_cast<uint64_t>(seg.GetMwmId()) << 32) | seg.GetFeatureId();
+    return std::make_tuple(seg.GetMwmId(), seg.GetFeatureId(), seg.GetSegmentIdx());
   };
   for (auto const & s : origin)
     if (s.GetSegment().IsRealSegment())
