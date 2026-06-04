@@ -88,11 +88,11 @@ UNIT_TEST(RouteApiV2MultipleStopsPreview)
   TEST(!test.ShouldStartRouteNavigation(), ());
 }
 
-UNIT_TEST(RouteApiV2HttpsDirWithEncodedWaypointsSeparatorAndBikeMode)
+UNIT_TEST(RouteApiV2HttpsDirWithWaypointsAndBikeMode)
 {
   string const urlString =
       "https://omaps.app/v2/dir?destination=47.38568,8.566878"
-      "&waypoints=47.395084,8.552692%7C47.3890,8.5580&mode=bike";
+      "&waypoints=47.395084,8.552692|47.3890,8.5580&mode=bike";
   TEST(url::Url(urlString).IsValid(), ());
 
   ParsedMapApi test(urlString);
@@ -154,14 +154,44 @@ UNIT_TEST(RouteApiV2NavigationUsesCurrentPositionByDefault)
   TEST_ALMOST_EQUAL_ABS(test.GetRouteStartDirection().y, 0.0, kEps, ());
 }
 
-UNIT_TEST(RouteApiV2ExplicitOriginNavigationBuildsPreview)
+UNIT_TEST(RouteApiV2NavigationIgnoresExplicitOrigin)
 {
   ParsedMapApi test("om://v2/nav?origin=1,1&destination=2,2");
   TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
   TEST_EQUAL(test.GetRoutePoints().size(), 2, ());
+  // /v2/nav always navigates from the current position: the explicit origin is
+  // ignored and the start becomes my-position, with auto-start enabled.
+  TEST(test.GetRoutePoints()[0].m_isMyPosition, ());
+  TEST_EQUAL(test.GetRoutePoints()[1].m_org, mercator::FromLatLon(2, 2), ());
+  TEST(test.ShouldStartRouteNavigation(), ());
+}
+
+UNIT_TEST(RouteApiV2DirWithExplicitOriginIsPreview)
+{
+  // /v2/dir honors an explicit origin (start = that point) and never auto-starts.
+  ParsedMapApi test("om://v2/dir?origin=1,1&destination=2,2");
+  TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(test.GetRoutePoints().size(), 2, ());
   TEST(!test.GetRoutePoints()[0].m_isMyPosition, ());
   TEST_EQUAL(test.GetRoutePoints()[0].m_org, mercator::FromLatLon(1, 1), ());
-  TEST(test.ShouldStartRouteNavigation(), ());
+  TEST_EQUAL(test.GetRoutePoints()[1].m_org, mercator::FromLatLon(2, 2), ());
+  TEST(!test.ShouldStartRouteNavigation(), ());
+}
+
+UNIT_TEST(RouteApiV2NavTreatsOriginAsOptionalAndIgnored)
+{
+  // origin is optional and ignored by /v2/nav (reserved as a future hint), so even
+  // a malformed value is dropped rather than failing the request.
+  ParsedMapApi nav("om://v2/nav?origin=not-a-coord&destination=2,2");
+  TEST_EQUAL(nav.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(nav.GetRoutePoints().size(), 2, ());
+  TEST(nav.GetRoutePoints()[0].m_isMyPosition, ());
+  TEST_EQUAL(nav.GetRoutePoints()[1].m_org, mercator::FromLatLon(2, 2), ());
+  TEST(nav.ShouldStartRouteNavigation(), ());
+
+  // /v2/dir uses origin as its start point, so a malformed value is rejected.
+  ParsedMapApi dir("om://v2/dir?origin=not-a-coord&destination=2,2");
+  TEST_EQUAL(dir.GetRequestType(), UrlType::Incorrect, ());
 }
 
 UNIT_TEST(RouteApiV2AllowsEmptyWaypoints)
@@ -243,124 +273,80 @@ UNIT_TEST(RouteApiV2CallbacksAndBikeMode)
   TEST_EQUAL(test.GetGlobalBackUrl(), "app://back", ());
 }
 
-UNIT_TEST(RouteApiV2EscapesInvalidPercentsInCallbacks)
+UNIT_TEST(RouteApiV2DecodesCallbackPercentLiterally)
 {
-  string const urlString =
-      "om://v2/dir?origin=1,1&origin_callback=app%3A%2F%2Forigin%3Fprogress%3D100%25"
-      "&destination=4,4&destination_callback=app%3A%2F%2Ffinish%3Ftoken%3Dab%252Fcd"
-      "&waypoints=2,2|3,3&waypoint_callbacks=app%3A%2F%2Fstop%3Fprogress%3D50%25|app%3A%2F%2Fnext%3Ftoken%3Dab%252Fcd"
-      "&callback=app%3A%2F%2Fback%3Fprogress%3D100%25";
-
-  ParsedMapApi test(urlString);
-  TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
-  TEST_EQUAL(test.GetRoutePoints().size(), 4, ());
-  TEST_EQUAL(test.GetRoutePoints()[0].m_callback, "app://origin?progress=100%25", ());
-  TEST_EQUAL(test.GetRoutePoints()[1].m_callback, "app://stop?progress=50%25", ());
-  TEST_EQUAL(test.GetRoutePoints()[2].m_callback, "app://next?token=ab%2Fcd", ());
-  TEST_EQUAL(test.GetRoutePoints()[3].m_callback, "app://finish?token=ab%2Fcd", ());
-  TEST_EQUAL(test.GetGlobalBackUrl(), "app://back?progress=100%25", ());
-}
-
-UNIT_TEST(RouteApiV2EscapesRawInvalidPercentsInCallbacks)
-{
-  string const urlString =
-      "om://v2/dir?origin=1,1&origin_callback=app%3A%2F%2Forigin%3Fprogress%3D100%"
-      "&destination=4,4&destination_callback=app%3A%2F%2Ffinish%3Fprogress%3D100%"
-      "&waypoints=2,2|3,3&waypoint_callbacks=app%3A%2F%2Fstop%3Fprogress%3D50%|app%3A%2F%2Fnext%3Fprogress%3D60%"
-      "&callback=app%3A%2F%2Fback%3Fprogress%3D100%";
-
-  ParsedMapApi test(urlString);
-  TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
-  TEST_EQUAL(test.GetRoutePoints().size(), 4, ());
-  TEST_EQUAL(test.GetRoutePoints()[0].m_callback, "app://origin?progress=100%25", ());
-  TEST_EQUAL(test.GetRoutePoints()[1].m_callback, "app://stop?progress=50%25", ());
-  TEST_EQUAL(test.GetRoutePoints()[2].m_callback, "app://next?progress=60%25", ());
-  TEST_EQUAL(test.GetRoutePoints()[3].m_callback, "app://finish?progress=100%25", ());
-  TEST_EQUAL(test.GetGlobalBackUrl(), "app://back?progress=100%25", ());
-}
-
-UNIT_TEST(RouteApiV2PreservesEncodedPipesInWaypointCallbacks)
-{
-  string const urlString =
-      "om://v2/dir?origin=1,1&destination=4,4&waypoints=2,2|3,3"
-      "&waypoint_callbacks=app%3A%2F%2Fdone%3Fstate%3Da%7Cb|app%3A%2F%2Fnext";
-
-  ParsedMapApi test(urlString);
-  TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
-  TEST_EQUAL(test.GetRoutePoints().size(), 4, ());
-  TEST_EQUAL(test.GetRoutePoints()[1].m_callback, "app://done?state=a|b", ());
-  TEST_EQUAL(test.GetRoutePoints()[2].m_callback, "app://next", ());
-}
-
-UNIT_TEST(RouteApiV2PreservesSingleWaypointCallbackWithEncodedPipe)
-{
+  // Callbacks decode like any other value: an encoded "%25" becomes a literal '%'. Re-encoding
+  // for the platform URL opener happens later (see RoutePointCallbackURL on iOS).
   string const urlString =
       "om://v2/dir?origin=1,1&destination=3,3&waypoints=2,2"
-      "&waypoint_callbacks=app%3A%2F%2Fdone%3Fstate%3Da%7Cb";
+      "&waypoint_callbacks=app%3A%2F%2Fstop%3Fprogress%3D50%25&callback=app%3A%2F%2Fback%3Fprogress%3D100%25";
 
   ParsedMapApi test(urlString);
   TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
   TEST_EQUAL(test.GetRoutePoints().size(), 3, ());
-  TEST_EQUAL(test.GetRoutePoints()[1].m_callback, "app://done?state=a|b", ());
+  TEST_EQUAL(test.GetRoutePoints()[1].m_callback, "app://stop?progress=50%", ());
+  TEST_EQUAL(test.GetGlobalBackUrl(), "app://back?progress=100%", ());
 }
 
-UNIT_TEST(RouteApiV2PreservesNestedEncodedUrlInSingleWaypointCallback)
+UNIT_TEST(RouteApiV2AcceptsEncodedAndRawPipeSeparators)
 {
-  string const urlString =
+  // Values are URL-decoded before the split, so an encoded "%7C" separates list items exactly
+  // like a raw '|'. A builder that percent-encodes the whole query therefore still splits.
+  ParsedMapApi raw(
+      "om://v2/dir?origin=1,1&destination=4,4&waypoints=2,2|3,3"
+      "&waypoint_callbacks=app%3A%2F%2Fone|app%3A%2F%2Ftwo");
+  TEST_EQUAL(raw.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(raw.GetRoutePoints().size(), 4, ());
+  TEST_EQUAL(raw.GetRoutePoints()[1].m_callback, "app://one", ());
+  TEST_EQUAL(raw.GetRoutePoints()[2].m_callback, "app://two", ());
+
+  ParsedMapApi encoded(
       "om://v2/dir?origin=1,1&destination=4,4&waypoints=2,2%7C3,3"
-      "&waypoint_callbacks=app%3A%2F%2Fdone%3Fnext%3Dfirst%7Capp%3A%2F%2Fnested";
+      "&waypoint_callbacks=app%3A%2F%2Fone%7Capp%3A%2F%2Ftwo");
+  TEST_EQUAL(encoded.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(encoded.GetRoutePoints().size(), 4, ());
+  TEST_EQUAL(encoded.GetRoutePoints()[1].m_org, mercator::FromLatLon(2, 2), ());
+  TEST_EQUAL(encoded.GetRoutePoints()[2].m_org, mercator::FromLatLon(3, 3), ());
+  TEST_EQUAL(encoded.GetRoutePoints()[1].m_callback, "app://one", ());
+  TEST_EQUAL(encoded.GetRoutePoints()[2].m_callback, "app://two", ());
+}
+
+UNIT_TEST(RouteApiV2DoubleEncodedPipeStaysLiteral)
+{
+  // A literal '|' inside a value must be double-encoded as "%257C": it decodes once to the
+  // text "%7C" and is not treated as a separator.
+  ParsedMapApi callback(
+      "om://v2/dir?origin=1,1&destination=3,3&waypoints=2,2"
+      "&waypoint_callbacks=app%3A%2F%2Fdone%3Fstate%3Da%257Cb");
+  TEST_EQUAL(callback.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(callback.GetRoutePoints().size(), 3, ());
+  TEST_EQUAL(callback.GetRoutePoints()[1].m_callback, "app://done?state=a%7Cb", ());
+
+  ParsedMapApi name("om://v2/dir?origin=1,1&destination=3,3&waypoints=2,2&waypoint_names=Cafe%20A%257CB");
+  TEST_EQUAL(name.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(name.GetRoutePoints().size(), 3, ());
+  TEST_EQUAL(name.GetRoutePoints()[1].m_name, "Cafe A%7CB", ());
+}
+
+UNIT_TEST(RouteApiV2WaypointCallbacksFewerThanWaypoints)
+{
+  // Fewer callbacks than waypoints: the remaining stops keep no callback.
+  string const urlString =
+      "om://v2/dir?origin=1,1&destination=4,4&waypoints=2,2|3,3"
+      "&waypoint_callbacks=app%3A%2F%2Fstop";
 
   ParsedMapApi test(urlString);
   TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
   TEST_EQUAL(test.GetRoutePoints().size(), 4, ());
-  TEST_EQUAL(test.GetRoutePoints()[1].m_callback, "app://done?next=first|app://nested", ());
+  TEST_EQUAL(test.GetRoutePoints()[1].m_callback, "app://stop", ());
   TEST(test.GetRoutePoints()[2].m_callback.empty(), ());
 }
 
-UNIT_TEST(RouteApiV2SplitsWaypointCallbacksAfterNestedEncodedUrl)
+UNIT_TEST(RouteApiV2SplitsWaypointNamesByLiteralSeparators)
 {
   string const urlString =
-      "om://v2/dir?origin=1,1&destination=4,4&waypoints=2,2%7C3,3"
-      "&waypoint_callbacks=app%3A%2F%2Fone%3Fnext%3Dfirst%7Capp%3A%2F%2Fnested%7Capp%3A%2F%2Ftwo";
-
-  ParsedMapApi test(urlString);
-  TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
-  TEST_EQUAL(test.GetRoutePoints().size(), 4, ());
-  TEST_EQUAL(test.GetRoutePoints()[1].m_callback, "app://one?next=first|app://nested", ());
-  TEST_EQUAL(test.GetRoutePoints()[2].m_callback, "app://two", ());
-}
-
-UNIT_TEST(RouteApiV2SplitsWaypointCallbacksByEncodedSeparators)
-{
-  string const urlString =
-      "om://v2/dir?origin=1,1&destination=4,4&waypoints=2,2%7C3,3"
-      "&waypoint_callbacks=app%3A%2F%2Fone%7Capp%3A%2F%2Ftwo";
-
-  ParsedMapApi test(urlString);
-  TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
-  TEST_EQUAL(test.GetRoutePoints().size(), 4, ());
-  TEST_EQUAL(test.GetRoutePoints()[1].m_callback, "app://one", ());
-  TEST_EQUAL(test.GetRoutePoints()[2].m_callback, "app://two", ());
-}
-
-UNIT_TEST(RouteApiV2SplitsEncodedWaypointCallbacksWithLiteralEncodedPipe)
-{
-  string const urlString =
-      "om://v2/dir?origin=1,1&destination=4,4&waypoints=2,2%7C3,3"
-      "&waypoint_callbacks=app%3A%2F%2Fone%3Fstate%3Da%7Cb%7Capp%3A%2F%2Ftwo";
-
-  ParsedMapApi test(urlString);
-  TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
-  TEST_EQUAL(test.GetRoutePoints().size(), 4, ());
-  TEST_EQUAL(test.GetRoutePoints()[1].m_callback, "app://one?state=a|b", ());
-  TEST_EQUAL(test.GetRoutePoints()[2].m_callback, "app://two", ());
-}
-
-UNIT_TEST(RouteApiV2SplitsWaypointNamesByEncodedSeparators)
-{
-  string const urlString =
-      "om://v2/nav?origin=1,1&destination=5,5&waypoints=2,2%7C3,3%7C4,4"
-      "&waypoint_names=Anna%2520Schmidt%7CBauer%2520GmbH%7cM%25C3%25BCller%2520Family";
+      "om://v2/nav?origin=1,1&destination=5,5&waypoints=2,2|3,3|4,4"
+      "&waypoint_names=Anna%2520Schmidt|Bauer%2520GmbH|M%25C3%25BCller%2520Family";
 
   ParsedMapApi test(urlString);
   TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
@@ -368,23 +354,25 @@ UNIT_TEST(RouteApiV2SplitsWaypointNamesByEncodedSeparators)
   TEST_EQUAL(test.GetRoutePoints()[1].m_name, "Anna%20Schmidt", ());
   TEST_EQUAL(test.GetRoutePoints()[2].m_name, "Bauer%20GmbH", ());
   TEST_EQUAL(test.GetRoutePoints()[3].m_name, "M%C3%BCller%20Family", ());
+  // /v2/nav auto-starts from the current position; the explicit origin is ignored.
   TEST(test.ShouldStartRouteNavigation(), ());
 
   ParsedMapApi escaped(
-      "om://v2/dir?origin=1,1&destination=4,4&waypoints=2,2%7C3,3"
-      "&waypoint_names=C%2B%2B%20Cafe%7CDiscount%2020%25");
+      "om://v2/dir?origin=1,1&destination=4,4&waypoints=2,2|3,3"
+      "&waypoint_names=C%2B%2B%20Cafe|Discount%2020%25");
   TEST_EQUAL(escaped.GetRequestType(), UrlType::Route, ());
   TEST_EQUAL(escaped.GetRoutePoints().size(), 4, ());
   TEST_EQUAL(escaped.GetRoutePoints()[1].m_name, "C++ Cafe", ());
   TEST_EQUAL(escaped.GetRoutePoints()[2].m_name, "Discount 20%", ());
 
-  ParsedMapApi rawSeparators(
+  // A raw '|' and an encoded "%7C" both separate names.
+  ParsedMapApi encodedSeparators(
       "om://v2/dir?origin=1,1&destination=4,4&waypoints=2,2|3,3"
-      "&waypoint_names=A%7CB|C");
-  TEST_EQUAL(rawSeparators.GetRequestType(), UrlType::Route, ());
-  TEST_EQUAL(rawSeparators.GetRoutePoints().size(), 4, ());
-  TEST_EQUAL(rawSeparators.GetRoutePoints()[1].m_name, "A|B", ());
-  TEST_EQUAL(rawSeparators.GetRoutePoints()[2].m_name, "C", ());
+      "&waypoint_names=Anna%7CBauer");
+  TEST_EQUAL(encodedSeparators.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(encodedSeparators.GetRoutePoints().size(), 4, ());
+  TEST_EQUAL(encodedSeparators.GetRoutePoints()[1].m_name, "Anna", ());
+  TEST_EQUAL(encodedSeparators.GetRoutePoints()[2].m_name, "Bauer", ());
 }
 
 UNIT_TEST(RouteApiV2AcceptsGoogleMapsDirectionAliases)
@@ -396,6 +384,8 @@ UNIT_TEST(RouteApiV2AcceptsGoogleMapsDirectionAliases)
   ParsedMapApi test(urlString);
   TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
   TEST_EQUAL(test.GetRoutingType(), "bicycle", ());
+  // dir_action=navigate makes this a nav request, so it auto-starts from the current
+  // position and ignores the explicit origin.
   TEST(test.ShouldStartRouteNavigation(), ());
 
   ParsedMapApi car("om://v2/dir?destination=2,2&mode=car");
@@ -434,10 +424,12 @@ UNIT_TEST(RouteApiV2HandlesMixedSignsAndAnyParameterOrder)
 
   ParsedMapApi test(urlString);
   TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
+  // /v2/nav auto-starts from the current position regardless of parameter order; the
+  // explicit origin is ignored, so the start point is my-position, not (-33.9249, ...).
   TEST(test.ShouldStartRouteNavigation(), ());
   TEST_EQUAL(test.GetRoutingType(), "pedestrian", ());
   TEST_EQUAL(test.GetRoutePoints().size(), 3, ());
-  TEST_EQUAL(test.GetRoutePoints()[0].m_org, mercator::FromLatLon(-33.9249, 18.4241), ());
+  TEST(test.GetRoutePoints()[0].m_isMyPosition, ());
   TEST_EQUAL(test.GetRoutePoints()[1].m_org, mercator::FromLatLon(-33.95, 18.50), ());
   TEST_EQUAL(test.GetRoutePoints()[2].m_org, mercator::FromLatLon(-34.0522, 18.5610), ());
 }

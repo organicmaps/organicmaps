@@ -157,6 +157,11 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   return @(GetFramework().GetActiveTransitRouteRef().c_str());
 }
 
++ (NSString *)parsedBackUrl
+{
+  return @(GetFramework().GetParsedBackUrl().c_str());
+}
+
 + (void)switchMyPositionMode
 {
   GetFramework().SwitchMyPositionNextMode();

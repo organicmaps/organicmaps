@@ -6,11 +6,12 @@ Organic Maps supports `om://` deep links (and corresponding `https://omaps.app/.
 
 Use v2 route links for multi-stop routes and navigation-app integrations:
 
-- `om://v2/dir?...` previews/builds a route.
-- `om://v2/nav?...` builds the route and starts navigation after it is ready
-  when routing from the current position. If `origin=lat,lon` supplies an
-  explicit start point, Organic Maps previews the route instead of starting
-  navigation automatically.
+- `om://v2/dir?...` previews/builds a route. It honors an explicit `origin`.
+- `om://v2/nav?...` builds the route and starts navigation after it is ready,
+  always from the current position ("navigate to these places starting from
+  me"). An explicit `origin=lat,lon` is optional and currently ignored here
+  (accepted and reserved for possible future use as a routing hint); to preview a
+  route from a specific start point use `/v2/dir` instead.
 
 Required parameter:
 
@@ -18,16 +19,26 @@ Required parameter:
 
 Optional parameters:
 
-- `origin=lat,lon`; when omitted, Organic Maps routes from the current position.
-  Use the omitted-origin form for automatic `/v2/nav` start. Explicit
-  coordinates are treated as route-planning points even when they are close to
-  the user's current position.
+- `origin=lat,lon` is optional. For `/v2/dir` it sets the start point; when
+  omitted, Organic Maps routes from the current position. `/v2/nav` always
+  navigates from the current position, so it accepts but ignores `origin` for now;
+  the parameter is reserved as a possible future routing hint, so including it is
+  safe and never fails a `/v2/nav` request.
 - `origin_heading=degrees` to prefer the initial road direction from the origin. Degrees are clockwise from north:
   `0` north, `90` east, `180` south, `270` west.
 - `waypoints=lat,lon|lat,lon|...` for intermediate stops in URL order.
 - `origin_name=...`, `destination_name=...`, `waypoint_names=name|name|...`.
 - `origin_callback=...`, `destination_callback=...`, `waypoint_callbacks=url|url|...` for caller-specific stop callbacks.
-  Organic Maps opens each stop callback once when the corresponding route point is passed during navigation.
+  Organic Maps opens a stop callback when the corresponding route point is passed while the app is in the
+  foreground. A stop passed while Organic Maps is in the background is delivered the next time it returns to
+  the foreground; delivery is best-effort, so make callbacks idempotent and do not rely on every intermediate
+  stop opening when the app is not visible (for example on a locked screen).
+  Stop callbacks are aligned to `waypoints` by position; supply fewer to leave later stops without a callback.
+
+The pipe-separated lists (`waypoints`, `waypoint_names`, `waypoint_callbacks`) accept either a literal `|` or its
+percent-encoded form `%7C` as the item separator, so a builder that percent-encodes the whole query value still
+splits correctly. A literal `|` that belongs inside a value must be double-encoded as `%257C`: it decodes once to
+the text `%7C` and is not treated as a separator.
 - `mode=drive|walk|bike|transit` (`drive` is the default). For easier migration from Google Maps URLs, `travelmode=driving|walking|bicycling|transit` is accepted as an alias.
 - `dir_action=navigate` on `/v2/dir` is accepted as a Google Maps-style alias for `/v2/nav`.
 - `optimize=true` to allow Organic Maps to reorder intermediate stops; otherwise URL order is preserved.
