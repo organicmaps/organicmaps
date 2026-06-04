@@ -256,6 +256,30 @@ UNIT_TEST(Gpx_Altitude_Issues)
   TEST_EQUAL(line[5], geometry::PointWithAltitude(mercator::FromLatLon(6, 6), 3), ());
 }
 
+UNIT_TEST(Gpx_Export_MixedAltitudes)
+{
+  // A track whose first point has no <ele> but later points do must still export elevation
+  // (TrackHasAltitudes scans every point, not just the first), and points without altitude
+  // must be skipped instead of being written as the kInvalidAltitude sentinel (-32768).
+  std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.0">
+<trk>
+    <name>mixed</name>
+    <trkseg>
+      <trkpt lat="1" lon="1"></trkpt>
+      <trkpt lat="2" lon="2"><ele>100</ele></trkpt>
+      <trkpt lat="3" lon="3"><ele>200</ele></trkpt>
+    </trkseg>
+</trk>
+</gpx>
+)";
+
+  std::string const exported = Serialize(LoadGpxFromString(input));
+  TEST(exported.find("<ele>100</ele>") != std::string::npos, (exported));
+  TEST(exported.find("<ele>200</ele>") != std::string::npos, (exported));
+  TEST(exported.find("-32768") == std::string::npos, (exported));
+}
+
 UNIT_TEST(Gpx_Timestamp_Issues)
 {
   std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>

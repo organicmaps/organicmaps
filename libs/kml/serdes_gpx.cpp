@@ -8,6 +8,7 @@
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 namespace kml
@@ -518,13 +519,12 @@ void SaveBookmarkData(Writer & writer, BookmarkData const & bookmarkData)
   writer << "</wpt>\n";
 }
 
+// True if any line in the track carries real elevation (see LineHasAltitude). Scanning every
+// point (not just the first) keeps GPX export consistent with the elevation chart
+// (Track::HasAltitudes) for mixed tracks whose first point lacks altitude.
 bool TrackHasAltitudes(TrackData const & trackData)
 {
-  auto const & lines = trackData.m_geometry.m_lines;
-  if (lines.empty() || lines.front().empty())
-    return false;
-  auto const altitude = lines.front().front().GetAltitude();
-  return altitude != geometry::kDefaultAltitudeMeters && altitude != geometry::kInvalidAltitude;
+  return base::AnyOf(trackData.m_geometry.m_lines, LineHasAltitude);
 }
 
 uint32_t TrackColor(TrackData const & trackData)
@@ -584,10 +584,10 @@ void SaveTrackData(Writer & writer, TrackData const & trackData)
 
       writer << kIndent4 << "<trkpt lat=\"" << CoordToString(lat) << "\" lon=\"" << CoordToString(lon) << "\">\n";
 
-      if (trackHasAltitude)
+      if (trackHasAltitude && point.GetAltitude() != geometry::kInvalidAltitude)
         writer << kIndent6 << "<ele>" << CoordToString(point.GetAltitude()) << "</ele>\n";
 
-      if (lineHasTimestamps)
+      if (lineHasTimestamps && timestampsForLine[pointIndex] != base::INVALID_TIME_STAMP)
         writer << kIndent6 << "<time>" << base::SecondsSinceEpochToString(timestampsForLine[pointIndex]) << "</time>\n";
 
       writer << kIndent4 << "</trkpt>\n";

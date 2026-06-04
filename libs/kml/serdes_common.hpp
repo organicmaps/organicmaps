@@ -16,6 +16,11 @@ auto constexpr kDefaultTrackColor = 0x006ec7ff;
 std::string PointToLineString(geometry::PointWithAltitude const & pt);
 std::string PointToGxString(geometry::PointWithAltitude const & pt);
 
+// True if the line carries real elevation, i.e. any point has a non-default, non-invalid
+// altitude. Used to decide whether to export elevation (GPX <ele>, GeoJSON Z) for a line, so a
+// flat sea-level track isn't bloated with zero altitudes. Mirrors Track::HasAltitudes intent.
+bool LineHasAltitude(TrackGeometry const & line);
+
 void SaveStringWithCDATA(Writer & writer, std::string const & s);
 std::string const * GetDefaultLanguage(LocalizableString const & lstr);
 
