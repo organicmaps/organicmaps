@@ -56,23 +56,6 @@ bool GetTransliteratedName(RegionData const & regionData, StrUtf8 const & src, s
   return false;
 }
 
-// OSM convention: an unqualified `name=` tag is in the on-the-ground language. The region's
-// first declared language is the closest in-data proxy (it is already the basis for
-// default-name transliteration in GetTransliteratedName above). HarfBuzz OpenType `locl`
-// substitutions need a real BCP-47 tag; the literal "default" string is meaningless to fonts,
-// so substituting here lights up Turkish/Serbian/CJK glyph variants for features that have
-// only an unqualified name. Multi-lingual regions are imperfect but strictly better than
-// passing no hint at all.
-void SubstituteRegionLangForDefault(int8_t & lang, RegionData const & regionData)
-{
-  if (lang != StrUtf8::kDefaultCode)
-    return;
-  LangsBufferT mwmLangs;
-  regionData.GetLanguages(mwmLangs);
-  if (!mwmLangs.empty())
-    lang = mwmLangs.front();
-}
-
 // Returns the StrUtf8 code of the selected name, or kUnsupportedLanguageCode if none was found.
 int8_t GetBestName(StrUtf8 const & src, LangsBufferT const & priorityList, std::string_view & out)
 {
@@ -148,7 +131,6 @@ void GetReadableNameImpl(NameParamsIn const & in, bool preferDefault, NameParams
   if (auto const lang = GetBestName(in.src, langPriority, out.primary); lang != StrUtf8::kUnsupportedLanguageCode)
   {
     out.primaryLang = lang;
-    SubstituteRegionLangForDefault(out.primaryLang, in.regionData);
     return;
   }
 
@@ -164,7 +146,6 @@ void GetReadableNameImpl(NameParamsIn const & in, bool preferDefault, NameParams
         lang != StrUtf8::kUnsupportedLanguageCode)
     {
       out.primaryLang = lang;
-      SubstituteRegionLangForDefault(out.primaryLang, in.regionData);
       return;
     }
   }
@@ -356,6 +337,13 @@ LangsBufferT GetSimilar(int8_t lang)
   return langs;
 }
 
+int8_t GetRegionLang(RegionData const & regionData)
+{
+  LangsBufferT mwmLangs;
+  regionData.GetLanguages(mwmLangs);
+  return mwmLangs.empty() ? StrUtf8::kUnsupportedLanguageCode : mwmLangs.front();
+}
+
 void GetPreferredNames(NameParamsIn const & in, NameParamsOut & out)
 {
   out.Clear();
@@ -400,9 +388,6 @@ void GetPreferredNames(NameParamsIn const & in, NameParamsOut & out)
     out.secondary = {};
     out.secondaryLang = StrUtf8::kUnsupportedLanguageCode;
   }
-
-  SubstituteRegionLangForDefault(out.primaryLang, in.regionData);
-  SubstituteRegionLangForDefault(out.secondaryLang, in.regionData);
 }
 
 void GetReadableName(NameParamsIn const & in, NameParamsOut & out)
