@@ -1029,6 +1029,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
     return;
   }
 
+  // Open imported category automatically.
   if (importedCategoryIds.count == 1)
   {
     MWMMarkGroupID const categoryId = importedCategoryIds.firstObject.unsignedLongLongValue;
@@ -1037,8 +1038,24 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
   }
 
   if (importedCategoryIds.count > 1)
-    [[MWMAlertViewController activeAlertController] presentInfoAlert:L(@"load_kmz_title")
-                                                                text:L(@"load_kmz_successful")];
+  {
+    NSMutableArray<NSString *> * categoryNames = [NSMutableArray arrayWithCapacity:importedCategoryIds.count];
+    for (NSNumber * categoryIdNumber in importedCategoryIds)
+    {
+      MWMMarkGroupID const categoryId = categoryIdNumber.unsignedLongLongValue;
+      [categoryNames addObject:[MWMBookmarksManager.sharedManager getCategoryName:categoryId]];
+    }
+
+    __weak auto weakSelf = self;
+    UIAlertController * alert = [UIAlertController
+        importedBookmarkCategoriesWithCategoryIds:importedCategoryIds
+                                    categoryNames:categoryNames
+                                   selectCategory:^(NSNumber * categoryIdNumber) {
+                                     MWMMarkGroupID const categoryId = categoryIdNumber.unsignedLongLongValue;
+                                     [weakSelf.bookmarksCoordinator openCategory:categoryId];
+                                   }];
+    [[UIViewController topViewController] presentViewController:alert animated:YES completion:nil];
+  }
 }
 
 - (BOOL)canBecomeFirstResponder

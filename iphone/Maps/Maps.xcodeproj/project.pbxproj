@@ -285,6 +285,7 @@
 		ED82C5D72F90180300FA103D /* MWMRoutingDisclaimerAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4702F90180300FA103D /* MWMRoutingDisclaimerAlert.m */; };
 		ED82C5D82F90180300FA103D /* SpinnerAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4742F90180300FA103D /* SpinnerAlert.swift */; };
 		ED82C5D92F90180300FA103D /* UIAlertController+UnknownCurrentPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4762F90180300FA103D /* UIAlertController+UnknownCurrentPosition.swift */; };
+		EDBEEF0A2F93A00100123456 /* UIAlertController+ImportedBookmarkCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBEEF092F93A00100123456 /* UIAlertController+ImportedBookmarkCategories.swift */; };
 		ED82C5DA2F90180300FA103D /* MWMEditorViralAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4792F90180300FA103D /* MWMEditorViralAlert.mm */; };
 		ED82C5DB2F90180300FA103D /* LoadingOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C47D2F90180300FA103D /* LoadingOverlayViewController.swift */; };
 		ED82C5DC2F90180300FA103D /* AlertPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C47F2F90180300FA103D /* AlertPresentationController.swift */; };
@@ -1282,6 +1283,7 @@
 		ED82C4732F90180300FA103D /* MWMSpinnerAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMSpinnerAlert.xib; sourceTree = "<group>"; };
 		ED82C4742F90180300FA103D /* SpinnerAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerAlert.swift; sourceTree = "<group>"; };
 		ED82C4762F90180300FA103D /* UIAlertController+UnknownCurrentPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+UnknownCurrentPosition.swift"; sourceTree = "<group>"; };
+		EDBEEF092F93A00100123456 /* UIAlertController+ImportedBookmarkCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+ImportedBookmarkCategories.swift"; sourceTree = "<group>"; };
 		ED82C4782F90180300FA103D /* MWMEditorViralAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMEditorViralAlert.h; sourceTree = "<group>"; };
 		ED82C4792F90180300FA103D /* MWMEditorViralAlert.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEditorViralAlert.mm; sourceTree = "<group>"; };
 		ED82C47A2F90180300FA103D /* MWMEditorViralAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMEditorViralAlert.xib; sourceTree = "<group>"; };
@@ -3073,6 +3075,14 @@
 			path = UnknownCurrentPositionAlert;
 			sourceTree = "<group>";
 		};
+		EDBEEF082F93A00100123456 /* ImportedBookmarkCategoriesAlert */ = {
+			isa = PBXGroup;
+			children = (
+				EDBEEF092F93A00100123456 /* UIAlertController+ImportedBookmarkCategories.swift */,
+			);
+			path = ImportedBookmarkCategoriesAlert;
+			sourceTree = "<group>";
+		};
 		ED82C47B2F90180300FA103D /* ViralAlert */ = {
 			isa = PBXGroup;
 			children = (
@@ -3098,6 +3108,7 @@
 				ED82C46E2F90180300FA103D /* PlaceDoesntExist */,
 				ED82C4722F90180300FA103D /* RoutingDisclaimerAlert */,
 				ED82C4752F90180300FA103D /* SpinnerAlert */,
+				EDBEEF082F93A00100123456 /* ImportedBookmarkCategoriesAlert */,
 				ED82C4772F90180300FA103D /* UnknownCurrentPositionAlert */,
 				ED82C47B2F90180300FA103D /* ViralAlert */,
 			);
@@ -4712,6 +4723,7 @@
 				ED82C5D72F90180300FA103D /* MWMRoutingDisclaimerAlert.m in Sources */,
 				ED82C5D82F90180300FA103D /* SpinnerAlert.swift in Sources */,
 				ED82C5D92F90180300FA103D /* UIAlertController+UnknownCurrentPosition.swift in Sources */,
+				EDBEEF0A2F93A00100123456 /* UIAlertController+ImportedBookmarkCategories.swift in Sources */,
 				ED82C5DA2F90180300FA103D /* MWMEditorViralAlert.mm in Sources */,
 				ED82C5DB2F90180300FA103D /* LoadingOverlayViewController.swift in Sources */,
 				ED82C5DC2F90180300FA103D /* AlertPresentationController.swift in Sources */,
