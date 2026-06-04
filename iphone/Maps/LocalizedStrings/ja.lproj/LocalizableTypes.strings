@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "アイスリンク";
 "type.leisure.marina" = "マリーナ";
 "type.leisure.nature_reserve" = "自然保護区";
+"type.leisure.bird_hide" = "野鳥観察舎";
 "type.leisure.outdoor_seating" = "屋外席";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "公園";

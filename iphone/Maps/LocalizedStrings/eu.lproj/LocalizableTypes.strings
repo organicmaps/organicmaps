@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Izotz-pista";
 "type.leisure.marina" = "Kirol-portua";
 "type.leisure.nature_reserve" = "Erreserbatutako lurraldea";
+"type.leisure.bird_hide" = "Hegaztiak behatzeko ezkutalekua";
 "type.leisure.outdoor_seating" = "Kanpoko eserlekuak";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "Parkea";

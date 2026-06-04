@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Uisustaadion";
 "type.leisure.marina" = "Väikesadam";
 "type.leisure.nature_reserve" = "Looduskaitseala";
+"type.leisure.bird_hide" = "Linnuvaatlusvarje";
 "type.leisure.outdoor_seating" = "Istekohad õues";
 "type.leisure.firepit" = "Tulease";
 "type.leisure.park" = "Park";

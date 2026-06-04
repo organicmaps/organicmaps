@@ -658,6 +658,7 @@
     <string name="type.leisure.ice_rink">Ledové kluziště</string>
     <string name="type.leisure.marina">Přístav</string>
     <string name="type.leisure.nature_reserve">Rezervace</string>
+    <string name="type.leisure.bird_hide">Pozorovatelna ptáků</string>
     <string name="type.leisure.outdoor_seating">Venkovní posezení</string>
     <string name="type.leisure.firepit">Ohniště</string>
     <string name="type.leisure.park">Park</string>

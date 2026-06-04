@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "滑冰场";
 "type.leisure.marina" = "游艇码头";
 "type.leisure.nature_reserve" = "自然保护区";
+"type.leisure.bird_hide" = "观鸟屋";
 "type.leisure.outdoor_seating" = "室外座椅";
 "type.leisure.firepit" = "火坑";
 "type.leisure.park" = "公园";

@@ -88,6 +88,7 @@
     <string name="type.landuse.cemetery">Groblje</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Kršćansko groblje</string>
+    <string name="type.leisure.bird_hide">Promatračnica za ptice</string>
     <string name="type.leisure.track">Sportska staza</string>
     <string name="type.leisure.track.area">Sportska staza</string>
     <string name="type.man_made.silo">Silos</string>

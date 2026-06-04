@@ -658,6 +658,7 @@
     <string name="type.leisure.ice_rink">Čiuožykla</string>
     <string name="type.leisure.marina">Prieplauka</string>
     <string name="type.leisure.nature_reserve">Gamtos rezervatas</string>
+    <string name="type.leisure.bird_hide">Paukščių stebėjimo slėptuvė</string>
     <string name="type.leisure.outdoor_seating">Lauko kavinė</string>
     <string name="type.leisure.firepit">Laužavietė</string>
     <string name="type.leisure.park">Parkas</string>

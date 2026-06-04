@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Buz Meydançası";
 "type.leisure.marina" = "Liman";
 "type.leisure.nature_reserve" = "Təbii qoruq";
+"type.leisure.bird_hide" = "Quş müşahidə sığınacağı";
 "type.leisure.outdoor_seating" = "Açıq oturma";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "Park";

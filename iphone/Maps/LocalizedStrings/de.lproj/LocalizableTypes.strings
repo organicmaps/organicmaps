@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Eislaufplatz";
 "type.leisure.marina" = "Jachthafen";
 "type.leisure.nature_reserve" = "Naturschutzgebiet";
+"type.leisure.bird_hide" = "Vogelbeobachtungsstand";
 "type.leisure.outdoor_seating" = "Außengastronomie";
 "type.leisure.firepit" = "Feuerstelle";
 "type.leisure.park" = "Park";

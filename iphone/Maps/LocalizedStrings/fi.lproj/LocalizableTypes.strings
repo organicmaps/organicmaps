@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Luistinrata";
 "type.leisure.marina" = "Venesatama";
 "type.leisure.nature_reserve" = "Luonnonsuojelualue";
+"type.leisure.bird_hide" = "Lintupiilo";
 "type.leisure.outdoor_seating" = "Ulkona istuminen";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "Puisto";

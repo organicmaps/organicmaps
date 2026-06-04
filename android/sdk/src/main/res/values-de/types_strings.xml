@@ -658,6 +658,7 @@
     <string name="type.leisure.ice_rink">Eislaufplatz</string>
     <string name="type.leisure.marina">Jachthafen</string>
     <string name="type.leisure.nature_reserve">Naturschutzgebiet</string>
+    <string name="type.leisure.bird_hide">Vogelbeobachtungsstand</string>
     <string name="type.leisure.outdoor_seating">Außengastronomie</string>
     <string name="type.leisure.firepit">Feuerstelle</string>
     <string name="type.leisure.park">Park</string>
