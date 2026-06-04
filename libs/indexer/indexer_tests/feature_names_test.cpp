@@ -492,14 +492,15 @@ UNIT_TEST(GetReadableName)
   }
 }
 
-// Verifies that an unqualified `name=` (kDefaultCode) is reported with the region's first
-// language code so HarfBuzz can pick the right OpenType `locl` rules downstream (see
-// SubstituteRegionLangForDefault in feature_utils.cpp).
-UNIT_TEST(GetPreferredNames_DefaultLang_SubstitutedWithRegionLang)
+// Name selection reports the raw StringUtf8Multilang code it picked. An unqualified OSM `name=`
+// is reported as kDefaultCode; the kDefaultCode -> region-language resolution that drives HarfBuzz
+// `locl` happens later, at the drape caption usage place (CaptionDescription::Init) via
+// feature::GetRegionLang.
+UNIT_TEST(GetPreferredNames_ReportsSelectedLangCode)
 {
   bool const allowTranslit = false;
 
-  // Single-language region: default name should report the region's lang.
+  // Unqualified `name=` is reported as kDefaultCode regardless of the region's languages.
   {
     feature::RegionData regionData;
     regionData.SetLanguages({"tr"});
@@ -511,40 +512,11 @@ UNIT_TEST(GetPreferredNames_DefaultLang_SubstitutedWithRegionLang)
     feature::GetPreferredNames(in, out);
 
     TEST_EQUAL(out.GetPrimary(), "İstanbul", ());
-    TEST_EQUAL(out.primaryLang, StrUtf8::GetLangIndex("tr"), ());
-  }
-
-  // Multi-language region: first listed language wins (matches GetMwmRegionLang convention).
-  {
-    feature::RegionData regionData;
-    regionData.SetLanguages({"sr", "hr"});
-    StrUtf8 src;
-    src.AddString("default", "Београд");
-
-    feature::NameParamsIn in{src, regionData, StrUtf8::GetLangIndex("en"), allowTranslit};
-    feature::NameParamsOut out;
-    feature::GetPreferredNames(in, out);
-
-    TEST_EQUAL(out.GetPrimary(), "Београд", ());
-    TEST_EQUAL(out.primaryLang, StrUtf8::GetLangIndex("sr"), ());
-  }
-
-  // Region with no declared languages: substitution is a no-op, kDefaultCode preserved.
-  {
-    feature::RegionData regionData;
-    StrUtf8 src;
-    src.AddString("default", "Atlantis");
-
-    feature::NameParamsIn in{src, regionData, StrUtf8::GetLangIndex("en"), allowTranslit};
-    feature::NameParamsOut out;
-    feature::GetPreferredNames(in, out);
-
-    TEST_EQUAL(out.GetPrimary(), "Atlantis", ());
     TEST_EQUAL(out.primaryLang, StrUtf8::kDefaultCode, ());
   }
 
-  // Native-device-lang path (IsNativeOrSimilarLang): goes through GetReadableNameImpl;
-  // unqualified `name=` selected as primary should still be substituted.
+  // Native-device-lang path (IsNativeOrSimilarLang) goes through GetReadableNameImpl and also
+  // reports the raw kDefaultCode for an unqualified name.
   {
     feature::RegionData regionData;
     regionData.SetLanguages({"tr"});
@@ -556,10 +528,10 @@ UNIT_TEST(GetPreferredNames_DefaultLang_SubstitutedWithRegionLang)
     feature::GetPreferredNames(in, out);
 
     TEST_EQUAL(out.GetPrimary(), "İstanbul", ());
-    TEST_EQUAL(out.primaryLang, StrUtf8::GetLangIndex("tr"), ());
+    TEST_EQUAL(out.primaryLang, StrUtf8::kDefaultCode, ());
   }
 
-  // Non-default primary stays untouched (only kDefaultCode is substituted).
+  // A qualified primary reports its own code; an unqualified secondary reports kDefaultCode.
   {
     feature::RegionData regionData;
     regionData.SetLanguages({"tr"});
@@ -573,9 +545,30 @@ UNIT_TEST(GetPreferredNames_DefaultLang_SubstitutedWithRegionLang)
 
     TEST_EQUAL(out.GetPrimary(), "Istanbul", ());
     TEST_EQUAL(out.primaryLang, StrUtf8::kEnglishCode, ());
-    // Secondary picks the default and should be substituted too.
     TEST_EQUAL(out.secondary, "İstanbul", ());
-    TEST_EQUAL(out.secondaryLang, StrUtf8::GetLangIndex("tr"), ());
+    TEST_EQUAL(out.secondaryLang, StrUtf8::kDefaultCode, ());
+  }
+}
+
+// feature::GetRegionLang reports the region's first declared language: the locl hint used for
+// OSM-verbatim text (housenumbers, road shields) and for resolving unqualified `name=` picks.
+UNIT_TEST(GetRegionLang)
+{
+  {
+    feature::RegionData regionData;
+    regionData.SetLanguages({"tr"});
+    TEST_EQUAL(feature::GetRegionLang(regionData), StrUtf8::GetLangIndex("tr"), ());
+  }
+  // Multi-language region: the first listed language wins.
+  {
+    feature::RegionData regionData;
+    regionData.SetLanguages({"sr", "hr"});
+    TEST_EQUAL(feature::GetRegionLang(regionData), StrUtf8::GetLangIndex("sr"), ());
+  }
+  // No declared languages: there is no hint to give.
+  {
+    feature::RegionData regionData;
+    TEST_EQUAL(feature::GetRegionLang(regionData), StrUtf8::kUnsupportedLanguageCode, ());
   }
 }
 
