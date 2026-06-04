@@ -51059,6 +51059,94 @@ cont {
   }
 }
 cont {
+  name: "leisure-bird_hide"
+  element {
+    scale: 16
+    symbol {
+      name: "viewpoint-m"
+      priority: 2300
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7700
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "viewpoint-m"
+      priority: 2300
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7700
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "viewpoint-m"
+      priority: 2300
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7700
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "viewpoint-m"
+      priority: 2300
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7700
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "viewpoint-m"
+      priority: 2300
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7700
+    }
+  }
+}
+cont {
   name: "leisure-bowling_alley"
   element {
     scale: 17
