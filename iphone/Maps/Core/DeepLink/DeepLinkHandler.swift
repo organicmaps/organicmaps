@@ -47,61 +47,11 @@
   }
 
   func getBackUrl() -> String? {
-    guard let urlString = url?.absoluteString else { return nil }
-    guard let url = URLComponents(string: urlString) else { return nil }
-    if let backUrl = url.queryItems?.first(where: { $0.name == "backurl" })?.value {
-      return backUrl
-    }
-
-    guard isRouteApiV2(url) else { return nil }
-    guard let callback = url.queryItems?.first(where: { $0.name == "callback" })?.value else { return nil }
-    return escapeRouteCallback(callback)
-  }
-
-  private func isRouteApiV2(_ url: URLComponents) -> Bool {
-    switch (url.host, url.path) {
-    case ("v2", "/dir"), ("v2", "/nav"),
-         ("omaps.app", "/v2/dir"), ("omaps.app", "/v2/nav"),
-         (nil, "/v2/dir"), (nil, "/v2/nav"):
-      return true
-    default:
-      return false
-    }
-  }
-
-  private func escapeRouteCallback(_ callback: String) -> String {
-    var value = ""
-    var index = callback.startIndex
-    while index < callback.endIndex {
-      let char = callback[index]
-      if char == "%" {
-        let first = callback.index(after: index)
-        if first == callback.endIndex {
-          value += "%25"
-          index = first
-          continue
-        }
-
-        let second = callback.index(after: first)
-        if second == callback.endIndex || !isHexDigit(callback[first]) || !isHexDigit(callback[second]) {
-          value += "%25"
-          index = first
-          continue
-        }
-      }
-
-      value.append(char)
-      index = callback.index(after: index)
-    }
-
-    var allowed = CharacterSet.alphanumerics
-    allowed.insert(charactersIn: "-._~:/?#[]@!$&'()*+,;=%")
-    return value.addingPercentEncoding(withAllowedCharacters: allowed) ?? value
-  }
-
-  private func isHexDigit(_ character: Character) -> Bool {
-    guard let scalar = character.unicodeScalars.first, character.unicodeScalars.count == 1 else { return false }
-    return (48...57).contains(scalar.value) || (65...70).contains(scalar.value) || (97...102).contains(scalar.value)
+    // The core parses both the legacy map backurl= and the v2 route callback= into a single
+    // value while handling the deep link (see Framework::GetParsedBackUrl), so iOS just reads
+    // it back instead of re-parsing the URL and re-implementing the escaping here.
+    let backUrl = FrameworkHelper.parsedBackUrl()
+    return backUrl.isEmpty ? nil : backUrl
   }
 
   func getInAppFeatureHighlightData() -> DeepLinkInAppFeatureHighlightData? {

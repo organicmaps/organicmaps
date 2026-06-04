@@ -62,6 +62,8 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (void)deactivateMapSelection;
 + (void)showRouteTransit:(uint32_t)relId;
 + (NSString *)activeTransitRouteRef;
+/// Back URL parsed from the last deep link (legacy backurl= or v2 callback=), or empty string.
++ (NSString *)parsedBackUrl;
 + (void)switchMyPositionMode;
 + (void)stopLocationFollow;
 + (NSArray<NSString *> *)obtainLastSearchQueries;

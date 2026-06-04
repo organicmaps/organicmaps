@@ -179,6 +179,9 @@ public class MwmApplication extends Application implements Application.ActivityL
 
   private void flushPendingRoutePointCallbacks(@NonNull Activity activity)
   {
+    // Stops passed while no activity was visible are delivered here in order. If
+    // several queued up, each opens its caller URL in turn; only the last launch
+    // wins the foreground, so intermediate stop callbacks may be missed.
     while (!mPendingRoutePointCallbacks.isEmpty())
       openRoutePointCallback(activity, mPendingRoutePointCallbacks.remove());
   }
