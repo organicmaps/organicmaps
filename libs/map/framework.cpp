@@ -744,7 +744,7 @@ std::vector<Track::TrackSelectionInfo> Framework::FindRelationTracksInTapPositio
   return selectionCandidates;
 }
 
-kml::TrackData Framework::BuildRelationTrack(Track::TrackSelectionInfo const & trackSelectionInfo)
+std::optional<kml::TrackData> Framework::TryBuildRelationTrack(Track::TrackSelectionInfo const & trackSelectionInfo)
 {
   auto const relationId = trackSelectionInfo.m_relationId;
   CHECK(trackSelectionInfo.IsRelation(), ());
@@ -752,7 +752,10 @@ kml::TrackData Framework::BuildRelationTrack(Track::TrackSelectionInfo const & t
   RelationTrackBuilder builder(m_featuresFetcher.GetDataSource(), trackSelectionInfo.m_relationId, m_infoGetter.get());
   auto trackData = builder.Build(relationId);
   if (!trackData)
-    return {};
+  {
+    LOG(LERROR, ("Failed to build relation track data for relationId", relationId));
+    return std::nullopt;
+  }
 
   kml::TrackData kmlTrack;
   for (auto & line : trackData->m_lines)
@@ -2340,7 +2343,7 @@ FeatureID Framework::FindBuildingAtPoint(m2::PointD const & mercator) const
   return featureId;
 }
 
-void Framework::BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelectionInfo, place_page::Info & info)
+bool Framework::BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelectionInfo, place_page::Info & info)
 {
   info.SetSelectedObject(df::SelectionShape::OBJECT_TRACK);
   auto & bm = GetBookmarkManager();
@@ -2349,14 +2352,14 @@ void Framework::BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelec
 
   if (trackSelectionInfo.IsRelation())
   {
-    auto const tapPoint = selectedInfo.m_trackPoint;
-    auto trackData = BuildRelationTrack(selectedInfo);
-    if (trackData.m_id != kml::kInvalidTrackId)
-    {
-      bm.SetTempRelationTrack(std::move(trackData));
-      track = bm.GetTrack(kml::kTempRelationTrackId);
-      track->UpdateSelectionInfo(tapPoint, selectedInfo);
-    }
+    auto trackData = TryBuildRelationTrack(selectedInfo);
+
+    if (!trackData)
+      return false;
+
+    bm.SetTempRelationTrack(std::move(trackData.value()));
+    track = bm.GetTrack(kml::kTempRelationTrackId);
+    track->UpdateSelectionInfo(selectedInfo.m_trackPoint, selectedInfo);
   }
   else
   {
@@ -2364,10 +2367,9 @@ void Framework::BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelec
     track = bm.GetTrack(selectedInfo.m_trackId);
   }
 
-  CHECK(track, ("Failed to build track for selection info:", &trackSelectionInfo));
-
   FillTrackInfo(*track, selectedInfo, info);
   bm.SetTrackSelectionInfo(selectedInfo, true /* notifyListeners */);
+  return true;
 }
 
 place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & buildInfo)
@@ -2468,9 +2470,8 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
         trackToSelect = trackSelectionCandidates.front();
     }
 
-    if (trackToSelect.IsValid())
+    if (trackToSelect.IsValid() && BuildTrackPlacePage(trackToSelect, outInfo))
     {
-      BuildTrackPlacePage(trackToSelect, outInfo);
       outInfo.SetTrackCandidates(std::move(trackSelectionCandidates));
       return outInfo;
     }
@@ -2517,9 +2518,11 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
       {
         outInfo.SetSelectedObject(df::SelectionShape::OBJECT_TRACK);
         sp.SetPlacePageLocation(outInfo);
-        BuildTrackPlacePage(trackToSelect, outInfo);
-        outInfo.SetTrackCandidates(std::move(trackSelectionCandidates));
-        return outInfo;
+        if (BuildTrackPlacePage(trackToSelect, outInfo))
+        {
+          outInfo.SetTrackCandidates(std::move(trackSelectionCandidates));
+          return outInfo;
+        }
       }
 
       auto const bestFeature = tap.m_line.IsValid() ? tap.m_line : tap.m_area;
