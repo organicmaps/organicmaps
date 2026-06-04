@@ -883,8 +883,7 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
     default: CHECK(false, ("Unknown router type"));
     }
 
-    if (isActive)
-      CollectRoadWarnings(segments, startPt, subroute->m_baseDistance, roadWarnings);
+    CollectRoadWarnings(segments, startPt, subroute->m_baseDistance, roadWarnings);
 
     auto const subrouteId =
         m_drapeEngine.SafeCallWithResult(&df::DrapeEngine::AddSubroute, df::SubrouteConstPtr(subroute.release()));
@@ -894,9 +893,8 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
   }
 
   // Point warnings (barrier nodes) are precomputed on the routing thread (IndexRouter::RedressRoute)
-  // and stored in the route; read them once (route-global, not per-subroute) for the active route.
-  if (isActive)
-    CollectRoadPointWarnings(route, roadWarnings);
+  // and stored in the route; read them once (route-global, not per-subroute).
+  CollectRoadPointWarnings(route, roadWarnings);
 }
 
 void RoutingManager::FollowRoute()
