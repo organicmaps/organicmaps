@@ -72,7 +72,6 @@ import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.maplayer.ToggleMapLayerFragment;
 import app.organicmaps.routing.NavigationController;
 import app.organicmaps.routing.NavigationService;
-import app.organicmaps.routing.RoutingBottomMenuListener;
 import app.organicmaps.routing.RoutingErrorDialogFragment;
 import app.organicmaps.routing.RoutingPlanController;
 import app.organicmaps.routing.RoutingPlanFragment;
@@ -101,7 +100,6 @@ import app.organicmaps.sdk.location.LocationUtils;
 import app.organicmaps.sdk.location.SensorListener;
 import app.organicmaps.sdk.location.TrackRecorder;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesState;
-import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.search.SearchEngine;
@@ -1075,6 +1073,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   @Override
   public void onBackPressed()
+  {
+    handleBackPress();
+  }
+
+  public void handleBackPress()
   {
     final RoutingController routingController = RoutingController.get();
     if (!closeBottomSheet(MAIN_MENU_ID) && !closeBottomSheet(LAYERS_MENU_ID) && !collapseNavMenu() && !closePlacePage()
