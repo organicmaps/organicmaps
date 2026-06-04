@@ -354,8 +354,8 @@ private:
 
   void OnTapEvent(place_page::BuildInfo const & buildInfo);
   place_page::Info BuildPlacePageInfo(place_page::BuildInfo const & buildInfo);
-  kml::TrackData BuildRelationTrack(Track::TrackSelectionInfo const & candidateInfo);
-  void BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelectionInfo, place_page::Info & info);
+  std::optional<kml::TrackData> TryBuildRelationTrack(Track::TrackSelectionInfo const & candidateInfo);
+  bool BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelectionInfo, place_page::Info & info);
   std::vector<Track::TrackSelectionInfo> FindTracksInTapPosition(place_page::BuildInfo const & buildInfo) const;
   /// Builds temporary track candidates for route relations associated with tapped line features.
   std::vector<Track::TrackSelectionInfo> FindRelationTracksInTapPosition(
