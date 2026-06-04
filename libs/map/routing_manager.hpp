@@ -312,7 +312,8 @@ private:
   bool InsertRoute(routing::RoutesResult const & result);
 
   // Helper: build drape subroutes for a single route. |isActive| controls styling
-  // (alternatives are dimmed). |roadWarnings| is filled only for the active route.
+  // (alternatives are dimmed). |roadWarnings| is appended for every route (active and alternatives)
+  // so warning marks of all routes are shown together.
   void InsertSingleRoute(routing::RouteBase const & route, bool isActive, double depthOffset,
                          std::shared_ptr<TransitRouteDisplay> const & transitRouteDisplay,
                          RoadWarningsCollection & roadWarnings);
