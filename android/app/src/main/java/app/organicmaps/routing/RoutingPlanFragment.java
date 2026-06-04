@@ -195,6 +195,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mSheetBehavior = BottomSheetBehavior.from(mFrame);
     mSheetBehavior.setHideable(true);
     mSheetBehavior.setFitToContents(true);
+    mSheetBehavior.setShouldRemoveExpandedCorners(false);
     mSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
       @Override
       public void onStateChanged(@NonNull View bottomSheet, int newState)
