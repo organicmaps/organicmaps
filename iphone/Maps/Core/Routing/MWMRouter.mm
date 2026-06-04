@@ -27,6 +27,9 @@ using namespace routing;
 
 namespace
 {
+// The core already URL-decoded the callback/back URL, so it can contain raw spaces or
+// decoded pipes that -URLWithString: rejects. Try it verbatim first, then re-encode the
+// disallowed characters as a fallback.
 NSURL * RoutePointCallbackURL(NSString * callbackString)
 {
   NSURL * url = [NSURL URLWithString:callbackString];
@@ -427,7 +430,9 @@ void OpenRoutePointCallback(std::string const & callback)
   [MWMRouter setType:type];
 
   auto router = [MWMRouter router];
-  router.startNavigationAfterBuild = startRouteNavigation && startPoint.isMyPosition;
+  // The core already gates auto-start on routing from the current position (nav
+  // requested with no explicit origin), so honor the parsed flag directly.
+  router.startNavigationAfterBuild = startRouteNavigation;
   router.isAPICall = YES;
   [self addPoint:startPoint reorderIntermediatePoints:optimizeRoutePoints];
   if (optimizeRoutePoints)
@@ -470,6 +475,11 @@ void OpenRoutePointCallback(std::string const & callback)
 
   [[MWMMapViewControlsManager manager] onRouteRebuild];
   rm.BuildRoute(routing::RouterDelegate::kNoTimeout, {startDirection.x, startDirection.y});
+}
+
++ (NSURL *)callbackURLFromString:(NSString *)callbackString
+{
+  return RoutePointCallbackURL(callbackString);
 }
 
 + (void)start

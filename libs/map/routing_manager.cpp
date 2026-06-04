@@ -1131,6 +1131,9 @@ void RoutingManager::AddRoutePoint(RouteMarkData && markData, bool reorderInterm
     ReorderIntermediatePoints();
 }
 
+// Convenience wrapper that adds the points one by one. It exists to collapse a
+// whole itinerary into a single JNI call on Android; it is not an algorithmic
+// batch (each point still goes through AddRoutePoint and its optional reorder).
 void RoutingManager::AddRoutePoints(std::vector<RouteMarkData> && routePoints, bool reorderIntermediatePoints)
 {
   for (auto & routePoint : routePoints)
