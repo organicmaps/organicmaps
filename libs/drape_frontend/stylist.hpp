@@ -51,9 +51,9 @@ struct CaptionDescription
   // HarfBuzz OpenType `locl` substitutions downstream. kUnsupportedLanguageCode when empty.
   int8_t GetMainTextLang() const { return m_mainTextLang; }
   int8_t GetAuxTextLang() const { return m_auxTextLang; }
-  // First language declared in the feature's MWM region metadata, or kDefaultCode when the
-  // MWM has none. Use as the locl hint for OSM-verbatim text that does not go through name
-  // selection (addr:housenumber, road shield ref tags).
+  // First language declared in the feature's MWM region metadata, or kUnsupportedLanguageCode
+  // when the MWM declares none. Use as the locl hint for OSM-verbatim text that does not go
+  // through name selection (addr:housenumber, road shield ref tags).
   int8_t GetMwmRegionLang() const { return m_mwmRegionLang; }
 
   bool IsNameExists() const { return !m_mainText.empty(); }
@@ -65,7 +65,7 @@ private:
   std::string m_houseNumberText;
   int8_t m_mainTextLang = StringUtf8Multilang::kUnsupportedLanguageCode;
   int8_t m_auxTextLang = StringUtf8Multilang::kUnsupportedLanguageCode;
-  int8_t m_mwmRegionLang = StringUtf8Multilang::kDefaultCode;
+  int8_t m_mwmRegionLang = StringUtf8Multilang::kUnsupportedLanguageCode;
 };
 
 class Stylist
