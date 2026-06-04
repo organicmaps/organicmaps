@@ -251,7 +251,12 @@ public class PlacePageController
       if (mCurrentWindowInsets == null)
         return;
 
-      final int topInset = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.displayCutout()).top;
+      // Reserve the status bar and any display cutout, matching the status-bar fill check above. With
+      // displayCutout() alone the inset is 0 on non-cutout devices, so the "fills the screen" branch
+      // would never trip and the screen-filled correction would be skipped.
+      final int topInset =
+          mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout())
+              .top;
       if (mPlacePage.getHeight() >= mCoordinator.getHeight() - topInset)
         mPlacePageDistanceToTopObserver.onChanged(oldTop);
 
