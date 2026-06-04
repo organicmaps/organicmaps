@@ -472,15 +472,6 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
   return [result copy];
 }
 
-- (MWMMarkIDCollection)bookmarkIdsForCategory:(MWMMarkGroupID)categoryId
-{
-  auto const & bookmarkIds = self.bm.GetUserMarkIds(categoryId);
-  NSMutableArray<NSNumber *> * collection = [[NSMutableArray alloc] initWithCapacity:bookmarkIds.size()];
-  for (auto bookmarkId : bookmarkIds)
-    [collection addObject:@(bookmarkId)];
-  return [collection copy];
-}
-
 - (void)deleteBookmark:(MWMMarkID)bookmarkId
 {
   self.bm.GetEditSession().DeleteBookmark(bookmarkId);
@@ -572,16 +563,6 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
 }
 
 #pragma mark - Tracks
-
-- (MWMTrackIDCollection)trackIdsForCategory:(MWMMarkGroupID)categoryId
-{
-  auto const & trackIds = self.bm.GetTrackIds(categoryId);
-  NSMutableArray<NSNumber *> * collection = [[NSMutableArray alloc] initWithCapacity:trackIds.size()];
-
-  for (auto trackId : trackIds)
-    [collection addObject:@(trackId)];
-  return collection;
-}
 
 - (NSArray<MWMTrack *> *)tracksForGroup:(MWMMarkGroupID)groupId
 {
