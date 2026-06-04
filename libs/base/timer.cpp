@@ -144,8 +144,16 @@ time_t StringToTimestamp(std::string const & s)
   if (signOrDotOrZ != '-' && signOrDotOrZ != '+')
     return INVALID_TIME_STAMP;
 
-  // Parse custom time zone offset format: 2012-12-03T00:38:34+03:30
+  // Parse timezone offset in ISO 8601 extended (±HH:MM) or basic (±HHMM) form,
+  // e.g. 2012-12-03T00:38:34+03:30 or 2017-01-01T10:00:00-0700.
+  auto const offsetPos = ss.tellg();
   ss >> std::get_time(&t, "%H:%M");
+  if (ss.fail())
+  {
+    ss.clear();
+    ss.seekg(offsetPos);
+    ss >> std::get_time(&t, "%H%M");
+  }
 
   if (ss.fail())
     return INVALID_TIME_STAMP;
