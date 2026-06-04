@@ -61,51 +61,6 @@
     return backUrl.isEmpty ? nil : backUrl
   }
 
-  private func isRouteApiV2(_ url: URLComponents) -> Bool {
-    switch (url.host, url.path) {
-    case ("v2", "/dir"), ("v2", "/nav"),
-         ("omaps.app", "/v2/dir"), ("omaps.app", "/v2/nav"),
-         (nil, "/v2/dir"), (nil, "/v2/nav"):
-      return true
-    default:
-      return false
-    }
-  }
-
-  private func escapeRouteCallback(_ callback: String) -> String {
-    var value = ""
-    var index = callback.startIndex
-    while index < callback.endIndex {
-      let char = callback[index]
-      if char == "%" {
-        let first = callback.index(after: index)
-        if first == callback.endIndex {
-          value += "%25"
-          index = first
-          continue
-        }
-
-        let second = callback.index(after: first)
-        if second == callback.endIndex || !isHexDigit(callback[first]) || !isHexDigit(callback[second]) {
-          value += "%25"
-          index = first
-          continue
-        }
-      }
-
-      value.append(char)
-      index = callback.index(after: index)
-    }
-
-    var allowed = CharacterSet.alphanumerics
-    allowed.insert(charactersIn: "-._~:/?#[]@!$&'()*+,;=%")
-    return value.addingPercentEncoding(withAllowedCharacters: allowed) ?? value
-  }
-
-  private func isHexDigit(_ character: Character) -> Bool {
-    guard let scalar = character.unicodeScalars.first, character.unicodeScalars.count == 1 else { return false }
-    return (48...57).contains(scalar.value) || (65...70).contains(scalar.value) || (97...102).contains(scalar.value)
-  }
 
   func getInAppFeatureHighlightData() -> DeepLinkInAppFeatureHighlightData? {
     let data = featureHighlightData

@@ -44,8 +44,6 @@ import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.Utils;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.util.ArrayDeque;
-import java.util.Queue;
 
 public class MwmApplication extends Application implements Application.ActivityLifecycleCallbacks
 {
@@ -63,8 +61,6 @@ public class MwmApplication extends Application implements Application.ActivityL
   @Nullable
   private WeakReference<Activity> mTopActivity;
 
-  @NonNull
-  private final Queue<String> mPendingRoutePointCallbacks = new ArrayDeque<>();
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -182,6 +178,7 @@ public class MwmApplication extends Application implements Application.ActivityL
     final boolean launched = Utils.openUri(activity, Uri.parse(callback), null);
     if (launched && activity instanceof MwmActivity)
       ((MwmActivity) activity).skipParsedBackUrlOnNextStop();
+
 
   }
 

@@ -513,7 +513,9 @@ void OpenRoutePointCallback(std::string const & callback)
   [MWMRouter setType:type];
 
   auto router = [MWMRouter router];
-  router.startNavigationAfterBuild = startRouteNavigation && startPoint.isMyPosition;
+  // The core already gates auto-start on routing from the current position (nav
+  // requested with no explicit origin), so honor the parsed flag directly.
+  router.startNavigationAfterBuild = startRouteNavigation;
   router.isAPICall = YES;
   [self addPoint:startPoint reorderIntermediatePoints:optimizeRoutePoints];
   if (optimizeRoutePoints)

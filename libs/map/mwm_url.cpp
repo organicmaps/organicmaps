@@ -22,7 +22,6 @@
 #include "base/string_utils.hpp"
 
 #include <array>
-#include <cctype>
 #include <cmath>
 #include <string_view>
 #include <tuple>
@@ -478,7 +477,9 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
                            auto const & key, auto const & value)
       { ParseRouteParam(key, value, legacyRouteParamIndex, legacyRouteTypeSeen, usesLegacySyntax, correctOrder); });
 
-      if (!correctOrder || m_routingType.empty() || !usesLegacySyntax)
+      // A non-legacy URL never reaches legacyRouteParamIndex == 4, so the index check below
+      // already enforces that at least one legacy parameter was seen.
+      if (!correctOrder || m_routingType.empty())
         return m_requestType = UrlType::Incorrect;
 
       if (legacyRouteParamIndex != 4 || !legacyRouteTypeSeen || m_routePoints.size() != 2)
