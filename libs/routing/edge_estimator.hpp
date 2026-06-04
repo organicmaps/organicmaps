@@ -28,9 +28,10 @@ public:
   };
 
   /// \brief Calculation strategy. Normal — full road model (speed, traffic, penalties, climb).
-  /// Shortest — distance-only weight (uses GetMaxWeightSpeedMpS() as the constant divisor so the
-  /// A* heuristic stays admissible). Used to compute a "shortest path" alternative alongside the
-  /// normal route.
+  /// Shortest — the estimator's per-segment weight becomes distance-only (uses GetMaxWeightSpeedMpS()
+  /// as the constant divisor so the A* heuristic stays admissible); non-segment penalties applied at
+  /// the graph layer (u-turn, ferry, etc. in IndexGraph::CalcEdgeWeight) still take effect. Used to
+  /// compute a "shortest path" alternative alongside the normal route.
   enum class Strategy
   {
     Normal,

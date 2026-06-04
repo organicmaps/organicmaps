@@ -20,6 +20,7 @@
 #include "indexer/scales.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
+#include "drape_frontend/visual_params.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
 
@@ -812,7 +813,7 @@ bool RoutingManager::InsertRoute(RoutesResult const & result)
   // The offset must exceed the per-route subroute count (count is typically 1, so 10 is plenty).
   InsertSingleRoute(result.GetActive(), true /* isActive */, 10.0 /* depthOffset */, transitRouteDisplay, roadWarnings);
 
-  if (!isFollowing && m_currentRouterType != RouterType::Ruler)
+  if (!isFollowing && m_currentRouterType != RouterType::Ruler && result.m_routes.size() >= 2)
     CreateRouteAltMarks(result);
 
   {
@@ -965,7 +966,7 @@ bool RoutingManager::TryTapOnAlternativeRoute(m2::PointD const & mercator, doubl
   // Pixel-radius for the tap area. Matches the visual half-width the routes are drawn with;
   // closer than this and we treat the tap as hitting that polyline.
   double constexpr kTapPixels = 16.0;
-  double const tapMerc = kTapPixels * mercatorPerPixel;
+  double const tapMerc = kTapPixels * df::VisualParams::Instance().GetVisualScale() * mercatorPerPixel;
   double const tapMercSq = tapMerc * tapMerc;
   m2::RectD const tapRect(mercator, tapMerc, tapMerc);
 
