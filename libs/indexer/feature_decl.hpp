@@ -53,6 +53,10 @@ struct FeatureID
   uint32_t m_index = 0;
 };
 
+/// Reference to a Relation in a particular MWM. {m_mwmId, m_index} == {MwmId, in-MWM relIdx}.
+/// FeatureID's structure matches our needs exactly so we reuse it.
+using RelationID = FeatureID;
+
 std::string DebugPrint(FeatureID const & id);
 
 namespace std

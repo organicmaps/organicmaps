@@ -27,7 +27,6 @@ namespace relation_track_merger  // Unity build protect
 namespace  // Avoid exposing symbols
 {
 using Geometry = RelationTrackBuilder::Geometry;
-using RelationID = RelationTrackBuilder::RelationID;
 
 bool IsEqual(m2::PointD const & lhs, m2::PointD const & rhs)
 {
@@ -239,41 +238,59 @@ RelationTrackBuilder::RelationTrackBuilder(DataSource const & dataSource, Featur
   , m_infoGetter(infoGetter)
 {}
 
-std::optional<RelationTrackBuilder::Data> RelationTrackBuilder::Build()
+std::vector<RelationTrackBuilder::Metadata> RelationTrackBuilder::BuildMetadata()
 {
   df::RelationsDrawSettings sett;
   sett.Load();
   if (sett.IsEmpty())
-    return std::nullopt;
+    return {};
 
   FeaturesLoaderGuard guard(m_dataSource, m_fid.m_mwmId);
   auto ft = guard.GetFeatureByIndex(m_fid.m_index);
   ASSERT(ft, ());
 
-  for (uint32_t const relID : ft->GetRelations())
+  auto const & relIDs = ft->GetRelations();
+  std::vector<Metadata> result;
+  result.reserve(relIDs.size());
+
+  for (uint32_t const relID : relIDs)
   {
     if (!sett.MatchHikingOrCycling(ft->ReadRelationType(relID)))
       continue;
 
-    auto const rel = ft->ReadRelation<feature::RouteRelation>(relID);
-    auto members = LoadMemberGeometries(rel, guard, RelationID(m_fid.m_mwmId, relID));
-    if (members.empty())
-      continue;
+    auto const rel = ft->ReadRelation<feature::RouteRelationBase>(relID);
 
-    // Cross-MWM merging.
-    AppendNeighbourMembers(guard, relID, members);
-
-    auto lines = MergeAllMembers(members);
-    if (lines.empty())
-      continue;
-
-    Data data;
-    data.m_lines = std::move(lines);
-    data.m_name = std::string(rel.GetDefaultName());
-    data.m_color = rel.GetColor();
-    return data;
+    Metadata info;
+    info.m_relationId = {m_fid.m_mwmId, relID};
+    info.m_name = std::string(rel.GetDefaultName());
+    info.m_color = rel.GetColor();
+    result.emplace_back(info);
   }
-  return std::nullopt;
+  return result;
+}
+
+std::optional<RelationTrackBuilder::Data> RelationTrackBuilder::Build(RelationID const & relationId)
+{
+  if (!relationId.IsValid())
+    return std::nullopt;
+
+  FeaturesLoaderGuard guard(m_dataSource, relationId.m_mwmId);
+  auto const rel = guard.GetRelation(relationId.m_index);
+  auto members = LoadMemberGeometries(rel, guard, relationId);
+  if (members.empty())
+    return std::nullopt;
+
+  AppendNeighbourMembers(guard, relationId.m_index, members);
+
+  auto lines = MergeAllMembers(members);
+  if (lines.empty())
+    return std::nullopt;
+
+  Data data;
+  data.m_lines = std::move(lines);
+  data.m_name = std::string(rel.GetDefaultName());
+  data.m_color = rel.GetColor();
+  return data;
 }
 
 void RelationTrackBuilder::AppendNeighbourMembers(FeaturesLoaderGuard const & guard, uint32_t relIdx,

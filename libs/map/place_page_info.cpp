@@ -158,6 +158,14 @@ void Info::SetMercator(m2::PointD const & mercator)
   m_buildInfo.m_mercator = mercator;
 }
 
+void Info::SetTrackCandidates(std::vector<Track::TrackSelectionInfo> candidates)
+{
+  if (candidates.size() > 1)
+    m_trackSelectionCandidates = std::move(candidates);
+  else
+    m_trackSelectionCandidates.clear();
+}
+
 std::string Info::FormatSubtitle(bool withTypes, bool withMainType) const
 {
   std::string result;

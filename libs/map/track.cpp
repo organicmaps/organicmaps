@@ -143,6 +143,8 @@ void Track::UpdateSelectionInfo(m2::PointD const & tapPoint, TrackSelectionInfo 
       if (squaredDist >= info.m_squareDist)
         continue;
 
+      info.m_title = GetName();
+      info.m_color = GetColor(0);
       info.m_squareDist = squaredDist;
       info.m_trackId = m_data.m_id;
       info.m_trackPoint = closestPoint;

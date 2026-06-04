@@ -406,7 +406,7 @@ public:
   // Returns distance from the start of the track to active point in meters.
   double GetElevationActivePoint(kml::TrackId const & trackId) const;
 
-  void UpdateElevationMyPosition(kml::TrackId const & trackId);
+  void UpdateElevationMyPosition(kml::TrackId const & trackId, bool ignoreLocationCache = false);
   // Returns distance from the start of the track to my position in meters.
   // Returns negative value if my position is not on the track.
   double GetElevationMyPosition(kml::TrackId const & trackId) const;
@@ -415,8 +415,8 @@ public:
   void SetElevationMyPositionChangedCallback(ElevationMyPositionChangedCallback const & cb);
 
   using TracksFilter = std::function<bool(Track const * track)>;
-  Track::TrackSelectionInfo FindNearestTrack(m2::RectD const & touchRect,
-                                             TracksFilter const & tracksFilter = nullptr) const;
+  std::vector<Track::TrackSelectionInfo> FindTracksInRect(m2::RectD const & touchRect,
+                                                          TracksFilter const & tracksFilter = nullptr) const;
   Track::TrackSelectionInfo GetTrackSelectionInfo(kml::TrackId const & trackId) const;
 
   void SetTrackSelectionInfo(Track::TrackSelectionInfo const & trackSelectionInfo, bool notifyListeners);
