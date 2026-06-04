@@ -390,7 +390,9 @@ public class RoutingController
 
     mLastRouterType = routerType;
     Router.set(mLastRouterType);
-    mStartNavigationAfterBuild = startNavigation && routePoints.get(0).isMyPosition();
+    // The core already gates auto-start on routing from the current position (nav
+    // requested with no explicit origin), so honor the parsed flag directly.
+    mStartNavigationAfterBuild = startNavigation;
 
     addRoutePoints(routePoints, callbacks, optimizeRoutePoints);
 

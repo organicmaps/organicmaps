@@ -1078,8 +1078,13 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 - (void)goBack
 {
   NSString * backURL = [DeepLinkHandler.shared getBackUrl];
-  if (backURL != nil)
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:backURL] options:@{} completionHandler:nil];
+  if (backURL == nil)
+    return;
+  // Use the same lenient builder as per-stop callbacks: the back URL is core-decoded and may
+  // contain characters that -URLWithString: rejects verbatim.
+  NSURL * url = [MWMRouter callbackURLFromString:backURL];
+  if (url)
+    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
 }
 
 - (void)closeCurrentView

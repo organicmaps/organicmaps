@@ -17,11 +17,11 @@
 #include "drape_frontend/visual_params.hpp"
 
 #include "base/logging.hpp"
+#include "base/math.hpp"
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
 #include <array>
-#include <cctype>
 #include <cmath>
 #include <string_view>
 #include <tuple>
@@ -143,256 +143,26 @@ bool ParseRoutePoint(std::string const & key, std::string const & value, RoutePo
   return true;
 }
 
-std::vector<std::string> SplitRouteList(std::string_view value, bool decodeItems = false)
+// Splits a '|'-separated list. Values reach here already URL-decoded, so an encoded "%7C"
+// acts as a separator exactly like a raw '|'. A literal '|' inside a value is therefore not
+// representable directly (double-encode it as "%257C" if ever needed). Empty items are kept
+// so callers can align waypoint names/callbacks by index with their waypoint.
+std::vector<std::string> SplitRouteList(std::string_view value)
 {
   std::vector<std::string> result;
   size_t from = 0;
   while (from <= value.size())
   {
     size_t const delimiter = value.find('|', from);
-    if (delimiter == std::string::npos)
+    if (delimiter == std::string_view::npos)
     {
-      auto const item = value.substr(from);
-      result.push_back(decodeItems ? url::UrlDecode(item) : std::string(item));
+      result.emplace_back(value.substr(from));
       break;
     }
-    auto const item = value.substr(from, delimiter - from);
-    result.push_back(decodeItems ? url::UrlDecode(item) : std::string(item));
+    result.emplace_back(value.substr(from, delimiter - from));
     from = delimiter + 1;
   }
   return result;
-}
-
-std::vector<std::string> SplitRouteListWithEncodedSeparators(std::string_view value)
-{
-  constexpr std::array<std::string_view, 2> kEncodedPipes = {{"%7C", "%7c"}};
-
-  if (value.find('|') != std::string_view::npos)
-    return SplitRouteList(value, true /* decodeItems */);
-
-  std::vector<std::string> result;
-  size_t from = 0;
-  while (from <= value.size())
-  {
-    size_t delimiter = std::string_view::npos;
-    size_t delimiterSize = 0;
-    for (auto const encodedPipe : kEncodedPipes)
-    {
-      size_t const encodedDelimiter = value.find(encodedPipe, from);
-      if (encodedDelimiter != std::string::npos && (delimiter == std::string::npos || encodedDelimiter < delimiter))
-      {
-        delimiter = encodedDelimiter;
-        delimiterSize = 3;
-      }
-    }
-
-    if (delimiter == std::string::npos)
-    {
-      result.push_back(url::UrlDecode(value.substr(from)));
-      break;
-    }
-
-    result.push_back(url::UrlDecode(value.substr(from, delimiter - from)));
-    from = delimiter + delimiterSize;
-  }
-  return result;
-}
-
-bool IsHexDigit(char c)
-{
-  return ('0' <= c && c <= '9') || ('A' <= c && c <= 'F') || ('a' <= c && c <= 'f');
-}
-
-std::string EscapeInvalidPercentSigns(std::string_view value)
-{
-  std::string result;
-  result.reserve(value.size());
-  for (size_t i = 0; i < value.size(); ++i)
-    if (value[i] == '%' && (i + 2 >= value.size() || !IsHexDigit(value[i + 1]) || !IsHexDigit(value[i + 2])))
-      result += "%25";
-    else
-      result += value[i];
-  return result;
-}
-
-std::string DecodeRouteCallback(std::string_view rawValue)
-{
-  return EscapeInvalidPercentSigns(url::UrlDecode(EscapeInvalidPercentSigns(rawValue)));
-}
-
-bool LooksLikeEncodedCallbackStart(std::string_view value)
-{
-  std::string scheme;
-  for (size_t i = 0; i < value.size();)
-  {
-    if (value[i] == '|')
-      return false;
-
-    if (value[i] == ':' || (i + 2 < value.size() && value[i] == '%' && value[i + 1] == '3' &&
-                            (value[i + 2] == 'A' || value[i + 2] == 'a')))
-      return !scheme.empty();
-
-    if (i + 2 < value.size() && value[i] == '%' && (value[i + 1] == '7') &&
-        (value[i + 2] == 'C' || value[i + 2] == 'c'))
-      return false;
-
-    unsigned char const ch = static_cast<unsigned char>(value[i]);
-    if (std::isalnum(ch) || value[i] == '+' || value[i] == '-' || value[i] == '.')
-    {
-      scheme.push_back(value[i]);
-      ++i;
-      continue;
-    }
-
-    if (value[i] == '%' && i + 2 < value.size() && IsHexDigit(value[i + 1]) && IsHexDigit(value[i + 2]))
-    {
-      scheme.clear();
-      i += 3;
-      continue;
-    }
-
-    return false;
-  }
-  return false;
-}
-
-bool HasQueryBeforeDelimiter(std::string_view value, size_t from, size_t delimiter)
-{
-  for (size_t i = from; i < delimiter; ++i)
-  {
-    if (value[i] == '?')
-      return true;
-    if (i + 2 < delimiter && value[i] == '%' && value[i + 1] == '3' && (value[i + 2] == 'F' || value[i + 2] == 'f'))
-      return true;
-  }
-  return false;
-}
-
-std::vector<std::string> SplitRouteCallbackListWithEncodedSeparators(std::string_view value, size_t expectedItems)
-{
-  constexpr std::array<std::string_view, 2> kEncodedPipes = {{"%7C", "%7c"}};
-
-  std::vector<std::string> result;
-  std::vector<size_t> encodedDelimiterCandidates;
-  if (value.find('|') == std::string_view::npos)
-  {
-    size_t encodedSeparators = 0;
-    for (size_t from = 0; from < value.size();)
-    {
-      size_t delimiter = std::string_view::npos;
-      for (auto const encodedPipe : kEncodedPipes)
-      {
-        size_t const encodedDelimiter = value.find(encodedPipe, from);
-        if (encodedDelimiter != std::string_view::npos &&
-            (delimiter == std::string_view::npos || encodedDelimiter < delimiter))
-        {
-          delimiter = encodedDelimiter;
-        }
-      }
-
-      if (delimiter == std::string_view::npos)
-        break;
-
-      ++encodedSeparators;
-      if (LooksLikeEncodedCallbackStart(value.substr(delimiter + 3)))
-        encodedDelimiterCandidates.push_back(delimiter);
-      from = delimiter + 3;
-    }
-
-    if (expectedItems > 1 && encodedDelimiterCandidates.size() >= expectedItems - 1)
-    {
-      size_t const delimiterCandidatesOffset = encodedDelimiterCandidates.size() - (expectedItems - 1);
-      bool candidateInsideQuery = false;
-      for (size_t i = 0, from = 0; encodedSeparators == expectedItems - 1 && i < expectedItems - 1; ++i)
-      {
-        size_t const delimiter = encodedDelimiterCandidates[delimiterCandidatesOffset + i];
-        candidateInsideQuery = candidateInsideQuery || HasQueryBeforeDelimiter(value, from, delimiter);
-        from = delimiter + 3;
-      }
-
-      if (candidateInsideQuery)
-      {
-        result.push_back(DecodeRouteCallback(value));
-        return result;
-      }
-
-      size_t from = 0;
-      for (size_t i = 0; i < expectedItems - 1; ++i)
-      {
-        size_t const delimiter = encodedDelimiterCandidates[delimiterCandidatesOffset + i];
-        result.push_back(DecodeRouteCallback(value.substr(from, delimiter - from)));
-        from = delimiter + 3;
-      }
-      result.push_back(DecodeRouteCallback(value.substr(from)));
-      return result;
-    }
-
-    if (expectedItems <= 1 || encodedSeparators != expectedItems - 1)
-    {
-      result.push_back(DecodeRouteCallback(value));
-      return result;
-    }
-  }
-
-  size_t from = 0;
-  while (from <= value.size())
-  {
-    size_t delimiter = value.find('|', from);
-    size_t delimiterSize = delimiter == std::string_view::npos ? 0 : 1;
-    if (delimiter == std::string_view::npos)
-    {
-      for (auto const encodedPipe : kEncodedPipes)
-      {
-        size_t const encodedDelimiter = value.find(encodedPipe, from);
-        if (encodedDelimiter != std::string_view::npos &&
-            (delimiter == std::string_view::npos || encodedDelimiter < delimiter))
-        {
-          delimiter = encodedDelimiter;
-          delimiterSize = 3;
-        }
-      }
-    }
-
-    if (delimiter == std::string_view::npos)
-    {
-      result.push_back(DecodeRouteCallback(value.substr(from)));
-      break;
-    }
-
-    result.push_back(DecodeRouteCallback(value.substr(from, delimiter - from)));
-    from = delimiter + delimiterSize;
-  }
-  return result;
-}
-
-template <typename FnT>
-void ForEachRawParam(std::string_view rawUrl, FnT && fn)
-{
-  // Keep values raw here so route-list parsers can distinguish real separators from encoded content.
-  size_t start = rawUrl.find_first_of("?#");
-  if (start == std::string_view::npos || rawUrl[start] == '#')
-    return;
-
-  for (++start; start < rawUrl.size();)
-  {
-    size_t end = rawUrl.find_first_of("&#", start);
-    if (end == std::string_view::npos)
-      end = rawUrl.size();
-
-    if (end != start)
-    {
-      size_t const eq = rawUrl.find('=', start);
-      if (eq != std::string_view::npos && eq < end)
-        fn(url::UrlDecode(rawUrl.substr(start, eq - start)), rawUrl.substr(eq + 1, end - eq - 1));
-      else
-        fn(url::UrlDecode(rawUrl.substr(start, end - start)), std::string_view());
-    }
-
-    if (end != rawUrl.size() && rawUrl[end] == '#')
-      break;
-
-    start = end + 1;
-  }
 }
 
 bool ParseRouteMode(std::string const & value, std::string & routingType)
@@ -419,8 +189,8 @@ bool ParseOriginHeading(std::string const & value, m2::PointD & startDirection)
   if (!strings::to_double(value, heading) || !std::isfinite(heading) || heading < 0.0 || heading > 360.0)
     return false;
 
-  double constexpr kDegreesToRadians = 3.14159265358979323846 / 180.0;
-  double const angle = (90.0 - heading) * kDegreesToRadians;
+  // Heading is clockwise from north; convert to a counter-clockwise-from-east unit vector.
+  double const angle = math::DegToRad(90.0 - heading);
   startDirection = {std::cos(angle), std::sin(angle)};
   return true;
 }
@@ -463,7 +233,10 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
       using namespace route_v2;
 
       m_version = 2;
-      m_startRouteNavigation = url.GetPath() == kPathNav;
+      // Whether the caller asked to navigate (vs. just preview). For a nav request the
+      // start is forced to the current position after parsing, once we know whether an
+      // explicit origin was supplied (so we can warn that it is ignored).
+      bool navRequested = url.GetPath() == kPathNav;
       m_routingType = route::kRouteTypeVehicle;
 
       RoutePoint origin;
@@ -476,18 +249,21 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
       std::vector<WaypointWithRawIndex> waypoints;
       std::vector<std::string> waypointNames;
       std::vector<std::string> waypointCallbacks;
-      std::string waypointCallbacksRaw;
+      bool originProvided = false;
       bool originFound = false;
       bool destinationFound = false;
       bool correctParams = true;
 
-      ForEachRawParam(normalizedUrl, [&](auto const & key, auto const & rawValue)
+      // url::Url decodes values, so an encoded "%7C" separator is normalized to '|' and splits
+      // exactly like a raw '|' (both forms are accepted). The fragment is stripped because
+      // url::Url parses query and fragment params together, and v2 ignores the fragment.
+      std::string const queryUrl = normalizedUrl.substr(0, normalizedUrl.find('#'));
+      url::Url{queryUrl}.ForEachParam([&](auto const & key, auto const & value)
       {
-        std::string const value = url::UrlDecode(rawValue);
         if (key == kOrigin)
         {
+          originProvided = true;
           originFound = ParseRoutePoint(key, value, origin);
-          correctParams = correctParams && originFound;
         }
         else if (key == kOriginName)
         {
@@ -495,7 +271,7 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
         }
         else if (key == kOriginCallback)
         {
-          origin.m_callback = DecodeRouteCallback(rawValue);
+          origin.m_callback = value;
         }
         else if (key == kOriginHeading)
         {
@@ -516,7 +292,7 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
         }
         else if (key == kDestinationCallback)
         {
-          destination.m_callback = DecodeRouteCallback(rawValue);
+          destination.m_callback = value;
         }
         else if (key == kWaypoints)
         {
@@ -539,11 +315,11 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
         }
         else if (key == kWaypointNames)
         {
-          waypointNames = SplitRouteListWithEncodedSeparators(rawValue);
+          waypointNames = SplitRouteList(value);
         }
         else if (key == kWaypointCallbacks)
         {
-          waypointCallbacksRaw = rawValue;
+          waypointCallbacks = SplitRouteList(value);
         }
         else if (key == kMode || key == kTravelMode)
         {
@@ -556,7 +332,7 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
         else if (key == kDirAction)
         {
           if (value == "navigate")
-            m_startRouteNavigation = true;
+            navRequested = true;
           else
             LOG(LWARNING, ("Route API v2 parameter is parsed but not applied yet:", key, value));
         }
@@ -570,7 +346,7 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
         }
         else if (key == kCallback)
         {
-          m_globalBackUrl = DecodeRouteCallback(rawValue);
+          m_globalBackUrl = value;
         }
         else if (key == kApi || key == kRef || key == kCallbackLabel || key == kAvoid)
         {
@@ -582,6 +358,12 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
         }
       });
 
+      // origin is the start point for /v2/dir, so a malformed value is an error.
+      // /v2/nav ignores origin (it is optional and reserved as a future hint), so a
+      // malformed value there is dropped rather than failing the whole request.
+      if (!navRequested && originProvided && !originFound)
+        correctParams = false;
+
       if (!correctParams || !destinationFound)
         return m_requestType = UrlType::Incorrect;
 
@@ -591,11 +373,20 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
         return m_requestType = UrlType::Incorrect;
       }
 
-      if (!waypointCallbacksRaw.empty())
-        waypointCallbacks = SplitRouteCallbackListWithEncodedSeparators(waypointCallbacksRaw, waypoints.size());
-
-      if (!originFound)
+      if (navRequested)
+      {
+        // Navigation always starts from the current position ("navigate to these
+        // places starting from me"). An explicit origin is optional here and
+        // currently ignored, but accepted (not rejected) and reserved as a possible
+        // future routing hint. Keep its name/callback as a departure label/callback.
+        if (originFound)
+          LOG(LINFO, ("Route API v2: origin accepted but ignored for /v2/nav; routing from current position"));
+        origin.m_org = m2::PointD::Zero();
         origin.m_isMyPosition = true;
+      }
+      else if (!originFound)
+        origin.m_isMyPosition = true;
+      m_startRouteNavigation = navRequested;
       m_routePoints.push_back(std::move(origin));
 
       for (auto & waypoint : waypoints)
@@ -635,7 +426,9 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
                            auto const & key, auto const & value)
       { ParseRouteParam(key, value, legacyRouteParamIndex, legacyRouteTypeSeen, usesLegacySyntax, correctOrder); });
 
-      if (!correctOrder || m_routingType.empty() || !usesLegacySyntax)
+      // A non-legacy URL never reaches legacyRouteParamIndex == 4, so the index check below
+      // already enforces that at least one legacy parameter was seen.
+      if (!correctOrder || m_routingType.empty())
         return m_requestType = UrlType::Incorrect;
 
       if (legacyRouteParamIndex != 4 || !legacyRouteTypeSeen || m_routePoints.size() != 2)
