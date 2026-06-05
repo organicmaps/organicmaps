@@ -53,16 +53,12 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.api.Const;
 import app.organicmaps.base.BaseMwmFragmentActivity;
-import app.organicmaps.base.OnBackPressListener;
 import app.organicmaps.bookmarks.BookmarkCategoriesActivity;
 import app.organicmaps.downloader.DownloaderActivity;
-import app.organicmaps.downloader.DownloaderFragment;
 import app.organicmaps.downloader.OnmapDownloader;
 import app.organicmaps.editor.EditorActivity;
-import app.organicmaps.editor.EditorHostFragment;
 import app.organicmaps.editor.FeatureCategoryActivity;
 import app.organicmaps.editor.OsmLoginActivity;
-import app.organicmaps.editor.ReportFragment;
 import app.organicmaps.help.HelpActivity;
 import app.organicmaps.intent.Factory;
 import app.organicmaps.intent.IntentProcessor;
@@ -150,9 +146,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private boolean mIntentConsumed = false;
   private boolean mPreciseLocationDialogShown = false;
 
-  private static final String[] DOCKED_FRAGMENTS = {SearchFragment.class.getName(), DownloaderFragment.class.getName(),
-                                                    EditorHostFragment.class.getName(), ReportFragment.class.getName()};
-
   private static final String MAIN_MENU_ID = "MAIN_MENU_BOTTOM_SHEET";
   private static final String LAYERS_MENU_ID = "LAYERS_MENU_BOTTOM_SHEET";
 
@@ -168,7 +161,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private NavigationController mNavigationController;
   @Nullable
   private OnmapDownloader mOnmapDownloader;
-  private boolean mIsTabletLayout;
 
   private String mDonatesUrl;
 
@@ -211,15 +203,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private boolean mRemoveDisplayListener = true;
   private static int mLastUiMode = Configuration.UI_MODE_TYPE_UNDEFINED;
-
-  public interface LeftAnimationTrackListener
-  {
-    void onTrackStarted(boolean collapsed);
-
-    void onTrackFinished(boolean collapsed);
-
-    void onTrackLeftAnimation(float offset);
-  }
 
   public static Intent createShowMapIntent(@NonNull Context context, @Nullable String countryId)
   {
@@ -356,26 +339,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     UnitLocale.initializeCurrentUnits();
   }
 
-  @Override
-  protected int getFragmentContentResId()
-  {
-    return (mIsTabletLayout ? R.id.fragment_container : super.getFragmentContentResId());
-  }
-
-  @Nullable
-  Fragment getFragment(Class<? extends Fragment> clazz)
-  {
-    if (!mIsTabletLayout)
-      throw new IllegalStateException("Must be called for tablets only!");
-
-    return getSupportFragmentManager().findFragmentByTag(clazz.getName());
-  }
-
-  void replaceFragmentInternal(Class<? extends Fragment> fragmentClass, Bundle args)
-  {
-    super.replaceFragment(fragmentClass, args, null);
-  }
-
   public boolean closeSearchFragment()
   {
     Fragment f = getSupportFragmentManager().findFragmentById(R.id.search_container_fragment);
@@ -391,17 +354,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mSearchPageViewModel.setSearchEnabled(false, null);
   }
 
-  @Override
-  public void replaceFragment(@NonNull Class<? extends Fragment> fragmentClass, @Nullable Bundle args,
-                              @Nullable Runnable completionListener)
-  {
-    if (getFragment(fragmentClass) != null)
-    {
-      if (completionListener != null)
-        completionListener.run();
-      return;
-    }
-  }
 
   private void showBookmarks()
   {
@@ -452,10 +404,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     // TODO(yunikkk) think about refactoring. It probably should be called in editor.
     Editor.nativeStartEdit();
-    if (mIsTabletLayout)
-      replaceFragment(EditorHostFragment.class, null, null);
-    else
-      EditorActivity.start(this);
+    EditorActivity.start(this);
   }
 
   private void shareMyLocation()
@@ -480,14 +429,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     final Bundle args = new Bundle();
     args.putBoolean(DownloaderActivity.EXTRA_OPEN_DOWNLOADED, openDownloaded);
-    if (mIsTabletLayout)
-    {
-      replaceFragment(DownloaderFragment.class, args, null);
-    }
-    else
-    {
-      startActivity(new Intent(this, DownloaderActivity.class).putExtras(args));
-    }
+    startActivity(new Intent(this, DownloaderActivity.class).putExtras(args));
   }
 
   @Override
@@ -527,8 +469,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (savedInstanceState != null)
       mIntentConsumed = savedInstanceState.getBoolean(EXTRA_CONSUMED, false);
-
-    mIsTabletLayout = getResources().getBoolean(R.bool.tabletLayout);
 
     setContentView(R.layout.activity_map);
     makeNavigationBarTransparentInLightMode();
@@ -841,17 +781,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   /**
-   * @return False if the side panel was already closed, true otherwise
-   */
-  public boolean closeSidePanel()
-  {
-    if (interceptBackPress())
-      return true;
-
-    return removeCurrentFragment(true);
-  }
-
-  /**
    * @return False if the position chooser was already closed, true otherwise
    */
   private boolean closePositionChooser()
@@ -1081,7 +1010,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     final RoutingController routingController = RoutingController.get();
     if (!closeBottomSheet(MAIN_MENU_ID) && !closeBottomSheet(LAYERS_MENU_ID) && !collapseNavMenu() && !closePlacePage()
-        && !closeSidePanel() && !closePositionChooser() && !closeSearchFragment()
+        && !closePositionChooser() && !closeSearchFragment()
         && !routingController.resetToPlanningStateIfNavigating() && !routingController.cancel())
     {
       try
@@ -1093,49 +1022,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
         // Sometimes this can be called after onSaveState() for unknown reason.
       }
     }
-  }
-
-  private boolean interceptBackPress()
-  {
-    final FragmentManager manager = getSupportFragmentManager();
-    for (String tag : DOCKED_FRAGMENTS)
-    {
-      final Fragment fragment = manager.findFragmentByTag(tag);
-      if (fragment != null && fragment.isResumed() && fragment instanceof OnBackPressListener)
-        return ((OnBackPressListener) fragment).onBackPressed();
-    }
-
-    return false;
-  }
-
-  private void removeFragmentImmediate(Fragment fragment)
-  {
-    FragmentManager fm = getSupportFragmentManager();
-    if (fm.isDestroyed())
-      return;
-
-    fm.beginTransaction().remove(fragment).commitAllowingStateLoss();
-    fm.executePendingTransactions();
-  }
-
-  private boolean removeCurrentFragment(boolean animate)
-  {
-    for (String tag : DOCKED_FRAGMENTS)
-      if (removeFragment(tag, animate))
-        return true;
-
-    return false;
-  }
-
-  private boolean removeFragment(String className, boolean animate)
-  {
-    final Fragment fragment = getSupportFragmentManager().findFragmentByTag(className);
-    if (fragment == null)
-      return false;
-
-    removeFragmentImmediate(fragment);
-
-    return true;
   }
 
   @Override
@@ -1227,7 +1113,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void customOnNavigateUp()
   {
-    removeCurrentFragment(true);
+    // The map screen has no docked side panel to pop, so up-navigation is a no-op here.
   }
 
   void updateCompassOffset(int offsetY)
