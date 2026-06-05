@@ -127,7 +127,7 @@ public class Bookmark extends MapObject
     return info;
   }
 
-  static native int nativeSetColor(long bookmarkId, @PredefinedColors.Color int color);
+  static native void nativeSetColor(long bookmarkId, @PredefinedColors.Color int color);
 
   static native void nativeUpdateParams(long bookmarkId, @NonNull String name, @PredefinedColors.Color int color,
                                         @NonNull String description);

@@ -48,8 +48,11 @@ public:
   std::string GetDescription() const;
   void SetDescription(std::string const & description);
 
-  kml::Timestamp GetTimeStamp() const;
-  void SetTimeStamp(kml::Timestamp timeStamp);
+  kml::Timestamp GetCreatedTimestamp() const;
+  void SetCreatedTimestamp(kml::Timestamp timeStamp);
+
+  kml::Timestamp GetModifiedTimestamp() const;
+  void SetModifiedTimestamp(kml::Timestamp timeStamp);
 
   uint8_t GetScale() const;
   void SetScale(uint8_t scale);

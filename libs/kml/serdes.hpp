@@ -113,7 +113,8 @@ private:
   LocalizableString m_name;
   LocalizableString m_description;
   PredefinedColor m_predefinedColor;
-  Timestamp m_timestamp;
+  Timestamp m_createdTimestamp;
+  Timestamp m_modifiedTimestamp;
   m2::PointD m_org;
   uint8_t m_viewportScale;
   ClassifierTypes m_featureTypes;

@@ -353,7 +353,7 @@ Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData && bmData, kml::Mar
   }
   else
   {
-    bmData.m_timestamp = kml::TimestampClock::now();
+    bmData.m_createdTimestamp = kml::TimestampClock::now();
     bmData.m_viewportScale = static_cast<uint8_t>(df::GetZoomLevel(m_viewport.GetScale()));
 
     bookmark = CreateBookmark(std::move(bmData));
@@ -738,7 +738,7 @@ std::vector<BookmarkManager::SortingType> BookmarkManager::GetAvailableSortingTy
     }
 
     if (!byTimeChecked)
-      byTimeChecked = !kml::IsEqual(bookmarkData.m_timestamp, kml::Timestamp{});
+      byTimeChecked = !kml::IsEqual(bookmarkData.m_createdTimestamp, kml::Timestamp{});
 
     if (byTypeChecked && byTimeChecked)
       break;
@@ -748,7 +748,7 @@ std::vector<BookmarkManager::SortingType> BookmarkManager::GetAvailableSortingTy
   {
     for (auto trackId : group->GetUserLines())
     {
-      if (!kml::IsEqual(GetTrack(trackId)->GetData().m_timestamp, kml::Timestamp{}))
+      if (!kml::IsEqual(GetTrack(trackId)->GetData().m_createdTimestamp, kml::Timestamp{}))
       {
         byTimeChecked = true;
         break;
@@ -1184,7 +1184,7 @@ kml::TrackId BookmarkManager::SaveTrackRecording(std::string trackName)
   std::vector<kml::TrackLayer> m_layers;
   m_layers.emplace_back(layer);
   trackData.m_layers = std::move(m_layers);
-  trackData.m_timestamp = kml::TimestampClock::now();
+  trackData.m_createdTimestamp = kml::TimestampClock::now();
 
   auto editSession = GetEditSession();
   auto const track = editSession.CreateTrack(std::move(trackData));
@@ -1236,7 +1236,7 @@ kml::TrackId BookmarkManager::SaveRoute(kml::TrackGeometry points, std::string c
   layers.emplace_back(layer);
   trackData.m_layers = std::move(layers);
 
-  trackData.m_timestamp = kml::TimestampClock::now();
+  trackData.m_createdTimestamp = kml::TimestampClock::now();
 
   auto editSession = GetEditSession();
   auto const track = editSession.CreateTrack(std::move(trackData));
@@ -1337,7 +1337,7 @@ void BookmarkManager::SortTracksByTime(std::vector<SortTrackData> & tracks)
   bool hasTimestamp = false;
   for (auto const & track : tracks)
   {
-    if (!kml::IsEqual(track.m_timestamp, kml::Timestamp{}))
+    if (!kml::IsEqual(track.m_createdTimestamp, kml::Timestamp{}))
     {
       hasTimestamp = true;
       break;
@@ -1347,8 +1347,8 @@ void BookmarkManager::SortTracksByTime(std::vector<SortTrackData> & tracks)
   if (!hasTimestamp)
     return;
 
-  std::sort(tracks.begin(), tracks.end(),
-            [](SortTrackData const & lbm, SortTrackData const & rbm) { return lbm.m_timestamp > rbm.m_timestamp; });
+  std::sort(tracks.begin(), tracks.end(), [](SortTrackData const & lbm, SortTrackData const & rbm)
+  { return lbm.m_createdTimestamp > rbm.m_createdTimestamp; });
 }
 
 // static
@@ -1437,7 +1437,7 @@ void BookmarkManager::SortByTime(std::vector<SortBookmarkData> const & bookmarks
     sortedMarks.push_back(&mark);
 
   std::sort(sortedMarks.begin(), sortedMarks.end(), [](SortBookmarkData const * lbm, SortBookmarkData const * rbm)
-  { return lbm->m_timestamp > rbm->m_timestamp; });
+  { return lbm->m_createdTimestamp > rbm->m_createdTimestamp; });
 
   auto const currentTime = kml::TimestampClock::now();
 
@@ -1446,8 +1446,8 @@ void BookmarkManager::SortByTime(std::vector<SortBookmarkData> const & bookmarks
   for (auto mark : sortedMarks)
   {
     auto currentBlockType = SortedByTimeBlockType::Others;
-    if (mark->m_timestamp != kml::Timestamp{})
-      currentBlockType = GetSortedByTimeBlockType(currentTime - mark->m_timestamp);
+    if (mark->m_createdTimestamp != kml::Timestamp{})
+      currentBlockType = GetSortedByTimeBlockType(currentTime - mark->m_createdTimestamp);
 
     if (!lastBlockType)
     {
@@ -1480,7 +1480,7 @@ void BookmarkManager::SortByType(std::vector<SortBookmarkData> const & bookmarks
     sortedMarks.push_back(&mark);
 
   std::sort(sortedMarks.begin(), sortedMarks.end(), [](SortBookmarkData const * lbm, SortBookmarkData const * rbm)
-  { return lbm->m_timestamp > rbm->m_timestamp; });
+  { return lbm->m_createdTimestamp > rbm->m_createdTimestamp; });
 
   std::map<BookmarkBaseType, size_t> typesCount;
   size_t othersTypeMarksCount = 0;
@@ -2352,13 +2352,19 @@ void BookmarkManager::UpdateBookmark(kml::MarkId bmID, kml::BookmarkData const &
     bookmark->InvalidateRGBAColor();
     SetLastEditedBmColor(bookmark->GetColor());
   }
+
+  bookmark->SetModifiedTimestamp(kml::TimestampClock::now());
 }
 
 void BookmarkManager::ChangeTrackColor(kml::TrackId trackId, dp::Color color)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto * track = GetTrackForEdit(trackId);
+  if (track->GetColor(0) == color)
+    return;
+
   track->SetColor(color);
+  track->SetModifiedTimestamp(kml::TimestampClock::now());
 }
 
 void BookmarkManager::UpdateTrack(kml::TrackId trackId, kml::TrackData const & trackData)
@@ -2366,6 +2372,8 @@ void BookmarkManager::UpdateTrack(kml::TrackId trackId, kml::TrackData const & t
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto * track = GetTrackForEdit(trackId);
   track->SetData(trackData);
+
+  track->SetModifiedTimestamp(kml::TimestampClock::now());
 }
 
 kml::MarkGroupId BookmarkManager::LastEditedBMCategory()
@@ -3720,9 +3728,15 @@ void BookmarkManager::EditSession::SetCategoryCustomProperty(kml::MarkGroupId ca
 void BookmarkManager::EditSession::SetCategoryBookmarksColor(kml::MarkGroupId groupId, kml::PredefinedColor color)
 {
   auto const & markIds = m_bmManager.GetUserMarkIds(groupId);
+  auto const now = kml::TimestampClock::now();
   for (auto const markId : markIds)
-    if (auto * bm = m_bmManager.GetBookmarkForEdit(markId))
-      bm->SetColor(color);
+  {
+    auto * bm = m_bmManager.GetBookmarkForEdit(markId);
+    if (bm == nullptr || bm->GetColor() == color)
+      continue;
+    bm->SetColor(color);
+    bm->SetModifiedTimestamp(now);
+  }
   m_bmManager.SetLastEditedBmColor(color);
 }
 
