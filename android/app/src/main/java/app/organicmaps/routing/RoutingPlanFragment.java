@@ -22,7 +22,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.maplayer.MapButtonsController;
@@ -154,7 +153,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
         v -> mMapButtonClickListener.onMapButtonClick(MapButtonsController.MapButtons.bookmarks));
 
     final View closeButton = mRoutingTypesContainer.findViewById(R.id.back);
-    closeButton.setOnClickListener(v -> ((MwmActivity) requireActivity()).handleBackPress());
+    closeButton.setOnClickListener(v -> mRoutingPlanController.handleBackPress());
 
     setInsets();
     setupBottomSheetBehavior();

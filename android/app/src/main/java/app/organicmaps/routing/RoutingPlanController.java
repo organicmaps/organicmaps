@@ -1,8 +1,5 @@
 package app.organicmaps.routing;
 
-import androidx.annotation.NonNull;
-import app.organicmaps.sdk.settings.RoadType;
-
 /**
  * Interface for the activity to implement to handle activity-level routing actions
  * requested by the {@link RoutingPlanFragment}.
@@ -17,6 +14,6 @@ public interface RoutingPlanController
   void closeFloatingPanels();
   /** Set fullscreen mode */
   void setFullscreen(boolean fullscreen);
-  /** Toggle route settings */
-  void onPlacePageRequestToggleRouteSettings(@NonNull RoadType roadType);
+  /** Handle a back/close press coming from the routing plan UI */
+  void handleBackPress();
 }
