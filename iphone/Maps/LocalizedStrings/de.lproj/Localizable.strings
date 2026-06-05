@@ -107,7 +107,7 @@
 "category_shopping" = "Einkaufen";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
-"category_secondhand" = "Second-hand";
+"category_secondhand" = "Second-Hand";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
 "category_hotel" = "Hotel";
@@ -125,7 +125,7 @@
 "category_nightlife" = "Nachtleben";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! */
-"category_children" = "Freizeit mit Kindern";
+"category_children" = "Freizeit mit Familie";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @category_bank! */
 "category_bank" = "Bank";
@@ -143,7 +143,7 @@
 "category_post" = "Post";
 
 /* Search category for police; any changes should be duplicated in categories.txt @category_police! */
-"category_police" = "Polizeistation";
+"category_police" = "Polizei";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
 "category_recycling" = "Recycling";
@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Hallo!\n\nIm Anhang sind meine Lesezeichen der Organic Maps App. Du kannst sie mit Organic Maps öffnen. Wenn du die App nicht installiert hast, kannst du sie von https://omaps.app/get?kmz herunterladen.\n\nViel Spaß beim Reisen mit Organic Maps!";
+"share_bookmarks_email_body" = "Hallo!\n\nIm Anhang sind meine Lesezeichen der „Organic Maps“-App. Du kannst sie mit Organic Maps öffnen. Wenn du die App nicht installiert hast, kannst du sie von https://omaps.app/get?kmz herunterladen.\n\nViel Spaß beim Reisen mit Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Lesezeichen werden geladen";
@@ -175,10 +175,10 @@
 "unknown_current_position" = "Dein Standort konnte noch nicht ermittelt werden";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Hey, sieh dir meine Stecknadel auf der Organic Maps-Karte an!";
+"bookmark_share_email_subject" = "Hey, sieh dir meine Stecknadel auf der „Organic Maps“-Karte an!";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Hey, sieh dir meinen aktuellen Standort auf der Organic Maps-Karte an!";
+"my_position_share_email_subject" = "Hey, sieh dir meinen aktuellen Standort auf der „Organic Maps“-Karte an!";
 
 /* Share by email button text, also used in editor and About. */
 "email" = "E-Mail";
@@ -198,7 +198,7 @@
 "prefs_group_route" = "Navigation";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
-"pref_zoom_title" = "„+“ und „-“ Knöpfe auf der Karte";
+"pref_zoom_title" = "Plus- und Minusknöpfe auf der Karte";
 
 /* Generic «Off» string */
 "off" = "Aus";
@@ -231,7 +231,7 @@
 "pref_tts_language_title" = "Sprache für Sprachanweisungen";
 
 /* Settings «Navigation» category: «Voice language» footer */
-"pref_tts_download_voices_description" = "Um eine Stimme mit höherer Qualität zu laden, öffne die App Einstellungen und gehe zu Bedienungshilfen → VoiceOver → Sprachausgabe → Stimme.";
+"pref_tts_download_voices_description" = "Um eine Stimme mit höherer Qualität zu laden, öffne die App „Einstellungen“ und geh zu Bedienungshilfen → VoiceOver → Sprachausgabe → Stimme.";
 
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Sprachanweisungen testen (TTS, Text-To-Speech)";
@@ -359,7 +359,7 @@
 "info" = "Infos";
 
 /* Prints version number in About dialog */
-"version" = "Organic Maps Version: %@";
+"version" = "„Organic Maps“-Version: %@";
 
 /* Settings «Map» category: «Appearance» title */
 "pref_appearance_title" = "Erscheinungsbild";
@@ -411,10 +411,10 @@
 /********** Routing dialogs strings **********/
 
 "dialog_routing_disclaimer_title" = "Wenn du der Route folgst, beachte bitte:";
-"dialog_routing_disclaimer_priority" = "— Zustand der Straßen, die Verkehrsordnung und Straßenschilder haben stets Vorrang vor Navigationsanweisungen;";
-"dialog_routing_disclaimer_precision" = "— Die Karte kann ungenau sein, und die vorgeschlagene Route ist möglicherweise nicht der optimale Weg, um das Ziel zu erreichen;";
-"dialog_routing_disclaimer_recommendations" = "— Die vorgeschlagenen Routen sind als Empfehlungen zu verstehen;";
-"dialog_routing_disclaimer_borders" = "— Bitte sei vorsichtig bei Routen in Grenzgebieten: die Routen, die unsere App erstellt, können manchmal Landesgrenzen in gesperrten Gebieten überschreiten.";
+"dialog_routing_disclaimer_priority" = "– Zustand der Straßen, die Verkehrsordnung und Straßenschilder haben stets Vorrang vor Navigationsanweisungen;";
+"dialog_routing_disclaimer_precision" = "– Die Karte kann ungenau sein, und die vorgeschlagene Route ist möglicherweise nicht der optimale Weg, um das Ziel zu erreichen;";
+"dialog_routing_disclaimer_recommendations" = "– Die vorgeschlagenen Routen sind als Empfehlungen zu verstehen;";
+"dialog_routing_disclaimer_borders" = "– Bitte sei vorsichtig bei Routen in Grenzgebieten: die Routen, die unsere App erstellt, können manchmal Landesgrenzen in gesperrten Gebieten überschreiten.";
 "dialog_routing_disclaimer_beware" = "Bitte fahre aufmerksam und sicher!";
 "dialog_routing_check_gps" = "GPS-Signal prüfen";
 "dialog_routing_error_location_not_found" = "Route kann nicht erstellt werden. Aktuelle GPS-Koordinaten konnten nicht ermittelt werden.";
@@ -620,7 +620,7 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Verkehrsdaten sind nicht verfügbar";
 "enable_logging" = "Protokollierung aktivieren";
-"transliteration_title" = "Transliteration ins Lateinische";
+"transliteration_title" = "Transliteration ins lateinische Alphabet";
 "planning_route_manage_route" = "Route verwalten";
 "button_plan" = "Planen";
 "placepage_remove_stop" = "Stopp entfernen";
@@ -681,7 +681,7 @@
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "Niemals warnen";
 "power_managment_title" = "Stromsparmodus";
-"power_managment_description" = "Versucht den Stromverbrauch auf Kosten einiger Funktionen zu reduzieren.";
+"power_managment_description" = "Versucht, den Stromverbrauch auf Kosten einiger Funktionen zu reduzieren.";
 "power_managment_setting_never" = "Niemals";
 "power_managment_setting_auto" = "Auto";
 "power_managment_setting_manual_max" = "Immer";
@@ -691,7 +691,7 @@
 "bookmarks_text_placement_description" = "Wenn du zu viele Lesezeichen hast, kann es sein, dass die App langsamer wird, wenn die Namen auf der Karte angezeigt werden.";
 "show_to_the_right" = "Rechts anzeigen";
 "show_at_the_bottom" = "Unten anzeigen";
-"enable_logging_warning_message" = "Aktivieren, um Diagnoseprotokolle aufzuzeichnen. Sollte ein App-Fehler auftreten, reproduziere das Problem und sende uns die Protokolle über die Schaltfläche \"App-Fehler melden\" unter \"Hilfe\". Protokolle können Standortformationen enthalten.";
+"enable_logging_warning_message" = "Aktivieren, um Diagnoseprotokolle aufzuzeichnen. Sollte ein App-Fehler auftreten, reproduziere das Problem und sende uns die Protokolle über die Schaltfläche „App-Fehler melden“ unter „Hilfe“. Protokolle können Standortformationen enthalten.";
 "driving_options_title" = "Routenbeschränkungen";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
@@ -769,7 +769,7 @@
 "add_opening_hours" = "Öffnungszeiten hinzufügen";
 "password_8_chars_min" = "Passwort (mindestens 8 Zeichen)";
 "invalid_username_or_password" = "Ungültiger Benutzername oder Passwort.";
-"osm_account" = "OSM Konto";
+"osm_account" = "OSM-Konto";
 
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Zuletzt hochgeladen";
@@ -786,7 +786,7 @@
 
 /* Error dialog no space */
 "migration_no_space_message" = "Zum Herunterladen benötigst du mehr Speicherplatz. Bitte lösche unnötige Daten.";
-"editor_sharing_title" = "Ich habe die Organic Maps-Karten verbessert";
+"editor_sharing_title" = "Ich habe die „Organic Maps“-Karten verbessert";
 "editor_detailed_description_hint" = "Ausführlicher Kommentar";
 "editor_detailed_description" = "Dein Änderungsvorschläge für die Karte werden an OpenStreetMap gesendet: Beschreibe die Details der Objekte, die du in Organic Maps nicht bearbeiten kannst.";
 "current_location_unknown_error_message" = "Bei der Standortsuche ist ein unbekannter Fehler aufgetreten. Prüfe die Funktionstüchtigkeit deines Geräts und versuche es etwas später erneut.";
@@ -849,7 +849,7 @@
 
 /* Position of the name label on the map relative to the bookmark pin (at the bottom) */
 "bottom" = "Unten";
-"trip_start" = "Losfahren";
+"trip_start" = "Los";
 "pick_destination" = "Ziel";
 "follow_my_position" = "Zentrieren";
 "search_results" = "Suchergebnisse";
@@ -858,7 +858,7 @@
 "keyboard_availability_alert" = "Die Tastatur ist während der Fahrt nicht verfügbar";
 "dialog_routing_change_start_carplay" = "Vom aktuellen Standort aus kann keine Route erstellt werden";
 "dialog_routing_change_end_carplay" = "Zu diesem Ziel kann keine Route erstellt werden. Bitte wähle einen anderes Ziel";
-"dialog_routing_check_gps_carplay" = "Kein GPS-Signal. Gehe in das offene Gelände";
+"dialog_routing_check_gps_carplay" = "Kein GPS-Signal. Geh in das offene Gelände";
 "dialog_routing_unable_locate_route_carplay" = "Es kann keine Route erstellt werden. Bitte wähle andere Routenpunkte";
 "dialog_routing_download_files_carplay" = "Lade die fehlenden Karten herunter, um die Route zu erstellen";
 "dialog_routing_system_error_carplay" = "Es ist ein Fehler aufgetreten. Bitte starte die App neu";
@@ -929,7 +929,7 @@
 "app_tip_01" = "Mit deinen Spenden und deiner Unterstützung können wir die besten Karten der Welt erstellen!";
 
 /* App tip #02 */
-"app_tip_02" = "Gefällt dir unsere App? Bitte spende, um die Entwicklung zu unterstützen! Gefällt sie dir noch nicht? Bitte lass uns wissen warum und wir werden das Problem beheben!";
+"app_tip_02" = "Gefällt dir unsere App? Bitte spende, um die Entwicklung zu unterstützen! Gefällt sie dir noch nicht? Bitte lass uns den Grund dafür wissen, damit wir das Problem beheben können!";
 
 /* App tip #03 */
 "app_tip_03" = "Wenn du einen Softwareentwickler kennst, kannst du ihn oder sie bitten, eine Funktion zu implementieren, die du benötigst.";
@@ -990,7 +990,7 @@
 "stop_track_recording" = "Aufnahme des Tracks stoppen";
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
-"track_recording_toast_nothing_to_save" = "Track ist leer - nichts zu speichern";
+"track_recording_toast_nothing_to_save" = "Track ist leer – nichts zu speichern";
 "edit_track" = "Track bearbeiten";
 "elevation_profile_diff_level" = "Anspruchsniveau";
 "elevation_profile_diff_level_easy" = "Leicht";
@@ -1120,7 +1120,7 @@
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Ausgang";
 "core_entrance" = "Eingang";
-"subway_data_unavailable" = "Die U-Bahnkarte steht nicht zur Verfügung";
+"subway_data_unavailable" = "Die U-Bahn-Karte steht nicht zur Verfügung";
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Heruntergeladene Regionen farblich markieren";

@@ -28,7 +28,7 @@
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
     <string name="limited_accuracy">Begrenzte Genauigkeit</string>
     <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
-    <string name="precise_location_is_disabled_long_text">Um eine genaue Navigation zu gewährleisten, aktiviere in den Einstellungen die Option Genauen Standort verwenden.</string>
+    <string name="precise_location_is_disabled_long_text">Um eine genaue Navigation zu gewährleisten, aktiviere in den Einstellungen die Option „Genauen Standort verwenden“.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Auf der Karte anzeigen</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
@@ -115,7 +115,7 @@
     <!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
     <string name="category_shopping">Einkaufen</string>
     <!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
-    <string name="category_secondhand">Second-hand</string>
+    <string name="category_secondhand">Second-Hand</string>
     <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
     <string name="category_hotel">Hotel</string>
     <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
@@ -127,7 +127,7 @@
     <!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
     <string name="category_nightlife">Nachtleben</string>
     <!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
-    <string name="category_children">Freizeit mit Kindern</string>
+    <string name="category_children">Freizeit mit Familie</string>
     <!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
     <string name="category_bank">Bank</string>
     <!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
@@ -139,7 +139,7 @@
     <!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
     <string name="category_post">Post</string>
     <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
-    <string name="category_police">Polizeistation</string>
+    <string name="category_police">Polizei</string>
     <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
     <string name="category_recycling">Recycling</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
@@ -151,8 +151,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notizen</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Organic Maps Lesezeichen wurden mit dir geteilt</string>
-    <string name="share_bookmarks_email_body">Hallo!\n\nIm Anhang sind meine Lesezeichen der Organic Maps App. Du kannst sie mit Organic Maps öffnen. Wenn du die App nicht installiert hast, kannst du sie von https://omaps.app/get?kmz herunterladen.\n\nViel Spaß beim Reisen mit Organic Maps!</string>
+    <string name="share_bookmarks_email_subject">„Organic Maps“-Lesezeichen wurden mit dir geteilt</string>
+    <string name="share_bookmarks_email_body">Hallo!\n\nIm Anhang sind meine Lesezeichen der „Organic Maps“-App. Du kannst sie mit Organic Maps öffnen. Wenn du die App nicht installiert hast, kannst du sie von https://omaps.app/get?kmz herunterladen.\n\nViel Spaß beim Reisen mit Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Lesezeichen werden geladen</string>
     <!-- Kmz file successful loading -->
@@ -174,9 +174,9 @@
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
     <string name="my_position_share_sms">Hey, sieh dir meinen aktuellen Standort auf Organic Maps an! %1$s oder %2$s Keine Offline-Karten installiert? Hier herunterladen: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Hey, sieh dir meine Stecknadel auf der Organic Maps-Karte an!</string>
+    <string name="bookmark_share_email_subject">Hey, sieh dir meine Stecknadel auf der „Organic Maps“-Karte an!</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Hey, sieh dir meinen aktuellen Standort auf der Organic Maps-Karte an!</string>
+    <string name="my_position_share_email_subject">Hey, sieh dir meinen aktuellen Standort auf der „Organic Maps“-Karte an!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">Hi,\n\nich bin gerade hier: %1$s. Klicke den Link %2$s oder %3$s, um den Ort auf der Karte anzuzeigen.\n\nVielen Dank.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
@@ -202,7 +202,7 @@
     <string name="prefs_group_information">Information</string>
     <string name="prefs_group_route">Navigation</string>
     <!-- Setting name which enables or disables zoom buttons on the map screen. -->
-    <string name="pref_zoom_title">„+“ und „-“ Knöpfe auf der Karte</string>
+    <string name="pref_zoom_title">Plus- und Minusknöpfe auf der Karte</string>
     <string name="pref_zoom_summary">Auf der Karte anzeigen</string>
     <string name="pref_auto_night_in_navigation_title">Nacht-Stil beim Navigieren im Dunkeln</string>
     <!-- Settings «Map» category: «Night style» title -->
@@ -291,7 +291,7 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Karte aktualisieren</string>
     <!-- Preference title -->
-    <string name="google_play_services">Google Play Standortdienste</string>
+    <string name="google_play_services">„Google Play“-Standortdienste</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Ermittel schnell deinen ungefähren Standort über Bluetooth, WLAN oder das Mobilfunknetz</string>
     <!-- Text for routing error dialog -->
@@ -345,10 +345,10 @@
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Wenn du der Route folgst, beachte bitte:</string>
-    <string name="dialog_routing_disclaimer_priority">— Zustand der Straßen, die Verkehrsordnung und Straßenschilder haben stets Vorrang vor Navigationsanweisungen;</string>
-    <string name="dialog_routing_disclaimer_precision">— Die Karte kann ungenau sein, und die vorgeschlagene Route ist möglicherweise nicht der optimale Weg, um das Ziel zu erreichen;</string>
-    <string name="dialog_routing_disclaimer_recommendations">— Die vorgeschlagenen Routen sind als Empfehlungen zu verstehen;</string>
-    <string name="dialog_routing_disclaimer_borders">— Bitte sei vorsichtig bei Routen in Grenzgebieten: die Routen, die unsere App erstellt, können manchmal Landesgrenzen in gesperrten Gebieten überschreiten.</string>
+    <string name="dialog_routing_disclaimer_priority">– Zustand der Straßen, die Verkehrsordnung und Straßenschilder haben stets Vorrang vor Navigationsanweisungen;</string>
+    <string name="dialog_routing_disclaimer_precision">– Die Karte kann ungenau sein, und die vorgeschlagene Route ist möglicherweise nicht der optimale Weg, um das Ziel zu erreichen;</string>
+    <string name="dialog_routing_disclaimer_recommendations">– Die vorgeschlagenen Routen sind als Empfehlungen zu verstehen;</string>
+    <string name="dialog_routing_disclaimer_borders">– Bitte sei vorsichtig bei Routen in Grenzgebieten: die Routen, die unsere App erstellt, können manchmal Landesgrenzen in gesperrten Gebieten überschreiten.</string>
     <string name="dialog_routing_disclaimer_beware">Bitte fahre aufmerksam und sicher!</string>
     <string name="dialog_routing_location_turn_wifi">Bitte prüfe dein GPS-Signal. Das Aktivieren von WLAN verbessert die Genauigkeit deiner Standortbestimmung.</string>
     <string name="dialog_routing_system_error">Systemfehler</string>
@@ -473,7 +473,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Von der Community erstellte OpenStreetMap-Daten (Stand: %s). Erfahre mehr darüber, wie du die Karte bearbeiten und aktualisieren kannst unter OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) ist ein Gemeinschaftsprojekt zum Erstellen einer freien und offenen Karte. Es ist die Hauptquelle für Kartendaten in Organic Maps und funktioniert ähnlich wie Wikipedia. Du kannst Orte hinzufügen oder bearbeiten, die dann Millionen von Nutzern auf der ganzen Welt zur Verfügung stehen.\nTritt der Gemeinschaft bei und helfe mit, die Karte für alle besser zu machen!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) ist ein Gemeinschaftsprojekt zum Erstellen einer freien und offenen Karte. Es ist die Hauptquelle für Kartendaten in Organic Maps und funktioniert ähnlich wie Wikipedia. Du kannst Orte hinzufügen oder bearbeiten, die dann Millionen von Nutzern auf der ganzen Welt zur Verfügung stehen.\nTritt der Gemeinschaft bei und hilf mit, die Karte für alle besser zu machen!</string>
     <string name="login_to_make_edits_visible">Erstelle ein OpenStreetMap-Konto oder melde dich an, um deine Kartenbearbeitungen weltweit zu veröffentlichen.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d von %2$d</string>
@@ -490,7 +490,7 @@
     <!-- Hint of the input field in the OSM note section of the editor -->
     <string name="editor_note_hint">Beschreibe Kartenfehler oder Dinge, die mit Organic Maps nicht bearbeitet werden können</string>
     <!-- Information about OSM at the top of the editing page -->
-    <string name="editor_about_osm">Deine Bearbeitungen werden in die öffentliche <a href="https://wiki.openstreetmap.org/wiki/DE:Über_OSM">OpenStreetMap</a> Datenbank hochgeladen. Bitte trage keine privaten oder urheberrechtlich geschützten Informationen ein.</string>
+    <string name="editor_about_osm">Deine Bearbeitungen werden in die öffentliche <a href="https://wiki.openstreetmap.org/wiki/DE:Über_OSM">OpenStreetMap</a>-Datenbank hochgeladen. Bitte trage keine privaten oder urheberrechtlich geschützten Informationen ein.</string>
     <string name="editor_more_about_osm">Mehr Informationen über OpenStreetMap</string>
     <string name="editor_osm_history">Dein Bearbeitungsverlauf</string>
     <string name="editor_osm_notes">Deine Hinweise zu den Kartendaten</string>
@@ -529,7 +529,7 @@
     <string name="error_enter_correct_instagram_page">Gib eine gültige Instagram-Webadresse oder einen Kontonamen ein</string>
     <string name="error_enter_correct_twitter_page">Gib eine gültige Twitter-Webadresse oder einen Benutzernamen ein</string>
     <string name="error_enter_correct_vk_page">Gib eine gültige VK-Webadresse oder einen Kontonamen ein</string>
-    <string name="error_enter_correct_line_page">Gib eine gültige LINE-Webadresse oder LINE ID ein</string>
+    <string name="error_enter_correct_line_page">Gib eine gültige LINE-Webadresse oder LINE-ID ein</string>
     <string name="placepage_add_place_button">Ort zu OpenStreetMap hinzufügen</string>
     <string name="osm_note_hint">Oder hinterlasse einfach eine Nachricht an die OpenStreetMap-Community, damit jemand anderes den Ort hier hinzufügen oder korrigieren kann.</string>
     <string name="osm_note_toast">Eine Notiz wird an OpenStreetMap geschickt</string>
@@ -565,7 +565,7 @@
     <string name="prefs_languages_information">Wir verwenden Text-to-Speech-Systeme für Sprachanweisungen. Viele Android-Geräte nutzen Google-TTS, das du bei Google Play herunterladen oder aktualisieren kannst</string>
     <string name="prefs_languages_information_off">Für einige Sprachen musst einen anderen Sprachgenerator oder ein zusätzliches Sprachpaket aus dem App Store installieren (Google Play, Galaxy Store, App Gallery, F-Droid).\nÖffne die Einstellungen deines Gerätes → Sprache und Eingabe → Sprache → Text-to-Speech-Ausgabe.\nHier kannst du die Einstellungen für Sprachsynthese verwalten (beispielsweise ein Sprachpaket für die Offline-Verwendung herunterladen) und ein anderes Sprachausgabeprogramm auswählen.</string>
     <string name="prefs_languages_information_off_link">Weitere Informationen findest du in dieser Anleitung.</string>
-    <string name="transliteration_title">Transliteration ins Lateinische</string>
+    <string name="transliteration_title">Transliteration ins lateinische Alphabet</string>
     <string name="learn_more">Weitere Informationen</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">Verwende die Suche, wähle ein Lesezeichen aus oder tippe auf die Karte, um einen Routenstartpunkt hinzuzufügen</string>
@@ -651,7 +651,7 @@
     <!-- Speed camera settings menu option - Never warn (about speedcams) -->
     <string name="pref_tts_speedcams_never">Niemals warnen</string>
     <string name="power_managment_title">Stromsparmodus</string>
-    <string name="power_managment_description">Versucht den Stromverbrauch auf Kosten einiger Funktionen zu reduzieren.</string>
+    <string name="power_managment_description">Versucht, den Stromverbrauch auf Kosten einiger Funktionen zu reduzieren.</string>
     <string name="power_managment_setting_never">Niemals</string>
     <string name="power_managment_setting_auto">Auto</string>
     <string name="power_managment_setting_manual_max">Immer</string>
@@ -660,7 +660,7 @@
     <string name="bookmarks_text_placement_description">Wenn du zu viele Lesezeichen hast, kann es sein, dass die App langsamer wird, wenn die Namen auf der Karte angezeigt werden.</string>
     <string name="show_to_the_right">Rechts anzeigen</string>
     <string name="show_at_the_bottom">Unten anzeigen</string>
-    <string name="enable_logging_warning_message">Aktivieren, um Diagnoseprotokolle aufzuzeichnen. Sollte ein App-Fehler auftreten, reproduziere das Problem und sende uns die Protokolle über die Schaltfläche \"App-Fehler melden\" unter \"Hilfe\". Protokolle können Standortformationen enthalten.</string>
+    <string name="enable_logging_warning_message">Aktivieren, um Diagnoseprotokolle aufzuzeichnen. Sollte ein App-Fehler auftreten, reproduziere das Problem und sende uns die Protokolle über die Schaltfläche „App-Fehler melden“ unter „Hilfe“. Protokolle können Standortformationen enthalten.</string>
     <string name="driving_options_title">Routenbeschränkungen</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Mautstraßen vermeiden</string>
@@ -769,7 +769,7 @@
     <!-- A preference title; keep short! -->
     <string name="enable_show_on_lock_screen">Auf dem Sperrbildschirm anzeigen</string>
     <!-- Description in preferences -->
-    <string name="enable_show_on_lock_screen_description">Wenn aktiviert, funktioniert die App auf dem Sperrbildschirm auch wenn das Gerät gesperrt ist.</string>
+    <string name="enable_show_on_lock_screen_description">Wenn aktiviert, funktioniert die App auf dem Sperrbildschirm auch, wenn das Gerät gesperrt ist.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Kartensprache</string>
     <!-- OpenStreetMap text on splash screen -->
@@ -791,7 +791,7 @@
     <!-- App tip #01 -->
     <string name="app_tip_01">Mit deinen Spenden und deiner Unterstützung können wir die besten Karten der Welt erstellen!</string>
     <!-- App tip #02 -->
-    <string name="app_tip_02">Gefällt dir unsere App? Bitte spende, um die Entwicklung zu unterstützen! Gefällt sie dir noch nicht? Bitte lass uns wissen warum und wir werden das Problem beheben!</string>
+    <string name="app_tip_02">Gefällt dir unsere App? Bitte spende, um die Entwicklung zu unterstützen! Gefällt sie dir noch nicht? Bitte lass uns den Grund dafür wissen, damit wir das Problem beheben können!</string>
     <!-- App tip #03 -->
     <string name="app_tip_03">Wenn du einen Softwareentwickler kennst, kannst du ihn oder sie bitten, eine Funktion zu implementieren, die du benötigst.</string>
     <!-- App tip #04 -->
@@ -864,7 +864,7 @@
     <!-- Title for the alert when saving a track recording. -->
     <string name="track_recording_alert_title">In Lesezeichen und Tracks speichern?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
-    <string name="track_recording_toast_nothing_to_save">Track ist leer - nichts zu speichern</string>
+    <string name="track_recording_toast_nothing_to_save">Track ist leer – nichts zu speichern</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Das Dialogfeld zur Ordnerauswahl kann nicht angezeigt werden, da keine geeignete App auf deinem Gerät installiert ist. Bitte installiere eine Dateimanager-App und versuche es erneut.</string>
     <string name="choose_color">Farbe auswählen</string>
@@ -901,7 +901,7 @@
     <!-- Label for the blue channel slider in the color picker -->
     <string name="color_picker_blue">BLAU</string>
     <!-- Label for the hex color input field in the color picker -->
-    <string name="color_picker_hex_label">sRGB Hex-Farbe #</string>
+    <string name="color_picker_hex_label">sRGB-Hex-Farbe #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Raster</string>
     <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
