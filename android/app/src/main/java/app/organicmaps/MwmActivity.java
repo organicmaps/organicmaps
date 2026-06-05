@@ -1469,7 +1469,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onDrivingOptionsWarning()
   {
-    mRoutingPlanViewModel.triggerMenuUpdate();
+    // The route built, but the engine flagged roads the user may want to avoid (tolls, ferries, etc.).
+    Logger.i(TAG, "Driving options warning: the built route uses roads that could be avoided");
   }
 
   public boolean showRoutingDisclaimer()
