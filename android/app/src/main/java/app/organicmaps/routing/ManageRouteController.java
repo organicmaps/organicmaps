@@ -57,7 +57,7 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
   private void initViews()
   {
     RecyclerView manageRouteList = mContainer.findViewById(R.id.manage_route_list);
-    LinearLayoutManager layoutManager = new LinearLayoutManager(mContext) {};
+    LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
     manageRouteList.setLayoutManager(layoutManager);
     mManageRouteAdapter = new ManageRouteAdapter(mContext, Framework.nativeGetRoutePoints(), this);
     MaterialDividerItemDecoration decoration =
@@ -66,7 +66,7 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     decoration.setDividerInsetStart(mContext.getResources().getDimensionPixelSize(R.dimen.margin_double_and_half));
     GradientDrawable shape = new GradientDrawable();
     shape.setColor(ContextCompat.getColor(mContext, R.color.routing_bottom_manage_route_background));
-    shape.setCornerRadius(20);
+    shape.setCornerRadius(mContext.getResources().getDimension(R.dimen.corner_radius_large));
     manageRouteList.setBackground(shape);
     manageRouteList.setClipToOutline(true);
     manageRouteList.addItemDecoration(decoration);

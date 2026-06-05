@@ -192,6 +192,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     {
       mManageRouteController =
           new ManageRouteController(mManageRoutePanel, new ManageRouteController.ManageRouteCallback() {
+            @Override
             public void onAddStop()
             {
               RoutingController.get().waitForPoiPick(RouteMarkType.Intermediate);
