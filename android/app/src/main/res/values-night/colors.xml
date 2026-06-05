@@ -50,5 +50,6 @@
   <color name="routing_button_activated_tint">@color/black_primary</color>
   <color name="routing_button_tint">#FFFFFFFF</color>
   <color name="routing_bottom_button_activated_bg">#FFFFFFFF</color>
-  <color name="routing_bottom_button_bg">@color/black_primary</color>
+  <color name="routing_bottom_button_bg">@color/bg_menu</color>
+
 </resources>
