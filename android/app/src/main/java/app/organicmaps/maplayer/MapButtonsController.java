@@ -68,7 +68,6 @@ public class MapButtonsController extends Fragment
   private ObjectAnimator mBlinkingAnimator;
   private float mContentHeight;
   private float mContentWidth;
-  private LayoutMode layoutMode;
 
   private MapButtonClickListener mMapButtonClickListener;
   private PlacePageViewModel mPlacePageViewModel;
@@ -101,8 +100,7 @@ public class MapButtonsController extends Fragment
     mPlacePageViewModel = new ViewModelProvider(activity).get(PlacePageViewModel.class);
     mMapButtonsViewModel = new ViewModelProvider(activity).get(MapButtonsViewModel.class);
     mSearchPageViewModel = new ViewModelProvider(activity).get(SearchPageViewModel.class);
-    final LayoutMode layoutMode = mMapButtonsViewModel.getLayoutMode().getValue();
-    if (layoutMode == LayoutMode.navigation)
+    if (mMapButtonsViewModel.getLayoutMode().getValue() == LayoutMode.navigation)
       mFrame = inflater.inflate(R.layout.map_buttons_layout_navigation, container, false);
     else
       mFrame = inflater.inflate(R.layout.map_buttons_layout_regular, container, false);
@@ -469,7 +467,7 @@ public class MapButtonsController extends Fragment
   public void onResume()
   {
     super.onResume();
-    if (layoutMode == LayoutMode.navigation)
+    if (mMapButtonsViewModel.getLayoutMode().getValue() == LayoutMode.navigation)
       mSearchWheel.onResume();
     updateMenuBadge();
     updateLayerButton();
@@ -502,7 +500,7 @@ public class MapButtonsController extends Fragment
 
   public void onSearchOptionChange(@Nullable SearchWheel.SearchOption searchOption)
   {
-    if (searchOption == null && layoutMode == LayoutMode.navigation)
+    if (searchOption == null && mMapButtonsViewModel.getLayoutMode().getValue() == LayoutMode.navigation)
       mSearchWheel.reset();
   }
 
