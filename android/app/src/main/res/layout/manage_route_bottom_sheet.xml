@@ -6,17 +6,6 @@
   android:layout_height="match_parent"
   android:orientation="vertical"
   android:paddingBottom="@dimen/routing_bottom_buttons_max_height">
-  <!-- to be implemented  -->
-  <!--  <ImageView-->
-  <!--    android:id="@+id/image_my_location"-->
-  <!--    android:layout_width="24dp"-->
-  <!--    android:layout_height="24dp"-->
-  <!--    android:visibility="gone"-->
-  <!--    app:srcCompat="@drawable/ic_location_crosshair_blue"-->
-  <!--    tools:visibility="visible"-->
-  <!--    android:layout_gravity="end"-->
-  <!--    android:layout_marginBottom="@dimen/margin_half_plus"-->
-  <!--    android:layout_marginEnd="@dimen/margin_half_plus" />-->
 
   <LinearLayout
     android:orientation="horizontal"

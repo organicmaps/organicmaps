@@ -7,16 +7,6 @@
   android:layout_height="match_parent"
   android:orientation="vertical">
 
-  <!--    <View-->
-  <!--        android:id="@+id/drag_handle"-->
-  <!--        android:layout_width="32dp"-->
-  <!--        android:layout_height="4dp"-->
-  <!--        android:layout_gravity="center_horizontal"-->
-  <!--        android:layout_marginTop="8dp"-->
-  <!--        android:layout_marginBottom="8dp"-->
-  <!--        android:background="?attr/iconTint"-->
-  <!--        android:alpha="0.10" />-->
-
   <include
     android:id="@+id/pull_icon_container"
     layout="@layout/bottom_sheet_handle" />

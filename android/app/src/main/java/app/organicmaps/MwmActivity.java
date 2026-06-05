@@ -1929,14 +1929,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (mCurrentWindowInsets != null)
     {
-      int offsetY = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
+      final int offsetY = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
       final int offsetX = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).right;
-      //      if (RoutingController.get().isPlanning() && mRoutingPlanController != null)
-      //      {
-      //        final int height = mRoutingPlanController.calcHeight();
-      //        if (height != 0)
-      //          offsetY = height;
-      //      }
       updateCompassOffset(offsetY, offsetX);
     }
     TrackRecordingService.stopService(getApplicationContext());
