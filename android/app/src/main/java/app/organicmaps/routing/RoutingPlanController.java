@@ -14,6 +14,6 @@ public interface RoutingPlanController
   void closeFloatingPanels();
   /** Set fullscreen mode */
   void setFullscreen(boolean fullscreen);
-  /** Handle a back/close press coming from the routing plan UI */
-  void handleBackPress();
+  /** Handle a back/close press coming from the routing plan UI; returns true if it was consumed */
+  boolean handleBackPress();
 }

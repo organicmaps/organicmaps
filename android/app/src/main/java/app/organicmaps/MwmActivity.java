@@ -1003,15 +1003,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onBackPressed()
   {
-    handleBackPress();
-  }
-
-  public void handleBackPress()
-  {
-    final RoutingController routingController = RoutingController.get();
-    if (!closeBottomSheet(MAIN_MENU_ID) && !closeBottomSheet(LAYERS_MENU_ID) && !collapseNavMenu() && !closePlacePage()
-        && !closePositionChooser() && !closeSearchFragment()
-        && !routingController.resetToPlanningStateIfNavigating() && !routingController.cancel())
+    if (!handleBackPress())
     {
       try
       {
@@ -1022,6 +1014,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
         // Sometimes this can be called after onSaveState() for unknown reason.
       }
     }
+  }
+
+  /** @return true if the back press was consumed by closing an open panel, menu, or route. */
+  @Override
+  public boolean handleBackPress()
+  {
+    final RoutingController routingController = RoutingController.get();
+    return (closeBottomSheet(MAIN_MENU_ID) || closeBottomSheet(LAYERS_MENU_ID) || collapseNavMenu() || closePlacePage()
+            || closePositionChooser() || closeSearchFragment()
+            || routingController.resetToPlanningStateIfNavigating() || routingController.cancel());
   }
 
   @Override
