@@ -110,24 +110,27 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   @NonNull
   static RoutingBottomMenuController newInstance(@NonNull Activity activity, @NonNull View frame,
+                                                 @NonNull View chartPanel,
+                                                 @Nullable RecyclerView.Adapter<?> headerAdapter,
                                                  @NonNull RoutingBottomMenuListener listener)
   {
-    View altitudeChartFrame = getViewById(activity, frame, R.id.altitude_chart_panel);
-    View timeElevationLine = getViewById(activity, frame, R.id.time_elevation_line);
-    View transitTime = getViewById(activity, frame, R.id.transit_time);
-    TextView rulerTime = (TextView) getViewById(activity, frame, R.id.time_ruler);
+    // Chart-related ids live inside the chartPanel view tree (it is inflated standalone and hosted by the
+    // route-list ConcatAdapter header), so they must be resolved from chartPanel rather than from frame.
+    View timeElevationLine = chartPanel.findViewById(R.id.time_elevation_line);
+    View transitTime = chartPanel.findViewById(R.id.transit_time);
+    TextView rulerTime = chartPanel.findViewById(R.id.time_ruler);
     TextView error = (TextView) getViewById(activity, frame, R.id.error);
     Button start = (Button) getViewById(activity, frame, R.id.start);
-    View altitudeChart = getViewById(activity, frame, R.id.altitude_chart);
-    TextView time = (TextView) getViewById(activity, frame, R.id.time);
-    TextView timeVehicle = (TextView) getViewById(activity, frame, R.id.time_vehicle);
-    TextView altitudeDifference = (TextView) getViewById(activity, frame, R.id.altitude_difference);
+    View altitudeChart = chartPanel.findViewById(R.id.altitude_chart);
+    TextView time = chartPanel.findViewById(R.id.time);
+    TextView timeVehicle = chartPanel.findViewById(R.id.time_vehicle);
+    TextView altitudeDifference = chartPanel.findViewById(R.id.altitude_difference);
     TextView arrival = (TextView) getViewById(activity, frame, R.id.arrival);
     View actionFrame = getViewById(activity, frame, R.id.routing_action_frame);
     View saveButton = getViewById(activity, frame, R.id.btn__save);
-    return new RoutingBottomMenuController(activity, altitudeChartFrame, timeElevationLine, transitTime, rulerTime,
-                                           error, start, altitudeChart, time, altitudeDifference, timeVehicle, arrival,
-                                           actionFrame, saveButton, listener);
+    return new RoutingBottomMenuController(activity, chartPanel, timeElevationLine, transitTime, rulerTime, error,
+                                           start, altitudeChart, time, altitudeDifference, timeVehicle, arrival,
+                                           actionFrame, saveButton, headerAdapter, listener);
   }
 
   @NonNull
@@ -143,6 +146,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
                                       @NonNull View altitudeChart, @NonNull TextView time,
                                       @NonNull TextView altitudeDifference, @NonNull TextView timeVehicle,
                                       @Nullable TextView arrival, @NonNull View actionFrame, @NonNull View saveButton,
+                                      @Nullable RecyclerView.Adapter<?> headerAdapter,
                                       @Nullable RoutingBottomMenuListener listener)
   {
     mContext = context;
@@ -191,7 +195,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     if (mManageRoutePanel != null)
     {
       mManageRouteController =
-          new ManageRouteController(mManageRoutePanel, new ManageRouteController.ManageRouteCallback() {
+          new ManageRouteController(mManageRoutePanel, headerAdapter, new ManageRouteController.ManageRouteCallback() {
             @Override
             public void onAddStop()
             {

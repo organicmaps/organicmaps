@@ -6,15 +6,14 @@ import static androidx.recyclerview.widget.ItemTouchHelper.UP;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.drawable.GradientDrawable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,13 +28,13 @@ import app.organicmaps.sdk.util.Assert;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.search.SearchActivity;
 import app.organicmaps.util.UiUtils;
-import com.google.android.material.divider.MaterialDividerItemDecoration;
 import java.util.ArrayList;
 
 public class ManageRouteController implements ManageRouteAdapter.ManageRouteListener
 {
   private final View mContainer;
   private final Context mContext;
+  private final RecyclerView.Adapter<?> mHeaderAdapter;
   private ManageRouteAdapter mManageRouteAdapter;
   private ItemTouchHelper mTouchHelper;
   private final ManageRouteCallback mCallback;
@@ -46,10 +45,12 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     void onReplaceStop();
   }
 
-  public ManageRouteController(@NonNull View container, @NonNull ManageRouteCallback callback)
+  public ManageRouteController(@NonNull View container, @NonNull RecyclerView.Adapter<?> headerAdapter,
+                               @NonNull ManageRouteCallback callback)
   {
     mContainer = container;
     mContext = container.getContext();
+    mHeaderAdapter = headerAdapter;
     mCallback = callback;
     initViews();
   }
@@ -60,17 +61,9 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
     manageRouteList.setLayoutManager(layoutManager);
     mManageRouteAdapter = new ManageRouteAdapter(mContext, Framework.nativeGetRoutePoints(), this);
-    MaterialDividerItemDecoration decoration =
-        new MaterialDividerItemDecoration(mContext, layoutManager.getOrientation());
-    decoration.setLastItemDecorated(false);
-    decoration.setDividerInsetStart(mContext.getResources().getDimensionPixelSize(R.dimen.margin_double_and_half));
-    GradientDrawable shape = new GradientDrawable();
-    shape.setColor(ContextCompat.getColor(mContext, R.color.routing_bottom_manage_route_background));
-    shape.setCornerRadius(mContext.getResources().getDimension(R.dimen.corner_radius_large));
-    manageRouteList.setBackground(shape);
-    manageRouteList.setClipToOutline(true);
-    manageRouteList.addItemDecoration(decoration);
-    manageRouteList.setAdapter(mManageRouteAdapter);
+    manageRouteList.addItemDecoration(new RoundedSectionItemDecoration(mContext, mManageRouteAdapter));
+    manageRouteList.addItemDecoration(new SectionDividerItemDecoration(mContext, mManageRouteAdapter));
+    manageRouteList.setAdapter(new ConcatAdapter(mHeaderAdapter, mManageRouteAdapter));
     mTouchHelper = new ItemTouchHelper(new ManageRouteItemTouchHelperCallback(mManageRouteAdapter, this));
     mTouchHelper.attachToRecyclerView(manageRouteList);
   }
@@ -103,18 +96,6 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     // Resync the existing adapter with the native route points. Reusing the same adapter and touch helper
     // preserves the scroll position and never tears down an in-progress drag.
     mManageRouteAdapter.setRoutePoints(Framework.nativeGetRoutePoints());
-  }
-
-  // Apply a finished drag as a single native move. Adapter positions map 1:1 to native route-point indices
-  // (0 = start, last = finish, the rest intermediates), so this keeps the existing marks and their identity
-  // instead of clearing and re-adding the whole route on every reorder.
-  public void onRoutePointMoved(int fromPosition, int toPosition)
-  {
-    if (fromPosition == RecyclerView.NO_POSITION || toPosition == RecyclerView.NO_POSITION
-        || fromPosition == toPosition)
-      return;
-    Framework.nativeMoveRoutePoint(fromPosition, toPosition);
-    RoutingController.get().launchPlanning();
   }
 
   @Override
@@ -157,8 +138,6 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     private final ManageRouteAdapter mManageRouteAdapter;
     private final ManageRouteController mController;
     private boolean mOrderChanged = false;
-    // Source position captured when the drag starts, so a finished reorder is one native move (from -> to).
-    private int mDragFromPosition = RecyclerView.NO_POSITION;
 
     public ManageRouteItemTouchHelperCallback(ManageRouteAdapter adapter, ManageRouteController controller)
     {
@@ -168,6 +147,10 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder)
     {
+      // Only route-point rows (ManageRouteAdapter inside the ConcatAdapter) are draggable; chart header is not.
+      // instanceof is robust against transient binding-adapter resolution inside ConcatAdapter.
+      if (!(viewHolder instanceof ManageRouteAdapter.ManageRouteViewHolder))
+        return 0;
       // Enable up & down dragging. No left-right swiping is enabled.
       return makeMovementFlags(UP | DOWN, 0);
     }
@@ -175,14 +158,16 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     public boolean canDropOver(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder current,
                                @NonNull RecyclerView.ViewHolder target)
     {
-      return target.getItemViewType() != ManageRouteAdapter.TYPE_ADD_BUTTON;
+      if (!(target instanceof ManageRouteAdapter.ManageRouteViewHolder))
+        return false;
+      final int pos = target.getBindingAdapterPosition();
+      return pos >= 0 && pos < mManageRouteAdapter.getItemCount() - 1;
     }
     @Override
     public void onSelectedChanged(@Nullable RecyclerView.ViewHolder viewHolder, int actionState)
     {
       if (viewHolder != null && actionState == ItemTouchHelper.ACTION_STATE_DRAG)
       {
-        mDragFromPosition = viewHolder.getBindingAdapterPosition();
         viewHolder.itemView.setTranslationX(-10f);
         viewHolder.itemView.setTranslationZ(6f);
       }
@@ -224,10 +209,9 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
       viewHolder.itemView.setTranslationZ(0f);
       if (mOrderChanged)
       {
-        mController.onRoutePointMoved(mDragFromPosition, viewHolder.getBindingAdapterPosition());
+        mController.onRouteOrderChanged();
         mOrderChanged = false;
       }
-      mDragFromPosition = RecyclerView.NO_POSITION;
     }
   }
 }

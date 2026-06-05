@@ -114,7 +114,7 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<ManageRouteAdapter.
                    holder.mImageViewDelete);
     holder.mImageViewDelete.setOnClickListener(v -> mManageRouteListener.onRoutePointDeleted(holder));
     holder.mTextViewTitle.setOnClickListener(
-        v -> { mManageRouteListener.onRoutePointClicked(holder.getAbsoluteAdapterPosition()); });
+        v -> { mManageRouteListener.onRoutePointClicked(holder.getBindingAdapterPosition()); });
 
     // touch listener on drag handle to initiate drag !
     holder.mImageViewDrag.setOnTouchListener((v, event) -> {
@@ -135,22 +135,23 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<ManageRouteAdapter.
 
   public void moveRoutePoint(@NonNull RecyclerView.ViewHolder draggedItem, @NonNull RecyclerView.ViewHolder targetItem)
   {
-    final int draggedItemIndex = draggedItem.getAbsoluteAdapterPosition();
-    final int targetIndex = targetItem.getAbsoluteAdapterPosition();
+    final int draggedItemIndex = draggedItem.getBindingAdapterPosition();
+    final int targetIndex = targetItem.getBindingAdapterPosition();
     if (draggedItemIndex == targetIndex) // Dragged to the same spot, nothing to reorder.
       return;
     Collections.swap(mRoutePoints, draggedItemIndex, targetIndex);
     updateRoutePointsData();
     notifyItemMoved(draggedItemIndex, targetIndex);
-    // Rebinding view holders to update their content, draggedItem is now at targetIndex and targetItem is now at
-    // draggedItemIndex.
-    onBindViewHolder((ManageRouteViewHolder) draggedItem, targetIndex);
-    onBindViewHolder((ManageRouteViewHolder) targetItem, draggedItemIndex);
+    // Refresh both rows so their icon (Start/Intermediate/Finish) and title reflect the swapped data —
+    // updateRoutePointsData reassigned point types, so the rendered glyphs change too. RV will dispatch
+    // onBindViewHolder for both positions on the next layout pass.
+    notifyItemChanged(draggedItemIndex);
+    notifyItemChanged(targetIndex);
   }
 
   public void deleteRoutePoint(RecyclerView.ViewHolder viewHolder)
   {
-    final int position = viewHolder.getAbsoluteAdapterPosition();
+    final int position = viewHolder.getBindingAdapterPosition();
     mRoutePoints.remove(position);
     updateRoutePointsData();
     notifyItemRemoved(position);

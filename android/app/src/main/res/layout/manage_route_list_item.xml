@@ -2,9 +2,7 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="50dp"
-  android:gravity="center_vertical"
-  android:background="@color/routing_bottom_manage_route_background">
+  android:layout_height="50dp">
 
   <ImageView
     android:id="@+id/type_icon"

@@ -4,8 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:orientation="vertical"
-  android:paddingBottom="@dimen/routing_bottom_buttons_max_height">
+  android:orientation="vertical">
 
   <LinearLayout
     android:orientation="horizontal"
@@ -17,10 +16,13 @@
       android:id="@+id/manage_route_list"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+      android:paddingStart="@dimen/margin_base"
+      android:paddingEnd="@dimen/margin_half_plus"
+      android:paddingBottom="@dimen/routing_bottom_buttons_max_height"
+      android:clipToPadding="false"
       app:layout_constrainedHeight="true"
       tools:itemCount="5"
-      tools:listitem="@layout/manage_route_list_item"
-      android:nestedScrollingEnabled="false" />
+      tools:listitem="@layout/manage_route_list_item" />
   </LinearLayout>
 
 </LinearLayout>

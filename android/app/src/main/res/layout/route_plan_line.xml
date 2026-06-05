@@ -17,40 +17,11 @@
     tools:layout_height="wrap_content"
     tools:layout_width="match_parent" />
 
-  <LinearLayout
-    android:id="@+id/routing_details"
+  <include
+    android:id="@+id/manage_route_panel"
+    layout="@layout/manage_route_bottom_sheet"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-
-    <include layout="@layout/altitude_chart_panel" />
-
-  </LinearLayout>
-
-  <LinearLayout
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <androidx.core.widget.NestedScrollView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:fadeScrollbars="true"
-      android:scrollbarSize="@dimen/scrollbar_size"
-      android:scrollbarStyle="insideInset"
-      android:scrollbarThumbVertical="?android:attr/textColorSecondary"
-      android:scrollbars="vertical"
-      android:paddingStart="@dimen/margin_base"
-      android:paddingEnd="@dimen/margin_half_plus">
-
-      <include
-        android:id="@+id/manage_route_panel"
-        layout="@layout/manage_route_bottom_sheet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    </androidx.core.widget.NestedScrollView>
-
-  </LinearLayout>
+    android:layout_height="match_parent" />
 
   <TextView
     android:id="@+id/error"

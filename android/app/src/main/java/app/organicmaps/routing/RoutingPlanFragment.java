@@ -46,7 +46,8 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   public static final String TAG = RoutingPlanFragment.class.getSimpleName();
 
   private RoutingPlanViewModel mViewModel;
-  private View mRoutingDetails;
+  private View mChartPanel;
+  private ChartHeaderAdapter mChartHeaderAdapter;
   private View mDrivingOptionsBtn;
   private View mFrame;
   private View mRoutingRoot;
@@ -108,6 +109,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState)
   {
+    mChartPanel = inflater.inflate(R.layout.altitude_chart_panel, container, false);
     return inflater.inflate(R.layout.routing_bottom_sheet, container, false);
   }
 
@@ -131,17 +133,18 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mProgressBicycle = mProgressFrame.findViewById(R.id.progress_bicycle);
     mProgressRuler = mProgressFrame.findViewById(R.id.progress_ruler);
 
-    mRoutingDetails = mFrame.findViewById(R.id.routing_details);
+    mChartHeaderAdapter = new ChartHeaderAdapter(mChartPanel);
     mActionFrame = view.findViewById(R.id.routing_action_frame);
     mRoutingContainer = requireActivity().findViewById(R.id.routing_container);
     mButtonsLayout = view.findViewById(R.id.routing_bottom_buttons);
 
-    mRoutingBottomMenuController = RoutingBottomMenuController.newInstance(requireActivity(), mFrame, this);
+    mRoutingBottomMenuController =
+        RoutingBottomMenuController.newInstance(requireActivity(), mFrame, mChartPanel, mChartHeaderAdapter, this);
     mRoutingBottomMenuController.setVisibilityChangedCallback(this::updateMapButtonsOffset);
     mRoutingRoot = view.findViewById(R.id.routing_root);
 
-    mDrivingOptionsBadge = mFrame.findViewById(R.id.driving_options_badge);
-    mDrivingOptionsBtn = mRoutingDetails.findViewById(R.id.driving_options_btn_img);
+    mDrivingOptionsBadge = mChartPanel.findViewById(R.id.driving_options_badge);
+    mDrivingOptionsBtn = mChartPanel.findViewById(R.id.driving_options_btn_img);
     mDrivingOptionsBtn.setOnClickListener(
         v -> DrivingOptionsActivity.start(requireActivity(), startDrivingOptionsForResult));
 
@@ -299,12 +302,12 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     if (active)
     {
       mDrivingOptionsBtn.setEnabled(true);
-      mRoutingDetails.setAlpha(1.0f);
+      mChartPanel.setAlpha(1.0f);
     }
     else
     {
       mDrivingOptionsBtn.setEnabled(false);
-      mRoutingDetails.setAlpha(0.2f);
+      mChartPanel.setAlpha(0.2f);
     }
   }
 
@@ -312,8 +315,11 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   {
     if (mFrame.getTop() == 0)
       return;
+    // mChartPanel lives inside the route list (ConcatAdapter header), so it reports a real height once the
+    // RecyclerView has measured its first pass. Falling back to 0 keeps peek-height sensible on early calls.
+    final int chartHeight = mChartPanel.getHeight();
     final int newPeekHeight =
-        mRoutingTypesContainer.getHeight() + mRoutingDetails.getHeight() + mBottomButtonsMaxHeight + mPeekHeightMargins;
+        mRoutingTypesContainer.getHeight() + chartHeight + mBottomButtonsMaxHeight + mPeekHeightMargins;
     mSheetBehavior.setPeekHeight(newPeekHeight);
     final int newDistanceTop = mFrame.getTop() + mTopInset;
     mViewModel.setRoutingBottomDistanceToTop(newDistanceTop);
