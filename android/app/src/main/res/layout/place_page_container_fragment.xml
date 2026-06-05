@@ -12,7 +12,10 @@
     android:layout_height="0dp"
     android:layout_gravity="center_horizontal|top"
     android:background="?ppBackground"
-    android:visibility="gone" />
+    android:visibility="gone"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
 
   <FrameLayout
     android:id="@+id/pp_bottom_container"

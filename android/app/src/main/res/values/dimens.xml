@@ -170,6 +170,7 @@
   <dimen name="altitude_chart_time_distance_height">20dp</dimen>
   <dimen name="altitude_chart_time_distance_text_size">16sp</dimen>
   <dimen name="altitude_chart_time_distance_margin_bottom">10dp</dimen>
+  <dimen name="altitude_chart_image_width">400dp</dimen>
   <!-- Routing action panel -->
   <dimen name="routing_action_panel_margin_vert">14dp</dimen>
 
