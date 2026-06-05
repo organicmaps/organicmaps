@@ -105,6 +105,18 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     mManageRouteAdapter.setRoutePoints(Framework.nativeGetRoutePoints());
   }
 
+  // Apply a finished drag as a single native move. Adapter positions map 1:1 to native route-point indices
+  // (0 = start, last = finish, the rest intermediates), so this keeps the existing marks and their identity
+  // instead of clearing and re-adding the whole route on every reorder.
+  public void onRoutePointMoved(int fromPosition, int toPosition)
+  {
+    if (fromPosition == RecyclerView.NO_POSITION || toPosition == RecyclerView.NO_POSITION
+        || fromPosition == toPosition)
+      return;
+    Framework.nativeMoveRoutePoint(fromPosition, toPosition);
+    RoutingController.get().launchPlanning();
+  }
+
   @Override
   public void startDrag(RecyclerView.ViewHolder viewHolder)
   {
@@ -145,6 +157,8 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     private final ManageRouteAdapter mManageRouteAdapter;
     private final ManageRouteController mController;
     private boolean mOrderChanged = false;
+    // Source position captured when the drag starts, so a finished reorder is one native move (from -> to).
+    private int mDragFromPosition = RecyclerView.NO_POSITION;
 
     public ManageRouteItemTouchHelperCallback(ManageRouteAdapter adapter, ManageRouteController controller)
     {
@@ -168,6 +182,7 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     {
       if (viewHolder != null && actionState == ItemTouchHelper.ACTION_STATE_DRAG)
       {
+        mDragFromPosition = viewHolder.getBindingAdapterPosition();
         viewHolder.itemView.setTranslationX(-10f);
         viewHolder.itemView.setTranslationZ(6f);
       }
@@ -209,9 +224,10 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
       viewHolder.itemView.setTranslationZ(0f);
       if (mOrderChanged)
       {
-        mController.onRouteOrderChanged();
+        mController.onRoutePointMoved(mDragFromPosition, viewHolder.getBindingAdapterPosition());
         mOrderChanged = false;
       }
+      mDragFromPosition = RecyclerView.NO_POSITION;
     }
   }
 }
