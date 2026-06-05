@@ -37,7 +37,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info, int mapObje
     "Ljava/lang/String;"                              // subtitle
     "Ljava/lang/String;"                              // address
     "DD"                                              // lat, lon
-    "Ljava/lang/String;"                              // appId
+    "Ljava/lang/String;"                              // apiId
     "Lapp/organicmaps/sdk/routing/RoutePointInfo;"    // routePointInfo
     "I"                                               // openingMode
     "Ljava/lang/String;"                              // wikiArticle
@@ -57,7 +57,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info, int mapObje
     jni::ToJavaStringWithSupplementalCharsFix(env, info.GetSecondarySubtitle()),
     lat,
     lon,
-    jni::ToJavaString(env, parseApi ? info.GetApiUrl() : ""),
+    jni::ToJavaString(env, parseApi ? info.GetApiId() : ""),
     routingPointInfo,
     static_cast<jint>(info.GetOpeningMode()),
     jni::ToJavaString(env, info.GetWikiDescription()),
@@ -92,7 +92,9 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
                            routingPointInfo.get(), jrawTypes.get());
   }
 
-  if (info.HasApiUrl())
+  // An API mark may carry a back-url, a point id, both, or neither. Treat the
+  // place page as kApiPoint as long as one of the two markers is present.
+  if (info.HasApiUrl() || info.HasApiId())
   {
     return CreateMapObject(env, info, kApiPoint, ll.m_lat, ll.m_lon, true /* parseMeta */, true /* parseApi */,
                            routingPointInfo.get(), jrawTypes.get());
