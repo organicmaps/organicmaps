@@ -28,6 +28,8 @@
 #include <utility>
 #include <vector>
 
+class DataSource;
+
 class TrafficManager final
 {
 public:
@@ -55,7 +57,7 @@ public:
   using TrafficStateChangedFn = std::function<void(TrafficState)>;
   using GetMwmsByRectFn = std::function<std::vector<MwmSet::MwmId>(m2::RectD const &)>;
 
-  TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, size_t maxCacheSizeBytes,
+  TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, DataSource const & dataSource, size_t maxCacheSizeBytes,
                  traffic::TrafficObserver & observer);
   ~TrafficManager();
 
@@ -147,6 +149,7 @@ private:
   }
 
   GetMwmsByRectFn m_getMwmsByRectFn;
+  DataSource const & m_dataSource;
   traffic::TrafficObserver & m_observer;
 
   df::DrapeEngineSafePtr m_drapeEngine;

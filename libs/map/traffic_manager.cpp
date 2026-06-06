@@ -3,6 +3,8 @@
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "indexer/data_source.hpp"
+
 #include "geometry/mercator.hpp"
 
 #include "platform/platform.hpp"
@@ -36,9 +38,10 @@ TrafficManager::CacheEntry::CacheEntry(time_point<steady_clock> const & requestT
   , m_lastAvailability(traffic::TrafficInfo::Availability::Unknown)
 {}
 
-TrafficManager::TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, size_t maxCacheSizeBytes,
-                               traffic::TrafficObserver & observer)
+TrafficManager::TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, DataSource const & dataSource,
+                               size_t maxCacheSizeBytes, traffic::TrafficObserver & observer)
   : m_getMwmsByRectFn(getMwmsByRectFn)
+  , m_dataSource(dataSource)
   , m_observer(observer)
   , m_currentDataVersion(0)
   , m_state(TrafficState::Disabled)
@@ -232,10 +235,11 @@ void TrafficManager::ThreadRoutine()
   {
     for (auto const & mwm : mwms)
     {
-      if (!mwm.IsAlive())
+      auto const handle = m_dataSource.GetMwmHandleById(mwm);
+      if (!handle.IsAlive())
         continue;
 
-      traffic::TrafficInfo info(mwm, m_currentDataVersion);
+      traffic::TrafficInfo info(handle, m_currentDataVersion);
 
       std::string tag;
       {

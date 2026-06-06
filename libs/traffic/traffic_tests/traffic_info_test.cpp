@@ -47,7 +47,8 @@ UNIT_TEST(TrafficInfo_RemoteFile)
     TestMwmSet mwmSet;
     auto const & r =
         mwmSet.Register(platform::LocalCountryFile::MakeForTesting("traffic_data_test"));
-    TrafficInfo trafficInfo(r.first, r.first.GetInfo()->GetVersion());
+    auto handle = mwmSet.GetMwmHandleById(r.first);
+    TrafficInfo trafficInfo(handle, r.first.GetInfo()->GetVersion());
     std::string etag;
     TEST(trafficInfo.ReceiveTrafficData(etag), ());
   }
@@ -55,7 +56,8 @@ UNIT_TEST(TrafficInfo_RemoteFile)
     TestMwmSet mwmSet;
     auto const & r =
         mwmSet.Register(platform::LocalCountryFile::MakeForTesting("traffic_data_test2"));
-    TrafficInfo trafficInfo(r.first, r.first.GetInfo()->GetVersion());
+    auto handle = mwmSet.GetMwmHandleById(r.first);
+    TrafficInfo trafficInfo(handle, r.first.GetInfo()->GetVersion());
     std::string etag;
     TEST(!trafficInfo.ReceiveTrafficData(etag), ());
   }
@@ -63,12 +65,21 @@ UNIT_TEST(TrafficInfo_RemoteFile)
     TestMwmSet mwmSet;
     auto const & r =
         mwmSet.Register(platform::LocalCountryFile::MakeForTesting("traffic_data_test", 101010));
-    TrafficInfo trafficInfo(r.first, r.first.GetInfo()->GetVersion());
+    auto handle = mwmSet.GetMwmHandleById(r.first);
+    TrafficInfo trafficInfo(handle, r.first.GetInfo()->GetVersion());
     std::string etag;
     TEST(trafficInfo.ReceiveTrafficData(etag), ());
   }
 }
 */
+
+UNIT_TEST(TrafficInfo_DeadHandleIsNoOp)
+{
+  MwmSet::MwmHandle const handle;
+  TrafficInfo info(handle, 0);
+  TEST(info.GetAvailability() == TrafficInfo::Availability::Unknown, ());
+  TEST(info.GetColoring().empty(), ());
+}
 
 UNIT_TEST(TrafficInfo_Serialization)
 {

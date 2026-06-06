@@ -8,10 +8,13 @@
 
 #include "geometry/rect2d.hpp"
 #include "indexer/feature.hpp"
+#include "indexer/mwm_set.hpp"
 
 #include <functional>
 #include <string>
 #include <vector>
+
+class DataSource;
 
 namespace df
 {
@@ -28,13 +31,15 @@ public:
   using TTileBackgroundReadFn = std::function<void(df::TileKey const &, dp::BackgroundMode)>;
   using TCancelTileBackgroundReadingFn = std::function<void(df::TileKey const &, dp::BackgroundMode)>;
 
-  MapDataProvider(TReadIDsFn && idsReader, TReadFeaturesFn && featureReader,
+  MapDataProvider(TReadIDsFn && idsReader, TReadFeaturesFn && featureReader, DataSource const & dataSource,
                   TIsCountryLoadedByNameFn && isCountryLoadedByNameFn,
                   TUpdateCurrentCountryFn && updateCurrentCountryFn, TTileBackgroundReadFn && tileBackgroundReadFn,
                   TCancelTileBackgroundReadingFn && cancelTileBackgroundReadingFn);
 
   void ReadFeaturesID(TReadCallback<FeatureID const> const & fn, m2::RectD const & r, int scale) const;
   void ReadFeatures(TReadCallback<FeatureType> const & fn, std::vector<FeatureID> const & ids) const;
+
+  MwmSet::MwmHandle GetMwmHandle(MwmSet::MwmId const & id) const;
 
   TTileBackgroundReadFn ReadTileBackgroundFn() const;
   TCancelTileBackgroundReadingFn CancelTileBackgroundReadingFn() const;
@@ -46,6 +51,7 @@ public:
 private:
   TReadFeaturesFn m_featureReader;
   TReadIDsFn m_idsReader;
+  DataSource const & m_dataSource;
   TUpdateCurrentCountryFn m_updateCurrentCountry;
   TTileBackgroundReadFn m_tileBackgroundReader;
   TCancelTileBackgroundReadingFn m_cancelTileBackgroundReading;

@@ -1,5 +1,7 @@
 #include "drape_frontend/map_data_provider.hpp"
 
+#include "indexer/data_source.hpp"
+
 #include "base/assert.hpp"
 
 #include <utility>
@@ -7,13 +9,14 @@
 namespace df
 {
 MapDataProvider::MapDataProvider(TReadIDsFn && idsReader, TReadFeaturesFn && featureReader,
-                                 TIsCountryLoadedByNameFn && isCountryLoadedByNameFn,
+                                 DataSource const & dataSource, TIsCountryLoadedByNameFn && isCountryLoadedByNameFn,
                                  TUpdateCurrentCountryFn && updateCurrentCountryFn,
                                  TTileBackgroundReadFn && tileBackgroundReadFn,
                                  TCancelTileBackgroundReadingFn && cancelTileBackgroundReadingFn)
   : m_isCountryLoadedByName(std::move(isCountryLoadedByNameFn))
   , m_featureReader(std::move(featureReader))
   , m_idsReader(std::move(idsReader))
+  , m_dataSource(dataSource)
   , m_updateCurrentCountry(std::move(updateCurrentCountryFn))
   , m_tileBackgroundReader(std::move(tileBackgroundReadFn))
   , m_cancelTileBackgroundReading(std::move(cancelTileBackgroundReadingFn))
@@ -34,6 +37,11 @@ void MapDataProvider::ReadFeaturesID(TReadCallback<FeatureID const> const & fn, 
 void MapDataProvider::ReadFeatures(TReadCallback<FeatureType> const & fn, std::vector<FeatureID> const & ids) const
 {
   m_featureReader(fn, ids);
+}
+
+MwmSet::MwmHandle MapDataProvider::GetMwmHandle(MwmSet::MwmId const & id) const
+{
+  return m_dataSource.GetMwmHandleById(id);
 }
 
 MapDataProvider::TTileBackgroundReadFn MapDataProvider::ReadTileBackgroundFn() const

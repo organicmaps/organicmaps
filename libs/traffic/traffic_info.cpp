@@ -10,7 +10,6 @@
 
 #include "coding/bit_streams.hpp"
 #include "coding/elias_coder.hpp"
-#include "coding/files_container.hpp"
 #include "coding/reader.hpp"
 #include "coding/url.hpp"
 #include "coding/varint.hpp"
@@ -86,45 +85,36 @@ TrafficInfo::RoadSegmentId::RoadSegmentId(uint32_t fid, uint16_t idx, uint8_t di
 uint8_t const TrafficInfo::kLatestKeysVersion = 0;
 uint8_t const TrafficInfo::kLatestValuesVersion = 0;
 
-TrafficInfo::TrafficInfo(MwmSet::MwmId const & mwmId, int64_t currentDataVersion)
-  : m_mwmId(mwmId)
+TrafficInfo::TrafficInfo(MwmSet::MwmHandle const & handle, int64_t currentDataVersion)
+  : m_mwmId(handle.GetId())
   , m_currentDataVersion(currentDataVersion)
 {
-  if (!mwmId.IsAlive())
+  if (!handle.IsAlive())
   {
     LOG(LWARNING, ("Attempt to create a traffic info for dead mwm."));
     return;
   }
-  std::string const mwmPath = mwmId.GetInfo()->GetLocalFile().GetPath(MapFileType::Map);
+  auto const & cont = handle.GetValue()->m_cont;
+  if (!cont.IsExist(TRAFFIC_KEYS_FILE_TAG))
+  {
+    LOG(LINFO, ("Reading traffic keys for", m_mwmId, "from the web"));
+    ReceiveTrafficKeys();
+    return;
+  }
+
   try
   {
-    FilesContainerR rcont(mwmPath);
-    if (rcont.IsExist(TRAFFIC_KEYS_FILE_TAG))
-    {
-      auto reader = rcont.GetReader(TRAFFIC_KEYS_FILE_TAG);
-      std::vector<uint8_t> buf(static_cast<size_t>(reader.Size()));
-      reader.Read(0, buf.data(), buf.size());
-      LOG(LINFO, ("Reading keys for", mwmId, "from section"));
-      try
-      {
-        DeserializeTrafficKeys(buf, m_keys);
-      }
-      catch (Reader::Exception const & e)
-      {
-        auto const info = mwmId.GetInfo();
-        LOG(LINFO,
-            ("Could not read traffic keys from section. MWM:", info->GetCountryName(), "Version:", info->GetVersion()));
-      }
-    }
-    else
-    {
-      LOG(LINFO, ("Reading traffic keys for", mwmId, "from the web"));
-      ReceiveTrafficKeys();
-    }
+    auto reader = cont.GetReader(TRAFFIC_KEYS_FILE_TAG);
+    std::vector<uint8_t> buf(static_cast<size_t>(reader.Size()));
+    reader.Read(0, buf.data(), buf.size());
+    LOG(LINFO, ("Reading keys for", m_mwmId, "from section"));
+    DeserializeTrafficKeys(buf, m_keys);
   }
-  catch (RootException const & e)
+  catch (Reader::Exception const &)
   {
-    LOG(LWARNING, ("Could not initialize traffic keys"));
+    auto const info = m_mwmId.GetInfo();
+    LOG(LWARNING,
+        ("Could not read traffic keys from section. MWM:", info->GetCountryName(), "Version:", info->GetVersion()));
   }
 }
 
