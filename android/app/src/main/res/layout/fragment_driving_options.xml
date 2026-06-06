@@ -17,48 +17,53 @@
     tools:ignore="UnusedAttribute">
   </androidx.appcompat.widget.Toolbar>
   <LinearLayout
-    android:layout_marginTop="@dimen/margin_half_double_plus"
-    android:orientation="horizontal"
-    android:minHeight="@dimen/height_block_base"
+    android:id="@+id/content"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingEnd="@dimen/margin_base"
-    android:paddingStart="@dimen/margin_base">
-    <TextView
-      android:text="@string/avoid_tolls"
-      android:textAppearance="?android:attr/textAppearanceMedium"
-      android:layout_width="0dp"
-      android:layout_weight="1"
+    android:layout_height="wrap_content">
+    <LinearLayout
+      android:layout_marginTop="@dimen/margin_half_double_plus"
+      android:orientation="horizontal"
+      android:minHeight="@dimen/height_block_base"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_gravity="center_vertical"
-      android:textColor="?android:attr/textColorPrimary"/>
-    <androidx.appcompat.widget.SwitchCompat
-      android:id="@+id/avoid_tolls_btn"
-      android:layout_width="wrap_content"
-      android:layout_height="match_parent"
-      android:padding="@dimen/margin_half_double_plus"/>
-  </LinearLayout>
-  <include layout="@layout/list_divider"/>
-  <LinearLayout
-    android:orientation="horizontal"
-    android:minHeight="@dimen/height_block_base"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingEnd="@dimen/margin_base"
-    android:paddingStart="@dimen/margin_base">
-    <TextView
-      android:text="@string/avoid_unpaved"
-      android:textAppearance="?android:attr/textAppearanceMedium"
-      android:layout_width="0dp"
-      android:layout_weight="1"
+      android:paddingEnd="@dimen/margin_base"
+      android:paddingStart="@dimen/margin_base">
+      <TextView
+        android:text="@string/avoid_tolls"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:textColor="?android:attr/textColorPrimary"/>
+      <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/avoid_tolls_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="@dimen/margin_half_double_plus"/>
+    </LinearLayout>
+    <include layout="@layout/list_divider"/>
+    <LinearLayout
+      android:orientation="horizontal"
+      android:minHeight="@dimen/height_block_base"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_gravity="center_vertical"
-      android:textColor="?android:attr/textColorPrimary"/>
-    <androidx.appcompat.widget.SwitchCompat
-      android:id="@+id/avoid_dirty_roads_btn"
-      android:layout_width="wrap_content"
-      android:layout_height="match_parent"
-      android:padding="@dimen/margin_half_double_plus"/>
+      android:paddingEnd="@dimen/margin_base"
+      android:paddingStart="@dimen/margin_base">
+      <TextView
+        android:text="@string/avoid_unpaved"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:textColor="?android:attr/textColorPrimary"/>
+      <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/avoid_dirty_roads_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="@dimen/margin_half_double_plus"/>
   </LinearLayout>
   <include layout="@layout/list_divider"/>
   <LinearLayout
@@ -103,5 +108,6 @@
       android:layout_width="wrap_content"
       android:padding="@dimen/margin_half_double_plus"
       android:layout_height="match_parent"/>
+  </LinearLayout>
   </LinearLayout>
 </LinearLayout>

@@ -9,11 +9,12 @@ import android.widget.CompoundButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.view.ViewCompat;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
-import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.settings.RoadType;
+import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -26,6 +27,8 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
   public static final String BUNDLE_ROAD_TYPES = "road_types";
   @NonNull
   private Set<RoadType> mRoadTypes = Collections.emptySet();
+  private View mContent;
+
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -33,6 +36,7 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
   {
     View root = inflater.inflate(R.layout.fragment_driving_options, container, false);
     initViews(root);
+    ViewCompat.setOnApplyWindowInsetsListener(mContent, new PaddingInsetsListener(false, true, true, true));
     mRoadTypes = savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_ROAD_TYPES)
                    ? makeRouteTypes(savedInstanceState)
                    : RoutingOptions.getActiveRoadTypes();
@@ -87,6 +91,8 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
 
   private void initViews(@NonNull View root)
   {
+    mContent = root.findViewById(R.id.content);
+
     SwitchCompat tollsBtn = root.findViewById(R.id.avoid_tolls_btn);
     tollsBtn.setChecked(RoutingOptions.hasOption(RoadType.Toll));
     CompoundButton.OnCheckedChangeListener tollBtnListener = new ToggleRoutingOptionListener(RoadType.Toll);
