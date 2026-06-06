@@ -122,13 +122,16 @@
     android:orientation="horizontal"
     android:paddingEnd="@dimen/margin_quarter">
 
-    <ImageView
+    <ImageButton
       android:id="@+id/back"
       android:layout_width="24dp"
       android:layout_height="24dp"
       android:layout_gravity="center"
-      android:scaleType="center"
-    app:srcCompat="@drawable/ic_close_rounded" app:tint="?iconTint"/>
+      android:background="?attr/selectableItemBackgroundBorderless"
+      android:contentDescription="@string/close"
+      android:scaleType="centerInside"
+      app:srcCompat="@drawable/ic_close_rounded"
+      app:tint="?iconTint" />
   </LinearLayout>
 
 </LinearLayout>
