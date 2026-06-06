@@ -125,6 +125,7 @@ public:
   void Scale(double factor, m2::PointD const & pxPoint, bool isAnim);
   void Move(double factorX, double factorY, bool isAnim);
   void Scroll(double distanceX, double distanceY);
+  void Fling(double velocityX, double velocityY);
   void Rotate(double azimuth, bool isAnim);
 
   void MakeFrameActive();

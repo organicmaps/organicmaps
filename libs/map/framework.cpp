@@ -1164,6 +1164,12 @@ void Framework::Scroll(double distanceX, double distanceY)
     m_drapeEngine->Scroll(distanceX, distanceY);
 }
 
+void Framework::Fling(double velocityX, double velocityY)
+{
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->Fling(velocityX, velocityY);
+}
+
 void Framework::Rotate(double azimuth, bool isAnim)
 {
   if (m_drapeEngine != nullptr)
