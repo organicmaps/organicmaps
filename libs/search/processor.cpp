@@ -7,6 +7,7 @@
 #include "search/intermediate_result.hpp"
 #include "search/latlon_match.hpp"
 #include "search/mode.hpp"
+#include "search/os_grid_coords_match.hpp"
 #include "search/postcode_points.hpp"
 #include "search/query_params.hpp"
 #include "search/ranking_utils.hpp"
@@ -657,7 +658,7 @@ bool Processor::SearchDebug()
 bool Processor::SearchCoordinates()
 {
   bool coords_found = false;
-  buffer_vector<ms::LatLon, 3> results;
+  buffer_vector<ms::LatLon, 4> results;
   double lat, lon;
 
   if (MatchLatLonDegree(m_query.m_query, lat, lon))
@@ -674,6 +675,13 @@ bool Processor::SearchCoordinates()
   }
 
   ll = MatchMGRSCoords(m_query.m_query);
+  if (ll)
+  {
+    coords_found = true;
+    results.emplace_back(ll->m_lat, ll->m_lon);
+  }
+
+  ll = MatchOSGridCoords(m_query.m_query);
   if (ll)
   {
     coords_found = true;

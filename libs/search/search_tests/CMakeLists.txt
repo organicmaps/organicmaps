@@ -24,6 +24,7 @@ set(SRC
   suggest_tests.cpp
   string_match_test.cpp
   text_index_tests.cpp
+  os_grid_coords_match_test.cpp
   utm_mgrs_coords_match_test.cpp
 )
 
