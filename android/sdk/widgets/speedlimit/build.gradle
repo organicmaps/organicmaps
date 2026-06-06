@@ -15,8 +15,7 @@ dependencies {
 }
 
 Publish(project, [
-    'artifactId'   : 'widgets-speedlimit',
-    'name'         : 'Organic Maps SDK. SpeedLimit widget',
-    'description'  : 'A library that provides speed limit widget for the app',
-    'inceptionYear': '2026'
+    'artifactId' : 'widgets-speedlimit',
+    'name'       : 'Organic Maps SDK. SpeedLimit widget',
+    'description': 'A library that provides a speed limit widget for the Organic Maps SDK'
 ])

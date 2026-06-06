@@ -1,13 +1,5 @@
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 
-buildscript {
-    dependencies {
-        classpath libs.activation
-        classpath libs.jakarta.xml.bind.api
-        classpath libs.jaxb.impl
-    }
-}
-
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     alias libs.plugins.android.application apply false
@@ -20,7 +12,13 @@ plugins {
     alias libs.plugins.triplet.play apply false
     alias libs.plugins.huawei.plugin apply false
 
-    alias libs.plugins.jreleaser apply false
+    alias libs.plugins.vanniktech.maven.publish apply false
+
+    // nmcp aggregates the per-module publications into one Maven Central Portal deployment.
+    // The base plugin is only put on the classpath (each SDK module applies it, see
+    // groovy/publishing.gradle); the aggregation plugin is applied to this root project.
+    alias libs.plugins.nmcp apply false
+    alias libs.plugins.nmcp.aggregation
 }
 
 def run(cmd) {
@@ -101,15 +99,30 @@ tasks.register("detektCheckAll") {
     })
 }
 
-tasks.register('publishSdk') {
-    group = 'publishing'
-    description = 'Publishes the SDK modules'
-
-    def sdkModules = subprojects.findAll { project ->
-        project.projectDir.toPath().startsWith(rootProject.projectDir.toPath().resolve("sdk"))
+// Aggregate every SDK module's publication into a single atomic Maven Central Portal
+// deployment via `./gradlew publishAggregationToCentralPortal`. Only the modules listed
+// below are bundled; the deployment is uploaded but must be released manually from the
+// Central Portal UI (publishingType = USER_MANAGED). Credentials come from the CI
+// environment and are empty locally, where the deploy task is never run.
+nmcpAggregation {
+    // ':sdk:car' and ':libs:car' share the simple name 'car'. Aggregation is declared by
+    // explicit project path below, so resolution is unambiguous; this only opts out of
+    // nmcp's defensive global name-uniqueness check (gradle/gradle#36167).
+    allowDuplicateProjectNames.set(true)
+    centralPortal {
+        username = providers.environmentVariable('MAVEN_CENTRAL_USERNAME').getOrElse('')
+        password = providers.environmentVariable('MAVEN_CENTRAL_PASSWORD').getOrElse('')
+        publishingType = 'USER_MANAGED'
     }
+}
 
-    dependsOn sdkModules.collect { sub ->
-        sub.tasks.matching { it.name == "publish" }
-    }
+dependencies {
+    nmcpAggregation project(':sdk')
+    nmcpAggregation project(':sdk:car')
+    nmcpAggregation project(':sdk:location:core')
+    nmcpAggregation project(':sdk:location:gms:google')
+    nmcpAggregation project(':sdk:location:gms:foss')
+    nmcpAggregation project(':sdk:maps:world')
+    nmcpAggregation project(':sdk:widgets:lanes')
+    nmcpAggregation project(':sdk:widgets:speedlimit')
 }
