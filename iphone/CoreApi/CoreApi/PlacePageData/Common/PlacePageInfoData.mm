@@ -140,7 +140,9 @@ NSString * GetLocalizedMetadataValueString(MapObject::MetadataID metaID, std::st
       @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::OLCFull).c_str()),
       @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::OSMLink).c_str()),
       @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::UTM).c_str()),
-      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::MGRS).c_str())
+      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::MGRS).c_str()),
+      // Empty outside Great Britain; the UI skips empty formats so OS Grid is shown only there.
+      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::OSGB).c_str())
     ];
   }
   return self;

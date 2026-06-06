@@ -323,29 +323,49 @@ class PlacePageInfoViewController: UIViewController {
 
   private func setupCoordinatesView() {
     guard let coordFormats = placePageInfoData.coordFormats as? [String] else { return }
-    var formatId = coordinatesFormatId
-    if formatId >= coordFormats.count {
-      formatId = 0
-    }
-    coordinatesView = createInfoItem(coordFormats[formatId],
+    // The saved format may be unavailable here (e.g. OS Grid outside Great Britain); its entry is
+    // empty. Show the next available format without overwriting the saved preference, so it is
+    // restored when the user returns to a supported area.
+    let displayId = effectiveFormatId(in: coordFormats)
+    coordinatesView = createInfoItem(coordFormats[displayId],
                                      icon: UIImage(resource: .icPlacepageCoordinate),
                                      style: .link,
                                      accessoryImage: UIImage(resource: .icPlacepageChange),
                                      tapHandler: { [weak self] in
                                        guard let self else { return }
-                                       let formatId = (self.coordinatesFormatId + 1) % coordFormats.count
+                                       let formatId = self.nextAvailableFormatId(after: self.effectiveFormatId(in: coordFormats), in: coordFormats)
                                        self.setCoordinatesSelected(formatId: formatId)
                                      },
                                      longPressHandler: { [weak self] in
                                        self?.copyCoordinatesToPasteboard()
                                      })
-    let menu = UIMenu(children: coordFormats.enumerated().map { index, format in
-      UIAction(title: format, handler: { [weak self] _ in
+    let menu = UIMenu(children: coordFormats.enumerated().compactMap { index, format in
+      format.isEmpty ? nil : UIAction(title: format, handler: { [weak self] _ in
         self?.setCoordinatesSelected(formatId: index)
         self?.copyCoordinatesToPasteboard()
       })
     })
     coordinatesView?.setAccessoryMenu(menu)
+  }
+
+  /// The format index actually shown: the saved one if available here, otherwise the next available.
+  /// Does not change the saved preference (`coordinatesFormatId`).
+  private func effectiveFormatId(in formats: [String]) -> Int {
+    let saved = coordinatesFormatId
+    let id = (saved >= 0 && saved < formats.count) ? saved : 0
+    return formats[id].isEmpty ? nextAvailableFormatId(after: id, in: formats) : id
+  }
+
+  /// Returns the format index following `current` whose value is non-empty (available at this location).
+  /// Falls back to `current` if none are available; the decimal formats are always present.
+  private func nextAvailableFormatId(after current: Int, in formats: [String]) -> Int {
+    for step in 1 ... formats.count {
+      let candidate = (current + step) % formats.count
+      if !formats[candidate].isEmpty {
+        return candidate
+      }
+    }
+    return current
   }
 
   private func setCoordinatesSelected(formatId: Int) {
@@ -357,7 +377,7 @@ class PlacePageInfoViewController: UIViewController {
 
   private func copyCoordinatesToPasteboard() {
     guard let coordFormats = placePageInfoData.coordFormats as? [String] else { return }
-    let coordinates: String = coordFormats[coordinatesFormatId]
+    let coordinates: String = coordFormats[effectiveFormatId(in: coordFormats)]
     delegate?.didCopy(coordinates)
   }
 
