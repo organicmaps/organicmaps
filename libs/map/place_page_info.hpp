@@ -38,7 +38,8 @@ enum class CoordinatesFormat
   OLCFull,        // Open location code, long format
   OSMLink,        // Link to osm.org
   UTM,            // Universal Transverse Mercator
-  MGRS            // Military Grid Reference System
+  MGRS,           // Military Grid Reference System
+  OSGB            // British National Grid (OS Grid), Great Britain only
 };
 
 struct BuildInfo

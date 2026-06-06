@@ -10,6 +10,7 @@
 #include "platform/duration.hpp"
 #include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
+#include "platform/os_grid_utils.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 #include "platform/utm_mgrs_utils.hpp"
@@ -422,6 +423,16 @@ std::string Info::GetFormattedCoordinate(CoordinatesFormat coordsFormat) const
       return "MGRS: N/A";
     else
       return "MGRS: " + mgrsCoords;
+  }
+  case CoordinatesFormat::OSGB:  // British National Grid (OS Grid)
+  {
+    // The OS Grid is the official reference only in Great Britain and the Isle of Man; gate on the
+    // region, since the projection rectangle also covers Northern Ireland and the Republic of Ireland.
+    // Return empty (not "N/A") so the UI offers this format only where it applies.
+    if (!os_grid_utils::IsOSGridRegion(GetCountryId()))
+      return {};
+    std::string const osgbCoords = os_grid_utils::FormatOSGrid(lat, lon);
+    return osgbCoords.empty() ? std::string{} : "OSGB: " + osgbCoords;
   }
   }
 }
