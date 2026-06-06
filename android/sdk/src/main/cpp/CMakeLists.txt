@@ -98,6 +98,8 @@ set(SRC
   app/organicmaps/sdk/platform/PThreadImpl.cpp
   app/organicmaps/sdk/platform/SecureStorage.cpp
   app/organicmaps/sdk/platform/SocketImpl.cpp
+  app/organicmaps/sdk/publicholidays/Holiday.cpp
+  app/organicmaps/sdk/publicholidays/Holiday.hpp
   app/organicmaps/sdk/util/Config.cpp
   app/organicmaps/sdk/util/GeoUtils.cpp
   app/organicmaps/sdk/util/HttpClient.cpp
