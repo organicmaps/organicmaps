@@ -63,6 +63,8 @@ set(SRC
   trace.hpp
   string_storage_base.cpp
   string_storage_base.hpp
+  os_grid_utils.cpp
+  os_grid_utils.hpp
   utm_mgrs_utils.cpp
   utm_mgrs_utils.hpp
 )
