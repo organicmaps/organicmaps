@@ -1137,6 +1137,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onStop()
   {
     super.onStop();
+    Framework.nativeSaveViewport();
     Framework.nativeRemovePlacePageActivationListener(this);
     BookmarkManager.INSTANCE.removeLoadingListener(this);
     MwmApplication.from(this).getLocationHelper().removeListener(this);
