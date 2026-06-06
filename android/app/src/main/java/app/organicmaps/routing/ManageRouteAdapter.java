@@ -142,11 +142,6 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<ManageRouteAdapter.
     Collections.swap(mRoutePoints, draggedItemIndex, targetIndex);
     updateRoutePointsData();
     notifyItemMoved(draggedItemIndex, targetIndex);
-    // Refresh both rows so their icon (Start/Intermediate/Finish) and title reflect the swapped data —
-    // updateRoutePointsData reassigned point types, so the rendered glyphs change too. RV will dispatch
-    // onBindViewHolder for both positions on the next layout pass.
-    notifyItemChanged(draggedItemIndex);
-    notifyItemChanged(targetIndex);
   }
 
   public void deleteRoutePoint(RecyclerView.ViewHolder viewHolder)
