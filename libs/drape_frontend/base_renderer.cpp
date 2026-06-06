@@ -1,6 +1,9 @@
 #include "drape_frontend/base_renderer.hpp"
 #include "drape_frontend/message_subclasses.hpp"
 
+#include "base/logging.hpp"
+
+#include <chrono>
 #include <utility>
 
 #if defined(OMIM_METAL_AVAILABLE)
@@ -117,8 +120,22 @@ void BaseRenderer::SetRenderingEnabled(bool const isEnabled)
     CancelMessageWaiting();
   }
 
+  // Bounded wait. The render thread is normally expected to acknowledge within
+  // a few frames. A longer wait means the render thread is wedged (driver
+  // stall, infinite loop, GPU hang); blocking the UI thread past the Android
+  // ANR threshold (5s) makes things worse, not better. Defuse the dangling
+  // handler so a late notification cannot touch this stack frame after we
+  // return.
+  using namespace std::chrono_literals;
   std::unique_lock<std::mutex> lock(completionMutex);
-  completionCondition.wait(lock, [&notified] { return notified; });
+  if (!completionCondition.wait_for(lock, 2s, [&notified] { return notified; }))
+  {
+    LOG(LERROR, ("BaseRenderer::SetRenderingEnabled timed out waiting for renderer ack", "isEnabled=", isEnabled,
+                 "thread=", static_cast<int>(m_threadName)));
+    lock.unlock();
+    std::lock_guard<std::mutex> lg(m_completionHandlerMutex);
+    m_renderingEnablingCompletionHandler = nullptr;
+  }
 }
 
 bool BaseRenderer::FilterContextDependentMessage(ref_ptr<Message> msg)
