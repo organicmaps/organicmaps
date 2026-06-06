@@ -1054,6 +1054,11 @@ void FrontendRenderer::UpdateAll()
   classificator::Load();
 #endif  // BUILD_DESIGNER
 
+  // OverlayTree stores non-owning ref_ptrs to handles owned by render groups.
+  // Drop those references before clearing the groups to avoid stale handles
+  // surviving until the next deferred overlay-tree rebuild.
+  m_overlayTree->Clear();
+
   // Clear all graphics.
   for (RenderLayer & layer : m_layers)
   {
