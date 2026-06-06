@@ -36,7 +36,7 @@ PathTextShape::PathTextShape(m2::SharedSpline const & spline, PathTextViewParams
 bool PathTextShape::CalculateLayout(ref_ptr<dp::TextureManager> textures)
 {
   auto layout = make_unique_dp<PathTextLayout>(m_params.m_tileCenter, m_params.ConcatRenderText(),
-                                               m_params.m_textFont.m_size, textures);
+                                               m_params.m_textFont.m_size, textures, m_params.m_lang);
 
   if (0 == layout->GetGlyphCount())
   {

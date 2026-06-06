@@ -58,6 +58,12 @@ int GetFeatureViewportScale(FeatureID const & fid, TypesHolder const & types);
 // - languages that we know are similar to |lang|;
 LangsBufferT GetSimilar(int8_t deviceLang);
 
+// Returns the first language declared for the MWM region, or kUnsupportedLanguageCode if the
+// region declares none. Used as a HarfBuzz `locl` hint for text in the region's on-the-ground
+// language: OSM-verbatim strings (addr:housenumber, road shield ref) and unqualified `name=`
+// tags, whose selected code (kDefaultCode) carries no real BCP-47 language.
+int8_t GetRegionLang(RegionData const & regionData);
+
 struct NameParamsIn
 {
   NameParamsIn(StringUtf8Multilang const & src_, RegionData const & regionData_, int8_t deviceLang_,
@@ -85,6 +91,14 @@ struct NameParamsOut
   std::string_view primary, secondary;
   std::string transliterated;
 
+  // Raw StringUtf8Multilang code actually selected for primary/secondary, used downstream to
+  // drive HarfBuzz OpenType `locl` substitutions. kEnglishCode is reported for the transliterated
+  // fallback (target script is Latin); kUnsupportedLanguageCode means no name was found at all.
+  // An unqualified `name=` is reported verbatim as kDefaultCode, which carries no real BCP-47
+  // language: resolve it to the region's language (see feature::GetRegionLang) at the usage place.
+  int8_t primaryLang = StringUtf8Multilang::kUnsupportedLanguageCode;
+  int8_t secondaryLang = StringUtf8Multilang::kUnsupportedLanguageCode;
+
   /// Call this fuction to get primary name when allowTranslit == true.
   std::string_view GetPrimary() const { return (!primary.empty() ? primary : std::string_view(transliterated)); }
 
@@ -92,6 +106,7 @@ struct NameParamsOut
   {
     primary = secondary = {};
     transliterated.clear();
+    primaryLang = secondaryLang = StringUtf8Multilang::kUnsupportedLanguageCode;
   }
 };
 
