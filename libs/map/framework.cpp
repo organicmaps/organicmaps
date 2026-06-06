@@ -2366,13 +2366,13 @@ bool Framework::BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelec
   if (trackSelectionInfo.IsRelation())
   {
     auto trackData = TryBuildRelationTrack(selectedInfo);
-
     if (!trackData)
       return false;
 
     bm.SetTempRelationTrack(std::move(trackData.value()));
     track = bm.GetTrack(kml::kTempRelationTrackId);
-    track->UpdateSelectionInfo(selectedInfo.m_trackPoint, selectedInfo);
+    auto const tapPoint = selectedInfo.m_trackPoint;  // Copy tap point before mutation.
+    track->UpdateSelectionInfo(tapPoint, selectedInfo);
   }
   else
   {
