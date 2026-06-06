@@ -11,15 +11,15 @@ android {
 }
 
 dependencies {
-  implementation project(':sdk')
+  // LaneInfo/LaneWay (from :sdk) appear in the LanesView/LanesDrawable public API.
+  api project(':sdk')
 
   implementation libs.androidx.annotation
   implementation libs.androidx.appcompat
 }
 
 Publish(project, [
-    'artifactId'   : 'widgets-lanes',
-    'name'         : 'Organic Maps SDK. Lanes widget',
-    'description'  : 'A library that provides lanes widget for the app',
-    'inceptionYear': '2026'
+    'artifactId' : 'widgets-lanes',
+    'name'       : 'Organic Maps SDK. Lanes widget',
+    'description': 'A library that provides a lanes widget for the Organic Maps SDK'
 ])

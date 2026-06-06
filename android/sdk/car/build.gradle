@@ -11,16 +11,17 @@ android {
 }
 
 dependencies {
-  implementation project(':sdk')
+  // CarContext and :sdk types (Map, MapController, LocationHelper) appear in this module's
+  // public API, so expose them as api for consumers.
+  api project(':sdk')
+  api libs.androidx.car.app
+
   implementation project(':sdk:widgets:speedlimit')
   implementation project(':sdk:widgets:lanes')
-
-  implementation libs.androidx.car.app
 }
 
 Publish(project, [
-    'artifactId'   : 'car',
-    'name'         : 'Organic Maps SDK for Android Auto and Android Automotive',
-    'description'  : 'A library that provides OM integration for Android Auto and Android Automotive',
-    'inceptionYear': '2026'
+    'artifactId' : 'car',
+    'name'       : 'Organic Maps SDK for Android Auto and Android Automotive',
+    'description': 'A library that provides Organic Maps integration for Android Auto and Android Automotive'
 ])
