@@ -7,7 +7,8 @@ public enum CoordinatesFormat
   OLCFull(2, "OLC", false), // Open location code, full format
   OSMLink(3, "osm.org", false), // Link to the OSM. E.g. https://osm.org/go/xcXjyqQlq-?m=
   UTM(4, "UTM", true), // Universal Transverse Mercator
-  MGRS(5, "MGRS", true); // Military Grid Reference System
+  MGRS(5, "MGRS", true), // Military Grid Reference System
+  OSGB(6, "OSGB", true); // British National Grid (OS Grid), Great Britain only
 
   private final int id;
   private final String label;

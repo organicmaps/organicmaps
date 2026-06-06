@@ -42,7 +42,8 @@ enum CoordinatesFormat  // See Java enum app.organicmaps.widget.placepage.Coordi
   OLCFull = 2,        // Open location code, full format
   OSMLink = 3,        // Link to the OSM. E.g. https://osm.org/go/xcXjyqQlq-?m=
   UTM = 4,            // Universal Transverse Mercator
-  MGRS = 5            // Military Grid Reference System
+  MGRS = 5,           // Military Grid Reference System
+  OSGB = 6            // British National Grid (OS Grid), Great Britain only
 };
 
 // Keep in sync `public @interface ChoosePositionMode`in Framework.java.

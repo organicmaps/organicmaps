@@ -50,6 +50,7 @@
 #include "platform/location.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/network_policy.hpp"
+#include "platform/os_grid_utils.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
@@ -1016,6 +1017,17 @@ JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeFormatLatLon(JNIEnv *
       return jni::ToJavaString(env, mgrsFormat);
     else
       return nullptr;
+  }
+  case android::CoordinatesFormat::OSGB:  // British National Grid (OS Grid)
+  {
+    // Offer the OS Grid only where it is the official reference (Great Britain + Isle of Man); gate on
+    // the region, since the projection rectangle also covers Northern Ireland and the Republic of Ireland.
+    auto const regionId = frm()->GetCountryInfoGetter().GetRegionCountryId(mercator::FromLatLon(lat, lon));
+    std::string const osgbFormat =
+        os_grid_utils::IsOSGridRegion(regionId) ? os_grid_utils::FormatOSGrid(lat, lon) : std::string{};
+    if (!osgbFormat.empty())
+      return jni::ToJavaString(env, osgbFormat);
+    return nullptr;  // Outside the supported area. The UI skips unavailable formats.
   }
   }
 }
