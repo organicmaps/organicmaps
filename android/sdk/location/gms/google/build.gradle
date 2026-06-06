@@ -12,15 +12,15 @@ android {
 
 dependencies {
   implementation project(':sdk')
-  implementation project(':sdk:location:core')
+  // BaseLocationProvider (from location:core) is returned by the public provider factory.
+  api project(':sdk:location:core')
 
   implementation libs.androidx.annotation
   implementation libs.google.gms.location
 }
 
 Publish(project, [
-    'artifactId'   : 'location-google',
-    'name'         : 'Organic Maps SDK. Google Fused Location',
-    'description'  : 'A library that provides google gms location services for the app',
-    'inceptionYear': '2026'
+    'artifactId' : 'location-google',
+    'name'       : 'Organic Maps SDK. Google Fused Location',
+    'description': 'A library that provides Google fused location services for the Organic Maps SDK'
 ])

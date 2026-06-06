@@ -12,7 +12,6 @@ on:
         description: 'Release tag'
         required: true
         type: string
-  pull_request: # TODO: For testing purposes, remove before merge
 
 env:
   JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64  # Java 17 is required for Android Gradle 8 plugin
@@ -21,8 +20,7 @@ jobs:
   android-sdk-release:
     name: Android SDK Release
     runs-on: ubuntu-latest
-    # TODO: Commented for testing purposes, uncomment before merge
-    # environment: production
+    environment: android-sdk-release
     steps:
       - name: Install build tools and dependencies
         shell: bash
@@ -31,22 +29,20 @@ jobs:
           sudo apt-get install -y ninja-build
 
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 100 # enough to get all commits for the current day
-          # TODO: Commented for testing purposes, uncomment before merge
-          # ref: 'refs/tags/${{ inputs.tag }}'
+          ref: 'refs/tags/${{ inputs.tag }}'
 
-# TODO: Commented for testing purposes, uncomment before merge
-#      - name: Check tag
-#        shell: bash
-#        run: |
-#          git show HEAD
-#          test -n "${{ inputs.tag }}"
-#          test "$(git tag --points-at HEAD)" = "${{ inputs.tag }}"
+      - name: Check tag
+        shell: bash
+        run: |
+          git show HEAD
+          test -n "${{ inputs.tag }}"
+          test "$(git tag --points-at HEAD)" = "${{ inputs.tag }}"
 
       - name: Restore Boost submodule from cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache@v5
         with:
           path: |
             3party/boost
@@ -57,14 +53,6 @@ jobs:
         shell: bash
         run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
 
-# TODO: Commented for testing purposes, uncomment before merge
-#      - name: Restore release keys
-#        shell: bash
-#        run: |
-#          echo "$PRIVATE_H" | base64 -d > private.h
-#        env:
-#          PRIVATE_H: ${{ secrets.PRIVATE_H }}
-
       - name: Configure repository
         shell: bash
         run: ./configure.sh
@@ -73,18 +61,17 @@ jobs:
         shell: bash
         run: echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
 
-      - name: Publish Android SDK to local Maven repo
+      - name: Build and deploy the Android SDK to Maven Central
         shell: bash
         working-directory: android
-        run: ./gradlew publishSdk
-
-      - name: Deploy Android SDK artifacts to Maven Central
-        shell: bash
-        working-directory: android
+        # The SDK is built with the repository's default private.h (public keys); the app's
+        # production secrets are intentionally not injected into the published artifacts.
+        # nmcp bundles all SDK modules into one deployment that must be released manually
+        # from the Central Portal (publishingType = USER_MANAGED in settings.gradle).
         env:
-          JRELEASER_GPG_PASSPHRASE: ${{ secrets.JRELEASER_GPG_PASSPHRASE }}
-          JRELEASER_GPG_PUBLIC_KEY: ${{ secrets.JRELEASER_GPG_PUBLIC_KEY }}
-          JRELEASER_GPG_SECRET_KEY: ${{ secrets.JRELEASER_GPG_SECRET_KEY }}
-          JRELEASER_MAVENCENTRAL_SONATYPE_USERNAME: ${{ secrets.JRELEASER_MAVENCENTRAL_SONATYPE_USERNAME }}
-          JRELEASER_MAVENCENTRAL_SONATYPE_PASSWORD: ${{ secrets.JRELEASER_MAVENCENTRAL_SONATYPE_PASSWORD }}
-        run: ./gradlew jreleaserDeploy
+          MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          MAVEN_CENTRAL_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.MAVEN_SIGNING_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.MAVEN_SIGNING_KEY_ID }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.MAVEN_SIGNING_KEY_PASSWORD }}
+        run: ./gradlew publishAggregationToCentralPortal

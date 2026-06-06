@@ -11,8 +11,7 @@ android {
 }
 
 Publish(project, [
-    'artifactId'   : 'maps-world',
-    'name'         : 'Organic Maps SDK. World Maps',
-    'description'  : 'A library that provides world maps for the app',
-    'inceptionYear': '2026'
+    'artifactId' : 'maps-world',
+    'name'       : 'Organic Maps SDK. World Maps',
+    'description': 'A library that provides world maps for the Organic Maps SDK'
 ])

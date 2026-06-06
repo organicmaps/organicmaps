@@ -16,8 +16,7 @@ dependencies {
 }
 
 Publish(project, [
-    'artifactId'   : 'location-core',
-    'name'         : 'Organic Maps SDK. Location module',
-    'description'  : 'A library that provides core location services for the app',
-    'inceptionYear': '2026'
+    'artifactId' : 'location-core',
+    'name'       : 'Organic Maps SDK. Location module',
+    'description': 'A library that provides core location services for the Organic Maps SDK'
 ])

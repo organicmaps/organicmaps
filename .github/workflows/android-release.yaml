@@ -280,3 +280,6 @@ jobs:
     needs: tag
     with:
       tag: ${{ needs.tag.outputs.tag }}
+    # The reusable workflow reads the Maven Central and signing secrets directly, so the
+    # caller must forward them; without this they would be empty on the release path.
+    secrets: inherit
