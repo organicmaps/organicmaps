@@ -10,6 +10,7 @@
 
 #include "drape/color.hpp"
 
+#include <functional>
 #include <optional>
 #include <vector>
 
@@ -17,6 +18,11 @@ namespace storage
 {
 class CountryInfoGetter;
 }  // namespace storage
+
+namespace df
+{
+struct RelationsDrawSettings;
+}  // namespace df
 
 /// Builds track geometry from a route relation, starting from a specific feature
 /// and growing the chain in both directions using endpoint matching.
@@ -82,7 +88,7 @@ public:
                        storage::CountryInfoGetter const * infoGetter = nullptr);
 
   /// Builds relation track candidates metadata.
-  std::vector<Metadata> BuildMetadata();
+  void ForEachMetadata(std::function<void(Metadata &&)> const & fn, df::RelationsDrawSettings const & sett);
   /// Builds full relation track geometry.
   std::optional<Data> Build(RelationID const & relationId);
 
