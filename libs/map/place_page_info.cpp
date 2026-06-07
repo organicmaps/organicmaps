@@ -107,6 +107,14 @@ Desc const * Find(CoordinatesFormat format)
       return &d;
   return nullptr;
 }
+
+// Region-gate, then format the value, from an already-resolved descriptor.
+std::optional<std::string> FormatValue(Desc const & d, ms::LatLon ll, std::string_view regionId)
+{
+  if (d.m_inRegion && !d.m_inRegion(regionId))
+    return std::nullopt;
+  return d.m_value(ll);
+}
 }  // namespace
 
 std::vector<CoordinatesFormat> const & AllCoordinateFormats()
@@ -125,17 +133,17 @@ std::vector<CoordinatesFormat> const & AllCoordinateFormats()
 std::optional<std::string> FormatCoordinateValue(CoordinatesFormat format, ms::LatLon ll, std::string_view regionId)
 {
   auto const * d = Find(format);
-  if (!d || (d->m_inRegion && !d->m_inRegion(regionId)))
-    return std::nullopt;
-  return d->m_value(ll);
+  return d ? FormatValue(*d, ll, regionId) : std::nullopt;
 }
 
 std::optional<std::string> FormatCoordinateDisplay(CoordinatesFormat format, ms::LatLon ll, std::string_view regionId)
 {
-  auto const value = FormatCoordinateValue(format, ll, regionId);
+  auto const * d = Find(format);
+  if (!d)
+    return std::nullopt;
+  auto const value = FormatValue(*d, ll, regionId);
   if (!value)
     return std::nullopt;
-  auto const * d = Find(format);
   return d->m_label ? std::string(d->m_label) + ": " + *value : *value;
 }
 
