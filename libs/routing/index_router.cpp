@@ -374,9 +374,10 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
 
       // Compute a Shortest-strategy alternative alongside the Normal route. Only on a full (non-adjust)
       // build and only within a reasonable distance budget — alt computation roughly doubles latency.
+      // Transit has no meaningful Shortest alternative (route is fixed by the transit network).
       double const altMaxDistanceM = m_vehicleType == VehicleType::Car ? 300'000.0 : 100'000.0;
       if ((code == RouterResultCode::NoError || code == RouterResultCode::HasWarnings) && !delegate.IsCancelled() &&
-          mercator::DistanceOnEarth(startPoint, finalPoint) <= altMaxDistanceM)
+          m_vehicleType != VehicleType::Transit && mercator::DistanceOnEarth(startPoint, finalPoint) <= altMaxDistanceM)
       {
         // Save the Normal route's adjust-cache; the Shortest computation would overwrite it.
         auto savedLastRoute = std::move(m_lastRoute);
