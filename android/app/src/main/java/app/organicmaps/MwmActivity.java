@@ -1130,7 +1130,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
     LocationState.nativeSetListener(this);
     MwmApplication.from(this).getLocationHelper().addListener(this);
     mSearchController.attach(this);
-    Utils.keepScreenOn(Config.isKeepScreenOnEnabled() || RoutingController.get().isNavigating(), getWindow());
+    Utils.keepScreenOn(Config.isKeepScreenOnEnabled() || shouldKeepScreenOnForNavigation(), getWindow());
+  }
+
+  /**
+   * Whether the screen must be forced on for the whole navigation session.
+   * This is only the case when the power saving mode is set to "Never"
+   * ({@link PowerManagment#NORMAL}). When power saving is "Always" or "When battery is low",
+   * the screen is allowed to turn off following the system timeout and is woken up
+   * by {@link app.organicmaps.routing.NavigationService} on each turn-by-turn announcement.
+   */
+  private boolean shouldKeepScreenOnForNavigation()
+  {
+    return RoutingController.get().isNavigating() && PowerManagment.getScheme() == PowerManagment.NORMAL;
   }
 
   @Override
@@ -1607,7 +1619,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     requestPostNotificationsPermission();
     NavigationService.startForegroundService(this);
-    Utils.keepScreenOn(true, getWindow());
+    Utils.keepScreenOn(Config.isKeepScreenOnEnabled() || shouldKeepScreenOnForNavigation(), getWindow());
   }
 
   @Override

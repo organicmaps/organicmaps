@@ -17,6 +17,7 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Build;
 import android.os.IBinder;
+import android.os.PowerManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
@@ -39,6 +40,7 @@ import app.organicmaps.sdk.sound.TtsPlayer;
 import app.organicmaps.sdk.util.Assert;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.Graphics;
+import app.organicmaps.sdk.util.PowerManagment;
 import app.organicmaps.sdk.util.log.Logger;
 
 public class NavigationService extends Service implements LocationListener
@@ -278,8 +280,15 @@ public class NavigationService extends Service implements LocationListener
 
     // Voice the turn notification first.
     final String[] turnNotifications = Framework.nativeGenerateNotifications(Config.TTS.getAnnounceStreets());
-    if (turnNotifications != null)
+    if (turnNotifications != null && turnNotifications.length > 0)
+    {
       TtsPlayer.INSTANCE.playTurnNotifications(turnNotifications);
+      // When power saving is enabled the screen is allowed to turn off during navigation
+      // (see MwmActivity.shouldKeepScreenOnForNavigation()). Wake it up on every turn-by-turn
+      // announcement so the user can see the current position and route during the maneuver.
+      if (PowerManagment.getScheme() != PowerManagment.NORMAL)
+        wakeScreenForTurnNotification();
+    }
 
     // TODO: consider to create callback mechanism to transfer 'ROUTE_IS_FINISHED' event from
     // the core to the platform code (https://github.com/organicmaps/organicmaps/issues/3589),
@@ -331,5 +340,29 @@ public class NavigationService extends Service implements LocationListener
 
     // The notification object must be re-created for every update.
     NotificationManagerCompat.from(this).notify(NOTIFICATION_ID, notificationBuilder.build());
+  }
+
+  /**
+   * Briefly turns the device screen on so the user can see the current position and route
+   * during a turn-by-turn maneuver. The screen is woken up with or shortly before the
+   * announcement and turns off again on its own after the system's default display timeout,
+   * because the wake lock is released immediately with ON_AFTER_RELEASE.
+   */
+  private void wakeScreenForTurnNotification()
+  {
+    final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+    if (pm == null)
+      return;
+
+    // SCREEN_BRIGHT_WAKE_LOCK is deprecated but remains the only way to turn the screen on
+    // from a background service. ACQUIRE_CAUSES_WAKEUP wakes the screen immediately;
+    // ON_AFTER_RELEASE lets the system's normal screen-off timeout start counting on release.
+    @SuppressWarnings("deprecation")
+    final PowerManager.WakeLock wakeLock =
+        pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP
+                           | PowerManager.ON_AFTER_RELEASE,
+                       TAG + ":turnNotification");
+    wakeLock.acquire();
+    wakeLock.release();
   }
 }
