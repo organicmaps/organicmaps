@@ -78,7 +78,7 @@ UNIT_TEST(CoordinateFormats_Availability)
   TEST(!Available(CoordinatesFormat::OSGB, kDublin, "Ireland_Leinster"), ());
   TEST(!Available(CoordinatesFormat::OSGB, kParis, "France"), ());
 
-  // UTM/MGRS exist everywhere except beyond their valid latitudes (no user-visible "N/A" any more).
+  // UTM/MGRS are available everywhere except beyond their valid latitudes (|lat| > 84); past that the row is absent.
   TEST(Available(CoordinatesFormat::UTM, kLondon, "UK_England_Greater London"), ());
   TEST(Available(CoordinatesFormat::MGRS, kLondon, "UK_England_Greater London"), ());
   TEST(!Available(CoordinatesFormat::UTM, kNorthPole, noRegion), ());
@@ -96,12 +96,12 @@ UNIT_TEST(CoordinateFormats_Availability)
   }
 }
 
-// Structural invariants of the display string, including the deliberate behaviour deltas D1-D3.
+// Structural invariants of the display string: separators, and the "<label>: <value>" composition.
 UNIT_TEST(CoordinateFormats_Structure)
 {
   std::string_view const region = "UK_England_Greater London";
 
-  // D1: the DMS string has no comma between lat and lon (the single source dropped it).
+  // The DMS string separates lat and lon with a space, not a comma.
   TEST_EQUAL(Display(CoordinatesFormat::LatLonDMS, kLondon, region).find(','), std::string::npos, ());
   // The decimal string keeps the comma separator.
   TEST_NOT_EQUAL(Display(CoordinatesFormat::LatLonDecimal, kLondon, region).find(", "), std::string::npos, ());
@@ -134,8 +134,8 @@ UNIT_TEST(CoordinateFormats_Structure)
   }
 }
 
-// Golden display strings - the regression net. Pinned to the current formatter output; the DMS
-// string uses D1 (space, not comma, between lat and lon).
+// Golden display strings - the regression net, pinned to the current formatter output (the DMS
+// string separates lat and lon with a space).
 UNIT_TEST(CoordinateFormats_GoldenStrings)
 {
   std::string_view const london = "UK_England_Greater London";
@@ -152,7 +152,7 @@ UNIT_TEST(CoordinateFormats_GoldenStrings)
   TEST_EQUAL(Display(CoordinatesFormat::UTM, kEdinburgh, edinburgh), "UTM: 30U 488242 6200898", ());
   TEST_EQUAL(Display(CoordinatesFormat::OSGB, kEdinburgh, edinburgh), "OSGB: NT 2589 7400", ());
 
-  // D2: at the pole the region-independent formats still work; UTM/MGRS/OSGB drop out (no "N/A").
+  // At the pole the region-independent formats still work; UTM/MGRS/OSGB drop out (no "N/A" row).
   TEST_EQUAL(Display(CoordinatesFormat::LatLonDecimal, kNorthPole, ""), "85, 10", ());
   TEST_EQUAL(Display(CoordinatesFormat::UTM, kNorthPole, ""), "<unavailable>", ());
 }

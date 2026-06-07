@@ -38,8 +38,9 @@ std::optional<std::string> NonEmpty(std::string s)
   return s.empty() ? std::nullopt : std::optional(std::move(s));
 }
 
-// Each value wrapper reproduces the exact string the place page showed before this registry existed.
-// Returns nullopt only when the format has no value at this point (never a user-visible "N/A").
+// Each wrapper formats one coordinate system's value for the given point. Returns nullopt when the
+// format has no value there (e.g. UTM/MGRS beyond their latitude limits); the place page then hides
+// the row rather than showing a literal "N/A".
 std::optional<std::string> ValueDMS(ms::LatLon ll)
 {
   return measurement_utils::FormatLatLonAsDMS(ll.m_lat, ll.m_lon, false /* withComma */, 2);
