@@ -3,31 +3,20 @@ package app.organicmaps.routing;
 import static androidx.recyclerview.widget.ItemTouchHelper.DOWN;
 import static androidx.recyclerview.widget.ItemTouchHelper.UP;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.sdk.Framework;
-import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.Assert;
-import app.organicmaps.sdk.util.log.Logger;
-import app.organicmaps.search.SearchActivity;
-import app.organicmaps.util.UiUtils;
 import java.util.ArrayList;
 
 public class ManageRouteController implements ManageRouteAdapter.ManageRouteListener
@@ -138,6 +127,11 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     private final ManageRouteAdapter mManageRouteAdapter;
     private final ManageRouteController mController;
     private boolean mOrderChanged = false;
+    // Snapshot of the route-point reference order captured when the drag starts. Used on drop to skip the
+    // native rebuild if the user dragged around but ended at the original order (e.g. picked up an item and
+    // dropped it back where it was).
+    @Nullable
+    private ArrayList<RouteMarkData> mDragStartOrder;
 
     public ManageRouteItemTouchHelperCallback(ManageRouteAdapter adapter, ManageRouteController controller)
     {
@@ -168,6 +162,7 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     {
       if (viewHolder != null && actionState == ItemTouchHelper.ACTION_STATE_DRAG)
       {
+        mDragStartOrder = new ArrayList<>(mManageRouteAdapter.getRoutePoints());
         viewHolder.itemView.setTranslationX(-10f);
         viewHolder.itemView.setTranslationZ(6f);
       }
@@ -193,7 +188,7 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
       if (target.getBindingAdapterPosition() == mManageRouteAdapter.getItemCount() - 1)
         return false;
       mManageRouteAdapter.moveRoutePoint(viewHolder, target);
-      mOrderChanged = true;
+      mOrderChanged = isOrderDifferentFromDragStart();
       return true;
     }
 
@@ -212,6 +207,22 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
         mController.onRouteOrderChanged();
         mOrderChanged = false;
       }
+      mDragStartOrder = null;
+    }
+
+    private boolean isOrderDifferentFromDragStart()
+    {
+      if (mDragStartOrder == null)
+        return true;
+      ArrayList<RouteMarkData> current = mManageRouteAdapter.getRoutePoints();
+      if (current.size() != mDragStartOrder.size())
+        return true;
+      for (int i = 0; i < current.size(); i++)
+      {
+        if (current.get(i) != mDragStartOrder.get(i))
+          return true;
+      }
+      return false;
     }
   }
 }
