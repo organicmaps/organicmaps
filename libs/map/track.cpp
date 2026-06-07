@@ -204,11 +204,13 @@ void Track::ForEachGeometry(GeometryFnT && fn) const
 void Track::Attach(kml::MarkGroupId groupId)
 {
   ASSERT_EQUAL(m_groupID, kml::kInvalidMarkGroupId, ());
+  m_isDirty = true;
   m_groupID = groupId;
 }
 
 void Track::Detach()
 {
+  m_isDirty = true;
   m_groupID = kml::kInvalidMarkGroupId;
 }
 

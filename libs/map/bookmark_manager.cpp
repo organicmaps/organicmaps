@@ -525,6 +525,7 @@ void BookmarkManager::MoveTrack(kml::TrackId trackID, kml::MarkGroupId curGroupI
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   DetachTrack(trackID, curGroupID);
   AttachTrack(trackID, newGroupID);
+  m_changesTracker.OnUpdateLine(trackID);
 
   SetLastEditedBmCategory(newGroupID);
 }
