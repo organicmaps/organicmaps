@@ -1,12 +1,7 @@
 name: Android SDK Release
 on:
-  workflow_dispatch:  # Manual trigger
-    inputs:
-      tag:
-        description: 'Release tag'
-        required: true
-        type: string
-  workflow_call: # For calling from another workflow
+  # SDK releases are intentionally decoupled from app releases and triggered manually.
+  workflow_dispatch:
     inputs:
       tag:
         description: 'Release tag'
