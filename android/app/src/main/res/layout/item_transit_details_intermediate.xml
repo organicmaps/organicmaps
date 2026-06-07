@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A user-added intermediate point (Add Stop) shown between two route legs, with the same numbered
+     badge used on the summary strip so the strip and the expanded details stay consistent. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_marginTop="@dimen/margin_half"
+  android:orientation="horizontal"
+  android:gravity="center_vertical"
+  android:paddingStart="@dimen/margin_base"
+  android:paddingEnd="@dimen/margin_base">
+
+  <app.organicmaps.routing.TransitStepView
+    android:id="@+id/intermediate_badge"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/routing_transit_step_min_height"
+    android:textSize="@dimen/text_size_body_1"
+    android:textColor="@android:color/white"
+    android:paddingStart="@dimen/margin_quarter"
+    android:paddingEnd="@dimen/margin_quarter"/>
+
+  <TextView
+    android:id="@+id/intermediate_label"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_half_plus"
+    android:textAppearance="?fontBody1"
+    android:textColor="?android:attr/textColorPrimary"
+    tools:text="Stop 1"/>
+</LinearLayout>
