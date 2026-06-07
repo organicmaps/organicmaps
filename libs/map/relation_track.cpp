@@ -238,22 +238,14 @@ RelationTrackBuilder::RelationTrackBuilder(DataSource const & dataSource, Featur
   , m_infoGetter(infoGetter)
 {}
 
-std::vector<RelationTrackBuilder::Metadata> RelationTrackBuilder::BuildMetadata()
+void RelationTrackBuilder::ForEachMetadata(std::function<void(Metadata &&)> const & fn,
+                                           df::RelationsDrawSettings const & sett)
 {
-  df::RelationsDrawSettings sett;
-  sett.Load();
-  if (sett.IsEmpty())
-    return {};
-
   FeaturesLoaderGuard guard(m_dataSource, m_fid.m_mwmId);
   auto ft = guard.GetFeatureByIndex(m_fid.m_index);
   ASSERT(ft, ());
 
-  auto const & relIDs = ft->GetRelations();
-  std::vector<Metadata> result;
-  result.reserve(relIDs.size());
-
-  for (uint32_t const relID : relIDs)
+  for (uint32_t const relID : ft->GetRelations())
   {
     if (!sett.MatchHikingOrCycling(ft->ReadRelationType(relID)))
       continue;
@@ -262,11 +254,10 @@ std::vector<RelationTrackBuilder::Metadata> RelationTrackBuilder::BuildMetadata(
 
     Metadata info;
     info.m_relationId = {m_fid.m_mwmId, relID};
-    info.m_name = std::string(rel.GetDefaultName());
+    info.m_name = rel.GetDefaultName();
     info.m_color = rel.GetColor();
-    result.emplace_back(info);
+    fn(std::move(info));
   }
-  return result;
 }
 
 std::optional<RelationTrackBuilder::Data> RelationTrackBuilder::Build(RelationID const & relationId)

@@ -730,31 +730,41 @@ search::ReverseGeocoder::Address Framework::GetAddressAtPoint(m2::PointD const &
 std::vector<Track::TrackSelectionInfo> Framework::FindRelationTracksInTapPosition(
     std::vector<std::pair<double, FeatureID>> const & lineCandidates, m2::PointD const & mercator)
 {
-  std::vector<Track::TrackSelectionInfo> selectionCandidates;
-  selectionCandidates.reserve(lineCandidates.size());
+  std::vector<Track::TrackSelectionInfo> candidates;
 
-  for (auto const & [dist, fid] : lineCandidates)
+  df::RelationsDrawSettings sett;
+  sett.Load();
+  if (sett.IsEmpty())
+    return candidates;
+
+  for (auto const & [_, fid] : lineCandidates)
   {
     if (!fid.IsValid())
       continue;
 
+    // No problem with multiple instances here - ctor is fast.
+    auto const currSize = candidates.size();
     RelationTrackBuilder builder(m_featuresFetcher.GetDataSource(), fid, m_infoGetter.get());
-    auto const relationTracksMetadata = builder.BuildMetadata();
-    for (auto const & metadata : relationTracksMetadata)
+    builder.ForEachMetadata([&](RelationTrackBuilder::Metadata && metadata)
     {
+      // Filter duplicates from previous lineCandidates Features.
+      for (size_t i = 0; i < currSize; ++i)
+        if (metadata.m_relationId == candidates[i].m_relationId)
+          return;
+
       Track::TrackSelectionInfo trackSelInfo;
       trackSelInfo.m_trackId = kml::kTempRelationTrackId;
       trackSelInfo.m_trackPoint = mercator;
-      trackSelInfo.m_relationId = metadata.m_relationId;
-      trackSelInfo.m_title = metadata.m_name;
+      trackSelInfo.m_relationId = std::move(metadata.m_relationId);
+      trackSelInfo.m_title = std::move(metadata.m_name);
       trackSelInfo.m_color = metadata.m_color;
       UpdateTrackSelectionColor(trackSelInfo.m_color);
       ASSERT(trackSelInfo.IsValid(), ());
-      selectionCandidates.push_back(std::move(trackSelInfo));
-    }
+      candidates.push_back(std::move(trackSelInfo));
+    }, sett);
   }
 
-  return selectionCandidates;
+  return candidates;
 }
 
 std::optional<kml::TrackData> Framework::TryBuildRelationTrack(Track::TrackSelectionInfo const & trackSelectionInfo)
