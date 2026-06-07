@@ -24,11 +24,16 @@ import java.util.Set;
  * Renders the per-leg transit route breakdown: one row per leg, showing boarding stop, line badge,
  * stop count + time, and exit stop. The intermediate stops are collapsed until the rider taps the
  * stop-count summary. Walk legs are rendered as a single row.
+ *
+ * A user-added intermediate point (Add Stop) is rendered as its own numbered badge row between the
+ * legs, mirroring the badges on the summary strip so the strip and the expanded details match. It
+ * also explains why a continuous walk is split into two rows around the dropped point.
  */
 public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
   private static final int TYPE_WALK = 0;
   private static final int TYPE_RIDE = 1;
+  private static final int TYPE_INTERMEDIATE = 2;
 
   @NonNull
   private final List<TransitStepInfo> mItems = new ArrayList<>();
@@ -47,12 +52,11 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
   {
     mItems.clear();
     mExpanded.clear();
-    // The detail view only shows walks and transit rides. Intermediate-point markers and ruler
-    // segments are not meaningful at this level of detail.
+    // The detail view shows walks, transit rides, and the user's intermediate points (Add Stop).
+    // Ruler segments are not meaningful at this level of detail.
     for (TransitStepInfo info : items)
     {
-      TransitStepType type = info.getType();
-      if (type == TransitStepType.INTERMEDIATE_POINT || type == TransitStepType.RULER)
+      if (info.getType() == TransitStepType.RULER)
         continue;
       mItems.add(info);
     }
@@ -62,7 +66,12 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
   @Override
   public int getItemViewType(int position)
   {
-    return mItems.get(position).getType() == TransitStepType.PEDESTRIAN ? TYPE_WALK : TYPE_RIDE;
+    return switch (mItems.get(position).getType())
+    {
+      case PEDESTRIAN -> TYPE_WALK;
+      case INTERMEDIATE_POINT -> TYPE_INTERMEDIATE;
+      default -> TYPE_RIDE;
+    };
   }
 
   @NonNull
@@ -72,6 +81,8 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     LayoutInflater inflater = LayoutInflater.from(parent.getContext());
     if (viewType == TYPE_WALK)
       return new WalkViewHolder(inflater.inflate(R.layout.item_transit_details_walk, parent, false));
+    if (viewType == TYPE_INTERMEDIATE)
+      return new IntermediateViewHolder(inflater.inflate(R.layout.item_transit_details_intermediate, parent, false));
     RideViewHolder holder = new RideViewHolder(inflater.inflate(R.layout.item_transit_details_ride, parent, false));
     holder.mSummaryRow.setOnClickListener(v -> toggleExpanded(holder.getBindingAdapterPosition()));
     return holder;
@@ -94,24 +105,34 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     TransitStepInfo info = mItems.get(position);
     if (holder instanceof WalkViewHolder)
       ((WalkViewHolder) holder).bind(info);
+    else if (holder instanceof IntermediateViewHolder)
+      ((IntermediateViewHolder) holder).bind(info);
     else if (holder instanceof RideViewHolder)
     {
       // Each ride is headed by its boarding stop. When the previous row was already a ride, this is a
       // same-station transfer, so the heading reads "Transfer at <stop>" instead of "Board at <stop>".
-      boolean prevIsRide = position > 0 && mItems.get(position - 1).getType() != TransitStepType.PEDESTRIAN;
+      boolean prevIsRide = isRide(position - 1);
       // The exit stop is only drawn when the next row is not a ride: a direct transfer's stop is
       // already shown as the next ride's heading, so repeating it at this leg's foot would duplicate it.
-      boolean nextIsRide =
-          position + 1 < mItems.size() && mItems.get(position + 1).getType() != TransitStepType.PEDESTRIAN;
+      boolean nextIsRide = isRide(position + 1);
       ((RideViewHolder) holder).bind(info, prevIsRide, nextIsRide, isLastRide(position), mExpanded.contains(position));
     }
+  }
+
+  // A transit ride is any leg that is neither a walk nor a user-added intermediate point.
+  private boolean isRide(int position)
+  {
+    if (position < 0 || position >= mItems.size())
+      return false;
+    TransitStepType type = mItems.get(position).getType();
+    return type != TransitStepType.PEDESTRIAN && type != TransitStepType.INTERMEDIATE_POINT;
   }
 
   private boolean isLastRide(int position)
   {
     for (int i = position + 1; i < mItems.size(); i++)
     {
-      if (mItems.get(i).getType() != TransitStepType.PEDESTRIAN)
+      if (isRide(i))
         return false;
     }
     return true;
@@ -143,6 +164,29 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
       if (info.getDistance() != null && !info.getDistance().isEmpty())
         text.append(" · ").append(info.getDistance()).append(' ').append(info.getDistanceUnits());
       mText.setText(text);
+    }
+  }
+
+  static class IntermediateViewHolder extends RecyclerView.ViewHolder
+  {
+    @NonNull
+    private final TransitStepView mBadge;
+    @NonNull
+    private final TextView mLabel;
+
+    IntermediateViewHolder(@NonNull View itemView)
+    {
+      super(itemView);
+      mBadge = itemView.findViewById(R.id.intermediate_badge);
+      mLabel = itemView.findViewById(R.id.intermediate_label);
+    }
+
+    void bind(@NonNull TransitStepInfo info)
+    {
+      // The badge shows the waypoint number (index + 1), matching the summary strip.
+      mBadge.setTransitStepInfo(info);
+      mLabel.setText(
+          itemView.getContext().getString(R.string.transit_intermediate_stop, info.getIntermediateIndex() + 1));
     }
   }
 
