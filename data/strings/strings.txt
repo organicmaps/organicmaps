@@ -44396,6 +44396,11 @@ vi = Đi bộ
 zh-Hans = 步行
 zh-Hant = 步行
 
+[transit_intermediate_stop]
+comment = Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1).
+tags = android-app
+en = Stop %1$d
+
 [transit_stops_count]
 comment = Number of stops ridden on a single transit line.
 tags = android-app
