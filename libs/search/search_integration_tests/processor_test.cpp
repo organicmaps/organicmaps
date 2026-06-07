@@ -1214,6 +1214,36 @@ UNIT_CLASS_TEST(ProcessorTest, SearchCoordinates)
   }
 }
 
+UNIT_CLASS_TEST(ProcessorTest, SearchCoordinatesIrish)
+{
+  // The Irish Grid and ITM are "weak" coordinate matches: a valid in-range reference is shown as a
+  // coordinate at the top of the results, but the normal search still runs - so a query that merely
+  // looks like one is never hijacked. Here a POI shares the query text, so both must come back.
+  TestPOI poi(mercator::FromLatLon(53.35, -6.26), "O 152 345", "en");  // On the island of Ireland.
+  BuildCountry("Ireland", [&](TestMwmBuilder & builder) { builder.Add(poi); });
+  SetViewport(m2::RectD(mercator::FromLatLon(51.0, -11.0), mercator::FromLatLon(56.0, -5.0)));
+
+  // Weak (Irish Grid) match: the coordinate is first, AND the POI is still found by the normal search.
+  {
+    auto const request = MakeRequest("O 152 345");
+    auto const & results = request->Results();
+    TEST_GREATER_OR_EQUAL(results.size(), 2, (results));
+    TEST_EQUAL(results[0].GetResultType(), Result::Type::LatLon, (results));
+    bool poiFound = false;
+    for (auto const & r : results)
+      poiFound = poiFound || (r.GetResultType() != Result::Type::LatLon && r.GetString() == "O 152 345");
+    TEST(poiFound, (results));
+  }
+
+  // Strong (decimal) match still suppresses the normal search, even though the POI is present.
+  {
+    auto const request = MakeRequest("53.35, -6.26");
+    auto const & results = request->Results();
+    TEST_EQUAL(results.size(), 1, (results));
+    TEST_EQUAL(results[0].GetResultType(), Result::Type::LatLon, ());
+  }
+}
+
 UNIT_CLASS_TEST(ProcessorTest, FuzzyMatch)
 {
   string const countryName = "Wonderland";

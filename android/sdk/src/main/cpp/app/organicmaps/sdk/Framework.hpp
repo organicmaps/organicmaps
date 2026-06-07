@@ -35,17 +35,6 @@ struct EverywhereSearchParams;
 
 namespace android
 {
-enum CoordinatesFormat  // See Java enum app.organicmaps.widget.placepage.CoordinatesFormat for all possible values.
-{
-  LatLonDMS = 0,      // Latitude, Longitude in degrees minutes seconds format, comma separated
-  LatLonDecimal = 1,  // Latitude, Longitude in decimal format, comma separated
-  OLCFull = 2,        // Open location code, full format
-  OSMLink = 3,        // Link to the OSM. E.g. https://osm.org/go/xcXjyqQlq-?m=
-  UTM = 4,            // Universal Transverse Mercator
-  MGRS = 5,           // Military Grid Reference System
-  OSGB = 6            // British National Grid (OS Grid), Great Britain only
-};
-
 // Keep in sync `public @interface ChoosePositionMode`in Framework.java.
 enum class ChoosePositionMode
 {

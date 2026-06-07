@@ -14,9 +14,12 @@
 #include "indexer/feature_source.hpp"
 #include "indexer/map_object.hpp"
 
+#include "geometry/latlon.hpp"
 #include "geometry/point2d.hpp"
 
+#include <optional>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace place_page
@@ -31,16 +34,33 @@ enum class OpeningMode
   Full
 };
 
+// Stable, persisted ids shared by all platforms (Android pref, iOS UserDefaults). NEVER reorder or
+// reuse a value; append a new format with the next free id. This order is also the cycle/display
+// order on every platform - the single source of order is kDescs in the .cpp.
 enum class CoordinatesFormat
 {
-  LatLonDMS = 0,  // DMS, comma separated
-  LatLonDecimal,  // Decimal, comma separated
-  OLCFull,        // Open location code, long format
-  OSMLink,        // Link to osm.org
-  UTM,            // Universal Transverse Mercator
-  MGRS,           // Military Grid Reference System
-  OSGB            // British National Grid (OS Grid), Great Britain only
+  LatLonDMS = 0,      // Degrees-minutes-seconds, space separated
+  LatLonDecimal = 1,  // Decimal degrees, comma separated
+  OLCFull = 2,        // Open Location Code, long format
+  OSMLink = 3,        // Link to osm.org
+  UTM = 4,            // Universal Transverse Mercator
+  MGRS = 5,           // Military Grid Reference System
+  OSGB = 6,           // British National Grid (OS Grid), Great Britain and the Isle of Man only
+  IrishGrid = 7,      // Irish Grid (letter reference), Northern Ireland and the Republic of Ireland
+  ITM = 8             // Irish Transverse Mercator (numeric), Northern Ireland and the Republic of Ireland
 };
+
+// The coordinate formats in cycle/display order (currently == ascending id). Single source of order.
+std::vector<CoordinatesFormat> const & AllCoordinateFormats();
+
+// Bare coordinate value for the format, e.g. "51.507400, -0.127800", "SW 7400 4210".
+// nullopt if the format is unavailable here: UTM/MGRS beyond their valid latitudes (|lat| > 84),
+// or OSGB outside the region where it is the official reference (regionId fails IsOSGridRegion).
+std::optional<std::string> FormatCoordinateValue(CoordinatesFormat format, ms::LatLon ll, std::string_view regionId);
+
+// Display string: "<label>: <value>" for labelled formats (UTM/MGRS/OSGB), else the bare value.
+// nullopt when the format is unavailable here (same condition as FormatCoordinateValue).
+std::optional<std::string> FormatCoordinateDisplay(CoordinatesFormat format, ms::LatLon ll, std::string_view regionId);
 
 struct BuildInfo
 {
@@ -135,7 +155,8 @@ public:
 
   std::string const & GetWikiDescription() const { return m_wikiDescription; }
   std::string const & GetOSMDescription() const { return m_osmDescription; }
-  /// @returns coordinate in DMS format if isDMS is true
+  /// @returns the display string for the format (see FormatCoordinateDisplay), or empty if it is
+  /// unavailable at this location. Used by the iOS place page (which keeps the array id-indexed).
   std::string GetFormattedCoordinate(CoordinatesFormat format) const;
 
   /// UI setters

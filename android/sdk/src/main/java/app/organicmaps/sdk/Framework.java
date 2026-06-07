@@ -88,7 +88,21 @@ public class Framework
                                                                                double srcLat, double srcLon,
                                                                                double north);
 
-  public static native String nativeFormatLatLon(double lat, double lon, int coordFormat);
+  // Stable id of place_page::CoordinatesFormat::LatLonDecimal - the always-available default format.
+  // Keep in sync with the C++ enum in libs/map/place_page_info.hpp.
+  public static final int COORDINATES_FORMAT_DECIMAL = 1;
+
+  // Bare coordinate value ("SW 7400 4210") for the given stable format id (see place_page::CoordinatesFormat).
+  // Returns null if the format is unavailable at this location; used for copying and route point titles.
+  public static native String nativeFormatLatLon(double lat, double lon, int formatId);
+
+  // Composed display string with label ("OSGB: SW 7400 4210"). Null if the format is unavailable here.
+  public static native String nativeFormatCoordDisplay(double lat, double lon, int formatId);
+
+  // Stable ids of the formats available at this location, in display order. Never empty (decimal applies everywhere).
+  @NonNull
+  @Size(min = 1)
+  public static native int[] nativeGetAvailableCoordFormats(double lat, double lon);
 
   public static native String nativeFormatAltitude(double alt);
 

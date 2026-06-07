@@ -8,6 +8,7 @@
 
 #include "platform/distance.hpp"
 #include "platform/duration.hpp"
+#include "platform/irish_grid_utils.hpp"
 #include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/os_grid_utils.hpp"
@@ -19,10 +20,124 @@
 
 #include "base/assert.hpp"
 
+#include <iterator>
+#include <optional>
+#include <string>
+#include <string_view>
+#include <vector>
+
 #include "3party/open-location-code/openlocationcode.h"
 
 namespace place_page
 {
+namespace
+{
+// Wrap a formatter result: a non-empty string is the value, an empty one means "unavailable here".
+std::optional<std::string> NonEmpty(std::string s)
+{
+  return s.empty() ? std::nullopt : std::optional(std::move(s));
+}
+
+// Each value wrapper reproduces the exact string the place page showed before this registry existed.
+// Returns nullopt only when the format has no value at this point (never a user-visible "N/A").
+std::optional<std::string> ValueDMS(ms::LatLon ll)
+{
+  return measurement_utils::FormatLatLonAsDMS(ll.m_lat, ll.m_lon, false /* withComma */, 2);
+}
+std::optional<std::string> ValueDecimal(ms::LatLon ll)
+{
+  return measurement_utils::FormatLatLon(ll.m_lat, ll.m_lon, true /* withComma */, 6);
+}
+std::optional<std::string> ValueOLC(ms::LatLon ll)
+{
+  return openlocationcode::Encode({ll.m_lat, ll.m_lon});
+}
+std::optional<std::string> ValueOsmLink(ms::LatLon ll)
+{
+  return measurement_utils::FormatOsmLink(ll.m_lat, ll.m_lon, 14);
+}
+std::optional<std::string> ValueUTM(ms::LatLon ll)
+{
+  return NonEmpty(utm_mgrs_utils::FormatUTM(ll.m_lat, ll.m_lon));
+}
+std::optional<std::string> ValueMGRS(ms::LatLon ll)
+{
+  return NonEmpty(utm_mgrs_utils::FormatMGRS(ll.m_lat, ll.m_lon, 5));
+}
+std::optional<std::string> ValueOSGB(ms::LatLon ll)
+{
+  return NonEmpty(os_grid_utils::FormatOSGrid(ll.m_lat, ll.m_lon));
+}
+std::optional<std::string> ValueIrishGrid(ms::LatLon ll)
+{
+  return NonEmpty(irish_grid_utils::FormatIrishGrid(ll.m_lat, ll.m_lon));
+}
+std::optional<std::string> ValueITM(ms::LatLon ll)
+{
+  return NonEmpty(irish_grid_utils::FormatITM(ll.m_lat, ll.m_lon));
+}
+
+// One coordinate format's behaviour, declared in exactly one place. Adding a region format is one
+// row here (plus its platform/ helper and a search matcher); see the header enum for the id rules.
+struct Desc
+{
+  CoordinatesFormat m_id;
+  char const * m_label;                               // nullptr => no label, value shown as-is
+  std::optional<std::string> (*m_value)(ms::LatLon);  // nullopt => unavailable here (never "N/A")
+  bool (*m_inRegion)(std::string_view);               // nullptr => available in every region
+};
+
+// Order == cycle/display order on every platform (the single source of order).
+Desc const kDescs[] = {
+    {CoordinatesFormat::LatLonDMS, nullptr, &ValueDMS, nullptr},
+    {CoordinatesFormat::LatLonDecimal, nullptr, &ValueDecimal, nullptr},
+    {CoordinatesFormat::OLCFull, nullptr, &ValueOLC, nullptr},
+    {CoordinatesFormat::OSMLink, nullptr, &ValueOsmLink, nullptr},
+    {CoordinatesFormat::UTM, "UTM", &ValueUTM, nullptr},
+    {CoordinatesFormat::MGRS, "MGRS", &ValueMGRS, nullptr},
+    {CoordinatesFormat::OSGB, "OSGB", &ValueOSGB, &os_grid_utils::IsOSGridRegion},
+    {CoordinatesFormat::IrishGrid, "Irish Grid", &ValueIrishGrid, &irish_grid_utils::IsIrishGridRegion},
+    {CoordinatesFormat::ITM, "ITM", &ValueITM, &irish_grid_utils::IsIrishGridRegion},
+};
+
+Desc const * Find(CoordinatesFormat format)
+{
+  for (auto const & d : kDescs)
+    if (d.m_id == format)
+      return &d;
+  return nullptr;
+}
+}  // namespace
+
+std::vector<CoordinatesFormat> const & AllCoordinateFormats()
+{
+  static std::vector<CoordinatesFormat> const formats = []
+  {
+    std::vector<CoordinatesFormat> result;
+    result.reserve(std::size(kDescs));
+    for (auto const & d : kDescs)
+      result.push_back(d.m_id);
+    return result;
+  }();
+  return formats;
+}
+
+std::optional<std::string> FormatCoordinateValue(CoordinatesFormat format, ms::LatLon ll, std::string_view regionId)
+{
+  auto const * d = Find(format);
+  if (!d || (d->m_inRegion && !d->m_inRegion(regionId)))
+    return std::nullopt;
+  return d->m_value(ll);
+}
+
+std::optional<std::string> FormatCoordinateDisplay(CoordinatesFormat format, ms::LatLon ll, std::string_view regionId)
+{
+  auto const value = FormatCoordinateValue(format, ll, regionId);
+  if (!value)
+    return std::nullopt;
+  auto const * d = Find(format);
+  return d->m_label ? std::string(d->m_label) + ": " + *value : *value;
+}
 
 bool Info::IsBookmark() const
 {
@@ -392,49 +507,9 @@ kml::LocalizableString Info::FormatNewBookmarkName() const
   return bookmarkName;
 }
 
-std::string Info::GetFormattedCoordinate(CoordinatesFormat coordsFormat) const
+std::string Info::GetFormattedCoordinate(CoordinatesFormat format) const
 {
-  auto const & ll = GetLatLon();
-  auto const lat = ll.m_lat;
-  auto const lon = ll.m_lon;
-  switch (coordsFormat)
-  {
-  default:
-  case CoordinatesFormat::LatLonDMS:  // DMS, comma separated
-    return measurement_utils::FormatLatLonAsDMS(lat, lon, false /*withComma*/, 2);
-  case CoordinatesFormat::LatLonDecimal:  // Decimal, comma separated
-    return measurement_utils::FormatLatLon(lat, lon, true /* withComma */);
-  case CoordinatesFormat::OLCFull:  // Open location code, long format
-    return openlocationcode::Encode({lat, lon});
-  case CoordinatesFormat::OSMLink:  // Link to osm.org
-    return measurement_utils::FormatOsmLink(lat, lon, 14);
-  case CoordinatesFormat::UTM:  // Universal Transverse Mercator
-  {
-    std::string utmCoords = utm_mgrs_utils::FormatUTM(lat, lon);
-    if (utmCoords.empty())
-      return "UTM: N/A";
-    else
-      return "UTM: " + utmCoords;
-  }
-  case CoordinatesFormat::MGRS:  // Military Grid Reference System
-  {
-    std::string mgrsCoords = utm_mgrs_utils::FormatMGRS(lat, lon, 5);
-    if (mgrsCoords.empty())
-      return "MGRS: N/A";
-    else
-      return "MGRS: " + mgrsCoords;
-  }
-  case CoordinatesFormat::OSGB:  // British National Grid (OS Grid)
-  {
-    // The OS Grid is the official reference only in Great Britain and the Isle of Man; gate on the
-    // region, since the projection rectangle also covers Northern Ireland and the Republic of Ireland.
-    // Return empty (not "N/A") so the UI offers this format only where it applies.
-    if (!os_grid_utils::IsOSGridRegion(GetCountryId()))
-      return {};
-    std::string const osgbCoords = os_grid_utils::FormatOSGrid(lat, lon);
-    return osgbCoords.empty() ? std::string{} : "OSGB: " + osgbCoords;
-  }
-  }
+  return FormatCoordinateDisplay(format, GetLatLon(), GetCountryId()).value_or(std::string{});
 }
 
 void Info::SetRoadType(RoadWarningMarkType type, std::string const & localizedType, std::string const & distance)

@@ -5,6 +5,7 @@
 #include "search/common.hpp"
 #include "search/geometry_utils.hpp"
 #include "search/intermediate_result.hpp"
+#include "search/irish_grid_coords_match.hpp"
 #include "search/latlon_match.hpp"
 #include "search/mode.hpp"
 #include "search/os_grid_coords_match.hpp"
@@ -44,6 +45,7 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
+#include <optional>
 #include <sstream>
 
 #include "3party/open-location-code/openlocationcode.h"
@@ -587,6 +589,9 @@ void Processor::Search(SearchParams params)
 
     try
     {
+      // SearchCoordinates() always emits a pin for any coordinate it recognises, but only returns true
+      // for an unambiguous coordinate request; an ambiguous one (Irish Grid / ITM) returns false here
+      // so the normal search still runs, with the coordinate shown on top.
       if (!SearchCoordinates() && !SearchDebug())
       {
         SearchPlusCode();
@@ -655,37 +660,40 @@ bool Processor::SearchDebug()
   return false;
 }
 
+// Emits a result pin for every coordinate the query parses to, and returns whether the query was an
+// UNAMBIGUOUS coordinate request - i.e. whether the caller should skip the normal search.
+//
+// Strong matchers have a self-identifying signature (a decimal lat/lon, a UTM/MGRS zone, two OS Grid
+// letters, a ge0/geo: link): a hit means the query IS a coordinate, so we suppress the normal search.
+//
+// Weak matchers (single-letter Irish Grid, bare-numeric ITM) are easy to confuse with ordinary
+// queries. We still surface their coordinate at the top when the input is a valid in-range reference,
+// but we do NOT suppress the normal search - so a query that merely looks like one of them still gets
+// a full geocoder run, and a genuine reference simply appears as the first result above it.
 bool Processor::SearchCoordinates()
 {
-  bool coords_found = false;
-  buffer_vector<ms::LatLon, 4> results;
+  using CoordMatcher = std::optional<ms::LatLon> (*)(std::string const &);
+  static CoordMatcher const kStrongMatchers[] = {&MatchUTMCoords, &MatchMGRSCoords, &MatchOSGridCoords};
+  static CoordMatcher const kWeakMatchers[] = {&MatchIrishGridCoords, &MatchITMCoords};
+
+  bool strongMatch = false;
+  // 1 lat/lon + one per grid matcher + a few ge0/geo tokens.
+  buffer_vector<ms::LatLon, 8> results;
   double lat, lon;
 
   if (MatchLatLonDegree(m_query.m_query, lat, lon))
   {
-    coords_found = true;
+    strongMatch = true;
     results.emplace_back(lat, lon);
   }
 
-  auto ll = MatchUTMCoords(m_query.m_query);
-  if (ll)
+  for (auto const matcher : kStrongMatchers)
   {
-    coords_found = true;
-    results.emplace_back(ll->m_lat, ll->m_lon);
-  }
-
-  ll = MatchMGRSCoords(m_query.m_query);
-  if (ll)
-  {
-    coords_found = true;
-    results.emplace_back(ll->m_lat, ll->m_lon);
-  }
-
-  ll = MatchOSGridCoords(m_query.m_query);
-  if (ll)
-  {
-    coords_found = true;
-    results.emplace_back(ll->m_lat, ll->m_lon);
+    if (auto const ll = matcher(m_query.m_query))
+    {
+      strongMatch = true;
+      results.emplace_back(ll->m_lat, ll->m_lon);
+    }
   }
 
   std::istringstream iss(m_query.m_query);
@@ -696,17 +704,22 @@ bool Processor::SearchCoordinates()
     ge0::Ge0Parser::Result r;
     if (parser.Parse(token, r))
     {
-      coords_found = true;
+      strongMatch = true;
       results.emplace_back(r.m_lat, r.m_lon);
     }
 
     geo::GeoURLInfo info;
     if (m_geoUrlParser.Parse(token, info))
     {
-      coords_found = true;
+      strongMatch = true;
       results.emplace_back(info.m_lat, info.m_lon);
     }
   }
+
+  // Ambiguous formats: surface the coordinate but leave strongMatch unset, so the normal search runs too.
+  for (auto const matcher : kWeakMatchers)
+    if (auto const ll = matcher(m_query.m_query))
+      results.emplace_back(ll->m_lat, ll->m_lon);
 
   base::SortUnique(results);
   for (auto const & r : results)
@@ -715,7 +728,7 @@ bool Processor::SearchCoordinates()
         m_ranker.MakeResult(RankerResult(r.m_lat, r.m_lon), true /* needAddress */, true /* needHighlighting */));
     m_emitter.Emit();
   }
-  return coords_found;
+  return strongMatch;
 }
 
 void Processor::SearchPlusCode()
