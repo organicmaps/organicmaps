@@ -31,6 +31,7 @@
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
+#include "platform/irish_grid_utils.hpp"
 #include "platform/preferred_languages.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
@@ -716,10 +717,15 @@ bool Processor::SearchCoordinates()
     }
   }
 
-  // Ambiguous formats: surface the coordinate but leave strongMatch unset, so the normal search runs too.
+  // Ambiguous formats: surface the coordinate but leave strongMatch unset, so the normal search runs
+  // too. Both weak matchers are Irish, and their parsers no longer self-gate on geography, so confirm
+  // the point lies in an Irish-systems region - the same gate the place page applies. This keeps a
+  // stray in-range reference from dropping a pin in western Scotland or the sea, which the Irish Grid
+  // and ITM rectangles still reach.
   for (auto const matcher : kWeakMatchers)
     if (auto const ll = matcher(m_query.m_query))
-      results.emplace_back(ll->m_lat, ll->m_lon);
+      if (irish_grid_utils::IsIrishGridRegion(m_infoGetter.GetRegionCountryId(mercator::FromLatLon(*ll))))
+        results.emplace_back(ll->m_lat, ll->m_lon);
 
   base::SortUnique(results);
   for (auto const & r : results)

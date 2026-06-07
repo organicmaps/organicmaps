@@ -11,7 +11,8 @@ namespace search
 // letter, or a bare pair of numbers), so the processor treats these as "weak" matches: it shows the
 // resulting coordinate at the top when the input is a valid in-range reference, but it ALSO runs the
 // normal search, so a query that merely looks like one is never hijacked. Both return nullopt unless
-// the input is a well-formed reference that projects onto the island of Ireland.
+// the input is a well-formed in-range reference; whether the decoded point is actually in Ireland is
+// decided by the processor (by region), since these systems are offered only where they are official.
 
 // Irish Grid, e.g. "O 152 345" (6-figure or finer).
 std::optional<ms::LatLon> MatchIrishGridCoords(std::string const & query);

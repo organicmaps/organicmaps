@@ -79,8 +79,14 @@ UNIT_TEST(IrishGrid_Parse_Invalid)
   TEST(!ITMToLatLon(""), ());
   TEST(!ITMToLatLon("715830"), ());           // Single number.
   TEST(!ITMToLatLon("715830 734697 1"), ());  // Three numbers.
-  TEST(!ITMToLatLon("12 34"), ());            // Projects far outside Ireland.
-  TEST(!ITMToLatLon("999999 999999"), ());    // 6+6 but not on the island.
+}
+
+// The parsers do not gate on geography (the search processor does that, by region): a well-formed
+// in-grid reference resolves to a point even when it lies off the island, in the sea or W Scotland.
+UNIT_TEST(IrishGrid_Parse_OffIslandStillParses)
+{
+  TEST(IrishGridToLatLon("D 5200 6746"), ());  // Decodes across the North Channel into Scotland (Kintyre).
+  TEST(ITMToLatLon("999999 999999"), ());      // Well-formed 6+6 pair far off the island.
 }
 
 UNIT_TEST(IrishGrid_IsIrishGridRegion)

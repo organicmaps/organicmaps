@@ -36,17 +36,19 @@ int constexpr kDefaultFigures = 4;
 std::string FormatIrishGrid(double lat, double lon, int figures = kDefaultFigures);
 
 /* Parse an Irish Grid reference back to WGS84. Accepts spacing/case variants, e.g. "O 152 345",
- * "O152345", "o 15163 34468". Returns nullopt if the input is not a valid grid reference, or if it
- * resolves to a point off the island of Ireland (the lettered grid also covers the surrounding sea). */
+ * "O152345", "o 15163 34468". Returns nullopt only if the input is not a well-formed grid reference.
+ * A successful parse means a valid in-grid reference, not necessarily an on-land Irish point - the
+ * lettered grid extends into the sea and into western Scotland - so callers that need a real Irish
+ * location gate on the region (see IsIrishGridRegion). */
 std::optional<ms::LatLon> IrishGridToLatLon(std::string_view gridRef);
 
 /* WGS84 lat/lon -> ITM "easting northing" in metres (1 m), e.g. "715830 734697".
- * Returns empty outside Ireland (the projection itself is defined everywhere, so this is gated on a
- * generous island bounding box; the region gate is still the caller's job). */
+ * Returns empty outside a coarse Ireland bounding box (which also reaches western Scotland); that box
+ * is just a cheap pre-filter - the region gate is the caller's job. */
 std::string FormatITM(double lat, double lon);
 
-/* Parse an ITM "easting northing" pair (space- or comma-separated) back to WGS84. Returns nullopt if
- * it is not two integers or if it does not project back onto the island of Ireland. */
+/* Parse an ITM "easting northing" pair (space- or comma-separated) back to WGS84. Returns nullopt only
+ * if the input is not two integers; as with the Irish Grid, geographic validity is the caller's job. */
 std::optional<ms::LatLon> ITMToLatLon(std::string_view itm);
 
 /* True if regionId (an Organic Maps mwm region id) is one where the Irish systems are the official

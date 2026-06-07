@@ -55,8 +55,8 @@ UNIT_TEST(MatchIrishGridCoords_NoCoordinate)
   TEST(!MatchIrishGridCoords("I 1234 5678"), ());  // 'I' is not a valid grid letter.
   TEST(!MatchIrishGridCoords("12 345 678"), ());   // No leading letter.
 
-  // Valid letter and shape, but the reference falls in the sea off the island.
-  TEST(!MatchIrishGridCoords("E 9999 9999"), ());
+  // Geographic gating is the processor's job (by region), not the matcher's: a well-formed in-range
+  // reference still matches here even if it lies off the island - see the processor integration test.
 
   // An OS Grid reference (two letters) and an ITM pair (no letter) are handled elsewhere / separately.
   TEST(!MatchIrishGridCoords("SW 7400 4210"), ());
@@ -93,9 +93,7 @@ UNIT_TEST(MatchITMCoords_NoCoordinate)
   TEST(!MatchITMCoords("1234567 890123"), ());
   TEST(!MatchITMCoords("715830 734697 123456"), ());
 
-  // Correct 6+6 shape but the pair does not project onto the island of Ireland.
-  TEST(!MatchITMCoords("999999 999999"), ());
-  TEST(!MatchITMCoords("123456 789012"), ());
+  // (A correct 6+6 pair that lies off the island still matches here; the processor gates it by region.)
 
   // An Irish Grid reference and a UTM string are not ITM.
   TEST(!MatchITMCoords("O 152 345"), ());

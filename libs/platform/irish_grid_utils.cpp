@@ -27,9 +27,12 @@ geodesy::TMParams constexpr kITM{geodesy::kWgs84, 0.99982, DegToRad(53.5), DegTo
 // Irish Grid lettered area: a 5x5 array of 100 km squares, i.e. [0, 500 km) on each axis.
 double constexpr kIrishGridMax = 500000.0;
 
-// Generous bounding box of the island of Ireland. Used as a cheap pre-filter for the formatters and,
-// for the region-free search parsers, as the anti-collision gate that an input must project back into.
-bool InIreland(ms::LatLon const & ll)
+// Coarse bounding box around the island of Ireland. It is a generous rectangle, NOT a true island
+// test: its NE corner also reaches western Scotland (Kintyre, Arran, Islay) and it spans the
+// surrounding sea. It is only a cheap pre-filter for the formatters; the authoritative "is this format
+// official here" decision is the region check (IsIrishGridRegion), applied by the place page for
+// display and by the search processor for the region-free parsers.
+bool InIrelandBBox(ms::LatLon const & ll)
 {
   return ll.m_lat >= 51.0 && ll.m_lat <= 55.7 && ll.m_lon >= -11.0 && ll.m_lon <= -5.0;
 }
@@ -129,7 +132,7 @@ std::optional<geodesy::EN> IrishGridRefToEN(std::string_view gridRef)
 std::string FormatIrishGrid(double lat, double lon, int figures)
 {
   figures = math::Clamp(figures, 1, 5);
-  if (!InIreland({lat, lon}))
+  if (!InIrelandBBox({lat, lon}))
     return {};
 
   return ENToIrishGridRef(geodesy::LatLonToEN(Wgs84ToTm65({lat, lon}), kIrishGrid), figures);
@@ -141,17 +144,15 @@ std::optional<ms::LatLon> IrishGridToLatLon(std::string_view gridRef)
   if (!en)
     return {};
 
-  ms::LatLon const ll = Tm65ToWgs84(geodesy::ENToLatLon(*en, kIrishGrid));
-  // The lettered grid extends into the sea around Ireland; reject references off the island so a
-  // successful parse always yields a real on-island point.
-  if (!InIreland(ll))
-    return {};
-  return ll;
+  // Pure parse: a successful result only means a well-formed in-grid reference, not necessarily an
+  // on-land Irish point (the lettered grid extends into the sea and into western Scotland). Callers
+  // that need a real Irish location gate on the region (search does; see IsIrishGridRegion).
+  return Tm65ToWgs84(geodesy::ENToLatLon(*en, kIrishGrid));
 }
 
 std::string FormatITM(double lat, double lon)
 {
-  if (!InIreland({lat, lon}))
+  if (!InIrelandBBox({lat, lon}))
     return {};
 
   // ETRS89 == WGS84 for our purposes, so no datum shift: project the WGS84 point directly.
@@ -197,11 +198,8 @@ std::optional<ms::LatLon> ITMToLatLon(std::string_view itm)
   if (count != 2)
     return {};
 
-  ms::LatLon const ll =
-      geodesy::ENToLatLon(geodesy::EN{static_cast<double>(values[0]), static_cast<double>(values[1])}, kITM);
-  if (!InIreland(ll))
-    return {};
-  return ll;
+  // Pure parse (see IrishGridToLatLon): geographic validity is the caller's concern.
+  return geodesy::ENToLatLon(geodesy::EN{static_cast<double>(values[0]), static_cast<double>(values[1])}, kITM);
 }
 
 bool IsIrishGridRegion(std::string_view regionId)
