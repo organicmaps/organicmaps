@@ -15,6 +15,8 @@ import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -176,6 +178,27 @@ final class RoutingBottomMenuController implements View.OnClickListener
     mTransitRecyclerView.setNestedScrollingEnabled(false);
     mTransitRecyclerView.addItemDecoration(mTransitViewDecorator);
     mTransitRecyclerView.setAdapter(mTransitAdapter);
+    // The steps strip sits on top of the panel and would otherwise swallow taps, so a tap anywhere on
+    // it opens the same detail sheet as the rest of the panel. Scrolling still works for long routes.
+    // Gated on the panel being clickable so it stays inert for ruler (straight-line) routes.
+    final GestureDetector transitTapDetector =
+        new GestureDetector(mContext, new GestureDetector.SimpleOnGestureListener() {
+          @Override
+          public boolean onSingleTapUp(@NonNull MotionEvent e)
+          {
+            if (!mTransitFrame.isClickable())
+              return false;
+            showTransitDetailsSheet();
+            return true;
+          }
+        });
+    mTransitRecyclerView.addOnItemTouchListener(new RecyclerView.SimpleOnItemTouchListener() {
+      @Override
+      public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e)
+      {
+        return transitTapDetector.onTouchEvent(e);
+      }
+    });
     Button manageRouteButton = altitudeChartFrame.findViewById(R.id.btn__manage_route);
     manageRouteButton.setOnClickListener(this);
 
@@ -231,12 +254,14 @@ final class RoutingBottomMenuController implements View.OnClickListener
     UiUtils.showIf(info.getTotalPedestrianTimeInSec() > 0, dotView, pedestrianIcon, distanceView);
     distanceView.setText(info.getTotalPedestrianDistance() + " " + info.getTotalPedestrianDistanceUnits());
 
-    // Tapping the summary strip reveals the per-leg breakdown (board/exit stops + line badges).
+    // Tapping the summary strip reveals the per-leg breakdown (board/exit stops + line badges); the
+    // chevron is the cue that the strip is expandable.
     mTransitFrame.setForeground(
         ContextCompat.getDrawable(
             mContext, UiUtils.getStyledResourceId(mContext, androidx.appcompat.R.attr.selectableItemBackground)));
     mTransitFrame.setClickable(true);
     mTransitFrame.setOnClickListener(v -> showTransitDetailsSheet());
+    UiUtils.show(mTransitFrame.findViewById(R.id.transit_details_chevron));
   }
 
   private void showTransitDetailsSheet()
@@ -261,6 +286,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     mTransitFrame.setOnClickListener(null);
     mTransitFrame.setClickable(false);
     mTransitFrame.setForeground(null);
+    UiUtils.hide(mTransitFrame, R.id.transit_details_chevron);
 
     if (points.length > 2)
     {
