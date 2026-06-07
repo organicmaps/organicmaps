@@ -71,6 +71,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/transit_time"
+        android:foreground="?attr/selectableItemBackground"
         android:layout_marginTop="@dimen/margin_half"
         android:visibility="gone"
         tools:visibility="visible">
@@ -102,10 +103,22 @@
         <TextView
           android:id="@+id/total_distance"
           style="@style/MwmWidget.TextView.PlanDetail.Number.Secondary"
-          android:layout_width="match_parent"
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
+          android:layout_weight="1"
           tools:text="1 km"
           android:layout_marginStart="@dimen/margin_quarter_plus" />
+
+        <ImageView
+          android:id="@+id/transit_details_chevron"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:contentDescription="@string/transit_details_title"
+          android:visibility="gone"
+          app:srcCompat="@drawable/ic_expand_less"
+          app:tint="?iconTint"
+          tools:visibility="visible" />
       </LinearLayout>
 
       <TextView
