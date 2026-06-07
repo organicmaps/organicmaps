@@ -18,6 +18,7 @@ set(SRC
   downloader_defines.hpp
   downloader_utils.cpp
   downloader_utils.hpp
+  geodesy.hpp
   get_text_by_id.cpp
   get_text_by_id.hpp
   gui_thread.hpp
