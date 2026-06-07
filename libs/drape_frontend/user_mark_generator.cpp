@@ -91,7 +91,10 @@ void UserMarkGenerator::UpdateIndex(kml::MarkGroupId groupId)
 
   for (auto const & markId : idCollection.m_markIds)
   {
-    UserMarkRenderParams const & params = *m_marks[markId];
+    auto const markIt = m_marks.find(markId);
+    CHECK(markIt != m_marks.end() && markIt->second != nullptr, (markId, groupId));
+
+    UserMarkRenderParams const & params = *markIt->second;
     int const startZoom = GetNearestIndexZoom(kMarkIndexingLevels, params.m_minZoom);
     for (int zoomLevel : kMarkIndexingLevels)
     {
@@ -109,7 +112,10 @@ void UserMarkGenerator::UpdateIndex(kml::MarkGroupId groupId)
     // Collect unique intersected tiles.
     std::set<TileKey> tiles;
 
-    UserLineRenderParams const & params = *m_lines[lineId];
+    auto const lineIt = m_lines.find(lineId);
+    CHECK(lineIt != m_lines.end() && lineIt->second != nullptr, (lineId, groupId));
+
+    UserLineRenderParams const & params = *lineIt->second;
 
     int const startZoom = GetNearestIndexZoom(kLineIndexingLevels, params.m_minZoom);
     for (int zoomLevel : kLineIndexingLevels)
