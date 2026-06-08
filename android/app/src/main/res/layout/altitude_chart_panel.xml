@@ -161,8 +161,8 @@
       layout="@layout/route_elevation_profile"
       android:id="@+id/altitude_chart"
       android:layout_width="match_parent"
-        android:layout_height="@dimen/route_chart_height"
-        android:visibility="gone" />
+      android:layout_height="@dimen/route_chart_height"
+      android:visibility="gone" />
 
   </LinearLayout>
 
