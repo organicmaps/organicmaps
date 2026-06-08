@@ -17,7 +17,7 @@ DEFINE_string(symbolsDir, "../../data/styles/symbols", "directory with svg symbo
 DEFINE_int32(symbolWidth, 24, "width of the rendered symbol");
 DEFINE_int32(symbolHeight, 24, "height of the rendered symbol");
 DEFINE_string(skinName, "../../data/basic", "prefix for the skin and skinImage file name");
-DEFINE_string(skinSuffix, "mdpi", "suffix for skinName<suffix>.skn and symbols<suffix>.png");
+DEFINE_string(skinSuffix, "mdpi", "suffix for symbols<suffix>.png and symbols<suffix>.xml");
 DEFINE_int32(searchIconWidth, 24, "width of the search category icon");
 DEFINE_int32(searchIconHeight, 24, "height of the search category icon");
 DEFINE_int32(maxSize, 4096, "max width/height of output textures");
@@ -49,7 +49,7 @@ int main(int argc, char * argv[])
 
     QString newSkin(FLAGS_skinName.c_str());
     newSkin.replace("basic", "symbols");
-    auto const filename = newSkin.toStdString() + FLAGS_skinSuffix + ".sdf";
+    auto const filename = newSkin.toStdString() + FLAGS_skinSuffix + ".xml";
     if (!gen.WriteToFileNewStyle(filename))
     {
       std::cerr << "Could not write file" << filename << std::endl;

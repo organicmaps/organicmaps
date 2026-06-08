@@ -130,7 +130,7 @@ void LoadSymbols(std::string const & skinPathName, std::string const & textureNa
     DefinitionLoader loader(definitionInserter, convertToUV);
 
     {
-      ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader(textureName + ".sdf", skinPathName);
+      ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader(textureName + ".xml", skinPathName);
       ReaderSource<ReaderPtr<Reader>> source(reader);
       if (!ParseXML(source, loader))
       {
