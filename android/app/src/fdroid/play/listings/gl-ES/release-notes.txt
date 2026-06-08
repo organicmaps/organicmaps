@@ -1,8 +1,9 @@
-• Selecciona rutas de sendeirismo e ciclismo para ver os seus perfís de altitude
-• Enrolamento do mapa axeitado no antimeridiano (lonxitude ±180°)
-• Cambio de todas as cores de marcadores e rutas nunha categoría de vez
-• Mellor busca de números de casa, con máis enderezos de EE. UU. cubertos
-• Datos de OSM do 4 de abril
-• Modo de aparición programada na configuración
-• Corrixiuse o compartido de marcadores/rutas con outras aplicacións
+• NOVO! Toca o lapis para engadir texto ou HTML aos traxectos
+• NOVO! Escolle calquera cor para os traxectos
+• Engadidos sinais viarios de Australia e Nova Zelandia
+• Fontes correctas para coreano, chinés e xaponés segundo o dispositivo
+• Novas iconas: petanca, ciclismo e deportes de motor
+• Máis lugares: arcos cerimoniais, tobogáns acuáticos, parques temáticos e montañas rusas
+• Corrixidas rutas de transporte público en estacións e áreas
+• Datos OSM do 27 de maio
 …máis en omaps.org/gl/news

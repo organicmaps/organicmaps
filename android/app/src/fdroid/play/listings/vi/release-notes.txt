@@ -1,9 +1,9 @@
-• Chọn các tuyến đường đi bộ và đạp xe để xem biểu đồ độ cao
-• Hiển thị bản đồ chính xác tại kinh tuyến đối diện (±180°)
-• Thay đổi màu tất cả dấu trang và bản ghi trong danh mục cùng lúc
-• Tìm kiếm số nhà tốt hơn, bao gồm nhiều địa chỉ tại Mỹ hơn
-• Dữ liệu OSM tính đến ngày 4 tháng 4
-• Chế độ giao diện theo lịch trong Cài đặt
-• Sửa lỗi chia sẻ dấu trang/bản ghi sang ứng dụng khác
-• Sửa lỗi tải lên chỉnh sửa bản đồ lên OSM
+• MỚI! Nhấn biểu tượng bút chì để thêm mô tả văn bản hoặc HTML cho đường đi
+• MỚI! Chọn màu bất kỳ cho đường đi
+• Thêm biểu tượng số hiệu đường cho Úc và New Zealand
+• Người dùng Hàn, Trung, Nhật sẽ thấy phông chữ phù hợp theo ngôn ngữ thiết bị
+• Thêm biểu tượng cho bi sắt, đạp xe và đua xe
+• Thêm cổng nghi lễ, máng trượt nước, công viên chủ đề và tàu lượn siêu tốc
+• Sửa tuyến giao thông công cộng cho ga và khu vực
+• Dữ liệu OSM đến 27/5
 …xem thêm tại omaps.org/news

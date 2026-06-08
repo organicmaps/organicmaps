@@ -1,9 +1,9 @@
-• Velg vandre- og sykkelruter for å se høydediagrammene deres
-• Riktig kartinnpakning ved antimeridianen (±180° lengdegrad)
-• Endre alle bokmerke- og sporfarger i en kategori samtidig
-• Bedre søk etter husnummer, flere amerikanske adresser dekket
-• OSM-data fra og med 4. april
-• Planlagt visningsmodus i Innstillinger
-• Fikset deling av bokmerker/spor til andre apper
-• Fikset opplasting av kartredigeringer til OSM
+• NYTT! Trykk på blyanten for å legge til tekst- eller HTML-beskrivelse på et spor
+• NYTT! Velg valgfri sporfarge
+• Nye veiskilt for Australia og New Zealand
+• Riktig skrift for koreansk, kinesisk og japansk basert på enhetens språk
+• Nye ikoner for boule, sykling og motorsport
+• Lagt til seremonielle porter, vannsklier, fornøyelsesparker og berg-og-dal-baner
+• Fikset kollektivruter for stasjoner og andre områder
+• OSM-data per 27. mai
 …mer på omaps.org/news

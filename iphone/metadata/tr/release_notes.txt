@@ -1,56 +1,22 @@
-## Harita
+• Yer imleri için açıklamalarla aynı şekilde, parkur metinleri ve HTML açıklamaları artık desteklenmektedir. Açıklama eklemek için kalem simgesine basın.
+• 27 Mayıs 2026 tarihli OpenStreetMap harita verileri
+• Metin Okuma (TTS) artık dil için en iyi yüklü sesi seçer (Geliştirilmiş / Premium). Daha yüksek kaliteli bir sesi nasıl indireceğiniz konusunda Organic Maps ayarlarına bakın.
+• Avustralya ve Yeni Zelanda yol levhaları eklendi
+• Boules, bisiklet ve motor sporları mekanları için simgeler eklendi
+• Tören kapıları, su kaydırakları, tema parkları ve roller coaster'lar eklendi
+• Navigasyon modunda perspektif görünümde harita kontrolü için parmak hareketleri iyileştirildi
+• Yeni adın düzgün bir şekilde güncellenmemesine neden olan parkur yeniden adlandırma hatası düzeltildi
+• CarPlay: yeniden merkezleme düğmesi düzeltildi
+• İstasyonlar ve diğer alan nesneleri için toplu taşıma rotaları düzeltildi
+• Yürüyüş veya bisiklet rotasına yer imi eklerken meydana gelen çökme sorunu düzeltildi
+• Hız kameraları için hız sınırlarının görüntülenmesi düzeltildi
+• Birden fazla dünya kopyası olduğunda antimeridyen uzaklaştırma sorunu düzeltildi
+• Sokak ve ev adreslerinin daha doğru görüntülenmesi
+• Gereksiz harita animasyonları düzeltildi
+• Kararlılık ve performans iyileştirmeleri
 
-- YENİ! Sürükleme ve döndürme sırasında harita artık antimeridyende doğru şekilde sarılıyor
-- OpenStreetMap verileri 4 Nisan itibarıyla güncellendi
-- Wikipedia verileri 1 Nisan itibarıyla güncellendi
-- Yemek alanları ve şehir kapıları için simgeler eklendi
-- Giyim mağazası alt kategorileri eklendi: kadın, erkek, çocuk, düğün, spor, iç giyim ve ofis giyimi
-- Sidney metro hattı renkleri düzeltildi
-- Güneş doğumu/batımı farkı olan yerler için çalışma saatleri gösterimi düzeltildi
+## Çeviriler
 
-## Rota Planlama ve Navigasyon
-
-- YENİ! Bir bisiklet veya yürüyüş rotasına dokunarak seçin ve yükseklik grafiğini görüntüleyin
-- Yürüyüş ve bisiklet rotaları için çok renkli görüntüleme iyileştirildi
-- Bisiklet navigasyonu artık düşük hızlarda pusula yönünü kullanıyor
-- Bazı bölge sınırlarının yakınında rota planlarken ortaya çıkan bir sistem hatası düzeltildi
-- Artık ek haritaları indirmeniz istendiğinde bile geçerli bir rotaya başlayabilirsiniz
-
-## Yer İşaretleri ve İzler
-
-- YENİ! Bir kategorideki tüm yer işareti ve iz renklerini tek seferde değiştirin
-- Diğer uygulamalarla daha iyi uyum sağlaması için iz grafiklerindeki yükseklik kazancı ve kaybı tahminleri ayarlandı
-- Yer işareti ayrıntılarında tablolar ve resimler içeren HTML içeriğinin görüntülenmesi iyileştirildi
-- Yükseklik grafiğinde çok segmentli izler için dikey ayırıcılar eklendi
-- Yükseklik grafiğinde enterpolasyonlu noktaların seçimi düzeltildi
-- GPS iz kaydında segmentler arasında noktaların düşmesi sorunu düzeltildi
-- GeoJSON içe aktarma sorunu düzeltildi
-- İzleri dışa aktarırken meydana gelen çökme sorunu düzeltildi
-
-## Arama
-
-- TIGER Nüfus Sayımı verilerinden ayrıştırılan iki milyon ek adresle ABD'de daha iyi arama
-- Güncellenen arama kategorileri: fırınlar için "Bread", "Shawarma" mutfağı ve diğer eşanlamlı iyileştirmeler eklendi
-- Ev numarası adres araması iyileştirildi
-- ABD sokak eşanlamlıları eklendi: highway, hwy, freeway, fwy
-- Şehir ve eyalet adları aynı olduğunda arama sonuçları düzeltildi
-
-## Düzenleyici / OpenStreetMap
-
-- Artık harita üzerinde mevcut konumunuzu seçtikten sonra OpenStreetMap'e yeni bir yer ekleyebilirsiniz
-- "Yer Ekle" düğmesine basıldığında düzenleyicideki artı işaretinin yanlış hizalanması sorunu düzeltildi
-- "Yer Ekle" gezinme çubuğundaki düğmelerin dokunma alanı genişletildi
-
-## Kullanıcı Arayüzü ve Kullanıcı Deneyimi
-
-- Modal hareketler iyileştirildi: en yakın adıma kaydırma, kenardan kaydırmada kapatma ve yeniden açıldığında önceki durumun geri yüklenmesi
-- Saat dilimleri için yaz saati uygulaması işleme sorunu düzeltildi
-
-## Kararlılık ve Yerelleştirme
-
-- Kararlılık ve performans iyileştirildi, pil tüketimi azaltıldı
-- Çeviriler güncellendi
-
-## Platform Desteği
-
-- TestFlight ve App Store'daki değişiklikler nedeniyle, bu sürüm yalnızca iOS 15 ve sonraki sürümleri desteklemektedir. iOS 12, 13 ve 14 artık desteklenmemektedir.
+• Fransızca, İtalyanca, İspanyolca, Ukraynaca ve Katalanca çeviriler iyileştirildi
+• Birkaç ülke ve bölge adının çevirileri güncellendi, `leisure=track` için arama eşanlamlıları düzeltildi
+• `disused:bridge` ve `disused:tunnel` için çeviriler düzeltildi

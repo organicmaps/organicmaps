@@ -1,9 +1,9 @@
-• Výberom turistických a cyklistických trás zobrazíte ich grafy prevýšenia
-• Správne zabalenie mapy na antimeridiáne (±180° zemepisnej dĺžky)
-• Zmena všetkých farieb záložiek a trás v kategórii naraz
-• Lepšie vyhľadávanie čísel domov, pokrytie väčšieho počtu amerických adries
-• Údaje OSM k 4. aprílu
-• Režim plánovaného zobrazenia v Nastaveniach
-• Opravené zdieľanie záložiek/stôp do iných aplikácií
-• Opravené nahrávanie úprav mapy do OSM
+• NOVÉ! Ikonou ceruzky pridáte k trase textový alebo HTML opis
+• NOVÉ! Vyberte si ľubovoľnú farbu trás
+• Pridané cestné štíty Austrálie a Nového Zélandu
+• Správne písma pre kórejčinu, čínštinu a japončinu podľa jazyka zariadenia
+• Nové ikony pre petang, cyklistiku a motoršport
+• Pridané slávnostné brány, tobogany, zábavné parky a horské dráhy
+• Opravené trasy verejnej dopravy pre stanice a plošné objekty
+• Dáta OpenStreetMap k 27. máju
 …viac na omaps.org/news

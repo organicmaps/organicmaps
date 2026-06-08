@@ -1,7 +1,8 @@
-• Selezionare gli itinerari escursionistici e ciclistici per visualizzare i relativi grafici altimetrici.
-• Avvolgimento corretto della mappa all'antimeridiano (±180° di longitudine)
-• Modifica dei colori di tutti i segnalibri e delle tracce di una categoria in una sola volta
-• Migliore ricerca dei numeri civici, più indirizzi statunitensi coperti
-• Dati OSM aggiornati al 4 aprile
-• Modalità di visualizzazione programmata nelle Impostazioni
-…per saperne di più: omaps.org/it/news
+• NOVITÀ! Tocca l'icona della matita per aggiungere descrizioni testuali o HTML alle tracce
+• NOVITÀ! Scegli qualsiasi colore per le tracce
+• Aggiunti scudi stradali per Australia e Nuova Zelanda
+• Font corretti per coreano, cinese e giapponese in base alla lingua del dispositivo
+• Nuove icone e luoghi: bocce, ciclismo, sport motoristici, parchi a tema e scivoli d'acqua
+• Corrette le linee del trasporto pubblico per stazioni e aree
+• Dati OpenStreetMap al 27 maggio
+Altro su omaps.org/it/news

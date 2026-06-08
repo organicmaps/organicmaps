@@ -1,9 +1,9 @@
-• Izberite pohodniške in kolesarske poti, da si ogledate njihove grafe nadmorske višine
-• Pravilno zavijanje zemljevida na antimeridianu (±180° zemljepisne dolžine)
-• Spremenite vse barve zaznamkov in sledi v kategoriji naenkrat
-• Boljše iskanje hišnih številk, več zajetih ameriških naslovov
-• Podatki OSM od 4. aprila
-• Način načrtovanega videza v nastavitvah
-• Popravljena delitev zaznamkov/sledi z drugimi aplikacijami
-• Popravljeno nalaganje popravkov zemljevidov v OSM
+• NOVO! Z ikono svinčnika dodajte besedilni ali HTML opis sledi
+• NOVO! Poljubna barva za sledi
+• Dodane oznake cest za Avstralijo in Novo Zelandijo
+• Pisave za korejščino, kitajščino in japonščino sledijo jeziku naprave
+• Dodane ikone za balinišča, kolesarstvo in motošport
+• Dodana slavnostna vrata, vodni tobogani, tematski parki in vlakci smrti
+• Popravljene linije javnega prevoza pri postajah in drugih območjih
+• Podatki OSM: 27. maj
 …več na omaps.org/news

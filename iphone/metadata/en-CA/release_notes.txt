@@ -1,56 +1,22 @@
-## Map
+• Track text and HTML descriptions are now supported, the same way as descriptions for bookmarks. Press the pencil icon to add a description.
+• OpenStreetMap data as of May 27, 2026
+• Text-to-Speech (TTS) now picks the best installed voice for the language (Enhanced / Premium). See Organic Maps settings for how to download a higher-quality voice.
+• Added Australia and New Zealand road shields
+• Added icons for boules, cycling, and motorsport places
+• Added ceremonial gates, water slides, theme parks, and roller coasters
+• Improved finger gestures for map control in perspective view during Navigation mode
+• Fixed a track-renaming bug where the new name was not properly updated
+• CarPlay: fixed the recenter button
+• Fixed public transport routes for stations and other area objects
+• Fixed crash when adding a bookmark on a hiking or cycling route
+• Fixed rendering of speed limits for speed cameras
+• Fixed antimeridian zoom-out with more than one world copy
+• More accurate display of street and house addresses
+• Fixed unnecessary map animations
+• Stability and performance improvements
 
-- NEW! Proper map wrapping at the antimeridian when dragging and rotating
-- OpenStreetMap data updated as of April 4
-- Wikipedia data updated as of April 1
-- Added icons for food courts and city gates
-- Added clothing shop subcategories: women, men, children, wedding, sports, underwear, plus office types
-- Fixed Sydney subway line colors
-- Fixed opening hours display for places with sunrise/sunset offsets
+## Translations
 
-## Routing and Navigation
-
-- NEW! Tap a cycling or hiking route to select it and view its elevation chart
-- Improved multi-color rendering for hiking and cycling routes
-- Cycling navigation now uses compass heading at low speeds
-- Fixed a system error when planning routes near some regional borders
-- You can now start a valid route even when prompted to download additional maps
-
-## Bookmarks and Tracks
-
-- NEW! Change all bookmark and track colors in a category at once
-- Adjusted elevation gain and loss approximation on track graphs to better match other apps
-- Improved display of HTML content with tables and images in bookmark details
-- Added vertical separators for multi-segment tracks in the elevation chart
-- Fixed point selection in the elevation chart for interpolated points
-- Fixed GPS track recording dropping points between segments
-- Fixed GeoJSON import
-- Fixed a crash when exporting tracks
-
-## Search
-
-- Better search in the USA, with two million additional addresses parsed from TIGER Census data
-- Updated search categories: added "Bread" for bakeries, "Shawarma" cuisine, and other synonym improvements
-- Improved house-number address search
-- Added US street synonyms: highway, hwy, freeway, fwy
-- Fixed search results when city and state names are the same
-
-## Editor / OpenStreetMap
-
-- You can now add a new place to OpenStreetMap after selecting your current position on the map
-- Fixed editor crosshair misalignment when pressing "Add Place"
-- Increased the touch area of buttons in the "Add Place" navigation bar
-
-## UI and UX
-
-- Improved modal gestures: snap to the nearest step, close on edge pan, and restore the previous state when reopened
-- Fixed daylight saving time handling for time zones
-
-## Stability and Localization
-
-- Improved stability and performance, reduced battery usage
-- Updated translations
-
-## Platform Support
-
-- Due to changes in TestFlight and the App Store, this release supports only iOS 15 and later. iOS 12, 13, and 14 are no longer supported.
+• Improved French, Italian, Spanish, Ukrainian, Catalan translations
+• Updated translations for several country and region names, fixed search synonyms for `leisure=track`
+• Corrected translations for `disused:bridge` and `disused:tunnel`

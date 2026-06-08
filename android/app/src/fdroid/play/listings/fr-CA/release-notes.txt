@@ -1,7 +1,8 @@
-• Sélectionnez des itinéraires de randonnée et de cyclisme pour voir leurs graphiques d'altitude
-• Affichage correct de la carte à l'antiméridien (±180° de longitude)
-• Changement simultané de toutes les couleurs des signets et des traces d'une catégorie
-• Meilleure recherche des numéros de maison, plus d'adresses américaines couvertes
-• Données OSM du 4 avril
-• Mode d'apparence planifié dans les paramètres
+• NOUVEAU ! Ajoutez une description texte ou HTML à un tracé avec l’icône crayon
+• NOUVEAU ! Choisissez n’importe quelle couleur pour vos tracés
+• Panneaux routiers d’Australie et de Nouvelle-Zélande ajoutés
+• Polices adaptées à la langue de l’appareil pour le coréen, le chinois et le japonais
+• Nouvelles icônes : pétanque, vélo, sports motorisés
+• Itinéraires de transports en commun corrigés pour gares et zones
+• Données OpenStreetMap au 27 mai
 …plus sur omaps.org/fr/news

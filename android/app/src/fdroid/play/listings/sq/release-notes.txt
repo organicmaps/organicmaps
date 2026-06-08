@@ -1,8 +1,9 @@
-• Zgjidhni rrugët e ecjes dhe çiklizmit për të parë grafikët e tyre të lartësisë
-• Përkulje e duhur e hartës në antimeridian (gjatësia ±180°)
-• Ndryshoni të gjitha ngjyrat e shënimeve dhe shtigjeve në një kategori njëherësh
-• Kërkim më i mirë për numrat e shtëpive, mbulohen më shumë adresa në SHBA
-• Të dhënat e OSM-së deri më 4 prill
-• Modaliteti i shfaqjes së planifikuar në Cilësime
-• Rregulluar ndarjen e shënimeve/shtigjeve me aplikacione të tjera
+• E RE! Përshkrime në tekst/HTML për gjurmët me ikonën e lapsit
+• E RE! Çdo ngjyrë për gjurmët
+• Shenja rrugore për Australinë dhe Zelandën e Re
+• Fonte të sakta për koreanisht, kinezisht e japonisht sipas gjuhës së pajisjes
+• Ikona për boules, çiklizëm e motorsport
+• Porta ceremoniale, rrëshqitëse uji, parqe tematike e trena lunaparku
+• Linja transporti publik të rregulluara për stacione e zona
+• Të dhëna OSM deri më 27 maj
 …më shumë në omaps.org/news

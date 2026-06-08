@@ -1,9 +1,9 @@
-• Veldu göngu- og hjólaleiðir til að sjá hæðargröfur þeirra
-• Rétt kortavindling við hnitaskeiðlínuna (±180° lengdarbaug)
-• Breyttu litum allra bókamerkja og slóða í flokki í einu
-• Betri leit að húsnúmerum, fleiri bandarískar heimilisföng innifalin
-• OSM-gögn gildandi frá 4. apríl
-• Áætlaður birtingarmáti í Stillingum
-• Leyst vandamál með deilingu bókamerkja/slóða með öðrum forritum
-• Leyst vandamál með upphleðslu kortabreytinga á OSM
+• NÝTT! Bættu texta- eða HTML-lýsingu við feril með blýantstákninu
+• NÝTT! Veldu hvaða lit sem er fyrir ferla
+• Vegaskildir fyrir Ástralíu og Nýja-Sjáland
+• Rétt letur birtist nú fyrir kóresku, kínversku og japönsku eftir tungumáli tækisins
+• Bætt við táknum fyrir pétanque, hjólreiðar og mótorsportstaði
+• Bætt við hátíðahliðum, vatnsrennibrautum, skemmtigörðum og rússíbönum
+• Lagaðar almenningssamgönguleiðir við stöðvar og svæði
+• OpenStreetMap gögn frá 27. maí
 …meira á omaps.org/news

@@ -1,9 +1,8 @@
-• Yükseklik grafiklerini görmek için yürüyüş ve bisiklet rotalarını seçin
-• Antimeridyende haritanın doğru sarılması (±180° boylam)
-• Bir kategorideki tüm yer imi ve iz renklerini aynı anda değiştirin
-• Ev numaraları için daha iyi arama, daha fazla ABD adresi kapsandı
-• OSM verileri 4 Nisan itibariyle
-• Ayarlar'da zamanlanmış görünüm modu
-• Diğer uygulamalarla yer imi/iz paylaşımı düzeltildi
-• Harita düzenlemelerinin OSM'ye yüklenmesi düzeltildi
-…daha fazlası omaps.org/tr/news adresinde
+• YENİ! İzlere metin veya HTML açıklaması eklemek için kalem simgesine dokunun
+• YENİ! İzler için istediğiniz rengi seçin
+• Avustralya ve Yeni Zelanda yol numarası levhaları eklendi
+• Korece, Çince ve Japonca için cihaz diline uygun yazı tipleri eklendi
+• Bocce, bisiklet, motor sporları, tören kapısı, su kaydırağı, tema parkı ve lunapark hız treni yerleri eklendi
+• İstasyonlar ve alan nesneleri için toplu taşıma rotaları düzeltildi
+• OSM verileri: 27 Mayıs
+…daha fazlası omaps.org/tr/news
