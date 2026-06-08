@@ -159,9 +159,7 @@ public:
     void SetCategoryTags(kml::MarkGroupId categoryId, std::vector<std::string> const & tags);
     void SetCategoryAccessRules(kml::MarkGroupId categoryId, kml::AccessRules accessRules);
     void SetCategoryCustomProperty(kml::MarkGroupId categoryId, std::string const & key, std::string const & value);
-    void SetCategoryBookmarksColor(kml::MarkGroupId groupId, kml::PredefinedColor color);
     void SetCategoryBookmarksColor(kml::MarkGroupId groupId, dp::Color color);
-    void SetCategoryTracksColor(kml::MarkGroupId groupId, kml::PredefinedColor color);
     void SetCategoryTracksColor(kml::MarkGroupId groupId, dp::Color color);
 
     /// Removes the category from the list of categories and deletes the related file.
@@ -293,8 +291,6 @@ public:
 
   void SetLastEditedBmCategory(kml::MarkGroupId groupId);
   void SetLastEditedBmColor(kml::ColorData const & color);
-  // Compat overload for the legacy preset-only bridge call sites; removed once iOS/Android migrate.
-  void SetLastEditedBmColor(kml::PredefinedColor color) { SetLastEditedBmColor(kml::ColorData{color, 0}); }
 
   using TTouchRectHolder = std::function<m2::AnyRectD(UserMark::Type)>;
   using TFindOnlyVisibleChecker = std::function<bool(UserMark::Type)>;

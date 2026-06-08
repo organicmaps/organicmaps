@@ -3726,15 +3726,6 @@ void BookmarkManager::EditSession::SetCategoryCustomProperty(kml::MarkGroupId ca
   m_bmManager.SetCategoryCustomProperty(categoryId, key, value);
 }
 
-void BookmarkManager::EditSession::SetCategoryBookmarksColor(kml::MarkGroupId groupId, kml::PredefinedColor color)
-{
-  auto const & markIds = m_bmManager.GetUserMarkIds(groupId);
-  for (auto const markId : markIds)
-    if (auto * bm = m_bmManager.GetBookmarkForEdit(markId))
-      bm->SetColor(color);
-  m_bmManager.SetLastEditedBmColor(color);
-}
-
 void BookmarkManager::EditSession::SetCategoryBookmarksColor(kml::MarkGroupId groupId, dp::Color color)
 {
   auto const & markIds = m_bmManager.GetUserMarkIds(groupId);
@@ -3742,11 +3733,6 @@ void BookmarkManager::EditSession::SetCategoryBookmarksColor(kml::MarkGroupId gr
     if (auto * bm = m_bmManager.GetBookmarkForEdit(markId))
       bm->SetColor(color);
   m_bmManager.SetLastEditedBmColor(kml::MakeCustomBookmarkColorData(color));
-}
-
-void BookmarkManager::EditSession::SetCategoryTracksColor(kml::MarkGroupId groupId, kml::PredefinedColor color)
-{
-  SetCategoryTracksColor(groupId, ColorFromPredefinedColor(color));
 }
 
 void BookmarkManager::EditSession::SetCategoryTracksColor(kml::MarkGroupId groupId, dp::Color color)
