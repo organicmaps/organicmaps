@@ -5,6 +5,9 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.RecyclerView
 
+// Single-slot adapter (getItemCount = 1) that hosts a shared headerView across the adapter's lifetime.
+// The same headerView instance is re-parented into a fresh FrameLayout host on each onCreateViewHolder
+// (e.g. config change), so detaching from any previous parent before re-attach is required.
 class ChartHeaderAdapter(private val headerView: View) : RecyclerView.Adapter<ChartHeaderAdapter.HeaderViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeaderViewHolder {
         val host = FrameLayout(parent.context).apply {
