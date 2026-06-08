@@ -37,6 +37,7 @@
     android:id="@+id/delete_icon"
     android:layout_width="24dp"
     android:layout_height="24dp"
+    android:background="?attr/selectableItemBackgroundBorderless"
     android:contentDescription="@string/delete"
     style="@style/MwmWidget.Editor.MetadataIcon"
     app:layout_constraintEnd_toStartOf="@+id/drag_icon"
