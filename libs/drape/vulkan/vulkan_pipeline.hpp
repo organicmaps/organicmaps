@@ -47,7 +47,7 @@ public:
     bool m_cullingEnabled = true;
   };
 
-  VulkanPipeline(VkDevice device, uint32_t appVersionCode);
+  VulkanPipeline(VkDevice device, VkPhysicalDeviceProperties const & gpuProperties, uint32_t appVersionCode);
   void Dump(VkDevice device);
   void Destroy(VkDevice device);
   void ResetCache(VkDevice device);
