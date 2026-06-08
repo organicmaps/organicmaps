@@ -30,7 +30,6 @@ public class SearchPageViewModel extends ViewModel
   private final MutableLiveData<Integer> mSearchPageLastState = new MutableLiveData<>(BottomSheetBehavior.STATE_HIDDEN);
   private final MutableLiveData<Boolean> mSearchEnabled = new MutableLiveData<>();
   private final MutableLiveData<Integer> mToolbarHeight = new MutableLiveData<>();
-  private boolean mKeyboardVisible = false;
 
   // Pending search to run, set by the entry point before enabling search and consumed once by the
   // search fragment. Null when there is nothing new to start.
@@ -92,9 +91,10 @@ public class SearchPageViewModel extends ViewModel
 
   public void setSearchPageLastState(@BottomSheetBehavior.State int state)
   {
-    // Ignore transient states: BottomSheetBehavior.setState() rejects DRAGGING/SETTLING, so storing
-    // one would crash when the sheet is later restored from it.
-    if (state == BottomSheetBehavior.STATE_DRAGGING || state == BottomSheetBehavior.STATE_SETTLING)
+    // Only stable, non-hidden states are restorable: setState() rejects DRAGGING/SETTLING, and
+    // HIDDEN means "no restorable state" (set explicitly via setSearchEnabled(false) instead).
+    if (state != BottomSheetBehavior.STATE_EXPANDED && state != BottomSheetBehavior.STATE_HALF_EXPANDED
+        && state != BottomSheetBehavior.STATE_COLLAPSED)
       return;
     mSearchPageLastState.setValue(state);
   }
@@ -122,10 +122,7 @@ public class SearchPageViewModel extends ViewModel
     mPendingRequest = enabled ? request : null;
     mHiddenByPlacePage = false;
     if (!enabled)
-    {
       mSearchPageLastState.setValue(BottomSheetBehavior.STATE_HIDDEN);
-      mKeyboardVisible = false;
-    }
     mSearchEnabled.setValue(enabled);
   }
 
@@ -138,16 +135,6 @@ public class SearchPageViewModel extends ViewModel
   public void setToolbarHeight(int height)
   {
     mToolbarHeight.setValue(height);
-  }
-
-  public boolean isKeyboardVisible()
-  {
-    return mKeyboardVisible;
-  }
-
-  public void setKeyboardVisible(boolean visible)
-  {
-    mKeyboardVisible = visible;
   }
 
   public boolean isHiddenByPlacePage()

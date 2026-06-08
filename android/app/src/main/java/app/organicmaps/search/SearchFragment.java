@@ -126,10 +126,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
         return;
 
       if (state != BottomSheetBehavior.STATE_EXPANDED)
-      {
         mToolbarController.deactivate();
-      }
-      else if (mSearchViewModel.isKeyboardVisible())
+      else if (!mToolbarController.hasQuery())
         activateToolbar();
     }
   };
