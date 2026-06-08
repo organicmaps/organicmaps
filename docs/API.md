@@ -19,8 +19,9 @@ Required parameter:
 
 Optional parameters:
 
-- `origin=lat,lon` is optional. For `/v2/dir` it sets the start point; when
-  omitted, Organic Maps routes from the current position. `/v2/nav` always
+- `origin=lat,lon` is optional. For `/v2/dir` it sets the start point; use
+  `origin=currentLocation` (or omit `origin`) to route from the current
+  position. `/v2/nav` always
   navigates from the current position, so it accepts but ignores `origin` for now;
   the parameter is reserved as a possible future routing hint, so including it is
   safe and never fails a `/v2/nav` request.

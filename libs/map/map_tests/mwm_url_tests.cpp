@@ -106,6 +106,35 @@ UNIT_TEST(RouteApiV2HttpsDirWithWaypointsAndBikeMode)
   TEST(!test.ShouldStartRouteNavigation(), ());
 }
 
+UNIT_TEST(RouteApiV2HttpsDirAcceptsCurrentLocationOrigin)
+{
+  string const urlString =
+      "https://omaps.app/v2/dir?origin=currentLocation&destination=47.38568,8.566878"
+      "&destination_name=Customer%20Depot&waypoints=47.395084,8.552692%7C47.3890,8.5580"
+      "%7C47.3920,8.5610%7C47.3810,8.5700%7C47.3820,8.5750"
+      "&waypoint_names=Pickup%201%7CPickup%202%7CPickup%203%7CPickup%204%7CPickup%205&mode=drive";
+  TEST(url::Url(urlString).IsValid(), ());
+
+  ParsedMapApi test(urlString);
+  TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(test.GetRoutePoints().size(), 7, ());
+  TEST(test.GetRoutePoints()[0].m_isMyPosition, ());
+  TEST_EQUAL(test.GetRoutePoints()[1].m_org, mercator::FromLatLon(47.395084, 8.552692), ());
+  TEST_EQUAL(test.GetRoutePoints()[1].m_name, "Pickup 1", ());
+  TEST_EQUAL(test.GetRoutePoints()[2].m_name, "Pickup 2", ());
+  TEST_EQUAL(test.GetRoutePoints()[3].m_name, "Pickup 3", ());
+  TEST_EQUAL(test.GetRoutePoints()[4].m_name, "Pickup 4", ());
+  TEST_EQUAL(test.GetRoutePoints()[5].m_name, "Pickup 5", ());
+  TEST_EQUAL(test.GetRoutePoints()[6].m_org, mercator::FromLatLon(47.38568, 8.566878), ());
+  TEST_EQUAL(test.GetRoutePoints()[6].m_name, "Customer Depot", ());
+  TEST_EQUAL(test.GetRoutingType(), "vehicle", ());
+  TEST(!test.ShouldStartRouteNavigation(), ());
+
+  ParsedMapApi kebab("om://v2/dir?origin=current-location&destination=1,1");
+  TEST_EQUAL(kebab.GetRequestType(), UrlType::Route, ());
+  TEST(kebab.GetRoutePoints()[0].m_isMyPosition, ());
+}
+
 UNIT_TEST(RouteApiV2RejectsTooManyWaypoints)
 {
   string urlString = "om://v2/dir?origin=1,1&destination=2,2&waypoints=";
