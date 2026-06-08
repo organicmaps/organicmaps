@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36" height="36" version="1.1" viewBox="0 0 36 36" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <filter id="filter1" x="-.147" y="-.147" width="1.294" height="1.294" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation="1.5925" />
+  </filter>
+  <linearGradient id="linearGradient1" x1="18" x2="18" y1="3" y2="29" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#3fa8f3" offset="0" />
+   <stop stop-color="#2089d4" offset="1" />
+  </linearGradient>
+ </defs>
+ <circle cx="18" cy="18" r="13" filter="url(#filter1)" opacity=".35" />
+ <circle cx="18" cy="16" r="13" fill="url(#linearGradient1)" stroke="#fff" stroke-width="2" />
+ <g transform="translate(4.5 3.125) scale(1.125)">
+  <g fill="none" fill-rule="evenodd">
+   <g fill-rule="nonzero">
+    <path d="m16.667 8.3333h-1.3333c0-1.84-1.4933-3.3333-3.3333-3.3333s-3.3333 1.4933-3.3333 3.3333h-1.3333c-0.73333 0-1.3267 0.6-1.3267 1.3333l-0.0066667 8c0 0.73333 0.6 1.3333 1.3333 1.3333h9.3333c0.73333 0 1.3333-0.6 1.3333-1.3333v-8c0-0.73333-0.6-1.3333-1.3333-1.3333zm-4.6667-2c1.1067 0 2 0.89333 2 2h-4c0-1.1067 0.89333-2 2-2zm0 6.6667c-1.84 0-3.3333-1.4933-3.3333-3.3333h1.3333c0 1.1067 0.89333 2 2 2s2-0.89333 2-2h1.3333c0 1.84-1.4933 3.3333-3.3333 3.3333z" fill="#fff" fill-rule="nonzero" />
+   </g>
+  </g>
+ </g>
+</svg>
