@@ -41,7 +41,7 @@ private:
 
   m2::SharedSpline m_spline;
   PathTextViewParams m_params;
-  m2::PointI const m_tileCoords;
+  TileWithOffset const m_tile;
   uint32_t const m_baseTextIndex;
   std::shared_ptr<PathTextContext> m_context;
 };
