@@ -57,7 +57,6 @@ std::string GetBookmarkIconType(kml::BookmarkIcon const & icon)
 
 std::string const kCustomImageProperty = "CustomImage";
 std::string const kHasElevationProfileProperty = "has_elevation_profile";
-int constexpr kInvalidColor = 0;
 }  // namespace
 
 Bookmark::Bookmark(m2::PointD const & ptOrg) : Base(ptOrg, UserMark::BOOKMARK), m_groupId(kml::kInvalidMarkGroupId)
@@ -115,7 +114,7 @@ drape_ptr<df::UserPointMark::TitlesInfo> Bookmark::GetTitleDeclEx(settings::Plac
   default: UNREACHABLE();
   }
 
-  title.m_primaryTextFont.m_color = df::GetColorConstant(GetColorConstant());
+  title.m_primaryTextFont.m_color = GetColorForRendering();
   title.m_primaryTextFont.m_outlineColor = outlineColor;
   title.m_primaryTextFont.m_size = 11;  // most frequent font size in styles
   title.m_primaryText = GetPreferredName();
@@ -218,17 +217,40 @@ kml::PredefinedColor Bookmark::GetColor() const
 
 void Bookmark::InvalidateRGBAColor()
 {
-  m_data.m_color.m_rgba = kInvalidColor;
+  m_data.m_color.m_rgba = kml::kInvalidColorRGBA;
 }
 
 void Bookmark::SetColor(kml::PredefinedColor color)
 {
-  if (m_data.m_color.m_predefinedColor == color)
+  // Must clear a stale custom rgba even when the predefined enum is already equal (R8).
+  if (m_data.m_color.m_predefinedColor == color && m_data.m_color.m_rgba == kml::kInvalidColorRGBA)
     return;
 
   SetDirty();
   m_data.m_color.m_predefinedColor = color;
   InvalidateRGBAColor();
+}
+
+void Bookmark::SetColor(dp::Color color)
+{
+  auto const colorData = kml::MakeCustomBookmarkColorData(color);
+  if (m_data.m_color == colorData)
+    return;
+
+  SetDirty();
+  m_data.m_color = colorData;
+}
+
+std::optional<dp::Color> Bookmark::GetCustomColor() const
+{
+  if (kml::IsCustomBookmarkColor(m_data.m_color))
+    return dp::Color(m_data.m_color.m_rgba);
+  return std::nullopt;
+}
+
+dp::Color Bookmark::GetColorForRendering() const
+{
+  return GetCustomColor().value_or(df::GetColorConstant(GetColorConstant()));
 }
 
 std::string Bookmark::GetPreferredName() const

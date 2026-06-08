@@ -301,6 +301,26 @@ struct ColorData
   uint32_t m_rgba = 0;
 };
 
+// Bookmark color is carried as either a preset (m_predefinedColor, theme-aware) or an explicit
+// custom color stored in m_rgba. m_rgba == 0 is the "no custom color" sentinel; a custom color is
+// always forced opaque (dp::Color packs alpha in the low byte) so it can never collide with it.
+inline uint32_t constexpr kInvalidColorRGBA = 0;
+
+inline uint32_t ForceOpaqueRGBA(dp::Color color)
+{
+  return color.GetRGBA() | 0xFF;
+}
+
+inline bool IsCustomBookmarkColor(ColorData const & color)
+{
+  return color.m_rgba != kInvalidColorRGBA;
+}
+
+inline ColorData MakeCustomBookmarkColorData(dp::Color color)
+{
+  return {PredefinedColor::None, ForceOpaqueRGBA(color)};
+}
+
 class ClassifierTypes : public std::vector<uint32_t>
 {
 public:

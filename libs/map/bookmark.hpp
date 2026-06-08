@@ -7,6 +7,9 @@
 
 #include "search/reverse_geocoder.hpp"
 
+#include "drape/color.hpp"
+
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -42,6 +45,12 @@ public:
   kml::PredefinedColor GetColor() const;
   void InvalidateRGBAColor();
   void SetColor(kml::PredefinedColor color);
+  // Sets an arbitrary custom color (forced opaque, clears the preset). Mirrors Track::SetColor.
+  void SetColor(dp::Color color);
+  // Explicit custom color, or nullopt for preset bookmarks (which resolve via GetColorConstant()).
+  std::optional<dp::Color> GetCustomColor() const override;
+  // Effective color used for rendering: the custom color if set, else the resolved preset color.
+  dp::Color GetColorForRendering() const;
 
   m2::RectD GetViewport() const;
 
