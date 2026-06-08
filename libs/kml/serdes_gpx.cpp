@@ -292,8 +292,9 @@ void GpxParser::Pop(std::string_view tag)
           data.m_name[kDefaultLang] = std::move(m_name);
         if (!m_description.empty() || !m_comment.empty())
           data.m_description[kDefaultLang] = BuildDescription();
-        data.m_color.m_predefinedColor = m_predefinedColor;
-        data.m_color.m_rgba = m_color;
+        // A colored waypoint imports as an explicit custom color (predefined cleared, forced
+        // opaque); a colorless one keeps the default preset. See NormalizeBookmarkColorData.
+        data.m_color = NormalizeBookmarkColorData({m_predefinedColor, m_color});
         data.m_point = m_org;
         if (!m_customName.empty())
           data.m_customName[kDefaultLang] = std::move(m_customName);

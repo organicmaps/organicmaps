@@ -380,8 +380,9 @@ UNIT_TEST(Color)
 UNIT_TEST(ParseExportedGpxColor)
 {
   kml::FileData const dataFromFile = LoadGpxFromFile("test_data/gpx/point_with_predefined_color_2.gpx");
+  // An imported colored waypoint is an explicit custom color: rgba preserved, predefined cleared.
   TEST_EQUAL(0x0066CCFF, dataFromFile.m_bookmarksData[0].m_color.m_rgba, ());
-  TEST_EQUAL(kml::PredefinedColor::Blue, dataFromFile.m_bookmarksData[0].m_color.m_predefinedColor, ());
+  TEST_EQUAL(kml::PredefinedColor::None, dataFromFile.m_bookmarksData[0].m_color.m_predefinedColor, ());
 }
 
 UNIT_TEST(MultiTrackNames)
