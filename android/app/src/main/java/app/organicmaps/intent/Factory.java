@@ -27,6 +27,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class Factory
 {
@@ -47,7 +48,12 @@ public class Factory
       // See KML/KMZ/KMB intent filters in manifest.
       final List<Uri> uris;
       if (Intent.ACTION_VIEW.equals(intent.getAction()))
-        uris = Collections.singletonList(intent.getData());
+      {
+        final Uri uri = intent.getData();
+        if (uri == null || !shouldImportActionViewUri(uri.getScheme(), intent.getType()))
+          return false;
+        uris = Collections.singletonList(uri);
+      }
       else if (Intent.ACTION_SEND.equals(intent.getAction()))
         uris = Collections.singletonList(IntentCompat.getParcelableExtra(intent, Intent.EXTRA_STREAM, Uri.class));
       else if (Intent.ACTION_SEND_MULTIPLE.equals(intent.getAction()))
@@ -62,6 +68,46 @@ public class Factory
       final ContentResolver resolver = activity.getContentResolver();
       ThreadPool.getStorage().execute(() -> BookmarkManager.INSTANCE.importBookmarksFiles(resolver, uris, tempDir));
       return false;
+    }
+
+    static boolean shouldImportActionViewUri(String scheme, String mimeType)
+    {
+      if (scheme == null)
+        return false;
+
+      switch (scheme.toLowerCase(Locale.ROOT))
+      {
+      case "content":
+      case "file":
+      case "data":
+        return true;
+      case "http":
+      case "https":
+        return isBookmarksMimeType(mimeType);
+      default:
+        return false;
+      }
+    }
+
+    private static boolean isBookmarksMimeType(String mimeType)
+    {
+      if (mimeType == null)
+        return false;
+
+      switch (mimeType.toLowerCase(Locale.ROOT))
+      {
+      case "application/vnd.google-earth.kml+xml":
+      case "application/vnd.google-earth.kmz":
+      case "application/gpx":
+      case "application/gpx+xml":
+      case "application/vnd.google-earth.kmz+xml":
+      case "application/geo+json":
+      case "application/vnd.geo+json":
+      case "application/json":
+        return true;
+      default:
+        return false;
+      }
     }
   }
 
