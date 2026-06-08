@@ -65,7 +65,7 @@ public class Utils
     }
     catch (Throwable e)
     {
-      Logger.e(TAG, "Failed to obtain a currency for locale: " + locale, e);
+      Logger.w(TAG, "Failed to obtain a currency for locale: " + locale, e);
       return null;
     }
   }
@@ -118,7 +118,7 @@ public class Utils
     }
     catch (Throwable e)
     {
-      Logger.e(TAG, "Failed to obtain currency symbol by currency code = " + currencyCode, e);
+      Logger.w(TAG, "Failed to obtain currency symbol by currency code = " + currencyCode, e);
     }
 
     return currencyCode;
