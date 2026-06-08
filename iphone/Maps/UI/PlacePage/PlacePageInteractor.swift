@@ -205,11 +205,10 @@ extension PlacePageInteractor: PlacePageOSMContributionViewControllerDelegate {
 extension PlacePageInteractor: PlacePageEditBookmarkOrTrackViewControllerDelegate {
   func didUpdate(color: UIColor, category: MWMMarkGroupID, for data: PlacePageEditData) {
     switch data {
-    case .bookmark(let bookmarkData):
-      let bookmarkColor = BookmarkColor.bookmarkColor(from: color) ?? bookmarkData.color
+    case .bookmark:
       MWMPlacePageManagerHelper.updateBookmark(placePageData,
                                                title: placePageData.previewData.title,
-                                               color: bookmarkColor,
+                                               color: color,
                                                category: category)
     case .track:
       MWMPlacePageManagerHelper.updateTrack(placePageData,

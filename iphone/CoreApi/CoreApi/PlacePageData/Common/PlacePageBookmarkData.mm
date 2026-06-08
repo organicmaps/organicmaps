@@ -1,4 +1,3 @@
-#import "MWMBookmarkColor+Core.h"
 #import "PlacePageBookmarkData+Core.h"
 
 @implementation PlacePageBookmarkData
@@ -19,7 +18,8 @@
     _bookmarkDescription = rawData.IsBookmark() ? @(description.c_str()) : nil;
     _bookmarkCategory = rawData.IsBookmark() ? @(rawData.GetBookmarkCategoryName().c_str()) : nil;
     _isHtmlDescription = strings::IsHTML(description);
-    _color = convertKmlColor(rawData.GetBookmarkData().m_color.m_predefinedColor);
+    auto const color = kml::GetEffectiveColor(rawData.GetBookmarkData().m_color);
+    _color = [UIColor colorWithRed:color.GetRedF() green:color.GetGreenF() blue:color.GetBlueF() alpha:1.f];
   }
   return self;
 }

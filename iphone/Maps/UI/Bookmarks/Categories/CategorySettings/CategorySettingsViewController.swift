@@ -167,19 +167,14 @@ final class CategorySettingsViewController: MWMTableViewController {
   }
 
   private func openColorPicker(for colorAction: ColorAction) {
-    ColorPicker.shared.present(from: self, pickerType: .bookmarkColorPicker(nil)) { [weak self] color in
-      guard
-        let self,
-        let bookmarkColor = BookmarkColor.bookmarkColor(from: color)
-      else {
-        return
-      }
+    ColorPicker.shared.present(from: self, pickerType: .defaultColorPicker(nil)) { [weak self] color in
+      guard let self else { return }
 
       switch colorAction {
       case .bookmarks:
-        BookmarksManager.shared().setCategory(self.bookmarkGroup.categoryId, bookmarksColor: bookmarkColor)
+        BookmarksManager.shared().setCategory(self.bookmarkGroup.categoryId, bookmarksColor: color)
       case .tracks:
-        BookmarksManager.shared().setCategory(self.bookmarkGroup.categoryId, tracksColor: bookmarkColor)
+        BookmarksManager.shared().setCategory(self.bookmarkGroup.categoryId, tracksColor: color)
       }
       Toast.show(withText: colorAction.toastMessage, alignment: .top)
     }

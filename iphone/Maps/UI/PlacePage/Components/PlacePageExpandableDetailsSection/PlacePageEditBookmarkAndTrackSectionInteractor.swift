@@ -64,7 +64,7 @@ final class PlacePageEditBookmarkAndTrackSectionInteractor: PlacePageExpandableD
 
     switch data {
     case .bookmark(let bookmarkData):
-      iconColor = bookmarkData.color.color
+      iconColor = bookmarkData.color
       category = bookmarkData.bookmarkCategory
       description = bookmarkData.bookmarkDescription
       isHtmlDescription = bookmarkData.isHtmlDescription
@@ -89,7 +89,7 @@ final class PlacePageEditBookmarkAndTrackSectionInteractor: PlacePageExpandableD
     guard let data, let view = presenter.view else { return }
     switch data {
     case .bookmark(let bookmarkData):
-      ColorPicker.shared.present(from: view, pickerType: .bookmarkColorPicker(bookmarkData.color)) { [weak self] color in
+      ColorPicker.shared.present(from: view, pickerType: .defaultColorPicker(bookmarkData.color)) { [weak self] color in
         self?.update(color: color)
       }
     case .track(let trackData):
@@ -121,7 +121,7 @@ final class PlacePageEditBookmarkAndTrackSectionInteractor: PlacePageExpandableD
     guard let data else { return }
     switch data {
     case .bookmark(let bookmarkData):
-      delegate?.didUpdate(color: color ?? bookmarkData.color.color, category: category ?? bookmarkData.bookmarkGroupId, for: data)
+      delegate?.didUpdate(color: color ?? bookmarkData.color, category: category ?? bookmarkData.bookmarkGroupId, for: data)
     case .track(let trackData):
       delegate?.didUpdate(color: color ?? trackData.color!, category: category ?? trackData.groupId, for: data)
     }

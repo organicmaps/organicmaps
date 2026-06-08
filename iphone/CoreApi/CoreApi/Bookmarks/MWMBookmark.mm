@@ -1,5 +1,4 @@
 #import "MWMBookmark+Core.h"
-#import "MWMBookmarkColor+Core.h"
 
 @implementation MWMBookmark
 
@@ -14,7 +13,8 @@
   {
     _bookmarkId = markId;
     _bookmarkName = @(bookmark->GetPreferredName().c_str());
-    _bookmarkColor = convertKmlColor(bookmark->GetColor());
+    auto const color = bookmark->GetColorForRendering();
+    _bookmarkColor = [UIColor colorWithRed:color.GetRedF() green:color.GetGreenF() blue:color.GetBlueF() alpha:1.f];
     _bookmarkIconName = [NSString
         stringWithFormat:@"%@%@", @"ic_bm_", [@(kml::ToString(bookmark->GetData().m_icon).c_str()) lowercaseString]];
     auto const & types = bookmark->GetData().m_featureTypes;

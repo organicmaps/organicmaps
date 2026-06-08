@@ -89,9 +89,8 @@ final class BookmarksListPresenter {
         formattedDistance = nil
       }
       return BookmarkViewModel(bookmark, formattedDistance: formattedDistance, colorDidTap: { [weak self] in
-        self?.view?.showColorPicker(with: .bookmarkColorPicker(bookmark.bookmarkColor)) { color in
-          guard let bookmarkColor = BookmarkColor.bookmarkColor(from: color) else { return }
-          BookmarksManager.shared().updateBookmark(bookmark.bookmarkId, setColor: bookmarkColor)
+        self?.view?.showColorPicker(with: .defaultColorPicker(bookmark.bookmarkColor)) { color in
+          BookmarksManager.shared().updateBookmark(bookmark.bookmarkId, setColor: color)
           self?.reload()
         }
       })
@@ -440,12 +439,12 @@ private struct BookmarkViewModel: IBookmarksListItemViewModel {
   let name: String
   let subtitle: String
   var image: UIImage {
-    bookmarkColor.image(bookmarkIconName)
+    circleImageForColor(bookmarkColor, frameSize: 22, iconName: bookmarkIconName)
   }
 
   var colorDidTapAction: (() -> Void)?
 
-  private let bookmarkColor: BookmarkColor
+  private let bookmarkColor: UIColor
   private let bookmarkIconName: String
 
   init(_ bookmark: Bookmark, formattedDistance: String?, colorDidTap: (() -> Void)?) {

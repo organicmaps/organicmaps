@@ -220,7 +220,7 @@ using namespace storage;
 
 - (void)updateBookmark:(PlacePageData *)data
                  title:(NSString *)title
-                 color:(MWMBookmarkColor)color
+                 color:(UIColor *)color
               category:(MWMMarkGroupID)category
 {
   MWMBookmarksManager * bookmarksManager = [MWMBookmarksManager sharedManager];

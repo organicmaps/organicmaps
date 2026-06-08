@@ -231,15 +231,6 @@ extension EditTrackViewController: MWMButtonCellDelegate {
   }
 }
 
-// MARK: - BookmarkColorViewControllerDelegate
-
-extension EditTrackViewController: BookmarkColorViewControllerDelegate {
-  func bookmarkColorViewController(_ viewController: BookmarkColorViewController, didSelect bookmarkColor: BookmarkColor) {
-    viewController.dismiss(animated: true)
-    updateColor(bookmarkColor.color)
-  }
-}
-
 // MARK: - SelectBookmarkGroupViewControllerDelegate
 
 extension EditTrackViewController: SelectBookmarkGroupViewControllerDelegate {

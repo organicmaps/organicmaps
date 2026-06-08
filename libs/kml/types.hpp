@@ -334,6 +334,13 @@ inline ColorData NormalizeBookmarkColorData(ColorData color)
   return color;
 }
 
+// Effective color of a bookmark: the custom color if set, else the preset's base color. Used by
+// platform bridges and color pickers; theme-independent (the render path resolves presets per theme).
+inline dp::Color GetEffectiveColor(ColorData const & color)
+{
+  return IsCustomBookmarkColor(color) ? dp::Color(color.m_rgba) : ColorFromPredefinedColor(color.m_predefinedColor);
+}
+
 class ClassifierTypes : public std::vector<uint32_t>
 {
 public:

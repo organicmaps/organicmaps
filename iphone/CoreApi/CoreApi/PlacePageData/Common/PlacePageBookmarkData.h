@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import "MWMBookmarkColor.h"
+#import <UIKit/UIKit.h>
 #import "MWMTypes.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) NSString * bookmarkDescription;
 @property(nonatomic, readonly, nullable) NSString * bookmarkCategory;
 @property(nonatomic, readonly) BOOL isHtmlDescription;
-@property(nonatomic, readonly) MWMBookmarkColor color;
+@property(nonatomic, readonly) UIColor * color;
 
 @end
 

@@ -29,7 +29,7 @@
 + (void)addBookmark:(PlacePageData *)data;
 + (void)updateBookmark:(PlacePageData *)data
                  title:(NSString *)title
-                 color:(MWMBookmarkColor)color
+                 color:(UIColor *)color
               category:(MWMMarkGroupID)category;
 + (void)removeBookmark:(PlacePageData *)data;
 + (void)updateTrack:(PlacePageData *)data

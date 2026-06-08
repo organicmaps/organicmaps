@@ -1,7 +1,6 @@
 #import "MWMBookmarksManager.h"
 
 #import "MWMBookmark+Core.h"
-#import "MWMBookmarkColor+Core.h"
 #import "MWMBookmarkGroup.h"
 #import "MWMBookmarksSection.h"
 #import "MWMCarPlayBookmarkObject.h"
@@ -18,31 +17,6 @@
 #include "base/string_utils.hpp"
 
 #include <utility>
-
-static kml::PredefinedColor kmlColorFromBookmarkColor(MWMBookmarkColor bookmarkColor)
-{
-  switch (bookmarkColor)
-  {
-  case MWMBookmarkColorNone: return kml::PredefinedColor::None;
-  case MWMBookmarkColorRed: return kml::PredefinedColor::Red;
-  case MWMBookmarkColorBlue: return kml::PredefinedColor::Blue;
-  case MWMBookmarkColorPurple: return kml::PredefinedColor::Purple;
-  case MWMBookmarkColorYellow: return kml::PredefinedColor::Yellow;
-  case MWMBookmarkColorPink: return kml::PredefinedColor::Pink;
-  case MWMBookmarkColorBrown: return kml::PredefinedColor::Brown;
-  case MWMBookmarkColorGreen: return kml::PredefinedColor::Green;
-  case MWMBookmarkColorOrange: return kml::PredefinedColor::Orange;
-  case MWMBookmarkColorDeepPurple: return kml::PredefinedColor::DeepPurple;
-  case MWMBookmarkColorLightBlue: return kml::PredefinedColor::LightBlue;
-  case MWMBookmarkColorCyan: return kml::PredefinedColor::Cyan;
-  case MWMBookmarkColorTeal: return kml::PredefinedColor::Teal;
-  case MWMBookmarkColorLime: return kml::PredefinedColor::Lime;
-  case MWMBookmarkColorDeepOrange: return kml::PredefinedColor::DeepOrange;
-  case MWMBookmarkColorGray: return kml::PredefinedColor::Gray;
-  case MWMBookmarkColorBlueGray: return kml::PredefinedColor::BlueGray;
-  case MWMBookmarkColorCount: return kml::PredefinedColor::Count;
-  }
-}
 
 static MWMBookmarksSortingType convertSortingType(BookmarkManager::SortingType const & sortingType)
 {
@@ -707,7 +681,7 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
 - (void)updateBookmark:(MWMMarkID)bookmarkId
             setGroupId:(MWMMarkGroupID)groupId
                  title:(NSString *)title
-                 color:(MWMBookmarkColor)color
+                 color:(UIColor *)color
            description:(NSString *)description
 {
   ASSERT_NOT_EQUAL(groupId, kml::kInvalidMarkGroupId, ());
@@ -719,42 +693,41 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
   auto bookmark = editSession.GetBookmarkForEdit(bookmarkId);
   ASSERT(bookmark, ("Invalid bookmark id:", bookmarkId));
 
-  auto kmlColor = kmlColorFromBookmarkColor(color);
-  if (kmlColor != bookmark->GetColor())
-    self.bm.SetLastEditedBmColor(kmlColor);
+  auto const newColor = [MWMBookmarksManager getColorFromUIColor:color];
+  if (newColor != bookmark->GetColorForRendering())
+    self.bm.SetLastEditedBmColor(kml::MakeCustomBookmarkColorData(newColor));
 
-  bookmark->SetColor(kmlColor);
+  bookmark->SetColor(newColor);
   bookmark->SetDescription(description.UTF8String);
   if (title.UTF8String != bookmark->GetPreferredName())
     bookmark->SetCustomName(title.UTF8String);
 }
 
-- (void)updateBookmark:(MWMMarkID)bookmarkId setColor:(MWMBookmarkColor)color
+- (void)updateBookmark:(MWMMarkID)bookmarkId setColor:(UIColor *)color
 {
   auto editSession = self.bm.GetEditSession();
 
   auto bookmark = editSession.GetBookmarkForEdit(bookmarkId);
   ASSERT(bookmark, ("Invalid bookmark id:", bookmarkId));
 
-  auto kmlColor = kmlColorFromBookmarkColor(color);
-  if (kmlColor != bookmark->GetColor())
-    self.bm.SetLastEditedBmColor(kmlColor);
+  auto const newColor = [MWMBookmarksManager getColorFromUIColor:color];
+  if (newColor != bookmark->GetColorForRendering())
+    self.bm.SetLastEditedBmColor(kml::MakeCustomBookmarkColorData(newColor));
 
-  bookmark->SetColor(kmlColor);
+  bookmark->SetColor(newColor);
 }
 
-- (void)setCategory:(MWMMarkGroupID)groupId bookmarksColor:(MWMBookmarkColor)color
+- (void)setCategory:(MWMMarkGroupID)groupId bookmarksColor:(UIColor *)color
 {
   auto editSession = self.bm.GetEditSession();
-  auto const kmlColor = kmlColorFromBookmarkColor(color);
-  editSession.SetCategoryBookmarksColor(groupId, kmlColor);
-  self.bm.SetLastEditedBmColor(kmlColor);
+  // SetCategoryBookmarksColor(dp::Color) also updates the last-edited color.
+  editSession.SetCategoryBookmarksColor(groupId, [MWMBookmarksManager getColorFromUIColor:color]);
 }
 
-- (void)setCategory:(MWMMarkGroupID)groupId tracksColor:(MWMBookmarkColor)color
+- (void)setCategory:(MWMMarkGroupID)groupId tracksColor:(UIColor *)color
 {
   auto editSession = self.bm.GetEditSession();
-  editSession.SetCategoryTracksColor(groupId, kmlColorFromBookmarkColor(color));
+  editSession.SetCategoryTracksColor(groupId, [MWMBookmarksManager getColorFromUIColor:color]);
 }
 
 - (void)moveBookmark:(MWMMarkID)bookmarkId toGroupId:(MWMMarkGroupID)groupId

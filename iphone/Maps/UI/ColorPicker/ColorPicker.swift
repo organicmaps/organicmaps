@@ -1,6 +1,5 @@
 enum ColorPickerType {
   case defaultColorPicker(UIColor?)
-  case bookmarkColorPicker(BookmarkColor?)
 }
 
 final class ColorPicker: NSObject {
@@ -10,30 +9,14 @@ final class ColorPicker: NSObject {
 
   // MARK: - Public
 
-  /// Presents a color picker view controller modally from a specified root view controller.
-  ///
-  /// - Uses native color picker on the iOS 14.0+ for the `defaultColorPicker` type on iPhone and iPad.
-  /// - For the rest of the iOS versions, `bookmarkColorPicker` type and iPad designed for Mac uses a custom color picker.
-  ///
+  /// Presents the native arbitrary-color picker modally from a specified root view controller.
+  /// Used for both bookmarks and tracks (and on iOS-app-on-Mac).
   func present(from rootViewController: UIViewController, pickerType: ColorPickerType, completionHandler: ((UIColor) -> Void)?) {
     onUpdateColorHandler = completionHandler
-    let colorPickerViewController: UIViewController
-
     switch pickerType {
     case .defaultColorPicker(let color):
-      if !ProcessInfo.processInfo.isiOSAppOnMac {
-        colorPickerViewController = defaultColorPickerViewController(with: color)
-      } else {
-        var selectedColor: BookmarkColor?
-        if let color {
-          selectedColor = BookmarkColor.bookmarkColor(from: color)
-        }
-        colorPickerViewController = bookmarksColorPickerViewController(with: selectedColor)
-      }
-    case .bookmarkColorPicker(let bookmarkColor):
-      colorPickerViewController = bookmarksColorPickerViewController(with: bookmarkColor)
+      rootViewController.present(defaultColorPickerViewController(with: color), animated: true)
     }
-    rootViewController.present(colorPickerViewController, animated: true)
   }
 
   // MARK: - Private
@@ -49,26 +32,10 @@ final class ColorPicker: NSObject {
     return colorPickerController
   }
 
-  private func bookmarksColorPickerViewController(with selectedColor: BookmarkColor?) -> UIViewController {
-    let bookmarksColorViewController = BookmarkColorViewController(bookmarkColor: selectedColor)
-    bookmarksColorViewController.delegate = self
-    // The navigation controller is used for getting the navigation item with the title and the close button.
-    return UINavigationController(rootViewController: bookmarksColorViewController)
-  }
-
   private func commitSelection(_ color: UIColor) {
     guard let onUpdateColorHandler else { return }
     self.onUpdateColorHandler = nil
     onUpdateColorHandler(color)
-  }
-}
-
-// MARK: - BookmarkColorViewControllerDelegate
-
-extension ColorPicker: BookmarkColorViewControllerDelegate {
-  func bookmarkColorViewController(_ viewController: BookmarkColorViewController, didSelect bookmarkColor: BookmarkColor) {
-    commitSelection(bookmarkColor.color)
-    viewController.dismiss(animated: true)
   }
 }
 
