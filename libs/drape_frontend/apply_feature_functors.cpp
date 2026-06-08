@@ -19,11 +19,11 @@
 #include "geometry/robust_orientation.hpp"
 
 #include "drape/color.hpp"
+#include "drape/font_constants.hpp"
 #include "drape/stipple_pen_resource.hpp"
 #include "drape/texture_manager.hpp"
 
 #include "base/logging.hpp"
-#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <cmath>
