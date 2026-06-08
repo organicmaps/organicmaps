@@ -82,8 +82,11 @@ private:
   void ParseLineString(std::string const & s);
 
   bool MakeValid();
-  void ParseColor(std::string const & value);
+  static void ParseColor(std::string const & value, uint32_t & color);
   bool GetColorForStyle(std::string_view styleUrl, uint32_t & color) const;
+  // Icon color is kept separate from line color so a <Style> with both IconStyle and LineStyle does
+  // not leak a bookmark color into a track or vice versa.
+  bool GetIconColorForStyle(std::string_view styleUrl, uint32_t & color) const;
   double GetTrackWidthForStyle(std::string_view styleUrl) const;
 
   FileData & m_data;
@@ -97,12 +100,14 @@ private:
   std::map<size_t, std::set<size_t>> m_skipTimes;
   size_t m_lastTrackPointsCount;
 
-  uint32_t m_color;
+  uint32_t m_color;      // current LineStyle color (tracks)
+  uint32_t m_iconColor;  // current IconStyle color (custom bookmark color)
 
   std::string m_styleId;
   std::string m_mapStyleId;
   std::string m_styleUrlKey;
   std::map<std::string, uint32_t, std::less<>> m_styleUrl2Color;
+  std::map<std::string, uint32_t, std::less<>> m_styleUrl2IconColor;
   std::map<std::string, double, std::less<>> m_styleUrl2Width;
   std::map<std::string, std::string> m_mapStyle2Style;
 
