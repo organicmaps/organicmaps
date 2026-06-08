@@ -88,12 +88,16 @@ public:
   void Reset() override
   {
     m_descriptorUpdater.Destroy();
+
     for (auto const & b : m_geometryBuffers)
       m_objectManager->DestroyObject(b);
     m_geometryBuffers.clear();
 
     if (m_indexBuffer.m_buffer != VK_NULL_HANDLE)
+    {
       m_objectManager->DestroyObject(m_indexBuffer);
+      m_indexBuffer = {};
+    }
   }
 
   void UpdateBuffer(ref_ptr<dp::GraphicsContext> context, uint32_t bufferInd) override
