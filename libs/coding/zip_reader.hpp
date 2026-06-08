@@ -8,6 +8,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <functional>
+#include <memory>
 #include <string>
 #include <utility>
 #include <vector>
@@ -41,6 +42,9 @@ public:
   /// @note Size() returns compressed file size inside zip
   uint64_t UncompressedSize() const { return m_uncompressedFileSize; }
 
+  /// @returns true for a deflated entry, false for a stored (method 0, readable in place) one.
+  bool IsCompressed() const { return m_isCompressed; }
+
   /// @warning Can also throw Writer::OpenException and Writer::WriteException
   static void UnzipFile(std::string const & zipContainer, std::string const & fileInZip, Delegate & delegate);
   static void UnzipFile(std::string const & zipContainer, std::string const & fileInZip, std::string const & outPath);
@@ -50,6 +54,14 @@ public:
   /// Quick version without exceptions
   static bool IsZip(std::string const & zipContainer);
 
+  /// Opens |fileInZip| inside |zipContainer| and returns a random-access reader for it.
+  /// A stored (uncompressed) entry is read in place from the container; a deflated entry is inflated
+  /// once into memory (our in-place FileReader can only read uncompressed data from the container).
+  static std::unique_ptr<ModelReader> CreateModelReader(std::string const & zipContainer, std::string const & fileInZip,
+                                                        uint32_t logPageSize = FileReader::kDefaultLogPageSize,
+                                                        uint32_t logPageCount = FileReader::kDefaultLogPageCount);
+
 private:
   uint64_t m_uncompressedFileSize;
+  bool m_isCompressed;
 };

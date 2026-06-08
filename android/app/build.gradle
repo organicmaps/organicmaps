@@ -218,13 +218,16 @@ android {
     }
   }
 
-  // We don't compress these extensions in assets/ because our random FileReader can't read zip-compressed files from apk.
-  // TODO: Load all minor files via separate call to ReadAsString which can correctly handle compressed files in zip containers.
-  // html is intentionally absent (i.e. compressed): it's loaded via WebView file:///android_asset/ URLs,
-  // which transparently decompress through Android's AssetManager rather than our random FileReader.
+  // Keep only assets that need true random access uncompressed, so FileReader can read them in place
+  // from the APK: .mwm and packed_polygons.bin (memory-mapped and seeked), .ttf fonts (read on demand
+  // by FreeType). .png/.sdf/.spv/.ui/.obj are binary blobs kept as-is too. Everything else is
+  // compressed in the APK and inflated on load: html via the WebView's AssetManager, and files opened
+  // through Platform::GetReader via ZipFileReader::CreateModelReader.
+  // packed_polygons.bin is listed by full name (not the 'bin' extension) so other .bin assets, such
+  // as the drawing rules, are still compressed.
   androidResources {
     ignoreAssetsPattern = '!.svn:!.git:!.DS_Store:!*.scc:.*:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~'
-    noCompress = ['txt', 'bin', 'png', 'json', 'mwm', 'ttf', 'sdf', 'ui', 'config', 'csv', 'spv', 'obj']
+    noCompress = ['png', 'mwm', 'ttf', 'sdf', 'ui', 'spv', 'obj', 'packed_polygons.bin']
   }
 
   compileOptions {

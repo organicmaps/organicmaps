@@ -2,10 +2,15 @@
 
 #include "coding/constants.hpp"
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 
 #include <array>
+#include <cstring>
+#include <memory>
+#include <utility>
+#include <vector>
 
 #include "3party/minizip/minizip.hpp"
 
@@ -39,12 +44,70 @@ private:
   std::string const m_path;
   bool m_completed;
 };
+
+// Accumulates the inflated bytes of a zip entry into one contiguous buffer.
+class MemBufferDelegate : public ZipFileReader::Delegate
+{
+public:
+  explicit MemBufferDelegate(uint64_t reserveSize) { m_buffer.reserve(static_cast<size_t>(reserveSize)); }
+
+  void OnBlockUnzipped(size_t size, char const * data) override { m_buffer.insert(m_buffer.end(), data, data + size); }
+
+  std::vector<char> TakeBuffer() { return std::move(m_buffer); }
+
+private:
+  std::vector<char> m_buffer;
+};
+
+// ModelReader backed by an owned in-memory buffer (e.g. an inflated zip entry). The buffer is shared,
+// so sub-readers keep it alive and stay valid independently of this reader's lifetime.
+class MemModelReader : public ModelReader
+{
+public:
+  MemModelReader(std::vector<char> buffer, std::string const & name)
+    : ModelReader(name)
+    , m_buffer(std::make_shared<std::vector<char>>(std::move(buffer)))
+    , m_offset(0)
+    , m_size(m_buffer->size())
+  {}
+
+  uint64_t Size() const override { return m_size; }
+
+  void Read(uint64_t pos, void * p, size_t size) const override
+  {
+    ASSERT_LESS_OR_EQUAL(pos + size, m_size, (pos, size));
+    std::memcpy(p, m_buffer->data() + m_offset + static_cast<size_t>(pos), size);
+  }
+
+  // The sub-reader must also be a ModelReader: ModelReaderPtr::SubReader static_casts the result to
+  // ModelReader, so returning a plain Reader would be UB.
+  std::unique_ptr<Reader> CreateSubReader(uint64_t pos, uint64_t size) const override
+  {
+    ASSERT_LESS_OR_EQUAL(pos + size, m_size, (pos, size));
+    // Can't use make_unique with a private constructor.
+    return std::unique_ptr<Reader>(
+        new MemModelReader(m_buffer, m_offset + static_cast<size_t>(pos), static_cast<size_t>(size), GetName()));
+  }
+
+private:
+  MemModelReader(std::shared_ptr<std::vector<char>> buffer, size_t offset, size_t size, std::string const & name)
+    : ModelReader(name)
+    , m_buffer(std::move(buffer))
+    , m_offset(offset)
+    , m_size(size)
+  {}
+
+  std::shared_ptr<std::vector<char>> m_buffer;
+  size_t m_offset;
+  size_t m_size;
+};
 }  // namespace
 
 ZipFileReader::ZipFileReader(std::string const & container, std::string const & file, uint32_t logPageSize,
                              uint32_t logPageCount)
   : FileReader(container, logPageSize, logPageCount)
   , m_uncompressedFileSize(0)
+  , m_isCompressed(false)
 {
   auto zip = unzip::Open(container.c_str());
   if (!zip)
@@ -70,6 +133,29 @@ ZipFileReader::ZipFileReader(std::string const & container, std::string const & 
 
   SetOffsetAndSize(offset, fileInfo.m_info.compressed_size);
   m_uncompressedFileSize = fileInfo.m_info.uncompressed_size;
+  m_isCompressed = fileInfo.m_info.compression_method != 0;
+}
+
+// static
+std::unique_ptr<ModelReader> ZipFileReader::CreateModelReader(std::string const & zipContainer,
+                                                              std::string const & fileInZip, uint32_t logPageSize,
+                                                              uint32_t logPageCount)
+{
+  auto reader = std::make_unique<ZipFileReader>(zipContainer, fileInZip, logPageSize, logPageCount);
+
+  // Stored (uncompressed) entries are read in place from the container without copying — needed for
+  // large, memory-mapped/seeked files like .mwm and packed_polygons.bin. ZipFileReader exposes the
+  // raw container bytes, so reading in place is correct only for a stored entry (compression method 0);
+  // a deflated entry with equal compressed/uncompressed sizes must still be inflated, not read raw.
+  if (!reader->IsCompressed())
+    return reader;
+
+  // Deflated entry: it can't be read in place, so inflate it once into memory and serve reads there.
+  uint64_t const uncompressedSize = reader->UncompressedSize();
+  reader.reset();
+  MemBufferDelegate delegate(uncompressedSize);
+  UnzipFile(zipContainer, fileInZip, delegate);
+  return std::make_unique<MemModelReader>(delegate.TakeBuffer(), fileInZip);
 }
 
 void ZipFileReader::FilesList(std::string const & zipContainer, FileList & filesList)
