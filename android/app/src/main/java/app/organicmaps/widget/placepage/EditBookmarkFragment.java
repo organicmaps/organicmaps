@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -39,8 +40,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.List;
 
 public class EditBookmarkFragment extends BaseMwmDialogFragment
-    implements View.OnClickListener, Listener, BookmarkColorDialogFragment.OnBookmarkColorChangeListener,
-               TrackColorPickerFragment.OnTrackColorChangeListener
+    implements View.OnClickListener, Listener, TrackColorPickerFragment.OnTrackColorChangeListener
 {
   public static final String EXTRA_CATEGORY_ID = "CategoryId";
   public static final String EXTRA_ID = "BookmarkTrackId";
@@ -306,41 +306,30 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment
       return;
 
     final FragmentManager manager = getChildFragmentManager();
+    final Bundle args = new Bundle();
+    args.putInt(TrackColorPickerViewModel.EXTRA_INITIAL_COLOR, mTrack != null ? mColor : mIcon.argb());
+    final TrackColorPickerFragment fragment = new TrackColorPickerFragment();
+    fragment.setArguments(args);
+    fragment.show(manager, null);
+  }
+
+  @Override
+  public void onTrackColorSet(@ColorInt int color)
+  {
     if (mTrack != null)
     {
-      final Bundle args = new Bundle();
-      args.putInt(TrackColorPickerViewModel.EXTRA_INITIAL_COLOR, mColor);
-      final TrackColorPickerFragment fragment = new TrackColorPickerFragment();
-      fragment.setArguments(args);
-      fragment.show(manager, null);
+      if (mColor == color)
+        return;
+      mColor = color;
+      refreshTrackColor();
     }
-    else
+    else if (mIcon != null)
     {
-      final Bundle args = new Bundle();
-      args.putInt(BookmarkColorDialogFragment.ICON_COLOR, mIcon.getColor());
-      args.putInt(BookmarkColorDialogFragment.ICON_RES, mIcon.getResId());
-      final BookmarkColorDialogFragment dialogFragment = new BookmarkColorDialogFragment();
-      dialogFragment.setArguments(args);
-      dialogFragment.show(manager, null);
+      if (mIcon.argb() == color)
+        return;
+      mIcon = new Icon(color, mIcon.getType());
+      refreshColorMarker();
     }
-  }
-
-  @Override
-  public void onBookmarkColorSet(int colorPos)
-  {
-    if (mIcon == null || mIcon.getColor() == colorPos)
-      return;
-    mIcon = new Icon(colorPos, mIcon.getType());
-    refreshColorMarker();
-  }
-
-  @Override
-  public void onTrackColorSet(int color)
-  {
-    if (mColor == color)
-      return;
-    mColor = color;
-    refreshTrackColor();
   }
 
   private void refreshColorMarker()

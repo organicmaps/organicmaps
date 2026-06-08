@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.MenuProvider;
@@ -24,17 +25,19 @@ import app.organicmaps.sdk.bookmarks.data.DataChangedListener;
 import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.colorpicker.TrackColorPickerFragment;
-import app.organicmaps.widget.placepage.BookmarkColorDialogFragment;
+import app.organicmaps.widget.colorpicker.TrackColorPickerViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import java.util.Objects;
 
 public class BookmarkCategorySettingsFragment
-    extends BaseMwmToolbarFragment implements BookmarkColorDialogFragment.OnBookmarkColorChangeListener,
-                                              TrackColorPickerFragment.OnTrackColorChangeListener
+    extends BaseMwmToolbarFragment implements TrackColorPickerFragment.OnTrackColorChangeListener
 {
   private static final int TEXT_LENGTH_LIMIT = 60;
+
+  // The category color picker is shared between bookmarks and tracks; remember which one is active.
+  private boolean mPickingTracksColor;
 
   @NonNull
   private final DataChangedListener mCategoriesListener = this::onCategoriesChanged;
@@ -244,30 +247,33 @@ public class BookmarkCategorySettingsFragment
 
   private void showBookmarkColorPicker()
   {
+    mPickingTracksColor = false;
     final Bundle args = new Bundle();
-    args.putInt(BookmarkColorDialogFragment.ICON_COLOR, BookmarkManager.INSTANCE.getLastEditedColor());
-    final BookmarkColorDialogFragment dialogFragment = new BookmarkColorDialogFragment();
-    dialogFragment.setArguments(args);
-    dialogFragment.show(getChildFragmentManager(), BookmarkColorDialogFragment.class.getName());
+    args.putInt(TrackColorPickerViewModel.EXTRA_INITIAL_COLOR, BookmarkManager.INSTANCE.getLastEditedColor());
+    final TrackColorPickerFragment fragment = new TrackColorPickerFragment();
+    fragment.setArguments(args);
+    fragment.show(getChildFragmentManager(), null);
   }
 
   private void showTrackColorPicker()
   {
+    mPickingTracksColor = true;
     new TrackColorPickerFragment().show(getChildFragmentManager(), null);
   }
 
   @Override
-  public void onBookmarkColorSet(int color)
+  public void onTrackColorSet(@ColorInt int color)
   {
-    mCategory.setCategoryBookmarksColor(color);
-    Toast.makeText(requireContext(), R.string.toast_bookmarks_color_changed, Toast.LENGTH_SHORT).show();
-  }
-
-  @Override
-  public void onTrackColorSet(int color)
-  {
-    mCategory.setCategoryTracksCustomColor(color);
-    Toast.makeText(requireContext(), R.string.toast_tracks_color_changed, Toast.LENGTH_SHORT).show();
+    if (mPickingTracksColor)
+    {
+      mCategory.setCategoryTracksCustomColor(color);
+      Toast.makeText(requireContext(), R.string.toast_tracks_color_changed, Toast.LENGTH_SHORT).show();
+    }
+    else
+    {
+      mCategory.setCategoryBookmarksColor(color);
+      Toast.makeText(requireContext(), R.string.toast_bookmarks_color_changed, Toast.LENGTH_SHORT).show();
+    }
   }
 
   private void onCategoriesChanged()

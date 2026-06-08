@@ -41,6 +41,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.annotation.ColorInt;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -71,7 +72,6 @@ import app.organicmaps.sdk.bookmarks.data.FileType;
 import app.organicmaps.sdk.bookmarks.data.Icon;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.Metadata;
-import app.organicmaps.sdk.bookmarks.data.PredefinedColors;
 import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.sdk.bookmarks.data.TrackRecording;
 import app.organicmaps.sdk.downloader.CountryItem;
@@ -113,7 +113,6 @@ public class PlacePageView extends Fragment
     implements View.OnClickListener, View.OnLongClickListener, LocationListener, SensorListener, Observer<MapObject>,
                ChooseBookmarkCategoryFragment.Listener, EditBookmarkFragment.EditBookmarkListener,
                MenuBottomSheetFragment.MenuBottomSheetInterface, BookmarkManager.BookmarksSharingListener,
-               BookmarkColorDialogFragment.OnBookmarkColorChangeListener,
                TrackColorPickerFragment.OnTrackColorChangeListener
 
 {
@@ -614,45 +613,41 @@ public class PlacePageView extends Fragment
     }
     else if (mMapObject.isBookmark())
     {
-      final Bundle args = new Bundle();
       final Bookmark bookmark = (Bookmark) mMapObject;
-      args.putInt(BookmarkColorDialogFragment.ICON_COLOR, bookmark.getIcon().getColor());
-      args.putInt(BookmarkColorDialogFragment.ICON_RES, bookmark.getIcon().getResId());
-      final BookmarkColorDialogFragment dialogFragment = new BookmarkColorDialogFragment();
-      dialogFragment.setArguments(args);
-      dialogFragment.show(manager, null);
+      final Bundle args = new Bundle();
+      args.putInt(TrackColorPickerViewModel.EXTRA_INITIAL_COLOR, bookmark.getIcon().argb());
+      final TrackColorPickerFragment fragment = new TrackColorPickerFragment();
+      fragment.setArguments(args);
+      fragment.show(manager, null);
     }
   }
 
   @Override
-  public void onTrackColorSet(int color)
+  public void onTrackColorSet(@ColorInt int color)
   {
-    if (mMapObject == null || !mMapObject.isTrack())
+    if (mMapObject == null)
       return;
-    final Track track = (Track) mMapObject;
-    if (track.getColor() == color)
-      return;
-    track.setColor(color);
-    Drawable circle =
-        Graphics.drawCircle(color, R.dimen.place_page_icon_background_size, requireContext().getResources());
-    mColorIcon.setImageDrawable(circle);
-  }
-
-  @Override
-  public void onBookmarkColorSet(int colorPos)
-  {
-    if (mMapObject == null || !mMapObject.isBookmark())
-      return;
-    final Bookmark bookmark = (Bookmark) mMapObject;
-    int from = bookmark.getIcon().argb();
-    int to = PredefinedColors.getColor(colorPos);
-    if (from == to)
-      return;
-    bookmark.setIconColor(to);
-    Drawable circle =
-        Graphics.drawCircleAndImage(to, R.dimen.place_page_icon_background_size, bookmark.getIcon().getResId(),
-                                    R.dimen.place_page_icon_size, requireContext());
-    mColorIcon.setImageDrawable(circle);
+    if (mMapObject.isTrack())
+    {
+      final Track track = (Track) mMapObject;
+      if (track.getColor() == color)
+        return;
+      track.setColor(color);
+      Drawable circle =
+          Graphics.drawCircle(color, R.dimen.place_page_icon_background_size, requireContext().getResources());
+      mColorIcon.setImageDrawable(circle);
+    }
+    else if (mMapObject.isBookmark())
+    {
+      final Bookmark bookmark = (Bookmark) mMapObject;
+      if (bookmark.getIcon().argb() == color)
+        return;
+      bookmark.setIconColor(color);
+      Drawable circle =
+          Graphics.drawCircleAndImage(color, R.dimen.place_page_icon_background_size, bookmark.getIcon().getResId(),
+                                      R.dimen.place_page_icon_size, requireContext());
+      mColorIcon.setImageDrawable(circle);
+    }
   }
 
   private void showCategoryList()

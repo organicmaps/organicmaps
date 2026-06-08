@@ -160,6 +160,7 @@ public:
     void SetCategoryAccessRules(kml::MarkGroupId categoryId, kml::AccessRules accessRules);
     void SetCategoryCustomProperty(kml::MarkGroupId categoryId, std::string const & key, std::string const & value);
     void SetCategoryBookmarksColor(kml::MarkGroupId groupId, kml::PredefinedColor color);
+    void SetCategoryBookmarksColor(kml::MarkGroupId groupId, dp::Color color);
     void SetCategoryTracksColor(kml::MarkGroupId groupId, kml::PredefinedColor color);
     void SetCategoryTracksColor(kml::MarkGroupId groupId, dp::Color color);
 

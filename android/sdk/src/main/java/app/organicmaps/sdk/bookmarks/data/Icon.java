@@ -21,11 +21,11 @@ public class Icon implements Parcelable
   @DrawableRes
   private static int[] sTypeIcons = null;
 
-  @PredefinedColors.Color
+  @ColorInt
   private final int mColor;
   private final int mType;
 
-  public Icon(@PredefinedColors.Color int color, int type)
+  public Icon(@ColorInt int color, int type)
   {
     mColor = color;
     mType = type;
@@ -50,16 +50,10 @@ public class Icon implements Parcelable
     mType = in.readInt();
   }
 
-  @PredefinedColors.Color
-  public int getColor()
-  {
-    return mColor;
-  }
-
   @ColorInt
   public int argb()
   {
-    return PredefinedColors.getColor(mColor);
+    return mColor;
   }
 
   @DrawableRes

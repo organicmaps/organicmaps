@@ -316,9 +316,11 @@ JNIEXPORT jlong Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGe
 
 JNIEXPORT jint Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGetLastEditedColor(JNIEnv *, jobject)
 {
-  // TODO(G5): return effective ARGB once the Android picker takes arbitrary colors. For now keep the
-  // preset-index contract; a custom last-edited color (predefined None) maps to index 0.
-  return static_cast<jint>(kml::kColorIndexMap[E2I(frm()->LastEditedBMColor().m_predefinedColor)]);
+  auto const color = frm()->LastEditedBMColor();
+  dp::Color const effective = kml::IsCustomBookmarkColor(color)
+                                ? dp::Color(color.m_rgba)
+                                : kml::ColorFromPredefinedColor(color.m_predefinedColor);
+  return static_cast<jint>(effective.GetARGB());
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeLoadBookmarksFile(JNIEnv * env, jclass,
@@ -367,7 +369,7 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_native
   auto title = jni::ToJavaString(env, bookmark->GetPreferredName());
   auto description = jni::ToJavaString(env, bookmark->GetDescription());
   auto featureType = jni::ToJavaString(env, kml::GetLocalizedFeatureType(bookmark->GetData().m_featureTypes));
-  auto color = static_cast<jint>(kml::kColorIndexMap[base::E2I(bookmark->GetColor())]);
+  auto color = static_cast<jint>(bookmark->GetColorForRendering().GetARGB());
   auto iconType = static_cast<jint>(bookmark->GetData().m_icon);
   auto coords = jni::GetNewParcelablePointD(env, bookmark->GetPivot());
   auto scale = static_cast<jdouble>(bookmark->GetScale());

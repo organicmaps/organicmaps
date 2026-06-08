@@ -205,11 +205,10 @@ JNIEXPORT jintArray Java_app_organicmaps_sdk_bookmarks_data_BookmarkCategory_nat
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkCategory_nativeSetCategoryBookmarksColor(JNIEnv *,
                                                                                                         jclass,
                                                                                                         jlong catId,
-                                                                                                        jint colorIndex)
+                                                                                                        jint color)
 {
-  CHECK_LESS(static_cast<size_t>(colorIndex), kml::kOrderedPredefinedColors.size(), ());
-  frm()->GetBookmarkManager().GetEditSession().SetCategoryBookmarksColor(static_cast<kml::MarkGroupId>(catId),
-                                                                         kml::kOrderedPredefinedColors[colorIndex]);
+  frm()->GetBookmarkManager().GetEditSession().SetCategoryBookmarksColor(
+      static_cast<kml::MarkGroupId>(catId), dp::Color::FromARGB(static_cast<uint32_t>(color)));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkCategory_nativeSetCategoryTracksCustomColor(JNIEnv *,
