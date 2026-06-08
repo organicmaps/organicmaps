@@ -160,8 +160,6 @@ void DrapeEngine::RecoverSurface(int w, int h, bool recreateContextDependentReso
 
 void DrapeEngine::Resize(int w, int h)
 {
-  ASSERT_GREATER(w, 0, ());
-  ASSERT_GREATER(h, 0, ());
   if (m_viewport.GetHeight() != static_cast<uint32_t>(h) || m_viewport.GetWidth() != static_cast<uint32_t>(w))
     ResizeImpl(w, h);
 }
@@ -470,6 +468,8 @@ void DrapeEngine::UserPositionChanged(m2::PointD const & position, bool hasPosit
 
 void DrapeEngine::ResizeImpl(int w, int h)
 {
+  CHECK(w > 0 && h > 0, (w, h));
+
   gui::DrapeGui::Instance().SetSurfaceSize(m2::PointF(w, h));
   m_viewport.SetViewport(0, 0, w, h);
   PostUserEvent(make_unique_dp<ResizeEvent>(w, h));
