@@ -102,7 +102,7 @@ class PlatformSocket
     }
     catch (IOException e)
     {
-      Logger.e(TAG, "Failed to create the ssl socket, mHost = " + host + " mPort = " + port);
+      Logger.w(TAG, "Failed to create the ssl socket, mHost = " + host + " mPort = " + port);
     }
     return socket;
   }
@@ -118,7 +118,7 @@ class PlatformSocket
     }
     catch (IOException e)
     {
-      Logger.e(TAG, "Failed to create the socket, mHost = " + host + " mPort = " + port);
+      Logger.w(TAG, "Failed to create the socket, mHost = " + host + " mPort = " + port);
     }
     return socket;
   }
@@ -151,7 +151,7 @@ class PlatformSocket
     }
     catch (IOException e)
     {
-      Logger.e(TAG, "Failed to close socket: " + this + "\n");
+      Logger.w(TAG, "Failed to close socket: " + this + "\n");
     }
     finally
     {
@@ -188,7 +188,7 @@ class PlatformSocket
 
           if (read == 0)
           {
-            Logger.e(TAG, "0 bytes are obtained. It's considered as error\n");
+            Logger.w(TAG, "0 bytes are obtained. It's considered as error\n");
             break;
           }
 
@@ -198,10 +198,10 @@ class PlatformSocket
         catch (SocketTimeoutException e)
         {
           long readingTime = SystemClock.elapsedRealtime() - startTime;
-          Logger.e(TAG, "Socked timeout has occurred after " + readingTime + " (ms)\n ");
+          Logger.w(TAG, "Socked timeout has occurred after " + readingTime + " (ms)\n ");
           if (readingTime > mTimeout)
           {
-            Logger.e(TAG, "Socket wrapper timeout has occurred, requested count = " + (count - readBytes)
+            Logger.w(TAG, "Socket wrapper timeout has occurred, requested count = " + (count - readBytes)
                               + ", readBytes = " + readBytes + "\n");
             break;
           }
@@ -210,7 +210,7 @@ class PlatformSocket
     }
     catch (IOException e)
     {
-      Logger.e(TAG, "Failed to read data from socket: " + this + "\n");
+      Logger.w(TAG, "Failed to read data from socket: " + this + "\n");
     }
 
     return count == readBytes;
@@ -236,11 +236,11 @@ class PlatformSocket
     catch (SocketTimeoutException e)
     {
       long writingTime = SystemClock.elapsedRealtime() - startTime;
-      Logger.e(TAG, "Socked timeout has occurred after " + writingTime + " (ms)\n");
+      Logger.w(TAG, "Socked timeout has occurred after " + writingTime + " (ms)\n");
     }
     catch (IOException e)
     {
-      Logger.e(TAG, "Failed to write data to socket: " + this + "\n");
+      Logger.w(TAG, "Failed to write data to socket: " + this + "\n");
     }
 
     return false;
@@ -277,7 +277,7 @@ class PlatformSocket
     }
     catch (SocketException e)
     {
-      Logger.e(TAG, "Failed to set system socket timeout: " + millis + "ms, " + this + "\n");
+      Logger.w(TAG, "Failed to set system socket timeout: " + millis + "ms, " + this + "\n");
     }
   }
 

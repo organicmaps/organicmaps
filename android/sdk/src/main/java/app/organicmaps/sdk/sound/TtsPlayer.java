@@ -80,7 +80,7 @@ public enum TtsPlayer
 
     private void handleError(@NonNull String utteranceId, int errorCode)
     {
-      Logger.e(TAG, "TTS Utterance error: " + utteranceId + ", code: " + errorCode);
+      Logger.w(TAG, "TTS Utterance error: " + utteranceId + ", code: " + errorCode);
       handleStop(utteranceId);
     }
 
