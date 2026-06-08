@@ -127,7 +127,7 @@ public abstract class GoogleAssistantIntentHandler
     }
     catch (Exception e)
     {
-      Logger.e(TAG, "Failed to parse destination", e);
+      Logger.w(TAG, "Failed to parse destination", e);
     }
 
     return dst;
@@ -175,7 +175,7 @@ public abstract class GoogleAssistantIntentHandler
     }
     catch (Exception e)
     {
-      Logger.e(TAG, "Failed to apply avoid options", e);
+      Logger.w(TAG, "Failed to apply avoid options", e);
     }
   }
 
@@ -235,7 +235,7 @@ public abstract class GoogleAssistantIntentHandler
     }
     catch (Exception e)
     {
-      Logger.e(TAG, "Failed to parse action parameter", e);
+      Logger.w(TAG, "Failed to parse action parameter", e);
       return null;
     }
   }
@@ -319,7 +319,7 @@ public abstract class GoogleAssistantIntentHandler
     }
     catch (Exception e)
     {
-      Logger.e(TAG, "Failed to handle custom action", e);
+      Logger.w(TAG, "Failed to handle custom action", e);
       return false;
     }
   }
@@ -380,7 +380,7 @@ public abstract class GoogleAssistantIntentHandler
     }
     catch (Exception e)
     {
-      Logger.e(TAG, "Failed to process assistant intent", e);
+      Logger.w(TAG, "Failed to process assistant intent", e);
       return false;
     }
   }

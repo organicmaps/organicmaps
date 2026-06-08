@@ -130,11 +130,11 @@ public final class IntentUtils
       screenManager.popToRoot();
       screenManager.push(builder.build());
       return;
-    case RequestType.ROUTE: Logger.e(TAG, "Route API is not supported by Android Auto: " + uri); return;
-    case RequestType.CROSSHAIR: Logger.e(TAG, "Crosshair API is not supported by Android Auto: " + uri); return;
-    case RequestType.MENU: Logger.e(TAG, "Menu API is not supported by Android Auto: " + uri); return;
-    case RequestType.SETTINGS: Logger.e(TAG, "Settings API is not supported by Android Auto: " + uri); return;
-    case RequestType.OAUTH2: Logger.e(TAG, "OAuth2 API is not supported by Android Auto: " + uri);
+    case RequestType.ROUTE: Logger.w(TAG, "Route API is not supported by Android Auto: " + uri); return;
+    case RequestType.CROSSHAIR: Logger.w(TAG, "Crosshair API is not supported by Android Auto: " + uri); return;
+    case RequestType.MENU: Logger.w(TAG, "Menu API is not supported by Android Auto: " + uri); return;
+    case RequestType.SETTINGS: Logger.w(TAG, "Settings API is not supported by Android Auto: " + uri); return;
+    case RequestType.OAUTH2: Logger.w(TAG, "OAuth2 API is not supported by Android Auto: " + uri);
     }
   }
 
