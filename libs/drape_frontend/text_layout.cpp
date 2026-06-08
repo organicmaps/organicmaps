@@ -1,5 +1,6 @@
 #include "drape_frontend/text_layout.hpp"
 #include "drape_frontend/map_shape.hpp"
+#include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "drape/font_constants.hpp"
