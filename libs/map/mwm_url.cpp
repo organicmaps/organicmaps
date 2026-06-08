@@ -66,6 +66,8 @@ namespace route_v2
 std::string_view constexpr kPathDir = "dir";
 std::string_view constexpr kPathNav = "nav";
 std::string_view constexpr kOrigin = "origin";
+std::string_view constexpr kOriginCurrentLocation = "currentLocation";
+std::string_view constexpr kOriginCurrentLocationKebab = "current-location";
 std::string_view constexpr kOriginName = "origin_name";
 std::string_view constexpr kOriginCallback = "origin_callback";
 std::string_view constexpr kOriginHeading = "origin_heading";
@@ -129,6 +131,11 @@ bool ParseLatLon(std::string const & key, std::string const & value, double & la
     return false;
   }
   return true;
+}
+
+bool IsRouteCurrentLocation(std::string const & value)
+{
+  return value == route_v2::kOriginCurrentLocation || value == route_v2::kOriginCurrentLocationKebab;
 }
 
 bool ParseRoutePoint(std::string const & key, std::string const & value, RoutePoint & point)
@@ -263,7 +270,16 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
         if (key == kOrigin)
         {
           originProvided = true;
-          originFound = ParseRoutePoint(key, value, origin);
+          if (IsRouteCurrentLocation(value))
+          {
+            origin.m_org = m2::PointD::Zero();
+            origin.m_isMyPosition = true;
+            originFound = true;
+          }
+          else
+          {
+            originFound = ParseRoutePoint(key, value, origin);
+          }
         }
         else if (key == kOriginName)
         {
