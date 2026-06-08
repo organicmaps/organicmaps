@@ -35,6 +35,7 @@ class ZipLogsTask implements Runnable
   @Override
   public void run()
   {
+    Logger.flushFileLogs();
     saveSystemLogcat(mLogsPath);
     final boolean success = zipFileAtPath(mLogsPath, mZipPath);
     if (mOnCompletedListener != null)
@@ -94,11 +95,12 @@ class ZipLogsTask implements Runnable
 
   private void saveSystemLogcat(String path)
   {
-    final String cmd = "logcat -d -v time";
     Process process;
     try
     {
-      process = Runtime.getRuntime().exec(cmd);
+      process = new ProcessBuilder("logcat", "-b", "main", "-b", "system", "-b", "crash", "-d", "-v", "threadtime")
+                    .redirectErrorStream(true)
+                    .start();
     }
     catch (IOException e)
     {
@@ -121,6 +123,15 @@ class ZipLogsTask implements Runnable
         writer.write(buffer, 0, n);
       }
       while (true);
+
+      final int exitCode = process.waitFor();
+      if (exitCode != 0)
+        Logger.e(TAG, "logcat finished with code " + exitCode);
+    }
+    catch (InterruptedException e)
+    {
+      Thread.currentThread().interrupt();
+      Logger.e(TAG, "Interrupted while saving system logcat to " + path, e);
     }
     catch (Throwable e)
     {
