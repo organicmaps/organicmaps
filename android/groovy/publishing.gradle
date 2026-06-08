@@ -1,0 +1,81 @@
+ext.Publish = { Project project, Map<String, Object> props ->
+  apply plugin: 'com.vanniktech.maven.publish'
+  // Exposes this module's publication to the root nmcp aggregation (see android/build.gradle).
+  apply plugin: 'com.gradleup.nmcp'
+
+  android {
+    defaultConfig {
+      aarMetadata {
+        // Consumers must compile against at least the SDK version this library was built
+        // with, so every API referenced in its public surface is available to them.
+        minCompileSdk = propCompileSdkVersion.toInteger()
+      }
+    }
+  }
+
+  mavenPublishing {
+    // The vanniktech plugin auto-creates the release publication (AAR + sources + javadoc)
+    // for the com.android.library plugin. nmcp (see android/build.gradle) then aggregates
+    // every SDK module into one atomic Maven Central Portal deployment, so this script
+    // intentionally does not configure any per-module remote upload.
+    coordinates('app.organicmaps.sdk', props['artifactId'], rootProject.ext.versionName)
+
+    // Sign only when a signing key is provided (in CI, for the Central Portal upload).
+    // Otherwise signMavenPublication has no signatory and would fail local tasks such as
+    // publishToMavenLocal, blocking local publication and consumer smoke testing.
+    if (project.findProperty('signingInMemoryKey') != null) {
+      signAllPublications()
+    }
+
+    pom {
+      name = props['name']
+      description = props['description']
+      url = 'https://github.com/organicmaps/organicmaps'
+      // Year the Organic Maps SDK modules were first created.
+      inceptionYear = '2026'
+
+      licenses {
+        license {
+          name = 'The Apache License, Version 2.0'
+          url = 'https://github.com/organicmaps/organicmaps/blob/master/LICENSE'
+          distribution = 'repo'
+        }
+        license {
+          name = 'Organic Maps Binary Data License'
+          url = 'https://github.com/organicmaps/organicmaps/blob/master/DATA_LICENSE.txt'
+          distribution = 'repo'
+        }
+      }
+
+      organization {
+        name = 'Organic Maps'
+        url = 'https://organicmaps.app'
+      }
+
+      developers {
+        developer {
+          id = 'OrganicMaps'
+          name = 'Organic Maps Team'
+          email = 'sdk@organicmaps.app'
+          organizationUrl = 'https://organicmaps.app'
+        }
+      }
+
+      scm {
+        connection = 'scm:git:https://github.com/organicmaps/organicmaps.git'
+        developerConnection = 'scm:git:ssh://git@github.com/organicmaps/organicmaps.git'
+        url = 'https://github.com/organicmaps/organicmaps'
+      }
+
+      ciManagement {
+        system = 'GitHub Actions'
+        url = 'https://github.com/organicmaps/organicmaps/actions'
+      }
+
+      issueManagement {
+        system = 'GitHub Issues'
+        url = 'https://github.com/organicmaps/organicmaps/issues'
+      }
+    }
+  }
+}
