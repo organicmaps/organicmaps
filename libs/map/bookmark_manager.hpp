@@ -288,10 +288,12 @@ public:
   bool HasBookmark(kml::MarkId markId) const;
   bool HasTrack(kml::TrackId trackId) const;
   kml::MarkGroupId LastEditedBMCategory();
-  kml::PredefinedColor LastEditedBMColor() const;
+  kml::ColorData LastEditedBMColor() const;
 
   void SetLastEditedBmCategory(kml::MarkGroupId groupId);
-  void SetLastEditedBmColor(kml::PredefinedColor color);
+  void SetLastEditedBmColor(kml::ColorData const & color);
+  // Compat overload for the legacy preset-only bridge call sites; removed once iOS/Android migrate.
+  void SetLastEditedBmColor(kml::PredefinedColor color) { SetLastEditedBmColor(kml::ColorData{color, 0}); }
 
   using TTouchRectHolder = std::function<m2::AnyRectD(UserMark::Type)>;
   using TFindOnlyVisibleChecker = std::function<bool(UserMark::Type)>;
@@ -762,7 +764,7 @@ private:
 
   std::string m_lastCategoryFileName;
   kml::MarkGroupId m_lastEditedGroupId = kml::kInvalidMarkGroupId;
-  kml::PredefinedColor m_lastColor = kml::PredefinedColor::Red;
+  kml::ColorData m_lastColor{kml::PredefinedColor::Red, 0};
   UserMarkLayers m_userMarkLayers;
 
   MarksCollection m_userMarks;

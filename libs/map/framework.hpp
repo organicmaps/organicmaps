@@ -267,7 +267,7 @@ public:
   kml::MarkGroupId AddCategory(std::string const & categoryName);
 
   kml::MarkGroupId LastEditedBMCategory() { return GetBookmarkManager().LastEditedBMCategory(); }
-  kml::PredefinedColor LastEditedBMColor() const { return GetBookmarkManager().LastEditedBMColor(); }
+  kml::ColorData LastEditedBMColor() const { return GetBookmarkManager().LastEditedBMColor(); }
 
   void ShowBookmark(kml::MarkId id);
   void ShowBookmark(Bookmark const * bookmark);

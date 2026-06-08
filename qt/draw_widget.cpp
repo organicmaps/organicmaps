@@ -599,7 +599,7 @@ void DrawWidget::SubmitBookmark(m2::PointD const & pt)
   auto & manager = m_framework.GetBookmarkManager();
 
   kml::BookmarkData data;
-  data.m_color.m_predefinedColor = kml::PredefinedColor::Red;
+  data.m_color = m_framework.LastEditedBMColor();
   data.m_point = m_framework.P3dtoG(pt);
   manager.GetEditSession().CreateBookmark(std::move(data), manager.LastEditedBMCategory());
 }

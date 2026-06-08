@@ -71,12 +71,14 @@ Bookmark::Bookmark(kml::BookmarkData && data)
   , m_groupId(kml::kInvalidMarkGroupId)
 {
   m_data.m_id = GetId();
+  m_data.m_color = kml::NormalizeBookmarkColorData(m_data.m_color);
 }
 
 void Bookmark::SetData(kml::BookmarkData const & data)
 {
   SetDirty();
   m_data = data;
+  m_data.m_color = kml::NormalizeBookmarkColorData(m_data.m_color);
 }
 
 kml::BookmarkData const & Bookmark::GetData() const

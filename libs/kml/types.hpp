@@ -321,6 +321,19 @@ inline ColorData MakeCustomBookmarkColorData(dp::Color color)
   return {PredefinedColor::None, ForceOpaqueRGBA(color)};
 }
 
+// Enforces the bookmark color invariant:
+//   preset => {predefined != None, rgba == 0}; custom => {None, rgba forced opaque};
+//   unset {None, 0} => default preset {Red, 0}.
+// Imported {predefined, rgba != 0} data is treated as an explicit custom color.
+inline ColorData NormalizeBookmarkColorData(ColorData color)
+{
+  if (IsCustomBookmarkColor(color))
+    return MakeCustomBookmarkColorData(dp::Color(color.m_rgba));
+  if (color.m_predefinedColor == PredefinedColor::None)
+    color.m_predefinedColor = PredefinedColor::Red;
+  return color;
+}
+
 class ClassifierTypes : public std::vector<uint32_t>
 {
 public:
