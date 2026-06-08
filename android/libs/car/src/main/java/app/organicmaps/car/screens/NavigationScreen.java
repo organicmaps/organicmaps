@@ -121,7 +121,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     final JunctionInfo[] points = Framework.nativeGetRouteJunctionPoints(kMaxDistM);
     if (points == null)
     {
-      Logger.e(TAG, "Navigation has not started yet");
+      Logger.w(TAG, "Navigation has not started yet");
       return;
     }
 
