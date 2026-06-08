@@ -154,6 +154,7 @@ public:
     return DeserializeV0(*subReader, featureIndex, langPriority);
   }
 
+private:
   template <typename Reader>
   std::string DeserializeV0(Reader & reader, FeatureIndex featureIndex, LangPriorities const & langPriority)
   {
@@ -206,8 +207,6 @@ public:
   template <typename Reader>
   std::unique_ptr<Reader> CreateFeatureIndicesSubReader(Reader & reader)
   {
-    CHECK(m_initialized, ());
-
     auto const pos = m_header.m_featuresOffset;
     CHECK_GREATER_OR_EQUAL(m_header.m_langMetaOffset, pos, ());
     auto const size = m_header.m_langMetaOffset - pos;
@@ -217,8 +216,6 @@ public:
   template <typename Reader>
   std::unique_ptr<Reader> CreateLangMetaOffsetsSubReader(Reader & reader)
   {
-    CHECK(m_initialized, ());
-
     auto const pos = m_header.m_indexOffset;
     CHECK_GREATER_OR_EQUAL(m_header.m_stringsOffset, pos, ());
     auto const size = m_header.m_stringsOffset - pos;
@@ -228,8 +225,6 @@ public:
   template <typename Reader>
   std::unique_ptr<Reader> CreateLangMetaSubReader(Reader & reader, LangMetaOffset startOffset, LangMetaOffset endOffset)
   {
-    CHECK(m_initialized, ());
-
     auto const pos = m_header.m_langMetaOffset + startOffset;
     CHECK_GREATER_OR_EQUAL(m_header.m_indexOffset, pos, ());
     auto const size = endOffset - startOffset;
@@ -240,15 +235,12 @@ public:
   template <typename Reader>
   std::unique_ptr<Reader> CreateStringsSubReader(Reader & reader)
   {
-    CHECK(m_initialized, ());
-
     auto const pos = m_header.m_stringsOffset;
     CHECK_GREATER_OR_EQUAL(m_header.m_eosOffset, pos, ());
     auto const size = m_header.m_eosOffset - pos;
     return reader.CreateSubReader(pos, size);
   }
 
-private:
   template <typename Reader>
   void InitializeIfNeeded(Reader & reader)
   {
@@ -263,8 +255,9 @@ private:
     m_initialized = true;
   }
 
-  bool m_initialized = false;
+private:
   HeaderV0 m_header;
   coding::BlockedTextStorageReader m_stringsReader;
+  bool m_initialized = false;
 };
 }  // namespace descriptions
