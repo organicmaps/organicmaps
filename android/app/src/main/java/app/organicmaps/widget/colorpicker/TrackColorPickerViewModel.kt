@@ -7,6 +7,7 @@ import androidx.core.content.edit
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import app.organicmaps.sdk.bookmarks.data.PredefinedColors
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,7 +30,7 @@ class TrackColorPickerViewModel(application: Application, private val savedState
     AndroidViewModel(application) {
 
     @ColorInt
-    val initialColor = savedStateHandle[EXTRA_INITIAL_COLOR] ?: DEFAULT_PRESETS[0]
+    val initialColor = savedStateHandle[EXTRA_INITIAL_COLOR] ?: PRESET_COLORS.first()
 
     private val restoredTab = savedStateHandle.get<String>(KEY_ACTIVE_TAB)
         ?.let { name -> ColorPickerTab.entries.firstOrNull { it.name == name } }
@@ -152,7 +153,7 @@ class TrackColorPickerViewModel(application: Application, private val savedState
             val colors = saved.split(",").mapNotNull { it.toLongOrNull(16)?.toInt() }
             if (colors.isNotEmpty()) return colors
         }
-        return DEFAULT_PRESETS.toList()
+        return PRESET_COLORS
     }
 
     private fun savePresets(colors: List<Int>) {
@@ -170,13 +171,8 @@ class TrackColorPickerViewModel(application: Application, private val savedState
         private const val PREFS_NAME = "track_color_presets"
         private const val KEY_COLORS = "saved_colors"
 
-        @ColorInt
-        private val DEFAULT_PRESETS = intArrayOf(
-            0xFF000000.toInt(), // Black
-            0xFF0066CC.toInt(), // Blue
-            0xFF3C8C3C.toInt(), // Green
-            0xFFFFC800.toInt(), // Yellow
-            0xFFE51B23.toInt(), // Red
-        )
+        // Default preset swatches: the canonical Organic Maps brand palette from the core, shared
+        // with the presets shown on desktop and iOS.
+        private val PRESET_COLORS: List<Int> = PredefinedColors.getAllPredefinedColors()
     }
 }
