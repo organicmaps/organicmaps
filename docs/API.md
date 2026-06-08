@@ -21,9 +21,10 @@ presentation is cancelled; the phone displays the new preview or starts navigati
 Optional parameters:
 
 - `origin=lat,lon` is optional. For `/v2/dir` it sets the start point; use
+- `origin=lat,lon` is optional. For `/v2/dir` it sets the start point; use
   `origin=currentLocation` / `current-location` (or omit `origin`) to route from the current
-  position. `/v2/nav` accepts but ignores `origin`, including malformed values, because
-  navigation starts from the current position.
+  position. `/v2/nav` always navigates from the current position, so it accepts but ignores
+  `origin`, including malformed values (reserved as a possible future routing hint).
 - `origin_heading=degrees` in the inclusive range `0`–`360` to prefer the initial road direction from the origin. Degrees are clockwise from north:
   `0` north, `90` east, `180` south, `270` west.
 - `waypoints=lat,lon|lat,lon|...` for intermediate stops in URL order. Empty slots are skipped.
