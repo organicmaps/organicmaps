@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36" height="36" version="1.1" viewBox="0 0 36 36" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <filter id="filter1" x="-.147" y="-.147" width="1.294" height="1.294" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation="1.5925" />
+  </filter>
+  <linearGradient id="linearGradient1" x1="18" x2="18" y1="3" y2="29" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#3fa8f3" offset="0" />
+   <stop stop-color="#2089d4" offset="1" />
+  </linearGradient>
+ </defs>
+ <circle cx="18" cy="18" r="13" filter="url(#filter1)" opacity=".35" />
+ <circle cx="18" cy="16" r="13" fill="url(#linearGradient1)" stroke="#fff" stroke-width="2" />
+ <g transform="translate(4.5 3.125) scale(1.125)">
+  <g fill-rule="evenodd">
+   <path d="m8 6-2 1.5 0.042378 9.4691c0.015361 0.5 0.51536 1 1.0154 1h10c0.5 0 0.99251-0.32911 0.98464-1l-0.042378-9.4691-2-1.5zm1.6184 2.0055h5l1.4239 1.0986v3.8444h-8v-3.8444zm-0.57605 7.5708c0 0.41421-0.33579 0.75-0.75 0.75s-0.75-0.33579-0.75-0.75 0.33579-0.75 0.75-0.75 0.75 0.33579 0.75 0.75zm7.5 0c0 0.41421-0.33579 0.75-0.75 0.75s-0.75-0.33579-0.75-0.75 0.33579-0.75 0.75-0.75 0.75 0.33579 0.75 0.75z" fill="#fff" fill-rule="evenodd" />
+  </g>
+ </g>
+</svg>
