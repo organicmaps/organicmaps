@@ -45,14 +45,14 @@ public final class LogsManager
 {
   public interface OnZipCompletedListener
   {
-    // Called from the logger thread.
+    // Called from the background logs task thread.
     void onCompleted(final boolean success, @Nullable final String zipPath);
   }
 
   private final static String TAG = LogsManager.class.getSimpleName();
 
   public final static LogsManager INSTANCE = new LogsManager();
-  final static ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
+  private final static ExecutorService TASK_EXECUTOR = Executors.newSingleThreadExecutor();
 
   @Nullable
   private Context mApplicationContext;
@@ -168,6 +168,12 @@ public final class LogsManager
 
   private void switchFileLoggingEnabled(boolean enabled)
   {
+    if (!enabled)
+    {
+      Logger.flushFileLogs();
+      Logger.closeFileLogs();
+    }
+
     mIsFileLoggingEnabled = enabled;
     // Only Debug builds log DEBUG level to Android system log.
     nativeToggleCoreDebugLogs(enabled || BuildConfig.DEBUG);
@@ -220,7 +226,7 @@ public final class LogsManager
 
     Log.i(TAG, "Zipping log files in " + mLogsFolder);
     final Runnable task = new ZipLogsTask(mLogsFolder, mLogsFolder + ".zip", listener);
-    EXECUTOR.execute(task);
+    TASK_EXECUTOR.execute(task);
   }
 
   /**
