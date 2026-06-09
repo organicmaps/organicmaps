@@ -117,3 +117,27 @@ UNIT_TEST(Mercator_NearestWrapX)
   TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(-180.0, 540.0), 540.0, 1e-10, ());
   TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(180.0, -540.0), -540.0, 1e-10, ());
 }
+
+UNIT_TEST(Mercator_RectFromToLatLon)
+{
+  double const eps = 1e-9;
+
+  // West, South, East, North.
+  double const west = 16.9, south = 58.8, east = 33.8, north = 70.6;
+
+  m2::RectD const mercRect(mercator::FromLatLon(south, west), mercator::FromLatLon(north, east));
+
+  // ToLatLon yields a lat/lon rect in (West, South, East, North) order: X = lon, Y = lat.
+  m2::RectD const llRect = mercator::ToLatLon(mercRect);
+  TEST_ALMOST_EQUAL_ABS(llRect.minX(), west, eps, ());
+  TEST_ALMOST_EQUAL_ABS(llRect.minY(), south, eps, ());
+  TEST_ALMOST_EQUAL_ABS(llRect.maxX(), east, eps, ());
+  TEST_ALMOST_EQUAL_ABS(llRect.maxY(), north, eps, ());
+
+  // FromLatLon is the exact inverse of ToLatLon: the round-trip returns the initial mercator rect.
+  m2::RectD const backToMerc = mercator::FromLatLon(llRect);
+  TEST_ALMOST_EQUAL_ABS(backToMerc.minX(), mercRect.minX(), eps, ());
+  TEST_ALMOST_EQUAL_ABS(backToMerc.minY(), mercRect.minY(), eps, ());
+  TEST_ALMOST_EQUAL_ABS(backToMerc.maxX(), mercRect.maxX(), eps, ());
+  TEST_ALMOST_EQUAL_ABS(backToMerc.maxY(), mercRect.maxY(), eps, ());
+}
