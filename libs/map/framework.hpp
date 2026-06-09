@@ -84,6 +84,8 @@ class Loader;
 /// build version for screenshots.
 // #define FIXED_LOCATION
 
+class RasterTileProvider;
+
 struct FrameworkParams
 {
   bool m_enableDiffs = true;
@@ -162,6 +164,9 @@ protected:
   TViewportChangedFn m_viewportChangedFn;
 
   drape_ptr<df::DrapeEngine> m_drapeEngine;
+
+  // POC source of raster background tiles (see tileBackgroundReadFn in CreateDrapeEngine).
+  std::unique_ptr<RasterTileProvider> m_rasterTileProvider;
 
   StorageDownloadingPolicy m_storageDownloadingPolicy;
   storage::Storage m_storage;

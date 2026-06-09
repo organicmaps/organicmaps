@@ -29,10 +29,12 @@ TileBackgroundRenderer::TileBackgroundRenderer(
   CHECK(m_tileBackgroundReadFn != nullptr, ());
   CHECK(m_cancelTileBackgroundReadingFn != nullptr, ());
 
-  m_state.SetBlending(dp::Blending(false /* isEnabled */));
+  // Blending is enabled so raster tiles with transparent areas (e.g. partial/overview tiles with
+  // a tRNS palette) let the map below show through instead of compositing as opaque black.
+  m_state.SetBlending(dp::Blending(true /* isEnabled */));
   m_state.SetDepthTestEnabled(false);
 
-  m_stateArray.SetBlending(dp::Blending(false /* isEnabled */));
+  m_stateArray.SetBlending(dp::Blending(true /* isEnabled */));
   m_stateArray.SetDepthTestEnabled(false);
 }
 
