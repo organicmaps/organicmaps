@@ -50,6 +50,8 @@ set(SRC
   power_management/power_manager.hpp
   power_management/power_management_schemas.cpp
   power_management/power_management_schemas.hpp
+  raster_tile_provider.cpp
+  raster_tile_provider.hpp
   routing_manager.cpp
   routing_manager.hpp
   routing_mark.cpp
@@ -103,6 +105,8 @@ target_link_libraries(${PROJECT_NAME}
     ge0
     drape_frontend
     agg
+  PRIVATE
+    stb_image
 )
 
 omim_add_test_subdirectory(map_integration_tests)
