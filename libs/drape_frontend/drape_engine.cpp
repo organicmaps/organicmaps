@@ -10,6 +10,9 @@
 
 #include "indexer/map_style_reader.hpp"
 
+#include "coding/string_utf8_multilang.hpp"
+
+#include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 
 #include <unordered_map>
@@ -35,6 +38,12 @@ DrapeEngine::DrapeEngine(Params && params)
   SetFontScaleFactor(params.m_fontsScaleFactor);
 
   gui::DrapeGui::Instance().SetSurfaceSize(m2::PointF(m_viewport.GetWidth(), m_viewport.GetHeight()));
+
+  // DrapeGui is a process-wide singleton; call unconditionally so a recreated engine under an
+  // unsupported locale cannot inherit a previous engine's UI lang. GetLangIndex returns
+  // kUnsupportedLanguageCode for unknown locales, which short-circuits to HB_LANGUAGE_INVALID
+  // in the shaper -- no locl hint, same outcome as before for these cases.
+  gui::DrapeGui::Instance().SetUILang(StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm()));
 
   m_textureManager = make_unique_dp<dp::TextureManager>();
   m_threadCommutator = make_unique_dp<ThreadsCommutator>();
@@ -151,8 +160,6 @@ void DrapeEngine::RecoverSurface(int w, int h, bool recreateContextDependentReso
 
 void DrapeEngine::Resize(int w, int h)
 {
-  ASSERT_GREATER(w, 0, ());
-  ASSERT_GREATER(h, 0, ());
   if (m_viewport.GetHeight() != static_cast<uint32_t>(h) || m_viewport.GetWidth() != static_cast<uint32_t>(w))
     ResizeImpl(w, h);
 }
@@ -461,6 +468,8 @@ void DrapeEngine::UserPositionChanged(m2::PointD const & position, bool hasPosit
 
 void DrapeEngine::ResizeImpl(int w, int h)
 {
+  CHECK(w > 0 && h > 0, (w, h));
+
   gui::DrapeGui::Instance().SetSurfaceSize(m2::PointF(w, h));
   m_viewport.SetViewport(0, 0, w, h);
   PostUserEvent(make_unique_dp<ResizeEvent>(w, h));
@@ -573,6 +582,15 @@ void DrapeEngine::RemoveSubroute(dp::DrapeID subrouteId, bool deactivateFollowin
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<RemoveSubrouteMessage>(subrouteId, deactivateFollowing),
                                   MessagePriority::Normal);
+}
+
+void DrapeEngine::RemoveAlternativeSubroutes()
+{
+  // UberHighSingleton so this is processed before any pending High-priority UpdateMapStyle
+  // message. Otherwise UpdateContextDependentResources would iterate m_subroutes while it
+  // still has alternatives and re-issue AddSubroute for them — defeating the clear.
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread, make_unique_dp<RemoveAlternativeSubroutesMessage>(),
+                                  MessagePriority::UberHighSingleton);
 }
 
 void DrapeEngine::DeactivateRouteFollowing()

@@ -1,6 +1,4 @@
 #include "drape_frontend/path_text_shape.hpp"
-
-#include <memory>
 #include "drape_frontend/path_text_handle.hpp"
 #include "drape_frontend/render_state_extension.hpp"
 
@@ -11,15 +9,6 @@
 #include "drape/overlay_handle.hpp"
 
 #include "base/logging.hpp"
-#include "base/math.hpp"
-#include "base/matrix.hpp"
-#include "base/stl_helpers.hpp"
-#include "base/string_utils.hpp"
-#include "base/timer.hpp"
-
-#include "geometry/transformations.hpp"
-
-using m2::Spline;
 
 namespace df
 {
@@ -27,16 +16,21 @@ PathTextShape::PathTextShape(m2::SharedSpline const & spline, PathTextViewParams
                              TileKey const & tileKey, uint32_t baseTextIndex)
   : m_spline(spline)
   , m_params(params)
-  , m_tileCoords(tileKey.GetTileCoords())
+  , m_tile(tileKey)
   , m_baseTextIndex(baseTextIndex)
 {
-  m_context = std::make_shared<PathTextContext>(m_spline, tileKey.GetTileXOffset());
+  m_context = std::make_shared<PathTextContext>(m_spline, m_tile.xOffset);
 }
 
 bool PathTextShape::CalculateLayout(ref_ptr<dp::TextureManager> textures)
 {
-  auto layout = make_unique_dp<PathTextLayout>(m_params.m_tileCenter, m_params.ConcatRenderText(),
-                                               m_params.m_textFont.m_size, textures);
+  auto tileCenter = m_params.m_tileCenter;
+  // PathTextContext shifts spline points and pivots into the extended world copy
+  // for overlay placement. Use the same tile center for local shader coordinates;
+  // otherwise the extended tile modelview applies the antimeridian offset twice.
+  tileCenter.x += m_tile.xOffset;
+  auto layout = make_unique_dp<PathTextLayout>(tileCenter, m_params.ConcatRenderText(), m_params.m_textFont.m_size,
+                                               textures, m_params.m_lang);
 
   if (0 == layout->GetGlyphCount())
   {
@@ -134,7 +128,7 @@ void PathTextShape::DrawPathTextOutlined(ref_ptr<dp::GraphicsContext> context, r
 drape_ptr<dp::OverlayHandle> PathTextShape::CreateOverlayHandle(uint32_t textIndex,
                                                                 ref_ptr<dp::TextureManager> textures) const
 {
-  dp::OverlayID overlayId(m_params.m_featureId, m_params.m_markId, m_tileCoords, m_baseTextIndex + textIndex);
+  dp::OverlayID overlayId(m_params.m_featureId, m_params.m_markId, m_tile.coords, m_baseTextIndex + textIndex);
   auto const layout = m_context->GetLayout();
   auto const priority = GetOverlayPriority(textIndex, layout->GetGlyphCount());
   return make_unique_dp<PathTextHandle>(overlayId, m_context, m_params.m_depth, textIndex, priority, textures,

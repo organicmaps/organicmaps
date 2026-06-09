@@ -230,7 +230,10 @@ private:
   RoutingOptions m_roadTypes;
 };
 
-class Route
+/// \brief Holds route geometry, segments, and metadata needed to display a route on the map.
+/// Does not carry any follow-time state (current position, projection cache, etc.) — that lives on Route.
+/// Alternative (non-followed) routes are represented as RouteBase instances inside RoutesResult.
+class RouteBase
 {
 public:
   class SubrouteAttrs final
@@ -290,74 +293,58 @@ public:
     VehicleType m_vehicleType = VehicleType::Count;
   };
 
-  /// \brief For every subroute some attributes are kept in the following structure.
-  struct SubrouteSettings final
-  {
-    SubrouteSettings(RoutingSettings const & routingSettings, std::string const & router, SubrouteUid id)
-      : m_routingSettings(routingSettings)
-      , m_router(router)
-      , m_id(id)
-    {}
-
-    RoutingSettings const m_routingSettings;
-    std::string const m_router;
-    /// Some subsystems (for example drape) which is used Route class need to have an id of any subroute.
-    /// This subsystems may set the id and then use it. The id is kept in |m_id|.
-    SubrouteUid const m_id = kInvalidSubrouteId;
-  };
-
-  Route(std::string const & router, uint64_t routeId)
-    : m_router(router)
-    , m_routingSettings(GetRoutingSettings(VehicleType::Car))
-    , m_routeId(routeId)
-  {}
-
-  template <class TIter>
-  Route(std::string const & router, TIter beg, TIter end, uint64_t routeId)
-    : m_router(router)
-    , m_routingSettings(GetRoutingSettings(VehicleType::Car))
-    , m_poly(beg, end)
-    , m_routeId(routeId)
-  {}
-
-  Route(std::string const & router, std::vector<m2::PointD> const & points, uint64_t routeId,
-        std::string const & name = std::string());
-
-  template <class TIter>
-  void SetGeometry(TIter beg, TIter end)
-  {
-    if (beg == end)
-    {
-      FollowedPolyline().Swap(m_poly);
-    }
-    else
-    {
-      FollowedPolyline(beg, end).Swap(m_poly);
-      // If there are no intermediate points it's acceptable to have an empty m_subrouteAttrs.
-      // Constructed m_poly will have the last point index as next checkpoint index, it's right.
-      if (!m_subrouteAttrs.empty())
-      {
-        ASSERT_GREATER(m_subrouteAttrs.size(), m_currentSubrouteIdx, ());
-        m_poly.SetNextCheckpointIndex(m_subrouteAttrs[m_currentSubrouteIdx].GetEndSegmentIdx());
-      }
-    }
-  }
-
-  void SetRouteSegments(std::vector<RouteSegment> && routeSegments);
+  RouteBase() = default;
 
   std::vector<RouteSegment> & GetRouteSegments() { return m_routeSegments; }
   std::vector<RouteSegment> const & GetRouteSegments() const { return m_routeSegments; }
-  RoutingSettings const & GetCurrentRoutingSettings() const { return m_routingSettings; }
 
-  void SetCurrentSubrouteIdx(size_t currentSubrouteIdx) { m_currentSubrouteIdx = currentSubrouteIdx; }
-
-  template <class V>
-  void SetSubroteAttrs(V && subroutes)
+  void SetCurrentSubrouteIdx(size_t currentIdx)
   {
-    m_subrouteAttrs = std::forward<V>(subroutes);
-    ASSERT_GREATER(m_subrouteAttrs.size(), m_currentSubrouteIdx, ());
-    m_poly.SetNextCheckpointIndex(m_subrouteAttrs[m_currentSubrouteIdx].GetEndSegmentIdx());
+    ASSERT_LESS(currentIdx, m_subrouteAttrs.size(), ());
+    m_currentSubrouteIdx = currentIdx;
   }
+
+  size_t GetCurrentSubrouteIdx() const { return m_currentSubrouteIdx; }
+  std::vector<SubrouteAttrs> const & GetSubroutes() const { return m_subrouteAttrs; }
+  std::vector<RenderSegment> const & GetRenderSegments() const { return m_renderSegments; }
+
+  // A route is "valid" (for display purposes) when it has at least one segment and a starting subroute.
+  bool IsValid() const { return !m_routeSegments.empty() && !m_subrouteAttrs.empty(); }
+
+  /// \returns The midpoint of the longest divergence span — used to place the ETA balloon
+  /// where the alt actually differs from |origin| — or nullopt if the route fails the threshold (equal).
+  std::optional<m2::PointD> FindMaxDiffMidpoint(std::vector<RouteSegment> const & origin) const;
+
+  /// \brief Polyline midpoint of segments [beginIdx, endIdx] interpolated to half their geodesic
+  /// length. The 0-based indexing is into m_routeSegments; the previous "junction" of segment 0
+  /// is the first subroute's start point. Both bounds are inclusive.
+  m2::PointD GetMidpoint(size_t beginIdx, size_t endIdx) const;
+  /// \returns Midpoint of the whole route, or PointD{} when the route has no segments.
+  m2::PointD GetMidpoint() const
+  {
+    ASSERT(IsValid(), ());
+    return GetMidpoint(0, m_routeSegments.size() - 1);
+  }
+
+  /// \returns Pivot point for the alt's ETA balloon, set by FindMaxDiffMidpoint on the alt side
+  /// and used by RoutingManager::CreateRouteAltMarks. Unset on the active route.
+  std::optional<m2::PointD> const & GetDiffMidpoint() const { return m_diffMidpoint; }
+  void SetDiffMidpoint(m2::PointD const & pt) { m_diffMidpoint = pt; }
+
+  double GetTotalTimeSec() const;
+
+  /// \brief Mercator bounding rect of the route's points, derived from segments + first subroute start.
+  m2::RectD GetLimitRect() const;
+
+  // Subroute interface.
+  /// \returns Number of subroutes.
+  /// \note Intermediate points separate a route into several subroutes.
+  size_t GetSubrouteCount() const;
+
+  /// \brief Fills |segments| with full subroute information.
+  void GetSubrouteInfo(size_t subrouteIdx, std::vector<RouteSegment> & segments) const;
+
+  SubrouteAttrs const & GetSubrouteAttrs(size_t subrouteIdx) const;
 
   template <class V>
   void SetRenderSegments(V && segments)
@@ -365,15 +352,102 @@ public:
     m_renderSegments = std::forward<V>(segments);
   }
 
-  void PassNextSubroute()
+  void GetAltitudes(geometry::Altitudes & altitudes) const;
+  bool HaveAltitudes() const { return m_haveAltitudes; }
+  traffic::SpeedGroup GetTraffic(size_t segmentIdx) const;
+
+  void GetTurnsForTesting(std::vector<turns::TurnItem> & turns) const;
+
+  /// \returns Length of the route segment with |segIdx| in meters.
+  double GetSegLenMeters(size_t segIdx) const;
+
+  void SetMwmsPartlyProhibitedForSpeedCams(std::vector<platform::CountryFile> && mwms);
+
+  /// \returns true if the route crosses at least one mwm where there are restrictions on warning
+  /// about speed cameras.
+  bool CrossMwmsPartlyProhibitedForSpeedCams() const;
+
+  /// \returns mwm list which is crossed by the route and where there are restrictions on warning
+  /// about speed cameras.
+  std::vector<platform::CountryFile> const & GetMwmsPartlyProhibitedForSpeedCams() const;
+
+  template <class FnT>
+  void ForEachPoint(FnT && fn) const
   {
-    ASSERT_GREATER(m_subrouteAttrs.size(), m_currentSubrouteIdx, ());
-    m_currentSubrouteIdx = std::min(m_currentSubrouteIdx + 1, m_subrouteAttrs.size() - 1);
-    m_poly.SetNextCheckpointIndex(m_subrouteAttrs[m_currentSubrouteIdx].GetEndSegmentIdx());
+    if (!m_subrouteAttrs.empty())
+    {
+      fn(m_subrouteAttrs.front().GetStart());
+      for (auto const & s : m_routeSegments)
+        fn(s.GetJunction());
+    }
   }
 
-  /// \returns estimated time for the whole route.
-  double GetTotalTimeSec() const;
+protected:
+  void SetRouteSegments(std::vector<RouteSegment> && routeSegments);
+
+  std::vector<RouteSegment> m_routeSegments;
+  // |m_haveAltitudes| is true if and only if all route points have altitude information.
+  bool m_haveAltitudes = false;
+
+  // Subroute
+  size_t m_currentSubrouteIdx = 0;
+  std::vector<SubrouteAttrs> m_subrouteAttrs;
+  std::vector<RenderSegment> m_renderSegments;
+
+  // Mwms which are crossed by the route where speed cameras are prohibited.
+  std::vector<platform::CountryFile> m_speedCamPartlyProhibitedMwms;
+
+  // Pivot for the alternative-route ETA balloon — midpoint of the longest segment span.
+  std::optional<m2::PointD> m_diffMidpoint;
+};
+
+/// \brief A RouteBase that the user is actively following: adds the matched position on the polyline,
+/// precomputed projection cache, and queries that depend on the current position
+/// (turn distances, time-to-end, current street, etc.).
+class Route : public RouteBase
+{
+public:
+  using SubrouteAttrs = RouteBase::SubrouteAttrs;
+  using RenderSegment = RouteBase::RenderSegment;
+
+  Route() = default;
+
+  /// \brief Promote an alternative (RouteBase) to a followed Route. The base's segments + first subroute
+  /// start are used to (re)build the FollowedPolyline for follow-time matching.
+  explicit Route(RouteBase const & base) : RouteBase(base) { RebuildFollowedPolyline(); }
+
+  Route(Route const & rhs) = default;
+
+  template <class TIter>
+  void SetGeometry(TIter beg, TIter end)
+  {
+    if (beg == end)
+      FollowedPolyline().Swap(m_poly);
+    else
+    {
+      FollowedPolyline(beg, end).Swap(m_poly);
+      if (!m_subrouteAttrs.empty())
+        UpdatePolySubrouteIdx();
+    }
+  }
+
+  // Hide base's setters so the FollowedPolyline stays in sync with route structure.
+  void SetRouteSegments(std::vector<RouteSegment> && routeSegments);
+
+  template <class V>
+  void SetSubroutes(V && subroutes, size_t currentIdx = 0)
+  {
+    m_subrouteAttrs = std::forward<V>(subroutes);
+    RouteBase::SetCurrentSubrouteIdx(currentIdx);
+    UpdatePolySubrouteIdx();
+  }
+
+  void PassNextSubroute()
+  {
+    ASSERT_LESS(m_currentSubrouteIdx, m_subrouteAttrs.size(), ());
+    m_currentSubrouteIdx = std::min(m_currentSubrouteIdx + 1, m_subrouteAttrs.size() - 1);
+    UpdatePolySubrouteIdx();
+  }
 
   /// \returns estimated time to reach the route end.
   double GetCurrentTimeToEndSec() const;
@@ -386,17 +460,23 @@ public:
 
   FollowedPolyline const & GetFollowedPolyline() const { return m_poly; }
 
-  std::string const & GetRouterId() const { return m_router; }
-  m2::PolylineD const & GetPoly() const { return m_poly.GetPolyline(); }
-
-  size_t GetCurrentSubrouteIdx() const { return m_currentSubrouteIdx; }
-  std::vector<SubrouteAttrs> const & GetSubroutes() const { return m_subrouteAttrs; }
-  std::vector<RenderSegment> const & GetRenderSegments() const { return m_renderSegments; }
-
-  std::vector<double> const & GetSegDistanceMeters() const { return m_poly.GetSegDistanceMeters(); }
+  // A Route is "valid for following" when the followed polyline has >= 2 points and a valid iterator.
   bool IsValid() const { return m_poly.IsValid(); }
 
-  double GetTotalDistanceMeters() const;
+  // Used in tests only.
+  FollowedPolyline && MoveFollowedPolyline() { return std::move(m_poly); }
+  m2::PolylineD const & GetPoly() const { return m_poly.GetPolyline(); }
+
+  /// \brief Current matched position iterator on the polyline.
+  FollowedPolyline::Iter GetCurrentIter() const { return m_poly.GetCurrentIter(); }
+
+  /// \brief Total geodesic length of the followed polyline.
+  double GetTotalDistanceMeters() const { return m_poly.IsValid() ? m_poly.GetTotalDistanceMeters() : 0.0; }
+  /// \brief Cumulative geodesic distance to the end of each polyline segment.
+  std::vector<double> const & GetSegDistanceMeters() const { return m_poly.GetSegDistanceMeters(); }
+
+  void SetRoutingSettings(RoutingSettings const & routingSettings) { m_routingSettings = routingSettings; }
+
   double GetCurrentDistanceFromBeginMeters() const;
   double GetCurrentDistanceToEndMeters() const;
   double GetMercatorDistanceFromBegin() const;
@@ -406,9 +486,8 @@ public:
   /// \param turn is information about the nearest turn.
   void GetNearestTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const;
 
-  /// \returns information about turn from RouteSegment according to current iterator
-  /// set with MoveIterator() method. If it's not possible returns nullopt.
-  std::optional<turns::TurnItem> GetCurrentIteratorTurn() const;
+  /// \returns Information about turn from RouteSegment according to current iterator set with MoveIterator() method.
+  turns::TurnItem GetCurrentIteratorTurn() const;
 
   /// \brief Returns first non-empty name info of a street starting from segIdx.
   void GetClosestStreetNameAfterIdx(size_t segIdx, RouteSegment::RoadNameInfo & roadNameInfo) const;
@@ -426,9 +505,6 @@ public:
   void GetNextNextTurnStreetName(RouteSegment::RoadNameInfo & roadNameInfo) const;
 
   /// \brief Gets turn information after the turn next to the nearest one.
-  /// \param distanceToTurnMeters is a distance from current position to the second turn.
-  /// \param nextTurn is information about the second turn.
-  /// \note All parameters are filled while a GetNextTurn function call.
   bool GetNextTurn(double & distanceToTurnMeters, turns::TurnItem & nextTurn) const;
   /// \brief Extract information about zero, one or two nearest turns depending on current position.
   bool GetNextTurns(std::vector<turns::TurnItemDist> & turns) const;
@@ -441,57 +517,7 @@ public:
   /// fields accordingly.
   bool MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const;
 
-  inline void SetRoutingSettings(RoutingSettings const & routingSettings) { m_routingSettings = routingSettings; }
-
-  // Subroute interface.
-  /// \returns Number of subroutes.
-  /// \note Intermediate points separate a route into several subroutes.
-  size_t GetSubrouteCount() const;
-
-  /// \brief Fills |info| with full subroute information.
-  /// \param subrouteIdx zero base number of subroute. |segmentIdx| should be less than GetSubrouteCount();
-  /// \note |info| is a segment oriented route. Size of |info| is equal to number of points in |m_poly| - 1.
-  /// Class Route is a point oriented route. While this conversion some attributes of zero point will be lost.
-  /// It happens with zero turn for example.
-  /// \note It's a fake implementation for single subroute which is equal to route without any
-  /// intermediate points.
-  /// Note. SegmentInfo::m_segment is filled with default Segment instance.
-  /// Note. SegmentInfo::m_streetName is filled with an empty string.
-  void GetSubrouteInfo(size_t subrouteIdx, std::vector<RouteSegment> & segments) const;
-
-  SubrouteAttrs const & GetSubrouteAttrs(size_t subrouteIdx) const;
-
-  /// \returns Subroute settings by |segmentIdx|.
-  // @TODO(bykoianko) This method should return SubrouteSettings by reference. Now it returns by value
-  // because of fake implementation.
-  SubrouteSettings const GetSubrouteSettings(size_t segmentIdx) const;
-
   bool IsSubroutePassed(size_t subrouteIdx) const;
-
-  /// \brief Sets subroute unique id (|subrouteUid|) by |segmentIdx|.
-  /// \note |subrouteUid| is a permanent id of a subroute. This id can be used to address to a subroute
-  /// after the route is removed.
-  void SetSubrouteUid(size_t segmentIdx, SubrouteUid subrouteUid);
-
-  void GetAltitudes(geometry::Altitudes & altitudes) const;
-  bool HaveAltitudes() const { return m_haveAltitudes; }
-  traffic::SpeedGroup GetTraffic(size_t segmentIdx) const;
-
-  void GetTurnsForTesting(std::vector<turns::TurnItem> & turns) const;
-  bool IsRouteId(uint64_t routeId) const { return routeId == m_routeId; }
-
-  /// \returns Length of the route segment with |segIdx| in meters.
-  double GetSegLenMeters(size_t segIdx) const;
-
-  void SetMwmsPartlyProhibitedForSpeedCams(std::vector<platform::CountryFile> && mwms);
-
-  /// \returns true if the route crosses at least one mwm where there are restrictions on warning
-  /// about speed cameras.
-  bool CrossMwmsPartlyProhibitedForSpeedCams() const;
-
-  /// \returns mwm list which is crossed by the route and where there are restrictions on warning
-  /// about speed cameras.
-  std::vector<platform::CountryFile> const & GetMwmsPartlyProhibitedForSpeedCams() const;
 
   std::string DebugPrintTurns() const;
 
@@ -504,26 +530,62 @@ private:
   /// \returns Estimated time from the beginning.
   double GetCurrentTimeFromBeginSec() const;
 
-  std::string m_router;
-  RoutingSettings m_routingSettings;
-  std::string m_name;
+  /// \brief Rebuild the FollowedPolyline from RouteBase segments + first subroute start.
+  /// Used by the Route(RouteBase) promote constructors.
+  void RebuildFollowedPolyline();
 
+  void UpdatePolySubrouteIdx()
+  {
+    ASSERT_LESS(m_currentSubrouteIdx, m_subrouteAttrs.size(), ());
+    m_poly.SetNextCheckpointIndex(m_subrouteAttrs[m_currentSubrouteIdx].GetEndSegmentIdx());
+  }
+
+  void UpdatePolyFakeIdx();
+
+  // The followed polyline (geometry + matched-position state + projection cache + fake-segment marks).
+  // For "fresh" Routes built via SetGeometry/SetRouteSegments the polyline is set directly;
+  // for promoted alternatives, it is reconstructed from base segments by RebuildFollowedPolyline().
   FollowedPolyline m_poly;
 
-  std::vector<RouteSegment> m_routeSegments;
-  // |m_haveAltitudes| is true if and only if all route points have altitude information.
-  bool m_haveAltitudes = false;
+  // Vehicle-specific tuning (matching threshold, finish tolerance, etc.). Set by RoutingSession after
+  // promoting an alternative to a followed Route.
+  RoutingSettings m_routingSettings = GetRoutingSettings(VehicleType::Car);
+};
+/// \brief Result of a route calculation. Carries one or more alternative routes (each as a RouteBase),
+/// plus identification info shared by the request as a whole. The "active" alternative is the one to follow.
+class RoutesResult
+{
+public:
+  RoutesResult() = default;
+  RoutesResult(std::string routerName, uint64_t routesId) : m_routerName(std::move(routerName)), m_routesId(routesId) {}
 
-  // Subroute
-  SubrouteUid m_subrouteUid = kInvalidSubrouteId;
-  size_t m_currentSubrouteIdx = 0;
-  std::vector<SubrouteAttrs> m_subrouteAttrs;
-  std::vector<RenderSegment> m_renderSegments;
-  // Route identifier. It's unique within single program session.
-  uint64_t m_routeId = 0;
+  void MakeFrom(std::string name, Route && route)
+  {
+    m_routerName = std::move(name);
+    m_routes.clear();
+    m_routes.emplace_back(std::move(static_cast<RouteBase &>(route)));
+    m_activeIdx = 0;
+  }
 
-  // Mwms which are crossed by the route where speed cameras are prohibited.
-  std::vector<platform::CountryFile> m_speedCamPartlyProhibitedMwms;
+  bool IsValid() const { return !m_routes.empty() && m_routes[m_activeIdx].IsValid(); }
+
+  RouteBase & GetActive()
+  {
+    ASSERT_LESS(m_activeIdx, m_routes.size(), ());
+    return m_routes[m_activeIdx];
+  }
+
+  RouteBase const & GetActive() const
+  {
+    ASSERT_LESS(m_activeIdx, m_routes.size(), ());
+    return m_routes[m_activeIdx];
+  }
+
+  std::vector<RouteBase> m_routes;
+  size_t m_activeIdx = 0;
+  std::string m_routerName;
+  // Session-unique id, shared by all alternatives in this result.
+  uint64_t m_routesId = 0;
 };
 
 /// \returns true if |turn| is not equal to turns::CarDirection::None or

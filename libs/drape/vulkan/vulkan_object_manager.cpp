@@ -164,7 +164,12 @@ VulkanObject VulkanObjectManager::CreateImage(VkImageUsageFlags usageFlags, VkFo
   imageCreateInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
   imageCreateInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
   imageCreateInfo.extent = {width, height, 1};
-  imageCreateInfo.usage = usageFlags | VK_IMAGE_USAGE_TRANSFER_DST_BIT;
+  imageCreateInfo.usage = usageFlags;
+  // Depth/stencil render targets are used only as framebuffer attachments here.
+  // They are never uploaded with copy commands, so TRANSFER_DST is unnecessary
+  // and may make the exact format/tiling/usage combination unsupported.
+  if ((usageFlags & VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT) == 0)
+    imageCreateInfo.usage |= VK_IMAGE_USAGE_TRANSFER_DST_BIT;
   CHECK_VK_CALL(vkCreateImage(m_device, &imageCreateInfo, nullptr, &result.m_image));
 
   VkMemoryRequirements memReqs = {};

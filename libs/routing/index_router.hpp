@@ -82,10 +82,13 @@ public:
 
   void SetGuides(GuidesTracks && guides) override;
   RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
-                                  bool adjustToPrevRoute, RouterDelegate const & delegate, Route & route) override;
+                                  bool adjustToPrevRoute, RouterDelegate const & delegate,
+                                  RoutesResult & result) override;
 
   bool FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
                                    EdgeProj & proj) override;
+
+  void SwapAltRouteToActive() override;
 
   bool GetBestOutgoingEdges(m2::PointD const & checkpoint, WorldGraph & graph, std::vector<Edge> & edges);
 
@@ -98,6 +101,11 @@ public:
   }
 
 private:
+  // Lightweight cleanup run at the end of every CalculateRoute invocation. Frees the road-graph,
+  // directions engine and data-source handles; does NOT touch m_lastRoute/m_lastAltRoute so the
+  // adjust-cache survives between a successful build and a later off-route rebuild.
+  void ClearRouteCalculationState();
+
   RouterResultCode CalculateSubrouteJointsMode(IndexGraphStarter & starter, RouterDelegate const & delegate,
                                                std::shared_ptr<AStarProgress> const & progress,
                                                std::vector<Segment> & subroute);
@@ -288,6 +296,13 @@ private:
   std::unique_ptr<DirectionsEngine> m_directionsEngine;
   std::unique_ptr<SegmentedRoute> m_lastRoute;
   std::unique_ptr<FakeEdgesContainer> m_lastFakeEdges;
+  // Mirror of the active slots for the alternative route computed in CalculateRoute. Swapped
+  // into the active slots by SwapAltRouteToActive when the user selects the alternative, so
+  // AdjustRoute on a subsequent off-route rebuild adjusts to the route the user is following.
+  /// @todo Make a vector of alts here or in RoutesResult (preferred).
+  /// A major refactoring is needed, but IndexRouer becomes stateless (is a plus).
+  std::unique_ptr<SegmentedRoute> m_lastAltRoute;
+  std::unique_ptr<FakeEdgesContainer> m_lastAltFakeEdges;
 
   // If a ckeckpoint is near to the guide track we need to build route through this track.
   GuidesConnections m_guides;

@@ -19,11 +19,11 @@
 #include "geometry/robust_orientation.hpp"
 
 #include "drape/color.hpp"
+#include "drape/font_constants.hpp"
 #include "drape/stipple_pen_resource.hpp"
 #include "drape/texture_manager.hpp"
 
 #include "base/logging.hpp"
-#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -442,8 +442,12 @@ void ApplyPointFeature::ProcessPointRules(SymbolRuleProto const * symbolRule, Ca
     CaptionDefProto const * auxRule = captionRule->has_secondary() ? &captionRule->secondary() : nullptr;
 
     params.m_titleDecl.m_primaryText = m_captions.GetMainText();
+    params.m_titleDecl.m_primaryLang = m_captions.GetMainTextLang();
     if (auxRule)
+    {
       params.m_titleDecl.m_secondaryText = m_captions.GetAuxText();
+      params.m_titleDecl.m_secondaryLang = m_captions.GetAuxTextLang();
+    }
     ASSERT(!params.m_titleDecl.m_primaryText.empty(), ());
 
     ExtractCaptionParams(capRule, auxRule, params);
@@ -466,7 +470,9 @@ void ApplyPointFeature::ProcessPointRules(SymbolRuleProto const * symbolRule, Ca
     TextViewParams params;
     CaptionDefProto const * capRule = &houseNumberRule->primary();
 
+    // House numbers come straight from OSM addr:housenumber in the MWM's local script.
     params.m_titleDecl.m_primaryText = m_captions.GetHouseNumberText();
+    params.m_titleDecl.m_primaryLang = m_captions.GetMwmRegionLang();
     ASSERT(!params.m_titleDecl.m_primaryText.empty(), ());
 
     ExtractCaptionParams(capRule, nullptr, params);
@@ -830,15 +836,20 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   textParams.m_depthLayer = DepthLayer::OverlayLayer;
   textParams.m_depthTestEnabled = false;
   textParams.m_depth = m_shieldDepth;
+  // Road shield ref/additional come from OSM tags in the MWM's local script. Use the same
+  // lang for both so the additional-text rendering matches its primary.
+  auto const regionLang = m_captions.GetMwmRegionLang();
   textParams.m_titleDecl.m_anchor = anchor;
   textParams.m_titleDecl.m_primaryText = roadNumber;
+  textParams.m_titleDecl.m_primaryLang = regionLang;
+  textParams.m_titleDecl.m_secondaryLang = regionLang;
   textParams.m_titleDecl.m_primaryTextFont = font;
   textParams.m_titleDecl.m_primaryOffset = shieldOffset + shieldTextOffset;
   textParams.m_titleDecl.m_primaryOptional = false;
   textParams.m_titleDecl.m_secondaryOptional = false;
   textParams.m_startOverlayRank = dp::OverlayRank1;
 
-  auto const textMetrics = texMng->ShapeSingleTextLine(roadNumber, nullptr);
+  auto const textMetrics = texMng->ShapeSingleTextLine(roadNumber, regionLang, nullptr);
   float const textRatio = font.m_size * fontScale / dp::kBaseFontSizePixels;
   float const textWidthInPixels = textMetrics.m_lineWidthInPixels * textRatio;
   float const textHeightInPixels = textMetrics.m_maxLineHeightInPixels * textRatio;
@@ -955,6 +966,7 @@ void ApplyLineFeatureAdditional::ProcessAdditionalLineRules(PathTextRuleProto co
     params.m_auxText = m_captions.GetAuxText();
     params.m_textFont = fontDecl;
     params.m_baseGtoPScale = m_params.m_currentScaleGtoP;
+    params.m_lang = m_captions.GetMainTextLang();
 
     uint32_t textIndex = kPathTextBaseTextIndex;
     for (auto const & spline : m_clippedSplines)

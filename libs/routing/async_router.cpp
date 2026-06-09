@@ -30,7 +30,7 @@ AsyncRouter::RouterDelegateProxy::RouterDelegateProxy(ReadyCallbackOwnership con
   m_delegate.SetTimeout(timeoutSec);
 }
 
-void AsyncRouter::RouterDelegateProxy::OnReady(std::shared_ptr<Route> route, RouterResultCode resultCode)
+void AsyncRouter::RouterDelegateProxy::OnReady(std::shared_ptr<RoutesResult> result, RouterResultCode resultCode)
 {
   if (!m_onReadyOwnership)
     return;
@@ -39,7 +39,7 @@ void AsyncRouter::RouterDelegateProxy::OnReady(std::shared_ptr<Route> route, Rou
     if (m_delegate.IsCancelled())
       return;
   }
-  m_onReadyOwnership(std::move(route), resultCode);
+  m_onReadyOwnership(std::move(result), resultCode);
 }
 
 void AsyncRouter::RouterDelegateProxy::OnNeedMoreMaps(uint64_t routeId, std::set<std::string> const & absentCounties)
@@ -193,6 +193,13 @@ void AsyncRouter::ClearState()
   ResetDelegate();
 }
 
+void AsyncRouter::SwapAltRouteToActive()
+{
+  lock_guard ul(m_guard);
+  if (m_router)
+    m_router->SwapAltRouteToActive();
+}
+
 // static
 void AsyncRouter::LogCode(RouterResultCode code, double const elapsedSec)
 {
@@ -296,7 +303,7 @@ void AsyncRouter::CalculateRoute()
     m_guides.clear();
   }
 
-  auto route = std::make_shared<Route>(router->GetName(), routeId);
+  auto result = std::make_shared<RoutesResult>(router->GetName(), routeId);
   RouterResultCode code = RouterResultCode::NoError;
 
   base::Timer timer;
@@ -312,32 +319,35 @@ void AsyncRouter::CalculateRoute()
       code = absentRegionsFinder->GenerateAbsentRegions(checkpoints, delegateProxy->GetDelegate());
 
     if (code == RouterResultCode::NoError)
+    {
       code =
-          router->CalculateRoute(checkpoints, startDirection, adjustToPrevRoute, delegateProxy->GetDelegate(), *route);
+          router->CalculateRoute(checkpoints, startDirection, adjustToPrevRoute, delegateProxy->GetDelegate(), *result);
+    }
 
     router->SetGuides({});
     elapsedSec = timer.ElapsedSeconds();  // routing build time
     LogCode(code, elapsedSec);
-    LOG(LINFO, ("ETA:", route->GetTotalTimeSec(), "sec."));
+    if (result->IsValid())
+      LOG(LINFO, ("ETA:", result->GetActive().GetTotalTimeSec(), "sec."));
   }
   catch (RootException const & e)
   {
     code = RouterResultCode::InternalError;
     LOG(LERROR, ("Exception happened while calculating route:", e.Msg()));
-    // Note. After call of this method |route| should be used only on ui thread.
-    // And |route| should stop using on routing background thread, in this method.
+    // Note. After call of this method |result| should be used only on ui thread.
+    // And |result| should stop using on routing background thread, in this method.
     GetPlatform().RunTask(Platform::Thread::Gui,
-                          [delegateProxy, route, code]() { delegateProxy->OnReady(route, code); });
+                          [delegateProxy, result, code]() { delegateProxy->OnReady(result, code); });
     return;
   }
 
   // Draw route without waiting network latency.
   if (code == RouterResultCode::NoError)
   {
-    // Note. After call of this method |route| should be used only on ui thread.
-    // And |route| should stop using on routing background thread, in this method.
+    // Note. After call of this method |result| should be used only on ui thread.
+    // And |result| should stop using on routing background thread, in this method.
     GetPlatform().RunTask(Platform::Thread::Gui,
-                          [delegateProxy, route, code]() { delegateProxy->OnReady(route, code); });
+                          [delegateProxy, result, code]() { delegateProxy->OnReady(result, code); });
   }
 
   AbsentRegionsFinder::RegionsSetT absent;

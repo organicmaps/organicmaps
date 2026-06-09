@@ -264,3 +264,52 @@ RoadWarningMarkType ChooseRoadWarning(routing::RoutingOptions options, routing::
 // True for warnings backed by a car driving-option the user can toggle (Toll/Ferry/Dirty), i.e.
 // the ones that should surface the "driving options" affordance. Steps/gate/lift_gate are not.
 bool IsAvoidableRoadWarning(RoadWarningMarkType type);
+
+/// \brief ETA balloon attached to a route variant (active or alternative). Tappable so the user can
+/// swap the active route by tapping its balloon. The pivot (m_ptOrg) sits on the route polyline.
+class RouteAltMark : public UserMark
+{
+public:
+  explicit RouteAltMark(m2::PointD const & ptOrg);
+
+  void SetEta(std::string const & etaText);
+  std::string const & GetEta() const { return m_titleDecl.m_primaryText; }
+
+  /// Marks the balloon as belonging to the currently-active route variant — uses opaque colors
+  /// instead of the dimmed alternative palette.
+  void SetIsActive(bool isActive);
+  bool IsActive() const { return m_isActive; }
+
+  /// Index into RoutesResult::m_routes that this balloon represents.
+  void SetRouteIdx(size_t idx);
+  size_t GetRouteIdx() const { return m_routeIdx; }
+
+  /// Shifts the balloon body off the pivot in pixel space and grows a tail pointing back to it.
+  /// Pivot (m_ptOrg) is untouched so taps still hit the visible balloon. Pass {0, 0} to disable.
+  void SetPixelOffset(m2::PointF const & offsetPx);
+
+  // UserMark overrides.
+  df::DepthLayer GetDepthLayer() const override { return df::DepthLayer::RoutingMarkLayer; }
+  bool SymbolIsPOI() const override { return true; }
+  bool HasTitlePriority() const override { return true; }
+  uint16_t GetPriority() const override { return static_cast<uint16_t>(Priority::TransitTransfer); }
+  df::SpecialDisplacement GetDisplacement() const override { return df::SpecialDisplacement::SpecialModeUserMark; }
+  bool IsSymbolSelectable() const override { return true; }
+  dp::Anchor GetAnchor() const override { return dp::Center; }
+  int GetMinZoom() const override;
+  int GetMinTitleZoom() const override;
+
+  drape_ptr<TitlesInfo> GetTitleDecl() const override;
+  drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const override;
+  drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override { return nullptr; }
+  drape_ptr<SymbolOffsets> GetSymbolOffsets() const override;
+
+private:
+  void RefreshBackground();
+
+  dp::TitleDecl m_titleDecl;
+  df::UserPointMark::ColoredSymbolZoomInfo m_textBg;
+  bool m_isActive = false;
+  size_t m_routeIdx = 0;
+  m2::PointF m_pixelOffsetPx{0, 0};
+};

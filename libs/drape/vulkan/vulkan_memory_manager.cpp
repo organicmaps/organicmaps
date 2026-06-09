@@ -267,6 +267,10 @@ void VulkanMemoryManager::Deallocate(AllocationPtr ptr)
     {
       drape_ptr<MemoryBlock> memoryBlock = std::move(*blockIt);
       it->second.erase(blockIt);
+      // Mirror correspondent CHECK(!it->second.empty()) in VulkanMemoryManager::Allocate.
+      if (it->second.empty())
+        m.erase(it);
+
       if (m_sizes[resourceIndex] > kDesiredSizeInBytes[resourceIndex])
       {
         CHECK_LESS_OR_EQUAL(memoryBlock->m_blockSize, m_sizes[resourceIndex], ());

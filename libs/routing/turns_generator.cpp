@@ -4,6 +4,8 @@
 
 #include "indexer/ftypes_matcher.hpp"
 
+#include "geometry/mercator.hpp"
+
 namespace routing
 {
 namespace turns

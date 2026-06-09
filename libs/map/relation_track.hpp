@@ -10,6 +10,7 @@
 
 #include "drape/color.hpp"
 
+#include <functional>
 #include <optional>
 #include <vector>
 
@@ -18,15 +19,16 @@ namespace storage
 class CountryInfoGetter;
 }  // namespace storage
 
+namespace df
+{
+struct RelationsDrawSettings;
+}  // namespace df
+
 /// Builds track geometry from a route relation, starting from a specific feature
 /// and growing the chain in both directions using endpoint matching.
 class RelationTrackBuilder
 {
 public:
-  /// Reference to a Relation in a particular MWM. {m_mwmId, m_index} == {MwmId, in-MWM relIdx}.
-  /// FeatureID's structure matches our needs exactly so we reuse it.
-  using RelationID = FeatureID;
-
   /// Geometry of a (possibly chained) line, plus the ordered list of source Relations
   /// that contributed runs of points to it. Way-orientation inside a Relation is
   /// arbitrary, so we record only *which* Relation each run came from — never a
@@ -67,6 +69,13 @@ public:
     void Reverse();
   };
 
+  struct Metadata
+  {
+    RelationID m_relationId;
+    std::string m_name;
+    dp::Color m_color;
+  };
+
   struct Data
   {
     std::vector<Geometry> m_lines;
@@ -78,8 +87,10 @@ public:
   RelationTrackBuilder(DataSource const & dataSource, FeatureID const & fid,
                        storage::CountryInfoGetter const * infoGetter = nullptr);
 
-  /// @return nullopt if no suitable relation found or geometry can't be built.
-  std::optional<Data> Build();
+  /// Builds relation track candidates metadata.
+  void ForEachMetadata(std::function<void(Metadata &&)> const & fn, df::RelationsDrawSettings const & sett);
+  /// Builds full relation track geometry.
+  std::optional<Data> Build(RelationID const & relationId);
 
   /// Builds a SelectionInfo (ordered polylines + color) for a specific relation (by @p relID),
   /// using MergeOrdered — suitable for public-transport routes where way ordering is meaningful.

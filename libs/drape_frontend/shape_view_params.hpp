@@ -110,6 +110,10 @@ struct PathTextViewParams : CommonOverlayViewParams
   std::string m_mainText;
   std::string m_auxText;
   double m_baseGtoPScale = 1.0;
+  // StringUtf8Multilang code of m_mainText for HarfBuzz `locl` shaping. The concatenated
+  // "main + aux" path-text is shaped under this single tag (aux is the minority case and
+  // typically shares main's script). kUnsupportedLanguageCode means "no locl hint".
+  int8_t m_lang = StringUtf8Multilang::kUnsupportedLanguageCode;
 
   std::string ConcatRenderText() const
   {
@@ -156,5 +160,8 @@ struct ColoredSymbolViewParams : CommonOverlayViewParams
   m2::PointF m_sizeInPixels{0, 0};
   float m_outlineWidth = 0;
   m2::PointF m_offset{0, 0};
+  // RoundedRectangle only: draw a triangular tail pointing from the body's nearest edge
+  // back to the pivot (i.e., the tail tip lands at -m_offset in body-local coords).
+  bool m_drawTail = false;
 };
 }  // namespace df

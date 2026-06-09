@@ -1,56 +1,26 @@
-## Kort
+- NYT! Tryk på et stoppested for offentlig transport for at fremhæve hele ruten på kortet, som i kortstilen Transit.
+- NYT! Langdistanceruter for offentlig transport og andre OpenStreetMap-relationer er nu forbundet på tværs af kortgrænser til en kontinuerlig linje.
+- OpenStreetMap-data opdateret pr. 3. maj.
+- Vietnam og Malaysia er nu opdelt i mindre regioner, som kan downloades separat.
+- Hong Kong, Macau og Hainan er nu adskilt fra Guangdong, og nabogrænserne er opdateret.
+- Opdaterede konturlinjer for Indonesien, Malaysia, Tanzania, Thailand og Vietnam.
+- Tilføjet en knap til optagelse af spor til infopanelet i navigationen.
+- Tilføjet nye OpenStreetMap-typer: vulkaner med aktiv status, adgangspunkter til vandveje, slæbesteder, vandpibesaloner og bygninger under opførelse.
+- Tilføjet "Lookout" som et søgesynonym for udsigtspunkter og "pkwy" som et amerikansk gadesynonym.
+- Farverne på fodgængerområderne er lidt mørkere for at gøre dem lettere at læse.
+- Bogmærkeetiketter på kortet overlapper ikke længere hinanden.
+- Tekst med flere linjer klippes nu rent, og gadenavne indeholder ikke længere dubletter.
+- Ruteplanlægning: Genoptagne ruter fjerner nu mellemliggende punkter, som du allerede har passeret.
+- Rettet den forkerte bogmærkeliste, der blev brugt i TestFlight-builds.
+- Rettet import af KMB-filer.
+- Opdaterede korrekturlæste oversættelser af kategorier, søgesynonymer og UI-strenge. Tilføjet oversættelser til beskrivelser af New South Wales og Northern Territory.
+- Forbedret stabilitet og ydeevne, herunder font shaping, glyph caching og route line clipping.
+- Forbedret højdekurve for spor og ruter.
+- Større menuknapper i navigationen til handlinger som TTS, indstillinger og sporoptagelse.
+- Forfinet animationen af den udvidelige beskrivelsessektion på stedsiden.
+- Siden med stedsoplysninger lukkes ikke længere, når scrubbing af højdekort slutter, den hopper ikke længere uventet og holder titlen synlig under redigering med åbent tastatur.
+- Rettet nedbrud ved sletning af et spor eller bogmærke, der ikke længere findes.
 
-- NYT! Korrekt kortinddeling ved antimeridianen ved trækning og rotation
-- OpenStreetMap-data opdateret pr. 4. april
-- Wikipedia-data opdateret pr. 1. april
-- Ikoner for madområder og byporte tilføjet
-- Underkategorier for tøjbutikker tilføjet: kvinder, mænd, børn, bryllup, sport, undertøj samt kontortøj
-- Farverne på Sydney-metroens linjer rettet
-- Visning af åbningstider rettet for steder med forskydning i solopgang/solnedgang
+## Platformsstøtte
 
-## Ruteplanlægning og navigation
-
-- NYT! Tryk på en cykel- eller vandrerute for at vælge den og se dens højdekurve
-- Forbedret flerfarvet gengivelse af vandre- og cykelruter
-- Cykelnavigation bruger nu kompasretning ved lave hastigheder
-- Rettet en systemfejl ved planlægning af ruter nær visse regionale grænser
-- Du kan nu starte en gyldig rute, selv når du bliver bedt om at downloade yderligere kort
-
-## Bogmærker og ruter
-
-- NYT! Skift alle bogmærke- og sporfarver i en kategori på én gang
-- Justeret tilnærmelse af højdeforskel på sporgrafer for bedre at matche andre apps
-- Forbedret visning af HTML-indhold med tabeller og billeder i bogmærkedetaljer
-- Tilføjet lodrette adskillere for spor med flere segmenter i højdekurven
-- Rettet punktvalg i højdekurven for interpolerede punkter
-- Rettet GPS-sporoptagelse, der udelod punkter mellem segmenter
-- Rettet GeoJSON-import
-- Rettet et nedbrud ved eksport af spor
-
-## Søgning
-
-- Bedre søgning i USA med to millioner ekstra adresser hentet fra TIGER-folketællingsdata
-- Opdaterede søgekategorier: tilføjet "Bread" for bagerier, "Shawarma" for madretter og andre forbedringer af synonymer
-- Forbedret søgning efter husnummer
-- Tilføjet amerikanske synonymer for gader: highway, hwy, freeway, fwy
-- Rettet søgeresultater, når by- og delstatsnavne er de samme
-
-## Editor / OpenStreetMap
-
-- Du kan nu tilføje et nyt sted til OpenStreetMap efter at have valgt din aktuelle position på kortet
-- Rettet fejl i redigeringskrydsets placering, når der trykkes på "Tilføj sted"
-- Øget berøringsområdet for knapperne i navigationsbjælken "Tilføj sted"
-
-## Brugergrænseflade og brugeroplevelse
-
-- Forbedrede modalgestus: fastgør til nærmeste trin, luk ved kantpanorering og gendan den tidligere tilstand, når den genåbnes
-- Rettet håndtering af sommertid for tidszoner
-
-## Stabilitet og lokalisering
-
-- Forbedret stabilitet og ydeevne, reduceret batteriforbrug
-- Opdaterede oversættelser
-
-## Platformsunderstøttelse
-
-- På grund af ændringer i TestFlight og App Store understøtter denne udgivelse kun iOS 15 og nyere. iOS 12, 13 og 14 understøttes ikke længere.
+- På grund af ændringer i TestFlight og App Store understøtter denne udgivelse kun iOS 15 og nyere. iOS 12, iOS 13 og iOS 14 understøttes ikke længere.

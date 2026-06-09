@@ -50,6 +50,8 @@ public:
   void SetGuidesTracks(GuidesTracks && guides);
   /// Interrupt routing and clear buffers
   void ClearState();
+  /// Forward to the underlying IRouter. See IRouter::SwapAltRouteToActive.
+  void SwapAltRouteToActive();
 
   bool FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
                                    EdgeProj & proj);
@@ -71,7 +73,7 @@ private:
                         RemoveRouteCallback const & onRemoveRoute, PointCheckCallback const & onPointCheck,
                         ProgressCallback const & onProgress, uint32_t timeoutSec);
 
-    void OnReady(std::shared_ptr<Route> route, RouterResultCode resultCode);
+    void OnReady(std::shared_ptr<RoutesResult> result, RouterResultCode resultCode);
     void OnNeedMoreMaps(uint64_t routeId, std::set<std::string> const & absentCounties);
     void OnRemoveRoute(RouterResultCode resultCode);
     void Cancel();

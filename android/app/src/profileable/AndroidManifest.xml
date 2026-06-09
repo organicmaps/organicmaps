@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools">
+  <!-- Variant-only overrides for the `profileable` build type.
+    Enables Studio Profiler / simpleperf on this Release-like build without
+    touching the production manifest. -->
+  <application>
+    <profileable
+      android:shell="true"
+      android:enabled="true"
+      tools:targetApi="29" />
+  </application>
+</manifest>

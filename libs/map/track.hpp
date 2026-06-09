@@ -65,9 +65,14 @@ public:
     /// @return true  Data is initialized and correct (after UpdateSelectionInfo call).
     /// Can be false if input m_squareDist filtered all track's segments.
     bool IsValid() const { return m_trackId != kml::kInvalidTrackId; }
+    bool IsRelation() const { return m_trackId == kml::kTempRelationTrackId && m_relationId.IsValid(); }
 
     kml::TrackId m_trackId = kml::kInvalidTrackId;
     m2::PointD m_trackPoint;
+    RelationID m_relationId;  // Relation only.
+    std::string m_title;
+    dp::Color m_color = dp::Color::Transparent();
+
     // Distance in meters from the beginning to m_trackPoint.
     double m_distFromBegM;
     // Mercator square distance, used to select nearest track.

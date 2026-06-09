@@ -1,16 +1,8 @@
 #include "testing/testing.hpp"
 
-#include "routing/routing_tests/tools.hpp"
-
-#include "routing/async_router.hpp"
+#include "routing/route.hpp"
 #include "routing/router.hpp"
 #include "routing/routing_callbacks.hpp"
-
-#include "geometry/point2d.hpp"
-
-#include "platform/platform.hpp"
-
-#include "base/timer.hpp"
 
 #include <condition_variable>
 #include <memory>
@@ -35,9 +27,12 @@ public:
   string GetName() const override { return "Dummy"; }
   void SetGuides(GuidesTracks && /* guides */) override {}
   RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
-                                  bool adjustToPrevRoute, RouterDelegate const & delegate, Route & route) override
+                                  bool adjustToPrevRoute, RouterDelegate const & delegate,
+                                  RoutesResult & result) override
   {
-    route = Route("dummy", checkpoints.GetPoints().cbegin(), checkpoints.GetPoints().cend(), 0 /* route id */);
+    Route route;
+    route.SetGeometry(checkpoints.GetPoints().cbegin(), checkpoints.GetPoints().cend());
+    result.MakeFrom(GetName(), std::move(route));
     return m_result;
   }
 

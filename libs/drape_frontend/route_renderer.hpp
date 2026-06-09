@@ -85,6 +85,7 @@ public:
   void Clear();
   void ClearObsoleteData(int currentRecacheId);
   void ClearContextDependentResources();
+  void RemoveAlternativeSubroutes();
 
   void UpdateDistanceFromBegin(double distanceFromBegin);
   void SetFollowingEnabled(bool enabled);

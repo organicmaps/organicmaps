@@ -10,15 +10,15 @@ void TrackStatistics::CalculateDuration(kml::MultiGeometry const & geometry)
   if (!geometry.HasTimestamps())
     return;
 
-  for (size_t i = 0; i < geometry.m_timestamps.size(); ++i)
+  // A track may carry timestamps on some lines only (e.g. GeoJSON import drops a line's
+  // timestamps when they are broken, KML drops non-monotonic ones), so skip lines without
+  // them instead of requiring every line to have timestamps.
+  for (auto const & ts : geometry.m_timestamps)
   {
-    ASSERT(geometry.HasTimestampsFor(i), ());
-    auto const & ts = geometry.m_timestamps[i];
-    if (!ts.empty())
-    {
-      ASSERT_GREATER_OR_EQUAL(ts.back(), ts.front(), ());
-      m_duration += ts.back() - ts.front();
-    }
+    if (ts.empty())
+      continue;
+    ASSERT_GREATER_OR_EQUAL(ts.back(), ts.front(), ());
+    m_duration += ts.back() - ts.front();
   }
 }
 

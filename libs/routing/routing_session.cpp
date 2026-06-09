@@ -38,7 +38,8 @@ void FormatDistance(double dist, std::string & value, std::string & suffix)
 
 RoutingSession::RoutingSession()
   : m_router(nullptr)
-  , m_route(std::make_shared<Route>(std::string{} /* router */, 0 /* route id */))
+  , m_route(nullptr)
+  , m_lastResult(nullptr)
   , m_state(SessionState::NoValidRoute)
   , m_isFollowing(false)
   , m_speedCameraManager(m_turnNotificationsMgr)
@@ -106,11 +107,10 @@ m2::PointD RoutingSession::GetEndPoint() const
   return m_checkpoints.GetFinish();
 }
 
-void RoutingSession::DoReadyCallback::operator()(std::shared_ptr<Route> const & route, RouterResultCode e)
+void RoutingSession::DoReadyCallback::operator()(std::shared_ptr<RoutesResult> const & result, RouterResultCode e)
 {
-  ASSERT(m_rs.m_route, ());
-  m_rs.AssignRoute(route, e);
-  m_callback(*m_rs.m_route, e);
+  m_rs.AssignRoute(result, e);
+  m_callback(result ? *result : RoutesResult{}, e);
 }
 
 void RoutingSession::RemoveRoute()
@@ -121,7 +121,8 @@ void RoutingSession::RemoveRoute()
   m_moveAwayCounter = 0;
   m_turnNotificationsMgr.Reset();
 
-  m_route = std::make_shared<Route>(std::string{} /* router */, 0 /* route id */);
+  m_route.reset();
+  m_lastResult.reset();
   m_speedCameraManager.Reset();
   m_speedCameraManager.SetRoute(m_route);
 }
@@ -249,7 +250,6 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT_NOT_EQUAL(m_state, SessionState::NoValidRoute, ());
-  ASSERT(m_router, ());
 
   if (m_state == SessionState::RouteFinished || m_state == SessionState::RouteBuilding ||
       m_state == SessionState::RouteNoFollowing || m_state == SessionState::NoValidRoute)
@@ -257,11 +257,10 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
     return m_state;
   }
 
-  CHECK(m_route, (m_state));
   // Note. The route may not be valid here. It happens in case when while the first route
   // build is cancelled because of traffic jam were downloaded. After that route rebuilding
   // happens. While the rebuilding may be called OnLocationPositionChanged(...)
-  if (!m_route->IsValid())
+  if (!IsRouteValid())
     return m_state;
 
   m_turnNotificationsMgr.SetSpeedMetersPerSecond(info.m_speed);
@@ -291,7 +290,7 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
     auto const curIter = m_route->GetCurrentIteratorTurn();
     // If we are moving to the next segment after passing the turn
     // it means the turn is changed. So the |m_onNewTurn| should be called.
-    if (formerIter && curIter && IsNormalTurn(*formerIter) && formerIter->m_index < curIter->m_index && m_onNewTurn)
+    if (IsNormalTurn(formerIter) && formerIter.m_index < curIter.m_index && m_onNewTurn)
       m_onNewTurn();
 
     return m_state;
@@ -301,7 +300,7 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
   {
     // Distance from the last known projection on route
     // (check if we are moving far from the last known projection).
-    auto const & lastGoodPoint = m_route->GetFollowedPolyline().GetCurrentIter().m_pt;
+    auto const & lastGoodPoint = m_route->GetCurrentIter().m_pt;
     double const dist =
         mercator::DistanceOnEarth(lastGoodPoint, mercator::FromLatLon(info.m_latitude, info.m_longitude));
     if (AlmostEqualAbs(dist, m_lastDistance, kRunawayDistanceSensitivityMeters))
@@ -395,9 +394,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  ASSERT(m_route, ());
-
-  if (!m_route->IsValid())
+  if (!IsRouteValid())
   {
     // nothing should be displayed on the screen about turns if these lines are executed
     info = FollowingInfo();
@@ -464,10 +461,11 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 double RoutingSession::GetCompletionPercent() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  ASSERT(m_route, ());
+  if (!IsRouteValid())
+    return 0;
 
   double const denominator = m_passedDistanceOnRouteMeters + m_route->GetTotalDistanceMeters();
-  if (!m_route->IsValid() || denominator == 0.0)
+  if (denominator == 0.0)
     return 0;
 
   double const percent =
@@ -483,9 +481,19 @@ void RoutingSession::PassCheckpoints()
   while (!m_checkpoints.IsFinished() && m_route->IsSubroutePassed(m_checkpoints.GetPassedIdx()))
   {
     m_route->PassNextSubroute();
+    // Keep the active RouteBase in m_lastResult in sync so a later RouteCall (e.g. drape engine
+    // reinit) doesn't re-render already-passed subroutes via InsertSingleRoute's
+    // route.GetCurrentSubrouteIdx() loop start.
+    if (m_lastResult)
+    {
+      CHECK(m_lastResult->IsValid(), ());
+      m_lastResult->GetActive().SetCurrentSubrouteIdx(m_route->GetCurrentSubrouteIdx());
+    }
+
     m_checkpoints.PassNextPoint();
     LOG(LINFO, ("Pass checkpoint, ", m_checkpoints));
-    m_checkpointCallback(m_checkpoints.GetPassedIdx());
+    if (m_checkpointCallback)
+      m_checkpointCallback(m_checkpoints.GetPassedIdx());
   }
 }
 
@@ -493,8 +501,6 @@ void RoutingSession::GenerateNotifications(std::vector<std::string> & notificati
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   notifications.clear();
-
-  ASSERT(m_route, ());
 
   // Generate recalculating notification if needed and reset
   if (m_routingRebuildCount > m_routingRebuildAnnounceCount)
@@ -508,7 +514,7 @@ void RoutingSession::GenerateNotifications(std::vector<std::string> & notificati
   if (!m_routingSettings.m_soundDirection)
     return;
 
-  if (!m_route->IsValid() || !IsNavigable())
+  if (!IsRouteValid() || !IsNavigable())
     return;
 
   // Generate turns notifications.
@@ -531,15 +537,15 @@ void RoutingSession::GenerateNotifications(std::vector<std::string> & notificati
     LOG(LDEBUG, ("TTS:", n));
 }
 
-void RoutingSession::AssignRoute(std::shared_ptr<Route> const & route, RouterResultCode e)
+void RoutingSession::AssignRoute(std::shared_ptr<RoutesResult> const & result, RouterResultCode e)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  if (e != RouterResultCode::NoError)
+  if (e != RouterResultCode::NoError || !result || !result->IsValid())
   {
     // Route building was not success. If the former route is valid let's continue moving along it.
     // If not, let's set corresponding state.
-    if (m_route->IsValid())
+    if (IsRouteValid())
       SetState(SessionState::OnRoute);
     else
       SetState(SessionState::NoValidRoute);
@@ -549,12 +555,54 @@ void RoutingSession::AssignRoute(std::shared_ptr<Route> const & route, RouterRes
   RemoveRoute();
   SetState(SessionState::RouteNotStarted);
   m_lastCompletionPercent = 0;
-  m_checkpoints.SetPointFrom(route->GetPoly().Front());
 
+  // Promote the active alternative (RouteBase) to a followed Route.
+  auto route = std::make_shared<Route>(result->GetActive());
+  m_checkpoints.SetPointFrom(route->GetPoly().Front());
   route->SetRoutingSettings(m_routingSettings);
   m_route = route;
+
+  m_lastResult = result;
+
   m_speedCameraManager.Reset();
   m_speedCameraManager.SetRoute(m_route);
+}
+
+bool RoutingSession::SwapActiveAlternative(size_t idx)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (!m_lastResult || idx >= m_lastResult->m_routes.size() || idx == m_lastResult->m_activeIdx)
+    return false;
+
+  m_lastResult->m_activeIdx = idx;
+  // Promote the newly-active RouteBase to a followed Route, preserving the session's routing settings.
+  auto route = std::make_shared<Route>(m_lastResult->GetActive());
+  route->SetRoutingSettings(m_routingSettings);
+  m_route = route;
+
+  // Reset all per-route state tied to the previous active's geometry so the new alternative
+  // starts with a clean follow/match/notify pipeline. Mirrors RemoveRoute() + AssignRoute()
+  // for the bits that matter when m_lastResult itself is reused.
+  m_lastDistance = 0.0;
+  m_moveAwayCounter = 0;
+  m_lastCompletionPercent = 0;
+  m_passedDistanceOnRouteMeters = 0.0;
+  m_turnNotificationsMgr.Reset();
+  m_checkpoints.SetPointFrom(m_route->GetPoly().Front());
+
+  m_speedCameraManager.Reset();
+  m_speedCameraManager.SetRoute(m_route);
+  if (m_router)
+    m_router->SwapAltRouteToActive();
+  return true;
+}
+
+void RoutingSession::AssignRouteForTesting(Route && route, RouterResultCode e)
+{
+  auto result = std::make_shared<RoutesResult>();
+  if (route.IsValid())
+    result->m_routes.emplace_back(std::move(static_cast<RouteBase &>(route)));
+  AssignRoute(result, e);
 }
 
 void RoutingSession::SetRouter(std::unique_ptr<IRouter> && router, std::unique_ptr<AbsentRegionsFinder> && finder)
@@ -568,7 +616,7 @@ void RoutingSession::SetRouter(std::unique_ptr<IRouter> && router, std::unique_p
 void RoutingSession::MatchLocationToRoadGraph(location::GpsInfo & location)
 {
   auto const locationMerc = mercator::FromLatLon(location.m_latitude, location.m_longitude);
-  double const radius = m_route->GetCurrentRoutingSettings().m_matchingThresholdM;
+  double const radius = m_routingSettings.m_matchingThresholdM;
 
   m2::PointD const direction = m_positionAccumulator.GetDirection();
 
@@ -593,7 +641,7 @@ void RoutingSession::MatchLocationToRoadGraph(location::GpsInfo & location)
 
   if (m_proj.m_edge.GetFeatureId() == proj.m_edge.GetFeatureId())
   {
-    if (m_route->GetCurrentRoutingSettings().m_matchRoute)
+    if (m_routingSettings.m_matchRoute)
     {
       if (!AlmostEqualAbs(m_proj.m_point, proj.m_point, kEps))
         location.m_bearing = location::AngleToBearing(math::RadToDeg(ang::AngleTo(m_proj.m_point, proj.m_point)));
@@ -628,7 +676,7 @@ bool RoutingSession::MatchLocationToRoute(location::GpsInfo & location, location
 traffic::SpeedGroup RoutingSession::MatchTraffic(location::RouteMatchingInfo const & routeMatchingInfo) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  if (!routeMatchingInfo.IsMatched())
+  if (!routeMatchingInfo.IsMatched() || !m_route)
     return SpeedGroup::Unknown;
 
   size_t const index = routeMatchingInfo.GetIndexInRoute();
@@ -770,20 +818,15 @@ std::string RoutingSession::GetTurnNotificationsLocale() const
 void RoutingSession::RouteCall(RouteCallback const & callback) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  CHECK(m_route, ());
-  callback(*m_route);
+  // May be nullptr after RoutingManager::SetDrapeEngine (restoring OGL context?).
+  if (m_lastResult)
+    callback(*m_lastResult);
 }
 
 void RoutingSession::EmitCloseRoutingEvent() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  ASSERT(m_route, ());
-
-  if (!m_route->IsValid())
-  {
-    ASSERT(false, ());
-    return;
-  }
+  ASSERT(m_route && m_route->IsValid(), ());
 }
 
 Route const * RoutingSession::GetRoute() const
@@ -795,14 +838,13 @@ Route const * RoutingSession::GetRoute() const
 bool RoutingSession::HasRouteAltitude() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  ASSERT(m_route, ());
-  return m_route->HaveAltitudes();
+  return m_route && m_route->HaveAltitudes();
 }
 
 bool RoutingSession::IsRouteId(uint64_t routeId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return m_route->IsRouteId(routeId);
+  return m_lastResult && m_lastResult->m_routesId == routeId;
 }
 
 bool RoutingSession::IsRouteValid() const
@@ -814,9 +856,7 @@ bool RoutingSession::IsRouteValid() const
 bool RoutingSession::GetRouteJunctionPoints(RouteJunctions & routeJunctionPoints) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  ASSERT(m_route, ());
-
-  if (!m_route->IsValid())
+  if (!IsRouteValid())
     return false;
 
   auto const & segments = m_route->GetRouteSegments();

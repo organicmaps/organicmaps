@@ -205,6 +205,17 @@ android {
         }
       }
     }
+
+    // Release-like build for performance/battery profiling.
+    // Debug-signed so it works without secure.properties, installed as
+    // app.organicmaps.profileable to coexist with other variants.
+    profileable {
+      initWith release
+      applicationIdSuffix '.profileable'
+      versionNameSuffix '-profileable'
+      signingConfig = signingConfigs.debug
+      matchingFallbacks = ['release']
+    }
   }
 
   // We don't compress these extensions in assets/ because our random FileReader can't read zip-compressed files from apk.
@@ -301,10 +312,10 @@ def allowedPermissions = [
     // comes from androidx.core:core:1.17.0
     // Regex to allow it for the following app packages:
     // app.organicmaps
-    // app.organicmaps.(debug|beta)
+    // app.organicmaps.(debug|beta|profileable)
     // app.organicmaps.web
-    // app.organicmaps.web.(debug|beta)
-    ~/name='app\.organicmaps(\.web)?(\.debug|\.beta)?\.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'/
+    // app.organicmaps.web.(debug|beta|profileable)
+    ~/name='app\.organicmaps(\.web)?(\.debug|\.beta|\.profileable)?\.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'/
 ]
 registerCheckApkPermissionsTasks(project, allowedPermissions)
 
@@ -317,6 +328,13 @@ androidComponents {
     onVariants(selector().withBuildType("debug")) { variant ->
       variant.packaging.jniLibs.keepDebugSymbols.add("**/liborganicmaps.so")
     }
+  }
+
+  // Keep native debug symbols in profileable builds so simpleperf / Studio Profiler
+  // can resolve liborganicmaps.so addresses to function names. Unconditional —
+  // symbol-less profiling is useless, which is the whole point of this variant.
+  onVariants(selector().withBuildType("profileable")) { variant ->
+    variant.packaging.jniLibs.keepDebugSymbols.add("**/liborganicmaps.so")
   }
 
   onVariants(selector().all()) { variant ->

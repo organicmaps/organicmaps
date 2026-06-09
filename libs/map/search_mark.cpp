@@ -46,6 +46,7 @@ enum SearchMarkPoint::SearchMarkType : uint8_t
   Bank,
   Fuel,
   ChargingStation,
+  Shop,
   ShopAlcohol,
   ShopButcher,
   ShopClothes,
@@ -74,6 +75,10 @@ enum SearchMarkPoint::SearchMarkType : uint8_t
   BicycleParkingCovered,
   BicycleRental,
   Airport,
+  ATM,
+  Bus,
+  Subway,
+  Monument,
 
   NotFound,  // Service value used in developer tools.
   Count
@@ -120,6 +125,7 @@ std::array<std::string, SearchMarkType::Count> const kSymbols = {
     "search-result-bank",                     // Bank.
     "search-result-fuel",                     // Fuel.
     "search-result-charging_station",         // ChargingStation.
+    "search-result-shop",                     // Shop.
     "search-result-shop-alcohol",             // ShopAlcohol.
     "search-result-shop-butcher",             // ShopButcher.
     "search-result-shop-clothes",             // ShopClothes.
@@ -148,6 +154,10 @@ std::array<std::string, SearchMarkType::Count> const kSymbols = {
     "search-result-bicycle_parking-covered",  // BicycleParkingCovered.
     "search-result-bicycle_rental",           // BicycleRental.
     "search-result-airport",                  // Airport.
+    "search-result-atm",                      // ATM.
+    "search-result-bus",                      // Bus.
+    "search-result-subway",                   // Subway.
+    "search-result-monument",                 // Monument.
 
     "search-result-non-found",  // NotFound.
 };
@@ -178,12 +188,19 @@ public:
   }
 
 private:
+  struct Entry
+  {
+    std::vector<std::string_view> m_path;
+    SearchMarkType m_searchMarkType = SearchMarkType::Default;
+    bool m_subtree = false;
+  };
+
   using Type = std::pair<uint32_t, SearchMarkType>;
 
   SearchMarkTypeChecker()
   {
     auto const & c = classif();
-    std::pair<std::vector<std::string_view>, SearchMarkType> const table[] = {
+    Entry const table[] = {
         {{"amenity", "cafe"}, SearchMarkType::Cafe},
         {{"shop", "bakery"}, SearchMarkType::Bakery},
         {{"shop", "pastry"}, SearchMarkType::Bakery},
@@ -205,20 +222,19 @@ private:
         {{"tourism", "attraction"}, SearchMarkType::Attraction},
         {{"tourism", "viewpoint"}, SearchMarkType::Viewpoint},
         {{"historic", "fort"}, SearchMarkType::Remains},
-        {{"historic", "castle"}, SearchMarkType::Remains},
-        {{"historic", "castle", "castrum"}, SearchMarkType::Remains},
-        {{"historic", "castle", "fortified_church"}, SearchMarkType::Remains},
-        {{"historic", "castle", "fortress"}, SearchMarkType::Remains},
-        {{"historic", "castle", "hillfort"}, SearchMarkType::Remains},
-        {{"historic", "castle", "kremlin"}, SearchMarkType::Remains},
-        {{"historic", "castle", "manor"}, SearchMarkType::Remains},
-        {{"historic", "castle", "palace"}, SearchMarkType::Remains},
-        {{"historic", "castle", "shiro"}, SearchMarkType::Remains},
-        {{"historic", "castle", "defensive"}, SearchMarkType::Remains},
-        {{"historic", "castle", "stately"}, SearchMarkType::Remains},
+        {{"historic", "castle"}, SearchMarkType::Remains, true},
         {{"historic", "ruins"}, SearchMarkType::Remains},
         {{"historic", "city_gate"}, SearchMarkType::Remains},
         {{"historic", "archaeological_site"}, SearchMarkType::ArchaeologicalSite},
+        {{"historic", "monument"}, SearchMarkType::Monument},
+        // by intention ignore small plaque and stolperstein.
+        {{"historic", "memorial"}, SearchMarkType::Monument},
+        {{"historic", "memorial", "cross"}, SearchMarkType::Monument},
+        {{"historic", "memorial", "sculpture"}, SearchMarkType::Monument},
+        {{"historic", "memorial", "statue"}, SearchMarkType::Monument},
+        {{"historic", "memorial", "war_memorial"}, SearchMarkType::Monument},
+        {{"tourism", "artwork", "sculpture"}, SearchMarkType::Monument},
+        {{"tourism", "artwork", "statue"}, SearchMarkType::Monument},
         {{"tourism", "information"}, SearchMarkType::Information},
         {{"tourism", "information", "office"}, SearchMarkType::Information},
         {{"tourism", "information", "visitor_centre"}, SearchMarkType::Information},
@@ -231,11 +247,20 @@ private:
         {{"amenity", "charging_station"}, SearchMarkType::ChargingStation},
         {{"amenity", "charging_station", "bicycle"}, SearchMarkType::ChargingStation},
         {{"amenity", "charging_station", "motorcar"}, SearchMarkType::ChargingStation},
+        {{"shop", "mall"}, SearchMarkType::Shop},
+        {{"shop", "antiques"}, SearchMarkType::Shop},
+        {{"shop", "bag"}, SearchMarkType::Shop},
+        {{"shop", "baby_goods"}, SearchMarkType::Shop},
+        {{"shop", "watches"}, SearchMarkType::Shop},
+        {{"shop", "perfumery"}, SearchMarkType::Shop},
+        {{"shop", "second_hand"}, SearchMarkType::Shop},
+        {{"shop", "variety_store"}, SearchMarkType::Shop},
+        {{"shop", "art"}, SearchMarkType::Art},
         {{"shop", "alcohol"}, SearchMarkType::ShopAlcohol},
         {{"shop", "beverages"}, SearchMarkType::ShopAlcohol},
         {{"shop", "wine"}, SearchMarkType::ShopAlcohol},
         {{"shop", "butcher"}, SearchMarkType::ShopButcher},
-        {{"shop", "clothes"}, SearchMarkType::ShopClothes},
+        {{"shop", "clothes"}, SearchMarkType::ShopClothes, true},
         {{"shop", "confectionery"}, SearchMarkType::ShopConfectionery},
         {{"shop", "chocolate"}, SearchMarkType::ShopConfectionery},
         {{"craft", "confectionery"}, SearchMarkType::ShopConfectionery},
@@ -245,6 +270,7 @@ private:
         {{"shop", "farm"}, SearchMarkType::ShopConvenience},
         {{"shop", "health_food"}, SearchMarkType::ShopConvenience},
         {{"shop", "beauty"}, SearchMarkType::ShopBeauty},
+        {{"shop", "coffee"}, SearchMarkType::Cafe},
         {{"shop", "cosmetics"}, SearchMarkType::ShopBeauty},
         {{"shop", "department_store"}, SearchMarkType::ShopDepartmentStore},
         {{"shop", "gift"}, SearchMarkType::ShopGift},
@@ -277,6 +303,7 @@ private:
         {{"leisure", "ice_rink"}, SearchMarkType::Pitch},
         {{"leisure", "sports_centre"}, SearchMarkType::Pitch},
         {{"leisure", "sports_hall"}, SearchMarkType::Pitch},
+        {{"leisure", "dance"}, SearchMarkType::Pitch},
         {{"leisure", "swimming_pool"}, SearchMarkType::Swimming},
         {{"leisure", "water_park"}, SearchMarkType::Swimming},
         {{"amenity", "drinking_water"}, SearchMarkType::DrinkingWater},
@@ -295,12 +322,27 @@ private:
         {{"aeroway", "aerodrome"}, SearchMarkType::Airport},
         {{"aeroway", "aerodrome", "international"}, SearchMarkType::Airport},
         {{"aeroway", "terminal"}, SearchMarkType::Airport},
-
+        {{"amenity", "atm"}, SearchMarkType::ATM},
+        {{"highway", "bus_stop"}, SearchMarkType::Bus},
+        {{"amenity", "bus_station"}, SearchMarkType::Bus},
+        {{"railway", "station", "subway"}, SearchMarkType::Subway, true},
     };
 
     m_searchMarkTypes.reserve(std::size(table));
-    for (auto const & p : table)
-      m_searchMarkTypes.push_back({c.GetTypeByPath(p.first), p.second});
+
+    for (auto const & e : table)
+    {
+      auto const type = c.GetTypeByPath(e.m_path);
+      if (e.m_subtree)
+      {
+        c.ForEachInSubtree([this, searchMarkType = e.m_searchMarkType](uint32_t t)
+        { m_searchMarkTypes.push_back({t, searchMarkType}); }, type);
+      }
+      else
+      {
+        m_searchMarkTypes.push_back({type, e.m_searchMarkType});
+      }
+    }
 
     std::sort(m_searchMarkTypes.begin(), m_searchMarkTypes.end());
   }

@@ -20,7 +20,7 @@ using CountryParentNameGetterFn = std::function<std::string(std::string const &)
 // Guides with integer ids containing multiple tracks. One track consists of its points.
 using GuidesTracks = std::map<kml::MarkGroupId, std::vector<kml::TrackGeometry>>;
 
-class Route;
+class RoutesResult;
 
 struct EdgeProj
 {
@@ -61,19 +61,24 @@ public:
   /// It will be called in separate thread and only one function will processed in same time.
   /// @warning please support Cancellable interface calls. You must stop processing when it is true.
   ///
-  /// @param startPoint point to start routing
+  /// @param checkpoints start, finish and intermediate points
   /// @param startDirection start direction for routers with high cost of the turnarounds
-  /// @param finalPoint target point for route
   /// @param adjust adjust route to the previous one if possible
   /// @param delegate callback functions and cancellation flag
-  /// @param route result route
-  /// @return ResultCode error code or NoError if route was initialised
+  /// @param result populated with one or more alternative routes (as RouteBase) when successful;
+  ///               callers consume the active alternative via result.GetActive()
+  /// @return ResultCode error code or NoError if at least one route was produced
   /// @see Cancellable
   virtual RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
-                                          bool adjust, RouterDelegate const & delegate, Route & route) = 0;
+                                          bool adjust, RouterDelegate const & delegate, RoutesResult & result) = 0;
 
   virtual bool FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
                                            EdgeProj & proj) = 0;
+
+  /// Swap the saved last-route state with the alternative's saved state. Called when the user
+  /// picks an alternative variant so a subsequent AdjustRoute (off-route rebuild) adjusts to
+  /// the selected route rather than the original primary. Default: no-op.
+  virtual void SwapAltRouteToActive() {}
 };
 
 }  // namespace routing

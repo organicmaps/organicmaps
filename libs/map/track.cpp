@@ -143,6 +143,8 @@ void Track::UpdateSelectionInfo(m2::PointD const & tapPoint, TrackSelectionInfo 
       if (squaredDist >= info.m_squareDist)
         continue;
 
+      info.m_title = GetName();
+      info.m_color = GetColor(0);
       info.m_squareDist = squaredDist;
       info.m_trackId = m_data.m_id;
       info.m_trackPoint = closestPoint;
@@ -202,11 +204,13 @@ void Track::ForEachGeometry(GeometryFnT && fn) const
 void Track::Attach(kml::MarkGroupId groupId)
 {
   ASSERT_EQUAL(m_groupID, kml::kInvalidMarkGroupId, ());
+  m_isDirty = true;
   m_groupID = groupId;
 }
 
 void Track::Detach()
 {
+  m_isDirty = true;
   m_groupID = kml::kInvalidMarkGroupId;
 }
 

@@ -23,9 +23,9 @@ public:
                     VkDevice device, uint32_t renderingQueueFamilyIndex,
                     ref_ptr<dp::vulkan::VulkanObjectManager> objectManager, uint32_t appVersionCode,
                     bool hasPartialTextureUpdates)
-    : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, gpuProperties, device, renderingQueueFamilyIndex,
-                                    objectManager, make_unique_dp<dp::vulkan::VulkanPipeline>(device, appVersionCode),
-                                    hasPartialTextureUpdates)
+    : dp::vulkan::VulkanBaseContext(
+          vulkanInstance, gpu, gpuProperties, device, renderingQueueFamilyIndex, objectManager,
+          make_unique_dp<dp::vulkan::VulkanPipeline>(device, gpuProperties, appVersionCode), hasPartialTextureUpdates)
   {
     VkQueue queue;
     vkGetDeviceQueue(device, renderingQueueFamilyIndex, 0, &queue);

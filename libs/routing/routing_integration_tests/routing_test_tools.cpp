@@ -137,29 +137,37 @@ IRouterComponents & GetVehicleComponents(VehicleType vehicleType)
   return *(it->second);
 }
 
+namespace
+{
+shared_ptr<Route> PromoteActive(RoutesResult const & res)
+{
+  if (res.IsValid())
+    return make_shared<Route>(res.GetActive());
+  return {};
+}
+}  // namespace
+
 TRouteResult CalculateRoute(IRouterComponents const & routerComponents, m2::PointD const & startPoint,
                             m2::PointD const & startDirection, m2::PointD const & finalPoint)
 {
   RouterDelegate delegate;
-  shared_ptr<Route> route = make_shared<Route>("mapsme", 0 /* route id */);
+  RoutesResult res("mapsme", 0 /* routes id */);
   RouterResultCode result = routerComponents.GetRouter().CalculateRoute(
-      Checkpoints(startPoint, finalPoint), startDirection, false /* adjust */, delegate, *route);
-  ASSERT(route, ());
+      Checkpoints(startPoint, finalPoint), startDirection, false /* adjust */, delegate, res);
   routerComponents.GetRouter().SetGuides({});
-  return TRouteResult(route, result);
+  return TRouteResult(PromoteActive(res), result);
 }
 
 TRouteResult CalculateRoute(IRouterComponents const & routerComponents, Checkpoints const & checkpoints,
                             GuidesTracks && guides)
 {
   RouterDelegate delegate;
-  shared_ptr<Route> route = make_shared<Route>("mapsme", 0 /* route id */);
+  RoutesResult res("mapsme", 0 /* routes id */);
   routerComponents.GetRouter().SetGuides(std::move(guides));
   RouterResultCode result = routerComponents.GetRouter().CalculateRoute(
-      checkpoints, m2::PointD::Zero() /* startDirection */, false /* adjust */, delegate, *route);
-  ASSERT(route, ());
+      checkpoints, m2::PointD::Zero() /* startDirection */, false /* adjust */, delegate, res);
   routerComponents.GetRouter().SetGuides({});
-  return TRouteResult(route, result);
+  return TRouteResult(PromoteActive(res), result);
 }
 
 void TestTurnCount(routing::Route const & route, uint32_t expectedTurnCount)

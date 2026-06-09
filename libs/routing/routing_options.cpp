@@ -14,6 +14,11 @@ namespace routing
 {
 // RoutingOptions -------------------------------------------------------------------------------------
 
+uint32_t constexpr kAllRoutingOptionsMask =
+    static_cast<uint32_t>(RoutingOptions::Road::Usual) | static_cast<uint32_t>(RoutingOptions::Road::Toll) |
+    static_cast<uint32_t>(RoutingOptions::Road::Motorway) | static_cast<uint32_t>(RoutingOptions::Road::Ferry) |
+    static_cast<uint32_t>(RoutingOptions::Road::Dirty) | static_cast<uint32_t>(RoutingOptions::Road::Steps);
+
 std::string_view constexpr kAvoidRoutingOptionSettingsForCar = "avoid_routing_options_car";
 std::string_view constexpr kRoutingOptionSettingsForBicycle = "routing_options_bicycle";
 std::string_view constexpr kPublicBicycleRoutingSettings = "routing_option_public_bicycle";
@@ -24,7 +29,7 @@ RoutingOptions LoadOptionsFromSettings(std::string_view key)
   if (!settings::Get(key, mode))
     mode = 0;
 
-  mode &= static_cast<uint32_t>(RoutingOptions::Road::Max) - 1;
+  mode &= kAllRoutingOptionsMask;
   return RoutingOptions(base::checked_cast<RoutingOptions::RoadType>(mode));
 }
 

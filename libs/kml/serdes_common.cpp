@@ -2,6 +2,7 @@
 
 #include "geometry/mercator.hpp"
 
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 namespace kml
@@ -30,6 +31,15 @@ std::string PointToGxString(geometry::PointWithAltitude const & pt)
   if (pt.GetAltitude() != geometry::kInvalidAltitude)
     return PointToString(pt.GetPoint(), kSeparator) + kSeparator + strings::to_string(pt.GetAltitude());
   return PointToString(pt.GetPoint(), kSeparator);
+}
+
+bool LineHasAltitude(TrackGeometry const & line)
+{
+  return base::AnyOf(line, [](geometry::PointWithAltitude const & pt)
+  {
+    auto const alt = pt.GetAltitude();
+    return alt != geometry::kInvalidAltitude && alt != geometry::kDefaultAltitudeMeters;
+  });
 }
 
 void SaveStringWithCDATA(Writer & writer, std::string const & s)

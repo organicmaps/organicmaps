@@ -39,6 +39,10 @@ UNIT_TEST(Timer_TimestampConversion)
   TEST_EQUAL(StringToTimestamp("2012-12-03T00:38:34+03:30"), 1354482514, ());
   TEST_EQUAL(StringToTimestamp("2012-12-02T11:08:34-10:00"), 1354482514, ());
   TEST_EQUAL(StringToTimestamp("2014-09-30T23:59:59+23:59"), 1412035259, ());
+  // ISO 8601 basic format timezone offset (no colon).
+  TEST_EQUAL(StringToTimestamp("2012-12-03T00:38:34+0330"), 1354482514, ());
+  TEST_EQUAL(StringToTimestamp("2012-12-02T11:08:34-1000"), 1354482514, ());
+  TEST_EQUAL(StringToTimestamp("2017-01-01T10:00:00-0700"), StringToTimestamp("2017-01-01T10:00:00-07:00"), ());
 
   time_t const now = time(0);
   TEST_EQUAL(now, StringToTimestamp(TimestampToString(now)), ());
@@ -61,6 +65,7 @@ UNIT_TEST(Timer_TimestampConversion)
   TEST_EQUAL(INVALID_TIME_STAMP, StringToTimestamp("2100-01--1T11:08:34-10:00"), ());
   TEST_EQUAL(INVALID_TIME_STAMP, StringToTimestamp("2100--1-02T11:08:34-10:00"), ());
   TEST_EQUAL(INVALID_TIME_STAMP, StringToTimestamp("2012-12-02T11:08:34-25:88"), ());
+  TEST_EQUAL(INVALID_TIME_STAMP, StringToTimestamp("2012-12-02T11:08:34-2588"), ());
 }
 
 UNIT_TEST(Timer_GenerateYYMMDD)

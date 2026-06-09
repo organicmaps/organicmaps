@@ -262,12 +262,13 @@ UNIT_CLASS_TEST(BikeSharingHeuristicTest, IndexRouterBuildsPublicBicycleRouteWit
 
   auto router = MakeBicycleRouter(kCountryName, countryRect);
   RouterDelegate const delegate;
-  Route route("public-bicycle-route", 0 /* routeId */);
+  RoutesResult routes(router.GetName(), 0 /* routesId */);
 
   auto const result = router.CalculateRoute(Checkpoints(start, finish), m2::PointD::Zero() /* startDirection */,
-                                            false /* adjustToPrevRoute */, delegate, route);
+                                            false /* adjustToPrevRoute */, delegate, routes);
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
+  Route route(routes.GetActive());
   TEST_EQUAL(route.GetSubrouteCount(), 1, ());
   TEST_EQUAL(route.GetSubrouteAttrs(0).GetVehicleType(), VehicleType::Count, ());
 
@@ -304,10 +305,10 @@ UNIT_CLASS_TEST(BikeSharingHeuristicTest, IndexRouterRejectsPublicBicycleRouteWi
 
   auto router = MakeBicycleRouter(kCountryName, countryRect);
   RouterDelegate const delegate;
-  Route route("public-bicycle-route", 0 /* routeId */);
+  RoutesResult routes(router.GetName(), 0 /* routesId */);
 
   auto const result = router.CalculateRoute(Checkpoints(start, finish), m2::PointD::Zero() /* startDirection */,
-                                            false /* adjustToPrevRoute */, delegate, route);
+                                            false /* adjustToPrevRoute */, delegate, routes);
 
   TEST_EQUAL(result, RouterResultCode::RouteNotFound, ());
 }
@@ -344,10 +345,10 @@ UNIT_CLASS_TEST(BikeSharingHeuristicTest, IndexRouterRejectsPublicBicycleRouteWi
 
   auto router = MakeBicycleRouter(kCountryName, countryRect);
   RouterDelegate const delegate;
-  Route route("public-bicycle-route", 0 /* routeId */);
+  RoutesResult routes(router.GetName(), 0 /* routesId */);
 
   auto const result = router.CalculateRoute(Checkpoints(start, finish), m2::PointD::Zero() /* startDirection */,
-                                            false /* adjustToPrevRoute */, delegate, route);
+                                            false /* adjustToPrevRoute */, delegate, routes);
 
   TEST_EQUAL(result, RouterResultCode::RouteNotFound, ());
 }

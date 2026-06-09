@@ -27,9 +27,23 @@ public:
     ETA
   };
 
+  /// \brief Calculation strategy. Normal — full road model (speed, traffic, penalties, climb).
+  /// Shortest — the estimator's per-segment weight becomes distance-only (uses GetMaxWeightSpeedMpS()
+  /// as the constant divisor so the A* heuristic stays admissible); non-segment penalties applied at
+  /// the graph layer (u-turn, ferry, etc. in IndexGraph::CalcEdgeWeight) still take effect. Used to
+  /// compute a "shortest path" alternative alongside the normal route.
+  enum class Strategy
+  {
+    Normal,
+    Shortest
+  };
+
   EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroadSpeedKMpH, DataSource * dataSourcePtr = nullptr,
                 std::shared_ptr<NumMwmIds> numMwmIds = nullptr);
   virtual ~EdgeEstimator() = default;
+
+  void SetStrategy(Strategy strategy) { m_strategy = strategy; }
+  Strategy GetStrategy() const { return m_strategy; }
 
   double CalcHeuristic(ms::LatLon const & from, ms::LatLon const & to) const;
   // Estimates time in seconds it takes to go from point |from| to point |to| along a leap (fake)
@@ -62,6 +76,7 @@ public:
 private:
   double const m_maxWeightSpeedMpS;
   SpeedKMpH const m_offroadSpeedKMpH;
+  Strategy m_strategy = Strategy::Normal;
 
   // DataSource * m_dataSourcePtr;
   // std::shared_ptr<NumMwmIds> m_numMwmIds;

@@ -205,7 +205,10 @@ void PlaceTitles(std::vector<TitleInfo> & titles, float textSize, ref_ptr<dp::Te
   size_t summaryRowsCount = 0;
   for (auto & name : titles)
   {
-    StraightTextLayout layout(name.m_text, textSize, textures, dp::Left, false /* forceNoWrap */);
+    // Transit titles do not carry a lang code; pass kUnsupportedLanguageCode so HarfBuzz
+    // applies no `locl` substitutions.
+    StraightTextLayout layout(name.m_text, textSize, textures, dp::Left, false /* forceNoWrap */,
+                              StringUtf8Multilang::kUnsupportedLanguageCode);
     name.m_pixelSize = layout.GetPixelSize() + m2::PointF(4.0f * vs, 4.0f * vs);
     name.m_rowsCount = layout.GetRowsCount();
     summaryRowsCount += layout.GetRowsCount();

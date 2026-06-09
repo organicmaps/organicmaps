@@ -148,6 +148,19 @@ bool ParseSetGpsTrackMinAccuracyCommand(std::string const & query)
   return true;
 }
 
+void EmitDebugCommandResult(search::SearchParams const & params, std::string const & message)
+{
+  if (!params.m_onResults)
+    return;
+
+  search::Results results;
+  results.AddResultNoChecks(search::Result(message, std::string(params.m_query)));
+  params.m_onResults(results);
+
+  results.SetEndMarker(false /* isCancelled */);
+  params.m_onResults(results);
+}
+
 void UpdateTrackSelectionColor(dp::Color & color)
 {
   if (color == feature::RouteRelationBase::kEmptyColor)
@@ -158,6 +171,13 @@ void UpdateTrackSelectionColor(dp::Color & color)
   dp::HSL hsl = dp::Color2HSL(color);
   if (hsl.AdjustLightness(isLightTheme))
     color = dp::HSL2Color(hsl);
+}
+
+bool HasHigherTrackSelectionPriority(Track::TrackSelectionInfo const & lhs, Track::TrackSelectionInfo const & rhs)
+{
+  if (lhs.IsRelation() != rhs.IsRelation())
+    return !lhs.IsRelation();  // non-relation tracks has higher priority
+  return lhs.m_squareDist < rhs.m_squareDist;
 }
 }  // namespace
 
@@ -686,14 +706,16 @@ void Framework::FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) 
   }
 }
 
-void Framework::FillTrackInfo(Track const & track, m2::PointD const & trackPoint, place_page::Info & info) const
+void Framework::FillTrackInfo(Track const & track, Track::TrackSelectionInfo const & trackSelectionInfo,
+                              place_page::Info & info) const
 {
   info.SetTrackId(track.GetId());
+  info.SetTrackRelationId(trackSelectionInfo.m_relationId);
   auto const groupId = track.GetGroupId();
   info.SetBookmarkCategoryId(groupId);
   if (groupId != kml::kInvalidMarkGroupId)
     info.SetBookmarkCategoryName(GetBookmarkManager().GetCategoryName(groupId));
-  info.SetMercator(trackPoint);
+  info.SetMercator(trackSelectionInfo.m_trackPoint);
   info.SetTitlesForTrack(track);
 }
 
@@ -705,18 +727,58 @@ search::ReverseGeocoder::Address Framework::GetAddressAtPoint(m2::PointD const &
   return addr;
 }
 
-bool Framework::TryBuildRelationTrack(FeatureID const & fid, m2::PointD const & mercator, place_page::Info & outInfo)
+std::vector<Track::TrackSelectionInfo> Framework::FindRelationTracksInTapPosition(
+    std::vector<std::pair<double, FeatureID>> const & lineCandidates, m2::PointD const & mercator)
 {
-  auto & bm = GetBookmarkManager();
-  bm.ClearTempRelationTrack();
+  std::vector<Track::TrackSelectionInfo> candidates;
 
-  if (!fid.IsValid())
-    return false;
+  df::RelationsDrawSettings sett;
+  sett.Load();
+  if (sett.IsEmpty())
+    return candidates;
 
-  RelationTrackBuilder builder(m_featuresFetcher.GetDataSource(), fid, m_infoGetter.get());
-  auto trackData = builder.Build();
+  for (auto const & [_, fid] : lineCandidates)
+  {
+    if (!fid.IsValid())
+      continue;
+
+    // No problem with multiple instances here - ctor is fast.
+    auto const currSize = candidates.size();
+    RelationTrackBuilder builder(m_featuresFetcher.GetDataSource(), fid, m_infoGetter.get());
+    builder.ForEachMetadata([&](RelationTrackBuilder::Metadata && metadata)
+    {
+      // Filter duplicates from previous lineCandidates Features.
+      for (size_t i = 0; i < currSize; ++i)
+        if (metadata.m_relationId == candidates[i].m_relationId)
+          return;
+
+      Track::TrackSelectionInfo trackSelInfo;
+      trackSelInfo.m_trackId = kml::kTempRelationTrackId;
+      trackSelInfo.m_trackPoint = mercator;
+      trackSelInfo.m_relationId = std::move(metadata.m_relationId);
+      trackSelInfo.m_title = std::move(metadata.m_name);
+      trackSelInfo.m_color = metadata.m_color;
+      UpdateTrackSelectionColor(trackSelInfo.m_color);
+      ASSERT(trackSelInfo.IsValid(), ());
+      candidates.push_back(std::move(trackSelInfo));
+    }, sett);
+  }
+
+  return candidates;
+}
+
+std::optional<kml::TrackData> Framework::TryBuildRelationTrack(Track::TrackSelectionInfo const & trackSelectionInfo)
+{
+  auto const relationId = trackSelectionInfo.m_relationId;
+  CHECK(trackSelectionInfo.IsRelation(), ());
+
+  RelationTrackBuilder builder(m_featuresFetcher.GetDataSource(), trackSelectionInfo.m_relationId, m_infoGetter.get());
+  auto trackData = builder.Build(relationId);
   if (!trackData)
-    return false;
+  {
+    LOG(LERROR, ("Failed to build relation track data for relationId", relationId));
+    return std::nullopt;
+  }
 
   kml::TrackData kmlTrack;
   for (auto & line : trackData->m_lines)
@@ -730,20 +792,9 @@ bool Framework::TryBuildRelationTrack(FeatureID const & fid, m2::PointD const & 
   UpdateTrackSelectionColor(trackData->m_color);
   layer.m_color.m_rgba = trackData->m_color.GetRGBA();
   kmlTrack.m_layers.push_back(layer);
+  kmlTrack.m_id = kml::kTempRelationTrackId;
 
-  auto const trackId = bm.SetTempRelationTrack(std::move(kmlTrack));
-  auto const * track = bm.GetTrack(trackId);
-  CHECK(track, ());
-
-  // Snap to the nearest point on the track, same as BuildTrackPlacePage.
-  Track::TrackSelectionInfo trackSelInfo;
-  track->UpdateSelectionInfo(mercator, trackSelInfo);
-  ASSERT(trackSelInfo.IsValid(), ());
-
-  outInfo.SetSelectedObject(df::SelectionShape::OBJECT_TRACK);
-  FillTrackInfo(*track, trackSelInfo.m_trackPoint, outInfo);
-  bm.SetTrackSelectionInfo(trackSelInfo, true /* notifyListeners */);
-  return true;
+  return kmlTrack;
 }
 
 void Framework::FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const
@@ -888,6 +939,24 @@ void Framework::ShowTrack(kml::TrackId trackId)
 
   ShowRect(rect, true /* isAnim */, true /* useVisibleViewport */);
 
+  ActivateMapSelection();
+}
+
+void Framework::SelectTrackCandidate(kml::TrackId trackId, RelationID const & relationId)
+{
+  CHECK(m_currentPlacePageInfo, ());
+  auto const & candidates = m_currentPlacePageInfo->GetTrackCandidates();
+  auto const isRelationTrack = trackId == kml::kTempRelationTrackId;
+  auto const candidate = std::find_if(candidates.begin(), candidates.end(),
+                                      [&trackId, &relationId, isRelationTrack](auto const & candidate)
+  { return isRelationTrack ? candidate.m_relationId == relationId : candidate.m_trackId == trackId; });
+
+  CHECK(candidate != candidates.end(), ());
+  CHECK(candidate->IsValid(), ());
+
+  BuildTrackPlacePage(*candidate, m_currentPlacePageInfo.value());
+
+  GetBookmarkManager().UpdateElevationMyPosition(trackId, true /* ignoreLocationCache */);
   ActivateMapSelection();
 }
 
@@ -2181,6 +2250,24 @@ void Framework::DeactivateHotelSearchMark()
 
 void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
 {
+  // Intercept taps on alternative-route ETA balloons before BuildPlacePageInfo: swap the active
+  // variant and return. Always return — even when SwapActiveAlternative declines (tap on the
+  // already-active balloon) — because FillUserMarkInfo has no ROUTE_ALT handler and would CHECK-fail.
+  if (!buildInfo.m_isLongTap && buildInfo.m_userMarkId != kml::kInvalidMarkId &&
+      UserMark::GetMarkType(buildInfo.m_userMarkId) == UserMark::Type::ROUTE_ALT)
+  {
+    if (auto const * mark = static_cast<RouteAltMark const *>(GetBookmarkManager().GetUserMark(buildInfo.m_userMarkId)))
+      m_routingManager.SwapActiveAlternative(mark->GetRouteIdx());
+    return;
+  }
+
+  // Same swap when the tap lands on an alternative route's polyline rather than its balloon.
+  if (!buildInfo.m_isLongTap &&
+      m_routingManager.TryTapOnAlternativeRoute(buildInfo.m_mercator, m_currentModelView.GetScale()))
+  {
+    return;
+  }
+
   auto placePageInfo = BuildPlacePageInfo(buildInfo);
   bool isRoutePoint = placePageInfo.IsRoutePoint();
 
@@ -2238,7 +2325,7 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
         }
         return;
       }
-      GetBookmarkManager().UpdateElevationMyPosition(newTrackId);
+      GetBookmarkManager().UpdateElevationMyPosition(newTrackId, true /* ignoreLocationCache */);
     }
 
     ActivateMapSelection();
@@ -2279,12 +2366,33 @@ FeatureID Framework::FindBuildingAtPoint(m2::PointD const & mercator) const
   return featureId;
 }
 
-void Framework::BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelectionInfo, place_page::Info & info)
+bool Framework::BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelectionInfo, place_page::Info & info)
 {
   info.SetSelectedObject(df::SelectionShape::OBJECT_TRACK);
-  auto const & track = *GetBookmarkManager().GetTrack(trackSelectionInfo.m_trackId);
-  FillTrackInfo(track, trackSelectionInfo.m_trackPoint, info);
-  GetBookmarkManager().SetTrackSelectionInfo(trackSelectionInfo, true /* notifyListeners */);
+  auto & bm = GetBookmarkManager();
+  Track const * track = nullptr;
+  Track::TrackSelectionInfo selectedInfo = trackSelectionInfo;
+
+  if (trackSelectionInfo.IsRelation())
+  {
+    auto trackData = TryBuildRelationTrack(selectedInfo);
+    if (!trackData)
+      return false;
+
+    bm.SetTempRelationTrack(std::move(trackData.value()));
+    track = bm.GetTrack(kml::kTempRelationTrackId);
+    auto const tapPoint = selectedInfo.m_trackPoint;  // Copy tap point before mutation.
+    track->UpdateSelectionInfo(tapPoint, selectedInfo);
+  }
+  else
+  {
+    bm.ClearTempRelationTrack();
+    track = bm.GetTrack(selectedInfo.m_trackId);
+  }
+
+  FillTrackInfo(*track, selectedInfo, info);
+  bm.SetTrackSelectionInfo(selectedInfo, true /* notifyListeners */);
+  return true;
 }
 
 place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & buildInfo)
@@ -2352,23 +2460,42 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
     return outInfo;
   }
 
-  // 4. User Tracks. Using VisualParams inside FindTrackInTapPosition/GetDefaultTapRect requires drapeEngine.
+  // 4. User Tracks. Using VisualParams inside FindTracksInTapPosition/GetDefaultTapRect requires drapeEngine.
   if (m_drapeEngine != nullptr && buildInfo.IsTrackMatchingEnabled())
   {
-    Track::TrackSelectionInfo trackSelInfo;
+    Track::TrackSelectionInfo trackToSelect;
+    std::vector<Track::TrackSelectionInfo> trackSelectionCandidates;
+
     if (buildInfo.m_trackId != kml::kInvalidTrackId)
     {
       // Known track: find the closest point to the track's bounding-rect center, no distance limit.
       auto const * track = GetBookmarkManager().GetTrack(buildInfo.m_trackId);
-      track->UpdateSelectionInfo(track->GetLimitRect().Center(), trackSelInfo);
-      ASSERT(trackSelInfo.IsValid(), ());
+      if (track == nullptr)
+        return outInfo;
+      track->UpdateSelectionInfo(track->GetLimitRect().Center(), trackToSelect);
+      ASSERT(trackToSelect.IsValid(), ());
+      trackSelectionCandidates.push_back(trackToSelect);
     }
     else
-      trackSelInfo = FindTrackInTapPosition(buildInfo);
-
-    if (trackSelInfo.IsValid())
     {
-      BuildTrackPlacePage(trackSelInfo, outInfo);
+      trackSelectionCandidates = FindTracksInTapPosition(buildInfo);
+      if (!trackSelectionCandidates.empty() && isFeatureMatchingEnabled)
+      {
+        auto const searchRect =
+            df::TapInfo::GetDefaultTapRect(buildInfo.m_mercator, m_currentModelView).GetGlobalRect();
+        auto relationTrackCandidates = FindRelationTracksInTapPosition(
+            sp.FindFeaturesInRect(buildInfo.m_mercator, searchRect).m_lineCandidates, buildInfo.m_mercator);
+        trackSelectionCandidates.insert(trackSelectionCandidates.end(), relationTrackCandidates.begin(),
+                                        relationTrackCandidates.end());
+        std::sort(trackSelectionCandidates.begin(), trackSelectionCandidates.end(), HasHigherTrackSelectionPriority);
+      }
+      if (!trackSelectionCandidates.empty())
+        trackToSelect = trackSelectionCandidates.front();
+    }
+
+    if (trackToSelect.IsValid() && BuildTrackPlacePage(trackToSelect, outInfo))
+    {
+      outInfo.SetTrackCandidates(std::move(trackSelectionCandidates));
       return outInfo;
     }
   }
@@ -2402,12 +2529,21 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
     }
     else
     {
-      // Try building a route relation track from line candidates (closest first).
-      for (auto const & [dist, fid] : tap.m_lineCandidates)
+      Track::TrackSelectionInfo trackToSelect;
+      auto trackSelectionCandidates = FindRelationTracksInTapPosition(tap.m_lineCandidates, buildInfo.m_mercator);
+      std::sort(trackSelectionCandidates.begin(), trackSelectionCandidates.end(), HasHigherTrackSelectionPriority);
+
+      if (!trackSelectionCandidates.empty())
+        trackToSelect = trackSelectionCandidates.front();
+
+      // Set first track as selected to display.
+      if (trackToSelect.IsValid())
       {
-        if (TryBuildRelationTrack(fid, buildInfo.m_mercator, outInfo))
+        outInfo.SetSelectedObject(df::SelectionShape::OBJECT_TRACK);
+        sp.SetPlacePageLocation(outInfo);
+        if (BuildTrackPlacePage(trackToSelect, outInfo))
         {
-          sp.SetPlacePageLocation(outInfo);
+          outInfo.SetTrackCandidates(std::move(trackSelectionCandidates));
           return outInfo;
         }
       }
@@ -2447,7 +2583,7 @@ void Framework::UpdatePlacePageInfoForCurrentSelection(std::optional<place_page:
     m_onPlacePageUpdate();
 }
 
-Track::TrackSelectionInfo Framework::FindTrackInTapPosition(place_page::BuildInfo const & buildInfo) const
+std::vector<Track::TrackSelectionInfo> Framework::FindTracksInTapPosition(place_page::BuildInfo const & buildInfo) const
 {
   auto const & bm = GetBookmarkManager();
   if (buildInfo.m_trackId != kml::kInvalidTrackId)
@@ -2455,11 +2591,11 @@ Track::TrackSelectionInfo Framework::FindTrackInTapPosition(place_page::BuildInf
     if (bm.GetTrack(buildInfo.m_trackId) == nullptr)
       return {};
     auto const selection = bm.GetTrackSelectionInfo(buildInfo.m_trackId);
-    CHECK_NOT_EQUAL(selection.m_trackId, kml::kInvalidTrackId, ());
-    return selection;
+    CHECK(selection.IsValid(), ());
+    return {selection};
   }
   auto const touchRect = df::TapInfo::GetDefaultTapRect(buildInfo.m_mercator, m_currentModelView).GetGlobalRect();
-  return bm.FindNearestTrack(touchRect);
+  return bm.FindTracksInRect(touchRect);
 }
 
 UserMark const * Framework::FindUserMarkInTapPosition(place_page::BuildInfo const & buildInfo) const
@@ -3012,6 +3148,49 @@ bool Framework::ParseRoutingDebugCommand(search::SearchParams const & params)
   return false;
 }
 
+bool Framework::ParseDownloaderDebugCommand(search::SearchParams const & params)
+{
+  char const kSetCommand[] = "?map-download-server:";
+  char const kStatusCommand[] = "?map-download-server";
+  char const kResetCommand[] = "?no-map-download-server";
+
+  if (params.m_query == kStatusCommand)
+  {
+    std::string serverUrl;
+    if (m_storage.GetDebugMapDownloadServer(serverUrl))
+      EmitDebugCommandResult(params, "Map download server: " + serverUrl);
+    else
+      EmitDebugCommandResult(params, "Map download server: default");
+    return true;
+  }
+
+  bool const reset = params.m_query == kResetCommand;
+  if (!reset && !params.m_query.starts_with(kSetCommand))
+    return false;
+
+  // Both setting and resetting the server affect ongoing downloads.
+  if (m_storage.IsDownloadInProgress())
+  {
+    EmitDebugCommandResult(params, "Cancel active map downloads before changing the map download server.");
+    return true;
+  }
+
+  if (reset)
+  {
+    m_storage.ResetDebugMapDownloadServer();
+    EmitDebugCommandResult(params, "Map download server reset to default.");
+  }
+  else
+  {
+    std::string normalizedUrl;
+    if (m_storage.SetDebugMapDownloadServer(params.m_query.substr(sizeof(kSetCommand) - 1), normalizedUrl))
+      EmitDebugCommandResult(params, "Map download server: " + normalizedUrl);
+    else
+      EmitDebugCommandResult(params, "Invalid map download server URL. Use http:// or https:// without query.");
+  }
+  return true;
+}
+
 bool Framework::ParseAllTypesDebugCommand(search::SearchParams const & params)
 {
   if (params.m_query == "?all-types")
@@ -3405,6 +3584,8 @@ bool Framework::ParseSearchQueryCommand(search::SearchParams const & params)
   if (ParseEditorDebugCommand(params))
     return true;
   if (ParseRoutingDebugCommand(params))
+    return true;
+  if (ParseDownloaderDebugCommand(params))
     return true;
   if (ParseAllTypesDebugCommand(params))
     return true;

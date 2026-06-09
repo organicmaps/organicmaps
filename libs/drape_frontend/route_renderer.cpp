@@ -456,6 +456,7 @@ void RouteRenderer::RenderSubroute(ref_ptr<dp::GraphicsContext> context, ref_ptr
   frameValues.SetTo(params);
   params.m_modelView = glsl::make_mat4(adjScreen.GetShapeModelView().m_data);
   params.m_color = glsl::ToVec4(df::GetColorConstant(style.m_color));
+  params.m_color.a *= subrouteInfo.m_subroute->m_alphaMul;
   params.m_routeParams = glsl::vec4(currentHalfWidth, screenHalfWidth, dist, trafficShown ? 1.0f : 0.0f);
 
   // Adjust line color depending on route type and subroute distance. After the first stop point
@@ -616,6 +617,13 @@ void RouteRenderer::RenderRoute(ref_ptr<dp::GraphicsContext> context, ref_ptr<gp
 void RouteRenderer::AddSubrouteData(ref_ptr<dp::GraphicsContext> context, drape_ptr<SubrouteData> && subrouteData,
                                     ref_ptr<gpu::ProgramManager> mng)
 {
+  // Drop late-arriving alternatives once navigation has started. UpdateContextDependentResources
+  // (UpdateMapStyle / context recreation) re-issues AddSubroute for every entry currently in
+  // m_subroutes, and on Android the style sync runs before nativeFollowRoute, so the recache
+  // can outrace RemoveAlternativeSubroutes and resurrect alts via the resulting FlushSubroute.
+  if (m_followingEnabled && subrouteData->m_subroute->IsAlternative())
+    return;
+
   auto const it = FindSubroute(m_subroutes, subrouteData->m_subrouteId);
   if (it != m_subroutes.end())
   {
@@ -716,17 +724,21 @@ void RouteRenderer::AddPreviewRenderData(ref_ptr<dp::GraphicsContext> context,
 
 void RouteRenderer::ClearObsoleteData(int currentRecacheId)
 {
-  auto const functor = [&currentRecacheId](SubrouteInfo const & subrouteInfo)
+  base::EraseIf(m_subroutes, [&currentRecacheId](SubrouteInfo const & subrouteInfo)
   {
     return !subrouteInfo.m_subrouteData.empty() && subrouteInfo.m_subrouteData.front()->m_recacheId < currentRecacheId;
-  };
-  m_subroutes.erase(std::remove_if(m_subroutes.begin(), m_subroutes.end(), functor), m_subroutes.end());
+  });
 }
 
 void RouteRenderer::Clear()
 {
   m_subroutes.clear();
   m_distanceFromBegin = kInvalidDistance;
+}
+
+void RouteRenderer::RemoveAlternativeSubroutes()
+{
+  base::EraseIf(m_subroutes, [](SubrouteInfo const & info) { return info.m_subroute->IsAlternative(); });
 }
 
 void RouteRenderer::ClearContextDependentResources()

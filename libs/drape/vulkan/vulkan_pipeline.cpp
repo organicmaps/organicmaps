@@ -13,6 +13,7 @@
 #include "base/file_name_utils.hpp"
 
 #include <array>
+#include <cstring>
 #include <string>
 #include <utility>
 #include <vector>
@@ -148,9 +149,33 @@ std::string GetDumpFilePath()
 {
   return base::JoinPath(GetPlatform().TmpDir(), kDumpFileName);
 }
+
+bool IsPipelineCacheCompatible(std::vector<uint8_t> const & data, VkPhysicalDeviceProperties const & gpuProperties)
+{
+  // The Vulkan spec says incompatible initial cache data should be ignored and an empty cache
+  // should be created instead. Some Android drivers appear to parse this blob less defensively
+  // and can crash inside vkCreatePipelineCache before returning a VkResult, so validate the
+  // public header before passing persisted bytes to the driver.
+  if (data.empty())
+    return true;
+
+  if (data.size() < sizeof(VkPipelineCacheHeaderVersionOne))
+    return false;
+
+  VkPipelineCacheHeaderVersionOne header = {};
+  // memcpy keeps this read safe even if the byte buffer is not aligned for the header type.
+  std::memcpy(&header, data.data(), sizeof(header));
+
+  return header.headerSize == sizeof(VkPipelineCacheHeaderVersionOne) && header.headerSize <= data.size() &&
+         header.headerVersion == VK_PIPELINE_CACHE_HEADER_VERSION_ONE && header.vendorID == gpuProperties.vendorID &&
+         header.deviceID == gpuProperties.deviceID &&
+         std::memcmp(header.pipelineCacheUUID, gpuProperties.pipelineCacheUUID, VK_UUID_SIZE) == 0;
+}
 }  // namespace
 
-VulkanPipeline::VulkanPipeline(VkDevice device, uint32_t appVersionCode) : m_appVersionCode(appVersionCode)
+VulkanPipeline::VulkanPipeline(VkDevice device, VkPhysicalDeviceProperties const & gpuProperties,
+                               uint32_t appVersionCode)
+  : m_appVersionCode(appVersionCode)
 {
   // Read dump.
   std::vector<uint8_t> dumpData;
@@ -172,6 +197,11 @@ VulkanPipeline::VulkanPipeline(VkDevice device, uint32_t appVersionCode) : m_app
       {
         dumpData.resize(static_cast<size_t>(r.Size() - sizeof(uint32_t)));
         src.Read(dumpData.data(), dumpData.size());
+        if (!IsPipelineCacheCompatible(dumpData, gpuProperties))
+        {
+          FileWriter::DeleteFileX(dumpFilePath);
+          dumpData.clear();
+        }
       }
     }
     catch (FileReader::Exception const & exception)
@@ -183,7 +213,7 @@ VulkanPipeline::VulkanPipeline(VkDevice device, uint32_t appVersionCode) : m_app
   VkPipelineCacheCreateInfo pipelineCacheCreateInfo = {};
   pipelineCacheCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_CACHE_CREATE_INFO;
   pipelineCacheCreateInfo.initialDataSize = dumpData.size();
-  pipelineCacheCreateInfo.pInitialData = dumpData.data();
+  pipelineCacheCreateInfo.pInitialData = dumpData.empty() ? nullptr : dumpData.data();
   auto result = vkCreatePipelineCache(device, &pipelineCacheCreateInfo, nullptr, &m_vulkanPipelineCache);
   if (result != VK_SUCCESS && pipelineCacheCreateInfo.pInitialData != nullptr)
   {

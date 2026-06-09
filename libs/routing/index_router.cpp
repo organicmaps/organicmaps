@@ -267,10 +267,9 @@ void BuildMergedRoute(std::vector<Route> const & legs, std::vector<VehicleType> 
     subroutes.emplace_back(start, finish, beginSegmentIdx, endSegmentIdx);
   }
 
-  route.SetCurrentSubrouteIdx(0);
   route.SetRouteSegments(std::move(segments));
   route.SetGeometry(geometry.begin(), geometry.end());
-  route.SetSubroteAttrs(std::move(subroutes));
+  route.SetSubroutes(std::move(subroutes));
   route.SetRenderSegments(std::move(renderSegments));
 }
 
@@ -398,11 +397,29 @@ std::unique_ptr<WorldGraph> IndexRouter::MakeSingleMwmWorldGraph()
   return worldGraph;
 }
 
-void IndexRouter::ClearState()
+void IndexRouter::ClearRouteCalculationState()
 {
   m_roadGraph.ClearState();
   m_directionsEngine->Clear();
   m_dataSource.FreeHandles();
+}
+
+void IndexRouter::ClearState()
+{
+  ClearRouteCalculationState();
+
+  // Drop the adjust-cache for both the active and the alternative route so a later (re)build
+  // can't accidentally AdjustRoute against state from a cancelled session.
+  m_lastRoute.reset();
+  m_lastFakeEdges.reset();
+  m_lastAltRoute.reset();
+  m_lastAltFakeEdges.reset();
+}
+
+void IndexRouter::SwapAltRouteToActive()
+{
+  std::swap(m_lastRoute, m_lastAltRoute);
+  std::swap(m_lastFakeEdges, m_lastAltFakeEdges);
 }
 
 bool IndexRouter::FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
@@ -449,34 +466,72 @@ void IndexRouter::SetGuides(GuidesTracks && guides)
 }
 
 RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
-                                             bool adjustToPrevRoute, RouterDelegate const & delegate, Route & route)
+                                             bool adjustToPrevRoute, RouterDelegate const & delegate,
+                                             RoutesResult & result)
 {
   auto const & startPoint = checkpoints.GetStart();
   auto const & finalPoint = checkpoints.GetFinish();
 
+  Route route;
+  Route altRoute;
+  RouterResultCode code;
+  RouterResultCode altCode = RouterResultCode::RouteNotFound;
+
   try
   {
-    SCOPE_GUARD(featureRoadGraphClear, [this] { ClearState(); });
+    SCOPE_GUARD(featureRoadGraphClear, [this] { ClearRouteCalculationState(); });
 
+    bool doCalculate = true;
     if (m_vehicleType == VehicleType::Bicycle && RoutingOptions::IsPublicBicycleEnabled())
-      return CalculatePublicBicycleRoute(checkpoints, startDirection, delegate, route);
-
-    if (adjustToPrevRoute && m_lastRoute && m_lastFakeEdges && finalPoint == m_lastRoute->GetFinish())
+    {
+      code = CalculatePublicBicycleRoute(checkpoints, startDirection, delegate, route);
+      doCalculate = false;
+    }
+    else if (adjustToPrevRoute && m_lastRoute && m_lastFakeEdges && finalPoint == m_lastRoute->GetFinish())
     {
       double const distanceToRoute = m_lastRoute->CalcDistance(startPoint);
       double const distanceToFinish = mercator::DistanceOnEarth(startPoint, finalPoint);
       if (distanceToRoute <= kAdjustRangeM && distanceToFinish >= kMinDistanceToFinishM)
       {
-        auto const code = AdjustRoute(checkpoints, startDirection, delegate, route);
+        code = AdjustRoute(checkpoints, startDirection, delegate, route);
         if (code != RouterResultCode::RouteNotFound)
-          return code;
-
-        LOG(LWARNING, ("Can't adjust route, do full rebuild, prev start:", mercator::ToLatLon(m_lastRoute->GetStart()),
-                       "start:", mercator::ToLatLon(startPoint), "finish:", mercator::ToLatLon(finalPoint)));
+          doCalculate = false;
+        else
+          LOG(LWARNING,
+              ("Can't adjust route, do full rebuild, prev start:", mercator::ToLatLon(m_lastRoute->GetStart()),
+               "start:", mercator::ToLatLon(startPoint), "finish:", mercator::ToLatLon(finalPoint)));
       }
     }
 
-    return DoCalculateRoute(checkpoints, startDirection, delegate, route);
+    if (doCalculate)
+    {
+      code = DoCalculateRoute(checkpoints, startDirection, delegate, route);
+
+      // Compute a Shortest-strategy alternative alongside the Normal route. Only on a full (non-adjust)
+      // build and only within a reasonable distance budget — alt computation roughly doubles latency.
+      // Transit has no meaningful Shortest alternative (route is fixed by the transit network).
+      double const altMaxDistanceM = m_vehicleType == VehicleType::Car ? 300'000.0 : 100'000.0;
+      if ((code == RouterResultCode::NoError || code == RouterResultCode::HasWarnings) && !delegate.IsCancelled() &&
+          m_vehicleType != VehicleType::Transit && mercator::DistanceOnEarth(startPoint, finalPoint) <= altMaxDistanceM)
+      {
+        // Save the Normal route's adjust-cache; the Shortest computation would overwrite it.
+        auto savedLastRoute = std::move(m_lastRoute);
+        auto savedLastFakeEdges = std::move(m_lastFakeEdges);
+        SCOPE_GUARD(restoreNormal, [&]
+        {
+          m_estimator->SetStrategy(EdgeEstimator::Strategy::Normal);
+          // Save the Shortest route's adjust-cache.
+          m_lastAltRoute = std::move(m_lastRoute);
+          m_lastAltFakeEdges = std::move(m_lastFakeEdges);
+          // Restore the Normal cache.
+          m_lastRoute = std::move(savedLastRoute);
+          m_lastFakeEdges = std::move(savedLastFakeEdges);
+        });
+
+        m_estimator->SetStrategy(EdgeEstimator::Strategy::Shortest);
+        altCode = DoCalculateRoute(checkpoints, startDirection, delegate, altRoute);
+      }
+    }
   }
   catch (RootException const & e)
   {
@@ -484,6 +539,37 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
                  e.what()));
     return RouterResultCode::InternalError;
   }
+
+  if (code == RouterResultCode::NoError || code == RouterResultCode::HasWarnings)
+  {
+    // Calculate middle point of the longest length-diff part. nullopt if routes are equal.
+    std::optional<m2::PointD> diffMidpoint;
+    if ((altCode == RouterResultCode::NoError || altCode == RouterResultCode::HasWarnings) && altRoute.IsValid())
+      diffMidpoint = altRoute.FindMaxDiffMidpoint(route.GetRouteSegments());
+
+    result.MakeFrom(GetName(), std::move(route));
+    if (diffMidpoint)
+    {
+      // Set mid-points for both routes.
+      altRoute.SetDiffMidpoint(*diffMidpoint);
+
+      auto & active = result.GetActive();
+      diffMidpoint = active.FindMaxDiffMidpoint(altRoute.GetRouteSegments());
+      if (diffMidpoint)
+        active.SetDiffMidpoint(*diffMidpoint);
+
+      result.m_routes.emplace_back(std::move(static_cast<RouteBase &>(altRoute)));
+    }
+    else
+    {
+      // Alt isn't surfaced to the user — drop its adjust-cache so a stale state can't be
+      // promoted by a stray SwapAltRouteToActive.
+      m_lastAltRoute.reset();
+      m_lastAltFakeEdges.reset();
+    }
+  }
+
+  return code;
 }
 
 RouterResultCode IndexRouter::CalculatePublicBicycleRoute(Checkpoints const & checkpoints,
@@ -523,9 +609,9 @@ RouterResultCode IndexRouter::CalculatePublicBicycleRoute(Checkpoints const & ch
     if (auto const it = cache.find(&station); it != cache.end())
       return it->second;
 
-    Route pedestrianRoute("public-bicycle-walk", 0 /* routeId */);
-    auto result = pedestrianRouter.CalculateRoute(legCheckpoints, legStartDirection, false /* adjustToPrevRoute */,
-                                                  delegate, pedestrianRoute);
+    Route pedestrianRoute;
+    SCOPE_GUARD(clearPedestrianRouter, [&pedestrianRouter] { pedestrianRouter.ClearRouteCalculationState(); });
+    auto result = pedestrianRouter.DoCalculateRoute(legCheckpoints, legStartDirection, delegate, pedestrianRoute);
     if (result == RouterResultCode::NoError && IsPublicBicycleWalkRouteTooLong(pedestrianRoute))
       result = RouterResultCode::RouteNotFound;
 
@@ -555,7 +641,7 @@ RouterResultCode IndexRouter::CalculatePublicBicycleRoute(Checkpoints const & ch
       bikeCheckpoints.push_back(checkpoints.GetPoint(i));
     bikeCheckpoints.push_back(finishStation.m_point);
 
-    Route bikeRoute("public-bicycle-bike", 0 /* routeId */);
+    Route bikeRoute;
     lastError = DoCalculateRoute(Checkpoints(std::move(bikeCheckpoints)), m2::PointD::Zero() /* startDirection */,
                                  delegate, bikeRoute, &bicycleOptions);
     if (lastError == RouterResultCode::Cancelled)
@@ -828,8 +914,7 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints, 
       starter->Append(FakeEdgesContainer(std::move(subrouteStarter)));
   }
 
-  route.SetCurrentSubrouteIdx(checkpoints.GetPassedIdx());
-  route.SetSubroteAttrs(std::move(subroutes));
+  route.SetSubroutes(std::move(subroutes), checkpoints.GetPassedIdx());
 
   IndexGraphStarter::CheckValidRoute(segments);
 
@@ -1262,8 +1347,7 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
 
   CHECK_EQUAL(result.m_path.size(), subrouteOffset, ());
 
-  route.SetCurrentSubrouteIdx(checkpoints.GetPassedIdx());
-  route.SetSubroteAttrs(std::move(subroutes));
+  route.SetSubroutes(std::move(subroutes), checkpoints.GetPassedIdx());
 
   auto const redressResult = RedressRoute(result.m_path, delegate.GetCancellable(), starter, route);
   if (redressResult != RouterResultCode::NoError)

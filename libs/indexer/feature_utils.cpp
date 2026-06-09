@@ -20,14 +20,20 @@ namespace
 {
 using StrUtf8 = StringUtf8Multilang;
 
-void GetMwmLangName(feature::RegionData const & regionData, StrUtf8 const & src, std::string_view & out)
+// Convention for the lang code reported when transliteration fallback fires: target script is
+// Latin, so report English to drive Latin-script `locl` substitutions in HarfBuzz downstream.
+constexpr int8_t kTransliterationLang = StrUtf8::kEnglishCode;
+
+// Returns the StrUtf8 code of the selected name, or kUnsupportedLanguageCode if none was found.
+int8_t GetMwmLangName(feature::RegionData const & regionData, StrUtf8 const & src, std::string_view & out)
 {
   LangsBufferT mwmLangCodes;
   regionData.GetLanguages(mwmLangCodes);
 
   for (auto const code : mwmLangCodes)
     if (src.GetString(code, out))
-      return;
+      return code;
+  return StrUtf8::kUnsupportedLanguageCode;
 }
 
 bool GetTransliteratedName(RegionData const & regionData, StrUtf8 const & src, std::string & out)
@@ -50,7 +56,8 @@ bool GetTransliteratedName(RegionData const & regionData, StrUtf8 const & src, s
   return false;
 }
 
-bool GetBestName(StrUtf8 const & src, LangsBufferT const & priorityList, std::string_view & out)
+// Returns the StrUtf8 code of the selected name, or kUnsupportedLanguageCode if none was found.
+int8_t GetBestName(StrUtf8 const & src, LangsBufferT const & priorityList, std::string_view & out)
 {
   size_t bestIndex = priorityList.size();
 
@@ -69,11 +76,14 @@ bool GetBestName(StrUtf8 const & src, LangsBufferT const & priorityList, std::st
     return base::ControlFlow::Continue;
   });
 
+  if (bestIndex >= priorityList.size())
+    return StrUtf8::kUnsupportedLanguageCode;
+
   // There are many "junk" names in Arabian island.
-  if (bestIndex < priorityList.size() && priorityList[bestIndex] == StrUtf8::kInternationalCode)
+  if (priorityList[bestIndex] == StrUtf8::kInternationalCode)
     out = out.substr(0, out.find_first_of(','));
 
-  return bestIndex < priorityList.size();
+  return priorityList[bestIndex];
 }
 
 bool IsNativeLang(feature::RegionData const & regionData, int8_t deviceLang)
@@ -118,19 +128,29 @@ void GetReadableNameImpl(NameParamsIn const & in, bool preferDefault, NameParams
 {
   auto const langPriority = MakeLanguagesPriorityList(in.deviceLang, preferDefault);
 
-  if (GetBestName(in.src, langPriority, out.primary))
+  if (auto const lang = GetBestName(in.src, langPriority, out.primary); lang != StrUtf8::kUnsupportedLanguageCode)
+  {
+    out.primaryLang = lang;
     return;
+  }
 
   if (in.allowTranslit && GetTransliteratedName(in.regionData, in.src, out.transliterated))
+  {
+    out.primaryLang = kTransliterationLang;
     return;
+  }
 
   if (!preferDefault)
   {
-    if (GetBestName(in.src, {StrUtf8::kDefaultCode}, out.primary))
+    if (auto const lang = GetBestName(in.src, {StrUtf8::kDefaultCode}, out.primary);
+        lang != StrUtf8::kUnsupportedLanguageCode)
+    {
+      out.primaryLang = lang;
       return;
+    }
   }
 
-  GetMwmLangName(in.regionData, in.src, out.primary);
+  out.primaryLang = GetMwmLangName(in.regionData, in.src, out.primary);
 }
 
 // Filters types with |checker|, returns vector of raw type second components.
@@ -317,6 +337,13 @@ LangsBufferT GetSimilar(int8_t lang)
   return langs;
 }
 
+int8_t GetRegionLang(RegionData const & regionData)
+{
+  LangsBufferT mwmLangs;
+  regionData.GetLanguages(mwmLangs);
+  return mwmLangs.empty() ? StrUtf8::kUnsupportedLanguageCode : mwmLangs.front();
+}
+
 void GetPreferredNames(NameParamsIn const & in, NameParamsOut & out)
 {
   out.Clear();
@@ -331,8 +358,12 @@ void GetPreferredNames(NameParamsIn const & in, NameParamsOut & out)
 
   auto const primaryCodes = MakeLanguagesPriorityList(in.deviceLang, false /* preferDefault */);
 
-  if (!GetBestName(in.src, primaryCodes, out.primary) && in.allowTranslit)
-    GetTransliteratedName(in.regionData, in.src, out.transliterated);
+  out.primaryLang = GetBestName(in.src, primaryCodes, out.primary);
+  if (out.primaryLang == StrUtf8::kUnsupportedLanguageCode && in.allowTranslit &&
+      GetTransliteratedName(in.regionData, in.src, out.transliterated))
+  {
+    out.primaryLang = kTransliterationLang;
+  }
 
   LangsBufferT secondaryCodes = {StrUtf8::kDefaultCode, StrUtf8::kInternationalCode};
 
@@ -342,12 +373,21 @@ void GetPreferredNames(NameParamsIn const & in, NameParamsOut & out)
 
   secondaryCodes.push_back(StrUtf8::kEnglishCode);
 
-  GetBestName(in.src, secondaryCodes, out.secondary);
+  out.secondaryLang = GetBestName(in.src, secondaryCodes, out.secondary);
 
-  if (out.primary.empty())
+  if (out.primary.empty() && !out.secondary.empty())
+  {
+    // Promote secondary to primary (carry its lang too). The both-empty case is left untouched
+    // so GetPrimary() can fall back to out.transliterated, whose lang we set above.
     out.primary.swap(out.secondary);
+    out.primaryLang = out.secondaryLang;
+    out.secondaryLang = StrUtf8::kUnsupportedLanguageCode;
+  }
   else if (!out.secondary.empty() && out.primary.find(out.secondary) != std::string::npos)
+  {
     out.secondary = {};
+    out.secondaryLang = StrUtf8::kUnsupportedLanguageCode;
+  }
 }
 
 void GetReadableName(NameParamsIn const & in, NameParamsOut & out)
@@ -384,7 +424,7 @@ int8_t GetNameForSearchOnBooking(RegionData const & regionData, StrUtf8 const & 
 bool GetPreferredName(StrUtf8 const & src, int8_t deviceLang, std::string_view & out)
 {
   auto const priorityList = MakeLanguagesPriorityList(deviceLang, true /* preferDefault */);
-  return GetBestName(src, priorityList, out);
+  return GetBestName(src, priorityList, out) != StrUtf8::kUnsupportedLanguageCode;
 }
 
 LangsBufferT GetDescriptionLangPriority(RegionData const & regionData, int8_t const deviceLang)

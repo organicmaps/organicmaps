@@ -964,9 +964,9 @@ NewFeatureCategories Editor::GetNewFeatureCategories() const
   return NewFeatureCategories(*(m_config.Get()));
 }
 
-FeatureID Editor::GenerateNewFeatureId(FeaturesContainer const & features, MwmId const & id) const
+FeatureID Editor::GenerateNewFeatureId(FeaturesContainer const & features, MwmId const & id)
 {
-  CHECK_THREAD_CHECKER(MainThreadChecker, ());
+  // Can be called async (Android) during initialization but without races.
 
   uint32_t featureIndex = feature::FakeFeatureIds::kEditorCreatedFeaturesStart;
 
@@ -1127,7 +1127,7 @@ FeatureID Editor::GetFeatureIdByXmlFeature(FeaturesContainer const & features, X
     { return ForEachFeatureAtPoint(std::move(fn), point); };
 
     return editor::MigrateFeatureIndex(forEach, xml, status,
-                                       [this, &mwmId, &features] { return GenerateNewFeatureId(features, mwmId); });
+                                       [&mwmId, &features] { return GenerateNewFeatureId(features, mwmId); });
   }
 
   return {mwmId, xml.GetMWMFeatureIndex()};

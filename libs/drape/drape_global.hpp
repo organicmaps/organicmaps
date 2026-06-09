@@ -3,6 +3,8 @@
 #include "drape/color.hpp"
 #include "drape/pointers.hpp"
 
+#include "coding/string_utf8_multilang.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include "base/assert.hpp"
@@ -96,6 +98,11 @@ struct TitleDecl
   m2::PointF m_secondaryOffset = m2::PointF(0.0f, 0.0f);
   bool m_primaryOptional = false;
   bool m_secondaryOptional = false;
+  // StringUtf8Multilang code of the language of each rendered string. Drives HarfBuzz `locl`
+  // glyph substitutions (Serbian Cyrillic, Turkish dotted-i, CJK regional forms).
+  // kUnsupportedLanguageCode means "no language hint" -- HarfBuzz applies no locl.
+  int8_t m_primaryLang = StringUtf8Multilang::kUnsupportedLanguageCode;
+  int8_t m_secondaryLang = StringUtf8Multilang::kUnsupportedLanguageCode;
 };
 
 class BaseFramebuffer

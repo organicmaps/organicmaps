@@ -148,6 +148,10 @@ Storage::Storage(std::string const & pathToCountriesFile /* = COUNTRIES_FILE */,
   LoadCountriesFile(pathToCountriesFile);
 
   m_downloader->SetDataVersion(m_currentVersion);
+
+  std::string debugServer;
+  if (GetDebugMapDownloadServer(debugServer))
+    m_downloader->SetServersList({debugServer});
 }
 
 Storage::Storage(std::string const & referenceCountriesTxtJsonForTesting,
@@ -176,6 +180,37 @@ void Storage::SetDownloadingPolicy(DownloadingPolicy * policy)
 
   m_downloadingPolicy = policy;
   m_downloader->SetDownloadingPolicy(policy);
+}
+
+bool Storage::SetDebugMapDownloadServer(std::string const & serverUrl, std::string & normalizedUrl)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  if (!NormalizeDebugMapDownloadServer(serverUrl, normalizedUrl))
+    return false;
+
+  settings::Set(kDebugMapDownloadServer, normalizedUrl);
+  m_downloader->SetServersList({normalizedUrl});
+  return true;
+}
+
+void Storage::ResetDebugMapDownloadServer()
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  settings::Delete(kDebugMapDownloadServer);
+  m_downloader->ResetServersList();
+}
+
+bool Storage::GetDebugMapDownloadServer(std::string & serverUrl) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  std::string storedUrl;
+  if (!settings::Get(kDebugMapDownloadServer, storedUrl))
+    return false;
+
+  return NormalizeDebugMapDownloadServer(storedUrl, serverUrl);
 }
 
 void Storage::DeleteAllLocalMaps(CountriesVec * existedCountries /* = nullptr */)

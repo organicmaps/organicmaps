@@ -148,7 +148,12 @@ public:
   /// protected by mutex in TrafficCache class.
   void CopyTraffic(traffic::AllMwmTrafficInfo & trafficColoring) const override;
 
-  void AssignRouteForTesting(std::shared_ptr<Route> route, RouterResultCode e) { AssignRoute(route, e); }
+  void AssignRouteForTesting(Route && route, RouterResultCode e);
+
+  /// \brief Swap the currently active route to alternative |idx| inside m_lastResult.
+  /// Used when the user taps an alternative ETA balloon. Returns false if the index is out of range
+  /// or already active. The follow state (m_route) is rebuilt from the newly-promoted RouteBase.
+  bool SwapActiveAlternative(size_t idx);
 
   bool IsSpeedCamLimitExceeded() const { return m_speedCameraManager.IsSpeedLimitExceeded(); }
   SpeedCameraManager & GetSpeedCamManager() { return m_speedCameraManager; }
@@ -166,10 +171,10 @@ private:
 
     DoReadyCallback(RoutingSession & rs, ReadyCallback const & cb) : m_rs(rs), m_callback(cb) {}
 
-    void operator()(std::shared_ptr<Route> const & route, RouterResultCode e);
+    void operator()(std::shared_ptr<RoutesResult> const & result, RouterResultCode e);
   };
 
-  void AssignRoute(std::shared_ptr<Route> const & route, RouterResultCode e);
+  void AssignRoute(std::shared_ptr<RoutesResult> const & result, RouterResultCode e);
   /// RemoveRoute() removes m_route and resets route attributes (m_lastDistance, m_moveAwayCounter).
   void RemoveRoute();
   void RebuildRouteOnTrafficUpdate();
@@ -179,6 +184,9 @@ private:
 private:
   std::unique_ptr<AsyncRouter> m_router;
   std::shared_ptr<Route> m_route;
+  // Latest delivered RoutesResult. Kept alongside m_route so callbacks can pass the whole
+  // result (including alternative routes) to higher layers.
+  std::shared_ptr<RoutesResult> m_lastResult;
   SessionState m_state;
   bool m_isFollowing;
   Checkpoints m_checkpoints;

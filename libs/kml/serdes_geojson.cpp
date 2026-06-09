@@ -1,11 +1,16 @@
 #include "kml/serdes_geojson.hpp"
 #include "kml/color_parser.hpp"
+#include "kml/serdes_common.hpp"
 
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
+#include "base/timer.hpp"
 #include "coding/hex.hpp"
 #include "ge0/geo_url_parser.hpp"
 #include "geometry/mercator.hpp"
+#include "geometry/point_with_altitude.hpp"
 
+#include <algorithm>
 #include <map>
 #include <string>
 
@@ -40,8 +45,11 @@ std::string DebugPrint(GeoJsonGeometry const & g)
     return DebugPrint(*point);
   if (auto const * line = std::get_if<GeoJsonGeometryLine>(&g))
     return DebugPrint(*line);
+  if (auto const * multiLine = std::get_if<GeoJsonGeometryMultiLine>(&g))
+    return DebugPrint(*multiLine);
 
-  auto const geoUnknown = std::get_if<GeoJsonGeometryUnknown>(&g);
+  auto const * geoUnknown = std::get_if<GeoJsonGeometryUnknown>(&g);
+  ASSERT(geoUnknown != nullptr, ());
   return "GeoJsonGeometryUnknown [type = " + geoUnknown->type + "]";
 }
 
@@ -175,19 +183,88 @@ PredefinedColor FindPredefinedColor(std::string colorName)
 
 kml::TrackGeometry CoordsToPoints(std::vector<std::vector<double>> const & coords)
 {
+  // Use kDefaultAltitudeMeters (0) — not kInvalidAltitude — for 2D points when
+  // other points in the same line carry a Z coordinate. This preserves the
+  // elevation chart for mixed 2D/3D tracks (HasAltitudes returns false on the
+  // first kInvalidAltitude, so storing it for every partial-fix point would
+  // suppress the chart entirely).
+  bool const hasAnyZ = std::any_of(coords.begin(), coords.end(), [](auto const & c) { return c.size() >= 3; });
+  auto const altFallback = hasAnyZ ? geometry::kDefaultAltitudeMeters : geometry::kInvalidAltitude;
+
   kml::TrackGeometry points;
   points.reserve(coords.size());
   for (auto const & c : coords)
   {
     auto const pt = mercator::FromLatLon(c[1], c[0]);
     if (c.size() >= 3)
-      // Third coordinate (if present) means altitude
       points.emplace_back(pt, static_cast<geometry::Altitude>(std::round(c[2])));
     else
-      points.emplace_back(pt);
+      points.emplace_back(pt, altFallback);
   }
 
   return points;
+}
+
+// Parses a GeoJSON timestamp value — an ISO 8601 string (with optional timezone offset or
+// milliseconds, see base::StringToTimestamp) or a JSON number (Unix epoch seconds, int or float).
+static time_t GeoJsonParseTimestamp(glz::generic const & value)
+{
+  if (value.is_number())
+    return static_cast<time_t>(value.as<double>());
+  if (value.is_string())
+    return base::StringToTimestamp(value.get_string());
+  return base::INVALID_TIME_STAMP;
+}
+
+static kml::MultiGeometry::TimeT ParseTimestampArray(glz::generic const & arr)
+{
+  kml::MultiGeometry::TimeT result;
+  if (!arr.is_array())
+    return result;
+  auto const & array = arr.get_array();
+  result.reserve(array.size());
+  for (auto const & item : array)
+    result.push_back(GeoJsonParseTimestamp(item));
+  return result;
+}
+
+// Validates one line's parsed timestamps against the same invariants KML import enforces
+// (see KmlParser in serdes.cpp): the count must match the coordinates, every entry must be
+// valid, and timestamps must be monotonic non-decreasing — TrackStatistics duration math and
+// other time metadata rely on this. On any violation the whole line's timestamps are dropped
+// (geometry is always preserved). An empty result means "this line has no timestamps".
+static kml::MultiGeometry::TimeT SanitizeTimestamps(kml::MultiGeometry::TimeT ts, size_t coordsCount)
+{
+  if (ts.empty())
+    return ts;
+
+  if (ts.size() != coordsCount)
+    LOG(LWARNING, ("GeoJson coordTimes count", ts.size(), "doesn't match coordinates count", coordsCount));
+  else if (base::IsExist(ts, base::INVALID_TIME_STAMP))
+    LOG(LWARNING, ("GeoJson coordTimes contain invalid timestamps"));
+  else if (!std::is_sorted(ts.begin(), ts.end()))
+    LOG(LWARNING, ("GeoJson coordTimes are not monotonic non-decreasing"));
+  else
+    return ts;
+
+  return {};  // Drop broken timestamps, keep the geometry.
+}
+
+// Finds coord-times array in properties, checking "coordTimes", "times",
+// and "coordinateProperties.times" in that order.
+static glz::generic const * GetCoordTimesValue(kml::geojson::GenericJsonMap const & props)
+{
+  if (auto it = props.find("coordTimes"); it != props.end())
+    return &it->second;
+  if (auto it = props.find("times"); it != props.end())
+    return &it->second;
+  if (auto it = props.find("coordinateProperties"); it != props.end() && it->second.is_object())
+  {
+    auto const & coordProps = it->second.get_object();
+    if (auto it2 = coordProps.find("times"); it2 != coordProps.end())
+      return &it2->second;
+  }
+  return nullptr;
 }
 
 bool GeoJsonReader::Parse(std::string_view jsonContent)
@@ -353,21 +430,36 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
       if (lineColor)
         track.m_layers.push_back(TrackLayer{.m_color = *lineColor});
 
-      // Convert line(s) coordinates
+      // Convert line(s) coordinates. coordTimes may be a flat array (LineString) or an array
+      // of per-line arrays (MultiLineString); see GetCoordTimesValue for the property aliases.
+      auto const * coordTimesVal = GetCoordTimesValue(props_json);
       if (lineGeometry && !lineGeometry->coordinates.empty())
       {
-        track.m_geometry.m_lines.push_back(CoordsToPoints(lineGeometry->coordinates));
-        track.m_geometry.AddTimestamps({});  // TODO: parse timestamps from GeoJson.
+        auto const & line = track.m_geometry.m_lines.emplace_back(CoordsToPoints(lineGeometry->coordinates));
+        kml::MultiGeometry::TimeT timestamps;
+        if (coordTimesVal)
+          timestamps = ParseTimestampArray(*coordTimesVal);
+        track.m_geometry.m_timestamps.push_back(SanitizeTimestamps(std::move(timestamps), line.size()));
       }
       if (multilineGeometry)
       {
-        for (auto const & coords : multilineGeometry->coordinates)
+        // lineIdx tracks the position in coordTimes by geometry index (including empty
+        // segments that are skipped below), so timestamps stay aligned to their line.
+        for (size_t lineIdx = 0; auto const & coords : multilineGeometry->coordinates)
         {
           if (!coords.empty())
           {
-            track.m_geometry.m_lines.push_back(CoordsToPoints(coords));
-            track.m_geometry.AddTimestamps({});  // TODO: parse timestamps from GeoJson.
+            auto const & line = track.m_geometry.m_lines.emplace_back(CoordsToPoints(coords));
+            kml::MultiGeometry::TimeT timestamps;
+            if (coordTimesVal && coordTimesVal->is_array())
+            {
+              auto const & arr = coordTimesVal->get_array();
+              if (lineIdx < arr.size())
+                timestamps = ParseTimestampArray(arr[lineIdx]);
+            }
+            track.m_geometry.m_timestamps.push_back(SanitizeTimestamps(std::move(timestamps), line.size()));
           }
+          ++lineIdx;
         }
       }
 
@@ -403,11 +495,41 @@ std::vector<std::vector<double>> ConvertPoints2GeoJsonCoords(kml::TrackGeometry 
   {
     auto const [lat, lon] = mercator::ToLatLon(point);
     if (addAltitude)
-      coordinates.emplace_back(std::vector{lon, lat, static_cast<double>(point.GetAltitude())});
+    {
+      auto const alt = point.GetAltitude();
+      coordinates.emplace_back(std::vector{lon, lat, static_cast<double>(alt != geometry::kInvalidAltitude ? alt : 0)});
+    }
     else
       coordinates.emplace_back(std::vector{lon, lat});
   }
   return coordinates;
+}
+
+// Builds a JSON array of one line's timestamps as ISO-8601 strings; gaps (INVALID_TIME_STAMP)
+// become JSON null so the array stays aligned with the coordinates. An empty input yields [].
+static glz::generic TimestampsToJsonArray(kml::MultiGeometry::TimeT const & timestamps)
+{
+  glz::generic::array_t arr;
+  arr.reserve(timestamps.size());
+  for (auto const ts : timestamps)
+  {
+    glz::generic value;  // Default-constructed generic is JSON null.
+    if (ts != base::INVALID_TIME_STAMP)
+      value = base::TimestampToString(ts);
+    arr.push_back(std::move(value));
+  }
+  glz::generic result;
+  result.data = std::move(arr);
+  return result;
+}
+
+// First valid timestamp across all lines, used for the feature-level "time" property.
+static time_t FirstValidTimestamp(std::vector<kml::MultiGeometry::TimeT> const & timestamps)
+{
+  for (auto const & line : timestamps)
+    if (!line.empty() && line.front() != base::INVALID_TIME_STAMP)
+      return line.front();
+  return base::INVALID_TIME_STAMP;
 }
 
 struct GeoJsonOpts : glz::opts
@@ -499,16 +621,39 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimizeOutput)
     if (isMultiline)
     {
       std::vector<GeoJsonGeometryMultiLine::LineCoords> lines;
+      lines.reserve(linesCount);
       for (auto const & trackLine : track.m_geometry.m_lines)
-        lines.push_back(ConvertPoints2GeoJsonCoords(trackLine));  // TODO: add timestamps to GeoJson lines.
-
+        lines.push_back(ConvertPoints2GeoJsonCoords(trackLine, LineHasAltitude(trackLine)));
       trackGeometry = GeoJsonGeometryMultiLine{.coordinates = std::move(lines)};
     }
     else
     {
       auto const & points = track.m_geometry.m_lines[0];
-      // TODO: add timestamps to GeoJson lines.
-      trackGeometry = GeoJsonGeometryLine{.coordinates = ConvertPoints2GeoJsonCoords(points)};
+      trackGeometry = GeoJsonGeometryLine{.coordinates = ConvertPoints2GeoJsonCoords(points, LineHasAltitude(points))};
+    }
+
+    // Emit timestamps as "time" (the first valid one) and "coordTimes": a flat array for a
+    // single LineString, an array of per-line arrays for a MultiLineString. Lines without
+    // timestamps and individual gaps are preserved as [] and null so coordTimes stays aligned
+    // with the coordinates. The size == linesCount guard keeps that alignment intact.
+    auto const & allTimestamps = track.m_geometry.m_timestamps;
+    if (track.m_geometry.HasTimestamps() && allTimestamps.size() == linesCount)
+    {
+      if (auto const firstTs = FirstValidTimestamp(allTimestamps); firstTs != base::INVALID_TIME_STAMP)
+        trackProps["time"] = base::TimestampToString(firstTs);
+
+      if (isMultiline)
+      {
+        glz::generic::array_t outer;
+        outer.reserve(linesCount);
+        for (auto const & lineTs : allTimestamps)
+          outer.push_back(TimestampsToJsonArray(lineTs));
+        glz::generic coordTimes;
+        coordTimes.data = std::move(outer);
+        trackProps["coordTimes"] = std::move(coordTimes);
+      }
+      else
+        trackProps["coordTimes"] = TimestampsToJsonArray(allTimestamps[0]);
     }
 
     geoJsonFeatures.push_back(

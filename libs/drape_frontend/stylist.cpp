@@ -3,6 +3,7 @@
 #include "indexer/classificator.hpp"
 #include "indexer/drules_include.hpp"
 #include "indexer/feature.hpp"
+#include "indexer/feature_utils.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/scales.hpp"
 
@@ -57,6 +58,17 @@ std::string_view IsHatchingTerritoryChecker::GetHatch(feature::TypesHolder const
 void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int zoomLevel, feature::GeomType geomType,
                               bool auxCaptionExists)
 {
+  if (auto const & info = f.GetID().m_mwmId.GetInfo())
+    m_mwmRegionLang = feature::GetRegionLang(info->GetRegionData());
+
+  // An unqualified OSM `name=` is reported as kDefaultCode, which is not a real BCP-47 tag.
+  // Resolve it to the region's on-the-ground language so HarfBuzz applies the matching OpenType
+  // `locl` glyph variants (Turkish dotless-i, Serbian Cyrillic, CJK regional forms). Multi-lingual
+  // regions may guess wrong, but a shared-script mismatch is mostly harmless and strictly better
+  // than passing no hint at all.
+  auto const localizeLang = [this](int8_t lang)
+  { return lang == StringUtf8Multilang::kDefaultCode ? m_mwmRegionLang : lang; };
+
   feature::NameParamsOut out;
   // TODO(pastk) : remove forced secondary text for all lines and set it via styles for major roads and rivers only.
   // ATM even minor paths/streams/etc use secondary which makes their pathtexts take much more space.
@@ -65,6 +77,7 @@ void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int zoomLevel,
     // Get both primary and secondary/aux names.
     f.GetPreferredNames(true /* allowTranslit */, deviceLang, out);
     m_auxText = out.secondary;
+    m_auxTextLang = localizeLang(out.secondaryLang);
   }
   else
   {
@@ -72,6 +85,7 @@ void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int zoomLevel,
     f.GetReadableName(true /* allowTranslit */, deviceLang, out);
   }
   m_mainText = out.GetPrimary();
+  m_mainTextLang = localizeLang(out.primaryLang);
   ASSERT(m_auxText.empty() || !m_mainText.empty(), ("auxText without mainText"));
 
   uint8_t constexpr kLongCaptionsMaxZoom = 4;
@@ -80,6 +94,7 @@ void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int zoomLevel,
   {
     m_mainText.clear();
     m_auxText.clear();
+    m_mainTextLang = m_auxTextLang = StringUtf8Multilang::kUnsupportedLanguageCode;
     return;
   }
 
@@ -98,7 +113,10 @@ void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int zoomLevel,
     // styles.
     m_houseNumberText = f.GetHouseNumber();
     if (!m_houseNumberText.empty() && !m_mainText.empty() && m_houseNumberText.find(m_mainText) != std::string::npos)
+    {
       m_mainText.clear();
+      m_mainTextLang = StringUtf8Multilang::kUnsupportedLanguageCode;
+    }
   }
 }
 

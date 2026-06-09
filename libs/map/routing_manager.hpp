@@ -163,6 +163,16 @@ public:
   }
   void FollowRoute();
   void CloseRouting(bool removeRoutePoints);
+
+  /// \brief Activate alternative |idx| (typically triggered by tapping its ETA balloon).
+  /// Returns false if the index is out of range or already active. Re-renders the drape so
+  /// the newly-active variant is highlighted and the previously-active becomes the alternative.
+  bool SwapActiveAlternative(size_t idx);
+
+  /// \brief Hit-tests |mercator| against the alternative-route polylines. If one is closer than
+  /// a tap-area threshold (kTapPixels * |mercatorPerPixel|), swaps it to active and returns true.
+  /// No-op when navigation is active (alts aren't drawn then) or there are no alternatives.
+  bool TryTapOnAlternativeRoute(m2::PointD const & mercator, double mercatorPerPixel);
   void GetRouteFollowingInfo(routing::FollowingInfo & info) const { m_routingSession.GetRouteFollowingInfo(info); }
 
   TransitRouteInfo GetTransitRouteInfo() const;
@@ -185,10 +195,7 @@ public:
   /// If not, it returns an empty string.
   std::string GetTurnNotificationsLocale() const { return m_routingSession.GetTurnNotificationsLocale(); }
   // @return polyline of the route.
-  routing::FollowedPolyline const & GetRoutePolyline() const
-  {
-    return m_routingSession.GetRoute()->GetFollowedPolyline();
-  }
+  m2::PolylineD const & GetRoutePolyline() const { return m_routingSession.GetRoute()->GetPoly(); }
   // @return generated turns on the route.
   std::vector<routing::turns::TurnItem> GetTurnsOnRouteForTests() const
   {
@@ -226,8 +233,8 @@ public:
 
   void CheckLocationForRouting(location::GpsInfo const & info);
   void CallRouteBuilded(routing::RouterResultCode code, storage::CountriesSet const & absentCountries);
-  void OnBuildRouteReady(routing::Route const & route, routing::RouterResultCode code);
-  void OnRebuildRouteReady(routing::Route const & route, routing::RouterResultCode code);
+  void OnBuildRouteReady(routing::RoutesResult const & result, routing::RouterResultCode code);
+  void OnRebuildRouteReady(routing::RoutesResult const & result, routing::RouterResultCode code);
   void OnNeedMoreMaps(uint64_t routeId, storage::CountriesSet const & absentCountries);
   void OnRemoveRoute(routing::RouterResultCode code);
   void OnRoutePointPassed(RouteMarkType type, size_t intermediateIndex);
@@ -276,11 +283,6 @@ public:
 private:
   void SetRouterImpl(routing::RouterType type);
 
-  /// Renders all road-warning marks for the route.
-  /// \returns true if the route has an avoidable warning (toll/ferry/dirty) on a car route, i.e. one
-  /// that should surface the "driving options" affordance (RouterResultCode::HasWarnings).
-  bool InsertRoute(routing::Route const & route);
-
   struct RoadInfo
   {
     RoadInfo() = default;
@@ -293,14 +295,37 @@ private:
   };
   using RoadWarningsCollection = std::map<RoadWarningMarkType, std::vector<RoadInfo>>;
 
-  using GetMwmIdFn = std::function<MwmSet::MwmId(routing::NumMwmId numMwmId)>;
+  MwmSet::MwmId GetMwmId(routing::NumMwmId numMwmId) const;
+
+  /// \brief Renders every route in |result| via drape subroutes. The active alternative
+  /// (result.m_activeIdx) is drawn with normal styling; the rest are dimmed. Also creates
+  /// road-warning marks for the active route.
+  /// \returns true if the active route has an avoidable warning (toll/ferry/dirty) on a car route,
+  /// i.e. one that should surface the "driving options" affordance (RouterResultCode::HasWarnings).
+  bool InsertRoute(routing::RoutesResult const & result);
+
+  // Helper: build drape subroutes for a single route. |isActive| controls styling
+  // (alternatives are dimmed). |roadWarnings| is filled only for the active route.
+  void InsertSingleRoute(routing::RouteBase const & route, bool isActive, double depthOffset,
+                         std::shared_ptr<TransitRouteDisplay> const & transitRouteDisplay,
+                         RoadWarningsCollection & roadWarnings);
+
   // Linear warnings (toll/ferry/dirty/steps): a span of the route sharing the same road type.
   void CollectRoadWarnings(std::vector<routing::RouteSegment> const & segments, m2::PointD const & startPt,
-                           double baseDistance, GetMwmIdFn const & getMwmIdFn, RoadWarningsCollection & roadWarnings);
+                           double baseDistance, RoadWarningsCollection & roadWarnings);
   // Point warnings (gate/lift_gate): barrier features sitting exactly on a route vertex.
   void CollectRoadPointWarnings(std::vector<routing::RouteSegment> const & segments, m2::PointD const & startPt,
-                                GetMwmIdFn const & getMwmIdFn, RoadWarningsCollection & roadWarnings);
+                                RoadWarningsCollection & roadWarnings);
   void CreateRoadWarningMarks(RoadWarningsCollection && roadWarnings);
+
+  // Creates an ETA balloon (RouteAltMark) at the midpoint of each route variant in |result|.
+  // Active variant uses the route palette; alternatives use a dimmer palette.
+  void CreateRouteAltMarks(routing::RoutesResult const & result);
+
+  // Synchronously remove the alternative-route subroutes from drape and clear the alt ETA
+  // balloons. Used when entering navigation mode (FollowRoute) so the alts drawn at build
+  // time disappear immediately. The active route is left untouched.
+  void ClearAlternativeRoutes();
 
   /// \returns false if the location could not be matched to the route and should be matched to the
   /// road graph. Otherwise returns true.
