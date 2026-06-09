@@ -108,6 +108,6 @@ m2::RectD FromLatLon(m2::RectD const & rect)
 
 m2::RectD ToLatLon(m2::RectD const & rect)
 {
-  return {YToLat(rect.minY()), XToLon(rect.minX()), YToLat(rect.maxY()), XToLon(rect.maxX())};
+  return {XToLon(rect.minX()), YToLat(rect.minY()), XToLon(rect.maxX()), YToLat(rect.maxY())};
 }
 }  // namespace mercator

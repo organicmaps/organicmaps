@@ -135,6 +135,9 @@ inline ms::LatLon ToLatLon(m2::PointD const & point)
   return {YToLat(point.y), XToLon(point.x)};
 }
 
+// These rect overloads keep the same axis convention as the scalar overloads and the rest of
+// mercator: X is longitude, Y is latitude. A lat/lon rect therefore reads as the standard
+// (West, South, East, North) bbox, and FromLatLon / ToLatLon are exact inverses of each other.
 m2::RectD FromLatLon(m2::RectD const & rect);
 m2::RectD ToLatLon(m2::RectD const & rect);
 
