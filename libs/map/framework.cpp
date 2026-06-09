@@ -3,6 +3,7 @@
 #include "map/benchmark_tools.hpp"
 #include "map/gps_tracker.hpp"
 #include "map/place_page_info.hpp"
+#include "map/raster_tile_provider.hpp"
 #include "map/relation_track.hpp"
 #include "map/track_mark.hpp"
 #include "map/user_mark.hpp"
@@ -1658,64 +1659,51 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
         break;
   };
 
+#if DEBUG_BACKGROUND_TILE
+  // POC: create the raster background-tile source once. It downloads standard web-mercator XYZ
+  // tiles, caches them on disk, decodes to RGBA8 and feeds them into the Drape tile-background API.
+  // Toggle rendering at runtime via the "Tile Background" combo (dev_sandbox) or the "?satellite"
+  // debug command (qt). Endpoint: slazav.xyz "h3" / Finland layer (XYZ, 256px, EPSG:3857).
+  if (!m_rasterTileProvider)
+  {
+    RasterTileProvider::Params rp;
+    rp.m_urlTemplate = "https://tiles.slazav.xyz/fi/{z}/{x}/{y}.png";
+    rp.m_cacheSubdir = "bg_tiles_poc";
+    rp.m_minZoom = 7;  // lower zooms are near-empty / look bad for this endpoint
+    rp.m_maxZoom = 13;
+    rp.m_minLat = 58.0;
+    rp.m_maxLat = 71.0;
+    rp.m_minLon = 16.0;
+    rp.m_maxLon = 34.0;
+    m_rasterTileProvider = std::make_unique<RasterTileProvider>(
+        std::move(rp), [this](df::TileKey const & tileKey, dp::BackgroundMode mode, std::string const & imageUid,
+                              uint32_t width, uint32_t height, m2::RectF const & rect, std::vector<uint8_t> && rgba)
+    {
+      // Invoked on a background thread; AddTileBackgroundImage/SetTileBackgroundData only post
+      // messages, so they are safe to call from any thread.
+      if (m_drapeEngine)
+      {
+        m_drapeEngine->AddTileBackgroundImage(imageUid, width, height, dp::TextureFormat::RGBA8, mode, std::move(rgba));
+        m_drapeEngine->SetTileBackgroundData(tileKey, imageUid, rect);
+      }
+    });
+  }
+#endif
+
   auto tileBackgroundReadFn = [this](df::TileKey const & tileKey, dp::BackgroundMode mode) -> void
   {
 #if DEBUG_BACKGROUND_TILE
-    constexpr uint32_t kTileSize = 64;
-    constexpr uint32_t kBlockSize = 8;
-    constexpr uint32_t kBytesPerPixel = 4;
-    static std::vector<uint8_t> kPixels;
-    if (kPixels.empty())
-    {
-      kPixels.resize(kTileSize * kTileSize * kBytesPerPixel);
-      for (uint32_t y = 0; y < kTileSize; ++y)
-      {
-        for (uint32_t x = 0; x < kTileSize; ++x)
-        {
-          uint32_t const blockX = x / kBlockSize;
-          uint32_t const blockY = y / kBlockSize;
-          bool const isWhiteBlock = (blockX + blockY) % 2 == 0;
-          uint32_t const pixelIndex = (y * kTileSize + x) * kBytesPerPixel;
-
-          if (isWhiteBlock)
-          {
-            // White block
-            kPixels[pixelIndex] = 255;      // R
-            kPixels[pixelIndex + 1] = 255;  // G
-            kPixels[pixelIndex + 2] = 255;  // B
-            kPixels[pixelIndex + 3] = 255;  // A
-          }
-          else
-          {
-            // Dark gray block
-            kPixels[pixelIndex] = 64;       // R
-            kPixels[pixelIndex + 1] = 64;   // G
-            kPixels[pixelIndex + 2] = 64;   // B
-            kPixels[pixelIndex + 3] = 255;  // A
-          }
-        }
-      }
-    }
-
-    if (m_drapeEngine)
-    {
-      // For debug implementation, we generate image UID based on tile key, so each tile will have its own background
-      // image. In full implementation, the caller side must decide if new background image must be added or reused.
-      std::string const imageUid = tileKey.Coord2String();
-      m_drapeEngine->AddTileBackgroundImage(imageUid, kTileSize, kTileSize, dp::TextureFormat::RGBA8, mode,
-                                            std::vector<uint8_t>(kPixels));
-      m_drapeEngine->SetTileBackgroundData(tileKey, imageUid, m2::RectF(0.0f, 0.0f, 1.0f, 1.0f));
-    }
-#else
-  // Handle cancellation of tile background reading for the specified tile and mode.
-  // This is a placeholder implementation; actual logic will depend on application requirements.
+    if (m_rasterTileProvider)
+      m_rasterTileProvider->RequestTile(tileKey, mode);
 #endif
   };
 
-  auto cancelTileBackgroundReadingFn = [](df::TileKey const & tileKey, dp::BackgroundMode mode) -> void
+  auto cancelTileBackgroundReadingFn = [this](df::TileKey const & tileKey, dp::BackgroundMode mode) -> void
   {
-    // Handle cancellation of tile background reading for the specified tile and mode.
-    // This is a placeholder implementation; actual logic will depend on application requirements.
+#if DEBUG_BACKGROUND_TILE
+    if (m_rasterTileProvider)
+      m_rasterTileProvider->CancelTile(tileKey, mode);
+#endif
   };
 
   auto myPositionModeChangedFn = [this](location::EMyPositionMode mode, bool routingActive)
