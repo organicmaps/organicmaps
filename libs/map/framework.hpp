@@ -618,6 +618,7 @@ public:
   std::string GetParsedOAuth2Code() const;
   std::string const & GetParsedAppName() const;
   std::string const & GetParsedBackUrl() const;
+  void ClearParsedBackUrl();
   ms::LatLon GetParsedCenterLatLon() const;
   url_scheme::InAppFeatureHighlightRequest GetInAppFeatureHighlightRequest() const;
 

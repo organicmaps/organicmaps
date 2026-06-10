@@ -1093,8 +1093,16 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
   // Use the same lenient builder as per-stop callbacks: the back URL is core-decoded and may
   // contain characters that -URLWithString: rejects verbatim.
   NSURL * url = [MWMRouter callbackURLFromString:backURL];
-  if (url)
-    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+  if (!url)
+    return;
+  [UIApplication.sharedApplication openURL:url
+                                   options:@{}
+                         completionHandler:^(BOOL success) {
+                           // Returning to the caller is one-shot: consume the back URL on the
+                           // first successful launch (the handler runs on the main queue).
+                           if (success)
+                             [MWMFrameworkHelper clearParsedBackUrl];
+                         }];
 }
 
 - (void)closeCurrentView
