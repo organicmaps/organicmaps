@@ -27,18 +27,26 @@ using namespace routing;
 
 namespace
 {
-// The core already URL-decoded the callback/back URL, so it can contain raw spaces or
-// decoded pipes that -URLWithString: rejects. Try it verbatim first, then re-encode the
-// disallowed characters as a fallback.
+// The core URL-decodes API parameters once, so a callback/back URL can reach this point
+// with characters that break NSURL parsing: a literal '%' decoded from "%25", raw spaces,
+// pipes or non-ASCII from decoded values. Normalize explicitly instead of relying on
+// -URLWithString: to reject the raw string, because its strictness varies across OS
+// versions (older parsers return nil, newer ones auto-encode every '%', corrupting valid
+// "%XX" sequences). A '%' is escaped only when it does not already start a valid escape,
+// so intentionally double-encoded values like "%257C" survive; a valid URL is unchanged.
 NSURL * RoutePointCallbackURL(NSString * callbackString)
 {
-  NSURL * url = [NSURL URLWithString:callbackString];
-  if (url)
-    return url;
-
-  NSMutableCharacterSet * allowed = [NSMutableCharacterSet alphanumericCharacterSet];
-  [allowed addCharactersInString:@"-._~:/?#[]@!$&'()*+,;=%"];
-  NSString * encoded = [callbackString stringByAddingPercentEncodingWithAllowedCharacters:allowed];
+  static NSRegularExpression * danglingPercent =
+      [NSRegularExpression regularExpressionWithPattern:@"%(?![0-9A-Fa-f]{2})" options:0 error:nil];
+  NSString * fixed = [danglingPercent stringByReplacingMatchesInString:callbackString
+                                                               options:0
+                                                                 range:NSMakeRange(0, callbackString.length)
+                                                          withTemplate:@"%25"];
+  // RFC 3986 unreserved + gen-delims + sub-delims + '%'.
+  static NSCharacterSet * allowed = [NSCharacterSet
+      characterSetWithCharactersInString:@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+                                         @"-._~:/?#[]@!$&'()*+,;=%"];
+  NSString * encoded = [fixed stringByAddingPercentEncodingWithAllowedCharacters:allowed];
   return encoded ? [NSURL URLWithString:encoded] : nil;
 }
 

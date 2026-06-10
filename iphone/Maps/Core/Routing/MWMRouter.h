@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)rebuildWithBestRouter:(BOOL)bestRouter startDirection:(CGPoint)startDirection;
 
 /// Builds an openable URL from a deep-link callback/back string that the core already
-/// URL-decoded, re-encoding disallowed characters when -URLWithString: rejects it verbatim.
+/// URL-decoded, re-encoding dangling '%' and other invalid characters before parsing.
 + (nullable NSURL *)callbackURLFromString:(NSString *)callbackString;
 
 + (BOOL)hasRouteAltitude;
