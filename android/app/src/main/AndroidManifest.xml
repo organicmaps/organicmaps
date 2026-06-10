@@ -438,7 +438,7 @@
         android:launchMode="singleTask"
         android:configChanges="uiMode"
         android:screenOrientation="fullUser"
-        android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+        android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
 
     <activity-alias
         android:name="${applicationId}.ManageSpaceActivity"
