@@ -377,6 +377,10 @@ public class RoutingController
     // (e.g. NoCurrentPosition) reports through onRoutingEvent during the call and
     // overwrites this state with ERROR.
     setBuildState(BuildState.BUILDING);
+    mLastBuildProgress = 0;
+    mRouteSaved = false;
+    if (mContainer != null)
+      mContainer.onStartRouteBuilding();
 
     // The core materializes the parsed itinerary as route points and starts the build,
     // so show the planning UI without triggering another build: the no-points
@@ -386,7 +390,11 @@ public class RoutingController
     if (mContainer != null)
     {
       mContainer.updateMenu();
-      startPlanning();
+      if (isPlanning())
+      {
+        startPlanning();
+        mContainer.onPlanningStarted();
+      }
     }
   }
 

@@ -447,11 +447,14 @@ void FlushPendingRoutePointCallback()
 
 + (void)buildApiRouteWithType:(MWMRouterType)type startRouteNavigation:(BOOL)startRouteNavigation
 {
-  [MWMRouter setType:type];
+  // Match Android's API-route flow: a new deep link replaces any active route, even when
+  // the router type does not change and the new build later fails synchronously.
+  [self doStop:NO];
+  GetFramework().GetRoutingManager().SetRouter(coreRouterType(type));
 
   // The core sets the auto-start flag only for nav requests, which always route
   // from the current position, so honor the parsed flag directly. Set it after
-  // setType:, whose stop path resets the flag.
+  // doStop:, whose stop path resets the flag.
   [MWMRouter router].startNavigationAfterBuild = startRouteNavigation;
   [[MWMMapViewControlsManager manager] onRouteRebuild];
   // The core materializes the parsed itinerary as route points and starts the build.
