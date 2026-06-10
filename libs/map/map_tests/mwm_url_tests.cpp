@@ -300,6 +300,10 @@ UNIT_TEST(RouteApiV2CallbacksAndBikeMode)
   TEST_EQUAL(test.GetRoutingType(), "bicycle", ());
   TEST_EQUAL(test.GetAppName(), "DeliveryCo", ());
   TEST_EQUAL(test.GetGlobalBackUrl(), "app://back", ());
+
+  // Platforms consume the back URL after the first successful "return to caller" launch.
+  test.ClearGlobalBackUrl();
+  TEST(test.GetGlobalBackUrl().empty(), ());
 }
 
 UNIT_TEST(RouteApiV2DecodesCallbackPercentLiterally)
