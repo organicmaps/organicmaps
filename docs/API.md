@@ -55,14 +55,10 @@ Repeated parameters use the last value; `mode` and `travelmode` share the same v
 - `dir_action=navigate` on `/v2/dir` is accepted as a Google Maps-style alias for `/v2/nav`.
 - `optimize=true` to allow Organic Maps to reorder intermediate stops; otherwise URL order is preserved.
 - `ref_name=...` names the calling app (the `appname` equivalent; accepted and parsed, but not yet surfaced in the route UI) and `callback=...` is a global return URL.
-  On both platforms, use the map menu's Back action, or the Back action under the navigation settings button,
-  to open the return URL. Returning does not stop navigation. Opening settings, switching applications, or
-  stopping navigation does not automatically open a v2 return URL. A successful return launch clears it.
-  On iOS the Escape keyboard shortcut also opens it.
+  On both platforms, use the map menu's Back action, or the Back action under the navigation settings button, to open it without stopping navigation; on iOS the Escape keyboard shortcut also opens it.
+  After navigation ends, leaving the app attempts to open the return URL; leaving while navigation is active does not trigger it. A successful launch clears it, so it opens at most once; failed launches leave it pending.
   As with stop callbacks, delivery is best-effort: the pending return URL does not survive an app restart.
-- Any unrecognized parameter is ignored with a warning and never fails the route, so the format stays
-  forward-compatible. Named-but-not-yet-applied extensions include `api=1`, `avoid=...` (e.g. `avoid=tolls` in the
-  examples below), `ref=...`, and `callback_label=...`; they are accepted today but have no effect yet.
+- Any unrecognized parameter is ignored with a warning and never fails the route, so the format stays forward-compatible. Named-but-not-yet-applied extensions include `api=1`, `avoid=...` (e.g. `avoid=tolls` in the examples below), `ref=...`, and `callback_label=...`; they are accepted today but have no effect yet.
   `origin_callback=...` is also reserved: it is parsed but not opened, because the route start is departed from,
   never "passed" like a stop.
 

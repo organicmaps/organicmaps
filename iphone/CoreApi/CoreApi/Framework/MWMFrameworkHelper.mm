@@ -166,6 +166,7 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
 {
   GetFramework().ClearParsedBackUrl();
 }
+
 + (void)switchMyPositionMode
 {
   GetFramework().SwitchMyPositionNextMode();

@@ -938,10 +938,6 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeClearParsedBackUrl(JNIEn
   frm()->ClearParsedBackUrl();
 }
 
-JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeHasLegacyBackUrl(JNIEnv *, jclass)
-{
-  return frm()->GetApiDataHolder().HasLegacyBackUrl();
-}
 
 JNIEXPORT jdoubleArray Java_app_organicmaps_sdk_Framework_nativeGetParsedCenterLatLon(JNIEnv * env, jclass)
 {
