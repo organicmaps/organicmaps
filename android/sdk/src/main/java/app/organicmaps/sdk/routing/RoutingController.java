@@ -501,6 +501,8 @@ public class RoutingController
 
     mLastRouterType = routerType;
     Router.set(mLastRouterType);
+    // The core sets the auto-start flag only for nav requests, which always route
+    // from the current position, so honor the parsed flag directly.
     mStartNavigationAfterBuild = startNavigation;
     mContainsCachedResult = false;
 
