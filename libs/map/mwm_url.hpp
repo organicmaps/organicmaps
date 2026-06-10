@@ -80,6 +80,10 @@ public:
   bool GoBackOnBalloonClick() const { return m_goBackOnBalloonClick; }
 
   void ExecuteMapApiRequest(Framework & fm) const;
+  /// Materializes the parsed itinerary as route marks (preserving URL order, or letting
+  /// the optimizer reorder the stops) and starts the route build. Platforms drive only
+  /// their UI state around this call: router type, planning screen, auto-start on ready.
+  void ExecuteRouteApiRequest(Framework & fm) const;
 
   // Unit test only.
   std::vector<MapPoint> const & GetMapPoints() const

@@ -1,4 +1,3 @@
-#import <CoreGraphics/CoreGraphics.h>
 #import <Foundation/Foundation.h>
 #import "MWMRouterType.h"
 
@@ -7,12 +6,11 @@ NS_ASSUME_NONNULL_BEGIN
 @class MWMRoutePoint;
 @interface DeepLinkRouteStrategyAdapter : NSObject
 
+// The itinerary itself is applied by the core (Framework::ExecuteRouteApiRequest);
+// start/finish are exposed for validation and tests only.
 @property(nonatomic, readonly) MWMRoutePoint * start;
 @property(nonatomic, readonly) MWMRoutePoint * finish;
-@property(nonatomic, readonly) NSArray<MWMRoutePoint *> * intermediatePoints;
-@property(nonatomic, readonly) BOOL optimizeRoutePoints;
 @property(nonatomic, readonly) BOOL startRouteNavigation;
-@property(nonatomic, readonly) CGPoint startDirection;
 @property(nonatomic, readonly) MWMRouterType type;
 
 - (nullable instancetype)init:(NSURL *)url;

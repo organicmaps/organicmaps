@@ -231,7 +231,6 @@ public:
   /// Returns whether the order changed; the caller rebuilds. No-op while following, in Ruler mode, or without
   /// both endpoints.
   bool OptimizeRoutePoints();
-  void AddRoutePoints(std::vector<RouteMarkData> && routePoints, bool reorderIntermediatePoints = true);
   bool ContinueRouteToPoint(RouteMarkData && markData);
   std::vector<RouteMarkData> GetRoutePoints() const;
   void SetRoutePointCallback(RoutePointCallback && callback);
