@@ -896,6 +896,11 @@ JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetParsedBackUrl(JNIE
   return (backUrl.empty()) ? nullptr : jni::ToJavaString(env, backUrl);
 }
 
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeClearParsedBackUrl(JNIEnv *, jclass)
+{
+  frm()->ClearParsedBackUrl();
+}
+
 JNIEXPORT jdoubleArray Java_app_organicmaps_sdk_Framework_nativeGetParsedCenterLatLon(JNIEnv * env, jclass)
 {
   ms::LatLon const center = frm()->GetParsedCenterLatLon();

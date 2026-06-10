@@ -1149,11 +1149,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mSearchController.detach();
     Utils.keepScreenOn(false, getWindow());
 
-    final String backUrl = Framework.nativeGetParsedBackUrl();
     if (mSkipParsedBackUrlOnStop)
       mSkipParsedBackUrlOnStop = false;
-    else if (!TextUtils.isEmpty(backUrl))
-      Utils.openUri(this, Uri.parse(backUrl), null);
+    // Returning to the caller is a one-shot action for the moment the user leaves the
+    // app; while navigation is running, leaving (screen lock, app switch) is a normal
+    // part of the session, so keep the back URL for the stop after navigation ends.
+    else if (!RoutingController.get().isNavigating())
+    {
+      final String backUrl = Framework.nativeGetParsedBackUrl();
+      if (!TextUtils.isEmpty(backUrl) && Utils.openUri(this, Uri.parse(backUrl), null))
+        Framework.nativeClearParsedBackUrl();
+    }
   }
 
   void skipParsedBackUrlOnNextStop()
