@@ -1,4 +1,3 @@
-#import <CoreGraphics/CoreGraphics.h>
 #import "MWMRoutePoint.h"
 #import "MWMRouterType.h"
 
@@ -55,15 +54,8 @@ typedef NS_ENUM(NSInteger, MWMRoadType) { MWMRoadTypeToll, MWMRoadTypeDirty, MWM
 
 + (void)buildFromPoint:(MWMRoutePoint *)start bestRouter:(BOOL)bestRouter;
 + (void)buildToPoint:(MWMRoutePoint *)finish bestRouter:(BOOL)bestRouter;
-+ (void)buildApiRouteWithType:(MWMRouterType)type
-                   startPoint:(MWMRoutePoint *)startPoint
-           intermediatePoints:(NSArray<MWMRoutePoint *> *)intermediatePoints
-                  finishPoint:(MWMRoutePoint *)finishPoint
-          optimizeRoutePoints:(BOOL)optimizeRoutePoints
-         startRouteNavigation:(BOOL)startRouteNavigation
-               startDirection:(CGPoint)startDirection;
++ (void)buildApiRouteWithType:(MWMRouterType)type startRouteNavigation:(BOOL)startRouteNavigation;
 + (void)rebuildWithBestRouter:(BOOL)bestRouter;
-+ (void)rebuildWithBestRouter:(BOOL)bestRouter startDirection:(CGPoint)startDirection;
 
 /// Builds an openable URL from a deep-link callback/back string that the core already
 /// URL-decoded, re-encoding dangling '%' and other invalid characters before parsing.

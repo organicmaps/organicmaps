@@ -582,26 +582,27 @@ public:
   /// Set correct viewport, parse API, show balloon.
   void ExecuteMapApiRequest() { m_parsedMapApi.ExecuteMapApiRequest(*this); }
 
+  /// Materialize the parsed route itinerary as route marks and start the route build.
+  void ExecuteRouteApiRequest() { m_parsedMapApi.ExecuteRouteApiRequest(*this); }
+
   url_scheme::ParsedMapApi::UrlType ParseAndSetApiURL(std::string const & url)
   {
     return m_parsedMapApi.SetUrlAndParse(url);
   }
 
+  // The route itinerary itself is applied by ExecuteRouteApiRequest(); platforms read
+  // only what their UI needs around that call.
   struct ParsedRoutingData
   {
     ParsedRoutingData(std::vector<url_scheme::RoutePoint> const & points, routing::RouterType type,
-                      bool optimizeRoutePoints, bool startRouteNavigation, m2::PointD const & startDirection)
+                      bool startRouteNavigation)
       : m_points(points)
       , m_type(type)
-      , m_optimizeRoutePoints(optimizeRoutePoints)
       , m_startRouteNavigation(startRouteNavigation)
-      , m_startDirection(startDirection)
     {}
     std::vector<url_scheme::RoutePoint> m_points;
     routing::RouterType m_type;
-    bool m_optimizeRoutePoints = false;
     bool m_startRouteNavigation = false;
-    m2::PointD m_startDirection = m2::PointD::Zero();
   };
 
   ParsedRoutingData GetParsedRoutingData() const;

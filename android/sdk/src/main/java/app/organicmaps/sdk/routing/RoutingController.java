@@ -13,7 +13,6 @@ import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.widget.placepage.CoordinatesFormat;
-import java.util.List;
 
 @androidx.annotation.UiThread
 public class RoutingController
@@ -225,19 +224,13 @@ public class RoutingController
 
   private void showRoutePlan(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint)
   {
-    showRoutePlan(startPoint, endPoint, 0.0 /* startDirectionX */, 0.0 /* startDirectionY */);
-  }
-
-  private void showRoutePlan(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint,
-                             double startDirectionX, double startDirectionY)
-  {
     if (mContainer != null)
     {
       mContainer.showRoutePlan(true, () -> {
         if (startPoint == null || endPoint == null)
           updatePlan();
         else
-          build(startDirectionX, startDirectionY);
+          build();
       });
     }
   }
@@ -289,11 +282,6 @@ public class RoutingController
 
   private void build()
   {
-    build(0.0 /* startDirectionX */, 0.0 /* startDirectionY */);
-  }
-
-  private void build(double startDirectionX, double startDirectionY)
-  {
     Framework.nativeRemoveRoute();
 
     Logger.d(TAG, "build");
@@ -306,7 +294,7 @@ public class RoutingController
 
     updatePlan();
 
-    Framework.nativeBuildRoute(startDirectionX, startDirectionY);
+    Framework.nativeBuildRoute();
   }
 
   public void restoreRoute()
@@ -374,18 +362,9 @@ public class RoutingController
     startPlanning(startPoint, endPoint);
   }
 
-  public void prepare(@NonNull List<MapObject> routePoints, @NonNull Router routerType, boolean optimizeRoutePoints,
-                      boolean startNavigation, @Nullable List<String> callbacks, double startDirectionX,
-                      double startDirectionY)
+  public void prepareApiRoute(@NonNull Router routerType, boolean startNavigation)
   {
-    if (routePoints.size() < 2)
-      return;
-
-    // Deep-link route points are already ordered by the URL parser. Preserve
-    // that itinerary by default, but allow API callers to request the existing
-    // intermediate-point optimization when stop order is not important.
     cancel();
-    Framework.nativeRemoveRoutePoints();
     setState(State.PREPARE);
 
     mLastRouterType = routerType;
@@ -393,15 +372,21 @@ public class RoutingController
     // The core sets the auto-start flag only for nav requests, which always route
     // from the current position, so honor the parsed flag directly.
     mStartNavigationAfterBuild = startNavigation;
+    // BUILDING must be set before the native call: a build that fails synchronously
+    // (e.g. NoCurrentPosition) reports through onRoutingEvent during the call and
+    // overwrites this state with ERROR.
+    setBuildState(BuildState.BUILDING);
 
-    addRoutePoints(routePoints, callbacks, optimizeRoutePoints);
+    // The core materializes the parsed itinerary as route points and starts the build,
+    // so show the planning UI without triggering another build: the no-points
+    // startPlanning() overload only refreshes the plan from its completion callback.
+    Framework.nativeExecuteRouteApiRequest();
 
     if (mContainer != null)
+    {
       mContainer.updateMenu();
-
-    startPlanning(routePoints.get(0), routePoints.get(routePoints.size() - 1), startDirectionX, startDirectionY);
-    if (mContainer == null)
-      build(startDirectionX, startDirectionY);
+      startPlanning();
+    }
   }
 
   public void start()
@@ -560,15 +545,9 @@ public class RoutingController
 
   private void startPlanning(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint)
   {
-    startPlanning(startPoint, endPoint, 0.0 /* startDirectionX */, 0.0 /* startDirectionY */);
-  }
-
-  private void startPlanning(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint,
-                             double startDirectionX, double startDirectionY)
-  {
     if (mContainer != null)
     {
-      showRoutePlan(startPoint, endPoint, startDirectionX, startDirectionY);
+      showRoutePlan(startPoint, endPoint);
       mContainer.onPlanningStarted();
     }
   }
@@ -833,75 +812,6 @@ public class RoutingController
     Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, "" /* callback */,
                                   type, 0 /* intermediateIndex */, point.isMyPosition(), point.getLat(), point.getLon(),
                                   true /* reorderIntermediatePoints */);
-  }
-
-  private static void addRoutePoints(@NonNull List<MapObject> routePoints, @Nullable List<String> callbacks,
-                                     boolean reorderIntermediatePoints)
-  {
-    final int size = routePoints.size();
-    final String[] titles = new String[size];
-    final String[] subtitles = new String[size];
-    final String[] pointCallbacks = new String[size];
-    final int[] pointTypes = new int[size];
-    final int[] intermediateIndices = new int[size];
-    final boolean[] isMyPositions = new boolean[size];
-    final double[] lats = new double[size];
-    final double[] lons = new double[size];
-
-    fillRoutePoint(0, RouteMarkType.Start, routePoints.get(0), 0 /* intermediateIndex */, getCallback(callbacks, 0),
-                   titles, subtitles, pointCallbacks, pointTypes, intermediateIndices, isMyPositions, lats, lons);
-    int outputIndex = 1;
-    if (reorderIntermediatePoints)
-    {
-      // The optimizer needs a known finish before it predicts positions for
-      // intermediate points.
-      fillRoutePoint(outputIndex++, RouteMarkType.Finish, routePoints.get(size - 1), 0 /* intermediateIndex */,
-                     getCallback(callbacks, size - 1), titles, subtitles, pointCallbacks, pointTypes,
-                     intermediateIndices, isMyPositions, lats, lons);
-      for (int i = 1; i + 1 < size; ++i)
-        fillRoutePoint(outputIndex++, RouteMarkType.Intermediate, routePoints.get(i), 0 /* intermediateIndex */,
-                       getCallback(callbacks, i), titles, subtitles, pointCallbacks, pointTypes, intermediateIndices,
-                       isMyPositions, lats, lons);
-    }
-    else
-    {
-      for (int i = 1; i + 1 < size; ++i)
-        fillRoutePoint(outputIndex++, RouteMarkType.Intermediate, routePoints.get(i), i - 1, getCallback(callbacks, i),
-                       titles, subtitles, pointCallbacks, pointTypes, intermediateIndices, isMyPositions, lats, lons);
-      fillRoutePoint(outputIndex, RouteMarkType.Finish, routePoints.get(size - 1), 0 /* intermediateIndex */,
-                     getCallback(callbacks, size - 1), titles, subtitles, pointCallbacks, pointTypes,
-                     intermediateIndices, isMyPositions, lats, lons);
-    }
-
-    Framework.nativeAddRoutePoints(titles, subtitles, pointCallbacks, pointTypes, intermediateIndices, isMyPositions,
-                                   lats, lons, reorderIntermediatePoints);
-  }
-
-  private static void fillRoutePoint(int outputIndex, @NonNull RouteMarkType type, @NonNull MapObject point,
-                                     int intermediateIndex, @NonNull String callback, @NonNull String[] titles,
-                                     @NonNull String[] subtitles, @NonNull String[] callbacks,
-                                     @NonNull int[] pointTypes, @NonNull int[] intermediateIndices,
-                                     @NonNull boolean[] isMyPositions, @NonNull double[] lats, @NonNull double[] lons)
-  {
-    Pair<String, String> description = getDescriptionForPoint(point);
-    titles[outputIndex] = description.first;
-    subtitles[outputIndex] = description.second;
-    callbacks[outputIndex] = callback;
-    pointTypes[outputIndex] = type.ordinal();
-    intermediateIndices[outputIndex] = intermediateIndex;
-    isMyPositions[outputIndex] = point.isMyPosition();
-    lats[outputIndex] = point.getLat();
-    lons[outputIndex] = point.getLon();
-  }
-
-  @NonNull
-  private static String getCallback(@Nullable List<String> callbacks, int index)
-  {
-    if (callbacks == null || index < 0 || index >= callbacks.size())
-      return "";
-
-    String callback = callbacks.get(index);
-    return callback == null ? "" : callback;
   }
 
   @NonNull

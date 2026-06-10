@@ -837,33 +837,18 @@ JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeParseAndSetApiUrl(JNIEnv
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetParsedRoutingData(JNIEnv * env, jclass clazz)
 {
-  using namespace url_scheme;
-  static jclass const pointClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/api/RoutePoint");
-  // Java signature : RoutePoint(double lat, double lon, String name, String callback, boolean isMyPosition)
-  static jmethodID const pointConstructor =
-      jni::GetConstructorID(env, pointClazz, "(DDLjava/lang/String;Ljava/lang/String;Z)V");
-
   static jclass const routeDataClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/api/ParsedRoutingData");
-  // Java signature : ParsedRoutingData(RoutePoint[] points, int routerType, boolean optimizeRoutePoints,
-  // boolean startRouteNavigation, double startDirectionX, double startDirectionY) {
-  static jmethodID const routeDataConstructor =
-      jni::GetConstructorID(env, routeDataClazz, "([Lapp/organicmaps/sdk/api/RoutePoint;IZZDD)V");
+  // Java signature : ParsedRoutingData(int routerType, boolean startRouteNavigation)
+  static jmethodID const routeDataConstructor = jni::GetConstructorID(env, routeDataClazz, "(IZ)V");
 
   auto const & routingData = frm()->GetParsedRoutingData();
-  jobjectArray points =
-      jni::ToJavaArray(env, pointClazz, routingData.m_points, [](JNIEnv * env, RoutePoint const & point)
-  {
-    jni::TScopedLocalRef const name(env, jni::ToJavaString(env, point.m_name));
-    jni::TScopedLocalRef const callback(env, jni::ToJavaString(env, point.m_callback));
-    return env->NewObject(pointClazz, pointConstructor, mercator::YToLat(point.m_org.y),
-                          mercator::XToLon(point.m_org.x), name.get(), callback.get(),
-                          static_cast<jboolean>(point.m_isMyPosition));
-  });
+  return env->NewObject(routeDataClazz, routeDataConstructor, routingData.m_type,
+                        static_cast<jboolean>(routingData.m_startRouteNavigation));
+}
 
-  return env->NewObject(routeDataClazz, routeDataConstructor, points, routingData.m_type,
-                        static_cast<jboolean>(routingData.m_optimizeRoutePoints),
-                        static_cast<jboolean>(routingData.m_startRouteNavigation), routingData.m_startDirection.x,
-                        routingData.m_startDirection.y);
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeExecuteRouteApiRequest(JNIEnv *, jclass)
+{
+  frm()->ExecuteRouteApiRequest();
 }
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetParsedSearchRequest(JNIEnv * env, jclass clazz)
@@ -1196,10 +1181,9 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeCloseRouting(JNIEnv * en
   frm()->GetRoutingManager().CloseRouting(true /* remove route points */);
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeBuildRoute(JNIEnv * env, jclass, jdouble startDirectionX,
-                                                                   jdouble startDirectionY)
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeBuildRoute(JNIEnv * env, jclass)
 {
-  frm()->GetRoutingManager().BuildRoute(routing::RouterDelegate::kNoTimeout, {startDirectionX, startDirectionY});
+  frm()->GetRoutingManager().BuildRoute();
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoute(JNIEnv * env, jclass)
@@ -1414,54 +1398,6 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(JNIEnv * e
   data.m_position = m2::PointD(mercator::FromLatLon(lat, lon));
 
   frm()->GetRoutingManager().AddRoutePoint(std::move(data), reorderIntermediatePoints);
-}
-
-JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeAddRoutePoints(
-    JNIEnv * env, jclass, jobjectArray titles, jobjectArray subtitles, jobjectArray callbacks, jintArray pointTypes,
-    jintArray intermediateIndices, jbooleanArray isMyPositions, jdoubleArray lats, jdoubleArray lons,
-    jboolean reorderIntermediatePoints)
-{
-  jsize const size = env->GetArrayLength(titles);
-  CHECK_EQUAL(size, env->GetArrayLength(subtitles), ());
-  CHECK_EQUAL(size, env->GetArrayLength(callbacks), ());
-  CHECK_EQUAL(size, env->GetArrayLength(pointTypes), ());
-  CHECK_EQUAL(size, env->GetArrayLength(intermediateIndices), ());
-  CHECK_EQUAL(size, env->GetArrayLength(isMyPositions), ());
-  CHECK_EQUAL(size, env->GetArrayLength(lats), ());
-  CHECK_EQUAL(size, env->GetArrayLength(lons), ());
-
-  jint * rawPointTypes = env->GetIntArrayElements(pointTypes, nullptr);
-  jint * rawIntermediateIndices = env->GetIntArrayElements(intermediateIndices, nullptr);
-  jboolean * rawIsMyPositions = env->GetBooleanArrayElements(isMyPositions, nullptr);
-  jdouble * rawLats = env->GetDoubleArrayElements(lats, nullptr);
-  jdouble * rawLons = env->GetDoubleArrayElements(lons, nullptr);
-
-  std::vector<RouteMarkData> routePoints;
-  routePoints.reserve(size);
-  for (jsize i = 0; i < size; ++i)
-  {
-    RouteMarkData data;
-    jni::TScopedLocalRef const title(env, env->GetObjectArrayElement(titles, i));
-    jni::TScopedLocalRef const subtitle(env, env->GetObjectArrayElement(subtitles, i));
-    jni::TScopedLocalRef const callback(env, env->GetObjectArrayElement(callbacks, i));
-    data.m_title = title.get() == nullptr ? "" : jni::ToNativeString(env, static_cast<jstring>(title.get()));
-    data.m_subTitle = subtitle.get() == nullptr ? "" : jni::ToNativeString(env, static_cast<jstring>(subtitle.get()));
-    data.m_callback = callback.get() == nullptr ? "" : jni::ToNativeString(env, static_cast<jstring>(callback.get()));
-    data.m_pointType = static_cast<RouteMarkType>(rawPointTypes[i]);
-    data.m_intermediateIndex = static_cast<size_t>(rawIntermediateIndices[i]);
-    data.m_isMyPosition = static_cast<bool>(rawIsMyPositions[i]);
-    data.m_position = m2::PointD(mercator::FromLatLon(rawLats[i], rawLons[i]));
-
-    routePoints.push_back(std::move(data));
-  }
-
-  env->ReleaseIntArrayElements(pointTypes, rawPointTypes, JNI_ABORT);
-  env->ReleaseIntArrayElements(intermediateIndices, rawIntermediateIndices, JNI_ABORT);
-  env->ReleaseBooleanArrayElements(isMyPositions, rawIsMyPositions, JNI_ABORT);
-  env->ReleaseDoubleArrayElements(lats, rawLats, JNI_ABORT);
-  env->ReleaseDoubleArrayElements(lons, rawLons, JNI_ABORT);
-
-  frm()->GetRoutingManager().AddRoutePoints(std::move(routePoints), reorderIntermediatePoints);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoints(JNIEnv * env, jclass)

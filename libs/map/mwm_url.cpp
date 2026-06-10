@@ -16,6 +16,8 @@
 
 #include "drape_frontend/visual_params.hpp"
 
+#include "platform/localization.hpp"
+
 #include "base/logging.hpp"
 #include "base/math.hpp"
 #include "base/scope_guard.hpp"
@@ -821,6 +823,51 @@ void ParsedMapApi::ExecuteMapApiRequest(Framework & fm) const
   info.m_mercator = mercator::FromLatLon(m_mapPoints[0].m_lat, m_mapPoints[0].m_lon);
   // Other details will be filled in by BuildPlacePageInfo().
   fm.BuildAndSetPlacePageInfo(info);
+}
+
+void ParsedMapApi::ExecuteRouteApiRequest(Framework & fm) const
+{
+  CHECK_EQUAL(m_requestType, UrlType::Route, ("Must be a Route API request"));
+  CHECK_GREATER_OR_EQUAL(m_routePoints.size(), 2, ("Route API request must have start and finish points"));
+
+  auto & rm = fm.GetRoutingManager();
+  rm.RemoveRoutePoints();
+
+  auto const makeMark = [](RoutePoint const & point, RouteMarkType type, size_t intermediateIndex)
+  {
+    RouteMarkData data;
+    // The route-plan UI shows the title verbatim, so localize the implicit
+    // "my position" start instead of leaving it blank.
+    data.m_title =
+        point.m_isMyPosition && point.m_name.empty() ? platform::GetLocalizedString("core_my_position") : point.m_name;
+    data.m_callback = point.m_callback;
+    data.m_pointType = type;
+    data.m_intermediateIndex = intermediateIndex;
+    data.m_isMyPosition = point.m_isMyPosition;
+    data.m_position = point.m_org;
+    return data;
+  };
+
+  size_t const count = m_routePoints.size();
+  bool const optimize = m_optimizeRoutePoints;
+  rm.AddRoutePoint(makeMark(m_routePoints.front(), RouteMarkType::Start, 0), optimize);
+  if (optimize)
+  {
+    // ReorderIntermediatePoints() treats the intermediate with the lowest index as the
+    // newly added one, so the finish must exist before the intermediates are inserted
+    // one by one at index 0, each optimized against the points placed so far.
+    rm.AddRoutePoint(makeMark(m_routePoints.back(), RouteMarkType::Finish, 0), optimize);
+    for (size_t i = 1; i + 1 < count; ++i)
+      rm.AddRoutePoint(makeMark(m_routePoints[i], RouteMarkType::Intermediate, 0), optimize);
+  }
+  else
+  {
+    for (size_t i = 1; i + 1 < count; ++i)
+      rm.AddRoutePoint(makeMark(m_routePoints[i], RouteMarkType::Intermediate, i - 1), optimize);
+    rm.AddRoutePoint(makeMark(m_routePoints.back(), RouteMarkType::Finish, 0), optimize);
+  }
+
+  rm.BuildRoute(routing::RouterDelegate::kNoTimeout, m_startDirection);
 }
 
 std::string DebugPrint(ParsedMapApi::UrlType type)

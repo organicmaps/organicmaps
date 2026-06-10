@@ -21,7 +21,6 @@
 #include "kml/type_utils.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/localization.hpp"
-#include "routing/router.hpp"
 
 using namespace routing;
 
@@ -93,7 +92,6 @@ void FlushPendingRoutePointCallback()
 
 @property(nonatomic) uint32_t routeManagerTransactionId;
 @property(nonatomic) BOOL canAutoAddLastLocation;
-@property(nonatomic) BOOL isAPICall;
 @property(nonatomic) BOOL startNavigationAfterBuild;
 @property(nonatomic) BOOL isRestoreProcessCompleted;
 @property(strong, nonatomic) MWMRoutingOptions * routingOptions;
@@ -393,11 +391,6 @@ void FlushPendingRoutePointCallback()
 
 + (void)addPoint:(MWMRoutePoint *)point
 {
-  [self addPoint:point reorderIntermediatePoints:YES];
-}
-
-+ (void)addPoint:(MWMRoutePoint *)point reorderIntermediatePoints:(BOOL)reorderIntermediatePoints
-{
   if (!point)
   {
     NSAssert(NO, @"Point can not be nil");
@@ -405,7 +398,7 @@ void FlushPendingRoutePointCallback()
   }
 
   RouteMarkData pt = point.routeMarkData;
-  GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt), reorderIntermediatePoints);
+  GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt));
   [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
 }
 
@@ -450,52 +443,21 @@ void FlushPendingRoutePointCallback()
     [self rebuildWithBestRouter:bestRouter];
 }
 
-+ (void)buildApiRouteWithType:(MWMRouterType)type
-                   startPoint:(MWMRoutePoint *)startPoint
-           intermediatePoints:(NSArray<MWMRoutePoint *> *)intermediatePoints
-                  finishPoint:(MWMRoutePoint *)finishPoint
-          optimizeRoutePoints:(BOOL)optimizeRoutePoints
-         startRouteNavigation:(BOOL)startRouteNavigation
-               startDirection:(CGPoint)startDirection
++ (void)buildApiRouteWithType:(MWMRouterType)type startRouteNavigation:(BOOL)startRouteNavigation
 {
-  if (!startPoint || !finishPoint)
-    return;
-
-  [self removePoints];
-
   [MWMRouter setType:type];
 
-  auto router = [MWMRouter router];
   // The core sets the auto-start flag only for nav requests, which always route
-  // from the current position, so honor the parsed flag directly.
-  router.startNavigationAfterBuild = startRouteNavigation;
-  router.isAPICall = YES;
-  [self addPoint:startPoint reorderIntermediatePoints:optimizeRoutePoints];
-  if (optimizeRoutePoints)
-  {
-    // The optimizer needs a known finish before it predicts positions for
-    // intermediate points.
-    [self addPoint:finishPoint reorderIntermediatePoints:optimizeRoutePoints];
-    for (MWMRoutePoint * point in intermediatePoints)
-      [self addPoint:point reorderIntermediatePoints:optimizeRoutePoints];
-  }
-  else
-  {
-    for (MWMRoutePoint * point in intermediatePoints)
-      [self addPoint:point reorderIntermediatePoints:optimizeRoutePoints];
-    [self addPoint:finishPoint reorderIntermediatePoints:optimizeRoutePoints];
-  }
-  router.isAPICall = NO;
-
-  [self rebuildWithBestRouter:NO startDirection:startDirection];
+  // from the current position, so honor the parsed flag directly. Set it after
+  // setType:, whose stop path resets the flag.
+  [MWMRouter router].startNavigationAfterBuild = startRouteNavigation;
+  [[MWMMapViewControlsManager manager] onRouteRebuild];
+  // The core materializes the parsed itinerary as route points and starts the build.
+  GetFramework().ExecuteRouteApiRequest();
+  [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
 }
 
 + (void)rebuildWithBestRouter:(BOOL)bestRouter
-{
-  [self rebuildWithBestRouter:bestRouter startDirection:CGPointZero];
-}
-
-+ (void)rebuildWithBestRouter:(BOOL)bestRouter startDirection:(CGPoint)startDirection
 {
   auto & rm = GetFramework().GetRoutingManager();
   auto const & points = rm.GetRoutePoints();
@@ -510,7 +472,7 @@ void FlushPendingRoutePointCallback()
     self.type = routerType(rm.GetBestRouter(points.front().m_position, points.back().m_position));
 
   [[MWMMapViewControlsManager manager] onRouteRebuild];
-  rm.BuildRoute(routing::RouterDelegate::kNoTimeout, {startDirection.x, startDirection.y});
+  rm.BuildRoute();
 }
 
 + (NSURL *)callbackURLFromString:(NSString *)callbackString

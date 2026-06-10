@@ -178,7 +178,13 @@ public class Framework
 
   public static native void nativeCloseRouting();
 
-  public static native void nativeBuildRoute(double startDirectionX, double startDirectionY);
+  public static native void nativeBuildRoute();
+
+  /**
+   * Materializes the parsed route deep link as route points and starts the build in the
+   * core; the caller only drives UI state around it.
+   */
+  public static native void nativeExecuteRouteApiRequest();
 
   public static native void nativeRemoveRoute();
 
@@ -240,12 +246,6 @@ public class Framework
                                                 @NonNull RouteMarkType markType, int intermediateIndex,
                                                 boolean isMyPosition, double lat, double lon,
                                                 boolean reorderIntermediatePoints);
-
-  public static native void nativeAddRoutePoints(@NonNull String[] titles, @NonNull String[] subtitles,
-                                                 @NonNull String[] callbacks, @NonNull int[] pointTypes,
-                                                 @NonNull int[] intermediateIndices, @NonNull boolean[] isMyPositions,
-                                                 @NonNull double[] lats, @NonNull double[] lons,
-                                                 boolean reorderIntermediatePoints);
 
   public static native void nativeRemoveRoutePoints();
 

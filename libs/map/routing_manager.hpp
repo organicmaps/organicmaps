@@ -220,7 +220,6 @@ public:
   void GenerateNotifications(std::vector<std::string> & notifications, bool announceStreets);
 
   void AddRoutePoint(RouteMarkData && markData, bool reorderIntermediatePoints = true);
-  void AddRoutePoints(std::vector<RouteMarkData> && routePoints, bool reorderIntermediatePoints = true);
   void ContinueRouteToPoint(RouteMarkData && markData);
   std::vector<RouteMarkData> GetRoutePoints() const;
   void SetRoutePointCallback(RoutePointCallback && callback);
