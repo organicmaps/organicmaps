@@ -29,7 +29,7 @@ Optional parameters:
   `0` north, `90` east, `180` south, `270` west.
 - `waypoints=lat,lon|lat,lon|...` for intermediate stops in URL order.
 - `origin_name=...`, `destination_name=...`, `waypoint_names=name|name|...`.
-- `origin_callback=...`, `destination_callback=...`, `waypoint_callbacks=url|url|...` for caller-specific stop callbacks.
+- `destination_callback=...` and `waypoint_callbacks=url|url|...` for caller-specific stop callbacks.
   Organic Maps opens a stop callback when the corresponding route point is passed while the app is in the
   foreground. Stops passed while Organic Maps is in the background are deferred until it returns to the
   foreground, and only the most recent pending callback is opened then; delivery is best-effort, so make
@@ -46,6 +46,8 @@ the text `%7C` and is not treated as a separator.
 - `optimize=true` to allow Organic Maps to reorder intermediate stops; otherwise URL order is preserved.
 - `ref_name=...` for the calling app title (`appname` equivalent) and `callback=...` for a global return URL.
 - Future extension parameters such as `api=1`, `avoid=...`, `ref=...`, and `callback_label=...` are accepted without failing the whole route.
+  `origin_callback=...` is also reserved: it is parsed but not opened, because the route start is departed from,
+  never "passed" like a stop.
 
 Explicit-origin preview example:
 
