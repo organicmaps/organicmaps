@@ -505,15 +505,29 @@ public class RoutingController
     // from the current position, so honor the parsed flag directly.
     mStartNavigationAfterBuild = startNavigation;
     mContainsCachedResult = false;
+    // BUILDING must be set before the native call: a build that fails synchronously
+    // (e.g. NoCurrentPosition) reports through onRoutingEvent during the call and
+    // overwrites this state with ERROR.
+    setBuildState(BuildState.BUILDING);
+    mLastBuildProgress = 0;
+    mRouteSaved = false;
+    if (mContainer != null)
+      mContainer.onStartRouteBuilding();
 
     addRoutePoints(routePoints, callbacks, optimizeRoutePoints);
 
     if (mContainer != null)
       mContainer.updateMenu();
-
-    startPlanning(routePoints.get(0), routePoints.get(routePoints.size() - 1), startDirectionX, startDirectionY);
-    if (mContainer == null)
+    if (mContainer != null)
+    {
+      mContainer.updateMenu();
+      if (isPlanning())
+        startPlanning(routePoints.get(0), routePoints.get(routePoints.size() - 1), startDirectionX, startDirectionY);
+    }
+    else
+    {
       build(startDirectionX, startDirectionY);
+    }
   }
 
   public void start()
