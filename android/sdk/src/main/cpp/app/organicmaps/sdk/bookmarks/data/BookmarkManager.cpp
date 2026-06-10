@@ -316,11 +316,7 @@ JNIEXPORT jlong Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGe
 
 JNIEXPORT jint Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGetLastEditedColor(JNIEnv *, jobject)
 {
-  auto const color = frm()->LastEditedBMColor();
-  dp::Color const effective = kml::IsCustomBookmarkColor(color)
-                                ? dp::Color(color.m_rgba)
-                                : kml::ColorFromPredefinedColor(color.m_predefinedColor);
-  return static_cast<jint>(effective.GetARGB());
+  return static_cast<jint>(kml::GetEffectiveColor(frm()->LastEditedBMColor()).GetARGB());
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeLoadBookmarksFile(JNIEnv * env, jclass,
