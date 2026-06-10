@@ -372,7 +372,10 @@ private:
   std::vector<dp::DrapeID> m_drapeSubroutes;
   mutable std::mutex m_drapeSubroutesMutex;
   RoutePointCallback m_routePointCallback;
-  std::vector<std::string> m_pendingRoutePointCallbacks;
+  // Latest-only buffer for a stop callback emitted while no platform callback is
+  // attached: opening several caller apps in a row is pointless because only the
+  // last one would win the foreground, so older pending callbacks are dropped.
+  std::string m_pendingRoutePointCallback;
 
   std::unique_ptr<location::GpsInfo> m_gpsInfoCache;
 

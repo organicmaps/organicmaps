@@ -31,9 +31,10 @@ Optional parameters:
 - `origin_name=...`, `destination_name=...`, `waypoint_names=name|name|...`.
 - `origin_callback=...`, `destination_callback=...`, `waypoint_callbacks=url|url|...` for caller-specific stop callbacks.
   Organic Maps opens a stop callback when the corresponding route point is passed while the app is in the
-  foreground. A stop passed while Organic Maps is in the background is delivered the next time it returns to
-  the foreground; delivery is best-effort, so make callbacks idempotent and do not rely on every intermediate
-  stop opening when the app is not visible (for example on a locked screen).
+  foreground. Stops passed while Organic Maps is in the background are deferred until it returns to the
+  foreground, and only the most recent pending callback is opened then; delivery is best-effort, so make
+  callbacks idempotent and do not rely on every intermediate stop opening when the app is not visible
+  (for example on a locked screen).
   Stop callbacks are aligned to `waypoints` by position; supply fewer to leave later stops without a callback.
 
 The pipe-separated lists (`waypoints`, `waypoint_names`, `waypoint_callbacks`) accept either a literal `|` or its

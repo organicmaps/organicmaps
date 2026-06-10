@@ -445,7 +445,7 @@ void RoutingManager::OnRoutePointPassed(RouteMarkType type, size_t intermediateI
       if (m_routePointCallback)
         m_routePointCallback(callback);
       else
-        m_pendingRoutePointCallbacks.push_back(callback);
+        m_pendingRoutePointCallback = callback;
     }
   }
   routePoints.PassRoutePoint(type, intermediateIndex);
@@ -1069,13 +1069,14 @@ std::vector<RouteMarkData> RoutingManager::GetRoutePoints() const
 void RoutingManager::SetRoutePointCallback(RoutePointCallback && callback)
 {
   m_routePointCallback = std::move(callback);
-  if (!m_routePointCallback || m_pendingRoutePointCallbacks.empty())
+  if (!m_routePointCallback || m_pendingRoutePointCallback.empty())
     return;
 
-  std::vector<std::string> pendingCallbacks;
-  pendingCallbacks.swap(m_pendingRoutePointCallbacks);
-  for (auto const & pendingCallback : pendingCallbacks)
-    m_routePointCallback(pendingCallback);
+  // Swap the buffer out first: the callback runs platform code that may re-enter
+  // SetRoutePointCallback.
+  std::string pendingCallback;
+  pendingCallback.swap(m_pendingRoutePointCallback);
+  m_routePointCallback(pendingCallback);
 }
 
 std::vector<RouteMarkData> RoutingManager::DeserializeRoutePointsForTesting(std::string const & data)

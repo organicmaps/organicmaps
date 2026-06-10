@@ -51,7 +51,7 @@ protected:
   RoutingManager & m_manager;
 };
 
-UNIT_CLASS_TEST(RoutingManagerTest, FlushesPendingRoutePointCallbacksInOrder)
+UNIT_CLASS_TEST(RoutingManagerTest, FlushesLatestPendingRoutePointCallback)
 {
   m_manager.AddRoutePoint(MakePoint(RouteMarkType::Start, 1.0, 1.0), false /* reorderIntermediatePoints */);
   m_manager.AddRoutePoint(MakePoint(RouteMarkType::Intermediate, 1.5, 1.5, "app://stop", 0),
@@ -62,12 +62,17 @@ UNIT_CLASS_TEST(RoutingManagerTest, FlushesPendingRoutePointCallbacksInOrder)
   m_manager.OnRoutePointPassed(RouteMarkType::Intermediate, 0);
   m_manager.OnRoutePointPassed(RouteMarkType::Finish, 0);
 
+  // Only the most recent stop callback is kept while no platform callback is
+  // attached, and it is delivered exactly once.
   std::vector<std::string> callbacks;
   m_manager.SetRoutePointCallback([&callbacks](std::string const & callback) { callbacks.push_back(callback); });
 
-  TEST_EQUAL(callbacks.size(), 2, ());
-  TEST_EQUAL(callbacks[0], "app://stop", ());
-  TEST_EQUAL(callbacks[1], "app://finish", ());
+  TEST_EQUAL(callbacks.size(), 1, ());
+  TEST_EQUAL(callbacks[0], "app://finish", ());
+
+  callbacks.clear();
+  m_manager.SetRoutePointCallback([&callbacks](std::string const & callback) { callbacks.push_back(callback); });
+  TEST(callbacks.empty(), ());
 }
 
 UNIT_CLASS_TEST(RoutingManagerTest, AddsRoutePointsInBatch)
