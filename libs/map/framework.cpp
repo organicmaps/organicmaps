@@ -1690,12 +1690,13 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   }
 #endif
 
-  auto tileBackgroundReadFn = [this](df::TileKey const & tileKey, dp::BackgroundMode mode) -> void
+  auto tileBackgroundReadFn = [this](df::TileKey const & tileKey, dp::BackgroundMode mode) -> bool
   {
 #if DEBUG_BACKGROUND_TILE
     if (m_rasterTileProvider)
-      m_rasterTileProvider->RequestTile(tileKey, mode);
+      return m_rasterTileProvider->RequestTile(tileKey, mode);
 #endif
+    return false;
   };
 
   auto cancelTileBackgroundReadingFn = [this](df::TileKey const & tileKey, dp::BackgroundMode mode) -> void
