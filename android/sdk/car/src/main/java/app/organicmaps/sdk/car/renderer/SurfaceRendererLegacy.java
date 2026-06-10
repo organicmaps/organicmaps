@@ -90,7 +90,7 @@ final class SurfaceRendererLegacy extends RendererImpl
   }
 
   @Override
-  public void setSpeedLimit(int speedLimit, boolean speedLimitExceeded)
+  public void setSpeedLimit(int speedLimit, int currentSpeed)
   {
     // Not supported.
   }

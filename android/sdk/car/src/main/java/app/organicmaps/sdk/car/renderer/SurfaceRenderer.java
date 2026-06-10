@@ -2,6 +2,7 @@ package app.organicmaps.sdk.car.renderer;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.annotation.StyleRes;
 import androidx.car.app.CarContext;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.sdk.MapController;
@@ -20,14 +21,15 @@ final class SurfaceRenderer extends RendererImpl
   private final SurfaceCallback mSurfaceCallback;
 
   public SurfaceRenderer(@NonNull CarContext carContext, @NonNull DisplayManager displayManager,
-                         @NonNull LocationHelper locationHelper, @NonNull LifecycleOwner lifecycleOwner)
+                         @NonNull LocationHelper locationHelper, @StyleRes int speedLimitViewStyleRes,
+                         @NonNull LifecycleOwner lifecycleOwner)
   {
     super(carContext, displayManager, locationHelper, lifecycleOwner);
 
     mMapController = new MapController(new MapView(carContext, DisplayType.Car), locationHelper,
                                        getMapRenderingListener(), null, false);
     mLifecycleOwner.getLifecycle().addObserver(mMapController);
-    mSurfaceCallback = new SurfaceCallback(mCarContext, mMapController);
+    mSurfaceCallback = new SurfaceCallback(mCarContext, mMapController, speedLimitViewStyleRes);
     setSurfaceCallback(mSurfaceCallback);
   }
 
@@ -52,8 +54,8 @@ final class SurfaceRenderer extends RendererImpl
   }
 
   @Override
-  public void setSpeedLimit(int speedLimit, boolean speedLimitExceeded)
+  public void setSpeedLimit(int speedLimit, int currentSpeed)
   {
-    mSurfaceCallback.getSpeedLimitView().setSpeedLimit(speedLimit, speedLimitExceeded);
+    mSurfaceCallback.getSpeedLimitViewManager().setSpeed(speedLimit, currentSpeed);
   }
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+  <TextView
+      android:id="@+id/__current_speed_view_current_speed"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      app:layout_constraintVertical_weight="5"
+      android:gravity="bottom|center_horizontal"
+      android:textStyle="bold"
+      android:maxLines="1"
+      android:textColor="@color/__om_speed_limit_color_black"
+      app:layout_constraintBottom_toTopOf="@+id/__current_speed_view_units"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_chainStyle="spread"
+      tools:text="120" />
+
+  <TextView
+      android:id="@+id/__current_speed_view_units"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      app:layout_constraintVertical_weight="2"
+      android:maxLines="1"
+      android:gravity="top|center_horizontal"
+      android:textColor="@color/__om_speed_limit_color_black"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/__current_speed_view_current_speed"
+      app:layout_constraintVertical_chainStyle="spread"
+      tools:text="km/h" />
+</androidx.constraintlayout.widget.ConstraintLayout>

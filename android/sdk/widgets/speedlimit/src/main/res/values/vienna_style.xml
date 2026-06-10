@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="OMSpeedLimitView.Vienna" parent="OMSpeedLimitView">
+    <item name="om_speed_limit_view_shape">circle</item>
+
+    <item name="om_speed_limit_view_border_width_ratio">10%</item>
+
+    <!--  Normal mode  -->
+    <item name="om_speed_limit_view_background_color">@color/__om_speed_limit_color_white</item>
+    <item name="om_speed_limit_view_border_color">@color/__om_speed_limit_color_red</item>
+    <item name="om_speed_limit_view_text_color">@color/__om_speed_limit_color_black</item>
+
+    <!--  Warning mode  -->
+    <item name="om_speed_limit_view_warning_background_color">@color/__om_speed_limit_color_white</item>
+    <item name="om_speed_limit_view_warning_border_color">@color/__om_speed_limit_color_red</item>
+    <item name="om_speed_limit_view_warning_text_color">@color/__om_speed_limit_color_orange</item>
+
+    <!--  Alert mode  -->
+    <item name="om_speed_limit_view_alert_background_color">@color/__om_speed_limit_color_red</item>
+    <item name="om_speed_limit_view_alert_border_color">@color/__om_speed_limit_color_red</item>
+    <item name="om_speed_limit_view_alert_text_color">@color/__om_speed_limit_color_white</item>
+  </style>
+
+  <style name="OMSpeedCombinedView.Vienna" parent="OMSpeedCombinedView">
+    <item name="om_speed_combined_view_speed_limit">90</item>
+    <item name="om_speed_combined_view_current_speed">120</item>
+    <item name="om_speed_combined_view_current_speed_units">km/h</item>
+
+    <item name="om_speed_combined_view_speed_limit_style">@style/OMSpeedLimitView.Vienna</item>
+
+    <item name="om_speed_combined_view_shape">circle</item>
+
+    <item name="om_speed_combined_view_mode">normal</item>
+
+    <item name="om_speed_combined_view_border_width">4dp</item>
+
+    <item name="om_speed_combined_view_background_color">@color/__om_speed_limit_color_white</item>
+    <item name="om_speed_combined_view_text_color">@color/__om_speed_limit_color_black</item>
+
+    <item name="om_speed_combined_view_warning_background_color">@color/__om_speed_limit_color_white</item>
+    <item name="om_speed_combined_view_warning_text_color">@color/__om_speed_limit_color_orange</item>
+
+    <item name="om_speed_combined_view_alert_background_color">@color/__om_speed_limit_color_white</item>
+    <item name="om_speed_combined_view_alert_text_color">@color/__om_speed_limit_color_red</item>
+  </style>
+</resources>

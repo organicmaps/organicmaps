@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <declare-styleable name="OMSpeedLimitView">
+    <attr name="om_speed_limit_view_value" format="integer" />
+
+    <attr name="om_speed_limit_view_shape" format="enum">
+      <enum name="circle" value="0" />
+      <enum name="square" value="1" />
+    </attr>
+
+    <attr name="om_speed_limit_view_mode" format="enum">
+      <enum name="normal" value="0" />
+      <enum name="warning" value="1" />
+      <enum name="alert" value="2" />
+    </attr>
+
+    <attr name="om_speed_limit_view_border_width_ratio" format="fraction" />
+
+    <!--  Only for square shape  -->
+    <attr name="om_speed_limit_view_corner_radius_ratio" format="fraction" />
+
+    <!--  Normal mode  -->
+    <attr name="om_speed_limit_view_background_color" format="color" />
+    <attr name="om_speed_limit_view_border_color" format="color" />
+    <attr name="om_speed_limit_view_text_color" format="color" />
+
+    <!--  Warning mode  -->
+    <attr name="om_speed_limit_view_warning_background_color" format="color" />
+    <attr name="om_speed_limit_view_warning_border_color" format="color" />
+    <attr name="om_speed_limit_view_warning_text_color" format="color" />
+
+    <!--  Alert mode  -->
+    <attr name="om_speed_limit_view_alert_background_color" format="color" />
+    <attr name="om_speed_limit_view_alert_border_color" format="color" />
+    <attr name="om_speed_limit_view_alert_text_color" format="color" />
+  </declare-styleable>
+</resources>

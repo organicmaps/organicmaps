@@ -70,7 +70,8 @@ public abstract class CarAppSessionBase
   {
     Logger.d(TAG);
     mSurfaceRenderer =
-        RendererFactory.create(getCarContext(), mDisplayManager, mOrganicMapsContext.getLocationHelper(), owner);
+        RendererFactory.create(getCarContext(), mDisplayManager, mOrganicMapsContext.getLocationHelper(),
+                               app.organicmaps.sdk.widgets.speedlimit.R.style.OMSpeedLimitView_Vienna, owner);
     mSensorsManager = new CarSensorsManager(getCarContext(), mOrganicMapsContext.getSensorHelper(),
                                             mOrganicMapsContext.getLocationHelper());
   }
