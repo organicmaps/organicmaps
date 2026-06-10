@@ -41,8 +41,6 @@ import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.Utils;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.util.ArrayDeque;
-import java.util.Queue;
 
 public class MwmApplication extends Application implements Application.ActivityLifecycleCallbacks
 {
@@ -60,8 +58,11 @@ public class MwmApplication extends Application implements Application.ActivityL
   @Nullable
   private WeakReference<Activity> mTopActivity;
 
-  @NonNull
-  private final Queue<String> mPendingRoutePointCallbacks = new ArrayDeque<>();
+  // Latest-only buffer for a stop callback that arrived while no activity was
+  // visible: opening several caller apps in a row is pointless because only the
+  // last one would win the foreground, so older pending callbacks are dropped.
+  @Nullable
+  private String mPendingRoutePointCallback;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -162,8 +163,8 @@ public class MwmApplication extends Application implements Application.ActivityL
     final Activity topActivity = getTopActivity();
     if (topActivity == null)
     {
-      Logger.w(TAG, "Route point callback is queued because no activity is visible");
-      mPendingRoutePointCallbacks.add(callback);
+      Logger.w(TAG, "Route point callback is deferred because no activity is visible");
+      mPendingRoutePointCallback = callback;
       return;
     }
 
@@ -177,13 +178,14 @@ public class MwmApplication extends Application implements Application.ActivityL
       ((MwmActivity) activity).skipParsedBackUrlOnNextStop();
   }
 
-  private void flushPendingRoutePointCallbacks(@NonNull Activity activity)
+  private void flushPendingRoutePointCallback(@NonNull Activity activity)
   {
-    // Stops passed while no activity was visible are delivered here in order. If
-    // several queued up, each opens its caller URL in turn; only the last launch
-    // wins the foreground, so intermediate stop callbacks may be missed.
-    while (!mPendingRoutePointCallbacks.isEmpty())
-      openRoutePointCallback(activity, mPendingRoutePointCallbacks.remove());
+    if (mPendingRoutePointCallback == null)
+      return;
+
+    final String callback = mPendingRoutePointCallback;
+    mPendingRoutePointCallback = null;
+    openRoutePointCallback(activity, callback);
   }
 
   private final LifecycleObserver mProcessLifecycleObserver = new DefaultLifecycleObserver() {
@@ -215,7 +217,7 @@ public class MwmApplication extends Application implements Application.ActivityL
     Utils.showOnLockScreen(Config.isShowOnLockScreenEnabled(), activity);
     getSensorHelper().setRotation(activity.getWindowManager().getDefaultDisplay().getRotation());
     mTopActivity = new WeakReference<>(activity);
-    flushPendingRoutePointCallbacks(activity);
+    flushPendingRoutePointCallback(activity);
   }
 
   @Override

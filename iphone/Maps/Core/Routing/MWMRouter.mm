@@ -42,16 +42,42 @@ NSURL * RoutePointCallbackURL(NSString * callbackString)
   return encoded ? [NSURL URLWithString:encoded] : nil;
 }
 
+// Latest-only buffer for a stop callback that arrived while the app was not active:
+// iOS ignores openURL from a backgrounded app, and opening several caller apps in a
+// row is pointless because only the last one would win the foreground.
+NSString * pendingRoutePointCallback = nil;
+
+void OpenRoutePointCallbackNow(NSString * callbackString)
+{
+  NSURL * url = RoutePointCallbackURL(callbackString);
+  if (!url)
+    return;
+
+  [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+}
+
 void OpenRoutePointCallback(std::string const & callback)
 {
   NSString * callbackString = @(callback.c_str());
   dispatch_async(dispatch_get_main_queue(), ^{
-    NSURL * url = RoutePointCallbackURL(callbackString);
-    if (!url)
+    if (UIApplication.sharedApplication.applicationState != UIApplicationStateActive)
+    {
+      pendingRoutePointCallback = callbackString;
       return;
+    }
 
-    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+    OpenRoutePointCallbackNow(callbackString);
   });
+}
+
+void FlushPendingRoutePointCallback()
+{
+  if (!pendingRoutePointCallback)
+    return;
+
+  NSString * callbackString = pendingRoutePointCallback;
+  pendingRoutePointCallback = nil;
+  OpenRoutePointCallbackNow(callbackString);
 }
 }  // namespace
 
@@ -219,6 +245,10 @@ void OpenRoutePointCallback(std::string const & callback)
     _routingOptions = [MWMRoutingOptions new];
     _isRestoreProcessCompleted = NO;
     GetFramework().GetRoutingManager().SetRoutePointCallback(&OpenRoutePointCallback);
+    [NSNotificationCenter.defaultCenter addObserverForName:UIApplicationDidBecomeActiveNotification
+                                                    object:nil
+                                                     queue:NSOperationQueue.mainQueue
+                                                usingBlock:^(NSNotification *) { FlushPendingRoutePointCallback(); }];
   }
   return self;
 }
