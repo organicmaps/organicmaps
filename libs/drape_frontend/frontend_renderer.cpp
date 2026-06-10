@@ -2375,7 +2375,7 @@ TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
   { return group->GetTileKey().m_zoomLevel != GetCurrentZoom(); });
 
   m_trafficRenderer->OnUpdateViewport(result, GetCurrentZoom(), tilesToDelete);
-  m_tileBackgroundRenderer->OnUpdateViewport(m_context, result, GetCurrentZoom(), tilesToDelete);
+  m_tileBackgroundRenderer->OnUpdateViewport(m_context, result, GetCurrentZoom());
 
 #if defined(DRAPE_MEASURER_BENCHMARK) && defined(GENERATING_STATISTIC)
   DrapeMeasurer::Instance().StartScenePreparing();

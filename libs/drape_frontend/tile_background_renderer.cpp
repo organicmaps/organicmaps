@@ -12,6 +12,15 @@ namespace
 {
 // Max number of refcount==0 images kept alive in the LRU before their texture slots are recycled.
 constexpr size_t kMaxUnreferencedImages = 16;
+
+// A tile is "wanted" iff it is in the current coverage rect at the current zoom. Background tiles
+// are keyed solely by (x, y, zoom) — there is no generation — so the viewport coverage is the single
+// source of truth; we don't consult the vector pipeline's |tilesToDelete|.
+bool IsInCoverage(TileKey const & tileKey, CoverageResult const & coverage, int currentZoomLevel)
+{
+  return static_cast<int>(tileKey.m_zoomLevel) == currentZoomLevel && tileKey.m_x >= coverage.m_minTileX &&
+         tileKey.m_x < coverage.m_maxTileX && tileKey.m_y >= coverage.m_minTileY && tileKey.m_y < coverage.m_maxTileY;
+}
 }  // namespace
 
 TileBackgroundRenderer::TileBackgroundRenderer(
@@ -37,7 +46,7 @@ TileBackgroundRenderer::TileBackgroundRenderer(
 }
 
 void TileBackgroundRenderer::OnUpdateViewport(ref_ptr<dp::GraphicsContext> context, CoverageResult const & coverage,
-                                              int currentZoomLevel, buffer_vector<TileKey, 8> const & tilesToDelete)
+                                              int currentZoomLevel)
 {
   m_lastCoverage = coverage;
   m_lastCurrentZoomLevel = currentZoomLevel;
@@ -47,12 +56,32 @@ void TileBackgroundRenderer::OnUpdateViewport(ref_ptr<dp::GraphicsContext> conte
   if (context == nullptr)
     return;
 
-  // Cancel awaiting tile background reading requests for deleted tiles, drop their bindings.
-  for (auto const & tileKey : tilesToDelete)
+  // Keep background state tied to the current viewport. Sweep both awaiting reads and live bindings
+  // so tiles that scrolled out of the coverage are cancelled / released (their image refcounts fall
+  // back into the unreferenced LRU), regardless of how the viewport changed.
+  for (auto it = m_awaitingTiles.begin(); it != m_awaitingTiles.end();)
   {
-    if (m_awaitingTiles.erase(tileKey) > 0)
-      m_cancelTileBackgroundReadingFn(tileKey, m_currentMode);
+    if (IsInCoverage(*it, coverage, currentZoomLevel))
+    {
+      ++it;
+      continue;
+    }
 
+    TileKey const tileKey = *it;
+    it = m_awaitingTiles.erase(it);
+    m_cancelTileBackgroundReadingFn(tileKey, m_currentMode);
+  }
+
+  for (auto it = m_tiles.begin(); it != m_tiles.end();)
+  {
+    if (IsInCoverage(it->first, coverage, currentZoomLevel))
+    {
+      ++it;
+      continue;
+    }
+
+    TileKey const tileKey = it->first;
+    ++it;
     ReleaseTileBinding(context, tileKey);
   }
 
@@ -122,8 +151,10 @@ void TileBackgroundRenderer::SetTileBackgroundData(ref_ptr<dp::GraphicsContext> 
 
   m_awaitingTiles.erase(tileKey);
 
-  // Tile zoom level mismatch — bail out without touching the image.
-  if (tileKey.m_zoomLevel != m_lastCurrentZoomLevel)
+  // The provider is asynchronous: a placeholder/final result may arrive after the tile was swept
+  // from the viewport. Use the same visible-tile predicate as the viewport update (it also covers
+  // the zoom check) so clipped tiles are not resurrected after cancellation.
+  if (!IsInCoverage(tileKey, m_lastCoverage, m_lastCurrentZoomLevel))
     return;
 
   auto imageIt = m_images.find(imageUid);
@@ -335,7 +366,7 @@ void TileBackgroundRenderer::SetBackgroundMode(ref_ptr<dp::GraphicsContext> cont
   ClearContextDependentResources(context);
 
   if (m_currentMode != dp::BackgroundMode::Default)
-    OnUpdateViewport(context, m_lastCoverage, m_lastCurrentZoomLevel, {});
+    OnUpdateViewport(context, m_lastCoverage, m_lastCurrentZoomLevel);
 }
 
 dp::BackgroundMode TileBackgroundRenderer::GetBackgroundMode() const
