@@ -1,48 +1,36 @@
-enum PlacePagePopupSelectorTitle {
-  case string(String)
-  case attributed(NSAttributedString)
-}
-
-struct PlacePagePopupSelectorRowViewModel {
-  let title: PlacePagePopupSelectorTitle
-  let backgroundColor: UIColor?
-  let isSelected: Bool
-  let selectionHandler: () -> Void
-}
-
-final class PlacePagePopupSelectorViewModel {
-  private let rows: [PlacePagePopupSelectorRowViewModel]
-
-  init(rows: [PlacePagePopupSelectorRowViewModel]) {
-    self.rows = rows
-  }
-
-  var numberOfRows: Int {
-    rows.count
-  }
-
-  func row(at indexPath: IndexPath) -> PlacePagePopupSelectorRowViewModel {
-    rows[indexPath.row]
-  }
-
-  func selectRow(at indexPath: IndexPath) {
-    rows[indexPath.row].selectionHandler()
-  }
-}
-
-final class PopoverSelectorViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
+final class PopoverListSelectorViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
   private enum Constants {
     static let rowHeight: CGFloat = 48
     static let maxPopoverWidth: CGFloat = 500
     static let horizontalScreenInset: CGFloat = 12
     static let backgroundColorAlpha: CGFloat = 0.25
     static let cellVerticalInset: CGFloat = 2.0
+    static let iconSize: CGFloat = 14
   }
 
-  private let dataSource: PlacePagePopupSelectorViewModel
+  enum Style {
+    case background
+    case icon
+  }
 
-  init(viewModel: PlacePagePopupSelectorViewModel) {
-    dataSource = viewModel
+  struct RowViewModel {
+    enum Title {
+      case string(String)
+      case attributed(NSAttributedString)
+    }
+
+    let title: Title
+    let color: UIColor?
+    let isSelected: Bool
+    let selectionHandler: () -> Void
+  }
+
+  private let dataSource: [RowViewModel]
+  private let style: Style
+
+  init(_ dataSource: [RowViewModel], style: Style = .background) {
+    self.dataSource = dataSource
+    self.style = style
     super.init(style: .plain)
   }
 
@@ -58,22 +46,22 @@ final class PopoverSelectorViewController: UITableViewController, UIPopoverPrese
     tableView.rowHeight = Constants.rowHeight
     tableView.separatorStyle = .none
     preferredContentSize = CGSize(width: popoverWidth,
-                                  height: CGFloat(dataSource.numberOfRows) * Constants.rowHeight)
+                                  height: CGFloat(dataSource.count) * Constants.rowHeight)
   }
 
   override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-    dataSource.numberOfRows
+    dataSource.count
   }
 
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(cell: UITableViewCell.self, indexPath: indexPath)
-    configureCell(cell, with: dataSource.row(at: indexPath))
+    configureCell(cell, with: dataSource[indexPath.row])
     return cell
   }
 
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
-    dataSource.selectRow(at: indexPath)
+    dataSource[indexPath.row].selectionHandler()
   }
 
   func adaptivePresentationStyle(for _: UIPresentationController) -> UIModalPresentationStyle {
@@ -81,11 +69,13 @@ final class PopoverSelectorViewController: UITableViewController, UIPopoverPrese
   }
 
   private var popoverWidth: CGFloat {
-    let screenWidth = UIApplication.shared.activeKeyWindow?.frame.width ?? 0
+    guard let screenWidth = UIApplication.shared.activeKeyWindow?.frame.width else {
+      return Constants.maxPopoverWidth
+    }
     return min(screenWidth - Constants.horizontalScreenInset * 2, Constants.maxPopoverWidth)
   }
 
-  private func configureCell(_ cell: UITableViewCell, with row: PlacePagePopupSelectorRowViewModel) {
+  private func configureCell(_ cell: UITableViewCell, with row: RowViewModel) {
     var content = cell.defaultContentConfiguration()
     switch row.title {
     case .string(let title):
@@ -98,12 +88,19 @@ final class PopoverSelectorViewController: UITableViewController, UIPopoverPrese
     content.textProperties.numberOfLines = 3
     content.directionalLayoutMargins.top = Constants.cellVerticalInset
     content.directionalLayoutMargins.bottom = Constants.cellVerticalInset
+    if style == .icon, let iconColor = row.color {
+      content.image = circleImageForColor(iconColor,
+                                          frameSize: Constants.iconSize,
+                                          diameter: Constants.iconSize)
+    }
 
-    cell.setStyle(.customTableViewCell)
+    cell.setStyle(.noStyleTableViewCell)
     cell.contentConfiguration = content
     cell.accessoryType = row.isSelected ? .checkmark : .none
     cell.tintColor = .linkBlue
-    cell.backgroundColor = row.backgroundColor?.withAlphaComponent(Constants.backgroundColorAlpha) ?? .clear
+    cell.backgroundColor = style == .background
+      ? row.color?.withAlphaComponent(Constants.backgroundColorAlpha) ?? .clear
+      : .clear
     cell.contentView.backgroundColor = .clear
   }
 }
