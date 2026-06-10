@@ -38,8 +38,7 @@ public:
 
   void ClearContextDependentResources(ref_ptr<dp::GraphicsContext> context);
 
-  void OnUpdateViewport(ref_ptr<dp::GraphicsContext> context, CoverageResult const & coverage, int currentZoomLevel,
-                        buffer_vector<TileKey, 8> const & tilesToDelete);
+  void OnUpdateViewport(ref_ptr<dp::GraphicsContext> context, CoverageResult const & coverage, int currentZoomLevel);
 
   // Registers an image (uploaded by the backend) with the given uid. The image starts unreferenced;
   // it lives in the unreferenced LRU until SetTileBackgroundData binds it to a tile.
