@@ -75,9 +75,6 @@ public class SearchFragmentController extends Fragment implements SearchFragment
       {
         if (mPlacePageViewModel.getMapObject().getValue() != null && !mViewModel.isHiddenByPlacePage())
           mPlacePageViewModel.setMapObject(null);
-        SearchRequest request = mViewModel.getPendingRequest();
-        if (request != null && request.mode == SearchRequest.Mode.MAP_ONLY)
-          return; // map-only search: don't open or restore the sheet
         if (mViewModel.isHiddenByPlacePage())
           return; // hidden behind the place page (e.g. after recreation); restored when it closes
         Integer lastState = mViewModel.getSearchPageLastState().getValue();

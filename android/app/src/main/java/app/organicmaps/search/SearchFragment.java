@@ -111,7 +111,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       stopSearch();
 
       // setQuery() fires the text watcher, which runs the search synchronously; runSearch() consumes
-      // the pending request (locale/mode). When the query already matches the toolbar the watcher
+      // the pending request (locale). When the query already matches the toolbar the watcher
       // won't fire, so run it directly.
       if (query.equals(getQuery()))
         runSearch();
@@ -496,27 +496,20 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     }
 
     final SearchRequest request = mSearchViewModel.getPendingRequest();
-    // Locale and map-only mode apply only to this initial query; consume the request so later manual
-    // edits fall back to the keyboard locale and the default map+table search.
+    // Locale applies only to this initial query; consume the request so later manual edits fall
+    // back to the keyboard locale.
     String locale =
         (request != null && request.locale != null) ? request.locale : Language.getKeyboardLocale(requireContext());
-    boolean isSearchOnMap = request != null && request.mode == SearchRequest.Mode.MAP_ONLY;
     mSearchViewModel.clearPendingRequest();
 
     SearchEngine.INSTANCE.setQuery(getQuery());
-    boolean started =
-        SearchEngine.INSTANCE.searchInteractive(getQuery(), isCategory(), locale, mLastQueryTimestamp,
-                                                !isSearchOnMap /* isMapAndTable */, hasLocation, lat, lon);
+    boolean started = SearchEngine.INSTANCE.searchInteractive(getQuery(), isCategory(), locale, mLastQueryTimestamp,
+                                                              true /* isMapAndTable */, hasLocation, lat, lon);
     if (!started)
     {
       stopSearch();
       return;
     }
-
-    // A map-only (viewport) search places results on the map but delivers no list results, so there
-    // is no list loading UI to drive here — showing the progress/shimmer would never be cleared.
-    if (isSearchOnMap)
-      return;
 
     mSearchRunning = true;
     mToolbarController.showProgress(true);

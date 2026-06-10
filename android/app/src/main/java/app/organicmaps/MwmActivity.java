@@ -108,6 +108,7 @@ import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.sdk.settings.RoadType;
 import app.organicmaps.sdk.settings.UnitLocale;
 import app.organicmaps.sdk.util.Config;
+import app.organicmaps.sdk.util.Language;
 import app.organicmaps.sdk.util.PowerManagment;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.log.Logger;
@@ -438,11 +439,33 @@ public class MwmActivity extends BaseMwmFragmentActivity
     showSearch(query, null, false);
   }
 
-  // used by deep links, e.g. from the search widget
+  // Entry point for deep links (om://search, geo://, Google Assistant). isSearchOnMap=true runs a
+  // viewport-only search that drops result pins on the map without opening the sheet; otherwise the
+  // sheet is opened via the ViewModel.
   public void showSearch(String query, @Nullable String locale, boolean isSearchOnMap)
   {
-    final SearchRequest.Mode mode = isSearchOnMap ? SearchRequest.Mode.MAP_ONLY : SearchRequest.Mode.SHEET;
-    mSearchPageViewModel.setSearchEnabled(true, new SearchRequest(query, locale, mode));
+    if (isSearchOnMap)
+    {
+      runViewportOnlySearch(query, locale);
+      return;
+    }
+    mSearchPageViewModel.setSearchEnabled(true, new SearchRequest(query, locale));
+  }
+
+  private void runViewportOnlySearch(@NonNull String query, @Nullable String locale)
+  {
+    // Match the pre-refactor flow: clear any prior interactive search + API points before starting.
+    SearchEngine.INSTANCE.cancel();
+
+    final String lang = locale != null ? locale : Language.getKeyboardLocale(this);
+    final Location loc = MwmApplication.from(this).getLocationHelper().getSavedLocation();
+    final boolean hasLocation = loc != null;
+    final double lat = hasLocation ? loc.getLatitude() : 0;
+    final double lon = hasLocation ? loc.getLongitude() : 0;
+
+    SearchEngine.INSTANCE.setQuery(query);
+    SearchEngine.INSTANCE.searchInteractive(query, false /* isCategory */, lang, System.nanoTime(),
+                                            false /* isMapAndTable */, hasLocation, lat, lon);
   }
 
   public void showEditor()
@@ -1219,10 +1242,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if ((mPanelAnimator != null && mPanelAnimator.isVisible())
         || mSearchPageViewModel.getSearchEnabled().getValue() == Boolean.TRUE)
-      return;
-
-    Boolean searchEnabled = mSearchPageViewModel.getSearchEnabled().getValue();
-    if (searchEnabled != null && searchEnabled)
       return;
 
     if (isFullscreen())
