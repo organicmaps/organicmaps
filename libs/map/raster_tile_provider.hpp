@@ -57,7 +57,7 @@ public:
 
   // Called on the render thread for every newly visible tile. Non-blocking: schedules the
   // fetch/decode on the Network thread pool.
-  void RequestTile(df::TileKey const & tileKey, dp::BackgroundMode mode);
+  bool RequestTile(df::TileKey const & tileKey, dp::BackgroundMode mode);
 
   // Called on the render thread when a tile scrolls out of view; drops a not-yet-delivered
   // request so it is neither bound nor uploaded once it finishes.
