@@ -1333,6 +1333,7 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec, m2::PointD const & startDir
     if (!myPosition.HasPosition())
     {
       CallRouteBuilded(RouterResultCode::NoCurrentPosition, storage::CountriesSet());
+      CloseRouting(false /* remove route points */);
       return;
     }
     p.m_position = myPosition.GetPivot();
