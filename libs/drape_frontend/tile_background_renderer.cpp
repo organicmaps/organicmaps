@@ -62,13 +62,18 @@ void TileBackgroundRenderer::OnUpdateViewport(ref_ptr<dp::GraphicsContext> conte
   // The image cache (m_images / unreferenced LRU) is keyed by image uid, which the caller controls,
   // so we always defer the cache check to the read function side: if the image is still alive, the
   // backend's AssignTileBackgroundImage path will dedupe it.
+  //
+  // Mark a tile as awaiting only after the provider accepts the request. Providers may decline
+  // synchronously (unsupported zoom, outside coverage, or failed task posting). If such tiles were
+  // inserted into m_awaitingTiles, they would stay there forever because no result or cancellation
+  // callback will arrive to erase them.
   for (int x = coverage.m_minTileX; x < coverage.m_maxTileX; ++x)
   {
     for (int y = coverage.m_minTileY; y < coverage.m_maxTileY; ++y)
     {
       TileKey const key(x, y, static_cast<uint8_t>(currentZoomLevel));
-      if (m_tiles.count(key) == 0 && m_awaitingTiles.insert(key).second)
-        m_tileBackgroundReadFn(key, m_currentMode);
+      if (m_tiles.count(key) == 0 && m_awaitingTiles.count(key) == 0 && m_tileBackgroundReadFn(key, m_currentMode))
+        m_awaitingTiles.insert(key);
     }
   }
 }

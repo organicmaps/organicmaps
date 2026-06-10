@@ -89,8 +89,7 @@ void PutPixel(std::vector<uint8_t> & img, int size, int x, int y, uint8_t r, uin
 }
 
 // Builds a square RGBA8 placeholder: a translucent colored fill with centered, upscaled white text.
-std::vector<uint8_t> MakePlaceholder(std::string const & text, int size, uint8_t br, uint8_t bg, uint8_t bb,
-                                     uint8_t ba)
+std::vector<uint8_t> MakePlaceholder(std::string const & text, int size, uint8_t br, uint8_t bg, uint8_t bb, uint8_t ba)
 {
   std::vector<uint8_t> img(size * size * 4);
   for (int i = 0; i < size * size; ++i)
@@ -256,11 +255,11 @@ RasterTileProvider::SourceTile RasterTileProvider::ToSourceTile(df::TileKey cons
   return src;
 }
 
-void RasterTileProvider::RequestTile(df::TileKey const & tileKey, dp::BackgroundMode mode)
+bool RasterTileProvider::RequestTile(df::TileKey const & tileKey, dp::BackgroundMode mode)
 {
   SourceTile const src = ToSourceTile(tileKey);
   if (!src.m_valid)
-    return;
+    return false;
 
   // Skip tiles that don't intersect the configured coverage box. Use the wrapped rect: extended
   // world copies past the antimeridian have lon outside [-180, 180] and would fail the box test
@@ -268,12 +267,12 @@ void RasterTileProvider::RequestTile(df::TileKey const & tileKey, dp::Background
   m2::RectD const ll = mercator::ToLatLon(tileKey.GetWrappedDataRect());
   if (ll.maxX() < m_params.m_minLon || ll.minX() > m_params.m_maxLon || ll.maxY() < m_params.m_minLat ||
       ll.minY() > m_params.m_maxLat)
-    return;
+    return false;
 
   {
     std::lock_guard<std::mutex> lock(m_mutex);
     if (!m_active.insert(tileKey).second)
-      return;  // already in flight
+      return true;  // already in flight
   }
 
   std::string const url = SubstituteZXY(m_params.m_urlTemplate, src.m_z, src.m_x, src.m_y);
@@ -287,7 +286,11 @@ void RasterTileProvider::RequestTile(df::TileKey const & tileKey, dp::Background
 
   // Disk cache read (and stb decode) runs on the File thread; on a miss the HTTP request is fully
   // async (see StartDownload), so no worker thread is ever parked waiting on the network.
-  GetPlatform().RunTask(Platform::Thread::File, [this, tileKey, mode, url, uid, cachePath, rect = src.m_rect]()
+  // Returning true from this method means the renderer may put tileKey into its awaiting set. That
+  // is safe only if the task was actually posted: a later !IsActive() inside the task means the tile
+  // was cancelled meanwhile, but a failed post means nothing can ever deliver or be cancelled.
+  auto const posted =
+      GetPlatform().RunTask(Platform::Thread::File, [this, tileKey, mode, url, uid, cachePath, rect = src.m_rect]()
   {
     if (!IsActive(tileKey))
       return;
@@ -305,6 +308,14 @@ void RasterTileProvider::RequestTile(df::TileKey const & tileKey, dp::Background
     DeliverPlaceholder(tileKey, mode, Status::Downloading);
     StartDownload(tileKey, mode, url, uid, cachePath, rect);
   });
+
+  if (!posted.m_isSuccess)
+  {
+    DropActive(tileKey);
+    return false;
+  }
+
+  return true;
 }
 
 void RasterTileProvider::StartDownload(df::TileKey const & tileKey, dp::BackgroundMode mode, std::string const & url,
