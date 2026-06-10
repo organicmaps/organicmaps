@@ -71,6 +71,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   private TabAdapter mTabAdapter;
   @Nullable
   private ViewPager mPager;
+  private TabLayout mTabLayout;
   @Nullable
   private WindowInsetsCompat mLastKnownInsets = null;
 
@@ -132,6 +133,10 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     {
       if (state == null)
         return;
+
+      // The sheet just became visible — instantiate the History/Categories pager lazily.
+      if (state != BottomSheetBehavior.STATE_HIDDEN)
+        setupTabsIfNeeded();
 
       if (state != BottomSheetBehavior.STATE_EXPANDED)
         mToolbarController.deactivate();
@@ -266,7 +271,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     mPager = pager;
 
     mToolbarController = new ToolbarController(view);
-    TabLayout tabLayout = root.findViewById(R.id.tabs);
+    mTabLayout = root.findViewById(R.id.tabs);
     mTabFrame = root.findViewById(R.id.tab_frame);
     mResultsFrame = root.findViewById(R.id.results_frame);
     mResults = mResultsFrame.findViewById(R.id.recycler);
@@ -322,12 +327,27 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     mSearchViewModel.getSearchPageLastState().observe(getViewLifecycleOwner(), mBottomSheetStateObserver);
 
     if (Config.isSearchHistoryEnabled())
-      tabLayout.setVisibility(View.VISIBLE);
+      mTabLayout.setVisibility(View.VISIBLE);
     else
-      tabLayout.setVisibility(View.GONE);
+      mTabLayout.setVisibility(View.GONE);
     mAppBar = root.findViewById(R.id.app_bar);
 
-    final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, tabLayout);
+    updateFrames();
+    SearchEngine.INSTANCE.addListener(this);
+
+    // Pre-warm tabs after the activity's critical path so the first sheet open is instant.
+    // Idempotent — if the sheet opens before the post runs, setupTabsIfNeeded() fires from the
+    // bottom-sheet observer instead and this no-ops.
+    view.post(this::setupTabsIfNeeded);
+  }
+
+  private void setupTabsIfNeeded()
+  {
+    if (mTabAdapter != null || mPager == null || getView() == null)
+      return;
+
+    final ViewPager pager = mPager;
+    final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, mTabLayout);
     mTabAdapter = tabAdapter;
     pager.setOffscreenPageLimit(tabAdapter.getCount());
     pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -338,11 +358,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       }
     });
 
-    updateFrames();
-    SearchEngine.INSTANCE.addListener(this);
-
-    SharedPreferences preferences = MwmApplication.prefs(requireContext());
-    int lastSelectedTabPosition = preferences.getInt(Config.KEY_PREF_LAST_SEARCHED_TAB, 0);
+    final SharedPreferences preferences = MwmApplication.prefs(requireContext());
+    final int lastSelectedTabPosition = preferences.getInt(Config.KEY_PREF_LAST_SEARCHED_TAB, 0);
     if (SearchRecents.getSize() == 0 && Config.isSearchHistoryEnabled())
       pager.setCurrentItem(lastSelectedTabPosition);
 
@@ -351,6 +368,10 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       mSearchViewModel.notifyHistoryChanged();
     });
     pager.post(() -> updateNestedScrollingForTab(tabAdapter, pager.getCurrentItem()));
+
+    // The tab fragments missed the initial inset dispatch — replay it now.
+    if (mLastKnownInsets != null)
+      dispatchInsetsToTabFragments(mLastKnownInsets);
   }
 
   @Override
