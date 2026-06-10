@@ -45,12 +45,7 @@ public class SearchToolbarController extends ToolbarController implements View.O
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count)
     {
-      // Reset category flag when user manually types/edits the query
-      mFromCategory = false;
-      final boolean isEmpty = TextUtils.isEmpty(s);
-      mBackPressedCallback.setEnabled(!isEmpty);
-      updateViewsVisibility(isEmpty);
-      SearchToolbarController.this.onTextChanged(s.toString());
+      onQueryChanged(s, true);
     }
   };
 
@@ -91,6 +86,16 @@ public class SearchToolbarController extends ToolbarController implements View.O
   {
     UiUtils.showIf(showBackButton(), mBack);
     UiUtils.showIf(supportsVoiceSearch() && queryEmpty && mVoiceInputSupported, mVoiceInput);
+  }
+
+  private void onQueryChanged(@Nullable CharSequence s, boolean resetCategoryFlag)
+  {
+    if (resetCategoryFlag)
+      mFromCategory = false;
+    final boolean isEmpty = TextUtils.isEmpty(s);
+    mBackPressedCallback.setEnabled(!isEmpty);
+    updateViewsVisibility(isEmpty);
+    onTextChanged(s == null ? "" : s.toString());
   }
 
   protected boolean showBackButton()
@@ -155,9 +160,12 @@ public class SearchToolbarController extends ToolbarController implements View.O
   public void setQuery(CharSequence query, boolean fromCategory)
   {
     mFromCategory = fromCategory;
+    mQuery.removeTextChangedListener(mTextWatcher);
     mQuery.setText(query);
     if (!TextUtils.isEmpty(query))
       mQuery.setSelection(query.length());
+    mQuery.addTextChangedListener(mTextWatcher);
+    onQueryChanged(query, false);
   }
   public void setQuery(CharSequence query)
   {
