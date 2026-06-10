@@ -308,8 +308,9 @@ UNIT_TEST(RouteApiV2CallbacksAndBikeMode)
 
 UNIT_TEST(RouteApiV2DecodesCallbackPercentLiterally)
 {
-  // Callbacks decode like any other value: an encoded "%25" becomes a literal '%'. Re-encoding
-  // for the platform URL opener happens later (see RoutePointCallbackURL on iOS).
+  // Callbacks decode like any other value: an encoded "%25" becomes a literal '%'. Android
+  // hands the decoded string to the receiving app as-is; iOS re-encodes the literal '%'
+  // before opening (see RoutePointCallbackURL).
   string const urlString =
       "om://v2/dir?origin=1,1&destination=3,3&waypoints=2,2"
       "&waypoint_callbacks=app%3A%2F%2Fstop%3Fprogress%3D50%25&callback=app%3A%2F%2Fback%3Fprogress%3D100%25";
