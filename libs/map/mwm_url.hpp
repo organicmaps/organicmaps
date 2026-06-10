@@ -70,6 +70,9 @@ public:
   UrlType SetUrlAndParse(std::string const & url);
   UrlType GetRequestType() const { return m_requestType; }
   std::string const & GetGlobalBackUrl() const { return m_globalBackUrl; }
+  // The back URL is a one-shot "return to the caller app" action: platforms clear it
+  // after the first successful launch so later app switches don't relaunch the caller.
+  void ClearGlobalBackUrl() { m_globalBackUrl.clear(); }
   std::string const & GetAppName() const { return m_appName; }
   ms::LatLon GetCenterLatLon() const { return m_centerLatLon; }
   int GetApiVersion() const { return m_version; }

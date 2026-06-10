@@ -45,6 +45,9 @@ the text `%7C` and is not treated as a separator.
 - `dir_action=navigate` on `/v2/dir` is accepted as a Google Maps-style alias for `/v2/nav`.
 - `optimize=true` to allow Organic Maps to reorder intermediate stops; otherwise URL order is preserved.
 - `ref_name=...` for the calling app title (`appname` equivalent) and `callback=...` for a global return URL.
+  The return URL is opened at most once, when the user leaves Organic Maps; while navigation is running,
+  leaving the app does not trigger it, so it fires on the first leave after the navigation session ends.
+  As with stop callbacks, delivery is best-effort: the pending return URL does not survive an app restart.
 - Future extension parameters such as `api=1`, `avoid=...`, `ref=...`, and `callback_label=...` are accepted without failing the whole route.
   `origin_callback=...` is also reserved: it is parsed but not opened, because the route start is departed from,
   never "passed" like a stop.

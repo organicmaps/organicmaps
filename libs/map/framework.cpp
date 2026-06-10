@@ -2130,6 +2130,11 @@ std::string const & Framework::GetParsedBackUrl() const
   return m_parsedMapApi.GetGlobalBackUrl();
 }
 
+void Framework::ClearParsedBackUrl()
+{
+  m_parsedMapApi.ClearGlobalBackUrl();
+}
+
 ms::LatLon Framework::GetParsedCenterLatLon() const
 {
   return m_parsedMapApi.GetCenterLatLon();
