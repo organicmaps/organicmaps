@@ -925,10 +925,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     MapObject startPoint = MwmApplication.from(this).getLocationHelper().getMyPosition();
     RoutingController.get().prepare(startPoint, endPoint);
-
-    // TODO: check for tablet.
-    forceCloseSearchFragment();
-    closePlacePage();
   }
 
   private void initMainMenu()
