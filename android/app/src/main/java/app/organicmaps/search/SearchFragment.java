@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,6 +69,14 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   private PlaceholderView mResultsPlaceholder;
   private SearchShimmerView mShimmerView;
   private SearchPageViewModel mSearchViewModel;
+
+  // Debouncer for runSearch() — collapses bursts of keystrokes into a single engine invocation.
+  // searchInteractive() fans out to both SearchInViewport + EverywhereSearch internally, so the
+  // saving doubles for the per-prefix cost. ~200 ms matches the Material Design autocomplete guidance.
+  private static final long SEARCH_DEBOUNCE_MS = 200;
+  private final Handler mSearchDebounceHandler = new Handler(Looper.getMainLooper());
+  private final Runnable mDebouncedRunSearch = this::runSearch;
+
   @Nullable
   private TabAdapter mTabAdapter;
   @Nullable
@@ -119,11 +129,11 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       mSearchAdapter.clear();
       stopSearch();
 
-      // setQuery() fires the text watcher, which runs the search synchronously; runSearch() consumes
-      // the pending request (locale). When the query already matches the toolbar the watcher
-      // won't fire, so run it directly.
+      // setQuery() fires the text watcher, which schedules the debounced search; runSearch() consumes
+      // the pending request (locale). When the query already matches the toolbar the watcher won't
+      // fire, so go through the debouncer directly to keep the timing consistent.
       if (query.equals(getQuery()))
-        runSearch();
+        runSearchDebounced();
       else
         setQuery(query, false);
     }
@@ -406,6 +416,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   @Override
   public void onDestroyView()
   {
+    mSearchDebounceHandler.removeCallbacks(mDebouncedRunSearch);
     for (RecyclerView v : mAttachedRecyclers)
       v.removeOnScrollListener(mRecyclerListener);
     mAttachedRecyclers.clear();
@@ -496,8 +507,15 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
   private void stopSearch()
   {
+    mSearchDebounceHandler.removeCallbacks(mDebouncedRunSearch);
     SearchEngine.INSTANCE.cancel();
     updateSearchView();
+  }
+
+  private void runSearchDebounced()
+  {
+    mSearchDebounceHandler.removeCallbacks(mDebouncedRunSearch);
+    mSearchDebounceHandler.postDelayed(mDebouncedRunSearch, SEARCH_DEBOUNCE_MS);
   }
 
   private void runSearch()
@@ -842,7 +860,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
         return;
       }
 
-      runSearch();
+      runSearchDebounced();
     }
 
     @Override
