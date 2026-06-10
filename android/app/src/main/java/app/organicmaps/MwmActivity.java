@@ -1663,13 +1663,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onBuiltRoute()
-  {
-    if (!RoutingController.get().isPlanning())
-      return;
-  }
-
-  @Override
   public void onDrivingOptionsWarning()
   {
     if (mRoutingPlanInplaceController == null)
