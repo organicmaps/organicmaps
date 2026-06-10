@@ -694,10 +694,6 @@ void ParsedMapApi::ParseRouteParam(std::string const & key, std::string const & 
   }
   ParseCommonParam(key, value);
 
-  // Legacy links consume this sequence and ignore parameters outside it, including trailing duplicates.
-  constexpr std::array<std::string_view, 5> kParams = {kSourceLatLon, kSourceName, kDestLatLon, kDestName, kRouteType};
-  if (paramIndex == kParams.size() || key != kParams[paramIndex])
-    return;
 
   std::array<std::string_view, 4> constexpr kLegacyRouteParams = {kSourceLatLon, kSourceName, kDestLatLon, kDestName};
   bool const isLegacyParam = key == kSourceLatLon || key == kSourceName || key == kDestLatLon || key == kDestName;
