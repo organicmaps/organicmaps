@@ -870,16 +870,10 @@ public class RoutingController
 
   private static void addRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point)
   {
-    addRoutePoint(type, point, 0 /* intermediateIndex */, "" /* callback */, true /* reorderIntermediatePoints */);
-  }
-
-  private static void addRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point, int intermediateIndex,
-                                    @NonNull String callback, boolean reorderIntermediatePoints)
-  {
     Pair<String, String> description = getDescriptionForPoint(point);
-    Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, callback, type,
-                                  intermediateIndex, point.isMyPosition(), point.getLat(), point.getLon(),
-                                  reorderIntermediatePoints);
+    Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, "" /* callback */,
+                                  type, 0 /* intermediateIndex */, point.isMyPosition(), point.getLat(), point.getLon(),
+                                  true /* reorderIntermediatePoints */);
   }
 
   private static void addRoutePoints(@NonNull List<MapObject> routePoints, @Nullable List<String> callbacks,
