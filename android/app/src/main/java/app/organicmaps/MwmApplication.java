@@ -62,6 +62,7 @@ public class MwmApplication extends Application implements Application.ActivityL
   private WeakReference<Activity> mTopActivity;
 
 
+
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   public static MwmApplication sInstance;
