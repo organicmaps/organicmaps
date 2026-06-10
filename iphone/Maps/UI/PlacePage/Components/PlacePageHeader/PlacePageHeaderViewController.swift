@@ -54,7 +54,6 @@ final class PlacePageHeaderViewController: UIViewController {
     shareButton.setImage(UIImage(resource: .icShare))
     shareButton.isHidden = !(presenter?.canShare ?? true)
 
-    trackCandidatesButton.setImage(UIImage(named: "ic_arrow_gray_down")?.withRenderingMode(.alwaysTemplate), for: .normal)
     trackCandidatesButton.tintColor = .linkBlue
     trackCandidatesButton.isHidden = !(presenter?.canSelectTrackCandidates ?? false)
     trackCandidatesButton.addTarget(self, action: #selector(didTapTrackCandidatesButton), for: .touchUpInside)
@@ -92,8 +91,12 @@ final class PlacePageHeaderViewController: UIViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
 
-    DispatchQueue.main.asyncAfter(deadline: .now() + Constants.educationalTrackSelectorPopupTimeout) { [weak self] in
-      self?.showEducationalTrackCandidatesSelectorIfNeeded()
+    if presenter?.canSelectTrackCandidates == true,
+       !UserDefaults.standard.bool(forKey: Constants.didShowEducationalTrackSelectorPopup) {
+      // Wait for the place page presentation/expansion animation before showing the educational popover.
+      DispatchQueue.main.asyncAfter(deadline: .now() + Constants.educationalTrackSelectorPopupTimeout) { [weak self] in
+        self?.showEducationalTrackCandidatesSelectorIfNeeded()
+      }
     }
   }
 
@@ -237,13 +240,12 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
         }
       )
     }
-    let viewController = PopoverListSelectorViewController(popoverDataSource, style: .icon)
-    viewController.modalPresentationStyle = .popover
-    viewController.overrideUserInterfaceStyle = traitCollection.userInterfaceStyle
-    viewController.popoverPresentationController?.sourceView = trackCandidatesButton
-    viewController.popoverPresentationController?.sourceRect = trackCandidatesButton.bounds
-    viewController.popoverPresentationController?.permittedArrowDirections = .any
-    viewController.popoverPresentationController?.delegate = viewController
+    let viewController = PopoverListSelectorBuilder(dataSource: popoverDataSource,
+                                                    style: .icon,
+                                                    sourceView: trackCandidatesButton,
+                                                    sourceRect: trackCandidatesButton.bounds,
+                                                    userInterfaceStyle: traitCollection.userInterfaceStyle)
+      .build()
     trackCandidatesSelectorViewController = viewController
     present(viewController, animated: true)
     return true

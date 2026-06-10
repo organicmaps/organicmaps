@@ -363,6 +363,12 @@ class PlacePageInfoViewController: UIViewController {
 
   private func showRoutesSelector() {
     guard let routeRefsView, let routes = placePageInfoData.routes else { return }
+
+    if routes.count == 1 {
+      selectRoute(routes[0])
+      return
+    }
+
     let popoverDataSource = routes.map { route in
       PopoverListSelectorViewController.RowViewModel(title: .attributed(routeMenuLabel(route)),
                                                      color: route.color,
@@ -373,13 +379,12 @@ class PlacePageInfoViewController: UIViewController {
                                                        })
                                                      })
     }
-    let viewController = PopoverListSelectorViewController(popoverDataSource, style: .background)
-    viewController.modalPresentationStyle = .popover
-    viewController.overrideUserInterfaceStyle = traitCollection.userInterfaceStyle
-    viewController.popoverPresentationController?.sourceView = routeRefsView
-    viewController.popoverPresentationController?.sourceRect = routeRefsView.bounds
-    viewController.popoverPresentationController?.permittedArrowDirections = .any
-    viewController.popoverPresentationController?.delegate = viewController
+    let viewController = PopoverListSelectorBuilder(dataSource: popoverDataSource,
+                                                    style: .background,
+                                                    sourceView: routeRefsView,
+                                                    sourceRect: routeRefsView.bounds,
+                                                    userInterfaceStyle: traitCollection.userInterfaceStyle)
+      .build()
     routesSelectorViewController = viewController
     present(viewController, animated: true)
   }
