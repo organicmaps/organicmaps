@@ -162,9 +162,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     public void onLocationUpdated(@NonNull Location location)
     {
       mLastPosition.set(location.getLatitude(), location.getLongitude());
-
-      if (!TextUtils.isEmpty(getQuery()))
-        mSearchAdapter.notifyDataSetChanged();
     }
   };
   private boolean mSearchRunning;
