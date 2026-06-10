@@ -35,8 +35,11 @@ public class BookmarkCategorySettingsFragment
     extends BaseMwmToolbarFragment implements TrackColorPickerFragment.OnTrackColorChangeListener
 {
   private static final int TEXT_LENGTH_LIMIT = 60;
+  private static final String EXTRA_PICKING_TRACKS_COLOR = "picking_tracks_color";
 
   // The category color picker is shared between bookmarks and tracks; remember which one is active.
+  // Persisted in the instance state: the picker outlives a rotation or process recreation, and its
+  // result must not be delivered to the wrong target.
   private boolean mPickingTracksColor;
 
   @NonNull
@@ -97,6 +100,15 @@ public class BookmarkCategorySettingsFragment
     final Bundle args = requireArguments();
     mCategory = Objects.requireNonNull(
         Utils.getParcelable(args, BookmarkCategorySettingsActivity.EXTRA_BOOKMARK_CATEGORY, BookmarkCategory.class));
+    if (savedInstanceState != null)
+      mPickingTracksColor = savedInstanceState.getBoolean(EXTRA_PICKING_TRACKS_COLOR, false);
+  }
+
+  @Override
+  public void onSaveInstanceState(@NonNull Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+    outState.putBoolean(EXTRA_PICKING_TRACKS_COLOR, mPickingTracksColor);
   }
 
   @Override
