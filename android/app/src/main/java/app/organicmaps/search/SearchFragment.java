@@ -87,18 +87,26 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   private final ActivityResultLauncher<Intent> startVoiceRecognitionForResult =
       registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                                 activityResult -> { mToolbarController.onVoiceRecognitionResult(activityResult); });
+  @Nullable
+  private Boolean mSearchPreviouslyEnabled;
   private final Observer<Boolean> mSearchEnabledObserver = new Observer<>() {
     public void onChanged(Boolean enabled)
     {
       if (enabled == null)
         return;
 
+      final boolean wasEnabled = Boolean.TRUE.equals(mSearchPreviouslyEnabled);
+      mSearchPreviouslyEnabled = enabled;
+
       if (!enabled)
       {
+        if (!wasEnabled)
+          return; // spurious disable — sheet was already closed, leave foreign searches alone
+
         if (mToolbarController.hasQuery())
           mToolbarController.clear();
+        // cancel() → cancelAllSearches() already resets the engine's stored query.
         SearchEngine.INSTANCE.cancel();
-        SearchEngine.INSTANCE.setQuery("");
         return;
       }
 
