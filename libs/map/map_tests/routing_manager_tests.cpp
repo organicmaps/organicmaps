@@ -1063,7 +1063,9 @@ public:
 
   ~RoutingManagerTest()
   {
-    // Drain asynchronous saves before the fixture removes its settings directory.
+    // OnRoutePointPassed() saves route points to the settings directory, which for
+    // desktop tests is the repo data/ folder. The save is queued on the File thread,
+    // so drain it with a barrier task before removing the artifact.
     std::promise<void> drained;
     GetPlatform().RunTask(Platform::Thread::File, [&drained]() { drained.set_value(); });
     drained.get_future().wait();
