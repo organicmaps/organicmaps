@@ -220,6 +220,8 @@ public class SearchToolbarController extends ToolbarController implements View.O
 
   public void showProgress(boolean show)
   {
+    if (UiUtils.isVisible(mProgress) == show)
+      return;
     ViewParent parent = mSearchContainer.getParent();
     if (parent instanceof SuppressLayoutLinearLayout)
     {
