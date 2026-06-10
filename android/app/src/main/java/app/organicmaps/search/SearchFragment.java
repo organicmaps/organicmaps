@@ -142,7 +142,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       if (query.equals(getQuery()))
         runSearchDebounced();
       else
-        setQuery(query, false);
+        setQuery(query, request.isCategory);
     }
   };
   private final Observer<Integer> mBottomSheetStateObserver = new Observer<>() {
@@ -865,6 +865,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     {
       if (!isAdded())
         return;
+
+      mSearchViewModel.setCurrentToolbarCategorical(isCategory());
 
       if (query.trim().isEmpty())
       {

@@ -12,6 +12,7 @@ public class SearchPageViewModel extends ViewModel
   private static final String KEY_SEARCH_ACTIVE = "search_active";
   private static final String KEY_SEARCH_QUERY = "search_query";
   private static final String KEY_SEARCH_STATE = "search_sheet_state";
+  private static final String KEY_SEARCH_IS_CATEGORY = "search_is_category";
 
   private final SavedStateHandle mSavedState;
 
@@ -35,6 +36,8 @@ public class SearchPageViewModel extends ViewModel
   // search fragment. Null when there is nothing new to start.
   @Nullable
   private SearchRequest mPendingRequest;
+
+  private boolean mCurrentToolbarIsCategory = false;
 
   private boolean mHiddenByPlacePage = false;
 
@@ -116,6 +119,17 @@ public class SearchPageViewModel extends ViewModel
     mPendingRequest = null;
   }
 
+  /** Mirror of the live toolbar category flag — no other source records it for persistence. */
+  public void setCurrentToolbarCategorical(boolean isCategory)
+  {
+    mCurrentToolbarIsCategory = isCategory;
+  }
+
+  public boolean isCurrentToolbarCategorical()
+  {
+    return mCurrentToolbarIsCategory;
+  }
+
   public void setSearchEnabled(boolean enabled, @Nullable SearchRequest request)
   {
     // Store the pending request before firing LiveData so observers read it synchronously.
@@ -150,11 +164,12 @@ public class SearchPageViewModel extends ViewModel
   }
 
   /** Snapshots search state into SavedStateHandle so the framework can restore it after process death. */
-  public void persistSearchState(boolean active, @NonNull String query, int sheetState)
+  public void persistSearchState(boolean active, @NonNull String query, int sheetState, boolean isCategory)
   {
     mSavedState.set(KEY_SEARCH_ACTIVE, active);
     mSavedState.set(KEY_SEARCH_QUERY, query);
     mSavedState.set(KEY_SEARCH_STATE, sheetState);
+    mSavedState.set(KEY_SEARCH_IS_CATEGORY, isCategory);
   }
 
   public boolean isSearchPersistedActive()
@@ -173,5 +188,10 @@ public class SearchPageViewModel extends ViewModel
   {
     Integer state = mSavedState.get(KEY_SEARCH_STATE);
     return state != null ? state : BottomSheetBehavior.STATE_EXPANDED;
+  }
+
+  public boolean getPersistedIsCategory()
+  {
+    return Boolean.TRUE.equals(mSavedState.get(KEY_SEARCH_IS_CATEGORY));
   }
 }

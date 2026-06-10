@@ -271,7 +271,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (mSearchPageViewModel.isSearchPersistedActive())
       {
         mSearchPageViewModel.setSearchPageLastState(mSearchPageViewModel.getPersistedSheetState());
-        showSearch(mSearchPageViewModel.getPersistedQuery());
+        final SearchRequest restored = new SearchRequest(mSearchPageViewModel.getPersistedQuery(), null,
+                                                         mSearchPageViewModel.getPersistedIsCategory());
+        mSearchPageViewModel.setSearchEnabled(true, restored);
       }
     }
 
@@ -969,9 +971,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Integer sheetState = mSearchPageViewModel.getSearchPageLastState().getValue();
     boolean isSearchActive = Boolean.TRUE.equals(mSearchPageViewModel.getSearchEnabled().getValue())
                           && sheetState != null && sheetState != BottomSheetBehavior.STATE_HIDDEN;
-    String query = isSearchActive ? SearchEngine.INSTANCE.getCachedSearchBarQuery() : null;
+    final String query = isSearchActive ? SearchEngine.INSTANCE.getCachedSearchBarQuery() : null;
+    final boolean isCategory = isSearchActive && mSearchPageViewModel.isCurrentToolbarCategorical();
     mSearchPageViewModel.persistSearchState(isSearchActive, query != null ? query : "",
-                                            isSearchActive ? sheetState : BottomSheetBehavior.STATE_HIDDEN);
+                                            isSearchActive ? sheetState : BottomSheetBehavior.STATE_HIDDEN, isCategory);
 
     if (!isChangingConfigurations())
       RoutingController.get().saveRoute();
