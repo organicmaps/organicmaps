@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "map/framework.hpp"
+#include "map/mwm_url.hpp"
 #include "map/routing_manager.hpp"
 #include "map/routing_mark.hpp"
 
@@ -136,23 +137,39 @@ UNIT_CLASS_TEST(RoutingManagerTest, FlushesLatestPendingRoutePointCallback)
   TEST(callbacks.empty(), ());
 }
 
-UNIT_CLASS_TEST(RoutingManagerTest, AddsRoutePointsInBatch)
+UNIT_CLASS_TEST(RoutingManagerTest, ExecutesApiRouteRequest)
 {
-  std::vector<RouteMarkData> points;
-  points.push_back(MakePoint(RouteMarkType::Start, 1.0, 1.0, "app://start"));
-  points.push_back(MakePoint(RouteMarkType::Intermediate, 1.5, 1.5, "app://stop", 0));
-  points.push_back(MakePoint(RouteMarkType::Finish, 2.0, 2.0, "app://finish"));
+  url_scheme::ParsedMapApi const api(
+      "om://v2/dir?destination=3,3&destination_name=Finish&destination_callback=app%3A%2F%2Ffinish"
+      "&waypoints=1.5,1.5|2,2&waypoint_names=A|B&waypoint_callbacks=app%3A%2F%2F1|app%3A%2F%2F2&mode=walk");
+  TEST_EQUAL(api.GetRequestType(), url_scheme::ParsedMapApi::UrlType::Route, ());
 
-  m_manager.AddRoutePoints(std::move(points), false /* reorderIntermediatePoints */);
+  std::vector<routing::RouterResultCode> buildResults;
+  m_manager.SetRouteBuildingListener([&buildResults](routing::RouterResultCode code, storage::CountriesSet const &)
+  { buildResults.push_back(code); });
+
+  api.ExecuteRouteApiRequest(m_framework);
+
+  // The itinerary is materialized in URL order and the build starts right away; with no
+  // known position for the implicit my-position start it fails with NoCurrentPosition.
+  TEST_EQUAL(buildResults.size(), 1, ());
+  TEST_EQUAL(static_cast<int>(buildResults[0]), static_cast<int>(routing::RouterResultCode::NoCurrentPosition), ());
 
   auto const routePoints = m_manager.GetRoutePoints();
-  TEST_EQUAL(routePoints.size(), 3, ());
+  TEST_EQUAL(routePoints.size(), 4, ());
   TEST_EQUAL(static_cast<int>(routePoints[0].m_pointType), static_cast<int>(RouteMarkType::Start), ());
-  TEST_EQUAL(routePoints[0].m_callback, "app://start", ());
-  TEST_EQUAL(static_cast<int>(routePoints[1].m_pointType), static_cast<int>(RouteMarkType::Intermediate), ());
-  TEST_EQUAL(routePoints[1].m_callback, "app://stop", ());
-  TEST_EQUAL(static_cast<int>(routePoints[2].m_pointType), static_cast<int>(RouteMarkType::Finish), ());
-  TEST_EQUAL(routePoints[2].m_callback, "app://finish", ());
+  TEST(routePoints[0].m_isMyPosition, ());
+  // The desktop test platform's GetLocalizedString() returns the key itself.
+  TEST_EQUAL(routePoints[0].m_title, "core_my_position", ());
+  TEST_EQUAL(routePoints[1].m_title, "A", ());
+  TEST_EQUAL(routePoints[1].m_callback, "app://1", ());
+  TEST_EQUAL(routePoints[1].m_intermediateIndex, 0, ());
+  TEST_EQUAL(routePoints[2].m_title, "B", ());
+  TEST_EQUAL(routePoints[2].m_callback, "app://2", ());
+  TEST_EQUAL(routePoints[2].m_intermediateIndex, 1, ());
+  TEST_EQUAL(static_cast<int>(routePoints[3].m_pointType), static_cast<int>(RouteMarkType::Finish), ());
+  TEST_EQUAL(routePoints[3].m_title, "Finish", ());
+  TEST_EQUAL(routePoints[3].m_callback, "app://finish", ());
 }
 
 UNIT_CLASS_TEST(RoutingManagerTest, LoadsRoutePointsWithoutCallbackField)
