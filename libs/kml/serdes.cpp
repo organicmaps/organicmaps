@@ -815,11 +815,6 @@ bool KmlParser::MakeValid()
       if (m_name.empty() && m_featureTypes.empty())
         m_name[kDefaultLang] = PointToLineString(m_org);
 
-      // Set default pin only when there is no explicit custom color either; otherwise a custom
-      // bookmark (predefined None + IconStyle color) would be reverted to the default preset.
-      if (m_predefinedColor == PredefinedColor::None && m_iconColor == 0)
-        m_predefinedColor = PredefinedColor::Red;
-
       return true;
     }
     return false;
