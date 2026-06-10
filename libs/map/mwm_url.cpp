@@ -54,7 +54,6 @@ std::string_view constexpr kDestLatLon = "dll";
 std::string_view constexpr kSourceName = "saddr";
 std::string_view constexpr kDestName = "daddr";
 std::string_view constexpr kRouteType = "type";
-std::string_view constexpr kOptimize = "optimize";
 std::string_view constexpr kRouteTypeVehicle = "vehicle";
 std::string_view constexpr kRouteTypePedestrian = "pedestrian";
 std::string_view constexpr kRouteTypeBicycle = "bicycle";
@@ -150,28 +149,6 @@ bool ParseRoutePoint(std::string const & key, std::string const & value, RoutePo
   return true;
 }
 
-// Splits a '|'-separated list. Values reach here already URL-decoded, so an encoded "%7C"
-// acts as a separator exactly like a raw '|'. A literal '|' inside a value is therefore not
-// representable directly (double-encode it as "%257C" if ever needed). Empty items are kept
-// so callers can align waypoint names/callbacks by index with their waypoint.
-std::vector<std::string> SplitRouteList(std::string_view value)
-{
-  std::vector<std::string> result;
-  size_t from = 0;
-  while (from <= value.size())
-  {
-    size_t const delimiter = value.find('|', from);
-    if (delimiter == std::string_view::npos)
-    {
-      result.emplace_back(value.substr(from));
-      break;
-    }
-    result.emplace_back(value.substr(from, delimiter - from));
-    from = delimiter + 1;
-  }
-  return result;
-}
-
 bool ParseRouteMode(std::string const & value, std::string & routingType)
 {
   using namespace route;
@@ -262,8 +239,11 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
       bool correctParams = true;
 
       // url::Url decodes values, so an encoded "%7C" separator is normalized to '|' and splits
-      // exactly like a raw '|' (both forms are accepted). The fragment is stripped because
-      // url::Url parses query and fragment params together, and v2 ignores the fragment.
+      // exactly like a raw '|' (both forms are accepted); a literal '|' inside a value is not
+      // representable directly (double-encode it as "%257C"). Empty list items are kept by
+      // ParseCSVRow so waypoint names/callbacks stay aligned with their waypoint by index.
+      // The fragment is stripped because url::Url parses query and fragment params together,
+      // and v2 ignores the fragment.
       std::string const queryUrl = normalizedUrl.substr(0, normalizedUrl.find('#'));
       url::Url{queryUrl}.ForEachParam([&](auto const & key, auto const & value)
       {
@@ -312,8 +292,10 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
         }
         else if (key == kWaypoints)
         {
+          std::vector<std::string> waypointTokens;
+          strings::ParseCSVRow(value, '|', waypointTokens);
           size_t rawIndex = 0;
-          for (auto const & waypoint : SplitRouteList(value))
+          for (auto const & waypoint : waypointTokens)
           {
             if (waypoint.empty())
             {
@@ -331,11 +313,11 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
         }
         else if (key == kWaypointNames)
         {
-          waypointNames = SplitRouteList(value);
+          strings::ParseCSVRow(value, '|', waypointNames);
         }
         else if (key == kWaypointCallbacks)
         {
-          waypointCallbacks = SplitRouteList(value);
+          strings::ParseCSVRow(value, '|', waypointCallbacks);
         }
         else if (key == kMode || key == kTravelMode)
         {
@@ -672,12 +654,6 @@ void ParsedMapApi::ParseRouteParam(std::string const & key, std::string const & 
   {
     if (!strings::to_int(value, m_version))
       m_version = 0;
-    return;
-  }
-
-  if (key == kOptimize)
-  {
-    m_optimizeRoutePoints = ParseBool(value);
     return;
   }
 
