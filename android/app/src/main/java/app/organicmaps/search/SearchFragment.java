@@ -400,6 +400,14 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   {
     super.onResume();
     MwmApplication.from(requireContext()).getLocationHelper().addListener(mLocationListener);
+
+    // onPause() stops the shimmer; if we are resuming mid-search with no results yet, restore it
+    // so the results pane isn't blank until the next results callback arrives.
+    if (mSearchRunning && mSearchAdapter.getItemCount() == 0 && mShimmerView != null)
+    {
+      UiUtils.show(mShimmerView);
+      mShimmerView.startShimmer();
+    }
   }
 
   @Override
