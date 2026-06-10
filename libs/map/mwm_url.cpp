@@ -267,6 +267,8 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
         }
         else if (key == kOriginCallback)
         {
+          // Reserved: stored but never opened, because the route start is departed
+          // from, never "passed" like a stop (see docs/API.md).
           origin.m_callback = value;
         }
         else if (key == kOriginHeading)
@@ -376,7 +378,8 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
         // Navigation always starts from the current position ("navigate to these
         // places starting from me"). An explicit origin is optional here and
         // currently ignored, but accepted (not rejected) and reserved as a possible
-        // future routing hint. Keep its name/callback as a departure label/callback.
+        // future routing hint. Keep its name as a departure label and its reserved
+        // callback (see kOriginCallback above).
         if (originFound)
           LOG(LINFO, ("Route API v2: origin accepted but ignored for /v2/nav; routing from current position"));
         origin.m_org = m2::PointD::Zero();
