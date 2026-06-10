@@ -77,6 +77,13 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   private final Handler mSearchDebounceHandler = new Handler(Looper.getMainLooper());
   private final Runnable mDebouncedRunSearch = this::runSearch;
 
+  // Last (hasQuery, activeTab) snapshot applied by syncNestedScrollingState(); both null until the
+  // first call. Used to skip the repeat work / requestLayout() when neither input changed.
+  @Nullable
+  private Boolean mNestedScrollingSyncedHasQuery;
+  @Nullable
+  private Integer mNestedScrollingSyncedActiveTab;
+
   @Nullable
   private TabAdapter mTabAdapter;
   @Nullable
@@ -653,8 +660,17 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
    */
   private void syncNestedScrollingState()
   {
-    boolean hasQuery = mToolbarController.hasQuery();
-    int activeTab = (mPager != null) ? mPager.getCurrentItem() : -1;
+    final boolean hasQuery = mToolbarController.hasQuery();
+    final int activeTab = (mPager != null) ? mPager.getCurrentItem() : -1;
+
+    // updateFrames() runs on every keystroke and every results batch — but the nested-scrolling
+    // flags only flip on hasQuery / activeTab transitions, so cache the last pair and skip the
+    // sheet requestLayout() when nothing changed.
+    if (mNestedScrollingSyncedHasQuery != null && mNestedScrollingSyncedActiveTab != null
+        && hasQuery == mNestedScrollingSyncedHasQuery && activeTab == mNestedScrollingSyncedActiveTab)
+      return;
+    mNestedScrollingSyncedHasQuery = hasQuery;
+    mNestedScrollingSyncedActiveTab = activeTab;
 
     if (mResults != null)
       ViewCompat.setNestedScrollingEnabled(mResults, hasQuery);
