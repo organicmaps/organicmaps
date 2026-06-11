@@ -217,22 +217,6 @@ kml::PredefinedColor Bookmark::GetColor() const
   return m_data.m_color.m_predefinedColor;
 }
 
-void Bookmark::InvalidateRGBAColor()
-{
-  m_data.m_color.m_rgba = kml::kInvalidColorRGBA;
-}
-
-void Bookmark::SetColor(kml::PredefinedColor color)
-{
-  // Must clear a stale custom rgba even when the predefined enum is already equal (R8).
-  if (m_data.m_color.m_predefinedColor == color && m_data.m_color.m_rgba == kml::kInvalidColorRGBA)
-    return;
-
-  SetDirty();
-  m_data.m_color.m_predefinedColor = color;
-  InvalidateRGBAColor();
-}
-
 void Bookmark::SetColor(dp::Color color)
 {
   auto const colorData = kml::MakeCustomBookmarkColorData(color);
@@ -448,12 +432,6 @@ void BookmarkCategory::SetAccessRules(kml::AccessRules accessRules)
 
   SetDirty(true /* updateModificationTime */);
   m_data.m_accessRules = accessRules;
-}
-
-// static
-kml::PredefinedColor BookmarkCategory::GetDefaultColor()
-{
-  return kml::PredefinedColor::Red;
 }
 
 void BookmarkCategory::SetDirty(bool updateModificationDate)

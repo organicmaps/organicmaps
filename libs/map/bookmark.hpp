@@ -42,9 +42,8 @@ public:
   std::string GetCustomName() const;
   void SetCustomName(std::string const & customName);
 
+  // Preset colors are read-only at runtime: they enter bookmarks only through the kml parsers.
   kml::PredefinedColor GetColor() const;
-  void InvalidateRGBAColor();
-  void SetColor(kml::PredefinedColor color);
   // Sets an arbitrary custom color (forced opaque, clears the preset). Mirrors Track::SetColor.
   void SetColor(dp::Color color);
   // Explicit custom color, or nullopt for preset bookmarks (which resolve via GetColorConstant()).
@@ -101,8 +100,6 @@ class BookmarkCategory : public UserMarkLayer
 public:
   BookmarkCategory(std::string const & name, kml::MarkGroupId groupId, bool autoSave);
   BookmarkCategory(kml::CategoryData && data, bool autoSave);
-
-  static kml::PredefinedColor GetDefaultColor();
 
   kml::MarkGroupId GetID() const { return m_data.m_id; }
   kml::MarkGroupId GetParentID() const { return m_parentId; }
