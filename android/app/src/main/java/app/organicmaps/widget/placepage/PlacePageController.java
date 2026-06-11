@@ -143,10 +143,6 @@ public class PlacePageController
           if (PlacePageUtils.isSettlingState(newState) || PlacePageUtils.isDraggingState(newState))
             return;
 
-          // Drive the routing bottom sheet visibility from settled state changes only, instead of from every
-          // slide tick, so the routing ViewModel gets one update per open/close rather than dozens per drag.
-          mRoutingPlanViewModel.setIsPlacePageActive(!PlacePageUtils.isHiddenState(newState));
-
           PlacePageUtils.updateMapViewport(mCoordinator, mDistanceToTop, mViewportMinHeight);
 
           if (PlacePageUtils.isExpandedState(newState))
@@ -791,6 +787,10 @@ public class PlacePageController
     if (mapObject != null)
     {
       setPlacePageInteractions(true);
+
+      // Set the place page to be active.
+      mRoutingPlanViewModel.setIsPlacePageActive(true);
+
       // Only collapse the place page if the data is different from the one already available
       mShouldCollapse = PlacePageUtils.isHiddenState(mPlacePageBehavior.getState())
                      || !MapObject.same(mPreviousMapObject, mMapObject);
