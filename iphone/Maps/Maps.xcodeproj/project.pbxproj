@@ -42,6 +42,7 @@
 		DB05F1CD1BF340DE002C974C /* drules_outdoors.bin in Resources */ = {isa = PBXBuildFile; fileRef = DB05F1BD1BF340DE002C974C /* drules_outdoors.bin */; };
 		DB05F1CE1BF340DE002C974C /* drules_vehicle.bin in Resources */ = {isa = PBXBuildFile; fileRef = DB05F1BE1BF340DE002C974C /* drules_vehicle.bin */; };
 		ED0B1C312BC2951F00FB8EDD /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = ED0B1C302BC2951F00FB8EDD /* PrivacyInfo.xcprivacy */; };
+		ED0C360F2FE3EC2C00CAF853 /* UserDescriptionHTMLDocumentBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0C360E2FE3EC2C00CAF853 /* UserDescriptionHTMLDocumentBuilder.swift */; };
 		ED0E8FBF2FC4752400A4C91D /* UILabel+OneLineScaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0E8FBE2FC4752400A4C91D /* UILabel+OneLineScaling.swift */; };
 		ED1ADA332BC6B1B40029209F /* CarPlayServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1ADA322BC6B1B40029209F /* CarPlayServiceTests.swift */; };
 		ED2487962FD9906E00E8F7F0 /* PopoverListSelectorBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2487952FD9906E00E8F7F0 /* PopoverListSelectorBuilder.swift */; };
@@ -873,6 +874,7 @@
 		DB05F1BE1BF340DE002C974C /* drules_vehicle.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_vehicle.bin; path = ../../data/drules_vehicle.bin; sourceTree = "<group>"; };
 		ED097E762BB80C320006ED01 /* OMapsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OMapsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED0B1C302BC2951F00FB8EDD /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		ED0C360E2FE3EC2C00CAF853 /* UserDescriptionHTMLDocumentBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDescriptionHTMLDocumentBuilder.swift; sourceTree = "<group>"; };
 		ED0E8FBE2FC4752400A4C91D /* UILabel+OneLineScaling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+OneLineScaling.swift"; sourceTree = "<group>"; };
 		ED1ADA322BC6B1B40029209F /* CarPlayServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayServiceTests.swift; sourceTree = "<group>"; };
 		ED2487952FD9906E00E8F7F0 /* PopoverListSelectorBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverListSelectorBuilder.swift; sourceTree = "<group>"; };
@@ -1963,6 +1965,15 @@
 			path = CarPlay;
 			sourceTree = "<group>";
 		};
+		ED0C360B2FE3EB6900CAF853 /* PlacePageUserDescriptionWebView */ = {
+			isa = PBXGroup;
+			children = (
+				4B7E9A102F9A000100000006 /* PlacePageUserDescriptionWebView.swift */,
+				ED0C360E2FE3EC2C00CAF853 /* UserDescriptionHTMLDocumentBuilder.swift */,
+			);
+			path = PlacePageUserDescriptionWebView;
+			sourceTree = "<group>";
+		};
 		ED1ADA312BC6B19E0029209F /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -2761,7 +2772,6 @@
 			isa = PBXGroup;
 			children = (
 				ED2487A12FD9BBAE00E8F7F0 /* ExpandableText */,
-				4B7E9A102F9A000100000006 /* PlacePageUserDescriptionWebView.swift */,
 				ED82C3F12F90180300FA103D /* PlacePageEditBookmarkAndTrackSectionInteractor.swift */,
 				ED82C3F22F90180300FA103D /* PlacePageExpandableDetailsSectionBuilder.swift */,
 				ED82C3F32F90180300FA103D /* PlacePageExpandableDetailsSectionInteractor.swift */,
@@ -2770,6 +2780,7 @@
 				ED82C3F62F90180300FA103D /* PlacePageExpandableDetailsSectionViewModel.swift */,
 				ED82C3F72F90180300FA103D /* PlacePageOSMDescriptionSectionInteractor.swift */,
 				ED82C3F82F90180300FA103D /* PlacePageWikipediaDetailsSectionInteractor.swift */,
+				ED0C360B2FE3EB6900CAF853 /* PlacePageUserDescriptionWebView */,
 			);
 			path = PlacePageExpandableDetailsSection;
 			sourceTree = "<group>";
@@ -4392,6 +4403,7 @@
 				ED82C50D2F90180300FA103D /* BMCNotificationsCell.swift in Sources */,
 				ED82C50E2F90180300FA103D /* BMCNotificationsHeader.swift in Sources */,
 				ED82C50F2F90180300FA103D /* RecentlyDeletedCategoriesViewController.swift in Sources */,
+				ED0C360F2FE3EC2C00CAF853 /* UserDescriptionHTMLDocumentBuilder.swift in Sources */,
 				ED82C5102F90180300FA103D /* RecentlyDeletedCategoriesViewModel.swift in Sources */,
 				ED82C5112F90180300FA103D /* RecentlyDeletedTableViewCell.swift in Sources */,
 				ED82C5122F90180300FA103D /* BMCModels.swift in Sources */,
