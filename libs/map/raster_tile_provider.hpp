@@ -25,6 +25,12 @@
 // Encoded tiles are cached on disk under an LRU size cap (Params::m_maxCacheBytes): the
 // least-recently-used tiles are evicted once the total is exceeded. Content is delivered through a
 // callback that the caller wires to df::DrapeEngine::AddTileBackgroundImage + SetTileBackgroundData.
+
+// Debug visualization: renders status placeholders (DOWNLOADING / NOT FOUND / ERROR) into tiles.
+// Binding a placeholder moves the tile out of the renderer's awaiting set, which conflicts with
+// the m_awaitingTiles bookkeeping (the real result must win a second bind; failed tiles are not
+// re-requested), so it is disabled by default.
+// #define ENABLE_STATUS_PLACEHOLDERS
 class RasterTileProvider
 {
 public:
@@ -78,6 +84,7 @@ private:
     bool m_valid = false;
   };
 
+#ifdef ENABLE_STATUS_PLACEHOLDERS
   // Debug placeholder shown in place of a tile while it is being fetched or when it is missing.
   enum class Status
   {
@@ -93,6 +100,7 @@ private:
     std::vector<uint8_t> m_rgba;
     uint32_t m_size = 0;
   };
+#endif
 
   SourceTile ToSourceTile(df::TileKey const & tileKey) const;
 
@@ -100,8 +108,10 @@ private:
   void StartDownload(df::TileKey const & tileKey, dp::BackgroundMode mode, std::string const & url,
                      std::string const & uid, std::string const & fileName, m2::RectF const & rect);
 
+#ifdef ENABLE_STATUS_PLACEHOLDERS
   // Delivers a debug status placeholder image for the tile through m_onReady.
   void DeliverPlaceholder(df::TileKey const & tileKey, dp::BackgroundMode mode, Status status);
+#endif
 
   bool IsActive(df::TileKey const & tileKey) const;
   // Removes tileKey from the in-flight set. Returns true if it was still present
@@ -121,7 +131,9 @@ private:
   Params const m_params;
   TReadyFn const m_onReady;
   std::string m_cacheDir;
+#ifdef ENABLE_STATUS_PLACEHOLDERS
   std::array<Placeholder, static_cast<size_t>(Status::Count)> m_placeholders;
+#endif
 
   mutable std::mutex m_activeMutex;
   std::unordered_set<df::TileKey> m_active;
