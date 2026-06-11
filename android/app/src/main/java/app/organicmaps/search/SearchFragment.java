@@ -332,6 +332,9 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       mToolbarController.showProgress(false);
       updateFrames();
       updateResultsPlaceholder();
+      // Cached results already satisfy any pending restore request — consume it so the
+      // mSearchEnabledObserver doesn't wipe the adapter and re-fire a fresh search.
+      mSearchViewModel.clearPendingRequest();
     }
 
     mSearchViewModel.getSearchPageLastState().observe(getViewLifecycleOwner(), mBottomSheetStateObserver);
@@ -382,6 +385,17 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     // The tab fragments missed the initial inset dispatch — replay it now.
     if (mLastKnownInsets != null)
       dispatchInsetsToTabFragments(mLastKnownInsets);
+  }
+
+  @Override
+  public void onViewStateRestored(@Nullable Bundle savedInstanceState)
+  {
+    super.onViewStateRestored(savedInstanceState);
+    // Android restores the EditText text here via setText(), which fires our TextWatcher and
+    // schedules a debounced runSearch — redundant on rotation when cached results are still valid.
+    // Cancel the pending debounce so the recreated fragment doesn't run the same search again.
+    if (savedInstanceState != null && SearchEngine.INSTANCE.getCachedResults() != null)
+      mSearchDebounceHandler.removeCallbacks(mDebouncedRunSearch);
   }
 
   @Override
