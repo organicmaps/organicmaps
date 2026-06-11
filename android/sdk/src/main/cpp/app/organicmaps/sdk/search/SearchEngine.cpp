@@ -309,7 +309,7 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunInterac
     return JNI_FALSE;
   }
 
-  // Viewport-only search (isSearchOnMap=true): always considered started
+  // Viewport-only search (isMapAndTable == false): always considered started.
   return JNI_TRUE;
 }
 

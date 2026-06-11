@@ -117,7 +117,7 @@
     <item name="android:textColorHint">@color/text_light_hint</item>
   </style>
 
-  <style name="MwmTextAppearance.Toolbar.SearchPlacePage">
+  <style name="MwmTextAppearance.Toolbar.SearchSheet">
     <item name="android:textColor">?textSearchField</item>
     <item name="android:textColorHint">?textSearchFieldHint</item>
     <item name="android:textCursorDrawable">@null</item>

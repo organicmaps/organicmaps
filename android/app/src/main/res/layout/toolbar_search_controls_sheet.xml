@@ -14,7 +14,7 @@
   <LinearLayout
     android:id="@+id/search_container"
     android:layout_width="0dp"
-      android:layout_height="@dimen/search_input_height"
+    android:layout_height="@dimen/search_input_height"
     android:layout_weight="1"
     android:orientation="horizontal"
     android:baselineAligned="false"
@@ -22,7 +22,7 @@
     android:background="@drawable/bg_search_rounded_rect"
     android:paddingHorizontal="@dimen/margin_half"
     android:layout_marginHorizontal="@dimen/margin_base"
-      android:layout_marginVertical="@dimen/margin_base">
+    android:layout_marginVertical="@dimen/margin_base">
     <ImageView
       android:id="@+id/back"
       android:layout_width="@dimen/place_page_icon_size"
@@ -36,10 +36,10 @@
     <LinearLayout
       android:id="@+id/search_content"
       android:layout_width="0dp"
-        android:layout_height="match_parent"
+      android:layout_height="match_parent"
       android:orientation="horizontal"
       android:layout_weight="1"
-        android:gravity="center_vertical">
+      android:gravity="center_vertical">
       <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
         app:hintEnabled="false">
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/query"
-          style="@style/MwmTextAppearance.Toolbar.SearchPlacePage"
+          style="@style/MwmTextAppearance.Toolbar.SearchSheet"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:minHeight="0dp"

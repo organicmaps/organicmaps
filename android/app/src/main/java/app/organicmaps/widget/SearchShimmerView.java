@@ -19,8 +19,8 @@ import java.util.List;
  * A container that inflates skeleton search-result rows and coordinates
  * the shimmer animation on each individual {@link ShimmerBarView} child.
  * Uses a single shared {@link ValueAnimator} to drive all bars efficiently.
- * On API &lt; 28 the placeholder bars are shown statically (no animation),
- * keeping the existing toolbar-progress-spinner as the sole loading indicator.
+ * On API &lt; 28 the animated sweep is skipped — the static placeholder bars and the toolbar
+ * progress spinner are still rendered.
  */
 public class SearchShimmerView extends FrameLayout
 {
