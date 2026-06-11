@@ -26,6 +26,8 @@ enum PlacePageUserDescriptionContainerFactory: ExpandableTextContainerFactory {
   static func makeContainer(for text: ExpandableText) -> any ExpandableTextContainer {
     switch text {
     case .html(let string):
+      // Use WKWebView only for user descriptions. OSM/Wiki descriptions stay on the lightweight text renderer
+      // to avoid instantiating several independent web views on the same place page.
       return PlacePageUserDescriptionWebView(htmlString: string)
     case .plain:
       return ExpandableTextView(expandableText: text)

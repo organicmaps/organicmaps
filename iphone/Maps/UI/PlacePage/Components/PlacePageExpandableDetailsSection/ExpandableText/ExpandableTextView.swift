@@ -32,6 +32,11 @@ final class ExpandableTextView: UITextView {
     setupView()
   }
 
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    onContentHeightChanged?()
+  }
+
   private func setupView() {
     textContainer.lineFragmentPadding = 0
     isScrollEnabled = false
@@ -45,7 +50,8 @@ final class ExpandableTextView: UITextView {
     dataDetectorTypes = [.link, .phoneNumber]
     clipsToBounds = false
     translatesAutoresizingMaskIntoConstraints = false
-    font = .regular14()
+    font = .regular14.dynamic
+    adjustsFontForContentSizeCategory = true
     textColor = .blackPrimaryText
   }
 
@@ -68,7 +74,7 @@ final class ExpandableTextView: UITextView {
   }
 
   private static func buildAttributedString(from htmlString: String) -> NSAttributedString {
-    let font = UIFont.regular14()
+    let font = UIFont.regular14.dynamic
     let color = UIColor.blackPrimaryText
     let paragraphStyle = NSMutableParagraphStyle()
     paragraphStyle.lineSpacing = 4
