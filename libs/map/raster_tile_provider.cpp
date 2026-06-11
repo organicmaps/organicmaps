@@ -17,6 +17,7 @@
 #include <algorithm>
 #include <atomic>
 #include <string_view>
+#include <vector>
 
 namespace
 {
@@ -173,7 +174,8 @@ bool DecodeMemoryToRGBA(char const * bytes, size_t size, std::vector<uint8_t> & 
 }
 
 // Best-effort write of the raw encoded tile (PNG/JPEG) to the disk cache (temp + atomic rename).
-void WriteTileCache(std::string const & cachePath, char const * bytes, size_t size)
+// Returns true if the file is now in place.
+bool WriteTileCache(std::string const & cachePath, char const * bytes, size_t size)
 {
   static std::atomic<uint64_t> counter{0};
   std::string const tmp = cachePath + ".tmp" + std::to_string(counter.fetch_add(1));
@@ -189,7 +191,9 @@ void WriteTileCache(std::string const & cachePath, char const * bytes, size_t si
   {
     LOG(LWARNING, ("RasterTileProvider: cache write failed", cachePath, e.what()));
     base::DeleteFileX(tmp);
+    return false;
   }
+  return true;
 }
 }  // namespace
 
@@ -210,6 +214,10 @@ RasterTileProvider::RasterTileProvider(Params params, TReadyFn onReady)
       "bgpoc:notfound", MakePlaceholder("NOT FOUND", kPlaceholderSize, 120, 30, 30, 90), kPlaceholderSize};
   m_placeholders[static_cast<size_t>(Status::Error)] = {
       "bgpoc:error", MakePlaceholder("ERROR", kPlaceholderSize, 120, 60, 0, 110), kPlaceholderSize};
+
+  // The scan stats every cached file — run it on the File thread instead of stalling the caller.
+  // RequestTile's cache reads are posted to the same (serial) File queue, so they run after it.
+  GetPlatform().RunTask(Platform::Thread::File, [this]() { InitDiskCache(); });
 }
 
 RasterTileProvider::SourceTile RasterTileProvider::ToSourceTile(df::TileKey const & tileKey) const
@@ -270,19 +278,20 @@ bool RasterTileProvider::RequestTile(df::TileKey const & tileKey, dp::Background
     return false;
 
   {
-    std::lock_guard<std::mutex> lock(m_mutex);
+    std::lock_guard lock(m_activeMutex);
     if (!m_active.insert(tileKey).second)
       return true;  // already in flight
   }
 
   std::string const url = SubstituteZXY(m_params.m_urlTemplate, src.m_z, src.m_x, src.m_y);
   std::string const uid = std::to_string(src.m_z) + "/" + std::to_string(src.m_x) + "/" + std::to_string(src.m_y);
-  // Format-neutral extension: the encoded bytes may be PNG or JPEG depending on the endpoint, and
-  // stb_image sniffs the actual content on decode.
-  std::string const cachePath =
-      m_cacheDir + std::to_string(src.m_z) + "_" + std::to_string(src.m_x) + "_" + std::to_string(src.m_y) + ".tile";
+  // Cache file name = the cache index key (the dir prefix is added only for filesystem ops).
+  // Format-neutral extension: the bytes may be PNG or JPEG depending on the endpoint, and stb_image
+  // sniffs the actual content on decode.
+  std::string const fileName =
+      std::to_string(src.m_z) + "_" + std::to_string(src.m_x) + "_" + std::to_string(src.m_y) + ".tile";
 
-  LOG(LINFO, ("RasterTileProvider: OM", tileKey.Coord2String(), "-> XYZ", uid, "rect", src.m_rect, url));
+  // LOG(LDEBUG, ("RasterTileProvider: OM", tileKey.Coord2String(), "-> XYZ", uid, "rect", src.m_rect, url));
 
   // Disk cache read (and stb decode) runs on the File thread; on a miss the HTTP request is fully
   // async (see StartDownload), so no worker thread is ever parked waiting on the network.
@@ -290,15 +299,16 @@ bool RasterTileProvider::RequestTile(df::TileKey const & tileKey, dp::Background
   // is safe only if the task was actually posted: a later !IsActive() inside the task means the tile
   // was cancelled meanwhile, but a failed post means nothing can ever deliver or be cancelled.
   auto const posted =
-      GetPlatform().RunTask(Platform::Thread::File, [this, tileKey, mode, url, uid, cachePath, rect = src.m_rect]()
+      GetPlatform().RunTask(Platform::Thread::File, [this, tileKey, mode, url, uid, fileName, rect = src.m_rect]()
   {
     if (!IsActive(tileKey))
       return;
 
     std::vector<uint8_t> rgba;
     uint32_t width = 0, height = 0;
-    if (DecodeFileToRGBA(cachePath, rgba, width, height))  // cache hit
+    if (DecodeFileToRGBA(m_cacheDir + fileName, rgba, width, height))  // cache hit
     {
+      TouchCacheEntry(fileName);
       if (DropActive(tileKey))
         m_onReady(tileKey, mode, uid, width, height, rect, std::move(rgba));
       return;
@@ -306,7 +316,7 @@ bool RasterTileProvider::RequestTile(df::TileKey const & tileKey, dp::Background
 
     // Cache miss (file absent or unreadable): show the placeholder and start the async download.
     DeliverPlaceholder(tileKey, mode, Status::Downloading);
-    StartDownload(tileKey, mode, url, uid, cachePath, rect);
+    StartDownload(tileKey, mode, url, uid, fileName, rect);
   });
 
   if (!posted.m_isSuccess)
@@ -319,7 +329,7 @@ bool RasterTileProvider::RequestTile(df::TileKey const & tileKey, dp::Background
 }
 
 void RasterTileProvider::StartDownload(df::TileKey const & tileKey, dp::BackgroundMode mode, std::string const & url,
-                                       std::string const & uid, std::string const & cachePath, m2::RectF const & rect)
+                                       std::string const & uid, std::string const & fileName, m2::RectF const & rect)
 {
   platform::HttpClient request(url);
   request.SetTimeout(kRequestTimeoutSec);
@@ -328,7 +338,7 @@ void RasterTileProvider::StartDownload(df::TileKey const & tileKey, dp::Backgrou
   // RunHttpRequestAsync copies all config (so this local HttpClient can die immediately) and calls
   // the handler on a transport thread. We decode, cache and deliver from there. The RequestHandle
   // is discarded: cancellation is handled by the active-set (a stale result is simply not delivered).
-  request.RunHttpRequestAsync([this, tileKey, mode, uid, cachePath, rect](platform::HttpClient::Result result)
+  request.RunHttpRequestAsync([this, tileKey, mode, uid, fileName, rect](platform::HttpClient::Result result)
   {
     if (!result.m_success || result.m_errorCode != 200)
     {
@@ -349,7 +359,8 @@ void RasterTileProvider::StartDownload(df::TileKey const & tileKey, dp::Backgrou
       return;
     }
 
-    WriteTileCache(cachePath, body.data(), body.size());
+    if (WriteTileCache(m_cacheDir + fileName, body.data(), body.size()))
+      AddCacheEntry(fileName, body.size());
 
     // Deliver only if the request was not cancelled while it was in flight.
     if (DropActive(tileKey))
@@ -362,6 +373,99 @@ void RasterTileProvider::CancelTile(df::TileKey const & tileKey, dp::BackgroundM
   DropActive(tileKey);
 }
 
+void RasterTileProvider::InitDiskCache()
+{
+  struct ScannedFile
+  {
+    time_t m_time;
+    std::string m_name;
+    uint64_t m_size;
+  };
+
+  // GetFilesByRegExp returns base names, which are exactly the cache index keys.
+  Platform::FilesList names;
+  Platform::GetFilesByRegExp(m_cacheDir, ".*\\.tile$", names);
+
+  std::vector<ScannedFile> files;
+  files.reserve(names.size());
+  for (auto & name : names)
+  {
+    std::string const fullPath = m_cacheDir + name;
+    uint64_t size = 0;
+    if (!Platform::GetFileSizeByFullPath(fullPath, size))
+      continue;
+    files.push_back({Platform::GetFileCreationTime(fullPath), std::move(name), size});
+  }
+
+  // Oldest first, so least-recently-modified files sit at the front (LRU end) of the list.
+  std::sort(files.begin(), files.end(),
+            [](ScannedFile const & a, ScannedFile const & b) { return a.m_time < b.m_time; });
+
+  std::lock_guard lock(m_cacheMutex);
+  // Downloads are started only from later tasks on the same (single-threaded) File queue, so
+  // nothing can index a tile before this scan finishes.
+  ASSERT(m_cacheIndex.empty(), ());
+  for (auto & f : files)
+  {
+    m_lru.push_back(f.m_name);
+    m_cacheIndex.emplace(std::move(f.m_name), CacheEntry{f.m_size, std::prev(m_lru.end())});
+    m_cacheBytes += f.m_size;
+  }
+  EvictDiskCacheLocked();  // in case the cap was lowered between runs
+  LOG(LINFO, ("RasterTileProvider: disk cache", m_cacheIndex.size(), "tiles,", m_cacheBytes / 1024, "KB (cap",
+              m_params.m_maxCacheBytes / 1024, "KB)"));
+}
+
+void RasterTileProvider::TouchCacheEntry(std::string const & name)
+{
+  std::lock_guard lock(m_cacheMutex);
+  auto const it = m_cacheIndex.find(name);
+  if (it == m_cacheIndex.end())
+    return;
+  // Move the node to the back (most-recently-used). Splice keeps the stored iterator valid.
+  m_lru.splice(m_lru.end(), m_lru, it->second.m_lruIt);
+}
+
+void RasterTileProvider::AddCacheEntry(std::string const & name, uint64_t size)
+{
+  std::lock_guard lock(m_cacheMutex);
+  auto const it = m_cacheIndex.find(name);
+  if (it != m_cacheIndex.end())
+  {
+    // Overwritten (re-download): adjust the accounted size and promote to most-recently-used.
+    m_cacheBytes -= it->second.m_size;
+    it->second.m_size = size;
+    m_cacheBytes += size;
+    m_lru.splice(m_lru.end(), m_lru, it->second.m_lruIt);
+  }
+  else
+  {
+    m_lru.push_back(name);
+    m_cacheIndex.emplace(name, CacheEntry{size, std::prev(m_lru.end())});
+    m_cacheBytes += size;
+  }
+  EvictDiskCacheLocked();
+}
+
+void RasterTileProvider::EvictDiskCacheLocked()
+{
+  while (m_cacheBytes > m_params.m_maxCacheBytes && !m_lru.empty())
+  {
+    std::string const victim = std::move(m_lru.front());
+    m_lru.pop_front();
+
+    auto const it = m_cacheIndex.find(victim);
+    if (it != m_cacheIndex.end())
+    {
+      m_cacheBytes -= std::min(m_cacheBytes, it->second.m_size);
+      m_cacheIndex.erase(it);
+    }
+
+    if (!base::DeleteFileX(m_cacheDir + victim))
+      LOG(LWARNING, ("RasterTileProvider: failed to evict cache file", victim));
+  }
+}
+
 void RasterTileProvider::DeliverPlaceholder(df::TileKey const & tileKey, dp::BackgroundMode mode, Status status)
 {
   auto const & ph = m_placeholders[static_cast<size_t>(status)];
@@ -372,12 +476,12 @@ void RasterTileProvider::DeliverPlaceholder(df::TileKey const & tileKey, dp::Bac
 
 bool RasterTileProvider::IsActive(df::TileKey const & tileKey) const
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
+  std::lock_guard lock(m_activeMutex);
   return m_active.count(tileKey) != 0;
 }
 
 bool RasterTileProvider::DropActive(df::TileKey const & tileKey)
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
+  std::lock_guard lock(m_activeMutex);
   return m_active.erase(tileKey) != 0;
 }
