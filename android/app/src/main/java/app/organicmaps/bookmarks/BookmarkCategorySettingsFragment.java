@@ -24,15 +24,14 @@ import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.DataChangedListener;
 import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.Utils;
-import app.organicmaps.widget.colorpicker.TrackColorPickerFragment;
-import app.organicmaps.widget.colorpicker.TrackColorPickerViewModel;
+import app.organicmaps.widget.colorpicker.ColorPickerFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import java.util.Objects;
 
 public class BookmarkCategorySettingsFragment
-    extends BaseMwmToolbarFragment implements TrackColorPickerFragment.OnTrackColorChangeListener
+    extends BaseMwmToolbarFragment implements ColorPickerFragment.OnColorChangeListener
 {
   private static final int TEXT_LENGTH_LIMIT = 60;
   private static final String EXTRA_PICKING_TRACKS_COLOR = "picking_tracks_color";
@@ -260,21 +259,17 @@ public class BookmarkCategorySettingsFragment
   private void showBookmarkColorPicker()
   {
     mPickingTracksColor = false;
-    final Bundle args = new Bundle();
-    args.putInt(TrackColorPickerViewModel.EXTRA_INITIAL_COLOR, BookmarkManager.INSTANCE.getLastEditedColor());
-    final TrackColorPickerFragment fragment = new TrackColorPickerFragment();
-    fragment.setArguments(args);
-    fragment.show(getChildFragmentManager(), null);
+    ColorPickerFragment.show(getChildFragmentManager(), BookmarkManager.INSTANCE.getLastEditedColor());
   }
 
   private void showTrackColorPicker()
   {
     mPickingTracksColor = true;
-    new TrackColorPickerFragment().show(getChildFragmentManager(), null);
+    new ColorPickerFragment().show(getChildFragmentManager(), null);
   }
 
   @Override
-  public void onTrackColorSet(@ColorInt int color)
+  public void onColorSet(@ColorInt int color)
   {
     if (mPickingTracksColor)
     {

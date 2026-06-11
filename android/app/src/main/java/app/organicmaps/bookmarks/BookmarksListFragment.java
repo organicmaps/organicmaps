@@ -45,8 +45,7 @@ import app.organicmaps.util.WindowInsetUtils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.widget.SearchToolbarController;
-import app.organicmaps.widget.colorpicker.TrackColorPickerFragment;
-import app.organicmaps.widget.colorpicker.TrackColorPickerViewModel;
+import app.organicmaps.widget.colorpicker.ColorPickerFragment;
 import app.organicmaps.widget.placepage.EditBookmarkFragment;
 import app.organicmaps.widget.recycler.DividerItemDecorationWithPadding;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -58,7 +57,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     implements BookmarkManager.BookmarksSharingListener, BookmarkManager.BookmarksSortingListener,
                BookmarkManager.BookmarksLoadingListener, BookmarkSearchListener,
                ChooseBookmarksSortingTypeFragment.ChooseSortingTypeListener,
-               MenuBottomSheetFragment.MenuBottomSheetInterface, TrackColorPickerFragment.OnTrackColorChangeListener
+               MenuBottomSheetFragment.MenuBottomSheetInterface, ColorPickerFragment.OnColorChangeListener
 {
   public static final String TAG = BookmarksListFragment.class.getSimpleName();
   public static final String EXTRA_CATEGORY = "bookmark_category";
@@ -641,26 +640,18 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     {
       final Track track = (Track) item;
       mSelectedItemId = track.getTrackId();
-      final Bundle args = new Bundle();
-      args.putInt(TrackColorPickerViewModel.EXTRA_INITIAL_COLOR, track.getColor());
-      final TrackColorPickerFragment fragment = new TrackColorPickerFragment();
-      fragment.setArguments(args);
-      fragment.show(getChildFragmentManager(), null);
+      ColorPickerFragment.show(getChildFragmentManager(), track.getColor());
     }
     else if (mSelectedItemType == BookmarkListAdapter.TYPE_BOOKMARK)
     {
       final BookmarkInfo bookmark = (BookmarkInfo) item;
       mSelectedItemId = bookmark.getBookmarkId();
-      final Bundle args = new Bundle();
-      args.putInt(TrackColorPickerViewModel.EXTRA_INITIAL_COLOR, bookmark.getIcon().argb());
-      final TrackColorPickerFragment fragment = new TrackColorPickerFragment();
-      fragment.setArguments(args);
-      fragment.show(getChildFragmentManager(), null);
+      ColorPickerFragment.show(getChildFragmentManager(), bookmark.getIcon().argb());
     }
   }
 
   @Override
-  public void onTrackColorSet(@ColorInt int color)
+  public void onColorSet(@ColorInt int color)
   {
     if (mSelectedItemId == -1)
       return;

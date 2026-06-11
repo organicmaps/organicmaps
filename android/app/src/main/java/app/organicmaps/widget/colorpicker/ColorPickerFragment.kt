@@ -23,9 +23,11 @@ import android.widget.TextView
 import android.widget.ViewFlipper
 import androidx.annotation.ColorInt
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -39,13 +41,13 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
-class TrackColorPickerFragment : BottomSheetDialogFragment() {
+class ColorPickerFragment : BottomSheetDialogFragment() {
 
-    fun interface OnTrackColorChangeListener {
-        fun onTrackColorSet(@ColorInt color: Int)
+    fun interface OnColorChangeListener {
+        fun onColorSet(@ColorInt color: Int)
     }
 
-    private val viewModel by viewModels<TrackColorPickerViewModel>()
+    private val viewModel by viewModels<ColorPickerViewModel>()
 
     private var contentContainer: LinearLayout? = null
     private var viewFlipper: ViewFlipper? = null
@@ -65,7 +67,7 @@ class TrackColorPickerFragment : BottomSheetDialogFragment() {
     private val selectorStroke by lazy { resources.getDimensionPixelSize(R.dimen.color_picker_selector_stroke) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
-        inflater.inflate(R.layout.fragment_track_color_picker, container, false)
+        inflater.inflate(R.layout.fragment_color_picker, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         contentContainer = view.findViewById(R.id.content_container)
@@ -266,7 +268,7 @@ class TrackColorPickerFragment : BottomSheetDialogFragment() {
     override fun onDismiss(dialog: DialogInterface) {
         if (isResumed) {
             viewModel.getResultColor()?.let {
-                (parentFragment as? OnTrackColorChangeListener)?.onTrackColorSet(it)
+                (parentFragment as? OnColorChangeListener)?.onColorSet(it)
             }
         }
         super.onDismiss(dialog)
@@ -398,6 +400,13 @@ class TrackColorPickerFragment : BottomSheetDialogFragment() {
 
     companion object {
         private const val ADD_BUTTON_TAG = -1
+
+        @JvmStatic
+        fun show(manager: FragmentManager, @ColorInt initialColor: Int) {
+            ColorPickerFragment().apply {
+                arguments = bundleOf(ColorPickerViewModel.EXTRA_INITIAL_COLOR to initialColor)
+            }.show(manager, null)
+        }
 
         private fun drawRoundedSquare(@ColorInt color: Int, size: Int, radius: Float): Drawable =
             GradientDrawable().apply {

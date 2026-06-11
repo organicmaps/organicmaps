@@ -26,7 +26,7 @@ data class ColorPickerState(
     val colorChanged: Boolean = false,
 )
 
-class TrackColorPickerViewModel(application: Application, private val savedStateHandle: SavedStateHandle) :
+class ColorPickerViewModel(application: Application, private val savedStateHandle: SavedStateHandle) :
     AndroidViewModel(application) {
 
     @ColorInt

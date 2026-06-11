@@ -33,14 +33,13 @@ import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
 import app.organicmaps.utils.Graphics;
-import app.organicmaps.widget.colorpicker.TrackColorPickerFragment;
-import app.organicmaps.widget.colorpicker.TrackColorPickerViewModel;
+import app.organicmaps.widget.colorpicker.ColorPickerFragment;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import java.util.List;
 
-public class EditBookmarkFragment extends BaseMwmDialogFragment
-    implements View.OnClickListener, Listener, TrackColorPickerFragment.OnTrackColorChangeListener
+public class EditBookmarkFragment
+    extends BaseMwmDialogFragment implements View.OnClickListener, Listener, ColorPickerFragment.OnColorChangeListener
 {
   public static final String EXTRA_CATEGORY_ID = "CategoryId";
   public static final String EXTRA_ID = "BookmarkTrackId";
@@ -305,16 +304,11 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment
     if (mIcon == null && mTrack == null)
       return;
 
-    final FragmentManager manager = getChildFragmentManager();
-    final Bundle args = new Bundle();
-    args.putInt(TrackColorPickerViewModel.EXTRA_INITIAL_COLOR, mTrack != null ? mColor : mIcon.argb());
-    final TrackColorPickerFragment fragment = new TrackColorPickerFragment();
-    fragment.setArguments(args);
-    fragment.show(manager, null);
+    ColorPickerFragment.show(getChildFragmentManager(), mTrack != null ? mColor : mIcon.argb());
   }
 
   @Override
-  public void onTrackColorSet(@ColorInt int color)
+  public void onColorSet(@ColorInt int color)
   {
     if (mTrack != null)
     {

@@ -93,8 +93,7 @@ import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.utils.Graphics;
 import app.organicmaps.widget.ArrowView;
-import app.organicmaps.widget.colorpicker.TrackColorPickerFragment;
-import app.organicmaps.widget.colorpicker.TrackColorPickerViewModel;
+import app.organicmaps.widget.colorpicker.ColorPickerFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageLinksFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageNotesFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageOpeningHoursFragment;
@@ -113,7 +112,7 @@ public class PlacePageView extends Fragment
     implements View.OnClickListener, View.OnLongClickListener, LocationListener, SensorListener, Observer<MapObject>,
                ChooseBookmarkCategoryFragment.Listener, EditBookmarkFragment.EditBookmarkListener,
                MenuBottomSheetFragment.MenuBottomSheetInterface, BookmarkManager.BookmarksSharingListener,
-               TrackColorPickerFragment.OnTrackColorChangeListener
+               ColorPickerFragment.OnColorChangeListener
 
 {
   private static final String PREF_COORDINATES_FORMAT = "coordinates_format";
@@ -600,30 +599,20 @@ public class PlacePageView extends Fragment
 
   void showColorDialog()
   {
-    final FragmentManager manager = getChildFragmentManager();
-
     if (mMapObject.isTrack())
     {
       final Track track = (Track) mMapObject;
-      final Bundle args = new Bundle();
-      args.putInt(TrackColorPickerViewModel.EXTRA_INITIAL_COLOR, track.getColor());
-      final TrackColorPickerFragment fragment = new TrackColorPickerFragment();
-      fragment.setArguments(args);
-      fragment.show(manager, null);
+      ColorPickerFragment.show(getChildFragmentManager(), track.getColor());
     }
     else if (mMapObject.isBookmark())
     {
       final Bookmark bookmark = (Bookmark) mMapObject;
-      final Bundle args = new Bundle();
-      args.putInt(TrackColorPickerViewModel.EXTRA_INITIAL_COLOR, bookmark.getIcon().argb());
-      final TrackColorPickerFragment fragment = new TrackColorPickerFragment();
-      fragment.setArguments(args);
-      fragment.show(manager, null);
+      ColorPickerFragment.show(getChildFragmentManager(), bookmark.getIcon().argb());
     }
   }
 
   @Override
-  public void onTrackColorSet(@ColorInt int color)
+  public void onColorSet(@ColorInt int color)
   {
     if (mMapObject == null)
       return;
