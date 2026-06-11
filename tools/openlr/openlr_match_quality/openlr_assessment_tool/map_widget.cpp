@@ -8,7 +8,7 @@
 
 namespace openlr
 {
-MapWidget::MapWidget(Framework & framework, QWidget * parent) : Base(framework, false /* screenshotMode */, parent) {}
+MapWidget::MapWidget(Framework & framework, QWidget * parent) : Base(framework, parent) {}
 
 void MapWidget::mousePressEvent(QMouseEvent * e)
 {

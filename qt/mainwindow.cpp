@@ -11,7 +11,6 @@
 #include "qt/qt_common/helpers.hpp"
 #include "qt/qt_common/scale_slider.hpp"
 #include "qt/routing_settings_dialog.hpp"
-#include "qt/screenshoter.hpp"
 #include "qt/search_panel.hpp"
 
 #include "map/framework.hpp"
@@ -98,42 +97,22 @@ T * CreateBlackControl(QString const & name)
 // Defined in osm_auth_dialog.cpp.
 extern char const * kOauthTokenSetting;
 
-MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> && screenshotParams,
-                       QRect const & screenGeometry
+MainWindow::MainWindow(Framework & framework, QRect const & screenGeometry
 #ifdef BUILD_DESIGNER
                        ,
                        QString const & mapcssFilePath
 #endif
                        )
   : m_locationService(CreateDesktopLocationService(*this))
-  , m_screenshotMode(screenshotParams != nullptr)
 #ifdef BUILD_DESIGNER
   , m_mapcssFilePath(mapcssFilePath)
 #endif
 {
   setGeometry(screenGeometry);
 
-  if (m_screenshotMode)
-  {
-    screenshotParams->m_statusChangedFn = [this](std::string const & state, bool finished)
-    {
-      statusBar()->showMessage(QString::fromStdString(state));
-      if (finished)
-        QCoreApplication::quit();
-    };
-  }
-
-  int const width = m_screenshotMode ? static_cast<int>(screenshotParams->m_width) : 0;
-  int const height = m_screenshotMode ? static_cast<int>(screenshotParams->m_height) : 0;
-  m_pDrawWidget = new DrawWidget(framework, std::move(screenshotParams), this);
+  m_pDrawWidget = new DrawWidget(framework, this);
 
   setCentralWidget(m_pDrawWidget);
-
-  if (m_screenshotMode)
-  {
-    m_pDrawWidget->setFixedSize(width, height);
-    setFixedSize(width, height + statusBar()->height());
-  }
 
   connect(m_pDrawWidget, SIGNAL(BeforeEngineCreation()), this, SLOT(OnBeforeEngineCreation()));
 
@@ -445,9 +424,6 @@ void MainWindow::CreateNavigationBar()
   pToolBar->addAction(QIcon(":/navig64/download.png"), tr("Download Maps"), this, SLOT(ShowUpdateDialog()));
 #endif  // NO_DOWNLOADER
 
-  if (m_screenshotMode)
-    pToolBar->setVisible(false);
-
   addToolBar(Qt::RightToolBarArea, pToolBar);
 }
 
@@ -473,7 +449,7 @@ void MainWindow::CreateCountryStatusControls()
   mainLayout->addWidget(m_downloadingStatusLabel, 0, Qt::AlignHCenter);
   m_downloadingStatusLabel->setVisible(false);
 
-  m_pDrawWidget->setLayout(mainLayout);
+  m_pDrawWidget->SetOverlayLayout(mainLayout);
 
   auto const OnCountryChanged = [this](storage::CountryId const & countryId)
   {
@@ -659,7 +635,7 @@ void MainWindow::OnBeforeEngineCreation()
 void MainWindow::OnPreferences()
 {
   Framework & framework = m_pDrawWidget->GetFramework();
-  PreferencesDialog dlg(this, framework);
+  PreferencesDialog dlg(this, framework, [this](dp::ApiVersion const api) { m_pDrawWidget->SetRenderingApi(api); });
   dlg.exec();
 
   framework.EnterForeground();

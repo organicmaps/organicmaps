@@ -36,8 +36,6 @@ int main(int argc, char ** argv)
   Q_INIT_RESOURCE(resources_common);
   QApplication app(argc, argv);
 
-  qt::common::SetDefaultSurfaceFormat(app.platformName());
-
   FrameworkParams params;
   CHECK_GREATER(FLAGS_num_threads, 0, ());
   params.m_numSearchAPIThreads = FLAGS_num_threads;

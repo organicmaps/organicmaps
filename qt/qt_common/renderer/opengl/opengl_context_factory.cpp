@@ -1,12 +1,10 @@
-#include "qt/qt_common/qtoglcontextfactory.hpp"
+#include "opengl_context_factory.hpp"
 
 #include "base/assert.hpp"
 
 #include <memory>
 
-namespace qt
-{
-namespace common
+namespace qt::common::renderer::opengl
 {
 QtOGLContextFactory::QtOGLContextFactory(QOpenGLContext * rootContext) : m_rootContext(rootContext)
 {
@@ -81,9 +79,9 @@ void QtOGLContextFactory::WaitForInitialization(dp::GraphicsContext * context)
     m_contextsCreated.count_down();
 }
 
-std::unique_ptr<QOffscreenSurface> QtOGLContextFactory::CreateSurface()
+std::unique_ptr<QOffscreenSurface> QtOGLContextFactory::CreateSurface() const
 {
-  QSurfaceFormat format = m_rootContext->format();
+  QSurfaceFormat const format = m_rootContext->format();
   auto result = std::make_unique<QOffscreenSurface>(m_rootContext->screen());
   result->setFormat(format);
   result->create();
@@ -91,5 +89,4 @@ std::unique_ptr<QOffscreenSurface> QtOGLContextFactory::CreateSurface()
 
   return result;
 }
-}  // namespace common
-}  // namespace qt
+}  // namespace qt::common::renderer::opengl

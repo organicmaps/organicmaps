@@ -1,8 +1,11 @@
 #pragma once
 
+#include <functional>
 #include <string>
 
 #include <QtWidgets/QDialog>
+
+#include "drape/drape_global.hpp"
 
 class Framework;
 
@@ -15,7 +18,9 @@ class PreferencesDialog : public QDialog
   Q_OBJECT
 
 public:
-  PreferencesDialog(QWidget * parent, Framework & framework);
+  using SetApiVersionFn = std::function<void(dp::ApiVersion)>;
+
+  PreferencesDialog(QWidget * parent, Framework & framework, SetApiVersionFn setApiVersionFn);
 };
 }  // namespace qt
 

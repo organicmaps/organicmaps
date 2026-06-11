@@ -1,44 +1,36 @@
 #pragma once
 
-#include "drape/pointers.hpp"
-#include "drape_frontend/gui/skin.hpp"
+#include <QWidget>
+
 #include "drape_frontend/user_event_stream.hpp"
-
-#include "qt/qt_common/qtoglcontextfactory.hpp"
-
-#include <QOpenGLWidget>
-
-#include <QtCore/QTimer>
-
-#include <memory>
+#include "qt/qt_common/renderer/base/renderer_window.hpp"
 
 class Framework;
 class QMouseEvent;
-class QWidget;
 class ScreenBase;
-class QOpenGLShaderProgram;
-class QOpenGLVertexArrayObject;
-class QOpenGLBuffer;
+class QLayout;
+class QGridLayout;
 
 namespace qt::common
 {
 class ScaleSlider;
 
-class MapWidget : public QOpenGLWidget
+class MapWidget : public QWidget
 {
   Q_OBJECT
 
 public:
-  MapWidget(Framework & framework, bool isScreenshotMode, QWidget * parent);
+  MapWidget(Framework & framework, QWidget * parent);
   ~MapWidget() override;
 
   void BindHotkeys(QWidget & parent);
   void BindSlider(ScaleSlider & slider);
-  void CreateEngine();
-  void grabGestures(QList<Qt::GestureType> const & gestures);
+  void SetOverlayLayout(QLayout * layout) const;
 
 signals:
   void OnContextMenuRequested(QPoint const & p);
+  void BeforeEngineCreation();
+  void AfterEngineCreation();
 
 public slots:
   void ScalePlus();
@@ -61,8 +53,11 @@ public slots:
   void AntialiasingOn();
   void AntialiasingOff();
 
-public:
-  Q_SIGNAL void BeforeEngineCreation();
+  void SetRenderingApi(dp::ApiVersion apiVersion);
+
+protected slots:
+  virtual void OnBeforeEngineCreation();
+  virtual void OnAfterEngineCreation();
 
 protected:
   enum class SliderState
@@ -71,22 +66,11 @@ protected:
     Released
   };
 
-  int L2D(int px) const { return px * m_ratio; }
-  m2::PointD GetDevicePoint(QMouseEvent * e) const;
-  df::Touch GetDfTouchFromQMouseEvent(QMouseEvent * e) const;
-  df::TouchEvent GetDfTouchEventFromQMouseEvent(QMouseEvent * e, df::TouchEvent::ETouchType type) const;
+  int L2D(int px) const;
+  m2::PointD GetDevicePoint(QMouseEvent const * e) const;
+  df::Touch GetDfTouchFromQMouseEvent(QMouseEvent const * e) const;
+  df::TouchEvent GetDfTouchEventFromQMouseEvent(QMouseEvent const * e, df::TouchEvent::ETouchType type) const;
   df::Touch GetSymmetrical(df::Touch const & touch) const;
-
-  void UpdateScaleControl();
-  void Build();
-  void ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt);
-
-  void OnViewportChanged(ScreenBase const & screen);
-
-  // QOpenGLWidget overrides:
-  void initializeGL() override;
-  void paintGL() override;
-  void resizeGL(int width, int height) override;
 
   void mouseDoubleClickEvent(QMouseEvent * e) override;
   void mousePressEvent(QMouseEvent * e) override;
@@ -94,20 +78,20 @@ protected:
   void mouseReleaseEvent(QMouseEvent * e) override;
   void wheelEvent(QWheelEvent * e) override;
 
+  void UpdateScaleControl();
+  void ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt);
+
+  void OnViewportChanged(ScreenBase const & screen);
+
+protected:
   Framework & m_framework;
-  bool m_screenshotMode;
   ScaleSlider * m_slider;
   SliderState m_sliderState;
 
-  float m_ratio;
-  drape_ptr<QtOGLContextFactory> m_contextFactory;
-  std::unique_ptr<gui::Skin> m_skin;
-
-  std::unique_ptr<QTimer> m_updateTimer;
-
-  std::unique_ptr<QOpenGLShaderProgram> m_program;
-  std::unique_ptr<QOpenGLVertexArrayObject> m_vao;
-  std::unique_ptr<QOpenGLBuffer> m_vbo;
+  renderer::base::RendererWindow * m_rendererWindow;
+  QGridLayout * m_rootLayout;
+  QWidget * m_windowContainer;
+  QWidget * m_overlayWindow;
 };
 
 }  // namespace qt::common

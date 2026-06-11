@@ -1,7 +1,6 @@
 #include "qt/html_processor.hpp"
 #include "qt/info_dialog.hpp"
 #include "qt/mainwindow.hpp"
-#include "qt/screenshoter.hpp"
 
 #include "qt/qt_common/helpers.hpp"
 
@@ -32,24 +31,7 @@ DEFINE_string(data_path, "", "Path to data directory.");
 DEFINE_string(log_abort_level, base::ToString(base::GetDefaultLogAbortLevel()),
               "Log messages severity that causes termination.");
 DEFINE_string(resources_path, "", "Path to resources directory.");
-DEFINE_string(kml_path, "",
-              "Activates screenshot mode. Path to a kml file or a directory with kml files to take screenshots.");
-DEFINE_string(points, "",
-              "Activates screenshot mode. Points on the map and zoom level "
-              "[1..18] in format \"lat,lon,zoom[;lat,lon,zoom]\" or path to a file with points in "
-              "the same format. Each point and zoom define a place on the map to take screenshot.");
-DEFINE_string(rects, "",
-              "Activates screenshot mode. Rects on the map in format"
-              "\"lat_leftBottom,lon_leftBottom,lat_rightTop,lon_rightTop"
-              "[;lat_leftBottom,lon_leftBottom,lat_rightTop,lon_rightTop]\" or path to a file with "
-              "rects in the same format. Each rect defines a place on the map to take screenshot.");
-DEFINE_string(dst_path, "", "Path to a directory to save screenshots.");
 DEFINE_string(lang, "", "Device language.");
-DEFINE_int32(width, 0, "Screenshot width.");
-DEFINE_int32(height, 0, "Screenshot height.");
-DEFINE_double(
-    dpi_scale, 0.0,
-    "Screenshot dpi scale (mdpi = 1.0, hdpi = 1.5, xhdpiScale = 2.0, 6plus = 2.4, xxhdpi = 3.0, xxxhdpi = 3.5).");
 
 namespace
 {
@@ -175,40 +157,8 @@ int main(int argc, char * argv[])
   int returnCode = -1;
   if (eulaAccepted)  // User has accepted EULA
   {
-    std::unique_ptr<qt::ScreenshotParams> screenshotParams;
-
     if (!FLAGS_lang.empty())
       (void)::setenv("LANGUAGE", FLAGS_lang.c_str(), 1);
-
-    if (!FLAGS_kml_path.empty() || !FLAGS_points.empty() || !FLAGS_rects.empty())
-    {
-      screenshotParams = std::make_unique<qt::ScreenshotParams>();
-      if (!FLAGS_kml_path.empty())
-      {
-        screenshotParams->m_kmlPath = FLAGS_kml_path;
-        screenshotParams->m_mode = qt::ScreenshotParams::Mode::KmlFiles;
-      }
-      else if (!FLAGS_points.empty())
-      {
-        screenshotParams->m_points = FLAGS_points;
-        screenshotParams->m_mode = qt::ScreenshotParams::Mode::Points;
-      }
-      else if (!FLAGS_rects.empty())
-      {
-        screenshotParams->m_rects = FLAGS_rects;
-        screenshotParams->m_mode = qt::ScreenshotParams::Mode::Rects;
-      }
-      if (!FLAGS_dst_path.empty())
-        screenshotParams->m_dstPath = FLAGS_dst_path;
-      if (FLAGS_width > 0)
-        screenshotParams->m_width = FLAGS_width;
-      if (FLAGS_height > 0)
-        screenshotParams->m_height = FLAGS_height;
-      if (FLAGS_dpi_scale >= df::VisualParams::kMdpiScale && FLAGS_dpi_scale <= df::VisualParams::kXxxhdpiScale)
-        screenshotParams->m_dpiScale = FLAGS_dpi_scale;
-    }
-
-    qt::common::SetDefaultSurfaceFormat(QApplication::platformName());
 
     FrameworkParams frameworkParams;
 
@@ -247,9 +197,9 @@ int main(int argc, char * argv[])
         qt::common::ApplySystemNightMode(framework);
     };
     syncNightMode();
-    qt::MainWindow w(framework, std::move(screenshotParams), QApplication::primaryScreen()->geometry()
+    qt::MainWindow w(framework, QApplication::primaryScreen()->geometry()
 #ifdef BUILD_DESIGNER
-                                                                 ,
+                                    ,
                      mapcssFilePath
 #endif  // BUILD_DESIGNER
     );
