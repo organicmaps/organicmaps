@@ -21,6 +21,7 @@
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
+#include <vector>
 
 namespace df
 {
@@ -68,6 +69,13 @@ private:
     m2::RectF m_rect;
   };
 
+  struct DrawEntry
+  {
+    TileKey m_tileKey;
+    ImageInfo const * m_image;
+    m2::RectF m_rect;
+  };
+
   // Decrements refcount; if it reaches 0, pushes uid to the unreferenced LRU.
   void ReleaseImageRef(ref_ptr<dp::GraphicsContext> context, std::string const & uid);
   // Increments refcount; if it was 0, removes uid from the unreferenced LRU.
@@ -93,6 +101,9 @@ private:
   dp::RenderState m_state;
   dp::RenderState m_stateArray;
   gpu::TileBackgroundProgramParams m_programParams{};
+
+  // Per-frame scratch buffer for Render(); a member to reuse the allocation between frames.
+  std::vector<DrawEntry> m_sortedTiles;
 
   drape_ptr<dp::Instancing> m_instancing;
 };
