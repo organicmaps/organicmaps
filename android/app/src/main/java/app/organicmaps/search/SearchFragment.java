@@ -64,7 +64,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   private int mNavH = 0;
   private int mExpandedOffset = 0;
   private View mTabFrame;
-  private View mPages;
   private View mAppBar;
   private PlaceholderView mResultsPlaceholder;
   private SearchShimmerView mShimmerView;
@@ -86,7 +85,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
   @Nullable
   private TabAdapter mTabAdapter;
-  @Nullable
   private ViewPager mPager;
   private TabLayout mTabLayout;
   @Nullable
@@ -208,7 +206,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
     UiUtils.showIf(hasQuery, mResultsFrame);
     UiUtils.showIf(!hasQuery, mTabFrame);
-    UiUtils.showIf(!hasQuery, mPages);
+    UiUtils.showIf(!hasQuery, mPager);
     if (hasQuery)
       hideDownloadSuggest();
     else if (doShowDownloadSuggest())
@@ -280,9 +278,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     mSearchViewModel = new ViewModelProvider(requireActivity()).get(SearchPageViewModel.class);
 
     ViewGroup root = (ViewGroup) view;
-    ViewPager pager = root.findViewById(R.id.pages);
-    mPages = pager;
-    mPager = pager;
+    mPager = root.findViewById(R.id.pages);
 
     mToolbarController = new ToolbarController(view);
     mTabLayout = root.findViewById(R.id.tabs);
@@ -315,11 +311,11 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     mResults.setLayoutManager(new LinearLayoutManager(view.getContext()));
     mResults.setAdapter(mSearchAdapter);
 
-    pager.setClipToPadding(false);
+    mPager.setClipToPadding(false);
     // Store insets and dispatch to tab fragment RecyclerViews.
     // Padding the ViewPager itself is wrong — it shortens the tab fragment layout
     // without giving those RecyclerViews their own scrollable bottom padding.
-    ViewCompat.setOnApplyWindowInsetsListener(pager, (v, insets) -> {
+    ViewCompat.setOnApplyWindowInsetsListener(mPager, (v, insets) -> {
       mLastKnownInsets = insets;
       dispatchInsetsToTabFragments(insets);
       return insets;
@@ -357,7 +353,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
   private void setupTabsIfNeeded()
   {
-    if (mTabAdapter != null || mPager == null || getView() == null)
+    if (mTabAdapter != null || getView() == null)
       return;
 
     final ViewPager pager = mPager;
@@ -638,7 +634,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   {
     recycler.addOnScrollListener(mRecyclerListener);
     mAttachedRecyclers.add(recycler);
-    if (mTabAdapter != null && mPager != null)
+    if (mTabAdapter != null)
       updateNestedScrollingForTab(mTabAdapter, mPager.getCurrentItem());
   }
 
@@ -669,7 +665,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   private void syncNestedScrollingState()
   {
     final boolean hasQuery = mToolbarController.hasQuery();
-    final int activeTab = (mPager != null) ? mPager.getCurrentItem() : -1;
+    final int activeTab = mPager.getCurrentItem();
 
     // updateFrames() runs on every keystroke and every results batch — but the nested-scrolling
     // flags only flip on hasQuery / activeTab transitions, so cache the last pair and skip the
