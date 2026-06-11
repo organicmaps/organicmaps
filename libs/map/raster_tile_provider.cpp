@@ -22,13 +22,29 @@
 namespace
 {
 double constexpr kRequestTimeoutSec = 10.0;
-int constexpr kPlaceholderSize = 256;
 
 // XYZ raster PNGs store row 0 = north (image top). The tile-background shader maps the quad's
 // south edge (mercator minY) to texture v = 0, and a sampler's v = 0 returns the first uploaded
 // row on both GL and Metal. So we reverse rows here to make uploaded row 0 == tile south edge.
 // If the basemap renders vertically mirrored, flip this single constant.
 bool constexpr kFlipVertically = true;
+
+std::string SubstituteZXY(std::string tmpl, int z, int x, int y)
+{
+  auto const replace = [&tmpl](std::string_view from, int value)
+  {
+    auto const pos = tmpl.find(from);
+    if (pos != std::string::npos)
+      tmpl.replace(pos, from.size(), std::to_string(value));
+  };
+  replace("{z}", z);
+  replace("{x}", x);
+  replace("{y}", y);
+  return tmpl;
+}
+
+#ifdef ENABLE_STATUS_PLACEHOLDERS
+int constexpr kPlaceholderSize = 256;
 
 // Minimal 8x8 bitmap font for A-Z (public-domain font8x8_basic subset), used to draw debug status
 // text into placeholder tiles. Each glyph is 8 rows; within a row bit i (LSB first) is column i.
@@ -60,20 +76,6 @@ uint8_t const kFont8x8[26][8] = {
     {0x33, 0x33, 0x33, 0x1E, 0x0C, 0x0C, 0x1E, 0x00},  // Y
     {0x7F, 0x63, 0x31, 0x18, 0x4C, 0x66, 0x7F, 0x00},  // Z
 };
-
-std::string SubstituteZXY(std::string tmpl, int z, int x, int y)
-{
-  auto const replace = [&tmpl](std::string_view from, int value)
-  {
-    auto const pos = tmpl.find(from);
-    if (pos != std::string::npos)
-      tmpl.replace(pos, from.size(), std::to_string(value));
-  };
-  replace("{z}", z);
-  replace("{x}", x);
-  replace("{y}", y);
-  return tmpl;
-}
 
 // Sets one RGBA pixel, flipping the row when kFlipVertically (so the image matches the south-first
 // upload order used for real tiles, keeping the drawn text upright on screen).
@@ -129,6 +131,7 @@ std::vector<uint8_t> MakePlaceholder(std::string const & text, int size, uint8_t
   }
   return img;
 }
+#endif  // ENABLE_STATUS_PLACEHOLDERS
 
 // Packs an stb-decoded (top-first) RGBA buffer into a tightly-packed buffer, reversing rows when
 // kFlipVertically so uploaded row 0 == the tile's south edge. Takes ownership of and frees `data`.
@@ -207,6 +210,7 @@ RasterTileProvider::RasterTileProvider(Params params, TReadyFn onReady)
   if (!Platform::MkDirRecursively(m_cacheDir))
     LOG(LWARNING, ("RasterTileProvider: failed to create cache dir", m_cacheDir));
 
+#ifdef ENABLE_STATUS_PLACEHOLDERS
   // Translucent colored fills + white text; all 256x256 so they share the tiles' texture pool.
   m_placeholders[static_cast<size_t>(Status::Downloading)] = {
       "bgpoc:downloading", MakePlaceholder("DOWNLOADING", kPlaceholderSize, 30, 60, 120, 90), kPlaceholderSize};
@@ -214,6 +218,7 @@ RasterTileProvider::RasterTileProvider(Params params, TReadyFn onReady)
       "bgpoc:notfound", MakePlaceholder("NOT FOUND", kPlaceholderSize, 120, 30, 30, 90), kPlaceholderSize};
   m_placeholders[static_cast<size_t>(Status::Error)] = {
       "bgpoc:error", MakePlaceholder("ERROR", kPlaceholderSize, 120, 60, 0, 110), kPlaceholderSize};
+#endif
 
   // The scan stats every cached file — run it on the File thread instead of stalling the caller.
   // RequestTile's cache reads are posted to the same (serial) File queue, so they run after it.
@@ -314,8 +319,10 @@ bool RasterTileProvider::RequestTile(df::TileKey const & tileKey, dp::Background
       return;
     }
 
-    // Cache miss (file absent or unreadable): show the placeholder and start the async download.
+    // Cache miss (file absent or unreadable): start the async download.
+#ifdef ENABLE_STATUS_PLACEHOLDERS
     DeliverPlaceholder(tileKey, mode, Status::Downloading);
+#endif
     StartDownload(tileKey, mode, url, uid, fileName, rect);
   });
 
@@ -342,9 +349,12 @@ void RasterTileProvider::StartDownload(df::TileKey const & tileKey, dp::Backgrou
   {
     if (!result.m_success || result.m_errorCode != 200)
     {
-      Status const status = result.m_errorCode == 404 ? Status::NotFound : Status::Error;
+#ifdef ENABLE_STATUS_PLACEHOLDERS
       if (DropActive(tileKey))
-        DeliverPlaceholder(tileKey, mode, status);
+        DeliverPlaceholder(tileKey, mode, result.m_errorCode == 404 ? Status::NotFound : Status::Error);
+#else
+      DropActive(tileKey);
+#endif
       return;
     }
 
@@ -354,8 +364,12 @@ void RasterTileProvider::StartDownload(df::TileKey const & tileKey, dp::Backgrou
     if (body.empty() || !DecodeMemoryToRGBA(body.data(), body.size(), rgba, width, height))
     {
       LOG(LWARNING, ("RasterTileProvider: failed to decode", uid));
+#ifdef ENABLE_STATUS_PLACEHOLDERS
       if (DropActive(tileKey))
         DeliverPlaceholder(tileKey, mode, Status::Error);
+#else
+      DropActive(tileKey);
+#endif
       return;
     }
 
@@ -466,6 +480,7 @@ void RasterTileProvider::EvictDiskCacheLocked()
   }
 }
 
+#ifdef ENABLE_STATUS_PLACEHOLDERS
 void RasterTileProvider::DeliverPlaceholder(df::TileKey const & tileKey, dp::BackgroundMode mode, Status status)
 {
   auto const & ph = m_placeholders[static_cast<size_t>(status)];
@@ -473,6 +488,7 @@ void RasterTileProvider::DeliverPlaceholder(df::TileKey const & tileKey, dp::Bac
   m_onReady(tileKey, mode, ph.m_uid, ph.m_size, ph.m_size, m2::RectF(0.0f, 0.0f, 1.0f, 1.0f),
             std::vector<uint8_t>(ph.m_rgba));
 }
+#endif
 
 bool RasterTileProvider::IsActive(df::TileKey const & tileKey) const
 {
