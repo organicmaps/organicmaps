@@ -360,19 +360,8 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeCancelInteract
   g_framework->NativeFramework()->GetSearchAPI().CancelSearch(search::Mode::Viewport);
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeCancelEverywhereSearch(JNIEnv * env, jclass clazz)
-{
-  g_framework->NativeFramework()->GetSearchAPI().CancelSearch(search::Mode::Everywhere);
-}
-
 JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeCancelAllSearches(JNIEnv * env, jclass clazz)
 {
   g_framework->NativeFramework()->GetSearchAPI().CancelAllSearches();
-}
-
-JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeUpdateViewportWithLastResults(JNIEnv * env,
-                                                                                                jclass clazz)
-{
-  g_framework->NativeFramework()->UpdateViewport(g_results);
 }
 }  // extern "C"
