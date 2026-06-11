@@ -56,7 +56,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   private final List<HiddenCommand> mHiddenCommands = new ArrayList<>();
   private final List<RecyclerView> mAttachedRecyclers = new ArrayList<>();
   private final LastPosition mLastPosition = new LastPosition();
-  private long mLastQueryTimestamp;
   private SearchFragmentListener mSearchFragmentListener;
   private View mResultsFrame;
   @Nullable
@@ -545,8 +544,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     // results are no longer needed.
     SearchEngine.INSTANCE.cancel();
 
-    mLastQueryTimestamp = System.nanoTime();
-
     boolean hasLocation = mLastPosition.valid;
     double lat = mLastPosition.lat;
     double lon = mLastPosition.lon;
@@ -571,7 +568,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     mSearchViewModel.clearPendingRequest();
 
     SearchEngine.INSTANCE.setQuery(getQuery());
-    boolean started = SearchEngine.INSTANCE.searchInteractive(getQuery(), isCategory(), locale, mLastQueryTimestamp,
+    boolean started = SearchEngine.INSTANCE.searchInteractive(getQuery(), isCategory(), locale, System.nanoTime(),
                                                               true /* isMapAndTable */, hasLocation, lat, lon);
     if (!started)
     {
