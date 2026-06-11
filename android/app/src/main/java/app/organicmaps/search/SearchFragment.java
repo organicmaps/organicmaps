@@ -568,6 +568,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
     mSearchRunning = true;
     mToolbarController.showProgress(true);
+    updateResultsPlaceholder();
 
     if (mSearchAdapter.getItemCount() == 0)
     {
