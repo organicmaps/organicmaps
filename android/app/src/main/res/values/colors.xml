@@ -124,6 +124,6 @@
   <!-- Shimmer -->
   <color name="shimmer_bar">#1E000000</color>
   <color name="shimmer_highlight">#44FFFFFF</color>
-    <!-- Search sheet -->
-    <color name="bg_search">#14000000</color>
+  <!-- Search sheet -->
+  <color name="bg_search">#14000000</color>
 </resources>
