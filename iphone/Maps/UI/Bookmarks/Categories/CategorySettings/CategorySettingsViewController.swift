@@ -158,7 +158,7 @@ final class CategorySettingsViewController: MWMTableViewController {
     tableView.deselectRow(at: indexPath, animated: true)
 
     guard sectionType(for: indexPath.section) == .color else { return }
-    openColorPicker(for: colorActions[indexPath.row])
+    openColorPicker(for: colorActions[indexPath.row], anchor: tableView.cellForRow(at: indexPath))
   }
 
   private func sectionType(for section: Int) -> Sections? {
@@ -166,8 +166,8 @@ final class CategorySettingsViewController: MWMTableViewController {
     return sections[section]
   }
 
-  private func openColorPicker(for colorAction: ColorAction) {
-    ColorPicker.shared.present(from: self, currentColor: nil) { [weak self] color in
+  private func openColorPicker(for colorAction: ColorAction, anchor: UIView?) {
+    ColorPicker.shared.present(from: self, anchor: anchor, currentColor: nil) { [weak self] color in
       guard let self else { return }
 
       switch colorAction {

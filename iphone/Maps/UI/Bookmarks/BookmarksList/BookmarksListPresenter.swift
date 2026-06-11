@@ -49,8 +49,8 @@ final class BookmarksListPresenter {
     interactor.resetSort()
     var sections: [IBookmarksListSectionViewModel] = []
     let tracks = bookmarkGroup.tracks.map { track in
-      TrackViewModel(track, formattedDistance: formatDistance(Double(track.trackLengthMeters)), colorDidTap: {
-        self.view?.showColorPicker(with: track.trackColor) { color in
+      TrackViewModel(track, formattedDistance: formatDistance(Double(track.trackLengthMeters)), colorDidTap: { anchor in
+        self.view?.showColorPicker(anchor: anchor, currentColor: track.trackColor) { color in
           BookmarksManager.shared().updateTrack(track.trackId, setColor: color)
           self.reload()
         }
@@ -88,8 +88,8 @@ final class BookmarksListPresenter {
       } else {
         formattedDistance = nil
       }
-      return BookmarkViewModel(bookmark, formattedDistance: formattedDistance, colorDidTap: { [weak self] in
-        self?.view?.showColorPicker(with: bookmark.bookmarkColor) { color in
+      return BookmarkViewModel(bookmark, formattedDistance: formattedDistance, colorDidTap: { [weak self] anchor in
+        self?.view?.showColorPicker(anchor: anchor, currentColor: bookmark.bookmarkColor) { color in
           BookmarksManager.shared().updateBookmark(bookmark.bookmarkId, setColor: color)
           self?.reload()
         }
@@ -194,8 +194,8 @@ final class BookmarksListPresenter {
         }
         if let tracks = bookmarksSection.tracks, let self = self {
           return TracksSectionViewModel(tracks: tracks.map { track in
-            TrackViewModel(track, formattedDistance: self.formatDistance(Double(track.trackLengthMeters)), colorDidTap: {
-              self.view?.showColorPicker(with: track.trackColor) { color in
+            TrackViewModel(track, formattedDistance: self.formatDistance(Double(track.trackLengthMeters)), colorDidTap: { anchor in
+              self.view?.showColorPicker(anchor: anchor, currentColor: track.trackColor) { color in
                 BookmarksManager.shared().updateTrack(track.trackId, setColor: color)
                 self.reload()
               }
@@ -442,12 +442,12 @@ private struct BookmarkViewModel: IBookmarksListItemViewModel {
     circleImageForColor(bookmarkColor, frameSize: 22, iconName: bookmarkIconName)
   }
 
-  var colorDidTapAction: (() -> Void)?
+  var colorDidTapAction: ((_ anchor: UIView?) -> Void)?
 
   private let bookmarkColor: UIColor
   private let bookmarkIconName: String
 
-  init(_ bookmark: Bookmark, formattedDistance: String?, colorDidTap: (() -> Void)?) {
+  init(_ bookmark: Bookmark, formattedDistance: String?, colorDidTap: ((_ anchor: UIView?) -> Void)?) {
     bookmarkId = bookmark.bookmarkId
     name = bookmark.bookmarkName
     bookmarkColor = bookmark.bookmarkColor
@@ -465,11 +465,11 @@ private struct TrackViewModel: IBookmarksListItemViewModel {
     circleImageForColor(trackColor, frameSize: 22)
   }
 
-  var colorDidTapAction: (() -> Void)?
+  var colorDidTapAction: ((_ anchor: UIView?) -> Void)?
 
   private let trackColor: UIColor
 
-  init(_ track: Track, formattedDistance: String, colorDidTap: (() -> Void)?) {
+  init(_ track: Track, formattedDistance: String, colorDidTap: ((_ anchor: UIView?) -> Void)?) {
     trackId = track.trackId
     name = track.trackName
     subtitle = "\(L("length")) \(formattedDistance)"

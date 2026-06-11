@@ -195,10 +195,14 @@ final class EditBookmarkViewController: MWMTableViewController {
   }
 
   @objc private func openColorPicker() {
-    ColorPicker.shared.present(from: self, currentColor: bookmarkColor, completionHandler: { [weak self] color in
-      self?.bookmarkColor = color
-      self?.tableView.reloadRows(at: [IndexPath(row: InfoSectionRows.color.rawValue, section: Sections.info.rawValue)], with: .none)
-    })
+    let colorRow = IndexPath(row: InfoSectionRows.color.rawValue, section: Sections.info.rawValue)
+    ColorPicker.shared.present(from: self,
+                               anchor: tableView.cellForRow(at: colorRow),
+                               currentColor: bookmarkColor,
+                               completionHandler: { [weak self] color in
+                                 self?.bookmarkColor = color
+                                 self?.tableView.reloadRows(at: [colorRow], with: .none)
+                               })
   }
 
   private func openGroupPicker() {

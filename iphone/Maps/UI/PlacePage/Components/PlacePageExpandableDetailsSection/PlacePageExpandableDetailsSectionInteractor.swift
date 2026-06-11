@@ -4,7 +4,7 @@ protocol PlacePageExpandableDetailsSectionInteractor: AnyObject {
 
 enum PlacePageExpandableDetailsSectionRequest {
   case viewDidLoad
-  case didTapIcon
+  case didTapIcon(anchor: UIView?)
   case didTapTitle
   case didLongPressTitle
   case didTapAccessory
