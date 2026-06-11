@@ -298,15 +298,13 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     mResultsPlaceholder = mResultsFrame.findViewById(R.id.placeholder);
     mResultsPlaceholder.setContent(R.string.search_not_found, R.string.search_not_found_query);
     mShimmerView = mResultsFrame.findViewById(R.id.search_shimmer);
-    mSearchAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
-
-                                               {
-                                                 @Override
-                                                 public void onChanged()
-                                                 {
-                                                   updateResultsPlaceholder();
-                                                 }
-                                               });
+    mSearchAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+      @Override
+      public void onChanged()
+      {
+        updateResultsPlaceholder();
+      }
+    });
 
     mResults.setLayoutManager(new LinearLayoutManager(view.getContext()));
     mResults.setAdapter(mSearchAdapter);
@@ -406,6 +404,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     mSearchViewModel.getSearchEnabled().observe(getViewLifecycleOwner(), mSearchEnabledObserver);
   }
 
+  @Override
   public void onResume()
   {
     super.onResume();
