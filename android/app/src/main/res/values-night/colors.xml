@@ -41,4 +41,6 @@
   <!-- Shimmer -->
   <color name="shimmer_bar">#29FFFFFF</color>
   <color name="shimmer_highlight">#33FFFFFF</color>
+    <!-- Search sheet -->
+    <color name="bg_search">#0AFFFFFF</color>
 </resources>
