@@ -617,6 +617,12 @@
 "traffic_update_maps_text" = "交通データを表示するには、地図を更新する必要があります。";
 "big_font" = "地図上のフォントサイズを大きくする";
 
+/* iOS Settings toggle title. Enables JavaScript execution inside user-provided bookmark and track HTML descriptions. */
+"allow_javascript_in_place_descriptions" = "Allow media in HTML descriptions";
+
+/* iOS Settings toggle subtitle. Explain privacy/security tradeoff for JavaScript in user-provided bookmark and track HTML descriptions. */
+"allow_javascript_in_place_descriptions_summary" = "Allows bookmark and track HTML descriptions to run JavaScript for embedded media.";
+
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "交通データは利用できません";
 "enable_logging" = "ログを有効化";

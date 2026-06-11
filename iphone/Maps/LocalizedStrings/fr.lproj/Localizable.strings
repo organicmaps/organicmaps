@@ -617,6 +617,12 @@
 "traffic_update_maps_text" = "Pour afficher les données de circulation, les cartes doivent être actualisées.";
 "big_font" = "Augmenter la taille de police sur la carte";
 
+/* iOS Settings toggle title. Enables JavaScript execution inside user-provided bookmark and track HTML descriptions. */
+"allow_javascript_in_place_descriptions" = "Allow media in HTML descriptions";
+
+/* iOS Settings toggle subtitle. Explain privacy/security tradeoff for JavaScript in user-provided bookmark and track HTML descriptions. */
+"allow_javascript_in_place_descriptions_summary" = "Allows bookmark and track HTML descriptions to run JavaScript for embedded media.";
+
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Les données de circulation ne sont pas disponibles";
 "enable_logging" = "Activer le journal";

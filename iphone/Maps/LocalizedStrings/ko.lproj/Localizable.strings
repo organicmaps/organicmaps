@@ -617,6 +617,12 @@
 "traffic_update_maps_text" = "교통 데이터를 표시하려면 지도를 업데이트해야 합니다.";
 "big_font" = "지도에서 글꼴 크기 늘리기";
 
+/* iOS Settings toggle title. Enables JavaScript execution inside user-provided bookmark and track HTML descriptions. */
+"allow_javascript_in_place_descriptions" = "Allow media in HTML descriptions";
+
+/* iOS Settings toggle subtitle. Explain privacy/security tradeoff for JavaScript in user-provided bookmark and track HTML descriptions. */
+"allow_javascript_in_place_descriptions_summary" = "Allows bookmark and track HTML descriptions to run JavaScript for embedded media.";
+
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "교통 데이터를 사용할 수 없습니다";
 "enable_logging" = "로깅 사용";
