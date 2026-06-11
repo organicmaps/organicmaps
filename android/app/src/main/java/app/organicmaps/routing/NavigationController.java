@@ -170,7 +170,11 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
   public void show(boolean show)
   {
     if (show && !UiUtils.isVisible(mFrame))
+    {
       collapseNavMenu();
+      // Seed the panel from the already-built route so it isn't empty until the first GPS fix arrives.
+      update(RoutingController.get().getCachedRoutingInfo());
+    }
     UiUtils.showIf(show, mFrame);
   }
 
