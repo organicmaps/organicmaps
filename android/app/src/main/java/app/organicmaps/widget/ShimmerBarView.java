@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.LinearGradient;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.os.Build;
@@ -30,7 +29,6 @@ public class ShimmerBarView extends View
   private final Paint mShimmerPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
   private final RectF mRect = new RectF();
   private final Matrix mShaderMatrix = new Matrix();
-  private final Path mRoundRectPath = new Path();
 
   private float mCornerRadius;
   private int mShimmerWidth;
@@ -65,8 +63,6 @@ public class ShimmerBarView extends View
   {
     super.onSizeChanged(w, h, oldw, oldh);
     mRect.set(0, 0, w, h);
-    mRoundRectPath.reset();
-    mRoundRectPath.addRoundRect(mRect, mCornerRadius, mCornerRadius, Path.Direction.CW);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && w > 0)
     {
       // Shimmer gradient spans roughly 40% of the bar width for a nice subtle sweep
@@ -86,16 +82,12 @@ public class ShimmerBarView extends View
     // Draw the static base bar
     canvas.drawRoundRect(mRect, mCornerRadius, mCornerRadius, mBasePaint);
 
-    // Draw the animated shimmer highlight on top (clipped to the rounded rect)
+    // Draw the animated shimmer highlight on top — drawRoundRect is anti-aliased
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && mIsAnimating && mShimmerPaint.getShader() != null)
     {
-      canvas.save();
-      // Clip to the rounded rect so the gradient doesn't bleed outside
-      canvas.clipPath(mRoundRectPath);
       mShaderMatrix.setTranslate(mTranslateX, 0);
       mShimmerPaint.getShader().setLocalMatrix(mShaderMatrix);
-      canvas.drawRect(mRect, mShimmerPaint);
-      canvas.restore();
+      canvas.drawRoundRect(mRect, mCornerRadius, mCornerRadius, mShimmerPaint);
     }
   }
 
