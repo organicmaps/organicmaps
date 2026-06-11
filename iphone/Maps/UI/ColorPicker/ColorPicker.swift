@@ -1,35 +1,22 @@
-enum ColorPickerType {
-  case defaultColorPicker(UIColor?)
-}
-
 final class ColorPicker: NSObject {
   static let shared = ColorPicker()
 
   private var onUpdateColorHandler: ((UIColor) -> Void)?
 
-  // MARK: - Public
-
   /// Presents the native arbitrary-color picker modally from a specified root view controller.
   /// Used for both bookmarks and tracks (and on iOS-app-on-Mac).
-  func present(from rootViewController: UIViewController, pickerType: ColorPickerType, completionHandler: ((UIColor) -> Void)?) {
-    onUpdateColorHandler = completionHandler
-    switch pickerType {
-    case .defaultColorPicker(let color):
-      rootViewController.present(defaultColorPickerViewController(with: color), animated: true)
-    }
-  }
-
-  // MARK: - Private
-
-  private func defaultColorPickerViewController(with selectedColor: UIColor?) -> UIViewController {
+  /// `currentColor` preselects the color in the palette; pass nil when there is no current
+  /// color (e.g. when selecting a color for the whole group).
+  func present(from rootViewController: UIViewController, currentColor: UIColor?, completionHandler: ((UIColor) -> Void)?) {
     let colorPickerController = UIColorPickerViewController()
     colorPickerController.supportsAlpha = false
-    if let selectedColor {
-      colorPickerController.selectedColor = selectedColor
+    if let currentColor {
+      colorPickerController.selectedColor = currentColor
     }
     colorPickerController.delegate = self
     colorPickerController.presentationController?.delegate = self
-    return colorPickerController
+    onUpdateColorHandler = completionHandler
+    rootViewController.present(colorPickerController, animated: true)
   }
 
   private func commitSelection(_ color: UIColor) {

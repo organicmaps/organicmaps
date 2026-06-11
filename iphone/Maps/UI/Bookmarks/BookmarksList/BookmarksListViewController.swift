@@ -235,8 +235,8 @@ extension BookmarksListViewController: IBookmarksListView {
     present(actionSheet, animated: true)
   }
 
-  func showColorPicker(with pickerType: ColorPickerType, _ completionHandler: ((UIColor) -> Void)?) {
-    ColorPicker.shared.present(from: self, pickerType: pickerType, completionHandler: completionHandler)
+  func showColorPicker(with currentColor: UIColor?, _ completionHandler: ((UIColor) -> Void)?) {
+    ColorPicker.shared.present(from: self, currentColor: currentColor, completionHandler: completionHandler)
   }
 
   func enableEditing(_ enable: Bool) {

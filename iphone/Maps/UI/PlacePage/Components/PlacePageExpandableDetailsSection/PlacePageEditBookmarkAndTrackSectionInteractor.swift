@@ -89,11 +89,11 @@ final class PlacePageEditBookmarkAndTrackSectionInteractor: PlacePageExpandableD
     guard let data, let view = presenter.view else { return }
     switch data {
     case .bookmark(let bookmarkData):
-      ColorPicker.shared.present(from: view, pickerType: .defaultColorPicker(bookmarkData.color)) { [weak self] color in
+      ColorPicker.shared.present(from: view, currentColor: bookmarkData.color) { [weak self] color in
         self?.update(color: color)
       }
     case .track(let trackData):
-      ColorPicker.shared.present(from: view, pickerType: .defaultColorPicker(trackData.color ?? .buttonRed)) { [weak self] color in
+      ColorPicker.shared.present(from: view, currentColor: trackData.color ?? .buttonRed) { [weak self] color in
         self?.update(color: color)
       }
     }

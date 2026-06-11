@@ -180,7 +180,7 @@ final class EditTrackViewController: MWMTableViewController {
   }
 
   @objc private func openColorPicker() {
-    ColorPicker.shared.present(from: self, pickerType: .defaultColorPicker(trackColor), completionHandler: { [weak self] color in
+    ColorPicker.shared.present(from: self, currentColor: trackColor, completionHandler: { [weak self] color in
       self?.updateColor(color)
     })
   }

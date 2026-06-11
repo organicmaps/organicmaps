@@ -167,7 +167,7 @@ final class CategorySettingsViewController: MWMTableViewController {
   }
 
   private func openColorPicker(for colorAction: ColorAction) {
-    ColorPicker.shared.present(from: self, pickerType: .defaultColorPicker(nil)) { [weak self] color in
+    ColorPicker.shared.present(from: self, currentColor: nil) { [weak self] color in
       guard let self else { return }
 
       switch colorAction {

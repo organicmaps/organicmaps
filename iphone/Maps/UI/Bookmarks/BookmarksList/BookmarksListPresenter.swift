@@ -50,7 +50,7 @@ final class BookmarksListPresenter {
     var sections: [IBookmarksListSectionViewModel] = []
     let tracks = bookmarkGroup.tracks.map { track in
       TrackViewModel(track, formattedDistance: formatDistance(Double(track.trackLengthMeters)), colorDidTap: {
-        self.view?.showColorPicker(with: .defaultColorPicker(track.trackColor)) { color in
+        self.view?.showColorPicker(with: track.trackColor) { color in
           BookmarksManager.shared().updateTrack(track.trackId, setColor: color)
           self.reload()
         }
@@ -89,7 +89,7 @@ final class BookmarksListPresenter {
         formattedDistance = nil
       }
       return BookmarkViewModel(bookmark, formattedDistance: formattedDistance, colorDidTap: { [weak self] in
-        self?.view?.showColorPicker(with: .defaultColorPicker(bookmark.bookmarkColor)) { color in
+        self?.view?.showColorPicker(with: bookmark.bookmarkColor) { color in
           BookmarksManager.shared().updateBookmark(bookmark.bookmarkId, setColor: color)
           self?.reload()
         }
@@ -195,7 +195,7 @@ final class BookmarksListPresenter {
         if let tracks = bookmarksSection.tracks, let self = self {
           return TracksSectionViewModel(tracks: tracks.map { track in
             TrackViewModel(track, formattedDistance: self.formatDistance(Double(track.trackLengthMeters)), colorDidTap: {
-              self.view?.showColorPicker(with: .defaultColorPicker(track.trackColor)) { color in
+              self.view?.showColorPicker(with: track.trackColor) { color in
                 BookmarksManager.shared().updateTrack(track.trackId, setColor: color)
                 self.reload()
               }
