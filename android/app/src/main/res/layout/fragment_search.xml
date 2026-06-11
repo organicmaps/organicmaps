@@ -10,7 +10,7 @@
     android:id="@+id/pull_icon_container"
     layout="@layout/bottom_sheet_handle" />
   <LinearLayout
-    android:id="@+id/coordinator"
+    android:id="@+id/search_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
