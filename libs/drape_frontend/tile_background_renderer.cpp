@@ -1,12 +1,10 @@
 #include "drape_frontend/tile_background_renderer.hpp"
 
 #include "drape_frontend/render_state_extension.hpp"
-#include "drape_frontend/shape_view_params.hpp"
 
 #include "base/logging.hpp"
 
 #include <algorithm>
-#include <utility>
 
 namespace df
 {
@@ -228,17 +226,9 @@ void TileBackgroundRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_pt
   math::Matrix<float, 4, 4> const mv = screen.GetModelView(pivot, 1.0f);
   m_programParams.m_modelView = glsl::make_mat4(mv.m_data);
 
-  struct DrawEntry
-  {
-    TileKey m_tileKey;
-    ImageInfo const * m_image;
-    m2::RectF m_rect;
-  };
-
   // Sort tiles by texture pointer to minimize texture switches.
-  static std::vector<DrawEntry> sortedTiles;
-  sortedTiles.clear();
-  sortedTiles.reserve(m_tiles.size());
+  m_sortedTiles.clear();
+  m_sortedTiles.reserve(m_tiles.size());
   for (auto const & [tileKey, binding] : m_tiles)
   {
     if (!screen.ClipRect().IsIntersect(tileKey.GetGlobalRect()))
@@ -246,12 +236,12 @@ void TileBackgroundRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_pt
     auto imgIt = m_images.find(binding.m_imageUid);
     if (imgIt == m_images.end())
       continue;
-    sortedTiles.push_back({tileKey, &imgIt->second, binding.m_rect});
+    m_sortedTiles.push_back({tileKey, &imgIt->second, binding.m_rect});
   }
-  if (sortedTiles.empty())
+  if (m_sortedTiles.empty())
     return;
 
-  std::sort(sortedTiles.begin(), sortedTiles.end(), [](DrawEntry const & lhs, DrawEntry const & rhs)
+  std::sort(m_sortedTiles.begin(), m_sortedTiles.end(), [](DrawEntry const & lhs, DrawEntry const & rhs)
   {
     auto const lhsTex = lhs.m_image->m_texturePool->GetTexture(lhs.m_image->m_textureId);
     auto const rhsTex = rhs.m_image->m_texturePool->GetTexture(rhs.m_image->m_textureId);
@@ -263,9 +253,9 @@ void TileBackgroundRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_pt
   // Render tiles in batches with the same texture.
   uint32_t instanceIndex = 0;
   ref_ptr<dp::GpuProgram> prevProgram = nullptr;
-  for (size_t i = 0; i < sortedTiles.size(); ++i)
+  for (size_t i = 0; i < m_sortedTiles.size(); ++i)
   {
-    auto const & entry = sortedTiles[i];
+    auto const & entry = m_sortedTiles[i];
     auto const r = entry.m_tileKey.GetGlobalRect();
     auto const minR = (m2::PointD(r.minX(), r.minY()) - pivot);
     auto const maxR = (m2::PointD(r.maxX(), r.maxY()) - pivot);
@@ -276,10 +266,12 @@ void TileBackgroundRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_pt
     m_programParams.m_textureIndex[instanceIndex] = static_cast<int>(entry.m_image->m_textureId);
 
     auto const tex = entry.m_image->m_texturePool->GetTexture(entry.m_image->m_textureId);
-    bool const nextTextureIsDifferent =
-        (i + 1 < sortedTiles.size() &&
-         tex != sortedTiles[i + 1].m_image->m_texturePool->GetTexture(sortedTiles[i + 1].m_image->m_textureId));
-    if ((instanceIndex + 1) == gpu::kTileBackgroundMaxCount || (i + 1 == sortedTiles.size()) || nextTextureIsDifferent)
+    // Flush the accumulated batch when it is full, this is the last tile, or the next tile uses a different texture.
+    bool flushBatch = instanceIndex + 1 == gpu::kTileBackgroundMaxCount || i + 1 == m_sortedTiles.size();
+    if (!flushBatch)
+      flushBatch =
+          tex != m_sortedTiles[i + 1].m_image->m_texturePool->GetTexture(m_sortedTiles[i + 1].m_image->m_textureId);
+    if (flushBatch)
     {
       auto & state = entry.m_image->m_texturePool->IsHardwareTexture2dArrayUsed() ? m_stateArray : m_state;
 
