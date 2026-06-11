@@ -1,7 +1,9 @@
 package app.organicmaps.search;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -10,18 +12,18 @@ public class SearchRequestTest
   @Test
   public void storesAllFields()
   {
-    final SearchRequest request = new SearchRequest("cafe", "en", SearchRequest.Mode.MAP_ONLY);
+    final SearchRequest request = new SearchRequest("cafe", "en", true);
     assertEquals("cafe", request.query);
     assertEquals("en", request.locale);
-    assertEquals(SearchRequest.Mode.MAP_ONLY, request.mode);
+    assertTrue(request.isCategory);
   }
 
   @Test
   public void allowsNullQueryAndLocaleForEmptySearch()
   {
-    final SearchRequest request = new SearchRequest(null, null, SearchRequest.Mode.SHEET);
+    final SearchRequest request = new SearchRequest(null, null);
     assertNull(request.query);
     assertNull(request.locale);
-    assertEquals(SearchRequest.Mode.SHEET, request.mode);
+    assertFalse(request.isCategory);
   }
 }
