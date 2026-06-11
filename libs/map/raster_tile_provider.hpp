@@ -8,8 +8,10 @@
 
 #include <array>
 #include <functional>
+#include <list>
 #include <mutex>
 #include <string>
+#include <unordered_map>
 #include <unordered_set>
 #include <vector>
 
@@ -20,9 +22,9 @@
 // tile-background rendering API. Integration point: Framework::CreateDrapeEngine's
 // tileBackgroundReadFn (see libs/map/framework.cpp).
 //
-// Kept intentionally simple: no eviction policy, single-shot synchronous HTTP GET per tile
-// on a background thread, content delivered through a callback that the caller wires to
-// df::DrapeEngine::AddTileBackgroundImage + SetTileBackgroundData.
+// Encoded tiles are cached on disk under an LRU size cap (Params::m_maxCacheBytes): the
+// least-recently-used tiles are evicted once the total is exceeded. Content is delivered through a
+// callback that the caller wires to df::DrapeEngine::AddTileBackgroundImage + SetTileBackgroundData.
 class RasterTileProvider
 {
 public:
@@ -43,6 +45,8 @@ public:
     double m_maxLat = 90.0;
     double m_minLon = -180.0;
     double m_maxLon = 180.0;
+    // Upper bound on the on-disk tile cache. Once exceeded, least-recently-used tiles are evicted.
+    uint64_t m_maxCacheBytes = 100ull * 1024 * 1024;  // 100 MB
   };
 
   // Delivers decoded RGBA8 pixels for an OM tile. Invoked on a background (Network) thread.
@@ -94,7 +98,7 @@ private:
 
   // Starts a non-blocking HTTP request; its completion handler decodes, caches and delivers the tile.
   void StartDownload(df::TileKey const & tileKey, dp::BackgroundMode mode, std::string const & url,
-                     std::string const & uid, std::string const & cachePath, m2::RectF const & rect);
+                     std::string const & uid, std::string const & fileName, m2::RectF const & rect);
 
   // Delivers a debug status placeholder image for the tile through m_onReady.
   void DeliverPlaceholder(df::TileKey const & tileKey, dp::BackgroundMode mode, Status status);
@@ -104,11 +108,36 @@ private:
   // (i.e. the request was not cancelled meanwhile).
   bool DropActive(df::TileKey const & tileKey);
 
+  // Scans the cache dir (posted to the File thread from the constructor, ahead of any cache read)
+  // and seeds the LRU order by file time.
+  void InitDiskCache();
+  // Marks a cached tile (by file name) as most-recently-used (on a cache hit).
+  void TouchCacheEntry(std::string const & name);
+  // Registers a freshly-written tile (by file name), then evicts least-recently-used files over the cap.
+  void AddCacheEntry(std::string const & name, uint64_t size);
+  // Evicts oldest entries until the total is within the cap. Caller must hold m_cacheMutex.
+  void EvictDiskCacheLocked();
+
   Params const m_params;
   TReadyFn const m_onReady;
   std::string m_cacheDir;
   std::array<Placeholder, static_cast<size_t>(Status::Count)> m_placeholders;
 
-  mutable std::mutex m_mutex;
+  mutable std::mutex m_activeMutex;
   std::unordered_set<df::TileKey> m_active;
+
+  // On-disk cache index, keyed by tile file name. m_lru orders names front (LRU) -> back (MRU);
+  // m_cacheBytes is the tracked total. Guarded by m_cacheMutex.
+  std::mutex m_cacheMutex;
+  std::list<std::string> m_lru;
+
+  // One on-disk cache file: its byte size and its node in the LRU list (front == least recent).
+  struct CacheEntry
+  {
+    uint64_t m_size = 0;
+    std::list<std::string>::iterator m_lruIt;
+  };
+  std::unordered_map<std::string, CacheEntry> m_cacheIndex;
+
+  uint64_t m_cacheBytes = 0;
 };
