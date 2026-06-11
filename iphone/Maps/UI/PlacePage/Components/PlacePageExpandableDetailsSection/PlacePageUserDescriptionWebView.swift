@@ -197,7 +197,7 @@ extension PlacePageUserDescriptionWebView: WKNavigationDelegate {
                decidePolicyFor navigationAction: WKNavigationAction,
                preferences: WKWebpagePreferences,
                decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
-    preferences.allowsContentJavaScript = true
+    preferences.allowsContentJavaScript = Settings.placePageDescriptionJavaScriptEnabled()
     decisionHandler(navigationPolicy(for: navigationAction), preferences)
   }
 }
@@ -291,7 +291,7 @@ private final class PlacePageUserDescriptionWebViewCache {
 
   private func makeWebView() -> WKWebView {
     let configuration = WKWebViewConfiguration()
-    configuration.defaultWebpagePreferences.allowsContentJavaScript = true
+    configuration.defaultWebpagePreferences.allowsContentJavaScript = Settings.placePageDescriptionJavaScriptEnabled()
     configuration.allowsInlineMediaPlayback = true
     configuration.mediaTypesRequiringUserActionForPlayback = [.video]
 

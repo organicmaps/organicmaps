@@ -22496,6 +22496,16 @@ vi = Tăng kích cỡ phông chữ trên bản đồ
 zh-Hans = 增大地图上的字体大小
 zh-Hant = 增加地圖上的字體大小
 
+[allow_javascript_in_place_descriptions]
+comment = iOS Settings toggle title. Enables JavaScript execution inside user-provided bookmark and track HTML descriptions.
+tags = apple-maps
+en = Allow media in HTML descriptions
+
+[allow_javascript_in_place_descriptions_summary]
+comment = iOS Settings toggle subtitle. Explain privacy/security tradeoff for JavaScript in user-provided bookmark and track HTML descriptions.
+tags = apple-maps
+en = Allows bookmark and track HTML descriptions to run JavaScript for embedded media.
+
 [traffic_update_app]
 tags = android-app
 en = Please update Organic Maps
