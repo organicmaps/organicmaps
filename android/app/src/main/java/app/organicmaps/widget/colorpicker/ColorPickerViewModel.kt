@@ -168,7 +168,7 @@ class ColorPickerViewModel(application: Application, private val savedStateHandl
         const val EXTRA_INITIAL_COLOR = "ExtraInitialColor"
         private const val KEY_ACTIVE_TAB = "active_tab"
         private const val MAX_PRESETS = 20
-        private const val PREFS_NAME = "track_color_presets"
+        private const val PREFS_NAME = "color_presets"
         private const val KEY_COLORS = "saved_colors"
 
         // Default preset swatches: the canonical Organic Maps brand palette from the core, shared
