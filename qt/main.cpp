@@ -73,19 +73,8 @@ bool ValidateLogAbortLevel(char const * flagname, std::string const & value)
 
 bool const g_logAbortLevelDummy = gflags::RegisterFlagValidator(&FLAGS_log_abort_level, &ValidateLogAbortLevel);
 
-class FinalizeBase
-{
-public:
-  ~FinalizeBase()
-  {
-    // optional - clean allocated data in protobuf library
-    // useful when using memory and resource leak utilites
-    // google::protobuf::ShutdownProtobufLibrary();
-  }
-};
-
 #if defined(OMIM_OS_WINDOWS)  //&& defined(PROFILER_COMMON)
-class InitializeFinalize : public FinalizeBase
+class InitializeFinalize
 {
   FILE * m_errFile;
   base::ScopedLogLevelChanger const m_debugLog;
@@ -94,7 +83,7 @@ public:
   InitializeFinalize() : m_debugLog(LDEBUG)
   {
     // App runs without error console under win32.
-    m_errFile = ::freopen(".\\mapsme.log", "w", stderr);
+    m_errFile = ::freopen(".\\organicmaps.log", "w", stderr);
 
     //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_DELAY_FREE_MEM_DF);
     //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
@@ -102,7 +91,12 @@ public:
   ~InitializeFinalize() { ::fclose(m_errFile); }
 };
 #else
-typedef FinalizeBase InitializeFinalize;
+class InitializeFinalize
+{
+public:
+  InitializeFinalize() = default;
+  ~InitializeFinalize() = default;
+};
 #endif
 }  // namespace
 

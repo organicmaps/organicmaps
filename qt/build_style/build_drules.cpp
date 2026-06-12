@@ -24,9 +24,7 @@ void BuildDrawingRulesImpl(QString const & mapcssFile, QString const & outputDir
   if (QFile(outputFile).exists())
     throw std::runtime_error("Output directory is not clear");
 
-  // Add path to the protobuf EGG in the PROTOBUF_EGG_PATH environment variable
   QProcessEnvironment env{QProcessEnvironment::systemEnvironment()};
-  env.insert("PROTOBUF_EGG_PATH", GetProtobufEggPath());
 
   // Run the script
   (void)ExecProcess("python",

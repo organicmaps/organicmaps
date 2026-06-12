@@ -108,9 +108,6 @@
 		DB05F0CC1A3F540F00A0A8C3 /* drules_format.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB05F0BC1A3F540F00A0A8C3 /* drules_format.cpp */; };
 		DB05F0CD1A3F540F00A0A8C3 /* drules_format.hpp in Headers */ = {isa = PBXBuildFile; fileRef = DB05F0BD1A3F540F00A0A8C3 /* drules_format.hpp */; };
 		DB05F0CE1A3F540F00A0A8C3 /* drules_struct.hpp in Headers */ = {isa = PBXBuildFile; fileRef = DB05F0BE1A3F540F00A0A8C3 /* drules_struct.hpp */; };
-		6753410F1A3F540F00A0A8C3 /* drules_include.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675340BA1A3F540F00A0A8C3 /* drules_include.hpp */; };
-		675341101A3F540F00A0A8C3 /* drules_struct.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 675340BB1A3F540F00A0A8C3 /* drules_struct.pb.cc */; settings = {COMPILER_FLAGS = "-w"; }; };
-		675341111A3F540F00A0A8C3 /* drules_struct.pb.h in Headers */ = {isa = PBXBuildFile; fileRef = 675340BC1A3F540F00A0A8C3 /* drules_struct.pb.h */; };
 		675341121A3F540F00A0A8C3 /* feature_algo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675340BE1A3F540F00A0A8C3 /* feature_algo.cpp */; };
 		675341131A3F540F00A0A8C3 /* feature_algo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675340BF1A3F540F00A0A8C3 /* feature_algo.hpp */; };
 		675341141A3F540F00A0A8C3 /* feature_covering.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675340C01A3F540F00A0A8C3 /* feature_covering.cpp */; };
@@ -184,7 +181,6 @@
 		FACB7C2026B919AD00810C9C /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C1C26B919AD00810C9C /* libgeometry.a */; };
 		FACB7C2126B919AD00810C9C /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C1D26B919AD00810C9C /* libplatform.a */; };
 		FACB7C2326B919C700810C9C /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C2226B919C700810C9C /* libicu.a */; };
-		FACB7C2726B919D300810C9C /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C2626B919D300810C9C /* libprotobuf.a */; };
 		FACB7C2926B919E600810C9C /* libgenerator_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C2826B919E600810C9C /* libgenerator_tests_support.a */; };
 		FACB7C2B26B919F500810C9C /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C2A26B919F500810C9C /* libeditor.a */; };
 		FACB7C2D26B919FD00810C9C /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C2C26B919FD00810C9C /* libpugixml.a */; };
@@ -325,10 +321,6 @@
 		DB05F0BC1A3F540F00A0A8C3 /* drules_format.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drules_format.cpp; sourceTree = "<group>"; };
 		DB05F0BD1A3F540F00A0A8C3 /* drules_format.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drules_format.hpp; sourceTree = "<group>"; };
 		DB05F0BE1A3F540F00A0A8C3 /* drules_struct.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drules_struct.hpp; sourceTree = "<group>"; };
-		675340BA1A3F540F00A0A8C3 /* drules_include.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drules_include.hpp; sourceTree = "<group>"; };
-		675340BB1A3F540F00A0A8C3 /* drules_struct.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drules_struct.pb.cc; sourceTree = "<group>"; };
-		675340BC1A3F540F00A0A8C3 /* drules_struct.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = drules_struct.pb.h; sourceTree = "<group>"; };
-		675340BD1A3F540F00A0A8C3 /* drules_struct.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = drules_struct.proto; sourceTree = "<group>"; };
 		675340BE1A3F540F00A0A8C3 /* feature_algo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = feature_algo.cpp; sourceTree = "<group>"; };
 		675340BF1A3F540F00A0A8C3 /* feature_algo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = feature_algo.hpp; sourceTree = "<group>"; };
 		675340C01A3F540F00A0A8C3 /* feature_covering.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = feature_covering.cpp; sourceTree = "<group>"; };
@@ -395,7 +387,6 @@
 		FACB7C1C26B919AD00810C9C /* libgeometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgeometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB7C1D26B919AD00810C9C /* libplatform.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libplatform.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB7C2226B919C700810C9C /* libicu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libicu.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FACB7C2626B919D300810C9C /* libprotobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libprotobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB7C2826B919E600810C9C /* libgenerator_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgenerator_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB7C2A26B919F500810C9C /* libeditor.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libeditor.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB7C2C26B919FD00810C9C /* libpugixml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libpugixml.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -432,7 +423,6 @@
 				FACB7C3126B91A3600810C9C /* libgenerator.a in Frameworks */,
 				FACB7C3726B91A5A00810C9C /* librouting_common.a in Frameworks */,
 				FACB7C4526B947C400810C9C /* libz.tbd in Frameworks */,
-				FACB7C2726B919D300810C9C /* libprotobuf.a in Frameworks */,
 				FACB7C2126B919AD00810C9C /* libplatform.a in Frameworks */,
 				FACB7C2D26B919FD00810C9C /* libpugixml.a in Frameworks */,
 				670C61401AB066CD00C38A8C /* libindexer.a in Frameworks */,
@@ -468,7 +458,6 @@
 				FACB7C2C26B919FD00810C9C /* libpugixml.a */,
 				FACB7C2A26B919F500810C9C /* libeditor.a */,
 				FACB7C2826B919E600810C9C /* libgenerator_tests_support.a */,
-				FACB7C2626B919D300810C9C /* libprotobuf.a */,
 				FACB7C2226B919C700810C9C /* libicu.a */,
 				FACB7C1A26B919AD00810C9C /* libbase.a */,
 				FACB7C1B26B919AD00810C9C /* libcoding.a */,
@@ -586,14 +575,10 @@
 				DB05F0BC1A3F540F00A0A8C3 /* drules_format.cpp */,
 				DB05F0BD1A3F540F00A0A8C3 /* drules_format.hpp */,
 				DB05F0BE1A3F540F00A0A8C3 /* drules_struct.hpp */,
-				675340BA1A3F540F00A0A8C3 /* drules_include.hpp */,
 				6758AECD1BB4413000C26E27 /* drules_selector_parser.cpp */,
 				6758AECE1BB4413000C26E27 /* drules_selector_parser.hpp */,
 				6758AECF1BB4413000C26E27 /* drules_selector.cpp */,
 				6758AED01BB4413000C26E27 /* drules_selector.hpp */,
-				675340BB1A3F540F00A0A8C3 /* drules_struct.pb.cc */,
-				675340BC1A3F540F00A0A8C3 /* drules_struct.pb.h */,
-				675340BD1A3F540F00A0A8C3 /* drules_struct.proto */,
 				34583BC31C88552100F94664 /* editable_map_object.cpp */,
 				34583BC41C88552100F94664 /* editable_map_object.hpp */,
 				4099F6471FC71429002A7B05 /* fake_feature_ids.cpp */,
@@ -769,7 +754,6 @@
 				675341171A3F540F00A0A8C3 /* feature_data.hpp in Headers */,
 				56C74C1E1C749E4700B71B9F /* categories_holder.hpp in Headers */,
 				347F33811C454242009758CC /* trie.hpp in Headers */,
-				6753410F1A3F540F00A0A8C3 /* drules_include.hpp in Headers */,
 				675341311A3F540F00A0A8C3 /* data_source.hpp in Headers */,
 				3D928F681D50F9FE001670E0 /* data_source_helpers.hpp in Headers */,
 				675341041A3F540F00A0A8C3 /* classificator.hpp in Headers */,
@@ -782,7 +766,6 @@
 				6753410A1A3F540F00A0A8C3 /* data_header.hpp in Headers */,
 				BBB7061023E46E0100A7F29A /* isolines_info.hpp in Headers */,
 				6753411B1A3F540F00A0A8C3 /* feature_impl.hpp in Headers */,
-				675341111A3F540F00A0A8C3 /* drules_struct.pb.h in Headers */,
 				4099F64A1FC7142A002A7B05 /* fake_feature_ids.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -970,7 +953,6 @@
 				6753410B1A3F540F00A0A8C3 /* drawing_rule_def.cpp in Sources */,
 				670C615B1AB0691900C38A8C /* features_offsets_table.cpp in Sources */,
 				675341281A3F540F00A0A8C3 /* ftypes_matcher.cpp in Sources */,
-				675341101A3F540F00A0A8C3 /* drules_struct.pb.cc in Sources */,
 				6758AED11BB4413000C26E27 /* drules_selector_parser.cpp in Sources */,
 				E906DE3B1CF44934004C4F5E /* postcodes_matcher.cpp in Sources */,
 			);
@@ -1001,10 +983,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87D11DBE540700E5E7DC /* common-debug.xcconfig */;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
-				);
 			};
 			name = Debug;
 		};
@@ -1012,10 +990,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87D21DBE540700E5E7DC /* common-release.xcconfig */;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
-				);
 			};
 			name = Release;
 		};

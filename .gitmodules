@@ -6,10 +6,6 @@
   path = tools/kothic
   url = https://github.com/organicmaps/kothic.git
   branch = master
-[submodule "3party/protobuf/protobuf"]
-  path = 3party/protobuf/protobuf
-  url = https://github.com/organicmaps/protobuf.git
-  branch = master
 [submodule "3party/Vulkan-Headers"]
   path = 3party/Vulkan-Headers
   url = https://github.com/KhronosGroup/Vulkan-Headers.git

@@ -33,8 +33,6 @@ if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
   # Add pugixml library.
   add_subdirectory(pugixml)
 
-  # Add protobuf library.
-  add_subdirectory(protobuf)
 
   add_subdirectory(freetype)
   add_subdirectory(icu)

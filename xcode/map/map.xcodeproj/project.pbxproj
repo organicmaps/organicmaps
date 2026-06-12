@@ -115,7 +115,6 @@
 		FAA8387C26BB3C92002E54C6 /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8387B26BB3C92002E54C6 /* libgeometry.a */; };
 		FAA8387E26BB3C92002E54C6 /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8387D26BB3C92002E54C6 /* libindexer.a */; };
 		FAA8388026BB3C92002E54C6 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8387F26BB3C92002E54C6 /* libplatform.a */; };
-		FAA8388226BB3C92002E54C6 /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8388126BB3C92002E54C6 /* libprotobuf.a */; };
 		FAA8388626BB3CC3002E54C6 /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8388526BB3CC3002E54C6 /* libexpat.a */; };
 		FAA8388A26BB3CE4002E54C6 /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8388926BB3CE4002E54C6 /* libdrape.a */; };
 /* End PBXBuildFile section */
@@ -262,7 +261,6 @@
 		FAA8387B26BB3C92002E54C6 /* libgeometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgeometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8387D26BB3C92002E54C6 /* libindexer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libindexer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8387F26BB3C92002E54C6 /* libplatform.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libplatform.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FAA8388126BB3C92002E54C6 /* libprotobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libprotobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8388526BB3CC3002E54C6 /* libexpat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libexpat.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8388926BB3CE4002E54C6 /* libdrape.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libdrape.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -287,7 +285,6 @@
 				FAA8387C26BB3C92002E54C6 /* libgeometry.a in Frameworks */,
 				FAA8387E26BB3C92002E54C6 /* libindexer.a in Frameworks */,
 				FAA8388026BB3C92002E54C6 /* libplatform.a in Frameworks */,
-				FAA8388226BB3C92002E54C6 /* libprotobuf.a in Frameworks */,
 				674A2A2F1B26FF7B001A525C /* libmap.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,7 +309,6 @@
 				FAA8387B26BB3C92002E54C6 /* libgeometry.a */,
 				FAA8387D26BB3C92002E54C6 /* libindexer.a */,
 				FAA8387F26BB3C92002E54C6 /* libplatform.a */,
-				FAA8388126BB3C92002E54C6 /* libprotobuf.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -776,7 +772,6 @@
 					"$(QT_PATH)/include",
 					"$(OMIM_ROOT)/3party/expat/lib",
 					"$(OMIM_ROOT)/3party/glm",
-					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
 					"$(OMIM_ROOT)/3party/pugixml/pugixml/src",
 				);
 			};
@@ -791,7 +786,6 @@
 					"$(QT_PATH)/include",
 					"$(OMIM_ROOT)/3party/expat/lib",
 					"$(OMIM_ROOT)/3party/glm",
-					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
 					"$(OMIM_ROOT)/3party/pugixml/pugixml/src",
 				);
 			};

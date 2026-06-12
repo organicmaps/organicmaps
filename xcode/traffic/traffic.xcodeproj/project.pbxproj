@@ -23,7 +23,6 @@
 		FAFD414A26BBE98B00D1DE1B /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFD414926BBE98B00D1DE1B /* libindexer.a */; };
 		FAFD414C26BBE9BB00D1DE1B /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFD414B26BBE9BB00D1DE1B /* libicu.a */; };
 		FAFD414E26BBE9C300D1DE1B /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFD414D26BBE9C300D1DE1B /* libgeometry.a */; };
-		FAFD415026BBE9C800D1DE1B /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFD414F26BBE9C800D1DE1B /* libprotobuf.a */; };
 		FAFD415226BBE9E000D1DE1B /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFD415126BBE9E000D1DE1B /* librouting.a */; };
 		FAFD415426BBE9E800D1DE1B /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFD415326BBE9E800D1DE1B /* libsuccinct.a */; };
 		FAFD415626BBEA5600D1DE1B /* librouting_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFD415526BBEA5600D1DE1B /* librouting_common.a */; };
@@ -49,7 +48,6 @@
 		FAFD414926BBE98B00D1DE1B /* libindexer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libindexer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFD414B26BBE9BB00D1DE1B /* libicu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libicu.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFD414D26BBE9C300D1DE1B /* libgeometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgeometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FAFD414F26BBE9C800D1DE1B /* libprotobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libprotobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFD415126BBE9E000D1DE1B /* librouting.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = librouting.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFD415326BBE9E800D1DE1B /* libsuccinct.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsuccinct.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFD415526BBEA5600D1DE1B /* librouting_common.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = librouting_common.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,7 +68,6 @@
 				FAFD415626BBEA5600D1DE1B /* librouting_common.a in Frameworks */,
 				FAFD415426BBE9E800D1DE1B /* libsuccinct.a in Frameworks */,
 				FAFD415226BBE9E000D1DE1B /* librouting.a in Frameworks */,
-				FAFD415026BBE9C800D1DE1B /* libprotobuf.a in Frameworks */,
 				FAFD414E26BBE9C300D1DE1B /* libgeometry.a in Frameworks */,
 				FAFD414C26BBE9BB00D1DE1B /* libicu.a in Frameworks */,
 				FAFD414A26BBE98B00D1DE1B /* libindexer.a in Frameworks */,
@@ -136,7 +133,6 @@
 				FAFD415526BBEA5600D1DE1B /* librouting_common.a */,
 				FAFD415326BBE9E800D1DE1B /* libsuccinct.a */,
 				FAFD415126BBE9E000D1DE1B /* librouting.a */,
-				FAFD414F26BBE9C800D1DE1B /* libprotobuf.a */,
 				FAFD414D26BBE9C300D1DE1B /* libgeometry.a */,
 				FAFD414B26BBE9BB00D1DE1B /* libicu.a */,
 				FAFD414926BBE98B00D1DE1B /* libindexer.a */,

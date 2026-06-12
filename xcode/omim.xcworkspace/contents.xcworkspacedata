@@ -54,9 +54,6 @@
          location = "container:opening_hours/opening_hours.xcodeproj">
       </FileRef>
       <FileRef
-         location = "container:protobuf/protobuf.xcodeproj">
-      </FileRef>
-      <FileRef
          location = "container:pugixml/pugixml.xcodeproj">
       </FileRef>
       <FileRef

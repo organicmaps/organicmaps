@@ -14,8 +14,6 @@
 		34F73F9F1E082FF800AC1FD6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34F73F611E082FF800AC1FD6 /* Localizable.strings */; };
 		34F73FA31E08300E00AC1FD6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34F73FA11E08300E00AC1FD6 /* Images.xcassets */; };
 		408645FC21495EB1000A4A1D /* categories_cuisines.txt in Resources */ = {isa = PBXBuildFile; fileRef = 408645FB21495EB1000A4A1D /* categories_cuisines.txt */; };
-		4554B6EC1E55F0EF0084017F /* drules_proto_vehicle_light.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4554B6E81E55F02B0084017F /* drules_proto_vehicle_light.bin */; };
-		4554B6EE1E55F0F30084017F /* drules_proto_vehicle_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */; };
 		47AEF8402231249E00D20538 /* categories_brands.txt in Resources */ = {isa = PBXBuildFile; fileRef = 47AEF83F2231249E00D20538 /* categories_brands.txt */; };
 		4A300ED51C6DCFD400140018 /* countries-strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A300ED31C6DCFD400140018 /* countries-strings */; };
 		4B4153B52BF9695500EE4B02 /* MWMTextToSpeechTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4B4153B42BF9695500EE4B02 /* MWMTextToSpeechTests.mm */; };
@@ -31,8 +29,6 @@
 		6741A9751BF340DE002C974C /* WorldCoasts.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */; };
 		6741A9761BF340DE002C974C /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = FA85F632145DDDC20090E1A0 /* packed_polygons.bin */; };
 		6741A97D1BF340DE002C974C /* synonyms.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAEA7D0161BD26600CCD661 /* synonyms.txt */; };
-		6741A97E1BF340DE002C974C /* drules_proto_default_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4A00DBDE1AB704C400113624 /* drules_proto_default_dark.bin */; };
-		6741A9871BF340DE002C974C /* drules_proto_default_light.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4A23D1561B8B4DD700D4EB6F /* drules_proto_default_light.bin */; };
 		DB05F1CC1BF340DE002C974C /* drules_default.bin in Resources */ = {isa = PBXBuildFile; fileRef = DB05F1BC1BF340DE002C974C /* drules_default.bin */; };
 		DB05F1CD1BF340DE002C974C /* drules_outdoors.bin in Resources */ = {isa = PBXBuildFile; fileRef = DB05F1BD1BF340DE002C974C /* drules_outdoors.bin */; };
 		DB05F1CE1BF340DE002C974C /* drules_vehicle.bin in Resources */ = {isa = PBXBuildFile; fileRef = DB05F1BE1BF340DE002C974C /* drules_vehicle.bin */; };
@@ -615,10 +611,6 @@
 		FA456C3D26BDC6BA00B83C20 /* Chart.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA456C3B26BDC6AD00B83C20 /* Chart.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FA456C3F26BDC6CF00B83C20 /* minizip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BBE26BC3B8A0026D455 /* minizip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FA456C4F26BDCCCC00B83C20 /* shaders_metal.metallib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FA456C4B26BDCC8E00B83C20 /* shaders_metal.metallib */; };
-		FA637ED229A500BE00D8921A /* drules_proto_outdoors_light.bin in Resources */ = {isa = PBXBuildFile; fileRef = FA637ECC29A500BE00D8921A /* drules_proto_outdoors_light.bin */; };
-		FA637ED329A500BE00D8921A /* drules_proto_outdoors_light.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA637ECF29A500BE00D8921A /* drules_proto_outdoors_light.txt */; };
-		FA637ED429A500BE00D8921A /* drules_proto_outdoors_dark.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA637ED029A500BE00D8921A /* drules_proto_outdoors_dark.txt */; };
-		FA637ED529A500BE00D8921A /* drules_proto_outdoors_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = FA637ED129A500BE00D8921A /* drules_proto_outdoors_dark.bin */; };
 		FA853BA726BC3ACE0026D455 /* CoreApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BA626BC3ACE0026D455 /* CoreApi.framework */; };
 		FA853BA926BC3B8A0026D455 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BA826BC3B8A0026D455 /* libbase.a */; };
 		FA853BAB26BC3B8A0026D455 /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BAA26BC3B8A0026D455 /* libcoding.a */; };
@@ -633,7 +625,6 @@
 		FA853BBF26BC3B8A0026D455 /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BBE26BC3B8A0026D455 /* minizip.framework */; };
 		FA853BC326BC3B8A0026D455 /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BC226BC3B8A0026D455 /* libopening_hours.a */; };
 		FA853BC526BC3B8A0026D455 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BC426BC3B8A0026D455 /* libplatform.a */; };
-		FA853BC726BC3B8A0026D455 /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BC626BC3B8A0026D455 /* libprotobuf.a */; };
 		FA853BC926BC3B8A0026D455 /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BC826BC3B8A0026D455 /* librouting.a */; };
 		FA853BCB26BC3B8A0026D455 /* librouting_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BCA26BC3B8A0026D455 /* librouting_common.a */; };
 		FA853BCD26BC3B8A0026D455 /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BCC26BC3B8A0026D455 /* libsearch.a */; };
@@ -808,11 +799,7 @@
 		408645FB21495EB1000A4A1D /* categories_cuisines.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = categories_cuisines.txt; path = ../../data/categories_cuisines.txt; sourceTree = "<group>"; };
 		451950391B7A3E070085DA05 /* patterns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = patterns.txt; path = ../../data/patterns.txt; sourceTree = "<group>"; };
 		452FCA3A1B6A3DF7007019AB /* colors.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = colors.txt; path = ../../data/colors.txt; sourceTree = "<group>"; };
-		4554B6E81E55F02B0084017F /* drules_proto_vehicle_light.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_vehicle_light.bin; path = ../../data/drules_proto_vehicle_light.bin; sourceTree = "<group>"; };
-		4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_vehicle_dark.bin; path = ../../data/drules_proto_vehicle_dark.bin; sourceTree = "<group>"; };
 		47AEF83F2231249E00D20538 /* categories_brands.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = categories_brands.txt; path = ../../data/categories_brands.txt; sourceTree = SOURCE_ROOT; };
-		4A00DBDE1AB704C400113624 /* drules_proto_default_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_default_dark.bin; path = ../../data/drules_proto_default_dark.bin; sourceTree = "<group>"; };
-		4A23D1561B8B4DD700D4EB6F /* drules_proto_default_light.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_default_light.bin; path = ../../data/drules_proto_default_light.bin; sourceTree = "<group>"; };
 		DB05F1BC1BF340DE002C974C /* drules_default.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_default.bin; path = ../../data/drules_default.bin; sourceTree = "<group>"; };
 		DB05F1BD1BF340DE002C974C /* drules_outdoors.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_outdoors.bin; path = ../../data/drules_outdoors.bin; sourceTree = "<group>"; };
 		DB05F1BE1BF340DE002C974C /* drules_vehicle.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_vehicle.bin; path = ../../data/drules_vehicle.bin; sourceTree = "<group>"; };
@@ -1704,10 +1691,6 @@
 		FA4F29DE28BC1B35001754FC /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FA4F29DF28BC1B36001754FC /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA4F29E028BC1B36001754FC /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ca; path = ca.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
-		FA637ECC29A500BE00D8921A /* drules_proto_outdoors_light.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_outdoors_light.bin; path = ../../data/drules_proto_outdoors_light.bin; sourceTree = "<group>"; };
-		FA637ECF29A500BE00D8921A /* drules_proto_outdoors_light.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = drules_proto_outdoors_light.txt; path = ../../data/drules_proto_outdoors_light.txt; sourceTree = "<group>"; };
-		FA637ED029A500BE00D8921A /* drules_proto_outdoors_dark.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = drules_proto_outdoors_dark.txt; path = ../../data/drules_proto_outdoors_dark.txt; sourceTree = "<group>"; };
-		FA637ED129A500BE00D8921A /* drules_proto_outdoors_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_outdoors_dark.bin; path = ../../data/drules_proto_outdoors_dark.bin; sourceTree = "<group>"; };
 		FA64D9A813F975AD00350ECF /* types.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = types.txt; path = ../../data/types.txt; sourceTree = SOURCE_ROOT; };
 		FA853BA626BC3ACE0026D455 /* CoreApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CoreApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BA826BC3B8A0026D455 /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1723,7 +1706,6 @@
 		FA853BBE26BC3B8A0026D455 /* minizip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = minizip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BC226BC3B8A0026D455 /* libopening_hours.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libopening_hours.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BC426BC3B8A0026D455 /* libplatform.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libplatform.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FA853BC626BC3B8A0026D455 /* libprotobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libprotobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BC826BC3B8A0026D455 /* librouting.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = librouting.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BCA26BC3B8A0026D455 /* librouting_common.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = librouting_common.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BCC26BC3B8A0026D455 /* libsearch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsearch.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1820,7 +1802,6 @@
 				FA853BBF26BC3B8A0026D455 /* minizip.framework in Frameworks */,
 				FA853BC326BC3B8A0026D455 /* libopening_hours.a in Frameworks */,
 				FA853BC526BC3B8A0026D455 /* libplatform.a in Frameworks */,
-				FA853BC726BC3B8A0026D455 /* libprotobuf.a in Frameworks */,
 				FA853BC926BC3B8A0026D455 /* librouting.a in Frameworks */,
 				FA853BCB26BC3B8A0026D455 /* librouting_common.a in Frameworks */,
 				FA853BCD26BC3B8A0026D455 /* libsearch.a in Frameworks */,
@@ -1916,7 +1897,6 @@
 				FA853BBE26BC3B8A0026D455 /* minizip.framework */,
 				FA853BC226BC3B8A0026D455 /* libopening_hours.a */,
 				FA853BC426BC3B8A0026D455 /* libplatform.a */,
-				FA853BC626BC3B8A0026D455 /* libprotobuf.a */,
 				FA853BC826BC3B8A0026D455 /* librouting.a */,
 				FA853BCA26BC3B8A0026D455 /* librouting_common.a */,
 				FA853BCC26BC3B8A0026D455 /* libsearch.a */,
@@ -4004,17 +3984,9 @@
 				452FCA3A1B6A3DF7007019AB /* colors.txt */,
 				97A5967E19B9CD47007A963F /* copyright.html */,
 				FA46DA2B12D4166E00968C36 /* countries.json */,
-				4A23D1561B8B4DD700D4EB6F /* drules_proto_default_light.bin */,
 				DB05F1BC1BF340DE002C974C /* drules_default.bin */,
 				DB05F1BD1BF340DE002C974C /* drules_outdoors.bin */,
 				DB05F1BE1BF340DE002C974C /* drules_vehicle.bin */,
-				4A00DBDE1AB704C400113624 /* drules_proto_default_dark.bin */,
-				FA637ECC29A500BE00D8921A /* drules_proto_outdoors_light.bin */,
-				FA637ECF29A500BE00D8921A /* drules_proto_outdoors_light.txt */,
-				FA637ED129A500BE00D8921A /* drules_proto_outdoors_dark.bin */,
-				FA637ED029A500BE00D8921A /* drules_proto_outdoors_dark.txt */,
-				4554B6E81E55F02B0084017F /* drules_proto_vehicle_light.bin */,
-				4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */,
 				6B9978341C89A316003B8AA0 /* editor.config */,
 				978D4A30199A11E600D72CA7 /* faq.html */,
 				BB7626B41E8559980031D71C /* icudt78l.dat */,
@@ -4241,15 +4213,12 @@
 				165953942CB44B5600CFED7C /* symbols in Resources */,
 				47AEF8402231249E00D20538 /* categories_brands.txt in Resources */,
 				F6C3A1B221AC22810060EEC8 /* Alert 5.m4a in Resources */,
-				FA637ED329A500BE00D8921A /* drules_proto_outdoors_light.txt in Resources */,
-				4554B6EE1E55F0F30084017F /* drules_proto_vehicle_dark.bin in Resources */,
 				6741A95C1BF340DE002C974C /* categories.txt in Resources */,
 				6741A9451BF340DE002C974C /* classificator.txt in Resources */,
 				676507611C10559B00830BB3 /* colors.txt in Resources */,
 				6741A9711BF340DE002C974C /* copyright.html in Resources */,
 				4A300ED51C6DCFD400140018 /* countries-strings in Resources */,
 				6741A9491BF340DE002C974C /* countries.json in Resources */,
-				6741A9871BF340DE002C974C /* drules_proto_default_light.bin in Resources */,
 				DB05F1CC1BF340DE002C974C /* drules_default.bin in Resources */,
 				DB05F1CD1BF340DE002C974C /* drules_outdoors.bin in Resources */,
 				DB05F1CE1BF340DE002C974C /* drules_vehicle.bin in Resources */,
@@ -4336,7 +4305,6 @@
 				ED82C66E2F90180300FA103D /* Settings.storyboard in Resources */,
 				ED82C66F2F90180300FA103D /* LaunchScreen.storyboard in Resources */,
 				ED82C6702F90180300FA103D /* Main.storyboard in Resources */,
-				6741A97E1BF340DE002C974C /* drules_proto_default_dark.bin in Resources */,
 				6B9978361C89A316003B8AA0 /* editor.config in Resources */,
 				6741A9681BF340DE002C974C /* faq.html in Resources */,
 				34F73FA31E08300E00AC1FD6 /* Images.xcassets in Resources */,
@@ -4344,9 +4312,6 @@
 				34F73F9F1E082FF800AC1FD6 /* Localizable.strings in Resources */,
 				ED0B1C312BC2951F00FB8EDD /* PrivacyInfo.xcprivacy in Resources */,
 				A630D1EA207CA95900976DEA /* Localizable.stringsdict in Resources */,
-				FA637ED429A500BE00D8921A /* drules_proto_outdoors_dark.txt in Resources */,
-				FA637ED529A500BE00D8921A /* drules_proto_outdoors_dark.bin in Resources */,
-				4554B6EC1E55F0EF0084017F /* drules_proto_vehicle_light.bin in Resources */,
 				ED8A91E02D759B50009E063B /* LocalizableTypes.strings in Resources */,
 				BB7626B61E85599C0031D71C /* icudt78l.dat in Resources */,
 				408645FC21495EB1000A4A1D /* categories_cuisines.txt in Resources */,
@@ -4354,7 +4319,6 @@
 				F623DA6C1C9C2731006A3436 /* opening_hours_how_to_edit.html in Resources */,
 				6741A9761BF340DE002C974C /* packed_polygons.bin in Resources */,
 				676507601C10559800830BB3 /* patterns.txt in Resources */,
-				FA637ED229A500BE00D8921A /* drules_proto_outdoors_light.bin in Resources */,
 				6741A9421BF340DE002C974C /* sound-strings in Resources */,
 				6741A97D1BF340DE002C974C /* synonyms.txt in Resources */,
 				6741A95D1BF340DE002C974C /* types.txt in Resources */,
