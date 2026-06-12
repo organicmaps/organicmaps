@@ -79,6 +79,22 @@ StyleEntry const kSupportedStyles[] = {
     {"vehicle", "light", MapStyleVehicleLight, "_vehicle_light"},
     {"vehicle", "dark", MapStyleVehicleDark, "_vehicle_dark"},
 };
+
+struct StylePaths
+{
+  QString m_styleDir;   // Directory of style.mapcss, with a trailing separator.
+  QString m_outputDir;  // <styleDir>/out/, with a trailing separator.
+  bool m_hasSymbols;    // Only default/{light,dark} carry their own symbols/ sources.
+};
+
+StylePaths GetStylePaths(QString const & mapcssFile)
+{
+  if (!QFile(mapcssFile).exists())
+    throw std::runtime_error("mapcss file does not exist: " + mapcssFile.toStdString());
+
+  QString const styleDir = QFileInfo(mapcssFile).absolutePath() + QDir::separator();
+  return {styleDir, styleDir + "out" + QDir::separator(), QDir(styleDir + "symbols/").exists()};
+}
 }  // namespace
 
 namespace build_style
@@ -107,54 +123,43 @@ bool TryParseStyleInfo(QString const & mapcssFile, StyleInfo & out)
 
 void BuildAndApply(QString const & mapcssFile, StyleInfo const & info)
 {
-  // Ensure mapcss exists
-  if (!QFile(mapcssFile).exists())
-    throw std::runtime_error("mapcss files does not exist");
-
-  QDir const projectDir = QFileInfo(mapcssFile).absoluteDir();
-  QString const styleDir = projectDir.absolutePath() + QDir::separator();
-  QString const outputDir = styleDir + "out" + QDir::separator();
+  auto const paths = GetStylePaths(mapcssFile);
 
   // Ensure output directory is clear
-  if (QDir(outputDir).exists() && !QDir(outputDir).removeRecursively())
+  if (QDir(paths.m_outputDir).exists() && !QDir(paths.m_outputDir).removeRecursively())
     throw std::runtime_error("Unable to remove the output directory");
-  if (!QDir().mkdir(outputDir))
+  if (!QDir().mkdir(paths.m_outputDir))
     throw std::runtime_error("Unable to make the output directory");
 
-  bool const hasSymbols = QDir(styleDir + "symbols/").exists();
-  if (hasSymbols)
+  if (paths.m_hasSymbols)
   {
-    auto future = std::async(std::launch::async, BuildSkins, styleDir, outputDir, info.m_theme);
-    BuildDrawingRules(mapcssFile, outputDir, info);
+    auto future = std::async(std::launch::async, BuildSkins, paths.m_styleDir, paths.m_outputDir, info.m_theme);
+    BuildDrawingRules(mapcssFile, paths.m_outputDir, info);
     future.get();  // may rethrow exception from the BuildSkin
 
-    ApplyDrawingRules(outputDir, info);
-    ApplySkins(outputDir, info.m_theme);
+    ApplyDrawingRules(paths.m_outputDir, info);
+    ApplySkins(paths.m_outputDir, info.m_theme);
   }
   else
   {
-    BuildDrawingRules(mapcssFile, outputDir, info);
-    ApplyDrawingRules(outputDir, info);
+    BuildDrawingRules(mapcssFile, paths.m_outputDir, info);
+    ApplyDrawingRules(paths.m_outputDir, info);
   }
 }
 
 void BuildIfNecessaryAndApply(QString const & mapcssFile, StyleInfo const & info)
 {
-  if (!QFile(mapcssFile).exists())
-    throw std::runtime_error("mapcss files does not exist");
+  auto const paths = GetStylePaths(mapcssFile);
 
-  QDir const projectDir = QFileInfo(mapcssFile).absoluteDir();
-  QString const styleDir = projectDir.absolutePath() + QDir::separator();
-  QString const outputDir = styleDir + "out" + QDir::separator();
-
-  if (QDir(outputDir).exists())
+  if (QDir(paths.m_outputDir).exists())
   {
     try
     {
-      ApplyDrawingRules(outputDir, info);
-      ApplySkins(outputDir, info.m_theme);
+      ApplyDrawingRules(paths.m_outputDir, info);
+      if (paths.m_hasSymbols)
+        ApplySkins(paths.m_outputDir, info.m_theme);
     }
-    catch (std::exception const & ex)
+    catch (std::exception const &)
     {
       BuildAndApply(mapcssFile, info);
     }
