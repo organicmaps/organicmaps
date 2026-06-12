@@ -9,38 +9,39 @@ namespace
 {
 std::string const kSuffixDark = "dark";
 std::string const kSuffixLight = "light";
-std::string const kSuffixDefaultDark = "_default_dark";
-std::string const kSuffixDefaultLight = "_default_light";
-std::string const kSuffixVehicleDark = "_vehicle_dark";
-std::string const kSuffixVehicleLight = "_vehicle_light";
-std::string const kSuffixOutdoorsLight = "_outdoors_light";
-std::string const kSuffixOutdoorsDark = "_outdoors_dark";
 
 std::string const kStylesOverrideDir = "styles";
 
 #ifdef BUILD_DESIGNER
-std::string const kSuffixDesignTool = "_design";
+std::string const kDesignerRulesFile = "drules_design.bin";
 #endif  // BUILD_DESIGNER
 
-std::string GetStyleRulesSuffix(MapStyle mapStyle)
+// Light and dark of a style share one family file; the variant is selected at load time.
+std::string GetStyleRulesFamily(MapStyle mapStyle)
 {
-#ifdef BUILD_DESIGNER
-  return kSuffixDesignTool;
-#else
   switch (mapStyle)
   {
-  case MapStyleDefaultDark: return kSuffixDefaultDark;
-  case MapStyleDefaultLight: return kSuffixDefaultLight;
-  case MapStyleVehicleDark: return kSuffixVehicleDark;
-  case MapStyleVehicleLight: return kSuffixVehicleLight;
-  case MapStyleOutdoorsLight: return kSuffixOutdoorsLight;
-  case MapStyleOutdoorsDark: return kSuffixOutdoorsDark;
-  case MapStyleMerged: return {};
+  case MapStyleDefaultDark:
+  case MapStyleDefaultLight: return "default";
+  case MapStyleVehicleDark:
+  case MapStyleVehicleLight: return "vehicle";
+  case MapStyleOutdoorsLight:
+  case MapStyleOutdoorsDark: return "outdoors";
+  case MapStyleMerged: return "merged";
 
   case MapStyleCount: break;
   }
   LOG(LWARNING, ("Unknown map style", mapStyle));
-  return kSuffixDefaultLight;
+  return "default";
+}
+
+std::string GetDrawingRulesFile(MapStyle mapStyle)
+{
+#ifdef BUILD_DESIGNER
+  (void)mapStyle;
+  return kDesignerRulesFile;
+#else
+  return "drules_" + GetStyleRulesFamily(mapStyle) + ".bin";
 #endif  // BUILD_DESIGNER
 }
 
@@ -86,19 +87,44 @@ bool StyleReader::IsCarNavigationStyle() const
   return m_mapStyle == MapStyle::MapStyleVehicleLight || m_mapStyle == MapStyle::MapStyleVehicleDark;
 }
 
-ReaderPtr<Reader> StyleReader::GetDrawingRulesReader() const
+ReaderPtr<Reader> StyleReader::GetDrawingRulesReader(MapStyle mapStyle) const
 {
-  std::string rulesFile = std::string("drules_proto") + GetStyleRulesSuffix(GetCurrentStyle()) + ".bin";
-
-  auto overriddenRulesFile = base::JoinPath(GetPlatform().WritableDir(), kStylesOverrideDir, rulesFile);
-  if (Platform::IsFileExistsByFullPath(overriddenRulesFile))
-    rulesFile = overriddenRulesFile;
-
+  std::string const rulesFile = GetDrawingRulesFile(mapStyle);
 #ifdef BUILD_DESIGNER
   // For Designer tool we have to look first into the resource folder.
   return GetPlatform().GetReader(rulesFile, "rwf");
 #else
   return GetPlatform().GetReader(rulesFile);
+#endif
+}
+
+bool StyleReader::ReadDrawingRulesOverride(MapStyle mapStyle, std::string & buffer) const
+{
+  auto const path = base::JoinPath(GetPlatform().WritableDir(), kStylesOverrideDir, GetDrawingRulesFile(mapStyle));
+  if (!Platform::IsFileExistsByFullPath(path))
+    return false;
+  try
+  {
+    ReaderPtr<Reader>(GetPlatform().GetReader(path)).ReadAsString(buffer);
+    return true;
+  }
+  catch (RootException const & e)
+  {
+    LOG(LWARNING, ("Failed to read drules override", path, e.Msg()));
+    return false;
+  }
+}
+
+size_t StyleReader::GetDrawingRulesVariant(MapStyle mapStyle) const
+{
+#ifdef BUILD_DESIGNER
+  // The designer ships a single-variant file (drules_design.bin), so every style maps to index 0.
+  (void)mapStyle;
+  return 0;
+#else
+  // Family files store the light variant at index 0 and dark at index 1 (see merge_variants.py);
+  // the single-variant merged file only has index 0.
+  return (mapStyle != MapStyleMerged && MapStyleIsDark(mapStyle)) ? 1 : 0;
 #endif
 }
 

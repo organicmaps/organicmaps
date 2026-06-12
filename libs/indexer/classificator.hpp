@@ -2,6 +2,7 @@
 
 #include "indexer/drawing_rule_def.hpp"
 #include "indexer/feature_decl.hpp"
+#include "indexer/map_style.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/types_mapping.hpp"
 
@@ -192,6 +193,12 @@ public:
 
   bool HasTypesMapping() const { return m_mapping.IsLoaded(); }
 
+  // Whether this style's family (classificator tree + drawing rules) is fully loaded and ready to
+  // render. Managed by classificator::EnsureStyleLoaded/Load; distinct from HasTypesMapping(), which
+  // covers the tree only (e.g. LoadTypes loads the tree without rules).
+  bool IsLoaded() const { return m_loaded; }
+  void SetLoaded(bool loaded) { m_loaded = loaded; }
+
   static constexpr uint32_t INVALID_TYPE = IndexAndTypeMapping::INVALID_TYPE;
 
   /// @name Type by \a path in classificator tree, for example {"natural", "caostline"}.
@@ -256,9 +263,13 @@ private:
   IndexAndTypeMapping m_mapping;
   uint32_t m_coastType = 0;
   uint32_t m_stubType = 0;
+  bool m_loaded = false;
 
   DISALLOW_COPY_AND_MOVE(Classificator);
 };
 
 Classificator & classif();
+// Accessor for a specific style's tree; used by the loader to fill a family without changing the
+// global current style (which background tile readers observe).
+Classificator & classif(MapStyle mapStyle);
 Classificator & GetOutdoorClassif();

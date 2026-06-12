@@ -5,11 +5,15 @@
 #include <unordered_map>
 #include <vector>
 
+class Classificator;
+
 class IndexAndTypeMapping
 {
 public:
   void Clear();
-  void Load(std::istream & s);
+  // Resolves type paths against c (the classificator that owns this mapping), not the global current
+  // style: there is one classificator tree per MapStyle and each must build its mapping from itself.
+  void Load(std::istream & s, Classificator const & c);
   bool IsLoaded() const { return !m_types.empty(); }
 
   static constexpr uint32_t INVALID_TYPE = 0;

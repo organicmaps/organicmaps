@@ -1,10 +1,11 @@
 #include "drape_frontend/stylist.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/drules_include.hpp"
+#include "indexer/classificator_loader.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/feature_visibility.hpp"
+#include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
 
 #include "drape/hatching_decl.hpp"
@@ -135,13 +136,14 @@ void Stylist::ProcessKey(FeatureType & f, drule::Key const & key)
     m_symbolRule = dRule->GetSymbol();
     break;
   case drule::caption:
-    ASSERT(dRule->GetCaption() && dRule->GetCaption()->has_primary() && !m_captionRule &&
+    ASSERT(dRule->GetCaption() && dRule->GetCaption()->primary.has_value() && !m_captionRule &&
                (geomType == GeomType::Point || geomType == GeomType::Area),
            (m_captionRule == nullptr, f.DebugString()));
     m_captionRule = dRule->GetCaption();
     break;
   case drule::pathtext:
-    ASSERT(dRule->GetPathtext() && dRule->GetPathtext()->has_primary() && !m_pathtextRule && geomType == GeomType::Line,
+    ASSERT(dRule->GetPathtext() && dRule->GetPathtext()->primary.has_value() && !m_pathtextRule &&
+               geomType == GeomType::Line,
            (m_pathtextRule == nullptr, geomType, f.DebugString()));
     m_pathtextRule = dRule->GetPathtext();
     break;
@@ -177,6 +179,11 @@ void Stylist::ProcessKey(FeatureType & f, drule::Key const & key)
 Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, bool forceOutdoorStyle)
   : m_rulesHolder(forceOutdoorStyle ? drule::GetOutdoorRules() : drule::GetCurrentRules())
 {
+  auto const style = GetStyleReader().GetCurrentStyle();
+  ASSERT(classificator::IsStyleLoaded(
+             forceOutdoorStyle ? (MapStyleIsDark(style) ? MapStyleOutdoorsDark : MapStyleOutdoorsLight) : style),
+         ("Drawing rules for the current style are not loaded", style, forceOutdoorStyle));
+
   feature::TypesHolder const types(f);
   Classificator const & cl = forceOutdoorStyle ? GetOutdoorClassif() : classif();
 
@@ -235,8 +242,8 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, bool for
 
   if (m_captionRule || m_pathtextRule)
   {
-    bool const auxExists =
-        (m_captionRule && m_captionRule->has_secondary()) || (m_pathtextRule && m_pathtextRule->has_secondary());
+    bool const auxExists = (m_captionRule && m_captionRule->secondary.has_value()) ||
+                           (m_pathtextRule && m_pathtextRule->secondary.has_value());
     m_captionDescriptor.Init(f, deviceLang, zoomLevel, geomType, auxExists);
 
     if (m_captionDescriptor.IsHouseNumberExists())

@@ -19,15 +19,6 @@ An overview of currently used icons can be found in the [Wiki](https://github.co
 
 To work with styles first [clone the OM repository](INSTALL.md#getting-sources).
 
-Install a `protobuf` python package with `pip`
-```
-pip install protobuf
-```
-or with your OS package manager, e.g for Ubuntu 
-```
-sudo apt install python3-protobuf 
-```
-
 To run the `generate_symbols.sh` script install `optipng` also, e.g. for Ubuntu
 ```
 sudo apt install optipng
@@ -83,7 +74,7 @@ The most convenient way is using [the desktop app](INSTALL.md#desktop-app).
 by rebuilding styles and symbols quickly, but it's broken as of now, please help fix it!)
 
 To test on Android or iOS device either re-build the app or put
-the compiled style files (e.g. `drules_proto_default_light.bin`) into
+the compiled style files (e.g. `drules_default.bin`) into
 a `styles/` subfolder of maps directory on the device
 (e.g. `Android/data/app.organicmaps/files/styles/`).
 
@@ -108,7 +99,7 @@ Map style files syntax is based on [MapCSS/0.2](https://wiki.openstreetmap.org/w
 though the specification is not supported in full and there are OM-specific extensions to it.
 
 The `tools/unix/generate_drules.sh` script uses a customized version of [Kothic](https://github.com/organicmaps/kothic)
-stylesheet processor to compile MapCSS files into binary drawing rules files `data/drules_proto*.bin`.
-The processor also produces text versions of these files (`data/drules_proto*.txt`) to ease debugging.
+stylesheet processor to compile MapCSS files into binary drawing rules files `data/drules_*.bin`.
+The processor also produces text versions of these files (`data/drules_*.txt`) to ease debugging.
 
 The `tools/unix/generate_symbols.sh` script assembles all icons into skin files in various resolutions (`data/resources-*/symbols.png` and `symbols.xml`).

@@ -33,6 +33,9 @@
 		6741A97D1BF340DE002C974C /* synonyms.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAEA7D0161BD26600CCD661 /* synonyms.txt */; };
 		6741A97E1BF340DE002C974C /* drules_proto_default_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4A00DBDE1AB704C400113624 /* drules_proto_default_dark.bin */; };
 		6741A9871BF340DE002C974C /* drules_proto_default_light.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4A23D1561B8B4DD700D4EB6F /* drules_proto_default_light.bin */; };
+		DB05F1CC1BF340DE002C974C /* drules_default.bin in Resources */ = {isa = PBXBuildFile; fileRef = DB05F1BC1BF340DE002C974C /* drules_default.bin */; };
+		DB05F1CD1BF340DE002C974C /* drules_outdoors.bin in Resources */ = {isa = PBXBuildFile; fileRef = DB05F1BD1BF340DE002C974C /* drules_outdoors.bin */; };
+		DB05F1CE1BF340DE002C974C /* drules_vehicle.bin in Resources */ = {isa = PBXBuildFile; fileRef = DB05F1BE1BF340DE002C974C /* drules_vehicle.bin */; };
 		676507601C10559800830BB3 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 451950391B7A3E070085DA05 /* patterns.txt */; };
 		676507611C10559B00830BB3 /* colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 452FCA3A1B6A3DF7007019AB /* colors.txt */; };
 		6B9978361C89A316003B8AA0 /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 6B9978341C89A316003B8AA0 /* editor.config */; };
@@ -810,6 +813,9 @@
 		47AEF83F2231249E00D20538 /* categories_brands.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = categories_brands.txt; path = ../../data/categories_brands.txt; sourceTree = SOURCE_ROOT; };
 		4A00DBDE1AB704C400113624 /* drules_proto_default_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_default_dark.bin; path = ../../data/drules_proto_default_dark.bin; sourceTree = "<group>"; };
 		4A23D1561B8B4DD700D4EB6F /* drules_proto_default_light.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_default_light.bin; path = ../../data/drules_proto_default_light.bin; sourceTree = "<group>"; };
+		DB05F1BC1BF340DE002C974C /* drules_default.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_default.bin; path = ../../data/drules_default.bin; sourceTree = "<group>"; };
+		DB05F1BD1BF340DE002C974C /* drules_outdoors.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_outdoors.bin; path = ../../data/drules_outdoors.bin; sourceTree = "<group>"; };
+		DB05F1BE1BF340DE002C974C /* drules_vehicle.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_vehicle.bin; path = ../../data/drules_vehicle.bin; sourceTree = "<group>"; };
 		4A300ED31C6DCFD400140018 /* countries-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "countries-strings"; path = "../../data/countries-strings"; sourceTree = "<group>"; };
 		4B4153B42BF9695500EE4B02 /* MWMTextToSpeechTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTextToSpeechTests.mm; sourceTree = "<group>"; };
 		4B83AE4A2C2E642100B0C3BC /* TTSTesterTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTSTesterTest.m; sourceTree = "<group>"; };
@@ -3999,6 +4005,9 @@
 				97A5967E19B9CD47007A963F /* copyright.html */,
 				FA46DA2B12D4166E00968C36 /* countries.json */,
 				4A23D1561B8B4DD700D4EB6F /* drules_proto_default_light.bin */,
+				DB05F1BC1BF340DE002C974C /* drules_default.bin */,
+				DB05F1BD1BF340DE002C974C /* drules_outdoors.bin */,
+				DB05F1BE1BF340DE002C974C /* drules_vehicle.bin */,
 				4A00DBDE1AB704C400113624 /* drules_proto_default_dark.bin */,
 				FA637ECC29A500BE00D8921A /* drules_proto_outdoors_light.bin */,
 				FA637ECF29A500BE00D8921A /* drules_proto_outdoors_light.txt */,
@@ -4241,6 +4250,9 @@
 				4A300ED51C6DCFD400140018 /* countries-strings in Resources */,
 				6741A9491BF340DE002C974C /* countries.json in Resources */,
 				6741A9871BF340DE002C974C /* drules_proto_default_light.bin in Resources */,
+				DB05F1CC1BF340DE002C974C /* drules_default.bin in Resources */,
+				DB05F1CD1BF340DE002C974C /* drules_outdoors.bin in Resources */,
+				DB05F1CE1BF340DE002C974C /* drules_vehicle.bin in Resources */,
 				ED82C61D2F90180300FA103D /* MWMAutoupdateController.xib in Resources */,
 				ED82C61E2F90180300FA103D /* BookmarksListCell.xib in Resources */,
 				ED82C61F2F90180300FA103D /* BookmarksListSectionHeader.xib in Resources */,

@@ -71,15 +71,15 @@ private:
 class Stylist
 {
 public:
-  SymbolRuleProto const * m_symbolRule = nullptr;
-  CaptionRuleProto const * m_captionRule = nullptr;
-  CaptionRuleProto const * m_houseNumberRule = nullptr;
-  PathTextRuleProto const * m_pathtextRule = nullptr;
-  ShieldRuleProto const * m_shieldRule = nullptr;
-  AreaRuleProto const * m_areaRule = nullptr;
-  AreaRuleProto const * m_hatchingRule = nullptr;
+  drule::SymbolRule const * m_symbolRule = nullptr;
+  drule::CaptionRule const * m_captionRule = nullptr;
+  drule::CaptionRule const * m_houseNumberRule = nullptr;
+  drule::PathTextRule const * m_pathtextRule = nullptr;
+  drule::ShieldRule const * m_shieldRule = nullptr;
+  drule::AreaRule const * m_areaRule = nullptr;
+  drule::AreaRule const * m_hatchingRule = nullptr;
 
-  using LineRulesT = buffer_vector<LineRuleProto const *, 4>;
+  using LineRulesT = buffer_vector<drule::LineRule const *, 4>;
   LineRulesT m_lineRules;
 
   ftypes::RoadShieldsSetT m_roadShields;

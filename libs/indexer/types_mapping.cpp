@@ -10,10 +10,8 @@ void IndexAndTypeMapping::Clear()
   m_map.clear();
 }
 
-void IndexAndTypeMapping::Load(std::istream & s)
+void IndexAndTypeMapping::Load(std::istream & s, Classificator const & c)
 {
-  Classificator const & c = classif();
-
   std::string line;
   std::vector<std::string_view> path;
 

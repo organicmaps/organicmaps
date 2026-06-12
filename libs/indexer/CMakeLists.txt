@@ -40,11 +40,14 @@ set(SRC
   drawing_rule_def.hpp
   drawing_rules.cpp
   drawing_rules.hpp
+  drules_format.cpp
+  drules_format.hpp
   drules_include.hpp
   drules_selector.cpp
   drules_selector.hpp
   drules_selector_parser.cpp
   drules_selector_parser.hpp
+  drules_struct.hpp
   drules_struct.pb.cc
   drules_struct.pb.h
   edit_journal.cpp
