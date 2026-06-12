@@ -24,7 +24,7 @@ bool TryParseStyleInfo(QString const & mapcssFile, StyleInfo & out);
 
 void BuildAndApply(QString const & mapcssFile, StyleInfo const & info);
 void BuildIfNecessaryAndApply(QString const & mapcssFile, StyleInfo const & info);
-void RunRecalculationGeometryScript(QString const & mapcssFile, StyleInfo const & info);
+void RunRecalculationGeometryScript(QString const & mapcssFile);
 
 extern bool NeedRecalculate;
 }  // namespace build_style

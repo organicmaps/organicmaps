@@ -143,18 +143,21 @@ void BuildSkins(QString const & styleDir, QString const & outputDir, QString con
 
 void ApplySkins(QString const & outputDir, QString const & theme)
 {
-  QString const resourceDir = GetPlatform().ResourcesDir().c_str();
+  // symbols/<dpi>/<theme>/ in the writable dir shadows the bundled atlases
+  // ("wrf" scope); in a dev checkout this overwrites data/symbols/ in place,
+  // exactly like tools/unix/generate_symbols.sh.
+  QString const writableDir = GetPlatform().WritableDir().c_str();
 
   for (auto const & dpi : kSkinDpis)
   {
     QString const outputSkinDir = JoinPathQt({outputDir, "symbols", dpi.m_name, theme});
-    QString const resourceSkinDir = JoinPathQt({resourceDir, "symbols", dpi.m_name, theme});
+    QString const writableSkinDir = JoinPathQt({writableDir, "symbols", dpi.m_name, theme});
 
-    if (!QFileInfo::exists(resourceSkinDir) && !QDir().mkpath(resourceSkinDir))
-      throw std::runtime_error("Cannot create resource skin directory: " + resourceSkinDir.toStdString());
+    if (!QFileInfo::exists(writableSkinDir) && !QDir().mkpath(writableSkinDir))
+      throw std::runtime_error("Cannot create skin directory: " + writableSkinDir.toStdString());
 
-    if (!CopyFile(JoinPathQt({outputSkinDir, "symbols.png"}), JoinPathQt({resourceSkinDir, "symbols.png"})) ||
-        !CopyFile(JoinPathQt({outputSkinDir, "symbols.sdf"}), JoinPathQt({resourceSkinDir, "symbols.sdf"})))
+    if (!CopyFile(JoinPathQt({outputSkinDir, "symbols.png"}), JoinPathQt({writableSkinDir, "symbols.png"})) ||
+        !CopyFile(JoinPathQt({outputSkinDir, "symbols.sdf"}), JoinPathQt({writableSkinDir, "symbols.sdf"})))
     {
       throw std::runtime_error("Cannot copy skins files");
     }

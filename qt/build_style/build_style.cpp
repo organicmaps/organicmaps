@@ -13,6 +13,7 @@
 #include <QtCore/QDir>
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
+#include <QtCore/QProcessEnvironment>
 
 namespace
 {
@@ -24,11 +25,6 @@ QString GetRecalculateGeometryScriptPath()
 QString GetGeometryToolPath()
 {
   return GetExternalPath("generator_tool", "generator_tool.app/Contents/MacOS", "");
-}
-
-QString GetGeometryToolResourceDir()
-{
-  return GetExternalPath("", "generator_tool.app/Contents/Resources", "");
 }
 
 struct StylePathParts
@@ -170,29 +166,29 @@ void BuildIfNecessaryAndApply(QString const & mapcssFile, StyleInfo const & info
   }
 }
 
-void RunRecalculationGeometryScript(QString const & mapcssFile, StyleInfo const & info)
+void RunRecalculationGeometryScript(QString const & mapcssFile)
 {
   QString const resourceDir = GetPlatform().ResourcesDir().c_str();
   QString const writableDir = GetPlatform().WritableDir().c_str();
 
-  QString const generatorToolPath = GetGeometryToolPath();
-  QString const appPath = QCoreApplication::applicationFilePath();
+  // generator_tool must load the classificator and drules exactly as this app
+  // sees them, including the freshly built files in the writable dir. Both
+  // Platform implementations honour these variables (see Platform() ctors),
+  // so no files have to be copied around.
+  QProcessEnvironment env{QProcessEnvironment::systemEnvironment()};
+  env.insert("MWM_RESOURCES_DIR", resourceDir);
+  env.insert("MWM_WRITABLE_DIR", writableDir);
 
-  QString const geometryToolResourceDir = GetGeometryToolResourceDir();
-
-  QString const drulesFile = "drules_proto" + info.m_drulesSuffix + ".bin";
-  CopyFromResources(drulesFile, geometryToolResourceDir);
-  CopyFromResources("classificator.txt", geometryToolResourceDir);
-  CopyFromResources("types.txt", geometryToolResourceDir);
-
-  (void)ExecProcess("python3", {
-                                   GetRecalculateGeometryScriptPath(),
-                                   resourceDir,
-                                   writableDir,
-                                   generatorToolPath,
-                                   appPath,
-                                   mapcssFile,
-                               });
+  (void)ExecProcess("python3",
+                    {
+                        GetRecalculateGeometryScriptPath(),
+                        resourceDir,
+                        writableDir,
+                        GetGeometryToolPath(),
+                        QCoreApplication::applicationFilePath(),
+                        mapcssFile,
+                    },
+                    &env);
 }
 
 bool NeedRecalculate = false;

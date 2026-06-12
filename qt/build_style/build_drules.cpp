@@ -43,18 +43,22 @@ void BuildDrawingRulesImpl(QString const & mapcssFile, QString const & outputDir
 
 void BuildDrawingRules(QString const & mapcssFile, QString const & outputDir, StyleInfo const & info)
 {
-  CopyFromResources("mapcss-mapping.csv", outputDir);
-  CopyFromResources("mapcss-dynamic.txt", outputDir);
+  CopyFromDataDir("mapcss-mapping.csv", outputDir);
+  CopyFromDataDir("mapcss-dynamic.txt", outputDir);
   BuildDrawingRulesImpl(mapcssFile, outputDir, info);
 }
 
 void ApplyDrawingRules(QString const & outputDir, StyleInfo const & info)
 {
+  // The writable dir is searched before the app resources ("wrf" scope), so
+  // these copies shadow the bundled originals without touching the bundle.
+  // In a dev checkout the writable dir is data/ itself — the same files
+  // tools/unix/generate_drules.sh regenerates.
   QString const drulesFile = "drules_proto" + info.m_drulesSuffix + ".bin";
-  CopyToResources(drulesFile, outputDir);
-  CopyToResources("classificator.txt", outputDir);
-  CopyToResources("types.txt", outputDir);
-  CopyToResources("patterns.txt", outputDir);
-  CopyToResources("colors.txt", outputDir);
+  CopyToWritableDir(drulesFile, outputDir);
+  CopyToWritableDir("classificator.txt", outputDir);
+  CopyToWritableDir("types.txt", outputDir);
+  CopyToWritableDir("patterns.txt", outputDir);
+  CopyToWritableDir("colors.txt", outputDir);
 }
 }  // namespace build_style

@@ -30,9 +30,11 @@ QString GetStyleStatistics(QString const & mapcssMappingFile, QString const & dr
 
 QString GetCurrentStyleStatistics(StyleInfo const & info)
 {
-  QString const resourceDir = GetPlatform().ResourcesDir().c_str();
-  QString const mappingPath = JoinPathQt({resourceDir, "mapcss-mapping.csv"});
-  QString const drulesPath = JoinPathQt({resourceDir, "drules_proto" + info.m_drulesSuffix + ".bin"});
+  // Prefer the freshly built files from the writable dir over bundled ones.
+  Platform const & pl = GetPlatform();
+  QString const mappingPath = pl.ReadPathForFile("mapcss-mapping.csv", "wr").c_str();
+  QString const drulesPath =
+      pl.ReadPathForFile("drules_proto" + info.m_drulesSuffix.toStdString() + ".bin", "wr").c_str();
   return GetStyleStatistics(mappingPath, drulesPath);
 }
 }  // namespace build_style

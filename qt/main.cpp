@@ -291,7 +291,7 @@ int main(int argc, char * argv[])
   {
     try
     {
-      build_style::RunRecalculationGeometryScript(mapcssFilePath, styleInfo);
+      build_style::RunRecalculationGeometryScript(mapcssFilePath);
     }
     catch (std::exception & e)
     {
