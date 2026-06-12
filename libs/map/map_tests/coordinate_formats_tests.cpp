@@ -155,4 +155,71 @@ UNIT_TEST(CoordinateFormats_GoldenStrings)
   // At the pole the region-independent formats still work; UTM/MGRS/OSGB drop out (no "N/A" row).
   TEST_EQUAL(Display(CoordinatesFormat::LatLonDecimal, kNorthPole, ""), "85, 10", ());
   TEST_EQUAL(Display(CoordinatesFormat::UTM, kNorthPole, ""), "<unavailable>", ());
+
+  // The Irish formats, pinned at the place-page (label + value) layer in their own region.
+  std::string_view const belfast = "UK_Northern Ireland";
+  TEST_EQUAL(Display(CoordinatesFormat::IrishGrid, kBelfast, belfast), "Irish Grid: J 3385 7410", ());
+  TEST_EQUAL(Display(CoordinatesFormat::ITM, kBelfast, belfast), "ITM: 733751 874084", ());
+
+  std::string_view const dublin = "Ireland_Leinster";
+  TEST_EQUAL(Display(CoordinatesFormat::IrishGrid, kDublin, dublin), "Irish Grid: O 1592 3469", ());
+  TEST_EQUAL(Display(CoordinatesFormat::ITM, kDublin, dublin), "ITM: 715827 734698", ());
+}
+
+// GetAvailableCoordinateFormats resolves the region once and returns only the applicable formats, in
+// display order, each carrying both string forms - the single primitive the place pages render from.
+UNIT_TEST(CoordinateFormats_AvailableList)
+{
+  using place_page::GetAvailableCoordinateFormats;
+
+  auto const ids = [](std::vector<place_page::CoordinateFormatEntry> const & v)
+  {
+    std::vector<int> r;
+    for (auto const & e : v)
+      r.push_back(static_cast<int>(e.m_format));
+    return r;
+  };
+
+  // London: the four global formats + UTM/MGRS + OSGB, but no Irish systems.
+  auto const london = GetAvailableCoordinateFormats(kLondon, "UK_England_Greater London");
+  TEST_EQUAL(ids(london), (std::vector<int>{0, 1, 2, 3, 4, 5, 6}), ());
+
+  // Belfast: the global formats + UTM/MGRS + the Irish systems, but no OSGB.
+  auto const belfast = GetAvailableCoordinateFormats(kBelfast, "UK_Northern Ireland");
+  TEST_EQUAL(ids(belfast), (std::vector<int>{0, 1, 2, 3, 4, 5, 7, 8}), ());
+
+  // Each entry's display is "<label>: <value>" or the bare value, consistent with FormatCoordinate*.
+  for (auto const & e : london)
+  {
+    TEST_EQUAL(e.m_display, Display(e.m_format, kLondon, "UK_England_Greater London"), ());
+    TEST_EQUAL(e.m_value, Value(e.m_format, kLondon, "UK_England_Greater London"), ());
+  }
+
+  // Never empty, even with no region and beyond the UTM/MGRS latitude limit: decimal formats remain.
+  auto const pole = GetAvailableCoordinateFormats(kNorthPole, "");
+  TEST_EQUAL(ids(pole), (std::vector<int>{0, 1, 2, 3}), ());
+}
+
+// EffectiveCoordinateFormat / NextCoordinateFormat: the shared cycle logic over an available list.
+UNIT_TEST(CoordinateFormats_Selection)
+{
+  // The enum has no DebugPrint, so compare the resolved formats as their stable ids.
+  auto const effective = [](std::vector<place_page::CoordinateFormatEntry> const & v, CoordinatesFormat saved)
+  { return static_cast<int>(place_page::EffectiveCoordinateFormat(v, static_cast<int>(saved))); };
+  auto const next = [](std::vector<place_page::CoordinateFormatEntry> const & v, CoordinatesFormat saved)
+  { return static_cast<int>(place_page::NextCoordinateFormat(v, static_cast<int>(saved))); };
+
+  // London list is {DMS, Decimal, OLC, OSMLink, UTM, MGRS, OSGB} (ids 0..6).
+  auto const london = place_page::GetAvailableCoordinateFormats(kLondon, "UK_England_Greater London");
+
+  // A saved format that applies here is shown as-is, and the next one follows it.
+  TEST_EQUAL(effective(london, CoordinatesFormat::OSGB), static_cast<int>(CoordinatesFormat::OSGB), ());
+  TEST_EQUAL(next(london, CoordinatesFormat::MGRS), static_cast<int>(CoordinatesFormat::OSGB), ());
+  // Wrap-around from the last available format back to the first.
+  TEST_EQUAL(next(london, CoordinatesFormat::OSGB), static_cast<int>(CoordinatesFormat::LatLonDMS), ());
+
+  // A saved format that does not apply here falls back to the first available, and a tap advances from
+  // there (so it always moves on visibly), without the saved id being one of the available ones.
+  TEST_EQUAL(effective(london, CoordinatesFormat::ITM), static_cast<int>(CoordinatesFormat::LatLonDMS), ());
+  TEST_EQUAL(next(london, CoordinatesFormat::ITM), static_cast<int>(CoordinatesFormat::LatLonDecimal), ());
 }

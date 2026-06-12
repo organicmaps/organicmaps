@@ -62,6 +62,27 @@ std::optional<std::string> FormatCoordinateValue(CoordinatesFormat format, ms::L
 // nullopt when the format is unavailable here (same condition as FormatCoordinateValue).
 std::optional<std::string> FormatCoordinateDisplay(CoordinatesFormat format, ms::LatLon ll, std::string_view regionId);
 
+// One coordinate format resolved at a point: its stable id and both string forms.
+struct CoordinateFormatEntry
+{
+  CoordinatesFormat m_format;
+  std::string m_display;  // Labelled form for the UI row, e.g. "OSGB: SW 7400 4210".
+  std::string m_value;    // Bare value for copying, e.g. "SW 7400 4210".
+};
+
+// The formats available at this point, in display order, resolved in a single pass. Never empty: the
+// decimal formats apply everywhere. This is the one primitive a place page needs - it resolves the
+// region once and returns every format's strings, so the platform picks/cycles over the list instead
+// of re-resolving per format, per refresh or per tap.
+std::vector<CoordinateFormatEntry> GetAvailableCoordinateFormats(ms::LatLon ll, std::string_view regionId);
+
+// Selection over a list from GetAvailableCoordinateFormats plus a saved stable id. The "effective"
+// format is the saved one if it is available here, else the first available; "next" is the one after
+// it (wrapping). Neither changes the saved preference, so it is restored once the user returns to a
+// region where it applies. entries must be non-empty.
+CoordinatesFormat EffectiveCoordinateFormat(std::vector<CoordinateFormatEntry> const & entries, int savedId);
+CoordinatesFormat NextCoordinateFormat(std::vector<CoordinateFormatEntry> const & entries, int savedId);
+
 struct BuildInfo
 {
   enum class Source : uint8_t

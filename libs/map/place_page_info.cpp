@@ -148,6 +148,46 @@ std::optional<std::string> FormatCoordinateDisplay(CoordinatesFormat format, ms:
   return d->m_label ? std::string(d->m_label) + ": " + *value : *value;
 }
 
+std::vector<CoordinateFormatEntry> GetAvailableCoordinateFormats(ms::LatLon ll, std::string_view regionId)
+{
+  std::vector<CoordinateFormatEntry> result;
+  result.reserve(std::size(kDescs));
+  for (auto const & d : kDescs)
+  {
+    auto value = FormatValue(d, ll, regionId);
+    if (!value)
+      continue;
+    std::string display = d.m_label ? std::string(d.m_label) + ": " + *value : *value;
+    result.push_back({d.m_id, std::move(display), std::move(*value)});
+  }
+  return result;
+}
+
+namespace
+{
+// Index of the saved format in the available list, or 0 (the first available) when it does not apply
+// here - the decimal formats always do, so the list is never empty and index 0 is always valid.
+size_t EffectiveIndex(std::vector<CoordinateFormatEntry> const & entries, int savedId)
+{
+  for (size_t i = 0; i < entries.size(); ++i)
+    if (static_cast<int>(entries[i].m_format) == savedId)
+      return i;
+  return 0;
+}
+}  // namespace
+
+CoordinatesFormat EffectiveCoordinateFormat(std::vector<CoordinateFormatEntry> const & entries, int savedId)
+{
+  ASSERT(!entries.empty(), ());
+  return entries[EffectiveIndex(entries, savedId)].m_format;
+}
+
+CoordinatesFormat NextCoordinateFormat(std::vector<CoordinateFormatEntry> const & entries, int savedId)
+{
+  ASSERT(!entries.empty(), ());
+  return entries[(EffectiveIndex(entries, savedId) + 1) % entries.size()].m_format;
+}
+
 bool Info::IsBookmark() const
 {
   return BookmarkManager::IsBookmarkCategory(m_markGroupId) && BookmarkManager::IsBookmark(m_bookmarkId);
