@@ -105,6 +105,9 @@
 		6753410C1A3F540F00A0A8C3 /* drawing_rule_def.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675340B71A3F540F00A0A8C3 /* drawing_rule_def.hpp */; };
 		6753410D1A3F540F00A0A8C3 /* drawing_rules.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675340B81A3F540F00A0A8C3 /* drawing_rules.cpp */; };
 		6753410E1A3F540F00A0A8C3 /* drawing_rules.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675340B91A3F540F00A0A8C3 /* drawing_rules.hpp */; };
+		DB05F0CC1A3F540F00A0A8C3 /* drules_format.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB05F0BC1A3F540F00A0A8C3 /* drules_format.cpp */; };
+		DB05F0CD1A3F540F00A0A8C3 /* drules_format.hpp in Headers */ = {isa = PBXBuildFile; fileRef = DB05F0BD1A3F540F00A0A8C3 /* drules_format.hpp */; };
+		DB05F0CE1A3F540F00A0A8C3 /* drules_struct.hpp in Headers */ = {isa = PBXBuildFile; fileRef = DB05F0BE1A3F540F00A0A8C3 /* drules_struct.hpp */; };
 		6753410F1A3F540F00A0A8C3 /* drules_include.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675340BA1A3F540F00A0A8C3 /* drules_include.hpp */; };
 		675341101A3F540F00A0A8C3 /* drules_struct.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 675340BB1A3F540F00A0A8C3 /* drules_struct.pb.cc */; settings = {COMPILER_FLAGS = "-w"; }; };
 		675341111A3F540F00A0A8C3 /* drules_struct.pb.h in Headers */ = {isa = PBXBuildFile; fileRef = 675340BC1A3F540F00A0A8C3 /* drules_struct.pb.h */; };
@@ -319,6 +322,9 @@
 		675340B71A3F540F00A0A8C3 /* drawing_rule_def.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drawing_rule_def.hpp; sourceTree = "<group>"; };
 		675340B81A3F540F00A0A8C3 /* drawing_rules.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drawing_rules.cpp; sourceTree = "<group>"; };
 		675340B91A3F540F00A0A8C3 /* drawing_rules.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drawing_rules.hpp; sourceTree = "<group>"; };
+		DB05F0BC1A3F540F00A0A8C3 /* drules_format.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drules_format.cpp; sourceTree = "<group>"; };
+		DB05F0BD1A3F540F00A0A8C3 /* drules_format.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drules_format.hpp; sourceTree = "<group>"; };
+		DB05F0BE1A3F540F00A0A8C3 /* drules_struct.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drules_struct.hpp; sourceTree = "<group>"; };
 		675340BA1A3F540F00A0A8C3 /* drules_include.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drules_include.hpp; sourceTree = "<group>"; };
 		675340BB1A3F540F00A0A8C3 /* drules_struct.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drules_struct.pb.cc; sourceTree = "<group>"; };
 		675340BC1A3F540F00A0A8C3 /* drules_struct.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = drules_struct.pb.h; sourceTree = "<group>"; };
@@ -577,6 +583,9 @@
 				675340B71A3F540F00A0A8C3 /* drawing_rule_def.hpp */,
 				675340B81A3F540F00A0A8C3 /* drawing_rules.cpp */,
 				675340B91A3F540F00A0A8C3 /* drawing_rules.hpp */,
+				DB05F0BC1A3F540F00A0A8C3 /* drules_format.cpp */,
+				DB05F0BD1A3F540F00A0A8C3 /* drules_format.hpp */,
+				DB05F0BE1A3F540F00A0A8C3 /* drules_struct.hpp */,
 				675340BA1A3F540F00A0A8C3 /* drules_include.hpp */,
 				6758AECD1BB4413000C26E27 /* drules_selector_parser.cpp */,
 				6758AECE1BB4413000C26E27 /* drules_selector_parser.hpp */,
@@ -736,6 +745,8 @@
 				6758AED21BB4413000C26E27 /* drules_selector_parser.hpp in Headers */,
 				6753413F1A3F540F00A0A8C3 /* scale_index.hpp in Headers */,
 				6753410E1A3F540F00A0A8C3 /* drawing_rules.hpp in Headers */,
+				DB05F0CD1A3F540F00A0A8C3 /* drules_format.hpp in Headers */,
+				DB05F0CE1A3F540F00A0A8C3 /* drules_struct.hpp in Headers */,
 				FA7F9B84273F32680093EA08 /* validate_and_format_contacts.hpp in Headers */,
 				670C615C1AB0691900C38A8C /* features_offsets_table.hpp in Headers */,
 				6758AED41BB4413000C26E27 /* drules_selector.hpp in Headers */,
@@ -915,6 +926,7 @@
 				394E1E0A22BBB5EB00E4BC75 /* utils.cpp in Sources */,
 				56C74C1C1C749E4700B71B9F /* categories_holder_loader.cpp in Sources */,
 				6753410D1A3F540F00A0A8C3 /* drawing_rules.cpp in Sources */,
+				DB05F0CC1A3F540F00A0A8C3 /* drules_format.cpp in Sources */,
 				675341301A3F540F00A0A8C3 /* data_source.cpp in Sources */,
 				34664CF61D49FEC1003D7096 /* centers_table.cpp in Sources */,
 				6753414D1A3F540F00A0A8C3 /* types_mapping.cpp in Sources */,

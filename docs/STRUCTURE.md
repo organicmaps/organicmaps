@@ -51,7 +51,7 @@ Automatically generated:
 
 Automatically [generated](STYLES.md#technical-details):
 - `symbols/` - icons skin files in various resolutions for `dark` and `light` themes.
-- `drules_proto*` - binary drawing rules files.
+- `drules_*` - binary drawing rules (and text dumps), one file per style family.
 - `colors.txt`,`patterns.txt`,`visibility.txt`
 
 ### Strings and translations

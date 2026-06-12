@@ -87,6 +87,7 @@ function(copy_resources)
   foreach(file ${ARGN})
     execute_process(
       COMMAND cp -r ${DATA_DIR}/${file} ${RESOURCES_FOLDER}
+      COMMAND_ERROR_IS_FATAL ANY
     )
   endforeach()
 endfunction()
@@ -102,10 +103,9 @@ copy_resources(
   classificator.txt
   colors.txt
   countries.json
-  drules_proto_default_light.bin
-  drules_proto_default_dark.bin
-  drules_proto_vehicle_light.bin
-  drules_proto_vehicle_dark.bin
+  drules_default.bin
+  drules_outdoors.bin
+  drules_vehicle.bin
   editor.config
   packed_polygons.bin
   patterns.txt

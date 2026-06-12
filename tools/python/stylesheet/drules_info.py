@@ -5,9 +5,11 @@
 #  - classes without a style
 
 import csv
+import os
 import sys
 
-import drules_struct_pb2
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "kothic", "src"))
+import drules
 
 
 def GetAllClasses(mapping_path):
@@ -23,11 +25,9 @@ def GetAllClasses(mapping_path):
 
 
 def GetClassesZoomRange(drules_path):
-    drules = drules_struct_pb2.ContainerProto()
-    with open(drules_path, 'rb') as f:
-        drules.ParseFromString(f.read())
+    container = drules.load_container(drules_path)
     result = {}
-    for rule in drules.cont:
+    for rule in container.cont:
         name = str(rule.name)
         zooms = [-1, -1]
         for elem in rule.element:
@@ -72,7 +72,7 @@ def ShowZoomInfo(mapping_path, drules_path):
 if __name__ == "__main__":
     if len(sys.argv) < 3:
         print("Usage:")
-        print(f"{sys.argv[0]} <mapcss_mapping_file> <drules_proto_file>")
+        print(f"{sys.argv[0]} <mapcss_mapping_file> <drules_file>")
         exit(-1)
 
     mapping_path = sys.argv[1]

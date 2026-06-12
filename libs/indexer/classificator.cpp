@@ -128,6 +128,11 @@ Classificator & classif()
   return GetClassifImpl(GetStyleReader().GetCurrentStyle());
 }
 
+Classificator & classif(MapStyle mapStyle)
+{
+  return GetClassifImpl(mapStyle);
+}
+
 Classificator & GetOutdoorClassif()
 {
   auto const style = GetStyleReader().GetCurrentStyle();
@@ -416,7 +421,7 @@ uint32_t Classificator::GetTypeByReadableObjectName(std::string const & name) co
 
 void Classificator::ReadTypesMapping(std::istream & s)
 {
-  m_mapping.Load(s);
+  m_mapping.Load(s, *this);
 }
 
 void Classificator::Clear()

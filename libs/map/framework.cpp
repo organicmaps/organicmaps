@@ -33,6 +33,7 @@
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
+#include "indexer/classificator_loader.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/editable_map_object.hpp"
 #include "indexer/feature.hpp"
@@ -1998,6 +1999,9 @@ void Framework::MarkMapStyle(MapStyle mapStyle)
     mapStyleStr = MapStyleToString(mapStyle);
   }
   settings::Set(kMapStyleKey, mapStyleStr);
+  // Make sure the new style's family is resident before switching (a no-op once it is loaded, so
+  // light<->dark stays zero-IO); drape worker threads observe the switch only via UpdateMapStyle.
+  classificator::EnsureStyleLoaded(mapStyle);
   GetStyleReader().SetCurrentStyle(mapStyle);
 }
 

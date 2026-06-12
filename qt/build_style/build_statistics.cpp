@@ -40,7 +40,7 @@ QString GetCurrentStyleStatistics()
 {
   QString const resourceDir = GetPlatform().ResourcesDir().c_str();
   QString const mappingPath = JoinPathQt({resourceDir, "mapcss-mapping.csv"});
-  QString const drulesPath = JoinPathQt({resourceDir, "drules_proto_design.bin"});
+  QString const drulesPath = JoinPathQt({resourceDir, "drules_design.bin"});
   return GetStyleStatistics(mappingPath, drulesPath);
 }
 }  // namespace build_style

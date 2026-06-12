@@ -17,8 +17,6 @@
 
 #include <vector>
 
-class CaptionDefProto;
-
 namespace dp
 {
 class TextureManager;
@@ -59,12 +57,12 @@ public:
     : TBase(params, f, captions)
   {}
 
-  void ProcessPointRules(SymbolRuleProto const * symbolRule, CaptionRuleProto const * captionRule,
-                         CaptionRuleProto const * houseNumberRule, m2::PointD const & centerPoint,
+  void ProcessPointRules(drule::SymbolRule const * symbolRule, drule::CaptionRule const * captionRule,
+                         drule::CaptionRule const * houseNumberRule, m2::PointD const & centerPoint,
                          ref_ptr<dp::TextureManager> texMng);
 
 protected:
-  void ExtractCaptionParams(CaptionDefProto const * primaryProto, CaptionDefProto const * secondaryProto,
+  void ExtractCaptionParams(drule::CaptionDef const * primary, drule::CaptionDef const * secondary,
                             TextViewParams & params) const;
   float m_posZ = 0.0f;
 
@@ -92,7 +90,8 @@ public:
   void operator()(PointT const & p1, PointT const & p2, PointT const & p3);
 
   bool HasGeometry() const { return !m_triangles.empty(); }
-  void ProcessAreaRules(AreaRuleProto const * areaRule, AreaRuleProto const * hatchingRule, std::string_view hatchKey);
+  void ProcessAreaRules(drule::AreaRule const * areaRule, drule::AreaRule const * hatchingRule,
+                        std::string_view hatchKey);
 
   struct Edge
   {
@@ -116,7 +115,7 @@ public:
 private:
   bool HasArea() const override { return true; }
 
-  void ProcessRule(AreaRuleProto const & areaRule, double areaDepth, std::string_view hatchKey);
+  void ProcessRule(drule::AreaRule const & areaRule, double areaDepth, std::string_view hatchKey);
   void ProcessBuildingPolygon(PointT const & p1, PointT const & p2, PointT const & p3, double crossProduct);
 
   /// @todo Factor out to a separate outline-building component.
@@ -156,7 +155,7 @@ public:
   std::vector<m2::SharedSpline> MoveClippedSplines() { return std::move(m_clippedSplines); }
 
 private:
-  void ProcessRule(LineRuleProto const & lineRule);
+  void ProcessRule(drule::LineRule const & lineRule);
 
   RelationsDrawInfo m_relsInfo;
   ClipSplinesBuilder m_builder;
@@ -181,7 +180,7 @@ public:
     ASSERT(!m_clippedSplines.empty(), ());
   }
 
-  void ProcessAdditionalLineRules(PathTextRuleProto const * pathtextRule, ShieldRuleProto const * shieldRule,
+  void ProcessAdditionalLineRules(drule::PathTextRule const * pathtextRule, drule::ShieldRule const * shieldRule,
                                   ref_ptr<dp::TextureManager> texMng, ftypes::RoadShieldsSetT const & roadShields,
                                   GeneratedRoadShields & generatedRoadShields);
 
@@ -195,8 +194,8 @@ private:
 
   std::vector<m2::SharedSpline> m_clippedSplines;
   float m_captionDepth = 0.0f, m_shieldDepth = 0.0f;
-  CaptionDefProto const * m_captionRule = nullptr;
-  ShieldRuleProto const * m_shieldRule = nullptr;
+  drule::CaptionDef const * m_captionRule = nullptr;
+  drule::ShieldRule const * m_shieldRule = nullptr;
 };
 
 extern dp::Color ToDrapeColor(uint32_t src);

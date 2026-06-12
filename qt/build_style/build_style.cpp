@@ -103,7 +103,7 @@ void RunRecalculationGeometryScript(QString const & mapcssFile)
 
   QString const geometryToolResourceDir = GetGeometryToolResourceDir();
 
-  CopyFromResources("drules_proto_design.bin", geometryToolResourceDir);
+  CopyFromResources("drules_design.bin", geometryToolResourceDir);
   CopyFromResources("classificator.txt", geometryToolResourceDir);
   CopyFromResources("types.txt", geometryToolResourceDir);
 

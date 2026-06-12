@@ -6,12 +6,14 @@ Then, popular tags among selected keys (see find_popular_taginfo for list) which
 """
 
 import csv
-import drules_struct_pb2
 import os
 import re
 import sqlite3
 import sys
 import xml.etree.ElementTree as etree
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "kothic", "src"))
+import drules
 
 
 def parse_mapcss_row(row):
@@ -116,7 +118,7 @@ def b2t(b, text='yes'):
 
 
 if __name__ == '__main__':
-    DRULES_FILE_NAME = 'drules_proto_default_light.bin'
+    DRULES_FILE_NAME = 'drules_default.bin'
 
     if len(sys.argv) < 2:
         print('Calculates tag usage and categories stats, suggesting new types.')
@@ -131,11 +133,10 @@ if __name__ == '__main__':
 
     data_path = sys.argv[2] if len(sys.argv) >= 3 else os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', 'data')
 
-    # Read drules_proto.bin
-    drules = drules_struct_pb2.ContainerProto()
-    drules.ParseFromString(open(os.path.join(data_path, DRULES_FILE_NAME), 'rb').read())
+    # Read the native drules file (first/light variant is enough for these structural stats).
+    container = drules.load_container(os.path.join(data_path, DRULES_FILE_NAME))
     drawn = {}
-    for elem in drules.cont:
+    for elem in container.cont:
         st = DruleStat()
         for el in elem.element:
             st.is_drawn = True

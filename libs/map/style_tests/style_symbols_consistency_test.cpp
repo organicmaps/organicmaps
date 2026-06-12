@@ -3,7 +3,6 @@
 #include "map/style_tests/helpers.hpp"
 
 #include "indexer/drawing_rules.hpp"
-#include "indexer/drules_include.hpp"
 #include "indexer/map_style_reader.hpp"
 
 #include "base/logging.hpp"
@@ -43,9 +42,9 @@ StringSet GetSymbolsSetFromDrawingRule()
   StringSet symbols;
   drule::GetCurrentRules().ForEachRule([&symbols](drule::BaseRule const * rule)
   {
-    SymbolRuleProto const * symbol = rule->GetSymbol();
-    if (symbol && !symbol->name().empty())
-      symbols.insert(symbol->name());
+    drule::SymbolRule const * symbol = rule->GetSymbol();
+    if (symbol && !symbol->name.empty())
+      symbols.insert(symbol->name);
   });
   return symbols;
 }

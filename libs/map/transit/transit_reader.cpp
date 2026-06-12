@@ -9,7 +9,6 @@
 
 #include "indexer/data_source.hpp"
 #include "indexer/drawing_rules.hpp"
-#include "indexer/drules_include.hpp"  // needed despite of IDE warning
 #include "indexer/feature_algo.hpp"
 
 #include "coding/reader.hpp"
@@ -164,7 +163,7 @@ void ReadTransitTask::Do()
       // TODO(pastk): there should be a simpler way to just get a symbol name.
       df::Stylist stylist(ft, 19, 0, false /* forceOutdoorStyle */);
       if (stylist.m_symbolRule != nullptr)
-        featureInfo.m_gateSymbolName = stylist.m_symbolRule->name();
+        featureInfo.m_gateSymbolName = stylist.m_symbolRule->name;
     }
     featureInfo.m_point = feature::GetCenter(ft);
   }, features);
