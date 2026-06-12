@@ -85,7 +85,3 @@ for i in ${symbols_name[*]}; do
 done
 
 rm -rf "$DATA_PATH"/symbols/*/design/
-
-for i in ${symbols_name[*]}; do
-  cp -r "$DATA_PATH"/symbols/"${i}"/light/ "$DATA_PATH"/symbols/"${i}"/design/
-done
