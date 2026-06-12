@@ -24,6 +24,19 @@ void BuildDrawingRulesImpl(QString const & mapcssFile, QString const & outputDir
   if (QFile(outputFile).exists())
     throw std::runtime_error("Output directory is not clear");
 
+  // kothic needs the protobuf module; check upfront to give an actionable
+  // error instead of a python stack trace from the middle of the build.
+  try
+  {
+    (void)ExecProcess("python3", {"-c", "import google.protobuf"});
+  }
+  catch (std::exception const &)
+  {
+    throw std::runtime_error(
+        "python3 cannot import the protobuf module. Install kothic dependencies, e.g.:\n"
+        "  python3 -m pip install -r tools/kothic/requirements.txt");
+  }
+
   // Run the script: same invocation as tools/unix/generate_drules.sh.
   (void)ExecProcess("python3", {
                                    GetExternalPath("libkomwm.py", "kothic/src", "../tools/kothic/src"),
