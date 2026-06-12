@@ -10,8 +10,6 @@ target_link_libraries(skin_generator
     geometry
     Qt6::Gui
     Qt6::Svg
-  PRIVATE
-    Qt6::Xml
 )
 
 omim_add_executable(${PROJECT_NAME} main.cpp)

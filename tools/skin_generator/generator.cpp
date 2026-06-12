@@ -10,9 +10,9 @@
 #include <iterator>
 
 #include <QtCore/QDir>
+#include <QtCore/QFile>
+#include <QtCore/QXmlStreamWriter>
 #include <QtGui/QImageReader>
-#include <QtXml/QDomDocument>
-#include <QtXml/QDomElement>
 
 namespace tools
 {
@@ -226,35 +226,42 @@ void SkinGenerator::MarkOverflow()
 
 bool SkinGenerator::WriteToFileNewStyle(std::string const & skinName)
 {
-  QDomDocument doc = QDomDocument("skin");
-  QDomElement rootElem = doc.createElement("root");
-  doc.appendChild(rootElem);
+  QFile file(QString(skinName.c_str()));
+  if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
+    return false;
 
+  // Attributes are written in alphabetical order to keep the output
+  // byte-stable (and identical to the historical QDom serialization)
+  // without relying on a deterministic process-wide hash seed.
+  // The DTD is written directly: the writer's auto-formatting would prepend
+  // a newline before it, and the historical output starts with the DTD line.
+  file.write("<!DOCTYPE skin>\n");
+
+  QXmlStreamWriter writer(&file);
+  writer.setAutoFormatting(true);
+  writer.setAutoFormattingIndent(1);
+  writer.writeStartElement("root");
   for (auto const & p : m_pages)
   {
-    QDomElement fileNode = doc.createElement("file");
-    fileNode.setAttribute("width", p.m_width);
-    fileNode.setAttribute("height", p.m_height);
-    rootElem.appendChild(fileNode);
+    writer.writeStartElement("file");
+    writer.writeAttribute("height", QString::number(p.m_height));
+    writer.writeAttribute("width", QString::number(p.m_width));
 
     for (auto const & s : p.m_symbols)
     {
-      m2::RectU r = p.m_packer.find(s.m_handle).second;
-      QDomElement symbol = doc.createElement("symbol");
-      symbol.setAttribute("minX", r.minX());
-      symbol.setAttribute("minY", r.minY());
-      symbol.setAttribute("maxX", r.maxX());
-      symbol.setAttribute("maxY", r.maxY());
-      symbol.setAttribute("name", s.m_symbolID.toLower());
-      fileNode.appendChild(symbol);
+      m2::RectU const r = p.m_packer.find(s.m_handle).second;
+      writer.writeEmptyElement("symbol");
+      writer.writeAttribute("maxX", QString::number(r.maxX()));
+      writer.writeAttribute("maxY", QString::number(r.maxY()));
+      writer.writeAttribute("minX", QString::number(r.minX()));
+      writer.writeAttribute("minY", QString::number(r.minY()));
+      writer.writeAttribute("name", s.m_symbolID.toLower());
     }
+
+    writer.writeEndElement();  // file
   }
-  QFile file(QString(skinName.c_str()));
-  if (!file.open(QIODevice::ReadWrite | QIODevice::Truncate))
-    return false;
-  QTextStream ts(&file);
-  ts.setEncoding(QStringConverter::Utf8);
-  ts << doc.toString();
-  return true;
+  writer.writeEndElement();  // root
+  writer.writeEndDocument();
+  return !writer.hasError();
 }
 }  // namespace tools
