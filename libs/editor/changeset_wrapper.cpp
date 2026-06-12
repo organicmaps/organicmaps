@@ -45,6 +45,8 @@ std::string GetTypeForFeature(editor::XMLFeature const & node)
       std::string value = node.GetTagValue(key);
       if (value == "yes")
         return std::string{key};
+      else if (key == "building" && value == "apartments")
+        return "apartment building";  // "apartments" is already plural; avoids "apartments building(s)"
       else if (key == "shop" || key == "office" || key == "building" || key == "entrance")
         return value.append(" ").append(key);  // "convenience shop"
       else if (!value.empty() && value.back() == 's')
