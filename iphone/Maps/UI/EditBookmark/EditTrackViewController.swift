@@ -180,9 +180,13 @@ final class EditTrackViewController: MWMTableViewController {
   }
 
   @objc private func openColorPicker() {
-    ColorPicker.shared.present(from: self, pickerType: .defaultColorPicker(trackColor), completionHandler: { [weak self] color in
-      self?.updateColor(color)
-    })
+    let colorRow = IndexPath(row: InfoSectionRows.color.rawValue, section: Sections.info.rawValue)
+    ColorPicker.shared.present(from: self,
+                               anchor: tableView.cellForRow(at: colorRow),
+                               currentColor: trackColor,
+                               completionHandler: { [weak self] color in
+                                 self?.updateColor(color)
+                               })
   }
 
   private func openGroupPicker() {
@@ -228,15 +232,6 @@ extension EditTrackViewController: MWMButtonCellDelegate {
     default:
       fatalError("Invalid section")
     }
-  }
-}
-
-// MARK: - BookmarkColorViewControllerDelegate
-
-extension EditTrackViewController: BookmarkColorViewControllerDelegate {
-  func bookmarkColorViewController(_ viewController: BookmarkColorViewController, didSelect bookmarkColor: BookmarkColor) {
-    viewController.dismiss(animated: true)
-    updateColor(bookmarkColor.color)
   }
 }
 

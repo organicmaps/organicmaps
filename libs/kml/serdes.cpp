@@ -89,8 +89,9 @@ PredefinedColor ExtractPlacemarkPredefinedColor(std::string const & s)
   if (s == "#placemark-bluegray")
     return PredefinedColor::BlueGray;
 
-  // Default color.
-  return PredefinedColor::Red;
+  // Unknown styleUrl: not a preset. The caller resolves StyleMap aliases and may read an explicit
+  // custom IconStyle color; a truly colorless pin is coerced to the default preset later.
+  return PredefinedColor::None;
 }
 
 constexpr std::string_view GetStyleForPredefinedColor(PredefinedColor color)
@@ -130,24 +131,55 @@ BookmarkIcon GetIcon(std::string const & iconName)
   return BookmarkIcon::None;
 }
 
-void SaveStyle(Writer & writer, std::string_view style, std::string_view const indent)
+void SaveColorToABGR(Writer & writer, uint32_t rgba)
+{
+  writer << NumToHex(static_cast<uint8_t>(rgba & 0xFF)) << NumToHex(static_cast<uint8_t>((rgba >> 8) & 0xFF))
+         << NumToHex(static_cast<uint8_t>((rgba >> 16) & 0xFF)) << NumToHex(static_cast<uint8_t>((rgba >> 24) & 0xFF));
+}
+
+// Preset style: a tintable <Icon><href> plus an explicit <color> so 3rd-party viewers that honour
+// IconStyle color render the right hue (the preset name in the style id keeps old OM compatible).
+void SaveStyle(Writer & writer, std::string_view style, uint32_t iconColorRGBA, std::string_view const indent)
 {
   if (style.empty())
     return;
 
-  writer << indent << kIndent2 << "<Style id=\"" << style << "\">\n"
-         << indent << kIndent4 << "<IconStyle>\n"
-         << indent << kIndent6 << "<Icon>\n"
+  writer << indent << kIndent2 << "<Style id=\"" << style << "\">\n" << indent << kIndent4 << "<IconStyle>\n";
+  writer << indent << kIndent6 << "<color>";
+  SaveColorToABGR(writer, iconColorRGBA);
+  writer << "</color>\n";
+  writer << indent << kIndent6 << "<Icon>\n"
          << indent << kIndent8 << "<href>https://omaps.app/placemarks/" << style << ".png</href>\n"
          << indent << kIndent6 << "</Icon>\n"
          << indent << kIndent4 << "</IconStyle>\n"
          << indent << kIndent2 << "</Style>\n";
 }
 
-void SaveColorToABGR(Writer & writer, uint32_t rgba)
+// Shared document-level style id for a custom (non-preset) color, referenced by every bookmark of
+// that exact color via <styleUrl>.
+std::string GetStyleForCustomColor(uint32_t rgba)
 {
-  writer << NumToHex(static_cast<uint8_t>(rgba & 0xFF)) << NumToHex(static_cast<uint8_t>((rgba >> 8) & 0xFF))
-         << NumToHex(static_cast<uint8_t>((rgba >> 16) & 0xFF)) << NumToHex(static_cast<uint8_t>((rgba >> 24) & 0xFF));
+  return "placemark-" + NumToHex(rgba);
+}
+
+// One <Style> per unique custom color across all bookmarks. No <Icon><href>: there is no per-color
+// asset, and a dead href makes 3rd-party viewers fall back unpredictably; the <color> alone lets
+// them tint a default pin.
+void SaveCustomColorStyles(Writer & writer, std::vector<BookmarkData> const & bookmarksData)
+{
+  std::set<uint32_t> customColors;
+  for (auto const & bm : bookmarksData)
+    if (IsCustomBookmarkColor(bm.m_color))
+      customColors.insert(bm.m_color.m_rgba);
+
+  for (auto const rgba : customColors)
+  {
+    writer << kIndent2 << "<Style id=\"" << GetStyleForCustomColor(rgba) << "\">\n" << kIndent4 << "<IconStyle>\n";
+    writer << kIndent6 << "<color>";
+    SaveColorToABGR(writer, rgba);
+    writer << "</color>\n";
+    writer << kIndent4 << "</IconStyle>\n" << kIndent2 << "</Style>\n";
+  }
 }
 
 std::string TimestampToString(Timestamp const & timestamp)
@@ -301,7 +333,10 @@ void SaveCategoryData(Writer & writer, CategoryData const & categoryData, std::s
   if (compilationData)
   {
     for (uint8_t i = 0; i < base::Underlying(PredefinedColor::Count); ++i)
-      SaveStyle(writer, GetStyleForPredefinedColor(static_cast<PredefinedColor>(i)), kIndent0);
+    {
+      auto const color = static_cast<PredefinedColor>(i);
+      SaveStyle(writer, GetStyleForPredefinedColor(color), ColorFromPredefinedColor(color).GetRGBA(), kIndent0);
+    }
 
     // Use CDATA if we have special symbols in the name.
     if (auto name = GetDefaultLanguage(categoryData.m_name))
@@ -409,8 +444,18 @@ void SaveBookmarkData(Writer & writer, BookmarkData const & bookmarkData)
   if (bookmarkData.m_timestamp != Timestamp())
     writer << kIndent4 << "<TimeStamp><when>" << TimestampToString(bookmarkData.m_timestamp) << "</when></TimeStamp>\n";
 
-  auto const style = GetStyleForPredefinedColor(bookmarkData.m_color.m_predefinedColor);
-  writer << kIndent4 << "<styleUrl>#" << style << "</styleUrl>\n"
+  // Custom colors reference a shared #placemark-<rgbahex> style; presets keep #placemark-<name> so
+  // old OM still matches by name. A bookmark that slipped through unnormalized as {None, 0} falls
+  // back to the default preset rather than emitting an empty styleUrl.
+  std::string styleUrl;
+  if (IsCustomBookmarkColor(bookmarkData.m_color))
+    styleUrl = GetStyleForCustomColor(bookmarkData.m_color.m_rgba);
+  else if (auto const preset = GetStyleForPredefinedColor(bookmarkData.m_color.m_predefinedColor); !preset.empty())
+    styleUrl = preset;
+  else
+    styleUrl = GetStyleForPredefinedColor(PredefinedColor::Red);
+
+  writer << kIndent4 << "<styleUrl>#" << styleUrl << "</styleUrl>\n"
          << kIndent4 << "<Point><coordinates>" << PointToLineString(bookmarkData.m_point) << "</coordinates></Point>\n";
 
   SaveBookmarkExtendedData(writer, bookmarkData);
@@ -634,6 +679,9 @@ void KmlWriter::Write(FileData const & fileData)
   // Save category.
   SaveCategoryData(m_writer, fileData.m_categoryData, fileData.m_serverId, &fileData.m_compilationsData);
 
+  // One shared style per unique custom bookmark color (presets are emitted by SaveCategoryData).
+  SaveCustomColorStyles(m_writer, fileData.m_bookmarksData);
+
   // Save bookmarks.
   for (auto const & bookmarkData : fileData.m_bookmarksData)
     SaveBookmarkData(m_writer, bookmarkData);
@@ -663,6 +711,7 @@ void KmlParser::ResetPoint()
   m_timestamp = {};
 
   m_color = 0;
+  m_iconColor = 0;
   m_styleId.clear();
   m_mapStyleId.clear();
   m_styleUrlKey.clear();
@@ -766,10 +815,6 @@ bool KmlParser::MakeValid()
       if (m_name.empty() && m_featureTypes.empty())
         m_name[kDefaultLang] = PointToLineString(m_org);
 
-      // Set default pin.
-      if (m_predefinedColor == PredefinedColor::None)
-        m_predefinedColor = PredefinedColor::Red;
-
       return true;
     }
     return false;
@@ -782,14 +827,15 @@ bool KmlParser::MakeValid()
   return false;
 }
 
-void KmlParser::ParseColor(std::string const & value)
+// static
+void KmlParser::ParseColor(std::string const & value, uint32_t & color)
 {
   auto const fromHex = FromHex(value);
   if (fromHex.size() != 4)
     return;
 
   // Color positions in HEX – aabbggrr.
-  m_color = ToRGBA(fromHex[3], fromHex[2], fromHex[1], fromHex[0]);
+  color = ToRGBA(fromHex[3], fromHex[2], fromHex[1], fromHex[0]);
 }
 
 bool KmlParser::GetColorForStyle(std::string_view styleUrl, uint32_t & color) const
@@ -800,6 +846,21 @@ bool KmlParser::GetColorForStyle(std::string_view styleUrl, uint32_t & color) co
   // Remove leading '#' symbol
   auto const it = m_styleUrl2Color.find(styleUrl.substr(1));
   if (it != m_styleUrl2Color.cend())
+  {
+    color = it->second;
+    return true;
+  }
+  return false;
+}
+
+bool KmlParser::GetIconColorForStyle(std::string_view styleUrl, uint32_t & color) const
+{
+  if (styleUrl.empty())
+    return false;
+
+  // Remove leading '#' symbol
+  auto const it = m_styleUrl2IconColor.find(styleUrl.substr(1));
+  if (it != m_styleUrl2IconColor.cend())
   {
     color = it->second;
     return true;
@@ -923,8 +984,10 @@ void KmlParser::Pop(std::string_view tag)
         BookmarkData data;
         data.m_name = std::move(m_name);
         data.m_description = std::move(m_description);
-        data.m_color.m_predefinedColor = m_predefinedColor;
-        data.m_color.m_rgba = m_color;
+        // The custom bookmark color is the IconStyle color, never the LineStyle color used for
+        // tracks. Normalize enforces the invariant: forces a custom color opaque, and an unset
+        // {None, 0} falls back to the default preset.
+        data.m_color = NormalizeBookmarkColorData({m_predefinedColor, m_iconColor});
         data.m_icon = m_icon;
         data.m_viewportScale = m_viewportScale;
         data.m_timestamp = m_timestamp;
@@ -988,8 +1051,10 @@ void KmlParser::Pop(std::string_view tag)
       if (!m_styleId.empty())
       {
         m_styleUrl2Color[m_styleId] = m_color;
+        m_styleUrl2IconColor[m_styleId] = m_iconColor;
         m_styleUrl2Width[m_styleId] = m_trackWidth;
         m_color = 0;
+        m_iconColor = 0;
         m_trackWidth = kDefaultTrackWidth;
       }
     }
@@ -1211,23 +1276,39 @@ void KmlParser::CharData(std::string & value)
       }
       else if (currTag == kStyleUrl)
       {
-        // Bookmark draw style.
-        m_predefinedColor = ExtractPlacemarkPredefinedColor(value);
+        // Bookmark draw style. Resolve a StyleMap alias to its target style first, so a StyleMap
+        // that points at a preset (#placemark-red) is still classified as that preset.
+        std::string effectiveStyle = value;
+        m_predefinedColor = ExtractPlacemarkPredefinedColor(effectiveStyle);
+        if (m_predefinedColor == PredefinedColor::None)
+        {
+          auto const it = m_mapStyle2Style.find(value.substr(1));
+          if (it != m_mapStyle2Style.end() && !it->second.empty())
+          {
+            effectiveStyle = it->second;
+            m_predefinedColor = ExtractPlacemarkPredefinedColor(effectiveStyle);
+          }
+        }
 
         // Here we support old-style hotel placemarks.
-        if (value == "#placemark-hotel")
+        if (effectiveStyle == "#placemark-hotel")
         {
           m_predefinedColor = PredefinedColor::Blue;
           m_icon = BookmarkIcon::Hotel;
         }
 
-        // Track draw style.
+        // Only a non-preset style carries an explicit custom bookmark color in its IconStyle; for a
+        // preset we ignore the style color (presets now also emit <color> for 3rd-party fidelity).
+        if (m_predefinedColor == PredefinedColor::None)
+          GetIconColorForStyle(effectiveStyle, m_iconColor);
+
+        // Track draw style (line color) — resolved independently of the icon color above.
         if (!GetColorForStyle(value, m_color))
         {
-          // Remove leading '#' symbol.
-          std::string const styleId = m_mapStyle2Style[value.substr(1)];
-          if (!styleId.empty())
-            GetColorForStyle(styleId, m_color);
+          // Remove leading '#' symbol; find() avoids inserting empty alias entries on a miss.
+          auto const it = m_mapStyle2Style.find(value.substr(1));
+          if (it != m_mapStyle2Style.end() && !it->second.empty())
+            GetColorForStyle(it->second, m_color);
         }
         TrackLayer layer;
         layer.m_lineWidth = GetTrackWidthForStyle(value);
@@ -1244,7 +1325,7 @@ void KmlParser::CharData(std::string & value)
     {
       if (currTag == "color")
       {
-        ParseColor(value);
+        ParseColor(value, m_color);
       }
       else if (currTag == "width")
       {
@@ -1252,6 +1333,14 @@ void KmlParser::CharData(std::string & value)
         if (strings::to_double(value, val))
           m_trackWidth = val;
       }
+    }
+    else if (prevTag == "IconStyle")
+    {
+      // Both document-level (<Style id><IconStyle><color>) and inline placemark IconStyle colors
+      // land here: doc-level is stored into m_styleUrl2IconColor on Pop(kStyle); an inline color
+      // stays on m_iconColor and is consumed when the placemark is popped.
+      if (currTag == "color")
+        ParseColor(value, m_iconColor);
     }
     else if (ppTag == kStyleMap && prevTag == kPair && currTag == kStyleUrl && m_styleUrlKey == "normal")
     {

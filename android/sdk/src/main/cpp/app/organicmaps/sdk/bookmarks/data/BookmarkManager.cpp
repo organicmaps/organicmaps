@@ -294,7 +294,7 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_native
   bmData.m_name = info.FormatNewBookmarkName();
   bmData.m_point = mercator::FromLatLon(lat, lon);
   auto const lastEditedCategory = frm()->LastEditedBMCategory();
-  bmData.m_color.m_predefinedColor = frm()->LastEditedBMColor();
+  bmData.m_color = frm()->LastEditedBMColor();
 
   if (info.IsFeature())
     SaveFeatureTypes(info.GetTypes(), bmData);
@@ -316,7 +316,7 @@ JNIEXPORT jlong Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGe
 
 JNIEXPORT jint Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGetLastEditedColor(JNIEnv *, jobject)
 {
-  return static_cast<jint>(kml::kColorIndexMap[E2I(frm()->LastEditedBMColor())]);
+  return static_cast<jint>(kml::GetEffectiveColor(frm()->LastEditedBMColor()).GetARGB());
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeLoadBookmarksFile(JNIEnv * env, jclass,
@@ -365,7 +365,7 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_native
   auto title = jni::ToJavaString(env, bookmark->GetPreferredName());
   auto description = jni::ToJavaString(env, bookmark->GetDescription());
   auto featureType = jni::ToJavaString(env, kml::GetLocalizedFeatureType(bookmark->GetData().m_featureTypes));
-  auto color = static_cast<jint>(kml::kColorIndexMap[base::E2I(bookmark->GetColor())]);
+  auto color = static_cast<jint>(bookmark->GetColorForRendering().GetARGB());
   auto iconType = static_cast<jint>(bookmark->GetData().m_icon);
   auto coords = jni::GetNewParcelablePointD(env, bookmark->GetPivot());
   auto scale = static_cast<jdouble>(bookmark->GetScale());

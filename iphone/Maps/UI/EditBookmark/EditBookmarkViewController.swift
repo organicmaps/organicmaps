@@ -26,7 +26,7 @@ final class EditBookmarkViewController: MWMTableViewController {
   private var bookmarkGroupTitle: String?
   private var bookmarkId = FrameworkHelper.invalidBookmarkId()
   private var bookmarkGroupId = FrameworkHelper.invalidCategoryId()
-  private var bookmarkColor: BookmarkColor!
+  private var bookmarkColor: UIColor!
   private let bookmarksManager = BookmarksManager.shared()
 
   override func viewDidLoad() {
@@ -117,8 +117,8 @@ final class EditBookmarkViewController: MWMTableViewController {
       case .color:
         let cell = tableView.dequeueDefaultCell(for: indexPath)
         cell.accessoryType = .disclosureIndicator
-        cell.textLabel?.text = bookmarkColor.title
-        cell.imageView?.image = circleImageForColor(bookmarkColor.color, frameSize: 28, diameter: 22, iconName: "ic_bm_none")
+        cell.textLabel?.text = L("change_color")
+        cell.imageView?.image = circleImageForColor(bookmarkColor, frameSize: 28, diameter: 22, iconName: "ic_bm_none")
         return cell
       case .bookmarkGroup:
         let cell = tableView.dequeueDefaultCell(for: indexPath)
@@ -195,10 +195,14 @@ final class EditBookmarkViewController: MWMTableViewController {
   }
 
   @objc private func openColorPicker() {
-    ColorPicker.shared.present(from: self, pickerType: .bookmarkColorPicker(bookmarkColor), completionHandler: { [weak self] color in
-      self?.bookmarkColor = BookmarkColor.bookmarkColor(from: color)
-      self?.tableView.reloadRows(at: [IndexPath(row: InfoSectionRows.color.rawValue, section: Sections.info.rawValue)], with: .none)
-    })
+    let colorRow = IndexPath(row: InfoSectionRows.color.rawValue, section: Sections.info.rawValue)
+    ColorPicker.shared.present(from: self,
+                               anchor: tableView.cellForRow(at: colorRow),
+                               currentColor: bookmarkColor,
+                               completionHandler: { [weak self] color in
+                                 self?.bookmarkColor = color
+                                 self?.tableView.reloadRows(at: [colorRow], with: .none)
+                               })
   }
 
   private func openGroupPicker() {

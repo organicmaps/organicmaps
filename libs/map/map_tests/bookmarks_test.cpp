@@ -397,15 +397,63 @@ UNIT_TEST(Bookmarks_ChangeColorForImportedBookmark)
   kml::BookmarkData bm1;
   kml::SetDefaultStr(bm1.m_name, "1");
   bm1.m_point = m2::PointD(38, 20);
+  // Imported "mixed" data (a predefined color plus a real rgba) is normalized to an explicit
+  // custom color: the rgba is preserved and the predefined color is cleared.
   bm1.m_color.m_predefinedColor = kml::PredefinedColor::Blue;
   bm1.m_color.m_rgba = 0x0066CCFF;
   auto const * pBm1 = bmManager.GetEditSession().CreateBookmark(std::move(bm1), cat1);
-  bm1.m_color.m_predefinedColor = kml::PredefinedColor::Orange;
-  bmManager.GetEditSession().UpdateBookmark(pBm1->GetId(), bm1);
+  TEST_EQUAL(pBm1->GetData().m_color.m_predefinedColor, kml::PredefinedColor::None, ());
+  TEST_EQUAL(pBm1->GetData().m_color.m_rgba, 0x0066CCFFu, ());
+
+  // Switching to a preset color must clear the stale custom rgba.
+  kml::BookmarkData bm1upd = pBm1->GetData();
+  bm1upd.m_color = {kml::PredefinedColor::Orange, 0};
+  bmManager.GetEditSession().UpdateBookmark(pBm1->GetId(), bm1upd);
   bmManager.SaveBookmarkCategory(cat1);
   pBm1 = bmManager.GetBookmark(pBm1->GetId());
   TEST_EQUAL(pBm1->GetData().m_color.m_predefinedColor, kml::PredefinedColor::Orange, ());
-  TEST_EQUAL(pBm1->GetData().m_color.m_rgba, 0, ());
+  TEST_EQUAL(pBm1->GetData().m_color.m_rgba, 0u, ());
+}
+
+UNIT_TEST(Bookmarks_CustomColorAndLastEdited)
+{
+  ScopedBookmarksDir scopedDir;
+  Framework fm(kFrameworkParams);
+  df::VisualParams::Init(1.0, 1024);
+  BookmarkManager & bmManager = fm.GetBookmarkManager();
+  bmManager.EnableTestMode(true);
+
+  auto const cat = bmManager.CreateBookmarkCategory("cat", false /* autoSave */);
+
+  kml::BookmarkData bmData;
+  bmData.m_point = m2::PointD(27, 53);
+  auto const markId = bmManager.GetEditSession().CreateBookmark(std::move(bmData), cat)->GetId();
+
+  // SetColor(dp::Color) stores an opaque custom color and clears the preset.
+  auto const customA = dp::Color(123, 45, 200, 255);
+  bmManager.GetEditSession().GetBookmarkForEdit(markId)->SetColor(customA);
+  auto const * bm = bmManager.GetBookmark(markId);
+  TEST_EQUAL(bm->GetData().m_color.m_predefinedColor, kml::PredefinedColor::None, ());
+  TEST_EQUAL(bm->GetData().m_color.m_rgba, customA.GetRGBA(), ());
+  TEST(bm->GetCustomColor().has_value(), ());
+  TEST_EQUAL(*bm->GetCustomColor(), customA, ());
+
+  // A custom->custom edit is detected via the full ColorData and updates the last-edited color.
+  auto const customB = dp::Color(10, 20, 30, 255);
+  kml::BookmarkData upd = bm->GetData();
+  upd.m_color = kml::MakeCustomBookmarkColorData(customB);
+  bmManager.GetEditSession().UpdateBookmark(markId, upd);
+  TEST_EQUAL(bmManager.LastEditedBMColor().m_predefinedColor, kml::PredefinedColor::None, ());
+  TEST_EQUAL(bmManager.LastEditedBMColor().m_rgba, customB.GetRGBA(), ());
+
+  // A new bookmark that seeds its color from the last-edited color (as every platform's
+  // new-bookmark path does) carries the full custom color through creation.
+  kml::BookmarkData bmData2;
+  bmData2.m_point = m2::PointD(28, 54);
+  bmData2.m_color = bmManager.LastEditedBMColor();
+  auto const * bm2 = bmManager.GetEditSession().CreateBookmark(std::move(bmData2), cat);
+  TEST_EQUAL(bm2->GetData().m_color.m_predefinedColor, kml::PredefinedColor::None, ());
+  TEST_EQUAL(bm2->GetData().m_color.m_rgba, customB.GetRGBA(), ());
 }
 
 UNIT_TEST(Bookmarks_Getting)

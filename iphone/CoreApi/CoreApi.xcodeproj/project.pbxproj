@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		470015F42342509C00EBF03D /* CoreApi.h in Headers */ = {isa = PBXBuildFile; fileRef = 470015F22342509C00EBF03D /* CoreApi.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		471527392491EDAA00E91BBA /* MWMBookmarkColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 471527382491EDA400E91BBA /* MWMBookmarkColor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4718C4322355FC3C00640DF1 /* MWMNetworkPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 4718C4302355FC3C00640DF1 /* MWMNetworkPolicy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4718C4332355FC3C00640DF1 /* MWMNetworkPolicy.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4718C4312355FC3C00640DF1 /* MWMNetworkPolicy.mm */; };
 		471AB98D23AB925D00F56D49 /* MWMMapSearchResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 471AB98B23AB925D00F56D49 /* MWMMapSearchResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -52,7 +51,6 @@
 		47CA68DD2502022400671019 /* MWMBookmark.h in Headers */ = {isa = PBXBuildFile; fileRef = 47CA68DB2502022400671019 /* MWMBookmark.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47CA68DE2502022400671019 /* MWMBookmark.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47CA68DC2502022400671019 /* MWMBookmark.mm */; };
 		47CA68E12506C01F00671019 /* MWMBookmark+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 47CA68DF2506C01F00671019 /* MWMBookmark+Core.h */; };
-		47CA68E42506D29000671019 /* MWMBookmarkColor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47CA68E32506D29000671019 /* MWMBookmarkColor.mm */; };
 		47CA68E82506F61300671019 /* MWMTrack.h in Headers */ = {isa = PBXBuildFile; fileRef = 47CA68E62506F61300671019 /* MWMTrack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47CA68E92506F61400671019 /* MWMTrack.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47CA68E72506F61300671019 /* MWMTrack.mm */; };
 		47CA68EC2506F6F100671019 /* MWMTrack+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 47CA68EA2506F6F100671019 /* MWMTrack+Core.h */; };
@@ -127,7 +125,6 @@
 		470015F32342509C00EBF03D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4700161223425CFD00EBF03D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		470016142342633D00EBF03D /* CoreApi.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = CoreApi.modulemap; sourceTree = "<group>"; };
-		471527382491EDA400E91BBA /* MWMBookmarkColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMBookmarkColor.h; sourceTree = "<group>"; };
 		4718C4302355FC3C00640DF1 /* MWMNetworkPolicy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMNetworkPolicy.h; sourceTree = "<group>"; };
 		4718C4312355FC3C00640DF1 /* MWMNetworkPolicy.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNetworkPolicy.mm; sourceTree = "<group>"; };
 		471AB98B23AB925D00F56D49 /* MWMMapSearchResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMapSearchResult.h; sourceTree = "<group>"; };
@@ -173,8 +170,6 @@
 		47CA68DB2502022400671019 /* MWMBookmark.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMBookmark.h; sourceTree = "<group>"; };
 		47CA68DC2502022400671019 /* MWMBookmark.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBookmark.mm; sourceTree = "<group>"; };
 		47CA68DF2506C01F00671019 /* MWMBookmark+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMBookmark+Core.h"; sourceTree = "<group>"; };
-		47CA68E32506D29000671019 /* MWMBookmarkColor.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBookmarkColor.mm; sourceTree = "<group>"; };
-		47CA68E52506D38700671019 /* MWMBookmarkColor+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMBookmarkColor+Core.h"; sourceTree = "<group>"; };
 		47CA68E62506F61300671019 /* MWMTrack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMTrack.h; sourceTree = "<group>"; };
 		47CA68E72506F61300671019 /* MWMTrack.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTrack.mm; sourceTree = "<group>"; };
 		47CA68EA2506F6F100671019 /* MWMTrack+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMTrack+Core.h"; sourceTree = "<group>"; };
@@ -410,9 +405,6 @@
 				479F7060234FBC4500011E2E /* MWMCarPlayBookmarkObject.h */,
 				479F7061234FBC4600011E2E /* MWMCarPlayBookmarkObject.mm */,
 				47D609DB234FE625008ECC47 /* MWMBookmarksObserver.h */,
-				471527382491EDA400E91BBA /* MWMBookmarkColor.h */,
-				47CA68E52506D38700671019 /* MWMBookmarkColor+Core.h */,
-				47CA68E32506D29000671019 /* MWMBookmarkColor.mm */,
 				47CA68DB2502022400671019 /* MWMBookmark.h */,
 				47CA68DF2506C01F00671019 /* MWMBookmark+Core.h */,
 				47CA68DC2502022400671019 /* MWMBookmark.mm */,
@@ -581,7 +573,6 @@
 				47F701F3238C877C00D18E95 /* PlacePageOSMContributionData+Core.h in Headers */,
 				47CA68E12506C01F00671019 /* MWMBookmark+Core.h in Headers */,
 				ED221FEE2ED88057007A2BCF /* StringUtils.h in Headers */,
-				471527392491EDAA00E91BBA /* MWMBookmarkColor.h in Headers */,
 				47F4F1F923A3336C0022FD56 /* MWMMapNodeAttributes.h in Headers */,
 				479F704A234F785B00011E2E /* MWMTypes.h in Headers */,
 				47C637D72354AEBE00E12DE0 /* MWMMapOverlayManager.h in Headers */,
@@ -692,7 +683,6 @@
 				47942D71237CC40800DEFAE3 /* PlacePageInfoData.mm in Sources */,
 				479F7047234F774100011E2E /* MWMFrameworkHelper.mm in Sources */,
 				47D9019623AC22E500D9364C /* MWMMapUpdateInfo.mm in Sources */,
-				47CA68E42506D29000671019 /* MWMBookmarkColor.mm in Sources */,
 				471AB98E23AB925D00F56D49 /* MWMMapSearchResult.mm in Sources */,
 				ED49D7612CEFA8E1004AF27E /* Product+Core.mm in Sources */,
 				47C637D62354AEBE00E12DE0 /* MWMMapOverlayManager.mm in Sources */,

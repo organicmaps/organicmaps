@@ -69,7 +69,8 @@ final class PlacePageExpandableDetailsSectionViewController: UIViewController {
                             })
     headerInfoView.setIcon(image: viewModel.icon,
                            tapHandler: { [weak self] in
-                             self?.interactor.handle(.didTapIcon)
+                             guard let self else { return }
+                             self.interactor.handle(.didTapIcon(anchor: self.headerInfoView.iconButton))
                            })
     headerInfoView.setAccessory(image: viewModel.accessory,
                                 tapHandler: { [weak self] in

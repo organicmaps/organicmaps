@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.MenuProvider;
@@ -23,18 +24,22 @@ import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.DataChangedListener;
 import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.Utils;
-import app.organicmaps.widget.colorpicker.TrackColorPickerFragment;
-import app.organicmaps.widget.placepage.BookmarkColorDialogFragment;
+import app.organicmaps.widget.colorpicker.ColorPickerFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import java.util.Objects;
 
 public class BookmarkCategorySettingsFragment
-    extends BaseMwmToolbarFragment implements BookmarkColorDialogFragment.OnBookmarkColorChangeListener,
-                                              TrackColorPickerFragment.OnTrackColorChangeListener
+    extends BaseMwmToolbarFragment implements ColorPickerFragment.OnColorChangeListener
 {
   private static final int TEXT_LENGTH_LIMIT = 60;
+  private static final String EXTRA_PICKING_TRACKS_COLOR = "picking_tracks_color";
+
+  // The category color picker is shared between bookmarks and tracks; remember which one is active.
+  // Persisted in the instance state: the picker outlives a rotation or process recreation, and its
+  // result must not be delivered to the wrong target.
+  private boolean mPickingTracksColor;
 
   @NonNull
   private final DataChangedListener mCategoriesListener = this::onCategoriesChanged;
@@ -94,6 +99,15 @@ public class BookmarkCategorySettingsFragment
     final Bundle args = requireArguments();
     mCategory = Objects.requireNonNull(
         Utils.getParcelable(args, BookmarkCategorySettingsActivity.EXTRA_BOOKMARK_CATEGORY, BookmarkCategory.class));
+    if (savedInstanceState != null)
+      mPickingTracksColor = savedInstanceState.getBoolean(EXTRA_PICKING_TRACKS_COLOR, false);
+  }
+
+  @Override
+  public void onSaveInstanceState(@NonNull Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+    outState.putBoolean(EXTRA_PICKING_TRACKS_COLOR, mPickingTracksColor);
   }
 
   @Override
@@ -244,30 +258,29 @@ public class BookmarkCategorySettingsFragment
 
   private void showBookmarkColorPicker()
   {
-    final Bundle args = new Bundle();
-    args.putInt(BookmarkColorDialogFragment.ICON_COLOR, BookmarkManager.INSTANCE.getLastEditedColor());
-    final BookmarkColorDialogFragment dialogFragment = new BookmarkColorDialogFragment();
-    dialogFragment.setArguments(args);
-    dialogFragment.show(getChildFragmentManager(), BookmarkColorDialogFragment.class.getName());
+    mPickingTracksColor = false;
+    ColorPickerFragment.show(getChildFragmentManager(), BookmarkManager.INSTANCE.getLastEditedColor());
   }
 
   private void showTrackColorPicker()
   {
-    new TrackColorPickerFragment().show(getChildFragmentManager(), null);
+    mPickingTracksColor = true;
+    new ColorPickerFragment().show(getChildFragmentManager(), null);
   }
 
   @Override
-  public void onBookmarkColorSet(int color)
+  public void onColorSet(@ColorInt int color)
   {
-    mCategory.setCategoryBookmarksColor(color);
-    Toast.makeText(requireContext(), R.string.toast_bookmarks_color_changed, Toast.LENGTH_SHORT).show();
-  }
-
-  @Override
-  public void onTrackColorSet(int color)
-  {
-    mCategory.setCategoryTracksCustomColor(color);
-    Toast.makeText(requireContext(), R.string.toast_tracks_color_changed, Toast.LENGTH_SHORT).show();
+    if (mPickingTracksColor)
+    {
+      mCategory.setCategoryTracksCustomColor(color);
+      Toast.makeText(requireContext(), R.string.toast_tracks_color_changed, Toast.LENGTH_SHORT).show();
+    }
+    else
+    {
+      mCategory.setCategoryBookmarksColor(color);
+      Toast.makeText(requireContext(), R.string.toast_bookmarks_color_changed, Toast.LENGTH_SHORT).show();
+    }
   }
 
   private void onCategoriesChanged()

@@ -1,10 +1,20 @@
 #include "qt/place_page_dialog_user.hpp"
 
+#include "qt/draw_widget.hpp"
 #include "qt/qt_common/text_dialog.hpp"
 
-#include "indexer/validate_and_format_contacts.hpp"
+#include "map/bookmark.hpp"
+#include "map/bookmark_manager.hpp"
+#include "map/framework.hpp"
 #include "map/place_page_info.hpp"
 
+#include "indexer/validate_and_format_contacts.hpp"
+
+#include "kml/types.hpp"
+
+#include "drape/color.hpp"
+
+#include <QtWidgets/QColorDialog>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
@@ -94,7 +104,50 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, qt::DrawWidget * draw
     int row = 0;
 
     if (info.IsBookmark())
+    {
       addEntry(data, row, "Bookmark", "Yes");
+
+      // Bookmark color: a swatch button that opens QColorDialog and applies an arbitrary color.
+      auto const bookmarkId = info.GetBookmarkId();
+
+      data->addWidget(new QLabel("Color"), row, 0);
+      QPushButton * colorButton = new QPushButton();
+      colorButton->setAutoDefault(false);
+
+      auto const setSwatch = [colorButton](dp::Color const & c)
+      {
+        colorButton->setStyleSheet(
+            QString("background-color: rgb(%1, %2, %3);").arg(c.GetRed()).arg(c.GetGreen()).arg(c.GetBlue()));
+      };
+      if (auto const * mark = drawWidget->GetFramework().GetBookmarkManager().GetBookmark(bookmarkId))
+        setSwatch(mark->GetColorForRendering());
+
+      connect(colorButton, &QAbstractButton::clicked, this, [this, bookmarkId, setSwatch]()
+      {
+        auto & bm = GetDrawWidget()->GetFramework().GetBookmarkManager();
+        auto const * mark = bm.GetBookmark(bookmarkId);
+        if (mark == nullptr)
+          return;
+
+        auto const current = mark->GetColorForRendering();
+        QColor const picked = QColorDialog::getColor(QColor(current.GetRed(), current.GetGreen(), current.GetBlue()),
+                                                     this, "Bookmark color");
+        if (!picked.isValid())
+          return;
+
+        dp::Color const newColor(picked.red(), picked.green(), picked.blue());
+        // Update the swatch and last-edited color first; the EditSession below notifies the engine
+        // on destruction (the last action in this handler), so nothing here can run after it.
+        setSwatch(newColor);
+        bm.SetLastEditedBmColor(kml::MakeCustomBookmarkColorData(newColor));
+
+        auto editSession = bm.GetEditSession();
+        if (auto * editable = editSession.GetBookmarkForEdit(bookmarkId))
+          editable->SetColor(newColor);
+      });
+
+      data->addWidget(colorButton, row++, 1);
+    }
 
     // Wikipedia fragment
     if (auto const & wikipedia = info.GetMetadata(feature::Metadata::EType::FMD_WIKIPEDIA); !wikipedia.empty())

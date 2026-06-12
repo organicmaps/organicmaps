@@ -38,6 +38,9 @@ namespace
 {
 std::string const kLastEditedBookmarkCategory = "LastBookmarkCategory";
 std::string const kLastEditedBookmarkColor = "LastBookmarkColor";
+// Custom last-edited color (RGBA). Separate from the legacy predefined key above so old/new
+// clients stay forward/backward compatible: absent => 0 => no custom color.
+std::string const kLastEditedBookmarkColorRGBA = "LastBookmarkColorRGBA";
 std::string const kMetadataFileName = "bm.json";
 std::string const kSortingTypeProperty = "sortingType";
 std::string const kLargestBookmarkSymbolName = "bookmark-default-m";
@@ -366,7 +369,7 @@ Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData && bmData, kml::Mar
   group->SetIsVisible(true);
 
   SetLastEditedBmCategory(groupId);
-  SetLastEditedBmColor(bookmark->GetData().m_color.m_predefinedColor);
+  SetLastEditedBmColor(bookmark->GetData().m_color);
 
   return bookmark;
 }
@@ -1980,7 +1983,10 @@ Track * BookmarkManager::AddTrack(std::unique_ptr<Track> && track)
 void BookmarkManager::SaveState() const
 {
   settings::Set(kLastEditedBookmarkCategory, m_lastCategoryFileName);
-  settings::Set(kLastEditedBookmarkColor, static_cast<uint32_t>(m_lastColor));
+  // A custom color has m_predefinedColor == None, so old clients read it as "unset" and fall back
+  // to the default preset; new clients pick up the real color from the RGBA key below.
+  settings::Set(kLastEditedBookmarkColor, static_cast<uint32_t>(m_lastColor.m_predefinedColor));
+  settings::Set(kLastEditedBookmarkColorRGBA, m_lastColor.m_rgba);
 }
 
 void BookmarkManager::LoadState()
@@ -1996,16 +2002,17 @@ void BookmarkManager::LoadState()
     settings::Set(kLastEditedBookmarkCategory, m_lastCategoryFileName);
   }
 
-  uint32_t color;
-  if (settings::Get(kLastEditedBookmarkColor, color) && color > static_cast<uint32_t>(kml::PredefinedColor::None) &&
-      color < static_cast<uint32_t>(kml::PredefinedColor::Count))
+  kml::ColorData color;
+  uint32_t predefined;
+  if (settings::Get(kLastEditedBookmarkColor, predefined) &&
+      predefined > static_cast<uint32_t>(kml::PredefinedColor::None) &&
+      predefined < static_cast<uint32_t>(kml::PredefinedColor::Count))
   {
-    m_lastColor = static_cast<kml::PredefinedColor>(color);
+    color.m_predefinedColor = static_cast<kml::PredefinedColor>(predefined);
   }
-  else
-  {
-    m_lastColor = BookmarkCategory::GetDefaultColor();
-  }
+  // Absent on first launch after upgrade => 0 => no custom color (correct fallback).
+  settings::TryGet(kLastEditedBookmarkColorRGBA, color.m_rgba);
+  m_lastColor = kml::NormalizeBookmarkColorData(color);
 }
 
 std::string BookmarkManager::GetMetadataEntryName(kml::MarkGroupId groupId) const
@@ -2344,15 +2351,15 @@ void BookmarkManager::UpdateBookmark(kml::MarkId bmID, kml::BookmarkData const &
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto * bookmark = GetBookmarkForEdit(bmID);
 
-  auto const prevColor = bookmark->GetColor();
-  bookmark->SetData(bm);
+  auto const prevColor = bookmark->GetData().m_color;
+  bookmark->SetData(bm);  // normalizes the incoming color
   ASSERT(bookmark->GetGroupId() != kml::kInvalidMarkGroupId, ());
 
-  if (prevColor != bookmark->GetColor())
-  {
-    bookmark->InvalidateRGBAColor();
-    SetLastEditedBmColor(bookmark->GetColor());
-  }
+  // Compare the full color (preset + rgba): comparing only the preset would miss custom->custom
+  // edits and leave a stale last-edited color.
+  auto const & newColor = bookmark->GetData().m_color;
+  if (prevColor != newColor)
+    SetLastEditedBmColor(newColor);
 }
 
 void BookmarkManager::ChangeTrackColor(kml::TrackId trackId, dp::Color color)
@@ -2384,10 +2391,11 @@ kml::MarkGroupId BookmarkManager::LastEditedBMCategory()
   return m_lastEditedGroupId;
 }
 
-kml::PredefinedColor BookmarkManager::LastEditedBMColor() const
+kml::ColorData BookmarkManager::LastEditedBMColor() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return (m_lastColor != kml::PredefinedColor::None ? m_lastColor : BookmarkCategory::GetDefaultColor());
+  // m_lastColor is kept normalized (never the unset {None, 0}), so it is always a valid color.
+  return m_lastColor;
 }
 
 void BookmarkManager::SetLastEditedBmCategory(kml::MarkGroupId groupId)
@@ -2397,9 +2405,9 @@ void BookmarkManager::SetLastEditedBmCategory(kml::MarkGroupId groupId)
   SaveState();
 }
 
-void BookmarkManager::SetLastEditedBmColor(kml::PredefinedColor color)
+void BookmarkManager::SetLastEditedBmColor(kml::ColorData const & color)
 {
-  m_lastColor = color;
+  m_lastColor = kml::NormalizeBookmarkColorData(color);
   SaveState();
 }
 
@@ -3718,18 +3726,13 @@ void BookmarkManager::EditSession::SetCategoryCustomProperty(kml::MarkGroupId ca
   m_bmManager.SetCategoryCustomProperty(categoryId, key, value);
 }
 
-void BookmarkManager::EditSession::SetCategoryBookmarksColor(kml::MarkGroupId groupId, kml::PredefinedColor color)
+void BookmarkManager::EditSession::SetCategoryBookmarksColor(kml::MarkGroupId groupId, dp::Color color)
 {
   auto const & markIds = m_bmManager.GetUserMarkIds(groupId);
   for (auto const markId : markIds)
     if (auto * bm = m_bmManager.GetBookmarkForEdit(markId))
       bm->SetColor(color);
-  m_bmManager.SetLastEditedBmColor(color);
-}
-
-void BookmarkManager::EditSession::SetCategoryTracksColor(kml::MarkGroupId groupId, kml::PredefinedColor color)
-{
-  SetCategoryTracksColor(groupId, ColorFromPredefinedColor(color));
+  m_bmManager.SetLastEditedBmColor(kml::MakeCustomBookmarkColorData(color));
 }
 
 void BookmarkManager::EditSession::SetCategoryTracksColor(kml::MarkGroupId groupId, dp::Color color)

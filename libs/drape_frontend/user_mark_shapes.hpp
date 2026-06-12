@@ -8,6 +8,7 @@
 
 #include "geometry/spline.hpp"
 
+#include <optional>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
@@ -31,6 +32,8 @@ struct UserMarkRenderParams
   drape_ptr<UserPointMark::SymbolSizes> m_symbolSizes;
   drape_ptr<UserPointMark::SymbolOffsets> m_symbolOffsets;
   df::ColorConstant m_color;
+  // Explicit theme-independent color; nullopt => resolve the preset m_color string instead.
+  std::optional<dp::Color> m_customColor;
   bool m_symbolIsPOI = false;
   bool m_hasTitlePriority = false;
   uint16_t m_priority = 0;

@@ -14,6 +14,7 @@
 
 #include "platform/placement_settings.hpp"
 
+#include <optional>
 #include <vector>
 
 namespace df
@@ -88,6 +89,8 @@ public:
   virtual FeatureID GetFeatureID() const = 0;
   virtual bool HasCreationAnimation() const = 0;
   virtual df::ColorConstant GetColorConstant() const = 0;
+  /// Explicit theme-independent color; only Bookmark overrides it for custom (non-preset) colors.
+  virtual std::optional<dp::Color> GetCustomColor() const { return std::nullopt; }
   virtual bool IsMarkAboveText() const = 0;
   virtual float GetSymbolOpacity() const = 0;
 

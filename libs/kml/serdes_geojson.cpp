@@ -354,10 +354,11 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
           SetDefaultStr(bookmark.m_description, "<a href=\"" + (*google_maps_url) + "\">" + bookmark_name + "</a>");
       }
 
-      // Parse color
+      // Parse color. A hex marker-color imports as an explicit custom color (predefined cleared,
+      // forced opaque); a named color stays a preset. See NormalizeBookmarkColorData.
       if (auto const markerColor = getStringFromJsonMap(propsJson, "marker-color"))
         if (auto colorData = ParseGeoJsonColor(*markerColor))
-          bookmark.m_color = *colorData;
+          bookmark.m_color = NormalizeBookmarkColorData(*colorData);
 
       // Parse icon
       // if (auto const markerSymbol = getStringFromJsonMap(propsJson, "marker-symbol"))
@@ -370,9 +371,9 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
       {
         GenericJsonMap const umap_options = umapOptions->second.get_object();
         // Parse color from properties['_umap_options']['color']
-        if (auto const markerColor = getStringFromJsonMap(propsJson, "color"))
+        if (auto const markerColor = getStringFromJsonMap(umap_options, "color"))
           if (auto colorData = ParseGeoJsonColor(*markerColor))
-            bookmark.m_color = *colorData;
+            bookmark.m_color = NormalizeBookmarkColorData(*colorData);
 
         // Store '_umap_options' as a JSON string to preserve all UMap properties
         if (std::string umapOptionsStr; glz::write_json(umapOptions->second, umapOptionsStr) == glz::error_code::none)

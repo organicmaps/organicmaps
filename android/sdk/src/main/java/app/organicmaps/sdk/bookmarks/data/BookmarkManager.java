@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.OpenableColumns;
+import androidx.annotation.ColorInt;
 import androidx.annotation.Keep;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
@@ -275,7 +276,7 @@ public enum BookmarkManager {
     nativeShowBookmarkCategoryOnMap(catId);
   }
 
-  @PredefinedColors.Color
+  @ColorInt
   public int getLastEditedColor()
   {
     return nativeGetLastEditedColor();
@@ -596,7 +597,7 @@ public enum BookmarkManager {
   @Nullable
   private native Bookmark nativeAddBookmarkToLastEditedCategory(double lat, double lon);
 
-  @PredefinedColors.Color
+  @ColorInt
   private native int nativeGetLastEditedColor();
 
   private static native void nativeLoadBookmarksFile(@NonNull String path, boolean isTemporaryFile);

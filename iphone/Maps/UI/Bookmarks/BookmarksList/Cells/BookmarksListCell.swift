@@ -1,7 +1,7 @@
 final class BookmarksListCell: UITableViewCell {
   private static let extendedImageViewTappableMargin: CGFloat = -15
 
-  private var trackColorDidTapAction: (() -> Void)?
+  private var trackColorDidTapAction: ((_ anchor: UIView?) -> Void)?
 
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -24,8 +24,8 @@ final class BookmarksListCell: UITableViewCell {
     trackColorDidTapAction = bookmark.colorDidTapAction
   }
 
-  @objc private func colorDidTapAction(_: UITapGestureRecognizer) {
-    trackColorDidTapAction?()
+  @objc private func colorDidTapAction(_ sender: UITapGestureRecognizer) {
+    trackColorDidTapAction?(sender.view)
   }
 
   /// Extends the imageView tappable area.

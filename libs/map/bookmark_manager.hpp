@@ -159,8 +159,7 @@ public:
     void SetCategoryTags(kml::MarkGroupId categoryId, std::vector<std::string> const & tags);
     void SetCategoryAccessRules(kml::MarkGroupId categoryId, kml::AccessRules accessRules);
     void SetCategoryCustomProperty(kml::MarkGroupId categoryId, std::string const & key, std::string const & value);
-    void SetCategoryBookmarksColor(kml::MarkGroupId groupId, kml::PredefinedColor color);
-    void SetCategoryTracksColor(kml::MarkGroupId groupId, kml::PredefinedColor color);
+    void SetCategoryBookmarksColor(kml::MarkGroupId groupId, dp::Color color);
     void SetCategoryTracksColor(kml::MarkGroupId groupId, dp::Color color);
 
     /// Removes the category from the list of categories and deletes the related file.
@@ -288,10 +287,10 @@ public:
   bool HasBookmark(kml::MarkId markId) const;
   bool HasTrack(kml::TrackId trackId) const;
   kml::MarkGroupId LastEditedBMCategory();
-  kml::PredefinedColor LastEditedBMColor() const;
+  kml::ColorData LastEditedBMColor() const;
 
   void SetLastEditedBmCategory(kml::MarkGroupId groupId);
-  void SetLastEditedBmColor(kml::PredefinedColor color);
+  void SetLastEditedBmColor(kml::ColorData const & color);
 
   using TTouchRectHolder = std::function<m2::AnyRectD(UserMark::Type)>;
   using TFindOnlyVisibleChecker = std::function<bool(UserMark::Type)>;
@@ -762,7 +761,7 @@ private:
 
   std::string m_lastCategoryFileName;
   kml::MarkGroupId m_lastEditedGroupId = kml::kInvalidMarkGroupId;
-  kml::PredefinedColor m_lastColor = kml::PredefinedColor::Red;
+  kml::ColorData m_lastColor{kml::PredefinedColor::Red, 0};
   UserMarkLayers m_userMarkLayers;
 
   MarksCollection m_userMarks;

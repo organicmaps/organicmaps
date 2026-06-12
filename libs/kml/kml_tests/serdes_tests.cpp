@@ -10,6 +10,8 @@
 
 #include "indexer/classificator_loader.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "platform/platform.hpp"
 
 #include "coding/file_reader.hpp"
@@ -1045,4 +1047,220 @@ UNIT_TEST(SaveStringWithCDATA_AllInvalidBecomesEmpty)
 {
   // String of only invalid chars becomes empty after stripping.
   TEST_EQUAL(WriteCDATA(std::string("\x01\x02\x03\x1F")), "", ());
+}
+
+namespace
+{
+std::string WrapKmlDoc(std::string const & body)
+{
+  return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+         "<kml xmlns=\"http://earth.google.com/kml/2.2\"><Document>" +
+         body + "</Document></kml>";
+}
+
+std::string PointPlacemark(std::string const & styleInner)
+{
+  return "<Placemark>" + styleInner + "<Point><coordinates>27.55,53.89</coordinates></Point></Placemark>";
+}
+
+kml::FileData ParseKmlText(std::string const & text)
+{
+  kml::FileData data;
+  kml::DeserializerKml des(data);
+  MemReader reader(text.c_str(), text.length());
+  des.Deserialize(reader);
+  return data;
+}
+
+std::string SerializeKmlText(kml::FileData & data)
+{
+  std::string buffer;
+  MemWriter<decltype(buffer)> sink(buffer);
+  kml::SerializerKml ser(data);
+  ser.Serialize(sink);
+  return buffer;
+}
+
+// Round-trips a one-bookmark file with the given color through text KML and returns the re-parsed
+// bookmark color.
+kml::ColorData RoundTripBookmarkColor(kml::ColorData const & color)
+{
+  kml::FileData data;
+  kml::BookmarkData bm;
+  bm.m_point = mercator::FromLatLon(53.89, 27.55);
+  bm.m_color = color;
+  data.m_bookmarksData.push_back(std::move(bm));
+
+  auto const text = SerializeKmlText(data);
+  auto const parsed = ParseKmlText(text);
+  TEST_EQUAL(parsed.m_bookmarksData.size(), 1, ());
+  return parsed.m_bookmarksData.front().m_color;
+}
+}  // namespace
+
+UNIT_TEST(Kml_BookmarkColor_CustomRoundTrip)
+{
+  auto const custom = kml::MakeCustomBookmarkColorData(dp::Color(0x12, 0x34, 0x56, 0xFF));
+  auto const result = RoundTripBookmarkColor(custom);
+  TEST_EQUAL(result.m_predefinedColor, kml::PredefinedColor::None, ());
+  TEST_EQUAL(result.m_rgba, custom.m_rgba, ());
+}
+
+UNIT_TEST(Kml_BookmarkColor_PresetStaysPreset)
+{
+  // Presets now also emit <color> in their <Style>; the reader must still treat them as presets.
+  auto const result = RoundTripBookmarkColor({kml::PredefinedColor::Green, 0});
+  TEST_EQUAL(result.m_predefinedColor, kml::PredefinedColor::Green, ());
+  TEST_EQUAL(result.m_rgba, 0u, ());
+}
+
+UNIT_TEST(Kml_BookmarkColor_SharedCustomStyle)
+{
+  // Two bookmarks of the same custom color must share a single document-level <Style>.
+  kml::FileData data;
+  for (int i = 0; i < 2; ++i)
+  {
+    kml::BookmarkData bm;
+    bm.m_point = mercator::FromLatLon(53.89 + i * 0.01, 27.55);
+    bm.m_color = kml::MakeCustomBookmarkColorData(dp::Color(0x12, 0x34, 0x56, 0xFF));
+    data.m_bookmarksData.push_back(std::move(bm));
+  }
+  auto const text = SerializeKmlText(data);
+
+  std::string const styleId = "id=\"placemark-" + NumToHex(uint32_t{0x123456FF}) + "\"";
+  size_t count = 0;
+  for (size_t pos = text.find(styleId); pos != std::string::npos; pos = text.find(styleId, pos + 1))
+    ++count;
+  TEST_EQUAL(count, 1, ("A custom color must emit exactly one shared <Style>"));
+
+  auto const parsed = ParseKmlText(text);
+  TEST_EQUAL(parsed.m_bookmarksData.size(), 2, ());
+  for (auto const & bm : parsed.m_bookmarksData)
+  {
+    TEST_EQUAL(bm.m_color.m_predefinedColor, kml::PredefinedColor::None, ());
+    TEST_EQUAL(bm.m_color.m_rgba, 0x123456FFu, ());
+  }
+}
+
+UNIT_TEST(Kml_BookmarkColor_OldFormatPresetImport)
+{
+  // Old OM / 3rd-party KML: styleUrl to a preset, no <color>.
+  auto const data = ParseKmlText(WrapKmlDoc(PointPlacemark("<styleUrl>#placemark-blue</styleUrl>")));
+  TEST_EQUAL(data.m_bookmarksData.size(), 1, ());
+  TEST_EQUAL(data.m_bookmarksData.front().m_color.m_predefinedColor, kml::PredefinedColor::Blue, ());
+  TEST_EQUAL(data.m_bookmarksData.front().m_color.m_rgba, 0u, ());
+}
+
+UNIT_TEST(Kml_BookmarkColor_CustomImportVariants)
+{
+  uint32_t const kExpected = 0xF23456FFu;  // <color>FF5634F2</color> read as aabbggrr
+
+  // Inline placemark IconStyle, no styleUrl.
+  {
+    auto const data =
+        ParseKmlText(WrapKmlDoc(PointPlacemark("<Style><IconStyle><color>FF5634F2</color></IconStyle></Style>")));
+    auto const & c = data.m_bookmarksData.front().m_color;
+    TEST_EQUAL(c.m_predefinedColor, kml::PredefinedColor::None, ());
+    TEST_EQUAL(c.m_rgba, kExpected, ());
+  }
+
+  // Document-level custom style referenced by styleUrl.
+  {
+    auto const data = ParseKmlText(WrapKmlDoc("<Style id=\"c\"><IconStyle><color>FF5634F2</color></IconStyle></Style>" +
+                                              PointPlacemark("<styleUrl>#c</styleUrl>")));
+    auto const & c = data.m_bookmarksData.front().m_color;
+    TEST_EQUAL(c.m_predefinedColor, kml::PredefinedColor::None, ());
+    TEST_EQUAL(c.m_rgba, kExpected, ());
+  }
+
+  // StyleMap -> custom IconStyle style.
+  {
+    auto const data =
+        ParseKmlText(WrapKmlDoc("<Style id=\"c\"><IconStyle><color>FF5634F2</color></IconStyle></Style>"
+                                "<StyleMap id=\"m\"><Pair><key>normal</key><styleUrl>#c</styleUrl></Pair></StyleMap>" +
+                                PointPlacemark("<styleUrl>#m</styleUrl>")));
+    auto const & c = data.m_bookmarksData.front().m_color;
+    TEST_EQUAL(c.m_predefinedColor, kml::PredefinedColor::None, ());
+    TEST_EQUAL(c.m_rgba, kExpected, ());
+  }
+
+  // StyleMap -> preset must remain a preset.
+  {
+    auto const data = ParseKmlText(
+        WrapKmlDoc("<StyleMap id=\"m\"><Pair><key>normal</key><styleUrl>#placemark-red</styleUrl></Pair></StyleMap>" +
+                   PointPlacemark("<styleUrl>#m</styleUrl>")));
+    auto const & c = data.m_bookmarksData.front().m_color;
+    TEST_EQUAL(c.m_predefinedColor, kml::PredefinedColor::Red, ());
+    TEST_EQUAL(c.m_rgba, 0u, ());
+  }
+}
+
+UNIT_TEST(Kml_BookmarkColor_NoIconLineColorBleed)
+{
+  // A single style with BOTH IconStyle and LineStyle. A point bookmark must read the icon color
+  // (not the line color); a track must read the line color (not the icon color).
+  std::string const styles =
+      "<Style id=\"both\"><IconStyle><color>FF0000FF</color></IconStyle>"
+      "<LineStyle><color>FF00FF00</color></LineStyle></Style>";
+  std::string const pointBm = PointPlacemark("<styleUrl>#both</styleUrl>");
+  std::string const track =
+      "<Placemark><styleUrl>#both</styleUrl>"
+      "<LineString><coordinates>27.55,53.89 27.56,53.90</coordinates></LineString></Placemark>";
+  auto const data = ParseKmlText(WrapKmlDoc(styles + pointBm + track));
+
+  TEST_EQUAL(data.m_bookmarksData.size(), 1, ());
+  auto const & bmColor = data.m_bookmarksData.front().m_color;
+  TEST_EQUAL(bmColor.m_predefinedColor, kml::PredefinedColor::None, ());
+  TEST_EQUAL(bmColor.m_rgba, 0xFF0000FFu, ("Bookmark must use the icon color, not the line color"));
+
+  TEST_EQUAL(data.m_tracksData.size(), 1, ());
+  TEST(!data.m_tracksData.front().m_layers.empty(), ());
+  TEST_EQUAL(data.m_tracksData.front().m_layers.front().m_color.m_rgba, 0x00FF00FFu,
+             ("Track must use the line color, not the icon color"));
+}
+
+UNIT_TEST(Kml_BookmarkColor_ForcedOpaqueAndTransparent)
+{
+  // Alpha < FF is forced opaque.
+  {
+    auto const data =
+        ParseKmlText(WrapKmlDoc(PointPlacemark("<Style><IconStyle><color>0A0000FF</color></IconStyle></Style>")));
+    auto const & c = data.m_bookmarksData.front().m_color;
+    TEST_EQUAL(c.m_predefinedColor, kml::PredefinedColor::None, ());
+    TEST_EQUAL(c.m_rgba, 0xFF0000FFu, ());
+  }
+  // Fully transparent zero => no custom color => default preset.
+  {
+    auto const data =
+        ParseKmlText(WrapKmlDoc(PointPlacemark("<Style><IconStyle><color>00000000</color></IconStyle></Style>")));
+    auto const & c = data.m_bookmarksData.front().m_color;
+    TEST_EQUAL(c.m_predefinedColor, kml::PredefinedColor::Red, ());
+    TEST_EQUAL(c.m_rgba, 0u, ());
+  }
+}
+
+UNIT_TEST(Kml_BookmarkColor_KmbCustomRoundTrip)
+{
+  classificator::Load();
+  kml::FileData data;
+  kml::BookmarkData bm;
+  bm.m_point = mercator::FromLatLon(53.89, 27.55);
+  bm.m_color = kml::MakeCustomBookmarkColorData(dp::Color(0x12, 0x34, 0x56, 0xFF));
+  data.m_bookmarksData.push_back(std::move(bm));
+
+  std::vector<uint8_t> buffer;
+  {
+    kml::binary::SerializerKml ser(data);
+    MemWriter<decltype(buffer)> sink(buffer);
+    ser.Serialize(sink);
+  }
+  kml::FileData parsed;
+  {
+    kml::binary::DeserializerKml des(parsed);
+    MemReader reader(buffer.data(), buffer.size());
+    des.Deserialize(reader);
+  }
+  TEST_EQUAL(parsed.m_bookmarksData.size(), 1, ());
+  TEST_EQUAL(parsed.m_bookmarksData.front().m_color.m_predefinedColor, kml::PredefinedColor::None, ());
+  TEST_EQUAL(parsed.m_bookmarksData.front().m_color.m_rgba, 0x123456FFu, ());
 }

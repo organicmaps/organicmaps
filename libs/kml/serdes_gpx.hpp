@@ -88,7 +88,6 @@ private:
   std::string m_name;
   std::string m_description;
   std::string m_comment;
-  PredefinedColor m_predefinedColor;
   geometry::PointWithAltitude m_org;
 
   double m_lat;

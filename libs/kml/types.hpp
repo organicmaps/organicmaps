@@ -301,6 +301,46 @@ struct ColorData
   uint32_t m_rgba = 0;
 };
 
+// Bookmark color is carried as either a preset (m_predefinedColor, theme-aware) or an explicit
+// custom color stored in m_rgba. m_rgba == 0 is the "no custom color" sentinel; a custom color is
+// always forced opaque (dp::Color packs alpha in the low byte) so it can never collide with it.
+inline uint32_t constexpr kInvalidColorRGBA = 0;
+
+inline uint32_t ForceOpaqueRGBA(dp::Color color)
+{
+  return color.GetRGBA() | 0xFF;
+}
+
+inline bool IsCustomBookmarkColor(ColorData const & color)
+{
+  return color.m_rgba != kInvalidColorRGBA;
+}
+
+inline ColorData MakeCustomBookmarkColorData(dp::Color color)
+{
+  return {PredefinedColor::None, ForceOpaqueRGBA(color)};
+}
+
+// Enforces the bookmark color invariant:
+//   preset => {predefined != None, rgba == 0}; custom => {None, rgba forced opaque};
+//   unset {None, 0} => default preset {Red, 0}.
+// Imported {predefined, rgba != 0} data is treated as an explicit custom color.
+inline ColorData NormalizeBookmarkColorData(ColorData color)
+{
+  if (IsCustomBookmarkColor(color))
+    return MakeCustomBookmarkColorData(dp::Color(color.m_rgba));
+  if (color.m_predefinedColor == PredefinedColor::None)
+    color.m_predefinedColor = PredefinedColor::Red;
+  return color;
+}
+
+// Effective color of a bookmark: the custom color if set, else the preset's base color. Used by
+// platform bridges and color pickers; theme-independent (the render path resolves presets per theme).
+inline dp::Color GetEffectiveColor(ColorData const & color)
+{
+  return IsCustomBookmarkColor(color) ? dp::Color(color.m_rgba) : ColorFromPredefinedColor(color.m_predefinedColor);
+}
+
 class ClassifierTypes : public std::vector<uint32_t>
 {
 public:

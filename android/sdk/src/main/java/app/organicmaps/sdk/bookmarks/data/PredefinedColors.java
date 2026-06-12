@@ -1,47 +1,25 @@
 package app.organicmaps.sdk.bookmarks.data;
 
 import androidx.annotation.ColorInt;
-import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import dalvik.annotation.optimization.FastNative;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.util.List;
 import java.util.stream.IntStream;
 
+/// The canonical Organic Maps preset color palette: the brand colors that back kml::PredefinedColor,
+/// fetched once from the core via JNI as ARGB. Used to seed the color picker's preset swatches so
+/// they match the presets shown on desktop and iOS.
 public class PredefinedColors
 {
-  @Retention(RetentionPolicy.SOURCE)
-  @IntRange(from = 0)
-  public @interface Color
-  {}
-
-  /// @note Color format: ARGB
+  /// ARGB color for every kml::PredefinedColor. Index 0 is the "no color" (None) slot.
   @ColorInt
   private static final int[] PREDEFINED_COLORS = nativeGetPredefinedColors();
 
-  @ColorInt
-  public static int getColor(int index)
-  {
-    return PREDEFINED_COLORS[index];
-  }
-
-  @PredefinedColors.Color
+  /// The selectable preset colors (ARGB), excluding the "no color" slot at index 0.
+  @NonNull
   public static List<Integer> getAllPredefinedColors()
   {
-    // 0 is reserved for "no color" option.
-    return IntStream.range(1, PREDEFINED_COLORS.length).boxed().toList();
-  }
-
-  public static int getPredefinedColorIndex(@ColorInt int color)
-  {
-    // 0 is reserved for "no color" option.
-    for (int index = 1; index < PREDEFINED_COLORS.length; index++)
-    {
-      if (PREDEFINED_COLORS[index] == color)
-        return index;
-    }
-    return -1;
+    return IntStream.range(1, PREDEFINED_COLORS.length).map(i -> PREDEFINED_COLORS[i]).boxed().toList();
   }
 
   @FastNative

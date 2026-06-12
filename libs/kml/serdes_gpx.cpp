@@ -60,7 +60,6 @@ void GpxParser::ResetPoint()
   m_description.clear();
   m_comment.clear();
   m_org = {};
-  m_predefinedColor = PredefinedColor::None;
   m_color = kInvalidColor;
   m_customName.clear();
   m_geometry.Clear();
@@ -81,10 +80,6 @@ bool GpxParser::MakeValid()
       // Set default name.
       if (m_name.empty())
         m_name = kml::PointToLineString(m_org);
-      if (m_color != kInvalidColor)
-        m_predefinedColor = MapPredefinedColor(m_color);
-      else
-        m_predefinedColor = PredefinedColor::Red;
       return true;
     }
     return false;
@@ -292,8 +287,9 @@ void GpxParser::Pop(std::string_view tag)
           data.m_name[kDefaultLang] = std::move(m_name);
         if (!m_description.empty() || !m_comment.empty())
           data.m_description[kDefaultLang] = BuildDescription();
-        data.m_color.m_predefinedColor = m_predefinedColor;
-        data.m_color.m_rgba = m_color;
+        // A colored waypoint imports as an explicit custom color (forced opaque); a colorless
+        // one gets the default preset. See NormalizeBookmarkColorData.
+        data.m_color = NormalizeBookmarkColorData({PredefinedColor::None, m_color});
         data.m_point = m_org;
         if (!m_customName.empty())
           data.m_customName[kDefaultLang] = std::move(m_customName);

@@ -7,6 +7,9 @@
 
 #include "search/reverse_geocoder.hpp"
 
+#include "drape/color.hpp"
+
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -39,9 +42,16 @@ public:
   std::string GetCustomName() const;
   void SetCustomName(std::string const & customName);
 
+  // Returns the preset color, or None for a custom-colored bookmark. A bookmark is a preset only for
+  // imported or legacy data (e.g. a KML/GeoJSON named color, or a new bookmark seeded from the
+  // last-edited / default color); the runtime pickers always store a custom color via SetColor().
   kml::PredefinedColor GetColor() const;
-  void InvalidateRGBAColor();
-  void SetColor(kml::PredefinedColor color);
+  // Sets an arbitrary custom color (forced opaque, clears the preset). Mirrors Track::SetColor.
+  void SetColor(dp::Color color);
+  // Explicit custom color, or nullopt for preset bookmarks (which resolve via GetColorConstant()).
+  std::optional<dp::Color> GetCustomColor() const override;
+  // Effective color used for rendering: the custom color if set, else the resolved preset color.
+  dp::Color GetColorForRendering() const;
 
   m2::RectD GetViewport() const;
 
@@ -92,8 +102,6 @@ class BookmarkCategory : public UserMarkLayer
 public:
   BookmarkCategory(std::string const & name, kml::MarkGroupId groupId, bool autoSave);
   BookmarkCategory(kml::CategoryData && data, bool autoSave);
-
-  static kml::PredefinedColor GetDefaultColor();
 
   kml::MarkGroupId GetID() const { return m_data.m_id; }
   kml::MarkGroupId GetParentID() const { return m_parentId; }

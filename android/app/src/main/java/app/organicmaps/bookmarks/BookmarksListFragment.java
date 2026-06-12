@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.CallSuper;
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -33,7 +34,6 @@ import app.organicmaps.sdk.bookmarks.data.BookmarkSharingResult;
 import app.organicmaps.sdk.bookmarks.data.CategoryDataSource;
 import app.organicmaps.sdk.bookmarks.data.FileType;
 import app.organicmaps.sdk.bookmarks.data.Icon;
-import app.organicmaps.sdk.bookmarks.data.PredefinedColors;
 import app.organicmaps.sdk.bookmarks.data.SortedBlock;
 import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.sdk.search.BookmarkSearchListener;
@@ -45,9 +45,7 @@ import app.organicmaps.util.WindowInsetUtils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.widget.SearchToolbarController;
-import app.organicmaps.widget.colorpicker.TrackColorPickerFragment;
-import app.organicmaps.widget.colorpicker.TrackColorPickerViewModel;
-import app.organicmaps.widget.placepage.BookmarkColorDialogFragment;
+import app.organicmaps.widget.colorpicker.ColorPickerFragment;
 import app.organicmaps.widget.placepage.EditBookmarkFragment;
 import app.organicmaps.widget.recycler.DividerItemDecorationWithPadding;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -59,9 +57,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     implements BookmarkManager.BookmarksSharingListener, BookmarkManager.BookmarksSortingListener,
                BookmarkManager.BookmarksLoadingListener, BookmarkSearchListener,
                ChooseBookmarksSortingTypeFragment.ChooseSortingTypeListener,
-               MenuBottomSheetFragment.MenuBottomSheetInterface,
-               BookmarkColorDialogFragment.OnBookmarkColorChangeListener,
-               TrackColorPickerFragment.OnTrackColorChangeListener
+               MenuBottomSheetFragment.MenuBottomSheetInterface, ColorPickerFragment.OnColorChangeListener
 {
   public static final String TAG = BookmarksListFragment.class.getSimpleName();
   public static final String EXTRA_CATEGORY = "bookmark_category";
@@ -644,74 +640,45 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     {
       final Track track = (Track) item;
       mSelectedItemId = track.getTrackId();
-      final Bundle args = new Bundle();
-      args.putInt(TrackColorPickerViewModel.EXTRA_INITIAL_COLOR, track.getColor());
-      final TrackColorPickerFragment fragment = new TrackColorPickerFragment();
-      fragment.setArguments(args);
-      fragment.show(getChildFragmentManager(), null);
+      ColorPickerFragment.show(getChildFragmentManager(), track.getColor());
     }
     else if (mSelectedItemType == BookmarkListAdapter.TYPE_BOOKMARK)
     {
       final BookmarkInfo bookmark = (BookmarkInfo) item;
       mSelectedItemId = bookmark.getBookmarkId();
-      final Bundle args = new Bundle();
-      args.putInt(BookmarkColorDialogFragment.ICON_COLOR, bookmark.getIcon().getColor());
-      args.putInt(BookmarkColorDialogFragment.ICON_RES, bookmark.getIcon().getResId());
-      final BookmarkColorDialogFragment dialogFragment = new BookmarkColorDialogFragment();
-      dialogFragment.setArguments(args);
-      dialogFragment.show(getChildFragmentManager(), null);
+      ColorPickerFragment.show(getChildFragmentManager(), bookmark.getIcon().argb());
     }
   }
 
   @Override
-  public void onTrackColorSet(int color)
+  public void onColorSet(@ColorInt int color)
   {
     if (mSelectedItemId == -1)
       return;
 
     final BookmarkListAdapter adapter = getBookmarkListAdapter();
     final int position = adapter.getPositionById(mSelectedItemId, mSelectedItemType);
-    if (position == -1)
-      return;
-
-    final Object item = adapter.getItem(position);
-    if (!(item instanceof Track track))
-      return;
-
-    if (track.getColor() == color)
-      return;
-    track.setColor(color);
-    adapter.notifyItemChanged(position);
-
-    mSelectedItemId = -1;
-    mSelectedItemType = -1;
-  }
-
-  @Override
-  public void onBookmarkColorSet(int colorPos)
-  {
-    if (mSelectedItemId == -1)
-      return;
-
-    final BookmarkListAdapter adapter = getBookmarkListAdapter();
-    final int position = adapter.getPositionById(mSelectedItemId, mSelectedItemType);
-    if (position == -1)
-      return;
-
-    final Object item = adapter.getItem(position);
-    if (!(item instanceof BookmarkInfo bookmark))
-      return;
-
-    final int from = bookmark.getIcon().getColor();
-    final int to = PredefinedColors.getColor(colorPos);
-    if (from == to)
-      return;
-    final int colorIndex = PredefinedColors.getPredefinedColorIndex(to);
-    if (colorIndex == -1)
-      return;
-    final Icon newIcon = new Icon(colorIndex, bookmark.getIcon().getType());
-    bookmark.update(bookmark.getName(), newIcon, bookmark.getDescription());
-    adapter.notifyItemChanged(position);
+    if (position != -1)
+    {
+      final Object item = adapter.getItem(position);
+      if (item instanceof Track track)
+      {
+        if (track.getColor() != color)
+        {
+          track.setColor(color);
+          adapter.notifyItemChanged(position);
+        }
+      }
+      else if (item instanceof BookmarkInfo bookmark)
+      {
+        if (bookmark.getIcon().argb() != color)
+        {
+          final Icon newIcon = new Icon(color, bookmark.getIcon().getType());
+          bookmark.update(bookmark.getName(), newIcon, bookmark.getDescription());
+          adapter.notifyItemChanged(position);
+        }
+      }
+    }
 
     mSelectedItemId = -1;
     mSelectedItemType = -1;

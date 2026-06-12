@@ -411,7 +411,9 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
         glsl::vec2 const offset(pixelOffset.x, pixelOffset.y);
 
         dp::Color color = dp::Color::White();
-        if (!renderInfo.m_color.empty())
+        if (renderInfo.m_customColor)  // explicit custom color
+          color = *renderInfo.m_customColor;
+        else if (!renderInfo.m_color.empty())  // preset, theme-aware
           color = df::GetColorConstant(renderInfo.m_color);
 
         glsl::vec4 maskColor(color.GetRedF(), color.GetGreenF(), color.GetBlueF(), renderInfo.m_symbolOpacity);

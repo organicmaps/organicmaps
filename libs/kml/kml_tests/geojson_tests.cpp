@@ -184,9 +184,9 @@ UNIT_TEST(GeoJson_Parse_basic_2)
 
   TEST_EQUAL(dataFromText.m_bookmarksData.size(), 1, ());
   auto const bookmark = dataFromText.m_bookmarksData.front();
-  // We don't have PredefinedColor::Black option. So fallback to the closest one Brown
-  auto const brownColor = kml::ColorData{.m_predefinedColor = kml::PredefinedColor::Brown, .m_rgba = 0x00000FF};
-  TEST_EQUAL(bookmark.m_color, brownColor, ());
+  // A hex marker-color imports as an explicit custom color (no Black preset exists anyway).
+  auto const customBlack = kml::ColorData{.m_predefinedColor = kml::PredefinedColor::None, .m_rgba = 0x000000FF};
+  TEST_EQUAL(bookmark.m_color, customBlack, ());
   TEST_EQUAL(kml::GetDefaultStr(bookmark.m_name), "Hello GeoJson", ());
   TEST(bookmark.m_point.EqualDxDy(mercator::FromLatLon(50.46385629798317, 30.568097444337525), 0.000001), ());
 }
@@ -202,7 +202,7 @@ UNIT_TEST(GeoJson_Parse_UMapOptions)
         "name": "UMap Test Point",
         "_umap_options": {
           "iconClass": "Drop",
-          "color": "MediumSeaGreen",
+          "color": "#1A2B3C",
           "weight": 4,
           "opacity": 0.8,
           "customProperty": "should be preserved"
@@ -241,6 +241,11 @@ UNIT_TEST(GeoJson_Parse_UMapOptions)
   TEST_EQUAL(dataFromText.m_bookmarksData.size(), 1, ());
   auto const & bookmark = dataFromText.m_bookmarksData.front();
   TEST_EQUAL(kml::GetDefaultStr(bookmark.m_name), "UMap Test Point", ());
+
+  // The point color must be read from _umap_options.color (an explicit custom color), not from a
+  // top-level "color" property which UMap points do not carry.
+  TEST_EQUAL(bookmark.m_color.m_predefinedColor, kml::PredefinedColor::None, ());
+  TEST_EQUAL(bookmark.m_color.m_rgba, 0x1A2B3CFFu, ());
 
   // Check that _umap_options is stored as JSON string
   auto const umapOptionsIt = bookmark.m_properties.find("_umap_options");
