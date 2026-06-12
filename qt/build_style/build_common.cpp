@@ -109,9 +109,18 @@ QString GetExternalPath(QString const & name, QString const & primaryPath, QStri
     path = JoinPathQt({resourceDir, secondaryPath, name});
     if (QFileInfo::exists(path))
       return path;
+
+    // 2. Relative to the writable dir: in a dev checkout it is <repo>/data/,
+    // so "../tools/..." candidates resolve into the repository itself. The
+    // writable dir is often reached through a <build>/data symlink, which a
+    // lexical "data/.." would escape wrongly — canonicalize it first.
+    QString const writableDir = QDir(QString::fromStdString(GetPlatform().WritableDir())).canonicalPath();
+    path = JoinPathQt({writableDir, secondaryPath, name});
+    if (QFileInfo::exists(path))
+      return path;
   }
 
-  // 2. Sibling in the build dir from a plain `cmake --build` (no install step).
+  // 3. Sibling in the build dir from a plain `cmake --build` (no install step).
   // applicationDirPath() inside an .app is <build>/<bundle>.app/Contents/MacOS;
   // walk out of the .app to <build> and look there too.
   QDir buildDir(QCoreApplication::applicationDirPath());
