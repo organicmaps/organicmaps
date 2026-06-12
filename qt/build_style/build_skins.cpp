@@ -4,34 +4,18 @@
 
 #include "platform/platform.hpp"
 
-#include <algorithm>
+#include "base/scope_guard.hpp"
+#include "base/string_utils.hpp"
+
 #include <exception>
 #include <fstream>
-#include <functional>
 #include <string>
 #include <unordered_map>
-#include <utility>
 
 #include <QtCore/QDir>
 
 namespace
 {
-class RAII
-{
-public:
-  RAII(std::function<void()> && f) : m_f(std::move(f)) {}
-  ~RAII() { m_f(); }
-
-private:
-  std::function<void()> const m_f;
-};
-
-std::string trim(std::string && s)
-{
-  s.erase(std::remove_if(s.begin(), s.end(), &isspace), s.end());
-  return std::move(s);
-}
-
 // Symbol sizes per DPI bucket: kSkinDpis defaults, overridable via resolutions.txt.
 std::unordered_map<std::string, int> GetSkinSizes(QString const & file)
 {
@@ -54,8 +38,9 @@ std::unordered_map<std::string, int> GetSkinSizes(QString const & file)
       std::string name(line.begin(), line.begin() + pos);
       std::string valueTxt(line.begin() + pos + 1, line.end());
 
-      name = trim(std::move(name));
-      int const value = std::stoi(trim(std::move(valueTxt)));
+      strings::Trim(name);
+      strings::Trim(valueTxt);
+      int const value = std::stoi(valueTxt);
 
       if (value <= 0)
         continue;
@@ -98,7 +83,7 @@ void BuildSkinImpl(QString const & styleDir, QString const & suffix, int size, Q
   QFile::remove(pngDir);
   if (!QFile::link(pngOriginDir, pngDir))
     throw std::runtime_error("Unable to create symbols/png link");
-  RAII const cleaner([=]() { QFile::remove(pngDir); });
+  SCOPE_GUARD(cleaner, [&pngDir]() { QFile::remove(pngDir); });
 
   QString const strSize = QString::number(size);
   // Run the script.
@@ -127,6 +112,8 @@ void BuildSkins(QString const & styleDir, QString const & outputDir, QString con
 {
   auto const resolution2size = GetSkinSizes(JoinPathQt({styleDir, "resolutions.txt"}));
 
+  // Sequential by design: every BuildSkinImpl call recreates the same
+  // symbols/png symlink, so the DPI buckets must not run concurrently.
   for (auto const & dpi : kSkinDpis)
   {
     QString const outputSkinDir = JoinPathQt({outputDir, "symbols", dpi.m_name, theme});

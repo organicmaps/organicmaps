@@ -219,14 +219,10 @@ int main(int argc, char * argv[])
       mapcssFilePath = QString::fromStdString(FLAGS_designer);
       if (!build_style::TryParseStyleInfo(mapcssFilePath, styleInfo))
       {
-        QMessageBox msgBox;
-        msgBox.setWindowTitle("Error");
-        msgBox.setText(QString("Could not detect map style from path:\n%1\n\n"
-                               "Expected .../styles/{default|outdoors|vehicle}/{light|dark}/style.mapcss")
-                           .arg(mapcssFilePath));
-        msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.setDefaultButton(QMessageBox::Ok);
-        msgBox.exec();
+        QMessageBox::critical(nullptr, "Error",
+                              QString("Could not detect map style from path:\n%1\n\n"
+                                      "Expected .../styles/{default|outdoors|vehicle}/{light|dark}/style.mapcss")
+                                  .arg(mapcssFilePath));
         return returnCode;
       }
 
@@ -239,12 +235,7 @@ int main(int argc, char * argv[])
       }
       catch (std::exception const & e)
       {
-        QMessageBox msgBox;
-        msgBox.setWindowTitle("Error");
-        msgBox.setText(e.what());
-        msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.setDefaultButton(QMessageBox::Ok);
-        msgBox.exec();
+        QMessageBox::critical(nullptr, "Error", e.what());
         return returnCode;
       }
     }
@@ -289,12 +280,7 @@ int main(int argc, char * argv[])
     }
     catch (std::exception & e)
     {
-      QMessageBox msgBox;
-      msgBox.setWindowTitle("Error");
-      msgBox.setText(e.what());
-      msgBox.setStandardButtons(QMessageBox::Ok);
-      msgBox.setDefaultButton(QMessageBox::Ok);
-      msgBox.exec();
+      QMessageBox::critical(nullptr, "Error", e.what());
     }
   }
 

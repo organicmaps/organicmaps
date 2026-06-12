@@ -685,12 +685,7 @@ void MainWindow::OnBuildStyle()
   }
   catch (std::exception & e)
   {
-    QMessageBox msgBox;
-    msgBox.setWindowTitle("Error");
-    msgBox.setText(e.what());
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    msgBox.exec();
+    QMessageBox::critical(this, "Error", e.what());
   }
 }
 
@@ -711,12 +706,7 @@ void MainWindow::OnRecalculateGeomIndex()
   }
   catch (std::exception & e)
   {
-    QMessageBox msgBox;
-    msgBox.setWindowTitle("Error");
-    msgBox.setText(e.what());
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    msgBox.exec();
+    QMessageBox::critical(this, "Error", e.what());
   }
 }
 
@@ -737,12 +727,7 @@ void MainWindow::OnGetStatistics()
   }
   catch (std::exception & e)
   {
-    QMessageBox msgBox;
-    msgBox.setWindowTitle("Error");
-    msgBox.setText(e.what());
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    msgBox.exec();
+    QMessageBox::critical(this, "Error", e.what());
   }
 }
 
@@ -756,12 +741,7 @@ void MainWindow::OnRunTests()
   }
   catch (std::exception & e)
   {
-    QMessageBox msgBox;
-    msgBox.setWindowTitle("Error");
-    msgBox.setText(e.what());
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    msgBox.exec();
+    QMessageBox::critical(this, "Error", e.what());
   }
 }
 
@@ -831,12 +811,7 @@ void MainWindow::OnBuildPhonePackage()
   }
   catch (std::exception & e)
   {
-    QMessageBox msgBox;
-    msgBox.setWindowTitle("Error");
-    msgBox.setText(e.what());
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    msgBox.exec();
+    QMessageBox::critical(this, "Error", e.what());
   }
 }
 #ifndef NO_DOWNLOADER

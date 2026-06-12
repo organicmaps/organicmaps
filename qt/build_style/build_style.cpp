@@ -62,18 +62,13 @@ struct StyleEntry
   char const * styleType;
   char const * theme;
   MapStyle mapStyle;
-  char const * drulesSuffix;
 };
 
-// Mirrors the (type, theme) layout under data/styles/ and the suffixes used
-// by libs/indexer/map_style_reader.cpp.
+// Mirrors the (type, theme) layout under data/styles/.
 StyleEntry const kSupportedStyles[] = {
-    {"default", "light", MapStyleDefaultLight, "_default_light"},
-    {"default", "dark", MapStyleDefaultDark, "_default_dark"},
-    {"outdoors", "light", MapStyleOutdoorsLight, "_outdoors_light"},
-    {"outdoors", "dark", MapStyleOutdoorsDark, "_outdoors_dark"},
-    {"vehicle", "light", MapStyleVehicleLight, "_vehicle_light"},
-    {"vehicle", "dark", MapStyleVehicleDark, "_vehicle_dark"},
+    {"default", "light", MapStyleDefaultLight},   {"default", "dark", MapStyleDefaultDark},
+    {"outdoors", "light", MapStyleOutdoorsLight}, {"outdoors", "dark", MapStyleOutdoorsDark},
+    {"vehicle", "light", MapStyleVehicleLight},   {"vehicle", "dark", MapStyleVehicleDark},
 };
 
 struct StylePaths
@@ -108,7 +103,8 @@ bool TryParseStyleInfo(QString const & mapcssFile, StyleInfo & out)
       out.m_mapStyle = e.mapStyle;
       out.m_styleType = parts.styleType;
       out.m_theme = parts.theme;
-      out.m_drulesSuffix = QLatin1String(e.drulesSuffix);
+      // Matches the drules_proto<suffix>.bin naming of map_style_reader.cpp.
+      out.m_drulesSuffix = "_" + parts.styleType + "_" + parts.theme;
       out.m_includeDir =
           parts.stylesRoot.absoluteFilePath(parts.styleType + QDir::separator() + "include") + QDir::separator();
       return true;
