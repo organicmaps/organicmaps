@@ -5,12 +5,10 @@
 #include "platform/platform.hpp"
 
 #include <algorithm>
-#include <array>
 #include <exception>
 #include <fstream>
 #include <functional>
 #include <string>
-#include <tuple>
 #include <unordered_map>
 #include <utility>
 
@@ -18,49 +16,11 @@
 
 namespace
 {
-enum SkinType
-{
-  SkinMDPI,
-  SkinHDPI,
-  SkinXHDPI,
-  Skin6Plus,
-  SkinXXHDPI,
-  SkinXXXHDPI,
-
-  // SkinCount MUST BE last
-  SkinCount
-};
-
-using SkinInfo = std::tuple<char const *, int>;
-SkinInfo const g_skinInfo[SkinCount] = {
-    std::make_tuple("mdpi", 18),  std::make_tuple("hdpi", 27),   std::make_tuple("xhdpi", 36),
-    std::make_tuple("6plus", 43), std::make_tuple("xxhdpi", 54), std::make_tuple("xxxhdpi", 64),
-};
-
-std::array<SkinType, SkinCount> const g_skinTypes = {{
-    SkinMDPI,
-    SkinHDPI,
-    SkinXHDPI,
-    Skin6Plus,
-    SkinXXHDPI,
-    SkinXXXHDPI,
-}};
-
-inline char const * SkinSuffix(SkinType s)
-{
-  return std::get<0>(g_skinInfo[s]);
-}
-inline int SkinSize(SkinType s)
-{
-  return std::get<1>(g_skinInfo[s]);
-}
-
 QString GetSkinGeneratorPath()
 {
   QString const path = GetExternalPath("skin_generator_tool", "skin_generator_tool.app/Contents/MacOS", "");
   if (path.isEmpty())
     throw std::runtime_error("Can't find skin_generator_tool");
-  ASSERT(QFileInfo::exists(path), (path.toStdString()));
   return path;
 }
 
@@ -79,16 +39,14 @@ std::string trim(std::string && s)
   s.erase(std::remove_if(s.begin(), s.end(), &isspace), s.end());
   return std::move(s);
 }
-}  // namespace
 
-namespace build_style
-{
+// Symbol sizes per DPI bucket: kSkinDpis defaults, overridable via resolutions.txt.
 std::unordered_map<std::string, int> GetSkinSizes(QString const & file)
 {
   std::unordered_map<std::string, int> skinSizes;
 
-  for (SkinType s : g_skinTypes)
-    skinSizes.insert(std::make_pair(SkinSuffix(s), SkinSize(s)));
+  for (auto const & dpi : build_style::kSkinDpis)
+    skinSizes.emplace(dpi.m_name, dpi.m_size);
 
   try
   {
@@ -105,7 +63,7 @@ std::unordered_map<std::string, int> GetSkinSizes(QString const & file)
       std::string valueTxt(line.begin() + pos + 1, line.end());
 
       name = trim(std::move(name));
-      int value = std::stoi(trim(std::move(valueTxt)));
+      int const value = std::stoi(trim(std::move(valueTxt)));
 
       if (value <= 0)
         continue;
@@ -113,16 +71,19 @@ std::unordered_map<std::string, int> GetSkinSizes(QString const & file)
       skinSizes[name] = value;
     }
   }
-  catch (std::exception const & e)
+  catch (std::exception const &)
   {
-    // reset
-    for (SkinType s : g_skinTypes)
-      skinSizes[SkinSuffix(s)] = SkinSize(s);
+    // Reset to defaults.
+    for (auto const & dpi : build_style::kSkinDpis)
+      skinSizes[dpi.m_name] = dpi.m_size;
   }
 
   return skinSizes;
 }
+}  // namespace
 
+namespace build_style
+{
 void BuildSkinImpl(QString const & styleDir, QString const & suffix, int size, QString const & outputDir)
 {
   QString const symbolsDir = JoinPathQt({styleDir, "symbols"});
@@ -171,17 +132,12 @@ void BuildSkinImpl(QString const & styleDir, QString const & suffix, int size, Q
 
 void BuildSkins(QString const & styleDir, QString const & outputDir, QString const & theme)
 {
-  QString const resolutionFilePath = JoinPathQt({styleDir, "resolutions.txt"});
+  auto const resolution2size = GetSkinSizes(JoinPathQt({styleDir, "resolutions.txt"}));
 
-  auto const resolution2size = GetSkinSizes(resolutionFilePath);
-
-  for (SkinType s : g_skinTypes)
+  for (auto const & dpi : kSkinDpis)
   {
-    QString const suffix = SkinSuffix(s);
-    QString const outputSkinDir = JoinPathQt({outputDir, "symbols", suffix, theme});
-    int const size = resolution2size.at(suffix.toStdString());  // SkinSize(s);
-
-    BuildSkinImpl(styleDir, suffix, size, outputSkinDir);
+    QString const outputSkinDir = JoinPathQt({outputDir, "symbols", dpi.m_name, theme});
+    BuildSkinImpl(styleDir, dpi.m_name, resolution2size.at(dpi.m_name), outputSkinDir);
   }
 }
 
@@ -189,11 +145,10 @@ void ApplySkins(QString const & outputDir, QString const & theme)
 {
   QString const resourceDir = GetPlatform().ResourcesDir().c_str();
 
-  for (SkinType s : g_skinTypes)
+  for (auto const & dpi : kSkinDpis)
   {
-    QString const suffix = SkinSuffix(s);
-    QString const outputSkinDir = JoinPathQt({outputDir, "symbols", suffix, theme});
-    QString const resourceSkinDir = JoinPathQt({resourceDir, "symbols", suffix, theme});
+    QString const outputSkinDir = JoinPathQt({outputDir, "symbols", dpi.m_name, theme});
+    QString const resourceSkinDir = JoinPathQt({resourceDir, "symbols", dpi.m_name, theme});
 
     if (!QFileInfo::exists(resourceSkinDir) && !QDir().mkpath(resourceSkinDir))
       throw std::runtime_error("Cannot create resource skin directory: " + resourceSkinDir.toStdString());

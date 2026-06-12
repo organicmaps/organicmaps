@@ -13,12 +13,11 @@
 #include <QtCore/QProcessEnvironment>
 
 #include <exception>
-#include <iomanip>  // std::quoted
 #include <string>
 
 QString ExecProcess(QString const & program, std::initializer_list<QString> args, QProcessEnvironment const * env)
 {
-  QStringList qargs(args);
+  QStringList const qargs(args);
 
   QProcess p;
   if (nullptr != env)
@@ -27,14 +26,20 @@ QString ExecProcess(QString const & program, std::initializer_list<QString> args
   LOG(LINFO, ("Running command:", program.toStdString(), "\n   ", qargs.join("\n    ").toStdString()));
 
   p.start(program, qargs, QIODevice::ReadOnly);
+  // A missing binary reports exitCode() == 0, which reads as success below.
+  if (!p.waitForStarted(-1))
+    throw std::runtime_error("Failed to start " + program.toStdString() + ": " + p.errorString().toStdString());
   p.waitForFinished(-1);
 
-  int const exitCode = p.exitCode();
   QString output = p.readAllStandardOutput();
   QString const error = p.readAllStandardError();
-  if (exitCode != 0)
+  if (p.exitStatus() != QProcess::NormalExit || p.exitCode() != 0)
   {
-    QString msg = "Error: " + program + " " + qargs.join(" ") + "\nReturned " + QString::number(exitCode);
+    QString msg = "Error: " + program + " " + qargs.join(" ");
+    if (p.exitStatus() == QProcess::NormalExit)
+      msg += "\nReturned " + QString::number(p.exitCode());
+    else
+      msg += "\nCrashed: " + p.errorString();
     if (!output.isEmpty())
       msg += "\n" + output;
     if (!error.isEmpty())

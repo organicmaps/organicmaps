@@ -32,7 +32,6 @@ void BuildDrawingRulesImpl(QString const & mapcssFile, QString const & outputDir
                                    "-o",
                                    outputTemplate,
                                    "-x",
-                                   "True",
                                    "-p",
                                    info.m_includeDir,
                                });

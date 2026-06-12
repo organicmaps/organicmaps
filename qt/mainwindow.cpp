@@ -29,6 +29,7 @@
 
 #ifdef BUILD_DESIGNER
 #include "build_style/build_common.h"
+#include "build_style/build_skins.h"
 #include "build_style/build_statistics.h"
 #include "build_style/build_style.h"
 #include "build_style/run_tests.h"
@@ -810,19 +811,18 @@ void MainWindow::OnBuildPhonePackage()
     if (!CopyFile(drulesSrc, JoinPathQt({phoneStylesDir, drulesName})))
       throw std::runtime_error("Cannot copy " + drulesName.toStdString());
 
-    static char const * const kDpis[] = {"6plus", "mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi"};
-    for (char const * dpi : kDpis)
+    for (auto const & dpi : build_style::kSkinDpis)
     {
-      QString const symSrcDir = JoinPathQt({buildOutputDir, "symbols", dpi, m_styleInfo.m_theme});
+      QString const symSrcDir = JoinPathQt({buildOutputDir, "symbols", dpi.m_name, m_styleInfo.m_theme});
       if (!QDir(symSrcDir).exists())
         continue;
-      QString const symDstDir = JoinPathQt({phoneStylesDir, "symbols", dpi, m_styleInfo.m_theme});
+      QString const symDstDir = JoinPathQt({phoneStylesDir, "symbols", dpi.m_name, m_styleInfo.m_theme});
       if (!QDir().mkpath(symDstDir))
         throw std::runtime_error("Cannot create " + symDstDir.toStdString());
       // BuildSkinImpl produces both files; if either is missing the package is incomplete.
       for (auto const * leaf : {"symbols.png", "symbols.sdf"})
         if (!CopyFile(JoinPathQt({symSrcDir, leaf}), JoinPathQt({symDstDir, leaf})))
-          throw std::runtime_error(std::string("Cannot copy ") + leaf + " for " + dpi);
+          throw std::runtime_error(std::string("Cannot copy ") + leaf + " for " + dpi.m_name);
     }
 
     QString const text = QString(
