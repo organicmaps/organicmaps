@@ -1,4 +1,5 @@
 #pragma once
+
 #include "geometry/latlon.hpp"
 
 #include <optional>

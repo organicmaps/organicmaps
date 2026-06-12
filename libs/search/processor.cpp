@@ -718,10 +718,10 @@ bool Processor::SearchCoordinates()
   }
 
   // Ambiguous formats: surface the coordinate but leave strongMatch unset, so the normal search runs
-  // too. Both weak matchers are Irish, and their parsers no longer self-gate on geography, so confirm
-  // the point lies in an Irish-systems region - the same gate the place page applies. This keeps a
-  // stray in-range reference from dropping a pin in western Scotland or the sea, which the Irish Grid
-  // and ITM rectangles still reach.
+  // too. Both weak matchers are Irish, and their parsers don't gate on geography, so confirm the point
+  // lies in an Irish-systems region - the same gate the place page applies. This keeps a stray in-range
+  // reference from dropping a pin in western Scotland or the sea, which the Irish Grid and ITM
+  // rectangles still reach.
   for (auto const matcher : kWeakMatchers)
     if (auto const ll = matcher(m_query.m_query))
       if (irish_grid_utils::IsIrishGridRegion(m_infoGetter.GetRegionCountryId(mercator::FromLatLon(*ll))))
