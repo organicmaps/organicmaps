@@ -42,7 +42,9 @@ public:
   std::string GetCustomName() const;
   void SetCustomName(std::string const & customName);
 
-  // Preset colors are read-only at runtime: they enter bookmarks only through the kml parsers.
+  // Returns the preset color, or None for a custom-colored bookmark. A bookmark is a preset only for
+  // imported or legacy data (e.g. a KML/GeoJSON named color, or a new bookmark seeded from the
+  // last-edited / default color); the runtime pickers always store a custom color via SetColor().
   kml::PredefinedColor GetColor() const;
   // Sets an arbitrary custom color (forced opaque, clears the preset). Mirrors Track::SetColor.
   void SetColor(dp::Color color);
