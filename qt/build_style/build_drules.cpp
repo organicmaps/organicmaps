@@ -49,9 +49,9 @@ void BuildDrawingRulesImpl(QString const & mapcssFile, QString const & outputDir
                                    info.m_includeDir,
                                });
 
-  // Ensure that generated file is not empty.
+  // QFile::size() is also 0 when the file was never created.
   if (QFile(outputFile).size() == 0)
-    throw std::runtime_error("Drawing rules file has zero size");
+    throw std::runtime_error("Drawing rules file was not created or is empty: " + outputFile.toStdString());
 }
 
 void BuildDrawingRules(QString const & mapcssFile, QString const & outputDir, StyleInfo const & info)

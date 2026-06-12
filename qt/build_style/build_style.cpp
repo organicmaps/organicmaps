@@ -179,6 +179,7 @@ void RunRecalculationGeometryScript(QString const & mapcssFile)
   env.insert("MWM_RESOURCES_DIR", resourceDir);
   env.insert("MWM_WRITABLE_DIR", writableDir);
 
+  // The trailing arguments are the relaunch command for the script.
   (void)ExecProcess("python3",
                     {
                         GetRecalculateGeometryScriptPath(),
@@ -186,7 +187,7 @@ void RunRecalculationGeometryScript(QString const & mapcssFile)
                         writableDir,
                         GetGeometryToolPath(),
                         QCoreApplication::applicationFilePath(),
-                        mapcssFile,
+                        "--designer=" + mapcssFile,
                     },
                     &env);
 }

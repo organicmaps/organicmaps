@@ -142,5 +142,6 @@ QString GetExternalPath(QString const & name, QString const & primaryPath, QStri
   if (QFileInfo::exists(path))
     return path;
 
-  return {};
+  throw std::runtime_error("Cannot find " + name.toStdString() +
+                           "; build all desktop targets and run the app from the repository root");
 }

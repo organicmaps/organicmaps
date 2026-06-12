@@ -16,14 +16,6 @@
 
 namespace
 {
-QString GetSkinGeneratorPath()
-{
-  QString const path = GetExternalPath("skin_generator_tool", "skin_generator_tool.app/Contents/MacOS", "");
-  if (path.isEmpty())
-    throw std::runtime_error("Can't find skin_generator_tool");
-  return path;
-}
-
 class RAII
 {
 public:
@@ -110,17 +102,18 @@ void BuildSkinImpl(QString const & styleDir, QString const & suffix, int size, Q
 
   QString const strSize = QString::number(size);
   // Run the script.
-  (void)ExecProcess(GetSkinGeneratorPath(), {
-                                                "--symbolWidth",
-                                                strSize,
-                                                "--symbolHeight",
-                                                strSize,
-                                                "--symbolsDir",
-                                                symbolsDir,
-                                                "--skinName",
-                                                JoinPathQt({outputDir, "basic"}),
-                                                "--skinSuffix=",
-                                            });
+  (void)ExecProcess(GetExternalPath("skin_generator_tool", "skin_generator_tool.app/Contents/MacOS", ""),
+                    {
+                        "--symbolWidth",
+                        strSize,
+                        "--symbolHeight",
+                        strSize,
+                        "--symbolsDir",
+                        symbolsDir,
+                        "--skinName",
+                        JoinPathQt({outputDir, "basic"}),
+                        "--skinSuffix=",
+                    });
 
   // Check if files were created.
   if (QFile(JoinPathQt({outputDir, "symbols.png"})).size() == 0 ||

@@ -23,4 +23,6 @@ void CopyToWritableDir(QString const & name, QString const & srcDir);
 
 QString JoinPathQt(std::initializer_list<QString> folders);
 
+// Finds a helper file/binary in the app resources, the writable dir's
+// repository ("../tools/...") or the build dir; throws when it is missing.
 QString GetExternalPath(QString const & name, QString const & primaryPath, QString const & secondaryPath);

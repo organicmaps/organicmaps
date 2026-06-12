@@ -156,12 +156,14 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
   bool const designerMode = GetStyleReader().IsDesignerMode();
 
   // Night mode flips MapStyle between light/dark variants, which would unload
-  // the style being edited; the Designer locks this to the opened style.mapcss.
-  QButtonGroup * nightModeGroup = new QButtonGroup(this);
-  QGroupBox * nightModeRadioBox = new QGroupBox("Night Mode");
+  // the style being edited; the Designer locks this to the opened style.mapcss
+  // and gets the geometry-index checkbox instead.
+  QGroupBox * nightModeRadioBox = nullptr;
   if (!designerMode)
   {
     using namespace style_utils;
+    QButtonGroup * nightModeGroup = new QButtonGroup(this);
+    nightModeRadioBox = new QGroupBox("Night Mode");
     QHBoxLayout * layout = new QHBoxLayout();
 
     auto const addButton = [&](QString const & text, NightMode mode)
@@ -204,9 +206,10 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
     });
   }
 
-  QCheckBox * indexRegenCheckBox = new QCheckBox("Enable auto regeneration of geometry index");
+  QCheckBox * indexRegenCheckBox = nullptr;
   if (designerMode)
   {
+    indexRegenCheckBox = new QCheckBox("Enable auto regeneration of geometry index");
     bool enabled = false;
     if (!settings::Get(kEnabledAutoRegenGeomIndex, enabled))
       settings::Set(kEnabledAutoRegenGeomIndex, false);
