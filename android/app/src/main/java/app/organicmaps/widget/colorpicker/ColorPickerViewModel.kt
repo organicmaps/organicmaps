@@ -19,7 +19,7 @@ import kotlinx.coroutines.withContext
 enum class ColorPickerTab { GRID, SPECTRUM, SLIDERS }
 
 data class ColorPickerState(
-    @ColorInt val currentColor: Int,
+    @get:ColorInt val currentColor: Int,
     val presetColors: List<Int>,
     val selectedPresetIndex: Int,
     val activeTab: ColorPickerTab = ColorPickerTab.SPECTRUM,
