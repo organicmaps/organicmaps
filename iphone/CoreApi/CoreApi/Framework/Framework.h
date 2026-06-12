@@ -7,3 +7,5 @@
 Framework & GetFramework();
 /// Releases framework resources
 void DeleteFramework();
+/// Returns true after DeleteFramework() destroyed the singleton (app is terminating).
+bool IsFrameworkDestroyed();
