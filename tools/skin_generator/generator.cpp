@@ -8,10 +8,12 @@
 #include <functional>
 #include <iostream>
 #include <iterator>
+#include <stdexcept>
 
 #include <QtCore/QDir>
-#include <QtXml/QDomDocument>
-#include <QtXml/QDomElement>
+#include <QtCore/QFile>
+#include <QtCore/QXmlStreamWriter>
+#include <QtGui/QImageReader>
 
 namespace tools
 {
@@ -64,16 +66,18 @@ uint32_t NextPowerOf2(uint32_t n)
 }
 }  // namespace
 
-void SkinGenerator::ProcessSymbols(std::string const & svgDataDir, std::string const & skinName,
-                                   std::vector<QSize> const & symbolSizes, std::vector<std::string> const & suffixes)
+void SkinGenerator::ProcessSymbols(std::string const & svgDataDir, std::string const & pngOverlayDir,
+                                   std::string const & skinName, std::vector<QSize> const & symbolSizes,
+                                   std::vector<std::string> const & suffixes)
 {
   for (size_t j = 0; j < symbolSizes.size(); ++j)
   {
     QDir dir(QString(svgDataDir.c_str()));
     QStringList fileNames = dir.entryList(QDir::Files);
 
-    QDir pngDir(dir.absolutePath() + "/png");
-    fileNames += pngDir.entryList(QDir::Files);
+    QDir const pngDir(QString::fromStdString(pngOverlayDir));
+    if (!pngOverlayDir.empty())
+      fileNames += pngDir.entryList(QDir::Files);
 
     // Separate page for symbols.
     m_pages.emplace_back(SkinPageInfo());
@@ -118,8 +122,14 @@ void SkinGenerator::ProcessSymbols(std::string const & svgDataDir, std::string c
       else if (fileName.toLower().endsWith(".png"))
       {
         QString fullFileName = QString(pngDir.absolutePath()) + "/" + fileName;
-        QPixmap pix(fullFileName);
-        QSize s = pix.size();
+        // QImageReader reads only the header; QImage/QPainter (unlike QPixmap)
+        // are safe to use outside of the GUI thread.
+        QSize const s = QImageReader(fullFileName).size();
+        if (!s.isValid())
+        {
+          LOG(LWARNING, ("Skipping unreadable symbol image", fullFileName.toStdString()));
+          continue;
+        }
         page.m_symbols.emplace_back(s + QSize(4, 4), fullFileName, symbolID);
       }
     }
@@ -198,14 +208,20 @@ bool SkinGenerator::RenderPages(uint32_t maxSize)
       }
       else if (fullLowerCaseName.endsWith(".png"))
       {
-        QPixmap pix(s.m_fullFileName);
-        painter.drawPixmap(renderRect, pix);
+        painter.drawImage(renderRect, QImage(s.m_fullFileName));
       }
     }
 
+    // Pin the DPI metadata: QImage's default depends on the environment
+    // (72 DPI headless vs the host app's screen), and the output must not.
+    constexpr int kDotsPerMeter72Dpi = 2835;
+    img.setDotsPerMeterX(kDotsPerMeter72Dpi);
+    img.setDotsPerMeterY(kDotsPerMeter72Dpi);
+
     std::string s = page.m_fileName + ".png";
     LOG(LINFO, ("saving skin image into: ", s));
-    img.save(s.c_str());
+    if (!img.save(s.c_str()))
+      throw std::runtime_error("Cannot write " + s);
   }
 
   return true;
@@ -216,37 +232,61 @@ void SkinGenerator::MarkOverflow()
   m_overflowDetected = true;
 }
 
+void BuildSkin(QString const & svgDir, QString const & pngOverlayDir, int symbolSize, uint32_t maxTextureSize,
+               QString const & outDir)
+{
+  SkinGenerator gen;
+  // The skin name is used only for its directory part and the fixed
+  // "symbols" base name; an empty suffix yields outDir/symbols.{png,sdf}.
+  gen.ProcessSymbols(svgDir.toStdString(), pngOverlayDir.toStdString(), outDir.toStdString() + "/",
+                     {QSize(symbolSize, symbolSize)}, {""});
+
+  if (!gen.RenderPages(maxTextureSize))
+    throw std::runtime_error("Skin symbols do not fit into the maximum texture size " + std::to_string(maxTextureSize));
+
+  std::string const sdfPath = outDir.toStdString() + "/symbols.sdf";
+  if (!gen.WriteToFileNewStyle(sdfPath))
+    throw std::runtime_error("Cannot write " + sdfPath);
+}
+
 bool SkinGenerator::WriteToFileNewStyle(std::string const & skinName)
 {
-  QDomDocument doc = QDomDocument("skin");
-  QDomElement rootElem = doc.createElement("root");
-  doc.appendChild(rootElem);
+  QFile file(QString(skinName.c_str()));
+  if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
+    return false;
 
+  // Attributes are written in alphabetical order to keep the output
+  // byte-stable (and identical to the historical QDom serialization)
+  // without relying on a deterministic process-wide hash seed.
+  // The DTD is written directly: the writer's auto-formatting would prepend
+  // a newline before it, and the historical output starts with the DTD line.
+  file.write("<!DOCTYPE skin>\n");
+
+  QXmlStreamWriter writer(&file);
+  writer.setAutoFormatting(true);
+  writer.setAutoFormattingIndent(1);
+  writer.writeStartElement("root");
   for (auto const & p : m_pages)
   {
-    QDomElement fileNode = doc.createElement("file");
-    fileNode.setAttribute("width", p.m_width);
-    fileNode.setAttribute("height", p.m_height);
-    rootElem.appendChild(fileNode);
+    writer.writeStartElement("file");
+    writer.writeAttribute("height", QString::number(p.m_height));
+    writer.writeAttribute("width", QString::number(p.m_width));
 
     for (auto const & s : p.m_symbols)
     {
-      m2::RectU r = p.m_packer.find(s.m_handle).second;
-      QDomElement symbol = doc.createElement("symbol");
-      symbol.setAttribute("minX", r.minX());
-      symbol.setAttribute("minY", r.minY());
-      symbol.setAttribute("maxX", r.maxX());
-      symbol.setAttribute("maxY", r.maxY());
-      symbol.setAttribute("name", s.m_symbolID.toLower());
-      fileNode.appendChild(symbol);
+      m2::RectU const r = p.m_packer.find(s.m_handle).second;
+      writer.writeEmptyElement("symbol");
+      writer.writeAttribute("maxX", QString::number(r.maxX()));
+      writer.writeAttribute("maxY", QString::number(r.maxY()));
+      writer.writeAttribute("minX", QString::number(r.minX()));
+      writer.writeAttribute("minY", QString::number(r.minY()));
+      writer.writeAttribute("name", s.m_symbolID.toLower());
     }
+
+    writer.writeEndElement();  // file
   }
-  QFile file(QString(skinName.c_str()));
-  if (!file.open(QIODevice::ReadWrite | QIODevice::Truncate))
-    return false;
-  QTextStream ts(&file);
-  ts.setEncoding(QStringConverter::Utf8);
-  ts << doc.toString();
-  return true;
+  writer.writeEndElement();  // root
+  writer.writeEndDocument();
+  return !writer.hasError();
 }
 }  // namespace tools

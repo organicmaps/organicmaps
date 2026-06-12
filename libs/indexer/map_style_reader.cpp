@@ -18,15 +18,8 @@ std::string const kSuffixOutdoorsDark = "_outdoors_dark";
 
 std::string const kStylesOverrideDir = "styles";
 
-#ifdef BUILD_DESIGNER
-std::string const kSuffixDesignTool = "_design";
-#endif  // BUILD_DESIGNER
-
 std::string GetStyleRulesSuffix(MapStyle mapStyle)
 {
-#ifdef BUILD_DESIGNER
-  return kSuffixDesignTool;
-#else
   switch (mapStyle)
   {
   case MapStyleDefaultDark: return kSuffixDefaultDark;
@@ -41,14 +34,10 @@ std::string GetStyleRulesSuffix(MapStyle mapStyle)
   }
   LOG(LWARNING, ("Unknown map style", mapStyle));
   return kSuffixDefaultLight;
-#endif  // BUILD_DESIGNER
 }
 
 std::string GetStyleResourcesSuffix(MapStyle mapStyle)
 {
-#ifdef BUILD_DESIGNER
-  return kSuffixDesignTool;
-#else
   // We use the same resources for all light/day and dark/night styles
   // to avoid textures duplication and package size increasing.
   switch (mapStyle)
@@ -65,7 +54,6 @@ std::string GetStyleResourcesSuffix(MapStyle mapStyle)
   }
   LOG(LWARNING, ("Unknown map style", mapStyle));
   return kSuffixLight;
-#endif  // BUILD_DESIGNER
 }
 }  // namespace
 
@@ -90,16 +78,16 @@ ReaderPtr<Reader> StyleReader::GetDrawingRulesReader() const
 {
   std::string rulesFile = std::string("drules_proto") + GetStyleRulesSuffix(GetCurrentStyle()) + ".bin";
 
-  auto overriddenRulesFile = base::JoinPath(GetPlatform().WritableDir(), kStylesOverrideDir, rulesFile);
-  if (Platform::IsFileExistsByFullPath(overriddenRulesFile))
-    rulesFile = overriddenRulesFile;
-
-#ifdef BUILD_DESIGNER
-  // For Designer tool we have to look first into the resource folder.
-  return GetPlatform().GetReader(rulesFile, "rwf");
-#else
+  // The Designer skips the styles/ override: Build Style writes fresh files
+  // into the writable dir, which the default "wrf" scope already finds first,
+  // and a stale override would shadow every rebuild.
+  if (!m_designerMode)
+  {
+    auto overriddenRulesFile = base::JoinPath(GetPlatform().WritableDir(), kStylesOverrideDir, rulesFile);
+    if (Platform::IsFileExistsByFullPath(overriddenRulesFile))
+      rulesFile = overriddenRulesFile;
+  }
   return GetPlatform().GetReader(rulesFile);
-#endif
 }
 
 ReaderPtr<Reader> StyleReader::GetResourceReader(std::string const & file, std::string_view density) const
@@ -107,16 +95,14 @@ ReaderPtr<Reader> StyleReader::GetResourceReader(std::string const & file, std::
   std::string resFile =
       base::JoinPath("symbols", std::string{density}, GetStyleResourcesSuffix(GetCurrentStyle()), file);
 
-  auto overriddenResFile = base::JoinPath(GetPlatform().WritableDir(), kStylesOverrideDir, resFile);
-  if (GetPlatform().IsFileExistsByFullPath(overriddenResFile))
-    resFile = overriddenResFile;
-
-#ifdef BUILD_DESIGNER
-  // For Designer tool we have to look first into the resource folder.
-  return GetPlatform().GetReader(resFile, "rwf");
-#else
+  // See note in GetDrawingRulesReader().
+  if (!m_designerMode)
+  {
+    auto overriddenResFile = base::JoinPath(GetPlatform().WritableDir(), kStylesOverrideDir, resFile);
+    if (GetPlatform().IsFileExistsByFullPath(overriddenResFile))
+      resFile = overriddenResFile;
+  }
   return GetPlatform().GetReader(resFile);
-#endif
 }
 
 ReaderPtr<Reader> StyleReader::GetDefaultResourceReader(std::string const & file) const

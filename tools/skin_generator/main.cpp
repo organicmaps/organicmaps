@@ -5,7 +5,6 @@
 
 #include <QApplication>
 #include <QtCore/QFile>
-#include <QtCore/QHash>
 #include <QtCore/QString>
 
 #include <gflags/gflags.h>
@@ -24,8 +23,6 @@ DEFINE_int32(maxSize, 4096, "max width/height of output textures");
 
 int main(int argc, char * argv[])
 {
-  // Used to lock the hash seed, so the order of XML attributes is always the same.
-  QHashSeed::setDeterministicGlobalSeed();
   try
   {
     gflags::ParseCommandLineFlags(&argc, &argv, true);
@@ -39,7 +36,7 @@ int main(int argc, char * argv[])
     std::vector<std::string> suffixes;
     suffixes.push_back(FLAGS_skinSuffix);
 
-    gen.ProcessSymbols(FLAGS_symbolsDir, FLAGS_skinName, symbolSizes, suffixes);
+    gen.ProcessSymbols(FLAGS_symbolsDir, FLAGS_symbolsDir + "/png", FLAGS_skinName, symbolSizes, suffixes);
 
     if (!gen.RenderPages(FLAGS_maxSize))
     {

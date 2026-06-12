@@ -54,7 +54,9 @@ public:
     m2::Packer m_packer;
   };
 
-  void ProcessSymbols(std::string const & symbolsDir, std::string const & skinName,
+  // Collects SVG symbols from symbolsDir and, optionally, pre-rendered images
+  // from pngOverlayDir (pass an empty string to skip the overlay).
+  void ProcessSymbols(std::string const & symbolsDir, std::string const & pngOverlayDir, std::string const & skinName,
                       std::vector<QSize> const & symbolSizes, std::vector<std::string> const & suffix);
   bool RenderPages(uint32_t maxSize);
   bool WriteToFileNewStyle(std::string const & skinName);
@@ -67,4 +69,11 @@ private:
 
   void MarkOverflow();
 };
+
+// Renders all SVG symbols from svgDir (with optional pre-rendered overrides
+// from pngOverlayDir, pass an empty string to skip) into outDir/symbols.png
+// and outDir/symbols.sdf. Throws std::runtime_error on failure. Uses only
+// QImage/QSvgRenderer, so it is safe to call outside of the GUI thread.
+void BuildSkin(QString const & svgDir, QString const & pngOverlayDir, int symbolSize, uint32_t maxTextureSize,
+               QString const & outDir);
 }  // namespace tools

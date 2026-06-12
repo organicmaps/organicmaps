@@ -7,7 +7,6 @@
 #include <QtCore/QDir>
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
-#include <QtCore/QProcessEnvironment>
 
 #include <exception>
 #include <string>
@@ -22,25 +21,20 @@ QString GetStyleStatistics(QString const & mapcssMappingFile, QString const & dr
   if (!QFile(drulesFile).exists())
     throw std::runtime_error("drawing-rules file does not exist at " + drulesFile.toStdString());
 
-  // Add path to the protobuf EGG in the PROTOBUF_EGG_PATH environment variable.
-  QProcessEnvironment env{QProcessEnvironment::systemEnvironment()};
-  env.insert("PROTOBUF_EGG_PATH", GetProtobufEggPath());
-
-  // Run the script.
-  return ExecProcess("python",
-                     {
-                         GetExternalPath("drules_info.py", "kothic/src", "../tools/python/stylesheet"),
-                         mapcssMappingFile,
-                         drulesFile,
-                     },
-                     &env);
+  return ExecProcess("python3", {
+                                    GetExternalPath("drules_info.py", "kothic/src", "../tools/python/stylesheet"),
+                                    mapcssMappingFile,
+                                    drulesFile,
+                                });
 }
 
-QString GetCurrentStyleStatistics()
+QString GetCurrentStyleStatistics(StyleInfo const & info)
 {
-  QString const resourceDir = GetPlatform().ResourcesDir().c_str();
-  QString const mappingPath = JoinPathQt({resourceDir, "mapcss-mapping.csv"});
-  QString const drulesPath = JoinPathQt({resourceDir, "drules_proto_design.bin"});
+  // Prefer the freshly built files from the writable dir over bundled ones.
+  Platform const & pl = GetPlatform();
+  QString const mappingPath = pl.ReadPathForFile("mapcss-mapping.csv", "wr").c_str();
+  QString const drulesPath =
+      pl.ReadPathForFile("drules_proto" + info.m_drulesSuffix.toStdString() + ".bin", "wr").c_str();
   return GetStyleStatistics(mappingPath, drulesPath);
 }
 }  // namespace build_style

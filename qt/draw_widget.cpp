@@ -708,10 +708,12 @@ void DrawWidget::SetRuler(bool enabled)
   m_ruler.SetActive(enabled);
 }
 
-// static
 void DrawWidget::RefreshDrawingRules()
 {
-  SetMapStyle(MapStyleDefaultLight);
+  // Re-applying the same MapStyle still triggers DrapeEngine::UpdateMapStyle(),
+  // which is what the Designer needs after Build Style overwrites the bundled
+  // drules and symbol atlases.
+  m_framework.SetMapStyle(m_framework.GetMapStyle());
 }
 
 void DrawWidget::SetMapStyleToDefault()

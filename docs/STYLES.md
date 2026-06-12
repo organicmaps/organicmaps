@@ -79,8 +79,57 @@ preferably look for icons in [collections OM uses already](../data/copyright.htm
 ## Testing your changes
 
 The most convenient way is using [the desktop app](INSTALL.md#desktop-app).
-(there is a "Designer" version of it also, which facilitates development
-by rebuilding styles and symbols quickly, but it's broken as of now, please help fix it!)
+
+The desktop app also has a **Designer mode** that rebuilds the
+currently-edited style on demand, without restarting:
+
+```
+cmake -B build -S . -DCMAKE_BUILD_TYPE=Debug -GNinja
+cmake --build build --target desktop generator_tool style_tests
+# macOS:
+./build/OMaps.app/Contents/MacOS/OMaps --designer data/styles/default/light/style.mapcss
+# Linux:
+./build/OMaps --designer data/styles/default/light/style.mapcss
+```
+
+Launch it from the repository root: the writable dir then resolves to
+`data/`, so rebuilt styles land exactly where `generate_drules.sh` and
+`generate_symbols.sh` put them (commit or discard the changes as usual).
+`python3` with the `protobuf` module must be on `PATH`
+(`python3 -m pip install -r tools/kothic/requirements.txt`).
+
+Pass any of the six supported `style.mapcss` files:
+
+```
+data/styles/{default,outdoors,vehicle}/{light,dark}/style.mapcss
+```
+
+Designer mode locks the active map style to the file you opened and disables
+the layer-menu Outdoors switch and the night-mode preference (both would
+unload the style being edited).  Edit any include file under
+`data/styles/<type>/include/` (e.g. `Roads.mapcss`) and click **Build style**
+to recompile and reapply the rules and symbol atlases live.
+
+Designer-only buttons:
+
+- **Build style** — recompiles MapCSS via `libkomwm.py`, re-renders the symbol
+  atlases in-process and reloads; results are written to the writable dir and
+  the style's `out/`.
+- **Recalculate geometry index** — closes the app, runs `generator_tool
+  --generate_index=true` over every `.mwm` in the resources/writable dirs
+  against the freshly built drules, then relaunches.  Use this after
+  zoom-range edits.
+- **Debug style** — toggles drape's debug rect overlay.
+- **Get statistics / Run tests** — invoke `drules_info.py` and `style_tests`.
+- **Build phone package** — exports the currently-edited style to a folder
+  you can copy to a device:
+  - Android: `<storage>/Android/data/app.organicmaps/files/styles/`
+  - iOS: Files → On My iPhone → Organic Maps → `styles/`
+
+  Only the rebuilt `drules_proto_<suffix>.bin` and `symbols/<dpi>/<theme>/`
+  atlases are exported; the on-device StyleReader doesn't override
+  `colors.txt`, `patterns.txt`, the classifier or feature mapping, so edits
+  in those files still need a full app rebuild and reinstall.
 
 To test on Android or iOS device either re-build the app or put
 the compiled style files (e.g. `drules_proto_default_light.bin`) into

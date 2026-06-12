@@ -3,38 +3,43 @@
 #include "platform/platform.hpp"
 
 #include "base/file_name_utils.hpp"
+#include "base/logging.hpp"
 
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
 #include <QtCore/QFile>
+#include <QtCore/QFileInfo>
 #include <QtCore/QProcess>
 #include <QtCore/QProcessEnvironment>
 
 #include <exception>
-#include <iomanip>  // std::quoted
-#include <regex>
 #include <string>
 
 QString ExecProcess(QString const & program, std::initializer_list<QString> args, QProcessEnvironment const * env)
 {
-  // Quote all arguments.
-  QStringList qargs(args);
-  for (auto i = qargs.begin(); i != qargs.end(); ++i)
-    *i = "\"" + *i + "\"";
+  QStringList const qargs(args);
 
   QProcess p;
   if (nullptr != env)
     p.setProcessEnvironment(*env);
 
+  LOG(LINFO, ("Running command:", program.toStdString(), "\n   ", qargs.join("\n    ").toStdString()));
+
   p.start(program, qargs, QIODevice::ReadOnly);
+  // A missing binary reports exitCode() == 0, which reads as success below.
+  if (!p.waitForStarted(-1))
+    throw std::runtime_error("Failed to start " + program.toStdString() + ": " + p.errorString().toStdString());
   p.waitForFinished(-1);
 
-  int const exitCode = p.exitCode();
   QString output = p.readAllStandardOutput();
   QString const error = p.readAllStandardError();
-  if (exitCode != 0)
+  if (p.exitStatus() != QProcess::NormalExit || p.exitCode() != 0)
   {
-    QString msg = "Error: " + program + " " + qargs.join(" ") + "\nReturned " + QString::number(exitCode);
+    QString msg = "Error: " + program + " " + qargs.join(" ");
+    if (p.exitStatus() == QProcess::NormalExit)
+      msg += "\nReturned " + QString::number(p.exitCode());
+    else
+      msg += "\nCrashed: " + p.errorString();
     if (!output.isEmpty())
       msg += "\n" + output;
     if (!error.isEmpty())
@@ -42,10 +47,7 @@ QString ExecProcess(QString const & program, std::initializer_list<QString> args
     throw std::runtime_error(msg.toStdString());
   }
   if (!error.isEmpty())
-  {
-    QString const msg = "STDERR with a zero exit code:\n" + program + " " + qargs.join(" ");
-    throw std::runtime_error(msg.toStdString());
-  }
+    LOG(LWARNING, ("Exit code zero, but non-empty STDERR output:", error.toStdString()));
   return output;
 }
 
@@ -60,18 +62,20 @@ bool CopyFile(QString const & oldFile, QString const & newFile)
   return QFile::copy(oldFile, newFile);
 }
 
-void CopyFromResources(QString const & name, QString const & output)
+void CopyFromDataDir(QString const & name, QString const & destDir)
 {
-  QString const resourceDir = GetPlatform().ResourcesDir().c_str();
-  if (!CopyFile(JoinPathQt({resourceDir, name}), JoinPathQt({output, name})))
-    throw std::runtime_error(std::string("Cannot copy file ") + name.toStdString() + " to " + output.toStdString());
+  // The file may live in the writable dir (a dev checkout's data/) or in the
+  // app resources; ReadPathForFile throws with a clear message when missing.
+  QString const src = GetPlatform().ReadPathForFile(name.toStdString(), "wr").c_str();
+  if (!CopyFile(src, JoinPathQt({destDir, name})))
+    throw std::runtime_error(std::string("Cannot copy file ") + name.toStdString() + " to " + destDir.toStdString());
 }
 
-void CopyToResources(QString const & name, QString const & input, QString const & newName)
+void CopyToWritableDir(QString const & name, QString const & srcDir)
 {
-  QString const resourceDir = GetPlatform().ResourcesDir().c_str();
-  if (!CopyFile(JoinPathQt({input, name}), JoinPathQt({resourceDir, newName.isEmpty() ? name : newName})))
-    throw std::runtime_error(std::string("Cannot copy file ") + name.toStdString() + " from " + input.toStdString());
+  QString const writableDir = GetPlatform().WritableDir().c_str();
+  if (!CopyFile(JoinPathQt({srcDir, name}), JoinPathQt({writableDir, name})))
+    throw std::runtime_error(std::string("Cannot copy file ") + name.toStdString() + " from " + srcDir.toStdString());
 }
 
 QString JoinPathQt(std::initializer_list<QString> folders)
@@ -95,24 +99,49 @@ QString JoinPathQt(std::initializer_list<QString> folders)
 QString GetExternalPath(QString const & name, QString const & primaryPath, QString const & secondaryPath)
 {
   QString const resourceDir = GetPlatform().ResourcesDir().c_str();
+
+  // 1. Bundled into the running .app's Resources via install/CPack.
   QString path = JoinPathQt({resourceDir, primaryPath, name});
-  if (!QFileInfo::exists(path))
-    path = JoinPathQt({resourceDir, secondaryPath, name});
-
-  // Special case for looking for in application folder.
-  if (!QFileInfo::exists(path) && secondaryPath.isEmpty())
+  if (QFileInfo::exists(path))
+    return path;
+  if (!secondaryPath.isEmpty())
   {
-    std::string const appPath = QCoreApplication::applicationDirPath().toStdString();
+    path = JoinPathQt({resourceDir, secondaryPath, name});
+    if (QFileInfo::exists(path))
+      return path;
 
-    std::regex re("(/[^/]*\\.app)");
-    std::smatch m;
-    if (std::regex_search(appPath, m, re) && m.size() > 0)
-      path.fromStdString(base::JoinPath(m[0], name.toStdString()));
+    // 2. Relative to the writable dir: in a dev checkout it is <repo>/data/,
+    // so "../tools/..." candidates resolve into the repository itself. The
+    // writable dir is often reached through a <build>/data symlink, which a
+    // lexical "data/.." would escape wrongly — canonicalize it first.
+    QString const writableDir = QDir(QString::fromStdString(GetPlatform().WritableDir())).canonicalPath();
+    path = JoinPathQt({writableDir, secondaryPath, name});
+    if (QFileInfo::exists(path))
+      return path;
   }
-  return path;
-}
 
-QString GetProtobufEggPath()
-{
-  return GetExternalPath("protobuf-3.3.0-py2.7.egg", "kothic", "../3party/protobuf");
+  // 3. Sibling in the build dir from a plain `cmake --build` (no install step).
+  // applicationDirPath() inside an .app is <build>/<bundle>.app/Contents/MacOS;
+  // walk out of the .app to <build> and look there too.
+  QDir buildDir(QCoreApplication::applicationDirPath());
+  for (auto const & dirName : {QStringLiteral("MacOS"), QStringLiteral("Contents")})
+    if (buildDir.dirName() == dirName)
+      buildDir.cdUp();
+  if (buildDir.dirName().endsWith(QStringLiteral(".app")))
+    buildDir.cdUp();
+
+  if (!primaryPath.isEmpty())
+  {
+    path = JoinPathQt({buildDir.absolutePath(), primaryPath, name});
+    if (QFileInfo::exists(path))
+      return path;
+  }
+  // The helpers can also be raw binaries directly in <build>/ (cmake --build
+  // produces e.g. <build>/skin_generator_tool, not a .app bundle).
+  path = JoinPathQt({buildDir.absolutePath(), name});
+  if (QFileInfo::exists(path))
+    return path;
+
+  throw std::runtime_error("Cannot find " + name.toStdString() +
+                           "; build all desktop targets and run the app from the repository root");
 }
