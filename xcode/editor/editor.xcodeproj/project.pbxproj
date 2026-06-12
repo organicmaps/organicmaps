@@ -60,7 +60,6 @@
 		FACB76C526B8A04200810C9C /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76C426B8A04200810C9C /* libindexer.a */; };
 		FACB76C726B8A08000810C9C /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76C626B8A08000810C9C /* libicu.a */; };
 		FACB76C926B8A08800810C9C /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76C826B8A08800810C9C /* libplatform.a */; };
-		FACB76CB26B8A0D200810C9C /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76CA26B8A0D200810C9C /* libprotobuf.a */; };
 		FACB76CF26B8A0E800810C9C /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76CE26B8A0E800810C9C /* libopening_hours.a */; };
 		FACB76D126B8A10F00810C9C /* libplatform_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76D026B8A10F00810C9C /* libplatform_tests_support.a */; };
 		FACB76D326B8A13700810C9C /* libgenerator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76D226B8A13700810C9C /* libgenerator.a */; };
@@ -132,7 +131,6 @@
 		FACB76C426B8A04200810C9C /* libindexer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libindexer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB76C626B8A08000810C9C /* libicu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libicu.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB76C826B8A08800810C9C /* libplatform.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libplatform.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FACB76CA26B8A0D200810C9C /* libprotobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libprotobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB76CC26B8A0DC00810C9C /* libgenerator_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgenerator_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB76CE26B8A0E800810C9C /* libopening_hours.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libopening_hours.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB76D026B8A10F00810C9C /* libplatform_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libplatform_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -171,7 +169,6 @@
 				FACB76D326B8A13700810C9C /* libgenerator.a in Frameworks */,
 				FACB76D126B8A10F00810C9C /* libplatform_tests_support.a in Frameworks */,
 				FACB76CF26B8A0E800810C9C /* libopening_hours.a in Frameworks */,
-				FACB76CB26B8A0D200810C9C /* libprotobuf.a in Frameworks */,
 				FACB76C726B8A08000810C9C /* libicu.a in Frameworks */,
 				FACB76C126B8A01100810C9C /* libpugixml.a in Frameworks */,
 				6715565120BF0F47002BA3B4 /* libeditor_tests_support.a in Frameworks */,
@@ -286,7 +283,6 @@
 				FACB76D026B8A10F00810C9C /* libplatform_tests_support.a */,
 				FACB76CE26B8A0E800810C9C /* libopening_hours.a */,
 				FACB76CC26B8A0DC00810C9C /* libgenerator_tests_support.a */,
-				FACB76CA26B8A0D200810C9C /* libprotobuf.a */,
 				FACB76C826B8A08800810C9C /* libplatform.a */,
 				FACB76C626B8A08000810C9C /* libicu.a */,
 				FACB76C426B8A04200810C9C /* libindexer.a */,
