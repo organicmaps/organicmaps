@@ -371,7 +371,7 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
       {
         GenericJsonMap const umap_options = umapOptions->second.get_object();
         // Parse color from properties['_umap_options']['color']
-        if (auto const markerColor = getStringFromJsonMap(propsJson, "color"))
+        if (auto const markerColor = getStringFromJsonMap(umap_options, "color"))
           if (auto colorData = ParseGeoJsonColor(*markerColor))
             bookmark.m_color = NormalizeBookmarkColorData(*colorData);
 
