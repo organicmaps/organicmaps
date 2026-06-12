@@ -252,16 +252,24 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   @NonNull
   private Action createTtsAction()
   {
-    final Action.Builder ttsActionBuilder = new Action.Builder();
-    @DrawableRes
-    final int imgRes = TtsPlayer.isEnabled() ? R.drawable.ic_voice_on : R.drawable.ic_voice_off;
-    ttsActionBuilder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), imgRes)).build());
-    ttsActionBuilder.setOnClickListener(() -> {
-      TtsPlayer.setEnabled(!TtsPlayer.isEnabled());
-      invalidate();
-    });
+    final TtsPlayer.State state = TtsPlayer.getState();
+    final boolean isReady = state == TtsPlayer.State.READY_ON || state == TtsPlayer.State.READY_OFF;
 
-    return ttsActionBuilder.build();
+    @DrawableRes
+    final int imgRes = state == TtsPlayer.State.READY_ON ? R.drawable.ic_voice_on : R.drawable.ic_voice_off;
+    final CarIcon.Builder iconBuilder = new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), imgRes));
+    if (!isReady)
+      iconBuilder.setTint(CarColor.SECONDARY);
+
+    return new Action.Builder().setIcon(iconBuilder.build()).setOnClickListener(this::onTtsActionClicked).build();
+  }
+
+  private void onTtsActionClicked()
+  {
+    final TtsPlayer.State state = TtsPlayer.getState();
+    if (state == TtsPlayer.State.READY_ON || state == TtsPlayer.State.READY_OFF)
+      TtsPlayer.setEnabled(!TtsPlayer.isEnabled());
+    invalidate();
   }
 
   @NonNull

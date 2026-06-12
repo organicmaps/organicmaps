@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.DefaultLifecycleObserver;
+import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.sdk.routing.RoutingInfo;
@@ -24,7 +26,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
-public class NavMenu
+public class NavMenu implements DefaultLifecycleObserver
 {
   private final BottomSheetBehavior<View> mNavBottomSheetBehavior;
   private final View mBottomSheetBackground;
@@ -113,6 +115,15 @@ public class NavMenu
     Button stop = bottomFrame.findViewById(R.id.stop);
     stop.setOnClickListener(v -> onStopClicked());
     UiUtils.updateRedButton(stop);
+
+    TtsPlayer.setOnStateChangedListener(this::refreshTts);
+    mActivity.getLifecycle().addObserver(this);
+  }
+
+  @Override
+  public void onDestroy(@NonNull LifecycleOwner owner)
+  {
+    TtsPlayer.setOnStateChangedListener(null);
   }
 
   private void onStopClicked()
@@ -127,14 +138,17 @@ public class NavMenu
 
   private void onTtsClicked()
   {
-    if (!TtsPlayer.isReady())
+    switch (TtsPlayer.getState())
     {
-      mNavMenuListener.onTtsVoiceSettingsClicked();
-    }
-    else
-    {
+    case INITIALIZING: return;
+    case UNAVAILABLE:
+    case NEEDS_LANGUAGE: mNavMenuListener.onTtsVoiceSettingsClicked(); return;
+    case READY_ON:
+    case READY_OFF:
       TtsPlayer.setEnabled(!TtsPlayer.isEnabled());
       refreshTts();
+      return;
+    default: return;
     }
   }
 
@@ -175,12 +189,17 @@ public class NavMenu
   public void refreshTts()
   {
     final Drawable icon;
-    if (!TtsPlayer.isReady())
-      icon = Graphics.tint(mActivity, R.drawable.ic_voice_off, R.attr.iconTintDisabled);
-    else if (TtsPlayer.isEnabled())
+    switch (TtsPlayer.getState())
+    {
+    case READY_ON:
       icon = Graphics.tint(mActivity, R.drawable.ic_voice_on, androidx.appcompat.R.attr.colorAccent);
-    else
-      icon = Graphics.tint(mActivity, R.drawable.ic_voice_off);
+      break;
+    case READY_OFF: icon = Graphics.tint(mActivity, R.drawable.ic_voice_off); break;
+    case INITIALIZING:
+    case UNAVAILABLE:
+    case NEEDS_LANGUAGE:
+    default: icon = Graphics.tint(mActivity, R.drawable.ic_voice_off, R.attr.iconTintDisabled); break;
+    }
     mTts.setImageDrawable(icon);
   }
 
