@@ -2,9 +2,10 @@
 
 #include "qt/build_style/build_common.h"
 
+#include "tools/skin_generator/generator.hpp"
+
 #include "platform/platform.hpp"
 
-#include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
 #include <exception>
@@ -16,6 +17,9 @@
 
 namespace
 {
+// Same default as skin_generator_tool's --maxSize.
+uint32_t constexpr kMaxTextureSize = 4096;
+
 // Symbol sizes per DPI bucket: kSkinDpis defaults, overridable via resolutions.txt.
 std::unordered_map<std::string, int> GetSkinSizes(QString const & file)
 {
@@ -61,63 +65,23 @@ std::unordered_map<std::string, int> GetSkinSizes(QString const & file)
 
 namespace build_style
 {
-void BuildSkinImpl(QString const & styleDir, QString const & suffix, int size, QString const & outputDir)
-{
-  QString const symbolsDir = JoinPathQt({styleDir, "symbols"});
-
-  // Check symbols directory exists
-  if (!QDir(symbolsDir).exists())
-    throw std::runtime_error("Symbols directory does not exist");
-
-  // Caller ensures that output directory is clear
-  if (QDir(outputDir).exists())
-    throw std::runtime_error("Output directory is not clear");
-
-  // Create output skin directory (mkpath so the symbols/<dpi>/ parent is also created).
-  if (!QDir().mkpath(outputDir))
-    throw std::runtime_error("Cannot create output skin directory");
-
-  // Create symbolic link for symbols/png
-  QString const pngOriginDir = styleDir + suffix;
-  QString const pngDir = JoinPathQt({styleDir, "symbols", "png"});
-  QFile::remove(pngDir);
-  if (!QFile::link(pngOriginDir, pngDir))
-    throw std::runtime_error("Unable to create symbols/png link");
-  SCOPE_GUARD(cleaner, [&pngDir]() { QFile::remove(pngDir); });
-
-  QString const strSize = QString::number(size);
-  // Run the script.
-  (void)ExecProcess(GetExternalPath("skin_generator_tool", "skin_generator_tool.app/Contents/MacOS", ""),
-                    {
-                        "--symbolWidth",
-                        strSize,
-                        "--symbolHeight",
-                        strSize,
-                        "--symbolsDir",
-                        symbolsDir,
-                        "--skinName",
-                        JoinPathQt({outputDir, "basic"}),
-                        "--skinSuffix=",
-                    });
-
-  // Check if files were created.
-  if (QFile(JoinPathQt({outputDir, "symbols.png"})).size() == 0 ||
-      QFile(JoinPathQt({outputDir, "symbols.sdf"})).size() == 0)
-  {
-    throw std::runtime_error("Skin files have not been created");
-  }
-}
-
 void BuildSkins(QString const & styleDir, QString const & outputDir, QString const & theme)
 {
+  QString const symbolsDir = JoinPathQt({styleDir, "symbols"});
+  if (!QDir(symbolsDir).exists())
+    throw std::runtime_error("Symbols directory does not exist: " + symbolsDir.toStdString());
+
   auto const resolution2size = GetSkinSizes(JoinPathQt({styleDir, "resolutions.txt"}));
 
-  // Sequential by design: every BuildSkinImpl call recreates the same
-  // symbols/png symlink, so the DPI buckets must not run concurrently.
   for (auto const & dpi : kSkinDpis)
   {
     QString const outputSkinDir = JoinPathQt({outputDir, "symbols", dpi.m_name, theme});
-    BuildSkinImpl(styleDir, dpi.m_name, resolution2size.at(dpi.m_name), outputSkinDir);
+    if (!QDir().mkpath(outputSkinDir))
+      throw std::runtime_error("Cannot create output skin directory: " + outputSkinDir.toStdString());
+
+    // Pre-rendered per-DPI overrides (historically <styleDir>/<dpi>/) take
+    // precedence over rendering the SVG sources.
+    tools::BuildSkin(symbolsDir, styleDir + dpi.m_name, resolution2size.at(dpi.m_name), kMaxTextureSize, outputSkinDir);
   }
 }
 

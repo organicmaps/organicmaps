@@ -85,7 +85,7 @@ currently-edited style on demand, without restarting:
 
 ```
 cmake -B build -S . -DCMAKE_BUILD_TYPE=Debug -GNinja
-cmake --build build --target desktop skin_generator_tool generator_tool style_tests
+cmake --build build --target desktop generator_tool style_tests
 # macOS:
 ./build/OMaps.app/Contents/MacOS/OMaps --designer data/styles/default/light/style.mapcss
 # Linux:
@@ -112,8 +112,9 @@ to recompile and reapply the rules and symbol atlases live.
 
 Designer-only buttons:
 
-- **Build style** — recompiles MapCSS via `libkomwm.py` + `skin_generator_tool`
-  and reloads; results are written to the writable dir and the style's `out/`.
+- **Build style** — recompiles MapCSS via `libkomwm.py`, re-renders the symbol
+  atlases in-process and reloads; results are written to the writable dir and
+  the style's `out/`.
 - **Recalculate geometry index** — closes the app, runs `generator_tool
   --generate_index=true` over every `.mwm` in the resources/writable dirs
   against the freshly built drules, then relaunches.  Use this after

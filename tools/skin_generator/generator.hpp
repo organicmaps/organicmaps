@@ -69,4 +69,11 @@ private:
 
   void MarkOverflow();
 };
+
+// Renders all SVG symbols from svgDir (with optional pre-rendered overrides
+// from pngOverlayDir, pass an empty string to skip) into outDir/symbols.png
+// and outDir/symbols.sdf. Throws std::runtime_error on failure. Uses only
+// QImage/QSvgRenderer, so it is safe to call outside of the GUI thread.
+void BuildSkin(QString const & svgDir, QString const & pngOverlayDir, int symbolSize, uint32_t maxTextureSize,
+               QString const & outDir);
 }  // namespace tools

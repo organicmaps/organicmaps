@@ -70,6 +70,7 @@ target_link_libraries(${PROJECT_NAME}
     generator  # For borders::LoadBorders
     qt_common
     map
+    skin_generator  # Designer's Build Style renders symbol atlases in-process.
     gflags::gflags
     location_service
 )

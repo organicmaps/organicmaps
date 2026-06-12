@@ -8,6 +8,7 @@
 #include <functional>
 #include <iostream>
 #include <iterator>
+#include <stdexcept>
 
 #include <QtCore/QDir>
 #include <QtCore/QFile>
@@ -211,9 +212,16 @@ bool SkinGenerator::RenderPages(uint32_t maxSize)
       }
     }
 
+    // Pin the DPI metadata: QImage's default depends on the environment
+    // (72 DPI headless vs the host app's screen), and the output must not.
+    constexpr int kDotsPerMeter72Dpi = 2835;
+    img.setDotsPerMeterX(kDotsPerMeter72Dpi);
+    img.setDotsPerMeterY(kDotsPerMeter72Dpi);
+
     std::string s = page.m_fileName + ".png";
     LOG(LINFO, ("saving skin image into: ", s));
-    img.save(s.c_str());
+    if (!img.save(s.c_str()))
+      throw std::runtime_error("Cannot write " + s);
   }
 
   return true;
@@ -222,6 +230,23 @@ bool SkinGenerator::RenderPages(uint32_t maxSize)
 void SkinGenerator::MarkOverflow()
 {
   m_overflowDetected = true;
+}
+
+void BuildSkin(QString const & svgDir, QString const & pngOverlayDir, int symbolSize, uint32_t maxTextureSize,
+               QString const & outDir)
+{
+  SkinGenerator gen;
+  // The skin name is used only for its directory part and the fixed
+  // "symbols" base name; an empty suffix yields outDir/symbols.{png,sdf}.
+  gen.ProcessSymbols(svgDir.toStdString(), pngOverlayDir.toStdString(), outDir.toStdString() + "/",
+                     {QSize(symbolSize, symbolSize)}, {""});
+
+  if (!gen.RenderPages(maxTextureSize))
+    throw std::runtime_error("Skin symbols do not fit into the maximum texture size " + std::to_string(maxTextureSize));
+
+  std::string const sdfPath = outDir.toStdString() + "/symbols.sdf";
+  if (!gen.WriteToFileNewStyle(sdfPath))
+    throw std::runtime_error("Cannot write " + sdfPath);
 }
 
 bool SkinGenerator::WriteToFileNewStyle(std::string const & skinName)
