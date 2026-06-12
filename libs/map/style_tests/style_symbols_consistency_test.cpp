@@ -20,10 +20,10 @@ namespace style_symbols_consistency_tests
 {
 typedef std::set<std::string> StringSet;
 
-class SdfParsingDispatcher
+class SymbolsXmlParsingDispatcher
 {
 public:
-  explicit SdfParsingDispatcher(StringSet & symbols) : m_symbols(symbols) {}
+  explicit SymbolsXmlParsingDispatcher(StringSet & symbols) : m_symbols(symbols) {}
 
   bool Push(char const *) { return true; }
   void Pop(char const *) {}
@@ -53,8 +53,8 @@ StringSet GetSymbolsSetFromDrawingRule()
 StringSet GetSymbolsSetFromResourcesFile(std::string_view density)
 {
   StringSet symbols;
-  SdfParsingDispatcher dispatcher(symbols);
-  ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader("symbols.sdf", density);
+  SymbolsXmlParsingDispatcher dispatcher(symbols);
+  ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader("symbols.xml", density);
   ReaderSource<ReaderPtr<Reader>> source(reader);
   ParseXML(source, dispatcher);
   return symbols;

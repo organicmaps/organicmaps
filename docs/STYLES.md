@@ -111,4 +111,4 @@ The `tools/unix/generate_drules.sh` script uses a customized version of [Kothic]
 stylesheet processor to compile MapCSS files into binary drawing rules files `data/drules_proto*.bin`.
 The processor also produces text versions of these files (`data/drules_proto*.txt`) to ease debugging.
 
-The `tools/unix/generate_symbols.sh` script assembles all icons into skin files in various resolutions (`data/resources-*/symbols.png` and `symbols.sdf`).
+The `tools/unix/generate_symbols.sh` script assembles all icons into skin files in various resolutions (`data/resources-*/symbols.png` and `symbols.xml`).

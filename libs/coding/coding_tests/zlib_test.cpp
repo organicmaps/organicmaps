@@ -24,7 +24,8 @@ using Inflate = ZLib::Inflate;
 pair<Deflate::Format, Inflate::Format> const g_combinations[] = {{Deflate::Format::ZLib, Inflate::Format::ZLib},
                                                                  {Deflate::Format::ZLib, Inflate::Format::Both},
                                                                  {Deflate::Format::GZip, Inflate::Format::GZip},
-                                                                 {Deflate::Format::GZip, Inflate::Format::Both}};
+                                                                 {Deflate::Format::GZip, Inflate::Format::Both},
+                                                                 {Deflate::Format::Raw, Inflate::Format::Raw}};
 
 namespace
 {

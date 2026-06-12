@@ -64,6 +64,7 @@ ZLib::DeflateProcessor::DeflateProcessor(Deflate::Format format, Deflate::Level 
   {
   case Deflate::Format::ZLib: break;
   case Deflate::Format::GZip: bits = bits | kGzipBits; break;
+  case Deflate::Format::Raw: bits = -bits; break;
   }
 
   int const ret = deflateInit2(&m_stream, ToInt(level) /* level */, Z_DEFLATED /* method */, bits /* windowBits */,
@@ -93,6 +94,7 @@ ZLib::InflateProcessor::InflateProcessor(Inflate::Format format, void const * da
   case Inflate::Format::ZLib: break;
   case Inflate::Format::GZip: bits = bits | kGzipBits; break;
   case Inflate::Format::Both: bits = bits | kBothBits; break;
+  case Inflate::Format::Raw: bits = -bits; break;
   }
   int const ret = inflateInit2(&m_stream, bits);
   m_init = (ret == Z_OK);

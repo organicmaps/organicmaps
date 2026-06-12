@@ -170,7 +170,7 @@ void BuildSkinImpl(QString const & styleDir, QString const & suffix, int size, b
 
   // Check if files were created.
   if (QFile(JoinPathQt({outputDir, "symbols.png"})).size() == 0 ||
-      QFile(JoinPathQt({outputDir, "symbols.sdf"})).size() == 0)
+      QFile(JoinPathQt({outputDir, "symbols.xml"})).size() == 0)
   {
     throw std::runtime_error("Skin files have not been created");
   }
@@ -207,7 +207,7 @@ void ApplySkins(QString const & outputDir)
       throw std::runtime_error("Cannot create resource skin directory: " + resourceSkinDir.toStdString());
 
     if (!CopyFile(JoinPathQt({outputSkinDir, "symbols.png"}), JoinPathQt({resourceSkinDir, "symbols.png"})) ||
-        !CopyFile(JoinPathQt({outputSkinDir, "symbols.sdf"}), JoinPathQt({resourceSkinDir, "symbols.sdf"})))
+        !CopyFile(JoinPathQt({outputSkinDir, "symbols.xml"}), JoinPathQt({resourceSkinDir, "symbols.xml"})))
     {
       throw std::runtime_error("Cannot copy skins files");
     }
