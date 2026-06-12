@@ -54,7 +54,9 @@ public:
     m2::Packer m_packer;
   };
 
-  void ProcessSymbols(std::string const & symbolsDir, std::string const & skinName,
+  // Collects SVG symbols from symbolsDir and, optionally, pre-rendered images
+  // from pngOverlayDir (pass an empty string to skip the overlay).
+  void ProcessSymbols(std::string const & symbolsDir, std::string const & pngOverlayDir, std::string const & skinName,
                       std::vector<QSize> const & symbolSizes, std::vector<std::string> const & suffix);
   bool RenderPages(uint32_t maxSize);
   bool WriteToFileNewStyle(std::string const & skinName);

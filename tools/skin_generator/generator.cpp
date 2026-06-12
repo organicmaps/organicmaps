@@ -10,6 +10,7 @@
 #include <iterator>
 
 #include <QtCore/QDir>
+#include <QtGui/QImageReader>
 #include <QtXml/QDomDocument>
 #include <QtXml/QDomElement>
 
@@ -64,16 +65,18 @@ uint32_t NextPowerOf2(uint32_t n)
 }
 }  // namespace
 
-void SkinGenerator::ProcessSymbols(std::string const & svgDataDir, std::string const & skinName,
-                                   std::vector<QSize> const & symbolSizes, std::vector<std::string> const & suffixes)
+void SkinGenerator::ProcessSymbols(std::string const & svgDataDir, std::string const & pngOverlayDir,
+                                   std::string const & skinName, std::vector<QSize> const & symbolSizes,
+                                   std::vector<std::string> const & suffixes)
 {
   for (size_t j = 0; j < symbolSizes.size(); ++j)
   {
     QDir dir(QString(svgDataDir.c_str()));
     QStringList fileNames = dir.entryList(QDir::Files);
 
-    QDir pngDir(dir.absolutePath() + "/png");
-    fileNames += pngDir.entryList(QDir::Files);
+    QDir const pngDir(QString::fromStdString(pngOverlayDir));
+    if (!pngOverlayDir.empty())
+      fileNames += pngDir.entryList(QDir::Files);
 
     // Separate page for symbols.
     m_pages.emplace_back(SkinPageInfo());
@@ -118,8 +121,14 @@ void SkinGenerator::ProcessSymbols(std::string const & svgDataDir, std::string c
       else if (fileName.toLower().endsWith(".png"))
       {
         QString fullFileName = QString(pngDir.absolutePath()) + "/" + fileName;
-        QPixmap pix(fullFileName);
-        QSize s = pix.size();
+        // QImageReader reads only the header; QImage/QPainter (unlike QPixmap)
+        // are safe to use outside of the GUI thread.
+        QSize const s = QImageReader(fullFileName).size();
+        if (!s.isValid())
+        {
+          LOG(LWARNING, ("Skipping unreadable symbol image", fullFileName.toStdString()));
+          continue;
+        }
         page.m_symbols.emplace_back(s + QSize(4, 4), fullFileName, symbolID);
       }
     }
@@ -198,8 +207,7 @@ bool SkinGenerator::RenderPages(uint32_t maxSize)
       }
       else if (fullLowerCaseName.endsWith(".png"))
       {
-        QPixmap pix(s.m_fullFileName);
-        painter.drawPixmap(renderRect, pix);
+        painter.drawImage(renderRect, QImage(s.m_fullFileName));
       }
     }
 

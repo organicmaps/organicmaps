@@ -39,7 +39,7 @@ int main(int argc, char * argv[])
     std::vector<std::string> suffixes;
     suffixes.push_back(FLAGS_skinSuffix);
 
-    gen.ProcessSymbols(FLAGS_symbolsDir, FLAGS_skinName, symbolSizes, suffixes);
+    gen.ProcessSymbols(FLAGS_symbolsDir, FLAGS_symbolsDir + "/png", FLAGS_skinName, symbolSizes, suffixes);
 
     if (!gen.RenderPages(FLAGS_maxSize))
     {
