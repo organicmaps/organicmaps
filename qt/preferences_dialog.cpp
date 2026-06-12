@@ -7,6 +7,8 @@
 #include "platform/measurement_utils.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
+
+#include "indexer/map_style_reader.hpp"
 #include "platform/style_utils.hpp"
 
 #include "qt/qt_common/helpers.hpp"
@@ -25,9 +27,7 @@
 
 using namespace measurement_utils;
 
-#ifdef BUILD_DESIGNER
 std::string const kEnabledAutoRegenGeomIndex = "EnabledAutoRegenGeomIndex";
-#endif
 
 namespace qt
 {
@@ -153,11 +153,13 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
             [&framework](int index) { framework.SetBookmarksTextPlacement(static_cast<Placement>(index)); });
   }
 
-#ifndef BUILD_DESIGNER
+  bool const designerMode = GetStyleReader().IsDesignerMode();
+
   // Night mode flips MapStyle between light/dark variants, which would unload
   // the style being edited; the Designer locks this to the opened style.mapcss.
   QButtonGroup * nightModeGroup = new QButtonGroup(this);
   QGroupBox * nightModeRadioBox = new QGroupBox("Night Mode");
+  if (!designerMode)
   {
     using namespace style_utils;
     QHBoxLayout * layout = new QHBoxLayout();
@@ -201,10 +203,9 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
       }
     });
   }
-#endif  // BUILD_DESIGNER
 
-#ifdef BUILD_DESIGNER
   QCheckBox * indexRegenCheckBox = new QCheckBox("Enable auto regeneration of geometry index");
+  if (designerMode)
   {
     bool enabled = false;
     if (!settings::Get(kEnabledAutoRegenGeomIndex, enabled))
@@ -213,7 +214,6 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
     connect(indexRegenCheckBox, &QCheckBox::stateChanged,
             [](int i) { settings::Set(kEnabledAutoRegenGeomIndex, static_cast<bool>(i)); });
   }
-#endif
 
   QHBoxLayout * bottomLayout = new QHBoxLayout();
   {
@@ -236,11 +236,10 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
   finalLayout->addWidget(mapLanguageComboBox);
   finalLayout->addWidget(bookmarksPlacementLabel);
   finalLayout->addWidget(bookmarksPlacementCB);
-#ifdef BUILD_DESIGNER
-  finalLayout->addWidget(indexRegenCheckBox);
-#else
-  finalLayout->addWidget(nightModeRadioBox);
-#endif
+  if (designerMode)
+    finalLayout->addWidget(indexRegenCheckBox);
+  else
+    finalLayout->addWidget(nightModeRadioBox);
   finalLayout->addLayout(bottomLayout);
   setLayout(finalLayout);
 }

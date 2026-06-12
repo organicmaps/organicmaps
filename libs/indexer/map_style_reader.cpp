@@ -78,14 +78,15 @@ ReaderPtr<Reader> StyleReader::GetDrawingRulesReader() const
 {
   std::string rulesFile = std::string("drules_proto") + GetStyleRulesSuffix(GetCurrentStyle()) + ".bin";
 
-#ifndef BUILD_DESIGNER
   // The Designer skips the styles/ override: Build Style writes fresh files
   // into the writable dir, which the default "wrf" scope already finds first,
   // and a stale override would shadow every rebuild.
-  auto overriddenRulesFile = base::JoinPath(GetPlatform().WritableDir(), kStylesOverrideDir, rulesFile);
-  if (Platform::IsFileExistsByFullPath(overriddenRulesFile))
-    rulesFile = overriddenRulesFile;
-#endif
+  if (!m_designerMode)
+  {
+    auto overriddenRulesFile = base::JoinPath(GetPlatform().WritableDir(), kStylesOverrideDir, rulesFile);
+    if (Platform::IsFileExistsByFullPath(overriddenRulesFile))
+      rulesFile = overriddenRulesFile;
+  }
   return GetPlatform().GetReader(rulesFile);
 }
 
@@ -94,12 +95,13 @@ ReaderPtr<Reader> StyleReader::GetResourceReader(std::string const & file, std::
   std::string resFile =
       base::JoinPath("symbols", std::string{density}, GetStyleResourcesSuffix(GetCurrentStyle()), file);
 
-#ifndef BUILD_DESIGNER
   // See note in GetDrawingRulesReader().
-  auto overriddenResFile = base::JoinPath(GetPlatform().WritableDir(), kStylesOverrideDir, resFile);
-  if (GetPlatform().IsFileExistsByFullPath(overriddenResFile))
-    resFile = overriddenResFile;
-#endif
+  if (!m_designerMode)
+  {
+    auto overriddenResFile = base::JoinPath(GetPlatform().WritableDir(), kStylesOverrideDir, resFile);
+    if (GetPlatform().IsFileExistsByFullPath(overriddenResFile))
+      resFile = overriddenResFile;
+  }
   return GetPlatform().GetReader(resFile);
 }
 

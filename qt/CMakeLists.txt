@@ -74,19 +74,9 @@ target_link_libraries(${PROJECT_NAME}
     location_service
 )
 
-if (BUILD_DESIGNER)
-  target_link_libraries(${PROJECT_NAME} PRIVATE generator)
-  # Build Style / Recalculate Geometry / Run Tests shell out to these helpers,
-  # so a plain `cmake --build … --target desktop` must produce them too.
-  add_dependencies(${PROJECT_NAME} skin_generator_tool generator_tool style_tests)
-  set(BUNDLE_NAME "OMaps.Designer")
-  set(BUNDLE_DISPLAY_NAME "Organic Maps Designer")
-  set(BUNDLE_ICON designer.icns)
-else()
-  set(BUNDLE_NAME "OMaps")
-  set(BUNDLE_DISPLAY_NAME "Organic Maps Desktop")
-  set(BUNDLE_ICON mac.icns)
-endif()
+set(BUNDLE_NAME "OMaps")
+set(BUNDLE_DISPLAY_NAME "Organic Maps Desktop")
+set(BUNDLE_ICON mac.icns)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${BUNDLE_NAME})
 
@@ -146,15 +136,9 @@ if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
 endif()
 
 if (PLATFORM_MAC)
-  if (BUILD_DESIGNER)
-    execute_process(
-        COMMAND cp ${PROJECT_SOURCE_DIR}/res/mac/designer.icns ${RESOURCES_FOLDER}
-    )
-  else ()
-    execute_process(
-        COMMAND cp ${PROJECT_SOURCE_DIR}/res/mac/mac.icns ${RESOURCES_FOLDER}
-    )
-  endif ()
+  execute_process(
+      COMMAND cp ${PROJECT_SOURCE_DIR}/res/mac/mac.icns ${RESOURCES_FOLDER}
+  )
 endif()
 
 if (PLATFORM_MAC)
@@ -177,49 +161,7 @@ if (PLATFORM_WIN)
   target_sources(${PROJECT_NAME} PRIVATE res/windows/windows.rc)
 endif()
 
-if (BUILD_DESIGNER)
-  # Designer's "Build Style" feeds these into libkomwm.py at runtime.
-  copy_resources(
-    mapcss-dynamic.txt
-    mapcss-mapping.csv
-  )
-
-  # Bundle the kothic stylesheet processor and Python helpers next to the .app
-  # so the in-app Build Style / Recalculate Geometry actions can find them.
-  execute_process(COMMAND mkdir -p ${RESOURCES_FOLDER}/kothic/src)
-  execute_process(
-    COMMAND cp -rf ${OMIM_ROOT}/tools/kothic/. ${RESOURCES_FOLDER}/kothic/
-    COMMAND cp -rf ${OMIM_ROOT}/tools/python/stylesheet/. ${RESOURCES_FOLDER}/kothic/src/
-    COMMAND cp -f ${OMIM_ROOT}/tools/python/recalculate_geom_index.py ${RESOURCES_FOLDER}/
-  )
-
-  # Generate DMG
-  install(DIRECTORY ${DATA_DIR}/styles DESTINATION .)
-  set(BUNDLES
-    ${CMAKE_BINARY_DIR}/generator_tool.app
-    ${CMAKE_BINARY_DIR}/skin_generator_tool.app
-    ${CMAKE_BINARY_DIR}/style_tests.app
-  )
-  install(CODE "
-    foreach(BUNDLE ${BUNDLE_FOLDER} ${BUNDLES})
-      execute_process(
-        COMMAND \"${QT_PATH}/bin/macdeployqt\" \"\${BUNDLE}\"
-      )
-    endforeach()
-    foreach(BUNDLE ${BUNDLES})
-      execute_process(
-        COMMAND cp -rf \"\${BUNDLE}\" \"${RESOURCES_FOLDER}\"
-      )
-    endforeach()
-  ")
-  install(TARGETS ${PROJECT_NAME} DESTINATION .)
-
-  set(CPACK_GENERATOR DragNDrop)
-  set(CPACK_DMG_FORMAT UDZO)
-  set(CPACK_DMG_VOLUME_NAME ${BUNDLE_NAME})
-  set(CPACK_PACKAGE_ICON ${PROJECT_SOURCE_DIR}/res/mac/designer.icns)
-  include(CPack)
-elseif (BUILD_STANDALONE)
+if (BUILD_STANDALONE)
   add_custom_command(TARGET desktop POST_BUILD
     COMMAND "${QT_PATH}/bin/macdeployqt" ${BUNDLE_FOLDER}
     COMMAND ${Python3_EXECUTABLE} "${OMIM_ROOT}/tools/macdeployqtfix/macdeployqtfix.py" -q -nl ${BUNDLE_FOLDER}/Contents/MacOS/${BUNDLE_NAME} ${QT_PATH}
