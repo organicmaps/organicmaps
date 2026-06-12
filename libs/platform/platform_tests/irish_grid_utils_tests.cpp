@@ -77,8 +77,10 @@ UNIT_TEST(IrishGrid_Parse_Invalid)
   TEST(!IrishGridToLatLon("12 345 678"), ());  // Not a letter-prefixed reference.
 
   TEST(!ITMToLatLon(""), ());
-  TEST(!ITMToLatLon("715830"), ());           // Single number.
-  TEST(!ITMToLatLon("715830 734697 1"), ());  // Three numbers.
+  TEST(!ITMToLatLon("715830"), ());            // Single number.
+  TEST(!ITMToLatLon("715830 734697 1"), ());   // Three numbers.
+  TEST(!ITMToLatLon("123456789 734697"), ());  // Over-long group: rejected, never overflows.
+  TEST(!ITMToLatLon("99999999999999 1"), ());  // Far over the digit bound.
 }
 
 // The parsers do not gate on geography (the search processor does that, by region): a well-formed

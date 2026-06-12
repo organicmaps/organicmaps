@@ -167,8 +167,11 @@ std::string FormatITM(double lat, double lon)
 
 std::optional<ms::LatLon> ITMToLatLon(std::string_view itm)
 {
-  // Parse exactly two non-negative integers separated by whitespace and/or a single comma.
+  // Parse exactly two non-negative integers separated by whitespace and/or a single comma. Each group
+  // is bounded to 7 digits (ITM eastings/northings are 6) so the accumulation cannot overflow a 32-bit
+  // long for malformed input - the sibling grid parsers cap their digit counts for the same reason.
   long values[2] = {0, 0};
+  int lengths[2] = {0, 0};
   int count = 0;
   bool inNumber = false;
   for (char const c : itm)
@@ -183,6 +186,8 @@ std::optional<ms::LatLon> ITMToLatLon(std::string_view itm)
         ++count;
         inNumber = true;
       }
+      if (++lengths[count - 1] > 7)
+        return {};
       values[count - 1] = values[count - 1] * 10 + (c - '0');
     }
     else if (c == ' ' || c == '\t' || c == ',')

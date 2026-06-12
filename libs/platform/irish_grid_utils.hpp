@@ -1,4 +1,5 @@
 #pragma once
+
 #include "geometry/latlon.hpp"
 
 #include <optional>
@@ -47,8 +48,9 @@ std::optional<ms::LatLon> IrishGridToLatLon(std::string_view gridRef);
  * is just a cheap pre-filter - the region gate is the caller's job. */
 std::string FormatITM(double lat, double lon);
 
-/* Parse an ITM "easting northing" pair (space- or comma-separated) back to WGS84. Returns nullopt only
- * if the input is not two integers; as with the Irish Grid, geographic validity is the caller's job. */
+/* Parse an ITM "easting northing" pair (space- or comma-separated) back to WGS84. Returns nullopt
+ * unless the input is exactly two non-negative integers of at most 7 digits each (ITM values are 6);
+ * as with the Irish Grid, geographic validity is the caller's job. */
 std::optional<ms::LatLon> ITMToLatLon(std::string_view itm);
 
 /* True if regionId (an Organic Maps mwm region id) is one where the Irish systems are the official

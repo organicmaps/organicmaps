@@ -192,15 +192,18 @@ inline EN LatLonToEN(ms::LatLon const & ll, TMParams const & tm)
 // easting/northing -> lat/lon on the projection's own datum (inverse Lee-Redfearn).
 inline ms::LatLon ENToLatLon(EN const & en, TMParams const & tm)
 {
-  // Iterate the latitude until the meridional arc matches the requested northing.
+  // Iterate the latitude until the meridional arc matches the requested northing. For any in-range
+  // northing this converges in a handful of steps; the fixed iteration cap is a safety net so a
+  // pathological input cannot spin forever (mirrors the capped CartesianToGeodetic loop above).
   double phi = tm.lat0;
   double m = 0.0;
-  do
+  for (int i = 0; i < 20; ++i)
   {
     phi += (en.northing - tm.N0 - m) / (tm.ellipsoid.a * tm.F0);
     m = MeridionalArc(phi, tm);
+    if (std::fabs(en.northing - tm.N0 - m) < 0.00001)  // 0.01 mm.
+      break;
   }
-  while (std::fabs(en.northing - tm.N0 - m) >= 0.00001);  // 0.01 mm.
 
   double const sinPhi = std::sin(phi);
   double const cosPhi = std::cos(phi);
