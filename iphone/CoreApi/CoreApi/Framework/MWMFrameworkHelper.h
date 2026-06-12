@@ -55,6 +55,8 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (void)setTheme:(MWMTheme)theme;
 + (MWMDayTime)daytimeAtLocation:(nullable CLLocation *)location;
 + (void)createFramework;
+/// Returns YES after the C++ Framework was destroyed during app termination.
++ (BOOL)isFrameworkDestroyed;
 + (MWMMarkID)invalidBookmarkId;
 + (MWMMarkGroupID)invalidCategoryId;
 + (void)zoomMap:(MWMZoomMode)mode;

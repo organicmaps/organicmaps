@@ -92,6 +92,11 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   UNUSED_VALUE(GetFramework());
 }
 
++ (BOOL)isFrameworkDestroyed
+{
+  return IsFrameworkDestroyed();
+}
+
 + (MWMMarkID)invalidBookmarkId
 {
   return kml::kInvalidMarkId;

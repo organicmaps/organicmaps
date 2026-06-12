@@ -19,3 +19,8 @@ void DeleteFramework()
   delete g_framework;
   g_framework = nullptr;
 }
+
+bool IsFrameworkDestroyed()
+{
+  return g_wasDeleted;
+}
