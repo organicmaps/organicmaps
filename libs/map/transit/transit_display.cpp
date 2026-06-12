@@ -17,7 +17,9 @@ std::map<TransitType, std::string> const kTransitSymbols = {{TransitType::Subway
                                                             {TransitType::CableTram, "transit_cable_tram"},
                                                             {TransitType::AerialLift, "transit_aerial_lift"},
                                                             {TransitType::Funicular, "transit_funicular"},
-                                                            {TransitType::Trolleybus, "transit_trolleybus"},
+                                                            // Trolleybuses reuse the bus icon (no dedicated
+                                                            // trolleybus symbol; cities don't distinguish them).
+                                                            {TransitType::Trolleybus, "transit_bus"},
                                                             {TransitType::AirService, "transit_air_service"},
                                                             {TransitType::WaterService, "transit_water_service"}};
 
@@ -141,24 +143,30 @@ void TransitRouteInfo::UpdateDistanceStrings()
   routing::FormatDistance(m_totalPedestrianDistInMeters, m_totalPedestrianDistanceStr, m_totalPedestrianUnitsSuffix);
 }
 
-void AddTransitGateSegment(m2::PointD const & destPoint, std::string const & color, df::Subroute & subroute)
+// Appends |destPoint| to the subroute polyline as a single segment styled with |style|.
+void AddSegment(m2::PointD const & destPoint, df::SubrouteStyle style, df::Subroute & subroute)
 {
   ASSERT_GREATER(subroute.m_polyline.GetSize(), 0, ());
-  df::SubrouteStyle style(color, df::RoutePattern(4.0, 2.0));
   style.m_startIndex = subroute.m_polyline.GetSize() - 1;
   subroute.m_polyline.Add(destPoint);
   style.m_endIndex = subroute.m_polyline.GetSize() - 1;
   subroute.AddStyle(style);
 }
 
+void AddTransitGateSegment(m2::PointD const & destPoint, std::string const & color, df::Subroute & subroute)
+{
+  AddSegment(destPoint, df::SubrouteStyle(color, df::RoutePattern(4.0, 2.0)), subroute);
+}
+
 void AddTransitPedestrianSegment(m2::PointD const & destPoint, df::Subroute & subroute)
 {
-  ASSERT_GREATER(subroute.m_polyline.GetSize(), 0, ());
-  df::SubrouteStyle style(df::kRoutePedestrian, df::RoutePattern(4.0, 2.0));
-  style.m_startIndex = subroute.m_polyline.GetSize() - 1;
-  subroute.m_polyline.Add(destPoint);
-  style.m_endIndex = subroute.m_polyline.GetSize() - 1;
-  subroute.AddStyle(style);
+  AddSegment(destPoint, df::SubrouteStyle(df::kRoutePedestrian, df::RoutePattern(4.0, 2.0)), subroute);
+}
+
+// Bus/tram edges are stored without shapes, the route is drawn as a straight line to the next stop.
+void AddTransitStraightSegment(m2::PointD const & destPoint, std::string const & color, df::Subroute & subroute)
+{
+  AddSegment(destPoint, df::SubrouteStyle(color), subroute);
 }
 
 void AddTransitShapes(std::vector<routing::transit::ShapeId> const & shapeIds, TransitShapesInfo const & shapes,
@@ -283,8 +291,17 @@ void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const &
 
   if (id1 != id2)
   {
-    bool const isInverted = id1 > id2;
-    AddTransitShapes(edge.m_shapeIds, ssp.m_displayInfo.m_shapesSubway, currentColor, isInverted, subroute);
+    if (edge.m_shapeIds.empty())
+    {
+      auto const & destPoint =
+          isTransfer2 ? ssp.m_displayInfo.m_transfersSubway.at(stop2.GetTransferId()).GetPoint() : stop2.GetPoint();
+      AddTransitStraightSegment(destPoint, currentColor, subroute);
+    }
+    else
+    {
+      bool const isInverted = id1 > id2;
+      AddTransitShapes(edge.m_shapeIds, ssp.m_displayInfo.m_shapesSubway, currentColor, isInverted, subroute);
+    }
   }
 
   CHECK_GREATER(subroute.m_polyline.GetSize(), 1, ());
