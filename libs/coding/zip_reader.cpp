@@ -1,6 +1,7 @@
 #include "coding/zip_reader.hpp"
 
 #include "coding/constants.hpp"
+#include "coding/zlib.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
@@ -8,6 +9,7 @@
 
 #include <array>
 #include <cstring>
+#include <iterator>
 #include <memory>
 #include <utility>
 #include <vector>
@@ -45,20 +47,6 @@ private:
   bool m_completed;
 };
 
-// Accumulates the inflated bytes of a zip entry into one contiguous buffer.
-class MemBufferDelegate : public ZipFileReader::Delegate
-{
-public:
-  explicit MemBufferDelegate(uint64_t reserveSize) { m_buffer.reserve(static_cast<size_t>(reserveSize)); }
-
-  void OnBlockUnzipped(size_t size, char const * data) override { m_buffer.insert(m_buffer.end(), data, data + size); }
-
-  std::vector<char> TakeBuffer() { return std::move(m_buffer); }
-
-private:
-  std::vector<char> m_buffer;
-};
-
 // ModelReader backed by an owned in-memory buffer (e.g. an inflated zip entry). The buffer is shared,
 // so sub-readers keep it alive and stay valid independently of this reader's lifetime.
 class MemModelReader : public ModelReader
@@ -75,7 +63,7 @@ public:
 
   void Read(uint64_t pos, void * p, size_t size) const override
   {
-    ASSERT_LESS_OR_EQUAL(pos + size, m_size, (pos, size));
+    CHECK_LESS_OR_EQUAL(pos + size, m_size, (pos, size));
     std::memcpy(p, m_buffer->data() + m_offset + static_cast<size_t>(pos), size);
   }
 
@@ -83,7 +71,7 @@ public:
   // ModelReader, so returning a plain Reader would be UB.
   std::unique_ptr<Reader> CreateSubReader(uint64_t pos, uint64_t size) const override
   {
-    ASSERT_LESS_OR_EQUAL(pos + size, m_size, (pos, size));
+    CHECK_LESS_OR_EQUAL(pos + size, m_size, (pos, size));
     // Can't use make_unique with a private constructor.
     return std::unique_ptr<Reader>(
         new MemModelReader(m_buffer, m_offset + static_cast<size_t>(pos), static_cast<size_t>(size), GetName()));
@@ -151,11 +139,20 @@ std::unique_ptr<ModelReader> ZipFileReader::CreateModelReader(std::string const 
     return reader;
 
   // Deflated entry: it can't be read in place, so inflate it once into memory and serve reads there.
+  // The reader already maps the entry's raw DEFLATE bytes, so the single open above serves both the
+  // header lookup and the data -- inflate straight from them instead of reopening the container.
   uint64_t const uncompressedSize = reader->UncompressedSize();
+  std::vector<char> compressed(static_cast<size_t>(reader->Size()));
+  reader->Read(0, compressed.data(), compressed.size());
   reader.reset();
-  MemBufferDelegate delegate(uncompressedSize);
-  UnzipFile(zipContainer, fileInZip, delegate);
-  return std::make_unique<MemModelReader>(delegate.TakeBuffer(), fileInZip);
+
+  std::vector<char> inflated;
+  inflated.reserve(static_cast<size_t>(uncompressedSize));
+  coding::ZLib::Inflate const inflate(coding::ZLib::Inflate::Format::Raw);
+  if (!inflate(compressed.data(), compressed.size(), std::back_inserter(inflated)))
+    MYTHROW(InvalidZipException, ("Can't inflate", fileInZip, "from", zipContainer));
+
+  return std::make_unique<MemModelReader>(std::move(inflated), fileInZip);
 }
 
 void ZipFileReader::FilesList(std::string const & zipContainer, FileList & filesList)

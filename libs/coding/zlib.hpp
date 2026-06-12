@@ -27,7 +27,8 @@ public:
     {
       ZLib,
       GZip,
-      Both
+      Both,
+      Raw  // Headerless raw DEFLATE stream (e.g. a zip entry); no zlib/gzip wrapper.
     };
 
     explicit Inflate(Format format) noexcept : m_format(format) {}
@@ -57,7 +58,8 @@ public:
     enum class Format
     {
       ZLib,
-      GZip
+      GZip,
+      Raw  // Headerless raw DEFLATE stream; no zlib/gzip wrapper.
     };
 
     enum class Level
