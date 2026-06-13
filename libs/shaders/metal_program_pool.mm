@@ -72,6 +72,7 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
     ProgramInfo("vsArea", "fsArea", {{0, 1}}),                                        // TransparentArea
     ProgramInfo("vsCapJoin", "fsCapJoin", {{0, 2}}),                                  // CapJoin
     ProgramInfo("vsHatchingArea", "fsHatchingArea", {{0, 2}}),                        // HatchingArea
+    ProgramInfo("vsHatchingArea", "fsHatchingAreaDash", {{0, 2}}),                    // HatchingAreaDash
     ProgramInfo("vsTexturingGui", "fsTexturingGui", {{0, 1}}),                        // TexturingGui
     ProgramInfo("vsRuler", "fsRuler", {{0, 2}}),                                      // Ruler
     ProgramInfo("vsAccuracy", "fsAccuracy", {{0, 1}}),                                // Accuracy
