@@ -1,0 +1,50 @@
+name: Pre-commit check
+
+on:
+  pull_request:
+    branches: [ master ]
+
+# Cancels previous jobs if the same branch or PR was updated again.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v6
+
+      - name: Fetch base branch
+        run: git fetch origin ${{ github.base_ref }} --depth=1
+
+      - name: set PY
+        run: echo "PY=$(python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v5
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit|${{ env.PY }}|${{ hashFiles('.pre-commit-config.yaml') }}
+
+      - name: Install pre-commit
+        run: pip3 install pre-commit
+
+      - name: Check if pre-commit config changed
+        id: precommit_config
+        run: |
+          if git diff --name-only origin/${{ github.base_ref }} | grep -q ".pre-commit-config.yaml"; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run pre-commit on all files
+        if: steps.precommit_config.outputs.changed == 'true'
+        run: pre-commit run --all-files
+
+      - name: Run pre-commit on changed files
+        if: steps.precommit_config.outputs.changed != 'true'
+        run: pre-commit run --from-ref origin/${{ github.base_ref }} --to-ref HEAD

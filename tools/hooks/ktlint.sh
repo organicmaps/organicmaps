@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
-PATH=~/.local/bin:$PATH
-
 check_ktlint() {
-  return $(command -v ktlint >/dev/null 2>&1)
+  command -v ktlint >/dev/null 2>&1
 }
 
 install_ktlint() {
@@ -21,13 +19,13 @@ if [ -z "$KTLINT_VERSION" ]; then
   exit 1
 fi
 
-if ! ${check_ktlint}; then
+if ! check_ktlint; then
   install_ktlint
 fi
 
-if ${check_ktlint}; then
+if check_ktlint; then
   echo "Running ktlint version $KTLINT_VERSION"
-  ktlint $@
+  ~/.local/bin/ktlint $@
 else
   echo "ktlint not found. Please install ktlint to format Kotlin files."
 fi

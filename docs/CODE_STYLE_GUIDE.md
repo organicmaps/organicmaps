@@ -108,7 +108,11 @@ Follow the existing style in Python files as much as possible. We'll add a more 
 
 ## Automated formatting on pre-commit hook
 
-Run `git config core.hooksPath tools/hooks` to set up the pre-commit hook.
+Run the following commands to set up the pre-commit hook:
+```shell
+pip3 install pre-commit
+pre-commit install
+```
 
 After that, every time you commit, the hook will automatically format your
 `.java`, `.kt`, `.swift`, `.cpp`, `.hpp`, `.m`, `.mm`, `.h`, and `.cc` code according to the project's style rules.
@@ -117,7 +121,16 @@ You can bypass the auto-formatting with `git commit --no-verify` if necessary.
 
 To configure the formatting style, edit `.clang-format`, `.swiftformat` in the project root, and `android/.editorconfig` for Kotlin.
 
-To configure which files are formatted, edit `tools/hooks/format-config.bash`
+To configure which files are formatted, edit `.pre-commit-config.yaml` in the project root.
+
+To run pre-commit checks manually, you can use the following commands:
+```shell
+pre-commit run --all-files  # Run all checks on all files
+pre-commit run --files <file>  # Run checks on a specific file
+pre-commit run [hook-id] [options]  # Run a specific hook (e.g., clang-format) on all files or specific files
+```
+
+For more information on pre-commit, see the official documentation: https://pre-commit.com/
 
 ## Tips and Hints
 
