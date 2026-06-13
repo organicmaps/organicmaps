@@ -188,7 +188,9 @@ HttpUploader::Result HttpUploader::Upload() const
     for (auto const & keyValue : keyValues)
       params[@(keyValue.first.c_str())] = @(keyValue.second.c_str());
     return [params copy];
-  };
+    // clang-format off
+  }; // Removes semicolon
+  // clang-format on
 
   auto uploadTask = [[MultipartUploadTask alloc] init];
   uploadTask.method = @(m_payload.m_method.c_str());

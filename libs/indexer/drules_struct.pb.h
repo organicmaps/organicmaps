@@ -277,7 +277,7 @@ public:
 #if LANG_CXX11
   void set_name(::std::string && value);
 #endif
-  void set_name(const char * value);
+  void set_name(char const * value);
   void set_name(char const * value, size_t size);
   ::std::string * mutable_name();
   ::std::string * release_name();
@@ -705,7 +705,7 @@ public:
 #if LANG_CXX11
   void set_name(::std::string && value);
 #endif
-  void set_name(const char * value);
+  void set_name(char const * value);
   void set_name(char const * value, size_t size);
   ::std::string * mutable_name();
   ::std::string * release_name();
@@ -809,7 +809,7 @@ public:
 #if LANG_CXX11
   void set_text(::std::string && value);
 #endif
-  void set_text(const char * value);
+  void set_text(char const * value);
   void set_text(char const * value, size_t size);
   ::std::string * mutable_text();
   ::std::string * release_text();
@@ -1352,14 +1352,14 @@ public:
 #if LANG_CXX11
   void set_apply_if(int index, ::std::string && value);
 #endif
-  void set_apply_if(int index, const char * value);
+  void set_apply_if(int index, char const * value);
   void set_apply_if(int index, char const * value, size_t size);
   ::std::string * add_apply_if();
   void add_apply_if(::std::string const & value);
 #if LANG_CXX11
   void add_apply_if(::std::string && value);
 #endif
-  void add_apply_if(const char * value);
+  void add_apply_if(char const * value);
   void add_apply_if(char const * value, size_t size);
   ::google::protobuf::RepeatedPtrField<::std::string> const & apply_if() const;
   ::google::protobuf::RepeatedPtrField<::std::string> * mutable_apply_if();
@@ -1519,7 +1519,7 @@ public:
 #if LANG_CXX11
   void set_name(::std::string && value);
 #endif
-  void set_name(const char * value);
+  void set_name(char const * value);
   void set_name(char const * value, size_t size);
   ::std::string * mutable_name();
   ::std::string * release_name();
@@ -1603,7 +1603,7 @@ public:
 #if LANG_CXX11
   void set_name(::std::string && value);
 #endif
-  void set_name(const char * value);
+  void set_name(char const * value);
   void set_name(char const * value, size_t size);
   ::std::string * mutable_name();
   ::std::string * release_name();
@@ -1890,7 +1890,7 @@ inline void PathSymProto::set_name(::std::string && value)
   // @@protoc_insertion_point(field_set_rvalue:PathSymProto.name)
 }
 #endif
-inline void PathSymProto::set_name(const char * value)
+inline void PathSymProto::set_name(char const * value)
 {
   GOOGLE_DCHECK(value != NULL);
 
@@ -2380,7 +2380,7 @@ inline void SymbolRuleProto::set_name(::std::string && value)
   // @@protoc_insertion_point(field_set_rvalue:SymbolRuleProto.name)
 }
 #endif
-inline void SymbolRuleProto::set_name(const char * value)
+inline void SymbolRuleProto::set_name(char const * value)
 {
   GOOGLE_DCHECK(value != NULL);
 
@@ -2568,7 +2568,7 @@ inline void CaptionDefProto::set_text(::std::string && value)
   // @@protoc_insertion_point(field_set_rvalue:CaptionDefProto.text)
 }
 #endif
-inline void CaptionDefProto::set_text(const char * value)
+inline void CaptionDefProto::set_text(char const * value)
 {
   GOOGLE_DCHECK(value != NULL);
 
@@ -3374,7 +3374,7 @@ inline void DrawElementProto::set_apply_if(int index, ::std::string && value)
   apply_if_.Mutable(index)->assign(std::move(value));
 }
 #endif
-inline void DrawElementProto::set_apply_if(int index, const char * value)
+inline void DrawElementProto::set_apply_if(int index, char const * value)
 {
   GOOGLE_DCHECK(value != NULL);
   apply_if_.Mutable(index)->assign(value);
@@ -3402,7 +3402,7 @@ inline void DrawElementProto::add_apply_if(::std::string && value)
   // @@protoc_insertion_point(field_add:DrawElementProto.apply_if)
 }
 #endif
-inline void DrawElementProto::add_apply_if(const char * value)
+inline void DrawElementProto::add_apply_if(char const * value)
 {
   GOOGLE_DCHECK(value != NULL);
   apply_if_.Add()->assign(value);
@@ -3450,7 +3450,7 @@ inline void ClassifElementProto::set_name(::std::string && value)
   // @@protoc_insertion_point(field_set_rvalue:ClassifElementProto.name)
 }
 #endif
-inline void ClassifElementProto::set_name(const char * value)
+inline void ClassifElementProto::set_name(char const * value)
 {
   GOOGLE_DCHECK(value != NULL);
 
@@ -3545,7 +3545,7 @@ inline void ColorElementProto::set_name(::std::string && value)
   // @@protoc_insertion_point(field_set_rvalue:ColorElementProto.name)
 }
 #endif
-inline void ColorElementProto::set_name(const char * value)
+inline void ColorElementProto::set_name(char const * value)
 {
   GOOGLE_DCHECK(value != NULL);
 

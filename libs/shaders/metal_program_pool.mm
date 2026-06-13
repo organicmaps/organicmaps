@@ -43,13 +43,11 @@ struct ProgramInfo
   }
 };
 
-std::array<ProgramInfo, static_cast<size_t>(SystemProgram::SystemProgramsCount)> const kMetalSystemProgramsInfo = {
-    {
-     ProgramInfo("vsCleaner", "fsClearColor", {{0, 0}}),          // ClearColor
-        ProgramInfo("vsCleaner", "fsClearDepth", {{0, 0}}),          // ClearDepth
-        ProgramInfo("vsCleaner", "fsClearColorAndDepth", {{0, 0}}),  // ClearColorAndDepth
-    }
-};
+std::array<ProgramInfo, static_cast<size_t>(SystemProgram::SystemProgramsCount)> const kMetalSystemProgramsInfo = {{
+    ProgramInfo("vsCleaner", "fsClearColor", {{0, 0}}),          // ClearColor
+    ProgramInfo("vsCleaner", "fsClearDepth", {{0, 0}}),          // ClearDepth
+    ProgramInfo("vsCleaner", "fsClearColorAndDepth", {{0, 0}}),  // ClearColorAndDepth
+}};
 
 std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMetalProgramsInfo = {{
     ProgramInfo("vsColoredSymbol", "fsColoredSymbol", {{0, 2}}),                      // ColoredSymbol
