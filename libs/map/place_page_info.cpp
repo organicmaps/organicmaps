@@ -20,13 +20,13 @@
 
 #include "base/assert.hpp"
 
+#include "3party/open-location-code/openlocationcode.h"
+
 #include <iterator>
 #include <optional>
 #include <string>
 #include <string_view>
 #include <vector>
-
-#include "3party/open-location-code/openlocationcode.h"
 
 namespace place_page
 {
