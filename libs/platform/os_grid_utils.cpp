@@ -1,6 +1,6 @@
 #include "platform/os_grid_utils.hpp"
 
-#include "platform/geodesy.hpp"
+#include "geometry/geodesy.hpp"
 
 #include "base/math.hpp"
 #include "base/string_utils.hpp"

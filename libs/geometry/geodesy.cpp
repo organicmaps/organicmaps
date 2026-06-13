@@ -1,60 +1,12 @@
-#pragma once
-
-#include "geometry/latlon.hpp"
+#include "geometry/geodesy.hpp"
 
 #include "base/math.hpp"
 
 #include <cmath>
 
-/* Shared geodesy for the national grid systems (OS Grid, Irish Grid, ITM).
- *
- * These systems differ only in their ellipsoid, datum shift and transverse Mercator parameters; the
- * underlying maths - the 7-parameter Helmert datum transform and the Lee-Redfearn transverse Mercator
- * projection - is identical. It lives here once, parameterised by Ellipsoid / HelmertParams / TMParams,
- * so each grid file keeps only its own constants plus its grid-lettering and range rules.
- *
- * Header-only on purpose: the functions are small and leaf, and a header avoids adding a new compiled
- * translation unit to both CMake and the Xcode project.
- */
 namespace geodesy
 {
-struct Ellipsoid
-{
-  double a;  // Semi-major axis, m.
-  double b;  // Semi-minor axis, m.
-  double constexpr EccentricitySq() const { return (a * a - b * b) / (a * a); }
-  double constexpr ThirdFlattening() const { return (a - b) / (a + b); }
-};
-
-// WGS84. Also stands in for GRS80/ETRS89, which differ from it by well under a millimetre here.
-Ellipsoid constexpr kWgs84{6378137.0, 6356752.314245};
-
-struct Cartesian
-{
-  double x, y, z;
-};
-
-// 7-parameter Helmert transform. Rotations are stored in radians, scale as a ratio.
-struct HelmertParams
-{
-  double tx, ty, tz;  // Translations, m.
-  double rx, ry, rz;  // Rotations, rad.
-  double s;           // Scale, ratio.
-};
-
-double constexpr SecToRad(double sec)
-{
-  return math::DegToRad(sec / 3600.0);
-}
-
-// The reverse transform. Negating the linearized parameters is the standard approximation (round-trip
-// error < 1 cm, far below the metre-level accuracy of the Helmert transforms themselves).
-HelmertParams constexpr InverseHelmert(HelmertParams const & h)
-{
-  return {-h.tx, -h.ty, -h.tz, -h.rx, -h.ry, -h.rz, -h.s};
-}
-
-inline Cartesian GeodeticToCartesian(ms::LatLon const & ll, Ellipsoid const & e)
+Cartesian GeodeticToCartesian(ms::LatLon const & ll, Ellipsoid const & e)
 {
   double const phi = math::DegToRad(ll.m_lat);
   double const lambda = math::DegToRad(ll.m_lon);
@@ -66,7 +18,7 @@ inline Cartesian GeodeticToCartesian(ms::LatLon const & ll, Ellipsoid const & e)
   return {nu * cosPhi * std::cos(lambda), nu * cosPhi * std::sin(lambda), (1.0 - eSq) * nu * sinPhi};
 }
 
-inline ms::LatLon CartesianToGeodetic(Cartesian const & c, Ellipsoid const & e)
+ms::LatLon CartesianToGeodetic(Cartesian const & c, Ellipsoid const & e)
 {
   double const eSq = e.EccentricitySq();
   double const p = std::sqrt(c.x * c.x + c.y * c.y);
@@ -89,38 +41,19 @@ inline ms::LatLon CartesianToGeodetic(Cartesian const & c, Ellipsoid const & e)
   return {math::RadToDeg(phi), math::RadToDeg(std::atan2(c.y, c.x))};
 }
 
-inline Cartesian ApplyHelmert(Cartesian const & c, HelmertParams const & h)
+Cartesian ApplyHelmert(Cartesian const & c, HelmertParams const & h)
 {
   double const scale = 1.0 + h.s;
   return {h.tx + scale * c.x - h.rz * c.y + h.ry * c.z, h.ty + h.rz * c.x + scale * c.y - h.rx * c.z,
           h.tz - h.ry * c.x + h.rx * c.y + scale * c.z};
 }
 
-// Shift a lat/lon from one datum/ellipsoid to another via a Helmert transform (height assumed zero).
-inline ms::LatLon ShiftDatum(ms::LatLon const & ll, Ellipsoid const & from, HelmertParams const & h,
-                             Ellipsoid const & to)
+ms::LatLon ShiftDatum(ms::LatLon const & ll, Ellipsoid const & from, HelmertParams const & h, Ellipsoid const & to)
 {
   return CartesianToGeodetic(ApplyHelmert(GeodeticToCartesian(ll, from), h), to);
 }
 
-// A transverse Mercator definition: ellipsoid + projection origin, scale and false origin.
-struct TMParams
-{
-  Ellipsoid ellipsoid;
-  double F0;    // Scale factor on the central meridian.
-  double lat0;  // True origin latitude, rad.
-  double lon0;  // True origin longitude, rad.
-  double E0;    // False easting, m.
-  double N0;    // False northing, m.
-};
-
-struct EN
-{
-  double easting, northing;
-};
-
-// Meridional arc from the true origin to latitude phi for the given projection. Used by both directions.
-inline double MeridionalArc(double phi, TMParams const & tm)
+double MeridionalArc(double phi, TMParams const & tm)
 {
   double const n = tm.ellipsoid.ThirdFlattening();
   double const n2 = n * n;
@@ -135,15 +68,7 @@ inline double MeridionalArc(double phi, TMParams const & tm)
           35.0 / 24.0 * n3 * std::sin(3.0 * dMinus) * std::cos(3.0 * dPlus));
 }
 
-// Radii of curvature (x scale factor) and eta^2 at latitude phi. Shared by both projection directions.
-struct Curvature
-{
-  double nu;    // Transverse radius of curvature.
-  double rho;   // Meridional radius of curvature.
-  double eta2;  // nu / rho - 1.
-};
-
-inline Curvature ComputeCurvature(double sinPhi, TMParams const & tm)
+Curvature ComputeCurvature(double sinPhi, TMParams const & tm)
 {
   double const eSq = tm.ellipsoid.EccentricitySq();
   double const t = 1.0 - eSq * sinPhi * sinPhi;
@@ -153,8 +78,7 @@ inline Curvature ComputeCurvature(double sinPhi, TMParams const & tm)
   return {nu, rho, nu / rho - 1.0};
 }
 
-// lat/lon (on the projection's own datum) -> easting/northing (Lee-Redfearn transverse Mercator).
-inline EN LatLonToEN(ms::LatLon const & ll, TMParams const & tm)
+EN LatLonToEN(ms::LatLon const & ll, TMParams const & tm)
 {
   double const phi = math::DegToRad(ll.m_lat);
   double const lambda = math::DegToRad(ll.m_lon);
@@ -189,8 +113,7 @@ inline EN LatLonToEN(ms::LatLon const & ll, TMParams const & tm)
   return {easting, northing};
 }
 
-// easting/northing -> lat/lon on the projection's own datum (inverse Lee-Redfearn).
-inline ms::LatLon ENToLatLon(EN const & en, TMParams const & tm)
+ms::LatLon ENToLatLon(EN const & en, TMParams const & tm)
 {
   // Iterate the latitude until the meridional arc matches the requested northing. For any in-range
   // northing this converges in a handful of steps; the fixed iteration cap is a safety net so a
