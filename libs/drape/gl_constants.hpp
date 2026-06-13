@@ -92,6 +92,7 @@ extern glConst const GLMinFilter;
 extern glConst const GLMagFilter;
 extern glConst const GLWrapS;
 extern glConst const GLWrapT;
+extern glConst const GLTextureMaxLevel;
 
 /// Texture Wrap Modes
 extern glConst const GLRepeat;
@@ -101,6 +102,8 @@ extern glConst const GLClampToEdge;
 /// Texture Filter Modes
 extern glConst const GLLinear;
 extern glConst const GLNearest;
+extern glConst const GLLinearMipmapLinear;
+extern glConst const GLNearestMipmapNearest;
 
 /// OpenGL types
 extern glConst const GLByteType;

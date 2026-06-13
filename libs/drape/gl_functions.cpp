@@ -1007,11 +1007,11 @@ void GLFunctions::glBindTexture(uint32_t textureID, glConst target)
   GLCHECK(::glBindTexture(target, textureID));
 }
 
-void GLFunctions::glTexImage2D(int width, int height, glConst layout, glConst pixelType, void const * data)
+void GLFunctions::glTexImage2D(int width, int height, glConst layout, glConst pixelType, void const * data, int level)
 {
   ASSERT_EQUAL(CurrentApiVersion, dp::ApiVersion::OpenGLES3, ());
   int const internalFormat = TextureInternalFormatByLayout(layout, pixelType);
-  GLCHECK(::glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, layout, pixelType, data));
+  GLCHECK(::glTexImage2D(GL_TEXTURE_2D, level, internalFormat, width, height, 0, layout, pixelType, data));
 }
 
 void GLFunctions::glTexImage2DArray(int width, int height, int layers, glConst layout, glConst pixelType,

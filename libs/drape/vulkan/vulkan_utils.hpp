@@ -45,14 +45,16 @@ uint8_t GetStateByte(T & state, uint8_t byteNumber)
 struct SamplerKey
 {
   SamplerKey() = default;
-  SamplerKey(TextureFilter filter, TextureWrapping wrapSMode, TextureWrapping wrapTMode);
-  void Set(TextureFilter filter, TextureWrapping wrapSMode, TextureWrapping wrapTMode);
+  SamplerKey(TextureFilter filter, TextureWrapping wrapSMode, TextureWrapping wrapTMode, bool useMipmaps);
+  void Set(TextureFilter filter, TextureWrapping wrapSMode, TextureWrapping wrapTMode, bool useMipmaps);
   TextureFilter GetTextureFilter() const;
   TextureWrapping GetWrapSMode() const;
   TextureWrapping GetWrapTMode() const;
+  bool GetUseMipmaps() const { return m_useMipmaps; }
   bool operator<(SamplerKey const & rhs) const;
 
   uint32_t m_sampler = 0;
+  bool m_useMipmaps = false;
 };
 
 class DebugName

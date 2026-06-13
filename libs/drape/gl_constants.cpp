@@ -173,6 +173,7 @@ constexpr glConst GLMinFilter = GL_TEXTURE_MIN_FILTER;
 constexpr glConst GLMagFilter = GL_TEXTURE_MAG_FILTER;
 constexpr glConst GLWrapS = GL_TEXTURE_WRAP_S;
 constexpr glConst GLWrapT = GL_TEXTURE_WRAP_T;
+constexpr glConst GLTextureMaxLevel = GL_TEXTURE_MAX_LEVEL;
 
 constexpr glConst GLRepeat = GL_REPEAT;
 constexpr glConst GLMirroredRepeat = GL_MIRRORED_REPEAT;
@@ -180,6 +181,8 @@ constexpr glConst GLClampToEdge = GL_CLAMP_TO_EDGE;
 
 constexpr glConst GLLinear = GL_LINEAR;
 constexpr glConst GLNearest = GL_NEAREST;
+constexpr glConst GLLinearMipmapLinear = GL_LINEAR_MIPMAP_LINEAR;
+constexpr glConst GLNearestMipmapNearest = GL_NEAREST_MIPMAP_NEAREST;
 
 constexpr glConst GLByteType = GL_BYTE;
 constexpr glConst GLUnsignedByteType = GL_UNSIGNED_BYTE;

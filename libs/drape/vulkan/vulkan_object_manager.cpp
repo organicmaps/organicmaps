@@ -149,7 +149,7 @@ VulkanObject VulkanObjectManager::CreateBuffer(VulkanMemoryManager::ResourceType
 
 VulkanObject VulkanObjectManager::CreateImage(VkImageUsageFlags usageFlags, VkFormat format, VkImageTiling tiling,
                                               VkImageAspectFlags aspectFlags, uint32_t width, uint32_t height,
-                                              uint32_t layerCount)
+                                              uint32_t layerCount, uint32_t mipLevels)
 {
   VulkanObject result;
   VkImageCreateInfo imageCreateInfo = {};
@@ -157,7 +157,7 @@ VulkanObject VulkanObjectManager::CreateImage(VkImageUsageFlags usageFlags, VkFo
   imageCreateInfo.pNext = nullptr;
   imageCreateInfo.imageType = VK_IMAGE_TYPE_2D;
   imageCreateInfo.format = format;
-  imageCreateInfo.mipLevels = 1;
+  imageCreateInfo.mipLevels = mipLevels;
   imageCreateInfo.arrayLayers = layerCount;
   imageCreateInfo.samples = VK_SAMPLE_COUNT_1_BIT;
   imageCreateInfo.tiling = tiling;
@@ -199,7 +199,7 @@ VulkanObject VulkanObjectManager::CreateImage(VkImageUsageFlags usageFlags, VkFo
   }
   viewCreateInfo.subresourceRange.aspectMask = aspectFlags;
   viewCreateInfo.subresourceRange.baseMipLevel = 0;
-  viewCreateInfo.subresourceRange.levelCount = 1;
+  viewCreateInfo.subresourceRange.levelCount = mipLevels;
   viewCreateInfo.subresourceRange.baseArrayLayer = 0;
   viewCreateInfo.subresourceRange.layerCount = layerCount;
   viewCreateInfo.image = result.m_image;
@@ -486,6 +486,9 @@ VkSampler VulkanObjectManager::GetSampler(SamplerKey const & key)
   samplerCreateInfo.magFilter = samplerCreateInfo.minFilter = GetVulkanFilter(key.GetTextureFilter());
   samplerCreateInfo.addressModeU = GetVulkanSamplerAddressMode(key.GetWrapSMode());
   samplerCreateInfo.addressModeV = GetVulkanSamplerAddressMode(key.GetWrapTMode());
+  // Trilinear across mip levels when present; otherwise clamp to level 0 (maxLod 0).
+  samplerCreateInfo.mipmapMode = key.GetUseMipmaps() ? VK_SAMPLER_MIPMAP_MODE_LINEAR : VK_SAMPLER_MIPMAP_MODE_NEAREST;
+  samplerCreateInfo.maxLod = key.GetUseMipmaps() ? VK_LOD_CLAMP_NONE : 0.0f;
 
   VkSampler sampler;
   CHECK_VK_CALL(vkCreateSampler(m_device, &samplerCreateInfo, nullptr, &sampler));

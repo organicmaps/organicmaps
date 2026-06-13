@@ -172,17 +172,18 @@ VkFormat VulkanFormatUnpacker::Unpack(TextureFormat format)
   UNREACHABLE();
 }
 
-SamplerKey::SamplerKey(TextureFilter filter, TextureWrapping wrapSMode, TextureWrapping wrapTMode)
+SamplerKey::SamplerKey(TextureFilter filter, TextureWrapping wrapSMode, TextureWrapping wrapTMode, bool useMipmaps)
 {
-  Set(filter, wrapSMode, wrapTMode);
+  Set(filter, wrapSMode, wrapTMode, useMipmaps);
 }
 
-void SamplerKey::Set(TextureFilter filter, TextureWrapping wrapSMode, TextureWrapping wrapTMode)
+void SamplerKey::Set(TextureFilter filter, TextureWrapping wrapSMode, TextureWrapping wrapTMode, bool useMipmaps)
 {
   SetStateByte(m_sampler, static_cast<uint8_t>(filter), kMinFilterByte);
   SetStateByte(m_sampler, static_cast<uint8_t>(filter), kMagFilterByte);
   SetStateByte(m_sampler, static_cast<uint8_t>(wrapSMode), kWrapSModeByte);
   SetStateByte(m_sampler, static_cast<uint8_t>(wrapTMode), kWrapTModeByte);
+  m_useMipmaps = useMipmaps;
 }
 
 TextureFilter SamplerKey::GetTextureFilter() const
@@ -202,7 +203,9 @@ TextureWrapping SamplerKey::GetWrapTMode() const
 
 bool SamplerKey::operator<(SamplerKey const & rhs) const
 {
-  return m_sampler < rhs.m_sampler;
+  if (m_sampler != rhs.m_sampler)
+    return m_sampler < rhs.m_sampler;
+  return m_useMipmaps < rhs.m_useMipmaps;
 }
 }  // namespace vulkan
 }  // namespace dp

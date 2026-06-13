@@ -353,9 +353,9 @@ id<MTLRenderPipelineState> MetalBaseContext::GetPipelineState(ref_ptr<GpuProgram
 }
 
 id<MTLSamplerState> MetalBaseContext::GetSamplerState(TextureFilter filter, TextureWrapping wrapSMode,
-                                                      TextureWrapping wrapTMode)
+                                                      TextureWrapping wrapTMode, bool useMipmaps)
 {
-  MetalStates::SamplerKey const key(filter, wrapSMode, wrapTMode);
+  MetalStates::SamplerKey const key(filter, wrapSMode, wrapTMode, useMipmaps);
   return m_metalStates.GetSamplerState(m_device, key);
 }
 

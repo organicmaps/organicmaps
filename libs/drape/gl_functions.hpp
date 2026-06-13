@@ -139,7 +139,7 @@ public:
   static uint32_t glGenTexture();
   static void glDeleteTexture(uint32_t id);
   static void glBindTexture(uint32_t textureID, glConst target = gl_const::GLTexture2D);
-  static void glTexImage2D(int width, int height, glConst layout, glConst pixelType, void const * data);
+  static void glTexImage2D(int width, int height, glConst layout, glConst pixelType, void const * data, int level = 0);
   static void glTexImage2DArray(int width, int height, int layers, glConst layout, glConst pixelType,
                                 void const * data);
   static void glTexSubImage2D(int x, int y, int width, int height, glConst layout, glConst pixelType,

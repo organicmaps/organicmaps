@@ -50,7 +50,7 @@ MTLTextureDescriptor * CreateTextureDescriptor(HWTexture::Params const & params)
   return [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:UnpackFormat(params.m_format)
                                                             width:params.m_width
                                                            height:params.m_height
-                                                        mipmapped:NO];
+                                                        mipmapped:(params.m_useMipmaps ? YES : NO)];
 }
 }  // namespace
 
@@ -65,7 +65,7 @@ void MetalTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & p
   ref_ptr<MetalBaseContext> metalContext = context;
   id<MTLDevice> metalDevice = metalContext->GetMetalDevice();
 
-  MTLTextureDescriptor * texDesc = CreateTextureDescriptor(params);
+  MTLTextureDescriptor * texDesc = CreateTextureDescriptor(m_params);
   texDesc.usage = MTLTextureUsageShaderRead;
   m_isMutable = params.m_isMutable;
   if (params.m_isRenderTarget)
@@ -82,11 +82,29 @@ void MetalTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & p
     CHECK(m_texture != nil, ());
     if (data)
     {
-      auto const imageBytes = GetBytesPerPixel(params.m_format) * params.m_width * params.m_height;
+      auto const bytesPerPixel = GetBytesPerPixel(params.m_format);
+      auto const imageBytes = bytesPerPixel * params.m_width * params.m_height;
       for (uint32_t layer = 0; layer < params.m_layerCount; ++layer)
       {
         void * layerData = static_cast<uint8_t *>(data.get()) + layer * imageBytes;
         UploadDataImpl(0, 0, params.m_width, params.m_height, layer, make_ref(layerData));
+      }
+
+      // Upload the CPU-built mip chain as explicit levels.
+      if (m_params.m_useMipmaps)
+      {
+        auto const levels =
+            BuildMipmapLevels(static_cast<uint8_t const *>(data.get()), params.m_width, params.m_height, bytesPerPixel);
+        for (size_t i = 0; i < levels.size(); ++i)
+        {
+          MTLRegion const region = MTLRegionMake2D(0, 0, levels[i].m_width, levels[i].m_height);
+          [m_texture replaceRegion:region
+                       mipmapLevel:(i + 1)
+                             slice:0
+                         withBytes:levels[i].m_data.data()
+                       bytesPerRow:(levels[i].m_width * bytesPerPixel)
+                     bytesPerImage:0];
+        }
       }
     }
   }
