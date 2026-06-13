@@ -6,6 +6,5 @@
         "ms-vscode.cpp-devtools",
         "xaver.clang-format",
         "llvm-vs-code-extensions.vscode-clangd",
-        "twxs.cmake"
     ]
 }
