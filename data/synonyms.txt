@@ -92,12 +92,12 @@ Gisborne: GIS
 Hawke's Bay: HKB
 Marlborough: MBH
 Manawatu-Wanganui: MWT
-Nelson: NSN	
+Nelson: NSN
 Northland: NTL
 Otago: OTA
-Southland: STL	
-Taranaki: TKI	
-Waikato: WKO		
-Wellington: WGN	
-West Coast: WTC	
+Southland: STL
+Taranaki: TKI
+Waikato: WKO
+Wellington: WGN
+West Coast: WTC
 Chatham Islands: CIT

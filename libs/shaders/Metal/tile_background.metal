@@ -26,17 +26,17 @@ vertex Fragment_T vsTileBackground(uint vertexId [[vertex_id]],
                                    constant Uniforms_T & uniforms [[buffer(1)]])
 {
   Fragment_T out;
-  
+
   // Quad vertices: (0,0), (1,0), (0,1), (1,1) based on vertexId
   float2 quadVertex = float2(vertexId & 1, (vertexId >> 1) & 1);
-  
+
   float4 tileCoordsMinMax = uniforms.u_tileCoordsMinMax[instanceId];
   float2 worldPos = mix(tileCoordsMinMax.xy, tileCoordsMinMax.zw, quadVertex);
   float4 pos = float4(worldPos, 0.0, 1.0) * uniforms.u_modelView * uniforms.u_projection;
   out.position = ApplyPivotTransform(pos, uniforms.u_pivotTransform, 0.0);
-  
+
   out.texCoords = float3(quadVertex, float(uniforms.u_textureIndex[instanceId]));
-  
+
   return out;
 }
 

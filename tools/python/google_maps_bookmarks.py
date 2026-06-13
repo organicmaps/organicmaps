@@ -25,7 +25,7 @@ class GoogleMapsConverter:
         print ("5a. Look for CSV files (e.g. for lists) in the folder Takeout/Saved")
         print ("5b. Look for GeoJSON files (e.g. for Saved Places) in the folder Takeout/Maps")
         print()
-        
+
         if input_file is None:
             self.get_input_file()
         else:
@@ -50,7 +50,7 @@ class GoogleMapsConverter:
             self.get_api_key()
         else:
             self.api_key = api_key
-        
+
         self.places = []
 
     def get_input_file(self):
@@ -63,7 +63,7 @@ class GoogleMapsConverter:
                 print(f"Couldn't read {self.input_file}")
                 continue
             break
-    
+
     def get_output_format(self):
         while True:
             self.output_format = input("Output format (kml or gpx): ").lower()
@@ -72,7 +72,7 @@ class GoogleMapsConverter:
                 continue
             else:
                 break
-    
+
     def get_bookmark_list_name(self):
         while True:
             self.bookmark_list_name = input("Bookmark list name: ")
@@ -82,7 +82,7 @@ class GoogleMapsConverter:
             else:
                 self.output_file = self.bookmark_list_name + "." + self.output_format
                 break
-            
+
     def get_api_key(self):
         while True:
             if self.api_key:
@@ -93,13 +93,13 @@ class GoogleMapsConverter:
                 continue
             else:
                 break
-            
+
     def convert_timestamp(self, timestamp):
         if timestamp.endswith('Z'):
             timestamp = timestamp[:-1]
         date = datetime.fromisoformat(timestamp)
         return date.strftime('%Y-%m-%d %H:%M:%S')
-        
+
     def get_json(self, url):
         max_attempts = 3
         for retry in range(max_attempts):
@@ -117,7 +117,7 @@ class GoogleMapsConverter:
         url = None
         if q:
             params = {'query': q, 'key': api_key}
-            url = f"https://maps.googleapis.com/maps/api/place/textsearch/json?{urllib.parse.urlencode(params)}"   
+            url = f"https://maps.googleapis.com/maps/api/place/textsearch/json?{urllib.parse.urlencode(params)}"
         elif cid:
             params = {'cid': cid, 'fields': 'geometry,name', 'key': api_key}
             url= f"https://maps.googleapis.com/maps/api/place/details/json?{urllib.parse.urlencode(params)}"
@@ -132,8 +132,8 @@ class GoogleMapsConverter:
             return {'name': name, 'coordinates': [str(location['lat']), str(location['lng'])]}
         else:
             print(f'{result.get("status", "")}: {result.get("error_message", "")}')
-            return None     
-                
+            return None
+
     def process_geojson_features(self, content):
         try:
             geojson = json.loads(content)
@@ -146,7 +146,7 @@ class GoogleMapsConverter:
             google_maps_url = properties.get('google_maps_url', '')
             location = properties.get('location', {})
             name = None
-            
+
             # Check for "null island" coordinates [0, 0]
             # These are a common artifact of Google Maps exports
             # See https://github.com/organicmaps/organicmaps/pull/8721
@@ -167,13 +167,13 @@ class GoogleMapsConverter:
                             name = result['name']
                     else:
                         print(f"Couldn't extract coordinates from Google Maps. Skipping {q or cid}")
-                    
+
             coord_string = ', '.join(map(str, coordinates)) if coordinates else None
             # If name was not retrieved from the Google Maps API, then use the name from the location object,
             # with a fallback to the address, and finally to the coordinates
             if not name:
                 name = location.get('name') or location.get('address') or coord_string
-                
+
             description = ""
             if 'address' in properties:
                 description += f"<b>Address:</b> {location['address']}<br>"
@@ -225,7 +225,7 @@ class GoogleMapsConverter:
 
                 self.places.append({'name': name, 'description': description, 'coordinates': coordinates})
             except Exception:
-                print(f"Couldn't parse {name}: {traceback.format_exc()}")   
+                print(f"Couldn't parse {name}: {traceback.format_exc()}")
 
     def write_kml(self):
         root = ET.Element("kml")
@@ -253,7 +253,7 @@ class GoogleMapsConverter:
             content = file.read().strip()
             if not content:
                 raise ValueError(f"The file {self.input_file} is empty or not a valid JSON file.")
-            
+
             mime_type, _ = mimetypes.guess_type(self.input_file)
             if mime_type == 'application/geo+json' or mime_type == 'application/json':
                 self.process_geojson_features(content)
@@ -261,7 +261,7 @@ class GoogleMapsConverter:
                 self.process_csv_features(content)
             else:
                 raise ValueError(f"Unsupported file format: {self.input_file}")
-        
+
         # Write to output file in the desired format, KML or GPX
         if self.output_format == 'kml':
             self.write_kml()
@@ -278,9 +278,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     converter = GoogleMapsConverter(
-        input_file=args.input, 
-        output_format=args.format, 
-        bookmark_list_name=args.bookmark_list_name, 
+        input_file=args.input,
+        output_format=args.format,
+        bookmark_list_name=args.bookmark_list_name,
         api_key=args.api_key
     )
     converter.convert()

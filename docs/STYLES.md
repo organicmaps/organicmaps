@@ -23,9 +23,9 @@ Install a `protobuf` python package with `pip`
 ```
 pip install protobuf
 ```
-or with your OS package manager, e.g for Ubuntu 
+or with your OS package manager, e.g for Ubuntu
 ```
-sudo apt install python3-protobuf 
+sudo apt install python3-protobuf
 ```
 
 To run the `generate_symbols.sh` script install `optipng` also, e.g. for Ubuntu

@@ -17,11 +17,11 @@ void main()
 {
   // Quad vertices: (0,0), (1,0), (0,1), (1,1) based on gl_VertexID
   vec2 quadVertex = vec2(gl_VertexIndex & 1, (gl_VertexIndex >> 1) & 1);
-  
+
   vec4 tileCoordsMinMax = u_tileCoordsMinMax[gl_InstanceIndex];
   vec2 worldPos = mix(tileCoordsMinMax.xy, tileCoordsMinMax.zw, quadVertex);
   vec4 pos = vec4(worldPos, 0.0, 1.0) * u_modelView * u_projection;
   gl_Position = applyPivotTransform(pos, u_pivotTransform, 0.0);
-  
+
   v_texCoords = vec3(quadVertex, float(u_textureIndex[gl_InstanceIndex]));
 }

@@ -9,7 +9,7 @@ def strip(s):
     return s.strip('\t\n ')
 
 def load_data(path):
-    
+
     global cities
 
     f = open(path, 'r')
@@ -49,7 +49,7 @@ def avgDistance(approx, data):
     dist = 0
     for x in xrange(len(data)):
         dist += math.fabs(approx[x] - data[x])
-    return dist / float(len(data))  
+    return dist / float(len(data))
 
 def findBest(popul, data, minBase = 5, maxBase = 100, stepBase = 0.1, minMult = 0.01, maxMult = 1, stepMult = 0.01):
 
@@ -63,7 +63,7 @@ def findBest(popul, data, minBase = 5, maxBase = 100, stepBase = 0.1, minMult = 
     while base <= maxBase:
         print "%.02f%% best mult: %f, best base: %f, best dist: %f" % (100 * (base - minBase) / (maxBase - minBase), bestMult, bestBase, minDist)
         mult = minMult
-        
+
         while mult <= maxMult:
             approx = []
 
@@ -136,7 +136,7 @@ if __name__ == "__main__":
 
     if len(sys.argv) < 3:
         print 'city_radius.py <data_file> <steps>'
-    
+
     parser = OptionParser()
     parser.add_option("-f", "--file", dest="filename", default="city_popul_sqr.data",
                     help="source data file", metavar="path")
@@ -149,7 +149,7 @@ if __name__ == "__main__":
     parser.add_option('-b', '--base',
                     dest='base', default=3.6,
                     help="base value")
-    parser.add_option('-d', '--data', 
+    parser.add_option('-d', '--data',
                     default=0, dest='data',
                     help="Dataset to use on best values scan: 0 - max, 1 - avg, 2 - sqr")
 

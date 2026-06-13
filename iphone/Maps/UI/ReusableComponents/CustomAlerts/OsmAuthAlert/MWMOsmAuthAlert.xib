@@ -40,8 +40,7 @@
                                 <constraint firstAttribute="width" constant="240" id="6y2-gu-OZJ"/>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="uAq-DT-bJU"/>
                             </constraints>
-                            <string key="text">Войдите, чтобы ваши изменения увидели 
-другие пользователи</string>
+                            <string key="text">Войдите, чтобы ваши изменения увидели другие пользователи</string>
                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>

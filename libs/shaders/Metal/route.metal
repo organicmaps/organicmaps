@@ -53,12 +53,12 @@ vertex RouteFragment_T vsRoute(const RouteVertex_T in [[stage_in]],
     if (uniforms.u_routeParams.y != 0.0)
       len = float2(in.a_length.x + in.a_length.y * uniforms.u_routeParams.y, in.a_length.z);
   }
-  
+
   out.lengthParams = float3(len, uniforms.u_routeParams.z);
   out.color = in.a_color;
   float4 pos = float4(transformedAxisPos, in.a_position.z, 1.0) * uniforms.u_projection;
   out.position = ApplyPivotTransform(pos, uniforms.u_pivotTransform, 0.0);
-  
+
   return out;
 }
 
@@ -67,11 +67,11 @@ fragment float4 fsRoute(const RouteFragment_T in [[stage_in]],
 {
   if (in.lengthParams.x < in.lengthParams.z)
     discard_fragment();
-  
+
   constexpr float kAntialiasingThreshold = 0.92;
   constexpr float kOutlineThreshold1 = 0.81;
   constexpr float kOutlineThreshold2 = 0.71;
-  
+
   float2 fb = uniforms.u_fakeBorders;
   float2 coefs = step(in.lengthParams.xx, fb);
   coefs.y = 1.0 - coefs.y;
@@ -79,7 +79,7 @@ fragment float4 fsRoute(const RouteFragment_T in [[stage_in]],
   mainColor = mix(mainColor, uniforms.u_fakeColor, coefs.y);
   float4 mainOutlineColor = mix(uniforms.u_outlineColor, uniforms.u_fakeOutlineColor, coefs.x);
   mainOutlineColor = mix(mainOutlineColor, uniforms.u_fakeOutlineColor, coefs.y);
-  
+
   float4 color = mix(mix(mainColor, float4(in.color.rgb, 1.0), in.color.a), mainColor,
                      step(uniforms.u_routeParams.w, 0.0));
   color = mix(color, mainOutlineColor, step(kOutlineThreshold1, abs(in.lengthParams.y)));
@@ -102,15 +102,15 @@ fragment float4 fsRouteDash(const RouteFragment_T in [[stage_in]],
 {
   if (in.lengthParams.x < in.lengthParams.z)
     discard_fragment();
-  
+
   constexpr float kAntialiasingThreshold = 0.92;
-  
+
   float2 fb = uniforms.u_fakeBorders;
   float2 coefs = step(in.lengthParams.xx, fb);
   coefs.y = 1.0 - coefs.y;
   float4 mainColor = mix(uniforms.u_color, uniforms.u_fakeColor, coefs.x);
   mainColor = mix(mainColor, uniforms.u_fakeColor, coefs.y);
-  
+
   float4 color = mainColor + in.color;
   float a = 1.0 - smoothstep(kAntialiasingThreshold, 1.0, abs(in.lengthParams.y));
   color.a *= (a * AlphaFromPattern(in.lengthParams.x, uniforms.u_pattern));
@@ -143,7 +143,7 @@ vertex RouteArrowFragment_T vsRouteArrow(const RouteArrowVertex_T in [[stage_in]
                                          constant Uniforms_T & uniforms [[buffer(1)]])
 {
   RouteArrowFragment_T out;
-  
+
   float2 transformedAxisPos = (float4(in.a_position.xy, 0.0, 1.0) * uniforms.u_modelView).xy;
   if (dot(in.a_normal, in.a_normal) != 0.0)
   {
@@ -151,11 +151,11 @@ vertex RouteArrowFragment_T vsRouteArrow(const RouteArrowVertex_T in [[stage_in]
     transformedAxisPos = CalcLineTransformedAxisPos(transformedAxisPos, in.a_position.xy + norm,
                                                     uniforms.u_modelView, length(norm));
   }
-  
+
   out.texCoords = in.a_texCoords;
   float4 pos = float4(transformedAxisPos, in.a_position.z, 1.0) * uniforms.u_projection;
   out.position = ApplyPivotTransform(pos, uniforms.u_pivotTransform, 0.0);
-  
+
   return out;
 }
 
@@ -200,7 +200,7 @@ vertex RouteMarkerFragment_T vsRouteMarker(const RouteMarkerVertex_T in [[stage_
                                            constant Uniforms_T & uniforms [[buffer(1)]])
 {
   RouteMarkerFragment_T out;
-  
+
   float r = uniforms.u_routeParams.x * in.a_normal.z;
   float2 cs = uniforms.u_angleCosSin;
   float2 normal = float2(in.a_normal.x * cs.x - in.a_normal.y * cs.y,
@@ -221,21 +221,21 @@ fragment RouteMarkerFragment_Output fsRouteMarker(const RouteMarkerFragment_T in
 {
   if (uniforms.u_routeParams.y > in.radius.w)
     discard_fragment();
-  
+
   RouteMarkerFragment_Output output;
-  
+
   constexpr float kAntialiasingPixelsCount = 2.5;
   float4 color = in.color;
-  
+
   float aaRadius = max(in.radius.z - kAntialiasingPixelsCount, 0.0);
   float stepValue = smoothstep(aaRadius * aaRadius, in.radius.z * in.radius.z,
                                dot(in.radius.xy, in.radius.xy));
   color.a = color.a * uniforms.u_opacity * (1.0 - stepValue);
-  
+
   output.depth = in.position.z;
   if (color.a < 0.001)
     output.depth = 1.0;
   output.color = float4(mix(color.rgb, uniforms.u_maskColor.rgb, uniforms.u_maskColor.a), color.a);
-  
+
   return output;
 }

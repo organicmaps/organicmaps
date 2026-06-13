@@ -39,7 +39,7 @@ vertex FragmentAccuracy_T vsAccuracy(const Vertex_T in [[stage_in]],
   float4 position = float4(uPosition.xy, 0.0, 1.0) * uniforms.u_modelView;
   float4 normal = float4(in.a_normal * uniforms.u_accuracy, 0.0, 0.0);
   position = (position + normal) * uniforms.u_projection;
- 
+
   FragmentAccuracy_T out;
   out.position = ApplyPivotTransform(position, uniforms.u_pivotTransform, uPosition.z * uniforms.u_zScale);
   out.colorTexCoords = in.a_colorTexCoords;
@@ -75,7 +75,7 @@ vertex FragmentMyPosition_T vsMyPosition(const Vertex_T in [[stage_in]],
   rotation[1] = float4(-sinV, cosV, 0.0, 0.0);
   rotation[2] = float4(0.0, 0.0, 1.0, 0.0);
   rotation[3] = float4(0.0, 0.0, 0.0, 1.0);
-  
+
   float4 pos = float4(uniforms.u_position, 1.0) * uniforms.u_modelView;
   float4 normal = float4(in.a_normal, 0.0, 0.0);
   float4 shiftedPos = normal * rotation + pos;
@@ -83,7 +83,7 @@ vertex FragmentMyPosition_T vsMyPosition(const Vertex_T in [[stage_in]],
   FragmentMyPosition_T out;
   out.position = ApplyPivotTransform(shiftedPos * uniforms.u_projection, uniforms.u_pivotTransform, 0.0);
   out.colorTexCoords = in.a_colorTexCoords;
-  
+
   return out;
 }
 
@@ -120,7 +120,7 @@ vertex SelectionLineFragment_T vsSelectionLine(const SelectionLineVertex_T in [[
                                                sampler u_colorTexSampler [[sampler(0)]])
 {
   SelectionLineFragment_T out;
-  
+
   float2 transformedAxisPos = (float4(in.a_position.xy, 0.0, 1.0) * uniforms.u_modelView).xy;
   float2 len = float2(in.a_length.x, in.a_length.z);
   float2 lineParams = uniforms.u_lineParams;
@@ -132,16 +132,16 @@ vertex SelectionLineFragment_T vsSelectionLine(const SelectionLineVertex_T in [[
     if (lineParams.y != 0.0)
       len = float2(in.a_length.x + in.a_length.y * lineParams.y, in.a_length.z);
   }
-  
+
   out.lengthY = len.y;
-  
+
   float4 color = u_colorTex.sample(u_colorTexSampler, in.a_colorTexCoords);
   color.a *= uniforms.u_opacity;
   out.color = color;
-  
+
   float4 pos = float4(transformedAxisPos, in.a_position.z, 1.0) * uniforms.u_projection;
   out.position = ApplyPivotTransform(pos, uniforms.u_pivotTransform, 0.0);
-  
+
   return out;
 }
 

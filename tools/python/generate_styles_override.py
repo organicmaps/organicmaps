@@ -24,7 +24,7 @@ def copy_style_file(style_path, drules_suffix, target_path):
 
 if len(sys.argv) < 2:
     print('Usage: {0} <path_to_omim/data/styles> [<target_path>]'.format(sys.argv[0]))
-    sys.exit() 
+    sys.exit()
 
 path_to_styles = sys.argv[1]
 if not os.path.isdir(path_to_styles):

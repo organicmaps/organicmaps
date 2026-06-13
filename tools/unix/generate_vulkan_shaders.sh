@@ -13,7 +13,7 @@ source "$MY_PATH/../autobuild/ndk_helper.sh"
 export NDK_ROOT=$(GetNdkRoot)
 if [ -z "$NDK_ROOT" ]
 then
-    echo "Can't find NDK root path"; exit 1 
+    echo "Can't find NDK root path"; exit 1
 fi
 KERNEL_NAME="$( uname -s )"
 if [[ $KERNEL_NAME == 'Darwin' ]]

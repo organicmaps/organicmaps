@@ -189,19 +189,19 @@ def write_shader_line(output_file, line, shader_file, binding_info):
         output_line = re.sub(r"layout\s*\([^)]*\)\s*", "", output_line)
     else:
         binding_index = None
-        
+
     # Remove lauout(location = X) part. Mali compiler may not support it.
     output_line = re.sub(r"layout\s*\(\s*location\s*=\s*\d+\s*\)\s*", "", output_line)
 
     # Extract sampler name
     sampler_match = re.search(r"sampler2D\s+(\w+)", output_line)
     sampler_name = sampler_match.group(1) if sampler_match else None
-    
+
     if binding_index is None and sampler_name is not None:
         print(f"Incorrect shader {shader_file}. Sampler must have binding index")
         exit(2)
-    
-    ubo_started = False    
+
+    ubo_started = False
     if line.find("uniform UBO") >= 0 or line.find("buffer UBO") >= 0:
         if binding_index is not None:
             binding_info[shader_file].append({UBO_KEY: binding_index})
@@ -209,13 +209,13 @@ def write_shader_line(output_file, line, shader_file, binding_info):
         else:
             print(f"Incorrect shader {shader_file}. Uniform block must have binding index")
             exit(2)
-        
+
     if binding_index and sampler_name:
         binding_info[shader_file].append({sampler_name: binding_index})
-    
-    if not ubo_started:    
+
+    if not ubo_started:
         output_file.write("  %s \\n\\\n" % output_line)
-        
+
     return ubo_started
 
 
@@ -234,9 +234,9 @@ def write_uniform_shader_line(output_file, line, shader_file, binding_info):
     if output_line.find(",") >= 0 or output_line.count("u_") > 1:
         print(f"Incorrect shader {shader_file}. Only one uniform per line")
         exit(2)
-       
+
     find_by_name_in_list(binding_info[shader_file], UNIFORMS_KEY).append(output_line)
-        
+
     output_file.write("  uniform %s \\n\\\n" % output_line)
     return False
 
@@ -260,7 +260,7 @@ def write_shader_body(output_file, shader_file, shader_dir, shaders_library, bin
         ubo_started = write_shader_line(output_file, line, shader_file, binding_info)
         if ubo_started:
             binding_info[shader_file].append({UNIFORMS_KEY: []})
-    
+
     output_file.write("\";\n\n")
 
 
@@ -277,7 +277,7 @@ def write_gpu_programs_map(file, programs_def, binding_info):
 
         fragment_shader = programs_def[program][1]
         fragment_source_name = format_shader_source_name(fragment_shader)
-        
+
         check_bindings(vertex_shader, fragment_shader, binding_info[vertex_shader], binding_info[fragment_shader])
 
         file.write("    GLProgramInfo(\"%s\", \"%s\", %s, %s),\n" % (
@@ -302,8 +302,8 @@ def check_bindings(vs, fs, vs_bindings, fs_bindings):
         if dict1[key] != dict2[key]:
             print(f"Shaders {vs} and {fs} must use the same binding indexes for textures. VS:{dict1[key]}, FS:{dict2[key]}")
             exit(2)
-    
-            
+
+
 def write_implementation_file(programs_def, shader_index, shader_dir, impl_file, def_file, generation_dir,
                               shaders_library):
     impl_file = os.path.join(generation_dir, impl_file)
@@ -338,7 +338,7 @@ def write_implementation_file(programs_def, shader_index, shader_dir, impl_file,
         file.write("  return gpuIndex[static_cast<size_t>(program)];\n")
         file.write("}\n")
         file.write("}  // namespace gpu\n")
-    
+
     if not os.path.isfile(impl_file) or not filecmp.cmp(impl_file, impl_file_tmp, False):
         os.replace(impl_file_tmp, impl_file)
         print(impl_file + " was replaced")

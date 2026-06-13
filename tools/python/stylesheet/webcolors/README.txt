@@ -193,22 +193,22 @@ Normalization functions
 ``normalize_hex(hex_value)``
     Normalize a hexadecimal color value to the following form and
     return the result::
-    
+
         #[a-f0-9]{6}
-    
+
     In other words, the following transformations are applied as
     needed:
-    
+
     * If the value contains only three hexadecimal digits, it is
       expanded to six.
-    
+
     * The value is normalized to lower-case.
-    
+
     If the supplied value cannot be interpreted as a hexadecimal color
     value, ``ValueError`` is raised.
-    
+
     Example:
-    
+
     >>> normalize_hex('#09c')
     '#0099cc'
 
@@ -217,54 +217,54 @@ Conversions from named colors
 
 ``name_to_hex(name, spec='css3')``
     Convert a color name to a normalized hexadecimal color value.
-    
+
     The optional keyword argument ``spec`` determines which
     specification's list of color names will be used; valid values are
     ``html4``, ``css2``, ``css21`` and ``css3``, and the default is
     ``css3``.
-    
+
     The color name will be normalized to lower-case before being
     looked up, and when no color of that name exists in the given
     specification, ``ValueError`` is raised.
-    
+
     Example:
-    
+
     >>> name_to_hex('deepskyblue')
     '#00bfff'
 
 ``name_to_rgb(name, spec='css3')``
     Convert a color name to a 3-tuple of integers suitable for use in
     an ``rgb()`` triplet specifying that color.
-    
+
     The optional keyword argument ``spec`` determines which
     specification's list of color names will be used; valid values are
     ``html4``, ``css2``, ``css21`` and ``css3``, and the default is
     ``css3``.
-    
+
     The color name will be normalized to lower-case before being
     looked up, and when no color of that name exists in the given
     specification, ``ValueError`` is raised.
-    
+
     Example:
-    
+
     >>> name_to_rgb('navy')
     (0, 0, 128)
 
 ``name_to_rgb_percent(name, spec='css3')``
     Convert a color name to a 3-tuple of percentages suitable for use
     in an ``rgb()`` triplet specifying that color.
-    
+
     The optional keyword argument ``spec`` determines which
     specification's list of color names will be used; valid values are
     ``html4``, ``css2``, ``css21`` and ``css3``, and the default is
     ``css3``.
-    
+
     The color name will be normalized to lower-case before being
     looked up, and when no color of that name exists in the given
     specification, ``ValueError`` is raised.
-    
+
     Example:
-    
+
     >>> name_to_rgb_percent('navy')
     ('0%', '0%', '50%')
 
@@ -275,38 +275,38 @@ Conversions from hexadecimal values
 ``hex_to_name(hex_value, spec='css3')``
     Convert a hexadecimal color value to its corresponding normalized
     color name, if any such name exists.
-    
+
     The optional keyword argument ``spec`` determines which
     specification's list of color names will be used; valid values are
     ``html4``, ``css2``, ``css21`` and ``css3``, and the default is
     ``css3``.
-    
+
     The hexadecimal value will be normalized before being looked up,
     and when no color name for the value is found in the given
     specification, ``ValueError`` is raised.
-    
+
     Example:
-    
+
     >>> hex_to_name('#000080')
     'navy'
 
 ``hex_to_rgb(hex_value)``
     Convert a hexadecimal color value to a 3-tuple of integers
     suitable for use in an ``rgb()`` triplet specifying that color.
-    
+
     The hexadecimal value will be normalized before being converted.
-    
+
     Example:
-    
+
     >>> hex_to_rgb('#000080')
     (0, 0, 128)
 
 ``hex_to_rgb_percent(hex_value)``
     Convert a hexadecimal color value to a 3-tuple of percentages
     suitable for use in an ``rgb()`` triplet representing that color.
-    
+
     The hexadecimal value will be normalized before converting.
-    
+
     Example:
 
     >>> hex_to_rgb_percent('#ffffff')
@@ -320,25 +320,25 @@ Conversions from integer rgb() triplets
     Convert a 3-tuple of integers, suitable for use in an ``rgb()``
     color triplet, to its corresponding normalized color name, if any
     such name exists.
-    
+
     The optional keyword argument ``spec`` determines which
     specification's list of color names will be used; valid values are
     ``html4``, ``css2``, ``css21`` and ``css3``, and the default is
     ``css3``.
-    
+
     If there is no matching name, ``ValueError`` is raised.
-    
+
     Example:
-    
+
     >>> rgb_to_name((0, 0, 0))
     'black'
 
 ``rgb_to_hex(rgb_triplet)``
     Convert a 3-tuple of integers, suitable for use in an ``rgb()``
     color triplet, to a normalized hexadecimal value for that color.
-    
+
     Example:
-    
+
     >>> rgb_to_hex((255, 255, 255))
     '#ffffff'
 
@@ -346,7 +346,7 @@ Conversions from integer rgb() triplets
     Convert a 3-tuple of integers, suitable for use in an ``rgb()``
     color triplet, to a 3-tuple of percentages suitable for use in
     representing that color.
-    
+
     This function makes some trade-offs in terms of the accuracy of
     the final representation; for some common integer values,
     special-case logic is used to ensure a precise result (e.g.,
@@ -354,9 +354,9 @@ Conversions from integer rgb() triplets
     convert to '12.5%'), but for all other values a standard Python
     ``float`` is used and rounded to two decimal places, which may
     result in a loss of precision for some values.
-    
+
     Examples:
-    
+
     >>> rgb_to_rgb_percent((255, 255, 255))
     ('100%', '100%', '100%')
     >>> rgb_to_rgb_percent((0, 0, 128))
@@ -374,16 +374,16 @@ Conversions from percentage rgb() triplets
     Convert a 3-tuple of percentages, suitable for use in an ``rgb()``
     color triplet, to its corresponding normalized color name, if any
     such name exists.
-    
+
     The optional keyword argument ``spec`` determines which
     specification's list of color names will be used; valid values are
     ``html4``, ``css2``, ``css21`` and ``css3``, and the default is
     ``css3``.
-    
+
     If there is no matching name, ``ValueError`` is raised.
-    
+
     Example:
-    
+
     >>> rgb_percent_to_name(('0%', '0%', '50%'))
     'navy'
 
@@ -391,7 +391,7 @@ Conversions from percentage rgb() triplets
     Convert a 3-tuple of percentages, suitable for use in an ``rgb()``
     color triplet, to a normalized hexadecimal color value for that
     color.
-    
+
     Example:
 
     >>> rgb_percent_to_hex(('100%', '100%', '0%'))
@@ -401,16 +401,16 @@ Conversions from percentage rgb() triplets
     Convert a 3-tuple of percentages, suitable for use in an ``rgb()``
     color triplet, to a 3-tuple of integers suitable for use in
     representing that color.
-    
+
     Some precision may be lost in this conversion. See the note
     regarding precision for ``rgb_to_rgb_percent()`` for details;
     generally speaking, the following is true for any 3-tuple ``t`` of
     integers in the range 0...255 inclusive::
-    
+
         t == rgb_percent_to_rgb(rgb_to_rgb_percent(t))
-    
+
     Examples:
-    
+
     >>> rgb_percent_to_rgb(('100%', '100%', '100%'))
     (255, 255, 255)
     >>> rgb_percent_to_rgb(('0%', '0%', '50%'))

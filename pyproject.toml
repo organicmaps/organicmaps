@@ -15,7 +15,7 @@ include = 'tools/python/translate.py'
 
 # Exclude submodules
 exclude = '''
-( 3party/ | 
+( 3party/ |
   tools/python/twine/ |
   tools/kothic/
 )

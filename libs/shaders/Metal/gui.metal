@@ -80,12 +80,12 @@ TextOutlinedGuiFragment_T ComputeTextOutlinedGuiVertex(constant Uniforms_T & uni
                                                        sampler u_colorTexSampler)
 {
   constexpr float kBaseDepthShift = -10.0;
-  
+
   TextOutlinedGuiFragment_T out;
-  
+
   float isOutline = step(0.5, uniforms.u_isOutlinePass);
   float depthShift = kBaseDepthShift * isOutline;
-  
+
   float4 pos = (float4(a_position, 1.0) + float4(0.0, 0.0, depthShift, 0.0)) * uniforms.u_modelView;
   float4 shiftedPos = float4(a_normal, 0.0, 0.0) + pos;
   out.position = shiftedPos * uniforms.u_projection;

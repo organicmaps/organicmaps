@@ -2,7 +2,7 @@
   <title>physiotherapist-m</title>
   <path id="Outer circle"
     fill="#fff" opacity=".6"
-    d="M 24.00,12.00 
+    d="M 24.00,12.00
         C 24.00,18.63 18.63,24.00 12.00,24.00
           5.37,24.00 0.00,18.63 0.00,12.00
           0.00,5.37 5.37,0.00 12.00,0.00
@@ -27,7 +27,7 @@
           11.12,5.61 11.50,5.23 11.96,5.23
           12.43,5.23 12.80,5.61 12.80,6.07 Z" />
   <path id="Peoples body"
-    fill="none" stroke="white" stroke-width="1.8"	
+    fill="none" stroke="white" stroke-width="1.8"
     stroke-linejoin="round"
     stroke-linecap="round"
     d="M 9.44,13.63

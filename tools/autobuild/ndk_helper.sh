@@ -15,7 +15,7 @@ GetNdkRoot()
       return 0
     fi
   done < $FILENAME
-  
+
   # Not found in local.properties, try to find using ANDROID_HOME.
   local NDK_VERSION="`( ls -1 "${ANDROID_HOME}/ndk" | sort | tail -1 )`"
   if [ ! -z "$NDK_VERSION" ]

@@ -142,7 +142,7 @@ The binary format mirrors the JSON data but removes redundancy, text overhead, a
 
 For each timezone:
 
-| Field                  | Bits | 
+| Field                  | Bits |
 |------------------------|------|
 | format_version         | 3    |
 | generation_year_offset | 6    |

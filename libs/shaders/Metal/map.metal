@@ -70,30 +70,30 @@ vertex Area3dFragment_T vsArea3d(const Area3dVertex_T in [[stage_in]],
                                  sampler u_colorTexSampler [[sampler(0)]])
 {
   constexpr float4 kNormalizedLightDir = float4(0.3162, 0.0, 0.9486, 0.0);
-  
+
   Area3dFragment_T out;
 
   float4 pos = float4(in.a_position, 1.0) * uniforms.u_modelView;
-  
+
   float4 normal = float4(in.a_position + in.a_normal, 1.0) * uniforms.u_modelView;
   normal.xyw = (normal * uniforms.u_projection).xyw;
   normal.z = normal.z * uniforms.u_zScale;
-  
+
   pos.xyw = (pos * uniforms.u_projection).xyw;
   pos.z = in.a_position.z * uniforms.u_zScale;
-  
+
   float4 normDir = normal - pos;
   if (dot(normDir, normDir) != 0.0)
     out.intensity = max(0.0, -dot(kNormalizedLightDir, normalize(normDir)));
   else
     out.intensity = 0.0;
-  
+
   out.position = uniforms.u_pivotTransform * pos;
-  
+
   half4 color = u_colorTex.sample(u_colorTexSampler, in.a_texCoords);
   color.a = (half)uniforms.u_opacity;
   out.color = color;
-  
+
   return out;
 }
 
@@ -116,12 +116,12 @@ vertex AreaFragment_T vsArea3dOutline(const Area3dOutlineVertex_T in [[stage_in]
                                       sampler u_colorTexSampler [[sampler(0)]])
 {
   AreaFragment_T out;
-  
+
   float4 pos = float4(in.a_position, 1.0) * uniforms.u_modelView;
   pos.xyw = (pos * uniforms.u_projection).xyw;
   pos.z = in.a_position.z * uniforms.u_zScale;
   out.position = uniforms.u_pivotTransform * pos;
-  
+
   half4 color = u_colorTex.sample(u_colorTexSampler, in.a_texCoords);
   color.a *= uniforms.u_opacity;
   out.color = color;
@@ -150,7 +150,7 @@ vertex HatchingAreaFragment_T vsHatchingArea(const HatchingAreaVertex_T in [[sta
                                              sampler u_colorTexSampler [[sampler(0)]])
 {
   HatchingAreaFragment_T out;
-  
+
   float4 pos = float4(in.a_position, 1.0) * uniforms.u_modelView * uniforms.u_projection;
   out.position = ApplyPivotTransform(pos, uniforms.u_pivotTransform, 0.0);
   out.maskTexCoords = in.a_maskTexCoords;
@@ -187,7 +187,7 @@ vertex CirclePointFragment_T vsCirclePoint(const CirclePointVertex_T in [[stage_
                                            constant Uniforms_T & uniforms [[buffer(2)]])
 {
   CirclePointFragment_T out;
-  
+
   float3 radius = in.a_normal * in.a_position.z;
   float4 pos = float4(in.a_position.xy, 0.0, 1.0) * uniforms.u_modelView;
   float4 shiftedPos = float4(radius.xy, 0.0, 0.0) + pos;
@@ -202,7 +202,7 @@ fragment float4 fsCirclePoint(const CirclePointFragment_T in [[stage_in]],
                               constant Uniforms_T & uniforms [[buffer(0)]])
 {
   constexpr float kAntialiasingScalar = 0.9;
-  
+
   float d = dot(in.radius.xy, in.radius.xy);
   float4 color = in.color;
   float aaRadius = in.radius.z * kAntialiasingScalar;
@@ -233,7 +233,7 @@ vertex LineFragment_T vsLine(const LineVertex_T in [[stage_in]],
                              sampler u_colorTexSampler [[sampler(0)]])
 {
   LineFragment_T out;
-  
+
   float2 normal = in.a_normal.xy;
   float halfWidth = length(normal);
   float2 transformedAxisPos = (float4(in.a_position.xy, 0.0, 1.0) * uniforms.u_modelView).xy;
@@ -242,12 +242,12 @@ vertex LineFragment_T vsLine(const LineVertex_T in [[stage_in]],
     transformedAxisPos = CalcLineTransformedAxisPos(transformedAxisPos, in.a_position.xy + normal,
                                                     uniforms.u_modelView, halfWidth);
   }
-  
+
   //out.halfLength = float2(sign(in.a_normal.z) * halfWidth, abs(in.a_normal.z));
-  
+
   float4 pos = float4(transformedAxisPos, in.a_position.z, 1.0) * uniforms.u_projection;
   out.position = ApplyPivotTransform(pos, uniforms.u_pivotTransform, 0.0);
-  
+
   float4 color = u_colorTex.sample(u_colorTexSampler, in.a_texCoords);
   color.a *= uniforms.u_opacity;
   out.color = color;
@@ -259,10 +259,10 @@ fragment float4 fsLine(const LineFragment_T in [[stage_in]])
   // Disabled too agressive AA-like blurring of edges,
   // see https://github.com/organicmaps/organicmaps/issues/6583.
   //constexpr float kAntialiasingPixelsCount = 2.5;
-  
+
   //float currentW = abs(in.halfLength.x);
   //float diff = in.halfLength.y - currentW;
-  
+
   float4 color = in.color;
   //color.a *= mix(0.3, 1.0, saturate(diff / kAntialiasingPixelsCount));
   return color;
@@ -355,7 +355,7 @@ vertex CapJoinFragment_T vsCapJoin(const CapJoinVertex_T in [[stage_in]],
                                    sampler u_colorTexSampler [[sampler(0)]])
 {
   CapJoinFragment_T out;
-  
+
   float4 p = float4(in.a_position, 1.0) * uniforms.u_modelView;
   float4 pos = float4(in.a_normal.xy, 0.0, 0.0) + p;
   out.position = ApplyPivotTransform(pos * uniforms.u_projection, uniforms.u_pivotTransform, 0.0);
@@ -363,27 +363,27 @@ vertex CapJoinFragment_T vsCapJoin(const CapJoinVertex_T in [[stage_in]],
   float4 color = u_colorTex.sample(u_colorTexSampler, in.a_texCoords);
   color.a *= uniforms.u_opacity;
   out.color = color;
-  
+
   return out;
 }
 
 fragment CapJoinFragment_Output fsCapJoin(const CapJoinFragment_T in [[stage_in]])
 {
   constexpr float kAntialiasingPixelsCount = 2.5;
-  
+
   CapJoinFragment_Output out;
-  
+
   float smallRadius = in.radius.z - kAntialiasingPixelsCount;
   float stepValue = 1.0 - smoothstep(smallRadius * smallRadius, in.radius.z * in.radius.z,
                                      in.radius.x * in.radius.x + in.radius.y * in.radius.y);
   out.color = in.color;
   out.color.a *= stepValue;
-  
+
   if (out.color.a < 0.001)
     out.depth = 1.0;
   else
     out.depth = in.position.z;
-  
+
   return out;
 }
 
@@ -408,7 +408,7 @@ vertex PathSymbolFragment_T vsPathSymbol(const PathSymbolVertex_T in [[stage_in]
   PathSymbolFragment_T out;
 
   float4 pos = float4(in.a_position.xyz, 1.0) * uniforms.u_modelView;
-  
+
   float normalLen = length(in.a_normal);
   float4 n = float4(in.a_position.xy + in.a_normal * kShapeCoordScalar, 0.0, 0.0) * uniforms.u_modelView;
   float4 norm;
@@ -416,11 +416,11 @@ vertex PathSymbolFragment_T vsPathSymbol(const PathSymbolVertex_T in [[stage_in]
     norm = normalize(n) * normalLen;
   else
     norm = float4(0.0, 0.0, 0.0, 0.0);
-  
+
   float4 shiftedPos = norm + pos;
   out.position = ApplyPivotTransform(shiftedPos * uniforms.u_projection, uniforms.u_pivotTransform, 0.0);
   out.texCoords = in.a_texCoords;
-  
+
   return out;
 }
 
@@ -457,7 +457,7 @@ vertex TextFragment_T vsText(const TextVertex_T in [[stage_in]],
                              sampler u_colorTexSampler [[sampler(0)]])
 {
   TextFragment_T out;
-  
+
   float4 pos = float4(in.a_position.xyz, 1.0) * uniforms.u_modelView;
   float4 shiftedPos = float4(in.a_normal, 0.0, 0.0) + pos;
   out.position = ApplyPivotTransform(shiftedPos * uniforms.u_projection, uniforms.u_pivotTransform, 0.0);
@@ -487,7 +487,7 @@ vertex TextFragment_T vsTextBillboard(const TextVertex_T in [[stage_in]],
                                       sampler u_colorTexSampler [[sampler(0)]])
 {
   TextFragment_T out;
-  
+
   float4 pivot = float4(in.a_position.xyz, 1.0) * uniforms.u_modelView;
   float4 offset = float4(in.a_normal, 0.0, 0.0) * uniforms.u_projection;
   out.position = ApplyBillboardPivotTransform(pivot * uniforms.u_projection, uniforms.u_pivotTransform,
@@ -514,13 +514,13 @@ vertex TextFragment_T vsTextOutlined(const TextOutlinedVertex_T in [[stage_in]],
                                      sampler u_colorTexSampler [[sampler(0)]])
 {
   constexpr float kBaseDepthShift = -10.0;
-  
+
   TextFragment_T out;
-  
+
   float isOutline = step(0.5, uniforms.u_isOutlinePass);
   float notOutline = 1.0 - isOutline;
   float depthShift = kBaseDepthShift * isOutline;
-  
+
   float4 pos = (float4(in.a_position.xyz, 1.0) + float4(0.0, 0.0, depthShift, 0.0)) * uniforms.u_modelView;
   float4 shiftedPos = float4(in.a_normal, 0.0, 0.0) + pos;
   out.position = ApplyPivotTransform(shiftedPos * uniforms.u_projection, uniforms.u_pivotTransform, 0.0);
@@ -538,12 +538,12 @@ vertex TextFragment_T vsTextOutlinedBillboard(const TextOutlinedVertex_T in [[st
                                               sampler u_colorTexSampler [[sampler(0)]])
 {
   constexpr float kBaseDepthShift = -10.0;
-  
+
   TextFragment_T out;
-  
+
   float isOutline = step(0.5, uniforms.u_isOutlinePass);
   float depthShift = kBaseDepthShift * isOutline;
-  
+
   float4 pivot = (float4(in.a_position.xyz, 1.0) + float4(0.0, 0.0, depthShift, 0.0)) * uniforms.u_modelView;
   float4 offset = float4(in.a_normal, 0.0, 0.0) * uniforms.u_projection;
   out.position = ApplyBillboardPivotTransform(pivot * uniforms.u_projection, uniforms.u_pivotTransform,
@@ -595,7 +595,7 @@ vertex ColoredSymbolFragment_T vsColoredSymbol(const ColoredSymbolVertex_T in [[
                                                sampler u_colorTexSampler [[sampler(0)]])
 {
   ColoredSymbolFragment_T out;
-  
+
   float4 p = float4(in.a_position, 1.0) * uniforms.u_modelView;
   float4 pos = float4(in.a_normal.xy + in.a_colorTexCoords.zw, 0.0, 0.0) + p;
   out.position = ApplyPivotTransform(pos * uniforms.u_projection, uniforms.u_pivotTransform, 0.0);
@@ -610,7 +610,7 @@ vertex ColoredSymbolFragment_T vsColoredSymbolBillboard(const ColoredSymbolVerte
                                                         sampler u_colorTexSampler [[sampler(0)]])
 {
   ColoredSymbolFragment_T out;
-  
+
   float4 pivot = float4(in.a_position.xyz, 1.0) * uniforms.u_modelView;
   float4 offset = float4(in.a_normal.xy + in.a_colorTexCoords.zw, 0.0, 0.0) * uniforms.u_projection;
   out.position = ApplyBillboardPivotTransform(pivot * uniforms.u_projection, uniforms.u_pivotTransform, 0.0, offset.xy);
@@ -623,21 +623,21 @@ fragment ColoredSymbolOut_T fsColoredSymbol(const ColoredSymbolFragment_T in [[s
                                             constant Uniforms_T & uniforms [[buffer(0)]])
 {
   constexpr float kAntialiasingPixelsCount = 2.5;
-  
+
   ColoredSymbolOut_T out;
-  
+
   float r1 = (in.normal.z - kAntialiasingPixelsCount) * (in.normal.z - kAntialiasingPixelsCount);
   float r2 = in.normal.x * in.normal.x + in.normal.y * in.normal.y;
   float r3 = in.normal.z * in.normal.z;
   float alpha = mix(step(r3, r2), smoothstep(r1, r3, r2), in.normal.w);
-  
+
   float4 finalColor = in.color;
   finalColor.a = finalColor.a * uniforms.u_opacity * (1.0 - alpha);
   if (finalColor.a == 0.0)
     out.depth = 1.0;
   else
     out.depth = in.position.z;
-  
+
   out.color = finalColor;
   return out;
 }
@@ -661,7 +661,7 @@ vertex TexturingFragment_T vsTexturing(const TexturingVertex_T in [[stage_in]],
                                        constant Uniforms_T & uniforms [[buffer(1)]])
 {
   TexturingFragment_T out;
-  
+
   float4 pos = float4(in.a_position.xyz, 1.0) * uniforms.u_modelView;
   float4 shiftedPos = float4(in.a_normal, 0.0, 0.0) + pos;
   out.position = ApplyPivotTransform(shiftedPos * uniforms.u_projection, uniforms.u_pivotTransform, 0.0);
@@ -673,7 +673,7 @@ vertex TexturingFragment_T vsTexturingBillboard(const TexturingVertex_T in [[sta
                                                 constant Uniforms_T & uniforms [[buffer(1)]])
 {
   TexturingFragment_T out;
-  
+
   float4 pivot = float4(in.a_position.xyz, 1.0) * uniforms.u_modelView;
   float4 offset = float4(in.a_normal, 0.0, 0.0) * uniforms.u_projection;
   out.position = ApplyBillboardPivotTransform(pivot * uniforms.u_projection, uniforms.u_pivotTransform,
@@ -713,7 +713,7 @@ vertex MaskedTexturingFragment_T vsMaskedTexturing(const MaskedTexturingVertex_T
                                                    constant Uniforms_T & uniforms [[buffer(1)]])
 {
   MaskedTexturingFragment_T out;
-  
+
   float4 pos = float4(in.a_position.xyz, 1.0) * uniforms.u_modelView;
   float4 shiftedPos = float4(in.a_normal, 0.0, 0.0) + pos;
   out.position = ApplyPivotTransform(shiftedPos * uniforms.u_projection, uniforms.u_pivotTransform, 0.0);
@@ -726,7 +726,7 @@ vertex MaskedTexturingFragment_T vsMaskedTexturingBillboard(const MaskedTexturin
                                                             constant Uniforms_T & uniforms [[buffer(1)]])
 {
   MaskedTexturingFragment_T out;
-  
+
   float4 pivot = float4(in.a_position.xyz, 1.0) * uniforms.u_modelView;
   float4 offset = float4(in.a_normal, 0.0, 0.0) * uniforms.u_projection;
   out.position = ApplyBillboardPivotTransform(pivot * uniforms.u_projection, uniforms.u_pivotTransform,
@@ -776,11 +776,11 @@ vertex UserMarkFragment_T vsUserMark(const UserMarkVertex_T in [[stage_in]],
                                      constant Uniforms_T & uniforms [[buffer(1)]])
 {
   UserMarkFragment_T out;
-  
+
   float2 normal = in.a_normalAndAnimateOrZ.xy;
   if (in.a_normalAndAnimateOrZ.z > 0.0)
     normal = uniforms.u_interpolation * normal;
-  
+
   float4 p = float4(in.a_position, 1.0) * uniforms.u_modelView;
   float4 pos = float4(normal, 0.0, 0.0) + p;
   float4 projectedPivot = p * uniforms.u_projection;
@@ -790,7 +790,7 @@ vertex UserMarkFragment_T vsUserMark(const UserMarkVertex_T in [[stage_in]],
 
   out.texCoords = in.a_texCoords;
   out.maskColor = in.a_color;
-  
+
   return out;
 }
 
@@ -798,11 +798,11 @@ vertex UserMarkFragment_T vsUserMarkBillboard(const UserMarkVertex_T in [[stage_
                                               constant Uniforms_T & uniforms [[buffer(1)]])
 {
   UserMarkFragment_T out;
-  
+
   float2 normal = in.a_normalAndAnimateOrZ.xy;
   if (in.a_normalAndAnimateOrZ.z > 0.0)
     normal = uniforms.u_interpolation * normal;
-  
+
   float4 pivot = float4(in.a_position.xyz, 1.0) * uniforms.u_modelView;
   float4 offset = float4(normal, 0.0, 0.0) * uniforms.u_projection;
   float4 projectedPivot = pivot * uniforms.u_projection;
@@ -821,7 +821,7 @@ fragment UserMarkOut_T fsUserMark(const UserMarkFragment_T in [[stage_in]],
                                   sampler u_colorTexSampler [[sampler(0)]])
 {
   UserMarkOut_T out;
-  
+
   float4 color = u_colorTex.sample(u_colorTexSampler, in.texCoords.xy);
   float4 bgColor = u_colorTex.sample(u_colorTexSampler, in.texCoords.zw) * float4(in.maskColor.xyz, 1.0);
   float4 finalColor = mix(color, mix(bgColor, color, color.a), bgColor.a);

@@ -197,8 +197,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="Fp3-iS-dEy"/>
                                                 </constraints>
-                                                <string key="text">Войдите, чтобы ваши изменения увидели 
-другие пользователи</string>
+                                                <string key="text">Войдите, чтобы ваши изменения увидели другие пользователи</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>

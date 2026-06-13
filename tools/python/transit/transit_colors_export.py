@@ -20,7 +20,7 @@ if __name__ == '__main__':
         lines = in_file.readlines()
         for l in lines:
             colors.add(int(l))
-    
+
     fields = ['clear', 'night', 'text', 'text_night']
     with open(args.colors, 'r') as colors_file:
         tr_colors = json.load(colors_file)
@@ -28,7 +28,7 @@ if __name__ == '__main__':
             for field in fields:
                 if field in color_info:
                     colors.add(int(color_info[field], 16))
-    
+
     with open(args.in_out_file, 'w') as out_file:
         for c in sorted(colors):
             out_file.write(str(c) + os.linesep)

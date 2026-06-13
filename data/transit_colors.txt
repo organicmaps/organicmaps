@@ -16,7 +16,7 @@
       "clear": "664433",
       "night": "33221A",
       "text": "3E2723",
-      "text_night": "5A4E48"    
+      "text_night": "5A4E48"
     },
     "brown": {
       "clear": "9C491F",

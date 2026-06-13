@@ -11,7 +11,7 @@ def to_rgb(color_str):
 
 def blend_colors(rgb_array1, rgb_array2, k):
     return (rgb_array1[0] * (1.0 - k) + rgb_array2[0] * k,
-            rgb_array1[1] * (1.0 - k) + rgb_array2[1] * k, 
+            rgb_array1[1] * (1.0 - k) + rgb_array2[1] * k,
             rgb_array1[2] * (1.0 - k) + rgb_array2[2] * k)
 
 

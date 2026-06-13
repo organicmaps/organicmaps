@@ -43,7 +43,7 @@ class TestInfo:
         self.test_result = TestInfo.FAILED
         self.test_duration = 0.0
 
-    
+
     def set_name(self, test_name):
         self.test_name = test_name.replace("::", ".")
 
@@ -53,16 +53,16 @@ class TestInfo:
 
 
     def set_duration(self, milis):
-        self.test_duration = float(milis) / 1000 
+        self.test_duration = float(milis) / 1000
 
-    
+
     def set_test_result(self, result_string):
         if result_string.startswith(PrefixesInLog.FAILED):
             self.test_result = TestInfo.FAILED
             self.append_comment(string_after_prefix(result_string, PrefixesInLog.FAILED))
         elif result_string.startswith(PrefixesInLog.OK):
             self.test_result = TestInfo.PASSED
-            
+
 
     def append_comment(self, comment):
         if not self.test_comment:
@@ -93,7 +93,7 @@ class TestInfo:
         d = ElementTree.Element("testcase", {"name":self.test_name,
                                              "classname":self.test_suite,
                                              "time":str(self.test_duration)})
-        
+
         if self.test_comment:
             b = ElementTree.SubElement(d, "system-err")
             b.text = self.test_comment
@@ -124,14 +124,14 @@ class Parser:
         with open(self.logfile) as f:
 
             PipeEach(f.readlines()).through_functions(
-                    self.check_for_exe_boundaries, 
-                    self.check_for_testcase_boundaries, 
-                    self.check_test_result, 
-                    self.should_pass, 
+                    self.check_for_exe_boundaries,
+                    self.check_for_testcase_boundaries,
+                    self.check_test_result,
+                    self.should_pass,
                     self.append_to_comment
             )
-                        
-                        
+
+
     def should_pass(self, line):
         return self.var_should_pass
 
@@ -142,16 +142,16 @@ class Parser:
                 self.test_info = TestInfo()
                 self.append_to_xml()
                 self.var_should_pass = False
-            
+
             self.current_exe = string_after_prefix(line, PrefixesInLog.BEGIN)
-            return True 
-            
+            return True
+
         elif line.startswith(PrefixesInLog.END):
             self.var_should_pass = False
             parts = line.split(" | ")
             end_exe = string_after_prefix(parts[0], PrefixesInLog.END)
             result = int(string_after_prefix(parts[1], PrefixesInLog.RESULT))
-            
+
             if result != 0:
                 if not self.test_info:
                     self.test_info = TestInfo()
@@ -160,27 +160,27 @@ class Parser:
                 self.test_info.set_test_result(TestInfo.FAILED)
 
             self.append_to_xml()
-            
+
             self.current_exe = None
             return True
-        
+
         return False
-    
+
 
     def check_for_testcase_boundaries(self, line):
         if line.startswith(PrefixesInLog.RUNNING):
-            
+
             if not self.test_info:
                 self.test_info = TestInfo()
-            
+
             self.test_info.set_name(string_after_prefix(line, PrefixesInLog.RUNNING))
             self.test_info.set_exe_name(self.current_exe)
             return True
-            
+
         elif line.startswith(PrefixesInLog.TEST_TOOK):
             self.test_info.set_duration(string_after_prefix(line, PrefixesInLog.TEST_TOOK, end=-3))
             self.append_to_xml()
-        
+
             self.test_info = None
             return True
 
@@ -213,7 +213,7 @@ class Parser:
 class PipeEach:
     def __init__(self, iterable_param):
         self.iterable_param = iterable_param
-    
+
 
     def through_functions(self, *fns):
         for param in self.iterable_param:
@@ -221,18 +221,18 @@ class PipeEach:
 
             for fn in fns:
                 if fn(param):
-                    break   
+                    break
 
 
 def string_after_prefix(line, prefix, end=None):
     return line[len(prefix):end] if end else line[len(prefix):]
 
 def read_cl_options():
-    
+
     parser = OptionParser()
     parser.add_option("-o", "--output", dest="output", default="test_results.xml", help="resulting log file. Default testlog.log")
     parser.add_option("-i", "--include", dest="input", default="testlog.log", help="The path to the original log file to parse")
-        
+
     (options, args) = parser.parse_args()
 
     return options

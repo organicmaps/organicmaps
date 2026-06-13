@@ -13,14 +13,14 @@ import logging
 
 
 class MainHandler(tornado.web.RequestHandler, ResponseProviderMixin):
-    
+
     ping_count = 1
     self_destruct_timer = None
-    
+
     def got_pinged(self):
         MainHandler.ping_count += 1
 
-        
+
     def kill(self):
         MainHandler.ping_count -= 1
         if MainHandler.ping_count <= 0: #so that if we decrease the value from several threads we still kill it.
@@ -36,21 +36,21 @@ class MainHandler(tornado.web.RequestHandler, ResponseProviderMixin):
         if payload.response_code() not in (204, 304):
             self.add_header("Content-Length", payload.length())
             self.write(payload.message())
-    
-    
+
+
     def prepare_headers(self):
         ret = dict()
         for h in self.request.headers:
             ret[h.lower()] = self.request.headers.get(h)
-            
+
         return ret
-    
-    
+
+
     def init_vars(self):
         self.response_provider = ResponseProvider(self)
         self.headers = self.prepare_headers()
-        
-    
+
+
     def prepare(self):
         MainHandler.reset_self_destruct_timer()
         self.init_vars()
@@ -58,7 +58,7 @@ class MainHandler(tornado.web.RequestHandler, ResponseProviderMixin):
 
     def get(self, param):
         self.dispatch_response(self.response_provider.response_for_url_and_headers(self.request.uri, self.headers))
-        
+
 
     def post(self, param):
         payload = self.response_provider.response_for_url_and_headers(self.request.uri, self.headers)
@@ -91,15 +91,15 @@ class MainHandler(tornado.web.RequestHandler, ResponseProviderMixin):
         MainHandler.self_destruct_timer = Timer(MainHandler.lifespan, MainHandler.suicide)
         logging.debug("Starting the kill timer")
         MainHandler.self_destruct_timer.start()
-    
-    
+
+
     @staticmethod
     def start_serving():
         thread = threading.Thread(target=tornado.ioloop.IOLoop.current().start)
         thread.deamon = True
         thread.start()
-        
-    
+
+
     @staticmethod
     def init_server(port, lifespan):
         MainHandler.lifespan = lifespan

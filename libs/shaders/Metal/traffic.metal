@@ -42,9 +42,9 @@ vertex TrafficFragment_T vsTraffic(const TrafficVertex_T in [[stage_in]],
                                    sampler u_colorTexSampler [[sampler(0)]])
 {
   constexpr float kArrowVSize = 0.25;
-  
+
   TrafficFragment_T out;
-  
+
   float2 normal = in.a_normal.xy;
   float2 transformedAxisPos = (float4(in.a_position.xy, 0.0, 1.0) * uniforms.u_modelView).xy;
   if (dot(normal, normal) != 0.0)
@@ -55,7 +55,7 @@ vertex TrafficFragment_T vsTraffic(const TrafficVertex_T in [[stage_in]],
     transformedAxisPos = CalcLineTransformedAxisPos(transformedAxisPos, in.a_position.xy + norm,
                                                     uniforms.u_modelView, length(norm));
   }
-  
+
   float uOffset = length(float4(kShapeCoordScalar, 0.0, 0.0, 0.0) * uniforms.u_modelView) * in.a_normal.w;
   out.color = u_colorTex.sample(u_colorTexSampler, in.a_colorTexCoord.xy);
   float v = mix(in.a_colorTexCoord.z, in.a_colorTexCoord.z + kArrowVSize, 0.5 * in.a_normal.z + 0.5);
@@ -64,7 +64,7 @@ vertex TrafficFragment_T vsTraffic(const TrafficVertex_T in [[stage_in]],
   out.halfLength = in.a_normal.z;
   float4 pos = float4(transformedAxisPos, in.a_position.z, 1.0) * uniforms.u_projection;
   out.position = ApplyPivotTransform(pos, uniforms.u_pivotTransform, 0.0);
-  
+
   return out;
 }
 
@@ -74,12 +74,12 @@ fragment float4 fsTraffic(const TrafficFragment_T in [[stage_in]],
                           sampler u_maskTexSampler [[sampler(0)]])
 {
   constexpr float kAntialiasingThreshold = 0.92;
-  
+
   constexpr float kOutlineThreshold1 = 0.8;
   constexpr float kOutlineThreshold2 = 0.5;
-  
+
   constexpr float kMaskOpacity = 0.7;
-  
+
   float4 color = in.color;
   float alphaCode = color.a;
   float4 mask = u_maskTex.sample(u_maskTexSampler, in.maskTexCoord);
@@ -91,7 +91,7 @@ fragment float4 fsTraffic(const TrafficFragment_T in [[stage_in]],
     color.rgb = mix(color.rgb, outlineColor, step(kOutlineThreshold1, abs(in.halfLength)));
     color.rgb = mix(color.rgb, outlineColor, smoothstep(kOutlineThreshold2, kOutlineThreshold1, abs(in.halfLength)));
   }
-  
+
   return color;
 }
 
@@ -115,12 +115,12 @@ vertex TrafficLineFragment_T vsTrafficLine(const TrafficLineVertex_T in [[stage_
                                            sampler u_colorTexSampler [[sampler(0)]])
 {
   TrafficLineFragment_T out;
-  
+
   float2 transformedAxisPos = (float4(in.a_position.xy, 0.0, 1.0) * uniforms.u_modelView).xy;
   float4 pos = float4(transformedAxisPos, in.a_position.z, 1.0) * uniforms.u_projection;
   out.color = float4(u_colorTex.sample(u_colorTexSampler, in.a_colorTexCoord).rgb, uniforms.u_opacity);
   out.position = ApplyPivotTransform(pos, uniforms.u_pivotTransform, 0.0);
-  
+
   return out;
 }
 
@@ -151,17 +151,17 @@ vertex TrafficCircleFragment_T vsTrafficCircle(const TrafficCircleVertex_T in [[
                                                sampler u_colorTexSampler [[sampler(0)]])
 {
   TrafficCircleFragment_T out;
-  
+
   float2 normal = in.a_normal.xy;
   float2 transformedAxisPos = (float4(in.a_position.xy, 0.0, 1.0) * uniforms.u_modelView).xy;
   int index = int(in.a_position.w);
-  
+
   float3 leftSizes = uniforms.u_lightArrowColor;
   float leftSize = leftSizes[index];
-  
+
   float3 rightSizes = uniforms.u_darkArrowColor;
   float rightSize = rightSizes[index];
-  
+
   if (dot(normal, normal) != 0.0)
   {
     // offset by normal = rightVec * (rightSize - leftSize) / 2
@@ -171,12 +171,12 @@ vertex TrafficCircleFragment_T vsTrafficCircle(const TrafficCircleVertex_T in [[
   }
   // radius = (leftSize + rightSize) / 2
   out.radius = float3(in.a_normal.zw, 1.0) * 0.5 * (leftSize + rightSize);
-  
+
   float2 finalPos = transformedAxisPos + out.radius.xy;
   out.color = u_colorTex.sample(u_colorTexSampler, in.a_colorTexCoord);
   float4 pos = float4(finalPos, in.a_position.z, 1.0) * uniforms.u_projection;
   out.position = ApplyPivotTransform(pos, uniforms.u_pivotTransform, 0.0);
-  
+
   return out;
 }
 
@@ -190,11 +190,11 @@ fragment TrafficCircleOut_T fsTrafficCircle(const TrafficCircleFragment_T in [[s
                                             constant Uniforms_T & uniforms [[buffer(0)]])
 {
   constexpr float kAntialiasingThreshold = 0.92;
-  
+
   TrafficCircleOut_T out;
-  
+
   float4 color = in.color;
-  
+
   float smallRadius = in.radius.z * kAntialiasingThreshold;
   float stepValue = smoothstep(smallRadius * smallRadius, in.radius.z * in.radius.z,
                                in.radius.x * in.radius.x + in.radius.y * in.radius.y);
