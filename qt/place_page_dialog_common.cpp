@@ -12,10 +12,7 @@
 
 #include "platform/settings.hpp"
 
-#include <algorithm>
 #include <cstdint>
-#include <string_view>
-#include <vector>
 
 #include <QtGui/QIcon>
 #include <QtWidgets/QComboBox>
@@ -34,26 +31,11 @@ namespace
 // same id space mobile uses, though each platform persists it independently.
 char const kCoordinatesFormatSetting[] = "CoordinatesFormat";
 
-// Formats available at this point, in display order. Never empty: the decimal formats apply everywhere.
-std::vector<place_page::CoordinatesFormat> AvailableCoordinateFormats(ms::LatLon ll, std::string_view region)
-{
-  std::vector<place_page::CoordinatesFormat> result;
-  for (auto const f : place_page::AllCoordinateFormats())
-    if (place_page::FormatCoordinateValue(f, ll, region))
-      result.push_back(f);
-  return result;
-}
-
-// The saved format if it is available here, else the first available one. Does not change the pref,
-// so the saved choice is restored once the user opens a place where it applies again.
-place_page::CoordinatesFormat EffectiveCoordinateFormat(std::vector<place_page::CoordinatesFormat> const & available)
+int32_t SavedCoordinateFormat()
 {
   auto saved = static_cast<int32_t>(place_page::CoordinatesFormat::LatLonDecimal);
   settings::TryGet(kCoordinatesFormatSetting, saved);
-  for (auto const f : available)
-    if (static_cast<int32_t>(f) == saved)
-      return f;
-  return available.front();
+  return saved;
 }
 }  // namespace
 
@@ -165,10 +147,11 @@ void addRoutesRow(QGridLayout * grid, int & row, qt::DrawWidget * drawWidget, pl
 
 void addCoordinatesRow(QGridLayout * grid, int & row, place_page::Info const & info)
 {
-  // Capture by value so the click handler stays valid after `info` is invalidated (same rule as the
-  // toolbar). The region comes straight from the place (no polygon lookup) to gate the OS Grid etc.
-  ms::LatLon const ll = info.GetLatLon();
-  std::string const region = info.GetCountryId();
+  // The place and its region are fixed for this row, so resolve the available formats (with their
+  // display strings) once and capture them by value - the handler then just cycles the list and stays
+  // valid after `info` is gone (same rule as the toolbar). The region comes straight from the place,
+  // with no polygon lookup, to gate the OS Grid etc.
+  auto const entries = place_page::GetAvailableCoordinateFormats(info.GetLatLon(), info.GetCountryId());
 
   grid->addWidget(new QLabel("Coordinates"), row, 0);
 
@@ -176,21 +159,22 @@ void addCoordinatesRow(QGridLayout * grid, int & row, place_page::Info const & i
   value->setTextInteractionFlags(Qt::TextSelectableByMouse);  // selectable for copy
   value->setWordWrap(true);
 
-  auto const render = [value, ll, region](place_page::CoordinatesFormat format)
-  { value->setText(QString::fromStdString(place_page::FormatCoordinateDisplay(format, ll, region).value_or(""))); };
-  render(EffectiveCoordinateFormat(AvailableCoordinateFormats(ll, region)));
+  auto const render = [value, entries](place_page::CoordinatesFormat format)
+  {
+    for (auto const & e : entries)
+      if (e.m_format == format)
+        value->setText(QString::fromStdString(e.m_display));
+  };
+  render(place_page::EffectiveCoordinateFormat(entries, SavedCoordinateFormat()));
 
   // The button cycles to the next available format and persists the choice, mirroring the tap on
   // mobile. A separate control keeps the value label free for text selection / copy.
   QToolButton * change = new QToolButton();
   change->setText(QString::fromUtf8("↻"));
   change->setToolTip("Switch coordinates format");
-  QObject::connect(change, &QToolButton::clicked, value, [ll, region, render]
+  QObject::connect(change, &QToolButton::clicked, value, [entries, render]
   {
-    auto const available = AvailableCoordinateFormats(ll, region);
-    auto const current = EffectiveCoordinateFormat(available);
-    auto const i = static_cast<size_t>(std::find(available.begin(), available.end(), current) - available.begin());
-    auto const next = available[(i + 1) % available.size()];
+    auto const next = place_page::NextCoordinateFormat(entries, SavedCoordinateFormat());
     settings::Set(kCoordinatesFormatSetting, static_cast<int32_t>(next));
     render(next);
   });
