@@ -674,8 +674,8 @@ bool Processor::SearchDebug()
 bool Processor::SearchCoordinates()
 {
   using CoordMatcher = std::optional<ms::LatLon> (*)(std::string const &);
-  static CoordMatcher const kStrongMatchers[] = {&MatchUTMCoords, &MatchMGRSCoords, &MatchOSGridCoords};
-  static CoordMatcher const kWeakMatchers[] = {&MatchIrishGridCoords, &MatchITMCoords};
+  constexpr CoordMatcher kStrongMatchers[] = {&MatchUTMCoords, &MatchMGRSCoords, &MatchOSGridCoords};
+  constexpr CoordMatcher kWeakMatchers[] = {&MatchIrishGridCoords, &MatchITMCoords};
 
   bool strongMatch = false;
   // 1 lat/lon + one per grid matcher + a few ge0/geo tokens.
