@@ -1,0 +1,46 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v1.2.3
+    hooks:
+      - id: trailing-whitespace
+        exclude: |
+          (?x)^(
+            android/app/src/(fdroid|google)/play/.+\.txt| # metadata is verified in a separate hook
+            iphone/metadata/.+\.txt|                      # metadata is verified in a separate hook
+            3party/.*
+          )$
+      - id: end-of-file-fixer
+        exclude: |
+          (?x)^(
+            android/app/src/(fdroid|google)/play/.+\.txt| # metadata is verified in a separate hook
+            iphone/metadata/.+\.txt|                      # metadata is verified in a separate hook
+            3party/.*
+          )$
+  - repo: https://github.com/pre-commit/mirrors-clang-format
+    rev: 'v22.1.5'
+    hooks:
+      - id: clang-format
+        exclude: '^3party/'
+        files: '\.(c|h|cpp|hpp|mm|java)$'
+  - repo: https://github.com/nicklockwood/SwiftFormat
+    rev: 0.61.1
+    hooks:
+      - id: swiftformat
+        files: 'iphone/.*'
+  - repo: local
+    hooks:
+      - id: ktlint
+        name: ktlint
+        entry: ./tools/hooks/ktlint.sh --editorconfig="android/.editorconfig" --format
+        language: script
+        files: 'android/.*\.kt(s)?$'
+        verbose: true
+      - id: check_store_metadata
+        name: check_store_metadata
+        language: python
+        entry: ./tools/python/check_store_metadata.py files --fix
+        files: |
+          (?x)^(
+            android/app/src/(fdroid|google)/play/.+\.txt|
+            iphone/metadata/.+\.txt
+          )$
