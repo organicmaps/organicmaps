@@ -83,7 +83,7 @@ import app.organicmaps.sdk.location.SensorListener;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.concurrency.UiThread;
-import app.organicmaps.sdk.widget.placepage.CoordinatesFormat;
+import app.organicmaps.sdk.widget.placepage.CoordinatesFormatEntry;
 import app.organicmaps.sdk.widget.placepage.RouteInfo;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.ThemeUtils;
@@ -104,7 +104,6 @@ import app.organicmaps.widget.placepage.sections.PlacePageTrackRecordingFragment
 import app.organicmaps.widget.placepage.sections.PlacePageWikipediaFragment;
 import com.google.android.material.button.MaterialButton;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -126,9 +125,6 @@ public class PlacePageView extends Fragment
   private static final String LINKS_FRAGMENT_TAG = "LINKS_FRAGMENT_TAG";
   private static final String TRACK_SHARE_MENU_ID = "TRACK_SHARE_MENU_ID";
 
-  private static final List<CoordinatesFormat> visibleCoordsFormat =
-      Arrays.asList(CoordinatesFormat.LatLonDMS, CoordinatesFormat.LatLonDecimal, CoordinatesFormat.OLCFull,
-                    CoordinatesFormat.UTM, CoordinatesFormat.MGRS, CoordinatesFormat.OSMLink);
   private View mFrame;
   // Preview.
   private ViewGroup mPreview;
@@ -189,7 +185,8 @@ public class PlacePageView extends Fragment
   private Observer<String> mTrackRecordingObserver;
 
   // Data
-  private CoordinatesFormat mCoordsFormat = CoordinatesFormat.LatLonDecimal;
+  // Stable id of the user-selected coordinate format (see place_page::CoordinatesFormat / native).
+  private int mCoordsFormatId = Framework.COORDINATES_FORMAT_DECIMAL;
   // Downloader`s stuff
   private DownloaderStatusIcon mDownloaderIcon;
   private TextView mDownloaderInfo;
@@ -269,9 +266,8 @@ public class PlacePageView extends Fragment
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    mCoordsFormat =
-        CoordinatesFormat.fromId(MwmApplication.prefs(requireContext())
-                                     .getInt(PREF_COORDINATES_FORMAT, CoordinatesFormat.LatLonDecimal.getId()));
+    mCoordsFormatId =
+        MwmApplication.prefs(requireContext()).getInt(PREF_COORDINATES_FORMAT, Framework.COORDINATES_FORMAT_DECIMAL);
 
     Fragment parentFragment = getParentFragment();
     mPlacePageViewListener = (PlacePageViewListener) parentFragment;
@@ -866,18 +862,24 @@ public class PlacePageView extends Fragment
     mTvDistance.setText(distanceAndAzimuth.getDistance().toString(requireContext()));
   }
 
+  // Index of the saved format in the available list, or 0 (the first available) when it doesn't apply
+  // here - the decimal formats always do, so the list is never empty and index 0 is always valid.
+  private int effectiveIndex(@NonNull CoordinatesFormatEntry[] entries)
+  {
+    for (int i = 0; i < entries.length; i++)
+      if (entries[i].getId() == mCoordsFormatId)
+        return i;
+    return 0;
+  }
+
   private void refreshLatLon()
   {
-    final double lat = mMapObject.getLat();
-    final double lon = mMapObject.getLon();
-    String latLon = Framework.nativeFormatLatLon(lat, lon, mCoordsFormat.getId());
-    if (latLon == null) // Some coordinates couldn't be converted to UTM and MGRS
-      latLon = "N/A";
-
-    if (mCoordsFormat.showLabel())
-      mTvLatlon.setText(mCoordsFormat.getLabel() + ": " + latLon);
-    else
-      mTvLatlon.setText(latLon);
+    // One native call resolves the region once and returns every format available here. The saved
+    // format may not apply (UTM/MGRS near the poles, OS Grid outside Great Britain); show the first
+    // available instead, without changing the saved preference.
+    final CoordinatesFormatEntry[] entries =
+        Framework.nativeGetCoordinateFormats(mMapObject.getLat(), mMapObject.getLon());
+    mTvLatlon.setText(entries[effectiveIndex(entries)].getDisplay());
     UiUtils.hideIf(mMapObject.isTrackRecording() || mMapObject.isTrack(), mFrame.findViewById(R.id.ll__place_latlon));
   }
 
@@ -912,10 +914,15 @@ public class PlacePageView extends Fragment
       addPlace();
     else if (id == R.id.ll__place_latlon)
     {
-      final int formatIndex = visibleCoordsFormat.indexOf(mCoordsFormat);
-      mCoordsFormat = visibleCoordsFormat.get((formatIndex + 1) % visibleCoordsFormat.size());
-      MwmApplication.prefs(context).edit().putInt(PREF_COORDINATES_FORMAT, mCoordsFormat.getId()).apply();
-      refreshLatLon();
+      // One native call: fetch the formats available here and advance to the next (wrapping). From an
+      // unavailable saved format this advances from the first available - i.e. from what is shown - so a
+      // tap always moves on visibly. The row's visibility is unchanged, so set the text directly.
+      final CoordinatesFormatEntry[] entries =
+          Framework.nativeGetCoordinateFormats(mMapObject.getLat(), mMapObject.getLon());
+      final CoordinatesFormatEntry next = entries[(effectiveIndex(entries) + 1) % entries.length];
+      mCoordsFormatId = next.getId();
+      MwmApplication.prefs(context).edit().putInt(PREF_COORDINATES_FORMAT, mCoordsFormatId).apply();
+      mTvLatlon.setText(next.getDisplay());
     }
     else if (id == R.id.ll__place_open_in)
     {
@@ -1112,14 +1119,10 @@ public class PlacePageView extends Fragment
       items.add(mTvOsmDescription.getText().toString());
     else if (id == R.id.ll__place_latlon)
     {
-      final double lat = mMapObject.getLat();
-      final double lon = mMapObject.getLon();
-      for (CoordinatesFormat format : visibleCoordsFormat)
-      {
-        String formatted = Framework.nativeFormatLatLon(lat, lon, format.getId());
-        if (formatted != null)
-          items.add(formatted);
-      }
+      // Copy the bare value of every format available here (skips OS Grid outside Great Britain, etc.).
+      for (final CoordinatesFormatEntry entry :
+           Framework.nativeGetCoordinateFormats(mMapObject.getLat(), mMapObject.getLon()))
+        items.add(entry.getValue());
     }
     else if (id == R.id.ll__place_open_in)
     {

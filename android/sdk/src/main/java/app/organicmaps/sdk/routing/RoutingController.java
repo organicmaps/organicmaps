@@ -12,7 +12,6 @@ import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
-import app.organicmaps.sdk.widget.placepage.CoordinatesFormat;
 
 @androidx.annotation.UiThread
 public class RoutingController
@@ -797,7 +796,7 @@ public class RoutingController
       }
       else
       {
-        title = Framework.nativeFormatLatLon(point.getLat(), point.getLon(), CoordinatesFormat.LatLonDecimal.getId());
+        title = Framework.nativeFormatLatLon(point.getLat(), point.getLon(), Framework.COORDINATES_FORMAT_DECIMAL);
       }
     }
     return new Pair<>(title, subtitle);

@@ -22,6 +22,7 @@ import app.organicmaps.sdk.routing.RoutingRecommendationListener;
 import app.organicmaps.sdk.routing.TransitRouteInfo;
 import app.organicmaps.sdk.settings.SpeedCameraMode;
 import app.organicmaps.sdk.util.Constants;
+import app.organicmaps.sdk.widget.placepage.CoordinatesFormatEntry;
 import app.organicmaps.sdk.widget.placepage.RouteInfo;
 import dalvik.annotation.optimization.FastNative;
 import java.lang.annotation.Retention;
@@ -88,7 +89,20 @@ public class Framework
                                                                                double srcLat, double srcLon,
                                                                                double north);
 
-  public static native String nativeFormatLatLon(double lat, double lon, int coordFormat);
+  // Stable id of place_page::CoordinatesFormat::LatLonDecimal - the always-available default format.
+  // Keep in sync with the C++ enum in libs/map/place_page_info.hpp.
+  public static final int COORDINATES_FORMAT_DECIMAL = 1;
+
+  // Bare coordinate value ("SW 7400 4210") for the given stable format id (see place_page::CoordinatesFormat).
+  // Returns null if the format is unavailable at this location; used for the route point titles (decimal).
+  public static native String nativeFormatLatLon(double lat, double lon, int formatId);
+
+  // The formats available at this location, in display order, each with its labelled display string and
+  // bare value. Resolves the region once, so the place page renders, cycles and copies from a single
+  // call. Never empty: the decimal formats apply everywhere.
+  @NonNull
+  @Size(min = 1)
+  public static native CoordinatesFormatEntry[] nativeGetCoordinateFormats(double lat, double lon);
 
   public static native String nativeFormatAltitude(double alt);
 

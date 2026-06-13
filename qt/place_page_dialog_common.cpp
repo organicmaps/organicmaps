@@ -10,14 +10,34 @@
 
 #include "kml/types.hpp"
 
+#include "platform/settings.hpp"
+
+#include <cstdint>
+
 #include <QtGui/QIcon>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QToolBar>
+#include <QtWidgets/QToolButton>
 #include <QtWidgets/QVBoxLayout>
+
+namespace
+{
+// Persisted in Qt's own settings store. The value is a place_page::CoordinatesFormat stable id - the
+// same id space mobile uses, though each platform persists it independently.
+char const kCoordinatesFormatSetting[] = "CoordinatesFormat";
+
+int32_t SavedCoordinateFormat()
+{
+  auto saved = static_cast<int32_t>(place_page::CoordinatesFormat::LatLonDecimal);
+  settings::TryGet(kCoordinatesFormatSetting, saved);
+  return saved;
+}
+}  // namespace
 
 PlacePageDialogCommon::PlacePageDialogCommon(QWidget * parent, qt::DrawWidget * drawWidget,
                                              place_page::Info const & info)
@@ -123,5 +143,47 @@ void addRoutesRow(QGridLayout * grid, int & row, qt::DrawWidget * drawWidget, pl
   { drawWidget->GetFramework().ShowRouteTransit(routesCombo->itemData(idx).value<uint32_t>()); });
 
   grid->addWidget(routesCombo, row++, 1);
+}
+
+void addCoordinatesRow(QGridLayout * grid, int & row, place_page::Info const & info)
+{
+  // The place and its region are fixed for this row, so resolve the available formats (with their
+  // display strings) once and capture them by value - the handler then just cycles the list and stays
+  // valid after `info` is gone (same rule as the toolbar). The region comes straight from the place,
+  // with no polygon lookup, to gate the OS Grid etc.
+  auto const entries = place_page::GetAvailableCoordinateFormats(info.GetLatLon(), info.GetCountryId());
+
+  grid->addWidget(new QLabel("Coordinates"), row, 0);
+
+  QLabel * value = new QLabel();
+  value->setTextInteractionFlags(Qt::TextSelectableByMouse);  // selectable for copy
+  value->setWordWrap(true);
+
+  auto const render = [value, entries](place_page::CoordinatesFormat format)
+  {
+    for (auto const & e : entries)
+      if (e.m_format == format)
+        value->setText(QString::fromStdString(e.m_display));
+  };
+  render(place_page::EffectiveCoordinateFormat(entries, SavedCoordinateFormat()));
+
+  // The button cycles to the next available format and persists the choice, mirroring the tap on
+  // mobile. A separate control keeps the value label free for text selection / copy.
+  QToolButton * change = new QToolButton();
+  change->setText(QString::fromUtf8("↻"));
+  change->setToolTip("Switch coordinates format");
+  QObject::connect(change, &QToolButton::clicked, value, [entries, render]
+  {
+    auto const next = place_page::NextCoordinateFormat(entries, SavedCoordinateFormat());
+    settings::Set(kCoordinatesFormatSetting, static_cast<int32_t>(next));
+    render(next);
+  });
+
+  QWidget * cell = new QWidget();
+  QHBoxLayout * cellLayout = new QHBoxLayout(cell);
+  cellLayout->setContentsMargins(0, 0, 0, 0);
+  cellLayout->addWidget(value, 1);
+  cellLayout->addWidget(change, 0);
+  grid->addWidget(cell, row++, 1);
 }
 }  // namespace place_page_dialog

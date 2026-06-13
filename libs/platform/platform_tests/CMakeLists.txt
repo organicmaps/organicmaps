@@ -17,6 +17,8 @@ set(SRC
   platform_test.cpp
   meta_config_tests.cpp
   products_tests.cpp
+  irish_grid_utils_tests.cpp
+  os_grid_utils_tests.cpp
   utm_mgrs_utils_tests.cpp
 )
 

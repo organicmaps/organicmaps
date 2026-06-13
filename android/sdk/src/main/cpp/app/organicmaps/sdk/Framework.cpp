@@ -18,6 +18,7 @@
 #include "map/chart_generator.hpp"
 #include "map/everywhere_search_params.hpp"
 #include "map/framework.hpp"
+#include "map/place_page_info.hpp"
 #include "map/user_mark.hpp"
 
 #include "storage/country_info_getter.hpp"
@@ -53,7 +54,6 @@
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
-#include "platform/utm_mgrs_utils.hpp"
 
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
@@ -62,8 +62,6 @@
 #include "base/sunrise_sunset.hpp"
 
 #include "ge0/url_generator.hpp"
-
-#include "3party/open-location-code/openlocationcode.h"
 
 #include <memory>
 #include <string>
@@ -987,37 +985,47 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetDistanceAndAzimuth
   return Java_app_organicmaps_sdk_Framework_nativeGetDistanceAndAzimuth(env, clazz, merX, merY, cLat, cLon, north);
 }
 
-JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeFormatLatLon(JNIEnv * env, jclass, jdouble lat, jdouble lon,
-                                                                        int coordsFormat)
+// Resolve the mwm region id for a point; needed to gate region-specific formats (e.g. OS Grid).
+static storage::CountryId RegionAt(jdouble lat, jdouble lon)
 {
-  switch (static_cast<android::CoordinatesFormat>(coordsFormat))
+  return frm()->GetCountryInfoGetter().GetRegionCountryId(mercator::FromLatLon(lat, lon));
+}
+
+JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeFormatLatLon(JNIEnv * env, jclass, jdouble lat, jdouble lon,
+                                                                        jint formatId)
+{
+  // Bare value (no label) for a single format; used for the RoutingController point titles (decimal).
+  auto const value = place_page::FormatCoordinateValue(static_cast<place_page::CoordinatesFormat>(formatId), {lat, lon},
+                                                       RegionAt(lat, lon));
+  return value.empty() ? nullptr : jni::ToJavaString(env, value);  // empty => unavailable here; the UI skips it.
+}
+
+JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetCoordinateFormats(JNIEnv * env, jclass, jdouble lat,
+                                                                                     jdouble lon)
+{
+  // Every format available at this point, in display order, each with its labelled display string and
+  // its bare value. The place page renders, cycles and copies over this list, so a refresh or a tap
+  // costs a single region polygon lookup (done once here), not one per format or per action. Always
+  // non-empty: the decimal formats apply everywhere.
+  auto const entries = place_page::GetAvailableCoordinateFormats({lat, lon}, RegionAt(lat, lon));
+
+  static jclass const entryClass =
+      jni::GetGlobalClassRef(env, "app/organicmaps/sdk/widget/placepage/CoordinatesFormatEntry");
+  // CoordinatesFormatEntry(int id, String display, String value)
+  static jmethodID const entryCtor = jni::GetConstructorID(env, entryClass, "(ILjava/lang/String;Ljava/lang/String;)V");
+
+  auto const count = static_cast<jsize>(entries.size());
+  jobjectArray const result = env->NewObjectArray(count, entryClass, nullptr);
+  for (jsize i = 0; i < count; ++i)
   {
-  default:
-  case android::CoordinatesFormat::LatLonDMS:  // DMS, comma separated
-    return jni::ToJavaString(env, measurement_utils::FormatLatLonAsDMS(lat, lon, true /*withComma*/, 2));
-  case android::CoordinatesFormat::LatLonDecimal:  // Decimal, comma separated
-    return jni::ToJavaString(env, measurement_utils::FormatLatLon(lat, lon, true /* withComma */, 6));
-  case android::CoordinatesFormat::OLCFull:  // Open location code, long format
-    return jni::ToJavaString(env, openlocationcode::Encode({lat, lon}));
-  case android::CoordinatesFormat::OSMLink:  // Link to osm.org
-    return jni::ToJavaString(env, measurement_utils::FormatOsmLink(lat, lon, 14));
-  case android::CoordinatesFormat::UTM:  // Universal Transverse Mercator
-  {
-    std::string utmFormat = utm_mgrs_utils::FormatUTM(lat, lon);
-    if (!utmFormat.empty())
-      return jni::ToJavaString(env, utmFormat);
-    else
-      return nullptr;
+    auto const & e = entries[i];
+    jni::TScopedLocalRef display(env, jni::ToJavaString(env, e.m_display));
+    jni::TScopedLocalRef value(env, jni::ToJavaString(env, e.m_value));
+    jni::TScopedLocalRef item(
+        env, env->NewObject(entryClass, entryCtor, static_cast<jint>(e.m_format), display.get(), value.get()));
+    env->SetObjectArrayElement(result, i, item.get());
   }
-  case android::CoordinatesFormat::MGRS:  // Military Grid Reference System
-  {
-    std::string mgrsFormat = utm_mgrs_utils::FormatMGRS(lat, lon, 5);
-    if (!mgrsFormat.empty())
-      return jni::ToJavaString(env, mgrsFormat);
-    else
-      return nullptr;
-  }
-  }
+  return result;
 }
 
 JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeFormatAltitude(JNIEnv * env, jclass, jdouble alt)

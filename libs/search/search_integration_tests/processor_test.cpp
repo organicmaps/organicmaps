@@ -1214,6 +1214,50 @@ UNIT_CLASS_TEST(ProcessorTest, SearchCoordinates)
   }
 }
 
+UNIT_CLASS_TEST(ProcessorTest, SearchCoordinatesIrish)
+{
+  // The Irish Grid and ITM are "weak" coordinate matches: a valid in-range reference is shown as a
+  // coordinate at the top of the results, but the normal search still runs - so a query that merely
+  // looks like one is never hijacked. The pin appears only where the Irish systems are official, so the
+  // processor gates the decoded point on its region. Here a POI shares the query text, so both come back.
+  TestPOI poi(mercator::FromLatLon(53.35, -6.26), "O 152 345", "en");  // On the island of Ireland.
+  BuildCountry("Ireland", [&](TestMwmBuilder & builder) { builder.Add(poi); });
+  // Resolve the Dublin square the query decodes into to the Irish mwm, and a point across the North
+  // Channel to a Scottish one; the rectangles deliberately exclude each other.
+  RegisterCountry("Ireland", m2::RectD(mercator::FromLatLon(51.0, -11.0), mercator::FromLatLon(54.5, -5.5)));
+  RegisterCountry("UK_Scotland_North", m2::RectD(mercator::FromLatLon(55.0, -6.0), mercator::FromLatLon(56.0, -5.0)));
+  SetViewport(m2::RectD(mercator::FromLatLon(51.0, -11.0), mercator::FromLatLon(56.0, -5.0)));
+
+  // Weak (Irish Grid) match in an Irish region: the coordinate is first, AND the POI is still found.
+  {
+    auto const request = MakeRequest("O 152 345");
+    auto const & results = request->Results();
+    TEST_GREATER_OR_EQUAL(results.size(), 2, (results));
+    TEST_EQUAL(results[0].GetResultType(), Result::Type::LatLon, (results));
+    bool poiFound = false;
+    for (auto const & r : results)
+      poiFound = poiFound || (r.GetResultType() != Result::Type::LatLon && r.GetString() == "O 152 345");
+    TEST(poiFound, (results));
+  }
+
+  // A well-formed Irish Grid reference that decodes across the North Channel into western Scotland: the
+  // parser yields a point, but the region gate suppresses it, so no coordinate result is emitted.
+  {
+    auto const request = MakeRequest("D 5200 6746");
+    auto const & results = request->Results();
+    for (auto const & r : results)
+      TEST_NOT_EQUAL(r.GetResultType(), Result::Type::LatLon, (results));
+  }
+
+  // Strong (decimal) match still suppresses the normal search, even though the POI is present.
+  {
+    auto const request = MakeRequest("53.35, -6.26");
+    auto const & results = request->Results();
+    TEST_EQUAL(results.size(), 1, (results));
+    TEST_EQUAL(results[0].GetResultType(), Result::Type::LatLon, ());
+  }
+}
+
 UNIT_CLASS_TEST(ProcessorTest, FuzzyMatch)
 {
   string const countryName = "Wonderland";

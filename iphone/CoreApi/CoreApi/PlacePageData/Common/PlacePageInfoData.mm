@@ -134,14 +134,13 @@ NSString * GetLocalizedMetadataValueString(MapObject::MetadataID metaID, std::st
     _atm = rawData.HasAtm() ? NSLocalizedStringFromTable(@"type.amenity.atm", @"LocalizableTypes", nil) : nil;
 
     _address = rawData.GetSecondarySubtitle().empty() ? nil : @(rawData.GetSecondarySubtitle().c_str());
-    _coordFormats = @[
-      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::LatLonDMS).c_str()),
-      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::LatLonDecimal).c_str()),
-      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::OLCFull).c_str()),
-      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::OSMLink).c_str()),
-      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::UTM).c_str()),
-      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::MGRS).c_str())
-    ];
+    // Built in id order, so the array index equals the stable format id that the Swift VC persists.
+    // An unavailable format (OS Grid outside Great Britain, UTM/MGRS near the poles) is an empty
+    // string; the Swift VC skips empties and shows the next available format.
+    NSMutableArray<NSString *> * coordFormats = [NSMutableArray array];
+    for (auto const format : place_page::AllCoordinateFormats())
+      [coordFormats addObject:@(rawData.GetFormattedCoordinate(format).c_str())];
+    _coordFormats = [coordFormats copy];
   }
   return self;
 }

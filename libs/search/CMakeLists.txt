@@ -109,6 +109,10 @@ set(SRC
   mwm_context.hpp
   nested_rects_cache.cpp
   nested_rects_cache.hpp
+  irish_grid_coords_match.cpp
+  irish_grid_coords_match.hpp
+  os_grid_coords_match.cpp
+  os_grid_coords_match.hpp
   point_rect_matcher.hpp
   postcode_points.cpp
   postcode_points.hpp

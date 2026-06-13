@@ -14,9 +14,11 @@
 #include "indexer/feature_source.hpp"
 #include "indexer/map_object.hpp"
 
+#include "geometry/latlon.hpp"
 #include "geometry/point2d.hpp"
 
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace place_page
@@ -31,15 +33,54 @@ enum class OpeningMode
   Full
 };
 
+// Stable, persisted ids shared by all platforms (Android pref, iOS UserDefaults). NEVER reorder or
+// reuse a value; append a new format with the next free id. This order is also the cycle/display
+// order on every platform - the single source of order is kDescs in the .cpp.
 enum class CoordinatesFormat
 {
-  LatLonDMS = 0,  // DMS, comma separated
-  LatLonDecimal,  // Decimal, comma separated
-  OLCFull,        // Open location code, long format
-  OSMLink,        // Link to osm.org
-  UTM,            // Universal Transverse Mercator
-  MGRS            // Military Grid Reference System
+  LatLonDMS = 0,      // Degrees-minutes-seconds, space separated
+  LatLonDecimal = 1,  // Decimal degrees, comma separated
+  OLCFull = 2,        // Open Location Code, long format
+  OSMLink = 3,        // Link to osm.org
+  UTM = 4,            // Universal Transverse Mercator
+  MGRS = 5,           // Military Grid Reference System
+  OSGB = 6,           // British National Grid (OS Grid), Great Britain and the Isle of Man only
+  IrishGrid = 7,      // Irish Grid (letter reference), Northern Ireland and the Republic of Ireland
+  ITM = 8             // Irish Transverse Mercator (numeric), Northern Ireland and the Republic of Ireland
 };
+
+// The coordinate formats in cycle/display order (currently == ascending id). Single source of order.
+std::vector<CoordinatesFormat> const & AllCoordinateFormats();
+
+// Bare coordinate value for the format, e.g. "51.507400, -0.127800", "SW 7400 4210".
+// Empty if the format is unavailable here: UTM/MGRS beyond their valid latitudes (|lat| > 84),
+// or OSGB outside the region where it is the official reference (regionId fails IsOSGridRegion).
+std::string FormatCoordinateValue(CoordinatesFormat format, ms::LatLon ll, std::string_view regionId);
+
+// Display string: "<label>: <value>" for labelled formats (UTM/MGRS/OSGB), else the bare value.
+// Empty when the format is unavailable here (same condition as FormatCoordinateValue).
+std::string FormatCoordinateDisplay(CoordinatesFormat format, ms::LatLon ll, std::string_view regionId);
+
+// One coordinate format resolved at a point: its stable id and both string forms.
+struct CoordinateFormatEntry
+{
+  CoordinatesFormat m_format;
+  std::string m_display;  // Labelled form for the UI row, e.g. "OSGB: SW 7400 4210".
+  std::string m_value;    // Bare value for copying, e.g. "SW 7400 4210".
+};
+
+// The formats available at this point, in display order, resolved in a single pass. Never empty: the
+// decimal formats apply everywhere. This is the one primitive a place page needs - it resolves the
+// region once and returns every format's strings, so the platform picks/cycles over the list instead
+// of re-resolving per format, per refresh or per tap.
+std::vector<CoordinateFormatEntry> GetAvailableCoordinateFormats(ms::LatLon ll, std::string_view regionId);
+
+// Selection over a list from GetAvailableCoordinateFormats plus a saved stable id. The "effective"
+// format is the saved one if it is available here, else the first available; "next" is the one after
+// it (wrapping). Neither changes the saved preference, so it is restored once the user returns to a
+// region where it applies. entries must be non-empty.
+CoordinatesFormat EffectiveCoordinateFormat(std::vector<CoordinateFormatEntry> const & entries, int savedId);
+CoordinatesFormat NextCoordinateFormat(std::vector<CoordinateFormatEntry> const & entries, int savedId);
 
 struct BuildInfo
 {
@@ -134,7 +175,8 @@ public:
 
   std::string const & GetWikiDescription() const { return m_wikiDescription; }
   std::string const & GetOSMDescription() const { return m_osmDescription; }
-  /// @returns coordinate in DMS format if isDMS is true
+  /// @returns the display string for the format (see FormatCoordinateDisplay), or empty if it is
+  /// unavailable at this location. Used by the iOS place page (which keeps the array id-indexed).
   std::string GetFormattedCoordinate(CoordinatesFormat format) const;
 
   /// UI setters

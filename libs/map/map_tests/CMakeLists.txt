@@ -5,6 +5,7 @@ set(SRC
   bookmarks_test.cpp
   chart_generator_tests.cpp
   check_mwms.cpp
+  coordinate_formats_tests.cpp
   countries_names_tests.cpp
   extrapolator_tests.cpp
   feature_getters_tests.cpp

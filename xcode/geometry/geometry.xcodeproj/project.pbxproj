@@ -115,6 +115,8 @@
 		FACB76E626B8A43E00810C9C /* polyline_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D7006362463F6AD00AF8ADC /* polyline_tests.cpp */; };
 		FACB76E726B8A45800810C9C /* nearby_points_sweeper_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 344A713E1F3DA08300B8DDB8 /* nearby_points_sweeper_test.cpp */; };
 		FACB76EA26B8A4D900810C9C /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76E926B8A4D900810C9C /* libbase.a */; };
+		AB0000020000000000000002 /* geodesy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB0000010000000000000001 /* geodesy.cpp */; };
+		AB0000040000000000000004 /* geodesy.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AB0000030000000000000003 /* geodesy.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -241,6 +243,8 @@
 		E92D8BD21C15AFAA00A98D17 /* mercator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mercator.cpp; sourceTree = "<group>"; };
 		E92D8BD31C15AFAA00A98D17 /* mercator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mercator.hpp; sourceTree = "<group>"; };
 		FACB76E926B8A4D900810C9C /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB0000010000000000000001 /* geodesy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = geodesy.cpp; sourceTree = "<group>"; };
+		AB0000030000000000000003 /* geodesy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = geodesy.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -359,6 +363,8 @@
 				39B2B96E1FB4680500AB85A1 /* diamond_box.hpp */,
 				675344A61A3F687400A0A8C3 /* distance_on_sphere.cpp */,
 				675344A71A3F687400A0A8C3 /* distance_on_sphere.hpp */,
+				AB0000010000000000000001 /* geodesy.cpp */,
+				AB0000030000000000000003 /* geodesy.hpp */,
 				3D7006342463F69600AF8ADC /* intersection_score.hpp */,
 				6741AA9E1BF35476002C974C /* latlon.cpp */,
 				6741AA9F1BF35476002C974C /* latlon.hpp */,
@@ -452,6 +458,7 @@
 				4435C7882372BB5600B4358C /* circle_on_earth.hpp in Headers */,
 				675344C71A3F687400A0A8C3 /* packer.hpp in Headers */,
 				675344C41A3F687400A0A8C3 /* distance_on_sphere.hpp in Headers */,
+				AB0000040000000000000004 /* geodesy.hpp in Headers */,
 				440CF0C3236734820017C2A8 /* area_on_earth.hpp in Headers */,
 				45A2D9C11F7526E6003310A0 /* calipers_box.hpp in Headers */,
 				675344CA1A3F687400A0A8C3 /* polygon.hpp in Headers */,
@@ -601,6 +608,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				675344C31A3F687400A0A8C3 /* distance_on_sphere.cpp in Sources */,
+				AB0000020000000000000002 /* geodesy.cpp in Sources */,
 				675344CF1A3F687400A0A8C3 /* robust_orientation.cpp in Sources */,
 				56D5456A1C74A46D00E3719C /* algorithm.cpp in Sources */,
 				675344D41A3F687400A0A8C3 /* spline.cpp in Sources */,

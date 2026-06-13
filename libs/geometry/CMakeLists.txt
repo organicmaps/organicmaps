@@ -26,6 +26,8 @@ set(SRC
   diamond_box.hpp
   distance_on_sphere.cpp
   distance_on_sphere.hpp
+  geodesy.cpp
+  geodesy.hpp
   latlon.cpp
   latlon.hpp
   line2d.cpp

@@ -8,8 +8,10 @@
 
 #include "platform/distance.hpp"
 #include "platform/duration.hpp"
+#include "platform/irish_grid_utils.hpp"
 #include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
+#include "platform/os_grid_utils.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 #include "platform/utm_mgrs_utils.hpp"
@@ -20,8 +22,164 @@
 
 #include "3party/open-location-code/openlocationcode.h"
 
+#include <iterator>
+#include <string>
+#include <string_view>
+#include <vector>
+
 namespace place_page
 {
+namespace
+{
+// Each wrapper formats one coordinate system's value for the given point. Returns an empty string when
+// the format has no value there (e.g. UTM/MGRS beyond their latitude limits, or a grid outside its
+// region); the place page then hides the row rather than showing a literal "N/A".
+std::string ValueDMS(ms::LatLon ll)
+{
+  return measurement_utils::FormatLatLonAsDMS(ll.m_lat, ll.m_lon, false /* withComma */, 2);
+}
+std::string ValueDecimal(ms::LatLon ll)
+{
+  return measurement_utils::FormatLatLon(ll.m_lat, ll.m_lon, true /* withComma */, 6);
+}
+std::string ValueOLC(ms::LatLon ll)
+{
+  return openlocationcode::Encode({ll.m_lat, ll.m_lon});
+}
+std::string ValueOsmLink(ms::LatLon ll)
+{
+  return measurement_utils::FormatOsmLink(ll.m_lat, ll.m_lon, 14);
+}
+std::string ValueUTM(ms::LatLon ll)
+{
+  return utm_mgrs_utils::FormatUTM(ll.m_lat, ll.m_lon);
+}
+std::string ValueMGRS(ms::LatLon ll)
+{
+  return utm_mgrs_utils::FormatMGRS(ll.m_lat, ll.m_lon, 5);
+}
+std::string ValueOSGB(ms::LatLon ll)
+{
+  return os_grid_utils::FormatOSGrid(ll.m_lat, ll.m_lon);
+}
+std::string ValueIrishGrid(ms::LatLon ll)
+{
+  return irish_grid_utils::FormatIrishGrid(ll.m_lat, ll.m_lon);
+}
+std::string ValueITM(ms::LatLon ll)
+{
+  return irish_grid_utils::FormatITM(ll.m_lat, ll.m_lon);
+}
+
+// One coordinate format's behaviour, declared in exactly one place. Adding a region format is one
+// row here (plus its platform/ helper and a search matcher); see the header enum for the id rules.
+struct Desc
+{
+  CoordinatesFormat m_id;
+  char const * m_label;                  // nullptr => no label, value shown as-is
+  std::string (*m_value)(ms::LatLon);    // empty => unavailable here (never "N/A")
+  bool (*m_inRegion)(std::string_view);  // nullptr => available in every region
+};
+
+// Order == cycle/display order on every platform (the single source of order).
+Desc const kDescs[] = {
+    {CoordinatesFormat::LatLonDMS, nullptr, &ValueDMS, nullptr},
+    {CoordinatesFormat::LatLonDecimal, nullptr, &ValueDecimal, nullptr},
+    {CoordinatesFormat::OLCFull, nullptr, &ValueOLC, nullptr},
+    {CoordinatesFormat::OSMLink, nullptr, &ValueOsmLink, nullptr},
+    {CoordinatesFormat::UTM, "UTM", &ValueUTM, nullptr},
+    {CoordinatesFormat::MGRS, "MGRS", &ValueMGRS, nullptr},
+    {CoordinatesFormat::OSGB, "OSGB", &ValueOSGB, &os_grid_utils::IsOSGridRegion},
+    {CoordinatesFormat::IrishGrid, "Irish Grid", &ValueIrishGrid, &irish_grid_utils::IsIrishGridRegion},
+    {CoordinatesFormat::ITM, "ITM", &ValueITM, &irish_grid_utils::IsIrishGridRegion},
+};
+
+Desc const * Find(CoordinatesFormat format)
+{
+  for (auto const & d : kDescs)
+    if (d.m_id == format)
+      return &d;
+  return nullptr;
+}
+
+// Region-gate, then format the value from an already-resolved descriptor; empty => unavailable here.
+std::string FormatValue(Desc const & d, ms::LatLon ll, std::string_view regionId)
+{
+  if (d.m_inRegion && !d.m_inRegion(regionId))
+    return {};
+  return d.m_value(ll);
+}
+}  // namespace
+
+std::vector<CoordinatesFormat> const & AllCoordinateFormats()
+{
+  static std::vector<CoordinatesFormat> const formats = []
+  {
+    std::vector<CoordinatesFormat> result;
+    result.reserve(std::size(kDescs));
+    for (auto const & d : kDescs)
+      result.push_back(d.m_id);
+    return result;
+  }();
+  return formats;
+}
+
+std::string FormatCoordinateValue(CoordinatesFormat format, ms::LatLon ll, std::string_view regionId)
+{
+  auto const * d = Find(format);
+  return d ? FormatValue(*d, ll, regionId) : std::string{};
+}
+
+std::string FormatCoordinateDisplay(CoordinatesFormat format, ms::LatLon ll, std::string_view regionId)
+{
+  auto const * d = Find(format);
+  if (!d)
+    return {};
+  auto const value = FormatValue(*d, ll, regionId);
+  if (value.empty())
+    return {};
+  return d->m_label ? std::string(d->m_label) + ": " + value : value;
+}
+
+std::vector<CoordinateFormatEntry> GetAvailableCoordinateFormats(ms::LatLon ll, std::string_view regionId)
+{
+  std::vector<CoordinateFormatEntry> result;
+  result.reserve(std::size(kDescs));
+  for (auto const & d : kDescs)
+  {
+    auto value = FormatValue(d, ll, regionId);
+    if (value.empty())
+      continue;
+    std::string display = d.m_label ? std::string(d.m_label) + ": " + value : value;
+    result.push_back({d.m_id, std::move(display), std::move(value)});
+  }
+  return result;
+}
+
+namespace
+{
+// Index of the saved format in the available list, or 0 (the first available) when it does not apply
+// here - the decimal formats always do, so the list is never empty and index 0 is always valid.
+size_t EffectiveIndex(std::vector<CoordinateFormatEntry> const & entries, int savedId)
+{
+  for (size_t i = 0; i < entries.size(); ++i)
+    if (static_cast<int>(entries[i].m_format) == savedId)
+      return i;
+  return 0;
+}
+}  // namespace
+
+CoordinatesFormat EffectiveCoordinateFormat(std::vector<CoordinateFormatEntry> const & entries, int savedId)
+{
+  ASSERT(!entries.empty(), ());
+  return entries[EffectiveIndex(entries, savedId)].m_format;
+}
+
+CoordinatesFormat NextCoordinateFormat(std::vector<CoordinateFormatEntry> const & entries, int savedId)
+{
+  ASSERT(!entries.empty(), ());
+  return entries[(EffectiveIndex(entries, savedId) + 1) % entries.size()].m_format;
+}
 
 bool Info::IsBookmark() const
 {
@@ -391,39 +549,9 @@ kml::LocalizableString Info::FormatNewBookmarkName() const
   return bookmarkName;
 }
 
-std::string Info::GetFormattedCoordinate(CoordinatesFormat coordsFormat) const
+std::string Info::GetFormattedCoordinate(CoordinatesFormat format) const
 {
-  auto const & ll = GetLatLon();
-  auto const lat = ll.m_lat;
-  auto const lon = ll.m_lon;
-  switch (coordsFormat)
-  {
-  default:
-  case CoordinatesFormat::LatLonDMS:  // DMS, comma separated
-    return measurement_utils::FormatLatLonAsDMS(lat, lon, false /*withComma*/, 2);
-  case CoordinatesFormat::LatLonDecimal:  // Decimal, comma separated
-    return measurement_utils::FormatLatLon(lat, lon, true /* withComma */);
-  case CoordinatesFormat::OLCFull:  // Open location code, long format
-    return openlocationcode::Encode({lat, lon});
-  case CoordinatesFormat::OSMLink:  // Link to osm.org
-    return measurement_utils::FormatOsmLink(lat, lon, 14);
-  case CoordinatesFormat::UTM:  // Universal Transverse Mercator
-  {
-    std::string utmCoords = utm_mgrs_utils::FormatUTM(lat, lon);
-    if (utmCoords.empty())
-      return "UTM: N/A";
-    else
-      return "UTM: " + utmCoords;
-  }
-  case CoordinatesFormat::MGRS:  // Military Grid Reference System
-  {
-    std::string mgrsCoords = utm_mgrs_utils::FormatMGRS(lat, lon, 5);
-    if (mgrsCoords.empty())
-      return "MGRS: N/A";
-    else
-      return "MGRS: " + mgrsCoords;
-  }
-  }
+  return FormatCoordinateDisplay(format, GetLatLon(), GetCountryId());
 }
 
 void Info::SetRoadType(RoadWarningMarkType type, std::string const & localizedType, std::string const & distance)

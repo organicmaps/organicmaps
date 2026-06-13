@@ -277,11 +277,7 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, qt::DrawWidget * draw
       addEntry(data, row, "ATM", "Yes");
 
     // Latlon fragment
-    {
-      ms::LatLon const ll = info.GetLatLon();
-      addEntry(data, row, "Coordinates",
-               strings::to_string_dac(ll.m_lat, 7) + ", " + strings::to_string_dac(ll.m_lon, 7));
-    }
+    addCoordinatesRow(data, row, info);
 
     data->setColumnStretch(0, 0);
     data->setColumnStretch(1, 1);

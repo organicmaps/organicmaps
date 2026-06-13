@@ -55,4 +55,9 @@ QLabel * addEntry(QGridLayout * grid, int & row, std::string const & key, std::s
 // shows the selected route's transit view via DrawWidget::GetFramework().ShowRouteTransit().
 // No-op when there are no routes.
 void addRoutesRow(QGridLayout * grid, int & row, qt::DrawWidget * drawWidget, place_page::Info const & info);
+
+// Adds a "Coordinates" row whose value cycles (via a button) through the formats available at the
+// place, mirroring the mobile place page. Reuses the place_page coordinate registry and persists the
+// selected format id across sessions (see CoordinatesFormat in map/place_page_info.hpp).
+void addCoordinatesRow(QGridLayout * grid, int & row, place_page::Info const & info);
 }  // namespace place_page_dialog
