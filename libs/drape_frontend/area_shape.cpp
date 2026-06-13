@@ -10,8 +10,16 @@
 
 #include "base/buffer_vector.hpp"
 
+#include <cmath>
+
 namespace df
 {
+
+double CalcHatchingPhaseAnchor(double bboxMin, uint32_t maskSizePx, double baseGtoPScale)
+{
+  double const period = maskSizePx / baseGtoPScale;  // world units per mask repeat
+  return std::floor(bboxMin / period) * period;
+}
 
 AreaShape::AreaShape(std::vector<m2::PointD> triangleList, BuildingOutline && buildingOutline,
                      AreaViewParams const & params)
@@ -118,13 +126,18 @@ void AreaShape::DrawHatchingArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<d
   double const maxU = m_params.m_baseGtoPScale / hatchingTexture->GetWidth();
   double const maxV = m_params.m_baseGtoPScale / hatchingTexture->GetHeight();
 
+  // Anchor the repeated mask to a global, period-aligned grid instead of the clipped bbox, so the hatch
+  // phase stays continuous across tile seams and LOD changes. See CalcHatchingPhaseAnchor / issue #12804.
+  double const anchorX = CalcHatchingPhaseAnchor(bbox.minX(), hatchingTexture->GetWidth(), m_params.m_baseGtoPScale);
+  double const anchorY = CalcHatchingPhaseAnchor(bbox.minY(), hatchingTexture->GetHeight(), m_params.m_baseGtoPScale);
+
   gpu::VBReservedSizeT<gpu::HatchingAreaVertex> vertexes;
   vertexes.reserve(m_vertexes.size());
   for (m2::PointD const & vertex : m_vertexes)
   {
-    vertexes.emplace_back(ToShapeVertex3(vertex), uv,
-                          glsl::vec2(static_cast<float>(maxU * (vertex.x - bbox.minX())),
-                                     static_cast<float>(maxV * (vertex.y - bbox.minY()))));
+    vertexes.emplace_back(
+        ToShapeVertex3(vertex), uv,
+        glsl::vec2(static_cast<float>(maxU * (vertex.x - anchorX)), static_cast<float>(maxV * (vertex.y - anchorY))));
   }
 
   auto state = CreateRenderState(gpu::Program::HatchingArea, DepthLayer::GeometryLayer);
