@@ -1,4 +1,3 @@
 <resources>
-  <string name="app_name">Organic Maps</string>
-  <string name="wear_no_navigation_message">Open Organic Maps on your phone to start navigation.</string>
+    <string name="app_name" translatable="false">Organic Maps</string>
 </resources>
