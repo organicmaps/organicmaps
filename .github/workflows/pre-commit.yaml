@@ -18,9 +18,6 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v6
 
-      - name: Fetch base branch
-        run: git fetch origin ${{ github.base_ref }} --depth=1
-
       - name: set PY
         run: echo "PY=$(python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
 
@@ -35,6 +32,7 @@ jobs:
       - name: Check if pre-commit config changed
         id: precommit_config
         run: |
+          git fetch origin ${{ github.base_ref }} --depth=1
           if git diff --name-only origin/${{ github.base_ref }} | grep -q ".pre-commit-config.yaml"; then
             echo "changed=true" >> $GITHUB_OUTPUT
           else
