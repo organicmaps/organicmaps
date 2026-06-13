@@ -234,6 +234,8 @@ def check_text(path, max, optional=False, fix=False):
 
 def check_url(path, fix=False):
     (ok, url) = check_raw(path, 500, fix=fix)
+    if ok and len(url) == 0:
+        return done(path, ok)
     url = urlparse(url)
     if not url.scheme in ('https', 'http'):
         ok = error(path, "invalid URL: {}", url)
