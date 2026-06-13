@@ -7,14 +7,16 @@ repos:
           (?x)^(
             android/app/src/(fdroid|google)/play/.+\.txt| # metadata is verified in a separate hook
             iphone/metadata/.+\.txt|                      # metadata is verified in a separate hook
-            3party/.*
+            3party/.*|
+            data/test_data/.*
           )$
       - id: end-of-file-fixer
         exclude: |
           (?x)^(
             android/app/src/(fdroid|google)/play/.+\.txt| # metadata is verified in a separate hook
             iphone/metadata/.+\.txt|                      # metadata is verified in a separate hook
-            3party/.*
+            3party/.*|
+            data/test_data/.*
           )$
   - repo: https://github.com/pre-commit/mirrors-clang-format
     rev: 'v22.1.5'
