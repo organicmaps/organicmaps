@@ -148,6 +148,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
   private boolean mIntentConsumed = false;
   private boolean mPreciseLocationDialogShown = false;
+  private boolean mSkipParsedBackUrlOnStop = false;
 
   private static final String[] DOCKED_FRAGMENTS = {SearchFragment.class.getName(), DownloaderFragment.class.getName(),
                                                     RoutingPlanFragment.class.getName(),
@@ -1148,9 +1149,22 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mSearchController.detach();
     Utils.keepScreenOn(false, getWindow());
 
-    final String backUrl = Framework.nativeGetParsedBackUrl();
-    if (!TextUtils.isEmpty(backUrl))
-      Utils.openUri(this, Uri.parse(backUrl), null);
+    if (mSkipParsedBackUrlOnStop)
+      mSkipParsedBackUrlOnStop = false;
+    // Returning to the caller is a one-shot action for the moment the user leaves the
+    // app; while navigation is running, leaving (screen lock, app switch) is a normal
+    // part of the session, so keep the back URL for the stop after navigation ends.
+    else if (!RoutingController.get().isNavigating())
+    {
+      final String backUrl = Framework.nativeGetParsedBackUrl();
+      if (!TextUtils.isEmpty(backUrl) && Utils.openUri(this, Uri.parse(backUrl), null))
+        Framework.nativeClearParsedBackUrl();
+    }
+  }
+
+  void skipParsedBackUrlOnNextStop()
+  {
+    mSkipParsedBackUrlOnStop = true;
   }
 
   @CallSuper

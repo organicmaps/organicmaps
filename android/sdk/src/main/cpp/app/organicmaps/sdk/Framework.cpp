@@ -807,6 +807,14 @@ void CallSetRoutingLoadPointsListener(std::shared_ptr<jobject> listener, bool su
   env->CallVoidMethod(*listener, methodId, static_cast<jboolean>(success));
 }
 
+void CallRoutePointCallbackListener(std::shared_ptr<jobject> listener, std::string const & callback)
+{
+  JNIEnv * env = jni::GetEnv();
+  jmethodID const methodId = jni::GetMethodID(env, *listener, "onRoutePointCallback", "(Ljava/lang/String;)V");
+  jni::TScopedLocalRef const jCallback(env, jni::ToJavaString(env, callback));
+  env->CallVoidMethod(*listener, methodId, jCallback.get());
+}
+
 RoutingManager::LoadRouteHandler g_loadRouteHandler;
 
 /// @name JNI EXPORTS
@@ -829,26 +837,18 @@ JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeParseAndSetApiUrl(JNIEnv
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetParsedRoutingData(JNIEnv * env, jclass clazz)
 {
-  using namespace url_scheme;
-  static jclass const pointClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/api/RoutePoint");
-  // Java signature : RoutePoint(double lat, double lon, String name)
-  static jmethodID const pointConstructor = jni::GetConstructorID(env, pointClazz, "(DDLjava/lang/String;)V");
-
   static jclass const routeDataClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/api/ParsedRoutingData");
-  // Java signature : ParsedRoutingData(RoutePoint[] points, int routerType) {
-  static jmethodID const routeDataConstructor =
-      jni::GetConstructorID(env, routeDataClazz, "([Lapp/organicmaps/sdk/api/RoutePoint;I)V");
+  // Java signature : ParsedRoutingData(int routerType, boolean startRouteNavigation)
+  static jmethodID const routeDataConstructor = jni::GetConstructorID(env, routeDataClazz, "(IZ)V");
 
   auto const & routingData = frm()->GetParsedRoutingData();
-  jobjectArray points =
-      jni::ToJavaArray(env, pointClazz, routingData.m_points, [](JNIEnv * env, RoutePoint const & point)
-  {
-    jni::TScopedLocalRef const name(env, jni::ToJavaString(env, point.m_name));
-    return env->NewObject(pointClazz, pointConstructor, mercator::YToLat(point.m_org.y),
-                          mercator::XToLon(point.m_org.x), name.get());
-  });
+  return env->NewObject(routeDataClazz, routeDataConstructor, routingData.m_type,
+                        static_cast<jboolean>(routingData.m_startRouteNavigation));
+}
 
-  return env->NewObject(routeDataClazz, routeDataConstructor, points, routingData.m_type);
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeExecuteRouteApiRequest(JNIEnv *, jclass)
+{
+  frm()->ExecuteRouteApiRequest();
 }
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetParsedSearchRequest(JNIEnv * env, jclass clazz)
@@ -879,6 +879,11 @@ JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetParsedBackUrl(JNIE
 {
   std::string const & backUrl = frm()->GetParsedBackUrl();
   return (backUrl.empty()) ? nullptr : jni::ToJavaString(env, backUrl);
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeClearParsedBackUrl(JNIEnv *, jclass)
+{
+  frm()->ClearParsedBackUrl();
 }
 
 JNIEXPORT jdoubleArray Java_app_organicmaps_sdk_Framework_nativeGetParsedCenterLatLon(JNIEnv * env, jclass)
@@ -1235,6 +1240,19 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteFollowingInfo
   return CreateRoutingInfo(env, info, rm);
 }
 
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetRoutePointCallbackListener(JNIEnv * env, jclass,
+                                                                                      jobject listener)
+{
+  if (listener == nullptr)
+  {
+    frm()->GetRoutingManager().SetRoutePointCallback({});
+    return;
+  }
+
+  frm()->GetRoutingManager().SetRoutePointCallback(
+      std::bind(&CallRoutePointCallbackListener, jni::make_global_ref(listener), _1));
+}
+
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetRouteJunctionPoints(JNIEnv * env, jclass,
                                                                                        jdouble maxDistM)
 {
@@ -1365,14 +1383,15 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeDeactivateMapSelectionCi
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(JNIEnv * env, jclass, jstring title,
-                                                                      jstring subtitle, jobject markType,
-                                                                      jint intermediateIndex, jboolean isMyPosition,
-                                                                      jdouble lat, jdouble lon,
+                                                                      jstring subtitle, jstring callback,
+                                                                      jobject markType, jint intermediateIndex,
+                                                                      jboolean isMyPosition, jdouble lat, jdouble lon,
                                                                       jboolean reorderIntermediatePoints)
 {
   RouteMarkData data;
   data.m_title = jni::ToNativeString(env, title);
   data.m_subTitle = jni::ToNativeString(env, subtitle);
+  data.m_callback = callback == nullptr ? "" : jni::ToNativeString(env, callback);
   data.m_pointType = GetRouteMarkType(env, markType);
   data.m_intermediateIndex = static_cast<size_t>(intermediateIndex);
   data.m_isMyPosition = static_cast<bool>(isMyPosition);
