@@ -54,13 +54,13 @@ enum class CoordinatesFormat
 std::vector<CoordinatesFormat> const & AllCoordinateFormats();
 
 // Bare coordinate value for the format, e.g. "51.507400, -0.127800", "SW 7400 4210".
-// nullopt if the format is unavailable here: UTM/MGRS beyond their valid latitudes (|lat| > 84),
+// Empty if the format is unavailable here: UTM/MGRS beyond their valid latitudes (|lat| > 84),
 // or OSGB outside the region where it is the official reference (regionId fails IsOSGridRegion).
-std::optional<std::string> FormatCoordinateValue(CoordinatesFormat format, ms::LatLon ll, std::string_view regionId);
+std::string FormatCoordinateValue(CoordinatesFormat format, ms::LatLon ll, std::string_view regionId);
 
 // Display string: "<label>: <value>" for labelled formats (UTM/MGRS/OSGB), else the bare value.
-// nullopt when the format is unavailable here (same condition as FormatCoordinateValue).
-std::optional<std::string> FormatCoordinateDisplay(CoordinatesFormat format, ms::LatLon ll, std::string_view regionId);
+// Empty when the format is unavailable here (same condition as FormatCoordinateValue).
+std::string FormatCoordinateDisplay(CoordinatesFormat format, ms::LatLon ll, std::string_view regionId);
 
 // One coordinate format resolved at a point: its stable id and both string forms.
 struct CoordinateFormatEntry

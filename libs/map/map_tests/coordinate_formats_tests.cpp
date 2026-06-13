@@ -4,7 +4,6 @@
 
 #include "geometry/latlon.hpp"
 
-#include <optional>
 #include <string>
 #include <string_view>
 
@@ -14,21 +13,23 @@ using place_page::CoordinatesFormat;
 using place_page::FormatCoordinateDisplay;
 using place_page::FormatCoordinateValue;
 
-// Display string for a format, or a sentinel when the format is unavailable at this location.
-// (std::optional has no DebugPrint, so we compare plain strings.)
+// Display string for a format, or a sentinel when the format is unavailable here (an empty string), so
+// the golden comparisons read clearly.
 std::string Display(CoordinatesFormat f, ms::LatLon ll, std::string_view region)
 {
-  return FormatCoordinateDisplay(f, ll, region).value_or("<unavailable>");
+  auto const s = FormatCoordinateDisplay(f, ll, region);
+  return s.empty() ? "<unavailable>" : s;
 }
 
 std::string Value(CoordinatesFormat f, ms::LatLon ll, std::string_view region)
 {
-  return FormatCoordinateValue(f, ll, region).value_or("<unavailable>");
+  auto const s = FormatCoordinateValue(f, ll, region);
+  return s.empty() ? "<unavailable>" : s;
 }
 
 bool Available(CoordinatesFormat f, ms::LatLon ll, std::string_view region)
 {
-  return FormatCoordinateValue(f, ll, region).has_value();
+  return !FormatCoordinateValue(f, ll, region).empty();
 }
 
 // Reference points with their mwm region id and whether the OS Grid applies there.
@@ -116,8 +117,8 @@ UNIT_TEST(CoordinateFormats_Structure)
   {
     auto const value = FormatCoordinateValue(f, kLondon, region);
     auto const display = FormatCoordinateDisplay(f, kLondon, region);
-    TEST(value && display, (static_cast<int>(f)));
-    TEST_EQUAL(*display, label + *value, ());
+    TEST(!value.empty() && !display.empty(), (static_cast<int>(f)));
+    TEST_EQUAL(display, label + value, ());
   }
 
   // Unlabelled formats: display == bare value.
@@ -132,8 +133,8 @@ UNIT_TEST(CoordinateFormats_Structure)
   {
     auto const value = FormatCoordinateValue(f, kBelfast, ni);
     auto const display = FormatCoordinateDisplay(f, kBelfast, ni);
-    TEST(value && display, (static_cast<int>(f)));
-    TEST_EQUAL(*display, label + *value, ());
+    TEST(!value.empty() && !display.empty(), (static_cast<int>(f)));
+    TEST_EQUAL(display, label + value, ());
   }
 }
 

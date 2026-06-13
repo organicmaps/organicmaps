@@ -997,7 +997,7 @@ JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeFormatLatLon(JNIEnv *
   // Bare value (no label) for a single format; used for the RoutingController point titles (decimal).
   auto const value = place_page::FormatCoordinateValue(static_cast<place_page::CoordinatesFormat>(formatId), {lat, lon},
                                                        RegionAt(lat, lon));
-  return value ? jni::ToJavaString(env, *value) : nullptr;  // null => unavailable here; the UI skips it.
+  return value.empty() ? nullptr : jni::ToJavaString(env, value);  // empty => unavailable here; the UI skips it.
 }
 
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetCoordinateFormats(JNIEnv * env, jclass, jdouble lat,

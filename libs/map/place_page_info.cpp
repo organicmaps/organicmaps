@@ -23,7 +23,6 @@
 #include "3party/open-location-code/openlocationcode.h"
 
 #include <iterator>
-#include <optional>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -32,50 +31,44 @@ namespace place_page
 {
 namespace
 {
-// Wrap a formatter result: a non-empty string is the value, an empty one means "unavailable here".
-std::optional<std::string> NonEmpty(std::string s)
-{
-  return s.empty() ? std::nullopt : std::optional(std::move(s));
-}
-
-// Each wrapper formats one coordinate system's value for the given point. Returns nullopt when the
-// format has no value there (e.g. UTM/MGRS beyond their latitude limits); the place page then hides
-// the row rather than showing a literal "N/A".
-std::optional<std::string> ValueDMS(ms::LatLon ll)
+// Each wrapper formats one coordinate system's value for the given point. Returns an empty string when
+// the format has no value there (e.g. UTM/MGRS beyond their latitude limits, or a grid outside its
+// region); the place page then hides the row rather than showing a literal "N/A".
+std::string ValueDMS(ms::LatLon ll)
 {
   return measurement_utils::FormatLatLonAsDMS(ll.m_lat, ll.m_lon, false /* withComma */, 2);
 }
-std::optional<std::string> ValueDecimal(ms::LatLon ll)
+std::string ValueDecimal(ms::LatLon ll)
 {
   return measurement_utils::FormatLatLon(ll.m_lat, ll.m_lon, true /* withComma */, 6);
 }
-std::optional<std::string> ValueOLC(ms::LatLon ll)
+std::string ValueOLC(ms::LatLon ll)
 {
   return openlocationcode::Encode({ll.m_lat, ll.m_lon});
 }
-std::optional<std::string> ValueOsmLink(ms::LatLon ll)
+std::string ValueOsmLink(ms::LatLon ll)
 {
   return measurement_utils::FormatOsmLink(ll.m_lat, ll.m_lon, 14);
 }
-std::optional<std::string> ValueUTM(ms::LatLon ll)
+std::string ValueUTM(ms::LatLon ll)
 {
-  return NonEmpty(utm_mgrs_utils::FormatUTM(ll.m_lat, ll.m_lon));
+  return utm_mgrs_utils::FormatUTM(ll.m_lat, ll.m_lon);
 }
-std::optional<std::string> ValueMGRS(ms::LatLon ll)
+std::string ValueMGRS(ms::LatLon ll)
 {
-  return NonEmpty(utm_mgrs_utils::FormatMGRS(ll.m_lat, ll.m_lon, 5));
+  return utm_mgrs_utils::FormatMGRS(ll.m_lat, ll.m_lon, 5);
 }
-std::optional<std::string> ValueOSGB(ms::LatLon ll)
+std::string ValueOSGB(ms::LatLon ll)
 {
-  return NonEmpty(os_grid_utils::FormatOSGrid(ll.m_lat, ll.m_lon));
+  return os_grid_utils::FormatOSGrid(ll.m_lat, ll.m_lon);
 }
-std::optional<std::string> ValueIrishGrid(ms::LatLon ll)
+std::string ValueIrishGrid(ms::LatLon ll)
 {
-  return NonEmpty(irish_grid_utils::FormatIrishGrid(ll.m_lat, ll.m_lon));
+  return irish_grid_utils::FormatIrishGrid(ll.m_lat, ll.m_lon);
 }
-std::optional<std::string> ValueITM(ms::LatLon ll)
+std::string ValueITM(ms::LatLon ll)
 {
-  return NonEmpty(irish_grid_utils::FormatITM(ll.m_lat, ll.m_lon));
+  return irish_grid_utils::FormatITM(ll.m_lat, ll.m_lon);
 }
 
 // One coordinate format's behaviour, declared in exactly one place. Adding a region format is one
@@ -83,9 +76,9 @@ std::optional<std::string> ValueITM(ms::LatLon ll)
 struct Desc
 {
   CoordinatesFormat m_id;
-  char const * m_label;                               // nullptr => no label, value shown as-is
-  std::optional<std::string> (*m_value)(ms::LatLon);  // nullopt => unavailable here (never "N/A")
-  bool (*m_inRegion)(std::string_view);               // nullptr => available in every region
+  char const * m_label;                  // nullptr => no label, value shown as-is
+  std::string (*m_value)(ms::LatLon);    // empty => unavailable here (never "N/A")
+  bool (*m_inRegion)(std::string_view);  // nullptr => available in every region
 };
 
 // Order == cycle/display order on every platform (the single source of order).
@@ -109,11 +102,11 @@ Desc const * Find(CoordinatesFormat format)
   return nullptr;
 }
 
-// Region-gate, then format the value, from an already-resolved descriptor.
-std::optional<std::string> FormatValue(Desc const & d, ms::LatLon ll, std::string_view regionId)
+// Region-gate, then format the value from an already-resolved descriptor; empty => unavailable here.
+std::string FormatValue(Desc const & d, ms::LatLon ll, std::string_view regionId)
 {
   if (d.m_inRegion && !d.m_inRegion(regionId))
-    return std::nullopt;
+    return {};
   return d.m_value(ll);
 }
 }  // namespace
@@ -131,21 +124,21 @@ std::vector<CoordinatesFormat> const & AllCoordinateFormats()
   return formats;
 }
 
-std::optional<std::string> FormatCoordinateValue(CoordinatesFormat format, ms::LatLon ll, std::string_view regionId)
+std::string FormatCoordinateValue(CoordinatesFormat format, ms::LatLon ll, std::string_view regionId)
 {
   auto const * d = Find(format);
-  return d ? FormatValue(*d, ll, regionId) : std::nullopt;
+  return d ? FormatValue(*d, ll, regionId) : std::string{};
 }
 
-std::optional<std::string> FormatCoordinateDisplay(CoordinatesFormat format, ms::LatLon ll, std::string_view regionId)
+std::string FormatCoordinateDisplay(CoordinatesFormat format, ms::LatLon ll, std::string_view regionId)
 {
   auto const * d = Find(format);
   if (!d)
-    return std::nullopt;
+    return {};
   auto const value = FormatValue(*d, ll, regionId);
-  if (!value)
-    return std::nullopt;
-  return d->m_label ? std::string(d->m_label) + ": " + *value : *value;
+  if (value.empty())
+    return {};
+  return d->m_label ? std::string(d->m_label) + ": " + value : value;
 }
 
 std::vector<CoordinateFormatEntry> GetAvailableCoordinateFormats(ms::LatLon ll, std::string_view regionId)
@@ -155,10 +148,10 @@ std::vector<CoordinateFormatEntry> GetAvailableCoordinateFormats(ms::LatLon ll, 
   for (auto const & d : kDescs)
   {
     auto value = FormatValue(d, ll, regionId);
-    if (!value)
+    if (value.empty())
       continue;
-    std::string display = d.m_label ? std::string(d.m_label) + ": " + *value : *value;
-    result.push_back({d.m_id, std::move(display), std::move(*value)});
+    std::string display = d.m_label ? std::string(d.m_label) + ": " + value : value;
+    result.push_back({d.m_id, std::move(display), std::move(value)});
   }
   return result;
 }
@@ -558,7 +551,7 @@ kml::LocalizableString Info::FormatNewBookmarkName() const
 
 std::string Info::GetFormattedCoordinate(CoordinatesFormat format) const
 {
-  return FormatCoordinateDisplay(format, GetLatLon(), GetCountryId()).value_or(std::string{});
+  return FormatCoordinateDisplay(format, GetLatLon(), GetCountryId());
 }
 
 void Info::SetRoadType(RoadWarningMarkType type, std::string const & localizedType, std::string const & distance)
