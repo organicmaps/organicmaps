@@ -45,3 +45,13 @@ repos:
             android/app/src/(fdroid|google)/play/.+\.txt|
             iphone/metadata/.+\.txt
           )$
+      - id: timezone_validator
+        name: TimeZone Info Validator
+        language: python
+        entry: tools/python/timezone/timezone_info_validator.py
+        pass_filenames: false
+        require_serial: true
+        files: (?x)^(
+            tools/python/timezone/.*|
+            data/generator/timezone/.*
+          )$
