@@ -33,6 +33,7 @@ repos:
         name: ktlint
         entry: ./tools/hooks/ktlint.sh --editorconfig="android/.editorconfig" --format
         language: script
+        require_serial: true
         files: 'android/.*\.kt(s)?$'
         verbose: true
       - id: check_store_metadata
