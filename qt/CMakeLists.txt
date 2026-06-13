@@ -249,3 +249,7 @@ elseif (BUILD_STANDALONE)
 endif()
 
 add_subdirectory(qt_common)
+
+if (NOT SKIP_TESTS)
+  add_subdirectory(qt_tests)
+endif()
