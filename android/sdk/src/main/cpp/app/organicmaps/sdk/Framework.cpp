@@ -994,35 +994,37 @@ static storage::CountryId RegionAt(jdouble lat, jdouble lon)
 JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeFormatLatLon(JNIEnv * env, jclass, jdouble lat, jdouble lon,
                                                                         jint formatId)
 {
-  // Bare value (no label); used for copying and by RoutingController point titles.
+  // Bare value (no label) for a single format; used for the RoutingController point titles (decimal).
   auto const value = place_page::FormatCoordinateValue(static_cast<place_page::CoordinatesFormat>(formatId), {lat, lon},
                                                        RegionAt(lat, lon));
   return value ? jni::ToJavaString(env, *value) : nullptr;  // null => unavailable here; the UI skips it.
 }
 
-JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeFormatCoordDisplay(JNIEnv * env, jclass, jdouble lat,
-                                                                              jdouble lon, jint formatId)
+JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetCoordinateFormats(JNIEnv * env, jclass, jdouble lat,
+                                                                                     jdouble lon)
 {
-  // Composed display string ("OSGB: SW 7400 4210"); used for the place-page coordinate label.
-  auto const display = place_page::FormatCoordinateDisplay(static_cast<place_page::CoordinatesFormat>(formatId),
-                                                           {lat, lon}, RegionAt(lat, lon));
-  return display ? jni::ToJavaString(env, *display) : nullptr;
-}
+  // Every format available at this point, in display order, each with its labelled display string and
+  // its bare value. The place page renders, cycles and copies over this list, so a refresh or a tap
+  // costs a single region polygon lookup (done once here), not one per format or per action. Always
+  // non-empty: the decimal formats apply everywhere.
+  auto const entries = place_page::GetAvailableCoordinateFormats({lat, lon}, RegionAt(lat, lon));
 
-JNIEXPORT jintArray Java_app_organicmaps_sdk_Framework_nativeGetAvailableCoordFormats(JNIEnv * env, jclass, jdouble lat,
-                                                                                      jdouble lon)
-{
-  // Stable ids available at this point, in display order. Always non-empty (the decimal formats apply
-  // everywhere). The region polygon lookup runs once here, not once per format.
-  auto const region = RegionAt(lat, lon);
-  std::vector<jint> ids;
-  for (auto const format : place_page::AllCoordinateFormats())
-    if (place_page::FormatCoordinateValue(format, {lat, lon}, region))
-      ids.push_back(static_cast<jint>(format));
+  static jclass const entryClass =
+      jni::GetGlobalClassRef(env, "app/organicmaps/sdk/widget/placepage/CoordinatesFormatEntry");
+  // CoordinatesFormatEntry(int id, String display, String value)
+  static jmethodID const entryCtor = jni::GetConstructorID(env, entryClass, "(ILjava/lang/String;Ljava/lang/String;)V");
 
-  jintArray const result = env->NewIntArray(static_cast<jsize>(ids.size()));
-  CHECK(result, ());
-  env->SetIntArrayRegion(result, 0, static_cast<jsize>(ids.size()), ids.data());
+  auto const count = static_cast<jsize>(entries.size());
+  jobjectArray const result = env->NewObjectArray(count, entryClass, nullptr);
+  for (jsize i = 0; i < count; ++i)
+  {
+    auto const & e = entries[i];
+    jni::TScopedLocalRef display(env, jni::ToJavaString(env, e.m_display));
+    jni::TScopedLocalRef value(env, jni::ToJavaString(env, e.m_value));
+    jni::TScopedLocalRef item(
+        env, env->NewObject(entryClass, entryCtor, static_cast<jint>(e.m_format), display.get(), value.get()));
+    env->SetObjectArrayElement(result, i, item.get());
+  }
   return result;
 }
 
