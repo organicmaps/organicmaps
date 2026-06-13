@@ -25,6 +25,7 @@ set(shader_files
     GL/debug_rect.fsh.glsl
     GL/debug_rect.vsh.glsl
     GL/hatching_area.fsh.glsl
+    GL/hatching_area_dash.fsh.glsl
     GL/hatching_area.vsh.glsl
     GL/imgui.fsh.glsl
     GL/imgui.vsh.glsl

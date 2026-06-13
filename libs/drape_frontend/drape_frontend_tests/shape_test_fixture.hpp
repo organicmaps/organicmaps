@@ -41,6 +41,9 @@ public:
   /// Add a shape to the current batch. Only valid inside RenderShapesToImage callback.
   void AddShape(drape_ptr<MapShape> && shape);
 
+  /// The last rendered frame; valid after Render() returns.
+  QImage const & GetLastImage() const { return m_lastImage; }
+
 private:
   bool Init(uint32_t width, uint32_t height);
   void Flush();

@@ -160,11 +160,51 @@ vertex HatchingAreaFragment_T vsHatchingArea(const HatchingAreaVertex_T in [[sta
   return out;
 }
 
-fragment half4 fsHatchingArea(const HatchingAreaFragment_T in [[stage_in]],
-                              texture2d<half> u_maskTex [[texture(0)]],
-                              sampler u_maskTexSampler [[sampler(0)]])
+// GLSL-style mod (always non-negative for a positive divisor), unlike Metal fmod which keeps the sign
+// of the dividend. The lattice coordinate can go slightly negative near a bbox edge, so this keeps the
+// analytic patterns identical to their GL counterparts.
+static float GLMod(float x, float y)
 {
-  return in.color * u_maskTex.sample(u_maskTexSampler, in.maskTexCoords);
+  return x - y * floor(x / y);
+}
+
+// Analytic 45-degree hatch (see GL/hatching_area.fsh.glsl). in.color already has opacity applied in
+// vsHatchingArea; in.maskTexCoords is the world-anchored lattice coordinate (1.0 == one 16px tile).
+fragment half4 fsHatchingArea(const HatchingAreaFragment_T in [[stage_in]])
+{
+  constexpr float kPeriodPx = 8.0;
+  constexpr float kHalfWidthPx = 0.7;
+  float2 px = in.maskTexCoords * 16.0;
+  float diag = px.x + px.y;
+  float m = GLMod(diag, kPeriodPx);
+  float dist = min(m, kPeriodPx - m);
+  float aa = fwidth(diag);
+  float coverage = 1.0 - smoothstep(kHalfWidthPx - aa, kHalfWidthPx + aa, dist);
+  return in.color * half(coverage);
+}
+
+// Analytic dashed hatch (see GL/hatching_area_dash.fsh.glsl).
+fragment half4 fsHatchingAreaDash(const HatchingAreaFragment_T in [[stage_in]])
+{
+  constexpr float kRowPeriodPx = 8.0;
+  constexpr float kRowCenterPx = 3.5;
+  constexpr float kHalfThickPx = 0.5;
+  constexpr float kDashPeriodPx = 16.0;
+  constexpr float kDashHalfPx = 4.0;
+  float2 px = in.maskTexCoords * 16.0;
+
+  float ym = GLMod(px.y - kRowCenterPx, kRowPeriodPx);
+  float yDist = min(ym, kRowPeriodPx - ym);
+  float aaY = fwidth(px.y);
+  float onRow = 1.0 - smoothstep(kHalfThickPx - aaY, kHalfThickPx + aaY, yDist);
+
+  float rowIdx = floor((px.y - kRowCenterPx) / kRowPeriodPx + 0.5);
+  float xPhase = px.x + GLMod(rowIdx, 2.0) * (kDashPeriodPx * 0.5);
+  float xDist = fabs(GLMod(xPhase, kDashPeriodPx) - kDashHalfPx);
+  float aaX = fwidth(px.x);
+  float onDash = 1.0 - smoothstep(kDashHalfPx - aaX, kDashHalfPx + aaX, xDist);
+
+  return in.color * half(onRow * onDash);
 }
 
 // CirclePoint
