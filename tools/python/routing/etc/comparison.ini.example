@@ -57,4 +57,3 @@ Timeout = 180
 LaunchesNumber = 3
 # car, pedestrian, bicycle, transit
 VehicleType = car
-

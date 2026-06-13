@@ -217,4 +217,3 @@ if __name__ == "__main__":
     except Exception as e:
         logging.critical(f"Cannot process current continent data: {repr(e)}")
         sys.exit(1)
-

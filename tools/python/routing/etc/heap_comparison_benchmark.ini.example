@@ -50,4 +50,3 @@ RoutesFile = /start_finish_latlon_file.routes
 Timeout = 7200
 # car, pedestrian, bicycle, transit
 VehicleType = car
-

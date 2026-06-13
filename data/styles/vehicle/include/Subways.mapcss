@@ -10,4 +10,3 @@ node|z1-14[railway=station][station=light_rail],
 node|z1-14[railway=station][transport=subway]::int_name,
 node|z1-14[railway=station][station=light_rail]::int_name,
 {text: none;}
-
