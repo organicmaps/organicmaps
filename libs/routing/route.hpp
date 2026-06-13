@@ -136,6 +136,12 @@ public:
     m_turn.m_pedestrianTurn = turns::PedestrianDirection::None;
   }
 
+  void OffsetTurnIndex(uint32_t offset)
+  {
+    if (!m_turn.IsTurnNone())
+      m_turn.m_index += offset;
+  }
+
   void SetTurnExits(uint32_t exitNum) { m_turn.m_exitNum = exitNum; }
 
   turns::lanes::LanesInfo & GetTurnLanes() { return m_turn.m_lanes; }
@@ -236,11 +242,12 @@ public:
     SubrouteAttrs() = default;
 
     SubrouteAttrs(geometry::PointWithAltitude const & start, geometry::PointWithAltitude const & finish,
-                  size_t beginSegmentIdx, size_t endSegmentIdx)
+                  size_t beginSegmentIdx, size_t endSegmentIdx, VehicleType vehicleType = VehicleType::Count)
       : m_start(start)
       , m_finish(finish)
       , m_beginSegmentIdx(beginSegmentIdx)
       , m_endSegmentIdx(endSegmentIdx)
+      , m_vehicleType(vehicleType)
     {
       CHECK_LESS_OR_EQUAL(beginSegmentIdx, endSegmentIdx, ());
     }
@@ -250,6 +257,7 @@ public:
       , m_finish(subroute.m_finish)
       , m_beginSegmentIdx(beginSegmentIdx)
       , m_endSegmentIdx(beginSegmentIdx + subroute.GetSize())
+      , m_vehicleType(subroute.m_vehicleType)
     {}
 
     geometry::PointWithAltitude const & GetStart() const { return m_start; }
@@ -257,6 +265,7 @@ public:
 
     size_t GetBeginSegmentIdx() const { return m_beginSegmentIdx; }
     size_t GetEndSegmentIdx() const { return m_endSegmentIdx; }
+    VehicleType GetVehicleType() const { return m_vehicleType; }
 
     size_t GetSize() const { return m_endSegmentIdx - m_beginSegmentIdx; }
 
@@ -269,6 +278,19 @@ public:
 
     // Non inclusive index of the last subroute segment in the whole route.
     size_t m_endSegmentIdx = 0;
+
+    VehicleType m_vehicleType = VehicleType::Count;
+  };
+
+  struct RenderSegment
+  {
+    // Index of the first route segment using |m_vehicleType|.
+    size_t m_beginSegmentIdx = 0;
+
+    // Non inclusive index of the last route segment using |m_vehicleType|.
+    size_t m_endSegmentIdx = 0;
+
+    VehicleType m_vehicleType = VehicleType::Count;
   };
 
   RouteBase() = default;
@@ -284,6 +306,7 @@ public:
 
   size_t GetCurrentSubrouteIdx() const { return m_currentSubrouteIdx; }
   std::vector<SubrouteAttrs> const & GetSubroutes() const { return m_subrouteAttrs; }
+  std::vector<RenderSegment> const & GetRenderSegments() const { return m_renderSegments; }
 
   // A route is "valid" (for display purposes) when it has at least one segment and a starting subroute.
   bool IsValid() const { return !m_routeSegments.empty() && !m_subrouteAttrs.empty(); }
@@ -322,6 +345,12 @@ public:
   void GetSubrouteInfo(size_t subrouteIdx, std::vector<RouteSegment> & segments) const;
 
   SubrouteAttrs const & GetSubrouteAttrs(size_t subrouteIdx) const;
+
+  template <class V>
+  void SetRenderSegments(V && segments)
+  {
+    m_renderSegments = std::forward<V>(segments);
+  }
 
   void GetAltitudes(geometry::Altitudes & altitudes) const;
   bool HaveAltitudes() const { return m_haveAltitudes; }
@@ -363,6 +392,7 @@ protected:
   // Subroute
   size_t m_currentSubrouteIdx = 0;
   std::vector<SubrouteAttrs> m_subrouteAttrs;
+  std::vector<RenderSegment> m_renderSegments;
 
   // Mwms which are crossed by the route where speed cameras are prohibited.
   std::vector<platform::CountryFile> m_speedCamPartlyProhibitedMwms;
@@ -378,6 +408,7 @@ class Route : public RouteBase
 {
 public:
   using SubrouteAttrs = RouteBase::SubrouteAttrs;
+  using RenderSegment = RouteBase::RenderSegment;
 
   Route() = default;
 
@@ -426,6 +457,8 @@ public:
 
   /// \brief estimated time to the nearest turn.
   double GetCurrentTimeToNearestTurnSec() const;
+
+  FollowedPolyline const & GetFollowedPolyline() const { return m_poly; }
 
   // A Route is "valid for following" when the followed polyline has >= 2 points and a valid iterator.
   bool IsValid() const { return m_poly.IsValid(); }
@@ -518,7 +551,6 @@ private:
   // promoting an alternative to a followed Route.
   RoutingSettings m_routingSettings = GetRoutingSettings(VehicleType::Car);
 };
-
 /// \brief Result of a route calculation. Carries one or more alternative routes (each as a RouteBase),
 /// plus identification info shared by the request as a whole. The "active" alternative is the one to follow.
 class RoutesResult

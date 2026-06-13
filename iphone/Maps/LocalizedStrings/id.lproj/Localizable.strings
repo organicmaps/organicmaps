@@ -703,6 +703,7 @@
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Hindari feri";
 "avoid_motorways" = "Hindari jalan raya";
+"public_bike_sharing" = "Public Bike-Sharing";
 "unable_to_calc_alert_title" = "Tidak dapat menghitung rute";
 "unable_to_calc_alert_subtitle" = "Sayangnya kami tidak dapat menemukan rute karena opsi pilihan Anda. Harap ubah pengaturan lalu coba lagi";
 "define_to_avoid_btn" = "Tentukan jalan yang dihindari";

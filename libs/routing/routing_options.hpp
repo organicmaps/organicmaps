@@ -31,6 +31,12 @@ public:
   static RoutingOptions LoadCarOptionsFromSettings();
   static void SaveCarOptionsToSettings(RoutingOptions options);
 
+  static RoutingOptions LoadBicycleOptionsFromSettings();
+  static void SaveBicycleOptionsToSettings(RoutingOptions options);
+
+  static bool IsPublicBicycleEnabled();
+  static void SetPublicBicycleEnabled(bool enabled);
+
   void Add(Road type);
   void Remove(Road type);
   bool Has(Road type) const;

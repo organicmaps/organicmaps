@@ -703,6 +703,7 @@
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Vermy veerbootkruisings";
 "avoid_motorways" = "Vermy snelweë";
+"public_bike_sharing" = "Public Bike-Sharing";
 "unable_to_calc_alert_title" = "Kan nie ’n roete bereken nie";
 "unable_to_calc_alert_subtitle" = "’n Roete kon nie gevind word nie. Dit kan deur ’n ompadopsies of onvolledige OpenStreetMap-data veroorsaak word. Verander u omwegopsies en probeer weer.";
 "define_to_avoid_btn" = "Definieer paaie om te vermy";

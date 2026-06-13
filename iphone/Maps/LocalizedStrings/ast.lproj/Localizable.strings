@@ -703,6 +703,7 @@
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Avoid ferries";
 "avoid_motorways" = "Avoid freeways";
+"public_bike_sharing" = "Public Bike-Sharing";
 "unable_to_calc_alert_title" = "Unable to calculate route";
 "unable_to_calc_alert_subtitle" = "Nun pudo alcontrase una ruta. Quiciabes se deba a les opciones d’encaminamientu o a datos faltantes n’OpenStreetMap. Revisa les tos opciones d’encaminamientu y vuelvi intentalo.";
 "define_to_avoid_btn" = "Define roads to avoid";

@@ -703,6 +703,7 @@
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Избягване на преходи с ферибот";
 "avoid_motorways" = "Избягвайте магистралата";
+"public_bike_sharing" = "Public Bike-Sharing";
 "unable_to_calc_alert_title" = "Не е възможнос изчисляване на маршрут";
 "unable_to_calc_alert_subtitle" = "За съжаление не успяхме да намерим маршрут, вероятно поради избраните от вас параметри. Моля, променете настройките и опитайте отново.";
 "define_to_avoid_btn" = "Определяне пътищата, които да се избягват";

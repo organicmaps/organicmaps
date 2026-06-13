@@ -9,6 +9,7 @@ set(SRC
   astar_router_test.cpp
   async_router_test.cpp
   bfs_tests.cpp
+  bicycle_rental_tests.cpp
   checkpoint_predictor_test.cpp
   coding_test.cpp
   cross_border_graph_tests.cpp

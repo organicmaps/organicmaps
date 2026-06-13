@@ -107,6 +107,49 @@ UNIT_TEST(FinshRouteOnSomeDistanceToTheFinishPointTest)
   }
 }
 
+UNIT_TEST(SubrouteAttrsCopyPreservesVehicleType)
+{
+  Route::SubrouteAttrs const bicycleSubroute(
+      geometry::PointWithAltitude(kTestGeometry[1], geometry::kDefaultAltitudeMeters),
+      geometry::PointWithAltitude(kTestGeometry[3], geometry::kDefaultAltitudeMeters), 1, 3, VehicleType::Bicycle);
+
+  Route::SubrouteAttrs const shiftedSubroute(bicycleSubroute, 10);
+
+  TEST_EQUAL(shiftedSubroute.GetBeginSegmentIdx(), 10, ());
+  TEST_EQUAL(shiftedSubroute.GetEndSegmentIdx(), 12, ());
+  TEST_EQUAL(shiftedSubroute.GetVehicleType(), VehicleType::Bicycle, ());
+}
+
+UNIT_TEST(PublicBikeSharingRouteKeepsNavigationSubrouteSeparateFromRenderLegs)
+{
+  Route route;
+
+  vector<RouteSegment> routeSegments;
+  RouteSegmentsFrom(kTestSegments, kTestGeometry, kTestTurns, {}, routeSegments);
+  FillSegmentInfo(kTestTimes, routeSegments);
+  route.SetRouteSegments(std::move(routeSegments));
+  route.SetGeometry(kTestGeometry.begin(), kTestGeometry.end());
+
+  route.SetSubroutes(vector<Route::SubrouteAttrs>{
+      {geometry::PointWithAltitude(kTestGeometry[1], geometry::kDefaultAltitudeMeters),
+       geometry::PointWithAltitude(kTestGeometry[5], geometry::kDefaultAltitudeMeters), 0, 5}});
+  route.SetRenderSegments(vector<Route::RenderSegment>{
+      {0, 2, VehicleType::Pedestrian}, {2, 3, VehicleType::Bicycle}, {3, 5, VehicleType::Pedestrian}});
+
+  TEST_EQUAL(route.GetSubrouteCount(), 1, ());
+  TEST_EQUAL(route.GetSubrouteAttrs(0).GetVehicleType(), VehicleType::Count, ());
+
+  vector<RouteSegment> segments;
+  route.GetSubrouteInfo(0, segments);
+  TEST_EQUAL(segments.size(), 5, ());
+
+  auto const & renderSegments = route.GetRenderSegments();
+  TEST_EQUAL(renderSegments.size(), 3, ());
+  TEST_EQUAL(renderSegments[0].m_vehicleType, VehicleType::Pedestrian, ());
+  TEST_EQUAL(renderSegments[1].m_vehicleType, VehicleType::Bicycle, ());
+  TEST_EQUAL(renderSegments[2].m_vehicleType, VehicleType::Pedestrian, ());
+}
+
 UNIT_TEST(DistanceAndTimeToCurrentTurnTest)
 {
   // |curTurn.m_index| is an index of the point of |curTurn| at polyline |route.m_poly|.

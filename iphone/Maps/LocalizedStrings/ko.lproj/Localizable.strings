@@ -703,6 +703,7 @@
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "여객선 횡단길 피하기";
 "avoid_motorways" = "고속도로 피하기";
+"public_bike_sharing" = "Public Bike-Sharing";
 "unable_to_calc_alert_title" = "루트를 계산할 수 없습니다";
 "unable_to_calc_alert_subtitle" = "아쉽게도 귀하가 정의한 옵션으로는 루트를 찾을 수가 없습니다. 설정을 바꾸신다음 다시 시도해주세요";
 "define_to_avoid_btn" = "피할 도로 정의하기";

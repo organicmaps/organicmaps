@@ -41,6 +41,7 @@
 
 #include <glaze/json.hpp>
 
+#include <algorithm>
 #include <map>
 
 using namespace routing;
@@ -88,6 +89,58 @@ double constexpr kRouteScaleMultiplier = 1.5;
 std::string const kRoutePointsFile = "route_points.dat";
 
 uint32_t constexpr kInvalidTransactionId = 0;
+
+RouterType GetRouterTypeForSubroute(RouteBase::SubrouteAttrs const & subrouteAttrs, RouterType fallbackRouterType)
+{
+  switch (subrouteAttrs.GetVehicleType())
+  {
+  case VehicleType::Pedestrian: return RouterType::Pedestrian;
+  case VehicleType::Transit: return RouterType::Transit;
+  case VehicleType::Bicycle: return RouterType::Bicycle;
+  case VehicleType::Car: return RouterType::Vehicle;
+  case VehicleType::Count: return fallbackRouterType;
+  }
+
+  UNREACHABLE();
+}
+
+bool AddRenderSegmentStyles(RouteBase const & route, RouteBase::SubrouteAttrs const & subrouteAttrs,
+                            df::Subroute & subroute)
+{
+  auto const & renderSegments = route.GetRenderSegments();
+  if (renderSegments.empty())
+    return false;
+
+  size_t const subrouteBeginSegmentIdx = subrouteAttrs.GetBeginSegmentIdx();
+  size_t const subrouteEndSegmentIdx = subrouteAttrs.GetEndSegmentIdx();
+  for (auto const & renderSegment : renderSegments)
+  {
+    size_t const beginSegmentIdx = std::max(renderSegment.m_beginSegmentIdx, subrouteBeginSegmentIdx);
+    size_t const endSegmentIdx = std::min(renderSegment.m_endSegmentIdx, subrouteEndSegmentIdx);
+    if (beginSegmentIdx >= endSegmentIdx)
+      continue;
+
+    df::SubrouteStyle style;
+    switch (renderSegment.m_vehicleType)
+    {
+    case VehicleType::Pedestrian: style = df::SubrouteStyle(df::kRoutePedestrian, df::RoutePattern(4.0, 2.0)); break;
+    case VehicleType::Bicycle: style = df::SubrouteStyle(df::kRouteBicycle); break;
+    case VehicleType::Transit:
+    case VehicleType::Car:
+    case VehicleType::Count: continue;
+    }
+
+    style.m_startIndex = beginSegmentIdx - subrouteBeginSegmentIdx;
+    style.m_endIndex = endSegmentIdx - subrouteBeginSegmentIdx;
+    subroute.AddStyle(style);
+  }
+
+  if (subroute.m_style.empty())
+    return false;
+
+  subroute.m_styleType = df::SubrouteStyleType::Multiple;
+  return true;
+}
 
 void FillTurnsDistancesForRendering(std::vector<RouteSegment> const & segments, double baseDistance,
                                     std::vector<double> & turns)
@@ -856,15 +909,16 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
   {
     route.GetSubrouteInfo(subrouteIndex, segments);
 
-    auto const startPt = route.GetSubrouteAttrs(subrouteIndex).GetStart().GetPoint();
-    auto subroute =
-        CreateDrapeSubroute(segments, startPt, distance,
-                            static_cast<double>(subroutesCount - subrouteIndex - 1) + depthOffset, m_currentRouterType);
+    auto const & subrouteAttrs = route.GetSubrouteAttrs(subrouteIndex);
+    auto const startPt = subrouteAttrs.GetStart().GetPoint();
+    auto const routerType = GetRouterTypeForSubroute(subrouteAttrs, m_currentRouterType);
+    auto subroute = CreateDrapeSubroute(
+        segments, startPt, distance, static_cast<double>(subroutesCount - subrouteIndex - 1) + depthOffset, routerType);
     if (!subroute)
       continue;
     subroute->m_alphaMul = alphaMul;
     distance = segments.back().GetDistFromBeginningMerc();
-    switch (m_currentRouterType)
+    switch (routerType)
     {
     case RouterType::Vehicle:
     {
@@ -894,7 +948,13 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
     case RouterType::Bicycle:
     {
       subroute->m_routeType = df::RouteType::Bicycle;
-      subroute->AddStyle(df::SubrouteStyle(df::kRouteBicycle, df::RoutePattern(8.0, 2.0)));
+      if (!AddRenderSegmentStyles(route, subrouteAttrs, *subroute))
+      {
+        if (subrouteAttrs.GetVehicleType() == VehicleType::Bicycle)
+          subroute->AddStyle(df::SubrouteStyle(df::kRouteBicycle));
+        else
+          subroute->AddStyle(df::SubrouteStyle(df::kRouteBicycle, df::RoutePattern(8.0, 2.0)));
+      }
       if (isActive)
         FillTurnsDistancesForRendering(segments, subroute->m_baseDistance, subroute->m_turns);
       break;
