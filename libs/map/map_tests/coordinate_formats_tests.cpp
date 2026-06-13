@@ -40,7 +40,10 @@ ms::LatLon const kParis{48.8566, 2.3522};
 ms::LatLon const kNorthPole{85.0, 10.0};  // Beyond the UTM/MGRS valid latitude (|lat| > 84).
 }  // namespace
 
-// AllCoordinateFormats() is the single source of cycle/display order: the stable ids 0..N ascending.
+// iOS builds its coordinate-row array in AllCoordinateFormats() order, then subscripts it by the saved
+// stable id (PlacePageInfoData.mm / PlacePageInfoViewController.swift). So entry i must be the format
+// whose stable id is i: reordering kDescs or inserting a format out of id order would silently shift
+// every iOS lookup. This test pins that contract.
 UNIT_TEST(CoordinateFormats_Order)
 {
   auto const & all = place_page::AllCoordinateFormats();
