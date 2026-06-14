@@ -50,7 +50,7 @@ final class InfoItemView: UIView {
 
     iconButton.imageView?.contentMode = .scaleAspectFit
     iconButton.addTarget(self, action: #selector(onIconButtonTap), for: .touchUpInside)
-    iconButton.contentEdgeInsets = Constants.iconButtonEdgeInsets
+    iconButton.setContentEdgeInsetsCompat(Constants.iconButtonEdgeInsets)
     iconButton.isHidden = true
 
     accessoryButton.addTarget(self, action: #selector(onAccessoryButtonTap), for: .touchUpInside)
