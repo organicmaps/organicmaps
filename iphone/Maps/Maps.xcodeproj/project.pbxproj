@@ -1384,7 +1384,6 @@
 		ED82C4ED2F90180300FA103D /* DefaultTranslationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTranslationController.swift; sourceTree = "<group>"; };
 		ED82C4EF2F90180300FA103D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED82C4F02F90180300FA103D /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		ED82C6712F90186300FA103D /* DownloadIndicatorProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownloadIndicatorProtocol.h; sourceTree = "<group>"; };
 		ED82C6722F90186300FA103D /* MapsAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapsAppDelegate.h; sourceTree = "<group>"; };
 		ED82C6732F90186300FA103D /* MapsAppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MapsAppDelegate.mm; sourceTree = "<group>"; };
 		ED82C6752F90186300FA103D /* BackgroundFetchTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundFetchTask.swift; sourceTree = "<group>"; };
@@ -3368,7 +3367,6 @@
 		ED82C6742F90186300FA103D /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
-				ED82C6712F90186300FA103D /* DownloadIndicatorProtocol.h */,
 				ED82C6722F90186300FA103D /* MapsAppDelegate.h */,
 				ED82C6732F90186300FA103D /* MapsAppDelegate.mm */,
 			);

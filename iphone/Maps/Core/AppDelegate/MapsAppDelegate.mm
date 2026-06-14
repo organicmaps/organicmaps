@@ -264,25 +264,6 @@ using namespace osm_auth_ios;
   return NO;
 }
 
-- (void)disableDownloadIndicator
-{
-  --m_activeDownloadsCounter;
-  if (m_activeDownloadsCounter <= 0)
-  {
-    m_activeDownloadsCounter = 0;
-    if (UIApplication.sharedApplication.applicationState == UIApplicationStateBackground)
-    {
-      [UIApplication.sharedApplication endBackgroundTask:m_backgroundTask];
-      m_backgroundTask = UIBackgroundTaskInvalid;
-    }
-  }
-}
-
-- (void)enableDownloadIndicator
-{
-  ++m_activeDownloadsCounter;
-}
-
 + (void)customizeAppearanceForNavigationBar:(UINavigationBar *)navigationBar
 {
   auto backImage =
