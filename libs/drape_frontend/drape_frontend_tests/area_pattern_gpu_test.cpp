@@ -23,7 +23,7 @@ df::AreaViewParams MakeParams(std::string_view hatching)
   p.m_depthLayer = df::DepthLayer::GeometryLayer;
   p.m_minVisibleScale = 0;
   p.m_rank = 0;
-  p.m_hatching = hatching;
+  p.m_areaPattern = hatching;
   p.m_baseGtoPScale = 1.0;  // pattern at base scale: crisp 1px features with clear gaps
   return p;
 }

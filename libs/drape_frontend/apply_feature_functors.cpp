@@ -682,8 +682,8 @@ void ApplyAreaFeature::ProcessRule(drule::AreaRule const & areaRule, double area
   params.m_rank = m_f.GetRank();
   params.m_minPosZ = m_minPosZ;
   params.m_posZ = m_posZ;
-  params.m_hatching = hatchKey;
-  params.m_areaPattern = patternKey;
+  // Hatch and solid-fill patterns are mutually exclusive here (one key is always empty).
+  params.m_areaPattern = hatchKey.empty() ? patternKey : hatchKey;
   params.m_baseGtoPScale = m_params.m_currentScaleGtoP;
 
   BuildingOutline outline;
