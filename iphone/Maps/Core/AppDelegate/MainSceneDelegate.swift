@@ -7,17 +7,25 @@ final class MainSceneDelegate: UIResponder, UIWindowSceneDelegate {
   func scene(_ scene: UIScene,
              willConnectTo _: UISceneSession,
              options connectionOptions: UIScene.ConnectionOptions) {
-    guard let windowScene = scene as? UIWindowScene,
-          let sceneWindow = windowScene.windows.first
-    else {
-      assertionFailure("Main UIWindowScene is missing the storyboard-loaded window.")
+    guard let windowScene = scene as? UIWindowScene else {
+      assertionFailure("Main scene is not a UIWindowScene.")
       return
     }
-    window = sceneWindow
-    MapsAppDelegate.theApp().window = sceneWindow
 
-    // CarPlay scene can connect before the main phone scene; once the main window is ready,
-    // retry attaching the shared map view to the CarPlay controller if it was deferred.
+    let app = MapsAppDelegate.theApp()
+    // Build the window around the single shared root navigation controller. On a CarPlay-first cold
+    // launch CarPlayService may have already created it (so the map could render on the head unit);
+    // reusing it here keeps one MapViewController and one Drape engine across both scenes instead of
+    // instantiating a second map. We create the window explicitly (no UISceneStoryboardFile) so the
+    // system does not auto-load a duplicate MapViewController from the storyboard.
+    let sceneWindow = UIWindow(windowScene: windowScene)
+    sceneWindow.rootViewController = app.mainNavigationController
+    window = sceneWindow
+    app.window = sceneWindow
+    sceneWindow.makeKeyAndVisible()
+
+    // CarPlay scene can connect before the main phone scene; now that the window is ready, attach the
+    // shared map view to the CarPlay controller if it was deferred.
     CarPlayService.shared.attachMapIfNeeded()
 
     // Route cold-launch payloads delivered via the scene. Pre-UIScene iOS received these via
@@ -25,6 +33,7 @@ final class MainSceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MapViewController was ready. Mirror that deferred flow by seeding DeepLinkHandler here;
     // MapViewController.viewDidLoad drains it via handleDeepLinkAndReset().
     if !connectionOptions.urlContexts.isEmpty {
+      // iOS delivers a single URL on a cold launch, so the arbitrary Set order is not a concern here.
       if let launchURL = connectionOptions.urlContexts.first?.url {
         DeepLinkHandler.shared.applicationDidFinishLaunching([.url: launchURL])
       }
@@ -38,23 +47,9 @@ final class MainSceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
   }
 
-  // MARK: - Lifecycle forwarding
-
-  func sceneDidBecomeActive(_: UIScene) {
-    MapsAppDelegate.theApp().applicationDidBecomeActive(.shared)
-  }
-
-  func sceneWillResignActive(_: UIScene) {
-    MapsAppDelegate.theApp().applicationWillResignActive(.shared)
-  }
-
-  func sceneWillEnterForeground(_: UIScene) {
-    MapsAppDelegate.theApp().applicationWillEnterForeground(.shared)
-  }
-
-  func sceneDidEnterBackground(_: UIScene) {
-    MapsAppDelegate.theApp().applicationDidEnterBackground(.shared)
-  }
+  // Activate/background transitions are handled app-wide by MapsAppDelegate observing the aggregate
+  // UIApplication lifecycle notifications, so this scene delegate intentionally does not forward
+  // per-scene sceneDid/Will* callbacks (they would fire while CarPlay keeps the app active).
 
   // MARK: - URL / user activity / shortcut forwarding
 

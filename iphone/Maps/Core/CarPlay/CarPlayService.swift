@@ -74,7 +74,7 @@ final class CarPlayService: NSObject {
     FrameworkHelper.updatePositionArrowOffset(false, offset: 5)
 
     CarPlayWindowScaleAdjuster.updateAppearance(
-      fromWindow: MapsAppDelegate.theApp().window,
+      fromWindow: MapsAppDelegate.theApp().connectedWindow,
       toWindow: window,
       isCarplayActivated: true
     )
@@ -157,23 +157,31 @@ final class CarPlayService: NSObject {
     if let window {
       CarPlayWindowScaleAdjuster.updateAppearance(
         fromWindow: window,
-        toWindow: MapsAppDelegate.theApp().window,
+        toWindow: MapsAppDelegate.theApp().connectedWindow,
         isCarplayActivated: false
       )
     }
   }
 
-  @objc func attachMapIfNeeded() {
+  func attachMapIfNeeded() {
     guard isCarplayActivated,
           let window,
-          let carplayVC = window.rootViewController as? CarPlayMapViewController,
-          let mapVC = MapViewController.shared() else { return }
+          let carplayVC = window.rootViewController as? CarPlayMapViewController else { return }
     guard carplayVC.mapView == nil else { return }
+
+    // On a CarPlay-first cold launch the phone window scene has not connected yet, so eagerly create
+    // the single shared MapViewController (and its map view / Drape engine) before attaching it here.
+    _ = MapsAppDelegate.theApp().mainNavigationController
+    guard let mapVC = MapViewController.shared() else { return }
+    mapVC.loadViewIfNeeded()
 
     currentPositionMode = mapVC.currentPositionMode
     mapVC.enableCarPlayRepresentation()
     carplayVC.addMapView(mapVC.mapView, mapButtonSafeAreaLayoutGuide: window.mapButtonSafeAreaLayoutGuide)
     mapVC.add(self)
+    // The base template may have been built with the default position mode before the map existed;
+    // refresh the leading nav button to the map's actual mode now that the listener is attached.
+    processMyPositionStateModeEvent(mapVC.currentPositionMode)
   }
 
   @objc func destroy() {
@@ -814,7 +822,7 @@ extension CarPlayService {
     template.updateEstimates(estimates, for: trip)
   }
 
-  private func dismissTemplate(_: CPAlertAction? = nil) {
+  private func dismissTemplate() {
     interfaceController?.dismissTemplate(animated: true) { _, error in
       if let error {
         LOG(.warning, "Failed to dismiss CarPlay template: \(error.localizedDescription)")
@@ -829,14 +837,14 @@ extension CarPlayService {
       preparedToPreviewTrips = trips
       dismissTemplate()
     })
-    let noAction = CPAlertAction(title: L("no"), style: .cancel, handler: dismissTemplate)
+    let noAction = CPAlertAction(title: L("no"), style: .cancel, handler: { [unowned self] _ in dismissTemplate() })
     let alert = CPAlertTemplate(titleVariants: [L("redirect_route_alert")], actions: [noAction, yesAction])
     alert.userInfo = [CPConstants.TemplateKey.alert: CPConstants.TemplateType.redirectRoute]
     presentAlert(alert, animated: true)
   }
 
   func showKeyboardAlert() {
-    let okAction = CPAlertAction(title: L("ok"), style: .default, handler: dismissTemplate)
+    let okAction = CPAlertAction(title: L("ok"), style: .default, handler: { [unowned self] _ in dismissTemplate() })
     let alert = CPAlertTemplate(titleVariants: [L("keyboard_availability_alert")], actions: [okAction])
     presentAlert(alert, animated: true)
   }
@@ -870,7 +878,7 @@ extension CarPlayService {
       return
     }
 
-    let okAction = CPAlertAction(title: L("ok"), style: .cancel, handler: dismissTemplate)
+    let okAction = CPAlertAction(title: L("ok"), style: .cancel, handler: { [unowned self] _ in dismissTemplate() })
     let alert = CPAlertTemplate(titleVariants: titleVariants, actions: [okAction])
     presentAlert(alert, animated: true)
   }

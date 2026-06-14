@@ -5,7 +5,7 @@ final class RoutePointsView: UIView {
       let bottomActionBartHeight = RouteActionsBottomMenuView.Constants.height +
         RouteActionsBottomMenuView.Constants.insets.top +
         RouteActionsBottomMenuView.Constants.insets.bottom
-      let safeAreaInsets = MapsAppDelegate.theApp().window.safeAreaInsets
+      let safeAreaInsets = MapsAppDelegate.theApp().connectedWindow?.safeAreaInsets ?? .zero
       return bottomActionBartHeight + safeAreaInsets.bottom + safeAreaInsets.top
     }
   }
