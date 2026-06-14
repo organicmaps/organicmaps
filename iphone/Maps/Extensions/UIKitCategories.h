@@ -82,3 +82,13 @@ static inline CGFloat LengthCGPoint(CGPoint point)
 + (UIImage *)imageWithColor:(UIColor *)color;
 
 @end
+
+@interface UIButton (EdgeInsets)
+
+/// Wrappers around the pre-iOS 15 contentEdgeInsets / imageEdgeInsets setters.
+/// These buttons don't use UIButton.Configuration, so the properties still apply;
+/// the wrappers keep the iOS 15 deprecation warning out of the Swift call sites.
+- (void)setContentEdgeInsets:(UIEdgeInsets)insets;
+- (void)setImageEdgeInsets:(UIEdgeInsets)insets;
+
+@end

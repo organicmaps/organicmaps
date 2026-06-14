@@ -98,10 +98,10 @@ final class NavigationControlView: SolidTouchView {
     button.imageView?.contentMode = .scaleAspectFit
     button.contentHorizontalAlignment = .fill
     button.contentVerticalAlignment = .fill
-    button.contentEdgeInsets = UIEdgeInsets(top: Constants.buttonContentInset,
-                                            left: Constants.buttonContentInset,
-                                            bottom: Constants.buttonContentInset,
-                                            right: Constants.buttonContentInset)
+    button.setContentEdgeInsets(UIEdgeInsets(top: Constants.buttonContentInset,
+                                             left: Constants.buttonContentInset,
+                                             bottom: Constants.buttonContentInset,
+                                             right: Constants.buttonContentInset))
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
