@@ -547,7 +547,7 @@
 		ED82C7AE2F90186300FA103D /* MWMImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7352F90186300FA103D /* MWMImageCache.m */; };
 		ED82C7AF2F90186300FA103D /* MWMImageCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7372F90186300FA103D /* MWMImageCoder.m */; };
 		ED82C7B02F90186300FA103D /* MWMWebImage.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7392F90186300FA103D /* MWMWebImage.m */; };
-		ED82C7B12F90186300FA103D /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C73B2F90186300FA103D /* NSString+MD5.m */; };
+		ED82C7B12F90186300FA103D /* NSString+SHA256.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C73B2F90186300FA103D /* NSString+SHA256.m */; };
 		ED82C7B22F90186300FA103D /* UIImageView+WebImage.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C73D2F90186300FA103D /* UIImageView+WebImage.m */; };
 		ED82C7EF2F90186900FA103D /* UIColor+Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7B42F90186900FA103D /* UIColor+Colors.m */; };
 		ED82C7F02F90186900FA103D /* UIColor+HEXString.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7B52F90186900FA103D /* UIColor+HEXString.swift */; };
@@ -1553,8 +1553,8 @@
 		ED82C7372F90186300FA103D /* MWMImageCoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMImageCoder.m; sourceTree = "<group>"; };
 		ED82C7382F90186300FA103D /* MWMWebImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMWebImage.h; sourceTree = "<group>"; };
 		ED82C7392F90186300FA103D /* MWMWebImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMWebImage.m; sourceTree = "<group>"; };
-		ED82C73A2F90186300FA103D /* NSString+MD5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
-		ED82C73B2F90186300FA103D /* NSString+MD5.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
+		ED82C73A2F90186300FA103D /* NSString+SHA256.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+SHA256.h"; sourceTree = "<group>"; };
+		ED82C73B2F90186300FA103D /* NSString+SHA256.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+SHA256.m"; sourceTree = "<group>"; };
 		ED82C73C2F90186300FA103D /* UIImageView+WebImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WebImage.h"; sourceTree = "<group>"; };
 		ED82C73D2F90186300FA103D /* UIImageView+WebImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebImage.m"; sourceTree = "<group>"; };
 		ED82C7B32F90186900FA103D /* UIColor+Colors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+Colors.h"; sourceTree = "<group>"; };
@@ -3766,8 +3766,8 @@
 				ED82C7372F90186300FA103D /* MWMImageCoder.m */,
 				ED82C7382F90186300FA103D /* MWMWebImage.h */,
 				ED82C7392F90186300FA103D /* MWMWebImage.m */,
-				ED82C73A2F90186300FA103D /* NSString+MD5.h */,
-				ED82C73B2F90186300FA103D /* NSString+MD5.m */,
+				ED82C73A2F90186300FA103D /* NSString+SHA256.h */,
+				ED82C73B2F90186300FA103D /* NSString+SHA256.m */,
 				ED82C73C2F90186300FA103D /* UIImageView+WebImage.h */,
 				ED82C73D2F90186300FA103D /* UIImageView+WebImage.m */,
 			);
@@ -4642,7 +4642,7 @@
 				ED82C7AE2F90186300FA103D /* MWMImageCache.m in Sources */,
 				ED82C7AF2F90186300FA103D /* MWMImageCoder.m in Sources */,
 				ED82C7B02F90186300FA103D /* MWMWebImage.m in Sources */,
-				ED82C7B12F90186300FA103D /* NSString+MD5.m in Sources */,
+				ED82C7B12F90186300FA103D /* NSString+SHA256.m in Sources */,
 				ED82C7B22F90186300FA103D /* UIImageView+WebImage.m in Sources */,
 				ED82C58A2F90180300FA103D /* NavigationDashboardRequest.swift in Sources */,
 				ED82C58B2F90180300FA103D /* NavigationDashboardResponse.swift in Sources */,

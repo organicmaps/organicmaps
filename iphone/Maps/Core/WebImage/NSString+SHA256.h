@@ -2,9 +2,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSString (MD5)
+@interface NSString (SHA256)
 
-- (NSString *)md5String;
+- (NSString *)sha256String;
 
 @end
 
