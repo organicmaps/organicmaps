@@ -5,6 +5,7 @@
 
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"
+#include "drape/hatching_decl.hpp"
 #include "drape/texture_manager.hpp"
 #include "drape/utils/vertex_decl.hpp"
 
@@ -14,6 +15,10 @@
 
 namespace df
 {
+// Analytic hatches repeat every kHatchTilePx 'base' pixels - the size of the legacy mask tiles, kept so
+// the on-screen scale is unchanged. The fragment shaders interpret v_maskTexCoords * kHatchTilePx as the
+// in-tile pixel coordinate.
+uint32_t constexpr kHatchTilePx = 16;
 
 double CalcHatchingPhaseAnchor(double bboxMin, uint32_t maskSizePx, double baseGtoPScale)
 {
@@ -48,7 +53,7 @@ void AreaShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> 
   else if (m_params.m_is3D)
     DrawArea3D(context, batcher, colorUv, outlineUv, region.GetTexture());
   else if (!m_params.m_hatching.empty())
-    DrawHatchingArea(context, batcher, colorUv, region.GetTexture(), textures->GetHatchingTexture(m_params.m_hatching));
+    DrawHatchingArea(context, batcher, colorUv, region.GetTexture());
   else
     DrawArea(context, batcher, colorUv, outlineUv, region.GetTexture());
 }
@@ -114,8 +119,7 @@ void AreaShape::DrawMwmBorderArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<
 }
 
 void AreaShape::DrawHatchingArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
-                                 m2::PointD const & colorUv, ref_ptr<dp::Texture> texture,
-                                 ref_ptr<dp::Texture> hatchingTexture) const
+                                 m2::PointD const & colorUv, ref_ptr<dp::Texture> texture) const
 {
   glsl::vec2 const uv = glsl::ToVec2(colorUv);
 
@@ -123,28 +127,30 @@ void AreaShape::DrawHatchingArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<d
   for (auto const & v : m_vertexes)
     bbox.Add(v);
 
-  double const maxU = m_params.m_baseGtoPScale / hatchingTexture->GetWidth();
-  double const maxV = m_params.m_baseGtoPScale / hatchingTexture->GetHeight();
+  // World units per tile repeat; the fragment shader scales v_maskTexCoords back to in-tile pixels.
+  double const tilesPerWorld = m_params.m_baseGtoPScale / kHatchTilePx;
 
-  // Anchor the repeated mask to a global, period-aligned grid instead of the clipped bbox, so the hatch
+  // Anchor the repeated pattern to a global, period-aligned grid instead of the clipped bbox, so the
   // phase stays continuous across tile seams and LOD changes. See CalcHatchingPhaseAnchor / issue #12804.
-  double const anchorX = CalcHatchingPhaseAnchor(bbox.minX(), hatchingTexture->GetWidth(), m_params.m_baseGtoPScale);
-  double const anchorY = CalcHatchingPhaseAnchor(bbox.minY(), hatchingTexture->GetHeight(), m_params.m_baseGtoPScale);
+  double const anchorX = CalcHatchingPhaseAnchor(bbox.minX(), kHatchTilePx, m_params.m_baseGtoPScale);
+  double const anchorY = CalcHatchingPhaseAnchor(bbox.minY(), kHatchTilePx, m_params.m_baseGtoPScale);
 
   gpu::VBReservedSizeT<gpu::HatchingAreaVertex> vertexes;
   vertexes.reserve(m_vertexes.size());
   for (m2::PointD const & vertex : m_vertexes)
   {
-    vertexes.emplace_back(
-        ToShapeVertex3(vertex), uv,
-        glsl::vec2(static_cast<float>(maxU * (vertex.x - anchorX)), static_cast<float>(maxV * (vertex.y - anchorY))));
+    vertexes.emplace_back(ToShapeVertex3(vertex), uv,
+                          glsl::vec2(static_cast<float>(tilesPerWorld * (vertex.x - anchorX)),
+                                     static_cast<float>(tilesPerWorld * (vertex.y - anchorY))));
   }
 
-  auto state = CreateRenderState(gpu::Program::HatchingArea, DepthLayer::GeometryLayer);
+  // The pattern is computed analytically in the fragment shader (no mask texture, hence no mipmaps): the
+  // dash variant for wetland, the diagonal variant otherwise.
+  auto const program =
+      m_params.m_hatching == dp::kDashHatching ? gpu::Program::HatchingAreaDash : gpu::Program::HatchingArea;
+  auto state = CreateRenderState(program, DepthLayer::GeometryLayer);
   state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
   state.SetColorTexture(texture);
-  state.SetMaskTexture(hatchingTexture);
-  state.SetTextureFilter(dp::TextureFilter::Linear);
 
   dp::AttributeProvider provider(1, static_cast<uint32_t>(vertexes.size()));
   provider.InitStream(0, gpu::HatchingAreaVertex::GetBindingInfo(), make_ref(vertexes.data()));
