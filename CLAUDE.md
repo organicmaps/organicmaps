@@ -53,6 +53,8 @@ The C++ core is accessed from platforms via bridging layers:
 
 ### C++ testing patterns
 ```cpp
+namespace test_file_name
+{
 // Unit tests use custom macros from testing/testing.hpp, not Google Test:
 UNIT_TEST(MyTestName)
 {
@@ -65,6 +67,7 @@ UNIT_TEST(MyTestName)
 }
 // Test files go in libs/<module>/<module>_tests/<name>_tests.cpp
 // Register tests in the corresponding CMakeLists.txt using omim_add_test()
+}  // namespace test_file_name
 ```
 
 ### C++ assertions, logging and exceptions
