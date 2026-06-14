@@ -58,6 +58,8 @@ private class HeaderCell: UICollectionViewCell {
     self.deselectedAttributes = deselectedAttributes
     label.attributedText = NSAttributedString(string: text.uppercased(),
                                               attributes: deselectedAttributes)
+    label.adjustsFontForContentSizeCategory = true
+    label.configureSingleLineAutoScaling()
   }
 }
 
@@ -72,7 +74,6 @@ protocol TabViewDelegate: AnyObject {
 }
 
 @objcMembers
-@objc(MWMTabView)
 class TabView: UIView {
   private enum CellId {
     static let content = "contentCell"
@@ -102,7 +103,7 @@ class TabView: UIView {
 
   var selectedHeaderTextAttributes: [NSAttributedString.Key: Any] = [
     .foregroundColor: UIColor.white,
-    .font: UIFont.systemFont(ofSize: 14, weight: .semibold),
+    .font: UIFont.semibold14.dynamic,
   ] {
     didSet {
       tabsCollectionView.reloadData()
@@ -111,7 +112,7 @@ class TabView: UIView {
 
   var deselectedHeaderTextAttributes: [NSAttributedString.Key: Any] = [
     .foregroundColor: UIColor.gray,
-    .font: UIFont.systemFont(ofSize: 14, weight: .semibold),
+    .font: UIFont.semibold14.dynamic,
   ] {
     didSet {
       tabsCollectionView.reloadData()

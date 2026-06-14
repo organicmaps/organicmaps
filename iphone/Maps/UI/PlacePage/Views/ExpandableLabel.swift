@@ -21,6 +21,7 @@ final class ExpandableLabel: UIView {
     static let defaultContentInsets = UIEdgeInsets(top: 8, left: 16, bottom: -8, right: -16)
     static let htmlCompactHeight: CGFloat = 70
     static let plainTextCollapsedNumberOfLines = 3
+    static var font: UIFont { .regular14.dynamic }
   }
 
   private let stackView = UIStackView()
@@ -35,10 +36,6 @@ final class ExpandableLabel: UIView {
   private var sourceAttributedText: NSAttributedString?
   private var isMeasuring = false
   private var oldWidth: CGFloat = 0
-  private var font = UIFont.regular14()
-  private var textStyle: TextColorStyleSheet = .blackPrimary
-  private var expandStyle: TextColorStyleSheet = .linkBlue
-  private var expandText = L("text_more_button")
 
   // MARK: - Public properties
 
@@ -85,8 +82,9 @@ final class ExpandableLabel: UIView {
     textView.textContainerInset = .zero
     textView.contentMode = .topLeft
     textView.textContainer.maximumNumberOfLines = 0
-    textView.font = font
-    textView.setStyle(textStyle)
+    textView.font = Constants.font
+    textView.adjustsFontForContentSizeCategory = true
+    textView.setStyle(TextColorStyleSheet.blackPrimary)
     textView.setContentHuggingPriority(.defaultHigh, for: .vertical)
     textView.backgroundColor = .clear
     textView.isSelectable = true
@@ -95,10 +93,12 @@ final class ExpandableLabel: UIView {
 
     expandView.isHidden = true
     expandView.setContentHuggingPriority(.defaultHigh, for: .vertical)
+    expandView.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
     expandView.updateAppearance()
-    expandView.label.font = font
-    expandView.label.setStyle(expandStyle)
-    expandView.label.text = expandText
+    expandView.label.font = Constants.font
+    expandView.label.textColor = .linkBlue
+    expandView.label.text = L("text_more_button")
+    expandView.label.adjustsFontForContentSizeCategory = true
 
     tapGestureRecognizer.addTarget(self, action: #selector(onTap))
     tapGestureRecognizer.cancelsTouchesInView = false
@@ -297,6 +297,7 @@ private final class ExpandView: UIView {
 
     label.translatesAutoresizingMaskIntoConstraints = false
     label.setContentHuggingPriority(.defaultHigh, for: .vertical)
+    label.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
     NSLayoutConstraint.activate([
       label.leadingAnchor.constraint(equalTo: leadingAnchor),
       label.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),

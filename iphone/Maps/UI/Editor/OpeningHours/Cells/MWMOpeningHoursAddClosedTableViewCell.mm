@@ -8,11 +8,6 @@
 
 @implementation MWMOpeningHoursAddClosedTableViewCell
 
-+ (CGFloat)heightForWidth:(CGFloat)width
-{
-  return 44.0;
-}
-
 - (void)refresh
 {
   [super refresh];

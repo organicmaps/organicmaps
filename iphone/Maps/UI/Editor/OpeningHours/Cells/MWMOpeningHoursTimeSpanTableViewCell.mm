@@ -9,11 +9,6 @@
 
 @implementation MWMOpeningHoursTimeSpanTableViewCell
 
-+ (CGFloat)heightForWidth:(CGFloat)width
-{
-  return 64.0;
-}
-
 - (void)refresh
 {
   [super refresh];

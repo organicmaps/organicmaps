@@ -23,19 +23,13 @@ final class ElevationProfileDescriptionCell: UICollectionViewCell {
   }
 
   private func setupViews() {
-    valueLabel.font = .medium14()
+    valueLabel.font = .medium14
     valueLabel.styleName = "blackSecondaryText"
-    valueLabel.numberOfLines = 1
-    valueLabel.minimumScaleFactor = 0.1
-    valueLabel.adjustsFontSizeToFitWidth = true
-    valueLabel.allowsDefaultTighteningForTruncation = true
+    valueLabel.configureSingleLineAutoScaling()
 
-    subtitleLabel.font = .regular10()
+    subtitleLabel.font = .regular10
     subtitleLabel.styleName = "blackSecondaryText"
-    subtitleLabel.numberOfLines = 1
-    subtitleLabel.minimumScaleFactor = 0.1
-    subtitleLabel.adjustsFontSizeToFitWidth = true
-    subtitleLabel.allowsDefaultTighteningForTruncation = true
+    subtitleLabel.configureSingleLineAutoScaling()
 
     imageView.contentMode = .scaleAspectFit
     imageView.styleName = "MWMBlack"

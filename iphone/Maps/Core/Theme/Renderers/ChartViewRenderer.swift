@@ -15,7 +15,8 @@ private final class ChartViewRenderer {
   class func render(_ control: ChartView, style: Style) {
     control.backgroundColor = style.backgroundColor
     control.textColor = style.fontColor!
-    control.font = style.font!
+    control.font = style.fontStyle!.font
+    control.isFontDynamic = style.fontStyle!.isDynamic
     control.gridColor = style.gridColor!
     control.previewSelectorColor = style.previewSelectorColor!
     control.previewTintColor = style.previewTintColor!

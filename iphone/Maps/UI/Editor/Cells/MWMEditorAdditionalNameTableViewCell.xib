@@ -16,10 +16,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="eca-XW-QZR">
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="eca-XW-QZR">
                         <rect key="frame" x="16" y="16" width="288" height="12"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="zh-classical" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efb-nS-cjm">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="zh-classical" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efb-nS-cjm">
                                 <rect key="frame" x="0.0" y="0.0" width="77" height="5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -42,32 +42,27 @@
                                     <outlet property="delegate" destination="hfo-cP-AGX" id="jkD-0x-Ods"/>
                                 </connections>
                             </textField>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="SZa-Bj-se1">
+                                <rect key="frame" x="0.0" y="15" width="288" height="15"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.95686274510000002" green="0.26274509800000001" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular12:redText"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
                         </subviews>
                         <constraints>
                             <constraint firstItem="9BY-PA-dlA" firstAttribute="width" secondItem="eca-XW-QZR" secondAttribute="width" id="OSr-03-hPe"/>
+                            <constraint firstItem="SZa-Bj-se1" firstAttribute="width" secondItem="eca-XW-QZR" secondAttribute="width" id="a6I-RF-WVp"/>
                         </constraints>
                     </stackView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="252" translatesAutoresizingMaskIntoConstraints="NO" id="SZa-Bj-se1">
-                        <rect key="frame" x="60" y="32" width="252" height="0.0"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" priority="999" id="CPF-uE-pzx"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" red="0.95686274510000002" green="0.26274509800000001" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <nil key="highlightedColor"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular12:redText"/>
-                        </userDefinedRuntimeAttributes>
-                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="SZa-Bj-se1" firstAttribute="leading" secondItem="JQH-ks-NoC" secondAttribute="leading" constant="60" id="BcS-gb-9vl"/>
-                    <constraint firstAttribute="trailing" secondItem="SZa-Bj-se1" secondAttribute="trailing" constant="8" id="EBU-G3-tgp"/>
                     <constraint firstItem="eca-XW-QZR" firstAttribute="top" secondItem="JQH-ks-NoC" secondAttribute="top" constant="16" id="FJ5-Zj-wLR"/>
                     <constraint firstAttribute="trailing" secondItem="eca-XW-QZR" secondAttribute="trailing" constant="16" id="NZO-C9-ZCS"/>
-                    <constraint firstItem="SZa-Bj-se1" firstAttribute="top" secondItem="eca-XW-QZR" secondAttribute="bottom" constant="4" id="T9Z-G5-LVc"/>
-                    <constraint firstAttribute="bottom" secondItem="SZa-Bj-se1" secondAttribute="bottom" constant="12" id="TdX-jx-CpD"/>
+                    <constraint firstAttribute="bottom" secondItem="eca-XW-QZR" secondAttribute="bottom" constant="16" id="TdX-jx-CpD"/>
                     <constraint firstItem="eca-XW-QZR" firstAttribute="leading" secondItem="JQH-ks-NoC" secondAttribute="leading" constant="16" id="dbb-bG-8uT"/>
                 </constraints>
                 <userDefinedRuntimeAttributes>
@@ -79,7 +74,6 @@
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="errorLabel" destination="SZa-Bj-se1" id="hqN-vX-0Hw"/>
-                <outlet property="errorLabelHeight" destination="CPF-uE-pzx" id="X4g-6X-W0e"/>
                 <outlet property="languageLabel" destination="efb-nS-cjm" id="13M-9D-Qbf"/>
                 <outlet property="stackView" destination="eca-XW-QZR" id="RPt-fc-aoR"/>
                 <outlet property="textField" destination="9BY-PA-dlA" id="SCv-JL-5TL"/>

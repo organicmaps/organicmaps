@@ -45,6 +45,9 @@ final class PlacePagePreviewViewController: UIViewController {
 
     updateViews()
 
+    subtitleLabel.adjustsFontForContentSizeCategory = true
+    scheduleLabel.adjustsFontForContentSizeCategory = true
+
     if let distance = distance {
       placePageDirectionView?.isHidden = false
       placePageDirectionView?.label.text = distance
@@ -67,13 +70,13 @@ final class PlacePagePreviewViewController: UIViewController {
 //      if placePagePreviewData.isPopular {
 //        subtitleString.append(NSAttributedString(string: L("popular_place"),
 //                                                 attributes: [.foregroundColor : UIColor.linkBlue,
-//                                                              .font : UIFont.regular14()]))
+//                                                              .font : UIFont.regular14]))
 //      }
 
       if let subtitle = placePagePreviewData.subtitle ?? placePagePreviewData.coordinates {
         subtitleString.append(NSAttributedString(string: !subtitleString.string.isEmpty ? " • " + subtitle : subtitle,
                                                  attributes: [.foregroundColor: UIColor.blackSecondaryText,
-                                                              .font: UIFont.emojiRegular14()]))
+                                                              .font: UIFont.emojiRegular14.dynamic]))
 
         subtitleLabel.attributedText = subtitleString
         subtitleContainerView.isHidden = false
@@ -225,12 +228,12 @@ final class PlacePagePreviewViewController: UIViewController {
   private func setScheduleLabel(state: String, stateColor: UIColor, details: String?) {
     let attributedString = NSMutableAttributedString()
     let stateString = NSAttributedString(string: state,
-                                         attributes: [NSAttributedString.Key.font: UIFont.regular14(),
+                                         attributes: [NSAttributedString.Key.font: UIFont.regular14.dynamic,
                                                       NSAttributedString.Key.foregroundColor: stateColor])
     attributedString.append(stateString)
     if details != nil {
       let detailsString = NSAttributedString(string: " • " + details!,
-                                             attributes: [NSAttributedString.Key.font: UIFont.regular14(),
+                                             attributes: [NSAttributedString.Key.font: UIFont.regular14.dynamic,
                                                           NSAttributedString.Key.foregroundColor: UIColor.blackSecondaryText])
       attributedString.append(detailsString)
     }

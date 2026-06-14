@@ -28,7 +28,6 @@
 
 - (MWMOpeningHoursEditorCells)cellKeyForIndexPath:(NSIndexPath * _Nonnull)indexPath;
 
-- (CGFloat)heightForIndexPath:(NSIndexPath * _Nonnull)indexPath withWidth:(CGFloat)width;
 - (void)fillCell:(MWMOpeningHoursTableViewCell * _Nonnull)cell atIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (NSUInteger)numberOfRowsInSection:(NSUInteger)section;
 - (editor::ui::OpeningDays)unhandledDays;

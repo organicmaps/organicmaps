@@ -16,7 +16,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ua5-4V-1PH" customClass="MWMButton">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Ua5-4V-1PH" customClass="MWMButton">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <constraints>
                             <constraint firstAttribute="height" priority="750" constant="44" id="oVm-ep-LLL"/>
@@ -47,6 +47,9 @@
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
             </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="button" destination="Ua5-4V-1PH" id="uqR-tB-gLh"/>
+            </connections>
             <point key="canvasLocation" x="342" y="257"/>
         </tableViewCell>
     </objects>

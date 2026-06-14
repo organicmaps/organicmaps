@@ -8,7 +8,7 @@
 @property(weak, nonatomic) IBOutlet UILabel * compatibilityLabel;
 
 @property(weak, nonatomic) IBOutlet UILabel * breakLabel;
-@property(weak, nonatomic) IBOutlet UIView * breaksHolder;
+@property(weak, nonatomic) IBOutlet UIStackView * breaksHolder;
 
 @property(weak, nonatomic) IBOutlet UILabel * closedLabel;
 
@@ -29,11 +29,11 @@
   UILabel * label = self.label;
   label.text = text;
   if (isRed)
-    [label setStyleNameAndApply:@"redText"];
+    [label setStyleNameAndApply:@"regular16:redText"];
   else if (self.currentDay)
-    [label setStyleNameAndApply:@"blackPrimaryText"];
+    [label setStyleNameAndApply:@"regular16:blackPrimaryText"];
   else
-    [label setStyleNameAndApply:@"blackSecondaryText"];
+    [label setStyleNameAndApply:@"regular16:blackSecondaryText"];
 }
 
 - (void)setOpenTimeText:(NSString *)text
@@ -44,10 +44,19 @@
 
 - (void)setBreaks:(NSArray<NSString *> *)breaks
 {
-  NSUInteger breaksCount = breaks.count;
-  BOOL haveBreaks = breaksCount != 0;
-  [self.breaksHolder.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-  if (haveBreaks)
+  for (UIView * view in self.breaksHolder.arrangedSubviews)
+  {
+    [self.breaksHolder removeArrangedSubview:view];
+    [view removeFromSuperview];
+  }
+
+  if (breaks.count == 0)
+  {
+    self.breakLabel.hidden = YES;
+    self.breaksHolder.hidden = YES;
+    self.breaksHolderHeight.constant = 0.0;
+  }
+  else
   {
     CGFloat breakSpacerHeight = 4.0;
     self.breakLabel.hidden = NO;
@@ -57,19 +66,16 @@
     {
       UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, labelY, 0, 0)];
       label.text = br;
-      label.font = self.currentDay ? [UIFont regular14] : [UIFont light12];
+      label.font = self.currentDay ? UIFont.regular12.dynamic : UIFont.light12.dynamic;
+      label.adjustsFontForContentSizeCategory = YES;
       label.textColor = [UIColor blackSecondaryText];
-      [label sizeToIntegralFit];
-      [self.breaksHolder addSubview:label];
-      labelY += label.height + breakSpacerHeight;
+      [label configureSingleLineAutoScaling];
+      label.translatesAutoresizingMaskIntoConstraints = NO;
+      [self.breaksHolder addArrangedSubview:label];
+      CGSize const fittingSize = [label sizeThatFits:CGSizeMake(self.breaksHolder.width, CGFLOAT_MAX)];
+      labelY += fittingSize.height + breakSpacerHeight;
     }
-    self.breaksHolderHeight.constant = ceil(labelY - breakSpacerHeight);
-  }
-  else
-  {
-    self.breakLabel.hidden = YES;
-    self.breaksHolder.hidden = YES;
-    self.breaksHolderHeight.constant = 0.0;
+    self.breaksHolderHeight.constant = MAX(0.0, ceil(labelY - breakSpacerHeight));
   }
 }
 
@@ -86,41 +92,15 @@
 
 - (void)invalidate
 {
-  CGFloat viewHeight;
-  if (self.isCompatibility)
-  {
-    [self.compatibilityLabel sizeToIntegralFit];
-    CGFloat compatibilityLabelVerticalOffsets = 24.0;
-    viewHeight = self.compatibilityLabel.height + compatibilityLabelVerticalOffsets;
-  }
-  else
-  {
-    UILabel * label = self.label;
-    UILabel * openTime = self.openTime;
-    CGFloat labelOpenTimeLabelSpacing = self.labelOpenTimeLabelSpacing.constant;
-    [label sizeToIntegralFit];
-    self.labelWidth.constant = MIN(label.width, openTime.minX - label.minX - labelOpenTimeLabelSpacing);
-
-    [self.breakLabel sizeToIntegralFit];
-    self.breakLabelWidth.constant = self.breakLabel.width;
-
-    CGFloat verticalSuperviewSpacing = self.labelTopSpacing.constant;
-    CGFloat minHeight = label.height + 2 * verticalSuperviewSpacing;
-    CGFloat breaksHolderHeight = self.breaksHolderHeight.constant;
-    CGFloat additionalHeight = (breaksHolderHeight > 0 ? 4.0 : 0.0);
-    viewHeight = minHeight + breaksHolderHeight + additionalHeight;
-
-    if (self.closedLabel && !self.closedLabel.hidden)
-    {
-      CGFloat heightForClosedLabel = 20.0;
-      viewHeight += heightForClosedLabel;
-    }
-  }
-
-  self.viewHeight = ceil(viewHeight);
-
   [self setNeedsLayout];
   [self layoutIfNeeded];
+
+  CGFloat const fittingWidth = self.width > 0.0 ? self.width : UIScreen.mainScreen.bounds.size.width;
+  CGSize const targetSize = CGSizeMake(fittingWidth, UILayoutFittingCompressedSize.height);
+  CGSize const fittingSize = [self systemLayoutSizeFittingSize:targetSize
+                                 withHorizontalFittingPriority:UILayoutPriorityRequired
+                                       verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
+  self.viewHeight = ceil(fittingSize.height);
 }
 
 #pragma mark - Properties

@@ -70,7 +70,7 @@ enum GlobalStyleSheet: String, CaseIterable {
 }
 
 extension GlobalStyleSheet: IStyleSheet {
-  func styleResolverFor(fonts: IFonts) -> Theme.StyleResolver {
+  var styleResolver: Theme.StyleResolver {
     switch self {
     case .tableView:
       return .add { s in
@@ -81,8 +81,10 @@ extension GlobalStyleSheet: IStyleSheet {
     case .tableViewCell:
       return .add { s in
         s.backgroundColor = .whitePrimary
+        s.fontStyle = .dynamic(.regular16)
         s.fontColor = .blackPrimaryText
         s.tintColor = .linkBlue
+        s.fontDetailedStyle = .dynamic(.regular14)
         s.fontColorDetailed = .blackSecondaryText
         s.backgroundColorSelected = .pressBackground
         s.exclusions = [String(describing: UIDatePicker.self), "_UIActivityUserDefaultsActivityCell"]
@@ -97,7 +99,7 @@ extension GlobalStyleSheet: IStyleSheet {
       }
     case .tableViewHeaderFooterView:
       return .add { s in
-        s.font = fonts.medium14
+        s.fontStyle = .dynamic(.medium14)
         s.fontColor = .blackSecondaryText
       }
     case .searchBar:
@@ -117,12 +119,12 @@ extension GlobalStyleSheet: IStyleSheet {
         s.tintColor = .whitePrimaryText
         s.backgroundImage = UIImage()
         s.shadowImage = UIImage()
-        s.font = fonts.header
+        s.fontStyle = .dynamic(.header)
         s.fontColor = .whitePrimaryText
       }
     case .navigationBarItem:
       return .add { s in
-        s.font = fonts.regular18
+        s.fontStyle = .dynamic(.regular18, maxSize: 24)
         s.fontColor = .whitePrimaryText
         s.fontColorDisabled = UIColor.lightGray
         s.fontColorHighlighted = .whitePrimaryTextHighlighted
@@ -239,7 +241,7 @@ extension GlobalStyleSheet: IStyleSheet {
         s.tintColor = .linkBlue
         s.fontColor = .blackSecondaryText
         s.fontColorHighlighted = .linkBlue
-        s.font = fonts.medium14
+        s.fontStyle = .dynamic(.medium14)
       }
     case .dialogView:
       return .add { s in
@@ -269,7 +271,7 @@ extension GlobalStyleSheet: IStyleSheet {
       }
     case .alertViewTextField:
       return .add { s in
-        s.font = fonts.regular14
+        s.fontStyle = .dynamic(.regular14)
         s.fontColor = .blackPrimaryText
         s.tintColor = .blackSecondaryText
       }
@@ -283,7 +285,7 @@ extension GlobalStyleSheet: IStyleSheet {
       }
     case .flatNormalButton:
       return .add { s in
-        s.font = fonts.medium14
+        s.fontStyle = .dynamic(.medium14)
         s.cornerRadius = .buttonDefault
         s.clip = true
         s.fontColor = .whitePrimaryText
@@ -296,21 +298,21 @@ extension GlobalStyleSheet: IStyleSheet {
       }
     case .flatNormalButtonBig:
       return .addFrom(Self.flatNormalButton) { s in
-        s.font = fonts.semibold16
+        s.fontStyle = .dynamic(.semibold16)
         s.cornerRadius = .buttonDefaultBig
         s.backgroundColor = .linkBlue
         s.backgroundColorDisabled = .linkBlueHighlighted
       }
     case .crowdfundingButton:
       return .addFrom(Self.flatNormalButtonBig) { s in
-        s.font = fonts.semibold16
+        s.fontStyle = .dynamic(.semibold16)
         s.fontColor = UIColor(fromHexString: "500000")
         s.cornerRadius = .buttonDefaultBig
         s.backgroundColor = .ratingYellow
       }
     case .flatNormalTransButton:
       return .add { s in
-        s.font = fonts.medium14
+        s.fontStyle = .dynamic(.medium14)
         s.cornerRadius = .buttonDefault
         s.clip = true
         s.fontColor = .linkBlue
@@ -322,11 +324,11 @@ extension GlobalStyleSheet: IStyleSheet {
       }
     case .flatNormalTransButtonBig:
       return .addFrom(Self.flatNormalTransButton) { s in
-        s.font = fonts.regular17
+        s.fontStyle = .dynamic(.regular17)
       }
     case .flatNormalGrayButtonBig:
       return .add { s in
-        s.font = fonts.medium15
+        s.fontStyle = .dynamic(.medium15)
         s.cornerRadius = .buttonDefaultBig
         s.clip = true
         s.fontColor = .linkBlue
@@ -339,34 +341,35 @@ extension GlobalStyleSheet: IStyleSheet {
       }
     case .flatGrayTransButton:
       return .add { s in
-        s.font = fonts.medium14
+        s.fontStyle = .dynamic(.medium14)
         s.fontColor = .blackSecondaryText
         s.backgroundColor = .clear
         s.fontColorHighlighted = .linkBlueHighlighted
       }
     case .flatPrimaryTransButton:
       return .add { s in
+        s.fontStyle = .dynamic(.medium14)
         s.fontColor = .blackPrimaryText
         s.backgroundColor = .clear
         s.fontColorHighlighted = .linkBlueHighlighted
       }
     case .flatRedTransButton:
       return .add { s in
-        s.font = fonts.medium14
+        s.fontStyle = .dynamic(.medium14)
         s.fontColor = .redPrimary
         s.backgroundColor = .clear
         s.fontColorHighlighted = .redPrimary
       }
     case .flatRedTransButtonBig:
       return .add { s in
-        s.font = fonts.regular17
+        s.fontStyle = .dynamic(.regular17)
         s.fontColor = .redPrimary
         s.backgroundColor = .clear
         s.fontColorHighlighted = .redPrimary
       }
     case .flatRedButtonBig:
       return .add { s in
-        s.font = fonts.semibold16
+        s.fontStyle = .dynamic(.semibold16)
         s.cornerRadius = .buttonDefaultBig
         s.fontColor = .whitePrimaryText
         s.backgroundColor = .buttonRed
@@ -377,21 +380,19 @@ extension GlobalStyleSheet: IStyleSheet {
         s.fontColor = .linkBlue
         s.fontColorHighlighted = .linkBlueHighlighted
         s.backgroundColor = .clear
-        s.font = fonts.regular16
+        s.fontStyle = .dynamic(.regular16)
       }
     case .editButton:
       return .add { s in
-        s.font = fonts.regular14
+        s.fontStyle = .dynamic(.regular16)
         s.fontColor = .linkBlue
-        s.cornerRadius = .buttonDefault
-        s.borderColor = .linkBlue
-        s.borderWidth = 1
+        s.cornerRadius = .none
         s.fontColorHighlighted = .linkBlueHighlighted
         s.backgroundColor = .clear
       }
     case .rateAppButton:
       return .add { s in
-        s.font = fonts.medium17
+        s.fontStyle = .dynamic(.medium17)
         s.fontColor = .linkBlue
         s.fontColorHighlighted = .whitePrimary
         s.borderColor = .linkBlue
@@ -402,17 +403,17 @@ extension GlobalStyleSheet: IStyleSheet {
       }
     case .termsOfUseLinkText:
       return .add { s in
-        s.font = fonts.regular16
+        s.fontStyle = .dynamic(.regular16)
         s.fontColor = .blackPrimaryText
 
-        s.linkAttributes = [NSAttributedString.Key.font: fonts.regular16,
+        s.linkAttributes = [NSAttributedString.Key.font: UIFont.regular16.dynamic,
                             NSAttributedString.Key.foregroundColor: UIColor.linkBlue,
                             NSAttributedString.Key.underlineColor: UIColor.clear]
         s.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
       }
     case .termsOfUseGrayButton:
       return .add { s in
-        s.font = fonts.medium10
+        s.fontStyle = .dynamic(.medium10)
         s.fontColor = .blackSecondaryText
         s.fontColorHighlighted = .blackHintText
       }
@@ -458,7 +459,7 @@ extension GlobalStyleSheet: IStyleSheet {
       }
     case .valueStepperView:
       return .add { s in
-        s.font = fonts.regular16
+        s.fontStyle = .dynamic(.regular16)
         s.fontColor = .blackPrimaryText
         s.coloring = MWMButtonColoring.blue
       }
@@ -497,7 +498,7 @@ extension GlobalStyleSheet: IStyleSheet {
       }
     case .toastLabel:
       return .add { s in
-        s.font = fonts.regular16
+        s.fontStyle = .dynamic(.regular16)
         s.fontColor = .whitePrimaryText
         s.textAlignment = .center
       }

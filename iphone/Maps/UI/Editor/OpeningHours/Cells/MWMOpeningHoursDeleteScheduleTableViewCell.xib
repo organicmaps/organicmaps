@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24765" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24743"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,8 +16,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6sA-sN-4Dk">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6sA-sN-4Dk">
+                        <rect key="frame" x="0.0" y="8" width="320" height="28"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <state key="normal" title="Delete Schedule">
                             <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -31,23 +31,11 @@
                             <action selector="deleteScheduleTap" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Wrd-G9-gDM"/>
                         </connections>
                     </button>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_image" translatesAutoresizingMaskIntoConstraints="NO" id="pwt-wM-TFm">
-                        <rect key="frame" x="0.0" y="43.5" width="320" height="1"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="1" id="uj7-UU-MSZ"/>
-                        </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMSeparator"/>
-                        </userDefinedRuntimeAttributes>
-                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="6sA-sN-4Dk" secondAttribute="bottom" id="HqD-nd-D5C"/>
+                    <constraint firstAttribute="bottom" secondItem="6sA-sN-4Dk" secondAttribute="bottom" constant="8" id="HqD-nd-D5C"/>
                     <constraint firstAttribute="trailing" secondItem="6sA-sN-4Dk" secondAttribute="trailing" id="ajb-sy-7f6"/>
-                    <constraint firstItem="6sA-sN-4Dk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="fyt-5F-eSU"/>
-                    <constraint firstItem="pwt-wM-TFm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="jD1-ee-pdn"/>
-                    <constraint firstAttribute="bottom" secondItem="pwt-wM-TFm" secondAttribute="bottom" constant="-0.5" id="jr1-UN-iiO"/>
-                    <constraint firstAttribute="trailing" secondItem="pwt-wM-TFm" secondAttribute="trailing" id="uAP-Dw-Gir"/>
+                    <constraint firstItem="6sA-sN-4Dk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="fyt-5F-eSU"/>
                     <constraint firstItem="6sA-sN-4Dk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ywG-MR-eI2"/>
                 </constraints>
                 <userDefinedRuntimeAttributes>
@@ -60,7 +48,4 @@
             <point key="canvasLocation" x="139" y="155"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="separator_image" width="1" height="1"/>
-    </resources>
 </document>

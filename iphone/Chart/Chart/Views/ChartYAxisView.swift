@@ -25,6 +25,13 @@ private class ChartYAxisInnerView: UIView {
     }
   }
 
+  var isFontDynamic: Bool = false {
+    didSet {
+      lowerLabel.adjustsFontForContentSizeCategory = isFontDynamic
+      upperLabel.adjustsFontForContentSizeCategory = isFontDynamic
+    }
+  }
+
   var textColor: UIColor = .init(white: 0, alpha: 0.3) {
     didSet {
       lowerLabel.textColor = textColor
@@ -123,6 +130,7 @@ private class ChartYAxisInnerView: UIView {
   static func makeLabel() -> UILabel {
     let label = UILabel()
     label.font = ChartYAxisInnerView.font
+    label.adjustsFontForContentSizeCategory = false
     label.transform = CGAffineTransform.identity.scaledBy(x: 1, y: -1)
     return label
   }
@@ -191,6 +199,12 @@ class ChartYAxisView: UIView {
     }
   }
 
+  var isFontDynamic: Bool = false {
+    didSet {
+      gridView?.isFontDynamic = isFontDynamic
+    }
+  }
+
   var textColor: UIColor = .init(white: 0, alpha: 0.3) {
     didSet {
       gridView?.textColor = textColor
@@ -225,6 +239,8 @@ class ChartYAxisView: UIView {
                  animationStyle: ChartAnimation = .none) {
     let gv = ChartYAxisInnerView()
     gv.alignment = alignment
+    gv.font = font
+    gv.isFontDynamic = isFontDynamic
     gv.textColor = textColor
     gv.gridColor = gridColor
     gv.textBackgroundColor = textBackgroundColor

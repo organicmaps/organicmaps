@@ -20,5 +20,9 @@ class UITableViewHeaderFooterViewRenderer {
     if let fontColor = style.fontColor {
       control.textLabel?.textColor = fontColor
     }
+    if let fontStyle = style.fontStyle {
+      control.textLabel?.font = fontStyle.font
+      control.textLabel?.adjustsFontForContentSizeCategory = fontStyle.isDynamic
+    }
   }
 }

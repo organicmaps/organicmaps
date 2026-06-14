@@ -37,6 +37,7 @@
     _placeholderView.textAlignment = self.textAlignment;
     _placeholderView.userInteractionEnabled = NO;
     _placeholderView.font = self.font;
+    _placeholderView.adjustsFontForContentSizeCategory = YES;
     _placeholderView.isAccessibilityElement = NO;
     _placeholderView.numberOfLines = 0;
   }

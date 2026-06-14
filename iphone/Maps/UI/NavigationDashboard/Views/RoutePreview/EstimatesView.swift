@@ -24,10 +24,8 @@ final class EstimatesView: UIView {
   }
 
   private func layout() {
-    estimatesLabel.adjustsFontSizeToFitWidth = true
-    estimatesLabel.minimumScaleFactor = 0.5
-    estimatesLabel.allowsDefaultTighteningForTruncation = true
-    estimatesLabel.numberOfLines = 1
+    estimatesLabel.adjustsFontForContentSizeCategory = true
+    estimatesLabel.configureSingleLineAutoScaling()
 
     addSubview(estimatesLabel)
 
@@ -55,7 +53,7 @@ final class EstimatesView: UIView {
                         case .error(let errorMessage):
                           self.estimatesLabel.alpha = 1.0
                           self.estimatesLabel.attributedText = NSAttributedString(string: errorMessage, attributes: [
-                            .font: Fonts().semibold16,
+                            .font: UIFont.semibold16.dynamic,
                             .foregroundColor: UIColor.buttonRed,
                           ])
                         case .estimates(let estimates):

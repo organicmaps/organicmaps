@@ -1,4 +1,5 @@
 #import "MWMOpeningHoursClosedSpanTableViewCell.h"
+#import "SwiftBridge.h"
 
 #import "CoreApi/CoreApi-Swift.h"
 
@@ -7,7 +8,7 @@ static NSString * const kLabelText = L(@"editor_hours_closed");
 CGFloat labelWidth()
 {
   UILabel * label = [[UILabel alloc] initWithFrame:CGRectZero];
-  label.font = [UIFont regular17];
+  label.font = UIFont.regular17.dynamic;
   label.text = kLabelText;
   [label sizeToFit];
   return label.width;
@@ -36,10 +37,6 @@ BOOL isCompactForCellWidth(CGFloat width)
 
 @implementation MWMOpeningHoursClosedSpanTableViewCell
 
-+ (CGFloat)heightForWidth:(CGFloat)width
-{
-  return isCompactForCellWidth(width) ? 44.0 : 64.0;
-}
 - (void)awakeFromNib
 {
   [super awakeFromNib];
@@ -54,7 +51,7 @@ BOOL isCompactForCellWidth(CGFloat width)
     self.isCompact = !self.isCompact;
     if (self.isCompact)
     {
-      self.hoursClosedLabel.font = [UIFont regular17];
+      self.hoursClosedLabel.font = UIFont.regular17.dynamic;
       self.timeSpanLabel.textAlignment = NSTextAlignmentRight;
       self.timeSpanHorizontalAlignment.priority = UILayoutPriorityDefaultLow;
       self.timeSpanVerticalAlignment.priority = UILayoutPriorityDefaultLow;
@@ -62,7 +59,7 @@ BOOL isCompactForCellWidth(CGFloat width)
     }
     else
     {
-      self.hoursClosedLabel.font = [UIFont regular14];
+      self.hoursClosedLabel.font = UIFont.regular14.dynamic;
       self.timeSpanLabel.textAlignment = NSTextAlignmentLeft;
       self.timeSpanHorizontalAlignment.priority = UILayoutPriorityDefaultHigh;
       self.timeSpanVerticalAlignment.priority = UILayoutPriorityDefaultHigh;

@@ -12,8 +12,9 @@ class UITextViewRenderer {
     if let backgroundColor = style.backgroundColor {
       control.backgroundColor = backgroundColor
     }
-    if let font = style.font {
-      control.font = font
+    if let fontStyle = style.fontStyle {
+      control.font = fontStyle.font
+      control.adjustsFontForContentSizeCategory = fontStyle.isDynamic
     }
     if let fontColor = style.fontColor {
       control.textColor = fontColor

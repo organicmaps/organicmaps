@@ -52,6 +52,7 @@ NS_SWIFT_NAME(FrameworkHelper)
 
 + (void)processFirstLaunch:(BOOL)hasLocation;
 + (void)setVisibleViewport:(CGRect)rect scaleFactor:(CGFloat)scale;
++ (void)setMapFontScaleFactor:(double)scaleFactor;
 + (void)setTheme:(MWMTheme)theme;
 + (MWMDayTime)daytimeAtLocation:(nullable CLLocation *)location;
 + (void)createFramework;

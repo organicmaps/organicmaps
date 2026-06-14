@@ -2,7 +2,11 @@ protocol BottomMenuViewProtocol: AnyObject {
   var presenter: BottomMenuPresenterProtocol? { get set }
 }
 
-class BottomMenuViewController: MWMViewController {
+final class BottomMenuViewController: MWMViewController {
+  private enum Constants {
+    static let estimatedRowHeight: CGFloat = 80
+  }
+
   var presenter: BottomMenuPresenterProtocol?
   private let transitioningManager = BottomMenuTransitioningManager()
 
@@ -27,6 +31,13 @@ class BottomMenuViewController: MWMViewController {
 
     tableView.layer.setCornerRadius(.modalSheet, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
     tableView.sectionFooterHeight = 0
+    tableView.rowHeight = UITableView.automaticDimension
+    tableView.estimatedRowHeight = Constants.estimatedRowHeight
+
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(contentSizeCategoryDidChange),
+                                           name: UIContentSizeCategory.didChangeNotification,
+                                           object: nil)
 
     tableView.dataSource = presenter
     tableView.delegate = presenter
@@ -43,10 +54,31 @@ class BottomMenuViewController: MWMViewController {
 
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
+    updateTableHeight()
+  }
+
+  deinit {
+    NotificationCenter.default.removeObserver(self)
+  }
+
+  @objc private func contentSizeCategoryDidChange() {
+    tableView.reloadData()
+    view.setNeedsLayout()
+  }
+
+  private func updateTableHeight() {
     tableView.setNeedsLayout()
     tableView.layoutIfNeeded()
-    heightConstraint.constant = min(tableView.contentSize.height, view.height)
-    tableView.isScrollEnabled = tableView.contentSize.height > heightConstraint.constant
+
+    let contentHeight = tableView.contentSize.height
+    let maximumHeight = view.bounds.height - view.safeAreaInsets.bottom
+    guard contentHeight > 0, maximumHeight > 0 else { return }
+
+    let targetHeight = min(contentHeight, maximumHeight)
+    if heightConstraint.constant != targetHeight {
+      heightConstraint.constant = targetHeight
+    }
+    tableView.isScrollEnabled = contentHeight > targetHeight
   }
 
   @IBAction func onClosePressed(_: Any) {
