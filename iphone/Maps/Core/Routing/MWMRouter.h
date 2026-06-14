@@ -5,6 +5,8 @@
 
 typedef NS_ENUM(NSInteger, MWMRoadType) { MWMRoadTypeToll, MWMRoadTypeDirty, MWMRoadTypeFerry, MWMRoadTypeMotorway };
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface MWMRouter : NSObject
 
 + (void)subscribeToEvents;
@@ -25,8 +27,8 @@ typedef NS_ENUM(NSInteger, MWMRoadType) { MWMRoadTypeToll, MWMRoadTypeDirty, MWM
 
 + (NSArray<MWMRoutePoint *> *)points;
 + (NSInteger)pointsCount;
-+ (MWMRoutePoint *)startPoint;
-+ (MWMRoutePoint *)finishPoint;
++ (nullable MWMRoutePoint *)startPoint;
++ (nullable MWMRoutePoint *)finishPoint;
 
 + (void)enableAutoAddLastLocation:(BOOL)enable;
 
@@ -91,3 +93,5 @@ typedef NS_ENUM(NSInteger, MWMRoadType) { MWMRoadTypeToll, MWMRoadTypeDirty, MWM
 + (void)updatePreviewMode;
 
 @end
+
+NS_ASSUME_NONNULL_END
