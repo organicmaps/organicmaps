@@ -1,8 +1,10 @@
 project(drape_frontend_tests)
 
 set(SRC
+  area_shape_tests.cpp
   clip_splines_builder_tests.cpp
   frame_values_tests.cpp
+  hatching_area_gpu_test.cpp
   navigator_test.cpp
   path_text_test.cpp
   rainbow_line_gpu_test.cpp

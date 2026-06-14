@@ -230,7 +230,8 @@ void GLFunctions::glBindTexture(uint32_t textureID, glConst target)
   MOCK_CALL(glBindTexture(textureID, target));
 }
 
-void GLFunctions::glTexImage2D(int width, int height, glConst layout, glConst pixelType, void const * data)
+void GLFunctions::glTexImage2D(int width, int height, glConst layout, glConst pixelType, void const * data,
+                               int /* level */)
 {
   MOCK_CALL(glTexImage2D(width, height, layout, pixelType, data));
 }

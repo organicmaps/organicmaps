@@ -94,7 +94,8 @@ StaticTexture::StaticTexture() : m_info(make_unique_dp<StaticResourceInfo>()) {}
 
 StaticTexture::StaticTexture(ref_ptr<dp::GraphicsContext> context, std::string const & textureName,
                              std::string const & skinPathName, dp::TextureFormat format,
-                             ref_ptr<HWTextureAllocator> allocator, bool allowOptional /* = false */)
+                             ref_ptr<HWTextureAllocator> allocator, bool allowOptional /* = false */,
+                             bool useMipmaps /* = false */)
   : m_info(make_unique_dp<StaticResourceInfo>())
 {
   auto completionHandler = [&](unsigned char * data, uint32_t width, uint32_t height)
@@ -106,6 +107,7 @@ StaticTexture::StaticTexture(ref_ptr<dp::GraphicsContext> context, std::string c
     p.m_height = height;
     p.m_wrapSMode = TextureWrapping::Repeat;
     p.m_wrapTMode = TextureWrapping::Repeat;
+    p.m_useMipmaps = useMipmaps;
 
     Create(context, p, make_ref(data));
   };

@@ -67,7 +67,8 @@ public:
 
   VulkanObject CreateBuffer(VulkanMemoryManager::ResourceType resourceType, uint32_t sizeInBytes, uint64_t batcherHash);
   VulkanObject CreateImage(VkImageUsageFlags usageFlags, VkFormat format, VkImageTiling tiling,
-                           VkImageAspectFlags aspectFlags, uint32_t width, uint32_t height, uint32_t layerCount);
+                           VkImageAspectFlags aspectFlags, uint32_t width, uint32_t height, uint32_t layerCount,
+                           uint32_t mipLevels = 1);
   DescriptorSetGroup CreateDescriptorSetGroup(ref_ptr<VulkanGpuProgram> program);
 
   // Use unsafe function ONLY if an object exists on one thread, otherwise

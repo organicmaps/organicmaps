@@ -21,6 +21,7 @@ set(SRC
   img.cpp
   img.hpp
   memory_comparer.hpp
+  mipmap_tests.cpp
   object_pool_tests.cpp
   pointers_tests.cpp
   static_texture_tests.cpp

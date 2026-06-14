@@ -51,12 +51,13 @@ public:
   struct SamplerKey
   {
     SamplerKey() = default;
-    SamplerKey(TextureFilter filter, TextureWrapping wrapSMode, TextureWrapping wrapTMode);
-    void Set(TextureFilter filter, TextureWrapping wrapSMode, TextureWrapping wrapTMode);
+    SamplerKey(TextureFilter filter, TextureWrapping wrapSMode, TextureWrapping wrapTMode, bool useMipmaps);
+    void Set(TextureFilter filter, TextureWrapping wrapSMode, TextureWrapping wrapTMode, bool useMipmaps);
     bool operator<(SamplerKey const & rhs) const;
     MTLSamplerDescriptor * BuildDescriptor() const;
 
     uint32_t m_sampler = 0;
+    bool m_useMipmaps = false;
   };
 
   id<MTLDepthStencilState> GetDepthStencilState(id<MTLDevice> device, DepthStencilKey const & key);

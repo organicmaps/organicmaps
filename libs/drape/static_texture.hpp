@@ -23,7 +23,8 @@ public:
 
   /// @todo All xxxName can be std::string_view after Platform::GetReader (StyleReader) refactoring.
   StaticTexture(ref_ptr<dp::GraphicsContext> context, std::string const & textureName, std::string const & skinPathName,
-                dp::TextureFormat format, ref_ptr<HWTextureAllocator> allocator, bool allowOptional = false);
+                dp::TextureFormat format, ref_ptr<HWTextureAllocator> allocator, bool allowOptional = false,
+                bool useMipmaps = false);
 
   ref_ptr<ResourceInfo> FindResource(Key const & key, bool & newResource) override;
   void Create(ref_ptr<dp::GraphicsContext> context, Params const & params) override;

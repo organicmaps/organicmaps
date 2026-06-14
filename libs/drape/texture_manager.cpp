@@ -502,11 +502,13 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
                                                         dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
 
   /// @todo Introduce array of keys and use them as mask file name prefix.
-  m_hatchingTextures[k45dHatching] = make_unique_dp<StaticTexture>(
-      context, "area-hatching.png", m_resPostfix, dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
-  m_hatchingTextures[kDashHatching] =
-      make_unique_dp<StaticTexture>(context, "dash-hatching.png", StaticTexture::kDefaultResource,
-                                    dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
+  // Mipmaps + trilinear sampling stop the thin hatch lines from shimmering/aliasing on zoom-pan (#12804).
+  m_hatchingTextures[k45dHatching] =
+      make_unique_dp<StaticTexture>(context, "area-hatching.png", m_resPostfix, dp::TextureFormat::RGBA8,
+                                    make_ref(m_textureAllocator), false /* allowOptional */, true /* useMipmaps */);
+  m_hatchingTextures[kDashHatching] = make_unique_dp<StaticTexture>(
+      context, "dash-hatching.png", StaticTexture::kDefaultResource, dp::TextureFormat::RGBA8,
+      make_ref(m_textureAllocator), false /* allowOptional */, true /* useMipmaps */);
 
   m_arrowTexture = CreateArrowTexture(context, make_ref(m_textureAllocator), params.m_arrowTexturePath,
                                       params.m_arrowTextureUseDefaultResourceFolder);

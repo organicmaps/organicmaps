@@ -55,7 +55,7 @@ void ApplyTexturesForMetal(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram>
       if (vsBindingInfo.m_samplerBindingIndex >= 0)
       {
         id<MTLSamplerState> samplerState =
-            metalContext->GetSamplerState(params.m_filter, params.m_wrapSMode, params.m_wrapTMode);
+            metalContext->GetSamplerState(params.m_filter, params.m_wrapSMode, params.m_wrapTMode, params.m_useMipmaps);
         [encoder setVertexSamplerState:samplerState atIndex:vsBindingInfo.m_samplerBindingIndex];
       }
     }
@@ -68,7 +68,7 @@ void ApplyTexturesForMetal(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram>
       if (fsBindingInfo.m_samplerBindingIndex >= 0)
       {
         id<MTLSamplerState> samplerState =
-            metalContext->GetSamplerState(params.m_filter, params.m_wrapSMode, params.m_wrapTMode);
+            metalContext->GetSamplerState(params.m_filter, params.m_wrapSMode, params.m_wrapTMode, params.m_useMipmaps);
         [encoder setFragmentSamplerState:samplerState atIndex:fsBindingInfo.m_samplerBindingIndex];
       }
     }

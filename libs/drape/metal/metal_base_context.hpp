@@ -66,7 +66,8 @@ public:
   id<MTLRenderCommandEncoder> GetCommandEncoder() const;
   id<MTLDepthStencilState> GetDepthStencilState();
   id<MTLRenderPipelineState> GetPipelineState(ref_ptr<GpuProgram> program, bool blendingEnabled);
-  id<MTLSamplerState> GetSamplerState(TextureFilter filter, TextureWrapping wrapSMode, TextureWrapping wrapTMode);
+  id<MTLSamplerState> GetSamplerState(TextureFilter filter, TextureWrapping wrapSMode, TextureWrapping wrapTMode,
+                                      bool useMipmaps);
 
   void SetSystemPrograms(drape_ptr<GpuProgram> && programClearColor, drape_ptr<GpuProgram> && programClearDepth,
                          drape_ptr<GpuProgram> && programClearColorAndDepth);

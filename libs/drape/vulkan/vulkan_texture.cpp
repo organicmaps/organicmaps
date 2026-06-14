@@ -19,11 +19,11 @@ namespace vulkan
 namespace
 {
 VkBufferImageCopy BufferCopyRegion(uint32_t x, uint32_t y, uint32_t width, uint32_t height, uint32_t stagingOffset,
-                                   uint32_t startLayer, uint32_t numLayers)
+                                   uint32_t startLayer, uint32_t numLayers, uint32_t mipLevel = 0)
 {
   VkBufferImageCopy bufferCopyRegion = {};
   bufferCopyRegion.imageSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-  bufferCopyRegion.imageSubresource.mipLevel = 0;
+  bufferCopyRegion.imageSubresource.mipLevel = mipLevel;
   bufferCopyRegion.imageSubresource.baseArrayLayer = startLayer;
   bufferCopyRegion.imageSubresource.layerCount = numLayers;
   bufferCopyRegion.imageExtent.width = width;
@@ -99,6 +99,14 @@ void VulkanTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & 
   }
   else
   {
+    // CPU-built mip chain (single-layer textures only). mipLevelsCount includes level 0.
+    auto const bytesPerPixel = GetBytesPerPixel(params.m_format);
+    std::vector<MipLevel> mipLevels;
+    if (m_params.m_useMipmaps)
+      mipLevels =
+          BuildMipmapLevels(static_cast<uint8_t const *>(data.get()), params.m_width, params.m_height, bytesPerPixel);
+    uint32_t const mipLevelsCount = static_cast<uint32_t>(mipLevels.size()) + 1;
+
     if (data != nullptr || params.m_usePersistentStagingBuffer)
     {
       std::lock_guard<std::mutex> lock(m_dedicatedStagingBufferMutex);
@@ -106,9 +114,11 @@ void VulkanTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & 
       if (m_dedicatedStagingBuffer.m_buffer)
         m_objectManager->DestroyObject(m_dedicatedStagingBuffer);
 
-      // Create dedicated staging buffer.
-      auto const notAlignedSize =
-          GetBytesPerPixel(params.m_format) * params.m_width * params.m_height * params.m_layerCount;
+      // Create dedicated staging buffer large enough for level 0 plus the whole mip chain.
+      auto const level0Size = bytesPerPixel * params.m_width * params.m_height * params.m_layerCount;
+      uint32_t notAlignedSize = level0Size;
+      for (auto const & level : mipLevels)
+        notAlignedSize += static_cast<uint32_t>(level.m_data.size());
       auto bufferSize = VulkanMemoryManager::GetAligned(notAlignedSize, 64);
 
       auto constexpr kStagingBuffer = VulkanMemoryManager::ResourceType::Staging;
@@ -133,9 +143,21 @@ void VulkanTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & 
 
       if (data != nullptr)
       {
-        m_objectManager->Fill(m_dedicatedStagingBuffer, data.get(), notAlignedSize);
+        uint32_t offset = 0;
+        m_objectManager->Fill(m_dedicatedStagingBuffer, data.get(), level0Size, offset);
         m_copyRegions.emplace_back(
-            BufferCopyRegion(0, 0, params.m_width, params.m_height, 0 /* offset */, 0, params.m_layerCount));
+            BufferCopyRegion(0, 0, params.m_width, params.m_height, offset, 0, params.m_layerCount, 0 /* mipLevel */));
+        offset += level0Size;
+
+        for (size_t i = 0; i < mipLevels.size(); ++i)
+        {
+          auto const & level = mipLevels[i];
+          auto const levelSize = static_cast<uint32_t>(level.m_data.size());
+          m_objectManager->Fill(m_dedicatedStagingBuffer, level.m_data.data(), levelSize, offset);
+          m_copyRegions.emplace_back(
+              BufferCopyRegion(0, 0, level.m_width, level.m_height, offset, 0, 1, static_cast<uint32_t>(i + 1)));
+          offset += levelSize;
+        }
       }
     }
     m_usePersistentStagingBuffer = params.m_usePersistentStagingBuffer;
@@ -143,7 +165,7 @@ void VulkanTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & 
     // Create image.
     m_textureObject =
         m_objectManager->CreateImage(VK_IMAGE_USAGE_SAMPLED_BIT, format, tiling, VK_IMAGE_ASPECT_COLOR_BIT,
-                                     params.m_width, params.m_height, params.m_layerCount);
+                                     params.m_width, params.m_height, params.m_layerCount, mipLevelsCount);
   }
 }
 
@@ -267,7 +289,7 @@ bool VulkanTexture::Validate() const
 
 SamplerKey VulkanTexture::GetSamplerKey() const
 {
-  return SamplerKey(m_params.m_filter, m_params.m_wrapSMode, m_params.m_wrapTMode);
+  return SamplerKey(m_params.m_filter, m_params.m_wrapSMode, m_params.m_wrapTMode, m_params.m_useMipmaps);
 }
 
 void VulkanTexture::MakeImageLayoutTransition(VkCommandBuffer commandBuffer, VkImageLayout newLayout,
