@@ -64,8 +64,6 @@ IsAreaPatternChecker::Speckle::Speckle() : ftypes::BaseCheckerEx({{"natural", "s
 
 IsAreaPatternChecker::Grid::Grid() : ftypes::BaseCheckerEx({{"landuse", "orchard"}, {"landuse", "vineyard"}}) {}
 
-IsAreaPatternChecker::IsAreaPatternChecker() {}
-
 std::string_view IsAreaPatternChecker::GetPattern(uint32_t type) const
 {
   if (m_stipple(type))

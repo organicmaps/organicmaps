@@ -45,7 +45,7 @@ private:
 // transparent mask.
 class IsAreaPatternChecker
 {
-  IsAreaPatternChecker();
+  IsAreaPatternChecker() = default;
 
 public:
   DECLARE_CHECKER_INSTANCE(IsAreaPatternChecker);

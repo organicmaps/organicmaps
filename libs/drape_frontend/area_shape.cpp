@@ -15,9 +15,9 @@
 
 namespace df
 {
-// Analytic hatches repeat every kHatchTilePx 'base' pixels - the size of the legacy mask tiles, kept so
-// the on-screen scale is unchanged. The fragment shaders interpret v_maskTexCoords * kHatchTilePx as the
-// in-tile pixel coordinate.
+// Analytic area patterns (hatches and solid-fill speckles) repeat every kHatchTilePx 'base' pixels - the
+// size of the legacy mask tiles, kept so the on-screen scale is unchanged. The fragment shaders interpret
+// v_maskTexCoords * kHatchTilePx as the in-tile pixel coordinate.
 uint32_t constexpr kHatchTilePx = 16;
 
 namespace
@@ -68,16 +68,12 @@ void AreaShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> 
     outlineUv = outlineRegion.GetTexRect().Center();
   }
 
-  // A hatch (wetland/protected areas) or a solid-fill pattern (sand/...) both render through the analytic
-  // pattern path; a feature has at most one of them.
-  std::string_view const pattern = m_params.m_hatching.empty() ? m_params.m_areaPattern : m_params.m_hatching;
-
   if (m_params.m_depthLayer == DepthLayer::MwmBorderLayer)
     DrawMwmBorderArea(context, batcher, colorUv, region.GetTexture());
   else if (m_params.m_is3D)
     DrawArea3D(context, batcher, colorUv, outlineUv, region.GetTexture());
-  else if (!pattern.empty())
-    DrawPatternArea(context, batcher, colorUv, region.GetTexture(), pattern);
+  else if (!m_params.m_areaPattern.empty())
+    DrawPatternArea(context, batcher, colorUv, region.GetTexture(), m_params.m_areaPattern);
   else
     DrawArea(context, batcher, colorUv, outlineUv, region.GetTexture());
 }
