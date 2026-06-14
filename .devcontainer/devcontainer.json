@@ -1,0 +1,5 @@
+{
+  "dockerComposeFile": "compose.yaml",
+  "service": "omim",
+  "workspaceFolder": "/workspace"
+}

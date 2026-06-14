@@ -1,0 +1,20 @@
+services:
+  omim:
+    build: .
+    volumes:
+      - ..:/workspace
+      - /home
+      - $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:/tmp/$WAYLAND_DISPLAY:ro
+      - /run/dbus/system_bus_socket:/run/dbus/system_bus_socket:ro
+    environment:
+      CMAKE_CXX_COMPILER_LAUNCHER: ccache
+      XDG_RUNTIME_DIR: /tmp
+      WAYLAND_DISPLAY:
+    devices:
+      - /dev/dri
+    command: sleep infinity
+      
+    # Podman-specific
+    security_opt:
+      - label:disable
+    userns_mode: keep-id
