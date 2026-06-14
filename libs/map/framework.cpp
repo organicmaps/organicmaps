@@ -3,6 +3,7 @@
 #include "map/benchmark_tools.hpp"
 #include "map/gps_tracker.hpp"
 #include "map/place_page_info.hpp"
+#include "map/raster_tile_provider.hpp"
 #include "map/relation_track.hpp"
 #include "map/track_mark.hpp"
 #include "map/user_mark.hpp"
@@ -85,13 +86,14 @@ Framework::FixedPosition::FixedPosition()
 }
 #endif
 
-#ifdef DEBUG
-#define DEBUG_BACKGROUND_TILE 1
-#endif
-
 namespace
 {
 std::string_view constexpr kMapStyleKey = "MapStyleKeyV1";
+std::string_view constexpr kBgTilesEnabledKey = "BgTilesEnabled";      // custom raster tiles layer on/off
+std::string_view constexpr kBgTilesUrlKey = "BgTilesUrl";              // custom raster tiles URL template
+std::string_view constexpr kBgTilesCacheSizeMBKey = "BgTilesCacheMB";  // custom raster tiles disk cache cap
+uint32_t constexpr kDefaultBgTilesCacheSizeMB = 50;
+uint32_t constexpr kMaxBgTilesCacheSizeMB = 1000;
 std::string_view constexpr kAllow3dKey = "Allow3d";
 std::string_view constexpr kAllow3dBuildingsKey = "Buildings3d";
 std::string_view constexpr kAllowAutoZoom = "AutoZoom";
@@ -1657,60 +1659,32 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
         break;
   };
 
-  auto tileBackgroundReadFn = [this](df::TileKey const & tileKey, dp::BackgroundMode mode) -> void
+  // Custom raster background tiles come from a user-configured XYZ source (Settings -> Map tiles),
+  // persisted via kBgTilesEnabledKey / kBgTilesUrlKey / kBgTilesCacheSizeMBKey. The layer is active
+  // only when enabled AND a URL is set.
+  std::string bgTilesUrl;
+  settings::Get(kBgTilesUrlKey, bgTilesUrl);
+  bool bgTilesEnabled = false;
+  settings::Get(kBgTilesEnabledKey, bgTilesEnabled);
+  bool const bgTilesActive = bgTilesEnabled && !bgTilesUrl.empty();
+  if (bgTilesActive && !m_rasterTileProvider)
   {
-#if DEBUG_BACKGROUND_TILE
-    constexpr uint32_t kTileSize = 64;
-    constexpr uint32_t kBlockSize = 8;
-    constexpr uint32_t kBytesPerPixel = 4;
-    static std::vector<uint8_t> kPixels;
-    if (kPixels.empty())
-    {
-      kPixels.resize(kTileSize * kTileSize * kBytesPerPixel);
-      for (uint32_t y = 0; y < kTileSize; ++y)
-      {
-        for (uint32_t x = 0; x < kTileSize; ++x)
-        {
-          uint32_t const blockX = x / kBlockSize;
-          uint32_t const blockY = y / kBlockSize;
-          bool const isWhiteBlock = (blockX + blockY) % 2 == 0;
-          uint32_t const pixelIndex = (y * kTileSize + x) * kBytesPerPixel;
+    uint32_t bgTilesCacheMB = kDefaultBgTilesCacheSizeMB;
+    settings::Get(kBgTilesCacheSizeMBKey, bgTilesCacheMB);
+    CreateBackgroundTilesProvider(bgTilesUrl, bgTilesCacheMB);
+  }
 
-          if (isWhiteBlock)
-          {
-            // White block
-            kPixels[pixelIndex] = 255;      // R
-            kPixels[pixelIndex + 1] = 255;  // G
-            kPixels[pixelIndex + 2] = 255;  // B
-            kPixels[pixelIndex + 3] = 255;  // A
-          }
-          else
-          {
-            // Dark gray block
-            kPixels[pixelIndex] = 64;       // R
-            kPixels[pixelIndex + 1] = 64;   // G
-            kPixels[pixelIndex + 2] = 64;   // B
-            kPixels[pixelIndex + 3] = 255;  // A
-          }
-        }
-      }
-    }
-
-    if (m_drapeEngine)
-    {
-      m_drapeEngine->SetTileBackgroundData(tileKey, kTileSize, kTileSize, dp::TextureFormat::RGBA8, mode,
-                                           std::vector<uint8_t>(kPixels));
-    }
-#else
-  // Handle cancellation of tile background reading for the specified tile and mode.
-  // This is a placeholder implementation; actual logic will depend on application requirements.
-#endif
+  auto tileBackgroundReadFn = [this](df::TileKey const & tileKey, dp::BackgroundMode mode) -> bool
+  {
+    if (m_rasterTileProvider)
+      return m_rasterTileProvider->RequestTile(tileKey, mode);
+    return false;
   };
 
-  auto cancelTileBackgroundReadingFn = [](df::TileKey const & tileKey, dp::BackgroundMode mode) -> void
+  auto cancelTileBackgroundReadingFn = [this](df::TileKey const & tileKey, dp::BackgroundMode mode) -> void
   {
-    // Handle cancellation of tile background reading for the specified tile and mode.
-    // This is a placeholder implementation; actual logic will depend on application requirements.
+    if (m_rasterTileProvider)
+      m_rasterTileProvider->CancelTile(tileKey, mode);
   };
 
   auto myPositionModeChangedFn = [this](location::EMyPositionMode mode, bool routingActive)
@@ -1752,7 +1726,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   auto const simplifiedTrafficColors = m_trafficManager.HasSimplifiedColorScheme();
   auto const fontsScaleFactor = LoadLargeFontsSize() ? kLargeFontsScaleFactor : 1.0;
 
-  auto const tileBackgroundMode = dp::BackgroundMode::Default;  // Load from config here if needed.
+  // Enable the raster background layer iff the custom tile source is enabled and configured.
+  auto const tileBackgroundMode = bgTilesActive ? dp::BackgroundMode::Satellite : dp::BackgroundMode::Default;
 
   df::DrapeEngine::Params p(
       params.m_apiVersion, contextFactory, dp::Viewport(0, 0, params.m_surfaceWidth, params.m_surfaceHeight),
@@ -2735,6 +2710,67 @@ void Framework::SetMapLanguageCode(std::string const & langCode)
     m_searchAPI->SetLocale(langCode);
 }
 
+void Framework::CreateBackgroundTilesProvider(std::string const & url, uint32_t cacheSizeMB)
+{
+  RasterTileProvider::Params rp;
+  rp.m_urlTemplate = url;
+  rp.m_cacheSubdir = "bg_tiles";
+  rp.m_maxZoom = 19;  // standard web-mercator detail; deeper OM tiles reuse the ancestor sub-rect.
+  rp.m_maxCacheBytes = static_cast<uint64_t>(cacheSizeMB) * 1024 * 1024;
+  // Global coverage (whole world) — min zoom and the lat/lon box keep their defaults.
+
+  m_rasterTileProvider = std::make_unique<RasterTileProvider>(
+      std::move(rp), [this](df::TileKey const & tileKey, dp::BackgroundMode mode, std::string const & imageUid,
+                            uint32_t width, uint32_t height, m2::RectF const & rect, std::vector<uint8_t> && rgba)
+  {
+    // Invoked on a background thread; AddTileBackgroundImage/SetTileBackgroundData only post
+    // messages, so they are safe to call from any thread.
+    if (m_drapeEngine)
+    {
+      m_drapeEngine->AddTileBackgroundImage(imageUid, width, height, dp::TextureFormat::RGBA8, mode, std::move(rgba));
+      m_drapeEngine->SetTileBackgroundData(tileKey, imageUid, rect);
+    }
+  });
+}
+
+void Framework::SetBackgroundTiles(bool enabled, std::string url, uint32_t cacheSizeMB)
+{
+  // Single entry point for the settings UI: persist all three values and apply them at once. Values
+  // are kept even while disabled; the layer renders only when enabled AND a non-empty URL is set.
+  cacheSizeMB = math::Clamp(cacheSizeMB, 1u, kMaxBgTilesCacheSizeMB);
+  settings::Set(kBgTilesEnabledKey, enabled);
+  settings::Set(kBgTilesUrlKey, url);
+  settings::Set(kBgTilesCacheSizeMBKey, cacheSizeMB);
+
+  bool const active = enabled && !url.empty();
+  if (active)
+  {
+    auto const cacheBytes = static_cast<uint64_t>(cacheSizeMB) * 1024 * 1024;
+    if (m_rasterTileProvider)
+      m_rasterTileProvider->Reconfigure(url, cacheBytes);  // clears the cache if the URL changed
+    else
+      CreateBackgroundTilesProvider(url, cacheSizeMB);
+  }
+
+  if (m_drapeEngine)
+    m_drapeEngine->SetTileBackgroundMode(active ? dp::BackgroundMode::Satellite : dp::BackgroundMode::Default);
+}
+
+void Framework::GetBackgroundTilesSource(std::string & url, uint32_t & cacheSizeMB) const
+{
+  url.clear();
+  settings::Get(kBgTilesUrlKey, url);
+  if (!settings::Get(kBgTilesCacheSizeMBKey, cacheSizeMB) || cacheSizeMB == 0 || cacheSizeMB > kMaxBgTilesCacheSizeMB)
+    cacheSizeMB = kDefaultBgTilesCacheSizeMB;
+}
+
+bool Framework::IsBackgroundTilesEnabled() const
+{
+  bool enabled = false;
+  settings::Get(kBgTilesEnabledKey, enabled);
+  return enabled;
+}
+
 void Framework::ApplyMapLanguageCode(std::string const & langCode)
 {
   int8_t langIndex = StringUtf8Multilang::GetLangIndex(langCode);
@@ -3063,13 +3099,17 @@ bool Framework::ParseDrapeDebugCommand(std::string const & query)
     return true;
   }
 
-#if DEBUG_BACKGROUND_TILE
   if (query == "?satellite")
   {
     m_drapeEngine->SetTileBackgroundMode(dp::BackgroundMode::Satellite);
     return true;
   }
-#endif
+  if (query == "?no-satellite")
+  {
+    m_drapeEngine->SetTileBackgroundMode(dp::BackgroundMode::Default);
+    return true;
+  }
+
 #if defined(OMIM_METAL_AVAILABLE)
   if (query == "?metal")
   {

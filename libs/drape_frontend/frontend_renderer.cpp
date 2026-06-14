@@ -1007,9 +1007,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     break;
   }
 
-  case Message::Type::AssignTileBackgroundTexture:
+  case Message::Type::AssignTileBackgroundImage:
   {
-    ref_ptr<AssignTileBackgroundTextureMessage> msg = message;
+    ref_ptr<AssignTileBackgroundImageMessage> msg = message;
     if (m_context->GetApiVersion() == dp::ApiVersion::OpenGLES3)
     {
       void * data = msg->GetBytes().data();
@@ -1017,9 +1017,16 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
                                                make_ref(data));
     }
 
-    m_tileBackgroundRenderer->AssignTileBackgroundTexture(m_context, msg->GetTileKey(), msg->GetTexturePool(),
-                                                          msg->GetTextureId(), msg->GetMode());
+    m_tileBackgroundRenderer->AssignTileBackgroundImage(m_context, msg->GetUid(), msg->GetTexturePool(),
+                                                        msg->GetTextureId(), msg->GetMode());
     msg->MarkProcessed();
+    break;
+  }
+
+  case Message::Type::SetTileBackgroundData:
+  {
+    ref_ptr<SetTileBackgroundDataMessage> msg = message;
+    m_tileBackgroundRenderer->SetTileBackgroundData(m_context, msg->GetTileKey(), msg->GetImageUid(), msg->GetRect());
     break;
   }
 
@@ -2368,7 +2375,7 @@ TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
   { return group->GetTileKey().m_zoomLevel != GetCurrentZoom(); });
 
   m_trafficRenderer->OnUpdateViewport(result, GetCurrentZoom(), tilesToDelete);
-  m_tileBackgroundRenderer->OnUpdateViewport(m_context, result, GetCurrentZoom(), tilesToDelete);
+  m_tileBackgroundRenderer->OnUpdateViewport(m_context, result, GetCurrentZoom());
 
 #if defined(DRAPE_MEASURER_BENCHMARK) && defined(GENERATING_STATISTIC)
   DrapeMeasurer::Instance().StartScenePreparing();

@@ -59,6 +59,13 @@ endif()
 target_compile_definitions(${PROJECT_NAME} PUBLIC GL_SILENCE_DEPRECATION)
 if (PLATFORM_MAC)
   set_target_properties(${PROJECT_NAME} PROPERTIES XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC YES)
+  # Xcode's multi-config generator puts the .app under $(CONFIGURATION)/ by default,
+  # while copy_resources() writes directly to ${CMAKE_BINARY_DIR}/${BUNDLE_NAME}.app.
+  # Force Xcode to drop the per-config subdir so resources end up in the running bundle.
+  if (CMAKE_GENERATOR STREQUAL "Xcode")
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+      XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_BINARY_DIR}")
+  endif()
 endif()
 
 target_compile_definitions(${PROJECT_NAME}
