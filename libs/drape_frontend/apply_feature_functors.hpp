@@ -91,7 +91,7 @@ public:
 
   bool HasGeometry() const { return !m_triangles.empty(); }
   void ProcessAreaRules(drule::AreaRule const * areaRule, drule::AreaRule const * hatchingRule,
-                        std::string_view hatchKey);
+                        std::string_view hatchKey, std::string_view patternKey);
 
   struct Edge
   {
@@ -115,7 +115,8 @@ public:
 private:
   bool HasArea() const override { return true; }
 
-  void ProcessRule(drule::AreaRule const & areaRule, double areaDepth, std::string_view hatchKey);
+  void ProcessRule(drule::AreaRule const & areaRule, double areaDepth, std::string_view hatchKey,
+                   std::string_view patternKey);
   void ProcessBuildingPolygon(PointT const & p1, PointT const & p2, PointT const & p3, double crossProduct);
 
   /// @todo Factor out to a separate outline-building component.

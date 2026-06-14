@@ -305,7 +305,10 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s)
       std::string_view hatchKey;
       if (s.m_hatchingRule)
         hatchKey = m_isHatching.GetHatch(types);
-      apply.ProcessAreaRules(s.m_areaRule, s.m_hatchingRule, hatchKey);
+      std::string_view patternKey;
+      if (s.m_areaRule)
+        patternKey = m_isAreaPattern.GetPattern(types);
+      apply.ProcessAreaRules(s.m_areaRule, s.m_hatchingRule, hatchKey, patternKey);
     }
   }
 
