@@ -282,13 +282,17 @@ bool RasterTileProvider::RequestTile(df::TileKey const & tileKey, dp::Background
       ll.minY() > m_params.m_maxLat)
     return false;
 
+  std::string urlTemplate;
   {
     std::lock_guard lock(m_activeMutex);
+    urlTemplate = m_params.m_urlTemplate;  // may be changed live by Reconfigure
+    if (urlTemplate.empty())
+      return false;  // not configured
     if (!m_active.insert(tileKey).second)
       return true;  // already in flight
   }
 
-  std::string const url = SubstituteZXY(m_params.m_urlTemplate, src.m_z, src.m_x, src.m_y);
+  std::string const url = SubstituteZXY(std::move(urlTemplate), src.m_z, src.m_x, src.m_y);
   std::string const uid = std::to_string(src.m_z) + "/" + std::to_string(src.m_x) + "/" + std::to_string(src.m_y);
   // Cache file name = the cache index key (the dir prefix is added only for filesystem ops).
   // Format-neutral extension: the bytes may be PNG or JPEG depending on the endpoint, and stb_image
@@ -478,6 +482,34 @@ void RasterTileProvider::EvictDiskCacheLocked()
     if (!base::DeleteFileX(m_cacheDir + victim))
       LOG(LWARNING, ("RasterTileProvider: failed to evict cache file", victim));
   }
+}
+
+void RasterTileProvider::ClearDiskCacheLocked()
+{
+  for (auto const & name : m_lru)
+    base::DeleteFileX(m_cacheDir + name);
+  m_lru.clear();
+  m_cacheIndex.clear();
+  m_cacheBytes = 0;
+}
+
+void RasterTileProvider::Reconfigure(std::string urlTemplate, uint64_t maxCacheBytes)
+{
+  bool urlChanged = false;
+  {
+    std::lock_guard lock(m_activeMutex);  // guards m_params.m_urlTemplate (also read in RequestTile)
+    urlChanged = urlTemplate != m_params.m_urlTemplate;
+    m_params.m_urlTemplate = std::move(urlTemplate);
+  }
+
+  std::lock_guard lock(m_cacheMutex);
+  m_params.m_maxCacheBytes = maxCacheBytes;
+  // A different source reuses the same z/x/y file names for different imagery, so drop the cache.
+  // Same source with a smaller cap just needs eviction down to the new limit.
+  if (urlChanged)
+    ClearDiskCacheLocked();
+  else
+    EvictDiskCacheLocked();
 }
 
 #ifdef ENABLE_STATUS_PLACEHOLDERS

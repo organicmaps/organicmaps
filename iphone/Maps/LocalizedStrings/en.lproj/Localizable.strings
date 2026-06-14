@@ -220,6 +220,12 @@
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Voice Instructions";
+"pref_bg_tiles_title" = "Map tiles";
+"pref_bg_tiles_enable_title" = "Show custom tiles";
+"pref_bg_tiles_url_title" = "Tile URL";
+"pref_bg_tiles_url_hint" = "https://xxx.yyy/{z}/{x}/{y}.png";
+"pref_bg_tiles_size_title" = "Cache size (MB)";
+"pref_bg_tiles_disclaimer" = "Custom tile sources are provided by you. Use only services you are allowed to access. You are responsible for attribution, license terms, API keys, quotas, and usage limits.";
 
 /* Settings «Route» category: «Tts announce street names» title */
 "pref_tts_street_names_title" = "Announce Street Names";

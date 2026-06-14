@@ -16,11 +16,14 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
+#include <QtWidgets/QFormLayout>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
+#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QVBoxLayout>
 
 using namespace measurement_utils;
@@ -199,6 +202,56 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
     });
   }
 
+  QGroupBox * tilesBox = new QGroupBox("Map tiles");
+  {
+    QVBoxLayout * layout = new QVBoxLayout();
+
+    std::string tilesUrl;
+    uint32_t tilesCacheMB;
+    framework.GetBackgroundTilesSource(tilesUrl, tilesCacheMB);
+
+    QLineEdit * urlEdit = new QLineEdit();
+    urlEdit->setPlaceholderText("https://xxx.yyy/{z}/{x}/{y}.png");
+    urlEdit->setText(QString::fromStdString(tilesUrl));
+
+    QSpinBox * sizeSpin = new QSpinBox();
+    sizeSpin->setRange(1, 1000);
+    sizeSpin->setValue(static_cast<int>(tilesCacheMB));
+    sizeSpin->setSuffix(" MB");
+
+    QFormLayout * form = new QFormLayout();
+    form->addRow("Tile URL", urlEdit);
+    form->addRow("Cache size", sizeSpin);
+
+    QCheckBox * enableCheckBox = new QCheckBox("Show custom tiles");
+    enableCheckBox->setChecked(framework.IsBackgroundTilesEnabled());
+    auto const updateEnabled = [urlEdit, sizeSpin](bool en)
+    {
+      urlEdit->setEnabled(en);
+      sizeSpin->setEnabled(en);
+    };
+    updateEnabled(enableCheckBox->isChecked());
+    // Only update the field availability live; the values are applied once when the dialog closes.
+    connect(enableCheckBox, &QCheckBox::stateChanged, [updateEnabled](int i) { updateEnabled(i > 0); });
+
+    // Apply all tile settings together when the Preferences dialog is closed.
+    connect(this, &QDialog::finished, [&framework, enableCheckBox, urlEdit, sizeSpin](int)
+    {
+      framework.SetBackgroundTiles(enableCheckBox->isChecked(), urlEdit->text().toStdString(),
+                                   static_cast<uint32_t>(sizeSpin->value()));
+    });
+
+    QLabel * disclaimer = new QLabel(
+        "Custom tile sources are provided by you. Use only services you are allowed to access. You are "
+        "responsible for attribution, license terms, API keys, quotas, and usage limits.");
+    disclaimer->setWordWrap(true);
+
+    layout->addWidget(enableCheckBox);
+    layout->addLayout(form);
+    layout->addWidget(disclaimer);
+    tilesBox->setLayout(layout);
+  }
+
 #ifdef BUILD_DESIGNER
   QCheckBox * indexRegenCheckBox = new QCheckBox("Enable auto regeneration of geometry index");
   {
@@ -233,6 +286,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
   finalLayout->addWidget(bookmarksPlacementLabel);
   finalLayout->addWidget(bookmarksPlacementCB);
   finalLayout->addWidget(nightModeRadioBox);
+  finalLayout->addWidget(tilesBox);
 #ifdef BUILD_DESIGNER
   finalLayout->addWidget(indexRegenCheckBox);
 #endif
