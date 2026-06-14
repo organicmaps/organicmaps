@@ -20,13 +20,13 @@ double HatchUV(double worldCoord, double bboxMin, uint32_t maskSizePx, double ba
 }
 }  // namespace
 
-// The dash mask is sampled with Repeat wrapping, so only the fractional part of the UV (the phase)
-// selects a texel. The phase must be a function of the world coordinate alone — independent of how a
+// The analytic hatch repeats with mod() over the lattice coordinate, so only its fractional part (the
+// phase) is visible. The phase must be a function of the world coordinate alone — independent of how a
 // feature happens to be clipped into per-tile bounding boxes — otherwise the pattern snaps/shifts and
 // breaks at tile seams when geometry is re-tiled or the LOD changes (issue #12804).
 UNIT_TEST(HatchingPhaseAnchor_StableAcrossTileClipping)
 {
-  uint32_t const kMaskPx = 16;                                      // dash-hatching.png is 16x16
+  uint32_t const kMaskPx = 16;                                      // analytic hatch tile is 16px (kHatchTilePx)
   double const kBaseGtoP = 4096.0;                                  // pixels per mercator unit at some zoom level
   double const kPeriod = static_cast<double>(kMaskPx) / kBaseGtoP;  // world units per mask repeat
 
