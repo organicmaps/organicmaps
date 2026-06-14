@@ -22,7 +22,7 @@ jobs:
 
     env:
       BUILD_DIR: build-xcode
-      DEVELOPER_DIR: /Applications/Xcode_26.4.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_26.5.app/Contents/Developer
 
     steps:
       - name: Show current version of Xcode
