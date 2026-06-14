@@ -264,29 +264,6 @@ using namespace osm_auth_ios;
   return NO;
 }
 
-- (void)disableDownloadIndicator
-{
-  --m_activeDownloadsCounter;
-  if (m_activeDownloadsCounter <= 0)
-  {
-    dispatch_async(dispatch_get_main_queue(),
-                   ^{ UIApplication.sharedApplication.networkActivityIndicatorVisible = NO; });
-    m_activeDownloadsCounter = 0;
-    if (UIApplication.sharedApplication.applicationState == UIApplicationStateBackground)
-    {
-      [UIApplication.sharedApplication endBackgroundTask:m_backgroundTask];
-      m_backgroundTask = UIBackgroundTaskInvalid;
-    }
-  }
-}
-
-- (void)enableDownloadIndicator
-{
-  ++m_activeDownloadsCounter;
-  dispatch_async(dispatch_get_main_queue(),
-                 ^{ UIApplication.sharedApplication.networkActivityIndicatorVisible = YES; });
-}
-
 + (void)customizeAppearanceForNavigationBar:(UINavigationBar *)navigationBar
 {
   auto backImage =

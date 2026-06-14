@@ -1,5 +1,5 @@
 #import "MWMImageCache.h"
-#import "NSString+MD5.h"
+#import "NSString+SHA256.h"
 
 static NSTimeInterval kCleanupTimeInterval = 30 * 24 * 60 * 60;
 
@@ -42,7 +42,7 @@ static NSTimeInterval kCleanupTimeInterval = 30 * 24 * 60 * 60;
   else
   {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-      NSString * path = [self.cacheDirPath stringByAppendingPathComponent:imageKey.md5String];
+      NSString * path = [self.cacheDirPath stringByAppendingPathComponent:imageKey.sha256String];
       __block NSData * imageData = nil;
       __block NSError * error = nil;
       dispatch_sync(self.diskQueue, ^{ imageData = [NSData dataWithContentsOfFile:path options:0 error:&error]; });
@@ -65,7 +65,7 @@ static NSTimeInterval kCleanupTimeInterval = 30 * 24 * 60 * 60;
     NSData * imageData = [self.imageCoder dataFromImage:image];
     if (imageData)
     {
-      NSString * path = [self.cacheDirPath stringByAppendingPathComponent:imageKey.md5String];
+      NSString * path = [self.cacheDirPath stringByAppendingPathComponent:imageKey.sha256String];
       dispatch_sync(self.diskQueue, ^{ [imageData writeToFile:path atomically:YES]; });
     }
   });
