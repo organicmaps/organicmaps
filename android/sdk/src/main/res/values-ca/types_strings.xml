@@ -655,6 +655,7 @@
     <string name="type.leisure.ice_rink">Pista de gel</string>
     <string name="type.leisure.marina">Port esportiu</string>
     <string name="type.leisure.nature_reserve">Reserva natural</string>
+    <string name="type.leisure.bird_hide">Aguait d\'ocells</string>
     <string name="type.leisure.outdoor_seating">Seients a l’aire lliure</string>
     <string name="type.leisure.firepit">Braser</string>
     <string name="type.leisure.park">Parc</string>

@@ -18687,6 +18687,10 @@ vi:Giữ chỗ
 zh-Hans:野生动物园|自然保护区
 zh-Hant:自然保護區
 
+leisure-bird_hide|@category_tourism
+en:Bird Hide|Bird|Birdwatching|Wildlife Hide
+fr:Observatoire ornithologique|Abri ornithologique|Abri d'observation|Observation des oiseaux|Oiseaux
+
 natural-cape
 en:Cape
 ar:رأس

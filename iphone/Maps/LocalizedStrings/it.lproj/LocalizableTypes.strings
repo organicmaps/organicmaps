@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Pista di pattinaggio";
 "type.leisure.marina" = "Porto turistico";
 "type.leisure.nature_reserve" = "Riserva naturale";
+"type.leisure.bird_hide" = "Capanno per il birdwatching";
 "type.leisure.outdoor_seating" = "Posti a sedere all'aperto";
 "type.leisure.firepit" = "Focolare";
 "type.leisure.park" = "Parco";

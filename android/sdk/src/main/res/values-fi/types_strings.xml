@@ -632,6 +632,7 @@
     <string name="type.leisure.ice_rink">Luistinrata</string>
     <string name="type.leisure.marina">Venesatama</string>
     <string name="type.leisure.nature_reserve">Luonnonsuojelualue</string>
+    <string name="type.leisure.bird_hide">Lintupiilo</string>
     <string name="type.leisure.outdoor_seating">Ulkona istuminen</string>
     <string name="type.leisure.park">Puisto</string>
     <string name="type.leisure.park.no.access">Puisto</string>

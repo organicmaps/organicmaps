@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Каток";
 "type.leisure.marina" = "Причал";
 "type.leisure.nature_reserve" = "Заповедник";
+"type.leisure.bird_hide" = "Укрытие для наблюдения за птицами";
 "type.leisure.outdoor_seating" = "Сидения на открытом воздухе";
 "type.leisure.firepit" = "Кострище";
 "type.leisure.park" = "Парк";

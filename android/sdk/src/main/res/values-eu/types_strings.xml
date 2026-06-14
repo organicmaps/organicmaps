@@ -648,6 +648,7 @@
     <string name="type.leisure.ice_rink">Izotz-pista</string>
     <string name="type.leisure.marina">Kirol-portua</string>
     <string name="type.leisure.nature_reserve">Erreserbatutako lurraldea</string>
+    <string name="type.leisure.bird_hide">Hegaztiak behatzeko ezkutalekua</string>
     <string name="type.leisure.outdoor_seating">Kanpoko eserlekuak</string>
     <string name="type.leisure.park">Parkea</string>
     <string name="type.leisure.park.no.access">Parkea</string>

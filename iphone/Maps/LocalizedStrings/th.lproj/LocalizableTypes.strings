@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Ice Rink";
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "เขตอนุรักษ์ธรรมชาติ";
+"type.leisure.bird_hide" = "ที่ซ่อนดูนก";
 "type.leisure.outdoor_seating" = "ที่นั่งกลางแจ้ง";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "สวนสาธารณะ";

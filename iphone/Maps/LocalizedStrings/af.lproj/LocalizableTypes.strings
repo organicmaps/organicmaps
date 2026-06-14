@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Ysskaatsbaan";
 "type.leisure.marina" = "Jaghawe";
 "type.leisure.nature_reserve" = "Natuurreservaat";
+"type.leisure.bird_hide" = "Voëlskuiling";
 "type.leisure.outdoor_seating" = "Outdoor Seating";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "Park";
