@@ -92,7 +92,7 @@ void RenderSolidPatternAndCheck(char const * title, std::string_view patternKey)
       bool const teal = c.green() > c.red() + 20 && c.blue() > c.red() + 20;
       if (teal)
         ++fill;
-      if (teal && c.green() < 145)  // base teal G=160 -> dots darken it to ~128
+      if (teal && c.green() < 150)  // base teal G=160; patterns darken it (forest only ~7%)
         ++dots;
       if (c.alpha() > 200 && c.red() < 8 && c.green() < 8 && c.blue() < 8)
         ++opaqueBlack;
@@ -128,4 +128,9 @@ UNIT_TEST(AreaSpeckleGpuTest)
 UNIT_TEST(AreaGridGpuTest)
 {
   area_pattern_gpu_test::RenderSolidPatternAndCheck("Analytic grid", dp::kGridPattern);
+}
+
+UNIT_TEST(AreaForestGpuTest)
+{
+  area_pattern_gpu_test::RenderSolidPatternAndCheck("Analytic forest", dp::kForestPattern);
 }

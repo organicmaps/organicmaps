@@ -271,6 +271,82 @@ fragment half4 fsAreaGrid(const HatchingAreaFragment_T in [[stage_in]])
   return color;
 }
 
+// Analytic tree SDFs (see GL/area_forest.fsh.glsl): broadleaf = 3-circle crown + trunk; pine = two
+// triangle tiers + trunk. +y up.
+static float ForestCircle(float2 p, float2 c, float r)
+{
+  return length(p - c) - r;
+}
+static float ForestBox(float2 p, float2 c, float2 h)
+{
+  float2 d = abs(p - c) - h;
+  return length(max(d, float2(0.0))) + min(max(d.x, d.y), 0.0);
+}
+static float ForestTriangle(float2 p, float2 p0, float2 p1, float2 p2)
+{
+  float2 e0 = p1 - p0, e1 = p2 - p1, e2 = p0 - p2;
+  float2 v0 = p - p0, v1 = p - p1, v2 = p - p2;
+  float2 pq0 = v0 - e0 * clamp(dot(v0, e0) / dot(e0, e0), 0.0, 1.0);
+  float2 pq1 = v1 - e1 * clamp(dot(v1, e1) / dot(e1, e1), 0.0, 1.0);
+  float2 pq2 = v2 - e2 * clamp(dot(v2, e2) / dot(e2, e2), 0.0, 1.0);
+  float s = sign(e0.x * e2.y - e0.y * e2.x);
+  float2 d = min(min(float2(dot(pq0, pq0), s * (v0.x * e0.y - v0.y * e0.x)),
+                     float2(dot(pq1, pq1), s * (v1.x * e1.y - v1.y * e1.x))),
+                 float2(dot(pq2, pq2), s * (v2.x * e2.y - v2.y * e2.x)));
+  return -sqrt(d.x) * sign(d.y);
+}
+static float BroadleafSDF(float2 q)
+{
+  float d = ForestCircle(q, float2(0.0, 0.15), 0.23);
+  d = min(d, ForestCircle(q, float2(-0.13, -0.04), 0.21));
+  d = min(d, ForestCircle(q, float2(0.13, -0.04), 0.21));
+  d = min(d, ForestBox(q, float2(0.0, -0.34), float2(0.04, 0.12)));
+  return d;
+}
+static float PineSDF(float2 q)
+{
+  float d = ForestTriangle(q, float2(0.0, 0.42), float2(-0.24, 0.04), float2(0.24, 0.04));
+  d = min(d, ForestTriangle(q, float2(0.0, 0.18), float2(-0.30, -0.24), float2(0.30, -0.24)));
+  d = min(d, ForestBox(q, float2(0.0, -0.34), float2(0.04, 0.12)));
+  return d;
+}
+
+// Analytic forest (see GL/area_forest.fsh.glsl): scattered SDF tree symbols, broadleaf + pine, no texture.
+fragment half4 fsAreaForest(const HatchingAreaFragment_T in [[stage_in]])
+{
+  constexpr float kCellPx = 32.0;
+  constexpr float kJitter = 0.7;
+  constexpr float kGlyphScale = 1.1;
+  constexpr float kDensity = 0.32;
+  constexpr float3 kTint = float3(0.88, 0.93, 0.85);
+  float2 px = in.maskTexCoords * kCellPx;
+  float2 baseCell = floor(px / kCellPx);
+  float aaPx = max(fwidth(px.x), fwidth(px.y));
+
+  float coverage = 0.0;
+  for (int j = -1; j <= 1; ++j)
+  {
+    for (int i = -1; i <= 1; ++i)
+    {
+      float2 cell = baseCell + float2(float(i), float(j));
+      if (AreaPatternHash(cell + 23.0) > kDensity)
+        continue;
+      float fp = kCellPx * kGlyphScale * (0.8 + 0.4 * AreaPatternHash(cell + 29.0));
+      float2 center =
+          (cell + 0.5 + (float2(AreaPatternHash(cell), AreaPatternHash(cell + 41.3)) - 0.5) * kJitter) * kCellPx;
+      float2 q = (px - center) / fp;
+      if (abs(q.x) > 0.6 || abs(q.y) > 0.65)
+        continue;
+      float d = AreaPatternHash(cell + 13.0) < 0.5 ? BroadleafSDF(q) : PineSDF(q);  // mix pine and broadleaf
+      float aa = max(aaPx / fp, 0.003);
+      coverage = max(coverage, 1.0 - smoothstep(-aa, aa, d));
+    }
+  }
+  half4 color = in.color;
+  color.rgb = mix(color.rgb, color.rgb * half3(kTint), half(coverage));
+  return color;
+}
+
 // CirclePoint
 
 typedef struct
