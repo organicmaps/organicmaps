@@ -88,6 +88,14 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (BOOL)canShowRateUsRequest;
 + (void)didShowRateUsRequest;
 
+// Custom raster background tiles (Settings -> Map tiles). Values are persisted in the core and kept
+// even while disabled; the layer renders only when enabled with a non-empty URL. Apply them all at
+// once (e.g. when the tiles settings screen is dismissed).
++ (void)setBackgroundTilesEnabled:(BOOL)enabled url:(NSString *)url cacheSizeMB:(int)cacheSizeMB;
++ (BOOL)isBackgroundTilesEnabled;
++ (NSString *)backgroundTilesURL;
++ (int)backgroundTilesCacheSizeMB;
+
 @end
 
 NS_ASSUME_NONNULL_END

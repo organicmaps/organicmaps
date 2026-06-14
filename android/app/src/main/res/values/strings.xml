@@ -221,6 +221,18 @@
     <string name="pref_map_3d_buildings_disabled_summary">3D buildings are disabled in power saving mode</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Voice Instructions</string>
+    <!-- Settings row + sub-screen title for the custom map tiles (raster background) feature. -->
+    <string name="pref_bg_tiles_title">Map tiles</string>
+    <!-- Switch that turns the custom map tiles layer on/off. -->
+    <string name="pref_bg_tiles_enable_title">Show custom tiles</string>
+    <!-- Title of the tile source URL input. -->
+    <string name="pref_bg_tiles_url_title">Tile URL</string>
+    <!-- Example/hint shown in the empty tile URL field. -->
+    <string name="pref_bg_tiles_url_hint">https://xxx.yyy/{z}/{x}/{y}.png</string>
+    <!-- Title of the disk cache size (megabytes) input. -->
+    <string name="pref_bg_tiles_size_title">Cache size (MB)</string>
+    <!-- Disclaimer shown under the custom map tiles settings. -->
+    <string name="pref_bg_tiles_disclaimer">Custom tile sources are provided by you. Use only services you are allowed to access. You are responsible for attribution, license terms, API keys, quotas, and usage limits.</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
     <string name="pref_tts_street_names_title">Announce Street Names</string>
     <!-- Settings «Route» category: «Tts announce street names» description -->

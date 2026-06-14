@@ -211,6 +211,9 @@ protected:
 
   void InitTransliteration();
 
+  // Builds m_rasterTileProvider for the given XYZ source and the "bg_tiles" disk cache.
+  void CreateBackgroundTilesProvider(std::string const & url, uint32_t cacheSizeMB);
+
 public:
   explicit Framework(FrameworkParams const & params = {}, bool loadMaps = true);
   virtual ~Framework() override;
@@ -702,6 +705,14 @@ private:
 public:
   static std::string GetMapLanguageCode();
   void SetMapLanguageCode(std::string const & langCode);
+
+  // Custom raster background tiles (user-provided XYZ {z}/{x}/{y} source). SetBackgroundTiles is the
+  // single apply entry point for the settings UI (call it when the tiles settings are committed):
+  // it persists all three values (kept even while disabled) and applies them. cacheSizeMB is clamped
+  // to [1, 1000]; the layer renders only when enabled AND a non-empty URL is set.
+  void SetBackgroundTiles(bool enabled, std::string url, uint32_t cacheSizeMB);
+  void GetBackgroundTilesSource(std::string & url, uint32_t & cacheSizeMB) const;
+  bool IsBackgroundTilesEnabled() const;
 
   void SetLargeFontsSize(bool isLargeSize);
   // Multiplied on top of the SetLargeFontsSize (Large Fonts) factor.
