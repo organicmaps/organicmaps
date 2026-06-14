@@ -74,6 +74,7 @@ struct AreaViewParams : CommonViewParams
   float m_posZ = 0;
   bool m_is3D = false;
   std::string_view m_hatching;
+  std::string_view m_areaPattern;
   double m_baseGtoPScale = 1.0;
 };
 

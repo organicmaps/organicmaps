@@ -40,6 +40,26 @@ private:
   uint32_t m_2levelDash;  // dash hatch
 };
 
+// Maps natural-surface area types to a solid-fill pattern key (analytic, single pass). Unlike hatching,
+// these modulate the surface colour in place (e.g. a darker speckle over sand) rather than overlaying a
+// transparent mask.
+class IsAreaPatternChecker
+{
+  IsAreaPatternChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsAreaPatternChecker);
+
+  std::string_view GetPattern(uint32_t type) const;
+  std::string_view GetPattern(feature::TypesHolder const & types) const;
+
+private:
+  struct Stipple : ftypes::BaseCheckerEx
+  {
+    Stipple();
+  } m_stipple;  // sand / beach / desert
+};
+
 struct CaptionDescription
 {
   void Init(FeatureType & f, int8_t deviceLang, int zoomLevel, feature::GeomType geomType, bool auxCaptionExists);
