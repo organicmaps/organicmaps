@@ -804,10 +804,6 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 #pragma mark - ShowDialog callback
 
-- (void)presentDisabledLocationAlert
-{
-  [self.alertController presentDisabledLocationAlert];
-}
 - (void)setDisableStandbyOnLocationStateMode:(BOOL)disableStandbyOnLocationStateMode
 {
   if (_disableStandbyOnLocationStateMode == disableStandbyOnLocationStateMode)
