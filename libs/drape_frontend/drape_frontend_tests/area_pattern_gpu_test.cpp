@@ -23,7 +23,7 @@ df::AreaViewParams MakeParams(std::string_view hatching)
   p.m_depthLayer = df::DepthLayer::GeometryLayer;
   p.m_minVisibleScale = 0;
   p.m_rank = 0;
-  p.m_hatching = hatching;
+  p.m_areaPattern = hatching;
   p.m_baseGtoPScale = 1.0;  // pattern at base scale: crisp 1px features with clear gaps
   return p;
 }
@@ -64,6 +64,45 @@ void RenderAndCheck(char const * title, std::string_view hatching)
   TEST_LESS(teal, kW * kH / 2, ("No gaps - pattern degenerated into a solid fill?", title));
   TEST_EQUAL(opaqueBlack, 0u, ("Opaque black pixels - colour texture not sampled?", title));
 }
+
+// A solid-fill pattern (stipple/speckle/...) fills the quad with the surface colour and modulates it with
+// darker dots. Validate the fill is present, the speckle is present, and nothing samples as black.
+void RenderSolidPatternAndCheck(char const * title, std::string_view patternKey)
+{
+  df::test_support::ShapeTestFixture fixture;
+  uint32_t constexpr kW = 256, kH = 256;
+  fixture.Render(title, kW, kH, [patternKey](df::test_support::ShapeTestFixture & f)
+  {
+    df::AreaViewParams p = MakeParams({});  // no hatch
+    p.m_areaPattern = patternKey;
+    std::vector<m2::PointD> triangles = {{-110, -110}, {110, -110}, {110, 110}, {-110, -110}, {110, 110}, {-110, 110}};
+    f.AddShape(make_unique_dp<df::AreaShape>(std::move(triangles), df::BuildingOutline{}, p));
+  });
+
+  QImage const & img = fixture.GetLastImage();
+  if (img.isNull())
+    return;  // Headless env without a usable GL context - nothing to assert.
+
+  uint32_t fill = 0, dots = 0, opaqueBlack = 0;
+  for (int y = 0; y < img.height(); ++y)
+  {
+    for (int x = 0; x < img.width(); ++x)
+    {
+      QColor const c = img.pixelColor(x, y);
+      bool const teal = c.green() > c.red() + 20 && c.blue() > c.red() + 20;
+      if (teal)
+        ++fill;
+      if (teal && c.green() < 145)  // base teal G=160 -> dots darken it to ~128
+        ++dots;
+      if (c.alpha() > 200 && c.red() < 8 && c.green() < 8 && c.blue() < 8)
+        ++opaqueBlack;
+    }
+  }
+
+  TEST_GREATER(fill, kW * kH / 4, ("Solid fill not rendered:", title));
+  TEST_GREATER(dots, 0u, ("Speckle not visible:", title));
+  TEST_EQUAL(opaqueBlack, 0u, ("Opaque black pixels - colour texture not sampled?", title));
+}
 }  // namespace area_pattern_gpu_test
 
 UNIT_TEST(AreaHatch45GpuTest)
@@ -74,4 +113,19 @@ UNIT_TEST(AreaHatch45GpuTest)
 UNIT_TEST(AreaHatchDashGpuTest)
 {
   area_pattern_gpu_test::RenderAndCheck("Analytic dash hatch", dp::kDashHatching);
+}
+
+UNIT_TEST(AreaStippleGpuTest)
+{
+  area_pattern_gpu_test::RenderSolidPatternAndCheck("Analytic stipple", dp::kStipplePattern);
+}
+
+UNIT_TEST(AreaSpeckleGpuTest)
+{
+  area_pattern_gpu_test::RenderSolidPatternAndCheck("Analytic speckle", dp::kSpecklePattern);
+}
+
+UNIT_TEST(AreaGridGpuTest)
+{
+  area_pattern_gpu_test::RenderSolidPatternAndCheck("Analytic grid", dp::kGridPattern);
 }

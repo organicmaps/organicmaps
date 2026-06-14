@@ -1,8 +1,12 @@
 #include "testing/testing.hpp"
 
 #include "drape_frontend/area_shape.hpp"
+#include "drape_frontend/render_state_extension.hpp"
+
+#include "shaders/programs.hpp"
 
 #include <cmath>
+#include <string>
 
 namespace
 {
@@ -71,4 +75,22 @@ UNIT_TEST(HatchingPhaseAnchor_IndependentOfBBoxAtFixedScale)
     double const uv = HatchUV(worldX, bboxMin, kMaskPx, kBaseGtoP);
     TEST_ALMOST_EQUAL_ABS(Frac(uv), Frac(refUV), 1e-4, (offset, uv, refUV));
   }
+}
+
+// Within a DepthLayer, render groups draw in dp::RenderState order (RenderGroupComparator falls back to
+// RenderState::operator<, which for a shared layer and blending compares the gpu::Program value). The
+// analytic solid-fill patterns (stipple/speckle/grid) are opaque fills, but a hatch overlay is transparent
+// between its lines yet still writes depth across its whole quad (depth-write is bound to the depth test).
+// So a fill whose group is drawn AFTER the hatch is depth-culled wherever they overlap -- e.g. a landcover
+// fill under a protected-area hatch. The fills must therefore sort BEFORE the hatch programs; this guards
+// the regression of declaring a solid-fill pattern program after HatchingArea in programs.hpp.
+UNIT_TEST(AreaPatterns_SolidFillsDrawBeforeHatchOverlay)
+{
+  auto const state = [](gpu::Program p) { return df::CreateRenderState(p, df::DepthLayer::GeometryLayer); };
+
+  // gpu::DebugPrint returns string_view, which base::Message can't concatenate; wrap names in std::string.
+  for (auto fill : {gpu::Program::AreaStipple, gpu::Program::AreaSpeckle, gpu::Program::AreaGrid})
+    for (auto hatch : {gpu::Program::HatchingArea, gpu::Program::HatchingAreaDash})
+      TEST(state(fill) < state(hatch),
+           (std::string{DebugPrint(fill)}, "must sort before", std::string{DebugPrint(hatch)}));
 }

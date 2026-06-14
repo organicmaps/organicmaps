@@ -15,10 +15,30 @@
 
 namespace df
 {
-// Analytic hatches repeat every kHatchTilePx 'base' pixels - the size of the legacy mask tiles, kept so
-// the on-screen scale is unchanged. The fragment shaders interpret v_maskTexCoords * kHatchTilePx as the
-// in-tile pixel coordinate.
+// Analytic area patterns (hatches and solid-fill speckles) repeat every kHatchTilePx 'base' pixels - the
+// size of the legacy mask tiles, kept so the on-screen scale is unchanged. The fragment shaders interpret
+// v_maskTexCoords * kHatchTilePx as the in-tile pixel coordinate.
 uint32_t constexpr kHatchTilePx = 16;
+
+namespace
+{
+// Maps an area-pattern key (hatch or solid-fill) to its analytic GPU program.
+gpu::Program PatternProgram(std::string_view key)
+{
+  if (key == dp::k45dHatching)
+    return gpu::Program::HatchingArea;
+  if (key == dp::kDashHatching)
+    return gpu::Program::HatchingAreaDash;
+  if (key == dp::kStipplePattern)
+    return gpu::Program::AreaStipple;
+  if (key == dp::kSpecklePattern)
+    return gpu::Program::AreaSpeckle;
+  if (key == dp::kGridPattern)
+    return gpu::Program::AreaGrid;
+  CHECK(false, ("Unknown area pattern key:", key));
+  return gpu::Program::Area;
+}
+}  // namespace
 
 double CalcHatchingPhaseAnchor(double bboxMin, uint32_t maskSizePx, double baseGtoPScale)
 {
@@ -52,8 +72,8 @@ void AreaShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> 
     DrawMwmBorderArea(context, batcher, colorUv, region.GetTexture());
   else if (m_params.m_is3D)
     DrawArea3D(context, batcher, colorUv, outlineUv, region.GetTexture());
-  else if (!m_params.m_hatching.empty())
-    DrawHatchingArea(context, batcher, colorUv, region.GetTexture());
+  else if (!m_params.m_areaPattern.empty())
+    DrawPatternArea(context, batcher, colorUv, region.GetTexture(), m_params.m_areaPattern);
   else
     DrawArea(context, batcher, colorUv, outlineUv, region.GetTexture());
 }
@@ -118,8 +138,9 @@ void AreaShape::DrawMwmBorderArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<
   batcher->InsertTriangleList(context, state, make_ref(&provider));
 }
 
-void AreaShape::DrawHatchingArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
-                                 m2::PointD const & colorUv, ref_ptr<dp::Texture> texture) const
+void AreaShape::DrawPatternArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+                                m2::PointD const & colorUv, ref_ptr<dp::Texture> texture,
+                                std::string_view patternKey) const
 {
   glsl::vec2 const uv = glsl::ToVec2(colorUv);
 
@@ -144,11 +165,8 @@ void AreaShape::DrawHatchingArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<d
                                      static_cast<float>(tilesPerWorld * (vertex.y - anchorY))));
   }
 
-  // The pattern is computed analytically in the fragment shader (no mask texture, hence no mipmaps): the
-  // dash variant for wetland, the diagonal variant otherwise.
-  auto const program =
-      m_params.m_hatching == dp::kDashHatching ? gpu::Program::HatchingAreaDash : gpu::Program::HatchingArea;
-  auto state = CreateRenderState(program, DepthLayer::GeometryLayer);
+  // The pattern is computed analytically in the fragment shader (no mask texture, hence no mipmaps).
+  auto state = CreateRenderState(PatternProgram(patternKey), DepthLayer::GeometryLayer);
   state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
   state.SetColorTexture(texture);
 

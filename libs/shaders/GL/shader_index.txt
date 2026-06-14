@@ -17,6 +17,9 @@ DashedLine dashed_line.vsh.glsl dashed_line.fsh.glsl
 PathSymbol path_symbol.vsh.glsl texturing.fsh.glsl
 TransparentArea area.vsh.glsl solid_color.fsh.glsl
 CapJoin circle.vsh.glsl circle.fsh.glsl
+AreaStipple hatching_area.vsh.glsl area_stipple.fsh.glsl
+AreaSpeckle hatching_area.vsh.glsl area_speckle.fsh.glsl
+AreaGrid hatching_area.vsh.glsl area_grid.fsh.glsl
 HatchingArea hatching_area.vsh.glsl hatching_area.fsh.glsl
 HatchingAreaDash hatching_area.vsh.glsl hatching_area_dash.fsh.glsl
 TexturingGui texturing_gui.vsh.glsl texturing_gui.fsh.glsl

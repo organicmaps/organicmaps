@@ -56,8 +56,8 @@ private:
                          ref_ptr<dp::Texture> texture) const;
   void DrawArea3D(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher, m2::PointD const & colorUv,
                   m2::PointD const & outlineUv, ref_ptr<dp::Texture> texture) const;
-  void DrawHatchingArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher, m2::PointD const & colorUv,
-                        ref_ptr<dp::Texture> texture) const;
+  void DrawPatternArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher, m2::PointD const & colorUv,
+                       ref_ptr<dp::Texture> texture, std::string_view patternKey) const;
 
   std::vector<m2::PointD> m_vertexes;
   BuildingOutline m_buildingOutline;
