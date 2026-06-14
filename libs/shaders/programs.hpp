@@ -33,6 +33,7 @@ enum class Program
   HatchingAreaDash,
   AreaStipple,
   AreaSpeckle,
+  AreaGrid,
   TexturingGui,
   Ruler,
   Accuracy,
@@ -102,6 +103,7 @@ inline std::string_view DebugPrint(Program p)
   case Program::HatchingAreaDash: return "HatchingAreaDash";
   case Program::AreaStipple: return "AreaStipple";
   case Program::AreaSpeckle: return "AreaSpeckle";
+  case Program::AreaGrid: return "AreaGrid";
   case Program::TexturingGui: return "TexturingGui";
   case Program::Ruler: return "Ruler";
   case Program::Accuracy: return "Accuracy";

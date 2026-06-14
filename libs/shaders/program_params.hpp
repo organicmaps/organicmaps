@@ -76,7 +76,7 @@ struct ALIGNMENT MapProgramParams
                 Program::Bookmark, Program::BookmarkAnim, Program::BookmarkAnimBillboard, Program::BookmarkBillboard,
                 Program::CapJoin, Program::CirclePoint, Program::ColoredSymbol, Program::ColoredSymbolBillboard,
                 Program::DashedLine, Program::TransparentArea, Program::HatchingArea, Program::HatchingAreaDash,
-                Program::AreaStipple, Program::AreaSpeckle, Program::Line, Program::MaskedTexturing,
+                Program::AreaStipple, Program::AreaSpeckle, Program::AreaGrid, Program::Line, Program::MaskedTexturing,
                 Program::MaskedTexturingBillboard, Program::PathSymbol, Program::Text, Program::TextBillboard,
                 Program::TextOutlined, Program::TextOutlinedBillboard, Program::Texturing, Program::TexturingBillboard,
                 Program::BookmarkAboveText, Program::BookmarkAnimAboveText, Program::BookmarkAnimAboveTextBillboard,
