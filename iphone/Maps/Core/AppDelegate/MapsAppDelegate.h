@@ -6,9 +6,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MapsAppDelegate : UIResponder <UIApplicationDelegate>
-{
-  UIBackgroundTaskIdentifier m_backgroundTask;
-}
 
 @property(nonatomic) UIWindow * window;
 
