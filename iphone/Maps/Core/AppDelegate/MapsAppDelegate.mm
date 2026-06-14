@@ -14,7 +14,6 @@
 #import "NSDate+TimeDistance.h"
 #import "SwiftBridge.h"
 
-#import <CarPlay/CarPlay.h>
 #import <CoreSpotlight/CoreSpotlight.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <UserNotifications/UserNotifications.h>
@@ -60,7 +59,7 @@ void InitLocalizedStrings()
 
 using namespace osm_auth_ios;
 
-@interface MapsAppDelegate () <MWMStorageObserver, CPApplicationDelegate>
+@interface MapsAppDelegate () <MWMStorageObserver>
 
 @property(nonatomic) NSInteger standbyCounter;
 @property(nonatomic) BOOL standbyDisabledForDownloads;
@@ -69,6 +68,9 @@ using namespace osm_auth_ios;
 @end
 
 @implementation MapsAppDelegate
+{
+  UINavigationController * _mainNavigationController;
+}
 
 + (MapsAppDelegate *)theApp
 {
@@ -110,6 +112,54 @@ using namespace osm_auth_ios;
   [UIApplication.sharedApplication setMinimumBackgroundFetchInterval:minimumBackgroundFetchIntervalInSeconds];
   [self updateApplicationIconBadgeNumber];
   [TrackRecordingManager.shared setup];
+  [self observeApplicationLifecycle];
+}
+
+// Under the UIScene lifecycle, UIKit delivers activate/background transitions to each scene's
+// delegate rather than to the app delegate. With CarPlay connected the phone UIWindowScene can
+// background (lock screen, app switcher) while the CPTemplateApplicationScene stays foregrounded, so
+// reacting per-scene would pause the framework the CarPlay session still drives. UIApplication posts
+// the aggregate notifications only once *all* scenes reach a state, so observing them keeps the
+// framework foreground/active exactly while any scene — phone or CarPlay — is active.
+- (void)observeApplicationLifecycle
+{
+  NSNotificationCenter * nc = NSNotificationCenter.defaultCenter;
+  [nc addObserver:self
+         selector:@selector(onApplicationDidBecomeActive:)
+             name:UIApplicationDidBecomeActiveNotification
+           object:nil];
+  [nc addObserver:self
+         selector:@selector(onApplicationWillResignActive:)
+             name:UIApplicationWillResignActiveNotification
+           object:nil];
+  [nc addObserver:self
+         selector:@selector(onApplicationWillEnterForeground:)
+             name:UIApplicationWillEnterForegroundNotification
+           object:nil];
+  [nc addObserver:self
+         selector:@selector(onApplicationDidEnterBackground:)
+             name:UIApplicationDidEnterBackgroundNotification
+           object:nil];
+}
+
+- (void)onApplicationDidBecomeActive:(NSNotification *)notification
+{
+  [self applicationDidBecomeActive:UIApplication.sharedApplication];
+}
+
+- (void)onApplicationWillResignActive:(NSNotification *)notification
+{
+  [self applicationWillResignActive:UIApplication.sharedApplication];
+}
+
+- (void)onApplicationWillEnterForeground:(NSNotification *)notification
+{
+  [self applicationWillEnterForeground:UIApplication.sharedApplication];
+}
+
+- (void)onApplicationDidEnterBackground:(NSNotification *)notification
+{
+  [self applicationDidEnterBackground:UIApplication.sharedApplication];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -369,18 +419,31 @@ using namespace osm_auth_ios;
 
 #pragma mark - Properties
 
+- (UIWindow *)connectedWindow
+{
+  return self.window;
+}
+
+- (UINavigationController *)mainNavigationController
+{
+  // Lazily load the Main storyboard's root navigation controller so a single shared MapViewController
+  // (and its Drape engine) exists even on a CarPlay-first cold launch, before MainSceneDelegate connects
+  // the phone window scene. Both the phone scene and CarPlayService reuse this same instance.
+  if (!_mainNavigationController)
+  {
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    _mainNavigationController = (UINavigationController *)[storyboard instantiateInitialViewController];
+  }
+  return _mainNavigationController;
+}
+
 - (MapViewController *)mapViewController
 {
-  for (id vc in [(UINavigationController *)self.window.rootViewController viewControllers])
+  for (id vc in _mainNavigationController.viewControllers)
     if ([vc isKindOfClass:[MapViewController class]])
       return vc;
   NSAssert(false, @"Please check the logic");
   return nil;
-}
-
-- (MWMCarPlayService *)carplayService
-{
-  return [MWMCarPlayService shared];
 }
 
 #pragma mark - TTS
@@ -446,22 +509,6 @@ using namespace osm_auth_ios;
     return NO;
 
   return YES;
-}
-
-#pragma mark - CPApplicationDelegate implementation
-
-- (void)application:(UIApplication *)application
-    didConnectCarInterfaceController:(CPInterfaceController *)interfaceController
-                            toWindow:(CPWindow *)window
-{
-  [self.carplayService setupWithWindow:window interfaceController:interfaceController];
-}
-
-- (void)application:(UIApplication *)application
-    didDisconnectCarInterfaceController:(CPInterfaceController *)interfaceController
-                             fromWindow:(CPWindow *)window
-{
-  [self.carplayService destroy];
 }
 
 @end

@@ -3,10 +3,13 @@ import UIKit
 
 enum CarPlayWindowScaleAdjuster {
   static func updateAppearance(
-    fromWindow sourceWindow: UIWindow,
-    toWindow destinationWindow: UIWindow,
+    fromWindow sourceWindow: UIWindow?,
+    toWindow destinationWindow: UIWindow?,
     isCarplayActivated: Bool
   ) {
+    // Either window can be nil on a CarPlay-first cold launch, before the phone window scene connects.
+    // There is no phone-vs-CarPlay scale mismatch to reconcile yet, so skip.
+    guard let sourceWindow, let destinationWindow else { return }
     let sourceContentScale = sourceWindow.screen.scale
     let destinationContentScale = destinationWindow.screen.scale
 

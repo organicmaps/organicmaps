@@ -2,7 +2,6 @@
 #import "MWMNavigationController.h"
 
 @class MapViewController;
-@class MWMCarPlayService;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,7 +13,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic) UIWindow * window;
 
-@property(nonatomic, readonly) MWMCarPlayService * carplayService;
+// The connected main window, or nil before MainSceneDelegate attaches it (e.g. a CarPlay-first
+// cold launch, where only the CarPlay scene exists). Use this instead of `window` when the phone
+// scene may not have connected yet.
+@property(nonatomic, readonly, nullable) UIWindow * connectedWindow;
+
+// The Main storyboard's root navigation controller. Lazily instantiated so a single shared
+// MapViewController exists even before the phone window scene connects.
+@property(nonatomic, readonly) UINavigationController * mainNavigationController;
 @property(nonatomic, readonly) MapViewController * mapViewController;
 @property(nonatomic, readonly) BOOL isDrapeEngineCreated;
 
