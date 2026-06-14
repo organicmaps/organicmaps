@@ -14,6 +14,7 @@ using namespace locale_translator;
 namespace
 {
 NSString * const kUserDefaultsTTSLanguageBcp47 = @"UserDefaultsTTSLanguageBcp47";
+NSString * const kUserDefaultsTTSVoiceIdentifier = @"UserDefaultsTTSVoiceIdentifier";
 NSString * const kIsTTSEnabled = @"UserDefaultsNeedToEnableTTS";
 NSString * const kIsStreetNamesTTSEnabled = @"UserDefaultsNeedToEnableStreetNamesTTS";
 NSString * const kDefaultLanguage = @"en-US";
@@ -58,6 +59,59 @@ AVSpeechSynthesisVoice * bestAvailableVoice(NSString * locale)
 using Observer = id<MWMTextToSpeechObserver>;
 using Observers = NSHashTable<Observer>;
 }  // namespace
+
+// Returns the base language part of a BCP-47 tag (e.g., "en" for "en-US"). Returns the input unchanged
+// if there is no region suffix.
+static NSString * BaseLanguage(NSString * bcp47)
+{
+  NSRange const dash = [bcp47 rangeOfString:@"-"];
+  return dash.location == NSNotFound ? bcp47 : [bcp47 substringToIndex:dash.location];
+}
+
+// Among voices sharing a display name, returns YES if `candidate` represents `requestedLanguage`
+// better than `existing`: prefer an exact language-tag match, then higher quality.
+static BOOL IsBetterVoiceForLanguage(AVSpeechSynthesisVoice * candidate, AVSpeechSynthesisVoice * existing,
+                                     NSString * requestedLanguage)
+{
+  BOOL const candidateExact = [candidate.language isEqualToString:requestedLanguage];
+  BOOL const existingExact = [existing.language isEqualToString:requestedLanguage];
+  if (candidateExact != existingExact)
+    return candidateExact;
+  return candidate.quality > existing.quality;
+}
+
+NSArray<AVSpeechSynthesisVoice *> * availableVoicesForLanguage(NSString * language)
+{
+  if (language.length == 0)
+    return @[];
+
+  NSArray<AVSpeechSynthesisVoice *> * allVoices = [AVSpeechSynthesisVoice speechVoices];
+  if (allVoices.count == 0)
+    return @[];
+
+  NSString * baseLanguage = BaseLanguage(language);
+  // iOS exposes the same voice under several AVSpeechSynthesisVoice objects: quality tiers / aliases
+  // of one voice (same language), and — for the Eloquence set (Eddy, Flo, Grandma, …) — the very same
+  // named voice in every language (en-US, en-GB, …). Base-language matching pulls in several of these,
+  // so collapse by the display name the user actually sees, keeping the variant that best fits the
+  // requested language (exact tag first, then highest quality). Otherwise identical names pile up.
+  NSMutableDictionary<NSString *, AVSpeechSynthesisVoice *> * bestByName = [NSMutableDictionary dictionary];
+  for (AVSpeechSynthesisVoice * voice in allVoices)
+  {
+    // Match by base language so e.g. en-GB and en-AU show up for en-US.
+    if (![BaseLanguage(voice.language) isEqualToString:baseLanguage])
+      continue;
+    AVSpeechSynthesisVoice * existing = bestByName[voice.name];
+    if (!existing || IsBetterVoiceForLanguage(voice, existing, language))
+      bestByName[voice.name] = voice;
+  }
+
+  NSMutableArray<AVSpeechSynthesisVoice *> * filteredVoices = [[bestByName allValues] mutableCopy];
+  [filteredVoices sortUsingComparator:^NSComparisonResult(AVSpeechSynthesisVoice * v1, AVSpeechSynthesisVoice * v2) {
+    return [v1.name compare:v2.name];
+  }];
+  return [filteredVoices copy];
+}
 
 @interface MWMTextToSpeech () <AVSpeechSynthesizerDelegate>
 {
@@ -151,7 +205,54 @@ using Observers = NSHashTable<Observer>;
 {
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud setObject:locale forKey:kUserDefaultsTTSLanguageBcp47];
+
+  // Drop the saved voice if it's no longer compatible with the chosen language. The voice picker
+  // uses base-language matching (see availableVoicesForLanguage), so e.g. an en-AU voice stays
+  // valid for en-US but is cleared when switching to fr-FR.
+  NSString * savedVoiceIdentifier = [[self class] savedVoiceIdentifier];
+  if (savedVoiceIdentifier.length > 0)
+  {
+    AVSpeechSynthesisVoice * savedVoice = [AVSpeechSynthesisVoice voiceWithIdentifier:savedVoiceIdentifier];
+    BOOL const stillCompatible =
+        savedVoice && (locale.length == 0 || [BaseLanguage(savedVoice.language) isEqualToString:BaseLanguage(locale)]);
+    if (!stillCompatible)
+      [ud removeObjectForKey:kUserDefaultsTTSVoiceIdentifier];
+  }
+
   [self createVoice:locale];
+}
+
+- (void)setVoiceIdentifier:(NSString *)voiceIdentifier
+{
+  [[self class] setSavedVoiceIdentifier:voiceIdentifier];
+  NSString * locale = [[self class] savedLanguage];
+  [self createVoice:locale];
+}
+
+- (AVSpeechSynthesisVoice *)currentVoice
+{
+  // Recreate the voice if it was invalidated (applicationDidBecomeActive nils it to re-enumerate
+  // installed voices) so callers such as the settings screen never observe a transient nil after the
+  // app returns from the background.
+  if (!self.speechVoice)
+    [self createVoice:[[self class] savedLanguage]];
+  return self.speechVoice;
+}
+
++ (NSString *)displayNameForVoice:(AVSpeechSynthesisVoice *)voice
+{
+  if (!voice)
+    return nil;
+  // Default-quality voices show just the name; mark the higher tiers so users can tell them apart.
+  // Premium (quality == 3) is iOS 16+, so detect it as "above Enhanced" to avoid referencing the
+  // AVSpeechSynthesisVoiceQualityPremium symbol on the iOS 15 deployment target.
+  if (voice.quality == AVSpeechSynthesisVoiceQualityEnhanced)
+    return
+        [NSString stringWithFormat:@"%@ (%@)", voice.name, NSLocalizedString(@"pref_tts_voice_quality_enhanced", @"")];
+  if (voice.quality > AVSpeechSynthesisVoiceQualityEnhanced)
+    return
+        [NSString stringWithFormat:@"%@ (%@)", voice.name, NSLocalizedString(@"pref_tts_voice_quality_premium", @"")];
+  return voice.name;
 }
 
 - (BOOL)isValid
@@ -208,6 +309,26 @@ using Observers = NSHashTable<Observer>;
   return [NSUserDefaults.standardUserDefaults stringForKey:kUserDefaultsTTSLanguageBcp47];
 }
 
++ (NSString *)savedVoiceIdentifier
+{
+  return [NSUserDefaults.standardUserDefaults stringForKey:kUserDefaultsTTSVoiceIdentifier];
+}
+
++ (void)setSavedVoiceIdentifier:(NSString *)voiceIdentifier
+{
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
+  if (voiceIdentifier.length > 0)
+    [ud setObject:voiceIdentifier forKey:kUserDefaultsTTSVoiceIdentifier];
+  else
+    [ud removeObjectForKey:kUserDefaultsTTSVoiceIdentifier];
+  [ud synchronize];
+}
+
++ (NSArray<AVSpeechSynthesisVoice *> *)availableVoicesForLanguage:(NSString *)language
+{
+  return availableVoicesForLanguage(language);
+}
+
 - (void)createVoice:(NSString *)locale
 {
   if (!self.speechSynthesizer)
@@ -216,19 +337,34 @@ using Observers = NSHashTable<Observer>;
     self.speechSynthesizer.delegate = self;
   }
 
-  NSMutableArray<NSString *> * candidateLocales = [@[kDefaultLanguage, @"en-GB"] mutableCopy];
-
-  if (locale)
-    [candidateLocales insertObject:locale atIndex:0];
-  else
-    LOG(LWARNING, ("locale is nil. Trying default locale."));
-
+  // First, try to use saved voice identifier if available. Match by base language so a voice such
+  // as en-AU stays valid when the user keeps the en-US locale.
+  NSString * savedVoiceIdentifier = [[self class] savedVoiceIdentifier];
   AVSpeechSynthesisVoice * voice = nil;
-  for (NSString * loc in candidateLocales)
+
+  if (savedVoiceIdentifier.length > 0)
   {
-    voice = bestAvailableVoice(loc);
-    if (voice)
-      break;
+    voice = [AVSpeechSynthesisVoice voiceWithIdentifier:savedVoiceIdentifier];
+    if (voice && locale.length > 0 && ![BaseLanguage(voice.language) isEqualToString:BaseLanguage(locale)])
+      voice = nil;
+  }
+
+  // If no saved voice or saved voice doesn't match, fall back to language-based selection
+  if (!voice)
+  {
+    NSMutableArray<NSString *> * candidateLocales = [@[kDefaultLanguage, @"en-GB"] mutableCopy];
+
+    if (locale)
+      [candidateLocales insertObject:locale atIndex:0];
+    else
+      LOG(LWARNING, ("locale is nil. Trying default locale."));
+
+    for (NSString * loc in candidateLocales)
+    {
+      voice = bestAvailableVoice(loc);
+      if (voice)
+        break;
+    }
   }
 
   self.speechVoice = voice;
@@ -330,6 +466,11 @@ using Observers = NSHashTable<Observer>;
 {
   if (![self isValid])
     [self createVoice:[[self class] savedLanguage]];
+
+  // Interrupt any in-flight test utterance so a fresh tap on Test Voice Directions speaks the
+  // currently selected voice immediately instead of queueing behind the previous one.
+  if (self.speechSynthesizer.isSpeaking)
+    [self.speechSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
 
   [self speakOneString:text];
 }

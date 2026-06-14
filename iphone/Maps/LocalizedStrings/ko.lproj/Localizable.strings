@@ -233,6 +233,15 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "더 높은 품질의 음성을 다운로드하려면 설정 앱을 열고 손쉬운 사용 → VoiceOver → 말하기 → 음성으로 이동하세요.";
 
+/* Settings «Route» category: «Tts voice» title (the specific voice, e.g. Samantha, used to read out the selected language) */
+"pref_tts_voice_title" = "음성";
+
+/* Suffix appended to a TTS voice name for Apple's higher-quality "Enhanced" voice tier, e.g. "Samantha (Enhanced)". */
+"pref_tts_voice_quality_enhanced" = "향상됨";
+
+/* Suffix appended to a TTS voice name for Apple's highest-quality "Premium" voice tier, e.g. "Samantha (Premium)". */
+"pref_tts_voice_quality_premium" = "Premium";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "음성 길 안내 테스트(TTS, 텍스트 음성 변환)";
 "pref_map_auto_zoom" = "자동 줌";
