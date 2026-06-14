@@ -57,7 +57,7 @@ std::string_view IsHatchingTerritoryChecker::GetHatch(feature::TypesHolder const
 }
 
 IsAreaPatternChecker::Stipple::Stipple()
-  : ftypes::BaseCheckerEx({{"natural", "sand"}, {"natural", "beach"}, {"natural", "desert"}})
+  : ftypes::BaseCheckerEx({{"natural", "beach"}, {"natural", "desert"}})  // natural=sand is a beach subtype
 {}
 
 IsAreaPatternChecker::Speckle::Speckle() : ftypes::BaseCheckerEx({{"natural", "scree"}, {"natural", "bare_rock"}}) {}
