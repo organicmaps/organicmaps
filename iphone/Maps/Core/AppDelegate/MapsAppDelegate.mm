@@ -165,13 +165,6 @@ using namespace osm_auth_ios;
 {
   LOG(LINFO, ("applicationDidEnterBackground - begin"));
   [DeepLinkHandler.shared reset];
-  if ([MWMStorage sharedStorage].downloadInProgress)
-  {
-    m_backgroundTask = [application beginBackgroundTaskWithExpirationHandler:^{
-      [application endBackgroundTask:self->m_backgroundTask];
-      self->m_backgroundTask = UIBackgroundTaskInvalid;
-    }];
-  }
 
   auto tasks = @[[[MWMBackgroundEditsUpload alloc] init]];
   [self runBackgroundTasks:tasks completionHandler:nil];
