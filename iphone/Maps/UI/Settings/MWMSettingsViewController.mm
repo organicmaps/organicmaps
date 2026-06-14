@@ -27,6 +27,7 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * fontScaleCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * transliterationCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * compassCalibrationCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewDetailedSwitchCell * placeDescriptionJavaScriptCell;
 
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * nightModeCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * perspectiveViewCell;
@@ -151,6 +152,11 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
   case Scheme::Auto: powerManagement = L(@"power_managment_setting_auto"); break;
   }
   [self.powerManagementCell configWithTitle:L(@"power_managment_title") info:powerManagement];
+
+  [self.placeDescriptionJavaScriptCell configWithDelegate:self
+                                                    title:L(@"allow_javascript_in_place_descriptions")
+                                                     isOn:[MWMSettings placePageDescriptionJavaScriptEnabled]];
+  [self.placeDescriptionJavaScriptCell setDetail:L(@"allow_javascript_in_place_descriptions_summary")];
 
   NSString * textPlacementValue = nil;
   switch (Framework::GetBookmarksTextPlacement())
@@ -337,6 +343,10 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
   else if (cell == self.compassCalibrationCell)
   {
     [MWMSettings setCompassCalibrationEnabled:value];
+  }
+  else if (cell == self.placeDescriptionJavaScriptCell)
+  {
+    [MWMSettings setPlacePageDescriptionJavaScriptEnabled:value];
   }
   else if (cell == self.perspectiveViewCell)
   {

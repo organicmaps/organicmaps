@@ -55,4 +55,7 @@ NS_SWIFT_NAME(Settings)
 + (BOOL)isFileLoggingEnabled;
 + (void)setFileLoggingEnabled:(BOOL)fileLoggingEnabled;
 
++ (BOOL)placePageDescriptionJavaScriptEnabled;
++ (void)setPlacePageDescriptionJavaScriptEnabled:(BOOL)placePageDescriptionJavaScriptEnabled;
+
 @end

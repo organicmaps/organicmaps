@@ -617,6 +617,12 @@
 "traffic_update_maps_text" = "Ili kuonyesha data za trafiki, ramani lazima zisasishwe.";
 "big_font" = "Ongeza ukubwa wa lebo za ramani";
 
+/* iOS Settings toggle title. Enables JavaScript execution inside user-provided bookmark and track HTML descriptions. */
+"allow_javascript_in_place_descriptions" = "Allow media in HTML descriptions";
+
+/* iOS Settings toggle subtitle. Explain privacy/security tradeoff for JavaScript in user-provided bookmark and track HTML descriptions. */
+"allow_javascript_in_place_descriptions_summary" = "Allows bookmark and track HTML descriptions to run JavaScript for embedded media.";
+
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Takwimu za trafiki hazipatikani";
 "enable_logging" = "Wezesha kurekodi";

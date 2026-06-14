@@ -20,6 +20,7 @@ NSString * const kSpotlightLocaleLanguageId = @"SpotlightLocaleLanguageId";
 NSString * const kUDTrackWarningAlertWasShown = @"TrackWarningAlertWasShown";
 NSString * const kiCLoudSynchronizationEnabledKey = @"iCLoudSynchronizationEnabled";
 NSString * const kUDFileLoggingEnabledKey = @"FileLoggingEnabledKey";
+NSString * const kUDPlacePageDescriptionJavaScriptEnabledKey = @"PlacePageDescriptionJavaScriptEnabled";
 }  // namespace
 
 @implementation MWMSettings
@@ -222,6 +223,19 @@ NSString * const kUDFileLoggingEnabledKey = @"FileLoggingEnabledKey";
 {
   [NSUserDefaults.standardUserDefaults setBool:fileLoggingEnabled forKey:kUDFileLoggingEnabledKey];
   [Logger setFileLoggingEnabled:fileLoggingEnabled];
+}
+
++ (BOOL)placePageDescriptionJavaScriptEnabled
+{
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
+  return [ud objectForKey:kUDPlacePageDescriptionJavaScriptEnabledKey] == nil ||
+         [ud boolForKey:kUDPlacePageDescriptionJavaScriptEnabledKey];
+}
+
++ (void)setPlacePageDescriptionJavaScriptEnabled:(BOOL)placePageDescriptionJavaScriptEnabled
+{
+  [NSUserDefaults.standardUserDefaults setBool:placePageDescriptionJavaScriptEnabled
+                                        forKey:kUDPlacePageDescriptionJavaScriptEnabledKey];
 }
 
 + (BOOL)canShowCrowdfundingPromo

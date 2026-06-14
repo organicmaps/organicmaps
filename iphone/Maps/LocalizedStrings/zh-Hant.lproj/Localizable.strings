@@ -617,6 +617,12 @@
 "traffic_update_maps_text" = "若要顯示交通資料，必須更新地圖。";
 "big_font" = "增加地圖上的字體大小";
 
+/* iOS Settings toggle title. Enables JavaScript execution inside user-provided bookmark and track HTML descriptions. */
+"allow_javascript_in_place_descriptions" = "Allow media in HTML descriptions";
+
+/* iOS Settings toggle subtitle. Explain privacy/security tradeoff for JavaScript in user-provided bookmark and track HTML descriptions. */
+"allow_javascript_in_place_descriptions_summary" = "Allows bookmark and track HTML descriptions to run JavaScript for embedded media.";
+
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "交通資訊不可用";
 "enable_logging" = "啟用日誌記錄";
