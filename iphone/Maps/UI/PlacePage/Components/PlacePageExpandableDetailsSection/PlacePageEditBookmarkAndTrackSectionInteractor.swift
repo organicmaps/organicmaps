@@ -102,14 +102,11 @@ final class PlacePageEditBookmarkAndTrackSectionInteractor: PlacePageExpandableD
   private func showGroupPicker() {
     guard let data else { return }
     let groupId: MWMMarkGroupID
-    let groupName: String?
     switch data {
     case .bookmark(let bookmarkData):
       groupId = bookmarkData.bookmarkGroupId
-      groupName = bookmarkData.bookmarkCategory
     case .track(let trackData):
       groupId = trackData.groupId
-      groupName = trackData.trackCategory
     }
     let groupViewController = SelectBookmarkGroupViewController(groupId: groupId)
     let navigationController = UINavigationController(rootViewController: groupViewController)
