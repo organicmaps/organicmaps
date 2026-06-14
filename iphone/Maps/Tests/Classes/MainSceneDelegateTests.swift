@@ -10,12 +10,8 @@ final class MainSceneDelegateTests: XCTestCase {
     XCTAssertEqual(NSStringFromClass(MainSceneDelegate.self), "MainSceneDelegate")
   }
 
-  func testRespondsToSceneLifecycleSelectors() {
+  func testRespondsToForwardingSelectors() {
     let delegate = MainSceneDelegate()
-    XCTAssertTrue(delegate.responds(to: #selector(MainSceneDelegate.sceneDidBecomeActive(_:))))
-    XCTAssertTrue(delegate.responds(to: #selector(MainSceneDelegate.sceneWillResignActive(_:))))
-    XCTAssertTrue(delegate.responds(to: #selector(MainSceneDelegate.sceneWillEnterForeground(_:))))
-    XCTAssertTrue(delegate.responds(to: #selector(MainSceneDelegate.sceneDidEnterBackground(_:))))
     XCTAssertTrue(delegate.responds(to: #selector(MainSceneDelegate.scene(_:openURLContexts:))))
     XCTAssertTrue(delegate.responds(to: #selector(MainSceneDelegate.scene(_:continue:))))
     XCTAssertTrue(delegate.responds(to: #selector(MainSceneDelegate.windowScene(_:performActionFor:completionHandler:))))

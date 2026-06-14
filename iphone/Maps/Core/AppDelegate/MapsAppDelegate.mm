@@ -112,6 +112,54 @@ using namespace osm_auth_ios;
   [UIApplication.sharedApplication setMinimumBackgroundFetchInterval:minimumBackgroundFetchIntervalInSeconds];
   [self updateApplicationIconBadgeNumber];
   [TrackRecordingManager.shared setup];
+  [self observeApplicationLifecycle];
+}
+
+// Under the UIScene lifecycle, UIKit delivers activate/background transitions to each scene's
+// delegate rather than to the app delegate. With CarPlay connected the phone UIWindowScene can
+// background (lock screen, app switcher) while the CPTemplateApplicationScene stays foregrounded, so
+// reacting per-scene would pause the framework the CarPlay session still drives. UIApplication posts
+// the aggregate notifications only once *all* scenes reach a state, so observing them keeps the
+// framework foreground/active exactly while any scene — phone or CarPlay — is active.
+- (void)observeApplicationLifecycle
+{
+  NSNotificationCenter * nc = NSNotificationCenter.defaultCenter;
+  [nc addObserver:self
+         selector:@selector(onApplicationDidBecomeActive:)
+             name:UIApplicationDidBecomeActiveNotification
+           object:nil];
+  [nc addObserver:self
+         selector:@selector(onApplicationWillResignActive:)
+             name:UIApplicationWillResignActiveNotification
+           object:nil];
+  [nc addObserver:self
+         selector:@selector(onApplicationWillEnterForeground:)
+             name:UIApplicationWillEnterForegroundNotification
+           object:nil];
+  [nc addObserver:self
+         selector:@selector(onApplicationDidEnterBackground:)
+             name:UIApplicationDidEnterBackgroundNotification
+           object:nil];
+}
+
+- (void)onApplicationDidBecomeActive:(NSNotification *)notification
+{
+  [self applicationDidBecomeActive:UIApplication.sharedApplication];
+}
+
+- (void)onApplicationWillResignActive:(NSNotification *)notification
+{
+  [self applicationWillResignActive:UIApplication.sharedApplication];
+}
+
+- (void)onApplicationWillEnterForeground:(NSNotification *)notification
+{
+  [self applicationWillEnterForeground:UIApplication.sharedApplication];
+}
+
+- (void)onApplicationDidEnterBackground:(NSNotification *)notification
+{
+  [self applicationDidEnterBackground:UIApplication.sharedApplication];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

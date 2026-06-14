@@ -47,32 +47,9 @@ final class MainSceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
   }
 
-  // MARK: - Lifecycle forwarding
-
-  /// UIWindowSceneDelegate callbacks are per-scene. While CarPlay is connected it keeps its own scene
-  /// foregrounded, so the phone window scene backgrounding/resigning (lock screen, app switcher) must
-  /// not drive the app-wide background path — that would pause the render loop and location updates the
-  /// CarPlay session still needs against the same shared map. Forward only when CarPlay is inactive.
-  private func forwardLifecycleEventUnlessCarPlayActive(_ forward: (MapsAppDelegate) -> Void) {
-    guard !CarPlayService.shared.isCarplayActivated else { return }
-    forward(MapsAppDelegate.theApp())
-  }
-
-  func sceneDidBecomeActive(_: UIScene) {
-    forwardLifecycleEventUnlessCarPlayActive { $0.applicationDidBecomeActive(.shared) }
-  }
-
-  func sceneWillResignActive(_: UIScene) {
-    forwardLifecycleEventUnlessCarPlayActive { $0.applicationWillResignActive(.shared) }
-  }
-
-  func sceneWillEnterForeground(_: UIScene) {
-    forwardLifecycleEventUnlessCarPlayActive { $0.applicationWillEnterForeground(.shared) }
-  }
-
-  func sceneDidEnterBackground(_: UIScene) {
-    forwardLifecycleEventUnlessCarPlayActive { $0.applicationDidEnterBackground(.shared) }
-  }
+  // Activate/background transitions are handled app-wide by MapsAppDelegate observing the aggregate
+  // UIApplication lifecycle notifications, so this scene delegate intentionally does not forward
+  // per-scene sceneDid/Will* callbacks (they would fire while CarPlay keeps the app active).
 
   // MARK: - URL / user activity / shortcut forwarding
 
