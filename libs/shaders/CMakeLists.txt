@@ -25,6 +25,8 @@ set(shader_files
     GL/debug_rect.fsh.glsl
     GL/debug_rect.vsh.glsl
     GL/area_forest.fsh.glsl
+    GL/area_forest_coniferous.fsh.glsl
+    GL/area_forest_deciduous.fsh.glsl
     GL/area_grid.fsh.glsl
     GL/area_speckle.fsh.glsl
     GL/area_stipple.fsh.glsl

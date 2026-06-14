@@ -46,7 +46,12 @@ UNIT_TEST(Stylist_IsAreaPattern)
   // Grid: planted landuse.
   TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "orchard"})), dp::kGridPattern, ());
   TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "vineyard"})), dp::kGridPattern, ());
+  // Forest: leaf_type variants pick pine / broadleaf / both; generic and mixed both get the combined.
   TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "forest"})), dp::kForestPattern, ());
+  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "forest", "mixed"})), dp::kForestPattern, ());
+  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "forest", "coniferous"})), dp::kForestConiferousPattern,
+             ());
+  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "forest", "deciduous"})), dp::kForestDeciduousPattern, ());
 
   // Unrelated area types get no pattern.
   TEST(checker.GetPattern(cl.GetTypeByPath({"natural", "water"})).empty(), ());

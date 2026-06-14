@@ -134,3 +134,13 @@ UNIT_TEST(AreaForestGpuTest)
 {
   area_pattern_gpu_test::RenderSolidPatternAndCheck("Analytic forest", dp::kForestPattern);
 }
+
+UNIT_TEST(AreaForestConiferousGpuTest)
+{
+  area_pattern_gpu_test::RenderSolidPatternAndCheck("Analytic coniferous forest", dp::kForestConiferousPattern);
+}
+
+UNIT_TEST(AreaForestDeciduousGpuTest)
+{
+  area_pattern_gpu_test::RenderSolidPatternAndCheck("Analytic deciduous forest", dp::kForestDeciduousPattern);
+}
