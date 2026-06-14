@@ -71,7 +71,7 @@
     <string name="closed">Geschlossen</string>
     <string name="minute">min</string>
     <string name="big_font">Schrift auf der Karte vergrößern</string>
-    <string name="transliteration_title">Transliteration ins Lateinische</string>
+    <string name="transliteration_title">Transliteration ins lateinische Alphabet</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Karten werden geladen</string>
     <string name="driving_options_title">Routenbeschränkungen</string>
