@@ -169,7 +169,7 @@ void EmitDebugCommandResult(search::SearchParams const & params, std::string con
 void UpdateTrackSelectionColor(dp::Color & color)
 {
   if (color == feature::RouteRelationBase::kEmptyColor)
-    color = dp::Color(128, 0, 128, 255);  // Default purple.
+    color = dp::Color::Purple();  // Default purple.
 
   // Adjust colors to the current theme for readability.
   bool const isLightTheme = !MapStyleIsDark(GetStyleReader().GetCurrentStyle());
