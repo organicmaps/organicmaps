@@ -68,6 +68,9 @@ using namespace osm_auth_ios;
 @end
 
 @implementation MapsAppDelegate
+{
+  UINavigationController * _mainNavigationController;
+}
 
 + (MapsAppDelegate *)theApp
 {
@@ -368,9 +371,27 @@ using namespace osm_auth_ios;
 
 #pragma mark - Properties
 
+- (UIWindow *)connectedWindow
+{
+  return self.window;
+}
+
+- (UINavigationController *)mainNavigationController
+{
+  // Lazily load the Main storyboard's root navigation controller so a single shared MapViewController
+  // (and its Drape engine) exists even on a CarPlay-first cold launch, before MainSceneDelegate connects
+  // the phone window scene. Both the phone scene and CarPlayService reuse this same instance.
+  if (!_mainNavigationController)
+  {
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    _mainNavigationController = (UINavigationController *)[storyboard instantiateInitialViewController];
+  }
+  return _mainNavigationController;
+}
+
 - (MapViewController *)mapViewController
 {
-  for (id vc in [(UINavigationController *)self.window.rootViewController viewControllers])
+  for (id vc in _mainNavigationController.viewControllers)
     if ([vc isKindOfClass:[MapViewController class]])
       return vc;
   NSAssert(false, @"Please check the logic");

@@ -369,8 +369,6 @@
 					<string>Main</string>
 					<key>UISceneDelegateClassName</key>
 					<string>MainSceneDelegate</string>
-					<key>UISceneStoryboardFile</key>
-					<string>Main</string>
 				</dict>
 			</array>
 		</dict>
