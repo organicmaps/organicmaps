@@ -55,6 +55,36 @@ UNIT_TEST(HatchingPhaseAnchor_StableAcrossTileClipping)
   TEST_GREATER(std::abs(Frac(oldA) - Frac(oldB)), 1e-3, (oldA, oldB));
 }
 
+// The forest scatter additionally hashes the INTEGER cell index floor(uv), not just the phase. The
+// single-tile anchor keeps frac(uv) stable but offsets floor(uv) per tile, so a tree on a seam would get a
+// different hash (a different / cut tree) on each side. Anchoring to a coarse multiple of the tile
+// (kPatternWrap, see DrawPatternArea) makes the integer index seam-consistent too, while preserving the
+// phase.
+UNIT_TEST(ForestPatternAnchor_CellIndexStableAcrossTileClipping)
+{
+  uint32_t const kForestTilePx = 32;  // kForestTilePx
+  uint32_t const kWrap = 4096;        // kPatternWrap
+  double const kBaseGtoP = 4096.0;
+  double const worldX = 1000.3;                      // a vertex on a shared tile edge
+  double const bboxMinA = 999.0, bboxMinB = 1000.0;  // two tiles clip it differently; same coarse block
+
+  double const maxU = kBaseGtoP / kForestTilePx;
+  auto latticeCoord = [&](double bboxMin, uint32_t anchorPx)
+  { return maxU * (worldX - df::CalcHatchingPhaseAnchor(bboxMin, anchorPx, kBaseGtoP)); };
+
+  // Coarse anchor (kWrap tiles): the integer cell index the scatter hashes matches across the seam...
+  double const coarseA = latticeCoord(bboxMinA, kForestTilePx * kWrap);
+  double const coarseB = latticeCoord(bboxMinB, kForestTilePx * kWrap);
+  TEST_EQUAL(std::floor(coarseA), std::floor(coarseB), (coarseA, coarseB));
+  // ...while still preserving the fractional phase (the issue #12804 property).
+  TEST_ALMOST_EQUAL_ABS(Frac(coarseA), Frac(coarseB), 1e-5, (coarseA, coarseB));
+
+  // The single-tile anchor keeps the phase but NOT the integer index -> the seam mismatch this fixes.
+  double const fineA = latticeCoord(bboxMinA, kForestTilePx);
+  double const fineB = latticeCoord(bboxMinB, kForestTilePx);
+  TEST_NOT_EQUAL(std::floor(fineA), std::floor(fineB), (fineA, fineB));
+}
+
 // Phase stability must also hold when the same feature is rendered at different zoom levels: at a fixed
 // world coordinate the texel depends only on baseGtoPScale, not on the (clipped) bbox.
 UNIT_TEST(HatchingPhaseAnchor_IndependentOfBBoxAtFixedScale)

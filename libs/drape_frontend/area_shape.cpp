@@ -21,6 +21,12 @@ namespace df
 uint32_t constexpr kHatchTilePx = 16;
 // The forest scatters bigger symbols on a coarser grid; keep in sync with kCellPx in area_forest.fsh.glsl.
 uint32_t constexpr kForestTilePx = 32;
+// The forest scatter hashes the integer cell index of v_maskTexCoords. CalcHatchingPhaseAnchor only keeps
+// the fractional phase tile-stable, so that index would be offset per map-tile and large symbols would
+// mismatch across seams. Anchoring to a COARSE grid of kPatternWrap tiles makes the index globally
+// consistent (mod kPatternWrap) while keeping v_maskTexCoords small enough for float precision; the
+// pattern then repeats every kPatternWrap tiles (~131072 px), which is never on screen.
+uint32_t constexpr kPatternWrap = 4096;
 
 namespace
 {
@@ -159,8 +165,11 @@ void AreaShape::DrawPatternArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp
 
   // Anchor the repeated pattern to a global, period-aligned grid instead of the clipped bbox, so the
   // phase stays continuous across tile seams and LOD changes. See CalcHatchingPhaseAnchor / issue #12804.
-  double const anchorX = CalcHatchingPhaseAnchor(bbox.minX(), tilePx, m_params.m_baseGtoPScale);
-  double const anchorY = CalcHatchingPhaseAnchor(bbox.minY(), tilePx, m_params.m_baseGtoPScale);
+  // The forest also hashes the integer cell index, so it anchors to a coarse multiple (kPatternWrap tiles)
+  // to keep that index seam-consistent; the geometric patterns need only the phase and use a single tile.
+  uint32_t const anchorPx = patternKey == dp::kForestPattern ? tilePx * kPatternWrap : tilePx;
+  double const anchorX = CalcHatchingPhaseAnchor(bbox.minX(), anchorPx, m_params.m_baseGtoPScale);
+  double const anchorY = CalcHatchingPhaseAnchor(bbox.minY(), anchorPx, m_params.m_baseGtoPScale);
 
   gpu::VBReservedSizeT<gpu::HatchingAreaVertex> vertexes;
   vertexes.reserve(m_vertexes.size());
