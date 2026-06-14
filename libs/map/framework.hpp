@@ -5,6 +5,7 @@
 #include "map/bookmark_manager.hpp"
 #include "map/features_fetcher.hpp"
 #include "map/isolines_manager.hpp"
+#include "map/location_country_tracker.hpp"
 #include "map/mwm_url.hpp"
 #include "map/place_page_info.hpp"
 #include "map/position_provider.hpp"
@@ -346,6 +347,11 @@ public:
   /// Guarantees that listener is called in the main thread context.
   void SetCurrentCountryChangedListener(TCurrentCountryChanged listener);
 
+  storage::CountryId GetLastLocationCountry() const { return m_locationCountryTracker.GetCountryId(); }
+  /// Like SetCurrentCountryChangedListener, but fires when the user's GPS location
+  /// moves to a different country. Guarantees that listener is called in the main thread context.
+  void SetLocationCountryChangedListener(TCurrentCountryChanged listener);
+
   std::vector<std::string> GetRegionsCountryIdByRect(m2::RectD const & rect, bool rough) const;
   std::vector<MwmSet::MwmId> GetMwmsByRect(m2::RectD const & rect, bool rough) const;
 
@@ -463,6 +469,7 @@ private:
 
   storage::CountryId m_lastReportedCountry;
   TCurrentCountryChanged m_currentCountryChanged;
+  LocationCountryTracker m_locationCountryTracker;
 
   void OnUpdateGpsTrackPointsCallback(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
                                       std::pair<size_t, size_t> const & toRemove,
