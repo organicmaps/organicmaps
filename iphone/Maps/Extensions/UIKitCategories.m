@@ -295,3 +295,22 @@
 }
 
 @end
+
+@implementation UIButton (EdgeInsets)
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
+- (void)setContentEdgeInsetsCompat:(UIEdgeInsets)insets
+{
+  self.contentEdgeInsets = insets;
+}
+
+- (void)setImageEdgeInsetsCompat:(UIEdgeInsets)insets
+{
+  self.imageEdgeInsets = insets;
+}
+
+#pragma clang diagnostic pop
+
+@end

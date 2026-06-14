@@ -57,7 +57,7 @@ final class DonationView: UIButton {
     actionButton.titleLabel?.allowsDefaultTighteningForTruncation = true
     actionButton.titleLabel?.adjustsFontSizeToFitWidth = true
     actionButton.titleLabel?.minimumScaleFactor = 0.5
-    actionButton.contentEdgeInsets = Constants.actionButtonTitleInsets
+    actionButton.setContentEdgeInsetsCompat(Constants.actionButtonTitleInsets)
     actionButton.isUserInteractionEnabled = false
     actionButton.setStyle(.crowdfundingButton)
 
