@@ -31,6 +31,8 @@ gpu::Program PatternProgram(std::string_view key)
     return gpu::Program::HatchingAreaDash;
   if (key == dp::kStipplePattern)
     return gpu::Program::AreaStipple;
+  if (key == dp::kSpecklePattern)
+    return gpu::Program::AreaSpeckle;
   CHECK(false, ("Unknown area pattern key:", key));
   return gpu::Program::Area;
 }

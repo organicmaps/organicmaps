@@ -64,30 +64,17 @@ void RenderAndCheck(char const * title, std::string_view hatching)
   TEST_LESS(teal, kW * kH / 2, ("No gaps - pattern degenerated into a solid fill?", title));
   TEST_EQUAL(opaqueBlack, 0u, ("Opaque black pixels - colour texture not sampled?", title));
 }
-}  // namespace area_pattern_gpu_test
 
-UNIT_TEST(AreaHatch45GpuTest)
+// A solid-fill pattern (stipple/speckle/...) fills the quad with the surface colour and modulates it with
+// darker dots. Validate the fill is present, the speckle is present, and nothing samples as black.
+void RenderSolidPatternAndCheck(char const * title, std::string_view patternKey)
 {
-  area_pattern_gpu_test::RenderAndCheck("Analytic 45d hatch", dp::k45dHatching);
-}
-
-UNIT_TEST(AreaHatchDashGpuTest)
-{
-  area_pattern_gpu_test::RenderAndCheck("Analytic dash hatch", dp::kDashHatching);
-}
-
-// Stipple is a single-pass SOLID fill modulated by darker dots (not a transparent mask), so the quad is
-// filled with the surface colour and carries a darker speckle - validate both, plus no black garbage.
-UNIT_TEST(AreaStippleGpuTest)
-{
-  using namespace area_pattern_gpu_test;
-
   df::test_support::ShapeTestFixture fixture;
   uint32_t constexpr kW = 256, kH = 256;
-  fixture.Render("Analytic stipple", kW, kH, [](df::test_support::ShapeTestFixture & f)
+  fixture.Render(title, kW, kH, [patternKey](df::test_support::ShapeTestFixture & f)
   {
     df::AreaViewParams p = MakeParams({});  // no hatch
-    p.m_areaPattern = dp::kStipplePattern;
+    p.m_areaPattern = patternKey;
     std::vector<m2::PointD> triangles = {{-110, -110}, {110, -110}, {110, 110}, {-110, -110}, {110, 110}, {-110, 110}};
     f.AddShape(make_unique_dp<df::AreaShape>(std::move(triangles), df::BuildingOutline{}, p));
   });
@@ -112,7 +99,28 @@ UNIT_TEST(AreaStippleGpuTest)
     }
   }
 
-  TEST_GREATER(fill, kW * kH / 4, ("Solid stipple fill not rendered"));
-  TEST_GREATER(dots, 0u, ("Speckle not visible - stipple modulation missing?"));
-  TEST_EQUAL(opaqueBlack, 0u, ("Opaque black pixels - colour texture not sampled?"));
+  TEST_GREATER(fill, kW * kH / 4, ("Solid fill not rendered:", title));
+  TEST_GREATER(dots, 0u, ("Speckle not visible:", title));
+  TEST_EQUAL(opaqueBlack, 0u, ("Opaque black pixels - colour texture not sampled?", title));
+}
+}  // namespace area_pattern_gpu_test
+
+UNIT_TEST(AreaHatch45GpuTest)
+{
+  area_pattern_gpu_test::RenderAndCheck("Analytic 45d hatch", dp::k45dHatching);
+}
+
+UNIT_TEST(AreaHatchDashGpuTest)
+{
+  area_pattern_gpu_test::RenderAndCheck("Analytic dash hatch", dp::kDashHatching);
+}
+
+UNIT_TEST(AreaStippleGpuTest)
+{
+  area_pattern_gpu_test::RenderSolidPatternAndCheck("Analytic stipple", dp::kStipplePattern);
+}
+
+UNIT_TEST(AreaSpeckleGpuTest)
+{
+  area_pattern_gpu_test::RenderSolidPatternAndCheck("Analytic speckle", dp::kSpecklePattern);
 }
