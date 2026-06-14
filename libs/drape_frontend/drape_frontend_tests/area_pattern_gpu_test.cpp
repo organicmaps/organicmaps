@@ -124,3 +124,8 @@ UNIT_TEST(AreaSpeckleGpuTest)
 {
   area_pattern_gpu_test::RenderSolidPatternAndCheck("Analytic speckle", dp::kSpecklePattern);
 }
+
+UNIT_TEST(AreaGridGpuTest)
+{
+  area_pattern_gpu_test::RenderSolidPatternAndCheck("Analytic grid", dp::kGridPattern);
+}

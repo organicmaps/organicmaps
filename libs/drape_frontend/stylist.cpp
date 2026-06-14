@@ -62,6 +62,8 @@ IsAreaPatternChecker::Stipple::Stipple()
 
 IsAreaPatternChecker::Speckle::Speckle() : ftypes::BaseCheckerEx({{"natural", "scree"}, {"natural", "bare_rock"}}) {}
 
+IsAreaPatternChecker::Grid::Grid() : ftypes::BaseCheckerEx({{"landuse", "orchard"}, {"landuse", "vineyard"}}) {}
+
 IsAreaPatternChecker::IsAreaPatternChecker() {}
 
 std::string_view IsAreaPatternChecker::GetPattern(uint32_t type) const
@@ -70,6 +72,8 @@ std::string_view IsAreaPatternChecker::GetPattern(uint32_t type) const
     return dp::kStipplePattern;
   if (m_speckle(type))
     return dp::kSpecklePattern;
+  if (m_grid(type))
+    return dp::kGridPattern;
   return {};
 }
 

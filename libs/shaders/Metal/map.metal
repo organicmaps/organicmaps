@@ -255,6 +255,22 @@ fragment half4 fsAreaSpeckle(const HatchingAreaFragment_T in [[stage_in]])
   return color;
 }
 
+// Analytic grid (see GL/area_grid.fsh.glsl): regular dot lattice for orchard/vineyard.
+fragment half4 fsAreaGrid(const HatchingAreaFragment_T in [[stage_in]])
+{
+  constexpr float kCellPx = 16.0;
+  constexpr float kRadiusPx = 1.6;
+  constexpr float kDarken = 0.82;
+  float2 px = in.maskTexCoords * 16.0;
+  float2 toCenter = (fract(px / kCellPx) - 0.5) * kCellPx;
+  float d = length(toCenter);
+  float aa = max(fwidth(px.x), fwidth(px.y));
+  float coverage = 1.0 - smoothstep(kRadiusPx - aa, kRadiusPx + aa, d);
+  half4 color = in.color;
+  color.rgb *= half(mix(1.0, kDarken, coverage));
+  return color;
+}
+
 // CirclePoint
 
 typedef struct

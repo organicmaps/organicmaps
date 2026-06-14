@@ -62,6 +62,10 @@ private:
   {
     Speckle();
   } m_speckle;  // scree / bare_rock
+  struct Grid : ftypes::BaseCheckerEx
+  {
+    Grid();
+  } m_grid;  // orchard / vineyard
 };
 
 struct CaptionDescription
