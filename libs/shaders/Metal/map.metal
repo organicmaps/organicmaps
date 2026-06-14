@@ -311,6 +311,15 @@ static float PineSDF(float2 q)
   return d;
 }
 
+// Integer cell hash (see GL/area_forest.fsh.glsl): exact at any index, so the coarse anchor can make the
+// cell index seam-consistent across map tiles without banding.
+static float ForestHash(int2 c, uint salt)
+{
+  uint h = uint(c.x) * 0x9E3779B1u ^ uint(c.y) * 0x85EBCA77u ^ salt * 0xC2B2AE3Du;
+  h ^= h >> 16; h *= 0x7FEB352Du; h ^= h >> 15; h *= 0x846CA68Bu; h ^= h >> 16;
+  return float(h >> 8) * (1.0 / 16777216.0);
+}
+
 // Analytic forest (see GL/area_forest.fsh.glsl): scattered SDF tree symbols, broadleaf + pine, no texture.
 fragment half4 fsAreaForest(const HatchingAreaFragment_T in [[stage_in]])
 {
@@ -320,7 +329,7 @@ fragment half4 fsAreaForest(const HatchingAreaFragment_T in [[stage_in]])
   constexpr float kDensity = 0.32;
   constexpr float3 kTint = float3(0.88, 0.93, 0.85);
   float2 px = in.maskTexCoords * kCellPx;
-  float2 baseCell = floor(px / kCellPx);
+  int2 baseCell = int2(floor(in.maskTexCoords));
   float aaPx = max(fwidth(px.x), fwidth(px.y));
 
   float coverage = 0.0;
@@ -328,16 +337,16 @@ fragment half4 fsAreaForest(const HatchingAreaFragment_T in [[stage_in]])
   {
     for (int i = -1; i <= 1; ++i)
     {
-      float2 cell = baseCell + float2(float(i), float(j));
-      if (AreaPatternHash(cell + 23.0) > kDensity)
+      int2 cell = baseCell + int2(i, j);
+      if (ForestHash(cell, 23u) > kDensity)
         continue;
-      float fp = kCellPx * kGlyphScale * (0.8 + 0.4 * AreaPatternHash(cell + 29.0));
+      float fp = kCellPx * kGlyphScale * (0.8 + 0.4 * ForestHash(cell, 29u));
       float2 center =
-          (cell + 0.5 + (float2(AreaPatternHash(cell), AreaPatternHash(cell + 41.3)) - 0.5) * kJitter) * kCellPx;
+          (float2(cell) + 0.5 + (float2(ForestHash(cell, 0u), ForestHash(cell, 41u)) - 0.5) * kJitter) * kCellPx;
       float2 q = (px - center) / fp;
       if (abs(q.x) > 0.6 || abs(q.y) > 0.65)
         continue;
-      float d = AreaPatternHash(cell + 13.0) < 0.5 ? BroadleafSDF(q) : PineSDF(q);  // mix pine and broadleaf
+      float d = ForestHash(cell, 13u) < 0.5 ? BroadleafSDF(q) : PineSDF(q);  // mix pine and broadleaf
       float aa = max(aaPx / fp, 0.003);
       coverage = max(coverage, 1.0 - smoothstep(-aa, aa, d));
     }

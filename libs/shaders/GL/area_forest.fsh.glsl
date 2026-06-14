@@ -25,10 +25,10 @@ layout (binding = 0) uniform UBO
 // computed, not sampled from a fixed-resolution atlas, so it stays crisp at ANY zoom (no upsampling at
 // z19-20) and the solid fill avoids the thin-outline contrast wobble. Trees sit on a 32px cell - twice
 // the other patterns - for larger, well-spaced symbols (see kForestTilePx in AreaShape::DrawPatternArea).
-// NOTE: the per-cell scatter keys on floor(v_maskTexCoords), whose integer part is anchored per map-tile
-// (only the fractional phase is tile-stable - see CalcHatchingPhaseAnchor), so trees on a tile seam can
-// mismatch. Harmless for tiny dots; visible for these large symbols. A stable global cell id (or
-// generation-time placement) is needed to fully fix it.
+// Seam handling: the per-cell scatter keys on the integer cell index floor(v_maskTexCoords). To keep that
+// index identical on both sides of a map-tile seam (CalcHatchingPhaseAnchor only stabilizes the fractional
+// phase, not the integer part), DrawPatternArea anchors the forest to a COARSE global grid (kPatternWrap
+// tiles); the hash below is an integer finalizer so it stays well-distributed for the large indices.
 
 const float kCellPx = 32.0;      // MUST match the forest tile size in AreaShape::DrawPatternArea
 const float kJitter = 0.7;
@@ -36,11 +36,13 @@ const float kGlyphScale = 1.1;   // tree footprint vs cell
 const float kDensity = 0.32;     // fraction of cells that carry a tree (low -> rare, spaced out)
 const vec3 kTint = vec3(0.88, 0.93, 0.85);  // very gentle darken -> faint, low-contrast symbols
 
-float Hash(vec2 p)
+// Integer hash (Wellons' lowbias32 finalizer) keyed on the integer cell + a salt -> [0,1). Exact at any
+// index, so unlike fract(cell * k) it does not band once the coarse anchor makes the index large.
+float Hash(ivec2 c, uint salt)
 {
-  p = fract(p * vec2(127.1, 311.7));
-  p += dot(p, p + 34.23);
-  return fract(p.x * p.y);
+  uint h = uint(c.x) * 0x9E3779B1u ^ uint(c.y) * 0x85EBCA77u ^ salt * 0xC2B2AE3Du;
+  h ^= h >> 16; h *= 0x7FEB352Du; h ^= h >> 15; h *= 0x846CA68Bu; h ^= h >> 16;
+  return float(h >> 8) * (1.0 / 16777216.0);
 }
 
 float sdCircle(vec2 p, vec2 c, float r)
@@ -97,7 +99,7 @@ void main()
 #endif
 
   vec2 px = v_maskTexCoords * kCellPx;  // base pixels (the tile size cancels baseGtoPScale)
-  vec2 baseCell = floor(px / kCellPx);
+  ivec2 baseCell = ivec2(floor(v_maskTexCoords));
   float aaPx = max(fwidth(px.x), fwidth(px.y));
 
   float coverage = 0.0;
@@ -105,15 +107,15 @@ void main()
   {
     for (int i = -1; i <= 1; ++i)
     {
-      vec2 cell = baseCell + vec2(float(i), float(j));
-      if (Hash(cell + 23.0) > kDensity)
+      ivec2 cell = baseCell + ivec2(i, j);
+      if (Hash(cell, 23u) > kDensity)
         continue;
-      float fp = kCellPx * kGlyphScale * (0.8 + 0.4 * Hash(cell + 29.0));
-      vec2 center = (cell + 0.5 + (vec2(Hash(cell), Hash(cell + 41.3)) - 0.5) * kJitter) * kCellPx;
+      float fp = kCellPx * kGlyphScale * (0.8 + 0.4 * Hash(cell, 29u));
+      vec2 center = (vec2(cell) + 0.5 + (vec2(Hash(cell, 0u), Hash(cell, 41u)) - 0.5) * kJitter) * kCellPx;
       vec2 q = (px - center) / fp;
       if (abs(q.x) > 0.6 || abs(q.y) > 0.65)
         continue;
-      float d = Hash(cell + 13.0) < 0.5 ? broadleafSDF(q) : pineSDF(q);  // mix pine and broadleaf per cell
+      float d = Hash(cell, 13u) < 0.5 ? broadleafSDF(q) : pineSDF(q);  // mix pine and broadleaf per cell
       float aa = max(aaPx / fp, 0.003);
       coverage = max(coverage, 1.0 - smoothstep(-aa, aa, d));
     }
