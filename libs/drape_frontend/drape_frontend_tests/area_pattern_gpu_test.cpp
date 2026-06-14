@@ -75,3 +75,44 @@ UNIT_TEST(AreaHatchDashGpuTest)
 {
   area_pattern_gpu_test::RenderAndCheck("Analytic dash hatch", dp::kDashHatching);
 }
+
+// Stipple is a single-pass SOLID fill modulated by darker dots (not a transparent mask), so the quad is
+// filled with the surface colour and carries a darker speckle - validate both, plus no black garbage.
+UNIT_TEST(AreaStippleGpuTest)
+{
+  using namespace area_pattern_gpu_test;
+
+  df::test_support::ShapeTestFixture fixture;
+  uint32_t constexpr kW = 256, kH = 256;
+  fixture.Render("Analytic stipple", kW, kH, [](df::test_support::ShapeTestFixture & f)
+  {
+    df::AreaViewParams p = MakeParams({});  // no hatch
+    p.m_areaPattern = dp::kStipplePattern;
+    std::vector<m2::PointD> triangles = {{-110, -110}, {110, -110}, {110, 110}, {-110, -110}, {110, 110}, {-110, 110}};
+    f.AddShape(make_unique_dp<df::AreaShape>(std::move(triangles), df::BuildingOutline{}, p));
+  });
+
+  QImage const & img = fixture.GetLastImage();
+  if (img.isNull())
+    return;  // Headless env without a usable GL context - nothing to assert.
+
+  uint32_t fill = 0, dots = 0, opaqueBlack = 0;
+  for (int y = 0; y < img.height(); ++y)
+  {
+    for (int x = 0; x < img.width(); ++x)
+    {
+      QColor const c = img.pixelColor(x, y);
+      bool const teal = c.green() > c.red() + 20 && c.blue() > c.red() + 20;
+      if (teal)
+        ++fill;
+      if (teal && c.green() < 145)  // base teal G=160 -> dots darken it to ~128
+        ++dots;
+      if (c.alpha() > 200 && c.red() < 8 && c.green() < 8 && c.blue() < 8)
+        ++opaqueBlack;
+    }
+  }
+
+  TEST_GREATER(fill, kW * kH / 4, ("Solid stipple fill not rendered"));
+  TEST_GREATER(dots, 0u, ("Speckle not visible - stipple modulation missing?"));
+  TEST_EQUAL(opaqueBlack, 0u, ("Opaque black pixels - colour texture not sampled?"));
+}

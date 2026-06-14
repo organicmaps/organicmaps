@@ -56,6 +56,30 @@ std::string_view IsHatchingTerritoryChecker::GetHatch(feature::TypesHolder const
   return {};
 }
 
+IsAreaPatternChecker::Stipple::Stipple()
+  : ftypes::BaseCheckerEx({{"natural", "sand"}, {"natural", "beach"}, {"natural", "desert"}})
+{}
+
+IsAreaPatternChecker::IsAreaPatternChecker() {}
+
+std::string_view IsAreaPatternChecker::GetPattern(uint32_t type) const
+{
+  if (m_stipple(type))
+    return dp::kStipplePattern;
+  return {};
+}
+
+std::string_view IsAreaPatternChecker::GetPattern(feature::TypesHolder const & types) const
+{
+  for (uint32_t t : types)
+  {
+    auto s = GetPattern(t);
+    if (!s.empty())
+      return s;
+  }
+  return {};
+}
+
 void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int zoomLevel, feature::GeomType geomType,
                               bool auxCaptionExists)
 {

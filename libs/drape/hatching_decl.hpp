@@ -6,4 +6,7 @@ namespace dp
 {
 std::string_view constexpr k45dHatching = "45d";
 std::string_view constexpr kDashHatching = "dash";
+
+// Solid-fill area patterns (single pass; modulate the surface colour instead of masking it).
+std::string_view constexpr kStipplePattern = "stipple";
 }  // namespace dp
