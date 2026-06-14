@@ -20,7 +20,7 @@ bool RelationsDrawSettings::MatchHikingOrCycling(feature::RouteRelationBase::Typ
           (cycling && (type == RR::Type::Bicycle || type == RR::Type::MTB)));
 }
 
-dp::Color constexpr kDefaultRouteColor{128, 0, 128};  // purple
+dp::Color constexpr kDefaultRouteColor = dp::Color::Purple();
 
 bool RelationsDrawInfo::HasHikingOrCycling(FeatureType & ft) const
 {

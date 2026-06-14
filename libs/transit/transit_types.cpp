@@ -327,8 +327,10 @@ bool Line::IsEqualForTesting(Line const & line) const
 
 bool Line::IsValid() const
 {
-  return m_id != kInvalidLineId && m_color != kInvalidColor && m_networkId != kInvalidNetworkId &&
-         m_stopIds.IsValid() && m_interval != kInvalidWeight;
+  // Empty m_color is allowed: bus/tram routes may have no OSM colour and the client falls back to
+  // a default colour. Subway lines always carry a (palette) colour.
+  return m_id != kInvalidLineId && m_networkId != kInvalidNetworkId && m_stopIds.IsValid() &&
+         m_interval != kInvalidWeight;
 }
 
 // Shape ------------------------------------------------------------------------------------------

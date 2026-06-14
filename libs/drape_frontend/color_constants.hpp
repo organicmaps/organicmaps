@@ -11,7 +11,8 @@ using ColorConstant = std::string_view;
 
 std::string constexpr kTransitColorPrefix = "transit_";
 std::string constexpr kTransitTextPrefix = "text_";
-std::string constexpr kTransitLinePrefix = "line_";
+// constexpr doesn't compile on Android now
+std::string const kTransitLineColorPrefix = kTransitColorPrefix + "line_";
 
 dp::Color GetColorConstant(ColorConstant const & constant);
 

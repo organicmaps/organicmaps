@@ -8,7 +8,6 @@
 
 #include "coding/reader.hpp"
 
-#include "base/assert.hpp"
 #include "base/string_utils.hpp"
 
 #include <glaze/json.hpp>
@@ -44,9 +43,14 @@ public:
     auto const isDarkStyle = MapStyleIsDark(GetStyleReader().GetCurrentStyle());
     auto const & colors = isDarkStyle ? m_nightColors : m_clearColors;
     auto const it = colors.find(name);
-    if (it == colors.cend())
-      return dp::Color();
-    return it->second;
+    if (it != colors.cend())
+      return it->second;
+
+    // An absent/unknown transit line colour (e.g. a bus/tram route with no OSM colour) falls back
+    // to the default purple. Text and other transit colours keep the empty (black) default.
+    if (name.starts_with(kTransitLineColorPrefix))
+      return dp::Color::Purple();  // Default purple.
+    return dp::Color();
   }
 
   void Load()
@@ -108,7 +112,7 @@ TransitColorsHolder & TransitColors()
 
 std::string GetTransitColorName(ColorConstant const & localName)
 {
-  return (kTransitColorPrefix + kTransitLinePrefix).append(localName);
+  return kTransitLineColorPrefix + std::string(localName);
 }
 
 std::string GetTransitTextColorName(ColorConstant const & localName)
