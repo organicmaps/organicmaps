@@ -45,15 +45,25 @@ gpu::Program PatternProgram(std::string_view key)
     return gpu::Program::AreaGrid;
   if (key == dp::kForestPattern)
     return gpu::Program::AreaForest;
+  if (key == dp::kForestConiferousPattern)
+    return gpu::Program::AreaForestConiferous;
+  if (key == dp::kForestDeciduousPattern)
+    return gpu::Program::AreaForestDeciduous;
   CHECK(false, ("Unknown area pattern key:", key));
   return gpu::Program::Area;
+}
+
+// The forest family (mixed / coniferous / deciduous): same scatter, 32px tile, differing only in glyph set.
+bool IsForestPattern(std::string_view key)
+{
+  return key == dp::kForestPattern || key == dp::kForestConiferousPattern || key == dp::kForestDeciduousPattern;
 }
 
 // Patterns whose fragment shader hashes the integer cell index for a jittered scatter; they need the coarse
 // anchor so that index stays seam-consistent. The hatches and the regular grid use only the phase.
 bool HashesCellIndex(std::string_view key)
 {
-  return key == dp::kStipplePattern || key == dp::kSpecklePattern || key == dp::kForestPattern;
+  return key == dp::kStipplePattern || key == dp::kSpecklePattern || IsForestPattern(key);
 }
 }  // namespace
 
@@ -167,7 +177,7 @@ void AreaShape::DrawPatternArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp
 
   // The forest scatters larger symbols on a coarser grid; the tile size must match the cell size in each
   // fragment shader. World units per tile repeat; the shader scales v_maskTexCoords back to in-tile px.
-  uint32_t const tilePx = patternKey == dp::kForestPattern ? kForestTilePx : kHatchTilePx;
+  uint32_t const tilePx = IsForestPattern(patternKey) ? kForestTilePx : kHatchTilePx;
   double const tilesPerWorld = m_params.m_baseGtoPScale / tilePx;
 
   // Anchor the repeated pattern to a global, period-aligned grid instead of the clipped bbox, so the

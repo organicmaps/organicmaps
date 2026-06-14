@@ -313,8 +313,10 @@ static float PineSDF(float2 q)
   return d;
 }
 
-// Analytic forest (see GL/area_forest.fsh.glsl): scattered SDF tree symbols, broadleaf + pine, no texture.
-fragment half4 fsAreaForest(const HatchingAreaFragment_T in [[stage_in]])
+// Analytic forest (see GL/area_forest.fsh.glsl): scattered SDF tree symbols, no texture. leafProb is the
+// per-cell probability of a broadleaf vs a fir: 0 = all pine (coniferous), 1 = all broadleaf (deciduous),
+// 0.5 = mixed. (GL splits these into three shaders since it has no shared functions across files.)
+static half4 ForestColor(const HatchingAreaFragment_T in, float leafProb)
 {
   constexpr float kCellPx = 32.0;
   constexpr float kJitter = 0.7;
@@ -339,7 +341,7 @@ fragment half4 fsAreaForest(const HatchingAreaFragment_T in [[stage_in]])
       float2 q = (px - center) / fp;
       if (abs(q.x) > 0.6 || abs(q.y) > 0.65)
         continue;
-      float d = AreaPatternIHash(cell, 13u) < 0.5 ? BroadleafSDF(q) : PineSDF(q);  // mix pine and broadleaf
+      float d = AreaPatternIHash(cell, 13u) < leafProb ? BroadleafSDF(q) : PineSDF(q);
       float aa = max(aaPx / fp, 0.003);
       coverage = max(coverage, 1.0 - smoothstep(-aa, aa, d));
     }
@@ -348,6 +350,10 @@ fragment half4 fsAreaForest(const HatchingAreaFragment_T in [[stage_in]])
   color.rgb = mix(color.rgb, color.rgb * half3(kTint), half(coverage));
   return color;
 }
+
+fragment half4 fsAreaForest(const HatchingAreaFragment_T in [[stage_in]]) { return ForestColor(in, 0.5); }
+fragment half4 fsAreaForestConiferous(const HatchingAreaFragment_T in [[stage_in]]) { return ForestColor(in, 0.0); }
+fragment half4 fsAreaForestDeciduous(const HatchingAreaFragment_T in [[stage_in]]) { return ForestColor(in, 1.0); }
 
 // CirclePoint
 

@@ -12,4 +12,6 @@ std::string_view constexpr kStipplePattern = "stipple";
 std::string_view constexpr kSpecklePattern = "speckle";
 std::string_view constexpr kGridPattern = "grid";
 std::string_view constexpr kForestPattern = "forest";
+std::string_view constexpr kForestConiferousPattern = "forest-coniferous";
+std::string_view constexpr kForestDeciduousPattern = "forest-deciduous";
 }  // namespace dp

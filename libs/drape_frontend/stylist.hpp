@@ -66,10 +66,18 @@ private:
   {
     Grid();
   } m_grid;  // orchard / vineyard
+  struct ForestConiferous : ftypes::BaseCheckerEx
+  {
+    ForestConiferous();
+  } m_forestConiferous;  // landuse=forest|coniferous -> pine glyphs
+  struct ForestDeciduous : ftypes::BaseCheckerEx
+  {
+    ForestDeciduous();
+  } m_forestDeciduous;  // landuse=forest|deciduous -> broadleaf glyphs
   struct Forest : ftypes::BaseCheckerEx
   {
     Forest();
-  } m_forest;  // landuse=forest
+  } m_forest;  // landuse=forest (generic + mixed) -> both glyphs
 };
 
 struct CaptionDescription
