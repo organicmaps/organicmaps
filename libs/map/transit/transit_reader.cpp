@@ -11,6 +11,8 @@
 #include "indexer/drawing_rules.hpp"
 #include "indexer/drules_include.hpp"  // needed despite of IDE warning
 #include "indexer/feature_algo.hpp"
+#include "indexer/ftypes_matcher.hpp"
+#include "indexer/scales.hpp"
 
 #include "coding/reader.hpp"
 
@@ -96,6 +98,48 @@ void ReadTransitTask::Do()
       if (m_loadSubset && (stop.second.GetTransferId() != routing::transit::kInvalidTransferId))
         m_transitInfo->m_transfersSubway[stop.second.GetTransferId()] = {};
     }
+
+    // Bus/tram stops are based on stop_position OSM nodes which don't produce a feature, so they
+    // carry no feature id and thus no name. As a temporary measure (until the generator assigns the
+    // main station feature id) resolve the nearest public transport stop feature. Only done for the
+    // built route (m_loadSubset), where the stops set is small.
+    if (m_loadSubset)
+    {
+      double constexpr kMaxStopFeatureDistanceM = 100.0;
+      auto const & stopChecker = ftypes::IsPublicTransportStopChecker::Instance();
+      for (auto & [stopId, stop] : m_transitInfo->m_stopsSubway)
+      {
+        if (stop.GetFeatureId() != kInvalidFeatureId)
+          continue;
+
+        auto const center = stop.GetPoint();
+        FeatureID nearest;
+        double nearestDist = kMaxStopFeatureDistanceM;
+        auto const addFn = [&](FeatureType & ft)
+        {
+          if (ft.GetID().m_mwmId != m_mwmId || !stopChecker(ft))
+            return;
+          auto const dist = feature::GetMinDistanceMeters(ft, center);
+          if (dist < nearestDist)
+          {
+            nearestDist = dist;
+            nearest = ft.GetID();
+          }
+        };
+
+        /// @todo Use mwmValue.
+        /// Also, update ForClosestToPoint function to call stopFn after processing the whole ring around |center|.
+        /// To ensure that other emitted objects have a bigger distance.
+        m_dataSource.ForClosestToPoint(addFn, []() { return false; }, center, kMaxStopFeatureDistanceM,
+                                       scales::GetUpperScale());
+        if (nearest.IsValid())
+        {
+          stop.SetFeatureId(nearest.m_index);
+          m_transitInfo->m_features[nearest] = {};
+        }
+      }
+    }
+
     FillItemsByIdMap(graphData.GetTransfers(), m_transitInfo->m_transfersSubway);
     FillItemsByIdMap(graphData.GetLines(), m_transitInfo->m_linesSubway);
     FillItemsByIdMap(graphData.GetShapes(), m_transitInfo->m_shapesSubway);
