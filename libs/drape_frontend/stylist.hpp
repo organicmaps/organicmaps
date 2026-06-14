@@ -58,6 +58,10 @@ private:
   {
     Stipple();
   } m_stipple;  // sand / beach / desert
+  struct Speckle : ftypes::BaseCheckerEx
+  {
+    Speckle();
+  } m_speckle;  // scree / bare_rock
 };
 
 struct CaptionDescription

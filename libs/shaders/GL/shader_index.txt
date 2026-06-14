@@ -20,6 +20,7 @@ CapJoin circle.vsh.glsl circle.fsh.glsl
 HatchingArea hatching_area.vsh.glsl hatching_area.fsh.glsl
 HatchingAreaDash hatching_area.vsh.glsl hatching_area_dash.fsh.glsl
 AreaStipple hatching_area.vsh.glsl area_stipple.fsh.glsl
+AreaSpeckle hatching_area.vsh.glsl area_speckle.fsh.glsl
 TexturingGui texturing_gui.vsh.glsl texturing_gui.fsh.glsl
 Ruler ruler.vsh.glsl ruler.fsh.glsl
 Accuracy position_accuracy3d.vsh.glsl texturing_position.fsh.glsl

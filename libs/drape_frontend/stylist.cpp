@@ -60,12 +60,16 @@ IsAreaPatternChecker::Stipple::Stipple()
   : ftypes::BaseCheckerEx({{"natural", "sand"}, {"natural", "beach"}, {"natural", "desert"}})
 {}
 
+IsAreaPatternChecker::Speckle::Speckle() : ftypes::BaseCheckerEx({{"natural", "scree"}, {"natural", "bare_rock"}}) {}
+
 IsAreaPatternChecker::IsAreaPatternChecker() {}
 
 std::string_view IsAreaPatternChecker::GetPattern(uint32_t type) const
 {
   if (m_stipple(type))
     return dp::kStipplePattern;
+  if (m_speckle(type))
+    return dp::kSpecklePattern;
   return {};
 }
 
