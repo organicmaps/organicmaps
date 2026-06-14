@@ -48,6 +48,13 @@ gpu::Program PatternProgram(std::string_view key)
   CHECK(false, ("Unknown area pattern key:", key));
   return gpu::Program::Area;
 }
+
+// Patterns whose fragment shader hashes the integer cell index for a jittered scatter; they need the coarse
+// anchor so that index stays seam-consistent. The hatches and the regular grid use only the phase.
+bool HashesCellIndex(std::string_view key)
+{
+  return key == dp::kStipplePattern || key == dp::kSpecklePattern || key == dp::kForestPattern;
+}
 }  // namespace
 
 double CalcHatchingPhaseAnchor(double bboxMin, uint32_t maskSizePx, double baseGtoPScale)
@@ -165,9 +172,9 @@ void AreaShape::DrawPatternArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp
 
   // Anchor the repeated pattern to a global, period-aligned grid instead of the clipped bbox, so the
   // phase stays continuous across tile seams and LOD changes. See CalcHatchingPhaseAnchor / issue #12804.
-  // The forest also hashes the integer cell index, so it anchors to a coarse multiple (kPatternWrap tiles)
-  // to keep that index seam-consistent; the geometric patterns need only the phase and use a single tile.
-  uint32_t const anchorPx = patternKey == dp::kForestPattern ? tilePx * kPatternWrap : tilePx;
+  // Patterns that hash the integer cell index anchor to a coarse multiple (kPatternWrap tiles) to keep that
+  // index seam-consistent across map tiles; phase-only patterns (hatches, regular grid) use a single tile.
+  uint32_t const anchorPx = HashesCellIndex(patternKey) ? tilePx * kPatternWrap : tilePx;
   double const anchorX = CalcHatchingPhaseAnchor(bbox.minX(), anchorPx, m_params.m_baseGtoPScale);
   double const anchorY = CalcHatchingPhaseAnchor(bbox.minY(), anchorPx, m_params.m_baseGtoPScale);
 

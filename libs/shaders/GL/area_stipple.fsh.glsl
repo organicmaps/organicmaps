@@ -31,11 +31,13 @@ const float kRadiusPx = 1.2;   // dot radius
 const float kJitter = 0.55;    // keep kJitter*0.5*kCellPx + kRadiusPx < kCellPx*0.5 (dots stay in cell)
 const float kDarken = 0.80;    // surface multiplier under a dot (gentle - texture should whisper)
 
-float Hash(vec2 p)
+// Integer hash (see area_forest.fsh.glsl) keyed on the integer cell + a salt: exact at any index, so the
+// coarse anchor (DrawPatternArea) keeps the cell seam-consistent across map tiles without banding.
+float Hash(ivec2 c, uint salt)
 {
-  p = fract(p * vec2(127.1, 311.7));
-  p += dot(p, p + 34.23);
-  return fract(p.x * p.y);
+  uint h = uint(c.x) * 0x9E3779B1u ^ uint(c.y) * 0x85EBCA77u ^ salt * 0xC2B2AE3Du;
+  h ^= h >> 16; h *= 0x7FEB352Du; h ^= h >> 15; h *= 0x846CA68Bu; h ^= h >> 16;
+  return float(h >> 8) * (1.0 / 16777216.0);
 }
 
 void main()
@@ -47,9 +49,9 @@ void main()
 #endif
 
   vec2 px = v_maskTexCoords * 16.0;
-  vec2 cell = floor(px / kCellPx);
+  ivec2 cell = ivec2(floor(px / kCellPx));
   vec2 toCenter =
-      (fract(px / kCellPx) - 0.5) * kCellPx - (vec2(Hash(cell), Hash(cell + 19.7)) - 0.5) * (kJitter * kCellPx);
+      (fract(px / kCellPx) - 0.5) * kCellPx - (vec2(Hash(cell, 0u), Hash(cell, 20u)) - 0.5) * (kJitter * kCellPx);
   float d = length(toCenter);
   float aa = max(fwidth(px.x), fwidth(px.y));  // continuous coord: no fract-seam derivative spike
   float coverage = 1.0 - smoothstep(kRadiusPx - aa, kRadiusPx + aa, d);
