@@ -55,12 +55,12 @@ UNIT_TEST(HatchingPhaseAnchor_StableAcrossTileClipping)
   TEST_GREATER(std::abs(Frac(oldA) - Frac(oldB)), 1e-3, (oldA, oldB));
 }
 
-// The forest scatter additionally hashes the INTEGER cell index floor(uv), not just the phase. The
-// single-tile anchor keeps frac(uv) stable but offsets floor(uv) per tile, so a tree on a seam would get a
-// different hash (a different / cut tree) on each side. Anchoring to a coarse multiple of the tile
-// (kPatternWrap, see DrawPatternArea) makes the integer index seam-consistent too, while preserving the
-// phase.
-UNIT_TEST(ForestPatternAnchor_CellIndexStableAcrossTileClipping)
+// The hashed scatter patterns (forest, stipple, speckle) hash the INTEGER cell index floor(uv), not just
+// the phase. The single-tile anchor keeps frac(uv) stable but offsets floor(uv) per tile, so a symbol on a
+// seam would get a different hash (a different / cut symbol) on each side. Anchoring to a coarse multiple
+// of the tile (kPatternWrap, see DrawPatternArea) makes the integer index seam-consistent too, while
+// preserving the phase. (Shown with the forest's 32px tile; the math is identical for the 16px patterns.)
+UNIT_TEST(ScatterPatternAnchor_CellIndexStableAcrossTileClipping)
 {
   uint32_t const kForestTilePx = 32;  // kForestTilePx
   uint32_t const kWrap = 4096;        // kPatternWrap
