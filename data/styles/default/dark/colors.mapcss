@@ -40,8 +40,8 @@
 @glacier: #111111;
 @water: #002222;
 @water_bad: #00261e;
-@river: #062026;
-@wetland: #7fd3d3;
+@river: #3FA7C0;
+@wetland: #5C747F;
 @beach: #28281A;
 @barerock: #302A2A;
 @scree: #242020;
