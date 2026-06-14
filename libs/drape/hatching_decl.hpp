@@ -11,4 +11,5 @@ std::string_view constexpr kDashHatching = "dash";
 std::string_view constexpr kStipplePattern = "stipple";
 std::string_view constexpr kSpecklePattern = "speckle";
 std::string_view constexpr kGridPattern = "grid";
+std::string_view constexpr kForestPattern = "forest";
 }  // namespace dp

@@ -66,6 +66,10 @@ private:
   {
     Grid();
   } m_grid;  // orchard / vineyard
+  struct Forest : ftypes::BaseCheckerEx
+  {
+    Forest();
+  } m_forest;  // landuse=forest
 };
 
 struct CaptionDescription

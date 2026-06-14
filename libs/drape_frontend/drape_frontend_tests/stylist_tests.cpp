@@ -46,6 +46,7 @@ UNIT_TEST(Stylist_IsAreaPattern)
   // Grid: planted landuse.
   TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "orchard"})), dp::kGridPattern, ());
   TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "vineyard"})), dp::kGridPattern, ());
+  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "forest"})), dp::kForestPattern, ());
 
   // Unrelated area types get no pattern.
   TEST(checker.GetPattern(cl.GetTypeByPath({"natural", "water"})).empty(), ());

@@ -34,6 +34,7 @@ enum class Program
   AreaStipple,
   AreaSpeckle,
   AreaGrid,
+  AreaForest,
   TexturingGui,
   Ruler,
   Accuracy,
@@ -104,6 +105,7 @@ inline std::string_view DebugPrint(Program p)
   case Program::AreaStipple: return "AreaStipple";
   case Program::AreaSpeckle: return "AreaSpeckle";
   case Program::AreaGrid: return "AreaGrid";
+  case Program::AreaForest: return "AreaForest";
   case Program::TexturingGui: return "TexturingGui";
   case Program::Ruler: return "Ruler";
   case Program::Accuracy: return "Accuracy";
