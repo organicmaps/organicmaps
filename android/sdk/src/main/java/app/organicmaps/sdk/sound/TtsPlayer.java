@@ -49,6 +49,9 @@ public enum TtsPlayer
 
   public static Runnable sOnReloadCallback = null;
 
+  @Nullable
+  private static Runnable sOnStateChangedListener;
+
   private ContentObserver mTtsEngineObserver;
   private TextToSpeech mTts;
   private final AtomicInteger mTtsQueueSize = new AtomicInteger(0);
@@ -95,6 +98,9 @@ public enum TtsPlayer
   };
 
   private boolean mInitializing;
+  // Bumped on every initialize() start; the captured value lets the init callback
+  // detect that it belongs to a TextToSpeech we've already shutdown and bail out.
+  private int mInitGeneration;
   private boolean mReloadTriggered = false;
   private AudioFocusManager mAudioFocusManager;
 
@@ -104,8 +110,21 @@ public enum TtsPlayer
   @NonNull
   private Context mContext;
 
-  // TTS is locked down due to absence of supported languages
+  // Lockdown reasons: init ERROR, no OM-supported languages, engine IllegalArgumentException.
+  // Reset on ContentObserver.onChange so a switched engine can re-initialize.
   private boolean mUnavailable;
+  // Engine is ready and a downloaded, OM-supported voice language is selected.
+  // False until the first successful refreshLanguages() pass.
+  private boolean mHasUsableLanguage;
+
+  public enum State
+  {
+    INITIALIZING,
+    UNAVAILABLE,
+    NEEDS_LANGUAGE,
+    READY_ON,
+    READY_OFF
+  }
 
   TtsPlayer() {}
 
@@ -185,15 +204,20 @@ public enum TtsPlayer
       return;
 
     mInitializing = true;
+    final int generation = ++mInitGeneration;
     // TextToSpeech.OnInitListener() can be called from a non-main thread
     // on LineageOS '20.0-20231127-RELEASE-thyme' 'Xiaomi/thyme/thyme'.
     // https://github.com/organicmaps/organicmaps/issues/6903
     mTts = new TextToSpeech(context, status -> UiThread.run(() -> {
+      // Stale callback from a shutdown TextToSpeech; touching mTts below would NPE.
+      if (generation != mInitGeneration)
+        return;
       if (status == TextToSpeech.ERROR)
       {
         Logger.e(TAG, "Failed to initialize TextToSpeech");
         lockDown();
         mInitializing = false;
+        notifyStateChanged();
         return;
       }
       refreshLanguages();
@@ -208,6 +232,7 @@ public enum TtsPlayer
         sOnReloadCallback.run();
         mReloadTriggered = false;
       }
+      notifyStateChanged();
     }));
 
     if (mTtsEngineObserver == null)
@@ -223,6 +248,10 @@ public enum TtsPlayer
             mTts.shutdown();
             mTts = null;
           }
+          // Clear lockdown for the new engine; clear mInitializing because a pending
+          // old-engine callback will detect its stale generation and bail without resetting it.
+          mUnavailable = false;
+          mInitializing = false;
           initialize(mContext);
         }
       };
@@ -234,6 +263,36 @@ public enum TtsPlayer
   private static boolean isReady()
   {
     return INSTANCE.mTts != null && !INSTANCE.mUnavailable && !INSTANCE.mInitializing;
+  }
+
+  /**
+   * Registers a single listener invoked on the UI thread whenever the TTS lifecycle state
+   * may have changed (init success / init failure / lockdown). Callers are responsible for
+   * clearing the listener (via {@code setOnStateChangedListener(null)}) when their host
+   * Activity is destroyed to avoid leaking its context.
+   */
+  public static void setOnStateChangedListener(@Nullable Runnable listener)
+  {
+    sOnStateChangedListener = listener;
+  }
+
+  private static void notifyStateChanged()
+  {
+    final Runnable listener = sOnStateChangedListener;
+    if (listener != null)
+      UiThread.run(listener);
+  }
+
+  @NonNull
+  public static State getState()
+  {
+    if (INSTANCE.mUnavailable)
+      return State.UNAVAILABLE;
+    if (INSTANCE.mTts == null || INSTANCE.mInitializing)
+      return State.INITIALIZING;
+    if (!INSTANCE.mHasUsableLanguage)
+      return State.NEEDS_LANGUAGE;
+    return Config.TTS.isEnabled() ? State.READY_ON : State.READY_OFF;
   }
 
   public void speak(@NonNull String textToSpeak)
@@ -392,6 +451,7 @@ public enum TtsPlayer
       return res;
 
     LanguageData lang = refreshLanguagesInternal(res);
+    mHasUsableLanguage = lang != null;
     setLanguage(lang);
 
     setEnabled(Config.TTS.isEnabled());
