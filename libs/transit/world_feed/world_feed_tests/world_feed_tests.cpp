@@ -398,8 +398,8 @@ UNIT_TEST(Transit_ColorPicker)
   // text lime_light and we expect not to pick it.
   TEST_EQUAL(colorPicker.GetNearestColor("827717"), "lime_dark", ());
 
-  // We check the default color for invalid input.
-  TEST_EQUAL(colorPicker.GetNearestColor("94141230"), "default", ());
+  // We check the default color for invalid (non-hex) input.
+  TEST_EQUAL(colorPicker.GetNearestColor("GGGGGG"), "default", ());
 
   // We check that we really find nearest colors. This input is really close to pink light.
   TEST_EQUAL(colorPicker.GetNearestColor("d18aa2"), "pink_light", ());

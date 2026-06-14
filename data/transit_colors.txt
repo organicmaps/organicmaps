@@ -1,8 +1,8 @@
 {
   "colors": {
     "default": {
-      "clear": "231F20",
-      "night": "474747",
+      "clear": "800080",
+      "night": "800080",
       "text": "231F20",
       "text_night": "474747"
     },

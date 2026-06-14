@@ -48,7 +48,9 @@ final class TransportTransitStepsCollectionView: UICollectionView {
     case .train: fallthrough
     case .subway: fallthrough
     case .lightRail: fallthrough
-    case .monorail: return TransportTransitTrain.self
+    case .monorail: fallthrough
+    case .tram: fallthrough
+    case .bus: return TransportTransitTrain.self
     case .ruler: return TransportRuler.self
     }
   }
