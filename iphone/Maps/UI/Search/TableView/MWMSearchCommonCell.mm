@@ -24,7 +24,7 @@
   [self.locationLabel sizeToFit];
   self.infoLabel.text = result.infoText;
   self.distanceLabel.text = result.distanceText;
-  self.distanceLabel.numberOfLines = 1.0;
+  self.distanceLabel.numberOfLines = 1;
   self.distanceLabel.adjustsFontSizeToFitWidth = YES;
   self.distanceLabel.minimumScaleFactor = 0.5;
   self.popularView.hidden = YES;

@@ -85,21 +85,23 @@ final class NavigationControlView: SolidTouchView {
     }
   }
 
-  private var metricsLables: [UILabel] {
+  private var metricsLabels: [UILabel] {
     [distanceLabel, distanceWithLegendLabel, speedLabel, speedWithLegendLabel, timeLabel]
   }
 
-  private var metricsLegendLables: [UILabel] {
+  private var metricsLegendLabels: [UILabel] {
     [distanceLegendLabel, speedLegendLabel]
   }
+
+  private var lastViewportHeight: CGFloat = 0
 
   override func awakeFromNib() {
     super.awakeFromNib()
 
-    for label in metricsLables {
+    for label in metricsLabels {
       configureMetricLabel(label, font: Constants.metricFont)
     }
-    for label in metricsLegendLables {
+    for label in metricsLegendLabels {
       configureMetricLabel(label, font: Constants.metricLegendFont)
     }
     updateLegendSize()
@@ -143,6 +145,13 @@ final class NavigationControlView: SolidTouchView {
     if let navigationInfo {
       onNavigationInfoUpdated(navigationInfo)
     }
+    setNeedsLayout()
+  }
+
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    guard isVisible, superview != nil, frame.height != lastViewportHeight else { return }
+    lastViewportHeight = frame.height
     updateVisibleViewportArea()
   }
 

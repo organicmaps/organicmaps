@@ -99,10 +99,6 @@
                                             </constraints>
                                         </view>
                                     </subviews>
-                                    <constraints>
-                                        <constraint firstItem="cxc-pt-qei" firstAttribute="top" secondItem="Z9F-Yb-cDq" secondAttribute="bottom" constant="8" id="at4-Bi-5xr"/>
-                                        <constraint firstItem="TIy-PU-SzO" firstAttribute="top" secondItem="cxc-pt-qei" secondAttribute="bottom" constant="8" id="wWQ-6X-nIA"/>
-                                    </constraints>
                                 </stackView>
                             </subviews>
                             <constraints>

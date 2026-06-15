@@ -43,10 +43,15 @@ final class PopoverListSelectorViewController: UITableViewController, UIPopoverP
     super.viewDidLoad()
     tableView.setStyle(.clearBackground)
     tableView.register(cell: UITableViewCell.self)
-    tableView.rowHeight = Constants.rowHeight
+    tableView.rowHeight = UITableView.automaticDimension
+    tableView.estimatedRowHeight = Constants.rowHeight
     tableView.separatorStyle = .none
-    preferredContentSize = CGSize(width: popoverWidth,
-                                  height: CGFloat(dataSource.count) * Constants.rowHeight)
+    updatePreferredContentSize()
+  }
+
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    updatePreferredContentSize()
   }
 
   override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
@@ -102,5 +107,11 @@ final class PopoverListSelectorViewController: UITableViewController, UIPopoverP
       ? row.color?.withAlphaComponent(Constants.backgroundColorAlpha) ?? .clear
       : .clear
     cell.contentView.backgroundColor = .clear
+  }
+
+  private func updatePreferredContentSize() {
+    tableView.layoutIfNeeded()
+    let height = max(CGFloat(dataSource.count) * Constants.rowHeight, tableView.contentSize.height)
+    preferredContentSize = CGSize(width: popoverWidth, height: height)
   }
 }

@@ -16,6 +16,4 @@
 
 - (void)configWithDelegate:(id<MWMPlacePageOpeningHoursCellProtocol>)delegate info:(NSString *)info;
 
-- (CGFloat)cellHeight;
-
 @end

@@ -16,7 +16,6 @@ private final class ChartViewRenderer {
     control.backgroundColor = style.backgroundColor
     control.textColor = style.fontColor!
     control.font = style.fontStyle!.font
-    control.isFontDynamic = style.fontStyle!.isDynamic
     control.gridColor = style.gridColor!
     control.previewSelectorColor = style.previewSelectorColor!
     control.previewTintColor = style.previewTintColor!

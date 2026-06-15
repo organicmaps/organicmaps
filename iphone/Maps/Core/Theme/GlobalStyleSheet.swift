@@ -119,7 +119,7 @@ extension GlobalStyleSheet: IStyleSheet {
         s.tintColor = .whitePrimaryText
         s.backgroundImage = UIImage()
         s.shadowImage = UIImage()
-        s.fontStyle = .dynamic(.header)
+        s.fontStyle = .fixed(.header)
         s.fontColor = .whitePrimaryText
       }
     case .navigationBarItem:
@@ -308,7 +308,7 @@ extension GlobalStyleSheet: IStyleSheet {
         s.fontStyle = .dynamic(.semibold16)
         s.fontColor = UIColor(fromHexString: "500000")
         s.cornerRadius = .buttonDefaultBig
-        s.backgroundColor = .ratingYellow
+        s.backgroundColor = .clear
       }
     case .flatNormalTransButton:
       return .add { s in

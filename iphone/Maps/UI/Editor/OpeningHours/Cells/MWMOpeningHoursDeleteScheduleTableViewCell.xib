@@ -31,10 +31,22 @@
                             <action selector="deleteScheduleTap" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Wrd-G9-gDM"/>
                         </connections>
                     </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2SO-s6-2SQ">
+                        <rect key="frame" x="0.0" y="43" width="320" height="1"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="jdo-lT-3ee"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMSeparator"/>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="2SO-s6-2SQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="0ki-Vz-R8i"/>
                     <constraint firstAttribute="bottom" secondItem="6sA-sN-4Dk" secondAttribute="bottom" constant="8" id="HqD-nd-D5C"/>
+                    <constraint firstAttribute="trailing" secondItem="2SO-s6-2SQ" secondAttribute="trailing" id="GdQ-NK-qx1"/>
                     <constraint firstAttribute="trailing" secondItem="6sA-sN-4Dk" secondAttribute="trailing" id="ajb-sy-7f6"/>
+                    <constraint firstAttribute="bottom" secondItem="2SO-s6-2SQ" secondAttribute="bottom" id="efv-uT-Vfz"/>
                     <constraint firstItem="6sA-sN-4Dk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="fyt-5F-eSU"/>
                     <constraint firstItem="6sA-sN-4Dk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ywG-MR-eI2"/>
                 </constraints>

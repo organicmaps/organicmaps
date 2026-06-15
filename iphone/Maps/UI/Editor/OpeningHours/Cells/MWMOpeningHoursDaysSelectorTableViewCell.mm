@@ -24,7 +24,9 @@ using namespace osmoh;
   NSArray<NSString *> * weekdaySymbols = cal.shortStandaloneWeekdaySymbols;
   for (UILabel * label in self.labels)
   {
-    label.font = UIFont.regular17;
+    label.font = UIFont.regular17.dynamic;
+    label.adjustsFontForContentSizeCategory = YES;
+    [label configureSingleLineAutoScaling];
     label.text = weekdaySymbols[[self tag2SymbolIndex:label.tag]];
   }
 }

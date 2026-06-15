@@ -29,18 +29,6 @@ static void applyThemeRecursively(UIView * view)
   return f;
 }
 
-- (CGFloat)heightForWidth:(CGFloat)width
-{
-  applyThemeRecursively(self);
-  self.bounds = CGRectMake(0, 0, width, CGRectGetHeight(self.bounds));
-  [self setNeedsLayout];
-  [self layoutIfNeeded];
-  CGSize const size = [self systemLayoutSizeFittingSize:CGSizeMake(width, UILayoutFittingCompressedSize.height)
-                          withHorizontalFittingPriority:UILayoutPriorityRequired
-                                verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
-  return ceil(size.height);
-}
-
 - (IBAction)osmTap
 {
   [self.controller openUrl:L(@"osm_wiki_about_url")];

@@ -29,11 +29,23 @@
                             <action selector="addClosedTap" destination="KGk-i7-Jjw" eventType="touchUpInside" id="HxR-3Y-SiG"/>
                         </connections>
                     </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5G4-eX-nmQ">
+                        <rect key="frame" x="0.0" y="54" width="320" height="1"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="hfV-pk-j0M"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMSeparator"/>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="DPW-UE-5UN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="4Li-Xr-b3S"/>
+                    <constraint firstAttribute="bottom" secondItem="5G4-eX-nmQ" secondAttribute="bottom" id="87Q-gD-rzF"/>
                     <constraint firstItem="DPW-UE-5UN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Ng6-qX-haA"/>
+                    <constraint firstItem="5G4-eX-nmQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="VMD-Fa-GvL"/>
                     <constraint firstAttribute="trailing" secondItem="DPW-UE-5UN" secondAttribute="trailing" id="bAd-QF-f1s"/>
+                    <constraint firstAttribute="trailing" secondItem="5G4-eX-nmQ" secondAttribute="trailing" id="g77-TJ-xSX"/>
                     <constraint firstAttribute="bottom" secondItem="DPW-UE-5UN" secondAttribute="bottom" constant="8" id="hNW-M0-dLR"/>
                 </constraints>
                 <userDefinedRuntimeAttributes>
