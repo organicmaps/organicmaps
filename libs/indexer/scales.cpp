@@ -8,7 +8,7 @@
 
 namespace scales
 {
-static int const INITIAL_LEVEL = 1;
+int constexpr INITIAL_LEVEL = 1;
 
 int GetMinAllowableIn3dScale()
 {
