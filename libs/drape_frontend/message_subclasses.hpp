@@ -1513,14 +1513,22 @@ private:
 class SetTileBackgroundModeMessage : public Message
 {
 public:
-  explicit SetTileBackgroundModeMessage(dp::BackgroundMode mode) : m_mode(mode) {}
+  SetTileBackgroundModeMessage(dp::BackgroundMode mode, float areaOpacity, bool needInvalidate = false)
+    : m_mode(mode)
+    , m_areaOpacity(areaOpacity)
+    , m_needInvalidate(needInvalidate)
+  {}
 
   Type GetType() const override { return Type::SetTileBackgroundMode; }
 
   dp::BackgroundMode GetMode() const { return m_mode; }
+  float GetAreaOpacity() const { return m_areaOpacity; }
+  bool NeedInvalidate() const { return m_needInvalidate; }
 
 private:
   dp::BackgroundMode m_mode;
+  float m_areaOpacity;
+  bool m_needInvalidate;
 };
 
 class AssignTileBackgroundImageMessage : public Message

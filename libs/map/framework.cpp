@@ -1757,8 +1757,9 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
       std::move(myPositionModeChangedFn), allow3dBuildings, trafficEnabled, isolinesEnabled,
       params.m_isChoosePositionMode, params.m_isChoosePositionMode, GetSelectedFeatureTriangles(),
       m_routingManager.IsRoutingActive() && m_routingManager.IsRoutingFollowing(), isAutozoomEnabled,
-      simplifiedTrafficColors, tileBackgroundMode, std::nullopt /* arrow3dCustomDecl */, std::move(overlaysShowStatsFn),
-      std::move(onGraphicsContextInitialized), std::move(params.m_renderInjectionHandler));
+      simplifiedTrafficColors, tileBackgroundMode, 0.5f /* areaOpacity */, std::nullopt /* arrow3dCustomDecl */,
+      std::move(overlaysShowStatsFn), std::move(onGraphicsContextInitialized),
+      std::move(params.m_renderInjectionHandler));
 
   m_drapeEngine = make_unique_dp<df::DrapeEngine>(std::move(p));
   m_drapeEngine->SetModelViewListener([this](ScreenBase const & screen)

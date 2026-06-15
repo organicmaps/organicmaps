@@ -23,7 +23,7 @@ public:
   EngineContext(TileKey tileKey, ref_ptr<ThreadsCommutator> commutator, ref_ptr<dp::TextureManager> texMng,
                 ref_ptr<MetalineManager> metalineMng, CustomFeaturesContextWeakPtr customFeaturesContext,
                 bool is3dBuildingsEnabled, bool isTrafficEnabled, bool isolinesEnabled, int8_t mapLangIndex,
-                dp::BackgroundMode backgroundMode);
+                dp::BackgroundMode backgroundMode, float areaOpacity);
 
   TileKey const & GetTileKey() const { return m_tileKey; }
   bool Is3dBuildingsEnabled() const { return m_3dBuildingsEnabled; }
@@ -31,6 +31,8 @@ public:
   bool IsolinesEnabled() const { return m_isolinesEnabled; }
   int8_t GetMapLangIndex() const { return m_mapLangIndex; }
   dp::BackgroundMode GetBackgroundMode() const { return m_backgroundMode; }
+  // Area-fill opacity used in Satellite mode (0..1). Only consulted when GetBackgroundMode() == Satellite.
+  float GetAreaOpacity() const { return m_areaOpacity; }
   CustomFeaturesContextWeakPtr GetCustomFeaturesContext() const { return m_customFeaturesContext; }
   ref_ptr<dp::TextureManager> GetTextureManager() const;
   ref_ptr<MetalineManager> GetMetalineManager() const;
@@ -54,5 +56,6 @@ private:
   bool m_isolinesEnabled;
   int8_t m_mapLangIndex;
   dp::BackgroundMode m_backgroundMode;
+  float m_areaOpacity;
 };
 }  // namespace df

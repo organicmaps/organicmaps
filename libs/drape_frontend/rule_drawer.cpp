@@ -289,10 +289,15 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s)
   if (!skipTriangles && isBuilding && f.GetTrgVerticesCount(m_zoomLevel) >= 10000)
     isBuilding = false;
 
-  ApplyAreaFeature apply(m_applyParams, f, s.m_captionDescriptor, isBuilding, m_isMwmBorder(types),
-                         areaMinHeight /* minPosZ */, areaHeight /* posZ */, m_context->GetBackgroundMode());
+  // In Satellite mode area fills are drawn at the user-configured opacity so the imagery shows through;
+  // 0 hides them entirely (skip the geometry below). Outside Satellite mode areas are always opaque.
+  float const areaOpacity =
+      m_context->GetBackgroundMode() == dp::BackgroundMode::Satellite ? m_context->GetAreaOpacity() : 1.0f;
 
-  if (!skipTriangles && (s.m_areaRule || s.m_hatchingRule))
+  ApplyAreaFeature apply(m_applyParams, f, s.m_captionDescriptor, isBuilding, m_isMwmBorder(types),
+                         areaMinHeight /* minPosZ */, areaHeight /* posZ */, areaOpacity);
+
+  if (areaOpacity > 0.0f && !skipTriangles && (s.m_areaRule || s.m_hatchingRule))
   {
     f.ForEachTriangle(apply, m_zoomLevel);
     if (apply.HasGeometry())
