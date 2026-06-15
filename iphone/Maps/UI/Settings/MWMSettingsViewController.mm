@@ -1,6 +1,7 @@
 #import "MWMSettingsViewController.h"
 #import "MWMActivityViewController.h"
 #import "MWMAuthorizationCommon.h"
+#import "MWMMapTilesSettingsViewController.h"
 #import "MWMTextToSpeech+CPP.h"
 #import "SwiftBridge.h"
 
@@ -33,6 +34,7 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * autoZoomCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * voiceInstructionsCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * drivingOptionsCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * mapTilesCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewiCloudSwitchCell * iCloudSynchronizationCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewDetailedSwitchCell * enableLoggingCell;
 
@@ -44,6 +46,12 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
 {
   [super viewDidLoad];
   self.title = L(@"settings");
+
+  // The storyboard cells have a fixed 44 pt row height, which clips multi-line cells such as the
+  // "Enable logging" detail subtitle and makes it overlap the neighbouring row. Let the system size
+  // each row to its content instead (the cells use the standard subtitle / value text labels).
+  self.tableView.estimatedRowHeight = 44;
+  self.tableView.rowHeight = UITableViewAutomaticDimension;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -231,6 +239,7 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
   NSString * ttsEnabledString = [MWMTextToSpeech isTTSEnabled] ? L(@"on") : L(@"off");
   [self.voiceInstructionsCell configWithTitle:L(@"pref_tts_enable_title") info:ttsEnabledString];
   [self.drivingOptionsCell configWithTitle:L(@"driving_options_title") info:@""];
+  [self.mapTilesCell configWithTitle:L(@"pref_bg_tiles_title") info:@""];
 }
 
 - (void)showICloudSynchronizationEnablingAlert:(void (^)(BOOL))isEnabled
@@ -399,6 +408,8 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
     [self performSegueWithIdentifier:@"SettingsToTTSSegue" sender:nil];
   else if (cell == self.drivingOptionsCell)
     [self performSegueWithIdentifier:@"settingsToDrivingOptionsSegue" sender:nil];
+  else if (cell == self.mapTilesCell)
+    [self.navigationController pushViewController:[[MWMMapTilesSettingsViewController alloc] init] animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath

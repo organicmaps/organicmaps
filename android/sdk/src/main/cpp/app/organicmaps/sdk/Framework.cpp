@@ -873,6 +873,41 @@ JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetParsedOAuth2Code(J
   return jni::ToJavaString(env, code);
 }
 
+// Custom raster background tiles (Settings -> Map tiles).
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetBackgroundTiles(JNIEnv * env, jclass, jboolean enabled,
+                                                                           jstring url, jint cacheSizeMB,
+                                                                           jint areaOpacityPct)
+{
+  frm()->SetBackgroundTiles(static_cast<bool>(enabled), jni::ToNativeString(env, url),
+                            static_cast<uint32_t>(cacheSizeMB), static_cast<uint32_t>(areaOpacityPct));
+}
+
+JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetBackgroundTilesUrl(JNIEnv * env, jclass)
+{
+  std::string url;
+  uint32_t cacheSizeMB;
+  frm()->GetBackgroundTilesSource(url, cacheSizeMB);
+  return jni::ToJavaString(env, url);
+}
+
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetBackgroundTilesCacheSizeMB(JNIEnv * env, jclass)
+{
+  std::string url;
+  uint32_t cacheSizeMB;
+  frm()->GetBackgroundTilesSource(url, cacheSizeMB);
+  return static_cast<jint>(cacheSizeMB);
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsBackgroundTilesEnabled(JNIEnv * env, jclass)
+{
+  return static_cast<jboolean>(frm()->IsBackgroundTilesEnabled());
+}
+
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetBackgroundTilesAreaOpacity(JNIEnv * env, jclass)
+{
+  return static_cast<jint>(frm()->GetBackgroundTilesAreaOpacity());
+}
+
 JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetParsedBackUrl(JNIEnv * env, jclass)
 {
   std::string const & backUrl = frm()->GetParsedBackUrl();

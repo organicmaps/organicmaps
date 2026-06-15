@@ -18,6 +18,11 @@
   <string name="pref_auto_night_in_navigation" translatable="false">AutoNightInNavigation</string>
   <string name="pref_tts_screen" translatable="false">TtsScreen</string>
   <string name="pref_tts_enabled" translatable="false">TtsEnabled</string>
+  <string name="pref_bg_tiles_screen" translatable="false">BgTilesScreen</string>
+  <string name="pref_bg_tiles_enabled" translatable="false">BgTilesEnabledPref</string>
+  <string name="pref_bg_tiles_url" translatable="false">BgTilesUrlPref</string>
+  <string name="pref_bg_tiles_size" translatable="false">BgTilesSizePref</string>
+  <string name="pref_bg_tiles_opacity" translatable="false">BgTilesOpacityPref</string>
   <string name="pref_tts_street_names" translatable="false">TtsStreetNames</string>
   <string name="pref_tts_language" translatable="false">TtsLanguage</string>
   <string name="pref_tts_volume" translatable="false">TtsVolume</string>

@@ -73,6 +73,12 @@ public:
   // request so it is neither bound nor uploaded once it finishes.
   void CancelTile(df::TileKey const & tileKey, dp::BackgroundMode mode);
 
+  // Live-updates m_params.m_urlTemplate and m_params.m_maxCacheBytes (thread-safe). The provider
+  // object is never destroyed (in-flight async tasks capture it), so reconfiguring rather than
+  // recreating is safe. When the URL changes the on-disk cache is cleared, since cached z/x/y now
+  // map to a different source.
+  void Reconfigure(std::string urlTemplate, uint64_t maxCacheBytes);
+
 private:
   // Source web-mercator XYZ tile plus the UV sub-rect within it that the given OM tile maps to.
   struct SourceTile
@@ -127,8 +133,12 @@ private:
   void AddCacheEntry(std::string const & name, uint64_t size);
   // Evicts oldest entries until the total is within the cap. Caller must hold m_cacheMutex.
   void EvictDiskCacheLocked();
+  // Deletes every cached file and resets the index. Caller must hold m_cacheMutex.
+  void ClearDiskCacheLocked();
 
-  Params const m_params;
+  // Non-const: Reconfigure() mutates m_urlTemplate (under m_activeMutex) and m_maxCacheBytes
+  // (under m_cacheMutex). All other fields are immutable after construction.
+  Params m_params;
   TReadyFn const m_onReady;
   std::string m_cacheDir;
 #ifdef ENABLE_STATUS_PLACEHOLDERS
