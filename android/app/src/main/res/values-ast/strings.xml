@@ -99,7 +99,7 @@
     <string name="pref_tts_street_names_title">Anunciar nomes de cais</string>
     <!-- Settings «Route» category: «Test Voice Directions» title -->
     <string name="pref_tts_test_voice_title">Probar indicaciones de voz (TTS, Text-To-Speech)</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">Non disponible</string>
     <string name="placepage_distance">Distancia</string>
     <string name="search_show_on_map">Ver nel mapa</string>

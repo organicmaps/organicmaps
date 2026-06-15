@@ -241,7 +241,7 @@
     <string name="pref_tts_test_voice_title">Išbandyti balso instrukcijas (kalbos sintezę)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Patikrinkite sistemos kalbos sintezės garsumo nustatymus, jeigu dabar negirdite balso.</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">Nepasiekiama</string>
     <string name="pref_map_auto_zoom">Automatinis mastelis</string>
     <string name="placepage_distance">Atstumas</string>

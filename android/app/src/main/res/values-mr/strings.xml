@@ -241,7 +241,7 @@
     <string name="pref_tts_test_voice_title">चाचणी आवाज दिशानिर्देश (TTS, टेक्स्ट-टू-स्पीच)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">तुम्हाला आता आवाज ऐकू येत नसल्यास व्हॉल्यूम किंवा सिस्टम टेक्स्ट-टू-स्पीच सेटिंग्ज तपासा.</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">उपलब्ध नाही</string>
     <string name="pref_map_auto_zoom">स्वयं झूम</string>
     <string name="placepage_distance">अंतर</string>

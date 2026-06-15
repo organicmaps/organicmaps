@@ -241,7 +241,7 @@
     <string name="pref_tts_test_voice_title">تست مسیرهای صوتی (TTS، تبدیل متن به گفتار)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">اگر اکنون صدا را نمی شنوید، میزان صدا یا تنظیمات تبدیل متن به گفتار سیستم را بررسی کنید.</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">موجود نیست</string>
     <string name="pref_map_auto_zoom">بزرگنمایی خودکار</string>
     <string name="placepage_distance">مسافت</string>
