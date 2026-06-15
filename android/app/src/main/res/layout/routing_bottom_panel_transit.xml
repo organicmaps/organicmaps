@@ -6,6 +6,7 @@
   android:id="@+id/transit_panel"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
+  android:foreground="?attr/selectableItemBackground"
   android:paddingStart="@dimen/margin_base"
   android:paddingEnd="@dimen/margin_base"
   android:paddingBottom="@dimen/margin_half"
@@ -45,6 +46,17 @@
     app:layout_constraintStart_toEndOf="@id/pedestrian_icon"
     app:layout_constraintTop_toTopOf="parent"
     tools:text="1 km"/>
+  <!-- Chevron hinting that the strip pulls up the per-leg detail sheet (the only expand affordance). -->
+  <ImageView
+    android:id="@+id/transit_details_chevron"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:contentDescription="@string/transit_details_title"
+    app:srcCompat="@drawable/ic_expand_less"
+    app:layout_constraintTop_toTopOf="@id/total_time"
+    app:layout_constraintBottom_toBottomOf="@id/total_time"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:tint="?iconTint"/>
   <ScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
