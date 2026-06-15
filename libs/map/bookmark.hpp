@@ -88,6 +88,9 @@ public:
 
   kml::GroupIdCollection const & GetCompilations() const { return m_compilationIds; }
 
+protected:
+  void SetDirty(bool updateModificationTime = true) override;
+
 private:
   drape_ptr<df::UserPointMark::SymbolNameZoomInfo> GetCustomSymbolNames() const;
 

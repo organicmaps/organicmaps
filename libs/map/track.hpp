@@ -103,7 +103,7 @@ public:
   bool HasAltitudes() const;
 
 protected:
-  void SetDirty() { m_isDirty = true; }
+  void SetDirty(bool updateModificationTime = true);
 
 private:
   std::vector<Lengths> GetLengthsImpl() const;
