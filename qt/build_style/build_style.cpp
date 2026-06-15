@@ -12,109 +12,196 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
 #include <QtCore/QFile>
+#include <QtCore/QFileInfo>
+#include <QtCore/QProcessEnvironment>
 
 namespace
 {
 QString GetRecalculateGeometryScriptPath()
 {
-  return GetExternalPath("recalculate_geom_index.py", "", "../tools/python");
+  return GetExternalPath("recalculate_geom_index.py", "../tools/python");
 }
 
 QString GetGeometryToolPath()
 {
-  return GetExternalPath("generator_tool", "generator_tool.app/Contents/MacOS", "");
+  return GetExternalPath("generator_tool", "");
 }
 
-QString GetGeometryToolResourceDir()
+struct StylePathParts
 {
-  return GetExternalPath("", "generator_tool.app/Contents/Resources", "");
+  QString styleType;
+  QString theme;
+  QDir stylesRoot;  // .../styles/
+};
+
+bool SplitStylePath(QString const & mapcssFile, StylePathParts & out)
+{
+  // Expecting <stylesRoot>/<type>/<theme>/style.mapcss.  Walk up three levels
+  // (file -> theme -> type -> stylesRoot) and capture the segment names.
+  QFileInfo const fi(mapcssFile);
+  if (fi.fileName() != "style.mapcss")
+    return false;
+
+  QDir themeDir = fi.absoluteDir();
+  out.theme = themeDir.dirName();
+
+  QDir typeDir = themeDir;
+  if (!typeDir.cdUp())
+    return false;
+  out.styleType = typeDir.dirName();
+
+  QDir rootDir = typeDir;
+  if (!rootDir.cdUp())
+    return false;
+  out.stylesRoot = rootDir;
+  return true;
+}
+
+struct StyleEntry
+{
+  char const * styleType;
+  char const * theme;
+  MapStyle mapStyle;
+};
+
+// Mirrors the (type, theme) layout under data/styles/.
+StyleEntry const kSupportedStyles[] = {
+    {"default", "light", MapStyleDefaultLight},   {"default", "dark", MapStyleDefaultDark},
+    {"outdoors", "light", MapStyleOutdoorsLight}, {"outdoors", "dark", MapStyleOutdoorsDark},
+    {"vehicle", "light", MapStyleVehicleLight},   {"vehicle", "dark", MapStyleVehicleDark},
+};
+
+struct StylePaths
+{
+  QString m_styleDir;   // Directory of style.mapcss, with a trailing separator.
+  QString m_outputDir;  // <styleDir>/out/, with a trailing separator.
+  bool m_hasSymbols;    // Only default/{light,dark} carry their own symbols/ sources.
+};
+
+StylePaths GetStylePaths(QString const & mapcssFile)
+{
+  if (!QFile(mapcssFile).exists())
+    throw std::runtime_error("mapcss file does not exist: " + mapcssFile.toStdString());
+
+  QString const styleDir = QFileInfo(mapcssFile).absolutePath() + QDir::separator();
+  return {styleDir, styleDir + "out" + QDir::separator(), QDir(styleDir + "symbols/").exists()};
 }
 }  // namespace
 
 namespace build_style
 {
-void BuildAndApply(QString const & mapcssFile)
+bool TryParseStyleInfo(QString const & mapcssFile, StyleInfo & out)
 {
-  // Ensure mapcss exists
-  if (!QFile(mapcssFile).exists())
-    throw std::runtime_error("mapcss files does not exist");
+  StylePathParts parts;
+  if (!SplitStylePath(mapcssFile, parts))
+    return false;
 
-  QDir const projectDir = QFileInfo(mapcssFile).absoluteDir();
-  QString const styleDir = projectDir.absolutePath() + QDir::separator();
-  QString const outputDir = styleDir + "out" + QDir::separator();
+  for (auto const & e : kSupportedStyles)
+  {
+    if (parts.styleType == QLatin1String(e.styleType) && parts.theme == QLatin1String(e.theme))
+    {
+      out.m_mapStyle = e.mapStyle;
+      out.m_styleType = parts.styleType;
+      out.m_theme = parts.theme;
+      // The native reader loads a packed family file shared by light and dark; its name matches the
+      // drules_<family>.bin naming of map_style_reader.cpp (family == style type here).
+      out.m_drulesFile = "drules_" + parts.styleType + ".bin";
+      out.m_stylesRoot = parts.stylesRoot.absolutePath();
+      out.m_includeDir =
+          parts.stylesRoot.absoluteFilePath(parts.styleType + QDir::separator() + "include") + QDir::separator();
+      // Both variants are rebuilt and packed on every Build Style, so capture both mapcss paths.
+      out.m_lightMapcss = parts.stylesRoot.absoluteFilePath(parts.styleType + "/light/style.mapcss");
+      out.m_darkMapcss = parts.stylesRoot.absoluteFilePath(parts.styleType + "/dark/style.mapcss");
+      return true;
+    }
+  }
+  return false;
+}
+
+void BuildAndApply(QString const & mapcssFile, StyleInfo const & info)
+{
+  auto const paths = GetStylePaths(mapcssFile);
 
   // Ensure output directory is clear
-  if (QDir(outputDir).exists() && !QDir(outputDir).removeRecursively())
+  if (QDir(paths.m_outputDir).exists() && !QDir(paths.m_outputDir).removeRecursively())
     throw std::runtime_error("Unable to remove the output directory");
-  if (!QDir().mkdir(outputDir))
+  if (!QDir().mkdir(paths.m_outputDir))
     throw std::runtime_error("Unable to make the output directory");
 
-  bool const hasSymbols = QDir(styleDir + "symbols/").exists();
-  if (hasSymbols)
+  if (paths.m_hasSymbols)
   {
-    auto future = std::async(std::launch::async, BuildSkins, styleDir, outputDir);
-    BuildDrawingRules(mapcssFile, outputDir);
+    auto future = std::async(std::launch::async, BuildSkins, paths.m_styleDir, paths.m_outputDir, info.m_theme);
+    BuildDrawingRules(paths.m_outputDir, info);
     future.get();  // may rethrow exception from the BuildSkin
 
-    ApplyDrawingRules(outputDir);
-    ApplySkins(outputDir);
+    ApplyDrawingRules(paths.m_outputDir, info);
+    ApplySkins(paths.m_outputDir, info.m_theme);
   }
   else
   {
-    BuildDrawingRules(mapcssFile, outputDir);
-    ApplyDrawingRules(outputDir);
+    BuildDrawingRules(paths.m_outputDir, info);
+    ApplyDrawingRules(paths.m_outputDir, info);
   }
 }
 
-void BuildIfNecessaryAndApply(QString const & mapcssFile)
+void BuildIfNecessaryAndApply(QString const & mapcssFile, StyleInfo const & info)
 {
-  if (!QFile(mapcssFile).exists())
-    throw std::runtime_error("mapcss files does not exist");
+  auto const paths = GetStylePaths(mapcssFile);
 
-  QDir const projectDir = QFileInfo(mapcssFile).absoluteDir();
-  QString const styleDir = projectDir.absolutePath() + QDir::separator();
-  QString const outputDir = styleDir + "out" + QDir::separator();
-
-  if (QDir(outputDir).exists())
+  if (QDir(paths.m_outputDir).exists())
   {
     try
     {
-      ApplyDrawingRules(outputDir);
-      ApplySkins(outputDir);
+      ApplyDrawingRules(paths.m_outputDir, info);
+      if (paths.m_hasSymbols)
+        ApplySkins(paths.m_outputDir, info.m_theme);
     }
-    catch (std::exception const & ex)
+    catch (std::exception const &)
     {
-      BuildAndApply(mapcssFile);
+      BuildAndApply(mapcssFile, info);
     }
   }
   else
   {
-    BuildAndApply(mapcssFile);
+    BuildAndApply(mapcssFile, info);
   }
 }
 
-void RunRecalculationGeometryScript(QString const & mapcssFile)
+void RunRecalculationGeometryScript(QString const & mapcssFile, StyleInfo const & info)
 {
   QString const resourceDir = GetPlatform().ResourcesDir().c_str();
   QString const writableDir = GetPlatform().WritableDir().c_str();
 
-  QString const generatorToolPath = GetGeometryToolPath();
-  QString const appPath = QCoreApplication::applicationFilePath();
+  // Build Style does not rebuild the merged style that generator_tool indexes against.
+  BuildMergedDrawingRules(GetStylePaths(mapcssFile).m_outputDir, info);
 
-  QString const geometryToolResourceDir = GetGeometryToolResourceDir();
+  // The script passes each map's own directory as --data_path, which generator_tool also makes its
+  // writable dir, so it reads the style files from next to the map. The maps in the resources dir
+  // (the World maps inside the .app bundle on macOS) need the freshly built ones there too.
+  if (QDir(resourceDir).canonicalPath() != QDir(writableDir).canonicalPath())
+  {
+    for (char const * name : {"drules_merged.bin", "classificator.txt", "types.txt"})
+      if (!CopyFile(JoinPathQt({writableDir, name}), JoinPathQt({resourceDir, name})))
+        throw std::runtime_error(std::string("Cannot copy ") + name + " to " + resourceDir.toStdString());
+  }
 
-  CopyFromResources("drules_design.bin", geometryToolResourceDir);
-  CopyFromResources("classificator.txt", geometryToolResourceDir);
-  CopyFromResources("types.txt", geometryToolResourceDir);
+  // generator_tool falls back to the app's resources for anything that is not next to the map. The
+  // macOS Platform honours these variables only when both are set.
+  QProcessEnvironment env{QProcessEnvironment::systemEnvironment()};
+  env.insert("MWM_RESOURCES_DIR", resourceDir);
+  env.insert("MWM_WRITABLE_DIR", writableDir);
 
-  (void)ExecProcess("python", {
-                                  GetRecalculateGeometryScriptPath(),
-                                  resourceDir,
-                                  writableDir,
-                                  generatorToolPath,
-                                  appPath,
-                                  mapcssFile,
-                              });
+  // The trailing arguments are the relaunch command for the script.
+  (void)ExecProcess("python3",
+                    {
+                        GetRecalculateGeometryScriptPath(),
+                        resourceDir,
+                        writableDir,
+                        GetGeometryToolPath(),
+                        QCoreApplication::applicationFilePath(),
+                        "--designer=" + mapcssFile,
+                    },
+                    &env);
 }
 
 bool NeedRecalculate = false;
