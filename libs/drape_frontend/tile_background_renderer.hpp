@@ -53,6 +53,11 @@ public:
   void SetBackgroundMode(ref_ptr<dp::GraphicsContext> context, dp::BackgroundMode mode);
   dp::BackgroundMode GetBackgroundMode() const;
 
+  // True if an image with this uid is already registered (referenced or in the unreferenced LRU).
+  // Lets the caller skip re-uploading a duplicate texture that AssignTileBackgroundImage would discard
+  // anyway (over-zoom siblings and panning re-requests deliver the same uid repeatedly).
+  bool HasImage(std::string const & uid) const { return m_images.find(uid) != m_images.end(); }
+
 private:
   struct ImageInfo
   {
