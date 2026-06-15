@@ -13,7 +13,9 @@ set(SRC
   custom_keyvalue_tests.cpp
   data_source_test.cpp
   drules_format_tests.cpp
+  drawing_rules_reload_tests.cpp
   drules_selector_parser_test.cpp
+  drules_test_helpers.hpp
   editable_map_object_test.cpp
   feature_covering_test.cpp
   feature_metadata_test.cpp

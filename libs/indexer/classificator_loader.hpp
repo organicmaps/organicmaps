@@ -6,9 +6,13 @@
 
 namespace classificator
 {
-// Force-(re)loads the current style's family and the outdoors family (designer live-reload relies
-// on the force semantics). Other families load lazily via EnsureStyleLoaded.
+// Loads types and the current/outdoors families at startup, before asynchronous readers exist.
+// Other families load lazily via EnsureStyleLoaded.
 void Load();
+
+// Reloads drawing rules while preserving type identities and node addresses.
+// Call while GUI, rendering and search readers are idle.
+void ReloadDrawingRules();
 
 // Loads mapStyle's family (light + dark, from one decode) if it isn't loaded yet; no-op otherwise.
 void EnsureStyleLoaded(MapStyle mapStyle);

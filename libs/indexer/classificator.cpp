@@ -60,6 +60,15 @@ void ClassifObject::AddDrawRule(drule::Key const & k)
     m_maxOverlaysPriority = k.m_priority;
 }
 
+void ClassifObject::ClearDrawingRules()
+{
+  m_drawRules.clear();
+  m_visibility.reset();
+  m_maxOverlaysPriority = std::numeric_limits<int>::min();
+  for (auto & obj : m_objs)
+    obj.ClearDrawingRules();
+}
+
 ClassifObjectPtr ClassifObject::BinaryFind(std::string_view const s) const
 {
   auto const i = std::lower_bound(m_objs.begin(), m_objs.end(), s, LessName());
@@ -98,6 +107,7 @@ void ClassifObject::Swap(ClassifObject & r)
   swap(m_drawRules, r.m_drawRules);
   swap(m_objs, r.m_objs);
   swap(m_visibility, r.m_visibility);
+  std::swap(m_maxOverlaysPriority, r.m_maxOverlaysPriority);
 }
 
 ClassifObject const * ClassifObject::GetObject(size_t i) const
