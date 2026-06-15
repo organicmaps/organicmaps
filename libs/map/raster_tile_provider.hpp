@@ -79,7 +79,6 @@ public:
   // map to a different source.
   void Reconfigure(std::string urlTemplate, uint64_t maxCacheBytes);
 
-private:
   // Source web-mercator XYZ tile plus the UV sub-rect within it that the given OM tile maps to.
   struct SourceTile
   {
@@ -90,6 +89,14 @@ private:
     bool m_valid = false;
   };
 
+  // Maps an OM tile (x, y, zoomLevel) onto its web-mercator XYZ tile. Pure function (no provider
+  // state) so it can be unit-tested directly. The OM tile's m_x/m_y MUST be in the 2^(m_zoomLevel-1)
+  // grid; feeding indices from a coarser (clamped) grid yields a wrong web tile. Tiles below minZoom
+  // or outside the vertical world extent come back with m_valid == false; tiles deeper than maxZoom
+  // sample a sub-rect of the maxZoom ancestor (m_rect).
+  static SourceTile ToSourceTile(df::TileKey const & tileKey, int minZoom, int maxZoom);
+
+private:
 #ifdef ENABLE_STATUS_PLACEHOLDERS
   // Debug placeholder shown in place of a tile while it is being fetched or when it is missing.
   enum class Status
@@ -107,8 +114,6 @@ private:
     uint32_t m_size = 0;
   };
 #endif
-
-  SourceTile ToSourceTile(df::TileKey const & tileKey) const;
 
   // Starts a non-blocking HTTP request; its completion handler decodes, caches and delivers the tile.
   void StartDownload(df::TileKey const & tileKey, dp::BackgroundMode mode, std::string const & url,
