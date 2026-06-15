@@ -404,7 +404,15 @@ struct BookmarkData
   uint8_t m_viewportScale = 0;
   // Creation timestamp in UTC.
   Timestamp m_createdTimestamp = {};
-  // Modification timestamp in UTC.
+  // Last content-modification timestamp in UTC. Empty until the first edit.
+  //
+  // Refreshed to "now" on every change to user-visible content: name, custom name, description,
+  // color, or a wholesale SetData() replacement (and, for tracks, geometry). It is deliberately
+  // NOT refreshed for:
+  //   - derived or non-content state: visibility, viewport scale, reverse-geocoded address;
+  //   - moving a bookmark/track to another list (only the involved lists' timestamps change);
+  //   - load/import, which must preserve the source value (the explicit Set*Timestamp setters).
+  // In the map layer this policy is enforced in one place: Bookmark/Track::SetDirty(updateModificationTime).
   // TODO: This field is not serialized to/from KMB for backward compatibility.
   //       Add it to `DECLARE_VISITOR_AND_DEBUG_PRINT` block to save/load in KMB format.
   Timestamp m_modifiedTimestamp = {};
@@ -518,7 +526,8 @@ struct TrackData
   std::vector<TrackLayer> m_layers;
   // Creation timestamp in UTC.
   Timestamp m_createdTimestamp = {};
-  // Last modification timestamp in UTC.
+  // Last content-modification timestamp in UTC. See BookmarkData::m_modifiedTimestamp for the
+  // exact update policy.
   // TODO: This field is not serialized to/from KMB for backward compatibility.
   //       Add it to `DECLARE_VISITOR_AND_DEBUG_PRINT` block to save/load in KMB format.
   Timestamp m_modifiedTimestamp = {};

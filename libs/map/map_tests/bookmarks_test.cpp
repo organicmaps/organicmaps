@@ -490,6 +490,7 @@ UNIT_TEST(Bookmarks_ModifiedTimestamp_AdvancesOnEachUpdate)
 {
   ScopedBookmarksDir scopedDir;
   Framework fm(kFrameworkParams);
+  df::VisualParams::Init(1.0, 1024);  // CreateBookmark needs it; keeps the test runnable in isolation.
   BookmarkManager & bmManager = fm.GetBookmarkManager();
   bmManager.EnableTestMode(true);
 
@@ -557,6 +558,7 @@ UNIT_TEST(Bookmarks_ModifiedTimestamp_FirstEditAfterImport)
 {
   ScopedBookmarksDir scopedDir;
   Framework fm(kFrameworkParams);
+  df::VisualParams::Init(1.0, 1024);  // CreateBookmark needs it; keeps the test runnable in isolation.
   BookmarkManager & bmManager = fm.GetBookmarkManager();
   bmManager.EnableTestMode(true);
 

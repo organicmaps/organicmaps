@@ -95,11 +95,11 @@ void Track::SetDescription(std::string const & description)
 
 void Track::SetData(kml::TrackData const & data)
 {
-  SetDirty();
   m_data = data;
 
   m_elevationInfo.reset();
   m_interactionData.reset();
+  SetDirty();  // Must run after the copy above, which would otherwise overwrite m_modifiedTimestamp.
 }
 
 m2::RectD Track::GetLimitRect() const
@@ -195,8 +195,16 @@ kml::Timestamp Track::GetModifiedTimestamp() const
 
 void Track::SetModifiedTimestamp(kml::Timestamp ts)
 {
-  SetDirty();
+  SetDirty(false /* updateModificationTime */);
   m_data.m_modifiedTimestamp = ts;
+}
+
+// See kml::BookmarkData::m_modifiedTimestamp for the m_modifiedTimestamp update policy.
+void Track::SetDirty(bool updateModificationTime)
+{
+  m_isDirty = true;
+  if (updateModificationTime)
+    m_data.m_modifiedTimestamp = kml::TimestampClock::now();
 }
 
 void Track::ForEachGeometry(GeometryFnT && fn) const

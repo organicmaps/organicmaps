@@ -2362,8 +2362,6 @@ void BookmarkManager::UpdateBookmark(kml::MarkId bmID, kml::BookmarkData const &
   auto const & newColor = bookmark->GetData().m_color;
   if (prevColor != newColor)
     SetLastEditedBmColor(newColor);
-
-  bookmark->SetModifiedTimestamp(kml::TimestampClock::now());
 }
 
 void BookmarkManager::ChangeTrackColor(kml::TrackId trackId, dp::Color color)
@@ -2374,7 +2372,6 @@ void BookmarkManager::ChangeTrackColor(kml::TrackId trackId, dp::Color color)
     return;
 
   track->SetColor(color);
-  track->SetModifiedTimestamp(kml::TimestampClock::now());
 }
 
 void BookmarkManager::UpdateTrack(kml::TrackId trackId, kml::TrackData const & trackData)
@@ -2382,8 +2379,6 @@ void BookmarkManager::UpdateTrack(kml::TrackId trackId, kml::TrackData const & t
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto * track = GetTrackForEdit(trackId);
   track->SetData(trackData);
-
-  track->SetModifiedTimestamp(kml::TimestampClock::now());
 }
 
 kml::MarkGroupId BookmarkManager::LastEditedBMCategory()
@@ -3739,14 +3734,12 @@ void BookmarkManager::EditSession::SetCategoryCustomProperty(kml::MarkGroupId ca
 void BookmarkManager::EditSession::SetCategoryBookmarksColor(kml::MarkGroupId groupId, dp::Color color)
 {
   auto const & markIds = m_bmManager.GetUserMarkIds(groupId);
-  auto const now = kml::TimestampClock::now();
   for (auto const markId : markIds)
   {
     auto * bm = m_bmManager.GetBookmarkForEdit(markId);
     if (bm == nullptr || bm->GetColorForRendering() == color)
       continue;
     bm->SetColor(color);
-    bm->SetModifiedTimestamp(now);
   }
   m_bmManager.SetLastEditedBmColor(kml::MakeCustomBookmarkColorData(color));
 }
