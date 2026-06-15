@@ -66,7 +66,12 @@ public class InputUtils
 
   public static void showKeyboard(View input)
   {
-    showKeyboardDelayed(input, 100);
+    if (input == null)
+      return;
+    if (input.hasWindowFocus())
+      showKeyboardSync(input);
+    else
+      showKeyboardDelayed(input, 100);
   }
 
   public static void hideKeyboard(View view)

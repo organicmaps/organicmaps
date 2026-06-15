@@ -438,7 +438,7 @@
         android:launchMode="singleTask"
         android:configChanges="uiMode"
         android:screenOrientation="fullUser"
-        android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+        android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
 
     <activity-alias
         android:name="${applicationId}.ManageSpaceActivity"
@@ -453,15 +453,6 @@
         android:label="@string/download_maps"
         android:parentActivityName="app.organicmaps.MwmActivity"
         android:windowSoftInputMode="adjustResize" />
-
-    <activity
-        android:name="app.organicmaps.search.SearchActivity"
-        android:theme="@style/MwmTheme.CardBg"
-        android:configChanges="orientation|screenLayout|screenSize"
-        android:screenOrientation="fullUser"
-        android:label="@string/search_map"
-        android:parentActivityName="app.organicmaps.MwmActivity"
-        android:windowSoftInputMode="stateVisible|adjustResize" />
 
     <activity
         android:name="app.organicmaps.settings.SettingsActivity"

@@ -8,6 +8,8 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewParent;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResult;
@@ -31,20 +33,19 @@ public class SearchToolbarController extends ToolbarController implements View.O
   @NonNull
   private final TextInputEditText mQuery;
   private boolean mFromCategory = false;
+  // Pending listener that shows the keyboard once the window gains focus (see activate()).
+  @Nullable
+  private ViewTreeObserver.OnWindowFocusChangeListener mShowKeyboardOnFocus;
   @NonNull
   private final View mProgress;
   @NonNull
   private final View mVoiceInput;
   private final boolean mVoiceInputSupported = InputUtils.isVoiceInputSupported(requireActivity());
-  @NonNull
   private final TextWatcher mTextWatcher = new StringUtils.SimpleTextWatcher() {
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count)
     {
-      final boolean isEmpty = TextUtils.isEmpty(s);
-      mBackPressedCallback.setEnabled(!isEmpty);
-      updateViewsVisibility(isEmpty);
-      SearchToolbarController.this.onTextChanged(s.toString());
+      onQueryChanged(s, true);
     }
   };
 
@@ -75,9 +76,8 @@ public class SearchToolbarController extends ToolbarController implements View.O
       return (isSearchDown || isSearchAction) && onStartSearchClick();
     });
     mProgress = mSearchContainer.findViewById(R.id.progress);
-    mVoiceInput = mSearchContainer.findViewById(R.id.voice_input);
+    mVoiceInput = root.findViewById(R.id.voice_input);
     mVoiceInput.setOnClickListener(this);
-
     showProgress(false);
     updateViewsVisibility(true);
   }
@@ -86,6 +86,16 @@ public class SearchToolbarController extends ToolbarController implements View.O
   {
     UiUtils.showIf(showBackButton(), mBack);
     UiUtils.showIf(supportsVoiceSearch() && queryEmpty && mVoiceInputSupported, mVoiceInput);
+  }
+
+  private void onQueryChanged(@Nullable CharSequence s, boolean resetCategoryFlag)
+  {
+    if (resetCategoryFlag)
+      mFromCategory = false;
+    final boolean isEmpty = TextUtils.isEmpty(s);
+    mBackPressedCallback.setEnabled(!isEmpty);
+    updateViewsVisibility(isEmpty);
+    onTextChanged(s == null ? "" : s.toString());
   }
 
   protected boolean showBackButton()
@@ -150,9 +160,12 @@ public class SearchToolbarController extends ToolbarController implements View.O
   public void setQuery(CharSequence query, boolean fromCategory)
   {
     mFromCategory = fromCategory;
+    mQuery.removeTextChangedListener(mTextWatcher);
     mQuery.setText(query);
     if (!TextUtils.isEmpty(query))
       mQuery.setSelection(query.length());
+    mQuery.addTextChangedListener(mTextWatcher);
+    onQueryChanged(query, false);
   }
   public void setQuery(CharSequence query)
   {
@@ -172,18 +185,52 @@ public class SearchToolbarController extends ToolbarController implements View.O
   public void activate()
   {
     mQuery.requestFocus();
-    InputUtils.showKeyboard(mQuery);
+    removeShowKeyboardOnFocusListener();
+    mShowKeyboardOnFocus = hasFocus ->
+    {
+      if (hasFocus)
+      {
+        removeShowKeyboardOnFocusListener();
+        mQuery.requestFocus();
+        InputUtils.showKeyboard(mQuery);
+      }
+    };
+    mQuery.getViewTreeObserver().addOnWindowFocusChangeListener(mShowKeyboardOnFocus);
+    if (mQuery.hasWindowFocus())
+    {
+      removeShowKeyboardOnFocusListener();
+      InputUtils.showKeyboard(mQuery);
+    }
   }
 
   public void deactivate()
   {
+    removeShowKeyboardOnFocusListener();
     InputUtils.hideKeyboard(mQuery);
     InputUtils.removeFocusEditTextHack(mQuery);
   }
 
+  private void removeShowKeyboardOnFocusListener()
+  {
+    if (mShowKeyboardOnFocus == null)
+      return;
+    mQuery.getViewTreeObserver().removeOnWindowFocusChangeListener(mShowKeyboardOnFocus);
+    mShowKeyboardOnFocus = null;
+  }
+
   public void showProgress(boolean show)
   {
-    UiUtils.showIf(show, mProgress);
+    if (UiUtils.isVisible(mProgress) == show)
+      return;
+    ViewParent parent = mSearchContainer.getParent();
+    if (parent instanceof SuppressLayoutLinearLayout)
+    {
+      ((SuppressLayoutLinearLayout) parent).setSuppressLayout(true);
+      UiUtils.showIf(show, mProgress);
+      ((SuppressLayoutLinearLayout) parent).setSuppressLayout(false);
+    }
+    else
+      UiUtils.showIf(show, mProgress);
   }
 
   @Override
@@ -226,5 +273,15 @@ public class SearchToolbarController extends ToolbarController implements View.O
   public OnBackPressedCallback getBackPressedCallback()
   {
     return mBackPressedCallback;
+  }
+
+  public void setQuerySilently(CharSequence query, boolean fromCategory)
+  {
+    mFromCategory = fromCategory;
+    mQuery.removeTextChangedListener(mTextWatcher);
+    mQuery.setText(query);
+    if (!TextUtils.isEmpty(query))
+      mQuery.setSelection(query.length());
+    mQuery.addTextChangedListener(mTextWatcher);
   }
 }

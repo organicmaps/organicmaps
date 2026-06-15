@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+  <androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:id="@+id/search_bottom_container"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintWidth_percent="@fraction/place_page_bottom_sheet_width_ratio"
+    tools:layout_constraintWidth_percent="0.5">
+    <FrameLayout
+      android:id="@+id/search_page_container"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_gravity="bottom"
+      tools:background="@color/black_primary"
+      app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+      <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/search_fragment"
+        android:name="app.organicmaps.search.SearchFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    </FrameLayout>
+  </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

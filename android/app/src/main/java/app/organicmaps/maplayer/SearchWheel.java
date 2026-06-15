@@ -17,6 +17,7 @@ import app.organicmaps.R;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.sdk.util.concurrency.UiThread;
+import app.organicmaps.search.SearchPageViewModel;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.UiUtils;
 
@@ -35,6 +36,7 @@ public class SearchWheel implements View.OnClickListener
   @NonNull
   private final View.OnClickListener mOnSearchCanceledListener;
   private final MapButtonsViewModel mMapButtonsViewModel;
+  private final SearchPageViewModel mSearchPageViewModel;
 
   private static final long CLOSE_DELAY_MILLIS = 5000L;
   private final Runnable mCloseRunnable = new Runnable() {
@@ -84,10 +86,12 @@ public class SearchWheel implements View.OnClickListener
   }
 
   public SearchWheel(View frame, @NonNull View.OnClickListener onSearchPressedListener,
-                     @NonNull View.OnClickListener onSearchCanceledListener, MapButtonsViewModel mapButtonsViewModel)
+                     @NonNull View.OnClickListener onSearchCanceledListener, MapButtonsViewModel mapButtonsViewModel,
+                     SearchPageViewModel searchPageViewModel)
   {
     mFrame = frame;
     mMapButtonsViewModel = mapButtonsViewModel;
+    mSearchPageViewModel = searchPageViewModel;
     mOnSearchPressedListener = onSearchPressedListener;
     mOnSearchCanceledListener = onSearchCanceledListener;
     mTouchInterceptor = mFrame.findViewById(R.id.touch_interceptor);
@@ -154,7 +158,10 @@ public class SearchWheel implements View.OnClickListener
       return;
     }
 
-    refreshSearchButtonImage();
+    if (RoutingController.get().isNavigating())
+      refreshSearchButtonImage();
+    else
+      resetSearchButtonImage();
   }
 
   private void toggleSearchLayout()
@@ -233,9 +240,11 @@ public class SearchWheel implements View.OnClickListener
 
   private void onSearchButtonClick(View v)
   {
+    Boolean searchEnabled = mSearchPageViewModel.getSearchEnabled().getValue();
+    boolean enabled = searchEnabled != null && searchEnabled;
     if (!RoutingController.get().isNavigating())
     {
-      if (TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
+      if (!enabled)
         showSearchInParent();
       else
         mOnSearchCanceledListener.onClick(v);
@@ -256,7 +265,10 @@ public class SearchWheel implements View.OnClickListener
       return;
     }
 
-    toggleSearchLayout();
+    if (!enabled)
+      toggleSearchLayout();
+    else
+      mOnSearchCanceledListener.onClick(v);
   }
 
   private void showSearchInParent()
@@ -264,6 +276,7 @@ public class SearchWheel implements View.OnClickListener
     mOnSearchPressedListener.onClick(mSearchButton);
     mIsExpanded = false;
     refreshSearchVisibility();
+    mMapButtonsViewModel.setSearchOption(null);
   }
 
   private void startSearch(SearchOption searchOption)

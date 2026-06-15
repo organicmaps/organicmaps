@@ -19,10 +19,16 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   @Nullable
   private String mQuery;
 
+  @Nullable
+  private SearchResult[] mCachedResults = null;
+  @Nullable
+  private String mCachedSearchBarQuery = null;
+
   @Override
   public void onResultsUpdate(@NonNull final SearchResult[] results, final long timestamp)
   {
     UiThread.run(() -> {
+      mCachedResults = results;
       for (SearchListener listener : mListeners)
         listener.onResultsUpdate(results, timestamp);
     });
@@ -107,30 +113,40 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   public boolean search(@NonNull Context context, @NonNull String query, boolean isCategory, long timestamp,
                         boolean hasLocation, double lat, double lon)
   {
-    return nativeRunSearch(query.getBytes(StandardCharsets.UTF_8), isCategory, Language.getKeyboardLocale(context),
-                           timestamp, hasLocation, lat, lon);
+    boolean started = nativeRunSearch(query.getBytes(StandardCharsets.UTF_8), isCategory,
+                                      Language.getKeyboardLocale(context), timestamp, hasLocation, lat, lon);
+    if (started)
+      mCachedSearchBarQuery = query;
+    return started;
   }
 
   @MainThread
-  public void searchInteractive(@NonNull String query, boolean isCategory, @NonNull String locale, long timestamp,
-                                boolean isMapAndTable, boolean hasLocation, double lat, double lon)
+  public boolean searchInteractive(@NonNull String query, boolean isCategory, @NonNull String locale, long timestamp,
+                                   boolean isMapAndTable, boolean hasLocation, double lat, double lon)
   {
-    nativeRunInteractiveSearch(query.getBytes(StandardCharsets.UTF_8), isCategory, locale, timestamp, isMapAndTable,
-                               hasLocation, lat, lon);
+    final boolean started = nativeRunInteractiveSearch(query.getBytes(StandardCharsets.UTF_8), isCategory, locale,
+                                                       timestamp, isMapAndTable, hasLocation, lat, lon);
+    // Cache the search-bar query only for map+table searches. Viewport-only searches (e.g. the
+    // navigation search wheel) don't deliver list results, so caching their query would pair it
+    // with the previous search's cached results when the search fragment is recreated.
+    if (started && isMapAndTable)
+      mCachedSearchBarQuery = query;
+    return started;
   }
 
   @MainThread
-  public void searchInteractive(@NonNull String query, boolean isCategory, @NonNull String locale, long timestamp,
-                                boolean isMapAndTable)
+  public boolean searchInteractive(@NonNull String query, boolean isCategory, @NonNull String locale, long timestamp,
+                                   boolean isMapAndTable)
   {
-    searchInteractive(query, isCategory, locale, timestamp, isMapAndTable, false, 0, 0);
+    return searchInteractive(query, isCategory, locale, timestamp, isMapAndTable, false, 0, 0);
   }
 
   @MainThread
-  public void searchInteractive(@NonNull Context context, @NonNull String query, boolean isCategory, long timestamp,
-                                boolean isMapAndTable)
+  public boolean searchInteractive(@NonNull Context context, @NonNull String query, boolean isCategory, long timestamp,
+                                   boolean isMapAndTable)
   {
-    searchInteractive(query, isCategory, Language.getKeyboardLocale(context), timestamp, isMapAndTable, false, 0, 0);
+    return searchInteractive(query, isCategory, Language.getKeyboardLocale(context), timestamp, isMapAndTable, false, 0,
+                             0);
   }
 
   @MainThread
@@ -173,6 +189,8 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   public void cancelInteractiveSearch()
   {
     mQuery = "";
+    mCachedResults = null;
+    mCachedSearchBarQuery = null;
     nativeCancelInteractiveSearch();
   }
 
@@ -180,6 +198,8 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   private void cancelAllSearches()
   {
     mQuery = "";
+    mCachedResults = null;
+    mCachedSearchBarQuery = null;
     nativeCancelAllSearches();
   }
 
@@ -191,9 +211,22 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   }
 
   @MainThread
-  public void updateViewportWithLastResults()
+  public void selectResult(int index)
   {
-    nativeUpdateViewportWithLastResults();
+    // Do not clear mQuery here to preserve interactive search highlights on the map.
+    nativeSelectResult(index);
+  }
+
+  @Nullable
+  public SearchResult[] getCachedResults()
+  {
+    return mCachedResults;
+  }
+
+  @Nullable
+  public String getCachedSearchBarQuery()
+  {
+    return mCachedSearchBarQuery;
   }
 
   public void initialize()
@@ -212,9 +245,9 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   /**
    * @param bytes utf-8 formatted query bytes
    */
-  private static native void nativeRunInteractiveSearch(byte[] bytes, boolean isCategory, String language,
-                                                        long timestamp, boolean isMapAndTable, boolean hasLocation,
-                                                        double lat, double lon);
+  private static native boolean nativeRunInteractiveSearch(byte[] bytes, boolean isCategory, String language,
+                                                           long timestamp, boolean isMapAndTable, boolean hasLocation,
+                                                           double lat, double lon);
 
   /**
    * @param bytes utf-8 formatted query bytes
@@ -225,11 +258,9 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
 
   private static native void nativeShowResult(int index);
 
+  private static native void nativeSelectResult(int index);
+
   private static native void nativeCancelInteractiveSearch();
 
-  private static native void nativeCancelEverywhereSearch();
-
   private static native void nativeCancelAllSearches();
-
-  private static native void nativeUpdateViewportWithLastResults();
 }

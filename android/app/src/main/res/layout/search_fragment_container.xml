@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/search_bottom_container"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+  <FrameLayout
+    android:id="@+id/search_page_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="bottom|center_horizontal"
+    android:maxWidth="@dimen/bottom_sheet_max_width"
+    tools:background="@color/black_primary"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+    <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/search_fragment"
+      android:name="app.organicmaps.search.SearchFragment"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" />
+  </FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -274,7 +274,7 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearch(
   return searchStarted;
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeRunInteractiveSearch(
+JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunInteractiveSearch(
     JNIEnv * env, jclass clazz, jbyteArray bytes, jboolean isCategory, jstring lang, jlong timestamp,
     jboolean isMapAndTable, jboolean hasPosition, jdouble lat, jdouble lon)
 {
@@ -302,8 +302,15 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeRunInteractive
         std::bind(&OnResults, _1, _2, timestamp, isMapAndTable, hasPosition, lat, lon)};
 
     if (g_framework->NativeFramework()->GetSearchAPI().SearchEverywhere(std::move(eparams)))
+    {
       g_queryTimestamp = timestamp;
+      return JNI_TRUE;
+    }
+    return JNI_FALSE;
   }
+
+  // Viewport-only search (isMapAndTable == false): always considered started.
+  return JNI_TRUE;
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearchMaps(JNIEnv * env, jclass clazz,
@@ -332,7 +339,20 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearchI
 
 JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeShowResult(JNIEnv * env, jclass clazz, jint index)
 {
+  if (index < 0 || index >= static_cast<jint>(g_results.GetCount()))
+    return;
   g_framework->NativeFramework()->ShowSearchResult(g_results[index]);
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeSelectResult(JNIEnv * env, jclass clazz, jint index)
+{
+  if (index < 0 || index >= static_cast<jint>(g_results.GetCount()))
+    return;
+  // Ideally this location mode change should happen in core automatically, without specifically changing the mode.
+  auto const mode = g_framework->GetMyPositionMode();
+  if (mode == location::Follow || mode == location::FollowAndRotate)
+    g_framework->NativeFramework()->StopLocationFollow();
+  g_framework->NativeFramework()->SelectSearchResult(g_results[index], true /* animation */);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeCancelInteractiveSearch(JNIEnv * env, jclass clazz)
@@ -340,19 +360,8 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeCancelInteract
   g_framework->NativeFramework()->GetSearchAPI().CancelSearch(search::Mode::Viewport);
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeCancelEverywhereSearch(JNIEnv * env, jclass clazz)
-{
-  g_framework->NativeFramework()->GetSearchAPI().CancelSearch(search::Mode::Everywhere);
-}
-
 JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeCancelAllSearches(JNIEnv * env, jclass clazz)
 {
   g_framework->NativeFramework()->GetSearchAPI().CancelAllSearches();
-}
-
-JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeUpdateViewportWithLastResults(JNIEnv * env,
-                                                                                                jclass clazz)
-{
-  g_framework->NativeFramework()->UpdateViewport(g_results);
 }
 }  // extern "C"

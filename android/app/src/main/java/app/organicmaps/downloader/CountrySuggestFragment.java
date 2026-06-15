@@ -1,5 +1,6 @@
 package app.organicmaps.downloader;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,11 +11,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragment;
-import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.util.StringUtils;
@@ -203,10 +202,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     }
     else if (id == R.id.btn__select_map)
     {
-      final FragmentActivity fragmentActivity = requireActivity();
-      if (!(fragmentActivity instanceof BaseMwmFragmentActivity))
-        throw new IllegalStateException("Activity is not instance of BaseMwmFragmentActivity");
-      ((BaseMwmFragmentActivity) fragmentActivity).replaceFragment(DownloaderFragment.class, null, null);
+      startActivity(new Intent(requireContext(), DownloaderActivity.class));
     }
     else if (id == R.id.wpv__download_progress)
       MapManager.nativeCancel(mDownloadingCountry.id);

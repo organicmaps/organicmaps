@@ -1,11 +1,12 @@
 package app.organicmaps.search;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,17 +16,17 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
-import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.base.BaseMwmFragment;
 import app.organicmaps.downloader.CountrySuggestFragment;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
@@ -40,119 +41,56 @@ import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.Language;
 import app.organicmaps.sdk.util.SharedPropertiesUtils;
 import app.organicmaps.util.UiUtils;
-import app.organicmaps.util.Utils;
-import app.organicmaps.util.WindowInsetUtils;
 import app.organicmaps.widget.PlaceholderView;
+import app.organicmaps.widget.SearchShimmerView;
 import app.organicmaps.widget.SearchToolbarController;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SearchFragment extends BaseMwmFragment implements SearchListener, CategoriesAdapter.CategoriesUiListener
+public class SearchFragment extends Fragment implements SearchListener, CategoriesAdapter.CategoriesUiListener
 {
-  private long mLastQueryTimestamp;
   @NonNull
   private final List<HiddenCommand> mHiddenCommands = new ArrayList<>();
-
-  private static class LastPosition
-  {
-    double lat;
-    double lon;
-    boolean valid;
-
-    public void set(double lat, double lon)
-    {
-      this.lat = lat;
-      this.lon = lon;
-      valid = true;
-    }
-  }
-
-  private class ToolbarController extends SearchToolbarController
-  {
-    public ToolbarController(View root)
-    {
-      super(root, SearchFragment.this.requireActivity());
-    }
-
-    @Override
-    protected void onTextChanged(String query)
-    {
-      if (!isAdded())
-        return;
-
-      if (TextUtils.isEmpty(query))
-      {
-        mSearchAdapter.clear();
-        stopSearch();
-        return;
-      }
-
-      if (tryRecognizeHiddenCommand(query))
-      {
-        mSearchAdapter.clear();
-        stopSearch();
-        closeSearch();
-        return;
-      }
-
-      runSearch();
-    }
-
-    @Override
-    protected boolean onStartSearchClick()
-    {
-      deactivate();
-      return true;
-    }
-
-    @Override
-    protected int getVoiceInputPrompt()
-    {
-      return R.string.search_map;
-    }
-
-    @Override
-    protected void startVoiceRecognition(Intent intent)
-    {
-      startVoiceRecognitionForResult.launch(intent);
-    }
-
-    @Override
-    protected boolean supportsVoiceSearch()
-    {
-      return true;
-    }
-
-    @Override
-    public void onUpClick()
-    {
-      if (!onBackPressed())
-        super.onUpClick();
-    }
-
-    @Override
-    public void clear()
-    {
-      super.clear();
-    }
-  }
-
+  private final List<RecyclerView> mAttachedRecyclers = new ArrayList<>();
+  private final LastPosition mLastPosition = new LastPosition();
+  private SearchFragmentListener mSearchFragmentListener;
   private View mResultsFrame;
+  @Nullable
+  private RecyclerView mResults;
+  private int mNavH = 0;
+  private int mExpandedOffset = 0;
+  private View mTabFrame;
+  private View mAppBar;
   private PlaceholderView mResultsPlaceholder;
-  private ExtendedFloatingActionButton mShowOnMapFab;
+  private SearchShimmerView mShimmerView;
+  private SearchPageViewModel mSearchViewModel;
+
+  // Debouncer for runSearch() — collapses bursts of keystrokes into a single engine invocation.
+  // searchInteractive() fans out to both SearchInViewport + EverywhereSearch internally, so the
+  // saving doubles for the per-prefix cost. ~200 ms matches the Material Design autocomplete guidance.
+  private static final long SEARCH_DEBOUNCE_MS = 200;
+  private final Handler mSearchDebounceHandler = new Handler(Looper.getMainLooper());
+  private final Runnable mDebouncedRunSearch = this::runSearch;
+
+  // Last (hasQuery, activeTab) snapshot applied by syncNestedScrollingState(); both null until the
+  // first call. Used to skip the repeat work / requestLayout() when neither input changed.
+  @Nullable
+  private Boolean mNestedScrollingSyncedHasQuery;
+  @Nullable
+  private Integer mNestedScrollingSyncedActiveTab;
+
+  @Nullable
+  private TabAdapter mTabAdapter;
+  private ViewPager mPager;
+  private TabLayout mTabLayout;
+  @Nullable
+  private WindowInsetsCompat mLastKnownInsets = null;
 
   @NonNull
   private SearchToolbarController mToolbarController;
-
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private SearchAdapter mSearchAdapter;
-
-  private final List<RecyclerView> mAttachedRecyclers = new ArrayList<>();
   private final RecyclerView.OnScrollListener mRecyclerListener = new RecyclerView.OnScrollListener() {
     @Override
     public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState)
@@ -161,28 +99,76 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
         mToolbarController.deactivate();
     }
   };
-
-  private final LastPosition mLastPosition = new LastPosition();
-  private boolean mSearchRunning;
-  private String mInitialQuery;
-  @Nullable
-  private String mInitialLocale;
-  private boolean mInitialSearchOnMap = false;
-
   private final ActivityResultLauncher<Intent> startVoiceRecognitionForResult =
       registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                                 activityResult -> { mToolbarController.onVoiceRecognitionResult(activityResult); });
+  @Nullable
+  private Boolean mSearchPreviouslyEnabled;
+  private final Observer<Boolean> mSearchEnabledObserver = new Observer<>() {
+    public void onChanged(Boolean enabled)
+    {
+      if (enabled == null)
+        return;
 
+      final boolean wasEnabled = Boolean.TRUE.equals(mSearchPreviouslyEnabled);
+      mSearchPreviouslyEnabled = enabled;
+
+      if (!enabled)
+      {
+        if (!wasEnabled)
+          return; // spurious disable — sheet was already closed, leave foreign searches alone
+
+        if (mToolbarController.hasQuery())
+          mToolbarController.clear();
+        // cancel() → cancelAllSearches() already resets the engine's stored query.
+        SearchEngine.INSTANCE.cancel();
+        return;
+      }
+
+      final SearchRequest request = mSearchViewModel.getPendingRequest();
+      final String query = request != null ? request.query : null;
+      if (query == null || query.isEmpty())
+        return;
+
+      mSearchAdapter.clear();
+      stopSearch();
+
+      // setQuery() fires the text watcher, which schedules the debounced search; runSearch() consumes
+      // the pending request (locale). When the query already matches the toolbar the watcher won't
+      // fire, so go through the debouncer directly to keep the timing consistent.
+      if (query.equals(getQuery()))
+        runSearchDebounced();
+      else
+        setQuery(query, request.isCategory);
+    }
+  };
+  private final Observer<Integer> mBottomSheetStateObserver = new Observer<>() {
+    public void onChanged(Integer state)
+    {
+      if (state == null)
+        return;
+
+      // The sheet just became visible — instantiate the History/Categories pager lazily.
+      if (state != BottomSheetBehavior.STATE_HIDDEN)
+        setupTabsIfNeeded();
+
+      if (state != BottomSheetBehavior.STATE_EXPANDED)
+        mToolbarController.deactivate();
+      else if (!mToolbarController.hasQuery())
+        activateToolbar();
+    }
+  };
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private SearchAdapter mSearchAdapter;
   private final LocationListener mLocationListener = new LocationListener() {
     @Override
     public void onLocationUpdated(@NonNull Location location)
     {
       mLastPosition.set(location.getLatitude(), location.getLongitude());
-
-      if (!TextUtils.isEmpty(getQuery()))
-        mSearchAdapter.notifyDataSetChanged();
     }
   };
+  private boolean mSearchRunning;
 
   private static boolean doShowDownloadSuggest()
   {
@@ -216,21 +202,31 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
   private void updateFrames()
   {
     final boolean hasQuery = mToolbarController.hasQuery();
-    Toolbar toolbar = mToolbarController.getToolbar();
-    AppBarLayout.LayoutParams lp = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
-    lp.setScrollFlags(hasQuery ? AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
-                                     | AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
-                               : 0);
-    toolbar.setLayoutParams(lp);
 
     UiUtils.showIf(hasQuery, mResultsFrame);
-    UiUtils.showIf(hasQuery, mShowOnMapFab);
+    UiUtils.showIf(!hasQuery, mTabFrame);
+    UiUtils.showIf(!hasQuery, mPager);
     if (hasQuery)
       hideDownloadSuggest();
     else if (doShowDownloadSuggest())
       showDownloadSuggest();
     else
       hideDownloadSuggest();
+    syncNestedScrollingState();
+    updatePeekHeight();
+  }
+
+  private void updatePeekHeight()
+  {
+    if (mAppBar == null)
+      return;
+
+    mAppBar.post(() -> {
+      int height = mAppBar.getHeight();
+      if (!mToolbarController.hasQuery() && mTabFrame.getVisibility() == View.VISIBLE)
+        height += mTabFrame.getHeight();
+      mSearchViewModel.setToolbarHeight(height);
+    });
   }
 
   private void updateResultsPlaceholder()
@@ -240,10 +236,36 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
     UiUtils.showIf(show, mResultsPlaceholder);
   }
 
+  private void hideShimmer()
+  {
+    if (mShimmerView != null)
+    {
+      mShimmerView.stopShimmer();
+      UiUtils.hide(mShimmerView);
+    }
+  }
+
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
     return inflater.inflate(R.layout.fragment_search, container, false);
+  }
+
+  @Override
+  public void onAttach(@NonNull Context context)
+  {
+    super.onAttach(context);
+    Fragment parent = getParentFragment();
+    if (!(parent instanceof SearchFragmentListener))
+      throw new IllegalStateException(parent + " must implement SearchFragmentListener");
+    mSearchFragmentListener = (SearchFragmentListener) parent;
+  }
+
+  @Override
+  public void onDetach()
+  {
+    mSearchFragmentListener = null;
+    super.onDetach();
   }
 
   @CallSuper
@@ -252,60 +274,125 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
   {
     super.onViewCreated(view, savedInstanceState);
     mSearchAdapter = new SearchAdapter(this);
-    readArguments();
+    mSearchViewModel = new ViewModelProvider(requireActivity()).get(SearchPageViewModel.class);
 
     ViewGroup root = (ViewGroup) view;
-    View mTabFrame = root.findViewById(R.id.tab_frame);
-    ViewPager pager = mTabFrame.findViewById(R.id.pages);
+    mPager = root.findViewById(R.id.pages);
 
     mToolbarController = new ToolbarController(view);
-    TabLayout tabLayout = root.findViewById(R.id.tabs);
-
-    if (Config.isSearchHistoryEnabled())
-      tabLayout.setVisibility(View.VISIBLE);
-    else
-      tabLayout.setVisibility(View.GONE);
-
-    final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, tabLayout);
-
+    mTabLayout = root.findViewById(R.id.tabs);
+    mTabFrame = root.findViewById(R.id.tab_frame);
     mResultsFrame = root.findViewById(R.id.results_frame);
-    RecyclerView mResults = mResultsFrame.findViewById(R.id.recycler);
+    mResults = mResultsFrame.findViewById(R.id.recycler);
     setRecyclerScrollListener(mResults);
+    ViewCompat.setOnApplyWindowInsetsListener(mResults, (v, insets) -> {
+      mNavH = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom;
+      updateAllRecyclerBottomPadding();
+      return insets;
+    });
+    mSearchViewModel.getExpandedOffset().observe(getViewLifecycleOwner(), offset -> {
+      mExpandedOffset = offset != null ? offset : 0;
+      updateAllRecyclerBottomPadding();
+    });
     mResultsPlaceholder = mResultsFrame.findViewById(R.id.placeholder);
     mResultsPlaceholder.setContent(R.string.search_not_found, R.string.search_not_found_query);
-    mSearchAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
-
-                                               {
-                                                 @Override
-                                                 public void onChanged()
-                                                 {
-                                                   updateResultsPlaceholder();
-                                                 }
-                                               });
-    mShowOnMapFab = root.findViewById(R.id.show_on_map_fab);
-    mShowOnMapFab.setOnClickListener(v -> showAllResultsOnMap());
+    mShimmerView = mResultsFrame.findViewById(R.id.search_shimmer);
+    mSearchAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+      @Override
+      public void onChanged()
+      {
+        updateResultsPlaceholder();
+      }
+    });
 
     mResults.setLayoutManager(new LinearLayoutManager(view.getContext()));
     mResults.setAdapter(mSearchAdapter);
 
+    mPager.setClipToPadding(false);
+    // Store insets and dispatch to tab fragment RecyclerViews.
+    // Padding the ViewPager itself is wrong — it shortens the tab fragment layout
+    // without giving those RecyclerViews their own scrollable bottom padding.
+    ViewCompat.setOnApplyWindowInsetsListener(mPager, (v, insets) -> {
+      mLastKnownInsets = insets;
+      dispatchInsetsToTabFragments(insets);
+      return insets;
+    });
+
+    final SearchResult[] cachedResults = SearchEngine.INSTANCE.getCachedResults();
+    if (cachedResults != null)
+    {
+      final String cachedQuery = SearchEngine.INSTANCE.getCachedSearchBarQuery();
+      if (!TextUtils.isEmpty(cachedQuery))
+        mToolbarController.setQuerySilently(cachedQuery, false);
+      mSearchAdapter.refreshData(cachedResults);
+      mSearchRunning = false;
+      mToolbarController.showProgress(false);
+      updateFrames();
+      updateResultsPlaceholder();
+      // Cached results already satisfy any pending restore request — consume it so the
+      // mSearchEnabledObserver doesn't wipe the adapter and re-fire a fresh search.
+      mSearchViewModel.clearPendingRequest();
+    }
+
+    mSearchViewModel.getSearchPageLastState().observe(getViewLifecycleOwner(), mBottomSheetStateObserver);
+
+    if (Config.isSearchHistoryEnabled())
+      mTabLayout.setVisibility(View.VISIBLE);
+    else
+      mTabLayout.setVisibility(View.GONE);
+    mAppBar = root.findViewById(R.id.app_bar);
+
     updateFrames();
-    updateResultsPlaceholder();
-    ViewCompat.setOnApplyWindowInsetsListener(
-        mResults, new WindowInsetUtils.ScrollableContentInsetsListener(mResults, mShowOnMapFab));
-
-    mToolbarController.activate();
-
     SearchEngine.INSTANCE.addListener(this);
 
-    SharedPreferences preferences = MwmApplication.prefs(requireContext());
-    int lastSelectedTabPosition = preferences.getInt(Config.KEY_PREF_LAST_SEARCHED_TAB, 0);
+    // Pre-warm tabs after the activity's critical path so the first sheet open is instant.
+    // Idempotent — if the sheet opens before the post runs, setupTabsIfNeeded() fires from the
+    // bottom-sheet observer instead and this no-ops.
+    view.post(this::setupTabsIfNeeded);
+  }
+
+  private void setupTabsIfNeeded()
+  {
+    if (mTabAdapter != null || getView() == null)
+      return;
+
+    final ViewPager pager = mPager;
+    final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, mTabLayout);
+    mTabAdapter = tabAdapter;
+    pager.setOffscreenPageLimit(tabAdapter.getCount());
+    pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+      @Override
+      public void onPageSelected(int position)
+      {
+        updateNestedScrollingForTab(tabAdapter, position);
+      }
+    });
+
+    final SharedPreferences preferences = MwmApplication.prefs(requireContext());
+    final int lastSelectedTabPosition = preferences.getInt(Config.KEY_PREF_LAST_SEARCHED_TAB, 0);
     if (SearchRecents.getSize() == 0 && Config.isSearchHistoryEnabled())
       pager.setCurrentItem(lastSelectedTabPosition);
 
-    tabAdapter.setTabSelectedListener(tab -> mToolbarController.deactivate());
+    tabAdapter.setTabSelectedListener(tab -> {
+      mToolbarController.deactivate();
+      mSearchViewModel.notifyHistoryChanged();
+    });
+    pager.post(() -> updateNestedScrollingForTab(tabAdapter, pager.getCurrentItem()));
 
-    if (mInitialSearchOnMap)
-      showAllResultsOnMap();
+    // The tab fragments missed the initial inset dispatch — replay it now.
+    if (mLastKnownInsets != null)
+      dispatchInsetsToTabFragments(mLastKnownInsets);
+  }
+
+  @Override
+  public void onViewStateRestored(@Nullable Bundle savedInstanceState)
+  {
+    super.onViewStateRestored(savedInstanceState);
+    // Android restores the EditText text here via setText(), which fires our TextWatcher and
+    // schedules a debounced runSearch — redundant on rotation when cached results are still valid.
+    // Cancel the pending debounce so the recreated fragment doesn't run the same search again.
+    if (savedInstanceState != null && SearchEngine.INSTANCE.getCachedResults() != null)
+      mSearchDebounceHandler.removeCallbacks(mDebouncedRunSearch);
   }
 
   @Override
@@ -313,16 +400,21 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
   {
     super.onStart();
     mToolbarController.attach(requireActivity());
+    mSearchViewModel.getSearchEnabled().observe(getViewLifecycleOwner(), mSearchEnabledObserver);
   }
 
+  @Override
   public void onResume()
   {
     super.onResume();
     MwmApplication.from(requireContext()).getLocationHelper().addListener(mLocationListener);
-    if (mInitialQuery != null)
+
+    // onPause() stops the shimmer; if we are resuming mid-search with no results yet, restore it
+    // so the results pane isn't blank until the next results callback arrives.
+    if (mSearchRunning && mSearchAdapter.getItemCount() == 0 && mShimmerView != null)
     {
-      setQuery(mInitialQuery, false);
-      mInitialQuery = null;
+      UiUtils.show(mShimmerView);
+      mShimmerView.startShimmer();
     }
   }
 
@@ -330,6 +422,7 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
   public void onPause()
   {
     MwmApplication.from(requireContext()).getLocationHelper().removeListener(mLocationListener);
+    hideShimmer();
     super.onPause();
   }
 
@@ -341,38 +434,29 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
   }
 
   @Override
-  public void onDestroy()
+  public void onDestroyView()
   {
+    mSearchDebounceHandler.removeCallbacks(mDebouncedRunSearch);
     for (RecyclerView v : mAttachedRecyclers)
       v.removeOnScrollListener(mRecyclerListener);
-
     mAttachedRecyclers.clear();
     SearchEngine.INSTANCE.removeListener(this);
-    super.onDestroy();
+    super.onDestroyView();
   }
 
   private String getQuery()
   {
     return mToolbarController.getQuery();
   }
+
   private boolean isCategory()
   {
     return mToolbarController.isCategory();
   }
+
   void setQuery(String text, boolean isCategory)
   {
     mToolbarController.setQuery(text, isCategory);
-  }
-
-  private void readArguments()
-  {
-    final Bundle arguments = getArguments();
-    if (arguments == null)
-      return;
-
-    mInitialQuery = arguments.getString(SearchActivity.EXTRA_QUERY);
-    mInitialLocale = arguments.getString(SearchActivity.EXTRA_LOCALE);
-    mInitialSearchOnMap = arguments.getBoolean(SearchActivity.EXTRA_SEARCH_ON_MAP);
   }
 
   private boolean tryRecognizeHiddenCommand(@NonNull String query)
@@ -403,8 +487,10 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
   {
     final String query = getQuery();
     if (Config.isSearchHistoryEnabled())
+    {
       SearchRecents.add(query, requireContext());
-    SearchEngine.INSTANCE.cancel();
+      mSearchViewModel.notifyHistoryChanged();
+    }
     SearchEngine.INSTANCE.setQuery(query);
 
     if (RoutingController.get().isWaitingPoiPick())
@@ -414,38 +500,14 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
 
       final MapObject point = MapObject.createMapObject(MapObject.SEARCH, title, subtitle, result.lat, result.lon);
       RoutingController.get().onPoiSelected(point);
+      mSearchFragmentListener.closeSearch();
     }
     else
     {
-      SearchEngine.INSTANCE.showResult(resultIndex);
+      SearchEngine.INSTANCE.selectResult(resultIndex);
     }
 
     mToolbarController.deactivate();
-
-    if (requireActivity() instanceof SearchActivity)
-      Utils.navigateToParent(requireActivity());
-  }
-
-  void showAllResultsOnMap()
-  {
-    SearchEngine.INSTANCE.updateViewportWithLastResults();
-
-    // The previous search should be cancelled before the new one is started, since previous search
-    // results are no longer needed.
-    SearchEngine.INSTANCE.cancel();
-
-    final String query = getQuery();
-    if (Config.isSearchHistoryEnabled())
-      SearchRecents.add(query, requireContext());
-    mLastQueryTimestamp = System.nanoTime();
-
-    SearchEngine.INSTANCE.searchInteractive(
-        query, isCategory(),
-        !TextUtils.isEmpty(mInitialLocale) ? mInitialLocale : Language.getKeyboardLocale(requireContext()),
-        mLastQueryTimestamp, false /* isMapAndTable */);
-
-    SearchEngine.INSTANCE.setQuery(query);
-    Utils.navigateToParent(requireActivity());
   }
 
   private void onSearchEnd()
@@ -458,20 +520,22 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
   {
     mSearchRunning = false;
     mToolbarController.showProgress(false);
+    hideShimmer();
     updateFrames();
     updateResultsPlaceholder();
   }
 
   private void stopSearch()
   {
+    mSearchDebounceHandler.removeCallbacks(mDebouncedRunSearch);
     SearchEngine.INSTANCE.cancel();
     updateSearchView();
   }
 
-  private boolean isTabletSearch()
+  private void runSearchDebounced()
   {
-    // TODO @yunitsky Implement more elegant solution.
-    return requireActivity() instanceof MwmActivity;
+    mSearchDebounceHandler.removeCallbacks(mDebouncedRunSearch);
+    mSearchDebounceHandler.postDelayed(mDebouncedRunSearch, SEARCH_DEBOUNCE_MS);
   }
 
   private void runSearch()
@@ -480,23 +544,47 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
     // results are no longer needed.
     SearchEngine.INSTANCE.cancel();
 
-    mLastQueryTimestamp = System.nanoTime();
-    if (isTabletSearch())
+    boolean hasLocation = mLastPosition.valid;
+    double lat = mLastPosition.lat;
+    double lon = mLastPosition.lon;
+
+    // Fall back to the last known location if the fragment's listener hasn't received a fix yet.
+    if (!hasLocation)
     {
-      SearchEngine.INSTANCE.searchInteractive(requireContext(), getQuery(), isCategory(), mLastQueryTimestamp,
-                                              true /* isMapAndTable */);
-    }
-    else
-    {
-      if (!SearchEngine.INSTANCE.search(requireContext(), getQuery(), isCategory(), mLastQueryTimestamp,
-                                        mLastPosition.valid, mLastPosition.lat, mLastPosition.lon))
+      final Location saved = MwmApplication.from(requireContext()).getLocationHelper().getSavedLocation();
+      if (saved != null)
       {
-        return;
+        hasLocation = true;
+        lat = saved.getLatitude();
+        lon = saved.getLongitude();
       }
+    }
+
+    final SearchRequest request = mSearchViewModel.getPendingRequest();
+    // Locale applies only to this initial query; consume the request so later manual edits fall
+    // back to the keyboard locale.
+    String locale =
+        (request != null && request.locale != null) ? request.locale : Language.getKeyboardLocale(requireContext());
+    mSearchViewModel.clearPendingRequest();
+
+    SearchEngine.INSTANCE.setQuery(getQuery());
+    boolean started = SearchEngine.INSTANCE.searchInteractive(getQuery(), isCategory(), locale, System.nanoTime(),
+                                                              true /* isMapAndTable */, hasLocation, lat, lon);
+    if (!started)
+    {
+      stopSearch();
+      return;
     }
 
     mSearchRunning = true;
     mToolbarController.showProgress(true);
+    updateResultsPlaceholder();
+
+    if (mSearchAdapter.getItemCount() == 0)
+    {
+      UiUtils.show(mShimmerView);
+      mShimmerView.startShimmer();
+    }
 
     updateFrames();
   }
@@ -519,18 +607,23 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
   @Override
   public void onSearchCategorySelected(@Nullable String category)
   {
+    if (Config.isSearchHistoryEnabled() && category != null)
+    {
+      SearchRecents.add(category.trim(), requireContext());
+      mSearchViewModel.notifyHistoryChanged();
+    }
     mToolbarController.setQuery(category, true);
   }
 
   private void refreshSearchResults(@NonNull SearchResult[] results)
   {
     mSearchRunning = true;
+    hideShimmer();
     updateFrames();
     mSearchAdapter.refreshData(results);
     mToolbarController.showProgress(true);
   }
 
-  @Override
   public boolean onBackPressed()
   {
     if (mToolbarController.hasQuery())
@@ -539,37 +632,164 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
       return true;
     }
 
-    boolean isSearchActivity = requireActivity() instanceof SearchActivity;
     mToolbarController.deactivate();
     if (RoutingController.get().isWaitingPoiPick())
     {
       RoutingController.get().onPoiSelected(null);
-      if (isSearchActivity)
-        closeSearch();
-      return !isSearchActivity;
     }
 
-    if (isSearchActivity)
-      closeSearch();
-    return isSearchActivity;
-  }
-
-  private void closeSearch()
-  {
-    final Activity activity = requireActivity();
-    activity.finish();
+    return false;
   }
 
   public void setRecyclerScrollListener(RecyclerView recycler)
   {
     recycler.addOnScrollListener(mRecyclerListener);
     mAttachedRecyclers.add(recycler);
+    if (mTabAdapter != null)
+      updateNestedScrollingForTab(mTabAdapter, mPager.getCurrentItem());
+  }
+
+  private void updateNestedScrollingForTab(@NonNull TabAdapter tabAdapter, int selectedPosition)
+  {
+    // Replay the last known insets to any tab fragment views that are now attached.
+    // This handles the timing gap where ViewPager creates fragment views lazily,
+    // after the initial window-insets dispatch has already completed.
+    if (mLastKnownInsets != null)
+      dispatchInsetsToTabFragments(mLastKnownInsets);
+
+    updateAllRecyclerBottomPadding();
+
+    syncNestedScrollingState();
+  }
+
+  /**
+   * Ensures exactly one RecyclerView participates in nested scrolling at any time so
+   * BottomSheetBehavior.findScrollingChild() always resolves to the visible list.
+   *
+   * - In search mode (hasQuery): enable results RV, disable all tab RVs.
+   * - In tab mode (!hasQuery): disable results RV, enable only the active tab's RV.
+   *
+   * After updating flags, requestLayout() is called on the bottom sheet so
+   * BottomSheetBehavior.onLayoutChild() re-runs findScrollingChild() and refreshes
+   * its internal nestedScrollingChildRef before the next touch gesture.
+   */
+  private void syncNestedScrollingState()
+  {
+    final boolean hasQuery = mToolbarController.hasQuery();
+    final int activeTab = mPager.getCurrentItem();
+
+    // updateFrames() runs on every keystroke and every results batch — but the nested-scrolling
+    // flags only flip on hasQuery / activeTab transitions, so cache the last pair and skip the
+    // sheet requestLayout() when nothing changed.
+    if (mNestedScrollingSyncedHasQuery != null && mNestedScrollingSyncedActiveTab != null
+        && hasQuery == mNestedScrollingSyncedHasQuery && activeTab == mNestedScrollingSyncedActiveTab)
+      return;
+    mNestedScrollingSyncedHasQuery = hasQuery;
+    mNestedScrollingSyncedActiveTab = activeTab;
+
+    if (mResults != null)
+      ViewCompat.setNestedScrollingEnabled(mResults, hasQuery);
+
+    if (mTabAdapter != null)
+    {
+      for (int i = 0; i < mTabAdapter.getCount(); i++)
+      {
+        Fragment f = mTabAdapter.getItem(i);
+        if (f == null || f.getView() == null)
+          continue;
+        RecyclerView rv = f.getView().findViewById(R.id.recycler);
+        if (rv != null)
+          ViewCompat.setNestedScrollingEnabled(rv, !hasQuery && i == activeTab);
+      }
+    }
+
+    View bottomSheet = getBottomSheetContainer();
+    if (bottomSheet != null)
+      bottomSheet.requestLayout();
+  }
+
+  private void updateAllRecyclerBottomPadding()
+  {
+    int padding = mNavH + mExpandedOffset;
+    if (mResults != null)
+      mResults.setPadding(mResults.getPaddingLeft(), mResults.getPaddingTop(), mResults.getPaddingRight(), padding);
+    if (mTabAdapter == null)
+      return;
+    for (int i = 0; i < mTabAdapter.getCount(); i++)
+    {
+      Fragment f = mTabAdapter.getItem(i);
+      if (f == null || f.getView() == null)
+        continue;
+      RecyclerView rv = f.getView().findViewById(R.id.recycler);
+      if (rv != null)
+        rv.setPadding(rv.getPaddingLeft(), rv.getPaddingTop(), rv.getPaddingRight(), padding);
+    }
+  }
+
+  private void dispatchInsetsToTabFragments(@NonNull WindowInsetsCompat insets)
+  {
+    if (mTabAdapter == null)
+      return;
+    for (int i = 0; i < mTabAdapter.getCount(); i++)
+    {
+      Fragment f = mTabAdapter.getItem(i);
+      if (f != null && f.getView() != null)
+        ViewCompat.dispatchApplyWindowInsets(f.getView(), insets);
+    }
+  }
+
+  /**
+   * Returns the BottomSheet container view (search_page_container) that has
+   * the BottomSheetBehavior attached, or null if not found.
+   */
+  @Nullable
+  private View getBottomSheetContainer()
+  {
+    View view = getView();
+    if (view == null)
+      return null;
+    ViewGroup parent = (ViewGroup) view.getParent();
+    while (parent != null)
+    {
+      if (parent.getId() == R.id.search_page_container)
+        return parent;
+      if (parent.getParent() instanceof ViewGroup)
+        parent = (ViewGroup) parent.getParent();
+      else
+        break;
+    }
+    return null;
   }
 
   @NonNull
   public SearchToolbarController requireController()
   {
     return mToolbarController;
+  }
+
+  public void activateToolbar()
+  {
+    mToolbarController.activate();
+  }
+
+  interface SearchFragmentListener
+  {
+    void onSearchClicked();
+    void closeSearch();
+  }
+
+  private static class LastPosition
+  {
+    double lat;
+    double lon;
+    boolean valid;
+
+    public void set(double lat, double lon)
+    {
+      this.lat = lat;
+      this.lon = lon;
+      valid = true;
+    }
   }
 
   private static class BadStorageCommand extends HiddenCommand.BaseHiddenCommand
@@ -628,5 +848,86 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
     @Override
     void executeInternal()
     {}
+  }
+
+  private class ToolbarController extends SearchToolbarController
+  {
+    public ToolbarController(View root)
+    {
+      super(root, SearchFragment.this.requireActivity());
+      ViewCompat.setOnApplyWindowInsetsListener(getToolbar(), null);
+      root.findViewById(R.id.close_search).setOnClickListener(v -> mSearchFragmentListener.closeSearch());
+    }
+
+    @Override
+    public void setQuery(CharSequence query)
+    {
+      super.setQuery(query);
+      if (!TextUtils.isEmpty(query))
+        mSearchFragmentListener.onSearchClicked();
+    }
+
+    @Override
+    protected void onTextChanged(String query)
+    {
+      if (!isAdded())
+        return;
+
+      mSearchViewModel.setCurrentToolbarCategorical(isCategory());
+
+      if (query.trim().isEmpty())
+      {
+        mSearchAdapter.clear();
+        stopSearch();
+        return;
+      }
+
+      if (tryRecognizeHiddenCommand(query))
+      {
+        mSearchAdapter.clear();
+        stopSearch();
+        requireActivity().onBackPressed();
+        return;
+      }
+
+      runSearchDebounced();
+    }
+
+    @Override
+    protected boolean onStartSearchClick()
+    {
+      if (Config.isSearchHistoryEnabled())
+      {
+        SearchRecents.add(getQuery(), requireContext());
+        mSearchViewModel.notifyHistoryChanged();
+      }
+      deactivate();
+      mSearchFragmentListener.onSearchClicked();
+      return true;
+    }
+
+    @Override
+    protected int getVoiceInputPrompt()
+    {
+      return R.string.search_map;
+    }
+
+    @Override
+    protected void startVoiceRecognition(Intent intent)
+    {
+      startVoiceRecognitionForResult.launch(intent);
+    }
+
+    @Override
+    protected boolean supportsVoiceSearch()
+    {
+      return true;
+    }
+
+    @Override
+    public void onUpClick()
+    {
+      requireActivity().onBackPressed();
+    }
   }
 }
