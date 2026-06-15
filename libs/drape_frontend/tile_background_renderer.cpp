@@ -262,7 +262,9 @@ void TileBackgroundRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_pt
   m_sortedTiles.reserve(m_tiles.size());
   for (auto const & [tileKey, binding] : m_tiles)
   {
-    if (!screen.ClipRect().IsIntersect(tileKey.GetGlobalRect()))
+    // Background tiles live at the real (unclamped) zoom — unlike vector data, which tops out at
+    // GetUpperScale(). Use the unclipped rect so the on-screen quad matches the requested web tile.
+    if (!screen.ClipRect().IsIntersect(tileKey.GetGlobalRect(false /* clipByDataMaxZoom */)))
       continue;
     auto imgIt = m_images.find(binding.m_imageUid);
     if (imgIt == m_images.end())
@@ -287,7 +289,7 @@ void TileBackgroundRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_pt
   for (size_t i = 0; i < m_sortedTiles.size(); ++i)
   {
     auto const & entry = m_sortedTiles[i];
-    auto const r = entry.m_tileKey.GetGlobalRect();
+    auto const r = entry.m_tileKey.GetGlobalRect(false /* clipByDataMaxZoom */);
     auto const minR = (m2::PointD(r.minX(), r.minY()) - pivot);
     auto const maxR = (m2::PointD(r.maxX(), r.maxY()) - pivot);
     m_programParams.m_tileCoordsMinMax[instanceIndex] = glsl::vec4(
