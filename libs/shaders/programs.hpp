@@ -30,6 +30,13 @@ enum class Program
   TransparentArea,
   CapJoin,
   HatchingArea,
+  HatchingAreaDash,
+  AreaStipple,
+  AreaSpeckle,
+  AreaGrid,
+  AreaForest,
+  AreaForestConiferous,
+  AreaForestDeciduous,
   TexturingGui,
   Ruler,
   Accuracy,
@@ -96,6 +103,13 @@ inline std::string_view DebugPrint(Program p)
   case Program::PathSymbol: return "PathSymbol";
   case Program::TransparentArea: return "TransparentArea";
   case Program::HatchingArea: return "HatchingArea";
+  case Program::HatchingAreaDash: return "HatchingAreaDash";
+  case Program::AreaStipple: return "AreaStipple";
+  case Program::AreaSpeckle: return "AreaSpeckle";
+  case Program::AreaGrid: return "AreaGrid";
+  case Program::AreaForest: return "AreaForest";
+  case Program::AreaForestConiferous: return "AreaForestConiferous";
+  case Program::AreaForestDeciduous: return "AreaForestDeciduous";
   case Program::TexturingGui: return "TexturingGui";
   case Program::Ruler: return "Ruler";
   case Program::Accuracy: return "Accuracy";

@@ -160,12 +160,200 @@ vertex HatchingAreaFragment_T vsHatchingArea(const HatchingAreaVertex_T in [[sta
   return out;
 }
 
-fragment half4 fsHatchingArea(const HatchingAreaFragment_T in [[stage_in]],
-                              texture2d<half> u_maskTex [[texture(0)]],
-                              sampler u_maskTexSampler [[sampler(0)]])
+// GLSL-style mod (always non-negative for a positive divisor), unlike Metal fmod which keeps the sign
+// of the dividend. The lattice coordinate can go slightly negative near a bbox edge, so this keeps the
+// analytic patterns identical to their GL counterparts.
+static float GLMod(float x, float y)
 {
-  return in.color * u_maskTex.sample(u_maskTexSampler, in.maskTexCoords);
+  return x - y * floor(x / y);
 }
+
+// Analytic 45-degree hatch (see GL/hatching_area.fsh.glsl). in.color already has opacity applied in
+// vsHatchingArea; in.maskTexCoords is the world-anchored lattice coordinate (1.0 == one 16px tile).
+fragment half4 fsHatchingArea(const HatchingAreaFragment_T in [[stage_in]])
+{
+  constexpr float kPeriodPx = 8.0;
+  constexpr float kHalfWidthPx = 0.7;
+  float2 px = in.maskTexCoords * 16.0;
+  float diag = px.x + px.y;
+  float m = GLMod(diag, kPeriodPx);
+  float dist = min(m, kPeriodPx - m);
+  float aa = fwidth(diag);
+  float coverage = 1.0 - smoothstep(kHalfWidthPx - aa, kHalfWidthPx + aa, dist);
+  return in.color * half(coverage);
+}
+
+// Analytic dashed hatch (see GL/hatching_area_dash.fsh.glsl).
+fragment half4 fsHatchingAreaDash(const HatchingAreaFragment_T in [[stage_in]])
+{
+  constexpr float kRowPeriodPx = 8.0;
+  constexpr float kRowCenterPx = 3.5;
+  constexpr float kHalfThickPx = 0.5;
+  constexpr float kDashPeriodPx = 16.0;
+  constexpr float kDashHalfPx = 4.0;
+  float2 px = in.maskTexCoords * 16.0;
+
+  float ym = GLMod(px.y - kRowCenterPx, kRowPeriodPx);
+  float yDist = min(ym, kRowPeriodPx - ym);
+  float aaY = fwidth(px.y);
+  float onRow = 1.0 - smoothstep(kHalfThickPx - aaY, kHalfThickPx + aaY, yDist);
+
+  float rowIdx = floor((px.y - kRowCenterPx) / kRowPeriodPx + 0.5);
+  float xPhase = px.x + GLMod(rowIdx, 2.0) * (kDashPeriodPx * 0.5);
+  float xDist = fabs(GLMod(xPhase, kDashPeriodPx) - kDashHalfPx);
+  float aaX = fwidth(px.x);
+  float onDash = 1.0 - smoothstep(kDashHalfPx - aaX, kDashHalfPx + aaX, xDist);
+
+  return in.color * half(onRow * onDash);
+}
+
+// AreaPattern hash for jittered solid-fill patterns (stipple/speckle).
+// Integer cell hash (see GL/area_forest.fsh.glsl): exact at any index, so the coarse anchor can make the
+// cell index seam-consistent across map tiles without banding.
+static float AreaPatternIHash(int2 c, uint salt)
+{
+  uint h = uint(c.x) * 0x9E3779B1u ^ uint(c.y) * 0x85EBCA77u ^ salt * 0xC2B2AE3Du;
+  h ^= h >> 16; h *= 0x7FEB352Du; h ^= h >> 15; h *= 0x846CA68Bu; h ^= h >> 16;
+  return float(h >> 8) * (1.0 / 16777216.0);
+}
+
+// Analytic stipple (see GL/area_stipple.fsh.glsl): single-pass solid fill modulated by darker dots.
+fragment half4 fsAreaStipple(const HatchingAreaFragment_T in [[stage_in]])
+{
+  constexpr float kCellPx = 8.0;
+  constexpr float kRadiusPx = 1.2;
+  constexpr float kJitter = 0.55;
+  constexpr float kDarken = 0.80;
+  float2 px = in.maskTexCoords * 16.0;
+  int2 cell = int2(floor(px / kCellPx));
+  float2 toCenter = (fract(px / kCellPx) - 0.5) * kCellPx -
+                    (float2(AreaPatternIHash(cell, 0u), AreaPatternIHash(cell, 20u)) - 0.5) * (kJitter * kCellPx);
+  float d = length(toCenter);
+  float aa = max(fwidth(px.x), fwidth(px.y));
+  float coverage = 1.0 - smoothstep(kRadiusPx - aa, kRadiusPx + aa, d);
+  half4 color = in.color;
+  color.rgb *= half(mix(1.0, kDarken, coverage));
+  return color;
+}
+
+// Analytic speckle (see GL/area_speckle.fsh.glsl): denser, size-varied rock dots.
+fragment half4 fsAreaSpeckle(const HatchingAreaFragment_T in [[stage_in]])
+{
+  constexpr float kCellPx = 4.0;
+  constexpr float kBaseRadiusPx = 0.7;
+  constexpr float kRadiusVar = 0.6;
+  constexpr float kJitter = 0.5;
+  constexpr float kDarken = 0.78;
+  float2 px = in.maskTexCoords * 16.0;
+  int2 cell = int2(floor(px / kCellPx));
+  float2 toCenter = (fract(px / kCellPx) - 0.5) * kCellPx -
+                    (float2(AreaPatternIHash(cell, 0u), AreaPatternIHash(cell, 20u)) - 0.5) * (kJitter * kCellPx);
+  float radius = kBaseRadiusPx * (1.0 - kRadiusVar * 0.5 + kRadiusVar * AreaPatternIHash(cell, 4u));
+  float d = length(toCenter);
+  float aa = max(fwidth(px.x), fwidth(px.y));
+  float coverage = 1.0 - smoothstep(radius - aa, radius + aa, d);
+  half4 color = in.color;
+  color.rgb *= half(mix(1.0, kDarken, coverage));
+  return color;
+}
+
+// Analytic grid (see GL/area_grid.fsh.glsl): regular dot lattice for orchard/vineyard.
+fragment half4 fsAreaGrid(const HatchingAreaFragment_T in [[stage_in]])
+{
+  constexpr float kCellPx = 16.0;
+  constexpr float kRadiusPx = 1.6;
+  constexpr float kDarken = 0.82;
+  float2 px = in.maskTexCoords * 16.0;
+  float2 toCenter = (fract(px / kCellPx) - 0.5) * kCellPx;
+  float d = length(toCenter);
+  float aa = max(fwidth(px.x), fwidth(px.y));
+  float coverage = 1.0 - smoothstep(kRadiusPx - aa, kRadiusPx + aa, d);
+  half4 color = in.color;
+  color.rgb *= half(mix(1.0, kDarken, coverage));
+  return color;
+}
+
+// Analytic tree SDFs (see GL/area_forest.fsh.glsl): broadleaf = 3-circle crown + trunk; pine = two
+// triangle tiers + trunk. +y up.
+static float ForestCircle(float2 p, float2 c, float r)
+{
+  return length(p - c) - r;
+}
+static float ForestBox(float2 p, float2 c, float2 h)
+{
+  float2 d = abs(p - c) - h;
+  return length(max(d, float2(0.0))) + min(max(d.x, d.y), 0.0);
+}
+static float ForestTriangle(float2 p, float2 p0, float2 p1, float2 p2)
+{
+  float2 e0 = p1 - p0, e1 = p2 - p1, e2 = p0 - p2;
+  float2 v0 = p - p0, v1 = p - p1, v2 = p - p2;
+  float2 pq0 = v0 - e0 * clamp(dot(v0, e0) / dot(e0, e0), 0.0, 1.0);
+  float2 pq1 = v1 - e1 * clamp(dot(v1, e1) / dot(e1, e1), 0.0, 1.0);
+  float2 pq2 = v2 - e2 * clamp(dot(v2, e2) / dot(e2, e2), 0.0, 1.0);
+  float s = sign(e0.x * e2.y - e0.y * e2.x);
+  float2 d = min(min(float2(dot(pq0, pq0), s * (v0.x * e0.y - v0.y * e0.x)),
+                     float2(dot(pq1, pq1), s * (v1.x * e1.y - v1.y * e1.x))),
+                 float2(dot(pq2, pq2), s * (v2.x * e2.y - v2.y * e2.x)));
+  return -sqrt(d.x) * sign(d.y);
+}
+static float BroadleafSDF(float2 q)
+{
+  float d = ForestCircle(q, float2(0.0, 0.15), 0.23);
+  d = min(d, ForestCircle(q, float2(-0.13, -0.04), 0.21));
+  d = min(d, ForestCircle(q, float2(0.13, -0.04), 0.21));
+  d = min(d, ForestBox(q, float2(0.0, -0.34), float2(0.04, 0.12)));
+  return d;
+}
+static float PineSDF(float2 q)
+{
+  float d = ForestTriangle(q, float2(0.0, 0.42), float2(-0.24, 0.04), float2(0.24, 0.04));
+  d = min(d, ForestTriangle(q, float2(0.0, 0.18), float2(-0.30, -0.24), float2(0.30, -0.24)));
+  d = min(d, ForestBox(q, float2(0.0, -0.34), float2(0.04, 0.12)));
+  return d;
+}
+
+// Analytic forest (see GL/area_forest.fsh.glsl): scattered SDF tree symbols, no texture. leafProb is the
+// per-cell probability of a broadleaf vs a fir: 0 = all pine (coniferous), 1 = all broadleaf (deciduous),
+// 0.5 = mixed. (GL splits these into three shaders since it has no shared functions across files.)
+static half4 ForestColor(const HatchingAreaFragment_T in, float leafProb)
+{
+  constexpr float kCellPx = 32.0;
+  constexpr float kJitter = 0.7;
+  constexpr float kGlyphScale = 1.1;
+  constexpr float kDensity = 0.32;
+  constexpr float3 kTint = float3(0.88, 0.93, 0.85);
+  float2 px = in.maskTexCoords * kCellPx;
+  int2 baseCell = int2(floor(in.maskTexCoords));
+  float aaPx = max(fwidth(px.x), fwidth(px.y));
+
+  float coverage = 0.0;
+  for (int j = -1; j <= 1; ++j)
+  {
+    for (int i = -1; i <= 1; ++i)
+    {
+      int2 cell = baseCell + int2(i, j);
+      if (AreaPatternIHash(cell, 23u) > kDensity)
+        continue;
+      float fp = kCellPx * kGlyphScale * (0.8 + 0.4 * AreaPatternIHash(cell, 29u));
+      float2 center =
+          (float2(cell) + 0.5 + (float2(AreaPatternIHash(cell, 0u), AreaPatternIHash(cell, 41u)) - 0.5) * kJitter) * kCellPx;
+      float2 q = (px - center) / fp;
+      if (abs(q.x) > 0.6 || abs(q.y) > 0.65)
+        continue;
+      float d = AreaPatternIHash(cell, 13u) < leafProb ? BroadleafSDF(q) : PineSDF(q);
+      float aa = max(aaPx / fp, 0.003);
+      coverage = max(coverage, 1.0 - smoothstep(-aa, aa, d));
+    }
+  }
+  half4 color = in.color;
+  color.rgb = mix(color.rgb, color.rgb * half3(kTint), half(coverage));
+  return color;
+}
+
+fragment half4 fsAreaForest(const HatchingAreaFragment_T in [[stage_in]]) { return ForestColor(in, 0.5); }
+fragment half4 fsAreaForestConiferous(const HatchingAreaFragment_T in [[stage_in]]) { return ForestColor(in, 0.0); }
+fragment half4 fsAreaForestDeciduous(const HatchingAreaFragment_T in [[stage_in]]) { return ForestColor(in, 1.0); }
 
 // CirclePoint
 

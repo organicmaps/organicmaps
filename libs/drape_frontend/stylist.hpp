@@ -40,6 +40,46 @@ private:
   uint32_t m_2levelDash;  // dash hatch
 };
 
+// Maps natural-surface area types to a solid-fill pattern key (analytic, single pass). Unlike hatching,
+// these modulate the surface colour in place (e.g. a darker speckle over sand) rather than overlaying a
+// transparent mask.
+class IsAreaPatternChecker
+{
+  IsAreaPatternChecker() = default;
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsAreaPatternChecker);
+
+  std::string_view GetPattern(uint32_t type) const;
+  std::string_view GetPattern(feature::TypesHolder const & types) const;
+
+private:
+  struct Stipple : ftypes::BaseCheckerEx
+  {
+    Stipple();
+  } m_stipple;  // beach (incl. sand subtype) / desert
+  struct Speckle : ftypes::BaseCheckerEx
+  {
+    Speckle();
+  } m_speckle;  // scree / bare_rock
+  struct Grid : ftypes::BaseCheckerEx
+  {
+    Grid();
+  } m_grid;  // orchard / vineyard
+  struct ForestConiferous : ftypes::BaseCheckerEx
+  {
+    ForestConiferous();
+  } m_forestConiferous;  // landuse=forest|coniferous -> pine glyphs
+  struct ForestDeciduous : ftypes::BaseCheckerEx
+  {
+    ForestDeciduous();
+  } m_forestDeciduous;  // landuse=forest|deciduous -> broadleaf glyphs
+  struct Forest : ftypes::BaseCheckerEx
+  {
+    Forest();
+  } m_forest;  // landuse=forest (generic + mixed) -> both glyphs
+};
+
 struct CaptionDescription
 {
   void Init(FeatureType & f, int8_t deviceLang, int zoomLevel, feature::GeomType geomType, bool auxCaptionExists);

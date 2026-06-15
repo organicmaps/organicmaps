@@ -56,6 +56,51 @@ std::string_view IsHatchingTerritoryChecker::GetHatch(feature::TypesHolder const
   return {};
 }
 
+IsAreaPatternChecker::Stipple::Stipple()
+  : ftypes::BaseCheckerEx({{"natural", "beach"}, {"natural", "desert"}})  // natural=sand is a beach subtype
+{}
+
+IsAreaPatternChecker::Speckle::Speckle() : ftypes::BaseCheckerEx({{"natural", "scree"}, {"natural", "bare_rock"}}) {}
+
+IsAreaPatternChecker::Grid::Grid() : ftypes::BaseCheckerEx({{"landuse", "orchard"}, {"landuse", "vineyard"}}) {}
+
+IsAreaPatternChecker::ForestConiferous::ForestConiferous()
+  : ftypes::BaseCheckerEx({{"landuse", "forest", "coniferous"}})
+{}
+
+IsAreaPatternChecker::ForestDeciduous::ForestDeciduous() : ftypes::BaseCheckerEx({{"landuse", "forest", "deciduous"}})
+{}
+
+IsAreaPatternChecker::Forest::Forest() : ftypes::BaseCheckerEx({{"landuse", "forest"}}) {}
+
+std::string_view IsAreaPatternChecker::GetPattern(uint32_t type) const
+{
+  if (m_stipple(type))
+    return dp::kStipplePattern;
+  if (m_speckle(type))
+    return dp::kSpecklePattern;
+  if (m_grid(type))
+    return dp::kGridPattern;
+  if (m_forestConiferous(type))
+    return dp::kForestConiferousPattern;
+  if (m_forestDeciduous(type))
+    return dp::kForestDeciduousPattern;
+  if (m_forest(type))
+    return dp::kForestPattern;
+  return {};
+}
+
+std::string_view IsAreaPatternChecker::GetPattern(feature::TypesHolder const & types) const
+{
+  for (uint32_t t : types)
+  {
+    auto s = GetPattern(t);
+    if (!s.empty())
+      return s;
+  }
+  return {};
+}
+
 void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int zoomLevel, feature::GeomType geomType,
                               bool auxCaptionExists)
 {

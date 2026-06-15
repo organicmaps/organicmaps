@@ -5,13 +5,73 @@
 
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"
+#include "drape/hatching_decl.hpp"
 #include "drape/texture_manager.hpp"
 #include "drape/utils/vertex_decl.hpp"
 
 #include "base/buffer_vector.hpp"
 
+#include <cmath>
+
 namespace df
 {
+// Analytic area patterns (hatches and solid-fill speckles) repeat every kHatchTilePx 'base' pixels - the
+// size of the legacy mask tiles, kept so the on-screen scale is unchanged. The fragment shaders interpret
+// v_maskTexCoords * kHatchTilePx as the in-tile pixel coordinate.
+uint32_t constexpr kHatchTilePx = 16;
+// The forest scatters bigger symbols on a coarser grid; keep in sync with kCellPx in area_forest.fsh.glsl.
+uint32_t constexpr kForestTilePx = 32;
+// The forest scatter hashes the integer cell index of v_maskTexCoords. CalcHatchingPhaseAnchor only keeps
+// the fractional phase tile-stable, so that index would be offset per map-tile and large symbols would
+// mismatch across seams. Anchoring to a COARSE grid of kPatternWrap tiles makes the index globally
+// consistent (mod kPatternWrap) while keeping v_maskTexCoords small enough for float precision; the
+// pattern then repeats every kPatternWrap tiles (~131072 px), which is never on screen.
+uint32_t constexpr kPatternWrap = 4096;
+
+namespace
+{
+// Maps an area-pattern key (hatch or solid-fill) to its analytic GPU program.
+gpu::Program PatternProgram(std::string_view key)
+{
+  if (key == dp::k45dHatching)
+    return gpu::Program::HatchingArea;
+  if (key == dp::kDashHatching)
+    return gpu::Program::HatchingAreaDash;
+  if (key == dp::kStipplePattern)
+    return gpu::Program::AreaStipple;
+  if (key == dp::kSpecklePattern)
+    return gpu::Program::AreaSpeckle;
+  if (key == dp::kGridPattern)
+    return gpu::Program::AreaGrid;
+  if (key == dp::kForestPattern)
+    return gpu::Program::AreaForest;
+  if (key == dp::kForestConiferousPattern)
+    return gpu::Program::AreaForestConiferous;
+  if (key == dp::kForestDeciduousPattern)
+    return gpu::Program::AreaForestDeciduous;
+  CHECK(false, ("Unknown area pattern key:", key));
+  return gpu::Program::Area;
+}
+
+// The forest family (mixed / coniferous / deciduous): same scatter, 32px tile, differing only in glyph set.
+bool IsForestPattern(std::string_view key)
+{
+  return key == dp::kForestPattern || key == dp::kForestConiferousPattern || key == dp::kForestDeciduousPattern;
+}
+
+// Patterns whose fragment shader hashes the integer cell index for a jittered scatter; they need the coarse
+// anchor so that index stays seam-consistent. The hatches and the regular grid use only the phase.
+bool HashesCellIndex(std::string_view key)
+{
+  return key == dp::kStipplePattern || key == dp::kSpecklePattern || IsForestPattern(key);
+}
+}  // namespace
+
+double CalcHatchingPhaseAnchor(double bboxMin, uint32_t maskSizePx, double baseGtoPScale)
+{
+  double const period = maskSizePx / baseGtoPScale;  // world units per mask repeat
+  return std::floor(bboxMin / period) * period;
+}
 
 AreaShape::AreaShape(std::vector<m2::PointD> triangleList, BuildingOutline && buildingOutline,
                      AreaViewParams const & params)
@@ -39,8 +99,8 @@ void AreaShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> 
     DrawMwmBorderArea(context, batcher, colorUv, region.GetTexture());
   else if (m_params.m_is3D)
     DrawArea3D(context, batcher, colorUv, outlineUv, region.GetTexture());
-  else if (!m_params.m_hatching.empty())
-    DrawHatchingArea(context, batcher, colorUv, region.GetTexture(), textures->GetHatchingTexture(m_params.m_hatching));
+  else if (!m_params.m_areaPattern.empty())
+    DrawPatternArea(context, batcher, colorUv, region.GetTexture(), m_params.m_areaPattern);
   else
     DrawArea(context, batcher, colorUv, outlineUv, region.GetTexture());
 }
@@ -105,9 +165,9 @@ void AreaShape::DrawMwmBorderArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<
   batcher->InsertTriangleList(context, state, make_ref(&provider));
 }
 
-void AreaShape::DrawHatchingArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
-                                 m2::PointD const & colorUv, ref_ptr<dp::Texture> texture,
-                                 ref_ptr<dp::Texture> hatchingTexture) const
+void AreaShape::DrawPatternArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+                                m2::PointD const & colorUv, ref_ptr<dp::Texture> texture,
+                                std::string_view patternKey) const
 {
   glsl::vec2 const uv = glsl::ToVec2(colorUv);
 
@@ -115,23 +175,32 @@ void AreaShape::DrawHatchingArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<d
   for (auto const & v : m_vertexes)
     bbox.Add(v);
 
-  double const maxU = m_params.m_baseGtoPScale / hatchingTexture->GetWidth();
-  double const maxV = m_params.m_baseGtoPScale / hatchingTexture->GetHeight();
+  // The forest scatters larger symbols on a coarser grid; the tile size must match the cell size in each
+  // fragment shader. World units per tile repeat; the shader scales v_maskTexCoords back to in-tile px.
+  uint32_t const tilePx = IsForestPattern(patternKey) ? kForestTilePx : kHatchTilePx;
+  double const tilesPerWorld = m_params.m_baseGtoPScale / tilePx;
+
+  // Anchor the repeated pattern to a global, period-aligned grid instead of the clipped bbox, so the
+  // phase stays continuous across tile seams and LOD changes. See CalcHatchingPhaseAnchor / issue #12804.
+  // Patterns that hash the integer cell index anchor to a coarse multiple (kPatternWrap tiles) to keep that
+  // index seam-consistent across map tiles; phase-only patterns (hatches, regular grid) use a single tile.
+  uint32_t const anchorPx = HashesCellIndex(patternKey) ? tilePx * kPatternWrap : tilePx;
+  double const anchorX = CalcHatchingPhaseAnchor(bbox.minX(), anchorPx, m_params.m_baseGtoPScale);
+  double const anchorY = CalcHatchingPhaseAnchor(bbox.minY(), anchorPx, m_params.m_baseGtoPScale);
 
   gpu::VBReservedSizeT<gpu::HatchingAreaVertex> vertexes;
   vertexes.reserve(m_vertexes.size());
   for (m2::PointD const & vertex : m_vertexes)
   {
     vertexes.emplace_back(ToShapeVertex3(vertex), uv,
-                          glsl::vec2(static_cast<float>(maxU * (vertex.x - bbox.minX())),
-                                     static_cast<float>(maxV * (vertex.y - bbox.minY()))));
+                          glsl::vec2(static_cast<float>(tilesPerWorld * (vertex.x - anchorX)),
+                                     static_cast<float>(tilesPerWorld * (vertex.y - anchorY))));
   }
 
-  auto state = CreateRenderState(gpu::Program::HatchingArea, DepthLayer::GeometryLayer);
+  // All area patterns are computed analytically in the fragment shader (no mask texture, no mipmaps).
+  auto state = CreateRenderState(PatternProgram(patternKey), DepthLayer::GeometryLayer);
   state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
   state.SetColorTexture(texture);
-  state.SetMaskTexture(hatchingTexture);
-  state.SetTextureFilter(dp::TextureFilter::Linear);
 
   dp::AttributeProvider provider(1, static_cast<uint32_t>(vertexes.size()));
   provider.InitStream(0, gpu::HatchingAreaVertex::GetBindingInfo(), make_ref(vertexes.data()));

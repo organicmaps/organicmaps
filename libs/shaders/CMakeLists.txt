@@ -24,7 +24,14 @@ set(shader_files
     GL/dashed_line.vsh.glsl
     GL/debug_rect.fsh.glsl
     GL/debug_rect.vsh.glsl
+    GL/area_forest.fsh.glsl
+    GL/area_forest_coniferous.fsh.glsl
+    GL/area_forest_deciduous.fsh.glsl
+    GL/area_grid.fsh.glsl
+    GL/area_speckle.fsh.glsl
+    GL/area_stipple.fsh.glsl
     GL/hatching_area.fsh.glsl
+    GL/hatching_area_dash.fsh.glsl
     GL/hatching_area.vsh.glsl
     GL/imgui.fsh.glsl
     GL/imgui.vsh.glsl
