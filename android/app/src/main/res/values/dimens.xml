@@ -53,6 +53,7 @@
   <dimen name="notes_fade_height">28dp</dimen>
   <dimen name="place_page_icon_background_size">56dp</dimen>
   <dimen name="place_page_icon_size">40dp</dimen>
+  <item name="place_page_bottom_sheet_width_ratio" type="fraction">0.0</item>
   <item type="dimen" name="bottom_sheet_widths">-1px</item>
   <dimen name="bottom_sheet_max_width">640dp</dimen>
 

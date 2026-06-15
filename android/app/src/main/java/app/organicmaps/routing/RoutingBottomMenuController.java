@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.sdk.Framework;
@@ -39,7 +40,6 @@ import app.organicmaps.sdk.routing.TransitStepInfo;
 import app.organicmaps.sdk.util.Distance;
 import app.organicmaps.sdk.util.Graphics;
 import app.organicmaps.sdk.util.StringUtils;
-import app.organicmaps.search.SearchActivity;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
@@ -200,12 +200,12 @@ final class RoutingBottomMenuController implements View.OnClickListener
             public void onAddStop()
             {
               RoutingController.get().waitForPoiPick(RouteMarkType.Intermediate);
-              SearchActivity.start(mContext, "");
+              ((MwmActivity) mContext).showSearch("");
             }
             @Override
             public void onReplaceStop()
             {
-              SearchActivity.start(mContext, "");
+              ((MwmActivity) mContext).showSearch("");
             }
           });
     }

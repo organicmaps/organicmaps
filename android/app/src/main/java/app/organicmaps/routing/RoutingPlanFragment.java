@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.maplayer.MapButtonsController;
@@ -33,7 +34,6 @@ import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.routing.TransitRouteInfo;
-import app.organicmaps.search.SearchActivity;
 import app.organicmaps.settings.DrivingOptionsActivity;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.widget.RoutingToolbarButton;
@@ -536,7 +536,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   public void onSearchRoutePoint(@NonNull RouteMarkType pointType)
   {
     RoutingController.get().waitForPoiPick(pointType);
-    SearchActivity.start(requireActivity(), "");
+    ((MwmActivity) requireActivity()).showSearch("");
   }
 
   @Override

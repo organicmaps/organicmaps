@@ -354,7 +354,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mSearchPageViewModel.setSearchEnabled(false, null);
   }
 
-
   private void showBookmarks()
   {
     BookmarkCategoriesActivity.start(this);
@@ -1022,8 +1021,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     final RoutingController routingController = RoutingController.get();
     return (closeBottomSheet(MAIN_MENU_ID) || closeBottomSheet(LAYERS_MENU_ID) || collapseNavMenu() || closePlacePage()
-            || closePositionChooser() || closeSearchFragment()
-            || routingController.resetToPlanningStateIfNavigating() || routingController.cancel());
+            || closePositionChooser() || closeSearchFragment() || routingController.resetToPlanningStateIfNavigating()
+            || routingController.cancel());
   }
 
   @Override
@@ -1045,8 +1044,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onSwitchFullScreenMode()
   {
-    if ((mPanelAnimator != null && mPanelAnimator.isVisible())
-        || mSearchPageViewModel.getSearchEnabled().getValue() == Boolean.TRUE)
+    if (mSearchPageViewModel.getSearchEnabled().getValue() == Boolean.TRUE)
       return;
 
     if (isFullscreen())
@@ -1338,8 +1336,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   @Override
   public void onBuiltRoute()
-  {
-  }
+  {}
 
   @Override
   public void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps)
