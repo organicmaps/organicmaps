@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <item type="dimen" name="bottom_sheet_widths">380dp</item>
+
+</resources>

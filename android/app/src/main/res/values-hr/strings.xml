@@ -719,6 +719,7 @@
     <string name="opens_at">Otvara se u %s</string>
     <string name="closes_at">Zatvara se u %s</string>
     <string name="editor_add_select_category_all_subtitle">Sve kategorije</string>
+    <string name="placepage_replace_stop">Zamijeni Stop</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Hrana</string>

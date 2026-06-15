@@ -724,6 +724,7 @@
     <string name="opens_at">Abre a Ábreas %s</string>
     <string name="closes_at">Pecha ás %s</string>
     <string name="editor_add_select_category_all_subtitle">Todas as categorías</string>
+    <string name="placepage_replace_stop">Substituír Stop</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Comida</string>

@@ -724,6 +724,7 @@
     <string name="opens_at">Jiftaħ f \' %s</string>
     <string name="closes_at">Jagħlaq f ’ %s</string>
     <string name="editor_add_select_category_all_subtitle">Kategoriji kollha</string>
+    <string name="placepage_replace_stop">Biddel Waqaf</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Ikel</string>

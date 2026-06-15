@@ -575,6 +575,7 @@
     <string name="button_plan">Plan</string>
     <string name="placepage_remove_stop">Remove Stop</string>
     <string name="placepage_add_stop">Add Stop</string>
+    <string name="drag_to_reorder">Reorder</string>
     <string name="saved">Saved</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Please login to OpenStreetMap to automatically upload all your map edits. Learn more <a href="https://github.com/organicmaps/organicmaps/issues/6144">here</a>.</string>
@@ -721,6 +722,7 @@
     <string name="opens_at">Opens at %s</string>
     <string name="closes_at">Closes at %s</string>
     <string name="editor_add_select_category_all_subtitle">All Categories</string>
+    <string name="placepage_replace_stop">Replace Stop</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Food</string>

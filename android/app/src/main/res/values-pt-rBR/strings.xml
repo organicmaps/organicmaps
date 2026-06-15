@@ -501,6 +501,7 @@
     <string name="opens_dayoftheweek_at">Abre %1$s em %2$s</string>
     <string name="opens_at">Abre em %s</string>
     <string name="closes_at">Encerra às %s</string>
+    <string name="placepage_replace_stop">Substituir a parada</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Alimentos</string>

@@ -712,6 +712,7 @@
     <string name="opens_at">%s बजे खुलता है</string>
     <string name="closes_at">%s बजे बंद हो जाता है</string>
     <string name="editor_add_select_category_all_subtitle">सभी श्रेणियाँ</string>
+    <string name="placepage_replace_stop">स्टॉप बदलें</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">खाना</string>

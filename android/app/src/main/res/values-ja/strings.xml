@@ -720,6 +720,7 @@
     <string name="opens_at">%s から営業</string>
     <string name="closes_at">%s に閉店</string>
     <string name="editor_add_select_category_all_subtitle">全てのカテゴリ</string>
+    <string name="placepage_replace_stop">リプレースストップ</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">食べ物</string>

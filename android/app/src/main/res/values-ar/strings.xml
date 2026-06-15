@@ -733,6 +733,7 @@
     <string name="opens_at">يفتح في %s</string>
     <string name="closes_at">يغلق في %s</string>
     <string name="editor_add_select_category_all_subtitle">جميع الفئات</string>
+    <string name="placepage_replace_stop">استبدال التوقف</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">طعام</string>

@@ -675,6 +675,7 @@
     <string name="opens_at">ຈະເປີດເວລາ %s</string>
     <string name="closes_at">ຈະປິດເວລາ %s</string>
     <string name="editor_add_select_category_all_subtitle">ໝວດໝູ່ທັງໝົດ</string>
+    <string name="placepage_replace_stop">ປ່ຽນແທນຈຸດແວ່ພັກ</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">ອາຫານ</string>

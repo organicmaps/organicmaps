@@ -719,6 +719,7 @@
     <string name="opens_at">Dibuka di %s</string>
     <string name="closes_at">Ditutup pada %s</string>
     <string name="editor_add_select_category_all_subtitle">Semua kategori</string>
+    <string name="placepage_replace_stop">Ganti Berhenti</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Makanan</string>

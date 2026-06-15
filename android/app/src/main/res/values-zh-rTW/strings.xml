@@ -722,6 +722,7 @@
     <string name="opens_at">%s 營業</string>
     <string name="closes_at">%s 關門</string>
     <string name="editor_add_select_category_all_subtitle">所有類別</string>
+    <string name="placepage_replace_stop">更换停机坪</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">食物</string>

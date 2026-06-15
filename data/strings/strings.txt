@@ -23342,6 +23342,10 @@ vi = Thêm điểm dừng
 zh-Hans = 添加经停点
 zh-Hant = 新增中途點
 
+[drag_to_reorder]
+tags = android-app
+en = Reorder
+
 [saved]
 tags = android-app,apple-maps
 en = Saved
@@ -31941,7 +31945,7 @@ zh-Hans = 拖拽到此处以移除
 zh-Hant = 拖曳到此處以移除
 
 [placepage_replace_stop]
-tags = apple-maps
+tags = android-app,apple-maps
 en = Replace Stop
 af = Vervang Stop
 ar = استبدال التوقف

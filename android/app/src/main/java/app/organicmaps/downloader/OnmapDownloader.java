@@ -4,7 +4,6 @@ import android.content.Context;
 import android.location.Location;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
@@ -23,7 +22,7 @@ import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
 import app.organicmaps.widget.WheelProgressView;
 import java.util.List;
 
-public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
+public class OnmapDownloader
 {
   private static boolean sAutodownloadLocked;
 
@@ -216,22 +215,6 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
         }));
 
     ViewCompat.setOnApplyWindowInsetsListener(mFrame, PaddingInsetsListener.allSides());
-  }
-
-  @Override
-  public void onTrackStarted(boolean collapsed)
-  {}
-
-  @Override
-  public void onTrackFinished(boolean collapsed)
-  {}
-
-  @Override
-  public void onTrackLeftAnimation(float offset)
-  {
-    ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) mFrame.getLayoutParams();
-    lp.leftMargin = (int) offset;
-    mFrame.setLayoutParams(lp);
   }
 
   public void onPause()

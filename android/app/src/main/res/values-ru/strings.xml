@@ -728,6 +728,7 @@
     <string name="opens_at">Открывается в %s</string>
     <string name="closes_at">Закрывается в %s</string>
     <string name="editor_add_select_category_all_subtitle">Все категории</string>
+    <string name="placepage_replace_stop">Заменить остановку</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Еда</string>
