@@ -241,7 +241,7 @@
     <string name="pref_tts_test_voice_title">Kiểm tra chỉ đường bằng giọng nói (TTS, chuyển văn bản thành giọng nói)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Kiểm tra cài đặt âm lượng hoặc chuyển văn bản sang giọng nói của hệ thống nếu bây giờ bạn không nghe thấy giọng nói.</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">Không có sẵn</string>
     <string name="pref_map_auto_zoom">Ống dòm tự động</string>
     <string name="placepage_distance">Khoảng cách</string>

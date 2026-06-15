@@ -241,7 +241,7 @@
     <string name="pref_tts_test_voice_title">Pārbaudīt balss norādes (TTS, teksta pārvēršana runā)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Ja nedzirdat balsi, pārbaudiet skaļumu vai teksta pārvēršanas runā iestatījumus.</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">Nav pieejama</string>
     <string name="pref_map_auto_zoom">Automātisks mērogs</string>
     <string name="placepage_distance">Attālums</string>

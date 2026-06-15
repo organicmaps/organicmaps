@@ -241,7 +241,7 @@
     <string name="pref_tts_test_voice_title">Prófa raddleiðsögn (TTS, texti-í-tal)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Athugaðu hljóðstyrk eða stillingar á texti-í-tal ef þú heyrir ekkert núna.</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">Ekki tiltækt</string>
     <string name="pref_map_auto_zoom">Sjálfvirkur aðdráttur</string>
     <string name="placepage_distance">Vegalengd</string>

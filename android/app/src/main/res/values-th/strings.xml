@@ -241,7 +241,7 @@
     <string name="pref_tts_test_voice_title">ทดสอบเส้นทางด้วยเสียง (TTS, การอ่านออกเสียงข้อความ)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">ตรวจสอบระดับเสียงหรือการตั้งค่าการอ่านออกเสียงข้อความของระบบหากคุณไม่ได้ยินเสียงในตอนนี้</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">ไม่สามารถใช้ได้</string>
     <string name="pref_map_auto_zoom">ซูมอัตโนมัติ</string>
     <string name="placepage_distance">ระยะห่าง</string>

@@ -195,7 +195,7 @@
     <string name="pref_tts_test_voice_title">ທົດສອບຄຳແນະນຳດ້ວຍສຽງ (TTS)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">ກະລຸນາກວດເບິ່ງລະດັບສຽງ ຫຼື ການຕັ້ງຄ່າ Text-To-Speech ຂອງລະບົບ ຫາກທ່ານບໍ່ໄດ້ຍິນສຽງໃນຕອນນີ້.</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">ບໍ່ສາມາດໃຊ້ງານໄດ້</string>
     <string name="pref_map_auto_zoom">ຊູມອັດຕະໂນມັດ</string>
     <string name="placepage_distance">ໄລຍະທາງ</string>

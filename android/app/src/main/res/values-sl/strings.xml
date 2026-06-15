@@ -241,7 +241,7 @@
     <string name="pref_tts_test_voice_title">Preizkusi glasovna navodila (TTS, pretvorba besedila v govor)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Preverite glasnost ali sistemske nastavitve pretvorbe besedila v govor, če zdaj ne slišite glasu.</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">Ni na voljo</string>
     <string name="pref_map_auto_zoom">Samodejna povečava</string>
     <string name="placepage_distance">Razdalja</string>

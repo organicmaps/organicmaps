@@ -241,7 +241,7 @@
     <string name="pref_tts_test_voice_title">음성 길 안내 테스트(TTS, 텍스트 음성 변환)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">지금 음성이 들리지 않으면 볼륨 또는 시스템 텍스트 음성 변환 설정을 확인하세요.</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">사용할 수 없음</string>
     <string name="pref_map_auto_zoom">자동 줌</string>
     <string name="placepage_distance">거리</string>
