@@ -47,7 +47,8 @@ bool IsWhenTag(std::string const & s)
 
 std::string_view constexpr kKmlHeader =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\">\n"
+    "<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" "
+    "xmlns:om=\"https://omaps.app\">\n"
     "<Document>\n";
 
 std::string_view constexpr kKmlFooter =
@@ -402,8 +403,7 @@ void SaveBookmarkExtendedData(Writer & writer, BookmarkData const & bookmarkData
 
   writer << kIndent6 << "<mwm:visibility>" << (bookmarkData.m_visible ? "1" : "0") << "</mwm:visibility>\n";
   if (bookmarkData.m_modifiedTimestamp != Timestamp())
-    writer << kIndent6 << "<mwm:modifiedTimestamp>" << TimestampToString(bookmarkData.m_modifiedTimestamp)
-           << "</mwm:modifiedTimestamp>\n";
+    writer << kIndent6 << "<om:modified>" << TimestampToString(bookmarkData.m_modifiedTimestamp) << "</om:modified>\n";
 
   if (!bookmarkData.m_nearestToponym.empty())
   {
@@ -593,8 +593,7 @@ void SaveTrackExtendedData(Writer & writer, TrackData const & trackData)
 
   writer << kIndent6 << "<mwm:visibility>" << (trackData.m_visible ? "1" : "0") << "</mwm:visibility>\n";
   if (trackData.m_modifiedTimestamp != Timestamp())
-    writer << kIndent6 << "<mwm:modifiedTimestamp>" << TimestampToString(trackData.m_modifiedTimestamp)
-           << "</mwm:modifiedTimestamp>\n";
+    writer << kIndent6 << "<om:modified>" << TimestampToString(trackData.m_modifiedTimestamp) << "</om:modified>\n";
 
   SaveStringsArray(writer, trackData.m_nearestToponyms, "nearestToponyms", kIndent6);
   SaveStringsMap(writer, trackData.m_properties, "properties", kIndent6);
@@ -1418,7 +1417,7 @@ void KmlParser::CharData(std::string & value)
           else if (m_minZoom > 19)
             m_minZoom = 19;
         }
-        else if (currTag == "mwm:modifiedTimestamp")
+        else if (currTag == "om:modified")
         {
           auto const ts = base::StringToTimestamp(value);
           if (ts != base::INVALID_TIME_STAMP)
