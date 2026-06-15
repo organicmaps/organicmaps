@@ -7,6 +7,8 @@
 #include "platform/measurement_utils.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
+
+#include "indexer/map_style_reader.hpp"
 #include "platform/style_utils.hpp"
 
 #include "qt/qt_common/helpers.hpp"
@@ -25,9 +27,7 @@
 
 using namespace measurement_utils;
 
-#ifdef BUILD_DESIGNER
 std::string const kEnabledAutoRegenGeomIndex = "EnabledAutoRegenGeomIndex";
-#endif
 
 namespace qt
 {
@@ -153,10 +153,17 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
             [&framework](int index) { framework.SetBookmarksTextPlacement(static_cast<Placement>(index)); });
   }
 
-  QButtonGroup * nightModeGroup = new QButtonGroup(this);
-  QGroupBox * nightModeRadioBox = new QGroupBox("Night Mode");
+  bool const designerMode = GetStyleReader().IsDesignerMode();
+
+  // Night mode flips MapStyle between light/dark variants, which would unload
+  // the style being edited; the Designer locks this to the opened style.mapcss
+  // and gets the geometry-index checkbox instead.
+  QGroupBox * nightModeRadioBox = nullptr;
+  if (!designerMode)
   {
     using namespace style_utils;
+    QButtonGroup * nightModeGroup = new QButtonGroup(this);
+    nightModeRadioBox = new QGroupBox("Night Mode");
     QHBoxLayout * layout = new QHBoxLayout();
 
     auto const addButton = [&](QString const & text, NightMode mode)
@@ -199,17 +206,17 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
     });
   }
 
-#ifdef BUILD_DESIGNER
-  QCheckBox * indexRegenCheckBox = new QCheckBox("Enable auto regeneration of geometry index");
+  QCheckBox * indexRegenCheckBox = nullptr;
+  if (designerMode)
   {
+    indexRegenCheckBox = new QCheckBox("Enable auto regeneration of geometry index");
     bool enabled = false;
     if (!settings::Get(kEnabledAutoRegenGeomIndex, enabled))
       settings::Set(kEnabledAutoRegenGeomIndex, false);
     indexRegenCheckBox->setChecked(enabled);
     connect(indexRegenCheckBox, &QCheckBox::stateChanged,
-            [](int i) { settings::Set(kEnabledAutoRegenGeomIndex, static_cast<bool>(i)) });
+            [](int i) { settings::Set(kEnabledAutoRegenGeomIndex, static_cast<bool>(i)); });
   }
-#endif
 
   QHBoxLayout * bottomLayout = new QHBoxLayout();
   {
@@ -232,10 +239,10 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
   finalLayout->addWidget(mapLanguageComboBox);
   finalLayout->addWidget(bookmarksPlacementLabel);
   finalLayout->addWidget(bookmarksPlacementCB);
-  finalLayout->addWidget(nightModeRadioBox);
-#ifdef BUILD_DESIGNER
-  finalLayout->addWidget(indexRegenCheckBox);
-#endif
+  if (designerMode)
+    finalLayout->addWidget(indexRegenCheckBox);
+  else
+    finalLayout->addWidget(nightModeRadioBox);
   finalLayout->addLayout(bottomLayout);
   setLayout(finalLayout);
 }

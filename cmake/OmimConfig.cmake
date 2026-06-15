@@ -61,11 +61,6 @@ if (ENABLE_TRACE)
   add_definitions(-DENABLE_TRACE)
 endif()
 
-if (BUILD_DESIGNER)
-  message(STATUS "Designer tool building is enabled")
-  add_definitions(-DBUILD_DESIGNER)
-endif()
-
 if (BUILD_STANDALONE)
   message(STATUS "Standalone building is enabled")
 endif()

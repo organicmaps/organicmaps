@@ -25,6 +25,9 @@
 #include "indexer/drawing_rules.hpp"
 #include "indexer/scales.hpp"
 
+#include "indexer/classificator_loader.hpp"
+#include "indexer/map_style_reader.hpp"
+
 #include "platform/trace.hpp"
 
 #include "base/assert.hpp"
@@ -1050,9 +1053,10 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 template <class MessageT>
 void FrontendRenderer::UpdateAll()
 {
-#ifdef BUILD_DESIGNER
-  classificator::Load();
-#endif  // BUILD_DESIGNER
+  // The Designer's Build Style rewrites the classificator, types and drules;
+  // reload them before the new style is rendered.
+  if (GetStyleReader().IsDesignerMode())
+    classificator::Load();
 
   // Clear all graphics.
   for (RenderLayer & layer : m_layers)

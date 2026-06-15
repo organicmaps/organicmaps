@@ -11,8 +11,6 @@ set(SRC
   build_style/build_common.h
   build_style/build_drules.cpp
   build_style/build_drules.h
-  build_style/build_phone_pack.cpp
-  build_style/build_phone_pack.h
   build_style/build_skins.cpp
   build_style/build_skins.h
   build_style/build_statistics.cpp
@@ -72,20 +70,14 @@ target_link_libraries(${PROJECT_NAME}
     generator  # For borders::LoadBorders
     qt_common
     map
+    skin_generator  # Designer's Build Style renders symbol atlases in-process.
     gflags::gflags
     location_service
 )
 
-if (BUILD_DESIGNER)
-  target_link_libraries(${PROJECT_NAME} PRIVATE generator)
-  set(BUNDLE_NAME "OMaps.Designer")
-  set(BUNDLE_DISPLAY_NAME "Organic Maps Designer")
-  set(BUNDLE_ICON designer.icns)
-else()
-  set(BUNDLE_NAME "OMaps")
-  set(BUNDLE_DISPLAY_NAME "Organic Maps Desktop")
-  set(BUNDLE_ICON mac.icns)
-endif()
+set(BUNDLE_NAME "OMaps")
+set(BUNDLE_DISPLAY_NAME "Organic Maps Desktop")
+set(BUNDLE_ICON mac.icns)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${BUNDLE_NAME})
 
@@ -143,15 +135,9 @@ if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
 endif()
 
 if (PLATFORM_MAC)
-  if (BUILD_DESIGNER)
-    execute_process(
-        COMMAND cp ${PROJECT_SOURCE_DIR}/res/mac/designer.icns ${RESOURCES_FOLDER}
-    )
-  else ()
-    execute_process(
-        COMMAND cp ${PROJECT_SOURCE_DIR}/res/mac/mac.icns ${RESOURCES_FOLDER}
-    )
-  endif ()
+  execute_process(
+      COMMAND cp ${PROJECT_SOURCE_DIR}/res/mac/mac.icns ${RESOURCES_FOLDER}
+  )
 endif()
 
 if (PLATFORM_MAC)
@@ -174,67 +160,7 @@ if (PLATFORM_WIN)
   target_sources(${PROJECT_NAME} PRIVATE res/windows/windows.rc)
 endif()
 
-if (BUILD_DESIGNER)
-  execute_process(
-    COMMAND cp -rf ${OMIM_ROOT}/data/symbols/mdpi/light/ ${OMIM_ROOT}/data/symbols/mdpi/design/
-    COMMAND cp -rf ${OMIM_ROOT}/data/symbols/hdpi/light/ ${OMIM_ROOT}/data/symbols/hdpi/design/
-    COMMAND cp -rf ${OMIM_ROOT}/data/symbols/xhdpi/light/ ${OMIM_ROOT}/data/symbols/xhdpi/design/
-    COMMAND cp -rf ${OMIM_ROOT}/data/symbols/xxhdpi/light/ ${OMIM_ROOT}/data/symbols/xxhdpi/design/
-    COMMAND cp -rf ${OMIM_ROOT}/data/symbols/6plus/light/ ${OMIM_ROOT}/data/symbols/6plus/design/
-    COMMAND cp -rf ${OMIM_ROOT}/data/symbols/xxxhdpi/light/ ${OMIM_ROOT}/data/symbols/xxxhdpi/design/
-    COMMAND cp -f ${OMIM_ROOT}/data/colors.txt ${OMIM_ROOT}/data/colors_design.txt
-    COMMAND cp -f ${OMIM_ROOT}/data/patterns.txt ${OMIM_ROOT}/data/patterns_design.txt
-  )
-
-  copy_resources(
-    colors_design.txt
-    drules_design.bin
-    mapcss-dynamic.txt
-    mapcss-mapping.csv
-    patterns_design.txt
-    symbols/mdpi/design
-    symbols/hdpi/design
-    symbols/xhdpi/design
-    symbols/xxhdpi/design
-    symbols/xxxhdpi/design
-    symbols/6plus/design
-  )
-
-  execute_process(
-    COMMAND cp ${OMIM_ROOT}/tools/python/recalculate_geom_index.py ${RESOURCES_FOLDER}
-    COMMAND cp ${OMIM_ROOT}/tools/python/generate_styles_override.py ${RESOURCES_FOLDER}
-    COMMAND cp -rf ${OMIM_ROOT}/tools/kothic ${RESOURCES_FOLDER}/kothic/
-    COMMAND cp -f ${OMIM_ROOT}/tools/python/stylesheet/drules_info.py ${RESOURCES_FOLDER}/kothic/src/
-    COMMAND cp -rf ${OMIM_ROOT}/tools/python/stylesheet/ ${RESOURCES_FOLDER}/kothic/src/
-  )
-
-  # Generate DMG
-  install(DIRECTORY ${DATA_DIR}/styles DESTINATION .)
-  set(BUNDLES
-    ${CMAKE_BINARY_DIR}/generator_tool.app
-    ${CMAKE_BINARY_DIR}/skin_generator_tool.app
-    ${CMAKE_BINARY_DIR}/style_tests.app
-  )
-  install(CODE "
-    foreach(BUNDLE ${BUNDLE_FOLDER} ${BUNDLES})
-      execute_process(
-        COMMAND \"${QT_PATH}/bin/macdeployqt\" \"\${BUNDLE}\"
-      )
-    endforeach()
-    foreach(BUNDLE ${BUNDLES})
-      execute_process(
-        COMMAND cp -rf \"\${BUNDLE}\" \"${RESOURCES_FOLDER}\"
-      )
-    endforeach()
-  ")
-  install(TARGETS ${PROJECT_NAME} DESTINATION .)
-
-  set(CPACK_GENERATOR DragNDrop)
-  set(CPACK_DMG_FORMAT UDZO)
-  set(CPACK_DMG_VOLUME_NAME ${BUNDLE_NAME})
-  set(CPACK_PACKAGE_ICON ${PROJECT_SOURCE_DIR}/res/mac/designer.icns)
-  include(CPack)
-elseif (BUILD_STANDALONE)
+if (BUILD_STANDALONE)
   add_custom_command(TARGET desktop POST_BUILD
     COMMAND "${QT_PATH}/bin/macdeployqt" ${BUNDLE_FOLDER}
     COMMAND ${Python3_EXECUTABLE} "${OMIM_ROOT}/tools/macdeployqtfix/macdeployqtfix.py" -q -nl ${BUNDLE_FOLDER}/Contents/MacOS/${BUNDLE_NAME} ${QT_PATH}
