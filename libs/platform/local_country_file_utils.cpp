@@ -27,10 +27,6 @@ char const kBitsExt[] = ".bftsegbits";
 char const kNodesExt[] = ".bftsegnodes";
 char const kOffsetsExt[] = ".offsets";
 
-string GetAdditionalWorldScope()
-{
-  return "r";
-}
 /*
 bool IsSpecialName(string const & name) { return name == "." || name == ".."; }
 */
@@ -259,22 +255,22 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir,
     }
   }
 
-  // Check for World and WorldCoasts in app bundle or in resources.
+  // Resolve bundled World maps, replacing older versions found in the writable directory.
   Platform & platform = GetPlatform();
   string const world(WORLD_FILE_NAME);
   string const worldCoasts(WORLD_COASTS_FILE_NAME);
   for (string const & file : {world, worldCoasts})
   {
-    auto i = localFiles.begin();
-    for (; i != localFiles.end(); ++i)
-      if (i->GetCountryName() == file)
-        break;
+    auto i = localFiles.end();
+    for (auto candidate = localFiles.begin(); candidate != localFiles.end(); ++candidate)
+      if (candidate->GetCountryName() == file && (i == localFiles.end() || candidate->GetVersion() > i->GetVersion()))
+        i = candidate;
 
     try
     {
-      ModelReaderPtr reader(platform.GetReader(file + DATA_FILE_EXTENSION, GetAdditionalWorldScope()));
+      ModelReaderPtr reader(platform.GetReader(file + DATA_FILE_EXTENSION, "r"));
 
-      // Empty path means the resource file.
+      // An empty directory reads the bundled World from resources.
       LocalCountryFile worldFile(string(), CountryFile(file), version::ReadVersionDate(reader));
       worldFile.m_files[base::Underlying(MapFileType::Map)] = reader.Size();
 
@@ -351,7 +347,7 @@ std::unique_ptr<ModelReader> GetCountryReader(LocalCountryFile const & file, Map
 {
   Platform & platform = GetPlatform();
   if (file.IsInBundle())
-    return platform.GetReader(file.GetFileName(type), GetAdditionalWorldScope());
+    return platform.GetReader(file.GetFileName(type), "r");
   else
     return platform.GetReader(file.GetPath(type), "f");
 }

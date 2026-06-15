@@ -709,10 +709,11 @@ void DrawWidget::SetRuler(bool enabled)
   m_ruler.SetActive(enabled);
 }
 
-// static
 void DrawWidget::RefreshDrawingRules()
 {
-  SetMapStyle(MapStyleDefaultLight);
+  // Request a disk reload even when the style is unchanged: Build Style writes new drawing rules
+  // and symbol atlases into the writable directory.
+  m_framework.SetMapStyle(m_framework.GetMapStyle(), true /* reloadFromDisk */);
 }
 
 void DrawWidget::SetMapStyleToDefault()
