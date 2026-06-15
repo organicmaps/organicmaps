@@ -19,6 +19,4 @@ public:
 };
 }  // namespace qt
 
-#ifdef BUILD_DESIGNER
 extern std::string const kEnabledAutoRegenGeomIndex;
-#endif

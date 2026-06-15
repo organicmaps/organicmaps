@@ -2,6 +2,7 @@
 
 #include "coding/string_utf8_multilang.hpp"
 #include "indexer/map_style.hpp"
+#include "indexer/map_style_reader.hpp"
 #include "map/framework.hpp"
 
 #include "platform/measurement_utils.hpp"
@@ -29,9 +30,7 @@
 
 using namespace measurement_utils;
 
-#ifdef BUILD_DESIGNER
 std::string const kEnabledAutoRegenGeomIndex = "EnabledAutoRegenGeomIndex";
-#endif
 
 namespace qt
 {
@@ -154,10 +153,15 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
             [&framework](int index) { framework.SetBookmarksTextPlacement(static_cast<Placement>(index)); });
   }
 
-  QButtonGroup * nightModeGroup = new QButtonGroup(this);
-  QGroupBox * nightModeRadioBox = new QGroupBox(Tr("pref_map_style_title"));
+  bool const designerMode = GetStyleReader().IsDesignerMode();
+
+  // Designer pins the opened style, so hide the unused night-mode controls.
+  QGroupBox * nightModeRadioBox = nullptr;
+  if (!designerMode)
   {
     using namespace style_utils;
+    QButtonGroup * nightModeGroup = new QButtonGroup(this);
+    nightModeRadioBox = new QGroupBox(Tr("pref_map_style_title"));
     QHBoxLayout * layout = new QHBoxLayout();
 
     auto const addButton = [&](QString const & text, NightMode mode)
@@ -252,9 +256,10 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
     tilesBox->setLayout(layout);
   }
 
-#ifdef BUILD_DESIGNER
-  QCheckBox * indexRegenCheckBox = new QCheckBox(Tr("enable_auto_regeneration_geometry_index"));
+  QCheckBox * indexRegenCheckBox = nullptr;
+  if (designerMode)
   {
+    indexRegenCheckBox = new QCheckBox(Tr("enable_auto_regeneration_geometry_index"));
     bool enabled = false;
     if (!settings::Get(kEnabledAutoRegenGeomIndex, enabled))
       settings::Set(kEnabledAutoRegenGeomIndex, false);
@@ -262,7 +267,6 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
     connect(indexRegenCheckBox, &QCheckBox::toggled,
             [](bool enabled) { settings::Set(kEnabledAutoRegenGeomIndex, enabled); });
   }
-#endif
 
   QHBoxLayout * bottomLayout = new QHBoxLayout();
   {
@@ -285,11 +289,11 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
   finalLayout->addWidget(mapLanguageComboBox);
   finalLayout->addWidget(bookmarksPlacementLabel);
   finalLayout->addWidget(bookmarksPlacementCB);
-  finalLayout->addWidget(nightModeRadioBox);
+  if (designerMode)
+    finalLayout->addWidget(indexRegenCheckBox);
+  else
+    finalLayout->addWidget(nightModeRadioBox);
   finalLayout->addWidget(tilesBox);
-#ifdef BUILD_DESIGNER
-  finalLayout->addWidget(indexRegenCheckBox);
-#endif
   finalLayout->addLayout(bottomLayout);
   setLayout(finalLayout);
 }
