@@ -225,13 +225,14 @@ RasterTileProvider::RasterTileProvider(Params params, TReadyFn onReady)
   GetPlatform().RunTask(Platform::Thread::File, [this]() { InitDiskCache(); });
 }
 
-RasterTileProvider::SourceTile RasterTileProvider::ToSourceTile(df::TileKey const & tileKey) const
+RasterTileProvider::SourceTile RasterTileProvider::ToSourceTile(df::TileKey const & tileKey, int minZoom, int maxZoom)
 {
   SourceTile src;
 
-  // OM splits the world into 2^(Z-1) tiles per axis at zoomLevel Z, so the web-mercator zoom is Z-1.
+  // OM splits the world into 2^(Z-1) tiles per axis at zoomLevel Z (the "-1" is scales::INITIAL_LEVEL,
+  // see scales.cpp), so the 0-based web-mercator zoom is Z-1.
   int const z = static_cast<int>(tileKey.m_zoomLevel) - 1;
-  if (z < 1 || z < m_params.m_minZoom)
+  if (z < 1 || z < minZoom)
     return src;  // degenerate or below the configured minimum zoom
 
   int const n = 1 << z;
@@ -249,13 +250,13 @@ RasterTileProvider::SourceTile RasterTileProvider::ToSourceTile(df::TileKey cons
 
   // Over-zoom: the server has no tiles deeper than maxZoom, so sample a sub-rect of the
   // ancestor tile at maxZoom. Many child OM tiles then share one downloaded image (deduped by uid).
-  if (z > m_params.m_maxZoom)
+  if (z > maxZoom)
   {
-    int const k = z - m_params.m_maxZoom;
+    int const k = z - maxZoom;
     int const f = 1 << k;
     int const subX = webX & (f - 1);
     int const subY = webY & (f - 1);  // subY == 0 is the northern-most child
-    src.m_z = m_params.m_maxZoom;
+    src.m_z = maxZoom;
     src.m_x = webX >> k;
     src.m_y = webY >> k;
     float const inv = 1.0f / static_cast<float>(f);
@@ -270,14 +271,16 @@ RasterTileProvider::SourceTile RasterTileProvider::ToSourceTile(df::TileKey cons
 
 bool RasterTileProvider::RequestTile(df::TileKey const & tileKey, dp::BackgroundMode mode)
 {
-  SourceTile const src = ToSourceTile(tileKey);
+  SourceTile const src = ToSourceTile(tileKey, m_params.m_minZoom, m_params.m_maxZoom);
   if (!src.m_valid)
     return false;
 
   // Skip tiles that don't intersect the configured coverage box. Use the wrapped rect: extended
   // world copies past the antimeridian have lon outside [-180, 180] and would fail the box test
   // otherwise, although ToSourceTile maps them onto valid source tiles.
-  m2::RectD const ll = mercator::ToLatLon(tileKey.GetWrappedDataRect());
+  // Unclipped: background tiles use the real zoom (vector data clamps at GetUpperScale(), which would
+  // misplace the lat/lon box test above that zoom).
+  m2::RectD const ll = mercator::ToLatLon(tileKey.GetWrappedDataRect(false /* clipByDataMaxZoom */));
   if (ll.maxX() < m_params.m_minLon || ll.minX() > m_params.m_maxLon || ll.maxY() < m_params.m_minLat ||
       ll.minY() > m_params.m_maxLat)
     return false;
