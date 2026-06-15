@@ -36,6 +36,7 @@
 		676507611C10559B00830BB3 /* colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 452FCA3A1B6A3DF7007019AB /* colors.txt */; };
 		6B9978361C89A316003B8AA0 /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 6B9978341C89A316003B8AA0 /* editor.config */; };
 		A630D1EA207CA95900976DEA /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = A630D1E8207CA95900976DEA /* Localizable.stringsdict */; };
+		AC0AE5A92FDF100500A44725 /* MWMMapTilesSettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AC0AE5A82FDF100500A44725 /* MWMMapTilesSettingsViewController.mm */; };
 		BB25B1A71FB32767007276FA /* transit_colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = BB25B1A51FB32767007276FA /* transit_colors.txt */; };
 		BB7626B61E85599C0031D71C /* icudt78l.dat in Resources */ = {isa = PBXBuildFile; fileRef = BB7626B41E8559980031D71C /* icudt78l.dat */; };
 		ED0B1C312BC2951F00FB8EDD /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = ED0B1C302BC2951F00FB8EDD /* PrivacyInfo.xcprivacy */; };
@@ -841,6 +842,8 @@
 		A630D204207CAA3400976DEA /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = vi; path = vi.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		A630D205207CAA3A00976DEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		A630D206207CAA5800976DEA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
+		AC0AE5A72FDF100500A44725 /* MWMMapTilesSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMapTilesSettingsViewController.h; sourceTree = "<group>"; };
+		AC0AE5A82FDF100500A44725 /* MWMMapTilesSettingsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapTilesSettingsViewController.mm; sourceTree = "<group>"; };
 		AC4209FF2D79BCEC00A64AA9 /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = af; path = af.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AC420A002D79BCED00A64AA9 /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = af; path = af.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AC420A012D79BCED00A64AA9 /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = af; path = af.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -3292,6 +3295,8 @@
 				ED82C4D82F90180300FA103D /* BookmarksTextPlacementController.mm */,
 				ED82C4D92F90180300FA103D /* DrivingOptions.storyboard */,
 				ED82C4DA2F90180300FA103D /* DrivingOptionsViewController.swift */,
+				AC0AE5A72FDF100500A44725 /* MWMMapTilesSettingsViewController.h */,
+				AC0AE5A82FDF100500A44725 /* MWMMapTilesSettingsViewController.mm */,
 				ED82C4DB2F90180300FA103D /* MWMMobileInternetViewController.h */,
 				ED82C4DC2F90180300FA103D /* MWMMobileInternetViewController.m */,
 				ED82C4DD2F90180300FA103D /* MWMNightModeController.h */,
@@ -4375,6 +4380,7 @@
 				ED82C5102F90180300FA103D /* RecentlyDeletedCategoriesViewModel.swift in Sources */,
 				ED82C5112F90180300FA103D /* RecentlyDeletedTableViewCell.swift in Sources */,
 				ED82C5122F90180300FA103D /* BMCModels.swift in Sources */,
+				AC0AE5A92FDF100500A44725 /* MWMMapTilesSettingsViewController.mm in Sources */,
 				ED82C5132F90180300FA103D /* BookmarkGroup+PlacesCountTitle.swift in Sources */,
 				ED82C5142F90180300FA103D /* BookmarksCoordinator.swift in Sources */,
 				ED82C5152F90180300FA103D /* BottomMenuItemCell.swift in Sources */,
