@@ -1,10 +1,5 @@
 {
     "recommendations": [
-        "ms-vscode.cmake-tools",
-        "ms-python.black-formatter",
-        "ms-vscode.cpptools",
-        "ms-vscode.cpp-devtools",
-        "xaver.clang-format",
         "llvm-vs-code-extensions.vscode-clangd",
         "ms-python.black-formatter",
         "ms-vscode.cmake-tools",
