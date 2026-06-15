@@ -1009,7 +1009,10 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::AssignTileBackgroundImage:
   {
     ref_ptr<AssignTileBackgroundImageMessage> msg = message;
-    if (m_context->GetApiVersion() == dp::ApiVersion::OpenGLES3)
+    // Skip the GL upload for a uid we already hold: AssignTileBackgroundImage below would only dedupe
+    // and release this freshly-acquired texture, so uploading into it is wasted bandwidth. HasImage is
+    // checked after the API test so it runs only on the GL path (non-GL already uploaded in the backend).
+    if (m_context->GetApiVersion() == dp::ApiVersion::OpenGLES3 && !m_tileBackgroundRenderer->HasImage(msg->GetUid()))
     {
       void * data = msg->GetBytes().data();
       msg->GetTexturePool()->UpdateTextureData(m_context, msg->GetTextureId(), 0, 0, msg->GetWidth(), msg->GetHeight(),
