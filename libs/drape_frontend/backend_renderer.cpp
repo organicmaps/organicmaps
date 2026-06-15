@@ -41,7 +41,7 @@ BackendRenderer::BackendRenderer(Params && params)
   , m_model(params.m_model)
   , m_readManager(make_unique_dp<ReadManager>(params.m_commutator, m_model, params.m_allow3dBuildings,
                                               params.m_trafficEnabled, params.m_isolinesEnabled,
-                                              params.m_backgroundMode))
+                                              params.m_backgroundMode, params.m_satelliteAreaOpacity))
   , m_transitBuilder(
         make_unique_dp<TransitSchemeBuilder>(std::bind(&BackendRenderer::FlushTransitRenderData, this, _1)))
   , m_trafficGenerator(make_unique_dp<TrafficGenerator>(std::bind(&BackendRenderer::FlushTrafficRenderData, this, _1)))
@@ -723,9 +723,11 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::SetTileBackgroundMode:
   {
     ref_ptr<SetTileBackgroundModeMessage> msg = message;
-    m_readManager->SetBackgroundMode(msg->GetMode());
+    m_readManager->SetBackgroundMode(msg->GetMode(), msg->GetAreaOpacity());
     m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                              make_unique_dp<SetTileBackgroundModeMessage>(msg->GetMode()), MessagePriority::Normal);
+                              make_unique_dp<SetTileBackgroundModeMessage>(msg->GetMode(), msg->GetAreaOpacity(),
+                                                                           m_readManager->IsModeChanged()),
+                              MessagePriority::Normal);
     break;
   }
 

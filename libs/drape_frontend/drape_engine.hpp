@@ -58,7 +58,8 @@ public:
            bool allow3dBuildings, bool trafficEnabled, bool isolinesEnabled, bool blockTapEvents,
            bool showChoosePositionMark, std::vector<m2::TriangleD> && boundAreaTriangles, bool isRoutingActive,
            bool isAutozoomEnabled, bool simplifiedTrafficColors, dp::BackgroundMode backgroundMode,
-           std::optional<Arrow3dCustomDecl> arrow3dCustomDecl, OverlaysShowStatsCallback && overlaysShowStatsCallback,
+           float satelliteAreaOpacity, std::optional<Arrow3dCustomDecl> arrow3dCustomDecl,
+           OverlaysShowStatsCallback && overlaysShowStatsCallback,
            OnGraphicsContextInitialized && onGraphicsContextInitialized,
            dp::RenderInjectionHandler && renderInjectionHandler)
       : m_apiVersion(apiVersion)
@@ -80,6 +81,7 @@ public:
       , m_isAutozoomEnabled(isAutozoomEnabled)
       , m_simplifiedTrafficColors(simplifiedTrafficColors)
       , m_backgroundMode(backgroundMode)
+      , m_satelliteAreaOpacity(satelliteAreaOpacity)
       , m_arrow3dCustomDecl(std::move(arrow3dCustomDecl))
       , m_overlaysShowStatsCallback(std::move(overlaysShowStatsCallback))
       , m_onGraphicsContextInitialized(std::move(onGraphicsContextInitialized))
@@ -106,6 +108,7 @@ public:
     bool m_isAutozoomEnabled;
     bool m_simplifiedTrafficColors;
     dp::BackgroundMode m_backgroundMode;
+    float m_satelliteAreaOpacity;
     std::optional<Arrow3dCustomDecl> m_arrow3dCustomDecl;
     OverlaysShowStatsCallback m_overlaysShowStatsCallback;
     OnGraphicsContextInitialized m_onGraphicsContextInitialized;
@@ -259,7 +262,7 @@ public:
   void AddTileBackgroundImage(std::string const & uid, uint32_t width, uint32_t height, dp::TextureFormat format,
                               dp::BackgroundMode mode, std::vector<uint8_t> && bytes);
   void SetTileBackgroundData(df::TileKey const & tileKey, std::string const & imageUid, m2::RectF const & rect);
-  void SetTileBackgroundMode(dp::BackgroundMode mode);
+  void SetTileBackgroundMode(dp::BackgroundMode mode, float satelliteAreaOpacity = 0.5f);
 
   dp::ApiVersion GetApiVersion() const { return m_frontend->GetApiVersion(); }
 

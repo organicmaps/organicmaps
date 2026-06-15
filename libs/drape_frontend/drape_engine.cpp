@@ -101,11 +101,11 @@ DrapeEngine::DrapeEngine(Params && params)
       params.m_onGraphicsContextInitialized, std::move(params.m_renderInjectionHandler),
       params.m_model.ReadTileBackgroundFn(), params.m_model.CancelTileBackgroundReadingFn());
 
-  BackendRenderer::Params brParams(params.m_apiVersion, frParams.m_commutator, frParams.m_oglContextFactory,
-                                   frParams.m_texMng, params.m_model, params.m_model.UpdateCurrentCountryFn(),
-                                   make_ref(m_requestedTiles), params.m_allow3dBuildings, params.m_trafficEnabled,
-                                   params.m_isolinesEnabled, params.m_simplifiedTrafficColors, params.m_backgroundMode,
-                                   std::move(params.m_arrow3dCustomDecl), params.m_onGraphicsContextInitialized);
+  BackendRenderer::Params brParams(
+      params.m_apiVersion, frParams.m_commutator, frParams.m_oglContextFactory, frParams.m_texMng, params.m_model,
+      params.m_model.UpdateCurrentCountryFn(), make_ref(m_requestedTiles), params.m_allow3dBuildings,
+      params.m_trafficEnabled, params.m_isolinesEnabled, params.m_simplifiedTrafficColors, params.m_backgroundMode,
+      params.m_satelliteAreaOpacity, std::move(params.m_arrow3dCustomDecl), params.m_onGraphicsContextInitialized);
 
   m_backend = make_unique_dp<BackendRenderer>(std::move(brParams));
   m_frontend = make_unique_dp<FrontendRenderer>(std::move(frParams));
@@ -1005,9 +1005,10 @@ void DrapeEngine::SetTileBackgroundData(df::TileKey const & tileKey, std::string
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::SetTileBackgroundMode(dp::BackgroundMode mode)
+void DrapeEngine::SetTileBackgroundMode(dp::BackgroundMode mode, float satelliteAreaOpacity /* = 0.5f */)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<SetTileBackgroundModeMessage>(mode), MessagePriority::Normal);
+                                  make_unique_dp<SetTileBackgroundModeMessage>(mode, satelliteAreaOpacity),
+                                  MessagePriority::Normal);
 }
 }  // namespace df
