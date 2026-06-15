@@ -464,7 +464,9 @@ public:
   /// callback from the `SetTrackRecordingUpdateHandler`.
   static ElevationInfo const & GetTrackRecordingElevationInfo();
 
-  void SetMapStyle(MapStyle mapStyle);
+  // reloadFromDisk is for the Designer only: it makes drape re-read the classificator, types and
+  // drawing rules that Build Style has just overwritten, instead of reusing the loaded ones.
+  void SetMapStyle(MapStyle mapStyle, bool reloadFromDisk = false);
   void MarkMapStyle(MapStyle mapStyle);
   MapStyle GetMapStyle() const;
 

@@ -5,7 +5,6 @@ set -eu
 OPT_DEBUG=
 OPT_RELEASE=
 OPT_CLEAN=
-OPT_DESIGNER=
 OPT_GCC=
 OPT_TARGET=
 OPT_PATH=
@@ -13,7 +12,7 @@ OPT_STANDALONE=
 OPT_COMPILE_DATABASE=
 OPT_LAUNCH_BINARY=
 OPT_NJOBS=
-while getopts ":cdrxtagjlp:n:" opt; do
+while getopts ":cdrxagjlp:n:" opt; do
   case $opt in
     a) OPT_STANDALONE=1 ;;
     c) OPT_CLEAN=1 ;;
@@ -29,10 +28,9 @@ while getopts ":cdrxtagjlp:n:" opt; do
        ;;
     p) OPT_PATH="$OPTARG" ;;
     r) OPT_RELEASE=1 ;;
-    t) OPT_DESIGNER=1 ;;
     *)
       echo "This tool builds Organic Maps"
-      echo "Usage: $0 [-d] [-r] [-c] [-x] [-s] [-t] [-a] [-g] [-j] [-l] [-p PATH] [-n NUM] [target1 target2 ...]"
+      echo "Usage: $0 [-d] [-r] [-c] [-x] [-s] [-a] [-g] [-j] [-l] [-p PATH] [-n NUM] [target1 target2 ...]"
       echo
       echo "By default both debug and release versions are built in ../omim-build-<buildtype> dir."
       echo
@@ -40,7 +38,6 @@ while getopts ":cdrxtagjlp:n:" opt; do
       echo -e "-r  Build a release version"
       echo -e "-x  Use pre-compiled headers"
       echo -e "-c  Clean before building"
-      echo -e "-t  Build Qt based designer tool (Linux/MacOS only)"
       echo -e "-a  Build Qt based standalone desktop app (Linux/MacOS only)"
       echo -e "-g  Force use GCC (Linux/MacOS only)"
       echo -e "-p  Directory for built binaries"
@@ -55,7 +52,7 @@ done
 OPT_TARGET=${@:$OPTIND}
 
 CMAKE_CONFIG="${CMAKE_CONFIG:-} -U SKIP_QT_GUI"
-if [ "$OPT_TARGET" != "desktop" -a -z "$OPT_DESIGNER" -a -z "$OPT_STANDALONE" ]; then
+if [ "$OPT_TARGET" != "desktop" -a -z "$OPT_STANDALONE" ]; then
   CMAKE_CONFIG="${CMAKE_CONFIG:-} -DSKIP_QT_GUI=ON"
 fi
 
@@ -98,8 +95,6 @@ if [ "$(uname -s)" == "Darwin" ]; then
 elif [ "$(uname -s)" == "Linux" ]; then
   PROCESSES=$(nproc)
 else
-  [ -n "$OPT_DESIGNER" ] \
-  && echo "Designer tool is only supported on Linux or MacOS" && exit 2
   [ -n "$OPT_STANDALONE" ] \
   && echo "Standalone desktop app is only supported on Linux or MacOS" && exit 2
   PROCESSES=$(nproc)
@@ -131,22 +126,16 @@ build()
     mkdir -p "$DIRNAME"
   fi
   cd "$DIRNAME"
-  if [ -z "$OPT_DESIGNER" ]; then
-    "$CMAKE" "$CMAKE_GENERATOR" "$OMIM_PATH" \
-      -DCMAKE_BUILD_TYPE="$CONF" \
-      -DBUILD_DESIGNER:BOOL=OFF \
-      -DBUILD_STANDALONE:BOOL=$([ "$OPT_STANDALONE" == 1 ] && echo "ON" || echo "OFF") \
-      ${CMAKE_CONFIG:-}
-    echo ""
-    $MAKE_COMMAND $OPT_TARGET
-    if [ -n "$OPT_TARGET" ] && [ -n "$OPT_LAUNCH_BINARY" ]; then
-      for target in $OPT_TARGET; do
-        "$DIRNAME/$target"
-      done
-    fi
-  else
-    "$CMAKE" "$CMAKE_GENERATOR" "$OMIM_PATH" -DCMAKE_BUILD_TYPE="$CONF" -DBUILD_DESIGNER:BOOL=ON ${CMAKE_CONFIG:-}
-    $MAKE_COMMAND package
+  "$CMAKE" "$CMAKE_GENERATOR" "$OMIM_PATH" \
+    -DCMAKE_BUILD_TYPE="$CONF" \
+    -DBUILD_STANDALONE:BOOL=$([ "$OPT_STANDALONE" == 1 ] && echo "ON" || echo "OFF") \
+    ${CMAKE_CONFIG:-}
+  echo ""
+  $MAKE_COMMAND $OPT_TARGET
+  if [ -n "$OPT_TARGET" ] && [ -n "$OPT_LAUNCH_BINARY" ]; then
+    for target in $OPT_TARGET; do
+      "$DIRNAME/$target"
+    done
   fi
   if [ -n "$OPT_COMPILE_DATABASE" ]; then
     cp "$DIRNAME/compile_commands.json" "$OMIM_PATH"

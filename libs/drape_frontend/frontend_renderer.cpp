@@ -22,6 +22,7 @@
 #include "drape/support_manager.hpp"
 #include "drape/utils/projection.hpp"
 
+#include "indexer/classificator_loader.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/scales.hpp"
 
@@ -672,7 +673,12 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::RecoverContextDependentResources: UpdateContextDependentResources(); break;
 
-  case Message::Type::UpdateMapStyle: UpdateAll<SwitchMapStyleMessage>(); break;
+  case Message::Type::UpdateMapStyle:
+  {
+    ref_ptr<UpdateMapStyleMessage> msg = message;
+    UpdateAll<SwitchMapStyleMessage>(msg->NeedReloadFromDisk());
+    break;
+  }
 
   case Message::Type::VisualScaleChanged:
   {
@@ -682,7 +688,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     // Draw tile zoom depends on the visual scale, but ResolveZoomLevel runs only when the model view
     // changes, so re-resolve it here before all tiles are re-requested in UpdateAll.
     ResolveZoomLevel(m_userEventStream.GetCurrentScreen());
-    UpdateAll<VisualScaleChangedMessage>();
+    UpdateAll<VisualScaleChangedMessage>(false /* reloadStyleFromDisk */);
     break;
   }
 
@@ -1064,12 +1070,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 }
 
 template <class MessageT>
-void FrontendRenderer::UpdateAll()
+void FrontendRenderer::UpdateAll(bool reloadStyleFromDisk)
 {
-#ifdef BUILD_DESIGNER
-  classificator::Load();
-#endif  // BUILD_DESIGNER
-
   // Clear all graphics.
   for (RenderLayer & layer : m_layers)
   {
@@ -1095,6 +1097,14 @@ void FrontendRenderer::UpdateAll()
                               make_unique_dp<InvalidateReadManagerRectMessage>(blocker), MessagePriority::Normal);
     blocker.Wait();
   }
+
+  // The Designer's Build Style rewrites classificator.txt, types.txt and the drules, so re-read
+  // them. It must happen here and not earlier: classificator::Load() clears the trees that the
+  // ReadManager pool threads walk through classif() and drule::GetRules(), and only the blocking
+  // message above has stopped that pool (its blocker-only ctor means NeedRestartReading()). The
+  // next tile tasks are posted by UpdateContextDependentResources() at the end of this function.
+  if (reloadStyleFromDisk)
+    classificator::Load();
 
   // Delete all messages which can contain render states (and textures references inside).
   auto f = [this]() { InstantMessageFilter([](ref_ptr<Message> msg) { return msg->ContainsRenderState(); }); };

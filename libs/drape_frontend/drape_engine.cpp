@@ -401,10 +401,10 @@ void DrapeEngine::InvalidateRect(m2::RectD const & rect)
                                   MessagePriority::High);
 }
 
-void DrapeEngine::UpdateMapStyle()
+void DrapeEngine::UpdateMapStyle(bool reloadFromDisk)
 {
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread, make_unique_dp<UpdateMapStyleMessage>(),
-                                  MessagePriority::High);
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<UpdateMapStyleMessage>(reloadFromDisk), MessagePriority::High);
 }
 
 void DrapeEngine::RecacheMapShapes()
