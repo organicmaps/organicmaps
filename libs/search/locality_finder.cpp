@@ -6,8 +6,8 @@
 #include "search/mwm_context.hpp"
 
 #include "indexer/data_source.hpp"
-#include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/scales.hpp"
 
 #include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
@@ -111,24 +111,6 @@ private:
   LocalityFinder::Holder & m_holder;
   std::unordered_set<uint32_t> & m_loadedIds;
 };
-
-int GetVillagesScale()
-{
-  auto currentVillagesMinDrawableScale = 0;
-  ftypes::IsVillageChecker::Instance().ForEachType([&currentVillagesMinDrawableScale](uint32_t type)
-  {
-    feature::TypesHolder th;
-    th.Assign(type);
-    currentVillagesMinDrawableScale = std::max(currentVillagesMinDrawableScale, GetMinDrawableScaleClassifOnly(th));
-  });
-
-  // Needed for backward compatibility. |kCompatibilityVillagesMinDrawableScale| should be set to
-  // maximal value we have in mwms over all data versions.
-  int const kCompatibilityVillagesMinDrawableScale = 13;
-  ASSERT_LESS_OR_EQUAL(currentVillagesMinDrawableScale, kCompatibilityVillagesMinDrawableScale,
-                       ("Set kCompatibilityVillagesMinDrawableScale to", currentVillagesMinDrawableScale));
-  return std::max(currentVillagesMinDrawableScale, kCompatibilityVillagesMinDrawableScale);
-}
 }  // namespace
 
 // LocalityItem ------------------------------------------------------------------------------------
@@ -275,10 +257,9 @@ void LocalityFinder::LoadVicinity(m2::PointD const & p, bool loadCities, bool lo
       if (!handle.IsAlive())
         return;
 
-      static int const scale = GetVillagesScale();
       MwmContext ctx(std::move(handle));
       ctx.ForEachIndex(
-          vrect, scale,
+          vrect, scales::GetVillageSearchScale(),
           LocalitiesLoader(ctx, m_boundariesTable, VillageFilter(ctx, m_villagesCache), m_villages, m_loadedIds));
     });
 

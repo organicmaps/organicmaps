@@ -208,7 +208,7 @@ void TypesHolder::SortByUseless()
 void TypesHolder::SortBySpec()
 {
   auto const & cl = classif();
-  auto const getPriority = [&cl](uint32_t type) { return cl.GetObject(type)->GetMaxOverlaysPriority(); };
+  auto const getPriority = [&cl](uint32_t type) { return cl.GetObject(type)->GetTypePriority(); };
 
   auto const & checker = UselessTypesChecker::Instance();
 

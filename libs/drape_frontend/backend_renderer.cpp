@@ -14,6 +14,7 @@
 #include "drape_frontend/route_builder.hpp"
 #include "drape_frontend/selection_shape_generator.hpp"
 
+#include "indexer/classificator_loader.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/scales.hpp"
 
@@ -357,6 +358,11 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     ref_ptr<SwitchMapStyleMessage> msg = message;
     msg->FilterDependentMessages();
 
+    // The frontend is waiting, tile readers have joined, and this thread owns all remaining
+    // rendering rule reads. Search type identities and type-selection priorities stay immutable.
+    if (msg->NeedReloadFromDisk())
+      classificator::ReloadDrawingRules();
+
     CHECK(m_context != nullptr, ());
     m_texMng->OnSwitchMapStyle(m_context);
     RecacheMapShapes();
@@ -381,11 +387,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     dp::TextureManager::Params params;
     params.m_resPostfix = VisualParams::Instance().GetResourcePostfix();
     params.m_visualScale = df::VisualParams::Instance().GetVisualScale();
-#ifdef BUILD_DESIGNER
-    params.m_patterns = "patterns_design.txt";
-#else
     params.m_patterns = "patterns.txt";
-#endif  // BUILD_DESIGNER
 
     m_texMng->OnVisualScaleChanged(m_context, params);
 
@@ -862,13 +864,8 @@ void BackendRenderer::InitContextDependentResources()
   dp::TextureManager::Params params;
   params.m_resPostfix = VisualParams::Instance().GetResourcePostfix();
   params.m_visualScale = df::VisualParams::Instance().GetVisualScale();
-#ifdef BUILD_DESIGNER
-  params.m_colors = "colors_design.txt";
-  params.m_patterns = "patterns_design.txt";
-#else
   params.m_colors = "colors.txt";
   params.m_patterns = "patterns.txt";
-#endif  // BUILD_DESIGNER
   params.m_glyphMngParams.m_uniBlocks = base::JoinPath("fonts", "unicode_blocks.txt");
   params.m_glyphMngParams.m_whitelist = base::JoinPath("fonts", "whitelist.txt");
   params.m_glyphMngParams.m_blacklist = base::JoinPath("fonts", "blacklist.txt");

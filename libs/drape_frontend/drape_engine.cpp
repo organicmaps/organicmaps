@@ -401,10 +401,22 @@ void DrapeEngine::InvalidateRect(m2::RectD const & rect)
                                   MessagePriority::High);
 }
 
-void DrapeEngine::UpdateMapStyle()
+void DrapeEngine::UpdateMapStyle(bool reloadFromDisk)
 {
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread, make_unique_dp<UpdateMapStyleMessage>(),
-                                  MessagePriority::High);
+  if (reloadFromDisk)
+  {
+    CHECK(m_frontend->IsRenderingEnabled() && m_backend->IsRenderingEnabled(),
+          ("A synchronous rule reload requires active rendering"));
+    BaseBlockingMessage::Blocker blocker;
+    m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread, make_unique_dp<UpdateMapStyleMessage>(blocker),
+                                    MessagePriority::High);
+    blocker.Wait();
+  }
+  else
+  {
+    m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread, make_unique_dp<UpdateMapStyleMessage>(),
+                                    MessagePriority::High);
+  }
 }
 
 void DrapeEngine::RecacheMapShapes()

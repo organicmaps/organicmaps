@@ -91,6 +91,8 @@ struct FrameworkParams
 {
   bool m_enableDiffs = true;
   size_t m_numSearchAPIThreads = 1;
+  // A pinned style is selected before initial loading and ignores subsequent theme/style switches.
+  std::optional<MapStyle> m_fixedMapStyle;
 
   FrameworkParams() = default;
   FrameworkParams(bool enableDiffs) : m_enableDiffs(enableDiffs) {}
@@ -173,6 +175,7 @@ protected:
   StorageDownloadingPolicy m_storageDownloadingPolicy;
   storage::Storage m_storage;
   bool m_enabledDiffs;
+  std::optional<MapStyle> const m_fixedMapStyle;
 
   location::TMyPositionModeChanged m_myPositionListener;
 
@@ -464,7 +467,9 @@ public:
   /// callback from the `SetTrackRecordingUpdateHandler`.
   static ElevationInfo const & GetTrackRecordingElevationInfo();
 
-  void SetMapStyle(MapStyle mapStyle);
+  // Designer reloads wait for renderer recaching before dependent GUI caches are updated. Feature
+  // type identities remain immutable; only drawing rules, visibility and priorities are replaced.
+  void SetMapStyle(MapStyle mapStyle, bool reloadFromDisk = false);
   void MarkMapStyle(MapStyle mapStyle);
   MapStyle GetMapStyle() const;
 

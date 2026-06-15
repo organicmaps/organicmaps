@@ -10,14 +10,20 @@
 #include "coding/reader_streambuf.hpp"
 
 #include "base/buffer_vector.hpp"
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
+#include <array>
 #include <iostream>
 #include <memory>
+#include <stdexcept>
 #include <string>
 
 namespace
 {
+std::array<std::string, 2> g_typeSources;
+char const * const kTypeFiles[] = {"classificator.txt", "types.txt"};
+
 void ReadCommon(Classificator & c, std::unique_ptr<Reader> classificator, std::unique_ptr<Reader> types)
 {
   c.Clear();
@@ -61,8 +67,8 @@ VariantsT FamilyVariants(MapStyle style)
 
 // Force-loads every variant of style's family from a single decode of the shared family file,
 // writing into each variant's own classificator tree and rules holder. It never changes the global
-// current style, so background tile readers keep observing the previously-current (immutable) style
-// the whole time; the switch to the new style happens later via a single atomic SetCurrentStyle.
+// current style, so background tile readers keep observing their resident family until the atomic
+// SetCurrentStyle publishes the new one.
 void LoadFamily(MapStyle style)
 {
   Platform & p = GetPlatform();
@@ -75,7 +81,21 @@ void LoadFamily(MapStyle style)
     Classificator & c = classif(variant);
     ReadCommon(c, p.GetReader("classificator.txt"), p.GetReader("types.txt"));
     drule::GetRules(variant).LoadFromFormat(fmt, GetStyleReader().GetDrawingRulesVariant(variant), c);
+    c.GetMutableRoot()->FreezeTypePriorities();
     c.SetLoaded(true);
+  }
+}
+
+void ReloadFamily(MapStyle style)
+{
+  auto const variants = FamilyVariants(style);
+  auto const fmt = drule::DecodeRules(variants.front());
+  for (auto const variant : variants)
+  {
+    auto & c = classif(variant);
+    CHECK(c.IsLoaded(), ("Reload requires a resident family", variant));
+    c.GetMutableRoot()->ClearDrawingRules();
+    drule::GetRules(variant).LoadFromFormat(fmt, GetStyleReader().GetDrawingRulesVariant(variant), c);
   }
 }
 }  // namespace
@@ -97,9 +117,15 @@ void Load()
 {
   LOG(LDEBUG, ("Reading of classificator started"));
 
-  // Drop every loaded flag so the designer's rebuilt drules are re-read on reload, then load the
-  // current and outdoors families now (others, e.g. vehicle, load lazily on first use). Outdoors is
-  // always made resident because GetOutdoorRules/GetOutdoorClassif render forced-outdoors tracks.
+  // Only Designer needs source snapshots to reject incompatible live edits.
+  if (GetStyleReader().IsDesignerMode())
+    for (size_t i = 0; i < g_typeSources.size(); ++i)
+      GetPlatform().GetReader(kTypeFiles[i])->ReadAsString(g_typeSources[i]);
+  else
+    g_typeSources = {};
+
+  // Each full load initializes the current and outdoors families. Outdoors must be resident for
+  // forced-outdoors tracks; the remaining families load lazily on first use.
   for (size_t i = 0; i < MapStyleCount; ++i)
     classif(static_cast<MapStyle>(i)).SetLoaded(false);
 
@@ -107,6 +133,26 @@ void Load()
   EnsureStyleLoaded(MapStyleOutdoorsLight);
 
   LOG(LDEBUG, ("Reading of classificator finished"));
+}
+
+void CheckTypesCompatible(std::string const & dataDir)
+{
+  // Before Framework construction there are no loaded identities to preserve.
+  if (g_typeSources[0].empty())
+    return;
+  for (size_t i = 0; i < g_typeSources.size(); ++i)
+  {
+    std::string generated;
+    GetPlatform().GetReader(base::JoinPath(dataDir, kTypeFiles[i]), "f")->ReadAsString(generated);
+    if (generated != g_typeSources[i])
+      throw std::runtime_error("Feature types changed; regenerate maps and reopen Designer before applying this edit");
+  }
+}
+
+void ReloadDrawingRules()
+{
+  CHECK(GetStyleReader().IsDesignerMode(), ("Live rule reload is for Designer"));
+  ReloadFamily(GetStyleReader().GetCurrentStyle());
 }
 
 void LoadTypes(std::string const & classificatorFileStr, std::string const & typesFileStr)

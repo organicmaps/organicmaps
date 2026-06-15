@@ -56,6 +56,7 @@ public:
 
   private:
     friend class BaseBlockingMessage;
+    friend class UpdateMapStyleMessage;
 
     void Signal()
     {
@@ -770,7 +771,22 @@ private:
 class UpdateMapStyleMessage : public Message
 {
 public:
+  UpdateMapStyleMessage() = default;
+  explicit UpdateMapStyleMessage(BaseBlockingMessage::Blocker & blocker) : m_blocker(&blocker) {}
+  ~UpdateMapStyleMessage() override
+  {
+    if (m_blocker)
+      m_blocker->Signal();
+  }
+
   Type GetType() const override { return Type::UpdateMapStyle; }
+
+  // A Designer reload blocks the GUI until renderer recaching finishes, so GUI style readers and
+  // dependent caches cannot overlap the replacement. Ordinary style switches stay asynchronous.
+  bool NeedReloadFromDisk() const { return m_blocker != nullptr; }
+
+private:
+  BaseBlockingMessage::Blocker * m_blocker = nullptr;
 };
 
 class UpdateVisualScaleMessage : public Message
@@ -808,12 +824,14 @@ class SwitchMapStyleMessage : public BaseBlockingMessage
 public:
   using FilterMessagesHandler = std::function<void()>;
 
-  SwitchMapStyleMessage(Blocker & blocker, FilterMessagesHandler && filterMessagesHandler)
+  SwitchMapStyleMessage(Blocker & blocker, FilterMessagesHandler && filterMessagesHandler, bool reloadFromDisk = false)
     : BaseBlockingMessage(blocker)
     , m_filterMessagesHandler(std::move(filterMessagesHandler))
+    , m_reloadFromDisk(reloadFromDisk)
   {}
 
   Type GetType() const override { return Type::SwitchMapStyle; }
+  bool NeedReloadFromDisk() const { return m_reloadFromDisk; }
 
   void FilterDependentMessages()
   {
@@ -823,6 +841,7 @@ public:
 
 private:
   FilterMessagesHandler m_filterMessagesHandler;
+  bool m_reloadFromDisk;
 };
 
 class VisualScaleChangedMessage : public SwitchMapStyleMessage
