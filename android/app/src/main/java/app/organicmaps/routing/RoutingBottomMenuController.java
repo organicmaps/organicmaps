@@ -314,10 +314,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
     distanceView.setText(info.getTotalPedestrianDistance() + " " + info.getTotalPedestrianDistanceUnits());
 
     // Tapping the summary strip reveals the per-leg breakdown (board/exit stops + line badges); the
-    // chevron is the cue that the strip is expandable.
-    mTransitTime.setForeground(
-        ContextCompat.getDrawable(
-            mContext, UiUtils.getStyledResourceId(mContext, androidx.appcompat.R.attr.selectableItemBackground)));
+    // chevron is the cue that the strip is expandable. The ripple foreground is declared in the
+    // layout and only draws while the strip stays clickable.
     mTransitTime.setClickable(true);
     mTransitTime.setOnClickListener(v -> showTransitDetailsSheet());
     UiUtils.show(mTransitTime.findViewById(R.id.transit_details_chevron));
@@ -342,10 +340,10 @@ final class RoutingBottomMenuController implements View.OnClickListener
     UiUtils.hide(mError, mActionFrame, mTimeVehicle, mTransitTime, mTimeElevationLine, mAltitudeChart);
     showStartButton(false);
     // The summary strip is shared with public transport routing; the per-leg detail sheet does not
-    // apply to a straight-line ruler route, so drop the tap handler and its affordance here.
+    // apply to a straight-line ruler route, so drop the tap handler here. Clearing clickability also
+    // suppresses the ripple foreground declared in the layout.
     mTransitTime.setOnClickListener(null);
     mTransitTime.setClickable(false);
-    mTransitTime.setForeground(null);
     UiUtils.hide(mTransitTime.findViewById(R.id.transit_details_chevron));
 
     hideAltitudeChartAndRoutingDetails();
