@@ -11,7 +11,7 @@
   android:orientation="vertical"
   android:paddingStart="@dimen/altitude_chart_container_padding_left"
   android:paddingEnd="@dimen/altitude_chart_container_padding_left"
-  tools:showIn="@layout/fragment_routing">
+  tools:showIn="@layout/routing_bottom_sheet">
 
   <LinearLayout
     android:orientation="horizontal"
