@@ -15,7 +15,6 @@ endif ()
 
 option(USE_CCACHE "Use ccache" ON)
 option(WITH_SYSTEM_PROVIDED_3PARTY "Enable compilation with system provided dependencies" OFF)
-option(BUILD_DESIGNER "Build application as design tool" OFF)
 option(BUILD_STANDALONE "Build standalone application" OFF)
 option(USE_ASAN "Enable Address Sanitizer" OFF)
 option(USE_TSAN "Enable Thread Sanitizer" OFF)

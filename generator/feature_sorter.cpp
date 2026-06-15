@@ -13,6 +13,7 @@
 
 #include "indexer/dat_section_header.hpp"
 #include "indexer/feature_impl.hpp"
+#include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/scales_patch.hpp"
 
@@ -157,14 +158,15 @@ public:
       Polygons const & polys = fb.GetGeometry();
       bool const isCoast = fb.IsCoastCell();
 
+      bool const designerMode = GetStyleReader().IsDesignerMode();
       int const scalesStart = static_cast<int>(m_header.GetScalesCount()) - 1;
       for (int i = scalesStart; i >= 0; --i)
       {
         int level = m_header.GetScale(i);
         /// @todo: Re-checks geom limit rect size via IsDrawableForIndexGeometryOnly()
         /// which was already checked in CalculateMidPoints.
-        if (fb.IsDrawableInRange(scales::PatchMinDrawableScale(i > 0 ? m_header.GetScale(i - 1) + 1 : 0),
-                                 scales::PatchMaxDrawableScale(level)))
+        if (fb.IsDrawableInRange(scales::PatchMinDrawableScale(i > 0 ? m_header.GetScale(i - 1) + 1 : 0, designerMode),
+                                 scales::PatchMaxDrawableScale(level, designerMode)))
         {
           // Increment zoom level for coastline polygons (check and simplification)
           // for better visual quality in the first geometry batch or whole WorldCoasts.

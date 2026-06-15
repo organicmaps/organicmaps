@@ -8,6 +8,8 @@
 #include "platform/location.hpp"
 #include "platform/location_service/location_service.hpp"
 
+#include "qt/build_style/build_style.h"
+
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>
 
@@ -81,25 +83,23 @@ private:
   PopupMenuHolder * m_routing = nullptr;
   PopupMenuHolder * m_selection = nullptr;
 
-#ifdef BUILD_DESIGNER
-  QString const m_mapcssFilePath = nullptr;
+  // Designer mode state; empty m_mapcssFilePath means the regular app.
+  QString const m_mapcssFilePath;
+  build_style::StyleInfo const m_styleInfo;
   QAction * m_pBuildStyleAction = nullptr;
   QAction * m_pRecalculateGeomIndex = nullptr;
   QAction * m_pDrawDebugRectAction = nullptr;
   QAction * m_pGetStatisticsAction = nullptr;
   QAction * m_pRunTestsAction = nullptr;
   QAction * m_pBuildPhonePackAction = nullptr;
-#endif  // BUILD_DESIGNER
+
+  bool IsDesignerMode() const { return !m_mapcssFilePath.isEmpty(); }
 
   Q_OBJECT
 
 public:
-  MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> && screenshotParams, QRect const & screenGeometry
-#ifdef BUILD_DESIGNER
-             ,
-             QString const & mapcssFilePath = QString()
-#endif
-  );
+  MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> && screenshotParams, QRect const & screenGeometry,
+             QString const & mapcssFilePath = {}, build_style::StyleInfo const & styleInfo = {});
 
   // Replaces the place-page dock's contents with a fresh widget for `info`
   // (Developer or User variant depending on settings::kDeveloperMode) and shows the dock.
@@ -162,13 +162,11 @@ protected Q_SLOTS:
 
   void OnBookmarksAction();
 
-#ifdef BUILD_DESIGNER
   void OnBuildStyle();
   void OnRecalculateGeomIndex();
   void OnDebugStyle();
   void OnGetStatistics();
   void OnRunTests();
   void OnBuildPhonePackage();
-#endif  // BUILD_DESIGNER
 };
 }  // namespace qt

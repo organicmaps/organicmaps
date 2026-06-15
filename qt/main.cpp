@@ -7,6 +7,8 @@
 
 #include "map/framework.hpp"
 
+#include "indexer/map_style_reader.hpp"
+
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
@@ -23,7 +25,6 @@
 #include <QtGlobal>
 #include <QtGui/QStyleHints>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMessageBox>
 
 #include <gflags/gflags.h>
@@ -50,6 +51,9 @@ DEFINE_int32(height, 0, "Screenshot height.");
 DEFINE_double(
     dpi_scale, 0.0,
     "Screenshot dpi scale (mdpi = 1.0, hdpi = 1.5, xhdpiScale = 2.0, 6plus = 2.4, xxhdpi = 3.0, xxxhdpi = 3.5).");
+DEFINE_string(designer, "",
+              "Path to a style.mapcss under data/styles/{default|outdoors|vehicle}/{light|dark}/; starts the app in "
+              "Designer mode with style-rebuilding tools, see docs/STYLES.md.");
 
 namespace
 {
@@ -135,11 +139,7 @@ int main(int argc, char * argv[])
   QApplication app(argc, argv);
   app.setDesktopFileName("app.organicmaps.desktop");
 
-#ifdef BUILD_DESIGNER
-  QApplication::setApplicationName("Organic Maps Designer");
-#else
-  QApplication::setApplicationName("Organic Maps");
-#endif
+  QApplication::setApplicationName(FLAGS_designer.empty() ? "Organic Maps" : "Organic Maps Designer");
 
 #ifdef DEBUG
   static bool constexpr developerMode = true;
@@ -167,6 +167,8 @@ int main(int argc, char * argv[])
   }
 
   int returnCode = -1;
+  QString mapcssFilePath;
+  build_style::StyleInfo styleInfo;
   if (eulaAccepted)  // User has accepted EULA
   {
     std::unique_ptr<qt::ScreenshotParams> screenshotParams;
@@ -206,49 +208,55 @@ int main(int argc, char * argv[])
 
     FrameworkParams frameworkParams;
 
-#ifdef BUILD_DESIGNER
-    QString mapcssFilePath;
-    if (argc >= 2 && platform.IsFileExistsByFullPath(argv[1]))
-      mapcssFilePath = argv[1];
-    if (0 == mapcssFilePath.length())
-      mapcssFilePath = QFileDialog::getOpenFileName(nullptr, "Open style.mapcss file", "~/", "MapCSS Files (*.mapcss)");
-    if (mapcssFilePath.isEmpty())
-      return returnCode;
-
-    try
+    if (!FLAGS_designer.empty())
     {
-      build_style::BuildIfNecessaryAndApply(mapcssFilePath);
-    }
-    catch (std::exception const & e)
-    {
-      QMessageBox msgBox;
-      msgBox.setWindowTitle("Error");
-      msgBox.setText(e.what());
-      msgBox.setStandardButtons(QMessageBox::Ok);
-      msgBox.setDefaultButton(QMessageBox::Ok);
-      msgBox.exec();
-      return returnCode;
-    }
+      mapcssFilePath = QString::fromStdString(FLAGS_designer);
+      if (!build_style::TryParseStyleInfo(mapcssFilePath, styleInfo))
+      {
+        QMessageBox::critical(nullptr, "Error",
+                              QString("Could not detect map style from path:\n%1\n\n"
+                                      "Expected .../styles/{default|outdoors|vehicle}/{light|dark}/style.mapcss")
+                                  .arg(mapcssFilePath));
+        return returnCode;
+      }
 
-#endif  // BUILD_DESIGNER
+      // Must be set before any style file is read, see StyleReader.
+      GetStyleReader().SetDesignerMode(true);
+
+      try
+      {
+        build_style::BuildIfNecessaryAndApply(mapcssFilePath, styleInfo);
+      }
+      catch (std::exception const & e)
+      {
+        QMessageBox::critical(nullptr, "Error", e.what());
+        return returnCode;
+      }
+    }
 
     Framework framework(frameworkParams);
     framework.SetupMeasurementSystem();
-
+    bool const designerMode = GetStyleReader().IsDesignerMode();
     auto const syncNightMode = [&framework]()
     {
       if (style_utils::GetNightModeSetting() == style_utils::NightMode::System)
         qt::common::ApplySystemNightMode(framework);
     };
-    syncNightMode();
-    qt::MainWindow w(framework, std::move(screenshotParams), QApplication::primaryScreen()->geometry()
-#ifdef BUILD_DESIGNER
-                                                                 ,
-                     mapcssFilePath
-#endif  // BUILD_DESIGNER
-    );
+    if (designerMode)
+    {
+      // Lock the active style to whichever .mapcss the Designer is editing; skip
+      // the night-mode sync so a NightMode::System preference inherited from a
+      // regular session can't flip us to the dark/light variant.
+      framework.SetMapStyle(styleInfo.m_mapStyle);
+    }
+    else
+    {
+      syncNightMode();
+    }
+    qt::MainWindow w(framework, std::move(screenshotParams), QApplication::primaryScreen()->geometry(), mapcssFilePath,
+                     styleInfo);
 #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
-    if (auto * styleHints = QGuiApplication::styleHints(); styleHints != nullptr)
+    if (auto * styleHints = QGuiApplication::styleHints(); styleHints != nullptr && !designerMode)
     {
       QObject::connect(styleHints, &QStyleHints::colorSchemeChanged, &w,
                        [syncNightMode](Qt::ColorScheme) mutable { syncNightMode(); });
@@ -258,7 +266,6 @@ int main(int argc, char * argv[])
     returnCode = QApplication::exec();
   }
 
-#ifdef BUILD_DESIGNER
   if (build_style::NeedRecalculate && !mapcssFilePath.isEmpty())
   {
     try
@@ -267,15 +274,9 @@ int main(int argc, char * argv[])
     }
     catch (std::exception & e)
     {
-      QMessageBox msgBox;
-      msgBox.setWindowTitle("Error");
-      msgBox.setText(e.what());
-      msgBox.setStandardButtons(QMessageBox::Ok);
-      msgBox.setDefaultButton(QMessageBox::Ok);
-      msgBox.exec();
+      QMessageBox::critical(nullptr, "Error", e.what());
     }
   }
-#endif  // BUILD_DESIGNER
 
   LOG_SHORT(LINFO, ("Organic Maps finished with code", returnCode));
   return returnCode;

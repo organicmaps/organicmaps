@@ -75,6 +75,9 @@ DEFINE_string(osm_file_name, "", "Input osm area file.");
 DEFINE_string(osm_file_type, "xml", "Input osm area file type [xml, o5m].");
 DEFINE_string(data_path, "", GetDataPathHelp());
 DEFINE_string(user_resource_path, "", "User defined resource path for classificator.txt and etc.");
+DEFINE_bool(designer, false,
+            "Designer mode: widen drawable scale ranges so edited features stay visible while zoom "
+            "ranges are being tuned (see indexer/scales_patch.hpp).");
 DEFINE_string(intermediate_data_path, "", "Path to stored intermediate data.");
 DEFINE_string(cache_path, "",
               "Path to stored caches for nodes, ways, relations. "
@@ -242,6 +245,8 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
   genInfo.m_complexHierarchyFilename = FLAGS_complex_hierarchy_data;
   genInfo.m_isolinesDir = FLAGS_isolines_path;
   genInfo.m_addressesDir = FLAGS_addresses_path;
+
+  GetStyleReader().SetDesignerMode(FLAGS_designer);
 
   // Use merged style.
   GetStyleReader().SetCurrentStyle(MapStyleMerged);
