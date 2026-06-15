@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24765" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24743"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -12,12 +12,12 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="MWMSearchSuggestionCell" propertyAccessControl="none">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_search" translatesAutoresizingMaskIntoConstraints="NO" id="1IA-T9-KOb">
-                        <rect key="frame" x="16" y="8" width="24" height="24"/>
+                        <rect key="frame" x="16" y="10" width="24" height="24"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="24" id="TPv-Js-EXq"/>
                             <constraint firstAttribute="height" constant="24" id="bse-BN-jT9"/>
@@ -26,20 +26,20 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlue"/>
                         </userDefinedRuntimeAttributes>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Arbat Avenue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gWP-Zj-GCt">
-                        <rect key="frame" x="52" y="9.5" width="252" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="New Arbat Avenue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gWP-Zj-GCt">
+                        <rect key="frame" x="52" y="6" width="252" height="32"/>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                         <color key="textColor" red="0.12549019610000001" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="1IA-T9-KOb" secondAttribute="bottom" constant="8" id="0He-dX-gNg"/>
+                    <constraint firstItem="gWP-Zj-GCt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="MCo-oG-6eL"/>
+                    <constraint firstAttribute="bottom" secondItem="gWP-Zj-GCt" secondAttribute="bottom" constant="6" id="XYc-sY-xU8"/>
                     <constraint firstAttribute="trailing" secondItem="gWP-Zj-GCt" secondAttribute="trailing" constant="16" id="c1H-CR-1P7"/>
-                    <constraint firstItem="gWP-Zj-GCt" firstAttribute="centerY" secondItem="1IA-T9-KOb" secondAttribute="centerY" id="iJZ-pk-VCW"/>
+                    <constraint firstItem="1IA-T9-KOb" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="g5X-od-XWO"/>
                     <constraint firstItem="1IA-T9-KOb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="l2F-lx-j3x"/>
                     <constraint firstItem="gWP-Zj-GCt" firstAttribute="leading" secondItem="1IA-T9-KOb" secondAttribute="trailing" constant="12" id="xfc-Vx-bth"/>
-                    <constraint firstItem="1IA-T9-KOb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="y24-rC-y5X"/>
                 </constraints>
             </tableViewCellContentView>
             <userDefinedRuntimeAttributes>

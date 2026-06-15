@@ -24,7 +24,7 @@ class CarplayPlaceholderView: UIView {
     containerView.addSubview(imageView)
 
     descriptionLabel.text = L("car_used_on_the_car_screen")
-    descriptionLabel.font = UIFont.bold24
+    descriptionLabel.setFontStyle(.bold24)
     descriptionLabel.textAlignment = .center
     descriptionLabel.numberOfLines = 0
     containerView.addSubview(descriptionLabel)
@@ -84,7 +84,7 @@ class CarplayPlaceholderView: UIView {
       switchButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 24),
       switchButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: horizontalPadding),
       switchButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -horizontalPadding),
-      switchButton.heightAnchor.constraint(equalToConstant: 48),
+      switchButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 48),
       switchButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
     ])
   }

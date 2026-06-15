@@ -18,7 +18,7 @@
                     <rect key="frame" x="0.0" y="20" width="375" height="28"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PGC-cy-M2K">
-                            <rect key="frame" x="16" y="-1" width="42" height="21"/>
+                            <rect key="frame" x="16" y="4" width="42" height="24"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -27,7 +27,7 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3hn-pU-MI1">
-                            <rect key="frame" x="302" y="0.5" width="73" height="18"/>
+                            <rect key="frame" x="302" y="4" width="73" height="24"/>
                             <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="14" maxY="0.0"/>
                             <state key="normal" title="Show All"/>
                             <userDefinedRuntimeAttributes>
@@ -42,9 +42,11 @@
                     <constraints>
                         <constraint firstItem="PGC-cy-M2K" firstAttribute="leading" secondItem="qNi-Yh-Bat" secondAttribute="leading" constant="16" id="2OC-uL-Mgr"/>
                         <constraint firstAttribute="trailing" secondItem="3hn-pU-MI1" secondAttribute="trailing" id="HNq-6x-QDD"/>
-                        <constraint firstItem="3hn-pU-MI1" firstAttribute="firstBaseline" secondItem="PGC-cy-M2K" secondAttribute="firstBaseline" id="NX4-5u-TJ8"/>
+                        <constraint firstAttribute="bottom" secondItem="3hn-pU-MI1" secondAttribute="bottom" id="Q5A-sN-egM"/>
+                        <constraint firstItem="PGC-cy-M2K" firstAttribute="top" secondItem="qNi-Yh-Bat" secondAttribute="top" constant="4" id="UXL-sL-HVG"/>
                         <constraint firstItem="3hn-pU-MI1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="PGC-cy-M2K" secondAttribute="trailing" constant="4" id="hGm-gr-ABM"/>
-                        <constraint firstAttribute="bottom" secondItem="PGC-cy-M2K" secondAttribute="bottom" constant="8" id="u3z-Z1-eqb"/>
+                        <constraint firstAttribute="bottom" secondItem="PGC-cy-M2K" secondAttribute="bottom" id="u3z-Z1-eqb"/>
+                        <constraint firstItem="3hn-pU-MI1" firstAttribute="top" secondItem="qNi-Yh-Bat" secondAttribute="top" constant="4" id="wRT-5t-7iY"/>
                     </constraints>
                 </view>
             </subviews>

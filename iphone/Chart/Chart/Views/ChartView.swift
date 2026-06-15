@@ -71,14 +71,6 @@ public class ChartView: UIView {
     }
   }
 
-  public var isFontDynamic: Bool = false {
-    didSet {
-      xAxisView.isFontDynamic = isFontDynamic
-      yAxisView.isFontDynamic = isFontDynamic
-      chartInfoView.isFontDynamic = isFontDynamic
-    }
-  }
-
   public var textColor: UIColor = .init(white: 0, alpha: 0.2) {
     didSet {
       xAxisView.textColor = textColor

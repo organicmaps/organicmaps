@@ -10,7 +10,6 @@ protocol PlacePageHeaderViewProtocol: AnyObject {
 
 final class PlacePageHeaderViewController: UIViewController {
   private enum Constants {
-    static let titleTrailingInsetEditing: CGFloat = 22
     static var titleFont: UIFont { UIFont.medium20.dynamic }
     static let didShowEducationalTrackSelectorPopup = "PlacePageHeaderViewController_didShowEducationalTrackSelectorPopup"
     static let educationalTrackSelectorPopupTimeout = 0.3

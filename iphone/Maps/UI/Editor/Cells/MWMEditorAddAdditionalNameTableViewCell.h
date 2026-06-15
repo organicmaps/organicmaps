@@ -3,6 +3,6 @@
 
 @interface MWMEditorAddAdditionalNameTableViewCell : MWMTableViewCell
 
-- (void)configWithDelegate:(id<MWMEditorAdditionalName>)delegate;
+- (void)config;
 
 @end

@@ -99,7 +99,6 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 
   UILabel * titleLabel = [[UILabel alloc] init];
   titleLabel.text = L(@"editor_category_unsuitable_title");
-  titleLabel.font = [UIFont boldSystemFontOfSize:20];
   titleLabel.textAlignment = NSTextAlignmentCenter;
   titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
   titleLabel.font = UIFont.bold17.dynamic;

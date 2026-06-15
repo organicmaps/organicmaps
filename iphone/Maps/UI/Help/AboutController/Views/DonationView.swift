@@ -57,10 +57,10 @@ final class DonationView: UIButton {
     actionLabel.text = L("support_organic_maps")
     actionLabel.allowsDefaultTighteningForTruncation = true
     actionLabel.lineBreakMode = .byWordWrapping
-    actionLabel.numberOfLines = 2
+    actionLabel.numberOfLines = 0
     actionLabel.textAlignment = .center
     actionLabel.isUserInteractionEnabled = false
-	actionLabel.setStyle(.crowdfundingButton)
+    actionLabel.setStyle(.crowdfundingButton)
 
     actionLabelBackgroundView.backgroundColor = .ratingYellow
     actionLabelBackgroundView.layer.setCornerRadius(.buttonDefaultBig)

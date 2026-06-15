@@ -138,7 +138,6 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
                                        MWMButtonCellDelegate,
                                        MWMEditorAdditionalNamesProtocol>
 
-@property(nonatomic) NSMutableDictionary<Class, UITableViewCell *> * offscreenCells;
 @property(nonatomic) NSMutableArray<NSIndexPath *> * invalidCells;
 @property(nonatomic) MWMEditorAdditionalNamesHeader * additionalNamesHeader;
 @property(nonatomic) MWMEditorNotesFooter * notesFooter;
@@ -187,7 +186,8 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
 
 - (void)contentSizeCategoryDidChange
 {
-  [self.offscreenCells removeAllObjects];
+  self.additionalNamesHeader = nil;
+  self.notesFooter = nil;
   [self.tableView reloadData];
 }
 
@@ -319,19 +319,6 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
   }
 }
 
-#pragma mark - Offscreen cells
-
-- (UITableViewCell *)offscreenCellForClass:(Class)cls
-{
-  auto cell = self.offscreenCells[cls];
-  if (!cell)
-  {
-    cell = [NSBundle.mainBundle loadWithViewClass:cls owner:nil options:nil].firstObject;
-    self.offscreenCells[(id<NSCopying>)cls] = cell;
-  }
-  return cell;
-}
-
 - (void)configTable
 {
   self.tableView.estimatedRowHeight = kDefaultEstimatedRowHeight;
@@ -340,7 +327,6 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
   self.tableView.sectionFooterHeight = UITableViewAutomaticDimension;
   self.tableView.estimatedSectionFooterHeight = kDefaultFooterHeight;
 
-  self.offscreenCells = [NSMutableDictionary dictionary];
   self.invalidCells = [NSMutableArray array];
   m_sections.clear();
   m_cells.clear();
@@ -581,7 +567,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
   }
   case MWMEditorCellTypeAddAdditionalName:
   {
-    [static_cast<MWMEditorAddAdditionalNameTableViewCell *>(cell) configWithDelegate:self];
+    [static_cast<MWMEditorAddAdditionalNameTableViewCell *>(cell) config];
     break;
   }
   case MWMEditorCellTypeAddAdditionalNamePlaceholder: break;
@@ -774,6 +760,13 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
   return UITableViewAutomaticDimension;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  [tableView deselectRowAtIndexPath:indexPath animated:YES];
+  if ([self cellTypeForIndexPath:indexPath] == MWMEditorCellTypeAddAdditionalName)
+    [self editAdditionalNameLanguage:NSNotFound];
+}
+
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
   switch (m_sections[section])
@@ -851,7 +844,6 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
 
 - (void)cell:(MWMNoteCell *)cell didChangeSizeAndText:(NSString *)text
 {
-  self.offscreenCells[(id<NSCopying>)cellClass(MWMEditorCellTypeNote)] = cell;
   self.note = text;
   dispatch_async(dispatch_get_main_queue(), ^{
     [UIView setAnimationsEnabled:NO];
