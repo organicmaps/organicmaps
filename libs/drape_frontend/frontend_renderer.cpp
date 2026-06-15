@@ -2382,7 +2382,16 @@ TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
   { return group->GetTileKey().m_zoomLevel != GetCurrentZoom(); });
 
   m_trafficRenderer->OnUpdateViewport(result, GetCurrentZoom(), tilesToDelete);
-  m_tileBackgroundRenderer->OnUpdateViewport(m_context, result, GetCurrentZoom());
+
+  // Background raster tiles map OM tiles 1:1 onto external web-mercator tiles, so their coverage must
+  // use the real (unclamped) zoom. The vector-data coverage above is clamped to GetUpperScale(): above
+  // that zoom it freezes m_x/m_y on a coarser grid while m_zoomLevel keeps growing, and ToSourceTile
+  // would then read those coarse indices as fine-grid and fetch a wrong tile. Recompute at the true
+  // zoom (only when it actually differs, i.e. above GetUpperScale()).
+  int const currentZoom = GetCurrentZoom();
+  CoverageResult const bgCoverage =
+      currentZoom == dataZoomLevel ? result : CalcTilesCoverage(rect, currentZoom, nullptr /* processTile */);
+  m_tileBackgroundRenderer->OnUpdateViewport(m_context, bgCoverage, currentZoom);
 
 #if defined(DRAPE_MEASURER_BENCHMARK) && defined(GENERATING_STATISTIC)
   DrapeMeasurer::Instance().StartScenePreparing();
