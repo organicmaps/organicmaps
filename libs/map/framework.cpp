@@ -1260,6 +1260,7 @@ void Framework::MemoryWarning()
 
 void Framework::EnterBackground()
 {
+  LOG(LINFO, ("[LIFECYCLE_TEST] Framework::EnterBackground begin"));
   m_usageStats.EnterBackground();
 
   if (m_drapeEngine)
@@ -1270,10 +1271,12 @@ void Framework::EnterBackground()
   m_trafficManager.OnEnterBackground();
 
   ClearAllCaches();
+  LOG(LINFO, ("[LIFECYCLE_TEST] Framework::EnterBackground end"));
 }
 
 void Framework::EnterForeground()
 {
+  LOG(LINFO, ("[LIFECYCLE_TEST] Framework::EnterForeground"));
   m_usageStats.EnterForeground();
 
   if (m_drapeEngine)

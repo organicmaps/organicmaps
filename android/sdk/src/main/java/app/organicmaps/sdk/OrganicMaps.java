@@ -144,12 +144,28 @@ public final class OrganicMaps implements DefaultLifecycleObserver
   @Override
   public void onStart(@NonNull LifecycleOwner owner)
   {
+    Logger.i(TAG, "[LIFECYCLE_TEST] ProcessLifecycleOwner.onStart -> EnterForeground");
     nativeOnTransit(true);
+  }
+
+  @Override
+  public void onResume(@NonNull LifecycleOwner owner)
+  {
+    Logger.i(TAG, "[LIFECYCLE_TEST] ProcessLifecycleOwner.onResume");
+    DefaultLifecycleObserver.super.onResume(owner);
+  }
+
+  @Override
+  public void onPause(@NonNull LifecycleOwner owner)
+  {
+    Logger.i(TAG, "[LIFECYCLE_TEST] ProcessLifecycleOwner.onPause");
+    DefaultLifecycleObserver.super.onPause(owner);
   }
 
   @Override
   public void onStop(@NonNull LifecycleOwner owner)
   {
+    Logger.i(TAG, "[LIFECYCLE_TEST] ProcessLifecycleOwner.onStop -> EnterBackground");
     nativeOnTransit(false);
   }
 

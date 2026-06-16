@@ -4,6 +4,8 @@
 
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
 
+#include "base/logging.hpp"
+
 extern "C"
 {
 // static void nativeSetSettingsDir(String settingsPath);
@@ -48,6 +50,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_OrganicMaps_nativeAddLocalization(JNIEnv
 
 JNIEXPORT void Java_app_organicmaps_sdk_OrganicMaps_nativeOnTransit(JNIEnv *, jclass, jboolean foreground)
 {
+  LOG(LINFO, ("[LIFECYCLE_TEST] JNI nativeOnTransit foreground =", static_cast<bool>(foreground)));
   if (static_cast<bool>(foreground))
     g_framework->NativeFramework()->EnterForeground();
   else

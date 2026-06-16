@@ -1063,6 +1063,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   protected void onResume()
   {
+    Logger.i(TAG, "[LIFECYCLE_TEST] MwmActivity.onResume begin");
     super.onResume();
     ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
@@ -1083,6 +1084,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     refreshLightStatusBar();
 
     MwmApplication.from(this).getSensorHelper().addListener(this);
+    Logger.i(TAG, "[LIFECYCLE_TEST] MwmActivity.onResume end");
   }
 
   @Override
@@ -1095,17 +1097,20 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   protected void onPause()
   {
+    Logger.i(TAG, "[LIFECYCLE_TEST] MwmActivity.onPause begin");
     if (mOnmapDownloader != null)
       mOnmapDownloader.onPause();
     MwmApplication.from(this).getSensorHelper().removeListener(this);
     dismissLocationErrorDialog();
     dismissAlertDialog();
     super.onPause();
+    Logger.i(TAG, "[LIFECYCLE_TEST] MwmActivity.onPause end");
   }
 
   @Override
   protected void onStart()
   {
+    Logger.i(TAG, "[LIFECYCLE_TEST] MwmActivity.onStart begin");
     super.onStart();
     Framework.nativePlacePageActivationListener(this);
     BookmarkManager.INSTANCE.addLoadingListener(this);
@@ -1114,11 +1119,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     LocationState.nativeSetListener(this);
     MwmApplication.from(this).getLocationHelper().addListener(this);
     Utils.keepScreenOn(Config.isKeepScreenOnEnabled() || RoutingController.get().isNavigating(), getWindow());
+    Logger.i(TAG, "[LIFECYCLE_TEST] MwmActivity.onStart end");
   }
 
   @Override
   protected void onStop()
   {
+    Logger.i(TAG, "[LIFECYCLE_TEST] MwmActivity.onStop begin");
     super.onStop();
     Framework.nativeRemovePlacePageActivationListener(this);
     BookmarkManager.INSTANCE.removeLoadingListener(this);
@@ -1133,6 +1140,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     final String backUrl = Framework.nativeGetParsedBackUrl();
     if (!TextUtils.isEmpty(backUrl))
       Utils.openUri(this, Uri.parse(backUrl), null);
+    Logger.i(TAG, "[LIFECYCLE_TEST] MwmActivity.onStop end");
   }
 
   @CallSuper
