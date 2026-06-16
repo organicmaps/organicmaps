@@ -7,7 +7,9 @@
 
 #include "base/macros.hpp"
 
+#include <atomic>
 #include <initializer_list>
+#include <thread>
 #include <unordered_map>
 
 namespace mwm_set_test
@@ -167,5 +169,65 @@ UNIT_TEST(MwmSetLockAndIdTest)
   TEST(!handle.IsAlive(), ());
   TEST(!handle.GetId().IsAlive(), ());
   TEST(!handle.GetId().GetInfo().get(), ());
+}
+
+UNIT_TEST(MwmSetLocalFileConcurrentRegisterRace)
+{
+  TestMwmSet mwmSet;
+  string const countryName = "7";
+  int64_t constexpr kVersion = 42;
+
+  auto makeLocalFile = [&countryName](string directory, MwmSize size = 0)
+  { return LocalCountryFile(std::move(directory), CountryFile(countryName, size, to_string(size)), kVersion); };
+
+  auto const result = mwmSet.Register(makeLocalFile(string(4096, 'a')));
+  TEST_EQUAL(MwmSet::RegResult::Success, result.second, ());
+  MwmSet::MwmId const id = result.first;
+
+  base::ScopedLogLevelChanger const logLevel(base::LERROR);
+
+  atomic<bool> start = false;
+  atomic<bool> stop = false;
+  atomic<uint64_t> readBytes = 0;
+  atomic<uint64_t> readIterations = 0;
+
+  thread reader([&]()
+  {
+    while (!start.load(memory_order_acquire))
+      this_thread::yield();
+
+    while (!stop.load(memory_order_relaxed))
+    {
+      auto const & localFile = id.GetInfo()->GetLocalFile();
+      auto const path = localFile.GetPath(MapFileType::Map);
+      auto const version = id.GetInfo()->GetVersion();
+      auto const remoteSize = localFile.GetCountryFile().GetRemoteSize();
+      readBytes.fetch_add(path.size() + static_cast<uint64_t>(version) + remoteSize, memory_order_relaxed);
+      readIterations.fetch_add(1, memory_order_release);
+    }
+  });
+
+  thread writer([&]()
+  {
+    start.store(true, memory_order_release);
+    while (readIterations.load(memory_order_acquire) < 1024)
+      this_thread::yield();
+
+    for (size_t i = 0; i < 100000; ++i)
+    {
+      string directory(i % 2 == 0 ? 4096 : 8192, static_cast<char>('a' + i % 26));
+      directory += to_string(i);
+      TEST_EQUAL(MwmSet::RegResult::VersionAlreadyExists,
+                 mwmSet.Register(makeLocalFile(std::move(directory), i + 1)).second, ());
+      if (i % 16 == 0)
+        this_thread::yield();
+    }
+    stop.store(true, memory_order_release);
+  });
+
+  writer.join();
+  reader.join();
+
+  TEST_GREATER(readBytes.load(memory_order_relaxed), 0, ());
 }
 }  // namespace mwm_set_test
