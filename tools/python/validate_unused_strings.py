@@ -152,7 +152,8 @@ def main(argv=None):
           f"allowlisted: {len(candidates) - len(unused)}")
     if unused:
         print(f"Found {len(unused)} definitions/keys which are no longer used in the codebase:")
-        print(*unused, sep="\n")
+        print("- ", end="")
+        print(*unused, sep="\n- ")
         return 1
     print("All good. There are no unused translation definitions/keys.")
     return 0
