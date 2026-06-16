@@ -131,6 +131,14 @@
   <style name="MwmWidget.Floating">
     <item name="android:elevation">@dimen/appbar_elevation</item>
   </style>
+    
+  <style name="MwmWidget.Slider" parent="Widget.MaterialComponents.Slider">
+    <item name="labelBehavior">gone</item>
+    <item name="tickVisible">false</item>
+    <item name="thumbColor">@color/slider_active_color</item>
+    <item name="trackColorActive">@color/slider_active_color</item>
+    <item name="trackColorInactive">@color/slider_inactive_track_color</item>
+  </style>
 
   <style name="ShapeAppearanceOverlay.Button.Round" parent="">
     <item name="cornerFamily">rounded</item>
