@@ -16,6 +16,9 @@ import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
 
 public abstract class BaseToolbarActivity extends BaseMwmFragmentActivity
 {
+  private static final String STATE_TOOLBAR_TITLE = "BaseToolbarActivity.toolbar_title";
+  private static final String STATE_LAST_TITLE = "BaseToolbarActivity.last_title";
+
   @Nullable
   private String mLastTitle;
 
@@ -39,6 +42,33 @@ public abstract class BaseToolbarActivity extends BaseMwmFragmentActivity
 
       ViewCompat.setOnApplyWindowInsetsListener(toolbar, PaddingInsetsListener.excludeBottom());
     }
+
+    // After a configuration change (or process death with "Don't keep activities") FragmentManager
+    // restores the current fragment automatically, but stackFragment() is not called again - so
+    // the toolbar title (set by stackFragment) would otherwise reset to the activity default.
+    // Restore both the visible title and mLastTitle so back navigation also restores the right
+    // parent title.
+    if (savedInstanceState != null)
+    {
+      if (toolbar != null)
+      {
+        final CharSequence savedTitle = savedInstanceState.getCharSequence(STATE_TOOLBAR_TITLE);
+        if (savedTitle != null)
+          toolbar.setTitle(savedTitle);
+      }
+      mLastTitle = savedInstanceState.getString(STATE_LAST_TITLE);
+    }
+  }
+
+  @Override
+  protected void onSaveInstanceState(@NonNull Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+    final Toolbar toolbar = getToolbar();
+    if (toolbar != null && toolbar.getTitle() != null)
+      outState.putCharSequence(STATE_TOOLBAR_TITLE, toolbar.getTitle());
+    if (mLastTitle != null)
+      outState.putString(STATE_LAST_TITLE, mLastTitle);
   }
 
   protected void setupHomeButton(@NonNull Toolbar toolbar)
