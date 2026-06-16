@@ -60,6 +60,8 @@ struct RoutePointInfo
 class RoutingManager final
 {
 public:
+  using RoutePointCallback = std::function<void(std::string const &)>;
+
   class Delegate
   {
   public:
@@ -128,7 +130,8 @@ public:
   bool IsOnRoute() const { return m_routingSession.IsOnRoute(); }
   bool IsRoutingFollowing() const { return m_routingSession.IsFollowing(); }
   bool IsRouteValid() const { return m_routingSession.IsRouteValid(); }
-  void BuildRoute(uint32_t timeoutSec = routing::RouterDelegate::kNoTimeout);
+  void BuildRoute(uint32_t timeoutSec = routing::RouterDelegate::kNoTimeout,
+                  m2::PointD const & startDirection = m2::PointD::Zero());
   void SetUserCurrentPosition(m2::PointD const & position);
   void ResetRoutingSession() { m_routingSession.Reset(); }
   // FollowRoute has a bug where the router follows the route even if the method hads't been called.
@@ -205,6 +208,8 @@ public:
   }
 
   Callbacks & GetCallbacksForTests() { return m_callbacks; }
+  static std::vector<RouteMarkData> DeserializeRoutePointsForTesting(std::string const & data);
+  std::vector<RouteMarkData> GetRoutePointsToSaveForTesting() const { return GetRoutePointsToSave(); }
   /// \brief Adds to @param notifications strings - notifications, which are ready to be
   /// pronounced to end user right now.
   /// Adds notifications about turns and speed camera on the road.
@@ -217,6 +222,7 @@ public:
   void AddRoutePoint(RouteMarkData && markData, bool reorderIntermediatePoints = true);
   void ContinueRouteToPoint(RouteMarkData && markData);
   std::vector<RouteMarkData> GetRoutePoints() const;
+  void SetRoutePointCallback(RoutePointCallback && callback);
   size_t GetRoutePointsCount() const;
   void RemoveRoutePoint(RouteMarkType type, size_t intermediateIndex = 0);
   void RemoveRoutePoints();
@@ -364,6 +370,11 @@ private:
 
   std::vector<dp::DrapeID> m_drapeSubroutes;
   mutable std::mutex m_drapeSubroutesMutex;
+  RoutePointCallback m_routePointCallback;
+  // Latest-only buffer for a stop callback emitted while no platform callback is
+  // attached: opening several caller apps in a row is pointless because only the
+  // last one would win the foreground, so older pending callbacks are dropped.
+  std::string m_pendingRoutePointCallback;
 
   std::unique_ptr<location::GpsInfo> m_gpsInfoCache;
 

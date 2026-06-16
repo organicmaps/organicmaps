@@ -13,14 +13,15 @@
     auto const parsedData = GetFramework().GetParsedRoutingData();
     auto const points = parsedData.m_points;
 
-    if (points.size() == 2)
+    if (points.size() >= 2)
     {
-      _p1 = [[MWMRoutePoint alloc] initWithURLSchemeRoutePoint:points.front()
-                                                          type:MWMRoutePointTypeStart
-                                             intermediateIndex:0];
-      _p2 = [[MWMRoutePoint alloc] initWithURLSchemeRoutePoint:points.back()
-                                                          type:MWMRoutePointTypeFinish
-                                             intermediateIndex:0];
+      _start = [[MWMRoutePoint alloc] initWithURLSchemeRoutePoint:points.front()
+                                                             type:MWMRoutePointTypeStart
+                                                intermediateIndex:0];
+      _finish = [[MWMRoutePoint alloc] initWithURLSchemeRoutePoint:points.back()
+                                                              type:MWMRoutePointTypeFinish
+                                                 intermediateIndex:0];
+      _startRouteNavigation = parsedData.m_startRouteNavigation;
       _type = routerType(parsedData.m_type);
     }
     else
