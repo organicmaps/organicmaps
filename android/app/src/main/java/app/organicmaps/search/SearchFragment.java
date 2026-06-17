@@ -72,6 +72,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   // searchInteractive() fans out to both SearchInViewport + EverywhereSearch internally, so the
   // saving doubles for the per-prefix cost. ~200 ms matches the Material Design autocomplete guidance.
   private static final long SEARCH_DEBOUNCE_MS = 200;
+  private static final int SEARCH_IN_VIEWPORT_ZOOM = 16;
   private final Handler mSearchDebounceHandler = new Handler(Looper.getMainLooper());
   private final Runnable mDebouncedRunSearch = this::runSearch;
 
@@ -510,6 +511,19 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     mToolbarController.deactivate();
   }
 
+  private void centerSingleSearchResultOnMap()
+  {
+    if (mSearchAdapter.getItemCount() != 1)
+      return;
+
+    final SearchResult result = mSearchAdapter.getResult(0);
+    if (result == null || result.type != SearchResult.TYPE_RESULT)
+      return;
+
+    Framework.nativeStopLocationFollow();
+    Framework.nativeSetViewportCenter(result.lat, result.lon, SEARCH_IN_VIEWPORT_ZOOM);
+  }
+
   private void onSearchEnd()
   {
     if (mSearchRunning && isAdded())
@@ -901,6 +915,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
         SearchRecents.add(getQuery(), requireContext());
         mSearchViewModel.notifyHistoryChanged();
       }
+      centerSingleSearchResultOnMap();
       deactivate();
       mSearchFragmentListener.onSearchClicked();
       return true;
