@@ -575,6 +575,7 @@
     <string name="button_plan">Planera</string>
     <string name="placepage_remove_stop">Ta bort stoppet</string>
     <string name="placepage_add_stop">Lägg till stopp</string>
+    <string name="drag_to_reorder">Ordna om</string>
     <string name="saved">Sparade</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Logga in på OpenStreetMap för att automatiskt ladda upp alla dina kartredigeringar. Läs mer <a href="https://github.com/organicmaps/organicmaps/issues/6144">här</a>.</string>

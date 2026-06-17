@@ -575,6 +575,7 @@
     <string name="button_plan">Пракласці</string>
     <string name="placepage_remove_stop">Выдаліць прыпынак</string>
     <string name="placepage_add_stop">Дадаць прыпынак</string>
+    <string name="drag_to_reorder">Перарадкаваць</string>
     <string name="saved">Захавана</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Увайдзіце ў OpenStreetMap, каб аўтаматычна запампоўваць усе свае праўкі мапы. Даведайцеся больш <a href="https://github.com/organicmaps/organicmaps/issues/6144">тут</a>.</string>

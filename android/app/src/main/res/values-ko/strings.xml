@@ -575,6 +575,7 @@
     <string name="button_plan">계획</string>
     <string name="placepage_remove_stop">정류장 제거</string>
     <string name="placepage_add_stop">스톱 추가</string>
+    <string name="drag_to_reorder">순서 변경</string>
     <string name="saved">저장됨</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">모든 지도 편집 내용을 자동으로 업로드하려면 오픈스트리트맵에 로그인하세요. 자세히 알아보기 <a href="https://github.com/organicmaps/organicmaps/issues/6144">여기</a>.</string>

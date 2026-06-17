@@ -575,6 +575,7 @@
     <string name="button_plan">Planlegge</string>
     <string name="placepage_remove_stop">Fjern stopp</string>
     <string name="placepage_add_stop">Angi stopp</string>
+    <string name="drag_to_reorder">Omorganiser</string>
     <string name="saved">Reddet</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Logg inn på OpenStreetMap for automatisk å laste opp alle kartredigeringene dine. Finn ut mer <a href="https://github.com/organicmaps/organicmaps/issues/6144">her</a>.</string>

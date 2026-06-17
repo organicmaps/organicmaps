@@ -575,6 +575,7 @@
     <string name="button_plan">Planificar</string>
     <string name="placepage_remove_stop">Eliminar parada</string>
     <string name="placepage_add_stop">Engadir parada</string>
+    <string name="drag_to_reorder">Reordenar</string>
     <string name="saved">Gardado</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Por favor, Inicia sesión en OpenStreetMap para cargar automaticamente todas as túas edicións de mapas. Más información <a href="https://github.com/organicmaps/organicmaps/issues/6144">aquí</a>.</string>

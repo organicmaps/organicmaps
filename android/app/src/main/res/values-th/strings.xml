@@ -575,6 +575,7 @@
     <string name="button_plan">วางแผน</string>
     <string name="placepage_remove_stop">ลบจุดแวะพัก</string>
     <string name="placepage_add_stop">เพิ่มจุดแวะพัก</string>
+    <string name="drag_to_reorder">สั่งซื้อใหม่</string>
     <string name="saved">บันทึกแล้ว</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">กรุณาเข้าสู่ระบบ OpenStreetMap เพื่ออัปโหลดการแก้ไขแผนที่ทั้งหมดของคุณโดยอัตโนมัติ เรียนรู้เพิ่มเติม<a href="https://github.com/organicmaps/organicmaps/issues/6144">ที่นี่</a></string>

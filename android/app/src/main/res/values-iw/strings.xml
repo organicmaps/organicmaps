@@ -575,6 +575,7 @@
     <string name="button_plan">תכנון</string>
     <string name="placepage_remove_stop">הסר עצירה</string>
     <string name="placepage_add_stop">הוסף עצירה</string>
+    <string name="drag_to_reorder">סידור מחדש</string>
     <string name="saved">נשמר</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">התחבר ל-OpenStreetMap כדי להעלות אוטומטית את כל עריכות המפה שלך. למידע נוסף <a href="https://github.com/organicmaps/organicmaps/issues/6144">כאן</a>.</string>

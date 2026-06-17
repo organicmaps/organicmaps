@@ -575,6 +575,7 @@
     <string name="button_plan">Kavanda</string>
     <string name="placepage_remove_stop">Eemalda peatus</string>
     <string name="placepage_add_stop">Lisa peatus</string>
+    <string name="drag_to_reorder">Järjestuse muutmine</string>
     <string name="saved">Salvestatud</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Oma kaastöö automaatseks üleslaadimiseks palun logi OpenStreetMappi sisse. Lisateave <a href="https://github.com/organicmaps/organicmaps/issues/6144">leidub siin</a>.</string>

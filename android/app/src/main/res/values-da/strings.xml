@@ -575,6 +575,7 @@
     <string name="button_plan">Planlæg</string>
     <string name="placepage_remove_stop">Fjern stop</string>
     <string name="placepage_add_stop">Tilføj stop</string>
+    <string name="drag_to_reorder">Omordn</string>
     <string name="saved">Gemt</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Log ind på OpenStreetMap for automatisk at uploade alle dine kortredigeringer. Få mere at vide <a href="https://github.com/organicmaps/organicmaps/issues/6144">her</a>.</string>
