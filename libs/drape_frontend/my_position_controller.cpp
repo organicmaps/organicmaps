@@ -27,7 +27,7 @@ int const kPositionRoutingOffsetY = 104;
 double const kMinSpeedThresholdMps = 0.7;  // for the pedestrian mode 2.5 km/h
 /// @todo Should depend on the _previous_ avg speed (say for the last 5 minutes).
 /// Bigger for cars (up to 30 seconds is ok, IMO) and lower for pedestrians.
-double const kGpsBearingLifetimeSec = 3.0;
+double const kGpsBearingLifetimeSec = 1.0;
 
 double const kMaxTimeInBackgroundSec = 60.0 * 60 * 30;  // 30 hours before starting detecting position again
 double const kMaxNotFollowRoutingTimeSec = 20.0;
