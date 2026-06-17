@@ -10,11 +10,15 @@
 #include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
 
+#include <algorithm>
+#include <atomic>
 #include <functional>
 #include <initializer_list>
 #include <set>
 #include <string>
+#include <thread>
 #include <utility>
+#include <vector>
 
 #include "defines.hpp"
 
@@ -264,6 +268,50 @@ UNIT_TEST(MkDirRecursively)
   TEST(!Platform::IsFileExistsByFullPath(path), ());
 
   CHECK(Platform::RmDirRecursively(workPath), ());
+}
+
+// Regression guard for a TOCTOU race in Platform::MkDir: when several threads (mimicking the
+// parallel ctest binaries that all create ~/.config/OMaps on a fresh runner) create the same
+// not-yet-existing directory at once, every MkDirRecursively call must succeed instead of one
+// failing because a peer won the create. The race window is tiny, so hammer it across many
+// iterations with fresh, deep paths.
+UNIT_TEST(MkDirRecursively_Concurrent)
+{
+  auto const workPath = base::JoinPath(GetPlatform().WritableDir(), "MkDirRecursivelyConcurrent");
+  SCOPE_GUARD(removeWorkPath, [&workPath] { Platform::RmDirRecursively(workPath); });
+  if (Platform::IsFileExistsByFullPath(workPath))
+    CHECK(Platform::RmDirRecursively(workPath), ());
+
+  auto const kThreads = std::max<unsigned>(4, std::thread::hardware_concurrency());
+  size_t const kIterations = 100;
+
+  for (size_t i = 0; i < kIterations; ++i)
+  {
+    // A fresh, deep target each round so every thread truly races to create the components.
+    auto const target = base::JoinPath(workPath, std::to_string(i), "a", "b", "c");
+
+    std::atomic<bool> start{false};
+    std::atomic<size_t> failures{0};
+    std::vector<std::thread> threads;
+    threads.reserve(kThreads);
+    for (unsigned t = 0; t < kThreads; ++t)
+    {
+      threads.emplace_back([&]
+      {
+        // Spin so all threads enter MkDirRecursively at (nearly) the same instant.
+        while (!start.load(std::memory_order_acquire))
+        {}
+        if (!Platform::MkDirRecursively(target))
+          failures.fetch_add(1, std::memory_order_relaxed);
+      });
+    }
+    start.store(true, std::memory_order_release);
+    for (auto & thread : threads)
+      thread.join();
+
+    TEST_EQUAL(failures.load(), 0, ("Concurrent MkDirRecursively must not fail on a shared path:", target));
+    TEST(Platform::IsDirectory(target), (target));
+  }
 }
 
 UNIT_TEST(Platform_ThreadRunner)
