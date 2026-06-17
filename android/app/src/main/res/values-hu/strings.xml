@@ -575,6 +575,7 @@
     <string name="button_plan">Tervezés</string>
     <string name="placepage_remove_stop">Megálló eltávolítása</string>
     <string name="placepage_add_stop">Köztes célpont hozzáadása</string>
+    <string name="drag_to_reorder">Átsorolás</string>
     <string name="saved">Mentve</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Jelentkezzen be az OpenStreetMap rendszerébe, hogy automatikusan feltölthesse az összes térképszerkesztését. További információ <a href="https://github.com/organicmaps/organicmaps/issues/6144">itt</a>.</string>

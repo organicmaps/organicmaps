@@ -575,6 +575,7 @@
     <string name="button_plan">Planifiko</string>
     <string name="placepage_remove_stop">Hiq Ndalesën</string>
     <string name="placepage_add_stop">Shto Ndalesë</string>
+    <string name="drag_to_reorder">Rirendosje</string>
     <string name="saved">Ruajtur</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Ju lutemi hyni në OpenStreetMap për të ngarkuar automatikisht të gjitha ndryshimet tuaja të hartës. Mësoni më shumë <a href="https://github.com/organicmaps/organicmaps/issues/6144">këtu</a>.</string>

@@ -575,6 +575,7 @@
     <string name="button_plan">Beplan</string>
     <string name="placepage_remove_stop">Verwyder stop</string>
     <string name="placepage_add_stop">Voeg tussenstop toe</string>
+    <string name="drag_to_reorder">Herordening</string>
     <string name="saved">Gespaar</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Meld asseblief aan by OpenStreetMap om al jou kaartwysigings outomaties op te laai. Kom meer te wete <a href="https://github.com/organicmaps/organicmaps/issues/6144">hier</a>.</string>

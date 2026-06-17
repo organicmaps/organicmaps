@@ -575,6 +575,7 @@
     <string name="button_plan">Plānot</string>
     <string name="placepage_remove_stop">Noņemt starppunktu</string>
     <string name="placepage_add_stop">Pievienot starppunktu</string>
+    <string name="drag_to_reorder">Pārkārtot</string>
     <string name="saved">Saglabāts</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Ierakstieties „OpenStreetMap“, lai automātiski augšupielādētu visus kartes rediģējumus. Uzziniet vairāk <a href="https://github.com/organicmaps/organicmaps/issues/6144">te</a>.</string>

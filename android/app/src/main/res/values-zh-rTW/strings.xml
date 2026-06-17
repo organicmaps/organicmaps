@@ -575,6 +575,7 @@
     <string name="button_plan">計畫</string>
     <string name="placepage_remove_stop">刪除停止</string>
     <string name="placepage_add_stop">新增中途點</string>
+    <string name="drag_to_reorder">重新排序</string>
     <string name="saved">已經儲存</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">請登入 OpenStreetMap 以自動上傳您的所有地圖編輯。若要了解更多資訊請點擊<a href="https://github.com/organicmaps/organicmaps/issues/6144">這裡</a>。</string>

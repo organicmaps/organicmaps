@@ -573,6 +573,7 @@
     <string name="button_plan">Plan</string>
     <string name="placepage_remove_stop">Ukloni Stop</string>
     <string name="placepage_add_stop">Dodaj stajalište</string>
+    <string name="drag_to_reorder">Prelagranje</string>
     <string name="saved">Spremljeno</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Molimo prijavite se na OpenStreetMap kako biste automatski učitali sve svoje izmjene karte. Saznajte više <a href="https://github.com/organicmaps/organicmaps/issues/6144">ovdje</a>.</string>

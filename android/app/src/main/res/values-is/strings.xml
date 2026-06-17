@@ -575,6 +575,7 @@
     <string name="button_plan">Skipuleggja</string>
     <string name="placepage_remove_stop">Fjarlægja stopp</string>
     <string name="placepage_add_stop">Bæta við stoppi</string>
+    <string name="drag_to_reorder">Endurraða</string>
     <string name="saved">Vistað</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Skráðu þig inn á OpenStreetMap til að senda sjálfkrafa inn allar breytingar þínar á kortinu. Kannaðu þetta nánar <a href="https://github.com/organicmaps/organicmaps/issues/6144">hér</a>.</string>

@@ -575,6 +575,7 @@
     <string name="button_plan">خطة</string>
     <string name="placepage_remove_stop">إزالة نقطة توقف</string>
     <string name="placepage_add_stop">إضافة نقطة توقف</string>
+    <string name="drag_to_reorder">إعادة الترتيب</string>
     <string name="saved">حُفظت</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">برجاء تسجيل الدخول إلى OpenStreetMap لتحميل جميع تعديلات الخريطة تلقائيًا. تعرف على المزيد <a href="https://github.com/organicmaps/organicmaps/issues/6144">هنا</a>.</string>

@@ -575,6 +575,7 @@
     <string name="button_plan">Planifier</string>
     <string name="placepage_remove_stop">Supprimer l\'arrêt</string>
     <string name="placepage_add_stop">Ajouter un arrêt</string>
+    <string name="drag_to_reorder">Réorganiser</string>
     <string name="saved">Enregistré</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Connectez-vous à OpenStreetMap pour télécharger automatiquement toutes vos modifications de cartes. En savoir plus <a href="https://github.com/organicmaps/organicmaps/issues/6144">ici</a>.</string>

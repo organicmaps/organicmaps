@@ -529,6 +529,7 @@
     <string name="button_plan">ວາງແຜນ</string>
     <string name="placepage_remove_stop">ເອົາຈຸດແວ່ພັກອອກ</string>
     <string name="placepage_add_stop">ເພີ່ມຈຸດແວ່ພັກ</string>
+    <string name="drag_to_reorder">ຈັດຮຽງໃໝ່</string>
     <string name="saved">ບັນທຶກແລ້ວ</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">ກະລຸນາເຂົ້າສູ່ລະບົບ OpenStreetMap ເພື່ອອັບໂຫລດການແກ້ໄຂແຜນທີ່ທັງໝົດຂອງທ່ານໂດຍອັດຕະໂນມັດ. ສຶກສາເພີ່ມເຕີມ <a href="https://github.com/organicmaps/organicmaps/issues/6144">ທີ່ນີ້</a>.</string>
