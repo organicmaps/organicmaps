@@ -57,6 +57,7 @@
 		ED46DDD02D098A0B007CACD6 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED46DDCF2D098A0B007CACD6 /* SwiftUI.framework */; };
 		ED46DDE12D098A0C007CACD6 /* OMapsWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = ED46DDCC2D098A0B007CACD6 /* OMapsWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		ED810EC52D566E9B00ECDE2C /* SearchOnMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED810EC42D566E9B00ECDE2C /* SearchOnMapTests.swift */; };
+		EDAA00012F91000000FA103D /* SearchCategoryIconRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAA00022F91000000FA103D /* SearchCategoryIconRenderer.swift */; };
 		ED82BCB22F900F8200FA103D /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82BCAF2F900F8200FA103D /* main.mm */; };
 		ED82C4F22F90180300FA103D /* MWMAutoupdateController.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2982F90180300FA103D /* MWMAutoupdateController.mm */; };
 		ED82C4F32F90180300FA103D /* AvailableArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C29B2F90180300FA103D /* AvailableArea.swift */; };
@@ -882,6 +883,7 @@
 		ED46DDCD2D098A0B007CACD6 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		ED46DDCF2D098A0B007CACD6 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		ED810EC42D566E9B00ECDE2C /* SearchOnMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapTests.swift; sourceTree = "<group>"; };
+		EDAA00022F91000000FA103D /* SearchCategoryIconRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCategoryIconRenderer.swift; sourceTree = "<group>"; };
 		ED82BCAE2F900F8200FA103D /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		ED82BCAF2F900F8200FA103D /* main.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		ED82BCB02F900F8200FA103D /* Maps_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Maps_Prefix.pch; sourceTree = "<group>"; };
@@ -3235,6 +3237,7 @@
 			children = (
 				ED82C4C32F90180300FA103D /* SearchCategoriesViewController.swift */,
 				ED82C4C42F90180300FA103D /* SearchCategoryCell.swift */,
+				EDAA00022F91000000FA103D /* SearchCategoryIconRenderer.swift */,
 			);
 			path = CategoriesTab;
 			sourceTree = "<group>";
@@ -4739,6 +4742,7 @@
 				ED82C6042F90180300FA103D /* MWMSearchSuggestionCell.mm in Sources */,
 				ED82C6052F90180300FA103D /* SearchCategoriesViewController.swift in Sources */,
 				ED82C6062F90180300FA103D /* SearchCategoryCell.swift in Sources */,
+				EDAA00012F91000000FA103D /* SearchCategoryIconRenderer.swift in Sources */,
 				ED82C6072F90180300FA103D /* SearchHistoryCell.swift in Sources */,
 				ED82C6082F90180300FA103D /* SearchHistoryViewController.swift in Sources */,
 				ED82C6092F90180300FA103D /* SearchTabViewController.swift in Sources */,
