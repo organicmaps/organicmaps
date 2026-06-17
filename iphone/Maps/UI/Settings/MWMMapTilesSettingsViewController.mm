@@ -23,9 +23,14 @@ int constexpr kMaxOpacityPct = 100;
 
 @property(nonatomic) UISwitch * enableSwitch;
 @property(nonatomic) UITextField * urlField;
-@property(nonatomic) UITextField * sizeField;
+@property(nonatomic) UISlider * cacheSizeSlider;
+@property(nonatomic) UILabel * cacheSizeValueLabel;
 @property(nonatomic) UISlider * opacitySlider;
 @property(nonatomic) UILabel * opacityValueLabel;
+@property(nonatomic) BOOL backgroundTilesEnabled;
+@property(nonatomic) NSString * backgroundTilesURL;
+@property(nonatomic) int cacheSizeMB;
+@property(nonatomic) int areaOpacityPct;
 
 @end
 
@@ -39,45 +44,89 @@ int constexpr kMaxOpacityPct = 100;
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  self.title = NSLocalizedString(@"pref_bg_tiles_title", nil);
+  self.title = L(@"pref_bg_tiles_title");
+  [self loadSettings];
 }
 
 #pragma mark - Persisting
 
-// Apply all tile settings together when leaving this screen.
+- (int)clampValue:(int)value min:(int)min max:(int)max
+{
+  return value < min ? min : (value > max ? max : value);
+}
+
+- (NSString *)trimmedURL:(NSString *)url
+{
+  return [url stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+}
+
+- (void)loadSettings
+{
+  self.backgroundTilesEnabled = [MWMFrameworkHelper isBackgroundTilesEnabled];
+  self.backgroundTilesURL = [self trimmedURL:[MWMFrameworkHelper backgroundTilesURL]];
+  self.cacheSizeMB = [self clampValue:[MWMFrameworkHelper backgroundTilesCacheSizeMB]
+                                  min:kMinCacheSizeMB
+                                  max:kMaxCacheSizeMB];
+  self.areaOpacityPct = [self clampValue:[MWMFrameworkHelper backgroundTilesAreaOpacityPct]
+                                     min:kMinOpacityPct
+                                     max:kMaxOpacityPct];
+}
+
+- (void)syncSettingsFromControls
+{
+  self.backgroundTilesEnabled = self.enableSwitch ? self.enableSwitch.isOn : self.backgroundTilesEnabled;
+  if (self.urlField)
+    self.backgroundTilesURL = [self trimmedURL:self.urlField.text ?: @""];
+  if (self.cacheSizeSlider)
+    self.cacheSizeMB = [self clampValue:(int)std::lround(self.cacheSizeSlider.value)
+                                    min:kMinCacheSizeMB
+                                    max:kMaxCacheSizeMB];
+  if (self.opacitySlider)
+    self.areaOpacityPct = [self clampValue:(int)std::lround(self.opacitySlider.value)
+                                       min:kMinOpacityPct
+                                       max:kMaxOpacityPct];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
   [super viewWillDisappear:animated];
 
-  int size = self.sizeField.text.intValue;
-  size = MAX(kMinCacheSizeMB, MIN(kMaxCacheSizeMB, size));
-  int const opacity = (int)std::lround(self.opacitySlider.value);
-  [MWMFrameworkHelper setBackgroundTilesEnabled:self.enableSwitch.isOn
-                                            url:self.urlField.text ?: @""
-                                    cacheSizeMB:size
-                                 areaOpacityPct:opacity];
+  [self.view endEditing:YES];
+  [self syncSettingsFromControls];
+  [MWMFrameworkHelper setBackgroundTilesEnabled:self.backgroundTilesEnabled
+                                            url:self.backgroundTilesURL
+                                    cacheSizeMB:self.cacheSizeMB
+                                 areaOpacityPct:self.areaOpacityPct];
 }
 
 - (void)onEnableChanged:(UISwitch *)sender
 {
+  self.backgroundTilesEnabled = sender.isOn;
   [self updateFieldsEnabled];
+}
+
+- (void)onCacheSizeChanged:(UISlider *)sender
+{
+  self.cacheSizeMB = [self clampValue:(int)std::lround(sender.value) min:kMinCacheSizeMB max:kMaxCacheSizeMB];
+  sender.value = self.cacheSizeMB;
+  self.cacheSizeValueLabel.text = [NSString stringWithFormat:@"%d", self.cacheSizeMB];
 }
 
 - (void)onOpacityChanged:(UISlider *)sender
 {
-  self.opacityValueLabel.text = [NSString stringWithFormat:@"%d%%", (int)std::lround(sender.value)];
+  self.areaOpacityPct = [self clampValue:(int)std::lround(sender.value) min:kMinOpacityPct max:kMaxOpacityPct];
+  sender.value = self.areaOpacityPct;
+  self.opacityValueLabel.text = [NSString stringWithFormat:@"%d%%", self.areaOpacityPct];
 }
 
-// Grey out URL / size while disabled; their stored values are kept. Messaging nil fields is a no-op,
-// so this is safe to call while cells are still being built.
 - (void)updateFieldsEnabled
 {
-  BOOL const enabled = self.enableSwitch.isOn;
+  BOOL const enabled = self.backgroundTilesEnabled;
   UIColor * const color = enabled ? UIColor.labelColor : UIColor.tertiaryLabelColor;
   self.urlField.enabled = enabled;
   self.urlField.textColor = color;
-  self.sizeField.enabled = enabled;
-  self.sizeField.textColor = color;
+  self.cacheSizeSlider.enabled = enabled;
+  self.cacheSizeValueLabel.textColor = color;
   self.opacitySlider.enabled = enabled;
   self.opacityValueLabel.textColor = color;
 }
@@ -88,6 +137,15 @@ int constexpr kMaxOpacityPct = 100;
 {
   [textField resignFirstResponder];
   return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+  if (textField == self.urlField)
+  {
+    self.backgroundTilesURL = [self trimmedURL:textField.text ?: @""];
+    textField.text = self.backgroundTilesURL;
+  }
 }
 
 #pragma mark - Cell builders
@@ -110,7 +168,36 @@ int constexpr kMaxOpacityPct = 100;
   return field;
 }
 
-// Builds the opacity row: a slider (0..100 %) filling the cell with a live "NN%" label on the trailing side.
+- (void)addCacheSizeToCell:(UITableViewCell *)cell
+{
+  self.cacheSizeValueLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+  self.cacheSizeValueLabel.translatesAutoresizingMaskIntoConstraints = NO;
+  [self.cacheSizeValueLabel setContentHuggingPriority:UILayoutPriorityRequired
+                                              forAxis:UILayoutConstraintAxisHorizontal];
+
+  self.cacheSizeSlider = [[UISlider alloc] initWithFrame:CGRectZero];
+  self.cacheSizeSlider.translatesAutoresizingMaskIntoConstraints = NO;
+  self.cacheSizeSlider.minimumValue = kMinCacheSizeMB;
+  self.cacheSizeSlider.maximumValue = kMaxCacheSizeMB;
+  self.cacheSizeSlider.value = self.cacheSizeMB;
+  [self.cacheSizeSlider addTarget:self
+                           action:@selector(onCacheSizeChanged:)
+                 forControlEvents:UIControlEventValueChanged];
+  self.cacheSizeValueLabel.text = [NSString stringWithFormat:@"%d", self.cacheSizeMB];
+
+  [cell.contentView addSubview:self.cacheSizeSlider];
+  [cell.contentView addSubview:self.cacheSizeValueLabel];
+  UILayoutGuide * margins = cell.contentView.layoutMarginsGuide;
+  [NSLayoutConstraint activateConstraints:@[
+    [self.cacheSizeSlider.leadingAnchor constraintEqualToAnchor:margins.leadingAnchor],
+    [self.cacheSizeSlider.topAnchor constraintEqualToAnchor:margins.topAnchor],
+    [self.cacheSizeSlider.bottomAnchor constraintEqualToAnchor:margins.bottomAnchor],
+    [self.cacheSizeValueLabel.leadingAnchor constraintEqualToAnchor:self.cacheSizeSlider.trailingAnchor constant:8],
+    [self.cacheSizeValueLabel.trailingAnchor constraintEqualToAnchor:margins.trailingAnchor],
+    [self.cacheSizeValueLabel.centerYAnchor constraintEqualToAnchor:self.cacheSizeSlider.centerYAnchor],
+  ]];
+}
+
 - (void)addOpacityToCell:(UITableViewCell *)cell
 {
   self.opacityValueLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -121,9 +208,9 @@ int constexpr kMaxOpacityPct = 100;
   self.opacitySlider.translatesAutoresizingMaskIntoConstraints = NO;
   self.opacitySlider.minimumValue = kMinOpacityPct;
   self.opacitySlider.maximumValue = kMaxOpacityPct;
-  self.opacitySlider.value = [MWMFrameworkHelper backgroundTilesAreaOpacityPct];
+  self.opacitySlider.value = self.areaOpacityPct;
   [self.opacitySlider addTarget:self action:@selector(onOpacityChanged:) forControlEvents:UIControlEventValueChanged];
-  self.opacityValueLabel.text = [NSString stringWithFormat:@"%d%%", (int)std::lround(self.opacitySlider.value)];
+  self.opacityValueLabel.text = [NSString stringWithFormat:@"%d%%", self.areaOpacityPct];
 
   [cell.contentView addSubview:self.opacitySlider];
   [cell.contentView addSubview:self.opacityValueLabel];
@@ -154,16 +241,16 @@ int constexpr kMaxOpacityPct = 100;
 {
   switch (section)
   {
-  case kSectionURL: return NSLocalizedString(@"pref_bg_tiles_url_title", nil);
-  case kSectionSize: return NSLocalizedString(@"pref_bg_tiles_size_title", nil);
-  case kSectionOpacity: return NSLocalizedString(@"pref_bg_tiles_opacity_title", nil);
+  case kSectionURL: return L(@"pref_bg_tiles_url_title");
+  case kSectionSize: return L(@"pref_bg_tiles_size_title");
+  case kSectionOpacity: return L(@"pref_bg_tiles_opacity_title");
   default: return nil;
   }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
-  return section == kSectionOpacity ? NSLocalizedString(@"pref_bg_tiles_disclaimer", nil) : nil;
+  return section == kSectionURL ? L(@"pref_bg_tiles_disclaimer") : nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -175,9 +262,9 @@ int constexpr kMaxOpacityPct = 100;
   {
   case kSectionEnable:
   {
-    cell.textLabel.text = NSLocalizedString(@"pref_bg_tiles_enable_title", nil);
+    cell.textLabel.text = L(@"pref_bg_tiles_enable_title");
     self.enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-    self.enableSwitch.on = [MWMFrameworkHelper isBackgroundTilesEnabled];
+    self.enableSwitch.on = self.backgroundTilesEnabled;
     [self.enableSwitch addTarget:self action:@selector(onEnableChanged:) forControlEvents:UIControlEventValueChanged];
     cell.accessoryView = self.enableSwitch;
     break;
@@ -185,8 +272,8 @@ int constexpr kMaxOpacityPct = 100;
   case kSectionURL:
   {
     self.urlField = [self addFieldToCell:cell];
-    self.urlField.text = [MWMFrameworkHelper backgroundTilesURL];
-    self.urlField.placeholder = NSLocalizedString(@"pref_bg_tiles_url_hint", nil);
+    self.urlField.text = self.backgroundTilesURL;
+    self.urlField.placeholder = L(@"pref_bg_tiles_url_hint");
     // Default (not URL) keyboard: the URL keyboard makes it hard to enter the "{z}/{x}/{y}" template.
     self.urlField.keyboardType = UIKeyboardTypeDefault;
     self.urlField.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -195,9 +282,7 @@ int constexpr kMaxOpacityPct = 100;
   }
   case kSectionSize:
   {
-    self.sizeField = [self addFieldToCell:cell];
-    self.sizeField.text = [NSString stringWithFormat:@"%d", [MWMFrameworkHelper backgroundTilesCacheSizeMB]];
-    self.sizeField.keyboardType = UIKeyboardTypeNumberPad;
+    [self addCacheSizeToCell:cell];
     break;
   }
   case kSectionOpacity:

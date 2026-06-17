@@ -46,12 +46,6 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
 {
   [super viewDidLoad];
   self.title = L(@"settings");
-
-  // The storyboard cells have a fixed 44 pt row height, which clips multi-line cells such as the
-  // "Enable logging" detail subtitle and makes it overlap the neighbouring row. Let the system size
-  // each row to its content instead (the cells use the standard subtitle / value text labels).
-  self.tableView.estimatedRowHeight = 44;
-  self.tableView.rowHeight = UITableViewAutomaticDimension;
 }
 
 - (void)viewWillAppear:(BOOL)animated
