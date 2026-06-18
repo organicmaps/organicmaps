@@ -1,76 +1,107 @@
+#!/usr/bin/env python3
 """
-recalculate_geom_index.py <data_path> <generator_tool> [<designer_tool> <designer_param>]
+recalculate_geom_index.py <resources_dir> <writable_dir> <generator_tool> [<designer_tool> <designer_param>...]
 
-Calculates geometry index for all mwms found inside the resource and the writable directories.
-Uses generator_tool for index calculation. After all it runs designer_tool if has one.
+Recomputes the geometry index for every .mwm found under <resources_dir> and
+<writable_dir>, using <generator_tool>.  When extra arguments are provided
+they are launched as a child process once index generation completes
+(typically the Designer .app, so it reopens with fresh indices).
 """
 
 import os
 import subprocess
 import sys
-from Queue import Queue, Empty
+from queue import Queue, Empty
 from threading import Thread
 
 WORKERS = 8
 
-exclude_names = ("WorldCoasts.mwm", "WorldCoasts_migrate.mwm")
+EXCLUDE_NAMES = ("WorldCoasts.mwm", "WorldCoasts_migrate.mwm")
 
-def FindAllMwms(data_path):
+
+def find_all_mwms(data_path):
     result = []
-    for file in os.listdir(data_path):
-        new_path = os.path.join(data_path, file)
+    for entry in os.listdir(data_path):
+        new_path = os.path.join(data_path, entry)
         if os.path.isdir(new_path):
-            result.extend(FindAllMwms(new_path))
+            result.extend(find_all_mwms(new_path))
             continue
-        if file.endswith(".mwm") and file not in exclude_names:
-            result.append((file, data_path))
+        if entry.endswith(".mwm") and entry not in EXCLUDE_NAMES:
+            result.append((entry, data_path))
     return result
 
-def ProcessMwm(generator_tool, task, error_queue):
-    print "Processing ", task[0]
+
+def process_mwm(generator_tool, task, error_queue):
+    name, data_path = task
+    print(f"Processing {name}")
     try:
-        subprocess.call((generator_tool, '--data_path={0}'.format(task[1]), '--output={0}'.format(task[0][:-4]), "--generate_index=true", "--intermediate_data_path=/tmp/"))
+        subprocess.run(
+            (
+                generator_tool,
+                f"--data_path={data_path}",
+                f"--output={name[:-4]}",
+                "--generate_index=true",
+                "--intermediate_data_path=/tmp/",
+            ),
+            check=True,
+        )
     except subprocess.CalledProcessError as e:
-        error_queue.put(str(error_queue))
+        error_queue.put(str(e))
+
 
 def parallel_worker(tasks, generator_tool, error_queue):
     while True:
         try:
             task = tasks.get_nowait()
         except Empty:
-            print "Process done!"
             return
-        ProcessMwm(generator_tool, task, error_queue)
-        tasks.task_done()
+        # Always call task_done() — if process_mwm raises (e.g. FileNotFoundError
+        # when generator_tool is missing), the matching tasks.join() in main()
+        # would otherwise block forever waiting for this task to be marked done.
+        try:
+            process_mwm(generator_tool, task, error_queue)
+        except Exception as e:
+            error_queue.put(str(e))
+        finally:
+            tasks.task_done()
 
-if __name__ == "__main__":
 
-    if len(sys.argv) < 3:
-        print "{0} <resources_dir> <writable_dir> <generator_tool> [<designer_tool> <designer_params>]".format(sys.argv[0])
-        exit(1)
+def main():
+    if len(sys.argv) < 4:
+        print(
+            f"{sys.argv[0]} <resources_dir> <writable_dir> <generator_tool> "
+            "[<designer_tool> <designer_params>...]"
+        )
+        sys.exit(1)
 
-    mwms = FindAllMwms(sys.argv[1])
-    if sys.argv[2] != sys.argv[1]:
-        mwms.extend(FindAllMwms(sys.argv[2]))
+    resources_dir, writable_dir, generator_tool = sys.argv[1], sys.argv[2], sys.argv[3]
+
+    mwms = find_all_mwms(resources_dir)
+    if writable_dir != resources_dir:
+        mwms.extend(find_all_mwms(writable_dir))
+
     tasks = Queue()
     error_queue = Queue()
     for task in mwms:
         tasks.put(task)
 
-    for i in range(WORKERS):
-        t=Thread(target=parallel_worker, args=(tasks, sys.argv[3], error_queue))
+    for _ in range(WORKERS):
+        t = Thread(target=parallel_worker, args=(tasks, generator_tool, error_queue))
         t.daemon = True
         t.start()
 
     tasks.join()
-    print "Processing done."
+    print("Processing done.")
 
     if len(sys.argv) > 4:
-        print "Starting app"
+        print("Starting app")
         subprocess.Popen(sys.argv[4:])
 
-    if not error_queue.qsize() == 0:
+    if error_queue.qsize() != 0:
         while error_queue.qsize():
-            error = error_queue.get()
-            print error
-        exit(1)
+            print(error_queue.get())
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

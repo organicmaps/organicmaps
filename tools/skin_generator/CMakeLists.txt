@@ -1,18 +1,22 @@
 project(skin_generator_tool)
 
-set(SRC
+omim_add_library(skin_generator
   generator.cpp
   generator.hpp
-  main.cpp
 )
 
-omim_add_executable(${PROJECT_NAME} ${SRC})
+target_link_libraries(skin_generator
+  PUBLIC
+    geometry
+    Qt6::Gui
+    Qt6::Svg
+)
+
+omim_add_executable(${PROJECT_NAME} main.cpp)
 
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
-    geometry
+    skin_generator
     gflags::gflags
-    Qt6::Xml
-    Qt6::Svg
     Qt6::Widgets
 )

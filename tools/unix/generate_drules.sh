@@ -43,6 +43,7 @@ BuildStyle vehicle  light    "$TMP_DIR/vehicle_light"
 BuildStyle vehicle  dark     "$TMP_DIR/vehicle_dark"
 
 # Pack each family's light + dark variants into a single file with a per-variant color palette.
+# The Designer rebuilds these same family files at runtime (see qt/build_style/build_drules.cpp).
 echo "Packing light/dark variants into family files..."
 python3 "$KOTHIC/merge_variants.py" "$DATA_PATH/drules_default" \
   light "$TMP_DIR/default_light.bin"  dark "$TMP_DIR/default_dark.bin"
@@ -50,9 +51,6 @@ python3 "$KOTHIC/merge_variants.py" "$DATA_PATH/drules_outdoors" \
   light "$TMP_DIR/outdoors_light.bin" dark "$TMP_DIR/outdoors_dark.bin"
 python3 "$KOTHIC/merge_variants.py" "$DATA_PATH/drules_vehicle" \
   light "$TMP_DIR/vehicle_light.bin"  dark "$TMP_DIR/vehicle_dark.bin"
-
-# The designer builds styles at runtime into a single-variant file; ship the default light one.
-cp "$TMP_DIR/default_light.bin" "$DATA_PATH/drules_design.bin"
 
 echo "Exporting transit colors..."
 python3 "$OMIM_PATH/tools/python/transit/transit_colors_export.py" \

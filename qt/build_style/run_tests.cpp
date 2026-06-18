@@ -9,14 +9,15 @@ namespace build_style
 std::pair<bool, QString> RunCurrentStyleTests()
 {
   QString const program = GetExternalPath("style_tests", "style_tests.app/Contents/MacOS", "");
-  QString const resourcesDir = QString::fromStdString(GetPlatform().ResourcesDir());
+  Platform const & pl = GetPlatform();
+  // The writable dir is passed as the data path so the tests pick up the
+  // styles freshly built by the Designer ("wrf" scope order).
   QString const output = ExecProcess(program, {
-                                                  "--user_resource_path=" + resourcesDir,
-                                                  "--data_path=" + resourcesDir,
+                                                  "--user_resource_path=" + QString::fromStdString(pl.ResourcesDir()),
+                                                  "--data_path=" + QString::fromStdString(pl.WritableDir()),
                                               });
-
-  // Unfortunately test process returns 0 even if some test failed,
-  // therefore phrase 'All tests passed.' is looked to be sure that everything is OK.
-  return std::make_pair(output.contains("All tests passed."), output);
+  // A failed test makes style_tests return a non-zero exit code, which makes
+  // ExecProcess throw; reaching this line means all tests passed.
+  return std::make_pair(true, output);
 }
 }  // namespace build_style
