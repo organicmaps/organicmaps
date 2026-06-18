@@ -29,15 +29,15 @@
 		6741A9751BF340DE002C974C /* WorldCoasts.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */; };
 		6741A9761BF340DE002C974C /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = FA85F632145DDDC20090E1A0 /* packed_polygons.bin */; };
 		6741A97D1BF340DE002C974C /* synonyms.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAEA7D0161BD26600CCD661 /* synonyms.txt */; };
-		DB05F1CC1BF340DE002C974C /* drules_default.bin in Resources */ = {isa = PBXBuildFile; fileRef = DB05F1BC1BF340DE002C974C /* drules_default.bin */; };
-		DB05F1CD1BF340DE002C974C /* drules_outdoors.bin in Resources */ = {isa = PBXBuildFile; fileRef = DB05F1BD1BF340DE002C974C /* drules_outdoors.bin */; };
-		DB05F1CE1BF340DE002C974C /* drules_vehicle.bin in Resources */ = {isa = PBXBuildFile; fileRef = DB05F1BE1BF340DE002C974C /* drules_vehicle.bin */; };
 		676507601C10559800830BB3 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 451950391B7A3E070085DA05 /* patterns.txt */; };
 		676507611C10559B00830BB3 /* colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 452FCA3A1B6A3DF7007019AB /* colors.txt */; };
 		6B9978361C89A316003B8AA0 /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 6B9978341C89A316003B8AA0 /* editor.config */; };
 		A630D1EA207CA95900976DEA /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = A630D1E8207CA95900976DEA /* Localizable.stringsdict */; };
 		BB25B1A71FB32767007276FA /* transit_colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = BB25B1A51FB32767007276FA /* transit_colors.txt */; };
 		BB7626B61E85599C0031D71C /* icudt78l.dat in Resources */ = {isa = PBXBuildFile; fileRef = BB7626B41E8559980031D71C /* icudt78l.dat */; };
+		DB05F1CC1BF340DE002C974C /* drules_default.bin in Resources */ = {isa = PBXBuildFile; fileRef = DB05F1BC1BF340DE002C974C /* drules_default.bin */; };
+		DB05F1CD1BF340DE002C974C /* drules_outdoors.bin in Resources */ = {isa = PBXBuildFile; fileRef = DB05F1BD1BF340DE002C974C /* drules_outdoors.bin */; };
+		DB05F1CE1BF340DE002C974C /* drules_vehicle.bin in Resources */ = {isa = PBXBuildFile; fileRef = DB05F1BE1BF340DE002C974C /* drules_vehicle.bin */; };
 		ED0B1C312BC2951F00FB8EDD /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = ED0B1C302BC2951F00FB8EDD /* PrivacyInfo.xcprivacy */; };
 		ED0E8FBF2FC4752400A4C91D /* UILabel+OneLineScaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0E8FBE2FC4752400A4C91D /* UILabel+OneLineScaling.swift */; };
 		ED1ADA332BC6B1B40029209F /* CarPlayServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1ADA322BC6B1B40029209F /* CarPlayServiceTests.swift */; };
@@ -800,9 +800,6 @@
 		451950391B7A3E070085DA05 /* patterns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = patterns.txt; path = ../../data/patterns.txt; sourceTree = "<group>"; };
 		452FCA3A1B6A3DF7007019AB /* colors.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = colors.txt; path = ../../data/colors.txt; sourceTree = "<group>"; };
 		47AEF83F2231249E00D20538 /* categories_brands.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = categories_brands.txt; path = ../../data/categories_brands.txt; sourceTree = SOURCE_ROOT; };
-		DB05F1BC1BF340DE002C974C /* drules_default.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_default.bin; path = ../../data/drules_default.bin; sourceTree = "<group>"; };
-		DB05F1BD1BF340DE002C974C /* drules_outdoors.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_outdoors.bin; path = ../../data/drules_outdoors.bin; sourceTree = "<group>"; };
-		DB05F1BE1BF340DE002C974C /* drules_vehicle.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_vehicle.bin; path = ../../data/drules_vehicle.bin; sourceTree = "<group>"; };
 		4A300ED31C6DCFD400140018 /* countries-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "countries-strings"; path = "../../data/countries-strings"; sourceTree = "<group>"; };
 		4B4153B42BF9695500EE4B02 /* MWMTextToSpeechTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTextToSpeechTests.mm; sourceTree = "<group>"; };
 		4B83AE4A2C2E642100B0C3BC /* TTSTesterTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTSTesterTest.m; sourceTree = "<group>"; };
@@ -863,6 +860,9 @@
 		AC89C2382F2CF86100368057 /* lo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lo; path = lo.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
 		BB25B1A51FB32767007276FA /* transit_colors.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = transit_colors.txt; path = ../../data/transit_colors.txt; sourceTree = "<group>"; };
 		BB7626B41E8559980031D71C /* icudt78l.dat */ = {isa = PBXFileReference; lastKnownFileType = file; name = icudt78l.dat; path = ../../data/icudt78l.dat; sourceTree = "<group>"; };
+		DB05F1BC1BF340DE002C974C /* drules_default.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_default.bin; path = ../../data/drules_default.bin; sourceTree = "<group>"; };
+		DB05F1BD1BF340DE002C974C /* drules_outdoors.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_outdoors.bin; path = ../../data/drules_outdoors.bin; sourceTree = "<group>"; };
+		DB05F1BE1BF340DE002C974C /* drules_vehicle.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_vehicle.bin; path = ../../data/drules_vehicle.bin; sourceTree = "<group>"; };
 		ED097E762BB80C320006ED01 /* OMapsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OMapsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED0B1C302BC2951F00FB8EDD /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		ED0E8FBE2FC4752400A4C91D /* UILabel+OneLineScaling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+OneLineScaling.swift"; sourceTree = "<group>"; };
@@ -1715,7 +1715,6 @@
 		FA853BD626BC54650026D455 /* libpugixml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libpugixml.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BD826BC54C80026D455 /* libexpat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libexpat.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BDA26BC54CD0026D455 /* libtraffic.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtraffic.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FA853BDC26BC58570026D455 /* DatePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DatePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BDE26BC58620026D455 /* libge0.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libge0.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BE226BC58770026D455 /* libfreetype.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libfreetype.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BE426BC5B660026D455 /* libvulkan_wrapper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libvulkan_wrapper.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1877,7 +1876,6 @@
 				FA853BE426BC5B660026D455 /* libvulkan_wrapper.a */,
 				FA853BE226BC58770026D455 /* libfreetype.a */,
 				FA853BDE26BC58620026D455 /* libge0.a */,
-				FA853BDC26BC58570026D455 /* DatePicker.framework */,
 				FA853BDA26BC54CD0026D455 /* libtraffic.a */,
 				FA853BD826BC54C80026D455 /* libexpat.a */,
 				FA853BD626BC54650026D455 /* libpugixml.a */,
