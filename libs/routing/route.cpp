@@ -106,7 +106,8 @@ m2::PointD RouteBase::GetMidpoint(size_t beginIdx, size_t endIdx) const
   return m_routeSegments[endIdx].GetJunction().GetPoint();
 }
 
-std::optional<m2::PointD> RouteBase::FindMaxDiffMidpoint(std::vector<RouteSegment> const & origin) const
+template <class DiffFnT>
+std::optional<m2::PointD> RouteBase::FindMaxDiffMidpointImpl(DiffFnT const & isDiff) const
 {
   ASSERT(IsValid(), ());
   // Treat this route as a meaningful alternative only when the *total* geodesic length of segments
@@ -115,19 +116,6 @@ std::optional<m2::PointD> RouteBase::FindMaxDiffMidpoint(std::vector<RouteSegmen
   double constexpr kMinAltDiffFraction = 0.05;
 
   double const totalLenM = m_routeSegments.back().GetDistFromBeginningMeters();
-
-  // (mwmId, featureId, segmentIdx) tuples of the origin route, direction-normalized so the same
-  // edge traversed forward vs reverse is treated as identical. Fake start/end segments are skipped
-  // on both sides — they're not real road features and would otherwise produce spurious "diff" hits.
-  std::set<std::tuple<NumMwmId, uint32_t, uint32_t>> originFeatures;
-  auto const key = [](RouteSegment const & s)
-  {
-    auto const & seg = s.GetSegment();
-    return std::make_tuple(seg.GetMwmId(), seg.GetFeatureId(), seg.GetSegmentIdx());
-  };
-  for (auto const & s : origin)
-    if (s.GetSegment().IsRealSegment())
-      originFeatures.insert(key(s));
 
   // Single walk that tracks (a) total diff length — the significance signal that decides whether
   // this is really an alternative — and (b) the longest contiguous diff run, whose midpoint is
@@ -158,9 +146,7 @@ std::optional<m2::PointD> RouteBase::FindMaxDiffMidpoint(std::vector<RouteSegmen
 
   for (size_t i = 0; i < m_routeSegments.size(); ++i)
   {
-    auto const & s = m_routeSegments[i];
-    bool const diff = s.GetSegment().IsRealSegment() && !originFeatures.contains(key(s));
-    if (diff)
+    if (isDiff(i))
     {
       if (!inRun)
       {
@@ -181,6 +167,50 @@ std::optional<m2::PointD> RouteBase::FindMaxDiffMidpoint(std::vector<RouteSegmen
     return std::nullopt;
 
   return GetMidpoint(bestRunStart, bestRunEnd);
+}
+
+std::optional<m2::PointD> RouteBase::FindMaxDiffMidpoint(std::vector<RouteSegment> const & origin) const
+{
+  // (mwmId, featureId, segmentIdx) tuples of the origin route, direction-normalized so the same
+  // edge traversed forward vs reverse is treated as identical. Fake start/end segments are skipped
+  // on both sides — they're not real road features and would otherwise produce spurious "diff" hits.
+  std::set<std::tuple<NumMwmId, uint32_t, uint32_t>> originFeatures;
+  auto const key = [](RouteSegment const & s)
+  {
+    auto const & seg = s.GetSegment();
+    return std::make_tuple(seg.GetMwmId(), seg.GetFeatureId(), seg.GetSegmentIdx());
+  };
+  for (auto const & s : origin)
+    if (s.GetSegment().IsRealSegment())
+      originFeatures.insert(key(s));
+
+  return FindMaxDiffMidpointImpl([&](size_t i)
+  {
+    auto const & s = m_routeSegments[i];
+    return s.GetSegment().IsRealSegment() && !originFeatures.contains(key(s));
+  });
+}
+
+std::optional<m2::PointD> RouteBase::FindMaxDiffMidpointByGeometry(std::vector<RouteSegment> const & origin) const
+{
+  // A segment diverges when its end junction lies farther than this from every origin junction.
+  // For transit the distinguishing edges (subway vs bus) run on different geometry, so proximity to
+  // the origin polyline is a reliable "shared" signal independent of (unstable) fake feature ids.
+  double constexpr kSamePointToleranceM = 30.0;
+
+  std::vector<m2::PointD> originPts;
+  originPts.reserve(origin.size());
+  for (auto const & s : origin)
+    originPts.push_back(s.GetJunction().GetPoint());
+
+  return FindMaxDiffMidpointImpl([&](size_t i)
+  {
+    m2::PointD const p = m_routeSegments[i].GetJunction().GetPoint();
+    for (auto const & o : originPts)
+      if (mercator::DistanceOnEarth(p, o) < kSamePointToleranceM)
+        return false;
+    return true;
+  });
 }
 
 m2::RectD RouteBase::GetLimitRect() const

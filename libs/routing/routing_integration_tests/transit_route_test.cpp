@@ -4,6 +4,8 @@
 
 #include "geometry/mercator.hpp"
 
+#include "base/logging.hpp"
+
 namespace transit_route_test
 {
 using namespace routing;
@@ -167,5 +169,51 @@ UNIT_TEST(Transit_NewYork_GrassmereToPleasantPlains)
 
   CHECK(routeResult.first, ());
   integration::CheckSubwayExistence(*routeResult.first);
+}
+
+// Buenos Aires: both endpoints sit exactly on stops of a direct bus route. The primary (active)
+// route is subway + walking; the alternative is the less-walking / fewer-transfers variant (the
+// direct bus) produced by IndexRouter::CalculateRoute for transit.
+//
+// This test also reproduces the paradox under investigation: the primary route wins on routing
+// *weight* (the A* cost the router logs as "Result route weight") yet the alternative has the lower
+// real *ETA*. The reason the two can disagree: the transfer/boarding penalty (interval / 2) is
+// counted in the routing weight but NOT in the ETA (GetTotalTimeSec sums only the segment times).
+// With no GTFS frequency these OSM bus routes get the default 900s interval -> a 450s boarding
+// penalty that weighs the bus down in the search but is invisible in its displayed ETA.
+// Run with logs to inspect both weights and compare against the per-route summary below.
+UNIT_TEST(Transit_BuenosAires_SubwayVsBusAlternative)
+{
+  TRoutesResult const routesResult = integration::CalculateRoutes(
+      integration::GetVehicleComponents(VehicleType::Transit),
+      Checkpoints(mercator::FromLatLon(-34.5935185, -58.4051952), mercator::FromLatLon(-34.5601016, -58.4472671)));
+
+  TEST_EQUAL(routesResult.second, RouterResultCode::NoError, ());
+
+  auto const & routes = routesResult.first;
+  // A primary route plus exactly one alternative.
+  TEST_EQUAL(routes.size(), 2, ());
+
+  auto const & primary = *routes[0];
+  auto const & alt = *routes[1];
+
+  for (size_t i = 0; i < routes.size(); ++i)
+    LOG(LINFO, ("Transit route", i, "- length:", routes[i]->GetTotalDistanceMeters(), "m, ETA:",
+                routes[i]->GetTotalTimeSec(), "s, pedestrian:", integration::GetWalkDistanceMeters(*routes[i]), "m"));
+
+  // Primary is the subway route.
+  integration::CheckSubwayExistence(primary);
+
+  // The alternative walks less (endpoints are on its stops) — the bias it's built for.
+  TEST_LESS(integration::GetWalkDistanceMeters(alt), integration::GetWalkDistanceMeters(primary), ());
+
+  // The paradox: the alternative is actually faster in real ETA than the primary. ETA does not
+  // include the boarding penalty that the routing weight charges, so the weight-minimal primary
+  // can still be the slower route for the rider.
+  TEST_LESS(alt.GetTotalTimeSec(), primary.GetTotalTimeSec(), ());
+
+  // Reference lengths from a Buenos Aires run; loose tolerance — exact geometry is data-dependent.
+  integration::TestRouteLength(primary, 7553.54, 0.1);
+  integration::TestRouteLength(alt, 6020.02, 0.1);
 }
 }  // namespace transit_route_test
