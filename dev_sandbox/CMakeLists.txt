@@ -12,11 +12,6 @@ if (${PLATFORM_MAC})
     ../iphone/Maps/Core/MapRendering/MetalContextFactory.h
     ../iphone/Maps/Core/MapRendering/MetalContextFactory.mm
   )
-
-  file(GLOB_RECURSE SHADER_SOURCES_FILES ${OMIM_ROOT}/libs/shaders/Metal/*.metal)
-  add_metal_shader_library(shaders_metal
-    ${SHADER_SOURCES_FILES}
-  )
 endif()
 
 if (${PLATFORM_LINUX})

@@ -1,21 +1,17 @@
 #pragma once
 
 #include "drape/graphics_context_factory.hpp"
-#include "qt/qt_common/qtoglcontext.hpp"
-
-#include <QtGui/QOpenGLContext>
+#include "opengl_context.hpp"
 
 #include <latch>
 #include <memory>
 
-namespace qt
-{
-namespace common
+namespace qt::common::renderer::opengl
 {
 class QtOGLContextFactory : public dp::GraphicsContextFactory
 {
 public:
-  QtOGLContextFactory(QOpenGLContext * rootContext);
+  explicit QtOGLContextFactory(QOpenGLContext * rootContext);
   ~QtOGLContextFactory() override;
 
   void PrepareToShutdown();
@@ -32,7 +28,7 @@ public:
   void WaitForInitialization(dp::GraphicsContext * context) override;
 
 private:
-  std::unique_ptr<QOffscreenSurface> CreateSurface();
+  std::unique_ptr<QOffscreenSurface> CreateSurface() const;
 
   QOpenGLContext * m_rootContext;
   std::unique_ptr<QtRenderOGLContext> m_drawContext;
@@ -44,5 +40,4 @@ private:
   std::latch m_mainThreadReady = std::latch(1);
   std::latch m_contextsCreated = std::latch(2);
 };
-}  // namespace common
-}  // namespace qt
+}  // namespace qt::common::renderer::opengl

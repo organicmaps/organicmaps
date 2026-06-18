@@ -1,7 +1,4 @@
 #include "mainwindow.hpp"
-
-#include "qt/qt_common/helpers.hpp"
-
 #include "map/framework.hpp"
 
 #include <gflags/gflags.h>
@@ -27,8 +24,6 @@ int main(int argc, char * argv[])
 
   Q_INIT_RESOURCE(resources_common);
   QApplication app(argc, argv);
-
-  qt::common::SetDefaultSurfaceFormat(app.platformName());
 
   FrameworkParams params;
 

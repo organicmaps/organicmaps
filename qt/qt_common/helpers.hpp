@@ -32,8 +32,6 @@ struct Hotkey
 
 location::GpsInfo MakeGpsInfo(m2::PointD const & point);
 
-void SetDefaultSurfaceFormat(QString const & platformName);
-
 bool IsSystemInDarkMode();
 void ApplySystemNightMode(Framework & framework);
 }  // namespace qt::common

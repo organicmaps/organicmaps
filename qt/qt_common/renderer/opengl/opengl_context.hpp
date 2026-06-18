@@ -11,9 +11,7 @@
 #include <memory>
 #include <mutex>
 
-namespace qt
-{
-namespace common
+namespace qt::common::renderer::opengl
 {
 class QtRenderOGLContext : public dp::OGLContext
 {
@@ -62,5 +60,4 @@ private:
   QOffscreenSurface * m_surface = nullptr;  // non-owning ptr
   std::unique_ptr<QOpenGLContext> m_ctx;
 };
-}  // namespace common
-}  // namespace qt
+}  // namespace qt::common::renderer::opengl
