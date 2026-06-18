@@ -40,14 +40,15 @@ bool IsCoord(std::string const & s)
   return s == "coord" || s == "gx:coord";
 }
 
-bool IsTimestamp(std::string const & s)
+bool IsWhenTag(std::string const & s)
 {
   return s == "when";
 }
 
 std::string_view constexpr kKmlHeader =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\">\n"
+    "<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" "
+    "xmlns:om=\"https://omaps.app\">\n"
     "<Document>\n";
 
 std::string_view constexpr kKmlFooter =
@@ -401,6 +402,8 @@ void SaveBookmarkExtendedData(Writer & writer, BookmarkData const & bookmarkData
   }
 
   writer << kIndent6 << "<mwm:visibility>" << (bookmarkData.m_visible ? "1" : "0") << "</mwm:visibility>\n";
+  if (bookmarkData.m_modifiedTimestamp != Timestamp())
+    writer << kIndent6 << "<om:modified>" << TimestampToString(bookmarkData.m_modifiedTimestamp) << "</om:modified>\n";
 
   if (!bookmarkData.m_nearestToponym.empty())
   {
@@ -441,8 +444,11 @@ void SaveBookmarkData(Writer & writer, BookmarkData const & bookmarkData)
     writer << "</description>\n";
   }
 
-  if (bookmarkData.m_timestamp != Timestamp())
-    writer << kIndent4 << "<TimeStamp><when>" << TimestampToString(bookmarkData.m_timestamp) << "</when></TimeStamp>\n";
+  if (bookmarkData.m_createdTimestamp != Timestamp())
+  {
+    writer << kIndent4 << "<TimeStamp><when>" << TimestampToString(bookmarkData.m_createdTimestamp)
+           << "</when></TimeStamp>\n";
+  }
 
   // Custom colors reference a shared #placemark-<rgbahex> style; presets keep #placemark-<name> so
   // old OM still matches by name. A bookmark that slipped through unnormalized as {None, 0} falls
@@ -586,6 +592,8 @@ void SaveTrackExtendedData(Writer & writer, TrackData const & trackData)
   writer << kIndent6 << "</mwm:additionalStyle>\n";
 
   writer << kIndent6 << "<mwm:visibility>" << (trackData.m_visible ? "1" : "0") << "</mwm:visibility>\n";
+  if (trackData.m_modifiedTimestamp != Timestamp())
+    writer << kIndent6 << "<om:modified>" << TimestampToString(trackData.m_modifiedTimestamp) << "</om:modified>\n";
 
   SaveStringsArray(writer, trackData.m_nearestToponyms, "nearestToponyms", kIndent6);
   SaveStringsMap(writer, trackData.m_properties, "properties", kIndent6);
@@ -618,8 +626,11 @@ void SaveTrackData(Writer & writer, TrackData const & trackData)
   SaveTrackLayer(writer, layer, kIndent6);
   writer << kIndent4 << "</LineStyle></Style>\n";
 
-  if (trackData.m_timestamp != Timestamp())
-    writer << kIndent4 << "<TimeStamp><when>" << TimestampToString(trackData.m_timestamp) << "</when></TimeStamp>\n";
+  if (trackData.m_createdTimestamp != Timestamp())
+  {
+    writer << kIndent4 << "<TimeStamp><when>" << TimestampToString(trackData.m_createdTimestamp)
+           << "</when></TimeStamp>\n";
+  }
 
   SaveTrackGeometry(writer, trackData.m_geometry);
   SaveTrackExtendedData(writer, trackData);
@@ -708,7 +719,8 @@ void KmlParser::ResetPoint()
   m_org = {};
   m_predefinedColor = PredefinedColor::None;
   m_viewportScale = 0;
-  m_timestamp = {};
+  m_createdTimestamp = {};
+  m_modifiedTimestamp = {};
 
   m_color = 0;
   m_iconColor = 0;
@@ -990,7 +1002,8 @@ void KmlParser::Pop(std::string_view tag)
         data.m_color = NormalizeBookmarkColorData({m_predefinedColor, m_iconColor});
         data.m_icon = m_icon;
         data.m_viewportScale = m_viewportScale;
-        data.m_timestamp = m_timestamp;
+        data.m_createdTimestamp = m_createdTimestamp;
+        data.m_modifiedTimestamp = m_modifiedTimestamp;
         data.m_point = m_org;
         data.m_featureTypes = std::move(m_featureTypes);
         data.m_customName = std::move(m_customName);
@@ -1019,7 +1032,8 @@ void KmlParser::Pop(std::string_view tag)
           trackData.m_name = bookmarkData.m_name;
           trackData.m_description = bookmarkData.m_description;
           trackData.m_layers = std::move(m_trackLayers);
-          trackData.m_timestamp = m_timestamp;
+          trackData.m_createdTimestamp = m_createdTimestamp;
+          trackData.m_modifiedTimestamp = m_modifiedTimestamp;
           trackData.m_geometry = std::move(m_geometry);
           trackData.m_visible = m_visible;
           trackData.m_nearestToponyms = std::move(m_nearestToponyms);
@@ -1034,7 +1048,8 @@ void KmlParser::Pop(std::string_view tag)
         data.m_name = std::move(m_name);
         data.m_description = std::move(m_description);
         data.m_layers = std::move(m_trackLayers);
-        data.m_timestamp = m_timestamp;
+        data.m_createdTimestamp = m_createdTimestamp;
+        data.m_modifiedTimestamp = m_modifiedTimestamp;
         data.m_geometry = std::move(m_geometry);
         data.m_visible = m_visible;
         data.m_nearestToponyms = std::move(m_nearestToponyms);
@@ -1139,7 +1154,7 @@ void KmlParser::CharData(std::string & value)
       if (!IsTrack(prevTag))
         return false;
 
-      if (IsTimestamp(currTag))
+      if (IsWhenTag(currTag))
       {
         auto & timestamps = m_geometry.m_timestamps;
         ASSERT(!timestamps.empty(), ());
@@ -1402,6 +1417,12 @@ void KmlParser::CharData(std::string & value)
           else if (m_minZoom > 19)
             m_minZoom = 19;
         }
+        else if (currTag == "om:modified")
+        {
+          auto const ts = base::StringToTimestamp(value);
+          if (ts != base::INVALID_TIME_STAMP)
+            m_modifiedTimestamp = TimestampClock::from_time_t(ts);
+        }
         else if (currTag == "mwm:compilations")
         {
           m_compilations.clear();
@@ -1419,11 +1440,11 @@ void KmlParser::CharData(std::string & value)
       }
       else if (prevTag == "TimeStamp")
       {
-        if (IsTimestamp(currTag))
+        if (IsWhenTag(currTag))
         {
           auto const ts = base::StringToTimestamp(value);
           if (ts != base::INVALID_TIME_STAMP)
-            m_timestamp = TimestampClock::from_time_t(ts);
+            m_createdTimestamp = TimestampClock::from_time_t(ts);
         }
       }
       else if (currTag == kStyleUrl)

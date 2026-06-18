@@ -74,11 +74,21 @@ Bookmark::Bookmark(kml::BookmarkData && data)
   m_data.m_color = kml::NormalizeBookmarkColorData(m_data.m_color);
 }
 
+// Marks the bookmark dirty and, when updateModificationTime is true (the default), refreshes
+// m_modifiedTimestamp. See kml::BookmarkData::m_modifiedTimestamp for the exact update policy
+// (which edits stamp it and when callers pass false).
+void Bookmark::SetDirty(bool updateModificationTime)
+{
+  Base::SetDirty(updateModificationTime);
+  if (updateModificationTime)
+    m_data.m_modifiedTimestamp = kml::TimestampClock::now();
+}
+
 void Bookmark::SetData(kml::BookmarkData const & data)
 {
-  SetDirty();
   m_data = data;
   m_data.m_color = kml::NormalizeBookmarkColorData(m_data.m_color);
+  SetDirty();  // Must run after the copy above, which would otherwise overwrite m_modifiedTimestamp.
 }
 
 kml::BookmarkData const & Bookmark::GetData() const
@@ -93,13 +103,13 @@ search::ReverseGeocoder::RegionAddress const & Bookmark::GetAddress() const
 
 void Bookmark::SetAddress(search::ReverseGeocoder::RegionAddress const & address)
 {
-  SetDirty();
+  SetDirty(false /* updateModificationTime */);
   m_address = address;
 }
 
 void Bookmark::SetIsVisible(bool isVisible)
 {
-  SetDirty();
+  SetDirty(false /* updateModificationTime */);
   m_isVisible = isVisible;
 }
 
@@ -288,15 +298,26 @@ void Bookmark::SetDescription(std::string const & description)
   kml::SetDefaultStr(m_data.m_description, description);
 }
 
-kml::Timestamp Bookmark::GetTimeStamp() const
+kml::Timestamp Bookmark::GetCreatedTimestamp() const
 {
-  return m_data.m_timestamp;
+  return m_data.m_createdTimestamp;
 }
 
-void Bookmark::SetTimeStamp(kml::Timestamp timeStamp)
+void Bookmark::SetCreatedTimestamp(kml::Timestamp timeStamp)
 {
-  SetDirty();
-  m_data.m_timestamp = timeStamp;
+  SetDirty(false /* updateModificationTime */);
+  m_data.m_createdTimestamp = timeStamp;
+}
+
+kml::Timestamp Bookmark::GetModifiedTimestamp() const
+{
+  return m_data.m_modifiedTimestamp;
+}
+
+void Bookmark::SetModifiedTimestamp(kml::Timestamp timeStamp)
+{
+  SetDirty(false /* updateModificationTime */);
+  m_data.m_modifiedTimestamp = timeStamp;
 }
 
 uint8_t Bookmark::GetScale() const
@@ -306,7 +327,7 @@ uint8_t Bookmark::GetScale() const
 
 void Bookmark::SetScale(uint8_t scale)
 {
-  SetDirty();
+  SetDirty(false /* updateModificationTime */);
   m_data.m_viewportScale = scale;
 }
 

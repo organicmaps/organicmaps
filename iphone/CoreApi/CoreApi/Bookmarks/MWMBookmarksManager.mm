@@ -694,6 +694,11 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
   ASSERT(bookmark, ("Invalid bookmark id:", bookmarkId));
 
   auto const newColor = [MWMBookmarksManager getColorFromUIColor:color];
+
+  if (bookmark->GetPreferredName() == title.UTF8String && bookmark->GetDescription() == description.UTF8String &&
+      bookmark->GetColorForRendering() == newColor)
+    return;  // No changes in bookmark parameters.
+
   if (newColor != bookmark->GetColorForRendering())
     self.bm.SetLastEditedBmColor(kml::MakeCustomBookmarkColorData(newColor));
 
@@ -711,9 +716,10 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
   ASSERT(bookmark, ("Invalid bookmark id:", bookmarkId));
 
   auto const newColor = [MWMBookmarksManager getColorFromUIColor:color];
-  if (newColor != bookmark->GetColorForRendering())
-    self.bm.SetLastEditedBmColor(kml::MakeCustomBookmarkColorData(newColor));
+  if (newColor == bookmark->GetColorForRendering())
+    return;  // New color is the same as existing color. Nothing to update.
 
+  self.bm.SetLastEditedBmColor(kml::MakeCustomBookmarkColorData(newColor));
   bookmark->SetColor(newColor);
 }
 
@@ -759,6 +765,10 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
   auto const currentColor = track->GetColor(0);
   auto const newColor = [MWMBookmarksManager getColorFromUIColor:color];
 
+  if (newColor == currentColor && track->GetName() == title.UTF8String &&
+      track->GetDescription() == description.UTF8String)
+    return;  // No changes in track parameters.
+
   if (newColor != currentColor)
     track->SetColor(newColor);
 
@@ -776,8 +786,10 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
   auto const currentColor = track->GetColor(0);
   auto const newColor = [MWMBookmarksManager getColorFromUIColor:color];
 
-  if (newColor != currentColor)
-    track->SetColor(newColor);
+  if (newColor == currentColor)
+    return;  // Nothing to update.
+
+  track->SetColor(newColor);
 }
 
 - (void)moveTrack:(MWMTrackID)trackId toGroupId:(MWMMarkGroupID)groupId
