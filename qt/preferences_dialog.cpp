@@ -202,7 +202,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
     });
   }
 
-  QGroupBox * tilesBox = new QGroupBox("Background Map tiles");
+  QGroupBox * tilesBox = new QGroupBox("Satellite Imagery");
   {
     QVBoxLayout * layout = new QVBoxLayout();
 
@@ -226,11 +226,11 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
     opacitySpin->setSuffix(" %");
 
     QFormLayout * form = new QFormLayout();
-    form->addRow("Tile URL", urlEdit);
+    form->addRow("Server URL", urlEdit);
     form->addRow("Cache size", sizeSpin);
     form->addRow("Area objects opacity", opacitySpin);
 
-    QCheckBox * enableCheckBox = new QCheckBox("Show custom tiles");
+    QCheckBox * enableCheckBox = new QCheckBox("Satellite Imagery");
     enableCheckBox->setChecked(framework.IsBackgroundTilesEnabled());
     auto const updateEnabled = [urlEdit, sizeSpin, opacitySpin](bool en)
     {

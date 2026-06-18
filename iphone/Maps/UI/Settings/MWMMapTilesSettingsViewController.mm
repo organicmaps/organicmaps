@@ -262,7 +262,7 @@ int constexpr kMaxOpacityPct = 100;
   {
   case kSectionEnable:
   {
-    cell.textLabel.text = L(@"pref_bg_tiles_enable_title");
+    cell.textLabel.text = L(@"pref_bg_tiles_title");
     self.enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
     self.enableSwitch.on = self.backgroundTilesEnabled;
     [self.enableSwitch addTarget:self action:@selector(onEnableChanged:) forControlEvents:UIControlEventValueChanged];
@@ -273,7 +273,7 @@ int constexpr kMaxOpacityPct = 100;
   {
     self.urlField = [self addFieldToCell:cell];
     self.urlField.text = self.backgroundTilesURL;
-    self.urlField.placeholder = L(@"pref_bg_tiles_url_hint");
+    self.urlField.placeholder = @"https://xxx.yyy/{z}/{x}/{y}.png";
     // Default (not URL) keyboard: the URL keyboard makes it hard to enter the "{z}/{x}/{y}" template.
     self.urlField.keyboardType = UIKeyboardTypeDefault;
     self.urlField.autocapitalizationType = UITextAutocapitalizationTypeNone;

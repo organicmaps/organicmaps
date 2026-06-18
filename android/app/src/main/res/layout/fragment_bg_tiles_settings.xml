@@ -2,6 +2,7 @@
 <androidx.core.widget.NestedScrollView
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="?attr/cardBackground"
@@ -25,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
-        android:text="@string/pref_bg_tiles_enable_title"
+        android:text="@string/pref_bg_tiles_title"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="?android:attr/textColorPrimary"/>
       <androidx.appcompat.widget.SwitchCompat
@@ -59,7 +60,8 @@
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/bg_tiles_url"
           style="@style/MwmWidget.Editor.CustomTextInput"
-          android:hint="@string/pref_bg_tiles_url_hint"
+          android:hint="https://xxx.yyy/{z}/{x}/{y}.png"
+          tools:ignore="HardcodedText"
           android:importantForAutofill="no"
           android:inputType="textUri"
           android:singleLine="true"/>
