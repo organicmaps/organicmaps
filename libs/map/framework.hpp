@@ -570,6 +570,9 @@ public:
 
   void Scroll(double distanceX, double distanceY);
 
+  /// Starts a kinetic fling animation from the given pixel velocity (pixels per second).
+  void Fling(double velocityX, double velocityY);
+
   void Rotate(double azimuth, bool isAnim);
 
   void TouchEvent(df::TouchEvent const & touch);
