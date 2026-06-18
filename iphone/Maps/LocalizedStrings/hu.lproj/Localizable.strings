@@ -218,6 +218,21 @@
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "A 3D épületek energiatakarékos módban ki vannak kapcsolva";
 
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "Műholdas felvételek";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "Kiszolgáló URL-címe";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "Gyorsítótár mérete (MB)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "Területobjektumok átlátszatlansága";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "Az egyéni csempeforrásokat Ön biztosítja. Csak olyan szolgáltatásokat használjon, amelyekhez jogosult hozzáférni. Ön felel a forrásmegjelölésért, a licencfeltételekért, az API-kulcsokért, a kvótákért és a használati korlátokért.";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Hangutasítások";
 

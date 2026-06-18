@@ -148,6 +148,12 @@
     <string name="pref_map_3d_buildings_title">Prédios em 3D</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">Os edifícios 3D são desativados no modo de economia de energia</string>
+    <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
+    <string name="pref_bg_tiles_size_title">Tamanho do cache (MB)</string>
+    <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
+    <string name="pref_bg_tiles_opacity_title">Opacidade dos objetos de área</string>
+    <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
+    <string name="pref_bg_tiles_disclaimer">As fontes de blocos personalizados são fornecidas por você. Use apenas serviços que você tem permissão para acessar. Você é responsável pela atribuição, termos de licença, chaves de API, cotas e limites de uso.</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Orientação por voz</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
