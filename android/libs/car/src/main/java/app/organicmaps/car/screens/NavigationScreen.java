@@ -25,11 +25,13 @@ import app.organicmaps.car.util.Colors;
 import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.routing.NavigationService;
+import app.organicmaps.sdk.CountryMetadata;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.car.RoutingUtils;
 import app.organicmaps.sdk.car.renderer.Renderer;
 import app.organicmaps.sdk.car.screens.BaseMapScreen;
+import app.organicmaps.sdk.location.CurrentCountryManager;
 import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.location.LocationUtils;
 import app.organicmaps.sdk.routing.JunctionInfo;
@@ -41,7 +43,8 @@ import app.organicmaps.sdk.util.log.Logger;
 import java.util.List;
 import java.util.Objects;
 
-public class NavigationScreen extends BaseMapScreen implements RoutingController.Container, NavigationManagerCallback
+public class NavigationScreen extends BaseMapScreen
+    implements RoutingController.Container, NavigationManagerCallback, CurrentCountryManager.OnCountryChangedListener
 {
   private static final String TAG = NavigationScreen.class.getSimpleName();
 
@@ -57,6 +60,9 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
 
   @NonNull
   private Trip mTrip = new Trip.Builder().setLoading(true).build();
+
+  @NonNull
+  private CountryMetadata.DrivingSide mDrivingSide = CountryMetadata.DrivingSide.Right;
 
   // This value is used to decide whether to display the "trip finished" toast or not
   // False: trip is finished -> show toast
@@ -151,6 +157,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     ThemeUtils.update(getCarContext());
     mNavigationManager.setNavigationManagerCallback(this);
     mNavigationManager.navigationStarted();
+    getOrganicMapsContext().getCurrentCountryManager().addListener(this);
 
     getLocationHelper().addListener(mLocationListener);
     if (LocationUtils.checkFineLocationPermission(getCarContext()))
@@ -181,6 +188,12 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     mNavigationManager.navigationEnded();
     mNavigationManager.clearNavigationManagerCallback();
     getSurfaceRenderer().hideSpeedLimit();
+    getOrganicMapsContext().getCurrentCountryManager().removeListener(this);
+  }
+
+  public void onCountryChanged(@NonNull String countryId)
+  {
+    mDrivingSide = CountryMetadata.getDrivingSide(countryId);
   }
 
   @NonNull
@@ -284,7 +297,8 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   private void updateTrip(@Nullable Location location)
   {
     final RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
-    mTrip = RoutingUtils.createTrip(getCarContext(), info, RoutingController.get().getEndPoint(), Colors.DISTANCE);
+    mTrip = RoutingUtils.createTrip(getCarContext(), info, mDrivingSide, RoutingController.get().getEndPoint(),
+                                    Colors.DISTANCE);
     mNavigationManager.updateTrip(mTrip);
     if (info != null)
       updateSpeedLimit(info, location);
