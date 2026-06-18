@@ -45,6 +45,18 @@ public:
   void SetStrategy(Strategy strategy) { m_strategy = strategy; }
   Strategy GetStrategy() const { return m_strategy; }
 
+  /// \brief Transit alternative route bias. Scales the routing weight (Purpose::Weight only, ETA
+  /// stays the real time) of walking legs and of the transit transfer/boarding penalty, to favour
+  /// an alternative with less walking and fewer transfers (e.g. a direct bus over subway + walk).
+  /// Both default to 1.0 (no bias).
+  void SetTransitAltFactors(double walkWeightFactor, double transferPenaltyFactor)
+  {
+    m_transitWalkWeightFactor = walkWeightFactor;
+    m_transitTransferFactor = transferPenaltyFactor;
+  }
+  double GetTransitWalkWeightFactor() const { return m_transitWalkWeightFactor; }
+  double GetTransitTransferFactor() const { return m_transitTransferFactor; }
+
   double CalcHeuristic(ms::LatLon const & from, ms::LatLon const & to) const;
   // Estimates time in seconds it takes to go from point |from| to point |to| along a leap (fake)
   // edge |from|-|to| using real features.
@@ -77,6 +89,8 @@ private:
   double const m_maxWeightSpeedMpS;
   SpeedKMpH const m_offroadSpeedKMpH;
   Strategy m_strategy = Strategy::Normal;
+  double m_transitWalkWeightFactor = 1.0;
+  double m_transitTransferFactor = 1.0;
 
   // DataSource * m_dataSourcePtr;
   // std::shared_ptr<NumMwmIds> m_numMwmIds;

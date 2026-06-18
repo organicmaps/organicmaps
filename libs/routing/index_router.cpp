@@ -442,20 +442,22 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
     {
       code = DoCalculateRoute(checkpoints, startDirection, delegate, route);
 
-      // Compute a Shortest-strategy alternative alongside the Normal route. Only on a full (non-adjust)
-      // build and only within a reasonable distance budget — alt computation roughly doubles latency.
-      // Transit has no meaningful Shortest alternative (route is fixed by the transit network).
+      // Compute an alternative alongside the Normal route. Only on a full (non-adjust) build and only
+      // within a reasonable distance budget — alt computation roughly doubles latency. Road vehicles
+      // get a Shortest-strategy alternative; transit gets a less-walking / fewer-transfers alternative
+      // (e.g. a direct bus instead of subway + walk).
       double const altMaxDistanceM = m_vehicleType == VehicleType::Car ? 300'000.0 : 100'000.0;
       if ((code == RouterResultCode::NoError || code == RouterResultCode::HasWarnings) && !delegate.IsCancelled() &&
-          m_vehicleType != VehicleType::Transit && mercator::DistanceOnEarth(startPoint, finalPoint) <= altMaxDistanceM)
+          mercator::DistanceOnEarth(startPoint, finalPoint) <= altMaxDistanceM)
       {
-        // Save the Normal route's adjust-cache; the Shortest computation would overwrite it.
+        // Save the Normal route's adjust-cache; the alternative computation would overwrite it.
         auto savedLastRoute = std::move(m_lastRoute);
         auto savedLastFakeEdges = std::move(m_lastFakeEdges);
         SCOPE_GUARD(restoreNormal, [&]
         {
           m_estimator->SetStrategy(EdgeEstimator::Strategy::Normal);
-          // Save the Shortest route's adjust-cache.
+          m_estimator->SetTransitAltFactors(1.0, 1.0);
+          // Save the alternative route's adjust-cache.
           m_lastAltRoute = std::move(m_lastRoute);
           m_lastAltFakeEdges = std::move(m_lastFakeEdges);
           // Restore the Normal cache.
@@ -463,7 +465,16 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
           m_lastFakeEdges = std::move(savedLastFakeEdges);
         });
 
-        m_estimator->SetStrategy(EdgeEstimator::Strategy::Shortest);
+        if (m_vehicleType == VehicleType::Transit)
+        {
+          // 2x walking weight and 2x transfer/boarding penalty bias the alternative toward fewer
+          // transfers and less walking, so a direct transit line can outweigh a faster subway + walk.
+          m_estimator->SetTransitAltFactors(2.0 /* walk */, 2.0 /* transfer */);
+        }
+        else
+        {
+          m_estimator->SetStrategy(EdgeEstimator::Strategy::Shortest);
+        }
         altCode = DoCalculateRoute(checkpoints, startDirection, delegate, altRoute);
       }
     }
@@ -478,9 +489,15 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
   if (code == RouterResultCode::NoError || code == RouterResultCode::HasWarnings)
   {
     // Calculate middle point of the longest length-diff part. nullopt if routes are equal.
+    // Transit is distinguished by fake transit (subway/bus) segments, so compare by geometry;
+    // road vehicles compare by real-road feature identity.
     std::optional<m2::PointD> diffMidpoint;
     if ((altCode == RouterResultCode::NoError || altCode == RouterResultCode::HasWarnings) && altRoute.IsValid())
-      diffMidpoint = altRoute.FindMaxDiffMidpoint(route.GetRouteSegments());
+    {
+      diffMidpoint = m_vehicleType == VehicleType::Transit
+                       ? altRoute.FindMaxDiffMidpointByGeometry(route.GetRouteSegments())
+                       : altRoute.FindMaxDiffMidpoint(route.GetRouteSegments());
+    }
 
     result.MakeFrom(GetName(), std::move(route));
     if (diffMidpoint)

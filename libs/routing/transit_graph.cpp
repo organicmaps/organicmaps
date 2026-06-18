@@ -127,7 +127,10 @@ RouteWeight TransitGraph::GetTransferPenalty(Segment const & from, Segment const
     // 3. |from| is edge, |to| is edge from another line directly connected to |from|.
     auto const it = m_transferPenaltiesSubway.find(lineIdTo);
     CHECK(it != m_transferPenaltiesSubway.cend(), ("Segment", to, "belongs to unknown line:", lineIdTo));
-    return RouteWeight(it->second /* weight */, 0 /* nonPassThrougCross */, 0 /* numAccessChanges */,
+    // Scale only the routing weight (not transitTime) to bias the alternative route away from
+    // transfers; factor is 1.0 for the primary route.
+    double const penalty = it->second * m_estimator->GetTransitTransferFactor();
+    return RouteWeight(penalty /* weight */, 0 /* nonPassThrougCross */, 0 /* numAccessChanges */,
                        0 /* numAccessConditionalPenalties */, it->second /* transitTime */);
   }
   else if (m_transitVersion == ::transit::TransitVersion::AllPublicTransport)
@@ -158,8 +161,9 @@ RouteWeight TransitGraph::GetTransferPenalty(Segment const & from, Segment const
     // We need to call GetFrequency(time).
     size_t const headwayS = it->second.GetFrequency() / 2;
 
-    return RouteWeight(static_cast<double>(headwayS) /* weight */, 0 /* nonPassThroughCross */,
-                       0 /* numAccessChanges */, 0 /* numAccessConditionalPenalties */, headwayS /* transitTime */);
+    double const penalty = static_cast<double>(headwayS) * m_estimator->GetTransitTransferFactor();
+    return RouteWeight(penalty /* weight */, 0 /* nonPassThroughCross */, 0 /* numAccessChanges */,
+                       0 /* numAccessConditionalPenalties */, headwayS /* transitTime */);
   }
 
   CHECK(false, (m_transitVersion));

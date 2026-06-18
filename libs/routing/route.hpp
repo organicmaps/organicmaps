@@ -308,7 +308,13 @@ public:
 
   /// \returns The midpoint of the longest divergence span — used to place the ETA balloon
   /// where the alt actually differs from |origin| — or nullopt if the route fails the threshold (equal).
+  /// Diff is measured by real road-segment feature identity (suitable for road vehicles).
   std::optional<m2::PointD> FindMaxDiffMidpoint(std::vector<RouteSegment> const & origin) const;
+
+  /// \brief Same as FindMaxDiffMidpoint but measures the diff by junction geometry instead of
+  /// feature identity. Used for transit, where the routes are distinguished by fake transit
+  /// (subway/bus) segments that carry no meaningful, reload-stable feature id.
+  std::optional<m2::PointD> FindMaxDiffMidpointByGeometry(std::vector<RouteSegment> const & origin) const;
 
   /// \brief Polyline midpoint of segments [beginIdx, endIdx] interpolated to half their geodesic
   /// length. The 0-based indexing is into m_routeSegments; the previous "junction" of segment 0
@@ -377,6 +383,11 @@ public:
 
 protected:
   void SetRouteSegments(std::vector<RouteSegment> && routeSegments);
+
+  // Shared core of FindMaxDiffMidpoint*: |isDiff(i)| flags m_routeSegments[i] as diverging from the
+  // origin route. Tracks total diff length (significance gate) and the longest diff run (balloon pivot).
+  template <class DiffFnT>
+  std::optional<m2::PointD> FindMaxDiffMidpointImpl(DiffFnT const & isDiff) const;
 
   std::vector<RouteSegment> m_routeSegments;
   // |m_haveAltitudes| is true if and only if all route points have altitude information.

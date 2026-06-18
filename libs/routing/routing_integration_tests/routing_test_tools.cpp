@@ -170,6 +170,40 @@ TRouteResult CalculateRoute(IRouterComponents const & routerComponents, Checkpoi
   return TRouteResult(PromoteActive(res), result);
 }
 
+TRoutesResult CalculateRoutes(IRouterComponents const & routerComponents, Checkpoints const & checkpoints)
+{
+  RouterDelegate delegate;
+  RoutesResult res("mapsme", 0 /* routes id */);
+  RouterResultCode const result = routerComponents.GetRouter().CalculateRoute(
+      checkpoints, m2::PointD::Zero() /* startDirection */, false /* adjust */, delegate, res);
+  routerComponents.GetRouter().SetGuides({});
+
+  vector<shared_ptr<Route>> routes;
+  if (res.IsValid())
+  {
+    // Active (primary) route first, then the remaining alternatives in their stored order.
+    routes.push_back(make_shared<Route>(res.m_routes[res.m_activeIdx]));
+    for (size_t i = 0; i < res.m_routes.size(); ++i)
+      if (i != res.m_activeIdx)
+        routes.push_back(make_shared<Route>(res.m_routes[i]));
+  }
+  return {std::move(routes), result};
+}
+
+double GetWalkDistanceMeters(Route const & route)
+{
+  double walkMeters = 0.0;
+  double prevMeters = 0.0;
+  for (auto const & s : route.GetRouteSegments())
+  {
+    double const curMeters = s.GetDistFromBeginningMeters();
+    if (!s.HasTransitInfo())
+      walkMeters += curMeters - prevMeters;
+    prevMeters = curMeters;
+  }
+  return walkMeters;
+}
+
 void TestTurnCount(routing::Route const & route, uint32_t expectedTurnCount)
 {
   // We use -1 for ignoring the "ReachedYourDestination" turn record.

@@ -764,15 +764,18 @@ bool RoutingManager::InsertRoute(RoutesResult const & result)
   RoadWarningsCollection roadWarnings;
 
   bool const isTransitRoute = (m_currentRouterType == RouterType::Transit);
-  std::shared_ptr<TransitRouteDisplay> transitRouteDisplay;
-  if (isTransitRoute)
+  auto const makeTransitRouteDisplay = [this]()
   {
     // clang-format off
-    transitRouteDisplay = std::make_shared<TransitRouteDisplay>(*m_transitReadManager,
+    return std::make_shared<TransitRouteDisplay>(*m_transitReadManager,
           [this](routing::NumMwmId numMwmId) { return GetMwmId(numMwmId); },
           m_callbacks.m_stringsBundleGetter, m_bmManager, m_transitSymbolSizes);
     // clang-format on
-  }
+  };
+
+  std::shared_ptr<TransitRouteDisplay> transitRouteDisplay;
+  if (isTransitRoute)
+    transitRouteDisplay = makeTransitRouteDisplay();
 
   // In follow (navigation) mode only the active route is drawn — alternatives and ETA balloons
   // would clutter the moving map and the ETA is shown in the navigation UI instead.
@@ -780,9 +783,16 @@ bool RoutingManager::InsertRoute(RoutesResult const & result)
   if (!isFollowing)
   {
     for (size_t i = 0; i < result.m_routes.size(); ++i)
-      if (i != result.m_activeIdx)
-        InsertSingleRoute(result.m_routes[i], false /* isActive */, 0.0 /* depthOffset */, transitRouteDisplay,
-                          roadWarnings);
+    {
+      if (i == result.m_activeIdx)
+        continue;
+      // A TransitRouteDisplay accumulates steps/distance across all subroutes fed to it, so an
+      // alternative route must use its own throwaway display: it draws just its (muted) polyline,
+      // without corrupting the active route's distance/steps or duplicating its stop marks (the
+      // alt's display is never asked for route info or marks).
+      auto const altDisplay = isTransitRoute ? makeTransitRouteDisplay() : transitRouteDisplay;
+      InsertSingleRoute(result.m_routes[i], false /* isActive */, 0.0 /* depthOffset */, altDisplay, roadWarnings);
+    }
   }
   // Lift the active route by 10 so it stays above alternative subroutes even when polylines overlap.
   // The offset must exceed the per-route subroute count (count is typically 1, so 10 is plenty).
