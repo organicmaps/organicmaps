@@ -218,6 +218,21 @@
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "ساختمان های سه بعدی در حالت صرفه جویی در مصرف برق خاموش می شوند";
 
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "تصاویر ماهواره‌ای";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "نشانی سرور";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "اندازهٔ حافظهٔ نهان (مگابایت)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "کدری اشیای سطحی";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "منابع کاشی‌های سفارشی را شما فراهم می‌کنید. فقط از سرویس‌هایی استفاده کنید که اجازهٔ دسترسی به آن‌ها را دارید. شما مسئول ذکر منبع، شرایط مجوز، کلیدهای API، سهمیه‌ها و محدودیت‌های استفاده هستید.";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "دستور العمل صوتی";
 

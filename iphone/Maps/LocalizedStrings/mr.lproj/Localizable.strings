@@ -218,6 +218,21 @@
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "3D इमारती वीज बचत मोडमध्ये बंद केल्या आहेत";
 
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "उपग्रह प्रतिमा";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "सर्व्हर URL";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "कॅशे आकार (MB)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "क्षेत्र वस्तूंची अपारदर्शकता";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "सानुकूल टाइल स्रोत आपण पुरवता. केवळ ज्या सेवांमध्ये प्रवेशाची परवानगी आपल्याला आहे त्याच वापरा. श्रेय, परवाना अटी, API की, कोटा आणि वापर मर्यादांसाठी आपण जबाबदार आहात.";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "ध्वनी सूचना";
 

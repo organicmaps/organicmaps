@@ -219,6 +219,16 @@
     <string name="pref_map_3d_buildings_title">Edifici 3D</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">Gli edifici 3D sono disattivati in modalità risparmio energetico</string>
+    <!-- Settings: title of the satellite imagery (custom raster tiles) screen -->
+    <string name="pref_bg_tiles_title">Immagini satellitari</string>
+    <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
+    <string name="pref_bg_tiles_url_title">URL del server</string>
+    <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
+    <string name="pref_bg_tiles_size_title">Dimensione della cache (MB)</string>
+    <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
+    <string name="pref_bg_tiles_opacity_title">Opacità degli oggetti areali</string>
+    <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
+    <string name="pref_bg_tiles_disclaimer">Le fonti dei tasselli personalizzati sono fornite da te. Utilizza solo i servizi a cui sei autorizzato ad accedere. Sei responsabile dell\'attribuzione, dei termini di licenza, delle chiavi API, delle quote e dei limiti di utilizzo.</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Istruzioni vocali</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->

@@ -218,6 +218,21 @@
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "3D зграде се не приказују у режиму чувања батерије";
 
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "Сателитски снимци";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "URL сервера";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "Величина кеша (MB)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "Непрозирност површинских објеката";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "Изворе прилагођених плочица обезбеђујете ви. Користите само услуге којима смете да приступате. Ви сте одговорни за приписивање ауторства, услове лиценце, API кључеве, квоте и ограничења коришћења.";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Гласовне инструкције";
 

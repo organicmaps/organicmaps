@@ -219,6 +219,16 @@
     <string name="pref_map_3d_buildings_title">Τρισδιάστατα κτίρια</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">Τα τρισδιάστατα κτίρια είναι απενεργοποιημένα σε λειτουργία εξοικονόμησης ενέργειας</string>
+    <!-- Settings: title of the satellite imagery (custom raster tiles) screen -->
+    <string name="pref_bg_tiles_title">Δορυφορικές εικόνες</string>
+    <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
+    <string name="pref_bg_tiles_url_title">URL διακομιστή</string>
+    <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
+    <string name="pref_bg_tiles_size_title">Μέγεθος προσωρινής μνήμης (MB)</string>
+    <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
+    <string name="pref_bg_tiles_opacity_title">Αδιαφάνεια αντικειμένων επιφάνειας</string>
+    <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
+    <string name="pref_bg_tiles_disclaimer">Οι πηγές προσαρμοσμένων πλακιδίων παρέχονται από εσάς. Χρησιμοποιείτε μόνο υπηρεσίες στις οποίες επιτρέπεται να έχετε πρόσβαση. Είστε υπεύθυνοι για την αναφορά προέλευσης, τους όρους άδειας, τα κλειδιά API, τις ποσοστώσεις και τα όρια χρήσης.</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Φωνητικές οδηγίες</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->

@@ -218,6 +218,21 @@
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "3D 建築在省電模式下將會關閉";
 
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "衛星影像";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "伺服器 URL";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "快取大小 (MB)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "面狀物件不透明度";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "自訂圖磚來源由您自行提供。請僅使用您有權存取的服務。出處標示、授權條款、API 金鑰、配額與使用限制由您自行負責。";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "語音提示";
 

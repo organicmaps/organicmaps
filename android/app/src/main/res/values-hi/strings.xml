@@ -219,6 +219,16 @@
     <string name="pref_map_3d_buildings_title">3डी इमारतें</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">3डी इमारतें बिजली बचत मोड में अक्षम हैं</string>
+    <!-- Settings: title of the satellite imagery (custom raster tiles) screen -->
+    <string name="pref_bg_tiles_title">उपग्रह छवियाँ</string>
+    <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
+    <string name="pref_bg_tiles_url_title">सर्वर URL</string>
+    <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
+    <string name="pref_bg_tiles_size_title">कैश आकार (MB)</string>
+    <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
+    <string name="pref_bg_tiles_opacity_title">क्षेत्र वस्तुओं की अपारदर्शिता</string>
+    <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
+    <string name="pref_bg_tiles_disclaimer">कस्टम टाइल स्रोत आपके द्वारा प्रदान किए जाते हैं। केवल उन्हीं सेवाओं का उपयोग करें जिन तक पहुँच की अनुमति आपको है। एट्रिब्यूशन, लाइसेंस शर्तों, API कुंजियों, कोटा और उपयोग सीमाओं के लिए आप ज़िम्मेदार हैं।</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">ध्वनि निर्देश</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->

@@ -218,6 +218,21 @@
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "3D-rakennukset ovat poissa päältä virransäästötilassa";
 
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "Satelliittikuvat";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "Palvelimen URL-osoite";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "Välimuistin koko (Mt)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "Aluekohteiden peittävyys";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "Mukautetut ruutulähteet tarjoat sinä. Käytä vain palveluita, joihin sinulla on käyttöoikeus. Vastaat itse lähdemerkinnästä, lisenssiehdoista, API-avaimista, kiintiöistä ja käyttörajoituksista.";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Ääniohjeistukset";
 
