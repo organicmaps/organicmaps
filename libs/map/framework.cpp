@@ -347,6 +347,10 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   std::string mapStyleStr;
   if (settings::Get(kMapStyleKey, mapStyleStr))
     mapStyle = MapStyleFromSettings(mapStyleStr);
+  // Older builds and iOS persisted only the Outdoors MapStyle, not the layer flag. Keep the flag in
+  // sync so the core can resolve the base family from it.
+  if (mapStyle == MapStyleOutdoorsLight || mapStyle == MapStyleOutdoorsDark)
+    SaveOutdoorsEnabled(true);
   // A persisted Vehicle style is a transient navigation override applied only while following.
   // There is no active route at startup, so collapse it to the base family (Outdoors/Default per
   // the layer flag) at the same darkness.
@@ -356,6 +360,7 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
     mapStyle = GetMapStyleForFamily(baseFamily, MapStyleIsDark(mapStyle));
   }
   GetStyleReader().SetCurrentStyle(mapStyle);
+  m_nightMode = MapStyleIsDark(mapStyle);
   df::LoadTransitColors();
 
   // Init strings bundle.
@@ -2000,6 +2005,37 @@ void Framework::SetMapStyle(MapStyle mapStyle)
   InvalidateUserMarks();
   UpdateBookmarksTextPlacement();
   UpdateMinBuildingsTapZoom();
+}
+
+void Framework::SetNightMode(bool nightMode)
+{
+  m_nightMode = nightMode;
+}
+
+MapStyle Framework::ResolveMapStyleForMode() const
+{
+  auto const & rm = GetRoutingManager();
+  MapStyleFamily family;
+  if (rm.IsRoutingFollowing() && rm.GetRouter() == routing::RouterType::Vehicle)
+    family = MapStyleFamily::Vehicle;
+  else if (LoadOutdoorsEnabled())
+    family = MapStyleFamily::Outdoors;
+  else
+    family = MapStyleFamily::Default;
+  return GetMapStyleForFamily(family, m_nightMode);
+}
+
+void Framework::ApplyMapStyleForMode()
+{
+  auto const style = ResolveMapStyleForMode();
+  if (style != GetMapStyle())
+    SetMapStyle(style);
+}
+
+void Framework::ApplyMapStyleForMode(bool nightMode)
+{
+  SetNightMode(nightMode);
+  ApplyMapStyleForMode();
 }
 
 MapStyle Framework::GetMapStyle() const
@@ -3730,6 +3766,14 @@ void Framework::OnRouteFollow(routing::RouterType type)
   // |isArrowGlued| parameter fully corresponds to |m_matchRoute| in RoutingSettings.
   // For pedestrian and bicycle modes, use compass heading when stopped (isArrowGlued = false).
   m_drapeEngine->FollowRoute(scale, scale3d, enableAutoZoom, !(isPedestrianRoute || isBicycleRoute) /* isArrowGlued */);
+}
+
+// RoutingManager::Delegate
+void Framework::OnRoutingSessionStateChanged()
+{
+  // Entered or left active navigation; re-resolve the map style family at the night mode the
+  // platform last supplied.
+  ApplyMapStyleForMode();
 }
 
 // RoutingManager::Delegate

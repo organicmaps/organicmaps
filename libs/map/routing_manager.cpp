@@ -364,6 +364,13 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
         m_routeSpeedCamsClearCallback();
     });
   });
+
+  m_routingSession.SetChangeSessionStateCallback([this](SessionState, SessionState)
+  {
+    // IsFollowing() is updated by the session right after this callback returns, so defer the
+    // map-style resolution to the next GUI loop where the navigation state is final.
+    GetPlatform().RunTask(Platform::Thread::Gui, [this]() { m_delegate.OnRoutingSessionStateChanged(); });
+  });
 }
 
 void RoutingManager::SetBookmarkManager(BookmarkManager * bmManager)
