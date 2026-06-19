@@ -61,8 +61,12 @@
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
 {
   [super traitCollectionDidChange:previousTraitCollection];
-  // Update the app theme when the device appearance is changing.
-  if ([self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection])
+  // React only to a genuine light/dark switch: the map style and themed colors depend
+  // solely on userInterfaceStyle. -hasDifferentColorAppearanceComparedToTraitCollection: also
+  // fires on contrast/gamut/interface-level deltas, and macOS emits such spurious trait changes
+  // on focus loss/restore. Re-deriving the map style there flips an active vehicle route to the
+  // dimmed MapStyleVehicle* palette.
+  if (self.traitCollection.userInterfaceStyle != previousTraitCollection.userInterfaceStyle)
     [MWMThemeManager invalidate];
 }
 
