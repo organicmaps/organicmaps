@@ -1,10 +1,13 @@
 #import "MWMSettings.h"
+#import "MWMAuthorizationCommon.h"
 #import "MWMCoreUnits.h"
 #import "MWMMapViewControlsManager.h"
 #import "SwiftBridge.h"
 
 #include <CoreApi/Framework.h>
 #include <CoreApi/Logger.h>
+
+#include "map/gps_tracker.hpp"
 
 namespace
 {
@@ -20,9 +23,15 @@ NSString * const kSpotlightLocaleLanguageId = @"SpotlightLocaleLanguageId";
 NSString * const kUDTrackWarningAlertWasShown = @"TrackWarningAlertWasShown";
 NSString * const kiCLoudSynchronizationEnabledKey = @"iCLoudSynchronizationEnabled";
 NSString * const kUDFileLoggingEnabledKey = @"FileLoggingEnabledKey";
+NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidShowICloudSynchronizationEnablingAlert";
 }  // namespace
 
 @implementation MWMSettings
+
++ (NSString *)osmUserName
+{
+  return osm_auth_ios::OSMUserName();
+}
 
 + (BOOL)autoDownloadEnabled
 {
@@ -162,6 +171,85 @@ NSString * const kUDFileLoggingEnabledKey = @"FileLoggingEnabledKey";
   f.AllowTransliteration(isTransliteration);
 }
 
++ (BOOL)map3dBuildingsEnabled
+{
+  bool allow3d = true, allow3dBuildings = true;
+  GetFramework().Load3dMode(allow3d, allow3dBuildings);
+  return allow3dBuildings;
+}
+
++ (void)setMap3dBuildingsEnabled:(BOOL)enabled
+{
+  auto & f = GetFramework();
+  bool allow3d = true, allow3dBuildings = true;
+  f.Load3dMode(allow3d, allow3dBuildings);
+  allow3dBuildings = static_cast<bool>(enabled);
+  f.Save3dMode(allow3d, allow3dBuildings);
+  f.Allow3dMode(allow3d, allow3dBuildings);
+}
+
++ (BOOL)perspectiveViewEnabled
+{
+  bool allow3d = true, allow3dBuildings = true;
+  GetFramework().Load3dMode(allow3d, allow3dBuildings);
+  return allow3d;
+}
+
++ (void)setPerspectiveViewEnabled:(BOOL)enabled
+{
+  auto & f = GetFramework();
+  bool allow3d = true, allow3dBuildings = true;
+  f.Load3dMode(allow3d, allow3dBuildings);
+  allow3d = static_cast<bool>(enabled);
+  f.Save3dMode(allow3d, allow3dBuildings);
+  f.Allow3dMode(allow3d, allow3dBuildings);
+}
+
++ (BOOL)autoZoomEnabled
+{
+  return GetFramework().LoadAutoZoom();
+}
+
++ (void)setAutoZoomEnabled:(BOOL)enabled
+{
+  auto & f = GetFramework();
+  f.AllowAutoZoom(enabled);
+  f.SaveAutoZoom(enabled);
+}
+
++ (MWMSettingsPowerManagement)powerManagement
+{
+  using power_management::Scheme;
+  switch (GetFramework().GetPowerManager().GetScheme())
+  {
+  case Scheme::None: return MWMSettingsPowerManagementNone;
+  case Scheme::Normal: return MWMSettingsPowerManagementNormal;
+  case Scheme::EconomyMedium: return MWMSettingsPowerManagementEconomyMedium;
+  case Scheme::EconomyMaximum: return MWMSettingsPowerManagementEconomyMaximum;
+  case Scheme::Auto: return MWMSettingsPowerManagementAuto;
+  }
+}
+
++ (void)setPowerManagement:(MWMSettingsPowerManagement)powerManagement
+{
+  using power_management::Scheme;
+  Scheme scheme = Scheme::Auto;
+  switch (powerManagement)
+  {
+  case MWMSettingsPowerManagementNone: scheme = Scheme::None; break;
+  case MWMSettingsPowerManagementNormal: scheme = Scheme::Normal; break;
+  case MWMSettingsPowerManagementEconomyMedium: scheme = Scheme::EconomyMedium; break;
+  case MWMSettingsPowerManagementEconomyMaximum: scheme = Scheme::EconomyMaximum; break;
+  case MWMSettingsPowerManagementAuto: scheme = Scheme::Auto; break;
+  }
+  GetFramework().GetPowerManager().SetScheme(scheme);
+}
+
++ (BOOL)isPowerManagementMaximum
+{
+  return [self powerManagement] == MWMSettingsPowerManagementEconomyMaximum;
+}
+
 + (BOOL)isTrackWarningAlertShown
 {
   return [NSUserDefaults.standardUserDefaults boolForKey:kUDTrackWarningAlertWasShown];
@@ -195,6 +283,16 @@ NSString * const kUDFileLoggingEnabledKey = @"FileLoggingEnabledKey";
   GetFramework().SetShowDownloadedRegions(isEnabled);
 }
 
++ (MWMNetworkPolicyPermission)mobileInternetPermission
+{
+  return MWMNetworkPolicy.sharedPolicy.permission;
+}
+
++ (void)setMobileInternetPermission:(MWMNetworkPolicyPermission)permission
+{
+  MWMNetworkPolicy.sharedPolicy.permission = permission;
+}
+
 + (BOOL)iCLoudSynchronizationEnabled
 {
   return [NSUserDefaults.standardUserDefaults boolForKey:kiCLoudSynchronizationEnabledKey];
@@ -222,6 +320,60 @@ NSString * const kUDFileLoggingEnabledKey = @"FileLoggingEnabledKey";
 {
   [NSUserDefaults.standardUserDefaults setBool:fileLoggingEnabled forKey:kUDFileLoggingEnabledKey];
   [Logger setFileLoggingEnabled:fileLoggingEnabled];
+}
+
++ (uint64_t)logFileSize
+{
+  return [Logger getLogFileSize];
+}
+
++ (BOOL)didShowICloudSynchronizationEnablingAlert
+{
+  return [NSUserDefaults.standardUserDefaults boolForKey:kUDDidShowICloudSynchronizationEnablingAlert];
+}
+
++ (void)setICloudSynchronizationEnablingAlertShown
+{
+  [NSUserDefaults.standardUserDefaults setBool:YES forKey:kUDDidShowICloudSynchronizationEnablingAlert];
+}
+
++ (BOOL)backgroundTilesEnabled
+{
+  return GetFramework().IsBackgroundTilesEnabled();
+}
+
++ (void)setBackgroundTilesEnabled:(BOOL)enabled
+{
+  GetFramework().SetBackgroundTilesEnabled(enabled);
+}
+
++ (NSInteger)backgroundTilesAreaOpacityPct
+{
+  return static_cast<NSInteger>(GetFramework().GetBackgroundTilesAreaOpacity());
+}
+
++ (NSString *)backgroundTilesURL
+{
+  return @(Framework::GetBackgroundTilesURL().c_str());
+}
+
++ (NSInteger)backgroundTilesCacheSizeMB
+{
+  return static_cast<NSInteger>(Framework::GetBackgroundTilesCacheSize());
+}
+
++ (void)setBackgroundTilesEnabled:(BOOL)enabled
+                              url:(NSString *)url
+                      cacheSizeMB:(NSInteger)cacheSizeMB
+                   areaOpacityPct:(NSInteger)areaOpacityPct
+{
+  GetFramework().SetBackgroundTiles(enabled, url.UTF8String, static_cast<uint32_t>(cacheSizeMB),
+                                    static_cast<uint32_t>(areaOpacityPct));
+}
+
++ (BOOL)isWellFormedBackgroundTilesURL:(NSString *)url
+{
+  return Framework::IsWellFormedBackgroundTilesURL(url.UTF8String);
 }
 
 + (BOOL)canShowCrowdfundingPromo

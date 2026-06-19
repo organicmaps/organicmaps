@@ -1,13 +1,18 @@
 @objc
 final class SettingsTableViewSelectableCell: MWMTableViewCell {
-  override func awakeFromNib() {
-    super.awakeFromNib()
+  override init(style _: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    super.init(style: .default, reuseIdentifier: reuseIdentifier)
     setupCell()
   }
 
-  override func applyTheme() {
-    super.applyTheme()
-    textLabel?.applyTheme()
+  @available(*, unavailable)
+  required init?(coder: NSCoder) {
+    super.init(coder: coder)
+  }
+
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    setupCell()
   }
 
   private func setupCell() {
@@ -19,5 +24,10 @@ final class SettingsTableViewSelectableCell: MWMTableViewCell {
 
   @objc func config(title: String) {
     textLabel?.text = title
+  }
+
+  func config(title: String, isSelected: Bool) {
+    config(title: title)
+    accessoryType = isSelected ? .checkmark : .none
   }
 }

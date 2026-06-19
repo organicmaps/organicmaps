@@ -43,7 +43,6 @@ NSString * const kDownloaderSegue = @"Map2MapDownloaderSegue";
 NSString * const kEditorSegue = @"Map2EditorSegue";
 NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
 NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
-NSString * const kSettingsSegue = @"Map2Settings";
 // Mirrors kMapToCategorySelectorSegue in MWMMapViewControlsManager.mm.
 NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 }  // namespace
@@ -714,7 +713,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 - (void)openSettings
 {
-  [self performSegueWithIdentifier:kSettingsSegue sender:nil];
+  [self.navigationController pushViewController:[SettingsBuilder buildRoot] animated:YES];
 }
 
 - (void)openMapsDownloader:(MWMMapDownloaderMode)mode
@@ -744,9 +743,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 - (void)openDrivingOptions
 {
-  UIStoryboard * sb = [UIStoryboard instance:MWMStoryboardDrivingOptions];
-  UIViewController * vc = [sb instantiateInitialViewController];
-  [self.navigationController pushViewController:vc animated:YES];
+  [self.navigationController pushViewController:[SettingsBuilder buildDrivingOptions] animated:YES];
 }
 
 - (void)processMyPositionStateModeEvent:(MWMMyPositionMode)mode

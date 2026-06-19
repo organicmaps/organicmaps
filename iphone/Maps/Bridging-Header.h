@@ -35,7 +35,6 @@
 #import "MWMMapDownloaderPlaceTableViewCell.h"
 #import "MWMMapDownloaderSubplaceTableViewCell.h"
 #import "MWMMapDownloaderTableViewCell.h"
-#import "MWMMapTilesSettingsViewController.h"
 #import "MWMMapViewControlsCommon.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMMapWidgetsHelper.h"
