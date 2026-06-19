@@ -346,6 +346,14 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   std::string mapStyleStr;
   if (settings::Get(kMapStyleKey, mapStyleStr))
     mapStyle = MapStyleFromSettings(mapStyleStr);
+  // A persisted Vehicle style is a transient navigation override applied only while following.
+  // There is no active route at startup, so collapse it to the base family (Outdoors/Default per
+  // the layer flag) at the same darkness.
+  if (mapStyle == MapStyleVehicleLight || mapStyle == MapStyleVehicleDark)
+  {
+    auto const baseFamily = LoadOutdoorsEnabled() ? MapStyleFamily::Outdoors : MapStyleFamily::Default;
+    mapStyle = GetMapStyleForFamily(baseFamily, MapStyleIsDark(mapStyle));
+  }
   GetStyleReader().SetCurrentStyle(mapStyle);
   df::LoadTransitColors();
 
