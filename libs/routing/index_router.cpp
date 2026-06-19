@@ -655,6 +655,32 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints, 
         isStartSegmentStrictForward = startIsCodirectional;
     }
 
+    GateAccessesT startGateAccesses;
+    GateAccessesT finishGateAccesses;
+    if (m_vehicleType == VehicleType::Transit)
+    {
+      if (auto * transitGraph = dynamic_cast<TransitWorldGraph *>(graph.get()))
+      {
+        double constexpr kGateConnectRadiusM = 150.0;
+        auto const collect =
+            [&](FakeEnding & ending, m2::PointD const & checkpoint, bool isStart, GateAccessesT & gates)
+        {
+          if (ending.m_projections.empty())
+            return;
+          auto const mwmId = ending.m_projections.front().m_segment.GetMwmId();
+          transitGraph->GetGatesNear(mwmId, checkpoint, kGateConnectRadiusM, isStart /* isEnter */, gates);
+          for (auto const & gate : gates)
+          {
+            auto const & projection = gate.m_projection;
+            if (!base::IsExist(ending.m_projections, projection))
+              ending.m_projections.push_back(projection);
+          }
+        };
+        collect(startFakeEnding, startCheckpoint, true /* isStart / entrance gates */, startGateAccesses);
+        collect(finishFakeEnding, finishCheckpoint, false /* finish / exit gates */, finishGateAccesses);
+      }
+    }
+
     uint32_t const fakeNumerationStart = starter ? starter->GetNumFakeSegments() + startIdx : startIdx;
     IndexGraphStarter subrouteStarter(startFakeEnding, finishFakeEnding, fakeNumerationStart,
                                       isStartSegmentStrictForward, *graph);
@@ -664,6 +690,11 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints, 
       subrouteStarter.SetGuides(m_guides.GetGuidesGraph());
       AddGuidesOsmConnectionsToGraphStarter(i, i + 1, subrouteStarter);
     }
+
+    // Nearby gates are normal start/finish snapping candidates now; connect those candidate
+    // projections to their transit board/alight segments.
+    subrouteStarter.ConnectGateAccessesToTransit(startGateAccesses, true /* isStart */);
+    subrouteStarter.ConnectGateAccessesToTransit(finishGateAccesses, false /* isStart */);
 
     std::vector<Segment> subroute;
     double contributionCoef = kAlmostZeroContribution;

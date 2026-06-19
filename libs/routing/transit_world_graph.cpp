@@ -195,6 +195,12 @@ std::unique_ptr<TransitInfo> TransitWorldGraph::GetTransitInfo(Segment const & s
   return {};
 }
 
+void TransitWorldGraph::GetGatesNear(NumMwmId mwmId, m2::PointD const & point, double radiusM, bool isEnter,
+                                     GateAccessesT & out)
+{
+  GetTransitGraph(mwmId).GetGatesNear(point, radiusM, isEnter, out);
+}
+
 void TransitWorldGraph::GetTwinsInner(Segment const & segment, bool isOutgoing, TwinSegmentsListT & twins)
 {
   if (m_mode == WorldGraphMode::SingleMwm || !m_crossMwmGraph || !m_crossMwmGraph->IsTransition(segment, isOutgoing))

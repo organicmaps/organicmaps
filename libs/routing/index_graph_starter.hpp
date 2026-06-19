@@ -6,6 +6,7 @@
 #include "routing/fake_feature_ids.hpp"
 #include "routing/fake_graph.hpp"
 #include "routing/fake_vertex.hpp"
+#include "routing/gate_access.hpp"
 #include "routing/guides_graph.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/latlon_with_altitude.hpp"
@@ -88,6 +89,11 @@ public:
   RoutingOptions GetRoutingOptions(Segment const & segment) const;
 
   uint32_t GetNumFakeSegments() const { return base::checked_cast<uint32_t>(m_fake.GetSize()); }
+
+  // Connects nearby transit gate snapping candidates to their transit board/alight segments. The
+  // corresponding gate projections must already be present in the start/finish endings used to
+  // construct this starter.
+  void ConnectGateAccessesToTransit(GateAccessesT const & gates, bool isStart);
 
   std::set<NumMwmId> GetMwms() const;
   std::set<NumMwmId> const & GetStartMwms() const { return m_start.m_mwmIds; }
