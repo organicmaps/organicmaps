@@ -57,6 +57,11 @@ namespace routing
 namespace
 {
 size_t constexpr kMaxRoadCandidates = 10;
+// Minimum number of start/finish snapping candidates to feed A* before it picks the best one. If the
+// closest search radius yields fewer, the radius is widened. More valid projections never make the
+// route worse (A* still minimizes the total cost); it only trades a bit of search time for the chance
+// to snap onto a better segment than the single nearest road.
+size_t constexpr kMinRoadCandidates = 2;
 uint32_t constexpr kVisitPeriodForLeaps = 10;
 uint32_t constexpr kVisitPeriod = 40;
 
@@ -1335,20 +1340,21 @@ bool IndexRouter::PointsOnEdgesSnapping::FindBestSegments(m2::PointD const & che
                                                           bool & bestSegmentIsAlmostCodirectional)
 {
   std::vector<Edge> bestEdges;
-  if (!FindBestEdges(checkpoint, direction, isOutgoing, kFirstSearchDistanceM /* closestEdgesRadiusM */, bestEdges,
-                     bestSegmentIsAlmostCodirectional))
+
+  // Snap to the closest segments first, but keep widening the search radius while we have too few
+  // candidates, so A* can choose the best start/finish segment among several alternatives instead of
+  // being locked onto the first (often not the best) nearby road. The intentional single codirectional
+  // pick (a car starting in a known direction) short-circuits and is never widened.
+  for (double const radiusM : {double(kFirstSearchDistanceM), 500.0, 2000.0})
   {
-    if (!FindBestEdges(checkpoint, direction, isOutgoing, 500.0 /* closestEdgesRadiusM */, bestEdges,
-                       bestSegmentIsAlmostCodirectional) &&
-        bestEdges.size() < kMaxRoadCandidates)
-    {
-      if (!FindBestEdges(checkpoint, direction, isOutgoing, 2000.0 /* closestEdgesRadiusM */, bestEdges,
-                         bestSegmentIsAlmostCodirectional))
-      {
-        return false;
-      }
-    }
+    if (!FindBestEdges(checkpoint, direction, isOutgoing, radiusM, bestEdges, bestSegmentIsAlmostCodirectional))
+      continue;
+    if (bestSegmentIsAlmostCodirectional || bestEdges.size() >= kMinRoadCandidates)
+      break;
   }
+
+  if (bestEdges.empty())
+    return false;
 
   bestSegments.clear();
   for (auto const & edge : bestEdges)
