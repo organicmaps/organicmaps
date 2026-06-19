@@ -88,23 +88,6 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (BOOL)canShowRateUsRequest;
 + (void)didShowRateUsRequest;
 
-// Custom raster background tiles (Settings -> Background Map tiles). Values are persisted in the core
-// and kept even while disabled; the layer renders only when enabled with a non-empty URL. areaOpacityPct
-// (0..100) is the opacity of vector area fills drawn over the imagery. Apply them all at once (e.g. when
-// the tiles settings screen is dismissed).
-+ (void)setBackgroundTiles:(BOOL)enabled
-                       url:(NSString *)url
-               cacheSizeMB:(int)cacheSizeMB
-            areaOpacityPct:(int)areaOpacityPct;
-// Flips only the on/off flag, keeping the configured URL / cache size / area opacity.
-+ (void)setBackgroundTilesEnabled:(BOOL)enabled;
-+ (BOOL)isBackgroundTilesEnabled;
-+ (NSString *)backgroundTilesURL;
-+ (int)backgroundTilesCacheSizeMB;
-+ (int)backgroundTilesAreaOpacityPct;
-// Basic check: http(s):// scheme + host + literal {z}/{x}/{y} placeholders.
-+ (BOOL)isWellFormedBackgroundTilesURL:(NSString *)url;
-
 @end
 
 NS_ASSUME_NONNULL_END

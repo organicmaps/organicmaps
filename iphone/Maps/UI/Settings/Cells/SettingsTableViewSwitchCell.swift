@@ -28,21 +28,42 @@ class SettingsTableViewSwitchCell: MWMTableViewCell {
     switchButton.setOn(isOn, animated: animated)
   }
 
+  override init(style _: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+    setupCell()
+  }
+
+  @available(*, unavailable)
+  required init?(coder: NSCoder) {
+    super.init(coder: coder)
+  }
+
   override func awakeFromNib() {
     super.awakeFromNib()
     setupCell()
   }
 
   @objc
-  func config(delegate: SettingsTableViewSwitchCellDelegate, title: String, isOn: Bool) {
-    backgroundColor = .whitePrimary
+  func config(delegate: SettingsTableViewSwitchCellDelegate, title: String, subtitile: String? = nil, isOn: Bool) {
+    setStyle(.background)
 
     self.delegate = delegate
 
     textLabel?.text = title
     styleTitle()
 
+    detailTextLabel?.text = subtitile
+
     switchButton.isOn = isOn
+    accessoryType = .none
+    accessoryView = switchButton
+    selectionStyle = .none
+  }
+
+  @objc
+  func setDetail(_ text: String?) {
+    detailTextLabel?.text = text
+    setNeedsLayout()
   }
 
   private func setupCell() {
@@ -54,6 +75,10 @@ class SettingsTableViewSwitchCell: MWMTableViewCell {
     switchButton.onTintColor = .linkBlue
     switchButton.addTarget(self, action: #selector(switchChanged), for: .valueChanged)
     accessoryView = switchButton
+
+    detailTextLabel?.setFontStyleAndApply(.regular12, color: .blackSecondary)
+    detailTextLabel?.numberOfLines = 0
+    detailTextLabel?.lineBreakMode = .byWordWrapping
   }
 
   @objc
