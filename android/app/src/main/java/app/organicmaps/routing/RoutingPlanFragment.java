@@ -6,12 +6,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.DrawableRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,14 +33,14 @@ import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.routing.TransitRouteInfo;
 import app.organicmaps.settings.DrivingOptionsActivity;
 import app.organicmaps.util.UiUtils;
-import app.organicmaps.widget.RoutingToolbarButton;
-import app.organicmaps.widget.WheelProgressView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class RoutingPlanFragment extends Fragment implements View.OnLayoutChangeListener, RoutingBottomMenuListener
 {
   public static final String TAG = RoutingPlanFragment.class.getSimpleName();
+
+  private static final Router[] ROUTERS = Router.values();
 
   private RoutingPlanViewModel mViewModel;
   private View mChartPanel;
@@ -52,12 +50,6 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private View mRoutingRoot;
   private View mRoutingBottomContainer;
   private RadioGroup mRouterTypes;
-  private View mProgressFrame;
-  private WheelProgressView mProgressVehicle;
-  private WheelProgressView mProgressPedestrian;
-  private WheelProgressView mProgressTransit;
-  private WheelProgressView mProgressBicycle;
-  private WheelProgressView mProgressRuler;
   private RoutingBottomMenuController mRoutingBottomMenuController;
   private TextView mDrivingOptionsBadge;
   private View mSearchBtn;
@@ -88,7 +80,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private final Observer<int[]> mBuildProgressObserver = progress ->
   {
     if (progress != null)
-      updateBuildProgress(progress[0], Router.values()[progress[1]]);
+      updateBuildProgress(ROUTERS[progress[1]]);
   };
   private final Observer<Integer> mDrivingOptionsCountObserver = this::updateBadgeCount;
   private final Observer<Void> mDrivingOptionsErrorObserver = e -> onDrivingOptionsBuildError();
@@ -125,13 +117,6 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mBottomButtonsMaxHeight = getResources().getDimensionPixelSize(R.dimen.routing_bottom_buttons_max_height);
 
     setupRouterButtons();
-
-    mProgressFrame = mFrame.findViewById(R.id.progress_frame);
-    mProgressVehicle = mProgressFrame.findViewById(R.id.progress_vehicle);
-    mProgressPedestrian = mProgressFrame.findViewById(R.id.progress_pedestrian);
-    mProgressTransit = mProgressFrame.findViewById(R.id.progress_transit);
-    mProgressBicycle = mProgressFrame.findViewById(R.id.progress_bicycle);
-    mProgressRuler = mProgressFrame.findViewById(R.id.progress_ruler);
 
     mChartHeaderAdapter = new ChartHeaderAdapter(mChartPanel);
     mActionFrame = view.findViewById(R.id.routing_action_frame);
@@ -347,38 +332,18 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mViewModel.setRoutingBottomDistanceToTop(newDistanceTop);
   }
 
-  private void setupRouterButton(@IdRes int buttonId, final @DrawableRes int iconRes,
-                                 View.OnClickListener clickListener)
-  {
-    CompoundButton.OnCheckedChangeListener listener = (buttonView, isChecked) ->
-    {
-      RoutingToolbarButton button = (RoutingToolbarButton) buttonView;
-      button.setIcon(iconRes);
-      if (isChecked)
-        button.activate();
-      else
-        button.deactivate();
-    };
-
-    RoutingToolbarButton rb = mRouterTypes.findViewById(buttonId);
-    listener.onCheckedChanged(rb, false);
-    rb.setOnCheckedChangeListener(listener);
-    rb.setOnClickListener(clickListener);
-  }
-
   private void setupRouterButtons()
   {
-    setupRouterButton(R.id.vehicle, R.drawable.ic_car, selectRouter(Router.Vehicle));
-    setupRouterButton(R.id.pedestrian, R.drawable.ic_pedestrian, selectRouter(Router.Pedestrian));
-    setupRouterButton(R.id.transit, R.drawable.ic_transit, selectRouter(Router.Transit));
-    setupRouterButton(R.id.bicycle, R.drawable.ic_bike, selectRouter(Router.Bicycle));
-    setupRouterButton(R.id.ruler, app.organicmaps.sdk.R.drawable.ic_ruler_route, selectRouter(Router.Ruler));
+    setRouterClick(R.id.vehicle, Router.Vehicle);
+    setRouterClick(R.id.pedestrian, Router.Pedestrian);
+    setRouterClick(R.id.transit, Router.Transit);
+    setRouterClick(R.id.bicycle, Router.Bicycle);
+    setRouterClick(R.id.ruler, Router.Ruler);
   }
 
-  @NonNull
-  private static View.OnClickListener selectRouter(@NonNull Router router)
+  private void setRouterClick(@IdRes int buttonId, @NonNull Router router)
   {
-    return v -> RoutingController.get().setRouterType(router);
+    mRouterTypes.findViewById(buttonId).setOnClickListener(v -> RoutingController.get().setRouterType(router));
   }
 
   @IdRes
@@ -394,47 +359,32 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     };
   }
 
-  @NonNull
-  private WheelProgressView routerToProgressView(@NonNull Router router)
-  {
-    return switch (router)
-    {
-      case Vehicle -> mProgressVehicle;
-      case Pedestrian -> mProgressPedestrian;
-      case Transit -> mProgressTransit;
-      case Bicycle -> mProgressBicycle;
-      case Ruler -> mProgressRuler;
-    };
-  }
-
   private void updateProgressLabels()
   {
-    RoutingController.BuildState buildState = RoutingController.get().getBuildState();
-    final boolean ready = (buildState == RoutingController.BuildState.BUILT);
-    if (!ready)
+    final RoutingController controller = RoutingController.get();
+    if (controller.getBuildState() != RoutingController.BuildState.BUILT)
     {
       mRoutingBottomMenuController.hideAltitudeChartAndRoutingDetails();
       return;
     }
 
-    if (isTransitType())
+    if (controller.isTransitType())
     {
-      TransitRouteInfo info = RoutingController.get().getCachedTransitInfo();
+      TransitRouteInfo info = controller.getCachedTransitInfo();
       if (info != null)
         mRoutingBottomMenuController.showTransitInfo(info);
       return;
     }
 
-    if (isRulerType())
+    if (controller.isRulerRouterType())
     {
-      RoutingInfo routingInfo = RoutingController.get().getCachedRoutingInfo();
+      RoutingInfo routingInfo = controller.getCachedRoutingInfo();
       if (routingInfo != null)
         mRoutingBottomMenuController.showRulerInfo(Framework.nativeGetRoutePoints(), routingInfo.distToTarget);
       return;
     }
 
-    // Ruler routes returned early above, so the start button is always shown at this point.
-    mRoutingBottomMenuController.setStartButton(true);
+    mRoutingBottomMenuController.setStartState(RoutingBottomMenuController.StartState.ENABLED);
     mRoutingBottomMenuController.showAltitudeChartAndRoutingDetails();
   }
 
@@ -451,43 +401,19 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     }
   }
 
-  private void updateBuildProgress(int progress, @NonNull Router router)
+  private void updateBuildProgress(@NonNull Router router)
   {
     if (getView() == null)
       return;
 
-    UiUtils.invisible(mProgressVehicle, mProgressPedestrian, mProgressTransit, mProgressBicycle, mProgressRuler);
     mRouterTypes.check(routerToButtonId(router));
-    final WheelProgressView progressView = routerToProgressView(router);
-
-    int bt = mRouterTypes.getCheckedRadioButtonId();
-    RoutingToolbarButton button = mRouterTypes.findViewById(bt);
-    if (button == null)
-      return;
-
-    button.progress();
     updateProgressLabels();
-
-    if (!RoutingController.get().isBuilding())
-    {
-      button.complete();
-      return;
-    }
-
-    UiUtils.show(progressView);
-    progressView.setPending(progress == 0);
-    if (progress != 0)
-      progressView.setProgress(progress);
-  }
-
-  private boolean isTransitType()
-  {
-    return RoutingController.get().isTransitType();
-  }
-
-  private boolean isRulerType()
-  {
-    return RoutingController.get().isRulerRouterType();
+    final RoutingController controller = RoutingController.get();
+    if (controller.isBuilding())
+      mRoutingBottomMenuController.setStartState(RoutingBottomMenuController.StartState.BUILDING);
+    else if (!controller.isBuilt())
+      // ERROR / NONE / cancelled: clear the spinner that BUILDING left behind.
+      mRoutingBottomMenuController.setStartState(RoutingBottomMenuController.StartState.DISABLED);
   }
 
   @Override

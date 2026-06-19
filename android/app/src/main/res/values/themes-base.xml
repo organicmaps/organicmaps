@@ -83,7 +83,8 @@
     <item name="downloaderTheme">@style/MwmTheme.Downloader</item>
     <item name="navigationTheme">@style/MwmTheme.Navigation</item>
 
-    <item name="routingButtonHint">@color/routing_button_tint</item>
+    <item name="routingTabPillBg">@color/bg_search</item>
+    <item name="routingTabActiveBg">@color/routing_tab_active_bg</item>
 
     <item name="android:listDivider">@drawable/list_divider</item>
 

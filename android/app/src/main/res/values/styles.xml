@@ -91,6 +91,12 @@
     <item name="android:textAppearance">@style/MwmTextAppearance.Body3</item>
   </style>
 
+  <style name="MwmWidget.RoutingToolbarCell">
+    <item name="android:layout_width">0dp</item>
+    <item name="android:layout_height">@dimen/routing_toolbar_cell_height</item>
+    <item name="android:layout_weight">1</item>
+  </style>
+
   <style name="MwmWidget.Button.Primary">
     <item name="android:background">?primaryButtonBackground</item>
     <item name="android:minWidth">@dimen/primary_button_min_width</item>
@@ -116,17 +122,6 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">30dp</item>
     </style>
-
-  <style name="MwmWidget.ProgressWheel.RoutingPlan">
-    <item name="android:layout_width">@dimen/routing_selector_wheel_size</item>
-    <item name="android:layout_height">@dimen/routing_selector_wheel_size</item>
-    <item name="android:visibility">invisible</item>
-    <item name="android:background">?selectableItemBackgroundBorderless</item>
-    <item name="centerDrawable">@android:color/transparent</item>
-    <item name="wheelProgressColor">?routingButtonHint</item>
-    <item name="wheelSecondaryColor">@android:color/transparent</item>
-    <item name="wheelThickness">@dimen/margin_eighth</item>
-  </style>
 
   <style name="MwmWidget.Floating">
     <item name="android:elevation">@dimen/appbar_elevation</item>
