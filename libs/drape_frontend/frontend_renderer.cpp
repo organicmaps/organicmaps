@@ -1112,6 +1112,9 @@ void FrontendRenderer::UpdateContextDependentResources()
 {
   ++m_lastRecacheRouteId;
 
+  // Route buckets and preview circle packs keep style/visual-scale data in GPU buffers.
+  m_routeRenderer->ClearContextDependentResources();
+
   for (auto const & subroute : m_routeRenderer->GetSubroutes())
   {
     auto msg = make_unique_dp<AddSubrouteMessage>(subroute.m_subrouteId, subroute.m_subroute, m_lastRecacheRouteId);
