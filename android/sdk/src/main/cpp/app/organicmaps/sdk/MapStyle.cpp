@@ -24,4 +24,14 @@ JNIEXPORT void Java_app_organicmaps_sdk_MapStyle_nativeMark(JNIEnv *, jclass, ji
   if (val != g_framework->GetMapStyle())
     g_framework->MarkMapStyle(val);
 }
+
+JNIEXPORT jint Java_app_organicmaps_sdk_MapStyle_nativeResolveForMode(JNIEnv *, jclass)
+{
+  return static_cast<jint>(g_framework->NativeFramework()->ResolveMapStyleForMode());
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_MapStyle_nativeSetNightMode(JNIEnv *, jclass, jboolean nightMode)
+{
+  g_framework->NativeFramework()->SetNightMode(nightMode);
+}
 }

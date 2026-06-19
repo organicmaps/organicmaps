@@ -1250,7 +1250,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     closeFloatingToolbarsAndPanels();
     ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
-    ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
     NavigationService.stopService(this);
     mMapButtonsViewModel.setSearchOption(null);
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.regular);
@@ -1263,7 +1262,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (layoutMode == MapButtonsController.LayoutMode.navigation)
     {
       ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
-      ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
       Utils.keepScreenOn(true, getWindow());
     }
     mMapButtonsViewModel.setLayoutMode(layoutMode);
@@ -1275,7 +1273,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     closeFloatingToolbarsAndPanels();
     ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
-    ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.navigation);
     refreshLightStatusBar();
 
@@ -1312,7 +1309,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     closeFloatingToolbarsAndPanels();
     ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
-    ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
     NavigationService.stopService(this);
     mMapButtonsViewModel.setSearchOption(null);
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.planning);
