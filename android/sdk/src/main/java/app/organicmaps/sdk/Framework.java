@@ -38,6 +38,8 @@ import java.util.Locale;
  */
 public class Framework
 {
+  public static final int SEARCH_IN_VIEWPORT_ZOOM = 16;
+
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({DAY_TIME_TYPE_DAY, DAY_TIME_TYPE_NIGHT, DAY_TIME_TYPE_POLAR_DAY, DAY_TIME_TYPE_POLAR_NIGHT})
   public @interface DayTimeType
