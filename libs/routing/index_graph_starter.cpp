@@ -411,6 +411,33 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding)
   m_otherEndings.push_back(thisEnding);
 }
 
+void IndexGraphStarter::ConnectGateAccessesToTransit(GateAccessesT const & gates, bool isStart)
+{
+  if (gates.empty())
+    return;
+
+  Segment const originSegment = isStart ? GetStartSegment() : GetFinishSegment();
+  LatLonWithAltitude const origin = GetJunction(originSegment, true /* front */);
+
+  for (auto const & gate : gates)
+  {
+    auto const & projection = gate.m_projection;
+    FakeVertex const projectionVertex(projection.m_segment.GetMwmId(), isStart ? origin : projection.m_junction,
+                                      isStart ? projection.m_junction : origin, FakeVertex::Type::PureFake);
+
+    Segment projectionSegment;
+    CHECK(m_fake.FindSegment(projectionVertex, projectionSegment), (projection.m_segment, gate.m_entrySegment));
+
+    // Hop from the checkpoint's gate snap candidate onto the gate's transit boarding entry (handled
+    // by the world graph). |m_entrySegment| is a transit segment outside this fake graph, so use
+    // AddOuterConnection.
+    if (isStart)
+      m_fake.AddOuterConnection(projectionSegment, gate.m_entrySegment);
+    else
+      m_fake.AddOuterConnection(gate.m_entrySegment, projectionSegment);
+  }
+}
+
 void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding const & otherEnding, bool isStart,
                                   bool strictForward)
 {

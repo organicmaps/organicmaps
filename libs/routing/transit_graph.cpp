@@ -186,6 +186,17 @@ std::set<Segment> const & TransitGraph::GetFake(Segment const & real) const
   return m_fake.GetFake(real);
 }
 
+void TransitGraph::GetGatesNear(m2::PointD const & point, double radiusM, bool isEnter, GateAccessesT & out) const
+{
+  for (auto const & access : m_gateAccesses)
+  {
+    if (access.m_isEnter != isEnter)
+      continue;
+    if (mercator::DistanceOnEarth(point, mercator::FromLatLon(access.m_projection.m_junction.GetLatLon())) <= radiusM)
+      out.push_back(access);
+  }
+}
+
 bool TransitGraph::FindReal(Segment const & fake, Segment & real) const
 {
   return m_fake.FindReal(fake, real);
@@ -397,6 +408,9 @@ void TransitGraph::AddGate(transit::Gate const & gate, FakeEnding const & ending
                                 isEnter ? ending.m_originJunction : projection.m_junction, FakeVertex::Type::PureFake);
     m_fake.AddStandaloneVertex(projectionSegment, projectionVertex);
 
+    // Record the gate's pedestrian access so nearby checkpoints can use it as a snap candidate.
+    m_gateAccesses.emplace_back(projection, projectionSegment, isEnter);
+
     // Add fake parts of real
     FakeVertex forwardPartOfReal(
         projection.m_segment.GetMwmId(), isEnter ? projection.m_segmentBack : projection.m_junction,
@@ -449,6 +463,9 @@ void TransitGraph::AddGate(::transit::experimental::Gate const & gate, FakeEndin
                                 isEnter ? projection.m_junction : ending.m_originJunction,
                                 isEnter ? ending.m_originJunction : projection.m_junction, FakeVertex::Type::PureFake);
     m_fake.AddStandaloneVertex(projectionSegment, projectionVertex);
+
+    // Record the gate's pedestrian access so nearby checkpoints can use it as a snap candidate.
+    m_gateAccesses.emplace_back(projection, projectionSegment, isEnter);
 
     // Add fake parts of real
     FakeVertex forwardPartOfReal(
