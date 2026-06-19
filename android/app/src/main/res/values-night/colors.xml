@@ -47,7 +47,8 @@
   <!--  Routing-->
   <color name="routing_bottom_button_tint">@color/bg_menu</color>
   <color name="routing_bottom_manage_route_background">@color/bg_menu</color>
-  <color name="routing_button_activated_tint">@color/black_primary</color>
+  <color name="routing_button_activated_tint">@color/base_accent</color>
+  <color name="routing_tab_active_bg">@color/bg_cards</color>
   <color name="routing_button_tint">#FFFFFFFF</color>
   <color name="routing_bottom_button_activated_bg">#FFFFFFFF</color>
   <color name="routing_bottom_button_bg">@color/bg_menu</color>

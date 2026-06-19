@@ -18,6 +18,7 @@ import android.text.style.TypefaceSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.annotation.IdRes;
@@ -50,6 +51,13 @@ import java.util.List;
 
 final class RoutingBottomMenuController implements View.OnClickListener
 {
+  enum StartState
+  {
+    ENABLED,
+    DISABLED,
+    BUILDING
+  }
+
   private static final String STATE_ALTITUDE_CHART_SHOWN = "altitude_chart_shown";
   private static final String STATE_ERROR = "error";
   // Dimming applied to the save button once the route has been saved (it stays disabled until rebuilt).
@@ -67,6 +75,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
   private final TextView mError;
   @NonNull
   private final Button mStart;
+  @NonNull
+  private final ProgressBar mStartProgress;
   @NonNull
   private final View mAltitudeChart;
   @NonNull
@@ -107,6 +117,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
   private final RoutingBottomMenuListener mListener;
   @Nullable
   private Runnable mVisibilityChangedCallback;
+  @NonNull
+  private StartState mStartState = StartState.DISABLED;
 
   @NonNull
   static RoutingBottomMenuController newInstance(@NonNull Activity activity, @NonNull View frame,
@@ -121,6 +133,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     TextView rulerTime = chartPanel.findViewById(R.id.time_ruler);
     TextView error = (TextView) getViewById(activity, frame, R.id.error);
     Button start = (Button) getViewById(activity, frame, R.id.start);
+    ProgressBar startProgress = (ProgressBar) getViewById(activity, frame, R.id.start_progress);
     View altitudeChart = chartPanel.findViewById(R.id.altitude_chart);
     TextView time = chartPanel.findViewById(R.id.time);
     TextView timeVehicle = chartPanel.findViewById(R.id.time_vehicle);
@@ -129,8 +142,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
     View actionFrame = getViewById(activity, frame, R.id.routing_action_frame);
     View saveButton = getViewById(activity, frame, R.id.btn__save);
     return new RoutingBottomMenuController(activity, chartPanel, timeElevationLine, transitTime, rulerTime, error,
-                                           start, altitudeChart, time, altitudeDifference, timeVehicle, arrival,
-                                           actionFrame, saveButton, headerAdapter, listener);
+                                           start, startProgress, altitudeChart, time, altitudeDifference, timeVehicle,
+                                           arrival, actionFrame, saveButton, headerAdapter, listener);
   }
 
   @NonNull
@@ -143,11 +156,12 @@ final class RoutingBottomMenuController implements View.OnClickListener
   private RoutingBottomMenuController(@NonNull Activity context, @NonNull View altitudeChartFrame,
                                       @NonNull View timeElevationLine, @NonNull View transitTime,
                                       @NonNull TextView rulerTime, @NonNull TextView error, @NonNull Button start,
-                                      @NonNull View altitudeChart, @NonNull TextView time,
-                                      @NonNull TextView altitudeDifference, @NonNull TextView timeVehicle,
-                                      @Nullable TextView arrival, @NonNull View actionFrame, @NonNull View saveButton,
+                                      @NonNull ProgressBar startProgress, @NonNull View altitudeChart,
+                                      @NonNull TextView time, @NonNull TextView altitudeDifference,
+                                      @NonNull TextView timeVehicle, @Nullable TextView arrival,
+                                      @NonNull View actionFrame, @NonNull View saveButton,
                                       @Nullable RecyclerView.Adapter<?> headerAdapter,
-                                      @Nullable RoutingBottomMenuListener listener)
+                                      @NonNull RoutingBottomMenuListener listener)
   {
     mContext = context;
     mAltitudeChartFrame = altitudeChartFrame;
@@ -156,6 +170,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     mTimeRuler = rulerTime;
     mError = error;
     mStart = start;
+    mStartProgress = startProgress;
     mAltitudeChart = altitudeChart;
     mRouteElevationChartController = new RouteElevationChartController(mAltitudeChart);
     mRouteElevationChartController.setListener(new RouteElevationChartController.ElevationSelectionListener() {
@@ -210,6 +225,13 @@ final class RoutingBottomMenuController implements View.OnClickListener
           });
     }
     mSaveButton.setOnClickListener(this);
+    mStart.setEnabled(false);
+    mStart.setOnClickListener(v -> {
+      // Ignore the event if the back and start buttons are pressed at the same time.
+      // https://github.com/organicmaps/organicmaps/issues/6628
+      if (RoutingController.get().isPlanning())
+        mListener.onRoutingStart();
+    });
     mTransitRecyclerView = altitudeChartFrame.findViewById(R.id.transit_recycler_view);
     mTransitAdapter = new TransitStepAdapter();
     mTransitRecyclerView.setLayoutManager(new MultilineLayoutManager(mAltitudeChartFrame.getLayoutDirection()));
@@ -275,7 +297,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     View transit_time = mAltitudeChartFrame.findViewById(R.id.transit_time);
     hideAltitudeChartAndRoutingDetails();
     UiUtils.hide(mError, mActionFrame, mTimeElevationLine, mTimeVehicle);
-    showStartButton(false);
+    setStartState(StartState.DISABLED);
     UiUtils.show(transit_time, mTransitRecyclerView);
     mTransitAdapter.setItems(info.getTransitSteps());
 
@@ -297,7 +319,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     refreshManageRoute();
     updateSaveButton();
     UiUtils.hide(mError, mActionFrame, mTimeVehicle, mTransitTime, mTimeElevationLine, mAltitudeChart);
-    showStartButton(false);
+    setStartState(StartState.DISABLED);
     hideAltitudeChartAndRoutingDetails();
     UiUtils.show(mAltitudeChartFrame, mTransitRecyclerView, mTimeRuler);
     if (points.length > 2)
@@ -370,20 +392,22 @@ final class RoutingBottomMenuController implements View.OnClickListener
     notifyVisibilityChanged();
   }
 
-  void setStartButton(boolean show)
+  // Single entry point for the Start button visual state. The button itself is always visible.
+  void setStartState(@NonNull StartState state)
   {
-    if (show)
-    {
-      mStart.setText(mContext.getText(R.string.p2p_start));
-      mStart.setOnClickListener(v -> {
-        // Ignore the event if the back and start buttons are pressed at the same time.
-        // https://github.com/organicmaps/organicmaps/issues/6628
-        if (mListener != null && RoutingController.get().isPlanning())
-          mListener.onRoutingStart();
-      });
-    }
-
-    showStartButton(show);
+    if (state == mStartState)
+      return;
+    mStartState = state;
+    UiUtils.showIf(state == StartState.BUILDING, mStartProgress);
+    mStart.setEnabled(state == StartState.ENABLED);
+    // Reserve extra right padding while the spinner is visible so the centered label shifts
+    // left and does not slide under the spinner.
+    final Resources res = mContext.getResources();
+    int paddingEnd = res.getDimensionPixelSize(R.dimen.margin_base);
+    if (state == StartState.BUILDING)
+      paddingEnd += res.getDimensionPixelSize(R.dimen.routing_start_btn_spinner_reserve);
+    mStart.setPaddingRelative(mStart.getPaddingStart(), mStart.getPaddingTop(), paddingEnd, mStart.getPaddingBottom());
+    notifyVisibilityChanged();
   }
 
   private void showError(@NonNull String message)
@@ -391,14 +415,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     UiUtils.hide(mAltitudeChartFrame, mActionFrame);
     mError.setText(message);
     mError.setVisibility(View.VISIBLE);
-    showStartButton(false);
-    notifyVisibilityChanged();
-  }
-
-  void showStartButton(boolean show)
-  {
-    boolean result = show && RoutingController.get().isBuilt();
-    UiUtils.showIf(result, mStart);
+    setStartState(StartState.DISABLED);
     notifyVisibilityChanged();
   }
 
@@ -425,9 +442,9 @@ final class RoutingBottomMenuController implements View.OnClickListener
         if (routingInfo != null)
           showRulerInfo(Framework.nativeGetRoutePoints(), routingInfo.distToTarget);
       }
-      else
+      else if (RoutingController.get().isBuilt())
       {
-        setStartButton(true);
+        setStartState(StartState.ENABLED);
         showAltitudeChartAndRoutingDetails();
       }
     }
