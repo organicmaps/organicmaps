@@ -81,3 +81,15 @@ MapStyle GetLightMapStyleVariant(MapStyle mapStyle)
   default: CHECK(false, ()); return MapStyleDefaultLight;
   }
 }
+
+MapStyle GetMapStyleForFamily(MapStyleFamily family, bool dark)
+{
+  switch (family)
+  {
+  case MapStyleFamily::Default: return dark ? MapStyleDefaultDark : MapStyleDefaultLight;
+  case MapStyleFamily::Vehicle: return dark ? MapStyleVehicleDark : MapStyleVehicleLight;
+  case MapStyleFamily::Outdoors: return dark ? MapStyleOutdoorsDark : MapStyleOutdoorsLight;
+  }
+  CHECK(false, ("Unhandled MapStyleFamily", static_cast<int>(family)));
+  return dark ? MapStyleDefaultDark : MapStyleDefaultLight;
+}
