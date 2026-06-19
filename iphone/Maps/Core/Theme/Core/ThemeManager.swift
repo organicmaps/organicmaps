@@ -25,23 +25,19 @@ final class ThemeManager: NSObject {
 
     updateSystemUserInterfaceStyle(effectivePreference)
 
+    // The map style family (vehicle / outdoors / default) is resolved by the core from the routing
+    // and outdoors-layer state; here we resolve only light vs dark.
     let actualTheme: MWMTheme = { theme in
-      let isVehicleRouting = MWMRouter.isRoutingActive() && (MWMRouter.type() == .vehicle)
       switch theme {
-      case .day: fallthrough
-      case .vehicleDay: return isVehicleRouting ? .vehicleDay : .day
-      case .night: fallthrough
-      case .vehicleNight: return isVehicleRouting ? .vehicleNight : .night
-      case .auto:
-        let isDarkModeEnabled = UIScreen.main.traitCollection.userInterfaceStyle == .dark
-        guard isVehicleRouting else { return isDarkModeEnabled ? .night : .day }
-        return isDarkModeEnabled ? .vehicleNight : .vehicleDay
+      case .day, .vehicleDay: return .day
+      case .night, .vehicleNight: return .night
+      case .auto: return UIScreen.main.traitCollection.userInterfaceStyle == .dark ? .night : .day
       @unknown default:
         fatalError()
       }
     }(effectivePreference)
 
-    let newNightMode = actualTheme == .night || actualTheme == .vehicleNight
+    let newNightMode = actualTheme == .night
 
     FrameworkHelper.setTheme(actualTheme)
 
