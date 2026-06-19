@@ -208,6 +208,9 @@ static NSString * didChangeMapOverlay = @"didChangeMapOverlay";
 + (void)setOutdoorEnabled:(BOOL)enable
 {
   auto & f = GetFramework();
+  // Persist the layer flag (like the other overlays) so the core can resolve the base map-style
+  // family. iOS historically encoded outdoors only in the MapStyle below.
+  f.SaveOutdoorsEnabled(enable);
   switch (f.GetMapStyle())
   {
   case MapStyleDefaultLight:
