@@ -34,8 +34,6 @@ extern std::string MapStyleToString(MapStyle mapStyle);
 extern std::string DebugPrint(MapStyle mapStyle);
 extern std::string DebugPrint(MapStyleFamily family);
 extern bool MapStyleIsDark(MapStyle mapStyle);
-extern MapStyle GetDarkMapStyleVariant(MapStyle mapStyle);
-extern MapStyle GetLightMapStyleVariant(MapStyle mapStyle);
 // Concrete map style for the given family at the given darkness.
 extern MapStyle GetMapStyleForFamily(MapStyleFamily family, bool dark);
 // True for the Outdoors-family styles.

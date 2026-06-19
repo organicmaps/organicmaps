@@ -6,8 +6,6 @@
 #include "platform/location.hpp"
 #include "platform/style_utils.hpp"
 
-#include "indexer/map_style.hpp"
-
 #include "base/logging.hpp"
 
 #include <QtCore/QDateTime>
