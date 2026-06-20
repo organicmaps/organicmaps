@@ -132,6 +132,12 @@ jobs:
           ninja --version
           ./gradlew -P${{ matrix.arch }} assemble${{ matrix.flavor }}
 
+      - name: Compile Wear Google Debug
+        if: matrix.flavor == 'WebDebug'
+        shell: bash
+        working-directory: android
+        run: ./gradlew :wear:assembleGoogleDebug
+
       - name: Free disk space for emulator
         if: matrix.run-tests == true
         run: |

@@ -44484,3 +44484,8 @@ uk = Сітка
 vi = Lưới
 zh-Hans = 网格
 zh-Hant = 網格
+
+[wear_no_navigation_message]
+comment = Displayed in the Wear OS app when no navigation is active on the phone.
+tags = android-wear
+en = Open Organic Maps on your phone to start navigation.

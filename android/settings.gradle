@@ -24,6 +24,9 @@ include ':libs:downloader'
 include ':libs:googleassistant'
 include ':libs:routing'
 include ':libs:utils'
+include ':libs:wear-protocol'
+
+include ':wear'
 
 include ':sdk'
 include ':sdk:car'
