@@ -114,10 +114,10 @@ ctest -j --test-dir build-$YOUR_NAME --stop-on-failure --output-on-failure -R te
 - `<lib>_tests` -- test binary for a library (e.g., `base_tests`, `search_tests`, `routing_tests`)
 - `skin_generator_tool`, `track_generator_tool`, `topography_generator_tool` -- auxiliary tools
 
-## Build for iOS
+## Build for iOS Simulator
 ```
 xcodebuild archive -workspace xcode/omim.xcworkspace -configuration Debug -destination generic/platform='iOS Simulator' \
-    -scheme OMaps MARKETING_VERSION="$(date +%Y.%m.%d)" CURRENT_PROJECT_VERSION=1
+    -scheme OMaps MARKETING_VERSION="$(date +%Y.%m.%d)" CURRENT_PROJECT_VERSION=1 EXCLUDED_ARCHS=x86_64
 ```
 
 ## Build for Android
