@@ -51,7 +51,7 @@ UNIT_TEST(RasterTileProvider_ToSourceTile_MatchesWebMercator)
     for (int omZoom = 2; omZoom <= 21; ++omZoom)
     {
       auto const src = RTP::ToSourceTile(OmTileAt(lat, lon, omZoom), 0 /* minZoom */, kMaxZoom);
-      TEST(src.m_valid, (lat, lon, omZoom));
+      TEST(src.IsValid(), (lat, lon, omZoom));
 
       int const z = omZoom - 1;
       int ex = 0, ey = 0;
@@ -83,7 +83,7 @@ UNIT_TEST(RasterTileProvider_ToSourceTile_BugReportCoords)
   for (auto const & e : expected)
   {
     auto const src = RTP::ToSourceTile(OmTileAt(lat, lon, e.omZoom), 0 /* minZoom */, 30 /* maxZoom */);
-    TEST(src.m_valid, (e.omZoom));
+    TEST(src.IsValid(), (e.omZoom));
     TEST_EQUAL(src.m_z, e.z, (e.omZoom));
     TEST_EQUAL(src.m_x, e.x, (e.omZoom));
     TEST_EQUAL(src.m_y, e.y, (e.omZoom));
@@ -98,7 +98,7 @@ UNIT_TEST(RasterTileProvider_ToSourceTile_OverZoom)
   int const omZoom = 22;  // web z = 21, k = 21 - 19 = 2, so a 4x4 grid of children share the ancestor
 
   auto const src = RTP::ToSourceTile(OmTileAt(lat, lon, omZoom), 0 /* minZoom */, kMaxZoom);
-  TEST(src.m_valid, ());
+  TEST(src.IsValid(), ());
   TEST_EQUAL(src.m_z, kMaxZoom, ());
 
   int ax = 0, ay = 0;
@@ -118,7 +118,7 @@ UNIT_TEST(RasterTileProvider_ToSourceTile_BelowMinZoomInvalid)
 {
   // OM zoom 6 -> web z5, below minZoom 7.
   auto const src = RTP::ToSourceTile(OmTileAt(50.584312, 33.724862, 6), 7 /* minZoom */, 19 /* maxZoom */);
-  TEST(!src.m_valid, ());
+  TEST(!src.IsValid(), ());
 }
 
 // The antimeridian copies (OM x outside the base [-n/2, n/2) range) wrap onto valid [0, n) web tiles.
@@ -131,7 +131,7 @@ UNIT_TEST(RasterTileProvider_ToSourceTile_AntimeridianWrap)
   // A whole-world shift east must land on the same web tile.
   df::TileKey const shifted(3 + n, 2, static_cast<uint8_t>(omZoom));
   auto const src1 = RTP::ToSourceTile(shifted, 0, 30);
-  TEST(src0.m_valid && src1.m_valid, ());
+  TEST(src0.IsValid() && src1.IsValid(), ());
   TEST_EQUAL(src0.m_x, src1.m_x, ());
   TEST_EQUAL(src0.m_y, src1.m_y, ());
   TEST(src0.m_x >= 0 && src0.m_x < n, (src0.m_x, n));
