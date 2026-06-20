@@ -117,8 +117,8 @@ extension Placement {
 extension MWMTheme {
   var title: String {
     switch self {
-    case .vehicleDay, .day: return L("pref_appearance_light")
-    case .vehicleNight, .night: return L("pref_appearance_dark")
+    case .day: return L("pref_appearance_light")
+    case .night: return L("pref_appearance_dark")
     case .auto: return L("auto")
     @unknown default: return ""
     }

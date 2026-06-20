@@ -18,13 +18,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacement) {
   MWMPlacementBottom
 } NS_SWIFT_NAME(Placement);
 
-typedef NS_ENUM(NSUInteger, MWMTheme) {
-  MWMThemeDay,
-  MWMThemeNight,
-  MWMThemeVehicleDay,
-  MWMThemeVehicleNight,
-  MWMThemeAuto
-};
+typedef NS_ENUM(NSUInteger, MWMTheme) { MWMThemeDay, MWMThemeNight, MWMThemeAuto };
 
 typedef NS_ENUM(NSUInteger, MWMFileType) {
   MWMFileTypeKml,
