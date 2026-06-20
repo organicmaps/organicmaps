@@ -54,7 +54,7 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   // The map style family (vehicle / outdoors / default) is resolved by the core; pass only darkness.
   // Auto must be resolved to Day/Night by the caller (ThemeManager) before reaching here.
   NSAssert(theme != MWMThemeAuto, @"Auto theme must be resolved to Day/Night before applying");
-  bool const dark = theme == MWMThemeNight || theme == MWMThemeVehicleNight;
+  bool const dark = theme == MWMThemeNight;
   GetFramework().ApplyMapStyleForMode(dark);
 }
 
