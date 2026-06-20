@@ -160,7 +160,7 @@ void TileBackgroundRenderer::SetTileBackgroundData(ref_ptr<dp::GraphicsContext> 
   auto imageIt = m_images.find(imageUid);
   if (imageIt == m_images.end())
   {
-    LOG(LWARNING, ("SetTileBackgroundData: unknown image uid", imageUid, "for tile", tileKey.Coord2String()));
+    LOG(LWARNING, ("Unknown image uid", imageUid, "for tile", tileKey.Coord2String()));
     return;
   }
 
