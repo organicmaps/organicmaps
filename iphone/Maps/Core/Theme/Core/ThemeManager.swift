@@ -29,8 +29,8 @@ final class ThemeManager: NSObject {
     // and outdoors-layer state; here we resolve only light vs dark.
     let actualTheme: MWMTheme = { theme in
       switch theme {
-      case .day, .vehicleDay: return .day
-      case .night, .vehicleNight: return .night
+      case .day: return .day
+      case .night: return .night
       case .auto: return UIScreen.main.traitCollection.userInterfaceStyle == .dark ? .night : .day
       @unknown default:
         fatalError()
@@ -66,10 +66,8 @@ final class ThemeManager: NSObject {
   private func updateSystemUserInterfaceStyle(_ theme: MWMTheme) {
     let userInterfaceStyle: UIUserInterfaceStyle = { theme in
       switch theme {
-      case .day: fallthrough
-      case .vehicleDay: return .light
-      case .night: fallthrough
-      case .vehicleNight: return .dark
+      case .day: return .light
+      case .night: return .dark
       case .auto: return .unspecified
       @unknown default:
         fatalError()

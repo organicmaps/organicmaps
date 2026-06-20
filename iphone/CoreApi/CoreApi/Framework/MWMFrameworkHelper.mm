@@ -52,7 +52,7 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
 + (void)setTheme:(MWMTheme)theme
 {
   // The map style family (vehicle / outdoors / default) is resolved by the core; pass only darkness.
-  bool const dark = theme == MWMThemeNight || theme == MWMThemeVehicleNight;
+  bool const dark = theme == MWMThemeNight;
   GetFramework().ApplyMapStyleForMode(dark);
 }
 
