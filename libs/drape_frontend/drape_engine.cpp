@@ -24,6 +24,7 @@ using namespace std::placeholders;
 namespace
 {
 std::string_view constexpr kLocationStateMode = "LastLocationStateMode";
+std::string_view constexpr kRoutingLocationStateMode = "LastRoutingLocationStateMode";
 std::string_view constexpr kLastEnterBackground = "LastEnterBackground";
 }  // namespace
 
@@ -70,6 +71,12 @@ DrapeEngine::DrapeEngine(Params && params)
       mode = Follow;
   }
 
+  // Restore the map orientation chosen during the previous navigation. Default to
+  // FollowAndRotate (heading up) for the first-ever navigation; MyPositionController
+  // normalizes any unexpected persisted value.
+  EMyPositionMode routingMode = FollowAndRotate;
+  (void)Get(kRoutingLocationStateMode, routingMode);
+
   if (!Get(kLastEnterBackground, m_startBackgroundTime))
     m_startBackgroundTime = base::Timer::LocalTime();
 
@@ -88,8 +95,8 @@ DrapeEngine::DrapeEngine(Params && params)
   //  effects.push_back(PostprocessRenderer::Antialiasing);
   //}
 
-  MyPositionController::Params mpParams(mode, base::Timer::LocalTime() - m_startBackgroundTime, params.m_hints,
-                                        params.m_isRoutingActive, params.m_isAutozoomEnabled,
+  MyPositionController::Params mpParams(mode, routingMode, base::Timer::LocalTime() - m_startBackgroundTime,
+                                        params.m_hints, params.m_isRoutingActive, params.m_isAutozoomEnabled,
                                         std::bind(&DrapeEngine::MyPositionModeChanged, this, _1, _2));
 
   FrontendRenderer::Params frParams(
@@ -445,6 +452,8 @@ void DrapeEngine::ModelViewChanged(ScreenBase const & screen)
 void DrapeEngine::MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive)
 {
   settings::Set(kLocationStateMode, mode);
+  if (routingActive && location::IsFollowingMode(mode))
+    settings::Set(kRoutingLocationStateMode, mode);
   if (m_myPositionModeChanged)
     m_myPositionModeChanged(mode, routingActive);
 }
