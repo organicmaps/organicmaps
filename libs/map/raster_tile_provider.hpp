@@ -31,6 +31,7 @@
 // the m_awaitingTiles bookkeeping (the real result must win a second bind; failed tiles are not
 // re-requested), so it is disabled by default.
 // #define ENABLE_STATUS_PLACEHOLDERS
+
 class RasterTileProvider
 {
 public:
@@ -39,7 +40,7 @@ public:
     // URL template that must contain the {z}, {x}, {y} placeholders.
     std::string m_urlTemplate;
     // Sub-directory under Platform::WritableDir() used for the on-disk tile cache.
-    std::string m_cacheSubdir = "bg_tiles_poc";
+    std::string m_cacheSubdir = "bg_tiles";
     // Minimum source (web-mercator) zoom to request. Tiles below it are skipped (low zooms are
     // often near-empty / look bad for this endpoint).
     int m_minZoom = 0;
@@ -82,17 +83,20 @@ public:
   // Source web-mercator XYZ tile plus the UV sub-rect within it that the given OM tile maps to.
   struct SourceTile
   {
-    int m_z = 0;
-    int m_x = 0;
-    int m_y = 0;
-    m2::RectF m_rect{0.0f, 0.0f, 1.0f, 1.0f};
-    bool m_valid = false;
+    int m_z = -1;
+    int m_x, m_y;
+    m2::RectF m_rect{0, 0, 1, 1};
+    bool IsValid() const { return m_z >= 0; }
+    // "z/x/y": image dedup key handed to drape (over-zoom siblings share their ancestor's uid).
+    std::string GetUid() const;
+    // "z_x_y.tile": on-disk cache key / file name (format-neutral extension; stb sniffs the content).
+    std::string GetFileName() const;
   };
 
   // Maps an OM tile (x, y, zoomLevel) onto its web-mercator XYZ tile. Pure function (no provider
   // state) so it can be unit-tested directly. The OM tile's m_x/m_y MUST be in the 2^(m_zoomLevel-1)
   // grid; feeding indices from a coarser (clamped) grid yields a wrong web tile. Tiles below minZoom
-  // or outside the vertical world extent come back with m_valid == false; tiles deeper than maxZoom
+  // or outside the vertical world extent come back with IsValid() == false; tiles deeper than maxZoom
   // sample a sub-rect of the maxZoom ancestor (m_rect).
   static SourceTile ToSourceTile(df::TileKey const & tileKey, int minZoom, int maxZoom);
 
@@ -116,8 +120,9 @@ private:
 #endif
 
   // Starts a non-blocking HTTP request; its completion handler decodes, caches and delivers the tile.
+  // src carries the uid / file name / sub-rect / source zoom (the latter used for max-zoom detection).
   void StartDownload(df::TileKey const & tileKey, dp::BackgroundMode mode, std::string const & url,
-                     std::string const & uid, std::string const & fileName, m2::RectF const & rect);
+                     SourceTile const & src);
 
 #ifdef ENABLE_STATUS_PLACEHOLDERS
   // Delivers a debug status placeholder image for the tile through m_onReady.
@@ -140,6 +145,8 @@ private:
   void EvictDiskCacheLocked();
   // Deletes every cached file and resets the index. Caller must hold m_cacheMutex.
   void ClearDiskCacheLocked();
+
+  void LogConfig();
 
   // Non-const: Reconfigure() mutates m_urlTemplate (under m_activeMutex) and m_maxCacheBytes
   // (under m_cacheMutex). All other fields are immutable after construction.
