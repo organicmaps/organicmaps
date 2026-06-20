@@ -3,6 +3,7 @@ project(drape_frontend_tests)
 set(SRC
   clip_splines_builder_tests.cpp
   frame_values_tests.cpp
+  my_position_controller_tests.cpp
   navigator_test.cpp
   path_text_test.cpp
   rainbow_line_gpu_test.cpp
