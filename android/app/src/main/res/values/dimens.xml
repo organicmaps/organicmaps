@@ -87,6 +87,7 @@
   <dimen name="corner_radius_small">8dp</dimen>
   <dimen name="corner_radius_medium">14dp</dimen>
   <dimen name="corner_radius_large">20dp</dimen>
+  <dimen name="bottom_sheet_corner_radius">24dp</dimen>
 
   <!-- map widgets -->
   <dimen name="viewport_min_height">100dp</dimen>

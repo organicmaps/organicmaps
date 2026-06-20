@@ -3,7 +3,6 @@ package app.organicmaps.search;
 import android.annotation.SuppressLint;
 import android.graphics.Outline;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -204,7 +203,7 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     int tabsHeight = getResources().getDimensionPixelSize(R.dimen.tabs_height);
     mMinCollapsedPeekHeight = actionBarSize + tabsHeight;
 
-    float topRadius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
+    float topRadius = getResources().getDimension(R.dimen.bottom_sheet_corner_radius);
     int surface = MaterialColors.getColor(mSearchPageContainer, com.google.android.material.R.attr.colorSurface);
     mSearchPageContainer.setBackgroundColor(surface);
     mSearchPageContainer.setOutlineProvider(new ViewOutlineProvider() {

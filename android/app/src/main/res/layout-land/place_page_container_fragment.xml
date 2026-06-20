@@ -6,15 +6,6 @@
   android:id="@+id/pp_root"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
-  <View
-    android:id="@+id/place_page_status_bar_background"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:visibility="gone"
-    app:layout_constraintBottom_toTopOf="parent"
-    app:layout_constraintEnd_toStartOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
   <FrameLayout
     android:id="@+id/pp_bottom_container"
     android:layout_width="0dp"
@@ -29,6 +20,7 @@
       <androidx.core.widget.NestedScrollView
         android:id="@+id/placepage"
         style="@style/MwmWidget.BottomSheet.Rounded"
+        android:background="?cardBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="0dp"
