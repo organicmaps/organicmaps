@@ -6,11 +6,13 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Outline;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.Insets;
@@ -43,7 +45,6 @@ import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.shape.MaterialShapeDrawable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +61,6 @@ public class PlacePageController
   private BottomSheetBehavior<View> mPlacePageBehavior;
   private NestedScrollView mPlacePage;
   private ViewGroup mPlacePageContainer;
-  private View mPlacePageStatusBarBackground;
   private ViewGroup mCoordinator;
   private int mViewportMinHeight;
   private int mButtonsHeight;
@@ -80,59 +80,10 @@ public class PlacePageController
   // Enabled after the sheet reaches COLLAPSED; prevents dismiss during initial open animation.
   private boolean mEasyDismissEnabled;
   private int mDistanceToTop;
-  private float mPlacePageCornerRadius;
 
   private ValueAnimator mCustomPeekHeightAnimator;
   private PlacePageListener mPlacePageListener;
   private Dialog mAlertDialog;
-
-  private final Observer<Integer> mPlacePageDistanceToTopObserver = distanceToTop ->
-  {
-    if (mCurrentWindowInsets == null)
-      return;
-
-    final int topInset = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
-    if (mCoordinator.getHeight() - mPlacePageContainer.getHeight() < topInset)
-    {
-      final int animationStartHeight = topInset * 3;
-      int newHeight = 0;
-      if (distanceToTop < animationStartHeight)
-        newHeight = Math.min(topInset * (animationStartHeight - distanceToTop) / 100, topInset);
-      if (newHeight > 0)
-      {
-        mPlacePageStatusBarBackground.setTranslationY(distanceToTop - newHeight);
-        if (!UiUtils.isVisible(mPlacePageStatusBarBackground))
-          onScreenFilled();
-      }
-      else if (UiUtils.isVisible(mPlacePageStatusBarBackground))
-        onScreenUnfilled();
-    }
-  };
-
-  private void onScreenFilled()
-  {
-    UiUtils.show(mPlacePageStatusBarBackground);
-    // LiveData observer fires before the layout pass that creates MaterialShapeDrawable.
-    if (mPlacePage.getBackground() instanceof MaterialShapeDrawable bg)
-    {
-      mPlacePageCornerRadius = bg.getTopLeftCornerResolvedSize();
-      bg.setCornerSize(0);
-    }
-  }
-
-  private void onScreenUnfilled()
-  {
-    UiUtils.hide(mPlacePageStatusBarBackground);
-    // LiveData observer fires before the layout pass that creates MaterialShapeDrawable.
-    if (mPlacePage.getBackground() instanceof MaterialShapeDrawable bg)
-    {
-      // onScreenUnfilled can fire before any onScreenFilled cached the radius (sheet-state
-      // callback / layout listener), so seed it here on first run.
-      if (mPlacePageCornerRadius == 0f)
-        mPlacePageCornerRadius = bg.getTopLeftCornerResolvedSize();
-      bg.setCornerSize(mPlacePageCornerRadius);
-    }
-  }
 
   private final BottomSheetBehavior.BottomSheetCallback mDefaultBottomSheetCallback =
       new BottomSheetBehavior.BottomSheetCallback() {
@@ -149,9 +100,6 @@ public class PlacePageController
             mEasyDismissEnabled = false;
           else if (PlacePageUtils.isCollapsedState(newState))
             mEasyDismissEnabled = true;
-
-          if (!PlacePageUtils.isExpandedState(newState))
-            onScreenUnfilled();
 
           if (PlacePageUtils.isHiddenState(newState))
           {
@@ -197,7 +145,6 @@ public class PlacePageController
     mPlacePage = view.findViewById(R.id.placepage);
     mPlacePageContainer = view.findViewById(R.id.placepage_container);
     mPlacePageBehavior = BottomSheetBehavior.from(mPlacePage);
-    mPlacePageStatusBarBackground = view.findViewById(R.id.place_page_status_bar_background);
 
     mShouldCollapse = true;
 
@@ -205,57 +152,28 @@ public class PlacePageController
     mPlacePageBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
     mPlacePageBehavior.setFitToContents(true);
     mPlacePageBehavior.setSkipCollapsed(false);
+    // Clip to outline so top corners stay rounded regardless of BottomSheetBehavior shape
+    // animations. Extending the rect past the bottom hides the bottom corner rounding.
+    final int topRadius = res.getDimensionPixelSize(R.dimen.bottom_sheet_corner_radius);
+    mPlacePage.setOutlineProvider(new ViewOutlineProvider() {
+      @Override
+      public void getOutline(@NonNull View v, @NonNull Outline outline)
+      {
+        outline.setRoundRect(0, 0, v.getWidth(), v.getHeight() + topRadius, topRadius);
+      }
+    });
+    mPlacePage.setClipToOutline(true);
 
     UiUtils.bringViewToFrontOf(view.findViewById(R.id.pp_buttons_fragment), mPlacePage);
     mViewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
-    // place page status bar background
+
     ViewCompat.setOnApplyWindowInsetsListener(mPlacePage, (v, windowInsets) -> {
       mCurrentWindowInsets = windowInsets;
-      final Insets insets = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-      final ViewGroup.MarginLayoutParams layoutParams =
-          (ViewGroup.MarginLayoutParams) mPlacePageStatusBarBackground.getLayoutParams();
-      // Layout calculations are heavy so we compute them once then move the view from behind the place page to the
-      // status bar
-      boolean needsUpdate = layoutParams.height != insets.top || layoutParams.width != mPlacePage.getWidth()
-                         || layoutParams.leftMargin != insets.left || layoutParams.rightMargin != insets.right;
-      if (needsUpdate)
-      {
-        layoutParams.height = insets.top;
-        layoutParams.width = mPlacePage.getWidth();
-        layoutParams.setMargins(insets.left, 0, insets.right, 0);
-        mPlacePageStatusBarBackground.setLayoutParams(layoutParams);
-      }
       return windowInsets;
     });
 
-    mPlacePageContainer.addOnLayoutChangeListener(
-        (v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
-          final int newHeight = bottom - top;
-          final int oldHeight = oldBottom - oldTop;
-          if (newHeight >= oldHeight)
-            return;
-          if (mCurrentWindowInsets == null || !UiUtils.isVisible(mPlacePageStatusBarBackground))
-            return;
-          final int topInset = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
-          if (mCoordinator.getHeight() - newHeight >= topInset)
-            onScreenUnfilled();
-        });
-
     ViewCompat.requestApplyInsets(mPlacePage);
     mPlacePage.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
-      // This callback may be called before insets are updated when resuming the app
-      if (mCurrentWindowInsets == null)
-        return;
-
-      // Reserve the status bar and any display cutout, matching the status-bar fill check above. With
-      // displayCutout() alone the inset is 0 on non-cutout devices, so the "fills the screen" branch
-      // would never trip and the screen-filled correction would be skipped.
-      final int topInset =
-          mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout())
-              .top;
-      if (mPlacePage.getHeight() >= mCoordinator.getHeight() - topInset)
-        mPlacePageDistanceToTopObserver.onChanged(oldTop);
-
       if (top != oldTop)
       {
         mDistanceToTop = oldTop;
@@ -369,14 +287,6 @@ public class PlacePageController
     // Set the maximum height of the place page to prevent jumps when new data results in BIGGER content
     // It does not take into account the navigation bar height so we need to add it manually
     mPlacePageBehavior.setMaxHeight(maxHeight);
-    final int availableHeight = mCoordinator.getHeight() - topInsets;
-    // Add bottom padding when content requires scrolling in landscape to prevent
-    // the last elements from being cut off by the navigation bar
-    final boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-    final boolean needsBottomInset = isLandscape && (minHeight + insets.bottom > availableHeight);
-    final int bottomPadding = needsBottomInset ? insets.bottom : 0;
-    if (mPlacePageContainer.getPaddingBottom() != bottomPadding)
-      mPlacePageContainer.setPadding(0, 0, 0, bottomPadding);
     mPlacePageRoot.setPadding(0, topInsets, 0, 0);
     if (mPpBottomContainer != null
         && (mPpBottomContainer.getPaddingLeft() != insets.left || mPpBottomContainer.getPaddingRight() != insets.right))
@@ -470,8 +380,9 @@ public class PlacePageController
     {
       peekHeight += plusDetailsContainer.getHeight();
     }
-    return Math.min(peekHeight + (isLandscape ? bottomInsets : 0),
-                    (mCoordinator.getHeight() - (mPlacePageStatusBarBackground.getHeight())));
+    final int topInset =
+        (mCurrentWindowInsets != null) ? mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top : 0;
+    return Math.min(peekHeight + (isLandscape ? bottomInsets : 0), mCoordinator.getHeight() - topInset);
   }
 
   @Override
@@ -480,7 +391,6 @@ public class PlacePageController
     mPreviewHeight = previewHeight;
     mFrameHeight = frameHeight;
     mViewModel.setPlacePageWidth(mPlacePage.getWidth());
-    mPlacePageStatusBarBackground.getLayoutParams().width = mPlacePage.getWidth();
     // Make sure to update the peek height on the UI thread to prevent weird animation jumps
     // TODO(AB): Investigate if this post is still necessary.
     mPlacePage.post(() -> {
@@ -824,7 +734,6 @@ public class PlacePageController
     super.onStart();
     mPlacePageBehavior.addBottomSheetCallback(mDefaultBottomSheetCallback);
     mViewModel.getMapObject().observe(requireActivity(), this);
-    mViewModel.getPlacePageDistanceToTop().observe(requireActivity(), mPlacePageDistanceToTopObserver);
   }
 
   @Override
@@ -852,7 +761,6 @@ public class PlacePageController
     super.onStop();
     mPlacePageBehavior.removeBottomSheetCallback(mDefaultBottomSheetCallback);
     mViewModel.getMapObject().removeObserver(this);
-    mViewModel.getPlacePageDistanceToTop().removeObserver(mPlacePageDistanceToTopObserver);
   }
 
   public interface PlacePageListener

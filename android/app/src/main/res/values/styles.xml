@@ -152,6 +152,10 @@
     <item name="cornerSize">@dimen/corner_radius_large</item>
   </style>
 
+  <style name="ShapeAppearance.App.BottomSheet" parent="ShapeAppearance.Material3.LargeComponent">
+    <item name="cornerSize">@dimen/bottom_sheet_corner_radius</item>
+  </style>
+
   <style name="MwmWidget.ToolbarStyle" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
     <item name="android:background">?colorPrimary</item>
     <item name="android:displayOptions">homeAsUp|showTitle</item>
@@ -383,7 +387,7 @@
     <item name="backgroundTint">?cardBackground</item>
     <item name="paddingBottomSystemWindowInsets">true</item>
     <item name="paddingTopSystemWindowInsets">true</item>
-    <item name="shapeAppearance">?attr/shapeAppearanceLargeComponent</item>
+    <item name="shapeAppearance">@style/ShapeAppearance.App.BottomSheet</item>
   </style>
 
   <style name="FAB" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
