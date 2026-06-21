@@ -6,6 +6,7 @@
   android:layout_height="match_parent"
   android:orientation="vertical">
   <include layout="@layout/place_page_website" />
+  <include layout="@layout/place_page_heritage_website" />
   <include layout="@layout/place_page_website_menu" />
   <androidx.fragment.app.FragmentContainerView
       android:id="@+id/place_page_phone_fragment"

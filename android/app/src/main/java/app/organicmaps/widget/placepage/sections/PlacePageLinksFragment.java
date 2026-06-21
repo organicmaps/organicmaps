@@ -42,6 +42,8 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
 
   private View mWebsite;
   private TextView mTvWebsite;
+  private View mHeritageWebsite;
+  private TextView mTvHeritageWebsite;
   private View mWebsiteMenu;
   private TextView mTvWebsiteMenuSubsite;
   private View mEmail;
@@ -70,6 +72,8 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
     return switch (type)
     {
       case FMD_WEBSITE -> mMapObject.getWebsiteUrl(false /* strip */, Metadata.MetadataType.FMD_WEBSITE);
+      case FMD_HERITAGE_WEBSITE ->
+        mMapObject.getWebsiteUrl(false /* strip */, Metadata.MetadataType.FMD_HERITAGE_WEBSITE);
       case FMD_WEBSITE_MENU -> mMapObject.getWebsiteUrl(false /* strip */, Metadata.MetadataType.FMD_WEBSITE_MENU);
       case FMD_CONTACT_FACEBOOK, FMD_CONTACT_INSTAGRAM, FMD_CONTACT_TWITTER, FMD_CONTACT_VK, FMD_CONTACT_LINE ->
       {
@@ -100,6 +104,12 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
     mTvWebsite = mFrame.findViewById(R.id.tv__place_website);
     mWebsite.setOnClickListener((v) -> openUrl(Metadata.MetadataType.FMD_WEBSITE));
     mWebsite.setOnLongClickListener((v) -> copyUrl(mWebsite, Metadata.MetadataType.FMD_WEBSITE));
+
+    mHeritageWebsite = mFrame.findViewById(R.id.ll__place_heritage_website);
+    mTvHeritageWebsite = mFrame.findViewById(R.id.tv__place_heritage_website);
+    mHeritageWebsite.setOnClickListener((v) -> openUrl(Metadata.MetadataType.FMD_HERITAGE_WEBSITE));
+    mHeritageWebsite.setOnLongClickListener(
+        (v) -> copyUrl(mHeritageWebsite, Metadata.MetadataType.FMD_HERITAGE_WEBSITE));
 
     mWebsiteMenu = mFrame.findViewById(R.id.ll__place_website_menu);
     mTvWebsiteMenuSubsite = mFrame.findViewById(R.id.tv__place_website_menu_subtitle);
@@ -164,6 +174,8 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
     final String title = switch (type)
     {
       case FMD_WEBSITE -> mMapObject.getWebsiteUrl(false /* strip */, Metadata.MetadataType.FMD_WEBSITE);
+      case FMD_HERITAGE_WEBSITE ->
+        mMapObject.getWebsiteUrl(false /* strip */, Metadata.MetadataType.FMD_HERITAGE_WEBSITE);
       case FMD_WEBSITE_MENU -> mMapObject.getWebsiteUrl(false /* strip */, Metadata.MetadataType.FMD_WEBSITE_MENU);
       default -> mMapObject.getMetadata(type);
     };
@@ -182,6 +194,8 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
   {
     refreshMetadataOrHide(mMapObject.getWebsiteUrl(true /* strip */, Metadata.MetadataType.FMD_WEBSITE), mWebsite,
                           mTvWebsite);
+    refreshMetadataOrHide(mMapObject.getWebsiteUrl(true /* strip */, Metadata.MetadataType.FMD_HERITAGE_WEBSITE),
+                          mHeritageWebsite, mTvHeritageWebsite);
     refreshMetadataOrHide(mMapObject.getWebsiteUrl(true /* strip */, Metadata.MetadataType.FMD_WEBSITE_MENU),
                           mWebsiteMenu, mTvWebsiteMenuSubsite);
 
