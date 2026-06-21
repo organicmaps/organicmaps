@@ -11,7 +11,11 @@ namespace transit
 {
 enum class TransitVersion
 {
+  // V1 transit section (TRANSIT_FILE_TAG, routing::transit::GraphData). The name is legacy: it used
+  // to carry metro only, but now holds all OSM route-relation transit (subway, bus, tram, trolleybus).
+  // Treat it as "V1 format", not "subway-only".
   OnlySubway = 0,
+  // V2 experimental section (GTFS-based, ::transit::experimental::TransitData).
   AllPublicTransport = 1,
   Counter = 2
 };

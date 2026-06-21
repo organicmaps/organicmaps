@@ -39,7 +39,12 @@ TransitGraph::TransitGraph(::transit::TransitVersion transitVersion, NumMwmId nu
   : m_transitVersion(transitVersion)
   , m_mwmId(numMwmId)
   , m_estimator(estimator)
-{}
+{
+  // Mostly for clarification reasons. It is already checked in the graph loader.
+  CHECK(m_transitVersion == ::transit::TransitVersion::OnlySubway ||
+            m_transitVersion == ::transit::TransitVersion::AllPublicTransport,
+        (m_transitVersion));
+}
 
 ::transit::TransitVersion TransitGraph::GetTransitVersion() const
 {
@@ -48,14 +53,14 @@ TransitGraph::TransitGraph(::transit::TransitVersion transitVersion, NumMwmId nu
 
 LatLonWithAltitude const & TransitGraph::GetJunction(Segment const & segment, bool front) const
 {
-  CHECK(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
+  ASSERT(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
   auto const & vertex = m_fake.GetVertex(segment);
   return front ? vertex.GetJunctionTo() : vertex.GetJunctionFrom();
 }
 
 RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment, EdgeEstimator::Purpose purpose) const
 {
-  CHECK(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
+  ASSERT(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
 
   if (m_transitVersion == ::transit::TransitVersion::OnlySubway)
   {
@@ -90,11 +95,6 @@ RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment, EdgeEstimat
       return RouteWeight(weight /* weight */, 0 /* numPassThroughChanges */, 0 /* numAccessChanges */,
                          0 /* numAccessConditionalPenalties */, weight /* transitTime */);
     }
-  }
-  else
-  {
-    CHECK(false, (m_transitVersion));
-    UNREACHABLE();
   }
 
   return RouteWeight(m_estimator->CalcOffroad(GetJunction(segment, false /* front */).GetLatLon(),
@@ -165,14 +165,12 @@ RouteWeight TransitGraph::GetTransferPenalty(Segment const & from, Segment const
     return RouteWeight(penalty /* weight */, 0 /* nonPassThroughCross */, 0 /* numAccessChanges */,
                        0 /* numAccessConditionalPenalties */, headwayS /* transitTime */);
   }
-
-  CHECK(false, (m_transitVersion));
   UNREACHABLE();
 }
 
 void TransitGraph::GetTransitEdges(Segment const & segment, bool isOutgoing, EdgeListT & edges) const
 {
-  CHECK(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
+  ASSERT(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
   for (auto const & s : m_fake.GetEdges(segment, isOutgoing))
   {
     auto const & from = isOutgoing ? segment : s;
@@ -205,7 +203,7 @@ bool TransitGraph::FindReal(Segment const & fake, Segment & real) const
 void TransitGraph::Fill(::transit::experimental::TransitData const & transitData, Endings const & stopEndings,
                         Endings const & gateEndings)
 {
-  CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, ());
+  ASSERT_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, ());
 
   for (auto const & line : transitData.GetLines())
     m_transferPenaltiesPT[line.GetId()] = line.GetSchedule();
@@ -269,7 +267,7 @@ void TransitGraph::Fill(::transit::experimental::TransitData const & transitData
 
 void TransitGraph::Fill(transit::GraphData const & transitData, Endings const & gateEndings)
 {
-  CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::OnlySubway, (m_transitVersion));
+  ASSERT_EQUAL(m_transitVersion, ::transit::TransitVersion::OnlySubway, (m_transitVersion));
 
   // Line has information about transit interval.
   // We assume arrival time has uniform distribution with min value |0| and max value |line.GetInterval()|.
@@ -329,7 +327,6 @@ bool TransitGraph::IsGate(Segment const & segment) const
     return m_segmentToGateSubway.count(segment) > 0;
   else if (m_transitVersion == ::transit::TransitVersion::AllPublicTransport)
     return m_segmentToGatePT.count(segment) > 0;
-  CHECK(false, (m_transitVersion));
   UNREACHABLE();
 }
 
@@ -339,7 +336,6 @@ bool TransitGraph::IsEdge(Segment const & segment) const
     return m_segmentToEdgeSubway.count(segment) > 0;
   else if (m_transitVersion == ::transit::TransitVersion::AllPublicTransport)
     return m_segmentToEdgePT.count(segment) > 0;
-  CHECK(false, (m_transitVersion));
   UNREACHABLE();
 }
 
@@ -352,7 +348,7 @@ transit::Gate const & TransitGraph::GetGate(Segment const & segment) const
 
 ::transit::experimental::Gate const & TransitGraph::GetGatePT(Segment const & segment) const
 {
-  CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, (segment));
+  ASSERT_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, (segment));
   auto const it = m_segmentToGatePT.find(segment);
   CHECK(it != m_segmentToGatePT.cend(), ("Unknown transit segment", segment));
   return it->second;
@@ -367,7 +363,7 @@ transit::Edge const & TransitGraph::GetEdge(Segment const & segment) const
 
 ::transit::experimental::Edge const & TransitGraph::GetEdgePT(Segment const & segment) const
 {
-  CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, (segment));
+  ASSERT_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, (segment));
   auto const it = m_segmentToEdgePT.find(segment);
   CHECK(it != m_segmentToEdgePT.cend(), ("Unknown transit segment", segment));
   return it->second;
@@ -396,7 +392,7 @@ void TransitGraph::AddGate(transit::Gate const & gate, FakeEnding const & ending
                            std::map<transit::StopId, LatLonWithAltitude> const & stopCoords, bool isEnter,
                            StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront)
 {
-  CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::OnlySubway, (gate));
+  ASSERT_EQUAL(m_transitVersion, ::transit::TransitVersion::OnlySubway, (gate));
 
   Segment const dummy = Segment();
   for (auto const & projection : ending.m_projections)
@@ -452,7 +448,7 @@ void TransitGraph::AddGate(::transit::experimental::Gate const & gate, FakeEndin
                            std::map<transit::StopId, LatLonWithAltitude> const & stopCoords, bool isEnter,
                            StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront)
 {
-  CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, (gate));
+  ASSERT_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, (gate));
 
   Segment const dummy = Segment();
   for (auto const & projection : ending.m_projections)
@@ -509,7 +505,7 @@ void TransitGraph::AddStop(::transit::experimental::Stop const & stop, FakeEndin
                            std::map<transit::StopId, LatLonWithAltitude> const & stopCoords,
                            StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront)
 {
-  CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, (stop));
+  ASSERT_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, (stop));
 
   Segment const dummy = Segment();
   for (bool isEnter : {true, false})
@@ -563,7 +559,7 @@ Segment TransitGraph::AddEdge(transit::Edge const & edge,
                               std::map<transit::StopId, LatLonWithAltitude> const & stopCoords,
                               StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront)
 {
-  CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::OnlySubway, (edge));
+  ASSERT_EQUAL(m_transitVersion, ::transit::TransitVersion::OnlySubway, (edge));
 
   auto const edgeSegment = GetNewTransitSegment();
   auto const stopFromId = edge.GetStop1Id();
@@ -581,7 +577,7 @@ Segment TransitGraph::AddEdge(::transit::experimental::Edge const & edge,
                               std::map<transit::StopId, LatLonWithAltitude> const & stopCoords,
                               StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront)
 {
-  CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, (edge));
+  ASSERT_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, (edge));
 
   auto const edgeSegment = GetNewTransitSegment();
   auto const stopFromId = edge.GetStop1Id();
