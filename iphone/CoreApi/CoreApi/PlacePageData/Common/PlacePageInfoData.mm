@@ -91,6 +91,7 @@ NSString * GetLocalizedMetadataValueString(MapObject::MetadataID metaID, std::st
         break;
       }
       case MetadataID::FMD_WEBSITE: _website = ToNSString(value); break;
+      case MetadataID::FMD_HERITAGE_WEBSITE: _heritageWebsite = ToNSString(value); break;
       case MetadataID::FMD_WIKIPEDIA: _wikipedia = ToNSString(value); break;
       case MetadataID::FMD_WIKIMEDIA_COMMONS: _wikimediaCommons = ToNSString(value); break;
       case MetadataID::FMD_EMAIL:

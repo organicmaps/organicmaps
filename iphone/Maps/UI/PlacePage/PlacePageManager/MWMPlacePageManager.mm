@@ -316,6 +316,11 @@ using namespace storage;
   [self.ownerViewController openUrl:data.infoData.website externally:YES];
 }
 
+- (void)openHeritageWebsite:(PlacePageData *)data
+{
+  [self.ownerViewController openUrl:data.infoData.heritageWebsite externally:YES];
+}
+
 - (void)openWebsiteMenu:(PlacePageData *)data
 {
   [self.ownerViewController openUrl:data.infoData.websiteMenu externally:YES];

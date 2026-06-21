@@ -9,6 +9,7 @@
 + (void)addBusiness;
 + (void)addPlace:(CLLocationCoordinate2D)coordinate;
 + (void)openWebsite:(PlacePageData *)data;
++ (void)openHeritageWebsite:(PlacePageData *)data;
 + (void)openWebsiteMenu:(PlacePageData *)data;
 + (void)openWikipedia:(PlacePageData *)data;
 + (void)openWikimediaCommons:(PlacePageData *)data;

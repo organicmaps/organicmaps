@@ -3,6 +3,7 @@ protocol PlacePageInfoViewControllerDelegate: AnyObject {
 
   func didPressCall(to phone: PlacePagePhone)
   func didPressWebsite()
+  func didPressHeritageWebsite()
   func didPressWebsiteMenu()
   func didPressWikipedia()
   func didPressWikimediaCommons()
@@ -32,6 +33,7 @@ class PlacePageInfoViewController: UIViewController {
   private var rawOpeningHoursView: InfoItemView?
   private var phoneViews: [InfoItemView] = []
   private var websiteView: InfoItemView?
+  private var heritageWebsiteView: InfoItemView?
   private var websiteMenuView: InfoItemView?
   private var wikipediaView: InfoItemView?
   private var wikimediaCommonsView: InfoItemView?
@@ -167,6 +169,19 @@ class PlacePageInfoViewController: UIViewController {
                                    longPressHandler: { [weak self] in
                                      self?.delegate?.didCopy(website)
                                    })
+    }
+
+    if let heritageWebsite = placePageInfoData.heritageWebsite {
+      // Strip website url only when the value is displayed, to avoid issues when it's opened or edited.
+      heritageWebsiteView = createInfoItem(stripUrl(str: heritageWebsite),
+                                           icon: UIImage(resource: .icPlacepageWebsite),
+                                           style: .link,
+                                           tapHandler: { [weak self] in
+                                             self?.delegate?.didPressHeritageWebsite()
+                                           },
+                                           longPressHandler: { [weak self] in
+                                             self?.delegate?.didCopy(heritageWebsite)
+                                           })
     }
 
     if let websiteMenu = placePageInfoData.websiteMenu {
