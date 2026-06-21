@@ -33,6 +33,12 @@ class BottomMenuLayersCell: UITableViewCell {
     }
   }
 
+  @IBOutlet private var satelliteButton: BottomMenuLayerButton! {
+    didSet {
+      updateSatelliteButton()
+    }
+  }
+
   var onClose: (() -> Void)?
 
   override func awakeFromNib() {
@@ -48,6 +54,7 @@ class BottomMenuLayersCell: UITableViewCell {
     hikingButton.setupWith(image: UIImage(resource: .btnMenuHiking), text: L("button_layer_hiking"))
     cyclingButton.setupWith(image: UIImage(resource: .btnMenuCycling), text: L("button_layer_cycling"))
     subwayButton.setupWith(image: UIImage(resource: .btnMenuSubway), text: L("button_layer_subway"))
+    satelliteButton.setupWith(image: UIImage(resource: .btnMenuSatellite), text: L("button_layer_satellite"))
   }
 
   deinit {
@@ -81,6 +88,10 @@ class BottomMenuLayersCell: UITableViewCell {
   private func updateCyclingButton() {
     let enabled = MapOverlayManager.cyclingEnabled()
     cyclingButton.setLayerEnabled(enabled)
+  }
+
+  private func updateSatelliteButton() {
+    satelliteButton.setLayerEnabled(FrameworkHelper.isBackgroundTilesEnabled())
   }
 
   @IBAction func onCloseButtonPressed(_: Any) {
@@ -118,6 +129,19 @@ class BottomMenuLayersCell: UITableViewCell {
     }
   }
 
+  @IBAction func onSatelliteButton(_: Any) {
+    // Without a configured server URL there is nothing to show: open the Satellite Imagery settings.
+    let url = FrameworkHelper.backgroundTilesURL()
+    if url.isEmpty {
+      onClose?()
+      MapViewController.shared()?.navigationController?.pushViewController(MWMMapTilesSettingsViewController(),
+                                                                          animated: true)
+      return
+    }
+    FrameworkHelper.setBackgroundTilesEnabled(!FrameworkHelper.isBackgroundTilesEnabled())
+    updateSatelliteButton()
+  }
+
   private func showUpdateToastIfNeeded() {
     if FrameworkHelper.needUpdateForRoutes() {
       Toast.show(withText: L("routes_update_maps_text"), alignment: .top)
@@ -132,6 +156,7 @@ extension BottomMenuLayersCell: MapOverlayManagerObserver {
     updateOutdoorButton()
     updateHikingButton()
     updateCyclingButton()
+    updateSatelliteButton()
   }
 }
 

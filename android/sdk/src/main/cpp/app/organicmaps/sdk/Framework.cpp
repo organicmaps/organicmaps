@@ -882,28 +882,27 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetBackgroundTiles(JNIEn
                             static_cast<uint32_t>(cacheSizeMB), static_cast<uint32_t>(areaOpacityPct));
 }
 
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetBackgroundTilesEnabled(JNIEnv *, jclass, jboolean enabled)
+{
+  frm()->SetBackgroundTilesEnabled(static_cast<bool>(enabled));
+}
+
 JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetBackgroundTilesUrl(JNIEnv * env, jclass)
 {
-  std::string url;
-  uint32_t cacheSizeMB;
-  frm()->GetBackgroundTilesSource(url, cacheSizeMB);
-  return jni::ToJavaString(env, url);
+  return jni::ToJavaString(env, frm()->GetBackgroundTilesURL());
 }
 
-JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetBackgroundTilesCacheSizeMB(JNIEnv * env, jclass)
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetBackgroundTilesCacheSizeMB(JNIEnv *, jclass)
 {
-  std::string url;
-  uint32_t cacheSizeMB;
-  frm()->GetBackgroundTilesSource(url, cacheSizeMB);
-  return static_cast<jint>(cacheSizeMB);
+  return static_cast<jint>(frm()->GetBackgroundTilesCacheSize());
 }
 
-JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsBackgroundTilesEnabled(JNIEnv * env, jclass)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsBackgroundTilesEnabled(JNIEnv *, jclass)
 {
   return static_cast<jboolean>(frm()->IsBackgroundTilesEnabled());
 }
 
-JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetBackgroundTilesAreaOpacity(JNIEnv * env, jclass)
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetBackgroundTilesAreaOpacity(JNIEnv *, jclass)
 {
   return static_cast<jint>(frm()->GetBackgroundTilesAreaOpacity());
 }

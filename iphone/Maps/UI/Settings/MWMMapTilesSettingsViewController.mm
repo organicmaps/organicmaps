@@ -93,10 +93,10 @@ int constexpr kMaxOpacityPct = 100;
 
   [self.view endEditing:YES];
   [self syncSettingsFromControls];
-  [MWMFrameworkHelper setBackgroundTilesEnabled:self.backgroundTilesEnabled
-                                            url:self.backgroundTilesURL
-                                    cacheSizeMB:self.cacheSizeMB
-                                 areaOpacityPct:self.areaOpacityPct];
+  [MWMFrameworkHelper setBackgroundTiles:self.backgroundTilesEnabled
+                                     url:self.backgroundTilesURL
+                             cacheSizeMB:self.cacheSizeMB
+                          areaOpacityPct:self.areaOpacityPct];
 }
 
 - (void)onEnableChanged:(UISwitch *)sender

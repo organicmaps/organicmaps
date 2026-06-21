@@ -19,6 +19,11 @@ public class SettingsActivity
 {
   private static final String EXTRA_OPEN_VOICE_INSTRUCTIONS = "open_voice_instructions";
 
+  // Optional: open directly on a specific settings sub-screen (fully-qualified Fragment class name)
+  // with the given toolbar title (@StringRes). Used e.g. by the Satellite layer button.
+  public static final String EXTRA_FRAGMENT = "extra_fragment";
+  public static final String EXTRA_TITLE = "extra_title";
+
   public static void startForVoiceInstructions(@NonNull Context context)
   {
     final Intent intent = new Intent(context, SettingsActivity.class).putExtra(EXTRA_OPEN_VOICE_INSTRUCTIONS, true);
@@ -32,9 +37,28 @@ public class SettingsActivity
   }
 
   @Override
+  @SuppressWarnings("unchecked")
   protected Class<? extends Fragment> getFragmentClass()
   {
+    final String name = getIntent().getStringExtra(EXTRA_FRAGMENT);
+    if (name != null)
+    {
+      try
+      {
+        return (Class<? extends Fragment>) Class.forName(name);
+      }
+      catch (ClassNotFoundException e)
+      {
+        e.printStackTrace();
+      }
+    }
     return SettingsPrefsFragment.class;
+  }
+
+  @Override
+  protected int getToolbarTitle()
+  {
+    return getIntent().getIntExtra(EXTRA_TITLE, 0);
   }
 
   @Override

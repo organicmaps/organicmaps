@@ -1666,16 +1666,13 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   // persisted via kBgTilesEnabledKey / kBgTilesUrlKey / kBgTilesCacheSizeMBKey. The layer is active
   // only when enabled AND a URL is set.
   std::string bgTilesUrl;
-  settings::Get(kBgTilesUrlKey, bgTilesUrl);
+  settings::TryGet(kBgTilesUrlKey, bgTilesUrl);
   bool bgTilesEnabled = false;
-  settings::Get(kBgTilesEnabledKey, bgTilesEnabled);
+  settings::TryGet(kBgTilesEnabledKey, bgTilesEnabled);
   bool const bgTilesActive = bgTilesEnabled && !bgTilesUrl.empty();
+
   if (bgTilesActive && !m_rasterTileProvider)
-  {
-    uint32_t bgTilesCacheMB = kDefaultBgTilesCacheSizeMB;
-    settings::Get(kBgTilesCacheSizeMBKey, bgTilesCacheMB);
-    CreateBackgroundTilesProvider(bgTilesUrl, bgTilesCacheMB);
-  }
+    CreateBackgroundTilesProvider(bgTilesUrl, GetBackgroundTilesCacheSize());
 
   auto tileBackgroundReadFn = [this](df::TileKey const & tileKey, dp::BackgroundMode mode) -> bool
   {
@@ -2748,8 +2745,16 @@ void Framework::CreateBackgroundTilesProvider(std::string const & url, uint32_t 
 
 void Framework::SetBackgroundTiles(bool enabled, std::string url, uint32_t cacheSizeMB, uint32_t areaOpacityPct)
 {
-  // Single entry point for the settings UI: persist all values and apply them at once. Values are
-  // kept even while disabled; the layer renders only when enabled AND a non-empty URL is set.
+  // Single entry point for the settings UI: persist all values and apply them at once. We only persist
+  // the URL/cache/opacity when enabling — when disabled, keep the previously stored values untouched and
+  // just flip the off-flag. Otherwise editing the URL while the layer is off would persist it and then
+  // resurface as a stale RasterTileProvider on the next enable (enable -> edit -> disable -> close).
+  if (!enabled)
+  {
+    SetBackgroundTilesEnabled(false);
+    return;
+  }
+
   cacheSizeMB = math::Clamp(cacheSizeMB, 1u, kMaxBgTilesCacheSizeMB);
   areaOpacityPct = math::Clamp(areaOpacityPct, 0u, 100u);
   settings::Set(kBgTilesEnabledKey, enabled);
@@ -2757,7 +2762,7 @@ void Framework::SetBackgroundTiles(bool enabled, std::string url, uint32_t cache
   settings::Set(kBgTilesCacheSizeMBKey, cacheSizeMB);
   settings::Set(kBgTilesAreaOpacityKey, areaOpacityPct);
 
-  bool const active = enabled && !url.empty();
+  bool const active = !url.empty();
   if (active)
   {
     auto const cacheBytes = static_cast<uint64_t>(cacheSizeMB) * 1024 * 1024;
@@ -2768,30 +2773,54 @@ void Framework::SetBackgroundTiles(bool enabled, std::string url, uint32_t cache
   }
 
   if (m_drapeEngine)
-  {
     m_drapeEngine->SetTileBackgroundMode(active ? dp::BackgroundMode::Satellite : dp::BackgroundMode::Default,
                                          areaOpacityPct / 100.0f);
-  }
 }
 
-void Framework::GetBackgroundTilesSource(std::string & url, uint32_t & cacheSizeMB) const
+uint32_t Framework::GetBackgroundTilesCacheSize()
 {
-  url.clear();
-  settings::Get(kBgTilesUrlKey, url);
-  if (!settings::Get(kBgTilesCacheSizeMBKey, cacheSizeMB) || cacheSizeMB == 0 || cacheSizeMB > kMaxBgTilesCacheSizeMB)
-    cacheSizeMB = kDefaultBgTilesCacheSizeMB;
+  uint32_t res;
+  if (!settings::Get(kBgTilesCacheSizeMBKey, res) || res == 0 || res > kMaxBgTilesCacheSizeMB)
+    res = kDefaultBgTilesCacheSizeMB;
+  return res;
 }
 
-bool Framework::IsBackgroundTilesEnabled() const
+void Framework::SetBackgroundTilesEnabled(bool enabled)
+{
+  // Toggle the layer on/off without touching the persisted URL / cache size / area opacity.
+  settings::Set(kBgTilesEnabledKey, enabled);
+
+  std::string url;
+  settings::TryGet(kBgTilesUrlKey, url);
+  bool const active = enabled && !url.empty();
+
+  // The provider is created lazily at startup only when the layer was already on; create it here on
+  // the first enable so SetTileBackgroundMode(Satellite) has tiles to render.
+  if (active && !m_rasterTileProvider)
+    CreateBackgroundTilesProvider(url, GetBackgroundTilesCacheSize());
+
+  if (m_drapeEngine)
+    m_drapeEngine->SetTileBackgroundMode(active ? dp::BackgroundMode::Satellite : dp::BackgroundMode::Default,
+                                         GetBackgroundTilesAreaOpacity() / 100.0f);
+}
+
+std::string Framework::GetBackgroundTilesURL()
+{
+  std::string url;
+  settings::TryGet(kBgTilesUrlKey, url);
+  return url;
+}
+
+bool Framework::IsBackgroundTilesEnabled()
 {
   bool enabled = false;
-  settings::Get(kBgTilesEnabledKey, enabled);
+  settings::TryGet(kBgTilesEnabledKey, enabled);
   return enabled;
 }
 
-uint32_t Framework::GetBackgroundTilesAreaOpacity() const
+uint32_t Framework::GetBackgroundTilesAreaOpacity()
 {
-  uint32_t opacityPct = kDefaultBgTilesAreaOpacityPct;
+  uint32_t opacityPct;
   if (!settings::Get(kBgTilesAreaOpacityKey, opacityPct) || opacityPct > 100)
     opacityPct = kDefaultBgTilesAreaOpacityPct;
   return opacityPct;
