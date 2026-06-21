@@ -140,7 +140,10 @@ void ReadTransitTask::Do()
     }
 
     FillItemsByIdMap(graphData.GetTransfers(), m_transitInfo->m_transfersSubway);
-    FillItemsByIdMap(graphData.GetLines(), m_transitInfo->m_linesSubway);
+    // Load ALL lines (not just the route's subset) so the Place Page can enumerate parallel lines
+    // that share a route segment (see TransitRouteDisplay GetSharedLineNumbers). Lines are small.
+    for (auto const & line : graphData.GetLines())
+      m_transitInfo->m_linesSubway[line.GetId()] = line;
     FillItemsByIdMap(graphData.GetShapes(), m_transitInfo->m_shapesSubway);
   }
   else if (transitHeaderVersion == ::transit::TransitVersion::AllPublicTransport)

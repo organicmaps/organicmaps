@@ -1,10 +1,11 @@
 #include "routing/routing_integration_tests/routing_test_tools.hpp"
 
-#include "routing/routing_tests/index_graph_tools.hpp"
-
 #include "testing/testing.hpp"
 
 #include "map/features_fetcher.hpp"
+#include "map/transit/transit_reader.hpp"
+
+#include "drape_frontend/route_shape.hpp"
 
 #include "routing/index_router.hpp"
 #include "routing/route.hpp"
@@ -24,14 +25,13 @@
 
 #include "geometry/distance_on_sphere.hpp"
 
-#include "base/file_name_utils.hpp"
 #include "base/math.hpp"
 #include "base/stl_helpers.hpp"
+#include "base/strings_bundle.hpp"
 
 namespace integration
 {
 using namespace routing;
-using namespace routing_test;
 using namespace std;
 
 namespace
@@ -188,6 +188,37 @@ TRoutesResult CalculateRoutes(IRouterComponents const & routerComponents, Checkp
         routes.push_back(make_shared<Route>(res.m_routes[i]));
   }
   return {std::move(routes), result};
+}
+
+TransitRouteInfo GetTransitRouteInfo(IRouterComponents const & routerComponents, Route const & route)
+{
+  auto & fetcher = routerComponents.GetFeaturesFetcher();
+  auto & dataSource = fetcher.GetDataSource();
+
+  TransitReadManager readManager(dataSource, [&fetcher](FeatureCallback const & fn, vector<FeatureID> const & ids)
+  { fetcher.ReadFeatures(fn, ids); }, [](m2::RectD const &) { return vector<MwmSet::MwmId>(); });
+
+  auto const & numMwmIds = static_cast<IndexRouter &>(routerComponents.GetRouter()).GetNumMwmIds();
+  auto const getMwmIdFn = [&](NumMwmId numMwmId)
+  { return dataSource.GetMwmIdByCountryFile(numMwmIds->GetFile(numMwmId)); };
+
+  static StringsBundle const kEmptyBundle;
+  static std::map<std::string, m2::PointF> const kNoSymbols;
+  TransitRouteDisplay display(readManager, getMwmIdFn, []() -> StringsBundle const & { return kEmptyBundle; },
+                              nullptr /* bmManager */, kNoSymbols);
+
+  vector<RouteSegment> segments;
+  for (size_t i = 0; i < route.GetSubrouteCount(); ++i)
+  {
+    route.GetSubrouteInfo(i, segments);
+    df::Subroute subroute;
+    // ProcessSubroute appends to the polyline and asserts it is non-empty; production seeds it with
+    // the subroute start point in CreateDrapeSubroute, so do the same here.
+    subroute.m_polyline.Add(route.GetSubrouteAttrs(i).GetStart().GetPoint());
+    display.ProcessSubroute(segments, subroute);
+  }
+
+  return display.GetRouteInfo();
 }
 
 double GetWalkDistanceMeters(Route const & route)

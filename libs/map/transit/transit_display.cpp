@@ -5,7 +5,11 @@
 
 #include "routing/routing_session.hpp"
 
+#include <algorithm>
+#include <cstdlib>
 #include <memory>
+#include <sstream>
+#include <vector>
 
 std::map<TransitType, std::string> const kTransitSymbols = {{TransitType::Subway, "transit_subway"},
                                                             {TransitType::LightRail, "transit_light_rail"},
@@ -22,6 +26,43 @@ std::map<TransitType, std::string> const kTransitSymbols = {{TransitType::Subway
                                                             {TransitType::Trolleybus, "transit_bus"},
                                                             {TransitType::AirService, "transit_air_service"},
                                                             {TransitType::WaterService, "transit_water_service"}};
+
+std::string DebugPrint(TransitType type)
+{
+  switch (type)
+  {
+  case TransitType::IntermediatePoint: return "IntermediatePoint";
+  case TransitType::Pedestrian: return "Pedestrian";
+  case TransitType::Subway: return "Subway";
+  case TransitType::Train: return "Train";
+  case TransitType::LightRail: return "LightRail";
+  case TransitType::Monorail: return "Monorail";
+  case TransitType::Tram: return "Tram";
+  case TransitType::Bus: return "Bus";
+  case TransitType::Ferry: return "Ferry";
+  case TransitType::CableTram: return "CableTram";
+  case TransitType::AerialLift: return "AerialLift";
+  case TransitType::Funicular: return "Funicular";
+  case TransitType::Trolleybus: return "Trolleybus";
+  case TransitType::AirService: return "AirService";
+  case TransitType::WaterService: return "WaterService";
+  }
+
+  UNREACHABLE();
+}
+
+std::string DebugPrint(TransitStepInfo const & info)
+{
+  std::ostringstream os;
+  os << "TransitStep [" << DebugPrint(info.m_type);
+  if (!info.m_number.empty())
+    os << " #" << info.m_number;
+  os << ", " << info.m_distanceInMeters << " m, " << info.m_timeInSec << " s";
+  if (info.m_type == TransitType::IntermediatePoint)
+    os << ", intermediateIdx=" << info.m_intermediateIndex;
+  os << "]";
+  return os.str();
+}
 
 namespace
 {
@@ -70,9 +111,101 @@ TransitType GetTransitType(std::string const & type)
   if (type == "water_service")
     return TransitType::WaterService;
 
-  LOG(LERROR, (type));
   UNREACHABLE();
 }
+
+namespace helpers
+{
+using Line = routing::transit::Line;
+using StopId = routing::transit::StopId;
+
+// True if |line| visits |boardId| and then |alightId| later in the same stop range. Riders board and
+// alight at the same stops; intermediate stops may differ between parallel lines, which is fine.
+bool LineVisitsInOrder(Line const & line, StopId boardId, StopId alightId)
+{
+  for (auto const & range : line.GetStopIds())
+  {
+    auto const boardIt = std::find(range.cbegin(), range.cend(), boardId);
+    if (boardIt != range.cend() && std::find(boardIt + 1, range.cend(), alightId) != range.cend())
+      return true;
+  }
+  return false;
+}
+
+// Numbers (e.g. "1, 5, 12") of all |type| lines a rider can take for the whole leg, i.e. lines that
+// go from the boarding stop |boardId| to the alighting stop |alightId| (in order). Computed per leg
+// rather than per edge so parallel lines with different intermediate stops still merge into one step.
+// Numbers are deduplicated and sorted by their leading integer.
+std::string GetSharedLineNumbers(TransitDisplayInfo const & info, StopId boardId, StopId alightId, TransitType type)
+{
+  std::vector<std::string> numbers;
+  for (auto const & [_, line] : info.m_linesSubway)
+  {
+    if (GetTransitType(line.GetType()) != type || !LineVisitsInOrder(line, boardId, alightId))
+      continue;
+    auto const & number = line.GetNumber();
+    if (!number.empty() && std::find(numbers.cbegin(), numbers.cend(), number) == numbers.cend())
+      numbers.push_back(number);
+  }
+
+  std::sort(numbers.begin(), numbers.end(), [](std::string const & lhs, std::string const & rhs)
+  {
+    char * end = nullptr;
+    long const l = std::strtol(lhs.c_str(), &end, 10);
+    long const r = std::strtol(rhs.c_str(), &end, 10);
+    if (l != r)
+      return l < r;
+    return lhs < rhs;
+  });
+
+  std::string result;
+  for (auto const & number : numbers)
+  {
+    if (!result.empty())
+      result += ", ";
+    result += number;
+  }
+  return result;
+}
+
+// For every subway Edge segment in |segments|, the boarding and alighting stops of its leg (a maximal
+// run of consecutive edges on the same line). Non-edge segments get {kInvalidStopId, kInvalidStopId}.
+std::vector<std::pair<StopId, StopId>> ComputeSubwayLegStops(std::vector<routing::RouteSegment> const & segments)
+{
+  std::vector<std::pair<StopId, StopId>> legs(segments.size(),
+                                              {routing::transit::kInvalidStopId, routing::transit::kInvalidStopId});
+
+  auto const isSubwayEdge = [](routing::RouteSegment const & s)
+  {
+    return s.HasTransitInfo() && s.GetTransitInfo().GetVersion() == ::transit::TransitVersion::OnlySubway &&
+           s.GetTransitInfo().GetType() == routing::TransitInfo::Type::Edge;
+  };
+
+  for (size_t i = 0; i < segments.size();)
+  {
+    if (!isSubwayEdge(segments[i]))
+    {
+      ++i;
+      continue;
+    }
+
+    auto const lineId = segments[i].GetTransitInfo().GetEdgeSubway().m_lineId;
+    StopId const board = segments[i].GetTransitInfo().GetEdgeSubway().m_stop1Id;
+    size_t j = i;
+    StopId alight = board;
+    while (j < segments.size() && isSubwayEdge(segments[j]) &&
+           segments[j].GetTransitInfo().GetEdgeSubway().m_lineId == lineId)
+    {
+      alight = segments[j].GetTransitInfo().GetEdgeSubway().m_stop2Id;
+      ++j;
+    }
+    for (size_t k = i; k < j; ++k)
+      legs[k] = {board, alight};
+    i = j;
+  }
+  return legs;
+}
+}  // namespace helpers
 
 uint32_t ColorToARGB(df::ColorConstant const & colorConstant)
 {
@@ -239,13 +372,16 @@ TransitRouteDisplay::TransitRouteDisplay(TransitReadManager & transitReadManager
 TransitRouteInfo const & TransitRouteDisplay::GetRouteInfo()
 {
   m_routeInfo.UpdateDistanceStrings();
+  LOG(LDEBUG, ("Transit route:", m_routeInfo.m_steps.size(), "steps,", m_routeInfo.m_totalDistInMeters, "m,",
+               m_routeInfo.m_totalTimeInSec, "s, steps:", m_routeInfo.m_steps));
   return m_routeInfo;
 }
 
 void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute,
-                                                   SubrouteParams & sp, SubrouteSegmentParams & ssp)
+                                                   SubrouteParams & sp, SubrouteSegmentParams & ssp, StopId legBoardId,
+                                                   StopId legAlightId)
 {
-  CHECK_EQUAL(ssp.m_displayInfo.m_transitVersion, ::transit::TransitVersion::OnlySubway, ());
+  ASSERT_EQUAL(ssp.m_displayInfo.m_transitVersion, ::transit::TransitVersion::OnlySubway, ());
 
   auto const & edge = ssp.m_transitInfo.GetEdgeSubway();
 
@@ -255,8 +391,15 @@ void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const &
   auto const currentColor = df::GetTransitColorName(line.GetColor());
   sp.m_transitType = GetTransitType(line.GetType());
 
-  m_routeInfo.AddStep(
-      TransitStepInfo(sp.m_transitType, ssp.m_distance, ssp.m_time, line.GetNumber(), ColorToARGB(currentColor)));
+  // List all parallel lines a rider can take for this whole leg (same boarding and alighting stops),
+  // not just the one A* picked, so they can board whichever bus comes first. The leg's board/alight
+  // stops are used (not this edge's), so lines with different intermediate stops still merge into a
+  // single step.
+  std::string number = helpers::GetSharedLineNumbers(ssp.m_displayInfo, legBoardId, legAlightId, sp.m_transitType);
+  if (number.empty())
+    number = line.GetNumber();
+
+  m_routeInfo.AddStep(TransitStepInfo(sp.m_transitType, ssp.m_distance, ssp.m_time, number, ColorToARGB(currentColor)));
 
   auto const & stop1 = ssp.m_displayInfo.m_stopsSubway.at(edge.m_stop1Id);
   auto const & stop2 = ssp.m_displayInfo.m_stopsSubway.at(edge.m_stop2Id);
@@ -373,8 +516,7 @@ void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const &
 void TransitRouteDisplay::AddEdgePTForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute,
                                                SubrouteParams & sp, SubrouteSegmentParams & ssp)
 {
-  CHECK_EQUAL(ssp.m_displayInfo.m_transitVersion, ::transit::TransitVersion::AllPublicTransport,
-              (segment.GetSegment()));
+  ASSERT_EQUAL(ssp.m_displayInfo.m_transitVersion, ::transit::TransitVersion::AllPublicTransport, ());
 
   auto const & edge = ssp.m_transitInfo.GetEdgePT();
 
@@ -616,8 +758,12 @@ bool TransitRouteDisplay::ProcessSubroute(std::vector<routing::RouteSegment> con
   sp.m_prevDistance = m_routeInfo.m_totalDistInMeters;
   sp.m_prevTime = m_routeInfo.m_totalTimeInSec;
 
-  for (auto const & s : segments)
+  // Boarding/alighting stops per subway leg, so parallel lines are enumerated for the whole leg.
+  auto const legStops = helpers::ComputeSubwayLegStops(segments);
+
+  for (size_t i = 0; i < segments.size(); ++i)
   {
+    auto const & s = segments[i];
     auto const time = static_cast<int>(ceil(s.GetTimeFromBeginningSec() - sp.m_prevTime));
     auto const distance = s.GetDistFromBeginningMeters() - sp.m_prevDistance;
     sp.m_prevDistance = s.GetDistFromBeginningMeters();
@@ -644,7 +790,7 @@ bool TransitRouteDisplay::ProcessSubroute(std::vector<routing::RouteSegment> con
     if (ssp.m_transitInfo.GetVersion() == ::transit::TransitVersion::OnlySubway)
     {
       if (ssp.m_transitInfo.GetType() == routing::TransitInfo::Type::Edge)
-        AddEdgeSubwayForSubroute(s, subroute, sp, ssp);
+        AddEdgeSubwayForSubroute(s, subroute, sp, ssp, legStops[i].first, legStops[i].second);
       else if (ssp.m_transitInfo.GetType() == routing::TransitInfo::Type::Gate)
         AddGateSubwayForSubroute(s, subroute, sp, ssp);
     }
@@ -654,10 +800,6 @@ bool TransitRouteDisplay::ProcessSubroute(std::vector<routing::RouteSegment> con
         AddEdgePTForSubroute(s, subroute, sp, ssp);
       else if (ssp.m_transitInfo.GetType() == routing::TransitInfo::Type::Gate)
         AddGatePTForSubroute(s, subroute, sp, ssp);
-    }
-    else
-    {
-      CHECK(false, (ssp.m_transitInfo.GetVersion()));
     }
   }
 
