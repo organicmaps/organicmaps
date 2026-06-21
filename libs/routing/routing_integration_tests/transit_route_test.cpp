@@ -179,7 +179,7 @@ UNIT_TEST(Transit_BuenosAires_SubwayVsBusAlternative)
 {
   TRoutesResult const routesResult = integration::CalculateRoutes(
       integration::GetVehicleComponents(VehicleType::Transit),
-      Checkpoints(mercator::FromLatLon(-34.5934571, -58.4051285), mercator::FromLatLon(-34.5592725, -58.4483561)));
+      {mercator::FromLatLon(-34.5934571, -58.4051285), mercator::FromLatLon(-34.5592725, -58.4483561)});
 
   TEST_EQUAL(routesResult.second, RouterResultCode::NoError, ());
 
@@ -204,6 +204,34 @@ UNIT_TEST(Transit_BuenosAires_SubwayVsBusAlternative)
   integration::TestRouteLength(alt, 6076.72, 0.1);
 }
 
+// Buenos Aires: a short hop served by two buses (41 and 118BA) sharing the same stops. The default
+// route just walks (faster for such a short distance), so we raise the transit walking penalty to
+// force the bus, then build the Place Page breakdown with the real TransitRouteDisplay and verify the
+// bus step lists BOTH parallel line numbers ("41, 118BA", see GetSharedLineNumbers).
+UNIT_TEST(Transit_BuenosAires_ParallelBusNumbers)
+{
+  auto & components = integration::GetVehicleComponents(VehicleType::Transit);
+  auto const res = integration::CalculateRoutes(
+      components, {mercator::FromLatLon(-34.5817871, -58.4157548), mercator::FromLatLon(-34.5872421, -58.3976276)});
+
+  TEST_EQUAL(res.second, RouterResultCode::NoError, ());
+  TEST(!res.first.empty(), ());
+
+  TransitRouteInfo const info = integration::GetTransitRouteInfo(components, *res.first[0]);
+
+  // The whole bus leg is a single step (same board/alight for both lines, even if intermediate stops
+  // differ) listing both parallel lines.
+  size_t busSteps = 0;
+  for (auto const & step : info.m_steps)
+  {
+    if (step.m_type != TransitType::Bus)
+      continue;
+    ++busSteps;
+    TEST_EQUAL(step.m_number, "41, 118BA", ());
+  }
+  TEST_EQUAL(busSteps, 1, ("The direct leg must be one merged step listing both parallel buses."));
+}
+
 // Belarus, Minsk: checks the pedestrian (walking) lengths of a transit route, and documents how the
 // boarding gate's road attachment shapes the first walking leg.
 //
@@ -219,7 +247,7 @@ UNIT_TEST(Transit_Minsk_PedestrianLegToGate)
 {
   TRoutesResult const routesResult = integration::CalculateRoutes(
       integration::GetVehicleComponents(VehicleType::Transit),
-      Checkpoints(mercator::FromLatLon(53.8880136, 27.4282779), mercator::FromLatLon(53.906727, 27.4542114)));
+      {mercator::FromLatLon(53.8880136, 27.4282779), mercator::FromLatLon(53.906727, 27.4542114)});
 
   TEST_EQUAL(routesResult.second, RouterResultCode::NoError, ());
   TEST(!routesResult.first.empty(), ());
