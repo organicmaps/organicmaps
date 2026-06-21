@@ -92,10 +92,12 @@ NS_SWIFT_NAME(FrameworkHelper)
 // and kept even while disabled; the layer renders only when enabled with a non-empty URL. areaOpacityPct
 // (0..100) is the opacity of vector area fills drawn over the imagery. Apply them all at once (e.g. when
 // the tiles settings screen is dismissed).
-+ (void)setBackgroundTilesEnabled:(BOOL)enabled
-                              url:(NSString *)url
-                      cacheSizeMB:(int)cacheSizeMB
-                   areaOpacityPct:(int)areaOpacityPct;
++ (void)setBackgroundTiles:(BOOL)enabled
+                       url:(NSString *)url
+               cacheSizeMB:(int)cacheSizeMB
+            areaOpacityPct:(int)areaOpacityPct;
+// Flips only the on/off flag, keeping the configured URL / cache size / area opacity.
++ (void)setBackgroundTilesEnabled:(BOOL)enabled;
 + (BOOL)isBackgroundTilesEnabled;
 + (NSString *)backgroundTilesURL;
 + (int)backgroundTilesCacheSizeMB;

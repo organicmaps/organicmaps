@@ -712,9 +712,13 @@ public:
   // [1, 1000]; areaOpacityPct (0..100) is the opacity of vector area fills drawn over the imagery
   // (0 hides them). The layer renders only when enabled AND a non-empty URL is set.
   void SetBackgroundTiles(bool enabled, std::string url, uint32_t cacheSizeMB, uint32_t areaOpacityPct);
-  void GetBackgroundTilesSource(std::string & url, uint32_t & cacheSizeMB) const;
-  bool IsBackgroundTilesEnabled() const;
-  uint32_t GetBackgroundTilesAreaOpacity() const;
+  // Flips only the on/off flag, keeping the configured URL / cache size / area opacity. Lighter than
+  // SetBackgroundTiles: it just switches the rendered mode (creating the provider on first enable).
+  void SetBackgroundTilesEnabled(bool enabled);
+  static std::string GetBackgroundTilesURL();
+  static bool IsBackgroundTilesEnabled();
+  static uint32_t GetBackgroundTilesCacheSize();
+  static uint32_t GetBackgroundTilesAreaOpacity();
 
   void SetLargeFontsSize(bool isLargeSize);
   // Multiplied on top of the SetLargeFontsSize (Large Fonts) factor.

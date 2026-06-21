@@ -206,17 +206,13 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
   {
     QVBoxLayout * layout = new QVBoxLayout();
 
-    std::string tilesUrl;
-    uint32_t tilesCacheMB;
-    framework.GetBackgroundTilesSource(tilesUrl, tilesCacheMB);
-
     QLineEdit * urlEdit = new QLineEdit();
     urlEdit->setPlaceholderText("https://xxx.yyy/{z}/{x}/{y}.png");
-    urlEdit->setText(QString::fromStdString(tilesUrl));
+    urlEdit->setText(QString::fromStdString(framework.GetBackgroundTilesURL()));
 
     QSpinBox * sizeSpin = new QSpinBox();
     sizeSpin->setRange(1, 1000);
-    sizeSpin->setValue(static_cast<int>(tilesCacheMB));
+    sizeSpin->setValue(static_cast<int>(framework.GetBackgroundTilesCacheSize()));
     sizeSpin->setSuffix(" MB");
 
     // Opacity of vector area objects drawn over the imagery: 0 % hides them, 100 % is fully opaque.
