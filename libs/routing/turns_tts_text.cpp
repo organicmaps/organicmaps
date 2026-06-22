@@ -37,6 +37,13 @@ std::string DistToTextId(TIter begin, TIter end, uint32_t dist)
 
   return it->second;
 }
+
+// Japanese and Chinese (including Cantonese, e.g. "yue-HK") are written without spaces
+// between words, so their turn notifications are concatenated without inter-field spaces.
+bool IsSpacelessLanguage(std::string const & locale)
+{
+  return locale == "ja" || locale.starts_with("zh") || locale.starts_with("yue");
+}
 }  //  namespace
 
 void GetTtsText::SetLocale(std::string const & locale)
@@ -124,7 +131,7 @@ std::string GetTtsText::GetTurnNotification(Notification const & notification) c
   {
     // add "then" and space only if needed, for appropriate languages
     thenStr = GetTextByIdTrimmed("then");
-    if (localeKey != "ja")
+    if (!IsSpacelessLanguage(localeKey))
       thenStr.push_back(' ');
   }
 
@@ -236,7 +243,7 @@ std::string GetTtsText::GetTurnNotification(Notification const & notification) c
   if (!distStr.empty())
   {
     // add distance and/or space only if needed, for appropriate languages
-    if (localeKey != "ja")
+    if (!IsSpacelessLanguage(localeKey))
       out = thenStr + distStr + " " + dirStr;
     else
       out = thenStr + distStr + dirStr;
