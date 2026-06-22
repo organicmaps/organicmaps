@@ -48,7 +48,7 @@
 "in_2_5_kilometers":"喺兩點五公里後",
 "in_3_kilometers":"喺三公里後",
 "then":"跟住",
-"dist_direction_onto_street":"%1$s %2$s %3$s %4$s",
+"dist_direction_onto_street":"%1$s%2$s%3$s%4$s",
 "take_the_1_exit":"喺第一個出口駛出。",
 "take_the_1_exit_street":"NULL",
 "take_the_1_exit_street_verb":"NULL",
