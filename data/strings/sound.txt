@@ -628,7 +628,7 @@ en = onto
 ar = إلى
 be = на
 bg = към
-ca = sobre
+ca = cap a
 cs = na
 da = ad
 de = auf
@@ -661,15 +661,15 @@ ru = на
 sk = na
 sl = na
 sq = në
-sr = у улицу
+sr = на
 sv = in på
 sw = kwenye
 th = เข้าสู่
 tr = yönünde
 uk = на
 vi = vào
-zh-Hans = 驶入到
-zh-Hant = 駛入到
+zh-Hans = 进入
+zh-Hant = 進入
 yue = 入
 
 [take_exit_number]
@@ -1791,6 +1791,9 @@ ja = %1$s%5$s%4$s%3$s%2$s
 mr = %1$s %4$s %3$s %2$s
 nl = %5$s %1$s %2$s %3$s %4$s
 tr = %1$s %4$s %3$s %2$s
+zh-Hans = %1$s%2$s%3$s%4$s
+zh-Hant = %1$s%2$s%3$s%4$s
+yue = %1$s%2$s%3$s%4$s
 
 [take_the_1_exit]
 en = Take the first exit.
