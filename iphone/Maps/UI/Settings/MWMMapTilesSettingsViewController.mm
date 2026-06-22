@@ -1,6 +1,7 @@
 #import "MWMMapTilesSettingsViewController.h"
 
 #import <CoreApi/MWMFrameworkHelper.h>
+#import "SwiftBridge.h"
 
 #include <cmath>
 
@@ -46,6 +47,7 @@ int constexpr kMaxOpacityPct = 100;
   [super viewDidLoad];
   self.title = L(@"pref_bg_tiles_title");
   [self loadSettings];
+  [self updateURLFieldStyle];
 }
 
 #pragma mark - Persisting
@@ -93,6 +95,8 @@ int constexpr kMaxOpacityPct = 100;
 
   [self.view endEditing:YES];
   [self syncSettingsFromControls];
+  if (![self isConfigValid])
+    return;
   [MWMFrameworkHelper setBackgroundTiles:self.backgroundTilesEnabled
                                      url:self.backgroundTilesURL
                              cacheSizeMB:self.cacheSizeMB
@@ -103,6 +107,7 @@ int constexpr kMaxOpacityPct = 100;
 {
   self.backgroundTilesEnabled = sender.isOn;
   [self updateFieldsEnabled];
+  [self updateURLSectionLayout];
 }
 
 - (void)onCacheSizeChanged:(UISlider *)sender
@@ -129,6 +134,40 @@ int constexpr kMaxOpacityPct = 100;
   self.cacheSizeValueLabel.textColor = color;
   self.opacitySlider.enabled = enabled;
   self.opacityValueLabel.textColor = color;
+  [self updateURLFieldStyle];
+}
+
+#pragma mark - Validation
+
+- (NSString *)titleForURLFooter
+{
+  return [self isConfigValid] ? L(@"pref_bg_tiles_disclaimer") : L(@"pref_bg_tiles_url_error");
+}
+
+- (NSString *)styleForURLCell
+{
+  return [self isConfigValid] ? @"Background" : @"ErrorBackground";
+}
+
+// The URL is validated only when the layer is enabled (a disabled layer is never rendered, so the URL
+// may stay empty). Closing is always allowed: an invalid config simply isn't applied on close (see
+// viewWillDisappear), and the field is highlighted in red as feedback.
+- (BOOL)isConfigValid
+{
+  [self syncSettingsFromControls];
+  return !self.backgroundTilesEnabled || [MWMFrameworkHelper isWellFormedBackgroundTilesURL:self.backgroundTilesURL];
+}
+
+- (void)updateURLFieldStyle
+{
+  [self.urlField.superview setStyleNameAndApply:[self styleForURLCell]];
+}
+
+- (void)updateURLSectionLayout
+{
+  [self updateURLFieldStyle];
+  [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kSectionURL]
+                withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -145,6 +184,7 @@ int constexpr kMaxOpacityPct = 100;
   {
     self.backgroundTilesURL = [self trimmedURL:textField.text ?: @""];
     textField.text = self.backgroundTilesURL;
+    [self updateURLSectionLayout];
   }
 }
 
@@ -250,7 +290,11 @@ int constexpr kMaxOpacityPct = 100;
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
-  return section == kSectionURL ? L(@"pref_bg_tiles_disclaimer") : nil;
+  switch (section)
+  {
+  case kSectionURL: return [self titleForURLFooter]; ;
+  default: return nil;
+  }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -273,6 +317,7 @@ int constexpr kMaxOpacityPct = 100;
   {
     self.urlField = [self addFieldToCell:cell];
     self.urlField.text = self.backgroundTilesURL;
+    [self.urlField addTarget:self action:@selector(updateURLFieldStyle) forControlEvents:UIControlEventEditingChanged];
     self.urlField.placeholder = @"https://xxx.yyy/{z}/{x}/{y}.png";
     // Default (not URL) keyboard: the URL keyboard makes it hard to enter the "{z}/{x}/{y}" template.
     self.urlField.keyboardType = UIKeyboardTypeDefault;
@@ -294,7 +339,18 @@ int constexpr kMaxOpacityPct = 100;
   }
 
   [self updateFieldsEnabled];
+  if (indexPath.section == kSectionURL)
+    [cell.contentView setStyleNameAndApply:[self styleForURLCell]];
   return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+  switch (section)
+  {
+  case kSectionURL: return UITableViewAutomaticDimension;
+  default: return 0;
+  }
 }
 
 @end

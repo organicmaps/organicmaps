@@ -161,6 +161,8 @@ public class Framework
   public static native void nativeSetBackgroundTilesEnabled(boolean enabled);
   @NonNull
   public static native String nativeGetBackgroundTilesUrl();
+  // Basic check: http(s):// scheme + host + literal {z}/{x}/{y} placeholders.
+  public static native boolean nativeIsWellFormedBackgroundTilesUrl(@NonNull String url);
   public static native int nativeGetBackgroundTilesCacheSizeMB();
   public static native boolean nativeIsBackgroundTilesEnabled();
   public static native int nativeGetBackgroundTilesAreaOpacity();

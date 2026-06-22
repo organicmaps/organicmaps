@@ -2826,6 +2826,28 @@ uint32_t Framework::GetBackgroundTilesAreaOpacity()
   return opacityPct;
 }
 
+bool Framework::IsWellFormedBackgroundTilesURL(std::string const & url)
+{
+  // Require an http(s):// scheme.
+  size_t hostStart;
+  if (url.starts_with("https://"))
+    hostStart = 8;
+  else if (url.starts_with("http://"))
+    hostStart = 7;
+  else
+    return false;
+
+  // Require a non-empty host (everything up to the first '/' after the scheme).
+  size_t const slash = url.find('/', hostStart);
+  size_t const hostLen = (slash == std::string::npos ? url.size() : slash) - hostStart;
+  if (hostLen == 0)
+    return false;
+
+  // Require all three placeholders present literally (braces must not be percent-encoded).
+  return url.find("{z}") != std::string::npos && url.find("{x}") != std::string::npos &&
+         url.find("{y}") != std::string::npos;
+}
+
 void Framework::ApplyMapLanguageCode(std::string const & langCode)
 {
   int8_t langIndex = StringUtf8Multilang::GetLangIndex(langCode);
