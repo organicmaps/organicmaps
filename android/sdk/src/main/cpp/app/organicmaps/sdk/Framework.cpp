@@ -892,6 +892,12 @@ JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetBackgroundTilesUrl
   return jni::ToJavaString(env, frm()->GetBackgroundTilesURL());
 }
 
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsWellFormedBackgroundTilesUrl(JNIEnv * env, jclass,
+                                                                                           jstring url)
+{
+  return static_cast<jboolean>(Framework::IsWellFormedBackgroundTilesURL(jni::ToNativeString(env, url)));
+}
+
 JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetBackgroundTilesCacheSizeMB(JNIEnv *, jclass)
 {
   return static_cast<jint>(frm()->GetBackgroundTilesCacheSize());

@@ -102,6 +102,8 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (NSString *)backgroundTilesURL;
 + (int)backgroundTilesCacheSizeMB;
 + (int)backgroundTilesAreaOpacityPct;
+// Basic check: http(s):// scheme + host + literal {z}/{x}/{y} placeholders.
++ (BOOL)isWellFormedBackgroundTilesURL:(NSString *)url;
 
 @end
 

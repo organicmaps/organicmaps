@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.ViewCompat
+import androidx.core.widget.doAfterTextChanged
 import app.organicmaps.R
 import app.organicmaps.base.BaseMwmFragment
 import app.organicmaps.sdk.Framework
 import app.organicmaps.util.WindowInsetUtils.ScrollableContentInsetsListener
 import com.google.android.material.slider.Slider
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 
 // Settings sub-screen for the custom raster background tiles (XYZ {z}/{x}/{y} source).
 // Values are persisted in the C++ core (not SharedPreferences); the layer is rendered when the
@@ -20,6 +22,7 @@ import com.google.android.material.textfield.TextInputEditText
 class BgTilesSettingsFragment : BaseMwmFragment() {
 
     private lateinit var enabledSwitch: SwitchCompat
+    private lateinit var urlInputLayout: TextInputLayout
     private lateinit var urlField: TextInputEditText
     private lateinit var cacheSizeSlider: Slider
     private lateinit var cacheSizeLabel: TextView
@@ -28,6 +31,12 @@ class BgTilesSettingsFragment : BaseMwmFragment() {
 
     private val currentUrl: String
         get() = urlField.text.toString().trim()
+
+    // The URL is validated only when the layer is enabled (a disabled layer is never rendered, so the
+    // URL may stay empty/unset). Closing is always allowed: an invalid config simply isn't applied
+    // (see onPause), and the field is highlighted in red as feedback.
+    private val isConfigValid: Boolean
+        get() = !enabledSwitch.isChecked || Framework.nativeIsWellFormedBackgroundTilesUrl(currentUrl)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.fragment_bg_tiles_settings, container, false)
@@ -38,6 +47,7 @@ class BgTilesSettingsFragment : BaseMwmFragment() {
         ViewCompat.setOnApplyWindowInsetsListener(view, ScrollableContentInsetsListener(view))
 
         enabledSwitch = view.findViewById(R.id.bg_tiles_enabled)
+        urlInputLayout = view.findViewById(R.id.bg_tiles_url_input)
         urlField = view.findViewById(R.id.bg_tiles_url)
         cacheSizeSlider = view.findViewById(R.id.bg_tiles_size)
         cacheSizeLabel = view.findViewById(R.id.bg_tiles_size_value)
@@ -60,18 +70,27 @@ class BgTilesSettingsFragment : BaseMwmFragment() {
 
         updateFieldsEnabled(isEnabled)
 
-        enabledSwitch.setOnCheckedChangeListener { _, isChecked -> updateFieldsEnabled(isChecked) }
+        enabledSwitch.setOnCheckedChangeListener { _, isChecked ->
+            updateFieldsEnabled(isChecked)
+            refreshValidation()
+        }
+        urlField.doAfterTextChanged { refreshValidation() }
         cacheSizeSlider.bindValueLabel(cacheSizeLabel)
         opacitySlider.bindValueLabel(opacityLabel)
+
+        refreshValidation()
     }
 
     override fun onPause() {
-        Framework.nativeSetBackgroundTiles(
-            enabledSwitch.isChecked,
-            currentUrl,
-            cacheSizeSlider.value.toInt(),
-            opacitySlider.value.toInt(),
-        )
+        // Don't apply (and persist) a malformed config: just leave the previously saved settings intact.
+        if (isConfigValid) {
+            Framework.nativeSetBackgroundTiles(
+                enabledSwitch.isChecked,
+                currentUrl,
+                cacheSizeSlider.value.toInt(),
+                opacitySlider.value.toInt(),
+            )
+        }
         super.onPause()
     }
 
@@ -80,6 +99,10 @@ class BgTilesSettingsFragment : BaseMwmFragment() {
         urlField.isEnabled = enabled
         cacheSizeSlider.isEnabled = enabled
         opacitySlider.isEnabled = enabled
+    }
+
+    private fun refreshValidation() {
+        urlInputLayout.error = if (isConfigValid) null else getString(R.string.pref_bg_tiles_url_error)
     }
 }
 

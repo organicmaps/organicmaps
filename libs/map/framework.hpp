@@ -719,6 +719,10 @@ public:
   static bool IsBackgroundTilesEnabled();
   static uint32_t GetBackgroundTilesCacheSize();
   static uint32_t GetBackgroundTilesAreaOpacity();
+  // Basic sanity check for a user-entered XYZ template: requires an http(s):// scheme, a non-empty host,
+  // and all three {z}/{x}/{y} placeholders present literally (the braces must not be percent-encoded).
+  // The settings UI calls this before committing and refuses to close on an enabled, malformed URL.
+  static bool IsWellFormedBackgroundTilesURL(std::string const & url);
 
   void SetLargeFontsSize(bool isLargeSize);
   // Multiplied on top of the SetLargeFontsSize (Large Fonts) factor.

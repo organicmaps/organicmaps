@@ -362,4 +362,9 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   return static_cast<int>(GetFramework().GetBackgroundTilesCacheSize());
 }
 
++ (BOOL)isWellFormedBackgroundTilesURL:(NSString *)url
+{
+  return Framework::IsWellFormedBackgroundTilesURL(url.UTF8String);
+}
+
 @end
