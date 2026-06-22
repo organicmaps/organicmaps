@@ -87,6 +87,10 @@ public enum ThemeSwitcher
   @androidx.annotation.UiThread
   public void synchronizeMapStyle(@UiContext @NonNull Context context, boolean isRendererActive)
   {
+    // While Android Auto owns the (shared) core map style, leave it to ThemeUtils: a phone event must
+    // not push the phone's darkness into the core and override the darkness the car chose.
+    if (isCarDisplayUsed())
+      return;
     // Push the effective darkness to the core (which owns the family) and apply what it resolves.
     MapStyle.setNightMode(ThemeUtils.isDarkTheme(context));
     var mapStyle = MapStyle.resolveForMode();
@@ -123,10 +127,14 @@ public enum ThemeSwitcher
     // would otherwise only re-sync in the following onResume. Push the darkness to the core now, so a
     // concurrent routing-driven switch (e.g. the vehicle palette on navigation start) resolves at the
     // right darkness immediately. SYSTEM is left to synchronizeMapStyle, which reads the settled config.
-    if (theme == Config.UiTheme.LIGHT)
-      MapStyle.setNightMode(false);
-    else if (theme == Config.UiTheme.DARK)
-      MapStyle.setNightMode(true);
+    // Skip while Android Auto owns the (shared) core map style; it pushes its own darkness via ThemeUtils.
+    if (!isCarDisplayUsed())
+    {
+      if (theme == Config.UiTheme.LIGHT)
+        MapStyle.setNightMode(false);
+      else if (theme == Config.UiTheme.DARK)
+        MapStyle.setNightMode(true);
+    }
 
     if (mLatestTheme != null && mLatestTheme != theme)
     {
@@ -137,15 +145,18 @@ public enum ThemeSwitcher
 
   private void setMapStyle(MapStyle style, boolean isRendererActive)
   {
-    // Because of the distinct behavior in auto theme, Android Auto employs its own mechanism for theme switching.
-    // For the Android Auto theme switcher, please consult the app.organicmaps.car.util.ThemeUtils module.
-    if (MwmApplication.from(mContext).getDisplayManager().isCarDisplayUsed())
-      return;
     // If rendering is not active we can mark map style, because all graphics
     // will be recreated after rendering activation.
     if (isRendererActive)
       MapStyle.set(style);
     else
       MapStyle.mark(style);
+  }
+
+  private boolean isCarDisplayUsed()
+  {
+    // Android Auto employs its own mechanism for theme switching, driving the shared core map style
+    // itself; see app.organicmaps.car.util.ThemeUtils.
+    return MwmApplication.from(mContext).getDisplayManager().isCarDisplayUsed();
   }
 }
