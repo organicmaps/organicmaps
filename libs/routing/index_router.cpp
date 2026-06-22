@@ -402,9 +402,8 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
 
         if (m_vehicleType == VehicleType::Transit)
         {
-          // 2x walking weight and 2x transfer/boarding penalty bias the alternative toward fewer
-          // transfers and less walking, so a direct transit line can outweigh a faster subway + walk.
-          m_estimator->SetTransitAltFactors(2.0 /* walk */, 2.0 /* transfer */);
+          // Rewrite walking and transfer/boarding penalty for the alternative route.
+          m_estimator->SetTransitAltFactors(3.0 /* walk */, 2.0 /* transfer */);
         }
         else
         {

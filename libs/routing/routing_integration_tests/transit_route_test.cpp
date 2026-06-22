@@ -327,4 +327,30 @@ UNIT_TEST(Transit_SPb_StartEndSnapping)
 
   TestTransitStartEndWalk(*res.first[0], cp.GetStart(), cp.GetFinish(), 2.0 /* maxFactor */);
 }
+
+// Singapore: the alternative (less-walking / fewer-transfers) route rides bus 88 and transfers to
+// bus 50. Verifies the alternative is generated and that its bus legs are, in order, bus 88 then
+// bus 50. Each leg also lists its parallel sibling on the shared segment (88A for 88, 159 for 50),
+// see GetSharedLineNumbers.
+UNIT_TEST(Transit_Singapore_Bus88To50Alternative)
+{
+  auto & components = integration::GetVehicleComponents(VehicleType::Transit);
+  auto const res = integration::CalculateRoutes(
+      components, {mercator::FromLatLon(1.381243, 103.896809), mercator::FromLatLon(1.361733, 103.851884)});
+
+  TEST_EQUAL(res.second, RouterResultCode::NoError, ());
+  auto const & routes = res.first;
+  // A primary route plus exactly one alternative.
+  TEST_EQUAL(routes.size(), 2, ());
+
+  TransitRouteInfo const info = integration::GetTransitRouteInfo(components, *routes[1]);
+
+  std::vector<std::string> busNumbers;
+  for (auto const & step : info.m_steps)
+    if (step.m_type == TransitType::Bus)
+      busNumbers.push_back(step.m_number);
+
+  TEST_EQUAL(busNumbers, std::vector<std::string>({"88, 88A", "50, 159"}), ());
+}
+
 }  // namespace transit_route_test
