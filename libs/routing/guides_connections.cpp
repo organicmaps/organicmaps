@@ -230,6 +230,13 @@ void GuidesConnections::SetGuidesGraphParams(NumMwmId mwmId, double maxSpeed)
 
 void GuidesConnections::ConnectToGuidesGraph(CheckpointsGeometry const & checkpoints)
 {
+  // May be called more than once per route (e.g. primary + alternative pass in
+  // IndexRouter::CalculateRoute). Reset the per-calculation state rebuilt below; |m_allTracks| is the
+  // input and |m_graph| is reset in SetGuidesGraphParams().
+  m_checkpointsOnTracks.clear();
+  m_checkpointsFakeEndings.clear();
+  m_connectionsToOsm.clear();
+
   PullCheckpointsToTracks(checkpoints);
 
   PullAdditionalCheckpointsToTracks(checkpoints);
