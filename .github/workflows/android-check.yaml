@@ -83,9 +83,10 @@ jobs:
           - flavor: FdroidDebug
             arch: arm32
     # Cancels previous jobs if the same branch or PR was updated again.
+    # Only cancel PR runs: master runs must finish to populate the shared ccache.
     concurrency:
       group: ${{ github.workflow }}-${{ matrix.flavor }}-${{ github.event.pull_request.number || github.ref }}
-      cancel-in-progress: true
+      cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
     steps:
       - name: Install build tools and dependencies
@@ -120,6 +121,9 @@ jobs:
         uses: hendrikmuhs/ccache-action@v1.2
         with:
           key: ${{ github.workflow }}-${{ matrix.flavor }}
+          # Restore-only on PRs: master populates the shared cache, PRs read it.
+          # Avoids overflowing the 10GB repo limit, which evicts master's caches.
+          save: ${{ github.ref == 'refs/heads/master' }}
 
       - name: Compile ${{ matrix.flavor }}
         shell: bash
