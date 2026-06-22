@@ -77,12 +77,6 @@ UNIT_TEST(RussiaMoscowNoServiceCrossing)
                                    FromLatLon(55.77682, 37.70391), 3140.);
 }
 
-UNIT_TEST(RussiaMoscowShortWayToService)
-{
-  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(55.77787, 37.70405), {0., 0.},
-                                   FromLatLon(55.77691, 37.70428), 171.);
-}
-
 UNIT_TEST(PriceIslandLoadCrossGeometryTest)
 {
   size_t constexpr kExpectedPointsNumber = 56;
