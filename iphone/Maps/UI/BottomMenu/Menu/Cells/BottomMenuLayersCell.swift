@@ -91,6 +91,9 @@ class BottomMenuLayersCell: UITableViewCell {
   }
 
   private func updateSatelliteButton() {
+    // The Satellite toggle is a quick on/off for an already-configured source; configuration lives in
+    // Settings, so only show the button once a server URL is set.
+    satelliteButton.isHidden = FrameworkHelper.backgroundTilesURL().isEmpty
     satelliteButton.setLayerEnabled(FrameworkHelper.isBackgroundTilesEnabled())
   }
 
@@ -130,14 +133,6 @@ class BottomMenuLayersCell: UITableViewCell {
   }
 
   @IBAction func onSatelliteButton(_: Any) {
-    // Without a configured server URL there is nothing to show: open the Satellite Imagery settings.
-    let url = FrameworkHelper.backgroundTilesURL()
-    if url.isEmpty {
-      onClose?()
-      MapViewController.shared()?.navigationController?.pushViewController(MWMMapTilesSettingsViewController(),
-                                                                          animated: true)
-      return
-    }
     FrameworkHelper.setBackgroundTilesEnabled(!FrameworkHelper.isBackgroundTilesEnabled())
     updateSatelliteButton()
   }

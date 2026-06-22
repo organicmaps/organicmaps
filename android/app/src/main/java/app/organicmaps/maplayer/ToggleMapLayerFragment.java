@@ -1,7 +1,6 @@
 package app.organicmaps.maplayer;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.maplayer.Mode;
 import app.organicmaps.sdk.util.SharedPropertiesUtils;
-import app.organicmaps.settings.BgTilesSettingsFragment;
-import app.organicmaps.settings.SettingsActivity;
 import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
@@ -75,17 +71,6 @@ public class ToggleMapLayerFragment extends Fragment
   {
     Mode mode = item.getMode();
     Context context = v.getContext();
-
-    // Satellite without a configured server URL: open its settings instead of toggling a no-op layer.
-    if (mode == Mode.SATELLITE && Framework.nativeGetBackgroundTilesUrl().isEmpty())
-    {
-      closeLayerBottomSheet();
-      context.startActivity(new Intent(context, SettingsActivity.class)
-                                .putExtra(SettingsActivity.EXTRA_FRAGMENT, BgTilesSettingsFragment.class.getName())
-                                .putExtra(SettingsActivity.EXTRA_TITLE, R.string.pref_bg_tiles_title));
-      return;
-    }
-
     SharedPropertiesUtils.setLayerMarkerShownForLayerMode(mode);
     mode.setEnabled(context, !mode.isEnabled(context));
     // TODO: dirty hack :(
