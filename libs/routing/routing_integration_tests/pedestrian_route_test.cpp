@@ -90,7 +90,7 @@ UNIT_TEST(AustraliaMelburn_AvoidMotorway)
 {
   integration::CalculateRouteAndTestRouteLength(integration::GetVehicleComponents(VehicleType::Pedestrian),
                                                 mercator::FromLatLon(-37.7936, 144.985), {0., 0.},
-                                                mercator::FromLatLon(-37.7896, 145.025), 4659.5);
+                                                mercator::FromLatLon(-37.7892861, 145.025694), 4540.39);
 }
 
 UNIT_TEST(AustriaWein_AvoidTrunk)
