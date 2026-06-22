@@ -585,11 +585,6 @@ public class RoutingController
     return mState == State.NAVIGATION;
   }
 
-  public boolean isVehicleNavigation()
-  {
-    return isNavigating() && isVehicleRouterType();
-  }
-
   public boolean isBuilding()
   {
     return mState == State.PREPARE && mBuildState == BuildState.BUILDING;
