@@ -1,28 +1,19 @@
 ext.Publish = { Project project, Map<String, Object> props ->
   apply plugin: 'com.vanniktech.maven.publish'
-  // Exposes this module's publication to the root nmcp aggregation (see android/build.gradle).
   apply plugin: 'com.gradleup.nmcp'
 
   android {
     defaultConfig {
       aarMetadata {
-        // Consumers must compile against at least the SDK version this library was built
-        // with, so every API referenced in its public surface is available to them.
         minCompileSdk = propCompileSdkVersion.toInteger()
       }
     }
   }
 
   mavenPublishing {
-    // The vanniktech plugin auto-creates the release publication (AAR + sources + javadoc)
-    // for the com.android.library plugin. nmcp (see android/build.gradle) then aggregates
-    // every SDK module into one atomic Maven Central Portal deployment, so this script
-    // intentionally does not configure any per-module remote upload.
     coordinates('app.organicmaps.sdk', props['artifactId'], rootProject.ext.versionName)
 
-    // Sign only when a signing key is provided (in CI, for the Central Portal upload).
-    // Otherwise signMavenPublication has no signatory and would fail local tasks such as
-    // publishToMavenLocal, blocking local publication and consumer smoke testing.
+    // Sign only when a key is configured; local tasks (e.g. publishToMavenLocal) run without one.
     if (project.findProperty('signingInMemoryKey') != null) {
       signAllPublications()
     }
@@ -31,7 +22,6 @@ ext.Publish = { Project project, Map<String, Object> props ->
       name = props['name']
       description = props['description']
       url = 'https://github.com/organicmaps/organicmaps'
-      // Year the Organic Maps SDK modules were first created.
       inceptionYear = '2026'
 
       licenses {

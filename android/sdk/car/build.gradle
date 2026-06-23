@@ -11,8 +11,6 @@ android {
 }
 
 dependencies {
-  // CarContext and :sdk types (Map, MapController, LocationHelper) appear in this module's
-  // public API, so expose them as api for consumers.
   api project(':sdk')
   api libs.androidx.car.app
 

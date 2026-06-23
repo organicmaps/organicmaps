@@ -11,7 +11,6 @@ android {
 }
 
 dependencies {
-  // LaneInfo/LaneWay (from :sdk) appear in the LanesView/LanesDrawable public API.
   api project(':sdk')
 
   implementation libs.androidx.annotation

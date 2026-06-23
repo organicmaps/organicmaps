@@ -20,7 +20,6 @@ android {
 
 dependencies {
   implementation project(':sdk')
-  // BaseLocationProvider (from location:core) is returned by the public provider factory.
   api project(':sdk:location:core')
 
   implementation libs.androidx.annotation

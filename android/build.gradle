@@ -14,9 +14,6 @@ plugins {
 
     alias libs.plugins.vanniktech.maven.publish apply false
 
-    // nmcp aggregates the per-module publications into one Maven Central Portal deployment.
-    // The base plugin is only put on the classpath (each SDK module applies it, see
-    // groovy/publishing.gradle); the aggregation plugin is applied to this root project.
     alias libs.plugins.nmcp apply false
     alias libs.plugins.nmcp.aggregation
 }
@@ -99,15 +96,8 @@ tasks.register("detektCheckAll") {
     })
 }
 
-// Aggregate every SDK module's publication into a single atomic Maven Central Portal
-// deployment via `./gradlew publishAggregationToCentralPortal`. Only the modules listed
-// below are bundled; the deployment is uploaded but must be released manually from the
-// Central Portal UI (publishingType = USER_MANAGED). Credentials come from the CI
-// environment and are empty locally, where the deploy task is never run.
 nmcpAggregation {
-    // ':sdk:car' and ':libs:car' share the simple name 'car'. Aggregation is declared by
-    // explicit project path below, so resolution is unambiguous; this only opts out of
-    // nmcp's defensive global name-uniqueness check (gradle/gradle#36167).
+    // :libs:car and :sdk:car share the simple name 'car'; opt out of nmcp's global unique-name check.
     allowDuplicateProjectNames.set(true)
     centralPortal {
         username = providers.environmentVariable('MAVEN_CENTRAL_USERNAME').getOrElse('')

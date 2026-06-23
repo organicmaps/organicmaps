@@ -59,14 +59,9 @@ jobs:
       - name: Build and deploy the Android SDK to Maven Central
         shell: bash
         working-directory: android
-        # The SDK is built with the repository's default private.h (public keys); the app's
-        # production secrets are intentionally not injected into the published artifacts.
-        # nmcp bundles all SDK modules into one deployment that must be released manually
-        # from the Central Portal (publishingType = USER_MANAGED in settings.gradle).
         env:
           MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           MAVEN_CENTRAL_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.MAVEN_SIGNING_KEY }}
-          #ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.MAVEN_SIGNING_KEY_ID }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.MAVEN_SIGNING_KEY_PASSWORD }}
         run: ./gradlew publishAggregationToCentralPortal

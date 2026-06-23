@@ -86,10 +86,6 @@ android {
 }
 
 dependencies {
-  // Types from these dependencies appear in the SDK's public API (e.g. MapController and
-  // OrganicMaps implement DefaultLifecycleObserver, CategoryDataSource extends
-  // RecyclerView.AdapterDataObserver, NetworkPolicy exposes FragmentManager), so they are
-  // exposed transitively (api) for consumers to compile against.
   api project(':sdk:location:core')
   api libs.androidx.lifecycle
   api libs.androidx.recyclerview
