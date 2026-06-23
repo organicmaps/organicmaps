@@ -10,12 +10,7 @@ final class BMCViewController: MWMViewController {
 
   @IBOutlet private var tableView: UITableView! {
     didSet {
-      let cells = [
-        BMCCategoryCell.self,
-        BMCActionsCell.self,
-        BMCNotificationsCell.self,
-      ]
-      tableView.registerNibs(cells)
+      tableView.register(cell: BookmarksListCell.self)
       tableView.registerNibForHeaderFooterView(BMCCategoriesHeader.self)
     }
   }
@@ -206,17 +201,31 @@ extension BMCViewController: UITableViewDataSource {
       tableView.dequeueReusableCell(cell: cell, indexPath: indexPath)
     }
 
+    let cell = dequeCell(BookmarksListCell.self)
+    let cellConfiguration: BookmarksListCell.Configuration
     switch viewModel.sectionType(section: indexPath.section) {
     case .categories:
-      return dequeCell(BMCCategoryCell.self).config(category: viewModel.category(at: indexPath.row),
-                                                    delegate: self)
+      let category = viewModel.category(at: indexPath.row)
+      cellConfiguration = BookmarksListCell.Configuration
+        .category(category,
+                  leadingAction: { [weak self, weak cell] _ in
+                    guard let self, let cell, let indexPath = self.tableView.indexPath(for: cell) else { return }
+                    let category = self.viewModel.category(at: indexPath.row)
+                    self.setCategoryVisible(!category.isVisible, at: indexPath.row)
+                    self.tableView.reloadRows(at: [indexPath], with: .none)
+                  }, accessoryAction: { [weak self, weak cell] button in
+                    guard let self, let cell, let indexPath = self.tableView.indexPath(for: cell) else { return }
+                    self.editCategory(at: indexPath.row, anchor: button)
+                  })
     case .actions:
-      return dequeCell(BMCActionsCell.self).config(model: viewModel.action(at: indexPath.row))
+      cellConfiguration = .action(viewModel.action(at: indexPath.row))
     case .recentlyDeleted:
-      return dequeCell(BMCActionsCell.self).config(model: viewModel.recentlyDeletedCategories())
+      cellConfiguration = .action(viewModel.recentlyDeletedCategories())
     case .notifications:
-      return dequeCell(BMCNotificationsCell.self)
+      cellConfiguration = .loading()
     }
+    cell.configure(cellConfiguration)
+    return cell
   }
 }
 
@@ -277,29 +286,9 @@ extension BMCViewController: UITableViewDelegate {
         assertionFailure()
       }
     case .recentlyDeleted: openRecentlyDeleted()
-    default:
-      assertionFailure()
-    }
-  }
-}
-
-extension BMCViewController: BMCCategoryCellDelegate {
-  func cell(_ cell: BMCCategoryCell, didCheck visible: Bool) {
-    guard let indexPath = tableView.indexPath(for: cell) else {
-      assertionFailure()
+    case .notifications:
       return
     }
-
-    setCategoryVisible(visible, at: indexPath.row)
-  }
-
-  func cell(_ cell: BMCCategoryCell, didPress moreButton: UIButton) {
-    guard let indexPath = tableView.indexPath(for: cell) else {
-      assertionFailure()
-      return
-    }
-
-    editCategory(at: indexPath.row, anchor: moreButton)
   }
 }
 
