@@ -959,4 +959,14 @@ UNIT_TEST(Lithuania_MaxspeedConditional)
   TEST_LESS(eta2 * 1.1, eta1, ());
 }
 
+UNIT_TEST(Russia_Nsk_NoPassThrough)
+{
+  // Direct route via "Забалуева"
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(54.989096, 82.814513), {0., 0.},
+                                   FromLatLon(54.988888, 82.808875), 418.7);
+  // Detour route via "Порт-Артурская" avoiding pass through service
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(54.9886261, 82.8091597), {0., 0.},
+                                   FromLatLon(54.9924478, 82.8082036), 1254.17);
+}
+
 }  // namespace route_test

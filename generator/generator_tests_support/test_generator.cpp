@@ -134,6 +134,19 @@ void TestRawGenerator::BuildRouting(std::string const & mwmName, std::string con
                         m_genInfo.GetIntermediateFileName(MAXSPEEDS_FILENAME));
 }
 
+void TestRawGenerator::BuildCrossMwm(std::string const & mwmName, std::string const & countryName)
+{
+  using namespace routing_builder;
+  CHECK(MakeFakeBordersFile(GetTmpPath(), countryName), ());
+
+  CountryParentNameGetterFn const parentGetter = [&countryName](std::string const & name)
+  { return (name != countryName ? countryName : std::string()); };
+
+  std::string const filePath = GetMwmPath(mwmName);
+  BuildRoutingCrossMwmSection(GetTmpPath(), filePath, countryName, GetTmpPath(), parentGetter,
+                              filePath + OSM2FEATURE_FILE_EXTENSION);
+}
+
 routing::FeatureIdToOsmId TestRawGenerator::LoadFID2OsmID(std::string const & mwmName)
 {
   routing::FeatureIdToOsmId ids;
