@@ -230,6 +230,13 @@ private:
   // to |segment|
   void AddFakeEdges(Segment const & segment, bool isOutgoing, EdgeListT & edges) const;
 
+  // The route must leave the start's neighbourhood and arrive at the finish's; for an ending in a
+  // non-pass-through zone (service, living_street) that mandatory crossing is not a cut-through. So
+  // bank one free non-pass-through change per such ending, applied once on the forward expansion of
+  // the fake start. RouteWeight::GetIntegratedWeight then charges only the genuine pass-throughs that
+  // remain. See the .cpp for why the whole allowance is banked at the start rather than split.
+  void CreditEndingPassThrough(Segment const & segment, bool isOutgoing, EdgeListT & edges) const;
+
   // Checks whether ending belongs to non-pass-through zone (service, living street, etc).
   bool HasNoPassThroughAllowed(Ending const & ending) const;
 
