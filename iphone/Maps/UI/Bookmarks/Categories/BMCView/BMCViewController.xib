@@ -11,7 +11,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BMCViewController" customModule="Organic_Maps" customModuleProvider="target">
             <connections>
                 <outlet property="actionsHeader" destination="DhR-7O-ccQ" id="PPD-Ov-b69"/>
-                <outlet property="notificationsHeader" destination="G0o-Op-zPp" id="PUK-3H-1q3"/>
                 <outlet property="tableView" destination="2ia-hi-UhQ" id="qJG-eV-PoF"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -49,45 +48,6 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="483" y="-50"/>
-        </view>
-        <view contentMode="scaleToFill" id="G0o-Op-zPp" customClass="BMCNotificationsHeader" customModule="Organic_Maps" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WYb-xC-cJR">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BbP-rE-XH6">
-                            <rect key="frame" x="16" y="13.5" width="343" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium14:blackSecondaryText"/>
-                            </userDefinedRuntimeAttributes>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="trailing" secondItem="BbP-rE-XH6" secondAttribute="trailing" constant="16" id="0y9-8D-etT"/>
-                        <constraint firstItem="BbP-rE-XH6" firstAttribute="centerY" secondItem="WYb-xC-cJR" secondAttribute="centerY" id="E2o-Zj-Sfl"/>
-                        <constraint firstItem="BbP-rE-XH6" firstAttribute="leading" secondItem="WYb-xC-cJR" secondAttribute="leading" constant="16" id="NL9-Mg-ULl"/>
-                    </constraints>
-                </view>
-            </subviews>
-            <viewLayoutGuide key="safeArea" id="Gks-qZ-sxu"/>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-            <constraints>
-                <constraint firstItem="WYb-xC-cJR" firstAttribute="top" secondItem="G0o-Op-zPp" secondAttribute="top" id="HYA-0D-zWS"/>
-                <constraint firstItem="WYb-xC-cJR" firstAttribute="leading" secondItem="Gks-qZ-sxu" secondAttribute="leading" id="KA1-YB-hBF"/>
-                <constraint firstItem="WYb-xC-cJR" firstAttribute="trailing" secondItem="Gks-qZ-sxu" secondAttribute="trailing" id="hne-ZG-GAn"/>
-                <constraint firstAttribute="bottom" secondItem="WYb-xC-cJR" secondAttribute="bottom" id="vwe-2c-cjW"/>
-            </constraints>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <connections>
-                <outlet property="label" destination="BbP-rE-XH6" id="UTL-17-qdv"/>
-            </connections>
-            <point key="canvasLocation" x="483" y="35"/>
         </view>
     </objects>
     <resources>

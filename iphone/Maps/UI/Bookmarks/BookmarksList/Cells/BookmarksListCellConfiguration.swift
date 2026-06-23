@@ -15,7 +15,6 @@ extension BookmarksListCell {
     let subtitle: String?
     let leadingItem: LeadingItem
     let accessoryItem: AccessoryItem
-    let selectionStyle: UITableViewCell.SelectionStyle
   }
 }
 
@@ -24,8 +23,7 @@ extension BookmarksListCell.Configuration {
     BookmarksListCell.Configuration(title: "",
                                     subtitle: "",
                                     leadingItem: .none,
-                                    accessoryItem: .none,
-                                    selectionStyle: .default)
+                                    accessoryItem: .none)
   }
 
   static func bookmark(_ item: IBookmarksListItemViewModel) -> Self {
@@ -34,8 +32,7 @@ extension BookmarksListCell.Configuration {
                                     leadingItem: .image(item.image,
                                                         tintColor: nil,
                                                         action: item.colorDidTapAction),
-                                    accessoryItem: .detailButton,
-                                    selectionStyle: .default)
+                                    accessoryItem: .detailButton)
   }
 
   static func category(_ category: BookmarkGroup,
@@ -48,8 +45,7 @@ extension BookmarksListCell.Configuration {
                                                         action: leadingAction),
                                     accessoryItem: .image(UIImage.ic24PxMore,
                                                           tintColor: .blackHintText,
-                                                          action: accessoryAction),
-                                    selectionStyle: .default)
+                                                          action: accessoryAction))
   }
 
   static func action(_ action: BMCAction) -> Self {
@@ -58,15 +54,6 @@ extension BookmarksListCell.Configuration {
                                     leadingItem: .image(action.image,
                                                         tintColor: .linkBlue,
                                                         action: nil),
-                                    accessoryItem: .none,
-                                    selectionStyle: .default)
-  }
-
-  static func loading() -> Self {
-    BookmarksListCell.Configuration(title: L("load_kmz_title"),
-                                    subtitle: nil,
-                                    leadingItem: .none,
-                                    accessoryItem: .none,
-                                    selectionStyle: .none)
+                                    accessoryItem: .none)
   }
 }

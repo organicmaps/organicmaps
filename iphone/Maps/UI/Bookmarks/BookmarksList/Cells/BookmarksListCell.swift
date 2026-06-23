@@ -4,9 +4,6 @@ final class BookmarksListCell: MWMTableViewSubtitleCell {
     static let accessoryButtonSize = CGSize(width: 44, height: 44)
   }
 
-  private static let titleStyleName = "regular16:blackPrimaryText"
-  private static let subtitleStyleName = "regular14:blackSecondaryText"
-
   private let accessoryButton = UIButton(type: .custom)
   private var configuration: Configuration = .default
   private var leadingButtonDidTapAction: ((_ anchor: UIView) -> Void)?
@@ -36,7 +33,6 @@ final class BookmarksListCell: MWMTableViewSubtitleCell {
 
     accessoryType = .none
     accessoryView = nil
-    selectionStyle = .default
   }
 
   func configure(_ configuration: Configuration) {
@@ -75,9 +71,11 @@ final class BookmarksListCell: MWMTableViewSubtitleCell {
 
     textLabel?.numberOfLines = 0
     textLabel?.lineBreakMode = .byWordWrapping
+    textLabel?.setFontStyle(.regular16, color: .blackPrimary)
 
     detailTextLabel?.numberOfLines = 0
     detailTextLabel?.lineBreakMode = .byWordWrapping
+    detailTextLabel?.setFontStyle(.regular14, color: .blackSecondary)
 
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onLeadingButtonTap(_:)))
     imageView?.addGestureRecognizer(tapGesture)
@@ -85,6 +83,7 @@ final class BookmarksListCell: MWMTableViewSubtitleCell {
 
     accessoryButton.frame = CGRect(origin: .zero, size: Constants.accessoryButtonSize)
     accessoryButton.addTarget(self, action: #selector(onAccessoryButtonTap), for: .touchUpInside)
+    selectionStyle = .default
 
     applyCurrentAppearance()
   }
@@ -93,14 +92,11 @@ final class BookmarksListCell: MWMTableViewSubtitleCell {
     applyLabelStyles()
     applyLeadingItem()
     applyAccessoryItem()
-    selectionStyle = configuration.selectionStyle
   }
 
   private func applyLabelStyles() {
     textLabel?.text = configuration.title
     detailTextLabel?.text = configuration.subtitle
-    textLabel?.setStyleNameAndApply(Self.titleStyleName)
-    detailTextLabel?.setStyleNameAndApply(Self.subtitleStyleName)
   }
 
   private func applyLeadingItem() {
@@ -109,6 +105,7 @@ final class BookmarksListCell: MWMTableViewSubtitleCell {
       imageView?.image = nil
       imageView?.tintColor = nil
       imageView?.isUserInteractionEnabled = false
+      leadingButtonDidTapAction = nil
     case .image(let image, let tintColor, let action):
       imageView?.image = image
       imageView?.tintColor = tintColor
@@ -122,14 +119,15 @@ final class BookmarksListCell: MWMTableViewSubtitleCell {
     case .none:
       accessoryType = .none
       accessoryView = nil
+      accessoryButtonDidTapAction = nil
     case .detailButton:
       accessoryView = nil
       accessoryType = .detailButton
+      accessoryButtonDidTapAction = nil
     case .image(let image, let tintColor, let action):
       accessoryType = .none
       accessoryButton.tintColor = tintColor
       accessoryButton.setImage(image, for: .normal)
-      accessoryButton.accessibilityLabel = accessibilityLabel
       accessoryView = accessoryButton
       accessoryButtonDidTapAction = action
     }
