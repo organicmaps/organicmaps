@@ -65,7 +65,6 @@
 		ED46DDD02D098A0B007CACD6 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED46DDCF2D098A0B007CACD6 /* SwiftUI.framework */; };
 		ED46DDE12D098A0C007CACD6 /* OMapsWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = ED46DDCC2D098A0B007CACD6 /* OMapsWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		ED810EC52D566E9B00ECDE2C /* SearchOnMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED810EC42D566E9B00ECDE2C /* SearchOnMapTests.swift */; };
-		EDAA00012F91000000FA103D /* SearchCategoryIconRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAA00022F91000000FA103D /* SearchCategoryIconRenderer.swift */; };
 		ED82BCB22F900F8200FA103D /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82BCAF2F900F8200FA103D /* main.mm */; };
 		ED82C4F22F90180300FA103D /* MWMAutoupdateController.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2982F90180300FA103D /* MWMAutoupdateController.mm */; };
 		ED82C4F32F90180300FA103D /* AvailableArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C29B2F90180300FA103D /* AvailableArea.swift */; };
@@ -123,7 +122,6 @@
 		ED82C5272F90180300FA103D /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2F32F90180300FA103D /* DocumentPicker.swift */; };
 		ED82C5282F90180300FA103D /* FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2F42F90180300FA103D /* FileType.swift */; };
 		ED82C5292F90180300FA103D /* MWMMapDownloaderButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2F72F90180300FA103D /* MWMMapDownloaderButtonTableViewCell.m */; };
-		ED82C52A2F90180300FA103D /* MWMMapDownloaderCellHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2FA2F90180300FA103D /* MWMMapDownloaderCellHeader.m */; };
 		ED82C52B2F90180300FA103D /* MWMMapDownloaderLargeCountryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2FC2F90180300FA103D /* MWMMapDownloaderLargeCountryTableViewCell.m */; };
 		ED82C52C2F90180300FA103D /* MWMMapDownloaderPlaceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2FF2F90180300FA103D /* MWMMapDownloaderPlaceTableViewCell.m */; };
 		ED82C52D2F90180300FA103D /* MWMMapDownloaderSubplaceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C3022F90180300FA103D /* MWMMapDownloaderSubplaceTableViewCell.m */; };
@@ -527,7 +525,6 @@
 		ED82C7932F90186300FA103D /* UISearchBarRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7112F90186300FA103D /* UISearchBarRenderer.swift */; };
 		ED82C7942F90186300FA103D /* UISwitchRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7122F90186300FA103D /* UISwitchRenderer.swift */; };
 		ED82C7952F90186300FA103D /* UITableViewCellRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7132F90186300FA103D /* UITableViewCellRenderer.swift */; };
-		ED82C7962F90186300FA103D /* UITableViewHeaderFooterViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7142F90186300FA103D /* UITableViewHeaderFooterViewRenderer.swift */; };
 		ED82C7972F90186300FA103D /* UITableViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7152F90186300FA103D /* UITableViewRenderer.swift */; };
 		ED82C7982F90186300FA103D /* UITextFieldRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7162F90186300FA103D /* UITextFieldRenderer.swift */; };
 		ED82C7992F90186300FA103D /* UITextViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7172F90186300FA103D /* UITextViewRenderer.swift */; };
@@ -599,6 +596,7 @@
 		ED82C8212F90186900FA103D /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C81C2F90186900FA103D /* Common.swift */; };
 		ED8A91E02D759B50009E063B /* LocalizableTypes.strings in Resources */ = {isa = PBXBuildFile; fileRef = ED8A91DE2D759B50009E063B /* LocalizableTypes.strings */; };
 		ED9DDF9D2D6F6F7900645BC8 /* TrackRecordingManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9DDF9B2D6F6DA300645BC8 /* TrackRecordingManagerTests.swift */; };
+		EDAA00012F91000000FA103D /* SearchCategoryIconRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAA00022F91000000FA103D /* SearchCategoryIconRenderer.swift */; };
 		EDBAB6F52E980421007962B5 /* GeoNavigationToOMURLConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBAB6F42E980421007962B5 /* GeoNavigationToOMURLConverterTests.swift */; };
 		EDC4E3612C5E2576009286A2 /* RecentlyDeletedCategoriesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E3412C5D1BD3009286A2 /* RecentlyDeletedCategoriesViewModelTests.swift */; };
 		EDC4E3692C5E6F5B009286A2 /* MockRecentlyDeletedCategoriesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E3402C5D1BD3009286A2 /* MockRecentlyDeletedCategoriesManager.swift */; };
@@ -897,7 +895,6 @@
 		ED46DDCD2D098A0B007CACD6 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		ED46DDCF2D098A0B007CACD6 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		ED810EC42D566E9B00ECDE2C /* SearchOnMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapTests.swift; sourceTree = "<group>"; };
-		EDAA00022F91000000FA103D /* SearchCategoryIconRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCategoryIconRenderer.swift; sourceTree = "<group>"; };
 		ED82BCAE2F900F8200FA103D /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		ED82BCAF2F900F8200FA103D /* main.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		ED82BCB02F900F8200FA103D /* Maps_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Maps_Prefix.pch; sourceTree = "<group>"; };
@@ -978,8 +975,6 @@
 		ED82C2F62F90180300FA103D /* MWMMapDownloaderButtonTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloaderButtonTableViewCell.h; sourceTree = "<group>"; };
 		ED82C2F72F90180300FA103D /* MWMMapDownloaderButtonTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMMapDownloaderButtonTableViewCell.m; sourceTree = "<group>"; };
 		ED82C2F82F90180300FA103D /* MWMMapDownloaderButtonTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMMapDownloaderButtonTableViewCell.xib; sourceTree = "<group>"; };
-		ED82C2F92F90180300FA103D /* MWMMapDownloaderCellHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloaderCellHeader.h; sourceTree = "<group>"; };
-		ED82C2FA2F90180300FA103D /* MWMMapDownloaderCellHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMMapDownloaderCellHeader.m; sourceTree = "<group>"; };
 		ED82C2FB2F90180300FA103D /* MWMMapDownloaderLargeCountryTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloaderLargeCountryTableViewCell.h; sourceTree = "<group>"; };
 		ED82C2FC2F90180300FA103D /* MWMMapDownloaderLargeCountryTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMMapDownloaderLargeCountryTableViewCell.m; sourceTree = "<group>"; };
 		ED82C2FD2F90180300FA103D /* MWMMapDownloaderLargeCountryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMMapDownloaderLargeCountryTableViewCell.xib; sourceTree = "<group>"; };
@@ -1526,7 +1521,6 @@
 		ED82C7112F90186300FA103D /* UISearchBarRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISearchBarRenderer.swift; sourceTree = "<group>"; };
 		ED82C7122F90186300FA103D /* UISwitchRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISwitchRenderer.swift; sourceTree = "<group>"; };
 		ED82C7132F90186300FA103D /* UITableViewCellRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellRenderer.swift; sourceTree = "<group>"; };
-		ED82C7142F90186300FA103D /* UITableViewHeaderFooterViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewHeaderFooterViewRenderer.swift; sourceTree = "<group>"; };
 		ED82C7152F90186300FA103D /* UITableViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewRenderer.swift; sourceTree = "<group>"; };
 		ED82C7162F90186300FA103D /* UITextFieldRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldRenderer.swift; sourceTree = "<group>"; };
 		ED82C7172F90186300FA103D /* UITextViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewRenderer.swift; sourceTree = "<group>"; };
@@ -1667,6 +1661,7 @@
 		ED8A920C2D759BA9009E063B /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
 		ED8A920D2D759BAA009E063B /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
 		ED9DDF9B2D6F6DA300645BC8 /* TrackRecordingManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingManagerTests.swift; sourceTree = "<group>"; };
+		EDAA00022F91000000FA103D /* SearchCategoryIconRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCategoryIconRenderer.swift; sourceTree = "<group>"; };
 		EDBAB6F42E980421007962B5 /* GeoNavigationToOMURLConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoNavigationToOMURLConverterTests.swift; sourceTree = "<group>"; };
 		EDC4E3402C5D1BD3009286A2 /* MockRecentlyDeletedCategoriesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockRecentlyDeletedCategoriesManager.swift; sourceTree = "<group>"; };
 		EDC4E3412C5D1BD3009286A2 /* RecentlyDeletedCategoriesViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedCategoriesViewModelTests.swift; sourceTree = "<group>"; };
@@ -2312,8 +2307,6 @@
 				ED82C2F62F90180300FA103D /* MWMMapDownloaderButtonTableViewCell.h */,
 				ED82C2F72F90180300FA103D /* MWMMapDownloaderButtonTableViewCell.m */,
 				ED82C2F82F90180300FA103D /* MWMMapDownloaderButtonTableViewCell.xib */,
-				ED82C2F92F90180300FA103D /* MWMMapDownloaderCellHeader.h */,
-				ED82C2FA2F90180300FA103D /* MWMMapDownloaderCellHeader.m */,
 				ED82C2FB2F90180300FA103D /* MWMMapDownloaderLargeCountryTableViewCell.h */,
 				ED82C2FC2F90180300FA103D /* MWMMapDownloaderLargeCountryTableViewCell.m */,
 				ED82C2FD2F90180300FA103D /* MWMMapDownloaderLargeCountryTableViewCell.xib */,
@@ -3708,7 +3701,6 @@
 				ED82C7112F90186300FA103D /* UISearchBarRenderer.swift */,
 				ED82C7122F90186300FA103D /* UISwitchRenderer.swift */,
 				ED82C7132F90186300FA103D /* UITableViewCellRenderer.swift */,
-				ED82C7142F90186300FA103D /* UITableViewHeaderFooterViewRenderer.swift */,
 				ED82C7152F90186300FA103D /* UITableViewRenderer.swift */,
 				ED82C7162F90186300FA103D /* UITextFieldRenderer.swift */,
 				ED82C7172F90186300FA103D /* UITextViewRenderer.swift */,
@@ -4434,7 +4426,6 @@
 				ED82C5272F90180300FA103D /* DocumentPicker.swift in Sources */,
 				ED82C5282F90180300FA103D /* FileType.swift in Sources */,
 				ED82C5292F90180300FA103D /* MWMMapDownloaderButtonTableViewCell.m in Sources */,
-				ED82C52A2F90180300FA103D /* MWMMapDownloaderCellHeader.m in Sources */,
 				ED82C52B2F90180300FA103D /* MWMMapDownloaderLargeCountryTableViewCell.m in Sources */,
 				ED82C52C2F90180300FA103D /* MWMMapDownloaderPlaceTableViewCell.m in Sources */,
 				ED82C52D2F90180300FA103D /* MWMMapDownloaderSubplaceTableViewCell.m in Sources */,
@@ -4615,7 +4606,6 @@
 				ED82C7932F90186300FA103D /* UISearchBarRenderer.swift in Sources */,
 				ED82C7942F90186300FA103D /* UISwitchRenderer.swift in Sources */,
 				ED82C7952F90186300FA103D /* UITableViewCellRenderer.swift in Sources */,
-				ED82C7962F90186300FA103D /* UITableViewHeaderFooterViewRenderer.swift in Sources */,
 				EDCD96352F9BB4BE00B398FC /* PopoverListSelectorViewController.swift in Sources */,
 				ED82C7972F90186300FA103D /* UITableViewRenderer.swift in Sources */,
 				ED82C7982F90186300FA103D /* UITextFieldRenderer.swift in Sources */,

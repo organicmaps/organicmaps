@@ -20,16 +20,6 @@ static CGFloat const kMaxEstimatedTableViewCellHeight = 100.0;
   return NO;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
-{
-  [self fixHeaderAndFooterFontsInDarkMode:view];
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section
-{
-  [self fixHeaderAndFooterFontsInDarkMode:view];
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   return UITableViewAutomaticDimension;
@@ -40,16 +30,14 @@ static CGFloat const kMaxEstimatedTableViewCellHeight = 100.0;
   return kMaxEstimatedTableViewCellHeight;
 }
 
-// Fix table section header font color for all tables, including Setting and Route Options.
-- (void)fixHeaderAndFooterFontsInDarkMode:(UIView *)headerView
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-  if ([headerView isKindOfClass:[UITableViewHeaderFooterView class]])
-  {
-    UITableViewHeaderFooterView * header = (UITableViewHeaderFooterView *)headerView;
-    header.textLabel.textColor = [UIColor blackSecondaryText];
-    if (self.tableView.style == UITableViewStyleGrouped)
-      header.detailTextLabel.textColor = [UIColor blackSecondaryText];
-  }
+  return UITableViewAutomaticDimension;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+  return UITableViewAutomaticDimension;
 }
 
 - (void)viewDidLoad
