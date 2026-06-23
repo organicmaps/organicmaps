@@ -5,6 +5,8 @@
 
 #include "routing/routing_integration_tests/routing_test_tools.hpp"
 
+#include "routing/route.hpp"
+
 #include "platform/platform_tests_support/helpers.hpp"
 
 #include "geometry/mercator.hpp"
@@ -967,6 +969,41 @@ UNIT_TEST(Russia_Nsk_NoPassThrough)
   // Detour route via "Порт-Артурская" avoiding pass through service
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(54.9886261, 82.8091597), {0., 0.},
                                    FromLatLon(54.9924478, 82.8082036), 1254.17);
+}
+
+// The destination (43.5298373, 5.44563164) lies on Rue de la Treille. The route must
+// reach it along a road, not end ~120 m away (on the parallel Rue du Bon Pasteur) with a long straight
+// offroad "snap" onto the destination.
+UNIT_TEST(France_RueDeLaTreille_FinishSnap)
+{
+  auto const finish = FromLatLon(43.5298373, 5.44563164);
+  m2::PointD const starts[] = {
+      FromLatLon(43.5322251, 5.44530922),  // far start (long one-way detour, but must still reach the finish).
+      FromLatLon(43.5308099, 5.44491621),  // near start.
+  };
+
+  for (auto const & start : starts)
+  {
+    TRouteResult const res = CalculateRoute(GetVehicleComponents(VehicleType::Car), start, {0., 0.}, finish);
+    TEST_EQUAL(res.second, RouterResultCode::NoError, ());
+
+    auto const & segments = res.first->GetRouteSegments();
+    TEST(!segments.empty(), ());
+
+    // The last real road point must be next to the destination: a missing final segment shows up as a
+    // long straight offroad jump from the last road point to the finish.
+    m2::PointD lastRoadPoint = finish;
+    for (auto it = segments.rbegin(); it != segments.rend(); ++it)
+    {
+      if (it->GetSegment().IsRealSegment())
+      {
+        lastRoadPoint = it->GetJunction().GetPoint();
+        break;
+      }
+    }
+    double const snapM = mercator::DistanceOnEarth(lastRoadPoint, finish);
+    TEST_LESS(snapM, 30.0, ("Finish reached with a", snapM, "m offroad snap instead of a final road segment"));
+  }
 }
 
 }  // namespace route_test

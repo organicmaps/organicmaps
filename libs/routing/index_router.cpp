@@ -1221,6 +1221,13 @@ int IndexRouter::PointsOnEdgesSnapping::Snap(m2::PointD const & start, m2::Point
       return 1;
   }
 
+  // Re-fill the dead-ends cache for the finish neighbourhood: FindBestSegments(start) above leaves
+  // m_deadEnds describing the *start* surroundings, but the finish snapping must vouch its own
+  // dead-end candidates. Otherwise the finish snapping silently depends on where the start is
+  // and may drop the closest segment.
+  /// @see France_RueDeLaTreille_FinishSnap test
+  FillDeadEndsCache(finish);
+
   std::vector<Segment> finishSegments;
   bool dummy;
   if (!FindBestSegments(finish, {} /* direction */, false /* isOutgoing */, finishSegments, dummy))
