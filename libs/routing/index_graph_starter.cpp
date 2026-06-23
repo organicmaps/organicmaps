@@ -163,10 +163,28 @@ bool IndexGraphStarter::CheckLength(RouteWeight const & weight)
   /// This additional penalty will be included in RouteWeight::GetIntegratedWeight().
   /// @see RussiaMoscowNotCrossingTollRoadTest
 
-  int8_t const changesAllowed =
-      2 + (HasNoPassThroughAllowed(m_start) ? 1 : 0) + (HasNoPassThroughAllowed(m_finish) ? 1 : 0);
+  // The mandatory "leave start / arrive finish" crossings of an NA-zone ending are already credited
+  // in CreditEndingPassThrough, so |weight| counts genuine pass-throughs only; allow up to one.
+  return weight.GetNumPassThroughChanges() <= 2 && m_graph.CheckLength(weight, m_startToFinishDistanceM);
+}
 
-  return weight.GetNumPassThroughChanges() <= changesAllowed && m_graph.CheckLength(weight, m_startToFinishDistanceM);
+void IndexGraphStarter::CreditEndingPassThrough(Segment const & segment, bool isOutgoing, EdgeListT & edges) const
+{
+  // Apply the whole credit on the forward expansion of the fake start, so a forward partial that
+  // already left the start and re-entered the finish neighbourhood is not over-penalized while the
+  // bidirectional waves haven't met yet (a split start/finish credit makes the wave settle on a
+  // worse all-non-pass-through detour).
+  if (!(isOutgoing && segment == GetStartSegment()))
+    return;
+
+  int8_t const credit = (HasNoPassThroughAllowed(m_start) ? 1 : 0) + (HasNoPassThroughAllowed(m_finish) ? 1 : 0);
+  if (credit == 0)
+    return;
+
+  RouteWeight const delta(0.0 /* weight */, credit /* numPassThroughChanges */, 0 /* numAccessChanges */,
+                          0 /* numAccessConditionalPenalties */, 0.0 /* transitTime */);
+  for (auto & edge : edges)
+    edge.GetWeight() = edge.GetWeight() - delta;
 }
 
 void IndexGraphStarter::GetEdgesList(astar::VertexData<Vertex, Weight> const & vertexData, bool isOutgoing,
@@ -224,6 +242,7 @@ void IndexGraphStarter::GetEdgesList(astar::VertexData<Vertex, Weight> const & v
   }
 
   AddFakeEdges(segment, isOutgoing, edges);
+  CreditEndingPassThrough(segment, isOutgoing, edges);
 }
 
 RouteWeight IndexGraphStarter::CalcGuidesSegmentWeight(Segment const & segment, EdgeEstimator::Purpose purpose) const
