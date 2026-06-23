@@ -17,6 +17,8 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewStub
+import android.webkit.WebResourceRequest
+import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.LinearLayout
@@ -26,11 +28,15 @@ import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import app.organicmaps.R
+import app.organicmaps.sdk.util.NetworkPolicy
 import app.organicmaps.sdk.util.StringUtils
 import app.organicmaps.sdk.util.log.Logger
 import app.organicmaps.util.UiUtils
 import app.organicmaps.util.Utils
+import app.organicmaps.widget.StackedButtonDialogFragment
 import java.util.Locale
 import kotlin.math.roundToInt
 import org.json.JSONException
@@ -58,6 +64,28 @@ class ExpandableNotesView @JvmOverloads constructor(
     // Guards against redundant re-renders when LiveData re-emits the same description
     // (observer re-attach on app foreground, etc.) — preserves isExpanded and avoids WebView reload.
     private var lastNotes: String? = null
+
+    // Resolved via NetworkPolicy before each WebView load. Read on the network thread from
+    // shouldInterceptRequest; written only on the main thread, so volatile is sufficient.
+    @Volatile
+    private var networkAllowed: Boolean = false
+
+    // Drops stale async results when the user switches bookmarks before NetworkPolicy resolves.
+    // Written and read on the main thread only (setHtmlInternal + clearInternal + checkNetworkPolicy
+    // callback are all main-thread), so unlike networkAllowed it doesn't need @Volatile.
+    private var loadGeneration: Int = 0
+
+    private val networkDialogPresenter = object : NetworkPolicy.DialogPresenter {
+        override fun showDialogIfNeeded(
+            fm: FragmentManager,
+            listener: NetworkPolicy.NetworkPolicyListener,
+            policy: NetworkPolicy,
+            isToday: Boolean,
+        ) = StackedButtonDialogFragment.showDialogIfNeeded(fm, listener, policy, isToday)
+
+        override fun showDialog(fm: FragmentManager, listener: NetworkPolicy.NetworkPolicyListener) =
+            StackedButtonDialogFragment.showDialog(fm, listener)
+    }
 
     private val webViewTapDetector by lazy {
         GestureDetector(
@@ -212,12 +240,33 @@ class ExpandableNotesView @JvmOverloads constructor(
         // (not VISIBLE) if measurement reports short content.
         setMoreOverlayVisibility(INVISIBLE)
 
-        val themedHtml = wrapWithThemeStyles(html)
+        val generation = ++loadGeneration
+        val activity = context as? FragmentActivity
+        if (activity != null && HTTP_RESOURCE_REGEX.containsMatchIn(html)) {
+            NetworkPolicy.checkNetworkPolicy(
+                networkDialogPresenter,
+                activity.supportFragmentManager,
+            ) { policy ->
+                if (generation != loadGeneration || wvNotes !== webView) return@checkNetworkPolicy
+                networkAllowed = policy.canUseNetwork()
+                loadHtmlIntoWebView(webView, html)
+            }
+        } else {
+            networkAllowed = NetworkPolicy.getCurrentNetworkUsageStatus()
+            loadHtmlIntoWebView(webView, html)
+        }
+    }
+
+    private fun loadHtmlIntoWebView(webView: WebView, html: String) {
+        val themedHtml = buildHtml(html)
         webView.loadDataWithBaseURL(null, themedHtml, Utils.TEXT_HTML, "UTF-8", null)
     }
 
     private fun clearInternal() {
         pendingPlainNotes = null
+        // Invalidate any in-flight NetworkPolicy callback so it can't race a cleared widget
+        // back into the HTML state after the user moved on / closed the bookmark.
+        ++loadGeneration
         UiUtils.hide(tvNotes)
         hideWebView()
         setMoreOverlayVisibility(GONE)
@@ -230,7 +279,8 @@ class ExpandableNotesView @JvmOverloads constructor(
     // Inflated lazily from ViewStub on the first complex-HTML description — descriptions without
     // complex HTML (tables, images, lists, inline CSS) stay WebView-free (~10-20 MB saved per open).
     // JS is required so we can read document.documentElement.scrollHeight via evaluateJavascript()
-    // after onPageFinished. The CSP <meta> injected in wrapWithThemeStyles blocks every <script>,
+    // after onPageFinished. The CSP <meta> in PROTECTIVE_HEAD (applied via wrapWithThemeStyles for
+    // fragments and injectProtectiveHead for full HTML documents) blocks every <script>,
     // javascript: URL and on*-handler that the bookmark/track description could contain, so
     // user-supplied HTML can't execute code; evaluateJavascript() from native bypasses CSP, so
     // measurement still works.
@@ -242,6 +292,8 @@ class ExpandableNotesView @JvmOverloads constructor(
             setBackgroundColor(ContextCompat.getColor(context, R.color.bg_cards))
             settings.javaScriptEnabled = true
             settings.defaultTextEncodingName = "UTF-8"
+            settings.useWideViewPort = true
+            settings.loadWithOverviewMode = true
             overScrollMode = OVER_SCROLL_NEVER
             isVerticalScrollBarEnabled = false
             isHorizontalScrollBarEnabled = false
@@ -252,6 +304,13 @@ class ExpandableNotesView @JvmOverloads constructor(
             }
             webViewClient = object : WebViewClient() {
                 override fun onPageFinished(view: WebView, url: String?) = measureContentHeight(view)
+
+                override fun shouldInterceptRequest(view: WebView, request: WebResourceRequest): WebResourceResponse? {
+                    val scheme = request.url.scheme?.lowercase(Locale.ROOT) ?: return null
+                    if (scheme != "http" && scheme != "https") return null
+                    if (networkAllowed) return null
+                    return WebResourceResponse("text/plain", "UTF-8", null)
+                }
             }
             wvNotes = this
         }
@@ -374,23 +433,79 @@ class ExpandableNotesView @JvmOverloads constructor(
     private fun measureFullLineCount(text: CharSequence, width: Int): Int =
         StaticLayout(text, tvNotes.paint, width, Layout.Alignment.ALIGN_NORMAL, 1f, 0f, false).lineCount
 
+    // Full documents keep their own color/font/background; we inject only the safety layer
+    // (viewport, CSP, media max-width) so author content can't horizontally overflow or run scripts.
+    // Fragments get the safety layer + theme wrapper.
+    private fun buildHtml(userHtml: String): String {
+        if (HTML_DOCUMENT_REGEX.containsMatchIn(userHtml)) return injectProtectiveHead(userHtml)
+        return wrapWithThemeStyles(extractHtmlBody(userHtml))
+    }
+
+    private fun extractHtmlBody(html: String): String {
+        val open = BODY_OPEN_REGEX.find(html) ?: return html
+        val closeIdx = html.indexOf("</body>", open.range.last + 1, ignoreCase = true)
+        if (closeIdx < 0) return html
+        return html.substring(open.range.last + 1, closeIdx)
+    }
+
+    // Inserts the safety layer at the start of <head> so the author's later rules can still
+    // override it (e.g. `img { max-width: none }` if they really want a full-bleed image).
+    private fun injectProtectiveHead(html: String): String {
+        val headOpen = HEAD_OPEN_REGEX.find(html)
+        if (headOpen != null) {
+            val insertAt = headOpen.range.last + 1
+            return html.substring(0, insertAt) + PROTECTIVE_HEAD + html.substring(insertAt)
+        }
+        val htmlOpen = HTML_OPEN_REGEX.find(html) ?: return html
+        val insertAt = htmlOpen.range.last + 1
+        return html.substring(0, insertAt) + "<head>" + PROTECTIVE_HEAD + "</head>" + html.substring(insertAt)
+    }
+
     private fun wrapWithThemeStyles(userHtml: String): String = with(tvNotes) {
-        val bgCss = toCssColor(ContextCompat.getColor(context, R.color.bg_cards))
         val textCss = toCssColor(currentTextColor)
         val fontSizeDp = (textSize / resources.displayMetrics.density).toInt()
-        """<!DOCTYPE html><html><head>""" +
-            """<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'">""" +
-            """<meta name="viewport" content="width=device-width, initial-scale=1">""" +
-            """<meta name="color-scheme" content="light dark">""" +
-            """<style>body{background:$bgCss;color:$textCss;font-size:${fontSizeDp}px;margin:0;""" +
-            """user-select:none;-webkit-user-select:none}""" +
-            """body>:first-child{margin-top:0}body>:last-child{margin-bottom:0}</style>""" +
-            """</head><body>$userHtml</body></html>"""
+        """<!DOCTYPE html><html><head>""" + PROTECTIVE_HEAD +
+            """<style>""" +
+            """html,body{margin:0;padding:0;background:transparent}""" +
+            """body{color:$textCss;font-size:${fontSizeDp}px;font-family:sans-serif}""" +
+            """body>:first-child{margin-top:0}body>:last-child{margin-bottom:0}""" +
+            """</style></head><body>$userHtml</body></html>"""
     }
 
     companion object {
         private const val TAG = "ExpandableNotesView"
         private const val COLLAPSED_LINES = 3
+
+        private val HTML_DOCUMENT_REGEX = Regex(
+            """^\s*(?:<!doctype\s+html[^>]*>\s*)?<html\b""",
+            RegexOption.IGNORE_CASE,
+        )
+        private val HTML_OPEN_REGEX = Regex("""<html[^>]*>""", RegexOption.IGNORE_CASE)
+        private val HEAD_OPEN_REGEX = Regex("""<head[^>]*>""", RegexOption.IGNORE_CASE)
+        private val BODY_OPEN_REGEX = Regex("""<body[^>]*>""", RegexOption.IGNORE_CASE)
+
+        // Detects remote subresources that the WebView will fetch automatically. Covers the
+        // common cases: `src=`, `srcset=`, `poster=` on media tags, `<link href=>` for external
+        // stylesheets, `url(...)` in inline styles, and protocol-relative URLs (`//host/...`).
+        // `<a href="...">` is intentionally excluded: links don't fetch content until the user
+        // taps them. SVG `xlink:href` and other rare patterns are out of scope — descriptions
+        // using them will be blocked silently on Never/Ask without a prompt.
+        private val HTTP_RESOURCE_REGEX = Regex(
+            """\b(?:src|srcset|poster)\s*=\s*["']?(?:https?:|//)""" +
+                """|<link\b[^>]*\bhref\s*=\s*["']?https?:""" +
+                """|url\s*\(\s*["']?https?:""",
+            RegexOption.IGNORE_CASE,
+        )
+
+        private const val PROTECTIVE_HEAD =
+            """<meta http-equiv="Content-Security-Policy" content="script-src 'none'; object-src 'none'">""" +
+                """<meta name="viewport" content="width=device-width">""" +
+                """<style>img,video,iframe{max-width:100%}img,video{height:auto}""" +
+                // user-select / touch-callout: blocks selection + iOS-style long-press menu
+                // inside the WebView. Keeps the tap-to-expand UX consistent with the rest of
+                // PlacePage where bookmark descriptions are not selectable.
+                """body{overflow-wrap:break-word;user-select:none;""" +
+                """-webkit-user-select:none;-webkit-touch-callout:none}</style>"""
 
         private fun toCssColor(@ColorInt color: Int): String {
             val a = (color ushr 24) and 0xFF
