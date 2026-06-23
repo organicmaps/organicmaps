@@ -223,6 +223,8 @@
     <string name="pref_bg_tiles_title">Արբանյակային պատկերներ</string>
     <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
     <string name="pref_bg_tiles_url_title">Սերվերի URL</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">Մուտքագրեք {z}/{x}/{y} պարունակող վավեր URL</string>
     <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
     <string name="pref_bg_tiles_size_title">Քեշի չափը (ՄԲ)</string>
     <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
@@ -633,6 +635,8 @@
     <string name="button_layer_hiking">Արշավային</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Հեծանվային</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Արբանյակ</string>
     <string name="button_layer_subway">Մետրո</string>
     <string name="layers_title">Քարտեզի ոճեր և շերտեր</string>
     <string name="bookmarks_empty_list_title">Այս ցուցակը դատարկ է</string>

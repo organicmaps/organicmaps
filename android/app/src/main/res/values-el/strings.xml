@@ -223,6 +223,8 @@
     <string name="pref_bg_tiles_title">Δορυφορικές εικόνες</string>
     <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
     <string name="pref_bg_tiles_url_title">URL διακομιστή</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">Εισαγάγετε έγκυρη διεύθυνση URL με {z}/{x}/{y}</string>
     <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
     <string name="pref_bg_tiles_size_title">Μέγεθος προσωρινής μνήμης (MB)</string>
     <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
@@ -634,6 +636,8 @@
     <string name="button_layer_hiking">Πεζοπορία</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Ποδηλασία</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Δορυφόρος</string>
     <string name="button_layer_subway">Μετρό</string>
     <string name="layers_title">Στυλ χάρτη και επίπεδα</string>
     <string name="bookmarks_empty_list_title">Η λίστα είναι άδεια</string>

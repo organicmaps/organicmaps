@@ -223,6 +223,8 @@
     <string name="pref_bg_tiles_title">衛星影像</string>
     <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
     <string name="pref_bg_tiles_url_title">伺服器 URL</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">請輸入包含 {z}/{x}/{y} 的有效 URL</string>
     <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
     <string name="pref_bg_tiles_size_title">快取大小 (MB)</string>
     <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
@@ -634,6 +636,8 @@
     <string name="button_layer_hiking">登山</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">單車</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">衛星</string>
     <string name="button_layer_subway">捷運</string>
     <string name="layers_title">地圖樣式和圖層</string>
     <string name="bookmarks_empty_list_title">該列表為空</string>

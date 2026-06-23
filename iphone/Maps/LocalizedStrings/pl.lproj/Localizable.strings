@@ -224,6 +224,9 @@
 /* Settings «Satellite Imagery»: title of the tile server URL input field */
 "pref_bg_tiles_url_title" = "Adres URL serwera";
 
+/* Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) */
+"pref_bg_tiles_url_error" = "Wprowadź prawidłowy adres URL z {z}/{x}/{y}";
+
 /* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
 "pref_bg_tiles_size_title" = "Rozmiar pamięci podręcznej (MB)";
 
@@ -666,6 +669,9 @@
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "Jazda rowerem";
+
+/* Map layers menu: toggle button for the satellite imagery layer */
+"button_layer_satellite" = "Satelita";
 "button_layer_subway" = "Metro";
 "layers_title" = "Style i warstwy mapy";
 

@@ -223,6 +223,8 @@
     <string name="pref_bg_tiles_title">Satelitske snimke</string>
     <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
     <string name="pref_bg_tiles_url_title">URL poslužitelja</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">Unesite valjani URL s {z}/{x}/{y}</string>
     <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
     <string name="pref_bg_tiles_size_title">Veličina predmemorije (MB)</string>
     <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
@@ -637,6 +639,8 @@
     <string name="button_layer_hiking">Planinarenje</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Biciklizam</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Satelit</string>
     <string name="button_layer_subway">Podzemna željeznica</string>
     <string name="layers_title">Stilovi karta i slojevi</string>
     <string name="bookmarks_empty_list_title">Ovaj je popis prazan</string>

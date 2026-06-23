@@ -113,6 +113,8 @@
     <string name="pref_bg_tiles_title">Imágenes satelitales</string>
     <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
     <string name="pref_bg_tiles_url_title">URL del servidor</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">Ingresa una URL válida con {z}/{x}/{y}</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
     <string name="pref_tts_street_names_title">Anunciar los nombres de las calles</string>
     <!-- Settings «Route» category: «Tts announce street names» description -->
@@ -345,6 +347,8 @@
     </plurals>
     <string name="privacy_policy">Política de Privacidad</string>
     <string name="terms_of_use">Términos de uso</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Satélite</string>
     <string name="layers_title">Estilos de mapa y capas</string>
     <string name="bookmarks_empty_list_message">Para añadir un marcador, toque un lugar en el mapa y después toque el ícono de estrella</string>
     <string name="delete_list">Borrar lista</string>
