@@ -32,6 +32,8 @@ public class SearchToolbarController extends ToolbarController implements View.O
   private final View mBack;
   @NonNull
   private final TextInputEditText mQuery;
+  @Nullable
+  private final View mClearIcon;
   private boolean mFromCategory = false;
   // Pending listener that shows the keyboard once the window gains focus (see activate()).
   @Nullable
@@ -65,6 +67,7 @@ public class SearchToolbarController extends ToolbarController implements View.O
     mSearchContainer = getToolbar().findViewById(R.id.search_container);
     mBack = mSearchContainer.findViewById(R.id.back);
     mQuery = mSearchContainer.findViewById(R.id.query);
+    mClearIcon = mSearchContainer.findViewById(com.google.android.material.R.id.text_input_end_icon);
     mQuery.setOnClickListener(this);
     mQuery.addTextChangedListener(mTextWatcher);
     mQuery.setOnEditorActionListener((v, actionId, event) -> {
@@ -94,6 +97,8 @@ public class SearchToolbarController extends ToolbarController implements View.O
       mFromCategory = false;
     final boolean isEmpty = TextUtils.isEmpty(s);
     mBackPressedCallback.setEnabled(!isEmpty);
+    if (isEmpty && mClearIcon != null)
+      mClearIcon.setVisibility(View.GONE);
     updateViewsVisibility(isEmpty);
     onTextChanged(s == null ? "" : s.toString());
   }
