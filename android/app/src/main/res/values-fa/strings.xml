@@ -223,6 +223,8 @@
     <string name="pref_bg_tiles_title">تصاویر ماهواره‌ای</string>
     <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
     <string name="pref_bg_tiles_url_title">نشانی سرور</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">نشانی معتبری شامل {z}/{x}/{y} وارد کنید</string>
     <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
     <string name="pref_bg_tiles_size_title">اندازهٔ حافظهٔ نهان (مگابایت)</string>
     <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
@@ -633,6 +635,8 @@
     <string name="button_layer_hiking">پیاده‌گردی</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">دوچرخه‌سواری</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">ماهواره</string>
     <string name="button_layer_subway">مترو</string>
     <string name="layers_title">سبک ها و لایه های نقشه</string>
     <string name="bookmarks_empty_list_title">این فهرست خالی است</string>

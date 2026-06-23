@@ -223,6 +223,8 @@
     <string name="pref_bg_tiles_title">Palydovinės nuotraukos</string>
     <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
     <string name="pref_bg_tiles_url_title">Serverio URL</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">Įveskite galiojantį URL su {z}/{x}/{y}</string>
     <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
     <string name="pref_bg_tiles_size_title">Talpyklos dydis (MB)</string>
     <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
@@ -636,6 +638,8 @@
     <string name="button_layer_hiking">Žygiavimas</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Kelionės dviračiu</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Palydovas</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Žemėlapio stiliai ir sluoksniai</string>
     <string name="bookmarks_empty_list_title">Sąrašas tuščias</string>
