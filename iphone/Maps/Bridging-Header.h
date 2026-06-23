@@ -31,7 +31,6 @@
 #import "MWMLocationModeListener.h"
 #import "MWMMailViewController.h"
 #import "MWMMapDownloaderButtonTableViewCell.h"
-#import "MWMMapDownloaderCellHeader.h"
 #import "MWMMapDownloaderLargeCountryTableViewCell.h"
 #import "MWMMapDownloaderPlaceTableViewCell.h"
 #import "MWMMapDownloaderSubplaceTableViewCell.h"

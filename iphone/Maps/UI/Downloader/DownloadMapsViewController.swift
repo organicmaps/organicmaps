@@ -309,7 +309,7 @@ extension DownloadMapsViewController: UITableViewDataSource {
   }
 
   func tableView(_: UITableView, titleForHeaderInSection section: Int) -> String? {
-    dataSource.title(for: section)
+    section != dataSource.numberOfSections() ? dataSource.title(for: section) : nil
   }
 
   func sectionIndexTitles(for _: UITableView) -> [String]? {
@@ -344,22 +344,6 @@ extension DownloadMapsViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension DownloadMapsViewController: UITableViewDelegate {
-  func tableView(_: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    let headerView = MWMMapDownloaderCellHeader()
-    if section != dataSource.numberOfSections() {
-      headerView.text = dataSource.title(for: section)
-    }
-    return headerView
-  }
-
-  func tableView(_: UITableView, heightForHeaderInSection _: Int) -> CGFloat {
-    28
-  }
-
-  func tableView(_: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-    section == dataSource.numberOfSections() - 1 ? 68 : 0
-  }
-
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
     if indexPath.section == dataSource.numberOfSections() {
