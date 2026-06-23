@@ -93,7 +93,6 @@
 		ED82C5092F90180300FA103D /* BMCDefaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2BE2F90180300FA103D /* BMCDefaultViewModel.swift */; };
 		ED82C50A2F90180300FA103D /* BMCCategoriesHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2C02F90180300FA103D /* BMCCategoriesHeader.swift */; };
 		ED82C50C2F90180300FA103D /* CategorySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2C52F90180300FA103D /* CategorySettingsViewController.swift */; };
-		ED82C50E2F90180300FA103D /* BMCNotificationsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2C92F90180300FA103D /* BMCNotificationsHeader.swift */; };
 		ED82C50F2F90180300FA103D /* RecentlyDeletedCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2CB2F90180300FA103D /* RecentlyDeletedCategoriesViewController.swift */; };
 		ED82C5102F90180300FA103D /* RecentlyDeletedCategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2CC2F90180300FA103D /* RecentlyDeletedCategoriesViewModel.swift */; };
 		ED82C5112F90180300FA103D /* RecentlyDeletedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2CD2F90180300FA103D /* RecentlyDeletedTableViewCell.swift */; };
@@ -930,7 +929,6 @@
 		ED82C2C02F90180300FA103D /* BMCCategoriesHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCCategoriesHeader.swift; sourceTree = "<group>"; };
 		ED82C2C12F90180300FA103D /* BMCCategoriesHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BMCCategoriesHeader.xib; sourceTree = "<group>"; };
 		ED82C2C52F90180300FA103D /* CategorySettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySettingsViewController.swift; sourceTree = "<group>"; };
-		ED82C2C92F90180300FA103D /* BMCNotificationsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCNotificationsHeader.swift; sourceTree = "<group>"; };
 		ED82C2CB2F90180300FA103D /* RecentlyDeletedCategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedCategoriesViewController.swift; sourceTree = "<group>"; };
 		ED82C2CC2F90180300FA103D /* RecentlyDeletedCategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedCategoriesViewModel.swift; sourceTree = "<group>"; };
 		ED82C2CD2F90180300FA103D /* RecentlyDeletedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedTableViewCell.swift; sourceTree = "<group>"; };
@@ -2158,14 +2156,6 @@
 			path = CategorySettings;
 			sourceTree = "<group>";
 		};
-		ED82C2CA2F90180300FA103D /* Notifications */ = {
-			isa = PBXGroup;
-			children = (
-				ED82C2C92F90180300FA103D /* BMCNotificationsHeader.swift */,
-			);
-			path = Notifications;
-			sourceTree = "<group>";
-		};
 		ED82C2CE2F90180300FA103D /* RecentlyDeleted */ = {
 			isa = PBXGroup;
 			children = (
@@ -2184,7 +2174,6 @@
 				ED82C2BF2F90180300FA103D /* BMCViewModel */,
 				ED82C2C42F90180300FA103D /* Categories */,
 				ED82C2C62F90180300FA103D /* CategorySettings */,
-				ED82C2CA2F90180300FA103D /* Notifications */,
 				ED82C2CE2F90180300FA103D /* RecentlyDeleted */,
 				ED82C2CF2F90180300FA103D /* BMCModels.swift */,
 			);
@@ -4380,7 +4369,6 @@
 				ED82C5092F90180300FA103D /* BMCDefaultViewModel.swift in Sources */,
 				ED82C50A2F90180300FA103D /* BMCCategoriesHeader.swift in Sources */,
 				ED82C50C2F90180300FA103D /* CategorySettingsViewController.swift in Sources */,
-				ED82C50E2F90180300FA103D /* BMCNotificationsHeader.swift in Sources */,
 				ED82C50F2F90180300FA103D /* RecentlyDeletedCategoriesViewController.swift in Sources */,
 				ED0C360F2FE3EC2C00CAF853 /* UserDescriptionHTMLDocumentBuilder.swift in Sources */,
 				ED82C5102F90180300FA103D /* RecentlyDeletedCategoriesViewModel.swift in Sources */,

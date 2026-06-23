@@ -2,7 +2,6 @@ enum BMCSection {
   case categories
   case actions
   case recentlyDeleted
-  case notifications
 }
 
 enum BMCAction {
