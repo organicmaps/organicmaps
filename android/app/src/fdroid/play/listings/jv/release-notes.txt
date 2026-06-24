@@ -1,9 +1,9 @@
-• ANYAR! Tutul ikon potlot kanggo nambah katrangan teks utawa HTML ing trek
-• ANYAR! Pilih warna apa wae kanggo trek
-• Tandha dalan Australia lan Selandia Anyar ditambah
-• Pangguna Korea, Cina, lan Jepang entuk font sing trep miturut basa piranti
-• Ikon papan boules, sepeda, lan motorsport ditambah
-• Gapura upacara, seluncur banyu, taman hiburan, lan roller coaster ditambah
-• Rute angkutan umum kanggo stasiun lan area didandani
-• Data OpenStreetMap nganti 27 Mei
-…liyane ing omaps.org/news
+FITUR BARU:
+• Antarmuka pangguna panelusuran lan penentuan rute sing dianyari
+• Rute angkutan umum (bis, trem, kereta bawah tanah, rel ringan)
+• Rute alternatif sing paling cepet lan paling cendhak
+• Peringatan rute babagan undhak-undhakan, gapura, lan gapura angkat
+• Pilih warna apa wae kanggo penanda
+• Dhukungan kanggo koordinat UK OS Grid, Irish Grid, ITM
+• Aktipake Gambar Satelit ing setelan Organic Maps nganggo URL server raster tile kustom
+…lan liya-liyané ing omaps.org/news

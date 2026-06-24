@@ -1,9 +1,8 @@
-• NOWOŚĆ! Dodawaj opis tekstowy lub HTML do śladu ikoną ołówka
-• NOWOŚĆ! Wybieraj dowolny kolor śladów
-• Dodano oznaczenia dróg w Australii i Nowej Zelandii
-• Lepsze czcionki dla koreańskiego, chińskiego i japońskiego
-• Dodano ikony miejsc związanych z grą w bule, kolarstwem i sportami motorowymi
-• Dodano bramy ceremonialne, zjeżdżalnie, parki rozrywki i kolejki górskie
-• Poprawiono trasy transportu publicznego przy stacjach i innych obszarach
-• Dane OSM z 27 maja
-…więcej na omaps.org/pl/news
+NOWE FUNKCJE:
+• Zaktualizowany interfejs użytkownika funkcji wyszukiwania i wyznaczania tras
+• Wyznaczanie tras transportu publicznego (autobus, tramwaj, metro, kolej miejska)
+• Alternatywne trasy: najszybsze i najkrótsze
+• Ostrzeżenia dotyczące tras: stopni, bram i szlabanów
+• Wybierz dowolny kolor dla zakładek
+• Obsługa współrzędnych UK OS Grid, Irish Grid, ITM
+…więcej na stronie omaps.org/pl/news

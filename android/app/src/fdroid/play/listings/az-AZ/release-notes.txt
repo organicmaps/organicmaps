@@ -1,9 +1,8 @@
-• YENİ! Trekə mətn və ya HTML təsviri əlavə etmək üçün qələm ikonuna toxunun
-• YENİ! Treklər üçün istənilən rəngi seçin
-• Avstraliya və Yeni Zelandiya yol nişanları əlavə edildi
-• Koreyalı, çinli və yapon istifadəçilər cihaz dilinə uyğun şriftlər görəcəklər
-• Petank, velosiped və avtoidman məkanları üçün ikonlar əlavə edildi
-• Mərasim qapıları, su sürüşgəcləri, əyləncə parkları və rollerkosterlər əlavə edildi
-• İctimai nəqliyyat marşrutları düzəldildi
-• OSM: 27 may
-…daha çox: omaps.org/news
+YENİ XÜSUSİYYƏTLƏR:
+• Axtarış və marşrutlaşdırma istifadəçi interfeysi yeniləndi
+• Nəqliyyat marşrutlaşdırılması (avtobus, tramvay, metro, yüngül relsli qatar)
+• Alternativ ən sürətli və ən qısa marşrutlar
+• Pilləkənlər, darvazalar və qaldırıcı darvazalar barədə marşrut xəbərdarlıqları
+• İşarələr üçün istənilən rəngi seçin
+• UK OS Grid, Irish Grid, ITM koordinatlarına dəstək
+…daha çox omaps.org/news ünvanında

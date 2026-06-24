@@ -1,8 +1,9 @@
-• NYT! Tryk på blyanten for at føje en tekst- eller HTML-beskrivelse til et spor
-• NYT! Vælg en valgfri farve til spor
-• Nye rutenummerskilte for Australien og New Zealand
-• Korrekte skrifttyper til koreansk, kinesisk og japansk efter enhedens sprog
-• Nye ikoner for petanque, cykling og motorsport
-• Rettet ruter for offentlig transport ved stationer og andre områder
-• OpenStreetMap-data pr. 27. maj
+NYE FUNKTIONER:
+• Opdateret brugergrænseflade til søgning og ruteplanlægning
+• Ruteplanlægning for offentlig transport (bus, sporvogn, metro, letbane)
+• Alternative hurtigste og korteste ruter
+• Ruteadvarsler om trin, porte og løfteporte
+• Vælg en vilkårlig farve til bogmærker
+• Understøttelse af koordinaterne UK OS Grid, Irish Grid og ITM
+• Aktivér satellitbilleder i Organic Maps-indstillingerne med en brugerdefineret URL til en raster-tile-server
 …mere på omaps.org/news

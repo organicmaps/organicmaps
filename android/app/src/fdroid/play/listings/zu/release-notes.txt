@@ -1,8 +1,8 @@
-• OKUSHA! Cindezela isithonjana sepensela ukuze ungeze incazelo yombhalo noma ye-HTML emkhondweni
-• OKUSHA! Khetha noma yimuphi umbala wemikhondo
-• Kwengezwe izimpawu zemigwaqo zase-Australia naseNew Zealand
-• Abasebenzisa isiKorea, isiShayina nesiJapane sebebona amafonti afanele ulimi lwedivayisi
-• Kwengezwe izithonjana ze-boules, amabhayisikili nemidlalo yezimoto
-• Kulungiswe imizila yezithuthi zomphakathi
-• Idatha ye-OpenStreetMap yangoMeyi 27
+IZINHLELO EZINTSHA:
+• Isibonisi somsebenzisi esivuselelwe sokusesha nokuhlela indlela
+• Ukuhlelwa kwezindlela zokuthutha zomphakathi (ibhasi, ithramu, isitimela esingaphansi komhlaba, i-light rail)
+• Ezinye izindlela ezisheshayo nezimfishane kakhulu
+• Izixwayiso zomzila mayelana nezitebhisi, iminyango, neminyango yokuphakamisa
+• Khetha noma yiluphi umbala wama-bookmark
+• Ukusekelwa kwamakhodi e-UK OS Grid, Irish Grid, ITM
 …okuningi ku-omaps.org/news

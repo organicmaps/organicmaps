@@ -1,8 +1,8 @@
-• NEU: Tracks mit Text- oder HTML-Beschreibung versehen
-• NEU: Tracks in jeder Farbe einfärben
-• Straßenschilder für Australien und Neuseeland
-• Korrekte Schriften für Koreanisch, Chinesisch und Japanisch je nach Gerätesprache
-• Neue Icons und Kartenobjekte: Boule, Radsport, Motorsport, Zeremonietore, Wasserrutschen, Freizeitparks, Achterbahnen
-• ÖPNV-Routen für Bahnhöfe und Flächen korrigiert
-• OpenStreetMap-Daten vom 27. Mai
+NEUE FUNKTIONEN:
+• Aktualisierte Benutzeroberfläche für Suche und Routenplanung
+• Routenplanung für öffentliche Verkehrsmittel (Bus, Straßenbahn, U-Bahn, Stadtbahn)
+• Alternative schnellste und kürzeste Routen
+• Routenwarnungen zu Stufen, Toren und Hebetoren
+• Beliebige Farbe für Lesezeichen auswählen
+• Unterstützung für Koordinaten im Format UK OS Grid, Irish Grid und ITM
 …mehr unter omaps.org/de/news

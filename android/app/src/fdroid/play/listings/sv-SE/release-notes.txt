@@ -1,8 +1,9 @@
-• NYTT! Lägg till text- eller HTML-beskrivning till spår via pennikonen
-• NYTT! Välj valfri färg för spår
-• Nya vägnummer för Australien och Nya Zeeland
-• Bättre teckensnitt för koreanska, kinesiska och japanska
-• Nya ikoner och platser: boule, cykling, motorsport, portar, vattenrutschbanor och nöjesparker
-• Kollektivtrafikrutter för stationer och områdesobjekt har fixats
-• OpenStreetMap-data från 27 maj
+NYA FUNKTIONER:
+• Uppdaterat användargränssnitt för sökning och ruttplanering
+• Ruttplanering för kollektivtrafik (buss, spårvagn, tunnelbana, lättrail)
+• Alternativa snabbaste och kortaste rutter
+• Varningar längs rutten om trappor, grindar och lyftgrindar
+• Välj valfri färg för bokmärken
+• Stöd för koordinaterna UK OS Grid, Irish Grid och ITM
+• Aktivera satellitbilder i Organic Maps-inställningarna med en anpassad URL till en rastertileserver
 …mer på omaps.org/sv/news

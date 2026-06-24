@@ -1,9 +1,8 @@
-• E RE! Përshkrime në tekst/HTML për gjurmët me ikonën e lapsit
-• E RE! Çdo ngjyrë për gjurmët
-• Shenja rrugore për Australinë dhe Zelandën e Re
-• Fonte të sakta për koreanisht, kinezisht e japonisht sipas gjuhës së pajisjes
-• Ikona për boules, çiklizëm e motorsport
-• Porta ceremoniale, rrëshqitëse uji, parqe tematike e trena lunaparku
-• Linja transporti publik të rregulluara për stacione e zona
-• Të dhëna OSM deri më 27 maj
+KARAKTERISTIKA TË REJA:
+• Ndërfaqe e përditësuar e përdoruesit për kërkim dhe navigim
+• Planifikimi i itinerarit të transportit publik (autobus, tramvaj, metro, hekurudhë e lehtë)
+• Rrugët alternative më të shpejta dhe më të shkurtra
+• Paralajmërime për itinerarin lidhur me shkallët, portat dhe dyert e ngritjes
+• Zgjidhni çdo ngjyrë për shënimet
+• Mbështetje për koordinatat UK OS Grid, Irish Grid, ITM
 …më shumë në omaps.org/news

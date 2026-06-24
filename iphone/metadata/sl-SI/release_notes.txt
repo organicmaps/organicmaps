@@ -1,22 +1,41 @@
-• Zdaj so podprti besedilni in HTML opisi poti, enako kot opisi za zaznamke. Za dodajanje opisa pritisnite ikono svinčnika.
-• Podatki zemljevida OpenStreetMap z dne 27. maja 2026
-• Prevajanje besedila v govor (TTS) zdaj izbere najboljši nameščen glas za jezik (Enhanced / Premium). V nastavitvah Organic Maps si oglejte, kako prenesti glas višje kakovosti.
-• Dodani so prometni znaki za Avstralijo in Novo Zelandijo
-• Dodane so ikone za igrišča za balinanje, kolesarjenje in motošport
-• Dodana so obredna vrata, vodni tobogani, tematski parki in vlakci smrti
-• Izboljšani prstni gesti za upravljanje zemljevida v perspektivnem pogledu med navigacijskim načinom
-• Popravljena napaka pri preimenovanju poti, pri kateri se novo ime ni pravilno posodobilo
-• CarPlay: popravljen gumb za ponovno osredotočenje
-• Popravljene poti javnega prevoza za postaje in druge objekte v območju
-• Popravljen sesutje pri dodajanju zaznamka na pohodniški ali kolesarski poti
-• Popravljeno prikazovanje omejitev hitrosti za radarje
-• Popravljeno pomanjšanje antimeridiana z več kot eno kopijo sveta
-• Natančnejši prikaz naslovov ulic in hiš
-• Popravljene nepotrebne animacije zemljevida
-• Izboljšave stabilnosti in zmogljivosti
+- NOVOST! Načrtovanje poti z javnim prevozom: podzemna železnica, lahka železnica, avtobus in tramvaj
+- NOVOST! Alternativne poti: poleg najhitrejše poti aplikacija zdaj prikazuje tudi najkrajšo pot
+- NOVOST! Opozorila na peš in kolesarskih poteh o stopnicah, vratih in dvigalnih zapornicah na poti
+- NOVOST! S tapom izberite med prekrivajočimi se potmi in trasami
+- NOVOST! Izberite katero koli barvo za zaznamke
+- NOVOST! Podpora za koordinate British National Grid (OS Grid), Irish Grid in Irish Transverse Mercator (ITM)
+- NOVOST! Podpora za dostopnost za Dynamic Type in velike pisave
+- EKSPERIMENTALNO: Vklopite satelitske posnetke v nastavitvah Organic Maps z URL-jem strežnika za rastrske ploščice po meri
+- Prečiščen slog tabel v uporabniškem vmesniku
+- V iskalno okno vpišite `?map-download-server:https://your-server.com/`, da prepisate strežnike za prenos zemljevidov Organic Maps. Vpišite `?no-map-download-server`, da preklicate prepis.
+- Različne popravke napak in izboljšave zmogljivosti
 
-## Prevajanje
+## Podatki o zemljevidih
 
-• Izboljšani prevodi v francoščino, italijanščino, španščino, ukrajinščino in katalonščino
-• Posodobljeni prevodi za imena več držav in regij, popravljeni sinonimi za iskanje `leisure=track`
-• Popravljeni prevodi za `disused:bridge` in `disused:tunnel`
+- Podatki OpenStreetMap so bili posodobljeni 24. junija
+- Podatki Wikipedia so bili posodobljeni 20. junija, vključno s članki v italijanščini
+
+## Prikazovanje zemljevidov in slogi
+
+- Lepše vzorce za območja plaž, peska, grušča, gole skale, sadovnjakov in vinogradov ter šrafiranje zaščitenih območij in mokrišč
+- Bolj gladko zaobljene besedilne oznake za ceste in reke
+- Reke, potoki in mokrišča imajo večji kontrast in so v temnem načinu bolj vidni
+- Nove in izboljšane ikone za iskanje po kategorijah in rezultate iskanja na zemljevidu
+- Izboljšano oblikovanje in prikazovanje večjezičnega besedila
+
+## Poti, zaznamki in poti
+
+- Izboljšano prikazovanje opisov zaznamkov in poti v formatu HTML
+- Sledi GeoJSON zdaj ohranjajo nadmorsko višino in časovne oznake pri uvozu in izvozu
+- Popravljena je bila napaka, ki je povzročala sesutje aplikacije po premestitvi poti na drug seznam
+- Zdaj so prikazane spletne strani za spomeniška območja
+- Pri neimenovanih rezultatih iskanja se zdaj prikazujejo imena operaterjev. Na primer, neimenovani ATM zdaj prikazuje svojo banko
+- Urednik: popravil opisni tekst za stanovanjske stavbe OpenStreetMap popravki/spremembe
+- Izboljšano zaznavanje HTML v opisih zaznamkov in poti
+- Podvojene poti so zdaj izločene
+
+## Prevajanja
+
+- Glasovno vodenje po korakih v kantonskem jeziku
+- Posodobljeni nemški in francoski prevodi
+- Popravljeni so bili napačni prevodi glasovnih navodil "onto street" za kitajščino, srbščino in katalonščino

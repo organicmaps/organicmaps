@@ -1,9 +1,10 @@
-• NÝTT! Bættu texta- eða HTML-lýsingu við feril með blýantstákninu
-• NÝTT! Veldu hvaða lit sem er fyrir ferla
-• Vegaskildir fyrir Ástralíu og Nýja-Sjáland
-• Rétt letur birtist nú fyrir kóresku, kínversku og japönsku eftir tungumáli tækisins
-• Bætt við táknum fyrir pétanque, hjólreiðar og mótorsportstaði
-• Bætt við hátíðahliðum, vatnsrennibrautum, skemmtigörðum og rússíbönum
-• Lagaðar almenningssamgönguleiðir við stöðvar og svæði
-• OpenStreetMap gögn frá 27. maí
+NÝJAR AÐGERÐIR:
+• Uppfærð notendaviðmót fyrir leit og leiðarleiðsögn
+• Leiðsögn almenningssamgangna (rútum, sporvögnum, neðanjarðarlestum, léttlestinni)
+• Varamlegar hraðustu og stystu leiðir
+• Leiðarviðvaranir um þrep, hlið og lyftuhurðir
+• Veldu hvaða lit sem er fyrir bókamerki
+• Stuðningur við UK OS Grid, Irish Grid, ITM hnit
+• Kveikja á gervitunglamyndum í Organic Maps-stillingum með sérsniðnum rasterflísaverðar-URL
+• OSM-gögn frá 24. júní
 …meira á omaps.org/news

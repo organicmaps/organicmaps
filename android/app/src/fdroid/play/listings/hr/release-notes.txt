@@ -1,9 +1,9 @@
-• NOVO! Dodajte tekstualni ili HTML opis staze pomoću ikone olovke
-• NOVO! Odaberite bilo koju boju za staze
-• Dodane cestovne oznake za Australiju i Novi Zeland
-• Ispravni fontovi za korejski, kineski i japanski prema jeziku uređaja
-• Dodane ikone za boćališta, biciklistička i motosportska mjesta
-• Dodani svečani lukovi, vodeni tobogani, zabavni parkovi i vlakovi smrti
-• Popravljene rute javnog prijevoza za postaje i druge površinske objekte
-• OSM podaci od 27. svibnja
+NOVE ZNAČAJKE:
+• Ažurirano korisničko sučelje za pretraživanje i navigaciju
+• Planiranje ruta javnim prijevozom (autobus, tramvaj, podzemna željeznica, laka željeznica)
+• Alternativne najbrže i najkraće rute
+• Upozorenja na ruti o stepenicama, kapijama i hidrauličnim rampama
+• Odaberite bilo koju boju za oznake
+• Podrška za koordinate UK OS Grid, Irish Grid, ITM
+• Omogućite satelitske snimke u postavkama Organic Maps s prilagođenim URL-om poslužitelja rasterskih pločica
 …više na omaps.org/news

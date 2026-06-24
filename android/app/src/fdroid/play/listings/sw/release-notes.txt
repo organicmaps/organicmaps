@@ -1,8 +1,8 @@
-• MPYA! Ongeza maelezo ya maandishi/HTML kwenye njia kwa ikoni ya penseli
-• MPYA! Chagua rangi yoyote ya njia
-• Alama za barabara za Australia na New Zealand zimeongezwa
-• Fonti sahihi kwa Kikorea, Kichina na Kijapani kulingana na eneo la kifaa
-• Ikoni/maeneo mapya: boules, baiskeli, michezo ya magari, milango ya sherehe, miteremko ya maji, mbuga na roller coaster
-• Njia za usafiri wa umma kwa vituo na maeneo zimerekebishwa
-• Data ya OpenStreetMap ya Mei 27
-…zaidi kwenye omaps.org/news
+VIPENGELE VIPYA:
+• Kiolesura cha mtumiaji cha utafutaji na upangaji njia kimesasishwa
+• Mpangilio wa usafiri wa umma (basi, tramu, treni ya chini ya ardhi, reli nyepesi)
+• Njia mbadala za haraka zaidi na fupi zaidi
+• Maonyo ya njia kuhusu ngazi, milango, na milango ya kuinua
+• Chagua rangi yoyote kwa alamisho
+• Uungaji mkono kwa kuratibu za UK OS Grid, Irish Grid, ITM
+…zaidi katika omaps.org/news

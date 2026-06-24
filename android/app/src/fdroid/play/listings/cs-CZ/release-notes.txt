@@ -1,9 +1,8 @@
-• NOVINKA: Přes ikonu tužky lze k trase přidat textový nebo HTML popis
-• NOVINKA: Trasy mohou mít libovolnou barvu
-• Přidány silniční štíty pro Austrálii a Nový Zéland
-• Korejština, čínština a japonština mají správná písma podle jazyka zařízení
-• Přidány ikony pro pétanque, cyklistiku a motorsport
-• Přidány slavnostní brány, tobogány, zábavní parky a horské dráhy
-• Opraveny trasy MHD u stanic a plošných objektů
-• Data OpenStreetMap k 27. květnu
+NOVÉ FUNKCE:
+• Aktualizované uživatelské rozhraní pro vyhledávání a plánování tras
+• Plánování tras veřejnou dopravou (autobus, tramvaj, metro, lehká kolejová doprava)
+• Alternativní nejrychlejší a nejkratší trasy
+• Upozornění na trase týkající se schodů, bran a zvedacích bran
+• Vyberte libovolnou barvu pro záložky
+• Podpora souřadnic UK OS Grid, Irish Grid a ITM
 …více na omaps.org/cs/news

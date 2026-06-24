@@ -1,9 +1,9 @@
-• BARU! Ketik ikon pensel untuk menambah huraian teks atau HTML pada trek
-• BARU! Pilih sebarang warna untuk trek
-• Ditambah penanda jalan Australia dan New Zealand
-• Fon Korea, Cina dan Jepun kini betul mengikut bahasa peranti
-• Ditambah ikon boules, berbasikal dan sukan bermotor
-• Ditambah gerbang upacara, gelongsor air, taman tema dan roller coaster
-• Laluan pengangkutan awam untuk stesen dan kawasan lain dibaiki
-• Data OpenStreetMap setakat 27 Mei
-…lagi di omaps.org/news
+CIRI BARU:
+• Antaramuka pengguna carian dan penjejakan yang dikemas kini
+• Laluan pengangkutan awam (bas, trem, kereta api bawah tanah, kereta api ringan)
+• Laluan alternatif terpantas dan terpendek
+• Amaran laluan tentang tangga, pintu pagar, dan pintu angkat
+• Pilih mana-mana warna untuk penanda buku
+• Sokongan untuk koordinat UK OS Grid, Irish Grid, ITM
+• Aktifkan Imej Satelit dalam tetapan Organic Maps dengan URL pelayan jubin raster tersuai
+…lebih lanjut di omaps.org/news
