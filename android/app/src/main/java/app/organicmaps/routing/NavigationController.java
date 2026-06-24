@@ -57,8 +57,8 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     mManeuverView = ViewCompat.requireViewById(topFrame, R.id.maneuver_view);
     mSpeedLimit = ViewCompat.requireViewById(topFrame, R.id.nav_speed_limit);
 
-    final boolean isLandscape = activity.getResources().getConfiguration().orientation
-        == Configuration.ORIENTATION_LANDSCAPE;
+    final boolean isLandscape =
+        activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     final boolean isTablet = activity.getResources().getConfiguration().smallestScreenWidthDp >= 600;
 
     // Apply status-bar + display-cutout insets so neither the maneuver card nor the
