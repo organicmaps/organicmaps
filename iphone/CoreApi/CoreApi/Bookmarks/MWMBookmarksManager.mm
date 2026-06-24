@@ -53,6 +53,16 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
   }
 }
 
+static void DeleteTemporaryBookmarksFile(std::string const & filePath)
+{
+  NSError * error;
+  NSString * path = [NSString stringWithUTF8String:filePath.c_str()];
+  if ([[NSFileManager defaultManager] removeItemAtPath:path error:&error])
+    LOG(LINFO, ("Temporary bookmarks file is deleted:", filePath));
+  else
+    LOG(LWARNING, ("Failed to delete temporary bookmarks file:", filePath, error));
+}
+
 @interface MWMBookmarksManager ()
 
 @property(nonatomic, readonly) BookmarkManager & bm;
@@ -131,6 +141,8 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
         if ([observer respondsToSelector:@selector(onBookmarksFileLoadSuccess)])
           [observer onBookmarksFileLoadSuccess];
       }];
+      if (isTemporaryFile)
+        DeleteTemporaryBookmarksFile(filePath);
     };
   }
   {
@@ -142,6 +154,8 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
         if ([observer respondsToSelector:@selector(onBookmarksFileLoadError)])
           [observer onBookmarksFileLoadError];
       }];
+      if (isTemporaryFile)
+        DeleteTemporaryBookmarksFile(filePath);
     };
   }
   self.bm.SetAsyncLoadingCallbacks(std::move(bookmarkCallbacks));
