@@ -135,6 +135,7 @@ BOOL keepRunningInBackground()
 
 NSString * const kLocationPermissionRequestedKey = @"kLocationPermissionRequestedKey";
 NSString * const kLocationAlertNeedShowKey = @"kLocationAlertNeedShowKey";
+NSString * const kNavigationOtherLocationActivityKey = @"kNavigationOtherLocationActivityKey";
 
 BOOL needShowLocationAlert()
 {
@@ -159,6 +160,7 @@ void setShowLocationAlert(BOOL needShow)
 @property(nonatomic) CLHeading * lastHeadingInfo;
 @property(nonatomic) CLLocation * lastLocationInfo;
 @property(nonatomic) MWMLocationStatus lastLocationStatus;
+@property(nonatomic) BOOL useNavigationOtherLocationActivity;
 @property(nonatomic) MWMLocationPredictor * predictor;
 @property(nonatomic) Observers * observers;
 @property(nonatomic) location::TLocationSource locationSource;
@@ -181,7 +183,11 @@ void setShowLocationAlert(BOOL needShow)
 {
   self = [super init];
   if (self)
+  {
     _observers = [Observers weakObjectsHashTable];
+    _useNavigationOtherLocationActivity =
+        [NSUserDefaults.standardUserDefaults boolForKey:kNavigationOtherLocationActivityKey];
+  }
   return self;
 }
 
@@ -369,6 +375,11 @@ void setShowLocationAlert(BOOL needShow)
   }
 }
 
++ (void)setUseNavigationOtherLocationActivity:(BOOL)enabled
+{
+  [self manager].useNavigationOtherLocationActivity = enabled;
+}
+
 + (void)checkLocationStatus
 {
   setShowLocationAlert(YES);
@@ -410,19 +421,40 @@ void setShowLocationAlert(BOOL needShow)
     return;
   _geoMode = geoMode;
 
+  [self refreshLocationActivityType];
+  [MWMLocationManager refreshGeoModeSettingsFor:self.locationManager geoMode:self.geoMode];
+}
+
+- (void)setUseNavigationOtherLocationActivity:(BOOL)enabled
+{
+  if (_useNavigationOtherLocationActivity == enabled)
+    return;
+  _useNavigationOtherLocationActivity = enabled;
+  [NSUserDefaults.standardUserDefaults setBool:enabled forKey:kNavigationOtherLocationActivityKey];
+  NSString * text =
+      [NSString stringWithFormat:@"NavigationOther location activity type is %@", enabled ? @"enabled" : @"disabled"];
+  [Toast showWithText:text alignment:AlignmentTop];
+  [self refreshLocationActivityType];
+}
+
+- (void)refreshLocationActivityType
+{
   CLLocationManager * locationManager = self.locationManager;
-  switch (geoMode)
+  switch (self.geoMode)
   {
   case GeoMode::Pending:
   case GeoMode::InPosition:
   case GeoMode::NotInPosition:
-  case GeoMode::FollowAndRotate: locationManager.activityType = CLActivityTypeOther; break;
+  case GeoMode::FollowAndRotate:
+    locationManager.activityType =
+        self.useNavigationOtherLocationActivity ? CLActivityTypeOtherNavigation : CLActivityTypeOther;
+    break;
   case GeoMode::VehicleRouting: locationManager.activityType = CLActivityTypeAutomotiveNavigation; break;
   case GeoMode::PedestrianRouting:
   case GeoMode::BicycleRouting: locationManager.activityType = CLActivityTypeOtherNavigation; break;
   }
 
-  [MWMLocationManager refreshGeoModeSettingsFor:self.locationManager geoMode:self.geoMode];
+  LOG(LINFO, ("Location activity type updated to", static_cast<int>(locationManager.activityType)));
 }
 
 + (void)refreshGeoModeSettingsFor:(CLLocationManager *)locationManager geoMode:(GeoMode)geoMode
