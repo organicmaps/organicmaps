@@ -11,6 +11,11 @@ plugins {
 
     alias libs.plugins.triplet.play apply false
     alias libs.plugins.huawei.plugin apply false
+
+    alias libs.plugins.vanniktech.maven.publish apply false
+
+    alias libs.plugins.nmcp apply false
+    alias libs.plugins.nmcp.aggregation
 }
 
 def run(cmd) {
@@ -89,4 +94,25 @@ tasks.register("detektCheckAll") {
     dependsOn(subprojects.collectMany { p ->
         p.tasks.matching { it.name == "detektCheck" }
     })
+}
+
+nmcpAggregation {
+    // :libs:car and :sdk:car share the simple name 'car'; opt out of nmcp's global unique-name check.
+    allowDuplicateProjectNames.set(true)
+    centralPortal {
+        username = providers.environmentVariable('MAVEN_CENTRAL_USERNAME').getOrElse('')
+        password = providers.environmentVariable('MAVEN_CENTRAL_PASSWORD').getOrElse('')
+        publishingType = 'USER_MANAGED'
+    }
+}
+
+dependencies {
+    nmcpAggregation project(':sdk')
+    nmcpAggregation project(':sdk:car')
+    nmcpAggregation project(':sdk:location:core')
+    nmcpAggregation project(':sdk:location:gms:google')
+    nmcpAggregation project(':sdk:location:gms:foss')
+    nmcpAggregation project(':sdk:maps:world')
+    nmcpAggregation project(':sdk:widgets:lanes')
+    nmcpAggregation project(':sdk:widgets:speedlimit')
 }

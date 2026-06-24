@@ -48,9 +48,13 @@ microg-gms-location = "0.3.14.250932"
 mockito-core = "5.23.0"
 mockito-inline = "5.2.0"
 
+nmcp = "1.4.4"
+
 okhttp = "5.3.2"
 
 triplet-play-publisher = "4.0.0"
+
+vanniktech-maven-publish = "0.36.0"
 
 [libraries]
 android-tools-desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-tools-desugaring" }
@@ -104,4 +108,9 @@ google-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.
 
 huawei-plugin = { id = "ru.cian.huawei-publish-gradle-plugin", version.ref = "huawei-plugin" }
 
+nmcp = { id = "com.gradleup.nmcp", version.ref = "nmcp" }
+nmcp-aggregation = { id = "com.gradleup.nmcp.aggregation", version.ref = "nmcp" }
+
 triplet-play = { id = "com.github.triplet.play", version.ref = "triplet-play-publisher" }
+
+vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "vanniktech-maven-publish" }

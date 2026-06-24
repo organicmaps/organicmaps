@@ -1,0 +1,67 @@
+name: Android SDK Release
+on:
+  # SDK releases are intentionally decoupled from app releases and triggered manually.
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag'
+        required: true
+        type: string
+
+env:
+  JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64  # Java 17 is required for Android Gradle 8 plugin
+
+jobs:
+  android-sdk-release:
+    name: Android SDK Release
+    runs-on: ubuntu-latest
+    environment: android-sdk-release
+    steps:
+      - name: Install build tools and dependencies
+        shell: bash
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y ninja-build
+
+      - name: Checkout sources
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 100 # enough to get all commits for the current day
+          ref: 'refs/tags/${{ inputs.tag }}'
+
+      - name: Check tag
+        shell: bash
+        run: |
+          git show HEAD
+          test -n "${{ inputs.tag }}"
+          test "$(git tag --points-at HEAD)" = "${{ inputs.tag }}"
+
+      - name: Restore Boost submodule from cache
+        uses: actions/cache@v5
+        with:
+          path: |
+            3party/boost
+            .git/modules/3party/boost
+          key: boost-submodule
+
+      - name: Parallel submodules checkout
+        shell: bash
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
+
+      - name: Configure repository
+        shell: bash
+        run: ./configure.sh
+
+      - name: Set up SDK
+        shell: bash
+        run: echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
+
+      - name: Build and deploy the Android SDK to Maven Central
+        shell: bash
+        working-directory: android
+        env:
+          MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          MAVEN_CENTRAL_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.MAVEN_SIGNING_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.MAVEN_SIGNING_KEY_PASSWORD }}
+        run: ./gradlew publishAggregationToCentralPortal

@@ -3,6 +3,7 @@ plugins {
 }
 
 apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
+apply from: "${rootProject.rootDir}/groovy/publishing.gradle"
 
 android {
   namespace = 'app.organicmaps.sdk'
@@ -86,14 +87,14 @@ android {
 
 dependencies {
   api project(':sdk:location:core')
+  api libs.androidx.lifecycle
+  api libs.androidx.recyclerview
+  api libs.androidx.fragment
 
   coreLibraryDesugaring libs.android.tools.desugaring
 
   implementation libs.androidx.annotation
   implementation libs.androidx.core
-  implementation libs.androidx.recyclerview
-  implementation libs.androidx.fragment
-  implementation libs.androidx.lifecycle
   implementation libs.androidx.media
   implementation libs.okhttp
 
@@ -116,3 +117,9 @@ project.afterEvaluate {
     }
   }
 }
+
+Publish(project, [
+    'artifactId' : 'sdk',
+    'name'       : 'Organic Maps SDK',
+    'description': 'An open-source Android library for building fully offline, privacy-respecting map and navigation applications powered by OpenStreetMap data and Organic Maps'
+])
