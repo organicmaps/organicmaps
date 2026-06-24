@@ -1,7 +1,8 @@
-• BERRIA! Gehitu testu edo HTML deskribapena arrastoei arkatzaren ikonoarekin
-• BERRIA! Aukeratu edozein kolore arrastoetarako
-• Australiako eta Zeelanda Berriko errepide-zenbakien ikurrak gehitu dira
-• Letra-tipo egokiak koreerarako, txinerarako eta japonierarako
-• Ikono gehiago: petanka, txirrindularitza eta motor-kirolak; leku gehiago: ate zeremonialak, ur-txirristak, parke tematikoak eta errusiar mendiak
-• OpenStreetMap datuak: maiatzaren 27a
-…gehiago: omaps.org/eu/news-en
+FUNTZIO BERRIAK:
+• Bilaketa eta ibilbideetarako erabiltzaile-interfazea eguneratu da
+• Garraio publikoaren ibilbideak (autobusa, tranbia, metroa, tren arina)
+• Alternatibo azkarren eta laburren ibilbideak
+• Igoera-mailen, ateen eta altxagailu-ateen inguruko ibilbide-ohartarazpenak
+• Markatzaileentzako edozein kolore hautatu
+• UK OS Grid, Irish Grid eta ITM koordenatuen laguntza
+…gehiago omaps.org/eu/news helbidean

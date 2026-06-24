@@ -1,22 +1,41 @@
-• Tekst- en HTML-beschrijvingen van tracks worden nu ondersteund, net als beschrijvingen voor bladwijzers. Druk op het potloodpictogram om een beschrijving toe te voegen.
-• OpenStreetMap-kaartgegevens per 27 mei 2026
-• Tekst-naar-spraak (TTS) kiest nu de beste geïnstalleerde stem voor de taal (Enhanced / Premium). Zie de instellingen van Organic Maps voor informatie over het downloaden van een stem van hogere kwaliteit.
-• Wegborden voor Australië en Nieuw-Zeeland toegevoegd
-• Pictogrammen toegevoegd voor jeu-de-boules-, fiets- en motorsportlocaties
-• Ceremoniële poorten, waterglijbanen, pretparken en achtbanen toegevoegd
-• Verbeterde vingergebaren voor kaartbediening in perspectiefweergave tijdens de navigatiemodus
-• Een bug verholpen waarbij de nieuwe naam niet correct werd bijgewerkt bij het hernoemen van een track
-• CarPlay: de knop voor opnieuw centreren is verholpen
-• Routes van het openbaar vervoer voor stations en andere gebiedsobjecten zijn verholpen
-• Een crash bij het toevoegen van een bladwijzer op een wandel- of fietsroute is verholpen
-• Weergave van snelheidslimieten voor flitspalen is verholpen
-• Antimeridiaan-uitzoomen met meer dan één wereldkopie is verholpen
-• Nauwkeurigere weergave van straat- en huisadressen
-• Onnodige kaartanimaties verholpen
-• Stabiliteits- en prestatieverbeteringen
+- NIEUW! Routebepaling voor het openbaar vervoer via metro, lightrail, bus en tram
+- NIEUW! Alternatieve routes: naast de snelste route toont de app nu ook de kortste route
+- NIEUW! Waarschuwingen voor wandel- en fietsroutes over treden, hekken en hefpoorten onderweg
+- NIEUW! Tik om te kiezen tussen overlappende routes en trajecten
+- NIEUW! Kies een willekeurige kleur voor bladwijzers
+- NIEUW! Ondersteuning voor British National Grid (OS Grid), Irish Grid en Irish Transverse Mercator (ITM) coördinaten
+- NIEUW! Ondersteuning voor toegankelijkheid voor Dynamic Type en grote lettertypen
+- EXPERIMENTEEL: Schakel satellietbeelden in de Organic Maps-instellingen in met een aangepaste URL voor de rastertegel-server
+- Een strakkere opmaak van tabellen in de gebruikersinterface
+- Typ `?map-download-server:https://your-server.com/` in het zoekvenster om de Organic Maps-servers voor het downloaden van kaarten te overschrijven. Typ `?no-map-download-server` om de overschrijving ongedaan te maken.
+- Diverse bugfixes en prestatieverbeteringen
+
+## Kaartgegevens
+
+- OpenStreetMap-gegevens bijgewerkt per 24 juni
+- Wikipedia-gegevens bijgewerkt per 20 juni, inclusief artikelen in het Italiaans
+
+## Weergave en stijlen van kaarten
+
+- Mooiere patronen voor stranden, zand, puin, kale rotsen, boomgaarden en wijngaarden, plus arceringen voor beschermde gebieden en wetlands
+- Vloeiender gebogen tekstlabels voor wegen en rivieren
+- Rivieren, beken en moerasgebieden hebben een hoger contrast en zijn beter zichtbaar in de donkere modus
+- Nieuwe en verbeterde pictogrammen voor het zoeken in categorieën en zoekresultaten op de kaart
+- Verbeterde vormgeving en weergave van meertalige tekst
+
+## Trajecten, bladwijzers en routes
+
+- Verbeterde weergave van HTML-beschrijvingen van bladwijzers en routes
+- GeoJSON-trajecten behouden nu hoogtegegevens en tijdstempels bij het importeren en exporteren
+- Een crash verholpen die optrad na het verplaatsen van een route naar een andere lijst
+- Er worden nu websites weergegeven voor erfgoedsites
+- De namen van operators worden nu weergegeven bij naamloze zoekresultaten. Zo wordt bijvoorbeeld bij een naamloze ATM nu de bijbehorende bank weergegeven
+- Redacteur: de beschrijvingstekst voor appartementsgebouwen OpenStreetMap is gecorrigeerd (bewerkingen/wijzigingssets)
+- Verbeterde detectie van HTML in beschrijvingen van bladwijzers en routes
+- Dubbele routes worden nu uitgefilterd
 
 ## Vertalingen
 
-• Verbeterde vertalingen voor Frans, Italiaans, Spaans, Oekraïens en Catalaans
-• Vertalingen voor verschillende land- en regionaalnamen bijgewerkt, synoniemen voor `leisure=track` in de zoekfunctie verholpen
-• Vertalingen voor `disused:bridge` en `disused:tunnel` gecorrigeerd
+- Kantonees stapsgewijze spraakbegeleiding
+- Duitse en Franse vertalingen bijgewerkt
+- Onjuiste vertalingen van de "onto street"-spraakbegeleiding voor het Chinees, Servisch en Catalaans zijn gecorrigeerd

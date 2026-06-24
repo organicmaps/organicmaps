@@ -1,22 +1,41 @@
-• Tekst- og HTML-beskrivelser af spor understøttes nu på samme måde som beskrivelser for bogmærker. Tryk på blyantikonet for at tilføje en beskrivelse.
-• OpenStreetMap-kortdata pr. 27. maj 2026
-• Tekst-til-tale (TTS) vælger nu den bedste installerede stemme til sproget (Enhanced / Premium). Se indstillingerne i Organic Maps for at se, hvordan du downloader en stemme i højere kvalitet.
-• Tilføjet vejskilte for Australien og New Zealand
-• Tilføjet ikoner for boules, cykling og motorsportssteder
-• Tilføjet ceremonielle porte, vandrutsbaner, forlystelsesparker og rutsjebaner
-• Forbedrede fingergestus til kortstyring i perspektivvisning under navigationsmodus
-• Rettet en fejl ved omdøbning af spor, hvor det nye navn ikke blev opdateret korrekt
-• CarPlay: rettet knappen til at centrere kortet
-• Rettet ruter for offentlig transport for stationer og andre områdeobjekter
-• Rettet nedbrud ved tilføjelse af et bogmærke på en vandre- eller cykelrute
-• Rettet visning af hastighedsgrænser for hastighedskameraer
-• Rettet zoom-ud ved antimeridian med mere end én verdenskopi
-• Mere nøjagtig visning af gade- og husadresser
-• Rettet unødvendige kortanimationer
-• Stabilitets- og ydeevneforbedringer
+- NYT! Ruteplanlægning med offentlig transport via metro, letbane, bus og sporvogn
+- NYT! Alternative ruter: Ud over den hurtigste rute viser appen nu også den korteste rute
+- NYT! Advarsler på gå- og cykelruter om trin, porte og løfteporte undervejs
+- NYT! Tryk for at vælge mellem overlappende ruter og spor
+- NYT! Vælg en vilkårlig farve til bogmærker
+- NYT! Understøttelse af British National Grid (OS Grid), Irish Grid og Irish Transverse Mercator (ITM) koordinater
+- NYT! Tilgængelighedsstøtte til Dynamic Type og store skrifttyper
+- EKSPERIMENTELT: Aktivér satellitbilleder i Organic Maps-indstillingerne med en brugerdefineret URL til en rasterfliseserver
+- Renere tabelformatering i brugergrænsefladen
+- Indtast `?map-download-server:https://your-server.com/` i søgevinduet for at tilsidesætte Organic Maps-kortdownloadserverne. Indtast `?no-map-download-server` for at fjerne tilsidesættelsen.
+- Forskellige fejlrettelser og ydeevneforbedringer
+
+## Kortdata
+
+- OpenStreetMap-data opdateret pr. 24. juni
+- Wikipedia-data opdateret pr. 20. juni, herunder artikler på italiensk
+
+## Kortvisning og stilarter
+
+- Flottere mønstre for områder med strand, sand, grus, bar klippe, frugtplantager og vinmarker samt skravering af beskyttede områder og vådområder
+- Mere jævnt buede tekstetiketter til veje og floder
+- Floder, vandløb og vådområder har højere kontrast og er mere synlige i mørk tilstand
+- Nye og forbedrede ikoner til kategorisøgning og søgeresultater på kortet
+- Forbedret formatering og gengivelse af flersproget tekst
+
+## Ruter, bogmærker og ruter
+
+- Forbedret HTML-gengivelse af beskrivelser af bogmærker og ruter
+- GeoJSON-ruter gemmer nu højdeoplysninger og tidsstempler ved import og eksport
+- Rettet et nedbrud efter flytning af en rute til en anden liste
+- Der vises nu hjemmesider for kulturarvssteder
+- Operatørnavne vises nu for unavngivne søgeresultater. For eksempel viser en unavngiven ATM nu sin bank
+- Redaktør: rettet beskrivelsesteksten for lejlighedsbygning OpenStreetMap redigeringer/ændringssæt
+- Forbedret HTML-detektering i beskrivelser af bogmærker og ruter
+- Duplikerede ruter filtreres nu fra
 
 ## Oversættelser
 
-• Forbedrede oversættelser til fransk, italiensk, spansk, ukrainsk og catalansk
-• Opdaterede oversættelser for flere lande- og regionsnavne, rettet synonymer i søgningen for `leisure=track`
-• Rettede oversættelser for `disused:bridge` og `disused:tunnel`
+- Kantonesisk stemmevejledning med trin-for-trin-instruktioner
+- Opdaterede tyske og franske oversættelser
+- Rettet forkerte oversættelser af "onto street"-stemmevejledningen til kinesisk, serbisk og catalansk

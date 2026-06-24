@@ -1,9 +1,10 @@
-• NYTT! Trykk på blyanten for å legge til tekst- eller HTML-beskrivelse på et spor
-• NYTT! Velg valgfri sporfarge
-• Nye veiskilt for Australia og New Zealand
-• Riktig skrift for koreansk, kinesisk og japansk basert på enhetens språk
-• Nye ikoner for boule, sykling og motorsport
-• Lagt til seremonielle porter, vannsklier, fornøyelsesparker og berg-og-dal-baner
-• Fikset kollektivruter for stasjoner og andre områder
-• OSM-data per 27. mai
+NYE FUNKSJONER:
+• Oppdatert brukergrensesnitt for søk og ruteplanlegging
+• Ruteplanlegging for offentlig transport (buss, trikk, T-bane, bybane)
+• Alternative ruter: raskeste og korteste
+• Ruteadvarsler om trappetrinn, porter og heisporter
+• Velg hvilken som helst farge for bokmerker
+• Støtte for koordinatene UK OS Grid, Irish Grid og ITM
+• Aktiver satellittbilder i Organic Maps-innstillingene med en tilpasset URL til rasterfliseserveren
+• OSM-data per 24. juni
 …mer på omaps.org/news

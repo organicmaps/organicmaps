@@ -1,8 +1,8 @@
-• NIEUW! Voeg via het potloodicoon tekst- of HTML-beschrijvingen toe aan tracks
-• NIEUW! Kies elke kleur voor tracks
-• Wegnummerborden toegevoegd voor Australië en Nieuw-Zeeland
-• Lettertypen voor Koreaans, Chinees en Japans volgen nu de apparaattaal
-• Nieuwe iconen en objecten: jeu-de-boules, fietsen, motorsport, ceremoniële poorten, waterglijbanen, pretparken en achtbanen
-• OV-routes bij stations en andere gebieden verbeterd
-• OpenStreetMap-gegevens van 27 mei
-…meer: omaps.org/nl/news
+NIEUWE FUNCTIES:
+• De gebruikersinterface voor zoeken en routebepaling is bijgewerkt
+• Routebepaling voor het openbaar vervoer (bus, tram, metro, lightrail)
+• Alternatieve snelste en kortste routes
+• Routewaarschuwingen over trappen, hekken en slagbomen
+• Kies een willekeurige kleur voor bladwijzers
+• Ondersteuning voor coördinaten van UK OS Grid, Irish Grid en ITM
+…meer op omaps.org/nl/news

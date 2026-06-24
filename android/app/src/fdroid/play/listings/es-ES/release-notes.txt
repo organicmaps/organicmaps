@@ -1,8 +1,8 @@
-• Nuevo: añade texto o HTML a un trayecto con el icono de lápiz
-• Elige cualquier color para los trayectos
-• Escudos viales de Australia y Nueva Zelanda
-• Fuentes adecuadas para coreano, chino y japonés según idioma del dispositivo
-• Nuevos iconos: petanca, ciclismo y motor; más lugares: arcos ceremoniales, toboganes acuáticos, parques temáticos y montañas rusas
-• Corregidas rutas de transporte público en estaciones y áreas
-• Datos de OpenStreetMap del 27 de mayo
-…más en omaps.org/es/news
+NUEVAS FUNCIONES:
+• Se ha actualizado la interfaz de usuario de búsqueda y cálculo de rutas
+• Rutas de transporte público (autobús, tranvía, metro, tren ligero)
+• Rutas alternativas más rápidas y más cortas
+• Avisos en la ruta sobre escalones, puertas y barreras levadizas
+• Selecciona cualquier color para los marcadores
+• Compatibilidad con las coordenadas UK OS Grid, Irish Grid y ITM
+…más información en omaps.org/es/news

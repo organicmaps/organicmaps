@@ -1,22 +1,41 @@
-• A nyomvonalak szöveges és HTML leírásai mostantól támogatottak, ugyanúgy, mint a könyvjelzők leírásai. A leírás hozzáadásához nyomja meg a ceruza ikont.
-• OpenStreetMap-térképadatok 2026. május 27-i állapot szerint
-• A szöveg-beszéd (TTS) funkció mostantól a nyelvhez legjobban illő, telepített hangot választja ki (Enhanced / Premium). A jobb minőségű hang letöltéséről az Organic Maps beállításaiban olvashat.
-• Hozzáadva Ausztrália és Új-Zéland útjelző táblái
-• Hozzáadva a petanque, kerékpározás és motorsport helyszíneinek ikonjai
-• Hozzáadva a szertartási kapuk, vízi csúszdák, vidámparkok és hullámvasutak
-• Javítottuk az ujjmozdulatokat a térkép vezérléséhez perspektívikus nézetben navigációs módban
-• Javítottuk a nyomvonal átnevezési hibáját, amelynek következtében az új név nem frissült megfelelően
-• CarPlay: javítottuk a középre állítás gombot
-• Javítottuk a tömegközlekedési útvonalakat az állomások és más területi objektumok esetében
-• Javítottuk a túra- vagy kerékpárútvonalon könyvjelző hozzáadásakor fellépő összeomlást
-• Javítottuk a sebességmérő kamerák sebességkorlátozásainak megjelenítését
-• Javítottuk az antimeridián kicsinyítést több világmásolat esetén
-• Pontosabb utca- és házcímek megjelenítése
-• Javítva a felesleges térképanimációk
-• Stabilitási és teljesítményjavítások
+- ÚJ! Tömegközlekedési útvonaltervezés metróval, villamossal, busszal és villamossal
+- ÚJ! Alternatív útvonalak: a leggyorsabb útvonal mellett az alkalmazás mostantól a legrövidebb útvonalat is megjeleníti
+- ÚJ! Gyalogos és kerékpáros útvonalakhoz kapcsolódó figyelmeztetések az út mentén található lépcsőkről, kapukról és emelőkapukról
+- ÚJ! Érintéssel válasszon az egymást átfedő útvonalak és útvonalak között
+- ÚJ! Bármilyen szín kiválasztható a könyvjelzőkhöz
+- ÚJ! Támogatás az British National Grid (OS Grid), Irish Grid és Irish Transverse Mercator (ITM) koordinátákhoz
+- ÚJ! Akadálymentesítési támogatás az Dynamic Type és a nagy betűméretű betűk számára
+- KÍSÉRLETI: Engedélyezze a műholdas képeket az Organic Maps beállításokban egy egyéni raszterkocka-szerver URL-jével
+- Tisztább táblázati stílus a felhasználói felületen
+- Írja be az `?map-download-server:https://your-server.com/` szót a keresőablakba az Organic Maps térképletöltő szerverek felülírásához. Írja be az `?no-map-download-server` szót a felülírás visszavonásához.
+- Különféle hibajavítások és teljesítményjavítások
+
+## Térképadatok
+
+- OpenStreetMap adatok frissítve: június 24.
+- Az Wikipedia adatok frissültek június 20-án, beleértve az olasz nyelvű cikkeket is
+
+## Térkép megjelenítése és stílusok
+
+- Szebb kinézetű mintázatok a strandok, homok, kavicsos lejtők, csupasz sziklák, gyümölcsösök és szőlőültetvények területein, valamint a védett területek és a vizes élőhelyek árnyékolásához
+- Simaabb, ívelt szövegcímkék az utak és folyók esetében
+- A folyók, patakok és vizes élőhelyek kontrasztja nagyobb, így sötét módban jobban láthatók
+- Új és továbbfejlesztett ikonok a kategóriakereséshez és a térképen megjelenő keresési eredményekhez
+- Többnyelvű szövegformázás és megjelenítés javítása
+
+## Útvonalak, könyvjelzők és útvonalak
+
+- Javított HTML megjelenítés a könyvjelzők és útvonalak leírásainál
+- Az GeoJSON útvonalak mostantól megőrzik a magassági adatokat és az időbélyegeket importáláskor és exportáláskor is
+- Javítva lett az alkalmazás összeomlása, amely egy útvonal másik listába való áthelyezése után jelentkezett
+- A műemlékhelyeknél mostantól megjelennek a weboldalak
+- A névtelen keresési eredményeknél mostantól megjelennek a szolgáltatók nevei. Például a névtelen ATM mostantól megjeleníti a bankját
+- Szerkesztő: kijavította a lakóházra vonatkozó leírási szöveget OpenStreetMap szerkesztések/változáskészletek
+- Javított HTML felismerés a könyvjelzők és útvonalak leírásaiban
+- Az ismétlődő útvonalakat mostantól kiszűri a rendszer
 
 ## Fordítások
 
-• Javítva a francia, olasz, spanyol, ukrán és katalán fordítások
-• Frissítve több ország- és régiónév fordítása, javítva a `leisure=track` szinonimáinak keresése
-• Javítva a `disused:bridge` és `disused:tunnel` fordításai
+- Kantoni nyelvű, lépésről lépésre történő hangos útmutatás
+- Frissített német és francia fordítások
+- Javítva lettek a kínai, szerb és katalán nyelvű "onto street" hangos útmutatások hibás fordításai

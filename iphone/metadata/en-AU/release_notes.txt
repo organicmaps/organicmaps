@@ -1,22 +1,41 @@
-• Track text and HTML descriptions are now supported, the same way as descriptions for bookmarks. Press the pencil icon to add a description.
-• OpenStreetMap data as of May 27, 2026
-• Text-to-Speech (TTS) now picks the best installed voice for the language (Enhanced / Premium). See Organic Maps settings for how to download a higher-quality voice.
-• Added Australia and New Zealand road shields
-• Added icons for boules, cycling, and motorsport places
-• Added ceremonial gates, water slides, theme parks, and roller coasters
-• Improved finger gestures for map control in perspective view during Navigation mode
-• Fixed a track-renaming bug where the new name was not properly updated
-• CarPlay: fixed the recenter button
-• Fixed public transport routes for stations and other area objects
-• Fixed crash when adding a bookmark on a hiking or cycling route
-• Fixed rendering of speed limits for speed cameras
-• Fixed antimeridian zoom-out with more than one world copy
-• More accurate display of street and house addresses
-• Fixed unnecessary map animations
-• Stability and performance improvements
+- NEW! Public transport routing by subway, light rail, bus, and tram
+- NEW! Alternative routes: in addition to the fastest route, the app now shows the shortest route
+- NEW! Walking and cycling route warnings about steps, gates, and lift gates along the way
+- NEW! Tap to choose between overlapping tracks and routes
+- NEW! Select any colour for bookmarks
+- NEW! Support for British National Grid (OS Grid), Irish Grid, and Irish Transverse Mercator (ITM) coordinates
+- NEW! Accessibility support for Dynamic Type and large fonts
+- EXPERIMENTAL: Enable Satellite Imagery in Organic Maps settings with a custom raster tile server URL
+- Cleaner table styling in the UI
+- Type `?map-download-server:https://your-server.com/` in the search window to override the Organic Maps map download servers. Type `?no-map-download-server` to remove the override.
+- Various bug fixes and performance improvements
+
+## Map Data
+
+- OpenStreetMap data updated as of June 24
+- Wikipedia data updated as of June 20, including articles in Italian
+
+## Map rendering & styles
+
+- Better-looking patterns for beach, sand, scree, bare rock, orchard, and vineyard areas, plus protected area and wetland hatching
+- Smoother curved text labels for roads and rivers
+- Rivers, streams, and wetlands have higher contrast and are more visible in dark mode
+- New and improved icons for category search and search results on the map
+- Improved multilingual text shaping and rendering
+
+## Tracks, bookmarks & routes
+
+- Improved HTML rendering of bookmark and track descriptions
+- GeoJSON tracks now keep elevation and timestamps on import and export
+- Fixed a crash after moving a track to another list
+- Websites are now shown for heritage sites
+- Operator names are now shown for unnamed search results. For example, an unnamed ATM now shows its bank
+- Editor: corrected the description text for apartment-building OpenStreetMap edits/changesets
+- Improved HTML detection in bookmark and track descriptions
+- Duplicate routes are now filtered out
 
 ## Translations
 
-• Improved French, Italian, Spanish, Ukrainian, Catalan translations
-• Updated translations for several country and region names, fixed search synonyms for `leisure=track`
-• Corrected translations for `disused:bridge` and `disused:tunnel`
+- Cantonese turn-by-turn voice guidance
+- Updated German and French translations
+- Fixed incorrect "onto street" voice guidance translations for Chinese, Serbian, and Catalan

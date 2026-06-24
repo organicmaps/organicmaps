@@ -1,9 +1,8 @@
-• UUS! Lisa pliiatsiikooniga rajale teksti- või HTML-kirjeldus
-• UUS! Vali radadele mis tahes värv
-• Lisatud Austraalia ja Uus-Meremaa teetähised
-• Korea, Hiina ja Jaapani kasutajatel on nüüd õiged fondid
-• Lisatud ikoonid petangi-, jalgratta- ja mootorispordipaikadele
-• Lisatud tseremoniaalsed väravad, vesiliud, teemapargid ja Ameerika mäed
-• Parandatud ühistranspordiliinid jaamades ja muudel aladel
-• OSM-andmed seisuga 27. mai
-…rohkem omaps.org/et/news
+UUSED FUNKTSIOONID:
+• Uuendatud otsingu- ja marsruudi planeerimise kasutajaliides
+• Ühistranspordi marsruutide planeerimine (buss, tramm, metroo, kergraudtee)
+• Alternatiivsed kiireimad ja lühimad marsruudid
+• Marsruudi hoiatused astmete, väravate ja tõstetavate väravate kohta
+• Vali järjehoidjatele mis tahes värv
+• Toetus koordinaatidele UK OS Grid, Irish Grid, ITM
+…rohkem infot leiate aadressilt omaps.org/et/news
