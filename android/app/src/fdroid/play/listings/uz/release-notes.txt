@@ -1,9 +1,8 @@
-• YANGI! Trekka matn yoki HTML tavsif qo'shish uchun qalamni bosing
-• YANGI! Treklar uchun istalgan rangni tanlang
-• Avstraliya va Yangi Zelandiya yo'l qalqonlari qo'shildi
-• Koreys, xitoy va yapon shriftlari qurilma tiliga moslandi
-• Boules, velosport va avtosport joylari ikonkalari qo'shildi
-• Darvozalar, suv slaydlari, tematik bog'lar va roller-kosterlar qo'shildi
-• Bekat va hudud obyektlarida jamoat transporti yo'nalishlari tuzatildi
-• OSM ma'lumotlari: 27-may
-…batafsil: omaps.org/news
+YANGI XUSUSIYATLAR:
+• Qidiruv va marshrutlash foydalanuvchi interfeysi yangilandi
+• Jamoat transporti marshruti (avtobus, tramvay, metro, yengil relsli transport)
+• Alternativ eng tez va eng qisqa yo'nalishlar
+• Poygaklar, darvozalar va lift darvozalar bo'yicha yo'nalish ogohlantirishlari
+• Belgilamalar uchun istalgan rangni tanlang
+• UK OS Grid, Irish Grid, ITM koordinatalarini qo'llab-quvvatlash
+…batafsil omaps.org/news manzilida

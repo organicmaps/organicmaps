@@ -1,8 +1,10 @@
-• NUUT! Tik op die potloodikoon om 'n teks- of HTML-beskrywing by 'n spoor te voeg
-• NUUT! Kies enige kleur vir spore
-• Padskilde vir Australië en Nieu-Seeland bygevoeg
-• Koreaanse, Chinese en Japannese gebruikers sien nou korrekte lettertipes volgens toesteltaal
-• Ikone vir boules-, fietsry- en motorsportplekke bygevoeg
-• Seremoniële poorte, waterglybane, pretparke en tuimeltreine bygevoeg
-• OSM-data vanaf 27 Mei
+NUWE FUNKSIES:
+• Opgedateerde soek- en roeteringsgebruikerskoppelvlak
+• Openbare vervoerroutes (bus, tram, metro, ligspoor)
+• Alternatiewe vinnigste en kortste roetes
+• Roetewaarskuwings oor trappe, hekke en hysbakhekke
+• Kies enige kleur vir boekmerke
+• Ondersteuning vir UK OS Grid, Irish Grid, ITM-koördinate
+• Aktiveer satellietbeelde in Organic Maps-instellings met 'n pasgemaakte rasterteëlbediener-URL
+• OSM-data vanaf 24 Junie
 …meer by omaps.org/af/news

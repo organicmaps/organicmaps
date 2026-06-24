@@ -1,22 +1,41 @@
-• Teks trek dan deskripsi HTML kini disokong, sama seperti deskripsi untuk penanda buku. Tekan ikon pensel untuk menambah deskripsi.
-• Data peta OpenStreetMap setakat 27 Mei 2026
-• Teks ke Ucapan (TTS) kini memilih suara terbaik yang dipasang untuk bahasa tersebut (Enhanced / Premium). Lihat tetapan Organic Maps untuk cara memuat turun suara berkualiti lebih tinggi.
-• Ditambah papan tanda jalan Australia dan New Zealand
-• Ditambah ikon untuk boules, berbasikal, dan tempat sukan permotoran
-• Ditambah gerbang upacara, gelongsor air, taman tema, dan roller coaster
-• Peningkatan isyarat jari untuk kawalan peta dalam paparan perspektif semasa Mod Navigasi
-• Dibaiki pepijat penamaan semula trek yang menyebabkan nama baharu tidak dikemas kini dengan betul
-• CarPlay: dibetulkan butang pusat semula
-• Dibaiki laluan pengangkutan awam untuk stesen dan objek kawasan lain
-• Dibaiki kerosakan semasa menambah penanda buku pada laluan mendaki atau berbasikal
-• Dibaiki paparan had laju untuk kamera laju
-• Dibaiki zum keluar antimeridian dengan lebih daripada satu salinan dunia
-• Paparan alamat jalan dan rumah yang lebih tepat
-• Dibaiki animasi peta yang tidak perlu
-• Penambahbaikan kestabilan dan prestasi
+- BARU! Laluan pengangkutan awam melalui kereta bawah tanah, rel ringan, bas, dan trem
+- BARU! Laluan alternatif: selain laluan terpantas, aplikasi kini memaparkan laluan terpendek
+- BARU! Amaran laluan berjalan kaki dan berbasikal mengenai tangga, pintu gerbang, dan pintu gerbang angkat di sepanjang laluan
+- BARU! Ketuk untuk memilih antara jejak dan laluan yang bertindih
+- BARU! Pilih mana-mana warna untuk penanda buku
+- BARU! Sokongan untuk koordinat British National Grid (OS Grid), Irish Grid, dan Irish Transverse Mercator (ITM)
+- BARU! Sokongan kebolehcapaian untuk Dynamic Type dan fon besar
+- EKSPERIMEN: Aktifkan Imbasan Satelit dalam tetapan Organic Maps dengan URL pelayan jubin raster tersuai
+- Gaya jadual yang lebih kemas dalam UI
+- Taip `?map-download-server:https://your-server.com/` dalam tetingkap carian untuk menimpa pelayan muat turun peta Organic Maps. Taip `?no-map-download-server` untuk membatalkan penimpaan.
+- Pelbagai pembetulan pepijat dan penambahbaikan prestasi
+
+## Data Peta
+
+- Data OpenStreetMap dikemas kini sehingga 24 Jun
+- Data Wikipedia dikemas kini sehingga 20 Jun, termasuk artikel dalam bahasa Itali
+
+## Pemaparan peta & gaya
+
+- Corak yang lebih menarik untuk kawasan pantai, pasir, kerikil, batu telanjang, kebun buah-buahan, dan kebun anggur, serta coretan kawasan terpelihara dan tanah lembap
+- Label teks melengkung yang lebih lancar untuk jalan dan sungai
+- Sungai, anak sungai, dan tanah lembap mempunyai kontras yang lebih tinggi dan lebih jelas kelihatan dalam mod gelap
+- Ikon baharu dan dipertingkatkan untuk carian kategori dan keputusan carian pada peta
+- Penambahbaikan pembentukan dan paparan teks pelbagai bahasa
+
+## Jejak, penanda buku & laluan
+
+- Peningkatan paparan HTML untuk keterangan penanda buku dan jejak
+- Jejak GeoJSON kini mengekalkan ketinggian dan cap masa semasa import dan eksport
+- Membetulkan ranap selepas memindahkan jejak ke senarai lain
+- Laman web kini dipaparkan untuk tapak warisan
+- Nama pengendali kini dipaparkan untuk hasil carian tanpa nama. Sebagai contoh, ATM tanpa nama kini memaparkan banknya
+- Editor: membetulkan teks keterangan untuk suntingan/set perubahan OpenStreetMap bagi bangunan apartmen
+- Peningkatan pengesanan HTML dalam keterangan penanda buku dan jejak
+- Laluan pendua kini ditapis
 
 ## Terjemahan
 
-• Penambahbaikan terjemahan Bahasa Perancis, Itali, Sepanyol, Ukraine, dan Catalonia
-• Kemas kini terjemahan untuk beberapa nama negara dan rantau, membetulkan sinonim carian untuk `leisure=track`
-• Pembetulan terjemahan untuk `disused:bridge` dan `disused:tunnel`
+- Arahan suara langkah demi langkah dalam loghat Kantonis
+- Kemas kini terjemahan Jerman dan Perancis
+- Membetulkan terjemahan panduan suara "onto street" yang salah untuk bahasa Cina, Serbia dan Catalan

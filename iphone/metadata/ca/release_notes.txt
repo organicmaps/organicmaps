@@ -1,22 +1,41 @@
-• Ara s'admeten descripcions en text i HTML per a les traces, igual que les descripcions per als marcadors. Premeu la icona del llapis per afegir-hi una descripció.
-• Dades d'OpenStreetMap a data del 27 de maig de 2026
-• El text a veu (TTS) ara tria la millor veu instal·lada per a la llengua (Enhanced / Premium). Consulteu la configuració d'Organic Maps per saber com descarregar una veu de més qualitat.
-• S'han afegit rètols de carretera d'Austràlia i Nova Zelanda
-• S'han afegit icones per a llocs de petanca, ciclisme i esports de motor
-• S'han afegit portes cerimonials, tobogans aquàtics, parcs temàtics i muntanyes russes
-• Millorats els gestos amb el dit per al control del mapa en la vista de perspectiva durant el mode de navegació
-• S'ha corregit un error de canvi de nom de traça pel qual el nom nou no s'actualitzava correctament
-• CarPlay: s'ha corregit el botó de recentrar
-• S'han corregit les rutes de transport públic per a estacions i altres objectes de la zona
-• S'ha corregit un bloqueig en afegir un marcador a una ruta de senderisme o ciclisme
-• S'ha corregit la visualització dels límits de velocitat per a les càmeres de velocitat
-• S'ha corregit el deszoom antimeridià amb més d'una còpia mundial
-• Visualització més precisa d'adreces de carrer i de casa
-• S'han corregit animacions innecessàries del mapa
-• Millores d'estabilitat i rendiment
+- NOVETAT! Rutes de transport públic amb metro, tramvia lleuger, autobús i tramvia
+- NOVETAT! Rutes alternatives: a més de la ruta més ràpida, l'aplicació ara mostra la ruta més curta
+- NOVETAT! Alertes de ruta per a caminar i anar en bicicleta sobre esglaons, portes i barreres elevables al llarg del camí
+- NOVETAT! Toca per triar entre recorreguts i rutes superposats
+- NOVETAT! Seleccioneu qualsevol color per als marcadors
+- NOVETAT! Suport per a les coordenades British National Grid (OS Grid), Irish Grid i Irish Transverse Mercator (ITM)
+- NOVETAT! Suport d'accessibilitat per a Dynamic Type i fonts de gran mida
+- EXPERIMENTAL: Activa les imatges per satèl·lit a la configuració d'Organic Maps amb una URL de servidor de mapes raster personalitzada
+- Estil de taula més net a la IU
+- Escriviu `?map-download-server:https://your-server.com/` a la finestra de cerca per sobreescriure els servidors de descàrrega de mapes Organic Maps. Escriviu `?no-map-download-server` per eliminar la sobreescriptura.
+- Diverses correccions d'errors i millores de rendiment
+
+## Dades del mapa
+
+- Dades OpenStreetMap actualitzades el 24 de juny
+- Dades Wikipedia actualitzades a data de 20 de juny, incloent-hi articles en italià
+
+## Renderització i estils del mapa
+
+- Patrons més atractius per a zones de platja, sorra, còdols, roca nua, horta i vinya, a més d'un traçat per a zones protegides i aiguamolls
+- Etiquetes de text corbes més suaus per a carreteres i rius
+- Els rius, els rierols i les zones humides tenen un contrast més elevat i són més visibles en mode fosc
+- Icones noves i millorades per a la cerca de categoria i els resultats de cerca al mapa
+- Millora del format i la renderització multilingüe del text
+
+## Recorreguts, marcadors i rutes
+
+- Millora de la renderització HTML de les descripcions de marcadors i recorreguts
+- Els recorreguts GeoJSON ara conserven l'altitud i les marques de temps en importar i exportar
+- S'ha corregit un bloqueig després de moure un recorregut a una altra llista
+- Ara es mostren llocs web per als llocs patrimonials
+- Ara es mostren els noms dels operadors per als resultats de cerca sense nom. Per exemple, un ATM sense nom ara mostra el seu banc
+- Editor: s'ha corregit el text de la descripció per a les edicions/conjunts de canvis OpenStreetMap d'edificis d'apartaments
+- Millora de la detecció d'HTML a les descripcions de marcadors i recorreguts
+- Ara es filtren les rutes duplicades
 
 ## Traduccions
 
-• Millorades les traduccions al francès, italià, espanyol, ucraïnès i català
-• Actualitzades les traduccions de diversos noms de països i regions, i corregits els sinònims de cerca per a `leisure=track`
-• Corregides les traduccions de `disused:bridge` i `disused:tunnel`
+- Indicacions de veu pas a pas en cantonès
+- S'han actualitzat les traduccions a l'alemany i al francès
+- S'han corregit les traduccions incorrectes de les instruccions de veu "onto street" per a xinès, serbi i català.

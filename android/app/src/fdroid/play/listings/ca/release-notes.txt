@@ -1,8 +1,8 @@
-• Nou: afegeix descripcions de text o HTML als recorreguts amb la icona del llapis
-• Nou: tria qualsevol color per als recorreguts
-• Escuts de carretera d'Austràlia i Nova Zelanda
-• Tipus de lletra correctes per al coreà, el xinès i el japonès
-• Més icones i llocs: petanca, ciclisme, esports de motor, portes, tobogans, parcs temàtics i muntanyes russes
-• Rutes de transport públic corregides
-• Dades d'OpenStreetMap del 27 de maig
+NOVES FUNCIONALITATS:
+• Interfície d'usuari actualitzada per a la cerca i la planificació d'itineraris
+• Rutes de transport públic (autobús, tramvia, metro, tren lleuger)
+• Rutes alternatives més ràpides i més curtes
+• Alertes de ruta sobre esglaons, portes i portes elevadores
+• Seleccioneu qualsevol color per als marcadors
+• Suport per a les coordenades UK OS Grid, Irish Grid i ITM
 …més a omaps.org/ca/news

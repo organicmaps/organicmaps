@@ -1,22 +1,41 @@
-• As descrições de texto e HTML dos trilhos são agora suportadas, da mesma forma que as descrições dos marcadores. Toque no ícone do lápis para adicionar uma descrição.
-• Dados cartográficos do OpenStreetMap a 27 de maio de 2026
-• A conversão de texto em voz (TTS) seleciona agora a melhor voz instalada para o idioma (Enhanced / Premium). Consulte as definições do Organic Maps para saber como descarregar uma voz de maior qualidade.
-• Adicionados sinais de trânsito da Austrália e da Nova Zelândia
-• Adicionados ícones para locais de petanca, ciclismo e desportos motorizados
-• Adicionados portais cerimoniais, escorregas aquáticos, parques temáticos e montanhas-russas
-• Melhorados os gestos com os dedos para controlo do mapa na vista em perspetiva durante o modo de Navegação
-• Corrigido um erro na renomeação de trilhos em que o novo nome não era atualizado corretamente
-• CarPlay: corrigido o botão de recentrar
-• Corrigidas as rotas de transportes públicos para estações e outros objetos da área
-• Corrigida a falha ao adicionar um marcador numa rota de caminhada ou ciclismo
-• Corrigida a renderização dos limites de velocidade para radares
-• Corrigido o zoom-out antimeridiano com mais do que uma cópia do mundo
-• Exibição mais precisa de endereços de ruas e casas
-• Corrigidas animações desnecessárias no mapa
-• Melhorias na estabilidade e no desempenho
+- NOVIDADE! Cálculo de percursos de transportes públicos por metro, metro ligeiro, autocarro e elétrico
+- NOVIDADE! Rotas alternativas: para além da rota mais rápida, a aplicação apresenta agora a rota mais curta
+- NOVIDADE! Avisos nas rotas pedestres e de bicicleta sobre degraus, portões e portões elevatórios ao longo do percurso
+- NOVIDADE! Toque para escolher entre percursos e rotas sobrepostos
+- NOVIDADE! Selecione qualquer cor para os marcadores
+- NOVIDADE! Suporte para coordenadas British National Grid (OS Grid), Irish Grid e Irish Transverse Mercator (ITM)
+- NOVIDADE! Suporte à acessibilidade para o Dynamic Type e tipos de letra de grande dimensão
+- EXPERIMENTAL: Ative as imagens de satélite nas definições do Organic Maps com um URL personalizado do servidor de mosaicos rasterizados
+- Estilo de tabelas mais simples na interface do utilizador
+- Digite `?map-download-server:https://your-server.com/` na janela de pesquisa para substituir os servidores de download de mapas Organic Maps. Digite `?no-map-download-server` para remover a substituição.
+- Várias correções de erros e melhorias de desempenho
+
+## Dados dos mapas
+
+- Dados do OpenStreetMap atualizados a 24 de junho
+- Dados do Wikipedia atualizados a 20 de junho, incluindo artigos em italiano
+
+## Renderização e estilos dos mapas
+
+- Padrões mais apelativos para áreas de praia, areia, cascalho, rocha nua, pomares e vinhas, além de hachuras para áreas protegidas e zonas húmidas
+- Rótulos de texto com curvas mais suaves para estradas e rios
+- Os rios, ribeiros e zonas húmidas apresentam um maior contraste e são mais visíveis no modo escuro
+- Ícones novos e melhorados para a pesquisa por categoria e para os resultados da pesquisa no mapa
+- Melhoria na formatação e renderização de texto multilingue
+
+## Trajetos, marcadores e rotas
+
+- Melhoria na renderização HTML das descrições de marcadores e trajetos
+- Os trajetos GeoJSON mantêm agora a altitude e os registos de data e hora durante a importação e exportação
+- Corrigida uma falha após mover um trajeto para outra lista
+- São agora apresentados sites para locais de património
+- Os nomes das entidades operacionais são agora apresentados para resultados de pesquisa sem nome. Por exemplo, um resultado sem nome ATM apresenta agora o nome do seu banco
+- Editor: corrigido o texto da descrição para edições/conjuntos de alterações OpenStreetMap de edifícios de apartamentos
+- Deteção melhorada de HTML nas descrições de marcadores e trajetos
+- As rotas duplicadas são agora filtradas
 
 ## Traduções
 
-• Melhorias nas traduções para francês, italiano, espanhol, ucraniano e catalão
-• Atualizadas as traduções para vários nomes de países e regiões; corrigidos sinónimos de pesquisa para `leisure=track`
-• Corrigidas as traduções para `disused:bridge` e `disused:tunnel`
+- Orientação por voz passo a passo em cantonês
+- Atualização das traduções para alemão e francês
+- Corrigidas traduções incorretas da orientação por voz "onto street" para chinês, sérvio e catalão

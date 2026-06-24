@@ -1,22 +1,41 @@
-• Agora são suportadas descrições de texto e HTML para trilhas, da mesma forma que as descrições para marcadores. Toque no ícone do lápis para adicionar uma descrição.
-• Dados do OpenStreetMap em 27 de maio de 2026
-• A conversão de texto em fala (TTS) agora seleciona a melhor voz instalada para o idioma (Enhanced / Premium). Consulte as configurações do Organic Maps para saber como baixar uma voz de melhor qualidade.
-• Adicionados sinais de trânsito da Austrália e da Nova Zelândia
-• Adicionados ícones para locais de bocha, ciclismo e esportes motorizados
-• Adicionados portais cerimoniais, toboáguas, parques temáticos e montanhas-russas
-• Melhorados os gestos com os dedos para controle do mapa na visualização em perspectiva durante o modo Navegação
-• Corrigido um bug na renomeação de trilhas em que o novo nome não era atualizado corretamente
-• CarPlay: corrigido o botão de recentrar
-• Corrigidas as rotas de transporte público para estações e outros objetos da área
-• Corrigida a falha ao adicionar um marcador em uma rota de caminhada ou ciclismo
-• Corrigida a renderização dos limites de velocidade para radares
-• Corrigido o zoom out antimeridiano com mais de uma cópia do mundo
-• Exibição mais precisa de endereços de ruas e casas
-• Corrigidas animações desnecessárias no mapa
-• Melhorias de estabilidade e desempenho
+- NOVIDADE! Rotas de transporte público por metrô, VLT, ônibus e bonde
+- NOVIDADE! Rotas alternativas: além da rota mais rápida, o app agora mostra a rota mais curta
+- NOVIDADE! Avisos em rotas para pedestres e ciclistas sobre degraus, portões e cancelas ao longo do caminho
+- NOVIDADE! Toque para escolher entre trilhas e rotas sobrepostas
+- NOVIDADE! Escolha qualquer cor para os favoritos
+- NOVIDADE! Suporte para coordenadas British National Grid (OS Grid), Irish Grid e Irish Transverse Mercator (ITM)
+- NOVIDADE! Suporte à acessibilidade para Dynamic Type e fontes grandes
+- EXPERIMENTAL: Ative as imagens de satélite nas configurações do Organic Maps com uma URL personalizada do servidor de blocos rasterizados
+- Estilo mais limpo das tabelas na interface do usuário
+- Digite `?map-download-server:https://your-server.com/` na janela de pesquisa para substituir os servidores de download de mapas Organic Maps. Digite `?no-map-download-server` para remover a substituição.
+- Várias correções de bugs e melhorias de desempenho
+
+## Dados do mapa
+
+- Dados do OpenStreetMap atualizados em 24 de junho
+- Dados do Wikipedia atualizados em 20 de junho, incluindo artigos em italiano
+
+## Renderização e estilos do mapa
+
+- Padrões mais bonitos para áreas de praia, areia, cascalho, rocha nua, pomar e vinhedo, além de hachuras para áreas protegidas e zonas úmidas
+- Rótulos de texto com curvas mais suaves para estradas e rios
+- Rios, córregos e áreas alagadas têm maior contraste e ficam mais visíveis no modo escuro
+- Ícones novos e aprimorados para a busca por categoria e os resultados da busca no mapa
+- Melhoria na formatação e renderização de texto multilíngue
+
+## Trajetos, favoritos e rotas
+
+- Melhoria na renderização HTML das descrições de favoritos e trilhas
+- Os trajetos GeoJSON agora mantêm a altitude e os carimbos de data/hora na importação e exportação
+- Corrigida uma falha que ocorria ao mover um trajeto para outra lista
+- Agora são exibidos sites para locais históricos
+- Agora, os nomes das operadoras são exibidos para resultados de pesquisa sem nome. Por exemplo, um resultado sem nome como ATM agora mostra o nome do banco
+- Editor: corrigido o texto da descrição para edições/conjuntos de alterações OpenStreetMap de prédios de apartamentos
+- Detecção aprimorada de HTML nas descrições de favoritos e trilhas
+- Rotas duplicadas agora são filtradas
 
 ## Traduções
 
-• Melhorias nas traduções para francês, italiano, espanhol, ucraniano e catalão
-• Atualizadas as traduções para vários nomes de países e regiões; corrigidos sinônimos de pesquisa para `leisure=track`
-• Corrigidas as traduções para `disused:bridge` e `disused:tunnel`
+- Orientação por voz passo a passo em cantonês
+- Atualização das traduções em alemão e francês
+- Corrigidas traduções incorretas da orientação de voz "onto street" para chinês, sérvio e catalão

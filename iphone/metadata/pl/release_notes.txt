@@ -1,22 +1,41 @@
-• Obsługiwane są teraz opisy tekstowe i HTML śladów, tak samo jak opisy zakładek. Naciśnij ikonę ołówka, aby dodać opis.
-• Dane map OpenStreetMap na dzień 27 maja 2026 r.
-• Funkcja zamiany tekstu na mowę (TTS) wybiera teraz najlepszy zainstalowany głos dla danego języka (Enhanced / Premium). Zobacz ustawienia Organic Maps, aby dowiedzieć się, jak pobrać głos o wyższej jakości.
-• Dodano znaki drogowe Australii i Nowej Zelandii
-• Dodano ikony miejsc związanych z bule, kolarstwem i sportami motorowymi
-• Dodano bramy ceremonialne, zjeżdżalnie wodne, parki rozrywki i kolejki górskie
-• Ulepszono gesty palców do sterowania mapą w widoku perspektywicznym w trybie nawigacji
-• Naprawiono błąd zmiany nazwy śladu, w wyniku którego nowa nazwa nie była poprawnie aktualizowana
-• CarPlay: naprawiono przycisk ponownego centrowania
-• Naprawiono trasy transportu publicznego dla stacji i innych obiektów obszarowych
-• Naprawiono awarię podczas dodawania zakładki na trasie pieszej lub rowerowej
-• Naprawiono renderowanie ograniczeń prędkości dla fotoradarów
-• Naprawiono oddalanie przy antymeridianie w przypadku więcej niż jednej kopii świata
-• Bardziej dokładne wyświetlanie adresów ulic i domów
-• Naprawiono niepotrzebne animacje mapy
-• Poprawki stabilności i wydajności
+- NOWOŚĆ! Planowanie tras transportu publicznego z wykorzystaniem metra, kolei miejskiej, autobusów i tramwajów
+- NOWOŚĆ! Trasy alternatywne: oprócz najszybszej trasy aplikacja wyświetla teraz również trasę najkrótszą
+- NOWOŚĆ! Ostrzeżenia dotyczące tras pieszych i rowerowych dotyczące stopni, bram oraz podnoszonych bram na trasie
+- NOWOŚĆ! Proszę dotknąć, aby wybrać między nakładającymi się trasami a trasami nawigacyjnymi
+- NOWOŚĆ! Możliwość wyboru dowolnego koloru dla zakładek
+- NOWOŚĆ! Obsługa współrzędnych British National Grid (OS Grid), Irish Grid oraz Irish Transverse Mercator (ITM)
+- NOWOŚĆ! Obsługa funkcji ułatwień dostępu dla Dynamic Type oraz dużych czcionek
+- EKSPERYMENTALNE: Włącz zdjęcia satelitarne w ustawieniach Organic Maps, podając niestandardowy adres URL serwera kafelków rastrowych
+- Uporządkowany styl tabel w interfejsie użytkownika
+- Wpisz `?map-download-server:https://your-server.com/` w oknie wyszukiwania, aby zastąpić serwery pobierania map Organic Maps. Wpisz `?no-map-download-server`, aby usunąć to zastąpienie.
+- Różne poprawki błędów i ulepszenia wydajności
+
+## Dane mapowe
+
+- Dane OpenStreetMap zaktualizowane na dzień 24 czerwca
+- Dane Wikipedia zaktualizowane na dzień 20 czerwca, w tym artykuły w języku włoskim
+
+## Renderowanie map i style
+
+- Bardziej estetyczne wzory dla obszarów plaż, piasku, piargów, nagiej skały, sadów i winnic, a także cieniowanie obszarów chronionych i terenów podmokłych
+- Bardziej płynne, zakrzywione etykiety tekstowe dla dróg i rzek
+- Rzeki, strumienie i tereny podmokłe mają większy kontrast i są lepiej widoczne w trybie ciemnym
+- Nowe i ulepszone ikony do wyszukiwania według kategorii oraz wyników wyszukiwania na mapie
+- Ulepszone formatowanie i renderowanie tekstu wielojęzycznego
+
+## Trasy, zakładki i trasy
+
+- Ulepszone renderowanie opisów zakładek i tras za pomocą znacznika HTML
+- Ścieżki w aplikacji GeoJSON zachowują teraz dane dotyczące wysokości i znaczniki czasu podczas importu i eksportu
+- Naprawiono awarię występującą po przeniesieniu trasy do innej listy
+- Teraz wyświetlane są strony internetowe dotyczące zabytków
+- Nazwy operatorów są teraz wyświetlane w przypadku wyników wyszukiwania bez nazwy. Na przykład nienazwany ATM wyświetla teraz nazwę swojego banku
+- Redaktor: poprawiono tekst opisu dotyczący budynków mieszkalnych OpenStreetMap – zmiany/zestawy zmian
+- Ulepszone wykrywanie HTML w opisach zakładek i tras
+- Zduplikowane trasy są teraz odfiltrowywane
 
 ## Tłumaczenia
 
-• Ulepszono tłumaczenia na język francuski, włoski, hiszpański, ukraiński i kataloński
-• Zaktualizowano tłumaczenia nazw kilku krajów i regionów, poprawiono synonimy wyszukiwania dla `leisure=track`
-• Poprawiono tłumaczenia dla `disused:bridge` i `disused:tunnel`
+- Głosowe wskazówki krok po kroku w języku kantońskim
+- Zaktualizowano tłumaczenia na język niemiecki i francuski
+- Naprawiono nieprawidłowe tłumaczenia wskazówek głosowych "onto street" w językach chińskim, serbskim i katalońskim

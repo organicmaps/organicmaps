@@ -1,9 +1,8 @@
-• NOVO! Z ikono svinčnika dodajte besedilni ali HTML opis sledi
-• NOVO! Poljubna barva za sledi
-• Dodane oznake cest za Avstralijo in Novo Zelandijo
-• Pisave za korejščino, kitajščino in japonščino sledijo jeziku naprave
-• Dodane ikone za balinišča, kolesarstvo in motošport
-• Dodana slavnostna vrata, vodni tobogani, tematski parki in vlakci smrti
-• Popravljene linije javnega prevoza pri postajah in drugih območjih
-• Podatki OSM: 27. maj
+NOVE FUNKCIJE:
+• Posodobljen uporabniški vmesnik za iskanje in načrtovanje poti
+• Načrtovanje poti z javnim prevozom (avtobus, tramvaj, podzemna železnica, lahka železnica)
+• Alternativne najhitrejše in najkrajše poti
+• Opozorila na poti o stopnicah, vratih in dvigalnih vratih
+• Izberite katero koli barvo za zaznamke
+• Podpora za koordinate UK OS Grid, Irish Grid in ITM
 …več na omaps.org/news

@@ -1,22 +1,41 @@
-• Jälkien teksti- ja HTML-kuvauksia tuetaan nyt samalla tavalla kuin kirjanmerkkien kuvauksia. Lisää kuvaus painamalla kynäkuvaketta.
-• OpenStreetMap-karttatiedot 27. toukokuuta 2026
-• Teksti puheeksi (TTS) valitsee nyt parhaan asennetun äänen kielelle (Enhanced / Premium). Katso Organic Maps -asetuksista, miten voit ladata korkealaatuisemman äänen.
-• Lisätty Australian ja Uuden-Seelannin tienviitat
-• Lisätty kuvakkeet petankki-, pyöräily- ja moottoriurheilupaikoille
-• Lisätty seremonialliset portit, vesiliukumäet, teemapuistot ja vuoristoradat
-• Parannettu sormiliikkeiden hallintaa perspektiivinäkymässä navigointitilassa
-• Korjattu jäljen nimenmuutoksen virhe, jossa uusi nimi ei päivittynyt oikein
-• CarPlay: korjattu keskity-painike
-• Korjattu joukkoliikenteen reitit asemille ja muille alueobjekteille
-• Korjattu kaatuminen, kun lisättiin kirjanmerkki vaellus- tai pyöräilyreitille
-• Korjattu nopeusrajoitusten näyttö nopeusvalvontakameroille
-• Korjattu antimeridiaaninen loitontaminen, kun käytössä on useampi kuin yksi maailmankopio
-• Tarkempi katujen ja talojen osoitteiden näyttö
-• Korjattu tarpeettomat kartta-animaatiot
-• Vakauden ja suorituskyvyn parannukset
+- UUTTA! Julkisen liikenteen reittisuunnittelu metrolla, pikaraitiovaunulla, bussilla ja raitiovaunulla
+- UUTTA! Vaihtoehtoiset reitit: nopeimman reitin lisäksi sovellus näyttää nyt myös lyhimmän reitin
+- UUTTA! Kävely- ja pyöräilyreittien varoitukset matkan varrella olevista askelmista, porteista ja nostoportteista
+- UUTTA! Napauta valitaksesi päällekkäisten reittien ja reittien välillä
+- UUTTA! Valitse kirjanmerkkeihin mikä tahansa väri
+- UUTTA! Tuki koordinaateille British National Grid (OS Grid), Irish Grid ja Irish Transverse Mercator (ITM)
+- UUTTA! Esteettömyystuki Dynamic Type:lle ja suurille kirjasinkokoille
+- KOKEILUVAIHE: Ota satelliittikuvat käyttöön Organic Maps-asetuksissa mukautetun rasterikuvapalvelimen URL-osoitteen avulla
+- Selkeämpi taulukoiden muotoilu käyttöliittymässä
+- Kirjoita hakukenttään `?map-download-server:https://your-server.com/` ohittaaksesi Organic Maps-karttojen latauspalvelimet. Kirjoita `?no-map-download-server` poistaaksesi ohituksen.
+- Erilaisia virhekorjauksia ja suorituskyvyn parannuksia
+
+## Karttatiedot
+
+- OpenStreetMap-tiedot päivitetty 24. kesäkuuta
+- Wikipedia-tiedot päivitetty 20. kesäkuuta, mukaan lukien italiankieliset artikkelit
+
+## Karttojen renderointi ja tyylit
+
+- Paremman näköiset kuviot ranta-, hiekka-, soramurska-, paljas kallio-, hedelmätarha- ja viinitarha-alueille sekä suojelualueiden ja kosteikkojen varjostukselle
+- Sujuvammin kaarevat tekstimerkinnät teille ja jokille
+- Joet, purot ja kosteikot erottuvat paremmin ja ovat näkyvämpiä pimeässä tilassa
+- Uudet ja parannetut kuvakkeet luokkahakuun ja hakutuloksiin kartalla
+- Parannettu monikielinen tekstin muotoilu ja renderointi
+
+## Reitit, kirjanmerkit ja reitit
+
+- Parannettu HTML-renderointi kirjanmerkkien ja reittien kuvauksissa
+- GeoJSON-reiteissä säilytetään nyt korkeustiedot ja aikaleimat tuonnin ja viennin yhteydessä
+- Korjattu kaatuminen, joka ilmeni reitin siirtämisen jälkeen toiseen luetteloon
+- Kulttuuriperintökohteiden verkkosivustot näkyvät nyt
+- Nimetön hakutulos näyttää nyt operaattorin nimen. Esimerkiksi nimetön ATM näyttää nyt pankkinsa
+- Toimittaja: korjattu kerrostalon kuvausteksti OpenStreetMap muokkaukset/muutokset
+- Parannettu HTML-tunnistus kirjanmerkkien ja reittien kuvauksissa
+- Päällekkäiset reitit suodatetaan nyt pois
 
 ## Käännökset
 
-• Parannettuja ranskan, italian, espanjan, ukrainan ja katalaanin käännöksiä
-• Päivitettyjä käännöksiä useille maa- ja aluenimille, korjattu `leisure=track`-hakusynonyymejä
-• Korjattuja käännöksiä `disused:bridge` ja `disused:tunnel`
+- Kantoninkielinen vaiheittainen ääniohjaus
+- Päivitetyt saksan- ja ranskankieliset käännökset
+- Korjattu virheelliset "onto street"-ääniohjeiden käännökset kiinaksi, serbiaksi ja katalaaniksi

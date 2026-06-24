@@ -1,22 +1,41 @@
-• Teraz sú podporované textové a HTML popisy trás, rovnako ako popisy záložiek. Stlačte ikonu ceruzky, aby ste pridali popis.
-• Mapové údaje OpenStreetMap k 27. máju 2026
-• Funkcia Text-to-Speech (TTS) teraz vyberá najlepší nainštalovaný hlas pre daný jazyk (Enhanced / Premium). Pozrite si nastavenia Organic Maps, kde nájdete informácie o tom, ako stiahnuť hlas vyššej kvality.
-• Pridané dopravné značky pre Austráliu a Nový Zéland
-• Pridané ikony pre miesta venované petangu, cyklistike a motoristickým športom
-• Pridané slávnostné brány, tobogány, zábavné parky a horské dráhy
-• Vylepšené gestá prstov na ovládanie mapy v perspektívnom zobrazení počas režimu navigácie
-• Opravená chyba pri premenúvaní trasy, pri ktorej sa nový názov správne neaktualizoval
-• CarPlay: opravené tlačidlo na opätovné vycentrovanie
-• Opravené trasy verejnej dopravy pre stanice a iné objekty v oblasti
-• Opravené zlyhanie pri pridávaní záložky na turistickú alebo cyklistickú trasu
-• Opravené zobrazenie rýchlostných obmedzení pre radary
-• Opravené oddialenie mapy pri antimeridiáne pri viac ako jednej kópii sveta
-• Presnejšie zobrazenie adries ulíc a domov
-• Opravené zbytočné animácie na mape
-• Vylepšenia stability a výkonu
+- NOVINKA! Plánovanie trasy verejnou dopravou metrom, ľahkou železnicou, autobusom a električkou
+- NOVINKA! Alternatívne trasy: okrem najrýchlejšej trasy aplikácia teraz zobrazuje aj najkratšiu trasu
+- NOVINKA! Upozornenia na peších a cyklistických trasách týkajúce sa schodov, brán a zdvíhacích brán na trase
+- NOVINKA! Ťuknutím si môžete vybrať medzi prekrývajúcimi sa trasami a cestami
+- NOVINKA! Vyberte si ľubovoľnú farbu pre záložky
+- NOVINKA! Podpora súradníc British National Grid (OS Grid), Irish Grid a Irish Transverse Mercator (ITM)
+- NOVINKA! Podpora prístupnosti pre Dynamic Type a veľké písmo
+- EXPERIMENTÁLNE: Zapnite satelitné snímky v nastaveniach Organic Maps pomocou vlastnej URL adresy servera s rastrovými dlaždicami
+- Prehľadnejšie štýly tabuliek v používateľskom rozhraní
+- Do vyhľadávacieho okna zadajte `?map-download-server:https://your-server.com/`, aby ste prepisali servery na sťahovanie máp Organic Maps. Zadajte `?no-map-download-server`, aby ste prepis zrušili.
+- Rôzne opravy chýb a vylepšenia výkonu
+
+## Mapové údaje
+
+- Údaje OpenStreetMap aktualizované k 24. júnu
+- Údaje Wikipedia aktualizované k 20. júnu, vrátane článkov v taliančine
+
+## Vykresľovanie máp a štýly
+
+- Vylepšené vzory pre oblasti pláží, piesku, sutinových svahov, holých skál, ovocných sadov a viníc, ako aj šrafovanie chránených oblastí a mokradí
+- Plynulejšie zakrivené textové popisy ciest a riek
+- Rieky, potoky a mokrade majú vyšší kontrast a sú v tmavom režime lepšie viditeľné
+- Nové a vylepšené ikony pre vyhľadávanie podľa kategórií a výsledky vyhľadávania na mape
+- Vylepšené formátovanie a vykresľovanie viacjazyčného textu
+
+## Trasy, záložky a trasy
+
+- Vylepšené vykresľovanie popisov záložiek a trás v HTML
+- Trasy v aplikácii GeoJSON teraz pri importe a exporte zachovávajú nadmorskú výšku a časové značky
+- Opravené zlyhanie aplikácie po presunutí trasy do iného zoznamu
+- Teraz sa zobrazujú webové stránky pamiatkových objektov
+- Pri výsledkoch vyhľadávania bez názvu sa teraz zobrazujú názvy operátorov. Napríklad pri neoznačenom ATM sa teraz zobrazuje jeho banka
+- Redaktor: opravený popisný text pre bytový dom OpenStreetMap úpravy/sady zmien
+- Vylepšená detekcia HTML v popisoch záložiek a trás
+- Duplicitné trasy sa teraz filtrujú
 
 ## Preklady
 
-• Vylepšené preklady do francúzštiny, taliančiny, španielčiny, ukrajinčiny a katalánčiny
-• Aktualizované preklady názvov viacerých krajín a regiónov, opravené synonymá pre vyhľadávanie `leisure=track`
-• Opravené preklady pre `disused:bridge` a `disused:tunnel`
+- Kantonské hlasové navádzanie krok za krokom
+- Aktualizované nemecké a francúzske preklady
+- Opravené nesprávne preklady hlasového navádzania "onto street" pre čínštinu, srbčinu a katalánčinu

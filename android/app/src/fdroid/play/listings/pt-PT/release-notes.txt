@@ -1,8 +1,8 @@
-• NOVO! Toque no ícone do lápis para adicionar descrição em texto ou HTML a um trajeto
-• NOVO! Escolha qualquer cor para trajetos
-• Escudos de estradas da Austrália e Nova Zelândia
-• Tipos de letra corretos para coreano, chinês e japonês conforme o idioma do dispositivo
-• Ícones para petanca, ciclismo e desportos motorizados
-• Corrigidos percursos de transportes públicos em estações e outras áreas
-• Dados do OpenStreetMap de 27 de maio
+NOVAS FUNCIONALIDADES:
+• Interface de utilizador atualizada para a pesquisa e o cálculo de percursos
+• Cálculo de percursos de transportes públicos (autocarro, elétrico, metro, metro ligeiro)
+• Rotas alternativas mais rápidas e mais curtas
+• Avisos de percurso sobre degraus, portões e portões elevatórios
+• Selecione qualquer cor para os marcadores
+• Suporte para coordenadas UK OS Grid, Irish Grid e ITM
 …mais em omaps.org/pt/news

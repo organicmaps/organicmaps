@@ -1,9 +1,8 @@
-• NOVO! Toca o lapis para engadir texto ou HTML aos traxectos
-• NOVO! Escolle calquera cor para os traxectos
-• Engadidos sinais viarios de Australia e Nova Zelandia
-• Fontes correctas para coreano, chinés e xaponés segundo o dispositivo
-• Novas iconas: petanca, ciclismo e deportes de motor
-• Máis lugares: arcos cerimoniais, tobogáns acuáticos, parques temáticos e montañas rusas
-• Corrixidas rutas de transporte público en estacións e áreas
-• Datos OSM do 27 de maio
+NOVAS FUNCIONALIDADES:
+• Interfaz de usuario actualizada para a busca e a navegación
+• Roteiro de transporte público (autobús, tranvía, metro, tren lixeiro)
+• Rotas alternativas máis rápidas e máis curtas
+• Avisos de ruta sobre escaleiras, portóns e portóns elevadores
+• Selecciona calquera cor para os marcadores
+• Soporte para as coordenadas UK OS Grid, Irish Grid, ITM
 …máis en omaps.org/gl/news

@@ -1,22 +1,41 @@
-• Descrierile textuale și HTML ale traseelor sunt acum acceptate, la fel ca descrierile pentru marcaje. Apăsați pictograma creion pentru a adăuga o descriere.
-• Date cartografice OpenStreetMap la data de 27 mai 2026
-• Text-to-Speech (TTS) alege acum cea mai bună voce instalată pentru limba respectivă (Enhanced / Premium). Consultați setările Organic Maps pentru a afla cum puteți descărca o voce de calitate superioară.
-• S-au adăugat indicatoare rutiere pentru Australia și Noua Zeelandă
-• S-au adăugat pictograme pentru locuri de petanque, ciclism și sporturi cu motor
-• S-au adăugat porți ceremoniale, tobogane cu apă, parcuri de distracții și montagne russe
-• Gesturi cu degetul îmbunătățite pentru controlul hărții în vizualizarea în perspectivă în timpul modului de navigație
-• S-a remediat o eroare de redenumire a traseului în care noul nume nu era actualizat corespunzător
-• CarPlay: s-a remediat butonul de recentrare
-• S-au remediat rutele de transport public pentru stații și alte obiecte din zonă
-• S-a remediat blocarea la adăugarea unui marcaj pe un traseu de drumeție sau ciclism
-• S-a remediat redarea limitelor de viteză pentru radarele de viteză
-• S-a remediat micșorarea antimeridiană cu mai mult de o copie a lumii
-• Afișare mai precisă a adreselor străzilor și caselor
-• S-au remediat animațiile inutile ale hărții
-• Îmbunătățiri de stabilitate și performanță
+- NOU! Calcularea traseelor de transport public cu metroul, trenul ușor, autobuzul și tramvaiul
+- NOU! Trasee alternative: pe lângă traseul cel mai rapid, aplicația afișează acum și traseul cel mai scurt
+- NOU! Avertismente privind traseele de mers pe jos și cu bicicleta referitoare la trepte, porți și porți basculante de-a lungul traseului
+- NOU! Atingeți pentru a alege între trasee și rute care se suprapun
+- NOU! Alege orice culoare pentru marcaje
+- NOU! Suport pentru coordonatele British National Grid (OS Grid), Irish Grid și Irish Transverse Mercator (ITM)
+- NOU! Suport pentru accesibilitate pentru Dynamic Type și fonturi mari
+- EXPERIMENTAL: Activați imaginile din satelit în setările Organic Maps folosind o adresă URL personalizată pentru serverul de plăci raster
+- Stil mai curat al tabelelor în interfața utilizatorului
+- Tastați `?map-download-server:https://your-server.com/` în fereastra de căutare pentru a suprascrie serverele de descărcare a hărților Organic Maps. Tastați `?no-map-download-server` pentru a anula suprascrierea.
+- Diverse remedieri de erori și îmbunătățiri de performanță
+
+## Date cartografice
+
+- Datele OpenStreetMap au fost actualizate la data de 24 iunie
+- Datele Wikipedia au fost actualizate la 20 iunie, inclusiv articolele în italiană
+
+## Redarea hărților și stilurile
+
+- Modele mai atractive pentru zonele de plajă, nisip, grohotiș, stâncă goală, livadă și podgorie, plus hașurarea zonelor protejate și a zonelor umede
+- Etichete textuale cu curbe mai fine pentru drumuri și râuri
+- Râurile, pârâurile și zonele umede au un contrast mai ridicat și sunt mai vizibile în modul întunecat
+- Icoane noi și îmbunătățite pentru căutarea pe categorii și pentru rezultatele căutării pe hartă
+- Îmbunătățirea formatării și redării textului multilingv
+
+## Trasee, marcaje și rute
+
+- Redare îmbunătățită a descrierilor marcajelor și traseelor cu ajutorul HTML
+- Traseele GeoJSON păstrează acum altitudinea și marcajele de timp la import și export
+- S-a remediat o eroare care ducea la blocarea aplicației după mutarea unui traseu într-o altă listă
+- Acum sunt afișate site-urile web pentru siturile de patrimoniu
+- Numele operatorilor sunt afișate acum pentru rezultatele de căutare fără nume. De exemplu, un ATM fără nume afișează acum banca sa
+- Editor: s-a corectat textul descrierii pentru blocurile de apartamente OpenStreetMap modificări/seturi de modificări
+- Detectarea îmbunătățită a HTML în descrierile marcajelor și traseelor
+- Rutele duplicate sunt acum filtrate
 
 ## Traduceri
 
-• S-au îmbunătățit traducerile în franceză, italiană, spaniolă, ucraineană și catalană
-• S-au actualizat traducerile pentru mai multe denumiri de țări și regiuni, s-au remediat sinonimele de căutare pentru `leisure=track`
-• S-au corectat traducerile pentru `disused:bridge` și `disused:tunnel`
+- Ghidare vocală pas cu pas în limba cantoneză
+- Traducerile în germană și franceză au fost actualizate
+- S-au corectat traducerile incorecte ale ghidării vocale "onto street" pentru chineză, sârbă și catalană

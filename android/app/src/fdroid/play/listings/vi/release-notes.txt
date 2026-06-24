@@ -1,9 +1,9 @@
-• MỚI! Nhấn biểu tượng bút chì để thêm mô tả văn bản hoặc HTML cho đường đi
-• MỚI! Chọn màu bất kỳ cho đường đi
-• Thêm biểu tượng số hiệu đường cho Úc và New Zealand
-• Người dùng Hàn, Trung, Nhật sẽ thấy phông chữ phù hợp theo ngôn ngữ thiết bị
-• Thêm biểu tượng cho bi sắt, đạp xe và đua xe
-• Thêm cổng nghi lễ, máng trượt nước, công viên chủ đề và tàu lượn siêu tốc
-• Sửa tuyến giao thông công cộng cho ga và khu vực
-• Dữ liệu OSM đến 27/5
+CÁC TÍNH NĂNG MỚI:
+• Cập nhật giao diện người dùng cho tính năng tìm kiếm và chỉ đường
+• Tính năng tìm lộ trình giao thông công cộng (xe buýt, xe điện, tàu điện ngầm, tàu điện nhẹ)
+• Các lộ trình thay thế nhanh nhất và ngắn nhất
+• Cảnh báo trên lộ trình về các bậc thang, cổng và cổng nâng
+• Chọn bất kỳ màu nào cho dấu trang
+• Hỗ trợ tọa độ UK OS Grid, Irish Grid, ITM
+• Kích hoạt hình ảnh vệ tinh trong cài đặt Organic Maps bằng URL máy chủ ô raster tùy chỉnh
 …xem thêm tại omaps.org/news

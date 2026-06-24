@@ -1,22 +1,41 @@
-• Deskripsi teks dan HTML untuk trek kini didukung, sama seperti deskripsi untuk bookmark. Tekan ikon pensil untuk menambahkan deskripsi.
-• Data peta OpenStreetMap per 27 Mei 2026
-• Text-to-Speech (TTS) kini memilih suara terbaik yang terpasang untuk bahasa tersebut (Enhanced / Premium). Lihat pengaturan Organic Maps untuk cara mengunduh suara berkualitas lebih tinggi.
-• Ditambahkan lambang jalan untuk Australia dan Selandia Baru
-• Ditambahkan ikon untuk tempat-tempat boule, bersepeda, dan olahraga motor
-• Ditambahkan gerbang seremonial, seluncuran air, taman hiburan, dan roller coaster
-• Peningkatan gestur jari untuk pengendalian peta dalam tampilan perspektif selama mode Navigasi
-• Perbaikan bug penggantian nama trek di mana nama baru tidak diperbarui dengan benar
-• CarPlay: perbaikan tombol "recenter"
-• Perbaikan rute transportasi umum untuk stasiun dan objek area lainnya
-• Perbaikan crash saat menambahkan bookmark pada rute hiking atau bersepeda
-• Perbaikan tampilan batas kecepatan untuk kamera kecepatan
-• Perbaikan zoom-out antimeridian dengan lebih dari satu salinan dunia
-• Tampilan alamat jalan dan rumah yang lebih akurat
-• Perbaikan animasi peta yang tidak perlu
-• Peningkatan stabilitas dan kinerja
+- BARU! Perhitungan rute transportasi umum melalui kereta bawah tanah, kereta ringan, bus, dan trem
+- BARU! Rute alternatif: selain rute tercepat, aplikasi kini menampilkan rute terpendek
+- BARU! Peringatan rute berjalan kaki dan bersepeda mengenai anak tangga, gerbang, dan gerbang angkat di sepanjang jalan
+- BARU! Ketuk untuk memilih antara jejak dan rute yang tumpang tindih
+- BARU! Pilih warna apa pun untuk penanda
+- BARU! Dukungan untuk koordinat British National Grid (OS Grid), Irish Grid, dan Irish Transverse Mercator (ITM)
+- BARU! Dukungan aksesibilitas untuk Dynamic Type dan font besar
+- EKSPERIMENTAL: Aktifkan Citra Satelit di pengaturan Organic Maps dengan URL server ubin raster khusus
+- Gaya tabel yang lebih rapi di antarmuka pengguna
+- Ketik `?map-download-server:https://your-server.com/` di jendela pencarian untuk mengganti server unduhan peta Organic Maps. Ketik `?no-map-download-server` untuk menghapus penggantian tersebut.
+- Berbagai perbaikan bug dan peningkatan kinerja
+
+## Data Peta
+
+- Data OpenStreetMap diperbarui per 24 Juni
+- Data Wikipedia diperbarui per 20 Juni, termasuk artikel dalam bahasa Italia
+
+## Rendering & gaya peta
+
+- Pola yang lebih menarik untuk area pantai, pasir, kerikil, batu telanjang, kebun buah, dan kebun anggur, serta arsiran untuk kawasan lindung dan lahan basah
+- Label teks melengkung yang lebih halus untuk jalan dan sungai
+- Sungai, aliran air, dan lahan basah memiliki kontras yang lebih tinggi dan lebih terlihat dalam mode gelap
+- Ikon baru dan yang telah ditingkatkan untuk pencarian kategori dan hasil pencarian di peta
+- Peningkatan pembentukan dan penampilan teks multibahasa
+
+## Jejak, bookmark, & rute
+
+- Peningkatan rendering HTML pada deskripsi bookmark dan jejak
+- Jejak GeoJSON kini menyimpan data ketinggian dan cap waktu saat diimpor dan diekspor
+- Memperbaiki crash setelah memindahkan jejak ke daftar lain
+- Situs web kini ditampilkan untuk situs warisan budaya
+- Nama operator kini ditampilkan untuk hasil pencarian yang tidak bernama. Misalnya, hasil pencarian tanpa nama ATM kini menampilkan nama banknya
+- Editor: memperbaiki teks deskripsi untuk gedung apartemen OpenStreetMap edits/changesets
+- Peningkatan deteksi HTML dalam deskripsi bookmark dan jejak
+- Rute ganda kini telah disaring
 
 ## Terjemahan
 
-• Peningkatan terjemahan bahasa Prancis, Italia, Spanyol, Ukraina, dan Katalan
-• Pembaruan terjemahan untuk beberapa nama negara dan wilayah, perbaikan sinonim pencarian untuk `leisure=track`
-• Koreksi terjemahan untuk `disused:bridge` dan `disused:tunnel`
+- Panduan suara langkah demi langkah dalam bahasa Kanton
+- Terjemahan bahasa Jerman dan Prancis telah diperbarui
+- Memperbaiki terjemahan panduan suara "onto street" yang salah untuk bahasa Mandarin, Serbia, dan Katalan

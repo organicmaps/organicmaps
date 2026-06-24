@@ -1,9 +1,11 @@
-• NEW! Press the pencil icon to add a text or HTML description to a track
-• NEW! Choose any color for tracks
-• Added Australia and New Zealand road shields
-• Korean, Chinese, and Japanese users will now see proper fonts based on device locale
-• Added icons for boules, cycling, and motorsport places
-• Added ceremonial gates, water slides, theme parks, and roller coasters
-• Fixed public transport routes for stations and other area objects
-• OSM data as of May 27
+NEW FEATURES!
+• Updated search and routing user interface
+• Public transport routing (bus, tram, subway, light rail)
+• Alternative fastest and shortest routes
+• Route warnings about steps, gates, and lift gates
+• Select any color for bookmarks
+• Support for UK OS Grid, Irish Grid, ITM coordinates
+• Enable Satellite Imagery in Organic Maps settings with a custom raster tile server URL
+• OSM data as of June 24
+• Wikipedia data as of June 20 (including Italian)
 …more at omaps.org/news
