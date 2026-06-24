@@ -275,7 +275,7 @@ using namespace osm_auth_ios;
             options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
 {
   NSLog(@"application:openURL: %@ options: %@", url, options);
-  return [DeepLinkHandler.shared applicationDidOpenUrl:url];
+  return [DeepLinkHandler.shared applicationDidOpenUrl:url options:options];
 }
 
 - (void)showMap
