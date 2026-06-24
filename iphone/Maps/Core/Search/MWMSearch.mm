@@ -1,6 +1,7 @@
 #import "MWMSearch.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
+#import "MWMLocationManager.h"
 #import "SearchResult+Core.h"
 #import "SwiftBridge.h"
 
@@ -13,6 +14,24 @@ namespace
 {
 using Observer = id<MWMSearchObserver>;
 using Observers = NSHashTable<Observer>;
+
+BOOL HandleIOSDebugCommand(NSString * query)
+{
+  NSString * command = [query stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+  if ([command isEqualToString:@"?nav-other"])
+  {
+    [MWMLocationManager setUseNavigationOtherLocationActivity:YES];
+    return YES;
+  }
+
+  if ([command isEqualToString:@"?no-nav-other"])
+  {
+    [MWMLocationManager setUseNavigationOtherLocationActivity:NO];
+    return YES;
+  }
+
+  return NO;
+}
 }  // namespace
 
 @interface MWMSearch () <MWMFrameworkDrapeObserver>
@@ -142,6 +161,8 @@ using Observers = NSHashTable<Observer>;
 + (void)saveQuery:(SearchQuery *)query
 {
   if (!query.text || query.text.length == 0)
+    return;
+  if (HandleIOSDebugCommand(query.text))
     return;
 
   std::string locale = (!query.locale || query.locale == 0) ? [MWMSearch manager]->m_locale : query.locale.UTF8String;
