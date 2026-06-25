@@ -184,9 +184,7 @@
 
   <!-- Placeholder-->
   <dimen name="placeholder_margin_top">20dp</dimen>
-  <!-- Compensates for the hidden image area (20 paddingTop + 200 placeholder_size + 12
-       image bottom margin) so text-only placeholders keep the title at the same vertical
-       position as before the PlaceholderView fix that hides the image when drawable=null. -->
+  <!-- Reserves the vertical block of the hidden image (20 paddingTop + 200 size + 12 margin). -->
   <dimen name="placeholder_padding_top_no_image">232dp</dimen>
 
   <dimen name="margin_dialog_title">20dp</dimen>

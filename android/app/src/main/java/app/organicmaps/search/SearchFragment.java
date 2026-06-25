@@ -319,12 +319,15 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       return insets;
     });
 
+    // Restore the query before adding the SearchListener — the engine caches it on search start,
+    // and without this the listener's hasQuery()=false guard would silence onResultsUpdate.
+    final String cachedQuery = SearchEngine.INSTANCE.getCachedSearchBarQuery();
+    if (!TextUtils.isEmpty(cachedQuery))
+      mToolbarController.setQuerySilently(cachedQuery, false);
+
     final SearchResult[] cachedResults = SearchEngine.INSTANCE.getCachedResults();
     if (cachedResults != null)
     {
-      final String cachedQuery = SearchEngine.INSTANCE.getCachedSearchBarQuery();
-      if (!TextUtils.isEmpty(cachedQuery))
-        mToolbarController.setQuerySilently(cachedQuery, false);
       mSearchAdapter.refreshData(cachedResults);
       mSearchRunning = false;
       mToolbarController.showProgress(false);
@@ -332,6 +335,14 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       updateResultsPlaceholder();
       // Cached results already satisfy any pending restore request — consume it so the
       // mSearchEnabledObserver doesn't wipe the adapter and re-fire a fresh search.
+      mSearchViewModel.clearPendingRequest();
+    }
+    else if (!TextUtils.isEmpty(cachedQuery))
+    {
+      // Search is in flight; results will land in onResultsUpdate.
+      mSearchRunning = true;
+      updateFrames();
+      updateResultsPlaceholder();
       mSearchViewModel.clearPendingRequest();
     }
 
@@ -389,9 +400,9 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   public void onViewStateRestored(@Nullable Bundle savedInstanceState)
   {
     super.onViewStateRestored(savedInstanceState);
-    // Android restores the EditText text here via setText(), which fires our TextWatcher and
-    // schedules a debounced runSearch — redundant on rotation when cached results are still valid.
-    // Cancel the pending debounce so the recreated fragment doesn't run the same search again.
+    // Defensive: ensure no debounced search re-fires when cached results are still valid.
+    // saveEnabled=false on mQuery + setQuerySilently() removing the watcher around setText
+    // mean nothing is normally pending here, but the guard remains as a safety net.
     if (savedInstanceState != null && SearchEngine.INSTANCE.getCachedResults() != null)
       mSearchDebounceHandler.removeCallbacks(mDebouncedRunSearch);
   }

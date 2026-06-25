@@ -22,6 +22,9 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class SearchToolbarController extends ToolbarController implements View.OnClickListener
 {
+  // Matches Material's ClearTextEndIconDelegate scale/alpha out-anim length.
+  private static final long CLEAR_ICON_OUT_ANIM_MS = 250L;
+
   @Nullable
   private final View mToolbarContainer;
   @NonNull
@@ -30,8 +33,6 @@ public class SearchToolbarController extends ToolbarController implements View.O
   private final View mBack;
   @NonNull
   private final TextInputEditText mQuery;
-  @Nullable
-  private final View mClearIcon;
   private boolean mFromCategory = false;
   // Pending listener that shows the keyboard once the window gains focus (see activate()).
   @Nullable
@@ -41,6 +42,9 @@ public class SearchToolbarController extends ToolbarController implements View.O
   @NonNull
   private final View mVoiceInput;
   private final boolean mVoiceInputSupported = InputUtils.isVoiceInputSupported(requireActivity());
+  // Tracks the last queryEmpty value to detect the text→empty transition that defers the mic.
+  private boolean mLastQueryEmpty = true;
+  private Runnable mRevealVoiceInputRunnable;
   private final TextWatcher mTextWatcher = new StringUtils.SimpleTextWatcher() {
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count)
@@ -65,7 +69,6 @@ public class SearchToolbarController extends ToolbarController implements View.O
     mSearchContainer = getToolbar().findViewById(R.id.search_container);
     mBack = mSearchContainer.findViewById(R.id.back);
     mQuery = mSearchContainer.findViewById(R.id.query);
-    mClearIcon = mSearchContainer.findViewById(com.google.android.material.R.id.text_input_end_icon);
     mQuery.setOnClickListener(this);
     mQuery.addTextChangedListener(mTextWatcher);
     mQuery.setOnEditorActionListener((v, actionId, event) -> {
@@ -76,10 +79,14 @@ public class SearchToolbarController extends ToolbarController implements View.O
 
       return (isSearchDown || isSearchAction) && onStartSearchClick();
     });
-    mQuery.setOnFocusChangeListener((v, ignoredHasFocus) -> syncClearIconVisibility());
     mProgress = mSearchContainer.findViewById(R.id.progress);
     mVoiceInput = root.findViewById(R.id.voice_input);
     mVoiceInput.setOnClickListener(this);
+    mRevealVoiceInputRunnable = () ->
+    {
+      if (TextUtils.isEmpty(mQuery.getText()))
+        UiUtils.showIf(supportsVoiceSearch() && mVoiceInputSupported, mVoiceInput);
+    };
     showProgress(false);
     updateViewsVisibility(true);
   }
@@ -87,24 +94,27 @@ public class SearchToolbarController extends ToolbarController implements View.O
   private void updateViewsVisibility(boolean queryEmpty)
   {
     UiUtils.showIf(showBackButton(), mBack);
-    UiUtils.showIf(supportsVoiceSearch() && queryEmpty && mVoiceInputSupported, mVoiceInput);
+    mVoiceInput.removeCallbacks(mRevealVoiceInputRunnable);
+    if (queryEmpty && !mLastQueryEmpty)
+      mVoiceInput.postDelayed(mRevealVoiceInputRunnable, CLEAR_ICON_OUT_ANIM_MS);
+    else
+      UiUtils.showIf(supportsVoiceSearch() && queryEmpty && mVoiceInputSupported, mVoiceInput);
+    mLastQueryEmpty = queryEmpty;
   }
 
   private void onQueryChanged(@Nullable CharSequence s, boolean resetCategoryFlag)
   {
     if (resetCategoryFlag)
       mFromCategory = false;
-    final boolean isEmpty = TextUtils.isEmpty(s);
-    mBackPressedCallback.setEnabled(!isEmpty);
-    syncClearIconVisibility();
-    updateViewsVisibility(isEmpty);
+    syncForQueryChange(s);
     onTextChanged(s == null ? "" : s.toString());
   }
 
-  private void syncClearIconVisibility()
+  private void syncForQueryChange(@Nullable CharSequence query)
   {
-    if (mClearIcon != null)
-      mClearIcon.setVisibility(TextUtils.isEmpty(mQuery.getText()) ? View.GONE : View.VISIBLE);
+    final boolean isEmpty = TextUtils.isEmpty(query);
+    mBackPressedCallback.setEnabled(!isEmpty);
+    updateViewsVisibility(isEmpty);
   }
 
   protected boolean showBackButton()
@@ -279,5 +289,6 @@ public class SearchToolbarController extends ToolbarController implements View.O
     if (!TextUtils.isEmpty(query))
       mQuery.setSelection(query.length());
     mQuery.addTextChangedListener(mTextWatcher);
+    syncForQueryChange(query);
   }
 }
