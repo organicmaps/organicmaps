@@ -45,7 +45,7 @@
     android:layout_above="@id/action"
     android:paddingStart="@dimen/margin_double_and_half"
     android:paddingEnd="@dimen/margin_double_and_half"
-    android:paddingTop="@dimen/placeholder_margin_top"
+    android:paddingTop="@dimen/placeholder_padding_top_no_image"
     android:gravity="center_horizontal"
     android:visibility="gone"
     tools:visibility="visible"/>

@@ -16,4 +16,6 @@
 
   <item name="place_page_bottom_sheet_width_ratio" type="fraction">0.65</item>
   <item type="dimen" name="bottom_sheet_widths">380dp</item>
+
+  <dimen name="placeholder_padding_top_no_image">100dp</dimen>
 </resources>
