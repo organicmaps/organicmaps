@@ -3,12 +3,10 @@ package app.organicmaps.widget;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewParent;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import androidx.activity.OnBackPressedCallback;
@@ -38,7 +36,7 @@ public class SearchToolbarController extends ToolbarController implements View.O
   // Pending listener that shows the keyboard once the window gains focus (see activate()).
   @Nullable
   private ViewTreeObserver.OnWindowFocusChangeListener mShowKeyboardOnFocus;
-  @NonNull
+  @Nullable
   private final View mProgress;
   @NonNull
   private final View mVoiceInput;
@@ -78,6 +76,7 @@ public class SearchToolbarController extends ToolbarController implements View.O
 
       return (isSearchDown || isSearchAction) && onStartSearchClick();
     });
+    mQuery.setOnFocusChangeListener((v, ignoredHasFocus) -> syncClearIconVisibility());
     mProgress = mSearchContainer.findViewById(R.id.progress);
     mVoiceInput = root.findViewById(R.id.voice_input);
     mVoiceInput.setOnClickListener(this);
@@ -97,10 +96,15 @@ public class SearchToolbarController extends ToolbarController implements View.O
       mFromCategory = false;
     final boolean isEmpty = TextUtils.isEmpty(s);
     mBackPressedCallback.setEnabled(!isEmpty);
-    if (isEmpty && mClearIcon != null)
-      mClearIcon.setVisibility(View.GONE);
+    syncClearIconVisibility();
     updateViewsVisibility(isEmpty);
     onTextChanged(s == null ? "" : s.toString());
+  }
+
+  private void syncClearIconVisibility()
+  {
+    if (mClearIcon != null)
+      mClearIcon.setVisibility(TextUtils.isEmpty(mQuery.getText()) ? View.GONE : View.VISIBLE);
   }
 
   protected boolean showBackButton()
@@ -144,13 +148,6 @@ public class SearchToolbarController extends ToolbarController implements View.O
   protected @StringRes int getVoiceInputPrompt()
   {
     return R.string.search;
-  }
-
-  protected void disableQueryEditing()
-  {
-    mQuery.setFocusable(false);
-    mQuery.setLongClickable(false);
-    mQuery.setInputType(InputType.TYPE_NULL);
   }
 
   public String getQuery()
@@ -225,17 +222,11 @@ public class SearchToolbarController extends ToolbarController implements View.O
 
   public void showProgress(boolean show)
   {
+    if (mProgress == null)
+      return;
     if (UiUtils.isVisible(mProgress) == show)
       return;
-    ViewParent parent = mSearchContainer.getParent();
-    if (parent instanceof SuppressLayoutLinearLayout)
-    {
-      ((SuppressLayoutLinearLayout) parent).setSuppressLayout(true);
-      UiUtils.showIf(show, mProgress);
-      ((SuppressLayoutLinearLayout) parent).setSuppressLayout(false);
-    }
-    else
-      UiUtils.showIf(show, mProgress);
+    UiUtils.showIf(show, mProgress);
   }
 
   @Override

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<app.organicmaps.widget.SuppressLayoutLinearLayout
+<LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -21,7 +21,8 @@
     android:gravity="center_vertical"
     android:background="@drawable/bg_search_rounded_rect"
     android:paddingHorizontal="@dimen/margin_half"
-    android:layout_marginHorizontal="@dimen/margin_base"
+    android:layout_marginStart="@dimen/margin_base"
+    android:layout_marginEnd="@dimen/margin_half"
     android:layout_marginVertical="@dimen/margin_base">
     <ImageView
       android:id="@+id/back"
@@ -68,36 +69,22 @@
           android:paddingEnd="0dp"
           android:gravity="center_vertical" />
       </com.google.android.material.textfield.TextInputLayout>
-      <ProgressBar
-        android:id="@+id/progress"
-        style="@style/Widget.AppCompat.ProgressBar"
-        android:visibility="gone"
-        android:layout_width="@dimen/search_progress_size"
-        android:layout_height="@dimen/search_progress_size"
-        android:layout_marginEnd="@dimen/margin_half"
-        android:layout_weight="0"
+      <ImageView
+        android:id="@+id/voice_input"
+        android:layout_width="@dimen/place_page_icon_size"
+        android:layout_height="@dimen/place_page_icon_size"
+        android:padding="0dp"
         android:layout_gravity="center_vertical"
-        android:background="@null"
-        android:minHeight="@dimen/search_progress_size"
-        android:minWidth="@dimen/search_progress_size"
-        android:indeterminateTint="?attr/textSearchField" />
+        android:layout_weight="0"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/search_map"
+        android:scaleType="center"
+        app:srcCompat="@drawable/ic_mic_white"
+        app:tint="?attr/textSearchField"
+        android:visibility="gone"
+        tools:visibility="visible" />
     </LinearLayout>
   </LinearLayout>
-  <ImageView
-    android:id="@+id/voice_input"
-    android:layout_width="@dimen/place_page_icon_size"
-    android:layout_height="@dimen/place_page_icon_size"
-    android:padding="0dp"
-    android:layout_marginEnd="@dimen/margin_half"
-    android:layout_gravity="center_vertical"
-    android:layout_weight="0"
-    android:background="?attr/selectableItemBackgroundBorderless"
-    android:contentDescription="@string/search_map"
-    android:scaleType="center"
-    app:srcCompat="@drawable/ic_mic_white"
-    app:tint="?attr/textSearchField"
-    android:visibility="gone"
-    tools:visibility="visible" />
   <ImageView
     android:id="@+id/close_search"
     android:layout_width="@dimen/place_page_icon_size"
@@ -111,4 +98,4 @@
     android:scaleType="center"
     app:srcCompat="@drawable/ic_cancel"
     app:tint="?attr/textSearchField" />
-</app.organicmaps.widget.SuppressLayoutLinearLayout>
+</LinearLayout>
