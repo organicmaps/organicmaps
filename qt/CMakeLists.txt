@@ -250,6 +250,4 @@ endif()
 
 add_subdirectory(qt_common)
 
-if (NOT SKIP_TESTS)
-  add_subdirectory(qt_tests)
-endif()
+omim_add_test_subdirectory(qt_tests)

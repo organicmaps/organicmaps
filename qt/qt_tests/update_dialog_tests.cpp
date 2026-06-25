@@ -2,6 +2,8 @@
 
 #include "qt/update_dialog.hpp"
 
+#include "map/framework.hpp"
+
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QTreeWidget>
 
@@ -12,7 +14,6 @@ void EnsureApp()
 {
   if (!QApplication::instance())
   {
-    qputenv("QT_QPA_PLATFORM", "offscreen");  // for headless CI
     static int argc = 0;
     static QApplication app(argc, nullptr);
   }
@@ -20,15 +21,13 @@ void EnsureApp()
 
 void CheckChildrenSortedAlphabetically(QTreeWidgetItem const * parent)
 {
-  // Explicit null checks so the test fails clearly if any tree item is missing.
-  TEST(parent != nullptr, ());
-
   for (int i = 1; i < parent->childCount(); ++i)
   {
     auto const * previous = parent->child(i - 1);
     auto const * current = parent->child(i);
 
-    // QTreeWidgetItem comparison.
+    // Compare with Qt's own item comparator (same one QTreeWidget sorts with),
+    // valid only because we assert the country column is the sort key below.
     TEST(!(*current < *previous), ("Expected alphabetical order, but got", previous->text(0).toStdString(), "before",
                                    current->text(0).toStdString()));
   }
@@ -36,9 +35,6 @@ void CheckChildrenSortedAlphabetically(QTreeWidgetItem const * parent)
 
 void CheckSubtreeSortedAlphabetically(QTreeWidgetItem const * parent)
 {
-  // Explicit null checks so the test fails clearly if any tree item is missing.
-  TEST(parent != nullptr, ());
-
   CheckChildrenSortedAlphabetically(parent);
   for (int i = 0; i < parent->childCount(); ++i)
     CheckSubtreeSortedAlphabetically(parent->child(i));
@@ -57,6 +53,9 @@ UNIT_TEST(UpdateDialog_EntireTreeIsSortedAlphabetically)
   TEST_EQUAL(tree.topLevelItemCount(), 1, ());
 
   QTreeWidgetItem const * root = tree.topLevelItem(0);
-  TEST(root != nullptr, ());
   CheckSubtreeSortedAlphabetically(root);
+
+  // #3877: the browse list must sort by the visible country column, not the hidden rank.
+  constexpr int kCountryColumn = 0;  // KColumnIndexCountry
+  TEST_EQUAL(tree.sortColumn(), kCountryColumn, ());
 }
