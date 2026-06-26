@@ -115,7 +115,6 @@
   <dimen name="track_recorder_status_top_margin">64dp</dimen>
   <dimen name="routing_margin_peek_height">35dp</dimen>
   <dimen name="routing_toolbar_pill_padding">4dp</dimen>
-  <dimen name="routing_start_btn_spinner_reserve">40dp</dimen>
   <dimen name="routing_toolbar_cell_height">40dp</dimen>
   <dimen name="routing_toolbar_pill_corner_radius">24dp</dimen>
   <dimen name="routing_toolbar_cell_radius">20dp</dimen>
