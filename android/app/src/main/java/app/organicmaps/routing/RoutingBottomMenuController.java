@@ -16,9 +16,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.annotation.IdRes;
@@ -44,6 +42,7 @@ import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.widget.RoutingProgressButton;
 import app.organicmaps.widget.recycler.DotDividerItemDecoration;
 import app.organicmaps.widget.recycler.MultilineLayoutManager;
 import java.util.LinkedList;
@@ -74,9 +73,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
   @NonNull
   private final TextView mError;
   @NonNull
-  private final Button mStart;
-  @NonNull
-  private final ProgressBar mStartProgress;
+  private final RoutingProgressButton mStart;
   @NonNull
   private final View mAltitudeChart;
   @NonNull
@@ -132,8 +129,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     View transitTime = chartPanel.findViewById(R.id.transit_time);
     TextView rulerTime = chartPanel.findViewById(R.id.time_ruler);
     TextView error = (TextView) getViewById(activity, frame, R.id.error);
-    Button start = (Button) getViewById(activity, frame, R.id.start);
-    ProgressBar startProgress = (ProgressBar) getViewById(activity, frame, R.id.start_progress);
+    RoutingProgressButton start = (RoutingProgressButton) getViewById(activity, frame, R.id.start);
     View altitudeChart = chartPanel.findViewById(R.id.altitude_chart);
     TextView time = chartPanel.findViewById(R.id.time);
     TextView timeVehicle = chartPanel.findViewById(R.id.time_vehicle);
@@ -142,8 +138,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
     View actionFrame = getViewById(activity, frame, R.id.routing_action_frame);
     View saveButton = getViewById(activity, frame, R.id.btn__save);
     return new RoutingBottomMenuController(activity, chartPanel, timeElevationLine, transitTime, rulerTime, error,
-                                           start, startProgress, altitudeChart, time, altitudeDifference, timeVehicle,
-                                           arrival, actionFrame, saveButton, headerAdapter, listener);
+                                           start, altitudeChart, time, altitudeDifference, timeVehicle, arrival,
+                                           actionFrame, saveButton, headerAdapter, listener);
   }
 
   @NonNull
@@ -155,8 +151,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   private RoutingBottomMenuController(@NonNull Activity context, @NonNull View altitudeChartFrame,
                                       @NonNull View timeElevationLine, @NonNull View transitTime,
-                                      @NonNull TextView rulerTime, @NonNull TextView error, @NonNull Button start,
-                                      @NonNull ProgressBar startProgress, @NonNull View altitudeChart,
+                                      @NonNull TextView rulerTime, @NonNull TextView error,
+                                      @NonNull RoutingProgressButton start, @NonNull View altitudeChart,
                                       @NonNull TextView time, @NonNull TextView altitudeDifference,
                                       @NonNull TextView timeVehicle, @Nullable TextView arrival,
                                       @NonNull View actionFrame, @NonNull View saveButton,
@@ -170,7 +166,6 @@ final class RoutingBottomMenuController implements View.OnClickListener
     mTimeRuler = rulerTime;
     mError = error;
     mStart = start;
-    mStartProgress = startProgress;
     mAltitudeChart = altitudeChart;
     mRouteElevationChartController = new RouteElevationChartController(mAltitudeChart);
     mRouteElevationChartController.setListener(new RouteElevationChartController.ElevationSelectionListener() {
@@ -397,17 +392,16 @@ final class RoutingBottomMenuController implements View.OnClickListener
   {
     if (state == mStartState)
       return;
+    mStart.setBuildProgress(0);
     mStartState = state;
-    UiUtils.showIf(state == StartState.BUILDING, mStartProgress);
     mStart.setEnabled(state == StartState.ENABLED);
-    // Reserve extra right padding while the spinner is visible so the centered label shifts
-    // left and does not slide under the spinner.
-    final Resources res = mContext.getResources();
-    int paddingEnd = res.getDimensionPixelSize(R.dimen.margin_base);
-    if (state == StartState.BUILDING)
-      paddingEnd += res.getDimensionPixelSize(R.dimen.routing_start_btn_spinner_reserve);
-    mStart.setPaddingRelative(mStart.getPaddingStart(), mStart.getPaddingTop(), paddingEnd, mStart.getPaddingBottom());
     notifyVisibilityChanged();
+  }
+
+  void setBuildProgress(int progress)
+  {
+    if (progress > mStart.getBuildProgress())
+      mStart.setBuildProgress(progress);
   }
 
   private void showError(@NonNull String message)

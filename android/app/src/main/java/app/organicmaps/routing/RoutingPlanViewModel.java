@@ -79,7 +79,8 @@ public class RoutingPlanViewModel extends ViewModel
     mMenuUpdateTrigger.setValue(current == null ? 1 : current + 1);
   }
 
-  // This is a workaround to update the progress and will be removed when the routing types are made segmented buttons
+  // Value layout: {progress, routerOrdinal}. Observers use routerOrdinal to look up the
+  // Router enum and reflect the currently-building router in the tab selector.
   public LiveData<int[]> getBuildProgress()
   {
     return mBuildProgress;

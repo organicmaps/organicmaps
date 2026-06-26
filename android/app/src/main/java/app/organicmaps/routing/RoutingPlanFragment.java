@@ -80,7 +80,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private final Observer<int[]> mBuildProgressObserver = progress ->
   {
     if (progress != null)
-      updateBuildProgress(ROUTERS[progress[1]]);
+      updateBuildProgress(progress[0], ROUTERS[progress[1]]);
   };
   private final Observer<Integer> mDrivingOptionsCountObserver = this::updateBadgeCount;
   private final Observer<Void> mDrivingOptionsErrorObserver = e -> onDrivingOptionsBuildError();
@@ -401,7 +401,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     }
   }
 
-  private void updateBuildProgress(@NonNull Router router)
+  private void updateBuildProgress(int progress, @NonNull Router router)
   {
     if (getView() == null)
       return;
@@ -410,9 +410,12 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     updateProgressLabels();
     final RoutingController controller = RoutingController.get();
     if (controller.isBuilding())
+    {
       mRoutingBottomMenuController.setStartState(RoutingBottomMenuController.StartState.BUILDING);
+      mRoutingBottomMenuController.setBuildProgress(progress);
+    }
     else if (!controller.isBuilt())
-      // ERROR / NONE / cancelled: clear the spinner that BUILDING left behind.
+      // ERROR / NONE / cancelled: clear the progress fill that BUILDING left behind.
       mRoutingBottomMenuController.setStartState(RoutingBottomMenuController.StartState.DISABLED);
   }
 
