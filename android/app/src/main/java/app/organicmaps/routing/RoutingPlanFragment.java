@@ -410,12 +410,17 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
       return;
 
     mRouterTypes.check(routerToButtonId(router));
+    // MUST run on every progress event, regardless of the BUILDING/BUILT/ERROR branch below:
+    // on rotation-after-build, LiveData re-delivers the cached progress to the fresh observer,
+    // and this call is what drags the START button fill to 100% via setBuildProgress(100).
+    // If you ever move this inside the isBuilding branch, restore-after-build will silently
+    // leave the button visually empty.
     updateProgressLabels();
     final RoutingController controller = RoutingController.get();
     if (controller.isBuilding())
     {
       mRoutingBottomMenuController.setStartState(RoutingBottomMenuController.StartState.BUILDING);
-      mRoutingBottomMenuController.setBuildProgress(progress);
+      mRoutingBottomMenuController.setBuildProgress(progress, router);
     }
     else if (!controller.isBuilt())
       // ERROR / NONE / cancelled: clear the progress fill that BUILDING left behind.

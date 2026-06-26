@@ -28,6 +28,7 @@ import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.sdk.routing.RouteAltitudeData;
 import app.organicmaps.sdk.routing.RouteMarkData;
@@ -116,6 +117,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
   private Runnable mVisibilityChangedCallback;
   @NonNull
   private StartState mStartState = StartState.DISABLED;
+  private int mLastProgressRouterOrdinal = -1;
 
   @NonNull
   static RoutingBottomMenuController newInstance(@NonNull Activity activity, @NonNull View frame,
@@ -392,8 +394,17 @@ final class RoutingBottomMenuController implements View.OnClickListener
   {
     if (state == mStartState)
       return;
-    if (state == StartState.BUILDING || state == StartState.DISABLED)
-      mStart.setBuildProgress(0);
+    if (state == StartState.BUILDING)
+    {
+      restartBuildProgress();
+      mLastProgressRouterOrdinal = -1;
+    }
+    else
+    {
+      mStart.setPending(false);
+      if (state == StartState.DISABLED)
+        mStart.setBuildProgress(0);
+    }
     mStartState = state;
     mStart.setEnabled(state == StartState.ENABLED);
     notifyVisibilityChanged();
@@ -403,6 +414,21 @@ final class RoutingBottomMenuController implements View.OnClickListener
   {
     if (progress > mStart.getBuildProgress())
       mStart.setBuildProgress(progress);
+  }
+
+  void setBuildProgress(int progress, @NonNull Router router)
+  {
+    final int ordinal = router.ordinal();
+    if (mLastProgressRouterOrdinal != -1 && ordinal != mLastProgressRouterOrdinal)
+      restartBuildProgress();
+    mLastProgressRouterOrdinal = ordinal;
+    setBuildProgress(progress);
+  }
+
+  private void restartBuildProgress()
+  {
+    mStart.setBuildProgress(0);
+    mStart.setPending(true);
   }
 
   private void showError(@NonNull String message)
