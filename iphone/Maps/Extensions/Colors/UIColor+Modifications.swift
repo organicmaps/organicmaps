@@ -20,6 +20,28 @@ extension UIColor {
     return UIColor(red: r, green: g, blue: b, alpha: bgA)
   }
 
+  func interpolated(to color: UIColor, progress: CGFloat) -> UIColor {
+    let progress = max(0, min(1, progress))
+    var fromRed: CGFloat = 0
+    var fromGreen: CGFloat = 0
+    var fromBlue: CGFloat = 0
+    var fromAlpha: CGFloat = 0
+    var toRed: CGFloat = 0
+    var toGreen: CGFloat = 0
+    var toBlue: CGFloat = 0
+    var toAlpha: CGFloat = 0
+
+    guard getRed(&fromRed, green: &fromGreen, blue: &fromBlue, alpha: &fromAlpha),
+          color.getRed(&toRed, green: &toGreen, blue: &toBlue, alpha: &toAlpha) else {
+      return progress < 0.5 ? self : color
+    }
+
+    return UIColor(red: fromRed + (toRed - fromRed) * progress,
+                   green: fromGreen + (toGreen - fromGreen) * progress,
+                   blue: fromBlue + (toBlue - fromBlue) * progress,
+                   alpha: fromAlpha + (toAlpha - fromAlpha) * progress)
+  }
+
   func lighter(percent: CGFloat) -> UIColor {
     colorWithBrightnessFactor(factor: 1 + percent)
   }
