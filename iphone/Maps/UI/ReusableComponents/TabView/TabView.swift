@@ -34,16 +34,9 @@ private class HeaderCell: UICollectionViewCell {
     label.textAlignment = .center
   }
 
-  override var isSelected: Bool {
-    didSet {
-      label.attributedText = NSAttributedString(string: label.text ?? "",
-                                                attributes: isSelected ? selectedAttributes : deselectedAttributes)
-    }
-  }
-
   override func prepareForReuse() {
     super.prepareForReuse()
-    label.attributedText = nil
+    label.text = nil
   }
 
   override func layoutSubviews() {
@@ -53,13 +46,27 @@ private class HeaderCell: UICollectionViewCell {
 
   func configureWith(selectedAttributes: [NSAttributedString.Key: Any],
                      deselectedAttributes: [NSAttributedString.Key: Any],
-                     text: String) {
+                     text: String,
+                     selectionProgress: CGFloat) {
     self.selectedAttributes = selectedAttributes
     self.deselectedAttributes = deselectedAttributes
-    label.attributedText = NSAttributedString(string: text.uppercased(),
-                                              attributes: deselectedAttributes)
+    label.text = text.uppercased()
+    label.font = deselectedAttributes[.font] as? UIFont
     label.adjustsFontForContentSizeCategory = true
     label.configureSingleLineAutoScaling()
+    updateSelectionProgress(selectionProgress)
+  }
+
+  func updateSelectionProgress(_ selectionProgress: CGFloat) {
+    let selectionProgress = max(0, min(1, selectionProgress))
+    let deselectedColor = deselectedAttributes[.foregroundColor] as? UIColor
+    let selectedColor = selectedAttributes[.foregroundColor] as? UIColor
+
+    if let deselectedColor, let selectedColor {
+      label.textColor = deselectedColor.interpolated(to: selectedColor, progress: selectionProgress)
+    } else {
+      label.textColor = deselectedColor ?? selectedColor
+    }
   }
 }
 
@@ -89,7 +96,12 @@ class TabView: UIView {
   private var slidingViewLeft: NSLayoutConstraint!
   private var slidingViewWidth: NSLayoutConstraint!
   private lazy var pageCount = self.dataSource?.numberOfPages(in: self) ?? 0
-  var selectedIndex: Int?
+  var selectedIndex: Int? {
+    didSet {
+      updateSelectedHeader()
+    }
+  }
+
   private var lastSelectedIndex: Int?
 
   weak var dataSource: TabViewDataSource?
@@ -141,6 +153,13 @@ class TabView: UIView {
     tabsContentCollectionView = UICollectionView(frame: .zero, collectionViewLayout: tabsContentLayout)
     super.init(coder: aDecoder)
     configure()
+  }
+
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+      updateSelectedHeader()
+    }
   }
 
   private func configure() {
@@ -218,6 +237,48 @@ class TabView: UIView {
     slidingViewWidth.isActive = true
   }
 
+  private func updateSelectedHeader() {
+    tabsCollectionView.indexPathsForSelectedItems?.forEach {
+      tabsCollectionView.deselectItem(at: $0, animated: false)
+    }
+
+    guard let selectedIndex,
+          selectedIndex >= 0,
+          tabsCollectionView.numberOfSections > 0,
+          selectedIndex < tabsCollectionView.numberOfItems(inSection: 0) else {
+      return
+    }
+
+    tabsCollectionView.selectItem(at: IndexPath(item: selectedIndex, section: 0),
+                                  animated: false,
+                                  scrollPosition: [])
+    updateHeaderSelectionProgress()
+  }
+
+  private func headerSelectionProgress(for index: Int, selectedPosition: CGFloat) -> CGFloat {
+    max(0, min(1, 1 - abs(CGFloat(index) - selectedPosition)))
+  }
+
+  private func currentSelectedPosition() -> CGFloat {
+    guard tabsContentCollectionView.bounds.width > 0 else {
+      return CGFloat(selectedIndex ?? 0)
+    }
+
+    return tabsContentCollectionView.contentOffset.x / tabsContentCollectionView.bounds.width
+  }
+
+  private func updateHeaderSelectionProgress() {
+    let selectedPosition = currentSelectedPosition()
+    for indexPath in tabsCollectionView.indexPathsForVisibleItems {
+      guard let headerCell = tabsCollectionView.cellForItem(at: indexPath) as? HeaderCell else {
+        continue
+      }
+
+      headerCell.updateSelectionProgress(headerSelectionProgress(for: indexPath.item,
+                                                                 selectedPosition: selectedPosition))
+    }
+  }
+
   override func layoutSubviews() {
     tabsLayout.invalidateLayout()
     tabsContentLayout.invalidateLayout()
@@ -232,6 +293,7 @@ class TabView: UIView {
                                              at: .left,
                                              animated: false)
     }
+    updateHeaderSelectionProgress()
   }
 }
 
@@ -255,7 +317,9 @@ extension TabView: UICollectionViewDataSource {
         let title = dataSource?.tabView(self, titleAt: indexPath.item) ?? ""
         headerCell.configureWith(selectedAttributes: selectedHeaderTextAttributes,
                                  deselectedAttributes: deselectedHeaderTextAttributes,
-                                 text: title)
+                                 text: title,
+                                 selectionProgress: headerSelectionProgress(for: indexPath.item,
+                                                                            selectedPosition: currentSelectedPosition()))
         if indexPath.item == selectedIndex {
           collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
         }
@@ -268,17 +332,30 @@ extension TabView: UICollectionViewDataSource {
 
 extension TabView: UICollectionViewDelegateFlowLayout {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    guard scrollView == tabsContentCollectionView else {
+      return
+    }
+
     if scrollView.contentSize.width > 0 {
       let scrollOffset = scrollView.contentOffset.x / scrollView.contentSize.width
       slidingViewLeft.constant = scrollOffset * contentFrame.width
     }
+    updateHeaderSelectionProgress()
   }
 
-  func scrollViewWillBeginDragging(_: UIScrollView) {
+  func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    guard scrollView == tabsContentCollectionView else {
+      return
+    }
+
     lastSelectedIndex = selectedIndex
   }
 
   func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    guard scrollView == tabsContentCollectionView else {
+      return
+    }
+
     selectedIndex = Int(round(scrollView.contentOffset.x / scrollView.bounds.width))
     if let selectedIndex = selectedIndex, selectedIndex != lastSelectedIndex {
       delegate?.tabView(self, didSelectTabAt: selectedIndex)
