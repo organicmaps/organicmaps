@@ -228,9 +228,9 @@
     <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
     <string name="pref_bg_tiles_size_title">Розмір кешу (МБ)</string>
     <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
-    <string name="pref_bg_tiles_opacity_title">Непрозорість площинних об\'єктів</string>
+    <string name="pref_bg_tiles_opacity_title">Непрозорість об\'єктів</string>
     <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
-    <string name="pref_bg_tiles_disclaimer">Джерела власних плиток надаєте ви. Використовуйте лише сервіси, до яких у вас є доступ. Ви відповідаєте за зазначення авторства, умови ліцензії, ключі API, квоти та обмеження використання.</string>
+    <string name="pref_bg_tiles_disclaimer">Ви самі додаєте джерела супутникових знімків (тайлів). Використовуйте лише ті сервіси, до яких у вас є доступ. Ви несете відповідальність за дотримання авторських прав, умов ліцензії, використання ключів API, квот та обмежень.</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Голосові інструкції</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->

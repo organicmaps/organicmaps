@@ -231,10 +231,10 @@
 "pref_bg_tiles_size_title" = "Розмір кешу (МБ)";
 
 /* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
-"pref_bg_tiles_opacity_title" = "Непрозорість площинних об'єктів";
+"pref_bg_tiles_opacity_title" = "Непрозорість об'єктів";
 
 /* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
-"pref_bg_tiles_disclaimer" = "Джерела власних плиток надаєте ви. Використовуйте лише сервіси, до яких у вас є доступ. Ви відповідаєте за зазначення авторства, умови ліцензії, ключі API, квоти та обмеження використання.";
+"pref_bg_tiles_disclaimer" = "Ви самі додаєте джерела супутникових знімків (тайлів). Використовуйте лише ті сервіси, до яких у вас є доступ. Ви несете відповідальність за дотримання авторських прав, умов ліцензії, використання ключів API, квот та обмежень.";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Голосові інструкції";
