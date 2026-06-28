@@ -277,7 +277,8 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeDel
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeDeleteTrack(JNIEnv *, jobject, jlong trkId)
 {
-  frm()->GetBookmarkManager().GetEditSession().DeleteTrack(static_cast<kml::TrackId>(trkId));
+  // Routed through Framework so a Place Page showing this track is closed before deletion.
+  frm()->DeleteTrack(static_cast<kml::TrackId>(trkId));
 }
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeAddBookmarkToLastEditedCategory(

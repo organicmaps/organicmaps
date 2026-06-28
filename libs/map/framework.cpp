@@ -963,6 +963,16 @@ void Framework::SetTrackVisibility(kml::TrackId trackId, bool visible)
     DeactivateMapSelection();
 }
 
+void Framework::DeleteTrack(kml::TrackId trackId)
+{
+  // Close the Place Page first (while the track still exists) so nothing stays selected on a
+  // deleted track; otherwise the selection would be rebuilt for a track that is already gone.
+  if (m_currentPlacePageInfo && m_currentPlacePageInfo->GetTrackId() == trackId)
+    DeactivateMapSelection();
+
+  GetBookmarkManager().GetEditSession().DeleteTrack(trackId);
+}
+
 void Framework::SelectTrackCandidate(kml::TrackId trackId, RelationID const & relationId)
 {
   CHECK(m_currentPlacePageInfo, ());
