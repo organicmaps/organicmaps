@@ -435,9 +435,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeSet
                                                                                                 jlong trackId,
                                                                                                 jboolean visible)
 {
-  auto & bmManager = frm()->GetBookmarkManager();
-  auto es = bmManager.GetEditSession();
-  es.SetTrackVisibility(static_cast<kml::TrackId>(trackId), static_cast<bool>(visible));
+  frm()->SetTrackVisibility(static_cast<kml::TrackId>(trackId), static_cast<bool>(visible));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativePrepareTrackFileForSharing(JNIEnv * env,

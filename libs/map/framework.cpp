@@ -950,6 +950,19 @@ void Framework::ShowTrack(kml::TrackId trackId)
   ActivateMapSelection();
 }
 
+void Framework::SetTrackVisibility(kml::TrackId trackId, bool visible)
+{
+  {
+    auto es = GetBookmarkManager().GetEditSession();
+    es.SetTrackVisibility(trackId, visible);
+  }
+
+  // Hiding the track shown in the Place Page must reset the selection so nothing
+  // stays selected on an invisible track.
+  if (!visible && m_currentPlacePageInfo && m_currentPlacePageInfo->GetTrackId() == trackId)
+    DeactivateMapSelection();
+}
+
 void Framework::SelectTrackCandidate(kml::TrackId trackId, RelationID const & relationId)
 {
   CHECK(m_currentPlacePageInfo, ());

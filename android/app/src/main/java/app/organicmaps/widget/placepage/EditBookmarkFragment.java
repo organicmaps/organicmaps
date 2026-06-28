@@ -296,10 +296,14 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     if (movedFromCategory)
       mTrack.setCategoryId(mBookmarkCategory.getId());
     mTrack.update(mEtName.getText().toString(), mColor, mEtDescription.getText().toString());
-    mTrack.setVisibility(mTrackVisible);
     if (mListener != null)
       mListener.onBookmarkSaved(mTrack.getTrackId(), movedFromCategory);
-    dismiss();
+    // Apply the staged visibility last: hiding the selected track resets the selection
+    // and closes its Place Page, which also tears down this dialog when it is hosted by
+    // the Place Page. Guard the dismiss against the fragment already being detached.
+    mTrack.setVisibility(mTrackVisible);
+    if (isAdded())
+      dismiss();
   }
 
   @Override
