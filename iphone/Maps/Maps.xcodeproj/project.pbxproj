@@ -518,6 +518,7 @@
 		ED82C7752F90186300FA103D /* SearchResult.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6E32F90186300FA103D /* SearchResult.mm */; };
 		ED82C7762F90186300FA103D /* MWMRoutingOptions.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6E82F90186300FA103D /* MWMRoutingOptions.mm */; };
 		ED82C7772F90186300FA103D /* MWMSettings.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6EA2F90186300FA103D /* MWMSettings.mm */; };
+		ED86256C2FEECAB70057BF82 /* MWMSettings+MapTiles.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED86256E2FEECAB70057BF82 /* MWMSettings+MapTiles.mm */; };
 		ED82C7782F90186300FA103D /* MWMStorage+UI.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6ED2F90186300FA103D /* MWMStorage+UI.m */; };
 		ED82C7792F90186300FA103D /* LocaleTranslator.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6F02F90186300FA103D /* LocaleTranslator.mm */; };
 		ED82C77A2F90186300FA103D /* MWMTextToSpeech.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6F22F90186300FA103D /* MWMTextToSpeech.mm */; };
@@ -1522,6 +1523,8 @@
 		ED82C6E82F90186300FA103D /* MWMRoutingOptions.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRoutingOptions.mm; sourceTree = "<group>"; };
 		ED82C6E92F90186300FA103D /* MWMSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSettings.h; sourceTree = "<group>"; };
 		ED82C6EA2F90186300FA103D /* MWMSettings.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSettings.mm; sourceTree = "<group>"; };
+		ED86256D2FEECAB70057BF82 /* MWMSettings+MapTiles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMSettings+MapTiles.h"; sourceTree = "<group>"; };
+		ED86256E2FEECAB70057BF82 /* MWMSettings+MapTiles.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "MWMSettings+MapTiles.mm"; sourceTree = "<group>"; };
 		ED82C6EC2F90186300FA103D /* MWMStorage+UI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMStorage+UI.h"; sourceTree = "<group>"; };
 		ED82C6ED2F90186300FA103D /* MWMStorage+UI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MWMStorage+UI.m"; sourceTree = "<group>"; };
 		ED82C6EF2F90186300FA103D /* LocaleTranslator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocaleTranslator.h; sourceTree = "<group>"; };
@@ -3762,6 +3765,8 @@
 				ED82C6E82F90186300FA103D /* MWMRoutingOptions.mm */,
 				ED82C6E92F90186300FA103D /* MWMSettings.h */,
 				ED82C6EA2F90186300FA103D /* MWMSettings.mm */,
+				ED86256D2FEECAB70057BF82 /* MWMSettings+MapTiles.h */,
+				ED86256E2FEECAB70057BF82 /* MWMSettings+MapTiles.mm */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -4698,6 +4703,7 @@
 				ED82C7752F90186300FA103D /* SearchResult.mm in Sources */,
 				ED82C7762F90186300FA103D /* MWMRoutingOptions.mm in Sources */,
 				ED82C7772F90186300FA103D /* MWMSettings.mm in Sources */,
+				ED86256C2FEECAB70057BF82 /* MWMSettings+MapTiles.mm in Sources */,
 				ED82C7782F90186300FA103D /* MWMStorage+UI.m in Sources */,
 				ED82C7792F90186300FA103D /* LocaleTranslator.mm in Sources */,
 				ED82C77A2F90186300FA103D /* MWMTextToSpeech.mm in Sources */,

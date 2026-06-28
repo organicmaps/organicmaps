@@ -85,16 +85,4 @@ NS_SWIFT_NAME(Settings)
 + (BOOL)didShowICloudSynchronizationEnablingAlert;
 + (void)setICloudSynchronizationEnablingAlertShown;
 
-+ (BOOL)backgroundTilesEnabled;
-+ (NSString *)backgroundTilesURL;
-+ (NSInteger)backgroundTilesCacheSizeMB;
-+ (NSInteger)backgroundTilesAreaOpacityPct;
-+ (void)setBackgroundTilesEnabled:(BOOL)enabled;
-+ (void)setBackgroundTilesEnabled:(BOOL)enabled
-                              url:(NSString *)url
-                      cacheSizeMB:(NSInteger)cacheSizeMB
-                   areaOpacityPct:(NSInteger)areaOpacityPct
-    NS_SWIFT_NAME(setBackgroundTiles(enabled:url:cacheSizeMB:areaOpacityPct:));
-+ (BOOL)isWellFormedBackgroundTilesURL:(NSString *)url;
-
 @end

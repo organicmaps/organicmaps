@@ -56,6 +56,7 @@
 #import "MWMSearchCommonCell.h"
 #import "MWMSearchNoResults.h"
 #import "MWMSearchSuggestionCell.h"
+#import "MWMSettings+MapTiles.h"
 #import "MWMSettings.h"
 #import "MWMSideButtons.h"
 #import "MWMSpeedCameraManagerMode.h"
