@@ -120,47 +120,64 @@
       android:hint="@string/placepage_personal_notes_hint"
       android:inputType="textMultiLine" />
   </com.google.android.material.textfield.TextInputLayout>
+  <!-- Track export/delete actions, shown only for tracks. A vertical list of cells (matching the
+       three-dot menu items) instead of equal-width buttons, so long localized labels never truncate. -->
   <LinearLayout
     android:id="@+id/track_export_buttons"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_below="@id/til__description"
-    android:layout_margin="@dimen/margin_half"
+    android:layout_marginTop="@dimen/margin_base"
     android:orientation="vertical"
-    android:visibility="gone">
-    <LinearLayout
+    android:visibility="gone"
+    tools:visibility="visible">
+    <View
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      android:gravity="center">
-      <Button
-        android:id="@+id/btn_export_kml"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginEnd="@dimen/margin_quarter"
+      android:layout_height="1dp"
+      android:background="@color/divider" />
+    <LinearLayout
+      android:id="@+id/btn_export_kml"
+      style="@style/MwmWidget.Editor.TrackActionCell">
+      <ImageView
+        style="@style/MwmWidget.Editor.TrackActionIcon"
+        app:srcCompat="@drawable/ic_file_kmz" />
+      <TextView
+        style="@style/MwmWidget.Editor.TrackActionText"
         android:text="@string/export_file" />
-      <Button
-        android:id="@+id/btn_export_gpx"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginStart="@dimen/margin_quarter"
-        android:layout_marginEnd="@dimen/margin_quarter"
+    </LinearLayout>
+    <LinearLayout
+      android:id="@+id/btn_export_gpx"
+      style="@style/MwmWidget.Editor.TrackActionCell">
+      <ImageView
+        style="@style/MwmWidget.Editor.TrackActionIcon"
+        app:srcCompat="@drawable/ic_file_gpx" />
+      <TextView
+        style="@style/MwmWidget.Editor.TrackActionText"
         android:text="@string/export_file_gpx" />
-      <Button
-        android:id="@+id/btn_export_geojson"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginStart="@dimen/margin_quarter"
+    </LinearLayout>
+    <LinearLayout
+      android:id="@+id/btn_export_geojson"
+      style="@style/MwmWidget.Editor.TrackActionCell">
+      <ImageView
+        style="@style/MwmWidget.Editor.TrackActionIcon"
+        app:srcCompat="@drawable/ic_file_geojson" />
+      <TextView
+        style="@style/MwmWidget.Editor.TrackActionText"
         android:text="@string/export_file_geojson" />
     </LinearLayout>
-    <Button
-      android:id="@+id/btn_delete_track"
+    <View
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/margin_base"
-      android:text="@string/placepage_delete_track_button" />
+      android:layout_height="1dp"
+      android:background="@color/divider" />
+    <LinearLayout
+      android:id="@+id/btn_delete_track"
+      style="@style/MwmWidget.Editor.TrackActionCell">
+      <ImageView
+        style="@style/MwmWidget.Editor.TrackActionIcon"
+        app:srcCompat="@drawable/ic_delete" />
+      <TextView
+        style="@style/MwmWidget.Editor.TrackActionText"
+        android:text="@string/placepage_delete_track_button" />
+    </LinearLayout>
   </LinearLayout>
 </RelativeLayout>
