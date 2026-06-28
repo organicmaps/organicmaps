@@ -50,7 +50,6 @@ import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.Bookmark;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
-import app.organicmaps.sdk.bookmarks.data.BookmarkSharingResult;
 import app.organicmaps.sdk.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.sdk.bookmarks.data.FileType;
 import app.organicmaps.sdk.bookmarks.data.Icon;
@@ -95,8 +94,7 @@ import java.util.List;
 public class PlacePageView extends Fragment
     implements View.OnClickListener, View.OnLongClickListener, LocationListener, SensorListener, Observer<MapObject>,
                ChooseBookmarkCategoryFragment.Listener, EditBookmarkFragment.EditBookmarkListener,
-               MenuBottomSheetFragment.MenuBottomSheetInterface, BookmarkManager.BookmarksSharingListener,
-               ColorPickerFragment.OnColorChangeListener
+               MenuBottomSheetFragment.MenuBottomSheetInterface, ColorPickerFragment.OnColorChangeListener
 
 {
   private static final String PREF_COORDINATES_FORMAT = "coordinates_format";
@@ -385,7 +383,6 @@ public class PlacePageView extends Fragment
   {
     super.onStart();
     mViewModel.getMapObject().observe(requireActivity(), this);
-    BookmarkManager.INSTANCE.addSharingListener(this);
     MwmApplication.from(requireContext()).getLocationHelper().addListener(this);
     MwmApplication.from(requireContext()).getSensorHelper().addListener(this);
   }
@@ -405,7 +402,6 @@ public class PlacePageView extends Fragment
     }
     mEducationalPopupScheduled = false;
     mViewModel.getMapObject().removeObserver(this);
-    BookmarkManager.INSTANCE.removeSharingListener(this);
     MwmApplication.from(requireContext()).getLocationHelper().removeListener(this);
     MwmApplication.from(requireContext()).getSensorHelper().removeListener(this);
     detachCountry();
@@ -1238,7 +1234,7 @@ public class PlacePageView extends Fragment
 
   private void onShareTrackSelected(long trackId, FileType fileType)
   {
-    BookmarksSharingHelper.INSTANCE.prepareTrackForSharing(requireActivity(), trackId, fileType);
+    BookmarksSharingHelper.INSTANCE.prepareTrackForSharing(requireActivity(), shareLauncher, trackId, fileType);
   }
 
   @Nullable
@@ -1263,12 +1259,6 @@ public class PlacePageView extends Fragment
     items.add(new MenuBottomSheetItem(R.string.export_file_geojson, R.drawable.ic_file_geojson,
                                       () -> onShareTrackSelected(track.getTrackId(), FileType.GeoJson)));
     return items;
-  }
-
-  @Override
-  public void onPreparedFileForSharing(@NonNull BookmarkSharingResult result)
-  {
-    BookmarksSharingHelper.INSTANCE.onPreparedFileForSharing(requireActivity(), shareLauncher, result);
   }
 
   public interface PlacePageViewListener

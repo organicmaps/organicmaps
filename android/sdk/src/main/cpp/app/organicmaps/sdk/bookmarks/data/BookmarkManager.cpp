@@ -277,7 +277,8 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeDel
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeDeleteTrack(JNIEnv *, jobject, jlong trkId)
 {
-  frm()->GetBookmarkManager().GetEditSession().DeleteTrack(static_cast<kml::TrackId>(trkId));
+  // Routed through Framework so a Place Page showing this track is closed before deletion.
+  frm()->DeleteTrack(static_cast<kml::TrackId>(trkId));
 }
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeAddBookmarkToLastEditedCategory(
@@ -385,9 +386,10 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_native
                                                                                          jlong trackId,
                                                                                          jclass trackClazz)
 {
-  // Track(long trackId, long categoryId, boolean isRelationTrack, String name, String lengthString, int color)
+  // Track(long trackId, long categoryId, boolean isRelationTrack, String name, String lengthString, int color,
+  //       boolean isVisible)
   static jmethodID const cId =
-      jni::GetConstructorID(env, trackClazz, "(JJZLjava/lang/String;Lapp/organicmaps/sdk/util/Distance;I)V");
+      jni::GetConstructorID(env, trackClazz, "(JJZLjava/lang/String;Lapp/organicmaps/sdk/util/Distance;IZ)V");
   auto const kmlTrackId = static_cast<kml::TrackId>(trackId);
   auto const * nTrack = frm()->GetBookmarkManager().GetTrack(kmlTrackId);
 
@@ -397,7 +399,7 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_native
   return env->NewObject(trackClazz, cId, trackId, static_cast<jlong>(nTrack->GetGroupId()), isRelationTrack,
                         jni::ToJavaString(env, nTrack->GetName()),
                         ToJavaDistance(env, platform::Distance::CreateFormatted(nTrack->GetLengthMeters())),
-                        nTrack->GetColor(0).GetARGB());
+                        nTrack->GetColor(0).GetARGB(), static_cast<jboolean>(nTrack->IsVisible()));
 }
 
 JNIEXPORT jboolean JNICALL
@@ -428,6 +430,13 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeSet
     JNIEnv *, jclass, jboolean visible)
 {
   frm()->GetBookmarkManager().SetAllCategoriesVisibility(static_cast<bool>(visible));
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeSetTrackVisibility(JNIEnv *, jclass,
+                                                                                                jlong trackId,
+                                                                                                jboolean visible)
+{
+  frm()->SetTrackVisibility(static_cast<kml::TrackId>(trackId), static_cast<bool>(visible));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativePrepareTrackFileForSharing(JNIEnv * env,

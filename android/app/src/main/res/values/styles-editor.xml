@@ -82,4 +82,31 @@
     <item name="android:clickable">true</item>
     <item name="android:textAppearance">@style/MwmTextAppearance.Body1</item>
   </style>
+
+  <!-- Single icon+text action row for the track editor (export/delete), matching bottom_sheet_menu_item. -->
+  <style name="MwmWidget.Editor.TrackActionCell">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">@dimen/menu_list_item_height</item>
+    <item name="android:orientation">horizontal</item>
+    <item name="android:gravity">center_vertical</item>
+    <item name="android:background">?clickableBackground</item>
+    <item name="android:clickable">true</item>
+    <item name="android:focusable">true</item>
+    <item name="android:paddingStart">@dimen/margin_base</item>
+    <item name="android:paddingEnd">@dimen/margin_base</item>
+  </style>
+
+  <style name="MwmWidget.Editor.TrackActionIcon">
+    <item name="android:layout_width">@dimen/bookmark_icon_size</item>
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:tint">?android:textColorSecondary</item>
+  </style>
+
+  <style name="MwmWidget.Editor.TrackActionText">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:gravity">center_vertical</item>
+    <item name="android:paddingStart">@dimen/margin_base</item>
+    <item name="android:textAppearance">@style/MwmTextAppearance.Body1</item>
+  </style>
 </resources>

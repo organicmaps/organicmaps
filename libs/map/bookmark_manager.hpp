@@ -137,6 +137,7 @@ public:
     void ClearGroup(kml::MarkGroupId groupId);
 
     void SetIsVisible(kml::MarkGroupId groupId, bool visible);
+    void SetTrackVisibility(kml::TrackId trackId, bool visible);
 
     void MoveBookmark(kml::MarkId bmID, kml::MarkGroupId curGroupID, kml::MarkGroupId newGroupID);
     /// @todo Get data by value and make moves by call-chain.
@@ -589,6 +590,7 @@ private:
 
   void ClearGroup(kml::MarkGroupId groupId);
   void SetIsVisible(kml::MarkGroupId groupId, bool visible);
+  void SetTrackVisibility(kml::TrackId trackId, bool visible);
 
   void SetCategoryName(kml::MarkGroupId categoryId, std::string const & name);
   void SetCategoryDescription(kml::MarkGroupId categoryId, std::string const & desc);
@@ -719,6 +721,9 @@ private:
   void SetTrackSelectionMark(kml::TrackId trackId, m2::PointD const & pt, double distance);
   void DeleteTrackSelectionMark(kml::TrackId trackId);
   void ResetTrackInfoMark(kml::TrackId trackId);
+
+  bool IsTrackEffectivelyVisible(kml::TrackId trackId) const;
+  void UpdateTrackSelectionMark(kml::TrackId trackId);
 
   void UpdateTrackMarksMinZoom();
   void UpdateTrackMarksVisibility(kml::MarkGroupId groupId);

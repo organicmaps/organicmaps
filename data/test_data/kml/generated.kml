@@ -234,6 +234,7 @@
   <Placemark>
     <name>Мое любимое место</name>
     <description>Test bookmark description</description>
+    <visibility>0</visibility>
     <TimeStamp><when>1970-01-01T00:13:20Z</when></TimeStamp>
     <styleUrl>#placemark-blue</styleUrl>
     <Point><coordinates>45.9242,49.3268593</coordinates></Point>
@@ -258,7 +259,6 @@
       <mwm:boundTracks>
         <mwm:value>0</mwm:value>
       </mwm:boundTracks>
-      <mwm:visibility>0</mwm:visibility>
       <mwm:nearestToponym>12345</mwm:nearestToponym>
       <mwm:minZoom>10</mwm:minZoom>
       <mwm:properties>
@@ -272,6 +272,7 @@
   <Placemark>
     <name>Test track</name>
     <description>Test track description</description>
+    <visibility>0</visibility>
     <Style><LineStyle>
       <color>FF0000FF</color>
       <width>6</width>
@@ -294,7 +295,6 @@
           <width>7</width>
         </mwm:additionalLineStyle>
       </mwm:additionalStyle>
-      <mwm:visibility>0</mwm:visibility>
       <mwm:nearestToponyms>
         <mwm:value>12345</mwm:value>
         <mwm:value>54321</mwm:value>
