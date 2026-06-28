@@ -27,7 +27,6 @@ import app.organicmaps.base.BaseMwmRecyclerFragment;
 import app.organicmaps.dialog.EditTextDialogFragment;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
-import app.organicmaps.sdk.bookmarks.data.BookmarkSharingResult;
 import app.organicmaps.sdk.bookmarks.data.DataChangedListener;
 import app.organicmaps.sdk.bookmarks.data.FileType;
 import app.organicmaps.sdk.util.StorageUtils;
@@ -48,7 +47,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<BookmarkCategoriesAdapter>
     implements BookmarkManager.BookmarksLoadingListener, CategoryListCallback, OnItemClickListener<BookmarkCategory>,
                OnItemMoreClickListener<BookmarkCategory>, OnItemLongClickListener<BookmarkCategory>,
-               BookmarkManager.BookmarksSharingListener, MenuBottomSheetFragment.MenuBottomSheetInterface
+               MenuBottomSheetFragment.MenuBottomSheetInterface
 
 {
   private static final String TAG = BookmarkCategoriesFragment.class.getSimpleName();
@@ -138,17 +137,10 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   }
 
   @Override
-  public void onPreparedFileForSharing(@NonNull BookmarkSharingResult result)
-  {
-    BookmarksSharingHelper.INSTANCE.onPreparedFileForSharing(requireActivity(), shareLauncher, result);
-  }
-
-  @Override
   public void onStart()
   {
     super.onStart();
     BookmarkManager.INSTANCE.addLoadingListener(this);
-    BookmarkManager.INSTANCE.addSharingListener(this);
   }
 
   @Override
@@ -156,7 +148,6 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   {
     super.onStop();
     BookmarkManager.INSTANCE.removeLoadingListener(this);
-    BookmarkManager.INSTANCE.removeSharingListener(this);
   }
 
   @Override
@@ -296,7 +287,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   @Override
   public void onExportButtonClick()
   {
-    BookmarksSharingHelper.INSTANCE.prepareBookmarkCategoriesForSharing(requireActivity());
+    BookmarksSharingHelper.INSTANCE.prepareBookmarkCategoriesForSharing(requireActivity(), shareLauncher);
   }
 
   private void onShowActionSelected(@NonNull BookmarkCategory category)
@@ -307,7 +298,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
 
   protected void onShareActionSelected(@NonNull BookmarkCategory category, FileType fileType)
   {
-    BookmarksSharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(requireActivity(), category.getId(), fileType);
+    BookmarksSharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(requireActivity(), shareLauncher,
+                                                                      category.getId(), fileType);
   }
 
   private void onDeleteActionSelected(@NonNull BookmarkCategory category)

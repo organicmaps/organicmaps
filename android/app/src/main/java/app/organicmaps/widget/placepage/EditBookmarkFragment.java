@@ -29,7 +29,6 @@ import app.organicmaps.bookmarks.ChooseBookmarkCategoryFragment.Listener;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkInfo;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
-import app.organicmaps.sdk.bookmarks.data.BookmarkSharingResult;
 import app.organicmaps.sdk.bookmarks.data.FileType;
 import app.organicmaps.sdk.bookmarks.data.Icon;
 import app.organicmaps.sdk.bookmarks.data.Track;
@@ -44,9 +43,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import java.util.List;
 
-public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.OnClickListener, Listener,
-                                                                           ColorPickerFragment.OnColorChangeListener,
-                                                                           BookmarkManager.BookmarksSharingListener
+public class EditBookmarkFragment
+    extends BaseMwmDialogFragment implements View.OnClickListener, Listener, ColorPickerFragment.OnColorChangeListener
 {
   public static final String EXTRA_CATEGORY_ID = "CategoryId";
   public static final String EXTRA_ID = "BookmarkTrackId";
@@ -226,14 +224,6 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   {
     super.onCreate(savedInstanceState);
     mShareLauncher = SharingUtils.RegisterLauncher(this);
-    BookmarkManager.INSTANCE.addSharingListener(this);
-  }
-
-  @Override
-  public void onDestroy()
-  {
-    super.onDestroy();
-    BookmarkManager.INSTANCE.removeSharingListener(this);
   }
 
   @Override
@@ -466,12 +456,13 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   {
     if (mTrack == null)
       return;
-    BookmarksSharingHelper.INSTANCE.prepareTrackForSharing(requireActivity(), mTrack.getTrackId(), fileType);
+    BookmarksSharingHelper.INSTANCE.prepareTrackForSharing(requireActivity(), mShareLauncher, mTrack.getTrackId(),
+                                                           fileType);
   }
 
   // Shows a confirmation dialog before deleting the track.
-  // On confirm: deletes via BookmarkManager, notifies the listener so the calling
-  // screen (BookmarksListFragment / PlacePageView) can refresh, then dismisses.
+  // On confirm: deletes via BookmarkManager (which closes the Place Page if it shows this track),
+  // notifies the listener so the host screen can refresh, then dismisses if still attached.
   private void onDeleteTrackSelected()
   {
     if (mTrack == null)
@@ -483,20 +474,11 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
                              BookmarkManager.INSTANCE.deleteTrack(mTrack.getTrackId());
                              if (mListener != null)
                                mListener.onBookmarkSaved(mTrack.getTrackId(), true);
-                             dismiss();
+                             // Closing the Place Page may already have torn down this dialog.
+                             if (isAdded())
+                               dismiss();
                            })
         .setNegativeButton(R.string.cancel, null)
         .show();
-  }
-
-  // Guard against IllegalStateException if the async sharing result arrives after the
-  // fragment detaches (e.g. during device rotation). Matches the isAdded() pattern used
-  // in BookmarksListFragment callbacks.
-  @Override
-  public void onPreparedFileForSharing(@NonNull BookmarkSharingResult result)
-  {
-    if (!isAdded() || getActivity() == null)
-      return;
-    BookmarksSharingHelper.INSTANCE.onPreparedFileForSharing(requireActivity(), mShareLauncher, result);
   }
 }
