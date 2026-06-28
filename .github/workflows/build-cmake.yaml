@@ -32,6 +32,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
+permissions:
+  contents: read
+
 jobs:
   build:
     strategy:
@@ -143,6 +146,10 @@ jobs:
           cmake --preset ci \
             -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} \
             -DCMAKE_UNITY_BUILD=${UNITY_BUILD}
+
+      # Surface gcc/clang warnings and errors as inline annotations on the PR diff.
+      - name: Enable inline compiler annotations
+        run: echo "::add-matcher::.github/problem-matchers/gcc.json"
 
       - name: Compile
         run: cmake --build --preset ci
