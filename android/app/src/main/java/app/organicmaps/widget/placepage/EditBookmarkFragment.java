@@ -75,6 +75,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   private int mColor = -1;
   private ActivityResultLauncher<SharingUtils.SharingIntent> mShareLauncher;
   private ViewGroup mTrackExportButtons;
+  private ImageView mTrackVisibility;
 
   public interface EditBookmarkListener
   {
@@ -155,6 +156,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     mIvColor = view.findViewById(R.id.iv__bookmark_color_icon);
     View colorLayout = view.findViewById(R.id.iv__bookmark_color);
     colorLayout.setOnClickListener(this);
+    mTrackVisibility = view.findViewById(R.id.iv__track_visibility);
 
     // Initialize export buttons for tracks
     mTrackExportButtons = view.findViewById(R.id.track_export_buttons);
@@ -410,8 +412,25 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     refreshCategory();
     refreshTrackColor();
 
+    // Show and wire the visibility toggle (mirrors the eye icon in the track list).
+    UiUtils.show(mTrackVisibility);
+    refreshTrackVisibilityIcon();
+    mTrackVisibility.setOnClickListener(v -> {
+      mTrack.toggleVisibility();
+      refreshTrackVisibilityIcon();
+    });
+
     // Show export buttons for tracks
     UiUtils.show(mTrackExportButtons);
+  }
+
+  private void refreshTrackVisibilityIcon()
+  {
+    if (mTrack == null)
+      return;
+    final boolean visible = mTrack.isVisible();
+    mTrackVisibility.setImageResource(visible ? R.drawable.ic_show : R.drawable.ic_hide);
+    mTrackVisibility.setContentDescription(getString(visible ? R.string.hide_track : R.string.show_track));
   }
 
   @Override

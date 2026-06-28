@@ -77,6 +77,17 @@
           android:layout_height="1dp"
           android:background="@color/divider" />
       </LinearLayout>
+      <ImageView
+        android:id="@+id/iv__track_visibility"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackgroundBorderless"
+        android:contentDescription="@string/hide_track"
+        android:paddingHorizontal="@dimen/margin_half"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_show"
+        app:tint="?secondary"
+        tools:visibility="visible" />
       <FrameLayout
         android:id="@+id/iv__bookmark_color"
         android:layout_width="wrap_content"
