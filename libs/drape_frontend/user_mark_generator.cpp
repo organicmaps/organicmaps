@@ -253,4 +253,5 @@ void UserMarkGenerator::GenerateUserMarksGeometry(ref_ptr<dp::GraphicsContext> c
 
   m_flushFn(std::move(renderData));
 }
+
 }  // namespace df

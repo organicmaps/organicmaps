@@ -130,7 +130,8 @@ class TracksSource : public SourceBase
 public:
   using SourceBase::SourceBase;
 
-  /// Iterates unique tracks across all visible groups, filtering by minZoom.
+  /// Iterates unique tracks across all visible groups, skipping individually-hidden tracks
+  /// (m_visible) and those above their minZoom.
   /// @param fn is called with UserLineRenderParams const &.
   template <class FnT>
   void ForEachUniqueTrack(int zoom, UserLinesRenderCollection const & lines, FnT && fn) const

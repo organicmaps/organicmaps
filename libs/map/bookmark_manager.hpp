@@ -722,6 +722,9 @@ private:
   void DeleteTrackSelectionMark(kml::TrackId trackId);
   void ResetTrackInfoMark(kml::TrackId trackId);
 
+  bool IsTrackEffectivelyVisible(kml::TrackId trackId) const;
+  void UpdateTrackSelectionMark(kml::TrackId trackId);
+
   void UpdateTrackMarksMinZoom();
   void UpdateTrackMarksVisibility(kml::MarkGroupId groupId);
   void RequestSymbolSizes();
