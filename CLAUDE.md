@@ -94,14 +94,18 @@ std::string DebugPrint(MyType const & t);
 - Follow the instructions in [docs/INSTALL.md](docs/INSTALL.md)
 
 ## Build on desktop
-1. CMake configure: `cmake -B build-$YOUR_NAME -S . -DCMAKE_BUILD_TYPE=Debug -GNinja` for debug configuration
+1. CMake configure: `cmake --preset debug -B build-$YOUR_NAME` for debug configuration
+   - the `debug` preset (in `CMakePresets.json`) sets Ninja + `CMAKE_BUILD_TYPE=Debug`; `-B` overrides the preset's build dir so each agent gets its own `build-$YOUR_NAME` and they don't clobber each other
    - if configure fails, repeat with `--fresh` option to clear CMake cache
 2. Build: `cmake --build build-$YOUR_NAME` to build all targets
    or specify `--target target_name` to build a specific target (e.g., `desktop` for the main app)
 3. To run tests:
 ```bash
-# Exclude some tests that are not relevant for most contributors.
-ctest -j --test-dir build-$YOUR_NAME --stop-on-failure --output-on-failure -E "drape_tests|generator_integration_tests|opening_hours_integration_tests|opening_hours_supported_features_tests|routing_benchmarks|routing_integration_tests|routing_quality_tests|search_quality_tests|storage_integration_tests|shaders_tests|world_feed_integration_tests"
+# Mirrors the default CMake test preset while keeping the per-agent build dir.
+CTEST_EXCLUDE_REGEX="drape_tests|drape_frontend_tests|generator_integration_tests|opening_hours_integration_tests|opening_hours_supported_features_tests|routing_benchmarks|routing_integration_tests|routing_quality_tests|search_quality_tests|storage_integration_tests|shaders_tests|world_feed_integration_tests"
+ctest -j --test-dir build-$YOUR_NAME --stop-on-failure --output-on-failure -L "omim-test" -E "$CTEST_EXCLUDE_REGEX"
+# Rendering tests need offscreen GL and are run separately.
+QT_QPA_PLATFORM=offscreen ctest --test-dir build-$YOUR_NAME --stop-on-failure --output-on-failure -R "drape_tests|drape_frontend_tests|shaders_tests"
 # Run only a specific test:
 ctest -j --test-dir build-$YOUR_NAME --stop-on-failure --output-on-failure -R test_name
 ```

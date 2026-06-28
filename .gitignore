@@ -148,6 +148,8 @@ iphone/Maps/app.omaps/
 /cmake-build-*
 build/
 /build*/
+# Per-developer CMake preset overrides (CMakePresets.json is committed).
+CMakeUserPresets.json
 
 qt/res/Info.plist
 
