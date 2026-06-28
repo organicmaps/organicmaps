@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Pre-commit hook: runs clang-format and swiftformat on staged source files.
+# Pre-commit hook: runs the project formatters (clang-format, swiftformat,
+# ktlint, JSON/XML) and store-metadata checks on staged source files.
 # Automatically reformats and re-stages non-conforming files.
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -133,6 +134,38 @@ if [ -n "$METADATA_FILES" ]; then
 
     if [ $meta_rc -ne 0 ]; then
       echo "pre-commit: store metadata validation failed — fix manually and re-commit."
+      exit 1
+    fi
+  fi
+fi
+
+# --- JSON / XML --------------------------------------------------------------
+# Coarse extension filter only; format_json_xml.py owns the authoritative
+# include/exclude scoping and silently skips generated or unsafe-to-reflow files.
+JSONXML_FILES=$(echo "$STAGED_FILES" | grep -E '\.(json|xml)$' || true)
+
+if [ -n "$JSONXML_FILES" ]; then
+  JSONXML_ARGS=()
+  while IFS= read -r FILE; do
+    [ -f "$FILE" ] && JSONXML_ARGS+=("$FILE")
+  done <<< "$JSONXML_FILES"
+
+  if [ ${#JSONXML_ARGS[@]} -gt 0 ]; then
+    set +e
+    "$REPO_ROOT/tools/python/format_json_xml.py" files --fix "${JSONXML_ARGS[@]}"
+    jsonxml_rc=$?
+    set -e
+
+    # Re-stage anything --fix mutated (see store-metadata block above).
+    for FILE in "${JSONXML_ARGS[@]}"; do
+      if ! git diff --quiet -- "$FILE"; then
+        git add -- "$FILE"
+        REFORMATTED=1
+      fi
+    done
+
+    if [ $jsonxml_rc -ne 0 ]; then
+      echo "pre-commit: JSON/XML formatting failed — fix manually and re-commit."
       exit 1
     fi
   fi
