@@ -1,0 +1,211 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 22,
+    "patch": 1
+  },
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}"
+    },
+    {
+      "name": "ci-flags",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_C_FLAGS": "-g1",
+        "CMAKE_CXX_FLAGS": "-g1"
+      }
+    },
+    {
+      "name": "debug",
+      "displayName": "Debug",
+      "description": "Single-config Debug build (Ninja). Output in build/debug.",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "release",
+      "displayName": "Release",
+      "description": "Single-config Release build (Ninja). Output in build/release.",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "relwithdebinfo",
+      "displayName": "RelWithDebInfo",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+    {
+      "name": "debug-no-unity",
+      "displayName": "Debug, no Unity build",
+      "description": "Debug with Unity batching off (lower peak memory, slower build).",
+      "inherits": "debug",
+      "cacheVariables": {
+        "CMAKE_UNITY_BUILD": "OFF"
+      }
+    },
+    {
+      "name": "coverage",
+      "displayName": "Debug + coverage",
+      "description": "Debug build instrumented for a gcovr coverage report (target omim_coverage).",
+      "inherits": "debug",
+      "cacheVariables": {
+        "COVERAGE_REPORT": "ON",
+        "CMAKE_C_FLAGS": "-g1",
+        "CMAKE_CXX_FLAGS": "-g1"
+      }
+    },
+    {
+      "name": "xcode",
+      "displayName": "Xcode (multi-config)",
+      "description": "Xcode generator. Needed for dev_sandbox + Metal shader development on macOS.",
+      "generator": "Xcode",
+      "binaryDir": "${sourceDir}/build/xcode",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Darwin"
+      }
+    },
+    {
+      "name": "ci",
+      "displayName": "CI (Ninja)",
+      "description": "Mirrors the Ninja CI leg: flat build/ dir, -g1 debug info. Pass -DCMAKE_BUILD_TYPE on top.",
+      "inherits": [
+        "base",
+        "ci-flags"
+      ],
+      "binaryDir": "${sourceDir}/build"
+    },
+    {
+      "name": "ci-xcode",
+      "displayName": "CI (Xcode)",
+      "description": "Mirrors the Xcode CI leg. Multi-config: choose Debug/Release at build/test time.",
+      "inherits": [
+        "xcode",
+        "ci-flags"
+      ],
+      "binaryDir": "${sourceDir}/build-xcode"
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "debug",
+      "configurePreset": "debug"
+    },
+    {
+      "name": "release",
+      "configurePreset": "release"
+    },
+    {
+      "name": "relwithdebinfo",
+      "configurePreset": "relwithdebinfo"
+    },
+    {
+      "name": "debug-no-unity",
+      "configurePreset": "debug-no-unity"
+    },
+    {
+      "name": "coverage",
+      "configurePreset": "coverage"
+    },
+    {
+      "name": "ci",
+      "configurePreset": "ci"
+    },
+    {
+      "name": "xcode",
+      "configurePreset": "xcode",
+      "configuration": "Debug"
+    },
+    {
+      "name": "ci-xcode",
+      "configurePreset": "ci-xcode",
+      "configuration": "Debug"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "omim-tests",
+      "hidden": true,
+      "output": {
+        "outputOnFailure": true
+      },
+      "filter": {
+        "include": {
+          "label": "omim-test"
+        },
+        "exclude": {
+          "name": "drape_tests|drape_frontend_tests|generator_integration_tests|opening_hours_integration_tests|opening_hours_supported_features_tests|routing_benchmarks|routing_integration_tests|routing_quality_tests|search_quality_tests|storage_integration_tests|shaders_tests|world_feed_integration_tests"
+        }
+      }
+    },
+    {
+      "name": "drape-tests",
+      "hidden": true,
+      "description": "Rendering tests that need offscreen GL; run separately from the main suite.",
+      "environment": {
+        "QT_QPA_PLATFORM": "offscreen"
+      },
+      "output": {
+        "outputOnFailure": true
+      },
+      "filter": {
+        "include": {
+          "name": "drape_tests|drape_frontend_tests|shaders_tests"
+        }
+      }
+    },
+    {
+      "name": "debug",
+      "inherits": "omim-tests",
+      "configurePreset": "debug"
+    },
+    {
+      "name": "release",
+      "inherits": "omim-tests",
+      "configurePreset": "release"
+    },
+    {
+      "name": "coverage",
+      "inherits": "omim-tests",
+      "configurePreset": "coverage"
+    },
+    {
+      "name": "drape-debug",
+      "inherits": "drape-tests",
+      "configurePreset": "debug"
+    },
+    {
+      "name": "ci",
+      "inherits": "omim-tests",
+      "configurePreset": "ci"
+    },
+    {
+      "name": "ci-drape",
+      "inherits": "drape-tests",
+      "configurePreset": "ci"
+    },
+    {
+      "name": "ci-xcode",
+      "inherits": "omim-tests",
+      "configurePreset": "ci-xcode"
+    },
+    {
+      "name": "ci-drape-xcode",
+      "inherits": "drape-tests",
+      "configurePreset": "ci-xcode"
+    }
+  ]
+}

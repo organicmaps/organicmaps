@@ -237,19 +237,30 @@ Running X Server is also required to run `generate_symbols.sh` script when you c
 
 ### Building
 
-To build a desktop app:
+The recommended way to configure and build is with [CMake presets](https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html),
+run from the repository root. List configure/build/test presets with
+`cmake --list-presets=all`; list only test presets with `ctest --list-presets`.
+
+To configure and build the desktop app in Debug (binaries go into `build/debug`):
+
 ```bash
-tools/unix/build_omim.sh -r desktop
+cmake --preset debug
+cmake --build --preset debug --target desktop
 ```
 
-The output binary will go into `../omim-build-release`.
+Use `--preset release` for an optimized build (binaries in `build/release`). Other
+presets include `relwithdebinfo`, `debug-no-unity` (disables Unity batching for
+lower peak memory), `coverage`, and `xcode` (macOS only; generates an Xcode
+project, needed for `dev_sandbox` and Metal shader development).
 
-Check `tools/unix/build_omim.sh -h` for more build options, e.g. to build a debug version.
+Besides _desktop_ there are other targets like _generator_tool_; pass them to
+`--target`, or omit `--target` to build everything.
 
-Besides _desktop_ there are other targets like _generator_tool_, to see a full list execute:
+Alternatively, the `tools/unix/build_omim.sh` wrapper builds into
+`../omim-build-<buildtype>` (run with `-h` for options, `-d`/`-r` for Debug/Release):
 
 ```bash
-tools/unix/build_omim.sh -d help
+tools/unix/build_omim.sh -r desktop
 ```
 
 #### Build issues
@@ -262,42 +273,50 @@ tools/unix/build_omim.sh -d help
 
 ### Running
 
-The generated binaries appear in `../omim-build-<buildtype>`.
+A preset build puts binaries in `build/<preset>` (e.g. `build/release`); the
+`build_omim.sh` wrapper uses `../omim-build-<buildtype>` instead.
 
-A desktop app binary is `OMaps`. To run e.g. a release version:
+A desktop app binary is `OMaps`. To run e.g. a release version built with the
+`release` preset:
 
 _Linux:_
 
 ```bash
-../omim-build-release/OMaps
+build/release/OMaps
 ```
 
 _macOS:_
 
 ```bash
-../omim-build-release/OMaps.app/Contents/MacOS/OMaps
+build/release/OMaps.app/Contents/MacOS/OMaps
 ```
 
 ### Testing
 
-Compile all unit tests in Debug mode:
+Configure and compile all unit tests in Debug mode:
 
 ```bash
-cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug
-cmake --build build --target all
+cmake --preset debug
+cmake --build --preset debug
 ```
 
-Run all unit tests:
+Run the unit tests (the `debug` test preset filters to the `omim-test` label and
+excludes the suites that are [known to be broken](https://github.com/organicmaps/organicmaps/issues?q=is%3Aissue+is%3Aopen+label%3ATests) on CI):
 
 ```bash
-cd build
-ctest -L "omim-test" --output-on-failure
+ctest --preset debug
+```
+
+Rendering tests need offscreen GL, so they are run via a separate preset:
+
+```bash
+ctest --preset drape-debug
 ```
 
 To run a limited set of tests, use `-R <regex>` flag. To exclude some tests, use `-E <regex>` flag:
 
 ```bash
-cd build
+cd build/debug
 ctest -R "base_tests|coding_tests" --output-on-failure
 ctest -L "omim-test" -E "base_tests|coding_tests" --output-on-failure
 ```
@@ -339,19 +358,17 @@ brew install llvm
 
 Steps to generate coverage report:
 
-1. Configure cmake with `-DCOVERAGE_REPORT=ON` flag:
+1. Configure with the `coverage` preset (enables `COVERAGE_REPORT`):
    ```bash
-   cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug \
-           -DCMAKE_CXX_FLAGS=-g1 -DCOVERAGE_REPORT=ON
+   cmake --preset coverage
    ```
-2. Compile unit tests.
-3. Run unit tests.
+2. Compile unit tests: `cmake --build --preset coverage`.
+3. Run unit tests: `ctest --preset coverage`.
 4. Run coverage report generation:
    ```bash
-   cd build
-   cmake --build . --target omim_coverage
+   cmake --build --preset coverage --target omim_coverage
    ```
-5. Report can be found in the `build/coverage_report` folder.
+5. Report can be found in the `build/coverage/coverage_report` folder.
 
 ### Debug commands
 
@@ -373,7 +390,7 @@ There are also other commands for turning on/off isolines, anti-aliasing, etc. C
 To make the desktop app display maps in a different language add a `-lang` option, e.g. for the Russian language:
 
 ```bash
-../omim-build-release/OMaps -lang ru
+build/release/OMaps -lang ru
 ```
 
 By default `OMaps` expects a repository's `data` folder to be present in the current working directory, add a `-data_path` option to override it.
@@ -609,7 +626,7 @@ Android Studio has issues in parsing the C++ part of the project, please let us 
 - [Xcode](https://developer.apple.com/xcode/)
 - [CLion](https://www.jetbrains.com/clion/)
 
-For Xcode it is required to run `cmake . -g Xcode` to generate project files, while CLion and QT Creator can import CMakeLists.txt.
+For Xcode, run `cmake --preset xcode` to generate the project (`build/xcode/omim.xcodeproj`); CLion and Qt Creator read `CMakePresets.json` directly (pick the `debug` preset).
 
 #### Enable Vulkan Validation
 
