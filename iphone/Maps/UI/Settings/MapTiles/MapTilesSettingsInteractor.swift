@@ -1,10 +1,10 @@
 final class MapTilesSettingsInteractor {
   var presenter: MapTilesSettingsPresenter?
 
-  private let settings: Settings.Type
+  private let settings: MapTilesSettings.Type
   private var state: MapTilesSettingsState
 
-  init(settings: Settings.Type = Settings.self) {
+  init(settings: MapTilesSettings.Type = Settings.self) {
     self.settings = settings
     state = Self.initialState(settings: settings)
   }
@@ -42,8 +42,8 @@ final class MapTilesSettingsInteractor {
 
   private func setCacheSize(_ value: Float) {
     let cacheSizeMB = Self.clamped(Int(value.rounded()),
-                                   min: MapTilesSettingsLimits.minCacheSizeMB,
-                                   max: MapTilesSettingsLimits.maxCacheSizeMB)
+                                   min: state.limits.minCacheSizeMB,
+                                   max: state.limits.maxCacheSizeMB)
     guard state.cacheSizeMB != cacheSizeMB else { return }
     state.cacheSizeMB = cacheSizeMB
     updateState(reconfiguredItems: [.cacheSize], animatingDifferences: false)
@@ -51,8 +51,8 @@ final class MapTilesSettingsInteractor {
 
   private func setOpacity(_ value: Float) {
     let opacityPct = Self.clamped(Int(value.rounded()),
-                                  min: MapTilesSettingsLimits.minOpacityPct,
-                                  max: MapTilesSettingsLimits.maxOpacityPct)
+                                  min: state.limits.minOpacityPct,
+                                  max: state.limits.maxOpacityPct)
     guard state.opacityPct != opacityPct else { return }
     state.opacityPct = opacityPct
     updateState(reconfiguredItems: [.opacity], animatingDifferences: false)
@@ -71,21 +71,26 @@ final class MapTilesSettingsInteractor {
     present(reconfiguredItems: reconfiguredItems, animatingDifferences: animatingDifferences)
   }
 
-  private static func initialState(settings: Settings.Type) -> MapTilesSettingsState {
+  private static func initialState(settings: MapTilesSettings.Type) -> MapTilesSettingsState {
     let isEnabled = settings.backgroundTilesEnabled()
     let url = trimmed(settings.backgroundTilesURL())
+    let limits = MapTilesSettingsLimits(minCacheSizeMB: settings.backgroundTilesMinCacheSizeMB(),
+                                        maxCacheSizeMB: settings.backgroundTilesMaxCacheSizeMB(),
+                                        minOpacityPct: settings.backgroundTilesMinAreaOpacityPct(),
+                                        maxOpacityPct: settings.backgroundTilesMaxAreaOpacityPct())
     return MapTilesSettingsState(isEnabled: isEnabled,
                                  url: url,
                                  cacheSizeMB: clamped(settings.backgroundTilesCacheSizeMB(),
-                                                      min: MapTilesSettingsLimits.minCacheSizeMB,
-                                                      max: MapTilesSettingsLimits.maxCacheSizeMB),
+                                                      min: limits.minCacheSizeMB,
+                                                      max: limits.maxCacheSizeMB),
                                  opacityPct: clamped(settings.backgroundTilesAreaOpacityPct(),
-                                                     min: MapTilesSettingsLimits.minOpacityPct,
-                                                     max: MapTilesSettingsLimits.maxOpacityPct),
-                                 isConfigValid: isConfigValid(isEnabled: isEnabled, url: url, settings: settings))
+                                                     min: limits.minOpacityPct,
+                                                     max: limits.maxOpacityPct),
+                                 isConfigValid: isConfigValid(isEnabled: isEnabled, url: url, settings: settings),
+                                 limits: limits)
   }
 
-  private static func isConfigValid(isEnabled: Bool, url: String, settings: Settings.Type) -> Bool {
+  private static func isConfigValid(isEnabled: Bool, url: String, settings: MapTilesSettings.Type) -> Bool {
     !isEnabled || settings.isWellFormedBackgroundTilesURL(trimmed(url))
   }
 

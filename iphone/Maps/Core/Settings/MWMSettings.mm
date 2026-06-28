@@ -337,45 +337,6 @@ NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidShowIClo
   [NSUserDefaults.standardUserDefaults setBool:YES forKey:kUDDidShowICloudSynchronizationEnablingAlert];
 }
 
-+ (BOOL)backgroundTilesEnabled
-{
-  return GetFramework().IsBackgroundTilesEnabled();
-}
-
-+ (void)setBackgroundTilesEnabled:(BOOL)enabled
-{
-  GetFramework().SetBackgroundTilesEnabled(enabled);
-}
-
-+ (NSInteger)backgroundTilesAreaOpacityPct
-{
-  return static_cast<NSInteger>(GetFramework().GetBackgroundTilesAreaOpacity());
-}
-
-+ (NSString *)backgroundTilesURL
-{
-  return @(Framework::GetBackgroundTilesURL().c_str());
-}
-
-+ (NSInteger)backgroundTilesCacheSizeMB
-{
-  return static_cast<NSInteger>(Framework::GetBackgroundTilesCacheSize());
-}
-
-+ (void)setBackgroundTilesEnabled:(BOOL)enabled
-                              url:(NSString *)url
-                      cacheSizeMB:(NSInteger)cacheSizeMB
-                   areaOpacityPct:(NSInteger)areaOpacityPct
-{
-  GetFramework().SetBackgroundTiles(enabled, url.UTF8String, static_cast<uint32_t>(cacheSizeMB),
-                                    static_cast<uint32_t>(areaOpacityPct));
-}
-
-+ (BOOL)isWellFormedBackgroundTilesURL:(NSString *)url
-{
-  return Framework::IsWellFormedBackgroundTilesURL(url.UTF8String);
-}
-
 + (BOOL)canShowCrowdfundingPromo
 {
   return GetFramework().CanShowCrowdfundingPromo();

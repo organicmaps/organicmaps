@@ -37,13 +37,14 @@ struct MapTilesSettingsState: Equatable {
   var cacheSizeMB: Int
   var opacityPct: Int
   var isConfigValid: Bool
+  let limits: MapTilesSettingsLimits
 }
 
-enum MapTilesSettingsLimits {
-  static let minCacheSizeMB = 1
-  static let maxCacheSizeMB = 1000
-  static let minOpacityPct = 0
-  static let maxOpacityPct = 100
+struct MapTilesSettingsLimits: Equatable {
+  let minCacheSizeMB: Int
+  let maxCacheSizeMB: Int
+  let minOpacityPct: Int
+  let maxOpacityPct: Int
 }
 
 typealias MapTilesSettingsViewController = SettingsViewController<MapTilesSettingsSection, MapTilesSettingsItem>

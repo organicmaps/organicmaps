@@ -56,8 +56,8 @@ final class MapTilesSettingsPresenter {
   private func cacheSizeItem(_ state: MapTilesSettingsState) -> MapTilesSettingsItemViewModel {
     SettingsItemViewModel(item: .cacheSize,
                           kind: .slider(value: Float(state.cacheSizeMB),
-                                        minimumValue: Float(MapTilesSettingsLimits.minCacheSizeMB),
-                                        maximumValue: Float(MapTilesSettingsLimits.maxCacheSizeMB),
+                                        minimumValue: Float(state.limits.minCacheSizeMB),
+                                        maximumValue: Float(state.limits.maxCacheSizeMB),
                                         valueTitle: "\(state.cacheSizeMB)",
                                         isEnabled: state.isEnabled))
   }
@@ -65,8 +65,8 @@ final class MapTilesSettingsPresenter {
   private func opacityItem(_ state: MapTilesSettingsState) -> MapTilesSettingsItemViewModel {
     SettingsItemViewModel(item: .opacity,
                           kind: .slider(value: Float(state.opacityPct),
-                                        minimumValue: Float(MapTilesSettingsLimits.minOpacityPct),
-                                        maximumValue: Float(MapTilesSettingsLimits.maxOpacityPct),
+                                        minimumValue: Float(state.limits.minOpacityPct),
+                                        maximumValue: Float(state.limits.maxOpacityPct),
                                         valueTitle: "\(state.opacityPct)%",
                                         isEnabled: state.isEnabled))
   }
