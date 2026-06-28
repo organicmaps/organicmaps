@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <full-backup-content>
-  <include domain="file" path="bookmarks/"/>
-  <include domain="file" path="settings.ini"/>
+  <include
+      domain="file"
+      path="bookmarks/"/>
+  <include
+      domain="file"
+      path="settings.ini"/>
 </full-backup-content>

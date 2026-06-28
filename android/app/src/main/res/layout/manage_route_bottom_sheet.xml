@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:orientation="vertical">
-
-  <LinearLayout
-    android:orientation="horizontal"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/routing_bottom_manage_route_background">
+    android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/manage_route_list"
+  <LinearLayout
+      android:orientation="horizontal"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:paddingStart="@dimen/margin_base"
-      android:paddingEnd="@dimen/margin_half_plus"
-      android:paddingBottom="@dimen/routing_bottom_buttons_max_height"
-      android:clipToPadding="false"
-      app:layout_constrainedHeight="true"
-      tools:itemCount="5"
-      tools:listitem="@layout/manage_route_list_item" />
+      android:backgroundTint="@color/routing_bottom_manage_route_background">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/manage_route_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="@dimen/margin_base"
+        android:paddingEnd="@dimen/margin_half_plus"
+        android:paddingBottom="@dimen/routing_bottom_buttons_max_height"
+        android:clipToPadding="false"
+        app:layout_constrainedHeight="true"
+        tools:itemCount="5"
+        tools:listitem="@layout/manage_route_list_item"/>
   </LinearLayout>
 
 </LinearLayout>

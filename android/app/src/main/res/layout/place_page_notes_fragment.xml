@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <app.organicmaps.widget.placepage.sections.ExpandableNotesView
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:id="@+id/place_page_notes_layout"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:layout_marginStart="@dimen/margin_base"
-  android:layout_marginTop="@dimen/margin_base"
-  android:layout_marginEnd="@dimen/margin_base"
-  android:layout_marginBottom="@dimen/margin_half"
-  android:visibility="gone"/>
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/place_page_notes_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_base"
+    android:layout_marginTop="@dimen/margin_base"
+    android:layout_marginEnd="@dimen/margin_base"
+    android:layout_marginBottom="@dimen/margin_half"
+    android:visibility="gone"/>

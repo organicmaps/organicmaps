@@ -64,7 +64,9 @@
     <item name="android:layout_marginStart">@dimen/editor_margin_left</item>
   </style>
 
-  <style name="MwmWidget.Editor.FieldLayout.EditText" parent="MwmWidget.Editor">
+  <style
+      name="MwmWidget.Editor.FieldLayout.EditText"
+      parent="MwmWidget.Editor">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:ellipsize">end</item>
@@ -72,7 +74,9 @@
     <item name="android:textAppearance">@style/MwmTextAppearance.Body1</item>
   </style>
 
-  <style name="MwmWidget.Editor.Problem" tools:ignore="NewApi">
+  <style
+      name="MwmWidget.Editor.Problem"
+      tools:ignore="NewApi">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">@dimen/height_block_base</item>
     <item name="android:gravity">center_vertical</item>
