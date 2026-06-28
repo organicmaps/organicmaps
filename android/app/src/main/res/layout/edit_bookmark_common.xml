@@ -47,44 +47,49 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/margin_base"
-      android:layout_marginEnd="@dimen/margin_quadruple"
       android:text="@string/list"
       android:textAppearance="@style/MwmTextAppearance.Body3" />
-    <TextView
-      android:id="@+id/tv__bookmark_set"
+    <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_below="@id/tv__bookmark_set_title"
-      android:layout_centerVertical="true"
-      android:layout_marginEnd="@dimen/margin_quadruple"
-      android:background="?attr/selectableItemBackground"
-      android:clickable="true"
-      android:paddingTop="@dimen/margin_quarter_plus"
-      android:paddingBottom="@dimen/margin_half_plus"
-      android:padding="@dimen/margin_half_double_plus"
-      android:textAppearance="@style/MwmTextAppearance.Body1"
-      app:drawableEndCompat="@drawable/ic_arrow_down" />
-    <View
-      android:id="@+id/divideerrr"
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:layout_alignBottom="@id/tv__bookmark_set"
-      android:layout_marginEnd="@dimen/margin_quadruple"
-      android:background="@color/divider" />
-    <FrameLayout
-      android:id="@+id/iv__bookmark_color"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentEnd="true"
-      android:layout_alignEnd="@id/divideerrr"
-      android:background="?clickableBackground"
-      android:padding="@dimen/margin_half">
-      <ImageView
-        android:id="@+id/iv__bookmark_color_icon"
+      android:gravity="center_vertical"
+      android:orientation="horizontal">
+      <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <TextView
+          android:id="@+id/tv__bookmark_set"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="?attr/selectableItemBackground"
+          android:clickable="true"
+          android:paddingTop="@dimen/margin_quarter_plus"
+          android:paddingBottom="@dimen/margin_half_plus"
+          android:padding="@dimen/margin_half_double_plus"
+          android:textAppearance="@style/MwmTextAppearance.Body1"
+          app:drawableEndCompat="@drawable/ic_arrow_down" />
+        <View
+          android:id="@+id/divideerrr"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/divider" />
+      </LinearLayout>
+      <FrameLayout
+        android:id="@+id/iv__bookmark_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:src="@drawable/ic_bookmark_none" />
-    </FrameLayout>
+        android:background="?clickableBackground"
+        android:padding="@dimen/margin_half">
+        <ImageView
+          android:id="@+id/iv__bookmark_color_icon"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          tools:src="@drawable/ic_bookmark_none" />
+      </FrameLayout>
+    </LinearLayout>
   </RelativeLayout>
   <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/til__description"
