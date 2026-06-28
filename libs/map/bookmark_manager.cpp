@@ -2401,10 +2401,14 @@ void BookmarkManager::SetTrackVisibility(kml::TrackId trackId, bool visible)
   auto const markId = GetTrackSelectionMarkId(trackId);
   if (markId != kml::kInvalidMarkId)
   {
+    // The selection dot and info bubble belong to the selected track. Restore them only
+    // while the track is still selected; otherwise re-showing a track that was hidden
+    // (and thus deselected) would resurrect a stale selection dot with no Place Page.
+    bool const markVisible = visible && trackId == m_selectedTrackId;
     auto infoMark = GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
     if (infoMark->GetTrackId() == trackId)
-      infoMark->SetIsVisible(visible);
-    GetMarkForEdit<TrackSelectionMark>(markId)->SetIsVisible(visible);
+      infoMark->SetIsVisible(markVisible);
+    GetMarkForEdit<TrackSelectionMark>(markId)->SetIsVisible(markVisible);
   }
   m_changesTracker.OnUpdateLine(trackId);
 }
