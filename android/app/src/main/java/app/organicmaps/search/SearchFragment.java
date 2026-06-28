@@ -517,6 +517,19 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     mToolbarController.deactivate();
   }
 
+  private void centerSingleSearchResultOnMap()
+  {
+    if (mSearchAdapter.getItemCount() != 1)
+      return;
+
+    final SearchResult result = mSearchAdapter.getResult(0);
+    if (result == null || result.type != SearchResult.TYPE_RESULT)
+      return;
+
+    Framework.nativeStopLocationFollow();
+    Framework.nativeSetViewportCenter(result.lat, result.lon, Framework.SEARCH_IN_VIEWPORT_ZOOM);
+  }
+
   private void onSearchEnd()
   {
     if (mSearchRunning && isAdded())
@@ -908,6 +921,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
         SearchRecents.add(getQuery(), requireContext());
         mSearchViewModel.notifyHistoryChanged();
       }
+      centerSingleSearchResultOnMap();
       deactivate();
       mSearchFragmentListener.onSearchClicked();
       return true;
