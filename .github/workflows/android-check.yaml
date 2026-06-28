@@ -37,6 +37,9 @@ on:
 env:
   JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64  # Java 17 is required for Android Gradle 8 plugin
 
+permissions:
+  contents: read
+
 jobs:
   lint:
     name: Android Lint
@@ -48,25 +51,21 @@ jobs:
       - name: Lint
         shell: bash
         working-directory: android
-        run: ./gradlew lintAllModules
+        # --continue: lint every module even if one aborts on an error, so all
+        # per-module reports are written for the annotate step below.
+        run: ./gradlew lintAllModules --continue
 
-      # Reviewdog is needed for the action below to report issues in the PR.
-      - name: Install reviewdog
-        uses: reviewdog/action-setup@v1
-
-      - name: Report Android Lint Results
-        uses: ilyagulya/android-lint-action@v0.12.1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          lint_xml_file: android/build/reports/lint/lint.xml
-          reporter: github-pr-review
-          level: warning
+      # GitHub renders up to ~10 of each severity inline; the full reports stay in the uploaded artifact below.
+      - name: Annotate Android Lint results
+        if: always()
+        run: python3 .github/scripts/annotate-android-lint.py
 
       - name: Upload Android Lint Report
+        if: always()
         uses: actions/upload-artifact@v7
         with:
           name: android-lint-report
-          path: android/build/reports/lint/lint.xml
+          path: android/**/build/reports/**/lint-results*.xml
           retention-days: 30
 
   android-check:
