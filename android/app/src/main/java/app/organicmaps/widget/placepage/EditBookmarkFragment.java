@@ -54,6 +54,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   public static final String STATE_ICON = "icon";
   public static final String STATE_BOOKMARK_CATEGORY = "bookmark_category";
   public static final String STATE_COLOR = "color";
+  public static final String STATE_VISIBLE = "visible";
   public static final int TYPE_BOOKMARK = 1;
   public static final int TYPE_TRACK = 2;
 
@@ -73,6 +74,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   private Track mTrack;
   private int mType;
   private int mColor = -1;
+  private boolean mTrackVisible;
   private ActivityResultLauncher<SharingUtils.SharingIntent> mShareLauncher;
   private ViewGroup mTrackExportButtons;
   private ImageView mTrackVisibility;
@@ -190,8 +192,12 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     {
       mTrack = BookmarkManager.INSTANCE.getTrack(id);
       mColor = mTrack.getColor();
+      mTrackVisible = mTrack.isVisible();
       if (savedInstanceState != null)
+      {
         mColor = savedInstanceState.getInt(STATE_COLOR, mColor);
+        mTrackVisible = savedInstanceState.getBoolean(STATE_VISIBLE, mTrackVisible);
+      }
       refreshTrack();
     }
     }
@@ -290,6 +296,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     if (movedFromCategory)
       mTrack.setCategoryId(mBookmarkCategory.getId());
     mTrack.update(mEtName.getText().toString(), mColor, mEtDescription.getText().toString());
+    mTrack.setVisibility(mTrackVisible);
     if (mListener != null)
       mListener.onBookmarkSaved(mTrack.getTrackId(), movedFromCategory);
     dismiss();
@@ -302,6 +309,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     outState.putParcelable(STATE_ICON, mIcon);
     outState.putParcelable(STATE_BOOKMARK_CATEGORY, mBookmarkCategory);
     outState.putInt(STATE_COLOR, mColor);
+    outState.putBoolean(STATE_VISIBLE, mTrackVisible);
   }
 
   @Override
@@ -412,11 +420,11 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     refreshCategory();
     refreshTrackColor();
 
-    // Show and wire the visibility toggle (mirrors the eye icon in the track list).
+    // Show and wire the visibility toggle. The change is staged and applied on Save.
     UiUtils.show(mTrackVisibility);
     refreshTrackVisibilityIcon();
     mTrackVisibility.setOnClickListener(v -> {
-      mTrack.toggleVisibility();
+      mTrackVisible = !mTrackVisible;
       refreshTrackVisibilityIcon();
     });
 
@@ -428,9 +436,8 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   {
     if (mTrack == null)
       return;
-    final boolean visible = mTrack.isVisible();
-    mTrackVisibility.setImageResource(visible ? R.drawable.ic_show : R.drawable.ic_hide);
-    mTrackVisibility.setContentDescription(getString(visible ? R.string.hide_track : R.string.show_track));
+    mTrackVisibility.setImageResource(mTrackVisible ? R.drawable.ic_show : R.drawable.ic_hide);
+    mTrackVisibility.setContentDescription(getString(mTrackVisible ? R.string.hide_track : R.string.show_track));
   }
 
   @Override
