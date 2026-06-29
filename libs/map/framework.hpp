@@ -708,9 +708,15 @@ public:
 
   // Custom raster background tiles (user-provided XYZ {z}/{x}/{y} source). SetBackgroundTiles is the
   // single apply entry point for the settings UI (call it when the tiles settings are committed):
-  // it persists all values (kept even while disabled) and applies them. cacheSizeMB is clamped to
-  // [1, 1000]; areaOpacityPct (0..100) is the opacity of vector area fills drawn over the imagery
-  // (0 hides them). The layer renders only when enabled AND a non-empty URL is set.
+  // it persists all values (kept even while disabled) and applies them. cacheSizeMB and
+  // areaOpacityPct are clamped to the limits below. areaOpacityPct is the opacity of vector area
+  // fills drawn over the imagery (0 hides them). The layer renders only when enabled AND a non-empty
+  // URL is set.
+  static uint32_t constexpr kBackgroundTilesMinCacheSizeMB = 1;
+  static uint32_t constexpr kBackgroundTilesMaxCacheSizeMB = 1000;
+  static uint32_t constexpr kBackgroundTilesMinAreaOpacityPct = 0;
+  static uint32_t constexpr kBackgroundTilesMaxAreaOpacityPct = 100;
+
   void SetBackgroundTiles(bool enabled, std::string url, uint32_t cacheSizeMB, uint32_t areaOpacityPct);
   // Flips only the on/off flag, keeping the configured URL / cache size / area opacity. Lighter than
   // SetBackgroundTiles: it just switches the rendered mode (creating the provider on first enable).
