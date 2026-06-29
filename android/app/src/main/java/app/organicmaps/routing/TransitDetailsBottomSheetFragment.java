@@ -3,12 +3,14 @@ package app.organicmaps.routing;
 import android.os.Bundle;
 import android.transition.ChangeBounds;
 import android.transition.TransitionManager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
@@ -28,6 +30,14 @@ public class TransitDetailsBottomSheetFragment extends BottomSheetDialogFragment
 {
   public static final String TAG = TransitDetailsBottomSheetFragment.class.getSimpleName();
 
+  @Override
+  public int getTheme()
+  {
+    // The breakdown can be taller than the screen; this theme adds the top inset so the expanded
+    // sheet stops below the status bar instead of drawing under it.
+    return R.style.MwmTheme_BottomSheetDialog_Tall;
+  }
+
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -40,9 +50,24 @@ public class TransitDetailsBottomSheetFragment extends BottomSheetDialogFragment
   public void onStart()
   {
     super.onStart();
-    BottomSheetBehavior<View> behavior = BottomSheetBehavior.from((View) requireView().getParent());
+    View sheet = (View) requireView().getParent();
+    BottomSheetBehavior<View> behavior = BottomSheetBehavior.from(sheet);
     behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     behavior.setSkipCollapsed(true);
+
+    // Match the width and start-alignment of the routing/search/place-page sheets instead of
+    // spanning the full screen on wide layouts. bottom_sheet_widths is match_parent (-1px) on
+    // phones and a fixed column on tablets and landscape.
+    ViewGroup.LayoutParams lp = sheet.getLayoutParams();
+    lp.width = getResources().getDimensionPixelSize(R.dimen.bottom_sheet_widths);
+    if (lp instanceof CoordinatorLayout.LayoutParams clp)
+    {
+      // Override only the horizontal gravity (Material centers a width-capped sheet); keep the
+      // vertical gravity the behavior relies on for the slide-up.
+      int vertical = clp.gravity & Gravity.VERTICAL_GRAVITY_MASK;
+      clp.gravity = Gravity.START | vertical;
+    }
+    sheet.setLayoutParams(lp);
   }
 
   @Override
