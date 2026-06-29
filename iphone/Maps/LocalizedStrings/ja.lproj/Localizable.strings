@@ -251,6 +251,15 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "高品質の音声をダウンロードするには、「設定」アプリを開き、アクセシビリティ → VoiceOver → 読み上げ → 声 に移動します。";
 
+/* Settings «Route» category: «Tts voice» title (the specific voice, e.g. Samantha, used to read out the selected language) */
+"pref_tts_voice_title" = "音声";
+
+/* Suffix appended to a TTS voice name for Apple's higher-quality "Enhanced" voice tier, e.g. "Samantha (Enhanced)". */
+"pref_tts_voice_quality_enhanced" = "拡張";
+
+/* Suffix appended to a TTS voice name for Apple's highest-quality "Premium" voice tier, e.g. "Samantha (Premium)". */
+"pref_tts_voice_quality_premium" = "Premium";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "音声案内をテストする（TTS、Text-To-Speech）";
 "pref_map_auto_zoom" = "自動ズーム";

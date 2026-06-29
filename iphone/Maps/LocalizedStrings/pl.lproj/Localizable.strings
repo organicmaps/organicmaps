@@ -251,6 +251,15 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Aby pobrać głos wyższej jakości, otwórz aplikację Ustawienia i przejdź do Dostępność → VoiceOver → Mowa → Głos.";
 
+/* Settings «Route» category: «Tts voice» title (the specific voice, e.g. Samantha, used to read out the selected language) */
+"pref_tts_voice_title" = "Głos";
+
+/* Suffix appended to a TTS voice name for Apple's higher-quality "Enhanced" voice tier, e.g. "Samantha (Enhanced)". */
+"pref_tts_voice_quality_enhanced" = "Ulepszony";
+
+/* Suffix appended to a TTS voice name for Apple's highest-quality "Premium" voice tier, e.g. "Samantha (Premium)". */
+"pref_tts_voice_quality_premium" = "Premium";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Testuj wskazówki głosowe (TTS, Text-To-Speech)";
 "pref_map_auto_zoom" = "Automatyczne powiększanie";
