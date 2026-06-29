@@ -23,6 +23,12 @@ if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
   set(EXPAT_DTD OFF)
   set(EXPAT_NS ON)
   add_subdirectory(expat/expat)
+  # expat 2.8 moved hash-salt entropy into per-file translation units that define
+  # _DEFAULT_SOURCE/_GNU_SOURCE before including <stdlib.h>/<unistd.h>. A unity
+  # build concatenates them after other expat sources, so the feature macros are
+  # set too late and arc4random()/getentropy() become implicitly declared -- a
+  # hard error on glibc + clang. expat is tiny, so disable unity for this target.
+  set_target_properties(expat PROPERTIES UNITY_BUILD OFF)
 
   # Add gflags library.
   set(GFLAGS_BUILD_TESTING OFF)
