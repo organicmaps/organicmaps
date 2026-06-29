@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Trafikdata er ikke tilgængelige";
 "enable_logging" = "Aktiver logføring";
 "transliteration_title" = "Translitterer til det latinske alfabet";
-"planning_route_manage_route" = "Administrer rute";
-"button_plan" = "Planlæg";
 "placepage_remove_stop" = "Fjern stop";
 "placepage_add_stop" = "Tilføj stop";
-"saved" = "Gemt";
 "error_enter_correct_name" = "Angiv et korrekt navn";
 "bookmark_lists" = "Lister";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Undgå motorveje";
 "unable_to_calc_alert_title" = "Kan ikke beregne rute";
 "unable_to_calc_alert_subtitle" = "Der kunne ikke findes en rute. Dette kan skyldes dine ruteindstillinger eller ufuldstændige OpenStreetMap-data. Ændr dine ruteindstillinger, og prøv igen.";
-"define_to_avoid_btn" = "Definer veje du vil undgå";
-"change_driving_options_btn" = "Indstillinger for ruteberegning aktiveret";
 "toll_road" = "Betalingsvej";
 "unpaved_road" = "Ikke-asfalteret vej";
 "ferry_crossing" = "Færgeoverfart";

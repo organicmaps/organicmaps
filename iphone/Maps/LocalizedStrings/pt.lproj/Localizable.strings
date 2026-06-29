@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Os dados de tráfego não estão disponíveis";
 "enable_logging" = "Ativar o histórico";
 "transliteration_title" = "Transliteração para o alfabeto latino";
-"planning_route_manage_route" = "Gerir rota";
-"button_plan" = "Planear";
 "placepage_remove_stop" = "Remover paragem";
 "placepage_add_stop" = "Adicionar paragem";
-"saved" = "Guardado";
 "error_enter_correct_name" = "Introduza um nome correto";
 "bookmark_lists" = "Listas";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Evitar autoestradas";
 "unable_to_calc_alert_title" = "Não foi possível calcular a rota";
 "unable_to_calc_alert_subtitle" = "Infelizmente não foi possível criar o percurso com as opções selecionadas. Altere as opções e tente novamente.";
-"define_to_avoid_btn" = "Definir as estradas a evitar";
-"change_driving_options_btn" = "Configurações de direção ativadas";
 "toll_road" = "Estrada com portagem";
 "unpaved_road" = "Estrada não pavimentada";
 "ferry_crossing" = "Ferry";

@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">Busca ou toca no mapa para engadir a orixe da ruta</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Busca ou toca no mapa para engadir o destino</string>
-    <string name="planning_route_manage_route">Administrar roteiro</string>
-    <string name="button_plan">Planificar</string>
     <string name="placepage_remove_stop">Eliminar parada</string>
     <string name="placepage_add_stop">Engadir parada</string>
     <string name="drag_to_reorder">Reordenar</string>
-    <string name="saved">Gardado</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Por favor, Inicia sesión en OpenStreetMap para cargar automaticamente todas as túas edicións de mapas. Más información <a href="https://github.com/organicmaps/organicmaps/issues/6144">aquí</a>.</string>
     <string name="dialog_error_storage_title">Problema de acceso ao almacenamento</string>
@@ -650,8 +647,6 @@
     <string name="avoid_motorways">Evitar autoestradas</string>
     <string name="unable_to_calc_alert_title">Non se pode calcular a ruta</string>
     <string name="unable_to_calc_alert_subtitle">Non se puido atopar unha ruta. Quizá se deba ás opcións de encamiñamento ou a datos faltantes en OpenStreetMap. Revise as súas opcións de encamiñamento e volva tentalo.</string>
-    <string name="define_to_avoid_btn">Defina os camiños para evitar</string>
-    <string name="change_driving_options_btn">Opcións de encamiñamento activadas</string>
     <string name="toll_road">Estrada de peaxe</string>
     <string name="unpaved_road">Camiño sen pavimentar</string>
     <string name="ferry_crossing">Cruzamento de ferri</string>

@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Umferðargögn eru ekki tiltæk";
 "enable_logging" = "Virkja atvikaskráningu";
 "transliteration_title" = "Umrita yfir í latneskt stafróf";
-"planning_route_manage_route" = "Sýsla með leið";
-"button_plan" = "Skipuleggja";
 "placepage_remove_stop" = "Fjarlægja stopp";
 "placepage_add_stop" = "Bæta við stoppi";
-"saved" = "Vistað";
 "error_enter_correct_name" = "Settu inn rétt nafn";
 "bookmark_lists" = "Listar";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Forðast hraðbrautir";
 "unable_to_calc_alert_title" = "Tókst ekki að reikna leið";
 "unable_to_calc_alert_subtitle" = "Leið fannst ekki. Það gæti stafað af stillingum þínum fyrir leiðagerð eða ófullkomnum gögnum í OpenStreetMap. Breyttu stillingum þínum fyrir leiðagerð og prófaðu aftur.";
-"define_to_avoid_btn" = "Skilgreindu vegi sem á að forðast";
-"change_driving_options_btn" = "Valkostir leiðagerðar virkir";
 "toll_road" = "Vegur með gjaldskyldu";
 "unpaved_road" = "Óbundið slitlag";
 "ferry_crossing" = "Þverun með ferju";

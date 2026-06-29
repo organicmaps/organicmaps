@@ -544,12 +544,9 @@
     <string name="routing_add_start_point">Tumia utafutaji au uguse kwenye ramani ili kuongeza mahali pa kuanzia</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Tumia utafutaji au uguse kwenye ramani ili kuongeza mahali unakoenda</string>
-    <string name="planning_route_manage_route">Dhibiti njia ya kufuata</string>
-    <string name="button_plan">Panga</string>
     <string name="placepage_remove_stop">Ondoa eneo la kusimama</string>
     <string name="placepage_add_stop">Ongeza eneo la kusimama</string>
     <string name="drag_to_reorder">Panga upya</string>
-    <string name="saved">Imehifadhiwa</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Tafadhali ingia kwenye OpenStreetMap ili kupakia kiotomatiki hariri zako zote za ramani. Pata maelezo zaidi <a href="https://github.com/organicmaps/organicmaps/issues/6144">hapa</a>.</string>
     <string name="dialog_error_storage_title">Tatizo la kufikia hifadhi</string>
@@ -644,8 +641,6 @@
     <string name="avoid_motorways">Epuka barabara</string>
     <string name="unable_to_calc_alert_title">Haiwezi kukokotoa njia</string>
     <string name="unable_to_calc_alert_subtitle">Bahati mbaya hatukuweza kupata njia labda kwa sababu ya machaguo msingi. Tafadhali badili mipangilio na jaribu tena</string>
-    <string name="define_to_avoid_btn">Fafanua njia za kuziepuka</string>
-    <string name="change_driving_options_btn">Machaguo ya njia yamewezeshwa</string>
     <string name="toll_road">Barabara ya kulipia</string>
     <string name="unpaved_road">Barabara ya vumbi</string>
     <string name="ferry_crossing">Kivuko cha feri</string>

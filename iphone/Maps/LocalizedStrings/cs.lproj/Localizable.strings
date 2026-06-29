@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Data o provozu nejsou k dispozici";
 "enable_logging" = "Povolit protokolování";
 "transliteration_title" = "Přepis do latinky";
-"planning_route_manage_route" = "Spravovat trasu";
-"button_plan" = "Naplánovat";
 "placepage_remove_stop" = "Odstranit zastávku";
 "placepage_add_stop" = "Přidat zastávku";
-"saved" = "Uloženo";
 "error_enter_correct_name" = "Zadejte prosím správný název";
 "bookmark_lists" = "Seznamy";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Vyhnout se dálnicím";
 "unable_to_calc_alert_title" = "Nelze vypočítat trasu";
 "unable_to_calc_alert_subtitle" = "Bohužel jsme nemohli nalézt trasu. Mohlo se tak stát kvůli vámi definovaným možnostem trasy nebo nekompletním datům OpenStreetMap. Změňte prosím nastavenímožnosti trasy a zkuste to znovu.";
-"define_to_avoid_btn" = "Definovat silnice, kterým se vyhnout";
-"change_driving_options_btn" = "Možnosti trasy aktivní";
 "toll_road" = "Silnice s mýtným";
 "unpaved_road" = "Nezpevněná silnice";
 "ferry_crossing" = "Přejezd trajektů";

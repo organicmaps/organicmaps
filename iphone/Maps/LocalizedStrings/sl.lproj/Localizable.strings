@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Podatki o prometu niso na voljo";
 "enable_logging" = "Omogoči beleženje";
 "transliteration_title" = "Transliteriraj v latinico";
-"planning_route_manage_route" = "Upravljaj pot";
-"button_plan" = "Načrtuj";
 "placepage_remove_stop" = "Odstrani postanek";
 "placepage_add_stop" = "Dodaj postanek";
-"saved" = "Shranjeno";
 "error_enter_correct_name" = "Vnesite pravilno ime";
 "bookmark_lists" = "Seznami";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Izogibaj se avtocestam";
 "unable_to_calc_alert_title" = "Poti ni mogoče izračunati";
 "unable_to_calc_alert_subtitle" = "Poti ni bilo mogoče najti. To je lahko posledica vaših možnosti načrtovanja poti ali nepopolnih podatkov OpenStreetMap. Spremenite možnosti načrtovanja poti in poskusite znova.";
-"define_to_avoid_btn" = "Določite ceste, ki se jim želite izogniti";
-"change_driving_options_btn" = "Možnosti načrtovanja poti omogočene";
 "toll_road" = "Cestninska cesta";
 "unpaved_road" = "Makadamska cesta";
 "ferry_crossing" = "Prečkanje s trajektom";

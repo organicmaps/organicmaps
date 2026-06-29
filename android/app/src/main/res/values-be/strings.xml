@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">Скарыстайцеся пошукам, абярыце закладку, або націсніце на карце, каб дадаць пачатак маршруту</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Скарыстайцеся пошукам, абярыце закладку, або націсніце на карце, каб дадаць пункт прызначэння</string>
-    <string name="planning_route_manage_route">Кіраваць маршрутам</string>
-    <string name="button_plan">Пракласці</string>
     <string name="placepage_remove_stop">Выдаліць прыпынак</string>
     <string name="placepage_add_stop">Дадаць прыпынак</string>
     <string name="drag_to_reorder">Перарадкаваць</string>
-    <string name="saved">Захавана</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Увайдзіце ў OpenStreetMap, каб аўтаматычна запампоўваць усе свае праўкі мапы. Даведайцеся больш <a href="https://github.com/organicmaps/organicmaps/issues/6144">тут</a>.</string>
     <string name="dialog_error_storage_title">Праблема з доступам да сховішча</string>
@@ -656,8 +653,6 @@
     <string name="avoid_motorways">Пазбягаць аўтамагістраляў</string>
     <string name="unable_to_calc_alert_title">Немагчыма пракласці маршрут</string>
     <string name="unable_to_calc_alert_subtitle">Не ўдалося пракласці маршрут. Магчыма гэта звязана з наладамі пракладвання маршрутаў або няпоўнымі данымі OpenStreetMap. Змяніце налады і паспрабуйце зноў.</string>
-    <string name="define_to_avoid_btn">Вызначыць, якіх дарог пазбягаць</string>
-    <string name="change_driving_options_btn">Налады пракладвання маршрутаў уключаны</string>
     <string name="toll_road">Платная дарога</string>
     <string name="unpaved_road">Грунтавая дарога</string>
     <string name="ferry_crossing">Паромная пераправа</string>

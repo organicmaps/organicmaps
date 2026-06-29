@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">Bruk søk eller trykk på kartet for å legge til et startpunkt for ruten</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Bruk søk eller trykk på kartet for å legge til et destinasjonspunkt</string>
-    <string name="planning_route_manage_route">Administrere rute</string>
-    <string name="button_plan">Planlegge</string>
     <string name="placepage_remove_stop">Fjern stopp</string>
     <string name="placepage_add_stop">Angi stopp</string>
     <string name="drag_to_reorder">Omorganiser</string>
-    <string name="saved">Reddet</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Logg inn på OpenStreetMap for automatisk å laste opp alle kartredigeringene dine. Finn ut mer <a href="https://github.com/organicmaps/organicmaps/issues/6144">her</a>.</string>
     <string name="dialog_error_storage_title">Problemer med tilgang til lagring</string>
@@ -647,8 +644,6 @@
     <string name="avoid_motorways">Unngå motorveien</string>
     <string name="unable_to_calc_alert_title">Kan ikke beregne rute</string>
     <string name="unable_to_calc_alert_subtitle">Dessverre kunne vi ikke finne en rute sannsynligvis på grunn av dine definerte alternativer. Vennligst endre innstillingene og prøv igjen</string>
-    <string name="define_to_avoid_btn">Definer veier som skal unngås</string>
-    <string name="change_driving_options_btn">Kjørealternativer aktivert</string>
     <string name="toll_road">Bompengevei</string>
     <string name="unpaved_road">Uasfaltert vei</string>
     <string name="ferry_crossing">Fergeovergang</string>

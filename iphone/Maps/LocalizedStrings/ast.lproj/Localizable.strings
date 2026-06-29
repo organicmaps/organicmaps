@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Traffic data is not available";
 "enable_logging" = "Enable logging";
 "transliteration_title" = "Transliterate into Latin alphabet";
-"planning_route_manage_route" = "Manage Route";
-"button_plan" = "Plan";
 "placepage_remove_stop" = "Desaniciar parada";
 "placepage_add_stop" = "Amestar parada";
-"saved" = "Guardáu";
 "error_enter_correct_name" = "Please enter a correct name";
 "bookmark_lists" = "Llistes";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Avoid freeways";
 "unable_to_calc_alert_title" = "Unable to calculate route";
 "unable_to_calc_alert_subtitle" = "Nun pudo alcontrase una ruta. Quiciabes se deba a les opciones d’encaminamientu o a datos faltantes n’OpenStreetMap. Revisa les tos opciones d’encaminamientu y vuelvi intentalo.";
-"define_to_avoid_btn" = "Define roads to avoid";
-"change_driving_options_btn" = "Routing options enabled";
 "toll_road" = "Toll road";
 "unpaved_road" = "Unpaved road";
 "ferry_crossing" = "Ferry crossing";

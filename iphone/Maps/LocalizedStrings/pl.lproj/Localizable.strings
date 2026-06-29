@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Dane o ruchu są niedostępne";
 "enable_logging" = "Włącz zbieranie danych";
 "transliteration_title" = "Transkrypcja na alfabet łaciński";
-"planning_route_manage_route" = "Zarządzaj trasą";
-"button_plan" = "Zaplanuj";
 "placepage_remove_stop" = "Usuń postój";
 "placepage_add_stop" = "Dodaj postój";
-"saved" = "Zapisano";
 "error_enter_correct_name" = "Wprowadź poprawną nazwę";
 "bookmark_lists" = "Listy";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Unikaj autostrad";
 "unable_to_calc_alert_title" = "Brak możliwości zbudowania trasy";
 "unable_to_calc_alert_subtitle" = "Wyznaczanie trasy nie powiodło się. Przyczyną mogą być ustawienia nawigacji lub niekompletne dane OpenStreetMap. Zmień ustawienia i spróbuj ponownie";
-"define_to_avoid_btn" = "Dostosuj ścieżkę objazdu";
-"change_driving_options_btn" = "Ustawienia objazdu są włączone";
 "toll_road" = "Droga płatna";
 "unpaved_road" = "Droga gruntowa";
 "ferry_crossing" = "Przeprawa promowa";

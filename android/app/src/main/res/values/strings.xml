@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">Use search, select a bookmark, or tap on the map to add a route starting point</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Use search, select a bookmark, or tap on the map to add a destination point</string>
-    <string name="planning_route_manage_route">Manage Route</string>
-    <string name="button_plan">Plan</string>
     <string name="placepage_remove_stop">Remove Stop</string>
     <string name="placepage_add_stop">Add Stop</string>
     <string name="drag_to_reorder">Reorder</string>
-    <string name="saved">Saved</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Please login to OpenStreetMap to automatically upload all your map edits. Learn more <a href="https://github.com/organicmaps/organicmaps/issues/6144">here</a>.</string>
     <string name="dialog_error_storage_title">Storage access problem</string>
@@ -647,8 +644,6 @@
     <string name="avoid_motorways">Avoid freeways</string>
     <string name="unable_to_calc_alert_title">Unable to calculate route</string>
     <string name="unable_to_calc_alert_subtitle">A route could not be found. This may be caused by your routing options or incomplete OpenStreetMap data. Please change your routing options and retry.</string>
-    <string name="define_to_avoid_btn">Define roads to avoid</string>
-    <string name="change_driving_options_btn">Routing options enabled</string>
     <string name="toll_road">Toll road</string>
     <string name="unpaved_road">Unpaved road</string>
     <string name="ferry_crossing">Ferry crossing</string>

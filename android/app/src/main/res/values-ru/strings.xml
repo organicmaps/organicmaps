@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">Используйте поиск, выберите метку, или коснитесь карты, чтобы добавить начальную точку маршрута</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Используйте поиск, выберите метку, или коснитесь карты, чтобы добавить точку назначения</string>
-    <string name="planning_route_manage_route">Изменить маршрут</string>
-    <string name="button_plan">Построить</string>
     <string name="placepage_remove_stop">Удалить остановку</string>
     <string name="placepage_add_stop">Добавить остановку</string>
     <string name="drag_to_reorder">Изменить порядок</string>
-    <string name="saved">Сохранено</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Пожалуйста войдите в аккаунт OpenStreetMap.org, чтобы публиковать ваши изменения карты. Подробности по <a href="https://github.com/organicmaps/organicmaps/issues/6144">ссылке</a>.</string>
     <string name="dialog_error_storage_title">Проблема с доступом к хранилищу</string>
@@ -654,8 +651,6 @@
     <string name="avoid_motorways">Избегать автомагистрали</string>
     <string name="unable_to_calc_alert_title">Невозможно построить маршрут</string>
     <string name="unable_to_calc_alert_subtitle">Маршрут не найден. Это могло быть спровоцировано вашими настройками прокладки маршрута или неполными данными OpenStreetMap. Пожалуйта, измените ваши настройки прокладки маршрута и попробуйте снова.</string>
-    <string name="define_to_avoid_btn">Настроить пути объезда</string>
-    <string name="change_driving_options_btn">Настройки объезда включены</string>
     <string name="toll_road">Платная дорога</string>
     <string name="unpaved_road">Грунтовая дорога</string>
     <string name="ferry_crossing">Паромная переправа</string>

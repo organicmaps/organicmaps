@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">Sử dụng tìm kiếm hoặc nhấn vào bản đồ để thêm điểm bắt đầu tuyến đường</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Sử dụng tìm kiếm hoặc nhấn vào bản đồ để thêm điểm đến</string>
-    <string name="planning_route_manage_route">Quản lý lộ trình</string>
-    <string name="button_plan">Kế hoạch</string>
     <string name="placepage_remove_stop">Xóa điểm dừng</string>
     <string name="placepage_add_stop">Thêm điểm dừng</string>
     <string name="drag_to_reorder">Sắp xếp lại</string>
-    <string name="saved">Đã lưu</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Vui lòng đăng nhập vào OpenStreetMap để tự động tải lên tất cả các chỉnh sửa bản đồ của bạn. Tìm hiểu thêm <a href="https://github.com/organicmaps/organicmaps/issues/6144">tại đây</a>.</string>
     <string name="dialog_error_storage_title">Vấn đề truy cập ổ lưu trữ</string>
@@ -645,8 +642,6 @@
     <string name="avoid_motorways">Tránh xa lộ</string>
     <string name="unable_to_calc_alert_title">Không thể tạo tuyến đường</string>
     <string name="unable_to_calc_alert_subtitle">Rất tiếc, chúng không thể tạo tuyến đường với những tùy chọn đã chọn. Hãy thay đổi thiết lập và thử lại</string>
-    <string name="define_to_avoid_btn">Thiết lập đường đi vòng</string>
-    <string name="change_driving_options_btn">Thiết lập đường đi tránh đã được bật</string>
     <string name="toll_road">Đường trả phí</string>
     <string name="unpaved_road">Đường đất</string>
     <string name="ferry_crossing">Bến phà</string>

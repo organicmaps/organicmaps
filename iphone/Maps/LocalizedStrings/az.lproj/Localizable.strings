@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Nəqliyyat məlumatları mövcud deyil";
 "enable_logging" = "Girişi aktivləşdirin";
 "transliteration_title" = "Latın transliterasiyası";
-"planning_route_manage_route" = "Marşrutu idarə et";
-"button_plan" = "Plan";
 "placepage_remove_stop" = "Kəsmə nöqtəsini silin";
 "placepage_add_stop" = "Dayanacaq nöqtəsini əlavə edin";
-"saved" = "Yadda saxlanıldı";
 "error_enter_correct_name" = "Düzgün ad daxil edin";
 "bookmark_lists" = "Siyahılar";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Magistral yoldan çəkinin";
 "unable_to_calc_alert_title" = "Marşrutu hesablamaq mümkün deyil";
 "unable_to_calc_alert_subtitle" = "Təəssüf ki, seçdiyiniz seçimlərə görə marşrut tapa bilmədik. Seçimləri dəyişdirin və yenidən cəhd edin";
-"define_to_avoid_btn" = "Qarşısını almaq üçün yolları müəyyənləşdirin";
-"change_driving_options_btn" = "Sürmə seçimləri aktiv edildi";
 "toll_road" = "Ücrətli yol";
 "unpaved_road" = "Asfaltsız yol";
 "ferry_crossing" = "Bərə keçidi";

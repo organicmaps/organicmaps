@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">検索を使うか、地図上をタップしてルートの出発点を追加する</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">検索を使うか、地図上をタップして目的地を追加する</string>
-    <string name="planning_route_manage_route">ルートを編集</string>
-    <string name="button_plan">プラン</string>
     <string name="placepage_remove_stop">停留所を削除</string>
     <string name="placepage_add_stop">中間地点を追加</string>
     <string name="drag_to_reorder">並べ替え</string>
-    <string name="saved">保存</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">すべてのマップ編集を自動的にアップロードするには、OpenStreetMapにログインしてください。詳しくは <a href="https://github.com/organicmaps/organicmaps/issues/6144">こちら</a>.</string>
     <string name="dialog_error_storage_title">ストレージアクセスの問題</string>
@@ -646,8 +643,6 @@
     <string name="avoid_motorways">高速道路を避ける</string>
     <string name="unable_to_calc_alert_title">ルートを計算できません</string>
     <string name="unable_to_calc_alert_subtitle">ルートが計算できませんでした。 これは、経路オプションまたは不完全な OpenStreetMap データが原因である可能性があります。 経路オプションを変更して再試行してください。</string>
-    <string name="define_to_avoid_btn">迂回ルートを設定する</string>
-    <string name="change_driving_options_btn">経路オプションは有効になっています</string>
     <string name="toll_road">有料道路</string>
     <string name="unpaved_road">未舗装道路</string>
     <string name="ferry_crossing">フェリー</string>

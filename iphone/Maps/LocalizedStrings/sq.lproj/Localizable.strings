@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Të dhënat e trafikut nuk janë të disponueshme";
 "enable_logging" = "Aktivizo regjistrimin";
 "transliteration_title" = "Translitero në alfabetin latin";
-"planning_route_manage_route" = "Menaxho Rrugën";
-"button_plan" = "Planifiko";
 "placepage_remove_stop" = "Hiq Ndalesën";
 "placepage_add_stop" = "Shto Ndalesë";
-"saved" = "Ruajtur";
 "error_enter_correct_name" = "Ju lutemi vendosni një emër të saktë";
 "bookmark_lists" = "Listat";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Shmang autostradat";
 "unable_to_calc_alert_title" = "Nuk mund të llogaritet rruga";
 "unable_to_calc_alert_subtitle" = "Rruga nuk mund të gjendej. Kjo mund të shkaktohet nga opsionet tuaja të rrugëtimit ose të dhëna të paplota të OpenStreetMap. Ju lutemi ndryshoni opsionet tuaja të rrugëtimit dhe provoni përsëri.";
-"define_to_avoid_btn" = "Përcaktoni rrugët për të shmangur";
-"change_driving_options_btn" = "Mundësitë e rrugëtimit u aktivizuan";
 "toll_road" = "Rrugë me pagesë";
 "unpaved_road" = "Rrugë e paasfaltuar";
 "ferry_crossing" = "Kalim me traget";

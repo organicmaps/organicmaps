@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">Utilizza \"Cerca\", seleziona un segnalibro oppure tocca un punto sulla mappa per aggiungere un punto di partenza del percorso</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Cerca un luogo, seleziona un segnalibro o tocca la mappa per aggiungere una destinazione</string>
-    <string name="planning_route_manage_route">Gestisci percorso</string>
-    <string name="button_plan">Pianifica</string>
     <string name="placepage_remove_stop">Rimuovi sosta</string>
     <string name="placepage_add_stop">Aggiungi sosta</string>
     <string name="drag_to_reorder">Riorganizza</string>
-    <string name="saved">Salvato</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Accedi a OpenStreetMap per caricare automaticamente tutte le tue modifiche alla mappa. Per saperne di più clicca <a href="https://github.com/organicmaps/organicmaps/issues/6144">qui</a>.</string>
     <string name="dialog_error_storage_title">Problema di accesso alla memoria</string>
@@ -652,8 +649,6 @@
     <string name="avoid_motorways">Evita l\'autostrada</string>
     <string name="unable_to_calc_alert_title">Impossibile calcolare il percorso</string>
     <string name="unable_to_calc_alert_subtitle">Non è stato possibile trovare un percorso. Questo potrebbe essere per via delle opzioni che hai scelto o a causa di dati di OpenStreetMap incompleti. Prova a cambiare le impostazioni del percorso e riprova.</string>
-    <string name="define_to_avoid_btn">Scegli le strade da evitare</string>
-    <string name="change_driving_options_btn">Impostazioni di percorso abilitate</string>
     <string name="toll_road">Strada a pedaggio</string>
     <string name="unpaved_road">Strada non asfaltata</string>
     <string name="ferry_crossing">Traghetto</string>

@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Datele privind traficul nu sunt disponibile";
 "enable_logging" = "Activează jurnalizarea";
 "transliteration_title" = "Transcrie în alfabet latin";
-"planning_route_manage_route" = "Gestionare traseu";
-"button_plan" = "Planifică";
 "placepage_remove_stop" = "Scoateți opritorul";
 "placepage_add_stop" = "Adaugă oprire";
-"saved" = "Salvat";
 "error_enter_correct_name" = "Introdu un nume corect";
 "bookmark_lists" = "Liste";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Evitați autostrăzile";
 "unable_to_calc_alert_title" = "Nu poate fi creat un traseu";
 "unable_to_calc_alert_subtitle" = "Din păcate, nu putem elabora un traseu cu opțiunile alese. Modifică-le și încearcă din nou.";
-"define_to_avoid_btn" = "Stabilește drumurile de evitat";
-"change_driving_options_btn" = "Opțiuni de ocolire activate";
 "toll_road" = "Drum cu plată";
 "unpaved_road" = "Drum neasfaltat";
 "ferry_crossing" = "Trecere cu bac";

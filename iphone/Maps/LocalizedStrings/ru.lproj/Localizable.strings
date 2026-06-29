@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Данные о пробках недоступны";
 "enable_logging" = "Включить запись логов";
 "transliteration_title" = "Транслитерировать в Латинский алфавит";
-"planning_route_manage_route" = "Изменить маршрут";
-"button_plan" = "Построить";
 "placepage_remove_stop" = "Удалить остановку";
 "placepage_add_stop" = "Добавить остановку";
-"saved" = "Сохранено";
 "error_enter_correct_name" = "Пожалуйста, введите название правильно";
 "bookmark_lists" = "Списки";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Избегать автомагистрали";
 "unable_to_calc_alert_title" = "Невозможно построить маршрут";
 "unable_to_calc_alert_subtitle" = "Маршрут не найден. Это могло быть спровоцировано вашими настройками прокладки маршрута или неполными данными OpenStreetMap. Пожалуйта, измените ваши настройки прокладки маршрута и попробуйте снова.";
-"define_to_avoid_btn" = "Настроить пути объезда";
-"change_driving_options_btn" = "Настройки объезда включены";
 "toll_road" = "Платная дорога";
 "unpaved_road" = "Грунтовая дорога";
 "ferry_crossing" = "Паромная переправа";

@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">請搜尋地點、選擇書籤或點擊地圖以新增路線起點</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">請搜尋地點、選擇書籤或點擊地圖以新增目的地</string>
-    <string name="planning_route_manage_route">管理路線</string>
-    <string name="button_plan">計畫</string>
     <string name="placepage_remove_stop">刪除停止</string>
     <string name="placepage_add_stop">新增中途點</string>
     <string name="drag_to_reorder">重新排序</string>
-    <string name="saved">已經儲存</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">請登入 OpenStreetMap 以自動上傳您的所有地圖編輯。若要了解更多資訊請點擊<a href="https://github.com/organicmaps/organicmaps/issues/6144">這裡</a>。</string>
     <string name="dialog_error_storage_title">儲存空間存儲問題</string>
@@ -648,8 +645,6 @@
     <string name="avoid_motorways">避開高速公路</string>
     <string name="unable_to_calc_alert_title">無法規劃路線</string>
     <string name="unable_to_calc_alert_subtitle">很遺憾，我們無法使用所選的繞行設定規劃路線。請更改設定，然後重試。</string>
-    <string name="define_to_avoid_btn">選擇要避開的道路</string>
-    <string name="change_driving_options_btn">繞行設定已開啟</string>
     <string name="toll_road">收費公路</string>
     <string name="unpaved_road">未鋪面道路</string>
     <string name="ferry_crossing">渡輪</string>

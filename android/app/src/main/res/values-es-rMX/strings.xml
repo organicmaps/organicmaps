@@ -298,7 +298,6 @@
     <string name="routing_add_start_point">Utilice la búsqueda, seleccione un marcador o pulse en el mapa para añadir un punto de partida de la ruta</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Utilice la búsqueda, seleccione un marcador o pulse en el mapa para añadir un punto de destino.</string>
-    <string name="planning_route_manage_route">Administrar ruta</string>
     <string name="placepage_remove_stop">Quitar Stop</string>
     <string name="placepage_add_stop">Añadir tope</string>
     <string name="drag_to_reorder">Reordenar</string>
@@ -363,7 +362,6 @@
     <string name="avoid_motorways">Evite las autopistas</string>
     <string name="unable_to_calc_alert_title">No se puede construir una ruta</string>
     <string name="unable_to_calc_alert_subtitle">No se ha podido encontrar una ruta. Esto puede deberse a sus opciones de ruta o a datos incompletos de OpenStreetMap. Cambia tus opciones de ruta y vuelve a intentarlo.</string>
-    <string name="define_to_avoid_btn">Definir las carreteras que deben evitarse</string>
     <string name="toll_road">Autopista de peaje</string>
     <string name="unpaved_road">Carretera sin asfaltar</string>
     <string name="ferry_crossing">Travesía en transbordador</string>

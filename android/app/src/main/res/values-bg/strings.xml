@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">Използвайте търсене или докоснете картата, за да добавите начална точка на маршрута</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Използвайте търсене или докоснете картата, за да добавите точка на дестинация</string>
-    <string name="planning_route_manage_route">Управление на маршрут</string>
-    <string name="button_plan">Планиране</string>
     <string name="placepage_remove_stop">Премахване на спирка</string>
     <string name="placepage_add_stop">Добавяне на спирка</string>
     <string name="drag_to_reorder">Преподреждане</string>
-    <string name="saved">Запазено</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Моля, влезте в OpenStreetMap, за да качвате автоматично всичките си редакции на картата. Научете повече <a href="https://github.com/organicmaps/organicmaps/issues/6144">тук</a>.</string>
     <string name="dialog_error_storage_title">Проблем с достъпа до хранилището</string>
@@ -646,8 +643,6 @@
     <string name="avoid_motorways">Избягвайте магистралата</string>
     <string name="unable_to_calc_alert_title">Не е възможнос изчисляване на маршрут</string>
     <string name="unable_to_calc_alert_subtitle">За съжаление не успяхме да намерим маршрут, вероятно поради избраните от вас параметри. Моля, променете настройките и опитайте отново.</string>
-    <string name="define_to_avoid_btn">Определяне пътищата, които да се избягват</string>
-    <string name="change_driving_options_btn">Разрешени опции за маршрутизиране</string>
     <string name="toll_road">Път с винетка</string>
     <string name="unpaved_road">Път без настилка</string>
     <string name="ferry_crossing">Преминаване с ферибот</string>

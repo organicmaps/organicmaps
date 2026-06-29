@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "البيانات المرورية غير متاحة";
 "enable_logging" = "تفعيل التسجيل";
 "transliteration_title" = "ترجمة حرفية إلى الأبجدية اللاتينية";
-"planning_route_manage_route" = "إدارة المسار";
-"button_plan" = "خطة";
 "placepage_remove_stop" = "إزالة نقطة توقف";
 "placepage_add_stop" = "إضافة نقطة توقف";
-"saved" = "حُفظت";
 "error_enter_correct_name" = "الرجاء إدخال اسم صحيح";
 "bookmark_lists" = "قوائم";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "تجنب الطريق السريع";
 "unable_to_calc_alert_title" = "لا يمكن حساب الطريق";
 "unable_to_calc_alert_subtitle" = "نأسف، لم نعثر على الطريق ربما بسبب الخيارات التي قمت بتحديدها. يرجى تغيير الإعدادات والمحاولة مجددًا.";
-"define_to_avoid_btn" = "حدد الطرق التي يجب تجنبها";
-"change_driving_options_btn" = "تم تفعيل خيارات رسم الطريق";
 "toll_road" = "طريق برسوم مرور";
 "unpaved_road" = "طريق غير معبد";
 "ferry_crossing" = "استخدام عبّارة";

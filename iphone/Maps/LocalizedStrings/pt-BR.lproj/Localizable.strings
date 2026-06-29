@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Não existem dados de tráfego";
 "enable_logging" = "Ativar o registro";
 "transliteration_title" = "Transliterar para alfabeto latino";
-"planning_route_manage_route" = "Gerenciar rota";
-"button_plan" = "Planejar";
 "placepage_remove_stop" = "Remover parada";
 "placepage_add_stop" = "Adicionar parada";
-"saved" = "Salvo";
 "error_enter_correct_name" = "Por favor, digite um nome correto";
 "bookmark_lists" = "Listas";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Evitar rodovias";
 "unable_to_calc_alert_title" = "Incapaz de calcular rota";
 "unable_to_calc_alert_subtitle" = "Infelizmente, não conseguimos encontrar uma rota, provavelmente por causa das opções escolhidas ou dados do OpenStreetMap em falta. Por favor, altere as configurações e tente novamente.";
-"define_to_avoid_btn" = "Definir as estradas a serem evitadas";
-"change_driving_options_btn" = "Opções de direção ativadas";
 "toll_road" = "Pedágio";
 "unpaved_road" = "Pista não pavimentada";
 "ferry_crossing" = "Balsa";

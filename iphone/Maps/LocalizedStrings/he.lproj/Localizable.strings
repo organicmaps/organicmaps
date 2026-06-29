@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "מידע על עומס תנועה לא זמין.";
 "enable_logging" = "הפעל logging";
 "transliteration_title" = "תעתיק לאותיות לטיניות";
-"planning_route_manage_route" = "ניהול מסלול";
-"button_plan" = "תכנון";
 "placepage_remove_stop" = "הסר עצירה";
 "placepage_add_stop" = "הוסף עצירה";
-"saved" = "נשמר";
 "error_enter_correct_name" = "נא להזין שם תקין";
 "bookmark_lists" = "רשימות";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "הימנע מכבישים מהירים";
 "unable_to_calc_alert_title" = "לא ניתן לחשב מסלול";
 "unable_to_calc_alert_subtitle" = "לא נמצא מסלול. ייתכן כי זה נגרם מאפשרויות המסלול שלך או ממידע לא שלם של OpenStreetMap. נא לשנות אפשרויות מסלול ולנסות שנית.";
-"define_to_avoid_btn" = "הגדר כבישים להימנע מהם";
-"change_driving_options_btn" = "אפשרויות מסלול מופעלות";
 "toll_road" = "כביש אגרה";
 "unpaved_road" = "דרך לא סלולה";
 "ferry_crossing" = "מעבורת";

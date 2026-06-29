@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Traffic data is not available";
 "enable_logging" = "Enable logging";
 "transliteration_title" = "Transliterate into Latin alphabet";
-"planning_route_manage_route" = "Manage Route";
-"button_plan" = "Plan";
 "placepage_remove_stop" = "Remove Stop";
 "placepage_add_stop" = "Add Stop";
-"saved" = "Saved";
 "error_enter_correct_name" = "Please enter a correct name";
 "bookmark_lists" = "Lists";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Avoid motorways";
 "unable_to_calc_alert_title" = "Unable to calculate route";
 "unable_to_calc_alert_subtitle" = "A route could not be found. This may be caused by your routing options or incomplete OpenStreetMap data. Please change your routing options and retry.";
-"define_to_avoid_btn" = "Define roads to avoid";
-"change_driving_options_btn" = "Routing options enabled";
 "toll_road" = "Toll road";
 "unpaved_road" = "Unpaved road";
 "ferry_crossing" = "Ferry crossing";

@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Dữ liệu giao thông không khả dụng";
 "enable_logging" = "Bật nhật ký";
 "transliteration_title" = "Chuyển ngữ sang chữ Latinh";
-"planning_route_manage_route" = "Quản lý lộ trình";
-"button_plan" = "Kế hoạch";
 "placepage_remove_stop" = "Xóa điểm dừng";
 "placepage_add_stop" = "Thêm điểm dừng";
-"saved" = "Đã lưu";
 "error_enter_correct_name" = "Vui lòng nhập một tên chính xác";
 "bookmark_lists" = "Danh sách";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Tránh xa lộ";
 "unable_to_calc_alert_title" = "Không thể tạo tuyến đường";
 "unable_to_calc_alert_subtitle" = "Rất tiếc, chúng không thể tạo tuyến đường với những tùy chọn đã chọn. Hãy thay đổi thiết lập và thử lại";
-"define_to_avoid_btn" = "Thiết lập đường đi vòng";
-"change_driving_options_btn" = "Thiết lập đường đi tránh đã được bật";
 "toll_road" = "Đường trả phí";
 "unpaved_road" = "Đường đất";
 "ferry_crossing" = "Bến phà";

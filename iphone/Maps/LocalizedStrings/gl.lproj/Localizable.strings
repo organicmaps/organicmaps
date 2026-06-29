@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Os datos de tráfico non están dispoñibles";
 "enable_logging" = "Activar rexistros";
 "transliteration_title" = "Transliteración ao alfabeto latino";
-"planning_route_manage_route" = "Administrar roteiro";
-"button_plan" = "Planificar";
 "placepage_remove_stop" = "Eliminar parada";
 "placepage_add_stop" = "Engadir parada";
-"saved" = "Gardado";
 "error_enter_correct_name" = "Por favor, introduza o nome correcto";
 "bookmark_lists" = "Listas";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Evitar autoestradas";
 "unable_to_calc_alert_title" = "Non se pode calcular a ruta";
 "unable_to_calc_alert_subtitle" = "Non se puido atopar unha ruta. Quizá se deba ás opcións de encamiñamento ou a datos faltantes en OpenStreetMap. Revise as súas opcións de encamiñamento e volva tentalo.";
-"define_to_avoid_btn" = "Defina os camiños para evitar";
-"change_driving_options_btn" = "Opcións de encamiñamento activadas";
 "toll_road" = "Estrada de peaxe";
 "unpaved_road" = "Camiño sen pavimentar";
 "ferry_crossing" = "Cruzamento de ferri";

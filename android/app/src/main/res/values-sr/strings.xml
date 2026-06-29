@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">Користите претрагу или кратко додирните мапу да бисте додали почетну тачку руте</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Користите претрагу или кратко додирните мапу да бисте додали одредишну тачку</string>
-    <string name="planning_route_manage_route">Измени руту</string>
-    <string name="button_plan">План</string>
     <string name="placepage_remove_stop">Уклони међуодредиште</string>
     <string name="placepage_add_stop">Међуодредиште</string>
     <string name="drag_to_reorder">Преуредити</string>
-    <string name="saved">Сачувано</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Молим Вас да се пријавите на OpenStreetMap да бисте аутоматски послали своје промене на мапи. Сазнајте више о томе <a href="https://github.com/organicmaps/organicmaps/issues/6144">овде</a>.</string>
     <string name="dialog_error_storage_title">Проблем са приступом меморији</string>
@@ -650,8 +647,6 @@
     <string name="avoid_motorways">Избегавај аутопутеве</string>
     <string name="unable_to_calc_alert_title">Није могуће израчунати руту</string>
     <string name="unable_to_calc_alert_subtitle">Рута није пронађена. Узрок могу бити опције рутирања или непотпуни OpenStreetMap подаци. Молим Вас да промените ваше опције рутирања и покушате поново.</string>
-    <string name="define_to_avoid_btn">Изабери путеве за избегавање</string>
-    <string name="change_driving_options_btn">Опције рутирања су укључене</string>
     <string name="toll_road">Путеви са путаринама</string>
     <string name="unpaved_road">Неасфалтирани путеви</string>
     <string name="ferry_crossing">Линије трајекта</string>

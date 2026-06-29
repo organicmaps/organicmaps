@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Verkeersgegevens zijn niet beschikbaar";
 "enable_logging" = "Logboekregistratie inschakelen";
 "transliteration_title" = "Transliteratie in het Latijnse alfabet";
-"planning_route_manage_route" = "Beheer route";
-"button_plan" = "Plan";
 "placepage_remove_stop" = "Verwijder tussenstop";
 "placepage_add_stop" = "Voeg tussenstop toe";
-"saved" = "Opgeslagen";
 "error_enter_correct_name" = "Voer een geldige naam in";
 "bookmark_lists" = "Lijsten";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Vermijd snelwegen";
 "unable_to_calc_alert_title" = "Kan route niet berekenen";
 "unable_to_calc_alert_subtitle" = "Helaas konden we geen route berekenen. Dit kan komen door uw gekozen opties of door incomplete OpenStreetMap-data. Wijzig de instellingen en probeer het opnieuw.";
-"define_to_avoid_btn" = "Definieer wegen om te vermijden";
-"change_driving_options_btn" = "Route-instellingen ingeschakeld";
 "toll_road" = "Tolweg";
 "unpaved_road" = "Onverharde weg";
 "ferry_crossing" = "Veerbootverbinding";

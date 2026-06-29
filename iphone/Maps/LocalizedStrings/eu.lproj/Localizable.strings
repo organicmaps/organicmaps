@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Trafiko datuak ez daude eskuragarri";
 "enable_logging" = "Historia gaitu";
 "transliteration_title" = "Latinezko transliterazioa";
-"planning_route_manage_route" = "Kudeatu ibilbidea";
-"button_plan" = "Planifikatu";
 "placepage_remove_stop" = "Kendu geltokia";
 "placepage_add_stop" = "Gehitu geltokia";
-"saved" = "Gordeta";
 "error_enter_correct_name" = "Mesedez, idatzi baliozko izen bat";
 "bookmark_lists" = "Zerrendak";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Autobideak saihestea";
 "unable_to_calc_alert_title" = "Ezin da ibilbidea proposatu";
 "unable_to_calc_alert_subtitle" = "Zoritxarrez, ezin izan dugu aukeratutako aukerekin ibilbiderik proposatu. Aldatu ezarpenak eta saiatu berriro.";
-"define_to_avoid_btn" = "Zehaztu saihestu beharreko bideak";
-"change_driving_options_btn" = "Bideratze aukerak gaituta";
 "toll_road" = "Ordainpeko errepidea";
 "unpaved_road" = "Asfaltatu gabeko errepidea";
 "ferry_crossing" = "Ferry zeharkaldia";

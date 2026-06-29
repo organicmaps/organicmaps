@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "यातायात डेटा उपलब्ध नहीं है";
 "enable_logging" = "लॉगिंग करने देना";
 "transliteration_title" = "लैटिन में लिप्यंतरण";
-"planning_route_manage_route" = "मार्ग प्रबंधित करें";
-"button_plan" = "योजना";
 "placepage_remove_stop" = "रोक हटाएँ";
 "placepage_add_stop" = "गंतव्य जोड़ें";
-"saved" = "सहेजा गया";
 "error_enter_correct_name" = "कृपया एक सही नाम दर्ज करें";
 "bookmark_lists" = "सूचियों";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "फ़्रीवेज़ से बचें";
 "unable_to_calc_alert_title" = "मार्ग की गणना करने में असमर्थ";
 "unable_to_calc_alert_subtitle" = "कोई मार्ग नहीं मिल सका. यह आपके रूटिंग विकल्पों या अधूरे OpenStreetMap डेटा के कारण हो सकता है। कृपया अपने रूटिंग विकल्प बदलें और पुनः प्रयास करें।";
-"define_to_avoid_btn" = "बचने के लिए सड़कों को परिभाषित करें";
-"change_driving_options_btn" = "रूटिंग विकल्प सक्षम";
 "toll_road" = "शुल्क मार्ग";
 "unpaved_road" = "अनपक्की सड़क";
 "ferry_crossing" = "फेरी क्रॉसिंग";

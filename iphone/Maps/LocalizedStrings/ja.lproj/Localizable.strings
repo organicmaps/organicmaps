@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "交通データは利用できません";
 "enable_logging" = "ログを有効化";
 "transliteration_title" = "ラテン文字への翻字";
-"planning_route_manage_route" = "ルートを編集";
-"button_plan" = "プラン";
 "placepage_remove_stop" = "停留所を削除";
 "placepage_add_stop" = "中間地点を追加";
-"saved" = "保存";
 "error_enter_correct_name" = "正しい名前を入力してください";
 "bookmark_lists" = "リスト";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "高速道路を避ける";
 "unable_to_calc_alert_title" = "ルートを計算できません";
 "unable_to_calc_alert_subtitle" = "ルートが計算できませんでした。 これは、経路オプションまたは不完全な OpenStreetMap データが原因である可能性があります。 経路オプションを変更して再試行してください。";
-"define_to_avoid_btn" = "迂回ルートを設定する";
-"change_driving_options_btn" = "経路オプションは有効になっています";
 "toll_road" = "有料道路";
 "unpaved_road" = "未舗装道路";
 "ferry_crossing" = "フェリー";

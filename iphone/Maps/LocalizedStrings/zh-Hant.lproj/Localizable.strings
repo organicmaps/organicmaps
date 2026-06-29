@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "交通資訊不可用";
 "enable_logging" = "啟用日誌記錄";
 "transliteration_title" = "拉丁字母音譯";
-"planning_route_manage_route" = "管理路線";
-"button_plan" = "計畫";
 "placepage_remove_stop" = "刪除停止";
 "placepage_add_stop" = "新增中途點";
-"saved" = "已經儲存";
 "error_enter_correct_name" = "請輸入正確的名稱";
 "bookmark_lists" = "列表";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "避開高速公路";
 "unable_to_calc_alert_title" = "無法規劃路線";
 "unable_to_calc_alert_subtitle" = "很遺憾，我們無法使用所選的繞行設定規劃路線。請更改設定，然後重試。";
-"define_to_avoid_btn" = "選擇要避開的道路";
-"change_driving_options_btn" = "繞行設定已開啟";
 "toll_road" = "收費公路";
 "unpaved_road" = "未鋪面道路";
 "ferry_crossing" = "渡輪";

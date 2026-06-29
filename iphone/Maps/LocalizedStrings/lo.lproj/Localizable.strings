@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "ຂໍ້ມູນການຈະລາຈອນບໍ່ພ້ອມໃຊ້ງານ";
 "enable_logging" = "ເປີດການບັນທຶກລັອກ";
 "transliteration_title" = "ຖອດອັກສອນເປັນພາສາລາແຕັງ";
-"planning_route_manage_route" = "ຈັດການເສັ້ນທາງ";
-"button_plan" = "ວາງແຜນ";
 "placepage_remove_stop" = "ເອົາຈຸດແວ່ພັກອອກ";
 "placepage_add_stop" = "ເພີ່ມຈຸດແວ່ພັກ";
-"saved" = "ບັນທຶກແລ້ວ";
 "error_enter_correct_name" = "ກະລຸນາປ້ອນຊື່ທີ່ຖືກຕ້ອງ";
 "bookmark_lists" = "ລາຍການ";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "ເລ່ຽງທາງດ່ວນ";
 "unable_to_calc_alert_title" = "ບໍ່ສາມາດຄິດໄລ່ເສັ້ນທາງໄດ້";
 "unable_to_calc_alert_subtitle" = "ບໍ່ພົບເສັ້ນທາງ. ນີ້ອາດຈະເກີດຈາກຕົວເລືອກການສ້າງເສັ້ນທາງຂອງທ່ານ ຫຼື ຂໍ້ມູນ OpenStreetMap ບໍ່ສົມບູນ. ກະລຸນາປ່ຽນຕົວເລືອກການສ້າງເສັ້ນທາງຂອງທ່ານ ແລະ ລອງໃໝ່.";
-"define_to_avoid_btn" = "ກຳນົດຖະໜົນທີ່ຕ້ອງການເລ່ຽງ";
-"change_driving_options_btn" = "ເປີດໃຊ້ຕົວເລືອກການສ້າງເສັ້ນທາງແລ້ວ";
 "toll_road" = "ທາງເສຍຄ່າທຳນຽມ";
 "unpaved_road" = "ທາງບໍ່ປູຢາງ";
 "ferry_crossing" = "ຈຸດຂ້າມເຮືອຟາກ";

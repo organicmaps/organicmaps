@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Data lalu lintas tidak tersedia";
 "enable_logging" = "Aktifkan pencatatan";
 "transliteration_title" = "Transliterasi ke dalam bahasa Latin";
-"planning_route_manage_route" = "Kelola rute";
-"button_plan" = "Rencana";
 "placepage_remove_stop" = "Hapus pemberhentian";
 "placepage_add_stop" = "Tambah perhentian";
-"saved" = "Tersimpan";
 "error_enter_correct_name" = "Harap masukkan nama yang benar";
 "bookmark_lists" = "Daftar";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Hindari jalan raya";
 "unable_to_calc_alert_title" = "Tidak dapat menghitung rute";
 "unable_to_calc_alert_subtitle" = "Sayangnya kami tidak dapat menemukan rute karena opsi pilihan Anda. Harap ubah pengaturan lalu coba lagi";
-"define_to_avoid_btn" = "Tentukan jalan yang dihindari";
-"change_driving_options_btn" = "Opsi perutean diaktifkan";
 "toll_road" = "Jalan tol";
 "unpaved_road" = "Jalan tanah";
 "ferry_crossing" = "Penyeberangan kapal feri";

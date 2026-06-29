@@ -236,7 +236,6 @@
     <string name="learn_more">Deprende más</string>
     <string name="placepage_remove_stop">Desaniciar parada</string>
     <string name="placepage_add_stop">Amestar parada</string>
-    <string name="saved">Guardáu</string>
     <string name="bookmark_lists">Llistes</string>
     <plurals name="bookmarks_places">
         <item quantity="one">%d marcador</item>

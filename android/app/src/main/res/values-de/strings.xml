@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">Verwende die Suche, wähle ein Lesezeichen aus oder tippe auf die Karte, um einen Routenstartpunkt hinzuzufügen</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Verwende die Suche, wähle ein Lesezeichen aus oder tippe auf die Karte, um einen Zielpunkt hinzuzufügen</string>
-    <string name="planning_route_manage_route">Route verwalten</string>
-    <string name="button_plan">Planen</string>
     <string name="placepage_remove_stop">Stopp entfernen</string>
     <string name="placepage_add_stop">Stopp einfügen</string>
     <string name="drag_to_reorder">Neu anordnen</string>
-    <string name="saved">Gespeichert</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Bitte melde dich bei OpenStreetMap an, um alle deine Kartenbearbeitungen automatisch hochzuladen. Erfahre mehr <a href="https://github.com/organicmaps/organicmaps/issues/6144">hier</a>.</string>
     <string name="dialog_error_storage_title">Problem mit dem Zugreifen auf den Speicher</string>
@@ -649,8 +646,6 @@
     <string name="avoid_motorways">Autobahnen vermeiden</string>
     <string name="unable_to_calc_alert_title">Route kann nicht berechnet werden</string>
     <string name="unable_to_calc_alert_subtitle">Eine Route konnte nicht gefunden werden. Dies kann an deinen Routenbeschränkungen oder an unvollständigen OpenStreetMap-Daten liegen. Bitte ändere deine Routenbeschränkungen und versuche es erneut.</string>
-    <string name="define_to_avoid_btn">Routenbeschränkung einstellen</string>
-    <string name="change_driving_options_btn">Routenbeschränkungen aktiv</string>
     <string name="toll_road">Mautstraße</string>
     <string name="unpaved_road">Unbefestigte Straße</string>
     <string name="ferry_crossing">Fährstelle</string>

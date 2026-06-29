@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">मार्ग प्रारंभ बिंदू जोडण्यासाठी नकाशावर शोध वापरा किंवा टॅप करा</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">गंतव्य बिंदू जोडण्यासाठी नकाशावर शोधा किंवा टॅप करा</string>
-    <string name="planning_route_manage_route">मार्ग व्यवस्थापन</string>
-    <string name="button_plan">नियोजन</string>
     <string name="placepage_remove_stop">थांबा काढा</string>
     <string name="placepage_add_stop">स्टॉप जोडा</string>
     <string name="drag_to_reorder">पुनःक्रमवारी</string>
-    <string name="saved">जतन केले</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">तुमची सर्व नकाशा संपादने स्वयंचलितपणे अपलोड करण्यासाठी कृपया OpenStreetMap वर लॉग इन करा. <a href="https://github.com/organicmaps/organicmaps/issues/6144">येथे</a> अधिक जाणून घ्या.</string>
     <string name="dialog_error_storage_title">स्टोरेज प्रवेश समस्या</string>
@@ -647,8 +644,6 @@
     <string name="avoid_motorways">मोटरवे टाळा</string>
     <string name="unable_to_calc_alert_title">मार्गाची गणना करण्यात अक्षम</string>
     <string name="unable_to_calc_alert_subtitle">दुर्दैवाने, आम्ही मार्ग शोधू शकलो नाही. ह्याचे कारण कदाचित तुम्ही निवडलेले पर्याय असावे. कृपया सेटिंग बदला आणि पुन्हा प्रयत्न करा.</string>
-    <string name="define_to_avoid_btn">टाळण्याचे मार्ग निवडा</string>
-    <string name="change_driving_options_btn">मार्गशोधी पर्याय चालू केले</string>
     <string name="toll_road">टोल मार्ग</string>
     <string name="unpaved_road">कच्चे मार्ग</string>
     <string name="ferry_crossing">जल मार्ग</string>

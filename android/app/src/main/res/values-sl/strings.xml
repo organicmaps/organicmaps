@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">Uporabite iskanje ali se dotaknite zemljevida, da dodate začetno točko poti</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Uporabite iskanje ali se dotaknite zemljevida, da dodate ciljno točko</string>
-    <string name="planning_route_manage_route">Upravljaj pot</string>
-    <string name="button_plan">Načrtuj</string>
     <string name="placepage_remove_stop">Odstrani postanek</string>
     <string name="placepage_add_stop">Dodaj postanek</string>
     <string name="drag_to_reorder">Preuredi</string>
-    <string name="saved">Shranjeno</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Prijavite se v OpenStreetMap, da samodejno naložite vsa svoja urejanja zemljevida. Več o tem <a href="https://github.com/organicmaps/organicmaps/issues/6144">tukaj</a>.</string>
     <string name="dialog_error_storage_title">Težava z dostopom do shrambe</string>
@@ -653,8 +650,6 @@
     <string name="avoid_motorways">Izogibaj se avtocestam</string>
     <string name="unable_to_calc_alert_title">Poti ni mogoče izračunati</string>
     <string name="unable_to_calc_alert_subtitle">Poti ni bilo mogoče najti. To je lahko posledica vaših možnosti načrtovanja poti ali nepopolnih podatkov OpenStreetMap. Spremenite možnosti načrtovanja poti in poskusite znova.</string>
-    <string name="define_to_avoid_btn">Določite ceste, ki se jim želite izogniti</string>
-    <string name="change_driving_options_btn">Možnosti načrtovanja poti omogočene</string>
     <string name="toll_road">Cestninska cesta</string>
     <string name="unpaved_road">Makadamska cesta</string>
     <string name="ferry_crossing">Prečkanje s trajektom</string>

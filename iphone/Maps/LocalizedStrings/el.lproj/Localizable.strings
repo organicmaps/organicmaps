@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Οι πληροφορίες για την κίνηση δεν είναι διαθέσιμες";
 "enable_logging" = "Ενεργοποίηση δυνατότητας καταγραφής";
 "transliteration_title" = "Μεταγραφή στο λατινικό αλφάβητο";
-"planning_route_manage_route" = "Διαχείριση διαδρομής";
-"button_plan" = "Σχεδιασμός";
 "placepage_remove_stop" = "Αφαίρεση στάσης";
 "placepage_add_stop" = "Προσθήκη στάσης";
-"saved" = "Αποθηκεύτηκε";
 "error_enter_correct_name" = "Εισάγετε ένα σωστό όνομα";
 "bookmark_lists" = "Λίστες";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Αποφυγή αυτοκινητόδρομων";
 "unable_to_calc_alert_title" = "Δεν ήταν δυνατός ο υπολογισμός διαδρομής";
 "unable_to_calc_alert_subtitle" = "Δυστυχώς, δεν μπορούσαμε να δημιουργήσουμε μια διαδρομή με τις καθορισμένες επιλογές. Αλλάξτε τις ρυθμίσεις και δοκιμάστε πάλι.";
-"define_to_avoid_btn" = "Ορισμός δρόμων προς αποφυγή";
-"change_driving_options_btn" = "Ρυθμίσεις δρομολόγησης ενεργοποιημένες";
 "toll_road" = "Δρόμος με διόδια";
 "unpaved_road" = "Χωματόδρομος";
 "ferry_crossing" = "Πέρασμα πορθμείου";

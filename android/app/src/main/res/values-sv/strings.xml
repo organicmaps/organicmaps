@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">Använd sökfunktionen eller tryck på kartan för att lägga till en startpunkt för rutten</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Använd sökfunktionen eller tryck på kartan för att lägga till en destinationspunkt</string>
-    <string name="planning_route_manage_route">Hantera rutt</string>
-    <string name="button_plan">Planera</string>
     <string name="placepage_remove_stop">Ta bort stoppet</string>
     <string name="placepage_add_stop">Lägg till stopp</string>
     <string name="drag_to_reorder">Ordna om</string>
-    <string name="saved">Sparade</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Logga in på OpenStreetMap för att automatiskt ladda upp alla dina kartredigeringar. Läs mer <a href="https://github.com/organicmaps/organicmaps/issues/6144">här</a>.</string>
     <string name="dialog_error_storage_title">Lagringsåtkomstproblem</string>
@@ -647,8 +644,6 @@
     <string name="avoid_motorways">Undvik motorvägen</string>
     <string name="unable_to_calc_alert_title">Det går inte att hitta rutt</string>
     <string name="unable_to_calc_alert_subtitle">Tyvärr kunde vi inte hitta en rutt. Detta kan bero på dina ruttpreferenser eller ofullständigt kartunderlag i OpenStreetMap. Ändra gärna dina val och försök igen.</string>
-    <string name="define_to_avoid_btn">Definiera oönskade vägar</string>
-    <string name="change_driving_options_btn">Ruttinställningar aktiverade</string>
     <string name="toll_road">Betalväg</string>
     <string name="unpaved_road">Oasfalterad väg</string>
     <string name="ferry_crossing">Färjetrafik</string>

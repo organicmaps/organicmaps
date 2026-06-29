@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">Gunakan pencarian atau ketuk pada peta untuk menambahkan titik awal rute</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Gunakan pencarian atau ketuk pada peta untuk menambahkan titik tujuan</string>
-    <string name="planning_route_manage_route">Kelola rute</string>
-    <string name="button_plan">Rencana</string>
     <string name="placepage_remove_stop">Hapus pemberhentian</string>
     <string name="placepage_add_stop">Tambah perhentian</string>
     <string name="drag_to_reorder">Mengatur ulang</string>
-    <string name="saved">Tersimpan</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Silahkan login ke OpenStreetMap untuk mengupload semua hasil edit peta Anda secara otomatis. Pelajari lebih lanjut <a href="https://github.com/organicmaps/organicmaps/issues/6144">di sini</a>.</string>
     <string name="dialog_error_storage_title">Masalah akses penyimpanan</string>
@@ -645,8 +642,6 @@
     <string name="avoid_motorways">Hindari jalan raya</string>
     <string name="unable_to_calc_alert_title">Tidak dapat menghitung rute</string>
     <string name="unable_to_calc_alert_subtitle">Sayangnya kami tidak dapat menemukan rute karena opsi pilihan Anda. Harap ubah pengaturan lalu coba lagi</string>
-    <string name="define_to_avoid_btn">Tentukan jalan yang dihindari</string>
-    <string name="change_driving_options_btn">Opsi perutean diaktifkan</string>
     <string name="toll_road">Jalan tol</string>
     <string name="unpaved_road">Jalan tanah</string>
     <string name="ferry_crossing">Penyeberangan kapal feri</string>

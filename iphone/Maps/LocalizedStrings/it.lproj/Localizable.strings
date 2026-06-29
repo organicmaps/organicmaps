@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Dati sul traffico non disponibili";
 "enable_logging" = "Abilita il log";
 "transliteration_title" = "Traslittera in caratteri latini";
-"planning_route_manage_route" = "Gestisci percorso";
-"button_plan" = "Pianifica";
 "placepage_remove_stop" = "Rimuovi sosta";
 "placepage_add_stop" = "Aggiungi sosta";
-"saved" = "Salvato";
 "error_enter_correct_name" = "Inserire un nome corretto";
 "bookmark_lists" = "Liste";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Evita l'autostrada";
 "unable_to_calc_alert_title" = "Impossibile calcolare il percorso";
 "unable_to_calc_alert_subtitle" = "Non è stato possibile trovare un percorso. Questo potrebbe essere per via delle opzioni che hai scelto o a causa di dati di OpenStreetMap incompleti. Prova a cambiare le impostazioni del percorso e riprova.";
-"define_to_avoid_btn" = "Scegli le strade da evitare";
-"change_driving_options_btn" = "Impostazioni di percorso abilitate";
 "toll_road" = "Strada a pedaggio";
 "unpaved_road" = "Strada non asfaltata";
 "ferry_crossing" = "Traghetto";

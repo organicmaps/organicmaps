@@ -390,11 +390,8 @@
     <string name="routing_add_start_point">Use a busca ou toque no mapa para adicionar um ponto de partida da rota</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Use a pesquisa, selecione um marcador ou toque no mapa para adicionar um ponto de destino</string>
-    <string name="planning_route_manage_route">Gerenciar rota</string>
-    <string name="button_plan">Planejar</string>
     <string name="placepage_remove_stop">Remover parada</string>
     <string name="placepage_add_stop">Adicionar parada</string>
-    <string name="saved">Salvo</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Faça login no OpenStreetMap para carregar automaticamente todas as edições de mapas que você fizer. Saiba mais <a href="https://github.com/organicmaps/organicmaps/issues/6144">aqui</a>.</string>
     <string name="dialog_error_storage_message">O armazenamento externo não está disponível. É provável que o cartão SD tenha sido removido, danificado ou o sistema de arquivo seja apenas para leitura. Verifique e entre em contato conosco em support\@organicmaps.app</string>
@@ -462,8 +459,6 @@
     <string name="avoid_motorways">Evitar rodovias</string>
     <string name="unable_to_calc_alert_title">Incapaz de calcular rota</string>
     <string name="unable_to_calc_alert_subtitle">Infelizmente, não conseguimos encontrar uma rota, provavelmente por causa das opções escolhidas ou dados do OpenStreetMap em falta. Por favor, altere as configurações e tente novamente.</string>
-    <string name="define_to_avoid_btn">Definir as estradas a serem evitadas</string>
-    <string name="change_driving_options_btn">Opções de direção ativadas</string>
     <string name="toll_road">Pedágio</string>
     <string name="unpaved_road">Pista não pavimentada</string>
     <string name="ferry_crossing">Balsa</string>

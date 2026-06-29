@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">Օգտագործեք որոնումը, ընտրեք էջանիշ կամ հպեք քարտեզին՝ երթուղու սկզբնակետ ավելացնելու համար</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Օգտագործեք որոնումը, ընտրեք էջանիշ կամ հպեք քարտեզին՝ նշանակման կետ ավելացնելու համար</string>
-    <string name="planning_route_manage_route">Կառավարել երթուղին</string>
-    <string name="button_plan">Պլանավորել</string>
     <string name="placepage_remove_stop">Հեռացնել կանգառը</string>
     <string name="placepage_add_stop">Ավելացնել կանգառ</string>
     <string name="drag_to_reorder">Վերակարգավորել</string>
-    <string name="saved">Պահպանված է</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Խնդրում ենք մուտք գործել OpenStreetMap, որպեսզի Ձեր քարտեզի փոփոխությունները ավտոմատ վերբեռնվեն: Իմացեք ավելին <a href="https://github.com/organicmaps/organicmaps/issues/6144">այստեղ</a>:</string>
     <string name="dialog_error_storage_title">Հիշողության հասանելիության խնդիր</string>
@@ -647,8 +644,6 @@
     <string name="avoid_motorways">Խուսափել մայրուղիներից</string>
     <string name="unable_to_calc_alert_title">Հնարավոր չէ հաշվարկել երթուղին</string>
     <string name="unable_to_calc_alert_subtitle">Երթուղին չի գտնվել։ Սա կարող է պայմանավորված լինել երթուղու ընտրանքներով կամ OpenStreetMap-ի ոչ ամբողջական տվյալներով։ Խնդրում ենք փոխել երթուղու ընտրանքները և կրկին փորձել։</string>
-    <string name="define_to_avoid_btn">Սահմանել ճանապարհներ՝ խուսափելու համար</string>
-    <string name="change_driving_options_btn">Երթուղու ընտրանքները միացված են</string>
     <string name="toll_road">Վճարովի ճանապարհ</string>
     <string name="unpaved_road">Գրունտային ճանապարհ</string>
     <string name="ferry_crossing">Լաստանավային ուղի</string>

@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">Teekonna alguspunkti lisamiseks kasuta otsingut, vali järjehoidja või puuduta soovitud kohta kaardil</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Sihtkoha lisamiseks kasuta otsingut, vali järjehoidja või puuduta soovitud kohta kaardil</string>
-    <string name="planning_route_manage_route">Halda teekonda</string>
-    <string name="button_plan">Kavanda</string>
     <string name="placepage_remove_stop">Eemalda peatus</string>
     <string name="placepage_add_stop">Lisa peatus</string>
     <string name="drag_to_reorder">Järjestuse muutmine</string>
-    <string name="saved">Salvestatud</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Oma kaastöö automaatseks üleslaadimiseks palun logi OpenStreetMappi sisse. Lisateave <a href="https://github.com/organicmaps/organicmaps/issues/6144">leidub siin</a>.</string>
     <string name="dialog_error_storage_title">Andmeruumi ligipääsu probleem</string>
@@ -650,8 +647,6 @@
     <string name="avoid_motorways">Väldi kiirteed</string>
     <string name="unable_to_calc_alert_title">Teekonna koostamine ei õnnestu</string>
     <string name="unable_to_calc_alert_subtitle">Teekonda ei õnnestunud koostada. See võib olla põhjustatud sinu seatud tingimustest või OpenStreetMapi andmete puudumisest. Muuda algtingimusi ja proovi uuesti.</string>
-    <string name="define_to_avoid_btn">Määra välditavad teed</string>
-    <string name="change_driving_options_btn">Lubatud valikud teekonna koostamisel</string>
     <string name="toll_road">Tasuline tee</string>
     <string name="unpaved_road">Sillutamata tee</string>
     <string name="ferry_crossing">Praamiületus</string>

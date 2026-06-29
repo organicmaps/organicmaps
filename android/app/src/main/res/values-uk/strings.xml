@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">Скористайтеся пошуком, виберіть мітку, або торкніться мапи, щоб додати початкову точку маршруту</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Скористайтеся пошуком, виберіть мітку, або торкніться мапи, щоб додати пункт призначення</string>
-    <string name="planning_route_manage_route">Редагування маршруту</string>
-    <string name="button_plan">Маршрут</string>
     <string name="placepage_remove_stop">Видалити зупинку</string>
     <string name="placepage_add_stop">Додати зупинку</string>
     <string name="drag_to_reorder">Змінити порядок</string>
-    <string name="saved">Збережено</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Будь ласка увійдіть в акаунт OpenStreetMap.org, щоб автоматично публікувати зміни до мапи. Подробиці за <a href="https://github.com/organicmaps/organicmaps/issues/6144">посиланням</a>.</string>
     <string name="dialog_error_storage_title">Не вдалося отримати доступ до сховища</string>
@@ -654,8 +651,6 @@
     <string name="avoid_motorways">Уникати автострад</string>
     <string name="unable_to_calc_alert_title">Неможливо побудувати маршрут</string>
     <string name="unable_to_calc_alert_subtitle">Не вдалося знайти маршрут. Це може бути пов\'язано з вашими параметрами прокладання маршруту або неповними даними OpenStreetMap. Змініть параметри і спробуйте ще раз.</string>
-    <string name="define_to_avoid_btn">Налаштувати шляхи об’їзду</string>
-    <string name="change_driving_options_btn">Увімкнено налаштування об’їзду</string>
     <string name="toll_road">Платна дорога</string>
     <string name="unpaved_road">Ґрунтова дорога</string>
     <string name="ferry_crossing">Поромна переправа</string>

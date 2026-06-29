@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">برای افزودن نقطه شروع مسیر، از جستجو استفاده کنید یا روی نقشه ضربه بزنید</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">برای افزودن نقطه مقصد، از جستجو استفاده کنید یا روی نقشه ضربه بزنید</string>
-    <string name="planning_route_manage_route">مدیریت مسیر</string>
-    <string name="button_plan">برنامه</string>
     <string name="placepage_remove_stop">توقف را حذف کنید</string>
     <string name="placepage_add_stop">اضافه کردن توقف</string>
     <string name="drag_to_reorder">ترتیب مجدد</string>
-    <string name="saved">ذخیره شد</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">لطفاً به OpenStreetMap وارد شوید تا به طور خودکار تمام ویرایش های نقشه خود را آپلود کنید. <a href="https://github.com/organicmaps/organicmaps/issues/6144">اینجا</a> بیشتر بیاموزید.</string>
     <string name="dialog_error_storage_title">مشکل دسترسی به ذخیره‌سازی</string>
@@ -647,8 +644,6 @@
     <string name="avoid_motorways">از بزرگراه دوری کنید</string>
     <string name="unable_to_calc_alert_title">امکان محاسبه مسیر نیست</string>
     <string name="unable_to_calc_alert_subtitle">مسیر یافت نشد. این مشکل ممکن است به دلیل تنظیمات مسیر‌یابی شما یا داده‌های ناقص OpenStreetMap باشد. لطفا تنظیمات مسیر‌یابی خود را تغییر دهید و دوباره امتحان کنید.</string>
-    <string name="define_to_avoid_btn">جاده‌های لغو شده را تعریف نمایید</string>
-    <string name="change_driving_options_btn">گزینه‌های مسیریابی فعال شد</string>
     <string name="toll_road">جاده دارای عوارض</string>
     <string name="unpaved_road">جاده آسفالت نشده</string>
     <string name="ferry_crossing">گذرگاه جاده‌ای</string>

@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Trafik verileri kullanılamıyor";
 "enable_logging" = "Günlüğü etkinleştir";
 "transliteration_title" = "Latin alfabesine çevir";
-"planning_route_manage_route" = "Rotayı yönet";
-"button_plan" = "Plan";
 "placepage_remove_stop" = "Durağı Kaldır";
 "placepage_add_stop" = "Ara nokta ekle";
-"saved" = "Kaydedildi";
 "error_enter_correct_name" = "Lütfen doğru ad girin";
 "bookmark_lists" = "Listeler";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Otobandan kaçın";
 "unable_to_calc_alert_title" = "Rota hesaplanamıyor";
 "unable_to_calc_alert_subtitle" = "Rota bulunamadı. Bunun nedeni, belirlediğiniz seçenekler ya da eksik OpenStreetMap verisi olabilir. Lütfen rota seçeneklerinizi değiştirin ve yeniden deneyin.";
-"define_to_avoid_btn" = "Kaçınılması gereken yolları tanımlayın";
-"change_driving_options_btn" = "Sürüş seçenekleri etkinleştirildi";
 "toll_road" = "Paralı yol";
 "unpaved_road" = "Asfaltsız yol";
 "ferry_crossing" = "Vapur geçişi";

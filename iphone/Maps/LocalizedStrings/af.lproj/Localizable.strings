@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Verkeersdata is nie beskikbaar nie";
 "enable_logging" = "Staan logboekinskrywing toe";
 "transliteration_title" = "Transliterasie in Latynse alfabet";
-"planning_route_manage_route" = "Bestuur roete";
-"button_plan" = "Beplan";
 "placepage_remove_stop" = "Verwyder stop";
 "placepage_add_stop" = "Voeg tussenstop toe";
-"saved" = "Gespaar";
 "error_enter_correct_name" = "Voer asb. ’n korrekte naam in";
 "bookmark_lists" = "Lyste";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Vermy snelweë";
 "unable_to_calc_alert_title" = "Kan nie ’n roete bereken nie";
 "unable_to_calc_alert_subtitle" = "’n Roete kon nie gevind word nie. Dit kan deur ’n ompadopsies of onvolledige OpenStreetMap-data veroorsaak word. Verander u omwegopsies en probeer weer.";
-"define_to_avoid_btn" = "Definieer paaie om te vermy";
-"change_driving_options_btn" = "Ompadinstellings is geaktiveer";
 "toll_road" = "Tolpaaie";
 "unpaved_road" = "Grondpaaie";
 "ferry_crossing" = "Veerbootkruisings";

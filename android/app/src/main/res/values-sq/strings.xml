@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">Përdorni kërkimin, zgjidhni një faqeshënues ose prekni në hartë për të shtuar një pikë nisjeje të rrugës</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Përdorni kërkimin, zgjidhni një faqeshënues ose prekni në hartë për të shtuar një pikë destinacioni</string>
-    <string name="planning_route_manage_route">Menaxho Rrugën</string>
-    <string name="button_plan">Planifiko</string>
     <string name="placepage_remove_stop">Hiq Ndalesën</string>
     <string name="placepage_add_stop">Shto Ndalesë</string>
     <string name="drag_to_reorder">Rirendosje</string>
-    <string name="saved">Ruajtur</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Ju lutemi hyni në OpenStreetMap për të ngarkuar automatikisht të gjitha ndryshimet tuaja të hartës. Mësoni më shumë <a href="https://github.com/organicmaps/organicmaps/issues/6144">këtu</a>.</string>
     <string name="dialog_error_storage_title">Problem me qasjen në ruajtje</string>
@@ -635,8 +632,6 @@
     <string name="avoid_motorways">Shmang autostradat</string>
     <string name="unable_to_calc_alert_title">Nuk mund të llogaritet rruga</string>
     <string name="unable_to_calc_alert_subtitle">Rruga nuk mund të gjendej. Kjo mund të shkaktohet nga opsionet tuaja të rrugëtimit ose të dhëna të paplota të OpenStreetMap. Ju lutemi ndryshoni opsionet tuaja të rrugëtimit dhe provoni përsëri.</string>
-    <string name="define_to_avoid_btn">Përcaktoni rrugët për të shmangur</string>
-    <string name="change_driving_options_btn">Mundësitë e rrugëtimit u aktivizuan</string>
     <string name="toll_road">Rrugë me pagesë</string>
     <string name="unpaved_road">Rrugë e paasfaltuar</string>
     <string name="ferry_crossing">Kalim me traget</string>

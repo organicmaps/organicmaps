@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">Notaðu leit, veldu bókamerki eða ýttu á kortið til að bæta við upphafspunkti leiðar</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Notaðu leit, veldu bókamerki eða ýttu á kortið til að bæta við ákvörðunarstað</string>
-    <string name="planning_route_manage_route">Sýsla með leið</string>
-    <string name="button_plan">Skipuleggja</string>
     <string name="placepage_remove_stop">Fjarlægja stopp</string>
     <string name="placepage_add_stop">Bæta við stoppi</string>
     <string name="drag_to_reorder">Endurraða</string>
-    <string name="saved">Vistað</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Skráðu þig inn á OpenStreetMap til að senda sjálfkrafa inn allar breytingar þínar á kortinu. Kannaðu þetta nánar <a href="https://github.com/organicmaps/organicmaps/issues/6144">hér</a>.</string>
     <string name="dialog_error_storage_title">Vandamál við aðgang að gagnageymslu</string>
@@ -650,8 +647,6 @@
     <string name="avoid_motorways">Forðast hraðbrautir</string>
     <string name="unable_to_calc_alert_title">Tókst ekki að reikna leið</string>
     <string name="unable_to_calc_alert_subtitle">Leið fannst ekki. Það gæti stafað af stillingum þínum fyrir leiðagerð eða ófullkomnum gögnum í OpenStreetMap. Breyttu stillingum þínum fyrir leiðagerð og prófaðu aftur.</string>
-    <string name="define_to_avoid_btn">Skilgreindu vegi sem á að forðast</string>
-    <string name="change_driving_options_btn">Valkostir leiðagerðar virkir</string>
     <string name="toll_road">Vegur með gjaldskyldu</string>
     <string name="unpaved_road">Óbundið slitlag</string>
     <string name="ferry_crossing">Þverun með ferju</string>

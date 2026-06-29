@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Eismo duomenys neprieinami";
 "enable_logging" = "Įgalinti derinimo žurnalą";
 "transliteration_title" = "Transliteruoti užrašus lotyniškais rašmenimis";
-"planning_route_manage_route" = "Tvarkyti maršrutą";
-"button_plan" = "Planas";
 "placepage_remove_stop" = "Šalinti stotelę";
 "placepage_add_stop" = "Pridėti stotelę";
-"saved" = "Įrašyta";
 "error_enter_correct_name" = "Įveskite teisingą pavadinimą";
 "bookmark_lists" = "Sąrašai";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Vengti greitkelių";
 "unable_to_calc_alert_title" = "Nepavyko apskaičiuoti maršruto";
 "unable_to_calc_alert_subtitle" = "Deja, nepavyko rasti maršruto. Tikėtina, jog taip yra dėl jūsų pasirinktų parinkčių arba trūkstamų „OpenStreetMap“ duomenų. Pakeiskite parinktis ir bandykite dar kartą.";
-"define_to_avoid_btn" = "Nurodykite vengtinus kelius";
-"change_driving_options_btn" = "Yra įjungtų maršruto parinkčių";
 "toll_road" = "Mokamas kelias";
 "unpaved_road" = "Negrįstas kelias";
 "ferry_crossing" = "Persikėlimas keltu";

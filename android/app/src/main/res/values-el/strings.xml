@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">Χρησιμοποιήστε την αναζήτηση, επιλέξτε έναν σελιδοδείκτη ή πατήστε στο χάρτη για να προσθέσετε ένα σημείο εκκίνησης της διαδρομής</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Χρησιμοποιήστε την αναζήτηση, επιλέξτε έναν σελιδοδείκτη ή πατήστε στο χάρτη για να προσθέσετε ένα σημείο προορισμού</string>
-    <string name="planning_route_manage_route">Διαχείριση διαδρομής</string>
-    <string name="button_plan">Σχεδιασμός</string>
     <string name="placepage_remove_stop">Αφαίρεση στάσης</string>
     <string name="placepage_add_stop">Προσθήκη στάσης</string>
     <string name="drag_to_reorder">Αναδιάταξη</string>
-    <string name="saved">Αποθηκεύτηκε</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Παρακαλούμε συνδεθείτε στο OpenStreetMap για να ανεβάσετε αυτόματα όλες τις επεξεργασίες του χάρτη σας. Μάθετε περισσότερα <a href="https://github.com/organicmaps/organicmaps/issues/6144">εδώ</a>.</string>
     <string name="dialog_error_storage_title">Πρόβλημα πρόσβασης στον αποθηκευτικό χώρο</string>
@@ -648,8 +645,6 @@
     <string name="avoid_motorways">Αποφυγή αυτοκινητόδρομων</string>
     <string name="unable_to_calc_alert_title">Δεν ήταν δυνατός ο υπολογισμός διαδρομής</string>
     <string name="unable_to_calc_alert_subtitle">Δυστυχώς, δεν μπορούσαμε να δημιουργήσουμε μια διαδρομή με τις καθορισμένες επιλογές. Αλλάξτε τις ρυθμίσεις και δοκιμάστε πάλι.</string>
-    <string name="define_to_avoid_btn">Ορισμός δρόμων προς αποφυγή</string>
-    <string name="change_driving_options_btn">Ρυθμίσεις δρομολόγησης ενεργοποιημένες</string>
     <string name="toll_road">Δρόμος με διόδια</string>
     <string name="unpaved_road">Χωματόδρομος</string>
     <string name="ferry_crossing">Πέρασμα πορθμείου</string>

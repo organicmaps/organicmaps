@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Подаци о саобраћају нису доступни";
 "enable_logging" = "Снимање лог фајлова";
 "transliteration_title" = "Транслитерација у латиницу";
-"planning_route_manage_route" = "Измени руту";
-"button_plan" = "План";
 "placepage_remove_stop" = "Уклони међуодредиште";
 "placepage_add_stop" = "Међуодредиште";
-"saved" = "Сачувано";
 "error_enter_correct_name" = "Молим Вас да унесете исправан назив";
 "bookmark_lists" = "Листе";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Избегавај аутопутеве";
 "unable_to_calc_alert_title" = "Није могуће израчунати руту";
 "unable_to_calc_alert_subtitle" = "Рута није пронађена. Узрок могу бити опције рутирања или непотпуни OpenStreetMap подаци. Молим Вас да промените ваше опције рутирања и покушате поново.";
-"define_to_avoid_btn" = "Изабери путеве за избегавање";
-"change_driving_options_btn" = "Опције рутирања су укључене";
 "toll_road" = "Путеви са путаринама";
 "unpaved_road" = "Неасфалтирани путеви";
 "ferry_crossing" = "Линије трајекта";

@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "交通数据不可用";
 "enable_logging" = "启用日志记录";
 "transliteration_title" = "拉丁字母音译";
-"planning_route_manage_route" = "管理路线";
-"button_plan" = "规划";
 "placepage_remove_stop" = "删除站点";
 "placepage_add_stop" = "添加经停点";
-"saved" = "已保存";
 "error_enter_correct_name" = "请输入正确的名称";
 "bookmark_lists" = "列表";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "避开高速公路";
 "unable_to_calc_alert_title" = "无法规划路线";
 "unable_to_calc_alert_subtitle" = "找不到路线。这可能是由于您的绕行设置或 OpenStreetMap 数据不完整造成的。请更改设置，然后重试。";
-"define_to_avoid_btn" = "选择要避开的道路";
-"change_driving_options_btn" = "绕行设置已开启";
 "toll_road" = "收费公路";
 "unpaved_road" = "未铺砌道路";
 "ferry_crossing" = "轮渡";

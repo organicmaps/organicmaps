@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Երթևեկության տվյալները հասանելի չեն";
 "enable_logging" = "Միացնել գրանցումը";
 "transliteration_title" = "Տառադարձել լատինատառի";
-"planning_route_manage_route" = "Կառավարել երթուղին";
-"button_plan" = "Պլանավորել";
 "placepage_remove_stop" = "Հեռացնել կանգառը";
 "placepage_add_stop" = "Ավելացնել կանգառ";
-"saved" = "Պահպանված է";
 "error_enter_correct_name" = "Խնդրում ենք մուտքագրել ճիշտ անուն";
 "bookmark_lists" = "Ցուցակներ";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Խուսափել մայրուղիներից";
 "unable_to_calc_alert_title" = "Հնարավոր չէ հաշվարկել երթուղին";
 "unable_to_calc_alert_subtitle" = "Երթուղին չի գտնվել։ Սա կարող է պայմանավորված լինել երթուղու ընտրանքներով կամ OpenStreetMap-ի ոչ ամբողջական տվյալներով։ Խնդրում ենք փոխել երթուղու ընտրանքները և կրկին փորձել։";
-"define_to_avoid_btn" = "Սահմանել ճանապարհներ՝ խուսափելու համար";
-"change_driving_options_btn" = "Երթուղու ընտրանքները միացված են";
 "toll_road" = "Վճարովի ճանապարհ";
 "unpaved_road" = "Գրունտային ճանապարհ";
 "ferry_crossing" = "Լաստանավային ուղի";

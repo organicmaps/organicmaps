@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">Rota başlangıç noktası eklemek için aramayı kullanın, yer imi seçin ya da haritaya dokunun</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Hedef noktası eklemek için aramayı kullanın, yer imi seçin ya da haritaya dokunun</string>
-    <string name="planning_route_manage_route">Rotayı yönet</string>
-    <string name="button_plan">Plan</string>
     <string name="placepage_remove_stop">Durağı Kaldır</string>
     <string name="placepage_add_stop">Ara nokta ekle</string>
     <string name="drag_to_reorder">Sırayı değiştir</string>
-    <string name="saved">Kaydedildi</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Tüm harita düzenlemelerinizi kendiliğinden yüklemek için lütfen OpenStreetMap\'e giriş yapın. Daha çok bilgi <a href="https://github.com/organicmaps/organicmaps/issues/6144">buradadır</a>.</string>
     <string name="dialog_error_storage_title">Depolama alanı erişim sorunu</string>
@@ -649,8 +646,6 @@
     <string name="avoid_motorways">Otobandan kaçın</string>
     <string name="unable_to_calc_alert_title">Rota hesaplanamıyor</string>
     <string name="unable_to_calc_alert_subtitle">Rota bulunamadı. Bunun nedeni, belirlediğiniz seçenekler ya da eksik OpenStreetMap verisi olabilir. Lütfen rota seçeneklerinizi değiştirin ve yeniden deneyin.</string>
-    <string name="define_to_avoid_btn">Kaçınılması gereken yolları tanımlayın</string>
-    <string name="change_driving_options_btn">Sürüş seçenekleri etkinleştirildi</string>
     <string name="toll_road">Paralı yol</string>
     <string name="unpaved_road">Asfaltsız yol</string>
     <string name="ferry_crossing">Vapur geçişi</string>

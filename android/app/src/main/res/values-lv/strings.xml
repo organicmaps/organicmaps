@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">Lietojiet meklēšanu vai pieskarieties kartei, lai pievienotu galamērķi</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Lietojiet meklēšanu vai pieskarieties kartei, lai pievienotu sākuma punktu</string>
-    <string name="planning_route_manage_route">Pārvaldīt maršrutu</string>
-    <string name="button_plan">Plānot</string>
     <string name="placepage_remove_stop">Noņemt starppunktu</string>
     <string name="placepage_add_stop">Pievienot starppunktu</string>
     <string name="drag_to_reorder">Pārkārtot</string>
-    <string name="saved">Saglabāts</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Ierakstieties „OpenStreetMap“, lai automātiski augšupielādētu visus kartes rediģējumus. Uzziniet vairāk <a href="https://github.com/organicmaps/organicmaps/issues/6144">te</a>.</string>
     <string name="dialog_error_storage_title">Krātuves pieejas problēma</string>
@@ -650,8 +647,6 @@
     <string name="avoid_motorways">Izvairīties no automaģistrālēm</string>
     <string name="unable_to_calc_alert_title">Neizdevās aprēķināt maršrutu</string>
     <string name="unable_to_calc_alert_subtitle">Maršrutu neatrada. Iespējams, maršruta iestatījumi ir pārāk ierobežojoši vai trūkst „OpenStreetMap“ datu. Mēģiniet mainīt iestatījumus un atkārtot.</string>
-    <string name="define_to_avoid_btn">Noteikt nevēlamos ceļus</string>
-    <string name="change_driving_options_btn">Maršruta izvēles ir ieslēgtas</string>
     <string name="toll_road">Maksas ceļš</string>
     <string name="unpaved_road">Neasfaltēts ceļš</string>
     <string name="ferry_crossing">Prāmja pārceltuve</string>

@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "اطلاعات ترافیکی موجود نیست";
 "enable_logging" = "ورود به سیستم را فعال کنید";
 "transliteration_title" = "ترجمه به الفبای لاتین";
-"planning_route_manage_route" = "مدیریت مسیر";
-"button_plan" = "برنامه";
 "placepage_remove_stop" = "توقف را حذف کنید";
 "placepage_add_stop" = "اضافه کردن توقف";
-"saved" = "ذخیره شد";
 "error_enter_correct_name" = "لطفا نام صحیح را وارد کنید";
 "bookmark_lists" = "فهرست‌ها";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "از بزرگراه دوری کنید";
 "unable_to_calc_alert_title" = "امکان محاسبه مسیر نیست";
 "unable_to_calc_alert_subtitle" = "مسیر یافت نشد. این مشکل ممکن است به دلیل تنظیمات مسیر‌یابی شما یا داده‌های ناقص OpenStreetMap باشد. لطفا تنظیمات مسیر‌یابی خود را تغییر دهید و دوباره امتحان کنید.";
-"define_to_avoid_btn" = "جاده‌های لغو شده را تعریف نمایید";
-"change_driving_options_btn" = "گزینه‌های مسیریابی فعال شد";
 "toll_road" = "جاده دارای عوارض";
 "unpaved_road" = "جاده آسفالت نشده";
 "ferry_crossing" = "گذرگاه جاده‌ای";

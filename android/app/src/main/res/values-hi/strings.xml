@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">मार्ग का प्रारंभिक बिंदु जोड़ने के लिए खोज का उपयोग करें या मानचित्र पर टैप करें</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">गंतव्य बिंदु जोड़ने के लिए खोज का उपयोग करें या मानचित्र पर टैप करें</string>
-    <string name="planning_route_manage_route">मार्ग प्रबंधित करें</string>
-    <string name="button_plan">योजना</string>
     <string name="placepage_remove_stop">रोक हटाएँ</string>
     <string name="placepage_add_stop">गंतव्य जोड़ें</string>
     <string name="drag_to_reorder">पुनःक्रमबद्ध करें</string>
-    <string name="saved">सहेजा गया</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">कृपया अपने सभी मानचित्र संपादनों को स्वचालित रूप से अपलोड करने के लिए OpenStreetMap पर लॉगिन करें। अधिक जानें <a href="https://github.com/organicmaps/organicmaps/issues/6144">यहां</a>।</string>
     <string name="dialog_error_storage_title">भंडारण पहुँच समस्या</string>
@@ -644,8 +641,6 @@
     <string name="avoid_motorways">फ़्रीवेज़ से बचें</string>
     <string name="unable_to_calc_alert_title">मार्ग की गणना करने में असमर्थ</string>
     <string name="unable_to_calc_alert_subtitle">कोई मार्ग नहीं मिल सका. यह आपके रूटिंग विकल्पों या अधूरे OpenStreetMap डेटा के कारण हो सकता है। कृपया अपने रूटिंग विकल्प बदलें और पुनः प्रयास करें।</string>
-    <string name="define_to_avoid_btn">बचने के लिए सड़कों को परिभाषित करें</string>
-    <string name="change_driving_options_btn">रूटिंग विकल्प सक्षम</string>
     <string name="toll_road">शुल्क मार्ग</string>
     <string name="unpaved_road">अनपक्की सड़क</string>
     <string name="ferry_crossing">फेरी क्रॉसिंग</string>

@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "ไม่มีข้อมูลการจราจร";
 "enable_logging" = "เปิดใช้งานการเก็บล็อก";
 "transliteration_title" = "การทับศัพท์เป็นภาษาละติน";
-"planning_route_manage_route" = "จัดการเส้นทาง";
-"button_plan" = "วางแผน";
 "placepage_remove_stop" = "ลบจุดแวะพัก";
 "placepage_add_stop" = "เพิ่มจุดแวะพัก";
-"saved" = "บันทึกแล้ว";
 "error_enter_correct_name" = "กรุณาใส่ชื่อที่ถูกต้อง";
 "bookmark_lists" = "รายการ";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "หลีกเลี่ยงมอเตอร์เวย์";
 "unable_to_calc_alert_title" = "ไม่สามารถคำนวณเส้นทาง";
 "unable_to_calc_alert_subtitle" = "ขออภัย เราไม่สามารถค้นหาเส้นทาง โดยสาเหตุอาจมาจากทางเลือกที่คุณกำหนดไว้ โปรดเปลี่ยนการตั้งค่าทางเลือกและลองใหม่อีกครั้ง";
-"define_to_avoid_btn" = "กำหนดถนนที่ต้องการเลี่ยง";
-"change_driving_options_btn" = "เปิดใช้การค้นหาเส้นทางขับขี่แล้ว";
 "toll_road" = "ถนนแบบเสียค่าผ่านทาง";
 "unpaved_road" = "ถนนดิน";
 "ferry_crossing" = "เรือข้ามฟาก";

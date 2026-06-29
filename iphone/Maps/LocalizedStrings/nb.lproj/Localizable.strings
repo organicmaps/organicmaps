@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Trafikkdata er ikke tilgjengelig";
 "enable_logging" = "Aktiver loggføring";
 "transliteration_title" = "Omskrivning til latin";
-"planning_route_manage_route" = "Administrere rute";
-"button_plan" = "Planlegge";
 "placepage_remove_stop" = "Fjern stopp";
 "placepage_add_stop" = "Angi stopp";
-"saved" = "Reddet";
 "error_enter_correct_name" = "Skriv inn korrekt navn";
 "bookmark_lists" = "Lister";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Unngå motorveien";
 "unable_to_calc_alert_title" = "Kan ikke beregne rute";
 "unable_to_calc_alert_subtitle" = "Dessverre kunne vi ikke finne en rute sannsynligvis på grunn av dine definerte alternativer. Vennligst endre innstillingene og prøv igjen";
-"define_to_avoid_btn" = "Definer veier som skal unngås";
-"change_driving_options_btn" = "Kjørealternativer aktivert";
 "toll_road" = "Bompengevei";
 "unpaved_road" = "Uasfaltert vei";
 "ferry_crossing" = "Fergeovergang";

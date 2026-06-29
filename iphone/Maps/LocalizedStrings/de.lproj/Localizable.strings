@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Verkehrsdaten sind nicht verfügbar";
 "enable_logging" = "Protokollierung aktivieren";
 "transliteration_title" = "Transliteration ins lateinische Alphabet";
-"planning_route_manage_route" = "Route verwalten";
-"button_plan" = "Planen";
 "placepage_remove_stop" = "Stopp entfernen";
 "placepage_add_stop" = "Stopp einfügen";
-"saved" = "Gespeichert";
 "error_enter_correct_name" = "Bitte gib einen korrekten Namen ein";
 "bookmark_lists" = "Listen";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Autobahnen vermeiden";
 "unable_to_calc_alert_title" = "Route kann nicht berechnet werden";
 "unable_to_calc_alert_subtitle" = "Eine Route konnte nicht gefunden werden. Dies kann an deinen Routenbeschränkungen oder an unvollständigen OpenStreetMap-Daten liegen. Bitte ändere deine Routenbeschränkungen und versuche es erneut.";
-"define_to_avoid_btn" = "Routenbeschränkung einstellen";
-"change_driving_options_btn" = "Routenbeschränkungen aktiv";
 "toll_road" = "Mautstraße";
 "unpaved_road" = "Unbefestigte Straße";
 "ferry_crossing" = "Fährstelle";

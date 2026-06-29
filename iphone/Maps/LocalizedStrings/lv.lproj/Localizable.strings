@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Satiksmes dati nav pieejami";
 "enable_logging" = "Ieslēgt žurnalēšanu";
 "transliteration_title" = "Transliterācija uz latīņu alfabētu";
-"planning_route_manage_route" = "Pārvaldīt maršrutu";
-"button_plan" = "Plānot";
 "placepage_remove_stop" = "Noņemt starppunktu";
 "placepage_add_stop" = "Pievienot starppunktu";
-"saved" = "Saglabāts";
 "error_enter_correct_name" = "Ierakstiet pareizu nosaukumu";
 "bookmark_lists" = "Saraksti";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Izvairīties no automaģistrālēm";
 "unable_to_calc_alert_title" = "Neizdevās aprēķināt maršrutu";
 "unable_to_calc_alert_subtitle" = "Maršrutu neatrada. Iespējams, maršruta iestatījumi ir pārāk ierobežojoši vai trūkst „OpenStreetMap“ datu. Mēģiniet mainīt iestatījumus un atkārtot.";
-"define_to_avoid_btn" = "Noteikt nevēlamos ceļus";
-"change_driving_options_btn" = "Maršruta izvēles ir ieslēgtas";
 "toll_road" = "Maksas ceļš";
 "unpaved_road" = "Neasfaltēts ceļš";
 "ferry_crossing" = "Prāmja pārceltuve";

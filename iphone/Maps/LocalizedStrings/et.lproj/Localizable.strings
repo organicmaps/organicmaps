@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Liiklusinfo ei ole saadaval";
 "enable_logging" = "Luba logimine";
 "transliteration_title" = "Transliteratsioon ladina tähestikku";
-"planning_route_manage_route" = "Halda teekonda";
-"button_plan" = "Kavanda";
 "placepage_remove_stop" = "Eemalda peatus";
 "placepage_add_stop" = "Lisa peatus";
-"saved" = "Salvestatud";
 "error_enter_correct_name" = "Palun sisesta korrektne nimi";
 "bookmark_lists" = "Loendid";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Väldi kiirteed";
 "unable_to_calc_alert_title" = "Teekonna koostamine ei õnnestu";
 "unable_to_calc_alert_subtitle" = "Teekonda ei õnnestunud koostada. See võib olla põhjustatud sinu seatud tingimustest või OpenStreetMapi andmete puudumisest. Muuda algtingimusi ja proovi uuesti.";
-"define_to_avoid_btn" = "Määra välditavad teed";
-"change_driving_options_btn" = "Lubatud valikud teekonna koostamisel";
 "toll_road" = "Tasuline tee";
 "unpaved_road" = "Sillutamata tee";
 "ferry_crossing" = "Praamiületus";

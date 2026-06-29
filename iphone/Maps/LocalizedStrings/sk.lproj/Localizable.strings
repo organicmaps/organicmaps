@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Dopravné informácie nie sú k dispozícii";
 "enable_logging" = "Zapnúť zaznamenávanie";
 "transliteration_title" = "Prepis do latinky";
-"planning_route_manage_route" = "Spravovať trasu";
-"button_plan" = "Naplánovať";
 "placepage_remove_stop" = "Odstrániť zastávku";
 "placepage_add_stop" = "Pridať zastávku";
-"saved" = "Uložené";
 "error_enter_correct_name" = "Prosím, zadajte správne meno";
 "bookmark_lists" = "Zoznamy";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Vyhnúť sa diaľniciam";
 "unable_to_calc_alert_title" = "Nepodarilo sa vypočítať trasu";
 "unable_to_calc_alert_subtitle" = "Bohužiaľ sme nemohli nájsť trasu pravdepodobne z dôvodu definovaných možností. Zmeňte nastavenia a skúste to prosím znova";
-"define_to_avoid_btn" = "Definovať cesty, ktorým sa treba vyhnúť";
-"change_driving_options_btn" = "Možnosti trasy povolené";
 "toll_road" = "Spoplatnená cesta";
 "unpaved_road" = "Nespevnená cesta";
 "ferry_crossing" = "Prechod trajektom";

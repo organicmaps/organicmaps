@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "No hi ha dades de trànsit disponibles";
 "enable_logging" = "Activa el registre";
 "transliteration_title" = "Transliteració a l’alfabet llatí";
-"planning_route_manage_route" = "Gestionar la ruta";
-"button_plan" = "Planifica";
 "placepage_remove_stop" = "Elimina parada";
 "placepage_add_stop" = "Afegeix una parada";
-"saved" = "Desat";
 "error_enter_correct_name" = "Introduïu un nom correcte";
 "bookmark_lists" = "Llistes";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Evita autopistes";
 "unable_to_calc_alert_title" = "No s’ha pogut calcular la ruta";
 "unable_to_calc_alert_subtitle" = "Malauradament, no hem pogut trobar cap ruta. Probablement per les opcions que heu triat. Canvieu-les i torneu a intentar-ho.";
-"define_to_avoid_btn" = "Definiu les vies a evitar";
-"change_driving_options_btn" = "Paràmetres d’encaminament activats";
 "toll_road" = "Via de peatge";
 "unpaved_road" = "Via sense pavimentar";
 "ferry_crossing" = "Ferris";

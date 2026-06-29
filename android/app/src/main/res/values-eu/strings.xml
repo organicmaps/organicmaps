@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">Erabili bilaketa edo sakatu mapan ibilbidearen abiapuntua gehitzeko</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Erabili bilaketa edo sakatu mapan helmuga puntu bat gehitzeko</string>
-    <string name="planning_route_manage_route">Kudeatu ibilbidea</string>
-    <string name="button_plan">Planifikatu</string>
     <string name="placepage_remove_stop">Kendu geltokia</string>
     <string name="placepage_add_stop">Gehitu geltokia</string>
     <string name="drag_to_reorder">Berrantolatu</string>
-    <string name="saved">Gordeta</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Hasi saioa OpenStreetMap-en zure mapen aldaketa guztiak automatikoki kargatzeko. Lortu informazio gehiago <a href="https://github.com/organicmaps/organicmaps/issues/6144">hemen</a>.</string>
     <string name="dialog_error_storage_title">Biltegiratze sarbidearen arazoa</string>
@@ -647,8 +644,6 @@
     <string name="avoid_motorways">Autobideak saihestea</string>
     <string name="unable_to_calc_alert_title">Ezin da ibilbidea proposatu</string>
     <string name="unable_to_calc_alert_subtitle">Zoritxarrez, ezin izan dugu aukeratutako aukerekin ibilbiderik proposatu. Aldatu ezarpenak eta saiatu berriro.</string>
-    <string name="define_to_avoid_btn">Zehaztu saihestu beharreko bideak</string>
-    <string name="change_driving_options_btn">Bideratze aukerak gaituta</string>
     <string name="toll_road">Ordainpeko errepidea</string>
     <string name="unpaved_road">Asfaltatu gabeko errepidea</string>
     <string name="ferry_crossing">Ferry zeharkaldia</string>

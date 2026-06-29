@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Trafikdata är inte tillgänglig";
 "enable_logging" = "Aktivera loggning";
 "transliteration_title" = "Translitterera till latinska alfabetet";
-"planning_route_manage_route" = "Hantera rutt";
-"button_plan" = "Planera";
 "placepage_remove_stop" = "Ta bort stoppet";
 "placepage_add_stop" = "Lägg till stopp";
-"saved" = "Sparade";
 "error_enter_correct_name" = "Ange ett korrekt namn";
 "bookmark_lists" = "Listor";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Undvik motorvägen";
 "unable_to_calc_alert_title" = "Det går inte att hitta rutt";
 "unable_to_calc_alert_subtitle" = "Tyvärr kunde vi inte hitta en rutt. Detta kan bero på dina ruttpreferenser eller ofullständigt kartunderlag i OpenStreetMap. Ändra gärna dina val och försök igen.";
-"define_to_avoid_btn" = "Definiera oönskade vägar";
-"change_driving_options_btn" = "Ruttinställningar aktiverade";
 "toll_road" = "Betalväg";
 "unpaved_road" = "Oasfalterad väg";
 "ferry_crossing" = "Färjetrafik";

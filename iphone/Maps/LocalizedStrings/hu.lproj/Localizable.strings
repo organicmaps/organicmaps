@@ -591,11 +591,8 @@
 "traffic_data_unavailable" = "Forgalmi adatok nem állnak rendelkezésre";
 "enable_logging" = "Naplózás engedélyezése";
 "transliteration_title" = "Átírás latin betűkre";
-"planning_route_manage_route" = "Útvonal kezelése";
-"button_plan" = "Tervezés";
 "placepage_remove_stop" = "Megálló eltávolítása";
 "placepage_add_stop" = "Köztes célpont hozzáadása";
-"saved" = "Mentve";
 "error_enter_correct_name" = "Adjon meg egy érvényes nevet";
 "bookmark_lists" = "Listák";
 
@@ -678,8 +675,6 @@
 "avoid_motorways" = "Autópályák elkerülése";
 "unable_to_calc_alert_title" = "Nem lehet kiszámítani az útvonalat";
 "unable_to_calc_alert_subtitle" = "Nem sikerült útvonalat találni. Ennek oka lehet az útvonaltervezési beállítások vagy a hiányos OpenStreetMap-adatok. Módosítsa az útvonaltervezési beállításokat, és próbálja meg újra.";
-"define_to_avoid_btn" = "Elkerülendő utak meghatározása";
-"change_driving_options_btn" = "Útvonaltervezési beállítások engedélyezve";
 "toll_road" = "Díjköteles utak";
 "unpaved_road" = "Burkolatlan utak";
 "ferry_crossing" = "Kompátkelők";

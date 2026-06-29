@@ -546,12 +546,9 @@
     <string name="routing_add_start_point">Pomocí vyhledávání, vybráním záložky nebo klepnutím na mapu přidejte výchozí bod trasy</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Pomocí vyhledávání, vybráním záložky nebo klepnutím na mapu přidejte cílový bod</string>
-    <string name="planning_route_manage_route">Spravovat trasu</string>
-    <string name="button_plan">Naplánovat</string>
     <string name="placepage_remove_stop">Odstranit zastávku</string>
     <string name="placepage_add_stop">Přidat zastávku</string>
     <string name="drag_to_reorder">Změnit pořadí</string>
-    <string name="saved">Uloženo</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Přihlaste se do OpenStreetMap, abyste mohli automaticky nahrávat všechny své úpravy mapy. Více informací <a href="https://github.com/organicmaps/organicmaps/issues/6144">zde</a>.</string>
     <string name="dialog_error_storage_title">Problém s přístupem k úložišti</string>
@@ -653,8 +650,6 @@
     <string name="avoid_motorways">Vyhnout se dálnicím</string>
     <string name="unable_to_calc_alert_title">Nelze vypočítat trasu</string>
     <string name="unable_to_calc_alert_subtitle">Bohužel jsme nemohli nalézt trasu. Mohlo se tak stát kvůli vámi definovaným možnostem trasy nebo nekompletním datům OpenStreetMap. Změňte prosím nastavenímožnosti trasy a zkuste to znovu.</string>
-    <string name="define_to_avoid_btn">Definovat silnice, kterým se vyhnout</string>
-    <string name="change_driving_options_btn">Možnosti trasy aktivní</string>
     <string name="toll_road">Silnice s mýtným</string>
     <string name="unpaved_road">Nezpevněná silnice</string>
     <string name="ferry_crossing">Přejezd trajektů</string>
