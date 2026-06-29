@@ -3681,8 +3681,20 @@ bool Framework::RollBackChanges(FeatureID const & fid)
 void Framework::CreateNote(osm::MapObject const & mapObject, osm::Editor::NoteProblemType const type,
                            std::string const & note)
 {
-  osm::Editor::Instance().CreateNote(mapObject.GetLatLon(), mapObject.GetID(), mapObject.GetTypes(),
-                                     mapObject.GetDefaultName(), type, note);
+  // MapObject::GetLatLon() returns the feature's geometric center, which for lines and areas
+  // (roads, forests, etc.) can be far from where the user actually pointed. The place page keeps the
+  // real map selection (tap) point, so use it when it refers to the same feature, posting the note
+  // where the user reported the problem.
+  auto noteLatLon = mapObject.GetLatLon();
+  if (mapObject.GetID().IsValid() && HasPlacePageInfo())
+  {
+    auto const & ppInfo = GetCurrentPlacePageInfo();
+    if (ppInfo.GetID() == mapObject.GetID())
+      noteLatLon = ppInfo.GetLatLon();
+  }
+
+  osm::Editor::Instance().CreateNote(noteLatLon, mapObject.GetID(), mapObject.GetTypes(), mapObject.GetDefaultName(),
+                                     type, note);
   if (type == osm::Editor::NoteProblemType::PlaceDoesNotExist)
     DeactivateMapSelection();
 }
