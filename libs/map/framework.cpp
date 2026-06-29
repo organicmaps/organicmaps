@@ -2353,7 +2353,6 @@ FeatureID Framework::FindBuildingAtPoint(m2::PointD const & mercator) const
 
 bool Framework::BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelectionInfo, place_page::Info & info)
 {
-  info.SetSelectedObject(df::SelectionShape::OBJECT_TRACK);
   auto & bm = GetBookmarkManager();
   Track const * track = nullptr;
   Track::TrackSelectionInfo selectedInfo = trackSelectionInfo;
@@ -2373,8 +2372,13 @@ bool Framework::BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelec
   {
     bm.ClearTempRelationTrack();
     track = bm.GetTrack(selectedInfo.m_trackId);
+
+    // Registered crash in Beta Firebase.
+    if (!track)
+      return false;
   }
 
+  info.SetSelectedObject(df::SelectionShape::OBJECT_TRACK);
   FillTrackInfo(*track, selectedInfo, info);
   bm.SetTrackSelectionInfo(selectedInfo, true /* notifyListeners */);
   return true;
