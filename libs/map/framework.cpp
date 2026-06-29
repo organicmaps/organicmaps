@@ -95,7 +95,6 @@ std::string_view constexpr kBgTilesUrlKey = "BgTilesUrl";                  // cu
 std::string_view constexpr kBgTilesCacheSizeMBKey = "BgTilesCacheMB";      // custom raster tiles disk cache cap
 std::string_view constexpr kBgTilesAreaOpacityKey = "BgTilesAreaOpacity";  // area-fill opacity over satellite tiles, %
 uint32_t constexpr kDefaultBgTilesCacheSizeMB = 50;
-uint32_t constexpr kMaxBgTilesCacheSizeMB = 1000;
 uint32_t constexpr kDefaultBgTilesAreaOpacityPct = 50;  // half-transparent area fills by default in Satellite mode
 std::string_view constexpr kAllow3dKey = "Allow3d";
 std::string_view constexpr kAllow3dBuildingsKey = "Buildings3d";
@@ -2755,8 +2754,8 @@ void Framework::SetBackgroundTiles(bool enabled, std::string url, uint32_t cache
     return;
   }
 
-  cacheSizeMB = math::Clamp(cacheSizeMB, 1u, kMaxBgTilesCacheSizeMB);
-  areaOpacityPct = math::Clamp(areaOpacityPct, 0u, 100u);
+  cacheSizeMB = math::Clamp(cacheSizeMB, kBackgroundTilesMinCacheSizeMB, kBackgroundTilesMaxCacheSizeMB);
+  areaOpacityPct = math::Clamp(areaOpacityPct, kBackgroundTilesMinAreaOpacityPct, kBackgroundTilesMaxAreaOpacityPct);
   settings::Set(kBgTilesEnabledKey, enabled);
   settings::Set(kBgTilesUrlKey, url);
   settings::Set(kBgTilesCacheSizeMBKey, cacheSizeMB);
@@ -2780,7 +2779,8 @@ void Framework::SetBackgroundTiles(bool enabled, std::string url, uint32_t cache
 uint32_t Framework::GetBackgroundTilesCacheSize()
 {
   uint32_t res;
-  if (!settings::Get(kBgTilesCacheSizeMBKey, res) || res == 0 || res > kMaxBgTilesCacheSizeMB)
+  if (!settings::Get(kBgTilesCacheSizeMBKey, res) || res < kBackgroundTilesMinCacheSizeMB ||
+      res > kBackgroundTilesMaxCacheSizeMB)
     res = kDefaultBgTilesCacheSizeMB;
   return res;
 }
@@ -2821,7 +2821,7 @@ bool Framework::IsBackgroundTilesEnabled()
 uint32_t Framework::GetBackgroundTilesAreaOpacity()
 {
   uint32_t opacityPct;
-  if (!settings::Get(kBgTilesAreaOpacityKey, opacityPct) || opacityPct > 100)
+  if (!settings::Get(kBgTilesAreaOpacityKey, opacityPct) || opacityPct > kBackgroundTilesMaxAreaOpacityPct)
     opacityPct = kDefaultBgTilesAreaOpacityPct;
   return opacityPct;
 }
