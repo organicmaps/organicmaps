@@ -20035,8 +20035,8 @@ th = ตัวดำเนินการ
 tr = İşletici
 uk = Оператор
 vi = Toán tử
-zh-Hans = 操作员
-zh-Hant = 操作員
+zh-Hans = 运营方
+zh-Hant = 運營方
 
 [operator]
 comment = To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations…
@@ -20090,8 +20090,8 @@ th = ตัวดำเนินการ: %@
 tr = İşletici: %@
 uk = Оператор: %@
 vi = Toán tử: %@
-zh-Hans = 操作员: %@
-zh-Hant = 操作員: %@
+zh-Hans = 运营方: %@
+zh-Hant = 運營方: %@
 
 [editor_category_unsuitable_title]
 tags = android-app,apple-maps
