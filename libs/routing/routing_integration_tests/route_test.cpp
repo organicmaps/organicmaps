@@ -959,4 +959,13 @@ UNIT_TEST(Lithuania_MaxspeedConditional)
   TEST_LESS(eta2 * 1.1, eta1, ());
 }
 
+// Regression test: forward and backward A* waves meet on a two-way feature, which used to wire a
+// same-feature cycle into the connectibility "parents" graph and hang IndexGraph::IsRestricted forever.
+// https://github.com/organicmaps/organicmaps/issues/13063
+UNIT_TEST(India_Bangalore_ShortRoute)
+{
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(12.963008, 77.648966), {0., 0.},
+                                   FromLatLon(12.9600501, 77.6451721), 1997.79);
+}
+
 }  // namespace route_test
