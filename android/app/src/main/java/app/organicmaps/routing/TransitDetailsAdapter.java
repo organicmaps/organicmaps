@@ -2,6 +2,7 @@ package app.organicmaps.routing;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -159,7 +160,7 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     {
       Context ctx = itemView.getContext();
       CharSequence time = Utils.formatRoutingTime(ctx, info.getTimeInSec(), R.dimen.text_size_body_3);
-      StringBuilder text = new StringBuilder(ctx.getString(R.string.transit_walk_label));
+      SpannableStringBuilder text = new SpannableStringBuilder(ctx.getString(R.string.transit_walk_label));
       text.append(" · ").append(time);
       if (info.getDistance() != null && !info.getDistance().isEmpty())
         text.append(" · ").append(info.getDistance()).append(' ').append(info.getDistanceUnits());
@@ -186,7 +187,7 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
       // The badge shows the waypoint number (index + 1), matching the summary strip.
       mBadge.setTransitStepInfo(info);
       mLabel.setText(
-          itemView.getContext().getString(R.string.transit_intermediate_stop, info.getIntermediateIndex() + 1));
+          itemView.getContext().getString(R.string.transit_waypoint_label, info.getIntermediateIndex() + 1));
     }
   }
 
@@ -240,7 +241,7 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
       CharSequence time = Utils.formatRoutingTime(ctx, info.getTimeInSec(), R.dimen.text_size_body_3);
       int stopCount = info.getStopCount();
-      StringBuilder subtitle = new StringBuilder();
+      SpannableStringBuilder subtitle = new SpannableStringBuilder();
       if (stopCount > 0)
       {
         subtitle.append(ctx.getResources().getQuantityString(R.plurals.transit_stops_count, stopCount, stopCount));
