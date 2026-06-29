@@ -119,6 +119,8 @@ import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils.BaselinePaddingInsetsListener;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
+import app.organicmaps.wear.PhoneWearNavigationStatePublisher;
+import app.organicmaps.wear.protocol.WearNavigationState;
 import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -226,6 +228,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       restoreRoutingUI(MapButtonsController.LayoutMode.navigation);
     else if (RoutingController.get().hasSavedRoute())
       RoutingController.get().restoreRoute();
+    publishCurrentWearNavigationState();
     if (mSearchPageViewModel.getSearchEnabled().getValue() == null && mSearchPageViewModel.isSearchPersistedActive())
     {
       mSearchPageViewModel.setSearchPageLastState(mSearchPageViewModel.getPersistedSheetState());
@@ -1248,6 +1251,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onNavigationCancelled()
   {
+    PhoneWearNavigationStatePublisher.publish(this, WearNavigationState.normal());
     closeFloatingToolbarsAndPanels();
     ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
@@ -1270,9 +1274,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
     refreshLightStatusBar();
   }
 
+  private void publishCurrentWearNavigationState()
+  {
+    WearNavigationState state =
+        RoutingController.get().isNavigating() ? WearNavigationState.navigation() : WearNavigationState.normal();
+    PhoneWearNavigationStatePublisher.publish(this, state);
+  }
+
   @Override
   public void onNavigationStarted()
   {
+    PhoneWearNavigationStatePublisher.publish(this, WearNavigationState.navigation());
     closeFloatingToolbarsAndPanels();
     ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
@@ -1310,6 +1322,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onResetToPlanningState()
   {
+    PhoneWearNavigationStatePublisher.publish(this, WearNavigationState.normal());
     closeFloatingToolbarsAndPanels();
     ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
