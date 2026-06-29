@@ -325,54 +325,6 @@
 "save" = "Сачувај";
 "create" = "креирај";
 
-/* red color */
-"red" = "Црвена";
-
-/* yellow color */
-"yellow" = "Жута";
-
-/* blue color */
-"blue" = "Плава";
-
-/* green color */
-"green" = "Зелена";
-
-/* purple color */
-"purple" = "Љубичаста";
-
-/* orange color */
-"orange" = "Наранџаста";
-
-/* brown color */
-"brown" = "Браон";
-
-/* pink color */
-"pink" = "Розе";
-
-/* deep purple color */
-"deep_purple" = "Тамно љубичаста";
-
-/* light blue color */
-"light_blue" = "Светло плава";
-
-/* cyan color */
-"cyan" = "Цијан";
-
-/* teal color */
-"teal" = "Теал";
-
-/* lime color */
-"lime" = "Лимета";
-
-/* deep orange color */
-"deep_orange" = "Тамно наранџаста";
-
-/* gray color */
-"gray" = "Сива";
-
-/* blue gray color */
-"blue_gray" = "Плаво сива";
-
 /* place preview title */
 "info" = "Информације";
 
@@ -773,9 +725,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Планирање руте није успело";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Долазак у: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Преузимање и ажурирање свих мапа уз пројектовану путању ради израчунавања руте.";
 "editor_done_dialog_1" = "Направили сте промену на мапи света! Не чувајте је само за себе; реците својим пријатељима и наставите да је мењате заједно.";
@@ -800,7 +749,6 @@
 "please_note" = "Обратите пажњу";
 "migration_download_error_dialog" = "Грешка приликом преузимања";
 "editor_add_select_category" = "Изаберите категорију";
-"editor_add_select_category_popular_subtitle" = "Популарно";
 "editor_add_select_category_all_subtitle" = "Све категорије";
 "whatsnew_editor_message_1" = "Додајте нова места на мапу, или промените постојећа директно из апликације.";
 "dialog_incorrect_feature_position" = "Промените локацију";
@@ -842,9 +790,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Да бисте видели податке о саобраћају, морате да ажурирате апликацију.";
 "log_file_size" = "Величина лог фајла: %@";
-"planning_route_remove_title" = "Превуците овде за уклањање";
 "placepage_replace_stop" = "Замени Stop";
-"start_from_my_position" = "Крени од";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Молим вас да се улогујете на OpenStreetMap да бисте аутоматски послали све ваше промене на мапи. Сазнајте више";
@@ -872,7 +818,6 @@
 "bottom" = "Доња";
 "trip_start" = "Крећемо";
 "pick_destination" = "Одредиште";
-"follow_my_position" = "Центрирај";
 "search_results" = "Резултати претраге";
 "then_turn" = "Затим";
 "redirect_route_alert" = "Да ли желите да поново направим руту?";
@@ -1013,10 +958,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Путања је празна, нема шта да се сачува";
 "edit_track" = "Измените путању";
-"elevation_profile_diff_level" = "Тежина";
-"elevation_profile_diff_level_easy" = "Лако";
-"elevation_profile_diff_level_moderate" = "Умерено";
-"elevation_profile_diff_level_hard" = "Тешко";
 "downloader_updating_ios" = "Ажурирање";
 
 /* Autoupdate dialog on start */

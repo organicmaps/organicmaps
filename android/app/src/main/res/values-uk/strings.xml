@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Вибачте, налаштування папки з мапами зараз недоступні.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Зараз відбувається завантаження країни.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Перегляньте моє поточне місцезнаходження в Organic Maps! %1$s або %2$s Не маєте офлайн мап? Завантажте їх тут: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Поглянь на мою мітку на мапі Organic Maps!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Поглянь на моє поточне розташування на мапі Organic Maps!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Привіт,\n\nЯ зараз тут: %1$s. Натисни на це посилання %2$s або на це посилання %3$s щоб побачити місце на мапі.\n\nДякую.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Поділитись</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Будь ласка, увімкніть геолокацію</string>
     <string name="save">Зберегти</string>
     <string name="create">створити</string>
-    <!-- red color -->
-    <string name="red">Червоний</string>
-    <!-- yellow color -->
-    <string name="yellow">Жовтий</string>
-    <!-- blue color -->
-    <string name="blue">Синій</string>
-    <!-- green color -->
-    <string name="green">Зелений</string>
-    <!-- purple color -->
-    <string name="purple">Пурпуровий</string>
-    <!-- orange color -->
-    <string name="orange">Помаранчевий</string>
-    <!-- brown color -->
-    <string name="brown">Коричневий</string>
-    <!-- pink color -->
-    <string name="pink">Рожевий</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Темно-пурпуровий</string>
-    <!-- light blue color -->
-    <string name="light_blue">Блакитний</string>
-    <!-- cyan color -->
-    <string name="cyan">Синьо-зелений</string>
-    <!-- teal color -->
-    <string name="teal">Смарагдовий</string>
-    <!-- lime color -->
-    <string name="lime">Лайм</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Темно-помаранчевий</string>
-    <!-- gray color -->
-    <string name="gray">Сірий</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Сіро-блакитний</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Вигляд</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Недостатньо місця</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Видаліть непотрібні дані</string>
-    <string name="editor_login_error_dialog">Виникла помилка при авторизації.</string>
     <string name="editor_profile_changes">Виправлення, що ураховані</string>
     <string name="editor_focus_map_on_location">Перетягніть мапу, щоб розмістити хрестик на розташуванні об\'єкту або бізнесу.</string>
     <string name="editor_edit_place_title">Редагування</string>
@@ -771,8 +734,6 @@
     <string name="elevation_profile_min_elevation">Мін. висота</string>
     <string name="elevation_profile_max_elevation">Макс. висота</string>
     <string name="elevation_profile_difficulty">Складність</string>
-    <string name="elevation_profile_distance">Відст.:</string>
-    <string name="elevation_profile_time">Шлях:</string>
     <string name="isolines_toast_zooms_1_10">Збільште мапу, щоб побачити ізолінії</string>
     <string name="downloader_loading_ios">Завантаження</string>
     <string name="download_map_title">Завантажити оглядову мапу світу</string>
@@ -855,7 +816,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Налаштування синтезу мовлення не знайдено, ви впевнені, що ваш пристрій його підтримує?</string>
     <string name="drive_through">З віконцем для водіїв</string>
-    <string name="clear_the_search">Очистити пошук</string>
     <string name="zoom_in">Збільшити</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">Зменшити</string>
@@ -878,12 +838,6 @@
     <string name="stop_track_recording">Зупинити запис треку</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Запис треку</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Зупинити без збереження</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Продовжити запис</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Зберегти в мітки та треки?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Трек порожній - нічого зберігати</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -891,8 +845,6 @@
     <string name="choose_color">Виберіть колір</string>
     <string name="edit_track">Редагувати трек</string>
     <string name="uri_open_location_failed">Не встановлено застосунок, який може відкрити розташування</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Авто в навігації</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Як у системі</string>
     <!-- Title of the bottom sheet when sharing the track -->

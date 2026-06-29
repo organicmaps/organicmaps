@@ -325,54 +325,6 @@
 "save" = "Save";
 "create" = "create";
 
-/* red color */
-"red" = "Red";
-
-/* yellow color */
-"yellow" = "Yellow";
-
-/* blue color */
-"blue" = "Blue";
-
-/* green color */
-"green" = "Green";
-
-/* purple color */
-"purple" = "Purple";
-
-/* orange color */
-"orange" = "Orange";
-
-/* brown color */
-"brown" = "Brown";
-
-/* pink color */
-"pink" = "Pink";
-
-/* deep purple color */
-"deep_purple" = "Deep Purple";
-
-/* light blue color */
-"light_blue" = "Light Blue";
-
-/* cyan color */
-"cyan" = "Cyan";
-
-/* teal color */
-"teal" = "Teal";
-
-/* lime color */
-"lime" = "Lime";
-
-/* deep orange color */
-"deep_orange" = "Deep Orange";
-
-/* gray color */
-"gray" = "Gray";
-
-/* blue gray color */
-"blue_gray" = "Blue Gray";
-
 /* place preview title */
 "info" = "Info";
 
@@ -773,9 +725,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Route Planning Failed";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Arrival at %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Download and update all map along the projected path to calculate route.";
 "editor_done_dialog_1" = "You’ve changed the world map! Don't keep it to yourself; tell your friends and edit it together.";
@@ -800,7 +749,6 @@
 "please_note" = "Please note";
 "migration_download_error_dialog" = "Download error";
 "editor_add_select_category" = "Select category";
-"editor_add_select_category_popular_subtitle" = "Popular";
 "editor_add_select_category_all_subtitle" = "All Categories";
 "whatsnew_editor_message_1" = "Add new places to the map, and edit existing ones directly from the app.";
 "dialog_incorrect_feature_position" = "Change location";
@@ -842,9 +790,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "To display traffic data, the application must be updated.";
 "log_file_size" = "Log file size: %@";
-"planning_route_remove_title" = "Drag here to remove";
 "placepage_replace_stop" = "Replace Stop";
-"start_from_my_position" = "Start from";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more";
@@ -872,7 +818,6 @@
 "bottom" = "Bottom";
 "trip_start" = "Let's go";
 "pick_destination" = "Destination";
-"follow_my_position" = "Re-center";
 "search_results" = "Search results";
 "then_turn" = "Then";
 "redirect_route_alert" = "Do you want to rebuild the route?";
@@ -1013,10 +958,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Track is empty - nothing to save";
 "edit_track" = "Edit Track";
-"elevation_profile_diff_level" = "Difficulty level";
-"elevation_profile_diff_level_easy" = "Easy";
-"elevation_profile_diff_level_moderate" = "Moderate";
-"elevation_profile_diff_level_hard" = "Hard";
 "downloader_updating_ios" = "Updating";
 
 /* Autoupdate dialog on start */

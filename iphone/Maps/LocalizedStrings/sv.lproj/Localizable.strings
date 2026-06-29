@@ -325,54 +325,6 @@
 "save" = "Spara";
 "create" = "skapa";
 
-/* red color */
-"red" = "Röd";
-
-/* yellow color */
-"yellow" = "Gul";
-
-/* blue color */
-"blue" = "Blå";
-
-/* green color */
-"green" = "Grön";
-
-/* purple color */
-"purple" = "Lila";
-
-/* orange color */
-"orange" = "Orange";
-
-/* brown color */
-"brown" = "Brun";
-
-/* pink color */
-"pink" = "Rosa";
-
-/* deep purple color */
-"deep_purple" = "Mörklila";
-
-/* light blue color */
-"light_blue" = "Ljusblå";
-
-/* cyan color */
-"cyan" = "Blågrön";
-
-/* teal color */
-"teal" = "Smaragdgrön";
-
-/* lime color */
-"lime" = "Limefärg";
-
-/* deep orange color */
-"deep_orange" = "Mörkorange";
-
-/* gray color */
-"gray" = "Grå";
-
-/* blue gray color */
-"blue_gray" = "Ljusblå grå";
-
 /* place preview title */
 "info" = "Info";
 
@@ -773,9 +725,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Ruttplaneringen misslyckades";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Ankomst: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "För att skapa en rutt, ladda ner och uppdatera alla kartor längs rutten.";
 "editor_done_dialog_1" = "Du har ändrat världskartan. Dela det med dina vänner och redigera den tillsammans.";
@@ -800,7 +749,6 @@
 "please_note" = "Observera";
 "migration_download_error_dialog" = "Nedladdningsfel";
 "editor_add_select_category" = "Välj kategori";
-"editor_add_select_category_popular_subtitle" = "Populärt";
 "editor_add_select_category_all_subtitle" = "Alla kategorier";
 "whatsnew_editor_message_1" = "Lägg till nya platser på kartan och redigera de befintliga direkt i appen.";
 "dialog_incorrect_feature_position" = "Ändra plats";
@@ -842,9 +790,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Applikationen måste uppdateras för att trafikdata ska kunna visas.";
 "log_file_size" = "Loggfilens storlek: %@";
-"planning_route_remove_title" = "Dra hit för att ta bort";
 "placepage_replace_stop" = "Byt ut stopp";
-"start_from_my_position" = "Starta från";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Logga in på OpenStreetMap för att automatiskt ladda upp alla dina kartredigeringar. Läs mer";
@@ -872,7 +818,6 @@
 "bottom" = "Botten";
 "trip_start" = "Nu åker vi";
 "pick_destination" = "Destination";
-"follow_my_position" = "Placera i mitten";
 "search_results" = "Sökresultat";
 "then_turn" = "Sedan";
 "redirect_route_alert" = "Vill du räkna om rutten?";
@@ -1013,10 +958,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Routen är tom - inget att spara";
 "edit_track" = "Redigera spår";
-"elevation_profile_diff_level" = "Svårighetsgrad";
-"elevation_profile_diff_level_easy" = "Lätt";
-"elevation_profile_diff_level_moderate" = "Måttlig";
-"elevation_profile_diff_level_hard" = "Svår";
 "downloader_updating_ios" = "Uppdaterar";
 
 /* Autoupdate dialog on start */

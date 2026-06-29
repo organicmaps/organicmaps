@@ -125,14 +125,10 @@
     <string name="cant_change_this_setting">ຂໍອະໄພ, ການຕັ້ງຄ່າບ່ອນເກັບຂໍ້ມູນແຜນທີ່ຖືກປິດການໃຊ້ງານໃນຂະນະນີ້.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">ພວມຢູ່ໃນຂະນະດາວໂຫລດແຜນທີ່.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">ເບິ່ງຕຳແໜ່ງປັດຈຸບັນຂອງຂ້ອຍໃນ Organic Maps! %1$s ຫຼື %2$s ຫາກບໍ່ມີແຜນທີ່ອອບລາຍ? ດາວໂຫລດໄດ້ທີ່ນີ້: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">ເຮີ້ຍ, ເບິ່ງປັກໝຸດຂອງຂ້ອຍໃນ Organic Maps ແມ້!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">ເຮີ້ຍ, ເບິ່ງຕຳແໜ່ງປັດຈຸບັນຂອງຂ້ອຍໃນແຜນທີ່ Organic Maps ແມ້!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">ສະບາຍດີ,\n\nຕອນນີ້ຂ້ອຍຢູ່ທີ່ນີ້: %1$s. ຄລິກລິ້ງນີ້ %2$s ຫຼື ອັນນີ້ %3$s ເພື່ອເບິ່ງສະຖານທີ່ໃນແຜນທີ່.\n\nຂອບໃຈ.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">ແບ່ງປັນ</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -266,38 +262,6 @@
     <string name="enable_location_services">ກະລຸນາເປີດບໍລິການຕຳແໜ່ງທີ່ຕັ້ງ</string>
     <string name="save">ບັນທຶກ</string>
     <string name="create">ສ້າງ</string>
-    <!-- red color -->
-    <string name="red">ສີແດງ</string>
-    <!-- yellow color -->
-    <string name="yellow">ສີເຫຼືອງ</string>
-    <!-- blue color -->
-    <string name="blue">ສີຟ້າ</string>
-    <!-- green color -->
-    <string name="green">ສີຂຽວ</string>
-    <!-- purple color -->
-    <string name="purple">ສີມ່ວງ</string>
-    <!-- orange color -->
-    <string name="orange">ສີສົ້ມ</string>
-    <!-- brown color -->
-    <string name="brown">ສີນ້ຳຕານ</string>
-    <!-- pink color -->
-    <string name="pink">ສີບົວ</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">ສີມ່ວງເຂັ້ມ</string>
-    <!-- light blue color -->
-    <string name="light_blue">ສີຟ້າອ່ອນ</string>
-    <!-- cyan color -->
-    <string name="cyan">ສີຟ້າຂຽວ</string>
-    <!-- teal color -->
-    <string name="teal">ສີຂຽວນົກເປັດນ້ຳ</string>
-    <!-- lime color -->
-    <string name="lime">ສີຂຽວໝາກນາວ</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">ສີສົ້ມເຂັ້ມ</string>
-    <!-- gray color -->
-    <string name="gray">ສີເທົາ</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">ສີເທົາຟ້າ</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">ຮູບລັກສະນະ</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -423,7 +387,6 @@
     <string name="downloader_no_space_title">ພື້ນທີ່ບໍ່ພໍ</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">ກະລຸນາລຶບຂໍ້ມູນທີ່ບໍ່ຈຳເປັນອອກ</string>
-    <string name="editor_login_error_dialog">ເກີດຂໍ້ຜິດພາດໃນການເຂົ້າສູ່ລະບົບ.</string>
     <string name="editor_profile_changes">ການປ່ຽນແປງທີ່ໄດ້ຮັບການຢືນຢັນແລ້ວ</string>
     <string name="editor_focus_map_on_location">ລາກແຜນທີ່ເພື່ອວາງເຄື່ອງໝາຍບວກໃສ່ຕຳແໜ່ງຂອງສະຖານທີ່ ຫຼື ທຸລະກິດ.</string>
     <string name="editor_edit_place_title">ກຳລັງແກ້ໄຂ</string>
@@ -718,8 +681,6 @@
     <string name="elevation_profile_min_elevation">ລະດັບຄວາມສູງຕ່ຳສຸດ</string>
     <string name="elevation_profile_max_elevation">ລະດັບຄວາມສູງສູງສຸດ</string>
     <string name="elevation_profile_difficulty">ຄວາມຍາກ</string>
-    <string name="elevation_profile_distance">ໄລຍະ:</string>
-    <string name="elevation_profile_time">ເວລາ:</string>
     <string name="isolines_toast_zooms_1_10">ຊູມເຂົ້າເພື່ອເບິ່ງເສັ້ນລະດັບຄວາມສູງ</string>
     <string name="downloader_loading_ios">ກຳລັງດາວໂຫລດ</string>
     <string name="download_map_title">ດາວໂຫລດແຜນທີ່ພາບລວມຂອງໂລກ</string>
@@ -800,7 +761,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">ບໍ່ພົບການຕັ້ງຄ່າການສັງເຄາະສຽງ, ທ່ານແນ່ໃຈບໍ່ວ່າອຸປະກອນຂອງທ່ານຮອງຮັບ?</string>
     <string name="drive_through">ໄດຣຟ໌ທຣູ</string>
-    <string name="clear_the_search">ລຶບການຄົ້ນຫາ</string>
     <string name="zoom_in">ຊູມເຂົ້າ</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">ຊູມອອກ</string>
@@ -823,12 +783,6 @@
     <string name="stop_track_recording">ຢຸດການບັນທຶກເສັ້ນທາງ</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">ການບັນທຶກເສັ້ນທາງ</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">ຢຸດໂດຍບໍ່ບັນທຶກ</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">ບັນທຶກຕໍ່ໄປ</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">ບັນທຶກລົງໃນບຸກມາກ ແລະ ເສັ້ນທາງບໍ່?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">ເສັ້ນທາງວ່າງເປົ່າ - ບໍ່ມີຫຍັງໃຫ້ບັນທຶກ</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -836,8 +790,6 @@
     <string name="choose_color">ເລືອກສີ</string>
     <string name="edit_track">ແກ້ໄຂເສັ້ນທາງ</string>
     <string name="uri_open_location_failed">ບໍ່ມີແອັບທີ່ຕິດຕັ້ງໄວ້ເຊິ່ງສາມາດເປີດຕຳແໜ່ງທີ່ຕັ້ງນີ້ໄດ້</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">ອັດຕະໂນມັດໃນການນຳທາງ</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">ຕາມລະບົບ</string>
     <!-- Title of the bottom sheet when sharing the track -->

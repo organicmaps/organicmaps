@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Üzr istəyirik, Xəritə Yaddaşı parametrləri hazırda deaktivdir.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Xəritənin endirilməsi hazırda davam edir.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Salam, Organic Maps\'da mənim hal-hazırda olduğum ünvanı yoxla! %1$s və ya %2$s Oflayn xəritələriniz yoxdur? Buradan endirin: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Salam, Organic Maps xəritəsində mənim pin kodumu yoxlayın!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hey, Organic Maps\'da mənim hal-hazırda olduğum ünvana baxın!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Salam,\n\nMən hazırda bu ünvandayam: %1$s. Xəritədə yeri görmək üçün %2$s və ya %3$s üzərinə klikləyin.\n\nTəşəkkür edirik.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Paylaşın</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Zəhmət olmasa məkan xidmətlərini aktivləşdirin</string>
     <string name="save">Yadda saxla</string>
     <string name="create">yaratmaq</string>
-    <!-- red color -->
-    <string name="red">Qırmızı</string>
-    <!-- yellow color -->
-    <string name="yellow">Sarı</string>
-    <!-- blue color -->
-    <string name="blue">Mavi</string>
-    <!-- green color -->
-    <string name="green">Yaşıl</string>
-    <!-- purple color -->
-    <string name="purple">Bənövşəyi</string>
-    <!-- orange color -->
-    <string name="orange">Narıncı</string>
-    <!-- brown color -->
-    <string name="brown">Qəhvəyi</string>
-    <!-- pink color -->
-    <string name="pink">Çəhrayı</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Tünd bənövşəyi</string>
-    <!-- light blue color -->
-    <string name="light_blue">Açıq mavi</string>
-    <!-- cyan color -->
-    <string name="cyan">Göy-yaşıl</string>
-    <!-- teal color -->
-    <string name="teal">Dəniz mavisi</string>
-    <!-- lime color -->
-    <string name="lime">Limon rəngi</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Tünd narıncı</string>
-    <!-- gray color -->
-    <string name="gray">Boz</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Mavi-boz</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Görünüş</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Kifayət qədər yer yoxdur</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Zəhmət olmasa lazımsız məlumatları silin</string>
-    <string name="editor_login_error_dialog">Giriş xətası</string>
     <string name="editor_profile_changes">Təsdiqlənmiş Dəyişikliklər</string>
     <string name="editor_focus_map_on_location">Xaç işarəsini yer və ya biznesin yerinə qoymaq üçün xəritəni dartın.</string>
     <string name="editor_edit_place_title">Redaktə</string>
@@ -764,8 +727,6 @@
     <string name="elevation_profile_min_elevation">Min. hündürlük</string>
     <string name="elevation_profile_max_elevation">Maks. hündürlük</string>
     <string name="elevation_profile_difficulty">Çətinlik</string>
-    <string name="elevation_profile_distance">Məsafə:</string>
-    <string name="elevation_profile_time">Müddət:</string>
     <string name="isolines_toast_zooms_1_10">İzohipləri görmək üçün xəritəni böyüdün</string>
     <string name="downloader_loading_ios">Endirilir</string>
     <string name="download_map_title">Dünya xəritəsini yükləyin</string>
@@ -842,7 +803,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Nitq sintezi parametrləri tapılmadı, cihazınızın bunu dəstəklədiyinə əminsiniz?</string>
     <string name="drive_through">Sürüşmə</string>
-    <string name="clear_the_search">Axtarışı təmizləyin</string>
     <string name="zoom_in">Yaxınlaşdırma</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">Küçült</string>
@@ -865,12 +825,6 @@
     <string name="stop_track_recording">Marşrut qeydini dayandır</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Marşrut yazısı</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Saxlamadan dayandırın</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Qeyd etməyə davam et</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Əlfəcinlər və qeydlərə yadda saxla?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Marşrut boşdur - saxlamaq üçün heç nə yoxdur</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -878,8 +832,6 @@
     <string name="choose_color">Rəngi seçin</string>
     <string name="edit_track">Marşrutu redaktə edin</string>
     <string name="uri_open_location_failed">Məkanı aça biləcək proqram quraşdırılmayıb</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Naviqasiyada avtomatik</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Sistemə uyğun</string>
     <!-- Title of the bottom sheet when sharing the track -->

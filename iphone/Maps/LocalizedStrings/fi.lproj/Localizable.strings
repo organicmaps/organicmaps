@@ -325,54 +325,6 @@
 "save" = "Tallenna";
 "create" = "luo";
 
-/* red color */
-"red" = "Punainen";
-
-/* yellow color */
-"yellow" = "Keltainen";
-
-/* blue color */
-"blue" = "Sininen";
-
-/* green color */
-"green" = "Vihreä";
-
-/* purple color */
-"purple" = "Violetti";
-
-/* orange color */
-"orange" = "Oranssi";
-
-/* brown color */
-"brown" = "Ruskea";
-
-/* pink color */
-"pink" = "Pinkki";
-
-/* deep purple color */
-"deep_purple" = "Tumman purppuranpunainen";
-
-/* light blue color */
-"light_blue" = "Vaaleansininen";
-
-/* cyan color */
-"cyan" = "Sinivihreä";
-
-/* teal color */
-"teal" = "Smaragdinvihreä";
-
-/* lime color */
-"lime" = "Limen värinen";
-
-/* deep orange color */
-"deep_orange" = "Tumman oranssi";
-
-/* gray color */
-"gray" = "Harmaa";
-
-/* blue gray color */
-"blue_gray" = "Siniharmaa";
-
 /* place preview title */
 "info" = "Tietoa";
 
@@ -773,9 +725,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Reitin suunnittelu epäonnistui";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Saavut: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Lataa ja päivitä kaikki kartat reitin varrella luodaksesi reitin.";
 "editor_done_dialog_1" = "Olet muuttanut maailmankarttaa. Älä piilota tätä! Kerro ystävillesi ja muokatkaa sitä yhdessä.";
@@ -800,7 +749,6 @@
 "please_note" = "Huomaathan, että";
 "migration_download_error_dialog" = "Latausvirhe";
 "editor_add_select_category" = "Valitse kategoria";
-"editor_add_select_category_popular_subtitle" = "Suositut";
 "editor_add_select_category_all_subtitle" = "Kaikki kategoriat";
 "whatsnew_editor_message_1" = "Lisää karttaan uusia paikkoja ja muokkaa sovelluksessa olevia karttoja suoraan sovelluksessa.";
 "dialog_incorrect_feature_position" = "Vaihda sijaintia";
@@ -842,9 +790,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Liikennetietojen näyttämiseksi sovellus on päivitettävä.";
 "log_file_size" = "Lokitiedoston koko: %@";
-"planning_route_remove_title" = "Vedä tähän poistaaksesi";
 "placepage_replace_stop" = "Vaihda Stop";
-"start_from_my_position" = "Aloita kohdasta";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Kirjaudu sisään OpenStreetMapiin, jotta voit ladata kaikki karttamuutoksesi automaattisesti. Lisätietoja";
@@ -872,7 +818,6 @@
 "bottom" = "Pohja";
 "trip_start" = "Mennään";
 "pick_destination" = "Määränpää";
-"follow_my_position" = "Kohdista";
 "search_results" = "Hakutulokset";
 "then_turn" = "Sitten";
 "redirect_route_alert" = "Haluatko luoda reitin uudelleen?";
@@ -1013,10 +958,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Reitti on tyhjä - ei mitään tallennettavaa";
 "edit_track" = "Muokkaa reittiä";
-"elevation_profile_diff_level" = "Vaikeustaso";
-"elevation_profile_diff_level_easy" = "Helppo";
-"elevation_profile_diff_level_moderate" = "Kohtuullinen";
-"elevation_profile_diff_level_hard" = "Vaikea";
 "downloader_updating_ios" = "Päivitetään";
 
 /* Autoupdate dialog on start */

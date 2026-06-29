@@ -325,54 +325,6 @@
 "save" = "Kaydet";
 "create" = "oluştur";
 
-/* red color */
-"red" = "Kırmızı";
-
-/* yellow color */
-"yellow" = "Sarı";
-
-/* blue color */
-"blue" = "Mavi";
-
-/* green color */
-"green" = "Yeşil";
-
-/* purple color */
-"purple" = "Mor";
-
-/* orange color */
-"orange" = "Turuncu";
-
-/* brown color */
-"brown" = "Kahverengi";
-
-/* pink color */
-"pink" = "Pembe";
-
-/* deep purple color */
-"deep_purple" = "Koyu Mor";
-
-/* light blue color */
-"light_blue" = "Açık Mavi";
-
-/* cyan color */
-"cyan" = "Cam Göbeği";
-
-/* teal color */
-"teal" = "Deniz Mavisi";
-
-/* lime color */
-"lime" = "Çim Rengi";
-
-/* deep orange color */
-"deep_orange" = "Koyu Turuncu";
-
-/* gray color */
-"gray" = "Gri";
-
-/* blue gray color */
-"blue_gray" = "Mavi Gri";
-
 /* place preview title */
 "info" = "Bilgi";
 
@@ -773,9 +725,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Rota Planlaması Başarısız";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Varış: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Rota oluşturmak için lütfen rota üzerindeki tüm haritaları indirin ve güncelleyin.";
 "editor_done_dialog_1" = "Dünya haritasını değiştirdiniz. Bunu gizlemeyin! Arkadaşlarınıza anlatın ve birlikte düzenleyin.";
@@ -800,7 +749,6 @@
 "please_note" = "Lütfen dikkat";
 "migration_download_error_dialog" = "İndirme hatası";
 "editor_add_select_category" = "Kategori seç";
-"editor_add_select_category_popular_subtitle" = "Popüler";
 "editor_add_select_category_all_subtitle" = "Tüm kategoriler";
 "whatsnew_editor_message_1" = "Doğrudan uygulamadan haritaya yeni yerler ekleyin ve var olan yerleri düzenleyin.";
 "dialog_incorrect_feature_position" = "Konumu değiştir";
@@ -842,9 +790,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Trafik verilerini görüntülemek için uygulamanın güncellenmesi gerekiyor.";
 "log_file_size" = "Günlük dosyası boyutu: %@";
-"planning_route_remove_title" = "Kaldırmak için buraya sürükleyin";
 "placepage_replace_stop" = "Durağı Değiştir";
-"start_from_my_position" = "Buradan başla";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Tüm harita düzenlemelerinizi otomatik olarak yüklemek için lütfen OpenStreetMap'e giriş yapın. Daha fazla bilgi";
@@ -872,7 +818,6 @@
 "bottom" = "Alt";
 "trip_start" = "Haydi gidelim";
 "pick_destination" = "Hedef";
-"follow_my_position" = "Yeniden ortala";
 "search_results" = "Arama sonuçları";
 "then_turn" = "Sonra";
 "redirect_route_alert" = "Yeniden bir rota oluşturmak ister misiniz?";
@@ -1013,10 +958,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "İz boş - kaydedilecek bir şey yok";
 "edit_track" = "İzi Düzenle";
-"elevation_profile_diff_level" = "Zorluk seviyesi";
-"elevation_profile_diff_level_easy" = "Kolay";
-"elevation_profile_diff_level_moderate" = "Orta";
-"elevation_profile_diff_level_hard" = "Zor";
 "downloader_updating_ios" = "Güncelleniyor";
 
 /* Autoupdate dialog on start */

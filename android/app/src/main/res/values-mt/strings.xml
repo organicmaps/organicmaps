@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Jiddispjaċini, is-settings tal-Ħażna tal-Mappa huma mitfija bħalissa.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">It-tniżżil tal-mappa għaddej bħalissa.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Ara il-lokażżjoni kurrenti tiegħi ġo Organic Maps! %1$s or %2$s M\'għandekx mapep offlajn? Niżżel hawn: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Merħba, ara il-pin tiegħi fuq Organic Maps!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Merħba, ara il-lokażżjoni kurrenti tiegħi fuq il-mappa ta\'Organic Maps!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Merħba, \n\nJien qiegħed hawn: %1$s. Għaffas din il-link %2$s jew fuq din %3$s biex tara il-post fuq il-mappa.\n\nGrazzi.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Aqsam</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Attiva s-servizzi tal-post</string>
     <string name="save">Issejvja</string>
     <string name="create">Oħloq</string>
-    <!-- red color -->
-    <string name="red">Aħmar</string>
-    <!-- yellow color -->
-    <string name="yellow">Isfar</string>
-    <!-- blue color -->
-    <string name="blue">Blu</string>
-    <!-- green color -->
-    <string name="green">Aħdar</string>
-    <!-- purple color -->
-    <string name="purple">Vjola</string>
-    <!-- orange color -->
-    <string name="orange">Oranġjo</string>
-    <!-- brown color -->
-    <string name="brown">Kannella</string>
-    <!-- pink color -->
-    <string name="pink">Roża</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Vjola Fond</string>
-    <!-- light blue color -->
-    <string name="light_blue">Blu Ċar</string>
-    <!-- cyan color -->
-    <string name="cyan">Blu jagħti fl-aħdar</string>
-    <!-- teal color -->
-    <string name="teal">Teal</string>
-    <!-- lime color -->
-    <string name="lime">Lime</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Oranġjo Fond</string>
-    <!-- gray color -->
-    <string name="gray">Griż</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Blu Griż</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Dehra</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Mhux biżżejjed spazju</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Ħassar kwalunkwe dejta mhux neċessarja</string>
-    <string name="editor_login_error_dialog">Żball tal-illoggjar.</string>
     <string name="editor_profile_changes">Bidliet Ivverifikati</string>
     <string name="editor_focus_map_on_location">Mexxi l-mappa biex tqiegħed is-salib fil-post tal-post jew tan-negozju.</string>
     <string name="editor_edit_place_title">Editjar</string>
@@ -767,8 +730,6 @@
     <string name="elevation_profile_min_elevation">Elevazzjoni minima</string>
     <string name="elevation_profile_max_elevation">Elevazzjoni massima</string>
     <string name="elevation_profile_difficulty">Diffikulta’</string>
-    <string name="elevation_profile_distance">Distanza:</string>
-    <string name="elevation_profile_time">Ħin:</string>
     <string name="isolines_toast_zooms_1_10">Iżżumja ’l ġewwa biex tesplora l-isolines</string>
     <string name="downloader_loading_ios">Tniżżil</string>
     <string name="download_map_title">Niżżel il-mappa ġenerali tad-dinja</string>
@@ -841,7 +802,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Is-settings tas-Sinteżi tad-diskors ma nstabux, żgur li t-tagħmir tiegħek jappoġġjah?</string>
     <string name="drive_through">Drive-through</string>
-    <string name="clear_the_search">Neħħi t-tiftixa</string>
     <string name="zoom_in">Iżżumja ’l ġewwa</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">Iżżumja ’l barra</string>
@@ -864,12 +824,6 @@
     <string name="stop_track_recording">Waqqaf ir-reġistrazzjoni tal-korsa</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Irrekordjar tat-Traċċa</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Waqqaf Mingħajr ma\' Tissejvja</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Kompli rrekordja</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Issejvja fil-Bookmarks u l-Korsiji?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Il-Korsija hija vojta - xejn x’ tissejvja</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -877,8 +831,6 @@
     <string name="choose_color">Agħżel Kulur</string>
     <string name="edit_track">Editja l-Korsija</string>
     <string name="uri_open_location_failed">Ebda applikazzjoni installata li tista’ tiftaħ il-post</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Auto fin-navigazzjoni</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Segwi s-sistema</string>
     <!-- Title of the bottom sheet when sharing the track -->

@@ -17,18 +17,8 @@
 "report_a_bug" = "Errore baten berri eman";
 
 
-/********** 3d touch strings **********/
-
-
-/* Used in home screen quick actions. */
-"route" = "Ibilbidea";
-
-
 /********** gps strings **********/
 
-
-/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "Beharrezkoa da inguruneko egungo kokapena definitzea aplikazioaren funtzionaltasunaz guztiz gozatzeko. Ibilbidea jarraitu eta duela gutxi egindako bidea gordetzeko aukeretan erabiltzen da.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Uneko kokapenaren definizioa ibilbidea jarraitu eta duela gutxi egindako bidea gordetzeko aukeretan erabiltzen da.";

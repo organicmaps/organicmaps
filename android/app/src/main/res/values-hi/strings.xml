@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">क्षमा करें, मानचित्र संग्रहण सेटिंग वर्तमान में अक्षम हैं।</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">मानचित्र डाउनलोड अभी प्रगति पर है.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Organic Maps में मेरा वर्तमान स्थान देखें! %1$s या %2$s खोलें। ऑफ़लाइन मानचित्र नहीं हैं? यहाँ डाउनलोड करें: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">अरे, Organic Maps में मेरा पिन देखो!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">अरे, Organic Maps के नक्शे पर मेरी वर्तमान स्थिति देखो!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">नमस्ते,\n\nमैं अब यहाँ हूँ: %1$s. इस लिंक पर क्लिक करें %2$s या यह लिंक %3$s मानचित्र पर स्थान देखने के लिए\n\nधन्यवाद.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">साझा करें</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">कृपया स्थान सेवाएँ सक्षम करें</string>
     <string name="save">सहेजें</string>
     <string name="create">बनाएं</string>
-    <!-- red color -->
-    <string name="red">लाल</string>
-    <!-- yellow color -->
-    <string name="yellow">पीला</string>
-    <!-- blue color -->
-    <string name="blue">नीला</string>
-    <!-- green color -->
-    <string name="green">हरा</string>
-    <!-- purple color -->
-    <string name="purple">बैंगनी</string>
-    <!-- orange color -->
-    <string name="orange">नारंगी</string>
-    <!-- brown color -->
-    <string name="brown">भूरा</string>
-    <!-- pink color -->
-    <string name="pink">गुलाबी</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">डीप पर्पल</string>
-    <!-- light blue color -->
-    <string name="light_blue">हल्का नीला</string>
-    <!-- cyan color -->
-    <string name="cyan">सायन</string>
-    <!-- teal color -->
-    <string name="teal">टील</string>
-    <!-- lime color -->
-    <string name="lime">लाइम</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">गहरा नारंगी</string>
-    <!-- gray color -->
-    <string name="gray">ग्रे</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">नीला धूसर</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">प्रकटन</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">पर्याप्त जगह नहीं</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">कृपया कोई भी अनावश्यक डेटा हटा दें</string>
-    <string name="editor_login_error_dialog">लॉगिन त्रुटि</string>
     <string name="editor_profile_changes">सत्यापित परिवर्तन</string>
     <string name="editor_focus_map_on_location">स्थान या व्यवसाय के स्थान पर क्रॉस लगाने के लिए मानचित्र को खींचें।</string>
     <string name="editor_edit_place_title">संपादन</string>
@@ -755,8 +718,6 @@
     <string name="elevation_profile_min_elevation">न्यूनतम ऊँचाई</string>
     <string name="elevation_profile_max_elevation">अधिकतम ऊँचाई</string>
     <string name="elevation_profile_difficulty">कठिनाई</string>
-    <string name="elevation_profile_distance">वितरण:</string>
-    <string name="elevation_profile_time">समय:</string>
     <string name="isolines_toast_zooms_1_10">इज़ोलाइन्स का अन्वेषण करने के लिए ज़ूम इन करें</string>
     <string name="downloader_loading_ios">डाउनलोड हो रहा है</string>
     <string name="download_map_title">विश्व मानचित्र डाउनलोड करें</string>
@@ -831,7 +792,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">स्पीच सिंथेसिस सेटिंग्स नहीं मिलीं, क्या आप सुनिश्चित हैं कि आपका डिवाइस इसका समर्थन करता है?</string>
     <string name="drive_through">ड्राइव करते हुए किसी जगह से गुजरना</string>
-    <string name="clear_the_search">खोज साफ़ करें</string>
     <string name="zoom_in">ज़ूम इन</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">ज़ूम आउट</string>
@@ -854,12 +814,6 @@
     <string name="stop_track_recording">ट्रैक रिकॉर्डिंग रोकें</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">ट्रैक रिकॉर्डिंग</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">बिना सहेजे रुकें</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">रिकॉर्डिंग जारी रखें</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">मार्ग रिकॉर्डिंग बुकमार्क और ट्रैक में सहेजें?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">मार्ग खाली है - बचाने के लिए कुछ नहीं</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -867,8 +821,6 @@
     <string name="choose_color">रंग चुनें</string>
     <string name="edit_track">मार्ग संपादित करें</string>
     <string name="uri_open_location_failed">कोई ऐप इंस्टॉल नहीं है जो लोकेशन खोल सके</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">नेविगेशन में ऑटो</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">सिस्टम का अनुसरण करें</string>
     <!-- Title of the bottom sheet when sharing the track -->

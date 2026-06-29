@@ -325,54 +325,6 @@
 "save" = "Gorde";
 "create" = "sortu";
 
-/* red color */
-"red" = "Gorria";
-
-/* yellow color */
-"yellow" = "Horia";
-
-/* blue color */
-"blue" = "Urdina";
-
-/* green color */
-"green" = "Berdea";
-
-/* purple color */
-"purple" = "Morea";
-
-/* orange color */
-"orange" = "Laranja";
-
-/* brown color */
-"brown" = "Marroia";
-
-/* pink color */
-"pink" = "Arrosa";
-
-/* deep purple color */
-"deep_purple" = "More iluna";
-
-/* light blue color */
-"light_blue" = "Urdin argia";
-
-/* cyan color */
-"cyan" = "Ziana";
-
-/* teal color */
-"teal" = "Berde urdinxka";
-
-/* lime color */
-"lime" = "Lima";
-
-/* deep orange color */
-"deep_orange" = "Laranja iluna";
-
-/* gray color */
-"gray" = "Grisa";
-
-/* blue gray color */
-"blue_gray" = "Gris urdinxka";
-
 /* place preview title */
 "info" = "Informazioa";
 
@@ -773,9 +725,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Ibilbidea planifikatzeko errorea";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Iristeko unea: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Deskargatu eta eguneratu proiektatutako bideko mapa guztiak ibilbidea kalkulatzeko.";
 "editor_done_dialog_1" = "Munduko mapa aldatu duzu. Ez ezazu zeuretzat gorde. Esan zure lagunei eta editatu elkarrekin.";
@@ -800,7 +749,6 @@
 "please_note" = "Abisua";
 "migration_download_error_dialog" = "Deskargaren errorea";
 "editor_add_select_category" = "Hautatu kategoria";
-"editor_add_select_category_popular_subtitle" = "Ospetsua";
 "editor_add_select_category_all_subtitle" = "Kategoria guztiak";
 "whatsnew_editor_message_1" = "Gehitu toki berriak mapan eta editatu uneko tokiak zuzenean aplikaziotik.";
 "dialog_incorrect_feature_position" = "Aldatu kokapena";
@@ -842,9 +790,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Trafiko datuak bistaratzeko, aplikazioa eguneratu behar duzu.";
 "log_file_size" = "Erregistro fitxategiaren tamaina: %@";
-"planning_route_remove_title" = "Arrastatu hona kentzeko";
 "placepage_replace_stop" = "Ordeztu geldialdia";
-"start_from_my_position" = "Hasi hemendik";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Hasi saioa OpenStreetMap-en zure mapen aldaketa guztiak automatikoki kargatzeko. Lortu informazio gehiago";
@@ -872,7 +818,6 @@
 "bottom" = "Behealdea";
 "trip_start" = "Goazen";
 "pick_destination" = "Helmuga";
-"follow_my_position" = "Berriz zentratu";
 "search_results" = "Bilaketa emaitzak";
 "then_turn" = "Gero";
 "redirect_route_alert" = "Ibilbidea berreraiki nahi duzu?";
@@ -1013,10 +958,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Arrastoa hutsik dago; ez dago ezer gordetzeko";
 "edit_track" = "Editatu arrastoa";
-"elevation_profile_diff_level" = "Zailtasun maila";
-"elevation_profile_diff_level_easy" = "Erraza";
-"elevation_profile_diff_level_moderate" = "Moderatua";
-"elevation_profile_diff_level_hard" = "Zaila";
 "downloader_updating_ios" = "Eguneratzen";
 
 /* Autoupdate dialog on start */

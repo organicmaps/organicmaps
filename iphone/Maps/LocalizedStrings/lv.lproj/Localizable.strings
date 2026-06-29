@@ -325,54 +325,6 @@
 "save" = "Saglabāt";
 "create" = "izveidot";
 
-/* red color */
-"red" = "Sarkana";
-
-/* yellow color */
-"yellow" = "Dzeltena";
-
-/* blue color */
-"blue" = "Zila";
-
-/* green color */
-"green" = "Zaļa";
-
-/* purple color */
-"purple" = "Violeta";
-
-/* orange color */
-"orange" = "Oranža";
-
-/* brown color */
-"brown" = "Brūna";
-
-/* pink color */
-"pink" = "Rozā";
-
-/* deep purple color */
-"deep_purple" = "Tumši violeta";
-
-/* light blue color */
-"light_blue" = "Gaiši zila";
-
-/* cyan color */
-"cyan" = "Ciāna";
-
-/* teal color */
-"teal" = "Tumši ciāna";
-
-/* lime color */
-"lime" = "Dzeltenzaļa";
-
-/* deep orange color */
-"deep_orange" = "Tumši oranža";
-
-/* gray color */
-"gray" = "Pelēka";
-
-/* blue gray color */
-"blue_gray" = "Zilpelēka";
-
 /* place preview title */
 "info" = "Informācija";
 
@@ -773,9 +725,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Maršruta plānošana neizdevās";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Ierašanās: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Lejupielādēt un atjaunināt visas kartes gar iespējamo maršrutu, lai to aprēķinātu.";
 "editor_done_dialog_1" = "Jūs nomainījāt pasaules karti! Neturiet izmaiņas pie sevis, bet pastāstiet par tām saviem draugiem un rediģējiet kopā!";
@@ -800,7 +749,6 @@
 "please_note" = "Ievērojiet";
 "migration_download_error_dialog" = "Lejupielādes kļūda";
 "editor_add_select_category" = "Atlasiet kategoriju";
-"editor_add_select_category_popular_subtitle" = "Populāras";
 "editor_add_select_category_all_subtitle" = "Visas kategorijas";
 "whatsnew_editor_message_1" = "Pievienojiet kartei jaunas vietas un rediģējiet jau esošās uzreiz lietotnē.";
 "dialog_incorrect_feature_position" = "Mainīt atrašanās vietu";
@@ -842,9 +790,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Lai parādītu satiksmes datus, lietotne ir jāatjaunina.";
 "log_file_size" = "Žurnāla datnes lielums: %@";
-"planning_route_remove_title" = "Velciet te, lai noņemtu";
 "placepage_replace_stop" = "Aizstāt Stop";
-"start_from_my_position" = "Sākt no";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Ierakstieties „OpenStreetMap“, lai automātiski augšupielādētu visus kartes rediģējumus. Uzziniet vairāk";
@@ -872,7 +818,6 @@
 "bottom" = "Apakšējā daļa";
 "trip_start" = "Uz priekšu";
 "pick_destination" = "Galamērķis";
-"follow_my_position" = "Centrēt";
 "search_results" = "Meklēšanas rezultāti";
 "then_turn" = "Pēc tam";
 "redirect_route_alert" = "Vai vēlaties maršrutu izveidot no jauna?";
@@ -1013,10 +958,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Pēdojums ir tukšs – nav nekā saglabājama";
 "edit_track" = "Pēdojuma labošana";
-"elevation_profile_diff_level" = "Sarežģītības līmenis";
-"elevation_profile_diff_level_easy" = "Viegls";
-"elevation_profile_diff_level_moderate" = "Normāls";
-"elevation_profile_diff_level_hard" = "Sarežģīts";
 "downloader_updating_ios" = "Atjaunina";
 
 /* Autoupdate dialog on start */

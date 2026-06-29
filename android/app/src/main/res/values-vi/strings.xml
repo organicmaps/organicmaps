@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Rất tiếc, cài đặt Lưu trữ Bản đồ hiện đã bị tắt.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Hiện đang tải xuống quốc gia.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Này, hãy xem vị trí hiện tại của tôi tại Organic Maps! %1$s hoặc %2$s Bạn không có bản đồ ngoại tuyến? Tải xuống tại đây: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Này, hãy xem ghim của tôi tại Organic Maps map</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Này, hãy xem vị trí hiện tại của tôi tại Organic Maps map!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Chào,\n\nTôi hiện đang ở đây: %1$s. Hãy nhấn vào liên kết này %2$s hoặc liên kết này %3$s để xem địa điểm trên bản đồ.\n\nCám ơn.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Chia sẻ</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Bạn vui lòng bật Dịch vụ Định vị</string>
     <string name="save">Lưu</string>
     <string name="create">tạo</string>
-    <!-- red color -->
-    <string name="red">Đỏ</string>
-    <!-- yellow color -->
-    <string name="yellow">Vàng</string>
-    <!-- blue color -->
-    <string name="blue">Xanh dương</string>
-    <!-- green color -->
-    <string name="green">Xanh lục</string>
-    <!-- purple color -->
-    <string name="purple">Tím</string>
-    <!-- orange color -->
-    <string name="orange">Cam</string>
-    <!-- brown color -->
-    <string name="brown">Nâu</string>
-    <!-- pink color -->
-    <string name="pink">Hồng</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Tía thẫm</string>
-    <!-- light blue color -->
-    <string name="light_blue">Xanh da trời</string>
-    <!-- cyan color -->
-    <string name="cyan">Xanh lơ</string>
-    <!-- teal color -->
-    <string name="teal">Lục bảo</string>
-    <!-- lime color -->
-    <string name="lime">Màu xanh chanh</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Cam đậm</string>
-    <!-- gray color -->
-    <string name="gray">Xám</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Xám xanh da trời</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Giao diện</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Không đủ dung lượng</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Xin xóa dữ liệu không cần thiết</string>
-    <string name="editor_login_error_dialog">Lỗi đăng nhập.</string>
     <string name="editor_profile_changes">Các thay đổi đã được xác thực</string>
     <string name="editor_focus_map_on_location">Kéo bản đồ để đặt dấu thập vào vị trí của địa điểm hoặc doanh nghiệp.</string>
     <string name="editor_edit_place_title">Chỉnh sửa</string>
@@ -762,8 +725,6 @@
     <string name="elevation_profile_min_elevation">Min. độ cao</string>
     <string name="elevation_profile_max_elevation">Max. độ cao</string>
     <string name="elevation_profile_difficulty">Độ khó</string>
-    <string name="elevation_profile_distance">Khoảng cách</string>
-    <string name="elevation_profile_time">Giờ:</string>
     <string name="isolines_toast_zooms_1_10">Phóng bản đồ để nhìn rõ đường đồng mức</string>
     <string name="downloader_loading_ios">Tải xuống</string>
     <string name="download_map_title">Tải xuống bản đồ tổng quan thế giới</string>
@@ -836,7 +797,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Không tìm thấy cài đặt Tổng hợp giọng nói, bạn có chắc thiết bị của mình hỗ trợ nó không?</string>
     <string name="drive_through">Lái xe qua</string>
-    <string name="clear_the_search">Xóa tìm kiếm</string>
     <string name="zoom_in">Phóng to</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">Thu nhỏ</string>
@@ -859,12 +819,6 @@
     <string name="stop_track_recording">Dừng ghi âm đường đi</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Ghi âm hành trình</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Dừng mà không lưu</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Tiếp tục ghi âm</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Lưu bản ghi vào đánh dấu và dấu vết?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Tuyến đường trống - không có gì để lưu</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -872,8 +826,6 @@
     <string name="choose_color">Chọn màu</string>
     <string name="edit_track">Chỉnh sửa tuyến đường</string>
     <string name="uri_open_location_failed">Không có ứng dụng nào được cài đặt có thể mở vị trí</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Tự động điều hướng</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Theo hệ thống</string>
     <!-- Title of the bottom sheet when sharing the track -->

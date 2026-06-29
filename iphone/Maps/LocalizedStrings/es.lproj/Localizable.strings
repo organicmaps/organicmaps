@@ -325,54 +325,6 @@
 "save" = "Guardar";
 "create" = "crear";
 
-/* red color */
-"red" = "Rojo";
-
-/* yellow color */
-"yellow" = "Amarillo";
-
-/* blue color */
-"blue" = "Azul";
-
-/* green color */
-"green" = "Verde";
-
-/* purple color */
-"purple" = "Morado";
-
-/* orange color */
-"orange" = "Naranja";
-
-/* brown color */
-"brown" = "Marrón";
-
-/* pink color */
-"pink" = "Rosa";
-
-/* deep purple color */
-"deep_purple" = "Morado oscuro";
-
-/* light blue color */
-"light_blue" = "Azul Claro";
-
-/* cyan color */
-"cyan" = "Cian";
-
-/* teal color */
-"teal" = "Verde azulado";
-
-/* lime color */
-"lime" = "Lima";
-
-/* deep orange color */
-"deep_orange" = "Naranja oscuro";
-
-/* gray color */
-"gray" = "Gris";
-
-/* blue gray color */
-"blue_gray" = "Gris azulado";
-
 /* place preview title */
 "info" = "Información";
 
@@ -773,9 +725,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Error al planificar la ruta";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Llegada: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Descargue y actualice todos los mapas a lo largo del camino proyectado para calcular la ruta.";
 "editor_done_dialog_1" = "Ha cambiado el mapa del mundo. ¡No se lo guarde para usted! Dígaselo a sus amigos y edítenlo juntos.";
@@ -800,7 +749,6 @@
 "please_note" = "Atención";
 "migration_download_error_dialog" = "Error de descarga";
 "editor_add_select_category" = "Seleccionar categoría";
-"editor_add_select_category_popular_subtitle" = "Popular";
 "editor_add_select_category_all_subtitle" = "Todas las categorías";
 "whatsnew_editor_message_1" = "Añada lugares nuevos al mapa y edite los existentes directamente desde la aplicación.";
 "dialog_incorrect_feature_position" = "Cambiar ubicación";
@@ -842,9 +790,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Para mostrar los datos de tráfico, debe actualizar la aplicación.";
 "log_file_size" = "Tamaño del archivo de registro: %@";
-"planning_route_remove_title" = "Arrastre aquí para eliminar";
 "placepage_replace_stop" = "Sustituir Stop";
-"start_from_my_position" = "Empezar desde";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Inicia sesión en OpenStreetMap para cargar automáticamente todas tus ediciones de mapas. Más información";
@@ -872,7 +818,6 @@
 "bottom" = "Inferior";
 "trip_start" = "Vamos";
 "pick_destination" = "Destino";
-"follow_my_position" = "Centrar";
 "search_results" = "Resultados de búsqueda";
 "then_turn" = "Después";
 "redirect_route_alert" = "¿Quiere reconstruir la ruta?";
@@ -1013,10 +958,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "El trayecto está vacío; no hay nada que guardar";
 "edit_track" = "Editar trayecto";
-"elevation_profile_diff_level" = "Nivel de dificultad";
-"elevation_profile_diff_level_easy" = "Fácil";
-"elevation_profile_diff_level_moderate" = "Moderado";
-"elevation_profile_diff_level_hard" = "Difícil";
 "downloader_updating_ios" = "Actualizando";
 
 /* Autoupdate dialog on start */

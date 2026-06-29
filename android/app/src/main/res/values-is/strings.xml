@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Því miður, stillingar á geymslu korta eru óvirkar.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Verið er að sækja landakort.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Skoðaðu núverandi staðsetninguna mína á Organic Maps landakortinu! %1$s eða %2$s Ertu ekki með ónettengd kort? Sæktu þau hér: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Hæ, skoðaðu staðsetninguna mína á Organic Maps!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hæ, skoðaðu núverandi staðsetninguna mína á Organic Maps landakortinu!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Hæ, \n \nÉg er núna hérna: %1$s. Smelltu á þennan tengil %2$s eða þennan %3$s til að sjá staðinn á kortinu. \n \nBestu þakkir.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Deila</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Virkjaðu staðsetningarþjónustur</string>
     <string name="save">Vista</string>
     <string name="create">búa til</string>
-    <!-- red color -->
-    <string name="red">Rautt</string>
-    <!-- yellow color -->
-    <string name="yellow">Gult</string>
-    <!-- blue color -->
-    <string name="blue">Blátt</string>
-    <!-- green color -->
-    <string name="green">Grænt</string>
-    <!-- purple color -->
-    <string name="purple">Purpurablátt</string>
-    <!-- orange color -->
-    <string name="orange">Appelsínugult</string>
-    <!-- brown color -->
-    <string name="brown">Brúnt</string>
-    <!-- pink color -->
-    <string name="pink">Bleikt</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Dökkpurpurablátt</string>
-    <!-- light blue color -->
-    <string name="light_blue">Ljósblátt</string>
-    <!-- cyan color -->
-    <string name="cyan">Grænblátt (cyan)</string>
-    <!-- teal color -->
-    <string name="teal">Blágrænt</string>
-    <!-- lime color -->
-    <string name="lime">Límónugrænt</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Dimmappelsínugult</string>
-    <!-- gray color -->
-    <string name="gray">Grátt</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Blágrátt</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Útlit</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Ekki nægilegt pláss</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Eyddu öllum ónauðsynlegum gögnum</string>
-    <string name="editor_login_error_dialog">Villa við innskráningu.</string>
     <string name="editor_profile_changes">Staðfestar breytingar</string>
     <string name="editor_focus_map_on_location">Dragðu kortið þannig að krossinn lendi á staðnum eða fyrirtækinu.</string>
     <string name="editor_edit_place_title">Breytingar</string>
@@ -767,8 +730,6 @@
     <string name="elevation_profile_min_elevation">Lágm.hæð</string>
     <string name="elevation_profile_max_elevation">Hám.hæð</string>
     <string name="elevation_profile_difficulty">Erfiðleikastig</string>
-    <string name="elevation_profile_distance">Fjarl.:</string>
-    <string name="elevation_profile_time">Tími:</string>
     <string name="isolines_toast_zooms_1_10">Renndu að til að skoða hæðarlínur</string>
     <string name="downloader_loading_ios">Sæki</string>
     <string name="download_map_title">Sækja heims-yfirlitskortið</string>
@@ -851,7 +812,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Stillingar talgervils fundust ekki, ertu viss um að tækið þitt sé með stuðning við slíkt?</string>
     <string name="drive_through">Bílaafgreiðsla</string>
-    <string name="clear_the_search">Hreinsa leitina</string>
     <string name="zoom_in">Renna að</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">Renna frá</string>
@@ -874,12 +834,6 @@
     <string name="stop_track_recording">Stöðva skráningu ferils</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Upptaka ferils</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Stöðva án þess að vista</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Halda áfram skráningu</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Vista inn í bókamerki og ferla?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Ferill er tómur - ekkert til að vista</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -887,8 +841,6 @@
     <string name="choose_color">Veldu lit</string>
     <string name="edit_track">Breyta ferli</string>
     <string name="uri_open_location_failed">Ekkert forrit er uppsett sem gæti opnað staðsetninguna</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Sjálfvirkt við leiðsögn</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Fylgja kerfi</string>
     <!-- Title of the bottom sheet when sharing the track -->

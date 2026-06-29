@@ -325,54 +325,6 @@
 "save" = "Зберегти";
 "create" = "створити";
 
-/* red color */
-"red" = "Червоний";
-
-/* yellow color */
-"yellow" = "Жовтий";
-
-/* blue color */
-"blue" = "Синій";
-
-/* green color */
-"green" = "Зелений";
-
-/* purple color */
-"purple" = "Пурпуровий";
-
-/* orange color */
-"orange" = "Помаранчевий";
-
-/* brown color */
-"brown" = "Коричневий";
-
-/* pink color */
-"pink" = "Рожевий";
-
-/* deep purple color */
-"deep_purple" = "Темно-пурпуровий";
-
-/* light blue color */
-"light_blue" = "Блакитний";
-
-/* cyan color */
-"cyan" = "Синьо-зелений";
-
-/* teal color */
-"teal" = "Смарагдовий";
-
-/* lime color */
-"lime" = "Лайм";
-
-/* deep orange color */
-"deep_orange" = "Темно-помаранчевий";
-
-/* gray color */
-"gray" = "Сірий";
-
-/* blue gray color */
-"blue_gray" = "Сіро-блакитний";
-
 /* place preview title */
 "info" = "Інфо";
 
@@ -773,9 +725,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Збій планування маршруту";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Прибуття в %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Щоб прокласти маршрут, завантажте або оновіть усі потрібні мапи.";
 "editor_done_dialog_1" = "Ви змінили мапу світу на краще! Поділіться цим із друзями та редагуйте разом.";
@@ -800,7 +749,6 @@
 "please_note" = "Будь ласка, зверніть увагу";
 "migration_download_error_dialog" = "Помилка завантаження";
 "editor_add_select_category" = "Оберіть категорію";
-"editor_add_select_category_popular_subtitle" = "Популярні";
 "editor_add_select_category_all_subtitle" = "Усі категорії";
 "whatsnew_editor_message_1" = "Додавайте нові місця на мапу та редагуйте існуючі просто в застосунку.";
 "dialog_incorrect_feature_position" = "Змініть розташування";
@@ -842,9 +790,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Оновіть застосунок, щоб бачити дані про трафік.";
 "log_file_size" = "Розмір файлу журналу: %@";
-"planning_route_remove_title" = "Перетягніть сюди, щоб видалити";
 "placepage_replace_stop" = "Замінити зупинку";
-"start_from_my_position" = "Почати з";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Будь ласка, увійдіть до акаунта OpenStreetMap.org, щоб автоматично публікувати зміни на мапі. Подробиці за";
@@ -872,7 +818,6 @@
 "bottom" = "Вниз";
 "trip_start" = "Поїхали";
 "pick_destination" = "Ціль";
-"follow_my_position" = "Відцентрувати";
 "search_results" = "Результати пошуку";
 "then_turn" = "Далі";
 "redirect_route_alert" = "Бажаєте перебудувати маршрут?";
@@ -1013,10 +958,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Трек порожній - нічого зберігати";
 "edit_track" = "Редагувати трек";
-"elevation_profile_diff_level" = "Рівень складності";
-"elevation_profile_diff_level_easy" = "Простий";
-"elevation_profile_diff_level_moderate" = "Помірний";
-"elevation_profile_diff_level_hard" = "Складний";
 "downloader_updating_ios" = "Оновлення";
 
 /* Autoupdate dialog on start */

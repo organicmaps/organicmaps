@@ -325,54 +325,6 @@
 "save" = "Ruaj";
 "create" = "krijo";
 
-/* red color */
-"red" = "E kuqe";
-
-/* yellow color */
-"yellow" = "E verdhë";
-
-/* blue color */
-"blue" = "Blu";
-
-/* green color */
-"green" = "E gjelbër";
-
-/* purple color */
-"purple" = "Vjollcë";
-
-/* orange color */
-"orange" = "Portokalli";
-
-/* brown color */
-"brown" = "Kafe";
-
-/* pink color */
-"pink" = "Rozë";
-
-/* deep purple color */
-"deep_purple" = "Vjollcë e errët";
-
-/* light blue color */
-"light_blue" = "Blu e hapur";
-
-/* cyan color */
-"cyan" = "Cyan";
-
-/* teal color */
-"teal" = "Teal";
-
-/* lime color */
-"lime" = "Limoni";
-
-/* deep orange color */
-"deep_orange" = "Portokalli e thellë";
-
-/* gray color */
-"gray" = "Gri";
-
-/* blue gray color */
-"blue_gray" = "Gri Blu";
-
 /* place preview title */
 "info" = "Info";
 
@@ -773,9 +725,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Planifikimi i Rrugës Dështoi";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Mbërritja në %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Shkarkoni dhe përditësoni të gjitha hartat përgjatë rrugës së planifikuar për të llogaritur rrugën.";
 "editor_done_dialog_1" = "Ju keni ndryshuar hartën e botës! Mos e mbani për vete; tregojuni miqve tuaj dhe redaktojeni së bashku.";
@@ -800,7 +749,6 @@
 "please_note" = "Ju lutemi vini re";
 "migration_download_error_dialog" = "Gabim në shkarkim";
 "editor_add_select_category" = "Zgjidh kategorinë";
-"editor_add_select_category_popular_subtitle" = "Popullore";
 "editor_add_select_category_all_subtitle" = "Të Gjitha Kategoritë";
 "whatsnew_editor_message_1" = "Shtoni vende të reja në hartë dhe redaktoni ato ekzistuese drejtpërdrejt nga aplikacioni.";
 "dialog_incorrect_feature_position" = "Ndrysho vendndodhjen";
@@ -842,9 +790,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Për të shfaqur të dhënat e trafikut, aplikacioni duhet të përditësohet.";
 "log_file_size" = "Madhësia e skedarit log: %@";
-"planning_route_remove_title" = "Tërhiqni këtu për të hequr";
 "placepage_replace_stop" = "Zëvendëso Ndalesën";
-"start_from_my_position" = "Fillo nga";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Ju lutemi hyni në OpenStreetMap për të ngarkuar automatikisht të gjitha ndryshimet tuaja të hartës. Mëso më shumë";
@@ -872,7 +818,6 @@
 "bottom" = "Poshtë";
 "trip_start" = "Le të shkojmë";
 "pick_destination" = "Destinacioni";
-"follow_my_position" = "Riqendro";
 "search_results" = "Rezultatet e kërkimit";
 "then_turn" = "Pastaj";
 "redirect_route_alert" = "A dëshironi të rindërtoni rrugën?";
@@ -1013,10 +958,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Gjurma është boshe - asgjë për t'u ruajtur";
 "edit_track" = "Ndrysho Gjurmën";
-"elevation_profile_diff_level" = "Niveli i vështirësisë";
-"elevation_profile_diff_level_easy" = "E lehtë";
-"elevation_profile_diff_level_moderate" = "Mesatare";
-"elevation_profile_diff_level_hard" = "E vështirë";
 "downloader_updating_ios" = "Duke përditësuar";
 
 /* Autoupdate dialog on start */

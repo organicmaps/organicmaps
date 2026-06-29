@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Atvainojamies, bet kartes saglabāšanas iestatījumi šobrīd ir izslēgti.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Notiek kartes lejupielāde.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Apskatiet manu atrašanās vietu „Organic Maps“ lietotnē! %1$s vai %2$s Vai Jums nav nesaistes kartes? Lejupielādējiet to: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Hei, apskatiet manu grāmatzīmi Organic Maps kartē!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hei, apskati manu pašreizējo atrašanās vietu kartē „Organic Maps”!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Hei, \n \nŠobrīd atrodos te: %1$s. Spied uz šīs %2$s vai šīs %3$s saites, lai kartē redzētu manu atrašanās vietu. \n \nPaldies.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Kopīgot</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Ieslēdziet ierīces atrašanās vietas noteikšanas pakalpojumus</string>
     <string name="save">Saglabāt</string>
     <string name="create">izveidot</string>
-    <!-- red color -->
-    <string name="red">Sarkana</string>
-    <!-- yellow color -->
-    <string name="yellow">Dzeltena</string>
-    <!-- blue color -->
-    <string name="blue">Zila</string>
-    <!-- green color -->
-    <string name="green">Zaļa</string>
-    <!-- purple color -->
-    <string name="purple">Violeta</string>
-    <!-- orange color -->
-    <string name="orange">Oranža</string>
-    <!-- brown color -->
-    <string name="brown">Brūna</string>
-    <!-- pink color -->
-    <string name="pink">Rozā</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Tumši violeta</string>
-    <!-- light blue color -->
-    <string name="light_blue">Gaiši zila</string>
-    <!-- cyan color -->
-    <string name="cyan">Ciāna</string>
-    <!-- teal color -->
-    <string name="teal">Tumši ciāna</string>
-    <!-- lime color -->
-    <string name="lime">Dzeltenzaļa</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Tumši oranža</string>
-    <!-- gray color -->
-    <string name="gray">Pelēka</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Zilpelēka</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Izskats</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Trūkst vietas</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Dzēsiet liekos datus</string>
-    <string name="editor_login_error_dialog">Ierakstīšanās kļūda.</string>
     <string name="editor_profile_changes">Apstiprinātas izmaiņas</string>
     <string name="editor_focus_map_on_location">Velciet karti, lai novietotu krustiņu objekta vai iestādes atrašanās vietā.</string>
     <string name="editor_edit_place_title">Vietas labošana</string>
@@ -761,8 +724,6 @@
     <string name="elevation_profile_min_elevation">Zemākais punkts</string>
     <string name="elevation_profile_max_elevation">Augstākais punkts</string>
     <string name="elevation_profile_difficulty">Sarežģītība</string>
-    <string name="elevation_profile_distance">Attālums:</string>
-    <string name="elevation_profile_time">Ceļā:</string>
     <string name="isolines_toast_zooms_1_10">Pietuviniet, lai izpētītu izolīnijas</string>
     <string name="downloader_loading_ios">Lejupielādē</string>
     <string name="download_map_title">Lejupielādēt pasaules pārskata karti</string>
@@ -841,7 +802,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Lietotnes neatrada runas sintēzes iestatījumus. Vai ierīce tos atbalsta?</string>
     <string name="drive_through">Caurbrauktuve</string>
-    <string name="clear_the_search">Notīrīt meklēšanu</string>
     <string name="zoom_in">Tuvināt</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">Tālināt</string>
@@ -864,12 +824,6 @@
     <string name="stop_track_recording">Apstādināt pēdojuma ierakstīšanu</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Trases ierakstīšana</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Pārtraukt ierakstīšanu</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Turpināt ierakstīt</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Saglabāt pēdojumu grāmatzīmju sadaļā?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Pēdojums ir tukšs – nav nekā saglabājama</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -877,8 +831,6 @@
     <string name="choose_color">Izvēlieties krāsu</string>
     <string name="edit_track">Pēdojuma labošana</string>
     <string name="uri_open_location_failed">Nav uzstādīta neviena lietotne, kas varētu atvērt atrašanās vietu</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Automātisks navigācijas laikā</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Sekot sistēmai</string>
     <!-- Title of the bottom sheet when sharing the track -->

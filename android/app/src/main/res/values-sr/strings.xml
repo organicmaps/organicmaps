@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Извините, подешавање локације за чување мапа је тренутно онемогућено.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Преузимање мапа је у току.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Види моју тренутну локацију у Organic Maps-у! %1$s или %2$s Још не користиш offline мапе? Преузми их овде: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Хеј, види мој маркер у Organic Maps-у!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Хеј, види моју тренутну локацију на Organic Maps мапи!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Здраво,\n\nЈа сам овде: %1$s. Кликни на овај %2$s или овај линк %3$s да би видео то место на мапи.\n\nХвала.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Подели</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Молим вас укључите Локацијске сервисе</string>
     <string name="save">Сачувај</string>
     <string name="create">креирај</string>
-    <!-- red color -->
-    <string name="red">Црвена</string>
-    <!-- yellow color -->
-    <string name="yellow">Жута</string>
-    <!-- blue color -->
-    <string name="blue">Плава</string>
-    <!-- green color -->
-    <string name="green">Зелена</string>
-    <!-- purple color -->
-    <string name="purple">Љубичаста</string>
-    <!-- orange color -->
-    <string name="orange">Наранџаста</string>
-    <!-- brown color -->
-    <string name="brown">Браон</string>
-    <!-- pink color -->
-    <string name="pink">Розе</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Тамно љубичаста</string>
-    <!-- light blue color -->
-    <string name="light_blue">Светло плава</string>
-    <!-- cyan color -->
-    <string name="cyan">Цијан</string>
-    <!-- teal color -->
-    <string name="teal">Теал</string>
-    <!-- lime color -->
-    <string name="lime">Лимета</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Тамно наранџаста</string>
-    <!-- gray color -->
-    <string name="gray">Сива</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Плаво сива</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Изглед</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Нема довољно простора</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Молим Вас да обришете непотребне податке</string>
-    <string name="editor_login_error_dialog">Грешка приликом пријаве.</string>
     <string name="editor_profile_changes">Верификоване промене</string>
     <string name="editor_focus_map_on_location">Превуците мапу да поставите крст на локацију места или посла.</string>
     <string name="editor_edit_place_title">Измена</string>
@@ -767,8 +730,6 @@
     <string name="elevation_profile_min_elevation">Минимална висина</string>
     <string name="elevation_profile_max_elevation">Максимална висина</string>
     <string name="elevation_profile_difficulty">Тежина</string>
-    <string name="elevation_profile_distance">Удаљ.:</string>
-    <string name="elevation_profile_time">Време:</string>
     <string name="isolines_toast_zooms_1_10">Увећајте да бисте видели изолиније</string>
     <string name="downloader_loading_ios">Преузимање</string>
     <string name="download_map_title">Преузми мапу света</string>
@@ -849,7 +810,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Синтеза говора није пронађена, да ли сте сигурни да је ваш уређај подржава?</string>
     <string name="drive_through">Пролаз за возила</string>
-    <string name="clear_the_search">Обриши претрагу</string>
     <string name="zoom_in">Увећај</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">Умањи</string>
@@ -872,12 +832,6 @@
     <string name="stop_track_recording">Заустави снимање путање</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Снимање путање</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Заустави без чувања</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Настави снимање</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Сачувати у маркерима и путањама?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Путања је празна, нема шта да се сачува</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -885,8 +839,6 @@
     <string name="choose_color">Изаберите боју</string>
     <string name="edit_track">Измените путању</string>
     <string name="uri_open_location_failed">Нема инсталираних апликација које могу да отворе локацију.</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Аутоматски у навигацији</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Прати систем</string>
     <!-- Title of the bottom sheet when sharing the track -->

@@ -325,54 +325,6 @@
 "save" = "Įrašyti";
 "create" = "kurti";
 
-/* red color */
-"red" = "Raudonas";
-
-/* yellow color */
-"yellow" = "Geltonas";
-
-/* blue color */
-"blue" = "Mėlynas";
-
-/* green color */
-"green" = "Žalias";
-
-/* purple color */
-"purple" = "Violetinis";
-
-/* orange color */
-"orange" = "Oranžinis";
-
-/* brown color */
-"brown" = "Rudas";
-
-/* pink color */
-"pink" = "Rožinis";
-
-/* deep purple color */
-"deep_purple" = "Tamsiai violetinis";
-
-/* light blue color */
-"light_blue" = "Šviesiai mėlynas";
-
-/* cyan color */
-"cyan" = "Žydras";
-
-/* teal color */
-"teal" = "Turkio spalvos";
-
-/* lime color */
-"lime" = "Salotinis";
-
-/* deep orange color */
-"deep_orange" = "Tamsiai oranžinis";
-
-/* gray color */
-"gray" = "Pilkas";
-
-/* blue gray color */
-"blue_gray" = "Mėlynai pilkas";
-
 /* place preview title */
 "info" = "Informacija";
 
@@ -773,9 +725,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Maršruto planavimas nepavyko";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Atvykimas %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Prieš planuodami maršrutą, atsiųskite ir atnaujinkite visus žemėlapius, į kuriuos jis patenka.";
 "editor_done_dialog_1" = "Pakeitėte pasaulio žemėlapį! Nelaikykite šio pokyčio tik sau – papasakokite apie jį savo draugams ir taisykite žemėlapį kartu.";
@@ -800,7 +749,6 @@
 "please_note" = "Atkreipkite dėmesį";
 "migration_download_error_dialog" = "Atsiuntimo klaida";
 "editor_add_select_category" = "Pasirinkite kategoriją";
-"editor_add_select_category_popular_subtitle" = "Populiarios";
 "editor_add_select_category_all_subtitle" = "Visos kategorijos";
 "whatsnew_editor_message_1" = "Pridėkite naujų vietų į žemėlapį ir redaguokite esamas tiesiai iš programėlės.";
 "dialog_incorrect_feature_position" = "Keisti vietą";
@@ -842,9 +790,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Jeigu norite matyti eismo duomenis, reikia atnaujinti programėlę.";
 "log_file_size" = "Žurnalo failo dydis: %@";
-"planning_route_remove_title" = "Vilkite čia, kad pašalintumėte";
 "placepage_replace_stop" = "Pakeisti Stop";
-"start_from_my_position" = "Pradėti iš";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Prisijunkite prie „OpenStreetMap“, kad galėtumėte automatiškai įkelti visus savo žemėlapio pakeitimus. Išsamesnė informacija –";
@@ -872,7 +818,6 @@
 "bottom" = "Apačioje";
 "trip_start" = "Pirmyn";
 "pick_destination" = "Tikslas";
-"follow_my_position" = "Centruoti";
 "search_results" = "Paieškos rezultatai";
 "then_turn" = "Tada";
 "redirect_route_alert" = "Norite perskaičiuoti maršrutą?";
@@ -1013,10 +958,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Trasa tuščia – nėra ką įrašyti";
 "edit_track" = "Redaguoti trasą";
-"elevation_profile_diff_level" = "Sudėtingumo lygis";
-"elevation_profile_diff_level_easy" = "Lengvas";
-"elevation_profile_diff_level_moderate" = "Normalus";
-"elevation_profile_diff_level_hard" = "Sunkus";
 "downloader_updating_ios" = "Naujinama";
 
 /* Autoupdate dialog on start */

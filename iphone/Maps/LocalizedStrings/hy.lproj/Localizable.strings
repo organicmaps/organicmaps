@@ -325,54 +325,6 @@
 "save" = "Պահպանել";
 "create" = "ստեղծել";
 
-/* red color */
-"red" = "Կարմիր";
-
-/* yellow color */
-"yellow" = "Դեղին";
-
-/* blue color */
-"blue" = "Կապույտ";
-
-/* green color */
-"green" = "Կանաչ";
-
-/* purple color */
-"purple" = "Մանուշակագույն";
-
-/* orange color */
-"orange" = "Նարնջագույն";
-
-/* brown color */
-"brown" = "Շագանակագույն";
-
-/* pink color */
-"pink" = "Վարդագույն";
-
-/* deep purple color */
-"deep_purple" = "Մուգ մանուշակագույն";
-
-/* light blue color */
-"light_blue" = "Բաց կապույտ";
-
-/* cyan color */
-"cyan" = "Երկնագույն";
-
-/* teal color */
-"teal" = "Փիրուզագույն";
-
-/* lime color */
-"lime" = "Լայմ";
-
-/* deep orange color */
-"deep_orange" = "Մուգ նարնջագույն";
-
-/* gray color */
-"gray" = "Մոխրագույն";
-
-/* blue gray color */
-"blue_gray" = "Կապտամոխրագույն";
-
 /* place preview title */
 "info" = "Տեղեկություն";
 
@@ -773,9 +725,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Երթուղու պլանավորումը ձախողվեց";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Ժամանումը՝ %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Ներբեռնել և թարմացնել բոլոր քարտեզները երթուղու երկայնքով՝ հաշվարկ կատարելու համար:";
 "editor_done_dialog_1" = "Դուք փոխեցիք աշխարհի քարտեզը: Մի պահեք դա Ձեզ, պատմեք ընկերներին և խմբագրեք միասին:";
@@ -800,7 +749,6 @@
 "please_note" = "Խնդրում ենք նկատի ունենալ";
 "migration_download_error_dialog" = "Ներբեռնման սխալ";
 "editor_add_select_category" = "Ընտրեք կատեգորիան";
-"editor_add_select_category_popular_subtitle" = "Հայտնի";
 "editor_add_select_category_all_subtitle" = "Բոլոր կատեգորիաները";
 "whatsnew_editor_message_1" = "Ավելացրեք նոր վայրեր քարտեզին և խմբագրեք առկաները անմիջապես հավելվածից:";
 "dialog_incorrect_feature_position" = "Փոխել տեղադիրքը";
@@ -842,9 +790,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Երթևեկության տվյալները ցուցադրելու համար հավելվածը պետք է թարմացվի:";
 "log_file_size" = "Գրանցամատյանի ֆայլի չափը՝ %@";
-"planning_route_remove_title" = "Քաշեք այստեղ՝ հեռացնելու համար";
 "placepage_replace_stop" = "Փոխարինել կանգառը";
-"start_from_my_position" = "Սկսել …-ից";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Խնդրում ենք մուտք գործել OpenStreetMap՝ Ձեր քարտեզի բոլոր փոփոխություններն ավտոմատ վերբեռնելու համար։ Իմացեք ավելին";
@@ -872,7 +818,6 @@
 "bottom" = "Ներքև";
 "trip_start" = "Գնացինք";
 "pick_destination" = "Նշանակման կետ";
-"follow_my_position" = "Կենտրոնացնել";
 "search_results" = "Որոնման արդյունքներ";
 "then_turn" = "Այնուհետև";
 "redirect_route_alert" = "Ցանկանո՞ւմ եք վերակառուցել երթուղին:";
@@ -1013,10 +958,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Հետագիծը դատարկ է՝ պահպանելու ոչինչ չկա";
 "edit_track" = "Խմբագրել հետագիծը";
-"elevation_profile_diff_level" = "Բարդության մակարդակ";
-"elevation_profile_diff_level_easy" = "Հեշտ";
-"elevation_profile_diff_level_moderate" = "Միջին";
-"elevation_profile_diff_level_hard" = "Բարդ";
 "downloader_updating_ios" = "Թարմացում";
 
 /* Autoupdate dialog on start */

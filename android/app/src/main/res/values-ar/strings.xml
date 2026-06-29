@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">نأسف، اعدادات تخزين الخرائط معطلة حالياً.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">جاري الآن تنزيل الخريطة.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">مرحباً، تفقد الموقع الخاص بي على Organic Maps! %1$s أو %2$s. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">مرحباً، تفقد الدبوس الخاص بي على خريطة Organic Maps!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">مرحباً، تحقق من موقعي الحالي على خريطة Organic Maps!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">ًمرحبا،\n\nأنا هنا الآن: %1$s. انقر على هذا الرابط %2$s أو ذلك الرابط %3$s لمشاهدة المكان على الخريطة.\n\nشكراً.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">مشاركة</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">الرجاء تفعيل خدمة تحديد الموقع الجغرافي</string>
     <string name="save">حفظ</string>
     <string name="create">إنشاء</string>
-    <!-- red color -->
-    <string name="red">أحمر</string>
-    <!-- yellow color -->
-    <string name="yellow">أصفر</string>
-    <!-- blue color -->
-    <string name="blue">أزرق</string>
-    <!-- green color -->
-    <string name="green">أخضر</string>
-    <!-- purple color -->
-    <string name="purple">أرجواني</string>
-    <!-- orange color -->
-    <string name="orange">برتقالي</string>
-    <!-- brown color -->
-    <string name="brown">بني</string>
-    <!-- pink color -->
-    <string name="pink">زهري</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">أرجواني داكن</string>
-    <!-- light blue color -->
-    <string name="light_blue">أزرق فاتح</string>
-    <!-- cyan color -->
-    <string name="cyan">أزرق سماوي</string>
-    <!-- teal color -->
-    <string name="teal">أخضر فاتح</string>
-    <!-- lime color -->
-    <string name="lime">ليموني</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">برتقالي داكن</string>
-    <!-- gray color -->
-    <string name="gray">رمادي</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">رمادي أزرق</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">المظهر</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">لا تتوفر مساحة كافية</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">من فضلك، قم بإزالة البيانات غير الضرورية</string>
-    <string name="editor_login_error_dialog">خطأ في تسجيل الدخول.</string>
     <string name="editor_profile_changes">التعديلات التي تم التحقق منها</string>
     <string name="editor_focus_map_on_location">اسحب الخريطة لوضع الصليب في موقع المكان أو النشاط التجاري.</string>
     <string name="editor_edit_place_title">يتم التعديل</string>
@@ -776,8 +739,6 @@
     <string name="elevation_profile_min_elevation">أقل ارتفاع</string>
     <string name="elevation_profile_max_elevation">أعلى ارتفاع</string>
     <string name="elevation_profile_difficulty">درجة الصعوبة</string>
-    <string name="elevation_profile_distance">المسافة:</string>
-    <string name="elevation_profile_time">المدة:</string>
     <string name="isolines_toast_zooms_1_10">قم بالتقريب لتكتشف خطوط الكنتور</string>
     <string name="downloader_loading_ios">جاري التنزيل</string>
     <string name="download_map_title">تنزيل الخريطة العامة للعالم</string>
@@ -860,7 +821,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">لم يتم العثور على إعدادات تركيب الكلام، هل أنت متأكد من أن جهازك يدعمها؟</string>
     <string name="drive_through">خدمة من السيارة</string>
-    <string name="clear_the_search">مسح البحث</string>
     <string name="zoom_in">تكبير</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">تصغير</string>
@@ -883,12 +843,6 @@
     <string name="stop_track_recording">إيقاف تسجيل المسار</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">تسجيل المسار</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">التوقف بدون حفظ</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">متابعة التسجيل</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">حفظ في الإشارات المرجعية والمسارات؟</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">المسار فارغ - لا يوجد شيء للحفظ</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -896,8 +850,6 @@
     <string name="choose_color">اختر اللون</string>
     <string name="edit_track">تعديل المسار</string>
     <string name="uri_open_location_failed">لم يتم تثبيت أي تطبيق يمكنه فتح الموقع</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">تلقائي في التنقل</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">حسب النظام</string>
     <!-- Title of the bottom sheet when sharing the track -->

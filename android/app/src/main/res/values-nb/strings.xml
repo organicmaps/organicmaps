@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Beklager, innstillingene for kartlagring er for øyeblikket deaktivert.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Kartnedlasting pågår nå.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Hei, se posisjonen min på Organic Maps! %1$s eller %2$s Har du ikke offline-kart? Last dem ned her: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Hei, se merket mitt på Organic Maps-kartet</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hei, se posisjonen min på Organic Maps-kartet!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Hei,Jeg er her nå: %1$s. Klikk på denne koblingen %2$s eller denne %3$s for å se stedet på kartet.\n\nTakk.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Del</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Aktiver posisjonstjenester</string>
     <string name="save">Lagre</string>
     <string name="create">opprett</string>
-    <!-- red color -->
-    <string name="red">Rød</string>
-    <!-- yellow color -->
-    <string name="yellow">Gul</string>
-    <!-- blue color -->
-    <string name="blue">Blå</string>
-    <!-- green color -->
-    <string name="green">Grønn</string>
-    <!-- purple color -->
-    <string name="purple">Lilla</string>
-    <!-- orange color -->
-    <string name="orange">Oransje</string>
-    <!-- brown color -->
-    <string name="brown">Brun</string>
-    <!-- pink color -->
-    <string name="pink">Rosa</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Mørkepurpur</string>
-    <!-- light blue color -->
-    <string name="light_blue">Lyseblå</string>
-    <!-- cyan color -->
-    <string name="cyan">Blågrønn</string>
-    <!-- teal color -->
-    <string name="teal">Smaragdgrønn</string>
-    <!-- lime color -->
-    <string name="lime">Limegrønn</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Mørkeoransje</string>
-    <!-- gray color -->
-    <string name="gray">Grå</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Gråblå</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Utseende</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Ikke nok plass</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Fjern unødvendig data</string>
-    <string name="editor_login_error_dialog">Innloggingsfeil.</string>
     <string name="editor_profile_changes">Bekreftede endringer</string>
     <string name="editor_focus_map_on_location">Dra kartet for å plassere korset der stedet eller virksomheten befinner seg.</string>
     <string name="editor_edit_place_title">Redigerer</string>
@@ -764,8 +727,6 @@
     <string name="elevation_profile_min_elevation">Min. høyde</string>
     <string name="elevation_profile_max_elevation">Maks. høyde</string>
     <string name="elevation_profile_difficulty">Vanskelighet</string>
-    <string name="elevation_profile_distance">Avstand:</string>
-    <string name="elevation_profile_time">I rute</string>
     <string name="isolines_toast_zooms_1_10">Forstørr kartet for å se høydekurver</string>
     <string name="downloader_loading_ios">Nedlasting</string>
     <string name="download_map_title">Last ned verdenskart</string>
@@ -838,7 +799,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Innstillinger for talesyntese ble ikke funnet, er du sikker på at enheten din støtter dette?</string>
     <string name="drive_through">Gjennomkjøring</string>
-    <string name="clear_the_search">Fjern søket</string>
     <string name="zoom_in">Zoom inn</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">Zoom ut</string>
@@ -861,12 +821,6 @@
     <string name="stop_track_recording">Stopp opptak av rute</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Opptak av rute</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Stopp uten å lagre</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Fortsett opptak</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Lagre i bokmerker og ruter?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Ruten er tom - ingenting å lagre</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -874,8 +828,6 @@
     <string name="choose_color">Velg farge</string>
     <string name="edit_track">Rediger ruten</string>
     <string name="uri_open_location_failed">Ingen app installert som kan åpne stedet</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Auto i navigasjon</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Følg systemet</string>
     <!-- Title of the bottom sheet when sharing the track -->

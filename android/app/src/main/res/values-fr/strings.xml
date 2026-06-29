@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Désolé, les paramètres de stockage des cartes sont actuellement désactivés.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Le téléchargement de la carte est en cours.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Hé, regardez ma position actuelle sur Organic Maps ! %1$s ou %2$s. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Hé, regardez mon signet sur la carte Organic Maps !</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hé, regardez ma position actuelle sur la carte Organic Maps !</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Bonjour,\n\nJe suis actuellement ici : %1$s. Cliquez sur ce lien %2$s ou sur celui-ci %3$s pour voir l\'endroit sur la carte.\n\nMerci.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Partager</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Veuillez activer les services de localisation</string>
     <string name="save">Sauvegarder</string>
     <string name="create">créer</string>
-    <!-- red color -->
-    <string name="red">Rouge</string>
-    <!-- yellow color -->
-    <string name="yellow">Jaune</string>
-    <!-- blue color -->
-    <string name="blue">Bleu</string>
-    <!-- green color -->
-    <string name="green">Vert</string>
-    <!-- purple color -->
-    <string name="purple">Violet</string>
-    <!-- orange color -->
-    <string name="orange">Orange</string>
-    <!-- brown color -->
-    <string name="brown">Marron</string>
-    <!-- pink color -->
-    <string name="pink">Rose</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Pourpre foncé</string>
-    <!-- light blue color -->
-    <string name="light_blue">Bleu ciel</string>
-    <!-- cyan color -->
-    <string name="cyan">Cyan</string>
-    <!-- teal color -->
-    <string name="teal">Émeraude</string>
-    <!-- lime color -->
-    <string name="lime">Vert citron</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Orange foncé</string>
-    <!-- gray color -->
-    <string name="gray">Gris</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Gris-bleu</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Apparence</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Espace insuffisant</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Veuillez supprimer les données inutiles</string>
-    <string name="editor_login_error_dialog">Erreur de connexion.</string>
     <string name="editor_profile_changes">Modifications vérifiées</string>
     <string name="editor_focus_map_on_location">Déplacer la carte pour placer la croix à l\'emplacement du lieu ou de l\'entreprise.</string>
     <string name="editor_edit_place_title">Modification</string>
@@ -768,8 +731,6 @@
     <string name="elevation_profile_min_elevation">Min. élévation</string>
     <string name="elevation_profile_max_elevation">Max. élévation</string>
     <string name="elevation_profile_difficulty">Difficulté</string>
-    <string name="elevation_profile_distance">Distance :</string>
-    <string name="elevation_profile_time">Temps :</string>
     <string name="isolines_toast_zooms_1_10">Zoomez pour voir les courbes de niveaux</string>
     <string name="downloader_loading_ios">Téléchargement</string>
     <string name="download_map_title">Télécharger la carte générale du monde</string>
@@ -852,7 +813,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Les paramètres de la synthèse vocale n\'ont pas été trouvés, êtes-vous sûr que votre appareil la prend en charge ?</string>
     <string name="drive_through">Au volant</string>
-    <string name="clear_the_search">Efface la recherche</string>
     <string name="zoom_in">Zoom avant</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">Zoom arrière</string>
@@ -875,12 +835,6 @@
     <string name="stop_track_recording">Arrêter l\'enregistrement de la trace</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Enregistrement de la trace</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Arrêter sans enregistrer</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Continuer l\'enregistrement</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Sauvegarder dans les signets et parcours ?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">L\'itinéraire est vide - il n\'y a rien à sauvegarder</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -888,8 +842,6 @@
     <string name="choose_color">Choisir la couleur</string>
     <string name="edit_track">Modifier le trace</string>
     <string name="uri_open_location_failed">Aucune application installée ne permet d\'ouvrir l\'emplacement</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Auto pendant la navigation</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Suivre le système</string>
     <!-- Title of the bottom sheet when sharing the track -->

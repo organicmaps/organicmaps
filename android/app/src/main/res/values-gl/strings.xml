@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Sentímolo, a configuración do almacenamento de mapas está desactivada.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">A descarga do mapa está en curso.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Olla a miña localización actual en Organic Maps! %1$s ou %2$s Non ten mapas offline? Descárgueos aquí: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Mira o meu marcador no mapa de Organic Maps!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Mira a miña localización actual no mapa en Organic Maps!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Ola: \n\nAgora estou aquí: %1$s. Fai clic nesta ligazón %2$s ou esta %3$s para velo no mapa. \n\nGrazas.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Compartir</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Por favor, active os servizos de localización</string>
     <string name="save">Gardar</string>
     <string name="create">crear</string>
-    <!-- red color -->
-    <string name="red">Vermello</string>
-    <!-- yellow color -->
-    <string name="yellow">Amarelo</string>
-    <!-- blue color -->
-    <string name="blue">Azul</string>
-    <!-- green color -->
-    <string name="green">Verde</string>
-    <!-- purple color -->
-    <string name="purple">Morado</string>
-    <!-- orange color -->
-    <string name="orange">Laranxa</string>
-    <!-- brown color -->
-    <string name="brown">Marrón</string>
-    <!-- pink color -->
-    <string name="pink">Rosa</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Morado escuro</string>
-    <!-- light blue color -->
-    <string name="light_blue">Azul Claro</string>
-    <!-- cyan color -->
-    <string name="cyan">Cian</string>
-    <!-- teal color -->
-    <string name="teal">Verde azulado</string>
-    <!-- lime color -->
-    <string name="lime">Lima</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Laranxa escuro</string>
-    <!-- gray color -->
-    <string name="gray">Gris</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Gris azulado</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Aspecto</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Non hai suficiente espazo</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Elimine os datos innecesarios</string>
-    <string name="editor_login_error_dialog">Erro de inicio de sesión.</string>
     <string name="editor_profile_changes">Cambios verificados</string>
     <string name="editor_focus_map_on_location">Arrastre o mapa para colocar a cruz na localización do lugar ou negocio.</string>
     <string name="editor_edit_place_title">Editar</string>
@@ -767,8 +730,6 @@
     <string name="elevation_profile_min_elevation">Elevación mín.</string>
     <string name="elevation_profile_max_elevation">Elevación máx.</string>
     <string name="elevation_profile_difficulty">Dificultade</string>
-    <string name="elevation_profile_distance">Distancia:</string>
-    <string name="elevation_profile_time">Tempo:</string>
     <string name="isolines_toast_zooms_1_10">Amplíe o mapa para ver as isolíneas</string>
     <string name="downloader_loading_ios">Descargando</string>
     <string name="download_map_title">Descarga o mapa xeral do mundo</string>
@@ -851,7 +812,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Non se atoparon os axustes de síntese de voz. Está seguro de que o seu dispositivo admite esta función?</string>
     <string name="drive_through">Servizo desde o coche</string>
-    <string name="clear_the_search">Borrar procura</string>
     <string name="zoom_in">Achegar</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">Afastar</string>
@@ -874,12 +834,6 @@
     <string name="stop_track_recording">Deter gravación de traxecto</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Grabación de ruta</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Deter sen gardar</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Continuar gravación</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Gardar en Marcadores e traxectos?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">O traxecto está baleiro</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -887,8 +841,6 @@
     <string name="choose_color">Elixir cor</string>
     <string name="edit_track">Editar traxecto</string>
     <string name="uri_open_location_failed">Non hai ningunha aplicación instalada que poida abrir a localización</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Auto en navegación</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Seguir o sistema</string>
     <!-- Title of the bottom sheet when sharing the track -->

@@ -325,54 +325,6 @@
 "save" = "שמור";
 "create" = "יצירה";
 
-/* red color */
-"red" = "אדום";
-
-/* yellow color */
-"yellow" = "צהוב";
-
-/* blue color */
-"blue" = "כחול";
-
-/* green color */
-"green" = "ירוק";
-
-/* purple color */
-"purple" = "סגול";
-
-/* orange color */
-"orange" = "כתום";
-
-/* brown color */
-"brown" = "חום";
-
-/* pink color */
-"pink" = "ורוד";
-
-/* deep purple color */
-"deep_purple" = "סגול עמוק";
-
-/* light blue color */
-"light_blue" = "כחול בהיר";
-
-/* cyan color */
-"cyan" = "ציאן";
-
-/* teal color */
-"teal" = "טורקיז";
-
-/* lime color */
-"lime" = "ליים";
-
-/* deep orange color */
-"deep_orange" = "כתום עמוק";
-
-/* gray color */
-"gray" = "אפור";
-
-/* blue gray color */
-"blue_gray" = "כחול אפרפר";
-
 /* place preview title */
 "info" = "מידע";
 
@@ -773,9 +725,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "תכנון המסלול נכשל";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "שעת הגעה: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "הורד ועדכן את כל המפות בדרך כדי לחשב מסלול.";
 "editor_done_dialog_1" = "שינית את מפת העולם! זה לא חייב להיות סוד, אפשר לספר לחברים ולערוך אותה ביחד.";
@@ -800,7 +749,6 @@
 "please_note" = "לתשומת לבך";
 "migration_download_error_dialog" = "שגיאת הורדה";
 "editor_add_select_category" = "בחר קטגוריה";
-"editor_add_select_category_popular_subtitle" = "פופולארי";
 "editor_add_select_category_all_subtitle" = "כל הקטגוריות";
 "whatsnew_editor_message_1" = "הוספת מקומות חדשים למפה, ועריכת מקומות קיימים ישירות מהאפליקציה.";
 "dialog_incorrect_feature_position" = "שנה מיקום";
@@ -842,9 +790,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "כדי להציג מידע על עומס תנועה, יש לעדכן את האפליקצייה.";
 "log_file_size" = "גודל קובץ יומן: %@";
-"planning_route_remove_title" = "גרור לכאן כדי להסיר";
 "placepage_replace_stop" = "החלף תחנה";
-"start_from_my_position" = "התחל מ-";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "התחבר ל-OpenStreetMap כדי להעלות אוטומטית את כל עריכות המפה שלך. למידע נוסף";
@@ -872,7 +818,6 @@
 "bottom" = "תחתית";
 "trip_start" = "נצא לדרך";
 "pick_destination" = "יעד";
-"follow_my_position" = "מרכוז";
 "search_results" = "תוצאות חיפוש";
 "then_turn" = "אז";
 "redirect_route_alert" = "האם ברצונך לבנות את המסלול מחדש?";
@@ -1013,10 +958,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "המסלול ריק - אין מה לשמור";
 "edit_track" = "עריכת מסלול";
-"elevation_profile_diff_level" = "רמת קושי";
-"elevation_profile_diff_level_easy" = "קל";
-"elevation_profile_diff_level_moderate" = "מתון";
-"elevation_profile_diff_level_hard" = "קשה";
 "downloader_updating_ios" = "מעדכן";
 
 /* Autoupdate dialog on start */

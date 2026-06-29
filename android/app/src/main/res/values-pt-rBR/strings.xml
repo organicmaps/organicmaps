@@ -111,14 +111,10 @@
     <string name="cant_change_this_setting">Lamentamos, as configurações do armazenamento do mapa estão desativadas.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">O download do país está atualmente em progresso.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Confira minha localização atual no Organic Maps! %1$s ou %2$s Não tem mapas offline? Baixe aqui: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Ei, dê uma olhada no meu pin no Organic Maps!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Veja no mapa a minha localização atual via Organic Maps!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Olá,\n\nEstou aqui agora: %1$s. Clique neste link %2$s ou neste %3$s para ver o local no mapa.\n\nObrigado.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Compartilhar</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -213,20 +209,6 @@
     <!-- location service disabled -->
     <string name="enable_location_services">Por favor, ative os Serviços de Localização</string>
     <string name="save">Salvar</string>
-    <!-- brown color -->
-    <string name="brown">Marrom</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Lilás escuro</string>
-    <!-- light blue color -->
-    <string name="light_blue">Azul claro</string>
-    <!-- cyan color -->
-    <string name="cyan">Ciano</string>
-    <!-- teal color -->
-    <string name="teal">Azul petróleo</string>
-    <!-- lime color -->
-    <string name="lime">Verde limão</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Azul escuro</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Aparência</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -319,7 +301,6 @@
     <string name="downloader_no_space_title">Não há espaço suficiente</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Exclua todos os dados desnecessários</string>
-    <string name="editor_login_error_dialog">Erro no login.</string>
     <string name="editor_focus_map_on_location">Arraste o mapa para colocar a cruz na localização do local ou da empresa.</string>
     <string name="editor_add_place_title">Adicionando</string>
     <string name="editor_edit_place_name_hint">Nome do local</string>
@@ -525,7 +506,6 @@
     <string name="isolines_location_error_dialog">A camada Relevo ainda não está disponível para esta região</string>
     <string name="elevation_profile_min_elevation">Elevação mínima</string>
     <string name="elevation_profile_max_elevation">Elevação máxima</string>
-    <string name="elevation_profile_distance">Dist.:</string>
     <string name="isolines_toast_zooms_1_10">Use o zoom para explorar as isolinhas</string>
     <string name="downloader_loading_ios">Baixando</string>
     <string name="download_map_title">Baixar a visão geral mundial</string>
@@ -597,7 +577,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">As configurações do Speech Synthesis não foram encontradas. Você tem certeza de que seu dispositivo é compatível?</string>
     <string name="drive_through">Drive-through</string>
-    <string name="clear_the_search">Limpar pesquisa</string>
     <string name="zoom_in">Aumentar o zoom</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">Reduzir o zoom</string>
@@ -618,12 +597,6 @@
     <string name="stop_track_recording">Parar gravação de trilha</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Gravação de trilha</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Parar sem salvar</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Continuar registrando</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Salvar em Favoritos e Trilhas?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">A trilha está vazia - não há nada para salvar</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -631,8 +604,6 @@
     <string name="choose_color">Escolha a cor</string>
     <string name="edit_track">Editar trilha</string>
     <string name="uri_open_location_failed">Nenhum aplicativo instalado que possa abrir o local</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Automático na navegação</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Usar o padrão do sistema</string>
 
