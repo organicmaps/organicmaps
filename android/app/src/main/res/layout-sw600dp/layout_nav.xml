@@ -11,17 +11,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Maneuver card: full width in portrait, receives window insets (status bar + cutout) -->
+    <!-- Maneuver card: fixed width matching the bottom sheet in tablet portrait -->
     <app.organicmaps.routing.ManeuverView
       android:id="@+id/maneuver_view"
-      android:layout_width="0dp"
+      android:layout_width="@dimen/nav_menu_landscape_width"
       android:layout_height="wrap_content"
       android:layout_margin="@dimen/margin_half"
       android:elevation="@dimen/nav_elevation"
       android:clickable="true"
       app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"/>
+      app:layout_constraintStart_toStartOf="parent"/>
 
     <!-- Speed limit sign: anchored below the maneuver card, left-aligned -->
     <app.organicmaps.sdk.widgets.speedlimit.SpeedLimitView
@@ -52,8 +51,9 @@
     <FrameLayout
       android:id="@+id/nav_bottom_sheet"
       style="?attr/bottomSheetStyle"
-      android:layout_width="match_parent"
+      android:layout_width="@dimen/nav_menu_landscape_width"
       android:layout_height="wrap_content"
+      android:layout_gravity="start"
       app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
       <include layout="@layout/layout_nav_bottom" />
@@ -65,6 +65,6 @@
     android:id="@+id/nav_bottom_sheet_nav_bar"
     android:layout_width="0dp"
     android:layout_height="0dp"
-    android:layout_gravity="bottom|center"
+    android:layout_gravity="bottom|start"
     android:background="?cardBackground"/>
 </FrameLayout>
