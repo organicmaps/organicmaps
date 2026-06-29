@@ -106,6 +106,7 @@ ctest -j --test-dir build-$YOUR_NAME --stop-on-failure --output-on-failure -E "d
 ctest -j --test-dir build-$YOUR_NAME --stop-on-failure --output-on-failure -R test_name
 ```
 4. To filter specific tests inside a test binary, use `--filter=<ECMA Regexp>` option.
+5. Always check return result when launching test binaries to detect crashed/segfaulted test. Use `${pipestatus[*]}` array for zsh (default on MacOS) and `${PIPESTATUS[*]}` for bash.
 
 ### Common build targets
 - `desktop` -- Qt desktop app
