@@ -907,4 +907,6 @@
     <string name="color_picker_hex_label">sRGB-hekskleur #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Rooster</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Tussenstop %1$d</string>
 </resources>
