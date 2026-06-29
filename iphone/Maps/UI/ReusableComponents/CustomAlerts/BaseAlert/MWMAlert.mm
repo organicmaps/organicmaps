@@ -1,6 +1,5 @@
 #import "MWMAlert+CPP.h"
 #import "MWMAlertViewController.h"
-#import "MWMDefaultAlert.h"
 #import "MWMDownloadTransitMapAlert.h"
 #import "MWMEditorViralAlert.h"
 #import "MWMLocationAlert.h"
@@ -18,48 +17,14 @@
   return [MWMLocationAlert alertWithCancelBlock:cancelBlock];
 }
 
-+ (MWMAlert *)point2PointAlertWithOkBlock:(MWMVoidBlock)block needToRebuild:(BOOL)needToRebuild
-{
-  return [MWMDefaultAlert point2PointAlertWithOkBlock:block needToRebuild:needToRebuild];
-}
-
 + (MWMAlert *)routingDisclaimerAlertWithOkBlock:(MWMVoidBlock)block
 {
   return [MWMRoutingDisclaimerAlert alertWithOkBlock:block];
 }
 
-+ (MWMAlert *)disabledLocationAlert
-{
-  return [MWMDefaultAlert disabledLocationAlert];
-}
-
 + (MWMAlert *)locationServicesDisabledAlert
 {
   return [LocationServicesDisabledAlert alert];
-}
-
-+ (MWMAlert *)noWiFiAlertWithOkBlock:(MWMVoidBlock)okBlock andCancelBlock:(MWMVoidBlock)cancelBlock
-{
-  return [MWMDefaultAlert noWiFiAlertWithOkBlock:okBlock andCancelBlock:cancelBlock];
-}
-
-+ (MWMAlert *)noConnectionAlert
-{
-  return [MWMDefaultAlert noConnectionAlert];
-}
-
-+ (MWMAlert *)deleteMapProhibitedAlert
-{
-  return [MWMDefaultAlert deleteMapProhibitedAlert];
-}
-+ (MWMAlert *)unsavedEditsAlertWithOkBlock:(MWMVoidBlock)okBlock
-{
-  return [MWMDefaultAlert unsavedEditsAlertWithOkBlock:okBlock];
-}
-
-+ (MWMAlert *)locationServiceNotSupportedAlert
-{
-  return [MWMDefaultAlert locationServiceNotSupportedAlert];
 }
 
 + (MWMAlert *)downloaderAlertWithAbsentCountries:(storage::CountriesSet const &)countries
@@ -75,74 +40,9 @@
                                        downloadCompleteBlock:downloadCompleteBlock];
 }
 
-+ (MWMAlert *)alert:(routing::RouterResultCode)type
-{
-  switch (type)
-  {
-  case routing::RouterResultCode::NoCurrentPosition: return [MWMDefaultAlert noCurrentPositionAlert];
-  case routing::RouterResultCode::StartPointNotFound: return [MWMDefaultAlert startPointNotFoundAlert];
-  case routing::RouterResultCode::EndPointNotFound: return [MWMDefaultAlert endPointNotFoundAlert];
-  case routing::RouterResultCode::PointsInDifferentMWM: return [MWMDefaultAlert pointsInDifferentMWMAlert];
-  case routing::RouterResultCode::TransitRouteNotFoundNoNetwork:
-    return [MWMDefaultAlert routeNotFoundNoPublicTransportAlert];
-  case routing::RouterResultCode::TransitRouteNotFoundTooLongPedestrian:
-    return [MWMDefaultAlert routeNotFoundTooLongPedestrianAlert];
-  case routing::RouterResultCode::RouteNotFoundRedressRouteError:
-  case routing::RouterResultCode::RouteNotFound:
-  case routing::RouterResultCode::InconsistentMWMandRoute: return [MWMDefaultAlert routeNotFoundAlert];
-  case routing::RouterResultCode::RouteFileNotExist:
-  case routing::RouterResultCode::FileTooOld: return [MWMDefaultAlert routeFileNotExistAlert];
-  case routing::RouterResultCode::InternalError: return [MWMDefaultAlert internalRoutingErrorAlert];
-  case routing::RouterResultCode::Cancelled:
-  case routing::RouterResultCode::NoError:
-  case routing::RouterResultCode::HasWarnings:
-  case routing::RouterResultCode::NeedMoreMaps: return nil;
-  case routing::RouterResultCode::IntermediatePointNotFound: return [MWMDefaultAlert intermediatePointNotFoundAlert];
-  }
-}
-
-+ (MWMAlert *)incorrectFeaturePositionAlert
-{
-  return [MWMDefaultAlert incorrectFeaturePositionAlert];
-}
-
-+ (MWMAlert *)notEnoughSpaceAlert
-{
-  return [MWMDefaultAlert notEnoughSpaceAlert];
-}
-+ (MWMAlert *)invalidUserNameOrPasswordAlert
-{
-  return [MWMDefaultAlert invalidUserNameOrPasswordAlert];
-}
-
-+ (MWMAlert *)downloaderNoConnectionAlertWithOkBlock:(MWMVoidBlock)okBlock cancelBlock:(MWMVoidBlock)cancelBlock
-{
-  return [MWMDefaultAlert downloaderNoConnectionAlertWithOkBlock:okBlock cancelBlock:cancelBlock];
-}
-
-+ (MWMAlert *)downloaderNotEnoughSpaceAlert
-{
-  return [MWMDefaultAlert downloaderNotEnoughSpaceAlert];
-}
-
-+ (MWMAlert *)downloaderInternalErrorAlertWithOkBlock:(MWMVoidBlock)okBlock cancelBlock:(MWMVoidBlock)cancelBlock
-{
-  return [MWMDefaultAlert downloaderInternalErrorAlertWithOkBlock:okBlock cancelBlock:cancelBlock];
-}
-
 + (MWMAlert *)placeDoesntExistAlertWithBlock:(MWMStringBlock)block
 {
   return [MWMPlaceDoesntExistAlert alertWithBlock:block];
-}
-
-+ (MWMAlert *)resetChangesAlertWithBlock:(MWMVoidBlock)block
-{
-  return [MWMDefaultAlert resetChangesAlertWithBlock:block];
-}
-
-+ (MWMAlert *)deleteFeatureAlertWithBlock:(MWMVoidBlock)block
-{
-  return [MWMDefaultAlert deleteFeatureAlertWithBlock:block];
 }
 
 + (MWMAlert *)editorViralAlert
@@ -157,21 +57,6 @@
 {
   return [MWMOsmReauthAlert alert];
 }
-+ (MWMAlert *)personalInfoWarningAlertWithBlock:(MWMVoidBlock)block
-{
-  return [MWMDefaultAlert personalInfoWarningAlertWithBlock:block];
-}
-
-+ (MWMAlert *)trackWarningAlertWithCancelBlock:(MWMVoidBlock)block
-{
-  return [MWMDefaultAlert trackWarningAlertWithCancelBlock:block];
-}
-
-+ (MWMAlert *)infoAlert:(NSString *)title text:(NSString *)text
-{
-  return [MWMDefaultAlert infoAlert:title text:text];
-}
-
 + (MWMAlert *)createBookmarkCategoryAlertWithMaxCharacterNum:(NSUInteger)max
                                              minCharacterNum:(NSUInteger)min
                                                     callback:(MWMCheckStringBlock)callback
@@ -182,35 +67,6 @@
 + (MWMAlert *)spinnerAlertWithTitle:(NSString *)title cancel:(MWMVoidBlock)cancel
 {
   return [MWMSpinnerAlert alertWithTitle:title cancel:cancel];
-}
-
-+ (MWMAlert *)bookmarkConversionErrorAlert
-{
-  return [MWMDefaultAlert bookmarkConversionErrorAlert];
-}
-
-+ (MWMAlert *)tagsLoadingErrorAlertWithOkBlock:okBlock cancelBlock:cancelBlock
-{
-  return [MWMDefaultAlert tagsLoadingErrorAlertWithOkBlock:okBlock cancelBlock:cancelBlock];
-}
-
-+ (MWMAlert *)bugReportAlertWithTitle:(NSString *)title
-{
-  return [MWMDefaultAlert bugReportAlertWithTitle:title];
-}
-
-+ (MWMAlert *)defaultAlertWithTitle:(NSString *)title
-                            message:(NSString *)message
-                   rightButtonTitle:(NSString *)rightButtonTitle
-                    leftButtonTitle:(NSString *)leftButtonTitle
-                  rightButtonAction:(MWMVoidBlock)action
-{
-  return [MWMDefaultAlert defaultAlertWithTitle:title
-                                        message:message
-                               rightButtonTitle:rightButtonTitle
-                                leftButtonTitle:leftButtonTitle
-                              rightButtonAction:action
-                                            log:nil];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
