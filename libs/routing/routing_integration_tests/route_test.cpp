@@ -961,6 +961,7 @@ UNIT_TEST(Lithuania_MaxspeedConditional)
   TEST_LESS(eta2 * 1.1, eta1, ());
 }
 
+// https://github.com/organicmaps/organicmaps/issues/10848
 UNIT_TEST(Russia_Nsk_NoPassThrough)
 {
   // Direct route via "Забалуева"
@@ -974,6 +975,7 @@ UNIT_TEST(Russia_Nsk_NoPassThrough)
 // The destination (43.5298373, 5.44563164) lies on Rue de la Treille. The route must
 // reach it along a road, not end ~120 m away (on the parallel Rue du Bon Pasteur) with a long straight
 // offroad "snap" onto the destination.
+// https://github.com/organicmaps/organicmaps/issues/11709
 UNIT_TEST(France_RueDeLaTreille_FinishSnap)
 {
   auto const finish = FromLatLon(43.5298373, 5.44563164);
@@ -1004,6 +1006,15 @@ UNIT_TEST(France_RueDeLaTreille_FinishSnap)
     double const snapM = mercator::DistanceOnEarth(lastRoadPoint, finish);
     TEST_LESS(snapM, 30.0, ("Finish reached with a", snapM, "m offroad snap instead of a final road segment"));
   }
+}
+
+// Regression test: forward and backward A* waves meet on a two-way feature, which used to wire a
+// same-feature cycle into the connectibility "parents" graph and hang IndexGraph::IsRestricted forever.
+// https://github.com/organicmaps/organicmaps/issues/13063
+UNIT_TEST(India_Bangalore_ShortRoute)
+{
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(12.963008, 77.648966), {0., 0.},
+                                   FromLatLon(12.9600501, 77.6451721), 1997.79);
 }
 
 }  // namespace route_test
