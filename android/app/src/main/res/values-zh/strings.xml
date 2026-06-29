@@ -506,9 +506,9 @@
     <string name="editor_more_about_osm">关于 OpenStreetMap 的更多信息</string>
     <string name="editor_osm_history">您的编辑历史</string>
     <string name="editor_osm_notes">您的地图数据说明</string>
-    <string name="editor_operator">操作员</string>
+    <string name="editor_operator">运营方</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
-    <string name="operator">操作员: %s</string>
+    <string name="operator">运营方: %s</string>
     <string name="editor_category_unsuitable_title">找不到合适的类别？</string>
     <string name="editor_category_unsuitable_text">Organic Maps 只允许添加简单的点类别，即无法添加城镇、道路、湖泊、建筑轮廓等类别。请直接向 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> 添加此类类别。请查看我们的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，了解详细的步骤说明。</string>
     <string name="downloader_no_downloaded_maps_title">您尚未下载任何地图</string>
