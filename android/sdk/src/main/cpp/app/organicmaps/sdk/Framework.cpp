@@ -249,7 +249,10 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
     m_work.CreateDrapeEngine(make_ref(m_vulkanContextFactory), std::move(p));
   else
     m_work.CreateDrapeEngine(make_ref(m_oglContextFactory), std::move(p));
-  m_work.EnterForeground();
+  // Wake the freshly-created drape engine only; the compound EnterForeground
+  // would also re-fire UsageStats/Traffic which already saw the real foreground
+  // signal via ProcessLifecycleOwner.
+  m_work.OnDrapeEngineEnterForeground();
 
   return true;
 }
@@ -1133,6 +1136,25 @@ JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetDrawScale(JNIEnv * en
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativePokeSearchInViewport(JNIEnv * env, jclass)
 {
   frm()->GetSearchAPI().PokeSearchInViewport();
+}
+
+// Persist before task-kill. PL's 700 ms debounce is too late on aggressive
+// task-killers (Pixel), so this runs from MwmApplication.onActivityStopped.
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeOnAppBackgrounded(JNIEnv *, jclass)
+{
+  auto * f = frm();
+  f->SaveViewport();
+  f->OnUsageStatsEnterBackground();
+}
+
+// Heavy resource release behind PL's debounce -- no persisted state here,
+// so the 700 ms wait from OrganicMaps.onStop is acceptable.
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeReleaseBackgroundResources(JNIEnv *, jclass)
+{
+  auto * f = frm();
+  f->OnDrapeEngineEnterBackground();
+  f->OnTrafficEnterBackground();
+  f->ClearAllCaches();
 }
 
 JNIEXPORT jdoubleArray Java_app_organicmaps_sdk_Framework_nativeGetScreenRectCenter(JNIEnv * env, jclass)

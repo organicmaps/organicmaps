@@ -78,9 +78,16 @@ inline void Clear()
 class UsageStats
 {
   static uint64_t TimeSinceEpoch();
+  // Anchor for foreground-duration aggregation. Advanced at the end of
+  // EnterBackground so a second EnterBackground without an intervening
+  // EnterForeground (Android transient background) doesn't double-count time.
   uint64_t m_enterForegroundTime = 0;
   uint64_t m_totalForegroundTime = 0;
   uint64_t m_sessionsCount = 0;
+  // True once the current foreground period has been counted as a session;
+  // reset by EnterForeground. Guards against incrementing m_sessionsCount
+  // multiple times on Android transient backgrounding.
+  bool m_committedThisSession = false;
 
   std::string_view m_firstLaunch, m_lastBackground, m_totalForeground, m_sessions;
 

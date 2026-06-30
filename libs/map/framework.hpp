@@ -205,8 +205,6 @@ protected:
   /// This function is called by m_featuresFetcher when the map file is deregistered.
   void OnMapDeregistered(platform::LocalCountryFile const & localFile);
 
-  void ClearAllCaches();
-
   void OnViewportChanged(ScreenBase const & screen);
 
   void InitTransliteration();
@@ -431,9 +429,10 @@ public:
   /// in follow routing mode or resets it to the default value.
   void UpdateMyPositionRoutingOffset(bool useDefault, int offsetY);
 
-private:
   /// Depends on initialized Drape engine.
   void SaveViewport();
+
+private:
   /// Depends on initialized Drape engine.
   void LoadViewport();
 
@@ -662,6 +661,18 @@ public:
   void MemoryWarning();
   void EnterBackground();
   void EnterForeground();
+
+  // Exposed for Android JNI to bundle into two hooks: urgent persist
+  // (UsageStats + viewport) before task-kill, and deferred resource release
+  // behind ProcessLifecycleOwner's 700 ms debounce.
+  void OnUsageStatsEnterBackground();
+  void OnDrapeEngineEnterBackground();
+  void OnTrafficEnterBackground();
+  void ClearAllCaches();
+
+  // Wakes only the drape engine after surface rebuild (e.g. rotation), when
+  // ProcessLifecycleOwner's debounce swallowed the onStop/onStart pair.
+  void OnDrapeEngineEnterForeground();
 
   /// Set the localized strings bundle
   void AddString(std::string const & name, std::string const & value) { m_stringsBundle.SetString(name, value); }

@@ -400,6 +400,7 @@ uint64_t UsageStats::TimeSinceEpoch()
 void UsageStats::EnterForeground()
 {
   m_enterForegroundTime = TimeSinceEpoch();
+  m_committedThisSession = false;
 }
 
 void UsageStats::EnterBackground()
@@ -416,21 +417,34 @@ void UsageStats::EnterBackground()
   if (m_enterForegroundTime == 0)
     return;
 
-  // Save first launch.
-  std::string dummy;
-  if (!m_ss.GetValue(m_firstLaunch, dummy))
-    m_ss.SetValue(m_firstLaunch, ToString(m_enterForegroundTime));
-
   // Save last background.
   m_ss.SetValue(m_lastBackground, ToString(currTime));
 
-  // Aggregate foreground duration.
+  // Aggregate foreground duration (delta since the last anchor: either the
+  // EnterForeground that started this session or the previous EnterBackground
+  // call if we are inside a transient background on Android).
   m_totalForegroundTime += (currTime - m_enterForegroundTime);
   m_ss.SetValue(m_totalForeground, ToString(m_totalForegroundTime));
 
-  // Aggregate sessions count.
-  ++m_sessionsCount;
-  m_ss.SetValue(m_sessions, ToString(m_sessionsCount));
+  // Count this foreground period as a session only once. A repeat
+  // EnterBackground without an intervening EnterForeground (Android transient
+  // background) keeps the running total above but does not increment sessions.
+  if (!m_committedThisSession)
+  {
+    // Save first launch.
+    std::string dummy;
+    if (!m_ss.GetValue(m_firstLaunch, dummy))
+      m_ss.SetValue(m_firstLaunch, ToString(m_enterForegroundTime));
+
+    ++m_sessionsCount;
+    m_ss.SetValue(m_sessions, ToString(m_sessionsCount));
+
+    m_committedThisSession = true;
+  }
+
+  // Advance the anchor so the next EnterBackground without an intervening
+  // EnterForeground aggregates only the new time since this call.
+  m_enterForegroundTime = currTime;
 }
 
 bool UsageStats::IsLoyalUser() const
