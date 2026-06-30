@@ -1,0 +1,41 @@
+name: Cache Boost submodule
+description: >-
+  Restore (or, with save=true, populate) the Boost submodule cache, keyed by its
+  pinned commit so a Boost bump misses the cache and re-clones cleanly while an
+  unchanged Boost still hits it. Restore must run after checkout and before the
+  submodules are updated; save must run after they are updated.
+inputs:
+  save:
+    description: >-
+      Save the freshly checked-out Boost submodule instead of restoring it. Only
+      master (via update-caches) should set this; PRs stay restore-only so their
+      branch-scoped writes don't evict the shared 10 GB repo cache budget.
+    default: 'false'
+runs:
+  using: composite
+  steps:
+    - name: Resolve Boost submodule commit
+      id: rev
+      shell: bash
+      # Read the gitlink straight from the tree (works before submodule init).
+      # Fail loudly on an empty SHA instead of collapsing the key to a constant.
+      run: |
+        sha="$(git rev-parse HEAD:3party/boost)"
+        test -n "$sha"
+        echo "sha=$sha" >> "$GITHUB_OUTPUT"
+    - name: Restore Boost submodule from cache
+      if: inputs.save != 'true'
+      uses: actions/cache/restore@v6
+      with:
+        path: |
+          3party/boost
+          .git/modules/3party/boost
+        key: boost-submodule-${{ steps.rev.outputs.sha }}
+    - name: Save Boost submodule to cache
+      if: inputs.save == 'true'
+      uses: actions/cache/save@v6
+      with:
+        path: |
+          3party/boost
+          .git/modules/3party/boost
+        key: boost-submodule-${{ steps.rev.outputs.sha }}
