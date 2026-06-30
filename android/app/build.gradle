@@ -25,6 +25,7 @@ if (googleFirebaseServicesEnabled) {
 }
 
 apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
+apply from: "${rootProject.rootDir}/groovy/application-signing.gradle"
 apply from: "${rootProject.rootDir}/groovy/permission-checker.gradle"
 
 import com.android.build.api.variant.BuildConfigField
@@ -125,38 +126,8 @@ android {
     universalApk = true
   }
 
-  def securityPropertiesFileExists = file('secure.properties').exists()
-  if (securityPropertiesFileExists) {
-    apply from: 'secure.properties'
-  }
-
-  signingConfigs {
-    debug {
-      storeFile file('debug.keystore')
-      storePassword '12345678'
-      keyAlias 'debug'
-      keyPassword '12345678'
-    }
-
-    release {
-      if (securityPropertiesFileExists) {
-        println('The release signing keys are available')
-        storeFile file(spropStoreFile)
-        storePassword spropStorePassword
-        keyAlias spropKeyAlias
-        keyPassword spropKeyPassword
-      } else {
-        println('The release signing keys are unavailable')
-      }
-    }
-  }
-
   buildTypes {
     debug {
-      applicationIdSuffix '.debug'   // Allows to install debug and release builds together
-      versionNameSuffix '-debug'
-      signingConfig = signingConfigs.debug
-
       if (googleFirebaseServicesEnabled) {
         firebaseCrashlytics {
           nativeSymbolUploadEnabled true
@@ -168,7 +139,6 @@ android {
     }
 
     release {
-      signingConfig = signingConfigs.release
       minifyEnabled true
       shrinkResources = true
       // Includes the default ProGuard rules files that are packaged with the Android Gradle plugin.
@@ -183,9 +153,6 @@ android {
     }
 
     beta {
-      applicationIdSuffix '.beta'
-      versionNameSuffix '-beta'
-      signingConfig = signingConfigs.release
       minifyEnabled true
       shrinkResources = true
       // Includes the default ProGuard rules files that are packaged with the Android Gradle plugin.

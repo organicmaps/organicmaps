@@ -3,6 +3,7 @@ plugins {
 }
 
 apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
+apply from: "${rootProject.rootDir}/groovy/application-signing.gradle"
 
 android {
     namespace 'app.organicmaps.wear'
@@ -24,16 +25,14 @@ android {
             versionName = android.defaultConfig.versionName + '-Google'
         }
     }
-
-    buildTypes {
-        debug {
-            applicationIdSuffix '.debug'
-            versionNameSuffix '-debug'
-        }
-    }
 }
 
 dependencies {
     implementation project(':libs:branding')
     implementation project(':libs:wear-protocol')
+    implementation libs.androidx.annotation
+    implementation libs.google.gms.wearable
+
+    testImplementation libs.androidx.junit
+    testImplementation libs.mockito.core
 }
