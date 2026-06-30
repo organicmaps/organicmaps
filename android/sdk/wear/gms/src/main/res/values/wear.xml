@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Identifies reachable phone nodes that can publish Organic Maps navigation state. -->
+  <string-array name="android_wear_capabilities" translatable="false">
+    <item>organic_maps_phone_app</item>
+  </string-array>
+</resources>
