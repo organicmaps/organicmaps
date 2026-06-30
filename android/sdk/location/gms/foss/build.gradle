@@ -14,6 +14,9 @@ android {
       java {
         srcDir(new File(project(':sdk:location:gms:google').projectDir, 'src/main/java/'))
       }
+      // Reuse the Google module's manifest so the provider that self-registers the location factory
+      // is merged for F-Droid too (the Java sources above are shared, so the provider class exists).
+      manifest.srcFile(new File(project(':sdk:location:gms:google').projectDir, 'src/main/AndroidManifest.xml'))
     }
   }
 }

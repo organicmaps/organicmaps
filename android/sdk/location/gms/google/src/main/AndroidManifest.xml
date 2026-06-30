@@ -1,0 +1,18 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <!--
+    Registers the GMS location provider factory at process startup. Every flavor bundles a GMS
+    location module (Google/Web/Huawei via :sdk:location:gms:google, F-Droid via its FOSS twin, which
+    reuses this manifest), so the merger adds this provider to the app and GmsLocationProviderRegistry
+    is populated before any location request. Common code selects the provider through the registry
+    without depending on Play services classes.
+    ${applicationId} keeps the authority unique per install (debug/beta/release coexistence).
+  -->
+  <application>
+    <provider
+      android:name="app.organicmaps.sdk.location.gms.LocationProviderInitProvider"
+      android:authorities="${applicationId}.location-provider-init"
+      android:exported="false" />
+  </application>
+
+</manifest>

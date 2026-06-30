@@ -107,8 +107,14 @@ public class LocationHelper implements BaseLocationProvider.Listener
   {
     mContext = context;
     mSensorHelper = sensorHelper;
-    mLocationProvider = mLocationProviderFactory.getProvider(mContext, this);
+    mLocationProvider = createProvider();
     mHandler = new Handler(Looper.getMainLooper());
+  }
+
+  @NonNull
+  private BaseLocationProvider createProvider()
+  {
+    return mLocationProviderFactory.getProvider(mContext, this);
   }
 
   /**
@@ -281,12 +287,38 @@ public class LocationHelper implements BaseLocationProvider.Listener
   public void stopNavigationSimulation()
   {
     Logger.i(TAG);
-    mLocationProvider.stop();
     if (mOldLocationProvider == null)
       throw new IllegalStateException("Should be called only after startNavigationSimulation()");
-    mLocationProvider = mOldLocationProvider;
+    mLocationProvider.stop();
+    final BaseLocationProvider provider = mOldLocationProvider;
+    mOldLocationProvider = null;
+    mLocationProvider = provider;
     mActive = true;
     mLocationProvider.start(mInterval);
+  }
+
+  /**
+   * Recreates the provider selected from the current app settings.
+   */
+  @SuppressLint("MissingPermission")
+  public void recreateProvider()
+  {
+    final BaseLocationProvider provider = createProvider();
+    if (mLocationProvider instanceof RouteSimulationProvider)
+    {
+      // Route simulation temporarily owns mLocationProvider; update the provider restored after simulation.
+      mOldLocationProvider = provider;
+      return;
+    }
+
+    final boolean wasActive = isActive();
+    if (wasActive)
+      stop();
+
+    mLocationProvider = provider;
+
+    if (wasActive)
+      start();
   }
 
   @Override
