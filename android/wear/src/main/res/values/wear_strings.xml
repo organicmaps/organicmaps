@@ -4,4 +4,6 @@
     <!-- SECTION: gps strings -->
     <!-- Displayed in the Wear OS app when no navigation is active on the phone. -->
     <string name="wear_no_navigation_message">Open Organic Maps on your phone to start navigation.</string>
+    <!-- Displayed in the Wear OS app when navigation is active on the phone. -->
+    <string name="wear_navigation_active_message">Navigation is running on your phone.</string>
 </resources>
