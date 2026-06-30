@@ -1,4 +1,6 @@
 final class BMCViewController: MWMViewController {
+  private var loadingPlaceholderView: PlaceholderView?
+
   private var viewModel: BMCDefaultViewModel! {
     didSet {
       viewModel.view = self
@@ -10,18 +12,12 @@ final class BMCViewController: MWMViewController {
 
   @IBOutlet private var tableView: UITableView! {
     didSet {
-      let cells = [
-        BMCCategoryCell.self,
-        BMCActionsCell.self,
-        BMCNotificationsCell.self,
-      ]
-      tableView.registerNibs(cells)
+      tableView.register(cell: BookmarksListCell.self)
       tableView.registerNibForHeaderFooterView(BMCCategoriesHeader.self)
     }
   }
 
   @IBOutlet private var actionsHeader: UIView!
-  @IBOutlet private var notificationsHeader: BMCNotificationsHeader!
 
   init(coordinator: BookmarksCoordinator?) {
     super.init(nibName: nil, bundle: nil)
@@ -37,6 +33,8 @@ final class BMCViewController: MWMViewController {
     super.viewDidLoad()
     view.setStyle(.pressBackground)
     viewModel = BMCDefaultViewModel()
+    setupLoadingPlaceholderView()
+    updateLoadingPlaceholderVisibility()
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -167,10 +165,42 @@ final class BMCViewController: MWMViewController {
     let recentlyDeletedController = RecentlyDeletedCategoriesViewController(viewModel: RecentlyDeletedCategoriesViewModel(bookmarksManager: BookmarksManager.shared()))
     MapViewController.shared()?.navigationController?.pushViewController(recentlyDeletedController, animated: true)
   }
+
+  private func setupLoadingPlaceholderView() {
+    guard viewModel.shouldShowLoadingPlaceholder() else { return }
+    let loadingPlaceholderView = PlaceholderView(subtitle: L("load_kmz_title"), hasActivityIndicator: true)
+    view.addSubview(loadingPlaceholderView)
+    loadingPlaceholderView.translatesAutoresizingMaskIntoConstraints = false
+    loadingPlaceholderView.isHidden = true
+
+    NSLayoutConstraint.activate([
+      loadingPlaceholderView.topAnchor.constraint(equalTo: tableView.topAnchor),
+      loadingPlaceholderView.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
+      loadingPlaceholderView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
+      loadingPlaceholderView.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),
+    ])
+    self.loadingPlaceholderView = loadingPlaceholderView
+  }
+
+  private func updateLoadingPlaceholderVisibility() {
+    guard let loadingPlaceholderView else { return }
+    let isVisible = viewModel.shouldShowLoadingPlaceholder()
+    UIView.transition(with: view, duration: kFastAnimationDuration, options: .transitionCrossDissolve) {
+      loadingPlaceholderView.isHidden = !isVisible
+      self.tableView.isHidden = isVisible
+    } completion: { [weak self] _ in
+      guard let self else { return }
+      if !isVisible {
+        loadingPlaceholderView.removeFromSuperview()
+        self.loadingPlaceholderView = nil
+      }
+    }
+  }
 }
 
 extension BMCViewController: BMCView {
   func update(sections: [BMCSection]) {
+    updateLoadingPlaceholderVisibility()
     if sections.isEmpty {
       tableView.reloadData()
     } else {
@@ -195,9 +225,8 @@ extension BMCViewController: UITableViewDataSource {
 
   func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
     switch viewModel.sectionType(section: section) {
-    case .categories: fallthrough
-    case .actions, .recentlyDeleted: fallthrough
-    case .notifications: return viewModel.numberOfRows(section: section)
+    case .categories, .actions, .recentlyDeleted:
+      return viewModel.numberOfRows(section: section)
     }
   }
 
@@ -206,17 +235,29 @@ extension BMCViewController: UITableViewDataSource {
       tableView.dequeueReusableCell(cell: cell, indexPath: indexPath)
     }
 
+    let cell = dequeCell(BookmarksListCell.self)
+    let cellConfiguration: BookmarksListCell.Configuration
     switch viewModel.sectionType(section: indexPath.section) {
     case .categories:
-      return dequeCell(BMCCategoryCell.self).config(category: viewModel.category(at: indexPath.row),
-                                                    delegate: self)
+      let category = viewModel.category(at: indexPath.row)
+      cellConfiguration = BookmarksListCell.Configuration
+        .category(category,
+                  leadingAction: { [weak self, weak cell] _ in
+                    guard let self, let cell, let indexPath = self.tableView.indexPath(for: cell) else { return }
+                    let category = self.viewModel.category(at: indexPath.row)
+                    self.setCategoryVisible(!category.isVisible, at: indexPath.row)
+                    self.tableView.reloadRows(at: [indexPath], with: .none)
+                  }, accessoryAction: { [weak self, weak cell] button in
+                    guard let self, let cell, let indexPath = self.tableView.indexPath(for: cell) else { return }
+                    self.editCategory(at: indexPath.row, anchor: button)
+                  })
     case .actions:
-      return dequeCell(BMCActionsCell.self).config(model: viewModel.action(at: indexPath.row))
+      cellConfiguration = .action(viewModel.action(at: indexPath.row))
     case .recentlyDeleted:
-      return dequeCell(BMCActionsCell.self).config(model: viewModel.recentlyDeletedCategories())
-    case .notifications:
-      return dequeCell(BMCNotificationsCell.self)
+      cellConfiguration = .action(viewModel.recentlyDeletedCategories())
     }
+    cell.configure(cellConfiguration)
+    return cell
   }
 }
 
@@ -244,7 +285,6 @@ extension BMCViewController: UITableViewDelegate {
 
   func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
     switch viewModel.sectionType(section: section) {
-    case .notifications: fallthrough
     case .categories: return 48
     case .actions, .recentlyDeleted: return 24
     }
@@ -259,7 +299,6 @@ extension BMCViewController: UITableViewDelegate {
       categoriesHeader.delegate = self
       return categoriesHeader
     case .actions, .recentlyDeleted: return actionsHeader
-    case .notifications: return notificationsHeader
     }
   }
 
@@ -277,29 +316,7 @@ extension BMCViewController: UITableViewDelegate {
         assertionFailure()
       }
     case .recentlyDeleted: openRecentlyDeleted()
-    default:
-      assertionFailure()
     }
-  }
-}
-
-extension BMCViewController: BMCCategoryCellDelegate {
-  func cell(_ cell: BMCCategoryCell, didCheck visible: Bool) {
-    guard let indexPath = tableView.indexPath(for: cell) else {
-      assertionFailure()
-      return
-    }
-
-    setCategoryVisible(visible, at: indexPath.row)
-  }
-
-  func cell(_ cell: BMCCategoryCell, didPress moreButton: UIButton) {
-    guard let indexPath = tableView.indexPath(for: cell) else {
-      assertionFailure()
-      return
-    }
-
-    editCategory(at: indexPath.row, anchor: moreButton)
   }
 }
 

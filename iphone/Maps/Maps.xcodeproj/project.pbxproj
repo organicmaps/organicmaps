@@ -77,6 +77,7 @@
 		ED82C4FA2F90180300FA103D /* VisibleArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2A32F90180300FA103D /* VisibleArea.swift */; };
 		ED82C4FB2F90180300FA103D /* WidgetsArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2A42F90180300FA103D /* WidgetsArea.swift */; };
 		ED82C4FC2F90180300FA103D /* BookmarksListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2A62F90180300FA103D /* BookmarksListCell.swift */; };
+		F0A0B0012FF2ABCD00FA103D /* BookmarksListCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A0B0002FF2ABCD00FA103D /* BookmarksListCellConfiguration.swift */; };
 		ED82C4FD2F90180300FA103D /* BookmarksListCellStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2A82F90180300FA103D /* BookmarksListCellStrategy.swift */; };
 		ED82C4FE2F90180300FA103D /* BookmarksListSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2A92F90180300FA103D /* BookmarksListSectionHeader.swift */; };
 		ED82C4FF2F90180300FA103D /* SubgroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2AB2F90180300FA103D /* SubgroupCell.swift */; };
@@ -87,14 +88,10 @@
 		ED82C5042F90180300FA103D /* BookmarksListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2B32F90180300FA103D /* BookmarksListPresenter.swift */; };
 		ED82C5052F90180300FA103D /* BookmarksListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2B42F90180300FA103D /* BookmarksListRouter.swift */; };
 		ED82C5062F90180300FA103D /* BookmarksListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2B52F90180300FA103D /* BookmarksListViewController.swift */; };
-		ED82C5072F90180300FA103D /* BMCActionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2B82F90180300FA103D /* BMCActionsCell.swift */; };
 		ED82C5082F90180300FA103D /* BMCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2BB2F90180300FA103D /* BMCViewController.swift */; };
 		ED82C5092F90180300FA103D /* BMCDefaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2BE2F90180300FA103D /* BMCDefaultViewModel.swift */; };
 		ED82C50A2F90180300FA103D /* BMCCategoriesHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2C02F90180300FA103D /* BMCCategoriesHeader.swift */; };
-		ED82C50B2F90180300FA103D /* BMCCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2C22F90180300FA103D /* BMCCategoryCell.swift */; };
 		ED82C50C2F90180300FA103D /* CategorySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2C52F90180300FA103D /* CategorySettingsViewController.swift */; };
-		ED82C50D2F90180300FA103D /* BMCNotificationsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2C72F90180300FA103D /* BMCNotificationsCell.swift */; };
-		ED82C50E2F90180300FA103D /* BMCNotificationsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2C92F90180300FA103D /* BMCNotificationsHeader.swift */; };
 		ED82C50F2F90180300FA103D /* RecentlyDeletedCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2CB2F90180300FA103D /* RecentlyDeletedCategoriesViewController.swift */; };
 		ED82C5102F90180300FA103D /* RecentlyDeletedCategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2CC2F90180300FA103D /* RecentlyDeletedCategoriesViewModel.swift */; };
 		ED82C5112F90180300FA103D /* RecentlyDeletedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2CD2F90180300FA103D /* RecentlyDeletedTableViewCell.swift */; };
@@ -359,16 +356,12 @@
 		ED82C61B2F90180300FA103D /* Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4EB2F90180300FA103D /* Storyboard.swift */; };
 		ED82C61C2F90180300FA103D /* DefaultTranslationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4ED2F90180300FA103D /* DefaultTranslationController.swift */; };
 		ED82C61D2F90180300FA103D /* MWMAutoupdateController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2992F90180300FA103D /* MWMAutoupdateController.xib */; };
-		ED82C61E2F90180300FA103D /* BookmarksListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2A72F90180300FA103D /* BookmarksListCell.xib */; };
 		ED82C61F2F90180300FA103D /* BookmarksListSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2AA2F90180300FA103D /* BookmarksListSectionHeader.xib */; };
 		ED82C6202F90180300FA103D /* SubgroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2AC2F90180300FA103D /* SubgroupCell.xib */; };
 		ED82C6212F90180300FA103D /* BookmarksListInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2B02F90180300FA103D /* BookmarksListInfoViewController.xib */; };
 		ED82C6222F90180300FA103D /* BookmarksListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2B62F90180300FA103D /* BookmarksListViewController.xib */; };
-		ED82C6232F90180300FA103D /* BMCActionsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2B92F90180300FA103D /* BMCActionsCell.xib */; };
 		ED82C6242F90180300FA103D /* BMCViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2BC2F90180300FA103D /* BMCViewController.xib */; };
 		ED82C6252F90180300FA103D /* BMCCategoriesHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2C12F90180300FA103D /* BMCCategoriesHeader.xib */; };
-		ED82C6262F90180300FA103D /* BMCCategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2C32F90180300FA103D /* BMCCategoryCell.xib */; };
-		ED82C6272F90180300FA103D /* BMCNotificationsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2C82F90180300FA103D /* BMCNotificationsCell.xib */; };
 		ED82C6282F90180300FA103D /* BottomMenuItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2D52F90180300FA103D /* BottomMenuItemCell.xib */; };
 		ED82C6292F90180300FA103D /* BottomMenuLayersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2D82F90180300FA103D /* BottomMenuLayersCell.xib */; };
 		ED82C62A2F90180300FA103D /* BottomMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2DE2F90180300FA103D /* BottomMenuViewController.xib */; };
@@ -912,7 +905,7 @@
 		ED82C2A32F90180300FA103D /* VisibleArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibleArea.swift; sourceTree = "<group>"; };
 		ED82C2A42F90180300FA103D /* WidgetsArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsArea.swift; sourceTree = "<group>"; };
 		ED82C2A62F90180300FA103D /* BookmarksListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListCell.swift; sourceTree = "<group>"; };
-		ED82C2A72F90180300FA103D /* BookmarksListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksListCell.xib; sourceTree = "<group>"; };
+		F0A0B0002FF2ABCD00FA103D /* BookmarksListCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListCellConfiguration.swift; sourceTree = "<group>"; };
 		ED82C2A82F90180300FA103D /* BookmarksListCellStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListCellStrategy.swift; sourceTree = "<group>"; };
 		ED82C2A92F90180300FA103D /* BookmarksListSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListSectionHeader.swift; sourceTree = "<group>"; };
 		ED82C2AA2F90180300FA103D /* BookmarksListSectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksListSectionHeader.xib; sourceTree = "<group>"; };
@@ -927,19 +920,12 @@
 		ED82C2B42F90180300FA103D /* BookmarksListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListRouter.swift; sourceTree = "<group>"; };
 		ED82C2B52F90180300FA103D /* BookmarksListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListViewController.swift; sourceTree = "<group>"; };
 		ED82C2B62F90180300FA103D /* BookmarksListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksListViewController.xib; sourceTree = "<group>"; };
-		ED82C2B82F90180300FA103D /* BMCActionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCActionsCell.swift; sourceTree = "<group>"; };
-		ED82C2B92F90180300FA103D /* BMCActionsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BMCActionsCell.xib; sourceTree = "<group>"; };
 		ED82C2BB2F90180300FA103D /* BMCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCViewController.swift; sourceTree = "<group>"; };
 		ED82C2BC2F90180300FA103D /* BMCViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BMCViewController.xib; sourceTree = "<group>"; };
 		ED82C2BE2F90180300FA103D /* BMCDefaultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCDefaultViewModel.swift; sourceTree = "<group>"; };
 		ED82C2C02F90180300FA103D /* BMCCategoriesHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCCategoriesHeader.swift; sourceTree = "<group>"; };
 		ED82C2C12F90180300FA103D /* BMCCategoriesHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BMCCategoriesHeader.xib; sourceTree = "<group>"; };
-		ED82C2C22F90180300FA103D /* BMCCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCCategoryCell.swift; sourceTree = "<group>"; };
-		ED82C2C32F90180300FA103D /* BMCCategoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BMCCategoryCell.xib; sourceTree = "<group>"; };
 		ED82C2C52F90180300FA103D /* CategorySettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySettingsViewController.swift; sourceTree = "<group>"; };
-		ED82C2C72F90180300FA103D /* BMCNotificationsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCNotificationsCell.swift; sourceTree = "<group>"; };
-		ED82C2C82F90180300FA103D /* BMCNotificationsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BMCNotificationsCell.xib; sourceTree = "<group>"; };
-		ED82C2C92F90180300FA103D /* BMCNotificationsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCNotificationsHeader.swift; sourceTree = "<group>"; };
 		ED82C2CB2F90180300FA103D /* RecentlyDeletedCategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedCategoriesViewController.swift; sourceTree = "<group>"; };
 		ED82C2CC2F90180300FA103D /* RecentlyDeletedCategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedCategoriesViewModel.swift; sourceTree = "<group>"; };
 		ED82C2CD2F90180300FA103D /* RecentlyDeletedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedTableViewCell.swift; sourceTree = "<group>"; };
@@ -2097,7 +2083,7 @@
 			isa = PBXGroup;
 			children = (
 				ED82C2A62F90180300FA103D /* BookmarksListCell.swift */,
-				ED82C2A72F90180300FA103D /* BookmarksListCell.xib */,
+				F0A0B0002FF2ABCD00FA103D /* BookmarksListCellConfiguration.swift */,
 				ED82C2A82F90180300FA103D /* BookmarksListCellStrategy.swift */,
 				ED82C2A92F90180300FA103D /* BookmarksListSectionHeader.swift */,
 				ED82C2AA2F90180300FA103D /* BookmarksListSectionHeader.xib */,
@@ -2127,8 +2113,6 @@
 		ED82C2BA2F90180300FA103D /* Actions */ = {
 			isa = PBXGroup;
 			children = (
-				ED82C2B82F90180300FA103D /* BMCActionsCell.swift */,
-				ED82C2B92F90180300FA103D /* BMCActionsCell.xib */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -2155,8 +2139,6 @@
 			children = (
 				ED82C2C02F90180300FA103D /* BMCCategoriesHeader.swift */,
 				ED82C2C12F90180300FA103D /* BMCCategoriesHeader.xib */,
-				ED82C2C22F90180300FA103D /* BMCCategoryCell.swift */,
-				ED82C2C32F90180300FA103D /* BMCCategoryCell.xib */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -2167,16 +2149,6 @@
 				ED82C2C52F90180300FA103D /* CategorySettingsViewController.swift */,
 			);
 			path = CategorySettings;
-			sourceTree = "<group>";
-		};
-		ED82C2CA2F90180300FA103D /* Notifications */ = {
-			isa = PBXGroup;
-			children = (
-				ED82C2C72F90180300FA103D /* BMCNotificationsCell.swift */,
-				ED82C2C82F90180300FA103D /* BMCNotificationsCell.xib */,
-				ED82C2C92F90180300FA103D /* BMCNotificationsHeader.swift */,
-			);
-			path = Notifications;
 			sourceTree = "<group>";
 		};
 		ED82C2CE2F90180300FA103D /* RecentlyDeleted */ = {
@@ -2197,7 +2169,6 @@
 				ED82C2BF2F90180300FA103D /* BMCViewModel */,
 				ED82C2C42F90180300FA103D /* Categories */,
 				ED82C2C62F90180300FA103D /* CategorySettings */,
-				ED82C2CA2F90180300FA103D /* Notifications */,
 				ED82C2CE2F90180300FA103D /* RecentlyDeleted */,
 				ED82C2CF2F90180300FA103D /* BMCModels.swift */,
 			);
@@ -4239,16 +4210,12 @@
 				DB05F1CD1BF340DE002C974C /* drules_outdoors.bin in Resources */,
 				DB05F1CE1BF340DE002C974C /* drules_vehicle.bin in Resources */,
 				ED82C61D2F90180300FA103D /* MWMAutoupdateController.xib in Resources */,
-				ED82C61E2F90180300FA103D /* BookmarksListCell.xib in Resources */,
 				ED82C61F2F90180300FA103D /* BookmarksListSectionHeader.xib in Resources */,
 				ED82C6202F90180300FA103D /* SubgroupCell.xib in Resources */,
 				ED82C6212F90180300FA103D /* BookmarksListInfoViewController.xib in Resources */,
 				ED82C6222F90180300FA103D /* BookmarksListViewController.xib in Resources */,
-				ED82C6232F90180300FA103D /* BMCActionsCell.xib in Resources */,
 				ED82C6242F90180300FA103D /* BMCViewController.xib in Resources */,
 				ED82C6252F90180300FA103D /* BMCCategoriesHeader.xib in Resources */,
-				ED82C6262F90180300FA103D /* BMCCategoryCell.xib in Resources */,
-				ED82C6272F90180300FA103D /* BMCNotificationsCell.xib in Resources */,
 				ED82C6282F90180300FA103D /* BottomMenuItemCell.xib in Resources */,
 				ED82C6292F90180300FA103D /* BottomMenuLayersCell.xib in Resources */,
 				ED82C62A2F90180300FA103D /* BottomMenuViewController.xib in Resources */,
@@ -4379,6 +4346,7 @@
 				ED82C4FA2F90180300FA103D /* VisibleArea.swift in Sources */,
 				ED82C4FB2F90180300FA103D /* WidgetsArea.swift in Sources */,
 				ED82C4FC2F90180300FA103D /* BookmarksListCell.swift in Sources */,
+				F0A0B0012FF2ABCD00FA103D /* BookmarksListCellConfiguration.swift in Sources */,
 				ED82C4FD2F90180300FA103D /* BookmarksListCellStrategy.swift in Sources */,
 				ED82C4FE2F90180300FA103D /* BookmarksListSectionHeader.swift in Sources */,
 				ED82C4FF2F90180300FA103D /* SubgroupCell.swift in Sources */,
@@ -4389,14 +4357,10 @@
 				ED82C5042F90180300FA103D /* BookmarksListPresenter.swift in Sources */,
 				ED82C5052F90180300FA103D /* BookmarksListRouter.swift in Sources */,
 				ED82C5062F90180300FA103D /* BookmarksListViewController.swift in Sources */,
-				ED82C5072F90180300FA103D /* BMCActionsCell.swift in Sources */,
 				ED82C5082F90180300FA103D /* BMCViewController.swift in Sources */,
 				ED82C5092F90180300FA103D /* BMCDefaultViewModel.swift in Sources */,
 				ED82C50A2F90180300FA103D /* BMCCategoriesHeader.swift in Sources */,
-				ED82C50B2F90180300FA103D /* BMCCategoryCell.swift in Sources */,
 				ED82C50C2F90180300FA103D /* CategorySettingsViewController.swift in Sources */,
-				ED82C50D2F90180300FA103D /* BMCNotificationsCell.swift in Sources */,
-				ED82C50E2F90180300FA103D /* BMCNotificationsHeader.swift in Sources */,
 				ED82C50F2F90180300FA103D /* RecentlyDeletedCategoriesViewController.swift in Sources */,
 				ED0C360F2FE3EC2C00CAF853 /* UserDescriptionHTMLDocumentBuilder.swift in Sources */,
 				ED82C5102F90180300FA103D /* RecentlyDeletedCategoriesViewModel.swift in Sources */,
