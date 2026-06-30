@@ -367,6 +367,8 @@ class ColorPickerFragment : BottomSheetDialogFragment() {
         val marginHalf = resources.getDimensionPixelSize(R.dimen.margin_half)
 
         val label = TextView(ctx).apply {
+            // Workaround for Android 5.0 NPE in TextView.checkForRelayout via PopupWindow.setLayoutDirectionFromAnchor.
+            layoutParams = ViewGroup.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
             text = getString(R.string.delete)
             setTextColor(Color.RED)
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
