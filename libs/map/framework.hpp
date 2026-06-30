@@ -791,7 +791,8 @@ public:
   void DeleteFeature(FeatureID const & fid);
   osm::NewFeatureCategories GetEditorCategories() const;
   bool RollBackChanges(FeatureID const & fid);
-  void CreateNote(osm::MapObject const & mapObject, osm::Editor::NoteProblemType const type, std::string const & note);
+  void CreateNote(osm::EditableMapObject const & mapObject, osm::Editor::NoteProblemType const type,
+                  std::string const & note);
 
 private:
   settings::UsageStats m_usageStats;

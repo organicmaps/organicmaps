@@ -3492,6 +3492,20 @@ bool Framework::GetEditableMapObject(FeatureID const & fid, osm::EditableMapObje
 
   emo = {};
   emo.SetFromFeatureType(*ft);
+
+  if (HasPlacePageInfo())
+  {
+    auto const & info = GetCurrentPlacePageInfo();
+    auto const & buildInfo = info.GetBuildInfo();
+    // In explicit feature selections (for example, tapping a road label), the place page keeps the
+    // feature center. The original user tap is still the location that the note should report.
+    if (info.GetID() == fid && buildInfo.m_source == place_page::BuildInfo::Source::User &&
+        info.GetGeomType() != feature::GeomType::Point)
+    {
+      emo.SetSelectionPoint(buildInfo.m_mercator);
+    }
+  }
+
   auto const & editor = osm::Editor::Instance();
   emo.SetEditableProperties(editor.GetEditableProperties(*ft));
 
@@ -3678,20 +3692,11 @@ bool Framework::RollBackChanges(FeatureID const & fid)
   return rolledBack;
 }
 
-void Framework::CreateNote(osm::MapObject const & mapObject, osm::Editor::NoteProblemType const type,
+void Framework::CreateNote(osm::EditableMapObject const & mapObject, osm::Editor::NoteProblemType const type,
                            std::string const & note)
 {
-  // MapObject::GetLatLon() returns the feature's geometric center, which for lines and areas
-  // (roads, forests, etc.) can be far from where the user actually pointed. The place page keeps the
-  // real map selection (tap) point, so use it when it refers to the same feature, posting the note
-  // where the user reported the problem.
-  auto noteLatLon = mapObject.GetLatLon();
-  if (mapObject.GetID().IsValid() && HasPlacePageInfo())
-  {
-    auto const & ppInfo = GetCurrentPlacePageInfo();
-    if (ppInfo.GetID() == mapObject.GetID())
-      noteLatLon = ppInfo.GetLatLon();
-  }
+  auto const & selection = mapObject.GetSelectionPoint();
+  auto const noteLatLon = selection ? mercator::ToLatLon(*selection) : mapObject.GetLatLon();
 
   osm::Editor::Instance().CreateNote(noteLatLon, mapObject.GetID(), mapObject.GetTypes(), mapObject.GetDefaultName(),
                                      type, note);
