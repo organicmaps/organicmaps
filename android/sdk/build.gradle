@@ -107,6 +107,7 @@ dependencies {
   implementation libs.okhttp
 
   testImplementation libs.androidx.junit
+  testImplementation libs.mockito.inline
   androidTestImplementation libs.androidx.junit
   androidTestImplementation libs.androidx.test.runner
 }
