@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Tyvärr, kartlagring är inaktiverat i inställningar.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Kartan har börjat laddas ner.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Hej, kolla på min nuvarande position på Organic Maps! %1$s eller %2$s Har du inte offline-kartor? Ladda ner här: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Hej, kolla min kartnål på Organic Maps!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hej, kolla på min nuvarande position på Organic Maps kartan!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Hej,\n\nJag är här nu: %1$s. Klicka på länken %2$s eller här %3$s för att se platsen på kartan.\n\nTack.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Dela</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Vänligen aktivera platstjänster</string>
     <string name="save">Spara</string>
     <string name="create">skapa</string>
-    <!-- red color -->
-    <string name="red">Röd</string>
-    <!-- yellow color -->
-    <string name="yellow">Gul</string>
-    <!-- blue color -->
-    <string name="blue">Blå</string>
-    <!-- green color -->
-    <string name="green">Grön</string>
-    <!-- purple color -->
-    <string name="purple">Lila</string>
-    <!-- orange color -->
-    <string name="orange">Orange</string>
-    <!-- brown color -->
-    <string name="brown">Brun</string>
-    <!-- pink color -->
-    <string name="pink">Rosa</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Mörklila</string>
-    <!-- light blue color -->
-    <string name="light_blue">Ljusblå</string>
-    <!-- cyan color -->
-    <string name="cyan">Blågrön</string>
-    <!-- teal color -->
-    <string name="teal">Smaragdgrön</string>
-    <!-- lime color -->
-    <string name="lime">Limefärg</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Mörkorange</string>
-    <!-- gray color -->
-    <string name="gray">Grå</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Ljusblå grå</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Utseende</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Otillräckligt minne</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Ta bort onödig data</string>
-    <string name="editor_login_error_dialog">Inloggningsfel.</string>
     <string name="editor_profile_changes">Verifierade ändringar</string>
     <string name="editor_focus_map_on_location">Dra kartan för att placera korset på platsen för platsen eller företaget.</string>
     <string name="editor_edit_place_title">Redigerar</string>
@@ -583,12 +546,9 @@
     <string name="routing_add_start_point">Använd sökfunktionen eller tryck på kartan för att lägga till en startpunkt för rutten</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Använd sökfunktionen eller tryck på kartan för att lägga till en destinationspunkt</string>
-    <string name="planning_route_manage_route">Hantera rutt</string>
-    <string name="button_plan">Planera</string>
     <string name="placepage_remove_stop">Ta bort stoppet</string>
     <string name="placepage_add_stop">Lägg till stopp</string>
     <string name="drag_to_reorder">Ordna om</string>
-    <string name="saved">Sparade</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Logga in på OpenStreetMap för att automatiskt ladda upp alla dina kartredigeringar. Läs mer <a href="https://github.com/organicmaps/organicmaps/issues/6144">här</a>.</string>
     <string name="dialog_error_storage_title">Lagringsåtkomstproblem</string>
@@ -684,8 +644,6 @@
     <string name="avoid_motorways">Undvik motorvägen</string>
     <string name="unable_to_calc_alert_title">Det går inte att hitta rutt</string>
     <string name="unable_to_calc_alert_subtitle">Tyvärr kunde vi inte hitta en rutt. Detta kan bero på dina ruttpreferenser eller ofullständigt kartunderlag i OpenStreetMap. Ändra gärna dina val och försök igen.</string>
-    <string name="define_to_avoid_btn">Definiera oönskade vägar</string>
-    <string name="change_driving_options_btn">Ruttinställningar aktiverade</string>
     <string name="toll_road">Betalväg</string>
     <string name="unpaved_road">Oasfalterad väg</string>
     <string name="ferry_crossing">Färjetrafik</string>
@@ -764,8 +722,6 @@
     <string name="elevation_profile_min_elevation">Min. höjd</string>
     <string name="elevation_profile_max_elevation">Max. höjd</string>
     <string name="elevation_profile_difficulty">Svårighet</string>
-    <string name="elevation_profile_distance">Avst.:</string>
-    <string name="elevation_profile_time">Tid:</string>
     <string name="isolines_toast_zooms_1_10">Förstora kartan för att se höjdlinjer</string>
     <string name="downloader_loading_ios">Nedladdning</string>
     <string name="download_map_title">Ladda ner översiktskartan för hela världen</string>
@@ -848,7 +804,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Inställningar för talsyntes hittades inte, är du säker på att din enhet stöder det?</string>
     <string name="drive_through">Drive-thru</string>
-    <string name="clear_the_search">Rensa sökning</string>
     <string name="zoom_in">Zooma in</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">Zooma ut</string>
@@ -871,12 +826,6 @@
     <string name="stop_track_recording">Stoppa inspelning av spår</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Inspelning av rutt</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Stoppa utan att spara</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Fortsätt spela in</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Spara inspelning i bokmärken och rutter?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Routen är tom - inget att spara</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -884,8 +833,6 @@
     <string name="choose_color">Välj färg</string>
     <string name="edit_track">Redigera spår</string>
     <string name="uri_open_location_failed">Ingen app installerad som kan öppna platsen</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Auto i navigering</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Följ systemet</string>
     <!-- Title of the bottom sheet when sharing the track -->

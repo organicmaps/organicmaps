@@ -325,54 +325,6 @@
 "save" = "Gem";
 "create" = "opret";
 
-/* red color */
-"red" = "Rød";
-
-/* yellow color */
-"yellow" = "Gul";
-
-/* blue color */
-"blue" = "Blå";
-
-/* green color */
-"green" = "Grøn";
-
-/* purple color */
-"purple" = "Lilla";
-
-/* orange color */
-"orange" = "Orange";
-
-/* brown color */
-"brown" = "Brun";
-
-/* pink color */
-"pink" = "Lyserød";
-
-/* deep purple color */
-"deep_purple" = "Mørkelilla";
-
-/* light blue color */
-"light_blue" = "Lyseblå";
-
-/* cyan color */
-"cyan" = "Cyan";
-
-/* teal color */
-"teal" = "Blågrøn";
-
-/* lime color */
-"lime" = "Kalk";
-
-/* deep orange color */
-"deep_orange" = "Dyb orange";
-
-/* gray color */
-"gray" = "Grå";
-
-/* blue gray color */
-"blue_gray" = "Blågrå";
-
 /* place preview title */
 "info" = "Info";
 
@@ -639,11 +591,8 @@
 "traffic_data_unavailable" = "Trafikdata er ikke tilgængelige";
 "enable_logging" = "Aktiver logføring";
 "transliteration_title" = "Translitterer til det latinske alfabet";
-"planning_route_manage_route" = "Administrer rute";
-"button_plan" = "Planlæg";
 "placepage_remove_stop" = "Fjern stop";
 "placepage_add_stop" = "Tilføj stop";
-"saved" = "Gemt";
 "error_enter_correct_name" = "Angiv et korrekt navn";
 "bookmark_lists" = "Lister";
 
@@ -726,8 +675,6 @@
 "avoid_motorways" = "Undgå motorveje";
 "unable_to_calc_alert_title" = "Kan ikke beregne rute";
 "unable_to_calc_alert_subtitle" = "Der kunne ikke findes en rute. Dette kan skyldes dine ruteindstillinger eller ufuldstændige OpenStreetMap-data. Ændr dine ruteindstillinger, og prøv igen.";
-"define_to_avoid_btn" = "Definer veje du vil undgå";
-"change_driving_options_btn" = "Indstillinger for ruteberegning aktiveret";
 "toll_road" = "Betalingsvej";
 "unpaved_road" = "Ikke-asfalteret vej";
 "ferry_crossing" = "Færgeoverfart";
@@ -773,9 +720,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Ruteplanlægning mislykkedes";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Ankomst: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "For at oprette en rute skal du hente og opdatere alle kort langs ruten.";
 "editor_done_dialog_1" = "Du har ændret verdenskortet. Lad andre det vide! Fortæl dine venner og redigér det sammen.";
@@ -800,7 +744,6 @@
 "please_note" = "Bemærk venligst";
 "migration_download_error_dialog" = "Fejl ved download";
 "editor_add_select_category" = "Vælg kategori";
-"editor_add_select_category_popular_subtitle" = "Populær";
 "editor_add_select_category_all_subtitle" = "Alle kategorier";
 "whatsnew_editor_message_1" = "Tilføj nye steder til kortet og redigér eksisterende direkte fra app'en.";
 "dialog_incorrect_feature_position" = "Skift lokation";
@@ -842,9 +785,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Appen skal opdateres for at kunne vise trafikdata.";
 "log_file_size" = "Logfilens størrelse: %@";
-"planning_route_remove_title" = "Træk herhen for at fjerne";
 "placepage_replace_stop" = "Erstat stop";
-"start_from_my_position" = "Start fra";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Log ind på OpenStreetMap for automatisk at uploade alle dine kortredigeringer. Få mere at vide";
@@ -872,7 +813,6 @@
 "bottom" = "Bund";
 "trip_start" = "Lad os komme i gang";
 "pick_destination" = "Destination";
-"follow_my_position" = "Centrer igen";
 "search_results" = "Søgeresultater";
 "then_turn" = "Derefter";
 "redirect_route_alert" = "Vil du genopbygge ruten igen?";
@@ -1013,10 +953,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Sporet er tomt - der er ikke noget at gemme";
 "edit_track" = "Rediger spor";
-"elevation_profile_diff_level" = "Sværhedsgrad";
-"elevation_profile_diff_level_easy" = "Let";
-"elevation_profile_diff_level_moderate" = "Middel";
-"elevation_profile_diff_level_hard" = "Svær";
 "downloader_updating_ios" = "Opdaterer";
 
 /* Autoupdate dialog on start */

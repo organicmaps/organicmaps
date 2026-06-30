@@ -325,54 +325,6 @@
 "save" = "Запазване";
 "create" = "създаване";
 
-/* red color */
-"red" = "Червено";
-
-/* yellow color */
-"yellow" = "Жълто";
-
-/* blue color */
-"blue" = "Синьо";
-
-/* green color */
-"green" = "Зелено";
-
-/* purple color */
-"purple" = "Лилаво";
-
-/* orange color */
-"orange" = "Оранжево";
-
-/* brown color */
-"brown" = "Кафяво";
-
-/* pink color */
-"pink" = "Розово";
-
-/* deep purple color */
-"deep_purple" = "Тъмно Лилаво";
-
-/* light blue color */
-"light_blue" = "Светло Синьо";
-
-/* cyan color */
-"cyan" = "Синьо";
-
-/* teal color */
-"teal" = "Тюркоаз";
-
-/* lime color */
-"lime" = "Светло Зелено";
-
-/* deep orange color */
-"deep_orange" = "Тъмно Оранжево";
-
-/* gray color */
-"gray" = "Сиво";
-
-/* blue gray color */
-"blue_gray" = "Синкаво Сиво";
-
 /* place preview title */
 "info" = "Информация";
 
@@ -639,11 +591,8 @@
 "traffic_data_unavailable" = "Няма налични данни за трафика";
 "enable_logging" = "Активиране на запис на дневник";
 "transliteration_title" = "Изпиши на латиница";
-"planning_route_manage_route" = "Управление на маршрут";
-"button_plan" = "Планиране";
 "placepage_remove_stop" = "Премахване на спирка";
 "placepage_add_stop" = "Добавяне на спирка";
-"saved" = "Запазено";
 "error_enter_correct_name" = "Моля, въведете правилно име";
 "bookmark_lists" = "Списъци";
 
@@ -726,8 +675,6 @@
 "avoid_motorways" = "Избягвайте магистралата";
 "unable_to_calc_alert_title" = "Не е възможнос изчисляване на маршрут";
 "unable_to_calc_alert_subtitle" = "За съжаление не успяхме да намерим маршрут, вероятно поради избраните от вас параметри. Моля, променете настройките и опитайте отново.";
-"define_to_avoid_btn" = "Определяне пътищата, които да се избягват";
-"change_driving_options_btn" = "Разрешени опции за маршрутизиране";
 "toll_road" = "Път с винетка";
 "unpaved_road" = "Път без настилка";
 "ferry_crossing" = "Преминаване с ферибот";
@@ -773,9 +720,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Неуспешно планиране на маршрут";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Пристигане в %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Изтеглете и актуализирайте всички карти по проектирания път, за да изчислите маршрута.";
 "editor_done_dialog_1" = "Променили сте картата на света. Не го крийте, кажете на приятелите си и редактирайте заедно.";
@@ -800,7 +744,6 @@
 "please_note" = "Моля, имайте предвид";
 "migration_download_error_dialog" = "Грешка при изтегляне";
 "editor_add_select_category" = "Избор на категория";
-"editor_add_select_category_popular_subtitle" = "Популярно";
 "editor_add_select_category_all_subtitle" = "Всички категории";
 "whatsnew_editor_message_1" = "Добавяне на нови места в картата и редакция на съществуващите директно от приложението.";
 "dialog_incorrect_feature_position" = "Смяна на местоположение";
@@ -842,9 +785,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "За да се показват данни за трафика, приложението трябва да се актуализира.";
 "log_file_size" = "Размер на регистрационния файл: %@";
-"planning_route_remove_title" = "Плъзнете тук, за да премахнете";
 "placepage_replace_stop" = "Замяна на спирката";
-"start_from_my_position" = "Започнете от";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Моля, влезте в OpenStreetMap, за да качвате автоматично всичките си редакции на картата. Научете повече";
@@ -872,7 +813,6 @@
 "bottom" = "Дъно";
 "trip_start" = "Да вървим";
 "pick_destination" = "Дестинация";
-"follow_my_position" = "Повторно съсредоточаване на";
 "search_results" = "Резултати от търсенето";
 "then_turn" = "След това";
 "redirect_route_alert" = "Искате ли да възстановите маршрута?";
@@ -1013,10 +953,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Маршрутът е празен - няма какво да запазвате";
 "edit_track" = "Редактиране на маршрут";
-"elevation_profile_diff_level" = "Степен на трудност";
-"elevation_profile_diff_level_easy" = "Лесно";
-"elevation_profile_diff_level_moderate" = "Умерен";
-"elevation_profile_diff_level_hard" = "Трудно";
 "downloader_updating_ios" = "Актуализиране на";
 
 /* Autoupdate dialog on start */

@@ -325,54 +325,6 @@
 "save" = "Bewaar";
 "create" = "skep";
 
-/* red color */
-"red" = "Rooi";
-
-/* yellow color */
-"yellow" = "Geel";
-
-/* blue color */
-"blue" = "Blou";
-
-/* green color */
-"green" = "Groen";
-
-/* purple color */
-"purple" = "Pers";
-
-/* orange color */
-"orange" = "Oranje";
-
-/* brown color */
-"brown" = "Bruin";
-
-/* pink color */
-"pink" = "Pienk";
-
-/* deep purple color */
-"deep_purple" = "Donkerpers";
-
-/* light blue color */
-"light_blue" = "Ligblou";
-
-/* cyan color */
-"cyan" = "Siaan";
-
-/* teal color */
-"teal" = "Teël";
-
-/* lime color */
-"lime" = "Lemmetjie";
-
-/* deep orange color */
-"deep_orange" = "Donkeroranje";
-
-/* gray color */
-"gray" = "Grys";
-
-/* blue gray color */
-"blue_gray" = "Blougrys";
-
 /* place preview title */
 "info" = "Inligting";
 
@@ -639,11 +591,8 @@
 "traffic_data_unavailable" = "Verkeersdata is nie beskikbaar nie";
 "enable_logging" = "Staan logboekinskrywing toe";
 "transliteration_title" = "Transliterasie in Latynse alfabet";
-"planning_route_manage_route" = "Bestuur roete";
-"button_plan" = "Beplan";
 "placepage_remove_stop" = "Verwyder stop";
 "placepage_add_stop" = "Voeg tussenstop toe";
-"saved" = "Gespaar";
 "error_enter_correct_name" = "Voer asb. ’n korrekte naam in";
 "bookmark_lists" = "Lyste";
 
@@ -726,8 +675,6 @@
 "avoid_motorways" = "Vermy snelweë";
 "unable_to_calc_alert_title" = "Kan nie ’n roete bereken nie";
 "unable_to_calc_alert_subtitle" = "’n Roete kon nie gevind word nie. Dit kan deur ’n ompadopsies of onvolledige OpenStreetMap-data veroorsaak word. Verander u omwegopsies en probeer weer.";
-"define_to_avoid_btn" = "Definieer paaie om te vermy";
-"change_driving_options_btn" = "Ompadinstellings is geaktiveer";
 "toll_road" = "Tolpaaie";
 "unpaved_road" = "Grondpaaie";
 "ferry_crossing" = "Veerbootkruisings";
@@ -773,9 +720,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Roeteberekening het misluk";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Aankoms om %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Om ’n roete te bereken moet u alle kaarte van die pad aflaai en bywerk.";
 "editor_done_dialog_1" = "U het die wêreldkaart verander! Moet dit nie vir uself hou nie; Vertel u vriende en wysig dit saam.";
@@ -800,7 +744,6 @@
 "please_note" = "Let wel";
 "migration_download_error_dialog" = "Aflaaifout";
 "editor_add_select_category" = "Kies kategorie";
-"editor_add_select_category_popular_subtitle" = "Gewild";
 "editor_add_select_category_all_subtitle" = "Kategorieë";
 "whatsnew_editor_message_1" = "Voeg nuwe plekke tot die kaart toe, en wysig bestaandes direk vanuit die toep.";
 "dialog_incorrect_feature_position" = "Verander ligging";
@@ -842,9 +785,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Die toepassing moet bygewerk word om verkeersdata te vertoon.";
 "log_file_size" = "Loglêergrootte: %@";
-"planning_route_remove_title" = "Sleep hier om te verwyder";
 "placepage_replace_stop" = "Vervang Stop";
-"start_from_my_position" = "Begin vanaf";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Meld asseblief aan by OpenStreetMap om al jou kaartwysigings outomaties op te laai. Kom meer te wete";
@@ -872,7 +813,6 @@
 "bottom" = "Onderkant";
 "trip_start" = "Kom ons gaan";
 "pick_destination" = "Bestemming";
-"follow_my_position" = "Hersentreer";
 "search_results" = "Soekresultate";
 "then_turn" = "Dan";
 "redirect_route_alert" = "Wil u die roete herbou?";
@@ -1013,10 +953,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Roete is leeg - niks om te red nie";
 "edit_track" = "Wysig Roete";
-"elevation_profile_diff_level" = "Moeilikheidsgraad";
-"elevation_profile_diff_level_easy" = "Maklik";
-"elevation_profile_diff_level_moderate" = "Matig";
-"elevation_profile_diff_level_hard" = "Moeilik";
 "downloader_updating_ios" = "Werk tans by";
 
 /* Autoupdate dialog on start */

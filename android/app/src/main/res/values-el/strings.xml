@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Λυπούμαστε, οι ρυθμίσεις αποθήκευσης χαρτών είναι προς το παρόν απενεργοποιημένες.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Λήψη χάρτη βρίσκεται σε εξέλιξη.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Δες την τρέχουσα τοποθεσία μου στο Organic Maps! %1$s ή %2$s Αν δεν έχεις τους χάρτες εκτός σύνδεσης, μπορείς να τους κατεβάσεις εδώ: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Γεια, δες τις τοποθεσίες που έχω καρφιτσώσει στο Organic Maps!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Γεια, δες την τρέχουσα τοποθεσία μου στο χάρτη του Organic Maps!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Γεια,\n\nΑυτή τη στιγμή είμαι εδώ: %1$s. Κάνε κλικ σε αυτό το σύνδεσμο %2$s ή σε αυτόν %3$s για να δεις την τοποθεσία στο χάρτη.\n\nΕυχαριστώ.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Κοινοποίηση</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Ενεργοποιήστε τις υπηρεσίες εντοπισμού τοποθεσίας</string>
     <string name="save">Αποθήκευση</string>
     <string name="create">δημιουργήστε</string>
-    <!-- red color -->
-    <string name="red">Κόκκινο</string>
-    <!-- yellow color -->
-    <string name="yellow">Κίτρινο</string>
-    <!-- blue color -->
-    <string name="blue">Μπλε</string>
-    <!-- green color -->
-    <string name="green">Πράσινο</string>
-    <!-- purple color -->
-    <string name="purple">Μωβ</string>
-    <!-- orange color -->
-    <string name="orange">Πορτοκαλί</string>
-    <!-- brown color -->
-    <string name="brown">Καφέ</string>
-    <!-- pink color -->
-    <string name="pink">Ροζ</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Βαθύ μωβ</string>
-    <!-- light blue color -->
-    <string name="light_blue">Γαλάζιο</string>
-    <!-- cyan color -->
-    <string name="cyan">Κυανό</string>
-    <!-- teal color -->
-    <string name="teal">Σμαραγδένιο</string>
-    <!-- lime color -->
-    <string name="lime">Λάιμ</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Βαθύ πορτοκαλί</string>
-    <!-- gray color -->
-    <string name="gray">Γκρι</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Γκρίζο μπλε</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Εμφάνιση</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Δεν υπάρχει αρκετός χώρος</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Διαγράψτε μη απαραίτητα δεδομένα</string>
-    <string name="editor_login_error_dialog">Σφάλμα σύνδεσης.</string>
     <string name="editor_profile_changes">Επαληθευμένες αλλαγές</string>
     <string name="editor_focus_map_on_location">Σύρετε το χάρτη για να τοποθετήσετε το σταυρό στη θέση του τόπου ή της επιχείρησης.</string>
     <string name="editor_edit_place_title">Επεξεργασία</string>
@@ -583,12 +546,9 @@
     <string name="routing_add_start_point">Χρησιμοποιήστε την αναζήτηση, επιλέξτε έναν σελιδοδείκτη ή πατήστε στο χάρτη για να προσθέσετε ένα σημείο εκκίνησης της διαδρομής</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Χρησιμοποιήστε την αναζήτηση, επιλέξτε έναν σελιδοδείκτη ή πατήστε στο χάρτη για να προσθέσετε ένα σημείο προορισμού</string>
-    <string name="planning_route_manage_route">Διαχείριση διαδρομής</string>
-    <string name="button_plan">Σχεδιασμός</string>
     <string name="placepage_remove_stop">Αφαίρεση στάσης</string>
     <string name="placepage_add_stop">Προσθήκη στάσης</string>
     <string name="drag_to_reorder">Αναδιάταξη</string>
-    <string name="saved">Αποθηκεύτηκε</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Παρακαλούμε συνδεθείτε στο OpenStreetMap για να ανεβάσετε αυτόματα όλες τις επεξεργασίες του χάρτη σας. Μάθετε περισσότερα <a href="https://github.com/organicmaps/organicmaps/issues/6144">εδώ</a>.</string>
     <string name="dialog_error_storage_title">Πρόβλημα πρόσβασης στον αποθηκευτικό χώρο</string>
@@ -685,8 +645,6 @@
     <string name="avoid_motorways">Αποφυγή αυτοκινητόδρομων</string>
     <string name="unable_to_calc_alert_title">Δεν ήταν δυνατός ο υπολογισμός διαδρομής</string>
     <string name="unable_to_calc_alert_subtitle">Δυστυχώς, δεν μπορούσαμε να δημιουργήσουμε μια διαδρομή με τις καθορισμένες επιλογές. Αλλάξτε τις ρυθμίσεις και δοκιμάστε πάλι.</string>
-    <string name="define_to_avoid_btn">Ορισμός δρόμων προς αποφυγή</string>
-    <string name="change_driving_options_btn">Ρυθμίσεις δρομολόγησης ενεργοποιημένες</string>
     <string name="toll_road">Δρόμος με διόδια</string>
     <string name="unpaved_road">Χωματόδρομος</string>
     <string name="ferry_crossing">Πέρασμα πορθμείου</string>
@@ -765,8 +723,6 @@
     <string name="elevation_profile_min_elevation">Ελάχ. υψόμετρο</string>
     <string name="elevation_profile_max_elevation">Μέγ. υψόμετρο</string>
     <string name="elevation_profile_difficulty">Δυσκολία</string>
-    <string name="elevation_profile_distance">Απόστ.:</string>
-    <string name="elevation_profile_time">Διάρκ:</string>
     <string name="isolines_toast_zooms_1_10">Μεγεθύνετε για να δείτε περιγράμματα</string>
     <string name="downloader_loading_ios">Κατέβασμα</string>
     <string name="download_map_title">Κατεβάστε τον παγκόσμιο χάρτη επισκόπησης</string>
@@ -849,7 +805,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Δεν βρέθηκαν οι ρυθμίσεις σύνθεσης ομιλίας, είστε σίγουροι ότι η συσκευή σας την υποστηρίζει;</string>
     <string name="drive_through">Οδηγώ μέσα από</string>
-    <string name="clear_the_search">Καθαρίστε την αναζήτηση</string>
     <string name="zoom_in">Μεγέθυνση</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">Σμίκρυνση</string>
@@ -872,12 +827,6 @@
     <string name="stop_track_recording">Σταματήστε την εγγραφή διαδρομής</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Καταγραφή διαδρομής</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Σταματήστε χωρίς αποθήκευση</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Συνέχεια εγγραφής</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Αποθήκευση στα Αγαπημένα και Διαδρομές;</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Η διαδρομή είναι άδεια - δεν υπάρχει τίποτα να αποθηκεύσετε</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -885,8 +834,6 @@
     <string name="choose_color">Επιλέξτε χρώμα</string>
     <string name="edit_track">Επεξεργασία διαδρομής</string>
     <string name="uri_open_location_failed">Δεν υπάρχει εγκατεστημένη εφαρμογή που να μπορεί να ανοίξει την τοποθεσία</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Αυτόματη πλοήγηση</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Ακολούθησε το σύστημα</string>
     <!-- Title of the bottom sheet when sharing the track -->

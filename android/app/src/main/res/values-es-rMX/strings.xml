@@ -87,14 +87,10 @@
     <string name="unknown_current_position">Su ubicación aún no ha sido determinada</string>
     <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
     <string name="cant_change_this_setting">Lo sentimos, los ajustes de Almacenamiento de Mapas están actualmente desactivados.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Consulta mi ubicación actual en Organic Maps %1$s o %2$s ¿No tienes mapas offline? Descárguelos aquí: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">¡Eh, mira mi pin en Organic Maps!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Oye, ¡mira mi ubicación actual en el mapa de Organic Maps!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Hola, estoy aquí ahora: %1$s. Haz clic en este enlace %2$s o en este otro %3$s para ver el lugar en el mapa.\n\nGracias.</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">Correo electrónico</string>
     <!-- Text for message when used successfully copied something -->
@@ -160,16 +156,6 @@
     <string name="routing_not_enough_space">Espacio insuficiente</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Activa los servicios de localización</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Púrpura profundo</string>
-    <!-- light blue color -->
-    <string name="light_blue">Celeste</string>
-    <!-- lime color -->
-    <string name="lime">Cal</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Naranja intenso</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Azul Gris</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Apariencia</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -312,7 +298,6 @@
     <string name="routing_add_start_point">Utilice la búsqueda, seleccione un marcador o pulse en el mapa para añadir un punto de partida de la ruta</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Utilice la búsqueda, seleccione un marcador o pulse en el mapa para añadir un punto de destino.</string>
-    <string name="planning_route_manage_route">Administrar ruta</string>
     <string name="placepage_remove_stop">Quitar Stop</string>
     <string name="placepage_add_stop">Añadir tope</string>
     <string name="drag_to_reorder">Reordenar</string>
@@ -377,7 +362,6 @@
     <string name="avoid_motorways">Evite las autopistas</string>
     <string name="unable_to_calc_alert_title">No se puede construir una ruta</string>
     <string name="unable_to_calc_alert_subtitle">No se ha podido encontrar una ruta. Esto puede deberse a sus opciones de ruta o a datos incompletos de OpenStreetMap. Cambia tus opciones de ruta y vuelve a intentarlo.</string>
-    <string name="define_to_avoid_btn">Definir las carreteras que deben evitarse</string>
     <string name="toll_road">Autopista de peaje</string>
     <string name="unpaved_road">Carretera sin asfaltar</string>
     <string name="ferry_crossing">Travesía en transbordador</string>
@@ -408,8 +392,6 @@
     <string name="isolines_location_error_dialog">La altitud de relieve no está aún disponible en esta región</string>
     <string name="elevation_profile_min_elevation">Elevación mínima</string>
     <string name="elevation_profile_max_elevation">Elevación máxima</string>
-    <string name="elevation_profile_distance">Distancia:</string>
-    <string name="elevation_profile_time">Lapso:</string>
     <string name="isolines_toast_zooms_1_10">Zoom para explorar isolíneas</string>
     <string name="downloader_loading_ios">Cargando</string>
     <string name="download_map_title">Descargar el mapamundi</string>
@@ -465,7 +447,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">No se ha encontrado la configuración de la síntesis de voz, ¿estás seguro de que tu dispositivo la admite?</string>
     <string name="drive_through">Servicio al auto</string>
-    <string name="clear_the_search">Borrar la búsqueda</string>
     <string name="zoom_in">Ampliar</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Menú Enlace</string>
@@ -478,12 +459,6 @@
     <string name="stop_track_recording">Detener grabación de pista</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Grabación de pistas</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Parar sin ahorrar</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Seguir grabando</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">¿Guardar en marcadores y pistas?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">La pista está vacía - no hay nada que guardar</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->

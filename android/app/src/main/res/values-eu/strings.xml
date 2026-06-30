@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Barkatu, mapa biltegiratzeko ezarpena desgaituta dago.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Mapak deskargatzen ari dira.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Ikusi nire uneko kokapena Organic Maps-en! %1$s edo %2$s Ez al duzu lineaz kanpoko maparik? Deskargatu hemendik: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Begiratu nire markagailua Organic Maps-en!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Ikusi nire uneko kokapena Organic Maps mapan!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Kaixo:\n\nOrain hemen nago: %1$s. Egin klik esteka honetan %2$s edo %3$s honetan mapan ikusteko.\n\nEskerrik asko.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Partekatu</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Mesedez, aktibatu kokapen zerbitzuak</string>
     <string name="save">Gorde</string>
     <string name="create">sortu</string>
-    <!-- red color -->
-    <string name="red">Gorria</string>
-    <!-- yellow color -->
-    <string name="yellow">Horia</string>
-    <!-- blue color -->
-    <string name="blue">Urdina</string>
-    <!-- green color -->
-    <string name="green">Berdea</string>
-    <!-- purple color -->
-    <string name="purple">Morea</string>
-    <!-- orange color -->
-    <string name="orange">Laranja</string>
-    <!-- brown color -->
-    <string name="brown">Marroia</string>
-    <!-- pink color -->
-    <string name="pink">Arrosa</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">More iluna</string>
-    <!-- light blue color -->
-    <string name="light_blue">Urdin argia</string>
-    <!-- cyan color -->
-    <string name="cyan">Ziana</string>
-    <!-- teal color -->
-    <string name="teal">Berde urdinxka</string>
-    <!-- lime color -->
-    <string name="lime">Lima</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Laranja iluna</string>
-    <!-- gray color -->
-    <string name="gray">Grisa</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Gris urdinxka</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Itxura</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Leku nahikorik ez</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Ezabatu beharrezkoak ez diren datuak</string>
-    <string name="editor_login_error_dialog">Saioa hasteko errorea.</string>
     <string name="editor_profile_changes">Egiaztatutako aldaketak</string>
     <string name="editor_focus_map_on_location">Arrastatu mapa gurutzea tokiaren edo negozioaren kokalekuan kokatzeko.</string>
     <string name="editor_edit_place_title">Editatzen</string>
@@ -583,12 +546,9 @@
     <string name="routing_add_start_point">Erabili bilaketa edo sakatu mapan ibilbidearen abiapuntua gehitzeko</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Erabili bilaketa edo sakatu mapan helmuga puntu bat gehitzeko</string>
-    <string name="planning_route_manage_route">Kudeatu ibilbidea</string>
-    <string name="button_plan">Planifikatu</string>
     <string name="placepage_remove_stop">Kendu geltokia</string>
     <string name="placepage_add_stop">Gehitu geltokia</string>
     <string name="drag_to_reorder">Berrantolatu</string>
-    <string name="saved">Gordeta</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Hasi saioa OpenStreetMap-en zure mapen aldaketa guztiak automatikoki kargatzeko. Lortu informazio gehiago <a href="https://github.com/organicmaps/organicmaps/issues/6144">hemen</a>.</string>
     <string name="dialog_error_storage_title">Biltegiratze sarbidearen arazoa</string>
@@ -684,8 +644,6 @@
     <string name="avoid_motorways">Autobideak saihestea</string>
     <string name="unable_to_calc_alert_title">Ezin da ibilbidea proposatu</string>
     <string name="unable_to_calc_alert_subtitle">Zoritxarrez, ezin izan dugu aukeratutako aukerekin ibilbiderik proposatu. Aldatu ezarpenak eta saiatu berriro.</string>
-    <string name="define_to_avoid_btn">Zehaztu saihestu beharreko bideak</string>
-    <string name="change_driving_options_btn">Bideratze aukerak gaituta</string>
     <string name="toll_road">Ordainpeko errepidea</string>
     <string name="unpaved_road">Asfaltatu gabeko errepidea</string>
     <string name="ferry_crossing">Ferry zeharkaldia</string>
@@ -764,8 +722,6 @@
     <string name="elevation_profile_min_elevation">Altitude min</string>
     <string name="elevation_profile_max_elevation">Altitude max</string>
     <string name="elevation_profile_difficulty">Zailtasuna</string>
-    <string name="elevation_profile_distance">Distantzia:</string>
-    <string name="elevation_profile_time">Denbora:</string>
     <string name="isolines_toast_zooms_1_10">Handitu mapa sestra kurbak ikusteko</string>
     <string name="downloader_loading_ios">Deskargatzen</string>
     <string name="download_map_title">Deskargatu munduko aurrebista mapa</string>
@@ -848,7 +804,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Ahots-sintesiaren ezarpenak ez dira aurkitu. Ziur zure gailuak onartzen duela?</string>
     <string name="drive_through">Autoz hartzeko</string>
-    <string name="clear_the_search">Garbitu bilaketa</string>
     <string name="zoom_in">Handitu</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">Txikiagotu</string>
@@ -871,12 +826,6 @@
     <string name="stop_track_recording">Gelditu arrastoaren grabaketa</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Ibilbidearen grabaketa</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Gelditu gorde gabe</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Jarraitu grabatzen</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Markagailu eta arrastoetan gorde nahi duzu?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Arrastoa hutsik dago; ez dago ezer gordetzeko</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -884,8 +833,6 @@
     <string name="choose_color">Aukeratu kolorea</string>
     <string name="edit_track">Editatu arrastoa</string>
     <string name="uri_open_location_failed">Ez dago kokapena ireki dezakeen aplikaziorik instalatuta</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Nabigazioan automatikoa</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Jarraitu sistemari</string>
     <!-- Title of the bottom sheet when sharing the track -->

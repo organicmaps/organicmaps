@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">На жаль, налады сховішча мапы зараз адключаны.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Ідзе спампоўванне мапы.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Гэй, глядзі дзе я зараз на мапе Organic Maps! %1$s або %2$s Няма афлайн-мап? Спампуй тут: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Гэй, глядзі маю метку на Organic Maps!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Гэй, глядзі дзе я зараз на карце Organic Maps!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Прывітанне, \n \nЯ зараз тут: %1$s. Перайдзі па гэтай %2$s або гэтай %3$s спасылцы, каб убачыць месца на карце. \n \nДзякуй.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Абагуліць</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Уключыце геалакацыю</string>
     <string name="save">Захаваць</string>
     <string name="create">стварыць</string>
-    <!-- red color -->
-    <string name="red">Чырвоны</string>
-    <!-- yellow color -->
-    <string name="yellow">Жоўты</string>
-    <!-- blue color -->
-    <string name="blue">Сіні</string>
-    <!-- green color -->
-    <string name="green">Зялёны</string>
-    <!-- purple color -->
-    <string name="purple">Пурпурны</string>
-    <!-- orange color -->
-    <string name="orange">Аранжавы</string>
-    <!-- brown color -->
-    <string name="brown">Карычневы</string>
-    <!-- pink color -->
-    <string name="pink">Ружовы</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Цёмна-пурпурны</string>
-    <!-- light blue color -->
-    <string name="light_blue">Блакітны</string>
-    <!-- cyan color -->
-    <string name="cyan">Сіне-зялёны</string>
-    <!-- teal color -->
-    <string name="teal">Смарагдавы</string>
-    <!-- lime color -->
-    <string name="lime">Лайм</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Цёмна-аранжавы</string>
-    <!-- gray color -->
-    <string name="gray">Шэры</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Блакітна-шэры</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Выгляд</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Не хапае месца</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Выдаліце непатрэбныя даныя</string>
-    <string name="editor_login_error_dialog">Памылка аўтарызацыі.</string>
     <string name="editor_profile_changes">Правераныя змены</string>
     <string name="editor_focus_map_on_location">Перацягвайце мапу, каб паставіць крыжык на месцы або кампаніі.</string>
     <string name="editor_edit_place_title">Рэдагаванне</string>
@@ -583,12 +546,9 @@
     <string name="routing_add_start_point">Скарыстайцеся пошукам, абярыце закладку, або націсніце на карце, каб дадаць пачатак маршруту</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Скарыстайцеся пошукам, абярыце закладку, або націсніце на карце, каб дадаць пункт прызначэння</string>
-    <string name="planning_route_manage_route">Кіраваць маршрутам</string>
-    <string name="button_plan">Пракласці</string>
     <string name="placepage_remove_stop">Выдаліць прыпынак</string>
     <string name="placepage_add_stop">Дадаць прыпынак</string>
     <string name="drag_to_reorder">Перарадкаваць</string>
-    <string name="saved">Захавана</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Увайдзіце ў OpenStreetMap, каб аўтаматычна запампоўваць усе свае праўкі мапы. Даведайцеся больш <a href="https://github.com/organicmaps/organicmaps/issues/6144">тут</a>.</string>
     <string name="dialog_error_storage_title">Праблема з доступам да сховішча</string>
@@ -693,8 +653,6 @@
     <string name="avoid_motorways">Пазбягаць аўтамагістраляў</string>
     <string name="unable_to_calc_alert_title">Немагчыма пракласці маршрут</string>
     <string name="unable_to_calc_alert_subtitle">Не ўдалося пракласці маршрут. Магчыма гэта звязана з наладамі пракладвання маршрутаў або няпоўнымі данымі OpenStreetMap. Змяніце налады і паспрабуйце зноў.</string>
-    <string name="define_to_avoid_btn">Вызначыць, якіх дарог пазбягаць</string>
-    <string name="change_driving_options_btn">Налады пракладвання маршрутаў уключаны</string>
     <string name="toll_road">Платная дарога</string>
     <string name="unpaved_road">Грунтавая дарога</string>
     <string name="ferry_crossing">Паромная пераправа</string>
@@ -773,8 +731,6 @@
     <string name="elevation_profile_min_elevation">Мін. вышыня</string>
     <string name="elevation_profile_max_elevation">Макс. вышыня</string>
     <string name="elevation_profile_difficulty">Складанасць</string>
-    <string name="elevation_profile_distance">Адл.:</string>
-    <string name="elevation_profile_time">Час:</string>
     <string name="isolines_toast_zooms_1_10">Павялічце мапу, каб убачыць рэльеф</string>
     <string name="downloader_loading_ios">Спампоўванне</string>
     <string name="download_map_title">Спампаваць аглядную мапу свету</string>
@@ -857,7 +813,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Налады сінтэзу маўлення не знойдзены. Вы ўпэўнены, што ваша прылада падтрымлівае гэта?</string>
     <string name="drive_through">З акенцам для кіроўцаў</string>
-    <string name="clear_the_search">Ачысціць пошук</string>
     <string name="zoom_in">Наблізіць</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">Аддаліць</string>
@@ -880,12 +835,6 @@
     <string name="stop_track_recording">Спыніць запіс маршруту</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Запіс маршруту</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Спыніць без захавання</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Працягнуць запіс</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Захаваць у закладкі і трэкі?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Маршрут пусты - няма чаго захоўваць</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -893,8 +842,6 @@
     <string name="choose_color">Выберыце колер</string>
     <string name="edit_track">Рэдагаваць маршрут</string>
     <string name="uri_open_location_failed">Не ўсталявана праграма, якая можа адкрыць месцазнаходжанне</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Аўто ў навігацыі</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Як у сістэме</string>
     <!-- Title of the bottom sheet when sharing the track -->

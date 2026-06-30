@@ -325,54 +325,6 @@
 "save" = "Spremi";
 "create" = "stvori";
 
-/* red color */
-"red" = "Crvena";
-
-/* yellow color */
-"yellow" = "Žuta";
-
-/* blue color */
-"blue" = "Plava";
-
-/* green color */
-"green" = "Zelena";
-
-/* purple color */
-"purple" = "Ljubičasta";
-
-/* orange color */
-"orange" = "Narančasta";
-
-/* brown color */
-"brown" = "Smeđa";
-
-/* pink color */
-"pink" = "Ružičasta";
-
-/* deep purple color */
-"deep_purple" = "Tamnoljubičasta";
-
-/* light blue color */
-"light_blue" = "Svjetloplava";
-
-/* cyan color */
-"cyan" = "Cijan";
-
-/* teal color */
-"teal" = "Tirkizna";
-
-/* lime color */
-"lime" = "Limunasta";
-
-/* deep orange color */
-"deep_orange" = "Tamnonarančasta";
-
-/* gray color */
-"gray" = "Siva";
-
-/* blue gray color */
-"blue_gray" = "Plavo siva";
-
 /* place preview title */
 "info" = "Informacije";
 
@@ -639,11 +591,8 @@
 "traffic_data_unavailable" = "Podaci o prometu nisu dostupni";
 "enable_logging" = "Omogući zapisivanje";
 "transliteration_title" = "Transliterirati u latinično pismo";
-"planning_route_manage_route" = "Upravljanje rutom";
-"button_plan" = "Plan";
 "placepage_remove_stop" = "Ukloni Stop";
 "placepage_add_stop" = "Dodaj stajalište";
-"saved" = "Spremljeno";
 "error_enter_correct_name" = "Molimo unesite ispravno ime";
 "bookmark_lists" = "Popisi";
 
@@ -726,8 +675,6 @@
 "avoid_motorways" = "Izbjegni autoputeve";
 "unable_to_calc_alert_title" = "Nije moguće izračunati rutu";
 "unable_to_calc_alert_subtitle" = "Nije pronađena ruta. To može biti uzrokovano vašim opcijama za rutiranje ili nepotpunim podacima OpenStreetMapa. Molimo promijenite svoje opcije za rutiranje i pokušajte ponovno.";
-"define_to_avoid_btn" = "Definirajte ceste koje želite izbjegavati";
-"change_driving_options_btn" = "Opcije za određivanje rute su aktivirane";
 "toll_road" = "Cesta sa cestarinom";
 "unpaved_road" = "Neasfaltirana cesta";
 "ferry_crossing" = "Prijevoz trajektom";
@@ -773,9 +720,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Planiranje rute nije uspjelo";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Dolazak na %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Preuzmite i ažurirajte sve karte duž predviđene rute kako biste izračunali rutu.";
 "editor_done_dialog_1" = "Promijenili ste kartu svijeta! Nemojte je zadržavati samo za sebe; recite svojim prijateljima i uređujte je zajedno.";
@@ -800,7 +744,6 @@
 "please_note" = "Molimo imajte na umu";
 "migration_download_error_dialog" = "Greška pri preuzimanju";
 "editor_add_select_category" = "Odaberite kategoriju";
-"editor_add_select_category_popular_subtitle" = "Popularno";
 "editor_add_select_category_all_subtitle" = "Sve kategorije";
 "whatsnew_editor_message_1" = "Dodajte nova mjesta na kartu i uređujte postojeća izravno u aplikaciji.";
 "dialog_incorrect_feature_position" = "Promijeni lokaciju";
@@ -842,9 +785,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Za prikaz podataka o prometu aplikacija se mora ažurirati.";
 "log_file_size" = "Veličina zapisnika: %@";
-"planning_route_remove_title" = "Povucite ovdje za uklanjanje";
 "placepage_replace_stop" = "Zamijeni Stop";
-"start_from_my_position" = "Počni od";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Molimo prijavite se na OpenStreetMap kako biste automatski učitali sve svoje izmjene karte. Saznajte više";
@@ -872,7 +813,6 @@
 "bottom" = "Dno";
 "trip_start" = "Idemo";
 "pick_destination" = "Odredište";
-"follow_my_position" = "Ponovno centriraj";
 "search_results" = "Rezultati pretraživanja";
 "then_turn" = "Zatim";
 "redirect_route_alert" = "Želite li ponovno izgraditi rutu?";
@@ -1013,10 +953,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Staza je prazna - nema što spremiti";
 "edit_track" = "Uredi stazu";
-"elevation_profile_diff_level" = "Razina težine";
-"elevation_profile_diff_level_easy" = "Jednostavno";
-"elevation_profile_diff_level_moderate" = "Umjereno";
-"elevation_profile_diff_level_hard" = "Teško";
 "downloader_updating_ios" = "Ažuriranje";
 
 /* Autoupdate dialog on start */

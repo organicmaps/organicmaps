@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">很抱歉，地图存储设置目前已停用。</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">地图下载进行中。</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">嘿，在 Organic Maps 上查看我目前的位置吧！请打开 %1$s 或 %2$s 链接，还没安装离线地图？在此下载: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">嘿，看看我在 Organic Maps 上标记的图钉吧！</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">嗨，到 Organic Maps 查看我当前的位置！</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">嗨，\n\n我现在在这：%1$s。点击此链接 %2$s 或此链接 %3$s 来查看在地图上的位置。\n\n谢谢。</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">分享</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">请启用位置服务</string>
     <string name="save">保存</string>
     <string name="create">创建</string>
-    <!-- red color -->
-    <string name="red">红色</string>
-    <!-- yellow color -->
-    <string name="yellow">黄色</string>
-    <!-- blue color -->
-    <string name="blue">蓝色</string>
-    <!-- green color -->
-    <string name="green">绿色</string>
-    <!-- purple color -->
-    <string name="purple">紫色</string>
-    <!-- orange color -->
-    <string name="orange">橙色</string>
-    <!-- brown color -->
-    <string name="brown">棕色</string>
-    <!-- pink color -->
-    <string name="pink">粉色</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">暗紫色</string>
-    <!-- light blue color -->
-    <string name="light_blue">天蓝色</string>
-    <!-- cyan color -->
-    <string name="cyan">蓝绿色</string>
-    <!-- teal color -->
-    <string name="teal">碧绿色</string>
-    <!-- lime color -->
-    <string name="lime">青柠</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">深橙色</string>
-    <!-- gray color -->
-    <string name="gray">灰色</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">蓝灰色</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">外观</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">没有足够的空间</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">请删除不必要的数据</string>
-    <string name="editor_login_error_dialog">无法登录。</string>
     <string name="editor_profile_changes">已验证的更改</string>
     <string name="editor_focus_map_on_location">拖动地图，将十字架放在地点或企业的位置。</string>
     <string name="editor_edit_place_title">编辑中</string>
@@ -583,12 +546,9 @@
     <string name="routing_add_start_point">请使用搜索、选择书签或点击地图添加路线起点</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">请使用搜索、选择书签或点击地图添加目的地</string>
-    <string name="planning_route_manage_route">管理路线</string>
-    <string name="button_plan">规划</string>
     <string name="placepage_remove_stop">删除站点</string>
     <string name="placepage_add_stop">添加经停点</string>
     <string name="drag_to_reorder">重新排序</string>
-    <string name="saved">已保存</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">请登录 OpenStreetMap 以自动上传您的所有地图编辑。若要了解更多信息请点击<a href="https://github.com/organicmaps/organicmaps/issues/6144">这里</a>。</string>
     <string name="dialog_error_storage_title">存储空间访问问题</string>
@@ -685,8 +645,6 @@
     <string name="avoid_motorways">避开高速公路</string>
     <string name="unable_to_calc_alert_title">无法规划路线</string>
     <string name="unable_to_calc_alert_subtitle">找不到路线。这可能是由于您的绕行设置或 OpenStreetMap 数据不完整造成的。请更改设置，然后重试。</string>
-    <string name="define_to_avoid_btn">选择要避开的道路</string>
-    <string name="change_driving_options_btn">绕行设置已开启</string>
     <string name="toll_road">收费公路</string>
     <string name="unpaved_road">未铺砌道路</string>
     <string name="ferry_crossing">轮渡</string>
@@ -765,8 +723,6 @@
     <string name="elevation_profile_min_elevation">最低高度</string>
     <string name="elevation_profile_max_elevation">最高高度</string>
     <string name="elevation_profile_difficulty">难度</string>
-    <string name="elevation_profile_distance">距离：</string>
-    <string name="elevation_profile_time">时间：</string>
     <string name="isolines_toast_zooms_1_10">放大地图以查看等高线</string>
     <string name="downloader_loading_ios">正在下载</string>
     <string name="download_map_title">下载世界地图</string>
@@ -849,7 +805,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">未找到语音合成设置，您确定您的设备支持该设置吗？</string>
     <string name="drive_through">面下车通道</string>
-    <string name="clear_the_search">清除搜索</string>
     <string name="zoom_in">放大</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">缩小</string>
@@ -872,12 +827,6 @@
     <string name="stop_track_recording">停止轨迹记录</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">轨迹记录</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">不保存停止</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">继续录制</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">保存到书签和轨迹？</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">轨迹为空 — 无内容可保存</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -885,8 +834,6 @@
     <string name="choose_color">选择颜色</string>
     <string name="edit_track">编辑轨迹</string>
     <string name="uri_open_location_failed">未安装可以打开位置的应用</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">自动导航</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">跟随系统</string>
     <!-- Title of the bottom sheet when sharing the track -->

@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Üzgünüz, Harita Depolama ayarları şu anda devre dışı.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Harita indirme işlemi şu anda sürüyor.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Hey, Organic Maps’te geçerli konumumu incele! %1$s veya %2$s Çevrimdışı haritalar sende yok mu? Buradan indir: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Hey, Organic Maps\'teki imimi incele!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hey, Organic Maps’te geçerli konumumu incele!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Merhaba,\n\nŞu anda bulunduğum yer: %1$s. Yeri haritada görmek için %2$s veya %3$s bağlantısına tıkla.\n\nTeşekkürler.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Paylaş</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Lütfen konum hizmetlerini etkinleştirin</string>
     <string name="save">Kaydet</string>
     <string name="create">oluştur</string>
-    <!-- red color -->
-    <string name="red">Kırmızı</string>
-    <!-- yellow color -->
-    <string name="yellow">Sarı</string>
-    <!-- blue color -->
-    <string name="blue">Mavi</string>
-    <!-- green color -->
-    <string name="green">Yeşil</string>
-    <!-- purple color -->
-    <string name="purple">Mor</string>
-    <!-- orange color -->
-    <string name="orange">Turuncu</string>
-    <!-- brown color -->
-    <string name="brown">Kahverengi</string>
-    <!-- pink color -->
-    <string name="pink">Pembe</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Koyu Mor</string>
-    <!-- light blue color -->
-    <string name="light_blue">Açık Mavi</string>
-    <!-- cyan color -->
-    <string name="cyan">Cam Göbeği</string>
-    <!-- teal color -->
-    <string name="teal">Deniz Mavisi</string>
-    <!-- lime color -->
-    <string name="lime">Çim Rengi</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Koyu Turuncu</string>
-    <!-- gray color -->
-    <string name="gray">Gri</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Mavi Gri</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Görünüm</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Yeterli alan yok</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Lütfen gereksiz verileri silin</string>
-    <string name="editor_login_error_dialog">Giriş hatası.</string>
     <string name="editor_profile_changes">Doğrulanan Düzenleme</string>
     <string name="editor_focus_map_on_location">Çarpı imini mekân veya işletmenin konumuna yerleştirmek için haritayı sürükleyin.</string>
     <string name="editor_edit_place_title">Düzenleme</string>
@@ -583,12 +546,9 @@
     <string name="routing_add_start_point">Rota başlangıç noktası eklemek için aramayı kullanın, yer imi seçin ya da haritaya dokunun</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Hedef noktası eklemek için aramayı kullanın, yer imi seçin ya da haritaya dokunun</string>
-    <string name="planning_route_manage_route">Rotayı yönet</string>
-    <string name="button_plan">Plan</string>
     <string name="placepage_remove_stop">Durağı Kaldır</string>
     <string name="placepage_add_stop">Ara nokta ekle</string>
     <string name="drag_to_reorder">Sırayı değiştir</string>
-    <string name="saved">Kaydedildi</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Tüm harita düzenlemelerinizi kendiliğinden yüklemek için lütfen OpenStreetMap\'e giriş yapın. Daha çok bilgi <a href="https://github.com/organicmaps/organicmaps/issues/6144">buradadır</a>.</string>
     <string name="dialog_error_storage_title">Depolama alanı erişim sorunu</string>
@@ -686,8 +646,6 @@
     <string name="avoid_motorways">Otobandan kaçın</string>
     <string name="unable_to_calc_alert_title">Rota hesaplanamıyor</string>
     <string name="unable_to_calc_alert_subtitle">Rota bulunamadı. Bunun nedeni, belirlediğiniz seçenekler ya da eksik OpenStreetMap verisi olabilir. Lütfen rota seçeneklerinizi değiştirin ve yeniden deneyin.</string>
-    <string name="define_to_avoid_btn">Kaçınılması gereken yolları tanımlayın</string>
-    <string name="change_driving_options_btn">Sürüş seçenekleri etkinleştirildi</string>
     <string name="toll_road">Paralı yol</string>
     <string name="unpaved_road">Asfaltsız yol</string>
     <string name="ferry_crossing">Vapur geçişi</string>
@@ -766,8 +724,6 @@
     <string name="elevation_profile_min_elevation">Min. yükselti</string>
     <string name="elevation_profile_max_elevation">Maks. yükselti</string>
     <string name="elevation_profile_difficulty">Zorluk</string>
-    <string name="elevation_profile_distance">Mesafe:</string>
-    <string name="elevation_profile_time">Süre:</string>
     <string name="isolines_toast_zooms_1_10">İzohipsleri görmek için haritayı büyütün</string>
     <string name="downloader_loading_ios">İndiriliyor</string>
     <string name="download_map_title">Dünya genel görünüm haritasını indir</string>
@@ -850,7 +806,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Konuşma Sentezi ayarları bulunamadı, aygıtınızın bunu desteklediğine emin misiniz?</string>
     <string name="drive_through">Arabaya servis</string>
-    <string name="clear_the_search">Aramayı temizleyin</string>
     <string name="zoom_in">Yakınlaştır</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">Uzaklaştır</string>
@@ -873,12 +828,6 @@
     <string name="stop_track_recording">İz Kaydını Durdur</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Rota Kaydı</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Kaydetmeden Durdur</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Kaydı Sürdür</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Yer İmleri ve İzlere kaydedilsin mi?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">İz boş - kaydedilecek bir şey yok</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -886,8 +835,6 @@
     <string name="choose_color">Renk Seç</string>
     <string name="edit_track">İzi Düzenle</string>
     <string name="uri_open_location_failed">Konumu açabilecek kurulu uygulama yok</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Navigasyonda kendiliğinden</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Sistemi takip et</string>
     <!-- Title of the bottom sheet when sharing the track -->

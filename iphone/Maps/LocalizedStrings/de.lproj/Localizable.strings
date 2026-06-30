@@ -325,54 +325,6 @@
 "save" = "Speichern";
 "create" = "erstellen";
 
-/* red color */
-"red" = "Rot";
-
-/* yellow color */
-"yellow" = "Gelb";
-
-/* blue color */
-"blue" = "Blau";
-
-/* green color */
-"green" = "Grün";
-
-/* purple color */
-"purple" = "Violett";
-
-/* orange color */
-"orange" = "Orange";
-
-/* brown color */
-"brown" = "Braun";
-
-/* pink color */
-"pink" = "Rosa";
-
-/* deep purple color */
-"deep_purple" = "Dunkelpurpur";
-
-/* light blue color */
-"light_blue" = "Hellblau";
-
-/* cyan color */
-"cyan" = "Blaugrün";
-
-/* teal color */
-"teal" = "Smaragdgrün";
-
-/* lime color */
-"lime" = "Limette";
-
-/* deep orange color */
-"deep_orange" = "Dunkelorange";
-
-/* gray color */
-"gray" = "Grau";
-
-/* blue gray color */
-"blue_gray" = "Graublau";
-
 /* place preview title */
 "info" = "Infos";
 
@@ -639,11 +591,8 @@
 "traffic_data_unavailable" = "Verkehrsdaten sind nicht verfügbar";
 "enable_logging" = "Protokollierung aktivieren";
 "transliteration_title" = "Transliteration ins lateinische Alphabet";
-"planning_route_manage_route" = "Route verwalten";
-"button_plan" = "Planen";
 "placepage_remove_stop" = "Stopp entfernen";
 "placepage_add_stop" = "Stopp einfügen";
-"saved" = "Gespeichert";
 "error_enter_correct_name" = "Bitte gib einen korrekten Namen ein";
 "bookmark_lists" = "Listen";
 
@@ -726,8 +675,6 @@
 "avoid_motorways" = "Autobahnen vermeiden";
 "unable_to_calc_alert_title" = "Route kann nicht berechnet werden";
 "unable_to_calc_alert_subtitle" = "Eine Route konnte nicht gefunden werden. Dies kann an deinen Routenbeschränkungen oder an unvollständigen OpenStreetMap-Daten liegen. Bitte ändere deine Routenbeschränkungen und versuche es erneut.";
-"define_to_avoid_btn" = "Routenbeschränkung einstellen";
-"change_driving_options_btn" = "Routenbeschränkungen aktiv";
 "toll_road" = "Mautstraße";
 "unpaved_road" = "Unbefestigte Straße";
 "ferry_crossing" = "Fährstelle";
@@ -773,9 +720,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Routenplanung fehlgeschlagen";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Ankunft: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Lade alle Karten entlang der geplanten Route herunter und aktualisiere sie, um die Route zu berechnen.";
 "editor_done_dialog_1" = "Du hast die Weltkarte geändert. Behalte das nicht für dich! Erzähle deine Freunden davon und bearbeitet sie zusammen.";
@@ -800,7 +744,6 @@
 "please_note" = "Bitte beachten";
 "migration_download_error_dialog" = "Fehler beim Herunterladen";
 "editor_add_select_category" = "Kategorie auswählen";
-"editor_add_select_category_popular_subtitle" = "Beliebt";
 "editor_add_select_category_all_subtitle" = "Alle Kategorien";
 "whatsnew_editor_message_1" = "Füge auf der Karte einen neuen Ort hinzu und bearbeite existierende Orte direkt in der App.";
 "dialog_incorrect_feature_position" = "Standort wechseln";
@@ -842,9 +785,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Zum Anzeigen von Verkehrsdaten muss die Anwendung aktualisiert werden.";
 "log_file_size" = "Größe der Protokolldatei: %@";
-"planning_route_remove_title" = "Hierher ziehen zum Entfernen";
 "placepage_replace_stop" = "Stopp ersetzen";
-"start_from_my_position" = "Starten von";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Bitte melde dich bei OpenStreetMap an, um alle deine Kartenbearbeitungen automatisch hochzuladen. Erfahre mehr";
@@ -872,7 +813,6 @@
 "bottom" = "Unten";
 "trip_start" = "Los";
 "pick_destination" = "Ziel";
-"follow_my_position" = "Zentrieren";
 "search_results" = "Suchergebnisse";
 "then_turn" = "Danach";
 "redirect_route_alert" = "Möchtest du die Route neu erstellen?";
@@ -1013,10 +953,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Track ist leer – nichts zu speichern";
 "edit_track" = "Track bearbeiten";
-"elevation_profile_diff_level" = "Anspruchsniveau";
-"elevation_profile_diff_level_easy" = "Leicht";
-"elevation_profile_diff_level_moderate" = "Mittel";
-"elevation_profile_diff_level_hard" = "Schwer";
 "downloader_updating_ios" = "Aktualisierung";
 
 /* Autoupdate dialog on start */

@@ -325,54 +325,6 @@
 "save" = "Lưu";
 "create" = "tạo";
 
-/* red color */
-"red" = "Đỏ";
-
-/* yellow color */
-"yellow" = "Vàng";
-
-/* blue color */
-"blue" = "Xanh dương";
-
-/* green color */
-"green" = "Xanh lục";
-
-/* purple color */
-"purple" = "Tím";
-
-/* orange color */
-"orange" = "Cam";
-
-/* brown color */
-"brown" = "Nâu";
-
-/* pink color */
-"pink" = "Hồng";
-
-/* deep purple color */
-"deep_purple" = "Tía thẫm";
-
-/* light blue color */
-"light_blue" = "Xanh da trời";
-
-/* cyan color */
-"cyan" = "Xanh lơ";
-
-/* teal color */
-"teal" = "Lục bảo";
-
-/* lime color */
-"lime" = "Màu xanh chanh";
-
-/* deep orange color */
-"deep_orange" = "Cam đậm";
-
-/* gray color */
-"gray" = "Xám";
-
-/* blue gray color */
-"blue_gray" = "Xám xanh da trời";
-
 /* place preview title */
 "info" = "Thông tin";
 
@@ -639,11 +591,8 @@
 "traffic_data_unavailable" = "Dữ liệu giao thông không khả dụng";
 "enable_logging" = "Bật nhật ký";
 "transliteration_title" = "Chuyển ngữ sang chữ Latinh";
-"planning_route_manage_route" = "Quản lý lộ trình";
-"button_plan" = "Kế hoạch";
 "placepage_remove_stop" = "Xóa điểm dừng";
 "placepage_add_stop" = "Thêm điểm dừng";
-"saved" = "Đã lưu";
 "error_enter_correct_name" = "Vui lòng nhập một tên chính xác";
 "bookmark_lists" = "Danh sách";
 
@@ -726,8 +675,6 @@
 "avoid_motorways" = "Tránh xa lộ";
 "unable_to_calc_alert_title" = "Không thể tạo tuyến đường";
 "unable_to_calc_alert_subtitle" = "Rất tiếc, chúng không thể tạo tuyến đường với những tùy chọn đã chọn. Hãy thay đổi thiết lập và thử lại";
-"define_to_avoid_btn" = "Thiết lập đường đi vòng";
-"change_driving_options_btn" = "Thiết lập đường đi tránh đã được bật";
 "toll_road" = "Đường trả phí";
 "unpaved_road" = "Đường đất";
 "ferry_crossing" = "Bến phà";
@@ -773,9 +720,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Không thể Lập Lộ trình";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Đến: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Để tạo đường đi, vui lòng tải về và cập nhật tất cả bản đồ dọc theo tuyến đường.";
 "editor_done_dialog_1" = "Bạn đã thay đổi bản đồ thế giới. Đừng giấu điều đó! Hãy cho các bạn khác biết và cùng nhau chỉnh sửa.";
@@ -800,7 +744,6 @@
 "please_note" = "Xin lưu ý";
 "migration_download_error_dialog" = "Lỗi tải xuống";
 "editor_add_select_category" = "Chọn thể loại";
-"editor_add_select_category_popular_subtitle" = "Phổ biến";
 "editor_add_select_category_all_subtitle" = "Mọi thể loại";
 "whatsnew_editor_message_1" = "Nhập các địa điểm mới vào bản đồ, và trực tiếp chỉnh sửa những địa điểm hiện có trên ứng dụng.";
 "dialog_incorrect_feature_position" = "Thay đổi địa điểm";
@@ -842,9 +785,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Để hiển thị dữ liệu giao thông, ứng dụng cần phải được cập nhật.";
 "log_file_size" = "Kích thước tệp nhật ký: %@";
-"planning_route_remove_title" = "Kéo vào đây để xóa";
 "placepage_replace_stop" = "Thay thế điểm dừng";
-"start_from_my_position" = "Bắt đầu từ";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Vui lòng đăng nhập vào OpenStreetMap để tự động tải lên tất cả các chỉnh sửa bản đồ của bạn. Tìm hiểu thêm";
@@ -872,7 +813,6 @@
 "bottom" = "Phía dưới";
 "trip_start" = "Đi nào";
 "pick_destination" = "Mục đích";
-"follow_my_position" = "Định tâm";
 "search_results" = "Kết quả tìm kiếm";
 "then_turn" = "Sau đó";
 "redirect_route_alert" = "Bạn có muốn tạo lại tuyến không?";
@@ -1013,10 +953,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Tuyến đường trống - không có gì để lưu";
 "edit_track" = "Chỉnh sửa tuyến đường";
-"elevation_profile_diff_level" = "Mức độ phức tạp";
-"elevation_profile_diff_level_easy" = "Dễ";
-"elevation_profile_diff_level_moderate" = "Trung bình";
-"elevation_profile_diff_level_hard" = "Khó";
 "downloader_updating_ios" = "Cập nhật";
 
 /* Autoupdate dialog on start */

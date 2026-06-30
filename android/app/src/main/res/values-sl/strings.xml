@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Žal so nastavitve shrambe zemljevidov trenutno onemogočene.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Prenos zemljevida je v teku.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Oglejte si mojo trenutno lokacijo v Organic Maps! %1$s ali %2$s Nimate zemljevidov brez povezave? Prenesite jih tukaj: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Hej, poglej moj žebljiček v Organic Maps!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hej, poglej mojo trenutno lokacijo na zemljevidu Organic Maps!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Živjo,\n\nZdaj sem tukaj: %1$s. Kliknite to povezavo %2$s ali to %3$s, da vidite kraj na zemljevidu.\n\nHvala.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Deli</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Omogočite lokacijske storitve</string>
     <string name="save">Shrani</string>
     <string name="create">Ustvari</string>
-    <!-- red color -->
-    <string name="red">Rdeča</string>
-    <!-- yellow color -->
-    <string name="yellow">Rumena</string>
-    <!-- blue color -->
-    <string name="blue">Modra</string>
-    <!-- green color -->
-    <string name="green">Zelena</string>
-    <!-- purple color -->
-    <string name="purple">Vijolična</string>
-    <!-- orange color -->
-    <string name="orange">Oranžna</string>
-    <!-- brown color -->
-    <string name="brown">Rjava</string>
-    <!-- pink color -->
-    <string name="pink">Roza</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Temno vijolična</string>
-    <!-- light blue color -->
-    <string name="light_blue">Svetlo modra</string>
-    <!-- cyan color -->
-    <string name="cyan">Cian</string>
-    <!-- teal color -->
-    <string name="teal">Zelenomodra</string>
-    <!-- lime color -->
-    <string name="lime">Limeta</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Temno oranžna</string>
-    <!-- gray color -->
-    <string name="gray">Siva</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Modro siva</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Videz</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Ni dovolj prostora</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Izbrišite nepotrebne podatke</string>
-    <string name="editor_login_error_dialog">Napaka pri prijavi.</string>
     <string name="editor_profile_changes">Preverjene spremembe</string>
     <string name="editor_focus_map_on_location">Povlecite zemljevid, da postavite križec na lokacijo mesta ali podjetja.</string>
     <string name="editor_edit_place_title">Urejanje</string>
@@ -583,12 +546,9 @@
     <string name="routing_add_start_point">Uporabite iskanje ali se dotaknite zemljevida, da dodate začetno točko poti</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Uporabite iskanje ali se dotaknite zemljevida, da dodate ciljno točko</string>
-    <string name="planning_route_manage_route">Upravljaj pot</string>
-    <string name="button_plan">Načrtuj</string>
     <string name="placepage_remove_stop">Odstrani postanek</string>
     <string name="placepage_add_stop">Dodaj postanek</string>
     <string name="drag_to_reorder">Preuredi</string>
-    <string name="saved">Shranjeno</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Prijavite se v OpenStreetMap, da samodejno naložite vsa svoja urejanja zemljevida. Več o tem <a href="https://github.com/organicmaps/organicmaps/issues/6144">tukaj</a>.</string>
     <string name="dialog_error_storage_title">Težava z dostopom do shrambe</string>
@@ -690,8 +650,6 @@
     <string name="avoid_motorways">Izogibaj se avtocestam</string>
     <string name="unable_to_calc_alert_title">Poti ni mogoče izračunati</string>
     <string name="unable_to_calc_alert_subtitle">Poti ni bilo mogoče najti. To je lahko posledica vaših možnosti načrtovanja poti ali nepopolnih podatkov OpenStreetMap. Spremenite možnosti načrtovanja poti in poskusite znova.</string>
-    <string name="define_to_avoid_btn">Določite ceste, ki se jim želite izogniti</string>
-    <string name="change_driving_options_btn">Možnosti načrtovanja poti omogočene</string>
     <string name="toll_road">Cestninska cesta</string>
     <string name="unpaved_road">Makadamska cesta</string>
     <string name="ferry_crossing">Prečkanje s trajektom</string>
@@ -770,8 +728,6 @@
     <string name="elevation_profile_min_elevation">Min. višina</string>
     <string name="elevation_profile_max_elevation">Maks. višina</string>
     <string name="elevation_profile_difficulty">Težavnost</string>
-    <string name="elevation_profile_distance">Razd.:</string>
-    <string name="elevation_profile_time">Čas:</string>
     <string name="isolines_toast_zooms_1_10">Povečajte za raziskovanje plastnic</string>
     <string name="downloader_loading_ios">Prenašanje</string>
     <string name="download_map_title">Prenesite pregledni zemljevid sveta</string>
@@ -852,7 +808,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Nastavitve sinteze govora niso bile najdene, ste prepričani, da vaša naprava to podpira?</string>
     <string name="drive_through">Vožnja skozi</string>
-    <string name="clear_the_search">Počisti iskanje</string>
     <string name="zoom_in">Povečaj</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">Pomanjšaj</string>
@@ -875,12 +830,6 @@
     <string name="stop_track_recording">Ustavi snemanje sledi</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Snemanje sledi</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Ustavi brez shranjevanja</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Nadaljuj snemanje</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Shranim v Zaznamke in sledi?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Sled je prazna - ničesar za shraniti</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -888,8 +837,6 @@
     <string name="choose_color">Izberite barvo</string>
     <string name="edit_track">Uredi sled</string>
     <string name="uri_open_location_failed">Ni nameščene aplikacije, ki bi lahko odprla lokacijo</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Samodejno v navigaciji</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Sledi sistemu</string>
     <!-- Title of the bottom sheet when sharing the track -->

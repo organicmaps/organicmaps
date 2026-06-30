@@ -325,54 +325,6 @@
 "save" = "저장";
 "create" = "만들기";
 
-/* red color */
-"red" = "빨간색";
-
-/* yellow color */
-"yellow" = "노란색";
-
-/* blue color */
-"blue" = "파란색";
-
-/* green color */
-"green" = "녹색";
-
-/* purple color */
-"purple" = "보라색";
-
-/* orange color */
-"orange" = "오렌지색";
-
-/* brown color */
-"brown" = "갈색";
-
-/* pink color */
-"pink" = "분홍색";
-
-/* deep purple color */
-"deep_purple" = "진보라색";
-
-/* light blue color */
-"light_blue" = "하늘색";
-
-/* cyan color */
-"cyan" = "시안";
-
-/* teal color */
-"teal" = "틸";
-
-/* lime color */
-"lime" = "라임";
-
-/* deep orange color */
-"deep_orange" = "진주황색";
-
-/* gray color */
-"gray" = "회색";
-
-/* blue gray color */
-"blue_gray" = "청회색";
-
 /* place preview title */
 "info" = "정보";
 
@@ -639,11 +591,8 @@
 "traffic_data_unavailable" = "교통 데이터를 사용할 수 없습니다";
 "enable_logging" = "로깅 사용";
 "transliteration_title" = "라틴어로 음역";
-"planning_route_manage_route" = "경로 관리";
-"button_plan" = "계획";
 "placepage_remove_stop" = "정류장 제거";
 "placepage_add_stop" = "스톱 추가";
-"saved" = "저장됨";
 "error_enter_correct_name" = "올바른 이름을 입력하세요.";
 "bookmark_lists" = "목록";
 
@@ -726,8 +675,6 @@
 "avoid_motorways" = "고속도로 피하기";
 "unable_to_calc_alert_title" = "루트를 계산할 수 없습니다";
 "unable_to_calc_alert_subtitle" = "아쉽게도 귀하가 정의한 옵션으로는 루트를 찾을 수가 없습니다. 설정을 바꾸신다음 다시 시도해주세요";
-"define_to_avoid_btn" = "피할 도로 정의하기";
-"change_driving_options_btn" = "운전 옵션이 가능합니다";
 "toll_road" = "유료 도로";
 "unpaved_road" = "비포장 도로";
 "ferry_crossing" = "여객선 횡단길";
@@ -773,9 +720,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "경로 계획 실패";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "도착: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "경로를 만들려면, 경로를 따라 모든 지도를 다운로드하고 업데이트하십시오.";
 "editor_done_dialog_1" = "세계 지도를 변경했습니다. 이를 숨기지 마십시오! 친구에게 말하고, 이를 함께 편집합니다.";
@@ -800,7 +744,6 @@
 "please_note" = "참고 사항";
 "migration_download_error_dialog" = "다운로드 오류";
 "editor_add_select_category" = "범주 선택";
-"editor_add_select_category_popular_subtitle" = "인기있는";
 "editor_add_select_category_all_subtitle" = "모든 카테고리";
 "whatsnew_editor_message_1" = "지도에 새로운 장소를 추가하고 응용 프로그램에서 직접 기존 편집 할 수 있습니다.";
 "dialog_incorrect_feature_position" = "위치 변경";
@@ -842,9 +785,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "교통 데이터를 표시하려면 응용 프로그램을 업데이트해야 합니다.";
 "log_file_size" = "로그 파일 크기: %@";
-"planning_route_remove_title" = "여기로 끌어와서 제거";
 "placepage_replace_stop" = "교체 중지";
-"start_from_my_position" = "시작 위치:";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "모든 지도 편집 내용을 자동으로 업로드하려면 오픈스트리트맵에 로그인하세요. 자세히 알아보기";
@@ -872,7 +813,6 @@
 "bottom" = "하단";
 "trip_start" = "가자";
 "pick_destination" = "목적지";
-"follow_my_position" = "내 위치 조정하기";
 "search_results" = "검색 결과";
 "then_turn" = "그 다음";
 "redirect_route_alert" = "루트를 재구축하길 원하시나요?";
@@ -1013,10 +953,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "경로가 비어 있음 - 저장할 항목이 없음";
 "edit_track" = "경로 편집";
-"elevation_profile_diff_level" = "난이도";
-"elevation_profile_diff_level_easy" = "쉬움";
-"elevation_profile_diff_level_moderate" = "보통";
-"elevation_profile_diff_level_hard" = "어려움";
 "downloader_updating_ios" = "업데이트 중";
 
 /* Autoupdate dialog on start */

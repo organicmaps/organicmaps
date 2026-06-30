@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Le impostazioni di archiviazione delle mappe sono disabilitate al momento.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Il download della mappa è in corso.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Guarda la mia posizione in Organic Maps! %1$s o %2$s Non hai scaricato l\'app? La puoi scaricare da qui: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Dai un\'occhiata a questo posto su Organic Maps!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Guarda dove mi trovo ora su Organic Maps!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Ciao,\n\nSono qui adesso: %1$s. Clicca su questo link %2$s oppure su questo %3$s per vedere il posto sulla mappa.\n\nGrazie.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Condividi</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Abilita i servizi di localizzazione</string>
     <string name="save">Salva</string>
     <string name="create">crea</string>
-    <!-- red color -->
-    <string name="red">Rosso</string>
-    <!-- yellow color -->
-    <string name="yellow">Giallo</string>
-    <!-- blue color -->
-    <string name="blue">Blu</string>
-    <!-- green color -->
-    <string name="green">Verde</string>
-    <!-- purple color -->
-    <string name="purple">Viola</string>
-    <!-- orange color -->
-    <string name="orange">Arancione</string>
-    <!-- brown color -->
-    <string name="brown">Marrone</string>
-    <!-- pink color -->
-    <string name="pink">Rosa</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Viola scuro</string>
-    <!-- light blue color -->
-    <string name="light_blue">Azzurro</string>
-    <!-- cyan color -->
-    <string name="cyan">Ciano</string>
-    <!-- teal color -->
-    <string name="teal">Blu tè</string>
-    <!-- lime color -->
-    <string name="lime">Verde fluo</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Arancione scuro</string>
-    <!-- gray color -->
-    <string name="gray">Grigio</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Grigiazzurro</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Aspetto</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Spazio insufficiente</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Elimina i dati non necessari</string>
-    <string name="editor_login_error_dialog">Errore durante l\'accesso.</string>
     <string name="editor_profile_changes">Modifiche approvate</string>
     <string name="editor_focus_map_on_location">Trascina la mappa per posizionare la croce sulla posizione del luogo o dell\'attività commerciale.</string>
     <string name="editor_edit_place_title">Modifica</string>
@@ -583,12 +546,9 @@
     <string name="routing_add_start_point">Utilizza \"Cerca\", seleziona un segnalibro oppure tocca un punto sulla mappa per aggiungere un punto di partenza del percorso</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Cerca un luogo, seleziona un segnalibro o tocca la mappa per aggiungere una destinazione</string>
-    <string name="planning_route_manage_route">Gestisci percorso</string>
-    <string name="button_plan">Pianifica</string>
     <string name="placepage_remove_stop">Rimuovi sosta</string>
     <string name="placepage_add_stop">Aggiungi sosta</string>
     <string name="drag_to_reorder">Riorganizza</string>
-    <string name="saved">Salvato</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Accedi a OpenStreetMap per caricare automaticamente tutte le tue modifiche alla mappa. Per saperne di più clicca <a href="https://github.com/organicmaps/organicmaps/issues/6144">qui</a>.</string>
     <string name="dialog_error_storage_title">Problema di accesso alla memoria</string>
@@ -689,8 +649,6 @@
     <string name="avoid_motorways">Evita l\'autostrada</string>
     <string name="unable_to_calc_alert_title">Impossibile calcolare il percorso</string>
     <string name="unable_to_calc_alert_subtitle">Non è stato possibile trovare un percorso. Questo potrebbe essere per via delle opzioni che hai scelto o a causa di dati di OpenStreetMap incompleti. Prova a cambiare le impostazioni del percorso e riprova.</string>
-    <string name="define_to_avoid_btn">Scegli le strade da evitare</string>
-    <string name="change_driving_options_btn">Impostazioni di percorso abilitate</string>
     <string name="toll_road">Strada a pedaggio</string>
     <string name="unpaved_road">Strada non asfaltata</string>
     <string name="ferry_crossing">Traghetto</string>
@@ -769,8 +727,6 @@
     <string name="elevation_profile_min_elevation">Elevazione minima</string>
     <string name="elevation_profile_max_elevation">Elevazione massima</string>
     <string name="elevation_profile_difficulty">Difficoltà</string>
-    <string name="elevation_profile_distance">Dist.:</string>
-    <string name="elevation_profile_time">Tempo:</string>
     <string name="isolines_toast_zooms_1_10">Ingrandisci la mappa per vedere le curve di livello</string>
     <string name="downloader_loading_ios">Scaricamento</string>
     <string name="download_map_title">Scarica la mappa generale del mondo</string>
@@ -853,7 +809,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Le impostazioni della sintesi vocale non sono state trovate, sei sicuro che il tuo dispositivo la supporti?</string>
     <string name="drive_through">Accesso con auto</string>
-    <string name="clear_the_search">Pulisci la ricerca</string>
     <string name="zoom_in">Ingrandisci</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">Rimpicciolisci</string>
@@ -876,12 +831,6 @@
     <string name="stop_track_recording">Interrompi registrazione della traccia</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Registrazione traccia</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Interrompi senza salvare</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Continua a registrare</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Salvare in preferiti e tracce?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">La traccia è vuota - non c\'è nulla da salvare</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -889,8 +838,6 @@
     <string name="choose_color">Scegli il colore</string>
     <string name="edit_track">Modifica traccia</string>
     <string name="uri_open_location_failed">Non trovo app che possano aprire la posizione</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Automatica durante la navigazione</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Segui il sistema</string>
     <!-- Title of the bottom sheet when sharing the track -->

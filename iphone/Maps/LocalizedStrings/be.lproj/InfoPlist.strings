@@ -17,18 +17,8 @@
 "report_a_bug" = "Паведаміць аб памылцы";
 
 
-/********** 3d touch strings **********/
-
-
-/* Used in home screen quick actions. */
-"route" = "Маршрут";
-
-
 /********** gps strings **********/
 
-
-/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "Вызначэнне месцазнаходжання ў фонавым рэжыме неабходна для поўнага выкарыстання функцыянальнасці праграмы. Яно выкарыстоўваецца для навігацыі і захавання вашага нядаўна пройдзенага шляху.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Вызначэнне вашага месцазнаходжання неабходна для навігацыі і для захавання вашага нядаўна пройдзенага шляху.";

@@ -325,54 +325,6 @@
 "save" = "保存";
 "create" = "创建";
 
-/* red color */
-"red" = "红色";
-
-/* yellow color */
-"yellow" = "黄色";
-
-/* blue color */
-"blue" = "蓝色";
-
-/* green color */
-"green" = "绿色";
-
-/* purple color */
-"purple" = "紫色";
-
-/* orange color */
-"orange" = "橙色";
-
-/* brown color */
-"brown" = "棕色";
-
-/* pink color */
-"pink" = "粉色";
-
-/* deep purple color */
-"deep_purple" = "暗紫色";
-
-/* light blue color */
-"light_blue" = "天蓝色";
-
-/* cyan color */
-"cyan" = "蓝绿色";
-
-/* teal color */
-"teal" = "碧绿色";
-
-/* lime color */
-"lime" = "青柠";
-
-/* deep orange color */
-"deep_orange" = "深橙色";
-
-/* gray color */
-"gray" = "灰色";
-
-/* blue gray color */
-"blue_gray" = "蓝灰色";
-
 /* place preview title */
 "info" = "信息";
 
@@ -639,11 +591,8 @@
 "traffic_data_unavailable" = "交通数据不可用";
 "enable_logging" = "启用日志记录";
 "transliteration_title" = "拉丁字母音译";
-"planning_route_manage_route" = "管理路线";
-"button_plan" = "规划";
 "placepage_remove_stop" = "删除站点";
 "placepage_add_stop" = "添加经停点";
-"saved" = "已保存";
 "error_enter_correct_name" = "请输入正确的名称";
 "bookmark_lists" = "列表";
 
@@ -726,8 +675,6 @@
 "avoid_motorways" = "避开高速公路";
 "unable_to_calc_alert_title" = "无法规划路线";
 "unable_to_calc_alert_subtitle" = "找不到路线。这可能是由于您的绕行设置或 OpenStreetMap 数据不完整造成的。请更改设置，然后重试。";
-"define_to_avoid_btn" = "选择要避开的道路";
-"change_driving_options_btn" = "绕行设置已开启";
 "toll_road" = "收费公路";
 "unpaved_road" = "未铺砌道路";
 "ferry_crossing" = "轮渡";
@@ -773,9 +720,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "路线计划失败";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "已到达 %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "要规划路线，请下载并更新所有沿路线的地图。";
 "editor_done_dialog_1" = "您已经改变了世界地图。请别再藏着掖着了！告诉您的朋友们并一起来编辑地图。";
@@ -800,7 +744,6 @@
 "please_note" = "请注意";
 "migration_download_error_dialog" = "下载失败";
 "editor_add_select_category" = "选择类别";
-"editor_add_select_category_popular_subtitle" = "受欢迎的";
 "editor_add_select_category_all_subtitle" = "所有类别";
 "whatsnew_editor_message_1" = "添加新地点到地图，并直接通过此应用编辑已存在的地点。";
 "dialog_incorrect_feature_position" = "更改位置";
@@ -842,9 +785,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "若要显示交通数据，必须更新应用。";
 "log_file_size" = "日志文件大小：%@";
-"planning_route_remove_title" = "拖拽到此处以移除";
 "placepage_replace_stop" = "更换停机坪";
-"start_from_my_position" = "起点";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "请登录 OpenStreetMap 以自动上传您的所有地图编辑。了解更多";
@@ -872,7 +813,6 @@
 "bottom" = "底部";
 "trip_start" = "出发";
 "pick_destination" = "目的地";
-"follow_my_position" = "重新居中";
 "search_results" = "搜索结果";
 "then_turn" = "然后";
 "redirect_route_alert" = "您想重新规划路线吗？";
@@ -1013,10 +953,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "轨迹为空 — 无内容可保存";
 "edit_track" = "编辑轨迹";
-"elevation_profile_diff_level" = "难度等级";
-"elevation_profile_diff_level_easy" = "容易";
-"elevation_profile_diff_level_moderate" = "中等";
-"elevation_profile_diff_level_hard" = "困难";
 "downloader_updating_ios" = "更新";
 
 /* Autoupdate dialog on start */

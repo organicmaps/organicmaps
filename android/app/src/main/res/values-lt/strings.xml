@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Deja, šiuo metu žemėlapio saugyklos nustatymai negalimi.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Vyksta žemėlapio atsiuntimas.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Pažiūrėk, kur dabar esu „Organic Maps“ autonominių žemėlapių programėlėje! %1$s arba %2$s . Neturi jos? Atsisiųsk čia: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Labas, pažvelk, ką aš pasižymėjau „Organic Maps“ žemėlapyje!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Žvilgtelk, kur dabar esu, „Organic Maps“ žemėlapyje!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Labas, \n\nŠiuo metu esu čia: %1$s. Spustelėk čia: %2$s, arba čia: %3$s, kad pamatytum šią vietą žemėlapyje. \n \nAčiū.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Bendrinti</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Įjunkite vietovės tarnybas</string>
     <string name="save">Įrašyti</string>
     <string name="create">kurti</string>
-    <!-- red color -->
-    <string name="red">Raudonas</string>
-    <!-- yellow color -->
-    <string name="yellow">Geltonas</string>
-    <!-- blue color -->
-    <string name="blue">Mėlynas</string>
-    <!-- green color -->
-    <string name="green">Žalias</string>
-    <!-- purple color -->
-    <string name="purple">Violetinis</string>
-    <!-- orange color -->
-    <string name="orange">Oranžinis</string>
-    <!-- brown color -->
-    <string name="brown">Rudas</string>
-    <!-- pink color -->
-    <string name="pink">Rožinis</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Tamsiai violetinis</string>
-    <!-- light blue color -->
-    <string name="light_blue">Šviesiai mėlynas</string>
-    <!-- cyan color -->
-    <string name="cyan">Žydras</string>
-    <!-- teal color -->
-    <string name="teal">Turkio spalvos</string>
-    <!-- lime color -->
-    <string name="lime">Salotinis</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Tamsiai oranžinis</string>
-    <!-- gray color -->
-    <string name="gray">Pilkas</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Mėlynai pilkas</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Išvaizda</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Nepakanka laisvos vietos</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Pašalinkite nereikalingus duomenis</string>
-    <string name="editor_login_error_dialog">Prisijungimo klaida.</string>
     <string name="editor_profile_changes">Patvirtinti pakeitimai</string>
     <string name="editor_focus_map_on_location">Vilkite žemėlapį, kad kryžiukas atsidurtų ties vieta, kurioje yra pridedama vieta ar įmonė.</string>
     <string name="editor_edit_place_title">Taisoma</string>
@@ -583,12 +546,9 @@
     <string name="routing_add_start_point">Pasinaudokite paieška arba bakstelėkite žemėlapyje, kad pridėtumėte maršruto pradžios tašką</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Pasinaudokite paieška arba bakstelėkite žemėlapyje, kad pridėtumėte paskirties tašką</string>
-    <string name="planning_route_manage_route">Tvarkyti maršrutą</string>
-    <string name="button_plan">Planas</string>
     <string name="placepage_remove_stop">Šalinti stotelę</string>
     <string name="placepage_add_stop">Pridėti stotelę</string>
     <string name="drag_to_reorder">Pakeisti tvarką</string>
-    <string name="saved">Įrašyta</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Prisijunkite prie „OpenStreetMap“, kad galėtumėte automatiškai įkelti visus savo žemėlapio pakeitimus. Išsamesnė informacija – <a href="https://github.com/organicmaps/organicmaps/issues/6144">čia</a>.</string>
     <string name="dialog_error_storage_title">Prieigos prie saugyklos problema</string>
@@ -687,8 +647,6 @@
     <string name="avoid_motorways">Vengti greitkelių</string>
     <string name="unable_to_calc_alert_title">Nepavyko apskaičiuoti maršruto</string>
     <string name="unable_to_calc_alert_subtitle">Deja, nepavyko rasti maršruto. Tikėtina, jog taip yra dėl jūsų pasirinktų parinkčių arba trūkstamų „OpenStreetMap“ duomenų. Pakeiskite parinktis ir bandykite dar kartą.</string>
-    <string name="define_to_avoid_btn">Nurodykite vengtinus kelius</string>
-    <string name="change_driving_options_btn">Yra įjungtų maršruto parinkčių</string>
     <string name="toll_road">Mokamas kelias</string>
     <string name="unpaved_road">Negrįstas kelias</string>
     <string name="ferry_crossing">Persikėlimas keltu</string>
@@ -767,8 +725,6 @@
     <string name="elevation_profile_min_elevation">Min. aukštis</string>
     <string name="elevation_profile_max_elevation">Maks. aukštis</string>
     <string name="elevation_profile_difficulty">Sudėtingumas</string>
-    <string name="elevation_profile_distance">Atstumas:</string>
-    <string name="elevation_profile_time">Laikas:</string>
     <string name="isolines_toast_zooms_1_10">Priartinkite, jei norite patyrinėti izolinijas</string>
     <string name="downloader_loading_ios">Atsiunčiama</string>
     <string name="download_map_title">Atsisiųsti bendrą pasaulio žemėlapį</string>
@@ -851,7 +807,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Šnekos sintezės nustatymų modulis nerastas, ar esate tikri, kad jūsų įrenginys ją palaiko?</string>
     <string name="drive_through">Pravažiavimas</string>
-    <string name="clear_the_search">Išvalyti paiešką</string>
     <string name="zoom_in">Pritraukti vaizdą</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">Atitraukti vaizdą</string>
@@ -874,12 +829,6 @@
     <string name="stop_track_recording">Stabdyti trasos įrašymą</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Trasos įrašymas</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Stabdyti neįrašant</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Tęsti įrašymą</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Įrašyti į žymių ir trasų sąrašą?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Trasa tuščia – nėra ką įrašyti</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -887,8 +836,6 @@
     <string name="choose_color">Pasirinkite spalvą</string>
     <string name="edit_track">Redaguoti trasą</string>
     <string name="uri_open_location_failed">Neįdiegta programėlė, galinti atverti vietą</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Automatinė naviguojant</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Pagal sistemą</string>
     <!-- Title of the bottom sheet when sharing the track -->

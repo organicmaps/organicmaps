@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">La configuració de l\'emmagatzematge del mapes està desactivada.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">La baixada del mapa és en curs.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Mira la meva ubicació en l\'Organic Maps! %1$s o %2$s No teniu mapes sense connexió? Baixeu-los aquí: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Ep, mireu el meu marcador a l\'Organic Maps!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Ep, mireu la meva ubicació actual en el mapa de l\'Organic Maps!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Hola,\n\nSoc aquí: %1$s. Feu clic en aquest enllaç %2$s o en aquest altre %3$s per a veure el lloc en el mapa.\n\nGràcies.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Comparteix</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Activeu els serveis de geolocalització</string>
     <string name="save">Desa</string>
     <string name="create">crea</string>
-    <!-- red color -->
-    <string name="red">Vermell</string>
-    <!-- yellow color -->
-    <string name="yellow">Groc</string>
-    <!-- blue color -->
-    <string name="blue">Blau</string>
-    <!-- green color -->
-    <string name="green">Verd</string>
-    <!-- purple color -->
-    <string name="purple">Porpra</string>
-    <!-- orange color -->
-    <string name="orange">Taronja</string>
-    <!-- brown color -->
-    <string name="brown">Marró</string>
-    <!-- pink color -->
-    <string name="pink">Rosa</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Porpra fosc</string>
-    <!-- light blue color -->
-    <string name="light_blue">Blau clar</string>
-    <!-- cyan color -->
-    <string name="cyan">Cian</string>
-    <!-- teal color -->
-    <string name="teal">Jade</string>
-    <!-- lime color -->
-    <string name="lime">Llima</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Taronja fosc</string>
-    <!-- gray color -->
-    <string name="gray">Gris</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Gris blavós</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Aspecte</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">No hi ha prou espai</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Suprimiu les dades no necessàries</string>
-    <string name="editor_login_error_dialog">Error en iniciar sessió.</string>
     <string name="editor_profile_changes">Canvis verificats</string>
     <string name="editor_focus_map_on_location">Arrossegueu el mapa per col·locar la creu a la ubicació del lloc o de l\'empresa.</string>
     <string name="editor_edit_place_title">Edició</string>
@@ -583,12 +546,9 @@
     <string name="routing_add_start_point">Utilitzeu la cerca o toqueu el mapa per afegir un punt de partida de la ruta</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Utilitzeu la cerca o toqueu el mapa per afegir un punt de destinació</string>
-    <string name="planning_route_manage_route">Gestionar la ruta</string>
-    <string name="button_plan">Planifica</string>
     <string name="placepage_remove_stop">Elimina parada</string>
     <string name="placepage_add_stop">Afegeix una parada</string>
     <string name="drag_to_reorder">Reordenar</string>
-    <string name="saved">Desat</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Inicieu sessió a l’OpenStreetMap per a pujar automàticament totes les edicions al mapa. Llegiu <a href="https://github.com/organicmaps/organicmaps/issues/6144">aquí</a> més informació.</string>
     <string name="dialog_error_storage_title">Hi ha un problema d’accés a l’emmagatzematge</string>
@@ -690,8 +650,6 @@
     <string name="avoid_motorways">Evita autopistes</string>
     <string name="unable_to_calc_alert_title">No s’ha pogut calcular la ruta</string>
     <string name="unable_to_calc_alert_subtitle">Malauradament, no hem pogut trobar cap ruta. Probablement per les opcions que heu triat. Canvieu-les i torneu a intentar-ho.</string>
-    <string name="define_to_avoid_btn">Definiu les vies a evitar</string>
-    <string name="change_driving_options_btn">Paràmetres d’encaminament activats</string>
     <string name="toll_road">Via de peatge</string>
     <string name="unpaved_road">Via sense pavimentar</string>
     <string name="ferry_crossing">Ferris</string>
@@ -770,8 +728,6 @@
     <string name="elevation_profile_min_elevation">Elevació mín.</string>
     <string name="elevation_profile_max_elevation">Elevació màx.</string>
     <string name="elevation_profile_difficulty">Dificultat</string>
-    <string name="elevation_profile_distance">Distància:</string>
-    <string name="elevation_profile_time">Temps:</string>
     <string name="isolines_toast_zooms_1_10">Apropeu el mapa per a explorar les isolínies</string>
     <string name="downloader_loading_ios">S’està baixant</string>
     <string name="download_map_title">Baixa el mapa general del món</string>
@@ -854,7 +810,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">No s’han trobat els paràmetres de la síntesi de veu. Esteu segur que el vostre dispositiu l’admet?</string>
     <string name="drive_through">Servei des del cotxe</string>
-    <string name="clear_the_search">Elimina la cerca</string>
     <string name="zoom_in">Apropa</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">Allunya</string>
@@ -877,12 +832,6 @@
     <string name="stop_track_recording">Atura l’enregistrament del recorregut</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Enregistrament de trajecte</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Atura sense desar</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Continuar enregistrant</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Voleu desar l’enregistrament a Marcadors i recorreguts?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">El recorregut està buit; no hi ha res a desar</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -890,8 +839,6 @@
     <string name="choose_color">Tria el color</string>
     <string name="edit_track">Edita el recorregut</string>
     <string name="uri_open_location_failed">No hi ha cap aplicació instal·lada que pugui obrir la ubicació</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Auto a la navegació</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Segueix el sistema</string>
     <!-- Title of the bottom sheet when sharing the track -->

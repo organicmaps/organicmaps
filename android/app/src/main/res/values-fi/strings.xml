@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Valitettavasti karttatallennusasetukset ovat pois päältä.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Karttaa ladataan parhaillaan.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Hei, katso sijaintini Organic Maps-sovelluksessa! %1$s tai %2$s Eikö sinulla ole vielä offline-karttoja? Lataa ne täältä: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Hei, katso merkintäni Organic Maps-kartalla!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hei, kurkkaa tämänhetkinen sijaintini Organic Maps:n kartalla!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Hei,\n\nOlen nyt täällä: %1$s. Klikkaa linkkiä %2$s tai %3$s nähdäksesi paikan kartalla.\n\nKiitos.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Jaa</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Ota sijaintipalvelut käyttöön</string>
     <string name="save">Tallenna</string>
     <string name="create">luo</string>
-    <!-- red color -->
-    <string name="red">Punainen</string>
-    <!-- yellow color -->
-    <string name="yellow">Keltainen</string>
-    <!-- blue color -->
-    <string name="blue">Sininen</string>
-    <!-- green color -->
-    <string name="green">Vihreä</string>
-    <!-- purple color -->
-    <string name="purple">Violetti</string>
-    <!-- orange color -->
-    <string name="orange">Oranssi</string>
-    <!-- brown color -->
-    <string name="brown">Ruskea</string>
-    <!-- pink color -->
-    <string name="pink">Pinkki</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Tumman purppuranpunainen</string>
-    <!-- light blue color -->
-    <string name="light_blue">Vaaleansininen</string>
-    <!-- cyan color -->
-    <string name="cyan">Sinivihreä</string>
-    <!-- teal color -->
-    <string name="teal">Smaragdinvihreä</string>
-    <!-- lime color -->
-    <string name="lime">Limen värinen</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Tumman oranssi</string>
-    <!-- gray color -->
-    <string name="gray">Harmaa</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Siniharmaa</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Ulkoasu</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Ei tarpeeksi tilaa</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Poista tarpeeton data</string>
-    <string name="editor_login_error_dialog">Kirjautumisvirhe.</string>
     <string name="editor_profile_changes">Vahvistetut karttamuutokset</string>
     <string name="editor_focus_map_on_location">Aseta risti paikan tai yrityksen sijaintiin vetämällä karttaa.</string>
     <string name="editor_edit_place_title">Muokkaus</string>
@@ -583,12 +546,9 @@
     <string name="routing_add_start_point">Käytä hakua, valitse kirjanmerkki tai napauta karttaa lisätäksesi reitin lähtöpisteen</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Käytä hakua, valitse kirjanmerkki tai napauta karttaa lisätäksesi reitin määränpään</string>
-    <string name="planning_route_manage_route">Hallitse reittiä</string>
-    <string name="button_plan">Suunnittele</string>
     <string name="placepage_remove_stop">Poista pysähdys</string>
     <string name="placepage_add_stop">Lisää pysähdys</string>
     <string name="drag_to_reorder">Järjestä uudelleen</string>
-    <string name="saved">Tallennettu</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Kirjaudu sisään OpenStreetMapiin, jotta voit ladata kaikki karttamuutoksesi automaattisesti. Lisätietoja <a href="https://github.com/organicmaps/organicmaps/issues/6144">täältä</a>.</string>
     <string name="dialog_error_storage_title">Ongelma tallennustilan käyttämisessä</string>
@@ -684,8 +644,6 @@
     <string name="avoid_motorways">Vältä moottoritietä</string>
     <string name="unable_to_calc_alert_title">Reittiä ei voi luoda</string>
     <string name="unable_to_calc_alert_subtitle">Valitettavasti emme voineet luoda reittiä valituilla vaihtoehdoilla. Vaihda asetuksia ja yritä uudelleen</string>
-    <string name="define_to_avoid_btn">Määritä vältettävät tiet</string>
-    <string name="change_driving_options_btn">Reititysvalinnat ovat päällä</string>
     <string name="toll_road">Maksullinen tie</string>
     <string name="unpaved_road">Päällystämätön tie</string>
     <string name="ferry_crossing">Lauttaliikenne</string>
@@ -764,8 +722,6 @@
     <string name="elevation_profile_min_elevation">Min. korkeus</string>
     <string name="elevation_profile_max_elevation">Max. korkeus</string>
     <string name="elevation_profile_difficulty">Vaikeus</string>
-    <string name="elevation_profile_distance">Etäisyys:</string>
-    <string name="elevation_profile_time">Aika:</string>
     <string name="isolines_toast_zooms_1_10">Suurenna kartta nähdäksesi korkeuskäyrät</string>
     <string name="downloader_loading_ios">Ladataan</string>
     <string name="download_map_title">Lataa maailmankartta</string>
@@ -846,7 +802,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Puhesynteesin asetuksia ei löytynyt, oletko varma, että laitteesi tukee sitä?</string>
     <string name="drive_through">Ajaa läpi</string>
-    <string name="clear_the_search">Tyhjennä haku</string>
     <string name="zoom_in">Suurenna</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">Pienennä</string>
@@ -869,12 +824,6 @@
     <string name="stop_track_recording">Lopeta reitin tallennus</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Reitin tallennus</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Lopeta tallentamatta</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Jatka tallennusta</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Tallenna kirjanmerkkeihin ja reitteihin?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Reitti on tyhjä - ei mitään tallennettavaa</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -882,8 +831,6 @@
     <string name="choose_color">Valitse väri</string>
     <string name="edit_track">Muokkaa reittiä</string>
     <string name="uri_open_location_failed">Ei asennettua sovellusta, joka voi avata sijainnin</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Automaattinen navigointi</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Järjestelmän oletus</string>
     <!-- Title of the bottom sheet when sharing the track -->

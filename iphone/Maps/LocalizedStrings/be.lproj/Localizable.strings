@@ -325,54 +325,6 @@
 "save" = "Захаваць";
 "create" = "стварыць";
 
-/* red color */
-"red" = "Чырвоны";
-
-/* yellow color */
-"yellow" = "Жоўты";
-
-/* blue color */
-"blue" = "Сіні";
-
-/* green color */
-"green" = "Зялёны";
-
-/* purple color */
-"purple" = "Пурпурны";
-
-/* orange color */
-"orange" = "Аранжавы";
-
-/* brown color */
-"brown" = "Карычневы";
-
-/* pink color */
-"pink" = "Ружовы";
-
-/* deep purple color */
-"deep_purple" = "Цёмна-пурпурны";
-
-/* light blue color */
-"light_blue" = "Блакітны";
-
-/* cyan color */
-"cyan" = "Сіне-зялёны";
-
-/* teal color */
-"teal" = "Смарагдавы";
-
-/* lime color */
-"lime" = "Лайм";
-
-/* deep orange color */
-"deep_orange" = "Цёмна-аранжавы";
-
-/* gray color */
-"gray" = "Шэры";
-
-/* blue gray color */
-"blue_gray" = "Блакітна-шэры";
-
 /* place preview title */
 "info" = "Інфармацыя";
 
@@ -639,11 +591,8 @@
 "traffic_data_unavailable" = "Даныя пра заторы недаступны";
 "enable_logging" = "Уключыць вядзенне журнала";
 "transliteration_title" = "Транслітарацыя лацінкай";
-"planning_route_manage_route" = "Кіраваць маршрутам";
-"button_plan" = "Пракласці";
 "placepage_remove_stop" = "Выдаліць прыпынак";
 "placepage_add_stop" = "Дадаць прыпынак";
-"saved" = "Захавана";
 "error_enter_correct_name" = "Увядзіце правільную назву";
 "bookmark_lists" = "Спісы";
 
@@ -726,8 +675,6 @@
 "avoid_motorways" = "Пазбягаць аўтамагістраляў";
 "unable_to_calc_alert_title" = "Немагчыма пракласці маршрут";
 "unable_to_calc_alert_subtitle" = "Не ўдалося пракласці маршрут. Магчыма гэта звязана з наладамі пракладвання маршрутаў або няпоўнымі данымі OpenStreetMap. Змяніце налады і паспрабуйце зноў.";
-"define_to_avoid_btn" = "Вызначыць, якіх дарог пазбягаць";
-"change_driving_options_btn" = "Налады пракладвання маршрутаў уключаны";
 "toll_road" = "Платная дарога";
 "unpaved_road" = "Грунтавая дарога";
 "ferry_crossing" = "Паромная пераправа";
@@ -773,9 +720,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Памылка пракладання маршрута";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Прыбыццё ў %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Спампуйце і абнавіце ўсе мапы на шляху, каб пракласці маршрут.";
 "editor_done_dialog_1" = "Вы змянілі мапу свету. Не хавайце гэта! Раскажыце сябрам і рэдагуйце разам.";
@@ -800,7 +744,6 @@
 "please_note" = "Звярніце ўвагу";
 "migration_download_error_dialog" = "Памылка спампоўкі";
 "editor_add_select_category" = "Выбраць катэгорыю";
-"editor_add_select_category_popular_subtitle" = "Папулярныя";
 "editor_add_select_category_all_subtitle" = "Усе катэгорыі";
 "whatsnew_editor_message_1" = "Стварайце на карце новыя месцы і рэдагуйце наяўныя прама ў праграме.";
 "dialog_incorrect_feature_position" = "Змяніце месцазнаходжанне";
@@ -842,9 +785,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Для паказу інфармацыі пра рух трэба абнавіць праграмы.";
 "log_file_size" = "Памер файла журнала: %@";
-"planning_route_remove_title" = "Перацягніце сюды, каб выдаліць";
 "placepage_replace_stop" = "Замяніць прыпынак";
-"start_from_my_position" = "Пачаць ад";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Калі ласка, увайдзіце ў OpenStreetMap, каб аўтаматычна загрузіць усе вашыя праўкі мапы. Даведайцеся больш";
@@ -872,7 +813,6 @@
 "bottom" = "Знізу";
 "trip_start" = "Паехалі";
 "pick_destination" = "Пункт прызначэння";
-"follow_my_position" = "Па цэнтры";
 "search_results" = "Вынікі пошуку";
 "then_turn" = "Потым";
 "redirect_route_alert" = "Хочаце перапракласці маршрут?";
@@ -1013,10 +953,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Маршрут пусты - няма чаго захоўваць";
 "edit_track" = "Рэдагаваць маршрут";
-"elevation_profile_diff_level" = "Узровень складанасці";
-"elevation_profile_diff_level_easy" = "Лёгкі";
-"elevation_profile_diff_level_moderate" = "Сярэдні";
-"elevation_profile_diff_level_hard" = "Цяжкі";
 "downloader_updating_ios" = "Абнаўленне";
 
 /* Autoupdate dialog on start */

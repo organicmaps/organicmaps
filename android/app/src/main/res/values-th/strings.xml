@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">ขออภัย ไม่มีการเปิดใช้งานการตั้งค่าพื้นที่จัดเก็บแผนที่ในปัจจุบัน</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">กำลังดำเนินการดาวน์โหลดประเทศในตอนนี้</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">เฮ้อ ตรวจสอบตำแหน่งที่ตั้งปัจจุบันของฉันที่ Organic Maps! %1$s หรือ %2$s ไม่มีการติดตั้งแผนที่แบบออฟไลน์? ดาวน์โหลดที่นี่: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">เฮ้ ตรวจสอบหมุดของฉันที่ แผนที่ Organic Maps!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">นี่ มาดูตำแหน่งปัจจุบันของฉันที่แผนที่ Organic Maps สิ!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">หวัดดี\n\nฉันอยู่ที่นี่ตอนนี้: %1$s. คลิกลิงก์นี้ %2$s หรือลิงก์นี้ %3$s เพื่อดูสถานที่บนแผนที่\n\nขอบคุณ</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">แชร์</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">โปรดเปิดการใช้งานการบริการตำแหน่งที่ตั้ง</string>
     <string name="save">บันทึก</string>
     <string name="create">สร้าง</string>
-    <!-- red color -->
-    <string name="red">สีแดง</string>
-    <!-- yellow color -->
-    <string name="yellow">สีเหลือง</string>
-    <!-- blue color -->
-    <string name="blue">สีน้ำเงิน</string>
-    <!-- green color -->
-    <string name="green">สีเขียว</string>
-    <!-- purple color -->
-    <string name="purple">สีม่วง</string>
-    <!-- orange color -->
-    <string name="orange">สีส้ม</string>
-    <!-- brown color -->
-    <string name="brown">สีน้ำตาล</string>
-    <!-- pink color -->
-    <string name="pink">สีชมพู</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">สีม่วงเข้ม</string>
-    <!-- light blue color -->
-    <string name="light_blue">สีฟ้าอ่อน</string>
-    <!-- cyan color -->
-    <string name="cyan">สีฟ้าอมเขียว</string>
-    <!-- teal color -->
-    <string name="teal">สีเขียวนกเป็ดน้ำ</string>
-    <!-- lime color -->
-    <string name="lime">สีเขียวอมเหลือง</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">สีส้มเข้ม</string>
-    <!-- gray color -->
-    <string name="gray">สีเทา</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">สีฟ้าอมเทา</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">รูปแบบ</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">มีพื้นที่ไม่เพียงพอ</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">กรุณาลบข้อมูลที่ไม่จำเป็น</string>
-    <string name="editor_login_error_dialog">ข้อผิดพลาดในการล็อกอิน</string>
     <string name="editor_profile_changes">การเปลี่ยนแปลงที่อนุมัติแล้ว</string>
     <string name="editor_focus_map_on_location">ลากแผนที่เพื่อวางกากบาทที่ตำแหน่งของสถานที่หรือธุรกิจ</string>
     <string name="editor_edit_place_title">กำลังแก้ไข</string>
@@ -583,12 +546,9 @@
     <string name="routing_add_start_point">ใช้การค้นหาหรือแตะบนแผนที่เพื่อเพิ่มจุดเริ่มต้นเส้นทาง</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">ใช้การค้นหาหรือแตะบนแผนที่เพื่อเพิ่มจุดปลายทาง</string>
-    <string name="planning_route_manage_route">จัดการเส้นทาง</string>
-    <string name="button_plan">วางแผน</string>
     <string name="placepage_remove_stop">ลบจุดแวะพัก</string>
     <string name="placepage_add_stop">เพิ่มจุดแวะพัก</string>
     <string name="drag_to_reorder">สั่งซื้อใหม่</string>
-    <string name="saved">บันทึกแล้ว</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">กรุณาเข้าสู่ระบบ OpenStreetMap เพื่ออัปโหลดการแก้ไขแผนที่ทั้งหมดของคุณโดยอัตโนมัติ เรียนรู้เพิ่มเติม<a href="https://github.com/organicmaps/organicmaps/issues/6144">ที่นี่</a></string>
     <string name="dialog_error_storage_title">ปัญหาการเข้าถึงที่เก็บข้อมูล</string>
@@ -683,8 +643,6 @@
     <string name="avoid_motorways">หลีกเลี่ยงมอเตอร์เวย์</string>
     <string name="unable_to_calc_alert_title">ไม่สามารถคำนวณเส้นทาง</string>
     <string name="unable_to_calc_alert_subtitle">ขออภัย เราไม่สามารถค้นหาเส้นทาง โดยสาเหตุอาจมาจากทางเลือกที่คุณกำหนดไว้ โปรดเปลี่ยนการตั้งค่าทางเลือกและลองใหม่อีกครั้ง</string>
-    <string name="define_to_avoid_btn">กำหนดถนนที่ต้องการเลี่ยง</string>
-    <string name="change_driving_options_btn">เปิดใช้การค้นหาเส้นทางขับขี่แล้ว</string>
     <string name="toll_road">ถนนแบบเสียค่าผ่านทาง</string>
     <string name="unpaved_road">ถนนดิน</string>
     <string name="ferry_crossing">เรือข้ามฟาก</string>
@@ -763,8 +721,6 @@
     <string name="elevation_profile_min_elevation">ต่ำสุด</string>
     <string name="elevation_profile_max_elevation">สูงสุด</string>
     <string name="elevation_profile_difficulty">ลำบาก</string>
-    <string name="elevation_profile_distance">ระยะทาง</string>
-    <string name="elevation_profile_time">เวลา:</string>
     <string name="isolines_toast_zooms_1_10">ขยายเข้าเพื่อสำรวจเส้นชั้นความสูง</string>
     <string name="downloader_loading_ios">การดาวน์โหลด</string>
     <string name="download_map_title">ดาวน์โหลดแผนที่ภาพรวมของโลก</string>
@@ -837,7 +793,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">ไม่พบการตั้งค่าการสังเคราะห์เสียง คุณแน่ใจหรือไม่ว่าอุปกรณ์ของคุณรองรับ</string>
     <string name="drive_through">ขับรถผ่าน</string>
-    <string name="clear_the_search">ล้างการค้นหา</string>
     <string name="zoom_in">ขยายเข้า</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">ซูมออก</string>
@@ -860,12 +815,6 @@
     <string name="stop_track_recording">หยุดการบันทึกเส้นทาง</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">บันทึกเส้นทาง</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">หยุดโดยไม่บันทึก</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">ดำเนินการบันทึกต่อ</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">บันทึกการบันทึกลงในบุ๊กมาร์กและการติดตามใช่ไหม</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">เส้นทางว่างเปล่า - ไม่มีอะไรจะบันทึก</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -873,8 +822,6 @@
     <string name="choose_color">เลือกสี</string>
     <string name="edit_track">แก้ไขเส้นทาง</string>
     <string name="uri_open_location_failed">ไม่มีการติดตั้งแอปที่สามารถเปิดตำแหน่งได้</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">อัตโนมัติในการนำทาง</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">ตามระบบ</string>
     <!-- Title of the bottom sheet when sharing the track -->

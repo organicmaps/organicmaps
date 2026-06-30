@@ -325,54 +325,6 @@
 "save" = "Uložit";
 "create" = "vytvořit";
 
-/* red color */
-"red" = "Červená";
-
-/* yellow color */
-"yellow" = "Žlutá";
-
-/* blue color */
-"blue" = "Modrá";
-
-/* green color */
-"green" = "Zelená";
-
-/* purple color */
-"purple" = "Purpurová";
-
-/* orange color */
-"orange" = "Oranžová";
-
-/* brown color */
-"brown" = "Hnědá";
-
-/* pink color */
-"pink" = "Růžová";
-
-/* deep purple color */
-"deep_purple" = "Tmavě fialová";
-
-/* light blue color */
-"light_blue" = "Světle modrá";
-
-/* cyan color */
-"cyan" = "Azurová";
-
-/* teal color */
-"teal" = "Čajová";
-
-/* lime color */
-"lime" = "Limeta";
-
-/* deep orange color */
-"deep_orange" = "Tmavě oranžová";
-
-/* gray color */
-"gray" = "Šedá";
-
-/* blue gray color */
-"blue_gray" = "Modrošedá";
-
 /* place preview title */
 "info" = "Více informací";
 
@@ -639,11 +591,8 @@
 "traffic_data_unavailable" = "Data o provozu nejsou k dispozici";
 "enable_logging" = "Povolit protokolování";
 "transliteration_title" = "Přepis do latinky";
-"planning_route_manage_route" = "Spravovat trasu";
-"button_plan" = "Naplánovat";
 "placepage_remove_stop" = "Odstranit zastávku";
 "placepage_add_stop" = "Přidat zastávku";
-"saved" = "Uloženo";
 "error_enter_correct_name" = "Zadejte prosím správný název";
 "bookmark_lists" = "Seznamy";
 
@@ -726,8 +675,6 @@
 "avoid_motorways" = "Vyhnout se dálnicím";
 "unable_to_calc_alert_title" = "Nelze vypočítat trasu";
 "unable_to_calc_alert_subtitle" = "Bohužel jsme nemohli nalézt trasu. Mohlo se tak stát kvůli vámi definovaným možnostem trasy nebo nekompletním datům OpenStreetMap. Změňte prosím nastavenímožnosti trasy a zkuste to znovu.";
-"define_to_avoid_btn" = "Definovat silnice, kterým se vyhnout";
-"change_driving_options_btn" = "Možnosti trasy aktivní";
 "toll_road" = "Silnice s mýtným";
 "unpaved_road" = "Nezpevněná silnice";
 "ferry_crossing" = "Přejezd trajektů";
@@ -773,9 +720,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Naplánování trasy se nezdařilo";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Příjezd: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Pro vytvoření trasy si prosím stáhněte a aktualizujte všechny mapy podél očekávané cesty.";
 "editor_done_dialog_1" = "Změnili jste světovou mapu. Neskrývejte to! Řekněte o tom svým kamarádům a upravujte ji společně.";
@@ -800,7 +744,6 @@
 "please_note" = "Vezměte prosím na vědomí";
 "migration_download_error_dialog" = "Chyba při stahování";
 "editor_add_select_category" = "Vyberte kategorii";
-"editor_add_select_category_popular_subtitle" = "Populární";
 "editor_add_select_category_all_subtitle" = "Všechny kategorie";
 "whatsnew_editor_message_1" = "Přidejte na mapu nová místa a upravte existující místa přímo z aplikace.";
 "dialog_incorrect_feature_position" = "Změnit umístění";
@@ -842,9 +785,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Ke zobrazení dat o provozu je nutné aplikaci aktualizovat.";
 "log_file_size" = "Velikost souboru protokolu: %@";
-"planning_route_remove_title" = "Pro odebrání přetáhněte sem";
 "placepage_replace_stop" = "Nahradit zastávku";
-"start_from_my_position" = "Začít z";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Přihlaste se do OpenStreetMap, abyste mohli automaticky nahrávat všechny své úpravy mapy. Více informací";
@@ -872,7 +813,6 @@
 "bottom" = "Dole";
 "trip_start" = "Pojďme";
 "pick_destination" = "Destinace";
-"follow_my_position" = "Znovu vystředit";
 "search_results" = "Prohledat výsledky";
 "then_turn" = "Poté";
 "redirect_route_alert" = "Chcete přestavět trasu?";
@@ -1013,10 +953,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Trasa je prázdná - není co ukládat";
 "edit_track" = "Upravit trasu";
-"elevation_profile_diff_level" = "Stupeň obtížnosti";
-"elevation_profile_diff_level_easy" = "Snadný";
-"elevation_profile_diff_level_moderate" = "Mírný";
-"elevation_profile_diff_level_hard" = "Těžký";
 "downloader_updating_ios" = "Probíhá aktualizace";
 
 /* Autoupdate dialog on start */

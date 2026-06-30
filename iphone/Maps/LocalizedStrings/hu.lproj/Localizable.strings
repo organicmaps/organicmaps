@@ -325,54 +325,6 @@
 "save" = "Mentés";
 "create" = "létrehozás";
 
-/* red color */
-"red" = "Piros";
-
-/* yellow color */
-"yellow" = "Sárga";
-
-/* blue color */
-"blue" = "Kék";
-
-/* green color */
-"green" = "Zöld";
-
-/* purple color */
-"purple" = "Lila";
-
-/* orange color */
-"orange" = "Narancssárga";
-
-/* brown color */
-"brown" = "Barna";
-
-/* pink color */
-"pink" = "Rózsaszín";
-
-/* deep purple color */
-"deep_purple" = "Mély lila";
-
-/* light blue color */
-"light_blue" = "Világoskék";
-
-/* cyan color */
-"cyan" = "Cián";
-
-/* teal color */
-"teal" = "Zöldeskék";
-
-/* lime color */
-"lime" = "Lime";
-
-/* deep orange color */
-"deep_orange" = "Mély narancssárga";
-
-/* gray color */
-"gray" = "Szürke";
-
-/* blue gray color */
-"blue_gray" = "Kékes szürke";
-
 /* place preview title */
 "info" = "Információ";
 
@@ -639,11 +591,8 @@
 "traffic_data_unavailable" = "Forgalmi adatok nem állnak rendelkezésre";
 "enable_logging" = "Naplózás engedélyezése";
 "transliteration_title" = "Átírás latin betűkre";
-"planning_route_manage_route" = "Útvonal kezelése";
-"button_plan" = "Tervezés";
 "placepage_remove_stop" = "Megálló eltávolítása";
 "placepage_add_stop" = "Köztes célpont hozzáadása";
-"saved" = "Mentve";
 "error_enter_correct_name" = "Adjon meg egy érvényes nevet";
 "bookmark_lists" = "Listák";
 
@@ -726,8 +675,6 @@
 "avoid_motorways" = "Autópályák elkerülése";
 "unable_to_calc_alert_title" = "Nem lehet kiszámítani az útvonalat";
 "unable_to_calc_alert_subtitle" = "Nem sikerült útvonalat találni. Ennek oka lehet az útvonaltervezési beállítások vagy a hiányos OpenStreetMap-adatok. Módosítsa az útvonaltervezési beállításokat, és próbálja meg újra.";
-"define_to_avoid_btn" = "Elkerülendő utak meghatározása";
-"change_driving_options_btn" = "Útvonaltervezési beállítások engedélyezve";
 "toll_road" = "Díjköteles utak";
 "unpaved_road" = "Burkolatlan utak";
 "ferry_crossing" = "Kompátkelők";
@@ -773,9 +720,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Sikertelen útvonaltervezés";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Érkezés: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Töltse le és frissítse az összes térképet a tervezett útvonal mentén az útvonal kiszámításához.";
 "editor_done_dialog_1" = "Módosította a világtérképet! Ne tartsa meg magának, mondja el a barátainak, és szerkesszék azt közösen.";
@@ -800,7 +744,6 @@
 "please_note" = "Megjegyzés";
 "migration_download_error_dialog" = "Letöltési hiba";
 "editor_add_select_category" = "Válasszon kategóriát";
-"editor_add_select_category_popular_subtitle" = "Népszerű";
 "editor_add_select_category_all_subtitle" = "Összes kategória";
 "whatsnew_editor_message_1" = "Új helyek hozzáadása a térképhez, és a meglévők szerkesztése közvetlenül az alkalmazásból.";
 "dialog_incorrect_feature_position" = "Helyszín módosítása";
@@ -842,9 +785,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "A forgalmi adatok megjelenítéséhez frissíteni kell az alkalmazást.";
 "log_file_size" = "Naplófájl mérete: %@";
-"planning_route_remove_title" = "Húzza ide az eltávolításhoz";
 "placepage_replace_stop" = "Megálló lecserélése";
-"start_from_my_position" = "Kiindulás innen";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Jelentkezzen be az OpenStreetMap rendszerébe, hogy automatikusan feltölthesse az összes térképszerkesztését. Tudjon meg többet";
@@ -872,7 +813,6 @@
 "bottom" = "Alul";
 "trip_start" = "Gyerünk";
 "pick_destination" = "Célállomás";
-"follow_my_position" = "Középre";
 "search_results" = "Keresési eredmények";
 "then_turn" = "Utána";
 "redirect_route_alert" = "Szeretné újratervezni az útvonalat?";
@@ -1013,10 +953,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "A nyomvonal üres – nincs mit menteni";
 "edit_track" = "Nyomvonal szerkesztése";
-"elevation_profile_diff_level" = "Nehézségi szint";
-"elevation_profile_diff_level_easy" = "Könnyű";
-"elevation_profile_diff_level_moderate" = "Mérsékelt";
-"elevation_profile_diff_level_hard" = "Nehéz";
 "downloader_updating_ios" = "Frissítés";
 
 /* Autoupdate dialog on start */

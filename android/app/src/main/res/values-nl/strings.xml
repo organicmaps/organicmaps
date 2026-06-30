@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Sorry, instellingen voor kaartopslag zijn momenteel uitgeschakeld.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">De kaart wordt nu gedownload.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Hey, kijk naar mijn huidige locatie op Organic Maps! %1$s of %2$s Heeft u geen offline-kaarten? Download ze hier: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Hey, bekijk mijn pin op Organic Maps!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hey, bekijk mijn huidige locatie op Organic Maps!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Hoi,\n\nMomenteel ben ik hier: %1$s. Klik op deze %2$s link of deze %3$s link om de plaats op de kaart te zien.\n\nBedankt.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Deel</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Schakel locatiediensten in</string>
     <string name="save">Bewaar</string>
     <string name="create">aanmaken</string>
-    <!-- red color -->
-    <string name="red">Rood</string>
-    <!-- yellow color -->
-    <string name="yellow">Geel</string>
-    <!-- blue color -->
-    <string name="blue">Blauw</string>
-    <!-- green color -->
-    <string name="green">Groen</string>
-    <!-- purple color -->
-    <string name="purple">Paars</string>
-    <!-- orange color -->
-    <string name="orange">Oranje</string>
-    <!-- brown color -->
-    <string name="brown">Bruin</string>
-    <!-- pink color -->
-    <string name="pink">Roze</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Donkerpaars</string>
-    <!-- light blue color -->
-    <string name="light_blue">Lichtblauw</string>
-    <!-- cyan color -->
-    <string name="cyan">Blauwgroen</string>
-    <!-- teal color -->
-    <string name="teal">Smaragdgroen</string>
-    <!-- lime color -->
-    <string name="lime">Limoen</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Donkeroranje</string>
-    <!-- gray color -->
-    <string name="gray">Grijs</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Grijsblauw</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Weergave</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Niet genoeg ruimte</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Verwijder overbodige gegevens</string>
-    <string name="editor_login_error_dialog">Inlogfout.</string>
     <string name="editor_profile_changes">Gecontroleerde wijzigingen</string>
     <string name="editor_focus_map_on_location">Sleep de kaart om het kruis op de locatie van de plaats of het bedrijf te plaatsen.</string>
     <string name="editor_edit_place_title">Bewerken</string>
@@ -583,12 +546,9 @@
     <string name="routing_add_start_point">Gebruik zoeken of tik op de kaart om een startpunt voor de route toe te voegen</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Gebruik zoeken of tik op de kaart om een bestemmingspunt toe te voegen</string>
-    <string name="planning_route_manage_route">Beheer route</string>
-    <string name="button_plan">Plan</string>
     <string name="placepage_remove_stop">Verwijder tussenstop</string>
     <string name="placepage_add_stop">Voeg tussenstop toe</string>
     <string name="drag_to_reorder">Herschikken</string>
-    <string name="saved">Opgeslagen</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Log in op OpenStreetMap om al je kaartbewerkingen automatisch te uploaden. Meer informatie <a href="https://github.com/organicmaps/organicmaps/issues/6144">hier</a>.</string>
     <string name="dialog_error_storage_title">Probleem met opslagtoegang</string>
@@ -687,8 +647,6 @@
     <string name="avoid_motorways">Vermijd snelwegen</string>
     <string name="unable_to_calc_alert_title">Kan route niet berekenen</string>
     <string name="unable_to_calc_alert_subtitle">Helaas konden we geen route berekenen. Dit kan komen door uw gekozen opties of door incomplete OpenStreetMap-data. Wijzig de instellingen en probeer het opnieuw.</string>
-    <string name="define_to_avoid_btn">Definieer wegen om te vermijden</string>
-    <string name="change_driving_options_btn">Route-instellingen ingeschakeld</string>
     <string name="toll_road">Tolweg</string>
     <string name="unpaved_road">Onverharde weg</string>
     <string name="ferry_crossing">Veerbootverbinding</string>
@@ -767,8 +725,6 @@
     <string name="elevation_profile_min_elevation">Min. hoogte</string>
     <string name="elevation_profile_max_elevation">Max. hoogte</string>
     <string name="elevation_profile_difficulty">Moeilijkheid</string>
-    <string name="elevation_profile_distance">Afst.:</string>
-    <string name="elevation_profile_time">Tijd:</string>
     <string name="isolines_toast_zooms_1_10">Zoom in om hoogte/dal lijnen te bekijken</string>
     <string name="downloader_loading_ios">Downloaden</string>
     <string name="download_map_title">Download de wereldoverzichtskaart</string>
@@ -851,7 +807,6 @@
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Instellingen voor spraaksynthese zijn niet gevonden, weet je zeker dat je apparaat dit ondersteunt?</string>
     <string name="drive_through">Drive-through</string>
-    <string name="clear_the_search">Wis de zoekopdracht</string>
     <string name="zoom_in">Inzoomen</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">Zoom uit</string>
@@ -874,12 +829,6 @@
     <string name="stop_track_recording">Stop opname van route</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Track-opname</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Stoppen zonder op te slaan</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Opname voortzetten</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Opname opslaan in bladwijzers en tracks?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Route is leeg - niets om op te slaan</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -887,8 +836,6 @@
     <string name="choose_color">Kies een kleur</string>
     <string name="edit_track">Route bewerken</string>
     <string name="uri_open_location_failed">Geen app geïnstalleerd die de locatie kan openen</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Auto tijdens navigatie</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Systeem volgen</string>
     <!-- Title of the bottom sheet when sharing the track -->

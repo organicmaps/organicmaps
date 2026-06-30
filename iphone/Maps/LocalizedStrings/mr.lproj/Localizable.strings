@@ -325,54 +325,6 @@
 "save" = "साठवा";
 "create" = "तयार करा";
 
-/* red color */
-"red" = "लाल";
-
-/* yellow color */
-"yellow" = "पिवळा";
-
-/* blue color */
-"blue" = "निळा";
-
-/* green color */
-"green" = "हिरवा";
-
-/* purple color */
-"purple" = "जांभळा";
-
-/* orange color */
-"orange" = "भगवा";
-
-/* brown color */
-"brown" = "तपकिरी";
-
-/* pink color */
-"pink" = "गुलाबी";
-
-/* deep purple color */
-"deep_purple" = "गडद जांभळा";
-
-/* light blue color */
-"light_blue" = "फिकट निळा";
-
-/* cyan color */
-"cyan" = "हिरवट निळा (फिकट)";
-
-/* teal color */
-"teal" = "हिरवट निळा (गडद)";
-
-/* lime color */
-"lime" = "पोपटी";
-
-/* deep orange color */
-"deep_orange" = "नारंगी";
-
-/* gray color */
-"gray" = "राखाडी";
-
-/* blue gray color */
-"blue_gray" = "निळा राखाडी";
-
 /* place preview title */
 "info" = "माहिती";
 
@@ -639,11 +591,8 @@
 "traffic_data_unavailable" = "वाहतूक माहिती उपलब्ध नाही";
 "enable_logging" = "लॉग चालू करा";
 "transliteration_title" = "रोमन लिपीत लिप्यंतरण";
-"planning_route_manage_route" = "मार्ग व्यवस्थापन";
-"button_plan" = "नियोजन";
 "placepage_remove_stop" = "थांबा काढा";
 "placepage_add_stop" = "स्टॉप जोडा";
-"saved" = "जतन केले";
 "error_enter_correct_name" = "कृपया योग्य नाव प्रविष्ट करा";
 "bookmark_lists" = "याद्या";
 
@@ -726,8 +675,6 @@
 "avoid_motorways" = "मोटरवे टाळा";
 "unable_to_calc_alert_title" = "मार्गाची गणना करण्यात अक्षम";
 "unable_to_calc_alert_subtitle" = "दुर्दैवाने, आम्ही मार्ग शोधू शकलो नाही. ह्याचे कारण कदाचित तुम्ही निवडलेले पर्याय असावे. कृपया सेटिंग बदला आणि पुन्हा प्रयत्न करा.";
-"define_to_avoid_btn" = "टाळण्याचे मार्ग निवडा";
-"change_driving_options_btn" = "मार्गशोधी पर्याय चालू केले";
 "toll_road" = "टोल मार्ग";
 "unpaved_road" = "कच्चे मार्ग";
 "ferry_crossing" = "जल मार्ग";
@@ -773,9 +720,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "मार्ग नियोजन अयशस्वी";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "%@ वाजता आगमन";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "मार्गाची गणना करण्यासाठी प्रक्षेपित वाटेवरील सर्व नकाशा डाउनलोड आणि अद्ययावत करा.";
 "editor_done_dialog_1" = "तुम्ही जगाचा नकाशा बदलला आहे. हे स्वतःपुरते ठेऊ नका! मित्रांना पण सांगा आणि एकत्र संपादित करा.";
@@ -800,7 +744,6 @@
 "please_note" = "कृपया नोंद घ्या";
 "migration_download_error_dialog" = "डाउनलोड त्रुटी";
 "editor_add_select_category" = "प्रवर्ग निवडा";
-"editor_add_select_category_popular_subtitle" = "लोकप्रिय";
 "editor_add_select_category_all_subtitle" = "सर्व प्रवर्ग";
 "whatsnew_editor_message_1" = "नकाशावर नवीन ठिकाणे जोडा आणि विद्यमान ठिकाणे थेट ऍप मधून संपादित करा.";
 "dialog_incorrect_feature_position" = "स्थान बदला";
@@ -842,9 +785,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "वाहतूक माहिती दाखवण्यासाठी ऍप अद्ययावत करणे आवश्यक आहे.";
 "log_file_size" = "लॉग फाइल आकारमान: %@";
-"planning_route_remove_title" = "काढण्यासाठी इथे सरकवा";
 "placepage_replace_stop" = "स्टॉप बदला";
-"start_from_my_position" = "पासून प्रारंभ";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "तुमची सर्व नकाशा संपादने स्वयंचलितपणे अपलोड करण्यासाठी कृपया OpenStreetMap वर लॉग इन करा. अधिक जाणून घ्या";
@@ -872,7 +813,6 @@
 "bottom" = "तळ";
 "trip_start" = "चल जाऊया";
 "pick_destination" = "गंतव्यस्थाना";
-"follow_my_position" = "पुनरकेंद्रित करा";
 "search_results" = "शोध परिणाम";
 "then_turn" = "मग";
 "redirect_route_alert" = "तुम्हाला मार्ग पुन्हा तयार करायचा आहे का?";
@@ -1013,10 +953,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "मार्ग रिकामा आहे - साठवण्यासाठी काहीही नाही";
 "edit_track" = "मार्ग संपादित करा";
-"elevation_profile_diff_level" = "काठिण्य पातळी";
-"elevation_profile_diff_level_easy" = "सोपे";
-"elevation_profile_diff_level_moderate" = "मध्यम";
-"elevation_profile_diff_level_hard" = "कठिण";
 "downloader_updating_ios" = "अद्ययावत करत आहे";
 
 /* Autoupdate dialog on start */
