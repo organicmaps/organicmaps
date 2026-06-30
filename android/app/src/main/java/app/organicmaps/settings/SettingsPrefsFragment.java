@@ -278,11 +278,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
           if (oldVal != newVal)
           {
             Config.setUseGoogleService(newVal);
-            if (locationHelper.isActive())
-            {
-              locationHelper.stop();
-              locationHelper.start();
-            }
+            locationHelper.recreateProvider();
           }
           return true;
         }
