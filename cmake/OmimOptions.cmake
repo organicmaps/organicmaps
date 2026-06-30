@@ -1,4 +1,5 @@
-if (NOT CMAKE_BUILD_TYPE)
+get_property(_is_multi_config GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
+if (NOT _is_multi_config AND NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Release")
 endif ()
 

@@ -59,13 +59,13 @@ jobs:
           key: ${{ github.workflow }}-${{ matrix.cmake-build-type }}
 
       - name: Generate Xcode project with CMake
+        # The ci-xcode preset sets the Xcode generator, the build-xcode dir and
+        # -g1. Xcode is multi-config, so the build type is chosen per build/test
+        # step below, not here.
         run: |
-          cmake . -B ${{ env.BUILD_DIR }} -G Xcode \
-            -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} \
+          cmake --preset ci-xcode \
             -DCMAKE_C_COMPILER_LAUNCHER=ccache \
-            -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
-            -DCMAKE_C_FLAGS=-g1 \
-            -DCMAKE_CXX_FLAGS=-g1
+            -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 
       - name: Build all targets
         working-directory: ${{ env.BUILD_DIR }}
@@ -79,25 +79,18 @@ jobs:
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
 
+      # The omim-test label filter and the exclude list live in CMakePresets.json
+      # (test preset "ci-xcode"). Excluded suites and why:
+      #   drape_tests, drape_frontend_tests, shaders_tests - need offscreen GL, run separately
+      #   generator_integration_tests - https://github.com/organicmaps/organicmaps/issues/225
+      #   opening_hours_integration_tests - https://github.com/organicmaps/organicmaps/issues/219
+      #   opening_hours_supported_features_tests - https://github.com/organicmaps/organicmaps/issues/219
+      #   routing_integration_tests - https://github.com/organicmaps/organicmaps/issues/221
+      #   world_feed_integration_tests - https://github.com/organicmaps/organicmaps/issues/215
       - name: Run tests
-        working-directory: ${{ env.BUILD_DIR }}
-        env:
-          # drape_tests, drape_frontend_tests, shaders_tests - require offscreen rendering, run separately.
-          # generator_integration_tests - https://github.com/organicmaps/organicmaps/issues/225
-          # opening_hours_integration_tests - https://github.com/organicmaps/organicmaps/issues/219
-          # opening_hours_supported_features_tests - https://github.com/organicmaps/organicmaps/issues/219
-          # routing_integration_tests - https://github.com/organicmaps/organicmaps/issues/221
-          # world_feed_integration_tests - https://github.com/organicmaps/organicmaps/issues/215
-          CTEST_EXCLUDE_REGEX: "drape_tests|drape_frontend_tests|generator_integration_tests|opening_hours_integration_tests|opening_hours_supported_features_tests|routing_benchmarks|routing_integration_tests|routing_quality_tests|search_quality_tests|storage_integration_tests|shaders_tests|world_feed_integration_tests"
-        run: |
-          ctest -j$(sysctl -n hw.logicalcpu) -C ${{ matrix.cmake-build-type }} \
-            -L "omim-test" -E "$CTEST_EXCLUDE_REGEX" --output-on-failure
+        run: ctest --preset ci-xcode -C ${{ matrix.cmake-build-type }} -j$(sysctl -n hw.logicalcpu)
 
       # Run drape tests separately. They require offscreen rendering support.
+      # The "ci-drape-xcode" test preset sets QT_QPA_PLATFORM=offscreen.
       - name: Run drape tests
-        working-directory: ${{ env.BUILD_DIR }}
-        env:
-          QT_QPA_PLATFORM: "offscreen"
-        run: |
-          ctest -C ${{ matrix.cmake-build-type }} \
-            -R "drape_tests|drape_frontend_tests|shaders_tests" --verbose
+        run: ctest --preset ci-drape-xcode -C ${{ matrix.cmake-build-type }} --verbose

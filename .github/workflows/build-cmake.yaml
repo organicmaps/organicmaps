@@ -32,6 +32,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
+permissions:
+  contents: read
+
 jobs:
   build:
     strategy:
@@ -70,7 +73,6 @@ jobs:
     runs-on: ${{ matrix.environment.os }}
 
     env:
-      BUILD_DIR: build
       DEVELOPER_DIR: ${{ matrix.environment.developer-dir }}
 
     steps:
@@ -141,15 +143,16 @@ jobs:
           CMAKE_CXX_COMPILER_LAUNCHER: ccache
           UNITY_BUILD: ${{ matrix.environment.unity || 'ON' }}
         run: |
-          cmake . -B ${{ env.BUILD_DIR }} -G Ninja \
+          cmake --preset ci \
             -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} \
-            -DCMAKE_C_FLAGS=-g1 \
-            -DCMAKE_CXX_FLAGS=-g1 \
             -DCMAKE_UNITY_BUILD=${UNITY_BUILD}
 
+      # Surface gcc/clang warnings and errors as inline annotations on the PR diff.
+      - name: Enable inline compiler annotations
+        run: echo "::add-matcher::.github/problem-matchers/gcc.json"
+
       - name: Compile
-        working-directory: ${{ env.BUILD_DIR }}
-        run: ninja
+        run: cmake --build --preset ci
 
       - name: Prepare testing environment (Linux)
         if: ${{ runner.os == 'Linux' }}
@@ -164,24 +167,21 @@ jobs:
           sudo locale-gen ru_RU.UTF-8
           sudo update-locale
 
+      # The omim-test label filter and the exclude list live in CMakePresets.json
+      # (test preset "ci"). Excluded suites and why:
+      #   drape_tests, drape_frontend_tests, shaders_tests - need offscreen GL, run in the next step
+      #   generator_integration_tests - https://github.com/organicmaps/organicmaps/issues/225
+      #   opening_hours_integration_tests - https://github.com/organicmaps/organicmaps/issues/219
+      #   opening_hours_supported_features_tests - https://github.com/organicmaps/organicmaps/issues/219
+      #   routing_integration_tests - https://github.com/organicmaps/organicmaps/issues/221
+      #   world_feed_integration_tests - https://github.com/organicmaps/organicmaps/issues/215
       - name: Run tests
         if: ${{ matrix.environment.run-tests != 'OFF' }}
-        working-directory: ${{ env.BUILD_DIR }}
-        env:
-          # drape_tests, drape_frontend_tests, shaders_tests - see next step
-          # generator_integration_tests - https://github.com/organicmaps/organicmaps/issues/225
-          # opening_hours_integration_tests - https://github.com/organicmaps/organicmaps/issues/219
-          # opening_hours_supported_features_tests - https://github.com/organicmaps/organicmaps/issues/219
-          # routing_integration_tests - https://github.com/organicmaps/organicmaps/issues/221
-          # world_feed_integration_tests - https://github.com/organicmaps/organicmaps/issues/215
-          CTEST_EXCLUDE_REGEX: "drape_tests|drape_frontend_tests|generator_integration_tests|opening_hours_integration_tests|opening_hours_supported_features_tests|routing_benchmarks|routing_integration_tests|routing_quality_tests|search_quality_tests|storage_integration_tests|shaders_tests|world_feed_integration_tests"
-        run: ctest -j$(nproc --all) -L "omim-test" -E "$CTEST_EXCLUDE_REGEX" --output-on-failure
+        run: ctest --preset ci -j$(nproc --all)
 
       # Run drape tests separately. They require offscreen rendering support.
-      # Setting QT_QPA_PLATFORM to "offscreen" breaks network tests on macOS.
+      # The "ci-drape" test preset sets QT_QPA_PLATFORM=offscreen; setting it
+      # globally breaks network tests on macOS.
       - name: Run drape tests
         if: ${{ matrix.environment.run-tests != 'OFF' }}
-        working-directory: ${{ env.BUILD_DIR }}
-        env:
-          QT_QPA_PLATFORM: "offscreen"
-        run: ctest -R "drape_tests|drape_frontend_tests|shaders_tests" --verbose
+        run: ctest --preset ci-drape --verbose
