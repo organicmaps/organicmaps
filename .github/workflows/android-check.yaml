@@ -152,8 +152,11 @@ jobs:
           api-level: 35
           arch: x86_64
           target: google_apis
-          script: |
-            cd android && ./gradlew -P${{ matrix.arch }} app:test${{ matrix.flavor }} sdk:testDebug sdk:connectedDebugAndroidTest
+          working-directory: ./android
+          script: >-
+            ./gradlew -P${{ matrix.arch }} app:test${{ matrix.flavor }} sdk:testDebug
+            :wear:testGoogleDebugUnitTest :libs:wear-protocol:testDebugUnitTest
+            :sdk:wear:core:testDebugUnitTest sdk:connectedDebugAndroidTest
 
       - name: Upload ${{ matrix.flavor }} apk
         uses: actions/upload-artifact@v7
