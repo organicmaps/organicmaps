@@ -36,13 +36,8 @@ jobs:
           test -n "${{ inputs.tag }}"
           test "$(git tag --points-at HEAD)" = "${{ inputs.tag }}"
 
-      - name: Restore Boost submodule from cache
-        uses: actions/cache@v5
-        with:
-          path: |
-            3party/boost
-            .git/modules/3party/boost
-          key: boost-submodule
+      - name: Cache Boost submodule
+        uses: ./.github/actions/cache-boost
 
       - name: Parallel submodules checkout
         shell: bash

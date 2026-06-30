@@ -23,7 +23,7 @@ jobs:
           GH_REPO: ${{ github.repository }}
           # Add more keys as needed: cache1,cache-abc*,another-key
           # If a key ends with *, it matches all caches whose key starts with the prefix before *.
-          CACHE_KEYS: boost-submodule
+          CACHE_KEYS: boost-submodule-*
         run: |
           set -e
           IFS=',' read -ra keys <<< "$CACHE_KEYS"
@@ -40,13 +40,8 @@ jobs:
             done
           done
 
-      - name: Add Boost submodule to cache
-        uses: actions/cache@v5
-        with:
-          path: |
-            3party/boost
-            .git/modules/3party/boost
-          key: boost-submodule
+      - name: Cache Boost submodule
+        uses: ./.github/actions/cache-boost
 
       - name: Parallel submodules checkout
         run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
