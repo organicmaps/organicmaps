@@ -12,6 +12,8 @@ import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
+import java.util.ArrayList;
+import java.util.List;
 
 @androidx.annotation.UiThread
 public class RoutingController
@@ -58,10 +60,23 @@ public class RoutingController
     default void onStartRouteBuilding() {}
   }
 
+  /**
+   * Process-scoped observer of navigation start/stop, independent of the UI {@link Container}. Fires
+   * on every transition into or out of {@link State#NAVIGATION}, whatever the trigger -- phone UI,
+   * Android Auto, notification stop, or route finished.
+   */
+  public interface NavigationStateListener
+  {
+    void onNavigationStateChanged(boolean active);
+  }
+
   private static final RoutingController sInstance = new RoutingController();
 
   @Nullable
   private Container mContainer;
+
+  @NonNull
+  private final List<NavigationStateListener> mNavigationStateListeners = new ArrayList<>();
 
   private BuildState mBuildState = BuildState.NONE;
   private State mState = State.NONE;
@@ -182,10 +197,28 @@ public class RoutingController
   private void setState(State newState)
   {
     Logger.d(TAG, "[S] State: " + mState + " -> " + newState + ", BuildState: " + mBuildState);
+    final boolean wasNavigating = mState == State.NAVIGATION;
     mState = newState;
+    final boolean isNavigating = mState == State.NAVIGATION;
+
+    if (isNavigating != wasNavigating)
+    {
+      for (final NavigationStateListener listener : mNavigationStateListeners)
+        listener.onNavigationStateChanged(isNavigating);
+    }
 
     if (mContainer != null)
       mContainer.updateMenu();
+  }
+
+  public void addNavigationStateListener(@NonNull NavigationStateListener listener)
+  {
+    mNavigationStateListeners.add(listener);
+  }
+
+  public void removeNavigationStateListener(@NonNull NavigationStateListener listener)
+  {
+    mNavigationStateListeners.remove(listener);
   }
 
   private void setBuildState(BuildState newState)
