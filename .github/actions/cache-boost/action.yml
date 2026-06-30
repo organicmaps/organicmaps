@@ -1,0 +1,25 @@
+name: Cache Boost submodule
+description: >-
+  Restore the Boost submodule (and its git module dir) from the Actions cache,
+  keyed by its pinned commit so a Boost bump misses the cache and re-clones
+  cleanly while an unchanged Boost still hits it. Must run after the repository
+  is checked out and before the submodules are updated.
+runs:
+  using: composite
+  steps:
+    - name: Resolve Boost submodule commit
+      id: rev
+      shell: bash
+      # Read the gitlink straight from the tree (works before submodule init).
+      # Fail loudly on an empty SHA instead of collapsing the key to a constant.
+      run: |
+        sha="$(git rev-parse HEAD:3party/boost)"
+        test -n "$sha"
+        echo "sha=$sha" >> "$GITHUB_OUTPUT"
+    - name: Restore Boost submodule from cache
+      uses: actions/cache@v5
+      with:
+        path: |
+          3party/boost
+          .git/modules/3party/boost
+        key: boost-submodule-${{ steps.rev.outputs.sha }}
