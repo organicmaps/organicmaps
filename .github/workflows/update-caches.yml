@@ -1,5 +1,8 @@
 name: Update caches
 on:
+  # Manual re-warm: the shared Boost cache is written only here, so if it gets
+  # LRU-evicted between Boost bumps this lets us repopulate it on demand.
+  workflow_dispatch:
   push:
     branches:
       - master
@@ -23,7 +26,7 @@ jobs:
           GH_REPO: ${{ github.repository }}
           # Add more keys as needed: cache1,cache-abc*,another-key
           # If a key ends with *, it matches all caches whose key starts with the prefix before *.
-          CACHE_KEYS: boost-submodule
+          CACHE_KEYS: boost-submodule-*
         run: |
           set -e
           IFS=',' read -ra keys <<< "$CACHE_KEYS"
@@ -40,13 +43,12 @@ jobs:
             done
           done
 
-      - name: Add Boost submodule to cache
-        uses: actions/cache@v5
-        with:
-          path: |
-            3party/boost
-            .git/modules/3party/boost
-          key: boost-submodule
-
       - name: Parallel submodules checkout
         run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
+
+      # Save after checkout so the cache holds the freshly cloned Boost. There is
+      # nothing to restore here — the delete step above just cleared this key.
+      - name: Save Boost submodule to cache
+        uses: ./.github/actions/cache-boost
+        with:
+          save: true
