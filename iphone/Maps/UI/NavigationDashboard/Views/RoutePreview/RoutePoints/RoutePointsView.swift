@@ -1,6 +1,5 @@
 final class RoutePointsView: UIView {
   private enum Constants {
-    static let estimatedCellHeight = RoutePointCollectionViewCell.minimumHeight
     static var bottomContentInset: CGFloat {
       let bottomActionBartHeight = RouteActionsBottomMenuView.Constants.height +
         RouteActionsBottomMenuView.Constants.insets.top +
@@ -33,13 +32,8 @@ final class RoutePointsView: UIView {
 
   func viewWillTransition(to _: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
     coordinator.animate(alongsideTransition: { _ in
-      self.updateEstimatedItemSize()
+      self.collectionView.collectionViewLayout.invalidateLayout()
     }, completion: nil)
-  }
-
-  override func layoutSubviews() {
-    super.layoutSubviews()
-    updateEstimatedItemSize()
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -57,8 +51,6 @@ final class RoutePointsView: UIView {
   private func setupView() {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .vertical
-    layout.minimumLineSpacing = 0
-    layout.estimatedItemSize = CGSize(width: UIScreen.main.bounds.width, height: Constants.estimatedCellHeight)
     collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     collectionView.backgroundColor = .clear
     collectionView.dragInteractionEnabled = true
@@ -83,17 +75,6 @@ final class RoutePointsView: UIView {
     ])
   }
 
-  private func updateEstimatedItemSize() {
-    guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
-    let width = collectionView.bounds.width
-    guard width > 0 else { return }
-
-    let estimatedItemSize = CGSize(width: width, height: Constants.estimatedCellHeight)
-    guard layout.estimatedItemSize != estimatedItemSize else { return }
-    layout.estimatedItemSize = estimatedItemSize
-    layout.invalidateLayout()
-  }
-
   private func configure(_ cell: RoutePointCollectionViewCell, at indexPath: IndexPath) {
     switch indexPath.item {
     case routePoints.count:
@@ -112,7 +93,6 @@ final class RoutePointsView: UIView {
     guard self.routePoints != routePoints else { return }
     self.routePoints = routePoints
     collectionView.reloadData()
-    collectionView.collectionViewLayout.invalidateLayout()
   }
 }
 
@@ -144,6 +124,18 @@ extension RoutePointsView: UICollectionViewDataSource, UICollectionViewDelegate 
     default:
       interactor?.process(.selectRoutePoint(routePoints[indexPath.item]))
     }
+  }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension RoutePointsView: UICollectionViewDelegateFlowLayout {
+  func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
+    CGSize(width: collectionView.bounds.width, height: RoutePointCollectionViewCell.height())
+  }
+
+  func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, minimumLineSpacingForSectionAt _: Int) -> CGFloat {
+    0
   }
 }
 
