@@ -1,0 +1,19 @@
+plugins {
+  id 'com.android.library'
+}
+
+apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
+
+android {
+  namespace = 'app.organicmaps.sdk.wear.gms'
+}
+
+dependencies {
+  // :sdk for Logger; :sdk:wear:core for the WearBridge/WearNavigationPublisher seam.
+  implementation project(':sdk')
+  implementation project(':sdk:wear:core')
+  implementation project(':libs:wear-protocol')
+
+  implementation libs.androidx.annotation
+  implementation libs.google.gms.wearable
+}

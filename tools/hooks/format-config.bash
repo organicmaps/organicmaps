@@ -15,10 +15,14 @@ CLANG_FORMAT_TARGETS=(
   "android/libs/googleassistant/src|*.java"
   "android/libs/routing/src|*.java"
   "android/libs/utils/src|*.java"
+  "android/libs/wear-protocol/src|*.java"
   "android/sdk/car/src|*.java"
   "android/sdk/src|*.java"
+  "android/sdk/wear/core/src|*.java"
+  "android/sdk/wear/gms/src|*.java"
   "android/sdk/widgets/lanes/src|*.java"
   "android/sdk/widgets/speedlimit/src|*.java"
+  "android/wear/src|*.java"
   # Android – C++
   "android/sdk/src/main/cpp|*.[hc]pp"
   # iOS – C++/ObjC
