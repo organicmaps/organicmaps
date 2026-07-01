@@ -39,6 +39,7 @@ google-firebase-crashlytics = "3.0.6"
 google-firebase-appdistribution = "5.2.0"
 google-gms-location = "21.3.0"
 google-gms-services = "4.4.4"
+google-gms-wearable = "19.0.0"
 google-material = "1.13.0"
 
 huawei-plugin = "1.5.0"
@@ -87,6 +88,7 @@ google-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlyti
 google-firebase-crashlytics-ndk = { module = "com.google.firebase:firebase-crashlytics-ndk" }
 
 google-gms-location = { module = "com.google.android.gms:play-services-location", version.ref = "google-gms-location" }
+google-gms-wearable = { module = "com.google.android.gms:play-services-wearable", version.ref = "google-gms-wearable" }
 google-material = { module = "com.google.android.material:material", version.ref = "google-material" }
 
 ktlint-cli = { module = "com.pinterest.ktlint:ktlint-cli", version.ref = "ktlint" }
