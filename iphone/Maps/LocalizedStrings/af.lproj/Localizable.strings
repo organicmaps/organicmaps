@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "Daling";
 "elevation_profile_min_elevation" = "Min. hoogte";
 "elevation_profile_max_elevation" = "Maks. hoogte";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Begin beweeg om die hoogteprofiel te sien";
 "isolines_toast_zooms_1_10" = "Zoem in om isolyne te bekyk";
 "downloader_loading_ios" = "Laai tans af";
 

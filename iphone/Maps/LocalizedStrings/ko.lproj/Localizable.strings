@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "내려가기";
 "elevation_profile_min_elevation" = "최소 높이";
 "elevation_profile_max_elevation" = "최대 높이";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "고도 프로필을 보려면 움직이기 시작하세요";
 "isolines_toast_zooms_1_10" = "등치선 탐색을 위한 확대";
 "downloader_loading_ios" = "다운로드 중";
 

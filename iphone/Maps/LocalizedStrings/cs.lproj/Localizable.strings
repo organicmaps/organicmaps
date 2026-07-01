@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "Klesání";
 "elevation_profile_min_elevation" = "Min. výška";
 "elevation_profile_max_elevation" = "Max. výška";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Začněte se pohybovat a zobrazí se výškový profil";
 "isolines_toast_zooms_1_10" = "Přiblížit pro prozkoumání izolinií";
 "downloader_loading_ios" = "Probíhá stahování";
 

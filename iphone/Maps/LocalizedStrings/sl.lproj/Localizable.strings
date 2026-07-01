@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "Spust";
 "elevation_profile_min_elevation" = "Min. višina";
 "elevation_profile_max_elevation" = "Maks. višina";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Začnite se premikati, da vidite višinski profil";
 "isolines_toast_zooms_1_10" = "Povečajte za raziskovanje plastnic";
 "downloader_loading_ios" = "Prenašanje";
 

@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "Langus";
 "elevation_profile_min_elevation" = "Min. kõrgus";
 "elevation_profile_max_elevation" = "Maks. kõrgus";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Alusta liikumist, et näha kõrgusprofiili";
 "isolines_toast_zooms_1_10" = "Samakõrgusjoonte sirvimiseks suurenda kaarti";
 "downloader_loading_ios" = "Allalaadimisel";
 

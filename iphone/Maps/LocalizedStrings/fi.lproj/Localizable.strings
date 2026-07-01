@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "Laskua";
 "elevation_profile_min_elevation" = "Min. korkeus";
 "elevation_profile_max_elevation" = "Max. korkeus";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Aloita liikkuminen nähdäksesi korkeusprofiilin";
 "isolines_toast_zooms_1_10" = "Suurenna kartta nähdäksesi korkeuskäyrät";
 "downloader_loading_ios" = "Ladataan";
 

@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "Coborâre";
 "elevation_profile_min_elevation" = "Min. altitudine";
 "elevation_profile_max_elevation" = "Max. altitudine";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Începeți să vă deplasați pentru a vedea profilul altitudinii";
 "isolines_toast_zooms_1_10" = "Mărește harta pentru a vedea izoliniile";
 "downloader_loading_ios" = "Se descarcă";
 

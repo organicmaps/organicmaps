@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "Nedstigning";
 "elevation_profile_min_elevation" = "Min. højde";
 "elevation_profile_max_elevation" = "Maks. højde";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Begynd at bevæge dig for at se højdeprofilen";
 "isolines_toast_zooms_1_10" = "Zoom ind for at udforske isolinjer";
 "downloader_loading_ios" = "Downloader";
 

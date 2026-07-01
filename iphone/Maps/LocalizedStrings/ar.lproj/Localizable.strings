@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "تنازلي";
 "elevation_profile_min_elevation" = "أقل ارتفاع";
 "elevation_profile_max_elevation" = "أعلى ارتفاع";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "ابدأ التحرك لرؤية مخطط الارتفاع";
 "isolines_toast_zooms_1_10" = "قم بالتقريب لتكتشف خطوط الكنتور";
 "downloader_loading_ios" = "جاري التنزيل";
 

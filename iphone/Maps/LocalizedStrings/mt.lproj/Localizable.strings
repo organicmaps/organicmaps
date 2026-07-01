@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "Inżul";
 "elevation_profile_min_elevation" = "Elevazzjoni minima";
 "elevation_profile_max_elevation" = "Elevazzjoni massima";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Ibda ċċaqlaq biex tara l-profil tal-elevazzjoni";
 "isolines_toast_zooms_1_10" = "Iżżumja ’l ġewwa biex tesplora l-isolines";
 "downloader_loading_ios" = "Tniżżil";
 

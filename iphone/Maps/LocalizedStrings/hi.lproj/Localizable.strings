@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "उतरान";
 "elevation_profile_min_elevation" = "न्यूनतम ऊँचाई";
 "elevation_profile_max_elevation" = "अधिकतम ऊँचाई";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "ऊँचाई प्रोफ़ाइल देखने के लिए चलना शुरू करें";
 "isolines_toast_zooms_1_10" = "इज़ोलाइन्स का अन्वेषण करने के लिए ज़ूम इन करें";
 "downloader_loading_ios" = "डाउनलोड हो रहा है";
 

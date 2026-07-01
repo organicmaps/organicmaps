@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "ທາງລົງ";
 "elevation_profile_min_elevation" = "ລະດັບຄວາມສູງຕ່ຳສຸດ";
 "elevation_profile_max_elevation" = "ລະດັບຄວາມສູງສູງສຸດ";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "ເລີ່ມເຄື່ອນທີ່ເພື່ອເບິ່ງໂປຣໄຟລ໌ລະດັບຄວາມສູງ";
 "isolines_toast_zooms_1_10" = "ຊູມເຂົ້າເພື່ອເບິ່ງເສັ້ນລະດັບຄວາມສູງ";
 "downloader_loading_ios" = "ກຳລັງດາວໂຫລດ";
 
