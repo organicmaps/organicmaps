@@ -724,6 +724,7 @@
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Vältä lautan käyttöä";
 "avoid_motorways" = "Vältä moottoritietä";
+"public_bike_sharing" = "Public Bike-Sharing";
 "unable_to_calc_alert_title" = "Reittiä ei voi luoda";
 "unable_to_calc_alert_subtitle" = "Valitettavasti emme voineet luoda reittiä valituilla vaihtoehdoilla. Vaihda asetuksia ja yritä uudelleen";
 "define_to_avoid_btn" = "Määritä vältettävät tiet";

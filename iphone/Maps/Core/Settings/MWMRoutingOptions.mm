@@ -1,28 +1,41 @@
 #import "MWMRoutingOptions.h"
 
+#include <CoreApi/Framework.h>
+
 #include "routing/routing_options.hpp"
 
 @interface MWMRoutingOptions ()
 {
   routing::RoutingOptions _options;
+  routing::RoutingOptions _bicycleOptions;
+  BOOL _publicBicycle;
 }
 
 @end
 
 @implementation MWMRoutingOptions
 
+- (routing::RoutingOptions const &)activeOptions
+{
+  return GetFramework().GetRoutingManager().GetRouter() == routing::RouterType::Bicycle ? _bicycleOptions : _options;
+}
+
 - (instancetype)init
 {
   self = [super init];
   if (self)
+  {
     _options = routing::RoutingOptions::LoadCarOptionsFromSettings();
+    _bicycleOptions = routing::RoutingOptions::LoadBicycleOptionsFromSettings();
+    _publicBicycle = routing::RoutingOptions::IsPublicBicycleEnabled();
+  }
 
   return self;
 }
 
 - (BOOL)avoidToll
 {
-  return _options.Has(routing::RoutingOptions::Road::Toll);
+  return [self activeOptions].Has(routing::RoutingOptions::Road::Toll);
 }
 
 - (void)setAvoidToll:(BOOL)avoid
@@ -32,7 +45,7 @@
 
 - (BOOL)avoidDirty
 {
-  return _options.Has(routing::RoutingOptions::Road::Dirty);
+  return [self activeOptions].Has(routing::RoutingOptions::Road::Dirty);
 }
 
 - (void)setAvoidDirty:(BOOL)avoid
@@ -42,7 +55,7 @@
 
 - (BOOL)avoidFerry
 {
-  return _options.Has(routing::RoutingOptions::Road::Ferry);
+  return [self activeOptions].Has(routing::RoutingOptions::Road::Ferry);
 }
 
 - (void)setAvoidFerry:(BOOL)avoid
@@ -52,7 +65,7 @@
 
 - (BOOL)avoidMotorway
 {
-  return _options.Has(routing::RoutingOptions::Road::Motorway);
+  return [self activeOptions].Has(routing::RoutingOptions::Road::Motorway);
 }
 
 - (void)setAvoidMotorway:(BOOL)avoid
@@ -60,22 +73,31 @@
   [self setOption:(routing::RoutingOptions::Road::Motorway) enabled:avoid];
 }
 
-- (BOOL)hasOptions
+- (BOOL)publicBicycle
 {
-  return self.avoidToll || self.avoidDirty || self.avoidFerry || self.avoidMotorway;
+  return _publicBicycle;
+}
+
+- (void)setPublicBicycle:(BOOL)enabled
+{
+  _publicBicycle = enabled;
 }
 
 - (void)save
 {
   routing::RoutingOptions::SaveCarOptionsToSettings(_options);
+  routing::RoutingOptions::SaveBicycleOptionsToSettings(_bicycleOptions);
+  routing::RoutingOptions::SetPublicBicycleEnabled(_publicBicycle);
 }
 
 - (void)setOption:(routing::RoutingOptions::Road)option enabled:(BOOL)enabled
 {
+  routing::RoutingOptions & options =
+      GetFramework().GetRoutingManager().GetRouter() == routing::RouterType::Bicycle ? _bicycleOptions : _options;
   if (enabled)
-    _options.Add(option);
+    options.Add(option);
   else
-    _options.Remove(option);
+    options.Remove(option);
 }
 
 - (BOOL)isEqual:(id)object
@@ -84,7 +106,8 @@
     return NO;
   MWMRoutingOptions * another = (MWMRoutingOptions *)object;
   return another.avoidToll == self.avoidToll && another.avoidDirty == self.avoidDirty &&
-         another.avoidFerry == self.avoidFerry && another.avoidMotorway == self.avoidMotorway;
+         another.avoidFerry == self.avoidFerry && another.avoidMotorway == self.avoidMotorway &&
+         another.publicBicycle == self.publicBicycle;
 }
 
 @end

@@ -9,7 +9,7 @@ NS_SWIFT_NAME(RoutingOptions)
 @property(nonatomic) BOOL avoidDirty;
 @property(nonatomic) BOOL avoidFerry;
 @property(nonatomic) BOOL avoidMotorway;
-@property(nonatomic, readonly) BOOL hasOptions;
+@property(nonatomic) BOOL publicBicycle;
 
 - (void)save;
 

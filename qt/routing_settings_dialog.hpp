@@ -13,6 +13,7 @@
 #include <string>
 
 class Framework;
+class QLabel;
 
 namespace qt
 {
@@ -35,6 +36,7 @@ private:
   bool ValidateAndSaveCoordsFromInput();
   bool SaveSettings();
   void LoadSettings();
+  void UpdateBicycleOptionsVisibility();
 
   Framework & m_framework;
 
@@ -42,6 +44,8 @@ private:
   QLineEdit * m_finishInput;
 
   QComboBox * m_routerType;
+  QLabel * m_publicBikeSharingLabel;
+  QCheckBox * m_publicBikeSharingCheckbox;
   QCheckBox * m_showTurnsCheckbox;
   QCheckBox * m_useDebugGuideCheckbox;
   QCheckBox * m_saveSessionCheckbox;

@@ -724,6 +724,7 @@
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Vapurdan kaçın";
 "avoid_motorways" = "Otobandan kaçın";
+"public_bike_sharing" = "Public Bike-Sharing";
 "unable_to_calc_alert_title" = "Rota hesaplanamıyor";
 "unable_to_calc_alert_subtitle" = "Rota bulunamadı. Bunun nedeni, belirlediğiniz seçenekler ya da eksik OpenStreetMap verisi olabilir. Lütfen rota seçeneklerinizi değiştirin ve yeniden deneyin.";
 "define_to_avoid_btn" = "Kaçınılması gereken yolları tanımlayın";

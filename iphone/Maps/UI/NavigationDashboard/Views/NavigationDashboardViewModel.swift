@@ -98,6 +98,17 @@ extension CGRect {
 
 extension RoutingOptions {
   var enabledOptionsCount: Int {
-    [avoidToll, avoidDirty, avoidFerry, avoidMotorway].filter { $0 }.count
+    switch MWMRouter.type() {
+    case .vehicle:
+      return [avoidToll, avoidDirty, avoidFerry, avoidMotorway].filter { $0 }.count
+    case .bicycle:
+      return [avoidToll, avoidDirty, avoidFerry, avoidMotorway, publicBicycle].filter { $0 }.count
+    default:
+      return 0
+    }
+  }
+
+  var hasEnabledOptionsForCurrentRouter: Bool {
+    enabledOptionsCount > 0
   }
 }

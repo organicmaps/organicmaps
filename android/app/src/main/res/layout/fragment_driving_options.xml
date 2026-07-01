@@ -109,5 +109,33 @@
       android:padding="@dimen/margin_half_double_plus"
       android:layout_height="match_parent"/>
   </LinearLayout>
+  <LinearLayout
+    android:id="@+id/public_bike_sharing_container"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <include layout="@layout/list_divider"/>
+    <LinearLayout
+      android:orientation="horizontal"
+      android:minHeight="@dimen/height_block_base"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingEnd="@dimen/margin_base"
+      android:paddingStart="@dimen/margin_base">
+      <TextView
+        android:text="@string/public_bike_sharing"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:textColor="?android:attr/textColorPrimary"/>
+      <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/public_bike_sharing_btn"
+        android:layout_width="wrap_content"
+        android:padding="@dimen/margin_half_double_plus"
+        android:layout_height="match_parent"/>
+    </LinearLayout>
   </LinearLayout>
+</LinearLayout>
 </LinearLayout>
