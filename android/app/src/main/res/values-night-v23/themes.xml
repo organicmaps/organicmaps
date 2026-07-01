@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- API 23+ dark: same treatment as API 23+ light (?cardBackground + adaptive icons).
+       Needed because the -night qualifier out-precedes -v23 during resource resolution,
+       so without this file API 23+ dark would fall back to values-night/themes.xml. -->
+  <style name="MwmTheme.DialogFragment.Fullscreen.Opaque" parent="MwmTheme.DialogFragment.Fullscreen">
+    <item name="android:windowTranslucentStatus">false</item>
+    <item name="android:windowSoftInputMode">adjustResize</item>
+    <item name="android:statusBarColor">?cardBackground</item>
+  </style>
+</resources>

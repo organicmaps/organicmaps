@@ -68,6 +68,12 @@
     <item name="android:statusBarColor">@android:color/transparent</item>
   </style>
 
+  <style name="MwmTheme.DialogFragment.Fullscreen.Opaque" parent="MwmTheme.DialogFragment.Fullscreen">
+    <item name="android:windowTranslucentStatus">false</item>
+    <item name="android:windowSoftInputMode">adjustResize</item>
+    <item name="android:statusBarColor">@color/bg_primary</item>
+  </style>
+
   <style name="MwmTheme.DialogFragment.NoFullscreen" parent="MwmTheme.DialogFragment.Fullscreen">
     <item name="android:windowTranslucentStatus">false</item>
     <item name="android:statusBarColor">@color/bg_dialog_translucent</item>

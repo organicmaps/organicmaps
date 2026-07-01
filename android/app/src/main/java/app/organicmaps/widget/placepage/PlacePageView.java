@@ -34,7 +34,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
@@ -94,9 +93,8 @@ import java.util.List;
 
 public class PlacePageView extends Fragment
     implements View.OnClickListener, View.OnLongClickListener, LocationListener, SensorListener, Observer<MapObject>,
-               ChooseBookmarkCategoryFragment.Listener, EditBookmarkFragment.EditBookmarkListener,
-               MenuBottomSheetFragment.MenuBottomSheetInterface, BookmarkManager.BookmarksSharingListener,
-               ColorPickerFragment.OnColorChangeListener
+               ChooseBookmarkCategoryFragment.Listener, MenuBottomSheetFragment.MenuBottomSheetInterface,
+               BookmarkManager.BookmarksSharingListener, ColorPickerFragment.OnColorChangeListener
 
 {
   private static final String PREF_COORDINATES_FORMAT = "coordinates_format";
@@ -264,6 +262,9 @@ public class PlacePageView extends Fragment
 
     Fragment parentFragment = getParentFragment();
     mPlacePageViewListener = (PlacePageViewListener) parentFragment;
+
+    getChildFragmentManager().setFragmentResultListener(EditBookmarkFragment.REQUEST_KEY, getViewLifecycleOwner(),
+                                                        (key, result) -> handleEditBookmarkResult(result));
 
     mFrame = view;
     mFrame.setOnClickListener((v) -> mPlacePageViewListener.onPlacePageRequestToggleState());
@@ -702,26 +703,29 @@ public class PlacePageView extends Fragment
     if (mMapObject.isTrack())
     {
       Track track = (Track) mMapObject;
-      final FragmentActivity activity = requireActivity();
-      EditBookmarkFragment.editTrack(track.getCategoryId(), track.getTrackId(), activity, getChildFragmentManager(),
-                                     PlacePageView.this);
+      EditBookmarkFragment.editTrack(track.getCategoryId(), track.getTrackId(), getChildFragmentManager());
     }
     else if (mMapObject.isBookmark())
     {
       Bookmark bookmark = (Bookmark) mMapObject;
-      final FragmentActivity activity = requireActivity();
-      EditBookmarkFragment.editBookmark(bookmark.getCategoryId(), bookmark.getBookmarkId(), activity,
-                                        getChildFragmentManager(), PlacePageView.this);
+      EditBookmarkFragment.editBookmark(bookmark.getCategoryId(), bookmark.getBookmarkId(), getChildFragmentManager());
     }
   }
 
-  @Override
-  public void onBookmarkSaved(long bookmarkId, boolean movedFromCategory)
+  private void handleEditBookmarkResult(@NonNull Bundle result)
   {
-    if (mMapObject.isTrack())
-      BookmarkManager.INSTANCE.updateTrackPlacePage();
-    else if (mMapObject.isBookmark())
-      BookmarkManager.INSTANCE.updateBookmarkPlacePage(bookmarkId);
+    final String action = result.getString(EditBookmarkFragment.RESULT_ACTION);
+    if (EditBookmarkFragment.ACTION_DELETED.equals(action))
+    {
+      mPlacePageViewListener.onPlacePageRequestClose();
+    }
+    else if (EditBookmarkFragment.ACTION_SAVED.equals(action) && mMapObject != null)
+    {
+      if (mMapObject.isTrack())
+        BookmarkManager.INSTANCE.updateTrackPlacePage();
+      else if (mMapObject.isBookmark())
+        BookmarkManager.INSTANCE.updateBookmarkPlacePage(result.getLong(EditBookmarkFragment.RESULT_SAVED_ID));
+    }
   }
 
   private void refreshDetails()

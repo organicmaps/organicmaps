@@ -1,32 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="?windowBackgroundForced">
+  android:orientation="vertical">
   <androidx.appcompat.widget.Toolbar
     android:id="@+id/toolbar"
-    style="@style/MwmWidget.ToolbarStyle"
+    style="@style/MwmWidget.Toolbar.EditBookmark"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:theme="@style/MwmWidget.ToolbarTheme">
-    <TextView
-      android:id="@+id/save"
-      android:layout_width="wrap_content"
-      android:layout_height="match_parent"
-      android:layout_gravity="end"
-      android:background="?attr/selectableItemBackgroundBorderless"
-      android:contentDescription="@string/save"
-      android:gravity="center_vertical"
-      android:padding="@dimen/margin_base"
-      android:text="@string/save"
-      android:textAppearance="@style/MwmTextAppearance.Body1" />
-  </androidx.appcompat.widget.Toolbar>
-  <FrameLayout
-    style="@style/MwmWidget.FrameLayout.Elevation"
+    android:theme="@style/ThemeOverlay.Mwm.EditToolbar" />
+  <androidx.core.widget.NestedScrollView
+    android:id="@+id/edit_bookmark_scroll"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/toolbar">
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:background="?cardBackground"
+    android:clipToPadding="false"
+    android:fillViewport="true">
     <include layout="@layout/edit_bookmark_common" />
-  </FrameLayout>
-</RelativeLayout>
+  </androidx.core.widget.NestedScrollView>
+</LinearLayout>
