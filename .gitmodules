@@ -86,3 +86,11 @@
 [submodule "3party/BLAKE3"]
 	path = 3party/BLAKE3
 	url = https://github.com/BLAKE3-team/BLAKE3
+[submodule "3party/zlib-ng"]
+	path = 3party/zlib-ng
+	url = https://github.com/zlib-ng/zlib-ng.git
+	branch = 2.3.3
+[submodule "3party/minizip-ng"]
+	path = 3party/minizip-ng
+	url = https://github.com/zlib-ng/minizip-ng.git
+	branch = 4.2.2
