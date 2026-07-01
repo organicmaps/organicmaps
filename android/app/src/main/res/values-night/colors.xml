@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <color name="cursor_edit_bookmark">@color/text_light</color>
+
   <color name="base_accent">#FF4BB9E6</color>
   <color name="base_accent_pressed">#FF3C9BBE</color>
 
