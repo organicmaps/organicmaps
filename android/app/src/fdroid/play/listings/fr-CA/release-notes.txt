@@ -1,8 +1,7 @@
-• NOUVEAU ! Ajoutez une description texte ou HTML à un tracé avec l’icône crayon
-• NOUVEAU ! Choisissez n’importe quelle couleur pour vos tracés
-• Panneaux routiers d’Australie et de Nouvelle-Zélande ajoutés
-• Polices adaptées à la langue de l’appareil pour le coréen, le chinois et le japonais
-• Nouvelles icônes : pétanque, vélo, sports motorisés
-• Itinéraires de transports en commun corrigés pour gares et zones
-• Données OpenStreetMap au 27 mai
-…plus sur omaps.org/fr/news
+NOUVELLES FONCTIONNALITÉS :
+• Mise à jour de l'interface utilisateur pour la recherche et le calcul d'itinéraires
+• Itinéraires en transports en commun (bus, tramway, métro, tramway léger)
+• Itinéraires alternatifs les plus rapides et les plus courts
+• Avertissements sur l'itinéraire concernant les marches, les barrières et les barrières levantes
+• Choisissez la couleur de votre choix pour les signets
+…plus d'informations sur omaps.org/fr/news

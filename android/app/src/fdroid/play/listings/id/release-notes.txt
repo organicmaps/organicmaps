@@ -1,8 +1,9 @@
-• BARU! Tekan ikon pensil untuk menambah deskripsi teks/HTML ke trek
-• BARU! Pilih warna apa pun untuk trek
-• Ditambahkan rambu nomor jalan Australia dan Selandia Baru
-• Font Korea, Tionghoa, dan Jepang kini sesuai setelan bahasa perangkat
-• Ditambahkan ikon tempat boule, bersepeda, dan motorsport; gerbang seremonial, seluncuran air, taman hiburan, roller coaster
-• Rute transportasi umum diperbaiki untuk stasiun dan area lain
-• Data OpenStreetMap per 27 Mei
-…lebih lanjut di omaps.org/id/news
+FITUR BARU:
+• Antarmuka pengguna pencarian dan perhitungan rute telah diperbarui
+• Perhitungan rute transportasi umum (bus, trem, kereta bawah tanah, kereta ringan)
+• Rute alternatif tercepat dan terpendek
+• Peringatan rute mengenai tangga, gerbang, dan gerbang angkat
+• Pilih warna apa pun untuk penanda
+• Dukungan untuk koordinat UK OS Grid, Irish Grid, dan ITM
+• Aktifkan Citra Satelit di pengaturan Organic Maps dengan URL server ubin raster khusus
+…selengkapnya di omaps.org/id/news

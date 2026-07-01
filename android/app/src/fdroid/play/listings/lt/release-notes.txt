@@ -1,8 +1,8 @@
-• NAUJA! Pridėkite tekstinį arba HTML aprašą prie trasos palietę pieštuko piktogramą
-• NAUJA! Pasirinkite bet kokią trasų spalvą
-• Pridėti Australijos ir Naujosios Zelandijos kelių numerių skydeliai
-• Korėjiečių, kinų ir japonų naudotojai matys tinkamus šriftus pagal įrenginio kalbą
-• Pridėtos petankės, dviračių sporto ir motosporto vietų piktogramos
-• Pataisyti viešojo transporto maršrutai stotims ir kitiems plotiniams objektams
-• OSM duomenys iki gegužės 27 d.
-…daugiau: omaps.org/lt/news
+NAUJOS FUNKCIJOS:
+• Atnaujinta paieškos ir maršruto planavimo vartotojo sąsaja
+• Viešojo transporto maršrutai (autobusai, tramvajai, metro, lengvieji traukiniai)
+• Alternatyvūs greičiausi ir trumpiausi maršrutai
+• Maršruto įspėjimai apie laiptelius, vartus ir pakeliamus vartus
+• Žymėms pasirinkite bet kokią spalvą
+• Palaikomos koordinatės UK OS Grid, Irish Grid, ITM
+…daugiau informacijos rasite omaps.org/lt/news

@@ -1,8 +1,8 @@
-• NOVITÀ! Tocca l'icona della matita per aggiungere descrizioni testuali o HTML alle tracce
-• NOVITÀ! Scegli qualsiasi colore per le tracce
-• Aggiunti scudi stradali per Australia e Nuova Zelanda
-• Font corretti per coreano, cinese e giapponese in base alla lingua del dispositivo
-• Nuove icone e luoghi: bocce, ciclismo, sport motoristici, parchi a tema e scivoli d'acqua
-• Corrette le linee del trasporto pubblico per stazioni e aree
-• Dati OpenStreetMap al 27 maggio
-Altro su omaps.org/it/news
+NUOVE FUNZIONALITÀ:
+• Interfaccia utente aggiornata per la ricerca e il calcolo dei percorsi
+• Percorsi con i mezzi pubblici (autobus, tram, metropolitana, metropolitana leggera)
+• Percorsi alternativi più veloci e più brevi
+• Avvisi lungo il percorso relativi a gradini, cancelli e barriere
+• Scegli qualsiasi colore per i segnalibri
+• Supporto per le coordinate UK OS Grid, Irish Grid e ITM
+…continua su omaps.org/it/news

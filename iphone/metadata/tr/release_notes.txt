@@ -1,22 +1,41 @@
-• Yer imleri için açıklamalarla aynı şekilde, parkur metinleri ve HTML açıklamaları artık desteklenmektedir. Açıklama eklemek için kalem simgesine basın.
-• 27 Mayıs 2026 tarihli OpenStreetMap harita verileri
-• Metin Okuma (TTS) artık dil için en iyi yüklü sesi seçer (Geliştirilmiş / Premium). Daha yüksek kaliteli bir sesi nasıl indireceğiniz konusunda Organic Maps ayarlarına bakın.
-• Avustralya ve Yeni Zelanda yol levhaları eklendi
-• Boules, bisiklet ve motor sporları mekanları için simgeler eklendi
-• Tören kapıları, su kaydırakları, tema parkları ve roller coaster'lar eklendi
-• Navigasyon modunda perspektif görünümde harita kontrolü için parmak hareketleri iyileştirildi
-• Yeni adın düzgün bir şekilde güncellenmemesine neden olan parkur yeniden adlandırma hatası düzeltildi
-• CarPlay: yeniden merkezleme düğmesi düzeltildi
-• İstasyonlar ve diğer alan nesneleri için toplu taşıma rotaları düzeltildi
-• Yürüyüş veya bisiklet rotasına yer imi eklerken meydana gelen çökme sorunu düzeltildi
-• Hız kameraları için hız sınırlarının görüntülenmesi düzeltildi
-• Birden fazla dünya kopyası olduğunda antimeridyen uzaklaştırma sorunu düzeltildi
-• Sokak ve ev adreslerinin daha doğru görüntülenmesi
-• Gereksiz harita animasyonları düzeltildi
-• Kararlılık ve performans iyileştirmeleri
+- YENİ! Metro, hafif raylı sistem, otobüs ve tramvay ile toplu taşıma rota hesaplama
+- YENİ! Alternatif rotalar: Uygulama artık en hızlı rotaya ek olarak en kısa rotayı da gösteriyor
+- YENİ! Yol boyunca karşılaşılan basamaklar, kapılar ve kaldırmalı kapılarla ilgili yürüyüş ve bisiklet rotası uyarıları
+- YENİ! Dokunarak üst üste binen rotalar ve güzergâhlar arasında seçim yapın
+- YENİ! Yer imleri için istediğiniz rengi seçin
+- YENİ! British National Grid (OS Grid), Irish Grid ve Irish Transverse Mercator (ITM) koordinatları için destek
+- YENİ! Dynamic Type ve büyük yazı tipleri için erişilebilirlik desteği
+- DENEME AŞAMASINDA: Organic Maps ayarlarında özel bir raster döşeme sunucusu URL'si kullanarak Uydu Görüntülerini etkinleştirin
+- Kullanıcı arayüzünde daha temiz tablo stili
+- Arama penceresine `?map-download-server:https://your-server.com/` yazarak Organic Maps harita indirme sunucularını geçersiz kılın. Geçersiz kılmayı kaldırmak için `?no-map-download-server` yazın.
+- Çeşitli hata düzeltmeleri ve performans iyileştirmeleri
+
+## Harita Verileri
+
+- OpenStreetMap verileri 24 Haziran itibarıyla güncellenmiştir
+- Wikipedia verileri 20 Haziran itibarıyla güncellenmiştir; İtalyanca makaleler de dahil edilmiştir
+
+## Harita görüntüleme ve stilleri
+
+- Plaj, kum, çakıl, çıplak kaya, meyve bahçesi ve bağ alanları için daha estetik desenler; ayrıca koruma alanı ve sulak alanlar için tarama desenleri
+- Yollar ve nehirler için daha yumuşak kavisli metin etiketleri
+- Nehirler, akarsular ve sulak alanlar, karanlık modda daha yüksek kontrasta sahip ve daha belirgindir
+- Harita üzerinde kategori araması ve arama sonuçları için yeni ve geliştirilmiş simgeler
+- Çok dilli metin biçimlendirme ve görüntüleme iyileştirildi
+
+## Rotalar, yer imleri ve güzergâhlar
+
+- Yer imi ve rota açıklamalarının HTML işlenmesinde iyileştirme
+- GeoJSON rotaları artık içe ve dışa aktarım sırasında rakım ve zaman damgalarını koruyor
+- Bir rotayı başka bir listeye taşıdıktan sonra meydana gelen çökme sorunu giderildi
+- Artık tarihi miras alanları için web siteleri gösterilmektedir
+- Artık isimsiz arama sonuçlarında operatör adları gösterilmektedir. Örneğin, isimsiz bir ATM artık ait olduğu bankayı göstermektedir
+- Editör: apartman binası OpenStreetMap düzenlemeleri/değişiklik kümeleri için açıklama metni düzeltildi
+- Yer imi ve rota açıklamalarında HTML algılaması iyileştirildi
+- Artık yinelenen rotalar filtrelenerek çıkarılmaktadır
 
 ## Çeviriler
 
-• Fransızca, İtalyanca, İspanyolca, Ukraynaca ve Katalanca çeviriler iyileştirildi
-• Birkaç ülke ve bölge adının çevirileri güncellendi, `leisure=track` için arama eşanlamlıları düzeltildi
-• `disused:bridge` ve `disused:tunnel` için çeviriler düzeltildi
+- Kantonca adım adım sesli rehberlik
+- Almanca ve Fransızca çeviriler güncellendi
+- Çince, Sırpça ve Katalanca dillerinde "onto street" sesli rehberlik çevirilerindeki hatalar düzeltildi

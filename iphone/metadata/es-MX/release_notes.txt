@@ -1,22 +1,41 @@
-• Ahora se admiten descripciones de texto y HTML para los tracks, de la misma manera que las descripciones de los marcadores. Presione el ícono del lápiz para agregar una descripción.
-• Datos cartográficos de OpenStreetMap a fecha del 27 de mayo de 2026
-• La función de texto a voz (TTS) ahora selecciona la mejor voz instalada para el idioma (Mejorada / Premium). Consulte la configuración de Organic Maps para saber cómo descargar una voz de mayor calidad.
-• Se han añadido letreros de carreteras de Australia y Nueva Zelanda
-• Se han añadido íconos para lugares de petanca, ciclismo y deportes de motor
-• Se han añadido puertas ceremoniales, toboganes acuáticos, parques temáticos y montañas rusas
-• Se han mejorado los gestos con los dedos para el control del mapa en la vista en perspectiva durante el modo de navegación.
-• Se ha corregido un error al renombrar tracks en el que el nuevo nombre no se actualizaba correctamente.
-• CarPlay: se ha corregido el botón de recentrar.
-• Se han corregido las rutas de transporte público para estaciones y otros objetos de área.
-• Se ha corregido un bloqueo al añadir un marcador en una ruta de senderismo o ciclismo.
-• Se ha corregido la visualización de los límites de velocidad para los radares.
-• Se ha corregido el alejamiento antimeridiano con más de una copia del mundo.
-• Visualización más precisa de direcciones de calles y casas.
-• Se han corregido animaciones innecesarias en el mapa.
-• Mejoras de estabilidad y rendimiento.
+- ¡NUEVO! Rutas de transporte público en metro, tren ligero, autobús y tranvía
+- ¡NUEVO! Rutas alternativas: además de la ruta más rápida, la aplicación ahora muestra la ruta más corta
+- ¡NUEVO! Advertencias en rutas para peatones y ciclistas sobre escalones, portones y compuertas elevables a lo largo del camino
+- ¡NUEVO! Toque para elegir entre trayectorias y rutas superpuestas
+- ¡NUEVO! Seleccione cualquier color para los marcadores
+- ¡NUEVO! Compatibilidad con coordenadas British National Grid (OS Grid), Irish Grid y Irish Transverse Mercator (ITM)
+- ¡NUEVO! Compatibilidad con accesibilidad para Dynamic Type y fuentes grandes
+- EXPERIMENTAL: Habilite las imágenes satelitales en la configuración de Organic Maps con una URL personalizada del servidor de mosaicos ráster
+- Estilo de tabla más limpio en la interfaz de usuario
+- Escriba `?map-download-server:https://your-server.com/` en la ventana de búsqueda para anular los servidores de descarga de mapas Organic Maps. Escriba `?no-map-download-server` para eliminar la anulación.
+- Varias correcciones de errores y mejoras de rendimiento
+
+## Datos de mapas
+
+- Datos de OpenStreetMap actualizados al 24 de junio
+- Datos de Wikipedia actualizados al 20 de junio, incluyendo artículos en italiano
+
+## Representación y estilos de los mapas
+
+- Patrones más atractivos para las zonas de playa, arena, pedregal, roca desnuda, huertos y viñedos, además de sombreados para áreas protegidas y humedales
+- Etiquetas de texto con curvas más suaves para carreteras y ríos
+- Los ríos, arroyos y humedales presentan un mayor contraste y son más visibles en el modo oscuro
+- Iconos nuevos y mejorados para la búsqueda por categoría y los resultados de búsqueda en el mapa
+- Se ha mejorado el formato y la visualización del texto multilingüe
+
+## Rutas, marcadores y recorridos
+
+- Se ha mejorado la representación de HTML en las descripciones de marcadores y trazas
+- Los trazos de GeoJSON ahora conservan la elevación y las marcas de tiempo al importarlos y exportarlos
+- Se corrigió un fallo que provocaba que la aplicación se cerrara inesperadamente al mover un recorrido a otra lista
+- Ahora se muestran los sitios web de los sitios patrimoniales
+- Ahora se muestran los nombres de los operadores en los resultados de búsqueda sin nombre. Por ejemplo, un ATM sin nombre ahora muestra su banco
+- Editor: se corrigió el texto de la descripción para el edificio de apartamentos OpenStreetMap ediciones/conjuntos de cambios
+- Se ha mejorado la detección de HTML en las descripciones de marcadores y trazas
+- Ahora se filtran las rutas duplicadas
 
 ## Traducciones
 
-• Se han mejorado las traducciones al francés, italiano, español, ucraniano y catalán.
-• Se han actualizado las traducciones de varios nombres de países y regiones, y se han corregido los sinónimos de búsqueda para `leisure=track`.
-• Se han corregido las traducciones para `disused:bridge` y `disused:tunnel`.
+- Guía de voz paso a paso en cantonés
+- Se han actualizado las traducciones al alemán y al francés
+- Se corrigieron traducciones incorrectas de la guía de voz "onto street" para chino, serbio y catalán

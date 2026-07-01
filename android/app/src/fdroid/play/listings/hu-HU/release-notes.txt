@@ -1,9 +1,8 @@
-• ÚJ! A ceruza ikonnal szöveges vagy HTML-leírás adható a nyomvonalakhoz
-• ÚJ! Bármilyen szín választható a nyomvonalakhoz
-• Új ausztrál és új-zélandi útjelzések
-• Helyes betűtípusok koreai, kínai és japán nyelvű készülékeken
-• Új ikonok: pétanque, kerékpározás, motorsport
-• Új helyek: díszkapuk, vízicsúszdák, vidámparkok, hullámvasutak
-• Javított tömegközlekedési útvonalak állomásoknál és területeknél
-• OSM-adatok: május 27.
-…továbbiak: omaps.org/hu/news
+ÚJ FUNKCIÓK:
+• Frissített keresési és útvonaltervezési felhasználói felület
+• Tömegközlekedési útvonaltervezés (busz, villamos, metró, könnyűvasút)
+• Alternatív leggyorsabb és legrövidebb útvonalak
+• Útvonalra vonatkozó figyelmeztetések lépcsőkről, kapukról és emelőkapukról
+• Bármilyen szín kiválasztható a könyvjelzőkhöz
+• Támogatás az UK OS Grid, Irish Grid és ITM koordinátákhoz
+…további információk az omaps.org/hu/news oldalon

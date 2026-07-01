@@ -1,9 +1,8 @@
-• NOU! Apasă pe creion pentru a adăuga descrieri text sau HTML la trasee
-• NOU! Alege orice culoare pentru trasee
-• Indicatoare rutiere pentru Australia și Noua Zeelandă
-• Fonturi corecte pentru coreeană, chineză și japoneză, după limba dispozitivului
-• Pictograme noi: petanque, ciclism, sporturi cu motor
-• Porți ceremoniale, tobogane acvatice, parcuri tematice și montagne russe
-• Rute de transport public corectate pentru stații și zone
-• Date OSM din 27 mai
-…mai multe pe omaps.org/news
+FUNCȚII NOI:
+• Interfața de căutare și de calculare a traseelor a fost actualizată
+• Calcularea traseelor pentru transportul public (autobuz, tramvai, metrou, tren ușor)
+• Trasee alternative, cele mai rapide și cele mai scurte
+• Avertismente privind traseul referitoare la trepte, porți și bariere
+• Alege orice culoare pentru marcaje
+• Suport pentru coordonatele UK OS Grid, Irish Grid, ITM
+…mai multe informații la omaps.org/news

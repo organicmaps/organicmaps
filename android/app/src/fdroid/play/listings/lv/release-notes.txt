@@ -1,8 +1,8 @@
-• Jaunums! Pēdojumiem var pievienot teksta vai HTML aprakstu un izvēlēties jebkuru krāsu
-• Pievienotas Austrālijas un Jaunzēlandes ceļu numuru zīmes
-• Pareizi fonti korejiešu, ķīniešu un japāņu valodai
-• Jaunas ikonas petankam, riteņbraukšanai un motosportam
-• Pievienoti svinīgie vārti, ūdensslīdkalniņi, atrakciju parki un amerikāņu kalniņi
-• Laboti sabiedriskā transporta maršruti stacijām un teritorijām
-• OSM dati: 27. maijs
-…vairāk vietnē omaps.org/news
+JAUNĀS FUNKCIJAS:
+• Atjaunināta meklēšanas un maršruta plānošanas lietotāja saskarne
+• Sabiedriskā transporta maršrutu plānošana (autobuss, tramvajs, metro, vieglā dzelzceļa transports)
+• Alternatīvi ātrākie un īsākie maršruti
+• Maršruta brīdinājumi par pakāpieniem, vārtiem un pacelamajiem vārtiem
+• Izvēlieties jebkuru krāsu grāmatzīmēm
+• Atbalsts koordinātēm UK OS Grid, Irish Grid, ITM
+…vairāk omaps.org/news

@@ -1,9 +1,9 @@
-• UUTTA! Lisää reittiin teksti- tai HTML-kuvaus kynäkuvaketta painamalla
-• UUTTA! Valitse reiteille haluamasi väri
-• Lisätty Australian ja Uuden-Seelannin tienumerokilvet
-• Korean, kiinan ja japanin fontit valitaan laitteen kielen mukaan
-• Uudet kuvakkeet petankki-, pyöräily- ja moottoriurheilukohteille
-• Lisätty juhlaportit, vesiliukumäet, huvipuistot ja vuoristoradat
-• Korjattu asemien ja muiden aluekohteiden joukkoliikennereitit
-• OpenStreetMap-data 27.5. asti
-…lisää: omaps.org/news
+UUDET OMINAISUUDET:
+• Päivitetty haku- ja reitityskäyttöliittymä
+• Julkisen liikenteen reittihaku (bussi, raitiovaunu, metro, pikaraitiotie)
+• Vaihtoehtoiset nopeimmat ja lyhimmät reitit
+• Reittivaroitukset portaista, porteista ja nostoporteista
+• Valitse kirjanmerkkeihin mikä tahansa väri
+• Tuki koordinaateille UK OS Grid, Irish Grid ja ITM
+• Ota satelliittikuvat käyttöön Organic Maps-asetuksissa määrittämällä mukautetun rasterikuvapalvelimen URL-osoite
+…lisää osoitteessa omaps.org/news

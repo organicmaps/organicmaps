@@ -1,8 +1,9 @@
-• NOVITAD! Tutgai l'icuna dal rispli per agiuntar text/HTML ad in percurs
-• NOVITAD! Tschernai ina culur tenor gust per ils percurs
-• Segns da via per l'Australia e la Nova Zelanda
-• Scrittiras correctas per corean, chinais e giapunais
-• Novas icunas e lieus: bocce, velo, motorsport, parcs tematics, tobogans d'aua e montagnas russas
-• Corregì rutas dal transport public per staziuns ed areals
-• Datas d'OpenStreetMap dals 27 da matg
+NOVAS FUNCZIUNS:
+• Interfatscha da tschertga e da navigaziun actualisada
+• Navigaziun cun traffic public (bus, tram, metro, tren lev)
+• Rutas alternativas las pli spertas e las pli curtas
+• Avis per rutas davart stgalims, portas e barrieras
+• Tscherna mintga colur per segnapaginas
+• Sustegn per coordinatas UK OS Grid, Irish Grid ed ITM
+• Activar maletgs da satellit en ils parameters dad Organic Maps cun URL persunalisà d'in server da tiles raster
 …dapli sin omaps.org/news
