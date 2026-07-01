@@ -8,6 +8,8 @@
   <color name="text_light_subtitle">@color/white_secondary</color>
   <color name="text_light_hint">@color/white_lightest</color>
 
+  <color name="cursor_edit_bookmark">@color/text_dark</color>
+
   <color name="base_accent">#FF249CF2</color>
   <color name="base_accent_pressed">#FF1C85D6</color>
   <color name="base_accent_transparent">#1E249CF2</color>

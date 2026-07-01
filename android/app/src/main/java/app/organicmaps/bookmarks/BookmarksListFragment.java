@@ -224,6 +224,18 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
   private void onViewCreatedInternal(@NonNull View view)
   {
+    getChildFragmentManager().setFragmentResultListener(
+        EditBookmarkFragment.REQUEST_KEY, getViewLifecycleOwner(), (key, result) -> {
+          BookmarkListAdapter adapter = getBookmarkListAdapter();
+          if (adapter == null)
+            return;
+          if (result.getBoolean(EditBookmarkFragment.RESULT_DELETED, false)
+              || result.getBoolean(EditBookmarkFragment.RESULT_MOVED_FROM_CATEGORY, false))
+            resetSearchAndSort();
+          else if (result.containsKey(EditBookmarkFragment.RESULT_SAVED_ID))
+            adapter.notifyDataSetChanged();
+        });
+
     configureBookmarksListAdapter();
 
     configureFab(view);
@@ -739,14 +751,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     final BookmarkInfo info = BookmarkManager.INSTANCE.getBookmarkInfo(mSelectedItemId);
     if (info == null)
       return;
-    BookmarkListAdapter adapter = getBookmarkListAdapter();
-    EditBookmarkFragment.editBookmark(info.getCategoryId(), info.getBookmarkId(), requireActivity(),
-                                      getChildFragmentManager(), (bookmarkId, movedFromCategory) -> {
-                                        if (movedFromCategory)
-                                          resetSearchAndSort();
-                                        else
-                                          adapter.notifyDataSetChanged();
-                                      });
+    EditBookmarkFragment.editBookmark(info.getCategoryId(), info.getBookmarkId(), getChildFragmentManager());
   }
 
   private void onTrackEditActionSelected()
@@ -754,13 +759,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     if (mSelectedItemId == -1)
       return;
     final Track track = BookmarkManager.INSTANCE.getTrack(mSelectedItemId);
-    EditBookmarkFragment.editTrack(track.getCategoryId(), track.getTrackId(), requireActivity(),
-                                   getChildFragmentManager(), (trackId, movedFromCategory) -> {
-                                     if (movedFromCategory)
-                                       resetSearchAndSort();
-                                     else
-                                       getBookmarkListAdapter().notifyDataSetChanged();
-                                   });
+    EditBookmarkFragment.editTrack(track.getCategoryId(), track.getTrackId(), getChildFragmentManager());
   }
 
   private void onDeleteActionSelected()
