@@ -275,14 +275,20 @@ final class NavigationDashboardViewController: UIViewController {
       return
     }
 
+    guard let state = ElevationProfileBuilder.makeRoutePreviewState(routeElevationPreviewData: routeElevationPreviewData) else {
+      removeElevationProfileIfNeeded()
+      elevationProfileContainerView.isHidden = true
+      return
+    }
+
     if let elevationProfileViewController {
       elevationProfileViewController.setPresentationStyle(.routePreview)
-      elevationProfileViewController.presenter?.update(with: routeElevationPreviewData)
+      elevationProfileViewController.presenter?.update(with: state)
       elevationProfileContainerView.isHidden = false
       return
     }
 
-    let viewController = ElevationProfileBuilder.build(routeElevationPreviewData: routeElevationPreviewData,
+    let viewController = ElevationProfileBuilder.build(state: state,
                                                        delegate: nil,
                                                        presentationStyle: .routePreview)
     addChild(viewController)

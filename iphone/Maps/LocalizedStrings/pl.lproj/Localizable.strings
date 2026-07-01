@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "Zejście";
 "elevation_profile_min_elevation" = "Min. wysokość";
 "elevation_profile_max_elevation" = "Maks. wysokość";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Zacznij się poruszać, aby zobaczyć profil wysokości";
 "isolines_toast_zooms_1_10" = "Powiększ mapę, aby zobaczyć poziomice";
 "downloader_loading_ios" = "Pobieranie";
 

@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "Zbritje";
 "elevation_profile_min_elevation" = "Lartësia min.";
 "elevation_profile_max_elevation" = "Lartësia maks.";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Filloni të lëvizni për të parë profilin e lartësisë";
 "isolines_toast_zooms_1_10" = "Zmadhoni për të eksploruar izolinat";
 "downloader_loading_ios" = "Duke shkarkuar";
 

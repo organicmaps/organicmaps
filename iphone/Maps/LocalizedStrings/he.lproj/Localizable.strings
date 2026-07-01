@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "ירידה";
 "elevation_profile_min_elevation" = "מינ' גובה";
 "elevation_profile_max_elevation" = "מקס' גובה";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "התחילו לנוע כדי לראות את פרופיל הגובה";
 "isolines_toast_zooms_1_10" = "התקרב כדי לחקור קווי מתאר";
 "downloader_loading_ios" = "מוריד";
 

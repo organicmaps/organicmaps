@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "Спускане";
 "elevation_profile_min_elevation" = "Мин. височина";
 "elevation_profile_max_elevation" = "Макс. височина";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Започнете да се движите, за да видите профила на височината";
 "isolines_toast_zooms_1_10" = "Увеличете мащаба, за да разгледате изолиниите";
 "downloader_loading_ios" = "Изтегляне";
 

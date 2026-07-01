@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "Nusileidimas";
 "elevation_profile_min_elevation" = "Min. aukštis";
 "elevation_profile_max_elevation" = "Maks. aukštis";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Pradėkite judėti, kad matytumėte aukščio profilį";
 "isolines_toast_zooms_1_10" = "Priartinkite, jei norite patyrinėti izolinijas";
 "downloader_loading_ios" = "Atsiunčiama";
 

@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "İniş";
 "elevation_profile_min_elevation" = "Min. yükselti";
 "elevation_profile_max_elevation" = "Maks. yükselti";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Yükseklik profilini görmek için hareket etmeye başlayın";
 "isolines_toast_zooms_1_10" = "İzohipsleri görmek için haritayı büyütün";
 "downloader_loading_ios" = "İndiriliyor";
 

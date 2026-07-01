@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "การลง";
 "elevation_profile_min_elevation" = "ต่ำสุด";
 "elevation_profile_max_elevation" = "สูงสุด";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "เริ่มเคลื่อนที่เพื่อดูโปรไฟล์ระดับความสูง";
 "isolines_toast_zooms_1_10" = "ขยายเข้าเพื่อสำรวจเส้นชั้นความสูง";
 "downloader_loading_ios" = "การดาวน์โหลด";
 

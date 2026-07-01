@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "Κατάβαση";
 "elevation_profile_min_elevation" = "Ελάχ. υψόμετρο";
 "elevation_profile_max_elevation" = "Μέγ. υψόμετρο";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Ξεκινήστε να κινείστε για να δείτε το υψομετρικό προφίλ";
 "isolines_toast_zooms_1_10" = "Μεγεθύνετε για να δείτε περιγράμματα";
 "downloader_loading_ios" = "Κατέβασμα";
 

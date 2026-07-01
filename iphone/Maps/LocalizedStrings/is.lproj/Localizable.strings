@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "Lækkun";
 "elevation_profile_min_elevation" = "Lágm.hæð";
 "elevation_profile_max_elevation" = "Hám.hæð";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Byrjaðu að hreyfa þig til að sjá hæðarsniðið";
 "isolines_toast_zooms_1_10" = "Renndu að til að skoða hæðarlínur";
 "downloader_loading_ios" = "Sæki";
 

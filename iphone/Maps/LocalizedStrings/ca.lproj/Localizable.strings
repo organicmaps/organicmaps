@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "Descens";
 "elevation_profile_min_elevation" = "Elevació mín.";
 "elevation_profile_max_elevation" = "Elevació màx.";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Comença a moure't per veure el perfil d'elevació";
 "isolines_toast_zooms_1_10" = "Apropeu el mapa per a explorar les isolínies";
 "downloader_loading_ios" = "S’està baixant";
 

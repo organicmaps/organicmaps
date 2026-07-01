@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "下降";
 "elevation_profile_min_elevation" = "最小標高";
 "elevation_profile_max_elevation" = "最大標高";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "移動を開始すると標高プロファイルが表示されます";
 "isolines_toast_zooms_1_10" = "等高線を調べるようにズームインしてください";
 "downloader_loading_ios" = "ダウンロード中";
 

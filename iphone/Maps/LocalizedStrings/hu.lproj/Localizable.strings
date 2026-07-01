@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "Csökkenő";
 "elevation_profile_min_elevation" = "Legkisebb magasság";
 "elevation_profile_max_elevation" = "Legnagyobb magasság";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Induljon el a magassági profil megtekintéséhez";
 "isolines_toast_zooms_1_10" = "Nagyítás az izovonalak felfedezéséhez";
 "downloader_loading_ios" = "Letöltés";
 
