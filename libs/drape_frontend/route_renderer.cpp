@@ -164,14 +164,14 @@ std::vector<ArrowBorders> CalculateArrowBorders(m2::RectD screenRect, double scr
   size_t constexpr kAverageArrowsCount = 10;
   std::vector<ArrowBorders> newArrowBorders;
   newArrowBorders.reserve(kAverageArrowsCount);
-  auto const & polyline = subroute->m_polyline;
+  m2::PolylineDistanceScanner<double> pointByDist(subroute->m_polyline);
 
-  auto const intersectsScreen = [&screenRect, &polyline](double startDistance, double endDistance)
+  auto const intersectsScreen = [&screenRect, &pointByDist](double startDistance, double endDistance)
   {
-    auto p1 = polyline.GetPointByDistance(startDistance);
+    auto p1 = pointByDist.GetPointByDistance(startDistance);
     if (screenRect.IsPointInside(p1))
       return true;
-    auto p2 = polyline.GetPointByDistance(endDistance);
+    auto p2 = pointByDist.GetPointByDistance(endDistance);
     if (screenRect.IsPointInside(p2))
       return true;
 
@@ -352,9 +352,10 @@ void RouteRenderer::UpdatePreview(ScreenBase const & screen)
     if (circlesCount == 0)
       circlesCount = 1;
     double const distDelta = segmentLen / circlesCount;
+    m2::PolylineDistanceScanner<double> pointByDist(polyline);
     for (double d = distDelta * 0.5; d < segmentLen; d += distDelta)
     {
-      m2::PointD const pt = AdjustPointForViewport(polyline.GetPointByDistance(d), screen);
+      m2::PointD const pt = AdjustPointForViewport(pointByDist.GetPointByDistance(d), screen);
       m2::RectD const circleRect(pt.x - radiusMercator, pt.y - radiusMercator, pt.x + radiusMercator,
                                  pt.y + radiusMercator);
       if (!screen.ClipRect().IsIntersect(circleRect))
