@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "下坡";
 "elevation_profile_min_elevation" = "最低高度";
 "elevation_profile_max_elevation" = "最高高度";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "开始移动以查看海拔剖面";
 "isolines_toast_zooms_1_10" = "放大地图以查看等高线";
 "downloader_loading_ios" = "正在下载";
 

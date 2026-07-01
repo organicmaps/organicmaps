@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "Nizbrdo";
 "elevation_profile_min_elevation" = "Min. visina";
 "elevation_profile_max_elevation" = "Maks. visina";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Počnite se kretati za prikaz visinskog profila";
 "isolines_toast_zooms_1_10" = "Uvećaj prikaz karte za prikaz izohipsa";
 "downloader_loading_ios" = "Preuzimanje";
 

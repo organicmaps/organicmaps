@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "Վայրէջք";
 "elevation_profile_min_elevation" = "Նվազգ. բարձրություն";
 "elevation_profile_max_elevation" = "Առավել. բարձրություն";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Սկսեք շարժվել՝ բարձրության պրոֆիլը տեսնելու համար";
 "isolines_toast_zooms_1_10" = "Մեծացրեք մասշտաբը՝ հորիզոնականները տեսնելու համար";
 "downloader_loading_ios" = "Ներբեռնում";
 

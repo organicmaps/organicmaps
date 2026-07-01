@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "Backe";
 "elevation_profile_min_elevation" = "Min. höjd";
 "elevation_profile_max_elevation" = "Max. höjd";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Börja röra dig för att se höjdprofilen";
 "isolines_toast_zooms_1_10" = "Förstora kartan för att se höjdlinjer";
 "downloader_loading_ios" = "Nedladdning";
 

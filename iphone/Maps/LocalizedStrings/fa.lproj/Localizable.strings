@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "پایین آمدن";
 "elevation_profile_min_elevation" = "کم ارتفاع";
 "elevation_profile_max_elevation" = "بیش ارتفاع";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "برای دیدن نمایه ارتفاع حرکت را شروع کنید";
 "isolines_toast_zooms_1_10" = "برای بررسی خطوط تراز زوم کنید";
 "downloader_loading_ios" = "در حال دانلود";
 

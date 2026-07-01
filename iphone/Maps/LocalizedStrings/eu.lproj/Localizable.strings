@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "Maldan behera";
 "elevation_profile_min_elevation" = "Altitude min";
 "elevation_profile_max_elevation" = "Altitude max";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Hasi mugitzen altitude-profila ikusteko";
 "isolines_toast_zooms_1_10" = "Handitu mapa sestra kurbak ikusteko";
 "downloader_loading_ios" = "Deskargatzen";
 

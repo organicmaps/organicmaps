@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "Ushukaji";
 "elevation_profile_min_elevation" = "Min. mwinuko";
 "elevation_profile_max_elevation" = "Max. mwinuko";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Anza kusonga ili kuona wasifu wa mwinuko";
 "isolines_toast_zooms_1_10" = "Vuta karibu kutalii mistari ya kontua";
 "downloader_loading_ios" = "Inapakua";
 

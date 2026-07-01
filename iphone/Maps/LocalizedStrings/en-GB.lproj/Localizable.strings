@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "Descent";
 "elevation_profile_min_elevation" = "Min. elevation";
 "elevation_profile_max_elevation" = "Max. elevation";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Start moving to see the elevation profile";
 "isolines_toast_zooms_1_10" = "Zoom in to explore isolines";
 "downloader_loading_ios" = "Downloading";
 

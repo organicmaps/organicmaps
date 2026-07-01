@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "Kritums";
 "elevation_profile_min_elevation" = "Zemākais punkts";
 "elevation_profile_max_elevation" = "Augstākais punkts";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Sāciet kustēties, lai redzētu augstuma profilu";
 "isolines_toast_zooms_1_10" = "Pietuviniet, lai izpētītu izolīnijas";
 "downloader_loading_ios" = "Lejupielādē";
 

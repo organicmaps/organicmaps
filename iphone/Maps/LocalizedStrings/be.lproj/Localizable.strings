@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "Спуск";
 "elevation_profile_min_elevation" = "Мін. вышыня";
 "elevation_profile_max_elevation" = "Макс. вышыня";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Пачніце рухацца, каб убачыць профіль вышыні";
 "isolines_toast_zooms_1_10" = "Павялічце мапу, каб убачыць рэльеф";
 "downloader_loading_ios" = "Спампоўванне";
 

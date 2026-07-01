@@ -928,6 +928,9 @@
 "elevation_profile_descent" = "Menurun";
 "elevation_profile_min_elevation" = "Min. tinggi";
 "elevation_profile_max_elevation" = "Maks. tinggi";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Mulai bergerak untuk melihat profil ketinggian";
 "isolines_toast_zooms_1_10" = "Perbesar untuk menjelajahi garis kontur";
 "downloader_loading_ios" = "Mengunduh";
 
