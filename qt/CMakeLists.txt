@@ -245,3 +245,5 @@ elseif (BUILD_STANDALONE)
 endif()
 
 add_subdirectory(qt_common)
+
+omim_add_test_subdirectory(qt_tests)
