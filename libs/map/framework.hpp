@@ -63,6 +63,7 @@
 #include <memory>
 #include <optional>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace osm
@@ -248,6 +249,8 @@ public:
   /// @return 0 if there is no country under point or country is not loaded.
   int64_t GetMwmVersion(m2::PointD const & pt) const;
   bool NeedUpdateForRoutes() const;
+
+  bool GetOsmObjectId(FeatureID const & fid, std::string_view & osmType, std::string & osmId) const;
 
   enum class DoAfterUpdate
   {
@@ -646,6 +649,7 @@ private:
 
 public:
   search::ReverseGeocoder::Address GetAddressAtPoint(m2::PointD const & pt) const;
+  std::string GetLocalizedRegionAddressAtPoint(m2::PointD const & pt) const;
 
   /// Delegates to SelectionProcessor::GetFeatureAtPoint.
   FeatureID GetFeatureAtPoint(m2::PointD const & mercator) const;

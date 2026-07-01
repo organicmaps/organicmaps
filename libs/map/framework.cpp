@@ -70,7 +70,12 @@
 
 #include "std/target_os.hpp"
 
+#include "base/geo_object_id.hpp"
+#include "indexer/feature_to_osm.hpp"
+#include "search/region_address_getter.hpp"
+
 #include <algorithm>
+#include <string_view>
 
 using namespace location;
 using namespace routing;
@@ -732,6 +737,12 @@ search::ReverseGeocoder::Address Framework::GetAddressAtPoint(m2::PointD const &
   return addr;
 }
 
+std::string Framework::GetLocalizedRegionAddressAtPoint(m2::PointD const & pt) const
+{
+  search::RegionAddressGetter regionAddressGetter(m_featuresFetcher.GetDataSource(), *m_infoGetter);
+  return regionAddressGetter.GetLocalizedRegionAddress(pt);
+}
+
 std::vector<Track::TrackSelectionInfo> Framework::FindRelationTracksInTapPosition(
     std::vector<std::pair<double, FeatureID>> const & lineCandidates, m2::PointD const & mercator)
 {
@@ -1330,6 +1341,31 @@ bool Framework::NeedUpdateForRoutes() const
 {
   auto const version = GetMwmVersion(GetViewportCenter());
   return version > 0 && version < 250801;
+}
+
+bool Framework::GetOsmObjectId(FeatureID const & fid, std::string_view & osmType, std::string & osmId) const
+{
+  if (!fid.IsValid())
+    return false;
+
+  indexer::FeatureIdToGeoObjectIdOneWay mapper(m_featuresFetcher.GetDataSource());
+  if (!mapper.Load())
+    return false;
+
+  base::GeoObjectId geoObjectId;
+  if (!mapper.GetGeoObjectId(fid, geoObjectId))
+    return false;
+
+  switch (geoObjectId.GetType())
+  {
+  case base::GeoObjectId::Type::OsmNode: osmType = "node"; break;
+  case base::GeoObjectId::Type::OsmWay: osmType = "way"; break;
+  case base::GeoObjectId::Type::OsmRelation: osmType = "relation"; break;
+  default: return false;
+  }
+
+  osmId = std::to_string(geoObjectId.GetSerialId());
+  return true;
 }
 
 /*
