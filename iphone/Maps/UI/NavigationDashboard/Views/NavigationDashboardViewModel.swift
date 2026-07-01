@@ -63,13 +63,10 @@ extension NavigationDashboard.ViewModel {
       return .disabled
     }
     if progress < 1 {
-      return .loading
+      return .loading(progress: progress)
     }
-    if routerType == .ruler ||
-      routerType == .publicTransport {
-      return .disabled
-    }
-    return .enabled
+    let isStartEnabled = routerType != .ruler && routerType != .publicTransport
+    return isStartEnabled ? .enabled : .disabled
   }
 
   var estimatesState: EstimatesView.State {

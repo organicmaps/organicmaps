@@ -27,6 +27,9 @@ extension NavigationDashboard {
       case .updateState(let state):
         viewModel.dashboardState = state
         viewModel.navigationInfo.state = state.navigationInfo
+        if state == .planning {
+          viewModel.progress = 0
+        }
         if state == .error {
           viewModel.routeElevationPreviewData = nil
         }
@@ -63,7 +66,9 @@ extension NavigationDashboard {
 
       case .updateRouteBuildingProgress(let progress, routerType: let routerType):
         viewModel.routerType = routerType
-        viewModel.progress = progress
+        if progress > viewModel.progress {
+          viewModel.progress = progress
+        }
 
       case .updateNavigationInfo(let entity):
         let estimates = buildEstimatesString(routerType: viewModel.routerType,
