@@ -13,7 +13,7 @@
 [submodule "3party/boost"]
   path = 3party/boost
   url = https://github.com/boostorg/boost.git
-  branch = boost-1.89.0
+  branch = boost-1.91.0
   ignore = dirty
 [submodule "3party/just_gtfs"]
   path = 3party/just_gtfs
@@ -22,7 +22,7 @@
 [submodule "3party/expat"]
   path = 3party/expat
   url = https://github.com/libexpat/libexpat.git
-  branch = R_2_7_4
+  branch = R_2_8_2
 [submodule "3party/glm"]
   path = 3party/glm
   url = https://github.com/g-truc/glm.git
