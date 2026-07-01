@@ -1,0 +1,29 @@
+name: Code style check - JSON/XML
+
+on:
+  pull_request:
+    branches: [ master ]
+    paths: # Keep in sync with INCLUDE/EXCLUDE in tools/python/format_json_xml.py
+      - '.github/workflows/code-style-check-json-xml.yaml'
+      - 'tools/python/format_json_xml.py'
+      - 'android/**.xml'
+      - 'android/**.json'
+      - 'data/conf/**.json'
+      - 'data/skipped_elements.json'
+      - 'package.json'
+      - '!android/**/res/values*/*strings.xml'  # twine-generated
+      - '!android/**/assets/countries.json'      # map generator output
+
+jobs:
+  code-style-check-json-xml:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v6
+
+      # No tool install needed: the formatter is pure Python 3 stdlib and
+      # ubuntu-latest ships python3. It enumerates files via `git ls-files`.
+      - name: Run JSON/XML formatter check
+        run: python3 tools/python/format_json_xml.py all

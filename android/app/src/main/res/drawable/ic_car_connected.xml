@@ -3,9 +3,9 @@
     <shape>
       <size
           android:width="120dp"
-          android:height="120dp" />
-      <solid android:color="@color/base_accent" />
-      <corners android:radius="16dp" />
+          android:height="120dp"/>
+      <solid android:color="@color/base_accent"/>
+      <corners android:radius="16dp"/>
     </shape>
   </item>
   <item>

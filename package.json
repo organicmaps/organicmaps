@@ -5,11 +5,12 @@
   "description": "Tools and helpers",
   "scripts": {
     "format:docs": "prettier --write README.md 'docs/**/*.md' 'tools/python/**/*.md'",
-    "format:github": "prettier --write '.prettierrc.yaml' '.github/**/*.yaml' '.github/*.yml'"
+    "format:github": "prettier --write '.prettierrc.yaml' '.github/**/*.yaml' '.github/*.yml'",
+    "upgrade": "npx npm-check-updates -u && npm install"
   },
   "author": "Alexander Borsuk <me@alex.bio>",
   "license": "MIT",
   "devDependencies": {
-    "prettier": "^2.3.0"
+    "prettier": "^3.9.1"
   }
 }

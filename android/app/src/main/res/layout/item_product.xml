@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Button xmlns:android="http://schemas.android.com/apk/res/android"
+<Button
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/MwmWidget.Button.Accent"
     android:layout_width="match_parent"
@@ -8,4 +9,4 @@
     android:layout_marginEnd="@dimen/margin_half"
     android:layout_weight="1"
     tools:text="5 Eur/Month"
-    android:gravity="center" />
+    android:gravity="center"/>

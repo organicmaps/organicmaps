@@ -1,69 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/routing_types_header"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:layout_marginTop="@dimen/margin_half"
-  android:orientation="horizontal"
-  android:paddingStart="@dimen/altitude_chart_container_padding_left"
-  android:paddingEnd="@dimen/altitude_chart_container_padding_left">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/routing_types_header"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_half"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/altitude_chart_container_padding_left"
+    android:paddingEnd="@dimen/altitude_chart_container_padding_left">
 
   <FrameLayout
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_vertical"
-    android:layout_weight="1"
-    android:background="@drawable/routing_toolbar_pill_bg"
-    android:padding="@dimen/routing_toolbar_pill_padding">
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:layout_weight="1"
+      android:background="@drawable/routing_toolbar_pill_bg"
+      android:padding="@dimen/routing_toolbar_pill_padding">
 
     <RadioGroup
-      android:id="@+id/route_type"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal">
+        android:id="@+id/route_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
       <app.organicmaps.widget.RoutingToolbarButton
-        android:id="@+id/vehicle"
-        style="@style/MwmWidget.RoutingToolbarCell"
-        android:button="@drawable/ic_car"
-        android:checked="true" />
+          android:id="@+id/vehicle"
+          style="@style/MwmWidget.RoutingToolbarCell"
+          android:button="@drawable/ic_car"
+          android:checked="true"/>
 
       <app.organicmaps.widget.RoutingToolbarButton
-        android:id="@+id/pedestrian"
-        style="@style/MwmWidget.RoutingToolbarCell"
-        android:button="@drawable/ic_pedestrian" />
+          android:id="@+id/pedestrian"
+          style="@style/MwmWidget.RoutingToolbarCell"
+          android:button="@drawable/ic_pedestrian"/>
 
       <app.organicmaps.widget.RoutingToolbarButton
-        android:id="@+id/transit"
-        style="@style/MwmWidget.RoutingToolbarCell"
-        android:button="@drawable/ic_transit" />
+          android:id="@+id/transit"
+          style="@style/MwmWidget.RoutingToolbarCell"
+          android:button="@drawable/ic_transit"/>
 
       <app.organicmaps.widget.RoutingToolbarButton
-        android:id="@+id/bicycle"
-        style="@style/MwmWidget.RoutingToolbarCell"
-        android:button="@drawable/ic_bike" />
+          android:id="@+id/bicycle"
+          style="@style/MwmWidget.RoutingToolbarCell"
+          android:button="@drawable/ic_bike"/>
 
       <app.organicmaps.widget.RoutingToolbarButton
-        android:id="@+id/ruler"
-        style="@style/MwmWidget.RoutingToolbarCell"
-        android:button="@drawable/ic_ruler_route" />
+          android:id="@+id/ruler"
+          style="@style/MwmWidget.RoutingToolbarCell"
+          android:button="@drawable/ic_ruler_route"/>
     </RadioGroup>
 
   </FrameLayout>
 
   <ImageButton
-    android:id="@+id/back"
-    android:layout_width="24dp"
-    android:layout_height="24dp"
-    android:layout_gravity="center_vertical"
-    android:layout_marginStart="@dimen/margin_half_plus"
-    android:layout_marginEnd="@dimen/margin_quarter"
-    android:background="?attr/selectableItemBackgroundBorderless"
-    android:contentDescription="@string/close"
-    android:scaleType="centerInside"
-    app:srcCompat="@drawable/ic_close_rounded"
-    app:tint="?iconTint" />
+      android:id="@+id/back"
+      android:layout_width="24dp"
+      android:layout_height="24dp"
+      android:layout_gravity="center_vertical"
+      android:layout_marginStart="@dimen/margin_half_plus"
+      android:layout_marginEnd="@dimen/margin_quarter"
+      android:background="?attr/selectableItemBackgroundBorderless"
+      android:contentDescription="@string/close"
+      android:scaleType="centerInside"
+      app:srcCompat="@drawable/ic_close_rounded"
+      app:tint="?iconTint"/>
 
 </LinearLayout>

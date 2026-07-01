@@ -16,5 +16,7 @@ This file sets the default value back to false (i.e. no space reserved for icons
 See also the discussion at https://github.com/organicmaps/organicmaps/pull/1924
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
-  <bool name="config_materialPreferenceIconSpaceReserved" tools:ignore="MissingDefaultResource">false</bool>
+  <bool
+      name="config_materialPreferenceIconSpaceReserved"
+      tools:ignore="MissingDefaultResource">false</bool>
 </resources>

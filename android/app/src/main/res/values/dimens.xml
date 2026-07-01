@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <item name="match_parent" type="dimen">-1</item>
+  <item
+      name="match_parent"
+      type="dimen">-1</item>
   <dimen name="track_circle_size">40dp</dimen>
   <dimen name="select_color_circle_size">24dp</dimen>
   <dimen name="bookmark_icon_size">24dp</dimen>
@@ -53,8 +55,12 @@
   <dimen name="notes_fade_height">28dp</dimen>
   <dimen name="place_page_icon_background_size">56dp</dimen>
   <dimen name="place_page_icon_size">40dp</dimen>
-  <item name="place_page_bottom_sheet_width_ratio" type="fraction">0.0</item>
-  <item type="dimen" name="bottom_sheet_widths">-1px</item>
+  <item
+      name="place_page_bottom_sheet_width_ratio"
+      type="fraction">0.0</item>
+  <item
+      type="dimen"
+      name="bottom_sheet_widths">-1px</item>
   <dimen name="bottom_sheet_max_width">640dp</dimen>
 
   <dimen name="downloader_status_size">40dp</dimen>
@@ -109,7 +115,7 @@
   <dimen name="map_button_arrow_icon_size">34dp</dimen>
 
   <!-- routing layout -->
-    <dimen name="routing_transit_step_corner_radius">4dp</dimen>
+  <dimen name="routing_transit_step_corner_radius">4dp</dimen>
   <dimen name="routing_transit_step_min_height">20dp</dimen>
   <dimen name="routing_transit_setp_min_acceptable_with">104dp</dimen>
   <dimen name="track_recorder_status_top_margin">64dp</dimen>
@@ -180,7 +186,6 @@
   <!--   Routing Bottom Buttons -->
   <dimen name="routing_bottom_buttons_padding">10dp</dimen>
   <dimen name="routing_bottom_buttons_max_height">70dp</dimen>
-
 
   <!-- Placeholder-->
   <dimen name="placeholder_margin_top">20dp</dimen>

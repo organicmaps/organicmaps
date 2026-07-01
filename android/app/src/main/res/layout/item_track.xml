@@ -16,7 +16,7 @@
       android:background="?selectableItemBackgroundBorderless"
       tools:background="@color/base_red"
       tools:layout_width="@dimen/track_circle_size"
-      tools:layout_height="@dimen/track_circle_size" />
+      tools:layout_height="@dimen/track_circle_size"/>
   <LinearLayout
       android:layout_width="0dp"
       android:layout_weight="1"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:textAppearance="?fontBody1"
-        tools:text="@string/tracks_title" />
+        tools:text="@string/tracks_title"/>
     <TextView
         android:id="@+id/tv__bookmark_distance"
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
         android:singleLine="true"
         android:textColor="?android:textColorSecondary"
         android:textAppearance="?fontBody2"
-        tools:text="@string/by_distance" />
+        tools:text="@string/by_distance"/>
   </LinearLayout>
   <ImageView
       android:id="@+id/more"
@@ -49,5 +49,5 @@
       android:layout_gravity="center_vertical"
       app:srcCompat="@drawable/ic_more"
       app:tint="?secondary"
-      android:importantForAccessibility="no" />
+      android:importantForAccessibility="no"/>
 </LinearLayout>

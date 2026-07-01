@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:orientation="vertical">
-  <androidx.appcompat.widget.Toolbar
-    android:id="@+id/toolbar"
-    style="@style/MwmWidget.ToolbarStyle"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?colorPrimary"
-    android:gravity="end|center_vertical"
-    android:theme="@style/MwmWidget.ToolbarTheme"
-    tools:ignore="UnusedAttribute">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+  <androidx.appcompat.widget.Toolbar
+      android:id="@+id/toolbar"
+      style="@style/MwmWidget.ToolbarStyle"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="?colorPrimary"
+      android:gravity="end|center_vertical"
+      android:theme="@style/MwmWidget.ToolbarTheme"
+      tools:ignore="UnusedAttribute">
     <ImageView
-      android:id="@+id/logout"
-      android:layout_width="?actionBarSize"
-      android:layout_height="?actionBarSize"
-      android:layout_gravity="end|center_vertical"
-      android:background="?selectableItemBackgroundBorderless"
-      android:scaleType="center"
-      app:srcCompat="@drawable/ic_logout"
-      android:contentDescription="@string/logout" />
-    </androidx.appcompat.widget.Toolbar>
+        android:id="@+id/logout"
+        android:layout_width="?actionBarSize"
+        android:layout_height="?actionBarSize"
+        android:layout_gravity="end|center_vertical"
+        android:background="?selectableItemBackgroundBorderless"
+        android:scaleType="center"
+        app:srcCompat="@drawable/ic_logout"
+        android:contentDescription="@string/logout"/>
+  </androidx.appcompat.widget.Toolbar>
   <FrameLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
         android:layout_gravity="center"
         android:indeterminateTint="@color/text_light"
         android:visibility="invisible"
-        tools:visibility="visible" />
+        tools:visibility="visible"/>
     <LinearLayout
         android:id="@+id/block_user_info"
         android:layout_width="wrap_content"
@@ -49,7 +49,7 @@
           android:layout_width="100dp"
           android:layout_height="match_parent"
           android:importantForAccessibility="no"
-          app:srcCompat="@drawable/profile_generic" />
+          app:srcCompat="@drawable/profile_generic"/>
       <LinearLayout
           android:id="@+id/text"
           android:layout_marginStart="@dimen/margin_base"
@@ -67,7 +67,7 @@
             android:autoSizeMinTextSize="@dimen/text_size_body_3"
             android:autoSizeTextType="uniform"
             android:textSize="25sp"
-            tools:text="Long Username" />
+            tools:text="Long Username"/>
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/user_sent_edits"
             android:layout_width="match_parent"
@@ -75,14 +75,14 @@
             android:textColor="@color/text_light"
             android:textSize="35sp"
             android:textStyle="bold"
-            tools:text="2,000,000" />
+            tools:text="2,000,000"/>
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/verified_changes_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textSize="@dimen/text_size_body_1"
             android:text="@string/editor_profile_changes"
-            android:textColor="@color/white_primary" />
+            android:textColor="@color/white_primary"/>
       </LinearLayout>
     </LinearLayout>
   </FrameLayout>
@@ -108,7 +108,7 @@
         android:text="@string/editor_osm_history"
         android:textAppearance="@style/MwmTextAppearance.Body2"
         android:textColor="?colorAccent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/osm_notes"
@@ -124,7 +124,7 @@
         android:text="@string/editor_osm_notes"
         android:textAppearance="@style/MwmTextAppearance.Body2"
         android:textColor="?colorAccent"
-        app:layout_constraintTop_toBottomOf="@id/osm_history" />
+        app:layout_constraintTop_toBottomOf="@id/osm_history"/>
 
     <TextView
         android:id="@+id/about_osm"
@@ -143,6 +143,6 @@
         android:textColor="?colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/osm_notes"
-        app:layout_constraintVertical_bias="1" />
+        app:layout_constraintVertical_bias="1"/>
   </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

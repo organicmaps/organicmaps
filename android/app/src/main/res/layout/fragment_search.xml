@@ -1,104 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
-  xmlns:tools="http://schemas.android.com/tools"
-  style="@style/MwmWidget.Floating"
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:background="?windowBackgroundForced">
-  <include
-    android:id="@+id/pull_icon_container"
-    layout="@layout/bottom_sheet_handle" />
-  <LinearLayout
-    android:id="@+id/search_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MwmWidget.Floating"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-    <LinearLayout
-      android:id="@+id/app_bar"
+    android:background="?windowBackgroundForced">
+  <include
+      android:id="@+id/pull_icon_container"
+      layout="@layout/bottom_sheet_handle"/>
+  <LinearLayout
+      android:id="@+id/search_content"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:background="@android:color/transparent"
-      android:elevation="@dimen/dp_0"
+      android:layout_height="match_parent"
       android:orientation="vertical">
-        <include
+    <LinearLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:elevation="@dimen/dp_0"
+        android:orientation="vertical">
+      <include
           android:id="@+id/toolbar"
           layout="@layout/toolbar_with_search_no_elevation"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content" />
+          android:layout_height="wrap_content"/>
     </LinearLayout>
     <!-- Tabs -->
     <LinearLayout
-      android:id="@+id/tab_frame"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="vertical">
+        android:id="@+id/tab_frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
       <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs"
-        style="@style/MwmWidget.TabLayout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/tabs_height"
-        android:elevation="@dimen/appbar_elevation" />
+          android:id="@+id/tabs"
+          style="@style/MwmWidget.TabLayout"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/tabs_height"
+          android:elevation="@dimen/appbar_elevation"/>
       <View
-        android:id="@+id/tabs_divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?dividerHorizontal" />
+          android:id="@+id/tabs_divider"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="?dividerHorizontal"/>
     </LinearLayout>
     <FrameLayout
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="1">
-      <androidx.viewpager.widget.ViewPager
-        android:id="@+id/pages"
-        style="@style/MwmWidget.Floating"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="1">
+      <androidx.viewpager.widget.ViewPager
+          android:id="@+id/pages"
+          style="@style/MwmWidget.Floating"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"/>
 
       <!-- Results -->
       <FrameLayout
-        android:id="@+id/results_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"
-        android:focusable="true"
-        android:visibility="gone"
-        android:background="?windowBackgroundForced">
+          android:id="@+id/results_frame"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:clickable="true"
+          android:focusable="true"
+          android:visibility="gone"
+          android:background="?windowBackgroundForced">
 
         <androidx.recyclerview.widget.RecyclerView
-          android:id="@+id/recycler"
-          android:clipToPadding="false"
-          android:background="@android:color/transparent"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:scrollbars="vertical"
-          android:scrollbarSize="@dimen/scrollbar_size"
-          tools:listitem="@layout/item_search_result" />
+            android:id="@+id/recycler"
+            android:clipToPadding="false"
+            android:background="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:scrollbarSize="@dimen/scrollbar_size"
+            tools:listitem="@layout/item_search_result"/>
 
         <app.organicmaps.widget.PlaceholderView
-          android:id="@+id/placeholder"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:gravity="center_horizontal"
-          android:paddingStart="@dimen/margin_double_and_half"
-          android:paddingEnd="@dimen/margin_double_and_half"
-          android:paddingTop="@dimen/placeholder_margin_top"
-          android:visibility="gone"
-          tools:visibility="visible"
-          tools:background="#20FF0000" />
+            android:id="@+id/placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:paddingStart="@dimen/margin_double_and_half"
+            android:paddingEnd="@dimen/margin_double_and_half"
+            android:paddingTop="@dimen/placeholder_margin_top"
+            android:visibility="gone"
+            tools:visibility="visible"
+            tools:background="#20FF0000"/>
         <app.organicmaps.widget.SearchShimmerView
-          android:id="@+id/search_shimmer"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:visibility="gone" />
+            android:id="@+id/search_shimmer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
       </FrameLayout>
 
       <!-- Country download suggest fragment -->
       <FrameLayout
-        android:id="@+id/download_suggest_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+          android:id="@+id/download_suggest_frame"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"/>
     </FrameLayout>
   </LinearLayout>
 </FrameLayout>
-
