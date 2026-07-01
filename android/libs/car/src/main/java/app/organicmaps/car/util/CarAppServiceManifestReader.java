@@ -1,5 +1,6 @@
 package app.organicmaps.car.util;
 
+import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -30,6 +31,10 @@ public class CarAppServiceManifestReader
     return mCarAppService;
   }
 
+  // Querying our own package (intent.setPackage below) does not require a <queries>
+  // declaration, and the app manifest declares one anyway, so lint's package-visibility
+  // warning is a false positive here.
+  @SuppressLint("QueryPermissionsNeeded")
   @Nullable
   private static ComponentName readServiceClassFromManifest(@NonNull CarContext context)
   {
