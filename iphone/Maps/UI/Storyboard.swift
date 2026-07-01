@@ -1,7 +1,6 @@
 @objc(MWMStoryboard)
 enum Storyboard: Int {
   case main
-  case drivingOptions
   case carPlay
   case placePage
 }
@@ -11,7 +10,6 @@ extension UIStoryboard {
     let name: String
     switch id {
     case .main: name = "Main"
-    case .drivingOptions: name = "DrivingOptions"
     case .carPlay: name = "CarPlay"
     case .placePage: name = "PlacePage"
     }

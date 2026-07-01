@@ -34,8 +34,41 @@
 		676507601C10559800830BB3 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 451950391B7A3E070085DA05 /* patterns.txt */; };
 		676507611C10559B00830BB3 /* colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 452FCA3A1B6A3DF7007019AB /* colors.txt */; };
 		6B9978361C89A316003B8AA0 /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 6B9978341C89A316003B8AA0 /* editor.config */; };
+		A10000000000000000000001 /* SettingsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000006 /* SettingsBuilder.swift */; };
+		A10000000000000000000002 /* RootSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000007 /* RootSettingsInteractor.swift */; };
+		A10000000000000000000003 /* RootSettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000008 /* RootSettingsModels.swift */; };
+		A10000000000000000000004 /* RootSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000009 /* RootSettingsPresenter.swift */; };
+		A10000000000000000000005 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000000A /* SettingsViewController.swift */; };
+		A10000000000000000000015 /* SettingsTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000000D /* SettingsTextFieldCell.swift */; };
+		A10000000000000000000016 /* SettingsSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000000E /* SettingsSliderCell.swift */; };
+		A10000000000000000000018 /* MapTilesSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000010 /* MapTilesSettingsInteractor.swift */; };
+		A10000000000000000000019 /* MapTilesSettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000011 /* MapTilesSettingsModels.swift */; };
+		A1000000000000000000001A /* MapTilesSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000012 /* MapTilesSettingsPresenter.swift */; };
+		A10000000000000000000020 /* MobileInternetSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000024 /* MobileInternetSettingsInteractor.swift */; };
+		A10000000000000000000021 /* MobileInternetSettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000025 /* MobileInternetSettingsModels.swift */; };
+		A10000000000000000000022 /* MobileInternetSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000026 /* MobileInternetSettingsPresenter.swift */; };
+		A1000000000000000000002E /* RoutingOptionsSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000002A /* RoutingOptionsSettingsInteractor.swift */; };
+		A1000000000000000000002F /* RoutingOptionsSettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000002B /* RoutingOptionsSettingsModels.swift */; };
+		A10000000000000000000030 /* RoutingOptionsSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000002C /* RoutingOptionsSettingsPresenter.swift */; };
+		A10000000000000000000035 /* BookmarksTextPlacementSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000031 /* BookmarksTextPlacementSettingsInteractor.swift */; };
+		A10000000000000000000036 /* BookmarksTextPlacementSettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000032 /* BookmarksTextPlacementSettingsModels.swift */; };
+		A10000000000000000000037 /* BookmarksTextPlacementSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000033 /* BookmarksTextPlacementSettingsPresenter.swift */; };
+		A10000000000000000000038 /* AppearanceSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000003B /* AppearanceSettingsInteractor.swift */; };
+		A10000000000000000000039 /* AppearanceSettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000003C /* AppearanceSettingsModels.swift */; };
+		A1000000000000000000003A /* AppearanceSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000003D /* AppearanceSettingsPresenter.swift */; };
+		A1000000000000000000003F /* UnitsSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000042 /* UnitsSettingsInteractor.swift */; };
+		A10000000000000000000040 /* UnitsSettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000043 /* UnitsSettingsModels.swift */; };
+		A10000000000000000000041 /* UnitsSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000044 /* UnitsSettingsPresenter.swift */; };
+		A10000000000000000000045 /* PowerManagementSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000048 /* PowerManagementSettingsInteractor.swift */; };
+		A10000000000000000000046 /* PowerManagementSettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000049 /* PowerManagementSettingsModels.swift */; };
+		A10000000000000000000047 /* PowerManagementSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000004A /* PowerManagementSettingsPresenter.swift */; };
+		A1000000000000000000004D /* TTSSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000050 /* TTSSettingsInteractor.swift */; };
+		A1000000000000000000004E /* TTSSettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000051 /* TTSSettingsModels.swift */; };
+		A1000000000000000000004F /* TTSSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000052 /* TTSSettingsPresenter.swift */; };
+		A10000000000000000000054 /* TTSLanguageSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000057 /* TTSLanguageSettingsInteractor.swift */; };
+		A10000000000000000000055 /* TTSLanguageSettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000058 /* TTSLanguageSettingsModels.swift */; };
+		A10000000000000000000056 /* TTSLanguageSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000059 /* TTSLanguageSettingsPresenter.swift */; };
 		A630D1EA207CA95900976DEA /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = A630D1E8207CA95900976DEA /* Localizable.stringsdict */; };
-		AC0AE5A92FDF100500A44725 /* MWMMapTilesSettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AC0AE5A82FDF100500A44725 /* MWMMapTilesSettingsViewController.mm */; };
 		BB25B1A71FB32767007276FA /* transit_colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = BB25B1A51FB32767007276FA /* transit_colors.txt */; };
 		BB7626B61E85599C0031D71C /* icudt78l.dat in Resources */ = {isa = PBXBuildFile; fileRef = BB7626B41E8559980031D71C /* icudt78l.dat */; };
 		DB05F1CC1BF340DE002C974C /* drules_default.bin in Resources */ = {isa = PBXBuildFile; fileRef = DB05F1BC1BF340DE002C974C /* drules_default.bin */; };
@@ -342,20 +375,10 @@
 		ED82C60A2F90180300FA103D /* MWMSearchNoResults.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4CC2F90180300FA103D /* MWMSearchNoResults.m */; };
 		ED82C60B2F90180300FA103D /* SearchNoResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4CE2F90180300FA103D /* SearchNoResultsViewController.swift */; };
 		ED82C60C2F90180300FA103D /* ValueStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4CF2F90180300FA103D /* ValueStepperView.swift */; };
-		ED82C60D2F90180300FA103D /* SettingsTableViewDetailedSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4D12F90180300FA103D /* SettingsTableViewDetailedSwitchCell.swift */; };
 		ED82C60E2F90180300FA103D /* SettingsTableViewiCloudSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4D22F90180300FA103D /* SettingsTableViewiCloudSwitchCell.swift */; };
 		ED82C60F2F90180300FA103D /* SettingsTableViewLinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4D32F90180300FA103D /* SettingsTableViewLinkCell.swift */; };
 		ED82C6102F90180300FA103D /* SettingsTableViewSelectableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4D42F90180300FA103D /* SettingsTableViewSelectableCell.swift */; };
 		ED82C6112F90180300FA103D /* SettingsTableViewSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4D52F90180300FA103D /* SettingsTableViewSwitchCell.swift */; };
-		ED82C6122F90180300FA103D /* BookmarksTextPlacementController.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4D82F90180300FA103D /* BookmarksTextPlacementController.mm */; };
-		ED82C6132F90180300FA103D /* DrivingOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4DA2F90180300FA103D /* DrivingOptionsViewController.swift */; };
-		ED82C6142F90180300FA103D /* MWMMobileInternetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4DC2F90180300FA103D /* MWMMobileInternetViewController.m */; };
-		ED82C6152F90180300FA103D /* MWMNightModeController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4DE2F90180300FA103D /* MWMNightModeController.m */; };
-		ED82C6162F90180300FA103D /* MWMPowerManagmentViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4E02F90180300FA103D /* MWMPowerManagmentViewController.mm */; };
-		ED82C6172F90180300FA103D /* MWMSettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4E22F90180300FA103D /* MWMSettingsViewController.mm */; };
-		ED82C6182F90180300FA103D /* MWMTTSLanguageViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4E42F90180300FA103D /* MWMTTSLanguageViewController.mm */; };
-		ED82C6192F90180300FA103D /* MWMTTSSettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4E62F90180300FA103D /* MWMTTSSettingsViewController.mm */; };
-		ED82C61A2F90180300FA103D /* MWMUnitsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4E82F90180300FA103D /* MWMUnitsController.mm */; };
 		ED82C61B2F90180300FA103D /* Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4EB2F90180300FA103D /* Storyboard.swift */; };
 		ED82C61C2F90180300FA103D /* DefaultTranslationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4ED2F90180300FA103D /* DefaultTranslationController.swift */; };
 		ED82C61D2F90180300FA103D /* MWMAutoupdateController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2992F90180300FA103D /* MWMAutoupdateController.xib */; };
@@ -437,8 +460,6 @@
 		ED82C66A2F90180300FA103D /* MWMSearchCommonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4BE2F90180300FA103D /* MWMSearchCommonCell.xib */; };
 		ED82C66B2F90180300FA103D /* MWMSearchSuggestionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4C12F90180300FA103D /* MWMSearchSuggestionCell.xib */; };
 		ED82C66C2F90180300FA103D /* MWMSearchNoResults.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4CD2F90180300FA103D /* MWMSearchNoResults.xib */; };
-		ED82C66D2F90180300FA103D /* DrivingOptions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4D92F90180300FA103D /* DrivingOptions.storyboard */; };
-		ED82C66E2F90180300FA103D /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4E92F90180300FA103D /* Settings.storyboard */; };
 		ED82C66F2F90180300FA103D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4EF2F90180300FA103D /* LaunchScreen.storyboard */; };
 		ED82C6702F90180300FA103D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4F02F90180300FA103D /* Main.storyboard */; };
 		ED82C7402F90186300FA103D /* MapsAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6732F90186300FA103D /* MapsAppDelegate.mm */; };
@@ -497,6 +518,7 @@
 		ED82C7752F90186300FA103D /* SearchResult.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6E32F90186300FA103D /* SearchResult.mm */; };
 		ED82C7762F90186300FA103D /* MWMRoutingOptions.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6E82F90186300FA103D /* MWMRoutingOptions.mm */; };
 		ED82C7772F90186300FA103D /* MWMSettings.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6EA2F90186300FA103D /* MWMSettings.mm */; };
+		ED86256C2FEECAB70057BF82 /* MWMSettings+MapTiles.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED86256E2FEECAB70057BF82 /* MWMSettings+MapTiles.mm */; };
 		ED82C7782F90186300FA103D /* MWMStorage+UI.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6ED2F90186300FA103D /* MWMStorage+UI.m */; };
 		ED82C7792F90186300FA103D /* LocaleTranslator.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6F02F90186300FA103D /* LocaleTranslator.mm */; };
 		ED82C77A2F90186300FA103D /* MWMTextToSpeech.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6F22F90186300FA103D /* MWMTextToSpeech.mm */; };
@@ -594,7 +616,9 @@
 		ED82C8172F90186900FA103D /* UIKitCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7ED2F90186900FA103D /* UIKitCategories.m */; };
 		ED82C8202F90186900FA103D /* MWMKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C8192F90186900FA103D /* MWMKeyboard.m */; };
 		ED82C8212F90186900FA103D /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C81C2F90186900FA103D /* Common.swift */; };
+		ED86256B2FEECAB70057BF82 /* SettingsMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED86256A2FEECAB70057BF82 /* SettingsMessageCell.swift */; };
 		ED8A91E02D759B50009E063B /* LocalizableTypes.strings in Resources */ = {isa = PBXBuildFile; fileRef = ED8A91DE2D759B50009E063B /* LocalizableTypes.strings */; };
+		ED8F0F852FE962BF00780C0F /* SettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8F0F842FE962BF00780C0F /* SettingsModels.swift */; };
 		ED9DDF9D2D6F6F7900645BC8 /* TrackRecordingManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9DDF9B2D6F6DA300645BC8 /* TrackRecordingManagerTests.swift */; };
 		EDAA00012F91000000FA103D /* SearchCategoryIconRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAA00022F91000000FA103D /* SearchCategoryIconRenderer.swift */; };
 		EDBAB6F52E980421007962B5 /* GeoNavigationToOMURLConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBAB6F42E980421007962B5 /* GeoNavigationToOMURLConverterTests.swift */; };
@@ -815,6 +839,40 @@
 		8D1107310486CEB800E47090 /* OMaps.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OMaps.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		978D4A30199A11E600D72CA7 /* faq.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = faq.html; path = ../../data/faq.html; sourceTree = "<group>"; };
 		97A5967E19B9CD47007A963F /* copyright.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = copyright.html; path = ../../data/copyright.html; sourceTree = "<group>"; };
+		A10000000000000000000006 /* SettingsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBuilder.swift; sourceTree = "<group>"; };
+		A10000000000000000000007 /* RootSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootSettingsInteractor.swift; sourceTree = "<group>"; };
+		A10000000000000000000008 /* RootSettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootSettingsModels.swift; sourceTree = "<group>"; };
+		A10000000000000000000009 /* RootSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootSettingsPresenter.swift; sourceTree = "<group>"; };
+		A1000000000000000000000A /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		A1000000000000000000000D /* SettingsTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTextFieldCell.swift; sourceTree = "<group>"; };
+		A1000000000000000000000E /* SettingsSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSliderCell.swift; sourceTree = "<group>"; };
+		A10000000000000000000010 /* MapTilesSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTilesSettingsInteractor.swift; sourceTree = "<group>"; };
+		A10000000000000000000011 /* MapTilesSettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTilesSettingsModels.swift; sourceTree = "<group>"; };
+		A10000000000000000000012 /* MapTilesSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTilesSettingsPresenter.swift; sourceTree = "<group>"; };
+		A10000000000000000000024 /* MobileInternetSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileInternetSettingsInteractor.swift; sourceTree = "<group>"; };
+		A10000000000000000000025 /* MobileInternetSettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileInternetSettingsModels.swift; sourceTree = "<group>"; };
+		A10000000000000000000026 /* MobileInternetSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileInternetSettingsPresenter.swift; sourceTree = "<group>"; };
+		A1000000000000000000002A /* RoutingOptionsSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutingOptionsSettingsInteractor.swift; sourceTree = "<group>"; };
+		A1000000000000000000002B /* RoutingOptionsSettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutingOptionsSettingsModels.swift; sourceTree = "<group>"; };
+		A1000000000000000000002C /* RoutingOptionsSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutingOptionsSettingsPresenter.swift; sourceTree = "<group>"; };
+		A10000000000000000000031 /* BookmarksTextPlacementSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksTextPlacementSettingsInteractor.swift; sourceTree = "<group>"; };
+		A10000000000000000000032 /* BookmarksTextPlacementSettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksTextPlacementSettingsModels.swift; sourceTree = "<group>"; };
+		A10000000000000000000033 /* BookmarksTextPlacementSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksTextPlacementSettingsPresenter.swift; sourceTree = "<group>"; };
+		A1000000000000000000003B /* AppearanceSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsInteractor.swift; sourceTree = "<group>"; };
+		A1000000000000000000003C /* AppearanceSettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsModels.swift; sourceTree = "<group>"; };
+		A1000000000000000000003D /* AppearanceSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsPresenter.swift; sourceTree = "<group>"; };
+		A10000000000000000000042 /* UnitsSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitsSettingsInteractor.swift; sourceTree = "<group>"; };
+		A10000000000000000000043 /* UnitsSettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitsSettingsModels.swift; sourceTree = "<group>"; };
+		A10000000000000000000044 /* UnitsSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitsSettingsPresenter.swift; sourceTree = "<group>"; };
+		A10000000000000000000048 /* PowerManagementSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerManagementSettingsInteractor.swift; sourceTree = "<group>"; };
+		A10000000000000000000049 /* PowerManagementSettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerManagementSettingsModels.swift; sourceTree = "<group>"; };
+		A1000000000000000000004A /* PowerManagementSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerManagementSettingsPresenter.swift; sourceTree = "<group>"; };
+		A10000000000000000000050 /* TTSSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSSettingsInteractor.swift; sourceTree = "<group>"; };
+		A10000000000000000000051 /* TTSSettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSSettingsModels.swift; sourceTree = "<group>"; };
+		A10000000000000000000052 /* TTSSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSSettingsPresenter.swift; sourceTree = "<group>"; };
+		A10000000000000000000057 /* TTSLanguageSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSLanguageSettingsInteractor.swift; sourceTree = "<group>"; };
+		A10000000000000000000058 /* TTSLanguageSettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSLanguageSettingsModels.swift; sourceTree = "<group>"; };
+		A10000000000000000000059 /* TTSLanguageSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSLanguageSettingsPresenter.swift; sourceTree = "<group>"; };
 		A630D1E9207CA95900976DEA /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ar; path = ar.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		A630D1EB207CA96700976DEA /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = cs; path = cs.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		A630D1EC207CA96D00976DEA /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = da; path = da.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -844,8 +902,6 @@
 		A630D204207CAA3400976DEA /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = vi; path = vi.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		A630D205207CAA3A00976DEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		A630D206207CAA5800976DEA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
-		AC0AE5A72FDF100500A44725 /* MWMMapTilesSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMapTilesSettingsViewController.h; sourceTree = "<group>"; };
-		AC0AE5A82FDF100500A44725 /* MWMMapTilesSettingsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapTilesSettingsViewController.mm; sourceTree = "<group>"; };
 		AC4209FF2D79BCEC00A64AA9 /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = af; path = af.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AC420A002D79BCED00A64AA9 /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = af; path = af.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AC420A012D79BCED00A64AA9 /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = af; path = af.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -1360,30 +1416,10 @@
 		ED82C4CD2F90180300FA103D /* MWMSearchNoResults.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMSearchNoResults.xib; sourceTree = "<group>"; };
 		ED82C4CE2F90180300FA103D /* SearchNoResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNoResultsViewController.swift; sourceTree = "<group>"; };
 		ED82C4CF2F90180300FA103D /* ValueStepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueStepperView.swift; sourceTree = "<group>"; };
-		ED82C4D12F90180300FA103D /* SettingsTableViewDetailedSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewDetailedSwitchCell.swift; sourceTree = "<group>"; };
 		ED82C4D22F90180300FA103D /* SettingsTableViewiCloudSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewiCloudSwitchCell.swift; sourceTree = "<group>"; };
 		ED82C4D32F90180300FA103D /* SettingsTableViewLinkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewLinkCell.swift; sourceTree = "<group>"; };
 		ED82C4D42F90180300FA103D /* SettingsTableViewSelectableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewSelectableCell.swift; sourceTree = "<group>"; };
 		ED82C4D52F90180300FA103D /* SettingsTableViewSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewSwitchCell.swift; sourceTree = "<group>"; };
-		ED82C4D72F90180300FA103D /* BookmarksTextPlacementController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookmarksTextPlacementController.h; sourceTree = "<group>"; };
-		ED82C4D82F90180300FA103D /* BookmarksTextPlacementController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BookmarksTextPlacementController.mm; sourceTree = "<group>"; };
-		ED82C4D92F90180300FA103D /* DrivingOptions.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DrivingOptions.storyboard; sourceTree = "<group>"; };
-		ED82C4DA2F90180300FA103D /* DrivingOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrivingOptionsViewController.swift; sourceTree = "<group>"; };
-		ED82C4DB2F90180300FA103D /* MWMMobileInternetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMobileInternetViewController.h; sourceTree = "<group>"; };
-		ED82C4DC2F90180300FA103D /* MWMMobileInternetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMMobileInternetViewController.m; sourceTree = "<group>"; };
-		ED82C4DD2F90180300FA103D /* MWMNightModeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMNightModeController.h; sourceTree = "<group>"; };
-		ED82C4DE2F90180300FA103D /* MWMNightModeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMNightModeController.m; sourceTree = "<group>"; };
-		ED82C4DF2F90180300FA103D /* MWMPowerManagmentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPowerManagmentViewController.h; sourceTree = "<group>"; };
-		ED82C4E02F90180300FA103D /* MWMPowerManagmentViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPowerManagmentViewController.mm; sourceTree = "<group>"; };
-		ED82C4E12F90180300FA103D /* MWMSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSettingsViewController.h; sourceTree = "<group>"; };
-		ED82C4E22F90180300FA103D /* MWMSettingsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSettingsViewController.mm; sourceTree = "<group>"; };
-		ED82C4E32F90180300FA103D /* MWMTTSLanguageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMTTSLanguageViewController.h; sourceTree = "<group>"; };
-		ED82C4E42F90180300FA103D /* MWMTTSLanguageViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTTSLanguageViewController.mm; sourceTree = "<group>"; };
-		ED82C4E52F90180300FA103D /* MWMTTSSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMTTSSettingsViewController.h; sourceTree = "<group>"; };
-		ED82C4E62F90180300FA103D /* MWMTTSSettingsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTTSSettingsViewController.mm; sourceTree = "<group>"; };
-		ED82C4E72F90180300FA103D /* MWMUnitsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMUnitsController.h; sourceTree = "<group>"; };
-		ED82C4E82F90180300FA103D /* MWMUnitsController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMUnitsController.mm; sourceTree = "<group>"; };
-		ED82C4E92F90180300FA103D /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		ED82C4EB2F90180300FA103D /* Storyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboard.swift; sourceTree = "<group>"; };
 		ED82C4ED2F90180300FA103D /* DefaultTranslationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTranslationController.swift; sourceTree = "<group>"; };
 		ED82C4EF2F90180300FA103D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -1487,6 +1523,8 @@
 		ED82C6E82F90186300FA103D /* MWMRoutingOptions.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRoutingOptions.mm; sourceTree = "<group>"; };
 		ED82C6E92F90186300FA103D /* MWMSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSettings.h; sourceTree = "<group>"; };
 		ED82C6EA2F90186300FA103D /* MWMSettings.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSettings.mm; sourceTree = "<group>"; };
+		ED86256D2FEECAB70057BF82 /* MWMSettings+MapTiles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMSettings+MapTiles.h"; sourceTree = "<group>"; };
+		ED86256E2FEECAB70057BF82 /* MWMSettings+MapTiles.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "MWMSettings+MapTiles.mm"; sourceTree = "<group>"; };
 		ED82C6EC2F90186300FA103D /* MWMStorage+UI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMStorage+UI.h"; sourceTree = "<group>"; };
 		ED82C6ED2F90186300FA103D /* MWMStorage+UI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MWMStorage+UI.m"; sourceTree = "<group>"; };
 		ED82C6EF2F90186300FA103D /* LocaleTranslator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocaleTranslator.h; sourceTree = "<group>"; };
@@ -1616,6 +1654,7 @@
 		ED82C81C2F90186900FA103D /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		ED82C81D2F90186900FA103D /* MWMConsts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMConsts.h; sourceTree = "<group>"; };
 		ED82C81E2F90186900FA103D /* MWMMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMacros.h; sourceTree = "<group>"; };
+		ED86256A2FEECAB70057BF82 /* SettingsMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMessageCell.swift; sourceTree = "<group>"; };
 		ED8A91DF2D759B50009E063B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
 		ED8A91E32D759B59009E063B /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
 		ED8A91E42D759B61009E063B /* az */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = az; path = az.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
@@ -1660,6 +1699,7 @@
 		ED8A920B2D759BA9009E063B /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
 		ED8A920C2D759BA9009E063B /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
 		ED8A920D2D759BAA009E063B /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
+		ED8F0F842FE962BF00780C0F /* SettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModels.swift; sourceTree = "<group>"; };
 		ED9DDF9B2D6F6DA300645BC8 /* TrackRecordingManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingManagerTests.swift; sourceTree = "<group>"; };
 		EDAA00022F91000000FA103D /* SearchCategoryIconRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCategoryIconRenderer.swift; sourceTree = "<group>"; };
 		EDBAB6F42E980421007962B5 /* GeoNavigationToOMURLConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoNavigationToOMURLConverterTests.swift; sourceTree = "<group>"; };
@@ -1962,6 +2002,89 @@
 			path = CarPlay;
 			sourceTree = "<group>";
 		};
+		A1000000000000000000001C /* MapTiles */ = {
+			isa = PBXGroup;
+			children = (
+				A10000000000000000000011 /* MapTilesSettingsModels.swift */,
+				A10000000000000000000010 /* MapTilesSettingsInteractor.swift */,
+				A10000000000000000000012 /* MapTilesSettingsPresenter.swift */,
+			);
+			path = MapTiles;
+			sourceTree = "<group>";
+		};
+		A10000000000000000000027 /* MobileInternet */ = {
+			isa = PBXGroup;
+			children = (
+				A10000000000000000000025 /* MobileInternetSettingsModels.swift */,
+				A10000000000000000000024 /* MobileInternetSettingsInteractor.swift */,
+				A10000000000000000000026 /* MobileInternetSettingsPresenter.swift */,
+			);
+			path = MobileInternet;
+			sourceTree = "<group>";
+		};
+		A1000000000000000000002D /* DrivingOptions */ = {
+			isa = PBXGroup;
+			children = (
+				A1000000000000000000002B /* RoutingOptionsSettingsModels.swift */,
+				A1000000000000000000002A /* RoutingOptionsSettingsInteractor.swift */,
+				A1000000000000000000002C /* RoutingOptionsSettingsPresenter.swift */,
+			);
+			path = DrivingOptions;
+			sourceTree = "<group>";
+		};
+		A10000000000000000000034 /* BookmarksTextPlacement */ = {
+			isa = PBXGroup;
+			children = (
+				A10000000000000000000032 /* BookmarksTextPlacementSettingsModels.swift */,
+				A10000000000000000000031 /* BookmarksTextPlacementSettingsInteractor.swift */,
+				A10000000000000000000033 /* BookmarksTextPlacementSettingsPresenter.swift */,
+			);
+			path = BookmarksTextPlacement;
+			sourceTree = "<group>";
+		};
+		A1000000000000000000003E /* Appearance */ = {
+			isa = PBXGroup;
+			children = (
+				A1000000000000000000003C /* AppearanceSettingsModels.swift */,
+				A1000000000000000000003B /* AppearanceSettingsInteractor.swift */,
+				A1000000000000000000003D /* AppearanceSettingsPresenter.swift */,
+			);
+			path = Appearance;
+			sourceTree = "<group>";
+		};
+		A1000000000000000000004B /* Units */ = {
+			isa = PBXGroup;
+			children = (
+				A10000000000000000000043 /* UnitsSettingsModels.swift */,
+				A10000000000000000000042 /* UnitsSettingsInteractor.swift */,
+				A10000000000000000000044 /* UnitsSettingsPresenter.swift */,
+			);
+			path = Units;
+			sourceTree = "<group>";
+		};
+		A1000000000000000000004C /* PowerManagement */ = {
+			isa = PBXGroup;
+			children = (
+				A10000000000000000000049 /* PowerManagementSettingsModels.swift */,
+				A10000000000000000000048 /* PowerManagementSettingsInteractor.swift */,
+				A1000000000000000000004A /* PowerManagementSettingsPresenter.swift */,
+			);
+			path = PowerManagement;
+			sourceTree = "<group>";
+		};
+		A10000000000000000000053 /* TextToSpeech */ = {
+			isa = PBXGroup;
+			children = (
+				A10000000000000000000051 /* TTSSettingsModels.swift */,
+				A10000000000000000000050 /* TTSSettingsInteractor.swift */,
+				A10000000000000000000052 /* TTSSettingsPresenter.swift */,
+				A10000000000000000000058 /* TTSLanguageSettingsModels.swift */,
+				A10000000000000000000057 /* TTSLanguageSettingsInteractor.swift */,
+				A10000000000000000000059 /* TTSLanguageSettingsPresenter.swift */,
+			);
+			path = TextToSpeech;
+			sourceTree = "<group>";
+		};
 		ED0C360B2FE3EB6900CAF853 /* PlacePageUserDescriptionWebView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1969,6 +2092,16 @@
 				ED0C360E2FE3EC2C00CAF853 /* UserDescriptionHTMLDocumentBuilder.swift */,
 			);
 			path = PlacePageUserDescriptionWebView;
+			sourceTree = "<group>";
+		};
+		ED0C36262FE5A37900CAF853 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				A10000000000000000000008 /* RootSettingsModels.swift */,
+				A10000000000000000000007 /* RootSettingsInteractor.swift */,
+				A10000000000000000000009 /* RootSettingsPresenter.swift */,
+			);
+			path = Root;
 			sourceTree = "<group>";
 		};
 		ED1ADA312BC6B19E0029209F /* Tests */ = {
@@ -3300,11 +3433,13 @@
 		ED82C4D62F90180300FA103D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				ED82C4D12F90180300FA103D /* SettingsTableViewDetailedSwitchCell.swift */,
+				ED86256A2FEECAB70057BF82 /* SettingsMessageCell.swift */,
 				ED82C4D22F90180300FA103D /* SettingsTableViewiCloudSwitchCell.swift */,
 				ED82C4D32F90180300FA103D /* SettingsTableViewLinkCell.swift */,
 				ED82C4D42F90180300FA103D /* SettingsTableViewSelectableCell.swift */,
 				ED82C4D52F90180300FA103D /* SettingsTableViewSwitchCell.swift */,
+				A1000000000000000000000E /* SettingsSliderCell.swift */,
+				A1000000000000000000000D /* SettingsTextFieldCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -3313,27 +3448,18 @@
 			isa = PBXGroup;
 			children = (
 				ED82C4D62F90180300FA103D /* Cells */,
-				ED82C4D72F90180300FA103D /* BookmarksTextPlacementController.h */,
-				ED82C4D82F90180300FA103D /* BookmarksTextPlacementController.mm */,
-				ED82C4D92F90180300FA103D /* DrivingOptions.storyboard */,
-				ED82C4DA2F90180300FA103D /* DrivingOptionsViewController.swift */,
-				AC0AE5A72FDF100500A44725 /* MWMMapTilesSettingsViewController.h */,
-				AC0AE5A82FDF100500A44725 /* MWMMapTilesSettingsViewController.mm */,
-				ED82C4DB2F90180300FA103D /* MWMMobileInternetViewController.h */,
-				ED82C4DC2F90180300FA103D /* MWMMobileInternetViewController.m */,
-				ED82C4DD2F90180300FA103D /* MWMNightModeController.h */,
-				ED82C4DE2F90180300FA103D /* MWMNightModeController.m */,
-				ED82C4DF2F90180300FA103D /* MWMPowerManagmentViewController.h */,
-				ED82C4E02F90180300FA103D /* MWMPowerManagmentViewController.mm */,
-				ED82C4E12F90180300FA103D /* MWMSettingsViewController.h */,
-				ED82C4E22F90180300FA103D /* MWMSettingsViewController.mm */,
-				ED82C4E32F90180300FA103D /* MWMTTSLanguageViewController.h */,
-				ED82C4E42F90180300FA103D /* MWMTTSLanguageViewController.mm */,
-				ED82C4E52F90180300FA103D /* MWMTTSSettingsViewController.h */,
-				ED82C4E62F90180300FA103D /* MWMTTSSettingsViewController.mm */,
-				ED82C4E72F90180300FA103D /* MWMUnitsController.h */,
-				ED82C4E82F90180300FA103D /* MWMUnitsController.mm */,
-				ED82C4E92F90180300FA103D /* Settings.storyboard */,
+				A10000000000000000000006 /* SettingsBuilder.swift */,
+				ED8F0F842FE962BF00780C0F /* SettingsModels.swift */,
+				A1000000000000000000000A /* SettingsViewController.swift */,
+				ED0C36262FE5A37900CAF853 /* Root */,
+				A1000000000000000000001C /* MapTiles */,
+				A10000000000000000000027 /* MobileInternet */,
+				A1000000000000000000002D /* DrivingOptions */,
+				A10000000000000000000034 /* BookmarksTextPlacement */,
+				A1000000000000000000003E /* Appearance */,
+				A1000000000000000000004B /* Units */,
+				A1000000000000000000004C /* PowerManagement */,
+				A10000000000000000000053 /* TextToSpeech */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -3639,6 +3765,8 @@
 				ED82C6E82F90186300FA103D /* MWMRoutingOptions.mm */,
 				ED82C6E92F90186300FA103D /* MWMSettings.h */,
 				ED82C6EA2F90186300FA103D /* MWMSettings.mm */,
+				ED86256D2FEECAB70057BF82 /* MWMSettings+MapTiles.h */,
+				ED86256E2FEECAB70057BF82 /* MWMSettings+MapTiles.mm */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -4317,8 +4445,6 @@
 				ED82C66A2F90180300FA103D /* MWMSearchCommonCell.xib in Resources */,
 				ED82C66B2F90180300FA103D /* MWMSearchSuggestionCell.xib in Resources */,
 				ED82C66C2F90180300FA103D /* MWMSearchNoResults.xib in Resources */,
-				ED82C66D2F90180300FA103D /* DrivingOptions.storyboard in Resources */,
-				ED82C66E2F90180300FA103D /* Settings.storyboard in Resources */,
 				ED82C66F2F90180300FA103D /* LaunchScreen.storyboard in Resources */,
 				ED82C6702F90180300FA103D /* Main.storyboard in Resources */,
 				6B9978361C89A316003B8AA0 /* editor.config in Resources */,
@@ -4402,7 +4528,6 @@
 				ED82C5102F90180300FA103D /* RecentlyDeletedCategoriesViewModel.swift in Sources */,
 				ED82C5112F90180300FA103D /* RecentlyDeletedTableViewCell.swift in Sources */,
 				ED82C5122F90180300FA103D /* BMCModels.swift in Sources */,
-				AC0AE5A92FDF100500A44725 /* MWMMapTilesSettingsViewController.mm in Sources */,
 				ED82C5132F90180300FA103D /* BookmarkGroup+PlacesCountTitle.swift in Sources */,
 				ED82C5142F90180300FA103D /* BookmarksCoordinator.swift in Sources */,
 				ED82C5152F90180300FA103D /* BottomMenuItemCell.swift in Sources */,
@@ -4578,6 +4703,7 @@
 				ED82C7752F90186300FA103D /* SearchResult.mm in Sources */,
 				ED82C7762F90186300FA103D /* MWMRoutingOptions.mm in Sources */,
 				ED82C7772F90186300FA103D /* MWMSettings.mm in Sources */,
+				ED86256C2FEECAB70057BF82 /* MWMSettings+MapTiles.mm in Sources */,
 				ED82C7782F90186300FA103D /* MWMStorage+UI.m in Sources */,
 				ED82C7792F90186300FA103D /* LocaleTranslator.mm in Sources */,
 				ED82C77A2F90186300FA103D /* MWMTextToSpeech.mm in Sources */,
@@ -4797,6 +4923,7 @@
 				ED82C80C2F90186900FA103D /* UIView+SetHiddenWithAnimation.swift in Sources */,
 				ED82C80D2F90186900FA103D /* UIView+SetStyle.swift in Sources */,
 				ED82C80E2F90186900FA103D /* UIViewController+alternative.swift in Sources */,
+				ED86256B2FEECAB70057BF82 /* SettingsMessageCell.swift in Sources */,
 				ED82C80F2F90186900FA103D /* UIViewController+Hierarchy.swift in Sources */,
 				ED82C8102F90186900FA103D /* UIViewController+Navigation.m in Sources */,
 				ED82C8112F90186900FA103D /* UIWindowScene+KeyWindow.swift in Sources */,
@@ -4808,20 +4935,45 @@
 				ED82C8172F90186900FA103D /* UIKitCategories.m in Sources */,
 				ED82C60B2F90180300FA103D /* SearchNoResultsViewController.swift in Sources */,
 				ED82C60C2F90180300FA103D /* ValueStepperView.swift in Sources */,
-				ED82C60D2F90180300FA103D /* SettingsTableViewDetailedSwitchCell.swift in Sources */,
 				ED82C60E2F90180300FA103D /* SettingsTableViewiCloudSwitchCell.swift in Sources */,
 				ED82C60F2F90180300FA103D /* SettingsTableViewLinkCell.swift in Sources */,
 				ED82C6102F90180300FA103D /* SettingsTableViewSelectableCell.swift in Sources */,
 				ED82C6112F90180300FA103D /* SettingsTableViewSwitchCell.swift in Sources */,
-				ED82C6122F90180300FA103D /* BookmarksTextPlacementController.mm in Sources */,
-				ED82C6132F90180300FA103D /* DrivingOptionsViewController.swift in Sources */,
-				ED82C6142F90180300FA103D /* MWMMobileInternetViewController.m in Sources */,
-				ED82C6152F90180300FA103D /* MWMNightModeController.m in Sources */,
-				ED82C6162F90180300FA103D /* MWMPowerManagmentViewController.mm in Sources */,
-				ED82C6172F90180300FA103D /* MWMSettingsViewController.mm in Sources */,
-				ED82C6182F90180300FA103D /* MWMTTSLanguageViewController.mm in Sources */,
-				ED82C6192F90180300FA103D /* MWMTTSSettingsViewController.mm in Sources */,
-				ED82C61A2F90180300FA103D /* MWMUnitsController.mm in Sources */,
+				A10000000000000000000001 /* SettingsBuilder.swift in Sources */,
+				A10000000000000000000002 /* RootSettingsInteractor.swift in Sources */,
+				A10000000000000000000003 /* RootSettingsModels.swift in Sources */,
+				A10000000000000000000004 /* RootSettingsPresenter.swift in Sources */,
+				A10000000000000000000005 /* SettingsViewController.swift in Sources */,
+				A10000000000000000000015 /* SettingsTextFieldCell.swift in Sources */,
+				A10000000000000000000016 /* SettingsSliderCell.swift in Sources */,
+				A10000000000000000000018 /* MapTilesSettingsInteractor.swift in Sources */,
+				A10000000000000000000019 /* MapTilesSettingsModels.swift in Sources */,
+				A1000000000000000000001A /* MapTilesSettingsPresenter.swift in Sources */,
+				A10000000000000000000020 /* MobileInternetSettingsInteractor.swift in Sources */,
+				A10000000000000000000021 /* MobileInternetSettingsModels.swift in Sources */,
+				A10000000000000000000022 /* MobileInternetSettingsPresenter.swift in Sources */,
+				A1000000000000000000002E /* RoutingOptionsSettingsInteractor.swift in Sources */,
+				A1000000000000000000002F /* RoutingOptionsSettingsModels.swift in Sources */,
+				A10000000000000000000030 /* RoutingOptionsSettingsPresenter.swift in Sources */,
+				A10000000000000000000035 /* BookmarksTextPlacementSettingsInteractor.swift in Sources */,
+				A10000000000000000000036 /* BookmarksTextPlacementSettingsModels.swift in Sources */,
+				A10000000000000000000037 /* BookmarksTextPlacementSettingsPresenter.swift in Sources */,
+				A10000000000000000000038 /* AppearanceSettingsInteractor.swift in Sources */,
+				A10000000000000000000039 /* AppearanceSettingsModels.swift in Sources */,
+				A1000000000000000000003A /* AppearanceSettingsPresenter.swift in Sources */,
+				A1000000000000000000003F /* UnitsSettingsInteractor.swift in Sources */,
+				A10000000000000000000040 /* UnitsSettingsModels.swift in Sources */,
+				A10000000000000000000041 /* UnitsSettingsPresenter.swift in Sources */,
+				A10000000000000000000045 /* PowerManagementSettingsInteractor.swift in Sources */,
+				A10000000000000000000046 /* PowerManagementSettingsModels.swift in Sources */,
+				A10000000000000000000047 /* PowerManagementSettingsPresenter.swift in Sources */,
+				A1000000000000000000004D /* TTSSettingsInteractor.swift in Sources */,
+				A1000000000000000000004E /* TTSSettingsModels.swift in Sources */,
+				A1000000000000000000004F /* TTSSettingsPresenter.swift in Sources */,
+				A10000000000000000000054 /* TTSLanguageSettingsInteractor.swift in Sources */,
+				A10000000000000000000055 /* TTSLanguageSettingsModels.swift in Sources */,
+				A10000000000000000000056 /* TTSLanguageSettingsPresenter.swift in Sources */,
+				ED8F0F852FE962BF00780C0F /* SettingsModels.swift in Sources */,
 				ED82C61B2F90180300FA103D /* Storyboard.swift in Sources */,
 				ED82C61C2F90180300FA103D /* DefaultTranslationController.swift in Sources */,
 			);

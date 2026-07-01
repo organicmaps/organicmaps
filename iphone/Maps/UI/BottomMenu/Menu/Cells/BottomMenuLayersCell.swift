@@ -93,8 +93,8 @@ class BottomMenuLayersCell: UITableViewCell {
   private func updateSatelliteButton() {
     // The Satellite toggle is a quick on/off for an already-configured source; configuration lives in
     // Settings, so only show the button once a server URL is set.
-    satelliteButton.isHidden = FrameworkHelper.backgroundTilesURL().isEmpty
-    satelliteButton.setLayerEnabled(FrameworkHelper.isBackgroundTilesEnabled())
+    satelliteButton.isHidden = Settings.backgroundTilesURL().isEmpty
+    satelliteButton.setLayerEnabled(Settings.backgroundTilesEnabled())
   }
 
   @IBAction func onCloseButtonPressed(_: Any) {
@@ -133,7 +133,7 @@ class BottomMenuLayersCell: UITableViewCell {
   }
 
   @IBAction func onSatelliteButton(_: Any) {
-    FrameworkHelper.setBackgroundTilesEnabled(!FrameworkHelper.isBackgroundTilesEnabled())
+    Settings.setBackgroundTilesEnabled(!Settings.backgroundTilesEnabled())
     updateSatelliteButton()
   }
 

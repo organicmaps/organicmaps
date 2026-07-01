@@ -2,7 +2,7 @@
 #import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMCircularProgress.h"
-#import "MWMSettingsViewController.h"
+#import "SwiftBridge.h"
 #import "UITextField+RuntimeAttributes.h"
 
 #include "base/logging.hpp"
@@ -120,7 +120,7 @@ using namespace osm;
           UIViewController * svc = nil;
           for (UIViewController * vc in self.navigationController.viewControllers)
           {
-            if ([vc isKindOfClass:[MWMSettingsViewController class]])
+            if ([vc isKindOfClass:[SettingsViewController class]])
             {
               svc = vc;
               break;

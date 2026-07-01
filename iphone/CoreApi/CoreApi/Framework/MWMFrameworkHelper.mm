@@ -328,43 +328,4 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   GetFramework().DidShowRateUsRequest();
 }
 
-+ (void)setBackgroundTiles:(BOOL)enabled
-                       url:(NSString *)url
-               cacheSizeMB:(int)cacheSizeMB
-            areaOpacityPct:(int)areaOpacityPct
-{
-  GetFramework().SetBackgroundTiles(enabled, url.UTF8String, static_cast<uint32_t>(cacheSizeMB),
-                                    static_cast<uint32_t>(areaOpacityPct));
-}
-
-+ (void)setBackgroundTilesEnabled:(BOOL)enabled
-{
-  GetFramework().SetBackgroundTilesEnabled(enabled);
-}
-
-+ (BOOL)isBackgroundTilesEnabled
-{
-  return GetFramework().IsBackgroundTilesEnabled();
-}
-
-+ (int)backgroundTilesAreaOpacityPct
-{
-  return static_cast<int>(GetFramework().GetBackgroundTilesAreaOpacity());
-}
-
-+ (NSString *)backgroundTilesURL
-{
-  return @(GetFramework().GetBackgroundTilesURL().c_str());
-}
-
-+ (int)backgroundTilesCacheSizeMB
-{
-  return static_cast<int>(GetFramework().GetBackgroundTilesCacheSize());
-}
-
-+ (BOOL)isWellFormedBackgroundTilesURL:(NSString *)url
-{
-  return Framework::IsWellFormedBackgroundTilesURL(url.UTF8String);
-}
-
 @end
