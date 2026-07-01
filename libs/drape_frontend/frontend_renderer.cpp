@@ -1806,6 +1806,14 @@ void FrontendRenderer::RenderFrame()
   /// @todo Put ResolveZoomLevel under modelViewChanged after testing.
   ASSERT(!zoomChanged || modelViewChanged, ());
 
+  // Skip starting a new GPU frame if rendering is being disabled (e.g. the app is going to the
+  // background). SetRenderingEnabled(false) sets the flag on the UI thread and then blocks until this
+  // render thread reaches CheckRenderingEnabled(); bailing out here (before BeginRendering, so GPU frame
+  // scope stays balanced) lets that handshake complete after at most the already in-flight frame instead
+  // of waiting for a full PrepareScene + RenderScene + present. Prevents ANRs in Framework::DetachSurface.
+  if (!IsRenderingEnabled())
+    return;
+
   if (!m_context->BeginRendering())
     return;
 
