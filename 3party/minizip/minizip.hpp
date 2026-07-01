@@ -1,7 +1,7 @@
 #pragma once
 
-#include "3party/minizip/src/unzip.h"
-#include "3party/minizip/src/zip.h"
+#include "3party/minizip-ng/compat/unzip.h"
+#include "3party/minizip-ng/compat/zip.h"
 
 #include <array>
 #include <cstdint>

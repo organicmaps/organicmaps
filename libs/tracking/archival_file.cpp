@@ -74,6 +74,8 @@ std::vector<std::string> FilesAccumulator::PrepareArchives(std::string const & p
       std::string const archivePath = base::JoinPath(
           path, base::GetNameFromFullPathWithoutExt(it.second.m_files[0]) + ARCHIVE_TRACKS_ZIPPED_FILE_EXTENSION);
 
+      // Track files are already zlib-compressed by BasicArchive::Write().
+      // Keep the ZIP layer as a container and avoid redundant deflate work.
       if (CreateZipFromFiles(it.second.m_files, archivePath, CompressionLevel::NoCompression))
         archives.emplace_back(archivePath);
     }
