@@ -80,7 +80,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private final Observer<int[]> mBuildProgressObserver = progress ->
   {
     if (progress != null)
-      updateBuildProgress(ROUTERS[progress[1]]);
+      updateBuildProgress(progress[0], ROUTERS[progress[1]]);
   };
   private final Observer<Integer> mDrivingOptionsCountObserver = this::updateBadgeCount;
   private final Observer<Void> mDrivingOptionsErrorObserver = e -> onDrivingOptionsBuildError();
@@ -384,6 +384,9 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
       return;
     }
 
+    // The router caps progress at 99% and does not push a final 100% update on the happy path,
+    // so finish the fill explicitly before flipping the button to ENABLED.
+    mRoutingBottomMenuController.setBuildProgress(100);
     mRoutingBottomMenuController.setStartState(RoutingBottomMenuController.StartState.ENABLED);
     mRoutingBottomMenuController.showAltitudeChartAndRoutingDetails();
   }
@@ -401,18 +404,26 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     }
   }
 
-  private void updateBuildProgress(@NonNull Router router)
+  private void updateBuildProgress(int progress, @NonNull Router router)
   {
     if (getView() == null)
       return;
 
     mRouterTypes.check(routerToButtonId(router));
+    // MUST run on every progress event, regardless of the BUILDING/BUILT/ERROR branch below:
+    // on rotation-after-build, LiveData re-delivers the cached progress to the fresh observer,
+    // and this call is what drags the START button fill to 100% via setBuildProgress(100).
+    // If you ever move this inside the isBuilding branch, restore-after-build will silently
+    // leave the button visually empty.
     updateProgressLabels();
     final RoutingController controller = RoutingController.get();
     if (controller.isBuilding())
+    {
       mRoutingBottomMenuController.setStartState(RoutingBottomMenuController.StartState.BUILDING);
+      mRoutingBottomMenuController.setBuildProgress(progress, router);
+    }
     else if (!controller.isBuilt())
-      // ERROR / NONE / cancelled: clear the spinner that BUILDING left behind.
+      // ERROR / NONE / cancelled: clear the progress fill that BUILDING left behind.
       mRoutingBottomMenuController.setStartState(RoutingBottomMenuController.StartState.DISABLED);
   }
 
