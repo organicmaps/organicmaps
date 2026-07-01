@@ -207,9 +207,11 @@ if (WITH_SYSTEM_PROVIDED_3PARTY)
   if (BUILD_TESTING)
     find_package(GTest REQUIRED)
   endif()
-endif()
 
-find_package(ZLIB REQUIRED)
+  # Otherwise zlib-ng is built from 3party/zlib-ng (see 3party/CMakeLists.txt) as
+  # a drop-in replacement -- system zlib is not available out of the box on Windows.
+  find_package(ZLIB REQUIRED)
+endif()
 
 # Include 3party dependencies.
 add_subdirectory(3party)

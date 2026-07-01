@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "coding/file_writer.hpp"
+#include "coding/zip_creator.hpp"
 #include "coding/zip_reader.hpp"
 
 #include "base/logging.hpp"
@@ -74,6 +75,59 @@ UNIT_TEST(ZipReaderSmoke)
   TEST(!noException, ());
 
   FileWriter::DeleteFileX(ZIPFILE);
+}
+
+// Locating an entry must be an exact, case-sensitive match. minizip-ng's compat
+// unzLocateFile() treats the stored name as a wildcard pattern, so the wrapper
+// iterates and compares names directly.
+UNIT_TEST(ZipReaderExactNameMatch)
+{
+  string const ZIPFILE = "exact_match_test.zip";
+  {
+    FileWriter f(ZIPFILE);
+    f.Write(zipBytes, ARRAY_SIZE(zipBytes) - 1);  // A single entry named "test.txt".
+  }
+
+  TEST_NO_THROW({ ZipFileReader const r(ZIPFILE, "test.txt"); }, ());
+  // A different-case name must not resolve to "test.txt" (throws LocateZipException).
+  TEST_ANY_THROW({ ZipFileReader const r(ZIPFILE, "Test.txt"); }, ());
+
+  FileWriter::DeleteFileX(ZIPFILE);
+}
+
+UNIT_TEST(ZipReaderWildcardNameMatch)
+{
+  string const FILE = "wildcard_name_source.txt";
+  string const ZIPFILE = "wildcard_name_test.zip";
+  {
+    FileWriter f(FILE);
+    f.Write("Test\n", 5);
+  }
+
+  TEST(CreateZipFromFiles({FILE}, {"test.*"}, ZIPFILE), ());
+
+  TEST_NO_THROW({ ZipFileReader const r(ZIPFILE, "test.*"); }, ());
+  TEST_ANY_THROW({ ZipFileReader const r(ZIPFILE, "test.txt"); }, ());
+
+  FileWriter::DeleteFileX(ZIPFILE);
+  FileWriter::DeleteFileX(FILE);
+}
+
+UNIT_TEST(ZipReaderLongNameMatch)
+{
+  string const FILE = "long_name_source.txt";
+  string const ZIPFILE = "long_name_test.zip";
+  string const FILE_IN_ZIP(300, 'a');
+  {
+    FileWriter f(FILE);
+    f.Write("Test\n", 5);
+  }
+
+  TEST(CreateZipFromFiles({FILE}, {FILE_IN_ZIP}, ZIPFILE), ());
+  TEST_NO_THROW({ ZipFileReader const r(ZIPFILE, FILE_IN_ZIP); }, ());
+
+  FileWriter::DeleteFileX(ZIPFILE);
+  FileWriter::DeleteFileX(FILE);
 }
 
 /// zip file with 3 files inside: 1.txt, 2.txt, 3.ttt
