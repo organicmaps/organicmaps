@@ -54,30 +54,14 @@ bool MapStyleIsDark(MapStyle mapStyle)
   return false;
 }
 
-MapStyle GetDarkMapStyleVariant(MapStyle mapStyle)
+MapStyle GetMapStyleForFamily(MapStyleFamily family, bool dark)
 {
-  if (MapStyleIsDark(mapStyle) || mapStyle == MapStyleMerged)
-    return mapStyle;
-
-  switch (mapStyle)
+  switch (family)
   {
-  case MapStyleDefaultLight: return MapStyleDefaultDark;
-  case MapStyleVehicleLight: return MapStyleVehicleDark;
-  case MapStyleOutdoorsLight: return MapStyleOutdoorsDark;
-  default: CHECK(false, ()); return MapStyleDefaultDark;
+  case MapStyleFamily::Default: return dark ? MapStyleDefaultDark : MapStyleDefaultLight;
+  case MapStyleFamily::Vehicle: return dark ? MapStyleVehicleDark : MapStyleVehicleLight;
+  case MapStyleFamily::Outdoors: return dark ? MapStyleOutdoorsDark : MapStyleOutdoorsLight;
   }
-}
-
-MapStyle GetLightMapStyleVariant(MapStyle mapStyle)
-{
-  if (!MapStyleIsDark(mapStyle))
-    return mapStyle;
-
-  switch (mapStyle)
-  {
-  case MapStyleDefaultDark: return MapStyleDefaultLight;
-  case MapStyleVehicleDark: return MapStyleVehicleLight;
-  case MapStyleOutdoorsDark: return MapStyleOutdoorsLight;
-  default: CHECK(false, ()); return MapStyleDefaultLight;
-  }
+  CHECK(false, ("Unhandled MapStyleFamily", static_cast<int>(family)));
+  return dark ? MapStyleDefaultDark : MapStyleDefaultLight;
 }

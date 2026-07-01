@@ -178,9 +178,7 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
   NSString * nightMode = nil;
   switch ([MWMSettings theme])
   {
-  case MWMThemeVehicleDay:
   case MWMThemeDay: nightMode = L(@"pref_appearance_light"); break;
-  case MWMThemeVehicleNight:
   case MWMThemeNight: nightMode = L(@"pref_appearance_dark"); break;
   case MWMThemeAuto: nightMode = L(@"auto"); break;
   }

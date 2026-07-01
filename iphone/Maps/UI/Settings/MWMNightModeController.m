@@ -20,9 +20,7 @@
   SettingsTableViewSelectableCell * selectedCell = nil;
   switch ([MWMSettings theme])
   {
-  case MWMThemeVehicleDay:
   case MWMThemeDay: selectedCell = self.off; break;
-  case MWMThemeVehicleNight:
   case MWMThemeNight: selectedCell = self.on; break;
   case MWMThemeAuto: selectedCell = self.autoSwitch; break;
   }

@@ -51,30 +51,9 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
 
 + (void)setTheme:(MWMTheme)theme
 {
-  auto & f = GetFramework();
-
-  auto const style = f.GetMapStyle();
-  auto const isOutdoor = ^BOOL(MapStyle style) {
-    switch (style)
-    {
-    case MapStyleOutdoorsLight:
-    case MapStyleOutdoorsDark: return YES;
-    default: return NO;
-    }
-  }(style);
-  auto const newStyle = ^MapStyle(MWMTheme theme) {
-    switch (theme)
-    {
-    case MWMThemeDay: return isOutdoor ? MapStyleOutdoorsLight : MapStyleDefaultLight;
-    case MWMThemeVehicleDay: return MapStyleVehicleLight;
-    case MWMThemeNight: return isOutdoor ? MapStyleOutdoorsDark : MapStyleDefaultDark;
-    case MWMThemeVehicleNight: return MapStyleVehicleDark;
-    case MWMThemeAuto: NSAssert(NO, @"Invalid theme"); return MapStyleDefaultLight;
-    }
-  }(theme);
-
-  if (style != newStyle)
-    f.SetMapStyle(newStyle);
+  // The map style family (vehicle / outdoors / default) is resolved by the core; pass only darkness.
+  bool const dark = theme == MWMThemeNight;
+  GetFramework().ApplyMapStyleForMode(dark);
 }
 
 + (MWMDayTime)daytimeAtLocation:(CLLocation *)location

@@ -457,6 +457,19 @@ public:
   void SetMapStyle(MapStyle mapStyle);
   void MarkMapStyle(MapStyle mapStyle);
   MapStyle GetMapStyle() const;
+  // Stores the platform's light/dark choice. The core combines it with the active family to pick the
+  // concrete MapStyle; routing/outdoors switches then resolve at this darkness without the platform
+  // re-supplying it. Storing only, no apply (Android applies via its own renderer-aware mark/set).
+  void SetNightMode(bool nightMode);
+  // Concrete style for the current mode: the active family at the stored night mode. Family priority:
+  // Vehicle (while following) > Outdoors (layer flag) > Default. Resolve only, no apply — platforms
+  // with a custom apply path (e.g. Android's renderer-aware mark/set) use this directly.
+  MapStyle ResolveMapStyleForMode() const;
+  // Resolves (see above) and applies it immediately if it changed.
+  void ApplyMapStyleForMode();
+  // Stores the night mode (see SetNightMode) and applies. For platforms whose theme path supplies
+  // darkness with an immediate apply (iOS, Qt).
+  void ApplyMapStyleForMode(bool nightMode);
 
   void SetupMeasurementSystem();
 
@@ -778,6 +791,7 @@ public:
 protected:
   /// RoutingManager::Delegate
   void OnRouteFollow(routing::RouterType type) override;
+  void OnRoutingSessionStateChanged() override;
   void InitRouting();
 
 public:
@@ -797,6 +811,9 @@ private:
   settings::UsageStats m_usageStats;
 
   bool m_showDownloadedRegions = false;
+
+  // Platform-supplied light/dark choice; see SetNightMode. Seeded from the persisted style at startup.
+  bool m_nightMode = false;
 
 public:
   power_management::PowerManager & GetPowerManager() { return m_powerManager; }
