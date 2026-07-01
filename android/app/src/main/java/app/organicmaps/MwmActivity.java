@@ -2050,6 +2050,27 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Framework.nativeMemoryWarning();
   }
 
+  private void makeNavigationBarTransparentInLightMode()
+  {
+    final boolean isLightMode = !app.organicmaps.sdk.util.Utils.isDarkMode(this);
+    final Window window = getWindow();
+
+    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.O_MR1) // Android 8 and below
+    {
+      // On Android 8 and below, system navigation buttons (Back, Home, Recent)
+      //were hard to see due to low contrast. This change sets a gray
+      //semitransparent navigation bar color on these versions to make the buttons
+      //more visible.
+      window.setNavigationBarColor(0xE1E1E1CC);
+      return;
+    }
+
+    window.setNavigationBarColor(Color.TRANSPARENT);
+    new WindowInsetsControllerCompat(window, window.getDecorView()).setAppearanceLightNavigationBars(isLightMode);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+      window.setNavigationBarContrastEnforced(false);
+  }
+
   private void reportUnsupported()
   {
     new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
