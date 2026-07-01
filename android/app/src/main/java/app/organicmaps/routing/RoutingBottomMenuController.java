@@ -15,6 +15,8 @@ import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,6 +27,7 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
@@ -238,6 +241,27 @@ final class RoutingBottomMenuController implements View.OnClickListener
     mTransitRecyclerView.setNestedScrollingEnabled(false);
     mTransitRecyclerView.addItemDecoration(mTransitViewDecorator);
     mTransitRecyclerView.setAdapter(mTransitAdapter);
+    // The steps strip sits on top of the panel and would otherwise swallow taps, so a tap anywhere on
+    // it opens the same detail sheet as the rest of the panel. Scrolling still works for long routes.
+    // Gated on the panel being clickable so it stays inert for ruler (straight-line) routes.
+    final GestureDetector transitTapDetector =
+        new GestureDetector(mContext, new GestureDetector.SimpleOnGestureListener() {
+          @Override
+          public boolean onSingleTapUp(@NonNull MotionEvent e)
+          {
+            if (!mTransitTime.isClickable())
+              return false;
+            showTransitDetailsSheet();
+            return true;
+          }
+        });
+    mTransitRecyclerView.addOnItemTouchListener(new RecyclerView.SimpleOnItemTouchListener() {
+      @Override
+      public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e)
+      {
+        return transitTapDetector.onTouchEvent(e);
+      }
+    });
   }
 
   void setVisibilityChangedCallback(@Nullable Runnable callback)
@@ -310,7 +334,25 @@ final class RoutingBottomMenuController implements View.OnClickListener
     TextView distanceView = mAltitudeChartFrame.findViewById(R.id.total_distance);
     UiUtils.showIf(info.getTotalPedestrianTimeInSec() > 0, dotView, pedestrianIcon, distanceView);
     distanceView.setText(info.getTotalPedestrianDistance() + " " + info.getTotalPedestrianDistanceUnits());
+
+    // Tapping the summary strip reveals the per-leg breakdown (board/exit stops + line badges); the
+    // chevron is the cue that the strip is expandable. The ripple foreground is declared in the
+    // layout and only draws while the strip stays clickable.
+    mTransitTime.setClickable(true);
+    mTransitTime.setOnClickListener(v -> showTransitDetailsSheet());
+    UiUtils.show(mTransitTime.findViewById(R.id.transit_details_chevron));
+
     notifyVisibilityChanged();
+  }
+
+  private void showTransitDetailsSheet()
+  {
+    if (!(mContext instanceof FragmentActivity activity))
+      return;
+    if (activity.getSupportFragmentManager().findFragmentByTag(TransitDetailsBottomSheetFragment.TAG) != null)
+      return;
+    new TransitDetailsBottomSheetFragment().show(activity.getSupportFragmentManager(),
+                                                 TransitDetailsBottomSheetFragment.TAG);
   }
 
   @SuppressLint("SetTextI18n")
@@ -322,6 +364,14 @@ final class RoutingBottomMenuController implements View.OnClickListener
     setStartState(StartState.DISABLED);
     hideAltitudeChartAndRoutingDetails();
     UiUtils.show(mAltitudeChartFrame, mTransitRecyclerView, mTimeRuler);
+
+    // The summary strip is shared with public transport routing; the per-leg detail sheet does not
+    // apply to a straight-line ruler route, so drop the tap handler here. Clearing clickability also
+    // suppresses the ripple foreground declared in the layout.
+    mTransitTime.setOnClickListener(null);
+    mTransitTime.setClickable(false);
+    UiUtils.hide(mTransitTime, R.id.transit_details_chevron);
+
     if (points.length > 2)
     {
       UiUtils.show(mTransitRecyclerView);

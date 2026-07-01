@@ -907,4 +907,20 @@
     <string name="color_picker_hex_label">สี sRGB ในรูปแบบ Hex #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">กริด</string>
+    <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
+    <string name="transit_details_title">รายละเอียดการเดินทาง</string>
+    <!-- Label preceding the boarding stop name in transit details (%1$s = stop name). -->
+    <string name="transit_board_at">ขึ้นรถที่ %1$s</string>
+    <!-- Label for an intermediate transit leg's end stop, where the user switches lines (%1$s = stop name). -->
+    <string name="transit_transfer_at">เปลี่ยนสายที่ %1$s</string>
+    <!-- Label for the final transit leg's end stop, where the user leaves transit for good (%1$s = stop name). -->
+    <string name="transit_exit_at">ลงรถที่ %1$s</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">เดิน</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">จุดแวะพัก %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="other">%d ป้าย</item>
+    </plurals>
 </resources>
