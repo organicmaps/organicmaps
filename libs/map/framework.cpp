@@ -1691,8 +1691,9 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   {
     GetPlatform().RunTask(Platform::Thread::Gui, [this, mode, routingActive]()
     {
-      // Deactivate selection (and hide place page) if we return to routing in F&R mode.
-      if (routingActive && mode == location::FollowAndRotate)
+      // Deactivate selection (and hide place page) when route-following resumes,
+      // be it heading-up (FollowAndRotate) or north-up (Follow).
+      if (routingActive && location::IsFollowingMode(mode))
         DeactivateMapSelection();
 
       if (m_myPositionListener != nullptr)
