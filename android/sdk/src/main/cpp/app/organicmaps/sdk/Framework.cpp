@@ -63,6 +63,7 @@
 
 #include "ge0/url_generator.hpp"
 
+#include <array>
 #include <memory>
 #include <string>
 #include <vector>
@@ -998,6 +999,28 @@ JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetGeoUri(JNIEnv * en
   double const scale = (zoomLevel > 0 ? zoomLevel : fr->GetDrawScale());
   std::string const url = ge0::GenerateGeoUri(lat, lon, scale, jni::ToNativeString(env, name));
   return jni::ToJavaString(env, url);
+}
+
+// Returns the shared link, plain body, HTML body and subject basis as a String[4].
+static jobjectArray ShareResultToJava(JNIEnv * env, share::Result const & r)
+{
+  return jni::ToJavaStringArray(env, std::array<std::string, 4>{r.m_url, r.m_text, r.m_html, r.m_subjectBasis});
+}
+
+JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetShareData(JNIEnv * env, jclass)
+{
+  return ShareResultToJava(env, frm()->GetShareData(frm()->GetCurrentPlacePageInfo()));
+}
+
+JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetShareDataForMyPosition(JNIEnv * env, jclass,
+                                                                                          jdouble lat, jdouble lon)
+{
+  return ShareResultToJava(env, frm()->GetShareDataForMyPosition({lat, lon}));
+}
+
+JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetShareDataForBookmark(JNIEnv * env, jclass, jlong id)
+{
+  return ShareResultToJava(env, frm()->GetShareDataForBookmark(static_cast<kml::MarkId>(id)));
 }
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetDistanceAndAzimuth(JNIEnv * env, jclass, jdouble merX,
