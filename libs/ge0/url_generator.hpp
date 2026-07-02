@@ -19,6 +19,21 @@ inline static int const kMaxCoordBits = kMaxPointBytes * 3;
 // om://ZCoordba64/Name
 std::string GenerateShortShowMapUrl(double lat, double lon, double zoomLevel, std::string const & name);
 
+// Generates a shareable https://omaps.app/ url with human-readable decimal coordinates.
+//
+// URL format:
+//   https://omaps.app/<lat>,<lon>[/<name>]?z=<zoom>
+//
+// Unlike the ge0 short url above, the coordinates stay readable and copy/paste-able (e.g. into
+// Google/Apple Maps or a geo: uri). Coordinates use 6 decimal places (matches
+// CoordinatesFormat::LatLonDecimal). Zoom is emitted as a "?z=" query parameter when > 0.
+//
+// Two decoders read it: Ge0Parser::ParseClearCoordinates in the app and the web landing page
+// (organicmaps/url-processor). They agree on this exact form but not beyond it - the app accepts
+// only it, while the web regex also matches other separators and coordinates that do not start the
+// path, and rejects the +-90/+-180 corners the app allows. Keep this generator inside the overlap.
+std::string GenerateClearShowMapUrl(double lat, double lon, int zoom, std::string const & name);
+
 // Generates a geo: uri.
 //
 // - https://datatracker.ietf.org/doc/html/rfc5870

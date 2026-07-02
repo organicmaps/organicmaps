@@ -41,8 +41,6 @@ bool Ge0Parser::ParseAfterPrefix(std::string const & url, size_t from, Result & 
   if (url.size() < from + kEncodedZoomAndCoordinatesLength)
     return false;
 
-  size_t const kMaxNameLength = 256;
-
   size_t const posZoom = from;
   size_t const posLatLon = posZoom + 1;
   size_t const posName = from + kEncodedZoomAndCoordinatesLength + 1;
@@ -67,6 +65,47 @@ bool Ge0Parser::ParseAfterPrefix(std::string const & url, size_t from, Result & 
     result.m_name = DecodeName(url.substr(posName, std::min(url.size() - posName, kMaxNameLength)));
   }
 
+  return true;
+}
+
+bool Ge0Parser::ParseClearCoordinates(std::string_view path, Result & result)
+{
+  // Digits, a mandatory decimal point, digits; optionally negative. IsASCIINumeric() rejects an
+  // empty half, so a leading/trailing dot is refused too.
+  auto const isDecimalCoordinate = [](std::string_view s)
+  {
+    if (s.starts_with('-'))
+      s.remove_prefix(1);
+
+    auto const dot = s.find('.');
+    return dot != std::string_view::npos && strings::IsASCIINumeric(s.substr(0, dot)) &&
+           strings::IsASCIINumeric(s.substr(dot + 1));
+  };
+
+  // Exact path form: <lat>,<lon>[/<name>]. The coordinates must keep a decimal
+  // point so plain integers and short ge0 codes are not treated as clear-coordinate links.
+  auto const comma = path.find(',');
+  if (comma == std::string_view::npos)
+    return false;
+
+  auto const slash = path.find('/', comma + 1);
+  auto const latPart = path.substr(0, comma);
+  auto const lonPart =
+      slash == std::string_view::npos ? path.substr(comma + 1) : path.substr(comma + 1, slash - comma - 1);
+  if (!isDecimalCoordinate(latPart) || !isDecimalCoordinate(lonPart))
+    return false;
+
+  double lat, lon;
+  if (!strings::to_double(latPart, lat) || !strings::to_double(lonPart, lon))
+    return false;
+  if (!mercator::ValidLat(lat) || !mercator::ValidLon(lon))
+    return false;
+
+  result.m_lat = lat;
+  result.m_lon = lon;
+  result.m_zoomLevel = 0.0;  // The caller fills zoom from "?z=" (or a default).
+  result.m_name =
+      slash == std::string_view::npos ? std::string{} : DecodeName(std::string(path.substr(slash + 1, kMaxNameLength)));
   return true;
 }
 

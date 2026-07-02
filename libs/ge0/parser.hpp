@@ -26,7 +26,16 @@ public:
   bool Parse(std::string const & url, Result & result);
   bool ParseAfterPrefix(std::string const & url, size_t from, Result & result);
 
+  // Parses clear decimal coordinates "<lat>,<lon>[/<name>]" from a URL path (scheme, host and
+  // query already stripped). Both coordinates must contain a decimal point. Zoom is NOT read here;
+  // the caller takes it from the "?z=" query parameter. Fills result.m_lat/m_lon/m_name and leaves
+  // m_zoomLevel at 0. Returns false when the path does not exactly match the supported form.
+  static bool ParseClearCoordinates(std::string_view path, Result & result);
+
 protected:
+  // Encoded bytes of the name part that are decoded at most; the rest of the link is dropped.
+  static size_t constexpr kMaxNameLength = 256;
+
   static uint8_t DecodeBase64Char(char c);
   static double DecodeZoom(uint8_t const zoomByte);
   static bool DecodeLatLon(std::string_view s, double & lat, double & lon);

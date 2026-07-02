@@ -128,6 +128,22 @@ std::string GenerateShortShowMapUrl(double lat, double lon, double zoom, std::st
   return urlSample;
 }
 
+std::string GenerateClearShowMapUrl(double lat, double lon, int zoom, std::string const & name)
+{
+  std::ostringstream oss;
+  // 6 decimals ~ 0.1 m, matches CoordinatesFormat::LatLonDecimal. Comma-joined, no space, so the
+  // "lat,lon" path segment is a single copy/paste-able coordinate token.
+  oss << "https://omaps.app/" << std::fixed << std::setprecision(6) << lat << ',' << lon;
+
+  if (!name.empty())
+    oss << '/' << UrlEncodeString(TransformName(name));
+
+  if (zoom > 0)
+    oss << "?z=" << zoom;
+
+  return oss.str();
+}
+
 std::string GenerateGeoUri(double lat, double lon, double zoom, std::string const & name)
 {
   std::ostringstream oss;
