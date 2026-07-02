@@ -724,6 +724,7 @@
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "避开轮渡";
 "avoid_motorways" = "避开高速公路";
+"public_bike_sharing" = "Public Bike-Sharing";
 "unable_to_calc_alert_title" = "无法规划路线";
 "unable_to_calc_alert_subtitle" = "找不到路线。这可能是由于您的绕行设置或 OpenStreetMap 数据不完整造成的。请更改设置，然后重试。";
 "define_to_avoid_btn" = "选择要避开的道路";

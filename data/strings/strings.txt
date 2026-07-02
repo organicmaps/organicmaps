@@ -27692,6 +27692,13 @@ vi = Tránh xa lộ
 zh-Hans = 避开高速公路
 zh-Hant = 避開高速公路
 
+[public_bike_sharing]
+tags = android-app,apple-maps
+en = Public Bike-Sharing
+en-GB = Public Bike-Sharing
+pt = Bicicletas públicas
+pt-BR = Bicicletas públicas
+
 [unable_to_calc_alert_title]
 tags = android-app,android-libs-car,apple-maps
 en = Unable to calculate route

@@ -724,6 +724,7 @@
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "เลี่ยงการข้ามฟากด้วยเรือ";
 "avoid_motorways" = "หลีกเลี่ยงมอเตอร์เวย์";
+"public_bike_sharing" = "Public Bike-Sharing";
 "unable_to_calc_alert_title" = "ไม่สามารถคำนวณเส้นทาง";
 "unable_to_calc_alert_subtitle" = "ขออภัย เราไม่สามารถค้นหาเส้นทาง โดยสาเหตุอาจมาจากทางเลือกที่คุณกำหนดไว้ โปรดเปลี่ยนการตั้งค่าทางเลือกและลองใหม่อีกครั้ง";
 "define_to_avoid_btn" = "กำหนดถนนที่ต้องการเลี่ยง";

@@ -724,6 +724,7 @@
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Vermijd veerboten";
 "avoid_motorways" = "Vermijd snelwegen";
+"public_bike_sharing" = "Public Bike-Sharing";
 "unable_to_calc_alert_title" = "Kan route niet berekenen";
 "unable_to_calc_alert_subtitle" = "Helaas konden we geen route berekenen. Dit kan komen door uw gekozen opties of door incomplete OpenStreetMap-data. Wijzig de instellingen en probeer het opnieuw.";
 "define_to_avoid_btn" = "Definieer wegen om te vermijden";

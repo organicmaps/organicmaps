@@ -15,21 +15,60 @@ namespace routing
 // RoutingOptions -------------------------------------------------------------------------------------
 
 std::string_view constexpr kAvoidRoutingOptionSettingsForCar = "avoid_routing_options_car";
+std::string_view constexpr kRoutingOptionSettingsForBicycle = "routing_options_bicycle";
+std::string_view constexpr kPublicBicycleRoutingSettings = "routing_option_public_bicycle";
+
+RoutingOptions LoadOptionsFromSettings(std::string_view key)
+{
+  uint32_t mode = 0;
+  if (!settings::Get(key, mode))
+    mode = 0;
+
+  mode &= static_cast<uint32_t>(RoutingOptions::Road::Max) - 1;
+  return RoutingOptions(base::checked_cast<RoutingOptions::RoadType>(mode));
+}
+
+void SaveOptionsToSettings(RoutingOptions options, std::string_view key)
+{
+  settings::Set(key, static_cast<uint32_t>(options.GetOptions()));
+}
 
 // static
 RoutingOptions RoutingOptions::LoadCarOptionsFromSettings()
 {
-  uint32_t mode = 0;
-  if (!settings::Get(kAvoidRoutingOptionSettingsForCar, mode))
-    mode = 0;
-
-  return RoutingOptions(base::checked_cast<RoadType>(mode));
+  return LoadOptionsFromSettings(kAvoidRoutingOptionSettingsForCar);
 }
 
 // static
 void RoutingOptions::SaveCarOptionsToSettings(RoutingOptions options)
 {
-  settings::Set(kAvoidRoutingOptionSettingsForCar, strings::to_string(static_cast<int32_t>(options.GetOptions())));
+  SaveOptionsToSettings(options, kAvoidRoutingOptionSettingsForCar);
+}
+
+// static
+RoutingOptions RoutingOptions::LoadBicycleOptionsFromSettings()
+{
+  return LoadOptionsFromSettings(kRoutingOptionSettingsForBicycle);
+}
+
+// static
+void RoutingOptions::SaveBicycleOptionsToSettings(RoutingOptions options)
+{
+  SaveOptionsToSettings(options, kRoutingOptionSettingsForBicycle);
+}
+
+// static
+bool RoutingOptions::IsPublicBicycleEnabled()
+{
+  bool enabled = false;
+  settings::TryGet(kPublicBicycleRoutingSettings, enabled);
+  return enabled;
+}
+
+// static
+void RoutingOptions::SetPublicBicycleEnabled(bool enabled)
+{
+  settings::Set(kPublicBicycleRoutingSettings, enabled);
 }
 
 void RoutingOptions::Add(RoutingOptions::Road type)

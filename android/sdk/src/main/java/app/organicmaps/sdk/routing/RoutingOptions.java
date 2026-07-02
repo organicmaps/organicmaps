@@ -22,6 +22,16 @@ public final class RoutingOptions
     return nativeHasOption(roadType.ordinal());
   }
 
+  public static void setPublicBicycleEnabled(boolean enabled)
+  {
+    nativeSetPublicBicycleEnabled(enabled);
+  }
+
+  public static boolean isPublicBicycleEnabled()
+  {
+    return nativeIsPublicBicycleEnabled();
+  }
+
   public static boolean hasAnyOptions()
   {
     for (RoadType each : RoadType.values())
@@ -53,4 +63,8 @@ public final class RoutingOptions
   private static native void nativeRemoveOption(int option);
 
   private static native boolean nativeHasOption(int option);
+
+  private static native void nativeSetPublicBicycleEnabled(boolean enabled);
+
+  private static native boolean nativeIsPublicBicycleEnabled();
 }

@@ -49,6 +49,8 @@ public:
     , m_numMwmIDs(std::move(numMwmIDs))
   {}
 
+  DataSource & GetDataSource() const { return m_dataSource; }
+
   void FreeHandles()
   {
     m_featureSources.Clear();
