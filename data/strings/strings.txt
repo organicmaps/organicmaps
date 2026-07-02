@@ -16299,6 +16299,20 @@ vi = Ngày nghỉ
 zh-Hans = 不营业
 zh-Hant = 不營業
 
+[midnight]
+tags = android-app
+en = Midnight
+be = Поўнач
+ru = Полночь
+uk = Північ
+
+[noon]
+tags = android-app
+en = Noon
+be = Поўдзень
+ru = Полдень
+uk = Полудень
+
 [today]
 tags = android-app,apple-maps
 en = Today
