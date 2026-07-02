@@ -82,12 +82,6 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Bookmark_nativeUpdatePara
   g_framework->ReplaceBookmark(static_cast<kml::MarkId>(bmk), bmData);
 }
 
-JNIEXPORT jstring Java_app_organicmaps_sdk_bookmarks_data_Bookmark_nativeEncode2Ge0Url(JNIEnv * env, jclass, jlong bmk,
-                                                                                       jboolean addName)
-{
-  return jni::ToJavaString(env, frm()->CodeGe0url(getBookmark(bmk), addName));
-}
-
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Bookmark_nativeChangeCategory(JNIEnv *, jclass, jlong oldCatId,
                                                                                      jlong newCatId, jlong bookmarkId)
 {

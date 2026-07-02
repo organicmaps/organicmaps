@@ -1226,7 +1226,7 @@ public class PlacePageView extends Fragment
           .show(getChildFragmentManager(), TRACK_SHARE_MENU_ID);
     }
     else
-      SharingUtils.shareMapObject(requireContext(), mMapObject);
+      SharingUtils.shareCurrentPlace(requireContext());
   }
 
   private void dismissTrackShareMenu()
