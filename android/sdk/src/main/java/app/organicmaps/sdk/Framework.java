@@ -60,10 +60,50 @@ public class Framework
   // this class is just bridge between Java and C++ worlds, we must not create it
   private Framework() {}
 
+  /**
+   * @deprecated Use {@link #getShareData()}, {@link #getShareDataForMyPosition(double, double)}, or
+   * {@link #getShareDataForBookmark(long)} for user-visible sharing.
+   */
+  @Deprecated
   public static String getHttpGe0Url(double lat, double lon, double zoomLevel, String name)
   {
     return nativeGetGe0Url(lat, lon, zoomLevel, name)
         .replaceFirst(Constants.Url.SHORT_SHARE_PREFIX, Constants.Url.HTTP_SHARE_PREFIX);
+  }
+
+  // The shareable link, plain body, HTML body and subject basis produced by the core share::Build.
+  public static final class ShareData
+  {
+    public final String url;
+    public final String text;
+    public final String html;
+    public final String subjectBasis;
+
+    private ShareData(@NonNull String[] parts)
+    {
+      url = parts[0];
+      text = parts[1];
+      html = parts[2];
+      subjectBasis = parts[3];
+    }
+  }
+
+  @NonNull
+  public static ShareData getShareData()
+  {
+    return new ShareData(nativeGetShareData());
+  }
+
+  @NonNull
+  public static ShareData getShareDataForMyPosition(double lat, double lon)
+  {
+    return new ShareData(nativeGetShareDataForMyPosition(lat, lon));
+  }
+
+  @NonNull
+  public static ShareData getShareDataForBookmark(long bookmarkId)
+  {
+    return new ShareData(nativeGetShareDataForBookmark(bookmarkId));
   }
 
   public static void setSpeedCamerasMode(@NonNull SpeedCameraMode mode)
@@ -108,8 +148,15 @@ public class Framework
 
   public static native String nativeFormatSpeed(double speed);
 
+  /** @deprecated Use the ShareData methods for user-visible sharing. */
+  @Deprecated
   public static native String nativeGetGe0Url(double lat, double lon, double zoomLevel, String name);
   public static native String nativeGetGeoUri(double lat, double lon, double zoomLevel, String name);
+
+  // Return {url, text, html, subjectBasis} built by the core share::Build.
+  public static native String[] nativeGetShareData();
+  public static native String[] nativeGetShareDataForMyPosition(double lat, double lon);
+  public static native String[] nativeGetShareDataForBookmark(long bookmarkId);
 
   public static native String nativeGetAddress(double lat, double lon);
 
