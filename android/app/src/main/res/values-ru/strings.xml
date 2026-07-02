@@ -426,6 +426,8 @@
     <string name="twentyfour_seven">Круглосуточно</string>
     <string name="day_off_today">Сегодня закрыто</string>
     <string name="day_off">Закрыто</string>
+    <string name="midnight">Полночь</string>
+    <string name="noon">Полдень</string>
     <string name="today">Сегодня</string>
     <string name="opens_in">Открывается через %s</string>
     <string name="closes_in">Закроется через %s</string>
