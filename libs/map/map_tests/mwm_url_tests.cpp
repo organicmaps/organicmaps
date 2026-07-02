@@ -318,6 +318,86 @@ UNIT_TEST(MapApiGe0)
   }
 }
 
+UNIT_TEST(MapApiClearCoordinates)
+{
+  {
+    // Bare clear coordinates: default zoom, no name.
+    ParsedMapApi api("https://omaps.app/48.858093,2.294694");
+    TEST_EQUAL(api.GetRequestType(), UrlType::Map, ());
+    TEST_EQUAL(api.GetMapPoints().size(), 1, ());
+    MapPoint const & p0 = api.GetMapPoints()[0];
+    TEST_ALMOST_EQUAL_ABS(p0.m_lat, 48.858093, kEps, ());
+    TEST_ALMOST_EQUAL_ABS(p0.m_lon, 2.294694, kEps, ());
+    TEST_EQUAL(p0.m_name, "", ());
+    TEST_ALMOST_EQUAL_ABS(api.GetZoomLevel(), 14.0, kEps, ());
+  }
+  {
+    // Zoom from "?z=".
+    ParsedMapApi api("https://omaps.app/48.858093,2.294694?z=17");
+    TEST_EQUAL(api.GetRequestType(), UrlType::Map, ());
+    TEST_ALMOST_EQUAL_ABS(api.GetZoomLevel(), 17.0, kEps, ());
+  }
+  {
+    // Name after the coordinates plus "?z=".
+    ParsedMapApi api("https://omaps.app/48.858093,2.294694/Eiffel_Tower?z=16");
+    TEST_EQUAL(api.GetRequestType(), UrlType::Map, ());
+    TEST_EQUAL(api.GetMapPoints().size(), 1, ());
+    MapPoint const & p0 = api.GetMapPoints()[0];
+    TEST_ALMOST_EQUAL_ABS(p0.m_lat, 48.858093, kEps, ());
+    TEST_ALMOST_EQUAL_ABS(p0.m_lon, 2.294694, kEps, ());
+    TEST_EQUAL(p0.m_name, "Eiffel Tower", ());
+    TEST_ALMOST_EQUAL_ABS(api.GetZoomLevel(), 16.0, kEps, ());
+  }
+  {
+    // A name starting with a digit must survive (there is no in-path zoom parsing).
+    ParsedMapApi api("https://omaps.app/48.858093,2.294694/7-Eleven?z=16");
+    TEST_EQUAL(api.GetRequestType(), UrlType::Map, ());
+    TEST_EQUAL(api.GetMapPoints()[0].m_name, "7-Eleven", ());
+  }
+  {
+    // Negative coordinates.
+    ParsedMapApi api("https://omaps.app/-33.868800,151.209300/Sydney");
+    TEST_EQUAL(api.GetRequestType(), UrlType::Map, ());
+    MapPoint const & p0 = api.GetMapPoints()[0];
+    TEST_ALMOST_EQUAL_ABS(p0.m_lat, -33.8688, kEps, ());
+    TEST_ALMOST_EQUAL_ABS(p0.m_lon, 151.2093, kEps, ());
+    TEST_EQUAL(p0.m_name, "Sydney", ());
+  }
+  {
+    // The om:// scheme works too.
+    ParsedMapApi api("om://48.858093,2.294694");
+    TEST_EQUAL(api.GetRequestType(), UrlType::Map, ());
+    TEST_ALMOST_EQUAL_ABS(api.GetMapPoints()[0].m_lat, 48.858093, kEps, ());
+  }
+  {
+    // Out-of-range latitude is rejected.
+    ParsedMapApi api("https://omaps.app/999.0,0.0");
+    TEST_EQUAL(api.GetRequestType(), UrlType::Incorrect, ());
+  }
+  {
+    // Coordinates must be the whole path head, not embedded into another route.
+    ParsedMapApi api("https://omaps.app/foo/48.858093,2.294694");
+    TEST_EQUAL(api.GetRequestType(), UrlType::Incorrect, ());
+  }
+  {
+    // The longitude segment must be fully consumed.
+    ParsedMapApi api("https://omaps.app/48.858093,2.294694suffix");
+    TEST_EQUAL(api.GetRequestType(), UrlType::Incorrect, ());
+  }
+  {
+    // Boundary coordinates are valid in the rest of the map API and should be valid here too.
+    ParsedMapApi api("https://omaps.app/90.000000,180.000000");
+    TEST_EQUAL(api.GetRequestType(), UrlType::Map, ());
+    TEST_ALMOST_EQUAL_ABS(api.GetMapPoints()[0].m_lat, 90.0, kEps, ());
+    TEST_ALMOST_EQUAL_ABS(api.GetMapPoints()[0].m_lon, 180.0, kEps, ());
+  }
+  {
+    // A short non-coordinate path is neither a ge0 nor a clear-coordinate link.
+    ParsedMapApi api("https://omaps.app/foo");
+    TEST_EQUAL(api.GetRequestType(), UrlType::Incorrect, ());
+  }
+}
+
 UNIT_TEST(MapApiGeoScheme)
 {
   {

@@ -70,6 +70,49 @@ bool Ge0Parser::ParseAfterPrefix(std::string const & url, size_t from, Result & 
   return true;
 }
 
+bool Ge0Parser::ParseClearCoordinates(std::string_view path, Result & result)
+{
+  auto const isDigit = [](char c) { return c >= '0' && c <= '9'; };
+  auto const isDecimalCoordinate = [&isDigit](std::string_view s)
+  {
+    if (s.empty())
+      return false;
+    if (s.front() == '-')
+      s.remove_prefix(1);
+
+    auto const dot = s.find('.');
+    if (dot == std::string_view::npos || dot == 0 || dot + 1 == s.size())
+      return false;
+
+    return std::all_of(s.begin(), s.begin() + dot, isDigit) && std::all_of(s.begin() + dot + 1, s.end(), isDigit);
+  };
+
+  // Exact path form: <lat>,<lon>[/<name>]. The coordinates must keep a decimal
+  // point so plain integers and short ge0 codes are not treated as clear-coordinate links.
+  auto const comma = path.find(',');
+  if (comma == std::string_view::npos)
+    return false;
+
+  auto const slash = path.find('/', comma + 1);
+  auto const latPart = path.substr(0, comma);
+  auto const lonPart =
+      slash == std::string_view::npos ? path.substr(comma + 1) : path.substr(comma + 1, slash - comma - 1);
+  if (!isDecimalCoordinate(latPart) || !isDecimalCoordinate(lonPart))
+    return false;
+
+  double lat, lon;
+  if (!strings::to_double(latPart, lat) || !strings::to_double(lonPart, lon))
+    return false;
+  if (!mercator::ValidLat(lat) || !mercator::ValidLon(lon))
+    return false;
+
+  result.m_lat = lat;
+  result.m_lon = lon;
+  result.m_zoomLevel = 0.0;  // The caller fills zoom from "?z=" (or a default).
+  result.m_name = slash == std::string_view::npos ? std::string{} : DecodeName(std::string(path.substr(slash + 1)));
+  return true;
+}
+
 uint8_t Ge0Parser::DecodeBase64Char(char const c)
 {
   return kBase64ReverseCharTable[static_cast<uint8_t>(c)];
