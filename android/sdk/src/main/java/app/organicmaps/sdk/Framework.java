@@ -21,7 +21,6 @@ import app.organicmaps.sdk.routing.RoutingProgressListener;
 import app.organicmaps.sdk.routing.RoutingRecommendationListener;
 import app.organicmaps.sdk.routing.TransitRouteInfo;
 import app.organicmaps.sdk.settings.SpeedCameraMode;
-import app.organicmaps.sdk.util.Constants;
 import app.organicmaps.sdk.widget.placepage.CoordinatesFormatEntry;
 import app.organicmaps.sdk.widget.placepage.RouteInfo;
 import dalvik.annotation.optimization.FastNative;
@@ -60,10 +59,29 @@ public class Framework
   // this class is just bridge between Java and C++ worlds, we must not create it
   private Framework() {}
 
-  public static String getHttpGe0Url(double lat, double lon, double zoomLevel, String name)
+  // The shareable link, plain body, HTML body and subject basis produced by the core share::Build.
+  // Used by JNI.
+  @Keep
+  @SuppressWarnings("unused")
+  public static final class ShareData
   {
-    return nativeGetGe0Url(lat, lon, zoomLevel, name)
-        .replaceFirst(Constants.Url.SHORT_SHARE_PREFIX, Constants.Url.HTTP_SHARE_PREFIX);
+    @NonNull
+    public final String mUrl;
+    @NonNull
+    public final String mText;
+    @NonNull
+    public final String mHtml;
+    /// Place name, else address, else empty. Platforms build the localized email subject from it.
+    @NonNull
+    public final String mSubjectBasis;
+
+    private ShareData(@NonNull String url, @NonNull String text, @NonNull String html, @NonNull String subjectBasis)
+    {
+      mUrl = url;
+      mText = text;
+      mHtml = html;
+      mSubjectBasis = subjectBasis;
+    }
   }
 
   public static void setSpeedCamerasMode(@NonNull SpeedCameraMode mode)
@@ -108,8 +126,15 @@ public class Framework
 
   public static native String nativeFormatSpeed(double speed);
 
-  public static native String nativeGetGe0Url(double lat, double lon, double zoomLevel, String name);
   public static native String nativeGetGeoUri(double lat, double lon, double zoomLevel, String name);
+
+  // Built by the core share::Build. Requires an open place page.
+  @NonNull
+  public static native ShareData nativeGetShareData();
+  @NonNull
+  public static native ShareData nativeGetShareDataForMyPosition(double lat, double lon);
+  @NonNull
+  public static native ShareData nativeGetShareDataForBookmark(long bookmarkId);
 
   public static native String nativeGetAddress(double lat, double lon);
 

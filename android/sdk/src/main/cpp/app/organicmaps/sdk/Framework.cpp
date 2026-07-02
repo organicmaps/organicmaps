@@ -983,15 +983,6 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemovePlacePageActivatio
   g_placePageActivationListener = nullptr;
 }
 
-JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetGe0Url(JNIEnv * env, jclass, jdouble lat, jdouble lon,
-                                                                     jdouble zoomLevel, jstring name)
-{
-  ::Framework * fr = frm();
-  double const scale = (zoomLevel > 0 ? zoomLevel : fr->GetDrawScale());
-  std::string const url = fr->CodeGe0url(lat, lon, scale, jni::ToNativeString(env, name));
-  return jni::ToJavaString(env, url);
-}
-
 JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetGeoUri(JNIEnv * env, jclass, jdouble lat, jdouble lon,
                                                                      jdouble zoomLevel, jstring name)
 {
@@ -999,6 +990,36 @@ JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetGeoUri(JNIEnv * en
   double const scale = (zoomLevel > 0 ? zoomLevel : fr->GetDrawScale());
   std::string const url = ge0::GenerateGeoUri(lat, lon, scale, jni::ToNativeString(env, name));
   return jni::ToJavaString(env, url);
+}
+
+static jobject ShareResultToJava(JNIEnv * env, share::Result const & r)
+{
+  static jclass const shareDataClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/Framework$ShareData");
+  // ShareData(String url, String text, String html, String subjectBasis)
+  static jmethodID const shareDataCtor = jni::GetConstructorID(
+      env, shareDataClass, "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+
+  jni::TScopedLocalRef url(env, jni::ToJavaString(env, r.m_url));
+  jni::TScopedLocalRef text(env, jni::ToJavaString(env, r.m_text));
+  jni::TScopedLocalRef html(env, jni::ToJavaString(env, r.m_html));
+  jni::TScopedLocalRef subjectBasis(env, jni::ToJavaString(env, r.m_subjectBasis));
+  return env->NewObject(shareDataClass, shareDataCtor, url.get(), text.get(), html.get(), subjectBasis.get());
+}
+
+JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetShareData(JNIEnv * env, jclass)
+{
+  return ShareResultToJava(env, frm()->GetShareData(frm()->GetCurrentPlacePageInfo()));
+}
+
+JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetShareDataForMyPosition(JNIEnv * env, jclass, jdouble lat,
+                                                                                     jdouble lon)
+{
+  return ShareResultToJava(env, frm()->GetShareDataForMyPosition({lat, lon}));
+}
+
+JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetShareDataForBookmark(JNIEnv * env, jclass, jlong id)
+{
+  return ShareResultToJava(env, frm()->GetShareDataForBookmark(static_cast<kml::MarkId>(id)));
 }
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetDistanceAndAzimuth(JNIEnv * env, jclass, jdouble merX,
