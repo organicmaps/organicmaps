@@ -267,6 +267,12 @@ UNIT_TEST(GenerateShortShowMapUrl_NameIsEmpty)
   TEST_EQUAL("om://8wAAAAAAAA", res, ());
 }
 
+UNIT_TEST(GenerateHttpShowMapUrl_SameCodeAsShortUrl)
+{
+  TEST_EQUAL("https://omaps.app/8wAAAAAAAA/Name", GenerateHttpShowMapUrl(0, 0, 19, "Name"), ());
+  TEST_EQUAL("https://omaps.app/8wAAAAAAAA", GenerateHttpShowMapUrl(0, 0, 19, ""), ());
+}
+
 UNIT_TEST(GenerateShortShowMapUrl_ZoomVerySmall)
 {
   string res = GenerateShortShowMapUrl(0, 0, 2, "Name");
