@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
-import android.text.TextUtils;
 import android.util.Pair;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
@@ -22,7 +21,6 @@ import app.organicmaps.R;
 import app.organicmaps.SplashActivity;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.BookmarkInfo;
-import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.util.StorageUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import java.io.File;
@@ -112,66 +110,42 @@ public class SharingUtils
 
   public static void shareLocation(@NonNull Context context, @NonNull Location loc)
   {
-    Intent intent = new Intent(Intent.ACTION_SEND);
-    intent.setType(TEXT_MIME_TYPE);
-
-    final String subject = context.getString(R.string.share);
-    intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-
-    final String geoUrl =
-        Framework.nativeGetGeoUri(loc.getLatitude(), loc.getLongitude(), Framework.nativeGetDrawScale(), "");
-    final String httpUrl =
-        Framework.getHttpGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.nativeGetDrawScale(), "");
-    final String text = geoUrl + "\n" + httpUrl;
-    intent.putExtra(Intent.EXTRA_TEXT, text);
-
-    context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)));
+    shareText(context, Framework.nativeGetShareDataForMyPosition(loc.getLatitude(), loc.getLongitude()));
   }
 
-  public static void shareMapObject(@NonNull Context context, @NonNull MapObject object)
+  public static void shareCurrentPlace(@NonNull Context context)
   {
-    Intent intent = new Intent(Intent.ACTION_SEND);
-    intent.setType(TEXT_MIME_TYPE);
-
-    final String subject = object.isMyPosition() ? context.getString(R.string.my_position_share_email_subject)
-                                                 : context.getString(R.string.bookmark_share_email_subject);
-    intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-
-    final String geoUrl =
-        Framework.nativeGetGeoUri(object.getLat(), object.getLon(), object.getScale(), object.getName());
-    final String httpUrl =
-        Framework.getHttpGe0Url(object.getLat(), object.getLon(), object.getScale(), object.getName());
-    final String text = geoUrl + "\n" + httpUrl;
-    intent.putExtra(Intent.EXTRA_TEXT, text);
-
-    context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)));
+    // The place page is open, so the core has the info (with metadata) to build the shared text.
+    shareText(context, Framework.nativeGetShareData());
   }
 
   public static void shareBookmark(@NonNull Context context, @NonNull BookmarkInfo bookmark)
   {
+    shareText(context, Framework.nativeGetShareDataForBookmark(bookmark.getBookmarkId()));
+  }
+
+  // Builds the email subject: place name or address, else a "current location" / generic fallback.
+  // share_my_position is also read by the core, so it lives in the sdk module and needs its own R
+  // (resource classes are non-transitive), while the subject formats are app-only.
+  @NonNull
+  private static String subjectFor(@NonNull Context context, @NonNull Framework.ShareData data)
+  {
+    if (data.mIsMyPosition)
+      return context.getString(app.organicmaps.sdk.R.string.share_my_position);
+    if (!data.mSubjectBasis.isEmpty())
+      return context.getString(R.string.share_place_subject, data.mSubjectBasis);
+    return context.getString(R.string.share_place_subject_default);
+  }
+
+  // Fires a text-share chooser. EXTRA_TEXT is used by messengers, EXTRA_HTML_TEXT and EXTRA_SUBJECT
+  // by email apps (which is why the subject/HTML are safe to always attach).
+  private static void shareText(@NonNull Context context, @NonNull Framework.ShareData data)
+  {
     Intent intent = new Intent(Intent.ACTION_SEND);
     intent.setType(TEXT_MIME_TYPE);
-
-    final String subject = context.getString(R.string.bookmark_share_email_subject);
-    intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-
-    final String geoUrl =
-        Framework.nativeGetGe0Url(bookmark.getLat(), bookmark.getLon(), bookmark.getScale(), bookmark.getName());
-    final String httpUrl =
-        Framework.getHttpGe0Url(bookmark.getLat(), bookmark.getLon(), bookmark.getScale(), bookmark.getName());
-    StringBuilder text = new StringBuilder();
-    text.append(bookmark.getName());
-    if (!TextUtils.isEmpty(bookmark.getAddress()))
-    {
-      text.append(UiUtils.NEW_STRING_DELIMITER);
-      text.append(bookmark.getAddress());
-    }
-    text.append(UiUtils.NEW_STRING_DELIMITER);
-    text.append(geoUrl);
-    text.append(UiUtils.NEW_STRING_DELIMITER);
-    text.append(httpUrl);
-    intent.putExtra(Intent.EXTRA_TEXT, text.toString());
-
+    intent.putExtra(Intent.EXTRA_SUBJECT, subjectFor(context, data));
+    intent.putExtra(Intent.EXTRA_TEXT, data.mText);
+    intent.putExtra(Intent.EXTRA_HTML_TEXT, data.mHtml);
     context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)));
   }
 

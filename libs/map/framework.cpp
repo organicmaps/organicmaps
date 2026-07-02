@@ -8,8 +8,6 @@
 #include "map/track_mark.hpp"
 #include "map/user_mark.hpp"
 
-#include "ge0/url_generator.hpp"
-
 #include "routing/route.hpp"
 #include "routing/speed_camera_prohibition.hpp"
 
@@ -2744,20 +2742,6 @@ void Framework::PredictLocation(double & lat, double & lon, double accuracy, dou
 StringsBundle const & Framework::GetStringsBundle()
 {
   return m_stringsBundle;
-}
-
-// static
-std::string Framework::CodeGe0url(Bookmark const * bmk, bool addName)
-{
-  double lat = mercator::YToLat(bmk->GetPivot().y);
-  double lon = mercator::XToLon(bmk->GetPivot().x);
-  return ge0::GenerateShortShowMapUrl(lat, lon, bmk->GetScale(), addName ? bmk->GetPreferredName() : "");
-}
-
-// static
-std::string Framework::CodeGe0url(double lat, double lon, double zoomLevel, std::string const & name)
-{
-  return ge0::GenerateShortShowMapUrl(lat, lon, zoomLevel, name);
 }
 
 std::string Framework::GenerateApiBackUrl(ApiMarkPoint const & point) const
