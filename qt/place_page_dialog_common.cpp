@@ -13,13 +13,20 @@
 #include "platform/settings.hpp"
 
 #include <cstdint>
+#include <optional>
 
+#include <QtCore/QUrl>
+#include <QtCore/QUrlQuery>
+#include <QtGui/QClipboard>
+#include <QtGui/QDesktopServices>
+#include <QtGui/QGuiApplication>
 #include <QtGui/QIcon>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QToolButton>
@@ -99,6 +106,61 @@ QToolBar * createActionToolBar(QWidget * parent, qt::DrawWidget * drawWidget, pl
     QAction * editAction = toolBar->addAction("Edit Place");
     QObject::connect(editAction, &QAction::triggered, parent,
                      [drawWidget, featureId] { drawWidget->EditPlace(featureId); });
+  }
+
+  // Share: copy the omaps.app link or the full text, or start an email with the location. The core
+  // builds the same payload the mobile apps share. Tracks are shared as a file on mobile, and a
+  // single-point link would misrepresent them, so they get no Share menu here.
+  if (!info.IsTrack())
+  {
+    QToolButton * shareButton = new QToolButton(toolBar);
+    shareButton->setText("Share");
+    shareButton->setToolTip("Share this place");
+    shareButton->setPopupMode(QToolButton::InstantPopup);
+
+    // The place page lives in a dock that stays alive after the map selection is dropped, unlike the
+    // mobile sheets, so the payload is built on demand and only while the selection is still there.
+    auto const getShareData = [drawWidget]() -> std::optional<share::Result>
+    {
+      auto & f = drawWidget->GetFramework();
+      if (!f.HasPlacePageInfo())
+        return std::nullopt;
+      return f.GetShareData(f.GetCurrentPlacePageInfo());
+    };
+
+    QMenu * shareMenu = new QMenu(shareButton);
+    QObject::connect(shareMenu->addAction("Copy Link"), &QAction::triggered, parent, [getShareData]
+    {
+      if (auto const d = getShareData())
+        QGuiApplication::clipboard()->setText(QString::fromStdString(d->m_url));
+    });
+    QObject::connect(shareMenu->addAction("Copy Text"), &QAction::triggered, parent, [getShareData]
+    {
+      if (auto const d = getShareData())
+        QGuiApplication::clipboard()->setText(QString::fromStdString(d->m_text));
+    });
+    QObject::connect(shareMenu->addAction("Email…"), &QAction::triggered, parent, [drawWidget, getShareData]
+    {
+      auto const d = getShareData();
+      if (!d)
+        return;
+      // Desktop is not localized, so the subject is composed here instead of from the
+      // "%1 on Organic Maps" format string the mobile apps own.
+      QString subject = QStringLiteral("A place on Organic Maps");
+      if (d->m_isMyPosition)
+        subject = QString::fromStdString(drawWidget->GetFramework().GetStringsBundle().GetString("share_my_position"));
+      else if (!d->m_subjectBasis.empty())
+        subject = QString::fromStdString(d->m_subjectBasis) + " on Organic Maps";
+
+      QUrlQuery query;
+      query.addQueryItem("subject", subject);
+      query.addQueryItem("body", QString::fromStdString(d->m_text));
+      QUrl mailto("mailto:");
+      mailto.setQuery(query);
+      QDesktopServices::openUrl(mailto);
+    });
+    shareButton->setMenu(shareMenu);
+    toolBar->addWidget(shareButton);
   }
 
   return toolBar;
