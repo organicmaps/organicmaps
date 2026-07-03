@@ -171,16 +171,14 @@
     <string name="cant_change_this_setting">Ներեցեք, քարտեզների պահպանման կարգավորումները ներկայումս անջատված են:</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Քարտեզի ներբեռնումն ընթացքի մեջ է:</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Տես իմ ընթացիկ դիրքը Organic Maps-ում: %1$s կամ %2$s Չունե՞ք օֆլայն քարտեզներ: Ներբեռնեք այստեղ՝ https://omaps.app/get</string>
-    <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Հեյ, տես իմ նշումը Organic Maps-ում:</string>
-    <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Հեյ, տես իմ ընթացիկ դիրքը Organic Maps քարտեզի վրա:</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Ողջույն,\n\nԵս հիմա այստեղ եմ՝ %1$s: Սեղմեք այս հղմանը՝ %2$s կամ սրան՝ %3$s, տեղանքը քարտեզի վրա տեսնելու համար.\n\nՇնորհակալություն.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Կիսվել</string>
+    <!-- Text shown before a shared "my position" link, and the email subject when sharing the current location. -->
+    <string name="share_my_position">Ես այստեղ եմ Organic Maps-ում</string>
+    <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
+    <string name="share_place_subject">%1$s Organic Maps-ում</string>
+    <!-- Email subject when sharing a place that has no name or address. -->
+    <string name="share_place_subject_default">Վայր Organic Maps-ում</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">Էլ․ փոստ</string>
     <!-- Text for message when used successfully copied something -->

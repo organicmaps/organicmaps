@@ -174,11 +174,23 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "مکان شما هنوز مشخص نشده است";
 
-/* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "سلام، مکان من را در Organic Maps بررسی کن!";
+/* Text shown before a shared "my position" link, and the email subject when sharing the current location. */
+"share_my_position" = "من اینجا در Organic Maps هستم";
 
-/* Subject for emailed position */
-"my_position_share_email_subject" = "سلام، مکان فعلی من را روی نقشه Organic Maps بررسی کن!";
+/* Email subject when sharing a place. %1$@ is the place name or address. */
+"share_place_subject" = "%1$@ در Organic Maps";
+
+/* Email subject when sharing a place that has no name or address. */
+"share_place_subject_default" = "مکانی در Organic Maps";
+
+/* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
+"share_open_in_om_or_browser" = "در Organic Maps یا مرورگر باز کنید";
+
+/* Shared email link text; opens the shared place in another (geo:) maps app. */
+"share_open_in_maps_app" = "در یک برنامهٔ نقشهٔ دیگر باز کنید";
+
+/* Shared email link text; leads to the Organic Maps download page. */
+"share_get_om" = "Organic Maps را دریافت کنید";
 
 /* Share by email button text, also used in editor and About. */
 "email" = "ایمیل";
@@ -834,9 +846,6 @@
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "ضبط مسیر طی‌شده اخیر، غیرفعال شود؟";
 "off_recent_track_background_button" = "غیرفعال";
-
-/* For sharing via SMS and so on */
-"sharing_call_action_look" = "بررسی کنید";
 "recent_track_background_dialog_message" = "Organic Maps از اطلاعات موقعیت مکانی شما در پس ضمینه برای ذخیره مسیر‌هایی که اخیرا سفر کرده اید استفاده می کند.";
 "general_settings" = "تنظیمات عمومی";
 

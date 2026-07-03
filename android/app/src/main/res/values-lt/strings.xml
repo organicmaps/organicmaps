@@ -171,16 +171,14 @@
     <string name="cant_change_this_setting">Deja, šiuo metu žemėlapio saugyklos nustatymai negalimi.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Vyksta žemėlapio atsiuntimas.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Pažiūrėk, kur dabar esu „Organic Maps“ autonominių žemėlapių programėlėje! %1$s arba %2$s . Neturi jos? Atsisiųsk čia: https://omaps.app/get</string>
-    <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Labas, pažvelk, ką aš pasižymėjau „Organic Maps“ žemėlapyje!</string>
-    <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Žvilgtelk, kur dabar esu, „Organic Maps“ žemėlapyje!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Labas, \n\nŠiuo metu esu čia: %1$s. Spustelėk čia: %2$s, arba čia: %3$s, kad pamatytum šią vietą žemėlapyje. \n \nAčiū.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Bendrinti</string>
+    <!-- Text shown before a shared "my position" link, and the email subject when sharing the current location. -->
+    <string name="share_my_position">Esu čia per „Organic Maps“</string>
+    <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
+    <string name="share_place_subject">%1$s per „Organic Maps“</string>
+    <!-- Email subject when sharing a place that has no name or address. -->
+    <string name="share_place_subject_default">Vieta per „Organic Maps“</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">El. paštas</string>
     <!-- Text for message when used successfully copied something -->
