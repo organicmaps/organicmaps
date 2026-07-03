@@ -13,13 +13,20 @@
 #include "platform/settings.hpp"
 
 #include <cstdint>
+#include <optional>
 
+#include <QtCore/QUrl>
+#include <QtCore/QUrlQuery>
+#include <QtGui/QClipboard>
+#include <QtGui/QDesktopServices>
+#include <QtGui/QGuiApplication>
 #include <QtGui/QIcon>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QToolButton>
@@ -100,6 +107,49 @@ QToolBar * createActionToolBar(QWidget * parent, qt::DrawWidget * drawWidget, pl
     QObject::connect(editAction, &QAction::triggered, parent,
                      [drawWidget, featureId] { drawWidget->EditPlace(featureId); });
   }
+
+  // Share: copy the omaps.app link or the full text, or start an email with the location. The core
+  // builds the same payload the mobile apps share; it is fetched lazily while this place page is open.
+  QToolButton * shareButton = new QToolButton(toolBar);
+  shareButton->setText("Share");
+  shareButton->setToolTip("Share this place");
+  shareButton->setPopupMode(QToolButton::InstantPopup);
+
+  auto const getShareData = [drawWidget]() -> std::optional<share::Result>
+  {
+    auto & f = drawWidget->GetFramework();
+    if (!f.HasPlacePageInfo())
+      return std::nullopt;
+    return f.GetShareData(f.GetCurrentPlacePageInfo());
+  };
+
+  QMenu * shareMenu = new QMenu(shareButton);
+  QObject::connect(shareMenu->addAction("Copy Link"), &QAction::triggered, parent, [getShareData]
+  {
+    if (auto const d = getShareData())
+      QGuiApplication::clipboard()->setText(QString::fromStdString(d->m_url));
+  });
+  QObject::connect(shareMenu->addAction("Copy Text"), &QAction::triggered, parent, [getShareData]
+  {
+    if (auto const d = getShareData())
+      QGuiApplication::clipboard()->setText(QString::fromStdString(d->m_text));
+  });
+  QObject::connect(shareMenu->addAction("Email…"), &QAction::triggered, parent, [getShareData]
+  {
+    auto const d = getShareData();
+    if (!d)
+      return;
+    QString const subject = d->m_subjectBasis.empty() ? QStringLiteral("A place on Organic Maps")
+                                                      : QString::fromStdString(d->m_subjectBasis) + " on Organic Maps";
+    QUrlQuery query;
+    query.addQueryItem("subject", subject);
+    query.addQueryItem("body", QString::fromStdString(d->m_text));
+    QUrl mailto("mailto:");
+    mailto.setQuery(query);
+    QDesktopServices::openUrl(mailto);
+  });
+  shareButton->setMenu(shareMenu);
+  toolBar->addWidget(shareButton);
 
   return toolBar;
 }
