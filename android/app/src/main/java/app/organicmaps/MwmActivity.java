@@ -1243,7 +1243,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   @Override
   public void onStartRouteBuilding()
-  {}
+  {
+    Fragment fragment = getSupportFragmentManager().findFragmentByTag(RoutingPlanFragment.TAG);
+    if (fragment instanceof RoutingPlanFragment plan)
+      plan.onBuildStarted();
+  }
 
   @Override
   public void onNavigationCancelled()
@@ -1334,6 +1338,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
+  public void onPoiPickCompleted()
+  {
+    forceCloseSearchFragment();
+    closePlacePage();
+  }
+
+  @Override
   public void onBuiltRoute()
   {}
 
@@ -1410,7 +1421,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (controller.getEndPoint() == null)
       return false;
 
-    // Starting and ending points must be non-null, see {@link #showAddStartOrFinishFrame() }.
     final MapObject startPoint = Objects.requireNonNull(controller.getStartPoint());
     if (startPoint.isMyPosition())
       return true;

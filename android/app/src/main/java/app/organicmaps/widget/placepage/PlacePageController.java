@@ -640,9 +640,9 @@ public class PlacePageController
           (RoutingController.get().isPlanning() || showRoutingButton) && !mapObject.isTrackRecording();
 
       // The single-action branch below is only meaningful for an intermediate-stop pick (replace an
-      // existing stop or add a new one). For a Start/Finish pick (e.g. opened via the action banner
-      // when the start or destination is missing) it would hide ROUTE_FROM/ROUTE_TO and leave only
-      // the bookmark button, so fall through to the regular routing buttons in that case.
+      // existing stop or add a new one). For a Start/Finish pick (e.g. opened from the plan sheet's
+      // partial-slot row when the start or destination is missing) it would hide ROUTE_FROM/ROUTE_TO
+      // and leave only the bookmark button, so fall through to the regular routing buttons in that case.
       final boolean isIntermediateStopPick =
           RoutingController.get().isWaitingPoiPick()
           && (RoutingController.get().isPoiPickReplaceStop()

@@ -16,6 +16,7 @@ import app.organicmaps.R;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.util.Assert;
+import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,6 +35,24 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     void onRoutePointDeleted(RecyclerView.ViewHolder viewHolder);
     void onAddStopButtonClicked();
     void onRoutePointClicked(int position);
+    void onPartialSlotClicked(@NonNull RouteMarkType type);
+    void onPartialSlotReplaceClicked(@NonNull RouteMarkType realType);
+  }
+
+  private boolean isPartial()
+  {
+    return mRoutePoints.size() < 2;
+  }
+
+  private boolean isPlaceholderAt(int position)
+  {
+    if (!isPartial())
+      return false;
+    if (mRoutePoints.isEmpty())
+      return true;
+    final RouteMarkType realType = mRoutePoints.get(0).mPointType;
+    final RouteMarkType slotType = (position == 0) ? RouteMarkType.Start : RouteMarkType.Finish;
+    return realType != slotType;
   }
 
   public ManageRouteAdapter(Context context, RouteMarkData[] routeMarkData, ManageRouteListener listener)
@@ -56,6 +75,8 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
   @Override
   public int getItemViewType(int position)
   {
+    if (isPartial())
+      return TYPE_POINT;
     return (position == mRoutePoints.size()) ? TYPE_ADD_BUTTON : TYPE_POINT;
   }
 
@@ -70,6 +91,12 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
     if (!(holder instanceof ManageRouteViewHolder pointHolder))
       return;
+
+    if (isPartial())
+    {
+      bindPartialSlot(pointHolder, position);
+      return;
+    }
 
     int iconId;
     switch (mRoutePoints.get(position).mPointType)
@@ -99,6 +126,8 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
       title = mRoutePoints.get(position).mTitle;
     }
     pointHolder.mTextViewTitle.setText(title);
+    pointHolder.mTextViewTitle.setTextColor(ThemeUtils.getColor(mContext, android.R.attr.textColorPrimary));
+    UiUtils.show(pointHolder.mImageViewDrag);
     // Show 'Delete' icon button only if we have intermediate stops...
     UiUtils.showIf(mRoutePoints.size() > 2 && mRoutePoints.get(position).mPointType != RouteMarkType.Start
                        && mRoutePoints.get(position).mPointType != RouteMarkType.Finish,
@@ -118,9 +147,46 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     });
   }
 
+  private void bindPartialSlot(@NonNull ManageRouteViewHolder pointHolder, int position)
+  {
+    final RouteMarkType slotType = (position == 0) ? RouteMarkType.Start : RouteMarkType.Finish;
+    final boolean isPlaceholder = isPlaceholderAt(position);
+    final int iconId = (slotType == RouteMarkType.Start) ? R.drawable.route_point_start : R.drawable.route_point_finish;
+    pointHolder.mImageViewIcon.setImageDrawable(AppCompatResources.getDrawable(mContext, iconId));
+
+    final String title;
+    if (isPlaceholder)
+    {
+      title = mContext.getString(slotType == RouteMarkType.Start ? R.string.p2p_from_here : R.string.p2p_to_here);
+    }
+    else
+    {
+      final RouteMarkData point = mRoutePoints.get(0);
+      title = point.mIsMyPosition ? mContext.getString(app.organicmaps.sdk.R.string.core_my_position) : point.mTitle;
+    }
+    pointHolder.mTextViewTitle.setText(title);
+    final int titleColorAttr = isPlaceholder ? android.R.attr.textColorSecondary : android.R.attr.textColorPrimary;
+    pointHolder.mTextViewTitle.setTextColor(ThemeUtils.getColor(mContext, titleColorAttr));
+
+    UiUtils.hide(pointHolder.mImageViewDelete, pointHolder.mImageViewDrag);
+    pointHolder.mImageViewDrag.setOnTouchListener(null);
+
+    if (isPlaceholder)
+    {
+      pointHolder.itemView.setOnClickListener(v -> mManageRouteListener.onPartialSlotClicked(slotType));
+    }
+    else
+    {
+      final RouteMarkType realType = mRoutePoints.get(0).mPointType;
+      pointHolder.itemView.setOnClickListener(v -> mManageRouteListener.onPartialSlotReplaceClicked(realType));
+    }
+  }
+
   @Override
   public int getItemCount()
   {
+    if (isPartial())
+      return 2;
     return mRoutePoints.size() + 1;
   }
 

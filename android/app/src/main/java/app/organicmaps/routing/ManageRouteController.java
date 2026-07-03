@@ -31,7 +31,7 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
   public interface ManageRouteCallback
   {
     void onAddStop();
-    void onReplaceStop();
+    void onOpenRouteSearch();
   }
 
   public ManageRouteController(@NonNull View container, @NonNull RecyclerView.Adapter<?> headerAdapter,
@@ -119,7 +119,22 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     RouteMarkData point = routePoints.get(position);
     RoutingController.get().waitForPoiPick(type);
     RoutingController.get().replaceStopPoiPick(type == RouteMarkType.Intermediate ? point.mIntermediateIndex : 0);
-    mCallback.onReplaceStop();
+    mCallback.onOpenRouteSearch();
+  }
+
+  @Override
+  public void onPartialSlotClicked(@NonNull RouteMarkType type)
+  {
+    RoutingController.get().waitForPoiPick(type);
+    mCallback.onOpenRouteSearch();
+  }
+
+  @Override
+  public void onPartialSlotReplaceClicked(@NonNull RouteMarkType realType)
+  {
+    RoutingController.get().waitForPoiPick(realType);
+    RoutingController.get().replaceStopPoiPick(0);
+    mCallback.onOpenRouteSearch();
   }
 
   private static class ManageRouteItemTouchHelperCallback extends ItemTouchHelper.Callback
@@ -144,6 +159,8 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
       // Only route-point rows (ManageRouteAdapter inside the ConcatAdapter) are draggable; chart header is not.
       // instanceof is robust against transient binding-adapter resolution inside ConcatAdapter.
       if (!(viewHolder instanceof ManageRouteAdapter.ManageRouteViewHolder))
+        return 0;
+      if (mManageRouteAdapter.getRoutePoints().size() < 2)
         return 0;
       // Enable up & down dragging. No left-right swiping is enabled.
       return makeMovementFlags(UP | DOWN, 0);

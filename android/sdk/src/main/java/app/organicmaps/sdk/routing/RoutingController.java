@@ -44,6 +44,7 @@ public class RoutingController
     default void onPlanningStarted() {}
     default void onAddedStop() {}
     default void onRemovedStop() {}
+    default void onPoiPickCompleted() {}
     default void onResetToPlanningState() {}
     default void onBuiltRoute() {}
     default void onDrivingOptionsWarning() {}
@@ -616,6 +617,15 @@ public class RoutingController
     isPoiPickReplaceStop = true;
   }
 
+  private void finalizePendingPoiPick()
+  {
+    if (!isWaitingPoiPick())
+      return;
+    resetPoiPickState();
+    if (mContainer != null)
+      mContainer.onPoiPickCompleted();
+  }
+
   // Clears the pending POI-pick selection in one place. The replace-stop index/flag must be cleared together
   // with the waiting type, otherwise a cancelled replace leaks its index into the next, unrelated pick.
   private void resetPoiPickState()
@@ -703,6 +713,9 @@ public class RoutingController
 
   public void checkAndBuildRoute()
   {
+    // showRoutePlan() runs while POI-pick is still pending on purpose: the plan sheet lands underneath the
+    // search/PP overlay that finalizePendingPoiPick() dismisses right after (via set{Start,End}Point's outer
+    // wrapper). Flipping this order would visibly pop the sheet up post-close instead of revealing it seamlessly.
     if (isWaitingPoiPick())
       showRoutePlan();
 
@@ -722,6 +735,13 @@ public class RoutingController
    */
   @SuppressWarnings("Duplicates")
   public boolean setStartPoint(@Nullable MapObject point)
+  {
+    final boolean result = setStartPointInternal(point);
+    finalizePendingPoiPick();
+    return result;
+  }
+
+  private boolean setStartPointInternal(@Nullable MapObject point)
   {
     Logger.d(TAG, "setStartPoint");
     MapObject startPoint = getStartPoint();
@@ -770,6 +790,13 @@ public class RoutingController
    */
   @SuppressWarnings("Duplicates")
   public boolean setEndPoint(@Nullable MapObject point)
+  {
+    final boolean result = setEndPointInternal(point);
+    finalizePendingPoiPick();
+    return result;
+  }
+
+  private boolean setEndPointInternal(@Nullable MapObject point)
   {
     Logger.d(TAG, "setEndPoint");
     MapObject startPoint = getStartPoint();
