@@ -1,4 +1,3 @@
-@protocol MWMPlacePageObject;
 @class PlacePageData;
 
 NS_ASSUME_NONNULL_BEGIN
