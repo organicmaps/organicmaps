@@ -579,10 +579,6 @@
     <string name="prefs_languages_information_off_link">Për më shumë informacion, ju lutemi kontrolloni këtë udhëzues.</string>
     <string name="transliteration_title">Translitero në alfabetin latin</string>
     <string name="learn_more">Mëso më shumë</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Përdorni kërkimin, zgjidhni një faqeshënues ose prekni në hartë për të shtuar një pikë nisjeje të rrugës</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Përdorni kërkimin, zgjidhni një faqeshënues ose prekni në hartë për të shtuar një pikë destinacioni</string>
     <string name="planning_route_manage_route">Menaxho Rrugën</string>
     <string name="button_plan">Planifiko</string>
     <string name="placepage_remove_stop">Hiq Ndalesën</string>

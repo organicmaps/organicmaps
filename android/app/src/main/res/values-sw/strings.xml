@@ -577,10 +577,6 @@
     <string name="prefs_languages_information_off_link">Kwa maelezo zaidi tafadhali tazama mwongozo huu.</string>
     <string name="transliteration_title">Tafsiri kwa lugha ya Kilatini</string>
     <string name="learn_more">Jua mengi zaidi</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Tumia utafutaji au uguse kwenye ramani ili kuongeza mahali pa kuanzia</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Tumia utafutaji au uguse kwenye ramani ili kuongeza mahali unakoenda</string>
     <string name="planning_route_manage_route">Dhibiti njia ya kufuata</string>
     <string name="button_plan">Panga</string>
     <string name="placepage_remove_stop">Ondoa eneo la kusimama</string>
