@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- SECTION: Other translations -->
+    <!-- Text shown before a shared "my position" link, and the email subject when sharing the current location. -->
+    <string name="share_my_position">Estou aqui no Organic Maps</string>
+    <!-- Shared email link text; opens the shared place in Organic Maps or in a web browser. -->
+    <string name="share_open_in_om_or_browser">Abrir no Organic Maps ou em um navegador</string>
+    <!-- Shared email link text; opens the shared place in another (geo:) maps app. -->
+    <string name="share_open_in_maps_app">Abrir em outro app de mapas</string>
+    <!-- Shared email link text; leads to the Organic Maps download page. -->
+    <string name="share_get_om">Baixar Organic Maps</string>
+
     <!-- SECTION: Uncategorized -->
     <!-- A text for current gps location point/arrow selected on the map -->
     <string name="core_my_position">Minha posição</string>

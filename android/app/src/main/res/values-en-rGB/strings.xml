@@ -12,6 +12,12 @@
     <string name="category_fuel">Petrol</string>
 
     <!-- SECTION: Other translations -->
+    <!-- Text shown before a shared "my position" link, and the email subject when sharing the current location. -->
+    <string name="share_my_position">I am here on Organic Maps</string>
+    <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
+    <string name="share_place_subject">%1$s on Organic Maps</string>
+    <!-- Email subject when sharing a place that has no name or address. -->
+    <string name="share_place_subject_default">A place on Organic Maps</string>
     <!-- gray color -->
     <string name="gray">Grey</string>
     <!-- blue gray color -->
