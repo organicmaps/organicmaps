@@ -165,7 +165,6 @@
 		ED82C5352F90180300FA103D /* DownloadMapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C3132F90180300FA103D /* DownloadMapsViewController.swift */; };
 		ED82C5362F90180300FA103D /* IDownloaderDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C3142F90180300FA103D /* IDownloaderDataSource.swift */; };
 		ED82C5372F90180300FA103D /* SearchMapsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C3162F90180300FA103D /* SearchMapsDataSource.swift */; };
-		ED82C5392F90180300FA103D /* BookmarkTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C3192F90180300FA103D /* BookmarkTitleCell.swift */; };
 		ED82C53A2F90180300FA103D /* BookmarkUIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C31B2F90180300FA103D /* BookmarkUIUtils.swift */; };
 		ED82C53B2F90180300FA103D /* EditBookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C31C2F90180300FA103D /* EditBookmarkViewController.swift */; };
 		ED82C53C2F90180300FA103D /* EditTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C31D2F90180300FA103D /* EditTrackViewController.swift */; };
@@ -397,7 +396,6 @@
 		ED82C6302F90180300FA103D /* MWMMapDownloaderSubplaceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C3032F90180300FA103D /* MWMMapDownloaderSubplaceTableViewCell.xib */; };
 		ED82C6312F90180300FA103D /* MWMMapDownloaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C3062F90180300FA103D /* MWMMapDownloaderTableViewCell.xib */; };
 		ED82C6322F90180300FA103D /* DownloadAllView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C3092F90180300FA103D /* DownloadAllView.xib */; };
-		ED82C6332F90180300FA103D /* BookmarkTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C31A2F90180300FA103D /* BookmarkTitleCell.xib */; };
 		ED82C6342F90180300FA103D /* EditorAdditionalNamePlaceholderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C3242F90180300FA103D /* EditorAdditionalNamePlaceholderTableViewCell.xib */; };
 		ED82C6352F90180300FA103D /* MWMButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C3272F90180300FA103D /* MWMButtonCell.xib */; };
 		ED82C6362F90180300FA103D /* MWMEditorAddAdditionalNameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C32A2F90180300FA103D /* MWMEditorAddAdditionalNameTableViewCell.xib */; };
@@ -1044,8 +1042,6 @@
 		ED82C3142F90180300FA103D /* IDownloaderDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDownloaderDataSource.swift; sourceTree = "<group>"; };
 		ED82C3152F90180300FA103D /* MWMMapDownloaderMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloaderMode.h; sourceTree = "<group>"; };
 		ED82C3162F90180300FA103D /* SearchMapsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMapsDataSource.swift; sourceTree = "<group>"; };
-		ED82C3192F90180300FA103D /* BookmarkTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTitleCell.swift; sourceTree = "<group>"; };
-		ED82C31A2F90180300FA103D /* BookmarkTitleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarkTitleCell.xib; sourceTree = "<group>"; };
 		ED82C31B2F90180300FA103D /* BookmarkUIUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkUIUtils.swift; sourceTree = "<group>"; };
 		ED82C31C2F90180300FA103D /* EditBookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBookmarkViewController.swift; sourceTree = "<group>"; };
 		ED82C31D2F90180300FA103D /* EditTrackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTrackViewController.swift; sourceTree = "<group>"; };
@@ -2473,8 +2469,6 @@
 		ED82C31F2F90180300FA103D /* EditBookmark */ = {
 			isa = PBXGroup;
 			children = (
-				ED82C3192F90180300FA103D /* BookmarkTitleCell.swift */,
-				ED82C31A2F90180300FA103D /* BookmarkTitleCell.xib */,
 				ED82C31B2F90180300FA103D /* BookmarkUIUtils.swift */,
 				ED82C31C2F90180300FA103D /* EditBookmarkViewController.swift */,
 				ED82C31D2F90180300FA103D /* EditTrackViewController.swift */,
@@ -4361,7 +4355,6 @@
 				ED82C6302F90180300FA103D /* MWMMapDownloaderSubplaceTableViewCell.xib in Resources */,
 				ED82C6312F90180300FA103D /* MWMMapDownloaderTableViewCell.xib in Resources */,
 				ED82C6322F90180300FA103D /* DownloadAllView.xib in Resources */,
-				ED82C6332F90180300FA103D /* BookmarkTitleCell.xib in Resources */,
 				ED82C6342F90180300FA103D /* EditorAdditionalNamePlaceholderTableViewCell.xib in Resources */,
 				ED82C6352F90180300FA103D /* MWMButtonCell.xib in Resources */,
 				ED82C6362F90180300FA103D /* MWMEditorAddAdditionalNameTableViewCell.xib in Resources */,
@@ -4535,7 +4528,6 @@
 				ED82C5352F90180300FA103D /* DownloadMapsViewController.swift in Sources */,
 				ED82C5362F90180300FA103D /* IDownloaderDataSource.swift in Sources */,
 				ED82C5372F90180300FA103D /* SearchMapsDataSource.swift in Sources */,
-				ED82C5392F90180300FA103D /* BookmarkTitleCell.swift in Sources */,
 				ED82C53A2F90180300FA103D /* BookmarkUIUtils.swift in Sources */,
 				ED82C53B2F90180300FA103D /* EditBookmarkViewController.swift in Sources */,
 				ED82C53C2F90180300FA103D /* EditTrackViewController.swift in Sources */,

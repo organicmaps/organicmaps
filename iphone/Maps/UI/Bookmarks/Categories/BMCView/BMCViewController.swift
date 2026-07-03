@@ -9,6 +9,7 @@ final class BMCViewController: MWMViewController {
   }
 
   private weak var coordinator: BookmarksCoordinator?
+  private let bookmarksManager = BookmarksManager.shared()
 
   @IBOutlet private var tableView: UITableView! {
     didSet {
@@ -101,22 +102,20 @@ final class BMCViewController: MWMViewController {
   }
 
   private func openCategorySettings(category: BookmarkGroup) {
-    let settingsController = CategorySettingsViewController(bookmarkGroup: BookmarksManager.shared().category(withId: category.categoryId))
+    let settingsController = CategorySettingsViewController(bookmarkGroup: bookmarksManager.category(withId: category.categoryId))
     settingsController.delegate = self
-
     MapViewController.shared()?.navigationController?.pushViewController(settingsController, animated: true)
   }
 
   private func openCategory(category: BookmarkGroup) {
     let bmViewController = BookmarksListBuilder.build(markGroupId: category.categoryId,
-                                                      bookmarksCoordinator: coordinator,
-                                                      sourceViewController: self)
+                                                      bookmarksCoordinator: coordinator)
     MapViewController.shared()?.navigationController?.pushViewController(bmViewController, animated: true)
   }
 
   private func setCategoryVisible(_ visible: Bool, at index: Int) {
     let category = viewModel.category(at: index)
-    BookmarksManager.shared().setCategory(category.categoryId, isVisible: visible)
+    bookmarksManager.setCategory(category.categoryId, isVisible: visible)
     if let categoriesHeader = tableView.headerView(forSection: viewModel.sectionIndex(section: .categories)) as? BMCCategoriesHeader {
       categoriesHeader.isShowAll = viewModel.areAllCategoriesHidden()
     }
@@ -162,7 +161,7 @@ final class BMCViewController: MWMViewController {
   }
 
   private func openRecentlyDeleted() {
-    let recentlyDeletedController = RecentlyDeletedCategoriesViewController(viewModel: RecentlyDeletedCategoriesViewModel(bookmarksManager: BookmarksManager.shared()))
+    let recentlyDeletedController = RecentlyDeletedCategoriesViewController(viewModel: RecentlyDeletedCategoriesViewModel(bookmarksManager: bookmarksManager))
     MapViewController.shared()?.navigationController?.pushViewController(recentlyDeletedController, animated: true)
   }
 
@@ -329,13 +328,9 @@ extension BMCViewController: BMCCategoriesHeaderDelegate {
 }
 
 extension BMCViewController: CategorySettingsViewControllerDelegate {
-  func categorySettingsController(_: CategorySettingsViewController,
-                                  didEndEditing _: MWMMarkGroupID) {
-    navigationController?.popViewController(animated: true)
-  }
+  func categorySettingsController(_: CategorySettingsViewController, didEndEditing _: MWMMarkGroupID) {}
 
-  func categorySettingsController(_: CategorySettingsViewController,
-                                  didDelete _: MWMMarkGroupID) {
-    navigationController?.popViewController(animated: true)
+  func categorySettingsController(_ viewController: CategorySettingsViewController, didDelete _: MWMMarkGroupID) {
+    coordinator?.pop(viewController)
   }
 }

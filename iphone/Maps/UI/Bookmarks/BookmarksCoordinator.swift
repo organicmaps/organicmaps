@@ -27,12 +27,25 @@ import UIKit
     state = .closed
   }
 
-  @objc func goBack() {
-    switch state {
-    case .opened:
-      navigationController?.popViewController(animated: true)
-    case .hidden, .closed:
-      close()
+  @objc func push(_ viewController: UIViewController) {
+    navigationController?.pushViewController(viewController, animated: true)
+  }
+
+  @objc func pop(_ viewController: UIViewController? = nil) {
+    guard let navigationController else { return }
+    if let viewController {
+      let stack = navigationController.viewControllers
+      guard let index = stack.firstIndex(where: { $0 === viewController }) else {
+        return
+      }
+      guard index > 0 else {
+        navigationController.popToRootViewController(animated: true)
+        return
+      }
+      let newStack = Array(stack.prefix(index))
+      navigationController.setViewControllers(newStack, animated: true)
+    } else {
+      navigationController.popViewController(animated: true)
     }
   }
 
