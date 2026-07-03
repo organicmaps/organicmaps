@@ -174,11 +174,23 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Vaša lokacija još nije određena";
 
-/* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Hej, pogledaj moj marker u Organic Maps!";
+/* Text shown before a shared "my position" link, and the email subject when sharing the current location. */
+"share_my_position" = "Ovdje sam na Organic Maps";
 
-/* Subject for emailed position */
-"my_position_share_email_subject" = "Hej, pogledaj moju trenutnu lokaciju na mapi Organic Maps!";
+/* Email subject when sharing a place. %1$@ is the place name or address. */
+"share_place_subject" = "%1$@ na Organic Maps";
+
+/* Email subject when sharing a place that has no name or address. */
+"share_place_subject_default" = "Mjesto na Organic Maps";
+
+/* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
+"share_open_in_om_or_browser" = "Otvori u Organic Maps ili u pregledniku";
+
+/* Shared email link text; opens the shared place in another (geo:) maps app. */
+"share_open_in_maps_app" = "Otvori u drugoj aplikaciji za karte";
+
+/* Shared email link text; leads to the Organic Maps download page. */
+"share_get_om" = "Preuzmi Organic Maps";
 
 /* Share by email button text, also used in editor and About. */
 "email" = "E-mail adresa";
@@ -833,9 +845,6 @@
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Onemogućite snimanje vaše nedavno pređene rute?";
 "off_recent_track_background_button" = "Onemogući";
-
-/* For sharing via SMS and so on */
-"sharing_call_action_look" = "Pogledajte";
 "recent_track_background_dialog_message" = "Organic Maps koristi tvoju lokaciju u pozadini kako bi zabilježila tvoju nedavno pređenu rutu.";
 "general_settings" = "Opće postavke";
 

@@ -82,6 +82,12 @@
     <string name="share_bookmarks_email_body">¡Hola!\n\nLos mios marcadores tán axuntos; ábrilos n’Organic Maps. Si nun lu tienes instaláu, te lu puedes baxar equí: https://omaps.app/get?kmz\n\n¡Gocia viaxar con Organic Maps!</string>
     <!-- resource for context menu -->
     <string name="edit">Editar</string>
+    <!-- Text shown before a shared "my position" link, and the email subject when sharing the current location. -->
+    <string name="share_my_position">Toi equí en Organic Maps</string>
+    <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
+    <string name="share_place_subject">%1$s en Organic Maps</string>
+    <!-- Email subject when sharing a place that has no name or address. -->
+    <string name="share_place_subject_default">Un llugar en Organic Maps</string>
     <!-- Text for message when used successfully copied something -->
     <string name="copied_to_clipboard">Copióse nel cartafueyu: %s</string>
     <!-- Used for bookmark editing -->

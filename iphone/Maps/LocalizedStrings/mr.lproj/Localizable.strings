@@ -174,11 +174,23 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "तुमचे स्थान अद्याप निश्चित केलेले नाही";
 
-/* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Organic Maps द्वारे एक खूणपत्र पाठवत आहे!";
+/* Text shown before a shared "my position" link, and the email subject when sharing the current location. */
+"share_my_position" = "मी Organic Maps वर येथे आहे";
 
-/* Subject for emailed position */
-"my_position_share_email_subject" = "Organic Maps द्वारे माझे वर्तमान स्थान पाठवत आहे!";
+/* Email subject when sharing a place. %1$@ is the place name or address. */
+"share_place_subject" = "%1$@ Organic Maps वर";
+
+/* Email subject when sharing a place that has no name or address. */
+"share_place_subject_default" = "Organic Maps वरील ठिकाण";
+
+/* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
+"share_open_in_om_or_browser" = "Organic Maps किंवा ब्राउझरमध्ये उघडा";
+
+/* Shared email link text; opens the shared place in another (geo:) maps app. */
+"share_open_in_maps_app" = "दुसऱ्या नकाशा अॅपमध्ये उघडा";
+
+/* Shared email link text; leads to the Organic Maps download page. */
+"share_get_om" = "Organic Maps मिळवा";
 
 /* Share by email button text, also used in editor and About. */
 "email" = "ई-मेल";
@@ -833,9 +845,6 @@
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "तुम्ही अलीकडे प्रवास केलेल्या मार्गाचे रेकॉर्डिंग बंद करायचे?";
 "off_recent_track_background_button" = "बंद करा";
-
-/* For sharing via SMS and so on */
-"sharing_call_action_look" = "तपासा";
 "recent_track_background_dialog_message" = "तुम्ही अलीकडे प्रवास केलेला मार्ग रेकॉर्ड करण्यासाठी Organic Maps पार्श्वभूमीत तुमचे स्थान वापरते.";
 "general_settings" = "सामान्य सेटिंग";
 

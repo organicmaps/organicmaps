@@ -174,11 +174,23 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "U ligging is nog nie vasgestel nie";
 
-/* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Hallo, kyk my liggingmerker in Organic Maps!";
+/* Text shown before a shared "my position" link, and the email subject when sharing the current location. */
+"share_my_position" = "Ek is hier op Organic Maps";
 
-/* Subject for emailed position */
-"my_position_share_email_subject" = "Hallo, sien my huidige ligging op die Organic Maps-toep!";
+/* Email subject when sharing a place. %1$@ is the place name or address. */
+"share_place_subject" = "%1$@ op Organic Maps";
+
+/* Email subject when sharing a place that has no name or address. */
+"share_place_subject_default" = "'n Plek op Organic Maps";
+
+/* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
+"share_open_in_om_or_browser" = "Maak oop in Organic Maps of in 'n blaaier";
+
+/* Shared email link text; opens the shared place in another (geo:) maps app. */
+"share_open_in_maps_app" = "Maak oop in 'n ander kaarttoepassing";
+
+/* Shared email link text; leads to the Organic Maps download page. */
+"share_get_om" = "Kry Organic Maps";
 
 /* Share by email button text, also used in editor and About. */
 "email" = "E-pos";
@@ -833,9 +845,6 @@
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Deaktiveer opname van u onlangs berese roete?";
 "off_recent_track_background_button" = "Deaktiveer";
-
-/* For sharing via SMS and so on */
-"sharing_call_action_look" = "Bekyk";
 "recent_track_background_dialog_message" = "Organic Maps gebruik u ligging in die agtergrond om u onlangs berese roete op te neem.";
 "general_settings" = "Algemene instellings";
 

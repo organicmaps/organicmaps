@@ -174,11 +174,23 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Konumunuz henüz belirlenmedi";
 
-/* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Hey, Organic Maps'teki imimi incele!";
+/* Text shown before a shared "my position" link, and the email subject when sharing the current location. */
+"share_my_position" = "Organic Maps'te buradayım";
 
-/* Subject for emailed position */
-"my_position_share_email_subject" = "Hey, Organic Maps’te geçerli konumumu incele!";
+/* Email subject when sharing a place. %1$@ is the place name or address. */
+"share_place_subject" = "%1$@ Organic Maps'te";
+
+/* Email subject when sharing a place that has no name or address. */
+"share_place_subject_default" = "Organic Maps'te bir yer";
+
+/* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
+"share_open_in_om_or_browser" = "Organic Maps'te veya tarayıcıda aç";
+
+/* Shared email link text; opens the shared place in another (geo:) maps app. */
+"share_open_in_maps_app" = "Başka bir harita uygulamasında aç";
+
+/* Shared email link text; leads to the Organic Maps download page. */
+"share_get_om" = "Organic Maps'i indir";
 
 /* Share by email button text, also used in editor and About. */
 "email" = "E-posta";
@@ -833,9 +845,6 @@
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "En son seyahat edilen rotanızı kaydetmeyi devre dışı bırakmak istiyor musunuz?";
 "off_recent_track_background_button" = "Devre Dışı Bırak";
-
-/* For sharing via SMS and so on */
-"sharing_call_action_look" = "İncele";
 "recent_track_background_dialog_message" = "Organic Maps, en son seyahat ettiğiniz rotayı kaydetmek için arka planda coğrafi konumunuzu kullanır.";
 "general_settings" = "Genel ayarlar";
 
