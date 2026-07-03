@@ -579,10 +579,6 @@
     <string name="prefs_languages_information_off_link">Za več informacij preverite ta vodnik.</string>
     <string name="transliteration_title">Transliteriraj v latinico</string>
     <string name="learn_more">Več o tem</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Uporabite iskanje ali se dotaknite zemljevida, da dodate začetno točko poti</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Uporabite iskanje ali se dotaknite zemljevida, da dodate ciljno točko</string>
     <string name="planning_route_manage_route">Upravljaj pot</string>
     <string name="button_plan">Načrtuj</string>
     <string name="placepage_remove_stop">Odstrani postanek</string>

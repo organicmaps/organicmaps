@@ -579,10 +579,6 @@
     <string name="prefs_languages_information_off_link">Լրացուցիչ տեղեկությունների համար խնդրում ենք ծանոթանալ այս ուղեցույցին։</string>
     <string name="transliteration_title">Տառադարձել լատինատառի</string>
     <string name="learn_more">Իմանալ ավելին</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Օգտագործեք որոնումը, ընտրեք էջանիշ կամ հպեք քարտեզին՝ երթուղու սկզբնակետ ավելացնելու համար</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Օգտագործեք որոնումը, ընտրեք էջանիշ կամ հպեք քարտեզին՝ նշանակման կետ ավելացնելու համար</string>
     <string name="planning_route_manage_route">Կառավարել երթուղին</string>
     <string name="button_plan">Պլանավորել</string>
     <string name="placepage_remove_stop">Հեռացնել կանգառը</string>

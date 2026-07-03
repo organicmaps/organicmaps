@@ -579,10 +579,6 @@
     <string name="prefs_languages_information_off_link">Sien hierdie gids vir meer inligting</string>
     <string name="transliteration_title">Transliterasie in Latynse alfabet</string>
     <string name="learn_more">Meer inligting</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Gebruik soek of tik op die kaart om \'n roetebeginpunt by te voeg</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Gebruik soek of tik op die kaart om \'n bestemmingspunt by te voeg</string>
     <string name="planning_route_manage_route">Bestuur roete</string>
     <string name="button_plan">Beplan</string>
     <string name="placepage_remove_stop">Verwyder stop</string>

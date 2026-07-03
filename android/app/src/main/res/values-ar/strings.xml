@@ -579,10 +579,6 @@
     <string name="prefs_languages_information_off_link">لمزيد من المعلومات الرجاء مراجعة هذا الدليل.</string>
     <string name="transliteration_title">ترجمة حرفية إلى الأبجدية اللاتينية</string>
     <string name="learn_more">معرفة المزيد</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">استخدام البحث أو حدّد إشارة مرجعية أو النقر على الخريطة لإضافة نقطة بداية الطريق</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">استخدام البحث أو حدّد إشارة مرجعية أو النقر على الخريطة لإضافة نقطة وجهة</string>
     <string name="planning_route_manage_route">إدارة المسار</string>
     <string name="button_plan">خطة</string>
     <string name="placepage_remove_stop">إزالة نقطة توقف</string>

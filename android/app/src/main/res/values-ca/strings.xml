@@ -579,10 +579,6 @@
     <string name="prefs_languages_information_off_link">Per a més informació, vegeu aquesta guia.</string>
     <string name="transliteration_title">Transliteració a l’alfabet llatí</string>
     <string name="learn_more">Més informació</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Utilitzeu la cerca o toqueu el mapa per afegir un punt de partida de la ruta</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Utilitzeu la cerca o toqueu el mapa per afegir un punt de destinació</string>
     <string name="planning_route_manage_route">Gestionar la ruta</string>
     <string name="button_plan">Planifica</string>
     <string name="placepage_remove_stop">Elimina parada</string>

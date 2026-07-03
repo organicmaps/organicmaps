@@ -579,10 +579,6 @@
     <string name="prefs_languages_information_off_link">Daha fazla bilgi için lütfen bu kılavuzu inceleyin.</string>
     <string name="transliteration_title">Latin alfabesine çevir</string>
     <string name="learn_more">Daha fazla bilgi edinin</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Rota başlangıç noktası eklemek için aramayı kullanın, yer imi seçin ya da haritaya dokunun</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Hedef noktası eklemek için aramayı kullanın, yer imi seçin ya da haritaya dokunun</string>
     <string name="planning_route_manage_route">Rotayı yönet</string>
     <string name="button_plan">Plan</string>
     <string name="placepage_remove_stop">Durağı Kaldır</string>
