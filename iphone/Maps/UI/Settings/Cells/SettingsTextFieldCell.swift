@@ -29,7 +29,9 @@ final class SettingsTextFieldCell: MWMTableViewCell {
                  text: String,
                  placeholder: String?,
                  isEnabled: Bool,
-                 isValid: Bool) {
+                 isValid: Bool,
+                 autocapitalizationType: UITextAutocapitalizationType = .none,
+                 autocorrectionType: UITextAutocorrectionType = .no) {
     let wasFirstResponder = textField.isFirstResponder
     self.delegate = delegate
     if textField.text != text {
@@ -38,6 +40,8 @@ final class SettingsTextFieldCell: MWMTableViewCell {
     textField.placeholder = placeholder
     textField.isEnabled = isEnabled
     textField.textColor = isEnabled ? .label : .tertiaryLabel
+    textField.autocapitalizationType = autocapitalizationType
+    textField.autocorrectionType = autocorrectionType
     setValid(isValid)
     if wasFirstResponder, isEnabled {
       textField.becomeFirstResponder()
@@ -67,7 +71,7 @@ final class SettingsTextFieldCell: MWMTableViewCell {
     ])
   }
 
-  private func setValid(_ isValid: Bool) {
+  func setValid(_ isValid: Bool) {
     contentView.setStyleAndApply(isValid ? .background : .errorBackground)
   }
 }

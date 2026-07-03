@@ -2,7 +2,6 @@ final class BookmarksListPresenter {
   private weak var view: IBookmarksListView?
   private let router: IBookmarksListRouter
   private var interactor: IBookmarksListInteractor
-  private weak var sourceViewController: UIViewController?
   private var bookmarkGroup: BookmarkGroup
 
   private enum EditableItem {
@@ -14,11 +13,9 @@ final class BookmarksListPresenter {
 
   init(view: IBookmarksListView,
        router: IBookmarksListRouter,
-       sourceViewController: UIViewController?,
        interactor: IBookmarksListInteractor) {
     self.view = view
     self.router = router
-    self.sourceViewController = sourceViewController
     self.interactor = interactor
     bookmarkGroup = interactor.getBookmarkGroup()
     subscribeOnGroupReloading()
@@ -35,6 +32,15 @@ final class BookmarksListPresenter {
         self.reload()
       }
     }
+  }
+
+  private func updateInfo() {
+    let info = BookmarksListInfo(title: bookmarkGroup.title,
+                                 description: bookmarkGroup.detailedAnnotation,
+                                 hasDescription: bookmarkGroup.hasDescription,
+                                 isHtmlDescription: bookmarkGroup.isHtmlDescription,
+                                 imageUrl: bookmarkGroup.imageUrl)
+    view?.setInfo(info)
   }
 
   private func reload() {
@@ -212,19 +218,12 @@ final class BookmarksListPresenter {
 extension BookmarksListPresenter: IBookmarksListPresenter {
   func viewDidLoad() {
     reload()
-    view?.setTitle(bookmarkGroup.title)
+    updateInfo()
     view?.enableEditing(true)
-
-    let info = BookmarksListInfo(title: bookmarkGroup.title,
-                                 description: bookmarkGroup.detailedAnnotation,
-                                 hasDescription: bookmarkGroup.hasDescription,
-                                 isHtmlDescription: bookmarkGroup.isHtmlDescription,
-                                 imageUrl: bookmarkGroup.imageUrl)
-    view?.setInfo(info)
   }
 
   func viewDidAppear() {
-    reload()
+    interactor.reloadCategory()
   }
 
   func activateSearch() {
@@ -364,20 +363,13 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
 }
 
 extension BookmarksListPresenter: CategorySettingsViewControllerDelegate {
-  func categorySettingsController(_ viewController: CategorySettingsViewController, didEndEditing _: MWMMarkGroupID) {
-    let info = BookmarksListInfo(title: bookmarkGroup.title,
-                                 description: bookmarkGroup.detailedAnnotation,
-                                 hasDescription: bookmarkGroup.hasDescription,
-                                 isHtmlDescription: bookmarkGroup.isHtmlDescription,
-                                 imageUrl: bookmarkGroup.imageUrl)
-    view?.setInfo(info)
-    viewController.goBack()
+  func categorySettingsController(_: CategorySettingsViewController, didDelete _: MWMMarkGroupID) {
+    router.goBack()
   }
 
-  func categorySettingsController(_ viewController: CategorySettingsViewController, didDelete _: MWMMarkGroupID) {
-    if let sourceViewController {
-      viewController.navigationController?.popToViewController(sourceViewController, animated: true)
-    }
+  func categorySettingsController(_: CategorySettingsViewController, didEndEditing _: MWMMarkGroupID) {
+    bookmarkGroup = interactor.getBookmarkGroup()
+    updateInfo()
   }
 }
 

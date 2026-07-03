@@ -6,7 +6,7 @@ protocol BookmarksListInfoViewControllerDelegate: AnyObject {
 final class BookmarksListInfoViewController: UIViewController {
   var info: IBookmarksListInfoViewModel? {
     didSet {
-      guard isViewLoaded, let info = info else { return }
+      guard isViewLoaded, let info else { return }
       updateInfo(info)
     }
   }

@@ -1,4 +1,5 @@
-@objc protocol CategorySettingsViewControllerDelegate: AnyObject {
+@objc
+protocol CategorySettingsViewControllerDelegate: AnyObject {
   func categorySettingsController(_ viewController: CategorySettingsViewController,
                                   didEndEditing categoryId: MWMMarkGroupID)
   func categorySettingsController(_ viewController: CategorySettingsViewController,
@@ -38,9 +39,10 @@ final class CategorySettingsViewController: MWMTableViewController {
 
   private let bookmarkGroup: BookmarkGroup
   private var noteCell: MWMNoteCell?
-  private var changesMade = false
   private var newName: String?
   private var newAnnotation: String?
+  private var isDeleting = false
+  private let bookmarksManager = BookmarksManager.shared()
 
   private var colorActions: [ColorAction] {
     var actions: [ColorAction] = []
@@ -78,13 +80,24 @@ final class CategorySettingsViewController: MWMTableViewController {
     super.viewDidLoad()
 
     title = L("edit")
-    navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
-                                                        target: self,
-                                                        action: #selector(onSave))
 
-    tableView.registerNib(cell: BookmarkTitleCell.self)
+    tableView.register(cell: SettingsTextFieldCell.self)
     tableView.registerNib(cell: MWMButtonCell.self)
     tableView.registerNib(cell: MWMNoteCell.self)
+
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(saveChanges),
+                                           name: UIApplication.willResignActiveNotification,
+                                           object: nil)
+  }
+
+  deinit {
+    NotificationCenter.default.removeObserver(self)
+  }
+
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    saveChanges()
   }
 
   override func numberOfSections(in _: UITableView) -> Int {
@@ -107,8 +120,15 @@ final class CategorySettingsViewController: MWMTableViewController {
     case .info:
       switch InfoSectionRows(rawValue: indexPath.row) {
       case .title:
-        let cell = tableView.dequeueReusableCell(cell: BookmarkTitleCell.self, indexPath: indexPath)
-        cell.configure(name: bookmarkGroup.title, delegate: self, hint: L("bookmarks_error_message_empty_list_name"))
+        let cell = tableView.dequeueReusableCell(cell: SettingsTextFieldCell.self, indexPath: indexPath)
+        let title = newName ?? bookmarkGroup.title
+        cell.configure(delegate: self,
+                       text: title,
+                       placeholder: L("bookmarks_error_message_empty_list_name"),
+                       isEnabled: true,
+                       isValid: isTitleValid(title),
+                       autocapitalizationType: .sentences,
+                       autocorrectionType: .default)
         return cell
       default:
         fatalError()
@@ -132,23 +152,28 @@ final class CategorySettingsViewController: MWMTableViewController {
       let cell = tableView.dequeueReusableCell(cell: MWMButtonCell.self, indexPath: indexPath)
       cell.configure(with: self,
                      title: L("delete_list"),
-                     enabled: BookmarksManager.shared().userCategoriesCount() > 1)
+                     enabled: bookmarksManager.userCategoriesCount() > 1)
       return cell
     default:
       fatalError()
     }
   }
 
-  @objc func onSave() {
-    view.endEditing(true)
-    if let newName = newName, !newName.isEmpty {
-      BookmarksManager.shared().setCategory(bookmarkGroup.categoryId, name: newName)
-      changesMade = true
+  @objc
+  private func saveChanges() {
+    guard !isDeleting, bookmarksManager.hasCategory(bookmarkGroup.categoryId) else {
+      return
     }
 
-    if let newAnnotation = newAnnotation {
-      BookmarksManager.shared().setCategory(bookmarkGroup.categoryId, description: newAnnotation)
-      changesMade = true
+    view.endEditing(true)
+
+    let currentBookmarkGroup = bookmarksManager.category(withId: bookmarkGroup.categoryId)
+    if let newName, !newName.isEmpty, newName != currentBookmarkGroup.title {
+      bookmarksManager.setCategory(bookmarkGroup.categoryId, name: newName)
+    }
+
+    if let newAnnotation, newAnnotation != currentBookmarkGroup.detailedAnnotation {
+      bookmarksManager.setCategory(bookmarkGroup.categoryId, description: newAnnotation)
     }
 
     delegate?.categorySettingsController(self, didEndEditing: bookmarkGroup.categoryId)
@@ -166,24 +191,33 @@ final class CategorySettingsViewController: MWMTableViewController {
     return sections[section]
   }
 
+  private func isTitleValid(_ title: String?) -> Bool {
+    title?.isEmpty == false
+  }
+
   private func openColorPicker(for colorAction: ColorAction, anchor: UIView?) {
     ColorPicker.shared.present(from: self, anchor: anchor, currentColor: nil) { [weak self] color in
       guard let self else { return }
 
       switch colorAction {
       case .bookmarks:
-        BookmarksManager.shared().setCategory(self.bookmarkGroup.categoryId, bookmarksColor: color)
+        self.bookmarksManager.setCategory(self.bookmarkGroup.categoryId, bookmarksColor: color)
       case .tracks:
-        BookmarksManager.shared().setCategory(self.bookmarkGroup.categoryId, tracksColor: color)
+        self.bookmarksManager.setCategory(self.bookmarkGroup.categoryId, tracksColor: color)
       }
       Toast.show(withText: colorAction.toastMessage, alignment: .top)
     }
   }
 }
 
-extension CategorySettingsViewController: BookmarkTitleCellDelegate {
-  func didFinishEditingTitle(_ title: String) {
-    newName = title
+extension CategorySettingsViewController: SettingsTextFieldCellDelegate {
+  func textFieldCell(_ cell: SettingsTextFieldCell, didChangeText text: String) {
+    newName = text
+    cell.setValid(isTitleValid(text))
+  }
+
+  func textFieldCell(_: SettingsTextFieldCell, didEndEditingText text: String) {
+    newName = text
   }
 }
 
@@ -204,7 +238,8 @@ extension CategorySettingsViewController: MWMNoteCellDelegate {
 
 extension CategorySettingsViewController: MWMButtonCellDelegate {
   func cellDidPressButton(_: UITableViewCell) {
-    BookmarksManager.shared().deleteCategory(bookmarkGroup.categoryId)
+    isDeleting = true
+    bookmarksManager.deleteCategory(bookmarkGroup.categoryId)
     delegate?.categorySettingsController(self, didDelete: bookmarkGroup.categoryId)
   }
 }
