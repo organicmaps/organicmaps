@@ -10,6 +10,8 @@
 		0831F23C200E53600034C365 /* bookmarks_search_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0831F23B200E53600034C365 /* bookmarks_search_params.hpp */; };
 		34583BCF1C88556800F94664 /* place_page_info.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34583BCD1C88556800F94664 /* place_page_info.cpp */; };
 		34583BD01C88556800F94664 /* place_page_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34583BCE1C88556800F94664 /* place_page_info.hpp */; };
+		ABAB01SHARE000000000C0A2 /* share.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ABAB01SHARE000000000C0A0 /* share.cpp */; };
+		ABAB01SHARE000000000C0A3 /* share.hpp in Headers */ = {isa = PBXBuildFile; fileRef = ABAB01SHARE000000000C0A1 /* share.hpp */; };
 		347B60761DD9926D0050FA24 /* traffic_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 347B60741DD9926D0050FA24 /* traffic_manager.cpp */; };
 		347B60771DD9926D0050FA24 /* traffic_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347B60751DD9926D0050FA24 /* traffic_manager.hpp */; };
 		348AB57C1D7EE0C6009F8301 /* chart_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 348AB57A1D7EE0C6009F8301 /* chart_generator.cpp */; };
@@ -156,6 +158,8 @@
 		0831F23B200E53600034C365 /* bookmarks_search_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bookmarks_search_params.hpp; sourceTree = "<group>"; };
 		34583BCD1C88556800F94664 /* place_page_info.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = place_page_info.cpp; sourceTree = "<group>"; };
 		34583BCE1C88556800F94664 /* place_page_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = place_page_info.hpp; sourceTree = "<group>"; };
+		ABAB01SHARE000000000C0A0 /* share.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = share.cpp; sourceTree = "<group>"; };
+		ABAB01SHARE000000000C0A1 /* share.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = share.hpp; sourceTree = "<group>"; };
 		347B60741DD9926D0050FA24 /* traffic_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = traffic_manager.cpp; sourceTree = "<group>"; };
 		347B60751DD9926D0050FA24 /* traffic_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = traffic_manager.hpp; sourceTree = "<group>"; };
 		348AB57A1D7EE0C6009F8301 /* chart_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chart_generator.cpp; sourceTree = "<group>"; };
@@ -431,6 +435,8 @@
 				675346061A4054E800A0A8C3 /* mwm_url.hpp */,
 				34583BCD1C88556800F94664 /* place_page_info.cpp */,
 				34583BCE1C88556800F94664 /* place_page_info.hpp */,
+				ABAB01SHARE000000000C0A0 /* share.cpp */,
+				ABAB01SHARE000000000C0A1 /* share.hpp */,
 				3DF528D5237DC82E000ED0D5 /* position_provider.hpp */,
 				3DEE1AD921EE03B400054A91 /* power_management */,
 				AC0AE5A42FDF0DDF00A44725 /* raster_tile_provider.cpp */,
@@ -501,6 +507,7 @@
 				3D62CBCC20F4DFD600E7BB6E /* search_product_info.hpp in Headers */,
 				3D4E99831FB462B60025B48C /* viewport_search_params.hpp in Headers */,
 				34583BD01C88556800F94664 /* place_page_info.hpp in Headers */,
+				ABAB01SHARE000000000C0A3 /* share.hpp in Headers */,
 				34921F661BFA0A6900737D6E /* api_mark_point.hpp in Headers */,
 				3DBD7B93240D523400ED9FE8 /* elevation_info.hpp in Headers */,
 				3D4E99821FB462B60025B48C /* everywhere_search_params.hpp in Headers */,
@@ -694,6 +701,7 @@
 				BBFC7E3A202D29C000531BE7 /* user_mark_layer.cpp in Sources */,
 				F6B283091C1B03320081957A /* gps_track.cpp in Sources */,
 				34583BCF1C88556800F94664 /* place_page_info.cpp in Sources */,
+				ABAB01SHARE000000000C0A2 /* share.cpp in Sources */,
 				F6B283031C1B03320081957A /* gps_track_collection.cpp in Sources */,
 				6753469B1A4054E800A0A8C3 /* track.cpp in Sources */,
 				ACD695882F7C622400A29DF8 /* selection_processor.cpp in Sources */,

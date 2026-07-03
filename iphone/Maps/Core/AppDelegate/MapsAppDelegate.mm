@@ -55,6 +55,10 @@ void InitLocalizedStrings()
   f.AddString("core_my_position", L(@"core_my_position").UTF8String);
   f.AddString("core_placepage_unknown_place", L(@"core_placepage_unknown_place").UTF8String);
   f.AddString("postal_code", L(@"postal_code").UTF8String);
+  f.AddString("share_my_position", L(@"share_my_position").UTF8String);
+  f.AddString("share_open_in_om_or_browser", L(@"share_open_in_om_or_browser").UTF8String);
+  f.AddString("share_open_in_maps_app", L(@"share_open_in_maps_app").UTF8String);
+  f.AddString("share_get_om", L(@"share_get_om").UTF8String);
 }
 }  // namespace
 
