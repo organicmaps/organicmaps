@@ -1,6 +1,3 @@
-@protocol MWMPlacePageObject;
-@class PlacePageData;
-
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(ActivityViewController)
@@ -10,7 +7,7 @@ NS_SWIFT_NAME(ActivityViewController)
 
 + (instancetype)shareControllerForMyPosition:(CLLocationCoordinate2D)location;
 
-+ (instancetype)shareControllerForPlacePage:(PlacePageData *)data;
++ (instancetype)shareControllerForCurrentPlacePage;
 
 + (instancetype)shareControllerForURL:(nullable NSURL *)url
                               message:(NSString *)message
