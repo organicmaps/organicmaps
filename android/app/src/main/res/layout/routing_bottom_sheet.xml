@@ -104,15 +104,6 @@
 
       </FrameLayout>
 
-
-      <include
-        android:id="@+id/routing_action_frame"
-        layout="@layout/routing_action_panel"
-        android:layout_height="wrap_content"
-        tools:layout_marginTop="@dimen/menu_line_height"
-        tools:layout_width="match_parent"
-        tools:visibility="invisible" />
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
   </FrameLayout>
 

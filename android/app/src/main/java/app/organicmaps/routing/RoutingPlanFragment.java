@@ -20,13 +20,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.maplayer.MapButtonsController;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
-import app.organicmaps.sdk.bookmarks.data.MapObject;
-import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.routing.RoutingOptions;
@@ -54,7 +51,6 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private TextView mDrivingOptionsBadge;
   private View mSearchBtn;
   private View mBookmarkBtn;
-  private View mActionFrame;
   private View mRoutingContainer;
   private View mRoutingTypesContainer;
   private MapButtonsController.MapButtonClickListener mMapButtonClickListener;
@@ -119,7 +115,6 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     setupRouterButtons();
 
     mChartHeaderAdapter = new ChartHeaderAdapter(mChartPanel);
-    mActionFrame = view.findViewById(R.id.routing_action_frame);
     mRoutingContainer = requireActivity().findViewById(R.id.routing_container);
     mButtonsLayout = view.findViewById(R.id.routing_bottom_buttons);
 
@@ -151,8 +146,6 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mSheetVisible.addSource(mViewModel.getIsPlacePageActive(), active -> updateSheetVisible());
     mSheetVisible.addSource(mViewModel.getIsSearchActive(), active -> updateSheetVisible());
     mSheetVisible.observe(getViewLifecycleOwner(), this::showSheet);
-    mViewModel.getIsSearchActive().observe(getViewLifecycleOwner(), active -> reflectActionFrame());
-    mViewModel.getIsPlacePageActive().observe(getViewLifecycleOwner(), active -> reflectActionFrame());
     mViewModel.getMenuUpdateTrigger().observe(getViewLifecycleOwner(), mMenuUpdateObserver);
     mViewModel.getBuildProgress().observe(getViewLifecycleOwner(), mBuildProgressObserver);
     mViewModel.getDrivingOptionsCount().observe(getViewLifecycleOwner(), mDrivingOptionsCountObserver);
@@ -177,7 +170,6 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
       mRoutingRoot.setPadding(0, mTopInset, 0, 0);
       if (mRoutingBottomContainer != null)
         mRoutingBottomContainer.setPadding(leftInset, mRoutingBottomContainer.getPaddingTop(), rightInset, 0);
-      mActionFrame.setPadding(0, 0, rightInset, bottomInset);
       mButtonsLayout.setPadding(0, 0, 0, bottomInset);
       return ViewCompat.onApplyWindowInsets(v, insets);
     });
@@ -223,54 +215,11 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     {
       setRoutingContentActive(false);
       mRoutingBottomMenuController.refreshManageRoute();
+      mViewModel.setShowRoutingBottomSheet(true);
     }
 
     if (controller.isBuilt())
       setRoutingContentActive(true);
-
-    if (controller.isPlanning())
-      reflectActionFrame(controller);
-  }
-
-  private void reflectActionFrame()
-  {
-    final RoutingController controller = RoutingController.get();
-    if (controller.isPlanning())
-      reflectActionFrame(controller);
-  }
-
-  private void reflectActionFrame(@NonNull RoutingController controller)
-  {
-    final boolean missing = controller.getStartPoint() == null || controller.getEndPoint() == null;
-    if (missing && !isPlannerOverlayed())
-      showAddStartOrFinishFrame(controller);
-    else
-      hideActionFrame();
-    mViewModel.setShowRoutingBottomSheet(!missing);
-  }
-
-  private boolean isPlannerOverlayed()
-  {
-    return Boolean.TRUE.equals(mViewModel.getIsSearchActive().getValue())
- || Boolean.TRUE.equals(mViewModel.getIsPlacePageActive().getValue());
-  }
-
-  private void showAddStartOrFinishFrame(@NonNull RoutingController controller)
-  {
-    MapObject myPosition = MwmApplication.from(requireContext()).getLocationHelper().getMyPosition();
-
-    if (myPosition != null && controller.getEndPoint() == null)
-    {
-      showAddFinishFrame();
-      return;
-    }
-    if (controller.getStartPoint() == null)
-    {
-      showAddStartFrame();
-      return;
-    }
-    if (controller.getEndPoint() == null)
-      showAddFinishFrame();
   }
 
   private void updateSheetVisible()
@@ -419,6 +368,12 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
       mRoutingBottomMenuController.setStartState(RoutingBottomMenuController.StartState.DISABLED);
   }
 
+  public void onBuildStarted()
+  {
+    if (mRoutingBottomMenuController != null)
+      mRoutingBottomMenuController.resetBuildProgress();
+  }
+
   @Override
   public void onSaveInstanceState(@NonNull Bundle outState)
   {
@@ -436,42 +391,11 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     updateBadgeCount(RoutingOptions.getActiveRoadTypes().size());
   }
 
-  private void showAddStartFrame()
-  {
-    if (mRoutingBottomMenuController != null)
-      mRoutingBottomMenuController.showAddStartFrame();
-  }
-
-  private void showAddFinishFrame()
-  {
-    if (mRoutingBottomMenuController != null)
-      mRoutingBottomMenuController.showAddFinishFrame();
-  }
-
-  private void hideActionFrame()
-  {
-    if (mRoutingBottomMenuController != null)
-      mRoutingBottomMenuController.hideActionFrame();
-  }
-
   @Override
   public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight,
                              int oldBottom)
   {
     updateMapButtonsOffset();
-  }
-
-  @Override
-  public void onUseMyPositionAsStart()
-  {
-    RoutingController.get().setStartPoint(MwmApplication.from(requireContext()).getLocationHelper().getMyPosition());
-  }
-
-  @Override
-  public void onSearchRoutePoint(@NonNull RouteMarkType pointType)
-  {
-    RoutingController.get().waitForPoiPick(pointType);
-    mMapButtonClickListener.onMapButtonClick(MapButtonsController.MapButtons.search);
   }
 
   @Override

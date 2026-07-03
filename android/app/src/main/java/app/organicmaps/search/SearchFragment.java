@@ -29,10 +29,8 @@ import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.downloader.CountrySuggestFragment;
 import app.organicmaps.sdk.Framework;
-import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.location.LocationListener;
-import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.sdk.search.SearchListener;
@@ -501,24 +499,9 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     SearchEngine.INSTANCE.setQuery(query);
 
     if (RoutingController.get().isWaitingPoiPick())
-    {
-      if (RoutingController.get().isPoiPickReplaceStop()
-          || RoutingController.get().getWaitingPoiPickType() == RouteMarkType.Intermediate)
-        SearchEngine.INSTANCE.showResult(resultIndex);
-      else
-      {
-        final String subtitle = (result.description != null) ? result.description.localizedFeatureType : "";
-        final String title = TextUtils.isEmpty(result.name) ? subtitle : result.name;
-
-        final MapObject point = MapObject.createMapObject(MapObject.SEARCH, title, subtitle, result.lat, result.lon);
-        RoutingController.get().onPoiSelected(point);
-        mSearchFragmentListener.closeSearch();
-      }
-    }
+      SearchEngine.INSTANCE.showResult(resultIndex);
     else
-    {
       SearchEngine.INSTANCE.selectResult(resultIndex);
-    }
 
     mToolbarController.deactivate();
   }
