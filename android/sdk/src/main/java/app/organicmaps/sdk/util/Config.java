@@ -476,6 +476,16 @@ public final class Config
     setBool(KEY_PREF_SEARCH_HISTORY, enabled);
   }
 
+  public static boolean isStrictAlprsAvoidance()
+  {
+    return getBool("alpr_strict_avoidance", false);
+  }
+
+  public static void setStrictAlprsAvoidance(boolean enabled)
+  {
+    setBool("alpr_strict_avoidance", enabled);
+  }
+
   public static class TTS
   {
     interface Keys

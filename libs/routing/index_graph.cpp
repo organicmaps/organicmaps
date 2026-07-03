@@ -2,6 +2,7 @@
 
 #include "routing/restrictions_serialization.hpp"
 #include "routing/routing_options.hpp"
+#include "routing/speed_camera.hpp"
 #include "routing/world_graph.hpp"
 
 #include "base/assert.hpp"
@@ -14,6 +15,9 @@
 
 namespace routing
 {
+std::mutex g_dynamicAlprsMutex;
+std::set<RoadPoint> g_dynamicBlockedAlprs;
+
 using namespace base;
 
 bool IsUTurn(Segment const & u, Segment const & v)
@@ -220,6 +224,22 @@ void IndexGraph::SetRoadAccess(RoadAccess && roadAccess)
   m_roadAccess.SetCurrentTimeGetter(m_currentTimeGetter);
 }
 
+void IndexGraph::SetSpeedCameras(std::map<RoadPoint, std::vector<RouteSegment::SpeedCamera>> const & cameras)
+{
+  m_alprSegments.clear();
+  for (auto const & [segment, camerasList] : cameras)
+  {
+    for (auto const & camera : camerasList)
+    {
+      if (camera.m_maxSpeedKmPH == SpeedCameraOnRoute::kAlprCameraSpeed)
+      {
+        m_alprSegments.insert(segment);
+        break;
+      }
+    }
+  }
+}
+
 void IndexGraph::GetNeighboringEdges(astar::VertexData<Segment, RouteWeight> const & fromVertexData,
                                      RoadPoint const & rp, bool isOutgoing, bool useRoutingOptions,
                                      SegmentEdgeListT & edges, Parents<Segment> const & parents,
@@ -237,14 +257,32 @@ void IndexGraph::GetNeighboringEdges(astar::VertexData<Segment, RouteWeight> con
   auto const & from = fromVertexData.m_vertex;
   if ((isOutgoing || bidirectional) && rp.GetPointId() + 1 < road.GetPointsCount())
   {
-    GetNeighboringEdge(fromVertexData, Segment(from.GetMwmId(), rp.GetFeatureId(), rp.GetPointId(), isOutgoing),
-                       isOutgoing, edges, parents, useAccessConditional);
+    bool isBlocked = false;
+    {
+      std::lock_guard<std::mutex> lock(g_dynamicAlprsMutex);
+      isBlocked = (g_dynamicBlockedAlprs.count(RoadPoint(rp.GetFeatureId(), rp.GetPointId())) > 0);
+    }
+    if (!useRoutingOptions || !m_avoidRoutingOptions.Has(RoutingOptions::Road::ALPR) ||
+        (m_alprSegments.count(RoadPoint(rp.GetFeatureId(), rp.GetPointId())) == 0 && !isBlocked))
+    {
+      GetNeighboringEdge(fromVertexData, Segment(from.GetMwmId(), rp.GetFeatureId(), rp.GetPointId(), isOutgoing),
+                         isOutgoing, edges, parents, useAccessConditional);
+    }
   }
 
   if ((!isOutgoing || bidirectional) && rp.GetPointId() > 0)
   {
-    GetNeighboringEdge(fromVertexData, Segment(from.GetMwmId(), rp.GetFeatureId(), rp.GetPointId() - 1, !isOutgoing),
-                       isOutgoing, edges, parents, useAccessConditional);
+    bool isBlocked = false;
+    {
+      std::lock_guard<std::mutex> lock(g_dynamicAlprsMutex);
+      isBlocked = (g_dynamicBlockedAlprs.count(RoadPoint(rp.GetFeatureId(), rp.GetPointId() - 1)) > 0);
+    }
+    if (!useRoutingOptions || !m_avoidRoutingOptions.Has(RoutingOptions::Road::ALPR) ||
+        (m_alprSegments.count(RoadPoint(rp.GetFeatureId(), rp.GetPointId() - 1)) == 0 && !isBlocked))
+    {
+      GetNeighboringEdge(fromVertexData, Segment(from.GetMwmId(), rp.GetFeatureId(), rp.GetPointId() - 1, !isOutgoing),
+                         isOutgoing, edges, parents, useAccessConditional);
+    }
   }
 }
 
@@ -262,10 +300,32 @@ void IndexGraph::GetSegmentCandidateForRoadPoint(RoadPoint const & rp, NumMwmId 
   auto const pointId = rp.GetPointId();
 
   if ((isOutgoing || bidirectional) && pointId + 1 < road.GetPointsCount())
-    children.emplace_back(numMwmId, rp.GetFeatureId(), pointId, isOutgoing);
+  {
+    bool isBlocked = false;
+    {
+      std::lock_guard<std::mutex> lock(g_dynamicAlprsMutex);
+      isBlocked = (g_dynamicBlockedAlprs.count(RoadPoint(rp.GetFeatureId(), pointId)) > 0);
+    }
+    if (!m_avoidRoutingOptions.Has(RoutingOptions::Road::ALPR) ||
+        (m_alprSegments.count(RoadPoint(rp.GetFeatureId(), pointId)) == 0 && !isBlocked))
+    {
+      children.emplace_back(numMwmId, rp.GetFeatureId(), pointId, isOutgoing);
+    }
+  }
 
   if ((!isOutgoing || bidirectional) && pointId > 0)
-    children.emplace_back(numMwmId, rp.GetFeatureId(), pointId - 1, !isOutgoing);
+  {
+    bool isBlocked = false;
+    {
+      std::lock_guard<std::mutex> lock(g_dynamicAlprsMutex);
+      isBlocked = (g_dynamicBlockedAlprs.count(RoadPoint(rp.GetFeatureId(), pointId - 1)) > 0);
+    }
+    if (!m_avoidRoutingOptions.Has(RoutingOptions::Road::ALPR) ||
+        (m_alprSegments.count(RoadPoint(rp.GetFeatureId(), pointId - 1)) == 0 && !isBlocked))
+    {
+      children.emplace_back(numMwmId, rp.GetFeatureId(), pointId - 1, !isOutgoing);
+    }
+  }
 }
 
 void IndexGraph::GetSegmentCandidateForJoint(Segment const & parent, bool isOutgoing, SegmentListT & children) const

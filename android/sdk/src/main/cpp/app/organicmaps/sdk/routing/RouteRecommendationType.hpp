@@ -30,9 +30,31 @@ jobject GetRebuildAfterPointsLoading(JNIEnv * env)
 
 jobject GetRouteRecommendationType(JNIEnv * env, RoutingManager::Recommendation recommendation)
 {
-  switch (recommendation)
+  static jobject rebuildAfterPointsLoading = nullptr;
+  static jobject hasAlprs = nullptr;
+
+  jclass routeRecommendationTypeClass = env->FindClass("app/organicmaps/sdk/routing/RouteRecommendationType");
+  ASSERT(routeRecommendationTypeClass, ());
+
+  jmethodID valuesMethod = env->GetStaticMethodID(routeRecommendationTypeClass, "values",
+                                                  "()[Lapp/organicmaps/sdk/routing/RouteRecommendationType;");
+  ASSERT(valuesMethod, ());
+
+  jobjectArray enumConstants = (jobjectArray)env->CallStaticObjectMethod(routeRecommendationTypeClass, valuesMethod);
+  ASSERT(enumConstants, ());
+
+  if (recommendation == RoutingManager::Recommendation::RebuildAfterPointsLoading)
   {
-  case RoutingManager::Recommendation::RebuildAfterPointsLoading: return GetRebuildAfterPointsLoading(env);
-  default: ASSERT_FAIL("Unknown recommendation type");
+    if (!rebuildAfterPointsLoading)
+      rebuildAfterPointsLoading = env->NewGlobalRef(env->GetObjectArrayElement(enumConstants, 0));
+    return rebuildAfterPointsLoading;
   }
+  else if (recommendation == RoutingManager::Recommendation::HasAlprs)
+  {
+    if (!hasAlprs)
+      hasAlprs = env->NewGlobalRef(env->GetObjectArrayElement(enumConstants, 1));
+    return hasAlprs;
+  }
+
+  ASSERT_FAIL("Unknown recommendation type");
 }

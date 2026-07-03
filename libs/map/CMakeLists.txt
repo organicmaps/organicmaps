@@ -39,6 +39,8 @@ set(SRC
   isolines_manager.hpp
   mwm_url.cpp
   mwm_url.hpp
+  online_camera_fetcher.cpp
+  online_camera_fetcher.hpp
   place_page_info.cpp
   place_page_info.hpp
   selection_processor.cpp

@@ -47,6 +47,7 @@ public class RoutingController
     default void onResetToPlanningState() {}
     default void onBuiltRoute() {}
     default void onDrivingOptionsWarning() {}
+    default void onRouteHasAlprs() {}
 
     default void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps) {}
     default void onDrivingOptionsBuildError() {}
@@ -241,6 +242,10 @@ public class RoutingController
     Framework.nativeSetRoutingRecommendationListener(recommendation -> UiThread.run(() -> {
       if (recommendation == RouteRecommendationType.RebuildAfterPointsLoading)
         setStartPoint(locationHelper.getMyPosition());
+      else if (recommendation == RouteRecommendationType.HasAlprs) {
+        if (mContainer != null)
+          mContainer.onRouteHasAlprs();
+      }
     }));
     Framework.nativeSetRoutingLoadPointsListener(mRoutingLoadPointsListener);
   }

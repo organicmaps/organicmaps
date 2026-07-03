@@ -1,6 +1,8 @@
 #include "routing_manager.hpp"
 
 #include "map/routing_mark.hpp"
+#include "map/online_camera_fetcher.hpp"
+#include "platform/settings.hpp"
 
 #include "routing/absent_regions_finder.hpp"
 #include "routing/checkpoint_predictor.hpp"
@@ -9,6 +11,9 @@
 #include "routing/routing_callbacks.hpp"
 #include "routing/ruler_router.hpp"
 #include "routing/speed_camera.hpp"
+#include "routing/index_graph_loader.hpp"
+#include "routing/index_graph.hpp"
+#include "routing/speed_camera_ser_des.hpp"
 
 #include "storage/country_info_getter.hpp"
 #include "storage/routing_helpers.hpp"
@@ -347,6 +352,12 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
       if (cameraSpeedKmPH == SpeedCameraOnRoute::kNoSpeedInfo)
         return;
 
+      if (cameraSpeedKmPH == SpeedCameraOnRoute::kAlprCameraSpeed)
+      {
+        mark->SetTitle("ALPR");
+        return;
+      }
+
       double speed = cameraSpeedKmPH;
       if (measurement_utils::GetMeasurementUnits() == measurement_utils::Units::Imperial)
         speed = measurement_utils::KmphToMiph(cameraSpeedKmPH);
@@ -359,7 +370,10 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
   {
     GetPlatform().RunTask(Platform::Thread::Gui, [this]()
     {
-      m_bmManager->GetEditSession().ClearGroup(UserMark::Type::SPEED_CAM);
+      m_bmManager->GetEditSession().DeleteUserMarks<SpeedCameraMark>(UserMark::Type::SPEED_CAM, [](SpeedCameraMark const * mark)
+      {
+        return mark->GetTitle() != "ALPR";
+      });
       if (m_routeSpeedCamsClearCallback)
         m_routeSpeedCamsClearCallback();
     });
@@ -543,6 +557,10 @@ void RoutingManager::RemoveRoute(bool deactivateFollowing)
 
   if (deactivateFollowing)
   {
+    {
+      std::lock_guard<std::mutex> lock(routing::g_dynamicAlprsMutex);
+      routing::g_dynamicBlockedAlprs.clear();
+    }
     m_transitReadManager->BlockTransitSchemeMode(false /* isBlocked */);
     // Remove all subroutes.
     m_drapeEngine.SafeCall(&df::DrapeEngine::RemoveSubroute, dp::DrapeID(), true /* deactivateFollowing */);
@@ -683,6 +701,262 @@ void RoutingManager::CollectRoadPointWarnings(std::vector<routing::RouteSegment>
 
       marks.push_back(RoadInfo(center, featureId));
     }, rect, scales::GetUpperScale(), mwmId);
+  }
+}
+
+void RoutingManager::ShowAlprsNearRoute(std::vector<routing::RouteSegment> const & segments, m2::PointD const & startPt)
+{
+  if (m_bmManager == nullptr)
+    return;
+
+  LOG(LINFO, ("ShowAlprsNearRoute called. Segments count:", segments.size()));
+
+  std::set<MwmSet::MwmId> mwmIds;
+  for (auto const & segment : segments)
+  {
+    if (segment.GetSegment().IsRealSegment())
+      mwmIds.insert(GetMwmId(segment.GetSegment().GetMwmId()));
+  }
+
+  std::vector<m2::PointD> routePoints;
+  routePoints.reserve(segments.size() + 1);
+  routePoints.push_back(startPt);
+  for (auto const & segment : segments)
+  {
+    routePoints.push_back(segment.GetJunction().GetPoint());
+  }
+
+  double const maxMercatorDist = mercator::MetersToMercator(60.0);
+  double const maxSqMercatorDist = maxMercatorDist * maxMercatorDist;
+
+  // Build spatial chunks of the route to optimize distance queries
+  size_t const kChunkSize = 64;
+  struct RouteChunk
+  {
+    m2::RectD m_rect;
+    size_t m_startIdx = 0;
+    size_t m_endIdx = 0;
+  };
+
+  std::vector<RouteChunk> chunks;
+  chunks.reserve((routePoints.size() + kChunkSize - 1) / kChunkSize);
+  for (size_t i = 1; i < routePoints.size(); i += kChunkSize)
+  {
+    RouteChunk chunk;
+    chunk.m_startIdx = i;
+    chunk.m_endIdx = std::min(i + kChunkSize, routePoints.size());
+    for (size_t j = chunk.m_startIdx - 1; j < chunk.m_endIdx; ++j)
+    {
+      chunk.m_rect.Add(routePoints[j]);
+    }
+    chunk.m_rect.Inflate(maxMercatorDist, maxMercatorDist);
+    chunks.push_back(chunk);
+  }
+
+  // Calculate the overall bounding box of the route (for online query)
+  m2::RectD routeRect;
+  for (auto const & pt : routePoints)
+    routeRect.Add(pt);
+
+  DataSource const & dataSource = m_callbacks.m_dataSourceGetter();
+  std::vector<m2::PointD> alprCameraPoints;
+
+  for (auto const & mwmId : mwmIds)
+  {
+    if (!mwmId.IsAlive())
+      continue;
+
+    MwmSet::MwmHandle handle = dataSource.GetMwmHandleById(mwmId);
+    if (!handle.IsAlive())
+      continue;
+
+    MwmValue const & mwmValue = *handle.GetValue();
+    routing::SpeedCamerasMapT camerasMap;
+    if (!routing::ReadSpeedCamsFromMwm(mwmValue, camerasMap))
+      continue;
+
+    FeaturesLoaderGuard guard(dataSource, mwmId);
+
+    for (auto const & [segmentCoord, speedCams] : camerasMap)
+    {
+      for (auto const & cam : speedCams)
+      {
+        if (cam.m_maxSpeedKmPH == SpeedCameraOnRoute::kAlprCameraSpeed)
+        {
+          auto const featureId = segmentCoord.GetFeatureId();
+          auto const pointIdx = segmentCoord.GetPointId();
+          auto ft = guard.GetFeatureByIndex(featureId);
+          if (ft && pointIdx < ft->GetPointsCount())
+          {
+            m2::PointD const pt = ft->GetPoint(pointIdx);
+
+            bool nearRoute = false;
+            for (auto const & chunk : chunks)
+            {
+              if (!chunk.m_rect.IsPointInside(pt))
+                continue;
+
+              for (size_t i = chunk.m_startIdx; i < chunk.m_endIdx; ++i)
+              {
+                m2::PointD const & p0 = routePoints[i - 1];
+                m2::PointD const & p1 = routePoints[i];
+
+                // Fast bounding box check for the individual segment
+                double const minX = std::min(p0.x, p1.x) - maxMercatorDist;
+                double const maxX = std::max(p0.x, p1.x) + maxMercatorDist;
+                double const minY = std::min(p0.y, p1.y) - maxMercatorDist;
+                double const maxY = std::max(p0.y, p1.y) + maxMercatorDist;
+                if (pt.x < minX || pt.x > maxX || pt.y < minY || pt.y > maxY)
+                  continue;
+
+                m2::ParametrizedSegment<m2::PointD> lineSeg(p0, p1);
+                double const sqDist = lineSeg.SquaredDistanceToPoint(pt);
+                if (sqDist <= maxSqMercatorDist)
+                {
+                  nearRoute = true;
+                  break;
+                }
+              }
+              if (nearRoute)
+                break;
+            }
+
+            if (nearRoute)
+            {
+              if (std::find_if(alprCameraPoints.begin(), alprCameraPoints.end(), [&](m2::PointD const & p) {
+                    return p.EqualDxDy(pt, mercator::kPointEqualityEps);
+                  }) == alprCameraPoints.end())
+              {
+                alprCameraPoints.push_back(pt);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Draw offline cameras
+  if (!alprCameraPoints.empty())
+  {
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, alprCameraPoints]()
+    {
+      auto editSession = m_bmManager->GetEditSession();
+      for (auto const & pt : alprCameraPoints)
+      {
+        auto mark = editSession.CreateUserMark<SpeedCameraMark>(pt);
+        mark->SetIndex(0);
+        mark->SetTitle("ALPR");
+      }
+    });
+  }
+
+  // Fetch online cameras if enabled
+  bool fetchOnline = true;
+  (void)settings::Get("realtime_cameras_online", fetchOnline);
+  if (fetchOnline)
+  {
+    OnlineCameraFetcher::FetchCamerasNearRect(routeRect, [this, chunks = std::move(chunks), routePoints = std::move(routePoints), maxMercatorDist, maxSqMercatorDist, segments](std::vector<OnlineCamera> const & onlineCameras)
+    {
+      if (m_bmManager == nullptr)
+        return;
+
+      LOG(LINFO, ("FetchCamerasNearRect callback fired. Received count:", onlineCameras.size()));
+
+      bool addedNewBlockedAlprs = false;
+      bool const avoidAlprs = routing::RoutingOptions::LoadCarOptionsFromSettings().Has(routing::RoutingOptions::Road::ALPR);
+      bool alprStrict = false;
+      (void)settings::Get("alpr_strict_avoidance", alprStrict);
+      bool const doStrictAvoidance = avoidAlprs && alprStrict;
+
+      std::vector<OnlineCamera> filteredCameras;
+      for (auto const & cam : onlineCameras)
+      {
+        bool nearRoute = false;
+        for (auto const & chunk : chunks)
+        {
+          if (!chunk.m_rect.IsPointInside(cam.m_point))
+            continue;
+
+          for (size_t i = chunk.m_startIdx; i < chunk.m_endIdx; ++i)
+          {
+            m2::PointD const & p0 = routePoints[i - 1];
+            m2::PointD const & p1 = routePoints[i];
+
+            // Fast bounding box check for the individual segment
+            double const minX = std::min(p0.x, p1.x) - maxMercatorDist;
+            double const maxX = std::max(p0.x, p1.x) + maxMercatorDist;
+            double const minY = std::min(p0.y, p1.y) - maxMercatorDist;
+            double const maxY = std::max(p0.y, p1.y) + maxMercatorDist;
+            if (cam.m_point.x < minX || cam.m_point.x > maxX || cam.m_point.y < minY || cam.m_point.y > maxY)
+              continue;
+
+            m2::ParametrizedSegment<m2::PointD> lineSeg(p0, p1);
+            double const sqDist = lineSeg.SquaredDistanceToPoint(cam.m_point);
+            if (sqDist <= maxSqMercatorDist)
+            {
+              nearRoute = true;
+              if (cam.m_isAlpr && doStrictAvoidance && i - 1 < segments.size())
+              {
+                auto const & seg = segments[i - 1].GetSegment();
+                if (seg.IsRealSegment())
+                {
+                  std::lock_guard<std::mutex> lock(routing::g_dynamicAlprsMutex);
+                  auto rp1 = seg.GetRoadPoint(false);
+                  auto rp2 = seg.GetRoadPoint(true);
+                  if (routing::g_dynamicBlockedAlprs.count(rp1) == 0 ||
+                      routing::g_dynamicBlockedAlprs.count(rp2) == 0)
+                  {
+                    routing::g_dynamicBlockedAlprs.insert(rp1);
+                    routing::g_dynamicBlockedAlprs.insert(rp2);
+                    addedNewBlockedAlprs = true;
+                  }
+                }
+              }
+              break;
+            }
+          }
+          if (nearRoute)
+            break;
+        }
+
+        if (nearRoute)
+        {
+          filteredCameras.push_back(cam);
+        }
+      }
+
+      LOG(LINFO, ("Filtered online cameras near route count:", filteredCameras.size()));
+
+      if (addedNewBlockedAlprs)
+      {
+        LOG(LINFO, ("Found ALPRs on route with ALPR avoidance enabled. Rebuilding route around them."));
+        BuildRoute();
+        return;
+      }
+
+      if (filteredCameras.empty())
+        return;
+
+      auto editSession = m_bmManager->GetEditSession();
+      bool createdAlprMark = false;
+      for (auto const & cam : filteredCameras)
+      {
+        if (cam.m_isAlpr)
+        {
+          auto mark = editSession.CreateUserMark<SpeedCameraMark>(cam.m_point);
+          mark->SetIndex(0);
+          mark->SetTitle("ALPR");
+          LOG(LINFO, ("Created navigation ALPR mark at point:", mercator::ToLatLon(cam.m_point)));
+          createdAlprMark = true;
+        }
+      }
+
+      if (createdAlprMark && m_routeRecommendCallback)
+      {
+        m_routeRecommendCallback(Recommendation::HasAlprs);
+      }
+    });
   }
 }
 
@@ -924,6 +1198,7 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
       CollectRoadWarnings(segments, startPt, subroute->m_baseDistance, roadWarnings);
       CollectRoadPointWarnings(segments, startPt, roadWarnings);
     }
+    ShowAlprsNearRoute(segments, startPt);
 
     auto const subrouteId =
         m_drapeEngine.SafeCallWithResult(&df::DrapeEngine::AddSubroute, df::SubrouteConstPtr(subroute.release()));
