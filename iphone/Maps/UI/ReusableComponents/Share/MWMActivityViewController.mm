@@ -69,11 +69,6 @@
 
 @implementation MWMActivityViewController
 
-- (instancetype)initWithActivityItem:(id<UIActivityItemSource>)activityItem
-{
-  return [self initWithActivityItems:@[activityItem]];
-}
-
 - (instancetype)initWithActivityItems:(NSArray *)activityItems
 {
   self = [super initWithActivityItems:activityItems applicationActivities:nil];
@@ -88,15 +83,15 @@
 + (instancetype)shareControllerForMyPosition:(CLLocationCoordinate2D)location
 {
   MWMShareActivityItem * item = [[MWMShareActivityItem alloc] initForMyPositionAtLocation:location];
-  MWMActivityViewController * shareVC = [[self alloc] initWithActivityItem:item];
+  MWMActivityViewController * shareVC = [[self alloc] initWithActivityItems:@[item]];
   shareVC.excludedActivityTypes = [shareVC.excludedActivityTypes arrayByAddingObject:UIActivityTypeAirDrop];
   return shareVC;
 }
 
-+ (instancetype)shareControllerForPlacePage:(PlacePageData *)data
++ (instancetype)shareControllerForCurrentPlacePage
 {
-  MWMShareActivityItem * item = [[MWMShareActivityItem alloc] initForPlacePage:data];
-  MWMActivityViewController * shareVC = [[self alloc] initWithActivityItem:item];
+  MWMShareActivityItem * item = [[MWMShareActivityItem alloc] initForCurrentPlacePage];
+  MWMActivityViewController * shareVC = [[self alloc] initWithActivityItems:@[item]];
   shareVC.excludedActivityTypes = [shareVC.excludedActivityTypes arrayByAddingObject:UIActivityTypeAirDrop];
   return shareVC;
 }

@@ -52,7 +52,7 @@ extension PlacePagePresenter: PlacePagePresenterProtocol {
   func showShareSheet(for placePageData: PlacePageData, from sourceView: UIView) {
     switch placePageData.objectType {
     case .POI, .bookmark:
-      let shareViewController = ActivityViewController.share(forPlacePage: placePageData)
+      let shareViewController = ActivityViewController.shareForCurrentPlacePage()
       shareViewController.present(inParentViewController: mapViewController, anchorView: sourceView)
     case .track:
       headerView.showShareTrackMenu()
