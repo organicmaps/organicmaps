@@ -29,6 +29,7 @@
 #include <chrono>
 #include <iostream>
 #include <memory>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <type_traits>
@@ -739,9 +740,12 @@ public:
   OpeningHours(std::string_view rule);
   OpeningHours(TRuleSequences const & rule);
 
-  bool IsOpen(time_t const dateTime) const;
-  bool IsClosed(time_t const dateTime) const;
-  bool IsUnknown(time_t const dateTime) const;
+  /// @param timeZone POI's time zone; the device's local one is used when not set.
+  /// @{
+  bool IsOpen(time_t dateTime, std::optional<om::tz::TimeZone> const & timeZone = std::nullopt) const;
+  bool IsClosed(time_t dateTime, std::optional<om::tz::TimeZone> const & timeZone = std::nullopt) const;
+  bool IsUnknown(time_t dateTime, std::optional<om::tz::TimeZone> const & timeZone = std::nullopt) const;
+  /// @}
 
   struct InfoT
   {
