@@ -202,3 +202,28 @@ UNIT_TEST(OpeningHours_RealWorldCoverage)
   LOG(LINFO, ("opening_hours real-world weighted parse coverage:", ratio));
   TEST_GREATER(ratio, 0.94, (okWeighted, "of", totalWeighted));
 }
+
+// #1642: the schedule status must be evaluated in the POI's local time, not the
+// device's, so the same UTC instant is open in one time zone and closed in another.
+UNIT_TEST(OpeningHours_TimeZoneAwareState)
+{
+  OpeningHours const oh("10:00-18:00");  // open daily 10:00-18:00 in POI-local time
+  TEST(oh.IsValid(), ());
+
+  // Fixed UTC instant: 1970-01-01 12:00:00 UTC. Kept small and positive so that
+  // applying the western offset below stays a valid, non-negative time_t.
+  time_t const instant = 12 * 60 * 60;
+
+  // Fixed-offset (no DST) zones, base_offset is a 15-minute step from UTC-16:00,
+  // see TimeZone::GetBaseOffset().
+  om::tz::TimeZone const kUtc{.base_offset = 64};
+  om::tz::TimeZone const kUtcMinus10{.base_offset = 24};
+
+  // UTC+0: local wall clock 12:00 -> Open. UTC-10: local wall clock 02:00 -> Closed.
+  TEST_EQUAL(oh.GetInfo(instant, kUtc).state, osmoh::RuleState::Open, ());
+  TEST_EQUAL(oh.GetInfo(instant, kUtcMinus10).state, osmoh::RuleState::Closed, ());
+
+  // The state-only predicates must agree with GetInfo().
+  TEST(oh.IsOpen(instant, kUtc), ());
+  TEST(oh.IsClosed(instant, kUtcMinus10), ());
+}

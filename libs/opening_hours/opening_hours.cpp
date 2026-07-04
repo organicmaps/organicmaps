@@ -829,11 +829,12 @@ oh::OpeningHours<> MakeEval(std::shared_ptr<oh::OpeningHoursExpression const> co
 
 // A value that did not parse has no state to report, which is Unknown -- the
 // same answer GetInfo() gives.
-RuleState EvalState(std::shared_ptr<oh::OpeningHoursExpression const> const & expr, time_t dateTime)
+RuleState EvalState(std::shared_ptr<oh::OpeningHoursExpression const> const & expr, time_t dateTime,
+                    std::optional<om::tz::TimeZone> const & timeZone)
 {
   if (!expr)
     return RuleState::Unknown;
-  return ToRuleState(MakeEval(expr).state(ToNaive(ToZonedSeconds(dateTime, std::nullopt))).first);
+  return ToRuleState(MakeEval(expr).state(ToNaive(ToZonedSeconds(dateTime, timeZone))).first);
 }
 }  // namespace
 
@@ -851,19 +852,19 @@ OpeningHours::OpeningHours(TRuleSequences const & rule)
   , m_expr(std::make_shared<oh::OpeningHoursExpression const>(ToPort(rule)))
 {}
 
-bool OpeningHours::IsOpen(time_t const dateTime) const
+bool OpeningHours::IsOpen(time_t const dateTime, std::optional<om::tz::TimeZone> const & timeZone) const
 {
-  return EvalState(m_expr, dateTime) == RuleState::Open;
+  return EvalState(m_expr, dateTime, timeZone) == RuleState::Open;
 }
 
-bool OpeningHours::IsClosed(time_t const dateTime) const
+bool OpeningHours::IsClosed(time_t const dateTime, std::optional<om::tz::TimeZone> const & timeZone) const
 {
-  return EvalState(m_expr, dateTime) == RuleState::Closed;
+  return EvalState(m_expr, dateTime, timeZone) == RuleState::Closed;
 }
 
-bool OpeningHours::IsUnknown(time_t const dateTime) const
+bool OpeningHours::IsUnknown(time_t const dateTime, std::optional<om::tz::TimeZone> const & timeZone) const
 {
-  return EvalState(m_expr, dateTime) == RuleState::Unknown;
+  return EvalState(m_expr, dateTime, timeZone) == RuleState::Unknown;
 }
 
 OpeningHours::InfoT OpeningHours::GetInfo(time_t const dateTime, std::optional<om::tz::TimeZone> const & timeZone) const
