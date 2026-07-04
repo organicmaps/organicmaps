@@ -2,6 +2,9 @@
 
 #import "IOpeningHoursLocalization.h"
 
+#include "timezone/timezone.hpp"
+
+#include <optional>
 #include <vector>
 
 namespace osmoh
@@ -27,6 +30,8 @@ struct Day
 };
 
 /// @return { Days schedule list, is closed now }
-std::pair<std::vector<osmoh::Day>, bool> processRawString(NSString * str, id<IOpeningHoursLocalization> localization);
+/// @param timeZone POI's local time zone used to evaluate the "is closed now" flag (see issue #1642).
+std::pair<std::vector<osmoh::Day>, bool> processRawString(NSString * str, id<IOpeningHoursLocalization> localization,
+                                                          std::optional<om::tz::TimeZone> const & timeZone);
 
 }  // namespace osmoh
