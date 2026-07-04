@@ -920,9 +920,22 @@ RuleState ToRuleState(oh::RuleKind k)
   return RuleState::Unknown;
 }
 
-oh::OpeningHours<> MakeEval(std::shared_ptr<oh::OpeningHoursExpression const> const & expr)
+oh::OpeningHours<> MakeEval(std::shared_ptr<oh::OpeningHoursExpression const> const & expr,
+                            PublicHolidays const & publicHolidays = {})
 {
-  return oh::OpeningHours<>(expr, oh::Context<oh::NoLocation>{});
+  if (publicHolidays.empty())
+    return oh::OpeningHours<>(expr, oh::Context<oh::NoLocation>{});
+
+  // Populate the public-holiday calendar so `PH` selectors match. School holidays
+  // are not sourced yet, so `SH` stays empty (never matches).
+  auto calendar = std::make_shared<oh::CompactCalendar>();
+  for (auto const & ymd : publicHolidays)
+    if (ymd.ok())
+      calendar->insert(oh::NaiveDate{std::chrono::sys_days{ymd}});
+
+  oh::Context<oh::NoLocation> ctx;
+  ctx.holidays = oh::ContextHolidays{std::move(calendar), nullptr};
+  return oh::OpeningHours<>(expr, std::move(ctx));
 }
 }  // namespace
 
@@ -964,7 +977,8 @@ bool OpeningHours::IsUnknown(time_t const dateTime) const
   return MakeEval(m_expr).is_unknown(ToNaive(ToZonedSeconds(dateTime, std::nullopt)));
 }
 
-OpeningHours::InfoT OpeningHours::GetInfo(time_t const dateTime, std::optional<om::tz::TimeZone> const & timeZone) const
+OpeningHours::InfoT OpeningHours::GetInfo(time_t const dateTime, std::optional<om::tz::TimeZone> const & timeZone,
+                                         PublicHolidays const & publicHolidays) const
 {
   InfoT info;
   if (!m_expr)
@@ -975,7 +989,7 @@ OpeningHours::InfoT OpeningHours::GetInfo(time_t const dateTime, std::optional<o
 
   int64_t const baseZoned = ToZonedSeconds(dateTime, timeZone);
   oh::NaiveDateTime const now = ToNaive(baseZoned);
-  auto const eval = MakeEval(m_expr);
+  auto const eval = MakeEval(m_expr, publicHolidays);
   info.state = ToRuleState(eval.state(now).first);
 
   if (info.state == RuleState::Unknown)

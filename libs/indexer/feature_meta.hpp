@@ -4,6 +4,7 @@
 #include "coding/string_utf8_multilang.hpp"
 #include "timezone/timezone.hpp"
 
+#include <chrono>
 #include <map>
 #include <string>
 #include <vector>
@@ -236,7 +237,12 @@ public:
   bool IsSingleLanguage(int8_t const lang) const;
 
   void AddPublicHoliday(int8_t month, int8_t offset);
-  // No public holidays getters until we know what to do with these.
+
+  // Expands the stored public-holiday references into concrete calendar dates for
+  // every year in [yearFrom, yearTo]. Handles fixed month/day holidays and the
+  // special references (Easter, Orthodox Easter, Victoria Day, Canada Day).
+  // Returns an empty vector when the region has no public holidays.
+  std::vector<std::chrono::year_month_day> GetPublicHolidays(int yearFrom, int yearTo) const;
 
   void MergeFrom(RegionData const & rhs);
 
