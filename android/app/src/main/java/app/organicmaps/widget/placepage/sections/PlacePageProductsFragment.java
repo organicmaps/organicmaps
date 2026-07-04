@@ -67,7 +67,7 @@ public class PlacePageProductsFragment extends Fragment
     {
       var button = (Button) layoutInflater.inflate(R.layout.item_product, productsButtons, false);
       button.setText(product.title);
-      button.setOnClickListener((v) -> { onProductSelected(product); });
+      button.setOnClickListener((v) -> { onProductSelected(view, product); });
 
       productsButtons.addView(button);
     }
@@ -87,12 +87,13 @@ public class PlacePageProductsFragment extends Fragment
     UiUtils.hide(view);
   }
 
-  private void onProductSelected(Product product)
+  private void onProductSelected(@NonNull View view, @NonNull Product product)
   {
     Utils.openUrl(requireActivity(), product.link);
     // Also updates the donation page stats used by the crowdfunding promo.
     Framework.nativeDidSelectProduct(product.title, product.link);
-    /// @todo Call Framework.nativeDidCloseProductsPopup(SELECT_PRODUCT); ?
+    // Start the "product selected" cooldown and hide the section, like on iOS.
+    closeWithReason(view, Constants.ProductsPopupCloseReason.SELECT_PRODUCT);
   }
 
   private boolean isValidConfig(@NonNull ProductsConfig config)
