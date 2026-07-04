@@ -90,8 +90,8 @@ public class PlacePageProductsFragment extends Fragment
   private void onProductSelected(Product product)
   {
     Utils.openUrl(requireActivity(), product.link);
+    // Also updates the donation page stats used by the crowdfunding promo.
     Framework.nativeDidSelectProduct(product.title, product.link);
-    Framework.nativeDidShowDonationPage();
     /// @todo Call Framework.nativeDidCloseProductsPopup(SELECT_PRODUCT); ?
   }
 
