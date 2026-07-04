@@ -3889,6 +3889,8 @@ void Framework::DidCloseProductsPopup(ProductsPopupCloseReason reason) const
 void Framework::DidSelectProduct(products::ProductsConfig::Product const & product) const
 {
   settings::Set(kPlacePageSelectedProduct, product.title);
+  // Selecting a product opens the donation page, update the stats used by the crowdfunding promo.
+  DidShowDonationPage();
 }
 
 uint32_t Framework::GetTimeoutForReason(ProductsPopupCloseReason reason)
