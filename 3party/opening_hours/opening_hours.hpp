@@ -28,9 +28,18 @@
 
 #include <chrono>
 #include <iostream>
+#include <memory>
 #include <string>
 #include <type_traits>
 #include <vector>
+
+// The parser/evaluator live in the vendored `opening_hours` port (oh/parser.hpp,
+// oh/eval.hpp). The osmoh AST below is kept as the app-facing data model; the
+// OpeningHours facade holds the parsed port expression for evaluation.
+namespace opening_hours
+{
+struct OpeningHoursExpression;
+}  // namespace opening_hours
 
 // Implemented in accordance with the specification
 // https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification
@@ -702,6 +711,17 @@ enum class RuleState
   Unknown
 };
 
+inline std::string DebugPrint(RuleState state)
+{
+  switch (state)
+  {
+  case RuleState::Open: return "Open";
+  case RuleState::Closed: return "Closed";
+  case RuleState::Unknown: return "Unknown";
+  }
+  return "Unknown";
+}
+
 class OpeningHours
 {
 public:
@@ -739,6 +759,8 @@ public:
 
 private:
   TRuleSequences m_rule;
+  // Parsed port expression, used for evaluation (IsOpen/GetInfo). Null when invalid.
+  std::shared_ptr<opening_hours::OpeningHoursExpression const> m_expr;
   bool m_valid = false;
 };
 

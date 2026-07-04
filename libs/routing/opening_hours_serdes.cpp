@@ -246,20 +246,42 @@ std::vector<osmoh::RuleSequence> OpeningHoursSerDes::DecomposeOh(osmoh::OpeningH
     if (badRule)
       continue;
 
-    apply(rules, rule.GetWeekdays().GetWeekdayRanges(),
-          [](osmoh::WeekdayRange const & range, osmoh::RuleSequence & item)
+    // Weekday ranges and holidays are alternatives (a union): each spawns its
+    // own rule. Overlaying a holiday onto a weekday rule would make routing,
+    // which does not enable the Holiday bit, drop the weekday part as well.
     {
-      osmoh::Weekdays weekdays;
-      weekdays.SetWeekdayRanges({range});
-      item.SetWeekdays(weekdays);
-    });
+      auto const & weekdays = rule.GetWeekdays();
+      if (!weekdays.GetWeekdayRanges().empty() || !weekdays.GetHolidays().empty())
+      {
+        std::vector<osmoh::RuleSequence> base = std::move(rules);
+        if (base.empty())
+          base.emplace_back();
+        rules.clear();
 
-    apply(rules, rule.GetWeekdays().GetHolidays(), [](osmoh::Holiday const & holiday, osmoh::RuleSequence & item)
-    {
-      auto weekdays = item.GetWeekdays();
-      weekdays.SetHolidays({holiday});
-      item.SetWeekdays(weekdays);
-    });
+        for (auto const & range : weekdays.GetWeekdayRanges())
+        {
+          for (auto const & original : base)
+          {
+            auto item = original;
+            osmoh::Weekdays wd;
+            wd.SetWeekdayRanges({range});
+            item.SetWeekdays(wd);
+            rules.emplace_back(std::move(item));
+          }
+        }
+        for (auto const & holiday : weekdays.GetHolidays())
+        {
+          for (auto const & original : base)
+          {
+            auto item = original;
+            osmoh::Weekdays wd;
+            wd.SetHolidays({holiday});
+            item.SetWeekdays(wd);
+            rules.emplace_back(std::move(item));
+          }
+        }
+      }
+    }
 
     apply(rules, rule.GetTimes(),
           [](osmoh::Timespan const & range, osmoh::RuleSequence & item) { item.SetTimes({range}); });
