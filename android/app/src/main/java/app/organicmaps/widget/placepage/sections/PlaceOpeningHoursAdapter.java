@@ -109,7 +109,11 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
     else if (schedule.timetable.isFullday)
       openTime = holder.itemView.getResources().getString(R.string.editor_time_allday);
     else
-      openTime = formatOpenShifts(schedule.timetable, "\n");
+    {
+      final String shifts = formatOpenShifts(schedule.timetable, "\n");
+      // A working day fully covered by breaks has no open shift; show it as closed.
+      openTime = shifts.isEmpty() ? holder.itemView.getResources().getString(R.string.day_off) : shifts;
+    }
 
     holder.setOpenTime(openTime);
   }
