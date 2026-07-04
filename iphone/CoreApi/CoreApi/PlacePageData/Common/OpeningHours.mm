@@ -1,4 +1,5 @@
 #import "OpeningHours.h"
+#import "OpeningHours+Core.h"
 
 #include "3party/opening_hours/opening_hours.hpp"
 #import "MWMOpeningHours.h"
@@ -27,10 +28,17 @@
 
 - (instancetype)initWithRawString:(NSString *)rawString localization:(id<IOpeningHoursLocalization>)localization
 {
+  return [self initWithRawString:rawString localization:localization timeZone:std::nullopt];
+}
+
+- (instancetype)initWithRawString:(NSString *)rawString
+                     localization:(id<IOpeningHoursLocalization>)localization
+                         timeZone:(std::optional<om::tz::TimeZone> const &)timeZone
+{
   self = [super init];
   if (self)
   {
-    auto const [days, isClosed] = osmoh::processRawString(rawString, localization);
+    auto const [days, isClosed] = osmoh::processRawString(rawString, localization, timeZone);
     _isClosedNow = isClosed;
     NSMutableArray * array = [NSMutableArray arrayWithCapacity:days.size()];
     for (auto const & day : days)

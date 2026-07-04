@@ -9,6 +9,7 @@
 
 #include "coding/string_utf8_multilang.hpp"
 
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -115,6 +116,11 @@ public:
   std::string FormatRoadShields() const;
 
   std::string_view GetOpeningHours() const;
+
+  /// @returns the time zone of the mwm region this object belongs to, if known.
+  /// Opening hours must be evaluated in the POI's local time, not the device's.
+  std::optional<om::tz::TimeZone> GetTimeZone() const;
+
   feature::Internet GetInternet() const;
   int GetStars() const;
 

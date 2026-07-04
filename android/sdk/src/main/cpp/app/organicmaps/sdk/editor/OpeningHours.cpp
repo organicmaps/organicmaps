@@ -1,5 +1,6 @@
 #include <jni.h>
 
+#include "app/organicmaps/sdk/Framework.hpp"
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
 #include "app/organicmaps/sdk/platform/AndroidPlatform.hpp"
 
@@ -11,6 +12,7 @@
 #include "3party/opening_hours/opening_hours.hpp"
 
 #include <algorithm>
+#include <optional>
 #include <set>
 #include <vector>
 
@@ -346,7 +348,13 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_editor_OpeningHours_nativeGetOpeningH
 
   if (!source.empty() && oh.IsValid())
   {
-    OpeningHours::InfoT info = oh.GetInfo(static_cast<time_t>(jCurrentTime));
+    // This method is only called for the currently shown place page, so evaluate the schedule in
+    // the POI's local time zone (not the device's), see issue #1642.
+    std::optional<om::tz::TimeZone> timeZone;
+    if (frm()->HasPlacePageInfo())
+      timeZone = g_framework->GetPlacePageInfo().GetTimeZone();
+
+    OpeningHours::InfoT info = oh.GetInfo(static_cast<time_t>(jCurrentTime), timeZone);
     if (info.state == osmoh::RuleState::Unknown)
       return nullptr;
     return JavaOpeningHoursInfo(env, info.state, oh.IsTwentyFourHours(), info.nextTimeOpen, info.nextTimeClosed);

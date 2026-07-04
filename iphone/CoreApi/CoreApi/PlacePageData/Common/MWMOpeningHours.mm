@@ -83,10 +83,12 @@ void addUnhandledDays(ui::OpeningDays const & days, std::vector<Day> & allDays)
 namespace osmoh
 {
 
-std::pair<std::vector<osmoh::Day>, bool> processRawString(NSString * str, id<IOpeningHoursLocalization> localization)
+std::pair<std::vector<osmoh::Day>, bool> processRawString(NSString * str, id<IOpeningHoursLocalization> localization,
+                                                          std::optional<om::tz::TimeZone> const & timeZone)
 {
   osmoh::OpeningHours oh(str.UTF8String);
-  bool const isClosed = oh.IsClosed(time(nullptr));
+  // Evaluate "is closed now" in the POI's local time zone (not the device's), see issue #1642.
+  bool const isClosed = oh.GetInfo(time(nullptr), timeZone).state == osmoh::RuleState::Closed;
 
   ui::TimeTableSet timeTableSet;
   if (!MakeTimeTableSet(oh, timeTableSet))
