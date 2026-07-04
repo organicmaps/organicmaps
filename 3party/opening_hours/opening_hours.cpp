@@ -29,10 +29,13 @@
 #include "3party/opening_hours/oh/parser.hpp"
 
 #include <algorithm>
+#include <cstdint>
 #include <cstdlib>
 #include <functional>
 #include <iomanip>
 #include <ios>
+#include <limits>
+#include <optional>
 #include <ostream>
 #include <sstream>
 #include <tuple>
@@ -924,6 +927,65 @@ oh::OpeningHours<> MakeEval(std::shared_ptr<oh::OpeningHoursExpression const> co
 {
   return oh::OpeningHours<>(expr, oh::Context<oh::NoLocation>{});
 }
+
+// A locale that resolves sun events from the POI's real coordinate, expressed in
+// the POI's local time. Time math stays identity (naive == local): GetInfo
+// pre-converts absolute time to the zone's wall clock via ToZonedSeconds before
+// evaluating, so the engine already runs in local time -- only sun-event
+// resolution needs the coordinate + zone. Satisfies the oh::Localize concept.
+struct SunLocation
+{
+  using DateTime = oh::NaiveDateTime;
+
+  oh::Coordinates coords;
+  std::optional<om::tz::TimeZone> tz;
+
+  oh::NaiveDateTime naive(oh::NaiveDateTime dt) const { return dt; }
+  oh::NaiveDateTime datetime(oh::NaiveDateTime n) const { return n; }
+
+  std::optional<oh::ExtendedTime> event_time(oh::NaiveDate date, oh::TimeEvent event) const
+  {
+    // UTC instant of the event, then projected to the POI's local wall clock
+    // (the same zone the evaluation runs in). Empty => polar day/night.
+    auto const utc = coords.event_time_utc(date, event);
+    if (!utc)
+      return std::nullopt;
+    oh::NaiveDateTime const local = ToNaive(ToZonedSeconds(static_cast<time_t>(*utc), tz));
+    return oh::ExtendedTime{static_cast<uint8_t>(local.hour()), static_cast<uint8_t>(local.minute_of_hour())};
+  }
+
+  bool operator==(SunLocation const &) const = default;
+};
+
+// GetInfo body, shared over the eval's locale. NoLocation and SunLocation both
+// use DateTime = NaiveDateTime, so state()/iter_range() have identical shapes.
+template <class Eval>
+OpeningHours::InfoT ComputeInfo(Eval const & eval, time_t dateTime, int64_t baseZoned)
+{
+  OpeningHours::InfoT info;
+  oh::NaiveDateTime const now = ToNaive(baseZoned);
+  info.state = ToRuleState(eval.state(now).first);
+
+  if (info.state == RuleState::Unknown)
+    return info;
+
+  // First transition to `target` state at or after `now`, back in time_t.
+  // Scanning a bounded window keeps seasonal schedules cheap; kTimeTMax means
+  // "no change found" (consumers render this as "never").
+  time_t constexpr kTimeTMax = std::numeric_limits<time_t>::max();
+  auto nextTimeOf = [&](oh::RuleKind target) -> time_t
+  {
+    oh::NaiveDateTime const to = now.add_minutes(static_cast<int64_t>(400) * 24 * 60);
+    for (auto const & interval : eval.iter_range(now, to))
+      if (interval.kind == target)
+        return dateTime + (NaiveToZoned(interval.start) - baseZoned);
+    return kTimeTMax;
+  };
+
+  info.nextTimeOpen = info.state == RuleState::Open ? dateTime : nextTimeOf(oh::RuleKind::Open);
+  info.nextTimeClosed = info.state == RuleState::Closed ? dateTime : nextTimeOf(oh::RuleKind::Closed);
+  return info;
+}
 }  // namespace
 
 OpeningHours::OpeningHours(std::string const & rule)
@@ -964,41 +1026,31 @@ bool OpeningHours::IsUnknown(time_t const dateTime) const
   return MakeEval(m_expr).is_unknown(ToNaive(ToZonedSeconds(dateTime, std::nullopt)));
 }
 
-OpeningHours::InfoT OpeningHours::GetInfo(time_t const dateTime, std::optional<om::tz::TimeZone> const & timeZone) const
+OpeningHours::InfoT OpeningHours::GetInfo(time_t const dateTime, std::optional<om::tz::TimeZone> const & timeZone,
+                                          std::optional<ms::LatLon> const & coord) const
 {
-  InfoT info;
   if (!m_expr)
   {
+    InfoT info;
     info.state = RuleState::Unknown;
     return info;
   }
 
   int64_t const baseZoned = ToZonedSeconds(dateTime, timeZone);
-  oh::NaiveDateTime const now = ToNaive(baseZoned);
-  auto const eval = MakeEval(m_expr);
-  info.state = ToRuleState(eval.state(now).first);
 
-  if (info.state == RuleState::Unknown)
-    return info;
-
-  // First transition to `target` state at or after `now`, back in time_t.
-  // Scanning a bounded window keeps seasonal schedules cheap; kTimeTMax means
-  // "no change found" (consumers render this as "never").
-  time_t constexpr kTimeTMax = std::numeric_limits<time_t>::max();
-  auto nextTimeOf = [&](oh::RuleKind target) -> time_t
+  // With a valid POI coordinate, evaluate with a locale that resolves sun events
+  // to the real local times; otherwise use the fixed local-time fallback.
+  if (coord)
   {
-    oh::NaiveDateTime const to = now.add_minutes(static_cast<int64_t>(400) * 24 * 60);
-    for (auto const & interval : eval.iter_range(now, to))
+    if (auto const c = oh::Coordinates::make(coord->m_lat, coord->m_lon))
     {
-      if (interval.kind == target)
-        return dateTime + (NaiveToZoned(interval.start) - baseZoned);
+      oh::Context<SunLocation> ctx;
+      ctx.locale = SunLocation{*c, timeZone};
+      return ComputeInfo(oh::OpeningHours<SunLocation>(m_expr, std::move(ctx)), dateTime, baseZoned);
     }
-    return kTimeTMax;
-  };
+  }
 
-  info.nextTimeOpen = info.state == RuleState::Open ? dateTime : nextTimeOf(oh::RuleKind::Open);
-  info.nextTimeClosed = info.state == RuleState::Closed ? dateTime : nextTimeOf(oh::RuleKind::Closed);
-  return info;
+  return ComputeInfo(MakeEval(m_expr), dateTime, baseZoned);
 }
 
 bool OpeningHours::IsValid() const

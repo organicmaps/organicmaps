@@ -223,7 +223,10 @@ void RankerResult::FillDetails(FeatureType & ft, bool isBuilding, bool isHotel)
     {
       time_t now = time(nullptr);
       auto const & ftTimezone = ft.GetID().m_mwmId.GetInfo()->GetRegionData().GetTimeZone();
-      auto const info = oh.GetInfo(now, ftTimezone);
+      // The POI coordinate lets sun events (sunrise/sunset/dawn/dusk) resolve to
+      // the real local times; the region timezone expresses them in local time.
+      auto const ll = mercator::ToLatLon(feature::GetCenter(ft));
+      auto const info = oh.GetInfo(now, ftTimezone, ll);
       if (info.state != RuleState::Unknown)
       {
         // In else case value is osm::Unknown, it's set in preview's constructor.

@@ -4,10 +4,13 @@
 
 #include "base/logging.hpp"
 
+#include <chrono>
+#include <cstdint>
 #include <ctime>
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <utility>
 
 namespace
 {
@@ -112,6 +115,64 @@ UNIT_TEST(OpeningHours_ClosedValue)
   TEST_EQUAL(StateAt("closed", 2026, 7, 6, 12, 0), osmoh::RuleState::Closed, ());
   TEST_EQUAL(StateAt("off", 2026, 7, 6, 12, 0), osmoh::RuleState::Closed, ());
   TEST_EQUAL(StateAt("24/7", 2026, 7, 6, 12, 0), osmoh::RuleState::Open, ());
+}
+
+// #4186 / #3457: with a POI coordinate, sun events (sunrise/sunset/dawn/dusk)
+// resolve to the real local times instead of the fixed fallback (sunset 19:00).
+UNIT_TEST(OpeningHours_SunEvents_RealLocalTimes)
+{
+  using namespace std::chrono;
+
+  // Golden reference (opening-hours-rs localization tests): Paris (48.87, 2.29)
+  // on 2020-06-01 -> sunrise 05:51, sunset 21:46 in local time (CEST, UTC+2).
+  ms::LatLon const paris(48.87, 2.29);
+
+  // A fixed UTC+2 zone (Paris is on CEST in June): (72 - 64) * 15 == 120 minutes.
+  om::tz::TimeZone parisTz;
+  parisTz.base_offset = 72;
+  int64_t constexpr kOffset = 2 * 3600;  // seconds east of UTC
+
+  int64_t const day = sys_days{2020y / June / 1}.time_since_epoch().count();
+
+  // Local wall-clock (hour, minute) of an absolute instant in the fixed zone.
+  auto const localHM = [](time_t t) -> std::pair<int, int>
+  {
+    int64_t const sod = (static_cast<int64_t>(t) + kOffset) % 86400;
+    return {static_cast<int>(sod / 3600), static_cast<int>((sod % 3600) / 60)};
+  };
+
+  // "09:00-sunset" at midday: open, closing at the real sunset (21:46), not 19:00.
+  {
+    OpeningHours const oh("09:00-sunset");
+    time_t const now = static_cast<time_t>(day * 86400 + 12 * 3600 - kOffset);  // 12:00 local
+
+    auto const withCoord = oh.GetInfo(now, parisTz, paris);
+    TEST_EQUAL(withCoord.state, osmoh::RuleState::Open, ());
+    auto const [ch, cm] = localHM(withCoord.nextTimeClosed);
+    TEST_EQUAL(ch, 21, (cm));
+    TEST_EQUAL(cm, 46, (ch));
+
+    // Without a coordinate the fixed 19:00 sunset fallback still applies.
+    auto const noCoord = oh.GetInfo(now, parisTz);
+    auto const [fh, fm] = localHM(noCoord.nextTimeClosed);
+    TEST_EQUAL(fh, 19, (fm));
+    TEST_EQUAL(fm, 0, (fh));
+
+    // The real sunset is strictly later than the fixed fallback.
+    TEST_GREATER(withCoord.nextTimeClosed, noCoord.nextTimeClosed, ());
+  }
+
+  // "sunrise-sunset" before dawn: closed, opening at the real sunrise (05:51).
+  {
+    OpeningHours const oh("sunrise-sunset");
+    time_t const early = static_cast<time_t>(day * 86400 + 4 * 3600 - kOffset);  // 04:00 local
+
+    auto const info = oh.GetInfo(early, parisTz, paris);
+    TEST_EQUAL(info.state, osmoh::RuleState::Closed, ());
+    auto const [oh_h, oh_m] = localHM(info.nextTimeOpen);
+    TEST_EQUAL(oh_h, 5, (oh_m));
+    TEST_EQUAL(oh_m, 51, (oh_h));
+  }
 }
 
 // Parse coverage over a real-world OSM corpus ("count|value" per line, copied
