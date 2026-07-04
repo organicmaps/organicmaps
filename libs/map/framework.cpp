@@ -3492,6 +3492,20 @@ bool Framework::GetEditableMapObject(FeatureID const & fid, osm::EditableMapObje
 
   emo = {};
   emo.SetFromFeatureType(*ft);
+
+  if (HasPlacePageInfo())
+  {
+    auto const & info = GetCurrentPlacePageInfo();
+    auto const & buildInfo = info.GetBuildInfo();
+    // In explicit feature selections (for example, tapping a road label), the place page keeps the
+    // feature center. The original user tap is still the location that the note should report.
+    if (info.GetID() == fid && buildInfo.m_source == place_page::BuildInfo::Source::User &&
+        info.GetGeomType() != feature::GeomType::Point)
+    {
+      emo.SetSelectionPoint(buildInfo.m_mercator);
+    }
+  }
+
   auto const & editor = osm::Editor::Instance();
   emo.SetEditableProperties(editor.GetEditableProperties(*ft));
 
@@ -3678,11 +3692,14 @@ bool Framework::RollBackChanges(FeatureID const & fid)
   return rolledBack;
 }
 
-void Framework::CreateNote(osm::MapObject const & mapObject, osm::Editor::NoteProblemType const type,
+void Framework::CreateNote(osm::EditableMapObject const & mapObject, osm::Editor::NoteProblemType const type,
                            std::string const & note)
 {
-  osm::Editor::Instance().CreateNote(mapObject.GetLatLon(), mapObject.GetID(), mapObject.GetTypes(),
-                                     mapObject.GetDefaultName(), type, note);
+  auto const & selection = mapObject.GetSelectionPoint();
+  auto const noteLatLon = selection ? mercator::ToLatLon(*selection) : mapObject.GetLatLon();
+
+  osm::Editor::Instance().CreateNote(noteLatLon, mapObject.GetID(), mapObject.GetTypes(), mapObject.GetDefaultName(),
+                                     type, note);
   if (type == osm::Editor::NoteProblemType::PlaceDoesNotExist)
     DeactivateMapSelection();
 }

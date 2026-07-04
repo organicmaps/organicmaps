@@ -8,6 +8,7 @@ set(SRC
   check_mwms.cpp
   coordinate_formats_tests.cpp
   countries_names_tests.cpp
+  editor_notes_tests.cpp
   extrapolator_tests.cpp
   feature_getters_tests.cpp
   gps_track_collection_test.cpp
@@ -30,5 +31,6 @@ target_link_libraries(${PROJECT_NAME}
   PRIVATE
     search_tests_support
     generator_tests_support
+    platform_tests_support
     map
 )
