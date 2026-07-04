@@ -6,10 +6,13 @@
 
 #include "base/logging.hpp"
 
+#include <chrono>
 #include <ctime>
 #include <fstream>
+#include <optional>
 #include <sstream>
 #include <string>
+#include <vector>
 
 namespace
 {
@@ -22,10 +25,27 @@ std::string ToStr(std::string const & oh)
 
 // GetInfo() with no timezone evaluates in device local time; the helper builds
 // the instant with mktime, keeping the test deterministic on any machine.
-osmoh::RuleState StateAt(std::string const & oh, int y, int mo, int d, int h, int mi)
+time_t TimeAt(int y, int mo, int d, int h, int mi)
 {
   auto const month = static_cast<osmoh::MonthDay::Month>(mo);
-  return OpeningHours(oh).GetInfo(platform::tests_support::GetUnixtimeByDate(y, month, d, h, mi)).state;
+  return platform::tests_support::GetUnixtimeByDate(y, month, d, h, mi);
+}
+
+osmoh::RuleState StateAt(std::string const & oh, int y, int mo, int d, int h, int mi)
+{
+  return OpeningHours(oh).GetInfo(TimeAt(y, mo, d, h, mi)).state;
+}
+
+using Holidays = std::vector<std::chrono::year_month_day>;
+
+Holidays OneHoliday(int y, unsigned mo, unsigned d)
+{
+  return {std::chrono::year{y} / std::chrono::month{mo} / std::chrono::day{d}};
+}
+
+osmoh::RuleState StateAtWithPH(std::string const & oh, Holidays const & ph, int y, int mo, int d, int h, int mi)
+{
+  return OpeningHours(oh).GetInfo(TimeAt(y, mo, d, h, mi), std::nullopt, ph).state;
 }
 }  // namespace
 
@@ -78,6 +98,39 @@ UNIT_TEST(OpeningHours_SuPHOff_ClosedOnSunday)
   TEST_EQUAL(StateAt(oh, 2026, 7, 5, 12, 0), osmoh::RuleState::Closed, ());  // Sunday
   TEST_EQUAL(StateAt(oh, 2026, 7, 6, 12, 0), osmoh::RuleState::Open, ());    // Monday
   TEST_EQUAL(StateAt(oh, 2026, 7, 6, 6, 0), osmoh::RuleState::Closed, ());   // Monday, before open
+}
+
+// #3883: with a region public-holiday calendar, `PH` selectors evaluate. The
+// holiday (2026-07-06) is a Monday, so it exercises a weekday, not Sunday.
+UNIT_TEST(OpeningHours_PublicHoliday_SuPHOff)
+{
+  std::string const oh = "Mo-Sa 08:00-20:00; Su,PH off";
+  auto const ph = OneHoliday(2026, 7, 6);  // Monday
+  // Without holidays PH never matches, so the weekday stays Open (today's behavior).
+  TEST_EQUAL(StateAt(oh, 2026, 7, 6, 12, 0), osmoh::RuleState::Open, ());
+  // With the holiday supplied, `PH off` closes that weekday.
+  TEST_EQUAL(StateAtWithPH(oh, ph, 2026, 7, 6, 12, 0), osmoh::RuleState::Closed, ());
+  // A non-holiday Monday is unaffected.
+  TEST_EQUAL(StateAtWithPH(oh, ph, 2026, 7, 13, 12, 0), osmoh::RuleState::Open, ());
+}
+
+// #3883: a `PH`-only rule opens exactly on holidays.
+UNIT_TEST(OpeningHours_PublicHoliday_PHOpen)
+{
+  std::string const oh = "PH 09:00-13:00";
+  auto const ph = OneHoliday(2026, 7, 6);                                              // Monday
+  TEST_EQUAL(StateAtWithPH(oh, ph, 2026, 7, 6, 10, 0), osmoh::RuleState::Open, ());    // holiday, within hours
+  TEST_EQUAL(StateAtWithPH(oh, ph, 2026, 7, 6, 14, 0), osmoh::RuleState::Closed, ());  // holiday, after hours
+  TEST_EQUAL(StateAtWithPH(oh, ph, 2026, 7, 7, 10, 0), osmoh::RuleState::Closed, ());  // not a holiday
+}
+
+// #3883: the next-transition scan sees the holidays too, not just the current state.
+UNIT_TEST(OpeningHours_PublicHoliday_NextTransition)
+{
+  auto const ph = OneHoliday(2026, 7, 6);  // Monday
+  auto const info = OpeningHours("PH 09:00-13:00").GetInfo(TimeAt(2026, 7, 3, 12, 0), std::nullopt, ph);
+  TEST_EQUAL(info.state, osmoh::RuleState::Closed, ());
+  TEST_EQUAL(info.nextTimeOpen, TimeAt(2026, 7, 6, 9, 0), ());
 }
 
 // #3117: additive rules with a comma unite the ranges.

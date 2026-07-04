@@ -5,6 +5,8 @@
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
+#include <chrono>
+#include <cstdio>
 #include <map>
 #include <string>
 #include <vector>
@@ -115,6 +117,87 @@ UNIT_TEST(Feature_Metadata_RegionData_Languages)
     TEST(!rd.HasLanguage(StringUtf8Multilang::GetLangIndex("en")), ());
     TEST(!rd.IsSingleLanguage(StringUtf8Multilang::GetLangIndex("en")), ());
   }
+}
+
+namespace
+{
+// year_month_day has no DebugPrint(), and ISO strings make a failure readable.
+vector<string> ToStrings(feature::RegionData::PublicHolidaysT const & dates)
+{
+  vector<string> result;
+  for (auto const & ymd : dates)
+  {
+    char buf[16];
+    snprintf(buf, sizeof(buf), "%04d-%02u-%02u", int(ymd.year()), unsigned(ymd.month()), unsigned(ymd.day()));
+    result.emplace_back(buf);
+  }
+  return result;
+}
+
+vector<string> Expand(int8_t reference, int8_t offset, int yearFrom, int yearTo)
+{
+  feature::RegionData rd;
+  rd.AddPublicHoliday(reference, offset);
+  return ToStrings(rd.GetPublicHolidays(yearFrom, yearTo));
+}
+}  // namespace
+
+UNIT_TEST(Feature_Metadata_RegionData_PublicHolidays)
+{
+  TEST(feature::RegionData().GetPublicHolidays(2026, 2026).empty(), ());
+
+  feature::RegionData rd;
+  rd.AddPublicHoliday(1, 1);                               // January 1
+  rd.AddPublicHoliday(12, 25);                             // December 25
+  rd.AddPublicHoliday(feature::RegionData::PH_EASTER, 1);  // Easter Monday
+  // Every holiday must survive: AddPublicHoliday() used to keep only the first one.
+  TEST_EQUAL(ToStrings(rd.GetPublicHolidays(2026, 2026)), vector<string>({"2026-01-01", "2026-12-25", "2026-04-06"}),
+             ());
+  TEST_EQUAL(rd.GetPublicHolidays(2025, 2026).size(), size_t{6}, ());
+
+  // Holidays survive an mwm round-trip and are expanded on Deserialize().
+  vector<char> buffer;
+  MemWriter<decltype(buffer)> writer(buffer);
+  rd.Serialize(writer);
+
+  MemReader reader(buffer.data(), buffer.size());
+  ReaderSource<MemReader> src(reader);
+  feature::RegionData loaded;
+  loaded.Deserialize(src);
+  TEST_EQUAL(ToStrings(loaded.GetPublicHolidays(2026, 2026)), ToStrings(rd.GetPublicHolidays(2026, 2026)), ());
+  TEST_EQUAL(loaded.GetPublicHolidays().size(), size_t{12}, ());  // 3 holidays over a 4 year window.
+}
+
+UNIT_TEST(Feature_Metadata_RegionData_PublicHolidays_Floating)
+{
+  using RD = feature::RegionData;
+  // Century boundaries exercise the Julian -> Gregorian shift of Orthodox Easter.
+  TEST_EQUAL(Expand(RD::PH_EASTER, 0, 2024, 2026), vector<string>({"2024-03-31", "2025-04-20", "2026-04-05"}), ());
+  TEST_EQUAL(Expand(RD::PH_EASTER, 0, 1900, 1900), vector<string>({"1900-04-15"}), ());
+  TEST_EQUAL(Expand(RD::PH_EASTER, 0, 2100, 2100), vector<string>({"2100-03-28"}), ());
+  TEST_EQUAL(Expand(RD::PH_EASTER, -2, 2026, 2026), vector<string>({"2026-04-03"}), ());  // Good Friday
+
+  TEST_EQUAL(Expand(RD::PH_ORTHODOX_EASTER, 0, 2024, 2027),
+             vector<string>({"2024-05-05", "2025-04-20", "2026-04-12", "2027-05-02"}), ());
+  TEST_EQUAL(Expand(RD::PH_ORTHODOX_EASTER, 0, 1900, 1900), vector<string>({"1900-04-22"}), ());
+  TEST_EQUAL(Expand(RD::PH_ORTHODOX_EASTER, 0, 2100, 2100), vector<string>({"2100-05-02"}), ());
+
+  // 2020 is the year May 25 is itself a Monday, so Victoria Day steps a full week back.
+  TEST_EQUAL(Expand(RD::PH_VICTORIA_DAY, 0, 2020, 2023),
+             vector<string>({"2020-05-18", "2021-05-24", "2022-05-23", "2023-05-22"}), ());
+
+  // Canada Day moves to July 2 when July 1 is a Sunday (Holidays Act).
+  TEST_EQUAL(Expand(RD::PH_CANADA_DAY, 0, 2026, 2029),
+             vector<string>({"2026-07-01", "2027-07-01", "2028-07-01", "2029-07-02"}), ());
+}
+
+UNIT_TEST(Feature_Metadata_RegionData_PublicHolidays_Invalid)
+{
+  feature::RegionData rd;
+  rd.AddPublicHoliday(2, 30);  // February 30 does not exist.
+  rd.AddPublicHoliday(13, 1);  // Neither a month nor a known reference.
+  rd.AddPublicHoliday(1, 6);
+  TEST_EQUAL(ToStrings(rd.GetPublicHolidays(2026, 2026)), vector<string>({"2026-01-06"}), ());
 }
 
 UNIT_TEST(Feature_Metadata_Print)
