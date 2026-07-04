@@ -717,15 +717,23 @@ inline bool event_is_morning(TimeEvent event) {
     return event == TimeEvent::Sunrise || event == TimeEvent::Dawn;
 }
 
-/// Hour angle for a solar event (altitude fixed at 0). NaN => no such event
-/// happens on that day (polar day / night).
-inline double hour_angle(double latitude_deg, double decl, TimeEvent event) {
+/// Hour angle for a solar event (altitude fixed at 0). `nullopt` => no such
+/// event happens on that day (polar day / night).
+inline std::optional<double> hour_angle(double latitude_deg, double decl, TimeEvent event) {
     double latitude = deg2rad(latitude_deg);
     double denom = std::cos(latitude) * std::cos(decl);
     // altitude == 0, so the altitude-correction term vanishes.
     double numer = -std::sin(event_angle(event)) - std::sin(latitude) * std::sin(decl);
+    double ratio = numer / denom;
+    // The sun never reaches the event elevation on a polar day/night, i.e. the
+    // ratio falls outside [-1, 1]. Test the domain with finite arithmetic rather
+    // than relying on std::acos() returning NaN: -ffast-math / -ffinite-math-only
+    // (release builds) assume NaN cannot occur and optimize an isnan() check
+    // away, letting the NaN leak through as a bogus event time.
+    if (!(ratio >= -1.0 && ratio <= 1.0))
+        return std::nullopt;
     double sign = event_is_morning(event) ? -1.0 : 1.0;
-    return sign * std::acos(numer / denom);
+    return sign * std::acos(ratio);
 }
 
 } // namespace detail
@@ -757,10 +765,10 @@ struct Coordinates {
         double transit = solar_transit(day, m, lambda);
         double decl = declination(lambda);
 
-        double ha = hour_angle(lat_, decl, event);
-        if (std::isnan(ha)) return std::nullopt;
+        std::optional<double> ha = hour_angle(lat_, decl, event);
+        if (!ha) return std::nullopt;
 
-        double frac = ha / (2.0 * kPi);
+        double frac = *ha / (2.0 * kPi);
         double jd = transit + frac;
         // julian_to_unix, truncated toward zero (matches Rust `as i64`).
         return int64_t((jd - UNIX_EPOCH_JULIAN_DAY) * SECONDS_IN_A_DAY);
