@@ -17,6 +17,7 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
+#include <chrono>
 
 #include "3party/opening_hours/opening_hours.hpp"
 
@@ -222,8 +223,13 @@ void RankerResult::FillDetails(FeatureType & ft, bool isBuilding, bool isHotel)
     if (OpeningHours const oh{openHours}; oh.IsValid())
     {
       time_t now = time(nullptr);
-      auto const & ftTimezone = ft.GetID().m_mwmId.GetInfo()->GetRegionData().GetTimeZone();
-      auto const info = oh.GetInfo(now, ftTimezone);
+      auto const & regionData = ft.GetID().m_mwmId.GetInfo()->GetRegionData();
+      // Region public holidays so that `PH` selectors match. Cover local-year drift
+      // and GetInfo's ~400-day forward scan (empty region => `PH` never matches).
+      auto const nowYmd = std::chrono::year_month_day{
+          std::chrono::floor<std::chrono::days>(std::chrono::system_clock::from_time_t(now))};
+      int const year = static_cast<int>(nowYmd.year());
+      auto const info = oh.GetInfo(now, regionData.GetTimeZone(), regionData.GetPublicHolidays(year - 1, year + 2));
       if (info.state != RuleState::Unknown)
       {
         // In else case value is osm::Unknown, it's set in preview's constructor.

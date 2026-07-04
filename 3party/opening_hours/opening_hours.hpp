@@ -722,6 +722,11 @@ inline std::string DebugPrint(RuleState state)
   return "Unknown";
 }
 
+// Public-holiday calendar days (local dates) used to evaluate `PH` selectors.
+// Empty => `PH` never matches (unchanged default behavior). Callers expand a
+// region's holidays for the relevant years, see feature::RegionData::GetPublicHolidays.
+using PublicHolidays = std::vector<std::chrono::year_month_day>;
+
 class OpeningHours
 {
 public:
@@ -741,7 +746,11 @@ public:
     time_t nextTimeClosed;
   };
 
-  InfoT GetInfo(time_t dateTime, std::optional<om::tz::TimeZone> const & timeZone = std::nullopt) const;
+  // `timeZone` evaluates in the POI's zone (device-local if empty). `publicHolidays`
+  // are the region's holiday dates so `PH` selectors match; empty keeps the previous
+  // behavior where `PH` never matches.
+  InfoT GetInfo(time_t dateTime, std::optional<om::tz::TimeZone> const & timeZone = std::nullopt,
+                PublicHolidays const & publicHolidays = {}) const;
 
   bool IsValid() const;
 
