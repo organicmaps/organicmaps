@@ -20,6 +20,7 @@
 #include <map>
 #include <memory>
 #include <mutex>
+#include <optional>
 #include <string>
 #include <utility>
 #include <vector>
@@ -136,6 +137,13 @@ public:
     bool IsDeregistered(platform::LocalCountryFile const & deregisteredCountryFile) const;
 
     std::shared_ptr<MwmInfo> const & GetInfo() const { return m_info; }
+
+    /// @returns the time zone of the mwm region, or nullopt when the id is not bound to an mwm.
+    std::optional<om::tz::TimeZone> const & GetTimeZone() const
+    {
+      static std::optional<om::tz::TimeZone> const kNoTimeZone;
+      return m_info ? m_info->GetRegionData().GetTimeZone() : kNoTimeZone;
+    }
 
     bool operator==(MwmId const & rhs) const { return GetInfo() == rhs.GetInfo(); }
     bool operator!=(MwmId const & rhs) const { return !(*this == rhs); }
