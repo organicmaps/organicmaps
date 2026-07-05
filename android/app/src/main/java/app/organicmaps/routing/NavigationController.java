@@ -15,9 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.maplayer.MapButtonsViewModel;
-import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
-import app.organicmaps.sdk.maplayer.traffic.TrafficManager;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.util.StringUtils;
@@ -27,7 +25,7 @@ import app.organicmaps.util.WindowInsetUtils;
 import app.organicmaps.widget.menu.NavMenu;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
-public class NavigationController implements TrafficManager.TrafficCallback, NavMenu.NavMenuListener
+public class NavigationController implements NavMenu.NavMenuListener
 {
   private final View mFrame;
 
@@ -186,14 +184,6 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     mNavMenu.update(info);
   }
 
-  public void updateNorth()
-  {
-    if (!RoutingController.get().isNavigating())
-      return;
-
-    update(Framework.nativeGetRouteFollowingInfo());
-  }
-
   public void show(boolean show)
   {
     if (show && !UiUtils.isVisible(mFrame))
@@ -226,38 +216,6 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
   {
     mNavMenu.refreshTts();
   }
-
-  @Override
-  public void onEnabled()
-  {}
-
-  @Override
-  public void onDisabled()
-  {}
-
-  @Override
-  public void onWaitingData()
-  {}
-
-  @Override
-  public void onOutdated()
-  {}
-
-  @Override
-  public void onNoData()
-  {}
-
-  @Override
-  public void onNetworkError()
-  {}
-
-  @Override
-  public void onExpiredData()
-  {}
-
-  @Override
-  public void onExpiredApp()
-  {}
 
   @Override
   public void onSettingsClicked()
