@@ -857,7 +857,7 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetParsedRoutingData(
                           static_cast<jboolean>(point.m_isMyPosition));
   });
 
-  return env->NewObject(routeDataClazz, routeDataConstructor, points, routingData.m_type,
+  return env->NewObject(routeDataClazz, routeDataConstructor, points, static_cast<jint>(routingData.m_type),
                         static_cast<jboolean>(routingData.m_optimizeRoutePoints),
                         static_cast<jboolean>(routingData.m_startRouteNavigation), routingData.m_startDirection.x,
                         routingData.m_startDirection.y);
