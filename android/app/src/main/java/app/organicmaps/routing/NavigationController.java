@@ -56,12 +56,13 @@ public class NavigationController implements NavMenu.NavMenuListener
     mSpeedLimit = ViewCompat.requireViewById(topFrame, R.id.nav_speed_limit);
 
     // Window-inset handling. The maneuver card manages its own insets (see ManeuverView);
-    // each listener below owns exactly one of the remaining views. The layout family
-    // (portrait phone / landscape phone / sw600dp tablet, both orientations) is mirrored by
-    // bool resources declared in the same qualifier buckets as layout_nav.xml, so the code
-    // branches cannot diverge from whichever layout was inflated. All writes are guarded by
-    // equality checks: TYPE_SAFE_DRAWING includes system bars and IME, so inset dispatches
-    // arrive on every frame of an inset animation.
+    // each listener below owns exactly one of the remaining views. Layout-family branches
+    // (portrait phone / landscape phone / sw600dp tablet, both orientations) are derived
+    // from the inflated LayoutParams where possible, and otherwise from the
+    // nav_speed_limit_beside_card bool declared in the same qualifier buckets as
+    // layout_nav.xml — either way they cannot diverge from whichever layout was inflated.
+    // All writes are guarded by equality checks: TYPE_SAFE_DRAWING includes system bars and
+    // IME, so inset dispatches arrive on every frame of an inset animation.
     final View navigationBarBackground = mFrame.findViewById(R.id.nav_bottom_sheet_nav_bar);
     final View bottomSheet = mFrame.findViewById(R.id.nav_bottom_sheet);
     final int minStartMargin = dimen(activity, R.dimen.nav_side_margin_min);
@@ -120,10 +121,12 @@ public class NavigationController implements NavMenu.NavMenuListener
     // corner of the map-buttons overlay) down so it clears the nav header. Only the
     // portrait-phone card spans the full width and covers that corner, so only there the
     // FAB must clear the actual card height; in landscape and on tablets the card is a
-    // start-aligned fixed-width column that never overlaps the top-end corner.
+    // start-aligned fixed-width column that never overlaps the top-end corner. Like the
+    // bottom-sheet gate above, this is derived from the inflated LayoutParams: only the
+    // portrait card uses width=0dp (match-constraints spanning both parent edges).
     final int navFramePadding = dimen(activity, R.dimen.nav_frame_padding);
     mMapButtonsViewModel.setTopButtonsMarginTop(navFramePadding);
-    if (activity.getResources().getBoolean(R.bool.nav_maneuver_card_full_width))
+    if (mManeuverView.getLayoutParams().width == 0)
       mManeuverView.addOnLayoutChangeListener(
           (v, left, top, right, bottom, oldLeft, oldTop, oldRight,
            oldBottom) -> mMapButtonsViewModel.setTopButtonsMarginTop(v.getHeight() + navFramePadding));

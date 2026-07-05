@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Mirrors which layout_nav.xml variant is inflated (base bucket = portrait phone).
-     Keep these in the same qualifier buckets as layout_nav.xml so that code branching on
-     them can never diverge from the layout the resource system actually chose. -->
+     Keep this in the same qualifier buckets as layout_nav.xml so that code branching on
+     it can never diverge from the layout the resource system actually chose. -->
 <resources>
-  <bool name="nav_maneuver_card_full_width">true</bool>
   <bool name="nav_speed_limit_beside_card">false</bool>
 </resources>

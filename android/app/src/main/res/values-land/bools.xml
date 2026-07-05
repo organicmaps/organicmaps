@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Phone landscape (layout-land/layout_nav.xml): fixed-width card, speed limit beside it.
+<!-- Phone landscape (layout-land/layout_nav.xml): speed limit sits beside the card.
      Tablets never resolve to this bucket — values-sw600dp outranks the orientation
      qualifier, exactly like layout-sw600dp/layout_nav.xml outranks layout-land/. -->
 <resources>
-  <bool name="nav_maneuver_card_full_width">false</bool>
   <bool name="nav_speed_limit_beside_card">true</bool>
 </resources>

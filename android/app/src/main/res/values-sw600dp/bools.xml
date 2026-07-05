@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Tablets, both orientations (layout-sw600dp/layout_nav.xml): fixed-width card,
-     speed limit below it. -->
+<!-- Tablets, both orientations (layout-sw600dp/layout_nav.xml): speed limit below the card. -->
 <resources>
-  <bool name="nav_maneuver_card_full_width">false</bool>
   <bool name="nav_speed_limit_beside_card">false</bool>
 </resources>
