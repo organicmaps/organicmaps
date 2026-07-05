@@ -1341,7 +1341,6 @@ UNIT_CLASS_TEST(RoutingManagerTest, AddsRoutePointsInBatch)
   TEST_EQUAL(static_cast<int>(routePoints[2].m_pointType), static_cast<int>(RouteMarkType::Finish), ());
   TEST_EQUAL(routePoints[2].m_callback, "app://finish", ());
 }
-
 UNIT_CLASS_TEST(RoutingManagerTest, LoadsRoutePointsWithoutCallbackField)
 {
   auto const start = mercator::FromLatLon(1.0, 1.0);
