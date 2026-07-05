@@ -28,6 +28,8 @@ import app.organicmaps.util.WindowInsetUtils;
  *   1. Lane guidance row — visible when lane data is available; turn arrow is hidden in this case
  *   2. Turn arrow + distance row
  *   3. Next street name
+ *   4. "Then" chip — the maneuver right after the upcoming one, shown when
+ *      {@link RoutingInfo#hasNextNextTurn()}
  *
  * The card owns its rounded background, content padding and window insets: the top
  * safe-drawing inset is added to the padding, and the start margin clears side display

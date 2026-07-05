@@ -63,8 +63,8 @@
         tools:text="Alexanderplatz Straße" />
   </FrameLayout>
 
-  <!-- "Then" hint: the maneuver right after the upcoming one (kept in sync with the
-       second step Android Auto renders). -->
+  <!-- "Then" hint: the maneuver right after the upcoming one, shown when
+       RoutingInfo.hasNextNextTurn() — the same predicate Android Auto's second step uses. -->
   <FrameLayout
       android:id="@+id/maneuver_next_next_turn_frame"
       android:layout_width="wrap_content"

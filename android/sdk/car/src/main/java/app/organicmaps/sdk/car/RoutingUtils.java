@@ -1,7 +1,6 @@
 package app.organicmaps.sdk.car;
 
 import android.graphics.Bitmap;
-import android.text.TextUtils;
 import android.text.style.CharacterStyle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -60,7 +59,9 @@ public final class RoutingUtils
 
     // TODO (AndrewShkrob): Use real distance and time estimates
     builder.addStep(createCurrentStep(context, info), createTravelEstimate(info.distToTurn, 0, distanceColor));
-    if (!TextUtils.isEmpty(info.nextStreet))
+    // Same predicate as the phone's maneuver-card "then" chip, so both surfaces show the
+    // second step under identical conditions (and nextNextStreet is guaranteed non-empty).
+    if (info.hasNextNextTurn())
       builder.addStep(createNextStep(context, info), createTravelEstimate(Distance.EMPTY, 0, distanceColor));
     return builder.build();
   }
