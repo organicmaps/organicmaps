@@ -146,14 +146,8 @@
     switch urlType {
     case .route:
       CarPlayService.shared.prepareForRouteOnPhone()
-      if let adapter = DeepLinkRouteStrategyAdapter(url) {
-        MWMRouter.buildApiRoute(with: adapter.type,
-                                start: adapter.start,
-                                intermediatePoints: adapter.intermediatePoints,
-                                finish: adapter.finish,
-                                optimizeRoutePoints: adapter.optimizeRoutePoints,
-                                startRouteNavigation: adapter.startRouteNavigation,
-                                startDirection: adapter.startDirection)
+      if let adapter = DeepLinkRouteStrategyAdapter() {
+        MWMRouter.buildApiRoute(with: adapter.type, startRouteNavigation: adapter.startRouteNavigation)
         MapsAppDelegate.theApp().showMap()
         return true
       }

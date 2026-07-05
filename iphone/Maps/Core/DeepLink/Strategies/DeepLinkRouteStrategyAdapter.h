@@ -14,8 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) CGPoint startDirection;
 @property(nonatomic, readonly) MWMRouterType type;
 
-// Requires a successfully parsed Route API request in the current core API state.
-- (instancetype)init;
+// Reads the route itinerary from the current parsed API state (populated by
+// DeepLinkParser.parseAndSetApiURL); returns nil when there is no valid route.
+- (nullable instancetype)init;
 
 @end
 
