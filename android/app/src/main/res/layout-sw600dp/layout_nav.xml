@@ -11,7 +11,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Maneuver card: fixed width matching the bottom sheet in tablet portrait -->
+    <!-- Tablets use this layout in BOTH orientations: the sw600dp qualifier outranks
+         orientation, so layout-land/ only ever applies to phones.
+         Maneuver card: fixed width matching the bottom sheet. -->
     <app.organicmaps.routing.ManeuverView
       android:id="@+id/maneuver_view"
       android:layout_width="@dimen/nav_menu_landscape_width"

@@ -2,7 +2,6 @@ package app.organicmaps.routing;
 
 import static app.organicmaps.sdk.util.Utils.dimen;
 
-import android.content.res.Configuration;
 import android.location.Location;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,61 +57,75 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     mManeuverView = ViewCompat.requireViewById(topFrame, R.id.maneuver_view);
     mSpeedLimit = ViewCompat.requireViewById(topFrame, R.id.nav_speed_limit);
 
-    final boolean isLandscape =
-        activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-    final boolean isTablet = activity.getResources().getConfiguration().smallestScreenWidthDp >= 600;
-
-    // Apply status-bar + display-cutout insets so neither the maneuver card nor the
-    // bottom sheet renders behind the camera.  The left cutout is applied as a start
-    // margin (both views shift right), while the top status-bar inset becomes padding
-    // inside the maneuver card.  Nav-bar height is forwarded to the background view
-    // that fills the gesture area below the menu.
+    // Window-inset handling. Each listener below owns exactly one view. The layout family
+    // (portrait phone / landscape phone / sw600dp tablet, both orientations) is mirrored by
+    // bool resources declared in the same qualifier buckets as layout_nav.xml, so the code
+    // branches cannot diverge from whichever layout was inflated. All writes are guarded by
+    // equality checks: TYPE_SAFE_DRAWING includes system bars and IME, so inset dispatches
+    // arrive on every frame of an inset animation.
     final View navigationBarBackground = mFrame.findViewById(R.id.nav_bottom_sheet_nav_bar);
     final View bottomSheet = mFrame.findViewById(R.id.nav_bottom_sheet);
     final int minStartMargin = dimen(activity, R.dimen.nav_side_margin_min);
+
+    // Maneuver card: the top inset becomes padding inside the card, and the start edge keeps
+    // at least nav_side_margin_min (the same value as the XML margins) while clearing a side
+    // display cutout in any orientation — portrait side insets are nonzero on
+    // waterfall/curved-edge displays.
     ViewCompat.setOnApplyWindowInsetsListener(mManeuverView, (v, windowInsets) -> {
       final Insets insets = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
-      // On RTL devices layout_gravity="start" places the card on the right, so the
-      // relevant cutout edge is insets.right.  In portrait the side inset is always 0.
-      final int sideInset = v.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL ? insets.right : insets.left;
-      // In landscape keep at least nav_side_margin_min breathing room even when there
-      // is no display cutout (sideInset == 0).
-      final int startMargin = isLandscape ? Math.max(minStartMargin, sideInset) : sideInset;
+      if (v.getPaddingTop() != insets.top)
+        v.setPaddingRelative(v.getPaddingStart(), insets.top, v.getPaddingEnd(), v.getPaddingBottom());
+      setStartMarginIfChanged(v, startMarginFor(v, insets, minStartMargin));
+      return windowInsets;
+    });
 
-      // In landscape shift both cards past the camera cutout (or apply the minimum margin).
-      // In portrait XML margins are left untouched.
-      if (isLandscape)
+    // Speed limit: only when it is laid out beside the card (phone landscape) it is
+    // top-aligned with the card and needs the same top offset the card gets via padding.
+    // When it is constrained below the card, the card's padding already shifts it.
+    if (activity.getResources().getBoolean(R.bool.nav_speed_limit_beside_card))
+    {
+      ViewCompat.setOnApplyWindowInsetsListener(mSpeedLimit, (v, windowInsets) -> {
+        final Insets insets = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
+        final ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+        if (lp.topMargin != insets.top)
+        {
+          lp.topMargin = insets.top;
+          v.requestLayout();
+        }
+        return windowInsets;
+      });
+    }
+
+    // Bottom sheet: a fixed-width sheet (landscape, tablets) is start-aligned like the card
+    // and clears a side cutout the same way; a match_parent sheet (phone portrait) must keep
+    // its full width, so no listener is attached. LayoutParams.width is an XML constant,
+    // valid before the first layout pass.
+    if (bottomSheet.getLayoutParams().width > 0)
+    {
+      ViewCompat.setOnApplyWindowInsetsListener(bottomSheet, (v, windowInsets) -> {
+        final Insets insets = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
+        setStartMarginIfChanged(v, startMarginFor(v, insets, minStartMargin));
+        return windowInsets;
+      });
+    }
+
+    // Navigation-bar background: fills the gesture-area gap below the menu, outside the
+    // sheet. Mirror the sheet's width and start margin so both stay aligned; sizing from the
+    // sheet's constant LayoutParams.width works on the very first inset dispatch, before any
+    // layout pass has run.
+    ViewCompat.setOnApplyWindowInsetsListener(navigationBarBackground, (v, windowInsets) -> {
+      final Insets insets = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
+      final ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+      final int sheetWidth = bottomSheet.getLayoutParams().width;
+      final int width = sheetWidth > 0 ? sheetWidth : ViewGroup.LayoutParams.MATCH_PARENT;
+      final int startMargin = sheetWidth > 0 ? startMarginFor(v, insets, minStartMargin) : 0;
+      if (lp.width != width || lp.height != insets.bottom || lp.getMarginStart() != startMargin)
       {
-        ((ViewGroup.MarginLayoutParams) v.getLayoutParams()).setMarginStart(startMargin);
+        lp.width = width;
+        lp.height = insets.bottom;
+        lp.setMarginStart(startMargin);
         v.requestLayout();
-
-        final ViewGroup.MarginLayoutParams sheetParams = (ViewGroup.MarginLayoutParams) bottomSheet.getLayoutParams();
-        sheetParams.setMarginStart(startMargin);
-        bottomSheet.requestLayout();
       }
-
-      // Status-bar inset: padding inside the maneuver card so content clears the status bar.
-      // In phone-landscape the speed limit sits top-aligned with the card, so it needs the same
-      // top offset.  On tablets the speed limit is constrained below the card (its top is
-      // already shifted by the card's padding), so we must not apply the inset a second time.
-      v.setPaddingRelative(v.getPaddingStart(), insets.top, v.getPaddingEnd(), v.getPaddingBottom());
-      if (isLandscape && !isTablet)
-      {
-        ((ViewGroup.MarginLayoutParams) mSpeedLimit.getLayoutParams()).topMargin = insets.top;
-        mSpeedLimit.requestLayout();
-      }
-
-      // Nav-bar background sits outside the sheet — align it with the sheet and size it to fill
-      // the system nav bar gap below.
-      final ViewGroup.MarginLayoutParams navBarParams =
-          (ViewGroup.MarginLayoutParams) navigationBarBackground.getLayoutParams();
-      final ViewGroup.LayoutParams sheetLayoutParams = bottomSheet.getLayoutParams();
-      navBarParams.setMarginStart(startMargin);
-      // In portrait the sheet is match_parent (-1); propagate that directly so the background
-      // fills the full width on the first inset dispatch before any layout pass has run.
-      navBarParams.width = sheetLayoutParams.width > 0 ? sheetLayoutParams.width : ViewGroup.LayoutParams.MATCH_PARENT;
-      navBarParams.height = insets.bottom;
-      navigationBarBackground.requestLayout();
       return windowInsets;
     });
 
@@ -123,7 +136,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     // start-aligned fixed-width column that never overlaps the top-end corner.
     final int navFramePadding = dimen(activity, R.dimen.nav_frame_padding);
     mMapButtonsViewModel.setTopButtonsMarginTop(navFramePadding);
-    if (!isLandscape && !isTablet)
+    if (activity.getResources().getBoolean(R.bool.nav_maneuver_card_full_width))
       mManeuverView.addOnLayoutChangeListener(
           (v, left, top, right, bottom, oldLeft, oldTop, oldRight,
            oldBottom) -> mMapButtonsViewModel.setTopButtonsMarginTop(v.getHeight() + navFramePadding));
@@ -147,6 +160,26 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
                                         windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout()).top);
       mMapButtonsViewModel.setTopHeaderHeight(Math.max(0, maxBottom - topInset));
     });
+  }
+
+  /**
+   * Start-edge inset for a start-aligned view: on RTL devices it sits on the right, so the
+   * relevant cutout edge is insets.right. Never less than {@code minStartMargin}.
+   */
+  private static int startMarginFor(@NonNull View v, @NonNull Insets insets, int minStartMargin)
+  {
+    final int sideInset = v.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL ? insets.right : insets.left;
+    return Math.max(minStartMargin, sideInset);
+  }
+
+  private static void setStartMarginIfChanged(@NonNull View v, int startMargin)
+  {
+    final ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+    if (lp.getMarginStart() != startMargin)
+    {
+      lp.setMarginStart(startMargin);
+      v.requestLayout();
+    }
   }
 
   public void update(@Nullable RoutingInfo info)
