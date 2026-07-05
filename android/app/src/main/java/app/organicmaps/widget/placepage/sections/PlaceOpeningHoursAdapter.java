@@ -1,6 +1,5 @@
 package app.organicmaps.widget.placepage.sections;
 
-import static app.organicmaps.editor.data.TimeFormatUtils.formatOpenShifts;
 import static app.organicmaps.editor.data.TimeFormatUtils.formatWeekdaysRange;
 
 import android.view.LayoutInflater;
@@ -110,7 +109,7 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
       openTime = holder.itemView.getResources().getString(R.string.editor_time_allday);
     else
     {
-      final String shifts = formatOpenShifts(schedule.timetable, "\n");
+      final String shifts = schedule.timetable.formatOpenShifts("\n");
       // A working day fully covered by breaks has no open shift; show it as closed.
       openTime = shifts.isEmpty() ? holder.itemView.getResources().getString(R.string.day_off) : shifts;
     }
