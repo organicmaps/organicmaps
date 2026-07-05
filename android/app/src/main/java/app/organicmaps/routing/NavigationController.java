@@ -238,7 +238,8 @@ public class NavigationController implements NavMenu.NavMenuListener
   private void updateSpeedLimit(@NonNull final RoutingInfo info)
   {
     final Location location = MwmApplication.from(mFrame.getContext()).getLocationHelper().getSavedLocation();
-    final boolean speedLimitExceeded = location != null && info.speedLimitMps < location.getSpeed();
+    final boolean speedLimitExceeded =
+        location != null && info.speedLimitMps > 0 && info.speedLimitMps < location.getSpeed();
     mSpeedLimit.setSpeedLimit(StringUtils.nativeFormatSpeed(info.speedLimitMps), speedLimitExceeded);
   }
 }
