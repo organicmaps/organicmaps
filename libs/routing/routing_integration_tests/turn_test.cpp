@@ -706,6 +706,22 @@ UNIT_TEST(England_London_ExitToLeft_TurnTest)
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToLeft);
 }
 
+// Test on a straight one-way road (N 20 / D 2020) which crosses mwm borders
+// (Loiret <-> Eure-et-Loir) several times. No maneuvers should be generated.
+// https://github.com/organicmaps/organicmaps/issues/5804
+UNIT_TEST(France_CrossMwm_N20_NoDummyTurns_TurnTest)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                                               mercator::FromLatLon(48.0980, 1.8846), {0.0, 0.0},
+                                                               mercator::FromLatLon(48.1676143, 1.9176601));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+  integration::TestTurnCount(route, 0 /* expectedTurnCount */);
+}
+
 // Test on the route from Leninsky prospect to its frontage road and turns generated on the route.
 UNIT_TEST(Russia_Moscow_LeninskyProsp_TurnTest)
 {

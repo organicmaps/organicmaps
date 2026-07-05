@@ -6,6 +6,8 @@
 #include "routing/latlon_with_altitude.hpp"
 #include "routing/transit_graph.hpp"
 
+#include "coding/point_coding.hpp"
+
 namespace routing
 {
 IndexRoadGraph::IndexRoadGraph(IndexGraphStarter & starter, std::vector<Segment> const & segments,
@@ -105,6 +107,21 @@ void IndexRoadGraph::GetEdges(geometry::PointWithAltitude const & junction, bool
 {
   edges.clear();
 
+  // Features crossing mwm borders are duplicated in both mwms, so the same physical edge
+  // can be returned twice: as an edge of the current mwm and as its twin from the neighbouring one.
+  // Such duplicates should be filtered out, otherwise turns generation sees a phantom parallel road
+  // and produces dummy GoStraight maneuvers near mwm borders. See
+  // https://github.com/organicmaps/organicmaps/issues/5804
+  auto const isTwinDuplicate = [&edges](Edge const & edge)
+  {
+    for (Edge const & e : edges)
+      if (e.GetFeatureId().m_mwmId != edge.GetFeatureId().m_mwmId &&
+          m2::AlmostEqualAbs(e.GetStartPoint(), edge.GetStartPoint(), kMwmPointAccuracy) &&
+          m2::AlmostEqualAbs(e.GetEndPoint(), edge.GetEndPoint(), kMwmPointAccuracy))
+        return true;
+    return false;
+  };
+
   for (Segment const & segment : GetSegments(junction, isOutgoing))
   {
     IndexGraphStarter::EdgeListT tmpEdges;
@@ -116,10 +133,15 @@ void IndexRoadGraph::GetEdges(geometry::PointWithAltitude const & junction, bool
       if (IndexGraphStarter::IsFakeSegment(segment))
         continue;
 
-      edges.push_back(Edge::MakeReal({m_dataSource.GetMwmId(segment.GetMwmId()), segment.GetFeatureId()},
-                                     segment.IsForward(), segment.GetSegmentIdx(),
-                                     m_starter.GetJunction(segment, false /* front */).ToPointWithAltitude(),
-                                     m_starter.GetJunction(segment, true /* front */).ToPointWithAltitude()));
+      Edge edge = Edge::MakeReal({m_dataSource.GetMwmId(segment.GetMwmId()), segment.GetFeatureId()},
+                                 segment.IsForward(), segment.GetSegmentIdx(),
+                                 m_starter.GetJunction(segment, false /* front */).ToPointWithAltitude(),
+                                 m_starter.GetJunction(segment, true /* front */).ToPointWithAltitude());
+
+      // Edges of the current mwm are returned first (twins are appended after them),
+      // so the same-mwm copy of a duplicated edge is kept.
+      if (!isTwinDuplicate(edge))
+        edges.push_back(std::move(edge));
     }
   }
 }
