@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -46,8 +45,7 @@ public class LanesView extends View
 
   @Nullable
   private LanesDrawable mLanesDrawable;
-  private final Rect mViewBounds = new Rect();
-  private final RectF mViewBoundsF = new RectF();
+  private final RectF mViewBounds = new RectF();
 
   public LanesView(Context context, @Nullable AttributeSet attrs)
   {
@@ -107,9 +105,8 @@ public class LanesView extends View
 
     mLanesDrawable.setBounds(0, 0, getWidth(), getHeight());
     mViewBounds.set(0, 0, getWidth(), getHeight());
-    mViewBoundsF.set(mViewBounds);
 
-    canvas.drawRoundRect(mViewBoundsF, mCornerRadius, mCornerRadius, mBackgroundPaint);
+    canvas.drawRoundRect(mViewBounds, mCornerRadius, mCornerRadius, mBackgroundPaint);
 
     mLanesDrawable.draw(canvas);
   }
@@ -117,13 +114,9 @@ public class LanesView extends View
   @Override
   public boolean onTouchEvent(MotionEvent event)
   {
-    if (mViewBounds.contains((int) event.getX(), (int) event.getY()))
-    {
-      performClick();
-      return true;
-    }
-
-    return false;
+    // Every touch Android dispatches here is already within the view bounds.
+    performClick();
+    return true;
   }
 
   @Override
