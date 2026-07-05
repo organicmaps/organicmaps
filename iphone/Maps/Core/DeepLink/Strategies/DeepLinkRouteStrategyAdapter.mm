@@ -5,7 +5,7 @@
 
 @implementation DeepLinkRouteStrategyAdapter
 
-- (instancetype)init:(NSURL *)url
+- (instancetype)init
 {
   self = [super init];
   if (self)

@@ -18,7 +18,7 @@ final class GeoNavigationToOMURLConverterTests: XCTestCase {
     let urlType = DeepLinkParser.parseAndSetApiURL(omUrl)
     switch urlType {
     case .route:
-      let adapter = try XCTUnwrap(DeepLinkRouteStrategyAdapter(omUrl))
+      let adapter = try XCTUnwrap(DeepLinkRouteStrategyAdapter())
       CheckAlmostEqual(adapter.start.latitude, 1.1)
       CheckAlmostEqual(adapter.start.longitude, 2.2)
       XCTAssertEqual(adapter.start.type, .start)
@@ -40,7 +40,7 @@ final class GeoNavigationToOMURLConverterTests: XCTestCase {
     let urlType = DeepLinkParser.parseAndSetApiURL(omUrl)
     switch urlType {
     case .route:
-      let adapter = try XCTUnwrap(DeepLinkRouteStrategyAdapter(omUrl))
+      let adapter = try XCTUnwrap(DeepLinkRouteStrategyAdapter())
       CheckAlmostEqual(adapter.start.latitude, 1.1)
       CheckAlmostEqual(adapter.start.longitude, 2.2)
       XCTAssertEqual(adapter.start.type, .start)
@@ -133,6 +133,6 @@ final class GeoNavigationToOMURLConverterTests: XCTestCase {
   }
 
   private func CheckAlmostEqual(_ lhs: Double, _ rhs: Double, tolerance: Double = 1e-6) {
-    XCTAssertTrue(lhs - rhs < tolerance)
+    XCTAssertEqual(lhs, rhs, accuracy: tolerance)
   }
 }

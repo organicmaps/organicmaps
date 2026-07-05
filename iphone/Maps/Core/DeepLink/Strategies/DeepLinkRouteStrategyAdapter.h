@@ -13,7 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) BOOL startRouteNavigation;
 @property(nonatomic, readonly) MWMRouterType type;
 
-- (nullable instancetype)init:(NSURL *)url;
+// Reads the route itinerary from the current parsed API state (populated by
+// DeepLinkParser.parseAndSetApiURL); returns nil when there is no valid route.
+- (nullable instancetype)init;
 
 @end
 
