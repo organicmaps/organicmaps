@@ -15,11 +15,11 @@
       android:layout_height="60dp"
       android:layout_marginBottom="@dimen/margin_half"
       android:visibility="gone"
-      app:lanesActiveLaneTintColor="@color/white_primary"
+      app:lanesActiveLaneTintColor="@color/on_nav_card"
       app:lanesBackgroundColor="@android:color/transparent"
       app:lanesCornerRadius="0dp"
       app:lanesEditModeLanesCount="5"
-      app:lanesInactiveLaneTintColor="@color/white_38"
+      app:lanesInactiveLaneTintColor="@color/on_nav_card_inactive"
       tools:visibility="visible" />
 
   <LinearLayout
@@ -33,7 +33,7 @@
         android:layout_width="@dimen/nav_turn_sign_large"
         android:layout_height="@dimen/nav_turn_sign_large"
         android:layout_marginEnd="@dimen/margin_base"
-        app:tint="@color/white_primary"
+        app:tint="@color/on_nav_card"
         tools:src="@drawable/ic_turn_right"
         tools:visibility="gone"
         />
@@ -43,7 +43,7 @@
         style="@style/MwmWidget.TextView.NavNextTurn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white_primary"
+        android:textColor="@color/on_nav_card"
         tools:text="500 m" />
   </LinearLayout>
 
@@ -59,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="2"
-        android:textColor="@color/white_secondary"
+        android:textColor="@color/on_nav_card_secondary"
         tools:text="Alexanderplatz Straße" />
   </FrameLayout>
 </merge>

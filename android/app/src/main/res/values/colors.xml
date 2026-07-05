@@ -62,6 +62,14 @@
   <!-- Backgrounds -->
   <color name="bg_window">#FFEEEEEE</color>
   <color name="bg_primary">#006C35</color>
+
+  <!-- Navigation maneuver card surface + on-surface pair. The background is deliberately
+       dark in BOTH themes so the theme-constant white foreground colors below stay legible;
+       keep that invariant when changing either side of the pair. -->
+  <color name="nav_card_bg">#006C35</color>
+  <color name="on_nav_card">@color/white_primary</color>
+  <color name="on_nav_card_secondary">@color/white_secondary</color>
+  <color name="on_nav_card_inactive">@color/white_38</color>
   <color name="bg_cards">@android:color/white</color>
   <color name="bg_panel">@color/bg_window</color>
   <color name="notes_fade_start">#00FFFFFF</color>
