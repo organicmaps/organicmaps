@@ -951,6 +951,8 @@ std::vector<Track::TrackSelectionInfo> BookmarkManager::FindTracksInRect(m2::Rec
     for (auto trackId : category.GetUserLines())
     {
       auto const track = GetTrack(trackId);
+      if (!track->IsVisible())
+        continue;
       if (tracksFilter && !tracksFilter(track))
         continue;
 
@@ -1863,19 +1865,9 @@ void BookmarkManager::UpdateTrackMarksMinZoom()
 
 void BookmarkManager::UpdateTrackMarksVisibility(kml::MarkGroupId groupId)
 {
-  auto const isVisible = IsVisible(groupId);
-  auto const tracksIds = GetTrackIds(groupId);
-  auto infoMark = GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
-  for (auto trackId : tracksIds)
-  {
-    auto markId = GetTrackSelectionMarkId(trackId);
-    if (markId == kml::kInvalidMarkId)
-      continue;
-    if (infoMark->GetTrackId() == trackId && infoMark->IsVisible())
-      infoMark->SetIsVisible(isVisible);
-    auto mark = GetMarkForEdit<TrackSelectionMark>(markId);
-    mark->SetIsVisible(isVisible);
-  }
+  // Re-evaluate the selection mark of every track after the group's visibility changed.
+  for (auto trackId : GetTrackIds(groupId))
+    UpdateTrackSelectionMark(trackId);
 }
 
 void BookmarkManager::RequestSymbolSizes()
@@ -2372,8 +2364,48 @@ void BookmarkManager::ChangeTrackColor(kml::TrackId trackId, dp::Color color)
 void BookmarkManager::UpdateTrack(kml::TrackId trackId, kml::TrackData const & trackData)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
+  // GetTrackForEdit() already marks the line dirty for re-rendering. Visibility is changed only
+  // via SetTrackVisibility(), so the selection mark needs no update here.
+  GetTrackForEdit(trackId)->SetData(trackData);
+}
+
+// A track is effectively visible only when both its parent category and the track itself are
+// visible. Category visibility takes precedence: hiding the category hides all its tracks.
+bool BookmarkManager::IsTrackEffectivelyVisible(kml::TrackId trackId) const
+{
+  auto const * track = GetTrack(trackId);
+  return track != nullptr && track->IsVisible() && IsVisible(track->GetGroupId());
+}
+
+// The elevation selection dot and its info bubble belong to the active track selection. Show them
+// only while the track is the current selection and effectively visible; otherwise a deselected or
+// hidden track would keep a stale dot on the map with no Place Page.
+void BookmarkManager::UpdateTrackSelectionMark(kml::TrackId trackId)
+{
+  auto const markId = GetTrackSelectionMarkId(trackId);
+  if (markId == kml::kInvalidMarkId)
+    return;
+
+  bool const markVisible = trackId == m_selectedTrackId && IsTrackEffectivelyVisible(trackId);
+  if (auto infoMark = GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId); infoMark->GetTrackId() == trackId)
+    infoMark->SetIsVisible(markVisible);
+  GetMarkForEdit<TrackSelectionMark>(markId)->SetIsVisible(markVisible);
+}
+
+// Sets individual track visibility independent of the parent category visibility.
+// See IsTrackEffectivelyVisible() for how the two combine during rendering.
+// Must be called through EditSession to ensure thread safety and change notification.
+void BookmarkManager::SetTrackVisibility(kml::TrackId trackId, bool visible)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto * track = GetTrackForEdit(trackId);
-  track->SetData(trackData);
+  if (track == nullptr || track->IsVisible() == visible)
+    return;
+
+  // GetTrackForEdit() already marked the line dirty; the lightweight setter avoids copying the
+  // whole TrackData (geometry included) just to flip one flag.
+  track->SetVisibility(visible);
+  UpdateTrackSelectionMark(trackId);
 }
 
 kml::MarkGroupId BookmarkManager::LastEditedBMCategory()
@@ -3651,6 +3683,11 @@ void BookmarkManager::EditSession::ClearGroup(kml::MarkGroupId groupId)
 void BookmarkManager::EditSession::SetIsVisible(kml::MarkGroupId groupId, bool visible)
 {
   m_bmManager.SetIsVisible(groupId, visible);
+}
+
+void BookmarkManager::EditSession::SetTrackVisibility(kml::TrackId trackId, bool visible)
+{
+  m_bmManager.SetTrackVisibility(trackId, visible);
 }
 
 void BookmarkManager::EditSession::MoveBookmark(kml::MarkId bmID, kml::MarkGroupId curGroupID,

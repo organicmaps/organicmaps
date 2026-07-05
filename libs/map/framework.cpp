@@ -940,10 +940,36 @@ void Framework::ShowTrack(kml::TrackId trackId)
 
   auto es = bm.GetEditSession();
   es.SetIsVisible(track->GetGroupId(), true /* visible */);
+  // Also unhide the individual track so imported tracks with m_visible=false
+  // become visible when navigated to from the bookmark list.
+  es.SetTrackVisibility(trackId, true /* visible */);
 
   ShowRect(rect, true /* isAnim */, true /* useVisibleViewport */);
 
   ActivateMapSelection();
+}
+
+void Framework::SetTrackVisibility(kml::TrackId trackId, bool visible)
+{
+  {
+    auto es = GetBookmarkManager().GetEditSession();
+    es.SetTrackVisibility(trackId, visible);
+  }
+
+  // Hiding the track shown in the Place Page must reset the selection so nothing
+  // stays selected on an invisible track.
+  if (!visible && m_currentPlacePageInfo && m_currentPlacePageInfo->GetTrackId() == trackId)
+    DeactivateMapSelection();
+}
+
+void Framework::DeleteTrack(kml::TrackId trackId)
+{
+  // Close the Place Page first (while the track still exists) so nothing stays selected on a
+  // deleted track; otherwise the selection would be rebuilt for a track that is already gone.
+  if (m_currentPlacePageInfo && m_currentPlacePageInfo->GetTrackId() == trackId)
+    DeactivateMapSelection();
+
+  GetBookmarkManager().GetEditSession().DeleteTrack(trackId);
 }
 
 void Framework::SelectTrackCandidate(kml::TrackId trackId, RelationID const & relationId)

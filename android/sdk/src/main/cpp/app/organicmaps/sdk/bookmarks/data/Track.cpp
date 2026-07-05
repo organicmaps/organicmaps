@@ -60,6 +60,7 @@ jobject CreateTrack(JNIEnv * env, place_page::Info const & info, jni::TScopedLoc
     "D"                                               // lat
     "D"                                               // lon
     "[Lapp/organicmaps/sdk/bookmarks/data/TrackSelectionCandidate;"  // candidates
+    "Z"                                               // visible
     ")V"
   );
   // clang-format on
@@ -86,7 +87,8 @@ jobject CreateTrack(JNIEnv * env, place_page::Info const & info, jni::TScopedLoc
     ToJavaDistance(env, platform::Distance::CreateFormatted(track->GetLengthMeters())),
     static_cast<jdouble>(ll.m_lat),
     static_cast<jdouble>(ll.m_lon),
-    candidatesArray.get()
+    candidatesArray.get(),
+    static_cast<jboolean>(track->IsVisible())
   );
   // clang-format on
 
@@ -168,4 +170,5 @@ JNIEXPORT jdouble Java_app_organicmaps_sdk_bookmarks_data_Track_nativeGetElevati
   auto & bm = frm()->GetBookmarkManager();
   return static_cast<jdouble>(bm.GetElevationActivePoint(static_cast<kml::TrackId>(trackId)));
 }
+
 }  // extern "C"

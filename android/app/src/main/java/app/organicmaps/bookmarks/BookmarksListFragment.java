@@ -30,7 +30,6 @@ import app.organicmaps.base.BaseMwmRecyclerFragment;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkInfo;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
-import app.organicmaps.sdk.bookmarks.data.BookmarkSharingResult;
 import app.organicmaps.sdk.bookmarks.data.CategoryDataSource;
 import app.organicmaps.sdk.bookmarks.data.FileType;
 import app.organicmaps.sdk.bookmarks.data.Icon;
@@ -54,9 +53,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter>
-    implements BookmarkManager.BookmarksSharingListener, BookmarkManager.BookmarksSortingListener,
-               BookmarkManager.BookmarksLoadingListener, BookmarkSearchListener,
-               ChooseBookmarksSortingTypeFragment.ChooseSortingTypeListener,
+    implements BookmarkManager.BookmarksSortingListener, BookmarkManager.BookmarksLoadingListener,
+               BookmarkSearchListener, ChooseBookmarksSortingTypeFragment.ChooseSortingTypeListener,
                MenuBottomSheetFragment.MenuBottomSheetInterface, ColorPickerFragment.OnColorChangeListener
 {
   public static final String TAG = BookmarksListFragment.class.getSimpleName();
@@ -259,7 +257,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     SearchEngine.INSTANCE.addBookmarkListener(this);
     BookmarkManager.INSTANCE.addLoadingListener(this);
     BookmarkManager.INSTANCE.addSortingListener(this);
-    BookmarkManager.INSTANCE.addSharingListener(this);
   }
 
   @Override
@@ -289,7 +286,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     SearchEngine.INSTANCE.removeBookmarkListener(this);
     BookmarkManager.INSTANCE.removeLoadingListener(this);
     BookmarkManager.INSTANCE.removeSortingListener(this);
-    BookmarkManager.INSTANCE.removeSharingListener(this);
   }
 
   private void configureBookmarksListAdapter()
@@ -722,6 +718,13 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
                            () -> BookmarkManager.INSTANCE.deleteTrack(trackId));
   }
 
+  private void onToggleTrackVisibilitySelected(@NonNull Track track)
+  {
+    track.toggleVisibility();
+    // Refresh so the row's eye icon reflects the new visibility.
+    getBookmarkListAdapter().notifyDataSetChanged();
+  }
+
   private void onShareActionSelected()
   {
     if (mSelectedItemId == -1)
@@ -796,7 +799,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private void onShareOptionSelected(FileType fileType)
   {
     long catId = mCategoryDataSource.getData().getId();
-    BookmarksSharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(requireActivity(), catId, fileType);
+    BookmarksSharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(requireActivity(), shareLauncher, catId,
+                                                                      fileType);
   }
 
   private void onSettingsOptionSelected()
@@ -846,6 +850,11 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   {
     ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
     items.add(new MenuBottomSheetItem(R.string.edit, R.drawable.ic_edit, this::onTrackEditActionSelected));
+    // Hide/Show toggle duplicates the eye icon in the track row.
+    final boolean visible = track.isVisible();
+    items.add(new MenuBottomSheetItem(visible ? R.string.hide_track : R.string.show_track,
+                                      visible ? R.drawable.ic_hide : R.drawable.ic_show,
+                                      () -> onToggleTrackVisibilitySelected(track)));
     items.add(new MenuBottomSheetItem(R.string.export_file, R.drawable.ic_file_kmz,
                                       () -> onShareTrackSelected(track.getTrackId(), FileType.Kml)));
     items.add(new MenuBottomSheetItem(R.string.export_file_gpx, R.drawable.ic_file_gpx,
@@ -859,13 +868,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
   private void onShareTrackSelected(long trackId, FileType fileType)
   {
-    BookmarksSharingHelper.INSTANCE.prepareTrackForSharing(requireActivity(), trackId, fileType);
-  }
-
-  @Override
-  public void onPreparedFileForSharing(@NonNull BookmarkSharingResult result)
-  {
-    BookmarksSharingHelper.INSTANCE.onPreparedFileForSharing(requireActivity(), shareLauncher, result);
+    BookmarksSharingHelper.INSTANCE.prepareTrackForSharing(requireActivity(), shareLauncher, trackId, fileType);
   }
 
   private void handleActivityResult()
