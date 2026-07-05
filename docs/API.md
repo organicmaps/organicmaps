@@ -47,8 +47,10 @@ splits correctly. A literal `|` that belongs inside a value must be double-encod
 the text `%7C` and is not treated as a separator.
 
 Query values are URL-decoded once before parsing. Percent-encode the complete callback URL as a query value,
-including any existing percent escapes. Unencoded `&` and `#` end the value; a callback's literal `+` must be
-encoded as `%2B` to preserve it. Surrounding whitespace on each list item is trimmed.
+including any existing percent escapes. Any `&`, `?`, `=`, or `%` that belongs inside a callback URL must itself be
+percent-encoded (`%26`, `%3F`, `%3D`, `%25`); otherwise the surrounding query parser truncates the callback. An
+unencoded `&` or `#` ends the value, and a callback's literal `+` must be encoded as `%2B` to preserve it.
+Surrounding whitespace on each list item is trimmed.
 Repeated parameters use the last value; `mode` and `travelmode` share the same value.
 
 - `mode=drive|walk|bike|transit` (`drive` is the default; `driving`/`car`/`vehicle`, `walking`/`pedestrian`, and `bicycling`/`bicycle` are also accepted, but not `cycling`). `travelmode=...` is an interchangeable alias for easier migration from Google Maps URLs.
