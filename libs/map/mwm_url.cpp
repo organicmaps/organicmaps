@@ -840,7 +840,12 @@ void ParsedMapApi::ExecuteRouteApiRequest(Framework & fm) const
     // "my position" start instead of leaving it blank.
     data.m_title =
         point.m_isMyPosition && point.m_name.empty() ? platform::GetLocalizedString("core_my_position") : point.m_name;
-    data.m_callback = point.m_callback;
+    // origin_callback is reserved (see docs/API.md): the start is departed from, never
+    // "passed" like a stop, so it must never become an executable callback. Keeping it off
+    // the Start mark makes that invariant structural instead of relying on the passed
+    // checkpoint index never being 0.
+    if (type != RouteMarkType::Start)
+      data.m_callback = point.m_callback;
     data.m_pointType = type;
     data.m_intermediateIndex = intermediateIndex;
     data.m_isMyPosition = point.m_isMyPosition;

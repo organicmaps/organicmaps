@@ -172,6 +172,28 @@ UNIT_CLASS_TEST(RoutingManagerTest, ExecutesApiRouteRequest)
   TEST_EQUAL(routePoints[3].m_callback, "app://finish", ());
 }
 
+UNIT_CLASS_TEST(RoutingManagerTest, DoesNotMaterializeOriginCallbackOnStartMark)
+{
+  // origin_callback is reserved: the start is departed from, never "passed", so it must
+  // never become an executable callback on the Start mark, even though the parser keeps it
+  // on the origin RoutePoint.
+  url_scheme::ParsedMapApi const api(
+      "om://v2/dir?origin=currentLocation&origin_callback=app%3A%2F%2Forigin"
+      "&destination=2,2&destination_callback=app%3A%2F%2Ffinish");
+  TEST_EQUAL(api.GetRequestType(), url_scheme::ParsedMapApi::UrlType::Route, ());
+  TEST_EQUAL(api.GetRoutePoints().front().m_callback, "app://origin", ());
+
+  // ExecuteRouteApiRequest starts a build, which reports completion through this listener.
+  m_manager.SetRouteBuildingListener([](routing::RouterResultCode, storage::CountriesSet const &) {});
+  api.ExecuteRouteApiRequest(m_framework);
+
+  auto const routePoints = m_manager.GetRoutePoints();
+  TEST_EQUAL(routePoints.size(), 2, ());
+  TEST_EQUAL(static_cast<int>(routePoints[0].m_pointType), static_cast<int>(RouteMarkType::Start), ());
+  TEST_EQUAL(routePoints[0].m_callback, "", ());
+  TEST_EQUAL(routePoints[1].m_callback, "app://finish", ());
+}
+
 UNIT_CLASS_TEST(RoutingManagerTest, LoadsRoutePointsWithoutCallbackField)
 {
   auto const start = mercator::FromLatLon(1.0, 1.0);
