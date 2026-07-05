@@ -134,7 +134,7 @@
     LOG(.info, "URL type: \(urlType)")
     switch urlType {
     case .route:
-      if let adapter = DeepLinkRouteStrategyAdapter(url) {
+      if let adapter = DeepLinkRouteStrategyAdapter() {
         MWMRouter.buildApiRoute(with: adapter.type, startRouteNavigation: adapter.startRouteNavigation)
         MapsAppDelegate.theApp().showMap()
         return true
