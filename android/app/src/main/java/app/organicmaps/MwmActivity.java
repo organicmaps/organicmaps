@@ -125,6 +125,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.ArrayList;
 import java.util.Objects;
+import kotlin.Unit;
 
 public class MwmActivity extends BaseMwmFragmentActivity
     implements PlacePageActivationListener, MapRenderingListener, RoutingController.Container, LocationListener,
@@ -577,9 +578,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     initNavigationButtons();
 
-    mNavigationController = new NavigationController(
-        this, v -> onSettingsOptionSelected(), v -> openVoiceInstructionsSettings(), this::updateBottomWidgetsOffset);
-    // TrafficManager.INSTANCE.attach(mNavigationController);
+    mNavigationController = new NavigationController(this,
+                                                     ()
+                                                         -> {
+                                                       onSettingsOptionSelected();
+                                                       return Unit.INSTANCE;
+                                                     },
+                                                     ()
+                                                         -> {
+                                                       openVoiceInstructionsSettings();
+                                                       return Unit.INSTANCE;
+                                                     },
+                                                     this::updateBottomWidgetsOffset);
     initOnmapDownloader();
     initPositionChooser();
   }

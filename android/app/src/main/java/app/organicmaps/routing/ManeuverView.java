@@ -25,6 +25,12 @@ import app.organicmaps.util.Utils;
  *   1. Lane guidance row — visible when lane data is available; turn arrow is hidden in this case
  *   2. Turn arrow + distance row
  *   3. Next street name
+ *   4. "Then" chip — the maneuver right after the upcoming one, shown when
+ *      {@link RoutingInfo#hasNextNextTurn()}
+ *
+ * The card owns its rounded background and content padding. Window insets (status bar and
+ * side display cutouts) are applied by NavigationController on the shared nav_top_frame, which
+ * shifts the card and the speed limit together.
  *
  * Call {@link #updateVehicle} or {@link #updatePedestrian} each navigation tick.
  */
@@ -35,28 +41,42 @@ public class ManeuverView extends LinearLayout
   private final View mStreetFrame;
   private final TextView mStreet;
   private final LanesView mLanes;
+  private final View mNextNextTurnFrame;
+  private final ImageView mNextNextTurnImage;
 
   public ManeuverView(@NonNull Context context, @Nullable AttributeSet attrs)
   {
     super(context, attrs);
     setOrientation(VERTICAL);
+    // Background on the view itself also makes the elevation shadow follow the rounded
+    // outline instead of the rectangular view bounds.
+    setBackgroundResource(R.drawable.bg_nav_maneuver_card);
+    final int padding = getResources().getDimensionPixelSize(R.dimen.margin_half_plus);
+    setPadding(padding, padding, padding, padding);
     LayoutInflater.from(context).inflate(R.layout.view_maneuver, this, true);
     mTurnImage = ViewCompat.requireViewById(this, R.id.maneuver_turn);
     mDistance = ViewCompat.requireViewById(this, R.id.maneuver_distance);
     mStreetFrame = ViewCompat.requireViewById(this, R.id.maneuver_street_frame);
     mStreet = ViewCompat.requireViewById(mStreetFrame, R.id.maneuver_street);
     mLanes = ViewCompat.requireViewById(this, R.id.maneuver_lanes);
+    mNextNextTurnFrame = ViewCompat.requireViewById(this, R.id.maneuver_next_next_turn_frame);
+    mNextNextTurnImage = ViewCompat.requireViewById(mNextNextTurnFrame, R.id.maneuver_next_next_turn);
   }
 
   /** Update for vehicle / bicycle routing. Shows lane guidance when available. */
   public void updateVehicle(@NonNull RoutingInfo info)
   {
-    mLanes.setLanes(info.lanes);
+    mLanes.setLanes(info.lanes, info.lanesTrimmedLeft, info.lanesTrimmedRight);
     final boolean lanesVisible = info.lanes != null && info.lanes.length > 0;
     UiUtils.showIf(!lanesVisible, mTurnImage);
     if (!lanesVisible)
       mTurnImage.setImageResource(info.carDirection.getTurnRes(info.exitNum));
-    setDistanceMarginStart(!lanesVisible);
+
+    final boolean showNextNextTurn = info.hasNextNextTurn();
+    UiUtils.showIf(showNextNextTurn, mNextNextTurnFrame);
+    if (showNextNextTurn)
+      mNextNextTurnImage.setImageResource(info.nextCarDirection.getTurnRes());
+
     updateCommon(info);
   }
 
@@ -64,17 +84,10 @@ public class ManeuverView extends LinearLayout
   public void updatePedestrian(@NonNull RoutingInfo info)
   {
     mLanes.setLanes(null);
-    UiUtils.showIf(true, mTurnImage);
+    UiUtils.show(mTurnImage);
     mTurnImage.setImageResource(info.pedestrianDirection.getTurnRes());
-    setDistanceMarginStart(true);
+    UiUtils.hide(mNextNextTurnFrame);
     updateCommon(info);
-  }
-
-  private void setDistanceMarginStart(boolean hasTurnImage)
-  {
-    final LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mDistance.getLayoutParams();
-    lp.setMarginStart(hasTurnImage ? getResources().getDimensionPixelSize(R.dimen.margin_base) : 0);
-    mDistance.setLayoutParams(lp);
   }
 
   private void updateCommon(@NonNull RoutingInfo info)
@@ -82,8 +95,8 @@ public class ManeuverView extends LinearLayout
     mDistance.setText(Utils.formatDistance(getContext(), info.distToTurn));
 
     final boolean hasStreet = !TextUtils.isEmpty(info.nextStreet);
-    // Sic: don't use UiUtils.showIf() here because View.GONE breaks layout
-    // https://github.com/organicmaps/organicmaps/issues/3732
+    // INVISIBLE (not GONE) keeps the street row's space, so the card height stays stable
+    // while the street name briefly disappears between maneuvers.
     UiUtils.visibleIf(hasStreet, mStreetFrame);
     if (hasStreet)
       mStreet.setText(RoadShieldUtils.createStreetTextWithShields(info.nextStreet, info.nextStreetRoadShields,

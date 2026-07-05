@@ -29,32 +29,33 @@
       android:layout_marginStart="@dimen/margin_half"
       app:layout_constraintStart_toEndOf="@id/maneuver_view"
       app:layout_constraintTop_toTopOf="@id/maneuver_view"/>
-
-    <View
-        android:id="@+id/nav_bottom_sheet_background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#99000000"
-        android:clickable="true"
-        android:focusable="true"
-        android:visibility="gone"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-2dp"
-        tools:visibility="visible" />
   </androidx.constraintlayout.widget.ConstraintLayout>
 
   <androidx.coordinatorlayout.widget.CoordinatorLayout
-      android:id="@+id/nav_bottom_sheet_coordinator"
+    android:id="@+id/nav_bottom_sheet_coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Dim scrim faded in while the nav menu expands. It must stay in this subtree, which is
+         drawn after nav_top_frame: elevation reorders siblings only within one parent, so a
+         scrim placed next to the elevated maneuver card would be drawn below the card. -->
+    <View
+      android:id="@+id/nav_bottom_sheet_background"
       android:layout_width="match_parent"
-      android:layout_height="match_parent">
+      android:layout_height="match_parent"
+      android:background="#99000000"
+      android:clickable="true"
+      android:focusable="true"
+      android:visibility="gone"
+      tools:visibility="visible" />
 
     <FrameLayout
-        android:id="@+id/nav_bottom_sheet"
-        style="?attr/bottomSheetStyle"
-        android:layout_width="@dimen/nav_menu_landscape_width"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+      android:id="@+id/nav_bottom_sheet"
+      style="?attr/bottomSheetStyle"
+      android:layout_width="@dimen/nav_menu_landscape_width"
+      android:layout_height="wrap_content"
+      android:layout_gravity="start"
+      app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
       <include layout="@layout/layout_nav_bottom" />
     </FrameLayout>

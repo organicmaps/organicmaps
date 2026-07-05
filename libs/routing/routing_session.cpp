@@ -1,5 +1,7 @@
 #include "routing/routing_session.hpp"
 
+#include "routing/lanes/lanes_collapse.hpp"
+
 #include "platform/distance.hpp"
 #include "platform/location.hpp"
 #include "platform/measurement_utils.hpp"
@@ -448,10 +450,17 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
   info.m_completionPercent = GetCompletionPercent();
 
-  // Lane information
+  // Lane information, collapsed for display (toll plazas legitimately reach ~50 lanes).
   info.m_lanes.clear();
+  info.m_lanesTrimmedLeft = false;
+  info.m_lanesTrimmedRight = false;
   if (distanceToTurnMeters < kShowLanesMinDistInMeters || m_route->GetCurrentTimeToNearestTurnSec() < 60.0)
-    info.m_lanes = turn.m_lanes;
+  {
+    auto collapsed = turns::lanes::CollapseLanes(turn.m_lanes);
+    info.m_lanes = std::move(collapsed.lanes);
+    info.m_lanesTrimmedLeft = collapsed.trimmedLeft;
+    info.m_lanesTrimmedRight = collapsed.trimmedRight;
+  }
 
   // Pedestrian info.
   info.m_pedestrianTurn =

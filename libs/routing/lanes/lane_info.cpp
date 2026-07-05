@@ -8,7 +8,7 @@ std::string DebugPrint(LaneInfo const & laneInfo)
 {
   std::stringstream out;
   out << "LaneInfo{" << DebugPrint(laneInfo.laneWays) << ", recommendedWay: " << DebugPrint(laneInfo.recommendedWay)
-      << "}";
+      << ", similarLanesCount: " << laneInfo.similarLanesCount << "}";
   return out.str();
 }
 

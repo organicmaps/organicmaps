@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -46,8 +45,7 @@ public class LanesView extends View
 
   @Nullable
   private LanesDrawable mLanesDrawable;
-  private final Rect mViewBounds = new Rect();
-  private final RectF mViewBoundsF = new RectF();
+  private final RectF mViewBounds = new RectF();
 
   public LanesView(Context context, @Nullable AttributeSet attrs)
   {
@@ -77,53 +75,24 @@ public class LanesView extends View
     mBackgroundPaint.setColor(backgroundColor);
   }
 
-  private static final int MAX_LANES = 8;
-
   public void setLanes(@Nullable LaneInfo[] lanes)
+  {
+    setLanes(lanes, false, false);
+  }
+
+  /**
+   * Lanes arrive pre-collapsed from routing (see C++ CollapseLanes): entries may stand for
+   * several identical lanes. The trimmed flags tell that entries were dropped past the
+   * corresponding edge of the strip (physical road sides), rendered as chevron hints.
+   */
+  public void setLanes(@Nullable LaneInfo[] lanes, boolean trimmedLeft, boolean trimmedRight)
   {
     if (lanes == null || lanes.length == 0)
       mLanesDrawable = null;
     else
-      mLanesDrawable = new LanesDrawable(getContext(), trimLanes(lanes), mActiveLaneTintColor, mInactiveLaneTintColor);
+      mLanesDrawable = new LanesDrawable(getContext(), lanes, trimmedLeft, trimmedRight, mActiveLaneTintColor,
+                                         mInactiveLaneTintColor);
     update();
-  }
-
-  /**
-   * Limits lanes to {@link #MAX_LANES} by removing inactive lanes from the outer edges first,
-   * preserving spatial order and all active (recommended) lanes.
-   */
-  private static LaneInfo[] trimLanes(@NonNull LaneInfo[] lanes)
-  {
-    if (lanes.length <= MAX_LANES)
-      return lanes;
-
-    final boolean[] keep = new boolean[lanes.length];
-    for (int i = 0; i < lanes.length; i++)
-      keep[i] = true;
-
-    int left = 0;
-    int right = lanes.length - 1;
-    int count = lanes.length;
-
-    while (count > MAX_LANES)
-    {
-      if (lanes[left].mActiveLaneWay == LaneWay.None)
-        keep[left++] = false;
-      else if (lanes[right].mActiveLaneWay == LaneWay.None)
-        keep[right--] = false;
-      else
-        keep[right--] = false; // all remaining are active — drop rightmost
-      count--;
-    }
-
-    final LaneInfo[] result = new LaneInfo[count];
-    int idx = 0;
-    for (int i = 0; i < lanes.length; i++)
-    {
-      if (keep[i])
-        result[idx++] = lanes[i];
-    }
-    return result;
   }
 
   @Override
@@ -136,9 +105,8 @@ public class LanesView extends View
 
     mLanesDrawable.setBounds(0, 0, getWidth(), getHeight());
     mViewBounds.set(0, 0, getWidth(), getHeight());
-    mViewBoundsF.set(mViewBounds);
 
-    canvas.drawRoundRect(mViewBoundsF, mCornerRadius, mCornerRadius, mBackgroundPaint);
+    canvas.drawRoundRect(mViewBounds, mCornerRadius, mCornerRadius, mBackgroundPaint);
 
     mLanesDrawable.draw(canvas);
   }
@@ -146,13 +114,9 @@ public class LanesView extends View
   @Override
   public boolean onTouchEvent(MotionEvent event)
   {
-    if (mViewBounds.contains((int) event.getX(), (int) event.getY()))
-    {
-      performClick();
-      return true;
-    }
-
-    return false;
+    // Every touch Android dispatches here is already within the view bounds.
+    performClick();
+    return true;
   }
 
   @Override
