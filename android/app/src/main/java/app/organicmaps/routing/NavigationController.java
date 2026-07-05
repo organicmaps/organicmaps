@@ -115,13 +115,17 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
       return windowInsets;
     });
 
-    // Right-side map controls (zoom, recenter) sit on the opposite side of the card.
-    // Use an initial value; the layout listener refines it once the card is measured.
+    // topButtonsMarginTop pushes the track-recording status FAB (pinned to the top-end
+    // corner of the map-buttons overlay) down so it clears the nav header. Only the
+    // portrait-phone card spans the full width and covers that corner, so only there the
+    // FAB must clear the actual card height; in landscape and on tablets the card is a
+    // start-aligned fixed-width column that never overlaps the top-end corner.
     final int navFramePadding = dimen(activity, R.dimen.nav_frame_padding);
     mMapButtonsViewModel.setTopButtonsMarginTop(navFramePadding);
-    mManeuverView.addOnLayoutChangeListener(
-        (v, left, top, right, bottom, oldLeft, oldTop, oldRight,
-         oldBottom) -> mMapButtonsViewModel.setTopButtonsMarginTop(v.getHeight() + navFramePadding));
+    if (!isLandscape && !isTablet)
+      mManeuverView.addOnLayoutChangeListener(
+          (v, left, top, right, bottom, oldLeft, oldTop, oldRight,
+           oldBottom) -> mMapButtonsViewModel.setTopButtonsMarginTop(v.getHeight() + navFramePadding));
   }
 
   public void update(@Nullable RoutingInfo info)
