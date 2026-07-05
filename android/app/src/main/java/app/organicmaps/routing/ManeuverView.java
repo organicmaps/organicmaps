@@ -43,6 +43,8 @@ public class ManeuverView extends LinearLayout
   private final View mStreetFrame;
   private final TextView mStreet;
   private final LanesView mLanes;
+  private final View mNextNextTurnFrame;
+  private final ImageView mNextNextTurnImage;
 
   public ManeuverView(@NonNull Context context, @Nullable AttributeSet attrs)
   {
@@ -59,6 +61,8 @@ public class ManeuverView extends LinearLayout
     mStreetFrame = ViewCompat.requireViewById(this, R.id.maneuver_street_frame);
     mStreet = ViewCompat.requireViewById(mStreetFrame, R.id.maneuver_street);
     mLanes = ViewCompat.requireViewById(this, R.id.maneuver_lanes);
+    mNextNextTurnFrame = ViewCompat.requireViewById(this, R.id.maneuver_next_next_turn_frame);
+    mNextNextTurnImage = ViewCompat.requireViewById(mNextNextTurnFrame, R.id.maneuver_next_next_turn);
 
     final int minStartMargin = getResources().getDimensionPixelSize(R.dimen.nav_side_margin_min);
     ViewCompat.setOnApplyWindowInsetsListener(this, (v, windowInsets) -> {
@@ -89,6 +93,12 @@ public class ManeuverView extends LinearLayout
     UiUtils.showIf(!lanesVisible, mTurnImage);
     if (!lanesVisible)
       mTurnImage.setImageResource(info.carDirection.getTurnRes(info.exitNum));
+
+    final boolean showNextNextTurn = info.hasNextNextTurn();
+    UiUtils.showIf(showNextNextTurn, mNextNextTurnFrame);
+    if (showNextNextTurn)
+      mNextNextTurnImage.setImageResource(info.nextCarDirection.getTurnRes());
+
     updateCommon(info);
   }
 
@@ -98,6 +108,7 @@ public class ManeuverView extends LinearLayout
     mLanes.setLanes(null);
     UiUtils.show(mTurnImage);
     mTurnImage.setImageResource(info.pedestrianDirection.getTurnRes());
+    UiUtils.hide(mNextNextTurnFrame);
     updateCommon(info);
   }
 

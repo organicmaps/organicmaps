@@ -70,6 +70,7 @@
   <color name="on_nav_card">@color/white_primary</color>
   <color name="on_nav_card_secondary">@color/white_secondary</color>
   <color name="on_nav_card_inactive">@color/white_38</color>
+  <color name="on_nav_card_chip">#1FFFFFFF</color>
   <color name="bg_cards">@android:color/white</color>
   <color name="bg_panel">@color/bg_window</color>
   <color name="notes_fade_start">#00FFFFFF</color>
