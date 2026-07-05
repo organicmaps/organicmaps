@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
@@ -53,7 +54,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     mOnSettingsClickListener = onSettingsClickListener;
     mOnVoiceSettingsClickListener = onVoiceSettingsClickListener;
 
-    View topFrame = mFrame.findViewById(R.id.nav_top_frame);
+    final ViewGroup topFrame = mFrame.findViewById(R.id.nav_top_frame);
     mManeuverView = ViewCompat.requireViewById(topFrame, R.id.maneuver_view);
     mSpeedLimit = ViewCompat.requireViewById(topFrame, R.id.nav_speed_limit);
 
@@ -126,6 +127,26 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
       mManeuverView.addOnLayoutChangeListener(
           (v, left, top, right, bottom, oldLeft, oldTop, oldRight,
            oldBottom) -> mMapButtonsViewModel.setTopButtonsMarginTop(v.getHeight() + navFramePadding));
+
+    // The expanded search sheet must stop below the nav header instead of covering it:
+    // publish the bottom of the lowest visible header child. SearchFragmentController adds
+    // the top window inset itself (expandedOffset = topInset + topHeaderHeight), and the
+    // card already contains that inset as padding, so subtract it here to avoid doubling.
+    topFrame.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> {
+      int maxBottom = 0;
+      for (int i = 0; i < topFrame.getChildCount(); ++i)
+      {
+        final View child = topFrame.getChildAt(i);
+        if (UiUtils.isVisible(child))
+          maxBottom = Math.max(maxBottom, child.getBottom());
+      }
+      final WindowInsetsCompat windowInsets = ViewCompat.getRootWindowInsets(v);
+      final int topInset = windowInsets == null
+                             ? 0
+                             : Math.max(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top,
+                                        windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout()).top);
+      mMapButtonsViewModel.setTopHeaderHeight(Math.max(0, maxBottom - topInset));
+    });
   }
 
   public void update(@Nullable RoutingInfo info)
