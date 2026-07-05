@@ -840,7 +840,7 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetParsedRoutingData(
   static jmethodID const routeDataConstructor = jni::GetConstructorID(env, routeDataClazz, "(IZ)V");
 
   auto const & routingData = frm()->GetParsedRoutingData();
-  return env->NewObject(routeDataClazz, routeDataConstructor, routingData.m_type,
+  return env->NewObject(routeDataClazz, routeDataConstructor, static_cast<jint>(routingData.m_type),
                         static_cast<jboolean>(routingData.m_startRouteNavigation));
 }
 
