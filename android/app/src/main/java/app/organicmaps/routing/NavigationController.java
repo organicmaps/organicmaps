@@ -57,7 +57,8 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     mManeuverView = ViewCompat.requireViewById(topFrame, R.id.maneuver_view);
     mSpeedLimit = ViewCompat.requireViewById(topFrame, R.id.nav_speed_limit);
 
-    // Window-inset handling. Each listener below owns exactly one view. The layout family
+    // Window-inset handling. The maneuver card manages its own insets (see ManeuverView);
+    // each listener below owns exactly one of the remaining views. The layout family
     // (portrait phone / landscape phone / sw600dp tablet, both orientations) is mirrored by
     // bool resources declared in the same qualifier buckets as layout_nav.xml, so the code
     // branches cannot diverge from whichever layout was inflated. All writes are guarded by
@@ -66,18 +67,6 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     final View navigationBarBackground = mFrame.findViewById(R.id.nav_bottom_sheet_nav_bar);
     final View bottomSheet = mFrame.findViewById(R.id.nav_bottom_sheet);
     final int minStartMargin = dimen(activity, R.dimen.nav_side_margin_min);
-
-    // Maneuver card: the top inset becomes padding inside the card, and the start edge keeps
-    // at least nav_side_margin_min (the same value as the XML margins) while clearing a side
-    // display cutout in any orientation — portrait side insets are nonzero on
-    // waterfall/curved-edge displays.
-    ViewCompat.setOnApplyWindowInsetsListener(mManeuverView, (v, windowInsets) -> {
-      final Insets insets = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
-      if (v.getPaddingTop() != insets.top)
-        v.setPaddingRelative(v.getPaddingStart(), insets.top, v.getPaddingEnd(), v.getPaddingBottom());
-      setStartMarginIfChanged(v, startMarginFor(v, insets, minStartMargin));
-      return windowInsets;
-    });
 
     // Speed limit: only when it is laid out beside the card (phone landscape) it is
     // top-aligned with the card and needs the same top offset the card gets via padding.
