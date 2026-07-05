@@ -77,13 +77,7 @@ public final class RoutingUtils
     if (info.lanes != null)
     {
       for (final LaneInfo laneInfo : info.lanes)
-      {
-        final Lane.Builder laneBuilder = new Lane.Builder();
-        for (final LaneWay laneWay : laneInfo.mLaneWays)
-          laneBuilder.addDirection(
-              RoutingHelpers.createLaneDirection(laneWay, /* isRecommended */ laneWay == laneInfo.mActiveLaneWay));
-        builder.addLane(laneBuilder.build());
-      }
+        addStructuredLanes(builder, laneInfo);
       final LanesDrawable lanesDrawable =
           new LanesDrawable(context, info.lanes, info.lanesTrimmedLeft, info.lanesTrimmedRight);
       final Bitmap lanesBitmap = Graphics.drawableToBitmap(lanesDrawable);
@@ -91,6 +85,23 @@ public final class RoutingUtils
     }
 
     return builder.build();
+  }
+
+  /**
+   * Adds the lane to the structured lane list used by cluster/HUD displays. A collapsed entry
+   * stands for {@code mSimilarLanesCount} identical physical lanes (see the C++ CollapseLanes),
+   * and the structured list must describe physical lanes, so the entry is repeated — unlike the
+   * main-display lanes image (setLanesImage), which renders it once with a ×N badge.
+   */
+  private static void addStructuredLanes(@NonNull Step.Builder builder, @NonNull LaneInfo laneInfo)
+  {
+    final Lane.Builder laneBuilder = new Lane.Builder();
+    for (final LaneWay laneWay : laneInfo.mLaneWays)
+      laneBuilder.addDirection(
+          RoutingHelpers.createLaneDirection(laneWay, /* isRecommended */ laneWay == laneInfo.mActiveLaneWay));
+    final Lane lane = laneBuilder.build();
+    for (int i = 0; i < laneInfo.mSimilarLanesCount; ++i)
+      builder.addLane(lane);
   }
 
   @NonNull
