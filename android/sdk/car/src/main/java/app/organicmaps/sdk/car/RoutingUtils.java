@@ -84,7 +84,8 @@ public final class RoutingUtils
               RoutingHelpers.createLaneDirection(laneWay, /* isRecommended */ laneWay == laneInfo.mActiveLaneWay));
         builder.addLane(laneBuilder.build());
       }
-      final LanesDrawable lanesDrawable = new LanesDrawable(context, info.lanes);
+      final LanesDrawable lanesDrawable =
+          new LanesDrawable(context, info.lanes, info.lanesTrimmedLeft, info.lanesTrimmedRight);
       final Bitmap lanesBitmap = Graphics.drawableToBitmap(lanesDrawable);
       builder.setLanesImage(new CarIcon.Builder(IconCompat.createWithBitmap(lanesBitmap)).build());
     }

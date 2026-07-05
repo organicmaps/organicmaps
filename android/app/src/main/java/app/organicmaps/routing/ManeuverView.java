@@ -88,7 +88,7 @@ public class ManeuverView extends LinearLayout
   /** Update for vehicle / bicycle routing. Shows lane guidance when available. */
   public void updateVehicle(@NonNull RoutingInfo info)
   {
-    mLanes.setLanes(info.lanes);
+    mLanes.setLanes(info.lanes, info.lanesTrimmedLeft, info.lanesTrimmedRight);
     final boolean lanesVisible = info.lanes != null && info.lanes.length > 0;
     UiUtils.showIf(!lanesVisible, mTurnImage);
     if (!lanesVisible)
