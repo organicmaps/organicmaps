@@ -288,8 +288,9 @@ extension EditBookmarkViewController: MWMButtonCellDelegate {
   func cellDidPressButton(_ cell: UITableViewCell) {
     cell.isUserInteractionEnabled = false
     isDeleting = true
-    // goBack() and updateAfterDeleteBookmark() are called by onBookmarkDeleted observer.
-    bookmarksManager.deleteBookmark(bookmarkId)
+    // goBack() and updateAfterDeleteBookmark() are called by onBookmarksDeleted observer.
+    let bookmarkIds = [NSNumber(value: bookmarkId)]
+    bookmarksManager.delete(bookmarks: bookmarkIds, tracks: [])
   }
 }
 
@@ -311,8 +312,8 @@ extension EditBookmarkViewController: BookmarksObserver {
     updateBookmarkIfNeeded()
   }
 
-  func onBookmarkDeleted(_ deletedBookmarkId: MWMMarkID) {
-    if bookmarkId == deletedBookmarkId {
+  func onBookmarksDeleted(_ deletedBookmarkIds: [NSNumber]) {
+    if deletedBookmarkIds.contains(NSNumber(value: bookmarkId)) {
       goBack()
     }
   }

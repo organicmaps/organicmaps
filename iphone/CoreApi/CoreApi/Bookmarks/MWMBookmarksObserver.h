@@ -11,8 +11,8 @@ NS_SWIFT_NAME(BookmarksObserver)
 - (void)onBookmarksFileLoadError;
 - (void)onBookmarksCategoryDeleted:(MWMMarkGroupID)groupId;
 - (void)onRecentlyDeletedBookmarksCategoriesChanged;
-- (void)onBookmarkDeleted:(MWMMarkID)bookmarkId;
-- (void)onTrackDeleted:(MWMTrackID)trackId;
+- (void)onBookmarksDeleted:(MWMMarkIDCollection)bookmarkIds;
+- (void)onTracksDeleted:(MWMTrackIDCollection)trackIds;
 @end
 
 @protocol BookmarksObservable <NSObject>

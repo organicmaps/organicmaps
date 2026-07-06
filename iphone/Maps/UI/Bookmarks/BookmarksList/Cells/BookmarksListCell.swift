@@ -1,9 +1,10 @@
 final class BookmarksListCell: MWMTableViewSubtitleCell {
   private enum Constants {
-    static let extendedLeadingImageTappableMargin = CGFloat(-15)
+    static let leadingButtonSize = CGSize(width: 44, height: 44)
     static let accessoryButtonSize = CGSize(width: 44, height: 44)
   }
 
+  private let leadingButton = UIButton(type: .custom)
   private let accessoryButton = UIButton(type: .custom)
   private var configuration: Configuration = .default
   private var leadingButtonDidTapAction: ((_ anchor: UIView) -> Void)?
@@ -33,6 +34,7 @@ final class BookmarksListCell: MWMTableViewSubtitleCell {
 
     accessoryType = .none
     accessoryView = nil
+    updateButtonInteractions()
   }
 
   func configure(_ configuration: Configuration) {
@@ -40,26 +42,25 @@ final class BookmarksListCell: MWMTableViewSubtitleCell {
     applyCurrentAppearance()
   }
 
+  override func setEditing(_ editing: Bool, animated: Bool) {
+    super.setEditing(editing, animated: animated)
+    updateButtonInteractions()
+  }
+
   override func applyTheme() {
     super.applyTheme()
     applyCurrentAppearance()
   }
 
-  /// Extends the imageView tappable area.
-  override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-    if let imageView,
-       leadingButtonDidTapAction != nil,
-       imageView.convert(imageView.bounds, to: self)
-       .insetBy(dx: Constants.extendedLeadingImageTappableMargin, dy: Constants.extendedLeadingImageTappableMargin)
-       .contains(point) {
-      return imageView
-    }
-
-    return super.hitTest(point, with: event)
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    guard let imageView else { return }
+    leadingButton.center = imageView.convert(CGPoint(x: imageView.bounds.midX, y: imageView.bounds.midY),
+                                             to: contentView)
   }
 
-  @objc private func onLeadingButtonTap(_ sender: UITapGestureRecognizer) {
-    leadingButtonDidTapAction?(sender.view!)
+  @objc private func onLeadingButtonTap() {
+    leadingButtonDidTapAction?(leadingButton)
   }
 
   @objc private func onAccessoryButtonTap() {
@@ -77,9 +78,10 @@ final class BookmarksListCell: MWMTableViewSubtitleCell {
     detailTextLabel?.lineBreakMode = .byWordWrapping
     detailTextLabel?.setFontStyle(.regular14, color: .blackSecondary)
 
-    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onLeadingButtonTap(_:)))
-    imageView?.addGestureRecognizer(tapGesture)
-    imageView?.isUserInteractionEnabled = true
+    leadingButton.bounds = CGRect(origin: .zero, size: Constants.leadingButtonSize)
+    leadingButton.addTarget(self, action: #selector(onLeadingButtonTap), for: .touchUpInside)
+    leadingButton.isAccessibilityElement = false
+    contentView.addSubview(leadingButton)
 
     accessoryButton.frame = CGRect(origin: .zero, size: Constants.accessoryButtonSize)
     accessoryButton.addTarget(self, action: #selector(onAccessoryButtonTap), for: .touchUpInside)
@@ -92,6 +94,7 @@ final class BookmarksListCell: MWMTableViewSubtitleCell {
     applyLabelStyles()
     applyLeadingItem()
     applyAccessoryItem()
+    updateButtonInteractions()
   }
 
   private func applyLabelStyles() {
@@ -104,12 +107,10 @@ final class BookmarksListCell: MWMTableViewSubtitleCell {
     case .none:
       imageView?.image = nil
       imageView?.tintColor = nil
-      imageView?.isUserInteractionEnabled = false
       leadingButtonDidTapAction = nil
     case .image(let image, let tintColor, let action):
       imageView?.image = image
       imageView?.tintColor = tintColor
-      imageView?.isUserInteractionEnabled = action != nil
       leadingButtonDidTapAction = action
     }
   }
@@ -131,5 +132,10 @@ final class BookmarksListCell: MWMTableViewSubtitleCell {
       accessoryView = accessoryButton
       accessoryButtonDidTapAction = action
     }
+  }
+
+  private func updateButtonInteractions() {
+    leadingButton.isUserInteractionEnabled = !isEditing && leadingButtonDidTapAction != nil
+    accessoryButton.isUserInteractionEnabled = !isEditing && accessoryButtonDidTapAction != nil
   }
 }
