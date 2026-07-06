@@ -918,6 +918,9 @@
 "medicine" = "Առողջապահություն";
 "search_in_the_list" = "Փնտրել ցուցակում";
 "religious_places" = "Կրոնական վայրեր";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Select";
 "transit_not_found" = "Մետրոյով երթևեկությունը այս տարածաշրջանում դեռ հասանելի չէ";
 "dialog_pedestrian_route_is_long_header" = "Մետրոյի երթուղի չի գտնվել";
 "dialog_pedestrian_route_is_long_message" = "Խնդրում ենք ընտրել մետրոյի կայարանին ավելի մոտ սկզբնակետ կամ վերջնակետ";

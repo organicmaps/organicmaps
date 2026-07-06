@@ -918,6 +918,9 @@
 "medicine" = "ການແພດ";
 "search_in_the_list" = "ຄົ້ນຫາໃນລາຍການ";
 "religious_places" = "ສະຖານທີ່ທາງສາດສະໜາ";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Select";
 "transit_not_found" = "ການນຳທາງດ້ວຍລົດໄຟໃຕ້ດິນໃນພາກພື້ນນີ້ຍັງບໍ່ທັນມີເທື່ອ";
 "dialog_pedestrian_route_is_long_header" = "ບໍ່ພົບເສັ້ນທາງລົດໄຟໃຕ້ດິນ";
 "dialog_pedestrian_route_is_long_message" = "ກະລຸນາເລືອກຈຸດເລີ່ມຕົ້ນ ຫຼື ປາຍທາງໃຫ້ໃກ້ກັບສະຖານີລົດໄຟໃຕ້ດິນ";

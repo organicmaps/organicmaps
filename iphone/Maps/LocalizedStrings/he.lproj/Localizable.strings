@@ -918,6 +918,9 @@
 "medicine" = "רפואה";
 "search_in_the_list" = "חפש ברשימה";
 "religious_places" = "מקומות דת";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Select";
 "transit_not_found" = "ניווט ברכבת תחתית עוד לא זמין באזור זה";
 "dialog_pedestrian_route_is_long_header" = "מסלול רכבת תחתית לא נמצא";
 "dialog_pedestrian_route_is_long_message" = "נא לבחור נקודת התחלה או סוף קרובה יותר לתחנת רכבת תחתית";

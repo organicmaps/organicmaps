@@ -918,6 +918,9 @@
 "medicine" = "Farmacii";
 "search_in_the_list" = "Caută în listă";
 "religious_places" = "Locuri sfinte";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Select";
 "transit_not_found" = "Navigarea pentru metrou nu este încă disponibilă în această regiune";
 "dialog_pedestrian_route_is_long_header" = "Traseul metroului nu a fost găsit";
 "dialog_pedestrian_route_is_long_message" = "Alege un punct de plecare sau de sosire mai aproape de o stație de metrou";

@@ -918,6 +918,9 @@
 "medicine" = "Медыцына";
 "search_in_the_list" = "Шукаць у спісе";
 "religious_places" = "Святыя месцы";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Select";
 "transit_not_found" = "Для гэтага рэгіёна навігацыя па метро яшчэ недаступна";
 "dialog_pedestrian_route_is_long_header" = "Маршрут на метро не знойдзены";
 "dialog_pedestrian_route_is_long_message" = "Выберыце пункт адпраўлення альбо прызначэння бліжэй да станцыі метро";

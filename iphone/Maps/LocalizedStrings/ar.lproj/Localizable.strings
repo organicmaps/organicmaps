@@ -918,6 +918,9 @@
 "medicine" = "دواء";
 "search_in_the_list" = "ابحث في القائمة";
 "religious_places" = "أماكن دينية";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Select";
 "transit_not_found" = "التنقل باستخدام مترو الأنفاق في هذه المنطقة غير متاح حتى الآن";
 "dialog_pedestrian_route_is_long_header" = "لم يتم العثور على مسار مترو الأنفاق";
 "dialog_pedestrian_route_is_long_message" = "يرجى اختيار نقطة بداية أو نهاية أقرب لمحطة مترو الأنفاق";

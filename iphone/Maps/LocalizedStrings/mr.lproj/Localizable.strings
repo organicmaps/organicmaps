@@ -918,6 +918,9 @@
 "medicine" = "औषध";
 "search_in_the_list" = "यादीत शोधा";
 "religious_places" = "धार्मिक स्थळ";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Select";
 "transit_not_found" = "या प्रदेशात मेट्रोचे मार्गनिर्देशन अद्याप उपलब्ध नाही";
 "dialog_pedestrian_route_is_long_header" = "मेट्रो मार्ग सापडला नाही";
 "dialog_pedestrian_route_is_long_message" = "कृपया मेट्रो स्थानकाजवळचा प्रारंभ किंवा शेवटचा बिंदू निवडा";

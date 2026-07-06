@@ -918,6 +918,9 @@
 "medicine" = "Obat";
 "search_in_the_list" = "Cari dalam daftar";
 "religious_places" = "Tempat ibadah";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Select";
 "transit_not_found" = "Navigasi kereta bawah tanah di wilayah ini belum tersedia";
 "dialog_pedestrian_route_is_long_header" = "Jalur kereta bawah tanah tidak ditemukan";
 "dialog_pedestrian_route_is_long_message" = "Silakan pilih titik awal atau akhir yang lebih dekat ke stasiun kereta bawah tanah";

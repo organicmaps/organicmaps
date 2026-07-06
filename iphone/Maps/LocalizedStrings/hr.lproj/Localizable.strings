@@ -918,6 +918,9 @@
 "medicine" = "Medicina";
 "search_in_the_list" = "Traži u popisu";
 "religious_places" = "Vjerska mjesta";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Select";
 "transit_not_found" = "Navigacija podzemnom željeznicom u ovom području još nije dostupna";
 "dialog_pedestrian_route_is_long_header" = "Nije pronađena ruta podzemne željeznice";
 "dialog_pedestrian_route_is_long_message" = "Molimo odaberite početnu ili završnu točku bliže stanici metroa";

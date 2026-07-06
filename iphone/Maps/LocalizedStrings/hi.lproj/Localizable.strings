@@ -918,6 +918,9 @@
 "medicine" = "दवा";
 "search_in_the_list" = "सूची में खोजें";
 "religious_places" = "धार्मिक स्थल";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Select";
 "transit_not_found" = "इस क्षेत्र में सबवे नेविगेशन अभी उपलब्ध नहीं है";
 "dialog_pedestrian_route_is_long_header" = "सबवे मार्ग नहीं मिला";
 "dialog_pedestrian_route_is_long_message" = "कृपया सबवे स्टेशन के निकट प्रारंभ या समाप्ति बिंदु चुनें";

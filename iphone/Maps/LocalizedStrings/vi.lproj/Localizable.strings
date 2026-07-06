@@ -918,6 +918,9 @@
 "medicine" = "Y tế";
 "search_in_the_list" = "Tìm trong danh sách";
 "religious_places" = "Những nơi tôn nghiêm";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Select";
 "transit_not_found" = "Điều hướng đến Metro hiện chưa khả dụng cho khu vực này";
 "dialog_pedestrian_route_is_long_header" = "Không tìm thấy tuyến Metro";
 "dialog_pedestrian_route_is_long_message" = "Hãy chọn điểm đầu hoặc điểm cuối của tuyến gần với bến Metro";

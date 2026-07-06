@@ -918,6 +918,9 @@
 "medicine" = "Mjekësi";
 "search_in_the_list" = "Kërko në listë";
 "religious_places" = "Vende fetare";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Select";
 "transit_not_found" = "Lundrimi me metro në këtë rajon nuk është ende i disponueshëm";
 "dialog_pedestrian_route_is_long_header" = "Nuk u gjet asnjë rrugë metroje";
 "dialog_pedestrian_route_is_long_message" = "Ju lutemi zgjidhni një pikë fillimi ose fundi më afër një stacioni metroje";
