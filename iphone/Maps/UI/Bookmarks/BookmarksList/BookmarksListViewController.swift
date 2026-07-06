@@ -127,6 +127,7 @@ final class BookmarksListViewController: MWMViewController {
     super.setEditing(editing, animated: animated)
     tableView.setEditing(editing, animated: animated)
     updateNavigationButton()
+    infoViewController.setEditButtonHidden(editing)
     searchController.searchBar.isUserInteractionEnabled = !editing
     updateToolbar(editing: editing, animated: animated)
 
@@ -372,6 +373,10 @@ extension BookmarksListViewController: IBookmarksListView {
 extension BookmarksListViewController: BookmarksListInfoViewControllerDelegate {
   func didPressDescription() {
     presenter.showDescription()
+  }
+
+  func didPressEdit() {
+    presenter.editCategory()
   }
 
   func didUpdateContent() {

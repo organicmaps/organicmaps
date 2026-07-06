@@ -85,6 +85,7 @@ protocol IBookmarksListPresenter {
   func search(_ text: String)
   func sort()
   func more()
+  func editCategory()
   func deleteItem(in section: IBookmarksListSectionViewModel, at index: Int)
   func deleteItems(with itemIds: Set<BookmarksListItemId>)
   func moveItem(in section: IBookmarksListSectionViewModel, at index: Int)

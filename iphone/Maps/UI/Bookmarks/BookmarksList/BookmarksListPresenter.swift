@@ -141,8 +141,7 @@ final class BookmarksListPresenter {
       self?.viewOnMap()
     }))
     moreItems.append(BookmarksListMenuItem(title: L("edit"), action: { [weak self] in
-      guard let self = self else { return }
-      self.router.listSettings(self.bookmarkGroup, delegate: self)
+      self?.editCategory()
     }))
 
     func exportMenuItem(for fileType: FileType) -> BookmarksListMenuItem {
@@ -247,6 +246,10 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
 
   func more() {
     showMoreMenu()
+  }
+
+  func editCategory() {
+    router.listSettings(bookmarkGroup, delegate: self)
   }
 
   func sort() {
