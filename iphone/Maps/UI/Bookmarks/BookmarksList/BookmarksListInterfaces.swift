@@ -16,11 +16,17 @@ enum GroupReloadingResult {
   case notFound
 }
 
+enum BookmarksListItemId: Hashable {
+  case bookmark(MWMMarkID)
+  case track(MWMTrackID)
+}
+
 protocol IBookmarksListSectionViewModel {
   var numberOfItems: Int { get }
   var sectionTitle: String { get }
   var visibilityButtonState: BookmarksListVisibilityButtonState { get }
   var canEdit: Bool { get }
+  var editableItems: [IBookmarksListItemViewModel] { get }
 }
 
 protocol IBookmarksSectionViewModel: IBookmarksListSectionViewModel {
@@ -37,6 +43,7 @@ protocol ISubgroupsSectionViewModel: IBookmarksListSectionViewModel {
 }
 
 protocol IBookmarksListItemViewModel {
+  var itemId: BookmarksListItemId { get }
   var name: String { get }
   var subtitle: String { get }
   var image: UIImage { get }
@@ -76,7 +83,7 @@ protocol IBookmarksListPresenter {
   func sort()
   func more()
   func editCategory()
-  func deleteItem(in section: IBookmarksListSectionViewModel, at index: Int)
+  func deleteItems(with itemIds: Set<BookmarksListItemId>)
   func moveItem(in section: IBookmarksListSectionViewModel, at index: Int)
   func editItem(in section: IBookmarksListSectionViewModel, at index: Int)
   func selectItem(in section: IBookmarksListSectionViewModel, at index: Int)
@@ -109,8 +116,7 @@ protocol IBookmarksListInteractor {
             completion: @escaping ([BookmarksSection]) -> Void)
   func resetSort()
   func lastSortingType() -> BookmarksListSortingType?
-  func deleteBookmark(_ bookmarkId: MWMMarkID)
-  func deleteTrack(_ trackId: MWMTrackID)
+  func deleteItems(with itemIds: Set<BookmarksListItemId>)
   func moveBookmark(_ bookmarkId: MWMMarkID, toGroupId: MWMMarkGroupID)
   func moveTrack(_ trackId: MWMTrackID, toGroupId: MWMMarkGroupID)
   func deleteBookmarksGroup()
