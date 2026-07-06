@@ -74,7 +74,8 @@ final class RecentlyDeletedCategoriesViewController: MWMViewController {
     let toolbarItemAttributes = [NSAttributedString.Key.font: UIFont.medium16.dynamic,
                                  NSAttributedString.Key.foregroundColor: UIColor.linkBlue]
     recoverButton.setTitleTextAttributes(toolbarItemAttributes, for: .normal)
-    deleteButton.setTitleTextAttributes(toolbarItemAttributes, for: .normal)
+    deleteButton.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.medium16.dynamic], for: .normal)
+    deleteButton.tintColor = .redPrimary
     toolBar.items = [
       fixedSpace,
       recoverButton,

@@ -107,8 +107,8 @@ NS_SWIFT_NAME(BookmarksManager)
 
 - (NSArray<MWMCarPlayBookmarkObject *> *)bookmarksForCategory:(MWMMarkGroupID)categoryId;
 - (MWMMarkIDCollection)bookmarkIdsForCategory:(MWMMarkGroupID)categoryId;
-- (void)deleteBookmark:(MWMMarkID)bookmarkId;
-- (void)deleteTrack:(MWMTrackID)trackId;
+- (void)deleteBookmarks:(MWMMarkIDCollection)bookmarkIds
+                 tracks:(MWMTrackIDCollection)trackIds NS_SWIFT_NAME(delete(bookmarks:tracks:));
 - (MWMBookmark *)bookmarkWithId:(MWMMarkID)bookmarkId;
 - (MWMTrack *)trackWithId:(MWMTrackID)trackId;
 - (NSArray<MWMBookmark *> *)bookmarksForGroup:(MWMMarkGroupID)groupId;
