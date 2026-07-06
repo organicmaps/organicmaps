@@ -1,5 +1,6 @@
 protocol BookmarksListInfoViewControllerDelegate: AnyObject {
   func didPressDescription()
+  func didPressEdit()
   func didUpdateContent()
 }
 
@@ -15,6 +16,7 @@ final class BookmarksListInfoViewController: UIViewController {
 
   @IBOutlet private var titleImageView: UIImageView!
   @IBOutlet private var titleLabel: UILabel!
+  @IBOutlet private var editButton: UIButton!
   @IBOutlet private var descriptionLabel: UILabel!
   @IBOutlet private var authorContainerView: UIView!
   @IBOutlet private var infoStack: UIStackView!
@@ -24,9 +26,19 @@ final class BookmarksListInfoViewController: UIViewController {
     delegate?.didPressDescription()
   }
 
+  @IBAction private func onEditTap() {
+    delegate?.didPressEdit()
+  }
+
+  func setEditButtonHidden(_ hidden: Bool) {
+    editButton?.isHidden = hidden
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
     separatorsConstraints.forEach { $0.constant = 1 / UIScreen.main.scale }
+    editButton.accessibilityLabel = L("edit")
+    editButton.tintColor = .linkBlue
     descriptionLabel.numberOfLines = 2
     descriptionLabel.lineBreakMode = .byTruncatingTail
     descriptionLabel.isUserInteractionEnabled = true
