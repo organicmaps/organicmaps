@@ -46,10 +46,29 @@ public:
     if (it != colors.cend())
       return it->second;
 
-    // An absent/unknown transit line colour (e.g. a bus/tram route with no OSM colour) falls back
-    // to the default purple. Text and other transit colours keep the empty (black) default.
     if (name.starts_with(kTransitLineColorPrefix))
+    {
+      // Not a (subway) palette name: bus/tram lines collected from OSM have raw color like "#RRGGBB".
+      // Parse it and adjust to the current theme like the PT relations rendering does.
+      auto raw = name;
+      raw.remove_prefix(kTransitLineColorPrefix.size());
+      if (raw.starts_with('#'))
+        raw.remove_prefix(1);
+
+      unsigned int rgb;
+      if (raw.size() == 6 && strings::to_uint(raw, rgb, 16))
+      {
+        auto color = df::ToDrapeColor(static_cast<uint32_t>(rgb));
+        dp::HSL hsl = dp::Color2HSL(color);
+        if (hsl.AdjustLightness(!isDarkStyle))
+          color = dp::HSL2Color(hsl);
+        return color;
+      }
+
       return dp::Color::Purple();  // Default purple.
+    }
+
+    // Text and other transit colours keep the empty (black) default.
     return dp::Color();
   }
 
