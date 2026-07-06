@@ -51,6 +51,21 @@ jobs:
         shell: bash
         run: echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
 
+      - name: Verify native libraries in the AAR are stripped
+        shell: bash
+        working-directory: android
+        run: |
+          # AGP's stripReleaseDebugSymbols shrinks liborganicmaps.so from ~280 MB
+          # (cmake output with debug info) to ~16 MB per ABI. Fail loudly if a
+          # tooling change ever ships an unstripped library to Maven Central.
+          ./gradlew :sdk:bundleReleaseAar
+          rm -rf /tmp/sdk-aar-check
+          unzip -q -o sdk/build/outputs/aar/sdk-release.aar 'jni/*/liborganicmaps.so' -d /tmp/sdk-aar-check
+          for so in /tmp/sdk-aar-check/jni/*/liborganicmaps.so; do
+            file "$so"
+            file "$so" | grep -q ', stripped' || { echo "::error::$so is not stripped"; exit 1; }
+          done
+
       - name: Build and deploy the Android SDK to Maven Central
         shell: bash
         working-directory: android
