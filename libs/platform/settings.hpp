@@ -4,6 +4,7 @@
 
 #include "base/macros.hpp"
 
+#include <functional>
 #include <string>
 
 namespace settings
@@ -78,6 +79,8 @@ inline void Clear()
 class UsageStats
 {
   static uint64_t TimeSinceEpoch();
+
+  std::function<uint64_t()> m_now;
   // Anchor for foreground-duration aggregation. Advanced at the end of
   // EnterBackground so a second EnterBackground without an intervening
   // EnterForeground (Android transient background) doesn't double-count time.
@@ -95,6 +98,8 @@ class UsageStats
 
 public:
   UsageStats();
+  // Testing seam: inject a fake clock so tests are deterministic and instant.
+  explicit UsageStats(std::function<uint64_t()> nowFn);
 
   void EnterForeground();
   void EnterBackground();

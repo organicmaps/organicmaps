@@ -362,13 +362,18 @@ bool FromString<Transliteration::Mode>(string const & s, Transliteration::Mode &
   return true;
 }
 
-UsageStats::UsageStats()
-  : m_firstLaunch("US_FirstLaunch")
+UsageStats::UsageStats() : UsageStats(&UsageStats::TimeSinceEpoch) {}
+
+UsageStats::UsageStats(std::function<uint64_t()> nowFn)
+  : m_now(std::move(nowFn))
+  , m_firstLaunch("US_FirstLaunch")
   , m_lastBackground("US_LastBackground")
   , m_totalForeground("US_TotalForeground")
   , m_sessions("US_SessionsCount")
   , m_ss(StringStorage::Instance())
 {
+  CHECK(m_now, ("UsageStats requires a non-empty now-provider"));
+
   std::string str;
   uint64_t val;
   if (m_ss.GetValue(m_totalForeground, str) && FromString(str, val))
@@ -384,7 +389,7 @@ UsageStats::UsageStats()
     {
       // Check that file wasn't created on this first launch (1 hour threshold).
       uint64_t const first = base::TimeTToSecondsSinceEpoch(fileTime);
-      uint64_t const curr = TimeSinceEpoch();
+      uint64_t const curr = m_now();
       if (curr >= first + 3600 /* 1 hour */)
         m_ss.SetValue(m_firstLaunch, ToString(first));
     }
@@ -399,13 +404,13 @@ uint64_t UsageStats::TimeSinceEpoch()
 
 void UsageStats::EnterForeground()
 {
-  m_enterForegroundTime = TimeSinceEpoch();
+  m_enterForegroundTime = m_now();
   m_committedThisSession = false;
 }
 
 void UsageStats::EnterBackground()
 {
-  uint64_t const currTime = TimeSinceEpoch();
+  uint64_t const currTime = m_now();
 
   // Safe check if something wrong with device's time.
   ASSERT_GREATER_OR_EQUAL(currTime, m_enterForegroundTime, ());

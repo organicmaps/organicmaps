@@ -2,10 +2,8 @@
 
 #include "platform/settings.hpp"
 
-#include <chrono>
 #include <string>
 #include <string_view>
-#include <thread>
 
 namespace
 {
@@ -75,6 +73,19 @@ uint64_t ReadSessions()
 }
 }  // namespace
 
+// Smoke test: the default constructor must plumb a working real-time clock
+// through the injection point. Guards against a broken delegation to
+// TimeSinceEpoch (empty std::function would trigger a CHECK in the ctor).
+UNIT_TEST(UsageStats_DefaultConstructor_UsesRealClock)
+{
+  UsageStatsKeysGuard guard;
+
+  settings::UsageStats stats;
+  stats.EnterForeground();
+  stats.EnterBackground();
+  TEST_EQUAL(ReadSessions(), 1, ("Default ctor must produce a functional UsageStats"));
+}
+
 // Android transient background: ActivityLifecycleCallbacks can fire two
 // EnterBackground without an EnterForeground between (PL debounces away
 // the intermediate onStop/onStart). The foreground window must not be
@@ -83,24 +94,21 @@ UNIT_TEST(UsageStats_EnterBackgroundTwice_DoesNotDoubleCountForeground)
 {
   UsageStatsKeysGuard guard;
 
-  settings::UsageStats stats;
+  uint64_t fakeNow = 1000;
+  settings::UsageStats stats([&fakeNow]() { return fakeNow; });
+
   stats.EnterForeground();
 
-  std::this_thread::sleep_for(std::chrono::seconds(2));
+  fakeNow += 2;
   stats.EnterBackground();
-  uint64_t const totalAfterFirst = ReadTotalForeground();
-  TEST_GREATER_OR_EQUAL(totalAfterFirst, 1, ("First EnterBackground must aggregate >= 1 sec"));
+  TEST_EQUAL(ReadTotalForeground(), 2, ("First EnterBackground aggregates the 2s foreground window"));
 
-  std::this_thread::sleep_for(std::chrono::seconds(2));
+  fakeNow += 2;
   stats.EnterBackground();
-  uint64_t const totalAfterSecond = ReadTotalForeground();
-
-  uint64_t const delta = totalAfterSecond - totalAfterFirst;
-  // Without the fix, delta is ~4 sec (full window from the original foreground
-  // start). With the fix it is the time since the previous EnterBackground.
-  TEST_LESS_OR_EQUAL(
-      delta, 3,
-      ("Second EnterBackground re-aggregated the original foreground window", totalAfterFirst, totalAfterSecond));
+  // Without the fix, the second EnterBackground would re-aggregate the whole
+  // 4s window from the original EnterForeground; with the fix it adds only
+  // the 2s delta since the previous EnterBackground.
+  TEST_EQUAL(ReadTotalForeground(), 4, ("Second EnterBackground adds only the incremental 2s"));
 }
 
 // The session counter must increment only once per foreground period, even if
@@ -110,27 +118,23 @@ UNIT_TEST(UsageStats_EnterBackgroundTwice_DoesNotDoubleCountSessions)
 {
   UsageStatsKeysGuard guard;
 
-  settings::UsageStats stats;
+  uint64_t fakeNow = 1000;
+  settings::UsageStats stats([&fakeNow]() { return fakeNow; });
+
   stats.EnterForeground();
 
-  std::this_thread::sleep_for(std::chrono::seconds(1));
+  fakeNow += 1;
   stats.EnterBackground();
-  uint64_t const sessionsAfterFirst = ReadSessions();
-  TEST_EQUAL(sessionsAfterFirst, 1, ("First EnterBackground must record one session"));
+  TEST_EQUAL(ReadSessions(), 1, ("First EnterBackground must record one session"));
 
   // Repeat EnterBackground without an intervening EnterForeground (transient).
-  std::this_thread::sleep_for(std::chrono::seconds(1));
+  fakeNow += 1;
   stats.EnterBackground();
-  uint64_t const sessionsAfterRepeat = ReadSessions();
-  TEST_EQUAL(sessionsAfterRepeat, 1,
-             ("Repeat EnterBackground without EnterForeground must not increment sessions", sessionsAfterFirst,
-              sessionsAfterRepeat));
+  TEST_EQUAL(ReadSessions(), 1, ("Repeat EnterBackground without EnterForeground must not increment sessions"));
 
   // A real return to foreground re-arms the session counter.
   stats.EnterForeground();
-  std::this_thread::sleep_for(std::chrono::seconds(1));
+  fakeNow += 1;
   stats.EnterBackground();
-  uint64_t const sessionsAfterReentry = ReadSessions();
-  TEST_EQUAL(sessionsAfterReentry, 2,
-             ("EnterForeground must re-arm session counting", sessionsAfterRepeat, sessionsAfterReentry));
+  TEST_EQUAL(ReadSessions(), 2, ("EnterForeground must re-arm session counting"));
 }
