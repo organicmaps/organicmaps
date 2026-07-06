@@ -3,13 +3,7 @@ final class BookmarksListPresenter {
   private let router: IBookmarksListRouter
   private var interactor: IBookmarksListInteractor
   private var bookmarkGroup: BookmarkGroup
-
-  private enum EditableItem {
-    case bookmark(MWMMarkID)
-    case track(MWMTrackID)
-  }
-
-  private var editingItem: EditableItem?
+  private var editingItem: BookmarksListItemId?
 
   init(view: IBookmarksListView,
        router: IBookmarksListRouter,
@@ -44,15 +38,18 @@ final class BookmarksListPresenter {
   }
 
   private func reload() {
-    guard let sortingType = interactor.lastSortingType() else {
+    let hasEditableItems = bookmarkGroup.bookmarksCount > 0 || bookmarkGroup.trackCount > 0
+    view?.enableEditing(hasEditableItems)
+
+    guard hasEditableItems, let sortingType = interactor.lastSortingType() else {
       setDefaultSections()
       return
     }
+
     sort(sortingType)
   }
 
   private func setDefaultSections() {
-    interactor.resetSort()
     var sections: [IBookmarksListSectionViewModel] = []
     let tracks = bookmarkGroup.tracks.map { track in
       TrackViewModel(track, formattedDistance: formatDistance(Double(track.trackLengthMeters)), colorDidTap: { anchor in
@@ -130,7 +127,9 @@ final class BookmarksListPresenter {
         }
       }
     sortItems.append(BookmarksListMenuItem(title: L("sort_default"), action: { [weak self] in
-      self?.setDefaultSections()
+      guard let self else { return }
+      interactor.resetSort()
+      setDefaultSections()
     }))
     view?.showMenu(sortItems, from: .sort)
   }
@@ -192,7 +191,15 @@ final class BookmarksListPresenter {
   }
 
   private func sort(_ sortingType: BookmarksListSortingType) {
-    interactor.sort(sortingType, location: LocationManager.lastLocation()) { [weak self] sortedSections in
+    let location = LocationManager.lastLocation()
+    // A by-distance sort without a position yields no sections, and the interactor drops that result, so the
+    // completion below would never run and the list would stay unpopulated — use the default order instead.
+    guard sortingType != .distance || location != nil else {
+      setDefaultSections()
+      return
+    }
+
+    interactor.sort(sortingType, location: location) { [weak self] sortedSections in
       let sections = sortedSections.map { bookmarksSection -> IBookmarksListSectionViewModel in
         if let bookmarks = bookmarksSection.bookmarks, let self = self {
           return BookmarksSectionViewModel(title: bookmarksSection.sectionName, bookmarks: self.mapBookmarks(bookmarks))
@@ -218,7 +225,6 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
   func viewDidLoad() {
     reload()
     updateInfo()
-    view?.enableEditing(true)
   }
 
   func viewDidAppear() {
@@ -256,19 +262,9 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
     showSortMenu()
   }
 
-  func deleteItem(in section: IBookmarksListSectionViewModel, at index: Int) {
-    switch section {
-    case let bookmarksSection as IBookmarksSectionViewModel:
-      guard let bookmark = bookmarksSection.bookmarks[index] as? BookmarkViewModel else { fatalError() }
-      interactor.deleteBookmark(bookmark.bookmarkId)
-      reload()
-    case let tracksSection as ITracksSectionViewModel:
-      guard let track = tracksSection.tracks[index] as? TrackViewModel else { fatalError() }
-      interactor.deleteTrack(track.trackId)
-      reload()
-    default:
-      fatalError("Cannot delete item: unsupported section type: \(section.self)")
-    }
+  func deleteItems(with itemIds: Set<BookmarksListItemId>) {
+    interactor.deleteItems(with: itemIds)
+    reload()
   }
 
   func moveItem(in section: IBookmarksListSectionViewModel, at index: Int) {
@@ -415,6 +411,7 @@ extension IBookmarksSectionViewModel {
   var numberOfItems: Int { bookmarks.count }
   var visibilityButtonState: BookmarksListVisibilityButtonState { .hidden }
   var canEdit: Bool { true }
+  var editableItems: [IBookmarksListItemViewModel] { bookmarks }
 }
 
 extension ITracksSectionViewModel {
@@ -422,6 +419,7 @@ extension ITracksSectionViewModel {
   var sectionTitle: String { L("tracks_title") }
   var visibilityButtonState: BookmarksListVisibilityButtonState { .hidden }
   var canEdit: Bool { true }
+  var editableItems: [IBookmarksListItemViewModel] { tracks }
 }
 
 extension ISubgroupsSectionViewModel {
@@ -431,12 +429,14 @@ extension ISubgroupsSectionViewModel {
   }
 
   var canEdit: Bool { false }
+  var editableItems: [IBookmarksListItemViewModel] { [] }
 }
 
 private struct BookmarkViewModel: IBookmarksListItemViewModel {
   let bookmarkId: MWMMarkID
   let name: String
   let subtitle: String
+  var itemId: BookmarksListItemId { .bookmark(bookmarkId) }
   var image: UIImage {
     circleImageForColor(bookmarkColor, frameSize: 22, iconName: bookmarkIconName)
   }
@@ -460,6 +460,7 @@ private struct TrackViewModel: IBookmarksListItemViewModel {
   let trackId: MWMTrackID
   let name: String
   let subtitle: String
+  var itemId: BookmarksListItemId { .track(trackId) }
   var image: UIImage {
     circleImageForColor(trackColor, frameSize: 22)
   }

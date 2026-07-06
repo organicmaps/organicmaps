@@ -450,8 +450,9 @@ extension PlacePageInteractor: BookmarksObserver {
     updatePlacePageIfNeeded()
   }
 
-  func onBookmarkDeleted(_ bookmarkId: MWMMarkID) {
-    if placePageData.bookmarkData?.bookmarkId == bookmarkId {
+  func onBookmarksDeleted(_ bookmarkIds: [NSNumber]) {
+    if let bookmarkId = placePageData.bookmarkData?.bookmarkId,
+       bookmarkIds.contains(NSNumber(value: bookmarkId)) {
       FrameworkHelper.updateAfterDeleteBookmark()
     }
   }
@@ -462,8 +463,9 @@ extension PlacePageInteractor: BookmarksObserver {
     }
   }
 
-  func onTrackDeleted(_ trackId: MWMTrackID) {
-    if placePageData.trackData?.trackId == trackId {
+  func onTracksDeleted(_ trackIds: [NSNumber]) {
+    if let trackId = placePageData.trackData?.trackId,
+       trackIds.contains(NSNumber(value: trackId)) {
       presenter?.close()
     }
   }

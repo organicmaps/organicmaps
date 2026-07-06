@@ -168,7 +168,7 @@ extension BMCDefaultViewModel: BookmarksObserver {
     reloadData()
   }
 
-  func onBookmarkDeleted(_: MWMMarkID) {
+  func onBookmarksDeleted(_: [NSNumber]) {
     reloadData()
   }
 }
