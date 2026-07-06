@@ -300,6 +300,7 @@ class ColorPickerFragment : BottomSheetDialogFragment() {
                 )
                 setOnClickListener {
                     viewModel.selectPreset(i)
+                    dismiss()
                 }
                 setOnLongClickListener { v ->
                     showDeletePresetPopup(v, i)
