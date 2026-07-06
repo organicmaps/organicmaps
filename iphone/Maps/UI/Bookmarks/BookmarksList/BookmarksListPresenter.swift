@@ -141,8 +141,7 @@ final class BookmarksListPresenter {
       self?.viewOnMap()
     }))
     moreItems.append(BookmarksListMenuItem(title: L("edit"), action: { [weak self] in
-      guard let self = self else { return }
-      self.router.listSettings(self.bookmarkGroup, delegate: self)
+      self?.editCategory()
     }))
 
     func exportMenuItem(for fileType: FileType) -> BookmarksListMenuItem {
@@ -249,6 +248,10 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
     showMoreMenu()
   }
 
+  func editCategory() {
+    router.listSettings(bookmarkGroup, delegate: self)
+  }
+
   func sort() {
     showSortMenu()
   }
@@ -289,12 +292,16 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
     case let bookmarksSection as IBookmarksSectionViewModel:
       guard let bookmarkId = (bookmarksSection.bookmarks[index] as? BookmarkViewModel)?.bookmarkId else { fatalError() }
       router.editBookmark(bookmarkId: bookmarkId) { [weak self] wasChanged in
-        if wasChanged { self?.reload() }
+        if wasChanged {
+          self?.reload()
+        }
       }
     case let tracksSection as ITracksSectionViewModel:
       guard let trackId = (tracksSection.tracks[index] as? TrackViewModel)?.trackId else { fatalError() }
       router.editTrack(trackId: trackId) { [weak self] wasChanged in
-        if wasChanged { self?.reload() }
+        if wasChanged {
+          self?.reload()
+        }
       }
     default:
       fatalError("Cannot edit item: unsupported section type: \(section.self)")
