@@ -3,13 +3,8 @@ final class BookmarksListPresenter {
   private let router: IBookmarksListRouter
   private var interactor: IBookmarksListInteractor
   private var bookmarkGroup: BookmarkGroup
-
-  private enum EditableItem {
-    case bookmark(MWMMarkID)
-    case track(MWMTrackID)
-  }
-
-  private var editingItem: EditableItem?
+  private var sections: [IBookmarksListSectionViewModel] = []
+  private var editingItem: BookmarksListItemId?
 
   init(view: IBookmarksListView,
        router: IBookmarksListRouter,
@@ -80,6 +75,11 @@ final class BookmarksListPresenter {
     if !bookmarks.isEmpty {
       sections.append(BookmarksSectionViewModel(title: L("bookmarks"), bookmarks: bookmarks))
     }
+    setSections(sections)
+  }
+
+  private func setSections(_ sections: [IBookmarksListSectionViewModel]) {
+    self.sections = sections
     view?.setSections(sections)
   }
 
@@ -210,7 +210,7 @@ final class BookmarksListPresenter {
         }
         fatalError()
       }
-      self?.view?.setSections(sections)
+      self?.setSections(sections)
     }
   }
 }
@@ -240,8 +240,8 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
     interactor.search(text) { [weak self] in
       guard let self = self else { return }
       let bookmarks = self.mapBookmarks($0)
-      self.view?.setSections(bookmarks.isEmpty ? [] : [BookmarksSectionViewModel(title: L("bookmarks"),
-                                                                                 bookmarks: bookmarks)])
+      self.setSections(bookmarks.isEmpty ? [] : [BookmarksSectionViewModel(title: L("bookmarks"),
+                                                                           bookmarks: bookmarks)])
     }
   }
 
@@ -266,6 +266,18 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
     default:
       fatalError("Cannot delete item: unsupported section type: \(section.self)")
     }
+  }
+
+  func deleteItems(with itemIds: Set<BookmarksListItemId>) {
+    for itemId in itemIds {
+      switch itemId {
+      case .bookmark(let bookmarkId):
+        interactor.deleteBookmark(bookmarkId)
+      case .track(let trackId):
+        interactor.deleteTrack(trackId)
+      }
+    }
+    reload()
   }
 
   func moveItem(in section: IBookmarksListSectionViewModel, at index: Int) {
@@ -430,6 +442,7 @@ private struct BookmarkViewModel: IBookmarksListItemViewModel {
   let bookmarkId: MWMMarkID
   let name: String
   let subtitle: String
+  var itemId: BookmarksListItemId { .bookmark(bookmarkId) }
   var image: UIImage {
     circleImageForColor(bookmarkColor, frameSize: 22, iconName: bookmarkIconName)
   }
@@ -453,6 +466,7 @@ private struct TrackViewModel: IBookmarksListItemViewModel {
   let trackId: MWMTrackID
   let name: String
   let subtitle: String
+  var itemId: BookmarksListItemId { .track(trackId) }
   var image: UIImage {
     circleImageForColor(trackColor, frameSize: 22)
   }
@@ -486,9 +500,10 @@ private struct SubgroupViewModel: ISubgroupViewModel {
   }
 }
 
-private struct BookmarksSectionViewModel: IBookmarksSectionViewModel {
+private struct BookmarksSectionViewModel: IBookmarksSectionViewModel, IBookmarksListEditableSectionViewModel {
   let sectionTitle: String
   let bookmarks: [IBookmarksListItemViewModel]
+  var editableItems: [IBookmarksListItemViewModel] { bookmarks }
 
   init(title: String, bookmarks: [IBookmarksListItemViewModel]) {
     sectionTitle = title
@@ -496,8 +511,9 @@ private struct BookmarksSectionViewModel: IBookmarksSectionViewModel {
   }
 }
 
-private struct TracksSectionViewModel: ITracksSectionViewModel {
+private struct TracksSectionViewModel: ITracksSectionViewModel, IBookmarksListEditableSectionViewModel {
   let tracks: [IBookmarksListItemViewModel]
+  var editableItems: [IBookmarksListItemViewModel] { tracks }
 }
 
 private struct SubgroupsSectionViewModel: ISubgroupsSectionViewModel {

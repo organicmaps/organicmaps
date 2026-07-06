@@ -35700,6 +35700,11 @@ vi = Những nơi tôn nghiêm
 zh-Hans = 宗教场所
 zh-Hant = 宗教場所
 
+[select]
+comment = Button title to enter multi-selection mode.
+tags = apple-maps
+en = Select
+
 [select_list]
 tags = android-app
 en = Select list
