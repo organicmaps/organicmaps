@@ -222,12 +222,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     if (mAppBar == null)
       return;
 
-    mAppBar.post(() -> {
-      int height = mAppBar.getHeight();
-      if (!mToolbarController.hasQuery() && mTabFrame.getVisibility() == View.VISIBLE)
-        height += mTabFrame.getHeight();
-      mSearchViewModel.setToolbarHeight(height);
-    });
+    mAppBar.post(() -> mSearchViewModel.setToolbarHeight(mAppBar.getHeight()));
   }
 
   private void updateResultsPlaceholder()
