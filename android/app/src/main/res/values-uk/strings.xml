@@ -426,6 +426,8 @@
     <string name="twentyfour_seven">Цілодобово</string>
     <string name="day_off_today">Сьогодні не працює</string>
     <string name="day_off">Зачинено</string>
+    <string name="midnight">Північ</string>
+    <string name="noon">Полудень</string>
     <string name="today">Сьогодні</string>
     <string name="opens_in">Відкривається через %s</string>
     <string name="closes_in">Зачиняється через %s</string>

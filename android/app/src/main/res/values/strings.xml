@@ -426,6 +426,8 @@
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Closed today</string>
     <string name="day_off">Closed</string>
+    <string name="midnight">Midnight</string>
+    <string name="noon">Noon</string>
     <string name="today">Today</string>
     <string name="opens_in">Opens in %s</string>
     <string name="closes_in">Closes in %s</string>
