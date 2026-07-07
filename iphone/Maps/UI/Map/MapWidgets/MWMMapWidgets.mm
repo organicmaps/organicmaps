@@ -79,7 +79,9 @@
   auto const vs = self.visualScale;
   auto const viewHeight = [MapViewController sharedController].mapView.height;
   auto const viewWidth = [MapViewController sharedController].mapView.width;
-  auto const rulerOffset = m2::PointF(frame.origin.x * vs, (frame.origin.y + frame.size.height - viewHeight) * vs);
+  auto const kRulerAdditionalYOffset = 12.0;
+  auto const rulerOffset =
+      m2::PointF(frame.origin.x * vs, (frame.origin.y + frame.size.height - viewHeight) * vs - kRulerAdditionalYOffset);
   auto const kCompassAdditionalYOffset = [TrackRecordingManager.shared isActive] ? 50 : 0;
   auto const compassOffset = m2::PointF((frame.origin.x + frame.size.width - viewWidth) * vs,
                                         (frame.origin.y + kCompassAdditionalYOffset) * vs);
