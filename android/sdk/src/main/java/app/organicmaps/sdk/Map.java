@@ -361,8 +361,11 @@ public final class Map
 
   private void updateRulerOffset(final Context context, int offsetX, int offsetY)
   {
+    // Raise the ruler a bit above the bottom edge so it stays visible over the search bar in compact mode.
+    final int additionalOffset = Utils.dimen(context, R.dimen.ruler_additional_offset);
     nativeSetupWidget(WIDGET_RULER, Utils.dimen(context, R.dimen.margin_ruler) + offsetX,
-                      mHeight - Utils.dimen(context, R.dimen.margin_ruler) - offsetY, ANCHOR_LEFT_BOTTOM);
+                      mHeight - Utils.dimen(context, R.dimen.margin_ruler) - offsetY - additionalOffset,
+                      ANCHOR_LEFT_BOTTOM);
     if (mSurfaceCreated)
       nativeApplyWidgets();
   }

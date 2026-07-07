@@ -8,4 +8,5 @@
   <dimen name="margin_compass">24dp</dimen>
   <dimen name="margin_compass_top">26dp</dimen>
   <dimen name="margin_ruler">10dp</dimen>
+  <dimen name="ruler_additional_offset">8dp</dimen>
 </resources>

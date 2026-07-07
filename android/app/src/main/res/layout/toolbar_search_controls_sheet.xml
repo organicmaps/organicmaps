@@ -23,7 +23,8 @@
     android:paddingHorizontal="@dimen/margin_half"
     android:layout_marginStart="@dimen/margin_base"
     android:layout_marginEnd="@dimen/margin_half"
-    android:layout_marginVertical="@dimen/margin_base">
+    android:layout_marginTop="@dimen/margin_base"
+    android:layout_marginBottom="@dimen/margin_half_plus">
     <ImageView
       android:id="@+id/back"
       android:layout_width="@dimen/place_page_icon_size"
@@ -91,6 +92,8 @@
     android:layout_height="@dimen/place_page_icon_size"
     android:padding="0dp"
     android:layout_marginEnd="@dimen/margin_half"
+    android:layout_marginTop="@dimen/margin_base"
+    android:layout_marginBottom="@dimen/margin_half_plus"
     android:layout_gravity="center_vertical"
     android:layout_weight="0"
     android:background="?attr/selectableItemBackgroundBorderless"
