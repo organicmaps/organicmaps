@@ -136,27 +136,37 @@ public class ChartController implements OnChartValueSelectedListener
     highlightChartCurrentLocation();
   }
 
-  public void onCurrentPositionChanged()
+  public void onCurrentPositionChanged(double distance)
   {
     if (mTrack == null)
       return;
 
-    final double distance = mTrack.getElevationCurPositionDistance();
     mCurrentPositionOutOfTrack = distance == CURRENT_POSITION_OUT_OF_TRACK;
     highlightActivePointManually();
   }
 
-  public void onElevationActivePointChanged()
+  public void onElevationActivePointChanged(double distance)
   {
     if (mTrack == null)
       return;
 
-    highlightActivePointManually();
+    highlightActivePointManually((float) distance);
   }
 
   private void highlightActivePointManually()
   {
     Highlight highlight = getActivePoint();
+    highlightActivePointManually(highlight);
+  }
+
+  private void highlightActivePointManually(float distance)
+  {
+    Highlight highlight = getActivePoint(distance);
+    highlightActivePointManually(highlight);
+  }
+
+  private void highlightActivePointManually(@NonNull Highlight highlight)
+  {
     mInformSelectedActivePointToCore = false;
     mChart.highlightValue(highlight, true);
   }
@@ -170,7 +180,12 @@ public class ChartController implements OnChartValueSelectedListener
   @NonNull
   private Highlight getActivePoint()
   {
-    float activeX = (float) mTrack.getElevationActivePointDistance();
-    return new Highlight(activeX, interpolateAltitude(activeX), 0);
+    return getActivePoint((float) mTrack.getElevationActivePointDistance());
+  }
+
+  @NonNull
+  private Highlight getActivePoint(float distance)
+  {
+    return new Highlight(distance, interpolateAltitude(distance), 0);
   }
 }

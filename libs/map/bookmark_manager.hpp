@@ -50,8 +50,8 @@ public:
 
   using BookmarksChangedCallback = std::function<void()>;
   using CategoriesChangedCallback = std::function<void()>;
-  using ElevationActivePointChangedCallback = std::function<void()>;
-  using ElevationMyPositionChangedCallback = std::function<void()>;
+  using ElevationActivePointChangedCallback = std::function<void(kml::TrackId, double)>;
+  using ElevationMyPositionChangedCallback = std::function<void(kml::TrackId, double)>;
 
   using OnSymbolSizesAcquiredCallback = std::function<void()>;
 
