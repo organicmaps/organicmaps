@@ -922,4 +922,6 @@
     <string name="color_picker_hex_label">sRGB Hex Color #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Mreža</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">Glasovno iskanje</string>
 </resources>

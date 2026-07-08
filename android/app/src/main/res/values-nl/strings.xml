@@ -921,4 +921,6 @@
     <string name="color_picker_hex_label">sRGB hexadecimale kleur #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Raster</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">Zoeken met spraak</string>
 </resources>

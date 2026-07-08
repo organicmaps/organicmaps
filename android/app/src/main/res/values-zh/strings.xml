@@ -919,4 +919,6 @@
     <string name="color_picker_hex_label">sRGB 十六进制颜色 #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">网格</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">语音搜索</string>
 </resources>

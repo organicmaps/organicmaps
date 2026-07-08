@@ -920,4 +920,6 @@
     <string name="color_picker_hex_label">sRGB Onaltılı Renk #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Izgara</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">Sesli arama</string>
 </resources>

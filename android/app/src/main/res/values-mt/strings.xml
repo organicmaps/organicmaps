@@ -911,4 +911,6 @@
     <string name="color_picker_hex_label">Kulur Hex sRGB #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Grilja</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">Tfittxija bil-vuċi</string>
 </resources>

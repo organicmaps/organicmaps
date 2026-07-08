@@ -924,4 +924,6 @@
     <string name="color_picker_hex_label">Color hexadecimal sRGB</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Cuadrícula</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">Búsqueda por voz</string>
 </resources>

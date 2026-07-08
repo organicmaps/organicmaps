@@ -924,4 +924,6 @@
     <string name="color_picker_hex_label">Kolor szesnastkowy sRGB #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Siatka</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">Wyszukiwanie głosowe</string>
 </resources>
