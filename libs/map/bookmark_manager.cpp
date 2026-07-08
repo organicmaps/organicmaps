@@ -1266,6 +1266,8 @@ void BookmarkManager::ClearTempRelationTrack()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
+  DeleteTrackSelectionMark(kml::kTempRelationTrackId);
+
   if (!m_tempRelationTrack)
     return;
 
