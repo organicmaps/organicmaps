@@ -938,6 +938,12 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     }
 
     @Override
+    protected boolean showBackButton()
+    {
+      return false;
+    }
+
+    @Override
     public void onUpClick()
     {
       requireActivity().onBackPressed();

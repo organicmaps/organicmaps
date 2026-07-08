@@ -26,6 +26,14 @@
     android:layout_marginTop="@dimen/margin_base"
     android:layout_marginBottom="@dimen/margin_half_plus">
     <ImageView
+      android:id="@+id/search_icon"
+      android:layout_width="@dimen/place_page_icon_size"
+      android:layout_height="@dimen/place_page_icon_size"
+      app:srcCompat="@drawable/ic_search"
+      android:scaleType="center"
+      android:importantForAccessibility="no"
+      app:tint="?attr/textSearchField" />
+    <ImageView
       android:id="@+id/back"
       android:layout_width="@dimen/place_page_icon_size"
       android:layout_height="@dimen/place_page_icon_size"
@@ -43,13 +51,15 @@
       android:layout_weight="1"
       android:gravity="center_vertical">
       <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/query_input_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_gravity="center_vertical"
         android:minHeight="@dimen/place_page_icon_size"
         android:gravity="center_vertical"
-        app:endIconMode="clear_text"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/ic_close_rounded"
         app:endIconTint="?attr/textSearchField"
         style="@style/MwmTextAppearance.Toolbar.Search"
         app:boxBackgroundMode="none"
@@ -70,20 +80,6 @@
           android:paddingEnd="0dp"
           android:gravity="center_vertical" />
       </com.google.android.material.textfield.TextInputLayout>
-      <ImageView
-        android:id="@+id/voice_input"
-        android:layout_width="@dimen/place_page_icon_size"
-        android:layout_height="@dimen/place_page_icon_size"
-        android:padding="0dp"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="0"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/search_map"
-        android:scaleType="center"
-        app:srcCompat="@drawable/ic_mic_white"
-        app:tint="?attr/textSearchField"
-        android:visibility="gone"
-        tools:visibility="visible" />
     </LinearLayout>
   </LinearLayout>
   <ImageView
