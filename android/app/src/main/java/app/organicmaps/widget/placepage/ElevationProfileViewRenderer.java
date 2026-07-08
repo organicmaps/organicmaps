@@ -56,14 +56,14 @@ public class ElevationProfileViewRenderer implements PlacePageStateListener
     mMinAltitude.setText(Framework.nativeFormatAltitude(stats.getMinElevation()));
   }
 
-  public void onChartElevationActivePointChanged()
+  public void onChartElevationActivePointChanged(double distance)
   {
-    mChartController.onElevationActivePointChanged();
+    mChartController.onElevationActivePointChanged(distance);
   }
 
-  public void onChartCurrentPositionChanged()
+  public void onChartCurrentPositionChanged(double distance)
   {
-    mChartController.onCurrentPositionChanged();
+    mChartController.onCurrentPositionChanged(distance);
   }
 
   private void setDifficulty(int level)

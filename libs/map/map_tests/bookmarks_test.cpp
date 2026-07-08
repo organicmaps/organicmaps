@@ -312,6 +312,34 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
   TEST(base::GetFileSize(fileName, dummy), ());
 }
 
+UNIT_CLASS_TEST(Runner, Bookmarks_ClearTempRelationTrackDeletesSelectionMark)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  kml::TrackData trackData;
+  trackData.m_layers.push_back(kml::TrackLayer());
+  trackData.m_geometry.AddLine({{{0.0, 0.0}, 1}, {{1.0, 0.0}, 2}});
+  trackData.m_geometry.AddTimestamps({});
+
+  TEST_EQUAL(bmManager.SetTempRelationTrack(std::move(trackData)), kml::kTempRelationTrackId, ());
+  TEST_NOT_EQUAL(bmManager.GetTrack(kml::kTempRelationTrackId), nullptr, ());
+
+  double constexpr kDistance = 10.0;
+  m2::PointD constexpr kTrackPoint(0.5, 0.0);
+  bmManager.SetTrackSelectionInfo({kml::kTempRelationTrackId, kTrackPoint, kDistance}, false /* notifyListeners */);
+
+  auto const selectionInfo = bmManager.GetTrackSelectionInfo(kml::kTempRelationTrackId);
+  TEST_EQUAL(selectionInfo.m_trackId, kml::kTempRelationTrackId, ());
+  TEST(selectionInfo.m_trackPoint.EqualDxDy(kTrackPoint, 1e-10), ());
+  TEST_EQUAL(selectionInfo.m_distFromBegM, kDistance, ());
+
+  bmManager.ClearTempRelationTrack();
+
+  TEST_EQUAL(bmManager.GetTrack(kml::kTempRelationTrackId), nullptr, ());
+  TEST_EQUAL(bmManager.GetTrackSelectionInfo(kml::kTempRelationTrackId).m_trackId, kml::kInvalidTrackId, ());
+}
+
 namespace
 {
 // Same as in Framework::BuildPlacePageInfo.

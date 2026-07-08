@@ -910,9 +910,12 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
 
 - (void)setElevationActivePointChanged:(uint64_t)trackId callback:(ElevationPointChangedBlock)callback
 {
-  __weak __typeof(self) ws = self;
-  self.bm.SetElevationActivePointChangedCallback([callback, trackId, ws]()
-  { callback(ws.bm.GetElevationActivePoint(trackId)); });
+  self.bm.SetElevationActivePointChangedCallback([callback, trackId](kml::TrackId changedTrackId, double distance)
+  {
+    if (changedTrackId != trackId)
+      return;
+    callback(distance);
+  });
 }
 
 - (void)resetElevationActivePointChanged
@@ -922,9 +925,12 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
 
 - (void)setElevationMyPositionChanged:(uint64_t)trackId callback:(ElevationPointChangedBlock)callback
 {
-  __weak __typeof(self) ws = self;
-  self.bm.SetElevationMyPositionChangedCallback([callback, trackId, ws]()
-  { callback(ws.bm.GetElevationMyPosition(trackId)); });
+  self.bm.SetElevationMyPositionChangedCallback([callback, trackId](kml::TrackId changedTrackId, double distance)
+  {
+    if (changedTrackId != trackId)
+      return;
+    callback(distance);
+  });
 }
 
 - (void)resetElevationMyPositionChanged

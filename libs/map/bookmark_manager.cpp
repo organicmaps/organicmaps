@@ -879,7 +879,7 @@ void BookmarkManager::UpdateElevationMyPosition(kml::TrackId const & trackId, bo
   {
     trackSelectionMark->SetMyPositionDistance(myPositionDistance);
     if (m_elevationMyPositionChanged)
-      m_elevationMyPositionChanged();
+      m_elevationMyPositionChanged(trackId, myPositionDistance);
   }
 }
 
@@ -1072,7 +1072,7 @@ void BookmarkManager::SetTrackSelectionInfo(Track::TrackSelectionInfo const & tr
   trackSelectionMark->SetDistance(trackSelectionInfo.m_distFromBegM);
 
   if (notifyListeners && m_elevationActivePointChanged != nullptr)
-    m_elevationActivePointChanged();
+    m_elevationActivePointChanged(trackSelectionInfo.m_trackId, trackSelectionInfo.m_distFromBegM);
 }
 
 void BookmarkManager::OnTrackSelected(kml::TrackId trackId)
