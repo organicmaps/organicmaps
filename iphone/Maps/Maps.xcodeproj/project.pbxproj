@@ -361,6 +361,7 @@
 		ED82C5FC2F90180300FA103D /* SearchOnMapHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4B32F90180300FA103D /* SearchOnMapHeaderView.swift */; };
 		ED82C5FD2F90180300FA103D /* SearchOnMapInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4B42F90180300FA103D /* SearchOnMapInteractor.swift */; };
 		ED82C5FE2F90180300FA103D /* SearchOnMapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4B52F90180300FA103D /* SearchOnMapManager.swift */; };
+		ED82C5FE2F9B000000FA103D /* ColorPickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C5FD2F9B000000FA103D /* ColorPickerButton.swift */; };
 		ED82C5FF2F90180300FA103D /* SearchOnMapModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4B62F90180300FA103D /* SearchOnMapModels.swift */; };
 		ED82C6002F90180300FA103D /* SearchOnMapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4B72F90180300FA103D /* SearchOnMapPresenter.swift */; };
 		ED82C6012F90180300FA103D /* SearchOnMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4B82F90180300FA103D /* SearchOnMapViewController.swift */; };
@@ -518,7 +519,6 @@
 		ED82C7752F90186300FA103D /* SearchResult.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6E32F90186300FA103D /* SearchResult.mm */; };
 		ED82C7762F90186300FA103D /* MWMRoutingOptions.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6E82F90186300FA103D /* MWMRoutingOptions.mm */; };
 		ED82C7772F90186300FA103D /* MWMSettings.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6EA2F90186300FA103D /* MWMSettings.mm */; };
-		ED86256C2FEECAB70057BF82 /* MWMSettings+MapTiles.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED86256E2FEECAB70057BF82 /* MWMSettings+MapTiles.mm */; };
 		ED82C7782F90186300FA103D /* MWMStorage+UI.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6ED2F90186300FA103D /* MWMStorage+UI.m */; };
 		ED82C7792F90186300FA103D /* LocaleTranslator.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6F02F90186300FA103D /* LocaleTranslator.mm */; };
 		ED82C77A2F90186300FA103D /* MWMTextToSpeech.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6F22F90186300FA103D /* MWMTextToSpeech.mm */; };
@@ -617,8 +617,10 @@
 		ED82C8202F90186900FA103D /* MWMKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C8192F90186900FA103D /* MWMKeyboard.m */; };
 		ED82C8212F90186900FA103D /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C81C2F90186900FA103D /* Common.swift */; };
 		ED86256B2FEECAB70057BF82 /* SettingsMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED86256A2FEECAB70057BF82 /* SettingsMessageCell.swift */; };
+		ED86256C2FEECAB70057BF82 /* MWMSettings+MapTiles.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED86256E2FEECAB70057BF82 /* MWMSettings+MapTiles.mm */; };
 		ED8A91E02D759B50009E063B /* LocalizableTypes.strings in Resources */ = {isa = PBXBuildFile; fileRef = ED8A91DE2D759B50009E063B /* LocalizableTypes.strings */; };
 		ED8F0F852FE962BF00780C0F /* SettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8F0F842FE962BF00780C0F /* SettingsModels.swift */; };
+		ED9BEED62FFEB5C8008DB423 /* ColorGridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9BEED52FFEB5C8008DB423 /* ColorGridViewController.swift */; };
 		ED9DDF9D2D6F6F7900645BC8 /* TrackRecordingManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9DDF9B2D6F6DA300645BC8 /* TrackRecordingManagerTests.swift */; };
 		EDAA00012F91000000FA103D /* SearchCategoryIconRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAA00022F91000000FA103D /* SearchCategoryIconRenderer.swift */; };
 		EDBAB6F52E980421007962B5 /* GeoNavigationToOMURLConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBAB6F42E980421007962B5 /* GeoNavigationToOMURLConverterTests.swift */; };
@@ -1424,6 +1426,7 @@
 		ED82C4ED2F90180300FA103D /* DefaultTranslationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTranslationController.swift; sourceTree = "<group>"; };
 		ED82C4EF2F90180300FA103D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED82C4F02F90180300FA103D /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		ED82C5FD2F9B000000FA103D /* ColorPickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerButton.swift; sourceTree = "<group>"; };
 		ED82C6722F90186300FA103D /* MapsAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapsAppDelegate.h; sourceTree = "<group>"; };
 		ED82C6732F90186300FA103D /* MapsAppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MapsAppDelegate.mm; sourceTree = "<group>"; };
 		ED82C6752F90186300FA103D /* BackgroundFetchTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundFetchTask.swift; sourceTree = "<group>"; };
@@ -1523,8 +1526,6 @@
 		ED82C6E82F90186300FA103D /* MWMRoutingOptions.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRoutingOptions.mm; sourceTree = "<group>"; };
 		ED82C6E92F90186300FA103D /* MWMSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSettings.h; sourceTree = "<group>"; };
 		ED82C6EA2F90186300FA103D /* MWMSettings.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSettings.mm; sourceTree = "<group>"; };
-		ED86256D2FEECAB70057BF82 /* MWMSettings+MapTiles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMSettings+MapTiles.h"; sourceTree = "<group>"; };
-		ED86256E2FEECAB70057BF82 /* MWMSettings+MapTiles.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "MWMSettings+MapTiles.mm"; sourceTree = "<group>"; };
 		ED82C6EC2F90186300FA103D /* MWMStorage+UI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMStorage+UI.h"; sourceTree = "<group>"; };
 		ED82C6ED2F90186300FA103D /* MWMStorage+UI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MWMStorage+UI.m"; sourceTree = "<group>"; };
 		ED82C6EF2F90186300FA103D /* LocaleTranslator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocaleTranslator.h; sourceTree = "<group>"; };
@@ -1655,6 +1656,8 @@
 		ED82C81D2F90186900FA103D /* MWMConsts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMConsts.h; sourceTree = "<group>"; };
 		ED82C81E2F90186900FA103D /* MWMMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMacros.h; sourceTree = "<group>"; };
 		ED86256A2FEECAB70057BF82 /* SettingsMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMessageCell.swift; sourceTree = "<group>"; };
+		ED86256D2FEECAB70057BF82 /* MWMSettings+MapTiles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMSettings+MapTiles.h"; sourceTree = "<group>"; };
+		ED86256E2FEECAB70057BF82 /* MWMSettings+MapTiles.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "MWMSettings+MapTiles.mm"; sourceTree = "<group>"; };
 		ED8A91DF2D759B50009E063B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
 		ED8A91E32D759B59009E063B /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
 		ED8A91E42D759B61009E063B /* az */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = az; path = az.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
@@ -1700,6 +1703,7 @@
 		ED8A920C2D759BA9009E063B /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
 		ED8A920D2D759BAA009E063B /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
 		ED8F0F842FE962BF00780C0F /* SettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModels.swift; sourceTree = "<group>"; };
+		ED9BEED52FFEB5C8008DB423 /* ColorGridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorGridViewController.swift; sourceTree = "<group>"; };
 		ED9DDF9B2D6F6DA300645BC8 /* TrackRecordingManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingManagerTests.swift; sourceTree = "<group>"; };
 		EDAA00022F91000000FA103D /* SearchCategoryIconRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCategoryIconRenderer.swift; sourceTree = "<group>"; };
 		EDBAB6F42E980421007962B5 /* GeoNavigationToOMURLConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoNavigationToOMURLConverterTests.swift; sourceTree = "<group>"; };
@@ -2421,6 +2425,8 @@
 			isa = PBXGroup;
 			children = (
 				ED82C2F12F90180300FA103D /* ColorPicker.swift */,
+				ED9BEED52FFEB5C8008DB423 /* ColorGridViewController.swift */,
+				ED82C5FD2F9B000000FA103D /* ColorPickerButton.swift */,
 			);
 			path = ColorPicker;
 			sourceTree = "<group>";
@@ -4548,6 +4554,7 @@
 				ED82C5242F90180300FA103D /* BottomTabBarViewController.swift in Sources */,
 				ED82C5252F90180300FA103D /* CarPlayMapViewController.swift in Sources */,
 				ED82C5262F90180300FA103D /* ColorPicker.swift in Sources */,
+				ED82C5FE2F9B000000FA103D /* ColorPickerButton.swift in Sources */,
 				ED82C5272F90180300FA103D /* DocumentPicker.swift in Sources */,
 				ED82C5282F90180300FA103D /* FileType.swift in Sources */,
 				ED82C5292F90180300FA103D /* MWMMapDownloaderButtonTableViewCell.m in Sources */,
@@ -4750,6 +4757,7 @@
 				ED82C7A52F90186300FA103D /* MainTheme.swift in Sources */,
 				ED82C7A62F90186300FA103D /* MapStyleSheet.swift in Sources */,
 				ED82C7A72F90186300FA103D /* PlacePageStyleSheet.swift in Sources */,
+				ED9BEED62FFEB5C8008DB423 /* ColorGridViewController.swift in Sources */,
 				ED82C7A82F90186300FA103D /* SearchStyleSheet.swift in Sources */,
 				ED82C7A92F90186300FA103D /* StyleApplicable.swift in Sources */,
 				ED82C7AA2F90186300FA103D /* StyleSheet.swift in Sources */,
