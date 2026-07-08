@@ -904,4 +904,6 @@
     <string name="color_picker_hex_label">Warna Heksa sRGB #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Kisi</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">Pencarian suara</string>
 </resources>

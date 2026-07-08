@@ -904,4 +904,6 @@
     <string name="color_picker_hex_label">sRGB 16진수 색상 #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">그리드</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">음성 검색</string>
 </resources>

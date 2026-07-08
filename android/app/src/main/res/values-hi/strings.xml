@@ -897,4 +897,6 @@
     <string name="color_picker_hex_label">sRGB हेक्स रंग #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">ग्रिड</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">वॉयस सर्च</string>
 </resources>

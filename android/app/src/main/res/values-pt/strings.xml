@@ -918,4 +918,6 @@
     <string name="color_picker_hex_label">Cor hexadecimal sRGB #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Grelha</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">Pesquisa por voz</string>
 </resources>

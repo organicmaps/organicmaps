@@ -903,4 +903,6 @@
     <string name="color_picker_hex_label">sRGB-hekskleur #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Rooster</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">Stemsoektog</string>
 </resources>

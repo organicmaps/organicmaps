@@ -920,4 +920,6 @@
     <string name="color_picker_hex_label">Color Hex sRGB #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Graella</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">Cerca per veu</string>
 </resources>

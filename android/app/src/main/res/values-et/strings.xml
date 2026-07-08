@@ -917,4 +917,6 @@
     <string name="color_picker_hex_label">sRGB Hex-värv #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Ruudustik</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">Häälotsing</string>
 </resources>

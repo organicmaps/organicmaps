@@ -910,4 +910,6 @@
     <string name="color_picker_hex_label">sRGB heksadecimalna boja #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Rešetka</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">Glasovno pretraživanje</string>
 </resources>

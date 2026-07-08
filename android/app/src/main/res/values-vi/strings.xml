@@ -902,4 +902,6 @@
     <string name="color_picker_hex_label">Màu sRGB dạng hex #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Lưới</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">Tìm kiếm bằng giọng nói</string>
 </resources>
