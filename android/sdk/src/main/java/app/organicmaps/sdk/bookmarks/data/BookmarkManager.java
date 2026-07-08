@@ -192,10 +192,10 @@ public enum BookmarkManager {
   @Keep
   @SuppressWarnings("unused")
   @MainThread
-  private void onElevationCurrentPositionChanged()
+  private void onElevationCurrentPositionChanged(long trackId, double distance)
   {
     if (mOnElevationCurrentPositionChangedListener != null)
-      mOnElevationCurrentPositionChangedListener.onCurrentPositionChanged();
+      mOnElevationCurrentPositionChangedListener.onCurrentPositionChanged(trackId, distance);
   }
 
   public void setElevationCurrentPositionChangedListener(@Nullable OnElevationCurrentPositionChangedListener listener)
@@ -212,10 +212,10 @@ public enum BookmarkManager {
   @Keep
   @SuppressWarnings("unused")
   @MainThread
-  private void onElevationActivePointChanged()
+  private void onElevationActivePointChanged(long trackId, double distance)
   {
     if (mOnElevationActivePointChangedListener != null)
-      mOnElevationActivePointChangedListener.onElevationActivePointChanged();
+      mOnElevationActivePointChangedListener.onElevationActivePointChanged(trackId, distance);
   }
 
   @Nullable
@@ -656,12 +656,12 @@ public enum BookmarkManager {
 
   public interface OnElevationActivePointChangedListener
   {
-    void onElevationActivePointChanged();
+    void onElevationActivePointChanged(long trackId, double distance);
   }
 
   public interface OnElevationCurrentPositionChangedListener
   {
-    void onCurrentPositionChanged();
+    void onCurrentPositionChanged(long trackId, double distance);
   }
 
   static class BookmarkCategoriesCache
