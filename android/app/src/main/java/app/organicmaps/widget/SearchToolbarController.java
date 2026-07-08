@@ -19,12 +19,10 @@ import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.UiUtils;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
-public class SearchToolbarController extends ToolbarController implements View.OnClickListener
+public class SearchToolbarController extends ToolbarController
 {
-  // Matches Material's ClearTextEndIconDelegate scale/alpha out-anim length.
-  private static final long CLEAR_ICON_OUT_ANIM_MS = 250L;
-
   @Nullable
   private final View mToolbarContainer;
   @NonNull
@@ -33,18 +31,16 @@ public class SearchToolbarController extends ToolbarController implements View.O
   private final View mBack;
   @NonNull
   private final TextInputEditText mQuery;
+  @Nullable
+  private final TextInputLayout mQueryLayout;
+  private boolean mEndIconQueryEmpty;
   private boolean mFromCategory = false;
   // Pending listener that shows the keyboard once the window gains focus (see activate()).
   @Nullable
   private ViewTreeObserver.OnWindowFocusChangeListener mShowKeyboardOnFocus;
   @Nullable
   private final View mProgress;
-  @NonNull
-  private final View mVoiceInput;
   private final boolean mVoiceInputSupported = InputUtils.isVoiceInputSupported(requireActivity());
-  // Tracks the last queryEmpty value to detect the text→empty transition that defers the mic.
-  private boolean mLastQueryEmpty = true;
-  private Runnable mRevealVoiceInputRunnable;
   private final TextWatcher mTextWatcher = new StringUtils.SimpleTextWatcher() {
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count)
@@ -69,7 +65,7 @@ public class SearchToolbarController extends ToolbarController implements View.O
     mSearchContainer = getToolbar().findViewById(R.id.search_container);
     mBack = mSearchContainer.findViewById(R.id.back);
     mQuery = mSearchContainer.findViewById(R.id.query);
-    mQuery.setOnClickListener(this);
+    mQueryLayout = mSearchContainer.findViewById(R.id.query_input_layout);
     mQuery.addTextChangedListener(mTextWatcher);
     mQuery.setOnEditorActionListener((v, actionId, event) -> {
       boolean isSearchDown =
@@ -80,13 +76,6 @@ public class SearchToolbarController extends ToolbarController implements View.O
       return (isSearchDown || isSearchAction) && onStartSearchClick();
     });
     mProgress = mSearchContainer.findViewById(R.id.progress);
-    mVoiceInput = root.findViewById(R.id.voice_input);
-    mVoiceInput.setOnClickListener(this);
-    mRevealVoiceInputRunnable = () ->
-    {
-      if (TextUtils.isEmpty(mQuery.getText()))
-        UiUtils.showIf(supportsVoiceSearch() && mVoiceInputSupported, mVoiceInput);
-    };
     showProgress(false);
     updateViewsVisibility(true);
   }
@@ -94,12 +83,31 @@ public class SearchToolbarController extends ToolbarController implements View.O
   private void updateViewsVisibility(boolean queryEmpty)
   {
     UiUtils.showIf(showBackButton(), mBack);
-    mVoiceInput.removeCallbacks(mRevealVoiceInputRunnable);
-    if (queryEmpty && !mLastQueryEmpty)
-      mVoiceInput.postDelayed(mRevealVoiceInputRunnable, CLEAR_ICON_OUT_ANIM_MS);
+    updateEndIcon(queryEmpty);
+  }
+
+  // Single trailing slot: clear (X) while there is text, otherwise the voice-search mic when available.
+  private void updateEndIcon(boolean queryEmpty)
+  {
+    if (mQueryLayout == null || mEndIconQueryEmpty == queryEmpty)
+      return;
+    mEndIconQueryEmpty = queryEmpty;
+    if (!queryEmpty)
+    {
+      mQueryLayout.setEndIconDrawable(R.drawable.ic_close_rounded);
+      mQueryLayout.setEndIconContentDescription(R.string.clear_the_search);
+      mQueryLayout.setEndIconOnClickListener(v -> clear());
+      mQueryLayout.setEndIconVisible(true);
+    }
+    else if (supportsVoiceSearch() && mVoiceInputSupported)
+    {
+      mQueryLayout.setEndIconDrawable(R.drawable.ic_mic_white);
+      mQueryLayout.setEndIconContentDescription(R.string.voice_search);
+      mQueryLayout.setEndIconOnClickListener(v -> onVoiceInputClick());
+      mQueryLayout.setEndIconVisible(true);
+    }
     else
-      UiUtils.showIf(supportsVoiceSearch() && queryEmpty && mVoiceInputSupported, mVoiceInput);
-    mLastQueryEmpty = queryEmpty;
+      mQueryLayout.setEndIconVisible(false);
   }
 
   private void onQueryChanged(@Nullable CharSequence s, boolean resetCategoryFlag)
@@ -121,8 +129,6 @@ public class SearchToolbarController extends ToolbarController implements View.O
   {
     return true;
   }
-
-  protected void onQueryClick(String query) {}
 
   protected void onTextChanged(String query) {}
 
@@ -237,16 +243,6 @@ public class SearchToolbarController extends ToolbarController implements View.O
     if (UiUtils.isVisible(mProgress) == show)
       return;
     UiUtils.showIf(show, mProgress);
-  }
-
-  @Override
-  public void onClick(View v)
-  {
-    final int id = v.getId();
-    if (id == R.id.query)
-      onQueryClick(getQuery());
-    else if (id == R.id.voice_input)
-      onVoiceInputClick();
   }
 
   public void showSearchControls(boolean show)
