@@ -22,6 +22,27 @@ typedef NS_ENUM(NSInteger, MWMBookmarksSortingType) {
   MWMBookmarksSortingTypeByName
 } NS_SWIFT_NAME(BookmarksSortingType);
 
+typedef NS_ENUM(NSInteger, MWMPredefinedColor) {
+  MWMPredefinedColorNone = 0,
+  MWMPredefinedColorRed,
+  MWMPredefinedColorBlue,
+  MWMPredefinedColorPurple,
+  MWMPredefinedColorYellow,
+  MWMPredefinedColorPink,
+  MWMPredefinedColorBrown,
+  MWMPredefinedColorGreen,
+  MWMPredefinedColorOrange,
+  MWMPredefinedColorDeepPurple,
+  MWMPredefinedColorLightBlue,
+  MWMPredefinedColorCyan,
+  MWMPredefinedColorTeal,
+  MWMPredefinedColorLime,
+  MWMPredefinedColorDeepOrange,
+  MWMPredefinedColorGray,
+  MWMPredefinedColorBlueGray,
+  MWMPredefinedColorCount
+} NS_SWIFT_NAME(PredefinedColor);
+
 typedef void (^PingCompletionBlock)(BOOL success);
 typedef void (^ElevationPointChangedBlock)(double distance);
 typedef void (^SearchBookmarksCompletionBlock)(NSArray<MWMBookmark *> * bookmarks);
@@ -39,6 +60,8 @@ NS_SWIFT_NAME(BookmarksManager)
 @interface MWMBookmarksManager : NSObject <BookmarksObservable, RecentlyDeletedCategoriesManager>
 
 + (MWMBookmarksManager *)sharedManager;
++ (NSArray<NSNumber *> *)predefinedColors NS_SWIFT_NAME(predefinedColors());
++ (UIColor *)colorFromPredefinedColor:(MWMPredefinedColor)predefinedColor NS_SWIFT_NAME(color(from:));
 
 - (BOOL)areBookmarksLoaded;
 - (void)loadBookmarks;

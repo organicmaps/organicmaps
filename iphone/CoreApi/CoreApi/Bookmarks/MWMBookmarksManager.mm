@@ -53,6 +53,21 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
   }
 }
 
+static kml::PredefinedColor convertPredefinedColor(MWMPredefinedColor predefinedColor)
+{
+  return static_cast<kml::PredefinedColor>(predefinedColor);
+}
+
+static MWMPredefinedColor convertPredefinedColor(kml::PredefinedColor predefinedColor)
+{
+  return static_cast<MWMPredefinedColor>(predefinedColor);
+}
+
+static UIColor * UIColorFromCoreColor(dp::Color const & color)
+{
+  return [UIColor colorWithRed:color.GetRedF() green:color.GetGreenF() blue:color.GetBlueF() alpha:color.GetAlphaF()];
+}
+
 static void DeleteTemporaryBookmarksFile(std::string const & filePath)
 {
   NSError * error;
@@ -88,6 +103,20 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{ manager = [[self alloc] initManager]; });
   return manager;
+}
+
++ (NSArray<NSNumber *> *)predefinedColors
+{
+  NSMutableArray<NSNumber *> * result = [[NSMutableArray alloc] initWithCapacity:kml::kOrderedPredefinedColors.size()];
+  for (auto const predefinedColor : kml::kOrderedPredefinedColors)
+    if (predefinedColor != kml::PredefinedColor::None)
+      [result addObject:@(convertPredefinedColor(predefinedColor))];
+  return result;
+}
+
++ (UIColor *)colorFromPredefinedColor:(MWMPredefinedColor)predefinedColor
+{
+  return UIColorFromCoreColor(kml::ColorFromPredefinedColor(convertPredefinedColor(predefinedColor)));
 }
 
 - (BookmarkManager &)bm

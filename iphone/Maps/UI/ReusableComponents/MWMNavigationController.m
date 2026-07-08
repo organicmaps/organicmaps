@@ -4,6 +4,9 @@
 
 #import <SafariServices/SafariServices.h>
 
+NSNotificationName const kUserInterfaceStyleDidChangeNotification = @"UserInterfaceStyleDidChangeNotification";
+NSString * const kUserInterfaceStyleKey = @"UserInterfaceStyle";
+
 @interface MWMNavigationController () <UINavigationControllerDelegate>
 
 @end
@@ -67,7 +70,13 @@
   // on focus loss/restore. Re-deriving the map style there flips an active vehicle route to the
   // dimmed MapStyleVehicle* palette.
   if (self.traitCollection.userInterfaceStyle != previousTraitCollection.userInterfaceStyle)
+  {
     [MWMThemeManager invalidate];
+    [NSNotificationCenter.defaultCenter
+        postNotificationName:kUserInterfaceStyleDidChangeNotification
+                      object:self
+                    userInfo:@{kUserInterfaceStyleKey: @(self.traitCollection.userInterfaceStyle)}];
+  }
 }
 
 - (BOOL)shouldAutorotate
