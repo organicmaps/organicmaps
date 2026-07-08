@@ -133,7 +133,8 @@ final class RootSettingsInteractor {
                       autoZoomEnabled: settings.autoZoomEnabled(),
                       ttsEnabled: MWMTextToSpeech.isTTSEnabled(),
                       fileLoggingEnabled: settings.isFileLoggingEnabled(),
-                      logFileSize: settings.logFileSize())
+                      logFileSize: settings.logFileSize(),
+                      searchHistoryEnabled: settings.searchHistoryEnabled())
   }
 
   private var isBuildings3DEditable: Bool {
@@ -164,6 +165,11 @@ final class RootSettingsInteractor {
       settings.setPerspectiveViewEnabled(enabled)
     case .autoZoom:
       settings.setAutoZoomEnabled(enabled)
+    case .searchHistory:
+      settings.setSearchHistoryEnabled(enabled)
+      if !enabled {
+        MWMSearchFrameworkHelper.clearSearchHistory()
+      }
     case .profile,
          .units,
          .mobileInternet,

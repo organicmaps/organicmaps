@@ -135,6 +135,8 @@ final class RootSettingsPresenter {
                             kind: iCloudItemKind(state)),
       SettingsItemViewModel(setting: .mapTiles,
                             kind: .link),
+      SettingsItemViewModel(setting: .searchHistory,
+                            kind: .switcher(isOn: state.searchHistoryEnabled, isEnabled: true)),
       SettingsItemViewModel(setting: .logging,
                             detail: logFileDetail(state.logFileSize),
                             kind: .switcher(isOn: state.fileLoggingEnabled, isEnabled: true)),

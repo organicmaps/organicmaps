@@ -58,6 +58,9 @@ NS_SWIFT_NAME(Settings)
 + (BOOL)autoZoomEnabled;
 + (void)setAutoZoomEnabled:(BOOL)enabled;
 
++ (BOOL)searchHistoryEnabled;
++ (void)setSearchHistoryEnabled:(BOOL)enabled;
+
 + (MWMSettingsPowerManagement)powerManagement;
 + (void)setPowerManagement:(MWMSettingsPowerManagement)powerManagement;
 + (BOOL)isPowerManagementMaximum;
