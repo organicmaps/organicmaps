@@ -15,6 +15,7 @@ char const * kAutoDownloadEnabledKey = "AutoDownloadEnabled";
 char const * kZoomButtonsEnabledKey = "ZoomButtonsEnabled";
 char const * kCompassCalibrationEnabledKey = "CompassCalibrationEnabled";
 char const * kRoutingDisclaimerApprovedKey = "IsDisclaimerApproved";
+char const * kSearchHistoryEnabledKey = "SearchHistoryEnabled";
 
 // TODO(igrechuhin): Remove outdated kUDAutoNightModeOff
 NSString * const kUDAutoNightModeOff = @"AutoNightModeOff";
@@ -215,6 +216,18 @@ NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidShowIClo
   auto & f = GetFramework();
   f.AllowAutoZoom(enabled);
   f.SaveAutoZoom(enabled);
+}
+
++ (BOOL)searchHistoryEnabled
+{
+  bool enabled = true;
+  UNUSED_VALUE(settings::Get(kSearchHistoryEnabledKey, enabled));
+  return enabled;
+}
+
++ (void)setSearchHistoryEnabled:(BOOL)enabled
+{
+  settings::Set(kSearchHistoryEnabledKey, static_cast<bool>(enabled));
 }
 
 + (MWMSettingsPowerManagement)powerManagement

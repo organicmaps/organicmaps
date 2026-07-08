@@ -93,12 +93,20 @@ class TabView: UIView {
   private let tabsContentCollectionView: UICollectionView
   private let headerView = UIView()
   private let slidingView = UIView()
+  private var headerViewHeight: NSLayoutConstraint!
   private var slidingViewLeft: NSLayoutConstraint!
   private var slidingViewWidth: NSLayoutConstraint!
+  private var slidingViewHeight: NSLayoutConstraint!
   private lazy var pageCount = self.dataSource?.numberOfPages(in: self) ?? 0
   var selectedIndex: Int? {
     didSet {
       updateSelectedHeader()
+    }
+  }
+
+  var showsTabBar = true {
+    didSet {
+      updateTabBarVisibility()
     }
   }
 
@@ -216,7 +224,8 @@ class TabView: UIView {
     headerView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
     headerView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
     headerView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
-    headerView.heightAnchor.constraint(equalToConstant: 46).isActive = true
+    headerViewHeight = headerView.heightAnchor.constraint(equalToConstant: 46)
+    headerViewHeight.isActive = true
 
     tabsContentCollectionView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor).isActive = true
     tabsContentCollectionView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor).isActive = true
@@ -228,13 +237,21 @@ class TabView: UIView {
     tabsCollectionView.topAnchor.constraint(equalTo: headerView.topAnchor).isActive = true
     tabsCollectionView.bottomAnchor.constraint(equalTo: slidingView.topAnchor).isActive = true
 
-    slidingView.heightAnchor.constraint(equalToConstant: 3).isActive = true
+    slidingViewHeight = slidingView.heightAnchor.constraint(equalToConstant: 3)
+    slidingViewHeight.isActive = true
     slidingView.bottomAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
 
     slidingViewLeft = slidingView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor)
     slidingViewLeft.isActive = true
     slidingViewWidth = slidingView.widthAnchor.constraint(equalToConstant: 0)
     slidingViewWidth.isActive = true
+  }
+
+  private func updateTabBarVisibility() {
+    headerView.isHidden = !showsTabBar
+    headerViewHeight.constant = showsTabBar ? 46 : 0
+    slidingViewHeight.constant = showsTabBar ? 3 : 0
+    setNeedsLayout()
   }
 
   private func updateSelectedHeader() {

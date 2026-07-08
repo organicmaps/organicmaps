@@ -25,6 +25,7 @@ enum RootSettings: String, Hashable {
   case autoZoom
   case voiceInstructions
   case routingOptions
+  case searchHistory
 }
 
 extension RootSettingsSection {
@@ -68,6 +69,7 @@ extension RootSettings {
     case .autoZoom: return L("pref_map_auto_zoom")
     case .voiceInstructions: return L("pref_tts_enable_title")
     case .routingOptions: return L("driving_options_title")
+    case .searchHistory: return L("search_history_title")
     }
   }
 }
@@ -94,7 +96,8 @@ extension RootSettings {
          .iCloud,
          .logging,
          .perspectiveView,
-         .autoZoom:
+         .autoZoom,
+         .searchHistory:
       return nil
     }
   }
@@ -184,6 +187,7 @@ struct RootSettingsState {
   let ttsEnabled: Bool
   let fileLoggingEnabled: Bool
   let logFileSize: UInt64
+  let searchHistoryEnabled: Bool
 }
 
 typealias RootSettingsViewController = SettingsViewController<RootSettingsSection, RootSettings>

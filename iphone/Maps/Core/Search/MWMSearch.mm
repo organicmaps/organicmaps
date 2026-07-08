@@ -2,6 +2,7 @@
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
 #import "MWMLocationManager.h"
+#import "MWMSettings.h"
 #import "SearchResult+Core.h"
 #import "SwiftBridge.h"
 
@@ -163,6 +164,8 @@ BOOL HandleIOSDebugCommand(NSString * query)
   if (!query.text || query.text.length == 0)
     return;
   if (HandleIOSDebugCommand(query.text))
+    return;
+  if (![MWMSettings searchHistoryEnabled])
     return;
 
   std::string locale = (!query.locale || query.locale == 0) ? [MWMSearch manager]->m_locale : query.locale.UTF8String;
