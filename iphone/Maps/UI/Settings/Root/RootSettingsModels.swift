@@ -1,7 +1,10 @@
 enum RootSettingsSection: String, CaseIterable, Hashable {
   case profile
   case general
+  case map
   case navigation
+  case network
+  case privacy
 }
 
 enum RootSettings: String, Hashable {
@@ -16,7 +19,6 @@ enum RootSettings: String, Hashable {
   case bookmarksTextPlacement
   case largeFont
   case transliteration
-  case compassCalibration
   case appearance
   case iCloud
   case mapTiles
@@ -33,15 +35,17 @@ extension RootSettingsSection {
     switch self {
     case .profile: nil
     case .general: L("general_settings")
+    case .map: L("map")
     case .navigation: L("prefs_group_route")
+    case .network: L("prefs_group_network")
+    case .privacy: L("privacy")
     }
   }
 
   var footer: String? {
     switch self {
-    case .profile: nil
+    case .profile, .map, .navigation, .network, .privacy: nil
     case .general: L("enable_logging_warning_message")
-    case .navigation: nil
     }
   }
 }
@@ -60,7 +64,6 @@ extension RootSettings {
     case .bookmarksTextPlacement: return L("bookmarks_text_placement_title")
     case .largeFont: return L("big_font")
     case .transliteration: return L("transliteration_title")
-    case .compassCalibration: return L("pref_calibration_title")
     case .appearance: return L("pref_appearance_title")
     case .iCloud: return "iCloud Synchronization (Beta)"
     case .mapTiles: return L("pref_bg_tiles_title")
@@ -92,7 +95,6 @@ extension RootSettings {
          .showDownloadedRegions,
          .largeFont,
          .transliteration,
-         .compassCalibration,
          .iCloud,
          .logging,
          .perspectiveView,
@@ -178,7 +180,6 @@ struct RootSettingsState {
   let bookmarksTextPlacement: Placement
   let largeFontSize: Bool
   let transliteration: Bool
-  let compassCalibrationEnabled: Bool
   let theme: MWMTheme
   let iCloudSynchronizationEnabled: Bool
   let iCloudSynchronizationState: SynchronizationManagerState?
