@@ -44,7 +44,8 @@ public class HoursMinutes implements Parcelable
 
     // Formatting a string here with hours outside of 0-23 range causes DateTimeException.
     final LocalTime localTime = LocalTime.of((int) hours % 24, (int) minutes);
-    return localTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
+    // \u00A0 is a non-breaking space: keep the time glued to AM/PM so the marker never wraps to its own line.
+    return localTime.format(DateTimeFormatter.ofPattern("hh:mm\u00A0a"));
   }
 
   @Override
