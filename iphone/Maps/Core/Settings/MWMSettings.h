@@ -31,9 +31,6 @@ NS_SWIFT_NAME(Settings)
 + (MWMPlacement)bookmarksTextPlacement;
 + (void)setBookmarksTextPlacement:(MWMPlacement)placement;
 
-+ (BOOL)compassCalibrationEnabled;
-+ (void)setCompassCalibrationEnabled:(BOOL)compassCalibrationEnabled;
-
 + (MWMTheme)theme;
 + (void)setTheme:(MWMTheme)theme;
 

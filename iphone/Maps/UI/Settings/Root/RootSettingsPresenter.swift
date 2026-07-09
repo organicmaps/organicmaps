@@ -84,8 +84,14 @@ final class RootSettingsPresenter {
                                items: [profileItem(state)]),
       SettingsSectionViewModel(section: .general,
                                items: generalItems(state)),
+      SettingsSectionViewModel(section: .map,
+                               items: mapItems(state)),
       SettingsSectionViewModel(section: .navigation,
                                items: navigationItems(state)),
+      SettingsSectionViewModel(section: .network,
+                               items: networkItems(state)),
+      SettingsSectionViewModel(section: .privacy,
+                               items: privacyItems(state)),
     ]
   }
 
@@ -97,9 +103,23 @@ final class RootSettingsPresenter {
 
   private func generalItems(_ state: RootSettingsState) -> [RootSettingsItemViewModel] {
     [
+      SettingsItemViewModel(setting: .appearance,
+                            detail: state.theme.title,
+                            kind: .link),
       SettingsItemViewModel(setting: .units,
                             detail: state.measurementUnits.title,
                             kind: .link),
+      SettingsItemViewModel(setting: .powerManagement,
+                            detail: state.powerManagement.title,
+                            kind: .link),
+      SettingsItemViewModel(setting: .logging,
+                            detail: logFileDetail(state.logFileSize),
+                            kind: .switcher(isOn: state.fileLoggingEnabled, isEnabled: true)),
+    ]
+  }
+
+  private func mapItems(_ state: RootSettingsState) -> [RootSettingsItemViewModel] {
+    [
       SettingsItemViewModel(setting: .zoomButtons,
                             detail: nil,
                             kind: .switcher(isOn: state.zoomButtonsEnabled, isEnabled: true)),
@@ -107,18 +127,9 @@ final class RootSettingsPresenter {
                             detail: nil,
                             kind: .switcher(isOn: state.buildings3DEditable && state.buildings3DEnabled,
                                             isEnabled: state.buildings3DEditable)),
-      SettingsItemViewModel(setting: .autoDownload,
-                            detail: nil,
-                            kind: .switcher(isOn: state.autoDownloadEnabled, isEnabled: true)),
       SettingsItemViewModel(setting: .showDownloadedRegions,
                             detail: nil,
                             kind: .switcher(isOn: state.showDownloadedRegions, isEnabled: true)),
-      SettingsItemViewModel(setting: .mobileInternet,
-                            detail: MobileInternetSetting(permission: state.mobileInternetPermission).title,
-                            kind: .link),
-      SettingsItemViewModel(setting: .powerManagement,
-                            detail: state.powerManagement.title,
-                            kind: .link),
       SettingsItemViewModel(setting: .bookmarksTextPlacement,
                             detail: state.bookmarksTextPlacement.title,
                             kind: .link),
@@ -126,20 +137,8 @@ final class RootSettingsPresenter {
                             kind: .switcher(isOn: state.largeFontSize, isEnabled: true)),
       SettingsItemViewModel(setting: .transliteration,
                             kind: .switcher(isOn: state.transliteration, isEnabled: true)),
-      SettingsItemViewModel(setting: .compassCalibration,
-                            kind: .switcher(isOn: state.compassCalibrationEnabled, isEnabled: true)),
-      SettingsItemViewModel(setting: .appearance,
-                            detail: state.theme.title,
-                            kind: .link),
-      SettingsItemViewModel(setting: .iCloud,
-                            kind: iCloudItemKind(state)),
       SettingsItemViewModel(setting: .mapTiles,
                             kind: .link),
-      SettingsItemViewModel(setting: .searchHistory,
-                            kind: .switcher(isOn: state.searchHistoryEnabled, isEnabled: true)),
-      SettingsItemViewModel(setting: .logging,
-                            detail: logFileDetail(state.logFileSize),
-                            kind: .switcher(isOn: state.fileLoggingEnabled, isEnabled: true)),
     ]
   }
 
@@ -154,6 +153,26 @@ final class RootSettingsPresenter {
                             kind: .link),
       SettingsItemViewModel(setting: .routingOptions,
                             kind: .link),
+    ]
+  }
+
+  private func networkItems(_ state: RootSettingsState) -> [RootSettingsItemViewModel] {
+    [
+      SettingsItemViewModel(setting: .autoDownload,
+                            detail: nil,
+                            kind: .switcher(isOn: state.autoDownloadEnabled, isEnabled: true)),
+      SettingsItemViewModel(setting: .mobileInternet,
+                            detail: MobileInternetSetting(permission: state.mobileInternetPermission).title,
+                            kind: .link),
+      SettingsItemViewModel(setting: .iCloud,
+                            kind: iCloudItemKind(state)),
+    ]
+  }
+
+  private func privacyItems(_ state: RootSettingsState) -> [RootSettingsItemViewModel] {
+    [
+      SettingsItemViewModel(setting: .searchHistory,
+                            kind: .switcher(isOn: state.searchHistoryEnabled, isEnabled: true)),
     ]
   }
 
