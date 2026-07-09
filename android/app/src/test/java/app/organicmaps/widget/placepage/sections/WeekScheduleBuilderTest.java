@@ -5,68 +5,65 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.spy;
 
 import app.organicmaps.sdk.editor.data.HoursMinutes;
 import app.organicmaps.sdk.editor.data.Timespan;
 import app.organicmaps.sdk.editor.data.Timetable;
-import app.organicmaps.widget.placepage.sections.PlaceOpeningHoursAdapter.WeekScheduleData;
+import app.organicmaps.widget.placepage.sections.WeekScheduleBuilder.WeekScheduleData;
 import java.lang.reflect.Field;
 import java.util.Calendar;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PlaceOpeningHoursAdapterTest
+public class WeekScheduleBuilderTest
 {
-  PlaceOpeningHoursAdapter adapter;
+  WeekScheduleBuilder builder;
   Field mWeekScheduleField;
 
   @Before
   public void setUp() throws NoSuchFieldException
   {
-    adapter = spy(new PlaceOpeningHoursAdapter());
-    doNothing().when(adapter).notifyDataSetChanged();
+    builder = new WeekScheduleBuilder();
 
-    mWeekScheduleField = PlaceOpeningHoursAdapter.class.getDeclaredField("mWeekSchedule");
+    mWeekScheduleField = WeekScheduleBuilder.class.getDeclaredField("mWeekSchedule");
     mWeekScheduleField.setAccessible(true);
   }
 
   @Test
   public void test_build_week_from_sunday()
   {
-    List<Integer> weekDays = PlaceOpeningHoursAdapter.buildWeekByFirstDay(Calendar.SUNDAY);
+    List<Integer> weekDays = WeekScheduleBuilder.buildWeekByFirstDay(Calendar.SUNDAY);
     assertEquals(weekDays, List.of(1, 2, 3, 4, 5, 6, 7));
   }
 
   @Test
   public void test_build_week_from_monday()
   {
-    List<Integer> weekDays = PlaceOpeningHoursAdapter.buildWeekByFirstDay(Calendar.MONDAY);
+    List<Integer> weekDays = WeekScheduleBuilder.buildWeekByFirstDay(Calendar.MONDAY);
     assertEquals(weekDays, List.of(2, 3, 4, 5, 6, 7, 1));
   }
 
   @Test
   public void test_build_week_from_saturday()
   {
-    List<Integer> weekDays = PlaceOpeningHoursAdapter.buildWeekByFirstDay(Calendar.SATURDAY);
+    List<Integer> weekDays = WeekScheduleBuilder.buildWeekByFirstDay(Calendar.SATURDAY);
     assertEquals(weekDays, List.of(7, 1, 2, 3, 4, 5, 6));
   }
 
   @Test
   public void test_build_week_from_friday()
   {
-    List<Integer> weekDays = PlaceOpeningHoursAdapter.buildWeekByFirstDay(Calendar.FRIDAY);
+    List<Integer> weekDays = WeekScheduleBuilder.buildWeekByFirstDay(Calendar.FRIDAY);
     assertEquals(weekDays, List.of(6, 7, 1, 2, 3, 4, 5));
   }
 
   @Test
   public void test_build_week_errors()
   {
-    assertThrows(IllegalArgumentException.class, () -> PlaceOpeningHoursAdapter.buildWeekByFirstDay(-1));
-    assertThrows(IllegalArgumentException.class, () -> PlaceOpeningHoursAdapter.buildWeekByFirstDay(0));
-    assertThrows(IllegalArgumentException.class, () -> PlaceOpeningHoursAdapter.buildWeekByFirstDay(8));
+    assertThrows(IllegalArgumentException.class, () -> WeekScheduleBuilder.buildWeekByFirstDay(-1));
+    assertThrows(IllegalArgumentException.class, () -> WeekScheduleBuilder.buildWeekByFirstDay(0));
+    assertThrows(IllegalArgumentException.class, () -> WeekScheduleBuilder.buildWeekByFirstDay(8));
   }
 
   @Test
@@ -80,7 +77,7 @@ public class PlaceOpeningHoursAdapterTest
     timetables[1] = new Timetable(new Timespan(new HoursMinutes(12, 0, true), new HoursMinutes(14, 0, true)),
                                   new Timespan[0], false, new int[] {7});
 
-    adapter.setTimetables(timetables, Calendar.MONDAY);
+    builder.setTimetables(timetables, Calendar.MONDAY);
 
     /* Expected parsed schedule (today = Mo):
      *  0 - Mo-Fr, open, bold
@@ -88,7 +85,7 @@ public class PlaceOpeningHoursAdapterTest
      *  2 - Su,    closed
      * */
 
-    List<WeekScheduleData> schedule = (List<WeekScheduleData>) mWeekScheduleField.get(adapter);
+    List<WeekScheduleData> schedule = (List<WeekScheduleData>) mWeekScheduleField.get(builder);
     assertNotNull(schedule);
     assertEquals(3, schedule.size());
     assertFalse(schedule.get(0).isClosed); // Mo-Fr - open
@@ -115,7 +112,7 @@ public class PlaceOpeningHoursAdapterTest
     timetables[2] = new Timetable(new Timespan(new HoursMinutes(11, 0, true), new HoursMinutes(18, 0, true)),
                                   new Timespan[0], false, new int[] {6});
 
-    adapter.setTimetables(timetables, Calendar.THURSDAY);
+    builder.setTimetables(timetables, Calendar.THURSDAY);
 
     /* Expected parsed schedule (today = Th):
      *  0 - Th,    closed, bold
@@ -126,7 +123,7 @@ public class PlaceOpeningHoursAdapterTest
      *  5 - We,    open
      * */
 
-    List<WeekScheduleData> schedule = (List<WeekScheduleData>) mWeekScheduleField.get(adapter);
+    List<WeekScheduleData> schedule = (List<WeekScheduleData>) mWeekScheduleField.get(builder);
     assertNotNull(schedule);
     assertEquals(6, schedule.size());
     assertTrue(schedule.get(0).isClosed); //  Th    - closed
@@ -153,7 +150,7 @@ public class PlaceOpeningHoursAdapterTest
     timetables[0] = new Timetable(new Timespan(new HoursMinutes(9, 0, true), new HoursMinutes(18, 0, true)),
                                   new Timespan[0], false, new int[] {2, 4, 6});
 
-    adapter.setTimetables(timetables, Calendar.MONDAY);
+    builder.setTimetables(timetables, Calendar.MONDAY);
 
     /* Expected parsed schedule (today = Mo):
      *  0 - Mo,    open, bold
@@ -164,7 +161,7 @@ public class PlaceOpeningHoursAdapterTest
      *  5 - Sa-Su, closed
      * */
 
-    List<WeekScheduleData> schedule = (List<WeekScheduleData>) mWeekScheduleField.get(adapter);
+    List<WeekScheduleData> schedule = (List<WeekScheduleData>) mWeekScheduleField.get(builder);
     assertNotNull(schedule);
     assertEquals(6, schedule.size());
     assertFalse(schedule.get(0).isClosed); // Mo    - open
@@ -191,7 +188,7 @@ public class PlaceOpeningHoursAdapterTest
     timetables[0] = new Timetable(new Timespan(new HoursMinutes(9, 0, true), new HoursMinutes(18, 0, true)),
                                   new Timespan[0], false, new int[] {2, 4, 6});
 
-    adapter.setTimetables(timetables, Calendar.SUNDAY);
+    builder.setTimetables(timetables, Calendar.SUNDAY);
 
     /* Expected parsed schedule (today = Su):
      *  0 - Su, closed, bold
@@ -203,7 +200,7 @@ public class PlaceOpeningHoursAdapterTest
      *  6 - Sa, closed
      * */
 
-    List<WeekScheduleData> schedule = (List<WeekScheduleData>) mWeekScheduleField.get(adapter);
+    List<WeekScheduleData> schedule = (List<WeekScheduleData>) mWeekScheduleField.get(builder);
     assertNotNull(schedule);
     assertEquals(7, schedule.size());
     assertTrue(schedule.get(0).isClosed); // Su - closed
@@ -232,14 +229,14 @@ public class PlaceOpeningHoursAdapterTest
     timetables[0] = new Timetable(new Timespan(new HoursMinutes(9, 0, true), new HoursMinutes(24, 0, true)),
                                   new Timespan[0], false, new int[] {1, 7});
 
-    adapter.setTimetables(timetables, Calendar.MONDAY);
+    builder.setTimetables(timetables, Calendar.MONDAY);
 
     /* Expected parsed schedule (today = Mo):
      *  0 - Mo-Fr, closed, bold
      *  1 - Sa-Su, open
      * */
 
-    List<WeekScheduleData> schedule = (List<WeekScheduleData>) mWeekScheduleField.get(adapter);
+    List<WeekScheduleData> schedule = (List<WeekScheduleData>) mWeekScheduleField.get(builder);
     assertNotNull(schedule);
     assertEquals(2, schedule.size());
     assertTrue(schedule.get(0).isClosed); //  Mo-Fr - closed
@@ -260,7 +257,7 @@ public class PlaceOpeningHoursAdapterTest
     timetables[0] = new Timetable(new Timespan(new HoursMinutes(9, 0, true), new HoursMinutes(24, 0, true)),
                                   new Timespan[0], false, new int[] {1, 7});
 
-    adapter.setTimetables(timetables, Calendar.SUNDAY);
+    builder.setTimetables(timetables, Calendar.SUNDAY);
 
     /* Expected parsed schedule (today = Su):
      *  0 - Su,    open, bold
@@ -268,7 +265,7 @@ public class PlaceOpeningHoursAdapterTest
      *  2 - Sa,    open
      * */
 
-    List<WeekScheduleData> schedule = (List<WeekScheduleData>) mWeekScheduleField.get(adapter);
+    List<WeekScheduleData> schedule = (List<WeekScheduleData>) mWeekScheduleField.get(builder);
     assertNotNull(schedule);
     assertEquals(3, schedule.size());
     assertFalse(schedule.get(0).isClosed); // Su    - open
@@ -293,14 +290,14 @@ public class PlaceOpeningHoursAdapterTest
     timetables[0] = new Timetable(new Timespan(new HoursMinutes(9, 0, true), new HoursMinutes(24, 0, true)),
                                   new Timespan[0], false, new int[] {1, 7});
 
-    adapter.setTimetables(timetables, Calendar.SATURDAY);
+    builder.setTimetables(timetables, Calendar.SATURDAY);
 
     /* Expected parsed schedule (today = Sa):
      *  0 - Sa-Su, open, bold (wrap start=7 end=1)
      *  1 - Mo-Fr, closed
      * */
 
-    List<WeekScheduleData> schedule = (List<WeekScheduleData>) mWeekScheduleField.get(adapter);
+    List<WeekScheduleData> schedule = (List<WeekScheduleData>) mWeekScheduleField.get(builder);
     assertNotNull(schedule);
     assertEquals(2, schedule.size());
     assertFalse(schedule.get(0).isClosed); // Sa-Su - open
@@ -321,13 +318,13 @@ public class PlaceOpeningHoursAdapterTest
     timetables[0] = new Timetable(new Timespan(new HoursMinutes(9, 0, true), new HoursMinutes(24, 0, true)),
                                   new Timespan[0], false, new int[] {1, 2, 3, 4, 5, 6, 7});
 
-    adapter.setTimetables(timetables, Calendar.FRIDAY);
+    builder.setTimetables(timetables, Calendar.FRIDAY);
 
     /* Expected parsed schedule (today = Fr):
      *  0 - Fr-Th, open, bold (wrap start=6 end=5)
      * */
 
-    List<WeekScheduleData> schedule = (List<WeekScheduleData>) mWeekScheduleField.get(adapter);
+    List<WeekScheduleData> schedule = (List<WeekScheduleData>) mWeekScheduleField.get(builder);
     assertNotNull(schedule);
     assertEquals(1, schedule.size());
     assertFalse(schedule.get(0).isClosed); // Fr-Th - open
@@ -345,9 +342,9 @@ public class PlaceOpeningHoursAdapterTest
     timetables[0] = new Timetable(new Timespan(new HoursMinutes(9, 0, true), new HoursMinutes(18, 0, true)),
                                   new Timespan[0], false, new int[] {Calendar.THURSDAY}); // open only today
 
-    adapter.setTimetables(timetables, Calendar.THURSDAY);
+    builder.setTimetables(timetables, Calendar.THURSDAY);
 
-    List<WeekScheduleData> schedule = (List<WeekScheduleData>) mWeekScheduleField.get(adapter);
+    List<WeekScheduleData> schedule = (List<WeekScheduleData>) mWeekScheduleField.get(builder);
     assertNotNull(schedule);
     assertEquals(2, schedule.size());
     WeekScheduleData today = schedule.get(0); // today is first

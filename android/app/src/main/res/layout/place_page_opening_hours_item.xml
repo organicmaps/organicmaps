@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Layout, width and gravity (center_vertical) come from @style/PlacePageOpeningHoursItem.
-     gravity=top overrides it so the weekday label lines up with the first shift when the
-     hours column spans several lines (split shifts). Weekday/hours use fixed 0.4/0.6 weights
-     so the hours column starts at the same x across all rows. -->
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
@@ -19,7 +15,6 @@
     android:textAppearance="@style/MwmTextAppearance.Body3"
     tools:text="Mo-Fr"/>
 
-  <!-- One or more open shifts, one per line (e.g. "09:00—13:00\n16:00—20:00"). -->
   <TextView
     android:id="@+id/tv__opening_hours_time"
     android:layout_width="0dp"

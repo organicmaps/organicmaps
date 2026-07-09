@@ -1,25 +1,17 @@
 package app.organicmaps.widget.placepage.sections;
 
-import static app.organicmaps.editor.data.TimeFormatUtils.formatWeekdaysRange;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-import app.organicmaps.R;
 import app.organicmaps.sdk.editor.data.Timetable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
-public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningHoursAdapter.ViewHolder>
+
+// Groups per-working-day timetables into the weekly schedule rows shown on the place page.
+public class WeekScheduleBuilder
 {
   private List<WeekScheduleData> mWeekSchedule = Collections.emptyList();
-
-  public PlaceOpeningHoursAdapter() {}
 
   public void setTimetables(Timetable[] timetables, int currentDayOfWeek)
   {
@@ -59,8 +51,12 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
     }
 
     mWeekSchedule = scheduleData;
+  }
 
-    notifyDataSetChanged();
+  @NonNull
+  public List<WeekScheduleData> getWeekSchedule()
+  {
+    return mWeekSchedule;
   }
 
   public static List<Integer> buildWeekByFirstDay(int firstDayOfWeek)
@@ -83,46 +79,6 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
     return null;
   }
 
-  @NonNull
-  @Override
-  public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
-  {
-    return new ViewHolder(
-        LayoutInflater.from(parent.getContext()).inflate(R.layout.place_page_opening_hours_item, parent, false));
-  }
-
-  @Override
-  public void onBindViewHolder(@NonNull ViewHolder holder, int position)
-  {
-    if (mWeekSchedule == null || position >= mWeekSchedule.size() || position < 0)
-      return;
-
-    final WeekScheduleData schedule = mWeekSchedule.get(position);
-
-    holder.setBoldStyle(schedule.isBold);
-    holder.setWeekdays(formatWeekdaysRange(schedule.startWeekDay, schedule.endWeekDay));
-
-    final String openTime;
-    if (schedule.isClosed)
-      openTime = holder.itemView.getResources().getString(R.string.day_off);
-    else if (schedule.timetable.isFullday)
-      openTime = holder.itemView.getResources().getString(R.string.editor_time_allday);
-    else
-    {
-      final String shifts = schedule.timetable.formatOpenShifts("\n");
-      // A working day fully covered by breaks has no open shift; show it as closed.
-      openTime = shifts.isEmpty() ? holder.itemView.getResources().getString(R.string.day_off) : shifts;
-    }
-
-    holder.setOpenTime(openTime);
-  }
-
-  @Override
-  public int getItemCount()
-  {
-    return (mWeekSchedule != null ? mWeekSchedule.size() : 0);
-  }
-
   public static class WeekScheduleData
   {
     public final int startWeekDay;
@@ -138,37 +94,6 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
       this.isClosed = timetable == null;
       this.timetable = timetable;
       this.isBold = isBold;
-    }
-  }
-
-  public static class ViewHolder extends RecyclerView.ViewHolder
-  {
-    private final TextView mWeekdays;
-    private final TextView mOpenTime;
-
-    public ViewHolder(@NonNull View itemView)
-    {
-      super(itemView);
-      mWeekdays = itemView.findViewById(R.id.tv__opening_hours_weekdays);
-      mOpenTime = itemView.findViewById(R.id.tv__opening_hours_time);
-      itemView.setVisibility(View.VISIBLE);
-    }
-
-    public void setBoldStyle(boolean isBold)
-    {
-      final int style = isBold ? R.style.MwmTextAppearance_PlacePage : R.style.MwmTextAppearance_Body3;
-      mWeekdays.setTextAppearance(itemView.getContext(), style);
-      mOpenTime.setTextAppearance(itemView.getContext(), style);
-    }
-
-    public void setWeekdays(String weekdays)
-    {
-      mWeekdays.setText(weekdays);
-    }
-
-    public void setOpenTime(String openTime)
-    {
-      mOpenTime.setText(openTime);
     }
   }
 }

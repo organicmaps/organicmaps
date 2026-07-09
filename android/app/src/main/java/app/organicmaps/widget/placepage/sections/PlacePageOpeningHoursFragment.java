@@ -1,19 +1,24 @@
 package app.organicmaps.widget.placepage.sections;
 
+import static app.organicmaps.editor.data.TimeFormatUtils.formatWeekdaysRange;
+
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
 import app.organicmaps.editor.data.TimeFormatUtils;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
@@ -37,8 +42,8 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
   private TextView mTvSchedulePreviewOpenIndicator;
   private TextView mTvSchedulePreviewDescription;
   private TextView mTvSingleLineOpeningHours;
-  private RecyclerView mFullWeekOpeningHours;
-  private PlaceOpeningHoursAdapter mOpeningHoursAdapter;
+  private LinearLayout mFullWeekOpeningHours;
+  private WeekScheduleBuilder mScheduleBuilder;
   private View dropDownIcon;
   private View mOhContainer;
   private boolean isOhExpanded;
@@ -59,35 +64,19 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
   {
     super.onViewCreated(view, savedInstanceState);
     mFrame = view;
-    mFullWeekOpeningHours = view.findViewById(R.id.rw__full_opening_hours);
+    mFullWeekOpeningHours = view.findViewById(R.id.full_opening_hours);
     mSchedulePreviewContainer = view.findViewById(R.id.schedule_preview_container);
     mTvSchedulePreviewOpenIndicator = view.findViewById(R.id.tv__schedule_preview_open_indicator);
     mTvSchedulePreviewDescription = view.findViewById(R.id.tv__schedule_preview_description);
     mTvSingleLineOpeningHours = view.findViewById(R.id.tv__single_line_opening_hours);
     mDropdownContent = view.findViewById(R.id.dropdown_content);
-    mOpeningHoursAdapter = new PlaceOpeningHoursAdapter();
-    mFullWeekOpeningHours.setAdapter(mOpeningHoursAdapter);
+    mScheduleBuilder = new WeekScheduleBuilder();
     dropDownIcon = view.findViewById(R.id.dropdown_icon);
     mDropdownContent.getLayoutParams().height = 0;
     UiUtils.hide(dropDownIcon);
     isOhExpanded = false;
     mOhContainer = mFrame.findViewById(R.id.oh_container);
-    var touchListener = new RecyclerView.OnItemTouchListener() {
-      @Override
-      public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e)
-      {
-        if (e.getAction() == MotionEvent.ACTION_UP)
-          expandOpeningHours();
-        return false;
-      }
-      @Override
-      public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e)
-      {}
-      @Override
-      public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept)
-      {}
-    };
-    mFullWeekOpeningHours.addOnItemTouchListener(touchListener);
+    mFullWeekOpeningHours.setOnClickListener(v -> expandOpeningHours());
   }
 
   private void refreshOpeningHours(MapObject mapObject)
@@ -136,10 +125,49 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
       {
         UiUtils.show(mFullWeekOpeningHours);
         int currentDayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-        mOpeningHoursAdapter.setTimetables(timetables, currentDayOfWeek);
+        mScheduleBuilder.setTimetables(timetables, currentDayOfWeek);
+        populateWeekSchedule();
         enableDropdownContent();
       }
     }
+  }
+
+  private void populateWeekSchedule()
+  {
+    mFullWeekOpeningHours.removeAllViews();
+    final LayoutInflater inflater = LayoutInflater.from(requireContext());
+    for (final WeekScheduleBuilder.WeekScheduleData schedule : mScheduleBuilder.getWeekSchedule())
+    {
+      final View row = inflater.inflate(R.layout.place_page_opening_hours_item, mFullWeekOpeningHours, false);
+      bindScheduleRow(row, schedule);
+      mFullWeekOpeningHours.addView(row);
+    }
+  }
+
+  private void bindScheduleRow(@NonNull View row, @NonNull WeekScheduleBuilder.WeekScheduleData schedule)
+  {
+    final TextView weekdays = row.findViewById(R.id.tv__opening_hours_weekdays);
+    final TextView openTime = row.findViewById(R.id.tv__opening_hours_time);
+
+    final int style = schedule.isBold ? R.style.MwmTextAppearance_PlacePage : R.style.MwmTextAppearance_Body3;
+    TextViewCompat.setTextAppearance(weekdays, style);
+    TextViewCompat.setTextAppearance(openTime, style);
+
+    weekdays.setText(formatWeekdaysRange(schedule.startWeekDay, schedule.endWeekDay));
+    openTime.setText(formatOpenTime(schedule));
+  }
+
+  @NonNull
+  private String formatOpenTime(@NonNull WeekScheduleBuilder.WeekScheduleData schedule)
+  {
+    final Resources res = getResources();
+    if (schedule.isClosed)
+      return res.getString(R.string.day_off);
+    if (schedule.timetable.isFullday)
+      return res.getString(R.string.editor_time_allday);
+
+    final String shifts = schedule.timetable.formatOpenShifts("\n");
+    return shifts.isEmpty() ? res.getString(R.string.day_off) : shifts;
   }
 
   private void expandOpeningHours()
@@ -149,13 +177,13 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     {
       UiUtils.show(mDropdownContent);
       startHeight = 0;
-      targetHeight = getDropdownContentHeight();
+      targetHeight = measureDropdownContentHeight();
       dropDownIcon.animate().rotation(-180f).setDuration(200).start();
       isOhExpanded = true;
     }
     else
     {
-      startHeight = getDropdownContentHeight();
+      startHeight = measureDropdownContentHeight();
       targetHeight = 0;
       dropDownIcon.animate().rotation(0f).setDuration(200).start();
       isOhExpanded = false;
@@ -166,10 +194,32 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     va.addUpdateListener(animation -> {
       mDropdownContent.getLayoutParams().height = (int) animation.getAnimatedValue();
       mDropdownContent.requestLayout();
-      if (mFrame.getParent() instanceof View)
-        ((View) mFrame.getParent()).requestLayout();
+      requestParentLayout();
     });
+    // Snap to wrap_content once expanded: the measured height can fall short and there is no inner scroll.
+    if (isOhExpanded)
+      va.addListener(new AnimatorListenerAdapter() {
+        @Override
+        public void onAnimationEnd(Animator animation)
+        {
+          if (isOhExpanded)
+            setDropdownContentWrapHeight();
+        }
+      });
     va.start();
+  }
+
+  private void setDropdownContentWrapHeight()
+  {
+    mDropdownContent.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
+    mDropdownContent.requestLayout();
+    requestParentLayout();
+  }
+
+  private void requestParentLayout()
+  {
+    if (mFrame.getParent() instanceof View)
+      ((View) mFrame.getParent()).requestLayout();
   }
 
   @Override
@@ -204,6 +254,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     UiUtils.hide(mDropdownContent);
     UiUtils.hide(mTvSingleLineOpeningHours);
     UiUtils.hide(mFullWeekOpeningHours);
+    mFullWeekOpeningHours.removeAllViews();
   }
 
   private void enableDropdownContent()
@@ -213,19 +264,14 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     mOhContainer.setOnClickListener((v) -> expandOpeningHours());
 
     if (isOhExpanded)
-    {
-      mDropdownContent.getLayoutParams().height = getDropdownContentHeight();
-      mDropdownContent.requestLayout();
-    }
+      setDropdownContentWrapHeight();
   }
 
-  private int getDropdownContentHeight()
+  // Measure at the dropdown's own width so multi-line shifts wrap exactly as they render.
+  private int measureDropdownContentHeight()
   {
-    // request a layout with dropdown content at its full size to make sure mFrame.getWidth() returns the right result
-    mDropdownContent.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
-    mFrame.requestLayout();
-
-    mDropdownContent.measure(View.MeasureSpec.makeMeasureSpec(mFrame.getWidth(), View.MeasureSpec.EXACTLY),
+    final int width = mDropdownContent.getWidth() > 0 ? mDropdownContent.getWidth() : mFrame.getWidth();
+    mDropdownContent.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
                              View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
     return mDropdownContent.getMeasuredHeight();
   }
