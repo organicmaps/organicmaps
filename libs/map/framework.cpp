@@ -1517,7 +1517,16 @@ void Framework::HideRouteTransitIfNeeded()
     return;
 
   m_drapeEngine->HideRouteTransit();
-  m_drapeEngine->EnableTransitScheme(false);
+
+  // Keep the user's subway/transit-scheme layer visible after previewing a route. The layer
+  // returns on its own: the render gate stays enabled and the real-MwmId scheme data was never
+  // wiped (the route lives under the sentinel MwmId{}), so the frontend re-collects the scheme
+  // overlays once the route data is gone. Disabling here would clear the builder instead;
+  // Invalidate() is only a safety refresh in case the viewport's MWMs changed during the preview.
+  if (m_transitManager.IsSchemeMode())
+    m_transitManager.Invalidate();
+  else
+    m_drapeEngine->EnableTransitScheme(false);
 }
 
 void Framework::UpdateViewport(search::Results const & results)
