@@ -107,6 +107,7 @@ public:
   bool GetTransitDisplayInfo(TransitDisplayInfos & transitDisplayInfos);
 
   void EnableTransitSchemeMode(bool enable);
+  bool IsSchemeMode() const { return m_isSchemeMode; }
   void BlockTransitSchemeMode(bool isBlocked);
   void UpdateViewport(ScreenBase const & screen);
 
