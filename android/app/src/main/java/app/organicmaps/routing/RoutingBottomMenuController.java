@@ -16,7 +16,6 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 import android.view.View;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
@@ -283,8 +282,6 @@ final class RoutingBottomMenuController
     UiUtils.show(transit_time, mTransitRecyclerView);
     mTransitAdapter.setItems(info.getTransitSteps());
 
-    scrollToBottom(mTransitRecyclerView);
-
     TextView totalTimeView = mAltitudeChartFrame.findViewById(R.id.total_time);
     totalTimeView.setText(Utils.formatRoutingTime(mContext, info.getTotalTime(), R.dimen.text_size_routing_number));
     View dotView = mAltitudeChartFrame.findViewById(R.id.dot);
@@ -308,8 +305,6 @@ final class RoutingBottomMenuController
     {
       UiUtils.show(mTransitRecyclerView);
       mTransitAdapter.setItems(pointsToRulerSteps(points));
-
-      scrollToBottom(mTransitRecyclerView);
     }
     else
       UiUtils.hide(mTransitRecyclerView); // Show only distance between start and finish
@@ -453,14 +448,6 @@ final class RoutingBottomMenuController
       String arrivalTime = Utils.formatArrivalTime(rinfo.totalTimeInSeconds);
       mArrival.setText(arrivalTime);
     }
-  }
-
-  // Scroll RecyclerView to bottom using parent ScrollView.
-  private static void scrollToBottom(RecyclerView rv)
-  {
-    final ScrollView parentScroll = (ScrollView) rv.getParent();
-    if (parentScroll != null)
-      parentScroll.postDelayed(() -> parentScroll.fullScroll(ScrollView.FOCUS_DOWN), 100);
   }
 
   @NonNull

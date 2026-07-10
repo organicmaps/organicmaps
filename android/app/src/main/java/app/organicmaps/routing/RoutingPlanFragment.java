@@ -41,6 +41,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
 
   private RoutingPlanViewModel mViewModel;
   private View mChartPanel;
+  private View mTransitStepsView;
   private ChartHeaderAdapter mChartHeaderAdapter;
   private View mDrivingOptionsBtn;
   private View mFrame;
@@ -120,10 +121,11 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
 
     mRoutingBottomMenuController =
         RoutingBottomMenuController.newInstance(requireActivity(), mFrame, mChartPanel, mChartHeaderAdapter, this);
-    mRoutingBottomMenuController.setVisibilityChangedCallback(this::updateMapButtonsOffset);
+    mRoutingBottomMenuController.setVisibilityChangedCallback(this::updateSheetLayout);
     mRoutingRoot = view.findViewById(R.id.routing_root);
     mRoutingBottomContainer = view.findViewById(R.id.routing_bottom_container);
 
+    mTransitStepsView = mChartPanel.findViewById(R.id.transit_recycler_view);
     mDrivingOptionsBadge = mChartPanel.findViewById(R.id.driving_options_badge);
     mDrivingOptionsBtn = mChartPanel.findViewById(R.id.driving_options_btn_img);
     mDrivingOptionsBtn.setOnClickListener(
@@ -267,18 +269,28 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     }
   }
 
-  public void updateMapButtonsOffset()
+  public void updateSheetLayout()
   {
     if (mFrame.getTop() == 0)
       return;
-    // mChartPanel lives inside the route list (ConcatAdapter header), so it reports a real height once the
-    // RecyclerView has measured its first pass. Falling back to 0 keeps peek-height sensible on early calls.
-    final int chartHeight = mChartPanel.getHeight();
-    final int newPeekHeight =
-        mRoutingTypesContainer.getHeight() + chartHeight + mBottomButtonsMaxHeight + mPeekHeightMargins;
-    mSheetBehavior.setPeekHeight(newPeekHeight);
+    updateSheetHeights();
     final int newDistanceTop = mFrame.getTop();
     mViewModel.setRoutingBottomDistanceToTop(newDistanceTop);
+  }
+
+  private void updateSheetHeights()
+  {
+    final View parent = (View) mFrame.getParent();
+    final int parentHeight = parent == null ? 0 : parent.getHeight();
+    if (parentHeight > 0)
+      mSheetBehavior.setMaxHeight(parentHeight);
+    // Peek excludes the scrollable steps/list: it ends at the steps' top (or the full header when there are
+    // none), while setMaxHeight caps a long list to scroll inside the sheet instead of covering the map.
+    final boolean stepsVisible = mTransitStepsView.getVisibility() == View.VISIBLE;
+    final int chartHeader = stepsVisible ? mTransitStepsView.getTop() : mChartPanel.getHeight();
+    final int peekHeight =
+        mRoutingTypesContainer.getHeight() + chartHeader + mBottomButtonsMaxHeight + mPeekHeightMargins;
+    mSheetBehavior.setPeekHeight(peekHeight);
   }
 
   private void setupRouterButtons()
@@ -395,7 +407,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight,
                              int oldBottom)
   {
-    updateMapButtonsOffset();
+    updateSheetLayout();
   }
 
   @Override
