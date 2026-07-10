@@ -272,7 +272,7 @@ void DataSource::ForEachInScale(FeatureCallback const & f, int scale) const
   ForEachInIntervals(readFunctor, covering::FullCover, m2::RectD::GetInfiniteRect(), scale);
 }
 
-void DataSource::ForEachInCoveringForMWM(FeatureCallback const & f, covering::Covering & covering, int scale,
+void DataSource::ForEachInCoveringForMWM(FeatureCallback const & f, covering::AggCovering & covering, int scale,
                                          MwmId const & id) const
 {
   MwmHandle const handle = GetMwmHandleById(id);

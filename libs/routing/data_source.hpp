@@ -105,7 +105,7 @@ public:
 
   // Scans features of a single MWM covered by the aggregated |covering| (built at GetUpperScale()).
   template <class FnT>
-  void ForEachInCovering(FnT && fn, covering::Covering & covering, MwmSet::MwmId const & mwmId)
+  void ForEachInCovering(FnT && fn, covering::AggCovering & covering, MwmSet::MwmId const & mwmId)
   {
     m_dataSource.ForEachInCoveringForMWM(fn, covering, scales::GetUpperScale(), mwmId);
   }

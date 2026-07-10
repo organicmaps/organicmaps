@@ -33,11 +33,12 @@ Intervals SortAndMergeIntervals(Intervals intervals);
 template <int DEPTH_LEVELS>
 m2::CellId<DEPTH_LEVELS> GetRectIdAsIs(m2::RectD const & r)
 {
-  double const eps = kMwmPointAccuracy;
   using Converter = CellIdConverter<mercator::Bounds, m2::CellId<DEPTH_LEVELS>>;
 
-  return Converter::Cover2PointsWithCell(mercator::ClampX(r.minX() + eps), mercator::ClampY(r.minY() + eps),
-                                         mercator::ClampX(r.maxX() - eps), mercator::ClampY(r.maxY() - eps));
+  using namespace mercator;
+  double constexpr eps = kMwmPointAccuracy;
+  return Converter::Cover2PointsWithCell(ClampX(r.minX() + eps), ClampY(r.minY() + eps), ClampX(r.maxX() - eps),
+                                         ClampY(r.maxY() - eps));
 }
 
 // Calculate cell coding depth according to max visual scale for mwm.
@@ -108,13 +109,13 @@ public:
 // added rects instead of one big bounding rect. Mirrors CoveringGetter's Get()/GetRect() interface,
 // so the same MWM-reading path can consume either.
 // Only ViewportWithLowLevels semantics are supported - the meaningful mode for multi-rect queries.
-class Covering
+class AggCovering
 {
 public:
   // |scale| is the geometry coding scale at which the cell intervals are built - typically the
   // target MWM's last coding scale (scales::GetUpperScale() for country MWMs).
   /// @todo Pass the MWM type (World, WorldCoasts, Country).
-  explicit Covering(int scale) : m_cellDepth(GetCodingDepth<RectId::DEPTH_LEVELS>(scale)) {}
+  explicit AggCovering(int scale) : m_cellDepth(GetCodingDepth<RectId::DEPTH_LEVELS>(scale)) {}
 
   // Covers |rect| and appends its intervals to the accumulated set (sorted/merged lazily in Get()).
   void Add(m2::RectD const & rect);
