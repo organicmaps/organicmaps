@@ -905,4 +905,6 @@
     <string name="color_picker_grid">Rooster</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Stemsoektog</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Tussenstop %1$d</string>
 </resources>
