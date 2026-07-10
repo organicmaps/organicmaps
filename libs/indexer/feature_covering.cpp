@@ -213,7 +213,7 @@ Intervals const & CoveringGetter::Get(int scale)
   return m_res[ind];
 }
 
-void Covering::Add(m2::RectD const & rect)
+void AggCovering::Add(m2::RectD const & rect)
 {
   ASSERT(rect.IsValid(), ());
   m_unionRect.Add(rect);
@@ -224,7 +224,7 @@ void Covering::Add(m2::RectD const & rect)
   m_sorted = false;
 }
 
-Intervals const & Covering::Get(int /* scale */)
+Intervals const & AggCovering::Get(int /* scale */)
 {
   if (!m_sorted)
   {

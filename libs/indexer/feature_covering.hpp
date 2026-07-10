@@ -108,13 +108,13 @@ public:
 // added rects instead of one big bounding rect. Mirrors CoveringGetter's Get()/GetRect() interface,
 // so the same MWM-reading path can consume either.
 // Only ViewportWithLowLevels semantics are supported - the meaningful mode for multi-rect queries.
-class Covering
+class AggCovering
 {
 public:
   // |scale| is the geometry coding scale at which the cell intervals are built - typically the
   // target MWM's last coding scale (scales::GetUpperScale() for country MWMs).
   /// @todo Pass the MWM type (World, WorldCoasts, Country).
-  explicit Covering(int scale) : m_cellDepth(GetCodingDepth<RectId::DEPTH_LEVELS>(scale)) {}
+  explicit AggCovering(int scale) : m_cellDepth(GetCodingDepth<RectId::DEPTH_LEVELS>(scale)) {}
 
   // Covers |rect| and appends its intervals to the accumulated set (sorted/merged lazily in Get()).
   void Add(m2::RectD const & rect);

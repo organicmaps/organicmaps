@@ -8,7 +8,7 @@
 
 namespace feature_covering_test
 {
-using covering::Covering;
+using covering::AggCovering;
 using covering::CoveringGetter;
 using covering::Intervals;
 
