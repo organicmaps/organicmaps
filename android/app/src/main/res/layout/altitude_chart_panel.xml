@@ -11,6 +11,7 @@
   android:orientation="vertical"
   android:paddingStart="@dimen/altitude_chart_container_padding_left"
   android:paddingEnd="@dimen/altitude_chart_container_padding_left"
+  android:paddingBottom="@dimen/margin_half_plus"
   tools:showIn="@layout/routing_bottom_sheet">
 
   <LinearLayout
@@ -178,23 +179,12 @@
 
   </LinearLayout>
 
-  <ScrollView
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/transit_recycler_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="12dp"
-    android:scrollbarAlwaysDrawVerticalTrack="true"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHeight_max="150dp"
-    app:layout_constraintHorizontal_bias="0.0"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/total_time">
-
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/transit_recycler_view"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:visibility="gone"
-      tools:visibility="visible" />
-  </ScrollView>
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_half_plus"
+    android:visibility="gone"
+    tools:visibility="visible" />
 
 </LinearLayout>
