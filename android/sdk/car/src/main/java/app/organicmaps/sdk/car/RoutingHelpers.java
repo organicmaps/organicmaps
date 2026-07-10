@@ -7,6 +7,7 @@ import androidx.car.app.model.Distance;
 import androidx.car.app.navigation.model.LaneDirection;
 import androidx.car.app.navigation.model.Maneuver;
 import androidx.core.graphics.drawable.IconCompat;
+import app.organicmaps.sdk.CountryMetadata;
 import app.organicmaps.sdk.routing.CarDirection;
 import app.organicmaps.sdk.routing.LaneWay;
 
@@ -51,7 +52,7 @@ public final class RoutingHelpers
 
   @NonNull
   public static Maneuver createManeuver(@NonNull final CarContext context, @NonNull CarDirection carDirection,
-                                        int roundaboutExitNum)
+                                        int roundaboutExitNum, @NonNull CountryMetadata.DrivingSide drivingSide)
   {
     final int maneuverType = switch (carDirection)
     {
@@ -64,8 +65,13 @@ public final class RoutingHelpers
       case TurnSlightLeft -> Maneuver.TYPE_TURN_SLIGHT_LEFT;
       case UTurnLeft -> Maneuver.TYPE_U_TURN_LEFT;
       case UTurnRight -> Maneuver.TYPE_U_TURN_RIGHT;
-      // TODO (AndrewShkrob): add support for CW (clockwise) directions
-      case EnterRoundAbout, LeaveRoundAbout, StayOnRoundAbout -> Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CCW;
+      case EnterRoundAbout, LeaveRoundAbout, StayOnRoundAbout ->
+      {
+        if (drivingSide == CountryMetadata.DrivingSide.Right)
+          yield Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CCW;
+        else
+          yield Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CW;
+      }
       case StartAtEndOfStreet -> Maneuver.TYPE_DEPART;
       case ReachedYourDestination -> Maneuver.TYPE_DESTINATION;
       case ExitHighwayToLeft -> Maneuver.TYPE_OFF_RAMP_SLIGHT_LEFT;

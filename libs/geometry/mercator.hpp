@@ -91,11 +91,11 @@ inline double LonToX(double lon)
   return lon;
 }
 
-inline double MetersToMercator(double meters)
+constexpr double MetersToMercator(double meters)
 {
   return meters * Bounds::kDegreesInMeter;
 }
-inline double MercatorToMeters(double mercator)
+constexpr double MercatorToMeters(double mercator)
 {
   return mercator * Bounds::kMetersInDegree;
 }
