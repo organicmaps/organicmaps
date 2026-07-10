@@ -864,4 +864,6 @@
     <string name="color_picker_grid">ຕາຂ່າຍ</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">ຄົ້ນຫາດ້ວຍສຽງ</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">ຈຸດແວ່ພັກ %1$d</string>
 </resources>
