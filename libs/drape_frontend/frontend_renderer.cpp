@@ -1842,6 +1842,15 @@ void FrontendRenderer::RenderFrame()
   m_frameData.m_framesFast += static_cast<uint64_t>(!isActiveFrameForScene);
 #endif
 
+  // Rendering may have been disabled (e.g. the app is going to the background) after we passed the guard before
+  // BeginRendering and already started the frame. Abandon it before the expensive RenderScene + Present, which can
+  // stall for seconds while the surface is being torn down and would block the UI thread waiting in
+  // Framework::DetachSurface. Restricted to OpenGL ES: there BeginRendering/EndRendering are no-ops, so an early
+  // return needs no frame-scope balancing. Vulkan already guards its in-flight frame inside BeginRendering/Present
+  // (present-availability flag + fence timeouts) and forbids ending a frame without an active render pass.
+  if (m_apiVersion == dp::ApiVersion::OpenGLES3 && !IsRenderingEnabled())
+    return;
+
   RenderScene(modelView, isActiveFrameForScene);
 
   if (m_renderInjectionHandler)
