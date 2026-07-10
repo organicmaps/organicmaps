@@ -38,9 +38,9 @@ public:
   void ForEachInScale(FeatureCallback const & f, int scale) const;
 
   // Like ForEachInRectForMWM, but reads features of a single MWM covered by an aggregated multi-rect
-  // |covering| (see covering::Covering) instead of a single rect, to avoid one large bounding-rect
-  // query. |covering| must have been built at the MWM's coding scale (see covering::Covering).
-  void ForEachInCoveringForMWM(FeatureCallback const & f, covering::Covering & covering, int scale,
+  // |covering| (see covering::AggCovering) instead of a single rect, to avoid one large bounding-rect
+  // query. |covering| must have been built at the MWM's coding scale (see covering::AggCovering).
+  void ForEachInCoveringForMWM(FeatureCallback const & f, covering::AggCovering & covering, int scale,
                                MwmId const & id) const;
   void ForEachInRectForMWM(FeatureCallback const & f, m2::RectD const & rect, int scale, MwmId const & id) const;
 

@@ -656,7 +656,16 @@ void RoutingManager::CollectRoadPointWarnings(RouteBase const & route, RoadWarni
     auto const markType = checker.GetWarningType(warning.m_type);
     if (markType == RoadWarningMarkType::Count || !IsWarningShownFor(markType, m_currentRouterType))
       continue;
-    roadWarnings[markType].push_back(RoadInfo(warning.m_point, warning.m_featureId));
+
+    // Check for duplicates (from alt routes).
+    RoadInfo const toInsert(warning.m_point, warning.m_featureId);
+    auto & resVec = roadWarnings[markType];
+    if (!base::IsExistIf(resVec, [&toInsert](RoadInfo const & ri)
+    {
+      return ri.m_featureId == toInsert.m_featureId &&
+             ri.m_startPoint.EqualDxDy(toInsert.m_startPoint, kMwmPointAccuracy);
+    }))
+      resVec.push_back(toInsert);
   }
 }
 

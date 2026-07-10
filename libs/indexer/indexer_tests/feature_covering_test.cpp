@@ -8,13 +8,12 @@
 
 namespace feature_covering_test
 {
-using covering::Covering;
-using covering::CoveringGetter;
-using covering::Intervals;
+using namespace covering;
+using namespace mercator;
 
 Intervals GetterIntervals(m2::RectD const & r, int scale)
 {
-  CoveringGetter g(r, covering::ViewportWithLowLevels);
+  CoveringGetter g(r, ViewportWithLowLevels);
   return g.Get(scale);
 }
 
@@ -41,11 +40,11 @@ void TestSortedAndDisjoint(Intervals const & v)
 // so existing single-rect queries can migrate to Covering without any behaviour change.
 UNIT_TEST(Covering_SingleRectEqualsCoveringGetter)
 {
-  auto const r = mercator::RectByCenterXYAndSizeInMeters(mercator::FromLatLon(55.75, 37.62), 100.0);
+  auto const r = RectByCenterXYAndSizeInMeters(FromLatLon(55.75, 37.62), 100.0);
   // Equivalence must hold at any coding scale (deepest and a shallower one).
   for (int const scale : {scales::GetUpperScale(), scales::GetUpperScale() - 3})
   {
-    Covering cov(scale);
+    AggCovering cov(scale);
     cov.Add(r);
     TEST_EQUAL(cov.Get(scale), GetterIntervals(r, scale), (scale));
   }
@@ -53,11 +52,11 @@ UNIT_TEST(Covering_SingleRectEqualsCoveringGetter)
 
 UNIT_TEST(Covering_UnionOfRects)
 {
-  auto const r1 = mercator::RectByCenterXYAndSizeInMeters(mercator::FromLatLon(55.75, 37.62), 100.0);
-  auto const r2 = mercator::RectByCenterXYAndSizeInMeters(mercator::FromLatLon(59.93, 30.33), 100.0);
+  auto const r1 = RectByCenterXYAndSizeInMeters(FromLatLon(55.75, 37.62), 100.0);
+  auto const r2 = RectByCenterXYAndSizeInMeters(FromLatLon(59.93, 30.33), 100.0);
   int const scale = scales::GetUpperScale();
 
-  Covering cov(scale);
+  AggCovering cov(scale);
   cov.Add(r1);
   cov.Add(r2);
   auto const & res = cov.Get(scale);
@@ -66,7 +65,7 @@ UNIT_TEST(Covering_UnionOfRects)
   Intervals all = GetterIntervals(r1, scale);
   Intervals const second = GetterIntervals(r2, scale);
   all.insert(all.end(), second.begin(), second.end());
-  TEST_EQUAL(res, covering::SortAndMergeIntervals(all), ());
+  TEST_EQUAL(res, SortAndMergeIntervals(all), ());
 
   TestSortedAndDisjoint(res);
 
@@ -80,11 +79,11 @@ UNIT_TEST(Covering_UnionOfRects)
 // covering their (huge) bounding rect would.
 UNIT_TEST(Covering_AggregatedIsTighterThanBoundingRect)
 {
-  auto const r1 = mercator::RectByCenterXYAndSizeInMeters(mercator::FromLatLon(55.75, 37.62), 100.0);
-  auto const r2 = mercator::RectByCenterXYAndSizeInMeters(mercator::FromLatLon(59.93, 30.33), 100.0);
+  auto const r1 = RectByCenterXYAndSizeInMeters(FromLatLon(55.75, 37.62), 100.0);
+  auto const r2 = RectByCenterXYAndSizeInMeters(FromLatLon(59.93, 30.33), 100.0);
   int const scale = scales::GetUpperScale();
 
-  Covering cov(scale);
+  AggCovering cov(scale);
   cov.Add(r1);
   cov.Add(r2);
 
@@ -97,7 +96,7 @@ UNIT_TEST(Covering_AggregatedIsTighterThanBoundingRect)
 UNIT_TEST(Covering_Empty)
 {
   int const scale = scales::GetUpperScale();
-  Covering cov(scale);
+  AggCovering cov(scale);
   TEST(cov.IsEmpty(), ());
   TEST(cov.Get(scale).empty(), ());
 }

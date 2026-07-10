@@ -222,7 +222,7 @@ std::vector<RouteWarning> CollectRouteWarnings(std::vector<Segment> const & segm
   std::vector<RouteWarning> warnings;
   for (auto const & [mwmId, vertices] : verticesByMwm)
   {
-    covering::Covering covering(scales::GetUpperScale());
+    covering::AggCovering covering(scales::GetUpperScale());
     for (auto const & v : vertices)
       covering.Add(m2::RectD(v, mercator::kPointEqualityEps, mercator::kPointEqualityEps));
 
