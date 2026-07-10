@@ -930,4 +930,6 @@
     <string name="voice_search">Tfittxija bil-vuċi</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Waqqaf u ssejvja</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Waqfa %1$d</string>
 </resources>
