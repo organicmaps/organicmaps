@@ -44671,3 +44671,8 @@ zh-Hant = 網格
 comment = Displayed in the Wear OS app when no navigation is active on the phone.
 tags = android-wear
 en = Open Organic Maps on your phone to start navigation.
+
+[wear_navigation_active_message]
+comment = Displayed in the Wear OS app when navigation is active on the phone.
+tags = android-wear
+en = Navigation is active on your phone.

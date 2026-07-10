@@ -244,6 +244,7 @@ dependencies {
   implementation project(':libs:googleassistant')
   implementation project(':libs:routing')
   implementation project(':libs:utils')
+  implementation project(':libs:wear-protocol')
 
   implementation project(':sdk')
   implementation project(':sdk:car')
@@ -257,6 +258,7 @@ dependencies {
   googleImplementation project(':sdk:location:gms:google')
   huaweiImplementation project(':sdk:location:gms:google')
   fdroidImplementation project(':sdk:location:gms:foss')
+  googleImplementation libs.google.gms.wearable
 
   coreLibraryDesugaring libs.android.tools.desugaring
 
