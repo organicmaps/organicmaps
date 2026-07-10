@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Дължина";
 "share_my_location" = "Споделяне на местоположение";
+"prefs_group_network" = "Мрежа";
 "prefs_group_route" = "Навигация";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Грешка при изпращане на поща";
-
-/* Settings item title */
-"pref_calibration_title" = "Калибриране на компас";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Наличен";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Това име вече е заето";
 "profile" = "Профил в OpenStreetMap";
 "restore" = "Възстановяване";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Поверителност";
 "privacy_policy" = "Политика за поверителност";
 "terms_of_use" = "Условия за ползване";
 

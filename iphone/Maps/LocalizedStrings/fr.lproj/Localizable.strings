@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Longueur";
 "share_my_location" = "Partager ma position";
+"prefs_group_network" = "Réseau";
 "prefs_group_route" = "Navigation";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Erreur d'envoi de courriel";
-
-/* Settings item title */
-"pref_calibration_title" = "Étalonnage de la boussole";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Disponible";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Ce nom est déjà pris";
 "profile" = "Profil OpenStreetMap";
 "restore" = "Restaurer";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Vie privée";
 "privacy_policy" = "Politique de confidentialité";
 "terms_of_use" = "Conditions d'utilisation";
 

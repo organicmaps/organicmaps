@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Uzunluk";
 "share_my_location" = "Konumumu Paylaş";
+"prefs_group_network" = "Ağ";
 "prefs_group_route" = "Navigasyon";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "E-Posta gönderme hatası";
-
-/* Settings item title */
-"pref_calibration_title" = "Pusula kalibrasyonu";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Var";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Bu ad zaten alınmış";
 "profile" = "OpenStreetMap profili";
 "restore" = "Geri al";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Gizlilik";
 "privacy_policy" = "Gizlilik politikası";
 "terms_of_use" = "Kullanım koşulları";
 

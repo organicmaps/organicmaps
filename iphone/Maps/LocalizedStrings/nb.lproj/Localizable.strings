@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Lengde";
 "share_my_location" = "Del posisjonen min";
+"prefs_group_network" = "Nettverk";
 "prefs_group_route" = "Navigasjon";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Feil ved sending av e-post";
-
-/* Settings item title */
-"pref_calibration_title" = "Kompasskalibrering";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Tilgjengelig";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Dette navnet er allerede tatt";
 "profile" = "OpenStreetMap profil";
 "restore" = "Restaurere";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Personvern";
 "privacy_policy" = "Personvernpolitikk";
 "terms_of_use" = "Bruksbetingelser";
 

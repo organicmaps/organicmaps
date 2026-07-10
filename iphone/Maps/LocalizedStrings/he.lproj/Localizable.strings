@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "אורך";
 "share_my_location" = "שיתוף מיקום שלי";
+"prefs_group_network" = "רשת";
 "prefs_group_route" = "ניווט";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "שגיאה בשליחת דוא\"ל";
-
-/* Settings item title */
-"pref_calibration_title" = "כיול המצפן";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "מפות זמינות";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "השם הזה כבר תפוס";
 "profile" = "פרופיל OpenStreetMap";
 "restore" = "שחזור";
+
+/* Settings privacy group in settings screen */
+"privacy" = "פרטיות";
 "privacy_policy" = "מדיניות פרטיות";
 "terms_of_use" = "תנאי שימוש";
 

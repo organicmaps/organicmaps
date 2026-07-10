@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Længde";
 "share_my_location" = "Del min placering";
+"prefs_group_network" = "Netværk";
 "prefs_group_route" = "Navigation";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Mailforsendelsesfejl";
-
-/* Settings item title */
-"pref_calibration_title" = "Kalibrering af kompas";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Tilgængelige";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Dette navn er allerede taget";
 "profile" = "OpenStreetMap profil";
 "restore" = "Gendan";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Privatliv";
 "privacy_policy" = "Privatlivspolitik";
 "terms_of_use" = "Vilkår for bruger";
 

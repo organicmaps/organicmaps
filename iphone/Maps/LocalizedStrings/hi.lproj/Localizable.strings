@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "लंबाई";
 "share_my_location" = "मेरा स्थान साझा करें";
+"prefs_group_network" = "नेटवर्क";
 "prefs_group_route" = "मार्गदर्शन";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "ईमेल भेजने में त्रुटि";
-
-/* Settings item title */
-"pref_calibration_title" = "कम्पास अंशांकन";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "उपलब्ध";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "यह नाम पहले ही ले लिया गया है";
 "profile" = "OpenStreetMap प्रोफ़ाइल";
 "restore" = "पुनर्स्थापित करें";
+
+/* Settings privacy group in settings screen */
+"privacy" = "निजता";
 "privacy_policy" = "गोपनीयता नीति";
 "terms_of_use" = "उपयोग की शर्तें";
 

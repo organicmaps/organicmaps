@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "طول";
 "share_my_location" = "هم‌رسانی موقعیت مکانی من";
+"prefs_group_network" = "شبکه";
 "prefs_group_route" = "مسیریابی";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "خطا در ارسال ایمیل";
-
-/* Settings item title */
-"pref_calibration_title" = "تنظیم کردن قطب نما";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "موجود";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "این اسم قبلا انتخاب شده است";
 "profile" = "نمایه OpenStreetMap";
 "restore" = "بازیابی";
+
+/* Settings privacy group in settings screen */
+"privacy" = "حریم شخصی";
 "privacy_policy" = "سیاست حریم خصوصی";
 "terms_of_use" = "شرایط استفاده";
 

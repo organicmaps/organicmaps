@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Hossz";
 "share_my_location" = "Saját tartózkodási hely megosztása";
+"prefs_group_network" = "Hálózat";
 "prefs_group_route" = "Navigáció";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Hiba az e-mail küldése során";
-
-/* Settings item title */
-"pref_calibration_title" = "Iránytű kalibrálása";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Elérhető";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Ez a név már foglalt";
 "profile" = "OpenStreetMap profil";
 "restore" = "Visszaállítás";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Adatvédelem";
 "privacy_policy" = "Adatvédelmi irányelvek";
 "terms_of_use" = "Felhasználási feltételek";
 
