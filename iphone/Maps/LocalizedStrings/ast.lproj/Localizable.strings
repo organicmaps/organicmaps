@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Llonxitú";
 "share_my_location" = "Compartir el mio allugamientu";
+"prefs_group_network" = "Rede";
 "prefs_group_route" = "Navigation";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Error sending email";
-
-/* Settings item title */
-"pref_calibration_title" = "Calibración de la brúxula";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Available";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "This name is already taken";
 "profile" = "Perfil d’OpenStreetMap";
 "restore" = "Restore";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Privacidá";
 "privacy_policy" = "Privacy policy";
 "terms_of_use" = "Terms of use";
 

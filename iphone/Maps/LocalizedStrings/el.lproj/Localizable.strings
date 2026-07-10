@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Μήκος";
 "share_my_location" = "Κοινοποίηση της τοποθεσίας μου";
+"prefs_group_network" = "Δίκτυο";
 "prefs_group_route" = "Πλοήγηση";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Σφάλμα κατά την αποστολή του e-mail";
-
-/* Settings item title */
-"pref_calibration_title" = "Καλιμπράρισμα πυξίδας";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Διαθέσιμα";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Αυτό το όνομα χρησιμοποιείται ήδη";
 "profile" = "Προφίλ OpenStreetMap";
 "restore" = "Επαναφορά";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Απόρρητο";
 "privacy_policy" = "Πολιτική απορρήτου";
 "terms_of_use" = "Όροι χρήσης";
 

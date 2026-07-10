@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "길이";
 "share_my_location" = "내 위치 공유";
+"prefs_group_network" = "네트워크";
 "prefs_group_route" = "내비게이션";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "메일 전송 중 오류";
-
-/* Settings item title */
-"pref_calibration_title" = "나침반 보정";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "사용 가능";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "이 이름은 이미 사용 중입니다.";
 "profile" = "OpenStreetMap 프로필";
 "restore" = "복원";
+
+/* Settings privacy group in settings screen */
+"privacy" = "개인정보 보호";
 "privacy_policy" = "개인정보 보호 방침";
 "terms_of_use" = "사용 약관";
 

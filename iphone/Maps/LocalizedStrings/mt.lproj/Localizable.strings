@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Tul";
 "share_my_location" = "Ixxerja l-post tiegħi";
+"prefs_group_network" = "Netwerk";
 "prefs_group_route" = "Navigazzjoni";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Żball meta bgħatt e-mejl";
-
-/* Settings item title */
-"pref_calibration_title" = "Kalibrazzjoni tal-boxxla";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Disponibbli";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Dan l-isem diġa meħud";
 "profile" = "Profil ta’ OpenStreetMap";
 "restore" = "Irrestawra";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Privatezza";
 "privacy_policy" = "Politika dwar il-privatezza";
 "terms_of_use" = "Termini tal-użu";
 

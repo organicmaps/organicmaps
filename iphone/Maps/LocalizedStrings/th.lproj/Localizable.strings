@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "ระยะเวลา";
 "share_my_location" = "แชร์ตำแหน่งที่ตั้งของฉัน";
+"prefs_group_network" = "เครือข่าย";
 "prefs_group_route" = "การนำทาง";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "จดหมายที่ส่งเกิดความผิดพลาด";
-
-/* Settings item title */
-"pref_calibration_title" = "การปรับเทียบเข็มทิศ";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "มีให้ใช้";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "ชื่อนี้ถูกนำมาใช้แล้ว";
 "profile" = "โปรไฟล์ OpenStreetMap";
 "restore" = "ฟื้นฟู";
+
+/* Settings privacy group in settings screen */
+"privacy" = "ความเป็นส่วนตัว";
 "privacy_policy" = "นโยบายความเป็นส่วนตัว";
 "terms_of_use" = "ข้อกำหนดในการใช้งาน";
 
