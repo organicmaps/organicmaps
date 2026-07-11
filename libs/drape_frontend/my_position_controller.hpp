@@ -111,7 +111,7 @@ public:
   void StopLocationFollow();
   void NextMode(ScreenBase const & screen);
   void LoseLocation();
-  location::EMyPositionMode GetCurrentMode() const { return m_mode; }
+  location::EMyPositionMode GetCurrentMode() const;
 
   void OnEnterForeground(double backgroundTime);
   void OnEnterBackground();
@@ -133,7 +133,40 @@ public:
   void UpdateRoutingOffsetY(bool useDefault, int offsetY);
 
 private:
-  void ChangeMode(location::EMyPositionMode newMode);
+  // The state is split into three independent axes: whether a position is available, whether
+  // the camera follows the user and how a following camera is rotated. The platform-facing
+  // location::EMyPositionMode is a projection of them, derived in GetCurrentMode().
+  enum class PositionStatus
+  {
+    Stopped,    // Location updates are turned off.
+    Acquiring,  // Waiting for a location fix.
+    Available   // A position is available — from a location fix, or claimed when following starts.
+  };
+
+  enum class CameraTracking
+  {
+    Free,   // The user controls the viewport.
+    Follow  // The camera tracks the user position.
+  };
+
+  enum class CameraRotation
+  {
+    Fixed,       // The map keeps its current azimuth.
+    DirectionUp  // The map rotates after the movement/compass direction.
+  };
+
+  // Named state transitions: each one updates only the axes it owns, then notifies the platforms.
+  // Changing the position status leaves the tracking/rotation axes as they were; reacquisition
+  // re-derives the rotation (fixed outside routing, the preferred one in routing) rather than
+  // restoring the pre-loss rotation.
+  void SetPositionStatus(PositionStatus status);
+  void StartFollowing(CameraRotation rotation);
+  void StopFollowing();
+  void NotifyModeChanged(location::EMyPositionMode oldMode);
+
+  bool IsFollowing() const;
+  bool IsFollowingDirectionUp() const;
+
   void SetDirection(double bearing);
 
   void ChangeModelView(m2::PointD const & center, int zoomLevel);
@@ -160,7 +193,11 @@ private:
 
   ref_ptr<DrapeNotifier> m_notifier;
 
-  location::EMyPositionMode m_mode;
+  PositionStatus m_positionStatus = PositionStatus::Acquiring;
+  CameraTracking m_tracking = CameraTracking::Free;
+  CameraRotation m_rotation = CameraRotation::Fixed;
+  // The mode to adopt when the very first location fix of the session arrives;
+  // it is consumed exactly once in OnLocationUpdate().
   location::EMyPositionMode m_desiredInitMode;
   location::TMyPositionModeChanged m_modeChangeCallback;
   Hints m_hints;
