@@ -13,6 +13,7 @@ import androidx.core.view.ViewCompat;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
 import app.organicmaps.sdk.routing.RoutingOptions;
+import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.settings.RoadType;
 import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
   @NonNull
   private Set<RoadType> mRoadTypes = Collections.emptySet();
   private View mContent;
+  private boolean mInitialStrictAlprsAvoidance;
 
   @Nullable
   @Override
@@ -40,6 +42,7 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     mRoadTypes = savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_ROAD_TYPES)
                    ? makeRouteTypes(savedInstanceState)
                    : RoutingOptions.getActiveRoadTypes();
+    mInitialStrictAlprsAvoidance = Config.isStrictAlprsAvoidance();
     return root;
   }
 
@@ -70,7 +73,7 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
   private boolean areSettingsNotChanged()
   {
     Set<RoadType> lastActiveRoadTypes = RoutingOptions.getActiveRoadTypes();
-    return mRoadTypes.equals(lastActiveRoadTypes);
+    return mRoadTypes.equals(lastActiveRoadTypes) && mInitialStrictAlprsAvoidance == Config.isStrictAlprsAvoidance();
   }
 
   @Override
@@ -112,6 +115,26 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     dirtyRoadsBtn.setChecked(RoutingOptions.hasOption(RoadType.Dirty));
     CompoundButton.OnCheckedChangeListener dirtyBtnListener = new ToggleRoutingOptionListener(RoadType.Dirty);
     dirtyRoadsBtn.setOnCheckedChangeListener(dirtyBtnListener);
+
+    SwitchCompat alprsBtn = root.findViewById(R.id.avoid_alprs_btn);
+    alprsBtn.setChecked(RoutingOptions.hasOption(RoadType.ALPR));
+
+    final View strictContainer = root.findViewById(R.id.strict_avoidance_container);
+    strictContainer.setVisibility(alprsBtn.isChecked() ? View.VISIBLE : View.GONE);
+
+    alprsBtn.setOnCheckedChangeListener((buttonView, isChecked) -> {
+      if (isChecked)
+        RoutingOptions.addOption(RoadType.ALPR);
+      else
+        RoutingOptions.removeOption(RoadType.ALPR);
+      strictContainer.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+    });
+
+    SwitchCompat strictBtn = root.findViewById(R.id.strict_alprs_btn);
+    strictBtn.setChecked(Config.isStrictAlprsAvoidance());
+    strictBtn.setOnCheckedChangeListener((buttonView, isChecked) -> {
+      Config.setStrictAlprsAvoidance(isChecked);
+    });
   }
 
   private static class ToggleRoutingOptionListener implements CompoundButton.OnCheckedChangeListener

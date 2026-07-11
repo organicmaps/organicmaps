@@ -12,18 +12,26 @@
 #include "routing/road_access.hpp"
 #include "routing/road_index.hpp"
 #include "routing/road_point.hpp"
-#include "routing/routing_options.hpp"
+#include "routing/route.hpp"
 #include "routing/segment.hpp"
 
 #include "base/buffer_vector.hpp"
 
+#include <map>
 #include <memory>
 #include <optional>
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
+
+#include <set>
+#include <mutex>
 
 namespace routing
 {
+extern std::mutex g_dynamicAlprsMutex;
+extern std::set<RoadPoint> g_dynamicBlockedAlprs;
+
 bool IsUTurn(Segment const & u, Segment const & v);
 
 enum class WorldGraphMode;
@@ -89,6 +97,7 @@ public:
   void SetRestrictions(RestrictionVec && restrictions);
   void SetUTurnRestrictions(std::vector<RestrictionUTurn> && noUTurnRestrictions);
   void SetRoadAccess(RoadAccess && roadAccess);
+  void SetSpeedCameras(std::map<RoadPoint, std::vector<RouteSegment::SpeedCamera>> const & cameras);
 
   void PushFromSerializer(Joint::Id jointId, RoadPoint const & rp) { m_roadIndex.PushFromSerializer(jointId, rp); }
 
@@ -204,6 +213,7 @@ private:
 
   RoadAccess m_roadAccess;
   RoutingOptions m_avoidRoutingOptions;
+  std::unordered_set<RoadPoint, RoadPoint::Hash> m_alprSegments;
 
   std::function<time_t()> m_currentTimeGetter = []() { return GetCurrentTimestamp(); };
 };

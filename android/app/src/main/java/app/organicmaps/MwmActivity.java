@@ -1368,6 +1368,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Logger.i(TAG, "Driving options warning: the built route uses roads that could be avoided");
   }
 
+  @Override
+  public void onRouteHasAlprs()
+  {
+    Toast.makeText(this, getString(R.string.driving_options_warning_alprs), Toast.LENGTH_LONG).show();
+  }
+
   public boolean showRoutingDisclaimer()
   {
     if (Config.isRoutingDisclaimerAccepted())

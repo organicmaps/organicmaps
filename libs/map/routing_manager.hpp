@@ -107,6 +107,7 @@ public:
     // after restoring route points from file. In this case we can
     // rebuild route using "my position".
     RebuildAfterPointsLoading = 0,
+    HasAlprs = 1,
   };
   using RouteRecommendCallback = std::function<void(Recommendation)>;
 
@@ -316,6 +317,7 @@ private:
   // Point warnings (gate/lift_gate): barrier features sitting exactly on a route vertex.
   void CollectRoadPointWarnings(std::vector<routing::RouteSegment> const & segments, m2::PointD const & startPt,
                                 RoadWarningsCollection & roadWarnings);
+  void ShowAlprsNearRoute(std::vector<routing::RouteSegment> const & segments, m2::PointD const & startPt);
   void CreateRoadWarningMarks(RoadWarningsCollection && roadWarnings);
 
   // Creates an ETA balloon (RouteAltMark) at the midpoint of each route variant in |result|.

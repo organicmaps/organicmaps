@@ -6,5 +6,7 @@ public enum RoadType
   Toll,
   Motorway,
   Ferry,
-  Dirty
+  Dirty,
+  Steps,
+  ALPR
 }

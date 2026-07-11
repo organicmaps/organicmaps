@@ -109,5 +109,51 @@
       android:padding="@dimen/margin_half_double_plus"
       android:layout_height="match_parent"/>
   </LinearLayout>
+  <include layout="@layout/list_divider"/>
+  <LinearLayout
+    android:orientation="horizontal"
+    android:minHeight="@dimen/height_block_base"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingEnd="@dimen/margin_base"
+    android:paddingStart="@dimen/margin_base">
+    <TextView
+      android:text="@string/avoid_alprs"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:layout_width="0dp"
+      android:layout_weight="1"
+      android:layout_gravity="center_vertical"
+      android:layout_height="wrap_content"
+      android:textColor="?android:attr/textColorPrimary"/>
+    <androidx.appcompat.widget.SwitchCompat
+      android:id="@+id/avoid_alprs_btn"
+      android:layout_width="wrap_content"
+      android:padding="@dimen/margin_half_double_plus"
+      android:layout_height="match_parent"/>
+  </LinearLayout>
+  <!-- ALPR strict avoidance (detours) option -->
+  <LinearLayout
+    android:id="@+id/strict_avoidance_container"
+    android:orientation="horizontal"
+    android:minHeight="@dimen/height_block_base"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingEnd="@dimen/margin_base"
+    android:paddingStart="@dimen/margin_double"
+    android:visibility="gone">
+    <TextView
+      android:text="@string/strict_alprs_avoidance"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:layout_width="0dp"
+      android:layout_weight="1"
+      android:layout_gravity="center_vertical"
+      android:layout_height="wrap_content"
+      android:textColor="?android:attr/textColorPrimary"/>
+    <androidx.appcompat.widget.SwitchCompat
+      android:id="@+id/strict_alprs_btn"
+      android:layout_width="wrap_content"
+      android:padding="@dimen/margin_half_double_plus"
+      android:layout_height="match_parent"/>
+  </LinearLayout>
   </LinearLayout>
 </LinearLayout>

@@ -110,6 +110,7 @@ std::string DebugPrint(RoutingOptions const & routingOptions)
   append(RoutingOptions::Road::Ferry);
   append(RoutingOptions::Road::Dirty);
   append(RoutingOptions::Road::Steps);
+  append(RoutingOptions::Road::ALPR);
 
   if (wasAppended)
     ss << " | ";
@@ -128,6 +129,7 @@ std::string DebugPrint(RoutingOptions::Road type)
   case RoutingOptions::Road::Ferry: return "ferry";
   case RoutingOptions::Road::Dirty: return "dirty";
   case RoutingOptions::Road::Steps: return "steps";
+  case RoutingOptions::Road::ALPR: return "alpr";
   case RoutingOptions::Road::Usual: return "usual";
   case RoutingOptions::Road::Max: return "max";
   }

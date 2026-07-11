@@ -653,12 +653,18 @@ void SpeedCameraMark::SetIndex(uint32_t index)
 
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SpeedCameraMark::GetSymbolNames() const
 {
-  return make_unique_dp<SymbolNameZoomInfo>(m_symbolNames);
+  auto symbolNames = m_symbolNames;
+  if (m_titleDecl.m_primaryText == "ALPR")
+  {
+    symbolNames.clear();
+    symbolNames.insert(std::make_pair(10, "speedcam-alert-l"));
+  }
+  return make_unique_dp<SymbolNameZoomInfo>(symbolNames);
 }
 
 drape_ptr<df::UserPointMark::TitlesInfo> SpeedCameraMark::GetTitleDecl() const
 {
-  if (m_titleDecl.m_primaryText.empty())
+  if (m_titleDecl.m_primaryText.empty() || m_titleDecl.m_primaryText == "ALPR")
     return nullptr;
   auto titleInfo = make_unique_dp<TitlesInfo>();
   titleInfo->push_back(m_titleDecl);
@@ -667,18 +673,23 @@ drape_ptr<df::UserPointMark::TitlesInfo> SpeedCameraMark::GetTitleDecl() const
 
 drape_ptr<df::UserPointMark::ColoredSymbolZoomInfo> SpeedCameraMark::GetColoredSymbols() const
 {
-  if (m_titleDecl.m_primaryText.empty())
+  if (m_titleDecl.m_primaryText.empty() || m_titleDecl.m_primaryText == "ALPR")
     return nullptr;
-  return make_unique_dp<ColoredSymbolZoomInfo>(m_textBg);
+  auto textBg = m_textBg;
+  return make_unique_dp<ColoredSymbolZoomInfo>(textBg);
 }
 
 int SpeedCameraMark::GetMinZoom() const
 {
+  if (m_titleDecl.m_primaryText == "ALPR")
+    return 10;
   return kMinSpeedCameraZoom;
 }
 
 int SpeedCameraMark::GetMinTitleZoom() const
 {
+  if (m_titleDecl.m_primaryText == "ALPR")
+    return 10;
   return kMinSpeedCameraTitleZoom;
 }
 
