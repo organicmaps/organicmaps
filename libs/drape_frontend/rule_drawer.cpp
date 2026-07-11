@@ -1,32 +1,45 @@
 #include "drape_frontend/rule_drawer.hpp"
 
 #include "drape_frontend/apply_feature_functors.hpp"
+#include "drape_frontend/clip_splines_builder.hpp"
 #include "drape_frontend/engine_context.hpp"
+#include "drape_frontend/map_data_provider.hpp"
 #include "drape_frontend/metaline_manager.hpp"
 #include "drape_frontend/traffic_renderer.hpp"
 
+#include "indexer/classificator.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/map_style_reader.hpp"
+#include "indexer/scales.hpp"
+#include "indexer/terrain/terrain_utils.hpp"
+
+#include "coding/point_coding.hpp"
 
 #include "geometry/clipping.hpp"
 #include "geometry/mercator.hpp"
+#include "geometry/robust_orientation.hpp"
 
 #include "base/assert.hpp"
+
+#include "drape_frontend/area_shape.hpp"
+#include "drape_frontend/line_shape.hpp"
+#include "drape_frontend/path_text_shape.hpp"
 
 #ifdef DRAW_TILE_NET
 #include "drape/drape_diagnostics.hpp"
 
-#include "drape_frontend/line_shape.hpp"
 #include "drape_frontend/text_shape.hpp"
 
 #include "base/string_utils.hpp"
 #endif
 
 #include <array>
+#include <cmath>
 #include <functional>
+#include <limits>
 #include <vector>
 
 namespace df
@@ -153,12 +166,13 @@ void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadCla
 }  // namespace
 
 RuleDrawer::RuleDrawer(TCheckCancelledCallback const & checkCancelled, TIsCountryLoadedByNameFn const & isLoadedFn,
-                       ref_ptr<EngineContext> engineContext, int8_t deviceLang)
+                       ref_ptr<EngineContext> engineContext, int8_t deviceLang, bool drawDynamicIsolines)
   : m_checkCancelled(checkCancelled)
   , m_isLoadedFn(isLoadedFn)
   , m_context(engineContext)
   , m_customFeaturesContext(engineContext->GetCustomFeaturesContext().lock())
   , m_deviceLang(deviceLang)
+  , m_drawDynamicIsolines(drawDynamicIsolines)
 {
   ASSERT(m_checkCancelled != nullptr, ());
 
@@ -405,7 +419,7 @@ void RuleDrawer::operator()(FeatureType & f)
     return;
 
   feature::TypesHolder const types(f);
-  if ((!m_context->IsolinesEnabled() && m_isIsoline(types)) ||
+  if (((!m_context->IsolinesEnabled() || m_drawDynamicIsolines) && m_isIsoline(types)) ||
       (!m_context->Is3dBuildingsEnabled() && m_isBuildingPart(types) && !m_isBuilding(types)))
     return;
 
@@ -467,6 +481,312 @@ void RuleDrawer::operator()(FeatureType & f)
 
   if (CheckCancelled())
     return;
+
+  for (auto const & shape : m_mapShapes[df::GeometryType])
+    shape->Prepare(m_context->GetTextureManager());
+
+  if (!m_mapShapes[df::GeometryType].empty())
+  {
+    TMapShapes geomShapes;
+    geomShapes.swap(m_mapShapes[df::GeometryType]);
+    m_context->Flush(std::move(geomShapes));
+  }
+}
+
+void RuleDrawer::DrawTerrainShade(MapDataProvider const & model)
+{
+  if (CheckCancelled())
+    return;
+
+  m2::RectD const & tileRect = m_applyParams.m_tileRect;
+
+  // The shade palette: quantized Lambert intensity mapped to semi-transparent black
+  // (shadows) and white (highlights) blended over the map fills. The colors live in the
+  // dynamic drape palette atlas, so the palette must stay small and fixed.
+  int constexpr kShadowBuckets = 24;
+  int constexpr kHighlightBuckets = 8;
+  uint8_t constexpr kShadowMaxAlpha = 96;
+  uint8_t constexpr kHighlightMaxAlpha = 40;
+  // The light direction (towards the light): azimuth 315 (NW), altitude 45 degrees;
+  // +x = east, +y = north in mercator. Flat ground gets sin(45) intensity, the shade
+  // buckets are relative to it, so the flat ground is not drawn at all.
+  double constexpr kLightX = -0.5, kLightY = 0.5, kLightZ = 0.70710678;
+  double constexpr kFlatIntensity = 0.70710678;
+  double constexpr kExaggeration = 1.0;
+
+  // Ground meters per mercator unit at the tile latitude (the projection is conformal:
+  // the x and y local scales are equal); the altitudes are meters.
+  m2::PointD const center = tileRect.Center();
+  double const zScale =
+      kExaggeration / mercator::DistanceOnEarth({center.x - 0.5, center.y}, {center.x + 0.5, center.y});
+
+  // The bucket index is shifted by kShadowBuckets: [0, kShadowBuckets) are the shadows.
+  std::array<std::vector<m2::PointD>, kShadowBuckets + 1 + kHighlightBuckets> buckets;
+
+  model.ReadTriangles(tileRect, m_zoomLevel, [&](terrain::Triangles const & feature)
+  {
+    if (CheckCancelled())
+      return;
+    for (size_t t = 0; t + 2 < feature.m_triangles.size(); t += 3)
+    {
+      uint32_t const i0 = feature.m_triangles[t];
+      uint32_t const i1 = feature.m_triangles[t + 1];
+      uint32_t const i2 = feature.m_triangles[t + 2];
+      m2::PointD const & p0 = feature.m_points[i0];
+      m2::PointD const & p1 = feature.m_points[i1];
+      m2::PointD const & p2 = feature.m_points[i2];
+
+      // The features overhang the tile: cheap-reject the outside triangles.
+      m2::RectD triRect(p0, p1);
+      triRect.Add(p2);
+      if (!tileRect.IsIntersect(triRect))
+        continue;
+
+      // The upward normal of the CCW triangle, altitudes scaled into mercator units.
+      double const e1x = p1.x - p0.x, e1y = p1.y - p0.y;
+      double const e2x = p2.x - p0.x, e2y = p2.y - p0.y;
+      double const e1z = (feature.m_altitudes[i1] - feature.m_altitudes[i0]) * zScale;
+      double const e2z = (feature.m_altitudes[i2] - feature.m_altitudes[i0]) * zScale;
+      double const nx = e1y * e2z - e1z * e2y;
+      double const ny = e1z * e2x - e1x * e2z;
+      double const nz = e1x * e2y - e1y * e2x;
+      double const len = std::sqrt(nx * nx + ny * ny + nz * nz);
+      if (len < 1e-15)
+        continue;
+      double const intensity = (nx * kLightX + ny * kLightY + nz * kLightZ) / len;
+
+      int bucket;
+      if (intensity < kFlatIntensity)
+        bucket = -static_cast<int>(
+            std::lround((kFlatIntensity - std::max(intensity, 0.0)) / kFlatIntensity * kShadowBuckets));
+      else
+        bucket =
+            static_cast<int>(std::lround((intensity - kFlatIntensity) / (1.0 - kFlatIntensity) * kHighlightBuckets));
+      if (bucket == 0)
+        continue;
+
+      auto & out = buckets[bucket + kShadowBuckets];
+      auto const emit = [&out](m2::PointD const & a, m2::PointD const & b, m2::PointD const & c)
+      {
+        out.push_back(a);
+        out.push_back(b);
+        out.push_back(c);
+      };
+      // Clip to the tile: the alpha layer must not double-blend across the tiles. The
+      // drape areas use the CW winding (cf. ApplyAreaFeature), TWM triangles are CCW.
+      double const orientation = m2::robust::OrientedS(p0, p1, p2);
+      double constexpr kEmptyTriangleS = kMwmPointAccuracy * kMwmPointAccuracy * 0.01;
+      if (fabs(orientation) < kEmptyTriangleS)
+        continue;
+      if (orientation < 0)
+        m2::ClipTriangleByRect(tileRect, p0, p1, p2, emit);
+      else
+        m2::ClipTriangleByRect(tileRect, p0, p2, p1, emit);
+    }
+  });
+
+  if (CheckCancelled())
+    return;
+
+  for (size_t i = 0; i < buckets.size(); ++i)
+  {
+    if (buckets[i].empty())
+      continue;
+
+    int const bucket = static_cast<int>(i) - kShadowBuckets;
+    dp::Color const color =
+        bucket < 0 ? dp::Color(0, 0, 0, static_cast<uint8_t>(kShadowMaxAlpha * -bucket / kShadowBuckets))
+                   : dp::Color(255, 255, 255, static_cast<uint8_t>(kHighlightMaxAlpha * bucket / kHighlightBuckets));
+
+    AreaViewParams params;
+    params.m_tileCenter = tileRect.Center();
+    // Above all the background fills, below the foreground lines; the semi-transparent
+    // color picks the TransparentArea program, which renders after the opaque geometry.
+    params.m_depth = drule::kMinLayeredDepthFg;
+    params.m_color = color;
+    params.m_baseGtoPScale = m_applyParams.m_currentScaleGtoP;
+    m_applyParams.m_insertShape(make_unique_dp<AreaShape>(std::move(buckets[i]), BuildingOutline{}, params));
+  }
+
+  for (auto const & shape : m_mapShapes[df::GeometryType])
+    shape->Prepare(m_context->GetTextureManager());
+
+  if (!m_mapShapes[df::GeometryType].empty())
+  {
+    TMapShapes geomShapes;
+    geomShapes.swap(m_mapShapes[df::GeometryType]);
+    m_context->Flush(std::move(geomShapes));
+  }
+}
+
+void RuleDrawer::DrawDynamicIsolines(MapDataProvider const & model)
+{
+  ASSERT(m_drawDynamicIsolines, ());
+  if (CheckCancelled())
+    return;
+
+  // Resolve the isoline line drules for this zoom, one per step class. The altitude ->
+  // class mapping matches the baked isoline features, see generator/isolines_generator.cpp.
+  static std::array<std::pair<int, char const *>, 5> const kAltClasses = {
+      {{1000, "step_1000"}, {500, "step_500"}, {100, "step_100"}, {50, "step_50"}, {10, "step_10"}}};
+
+  auto const resolveLineRule = [this](char const * subType) -> drule::LineRule const *
+  {
+    auto const & cl = classif();
+    uint32_t const type = cl.GetTypeByPath({"isoline", subType});
+    drule::KeysT keys;
+    cl.GetObject(type)->GetSuitable(m_zoomLevel, feature::GeomType::Line, keys);
+    for (auto const & key : keys)
+      if (key.m_type == drule::line)
+        return drule::GetCurrentRules().Find(key)->GetLine();
+    return nullptr;  // Invisible at this zoom.
+  };
+
+  drule::LineRule const * const zeroRule = resolveLineRule("zero");
+  std::array<drule::LineRule const *, kAltClasses.size()> stepRules;
+  for (size_t i = 0; i < kAltClasses.size(); ++i)
+    stepRules[i] = resolveLineRule(kAltClasses[i].second);
+
+  auto const ruleForAltitude = [&](int altitude) -> drule::LineRule const *
+  {
+    if (altitude == 0)
+      return zeroRule;
+    for (size_t i = 0; i < kAltClasses.size(); ++i)
+      if (altitude % kAltClasses[i].first == 0)
+        return stepRules[i];
+    return nullptr;
+  };
+
+  double const visScale = m_applyParams.m_vparams.GetVisualScale();
+  ClipSplinesBuilder builder(m_applyParams);
+
+  // The inflated rect keeps the smoothing control points beyond the tile edge, so the
+  // smoothed curves continue seamlessly across tiles (see ClipSplinesBuilder::Release).
+  m2::RectD queryRect = m_applyParams.m_tileRect;
+  queryRect.Scale(kIsolineSmoothScale);
+
+  // The altitude labels policy needs the tile relief upfront: buffer the drawn isolines.
+  std::vector<terrain::Isoline> isolines;
+  geometry::Altitude minAltitude = std::numeric_limits<geometry::Altitude>::max();
+  geometry::Altitude maxAltitude = std::numeric_limits<geometry::Altitude>::min();
+  model.ReadIsolines(queryRect, m_zoomLevel, [&](terrain::Isoline && isoline)
+  {
+    if (CheckCancelled() || ruleForAltitude(isoline.m_altitude) == nullptr)
+      return;
+    minAltitude = std::min(minAltitude, isoline.m_altitude);
+    maxAltitude = std::max(maxAltitude, isoline.m_altitude);
+    isolines.push_back(std::move(isoline));
+  });
+  if (CheckCancelled() || isolines.empty())
+    return;
+
+  // Labels ride the isoline pathtext drules (their font and priority are zoom-constant in
+  // the styles), but the density is dynamic: terrain::GetIsolinesLabelStepForZoom picks the
+  // labeled levels from the tile relief, overriding the per-class style zoom gates - a class
+  // whose pathtext is gated to a deeper zoom resolves at the upper style scale instead.
+  auto const labelStep =
+      terrain::GetIsolinesLabelStepForZoom(m_zoomLevel, static_cast<geometry::Altitude>(maxAltitude - minAltitude));
+
+  auto const resolvePathtextRule = [this](char const * subType) -> drule::PathTextRule const *
+  {
+    auto const & cl = classif();
+    uint32_t const type = cl.GetTypeByPath({"isoline", subType});
+    for (int const zoom : {static_cast<int>(m_zoomLevel), scales::GetUpperStyleScale()})
+    {
+      drule::KeysT keys;
+      cl.GetObject(type)->GetSuitable(zoom, feature::GeomType::Line, keys);
+      for (auto const & key : keys)
+      {
+        if (key.m_type != drule::pathtext)
+          continue;
+        auto const * rule = drule::GetCurrentRules().Find(key)->GetPathtext();
+        if (rule != nullptr && rule->primary)
+          return rule;
+      }
+    }
+    return nullptr;  // No isoline labels in this style.
+  };
+
+  drule::PathTextRule const * zeroTextRule = nullptr;
+  std::array<drule::PathTextRule const *, kAltClasses.size()> stepTextRules{};
+  if (labelStep != 0)
+  {
+    zeroTextRule = resolvePathtextRule("zero");
+    for (size_t i = 0; i < kAltClasses.size(); ++i)
+      stepTextRules[i] = resolvePathtextRule(kAltClasses[i].second);
+  }
+
+  auto const textRuleForAltitude = [&](int altitude) -> drule::PathTextRule const *
+  {
+    if (labelStep == 0 || altitude % labelStep != 0)
+      return nullptr;
+    if (altitude == 0)
+      return zeroTextRule;
+    for (size_t i = 0; i < kAltClasses.size(); ++i)
+      if (altitude % kAltClasses[i].first == 0)
+        return stepTextRules[i];
+    return nullptr;
+  };
+
+  // All the dynamic labels of a tile share an invalid FeatureID, so their OverlayID
+  // uniqueness rests entirely on the running text index (cf. kPathTextBaseTextIndex
+  // of the baked path texts); each shape reserves one index per repeated placement.
+  uint32_t textIndex = 128;
+
+  for (auto & isoline : isolines)
+  {
+    if (CheckCancelled())
+      return;
+    auto const * lineRule = ruleForAltitude(isoline.m_altitude);
+    ASSERT(lineRule != nullptr, ());
+    auto const * textRule = textRuleForAltitude(isoline.m_altitude);
+
+    builder.SetPath(std::move(isoline.m_points));
+    for (auto const & spline : builder.Release(true /* isIsoline */))
+    {
+      LineViewParams params;
+      params.m_tileCenter = m_applyParams.m_tileRect.Center();
+      ExtractLineParams(*lineRule, visScale, params);
+      // TEST MODE: depth contours (negative altitudes, the bathymetry experiment) go blue,
+      // keeping the width and the class alpha of the land isoline drules.
+      if (isoline.m_altitude < 0)
+        params.m_color = dp::Color(38, 118, 196, params.m_color.GetAlpha());
+      // Isoline drules are FG lines, their priorities map to the depth directly.
+      params.m_depth = lineRule->priority;
+      params.m_depthLayer = DepthLayer::GeometryLayer;
+      params.m_baseGtoPScale = m_applyParams.m_currentScaleGtoP;
+      params.m_zoomLevel = m_zoomLevel;
+      m_applyParams.m_insertShape(make_unique_dp<LineShape>(spline, params));
+
+      if (textRule == nullptr)
+        continue;
+
+      auto const & caption = *textRule->primary;
+      PathTextViewParams textParams;
+      textParams.m_tileCenter = m_applyParams.m_tileRect.Center();
+      textParams.m_depthLayer = DepthLayer::OverlayLayer;
+      textParams.m_depthTestEnabled = false;
+      // Pathtext drule priorities map to the overlay depth directly.
+      textParams.m_depth = textRule->priority;
+      textParams.m_mainText = strings::to_string(isoline.m_altitude);
+      float constexpr kMinVisibleFontSize = 8.0f;
+      textParams.m_textFont = dp::FontDecl(
+          ToDrapeColor(caption.color), std::max(kMinVisibleFontSize, static_cast<float>(caption.height * visScale)));
+      // TEST MODE: depth labels match the blue depth contours of the bathymetry experiment.
+      if (isoline.m_altitude < 0)
+        textParams.m_textFont.m_color = dp::Color(25, 96, 168, 255);
+      if (caption.stroke_color != 0)
+        textParams.m_textFont.m_outlineColor = ToDrapeColor(caption.stroke_color);
+      textParams.m_baseGtoPScale = m_applyParams.m_currentScaleGtoP;
+
+      auto shape = make_unique_dp<PathTextShape>(spline, textParams, m_applyParams.m_tileKey, textIndex);
+      // The layout fails on splines too short for the text: no label then.
+      if (!shape->CalculateLayout(m_context->GetTextureManager()))
+        continue;
+      textIndex += static_cast<uint32_t>(shape->GetOffsets().size());
+      m_applyParams.m_insertShape(std::move(shape));
+    }
+  }
 
   for (auto const & shape : m_mapShapes[df::GeometryType])
     shape->Prepare(m_context->GetTextureManager());
