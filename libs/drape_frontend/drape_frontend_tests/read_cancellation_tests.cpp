@@ -220,7 +220,8 @@ UNIT_TEST(ReadCancellation_IndexCancellationPreservesLifecycle)
       tile.Cancel();
     }, [&](auto const &, auto const &) { featuresRead = true; }, [](std::string_view) {
       return true;
-    }, [](auto const &, int) {}, [](auto const &, auto) { return false; }, [](auto const &, auto) {});
+    }, [](auto const &, int) {}, [](auto const &, auto) { return false; }, [](auto const &, auto) {},
+      [](auto const &) { return false; }, [](auto const &...) {}, [](auto const &...) {});
     if (cancelBeforeIndex)
       tile.Cancel();
     tile.ReadFeatures(model);
@@ -238,7 +239,8 @@ public:
     : m_receiver(m_commutator)
     , m_model([this](auto const &, auto const &, int) { NotifyRead(); }, [](auto const &, auto const &) {},
               [](std::string_view) { return true; }, [](auto const &, int) {}, [](auto const &, auto) { return false; },
-              [](auto const &, auto) {})
+              [](auto const &, auto) {}, [](auto const &) { return false; }, [](auto const &...) {},
+              [](auto const &...) {})
     , m_metalines(make_ref(&m_commutator), m_model)
     , m_reader(make_ref(&m_commutator), m_model, false, false, false, dp::BackgroundMode::Default, 0.5f)
   {
