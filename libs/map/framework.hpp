@@ -15,6 +15,7 @@
 #include "map/search_api.hpp"
 #include "map/search_mark.hpp"
 #include "map/selection_processor.hpp"
+#include "map/terrain_provider.hpp"
 #include "map/track.hpp"
 #include "map/track_statistics.hpp"
 #include "map/traffic_manager.hpp"
@@ -188,6 +189,8 @@ protected:
 
   TransitReadManager m_transitManager;
   IsolinesManager m_isolinesManager;
+  // Dynamic isolines terrain data (.twm files).
+  terrain::TerrainProvider m_terrainProvider;
 
   // Note. |m_routingManager| should be declared before |m_trafficManager|
   RoutingManager m_routingManager;

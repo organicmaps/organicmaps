@@ -42,6 +42,10 @@ public:
 
   bool IsVisible() const;
 
+  // Availability of the dynamic TWM terrain isolines for a rect.
+  using HasTerrainFn = std::function<bool(m2::RectD const &)>;
+  void SetHasTerrainFn(HasTerrainFn const & fn) { m_hasTerrainFn = fn; }
+
   void UpdateViewport(ScreenBase const & screen);
   void Invalidate();
 
@@ -73,6 +77,7 @@ private:
 
   DataSource & m_dataSource;
   GetMwmsByRectFn m_getMwmsByRectFn;
+  HasTerrainFn m_hasTerrainFn;
 
   df::DrapeEngineSafePtr m_drapeEngine;
 

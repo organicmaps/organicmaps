@@ -26,6 +26,7 @@ set(SRC
   features_vector_test.cpp
   index_builder_test.cpp
   interval_index_test.cpp
+  isolines_tracer_tests.cpp
   metadata_serdes_tests.cpp
   mwm_set_test.cpp
   postcodes_matcher_tests.cpp
@@ -36,6 +37,7 @@ set(SRC
   search_string_utils_test.cpp
   sort_and_merge_intervals_test.cpp
   string_slice_tests.cpp
+  terrain_utils_tests.cpp
   test_mwm_set.hpp
   test_type.cpp
   tmp_mwm_copy.hpp
