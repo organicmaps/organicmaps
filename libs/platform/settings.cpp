@@ -339,6 +339,30 @@ bool FromString<location::EMyPositionMode>(string const & s, location::EMyPositi
 }
 
 template <>
+string ToString<location::MapOrientation>(location::MapOrientation const & v)
+{
+  switch (v)
+  {
+  case location::MapOrientation::NorthUp: return "NorthUp";
+  case location::MapOrientation::HeadingUp: return "HeadingUp";
+  }
+  UNREACHABLE();
+}
+
+template <>
+bool FromString<location::MapOrientation>(string const & s, location::MapOrientation & v)
+{
+  if (s == "NorthUp")
+    v = location::MapOrientation::NorthUp;
+  else if (s == "HeadingUp")
+    v = location::MapOrientation::HeadingUp;
+  else
+    return false;
+
+  return true;
+}
+
+template <>
 string ToString<Transliteration::Mode>(Transliteration::Mode const & mode)
 {
   switch (mode)
