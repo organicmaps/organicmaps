@@ -120,6 +120,8 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
   , m_modeChangeCallback(std::move(params.m_myPositionModeCallback))
   , m_hints(params.m_hints)
   , m_isInRouting(params.m_isRoutingActive)
+  , m_routingOrientation(params.m_routingOrientation)
+  , m_routingOrientationChangedCallback(std::move(params.m_routingOrientationChangedCallback))
   , m_needBlockAnimation(false)
   , m_wasRotationInScaling(false)
   , m_errorRadius(0.0)
@@ -170,6 +172,12 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
       m_positionStatus = PositionStatus::Stopped;
   }
 
+  // During active routing the camera follows the route (isRoutingActive is passed as
+  // IsRoutingActive() && IsRoutingFollowing()), so no non-following init mode is coherent: restore
+  // the preferred routing orientation and re-enable the location search if it had been turned off.
+  if (m_isInRouting)
+    m_desiredInitMode = GetPreferredRoutingMode();
+
   if (m_modeChangeCallback)
     m_modeChangeCallback(GetCurrentMode(), m_isInRouting);
 }
@@ -218,11 +226,59 @@ void MyPositionController::StopFollowing()
 void MyPositionController::NotifyModeChanged(location::EMyPositionMode oldMode)
 {
   auto const newMode = GetCurrentMode();
-  if (m_isInRouting && oldMode != newMode && newMode == location::FollowAndRotate)
+  if (m_isInRouting && oldMode != newMode && location::IsFollowingMode(newMode))
     ResetBlockAutoZoomTimer();
 
   if (m_modeChangeCallback)
     m_modeChangeCallback(newMode, m_isInRouting);
+  if (m_listener)
+    m_listener->MyPositionModeChanged(newMode, m_isInRouting);
+}
+
+void MyPositionController::SetRoutingOrientation(location::MapOrientation orientation)
+{
+  CHECK(m_isInRouting, ());
+  if (m_routingOrientation == orientation)
+    return;
+
+  m_routingOrientation = orientation;
+  if (m_routingOrientationChangedCallback)
+    m_routingOrientationChangedCallback(orientation);
+}
+
+location::EMyPositionMode MyPositionController::GetPreferredRoutingMode() const
+{
+  return location::ToPositionMode(m_routingOrientation);
+}
+
+MyPositionController::CameraRotation MyPositionController::GetPreferredRoutingRotation() const
+{
+  return m_routingOrientation == location::MapOrientation::NorthUp ? CameraRotation::Fixed
+                                                                   : CameraRotation::DirectionUp;
+}
+
+void MyPositionController::UpdateRoutingViewport(int zoomLevel, Animation::TAction const & onFinishAction)
+{
+  CHECK(m_isInRouting, ());
+  CHECK(IsFollowing(), ());
+
+  if (m_routingOrientation == location::MapOrientation::NorthUp)
+  {
+    // Request the azimuth explicitly: the center-only ChangeModelView() overload
+    // would keep the current map rotation instead of north-up.
+    ChangeModelView(m_position, 0.0 /* north up */, m_visiblePixelRect.Center(), zoomLevel, onFinishAction);
+    return;
+  }
+
+  ChangeModelView(m_position, m_isDirectionAssigned ? m_drawDirection : 0.0, GetRoutingRotationPixelCenter(), zoomLevel,
+                  onFinishAction);
+}
+
+bool MyPositionController::ShouldEnablePerspectiveInRouting() const
+{
+  // The perspective policy depends on the chosen routing orientation only: temporary states
+  // like an on-going location search or a not-follow pan must not flatten the camera.
+  return m_isInRouting && m_enablePerspectiveInRouting && m_routingOrientation == location::MapOrientation::HeadingUp;
 }
 
 bool MyPositionController::IsFollowing() const
@@ -397,7 +453,8 @@ void MyPositionController::NextMode(ScreenBase const & screen)
   // will be stopped and goes into Stopped state. The next press on the indicator will start location updates again.
   if (IsWaitingForLocation())
   {
-    m_desiredInitMode = location::Follow;
+    // Preserve the routing orientation that should be restored after location becomes available.
+    m_desiredInitMode = m_isInRouting ? GetPreferredRoutingMode() : location::Follow;
     SetPositionStatus(PositionStatus::Stopped);
     return;
   }
@@ -411,7 +468,7 @@ void MyPositionController::NextMode(ScreenBase const & screen)
     {
       // This is the first user location request (button touch) after controller's initialization
       // with some previous not Follow state. The new mode will be Follow to center on the position.
-      m_desiredInitMode = location::Follow;
+      m_desiredInitMode = m_isInRouting ? GetPreferredRoutingMode() : location::Follow;
     }
     return;
   }
@@ -422,10 +479,10 @@ void MyPositionController::NextMode(ScreenBase const & screen)
   if (currentZoom < kZoomThreshold)
     preferredZoomLevel = std::min(GetZoomLevel(screen, m_position, m_errorRadius), kMaxScaleZoomLevel);
 
-  // A free camera returns to following: direction-up in routing, fixed rotation otherwise.
+  // A free camera returns to following: the preferred orientation in routing, fixed rotation otherwise.
   if (m_tracking == CameraTracking::Free)
   {
-    StartFollowing(m_isInRouting ? CameraRotation::DirectionUp : CameraRotation::Fixed);
+    StartFollowing(m_isInRouting ? GetPreferredRoutingRotation() : CameraRotation::Fixed);
     UpdateViewport(preferredZoomLevel);
     return;
   }
@@ -436,6 +493,8 @@ void MyPositionController::NextMode(ScreenBase const & screen)
   {
     if (IsRotationAvailable() || m_isInRouting)
     {
+      if (m_isInRouting)
+        SetRoutingOrientation(location::MapOrientation::HeadingUp);
       StartFollowing(CameraRotation::DirectionUp);
       UpdateViewport(preferredZoomLevel);
     }
@@ -445,6 +504,8 @@ void MyPositionController::NextMode(ScreenBase const & screen)
   // From direction-up we return to fixed rotation and reset the map to north-up.
   if (m_isInRouting && screen.isPerspective())
     preferredZoomLevel = static_cast<int>(GetZoomLevel(ScreenBase::GetStartPerspectiveScale() * 1.1));
+  if (m_isInRouting)
+    SetRoutingOrientation(location::MapOrientation::NorthUp);
   StartFollowing(CameraRotation::Fixed);
   ChangeModelView(m_position, 0.0, m_visiblePixelRect.Center(), preferredZoomLevel);
 }
@@ -511,23 +572,19 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
 
     if (!m_hints.m_isFirstLaunch || !AnimationSystem::Instance().AnimationExists(Animation::Object::MapPlane))
     {
-      if (IsFollowingDirectionUp())
-      {
-        ChangeModelView(m_position, m_drawDirection,
-                        m_isInRouting ? GetRoutingRotationPixelCenter() : m_visiblePixelRect.Center(),
-                        kDoNotChangeZoom);
-      }
+      if (m_isInRouting && IsFollowing())
+        UpdateRoutingViewport(kDoNotChangeZoom);
+      else if (IsFollowingDirectionUp())
+        ChangeModelView(m_position, m_drawDirection, m_visiblePixelRect.Center(), kDoNotChangeZoom);
       else if (IsFollowing())
-      {
         ChangeModelView(m_position, kDoNotChangeZoom);
-      }
     }
   }
   else if (m_positionStatus == PositionStatus::Acquiring)
   {
     if (m_isInRouting)
     {
-      StartFollowing(CameraRotation::DirectionUp);
+      StartFollowing(GetPreferredRoutingRotation());
       UpdateViewport(kMaxScaleZoomLevel);
     }
     else
@@ -553,7 +610,7 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   {
     if (m_isInRouting)
     {
-      StartFollowing(CameraRotation::DirectionUp);
+      StartFollowing(GetPreferredRoutingRotation());
       UpdateViewport(kMaxScaleZoomLevel);
     }
     else
@@ -615,10 +672,22 @@ void MyPositionController::OnCompassUpdate(location::CompassInfo const & info, S
 
 bool MyPositionController::UpdateViewportWithAutoZoom()
 {
-  double const autoScale = m_enablePerspectiveInRouting ? m_autoScale3d : m_autoScale2d;
-  if (autoScale > 0.0 && IsFollowingDirectionUp() && m_isInRouting && m_enableAutoZoomInRouting && !m_needBlockAutoZoom)
+  if (!m_isInRouting || !m_enableAutoZoomInRouting || m_needBlockAutoZoom)
+    return false;
+
+  if (IsFollowingDirectionUp())
   {
-    ChangeModelView(autoScale, m_position, m_drawDirection, GetRoutingRotationPixelCenter());
+    double const autoScale = ShouldEnablePerspectiveInRouting() ? m_autoScale3d : m_autoScale2d;
+    if (autoScale > 0.0)
+    {
+      ChangeModelView(autoScale, m_position, m_drawDirection, GetRoutingRotationPixelCenter());
+      return true;
+    }
+  }
+  else if (IsFollowing() && m_autoScale2d > 0.0)
+  {
+    // North-up navigation: use the 2D speed scale, keep the north-up azimuth and center the user.
+    ChangeModelView(m_autoScale2d, m_position, 0.0 /* north up */, m_visiblePixelRect.Center());
     return true;
   }
   return false;
@@ -664,7 +733,9 @@ void MyPositionController::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<
 
 bool MyPositionController::IsRouteFollowingActive() const
 {
-  return IsInRouting() && IsFollowingDirectionUp();
+  // North-up navigation follows the route in the fixed-rotation camera, so any following
+  // camera counts, not only the direction-up one.
+  return IsInRouting() && IsFollowing();
 }
 
 bool MyPositionController::AlmostCurrentPosition(m2::PointD const & pos) const
@@ -713,7 +784,7 @@ void MyPositionController::OnEnterForeground(double backgroundTime)
     // When location was active during previous session the app will try to follow the user.
     if (m_positionStatus == PositionStatus::Available && m_tracking == CameraTracking::Free)
     {
-      StartFollowing(m_isInRouting ? CameraRotation::DirectionUp : CameraRotation::Fixed);
+      StartFollowing(m_isInRouting ? GetPreferredRoutingRotation() : CameraRotation::Fixed);
       UpdateViewport(kDoNotChangeZoom);
     }
 
@@ -731,6 +802,8 @@ void MyPositionController::OnCompassTapped()
 {
   if (IsFollowingDirectionUp())
   {
+    if (m_isInRouting)
+      SetRoutingOrientation(location::MapOrientation::NorthUp);
     StartFollowing(CameraRotation::Fixed);
     ChangeModelView(m_position, 0.0, m_visiblePixelRect.Center(), kDoNotChangeZoom);
   }
@@ -782,13 +855,21 @@ void MyPositionController::UpdateViewport(int zoomLevel)
   if (IsWaitingForLocation())
     return;
 
+  // Every routing-follow restoration goes through UpdateRoutingViewport() to apply
+  // the chosen routing orientation.
+  if (m_isInRouting && IsFollowing())
+  {
+    UpdateRoutingViewport(zoomLevel);
+    return;
+  }
+
   if (IsFollowingDirectionUp())
   {
-    ChangeModelView(m_position, m_drawDirection,
-                    m_isInRouting ? GetRoutingRotationPixelCenter() : m_visiblePixelRect.Center(), zoomLevel);
+    ChangeModelView(m_position, m_drawDirection, m_visiblePixelRect.Center(), zoomLevel);
   }
   else if (IsFollowing())
   {
+    // Outside routing the map may retain a manually chosen fixed angle.
     ChangeModelView(m_position, zoomLevel);
   }
 }
@@ -888,17 +969,19 @@ void MyPositionController::EnableAutoZoomInRouting(bool enableAutoZoom)
   ResetBlockAutoZoomTimer();
 }
 
-void MyPositionController::ActivateRouting(int zoomLevel, bool enableAutoZoom, bool isArrowGlued)
+void MyPositionController::ActivateRouting(int zoomLevel, int zoomLevelIn3d, bool enableAutoZoom, bool isArrowGlued)
 {
   if (!m_isInRouting)
   {
     m_isInRouting = true;
     m_isArrowGluedInRouting = isArrowGlued;
     m_enableAutoZoomInRouting = enableAutoZoom;
+    // Preserve the routing orientation that should be restored after location becomes available.
+    m_desiredInitMode = GetPreferredRoutingMode();
 
-    StartFollowing(CameraRotation::DirectionUp);
-    ChangeModelView(m_position, m_isDirectionAssigned ? m_drawDirection : 0.0, GetRoutingRotationPixelCenter(),
-                    zoomLevel, [this](ref_ptr<Animation> anim) { UpdateViewport(kDoNotChangeZoom); });
+    StartFollowing(GetPreferredRoutingRotation());
+    int const preferredZoomLevel = ShouldEnablePerspectiveInRouting() ? zoomLevelIn3d : zoomLevel;
+    UpdateRoutingViewport(preferredZoomLevel, [this](ref_ptr<Animation> anim) { UpdateViewport(kDoNotChangeZoom); });
     ResetRoutingNotFollowTimer();
   }
 }
@@ -940,7 +1023,7 @@ void MyPositionController::CheckNotFollowRouting()
     CHECK_ON_TIMEOUT(m_routingNotFollowNotifyId, kMaxNotFollowRoutingTimeSec, CheckNotFollowRouting);
     if (m_routingNotFollowTimer.ElapsedSeconds() >= kMaxNotFollowRoutingTimeSec)
     {
-      StartFollowing(CameraRotation::DirectionUp);
+      StartFollowing(GetPreferredRoutingRotation());
       UpdateViewport(kDoNotChangeZoom);
     }
   }

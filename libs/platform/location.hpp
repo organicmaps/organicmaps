@@ -5,6 +5,7 @@
 
 #include <cmath>
 #include <functional>
+#include <string>
 
 namespace location
 {
@@ -138,6 +139,31 @@ enum EMyPositionMode
   FollowAndRotate
 };
 
+// Returns true when the camera follows the user position.
+// Routing activity and the user's on-screen placement are separate properties.
+inline bool IsFollowingMode(EMyPositionMode mode)
+{
+  return mode == Follow || mode == FollowAndRotate;
+}
+
+// The map orientation chosen by the user for route navigation.
+enum class MapOrientation
+{
+  NorthUp,
+  HeadingUp
+};
+
+constexpr EMyPositionMode ToPositionMode(MapOrientation orientation)
+{
+  return orientation == MapOrientation::NorthUp ? Follow : FollowAndRotate;
+}
+
+inline std::string DebugPrint(MapOrientation orientation)
+{
+  return orientation == MapOrientation::NorthUp ? "NorthUp" : "HeadingUp";
+}
+
 using TMyPositionModeChanged = std::function<void(location::EMyPositionMode, bool)>;
+using TRoutingOrientationChanged = std::function<void(location::MapOrientation)>;
 
 }  // namespace location
