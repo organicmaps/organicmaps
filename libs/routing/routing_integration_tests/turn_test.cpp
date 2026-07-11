@@ -812,6 +812,39 @@ UNIT_TEST(USA_Tampa_TurnTest)
       {CarDirection::TurnSlightRight, CarDirection::TurnRight});
 }
 
+// Test on no turn generation at a driveway junction while the route follows a residential road
+// which gently curves there. The only alternative is a driveway (two highway classes below),
+// so no direction should be given. See https://github.com/organicmaps/organicmaps/issues/13152
+UNIT_TEST(USA_Connecticut_WestHartford_NoTurnAtDriveway_TurnTest)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                                               mercator::FromLatLon(41.780262, -72.943726), {0., 0.},
+                                                               mercator::FromLatLon(41.778837, -72.937728));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+  integration::TestTurnCount(route, 0 /* expectedTurnCount */);
+}
+
+// Control test for the previous one: a real turn from Vineyard Road to a same-class
+// residential road (Deer Field Trace) a few hundred meters to the west must be kept.
+UNIT_TEST(USA_Connecticut_WestHartford_TurnToDeerField_TurnTest)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                                               mercator::FromLatLon(41.780262, -72.943726), {0., 0.},
+                                                               mercator::FromLatLon(41.7800312, -72.9419313));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections(
+      {CarDirection::TurnSlightLeft, CarDirection::TurnLeft});
+}
+
 // Test on go straight direction if it's possible to go through a roundabout.
 UNIT_TEST(Russia_Moscow_Minskia1_TurnTest)
 {
