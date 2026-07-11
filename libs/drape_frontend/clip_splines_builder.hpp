@@ -11,6 +11,10 @@ namespace df
 {
 struct ApplyFeatureParams;
 
+/// The tile rect inflation of the isolines clip-before-smooth pipeline: smoothing control
+/// points are kept beyond the tile edge, so the smoothed curves continue across tiles.
+double constexpr kIsolineSmoothScale = 1.6;  // same as Inflate(0.3*szX, 0.3*szY) per side
+
 /// Builds a (simplified) line geometry and produces tile-clipped splines from
 /// it without the redundant direction/length computations that an intermediate
 /// m2::Spline would otherwise perform: directions and lengths are built only
@@ -29,6 +33,13 @@ public:
   /// reach into the smoothing buffer aren't dropped. The Inside hint is
   /// suppressed in this mode since Release() ignores it on the isoline path.
   void Build(FeatureType & f, int zoomLevel, bool isIsoline = false);
+
+  /// Sets the path directly (dynamic isolines), an alternative to Build().
+  void SetPath(std::vector<m2::PointD> && path)
+  {
+    m_path = std::move(path);
+    m_knownInside = false;
+  }
 
   bool HasGeometry() const { return m_path.size() > 1; }
   size_t GetPathSize() const { return m_path.size(); }
