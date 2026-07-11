@@ -85,7 +85,7 @@ m2::PointD GetPointForTurn(IRoutingResult const & result, size_t outgoingSegment
 
   while (GetNextRoutePointIndex(result, index, numMwmIds, forward, nextIndex))
   {
-    m2::PointD nextPoint = GetPointByIndex(segments, nextIndex);
+    m2::PointD const nextPoint = GetPointByIndex(segments, nextIndex);
 
     // At start and finish there are two edges with zero length.
     // This function should not be called for the start (|outgoingSegmentIndex| == 0).
@@ -93,11 +93,28 @@ m2::PointD GetPointForTurn(IRoutingResult const & result, size_t outgoingSegment
     if (point == nextPoint && outgoingSegmentIndex + 1 == segments.size())
       return nextPoint;
 
-    double distanceMeters = mercator::DistanceOnEarth(point, nextPoint);
-    curDistanceMeters += distanceMeters;
-    curTimeSeconds += CalcEstimatedTimeToPass(distanceMeters, segments[nextIndex.m_segmentIndex].m_highwayClass);
+    double const distanceMeters = mercator::DistanceOnEarth(point, nextPoint);
+    double const timeSeconds =
+        CalcEstimatedTimeToPass(distanceMeters, segments[nextIndex.m_segmentIndex].m_highwayClass);
 
-    if (curTimeSeconds > kMaxTimeSeconds || ++count >= maxPointsCount || curDistanceMeters > maxDistMeters)
+    // If the next geometry edge overshoots the time or the distance limit, a point on this edge
+    // at the limit is taken. Otherwise on sparse geometry one long edge could move the result
+    // tens of meters past the limits, and the turn angle would get the road curvature
+    // accumulated far from the junction. See https://github.com/organicmaps/organicmaps/issues/13152
+    if (curTimeSeconds + timeSeconds > kMaxTimeSeconds || curDistanceMeters + distanceMeters > maxDistMeters)
+    {
+      double share = 1.0;
+      if (timeSeconds > 0.0)
+        share = std::min(share, (kMaxTimeSeconds - curTimeSeconds) / timeSeconds);
+      if (distanceMeters > 0.0)
+        share = std::min(share, (maxDistMeters - curDistanceMeters) / distanceMeters);
+      return point + (nextPoint - point) * share;
+    }
+
+    curDistanceMeters += distanceMeters;
+    curTimeSeconds += timeSeconds;
+
+    if (++count >= maxPointsCount)
       return nextPoint;
 
     point = nextPoint;
