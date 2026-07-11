@@ -2224,6 +2224,14 @@ void FrontendRenderer::OnScaleEnded()
   m_selectionTrackInfo.reset();
 }
 
+void FrontendRenderer::OnAnimatedScaleStarted()
+{
+  // Block the auto zoom for the whole animation, not only after its completion in
+  // OnAnimatedScaleEnded(): otherwise a location update arriving mid-animation could
+  // cancel the user's zoom with an auto zoom one.
+  m_myPositionController->ResetBlockAutoZoomTimer();
+}
+
 void FrontendRenderer::OnAnimatedScaleEnded()
 {
   m_myPositionController->ResetBlockAutoZoomTimer();
