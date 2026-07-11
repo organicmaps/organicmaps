@@ -16,7 +16,6 @@ namespace
 //   cos(θ) > kThreshold  ⟺  dot(a, b) > 0  AND  dot(a, b)² > kThreshold² · |a|² · |b|²
 double constexpr kProlongingDotSqr = math::Pow2(0.995);
 
-double constexpr kIsolineSmoothScale = 1.6;  // same as Inflate(0.3*szX, 0.3*szY) per side
 }  // namespace
 
 void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel, bool isIsoline)

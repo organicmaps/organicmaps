@@ -324,6 +324,7 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
                      std::bind(&Framework::GetMwmsByRect, this, _1, false /* rough */))
   , m_isolinesManager(m_featuresFetcher.GetDataSource(),
                       std::bind(&Framework::GetMwmsByRect, this, _1, false /* rough */))
+  , m_terrainProvider(GetPlatform().WritableDir() + TERRAIN_DIR)
   , m_routingManager(RoutingManager::Callbacks([this]() -> DataSource & { return m_featuresFetcher.GetDataSource(); },
                                                [this]() -> storage::CountryInfoGetter const &
 { return GetCountryInfoGetter(); }, [this](std::string const & id) -> std::string
@@ -411,6 +412,7 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   // m_trafficManager.SetSimplifiedColorScheme(LoadTrafficSimplifiedColors());
   // m_trafficManager.SetEnabled(LoadTrafficEnabled());
 
+  m_isolinesManager.SetHasTerrainFn([this](m2::RectD const & rect) { return m_terrainProvider.HasTerrain(rect); });
   m_isolinesManager.SetEnabled(LoadIsolinesEnabled());
 
   InitTransliteration();
@@ -603,6 +605,8 @@ void Framework::RegisterAllMaps()
       // Otherwise we have blank map view instead of countries, without Download button.
     }
   }
+
+  m_terrainProvider.Rescan();
 }
 
 void Framework::DeregisterAllMaps()
@@ -615,6 +619,7 @@ void Framework::DeregisterAllMaps()
   GetSearchAPI().ClearCaches();
 
   m_featuresFetcher.Clear();
+  m_terrainProvider.Clear();
   m_storage.Clear();
 }
 
@@ -1722,6 +1727,12 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   auto isCountryLoadedByNameFn = std::bind(&Framework::IsCountryLoadedByName, this, _1);
   auto updateCurrentCountryFn = std::bind(&Framework::OnUpdateCurrentCountry, this, _1, _2);
 
+  auto hasTerrainFn = [this](m2::RectD const & rect) { return m_terrainProvider.HasTerrain(rect); };
+  auto readIsolinesFn = [this](m2::RectD const & rect, int zoom, df::MapDataProvider::TIsolineCallback const & fn)
+  { m_terrainProvider.ForEachIsoline(rect, zoom, fn); };
+  auto readTrianglesFn = [this](m2::RectD const & rect, int zoom, df::MapDataProvider::TTrianglesCallback const & fn)
+  { m_terrainProvider.ForEachTriangles(rect, zoom, fn); };
+
   bool allow3d;
   bool allow3dBuildings;
   Load3dMode(allow3d, allow3dBuildings);
@@ -1742,7 +1753,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
       params.m_apiVersion, contextFactory, dp::Viewport(0, 0, params.m_surfaceWidth, params.m_surfaceHeight),
       df::MapDataProvider(std::move(idReadFn), std::move(featureReadFn), std::move(isCountryLoadedByNameFn),
                           std::move(updateCurrentCountryFn), std::move(tileBackgroundReadFn),
-                          std::move(cancelTileBackgroundReadingFn)),
+                          std::move(cancelTileBackgroundReadingFn), std::move(hasTerrainFn), std::move(readIsolinesFn),
+                          std::move(readTrianglesFn)),
       params.m_hints, params.m_visualScale, fontsScaleFactor, std::move(params.m_widgetsInitInfo),
       std::move(myPositionModeChangedFn), allow3dBuildings, trafficEnabled, isolinesEnabled,
       params.m_isChoosePositionMode, params.m_isChoosePositionMode, GetSelectedFeatureTriangles(),

@@ -9,16 +9,12 @@
 #include "base/assert.hpp"
 #include "base/exception.hpp"
 #include "base/logging.hpp"
-#include "base/stl_helpers.hpp"
 
 #include <algorithm>
-#include <exception>
 #include <sstream>
 
 using platform::CountryFile;
 using platform::LocalCountryFile;
-
-MwmInfo::MwmInfo() : m_minScale(0), m_maxScale(0), m_status(STATUS_DEREGISTERED), m_numRefs(0) {}
 
 MwmInfo::MwmTypeT MwmInfo::GetType() const
 {
@@ -35,13 +31,13 @@ bool MwmInfo::IsAddressLikeUS() const
   return GetRegionData().Get(feature::RegionData::RD_ADDRESS_FORMAT) == "us";
 }
 
-bool MwmSet::MwmId::IsDeregistered(platform::LocalCountryFile const & deregisteredCountryFile) const
+bool MwmId::IsDeregistered(platform::LocalCountryFile const & deregisteredCountryFile) const
 {
   return m_info && m_info->GetStatus() == MwmInfo::STATUS_DEREGISTERED &&
          m_info->GetLocalFile() == deregisteredCountryFile;
 }
 
-std::string DebugPrint(MwmSet::MwmId const & id)
+std::string DebugPrint(MwmId const & id)
 {
   std::ostringstream ss;
   if (id.m_info.get())
@@ -51,52 +47,11 @@ std::string DebugPrint(MwmSet::MwmId const & id)
   return ss.str();
 }
 
-MwmSet::MwmHandle::MwmHandle() : m_mwmSet(nullptr), m_value(nullptr) {}
-
-MwmSet::MwmHandle::MwmHandle(MwmSet & mwmSet, MwmId const & mwmId, std::unique_ptr<MwmValue> && value)
-  : m_mwmId(mwmId)
-  , m_mwmSet(&mwmSet)
-  , m_value(std::move(value))
-{}
-
-MwmSet::MwmHandle::MwmHandle(MwmHandle && handle)
-  : m_mwmId(std::move(handle.m_mwmId))
-  , m_mwmSet(handle.m_mwmSet)
-  , m_value(std::move(handle.m_value))
-{
-  handle.m_mwmSet = nullptr;
-  handle.m_mwmId.Reset();
-  handle.m_value = nullptr;
-}
-
-MwmSet::MwmHandle::~MwmHandle()
-{
-  if (m_mwmSet && m_value)
-    m_mwmSet->UnlockValue(m_mwmId, std::move(m_value));
-}
-
-std::shared_ptr<MwmInfo> const & MwmSet::MwmHandle::GetInfo() const
-{
-  ASSERT(IsAlive(), ("MwmHandle is not active."));
-  return m_mwmId.GetInfo();
-}
-
-MwmSet::MwmHandle & MwmSet::MwmHandle::operator=(MwmHandle && handle)
-{
-  std::swap(m_mwmSet, handle.m_mwmSet);
-  std::swap(m_mwmId, handle.m_mwmId);
-  std::swap(m_value, handle.m_value);
-  return *this;
-}
-
-MwmSet::MwmId MwmSet::GetMwmIdByCountryFileImpl(CountryFile const & countryFile) const
+MwmId MwmSet::GetMwmIdByCountryFileImpl(CountryFile const & countryFile) const
 {
   std::string const & name = countryFile.GetName();
   ASSERT(!name.empty(), ());
-  auto const it = m_info.find(name);
-  if (it == m_info.cend() || it->second.empty())
-    return MwmId();
-  return MwmId(it->second.back());
+  return GetIdByKeyImpl(name);
 }
 
 std::pair<MwmSet::MwmId, MwmSet::RegResult> MwmSet::Register(LocalCountryFile const & localFile)
@@ -152,41 +107,10 @@ std::pair<MwmSet::MwmId, MwmSet::RegResult> MwmSet::RegisterImpl(LocalCountryFil
 
   info->m_file = localFile;
   SetStatus(*info, MwmInfo::STATUS_REGISTERED, events);
-
-  {
-    auto & vec = m_info[localFile.GetCountryName()];
-    // No assert here: old mwm with "STATUS_MARKED_TO_DEREGISTER".
-    // ASSERT(vec.empty(), ());
-    vec.push_back(info);
-  }
+  // No unique key assert here: an old mwm with "STATUS_MARKED_TO_DEREGISTER" may coexist.
+  AddToRegistryImpl(info);
 
   return std::make_pair(MwmId(info), RegResult::Success);
-}
-
-bool MwmSet::DeregisterImpl(MwmId const & id, EventList & events)
-{
-  if (!id.IsAlive())
-    return false;
-
-  std::shared_ptr<MwmInfo> const & info = id.GetInfo();
-  if (info->m_numRefs == 0)
-  {
-    SetStatus(*info, MwmInfo::STATUS_DEREGISTERED, events);
-    std::vector<std::shared_ptr<MwmInfo>> & infos = m_info[info->GetCountryName()];
-    infos.erase(std::remove(infos.begin(), infos.end(), info), infos.end());
-    for (auto it = m_cache.begin(); it != m_cache.end(); ++it)
-    {
-      if (it->first == id)
-      {
-        m_cache.erase(it);
-        break;
-      }
-    }
-    return true;
-  }
-
-  SetStatus(*info, MwmInfo::STATUS_MARKED_TO_DEREGISTER, events);
-  return false;
 }
 
 bool MwmSet::Deregister(CountryFile const & countryFile)
@@ -219,7 +143,7 @@ std::vector<std::string> MwmSet::GetLoadedCountryNames(m2::RectD const & rect) c
   std::lock_guard<std::mutex> lock(m_lock);
 
   std::vector<std::string> res;
-  for (auto const & [name, info] : m_info)
+  for (auto const & [name, info] : m_registry)
     if (!info.empty() && info.back()->IsRegistered() && info.back()->m_bordersRect.IsIntersect(rect) &&
         info.back()->GetType() == MwmInfo::COUNTRY)
       res.push_back(name);
@@ -232,16 +156,6 @@ int64_t MwmSet::GetMwmVersion(CountryFile const & countryFile) const
 
   MwmId const id = GetMwmIdByCountryFileImpl(countryFile);
   return id.IsAlive() ? id.GetInfo()->GetVersion() : 0;
-}
-
-void MwmSet::GetMwmsInfo(std::vector<std::shared_ptr<MwmInfo>> & info) const
-{
-  std::lock_guard<std::mutex> lock(m_lock);
-  info.clear();
-  info.reserve(m_info.size());
-  for (auto const & p : m_info)
-    if (!p.second.empty())
-      info.push_back(p.second.back());
 }
 
 void MwmSet::SetStatus(MwmInfo & info, MwmInfo::Status status, EventList & events)
@@ -258,7 +172,7 @@ void MwmSet::SetStatus(MwmInfo & info, MwmInfo::Status status, EventList & event
   }
 }
 
-void MwmSet::ProcessEventList(EventList & events)
+void MwmSet::ProcessEvents(EventList & events)
 {
   for (auto const & event : events.Get())
   {
@@ -270,103 +184,6 @@ void MwmSet::ProcessEventList(EventList & events)
   }
 }
 
-std::unique_ptr<MwmValue> MwmSet::LockValue(MwmId const & id)
-{
-  std::unique_ptr<MwmValue> result;
-  WithEventLog([&](EventList & events) { result = LockValueImpl(id, events); });
-  return result;
-}
-
-std::unique_ptr<MwmValue> MwmSet::LockValueImpl(MwmId const & id, EventList & events)
-{
-  if (!id.IsAlive())
-    return nullptr;
-  std::shared_ptr<MwmInfo> info = id.GetInfo();
-
-  // It's better to return valid "value pointer" even for "out-of-date" files,
-  // because they can be locked for a long time by other algos.
-  // if (!info->IsUpToDate())
-  //  return TMwmValuePtr();
-
-  ++info->m_numRefs;
-
-  // Search in cache.
-  for (auto it = m_cache.begin(); it != m_cache.end(); ++it)
-  {
-    if (it->first == id)
-    {
-      std::unique_ptr<MwmValue> result = std::move(it->second);
-      m_cache.erase(it);
-      return result;
-    }
-  }
-
-  try
-  {
-    return CreateValue(*info);
-  }
-  catch (Reader::TooManyFilesException const & ex)
-  {
-    LOG(LERROR, ("Too many open files, can't open:", info->GetCountryName()));
-    --info->m_numRefs;
-    return nullptr;
-  }
-  catch (std::exception const & ex)
-  {
-    LOG(LERROR, ("Can't create MWMValue for", info->GetCountryName(), "Reason", ex.what()));
-
-    --info->m_numRefs;
-    DeregisterImpl(id, events);
-    return nullptr;
-  }
-}
-
-void MwmSet::UnlockValue(MwmId const & id, std::unique_ptr<MwmValue> p)
-{
-  WithEventLog([&](EventList & events) { UnlockValueImpl(id, std::move(p), events); });
-}
-
-void MwmSet::UnlockValueImpl(MwmId const & id, std::unique_ptr<MwmValue> p, EventList & events)
-{
-  ASSERT(id.IsAlive(), (id));
-  ASSERT(p.get() != nullptr, ());
-  if (!id.IsAlive() || !p)
-    return;
-
-  std::shared_ptr<MwmInfo> const & info = id.GetInfo();
-  ASSERT_GREATER(info->m_numRefs, 0, ());
-  --info->m_numRefs;
-  if (info->m_numRefs == 0 && info->GetStatus() == MwmInfo::STATUS_MARKED_TO_DEREGISTER)
-    VERIFY(DeregisterImpl(id, events), ());
-
-  if (info->IsUpToDate())
-  {
-    /// @todo Probably, it's better to store only "unique by id" free caches here.
-    /// But it's no obvious if we have many threads working with the single mwm.
-
-    m_cache.push_back(std::make_pair(id, std::move(p)));
-    if (m_cache.size() > m_cacheSize)
-    {
-      LOG(LDEBUG, ("MwmValue max cache size reached! Added", id, "removed", m_cache.front().first));
-      ASSERT_EQUAL(m_cache.size(), m_cacheSize + 1, ());
-      m_cache.pop_front();
-    }
-  }
-}
-
-void MwmSet::Clear()
-{
-  std::lock_guard<std::mutex> lock(m_lock);
-  ClearCacheImpl(m_cache.begin(), m_cache.end());
-  m_info.clear();
-}
-
-void MwmSet::ClearCache()
-{
-  std::lock_guard<std::mutex> lock(m_lock);
-  ClearCacheImpl(m_cache.begin(), m_cache.end());
-}
-
 MwmSet::MwmId MwmSet::GetMwmIdByCountryFile(CountryFile const & countryFile) const
 {
   std::lock_guard<std::mutex> lock(m_lock);
@@ -376,35 +193,15 @@ MwmSet::MwmId MwmSet::GetMwmIdByCountryFile(CountryFile const & countryFile) con
 MwmSet::MwmHandle MwmSet::GetMwmHandleByCountryFile(CountryFile const & countryFile)
 {
   MwmSet::MwmHandle handle;
-  WithEventLog([&](EventList & events)
-  { handle = GetMwmHandleByIdImpl(GetMwmIdByCountryFileImpl(countryFile), events); });
+  WithEventLog([&](EventList & events) { handle = GetHandleByIdImpl(GetMwmIdByCountryFileImpl(countryFile), events); });
   return handle;
 }
 
 MwmSet::MwmHandle MwmSet::GetMwmHandleById(MwmId const & id)
 {
   MwmSet::MwmHandle handle;
-  WithEventLog([&](EventList & events) { handle = GetMwmHandleByIdImpl(id, events); });
+  WithEventLog([&](EventList & events) { handle = GetHandleByIdImpl(id, events); });
   return handle;
-}
-
-MwmSet::MwmHandle MwmSet::GetMwmHandleByIdImpl(MwmId const & id, EventList & events)
-{
-  std::unique_ptr<MwmValue> value;
-  if (id.IsAlive())
-    value = LockValueImpl(id, events);
-  return MwmHandle(*this, id, std::move(value));
-}
-
-void MwmSet::ClearCacheImpl(Cache::iterator beg, Cache::iterator end)
-{
-  m_cache.erase(beg, end);
-}
-
-void MwmSet::ClearCache(MwmId const & id)
-{
-  auto sameId = [&id](std::pair<MwmSet::MwmId, std::unique_ptr<MwmValue>> const & p) { return (p.first == id); };
-  ClearCacheImpl(base::RemoveIfKeepValid(m_cache.begin(), m_cache.end(), sameId), m_cache.end());
 }
 
 // MwmValue ----------------------------------------------------------------------------------------

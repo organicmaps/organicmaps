@@ -160,6 +160,10 @@
 		AC7C68A92A5040AC004BB71C /* custom_keyvalue.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AC7C68A72A5040AC004BB71C /* custom_keyvalue.hpp */; };
 		AC7C68AA2A5040AC004BB71C /* custom_keyvalue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC7C68A82A5040AC004BB71C /* custom_keyvalue.cpp */; };
 		BBB7060F23E46E0100A7F29A /* isolines_info.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBB7060D23E46E0000A7F29A /* isolines_info.cpp */; };
+		1F0B31F740704299997E59E2 /* isolines_tracer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EADB980E06EF4F3A93632278 /* isolines_tracer.cpp */; };
+		5491BAE73C924146B39D47AD /* terrain_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD9FCA227FD1452682013285 /* terrain_reader.cpp */; };
+		352FA3FA93C2407E946730F5 /* twm_grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CADD17C115CE41D99669D0B1 /* twm_grid.cpp */; };
+		B059C1E87EAA42D28704F0E4 /* twm_set.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CAAB48457CE94D7DAD4EF2DD /* twm_set.cpp */; };
 		BBB7061023E46E0100A7F29A /* isolines_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBB7060E23E46E0000A7F29A /* isolines_info.hpp */; };
 		E906DE3B1CF44934004C4F5E /* postcodes_matcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E906DE391CF44934004C4F5E /* postcodes_matcher.cpp */; };
 		E906DE3C1CF44934004C4F5E /* postcodes_matcher.hpp in Headers */ = {isa = PBXBuildFile; fileRef = E906DE3A1CF44934004C4F5E /* postcodes_matcher.hpp */; };
@@ -375,6 +379,10 @@
 		AC7C68A72A5040AC004BB71C /* custom_keyvalue.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = custom_keyvalue.hpp; sourceTree = "<group>"; };
 		AC7C68A82A5040AC004BB71C /* custom_keyvalue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = custom_keyvalue.cpp; sourceTree = "<group>"; };
 		BBB7060D23E46E0000A7F29A /* isolines_info.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = isolines_info.cpp; sourceTree = "<group>"; };
+		EADB980E06EF4F3A93632278 /* isolines_tracer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = isolines_tracer.cpp; path = terrain/isolines_tracer.cpp; sourceTree = "<group>"; };
+		CD9FCA227FD1452682013285 /* terrain_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_reader.cpp; path = terrain/terrain_reader.cpp; sourceTree = "<group>"; };
+		CADD17C115CE41D99669D0B1 /* twm_grid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = twm_grid.cpp; path = terrain/twm_grid.cpp; sourceTree = "<group>"; };
+		CAAB48457CE94D7DAD4EF2DD /* twm_set.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = twm_set.cpp; path = terrain/twm_set.cpp; sourceTree = "<group>"; };
 		BBB7060E23E46E0000A7F29A /* isolines_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isolines_info.hpp; sourceTree = "<group>"; };
 		E906DE371CF44917004C4F5E /* postcodes_matcher_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = postcodes_matcher_tests.cpp; sourceTree = "<group>"; };
 		E906DE391CF44934004C4F5E /* postcodes_matcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = postcodes_matcher.cpp; sourceTree = "<group>"; };
@@ -624,6 +632,10 @@
 				675340DF1A3F540F00A0A8C3 /* interval_index_builder.hpp */,
 				675340E11A3F540F00A0A8C3 /* interval_index.hpp */,
 				BBB7060D23E46E0000A7F29A /* isolines_info.cpp */,
+				EADB980E06EF4F3A93632278 /* isolines_tracer.cpp */,
+				CD9FCA227FD1452682013285 /* terrain_reader.cpp */,
+				CADD17C115CE41D99669D0B1 /* twm_grid.cpp */,
+				CAAB48457CE94D7DAD4EF2DD /* twm_set.cpp */,
 				BBB7060E23E46E0000A7F29A /* isolines_info.hpp */,
 				34583BC51C88552100F94664 /* map_object.cpp */,
 				34583BC61C88552100F94664 /* map_object.hpp */,
@@ -944,6 +956,10 @@
 				6753411C1A3F540F00A0A8C3 /* shared_load_info.cpp in Sources */,
 				67BC92F41D21476500A4A378 /* string_slice.cpp in Sources */,
 				BBB7060F23E46E0100A7F29A /* isolines_info.cpp in Sources */,
+				1F0B31F740704299997E59E2 /* isolines_tracer.cpp in Sources */,
+				5491BAE73C924146B39D47AD /* terrain_reader.cpp in Sources */,
+				352FA3FA93C2407E946730F5 /* twm_grid.cpp in Sources */,
+				B059C1E87EAA42D28704F0E4 /* twm_set.cpp in Sources */,
 				408FE47724FEB95600F5D06D /* metadata_serdes.cpp in Sources */,
 				34583BCB1C88552100F94664 /* map_object.cpp in Sources */,
 				675B562320D25C9800A521D2 /* feature_source.cpp in Sources */,

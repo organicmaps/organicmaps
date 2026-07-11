@@ -23,6 +23,7 @@ class FeatureType;
 namespace df
 {
 class EngineContext;
+class MapDataProvider;
 
 /*
  * RuleDrawer() is invoked for each feature in the tile.
@@ -39,10 +40,19 @@ public:
   using TIsCountryLoadedByNameFn = std::function<bool(std::string_view)>;
 
   RuleDrawer(TCheckCancelledCallback const & checkCancelled, TIsCountryLoadedByNameFn const & isLoadedFn,
-             ref_ptr<EngineContext> engineContext, int8_t deviceLang);
+             ref_ptr<EngineContext> engineContext, int8_t deviceLang, bool drawDynamicIsolines = false);
   ~RuleDrawer();
 
   void operator()(FeatureType & f);
+
+  /// Traces dynamic isolines from the TWM terrain data over the tile rect and emits line
+  /// shapes through the same smoothing/clipping pipeline as the baked isoline features
+  /// (which are suppressed when the dynamic isolines are used).
+  void DrawDynamicIsolines(MapDataProvider const & model);
+
+  /// Flat-shaded terrain hillshading from the TWM triangles: per-triangle Lambert intensity
+  /// quantized into semi-transparent shade buckets emitted as area shapes over the map fills.
+  void DrawTerrainShade(MapDataProvider const & model);
 
 #ifdef DRAW_TILE_NET
   void DrawTileNet();
@@ -78,6 +88,7 @@ private:
 
   uint8_t m_zoomLevel;
   int8_t m_deviceLang;
+  bool m_drawDynamicIsolines = false;
   bool m_wasCancelled = false;
 
   ftypes::IsBuildingHasPartsChecker const & m_isBuildingHasParts = ftypes::IsBuildingHasPartsChecker::Instance();

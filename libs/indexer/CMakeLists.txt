@@ -101,6 +101,7 @@ set(SRC
   metadata_serdes.hpp
   mwm_set.cpp
   mwm_set.hpp
+  value_set.hpp
   postcodes_matcher.cpp  # it's in indexer EditableMapObject depends on postcodes_matcher
   postcodes_matcher.hpp  # it's in indexer EditableMapObject depends on postcodes_matcher
   rank_table.cpp
@@ -123,6 +124,16 @@ set(SRC
   string_set.hpp
   string_slice.cpp
   string_slice.hpp
+  terrain/isolines_tracer.cpp
+  terrain/isolines_tracer.hpp
+  terrain/terrain_reader.cpp
+  terrain/terrain_reader.hpp
+  terrain/terrain_serdes.hpp
+  terrain/terrain_utils.hpp
+  terrain/twm_grid.cpp
+  terrain/twm_grid.hpp
+  terrain/twm_set.cpp
+  terrain/twm_set.hpp
   transliteration_loader.cpp
   transliteration_loader.hpp
   tree_structure.hpp
