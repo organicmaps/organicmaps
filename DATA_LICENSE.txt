@@ -1,7 +1,7 @@
 Organic Maps Binary Data License
 
 The Organic Maps project provides compiled binary data files (Data Files), including but not limited to `.mwm` map files,
-`packed_polygons.bin` and other `.bin` files, under a separate license from the source code.
+`.twm` terrain files, `packed_polygons.bin` and other `.bin` files, under a separate license from the source code.
 
 Organic Maps Data Files contain the processed data from the following sources:
 
@@ -16,6 +16,15 @@ Organic Maps Data Files contain the processed data from the following sources:
 
 - Shuttle Radar Topography Mission (SRTM) and Advanced Spaceborne Thermal Emission and Reflection Radiometer (ASTER) elevation data
   https://www.earthdata.nasa.gov/data/instruments/srtm
+
+- Terrain data produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018
+  provided under COPERNICUS by the European Union and ESA; all rights reserved.
+  The organisations in charge of the Copernicus programme by law or by delegation do not incur any liability
+  for any use of the Copernicus WorldDEM-30.
+  https://spacedata.copernicus.eu/collections/copernicus-digital-elevation-model
+
+- ETOPO 2022 Global Relief Model (ocean bathymetry) by NOAA National Centers for Environmental Information
+  https://www.ncei.noaa.gov/products/etopo-global-relief-model
 
 - Great Britain Code-Point® Open postcodes and Northern Ireland postcodes from FHRS data under Open Government License by UK Ordnance Survey
   https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
@@ -36,7 +45,7 @@ In particular:
    - Include **clickable links** to https://organicmaps.app and https://openstreetmap.org/copyright for each mention of Organic Maps and OpenStreetMap
 
 2. **No Redistribution Without Attribution**
-   You may not distribute or embed the binary files (e.g., `.mwm` maps or `.bin` files) in your software without providing the above attribution.
+   You may not distribute or embed the binary files (e.g., `.mwm` maps, `.twm` terrain or `.bin` files) in your software without providing the above attribution.
 
 3. **No White-Labeling or Branding Removal**
    Any white-labeling or rebranding use requires **explicit written permission** from the Organic Maps team.

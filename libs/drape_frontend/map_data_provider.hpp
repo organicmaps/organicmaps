@@ -8,6 +8,7 @@
 
 #include "geometry/rect2d.hpp"
 #include "indexer/feature.hpp"
+#include "indexer/terrain/isolines_tracer.hpp"
 
 #include <functional>
 #include <string>
@@ -27,14 +28,26 @@ public:
   using TUpdateCurrentCountryFn = std::function<void(m2::PointD const &, int)>;
   using TTileBackgroundReadFn = std::function<bool(df::TileKey const &, dp::BackgroundMode)>;
   using TCancelTileBackgroundReadingFn = std::function<void(df::TileKey const &, dp::BackgroundMode)>;
+  // Dynamic isolines and hillshading from the TWM terrain files.
+  using TIsolineCallback = std::function<void(terrain::Isoline &&)>;
+  using TTrianglesCallback = std::function<void(terrain::Triangles const &)>;
+  using THasTerrainFn = std::function<bool(m2::RectD const &)>;
+  using TReadIsolinesFn = std::function<void(m2::RectD const &, int, TIsolineCallback const &)>;
+  using TReadTrianglesFn = std::function<void(m2::RectD const &, int, TTrianglesCallback const &)>;
 
   MapDataProvider(TReadIDsFn && idsReader, TReadFeaturesFn && featureReader,
                   TIsCountryLoadedByNameFn && isCountryLoadedByNameFn,
                   TUpdateCurrentCountryFn && updateCurrentCountryFn, TTileBackgroundReadFn && tileBackgroundReadFn,
-                  TCancelTileBackgroundReadingFn && cancelTileBackgroundReadingFn);
+                  TCancelTileBackgroundReadingFn && cancelTileBackgroundReadingFn, THasTerrainFn && hasTerrainFn,
+                  TReadIsolinesFn && readIsolinesFn, TReadTrianglesFn && readTrianglesFn);
 
   void ReadFeaturesID(TReadCallback<FeatureID const> const & fn, m2::RectD const & r, int scale) const;
   void ReadFeatures(TReadCallback<FeatureType> const & fn, std::vector<FeatureID> const & ids) const;
+
+  // Dynamic isolines availability and reading; safe to call from the tile reading threads.
+  bool HasTerrain(m2::RectD const & rect) const;
+  void ReadIsolines(m2::RectD const & rect, int zoom, TIsolineCallback const & fn) const;
+  void ReadTriangles(m2::RectD const & rect, int zoom, TTrianglesCallback const & fn) const;
 
   TTileBackgroundReadFn ReadTileBackgroundFn() const;
   TCancelTileBackgroundReadingFn CancelTileBackgroundReadingFn() const;
@@ -49,5 +62,8 @@ private:
   TUpdateCurrentCountryFn m_updateCurrentCountry;
   TTileBackgroundReadFn m_tileBackgroundReader;
   TCancelTileBackgroundReadingFn m_cancelTileBackgroundReading;
+  THasTerrainFn m_hasTerrain;
+  TReadIsolinesFn m_readIsolines;
+  TReadTrianglesFn m_readTriangles;
 };
 }  // namespace df
