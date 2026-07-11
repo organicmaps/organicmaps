@@ -95,6 +95,13 @@ void IsolinesManager::UpdateViewport(ScreenBase const & screen)
     return;
   }
 
+  // Dynamic TWM terrain isolines cover the viewport, no baked data checks needed.
+  if (m_hasTerrainFn && m_hasTerrainFn(screen.ClipRect()))
+  {
+    ChangeState(IsolinesState::Enabled);
+    return;
+  }
+
   auto mwms = m_getMwmsByRectFn(screen.ClipRect());
   if (m_lastMwms == mwms)
     return;
