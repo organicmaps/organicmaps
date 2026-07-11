@@ -37,15 +37,21 @@ location::GpsInfo MakeGpsInfo(double timestamp)
 }
 
 using ModeLog = std::vector<std::pair<location::EMyPositionMode, bool>>;
+using OrientationLog = std::vector<location::MapOrientation>;
 
 df::MyPositionController::Params MakeParams(location::EMyPositionMode initMode, bool isRoutingActive,
-                                            ModeLog * modeLog = nullptr)
+                                            location::MapOrientation routingOrientation, ModeLog * modeLog = nullptr,
+                                            OrientationLog * orientationLog = nullptr)
 {
   location::TMyPositionModeChanged fn;
   if (modeLog)
     fn = [modeLog](location::EMyPositionMode mode, bool routingActive) { modeLog->emplace_back(mode, routingActive); };
-  return {initMode,        0.0 /* timeInBackground */,    df::Hints(),
-          isRoutingActive, false /* isAutozoomEnabled */, std::move(fn)};
+  location::TRoutingOrientationChanged orientationFn;
+  if (orientationLog)
+    orientationFn = [orientationLog](location::MapOrientation orientation) { orientationLog->push_back(orientation); };
+  return {initMode,      routingOrientation,      0.0 /* timeInBackground */,
+          df::Hints(),   isRoutingActive,         false /* isAutozoomEnabled */,
+          std::move(fn), std::move(orientationFn)};
 }
 
 // Records every camera request so tests can assert not only the zoom but also which
@@ -126,12 +132,14 @@ std::string DebugPrint(TestListener::Camera camera)
 class Controller
 {
 public:
-  Controller(location::EMyPositionMode initMode, bool isRoutingActive)
+  Controller(location::EMyPositionMode initMode, bool isRoutingActive,
+             location::MapOrientation routingOrientation = location::MapOrientation::HeadingUp)
   {
     df::VisualParams::Init(1.0, 1024);
     m_screen = MakeScreen();
-    m_controller = std::make_unique<df::MyPositionController>(MakeParams(initMode, isRoutingActive, &m_modeLog),
-                                                              ref_ptr<df::DrapeNotifier>());
+    m_controller = std::make_unique<df::MyPositionController>(
+        MakeParams(initMode, isRoutingActive, routingOrientation, &m_modeLog, &m_orientationLog),
+        ref_ptr<df::DrapeNotifier>());
     m_controller->SetListener(ref_ptr<df::MyPositionController::Listener>(&m_listener));
     m_controller->OnUpdateScreen(m_screen);
   }
@@ -149,6 +157,7 @@ public:
 
   TestListener m_listener;
   ModeLog m_modeLog;
+  OrientationLog m_orientationLog;
 
 private:
   ScreenBase m_screen;
@@ -261,9 +270,9 @@ UNIT_TEST(MyPositionController_NextModeWhilePendingStopsAndRestarts)
   TEST_EQUAL(test.Get().GetCurrentMode(), location::Follow, ());
 }
 
-UNIT_TEST(MyPositionController_RoutingPendingButtonsForceFollow)
+UNIT_TEST(MyPositionController_RoutingPendingButtonsKeepOrientation)
 {
-  Controller test(location::FollowAndRotate, true /* isRoutingActive */);
+  Controller test(location::FollowAndRotate, true /* isRoutingActive */, location::MapOrientation::HeadingUp);
   TEST_EQUAL(test.Get().GetCurrentMode(), location::PendingPosition, ());
 
   test.NextMode();
@@ -271,11 +280,47 @@ UNIT_TEST(MyPositionController_RoutingPendingButtonsForceFollow)
   test.NextMode();
   TEST_EQUAL(test.Get().GetCurrentMode(), location::PendingPosition, ());
 
-  // Stopping and restarting the location search before the first fix re-arms plain
-  // Follow even during routing, losing the heading-up navigation camera.
-  /// @todo Restore the routing camera here; see the navigation orientation feature.
+  // Stopping and restarting the location search before the first fix must not lose
+  // the heading-up navigation camera, and restoring it is not an orientation choice.
+  test.OnLocationUpdate(1.0);
+  TEST_EQUAL(test.Get().GetCurrentMode(), location::FollowAndRotate, ());
+  TEST(test.m_orientationLog.empty(), ());
+}
+
+UNIT_TEST(MyPositionController_RoutingQueuedFixAfterStopKeepsOrientation)
+{
+  Controller test(location::FollowAndRotate, true /* isRoutingActive */, location::MapOrientation::HeadingUp);
+  TEST_EQUAL(test.Get().GetCurrentMode(), location::PendingPosition, ());
+
+  test.NextMode();
+  TEST_EQUAL(test.Get().GetCurrentMode(), location::NotFollowNoPosition, ());
+
+  // A location that was already queued arrives right after the "stop location" press.
+  test.OnLocationUpdate(1.0);
+  TEST_EQUAL(test.Get().GetCurrentMode(), location::FollowAndRotate, ());
+  TEST(test.m_orientationLog.empty(), ());
+}
+
+UNIT_TEST(MyPositionController_RoutingRestoreFromLocationOffResumesFollowing)
+{
+  // Restoring into active navigation (isRoutingActive means the route is being followed) with a
+  // saved "location off" mode must resume the preferred following camera and re-arm the location
+  // search: navigation is meaningless without a position, so the map cannot stay stopped.
+  Controller test(location::NotFollowNoPosition, true /* isRoutingActive */, location::MapOrientation::NorthUp);
+  TEST_EQUAL(test.Get().GetCurrentMode(), location::PendingPosition, ());
+
   test.OnLocationUpdate(1.0);
   TEST_EQUAL(test.Get().GetCurrentMode(), location::Follow, ());
+  TEST(test.Get().IsModeHasPosition(), ());
+  TEST(test.Get().IsRouteFollowingActive(), ());
+  {
+    auto const & request = test.m_listener.LastRequest();
+    TEST_EQUAL(request.m_type, TestListener::Camera::FollowAndRotate, ());
+    TEST_EQUAL(request.m_azimuth, 0.0, ());
+    TEST_EQUAL(request.m_pxZero, test.ScreenCenter(), ());
+  }
+  // Restoring the saved orientation is not an orientation choice.
+  TEST(test.m_orientationLog.empty(), ());
 }
 
 UNIT_TEST(MyPositionController_RoutingRecoveryRestoresHeadingUpByDefault)
@@ -310,7 +355,8 @@ UNIT_TEST(MyPositionController_ActivateRoutingDefaultsToHeadingUp)
   test.OnLocationUpdate(1.0);
   TEST_EQUAL(test.Get().GetCurrentMode(), location::NotFollow, ());
 
-  test.Get().ActivateRouting(16 /* zoomLevel */, false /* enableAutoZoom */, true /* isArrowGlued */);
+  test.Get().ActivateRouting(16 /* zoomLevel */, 17 /* zoomLevelIn3d */, false /* enableAutoZoom */,
+                             true /* isArrowGlued */);
   TEST_EQUAL(test.Get().GetCurrentMode(), location::FollowAndRotate, ());
   TEST(test.Get().IsRouteFollowingActive(), ());
   {
@@ -347,14 +393,19 @@ UNIT_TEST(MyPositionController_ActivateRoutingBeforeFirstFix)
   TEST_EQUAL(test.Get().GetCurrentMode(), location::PendingPosition, ());
 
   // Routing activation claims the position even though there was no fix yet.
-  test.Get().ActivateRouting(16 /* zoomLevel */, false /* enableAutoZoom */, true /* isArrowGlued */);
+  test.Get().ActivateRouting(16 /* zoomLevel */, 17 /* zoomLevelIn3d */, false /* enableAutoZoom */,
+                             true /* isArrowGlued */);
   TEST_EQUAL(test.Get().GetCurrentMode(), location::FollowAndRotate, ());
   TEST(test.Get().IsModeHasPosition(), ());
 
-  // The first fix still applies the pre-routing desired mode and drops the routing camera.
-  /// @todo Keep the routing camera here; see the navigation orientation feature.
+  // The first fix keeps the routing camera instead of the stale pre-routing desired mode.
   test.OnLocationUpdate(1.0);
-  TEST_EQUAL(test.Get().GetCurrentMode(), location::NotFollow, ());
+  TEST_EQUAL(test.Get().GetCurrentMode(), location::FollowAndRotate, ());
+  {
+    auto const & request = test.m_listener.LastRequest();
+    TEST_EQUAL(request.m_type, TestListener::Camera::FollowAndRotate, ());
+    TEST_EQUAL(request.m_pxZero, test.RoutingCenter(), ());
+  }
 }
 
 UNIT_TEST(MyPositionController_LoseLocationWhileNotFollow)
@@ -400,7 +451,8 @@ UNIT_TEST(MyPositionController_CompassTappedResetsNorth)
 
 UNIT_TEST(MyPositionController_ModeCallbackSequence)
 {
-  Controller test(location::Follow, true /* isRoutingActive */);
+  // The saved north-up routing orientation overrides the saved mode while routing is active.
+  Controller test(location::FollowAndRotate, true /* isRoutingActive */, location::MapOrientation::NorthUp);
   test.OnLocationUpdate(1.0);
   test.Get().StopLocationFollow();
   test.NextMode();
@@ -409,8 +461,196 @@ UNIT_TEST(MyPositionController_ModeCallbackSequence)
   ModeLog const expected = {{location::PendingPosition, true},
                             {location::Follow, true},
                             {location::NotFollow, true},
-                            {location::FollowAndRotate, true},
+                            {location::Follow, true},
                             {location::Follow, false}};
   TEST_EQUAL(test.m_modeLog, expected, ());
+  TEST(test.m_orientationLog.empty(), ());
+}
+
+UNIT_TEST(MyPositionController_RoutingStartKeepsSavedNorthUp)
+{
+  Controller test(location::NotFollow, false /* isRoutingActive */, location::MapOrientation::NorthUp);
+  test.Get().EnablePerspectiveInRouting(true /* enablePerspective */);
+  test.OnLocationUpdate(1.0);
+
+  test.Get().ActivateRouting(16 /* zoomLevel */, 17 /* zoomLevelIn3d */, false /* enableAutoZoom */,
+                             true /* isArrowGlued */);
+
+  // North-up navigation starts in Follow with the 2D zoom, an explicit north azimuth
+  // and the user centered on the screen.
+  TEST_EQUAL(test.Get().GetCurrentMode(), location::Follow, ());
+  TEST(test.Get().IsRouteFollowingActive(), ());
+  TEST(!test.Get().ShouldEnablePerspectiveInRouting(), ());
+  {
+    auto const & request = test.m_listener.LastRequest();
+    TEST_EQUAL(request.m_type, TestListener::Camera::FollowAndRotate, ());
+    TEST_EQUAL(request.m_azimuth, 0.0, ());
+    TEST_EQUAL(request.m_pxZero, test.ScreenCenter(), ());
+    TEST_EQUAL(request.m_zoomLevel, 16, ());
+  }
+  // Restoring the saved orientation is not an orientation choice.
+  TEST(test.m_orientationLog.empty(), ());
+}
+
+UNIT_TEST(MyPositionController_RoutingStartUses3dZoomForHeadingUp)
+{
+  Controller test(location::NotFollow, false /* isRoutingActive */, location::MapOrientation::HeadingUp);
+  test.Get().EnablePerspectiveInRouting(true /* enablePerspective */);
+  test.OnLocationUpdate(1.0);
+
+  test.Get().ActivateRouting(16 /* zoomLevel */, 17 /* zoomLevelIn3d */, false /* enableAutoZoom */,
+                             true /* isArrowGlued */);
+
+  TEST_EQUAL(test.Get().GetCurrentMode(), location::FollowAndRotate, ());
+  TEST(test.Get().ShouldEnablePerspectiveInRouting(), ());
+  {
+    auto const & request = test.m_listener.LastRequest();
+    TEST_EQUAL(request.m_type, TestListener::Camera::FollowAndRotate, ());
+    TEST_ALMOST_EQUAL_ABS(request.m_azimuth, math::DegToRad(45.0), kAzimuthEps, ());
+    TEST_EQUAL(request.m_pxZero, test.RoutingCenter(), ());
+    TEST_EQUAL(request.m_zoomLevel, 17, ());
+  }
+}
+
+UNIT_TEST(MyPositionController_RoutingOrientationSwitchIsExplicitAndPersisted)
+{
+  Controller test(location::FollowAndRotate, true /* isRoutingActive */, location::MapOrientation::HeadingUp);
+  test.OnLocationUpdate(1.0);
+  TEST_EQUAL(test.Get().GetCurrentMode(), location::FollowAndRotate, ());
+
+  // The location button chooses north-up: the camera resets to north and the choice is reported.
+  test.NextMode();
+  TEST_EQUAL(test.Get().GetCurrentMode(), location::Follow, ());
+  {
+    auto const & request = test.m_listener.LastRequest();
+    TEST_EQUAL(request.m_type, TestListener::Camera::FollowAndRotate, ());
+    TEST_EQUAL(request.m_azimuth, 0.0, ());
+    TEST_EQUAL(request.m_pxZero, test.ScreenCenter(), ());
+  }
+  OrientationLog expected = {location::MapOrientation::NorthUp};
+  TEST_EQUAL(test.m_orientationLog, expected, ());
+
+  // The next press chooses heading-up again.
+  test.NextMode();
+  TEST_EQUAL(test.Get().GetCurrentMode(), location::FollowAndRotate, ());
+  expected.push_back(location::MapOrientation::HeadingUp);
+  TEST_EQUAL(test.m_orientationLog, expected, ());
+}
+
+UNIT_TEST(MyPositionController_RoutingCompassTapChoosesNorthUp)
+{
+  Controller test(location::FollowAndRotate, true /* isRoutingActive */, location::MapOrientation::HeadingUp);
+  test.OnLocationUpdate(1.0);
+  TEST_EQUAL(test.Get().GetCurrentMode(), location::FollowAndRotate, ());
+
+  test.Get().OnCompassTapped();
+  TEST_EQUAL(test.Get().GetCurrentMode(), location::Follow, ());
+  {
+    auto const & request = test.m_listener.LastRequest();
+    TEST_EQUAL(request.m_type, TestListener::Camera::FollowAndRotate, ());
+    TEST_EQUAL(request.m_azimuth, 0.0, ());
+  }
+  OrientationLog const expected = {location::MapOrientation::NorthUp};
+  TEST_EQUAL(test.m_orientationLog, expected, ());
+}
+
+UNIT_TEST(MyPositionController_RoutingNorthUpSurvivesLocationLoss)
+{
+  Controller test(location::FollowAndRotate, true /* isRoutingActive */, location::MapOrientation::HeadingUp);
+  test.OnLocationUpdate(1.0);
+  test.NextMode();
+  TEST_EQUAL(test.Get().GetCurrentMode(), location::Follow, ());
+
+  test.Get().LoseLocation();
+  TEST_EQUAL(test.Get().GetCurrentMode(), location::PendingPosition, ());
+
+  // The recovery restores north-up with an explicit zero azimuth and the user centered.
+  test.OnLocationUpdate(2.0);
+  TEST_EQUAL(test.Get().GetCurrentMode(), location::Follow, ());
+  {
+    auto const & request = test.m_listener.LastRequest();
+    TEST_EQUAL(request.m_type, TestListener::Camera::FollowAndRotate, ());
+    TEST_EQUAL(request.m_azimuth, 0.0, ());
+    TEST_EQUAL(request.m_pxZero, test.ScreenCenter(), ());
+    TEST_EQUAL(request.m_zoomLevel, 16, ());
+  }
+  OrientationLog const expected = {location::MapOrientation::NorthUp};
+  TEST_EQUAL(test.m_orientationLog, expected, ());
+}
+
+UNIT_TEST(MyPositionController_RoutingNotFollowReturnsToPreferredNorthUp)
+{
+  Controller test(location::FollowAndRotate, true /* isRoutingActive */, location::MapOrientation::HeadingUp);
+  test.OnLocationUpdate(1.0);
+  test.NextMode();
+  TEST_EQUAL(test.Get().GetCurrentMode(), location::Follow, ());
+
+  test.Get().StopLocationFollow();
+  TEST_EQUAL(test.Get().GetCurrentMode(), location::NotFollow, ());
+
+  // Recentering restores the preferred north-up orientation with a zero azimuth.
+  test.NextMode();
+  TEST_EQUAL(test.Get().GetCurrentMode(), location::Follow, ());
+  {
+    auto const & request = test.m_listener.LastRequest();
+    TEST_EQUAL(request.m_type, TestListener::Camera::FollowAndRotate, ());
+    TEST_EQUAL(request.m_azimuth, 0.0, ());
+    TEST_EQUAL(request.m_pxZero, test.ScreenCenter(), ());
+  }
+  // Only the explicit switch to north-up was reported, not the restorations.
+  OrientationLog const expected = {location::MapOrientation::NorthUp};
+  TEST_EQUAL(test.m_orientationLog, expected, ());
+}
+
+UNIT_TEST(MyPositionController_RoutingPerspectiveIsStableThroughTransientStates)
+{
+  Controller test(location::NotFollow, false /* isRoutingActive */, location::MapOrientation::HeadingUp);
+  test.Get().EnablePerspectiveInRouting(true /* enablePerspective */);
+  test.OnLocationUpdate(1.0);
+  TEST(!test.Get().ShouldEnablePerspectiveInRouting(), ());
+
+  test.Get().ActivateRouting(16 /* zoomLevel */, 17 /* zoomLevelIn3d */, false /* enableAutoZoom */,
+                             true /* isArrowGlued */);
+  TEST(test.Get().ShouldEnablePerspectiveInRouting(), ());
+
+  // Neither a location loss, nor a manual pan, nor the recovery flattens the heading-up camera.
+  test.Get().LoseLocation();
+  TEST(test.Get().ShouldEnablePerspectiveInRouting(), ());
+  test.OnLocationUpdate(2.0);
+  TEST(test.Get().ShouldEnablePerspectiveInRouting(), ());
+  test.Get().StopLocationFollow();
+  TEST(test.Get().ShouldEnablePerspectiveInRouting(), ());
+  test.NextMode();
+  TEST_EQUAL(test.Get().GetCurrentMode(), location::FollowAndRotate, ());
+  TEST(test.Get().ShouldEnablePerspectiveInRouting(), ());
+
+  // The 3D setting switch applies immediately.
+  test.Get().EnablePerspectiveInRouting(false /* enablePerspective */);
+  TEST(!test.Get().ShouldEnablePerspectiveInRouting(), ());
+}
+
+UNIT_TEST(MyPositionController_RoutingPerspectiveIsNeverEnabledForNorthUp)
+{
+  Controller test(location::NotFollow, false /* isRoutingActive */, location::MapOrientation::NorthUp);
+  test.Get().EnablePerspectiveInRouting(true /* enablePerspective */);
+  test.OnLocationUpdate(1.0);
+
+  test.Get().ActivateRouting(16 /* zoomLevel */, 17 /* zoomLevelIn3d */, false /* enableAutoZoom */,
+                             true /* isArrowGlued */);
+  TEST(!test.Get().ShouldEnablePerspectiveInRouting(), ());
+
+  test.Get().LoseLocation();
+  TEST(!test.Get().ShouldEnablePerspectiveInRouting(), ());
+  test.OnLocationUpdate(2.0);
+  TEST(!test.Get().ShouldEnablePerspectiveInRouting(), ());
+  test.Get().StopLocationFollow();
+  test.NextMode();
+  TEST_EQUAL(test.Get().GetCurrentMode(), location::Follow, ());
+  TEST(!test.Get().ShouldEnablePerspectiveInRouting(), ());
+
+  // Switching to heading-up enables the perspective again.
+  test.NextMode();
+  TEST_EQUAL(test.Get().GetCurrentMode(), location::FollowAndRotate, ());
+  TEST(test.Get().ShouldEnablePerspectiveInRouting(), ());
 }
 }  // namespace my_position_controller_tests

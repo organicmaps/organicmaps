@@ -30,7 +30,13 @@ NSUInteger constexpr kMaxPredictionCount = 20;
 
 - (void)setMyPositionMode:(MWMMyPositionMode)mode
 {
-  self.isLastPositionModeValid = (mode == MWMMyPositionModeFollowAndRotate);
+  // Predict while the camera follows the user during navigation: heading-up (FollowAndRotate) always,
+  // north-up (Follow) only while a route is being followed. Outside navigation plain Follow just
+  // centers on the user and does not need predicted intermediate fixes every 0.5 s.
+  auto const & routingManager = GetFramework().GetRoutingManager();
+  BOOL const isNavigating = routingManager.IsRoutingActive() && routingManager.IsRoutingFollowing();
+  self.isLastPositionModeValid =
+      (mode == MWMMyPositionModeFollowAndRotate || (isNavigating && mode == MWMMyPositionModeFollow));
   [self restart];
 }
 
