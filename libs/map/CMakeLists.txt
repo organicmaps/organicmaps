@@ -58,6 +58,8 @@ set(SRC
   search_api.hpp
   search_mark.cpp
   search_mark.hpp
+  terrain_provider.cpp
+  terrain_provider.hpp
   track.cpp
   track.hpp
   track_statistics.cpp

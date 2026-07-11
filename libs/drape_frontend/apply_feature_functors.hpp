@@ -28,6 +28,10 @@ namespace df
 struct TextViewParams;
 struct BuildingOutline;
 
+/// Fills the line view params from the drule (color, width, dash, cap, join).
+/// Also used by the dynamic isolines path which has no FeatureType behind the lines.
+void ExtractLineParams(drule::LineRule const & lineRule, double visScale, LineViewParams & params);
+
 struct ApplyFeatureParams;
 class BaseApplyFeature
 {

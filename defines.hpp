@@ -4,6 +4,8 @@
 
 // clang-format off
 #define DATA_FILE_EXTENSION ".mwm"
+#define TERRAIN_FILE_EXT ".twm"
+#define TERRAIN_DIR "terrain"
 #define DATA_FILE_EXTENSION_TMP ".mwm.tmp"
 #define RELATIONS_FILE_EXTENSION_TMP ".rels.tmp"
 #define DIFF_FILE_EXTENSION ".mwmdiff"
