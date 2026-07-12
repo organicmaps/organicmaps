@@ -374,9 +374,9 @@ named-colors:
   TrafficUnknown c022
   TransitBackground c068
   TransitMarkPrimaryText c023
-  TransitMarkPrimaryTextOutline c002
+  TransitMarkPrimaryTextOutline c024
   TransitMarkSecondaryText c023
-  TransitMarkSecondaryTextOutline c002
+  TransitMarkSecondaryTextOutline c024
   TransitStopInnerMarker c024
   TransitTransferInnerMarker c069
   TransitTransferOuterMarker c022
