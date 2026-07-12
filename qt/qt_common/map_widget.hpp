@@ -7,6 +7,7 @@
 #include "qt/qt_common/qtoglcontextfactory.hpp"
 
 #include <QOpenGLWidget>
+#include <QQuickWidget>
 
 #include <QtCore/QTimer>
 

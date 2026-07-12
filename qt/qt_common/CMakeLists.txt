@@ -1,5 +1,7 @@
 project(qt_common)
 
+# find_package(Qt6 REQUIRED COMPONENTS Quick QuickWidgets)
+
 QT6_ADD_RESOURCES(RESOURCES res/resources_common.qrc)
 
 set_property(SOURCE qrc_resources_common.cpp PROPERTY SKIP_AUTOGEN ON)
@@ -34,4 +36,14 @@ target_link_libraries(${PROJECT_NAME}
     Qt6::Widgets
     Qt6::OpenGL
     Qt6::OpenGLWidgets
+    Qt6::Quick
+    Qt6::QuickWidgets
 )
+
+# qt_add_qml_module(${PROJECT_NAME}
+#     URI fbitem
+#     QML_FILES cloud.qml
+#     RESOURCE_PREFIX /qquickwidgetversuswindow_opengl
+#     NO_RESOURCE_TARGET_PATH
+#     DEPENDENCIES QtQuick
+# )
