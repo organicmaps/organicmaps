@@ -88,9 +88,9 @@ colors
   RouteMarkSecondaryText-color: #888888;
   RouteMarkSecondaryTextOutline-color: #000000;
   TransitMarkPrimaryText-color: #888888;
-  TransitMarkPrimaryTextOutline-color: #FFFFFF;
+  TransitMarkPrimaryTextOutline-color: #000000;
   TransitMarkSecondaryText-color: #888888;
-  TransitMarkSecondaryTextOutline-color: #FFFFFF;
+  TransitMarkSecondaryTextOutline-color: #000000;
   TransitTransferOuterMarker-color: #000000;
   TransitTransferInnerMarker-color: #888888;
   TransitStopInnerMarker-color: #000000;
