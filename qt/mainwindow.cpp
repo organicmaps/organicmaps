@@ -48,6 +48,7 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
+#include <QtQuickWidgets/QQuickWidget>
 
 #ifdef OMIM_OS_WINDOWS
 #include "std/windows.hpp"
@@ -129,6 +130,13 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
 
   setCentralWidget(m_pDrawWidget);
 
+  auto quickWidget = new QQuickWidget();
+  quickWidget->setAttribute(Qt::WA_AlwaysStackOnTop);
+  // quickWidget->setAttribute(Qt::WA_TranslucentBackground);
+  quickWidget->setClearColor(Qt::transparent);
+  quickWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
+  quickWidget->setSource(QUrl::fromLocalFile("/workspace/qt/cloud.qml"));
+
   if (m_screenshotMode)
   {
     m_pDrawWidget->setFixedSize(width, height);
@@ -141,6 +149,8 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
   CreateNavigationBar();
   CreateSearchBarAndPanel();
   CreatePlacePagePanel();
+
+  m_pDrawWidget->layout()->addWidget(quickWidget);
 
   QString caption = QCoreApplication::applicationName();
 
@@ -459,6 +469,9 @@ Framework & MainWindow::GetFramework() const
 void MainWindow::CreateCountryStatusControls()
 {
   QHBoxLayout * mainLayout = new QHBoxLayout();
+  // mainLayout->setSpacing(0);
+  mainLayout->setContentsMargins(0, 0, 0, 0);
+
   m_downloadButton = CreateBlackControl<QPushButton>("Download");
   mainLayout->addWidget(m_downloadButton, 0, Qt::AlignHCenter);
   m_downloadButton->setVisible(false);
