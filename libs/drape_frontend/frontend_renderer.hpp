@@ -375,6 +375,7 @@ private:
     return m_currentZoomLevel;
   }
 
+  double m_lastResolvedVisualScale;
   int m_currentZoomLevel = -1;
 
   ref_ptr<RequestedTiles> m_requestedTiles;
