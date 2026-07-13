@@ -918,6 +918,9 @@
 "medicine" = "Medicinale";
 "search_in_the_list" = "Cerca nella lista";
 "religious_places" = "Luoghi di culto";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Seleziona";
 "transit_not_found" = "La navigazione in metropolitana in questa regione non è ancora disponibile";
 "dialog_pedestrian_route_is_long_header" = "Percorso della metro non trovato";
 "dialog_pedestrian_route_is_long_message" = "Scegli un punto di partenza o di arrivo più vicino a una stazione della metropolitana";

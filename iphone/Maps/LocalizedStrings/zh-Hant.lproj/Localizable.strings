@@ -918,6 +918,9 @@
 "medicine" = "醫療";
 "search_in_the_list" = "在列表中搜尋";
 "religious_places" = "宗教場所";
+
+/* Button title to enter multi-selection mode. */
+"select" = "選擇";
 "transit_not_found" = "本區域的捷運導航目前不可用";
 "dialog_pedestrian_route_is_long_header" = "未找到捷運路線";
 "dialog_pedestrian_route_is_long_message" = "選擇捷運站附近的起點和終點";

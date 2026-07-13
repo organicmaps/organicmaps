@@ -918,6 +918,9 @@
 "medicine" = "İlaç";
 "search_in_the_list" = "Listede ara";
 "religious_places" = "Dini yerler";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Seç";
 "transit_not_found" = "Metro navigasyonu henüz bu bölgede kullanılamaz";
 "dialog_pedestrian_route_is_long_header" = "Metro rotası bulunamadı";
 "dialog_pedestrian_route_is_long_message" = "Metro istasyonuna en yakın rotanın başlangıç veya bitiş noktasını seçin";

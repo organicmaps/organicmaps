@@ -918,6 +918,9 @@
 "medicine" = "ยา";
 "search_in_the_list" = "ค้นหาในรายการ";
 "religious_places" = "สถานที่ทางศาสนา";
+
+/* Button title to enter multi-selection mode. */
+"select" = "เลือก";
 "transit_not_found" = "ยังไม่สามารถใช้การนำทางรถไฟใต้ดินในภูมิภาคนี้ได้";
 "dialog_pedestrian_route_is_long_header" = "ไม่พบเส้นทางของทางรถไฟใต้ดิน";
 "dialog_pedestrian_route_is_long_message" = "โปรดเลือกจุดเริ่มต้นและสิ้นสุดที่อยู่ใกล้สถานีรถไฟใต้ดิน";

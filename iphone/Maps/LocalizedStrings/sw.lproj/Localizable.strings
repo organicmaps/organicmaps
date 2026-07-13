@@ -918,6 +918,9 @@
 "medicine" = "Dawa";
 "search_in_the_list" = "Tafuta kwenye orodha";
 "religious_places" = "Sehemu za ibada";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Chagua";
 "transit_not_found" = "Uabiri wa njia ya chini kwa chini katika mkoa huu haupatikani bado";
 "dialog_pedestrian_route_is_long_header" = "Njia ya chini kwa chini haipatikani";
 "dialog_pedestrian_route_is_long_message" = "Chagua nyota au alama ya mwisho karibu ya kituo cha njia ya chini kwa chini";

@@ -918,6 +918,9 @@
 "medicine" = "Lækningar";
 "search_in_the_list" = "Leita í listanum";
 "religious_places" = "Trúarlegir staðir";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Veldu";
 "transit_not_found" = "Leiðsögn í neðanjarðarlestum er ekki tiltæk í augnablikinu á þessu svæði";
 "dialog_pedestrian_route_is_long_header" = "Engin neðanjarðarlestarleið fannst";
 "dialog_pedestrian_route_is_long_message" = "Veldu upphafs- eða endastað sem er nær neðanjarðarlestarstöð";

@@ -918,6 +918,9 @@
 "medicine" = "Medicin";
 "search_in_the_list" = "Søg i listen";
 "religious_places" = "Religiøse steder";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Vælg";
 "transit_not_found" = "Metro-navigation er endnu ikke tilgængelig i denne region";
 "dialog_pedestrian_route_is_long_header" = "Ingen undergrundsrute fundet";
 "dialog_pedestrian_route_is_long_message" = "Vælg venligst et start- eller stoppunkt tættere på en metrostation";

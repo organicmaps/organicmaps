@@ -918,6 +918,9 @@
 "medicine" = "Lecznictwo";
 "search_in_the_list" = "Wyszukaj na liście";
 "religious_places" = "Święte miejsca";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Wybierz";
 "transit_not_found" = "Nawigacja metrem nie jest jeszcze tutaj dostępna";
 "dialog_pedestrian_route_is_long_header" = "Nie znaleziono trasy metra";
 "dialog_pedestrian_route_is_long_message" = "Wybierz punkt początkowy lub końcowy trasy najbliżej do stacji metra";

@@ -918,6 +918,9 @@
 "medicine" = "Apteekki";
 "search_in_the_list" = "Etsi luettelosta";
 "religious_places" = "Uskonnolliset paikat";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Valitse";
 "transit_not_found" = "Metron reittiohjeet eivät ole vielä saatavilla tällä alueella";
 "dialog_pedestrian_route_is_long_header" = "Metroreittiä ei löytynyt";
 "dialog_pedestrian_route_is_long_message" = "Valitse reitin aloitus- tai loppupiste lähemmäksi metroasemaa";

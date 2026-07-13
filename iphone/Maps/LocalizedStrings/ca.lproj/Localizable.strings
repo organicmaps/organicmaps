@@ -918,6 +918,9 @@
 "medicine" = "Medicina";
 "search_in_the_list" = "Cerca en la llista";
 "religious_places" = "Llocs de culte";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Seleccioneu";
 "transit_not_found" = "La navegació en metro en aquesta regió encara no és disponible";
 "dialog_pedestrian_route_is_long_header" = "No s’ha trobat cap ruta en metro";
 "dialog_pedestrian_route_is_long_message" = "Trieu un altre punt, inicial o final, més proper a una estació de metro";

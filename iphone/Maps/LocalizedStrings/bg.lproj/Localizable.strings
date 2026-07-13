@@ -918,6 +918,9 @@
 "medicine" = "Лечение";
 "search_in_the_list" = "Търсене в списъка";
 "religious_places" = "Храмове";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Избор";
 "transit_not_found" = "Навигацията за метро все още не е налична в региона";
 "dialog_pedestrian_route_is_long_header" = "Не е открит маршрут за метро";
 "dialog_pedestrian_route_is_long_message" = "Моля, изберете начална или крайна точка по-близо до метростанция";

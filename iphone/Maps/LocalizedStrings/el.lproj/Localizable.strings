@@ -918,6 +918,9 @@
 "medicine" = "Φαρμακεία";
 "search_in_the_list" = "Αναζήτηση στη λίστα";
 "religious_places" = "Χώροι Λατρείας";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Επιλογή";
 "transit_not_found" = "Η πλοήγηση με μετρό γι' αυτή την περιοχή δεν είναι ακόμα διαθέσιμη";
 "dialog_pedestrian_route_is_long_header" = "Δεν βρέθηκε διαδρομή του μετρό";
 "dialog_pedestrian_route_is_long_message" = "Επιλέξτε το σημείο εκκίνησης ή τέλους διαδρομής πιο κοντά στο σταθμό του μετρό";

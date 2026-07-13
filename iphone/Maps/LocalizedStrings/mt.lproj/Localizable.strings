@@ -918,6 +918,9 @@
 "medicine" = "Mediċina";
 "search_in_the_list" = "Fittex fil-lista";
 "religious_places" = "Postijiet reliġjużi";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Agħżel";
 "transit_not_found" = "In-navigazzjoni tas-subway f’ dan ir-reġjun għadha mhix disponibbli";
 "dialog_pedestrian_route_is_long_header" = "Ma nstabet l-ebda rotta tas-subway";
 "dialog_pedestrian_route_is_long_message" = "Agħżel punt tal-bidu jew tat-tmiem eqreb lejn stazzjon tas-subway";

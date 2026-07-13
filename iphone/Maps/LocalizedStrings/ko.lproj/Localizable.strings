@@ -918,6 +918,9 @@
 "medicine" = "의료";
 "search_in_the_list" = "리스트에서 검색";
 "religious_places" = "종교적 장소";
+
+/* Button title to enter multi-selection mode. */
+"select" = "선택";
 "transit_not_found" = "이 지역의 지하철 노선 기능이 아직 없습니다";
 "dialog_pedestrian_route_is_long_header" = "지하철 루트가 발견되지 않았습니다";
 "dialog_pedestrian_route_is_long_message" = "지하철역에서 가까운 출발점 또는 종점을 선택하세요";

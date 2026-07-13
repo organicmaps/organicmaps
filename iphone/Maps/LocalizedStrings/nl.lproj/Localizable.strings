@@ -918,6 +918,9 @@
 "medicine" = "Geneeskunde";
 "search_in_the_list" = "Zoek in de lijst";
 "religious_places" = "Religieuze plaatsen";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Selecteer";
 "transit_not_found" = "Metro-navigatie is nog niet beschikbaar in deze regio";
 "dialog_pedestrian_route_is_long_header" = "Geen metroroute gevonden";
 "dialog_pedestrian_route_is_long_message" = "Kies een begin- of eindpunt dichter bij het metrostation";

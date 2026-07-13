@@ -918,6 +918,9 @@
 "medicine" = "Medikuntza";
 "search_in_the_list" = "Bilatu zerrendan";
 "religious_places" = "Erlijio guneak";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Hautatu";
 "transit_not_found" = "Metroko nabigazioa oraindik ez dago erabilgarri eskualde honetan";
 "dialog_pedestrian_route_is_long_header" = "Ez da aurkitu metroko ibilbiderik";
 "dialog_pedestrian_route_is_long_message" = "Aukeratu metrotik hurbilen dagoen ibilbidearen hasiera edo amaiera puntua";

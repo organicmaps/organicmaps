@@ -918,6 +918,9 @@
 "medicine" = "Gyógyszer";
 "search_in_the_list" = "Keresés a listában";
 "religious_places" = "Vallási helyek";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Kiválasztás";
 "transit_not_found" = "Metrónavigáció ebben a régióban még nem érhető el";
 "dialog_pedestrian_route_is_long_header" = "Nem található metróútvonal";
 "dialog_pedestrian_route_is_long_message" = "Válasszon egy, a metróállomáshoz közelebb eső kiindulási pontot vagy úti célt";

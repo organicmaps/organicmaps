@@ -918,6 +918,9 @@
 "medicine" = "Tervishoid";
 "search_in_the_list" = "Otsi loendist";
 "religious_places" = "Religiooniga seotud kohad";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Vali";
 "transit_not_found" = "Tee juhatamine metroos ei ole selles piirkonnas veel saadaval";
 "dialog_pedestrian_route_is_long_header" = "Metroo marsruuti ei leidu";
 "dialog_pedestrian_route_is_long_message" = "Palun vali metroojaamale lähemal asuv alg- või lõpp-punkt";
