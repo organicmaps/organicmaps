@@ -2,7 +2,6 @@ package app.organicmaps.search;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
@@ -53,7 +52,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 {
   @NonNull
   private final List<HiddenCommand> mHiddenCommands = new ArrayList<>();
-  private final List<RecyclerView> mAttachedRecyclers = new ArrayList<>();
   private final LastPosition mLastPosition = new LastPosition();
   private SearchFragmentListener mSearchFragmentListener;
   private View mResultsFrame;
@@ -341,10 +339,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
     mSearchViewModel.getSearchPageLastState().observe(getViewLifecycleOwner(), mBottomSheetStateObserver);
 
-    if (Config.isSearchHistoryEnabled())
-      mTabLayout.setVisibility(View.VISIBLE);
-    else
-      mTabLayout.setVisibility(View.GONE);
     mAppBar = root.findViewById(R.id.app_bar);
 
     updateFrames();
@@ -358,11 +352,27 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
   private void setupTabsIfNeeded()
   {
-    if (mTabAdapter != null || getView() == null)
+    if (getView() == null)
       return;
 
+    final boolean historyEnabled = Config.isSearchHistoryEnabled();
+    if (mTabAdapter != null)
+    {
+      if (mTabAdapter.isHistoryEnabled() == historyEnabled)
+        return;
+      mPager.clearOnPageChangeListeners();
+      mTabAdapter.destroy();
+      mTabAdapter = null;
+      // The nested-scrolling snapshot is keyed by (hasQuery, activeTab); the rebuilt pager reuses
+      // those indices, so drop it or syncNestedScrollingState() would short-circuit and skip
+      // re-enabling the new tab's RecyclerView.
+      mNestedScrollingSyncedHasQuery = null;
+      mNestedScrollingSyncedActiveTab = null;
+    }
+    UiUtils.showIf(historyEnabled, mTabLayout);
+
     final ViewPager pager = mPager;
-    final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, mTabLayout);
+    final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, mTabLayout, historyEnabled);
     mTabAdapter = tabAdapter;
     pager.setOffscreenPageLimit(tabAdapter.getCount());
     pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -372,11 +382,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
         updateNestedScrollingForTab(tabAdapter, position);
       }
     });
-
-    final SharedPreferences preferences = MwmApplication.prefs(requireContext());
-    final int lastSelectedTabPosition = preferences.getInt(Config.KEY_PREF_LAST_SEARCHED_TAB, 0);
-    if (SearchRecents.getSize() == 0 && Config.isSearchHistoryEnabled())
-      pager.setCurrentItem(lastSelectedTabPosition);
 
     tabAdapter.setTabSelectedListener(tab -> {
       mToolbarController.deactivate();
@@ -414,6 +419,9 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     super.onResume();
     MwmApplication.from(requireContext()).getLocationHelper().addListener(mLocationListener);
 
+    if (mTabAdapter != null)
+      setupTabsIfNeeded();
+
     // onPause() stops the shimmer; if we are resuming mid-search with no results yet, restore it
     // so the results pane isn't blank until the next results callback arrives.
     if (mSearchRunning && mSearchAdapter.getItemCount() == 0 && mShimmerView != null)
@@ -442,9 +450,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   public void onDestroyView()
   {
     mSearchDebounceHandler.removeCallbacks(mDebouncedRunSearch);
-    for (RecyclerView v : mAttachedRecyclers)
-      v.removeOnScrollListener(mRecyclerListener);
-    mAttachedRecyclers.clear();
     SearchEngine.INSTANCE.removeListener(this);
     super.onDestroyView();
   }
@@ -640,7 +645,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   public void setRecyclerScrollListener(RecyclerView recycler)
   {
     recycler.addOnScrollListener(mRecyclerListener);
-    mAttachedRecyclers.add(recycler);
     if (mTabAdapter != null)
       updateNestedScrollingForTab(mTabAdapter, mPager.getCurrentItem());
   }
