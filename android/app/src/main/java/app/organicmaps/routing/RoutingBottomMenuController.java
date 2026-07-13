@@ -345,8 +345,7 @@ final class RoutingBottomMenuController
 
   void setBuildProgress(int progress)
   {
-    if (progress > mStart.getBuildProgress())
-      mStart.setBuildProgress(progress);
+    mStart.setBuildProgress(progress);
   }
 
   // Explicit reset covers the rebuild-during-build case where setStartState(BUILDING) early-returns
