@@ -1803,9 +1803,7 @@ void FrontendRenderer::RenderFrame()
   if (viewportChanged || m_needRestoreSize)
     OnResize(modelView);
 
-  bool const zoomChanged = ResolveZoomLevel(modelView);
-  /// @todo Put ResolveZoomLevel under modelViewChanged after testing.
-  ASSERT(!zoomChanged || modelViewChanged, ());
+  bool const zoomChanged = modelViewChanged && ResolveZoomLevel(modelView);
 
   // Skip starting a new GPU frame if rendering is being disabled (e.g. the app is going to the
   // background). SetRenderingEnabled(false) sets the flag on the UI thread and then blocks until this
@@ -2662,7 +2660,7 @@ ScreenBase const & FrontendRenderer::ProcessEvents(bool & modelViewChanged, bool
     modelViewChanged = true;
 
   // Draw-tile zoom also depends on visual scale, not only on the model view.
-  if (m_lastResolvedVisualScale != VisualParams::Instance().GetVisualScale())
+  if (!modelViewChanged && m_lastResolvedVisualScale != VisualParams::Instance().GetVisualScale())
     modelViewChanged = true;
 
   // Location- or compass-update could have changed model view on the previous frame.
