@@ -38,6 +38,7 @@ std::string const kTransitColorFileName = "transit_colors.txt";
 class TransitColorsHolder
 {
 public:
+  /// @pre IsTransitColor.
   dp::Color GetColor(std::string_view name) const
   {
     auto const isDarkStyle = MapStyleIsDark(GetStyleReader().GetCurrentStyle());
@@ -46,30 +47,28 @@ public:
     if (it != colors.cend())
       return it->second;
 
-    if (name.starts_with(kTransitLineColorPrefix))
-    {
-      // Not a (subway) palette name: bus/tram lines collected from OSM have raw color like "#RRGGBB".
-      // Parse it and adjust to the current theme like the PT relations rendering does.
-      auto raw = name;
+    // Not a (subway) palette name: bus/tram lines collected from OSM have raw color like "#RRGGBB".
+    // Parse it and adjust to the current theme like the PT relations rendering does.
+    auto raw = name;
+    if (raw.starts_with(kTransitLineColorPrefix))
       raw.remove_prefix(kTransitLineColorPrefix.size());
-      if (raw.starts_with('#'))
-        raw.remove_prefix(1);
+    else if (raw.starts_with(kTransitTextColorPrefix))
+      raw.remove_prefix(kTransitTextColorPrefix.size());
 
-      unsigned int rgb;
-      if (raw.size() == 6 && strings::to_uint(raw, rgb, 16))
-      {
-        auto color = df::ToDrapeColor(static_cast<uint32_t>(rgb));
-        dp::HSL hsl = dp::Color2HSL(color);
-        if (hsl.AdjustLightness(!isDarkStyle))
-          color = dp::HSL2Color(hsl);
-        return color;
-      }
+    if (raw.starts_with('#'))
+      raw.remove_prefix(1);
 
-      return dp::Color::Purple();  // Default purple.
+    unsigned int rgb;
+    if (raw.size() == 6 && strings::to_uint(raw, rgb, 16))
+    {
+      auto color = df::ToDrapeColor(static_cast<uint32_t>(rgb));
+      dp::HSL hsl = dp::Color2HSL(color);
+      if (hsl.AdjustLightness(!isDarkStyle))
+        color = dp::HSL2Color(hsl);
+      return color;
     }
 
-    // Text and other transit colours keep the empty (black) default.
-    return dp::Color();
+    return dp::Color::Purple();  // Default purple.
   }
 
   void Load()
@@ -136,7 +135,7 @@ std::string GetTransitColorName(ColorConstant const & localName)
 
 std::string GetTransitTextColorName(ColorConstant const & localName)
 {
-  return (kTransitColorPrefix + kTransitTextPrefix).append(localName);
+  return kTransitTextColorPrefix + std::string(localName);
 }
 
 bool IsTransitColor(ColorConstant const & constant)

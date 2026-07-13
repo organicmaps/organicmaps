@@ -13,6 +13,7 @@ std::string constexpr kTransitColorPrefix = "transit_";
 std::string constexpr kTransitTextPrefix = "text_";
 // constexpr doesn't compile on Android now
 std::string const kTransitLineColorPrefix = kTransitColorPrefix + "line_";
+std::string const kTransitTextColorPrefix = kTransitColorPrefix + kTransitTextPrefix;
 
 dp::Color GetColorConstant(ColorConstant const & constant);
 
