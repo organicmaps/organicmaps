@@ -919,6 +919,9 @@
 "medicine" = "Медицина";
 "search_in_the_list" = "Претражи листу";
 "religious_places" = "Верска места";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Изабери";
 "transit_not_found" = "Навигација у метроу у овом региону још није доступна";
 "dialog_pedestrian_route_is_long_header" = "Није пронађена метро рута";
 "dialog_pedestrian_route_is_long_message" = "Молим вас изаберите почетну и крајњу тачку ближе метро станицама";

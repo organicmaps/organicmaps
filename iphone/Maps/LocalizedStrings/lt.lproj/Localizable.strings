@@ -919,6 +919,9 @@
 "medicine" = "Medicina";
 "search_in_the_list" = "Ieškoti sąraše";
 "religious_places" = "Religinės vietos";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Pasirinkti";
 "transit_not_found" = "Metro navigacija šiame regione dar negalima";
 "dialog_pedestrian_route_is_long_header" = "Metro maršrutas nerastas";
 "dialog_pedestrian_route_is_long_message" = "Pasirinkite pradžios ar pabaigos tašką, esančius arčiau metro stotelės";
