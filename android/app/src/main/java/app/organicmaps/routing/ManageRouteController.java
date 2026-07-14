@@ -57,10 +57,8 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     mTouchHelper.attachToRecyclerView(manageRouteList);
   }
 
-  public void onRouteOrderChanged()
+  public void onRouteOrderChanged(@NonNull ArrayList<RouteMarkData> newRoutePoints)
   {
-    ArrayList<RouteMarkData> newRoutePoints = mManageRouteAdapter.getRoutePoints();
-
     // Make sure that the new route contains at least 2 points (start and destination).
     Assert.debug(newRoutePoints.size() >= 2, "There must be at least two route points");
 
@@ -97,7 +95,7 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
   public void onRoutePointDeleted(RecyclerView.ViewHolder viewHolder)
   {
     mManageRouteAdapter.deleteRoutePoint(viewHolder);
-    onRouteOrderChanged();
+    onRouteOrderChanged(mManageRouteAdapter.getRoutePoints());
   }
   @Override
   public void onAddStopButtonClicked()
@@ -221,8 +219,11 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
       viewHolder.itemView.setTranslationZ(0f);
       if (mOrderChanged)
       {
-        mController.onRouteOrderChanged();
         mOrderChanged = false;
+        // clearView can fire mid-layout, and the rebuild chain ends in notifyDataSetChanged (forbidden during
+        // layout) — post it past the layout pass. Snapshot the order: a queued refresh() may rewrite it first.
+        ArrayList<RouteMarkData> newOrder = new ArrayList<>(mManageRouteAdapter.getRoutePoints());
+        recyclerView.post(() -> mController.onRouteOrderChanged(newOrder));
       }
       mDragStartOrder = null;
     }
