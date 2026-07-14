@@ -66,9 +66,7 @@ extension NavigationDashboard {
 
       case .updateRouteBuildingProgress(let progress, routerType: let routerType):
         viewModel.routerType = routerType
-        if progress > viewModel.progress {
-          viewModel.progress = progress
-        }
+        viewModel.progress = progress
 
       case .updateNavigationInfo(let entity):
         let estimates = buildEstimatesString(routerType: viewModel.routerType,
