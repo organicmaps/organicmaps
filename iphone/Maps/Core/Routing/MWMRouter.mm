@@ -223,7 +223,8 @@ using namespace routing;
 
 + (void)disableFollowMode
 {
-  GetFramework().GetRoutingManager().DisableFollowMode();
+  if (GetFramework().GetRoutingManager().DisableFollowMode())
+    [MWMThemeManager invalidate];
 }
 + (void)enableTurnNotifications:(BOOL)active
 {
@@ -427,6 +428,7 @@ using namespace routing;
       if (p1.isMyPosition && lastLocation)
       {
         rm.FollowRoute();
+        [MWMThemeManager invalidate];
         [[MWMMapViewControlsManager manager] onRouteStart];
       }
       else
@@ -467,6 +469,7 @@ using namespace routing;
 + (void)doStop:(BOOL)removeRoutePoints
 {
   GetFramework().GetRoutingManager().CloseRouting(removeRoutePoints);
+  [MWMThemeManager invalidate];
   if (removeRoutePoints)
     GetFramework().GetRoutingManager().DeleteSavedRoutePoints();
 }
