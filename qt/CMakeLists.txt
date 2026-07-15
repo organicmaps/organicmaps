@@ -77,11 +77,12 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 qt_add_qml_module(${PROJECT_NAME}
-    URI fbitem
-    QML_FILES qt_common/cloud.qml
-    RESOURCE_PREFIX /qquickwidgetversuswindow_opengl
-    NO_RESOURCE_TARGET_PATH
-    DEPENDENCIES QtQuick
+    URI Map
+    # QML_FILES cloud.qml
+    # RESOURCE_PREFIX /qquickwidgetversuswindow_opengl
+    # NO_RESOURCE_TARGET_PATH
+    # DEPENDENCIES QtQuick
+    # SOURCES draw_widget.cpp draw_widget.hpp
 )
 
 if (BUILD_DESIGNER)

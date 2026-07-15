@@ -35,6 +35,7 @@ class DrawWidget : public qt::common::MapWidget
   using TBase = MapWidget;
 
   Q_OBJECT
+  QML_ELEMENT
 
 public Q_SLOTS:
   void ShowAll();
@@ -82,6 +83,8 @@ public:
   void SetMapStyleToDefault();
   void SetMapStyleToVehicle();
   void SetMapStyleToOutdoors();
+
+  Q_INVOKABLE void qmlClicked(qreal x, qreal y);
 
 protected:
   /// @name Overriden from MapWidget.

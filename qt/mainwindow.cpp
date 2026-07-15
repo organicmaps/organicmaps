@@ -60,6 +60,8 @@
 #include "qt/update_dialog.hpp"
 #endif  // NO_DOWNLOADER
 
+#include <QQmlContext>
+
 namespace qt
 {
 namespace
@@ -137,8 +139,13 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
   quickWidget->setClearColor(Qt::transparent);
   quickWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
   // quickWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+  quickWidget->setInitialProperties({{"map", QVariant::fromValue(m_pDrawWidget)}});
   // quickWidget->setSource(QUrl("qrc:/qquickwidgetversuswindow_opengl/cloud.qml"));
-  quickWidget->setSource(QUrl::fromLocalFile("/workspace/qt/qt_common/cloud.qml"));
+  quickWidget->setSource(QUrl::fromLocalFile("/workspace/qt/cloud.qml"));
+  // quickWidget->setSource(QUrl::fromLocalFile("cloud.qml"));
+  // quickWidget->rootContext()->setContextProperty("map", m_pDrawWidget);
+
   quickWidget->show();
   // quickWidget->setVisible(true);
   // quickWidget->raise();
@@ -159,7 +166,7 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
   CreatePlacePagePanel();
 
   m_pDrawWidget->layout()->addWidget(quickWidget);
-  
+
   QString caption = QCoreApplication::applicationName();
 
 #ifdef BUILD_DESIGNER

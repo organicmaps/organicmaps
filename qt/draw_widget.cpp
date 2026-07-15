@@ -242,6 +242,16 @@ bool DrawWidget::event(QEvent * event)
 #endif
 }
 
+Q_INVOKABLE void DrawWidget::qmlClicked(qreal x, qreal y)
+{
+  QMouseEvent pe{QEvent::MouseButtonPress, {x, y}, {}, Qt::LeftButton, Qt::NoButton, Qt::NoModifier};
+  mousePressEvent(&pe);
+  QMouseEvent re{QEvent::MouseButtonRelease, {x, y}, {}, Qt::LeftButton, Qt::NoButton, Qt::NoModifier};
+  mouseReleaseEvent(&re);
+
+  qDebug() << "Received click from QML at:" << x << "," << y;
+}
+
 void DrawWidget::mousePressEvent(QMouseEvent * e)
 {
   if (m_screenshotMode)
