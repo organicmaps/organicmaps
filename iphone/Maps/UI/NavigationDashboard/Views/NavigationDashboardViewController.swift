@@ -43,6 +43,7 @@ final class NavigationDashboardViewController: UIViewController {
   private let elevationProfileContainerView = UIView()
   private var elevationProfileViewController: ElevationProfileViewController?
   private var currentRouteElevationPreviewData: RouteElevationPreviewData?
+  private var currentRouteElevationActivePointDistance: Double?
   private let settingsButton = UIButton(type: .system)
   private let settingsBadge = BadgeWithNumber()
   private var routePointsView = RoutePointsView()
@@ -262,12 +263,15 @@ final class NavigationDashboardViewController: UIViewController {
     routePointsView.scrollViewDelegate = self
   }
 
-  private func updateElevationProfile(with routeElevationPreviewData: RouteElevationPreviewData?) {
-    guard routeElevationPreviewData !== currentRouteElevationPreviewData else {
+  private func updateElevationProfile(with routeElevationPreviewData: RouteElevationPreviewData?,
+                                      activePointDistance: Double?) {
+    guard routeElevationPreviewData !== currentRouteElevationPreviewData ||
+      activePointDistance != currentRouteElevationActivePointDistance else {
       elevationProfileContainerView.isHidden = routeElevationPreviewData == nil
       return
     }
     currentRouteElevationPreviewData = routeElevationPreviewData
+    currentRouteElevationActivePointDistance = activePointDistance
 
     guard let routeElevationPreviewData else {
       removeElevationProfileIfNeeded()
@@ -275,7 +279,10 @@ final class NavigationDashboardViewController: UIViewController {
       return
     }
 
-    guard let state = ElevationProfileBuilder.makeRoutePreviewState(routeElevationPreviewData: routeElevationPreviewData) else {
+    guard let state = ElevationProfileBuilder.makeRoutePreviewState(
+      routeElevationPreviewData: routeElevationPreviewData,
+      activePointDistance: activePointDistance ?? 0
+    ) else {
       removeElevationProfileIfNeeded()
       elevationProfileContainerView.isHidden = true
       return
@@ -289,7 +296,7 @@ final class NavigationDashboardViewController: UIViewController {
     }
 
     let viewController = ElevationProfileBuilder.build(state: state,
-                                                       delegate: nil,
+                                                       delegate: interactor,
                                                        presentationStyle: .routePreview)
     addChild(viewController)
     elevationProfileContainerView.addSubview(viewController.view)
@@ -312,6 +319,7 @@ final class NavigationDashboardViewController: UIViewController {
     elevationProfileViewController.removeFromParent()
     self.elevationProfileViewController = nil
     currentRouteElevationPreviewData = nil
+    currentRouteElevationActivePointDistance = nil
   }
 
   // MARK: - Actions
@@ -527,7 +535,7 @@ extension NavigationDashboardViewController {
     case .error:
       estimatesView.setState(viewModel.estimatesState)
       transportTransitStepsView.setNavigationInfo(nil)
-      updateElevationProfile(with: nil)
+      updateElevationProfile(with: nil, activePointDistance: nil)
       saveRouteAsTrackButton.isEnabled = viewModel.canSaveRouteAsTrack
       navigationControlView.isVisible = false
 
@@ -536,7 +544,8 @@ extension NavigationDashboardViewController {
                                selectedRouterType: viewModel.routerType)
       estimatesView.setState(viewModel.estimatesState)
       transportTransitStepsView.setNavigationInfo(viewModel.entity)
-      updateElevationProfile(with: viewModel.routeElevationPreviewData)
+      updateElevationProfile(with: viewModel.routeElevationPreviewData,
+                             activePointDistance: viewModel.routeElevationActivePointDistance)
       routePointsView.setRoutePoints(viewModel.routePoints)
       settingsBadge.isHidden = !viewModel.routingOptions.hasOptions
       settingsBadge.number = viewModel.routingOptions.enabledOptionsCount
