@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/routing_types_header"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:layout_marginTop="@dimen/margin_half"
   android:orientation="horizontal"
-  android:paddingStart="@dimen/altitude_chart_container_padding_left"
-  android:paddingEnd="@dimen/altitude_chart_container_padding_left">
+  android:paddingStart="@dimen/routing_plan_horizontal_padding"
+  android:paddingEnd="@dimen/routing_plan_horizontal_padding">
 
   <FrameLayout
     android:layout_width="0dp"
