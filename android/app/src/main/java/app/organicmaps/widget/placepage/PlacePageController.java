@@ -528,8 +528,8 @@ public class PlacePageController
       controller.prepare(mMapObject, null);
       close();
     }
-    else if (controller.setStartPoint(mMapObject))
-      close();
+    else
+      commitRoutePoint(RouteMarkType.Start, mMapObject);
   }
 
   private void onRouteToBtnClicked()
@@ -537,12 +537,25 @@ public class PlacePageController
     if (mMapObject == null)
       return;
     if (RoutingController.get().isPlanning())
-    {
-      RoutingController.get().setEndPoint(mMapObject);
-      close();
-    }
+      commitRoutePoint(RouteMarkType.Finish, mMapObject);
     else
       ((MwmActivity) requireActivity()).startLocationToPoint(mMapObject);
+  }
+
+  private void commitRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point)
+  {
+    // Close search up front: dismissing this place page (via close() below, or via the route build's
+    // native place-page deactivation when both endpoints are set) resurfaces the still-enabled search
+    // sheet hidden behind it over the route plan card.
+    ((MwmActivity) requireActivity()).forceCloseSearchFragment();
+    final RoutingController controller = RoutingController.get();
+    switch (type)
+    {
+    case Start -> controller.setStartPoint(point);
+    case Finish -> controller.setEndPoint(point);
+    case Intermediate -> throw new AssertionError("Intermediate points are committed via addStop, not here");
+    }
+    close();
   }
 
   private void onRouteReplaceBtnClicked()
