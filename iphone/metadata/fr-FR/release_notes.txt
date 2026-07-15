@@ -1,41 +1,28 @@
-- NOUVEAU ! Calcul d’itinéraires en transports en commun : métro, tramway, bus et tram
-- NOUVEAU ! Itinéraires alternatifs : en plus de l’itinéraire le plus rapide, l’application affiche désormais l’itinéraire le plus court
-- NOUVEAU ! Avertissements sur les itinéraires piétonniers et cyclables concernant les marches, les barrières et les barrières levantes le long du parcours
-- NOUVEAU ! Appuyez pour choisir entre les tracés et les itinéraires qui se chevauchent
-- NOUVEAU ! Choisissez n’importe quelle couleur pour les signets
-- NOUVEAU ! Prise en charge des coordonnées British National Grid (OS Grid), Irish Grid et Irish Transverse Mercator (ITM)
-- NOUVEAU ! Prise en charge de l’accessibilité pour Dynamic Type et les grandes polices
-- EXPÉRIMENTAL : activez l’imagerie satellite dans les paramètres de Organic Maps à l’aide d’une URL personnalisée de serveur de tuiles raster
-- Mise en forme plus épurée des tableaux dans l’interface utilisateur
-- Saisissez `?map-download-server:https://your-server.com/` dans la fenêtre de recherche pour contourner les serveurs de téléchargement de cartes Organic Maps. Saisissez `?no-map-download-server` pour annuler ce contournement.
-- Diverses corrections de bogues et améliorations des performances
+• Le nouveau paramètre « Enregistrer l’historique de recherche » vous aide à préserver la confidentialité de votre historique de recherche au besoin
 
-## Données cartographiques
+## Carte et lieux
+• Données OpenStreetMap à la date du 14 juillet
+• Les notes OpenStreetMap sont désormais placées à l’emplacement exact que vous sélectionnez, et non plus au milieu de la forêt
+• Amélioration de la sélection des cartes pour les régions traversant l’antiméridien de 180°
+• Les profils d’altitude des tracés n’affichent plus de graphiques obsolètes ou vides après la suppression d’un tracé
+• Amélioration du graphique d’altitude vide pour les tracés enregistrés
+• Le bouton permettant de supprimer les signets est plus facile à trouver
+• Enregistrement automatique des signets lorsque vous quittez l’écran d’édition
+• La palette de couleurs comprend des couleurs prédéfinies et vous permet de choisir n’importe quelle couleur personnalisée
+• Autres améliorations de l’interface utilisateur
 
-- Données OpenStreetMap mises à jour au 24 juin
-- Données Wikipedia mises à jour au 20 juin, y compris les articles en italien
+## Transports en commun
+• Les noms des arrêts, des correspondances et des stations sont désormais entourés d’un contour blanc pour rester lisibles aussi bien avec le thème clair qu’avec le thème sombre
+• La couche « métro » réapparaît correctement après la fermeture de l’aperçu d’un itinéraire en transports en commun
 
-## Rendu et styles des cartes
-
-- Des motifs plus esthétiques pour les zones de plage, de sable, d’éboulis, de roche nue, de verger et de vignoble, ainsi que des hachures pour les zones protégées et les zones humides
-- Des libellés de texte aux courbes plus fluides pour les routes et les rivières
-- Les rivières, les ruisseaux et les zones humides présentent un contraste plus élevé et sont plus visibles en mode sombre
-- Icônes nouvelles et améliorées pour la recherche par catégorie et les résultats de recherche sur la carte
-- Amélioration de la mise en forme et du rendu des textes multilingues
-
-## Parcours, signets et itinéraires
-
-- Amélioration du rendu HTML des descriptions des signets et des tracés
-- Les tracés GeoJSON conservent désormais l’altitude et les horodatages lors de l’importation et de l’exportation
-- Correction d’un plantage survenant après le déplacement d’un itinéraire vers une autre liste
-- Les sites web sont désormais affichés pour les sites patrimoniaux
-- Les noms des opérateurs sont désormais affichés pour les résultats de recherche sans nom. Par exemple, un ATM sans nom affiche désormais le nom de sa banque
-- Rédacteur : correction du texte de description concernant les immeubles d'habitation OpenStreetMap modifications/séries de modifications
-- Amélioration de la détection de HTML dans les descriptions des signets et des tracés
-- Les itinéraires en double sont désormais filtrés
+## Calcul d’itinéraire et navigation
+• Correction de problèmes liés à des indications erronées ou manquantes
+• Les avertissements d’itinéraire (péages, ferries, routes non goudronnées, escaliers, etc.) s’affichent désormais pour tous les itinéraires alternatifs
+• Correction d’un rare blocage lors de la création d’un itinéraire et amélioration de la gestion des impasses et des points de départ/d’arrivée sur une route à circulation restreinte
+• Amélioration de l’affichage de la progression de l’itinéraire sur le bouton « Démarrer »
+• Le réordonnancement des étapes d’un itinéraire ne provoque plus de sauts dans la liste
 
 ## Traductions
-
-- Guidage vocal étape par étape en cantonais
-- Mise à jour des traductions en allemand et en français
-- Correction des traductions erronées des instructions vocales "onto street" en chinois, serbe et catalan
+• Amélioration de la formulation en chinois
+• Mise à jour des traductions en ukrainien
+• Correction des traductions des régions cartographiques en italien

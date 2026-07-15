@@ -1,9 +1,8 @@
-NOVE FUNKCIJE:
-• Ažurirano korisničko sučelje za pretraživanje i navigaciju
-• Planiranje ruta javnog prijevoza (autobus, tramvaj, metro, laka željeznica)
-• Alternativni najbrži i najkraći putevi
-• Upozorenja na ruti o stepenicama, kapijama i rampama
-• Odaberite bilo koju boju za oznake
-• Podrška za koordinate UK OS Grid, Irish Grid, ITM
-• Omogućite satelitske snimke u postavkama Organic Maps pomoću prilagođenog URL-a poslužitelja rasterskih pločica
+• OSM podaci od 14. jula
+• Nazivi stanica javnog prijevoza, presjedanja i stanica sada imaju bijeli obrub
+• Poboljšan prikaz radnog vremena
+• Ispravljena netačna ili nedostajuća uputstva
+• Izmijenjene oznake i staze sada se automatski spremaju
+• Upozorenja o ruti (naplate putarine, trajekti, neravne ceste, stepenice itd.) sada se prikazuju za sve alternativne rute
+• OSM bilješke se kreiraju na tačnoj lokaciji koju odaberete
 …više na omaps.org/news

@@ -1,10 +1,8 @@
-NYE FUNKSJONER:
-• Oppdatert brukergrensesnitt for søk og ruteplanlegging
-• Ruteplanlegging for offentlig transport (buss, trikk, T-bane, bybane)
-• Alternative ruter: raskeste og korteste
-• Ruteadvarsler om trappetrinn, porter og heisporter
-• Velg hvilken som helst farge for bokmerker
-• Støtte for koordinatene UK OS Grid, Irish Grid og ITM
-• Aktiver satellittbilder i Organic Maps-innstillingene med en tilpasset URL til rasterfliseserveren
-• OSM-data per 24. juni
+• OSM-data per 14. juli
+• Navn på holdeplasser, byttepunkter og stasjoner for offentlig transport har nå en hvit kontur
+• Forbedret visning av åpningstider
+• Feilaktige eller manglende veibeskrivelser er rettet
+• Redigerte bokmerker og ruter lagres nå automatisk
+• Ruteadvarsler (bompenger, ferger, grusveier, trapper osv.) vises nå for alle alternative ruter
+• OSM-notater opprettes på det nøyaktige stedet du velger
 …mer på omaps.org/news

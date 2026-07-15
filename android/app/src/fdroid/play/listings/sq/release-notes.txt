@@ -1,8 +1,7 @@
-KARAKTERISTIKA TË REJA:
-• Ndërfaqe e përditësuar e përdoruesit për kërkim dhe navigim
-• Planifikimi i itinerarit të transportit publik (autobus, tramvaj, metro, hekurudhë e lehtë)
-• Rrugët alternative më të shpejta dhe më të shkurtra
-• Paralajmërime për itinerarin lidhur me shkallët, portat dhe dyert e ngritjes
-• Zgjidhni çdo ngjyrë për shënimet
-• Mbështetje për koordinatat UK OS Grid, Irish Grid, ITM
+• Të dhënat OSM deri më 14 korrik
+• Emrat e ndalesave të transportit publik, të transferimit dhe të stacioneve tani kanë një kornizë të bardhë
+• Përmirësuar shfaqjen e orarit të punës
+• Rregulluar udhëzimet e pasakta ose të munguara
+• Shënimet dhe gjurmët e redaktuara tani ruhen automatikisht
+• Paralajmërimet e itinerarit (tarifat, tragetet, rrugët pa asfalt, shkallët, etj.) tani shfaqen për të gjitha rrugët alternative
 …më shumë në omaps.org/news

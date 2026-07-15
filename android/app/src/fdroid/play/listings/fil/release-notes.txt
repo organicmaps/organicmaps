@@ -1,8 +1,7 @@
-MGA BAGONG TAMPOK:
-• Na-update na user interface para sa paghahanap at pagba-navigate
-• Pag-ruta ng pampublikong transportasyon (bus, tram, subway, light rail)
-• Mga alternatibong pinakamabilis at pinakamaikling ruta
-• Mga babala sa ruta tungkol sa mga baitang, tarangkahan, at lift gate
-• Pumili ng anumang kulay para sa mga bookmark
-• Suporta para sa mga koordinatong UK OS Grid, Irish Grid, ITM
+• OSM data noong Hulyo 14
+• Ang mga pangalan ng hintuan ng pampublikong sasakyan, transfer, at istasyon ay may puting balangkas na ngayon
+• Pinahusay na pagpapakita ng oras ng pagbubukas
+• Inayos ang maling o nawawalang direksyon
+• Ang mga binagong bookmark at track ay awtomatikong nai-save na ngayon
+• Ang mga babala sa ruta (bayad-tambalan, ferry, hindi sementadong kalsada, hagdan, atbp.) ay ipinapakita na ngayon para sa lahat ng alternatibong ruta
 …marami pa sa omaps.org/news

@@ -1,41 +1,28 @@
-- NEU! Routenplanung für öffentliche Verkehrsmittel mit U-Bahn, Stadtbahn, Bus und Straßenbahn
-- NEU! Alternative Routen: Zusätzlich zur schnellsten Route zeigt die App nun auch die kürzeste Route an
-- NEU! Warnungen für Fuß- und Fahrradrouten zu Stufen, Toren und Hubtoren entlang der Strecke
-- NEU! Tippe darauf, um zwischen überlappenden Strecken und Routen zu wählen
-- NEU! Wähle eine beliebige Farbe für Lesezeichen aus
-- NEU! Unterstützung für British National Grid (OS Grid), Irish Grid und Irish Transverse Mercator (ITM) Koordinaten
-- NEU! Barrierefreiheitsunterstützung für Dynamic Type und große Schriftarten
-- EXPERIMENTELL: Aktiviere Satellitenbilder in den Organic Maps-Einstellungen mit einer benutzerdefinierten URL für den Rasterkachel-Server
-- Übersichtlichere Tabellenformatierung in der Benutzeroberfläche
-- Gib `?map-download-server:https://your-server.com/` in das Suchfenster ein, um die Organic Maps-Karten-Download-Server zu überschreiben. Gib `?no-map-download-server` ein, um die Überschreibung aufzuheben.
-- Verschiedene Fehlerbehebungen und Leistungsverbesserungen
+• Mit der neuen Einstellung „Suchverlauf speichern“ können Sie Ihren Suchverlauf bei Bedarf privat halten
 
-## Kartendaten
+## Karte & Orte
+• OpenStreetMap-Daten vom 14. Juli
+• OpenStreetMap-Notizen werden nun genau an der von Ihnen ausgewählten Stelle platziert und nicht mehr mitten im Wald
+• Verbesserte Kartenauswahl für Regionen, die den 180°-Antimeridian überschreiten
+• Höhenprofile von Tracks zeigen nach dem Löschen eines Tracks keine veralteten oder leeren Diagramme mehr an
+• Das leere Höhendiagramm für aufgezeichnete Tracks wurde verbessert
+• Die Schaltfläche zum Löschen von Lesezeichen ist leichter zu finden
+• Automatisches Speichern von Lesezeichen beim Verlassen des Bearbeitungsbildschirms
+• Die Farbpalette enthält vordefinierte Farben und ermöglicht die Auswahl beliebiger benutzerdefinierter Farben
+• Weitere Verbesserungen der Benutzeroberfläche
 
-- OpenStreetMap-Daten aktualisiert am 24. Juni
-- Wikipedia-Daten aktualisiert am 20. Juni, einschließlich Artikeln auf Italienisch
+## Öffentlicher Nahverkehr
+• Haltestellen-, Umsteige- und Bahnhofsnamen werden nun mit weißem Umriss dargestellt, um sowohl im hellen als auch im dunklen Design lesbar zu bleiben
+• Die U-Bahn-Ebene wird nach dem Schließen der Vorschau einer ÖPNV-Route wieder korrekt angezeigt
 
-## Kartenrendering & Stile
-
-- Ansprechendere Muster für Strand-, Sand-, Geröll-, Fels-, Obstgarten- und Weinberggebiete sowie Schraffuren für Schutzgebiete und Feuchtgebiete
-- Weicher geschwungene Textbeschriftungen für Straßen und Flüsse
-- Flüsse, Bäche und Feuchtgebiete weisen im Dunkelmodus einen höheren Kontrast auf und sind besser sichtbar
-- Neue und verbesserte Symbole für die Kategoriesuche und die Suchergebnisse auf der Karte
-- Verbesserte Gestaltung und Darstellung mehrsprachiger Texte
-
-## Strecken, Lesezeichen & Routen
-
-- Verbesserte Darstellung von Lesezeichen- und Routenbeschreibungen mit HTML
-- GeoJSON-Tracks behalten nun beim Import und Export Höhenangaben und Zeitstempel bei
-- Ein Absturz nach dem Verschieben einer Route in eine andere Liste wurde behoben
-- Für Kulturerbestätten werden nun Websites angezeigt
-- Bei unbenannten Suchergebnissen werden nun die Namen der Betreiber angezeigt. Zum Beispiel zeigt ein unbenanntes ATM nun seine Bank an
-- Redakteur: Der Beschreibungstext für Mehrfamilienhäuser wurde korrigiert – OpenStreetMap Bearbeitungen/Änderungssätze
-- Verbesserte HTML-Erkennung in Lesezeichen- und Track-Beschreibungen
-- Doppelte Routen werden nun herausgefiltert
+## Routenplanung & Navigation
+• Probleme mit falschen und fehlenden Wegbeschreibungen wurden behoben
+• Routenwarnungen (Maut, Fähren, unbefestigte Straßen, Treppen usw.) werden nun für alle alternativen Routen angezeigt
+• Ein selten auftretender Absturz beim Erstellen einer Route wurde behoben und die Behandlung von Sackgassen sowie Start- und Endpunkten auf einer gesperrten Straße verbessert
+• Der Routenfortschritt auf der Startschaltfläche wurde verbessert
+• Beim Neuanordnen von Routenpunkten springt die Liste nicht mehr unregelmäßig hin und her
 
 ## Übersetzungen
-
-- Kantonesische Sprachführung mit Schritt-für-Schritt-Anweisungen
-- Aktualisierte deutsche und französische Übersetzungen
-- Falsche Übersetzungen der Sprachansagen für "onto street" in Chinesisch, Serbisch und Katalanisch wurden korrigiert
+• Die chinesischen Formulierungen wurden verbessert
+• Die ukrainischen Übersetzungen wurden aktualisiert
+• Die Übersetzungen der Kartenregionen im Italienischen wurden korrigiert

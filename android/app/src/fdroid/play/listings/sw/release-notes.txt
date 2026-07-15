@@ -1,8 +1,7 @@
-VIPENGELE VIPYA:
-• Kiolesura cha mtumiaji cha utafutaji na upangaji njia kimesasishwa
-• Mpangilio wa usafiri wa umma (basi, tramu, treni ya chini ya ardhi, reli nyepesi)
-• Njia mbadala za haraka zaidi na fupi zaidi
-• Maonyo ya njia kuhusu ngazi, milango, na milango ya kuinua
-• Chagua rangi yoyote kwa alamisho
-• Uungaji mkono kwa kuratibu za UK OS Grid, Irish Grid, ITM
-…zaidi katika omaps.org/news
+• Data ya OSM hadi tarehe 14 Julai
+• Vituo vya usafiri wa umma, vituo vya kubadilishia na majina ya vituo sasa vina mstari mweupe wa mzunguko
+• Uboreshaji wa onyesho la saa za ufunguzi
+• Marekebisho ya maelekezo yasiyo sahihi au yaliyokosekana
+• Alama za ukurasa na njia zilizohaririwa sasa zinahifadhiwa kiotomatiki
+• Maonyo ya njia (tozo, feri, barabara zisizo za lami, ngazi, n.k.) sasa yanaonyeshwa kwa njia zote mbadala
+…maelezo zaidi katika omaps.org/news
