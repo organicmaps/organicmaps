@@ -8,7 +8,7 @@ if (DEFINED ENV{CMAKE_UNITY_BUILD})
   set(CMAKE_UNITY_BUILD $ENV{CMAKE_UNITY_BUILD})
 endif ()
 cmake_host_system_information(RESULT available_ram_mb QUERY AVAILABLE_PHYSICAL_MEMORY)
-if(available_ram_mb GREATER 16384)
+if (available_ram_mb GREATER 16384)
   set(CMAKE_UNITY_BUILD_BATCH_SIZE "50" CACHE STRING "Batch size for unity build")
 endif()
 
