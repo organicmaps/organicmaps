@@ -11,9 +11,11 @@ Item {
         id: cloud
 
         anchors.fill: parent
+        property var ctx: null;
 
         onPaint: {
-            var ctx = getContext("2d");
+            if (!ctx)
+                ctx = getContext("2d");
             var x = 100;
             var y = 170;
             ctx.beginPath();
@@ -33,11 +35,17 @@ Item {
     MouseArea {
         anchors.fill: parent
 
-        onPressed: {
-            console.log("Cloud pressed");
+        onPressed: mouse => {
+            const inside = cloud.ctx.isPointInPath(mouse.x, mouse.y);
+            mouse.accepted = inside;
+            if (inside)
+                console.log("Cloud pressed");
         }
-        onReleased: {
-            console.log("Cloud released");
+        onReleased: mouse => {
+            const inside = cloud.ctx.isPointInPath(mouse.x, mouse.y);
+            mouse.accepted = inside;
+            if (inside)
+                console.log("Cloud released");
         }
         onClicked: {
             console.log("Cloud clicked");
