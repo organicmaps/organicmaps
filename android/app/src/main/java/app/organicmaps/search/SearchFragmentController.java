@@ -378,6 +378,9 @@ public class SearchFragmentController extends Fragment implements SearchFragment
   // this programmatic close is the only path to STATE_HIDDEN (setState(HIDDEN) is rejected when !hideable).
   private void hideSearchSheet()
   {
+    // Dismiss the keyboard on every programmatic close path (X button, back, place page, forceCloseSearchFragment).
+    // Otherwise the IME inset lingers and the routing panel re-appearing underneath gets pushed down by it.
+    InputUtils.hideKeyboard(mSearchPageContainer);
     mBottomSheetBehavior.setHideable(true);
     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
   }
