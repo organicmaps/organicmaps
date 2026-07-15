@@ -20,7 +20,7 @@ public class ChartView: UIView {
   var showPreview: Bool = false // Set true to show the preview
 
   private var tapGR: UITapGestureRecognizer!
-  private var selectedPointDistance: Double = 0
+  private var hasSelectedPoint = false
   private var panStartPoint = 0
   private var panGR: UIPanGestureRecognizer!
   private var pinchStartLower = 0
@@ -218,8 +218,8 @@ public class ChartView: UIView {
   }
 
   public func setSelectedPoint(_ x: Double) {
-    guard selectedPointDistance != x else { return }
-    selectedPointDistance = x
+    guard hasSelectedPoint || !x.isZero else { return }
+    hasSelectedPoint = true
     let routeLength = chartData.distance(forChartX: CGFloat(chartData.pointsCount - 1))
     let upper = chartData.xAxisValueAt(CGFloat(chartPreviewView.maxX))
     var lower = chartData.xAxisValueAt(CGFloat(chartPreviewView.minX))
@@ -396,6 +396,12 @@ public class ChartView: UIView {
     let selectedPointX = chartInfoView.infoX * chartInfoView.bounds.width
     return abs(clampedPointX - selectedPointX) <= Self.selectedPointCaptureRadius
   }
+
+  private func notifySelectedPointChanged(at chartX: CGFloat) {
+    let distance = chartData.distance(forChartX: chartX)
+    hasSelectedPoint = true
+    onSelectedPointChanged?(distance)
+  }
 }
 
 extension ChartView: ChartPreviewViewDelegate {
@@ -405,7 +411,7 @@ extension ChartView: ChartPreviewViewDelegate {
     chartInfoView.update()
     setMyPosition(myPosition)
     let chartX = chartInfoView.infoX * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
-    onSelectedPointChanged?(chartData.distance(forChartX: chartX))
+    notifySelectedPointChanged(at: chartX)
   }
 }
 
@@ -413,7 +419,7 @@ extension ChartView: ChartInfoViewDelegate {
   func chartInfoView(_ view: ChartInfoView, didMoveToPoint pointX: CGFloat) {
     let p = convert(CGPoint(x: pointX, y: 0), from: view)
     let chartX = (p.x / bounds.width) * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
-    onSelectedPointChanged?(chartData.distance(forChartX: chartX))
+    notifySelectedPointChanged(at: chartX)
   }
 
   func chartInfoView(_: ChartInfoView, shouldStartSelectingAtPoint pointX: CGFloat) -> Bool {
@@ -424,7 +430,9 @@ extension ChartView: ChartInfoViewDelegate {
     guard let chartData, bounds.width > 0 else { return nil }
     let p = convert(CGPoint(x: pointX, y: .zero), from: view)
     let chartX = (p.x / bounds.width) * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
-    guard !pointX.isZero, chartX >= 0, chartX <= CGFloat(chartData.pointsCount - 1) else { return nil }
+    guard !pointX.isZero || view.captured || hasSelectedPoint,
+          chartX >= 0,
+          chartX <= CGFloat(chartData.pointsCount - 1) else { return nil }
     let distance = CGFloat(chartData.distance(forChartX: chartX))
     let label = chartData.labelAt(chartX)
 

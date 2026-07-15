@@ -7,6 +7,7 @@ enum NavigationDashboard {
     var trackRecordingState: TrackRecordingState
     var routingOptions: RoutingOptions
     var routeElevationPreviewData: RouteElevationPreviewData?
+    var routeElevationActivePointDistance: Double?
     var navigationInfo: NavigationInfo
     var estimates: NSAttributedString
     var dashboardState: MWMNavigationDashboardState
@@ -41,6 +42,7 @@ extension NavigationDashboard.ViewModel {
       trackRecordingState: TrackRecordingManager.shared.recordingState,
       routingOptions: RoutingOptions(),
       routeElevationPreviewData: nil,
+      routeElevationActivePointDistance: nil,
       navigationInfo: .hidden,
       estimates: NSAttributedString(),
       dashboardState: .hidden,

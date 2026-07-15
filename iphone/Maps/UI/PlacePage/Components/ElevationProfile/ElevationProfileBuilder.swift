@@ -31,14 +31,15 @@ class ElevationProfileBuilder {
     build(state: makeTrackRecordingState(trackData: trackData), delegate: delegate, presentationStyle: presentationStyle)
   }
 
-  static func makeRoutePreviewState(routeElevationPreviewData: RouteElevationPreviewData) -> ElevationProfileState? {
+  static func makeRoutePreviewState(routeElevationPreviewData: RouteElevationPreviewData,
+                                    activePointDistance: Double = 0) -> ElevationProfileState? {
     guard let chartData = makeChartData(elevationProfileData: routeElevationPreviewData.elevationProfileData) else {
       return nil
     }
     let data = ElevationProfileDisplayData(trackInfo: routeElevationPreviewData.trackInfo,
                                            chartData: chartData,
-                                           activePointDistance: 0,
-                                           myPositionDistance: 0)
+                                           activePointDistance: activePointDistance,
+                                           myPositionDistance: -1)
     return .routePreview(data)
   }
 
