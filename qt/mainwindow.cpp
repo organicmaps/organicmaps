@@ -14,6 +14,7 @@
 #include "qt/routing_settings_dialog.hpp"
 #include "qt/screenshoter.hpp"
 #include "qt/search_panel.hpp"
+#include "qt/qml/forwarding_quickwidget.hpp"
 
 #include "map/framework.hpp"
 #include "map/place_page_info.hpp"
@@ -50,7 +51,6 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
-#include <QtQuickWidgets/QQuickWidget>
 
 #ifdef OMIM_OS_WINDOWS
 #include "std/windows.hpp"
@@ -112,7 +112,7 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
 
   setCentralWidget(m_pDrawWidget);
 
-  auto quickWidget = new QQuickWidget();
+  auto quickWidget = new ForwardingQuickWidget();
   quickWidget->setAttribute(Qt::WA_AlwaysStackOnTop);
   // quickWidget->setAttribute(Qt::WA_TranslucentBackground);
   quickWidget->setClearColor(Qt::transparent);
