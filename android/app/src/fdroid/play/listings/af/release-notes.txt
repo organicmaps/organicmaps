@@ -1,10 +1,8 @@
-NUWE FUNKSIES:
-• Opgedateerde soek- en roeteringsgebruikerskoppelvlak
-• Openbare vervoerroutes (bus, tram, metro, ligspoor)
-• Alternatiewe vinnigste en kortste roetes
-• Roetewaarskuwings oor trappe, hekke en hysbakhekke
-• Kies enige kleur vir boekmerke
-• Ondersteuning vir UK OS Grid, Irish Grid, ITM-koördinate
-• Aktiveer satellietbeelde in Organic Maps-instellings met 'n pasgemaakte rasterteëlbediener-URL
-• OSM-data vanaf 24 Junie
+• OSM-data vanaf 14 Julie
+• Openbare vervoerstop-, oorgang- en stasiename het nou 'n wit omtrek
+• Verbeterde vertoning van openingstye
+• Onkorrekte of ontbrekende aanwysings reggestel
+• Gewysigde boekmerke en roetes word nou outomaties gestoor
+• Roteervoorwarnings (tolheffings, veerbote, ongeasfalteerde paaie, trappe, ens.) word nou vir alle alternatiewe roetes gewys
+• OSM-notas word op die presiese ligging geskep wat jy kies
 …meer by omaps.org/af/news

@@ -1,41 +1,28 @@
-- NOVINKA! Plánovanie trasy verejnou dopravou metrom, ľahkou železnicou, autobusom a električkou
-- NOVINKA! Alternatívne trasy: okrem najrýchlejšej trasy aplikácia teraz zobrazuje aj najkratšiu trasu
-- NOVINKA! Upozornenia na peších a cyklistických trasách týkajúce sa schodov, brán a zdvíhacích brán na trase
-- NOVINKA! Ťuknutím si môžete vybrať medzi prekrývajúcimi sa trasami a cestami
-- NOVINKA! Vyberte si ľubovoľnú farbu pre záložky
-- NOVINKA! Podpora súradníc British National Grid (OS Grid), Irish Grid a Irish Transverse Mercator (ITM)
-- NOVINKA! Podpora prístupnosti pre Dynamic Type a veľké písmo
-- EXPERIMENTÁLNE: Zapnite satelitné snímky v nastaveniach Organic Maps pomocou vlastnej URL adresy servera s rastrovými dlaždicami
-- Prehľadnejšie štýly tabuliek v používateľskom rozhraní
-- Do vyhľadávacieho okna zadajte `?map-download-server:https://your-server.com/`, aby ste prepisali servery na sťahovanie máp Organic Maps. Zadajte `?no-map-download-server`, aby ste prepis zrušili.
-- Rôzne opravy chýb a vylepšenia výkonu
+• Nové nastavenie „Uložiť históriu vyhľadávania“ vám v prípade potreby pomôže zachovať súkromie histórie vyhľadávania
 
-## Mapové údaje
+## Mapy a miesta
+• Údaje z OpenStreetMap k 14. júlu
+• Poznámky z OpenStreetMap sa teraz umiestňujú presne na miesto, ktoré vyberiete, a nie uprostred lesa
+• Vylepšený výber mapy pre regióny, ktoré prekračujú antimeridián 180°
+• Profily nadmorskej výšky už po odstránení trasy nezobrazujú neaktuálne alebo prázdne grafy
+• Vylepšený prázdny graf nadmorskej výšky pre zaznamenané trasy
+• Tlačidlo na odstránenie záložiek je ľahšie nájditeľné
+• Automatické ukladanie záložiek pri opustení obrazovky úprav
+• Paleta farieb obsahuje preddefinované farby a umožňuje vybrať si ľubovoľnú vlastnú farbu
+• Ďalšie vylepšenia používateľského rozhrania
 
-- Údaje OpenStreetMap aktualizované k 24. júnu
-- Údaje Wikipedia aktualizované k 20. júnu, vrátane článkov v taliančine
+## Verejná doprava
+• Názvy zastávok, prestupných miest a staníc majú teraz biely obrys, aby boli čitateľné aj v svetlom, aj v tmavom motíve
+• Vrstva metra sa opäť správne zobrazí po zatvorení náhľadu trasy verejnej dopravy
 
-## Vykresľovanie máp a štýly
-
-- Vylepšené vzory pre oblasti pláží, piesku, sutinových svahov, holých skál, ovocných sadov a viníc, ako aj šrafovanie chránených oblastí a mokradí
-- Plynulejšie zakrivené textové popisy ciest a riek
-- Rieky, potoky a mokrade majú vyšší kontrast a sú v tmavom režime lepšie viditeľné
-- Nové a vylepšené ikony pre vyhľadávanie podľa kategórií a výsledky vyhľadávania na mape
-- Vylepšené formátovanie a vykresľovanie viacjazyčného textu
-
-## Trasy, záložky a trasy
-
-- Vylepšené vykresľovanie popisov záložiek a trás v HTML
-- Trasy v aplikácii GeoJSON teraz pri importe a exporte zachovávajú nadmorskú výšku a časové značky
-- Opravené zlyhanie aplikácie po presunutí trasy do iného zoznamu
-- Teraz sa zobrazujú webové stránky pamiatkových objektov
-- Pri výsledkoch vyhľadávania bez názvu sa teraz zobrazujú názvy operátorov. Napríklad pri neoznačenom ATM sa teraz zobrazuje jeho banka
-- Redaktor: opravený popisný text pre bytový dom OpenStreetMap úpravy/sady zmien
-- Vylepšená detekcia HTML v popisoch záložiek a trás
-- Duplicitné trasy sa teraz filtrujú
+## Plánovanie trasy a navigácia
+• Opravené problémy s nesprávnymi a chýbajúcimi pokynmi
+• Upozornenia na trase (mýto, trajekty, nespevnené cesty, schody atď.) sa teraz zobrazujú pre všetky alternatívne trasy
+• Opravené zriedkavé zamrznutie pri vytváraní trasy a vylepšené spracovanie slepých uličiek a počiatočných/cieľových bodov na ceste s obmedzeným prístupom
+• Vylepšený priebeh trasy na tlačidle „Štart“
+• Zmena poradia zastávok na trase už nespôsobuje poskakovanie zoznamu
 
 ## Preklady
-
-- Kantonské hlasové navádzanie krok za krokom
-- Aktualizované nemecké a francúzske preklady
-- Opravené nesprávne preklady hlasového navádzania "onto street" pre čínštinu, srbčinu a katalánčinu
+• Vylepšené čínske znenie
+• Aktualizované ukrajinské preklady
+• Opravené preklady oblastí na mape v taliančine

@@ -1,41 +1,28 @@
-- NYTT! Ruteplanlegging for offentlig transport med T-bane, bybane, buss og trikk
-- NYTT! Alternative ruter: i tillegg til den raskeste ruten viser appen nå også den korteste ruten
-- NYTT! Advarsler for gå- og sykkelruter om trappetrinn, porter og løfteporter underveis
-- NYTT! Trykk for å velge mellom overlappende ruter og stier
-- NYTT! Velg hvilken som helst farge for bokmerker
-- NYTT! Støtte for koordinatene British National Grid (OS Grid), Irish Grid og Irish Transverse Mercator (ITM)
-- NYTT! Tilgjengelighetsstøtte for Dynamic Type og store skrifttyper
-- EKSPERIMENTELT: Aktiver satellittbilder i Organic Maps-innstillingene med en tilpasset URL for rasterfliseserver
-- Renere tabellformatering i brukergrensesnittet
-- Skriv inn `?map-download-server:https://your-server.com/` i søkefeltet for å overstyre kartnedlastingsserverne for Organic Maps. Skriv inn `?no-map-download-server` for å fjerne overstyringen.
-- Diverse feilrettinger og ytelsesforbedringer
+• Den nye innstillingen «Lagre søkehistorikk» hjelper deg med å holde søkehistorikken din privat ved behov
 
-## Kartdata
+## Kart og steder
+• OpenStreetMap-data per 14. juli
+• OpenStreetMap-notater plasseres nå på det nøyaktige stedet du velger, i stedet for midt i skogen
+• Forbedret kartvalg for regioner som krysser 180°-antimeridianen
+• Høydeprofiler for ruter viser ikke lenger utdaterte eller tomme diagrammer etter at en rute er fjernet
+• Det tomme høydediagrammet for registrerte ruter er forbedret
+• Knappen for å fjerne bokmerker er lettere å finne
+• Automatisk lagring av bokmerker når du forlater redigeringsskjermen
+• Fargepaletten inneholder forhåndsdefinerte farger og lar deg velge hvilken som helst egendefinert farge
+• Andre forbedringer av brukergrensesnittet
 
-- OpenStreetMap-data oppdatert per 24. juni
-- Wikipedia-data oppdatert per 20. juni, inkludert artikler på italiensk
+## Offentlig transport
+• Navn på holdeplasser, byttepunkter og stasjoner har nå en hvit kontur for å forbli lesbare både i lyse og mørke temaer
+• T-banelaget vises igjen korrekt etter at du har lukket forhåndsvisningen av en rute for offentlig transport
 
-## Kartgjengivelse og stiler
-
-- Penere mønstre for strender, sand, ur, bar fjell, frukthager og vingårder, samt skravering for verneområder og våtmarker
-- Jevnere, buede tekstetiketter for veier og elver
-- Elver, bekker og våtmarker har høyere kontrast og er mer synlige i mørk modus
-- Nye og forbedrede ikoner for kategorisøk og søkeresultater på kartet
-- Forbedret formatering og gjengivelse av flerspråklig tekst
-
-## Ruter, bokmerker og veibeskrivelser
-
-- Forbedret HTML-gjengivelse av beskrivelser av bokmerker og ruter
-- GeoJSON-spor lagrer nå høyde og tidsstempler ved import og eksport
-- Løste et krasj etter at en rute ble flyttet til en annen liste
-- Nettsteder vises nå for kulturminner
-- Operatørnavn vises nå for navnløse søkeresultater. For eksempel viser en navnløs ATM nå sin bank
-- Redaktør: korrigert beskrivelsesteksten for leilighetsbygg OpenStreetMap redigeringer/endringssett
-- Forbedret HTML-gjenkjenning i beskrivelser av bokmerker og ruter
-- Dupliserte ruter blir nå filtrert bort
+## Ruteplanlegging og navigasjon
+• Løste problemer med feilaktige og manglende veibeskrivelser
+• Ruteadvarsler (bompenger, ferger, grusveier, trapper osv.) vises nå for alle alternative ruter
+• Løste et sjeldent frysingsproblem under ruteplanlegging og forbedret håndtering av blindveier og start-/målpunkter på en vei med kjøreforbud
+• Rutefremdriften på startknappen er forbedret
+• Omorganisering av rutestoppene fører ikke lenger til at listen hopper rundt
 
 ## Oversettelser
-
-- Kantonesisk stemmeveiledning med trinn-for-trinn-instruksjoner
-- Oppdaterte oversettelser til tysk og fransk
-- Rettet feilaktige oversettelser av "onto street"-stemmeguidingen for kinesisk, serbisk og katalansk
+• Forbedret kinesisk ordlyd
+• Oppdaterte ukrainske oversettelser
+• Rettet oversettelser av kartregioner på italiensk

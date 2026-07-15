@@ -1,8 +1,8 @@
-NOVE FUNKCIJE:
-• Posodobljen uporabniški vmesnik za iskanje in načrtovanje poti
-• Načrtovanje poti z javnim prevozom (avtobus, tramvaj, podzemna železnica, lahka železnica)
-• Alternativne najhitrejše in najkrajše poti
-• Opozorila na poti o stopnicah, vratih in dvigalnih vratih
-• Izberite katero koli barvo za zaznamke
-• Podpora za koordinate UK OS Grid, Irish Grid in ITM
+• Podatki OSM so aktualni na dan 14. julija
+• Imena postajališč javnega prevoza, prestopnih točk in postaj so zdaj obrobljena z belo barvo
+• Izboljšano prikazovanje delovnega časa
+• Popravljena so bila napačna ali manjkajoča navodila za pot
+• Urejeni zaznamki in poti se zdaj samodejno shranijo
+• Opozorila na poti (cestnine, trajekti, neasfaltirane ceste, stopnice itd.) se zdaj prikazujejo za vse alternativne poti
+• Opombe OSM se ustvarijo na točno izbrani lokaciji
 …več na omaps.org/news

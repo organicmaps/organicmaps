@@ -1,41 +1,28 @@
-- BARU! Perhitungan rute transportasi umum melalui kereta bawah tanah, kereta ringan, bus, dan trem
-- BARU! Rute alternatif: selain rute tercepat, aplikasi kini menampilkan rute terpendek
-- BARU! Peringatan rute berjalan kaki dan bersepeda mengenai anak tangga, gerbang, dan gerbang angkat di sepanjang jalan
-- BARU! Ketuk untuk memilih antara jejak dan rute yang tumpang tindih
-- BARU! Pilih warna apa pun untuk penanda
-- BARU! Dukungan untuk koordinat British National Grid (OS Grid), Irish Grid, dan Irish Transverse Mercator (ITM)
-- BARU! Dukungan aksesibilitas untuk Dynamic Type dan font besar
-- EKSPERIMENTAL: Aktifkan Citra Satelit di pengaturan Organic Maps dengan URL server ubin raster khusus
-- Gaya tabel yang lebih rapi di antarmuka pengguna
-- Ketik `?map-download-server:https://your-server.com/` di jendela pencarian untuk mengganti server unduhan peta Organic Maps. Ketik `?no-map-download-server` untuk menghapus penggantian tersebut.
-- Berbagai perbaikan bug dan peningkatan kinerja
+• Pengaturan baru "Simpan riwayat pencarian" membantu Anda menjaga riwayat pencarian tetap pribadi jika diperlukan
 
-## Data Peta
+## Peta & lokasi
+• Data OpenStreetMap per 14 Juli
+• Catatan OpenStreetMap kini ditempatkan tepat di lokasi yang Anda pilih, bukan di tengah hutan
+• Pemilihan peta telah ditingkatkan untuk wilayah yang melintasi antimeridian 180°
+• Profil ketinggian lintasan tidak lagi menampilkan grafik yang usang atau kosong setelah lintasan dihapus
+• Grafik ketinggian kosong untuk lintasan yang direkam telah ditingkatkan
+• Tombol untuk menghapus penanda kini lebih mudah ditemukan
+• Penyimpanan penanda secara otomatis saat Anda keluar dari layar pengeditan
+• Palet warna mencakup warna-warna bawaan dan memungkinkan Anda memilih warna kustom apa pun
+• Peningkatan antarmuka pengguna lainnya
 
-- Data OpenStreetMap diperbarui per 24 Juni
-- Data Wikipedia diperbarui per 20 Juni, termasuk artikel dalam bahasa Italia
+## Transportasi umum
+• Nama halte, titik transfer, dan stasiun kini menggunakan garis tepi putih agar tetap terbaca baik pada tema terang maupun gelap
+• Lapisan kereta bawah tanah muncul kembali dengan benar setelah Anda menutup pratinjau rute transportasi umum
 
-## Rendering & gaya peta
-
-- Pola yang lebih menarik untuk area pantai, pasir, kerikil, batu telanjang, kebun buah, dan kebun anggur, serta arsiran untuk kawasan lindung dan lahan basah
-- Label teks melengkung yang lebih halus untuk jalan dan sungai
-- Sungai, aliran air, dan lahan basah memiliki kontras yang lebih tinggi dan lebih terlihat dalam mode gelap
-- Ikon baru dan yang telah ditingkatkan untuk pencarian kategori dan hasil pencarian di peta
-- Peningkatan pembentukan dan penampilan teks multibahasa
-
-## Jejak, bookmark, & rute
-
-- Peningkatan rendering HTML pada deskripsi bookmark dan jejak
-- Jejak GeoJSON kini menyimpan data ketinggian dan cap waktu saat diimpor dan diekspor
-- Memperbaiki crash setelah memindahkan jejak ke daftar lain
-- Situs web kini ditampilkan untuk situs warisan budaya
-- Nama operator kini ditampilkan untuk hasil pencarian yang tidak bernama. Misalnya, hasil pencarian tanpa nama ATM kini menampilkan nama banknya
-- Editor: memperbaiki teks deskripsi untuk gedung apartemen OpenStreetMap edits/changesets
-- Peningkatan deteksi HTML dalam deskripsi bookmark dan jejak
-- Rute ganda kini telah disaring
+## Perencanaan rute & navigasi
+• Memperbaiki masalah petunjuk arah yang salah atau hilang
+• Peringatan rute (tol, feri, jalan tidak beraspal, tangga, dll.) kini ditampilkan untuk semua rute alternatif
+• Memperbaiki masalah aplikasi yang jarang macet saat membuat rute serta meningkatkan penanganan jalan buntu dan titik awal/akhir di jalan yang dibatasi
+• Perbaikan tampilan kemajuan rute pada tombol mulai
+• Mengubah urutan titik perhentian rute tidak lagi menyebabkan daftar melompat-lompat
 
 ## Terjemahan
-
-- Panduan suara langkah demi langkah dalam bahasa Kanton
-- Terjemahan bahasa Jerman dan Prancis telah diperbarui
-- Memperbaiki terjemahan panduan suara "onto street" yang salah untuk bahasa Mandarin, Serbia, dan Katalan
+• Perbaikan redaksi dalam bahasa Mandarin
+• Pembaruan terjemahan dalam bahasa Ukraina
+• Perbaikan terjemahan wilayah peta dalam bahasa Italia

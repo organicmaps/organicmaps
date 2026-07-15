@@ -1,41 +1,28 @@
-- NOVO! Planiranje putovanja javnim prijevozom: podzemnom željeznicom, laganim vlakom, autobusom i tramvajem
-- NOVO! Alternativne rute: uz najbržu rutu, aplikacija sada prikazuje i najkraću rutu
-- NOVO! Upozorenja za pješačke i biciklističke rute o stepenicama, kapijama i podiznim kapijama na putu
-- NOVO! Dodirnite za odabir između preklapajućih tragova i ruta
-- NOVO! Odaberite bilo koju boju za oznake
-- NOVO! Podrška za koordinate British National Grid (OS Grid), Irish Grid i Irish Transverse Mercator (ITM)
-- NOVO! Podrška za pristupačnost za Dynamic Type i velike fontove
-- EKSPERIMENTALNO: Omogućite satelitske snimke u postavkama Organic Maps pomoću prilagođenog URL-a poslužitelja rasterskih pločica
-- Uređeniji stil tablica u korisničkom sučelju
-- Upišite `?map-download-server:https://your-server.com/` u prozor za pretraživanje kako biste nadjačali poslužitelje za preuzimanje karata Organic Maps. Upišite `?no-map-download-server` kako biste uklonili nadjačavanje.
-- Razne ispravke grešaka i poboljšanja performansi
+• Nova postavka „Spremi povijest pretraživanja“ pomaže vam da po potrebi zadržite privatnost svoje povijesti pretraživanja
 
-## Podaci o kartama
+## Karte i mjesta
+• Podaci OpenStreetMapa od 14. srpnja
+• Bilješke OpenStreetMapa sada se postavljaju na točnu lokaciju koju odaberete, umjesto u sred šume
+• Poboljšan odabir karte za regije koje prelaze antimeridijan od 180°
+• Profili nadmorske visine staze više ne prikazuju zastarjele ili prazne grafikone nakon uklanjanja staze
+• Poboljšan prazan grafikon nadmorske visine za snimljene staze
+• Gumb za uklanjanje oznaka lakše je pronaći
+• Automatsko spremanje oznaka pri napuštanju zaslona za uređivanje
+• Paleta boja uključuje unaprijed definirane boje i omogućuje odabir bilo koje prilagođene boje
+• Ostala poboljšanja korisničkog sučelja
 
-- OpenStreetMap podaci ažurirani 24. lipnja
-- Wikipedia podaci ažurirani do 20. lipnja, uključujući članke na talijanskom jeziku
+## Javni prijevoz
+• Nazivi stanica, prijelaza i postaja sada koriste bijeli obrub kako bi ostali čitljivi i u svijetlim i u tamnim temama
+• Sloj podzemne željeznice ispravno se ponovno pojavljuje nakon zatvaranja pretpregleda rute javnog prijevoza
 
-## Prikaz karte i stilovi
-
-- Estetski bolji uzorci za plažu, pijesak, šljunak, goli kamen, voćnjak i vinograd, plus šrafura za zaštićena područja i močvare
-- Glatkije zakrivljene tekstualne oznake za ceste i rijeke
-- Rijeke, potoci i močvarna područja imaju veći kontrast i bolje su vidljivi u tamnom načinu rada
-- Nove i poboljšane ikone za pretraživanje kategorija i rezultate pretraživanja na karti
-- Poboljšano oblikovanje i iscrtavanje višejezičnih tekstova
-
-## Tragovi, oznake i rute
-
-- Poboljšana izrada HTML opisa oznaka i tragova
-- GeoJSON Staze sada spremaju nadmorsku visinu i vremenske oznake pri uvozu i izvozu
-- Ispravljen je pad aplikacije nakon premještanja staze u drugu listu
-- Zaštićena područja sada se prikazuju putem web-stranica
-- Za neimenovane rezultate pretraživanja sada se prikazuju imena operatera. Na primjer, neimenovani ATM sada prikazuje svoju banku
-- Urednik: ispravljen tekst opisa za stambenu zgradu OpenStreetMap izmjene/setovi izmjena
-- Poboljšana detekcija HTML u opisima oznaka i tragova
-- Duplicirane rute sada su filtrirane
+## Planiranje ruta i navigacija
+• Ispravljeni problemi s pogrešnim i nedostajućim uputama
+• Upozorenja o ruti (naplatne ceste, trajekti, neravne ceste, stepenice itd.) sada se prikazuju za sve alternativne rute
+• Ispravljena rijetka pojava zamrzavanja tijekom izrade rute i poboljšana obrada slijepih ulica te početnih/krajnjih točaka na ograničenoj cesti
+• Poboljšan prikaz napretka rute na gumbu za početak
+• Preuređivanje stanica rute više ne uzrokuje skakanje popisa
 
 ## Prijevodi
-
-- Glasovne upute korak po korak na kantonezkom
-- Ažurirani njemački i francuski prijevodi
-- Ispravljeni netočni prijevodi glasovnih uputa "onto street" za kineski, srpski i katalonski
+• Poboljšan kineski tekst
+• Ažurirani ukrajinski prijevodi
+• Ispravljeni prijevodi regija karte na talijanskom

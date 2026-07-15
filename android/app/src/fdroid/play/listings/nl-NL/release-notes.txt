@@ -1,8 +1,7 @@
-NIEUWE FUNCTIES:
-• De gebruikersinterface voor zoeken en routebepaling is bijgewerkt
-• Routebepaling voor het openbaar vervoer (bus, tram, metro, lightrail)
-• Alternatieve snelste en kortste routes
-• Routewaarschuwingen over trappen, hekken en slagbomen
-• Kies een willekeurige kleur voor bladwijzers
-• Ondersteuning voor coördinaten van UK OS Grid, Irish Grid en ITM
+• OSM-gegevens per 14 juli
+• Namen van haltes, overstappunten en stations van het openbaar vervoer hebben nu een witte omtrek
+• Verbeterde weergave van openingstijden
+• Onjuiste of ontbrekende routebeschrijvingen zijn verholpen
+• Bewerkte bladwijzers en routes worden nu automatisch opgeslagen
+• Routewaarschuwingen (tol, veerboten, onverharde wegen, trappen, enz.) worden nu weergegeven voor alle alternatieve routes
 …meer op omaps.org/nl/news

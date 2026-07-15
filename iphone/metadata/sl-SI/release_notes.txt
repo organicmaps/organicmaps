@@ -1,41 +1,28 @@
-- NOVOST! Načrtovanje poti z javnim prevozom: podzemna železnica, lahka železnica, avtobus in tramvaj
-- NOVOST! Alternativne poti: poleg najhitrejše poti aplikacija zdaj prikazuje tudi najkrajšo pot
-- NOVOST! Opozorila na peš in kolesarskih poteh o stopnicah, vratih in dvigalnih zapornicah na poti
-- NOVOST! S tapom izberite med prekrivajočimi se potmi in trasami
-- NOVOST! Izberite katero koli barvo za zaznamke
-- NOVOST! Podpora za koordinate British National Grid (OS Grid), Irish Grid in Irish Transverse Mercator (ITM)
-- NOVOST! Podpora za dostopnost za Dynamic Type in velike pisave
-- EKSPERIMENTALNO: Vklopite satelitske posnetke v nastavitvah Organic Maps z URL-jem strežnika za rastrske ploščice po meri
-- Prečiščen slog tabel v uporabniškem vmesniku
-- V iskalno okno vpišite `?map-download-server:https://your-server.com/`, da prepisate strežnike za prenos zemljevidov Organic Maps. Vpišite `?no-map-download-server`, da preklicate prepis.
-- Različne popravke napak in izboljšave zmogljivosti
+• Nova nastavitev »Shrani zgodovino iskanja« vam po potrebi pomaga ohraniti zasebnost zgodovine iskanja
 
-## Podatki o zemljevidih
+## Zemljevid in kraji
+• Podatki OpenStreetMap so aktualni na dan 14. julija
+• Opombe OpenStreetMap so zdaj umeščene na točno izbrano lokacijo, namesto sredi gozda
+• Izboljšana izbira zemljevida za regije, ki prečkajo antimeridian 180°
+• Profili nadmorske višine poti po odstranitvi poti ne prikazujejo več zastarelih ali praznih grafikonov
+• Izboljšani prazni grafikon nadmorske višine za posnete poti
+• Gumb za odstranjevanje zaznamkov je lažje najti
+• Samodejno shranjevanje zaznamkov ob zapustitvi zaslona za urejanje
+• Barvna paleta vključuje vnaprej določene barve in omogoča izbiro poljubne barve po meri
+• Druge izboljšave uporabniškega vmesnika
 
-- Podatki OpenStreetMap so bili posodobljeni 24. junija
-- Podatki Wikipedia so bili posodobljeni 20. junija, vključno s članki v italijanščini
+## Javni prevoz
+• Imena postajališč, prestopnih točk in postaj so zdaj obrobljena z belo barvo, da ostanejo berljiva tako v svetli kot v temni temi
+• Sloj podzemne železnice se ponovno pravilno prikaže po zaprtju predogleda poti javnega prevoza
 
-## Prikazovanje zemljevidov in slogi
-
-- Lepše vzorce za območja plaž, peska, grušča, gole skale, sadovnjakov in vinogradov ter šrafiranje zaščitenih območij in mokrišč
-- Bolj gladko zaobljene besedilne oznake za ceste in reke
-- Reke, potoki in mokrišča imajo večji kontrast in so v temnem načinu bolj vidni
-- Nove in izboljšane ikone za iskanje po kategorijah in rezultate iskanja na zemljevidu
-- Izboljšano oblikovanje in prikazovanje večjezičnega besedila
-
-## Poti, zaznamki in poti
-
-- Izboljšano prikazovanje opisov zaznamkov in poti v formatu HTML
-- Sledi GeoJSON zdaj ohranjajo nadmorsko višino in časovne oznake pri uvozu in izvozu
-- Popravljena je bila napaka, ki je povzročala sesutje aplikacije po premestitvi poti na drug seznam
-- Zdaj so prikazane spletne strani za spomeniška območja
-- Pri neimenovanih rezultatih iskanja se zdaj prikazujejo imena operaterjev. Na primer, neimenovani ATM zdaj prikazuje svojo banko
-- Urednik: popravil opisni tekst za stanovanjske stavbe OpenStreetMap popravki/spremembe
-- Izboljšano zaznavanje HTML v opisih zaznamkov in poti
-- Podvojene poti so zdaj izločene
+## Načrtovanje poti in navigacija
+• Odpravljene so težave z napačnimi in manjkajočimi navodili
+• Opozorila o poti (cestnine, trajekti, neasfaltirane ceste, stopnice itd.) se zdaj prikazujejo za vse alternativne poti
+• Odpravljeno je redko zamrznjenje med načrtovanjem poti ter izboljšano ravnanje s slepimi ulicami in začetnimi/končnimi točkami na cesti z omejitvami
+• Izboljšano prikazovanje napredka poti ob pritisku na gumb za začetek
+• Pri spreminjanju vrstnega reda postaj na poti se seznam ne premika več po zaslonu
 
 ## Prevajanja
-
-- Glasovno vodenje po korakih v kantonskem jeziku
-- Posodobljeni nemški in francoski prevodi
-- Popravljeni so bili napačni prevodi glasovnih navodil "onto street" za kitajščino, srbščino in katalonščino
+• Izboljšano besedilo v kitajščini
+• Posodobljena prevajanja v ukrajinščini
+• Popravljena prevajanja imen kartografskih regij v italijanščini

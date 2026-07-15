@@ -1,8 +1,7 @@
-NUOVE FUNZIONALITÀ:
-• Interfaccia utente aggiornata per la ricerca e il calcolo dei percorsi
-• Percorsi con i mezzi pubblici (autobus, tram, metropolitana, metropolitana leggera)
-• Percorsi alternativi più veloci e più brevi
-• Avvisi lungo il percorso relativi a gradini, cancelli e barriere
-• Scegli qualsiasi colore per i segnalibri
-• Supporto per le coordinate UK OS Grid, Irish Grid e ITM
+• Dati OSM aggiornati al 14 luglio
+• I nomi delle fermate dei mezzi pubblici, dei cambi e delle stazioni sono ora contornati di bianco
+• Migliorata la visualizzazione degli orari di apertura
+• Corrette indicazioni errate o mancanti
+• I segnalibri e i percorsi modificati vengono ora salvati automaticamente
+• Gli avvisi sul percorso (pedaggi, traghetti, strade non asfaltate, scale, ecc.) vengono ora visualizzati per tutti i percorsi alternativi
 …continua su omaps.org/it/news

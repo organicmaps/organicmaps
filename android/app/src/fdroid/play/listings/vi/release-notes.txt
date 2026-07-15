@@ -1,9 +1,8 @@
-CÁC TÍNH NĂNG MỚI:
-• Cập nhật giao diện người dùng cho tính năng tìm kiếm và chỉ đường
-• Tính năng tìm lộ trình giao thông công cộng (xe buýt, xe điện, tàu điện ngầm, tàu điện nhẹ)
-• Các lộ trình thay thế nhanh nhất và ngắn nhất
-• Cảnh báo trên lộ trình về các bậc thang, cổng và cổng nâng
-• Chọn bất kỳ màu nào cho dấu trang
-• Hỗ trợ tọa độ UK OS Grid, Irish Grid, ITM
-• Kích hoạt hình ảnh vệ tinh trong cài đặt Organic Maps bằng URL máy chủ ô raster tùy chỉnh
+• Dữ liệu OSM cập nhật đến ngày 14 tháng 7
+• Tên các trạm dừng, điểm chuyển tuyến và ga giao thông công cộng nay có viền trắng
+• Cải thiện cách hiển thị giờ mở cửa
+• Sửa lỗi chỉ đường sai hoặc thiếu
+• Các dấu trang và lộ trình đã chỉnh sửa nay được lưu tự động
+• Các cảnh báo trên lộ trình (phí cầu đường, phà, đường không trải nhựa, cầu thang, v.v.) hiện được hiển thị cho tất cả các lộ trình thay thế
+• Ghi chú OSM được tạo tại vị trí chính xác mà bạn chọn
 …xem thêm tại omaps.org/news

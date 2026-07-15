@@ -1,8 +1,8 @@
-JAUNĀS FUNKCIJAS:
-• Atjaunināta meklēšanas un maršruta plānošanas lietotāja saskarne
-• Sabiedriskā transporta maršrutu plānošana (autobuss, tramvajs, metro, vieglā dzelzceļa transports)
-• Alternatīvi ātrākie un īsākie maršruti
-• Maršruta brīdinājumi par pakāpieniem, vārtiem un pacelamajiem vārtiem
-• Izvēlieties jebkuru krāsu grāmatzīmēm
-• Atbalsts koordinātēm UK OS Grid, Irish Grid, ITM
+• OSM dati uz 14. jūliju
+• Sabiedriskā transporta pieturvietu, pārsēšanās punktu un staciju nosaukumiem tagad ir balta kontūra
+• Uzlabots darba laiku attēlojums
+• Novērstas nepareizas vai trūkstošas norādes
+• Rediģētās grāmatzīmes un maršruti tagad tiek saglabāti automātiski
+• Maršruta brīdinājumi (ceļu nodevas, prāmji, neasfaltēti ceļi, kāpnes utt.) tagad tiek parādīti visiem alternatīvajiem maršrutiem
+• OSM piezīmes tiek izveidotas tieši tajā vietā, kuru izvēlaties
 …vairāk omaps.org/news

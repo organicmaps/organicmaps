@@ -1,10 +1,8 @@
-NÝJAR AÐGERÐIR:
-• Uppfærð notendaviðmót fyrir leit og leiðarleiðsögn
-• Leiðsögn almenningssamgangna (rútum, sporvögnum, neðanjarðarlestum, léttlestinni)
-• Varamlegar hraðustu og stystu leiðir
-• Leiðarviðvaranir um þrep, hlið og lyftuhurðir
-• Veldu hvaða lit sem er fyrir bókamerki
-• Stuðningur við UK OS Grid, Irish Grid, ITM hnit
-• Kveikja á gervitunglamyndum í Organic Maps-stillingum með sérsniðnum rasterflísaverðar-URL
-• OSM-gögn frá 24. júní
+• OSM-gögn frá 14. júlí
+• Stöðvarnöfn almenningssamgangna, millilendinga og lestarstöðva eru nú með hvítum útlínum
+• Bættur birtingarháttur opnunartíma
+• Leyst úr röngum eða vantar leiðbeiningum
+• Breytt bókamerki og slóðir vistast nú sjálfkrafa
+• Leiðarviðvaranir (gjöld, ferjur, ómalaðir vegir, stigar o.s.frv.) birtast nú fyrir allar aðrar leiðir
+• OSM-athugasemdir eru búnar til á nákvæmri staðsetningu sem þú velur
 …meira á omaps.org/news

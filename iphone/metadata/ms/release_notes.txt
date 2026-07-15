@@ -1,41 +1,28 @@
-- BARU! Laluan pengangkutan awam melalui kereta bawah tanah, rel ringan, bas, dan trem
-- BARU! Laluan alternatif: selain laluan terpantas, aplikasi kini memaparkan laluan terpendek
-- BARU! Amaran laluan berjalan kaki dan berbasikal mengenai tangga, pintu gerbang, dan pintu gerbang angkat di sepanjang laluan
-- BARU! Ketuk untuk memilih antara jejak dan laluan yang bertindih
-- BARU! Pilih mana-mana warna untuk penanda buku
-- BARU! Sokongan untuk koordinat British National Grid (OS Grid), Irish Grid, dan Irish Transverse Mercator (ITM)
-- BARU! Sokongan kebolehcapaian untuk Dynamic Type dan fon besar
-- EKSPERIMEN: Aktifkan Imbasan Satelit dalam tetapan Organic Maps dengan URL pelayan jubin raster tersuai
-- Gaya jadual yang lebih kemas dalam UI
-- Taip `?map-download-server:https://your-server.com/` dalam tetingkap carian untuk menimpa pelayan muat turun peta Organic Maps. Taip `?no-map-download-server` untuk membatalkan penimpaan.
-- Pelbagai pembetulan pepijat dan penambahbaikan prestasi
+• Tetapan baharu "Simpan sejarah carian" membantu anda mengekalkan privasi sejarah carian anda jika diperlukan
 
-## Data Peta
+## Peta & tempat
+• Data OpenStreetMap setakat 14 Julai
+• Nota OpenStreetMap kini diletakkan di lokasi tepat yang anda pilih, bukannya di tengah hutan
+• Pilihan peta yang dipertingkatkan untuk kawasan yang melintasi antimeridian 180°
+• Profil ketinggian laluan tidak lagi memaparkan carta lapuk atau kosong selepas laluan dipadamkan
+• Dipertingkatkan carta ketinggian kosong untuk laluan yang direkodkan
+• Butang untuk memadam penanda buku kini lebih mudah ditemui
+• Penyimpanan penanda buku secara automatik apabila anda meninggalkan skrin suntingan
+• Palet warna merangkumi warna yang telah ditetapkan dan membolehkan anda memilih mana-mana warna tersuai
+• Penambahbaikan UI lain
 
-- Data OpenStreetMap dikemas kini sehingga 24 Jun
-- Data Wikipedia dikemas kini sehingga 20 Jun, termasuk artikel dalam bahasa Itali
+## Pengangkutan awam
+• Nama perhentian, pertukaran, dan stesen kini menggunakan garis putih untuk kekal boleh dibaca dalam tema cerah dan gelap
+• Lapisan kereta bawah tanah muncul semula dengan betul selepas anda menutup pratonton laluan pengangkutan awam
 
-## Pemaparan peta & gaya
-
-- Corak yang lebih menarik untuk kawasan pantai, pasir, kerikil, batu telanjang, kebun buah-buahan, dan kebun anggur, serta coretan kawasan terpelihara dan tanah lembap
-- Label teks melengkung yang lebih lancar untuk jalan dan sungai
-- Sungai, anak sungai, dan tanah lembap mempunyai kontras yang lebih tinggi dan lebih jelas kelihatan dalam mod gelap
-- Ikon baharu dan dipertingkatkan untuk carian kategori dan keputusan carian pada peta
-- Penambahbaikan pembentukan dan paparan teks pelbagai bahasa
-
-## Jejak, penanda buku & laluan
-
-- Peningkatan paparan HTML untuk keterangan penanda buku dan jejak
-- Jejak GeoJSON kini mengekalkan ketinggian dan cap masa semasa import dan eksport
-- Membetulkan ranap selepas memindahkan jejak ke senarai lain
-- Laman web kini dipaparkan untuk tapak warisan
-- Nama pengendali kini dipaparkan untuk hasil carian tanpa nama. Sebagai contoh, ATM tanpa nama kini memaparkan banknya
-- Editor: membetulkan teks keterangan untuk suntingan/set perubahan OpenStreetMap bagi bangunan apartmen
-- Peningkatan pengesanan HTML dalam keterangan penanda buku dan jejak
-- Laluan pendua kini ditapis
+## Laluan & navigasi
+• Masalah arahan yang salah dan hilang telah diperbaiki
+• Amaran laluan (cukai jalan, feri, jalan tidak berturap, tangga, dan lain-lain) kini dipaparkan untuk semua laluan alternatif
+• Masalah beku yang jarang berlaku semasa membina laluan telah diperbaiki dan pengendalian jalan buntu serta titik permulaan/pengakhiran di jalan terhad telah dipertingkatkan
+• Meningkatkan kemajuan laluan pada butang mula
+• Mengatur semula hentian laluan tidak lagi menyebabkan senarai melompat-lompat
 
 ## Terjemahan
-
-- Arahan suara langkah demi langkah dalam loghat Kantonis
-- Kemas kini terjemahan Jerman dan Perancis
-- Membetulkan terjemahan panduan suara "onto street" yang salah untuk bahasa Cina, Serbia dan Catalan
+• Meningkatkan istilah bahasa Cina
+• Mengemas kini terjemahan Ukraine
+• Membetulkan terjemahan wilayah peta dalam bahasa Itali

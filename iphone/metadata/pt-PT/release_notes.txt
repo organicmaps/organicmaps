@@ -1,41 +1,28 @@
-- NOVIDADE! Cálculo de percursos de transportes públicos por metro, metro ligeiro, autocarro e elétrico
-- NOVIDADE! Rotas alternativas: para além da rota mais rápida, a aplicação apresenta agora a rota mais curta
-- NOVIDADE! Avisos nas rotas pedestres e de bicicleta sobre degraus, portões e portões elevatórios ao longo do percurso
-- NOVIDADE! Toque para escolher entre percursos e rotas sobrepostos
-- NOVIDADE! Selecione qualquer cor para os marcadores
-- NOVIDADE! Suporte para coordenadas British National Grid (OS Grid), Irish Grid e Irish Transverse Mercator (ITM)
-- NOVIDADE! Suporte à acessibilidade para o Dynamic Type e tipos de letra de grande dimensão
-- EXPERIMENTAL: Ative as imagens de satélite nas definições do Organic Maps com um URL personalizado do servidor de mosaicos rasterizados
-- Estilo de tabelas mais simples na interface do utilizador
-- Digite `?map-download-server:https://your-server.com/` na janela de pesquisa para substituir os servidores de download de mapas Organic Maps. Digite `?no-map-download-server` para remover a substituição.
-- Várias correções de erros e melhorias de desempenho
+• A nova configuração «Guardar histórico de pesquisa» ajuda a manter privado o seu histórico de pesquisa, quando necessário
 
-## Dados dos mapas
+## Mapas e locais
+• Dados do OpenStreetMap atualizados a 14 de julho
+• As notas do OpenStreetMap são agora colocadas na localização exata que selecionar, em vez de no meio da floresta
+• Seleção de mapas melhorada para regiões que atravessam o antimeridiano de 180°
+• Os perfis de elevação dos percursos já não mostram gráficos desatualizados ou vazios após a remoção de um percurso
+• Melhorou-se o gráfico de elevação vazio para percursos gravados
+• O botão para remover marcadores é mais fácil de encontrar
+• Gravação automática de marcadores ao sair do ecrã de edição
+• A paleta de cores inclui cores predefinidas e permite escolher qualquer cor personalizada
+• Outras melhorias na interface do utilizador
 
-- Dados do OpenStreetMap atualizados a 24 de junho
-- Dados do Wikipedia atualizados a 20 de junho, incluindo artigos em italiano
+## Transportes públicos
+• Os nomes das paragens, transferências e estações utilizam agora um contorno branco para se manterem legíveis tanto no tema claro como no escuro
+• A camada do metro reaparece corretamente após fechar a pré-visualização de um percurso de transportes públicos
 
-## Renderização e estilos dos mapas
-
-- Padrões mais apelativos para áreas de praia, areia, cascalho, rocha nua, pomares e vinhas, além de hachuras para áreas protegidas e zonas húmidas
-- Rótulos de texto com curvas mais suaves para estradas e rios
-- Os rios, ribeiros e zonas húmidas apresentam um maior contraste e são mais visíveis no modo escuro
-- Ícones novos e melhorados para a pesquisa por categoria e para os resultados da pesquisa no mapa
-- Melhoria na formatação e renderização de texto multilingue
-
-## Trajetos, marcadores e rotas
-
-- Melhoria na renderização HTML das descrições de marcadores e trajetos
-- Os trajetos GeoJSON mantêm agora a altitude e os registos de data e hora durante a importação e exportação
-- Corrigida uma falha após mover um trajeto para outra lista
-- São agora apresentados sites para locais de património
-- Os nomes das entidades operacionais são agora apresentados para resultados de pesquisa sem nome. Por exemplo, um resultado sem nome ATM apresenta agora o nome do seu banco
-- Editor: corrigido o texto da descrição para edições/conjuntos de alterações OpenStreetMap de edifícios de apartamentos
-- Deteção melhorada de HTML nas descrições de marcadores e trajetos
-- As rotas duplicadas são agora filtradas
+## Traçado de percursos e navegação
+• Corrigidos problemas com indicações erradas ou em falta
+• Os avisos de percurso (portagens, ferries, estradas não pavimentadas, escadas, etc.) são agora apresentados para todas as rotas alternativas
+• Corrigido um congelamento raro durante a criação de um percurso e melhorado o tratamento de becos sem saída e pontos de partida/chegada numa estrada com restrições
+• Melhorou-se a indicação do progresso do percurso no botão «Iniciar»
+• A reordenação das paragens do percurso já não faz com que a lista salte de um lado para o outro
 
 ## Traduções
-
-- Orientação por voz passo a passo em cantonês
-- Atualização das traduções para alemão e francês
-- Corrigidas traduções incorretas da orientação por voz "onto street" para chinês, sérvio e catalão
+• Melhorou-se a redação em chinês
+• Atualizaram-se as traduções em ucraniano
+• Corrigiram-se as traduções das regiões do mapa em italiano
