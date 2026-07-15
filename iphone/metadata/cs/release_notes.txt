@@ -1,41 +1,28 @@
-- NOVINKA! Plánování tras veřejnou dopravou: metrem, lehkou kolejovou dopravou, autobusem a tramvají
-- NOVINKA! Alternativní trasy: kromě nejrychlejší trasy nyní aplikace zobrazuje i nejkratší trasu
-- NOVINKA! Varování na pěších a cyklistických trasách ohledně schodů, bran a zvedacích bran podél trasy
-- NOVINKA! Klepnutím si vyberte mezi překrývajícími se trasami a cestami
-- NOVINKA! Vyberte si libovolnou barvu pro záložky
-- NOVINKA! Podpora souřadnic British National Grid (OS Grid), Irish Grid a Irish Transverse Mercator (ITM)
-- NOVINKA! Podpora přístupnosti pro Dynamic Type a velká písma
-- EXPERIMENTÁLNÍ: Zapněte satelitní snímky v nastavení Organic Maps pomocí vlastní URL serveru rastrových dlaždic
-- Přehlednější styl tabulek v uživatelském rozhraní
-- Do vyhledávacího okna zadejte `?map-download-server:https://your-server.com/`, chcete-li přepsat servery pro stahování map Organic Maps. Zadejte `?no-map-download-server`, chcete-li přepsání zrušit.
-- Různé opravy chyb a vylepšení výkonu
+• Nové nastavení „Uložit historii vyhledávání“ vám v případě potřeby pomůže zachovat soukromí historie vyhledávání
 
-## Mapová data
+## Mapy a místa
+• Data OpenStreetMap k 14. červenci
+• Poznámky OpenStreetMap se nyní umisťují přesně na místo, které vyberete, namísto uprostřed lesa
+• Vylepšený výběr mapy pro regiony, které překračují antimeridián 180°
+• Profily nadmořské výšky tras již po odstranění trasy nezobrazují zastaralé nebo prázdné grafy
+• Vylepšen prázdný graf nadmořské výšky pro zaznamenané trasy
+• Tlačítko pro odstranění záložek je snáze k nalezení
+• Automatické ukládání záložek při opuštění obrazovky úprav
+• Paleta barev obsahuje předdefinované barvy a umožňuje vybrat libovolnou vlastní barvu
+• Další vylepšení uživatelského rozhraní
 
-- Údaje OpenStreetMap aktualizovány k 24. červnu
-- Data Wikipedia aktualizována k 20. červnu, včetně článků v italštině
+## Veřejná doprava
+• Názvy zastávek, přestupních bodů a stanic mají nyní bílý obrys, aby byly čitelné jak ve světlém, tak v tmavém motivu
+• Vrstva metra se po zavření náhledu trasy veřejné dopravy znovu správně zobrazí
 
-## Zobrazování map a styly
-
-- Vylepšené vzory pro oblasti pláží, písku, sutin, holých skal, sadů a vinic, včetně šrafování chráněných oblastí a mokřadů
-- Plynuleji zakřivené textové popisky silnic a řek
-- Řeky, potoky a mokřady mají vyšší kontrast a jsou v tmavém režimu lépe viditelné
-- Nové a vylepšené ikony pro vyhledávání podle kategorií a výsledky vyhledávání na mapě
-- Vylepšené formátování a vykreslování vícejazyčného textu
-
-## Trasy, záložky a trasy
-
-- Vylepšené vykreslování popisů záložek a tras pomocí HTML
-- Trasy v aplikaci GeoJSON nyní při importu a exportu zachovávají nadmořskou výšku a časová razítka
-- Opravena chyba způsobující pád aplikace po přesunutí trasy do jiného seznamu
-- U památek se nyní zobrazují webové stránky
-- U nepojmenovaných výsledků vyhledávání se nyní zobrazují názvy operátorů. Například u nepojmenovaného ATM se nyní zobrazuje jeho banka
-- Editor: opraven popisný text pro bytový dům OpenStreetMap úpravy/sady změn
-- Vylepšená detekce HTML v popisech záložek a tras
-- Duplicitní trasy jsou nyní odfiltrovány
+## Plánování tras a navigace
+• Opraveny problémy s nesprávnými a chybějícími pokyny
+• Varování na trase (mýtné, trajekty, nezpevněné silnice, schody atd.) se nyní zobrazují u všech alternativních tras
+• Opraveno vzácné zamrznutí při vytváření trasy a vylepšeno zpracování slepých uliček a počátečních/cílových bodů na silnici s omezeným průjezdem
+• Vylepšen ukazatel průběhu trasy na tlačítku „Start“
+• Při změně pořadí zastávek na trase již nedochází k poskakování seznamu
 
 ## Překlady
-
-- Kantonské hlasové pokyny krok za krokem
-- Aktualizovány německé a francouzské překlady
-- Opraveny nesprávné překlady hlasových pokynů "onto street" pro čínštinu, srbštinu a katalánštinu
+• Vylepšeno znění v čínštině
+• Aktualizovány ukrajinské překlady
+• Opraveny překlady mapových regionů v italštině

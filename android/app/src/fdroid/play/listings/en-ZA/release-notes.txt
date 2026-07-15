@@ -1,11 +1,10 @@
-NEW FEATURES:
-• Updated search and routing user interface
-• Public transport routing (bus, tram, subway, light rail)
-• Alternative fastest and shortest routes
-• Route warnings about steps, gates, and lift gates
-• Select any color for bookmarks
-• Support for UK OS Grid, Irish Grid, ITM coordinates
-• Enable Satellite Imagery in Organic Maps settings with a custom raster tile server URL
-• OSM data as of June 24
-• Wikipedia data as of June 20 (including Italian)
+• OSM data as of July 14
+• Public transport stop, transfer and station names now have a white outline
+• Improved display of opening hours
+• Fixed incorrect or missing directions
+• Edited bookmarks and tracks now save automatically
+• Route warnings (tolls, ferries, unpaved roads, stairs, etc.) are now shown for all alternative routes
+• OSM notes are created at the exact location you select
+• Colour picker closes automatically when you pick a preset
+• Fixed crashes
 …more at omaps.org/news

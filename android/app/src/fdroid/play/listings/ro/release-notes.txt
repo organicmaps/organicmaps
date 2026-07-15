@@ -1,8 +1,7 @@
-FUNCȚII NOI:
-• Interfața de căutare și de calculare a traseelor a fost actualizată
-• Calcularea traseelor pentru transportul public (autobuz, tramvai, metrou, tren ușor)
-• Trasee alternative, cele mai rapide și cele mai scurte
-• Avertismente privind traseul referitoare la trepte, porți și bariere
-• Alege orice culoare pentru marcaje
-• Suport pentru coordonatele UK OS Grid, Irish Grid, ITM
-…mai multe informații la omaps.org/news
+• Date OSM actualizate la 14 iulie
+• Numele stațiilor de transport public, ale punctelor de transfer și ale gărilor au acum un contur alb
+• Afișarea orelor de funcționare a fost îmbunătățită
+• S-au remediat indicațiile de orientare incorecte sau lipsă
+• Marcajele și traseele editate se salvează acum automat
+• Avertismentele privind traseul (taxe de drum, feriboturi, drumuri neasfaltate, scări etc.) sunt afișate acum pentru toate traseele alternative
+…mai multe informații pe omaps.org/news

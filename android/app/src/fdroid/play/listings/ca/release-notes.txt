@@ -1,8 +1,7 @@
-NOVES FUNCIONALITATS:
-• Interfície d'usuari actualitzada per a la cerca i la planificació d'itineraris
-• Rutes de transport públic (autobús, tramvia, metro, tren lleuger)
-• Rutes alternatives més ràpides i més curtes
-• Alertes de ruta sobre esglaons, portes i portes elevadores
-• Seleccioneu qualsevol color per als marcadors
-• Suport per a les coordenades UK OS Grid, Irish Grid i ITM
+• Dades d'OSM a data de 14 de juliol
+• Els noms de les parades de transport públic, de transbordament i d'estacions ara tenen un contorn blanc
+• Millora de la visualització dels horaris d'obertura
+• S'han corregit indicacions incorrectes o que faltaven
+• Els marcadors i les rutes editats ara es guarden automàticament
+• Ara es mostren avisos de ruta (peatges, ferris, camins sense asfaltar, escales, etc.) per a totes les rutes alternatives
 …més a omaps.org/ca/news

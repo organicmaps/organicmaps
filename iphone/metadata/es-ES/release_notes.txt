@@ -1,41 +1,28 @@
-- ¡NUEVO! Planificación de rutas en transporte público mediante metro, tren ligero, autobús y tranvía
-- ¡NUEVO! Rutas alternativas: además de la ruta más rápida, la aplicación muestra ahora la ruta más corta
-- ¡NUEVO! Advertencias en las rutas a pie y en bicicleta sobre escalones, puertas y barreras levadizas a lo largo del recorrido
-- ¡NUEVO! Toque para elegir entre trayectos y rutas superpuestas
-- ¡NUEVO! Seleccione cualquier color para los marcadores
-- ¡NUEVO! Compatibilidad con coordenadas British National Grid (OS Grid), Irish Grid y Irish Transverse Mercator (ITM)
-- ¡NUEVO! Compatibilidad con accesibilidad para Dynamic Type y fuentes de gran tamaño
-- EXPERIMENTAL: Active las imágenes por satélite en los ajustes de Organic Maps con una URL personalizada del servidor de mosaicos ráster
-- Estilo de las tablas más limpio en la interfaz de usuario
-- Escriba `?map-download-server:https://your-server.com/` en la ventana de búsqueda para anular los servidores de descarga de mapas Organic Maps. Escriba `?no-map-download-server` para eliminar la anulación.
-- Varias correcciones de errores y mejoras de rendimiento
+• La nueva opción «Guardar historial de búsqueda» te ayuda a mantener privado tu historial de búsqueda si lo necesitas
 
-## Datos cartográficos
+## Mapas y lugares
+• Datos de OpenStreetMap a fecha de 14 de julio
+• Las notas de OpenStreetMap ahora se sitúan en la ubicación exacta que selecciones, en lugar de en medio del bosque
+• Se ha mejorado la selección de mapas para las regiones que cruzan el antimeridiano de 180°
+• Los perfiles de altitud de los recorridos ya no muestran gráficos obsoletos o vacíos tras eliminar un recorrido
+• Se ha mejorado el gráfico de altitud vacío para los recorridos grabados
+• El botón para eliminar marcadores es más fácil de encontrar
+• Se guardan automáticamente los marcadores al salir de la pantalla de edición
+• La paleta de colores incluye colores predefinidos y permite elegir cualquier color personalizado
+• Otras mejoras en la interfaz de usuario
 
-- Datos de OpenStreetMap actualizados a 24 de junio
-- Datos de Wikipedia actualizados a 20 de junio, incluidos artículos en italiano
+## Transporte público
+• Los nombres de paradas, transbordos y estaciones ahora utilizan un contorno blanco para que sean legibles tanto en el tema claro como en el oscuro
+• La capa de metro vuelve a aparecer correctamente tras cerrar la vista previa de una ruta de transporte público
 
-## Representación y estilos de los mapas
-
-- Patrones más atractivos para las zonas de playa, arena, pedregal, roca desnuda, huertos y viñedos, además de sombreados para áreas protegidas y humedales
-- Etiquetas de texto con curvas más suaves para carreteras y ríos
-- Los ríos, arroyos y humedales presentan un mayor contraste y son más visibles en el modo oscuro
-- Iconos nuevos y mejorados para la búsqueda por categorías y los resultados de búsqueda en el mapa
-- Mejora en el formato y la representación del texto multilingüe
-
-## Trayectos, marcadores y rutas
-
-- Se ha mejorado la representación de HTML en las descripciones de marcadores y trayectos
-- Los trayectos GeoJSON ahora conservan la altitud y las marcas de tiempo al importarlos y exportarlos
-- Se ha corregido un fallo que provocaba el bloqueo de la aplicación tras mover un trayecto a otra lista
-- Ahora se muestran las páginas web de los lugares de interés patrimonial
-- Ahora se muestran los nombres de los operadores en los resultados de búsqueda sin nombre. Por ejemplo, un ATM sin nombre muestra ahora su banco
-- Editor: se ha corregido el texto de la descripción del edificio de apartamentos OpenStreetMap (ediciones/conjuntos de cambios)
-- Se ha mejorado la detección de HTML en las descripciones de marcadores y trayectos
-- Ahora se filtran las rutas duplicadas
+## Rutas y navegación
+• Se han solucionado problemas relacionados con indicaciones erróneas o ausentes
+• Las advertencias de ruta (peajes, transbordadores, carreteras sin asfaltar, escaleras, etc.) se muestran ahora para todas las rutas alternativas
+• Se ha solucionado un bloqueo poco frecuente al trazar una ruta y se ha mejorado la gestión de callejones sin salida y de los puntos de inicio y fin en una carretera con restricciones
+• Se ha mejorado la indicación del progreso de la ruta en el botón de inicio
+• Al reordenar las paradas de la ruta, la lista ya no salta de un lado a otro
 
 ## Traducciones
-
-- Indicaciones de voz paso a paso en cantonés
-- Se han actualizado las traducciones al alemán y al francés
-- Se han corregido las traducciones incorrectas de las indicaciones de voz "onto street" para chino, serbio y catalán
+• Se ha mejorado la redacción en chino
+• Se han actualizado las traducciones al ucraniano
+• Se han corregido las traducciones de las regiones del mapa en italiano
