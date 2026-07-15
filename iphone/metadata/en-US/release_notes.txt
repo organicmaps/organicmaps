@@ -1,41 +1,28 @@
-- NEW! Public transport routing by subway, light rail, bus, and tram
-- NEW! Alternative routes: in addition to the fastest route, the app now shows the shortest route
-- NEW! Walking and cycling route warnings about steps, gates, and lift gates along the way
-- NEW! Tap to choose between overlapping tracks and routes
-- NEW! Select any color for bookmarks
-- NEW! Support for British National Grid (OS Grid), Irish Grid, and Irish Transverse Mercator (ITM) coordinates
-- NEW! Accessibility support for Dynamic Type and large fonts
-- EXPERIMENTAL: Enable Satellite Imagery in Organic Maps settings with a custom raster tile server URL
-- Cleaner table styling in the UI
-- Type `?map-download-server:https://your-server.com/` in the search window to override the Organic Maps map download servers. Type `?no-map-download-server` to remove the override.
-- Various bug fixes and performance improvements
+• New "Save search history" setting helps you keep your search history private if needed
 
-## Map Data
+## Map & places
+• OpenStreetMap data as of July 14
+• OpenStreetMap notes are now placed at the exact location you select, instead of in the middle of the forest
+• Improved map selection for regions that cross the 180° antimeridian
+• Track elevation profiles no longer show stale or empty charts after a track is removed
+• Improved the empty elevation chart for recorded tracks
+• The button for removing bookmarks is easier to find
+• Automatic bookmark saving when you leave the edit screen
+• The color palette includes predefined colors and lets you choose any custom color
+• Other UI improvements
 
-- OpenStreetMap data updated as of June 24
-- Wikipedia data updated as of June 20, including articles in Italian
+## Public transport
+• Stop, transfer, and station names now use a white outline to remain readable in both light and dark themes
+• The subway layer reappears correctly after you close a public transport route preview
 
-## Map rendering & styles
-
-- Better-looking patterns for beach, sand, scree, bare rock, orchard, and vineyard areas, plus protected area and wetland hatching
-- Smoother curved text labels for roads and rivers
-- Rivers, streams, and wetlands have higher contrast and are more visible in dark mode
-- New and improved icons for category search and search results on the map
-- Improved multilingual text shaping and rendering on the map
-
-## Tracks, bookmarks & routes
-
-- Improved HTML rendering of bookmark and track descriptions
-- GeoJSON tracks now keep elevation and timestamps on import and export
-- Fixed a crash after moving a track to another list
-- Websites are now shown for heritage sites
-- Operator names are now shown for unnamed search results. For example, an unnamed ATM now shows its bank
-- Editor: corrected the description text for apartment-building OpenStreetMap edits/changesets
-- Improved HTML detection in bookmark and track descriptions
-- Duplicate routes are now filtered out
+## Routing & navigation
+• Fixed issues with wrong and missing directions
+• Route warnings (tolls, ferries, unpaved roads, stairs, etc.) are now shown for all alternative routes
+• Fixed a rare freeze while building a route and improved handling of dead ends and start/finish points on a restricted road
+• Improved route progress on the start button
+• Reordering route stops no longer makes the list jump around
 
 ## Translations
-
-- Cantonese turn-by-turn voice guidance
-- Updated German and French translations
-- Fixed incorrect "onto street" voice guidance translations for Chinese, Serbian, and Catalan
+• Improved Chinese wording
+• Updated Ukrainian translations
+• Fixed translations of map regions in Italian

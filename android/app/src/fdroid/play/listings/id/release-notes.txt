@@ -1,9 +1,8 @@
-FITUR BARU:
-• Antarmuka pengguna pencarian dan perhitungan rute telah diperbarui
-• Perhitungan rute transportasi umum (bus, trem, kereta bawah tanah, kereta ringan)
-• Rute alternatif tercepat dan terpendek
-• Peringatan rute mengenai tangga, gerbang, dan gerbang angkat
-• Pilih warna apa pun untuk penanda
-• Dukungan untuk koordinat UK OS Grid, Irish Grid, dan ITM
-• Aktifkan Citra Satelit di pengaturan Organic Maps dengan URL server ubin raster khusus
+• Data OSM per 14 Juli
+• Nama halte, titik transfer, dan stasiun angkutan umum kini memiliki garis tepi putih
+• Tampilan jam operasional telah ditingkatkan
+• Petunjuk arah yang salah atau hilang telah diperbaiki
+• Bookmark dan jejak yang diedit kini disimpan secara otomatis
+• Peringatan rute (tol, feri, jalan tidak beraspal, tangga, dll.) kini ditampilkan untuk semua rute alternatif
+• Catatan OSM dibuat tepat di lokasi yang Anda pilih
 …selengkapnya di omaps.org/id/news

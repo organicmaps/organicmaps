@@ -1,8 +1,7 @@
-NGĀ ĀHUATANGA HOU:
-• I whakahouhia te atanga kaiwhakamahi mō te rapu me te whakarite huarahi
-• Aratohu huarahi waka tūmatanui (pahi, tereina, tereina raro, tereina māmā)
-• Ngā huarahi kē tere rawa, poto rawa
-• Ngā whakatūpato mō ngā ara e pā ana ki ngā hipi, ngā kuaha, me ngā kuaha hiki
-• Tīpakohia he tae mō ngā tohu wāhi
-• Tautoko mō ngā tūnga UK OS Grid, Irish Grid, ITM
-…ā, atu anō i omaps.org/news
+• Ngā raraunga OSM i te 14 o Hūrae
+• He āhua pae mā ngā ingoa o ngā tūnga waka tūmatanui, whakawhiti me ngā teihana ināianei
+• Kua whakapaingia te whakaaturanga o ngā haora whakatuwhera
+• Kua whakatikahia ngā huarahi hē, ngaro rānei
+• Ka penapenahia aunoa ināianei ngā tohu me ngā ara kua whakatikahia
+• Ka whakaatuhia ināianei ngā whakatūpato huarahi (utu huarahi, pahi wai, huarahi kāore i whakapaia, arawhata, me ērā atu) mō ngā huarahi katoa kē.
+…he nui ake kei omaps.org/news

@@ -1,8 +1,7 @@
-NOVAS FUNCIONALIDADES:
-• Interface de utilizador atualizada para a pesquisa e o cálculo de percursos
-• Cálculo de percursos de transportes públicos (autocarro, elétrico, metro, metro ligeiro)
-• Rotas alternativas mais rápidas e mais curtas
-• Avisos de percurso sobre degraus, portões e portões elevatórios
-• Selecione qualquer cor para os marcadores
-• Suporte para coordenadas UK OS Grid, Irish Grid e ITM
+• Dados OSM atualizados a 14 de julho
+• Os nomes das paragens de transportes públicos, das ligações e das estações têm agora um contorno branco
+• Melhoria na apresentação dos horários de funcionamento
+• Corrigidas indicações incorretas ou em falta
+• Os marcadores e percursos editados são agora guardados automaticamente
+• Os avisos de percurso (portagens, ferries, estradas não pavimentadas, escadas, etc.) são agora apresentados para todos os percursos alternativos
 …mais em omaps.org/pt/news

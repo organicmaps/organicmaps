@@ -1,41 +1,28 @@
-- ÚJ! Tömegközlekedési útvonaltervezés metróval, villamossal, busszal és villamossal
-- ÚJ! Alternatív útvonalak: a leggyorsabb útvonal mellett az alkalmazás mostantól a legrövidebb útvonalat is megjeleníti
-- ÚJ! Gyalogos és kerékpáros útvonalakhoz kapcsolódó figyelmeztetések az út mentén található lépcsőkről, kapukról és emelőkapukról
-- ÚJ! Érintéssel válasszon az egymást átfedő útvonalak és útvonalak között
-- ÚJ! Bármilyen szín kiválasztható a könyvjelzőkhöz
-- ÚJ! Támogatás az British National Grid (OS Grid), Irish Grid és Irish Transverse Mercator (ITM) koordinátákhoz
-- ÚJ! Akadálymentesítési támogatás az Dynamic Type és a nagy betűméretű betűk számára
-- KÍSÉRLETI: Engedélyezze a műholdas képeket az Organic Maps beállításokban egy egyéni raszterkocka-szerver URL-jével
-- Tisztább táblázati stílus a felhasználói felületen
-- Írja be az `?map-download-server:https://your-server.com/` szót a keresőablakba az Organic Maps térképletöltő szerverek felülírásához. Írja be az `?no-map-download-server` szót a felülírás visszavonásához.
-- Különféle hibajavítások és teljesítményjavítások
+• Az új „Keresési előzmények mentése” beállítás segít szükség esetén megőrizni keresési előzményei titkosságát
 
-## Térképadatok
+## Térkép és helyek
+• OpenStreetMap-adatok július 14-i állapot szerint
+• Az OpenStreetMap-jegyzetek mostantól pontosan a kiválasztott helyen jelennek meg, nem pedig az erdő közepén
+• Javított térképválasztás az 180°-os antimeridiánt átlépő régiók esetében
+• A magassági profilok már nem jelennek meg elavult vagy üres grafikonokkal, miután egy útvonalat eltávolítottak
+• Javítottuk a rögzített útvonalak üres magassági grafikonját
+• A könyvjelzők eltávolítására szolgáló gomb könnyebben megtalálható
+• Automatikus könyvjelző-mentés, amikor kilép a szerkesztőképernyőről
+• A színpaletta előre definiált színeket tartalmaz, és lehetővé teszi bármely egyéni szín kiválasztását
+• Egyéb felhasználói felület-fejlesztések
 
-- OpenStreetMap adatok frissítve: június 24.
-- Az Wikipedia adatok frissültek június 20-án, beleértve az olasz nyelvű cikkeket is
+## Tömegközlekedés
+• A megállók, átszállási pontok és állomások nevei most fehér kontúrral jelennek meg, hogy világos és sötét témákban egyaránt jól olvashatók legyenek
+• A metróréteg helyesen jelenik meg újra a tömegközlekedési útvonal-előnézet bezárása után
 
-## Térkép megjelenítése és stílusok
-
-- Szebb kinézetű mintázatok a strandok, homok, kavicsos lejtők, csupasz sziklák, gyümölcsösök és szőlőültetvények területein, valamint a védett területek és a vizes élőhelyek árnyékolásához
-- Simaabb, ívelt szövegcímkék az utak és folyók esetében
-- A folyók, patakok és vizes élőhelyek kontrasztja nagyobb, így sötét módban jobban láthatók
-- Új és továbbfejlesztett ikonok a kategóriakereséshez és a térképen megjelenő keresési eredményekhez
-- Többnyelvű szövegformázás és megjelenítés javítása
-
-## Útvonalak, könyvjelzők és útvonalak
-
-- Javított HTML megjelenítés a könyvjelzők és útvonalak leírásainál
-- Az GeoJSON útvonalak mostantól megőrzik a magassági adatokat és az időbélyegeket importáláskor és exportáláskor is
-- Javítva lett az alkalmazás összeomlása, amely egy útvonal másik listába való áthelyezése után jelentkezett
-- A műemlékhelyeknél mostantól megjelennek a weboldalak
-- A névtelen keresési eredményeknél mostantól megjelennek a szolgáltatók nevei. Például a névtelen ATM mostantól megjeleníti a bankját
-- Szerkesztő: kijavította a lakóházra vonatkozó leírási szöveget OpenStreetMap szerkesztések/változáskészletek
-- Javított HTML felismerés a könyvjelzők és útvonalak leírásaiban
-- Az ismétlődő útvonalakat mostantól kiszűri a rendszer
+## Útvonaltervezés és navigáció
+• Kijavítottuk a hibás és hiányzó útbaigazításokkal kapcsolatos problémákat
+• Az útvonal-figyelmeztetések (útdíjak, kompok, földutak, lépcsők stb.) mostantól minden alternatív útvonal esetében megjelennek
+• Kijavítottuk az útvonal-tervezés során ritkán előforduló lefagyást, és javítottuk a zsákutcák, valamint a korlátozott forgalmú utakon lévő kiindulási és érkezési pontok kezelését
+• Javítottuk az útvonal előrehaladásának jelzését a „Start” gombon
+• Az útvonalállomások sorrendjének megváltoztatása már nem okoz ugrálást a listában
 
 ## Fordítások
-
-- Kantoni nyelvű, lépésről lépésre történő hangos útmutatás
-- Frissített német és francia fordítások
-- Javítva lettek a kínai, szerb és katalán nyelvű "onto street" hangos útmutatások hibás fordításai
+• Javítottuk a kínai szövegezést
+• Frissítettük az ukrán fordításokat
+• Javítottuk a térképrégiók olasz nyelvű fordításait
