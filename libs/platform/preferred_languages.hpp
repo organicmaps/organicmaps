@@ -49,6 +49,11 @@ ChineseScript GetChineseScript(std::string_view tag);
 
 std::string DebugPrint(ChineseScript script);
 
+/// @return True if @a tag begins with @a prefix and @a prefix ends on a subtag boundary, so that
+/// the three-letter "fil-PH" (Filipino) does not start with "fi" (Finnish). Case-sensitive, and
+/// @a prefix must use the same subtag delimiters as @a tag: "en-US" is not a prefix of "en_US".
+bool StartsWithSubtags(std::string_view tag, std::string_view prefix) noexcept;
+
 buffer_vector<std::string, 4> const & GetSystemPreferred();
 
 /// Locale-driven CJK font variant resolver. Owns the variant enum, locale/SFNT-family-name
