@@ -443,6 +443,7 @@ AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
       {"historic", "wayside_shrine"},
       {"landuse", "cemetery"},
       {"leisure", "beach_resort"},
+      {"leisure", "bird_hide"},
       {"leisure", "garden"},
       {"leisure", "marina"},
       {"leisure", "nature_reserve"},

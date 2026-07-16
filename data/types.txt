@@ -138,6 +138,7 @@ landuse|forest|mixed
 *amenity|fire_station
 *landuse|retail
 *leisure|nature_reserve
+*leisure|bird_hide
 *highway|footway|bicycle
 *tourism|information
 *highway|motorway_link|bridge
