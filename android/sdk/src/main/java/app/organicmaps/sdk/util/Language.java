@@ -59,13 +59,10 @@ public class Language
     return toModernLanguageTag(stripped.toLanguageTag());
   }
 
-  // Spells any locale Android reports the way the core expects it.
-  // Locale stores the deprecated ISO 639 codes internally, rewriting "id" as "in", "he" as "iw"
-  // and "yi" as "ji". toLanguageTag() is documented to emit the modern codes that the core knows,
-  // but only does so since API 24: Lollipop and Marshmallow return the stored code verbatim, and an
-  // IME is free to declare android:languageTag="in" by hand, so undo the rewrite here.
-  // The primary subtag is compared as a whole, otherwise "inh" (Ingush) would become Indonesian.
-  // Package-private for LanguageTest: it is the only part of this class free of Android APIs.
+  // Rewrites the deprecated ISO 639 codes Locale keeps internally ("in"->"id", "iw"->"he", "ji"->"yi").
+  // toLanguageTag() does this itself, but only since API 24, and an IME may declare "in" by hand.
+  // Matches the whole primary subtag, so "inh" (Ingush) is not mistaken for Indonesian.
+  // Package-private for LanguageTest (the only Android-API-free part).
   @NonNull
   static String toModernLanguageTag(@NonNull String locale)
   {
@@ -87,9 +84,16 @@ public class Language
   @NonNull
   private static String getSubtypeLanguageTag(@NonNull InputMethodSubtype ims)
   {
-    // InputMethodSubtype.getLocale() is deprecated and spells the locale the POSIX way ("en_US").
-    // Its BCP 47 replacement needs API 24; below that toModernLanguageTag() turns it into a tag.
-    final String tag = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? ims.getLanguageTag() : ims.getLocale();
-    return tag == null ? "" : tag.trim();
+    // A subtype reports a BCP 47 tag only if its IME declares android:languageTag (API 24);
+    // getLanguageTag() is empty for the many that declare only the older android:imeSubtypeLocale.
+    // Fall back to the deprecated getLocale() for those, as the framework's getLocaleObject() does.
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+    {
+      final String tag = ims.getLanguageTag();
+      if (!tag.isEmpty())
+        return tag;
+    }
+
+    return ims.getLocale().trim();
   }
 }
