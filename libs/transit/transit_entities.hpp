@@ -6,15 +6,12 @@
 
 #include "geometry/point2d.hpp"
 
-#include "base/macros.hpp"
-#include "base/newtype.hpp"
 #include "base/visitor.hpp"
-
-#include "std/boost_container_hash.hpp"
 
 #include "defines.hpp"
 
-#include <cstdint>
+#include <boost/container_hash/hash.hpp>
+
 #include <limits>
 #include <string>
 #include <tuple>
@@ -24,7 +21,8 @@
 
 namespace routing
 {
-inline double constexpr kTransitMaxSpeedKMpH = 400.0;
+/// 60 km/h is the optimal MaxSpeed for Transit now (we don't take into account HS trains).
+inline double constexpr kTransitMaxSpeedKMpH = 60.0;
 }  // namespace routing
 
 namespace transit
