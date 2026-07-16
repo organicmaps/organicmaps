@@ -13,6 +13,7 @@
 #include "qt/routing_settings_dialog.hpp"
 #include "qt/screenshoter.hpp"
 #include "qt/search_panel.hpp"
+#include "qt/qml/forwarding_quickwidget.hpp"
 
 #include "map/framework.hpp"
 #include "map/place_page_info.hpp"
@@ -132,7 +133,7 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
   setCentralWidget(m_pDrawWidget);
 
   // auto quickWidget = new QQuickWidget(m_pDrawWidget);
-  auto quickWidget = new QQuickWidget();
+  auto quickWidget = new ForwardingQuickWidget();
   // quickWidget->setWindowFlags(Qt::SplashScreen);
   quickWidget->setAttribute(Qt::WA_AlwaysStackOnTop);
   // quickWidget->setAttribute(Qt::WA_TranslucentBackground);

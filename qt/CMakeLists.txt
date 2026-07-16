@@ -61,6 +61,8 @@ set(SRC
   selection.hpp
   update_dialog.cpp
   update_dialog.hpp
+  qml/forwarding_quickwidget.cpp
+  qml/forwarding_quickwidget.hpp
 )
 
 omim_add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${RES_SOURCES} ${SRC})

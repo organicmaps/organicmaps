@@ -62,25 +62,20 @@ Item {
 
         onPressed: mouse => {
             const inside = hit(mouse);
-    //         mouse.accepted = inside;
+            mouse.accepted = inside;
             // mouse.accepted = false;     // move and right button are propagated again
             if (inside)
                 console.log("Cloud pressed");
         }
         onReleased: mouse => {
             const inside = hit(mouse);
-    //     //     mouse.accepted = inside;
+            mouse.accepted = inside;
             // mouse.accepted = false;
             if (inside)
                 console.log("Cloud released");
         }
         onClicked: mouse => {
-            // mouse.accepted = false;
-            if (hit(mouse))
-                console.log("Cloud clicked");
-            else
-                // map.qmlClicked1(mouse.x, mouse.y);
-                root.map.qmlClicked(mouse.x, mouse.y);
+            console.log("Cloud clicked");
         }
     }
 }
