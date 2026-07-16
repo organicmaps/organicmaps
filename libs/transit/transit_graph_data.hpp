@@ -8,13 +8,11 @@
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
-#include "base/exception.hpp"
 #include "base/geo_object_id.hpp"
 #include "base/visitor.hpp"
 
 #include <glaze/json.hpp>
 
-#include <cstdint>
 #include <cstring>
 #include <map>
 #include <string>
