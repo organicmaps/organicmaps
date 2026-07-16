@@ -1,18 +1,14 @@
 #pragma once
 
-#include "base/macros.hpp"
-#include "base/newtype.hpp"
+#include "base/macros.hpp"  // for SerDes macro
 #include "base/visitor.hpp"
 
 #include <array>
-#include <chrono>
 #include <cstdint>
 #include <ctime>
 #include <map>
 #include <tuple>
 #include <unordered_map>
-#include <utility>
-#include <vector>
 
 #include "3party/just_gtfs/just_gtfs.h"
 
