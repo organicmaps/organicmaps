@@ -58,8 +58,11 @@ public:
   std::string GetDescription() const;
   void SetDescription(std::string const & description);
 
-  kml::Timestamp GetTimeStamp() const;
-  void SetTimeStamp(kml::Timestamp timeStamp);
+  kml::Timestamp GetCreatedTimestamp() const;
+  void SetCreatedTimestamp(kml::Timestamp timeStamp);
+
+  kml::Timestamp GetModifiedTimestamp() const;
+  void SetModifiedTimestamp(kml::Timestamp timeStamp);
 
   uint8_t GetScale() const;
   void SetScale(uint8_t scale);
@@ -84,6 +87,9 @@ public:
   void Detach();
 
   kml::GroupIdCollection const & GetCompilations() const { return m_compilationIds; }
+
+protected:
+  void SetDirty(bool updateModificationTime = true) override;
 
 private:
   drape_ptr<df::UserPointMark::SymbolNameZoomInfo> GetCustomSymbolNames() const;
