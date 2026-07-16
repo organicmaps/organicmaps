@@ -117,6 +117,35 @@ UNIT_TEST(CategoriesHolder_Smoke)
   }
 }
 
+// Android 14+ appends regional preferences to the locale as Unicode extensions, e.g.
+// Locale.toString() == "zh_CN_#Hans-u-fw-mon" when the user picks Monday as the first day of the
+// week. The "mon" value must not be matched as the Macau ("mo") region subtag, which would show
+// Traditional Chinese categories to a Simplified Chinese user.
+UNIT_TEST(CategoriesHolder_LocaleExtensions)
+{
+  auto const simplified = CategoriesHolder::kSimplifiedChineseCode;
+  auto const traditional = CategoriesHolder::kTraditionalChineseCode;
+
+  for (char const * locale : {"zh_CN_#u-fw-mon", "zh_CN_#Hans-u-fw-mon", "zh_CN_#Hans-u-fw-sun",
+                              "zh_CN_#u-fw-mon-ms-metric-mu-celsius", "zh_CN_#Hans"})
+    TEST_EQUAL(CategoriesHolder::MapLocaleToInteger(locale), simplified, (locale));
+
+  for (char const * locale : {"zh_TW_#Hant-u-fw-mon", "zh_HK_#u-fw-mon", "zh_MO_#u-fw-sun"})
+    TEST_EQUAL(CategoriesHolder::MapLocaleToInteger(locale), traditional, (locale));
+
+  // Non-Chinese locales are unaffected by their extensions.
+  TEST_EQUAL(CategoriesHolder::MapLocaleToInteger("en_UA_#u-fw-mon-ms-metric-mu-celsius"),
+             CategoriesHolder::kEnglishCode, ());
+
+  // Chinese variants are matched case-insensitively.
+  TEST_EQUAL(CategoriesHolder::MapLocaleToInteger("ZH_TW"), traditional, ());
+  TEST_EQUAL(CategoriesHolder::MapLocaleToInteger("ZH_CN"), simplified, ());
+
+  // POSIX $LANG on Linux/Qt carries a charset suffix.
+  TEST_EQUAL(CategoriesHolder::MapLocaleToInteger("zh_TW.UTF-8"), traditional, ());
+  TEST_EQUAL(CategoriesHolder::MapLocaleToInteger("zh_CN.UTF-8"), simplified, ());
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, CategoriesHolder_LoadDefault)
 {
   uint32_t counter = 0;
