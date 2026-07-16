@@ -658,6 +658,7 @@
     <string name="type.leisure.ice_rink">Schaatsbaan</string>
     <string name="type.leisure.marina">Jachthaven</string>
     <string name="type.leisure.nature_reserve">Natuurreservaat</string>
+    <string name="type.leisure.bird_hide">Vogelkijkhut</string>
     <string name="type.leisure.outdoor_seating">Zitplaatsen buiten</string>
     <string name="type.leisure.firepit">Vuurplaats</string>
     <string name="type.leisure.park">Park</string>

@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Ice Rink";
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.bird_hide" = "مخفیگاه پرنده‌نگری";
 "type.leisure.outdoor_seating" = "نشستن در فضای باز";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "پارک";

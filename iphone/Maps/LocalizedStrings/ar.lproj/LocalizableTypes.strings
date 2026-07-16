@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "حلبة تزلج على الجليد";
 "type.leisure.marina" = "مرسى";
 "type.leisure.nature_reserve" = "محمية طبيعية";
+"type.leisure.bird_hide" = "مخبأ لمراقبة الطيور";
 "type.leisure.outdoor_seating" = "جلوس في الهواء الطلق";
 "type.leisure.firepit" = "موقد نار";
 "type.leisure.park" = "متنزه";

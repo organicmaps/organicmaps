@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Ledové kluziště";
 "type.leisure.marina" = "Přístav";
 "type.leisure.nature_reserve" = "Rezervace";
+"type.leisure.bird_hide" = "Pozorovatelna ptáků";
 "type.leisure.outdoor_seating" = "Venkovní posezení";
 "type.leisure.firepit" = "Ohniště";
 "type.leisure.park" = "Park";

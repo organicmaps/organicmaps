@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Schaatsbaan";
 "type.leisure.marina" = "Jachthaven";
 "type.leisure.nature_reserve" = "Natuurreservaat";
+"type.leisure.bird_hide" = "Vogelkijkhut";
 "type.leisure.outdoor_seating" = "Zitplaatsen buiten";
 "type.leisure.firepit" = "Vuurplaats";
 "type.leisure.park" = "Park";

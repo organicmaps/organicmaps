@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Buz Pateni Pisti";
 "type.leisure.marina" = "Liman";
 "type.leisure.nature_reserve" = "Doğal Koruma Alanı";
+"type.leisure.bird_hide" = "Kuş gözlem kulübesi";
 "type.leisure.outdoor_seating" = "Dış Mekan Oturağı";
 "type.leisure.firepit" = "Ateş Çukuru";
 "type.leisure.park" = "Park";
