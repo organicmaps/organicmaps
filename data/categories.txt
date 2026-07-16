@@ -18689,7 +18689,44 @@ zh-Hant:自然保護區
 
 leisure-bird_hide|@category_tourism
 en:Bird Hide|Bird|Birdwatching|Wildlife Hide
+ar:مخبأ مراقبة الطيور|مرصد الطيور|مشاهدة الطيور|مخبأ الحياة البرية
+bg:Скривалище за наблюдение на птици|Наблюдение на птици|Колиба за птици
+cs:Úkryt pro pozorování ptáků|Ptačí pozorovatelna|Pozorování ptáků
+da:Fugletårn|Fugleskjul|Fuglekiggeri|Vildtobservationspost
+de:Vogelbeobachtungshütte|Ansitz|Vogelwarte|Tierbeobachtungspunkt
+el:Κρυψώνα παρατήρησης πουλιών|Παρατηρητήριο πουλιών|Παρατήρηση πουλιών
+es:Observatorio de aves|Escondite para aves|Avistamiento de aves|Hide de fauna
+et:linnuvaatlusonn|Linnuvarjend|Linnuvaatlus
+eu:Hegaztien behatokia|Hegaztien ezkutalekua|Hegaztien behaketa
+fi:Linnustorni|Lintuhide|Lintujen tarkkailu|Lintubongaus
 fr:Observatoire ornithologique|Abri ornithologique|Abri d'observation|Observation des oiseaux|Oiseaux
+hi:पक्षी छिपने का स्थान|पक्षी अवलोकन केंद्र|पक्षी दर्शन
+hu:Madármegfigyelő|Madárles|Vadles
+id:Tempat pengamatan burung|Pondok pengamatan burung|Pengamatan burung
+it:Cappanno per uccelli|Osservatorio ornitologico|Birdwatching|Nascondiglio per fauna
+ja:鳥類観察用隠れ家|野鳥観察所|野鳥観察|バードウォッチング
+ko:조류 관찰 은신처|조류 관찰대|새 관찰|버드워칭
+lt:Paukščių stebėjimo slėptuvė|Paukščių bokštelis|Gamtos stebėjimo punktas
+lv:Putnu vērošanas slēptuve|Putnu novērošanas tornis|Putnu vērošana
+mr:पक्षी निरीक्षण आश्रय|पक्षी निरीक्षण केंद्र|पक्षी निरीक्षण
+nb:Fugletårn|Fugleskjul|Fuglekikking|Dyrelivsskjul
+nl:Vogelhut|Vogelkijkhut|Vogelobservatiepost|Wildobservatiehut
+pl:Ukrycie do obserwacji ptaków|Wieża obserwacyjna dla ptaków|Obserwacja ptaków
+pt:Observatório de aves|Esconderijo para observação de aves|Observação de aves
+pt-BR:Esconderijo para observação de aves|Observatório de aves|Ponto de observação de aves
+ro:Observator pentru păsări|Adăpost pentru observarea păsărilor|Observarea păsărilor
+ru:Укрытие для наблюдения за птицами|Птичий наблюдательный пункт|Наблюдение за птицами|Смотровая вышка
+sk:Úkryt na pozorovanie vtákov|Pozorovateľňa vtákov|Pozorovanie vtákov
+sl:Skrivališče za opazovanje ptic|Ptičja opazovalnica|Opazovanje ptic
+sr:Склониште за посматрање птица|Посматрачница за птице|Посматрање птица
+sv:Fågeltorn|Fågelskådningsplats|Viltgömme|Fågelskydd
+sw:Kijiji cha kutazamia ndege|Mahali pa kuchungulia ndege|Kutazama ndege
+th:ที่หลบซ่อนดูนก|หอดูนก|การดูนก
+tr:Kuş gözlem kulübesi|Kuş gözlemevi|Kuş gözlemciliği|Yaban hayatı gözlem saklağı
+uk:Схованка для спостереження за птахами|Пташиний спостережний пункт|Спостереження за птахами
+vi:Chòi quan sát chim|Lều quan sát chim|Quan sát chim|Chòi quan sát động vật hoang dã
+zh-Hans:观鸟隐蔽所|观鸟台|观鸟|野生动物隐蔽观察所
+zh-Hant:觀鳥隱蔽所|觀鳥台|賞鳥|野生動物觀察隱蔽處
 
 natural-cape
 en:Cape
