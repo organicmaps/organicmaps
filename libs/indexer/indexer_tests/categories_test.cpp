@@ -146,6 +146,19 @@ UNIT_TEST(CategoriesHolder_LocaleExtensions)
   TEST_EQUAL(CategoriesHolder::MapLocaleToInteger("zh_CN.UTF-8"), simplified, ());
 }
 
+// Locales are matched by whole subtags, so a three-letter language is never mistaken for a
+// two-letter one it happens to start with: Filipino ("fil") is not Finnish ("fi").
+UNIT_TEST(CategoriesHolder_ThreeLetterLanguages)
+{
+  for (char const * locale : {"fil", "fil_PH", "fil-PH", "bem_ZM", "rof_TZ", "bgc_IN"})
+    TEST_EQUAL(CategoriesHolder::MapLocaleToInteger(locale), CategoriesHolder::kUnsupportedLocaleCode, (locale));
+
+  // The two-letter languages they shadow still resolve.
+  TEST_EQUAL(CategoriesHolder::MapLocaleToInteger("fi"), CategoriesHolder::MapLocaleToInteger("fi_FI"), ());
+  TEST_NOT_EQUAL(CategoriesHolder::MapLocaleToInteger("fi"), CategoriesHolder::kUnsupportedLocaleCode, ());
+  TEST_NOT_EQUAL(CategoriesHolder::MapLocaleToInteger("be_BY"), CategoriesHolder::kUnsupportedLocaleCode, ());
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, CategoriesHolder_LoadDefault)
 {
   uint32_t counter = 0;

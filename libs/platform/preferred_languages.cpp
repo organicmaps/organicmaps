@@ -568,6 +568,11 @@ std::string_view PrimarySubtag(std::string_view tag) noexcept
   return tag.substr(0, tag.find_first_of(kSubtagDelimiters));
 }
 
+bool IsSubtagDelimiter(char c) noexcept
+{
+  return std::string_view{kSubtagDelimiters}.find(c) != std::string_view::npos;
+}
+
 constexpr char AsciiLower(char c) noexcept
 {
   return c >= 'A' && c <= 'Z' ? static_cast<char>(c - 'A' + 'a') : c;
@@ -636,6 +641,11 @@ std::string GetCurrentMapLanguage()
     return std::string(StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kDefaultCode));
   }
   return languageCode;
+}
+
+bool StartsWithSubtags(std::string_view tag, std::string_view prefix) noexcept
+{
+  return tag.starts_with(prefix) && (tag.size() == prefix.size() || IsSubtagDelimiter(tag[prefix.size()]));
 }
 
 ChineseScript GetChineseScript(std::string_view tag)
