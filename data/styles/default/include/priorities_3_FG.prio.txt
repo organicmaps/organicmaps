@@ -47,19 +47,19 @@ power-line                                          # line z18- (also has line::
 power-line::dash                                    # line::dash z18- (also has line z18-)
 === 340
 
-cyclewaytag-lane::cycleoverlay                      # line::cycleoverlay z13-
-cyclewaytag-shared_lane::cycleoverlay               # line::cycleoverlay z13-
-cyclewaytag-track::cycleoverlay                     # line::cycleoverlay z11-
-highway-cycleway                                    # line z13- (also has line::cycleoverlay z11-, pathtext z15-)
-highway-cycleway::cycleoverlay                      # line::cycleoverlay z11- (also has line z13-, pathtext z15-)
-highway-cycleway-bridge                             # line z13- (also has line::bridgeblack z17-, line::bridgewhite z15-, line::cycleoverlay z11-, pathtext z15-)
-highway-cycleway-bridge::cycleoverlay               # line::cycleoverlay z11- (also has line z13-, line::bridgeblack z17-, line::bridgewhite z15-, pathtext z15-)
-highway-cycleway-tunnel                             # line z13- (also has line::cycleoverlay z11-, line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z15-)
-highway-cycleway-tunnel::cycleoverlay               # line::cycleoverlay z11- (also has line z13-, line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z15-)
-highway-footway-bicycle::cycleoverlay               # line::cycleoverlay z11- (also has line z15-, line::cycleline z15-, pathtext z15-)
+cyclewaytag-lane::cycleoverlay                      # line::cycleoverlay z14-
+cyclewaytag-shared_lane::cycleoverlay               # line::cycleoverlay z14-
+cyclewaytag-track::cycleoverlay                     # line::cycleoverlay z13-
+highway-cycleway                                    # line z13- (also has line::cycleoverlay z13-, pathtext z15-)
+highway-cycleway::cycleoverlay                      # line::cycleoverlay z13- (also has line z13-, pathtext z15-)
+highway-cycleway-bridge                             # line z13- (also has line::bridgeblack z17-, line::bridgewhite z15-, line::cycleoverlay z13-, pathtext z15-)
+highway-cycleway-bridge::cycleoverlay               # line::cycleoverlay z13- (also has line z13-, line::bridgeblack z17-, line::bridgewhite z15-, pathtext z15-)
+highway-cycleway-tunnel                             # line z13- (also has line::cycleoverlay z13-, line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z15-)
+highway-cycleway-tunnel::cycleoverlay               # line::cycleoverlay z13- (also has line z13-, line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z15-)
+highway-footway-bicycle::cycleoverlay               # line::cycleoverlay z13- (also has line z15-, line::cycleline z15-, pathtext z15-)
 highway-footway-crossing                            # line z16-
 highway-ladder                                      # line z15- (also has icon z17-)
-highway-path-bicycle::cycleoverlay                  # line::cycleoverlay z11- (also has line z14-, line::cycleline z14-, pathtext z15-)
+highway-path-bicycle::cycleoverlay                  # line::cycleoverlay z13- (also has line z14-, line::cycleline z14-, pathtext z15-)
 highway-steps                                       # line z15- (also has pathtext z16-)
 highway-steps-bridge                                # line z15- (also has line::bridgeblack z17-, line::bridgewhite z15-, pathtext z16-)
 highway-steps-tunnel                                # line z15- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z16-)
@@ -288,9 +288,9 @@ highway-bridleway-bridge                            # line z14- (also has line::
 highway-bridleway-tunnel                            # line z14- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z15-)
 highway-footway                                     # line z15- (also has pathtext z15-)
 highway-footway-area                                # line z13 and area z14-
-highway-footway-bicycle                             # line z15- (also has line::cycleline z15-, line::cycleoverlay z11-, pathtext z15-)
+highway-footway-bicycle                             # line z15- (also has line::cycleline z15-, line::cycleoverlay z13-, pathtext z15-)
 highway-path                                        # line z14- (also has pathtext z15-)
-highway-path-bicycle                                # line z14- (also has line::cycleline z14-, line::cycleoverlay z11-, pathtext z15-)
+highway-path-bicycle                                # line z14- (also has line::cycleline z14-, line::cycleoverlay z13-, pathtext z15-)
 highway-path-difficult                              # line z14- (also has pathtext z15-)
 highway-path-expert                                 # line z14- (also has pathtext z15-)
 highway-raceway                                     # line z14- (also has pathtext z16-)
@@ -301,8 +301,8 @@ highway-track-no-access                             # line z14- (also has pathte
 highway-track-tunnel                                # line z14- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z15-)
 === 180
 
-highway-footway-bicycle::cycleline                  # line::cycleline z15- (also has line z15-, line::cycleoverlay z11-, pathtext z15-)
-highway-path-bicycle::cycleline                     # line::cycleline z14- (also has line z14-, line::cycleoverlay z11-, pathtext z15-)
+highway-footway-bicycle::cycleline                  # line::cycleline z15- (also has line z15-, line::cycleoverlay z13-, pathtext z15-)
+highway-path-bicycle::cycleline                     # line::cycleline z14- (also has line z14-, line::cycleoverlay z13-, pathtext z15-)
 === 170
 
 highway-construction                                # line z13- (also has pathtext z15-)
@@ -329,7 +329,7 @@ highway-path-tunnel                                 # line z14- (also has line::
 === 155
 
 highway-bridleway-tunnel::tunnelBackground          # line::tunnelBackground z17- (also has line z14-, line::tunnelCasing z17-, pathtext z15-)
-highway-cycleway-tunnel::tunnelBackground           # line::tunnelBackground z17- (also has line z13-, line::cycleoverlay z11-, line::tunnelCasing z17-, pathtext z15-)
+highway-cycleway-tunnel::tunnelBackground           # line::tunnelBackground z17- (also has line z13-, line::cycleoverlay z13-, line::tunnelCasing z17-, pathtext z15-)
 highway-footway-tunnel::tunnelBackground            # line::tunnelBackground z17- (also has line z15-, line::tunnelCasing z17-, pathtext z15-)
 highway-path-tunnel::tunnelBackground               # line::tunnelBackground z17- (also has line z14-, line::tunnelCasing z17-, pathtext z15-)
 highway-steps-tunnel::tunnelBackground              # line::tunnelBackground z17- (also has line z15-, line::tunnelCasing z17-, pathtext z16-)
@@ -337,7 +337,7 @@ highway-track-tunnel::tunnelBackground              # line::tunnelBackground z17
 === 154
 
 highway-bridleway-tunnel::tunnelCasing              # line::tunnelCasing z17- (also has line z14-, line::tunnelBackground z17-, pathtext z15-)
-highway-cycleway-tunnel::tunnelCasing               # line::tunnelCasing z17- (also has line z13-, line::cycleoverlay z11-, line::tunnelBackground z17-, pathtext z15-)
+highway-cycleway-tunnel::tunnelCasing               # line::tunnelCasing z17- (also has line z13-, line::cycleoverlay z13-, line::tunnelBackground z17-, pathtext z15-)
 highway-footway-tunnel::tunnelCasing                # line::tunnelCasing z17- (also has line z15-, line::tunnelBackground z17-, pathtext z15-)
 highway-path-tunnel::tunnelCasing                   # line::tunnelCasing z17- (also has line z14-, line::tunnelBackground z17-, pathtext z15-)
 highway-steps-tunnel::tunnelCasing                  # line::tunnelCasing z17- (also has line z15-, line::tunnelBackground z17-, pathtext z16-)
@@ -345,7 +345,7 @@ highway-track-tunnel::tunnelCasing                  # line::tunnelCasing z17- (a
 === 153
 
 highway-bridleway-bridge::bridgewhite               # line::bridgewhite z15- (also has line z14-, line::bridgeblack z17-, pathtext z15-)
-highway-cycleway-bridge::bridgewhite                # line::bridgewhite z15- (also has line z13-, line::bridgeblack z17-, line::cycleoverlay z11-, pathtext z15-)
+highway-cycleway-bridge::bridgewhite                # line::bridgewhite z15- (also has line z13-, line::bridgeblack z17-, line::cycleoverlay z13-, pathtext z15-)
 highway-footway-bridge::bridgewhite                 # line::bridgewhite z15- (also has line z15-, line::bridgeblack z17-, pathtext z15-)
 highway-motorway-bridge::bridgewhite                # line::bridgewhite z13- (also has line z6-, line::bridgeblack z13-, pathtext z10-, shield::shield z10-)
 highway-motorway_link-bridge::bridgewhite           # line::bridgewhite z14- (also has line z10-, line::bridgeblack z14-, pathtext z10-, shield::shield z10-)
@@ -381,7 +381,7 @@ railway-subway-bridge::bridgewhite                  # line::bridgewhite z13- (al
 === 150
 
 highway-bridleway-bridge::bridgeblack               # line::bridgeblack z17- (also has line z14-, line::bridgewhite z15-, pathtext z15-)
-highway-cycleway-bridge::bridgeblack                # line::bridgeblack z17- (also has line z13-, line::bridgewhite z15-, line::cycleoverlay z11-, pathtext z15-)
+highway-cycleway-bridge::bridgeblack                # line::bridgeblack z17- (also has line z13-, line::bridgewhite z15-, line::cycleoverlay z13-, pathtext z15-)
 highway-footway-bridge::bridgeblack                 # line::bridgeblack z17- (also has line z15-, line::bridgewhite z15-, pathtext z15-)
 highway-motorway-bridge::bridgeblack                # line::bridgeblack z13- (also has line z6-, line::bridgewhite z13-, pathtext z10-, shield::shield z10-)
 highway-motorway_link-bridge::bridgeblack           # line::bridgeblack z14- (also has line z10-, line::bridgewhite z14-, pathtext z10-, shield::shield z10-)

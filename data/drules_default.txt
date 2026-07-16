@@ -4659,8 +4659,6 @@ type craft-winery
     symbol name=winery-m priority=2400
     caption primary[height=11 color=c082 dy=1 optional] priority=-7600
 type cyclewaytag-lane
-  z13
-    line width=0.1 color=c002 join=round cap=butt priority=330
   z14
     line width=0.1 color=c002 join=round cap=butt priority=330
   z15
@@ -4676,8 +4674,6 @@ type cyclewaytag-lane
   z20
     line width=0.1 color=c002 join=round cap=round priority=330
 type cyclewaytag-shared_lane
-  z13
-    line width=0.1 color=c002 join=round cap=butt priority=330
   z14
     line width=0.1 color=c002 join=round cap=butt priority=330
   z15
@@ -4693,10 +4689,6 @@ type cyclewaytag-shared_lane
   z20
     line width=0.1 color=c002 join=round cap=round priority=330
 type cyclewaytag-track
-  z11
-    line width=0.1 color=c002 join=bevel cap=butt priority=330
-  z12
-    line width=0.1 color=c002 join=bevel cap=butt priority=330
   z13
     line width=0.1 color=c002 join=round cap=butt priority=330
   z14
@@ -5115,10 +5107,6 @@ type highway-construction
     line width=6 color=c148 join=round cap=round dash=[18,6.2] priority=160
     path_text primary[height=10 color=c142 stroke=c087] priority=2450
 type highway-cycleway
-  z11
-    line width=0.1 color=c002 join=bevel cap=butt priority=330
-  z12
-    line width=0.1 color=c002 join=bevel cap=butt priority=330
   z13
     line width=0.1 color=c002 join=round cap=butt priority=330
     line width=0.9 color=c149 join=round cap=butt priority=330
@@ -5150,10 +5138,6 @@ type highway-cycleway
     line width=1.8 color=c153 join=round cap=round priority=330
     path_text primary[height=10 color=c142 stroke=c087] priority=2953
 type highway-cycleway-bridge
-  z11
-    line width=0.1 color=c002 join=bevel cap=butt priority=330
-  z12
-    line width=0.1 color=c002 join=bevel cap=butt priority=330
   z13
     line width=0.1 color=c002 join=round cap=butt priority=330
     line width=0.9 color=c149 join=round cap=butt priority=330
@@ -5195,10 +5179,6 @@ type highway-cycleway-bridge
     line width=1.8 color=c153 join=round cap=round priority=330
     path_text primary[height=10 color=c142 stroke=c087] priority=2953
 type highway-cycleway-tunnel
-  z11
-    line width=0.1 color=c002 join=bevel cap=butt priority=330
-  z12
-    line width=0.1 color=c002 join=bevel cap=butt priority=330
   z13
     line width=0.1 color=c002 join=round cap=butt priority=330
     line width=0.9 color=c149 join=round cap=butt priority=330
@@ -5283,10 +5263,6 @@ type highway-footway-area
   z20
     area color=c100 priority=-1840
 type highway-footway-bicycle
-  z11
-    line width=0.1 color=c002 join=bevel cap=butt priority=330
-  z12
-    line width=0.1 color=c002 join=bevel cap=butt priority=330
   z13
     line width=0.1 color=c002 join=round cap=butt priority=330
   z14
@@ -5902,10 +5878,6 @@ type highway-path
     line width=3.7 color=c174 join=round cap=round dash=[8,4.5] priority=180
     path_text primary[height=10 color=c142 stroke=c087] priority=2820
 type highway-path-bicycle
-  z11
-    line width=0.1 color=c002 join=bevel cap=butt priority=330
-  z12
-    line width=0.1 color=c002 join=bevel cap=butt priority=330
   z13
     line width=0.1 color=c002 join=round cap=butt priority=330
   z14

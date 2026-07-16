@@ -2010,8 +2010,6 @@ type building:part
   z20
     area color=c100 border[width=1 color=c099 join=round cap=round] priority=90
 type cyclewaytag-lane
-  z13
-    line width=0.1 color=c002 join=round cap=butt priority=270
   z14
     line width=0.1 color=c002 join=round cap=butt priority=270
   z15
@@ -2027,8 +2025,6 @@ type cyclewaytag-lane
   z20
     line width=0.1 color=c002 join=round cap=round priority=270
 type cyclewaytag-shared_lane
-  z13
-    line width=0.1 color=c002 join=round cap=butt priority=270
   z14
     line width=0.1 color=c002 join=round cap=butt priority=270
   z15
@@ -2044,10 +2040,6 @@ type cyclewaytag-shared_lane
   z20
     line width=0.1 color=c002 join=round cap=round priority=270
 type cyclewaytag-track
-  z11
-    line width=0.1 color=c002 join=bevel cap=butt priority=270
-  z12
-    line width=0.1 color=c002 join=bevel cap=butt priority=270
   z13
     line width=0.1 color=c002 join=round cap=butt priority=270
   z14
@@ -2130,10 +2122,6 @@ type highway-construction
   z20
     line width=6 color=c104 join=round cap=round dash=[18,6.2] priority=120
 type highway-cycleway
-  z11
-    line width=0.1 color=c002 join=bevel cap=butt priority=270
-  z12
-    line width=0.1 color=c002 join=bevel cap=butt priority=270
   z13
     line width=0.1 color=c002 join=round cap=butt priority=270
   z14
@@ -2154,10 +2142,6 @@ type highway-cycleway
     line width=0.1 color=c002 join=round cap=round priority=270
     line width=1 color=c105 join=round cap=round priority=130
 type highway-cycleway-bridge
-  z11
-    line width=0.1 color=c002 join=bevel cap=butt priority=270
-  z12
-    line width=0.1 color=c002 join=bevel cap=butt priority=270
   z13
     line width=0.1 color=c002 join=round cap=butt priority=270
   z14
@@ -2178,10 +2162,6 @@ type highway-cycleway-bridge
     line width=0.1 color=c002 join=round cap=round priority=270
     line width=1 color=c105 join=round cap=round priority=130
 type highway-cycleway-tunnel
-  z11
-    line width=0.1 color=c002 join=bevel cap=butt priority=270
-  z12
-    line width=0.1 color=c002 join=bevel cap=butt priority=270
   z13
     line width=0.1 color=c002 join=round cap=butt priority=270
   z14
@@ -2213,10 +2193,6 @@ type highway-footway-area
   z20
     line width=1.5 color=c106 join=round cap=round dash=[5,2] priority=130
 type highway-footway-bicycle
-  z11
-    line width=0.1 color=c002 join=bevel cap=butt priority=270
-  z12
-    line width=0.1 color=c002 join=bevel cap=butt priority=270
   z13
     line width=0.1 color=c002 join=round cap=butt priority=270
   z14
@@ -2752,10 +2728,6 @@ type highway-path
   z20
     line width=1.5 color=c128 join=round cap=round dash=[4,2.5] priority=130
 type highway-path-bicycle
-  z11
-    line width=0.1 color=c002 join=bevel cap=butt priority=270
-  z12
-    line width=0.1 color=c002 join=bevel cap=butt priority=270
   z13
     line width=0.1 color=c002 join=round cap=butt priority=270
   z14

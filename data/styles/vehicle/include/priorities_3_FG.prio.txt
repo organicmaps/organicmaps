@@ -15,15 +15,15 @@
 historic-citywalls                                  # line z15-
 === 280
 
-cyclewaytag-lane::cycleoverlay                      # line::cycleoverlay z13-
-cyclewaytag-shared_lane::cycleoverlay               # line::cycleoverlay z13-
-cyclewaytag-track::cycleoverlay                     # line::cycleoverlay z11-
-highway-cycleway::cycleoverlay                      # line::cycleoverlay z11- (also has line z18-)
-highway-cycleway-bridge::cycleoverlay               # line::cycleoverlay z11- (also has line z18-)
-highway-cycleway-tunnel::cycleoverlay               # line::cycleoverlay z11-
-highway-footway-bicycle::cycleoverlay               # line::cycleoverlay z11- (also has line z18-)
+cyclewaytag-lane::cycleoverlay                      # line::cycleoverlay z14-
+cyclewaytag-shared_lane::cycleoverlay               # line::cycleoverlay z14-
+cyclewaytag-track::cycleoverlay                     # line::cycleoverlay z13-
+highway-cycleway::cycleoverlay                      # line::cycleoverlay z13- (also has line z18-)
+highway-cycleway-bridge::cycleoverlay               # line::cycleoverlay z13- (also has line z18-)
+highway-cycleway-tunnel::cycleoverlay               # line::cycleoverlay z13-
+highway-footway-bicycle::cycleoverlay               # line::cycleoverlay z13- (also has line z18-)
 highway-ladder                                      # line z18-
-highway-path-bicycle::cycleoverlay                  # line::cycleoverlay z11- (also has line z17-)
+highway-path-bicycle::cycleoverlay                  # line::cycleoverlay z13- (also has line z17-)
 highway-steps                                       # line z18-
 highway-steps-bridge                                # line z18-
 hwtag-oneway::arrows                                # line::arrows z15-
@@ -255,15 +255,15 @@ highway-service-tunnel                              # line z14- (also has pathte
 
 highway-bridleway                                   # line z18-
 highway-bridleway-bridge                            # line z18-
-highway-cycleway                                    # line z18- (also has line::cycleoverlay z11-)
-highway-cycleway-bridge                             # line z18- (also has line::cycleoverlay z11-)
+highway-cycleway                                    # line z18- (also has line::cycleoverlay z13-)
+highway-cycleway-bridge                             # line z18- (also has line::cycleoverlay z13-)
 highway-footway                                     # line z18-
 highway-footway-area                                # line z18-
-highway-footway-bicycle                             # line z18- (also has line::cycleoverlay z11-)
+highway-footway-bicycle                             # line z18- (also has line::cycleoverlay z13-)
 highway-footway-bridge                              # line z18-
 highway-footway-sidewalk                            # line z19-
 highway-path                                        # line z17-
-highway-path-bicycle                                # line z17- (also has line::cycleoverlay z11-)
+highway-path-bicycle                                # line z17- (also has line::cycleoverlay z13-)
 highway-path-bridge                                 # line z17-
 highway-path-difficult                              # line z17-
 highway-path-expert                                 # line z17-
