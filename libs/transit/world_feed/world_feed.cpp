@@ -1220,18 +1220,17 @@ bool WorldFeed::SpeedExceedsMaxVal(EdgeId const & edgeId, EdgeData const & edgeD
   m2::PointD const & stop1 = m_stops.m_data.at(edgeId.m_fromStopId).m_point;
   m2::PointD const & stop2 = m_stops.m_data.at(edgeId.m_toStopId).m_point;
 
-  static double const maxSpeedMpS = measurement_utils::KmphToMps(routing::kTransitMaxSpeedKMpH);
-  double const speedMpS = mercator::DistanceOnEarth(stop1, stop2) / edgeData.m_weight;
+  double constexpr kMaxSpeedMpS = measurement_utils::KmphToMps(routing::kTransitMaxSpeedKMpH);
+  double constexpr kMaxReasonableSpeedMpS = measurement_utils::KmphToMps(400.0);
 
-  bool speedExceedsMaxVal = speedMpS > maxSpeedMpS;
-  if (speedExceedsMaxVal)
+  double const speedMpS = mercator::DistanceOnEarth(stop1, stop2) / edgeData.m_weight;
+  if (speedMpS > kMaxSpeedMpS)
   {
-    LOG(LWARNING, ("Invalid edge weight conflicting with kTransitMaxSpeedKMpH:", edgeId.m_fromStopId, edgeId.m_toStopId,
-                   edgeId.m_lineId, "speed (km/h):", measurement_utils::MpsToKmph(speedMpS),
-                   "maxSpeed (km/h):", routing::kTransitMaxSpeedKMpH));
+    LOG(LWARNING, ("Edge weight conflicting with kTransitMaxSpeedKMpH:", edgeId.m_fromStopId, edgeId.m_toStopId,
+                   edgeId.m_lineId, "speed =", measurement_utils::MpsToKmph(speedMpS), "km/h"));
   }
 
-  return speedExceedsMaxVal;
+  return speedMpS > kMaxReasonableSpeedMpS;
 }
 
 bool WorldFeed::ClearFeedByLineIds(std::unordered_set<TransitId> const & corruptedLineIds)
