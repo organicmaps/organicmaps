@@ -110,12 +110,12 @@ line|z13-[highway=footway][bicycle=designated]::cycleline,
 {color: @cycleway; opacity: 0.8;}
 /* Invisible activation rules for Cycling-layer overlays. Their visible
    widths, caps and patterns are applied in ApplyBicycleLineStyle(). */
-line|z11-[highway=cycleway]::cycleoverlay,
-line|z11-[highway=path][bicycle=designated]::cycleoverlay,
-line|z11-[highway=footway][bicycle=designated]::cycleoverlay,
-line|z11-[cyclewaytag=track]::cycleoverlay,
-line|z13-[cyclewaytag=lane]::cycleoverlay,
-line|z13-[cyclewaytag=shared_lane]::cycleoverlay
+line|z13-[highway=cycleway]::cycleoverlay,
+line|z13-[highway=path][bicycle=designated]::cycleoverlay,
+line|z13-[highway=footway][bicycle=designated]::cycleoverlay,
+line|z13-[cyclewaytag=track]::cycleoverlay,
+line|z14-[cyclewaytag=lane]::cycleoverlay,
+line|z14-[cyclewaytag=shared_lane]::cycleoverlay
 {color: #FFFFFF; width: 0.1;}
 
 line|z11[highway=track],

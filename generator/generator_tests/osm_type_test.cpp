@@ -753,6 +753,20 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
 
   {
     Tags const tags = {
+        {"cycleway:backward", "shared_lane"},
+        {"highway", "secondary"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 3, (params));
+    TEST(params.IsTypeExist(GetType({"highway", "secondary"})), ());
+    TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), ());
+    TEST(params.IsTypeExist(GetType({"cyclewaytag", "shared_lane"})), ());
+  }
+
+  {
+    Tags const tags = {
         {"foot", "use_sidepath"},
         {"sidewalk", "left"},
         {"cycleway:both", "separate"},

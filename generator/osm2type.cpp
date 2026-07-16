@@ -23,10 +23,12 @@
 #include "defines.hpp"
 
 #include <algorithm>
+#include <array>
 #include <cctype>
 #include <initializer_list>
 #include <map>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace ftype
@@ -35,6 +37,39 @@ using std::string;
 
 namespace
 {
+std::array<std::string_view, 6> constexpr kCyclewayKeys = {"cycleway",       "cycleway:both",    "cycleway:left",
+                                                           "cycleway:right", "cycleway:forward", "cycleway:backward"};
+
+bool IsCyclewayKey(std::string_view key)
+{
+  return std::find(kCyclewayKeys.begin(), kCyclewayKeys.end(), key) != kCyclewayKeys.end();
+}
+
+bool IsNegativeTagValue(string const & value)
+{
+  for (char const * s : {"no", "none", "false"})
+    if (value == s)
+      return true;
+  return false;
+}
+
+bool IsNegativeRoutingTagValue(string const & value)
+{
+  for (char const * s : {"use_sidepath", "separate"})
+    if (value == s)
+      return true;
+  return IsNegativeTagValue(value);
+}
+
+bool IsPositiveRoutingTagValue(string const & value)
+{
+  // These values are neither positive nor negative.
+  for (char const * s : {"unknown", "dismount"})
+    if (value == s)
+      return false;
+  return !IsNegativeRoutingTagValue(value);
+}
+
 template <typename ToDo>
 void ForEachTag(OsmElement * p, ToDo && toDo)
 {
@@ -181,13 +216,13 @@ public:
         if (rule.m_value[0] == '*')
           take = true;
         else if (strncmp(rule.m_value, "!r", 2) == 0)
-          take = IsNegativeRouting(e.m_value);
+          take = IsNegativeRoutingTagValue(e.m_value);
         else if (strncmp(rule.m_value, "~r", 2) == 0)
-          take = IsPositiveRouting(e.m_value);
+          take = IsPositiveRoutingTagValue(e.m_value);
         else if (rule.m_value[0] == '!')
-          take = IsNegative(e.m_value);
+          take = IsNegativeTagValue(e.m_value);
         else if (rule.m_value[0] == '~')
-          take = !IsNegative(e.m_value);
+          take = !IsNegativeTagValue(e.m_value);
 
         if (take || e.m_value == rule.m_value)
           Call(rule.m_func, e.m_key, e.m_value);
@@ -205,29 +240,6 @@ protected:
   }
 
 private:
-  static bool IsNegative(string const & value)
-  {
-    for (char const * s : {"no", "none", "false"})
-      if (value == s)
-        return true;
-    return false;
-  }
-  static bool IsNegativeRouting(string const & value)
-  {
-    for (char const * s : {"use_sidepath", "separate"})
-      if (value == s)
-        return true;
-    return IsNegative(value);
-  }
-  static bool IsPositiveRouting(string const & value)
-  {
-    // This values neither positive and neither negative.
-    for (char const * s : {"unknown", "dismount"})
-      if (value == s)
-        return false;
-    return !IsNegativeRouting(value);
-  }
-
   OsmElement * m_element;
 };
 
@@ -1188,15 +1200,6 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
           {"bicycle", "~r", [&flags] { flags[Flags::Bicycle] = 1; }},
           {"bicycle_road", "~r", [&flags] { flags[Flags::Bicycle] = 1; }},
           {"cyclestreet", "~r", [&flags] { flags[Flags::Bicycle] = 1; }},
-          {"cycleway", "!r", [&flags] { flags[Flags::Cycleway] = -1; }},
-          {"cycleway", "~r", [&flags] { flags[Flags::Cycleway] = 1; }},
-          {"cycleway:both", "!r", [&flags] { flags[Flags::Cycleway] = -1; }},
-          {"cycleway:both", "~r", [&flags] { flags[Flags::Cycleway] = 1; }},
-          /// @todo Process left && right == no ?
-          {"cycleway:left", "~r", [&flags] { flags[Flags::Cycleway] = 1; }},
-          {"cycleway:right", "~r", [&flags] { flags[Flags::Cycleway] = 1; }},
-          {"cycleway:forward", "~r", [&flags] { flags[Flags::Cycleway] = 1; }},
-          {"cycleway:backward", "~r", [&flags] { flags[Flags::Cycleway] = 1; }},
           {"oneway:bicycle", "!", [&AddParam] { AddParam(CachedTypes::BicycleBidir); }},
           {"oneway:bicycle", "~", [&AddParam] { AddParam(CachedTypes::BicycleOnedir); }},
           {"cycleway", "opposite", [&AddParam] { AddParam(CachedTypes::BicycleBidir); }},
@@ -1214,11 +1217,16 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
 
       for (auto const & tag : p->Tags())
       {
-        if (tag.m_key == "cycleway" || tag.m_key == "cycleway:both" || tag.m_key == "cycleway:left" ||
-            tag.m_key == "cycleway:right" || tag.m_key == "cycleway:forward" || tag.m_key == "cycleway:backward")
-        {
-          ProcessCyclewayTypeTag(tag.m_value);
-        }
+        if (!IsCyclewayKey(tag.m_key))
+          continue;
+
+        bool const appliesToWholeRoad = tag.m_key == "cycleway" || tag.m_key == "cycleway:both";
+        if (appliesToWholeRoad && IsNegativeRoutingTagValue(tag.m_value))
+          flags[Flags::Cycleway] = -1;
+        else if (IsPositiveRoutingTagValue(tag.m_value))
+          flags[Flags::Cycleway] = 1;
+
+        ProcessCyclewayTypeTag(tag.m_value);
       }
 
       if (addOneway && !noOneway)
@@ -1244,22 +1252,20 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
       ApplyFlag(Flags::MotorCar, CachedTypes::YesCar, CachedTypes::NoCar, CachedTypes::NoCar,
                 IsCarDesignatedHighway(vType));
 
-      if (cyclewayType == CachedTypes::CyclewayLane &&
-          (IsPositiveCyclewayProtection(p->GetTag("cycleway:separation")) ||
-           IsPositiveCyclewayProtection(p->GetTag("cycleway:both:separation")) ||
-           IsPositiveCyclewayProtection(p->GetTag("cycleway:left:separation")) ||
-           IsPositiveCyclewayProtection(p->GetTag("cycleway:right:separation")) ||
-           IsPositiveCyclewayProtection(p->GetTag("cycleway:forward:separation")) ||
-           IsPositiveCyclewayProtection(p->GetTag("cycleway:backward:separation")) ||
-           IsPositiveCyclewayProtection(p->GetTag("cycleway:barrier")) ||
-           IsPositiveCyclewayProtection(p->GetTag("cycleway:both:barrier")) ||
-           IsPositiveCyclewayProtection(p->GetTag("cycleway:left:barrier")) ||
-           IsPositiveCyclewayProtection(p->GetTag("cycleway:right:barrier")) ||
-           IsPositiveCyclewayProtection(p->GetTag("cycleway:forward:barrier")) ||
-           IsPositiveCyclewayProtection(p->GetTag("cycleway:backward:barrier"))))
+      bool hasCyclewayProtection = false;
+      for (auto const key : kCyclewayKeys)
       {
-        SetCyclewayType(CachedTypes::CyclewayTrack);
+        string const prefix(key);
+        if (IsPositiveCyclewayProtection(p->GetTag(prefix + ":separation")) ||
+            IsPositiveCyclewayProtection(p->GetTag(prefix + ":barrier")))
+        {
+          hasCyclewayProtection = true;
+          break;
+        }
       }
+
+      if (cyclewayType == CachedTypes::CyclewayLane && hasCyclewayProtection)
+        SetCyclewayType(CachedTypes::CyclewayTrack);
 
       if (cyclewayType != CachedTypes::Count && !IsBicycleDesignatedHighway(vType))
         AddParam(cyclewayType);

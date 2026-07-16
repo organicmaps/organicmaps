@@ -30,15 +30,6 @@
 
 namespace df
 {
-enum class BicycleLineKind : uint8_t
-{
-  None,
-  SharedLane,
-  Lane,
-  Track,
-  Cycleway
-};
-
 dp::Color ToDrapeColor(uint32_t src)
 {
   return dp::Color(src, static_cast<uint8_t>(255 - (src >> 24)));
@@ -65,7 +56,7 @@ uint32_t constexpr kShieldBaseTextIndex = 0;
 dp::Color constexpr kDefaultCycleRouteColor{128, 0, 128};
 float constexpr kBicycleActivationLineWidth = 0.1f;
 uint32_t constexpr kBicycleActivationLineColor = 0x00FFFFFF;
-int constexpr kMinDashedBicycleLineZoom = 13;
+int constexpr kMinDashedBicycleLineZoom = 14;
 
 class BicycleLineTypes
 {
@@ -87,17 +78,12 @@ public:
     if (featureTypes.Has(m_sharedLane))
       return BicycleLineKind::SharedLane;
 
-    // Generic fallback for older maps that lack specific cycleway hwtags:
-    // residential roads are assumed to be shared, others are assumed to have lanes.
+    // Generic fallback for older maps that lack specific cycleway tags. Only roads
+    // where bicycles share the carriageway can be inferred from access metadata.
     if (featureTypes.Has(m_yesBicycle))
     {
-      // bicycle=yes is an access tag on paths/tracks/footways, not cycling infrastructure.
-      if (featureTypes.Has(m_path) || featureTypes.Has(m_footway) || featureTypes.Has(m_highwayTrack))
-        return BicycleLineKind::None;
-
       if (featureTypes.Has(m_residential) || featureTypes.Has(m_livingStreet))
         return BicycleLineKind::SharedLane;
-      return BicycleLineKind::Lane;
     }
 
     return BicycleLineKind::None;
@@ -108,11 +94,8 @@ private:
   {
     auto const & c = classif();
     m_cycleway = c.GetTypeByPath({"highway", "cycleway"});
-    m_path = c.GetTypeByPath({"highway", "path"});
     m_pathBicycle = c.GetTypeByPath({"highway", "path", "bicycle"});
-    m_footway = c.GetTypeByPath({"highway", "footway"});
     m_footwayBicycle = c.GetTypeByPath({"highway", "footway", "bicycle"});
-    m_highwayTrack = c.GetTypeByPath({"highway", "track"});
     m_track = c.GetTypeByPath({"cyclewaytag", "track"});
     m_lane = c.GetTypeByPath({"cyclewaytag", "lane"});
     m_sharedLane = c.GetTypeByPath({"cyclewaytag", "shared_lane"});
@@ -122,11 +105,8 @@ private:
   }
 
   uint32_t m_cycleway = 0;
-  uint32_t m_path = 0;
   uint32_t m_pathBicycle = 0;
-  uint32_t m_footway = 0;
   uint32_t m_footwayBicycle = 0;
-  uint32_t m_highwayTrack = 0;
   uint32_t m_track = 0;
   uint32_t m_lane = 0;
   uint32_t m_sharedLane = 0;
@@ -134,11 +114,6 @@ private:
   uint32_t m_residential = 0;
   uint32_t m_livingStreet = 0;
 };
-
-BicycleLineKind GetBicycleLineKind(FeatureType & f)
-{
-  return BicycleLineTypes::Instance().GetKind(feature::TypesHolder(f));
-}
 
 bool IsBicycleLineVisibleAtZoom(BicycleLineKind kind, int zoomLevel)
 {
@@ -470,6 +445,11 @@ void CalculateRoadShieldPositions(std::vector<double> const & offsets, m2::Share
   }
 }
 }  // namespace
+
+BicycleLineKind GetBicycleLineKind(feature::TypesHolder const & featureTypes)
+{
+  return BicycleLineTypes::Instance().GetKind(featureTypes);
+}
 
 void BaseApplyFeature::FillCommonParams(CommonOverlayViewParams & p) const
 {
@@ -862,7 +842,7 @@ ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(Params const & params, Featur
                                                    RelationsDrawSettings const & relsSettings)
   : TBase(params, f, {})
   , m_relsInfo(relsSettings)
-  , m_bicycleLineKind(relsSettings.cycling ? GetBicycleLineKind(f) : BicycleLineKind::None)
+  , m_bicycleLineKind(relsSettings.cycling ? GetBicycleLineKind(feature::TypesHolder(f)) : BicycleLineKind::None)
   , m_builder(params)
 {
   if (m_params.IsRelationRoutes())
@@ -961,8 +941,9 @@ void ApplyLineFeatureGeometry::ProcessRule(drule::LineRule const & lineRule)
       rParams.m_width = stripeWidth * static_cast<float>(colors.size());
       rParams.m_depth = params.m_depth + 10;
       rParams.m_depthTestEnabled = params.m_depthTestEnabled;
-      // Render cycling overlay on top of roads by using a higher depth layer
-      rParams.m_depthLayer = DepthLayer::UserLineLayer;
+      // Render only the cycling overlay above roads. Hiking and public-transport
+      // route stripes retain the depth layer selected by their drawing rule.
+      rParams.m_depthLayer = isBicycleActivationRule ? DepthLayer::UserLineLayer : params.m_depthLayer;
       rParams.m_minVisibleScale = params.m_minVisibleScale;
       rParams.m_rank = params.m_rank;
       rParams.m_baseGtoPScale = m_params.m_currentScaleGtoP;

@@ -18,6 +18,11 @@
 #include <cstdint>
 #include <vector>
 
+namespace feature
+{
+class TypesHolder;
+}
+
 namespace dp
 {
 class TextureManager;
@@ -26,7 +31,16 @@ class TextureManager;
 namespace df
 {
 
-enum class BicycleLineKind : uint8_t;
+enum class BicycleLineKind : uint8_t
+{
+  None,
+  SharedLane,
+  Lane,
+  Track,
+  Cycleway
+};
+
+BicycleLineKind GetBicycleLineKind(feature::TypesHolder const & featureTypes);
 
 struct TextViewParams;
 struct BuildingOutline;
