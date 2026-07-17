@@ -3,7 +3,8 @@
 #include "indexer/categories_holder.hpp"
 #include "indexer/categories_index.hpp"
 #include "indexer/classificator.hpp"
-#include "indexer/classificator_loader.hpp"
+
+#include "generator/generator_tests_support/test_with_classificator.hpp"
 
 #include "coding/reader.hpp"
 #include "coding/string_utf8_multilang.hpp"
@@ -16,6 +17,7 @@
 
 namespace categories_test
 {
+using namespace generator::tests_support;
 using namespace indexer;
 using namespace std;
 
@@ -94,10 +96,8 @@ struct Checker
   size_t & m_count;
 };
 
-UNIT_TEST(LoadCategories)
+UNIT_CLASS_TEST(TestWithClassificator, LoadCategories)
 {
-  classificator::Load();
-
   CategoriesHolder h(make_unique<MemReader>(g_testCategoriesTxt, sizeof(g_testCategoriesTxt) - 1));
   size_t count = 0;
   Checker f(count);
@@ -117,10 +117,8 @@ UNIT_TEST(CategoriesHolder_Smoke)
   }
 }
 
-UNIT_TEST(CategoriesHolder_LoadDefault)
+UNIT_CLASS_TEST(TestWithClassificator, CategoriesHolder_LoadDefault)
 {
-  classificator::Load();
-
   uint32_t counter = 0;
   auto const count = [&counter](CategoriesHolder::Category const &) { ++counter; };
 
@@ -134,7 +132,7 @@ UNIT_TEST(CategoriesHolder_LoadDefault)
   TEST_GREATER(counter, 0, ());
 }
 
-UNIT_TEST(CategoriesHolder_ForEach)
+UNIT_CLASS_TEST(TestWithClassificator, CategoriesHolder_ForEach)
 {
   char const kCategories[] =
       "amenity-bar\n"
@@ -151,7 +149,6 @@ UNIT_TEST(CategoriesHolder_ForEach)
       "\n"
       "";
 
-  classificator::Load();
   CategoriesHolder holder(make_unique<MemReader>(kCategories, ARRAY_SIZE(kCategories) - 1));
 
   {
@@ -176,10 +173,8 @@ UNIT_TEST(CategoriesHolder_ForEach)
   }
 }
 
-UNIT_TEST(CategoriesIndex_Smoke)
+UNIT_CLASS_TEST(TestWithClassificator, CategoriesIndex_Smoke)
 {
-  classificator::Load();
-
   CategoriesHolder holder(make_unique<MemReader>(g_testCategoriesTxt, sizeof(g_testCategoriesTxt) - 1));
   CategoriesIndex index(holder);
 
@@ -230,7 +225,7 @@ UNIT_TEST(CategoriesIndex_Smoke)
   TEST_EQUAL(cats[1].m_synonyms[0].m_name, "village", ());
 }
 
-UNIT_TEST(CategoriesIndex_MultipleTokens)
+UNIT_CLASS_TEST(TestWithClassificator, CategoriesIndex_MultipleTokens)
 {
   char const kCategories[] =
       "shop-bakery\n"
@@ -239,7 +234,6 @@ UNIT_TEST(CategoriesIndex_MultipleTokens)
       "shop-butcher\n"
       "en:shop of meat";
 
-  classificator::Load();
   CategoriesHolder holder(make_unique<MemReader>(kCategories, sizeof(kCategories) - 1));
   CategoriesIndex index(holder);
 
@@ -261,7 +255,7 @@ UNIT_TEST(CategoriesIndex_MultipleTokens)
   testTypes("shop meat", {type2});
 }
 
-UNIT_TEST(CategoriesIndex_Groups)
+UNIT_CLASS_TEST(TestWithClassificator, CategoriesIndex_Groups)
 {
   char const kCategories[] =
       "@shop\n"
@@ -278,7 +272,6 @@ UNIT_TEST(CategoriesIndex_Groups)
       "en:butcher\n"
       "";
 
-  classificator::Load();
   CategoriesHolder holder(make_unique<MemReader>(kCategories, sizeof(kCategories) - 1));
   CategoriesIndex index(holder);
 
@@ -305,10 +298,8 @@ UNIT_TEST(CategoriesIndex_Groups)
 
 #ifdef DEBUG
 // A check that this data structure is not too heavy.
-UNIT_TEST(CategoriesIndex_AllCategories)
+UNIT_CLASS_TEST(TestWithClassificator, CategoriesIndex_AllCategories)
 {
-  classificator::Load();
-
   CategoriesIndex index;
 
   index.AddAllCategoriesInAllLangs();
@@ -318,10 +309,8 @@ UNIT_TEST(CategoriesIndex_AllCategories)
 }
 
 // A check that this data structure is not too heavy.
-UNIT_TEST(CategoriesIndex_AllCategoriesEnglishName)
+UNIT_CLASS_TEST(TestWithClassificator, CategoriesIndex_AllCategoriesEnglishName)
 {
-  classificator::Load();
-
   CategoriesIndex index;
 
   index.AddAllCategoriesInLang(CategoriesHolder::MapLocaleToInteger("en"));
