@@ -108,10 +108,17 @@ endif()
 
 target_compile_definitions(${PROJECT_NAME}
   PRIVATE
-    $<$<BOOL:${PLATFORM_LINUX}>:VK_USE_PLATFORM_XLIB_KHR>
+    $<$<BOOL:${PLATFORM_LINUX}>:VK_USE_PLATFORM_WAYLAND_KHR>
     $<$<BOOL:${PLATFORM_WIN}>:VK_USE_PLATFORM_WIN32_KHR>
     $<$<BOOL:${PLATFORM_ANDROID}>:VK_USE_PLATFORM_ANDROID_KHR>
 )
+
+if (PLATFORM_LINUX)
+  find_package(PkgConfig REQUIRED)
+  pkg_check_modules(EGL REQUIRED IMPORTED_TARGET egl)
+  pkg_check_modules(WAYLAND_EGL REQUIRED IMPORTED_TARGET wayland-egl)
+  target_link_libraries(${PROJECT_NAME} PRIVATE PkgConfig::EGL PkgConfig::WAYLAND_EGL)
+endif()
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${OMIM_ROOT}/3party/glfw/include)
 target_include_directories(${PROJECT_NAME} PUBLIC ${OMIM_ROOT}/3party/imgui)
