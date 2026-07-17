@@ -4,20 +4,18 @@
 #endif
 
 #define GLFW_INCLUDE_NONE
+#define GLFW_EXPOSE_NATIVE_WAYLAND
+#define GLFW_EXPOSE_NATIVE_EGL
+#define WL_EGL_PLATFORM
 #include <GLFW/glfw3.h>
-#define GLFW_EXPOSE_NATIVE_X11
 #include <GLFW/glfw3native.h>
 
-#include <X11/X.h>
-#include <dlfcn.h>
+#include <EGL/egl.h>
+#include <wayland-egl.h>
 
 #include <vulkan_wrapper.h>
-// Workaround for TestFunction::Always compilation issue:
-// /usr/include/X11/X.h:441:33: note: expanded from macro 'Always'
-#undef Always
-// Workaround for storage::Status compilation issue:
-// /usr/include/X11/Xlib.h:83:16: note: expanded from macro 'Status'
-#undef Status
+
+#include <limits>
 
 #include "drape/vulkan/vulkan_context_factory.hpp"
 
@@ -25,45 +23,41 @@
 #include "drape/gl_includes.hpp"
 #include "drape/oglcontext.hpp"
 
-#include <array>
-#include <atomic>
-#include <memory>
-
 class LinuxVulkanContextFactory : public dp::vulkan::VulkanContextFactory
 {
 public:
   LinuxVulkanContextFactory() : dp::vulkan::VulkanContextFactory(1, 33, false) {}
 
-  void SetSurface(Display * display, Window window)
+  void SetSurfaceWayland(wl_display * display, wl_surface * surface, GLFWwindow * window)
   {
-    VkXlibSurfaceCreateInfoKHR const createInfo = {
-        .sType = VK_STRUCTURE_TYPE_XLIB_SURFACE_CREATE_INFO_KHR,
+    VkWaylandSurfaceCreateInfoKHR const createInfo = {
+        .sType = VK_STRUCTURE_TYPE_WAYLAND_SURFACE_CREATE_INFO_KHR,
         .pNext = nullptr,
         .flags = 0,
-        .dpy = display,
-        .window = window,
+        .display = display,
+        .surface = surface,
     };
 
-    VkResult statusCode;
-    CHECK(vkCreateXlibSurfaceKHR, ());
-    statusCode = vkCreateXlibSurfaceKHR(m_vulkanInstance, &createInfo, nullptr, &m_surface);
-    if (statusCode != VK_SUCCESS)
-    {
-      LOG_ERROR_VK_CALL(vkCreateXlibSurfaceKHR, statusCode);
-      return;
-    }
+    CHECK_VK_CALL(vkCreateWaylandSurfaceKHR(m_vulkanInstance, &createInfo, nullptr, &m_surface));
 
     uint32_t const renderingQueueIndex = m_drawContext->GetRenderingQueueFamilyIndex();
     VkBool32 supportsPresent;
-    statusCode = vkGetPhysicalDeviceSurfaceSupportKHR(m_gpu, renderingQueueIndex, m_surface, &supportsPresent);
-    if (statusCode != VK_SUCCESS)
-    {
-      LOG_ERROR_VK_CALL(vkGetPhysicalDeviceSurfaceSupportKHR, statusCode);
-      return;
-    }
+    CHECK_VK_CALL(vkGetPhysicalDeviceSurfaceSupportKHR(m_gpu, renderingQueueIndex, m_surface, &supportsPresent));
     CHECK_EQUAL(supportsPresent, VK_TRUE, ());
 
     CHECK(QuerySurfaceSize(), ());
+
+    // On Wayland, currentExtent may be {UINT32_MAX, UINT32_MAX} meaning the surface
+    // extent is not predetermined. Replace with the actual framebuffer size.
+    if (m_surfaceCapabilities.currentExtent.width == std::numeric_limits<uint32_t>::max())
+    {
+      int fbWidth = 0, fbHeight = 0;
+      glfwGetFramebufferSize(window, &fbWidth, &fbHeight);
+      m_surfaceCapabilities.currentExtent.width = static_cast<uint32_t>(fbWidth);
+      m_surfaceCapabilities.currentExtent.height = static_cast<uint32_t>(fbHeight);
+    }
+    m_surfaceWidth = static_cast<int>(m_surfaceCapabilities.currentExtent.width);
+    m_surfaceHeight = static_cast<int>(m_surfaceCapabilities.currentExtent.height);
 
     if (m_drawContext)
       m_drawContext->SetSurface(m_surface, m_surfaceFormat, m_surfaceCapabilities);
@@ -78,204 +72,103 @@ public:
   }
 };
 
-// Based on: https://github.com/glfw/glfw/blob/master/src/glx_context.c
-#define GLX_CONTEXT_CORE_PROFILE_BIT_ARB 0x00000001
-#define GLX_CONTEXT_PROFILE_MASK_ARB     0x9126
-#define GLX_CONTEXT_MAJOR_VERSION_ARB    0x2091
-#define GLX_CONTEXT_MINOR_VERSION_ARB    0x2092
-#define GLX_PBUFFER_HEIGHT               0x8040
-#define GLX_PBUFFER_WIDTH                0x8041
-#define GLX_DOUBLEBUFFER                 5
-#define GLX_DRAWABLE_TYPE                0x8010
-#define GLX_RENDER_TYPE                  0x8011
-#define GLX_WINDOW_BIT                   0x00000001
-#define GLX_PBUFFER_BIT                  0x00000004
-#define GLX_RGBA_BIT                     0x00000001
-#define GLX_RED_SIZE                     8
-#define GLX_GREEN_SIZE                   9
-#define GLX_BLUE_SIZE                    10
-#define GLX_ALPHA_SIZE                   11
-#define GLX_DEPTH_SIZE                   12
-#define GLX_STENCIL_SIZE                 13
-
-typedef XID GLXDrawable;
-typedef struct __GLXcontext * GLXContext;
-typedef XID GLXPbuffer;
-typedef struct __GLXFBConfig * GLXFBConfig;
-typedef void (*__GLXextproc)(void);
-
-typedef __GLXextproc (*PFNGLXGETPROCADDRESSPROC)(GLubyte const * procName);
-
-typedef int (*PFNXFREE)(void *);
-typedef GLXFBConfig * (*PFNGLXCHOOSEFBCONFIGPROC)(Display *, int, int const *, int *);
-typedef GLXContext (*PFNGLXCREATECONTEXTATTRIBSARB)(Display *, GLXFBConfig, GLXContext, Bool, int const *);
-typedef void (*PFNGLXDESTROYCONTEXT)(Display *, GLXContext);
-typedef GLXPbuffer (*PFNGLXCREATEPBUFFERPROC)(Display *, GLXFBConfig, int const *);
-typedef void (*PFNGLXDESTROYPBUFFER)(Display *, GLXPbuffer);
-typedef Bool (*PFNGLXMAKECURRENTPROC)(Display *, GLXDrawable, GLXContext);
-typedef void (*PFNGLXSWAPBUFFERSPROC)(Display *, GLXDrawable);
-
-struct GLXFunctions
-{
-  GLXFunctions()
-  {
-    std::array<char const *, 3> libs = {
-        "libGLX.so.0",
-        "libGL.so.1",
-        "libGL.so",
-    };
-
-    for (char const * lib : libs)
-    {
-      m_module = dlopen(lib, RTLD_LAZY | RTLD_LOCAL);
-      if (m_module)
-        break;
-    }
-
-    CHECK(m_module != nullptr, ("Failed to initialize GLX"));
-
-    XFree = loadFunction<PFNXFREE>("XFree");
-
-    glXGetProcAddress = loadFunction<PFNGLXGETPROCADDRESSPROC>("glXGetProcAddress");
-    glXGetProcAddressARB = loadFunction<PFNGLXGETPROCADDRESSPROC>("glXGetProcAddressARB");
-
-    glXChooseFBConfig = loadGlxFunction<PFNGLXCHOOSEFBCONFIGPROC>("glXChooseFBConfig");
-    glXCreateContextAttribsARB = loadGlxFunction<PFNGLXCREATECONTEXTATTRIBSARB>("glXCreateContextAttribsARB");
-
-    glXDestroyContext = loadGlxFunction<PFNGLXDESTROYCONTEXT>("glXDestroyContext");
-    glXCreatePbuffer = loadGlxFunction<PFNGLXCREATEPBUFFERPROC>("glXCreatePbuffer");
-    glXDestroyPbuffer = loadGlxFunction<PFNGLXDESTROYPBUFFER>("glXDestroyPbuffer");
-    glXMakeCurrent = loadGlxFunction<PFNGLXMAKECURRENTPROC>("glXMakeCurrent");
-    glXSwapBuffers = loadGlxFunction<PFNGLXSWAPBUFFERSPROC>("glXSwapBuffers");
-  }
-
-  ~GLXFunctions()
-  {
-    if (m_module)
-      dlclose(m_module);
-  }
-
-  PFNXFREE XFree = nullptr;
-
-  PFNGLXGETPROCADDRESSPROC glXGetProcAddress = nullptr;
-  PFNGLXGETPROCADDRESSPROC glXGetProcAddressARB = nullptr;
-
-  PFNGLXCHOOSEFBCONFIGPROC glXChooseFBConfig = nullptr;
-  PFNGLXCREATECONTEXTATTRIBSARB glXCreateContextAttribsARB = nullptr;
-  PFNGLXDESTROYCONTEXT glXDestroyContext = nullptr;
-  PFNGLXCREATEPBUFFERPROC glXCreatePbuffer = nullptr;
-  PFNGLXDESTROYPBUFFER glXDestroyPbuffer = nullptr;
-  PFNGLXMAKECURRENTPROC glXMakeCurrent = nullptr;
-  PFNGLXSWAPBUFFERSPROC glXSwapBuffers = nullptr;
-
-private:
-  template <typename T>
-  T loadFunction(char const * func)
-  {
-    auto f = reinterpret_cast<T>(dlsym(m_module, func));
-    ASSERT(f, ("Failed to initialize GLX:", func, "is not found"));
-    return f;
-  }
-
-  template <typename T>
-  T loadGlxFunction(char const * func)
-  {
-    if (auto f = reinterpret_cast<T>(glXGetProcAddress(reinterpret_cast<GLubyte const *>(func))))
-      return f;
-
-    if (auto f = reinterpret_cast<T>(glXGetProcAddressARB(reinterpret_cast<GLubyte const *>(func))))
-      return f;
-
-    return loadFunction<T>(func);
-  }
-
-  void * m_module = nullptr;
-};
-
-class LinuxGLContext : public dp::OGLContext
+class LinuxEglContext : public dp::OGLContext
 {
 public:
-  LinuxGLContext(GLXFunctions const & glx, Display * display, Window window, LinuxGLContext * contextToShareWith,
-                 bool usePixelBuffer)
-    : m_glx(glx)
-    , m_display(display)
-    , m_window(window)
+  LinuxEglContext(EGLDisplay display, GLFWwindow * window, LinuxEglContext * contextToShareWith, bool isUploadContext)
+    : m_display(display)
+    , m_isUploadContext(isUploadContext)
   {
-    int visualAttribs[] = {GLX_DOUBLEBUFFER,
-                           True,
-                           GLX_RENDER_TYPE,
-                           GLX_RGBA_BIT,
-                           GLX_DRAWABLE_TYPE,
-                           (usePixelBuffer ? GLX_PBUFFER_BIT : GLX_WINDOW_BIT),
-                           GLX_RED_SIZE,
-                           8,
-                           GLX_GREEN_SIZE,
-                           8,
-                           GLX_BLUE_SIZE,
-                           8,
-                           GLX_ALPHA_SIZE,
-                           8,
-                           GLX_DEPTH_SIZE,
-                           24,
-                           GLX_STENCIL_SIZE,
-                           8,
-                           None};
-    int contextAttribs[] = {GLX_CONTEXT_PROFILE_MASK_ARB,
-                            GLX_CONTEXT_CORE_PROFILE_BIT_ARB,
-                            GLX_CONTEXT_MAJOR_VERSION_ARB,
-                            4,
-                            GLX_CONTEXT_MINOR_VERSION_ARB,
-                            1,
-                            None};
-    int fbcount = 0;
-    if (GLXFBConfig * config = m_glx.glXChooseFBConfig(display, DefaultScreen(display), visualAttribs, &fbcount))
+    EGLint fbcount = 0;
+    EGLint configAttribs[] = {EGL_SURFACE_TYPE,
+                              EGL_WINDOW_BIT | EGL_PBUFFER_BIT,
+                              EGL_RED_SIZE,
+                              8,
+                              EGL_GREEN_SIZE,
+                              8,
+                              EGL_BLUE_SIZE,
+                              8,
+                              EGL_ALPHA_SIZE,
+                              8,
+                              EGL_DEPTH_SIZE,
+                              24,
+                              EGL_STENCIL_SIZE,
+                              8,
+                              EGL_RENDERABLE_TYPE,
+                              EGL_OPENGL_ES2_BIT,
+                              EGL_NONE};
+
+    if (!eglChooseConfig(display, configAttribs, &m_config, 1, &fbcount) || fbcount == 0)
     {
-      m_context = m_glx.glXCreateContextAttribsARB(
-          display, config[0], contextToShareWith ? contextToShareWith->m_context : 0, True, contextAttribs);
-      CHECK(m_context != nullptr, ("Failed to create GLX context"));
+      LOG(LWARNING, ("EGL: failed to choose config, error:", eglGetError()));
+      return;
+    }
 
-      if (usePixelBuffer)
-      {
-        int pbufferAttribs[] = {GLX_PBUFFER_WIDTH, 1, GLX_PBUFFER_HEIGHT, 1, None};
+    EGLint contextAttribs[] = {EGL_CONTEXT_MAJOR_VERSION, 3, EGL_CONTEXT_MINOR_VERSION, 0, EGL_NONE};
 
-        m_pixelBufferHandle = m_glx.glXCreatePbuffer(display, config[0], pbufferAttribs);
-        CHECK(m_pixelBufferHandle != 0, ("Failed to create GLX pbuffer"));
-      }
+    m_context = eglCreateContext(display, m_config, contextToShareWith ? contextToShareWith->m_context : EGL_NO_CONTEXT,
+                                 contextAttribs);
 
-      m_glx.XFree(config);
+    if (m_context == EGL_NO_CONTEXT)
+    {
+      LOG(LWARNING, ("EGL: failed to create context, error:", eglGetError()));
+      return;
+    }
+
+    if (m_isUploadContext)
+    {
+      EGLint pbufferAttribs[] = {EGL_WIDTH, 1, EGL_HEIGHT, 1, EGL_NONE};
+      m_surface = eglCreatePbufferSurface(display, m_config, pbufferAttribs);
+    }
+    else
+    {
+      int fbWidth = 0, fbHeight = 0;
+      glfwGetFramebufferSize(window, &fbWidth, &fbHeight);
+      m_wlWindow = wl_egl_window_create(glfwGetWaylandWindow(window), fbWidth, fbHeight);
+      m_surface = eglCreateWindowSurface(display, m_config, m_wlWindow, nullptr);
+    }
+    if (m_surface == EGL_NO_SURFACE)
+    {
+      LOG(LWARNING, ("EGL: failed to create surface, error:", eglGetError()));
+      return;
     }
   }
 
-  ~LinuxGLContext() override
+  ~LinuxEglContext() override
   {
-    if (m_pixelBufferHandle)
+    if (m_surface != EGL_NO_SURFACE)
     {
-      m_glx.glXDestroyPbuffer(m_display, m_pixelBufferHandle);
-      m_pixelBufferHandle = 0;
+      eglDestroySurface(m_display, m_surface);
+      m_surface = EGL_NO_SURFACE;
     }
-    if (m_context)
+    if (m_wlWindow)
     {
-      m_glx.glXDestroyContext(m_display, m_context);
-      m_context = nullptr;
+      wl_egl_window_destroy(m_wlWindow);
+      m_wlWindow = nullptr;
+    }
+    if (m_context != EGL_NO_CONTEXT)
+    {
+      eglDestroyContext(m_display, m_context);
+      m_context = EGL_NO_CONTEXT;
     }
   }
 
   void Present() override
   {
-    if (!m_pixelBufferHandle)
-      m_glx.glXSwapBuffers(m_display, m_window);
+    if (!m_isUploadContext && !eglSwapBuffers(m_display, m_surface))
+      LOG(LWARNING, ("EGL: eglSwapBuffers failed, error:", eglGetError()));
   }
 
   void MakeCurrent() override
   {
-    if (!m_glx.glXMakeCurrent(m_display, m_pixelBufferHandle ? m_pixelBufferHandle : m_window, m_context))
-      LOG(LERROR, ("MakeCurrent(): glXMakeCurrent failed"));
+    if (!eglMakeCurrent(m_display, m_surface, m_surface, m_context))
+      LOG(LWARNING, ("EGL: MakeCurrent failed, error:", eglGetError()));
   }
 
   void DoneCurrent() override
   {
-    if (!m_glx.glXMakeCurrent(m_display, None, nullptr))
-      LOG(LERROR, ("DoneCurrent(): glXMakeCurrent failed"));
+    if (!eglMakeCurrent(m_display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT))
+      LOG(LWARNING, ("EGL: DoneCurrent failed, error:", eglGetError()));
   }
 
   void SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override
@@ -287,24 +180,40 @@ public:
   }
 
 private:
-  GLXFunctions const & m_glx;
+  EGLDisplay m_display = EGL_NO_DISPLAY;
+  wl_egl_window * m_wlWindow = nullptr;
+  EGLConfig m_config = nullptr;
+  EGLContext m_context = EGL_NO_CONTEXT;
+  EGLSurface m_surface = EGL_NO_SURFACE;
 
-  Display * m_display = nullptr;
-  Window m_window = 0;
-  GLXDrawable m_pixelBufferHandle = 0;
-  GLXContext m_context = nullptr;
+  bool m_isUploadContext = false;
 };
 
-class LinuxContextFactory : public dp::GraphicsContextFactory
+class LinuxEglContextFactory : public dp::GraphicsContextFactory
 {
 public:
-  LinuxContextFactory(Display * display, Window window) : m_display(display), m_window(window) {}
+  explicit LinuxEglContextFactory(GLFWwindow * window) : m_glfwWindow(window)
+  {
+    m_display = eglGetDisplay(glfwGetWaylandDisplay());
+    if (m_display == EGL_NO_DISPLAY)
+      LOG(LERROR, ("EGL: eglGetDisplay failed"));
+    else if (!eglInitialize(m_display, nullptr, nullptr))
+      LOG(LERROR, ("EGL: eglInitialize failed, error:", eglGetError()));
+    else if (!eglBindAPI(EGL_OPENGL_ES_API))
+      LOG(LERROR, ("EGL: eglBindAPI failed, error:", eglGetError()));
+  }
+
+  ~LinuxEglContextFactory() override
+  {
+    if (m_display != EGL_NO_DISPLAY)
+      eglTerminate(m_display);
+  }
 
   dp::GraphicsContext * GetDrawContext() override
   {
     std::lock_guard<std::mutex> lock(m_contextAccess);
     if (m_drawContext == nullptr)
-      m_drawContext = std::make_unique<LinuxGLContext>(m_glx, m_display, m_window, m_uploadContext.get(), false);
+      m_drawContext = std::make_unique<LinuxEglContext>(m_display, m_glfwWindow, m_uploadContext.get(), false);
     return m_drawContext.get();
   }
 
@@ -312,7 +221,7 @@ public:
   {
     std::lock_guard<std::mutex> lock(m_contextAccess);
     if (m_uploadContext == nullptr)
-      m_uploadContext = std::make_unique<LinuxGLContext>(m_glx, m_display, 0, m_drawContext.get(), true);
+      m_uploadContext = std::make_unique<LinuxEglContext>(m_display, m_glfwWindow, m_drawContext.get(), true);
     return m_uploadContext.get();
   }
 
@@ -349,13 +258,11 @@ public:
 private:
   static size_t constexpr kGLThreadsCount = 2;
 
-  GLXFunctions m_glx;
+  GLFWwindow * m_glfwWindow;
+  EGLDisplay m_display = EGL_NO_DISPLAY;
 
-  Display * m_display = nullptr;
-  Window m_window = 0;
-
-  std::unique_ptr<LinuxGLContext> m_drawContext;
-  std::unique_ptr<LinuxGLContext> m_uploadContext;
+  std::unique_ptr<LinuxEglContext> m_drawContext;
+  std::unique_ptr<LinuxEglContext> m_uploadContext;
 
   mutable std::mutex m_contextAccess;
 
@@ -370,12 +277,12 @@ drape_ptr<dp::GraphicsContextFactory> CreateContextFactory(GLFWwindow * window, 
   if (api == dp::ApiVersion::Vulkan)
   {
     auto contextFactory = make_unique_dp<LinuxVulkanContextFactory>();
-    contextFactory->SetSurface(glfwGetX11Display(), glfwGetX11Window(window));
+    contextFactory->SetSurfaceWayland(glfwGetWaylandDisplay(), glfwGetWaylandWindow(window), window);
     return contextFactory;
   }
 
   if (api == dp::ApiVersion::OpenGLES3)
-    return make_unique_dp<LinuxContextFactory>(glfwGetX11Display(), glfwGetX11Window(window));
+    return make_unique_dp<LinuxEglContextFactory>(window);
 
   ASSERT(false, ("API is not available yet"));
   return nullptr;
