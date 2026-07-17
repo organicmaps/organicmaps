@@ -112,10 +112,9 @@ sudo apt update && sudo apt install -y \
     libicu-dev \
     libqt6svg6-dev \
     libsqlite3-dev \
-    libxrandr-dev \
-    libxinerama-dev \
-    libxcursor-dev \
-    libxi-dev \
+    libwayland-dev \
+    libwayland-bin \
+    libxkbcommon-dev \
     zlib1g-dev
 ```
 
@@ -155,7 +154,9 @@ sudo dnf install -y \
     qt6-qtpositioning \
     qt6-qtpositioning-devel \
     qt6-qtsvg-devel \
-    sqlite-devel
+    sqlite-devel \
+    wayland-devel \
+    libxkbcommon-devel
 ```
 
 #### Alpine
@@ -172,7 +173,9 @@ sudo apk add \
     qt6-qtpositioning-dev \
     qt6-qtsvg-dev \
     samurai \
-    sqlite-dev
+    sqlite-dev \
+    wayland-dev \
+    libxkbcommon-dev
 ```
 
 #### macOS

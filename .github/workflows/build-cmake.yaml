@@ -99,10 +99,9 @@ jobs:
               libglvnd-dev \
               libharfbuzz-dev \
               libqt6svg6-dev \
-              libxcursor-dev \
-              libxi-dev \
-              libxinerama-dev \
-              libxrandr-dev \
+              libwayland-dev \
+              libwayland-bin \
+              libxkbcommon-dev \
               ninja-build \
               qt6-base-dev \
               qt6-positioning-dev \
