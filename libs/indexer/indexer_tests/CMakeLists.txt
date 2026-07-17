@@ -50,6 +50,8 @@ omim_add_test(${PROJECT_NAME} ${SRC})
 
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
+    # @todo Take TestWithClassificator out into some common test support lib,
+    # so that indexer tests don't depend on the generator above them.
     generator_tests_support
     platform_tests_support
     indexer

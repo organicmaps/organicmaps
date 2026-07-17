@@ -1,12 +1,14 @@
 #include "testing/testing.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/classificator_loader.hpp"
 #include "indexer/ftraits.hpp"
 
-UNIT_TEST(Wheelchair_GetType)
+#include "generator/generator_tests_support/test_with_classificator.hpp"
+
+using namespace generator::tests_support;
+
+UNIT_CLASS_TEST(TestWithClassificator, Wheelchair_GetType)
 {
-  classificator::Load();
   Classificator const & c = classif();
 
   using ftraits::Wheelchair;
