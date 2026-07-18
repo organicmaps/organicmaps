@@ -627,20 +627,22 @@ std::string GetCurrentNorm()
   return Normalize(GetCurrentOrig());
 }
 
+std::string SelectMapLanguage(buffer_vector<std::string, 4> const & preferred)
+{
+  for (auto const & lang : preferred)
+    if (StringUtf8Multilang::GetLangIndex(Normalize(lang)) != StringUtf8Multilang::kUnsupportedLanguageCode)
+      return lang;
+  return std::string(StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kDefaultCode));
+}
+
 std::string GetCurrentMapLanguage()
 {
+  // A map-language override is stored as a core code (possibly with '_', e.g. "zh_pinyin") and is
+  // used verbatim; a system language like "en-US" is normalized to its core code "en".
   std::string languageCode;
-  if (!settings::Get(settings::kMapLanguageCode, languageCode) || languageCode.empty())
-  {
-    for (auto const & systemLanguage : GetSystemPreferred())
-    {
-      auto normalizedLang = Normalize(systemLanguage);
-      if (StringUtf8Multilang::GetLangIndex(normalizedLang) != StringUtf8Multilang::kUnsupportedLanguageCode)
-        return normalizedLang;
-    }
-    return std::string(StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kDefaultCode));
-  }
-  return languageCode;
+  if (settings::Get(settings::kMapLanguageCode, languageCode) && !languageCode.empty())
+    return languageCode;
+  return Normalize(SelectMapLanguage(GetSystemPreferred()));
 }
 
 bool StartsWithSubtags(std::string_view tag, std::string_view prefix) noexcept
@@ -694,7 +696,12 @@ std::string GetCurrentTwine()
 
 std::string GetCurrentMapTwine()
 {
-  return GetTwine(GetCurrentMapLanguage());
+  // Not GetTwine(GetCurrentMapLanguage()): that normalizes "zh-Hant" to "zh" first, so a Traditional
+  // Chinese user would get Simplified ("zh-Hans") search categories. Keep the script here.
+  std::string languageCode;
+  if (settings::Get(settings::kMapLanguageCode, languageCode) && !languageCode.empty())
+    return GetTwine(languageCode);
+  return GetTwine(SelectMapLanguage(GetSystemPreferred()));
 }
 
 CJKResolver::Variant CJKResolver::FromLanguageTag(std::string_view tag)
