@@ -17,6 +17,29 @@ UNIT_TEST(LangNormalize_Smoke)
     TEST_EQUAL(arr2[i], languages::Normalize(arr1[i]), ());
 }
 
+UNIT_TEST(LangSelectMapLanguage)
+{
+  using languages::SelectMapLanguage;
+
+  // The first core-supported language wins, with its script and region preserved, so the Twine
+  // locale derived downstream (GetCurrentMapTwine) can tell Traditional from Simplified Chinese
+  // instead of collapsing both to "zh".
+  TEST_EQUAL(SelectMapLanguage({"zh-Hant", "en"}), "zh-Hant", ());
+  TEST_EQUAL(SelectMapLanguage({"zh_TW", "en"}), "zh_TW", ());
+  TEST_EQUAL(SelectMapLanguage({"en-US"}), "en-US", ());
+
+  // Languages the core does not support are skipped in favour of the next supported one.
+  TEST_EQUAL(SelectMapLanguage({"xyz", "ru-RU"}), "ru-RU", ());
+
+  // Nothing supported (or an empty list) falls back to the default code.
+  TEST_EQUAL(SelectMapLanguage({"xyz"}), "default", ());
+  TEST_EQUAL(SelectMapLanguage({}), "default", ());
+
+  // The derived Twine locale keeps the script: this is the actual GetCurrentMapTwine fix.
+  TEST_EQUAL(languages::GetTwine(SelectMapLanguage({"zh-Hant", "en"})), "zh-Hant", ());
+  TEST_EQUAL(languages::GetTwine(SelectMapLanguage({"zh-Hans", "en"})), "zh-Hans", ());
+}
+
 UNIT_TEST(LangGetChineseScript)
 {
   using languages::ChineseScript;

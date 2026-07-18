@@ -33,6 +33,11 @@ std::string Normalize(std::string_view lang);
 std::string GetCurrentNorm();
 std::string GetCurrentMapLanguage();
 
+/// @return The first of @a preferred languages the core supports, with its original script and
+/// region kept (e.g. "zh-Hant", not "zh"), or the default language code if none is supported.
+/// Normalize() it for a core language code, or GetTwine() it for a Twine locale.
+std::string SelectMapLanguage(buffer_vector<std::string, 4> const & preferred);
+
 /// Script a Chinese language tag is written in.
 enum class ChineseScript
 {
