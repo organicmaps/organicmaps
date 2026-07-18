@@ -52,7 +52,4 @@ public class Language
 
     return locale;
   }
-
-  @NonNull
-  public static native String nativeNormalize(@NonNull String locale);
 }
