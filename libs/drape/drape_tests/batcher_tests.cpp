@@ -7,7 +7,6 @@
 #include "drape/batcher.hpp"
 #include "drape/gl_constants.hpp"
 #include "drape/index_storage.hpp"
-#include "drape/vertex_array_buffer.hpp"
 
 #include "base/stl_helpers.hpp"
 
@@ -352,4 +351,61 @@ UNIT_TEST(BatchListOfStript_partial)
     for (size_t i = 0; i < vaoAcceptor.m_vao.size(); ++i)
       vaoAcceptor.m_vao[i].reset();
   }
+}
+
+UNIT_TEST(BatchLineStrip_split)
+{
+  // A line strip longer than the whole buffer must split with the boundary vertex
+  // repeated (the long dynamic isolines case), not overflow the index buffer.
+  TestingGraphicsContext context;
+  uint32_t const VertexCount = 16;
+  uint32_t const ComponentCount = 3;
+  uint32_t const VertexArraySize = VertexCount * ComponentCount;
+
+  // Batcher(20 indices, 100 vertices): the first chunk takes 11 vertices / 20 indices
+  // (the full index buffer), the second continues from the repeated vertex 10.
+  uint32_t const FirstChunkVertices = 11;
+  uint32_t const SecondChunkVertices = VertexCount - FirstChunkVertices + 1;
+
+  float vertexData[VertexArraySize];
+  for (uint32_t i = 0; i < VertexArraySize; ++i)
+    vertexData[i] = static_cast<float>(i);
+
+  std::vector<uint32_t> indexDataRaw = {0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10,
+                                        // start new buffer
+                                        0, 1, 1, 2, 2, 3, 3, 4, 4, 5};
+  dp::IndexStorage indexData(std::move(indexDataRaw));
+
+  InSequence seq;
+  PartialBatcherTest test;
+  test.AddBufferNode(PartialBatcherTest::BufferNode(20 * dp::IndexStorage::SizeOfIndex(),
+                                                    FirstChunkVertices * ComponentCount * sizeof(float),
+                                                    indexData.GetRaw(), vertexData));
+  test.AddBufferNode(PartialBatcherTest::BufferNode(
+      10 * dp::IndexStorage::SizeOfIndex(), SecondChunkVertices * ComponentCount * sizeof(float), indexData.GetRaw(20),
+      vertexData + (FirstChunkVertices - 1) * ComponentCount));
+  test.CloseExpection();
+
+  auto renderState = make_unique_dp<TestExtension>();
+  auto state = RenderState(0, make_ref(renderState));
+
+  BindingInfo binding(1);
+  BindingDecl & decl = binding.GetBindingDecl(0);
+  decl.m_attributeName = "position";
+  decl.m_componentCount = ComponentCount;
+  decl.m_componentType = gl_const::GLFloatType;
+  decl.m_offset = 0;
+  decl.m_stride = 0;
+
+  AttributeProvider provider(1, VertexCount);
+  provider.InitStream(0, binding, make_ref(vertexData));
+
+  VAOAcceptor vaoAcceptor;
+  Batcher batcher(20 /* indexBufferSize */, 100 /* vertexBufferSize */);
+  batcher.StartSession(std::bind(&VAOAcceptor::FlushFullBucket, &vaoAcceptor, _1, _2));
+  batcher.InsertLineStrip(make_ref(&context), state, make_ref(&provider));
+  batcher.EndSession(make_ref(&context));
+
+  for (size_t i = 0; i < vaoAcceptor.m_vao.size(); ++i)
+    vaoAcceptor.m_vao[i].reset();
 }
