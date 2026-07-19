@@ -278,6 +278,14 @@ void TileBackgroundRenderer::SetTileBackgroundData(ref_ptr<dp::GraphicsContext> 
 
   m_awaitingTiles.erase(tileKey);
 
+  // An empty uid is a terminal read result (HTTP error, timeout, undecodable content). The tile
+  // stays unbound and becomes requestable on the next viewport update.
+  if (imageUid.empty())
+  {
+    RetireFallbackIfReady(context);
+    return;
+  }
+
   // The provider is asynchronous: a placeholder/final result may arrive after the tile was swept
   // from the viewport. Use the same visible-tile predicate as the viewport update (it also covers
   // the zoom check) so clipped tiles are not resurrected after cancellation.
