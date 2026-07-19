@@ -69,6 +69,12 @@ public:
     m_renderer.SetTileBackgroundData(GetContext(), key, uid, m2::RectF(0.0f, 0.0f, 1.0f, 1.0f));
   }
 
+  // Reports a failed read the way the provider does: no image, an empty uid.
+  void DeliverFailure(TileKey const & key)
+  {
+    m_renderer.SetTileBackgroundData(GetContext(), key, std::string(), m2::RectF(0.0f, 0.0f, 1.0f, 1.0f));
+  }
+
   // OnUpdateViewport never re-requests a tile that is already bound, so re-entering a viewport and
   // watching the read callback reports exactly which of its tiles are no longer bound -- i.e. which
   // ones Render() would have no imagery for.
@@ -306,5 +312,54 @@ UNIT_TEST(TileBackgroundRenderer_AncestorLookupUsesFloorForNegativeCoords)
   TEST(f.m_renderer.IsCoveredByCurrentZoom(TileKey(-1, -1, 17)), ("floor(-1 / 2) == -1"));
   TEST(f.m_renderer.IsCoveredByCurrentZoom(TileKey(-2, -2, 17)), ("floor(-2 / 2) == -1"));
   TEST(!f.m_renderer.IsCoveredByCurrentZoom(TileKey(0, 0, 17)), ("Ancestor (0, 0) is not bound"));
+}
+
+// A terminal read result (delivered with an empty uid) resolves its request without binding a tile.
+// Once every tile is bound or terminal, the fallback retires.
+UNIT_TEST(TileBackgroundRenderer_FailureRetiresFallback)
+{
+  Fixture f;
+  LoadZ16(f);
+
+  f.m_reads.clear();
+  f.UpdateViewport(kCoverageZ17, 17);
+  auto const z17Tiles = f.m_reads;
+  TEST_EQUAL(z17Tiles.size(), size_t{16}, ());
+  for (size_t i = 0; i + 1 < z17Tiles.size(); ++i)
+    f.DeliverTile(z17Tiles[i]);
+  f.DeliverFailure(z17Tiles.back());
+
+  TEST_EQUAL(f.ProbeUnboundTiles(kCoverageZ16, 16).size(), size_t{4},
+             ("The failure answers the last awaited tile, so the fallback must be released"));
+}
+
+// A terminally failed tile is neither bound nor awaited, so a later viewport update can request it
+// again if the endpoint's state or credentials have changed.
+UNIT_TEST(TileBackgroundRenderer_FailedTileIsRetriedOnNextViewportUpdate)
+{
+  Fixture f;
+  CoverageResult constexpr coverage{.m_minTileX = 0, .m_maxTileX = 2, .m_minTileY = 0, .m_maxTileY = 2};
+  f.UpdateViewport(coverage, 17);
+  auto const requested = f.m_reads;
+  TEST_EQUAL(requested.size(), size_t{4}, ());
+  for (size_t i = 1; i < requested.size(); ++i)
+    f.DeliverTile(requested[i]);
+  f.DeliverFailure(requested.front());
+
+  f.m_reads.clear();
+  f.UpdateViewport(coverage, 17);
+  TEST_EQUAL(f.m_reads.size(), size_t{1}, ("Only the failed tile is re-requested"));
+  TEST(f.m_reads.front() == requested.front(), ());
+}
+
+// A late failure for a tile that was never requested (or was swept meanwhile) must change nothing.
+UNIT_TEST(TileBackgroundRenderer_LateFailureForUnknownTileIsIgnored)
+{
+  Fixture f;
+  LoadZ16(f);
+
+  f.DeliverFailure(TileKey(9, 9, 17));
+
+  TEST(f.ProbeUnboundTiles(kCoverageZ16, 16).empty(), ("Bindings must be unaffected"));
 }
 }  // namespace tile_background_renderer_tests
