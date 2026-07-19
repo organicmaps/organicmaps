@@ -2779,7 +2779,10 @@ void Framework::CreateBackgroundTilesProvider(std::string const & url, uint32_t 
     // messages, so they are safe to call from any thread.
     if (m_drapeEngine)
     {
-      m_drapeEngine->AddTileBackgroundImage(imageUid, width, height, dp::TextureFormat::RGBA8, mode, std::move(rgba));
+      // An empty uid reports a failed read: there is no image to upload, but the report must
+      // still reach the renderer so the tile stops being awaited.
+      if (!imageUid.empty())
+        m_drapeEngine->AddTileBackgroundImage(imageUid, width, height, dp::TextureFormat::RGBA8, mode, std::move(rgba));
       m_drapeEngine->SetTileBackgroundData(tileKey, imageUid, rect);
     }
   });
