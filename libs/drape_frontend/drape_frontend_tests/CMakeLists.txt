@@ -12,6 +12,7 @@ set(SRC
   shape_test_fixture.cpp
   shape_test_fixture.hpp
   stylist_tests.cpp
+  tile_background_renderer_tests.cpp
   user_event_stream_tests.cpp
   visual_params_fixture.hpp
 )
