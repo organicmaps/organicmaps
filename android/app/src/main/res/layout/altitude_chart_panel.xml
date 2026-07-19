@@ -110,14 +110,15 @@
           tools:text="1 km"
           android:layout_marginStart="@dimen/margin_quarter_plus" />
 
-        <!-- Chevron hinting that the strip pulls up the per-leg detail sheet (the only expand affordance). -->
+        <!-- Chevron cueing that the strip expands the per-leg breakdown in place (the only expand
+             affordance). Points down when collapsed; flipped to up in code while expanded. -->
         <ImageView
           android:id="@+id/transit_details_chevron"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_gravity="center_vertical"
           android:contentDescription="@string/transit_details_title"
-          app:srcCompat="@drawable/ic_expand_less"
+          app:srcCompat="@drawable/ic_expand_more"
           app:tint="?iconTint" />
       </LinearLayout>
 
@@ -179,6 +180,8 @@
 
   </LinearLayout>
 
+  <!-- Collapsed transit summary: compact multiline strip of leg badges. Swapped out for the inline
+       breakdown below when the summary strip is tapped. -->
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/transit_recycler_view"
     android:layout_width="match_parent"
@@ -186,5 +189,17 @@
     android:layout_marginTop="@dimen/margin_half_plus"
     android:visibility="gone"
     tools:visibility="visible" />
+
+  <!-- Expanded transit breakdown: per-leg board/exit stops and line badges. A plain wrap-content list;
+       the enclosing route list owns the scrolling so the whole panel scrolls as one. Hidden until the
+       summary strip is tapped. -->
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/transit_details_recycler"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_half"
+    android:clipToPadding="false"
+    android:paddingBottom="@dimen/margin_base"
+    android:visibility="gone" />
 
 </LinearLayout>
