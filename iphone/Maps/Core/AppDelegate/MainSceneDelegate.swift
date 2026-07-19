@@ -34,7 +34,7 @@ final class MainSceneDelegate: UIResponder, UIWindowSceneDelegate {
     for context in connectionOptions.urlContexts {
       if context.url.isFileURL {
         _ = DeepLinkHandler.shared.applicationDidOpenUrl(context.url, openInPlace: context.options.openInPlace)
-      } else {
+      } else if !CarPlayService.shared.handleOpenCarPlayURL(context.url) {
         DeepLinkHandler.shared.prepareForColdLaunch(url: context.url)
       }
     }
@@ -48,6 +48,10 @@ final class MainSceneDelegate: UIResponder, UIWindowSceneDelegate {
     ThemeManager.invalidate()
     sceneWindow.makeKeyAndVisible()
 
+    // CarPlay may connect before the phone window. Reconcile the phone/car map placement now that the
+    // device display is available.
+    CarPlayService.shared.phoneSceneDidConnect()
+
     // Route the remaining cold-launch payloads delivered via the scene.
     for userActivity in connectionOptions.userActivities
       where userActivity.activityType != NSUserActivityTypeBrowsingWeb || userActivity.webpageURL == nil {
@@ -60,6 +64,7 @@ final class MainSceneDelegate: UIResponder, UIWindowSceneDelegate {
 
   func sceneDidDisconnect(_: UIScene) {
     // The shared navigation controller and the map outlive the window (CarPlay may still show it).
+    CarPlayService.shared.phoneSceneDidDisconnect()
     window = nil
   }
 
@@ -70,7 +75,7 @@ final class MainSceneDelegate: UIResponder, UIWindowSceneDelegate {
   // MARK: - URL / user activity / shortcut forwarding
 
   func scene(_: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-    for context in URLContexts {
+    for context in URLContexts where !CarPlayService.shared.handleOpenCarPlayURL(context.url) {
       _ = DeepLinkHandler.shared.applicationDidOpenUrl(context.url, openInPlace: context.options.openInPlace)
     }
   }

@@ -14,4 +14,16 @@ final class CarPlaySceneDelegateTests: XCTestCase {
     XCTAssertTrue(NSClassFromString(className) === CarPlaySceneDelegate.self)
     XCTAssertTrue(class_conformsToProtocol(CarPlaySceneDelegate.self, CPTemplateApplicationSceneDelegate.self))
   }
+
+  /// The dashboard scene is served by the same delegate class, declared in a separate session role.
+  func testManifestDashboardSceneDelegateResolvesToCarPlaySceneDelegate() throws {
+    let manifest = try XCTUnwrap(Bundle.main.object(forInfoDictionaryKey: "UIApplicationSceneManifest") as? [String: Any])
+    XCTAssertEqual(manifest["CPSupportsDashboardNavigationScene"] as? Bool, true)
+    let configurations = try XCTUnwrap(manifest["UISceneConfigurations"] as? [String: [[String: String]]])
+    let dashboard = try XCTUnwrap(configurations["CPTemplateApplicationDashboardSceneSessionRoleApplication"]?.first)
+    XCTAssertEqual(dashboard["UISceneClassName"], NSStringFromClass(CPTemplateApplicationDashboardScene.self))
+    let className = try XCTUnwrap(dashboard["UISceneDelegateClassName"])
+    XCTAssertTrue(NSClassFromString(className) === CarPlaySceneDelegate.self)
+    XCTAssertTrue(class_conformsToProtocol(CarPlaySceneDelegate.self, CPTemplateApplicationDashboardSceneDelegate.self))
+  }
 }

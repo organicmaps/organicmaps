@@ -1,21 +1,8 @@
 final class CarPlayMapViewController: MWMViewController {
   private(set) var mapView: EAGLView?
-  @IBOutlet var speedInfoView: UIView!
-  @IBOutlet var speedCamLimitContainer: UIView!
-  @IBOutlet var speedCamImageView: UIImageView!
-  @IBOutlet var speedCamLimitLabel: UILabel!
-  @IBOutlet var currentSpeedView: UIView!
-  @IBOutlet var currentSpeedLabel: UILabel!
-  private var currentSpeedMps: Double = 0.0
-  private var speedLimitMps: Double?
-  private var speedCamLimitMps: Double?
-  private var isCameraOnRoute: Bool = false
+  private var speedInfoTrailingConstraint: NSLayoutConstraint?
+  @IBOutlet private var speedInfoView: CarPlaySpeedInfoView!
   private var viewPortState: CPViewPortState = .default
-  private var isSpeedCamBlinking: Bool = false
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
-  }
 
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
@@ -32,16 +19,19 @@ final class CarPlayMapViewController: MWMViewController {
     self.mapView = mapView
     mapView.frame = view.bounds
     view.insertSubview(mapView, at: 0)
-    mapView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-    mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-    mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-    mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-    speedInfoView.trailingAnchor.constraint(equalTo: mapButtonSafeAreaLayoutGuide.trailingAnchor).isActive = true
-
-    speedCamLimitContainer.layer.borderWidth = 2.0
+    NSLayoutConstraint.activate([
+      mapView.topAnchor.constraint(equalTo: view.topAnchor),
+      mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+    ])
+    speedInfoTrailingConstraint = speedInfoView.trailingAnchor.constraint(equalTo: mapButtonSafeAreaLayoutGuide.trailingAnchor)
+    speedInfoTrailingConstraint?.isActive = true
   }
 
   func removeMapView() {
+    speedInfoTrailingConstraint?.isActive = false
+    speedInfoTrailingConstraint = nil
     if let mapView = mapView {
       mapView.removeFromSuperview()
       self.mapView = nil
@@ -61,124 +51,26 @@ final class CarPlayMapViewController: MWMViewController {
   }
 
   func updateCurrentSpeed(_ speedMps: Double, speedLimitMps: Double?) {
-    currentSpeedMps = speedMps
-    self.speedLimitMps = speedLimitMps
-    updateSpeedControl()
+    speedInfoView.updateCurrentSpeed(speedMps, speedLimitMps: speedLimitMps)
   }
 
   func updateCameraInfo(isCameraOnRoute: Bool, speedLimitMps: Double?) {
-    self.isCameraOnRoute = isCameraOnRoute
-    speedCamLimitMps = speedLimitMps
-    updateSpeedControl()
-  }
-
-  private func BlinkSpeedCamLimit(blink: Bool) {
-    if blink {
-      if !isSpeedCamBlinking {
-        speedCamLimitLabel.alpha = 0
-        speedCamImageView.alpha = 1
-        UIView.animate(withDuration: 0.5,
-                       delay: 0.0,
-                       options: [.repeat, .autoreverse, .curveEaseOut],
-                       animations: { self.speedCamImageView.alpha = 0; self.speedCamLimitLabel.alpha = 1 })
-        isSpeedCamBlinking = true
-      }
-    } else {
-      if isSpeedCamBlinking {
-        speedCamLimitLabel.layer.removeAllAnimations()
-        speedCamImageView.layer.removeAllAnimations()
-        isSpeedCamBlinking = false
-      }
-    }
-  }
-
-  private func updateSpeedControl() {
-    let speedMeasure = Measure(asSpeed: currentSpeedMps)
-    currentSpeedLabel.text = speedMeasure.valueAsString
-
-    if isCameraOnRoute {
-      speedCamLimitContainer.layer.borderColor = UIColor.speedLimitRed.cgColor
-      speedCamImageView.tintColor = .speedLimitRed
-
-      // self.speedCamLimitMps comes from SpeedCamManager and is based on
-      // the nearest speed camera info when it is close enough.
-      // If it's unknown self.speedLimitMps is used, which is based on current road speed limit.
-      if let speedCamLimitMps = (speedCamLimitMps ?? speedLimitMps) {
-        BlinkSpeedCamLimit(blink: true)
-        let speedCamLimitMeasure = Measure(asSpeed: speedCamLimitMps)
-        speedCamLimitLabel.text = speedCamLimitMeasure.valueAsString
-        speedCamLimitLabel.textColor = .speedLimitDarkGray
-
-        currentSpeedLabel.textColor = UIColor.whitePrimary
-        if speedCamLimitMps >= currentSpeedMps {
-          currentSpeedView.backgroundColor = .speedLimitGreen
-        } else {
-          currentSpeedView.backgroundColor = .speedLimitRed
-        }
-      } else {
-        BlinkSpeedCamLimit(blink: false)
-        speedCamLimitLabel.alpha = 0.0
-        speedCamImageView.tintColor = .speedLimitRed
-        speedCamImageView.alpha = 1.0
-
-        currentSpeedLabel.textColor = .speedLimitDarkGray
-        currentSpeedView.backgroundColor = .speedLimitWhite
-      }
-    } else { // !isCameraOnRoute
-      BlinkSpeedCamLimit(blink: false)
-      currentSpeedLabel.textColor = .speedLimitDarkGray
-      if let speedLimitMps = speedLimitMps {
-        speedCamImageView.alpha = 0.0
-        let speedLimitMeasure = Measure(asSpeed: speedLimitMps)
-        speedCamLimitLabel.textColor = .speedLimitDarkGray
-        // speedLimitMps == 0 means unlimited speed.
-        if speedLimitMeasure.value == 0 {
-          speedCamLimitLabel.text = "🚀" // "∞"
-        } else {
-          speedCamLimitLabel.text = speedLimitMeasure.valueAsString
-        }
-        speedCamLimitLabel.alpha = 1.0
-        speedCamLimitContainer.layer.borderColor = UIColor.speedLimitRed.cgColor
-        if currentSpeedMps > speedLimitMps {
-          currentSpeedLabel.textColor = .speedLimitRed
-        }
-      } else {
-        speedCamImageView.tintColor = .speedLimitLightGray
-        speedCamImageView.alpha = 1.0
-        speedCamLimitLabel.alpha = 0.0
-        speedCamLimitContainer.layer.borderColor = UIColor.speedLimitLightGray.cgColor
-      }
-      currentSpeedView.backgroundColor = .speedLimitWhite
-    }
+    speedInfoView.updateCameraInfo(isCameraOnRoute: isCameraOnRoute, speedLimitMps: speedLimitMps)
   }
 
   func updateVisibleViewPortState(_ state: CPViewPortState) {
     viewPortState = state
     switch viewPortState {
     case .default:
-      updateVisibleViewPortToDefaultState()
-    case .preview:
-      updateVisibleViewPortToPreviewState()
-    case .navigation:
-      updateVisibleViewPortToNavigationState()
+      updateVisibleViewPort(frame: view.bounds)
+    case .preview, .navigation:
+      updateVisibleViewPort(frame: view.bounds.inset(by: view.safeAreaInsets))
     }
   }
 
-  private func updateVisibleViewPortToPreviewState() {
-    updateVisibleViewPort(frame: view.frame.inset(by: view.safeAreaInsets))
-  }
-
-  private func updateVisibleViewPortToNavigationState() {
-    updateVisibleViewPort(frame: view.frame.inset(by: view.safeAreaInsets))
-  }
-
-  private func updateVisibleViewPortToDefaultState() {
-    updateVisibleViewPort(frame: view.bounds)
-  }
-
   private func updateVisibleViewPort(frame: CGRect) {
-    guard CarPlayService.shared.isCarplayActivated else { return }
-    FrameworkHelper.setVisibleViewport(frame, scaleFactor: mapView?.contentScaleFactor ?? 1)
+    guard CarPlayService.shared.isCarplayActivated, let mapView else { return }
+    FrameworkHelper.setVisibleViewport(frame, scaleFactor: mapView.contentScaleFactor)
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -189,6 +81,6 @@ final class CarPlayMapViewController: MWMViewController {
 
   override func applyTheme() {
     super.applyTheme()
-    updateSpeedControl()
+    speedInfoView.updateAppearance()
   }
 }
