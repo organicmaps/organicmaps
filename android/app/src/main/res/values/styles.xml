@@ -378,16 +378,6 @@
     <item name="shapeAppearance">?attr/shapeAppearanceLargeComponent</item>
   </style>
 
-  <!-- Bottom sheet dialog whose content can grow taller than the screen (e.g. transit details).
-       Adds the top system-window inset so the fully expanded sheet stops below the status bar. -->
-  <style name="MwmTheme.BottomSheetDialog.Tall" parent="MwmTheme.BottomSheetDialog">
-    <item name="bottomSheetStyle">@style/MwmWidget.BottomSheetDialog.Tall</item>
-  </style>
-
-  <style name="MwmWidget.BottomSheetDialog.Tall" parent="MwmWidget.BottomSheetDialog">
-    <item name="paddingTopSystemWindowInsets">true</item>
-  </style>
-
   <style name="MwmWidget.BottomSheet" parent="MwmWidget.BottomSheetDialog">
     <item name="android:background">?cardBackground</item>
     <item name="behavior_hideable">false</item>
