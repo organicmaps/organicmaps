@@ -15,15 +15,19 @@ import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
+import android.transition.ChangeBounds;
+import android.transition.TransitionManager;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
@@ -92,8 +96,14 @@ final class RoutingBottomMenuController
   private final DotDividerItemDecoration mTransitViewDecorator;
   @NonNull
   private final TransitStepAdapter mTransitAdapter;
+  // Collapsed compact leg strip; swapped for the inline expanded breakdown when the summary is tapped.
   @NonNull
   private final RecyclerView mTransitRecyclerView;
+  @NonNull
+  private final RecyclerView mTransitDetailsRecyclerView;
+  @NonNull
+  private final TransitDetailsAdapter mTransitDetailsAdapter;
+  private boolean mTransitExpanded;
   @NonNull
   private final View mSaveButton;
   @Nullable
@@ -217,8 +227,23 @@ final class RoutingBottomMenuController
     mTransitRecyclerView.setNestedScrollingEnabled(false);
     mTransitRecyclerView.addItemDecoration(mTransitViewDecorator);
     mTransitRecyclerView.setAdapter(mTransitAdapter);
-    // The steps strip sits on top of the panel and would otherwise swallow taps, so a tap anywhere on
-    // it opens the same detail sheet as the rest of the panel. Scrolling still works for long routes.
+
+    mTransitDetailsRecyclerView = altitudeChartFrame.findViewById(R.id.transit_details_recycler);
+    mTransitDetailsAdapter = new TransitDetailsAdapter();
+    mTransitDetailsRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+    // The breakdown is a header in the route list, above the route-point rows. Keep it a plain
+    // wrap-content list (no internal scroll) so the whole route list scrolls as one under the fixed
+    // route-type toolbar; a nested scroll here would trap the gesture and draw its tail behind the rows.
+    mTransitDetailsRecyclerView.setNestedScrollingEnabled(false);
+    // No item animator: the panel's ChangeBounds owns all motion. Leaving it on lets an expanding ride
+    // row run its own move animation, which fights the transition and makes the rows bounce.
+    mTransitDetailsRecyclerView.setItemAnimator(null);
+    mTransitDetailsRecyclerView.setAdapter(mTransitDetailsAdapter);
+    // A ride row toggling its intermediate stops resizes the list; animate the panel so it tweens too.
+    mTransitDetailsAdapter.setOnBeforeToggleListener(this::beginTransitTransition);
+
+    // The compact strip sits on top of the panel and would otherwise swallow taps, so a tap anywhere on
+    // it expands the breakdown just like tapping the summary strip. Scrolling still works for long routes.
     // Gated on the panel being clickable so it stays inert for ruler (straight-line) routes.
     final GestureDetector transitTapDetector =
         new GestureDetector(mContext, new GestureDetector.SimpleOnGestureListener() {
@@ -227,7 +252,7 @@ final class RoutingBottomMenuController
           {
             if (!mTransitTime.isClickable())
               return false;
-            showTransitDetailsSheet();
+            toggleTransitDetails();
             return true;
           }
         });
@@ -290,7 +315,8 @@ final class RoutingBottomMenuController
 
   void hideAltitudeChartAndRoutingDetails()
   {
-    UiUtils.hide(mAltitudeChart, mTimeVehicle, mTimeElevationLine, mTransitTime, mTimeRuler, mTransitRecyclerView);
+    UiUtils.hide(mAltitudeChart, mTimeVehicle, mTimeElevationLine, mTransitTime, mTimeRuler, mTransitRecyclerView,
+                 mTransitDetailsRecyclerView);
     notifyVisibilityChanged();
   }
 
@@ -305,6 +331,7 @@ final class RoutingBottomMenuController
     setStartState(StartState.DISABLED);
     UiUtils.show(transit_time, mTransitRecyclerView);
     mTransitAdapter.setItems(info.getTransitSteps());
+    mTransitDetailsAdapter.setItems(info.getTransitSteps());
 
     TextView totalTimeView = mAltitudeChartFrame.findViewById(R.id.total_time);
     totalTimeView.setText(Utils.formatRoutingTime(mContext, info.getTotalTime(), R.dimen.text_size_routing_number));
@@ -314,24 +341,46 @@ final class RoutingBottomMenuController
     UiUtils.showIf(info.getTotalPedestrianTimeInSec() > 0, dotView, pedestrianIcon, distanceView);
     distanceView.setText(info.getTotalPedestrianDistance() + " " + info.getTotalPedestrianDistanceUnits());
 
-    // Tapping the summary strip reveals the per-leg breakdown (board/exit stops + line badges); the
-    // chevron is the cue that the strip is expandable. The ripple foreground is declared in the
-    // layout and only draws while the strip stays clickable.
+    // Tapping the summary strip expands the per-leg breakdown (board/exit stops + line badges) in place;
+    // the chevron is the cue that the strip is expandable. The ripple foreground is declared in the
+    // layout and only draws while the strip stays clickable. Each (re)build starts collapsed.
     mTransitTime.setClickable(true);
-    mTransitTime.setOnClickListener(v -> showTransitDetailsSheet());
+    mTransitTime.setOnClickListener(v -> toggleTransitDetails());
     UiUtils.show(mTransitTime.findViewById(R.id.transit_details_chevron));
+    mTransitExpanded = false;
+    applyTransitExpandedState();
 
     notifyVisibilityChanged();
   }
 
-  private void showTransitDetailsSheet()
+  private void toggleTransitDetails()
   {
-    if (!(mContext instanceof FragmentActivity activity))
+    if (!mTransitTime.isClickable())
       return;
-    if (activity.getSupportFragmentManager().findFragmentByTag(TransitDetailsBottomSheetFragment.TAG) != null)
-      return;
-    new TransitDetailsBottomSheetFragment().show(activity.getSupportFragmentManager(),
-                                                 TransitDetailsBottomSheetFragment.TAG);
+    mTransitExpanded = !mTransitExpanded;
+    beginTransitTransition();
+    applyTransitExpandedState();
+    notifyVisibilityChanged();
+  }
+
+  // Swaps the compact strip for the inline breakdown (or back) and flips the chevron to match.
+  private void applyTransitExpandedState()
+  {
+    UiUtils.showIf(mTransitExpanded, mTransitDetailsRecyclerView);
+    UiUtils.showIf(!mTransitExpanded, mTransitRecyclerView);
+    ImageView chevron = mTransitTime.findViewById(R.id.transit_details_chevron);
+    chevron.setImageResource(mTransitExpanded ? R.drawable.ic_expand_less : R.drawable.ic_expand_more);
+  }
+
+  // Tweens the panel's height and row positions on the next layout so expand/collapse is not abrupt.
+  private void beginTransitTransition()
+  {
+    if (mAltitudeChartFrame instanceof ViewGroup group)
+    {
+      ChangeBounds transition = new ChangeBounds();
+      transition.setDuration(200);
+      TransitionManager.beginDelayedTransition(group, transition);
+    }
   }
 
   @SuppressLint("SetTextI18n")
@@ -344,12 +393,15 @@ final class RoutingBottomMenuController
     hideAltitudeChartAndRoutingDetails();
     UiUtils.show(mAltitudeChartFrame, mTransitRecyclerView, mTimeRuler);
 
-    // The summary strip is shared with public transport routing; the per-leg detail sheet does not
+    // The summary strip is shared with public transport routing; the per-leg breakdown does not
     // apply to a straight-line ruler route, so drop the tap handler here. Clearing clickability also
-    // suppresses the ripple foreground declared in the layout.
+    // suppresses the ripple foreground declared in the layout. Force the collapsed (compact) state so a
+    // route rebuilt from transit into a ruler route never leaves the expanded breakdown showing.
     mTransitTime.setOnClickListener(null);
     mTransitTime.setClickable(false);
     UiUtils.hide(mTransitTime, R.id.transit_details_chevron);
+    mTransitExpanded = false;
+    UiUtils.hide(mTransitDetailsRecyclerView);
 
     if (points.length > 2)
     {
