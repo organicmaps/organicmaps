@@ -373,9 +373,6 @@
 /* blue gray color */
 "blue_gray" = "Biru Keabu-abuan";
 
-/* place preview title */
-"info" = "Info";
-
 /* Prints version number in About dialog */
 "version" = "Versi Organic Maps: %@";
 
@@ -639,11 +636,8 @@
 "traffic_data_unavailable" = "Data lalu lintas tidak tersedia";
 "enable_logging" = "Aktifkan pencatatan";
 "transliteration_title" = "Transliterasi ke dalam bahasa Latin";
-"planning_route_manage_route" = "Kelola rute";
-"button_plan" = "Rencana";
 "placepage_remove_stop" = "Hapus pemberhentian";
 "placepage_add_stop" = "Tambah perhentian";
-"saved" = "Tersimpan";
 "error_enter_correct_name" = "Harap masukkan nama yang benar";
 "bookmark_lists" = "Daftar";
 
@@ -726,8 +720,6 @@
 "avoid_motorways" = "Hindari jalan raya";
 "unable_to_calc_alert_title" = "Tidak dapat menghitung rute";
 "unable_to_calc_alert_subtitle" = "Sayangnya kami tidak dapat menemukan rute karena opsi pilihan Anda. Harap ubah pengaturan lalu coba lagi";
-"define_to_avoid_btn" = "Tentukan jalan yang dihindari";
-"change_driving_options_btn" = "Opsi perutean diaktifkan";
 "toll_road" = "Jalan tol";
 "unpaved_road" = "Jalan tanah";
 "ferry_crossing" = "Penyeberangan kapal feri";
@@ -773,9 +765,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Sudah sampai di tujuan";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Kedatangan: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Untuk membuat rute, silakan unduh dan perbarui semua peta sepanjang rute.";
 "editor_done_dialog_1" = "Anda telah mengubah peta dunia. Jangan menyembunyikan ini! Katakan kepada teman-teman Anda, dan edit bersama.";
@@ -800,7 +789,6 @@
 "please_note" = "Harap diperhatikan";
 "migration_download_error_dialog" = "Unduh kesalahan";
 "editor_add_select_category" = "Pilih kategori";
-"editor_add_select_category_popular_subtitle" = "Populer";
 "editor_add_select_category_all_subtitle" = "Semua kategori";
 "whatsnew_editor_message_1" = "Tambahkan tempat-tempat baru di peta, dan edit peta-peta yang ada langsung dari aplikasi.";
 "dialog_incorrect_feature_position" = "Ubah lokasi";
@@ -842,9 +830,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Untuk menampilkan data lalu lintas, aplikasi ini harus diperbarui.";
 "log_file_size" = "Ukuran file log: %@";
-"planning_route_remove_title" = "Seret ke sini untuk menghapus";
 "placepage_replace_stop" = "Ganti Berhenti";
-"start_from_my_position" = "Mulai dari";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Silahkan login ke OpenStreetMap untuk mengupload semua hasil edit peta Anda secara otomatis. Pelajari lebih lanjut";
@@ -872,7 +858,6 @@
 "bottom" = "Bawah";
 "trip_start" = "Ayo";
 "pick_destination" = "Tujuan";
-"follow_my_position" = "Pusatkan ulang";
 "search_results" = "Hasil pencarian";
 "then_turn" = "Lalu";
 "redirect_route_alert" = "Anda ingin membuat ulang rute?";
@@ -1016,10 +1001,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Jalur kosong - tidak ada yang bisa disimpan";
 "edit_track" = "Edit Jalur";
-"elevation_profile_diff_level" = "Tingkat kesulitan";
-"elevation_profile_diff_level_easy" = "Mudah";
-"elevation_profile_diff_level_moderate" = "Sedang";
-"elevation_profile_diff_level_hard" = "Sulit";
 "downloader_updating_ios" = "Memperbarui";
 
 /* Autoupdate dialog on start */

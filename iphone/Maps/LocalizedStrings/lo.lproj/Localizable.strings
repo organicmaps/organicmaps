@@ -373,9 +373,6 @@
 /* blue gray color */
 "blue_gray" = "ສີເທົາຟ້າ";
 
-/* place preview title */
-"info" = "ຂໍ້ມູນ";
-
 /* Prints version number in About dialog */
 "version" = "ເວີຊັນ Organic Maps: %@";
 
@@ -639,11 +636,8 @@
 "traffic_data_unavailable" = "ຂໍ້ມູນການຈະລາຈອນບໍ່ພ້ອມໃຊ້ງານ";
 "enable_logging" = "ເປີດການບັນທຶກລັອກ";
 "transliteration_title" = "ຖອດອັກສອນເປັນພາສາລາແຕັງ";
-"planning_route_manage_route" = "ຈັດການເສັ້ນທາງ";
-"button_plan" = "ວາງແຜນ";
 "placepage_remove_stop" = "ເອົາຈຸດແວ່ພັກອອກ";
 "placepage_add_stop" = "ເພີ່ມຈຸດແວ່ພັກ";
-"saved" = "ບັນທຶກແລ້ວ";
 "error_enter_correct_name" = "ກະລຸນາປ້ອນຊື່ທີ່ຖືກຕ້ອງ";
 "bookmark_lists" = "ລາຍການ";
 
@@ -726,8 +720,6 @@
 "avoid_motorways" = "ເລ່ຽງທາງດ່ວນ";
 "unable_to_calc_alert_title" = "ບໍ່ສາມາດຄິດໄລ່ເສັ້ນທາງໄດ້";
 "unable_to_calc_alert_subtitle" = "ບໍ່ພົບເສັ້ນທາງ. ນີ້ອາດຈະເກີດຈາກຕົວເລືອກການສ້າງເສັ້ນທາງຂອງທ່ານ ຫຼື ຂໍ້ມູນ OpenStreetMap ບໍ່ສົມບູນ. ກະລຸນາປ່ຽນຕົວເລືອກການສ້າງເສັ້ນທາງຂອງທ່ານ ແລະ ລອງໃໝ່.";
-"define_to_avoid_btn" = "ກຳນົດຖະໜົນທີ່ຕ້ອງການເລ່ຽງ";
-"change_driving_options_btn" = "ເປີດໃຊ້ຕົວເລືອກການສ້າງເສັ້ນທາງແລ້ວ";
 "toll_road" = "ທາງເສຍຄ່າທຳນຽມ";
 "unpaved_road" = "ທາງບໍ່ປູຢາງ";
 "ferry_crossing" = "ຈຸດຂ້າມເຮືອຟາກ";
@@ -773,9 +765,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "ວາງແຜນເສັ້ນທາງບໍ່ສຳເລັດ";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "ມາຮອດໃນເວລາ %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "ດາວໂຫຼດ ແລະ ອັບເດດແຜນທີ່ທັງໝົດຕາມເສັ້ນທາງເພື່ອຄິດໄລ່ເສັ້ນທາງ.";
 "editor_done_dialog_1" = "ທ່ານໄດ້ຊ່ວຍປ່ຽນແປງແຜນທີ່ໂລກແລ້ວ! ຢ່າເກັບໄວ້ຄົນດຽວ; ບອກໝູ່ເພື່ອນຂອງທ່ານໃຫ້ມາຊ່ວຍກັນແກ້ໄຂນຳກັນ.";
@@ -800,7 +789,6 @@
 "please_note" = "ກະລຸນາໝາຍເຫດ";
 "migration_download_error_dialog" = "ເກີດຂໍ້ຜິດພາດໃນການດາວໂຫຼດ";
 "editor_add_select_category" = "ເລືອກໝວດໝູ່";
-"editor_add_select_category_popular_subtitle" = "ຍອດນິຍົມ";
 "editor_add_select_category_all_subtitle" = "ໝວດໝູ່ທັງໝົດ";
 "whatsnew_editor_message_1" = "ເພີ່ມສະຖານທີ່ໃໝ່ລົງໃນແຜນທີ່ ແລະ ແກ້ໄຂສະຖານທີ່ທີ່ມີຢູ່ແລ້ວໄດ້ໂດຍກົງຈາກແອັບ.";
 "dialog_incorrect_feature_position" = "ປ່ຽນຕຳແໜ່ງ";
@@ -842,9 +830,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "ເພື່ອສະແດງຂໍ້ມູນການຈໍລະຈອນ, ຕ້ອງອັບເດດແອັບພລິເຄຊັນ.";
 "log_file_size" = "ຂະໜາດໄຟລ໌ລັອກ: %@";
-"planning_route_remove_title" = "ລາກມາທີ່ນີ້ເພື່ອລຶບ";
 "placepage_replace_stop" = "ປ່ຽນແທນຈຸດແວ່ພັກ";
-"start_from_my_position" = "ເລີ່ມຕົ້ນຈາກ";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "ກະລຸນາເຂົ້າສູ່ລະບົບ OpenStreetMap ເພື່ອອັບໂຫຼດການແກ້ໄຂແຜນທີ່ທັງໝົດຂອງທ່ານໂດຍອັດຕະໂນມັດ. ສຶກສາເພີ່ມເຕີມ";
@@ -872,7 +858,6 @@
 "bottom" = "ລຸ່ມ";
 "trip_start" = "ໄປກັນເລີຍ";
 "pick_destination" = "ຈຸດໝາຍປາຍທາງ";
-"follow_my_position" = "ຈັດຕຳແໜ່ງກາງໃໝ່";
 "search_results" = "ຜົນການຄົ້ນຫາ";
 "then_turn" = "ຈາກນັ້ນ";
 "redirect_route_alert" = "ທ່ານຕ້ອງການສ້າງເສັ້ນທາງໃໝ່ຫຼືບໍ່?";
@@ -1016,10 +1001,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "ເສັ້ນທາງວ່າງເປົ່າ - ບໍ່ມີຫຍັງໃຫ້ບັນທຶກ";
 "edit_track" = "ແກ້ໄຂເສັ້ນທາງ";
-"elevation_profile_diff_level" = "ລະດັບຄວາມຍາກ";
-"elevation_profile_diff_level_easy" = "ງ່າຍ";
-"elevation_profile_diff_level_moderate" = "ປານກາງ";
-"elevation_profile_diff_level_hard" = "ຍາກ";
 "downloader_updating_ios" = "ກຳລັງອັບເດດ";
 
 /* Autoupdate dialog on start */

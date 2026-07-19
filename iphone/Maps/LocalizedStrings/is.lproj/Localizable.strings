@@ -373,9 +373,6 @@
 /* blue gray color */
 "blue_gray" = "Blágrátt";
 
-/* place preview title */
-"info" = "Upplýsingar";
-
 /* Prints version number in About dialog */
 "version" = "Organic Maps útgáfa: %@";
 
@@ -639,11 +636,8 @@
 "traffic_data_unavailable" = "Umferðargögn eru ekki tiltæk";
 "enable_logging" = "Virkja atvikaskráningu";
 "transliteration_title" = "Umrita yfir í latneskt stafróf";
-"planning_route_manage_route" = "Sýsla með leið";
-"button_plan" = "Skipuleggja";
 "placepage_remove_stop" = "Fjarlægja stopp";
 "placepage_add_stop" = "Bæta við stoppi";
-"saved" = "Vistað";
 "error_enter_correct_name" = "Settu inn rétt nafn";
 "bookmark_lists" = "Listar";
 
@@ -726,8 +720,6 @@
 "avoid_motorways" = "Forðast hraðbrautir";
 "unable_to_calc_alert_title" = "Tókst ekki að reikna leið";
 "unable_to_calc_alert_subtitle" = "Leið fannst ekki. Það gæti stafað af stillingum þínum fyrir leiðagerð eða ófullkomnum gögnum í OpenStreetMap. Breyttu stillingum þínum fyrir leiðagerð og prófaðu aftur.";
-"define_to_avoid_btn" = "Skilgreindu vegi sem á að forðast";
-"change_driving_options_btn" = "Valkostir leiðagerðar virkir";
 "toll_road" = "Vegur með gjaldskyldu";
 "unpaved_road" = "Óbundið slitlag";
 "ferry_crossing" = "Þverun með ferju";
@@ -773,9 +765,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Skipulagning ferðar mistókst";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Koma kl. %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Sæktu og uppfærðu öll landakort meðfram áætluðum ferli til að reikna leið.";
 "editor_done_dialog_1" = "Þú hefur breytt heimskortinu! Ekki halda því leyndu; segðu vinum þínum frá og þið getið haldið áfram að laga það saman.";
@@ -800,7 +789,6 @@
 "please_note" = "Athugaðu";
 "migration_download_error_dialog" = "Villa við að sækja gögn";
 "editor_add_select_category" = "Veldu flokk";
-"editor_add_select_category_popular_subtitle" = "Vinsælt";
 "editor_add_select_category_all_subtitle" = "Allir flokkar";
 "whatsnew_editor_message_1" = "Bættu nýjum stöðum á kortið og breyttu fyrirliggjandi stöðum beint úr forritinu.";
 "dialog_incorrect_feature_position" = "Breyta staðsetningu";
@@ -842,9 +830,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Til að birta umferðargögn, þarf að uppfæra forritið.";
 "log_file_size" = "Stærð atvikaskrár: %@";
-"planning_route_remove_title" = "Dragðu hingað til að fjarlægja";
 "placepage_replace_stop" = "Skipta út stoppi";
-"start_from_my_position" = "Byrja frá";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Skráðu þig inn á OpenStreetMap til að senda sjálfkrafa inn allar breytingar þínar á kortinu. Kannaðu þetta nánar";
@@ -872,7 +858,6 @@
 "bottom" = "Neðst";
 "trip_start" = "Hefjumst handa";
 "pick_destination" = "Ákvörðunarstaður";
-"follow_my_position" = "Endurmiðja";
 "search_results" = "Leitarniðurstöður";
 "then_turn" = "síðan";
 "redirect_route_alert" = "Viltu endurhanna þessa leið?";
@@ -1016,10 +1001,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Ferill er tómur - ekkert til að vista";
 "edit_track" = "Breyta ferli";
-"elevation_profile_diff_level" = "Erfiðleikastig";
-"elevation_profile_diff_level_easy" = "Auðvelt";
-"elevation_profile_diff_level_moderate" = "Miðlungs";
-"elevation_profile_diff_level_hard" = "Erfitt";
 "downloader_updating_ios" = "Uppfæri";
 
 /* Autoupdate dialog on start */

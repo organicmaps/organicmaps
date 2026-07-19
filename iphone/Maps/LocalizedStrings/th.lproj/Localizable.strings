@@ -373,9 +373,6 @@
 /* blue gray color */
 "blue_gray" = "สีฟ้าอมเทา";
 
-/* place preview title */
-"info" = "ข้อมูล";
-
 /* Prints version number in About dialog */
 "version" = "เวอร์ชัน Organic Maps: %@";
 
@@ -639,11 +636,8 @@
 "traffic_data_unavailable" = "ไม่มีข้อมูลการจราจร";
 "enable_logging" = "เปิดใช้งานการเก็บล็อก";
 "transliteration_title" = "การทับศัพท์เป็นภาษาละติน";
-"planning_route_manage_route" = "จัดการเส้นทาง";
-"button_plan" = "วางแผน";
 "placepage_remove_stop" = "ลบจุดแวะพัก";
 "placepage_add_stop" = "เพิ่มจุดแวะพัก";
-"saved" = "บันทึกแล้ว";
 "error_enter_correct_name" = "กรุณาใส่ชื่อที่ถูกต้อง";
 "bookmark_lists" = "รายการ";
 
@@ -726,8 +720,6 @@
 "avoid_motorways" = "หลีกเลี่ยงมอเตอร์เวย์";
 "unable_to_calc_alert_title" = "ไม่สามารถคำนวณเส้นทาง";
 "unable_to_calc_alert_subtitle" = "ขออภัย เราไม่สามารถค้นหาเส้นทาง โดยสาเหตุอาจมาจากทางเลือกที่คุณกำหนดไว้ โปรดเปลี่ยนการตั้งค่าทางเลือกและลองใหม่อีกครั้ง";
-"define_to_avoid_btn" = "กำหนดถนนที่ต้องการเลี่ยง";
-"change_driving_options_btn" = "เปิดใช้การค้นหาเส้นทางขับขี่แล้ว";
 "toll_road" = "ถนนแบบเสียค่าผ่านทาง";
 "unpaved_road" = "ถนนดิน";
 "ferry_crossing" = "เรือข้ามฟาก";
@@ -773,9 +765,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "การวางแผนเส้นทางล้มเหลว";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "มาถึง: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "เพื่อสร้างเส้นทาง โปรดดาวน์โหลดและอัปเดตแผนที่ทั้งหมดตลอดเส้นทาง";
 "editor_done_dialog_1" = "คุณได้เปลี่ยนแผนที่โลก อย่าซ่อนมันไว้! บอกเพื่อนคุณ แล้วมาแก้ไขมันไปด้วยกัน";
@@ -800,7 +789,6 @@
 "please_note" = "โปรดทราบ";
 "migration_download_error_dialog" = "ข้อผิดพลาดในการดาวน์โหลด";
 "editor_add_select_category" = "เลือกหมวดหมู่";
-"editor_add_select_category_popular_subtitle" = "ยอดนิยม";
 "editor_add_select_category_all_subtitle" = "หมวดหมูทั้งหมด";
 "whatsnew_editor_message_1" = "เพิ่มสถานที่ใหม่ ๆ ไปยังแผนที่ และแก้ไขสถานที่ที่มีอยู่เดิมจากแอปโดยตรง";
 "dialog_incorrect_feature_position" = "เปลี่ยนสถานที่ตั้ง";
@@ -842,9 +830,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "ในการแสดงข้อมูลการจราจร แอปพลิเคชั่นจะต้องอัปเดตก่อน";
 "log_file_size" = "ขนาดไฟล์บันทึก: %@";
-"planning_route_remove_title" = "ลากมาที่นี่เพื่อเอาออก";
 "placepage_replace_stop" = "แทนที่หยุด";
-"start_from_my_position" = "เริ่มจาก";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "กรุณาเข้าสู่ระบบ OpenStreetMap เพื่ออัปโหลดการแก้ไขแผนที่ทั้งหมดของคุณโดยอัตโนมัติ เรียนรู้เพิ่มเติม";
@@ -872,7 +858,6 @@
 "bottom" = "ด้านล่าง";
 "trip_start" = "ไปกันเลย";
 "pick_destination" = "จุดหมาย";
-"follow_my_position" = "รีเซ็นเตอร์";
 "search_results" = "ผลการค้นหา";
 "then_turn" = "จากนั้น";
 "redirect_route_alert" = "ต้องการสร้างเส้นทางใหม่หรือไม่";
@@ -1016,10 +1001,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "เส้นทางว่างเปล่า - ไม่มีอะไรจะบันทึก";
 "edit_track" = "แก้ไขเส้นทาง";
-"elevation_profile_diff_level" = "ระดับความยาก";
-"elevation_profile_diff_level_easy" = "ง่าย";
-"elevation_profile_diff_level_moderate" = "ปานกลาง";
-"elevation_profile_diff_level_hard" = "ยาก";
 "downloader_updating_ios" = "การอัปเดต";
 
 /* Autoupdate dialog on start */

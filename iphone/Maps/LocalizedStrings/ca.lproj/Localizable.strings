@@ -373,9 +373,6 @@
 /* blue gray color */
 "blue_gray" = "Gris blavós";
 
-/* place preview title */
-"info" = "Informació";
-
 /* Prints version number in About dialog */
 "version" = "Versió de l’Organic Maps: %@";
 
@@ -639,11 +636,8 @@
 "traffic_data_unavailable" = "No hi ha dades de trànsit disponibles";
 "enable_logging" = "Activa el registre";
 "transliteration_title" = "Transliteració a l’alfabet llatí";
-"planning_route_manage_route" = "Gestionar la ruta";
-"button_plan" = "Planifica";
 "placepage_remove_stop" = "Elimina parada";
 "placepage_add_stop" = "Afegeix una parada";
-"saved" = "Desat";
 "error_enter_correct_name" = "Introduïu un nom correcte";
 "bookmark_lists" = "Llistes";
 
@@ -726,8 +720,6 @@
 "avoid_motorways" = "Evita autopistes";
 "unable_to_calc_alert_title" = "No s’ha pogut calcular la ruta";
 "unable_to_calc_alert_subtitle" = "Malauradament, no hem pogut trobar cap ruta. Probablement per les opcions que heu triat. Canvieu-les i torneu a intentar-ho.";
-"define_to_avoid_btn" = "Definiu les vies a evitar";
-"change_driving_options_btn" = "Paràmetres d’encaminament activats";
 "toll_road" = "Via de peatge";
 "unpaved_road" = "Via sense pavimentar";
 "ferry_crossing" = "Ferris";
@@ -773,9 +765,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "La planificació de la ruta ha fallat";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Arribada: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Baixeu i actualitzeu tots els mapes del trajecte per a calcular-ne la ruta.";
 "editor_done_dialog_1" = "Heu canviat el mapa mundial. No ho guardeu en secret! Expliqueu-ho als amics, i editeu-lo junts.";
@@ -800,7 +789,6 @@
 "please_note" = "Atenció";
 "migration_download_error_dialog" = "Error de baixada";
 "editor_add_select_category" = "Trieu una categoria";
-"editor_add_select_category_popular_subtitle" = "Popular";
 "editor_add_select_category_all_subtitle" = "Totes les categories";
 "whatsnew_editor_message_1" = "Afegiu llocs al mapa, i editeu-ne els existents directament des de l’aplicació.";
 "dialog_incorrect_feature_position" = "Canvia la ubicació";
@@ -842,9 +830,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Per a mostrar les dades de trànsit, cal que l'aplicació estigui actualitzada.";
 "log_file_size" = "Mida del fitxer de registre: %@";
-"planning_route_remove_title" = "Arrossegueu-lo aquí per a eliminar-lo";
 "placepage_replace_stop" = "Substituir Stop";
-"start_from_my_position" = "Comença des de";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Si us plau, inicieu sessió a OpenStreetMap per carregar automàticament totes les edicions de mapes. Més informació";
@@ -872,7 +858,6 @@
 "bottom" = "Baix";
 "trip_start" = "Som-hi";
 "pick_destination" = "Destinació";
-"follow_my_position" = "Centra";
 "search_results" = "Resultats de cerca";
 "then_turn" = "Després";
 "redirect_route_alert" = "Voleu tornar a calcular la ruta?";
@@ -1016,10 +1001,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "El recorregut està buit; no hi ha res a desar";
 "edit_track" = "Edita el recorregut";
-"elevation_profile_diff_level" = "Nivell de dificultat";
-"elevation_profile_diff_level_easy" = "Fàcil";
-"elevation_profile_diff_level_moderate" = "Moderat";
-"elevation_profile_diff_level_hard" = "Difícil";
 "downloader_updating_ios" = "S’està actualitzant";
 
 /* Autoupdate dialog on start */

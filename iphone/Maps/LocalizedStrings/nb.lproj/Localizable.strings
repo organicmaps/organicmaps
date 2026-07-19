@@ -373,9 +373,6 @@
 /* blue gray color */
 "blue_gray" = "Gråblå";
 
-/* place preview title */
-"info" = "Informasjon";
-
 /* Prints version number in About dialog */
 "version" = "Organic Maps versjon: %@";
 
@@ -639,11 +636,8 @@
 "traffic_data_unavailable" = "Trafikkdata er ikke tilgjengelig";
 "enable_logging" = "Aktiver loggføring";
 "transliteration_title" = "Omskrivning til latin";
-"planning_route_manage_route" = "Administrere rute";
-"button_plan" = "Planlegge";
 "placepage_remove_stop" = "Fjern stopp";
 "placepage_add_stop" = "Angi stopp";
-"saved" = "Reddet";
 "error_enter_correct_name" = "Skriv inn korrekt navn";
 "bookmark_lists" = "Lister";
 
@@ -726,8 +720,6 @@
 "avoid_motorways" = "Unngå motorveien";
 "unable_to_calc_alert_title" = "Kan ikke beregne rute";
 "unable_to_calc_alert_subtitle" = "Dessverre kunne vi ikke finne en rute sannsynligvis på grunn av dine definerte alternativer. Vennligst endre innstillingene og prøv igjen";
-"define_to_avoid_btn" = "Definer veier som skal unngås";
-"change_driving_options_btn" = "Kjørealternativer aktivert";
 "toll_road" = "Bompengevei";
 "unpaved_road" = "Uasfaltert vei";
 "ferry_crossing" = "Fergeovergang";
@@ -773,9 +765,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Mislykket ruteplanlegging";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Ankomme: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Hvis du vil oppprette en rute, last ned og oppdater alle kartene langs ruten.";
 "editor_done_dialog_1" = "Du har endret verdenskartet. Ikke skjul denne! Fortell vennene dine, og rediger det sammen.";
@@ -800,7 +789,6 @@
 "please_note" = "Vær oppmerksom på at";
 "migration_download_error_dialog" = "Nedlastningsfeil";
 "editor_add_select_category" = "Velg kategori";
-"editor_add_select_category_popular_subtitle" = "Populære";
 "editor_add_select_category_all_subtitle" = "Alle kategorier";
 "whatsnew_editor_message_1" = "Legg til nye steder i kartet og rediger eksisterende steder direkte fra appen.";
 "dialog_incorrect_feature_position" = "Endre plassering";
@@ -842,9 +830,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Du må oppdatere applikasjonen for å kunne se trafikkdata.";
 "log_file_size" = "Loggfilstørrelse: %@";
-"planning_route_remove_title" = "Dra hit for å fjerne";
 "placepage_replace_stop" = "Erstatt stopp";
-"start_from_my_position" = "Start fra";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Logg inn på OpenStreetMap for automatisk å laste opp alle kartredigeringene dine. Finn ut mer";
@@ -872,7 +858,6 @@
 "bottom" = "Bunn";
 "trip_start" = "La oss begynne";
 "pick_destination" = "Destinasjon";
-"follow_my_position" = "Sentrer";
 "search_results" = "Søkeresultater";
 "then_turn" = "Deretter";
 "redirect_route_alert" = "Vil du planlegge en rute på nytt?";
@@ -1016,10 +1001,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Ruten er tom - ingenting å lagre";
 "edit_track" = "Rediger ruten";
-"elevation_profile_diff_level" = "Vanskelighetsgrad";
-"elevation_profile_diff_level_easy" = "Lett";
-"elevation_profile_diff_level_moderate" = "Middels";
-"elevation_profile_diff_level_hard" = "Vanskelig";
 "downloader_updating_ios" = "Oppdatering";
 
 /* Autoupdate dialog on start */

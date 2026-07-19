@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Maaf, pengaturan Penyimpanan Peta saat ini sedang non-aktif.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Pengunduhan negara sedang berjalan.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Hei, lihat lokasiku saat ini di Organic Maps! %1$s atau %2$s belum memiliki peta offline? Unduh di sini: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Hei, lihat pinku di peta Organic Maps</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hei, lihat lokasiku saat ini di peta Organic Maps!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Hai,\n\nSekarang saya ada di sini: %1$s. Klik tautan ini %2$s atau yang ini %3$s untuk melihat tempatnya di peta.\n\nTerima kasih.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Bagikan</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Mohon aktifkan Layanan Lokasi</string>
     <string name="save">Simpan</string>
     <string name="create">buat</string>
-    <!-- red color -->
-    <string name="red">Đỏ</string>
-    <!-- yellow color -->
-    <string name="yellow">Vàng</string>
-    <!-- blue color -->
-    <string name="blue">Xanh dương</string>
-    <!-- green color -->
-    <string name="green">Xanh lục</string>
-    <!-- purple color -->
-    <string name="purple">Tím</string>
-    <!-- orange color -->
-    <string name="orange">Cam</string>
-    <!-- brown color -->
-    <string name="brown">Nâu</string>
-    <!-- pink color -->
-    <string name="pink">Hồng</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Ungu Gelap</string>
-    <!-- light blue color -->
-    <string name="light_blue">Biru Muda</string>
-    <!-- cyan color -->
-    <string name="cyan">Biru Kehijauan</string>
-    <!-- teal color -->
-    <string name="teal">Biru Gelap</string>
-    <!-- lime color -->
-    <string name="lime">Kuning Gelap</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Oranye Gelap</string>
-    <!-- gray color -->
-    <string name="gray">Abu-abu</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Biru Keabu-abuan</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Tampilan</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Tidak cukup ruang</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Harap menghapus data yang tidak diperlukan</string>
-    <string name="editor_login_error_dialog">Kesalahan masuk.</string>
     <string name="editor_profile_changes">Perubahan Terverifikasi</string>
     <string name="editor_focus_map_on_location">Seret peta untuk menempatkan tanda silang di lokasi tempat atau bisnis.</string>
     <string name="editor_edit_place_title">Mengedit</string>
@@ -579,12 +542,9 @@
     <string name="prefs_languages_information_off_link">Untuk informasi selengkapnya, bacalah panduan ini.</string>
     <string name="transliteration_title">Transliterasi ke dalam bahasa Latin</string>
     <string name="learn_more">Pelajari selengkapnya</string>
-    <string name="planning_route_manage_route">Kelola rute</string>
-    <string name="button_plan">Rencana</string>
     <string name="placepage_remove_stop">Hapus pemberhentian</string>
     <string name="placepage_add_stop">Tambah perhentian</string>
     <string name="drag_to_reorder">Mengatur ulang</string>
-    <string name="saved">Tersimpan</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Silahkan login ke OpenStreetMap untuk mengupload semua hasil edit peta Anda secara otomatis. Pelajari lebih lanjut <a href="https://github.com/organicmaps/organicmaps/issues/6144">di sini</a>.</string>
     <string name="dialog_error_storage_title">Masalah akses penyimpanan</string>
@@ -678,8 +638,6 @@
     <string name="avoid_motorways">Hindari jalan raya</string>
     <string name="unable_to_calc_alert_title">Tidak dapat menghitung rute</string>
     <string name="unable_to_calc_alert_subtitle">Sayangnya kami tidak dapat menemukan rute karena opsi pilihan Anda. Harap ubah pengaturan lalu coba lagi</string>
-    <string name="define_to_avoid_btn">Tentukan jalan yang dihindari</string>
-    <string name="change_driving_options_btn">Opsi perutean diaktifkan</string>
     <string name="toll_road">Jalan tol</string>
     <string name="unpaved_road">Jalan tanah</string>
     <string name="ferry_crossing">Penyeberangan kapal feri</string>
@@ -758,8 +716,6 @@
     <string name="elevation_profile_min_elevation">Min. tinggi</string>
     <string name="elevation_profile_max_elevation">Maks. tinggi</string>
     <string name="elevation_profile_difficulty">Kesulitan</string>
-    <string name="elevation_profile_distance">Jarak:</string>
-    <string name="elevation_profile_time">Waktu:</string>
     <string name="isolines_toast_zooms_1_10">Perbesar untuk menjelajahi garis kontur</string>
     <string name="downloader_loading_ios">Mengunduh</string>
     <string name="download_map_title">Unduh peta ikhtisar dunia</string>
@@ -857,12 +813,6 @@
     <string name="stop_track_recording">Hentikan perekaman jalur</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Perekaman Jalur</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Berhenti tanpa menyimpan</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Lanjutkan perekaman</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Menyimpan ke penanda dan jalur?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Jalur kosong - tidak ada yang bisa disimpan</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -870,8 +820,6 @@
     <string name="choose_color">Pilih Warna</string>
     <string name="edit_track">Edit Jalur</string>
     <string name="uri_open_location_failed">Tidak ada Aplikasi yang diinstal yang dapat membuka lokasi</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Otomatis dalam navigasi</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Ikuti sistem</string>
     <!-- Title of the bottom sheet when sharing the track -->

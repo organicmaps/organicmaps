@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Ներեցեք, քարտեզների պահպանման կարգավորումները ներկայումս անջատված են:</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Քարտեզի ներբեռնումն ընթացքի մեջ է:</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Տես իմ ընթացիկ դիրքը Organic Maps-ում: %1$s կամ %2$s Չունե՞ք օֆլայն քարտեզներ: Ներբեռնեք այստեղ՝ https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Հեյ, տես իմ նշումը Organic Maps-ում:</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Հեյ, տես իմ ընթացիկ դիրքը Organic Maps քարտեզի վրա:</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Ողջույն,\n\nԵս հիմա այստեղ եմ՝ %1$s: Սեղմեք այս հղմանը՝ %2$s կամ սրան՝ %3$s, տեղանքը քարտեզի վրա տեսնելու համար.\n\nՇնորհակալություն.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Կիսվել</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Խնդրում ենք միացնել տեղորոշման ծառայությունները</string>
     <string name="save">Պահպանել</string>
     <string name="create">ստեղծել</string>
-    <!-- red color -->
-    <string name="red">Կարմիր</string>
-    <!-- yellow color -->
-    <string name="yellow">Դեղին</string>
-    <!-- blue color -->
-    <string name="blue">Կապույտ</string>
-    <!-- green color -->
-    <string name="green">Կանաչ</string>
-    <!-- purple color -->
-    <string name="purple">Մանուշակագույն</string>
-    <!-- orange color -->
-    <string name="orange">Նարնջագույն</string>
-    <!-- brown color -->
-    <string name="brown">Շագանակագույն</string>
-    <!-- pink color -->
-    <string name="pink">Վարդագույն</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Մուգ մանուշակագույն</string>
-    <!-- light blue color -->
-    <string name="light_blue">Բաց կապույտ</string>
-    <!-- cyan color -->
-    <string name="cyan">Երկնագույն</string>
-    <!-- teal color -->
-    <string name="teal">Փիրուզագույն</string>
-    <!-- lime color -->
-    <string name="lime">Լայմ</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Մուգ նարնջագույն</string>
-    <!-- gray color -->
-    <string name="gray">Մոխրագույն</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Կապտամոխրագույն</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Արտաքին տեսք</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Բավականաչափ հիշողություն չկա</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Խնդրում ենք ջնջել ավելորդ տվյալները</string>
-    <string name="editor_login_error_dialog">Մուտքի սխալ։</string>
     <string name="editor_profile_changes">Ստուգված փոփոխություններ</string>
     <string name="editor_focus_map_on_location">Տեղաշարժեք քարտեզը՝ խաչը վայրի կամ կազմակերպության վրա տեղադրելու համար:</string>
     <string name="editor_edit_place_title">Խմբագրում</string>
@@ -579,12 +542,9 @@
     <string name="prefs_languages_information_off_link">Լրացուցիչ տեղեկությունների համար խնդրում ենք ծանոթանալ այս ուղեցույցին։</string>
     <string name="transliteration_title">Տառադարձել լատինատառի</string>
     <string name="learn_more">Իմանալ ավելին</string>
-    <string name="planning_route_manage_route">Կառավարել երթուղին</string>
-    <string name="button_plan">Պլանավորել</string>
     <string name="placepage_remove_stop">Հեռացնել կանգառը</string>
     <string name="placepage_add_stop">Ավելացնել կանգառ</string>
     <string name="drag_to_reorder">Վերակարգավորել</string>
-    <string name="saved">Պահպանված է</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Խնդրում ենք մուտք գործել OpenStreetMap, որպեսզի Ձեր քարտեզի փոփոխությունները ավտոմատ վերբեռնվեն: Իմացեք ավելին <a href="https://github.com/organicmaps/organicmaps/issues/6144">այստեղ</a>:</string>
     <string name="dialog_error_storage_title">Հիշողության հասանելիության խնդիր</string>
@@ -680,8 +640,6 @@
     <string name="avoid_motorways">Խուսափել մայրուղիներից</string>
     <string name="unable_to_calc_alert_title">Հնարավոր չէ հաշվարկել երթուղին</string>
     <string name="unable_to_calc_alert_subtitle">Երթուղին չի գտնվել։ Սա կարող է պայմանավորված լինել երթուղու ընտրանքներով կամ OpenStreetMap-ի ոչ ամբողջական տվյալներով։ Խնդրում ենք փոխել երթուղու ընտրանքները և կրկին փորձել։</string>
-    <string name="define_to_avoid_btn">Սահմանել ճանապարհներ՝ խուսափելու համար</string>
-    <string name="change_driving_options_btn">Երթուղու ընտրանքները միացված են</string>
     <string name="toll_road">Վճարովի ճանապարհ</string>
     <string name="unpaved_road">Գրունտային ճանապարհ</string>
     <string name="ferry_crossing">Լաստանավային ուղի</string>
@@ -760,8 +718,6 @@
     <string name="elevation_profile_min_elevation">Նվազգ. բարձրություն</string>
     <string name="elevation_profile_max_elevation">Առավել. բարձրություն</string>
     <string name="elevation_profile_difficulty">Բարդություն</string>
-    <string name="elevation_profile_distance">Հեռ.՝</string>
-    <string name="elevation_profile_time">Ժամ.՝</string>
     <string name="isolines_toast_zooms_1_10">Մեծացրեք մասշտաբը՝ հորիզոնականները տեսնելու համար</string>
     <string name="downloader_loading_ios">Ներբեռնում</string>
     <string name="download_map_title">Ներբեռնել աշխարհի ընդհանուր քարտեզը</string>
@@ -867,12 +823,6 @@
     <string name="stop_track_recording">Կանգնեցնել հետագծի գրանցումը</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Հետագծի գրանցում</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Կանգնեցնել առանց պահպանելու</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Շարունակել գրանցումը</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Պահպանե՞լ Էջանիշներում և Հետագծերում։</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Հետագիծը դատարկ է՝ պահպանելու ոչինչ չկա</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -880,8 +830,6 @@
     <string name="choose_color">Ընտրել գույն</string>
     <string name="edit_track">Խմբագրել հետագիծը</string>
     <string name="uri_open_location_failed">Տեղադիրքը բացող հավելված տեղադրված չէ</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Ավտոմատ՝ նավիգացիայի ժամանակ</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Ինչպես համակարգում</string>
     <!-- Title of the bottom sheet when sharing the track -->
