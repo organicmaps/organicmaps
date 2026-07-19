@@ -625,7 +625,9 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
   if (self.navigationDashboardManager.state == MWMNavigationDashboardStateClosed)
     self.controlsManager.menuRestoreState = self.controlsManager.menuState;
-  GetFramework().SetRenderingDisabled(false);
+  // The shared EAGLView may already be hosted by CarPlay while the phone controller disappears.
+  if (![MWMCarPlayService shared].isCarplayActivated)
+    GetFramework().SetRenderingDisabled(false);
   self.isMapVisible = NO;
 }
 

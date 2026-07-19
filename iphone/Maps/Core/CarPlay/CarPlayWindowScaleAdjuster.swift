@@ -6,13 +6,12 @@ enum CarPlayWindowScaleAdjuster {
     toWindow destinationWindow: UIWindow?,
     isCarplayActivated: Bool
   ) {
-    mapView?.graphicContextDidInitializeHandler = nil
-
     guard let destinationWindow else {
       // CarPlay can disconnect before the phone scene connects. Restore the default visual scale so
       // the lazily-created map is ready when the phone window eventually appears. If the graphics
       // context is not initialized, no CarPlay scale could have been applied and there is nothing to
-      // restore; clearing the readiness handler above also cancels a pending CarPlay-scale update.
+      // restore; clearing the readiness handler also cancels a pending CarPlay-scale update.
+      mapView?.graphicContextDidInitializeHandler = nil
       if !isCarplayActivated, isGraphicContextInitialized {
         mapView?.updateVisualScaleToMain()
       }
@@ -27,6 +26,7 @@ enum CarPlayWindowScaleAdjuster {
     if let sourceContentScale, abs(sourceContentScale - destinationContentScale) <= 0.1 {
       return
     }
+    mapView?.graphicContextDidInitializeHandler = nil
     if isCarplayActivated {
       updateWhenGraphicContextIsReady { mapView in
         mapView.updateVisualScale(to: destinationContentScale)

@@ -290,7 +290,8 @@ private class SearchManagerMock: SearchManager {
   static var observers = ListenerContainer<MWMSearchObserver>()
   static var results = SearchOnMap.SearchResults.empty {
     didSet {
-      for observer in observers {
+      // swiftformat:disable:next preferForLoop
+      observers.forEach { observer in
         observer.onSearchCompleted?()
       }
     }

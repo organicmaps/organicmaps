@@ -18,5 +18,20 @@ final class CarPlaySceneDelegateTests: XCTestCase {
     XCTAssertTrue(delegate.responds(to: #selector(CarPlaySceneDelegate.sceneDidEnterBackground(_:))))
     XCTAssertTrue(delegate.responds(to: #selector(CarPlaySceneDelegate.templateApplicationScene(_:didConnect:to:))))
     XCTAssertTrue(delegate.responds(to: #selector(CarPlaySceneDelegate.templateApplicationScene(_:didDisconnect:from:))))
+    XCTAssertTrue(delegate.responds(to: #selector(CarPlaySceneDelegate.templateApplicationDashboardScene(_:didConnect:to:))))
+    XCTAssertTrue(delegate.responds(to: #selector(CarPlaySceneDelegate.templateApplicationDashboardScene(_:didDisconnect:from:))))
+  }
+
+  func testDashboardSceneIsDeclared() throws {
+    let manifest = try XCTUnwrap(Bundle.main.object(forInfoDictionaryKey: "UIApplicationSceneManifest") as? [String: Any])
+    XCTAssertEqual(manifest["CPSupportsDashboardNavigationScene"] as? Bool, true)
+
+    let configurations = try XCTUnwrap(manifest["UISceneConfigurations"] as? [String: Any])
+    let dashboardConfigurations = try XCTUnwrap(
+      configurations["CPTemplateApplicationDashboardSceneSessionRoleApplication"] as? [[String: String]]
+    )
+    let dashboard = try XCTUnwrap(dashboardConfigurations.first)
+    XCTAssertEqual(dashboard["UISceneClassName"], "CPTemplateApplicationDashboardScene")
+    XCTAssertEqual(dashboard["UISceneDelegateClassName"], "CarPlaySceneDelegate")
   }
 }

@@ -471,6 +471,10 @@
 		ED82C74E2F90186300FA103D /* CarplayPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6862F90186300FA103D /* CarplayPlaceholderView.swift */; };
 		ED82C74F2F90186300FA103D /* CarPlayRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6872F90186300FA103D /* CarPlayRouter.swift */; };
 		AB0CA7A50000000000000002 /* CarPlaySceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0CA7A50000000000000001 /* CarPlaySceneDelegate.swift */; };
+		AB0DB0010000000000000002 /* CarPlayDashboardMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DB0010000000000000001 /* CarPlayDashboardMapViewController.swift */; };
+		AB0DB0020000000000000002 /* DashboardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DB0020000000000000001 /* DashboardBuilder.swift */; };
+		AB0DB0030000000000000002 /* CarPlaySpeedInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DB0030000000000000001 /* CarPlaySpeedInfoView.swift */; };
+		AB0DB0040000000000000002 /* CarPlayMapOwnershipState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DB0040000000000000001 /* CarPlayMapOwnershipState.swift */; };
 		ED82C7502F90186300FA103D /* CarPlayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6882F90186300FA103D /* CarPlayService.swift */; };
 		ED82C7512F90186300FA103D /* CarPlayWindowScaleAdjuster.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6892F90186300FA103D /* CarPlayWindowScaleAdjuster.swift */; };
 		ED82C7522F90186300FA103D /* CPConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C68A2F90186300FA103D /* CPConstants.swift */; };
@@ -1431,6 +1435,10 @@
 		ED82C6862F90186300FA103D /* CarplayPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarplayPlaceholderView.swift; sourceTree = "<group>"; };
 		ED82C6872F90186300FA103D /* CarPlayRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayRouter.swift; sourceTree = "<group>"; };
 		AB0CA7A50000000000000001 /* CarPlaySceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlaySceneDelegate.swift; sourceTree = "<group>"; };
+		AB0DB0010000000000000001 /* CarPlayDashboardMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayDashboardMapViewController.swift; sourceTree = "<group>"; };
+		AB0DB0020000000000000001 /* DashboardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardBuilder.swift; sourceTree = "<group>"; };
+		AB0DB0030000000000000001 /* CarPlaySpeedInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlaySpeedInfoView.swift; sourceTree = "<group>"; };
+		AB0DB0040000000000000001 /* CarPlayMapOwnershipState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayMapOwnershipState.swift; sourceTree = "<group>"; };
 		ED82C6882F90186300FA103D /* CarPlayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayService.swift; sourceTree = "<group>"; };
 		ED82C6892F90186300FA103D /* CarPlayWindowScaleAdjuster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayWindowScaleAdjuster.swift; sourceTree = "<group>"; };
 		ED82C68A2F90186300FA103D /* CPConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPConstants.swift; sourceTree = "<group>"; };
@@ -2393,7 +2401,9 @@
 			isa = PBXGroup;
 			children = (
 				ED82C2EE2F90180300FA103D /* CarPlay.storyboard */,
+				AB0DB0010000000000000001 /* CarPlayDashboardMapViewController.swift */,
 				ED82C2EF2F90180300FA103D /* CarPlayMapViewController.swift */,
+				AB0DB0030000000000000001 /* CarPlaySpeedInfoView.swift */,
 			);
 			path = CarPlay;
 			sourceTree = "<group>";
@@ -3514,6 +3524,7 @@
 		ED82C67E2F90186300FA103D /* Template Builders */ = {
 			isa = PBXGroup;
 			children = (
+				AB0DB0020000000000000001 /* DashboardBuilder.swift */,
 				ED82C67A2F90186300FA103D /* ListTemplateBuilder.swift */,
 				ED82C67B2F90186300FA103D /* MapTemplateBuilder.swift */,
 				ED82C67C2F90186300FA103D /* SearchTemplateBuilder.swift */,
@@ -3543,6 +3554,7 @@
 				ED82C6862F90186300FA103D /* CarplayPlaceholderView.swift */,
 				ED82C6872F90186300FA103D /* CarPlayRouter.swift */,
 				AB0CA7A50000000000000001 /* CarPlaySceneDelegate.swift */,
+				AB0DB0040000000000000001 /* CarPlayMapOwnershipState.swift */,
 				ED82C6882F90186300FA103D /* CarPlayService.swift */,
 				ED82C6892F90186300FA103D /* CarPlayWindowScaleAdjuster.swift */,
 				ED82C68A2F90186300FA103D /* CPConstants.swift */,
@@ -4639,7 +4651,11 @@
 				ED82C74E2F90186300FA103D /* CarplayPlaceholderView.swift in Sources */,
 				ED82C74F2F90186300FA103D /* CarPlayRouter.swift in Sources */,
 				AB0CA7A50000000000000002 /* CarPlaySceneDelegate.swift in Sources */,
+				AB0DB0010000000000000002 /* CarPlayDashboardMapViewController.swift in Sources */,
+				AB0DB0030000000000000002 /* CarPlaySpeedInfoView.swift in Sources */,
+				AB0DB0040000000000000002 /* CarPlayMapOwnershipState.swift in Sources */,
 				ED82C7502F90186300FA103D /* CarPlayService.swift in Sources */,
+				AB0DB0020000000000000002 /* DashboardBuilder.swift in Sources */,
 				ED82C7512F90186300FA103D /* CarPlayWindowScaleAdjuster.swift in Sources */,
 				ED3597152FB611FF00ECC6D2 /* UIFont+Fonts.swift in Sources */,
 				ED82C7522F90186300FA103D /* CPConstants.swift in Sources */,

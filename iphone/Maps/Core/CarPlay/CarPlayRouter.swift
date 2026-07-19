@@ -283,7 +283,8 @@ extension CarPlayRouter {
     primaryManeuver.instructionVariants = [instructionVariant]
     if let imageName = routeInfo.turnImageName,
        let symbol = UIImage(named: imageName) {
-      primaryManeuver.symbolImage = symbol
+      primaryManeuver.symbolImage = symbol.withRenderingMode(.alwaysOriginal)
+      primaryManeuver.dashboardSymbolImage = symbol.withRenderingMode(.alwaysTemplate)
     }
     if let estimates = createEstimates(routeInfo) {
       primaryManeuver.initialTravelEstimates = estimates
@@ -294,7 +295,8 @@ extension CarPlayRouter {
       let secondaryManeuver = CPManeuver()
       secondaryManeuver.userInfo = CPConstants.Maneuvers.secondary
       secondaryManeuver.instructionVariants = [L("then_turn")]
-      secondaryManeuver.symbolImage = symbol
+      secondaryManeuver.symbolImage = symbol.withRenderingMode(.alwaysOriginal) // always white on green
+      secondaryManeuver.dashboardSymbolImage = symbol.withRenderingMode(.alwaysTemplate) // black/white on transparent
       maneuvers.append(secondaryManeuver)
     }
     return maneuvers

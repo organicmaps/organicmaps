@@ -30,8 +30,8 @@ final class MainSceneDelegate: UIResponder, UIWindowSceneDelegate {
     sceneWindow.rootViewController = app.mainNavigationController
 
     // File URLs must be imported synchronously while their security-scoped resources are available.
-    // Queue every other URL before showing the window because makeKeyAndVisible() can trigger the
-    // map's appearance callbacks, and MapViewController.viewDidAppear drains the cold-launch queue.
+    // Queue the launch deep link before showing the window because makeKeyAndVisible() can trigger
+    // the map's appearance callbacks, and MapViewController.viewDidAppear consumes that link.
     let launchURLContexts = sorted(connectionOptions.urlContexts)
     for context in launchURLContexts where context.url.isFileURL {
       _ = app.handleOpenURL(context.url, openInPlace: context.options.openInPlace)
@@ -40,16 +40,21 @@ final class MainSceneDelegate: UIResponder, UIWindowSceneDelegate {
       .filter { $0.activityType == NSUserActivityTypeBrowsingWeb }
       .compactMap(\.webpageURL)
       .sorted { $0.absoluteString < $1.absoluteString }
+    var launchDeepLinks: [URL] = []
+    for context in launchURLContexts where !context.url.isFileURL {
+      guard !CarPlayService.shared.handleOpenCarPlayURL(context.url) else { continue }
+      launchDeepLinks.append(context.url)
+    }
     DeepLinkHandler.shared.prepareForColdLaunch(
-      urls: launchURLContexts.filter { !$0.url.isFileURL }.map(\.url),
+      urls: launchDeepLinks,
       universalLinks: launchUniversalLinks
     )
     ThemeManager.invalidate()
     sceneWindow.makeKeyAndVisible()
 
-    // CarPlay scene can connect before the main phone scene; now that the window is ready, attach the
-    // shared map view to the CarPlay controller if it was deferred.
-    CarPlayService.shared.attachMapIfNeeded()
+    // CarPlay may connect before the phone window. Reconcile the latest phone/car preference now
+    // that the device display is available.
+    CarPlayService.shared.phoneSceneDidConnect()
 
     // Route the remaining cold-launch payloads delivered via the scene.
     for userActivity in connectionOptions.userActivities
@@ -64,6 +69,7 @@ final class MainSceneDelegate: UIResponder, UIWindowSceneDelegate {
   func sceneDidDisconnect(_ scene: UIScene) {
     guard let sceneWindow = window, sceneWindow.windowScene === scene else { return }
 
+    CarPlayService.shared.phoneSceneDidDisconnect()
     let app = MapsAppDelegate.theApp()
     if app.window === sceneWindow {
       app.window = nil
@@ -92,6 +98,9 @@ final class MainSceneDelegate: UIResponder, UIWindowSceneDelegate {
   func scene(_: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
     let app = MapsAppDelegate.theApp()
     for context in sorted(URLContexts) {
+      if CarPlayService.shared.handleOpenCarPlayURL(context.url) {
+        continue
+      }
       _ = app.handleOpenURL(context.url, openInPlace: context.options.openInPlace)
     }
   }
