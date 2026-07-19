@@ -367,7 +367,11 @@ void RasterTileProvider::StartDownload(df::TileKey const & tileKey, dp::Backgrou
       if (DropActive(tileKey))
         DeliverPlaceholder(tileKey, mode, result.m_errorCode == 404 ? Status::NotFound : Status::Error);
 #else
-      DropActive(tileKey);
+      // Report the failed read with an empty uid: the renderer must stop awaiting the tile, or it
+      // would never be re-requested while it stays in the viewport (and the fallback level would
+      // stay retained forever).
+      if (DropActive(tileKey))
+        m_onReady(tileKey, mode, {} /* imageUid */, 0, 0, {}, {});
 #endif
       return;
     }
@@ -382,7 +386,9 @@ void RasterTileProvider::StartDownload(df::TileKey const & tileKey, dp::Backgrou
       if (DropActive(tileKey))
         DeliverPlaceholder(tileKey, mode, Status::Error);
 #else
-      DropActive(tileKey);
+      // Same terminal-failure report as the download path above.
+      if (DropActive(tileKey))
+        m_onReady(tileKey, mode, {} /* imageUid */, 0, 0, {}, {});
 #endif
       return;
     }
