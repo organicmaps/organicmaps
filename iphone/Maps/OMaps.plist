@@ -349,10 +349,23 @@
 	<true/>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
+		<key>CPSupportsDashboardNavigationScene</key>
+		<true/>
 		<key>UIApplicationSupportsMultipleScenes</key>
 		<false/>
 		<key>UISceneConfigurations</key>
 		<dict>
+			<key>CPTemplateApplicationDashboardSceneSessionRoleApplication</key>
+			<array>
+				<dict>
+					<key>UISceneClassName</key>
+					<string>CPTemplateApplicationDashboardScene</string>
+					<key>UISceneConfigurationName</key>
+					<string>CarPlay-Dashboard</string>
+					<key>UISceneDelegateClassName</key>
+					<string>CarPlaySceneDelegate</string>
+				</dict>
+			</array>
 			<key>CPTemplateApplicationSceneSessionRoleApplication</key>
 			<array>
 				<dict>

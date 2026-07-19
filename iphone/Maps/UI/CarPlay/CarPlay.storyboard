@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dAY-9Y-UMN">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dAY-9Y-UMN" customClass="CarPlaySpeedInfoView" customModule="Organic_Maps" customModuleProvider="target">
                                 <rect key="frame" x="331" y="34" width="30" height="60"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1hD-QK-pwq">
@@ -93,6 +93,13 @@
                                     <constraint firstItem="uhn-dc-aMW" firstAttribute="leading" secondItem="dAY-9Y-UMN" secondAttribute="leading" id="u2b-Zv-qig"/>
                                     <constraint firstAttribute="bottom" secondItem="1hD-QK-pwq" secondAttribute="bottom" id="uZc-jn-PWc"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="currentSpeedLabel" destination="3af-sk-wxY" id="WgR-NP-nvm"/>
+                                    <outlet property="currentSpeedView" destination="1hD-QK-pwq" id="Mbg-8c-EWp"/>
+                                    <outlet property="speedCamImageView" destination="Vip-QN-Smh" id="ASc-eP-fXa"/>
+                                    <outlet property="speedCamLimitContainer" destination="uhn-dc-aMW" id="AQt-AB-ZyL"/>
+                                    <outlet property="speedCamLimitLabel" destination="ifo-0s-Ynd" id="zgD-Di-6YZ"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -103,12 +110,7 @@
                         <viewLayoutGuide key="safeArea" id="HDO-Ge-bK0"/>
                     </view>
                     <connections>
-                        <outlet property="currentSpeedLabel" destination="3af-sk-wxY" id="WgR-NP-nvm"/>
-                        <outlet property="currentSpeedView" destination="1hD-QK-pwq" id="Mbg-8c-EWp"/>
-                        <outlet property="speedCamImageView" destination="Vip-QN-Smh" id="ASc-eP-fXa"/>
                         <outlet property="speedInfoView" destination="dAY-9Y-UMN" id="k1g-9g-oKS"/>
-                        <outlet property="speedCamLimitContainer" destination="uhn-dc-aMW" id="AQt-AB-ZyL"/>
-                        <outlet property="speedCamLimitLabel" destination="ifo-0s-Ynd" id="zgD-Di-6YZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6hr-Cq-l0z" userLabel="First Responder" sceneMemberID="firstResponder"/>
