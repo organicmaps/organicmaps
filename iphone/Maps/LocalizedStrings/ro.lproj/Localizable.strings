@@ -373,9 +373,6 @@
 /* blue gray color */
 "blue_gray" = "Gri albăstriu";
 
-/* place preview title */
-"info" = "Informații";
-
 /* Prints version number in About dialog */
 "version" = "Versiunea Organic Maps: %@";
 
@@ -639,11 +636,8 @@
 "traffic_data_unavailable" = "Datele privind traficul nu sunt disponibile";
 "enable_logging" = "Activează jurnalizarea";
 "transliteration_title" = "Transcrie în alfabet latin";
-"planning_route_manage_route" = "Gestionare traseu";
-"button_plan" = "Planifică";
 "placepage_remove_stop" = "Scoateți opritorul";
 "placepage_add_stop" = "Adaugă oprire";
-"saved" = "Salvat";
 "error_enter_correct_name" = "Introdu un nume corect";
 "bookmark_lists" = "Liste";
 
@@ -726,8 +720,6 @@
 "avoid_motorways" = "Evitați autostrăzile";
 "unable_to_calc_alert_title" = "Nu poate fi creat un traseu";
 "unable_to_calc_alert_subtitle" = "Din păcate, nu putem elabora un traseu cu opțiunile alese. Modifică-le și încearcă din nou.";
-"define_to_avoid_btn" = "Stabilește drumurile de evitat";
-"change_driving_options_btn" = "Opțiuni de ocolire activate";
 "toll_road" = "Drum cu plată";
 "unpaved_road" = "Drum neasfaltat";
 "ferry_crossing" = "Trecere cu bac";
@@ -773,9 +765,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Planificarea traseului a eșuat";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Sosire la %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Pentru a crea un traseu, descarcă și actualizează toate hărțile de pe parcursul traseului.";
 "editor_done_dialog_1" = "Ai modificat harta lumii. Nu ascunde acest lucru! Spune-le prietenilor și modificați-o împreună.";
@@ -800,7 +789,6 @@
 "please_note" = "Reține";
 "migration_download_error_dialog" = "Eroare de descărcare";
 "editor_add_select_category" = "Alege categoria";
-"editor_add_select_category_popular_subtitle" = "Popular";
 "editor_add_select_category_all_subtitle" = "Toate categoriile";
 "whatsnew_editor_message_1" = "Adaugă locuri noi pe hartă și modifică-le pe cele existente direct din aplicație.";
 "dialog_incorrect_feature_position" = "Schimbă poziția";
@@ -842,9 +830,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Pentru a afișa datele privind traficul, aplicația trebuie actualizată.";
 "log_file_size" = "Dimensiunea fișierului jurnal: %@";
-"planning_route_remove_title" = "Trage aici pentru a elimina";
 "placepage_replace_stop" = "Înlocuiți oprirea";
-"start_from_my_position" = "Pornește de la";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Vă rugăm să vă conectați la OpenStreetMap pentru a încărca automat toate modificările aduse hărții. Aflați mai multe";
@@ -872,7 +858,6 @@
 "bottom" = "Fund";
 "trip_start" = "Să mergem";
 "pick_destination" = "Destinație";
-"follow_my_position" = "Centrează";
 "search_results" = "Rezultatul căutării";
 "then_turn" = "Apoi";
 "redirect_route_alert" = "Vrei să refaci traseul?";
@@ -1016,10 +1001,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Traseul este gol - nu este nimic de salvat";
 "edit_track" = "Editează traseul";
-"elevation_profile_diff_level" = "Nivel de dificultate";
-"elevation_profile_diff_level_easy" = "Ușor";
-"elevation_profile_diff_level_moderate" = "Mediu";
-"elevation_profile_diff_level_hard" = "Dificil";
 "downloader_updating_ios" = "Se actualizează";
 
 /* Autoupdate dialog on start */

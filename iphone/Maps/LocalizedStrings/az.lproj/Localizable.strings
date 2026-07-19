@@ -373,9 +373,6 @@
 /* blue gray color */
 "blue_gray" = "Mavi-boz";
 
-/* place preview title */
-"info" = "Məlumat";
-
 /* Prints version number in About dialog */
 "version" = "Organic Maps versiyası: %@";
 
@@ -639,11 +636,8 @@
 "traffic_data_unavailable" = "Nəqliyyat məlumatları mövcud deyil";
 "enable_logging" = "Girişi aktivləşdirin";
 "transliteration_title" = "Latın transliterasiyası";
-"planning_route_manage_route" = "Marşrutu idarə et";
-"button_plan" = "Plan";
 "placepage_remove_stop" = "Kəsmə nöqtəsini silin";
 "placepage_add_stop" = "Dayanacaq nöqtəsini əlavə edin";
-"saved" = "Yadda saxlanıldı";
 "error_enter_correct_name" = "Düzgün ad daxil edin";
 "bookmark_lists" = "Siyahılar";
 
@@ -726,8 +720,6 @@
 "avoid_motorways" = "Magistral yoldan çəkinin";
 "unable_to_calc_alert_title" = "Marşrutu hesablamaq mümkün deyil";
 "unable_to_calc_alert_subtitle" = "Təəssüf ki, seçdiyiniz seçimlərə görə marşrut tapa bilmədik. Seçimləri dəyişdirin və yenidən cəhd edin";
-"define_to_avoid_btn" = "Qarşısını almaq üçün yolları müəyyənləşdirin";
-"change_driving_options_btn" = "Sürmə seçimləri aktiv edildi";
 "toll_road" = "Ücrətli yol";
 "unpaved_road" = "Asfaltsız yol";
 "ferry_crossing" = "Bərə keçidi";
@@ -773,9 +765,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Marşrutun Planlaşdırılması uğursuz oldu";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Gəliş: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Marşrut hesablamaq üçün proqnozlaşdırılan yol boyunca bütün xəritəni endirin və yeniləyin.";
 "editor_done_dialog_1" = "Siz dünya xəritəsini dəyişdiniz. Gizlətməyin! Dostlarınıza deyin və birlikdə redaktə edin.";
@@ -800,7 +789,6 @@
 "please_note" = "Diqqət edin";
 "migration_download_error_dialog" = "Yükləmə xətası";
 "editor_add_select_category" = "Kateqoriya seçin";
-"editor_add_select_category_popular_subtitle" = "Məşhur";
 "editor_add_select_category_all_subtitle" = "Bütün kateqoriyalar";
 "whatsnew_editor_message_1" = "Xəritəyə yeni yerlər əlavə edin və mövcud yerləri birbaşa tətbiqdən redaktə edin.";
 "dialog_incorrect_feature_position" = "Ünvanı dəyişdirin";
@@ -842,9 +830,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Nəqliyyat məlumatlarına baxmaq üçün tətbiq yenilənməlidir.";
 "log_file_size" = "Giriş faylının ölçüsü: %@";
-"planning_route_remove_title" = "Silmək üçün bura çəkin";
 "placepage_replace_stop" = "Duruşu əvəz et";
-"start_from_my_position" = "Buradan başlayın";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Bütün xəritə redaktələrinizi avtomatik yükləmək üçün OpenStreetMap-a daxil olun.";
@@ -872,7 +858,6 @@
 "bottom" = "Aşağı";
 "trip_start" = "Gedək";
 "pick_destination" = "Hədəf";
-"follow_my_position" = "Yenidən mərkəzləşdirin";
 "search_results" = "Axtarış nəticələri";
 "then_turn" = "Daha sonra";
 "redirect_route_alert" = "Marşrutu yenidən yaratmaq istərdinizmi?";
@@ -1016,10 +1001,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Marşrut boşdur - saxlamaq üçün heç nə yoxdur";
 "edit_track" = "Marşrutu redaktə edin";
-"elevation_profile_diff_level" = "Çətinlik səviyyəsi";
-"elevation_profile_diff_level_easy" = "Asan";
-"elevation_profile_diff_level_moderate" = "Orta";
-"elevation_profile_diff_level_hard" = "Çətin";
 "downloader_updating_ios" = "Yenilənir";
 
 /* Autoupdate dialog on start */

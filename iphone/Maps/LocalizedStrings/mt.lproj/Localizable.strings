@@ -373,9 +373,6 @@
 /* blue gray color */
 "blue_gray" = "Blu Griż";
 
-/* place preview title */
-"info" = "Informazzjoni";
-
 /* Prints version number in About dialog */
 "version" = "Verżjoni ta' Organic Maps: %@";
 
@@ -639,11 +636,8 @@
 "traffic_data_unavailable" = "L-Informazzjoni dwar it-traffiku mhijiex disponibbli";
 "enable_logging" = "Attiva l-illoggjar";
 "transliteration_title" = "Jittraduċi ruħu fl-alfabett Latin";
-"planning_route_manage_route" = "Immaniġġja r-Rotta";
-"button_plan" = "Pjan";
 "placepage_remove_stop" = "Neħħi l-Waqfa";
 "placepage_add_stop" = "Żid Waqfa";
-"saved" = "Salvat";
 "error_enter_correct_name" = "Daħħal isem korrett";
 "bookmark_lists" = "Listi";
 
@@ -726,8 +720,6 @@
 "avoid_motorways" = "Evita l-passaġġi ħielsa";
 "unable_to_calc_alert_title" = "Ir-rotta ma' tistax tiġi kalkulata";
 "unable_to_calc_alert_subtitle" = "Ma setgħetx tinstab rotta. Dan jista’ jkun ikkawżat mill-għażliet tar-rotta tiegħek jew mil-informazzjoni mhux kompluta ta’ OpenStreetMap. Ibdel l-għażliet tar-rotta tiegħek u erġa ’pprova.";
-"define_to_avoid_btn" = "Iddefinixxi t-toroq li tixtieq tevita";
-"change_driving_options_btn" = "Għażliet tar-rotta attivati";
 "toll_road" = "Triq għall-pedaġġ";
 "unpaved_road" = "Triq mhux pavimentata";
 "ferry_crossing" = "Qsim bil-lanċa";
@@ -773,9 +765,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "L-Ippjanar tar-rotta ma rnexxiex";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Wasla fil-%@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Niżżel u aġġorna l-mappa kollha tul il-mogħdija proġettata biex tikkalkula r-rotta.";
 "editor_done_dialog_1" = "Biddilt il-mappa tad-dinja! Iżżommhiex għalik innifsek; għid lil sħabek u editjawha flimkien.";
@@ -800,7 +789,6 @@
 "please_note" = "Jekk jogħġbok innota";
 "migration_download_error_dialog" = "Żball fit-tniżżil";
 "editor_add_select_category" = "Agħżel kategorija";
-"editor_add_select_category_popular_subtitle" = "Popolari";
 "editor_add_select_category_all_subtitle" = "Kategoriji kollha";
 "whatsnew_editor_message_1" = "Żid postijiet ġodda mal-mappa, u editja dawk eżistenti direttament mill-app.";
 "dialog_incorrect_feature_position" = "Biddel il-post";
@@ -842,9 +830,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Biex turi d-dejta tat-traffiku, l-applikazzjoni trid tiġi aġġornata.";
 "log_file_size" = "Daqs tal-fajl tal-log: %@";
-"planning_route_remove_title" = "Iġbed hawn biex tneħħi";
 "placepage_replace_stop" = "Biddel Waqaf";
-"start_from_my_position" = "Ibda minn";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Jekk jogħġbok idħol f'OpenStreetMap biex ittella' awtomatikament il-bidliet kollha tal-mappa tiegħek. Tgħallem aktar";
@@ -872,7 +858,6 @@
 "bottom" = "Qiegħ";
 "trip_start" = "Ejja mmorru";
 "pick_destination" = "Destinazzjoni";
-"follow_my_position" = "Irriċentra";
 "search_results" = "Riżultati tat-tfittxija";
 "then_turn" = "Imbagħad";
 "redirect_route_alert" = "Trid terġa' tibni r-rotta?";
@@ -1016,10 +1001,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Il-Korsija hija vojta - xejn x’ tissejvja";
 "edit_track" = "Editja l-Korsija";
-"elevation_profile_diff_level" = "Livell ta' diffikultà";
-"elevation_profile_diff_level_easy" = "Faċli";
-"elevation_profile_diff_level_moderate" = "Moderata";
-"elevation_profile_diff_level_hard" = "Ċast";
 "downloader_updating_ios" = "Qed taġġorna";
 
 /* Autoupdate dialog on start */

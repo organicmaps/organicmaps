@@ -373,9 +373,6 @@
 /* blue gray color */
 "blue_gray" = "Grijsblauw";
 
-/* place preview title */
-"info" = "Info";
-
 /* Prints version number in About dialog */
 "version" = "Organic Maps versie: %@";
 
@@ -639,11 +636,8 @@
 "traffic_data_unavailable" = "Verkeersgegevens zijn niet beschikbaar";
 "enable_logging" = "Logboekregistratie inschakelen";
 "transliteration_title" = "Transliteratie in het Latijnse alfabet";
-"planning_route_manage_route" = "Beheer route";
-"button_plan" = "Plan";
 "placepage_remove_stop" = "Verwijder tussenstop";
 "placepage_add_stop" = "Voeg tussenstop toe";
-"saved" = "Opgeslagen";
 "error_enter_correct_name" = "Voer een geldige naam in";
 "bookmark_lists" = "Lijsten";
 
@@ -726,8 +720,6 @@
 "avoid_motorways" = "Vermijd snelwegen";
 "unable_to_calc_alert_title" = "Kan route niet berekenen";
 "unable_to_calc_alert_subtitle" = "Helaas konden we geen route berekenen. Dit kan komen door uw gekozen opties of door incomplete OpenStreetMap-data. Wijzig de instellingen en probeer het opnieuw.";
-"define_to_avoid_btn" = "Definieer wegen om te vermijden";
-"change_driving_options_btn" = "Route-instellingen ingeschakeld";
 "toll_road" = "Tolweg";
 "unpaved_road" = "Onverharde weg";
 "ferry_crossing" = "Veerbootverbinding";
@@ -773,9 +765,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Routeberekening mislukt";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Aankomst: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Om een route te maken, download en update alle kaarten rondom de route.";
 "editor_done_dialog_1" = "Je hebt de wereldkaart gewijzigd. Verberg dit niet! Vertel het je vrienden en bewerk haar samen.";
@@ -800,7 +789,6 @@
 "please_note" = "Opgelet";
 "migration_download_error_dialog" = "Downloadfout";
 "editor_add_select_category" = "Selecteer categorie";
-"editor_add_select_category_popular_subtitle" = "Populair";
 "editor_add_select_category_all_subtitle" = "Alle categorieën";
 "whatsnew_editor_message_1" = "Voeg nieuwe plaatsen toe aan de kaart en bewerk de bestaande rechtstreeks vanuit de app.";
 "dialog_incorrect_feature_position" = "Wijzig locatie";
@@ -842,9 +830,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Om de verkeersgegevens weer te geven, moet de applicatie bijgewerkt worden.";
 "log_file_size" = "Grootte logbestand: %@";
-"planning_route_remove_title" = "Sleep hier om te verwijderen";
 "placepage_replace_stop" = "Vervang Stop";
-"start_from_my_position" = "Start vanaf";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Log in op OpenStreetMap om al je kaartbewerkingen automatisch te uploaden. Meer informatie";
@@ -872,7 +858,6 @@
 "bottom" = "Bodem";
 "trip_start" = "Laten we gaan";
 "pick_destination" = "Bestemming";
-"follow_my_position" = "Opnieuw centreren";
 "search_results" = "Zoekresultaten";
 "then_turn" = "Dan";
 "redirect_route_alert" = "Wilt u de route wijzigen?";
@@ -1016,10 +1001,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Route is leeg - niets om op te slaan";
 "edit_track" = "Route bewerken";
-"elevation_profile_diff_level" = "Moeilijkheidsgraad";
-"elevation_profile_diff_level_easy" = "Gemakkelijk";
-"elevation_profile_diff_level_moderate" = "Middelmatig";
-"elevation_profile_diff_level_hard" = "Moeilijk";
 "downloader_updating_ios" = "Updaten";
 
 /* Autoupdate dialog on start */

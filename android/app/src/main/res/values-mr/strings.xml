@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">क्षमस्व, नकाशा साठवायचे सेटिंग सध्या बंद आहेत.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">नकाशा डाउनलोड होत आहे</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">मी आता इथे आहे %1$s किंवा %2$s Organic Maps डाउनलोड करा: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Organic Maps द्वारे एक खूणपत्र पाठवत आहे!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Organic Maps द्वारे माझे वर्तमान स्थान पाठवत आहे!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">नमस्कार,\n\nमी आता इथे आहे: %1$s. नकाशावर ठिकाण पाहण्यासाठी या %2$s किंवा या %3$s वर क्लिक करा.\n\nआभारी.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">सामायिक</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">कृपया स्थान सेवा सक्रिय करा</string>
     <string name="save">साठवा</string>
     <string name="create">तयार करा</string>
-    <!-- red color -->
-    <string name="red">लाल</string>
-    <!-- yellow color -->
-    <string name="yellow">पिवळा</string>
-    <!-- blue color -->
-    <string name="blue">निळा</string>
-    <!-- green color -->
-    <string name="green">हिरवा</string>
-    <!-- purple color -->
-    <string name="purple">जांभळा</string>
-    <!-- orange color -->
-    <string name="orange">भगवा</string>
-    <!-- brown color -->
-    <string name="brown">तपकिरी</string>
-    <!-- pink color -->
-    <string name="pink">गुलाबी</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">गडद जांभळा</string>
-    <!-- light blue color -->
-    <string name="light_blue">फिकट निळा</string>
-    <!-- cyan color -->
-    <string name="cyan">हिरवट निळा (फिकट)</string>
-    <!-- teal color -->
-    <string name="teal">हिरवट निळा (गडद)</string>
-    <!-- lime color -->
-    <string name="lime">पोपटी</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">नारंगी</string>
-    <!-- gray color -->
-    <string name="gray">राखाडी</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">निळा राखाडी</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">दर्शनी रूप</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">पुरेशी जागा नाही</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">कृपया अनावश्यक डेटा पुसून टाका</string>
-    <string name="editor_login_error_dialog">लॉग इन त्रुटी.</string>
     <string name="editor_profile_changes">सत्यापित बदल</string>
     <string name="editor_focus_map_on_location">ठिकाण किंवा व्यवसायाच्या ठिकाणी क्रॉस ठेवण्यासाठी नकाशा ड्रॅग करा.</string>
     <string name="editor_edit_place_title">संपादन</string>
@@ -579,12 +542,9 @@
     <string name="prefs_languages_information_off_link">अधिक माहितीसाठी कृपया ही मार्गदर्शिका पहा.</string>
     <string name="transliteration_title">रोमन लिपीत लिप्यंतरण</string>
     <string name="learn_more">अधिक जाणून घ्या</string>
-    <string name="planning_route_manage_route">मार्ग व्यवस्थापन</string>
-    <string name="button_plan">नियोजन</string>
     <string name="placepage_remove_stop">थांबा काढा</string>
     <string name="placepage_add_stop">स्टॉप जोडा</string>
     <string name="drag_to_reorder">पुनःक्रमवारी</string>
-    <string name="saved">जतन केले</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">तुमची सर्व नकाशा संपादने स्वयंचलितपणे अपलोड करण्यासाठी कृपया OpenStreetMap वर लॉग इन करा. <a href="https://github.com/organicmaps/organicmaps/issues/6144">येथे</a> अधिक जाणून घ्या.</string>
     <string name="dialog_error_storage_title">स्टोरेज प्रवेश समस्या</string>
@@ -680,8 +640,6 @@
     <string name="avoid_motorways">मोटरवे टाळा</string>
     <string name="unable_to_calc_alert_title">मार्गाची गणना करण्यात अक्षम</string>
     <string name="unable_to_calc_alert_subtitle">दुर्दैवाने, आम्ही मार्ग शोधू शकलो नाही. ह्याचे कारण कदाचित तुम्ही निवडलेले पर्याय असावे. कृपया सेटिंग बदला आणि पुन्हा प्रयत्न करा.</string>
-    <string name="define_to_avoid_btn">टाळण्याचे मार्ग निवडा</string>
-    <string name="change_driving_options_btn">मार्गशोधी पर्याय चालू केले</string>
     <string name="toll_road">टोल मार्ग</string>
     <string name="unpaved_road">कच्चे मार्ग</string>
     <string name="ferry_crossing">जल मार्ग</string>
@@ -760,8 +718,6 @@
     <string name="elevation_profile_min_elevation">किमान उंची</string>
     <string name="elevation_profile_max_elevation">कमाल उंची</string>
     <string name="elevation_profile_difficulty">काठिण्य</string>
-    <string name="elevation_profile_distance">अंतर.:</string>
-    <string name="elevation_profile_time">वेळ:</string>
     <string name="isolines_toast_zooms_1_10">समोच्च रेषा पाहायला नकाशा विशाल (झूम) करा</string>
     <string name="downloader_loading_ios">डाउनलोड करत आहे</string>
     <string name="download_map_title">जगाचा नकाशा डाउनलोड करा</string>
@@ -859,12 +815,6 @@
     <string name="stop_track_recording">ट्रॅक रेकॉर्डिंग थांबवा</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">ट्रॅक रेकॉर्डिंग</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">जतन न करता थांबवा</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">रेकॉर्डिंग चालू ठेवा</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">मार्ग रेकॉर्डिंग खूणपत्रे आणि ट्रॅकमध्ये साठवायचे?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">मार्ग रिकामा आहे - साठवण्यासाठी काहीही नाही</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -872,8 +822,6 @@
     <string name="choose_color">रंग निवडा</string>
     <string name="edit_track">मार्ग संपादित करा</string>
     <string name="uri_open_location_failed">स्थान उघडू शकणारे कोणतेही ॲप स्थापित केलेले नाही</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">नेव्हिगेशनमध्ये ऑटो</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">प्रणालीचे अनुसरण करा</string>
     <!-- Title of the bottom sheet when sharing the track -->

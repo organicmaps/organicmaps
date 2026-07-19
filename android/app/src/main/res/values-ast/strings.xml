@@ -132,10 +132,6 @@
     <string name="routing_not_enough_space">Nun hai espaciu bastante</string>
     <string name="save">Guardar</string>
     <string name="create">crear</string>
-    <!-- blue color -->
-    <string name="blue">Azul</string>
-    <!-- green color -->
-    <string name="green">Verde</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Aspeutu</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -240,7 +236,6 @@
     <string name="learn_more">Deprende más</string>
     <string name="placepage_remove_stop">Desaniciar parada</string>
     <string name="placepage_add_stop">Amestar parada</string>
-    <string name="saved">Guardáu</string>
     <string name="bookmark_lists">Llistes</string>
     <plurals name="bookmarks_places">
         <item quantity="one">%d marcador</item>
@@ -326,7 +321,6 @@
     <string name="elevation_profile_min_elevation">Elevación mín.</string>
     <string name="elevation_profile_max_elevation">Elevación máx.</string>
     <string name="elevation_profile_difficulty">Dificultá</string>
-    <string name="elevation_profile_time">Tiempu:</string>
     <string name="downloader_loading_ios">Baxando</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disk_error_title">Error nel discu</string>
@@ -359,12 +353,6 @@
     <string name="start_track_recording">Grabar trayeutu</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Parar grabación del trayeutu</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Parar ensin guardar</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Siguir grabando</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">¿Quies guardalu en Marcadores y trayeutos?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">El trayeutu ta baleru; nun hai nada pa guardar</string>
     <string name="choose_color">Escueyi un color</string>

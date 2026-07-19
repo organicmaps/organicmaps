@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">متأسفیم، تنظیمات ذخیره‌سازی نقشه در حال حاضر غیرفعال است.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">دانلود نقشه در حال انجام است.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">مکان فعلی من را در Organic Maps بررسی کنید! %1$s یا %2$s نقشه‌های آفلاین ندارید؟ از اینجا دانلود کنید: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">سلام، مکان من را در Organic Maps بررسی کن!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">سلام، مکان فعلی من را روی نقشه Organic Maps بررسی کن!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">سلام، \n \nمن الان اینجا هستم: %1$s. این پیوند را کلیک کنید %2$s یا این یکی %3$s تا مکان را روی نقشه ببینید. \n \nسپاسگزارم.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">هم‌رسانی</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">لطفا خدمات مکان‌یابی را فعال کنید</string>
     <string name="save">ذخیره</string>
     <string name="create">ایجاد</string>
-    <!-- red color -->
-    <string name="red">قرمز</string>
-    <!-- yellow color -->
-    <string name="yellow">زرد</string>
-    <!-- blue color -->
-    <string name="blue">آبی</string>
-    <!-- green color -->
-    <string name="green">سبز</string>
-    <!-- purple color -->
-    <string name="purple">بنفش</string>
-    <!-- orange color -->
-    <string name="orange">نارنجی</string>
-    <!-- brown color -->
-    <string name="brown">قهوای</string>
-    <!-- pink color -->
-    <string name="pink">صورتی</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">ارغوانی سیر</string>
-    <!-- light blue color -->
-    <string name="light_blue">آبی کمرنگ</string>
-    <!-- cyan color -->
-    <string name="cyan">فیروزه‌ای</string>
-    <!-- teal color -->
-    <string name="teal">آبی سیر</string>
-    <!-- lime color -->
-    <string name="lime">زرد لیمویی</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">نارنجی سیر</string>
-    <!-- gray color -->
-    <string name="gray">خاکستری</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">خاکستری کبود</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">ظاهری</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">فظای کافی موجود نیست</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">لطفا داده‌های غیر ضروری را از دستگاه خود حذف کنید</string>
-    <string name="editor_login_error_dialog">خطای ورود.</string>
     <string name="editor_profile_changes">تغییرات تایید شد</string>
     <string name="editor_focus_map_on_location">نقشه را بکشید تا صلیب را در محل مکان یا کسب و کار قرار دهید.</string>
     <string name="editor_edit_place_title">درحال ویرایش</string>
@@ -579,12 +542,9 @@
     <string name="prefs_languages_information_off_link">برای اطلاعات بیشتر لطفا این راهنما را بررسی کنید.</string>
     <string name="transliteration_title">ترجمه به الفبای لاتین</string>
     <string name="learn_more">بیشتر بدانید</string>
-    <string name="planning_route_manage_route">مدیریت مسیر</string>
-    <string name="button_plan">برنامه</string>
     <string name="placepage_remove_stop">توقف را حذف کنید</string>
     <string name="placepage_add_stop">اضافه کردن توقف</string>
     <string name="drag_to_reorder">ترتیب مجدد</string>
-    <string name="saved">ذخیره شد</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">لطفاً به OpenStreetMap وارد شوید تا به طور خودکار تمام ویرایش های نقشه خود را آپلود کنید. <a href="https://github.com/organicmaps/organicmaps/issues/6144">اینجا</a> بیشتر بیاموزید.</string>
     <string name="dialog_error_storage_title">مشکل دسترسی به ذخیره‌سازی</string>
@@ -680,8 +640,6 @@
     <string name="avoid_motorways">از بزرگراه دوری کنید</string>
     <string name="unable_to_calc_alert_title">امکان محاسبه مسیر نیست</string>
     <string name="unable_to_calc_alert_subtitle">مسیر یافت نشد. این مشکل ممکن است به دلیل تنظیمات مسیر‌یابی شما یا داده‌های ناقص OpenStreetMap باشد. لطفا تنظیمات مسیر‌یابی خود را تغییر دهید و دوباره امتحان کنید.</string>
-    <string name="define_to_avoid_btn">جاده‌های لغو شده را تعریف نمایید</string>
-    <string name="change_driving_options_btn">گزینه‌های مسیریابی فعال شد</string>
     <string name="toll_road">جاده دارای عوارض</string>
     <string name="unpaved_road">جاده آسفالت نشده</string>
     <string name="ferry_crossing">گذرگاه جاده‌ای</string>
@@ -760,8 +718,6 @@
     <string name="elevation_profile_min_elevation">کم ارتفاع</string>
     <string name="elevation_profile_max_elevation">بیش ارتفاع</string>
     <string name="elevation_profile_difficulty">دشواری</string>
-    <string name="elevation_profile_distance">فاصله:</string>
-    <string name="elevation_profile_time">زمان:</string>
     <string name="isolines_toast_zooms_1_10">برای بررسی خطوط تراز زوم کنید</string>
     <string name="downloader_loading_ios">در حال دانلود</string>
     <string name="download_map_title">نقشه نمای کلی جهان را دانلود کنید</string>
@@ -867,12 +823,6 @@
     <string name="stop_track_recording">توقف ضبط مسیر</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">ضبط مسیر</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">توقف بدون ذخیره</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">ادامه ضبط</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">ذخیره‌سازی در نشانک‌ها و مسیرها؟</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">مسیر خالی است - چیزی برای ذخیره کردن وجود ندارد</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -880,8 +830,6 @@
     <string name="choose_color">انتخاب رنگ</string>
     <string name="edit_track">ویرایش مسیر</string>
     <string name="uri_open_location_failed">هیچ برنامه‌ای نصب نشده است که بتواند مکان را باز کند</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">مسیریابی خودکار</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">تابع سیستم</string>
     <!-- Title of the bottom sheet when sharing the track -->

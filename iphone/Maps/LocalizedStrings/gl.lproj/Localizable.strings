@@ -373,9 +373,6 @@
 /* blue gray color */
 "blue_gray" = "Gris azulado";
 
-/* place preview title */
-"info" = "Información";
-
 /* Prints version number in About dialog */
 "version" = "Versión de Organic Maps: %@";
 
@@ -639,11 +636,8 @@
 "traffic_data_unavailable" = "Os datos de tráfico non están dispoñibles";
 "enable_logging" = "Activar rexistros";
 "transliteration_title" = "Transliteración ao alfabeto latino";
-"planning_route_manage_route" = "Administrar roteiro";
-"button_plan" = "Planificar";
 "placepage_remove_stop" = "Eliminar parada";
 "placepage_add_stop" = "Engadir parada";
-"saved" = "Gardado";
 "error_enter_correct_name" = "Por favor, introduza o nome correcto";
 "bookmark_lists" = "Listas";
 
@@ -726,8 +720,6 @@
 "avoid_motorways" = "Evitar autoestradas";
 "unable_to_calc_alert_title" = "Non se pode calcular a ruta";
 "unable_to_calc_alert_subtitle" = "Non se puido atopar unha ruta. Quizá se deba ás opcións de encamiñamento ou a datos faltantes en OpenStreetMap. Revise as súas opcións de encamiñamento e volva tentalo.";
-"define_to_avoid_btn" = "Defina os camiños para evitar";
-"change_driving_options_btn" = "Opcións de encamiñamento activadas";
 "toll_road" = "Estrada de peaxe";
 "unpaved_road" = "Camiño sen pavimentar";
 "ferry_crossing" = "Cruzamento de ferri";
@@ -773,9 +765,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Erro ao planificar a ruta";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Chegado: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Descargue e actualice todos os mapas ao longo do camiño proxectado para calcular a ruta.";
 "editor_done_dialog_1" = "tell your friends and edit it together.";
@@ -800,7 +789,6 @@
 "please_note" = "Atención";
 "migration_download_error_dialog" = "Erro de descarga";
 "editor_add_select_category" = "Seleccionar categoría";
-"editor_add_select_category_popular_subtitle" = "Popular";
 "editor_add_select_category_all_subtitle" = "Todas as categorías";
 "whatsnew_editor_message_1" = "Engada lugares novos ao mapa e edite os existentes directamente desde a aplicación.";
 "dialog_incorrect_feature_position" = "Cambiar localización";
@@ -842,9 +830,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Para mostrar os datos de tráfico, debe actualizar a aplicación.";
 "log_file_size" = "Tamaño do arquivo de rexistro: %@";
-"planning_route_remove_title" = "Arrastre aquí para eliminar";
 "placepage_replace_stop" = "Substituír Stop";
-"start_from_my_position" = "Empezar desde";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Inicia sesión en OpenStreetMap para cargar automaticamente todas as túas edicións de mapas. Más información";
@@ -872,7 +858,6 @@
 "bottom" = "Parte inferior";
 "trip_start" = "Imos";
 "pick_destination" = "Destino";
-"follow_my_position" = "Centrar";
 "search_results" = "Resultados de procura";
 "then_turn" = "Despois";
 "redirect_route_alert" = "Quere reconstruír a ruta?";
@@ -1016,10 +1001,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "O traxecto está baleiro";
 "edit_track" = "Editar traxecto";
-"elevation_profile_diff_level" = "Nivel de dificultade";
-"elevation_profile_diff_level_easy" = "Fácil";
-"elevation_profile_diff_level_moderate" = "Moderado";
-"elevation_profile_diff_level_hard" = "Difícil";
 "downloader_updating_ios" = "Actualizando";
 
 /* Autoupdate dialog on start */

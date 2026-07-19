@@ -373,9 +373,6 @@
 /* blue gray color */
 "blue_gray" = "藍灰色";
 
-/* place preview title */
-"info" = "資訊";
-
 /* Prints version number in About dialog */
 "version" = "Organic Maps 版本：%@";
 
@@ -639,11 +636,8 @@
 "traffic_data_unavailable" = "交通資訊不可用";
 "enable_logging" = "啟用日誌記錄";
 "transliteration_title" = "拉丁字母音譯";
-"planning_route_manage_route" = "管理路線";
-"button_plan" = "計畫";
 "placepage_remove_stop" = "刪除停止";
 "placepage_add_stop" = "新增中途點";
-"saved" = "已經儲存";
 "error_enter_correct_name" = "請輸入正確的名稱";
 "bookmark_lists" = "列表";
 
@@ -726,8 +720,6 @@
 "avoid_motorways" = "避開高速公路";
 "unable_to_calc_alert_title" = "無法規劃路線";
 "unable_to_calc_alert_subtitle" = "很遺憾，我們無法使用所選的繞行設定規劃路線。請更改設定，然後重試。";
-"define_to_avoid_btn" = "選擇要避開的道路";
-"change_driving_options_btn" = "繞行設定已開啟";
 "toll_road" = "收費公路";
 "unpaved_road" = "未鋪面道路";
 "ferry_crossing" = "渡輪";
@@ -773,9 +765,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "路線規劃失敗";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "已抵達 %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "要規劃路線，請下載並更新所有沿線的地圖。";
 "editor_done_dialog_1" = "您已經改變了世界地圖。請別再藏私了！告訴您的朋友們並一起來編輯地圖。";
@@ -800,7 +789,6 @@
 "please_note" = "請注意";
 "migration_download_error_dialog" = "下載失敗";
 "editor_add_select_category" = "選擇類別";
-"editor_add_select_category_popular_subtitle" = "受歡迎的";
 "editor_add_select_category_all_subtitle" = "所有類別";
 "whatsnew_editor_message_1" = "新增新地點到地圖，並直接透過此應用編輯已存在的地點。";
 "dialog_incorrect_feature_position" = "更改位置";
@@ -842,9 +830,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "諾要顯示交通資訊，必須更新應用。";
 "log_file_size" = "日誌檔案大小：%@";
-"planning_route_remove_title" = "拖曳到此處以移除";
 "placepage_replace_stop" = "更换停机坪";
-"start_from_my_position" = "起點";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "請登入 OpenStreetMap 以自動上傳您的所有地圖編輯。了解更多";
@@ -872,7 +858,6 @@
 "bottom" = "底部";
 "trip_start" = "出發";
 "pick_destination" = "目的地";
-"follow_my_position" = "重新置中";
 "search_results" = "搜尋結果";
 "then_turn" = "然後";
 "redirect_route_alert" = "您想要重新規劃路線嗎？";
@@ -1016,10 +1001,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "軌跡為空 - 沒有可保存的內容";
 "edit_track" = "編輯軌跡";
-"elevation_profile_diff_level" = "難度等級";
-"elevation_profile_diff_level_easy" = "容易";
-"elevation_profile_diff_level_moderate" = "中等";
-"elevation_profile_diff_level_hard" = "困難";
 "downloader_updating_ios" = "更新";
 
 /* Autoupdate dialog on start */
