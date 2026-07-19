@@ -10,9 +10,12 @@
   android:paddingStart="@dimen/margin_base"
   android:paddingEnd="@dimen/margin_base">
 
+  <!-- A walk is a travel leg like a transit ride, so its icon aligns with the line badges (inner
+       column) rather than the stop headings. Matches the ride_summary_row start margin. -->
   <ImageView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_base"
     app:srcCompat="@drawable/ic_20px_route_planning_walk"
     app:tint="?iconTint"/>
 
