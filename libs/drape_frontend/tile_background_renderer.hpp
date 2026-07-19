@@ -44,7 +44,9 @@ public:
                                  ref_ptr<dp::TexturePool> texturePool, dp::TexturePool::TextureId textureId,
                                  dp::BackgroundMode mode);
 
-  // Binds a tile to an image with a sub-rect (full image is (0, 0, 1, 1)).
+  // Binds a tile to an image with a sub-rect (full image is (0, 0, 1, 1)). An empty |imageUid|
+  // reports a failed read instead: the tile stops being awaited and stays unbound, so the fallback
+  // can retire and the tile is eligible for a request on a later viewport update.
   void SetTileBackgroundData(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
                              std::string const & imageUid, m2::RectF const & rect);
 
