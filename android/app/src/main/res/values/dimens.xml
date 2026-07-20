@@ -112,6 +112,9 @@
     <dimen name="routing_transit_step_corner_radius">4dp</dimen>
   <dimen name="routing_transit_step_min_height">20dp</dimen>
   <dimen name="routing_transit_setp_min_acceptable_with">104dp</dimen>
+  <!-- Left legend column in the transit details breakdown: the line bar, walk icons and stop badges
+       are all centered in a column of this width so they share one vertical axis. -->
+  <dimen name="transit_details_legend_width">24dp</dimen>
   <dimen name="track_recorder_status_top_margin">64dp</dimen>
   <dimen name="routing_margin_peek_height">35dp</dimen>
   <dimen name="routing_toolbar_pill_padding">4dp</dimen>
