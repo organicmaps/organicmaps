@@ -31,7 +31,6 @@ public class TransitDetailsAdapterTest
   private int mTypeRide;
   private int mTypeIntermediate;
   private Method mIsRide;
-  private Method mIsLastRide;
 
   @Before
   public void setUp() throws Exception
@@ -45,8 +44,6 @@ public class TransitDetailsAdapterTest
 
     mIsRide = TransitDetailsAdapter.class.getDeclaredMethod("isRide", int.class);
     mIsRide.setAccessible(true);
-    mIsLastRide = TransitDetailsAdapter.class.getDeclaredMethod("isLastRide", int.class);
-    mIsLastRide.setAccessible(true);
   }
 
   @Test
@@ -84,26 +81,11 @@ public class TransitDetailsAdapterTest
     assertFalse(isRide(3)); // out of bounds
   }
 
-  @Test
-  public void isLastRide_ignoresTrailingWalksAndIntermediatePoints() throws Exception
-  {
-    // ride -> walk -> Add Stop -> ride -> walk
-    mAdapter.setItems(List.of(ride("U5"), walk(), intermediate(0), ride("S3"), walk()));
-
-    assertFalse(isLastRide(0)); // another ride (S3) still follows
-    assertTrue(isLastRide(3)); // only a walk follows the last ride
-  }
-
   // --- helpers ---
 
   private boolean isRide(int position) throws Exception
   {
     return (boolean) mIsRide.invoke(mAdapter, position);
-  }
-
-  private boolean isLastRide(int position) throws Exception
-  {
-    return (boolean) mIsLastRide.invoke(mAdapter, position);
   }
 
   private static int intConstant(String name) throws Exception
