@@ -10,20 +10,25 @@
   android:paddingStart="@dimen/margin_base"
   android:paddingEnd="@dimen/margin_base">
 
-  <!-- A walk is a travel leg like a transit ride, so its icon aligns with the line badges (inner
-       column) rather than the stop headings. Matches the ride_summary_row start margin. -->
-  <ImageView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/margin_base"
-    app:srcCompat="@drawable/ic_20px_route_planning_walk"
-    app:tint="?iconTint"/>
+  <!-- The walk icon is centered in the shared legend column so it lines up on the same vertical axis
+       as the ride legs' colored bars and the stop badges. -->
+  <FrameLayout
+    android:layout_width="@dimen/transit_details_legend_width"
+    android:layout_height="wrap_content">
+
+    <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      app:srcCompat="@drawable/ic_20px_route_planning_walk"
+      app:tint="?iconTint"/>
+  </FrameLayout>
 
   <TextView
     android:id="@+id/walk_text"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/margin_half_plus"
+    android:layout_marginStart="@dimen/margin_half"
     android:textAppearance="?fontBody1"
     android:textColor="?android:attr/textColorPrimary"
     tools:text="Walk · 3 min · 240 m"/>
