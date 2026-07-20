@@ -18,7 +18,6 @@
 #include <list>
 #include <string>
 #include <unordered_map>
-#include <unordered_set>
 #include <vector>
 
 namespace df
@@ -36,7 +35,8 @@ public:
 
   void ClearContextDependentResources(ref_ptr<dp::GraphicsContext> context);
 
-  void OnUpdateViewport(ref_ptr<dp::GraphicsContext> context, CoverageResult const & coverage, uint8_t currentZoomLevel);
+  void OnUpdateViewport(ref_ptr<dp::GraphicsContext> context, CoverageResult const & coverage,
+                        uint8_t currentZoomLevel);
 
   // Registers an image (uploaded by the backend) with the given uid. The image starts unreferenced;
   // it lives in the unreferenced LRU until SetTileBackgroundData binds it to a tile.
@@ -91,7 +91,10 @@ private:
   void ReleaseImageRef(ref_ptr<dp::GraphicsContext> context, std::string const & uid);
   // Increments refcount; if it was 0, removes uid from the unreferenced LRU.
   void AcquireImageRef(std::string const & uid);
-  // Drops the per-tile binding (if any) and decrements its image refcount.
+  // Enforces the unreferenced-image budget once no upload/bind pairs are pending. While reads are
+  // awaited, their Assign and Set messages may be interleaved with other completions, so evicting
+  // an unreferenced image could remove it before its matching Set message arrives.
+  void TrimUnreferencedImages(ref_ptr<dp::GraphicsContext> context);
   // Fraction of |viewportRect| covered by the bindings of |zoomLevel| (0 for TileKey::kNoZoom).
   // Fallback selection compares this value because binding count does not represent screen area.
   double CoveredFraction(uint8_t zoomLevel, m2::RectD const & viewportRect) const;
@@ -103,7 +106,10 @@ private:
 
   dp::BackgroundMode m_currentMode = dp::BackgroundMode::Default;
 
-  std::unordered_set<TileKey> m_awaitingTiles;
+  // Coordinate key -> request generation. TileKey equality intentionally ignores m_generation,
+  // therefore the generation is kept in the value and checked before accepting an async result.
+  std::unordered_map<TileKey, uint64_t> m_awaitingTiles;
+  uint64_t m_nextRequestGeneration = 0;
   std::unordered_map<TileKey, TileBinding> m_tiles;
 
   std::unordered_map<std::string, ImageInfo> m_images;

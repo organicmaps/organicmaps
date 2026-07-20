@@ -43,6 +43,11 @@ std::string SubstituteZXY(std::string tmpl, int z, int x, int y)
   return tmpl;
 }
 
+df::TileKey CoordinateKey(df::TileKey const & key)
+{
+  return {key.m_x, key.m_y, key.m_zoomLevel};
+}
+
 #ifdef ENABLE_STATUS_PLACEHOLDERS
 int constexpr kPlaceholderSize = 256;
 
@@ -200,9 +205,10 @@ bool WriteTileCache(std::string const & cachePath, char const * bytes, size_t si
 }
 }  // namespace
 
-RasterTileProvider::RasterTileProvider(Params params, TReadyFn onReady)
+RasterTileProvider::RasterTileProvider(Params params, TReadyFn onReady, TDownloadFn downloadFn)
   : m_params(std::move(params))
   , m_onReady(std::move(onReady))
+  , m_downloadFn(std::move(downloadFn))
 {
   CHECK(m_onReady != nullptr, ());
 
@@ -298,14 +304,29 @@ bool RasterTileProvider::RequestTile(df::TileKey const & tileKey, dp::Background
     return false;
 
   std::string urlTemplate;
+  uint64_t requestId = 0;
+  TCancelFn supersededCancel;
   {
     std::lock_guard lock(m_activeMutex);
     urlTemplate = m_params.m_urlTemplate;  // may be changed live by Reconfigure
     if (urlTemplate.empty())
       return false;  // not configured
-    if (!m_active.insert(tileKey).second)
-      return true;  // already in flight
+
+    auto const activeKey = CoordinateKey(tileKey);
+    auto const activeIt = m_active.find(activeKey);
+    if (activeIt != m_active.end())
+    {
+      if (activeIt->second.m_clientGeneration == tileKey.m_generation)
+        return true;  // this exact request is already in flight
+      supersededCancel = std::move(activeIt->second.m_cancelFn);
+      m_active.erase(activeIt);
+    }
+
+    requestId = ++m_nextRequestId;
+    m_active.emplace(activeKey, ActiveRequest{requestId, tileKey.m_generation, {}});
   }
+  if (supersededCancel)
+    supersededCancel();
 
   std::string const url = SubstituteZXY(std::move(urlTemplate), src.m_z, src.m_x, src.m_y);
 
@@ -316,9 +337,9 @@ bool RasterTileProvider::RequestTile(df::TileKey const & tileKey, dp::Background
   // Returning true from this method means the renderer may put tileKey into its awaiting set. That
   // is safe only if the task was actually posted: a later !IsActive() inside the task means the tile
   // was cancelled meanwhile, but a failed post means nothing can ever deliver or be cancelled.
-  auto const posted = GetPlatform().RunTask(Platform::Thread::File, [this, tileKey, mode, url, src]()
+  auto const posted = GetPlatform().RunTask(Platform::Thread::File, [this, tileKey, mode, url, src, requestId]()
   {
-    if (!IsActive(tileKey))
+    if (!IsActive(tileKey, requestId))
       return;
 
     std::vector<uint8_t> rgba;
@@ -327,7 +348,7 @@ bool RasterTileProvider::RequestTile(df::TileKey const & tileKey, dp::Background
     if (DecodeFileToRGBA(m_cacheDir + fileName, rgba, width, height))  // cache hit
     {
       TouchCacheEntry(fileName);
-      if (DropActive(tileKey))
+      if (DropActive(tileKey, requestId))
         m_onReady(tileKey, mode, src.GetUid(), width, height, src.m_rect, std::move(rgba));
       return;
     }
@@ -336,12 +357,12 @@ bool RasterTileProvider::RequestTile(df::TileKey const & tileKey, dp::Background
 #ifdef ENABLE_STATUS_PLACEHOLDERS
     DeliverPlaceholder(tileKey, mode, Status::Downloading);
 #endif
-    StartDownload(tileKey, mode, url, src);
+    StartDownload(tileKey, mode, url, src, requestId);
   });
 
   if (!posted.m_isSuccess)
   {
-    DropActive(tileKey);
+    DropActive(tileKey, requestId);
     return false;
   }
 
@@ -349,28 +370,22 @@ bool RasterTileProvider::RequestTile(df::TileKey const & tileKey, dp::Background
 }
 
 void RasterTileProvider::StartDownload(df::TileKey const & tileKey, dp::BackgroundMode mode, std::string const & url,
-                                       SourceTile const & src)
+                                       SourceTile const & src, uint64_t requestId)
 {
-  platform::HttpClient request(url);
-  request.SetTimeout(kRequestTimeoutSec);
-  request.SetFollowRedirects(true);
-
-  // RunHttpRequestAsync copies all config (so this local HttpClient can die immediately) and calls
-  // the handler on a transport thread. We decode, cache and deliver from there. The RequestHandle
-  // is discarded: cancellation is handled by the active-set (a stale result is simply not delivered).
-  request.RunHttpRequestAsync([this, tileKey, mode, src](platform::HttpClient::Result result)
+  platform::HttpClient::CompletionHandler handler =
+      [this, tileKey, mode, src, requestId](platform::HttpClient::Result result)
   {
     if (!result.m_success || result.m_errorCode != 200)
     {
       LOG(LWARNING, ("Failed to download", src.GetUid(), "code", result.m_errorCode));
 #ifdef ENABLE_STATUS_PLACEHOLDERS
-      if (DropActive(tileKey))
+      if (DropActive(tileKey, requestId))
         DeliverPlaceholder(tileKey, mode, result.m_errorCode == 404 ? Status::NotFound : Status::Error);
 #else
       // Report the failed read with an empty uid: the renderer must stop awaiting the tile, or it
       // would never be re-requested while it stays in the viewport (and the fallback level would
       // stay retained forever).
-      if (DropActive(tileKey))
+      if (DropActive(tileKey, requestId))
         m_onReady(tileKey, mode, {} /* imageUid */, 0, 0, {}, {});
 #endif
       return;
@@ -383,11 +398,11 @@ void RasterTileProvider::StartDownload(df::TileKey const & tileKey, dp::Backgrou
     {
       LOG(LWARNING, ("Failed to decode", src.GetUid()));
 #ifdef ENABLE_STATUS_PLACEHOLDERS
-      if (DropActive(tileKey))
+      if (DropActive(tileKey, requestId))
         DeliverPlaceholder(tileKey, mode, Status::Error);
 #else
       // Same terminal-failure report as the download path above.
-      if (DropActive(tileKey))
+      if (DropActive(tileKey, requestId))
         m_onReady(tileKey, mode, {} /* imageUid */, 0, 0, {}, {});
 #endif
       return;
@@ -398,14 +413,39 @@ void RasterTileProvider::StartDownload(df::TileKey const & tileKey, dp::Backgrou
       AddCacheEntry(fileName, body.size());
 
     // Deliver only if the request was not cancelled while it was in flight.
-    if (DropActive(tileKey))
+    if (DropActive(tileKey, requestId))
       m_onReady(tileKey, mode, src.GetUid(), width, height, src.m_rect, std::move(rgba));
-  });
+  };
+
+  TCancelFn cancelFn;
+  if (m_downloadFn)
+  {
+    cancelFn = m_downloadFn(url, std::move(handler));
+  }
+  else
+  {
+    platform::HttpClient request(url);
+    request.SetTimeout(kRequestTimeoutSec);
+    request.SetFollowRedirects(true);
+    auto handle = request.RunHttpRequestAsync(std::move(handler));
+    cancelFn = [handle = std::move(handle)]() mutable { handle.Cancel(); };
+  }
+  AttachCancel(tileKey, requestId, std::move(cancelFn));
 }
 
 void RasterTileProvider::CancelTile(df::TileKey const & tileKey, dp::BackgroundMode /* mode */)
 {
-  DropActive(tileKey);
+  TCancelFn cancelFn;
+  {
+    std::lock_guard lock(m_activeMutex);
+    auto const it = m_active.find(CoordinateKey(tileKey));
+    if (it == m_active.end() || it->second.m_clientGeneration != tileKey.m_generation)
+      return;
+    cancelFn = std::move(it->second.m_cancelFn);
+    m_active.erase(it);
+  }
+  if (cancelFn)
+    cancelFn();
 }
 
 void RasterTileProvider::InitDiskCache()
@@ -548,14 +588,34 @@ void RasterTileProvider::DeliverPlaceholder(df::TileKey const & tileKey, dp::Bac
 }
 #endif
 
-bool RasterTileProvider::IsActive(df::TileKey const & tileKey) const
+bool RasterTileProvider::IsActive(df::TileKey const & tileKey, uint64_t requestId) const
 {
   std::lock_guard lock(m_activeMutex);
-  return m_active.count(tileKey) != 0;
+  auto const it = m_active.find(CoordinateKey(tileKey));
+  return it != m_active.end() && it->second.m_id == requestId;
 }
 
-bool RasterTileProvider::DropActive(df::TileKey const & tileKey)
+bool RasterTileProvider::DropActive(df::TileKey const & tileKey, uint64_t requestId)
 {
   std::lock_guard lock(m_activeMutex);
-  return m_active.erase(tileKey) != 0;
+  auto const it = m_active.find(CoordinateKey(tileKey));
+  if (it == m_active.end() || it->second.m_id != requestId)
+    return false;
+  m_active.erase(it);
+  return true;
+}
+
+void RasterTileProvider::AttachCancel(df::TileKey const & tileKey, uint64_t requestId, TCancelFn cancelFn)
+{
+  bool cancelImmediately = false;
+  {
+    std::lock_guard lock(m_activeMutex);
+    auto const it = m_active.find(CoordinateKey(tileKey));
+    if (it == m_active.end() || it->second.m_id != requestId)
+      cancelImmediately = true;
+    else
+      it->second.m_cancelFn = cancelFn;
+  }
+  if (cancelImmediately && cancelFn)
+    cancelFn();
 }

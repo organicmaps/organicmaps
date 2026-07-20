@@ -5,15 +5,27 @@
 #include "drape_frontend/tile_key.hpp"
 #include "drape_frontend/tile_utils.hpp"
 
+#include "platform/platform.hpp"
+#include "platform/platform_tests_support/scoped_dir.hpp"
+
 #include "geometry/mercator.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/math.hpp"
 
+#include <chrono>
 #include <cmath>
+#include <condition_variable>
+#include <memory>
+#include <mutex>
+#include <thread>
+#include <unordered_map>
+#include <vector>
 
 namespace
 {
 using RTP = RasterTileProvider;
+using namespace std::chrono_literals;
 
 // Reference: the standard web-mercator (XYZ / "slippy map") tile index for a geographic point.
 void StandardWebTile(double lat, double lon, int z, int & x, int & y)
@@ -29,6 +41,120 @@ void StandardWebTile(double lat, double lon, int z, int & x, int & y)
 df::TileKey OmTileAt(double lat, double lon, int omZoom)
 {
   return df::GetTileKeyByPoint(mercator::FromLatLon(lat, lon), omZoom);
+}
+
+platform::HttpClient::Result FailedDownload()
+{
+  platform::HttpClient::Result result;
+  result.m_errorCode = 500;
+  return result;
+}
+
+class ControlledDownloader
+{
+public:
+  RTP::TDownloadFn GetDownloadFn()
+  {
+    return [this](std::string const & url, platform::HttpClient::CompletionHandler handler)
+    {
+      auto request = std::make_shared<Request>();
+      request->m_url = url;
+      request->m_handler = std::move(handler);
+      {
+        std::lock_guard lock(m_mutex);
+        m_requests.push_back(request);
+      }
+      m_cv.notify_all();
+
+      return [this, request]
+      {
+        {
+          std::lock_guard lock(m_mutex);
+          request->m_cancelled = true;
+        }
+        m_cv.notify_all();
+      };
+    };
+  }
+
+  bool WaitForRequests(size_t count)
+  {
+    std::unique_lock lock(m_mutex);
+    return m_cv.wait_for(lock, 5s, [this, count] { return m_requests.size() >= count; });
+  }
+
+  bool WaitCancelled(size_t index)
+  {
+    std::unique_lock lock(m_mutex);
+    return m_cv.wait_for(lock, 5s,
+                         [this, index] { return index < m_requests.size() && m_requests[index]->m_cancelled; });
+  }
+
+  void Complete(size_t index, platform::HttpClient::Result result)
+  {
+    platform::HttpClient::CompletionHandler handler;
+    {
+      std::lock_guard lock(m_mutex);
+      TEST_LESS(index, m_requests.size(), ());
+      handler = m_requests[index]->m_handler;
+    }
+    // Invoke even after cancellation: a real transport callback may already be queued when Cancel runs.
+    handler(std::move(result));
+  }
+
+private:
+  struct Request
+  {
+    std::string m_url;
+    platform::HttpClient::CompletionHandler m_handler;
+    bool m_cancelled = false;
+  };
+
+  std::mutex m_mutex;
+  std::condition_variable m_cv;
+  std::vector<std::shared_ptr<Request>> m_requests;
+};
+
+class ReadyRecorder
+{
+public:
+  RTP::TReadyFn GetReadyFn()
+  {
+    return [this](df::TileKey const & key, dp::BackgroundMode, std::string const &, uint32_t, uint32_t,
+                  m2::RectF const &, std::vector<uint8_t> &&)
+    {
+      std::lock_guard lock(m_mutex);
+      ++m_deliveries[key];
+    };
+  }
+
+  size_t Count() const
+  {
+    std::lock_guard lock(m_mutex);
+    size_t count = 0;
+    for (auto const & [key, deliveries] : m_deliveries)
+      count += deliveries;
+    return count;
+  }
+
+  size_t Count(df::TileKey const & key) const
+  {
+    std::lock_guard lock(m_mutex);
+    auto const it = m_deliveries.find(key);
+    return it == m_deliveries.end() ? 0 : it->second;
+  }
+
+private:
+  mutable std::mutex m_mutex;
+  std::unordered_map<df::TileKey, size_t> m_deliveries;
+};
+
+RTP::Params TestParams(std::string cacheSubdir)
+{
+  RTP::Params params;
+  params.m_urlTemplate = "https://tiles.test/{z}/{x}/{y}.png";
+  params.m_cacheSubdir = std::move(cacheSubdir);
+  return params;
 }
 }  // namespace
 
@@ -135,4 +261,96 @@ UNIT_TEST(RasterTileProvider_ToSourceTile_AntimeridianWrap)
   TEST_EQUAL(src0.m_x, src1.m_x, ());
   TEST_EQUAL(src0.m_y, src1.m_y, ());
   TEST(src0.m_x >= 0 && src0.m_x < n, (src0.m_x, n));
+}
+
+UNIT_TEST(RasterTileProvider_CancelStopsTransportAndSuppressesLateCompletion)
+{
+  Platform::ThreadRunner runner;
+  std::string const cacheSubdir = "raster_tile_provider_cancel_test";
+  platform::tests_support::ScopedDirCleanup cleanup(base::JoinPath(GetPlatform().WritableDir(), cacheSubdir));
+  ControlledDownloader downloader;
+  ReadyRecorder ready;
+  RTP provider(TestParams(cacheSubdir), ready.GetReadyFn(), downloader.GetDownloadFn());
+  auto const key = OmTileAt(50.584312, 33.724862, 10);
+
+  TEST(provider.RequestTile(key, dp::BackgroundMode::Satellite), ());
+  TEST(downloader.WaitForRequests(1), ());
+  provider.CancelTile(key, dp::BackgroundMode::Satellite);
+  TEST(downloader.WaitCancelled(0), ());
+
+  downloader.Complete(0, FailedDownload());
+  TEST_EQUAL(ready.Count(), size_t{0}, ());
+}
+
+UNIT_TEST(RasterTileProvider_CancelThenRerequestIgnoresOldCompletion)
+{
+  Platform::ThreadRunner runner;
+  std::string const cacheSubdir = "raster_tile_provider_rerequest_test";
+  platform::tests_support::ScopedDirCleanup cleanup(base::JoinPath(GetPlatform().WritableDir(), cacheSubdir));
+  ControlledDownloader downloader;
+  ReadyRecorder ready;
+  RTP provider(TestParams(cacheSubdir), ready.GetReadyFn(), downloader.GetDownloadFn());
+  auto const key = OmTileAt(50.584312, 33.724862, 10);
+
+  TEST(provider.RequestTile(key, dp::BackgroundMode::Satellite), ());
+  TEST(downloader.WaitForRequests(1), ());
+  provider.CancelTile(key, dp::BackgroundMode::Satellite);
+  TEST(downloader.WaitCancelled(0), ());
+
+  TEST(provider.RequestTile(key, dp::BackgroundMode::Satellite), ());
+  TEST(downloader.WaitForRequests(2), ());
+
+  downloader.Complete(0, FailedDownload());
+  TEST_EQUAL(ready.Count(), size_t{0}, ("The cancelled request must not consume its replacement"));
+
+  downloader.Complete(1, FailedDownload());
+  TEST_EQUAL(ready.Count(key), size_t{1}, ());
+}
+
+UNIT_TEST(RasterTileProvider_ConcurrentCompletionsDeliverEachRequestOnce)
+{
+  Platform::ThreadRunner runner;
+  std::string const cacheSubdir = "raster_tile_provider_concurrent_test";
+  platform::tests_support::ScopedDirCleanup cleanup(base::JoinPath(GetPlatform().WritableDir(), cacheSubdir));
+  ControlledDownloader downloader;
+  ReadyRecorder ready;
+  RTP provider(TestParams(cacheSubdir), ready.GetReadyFn(), downloader.GetDownloadFn());
+
+  size_t constexpr kRequestCount = 8;
+  std::vector<df::TileKey> keys;
+  keys.reserve(kRequestCount);
+  for (size_t i = 0; i < kRequestCount; ++i)
+  {
+    keys.emplace_back(static_cast<int>(i) - 4, 0, 6);
+    TEST(provider.RequestTile(keys.back(), dp::BackgroundMode::Satellite), (i));
+  }
+  TEST(downloader.WaitForRequests(kRequestCount), ());
+
+  std::mutex gateMutex;
+  std::condition_variable gateCv;
+  bool start = false;
+  std::vector<std::thread> threads;
+  threads.reserve(kRequestCount);
+  for (size_t i = 0; i < kRequestCount; ++i)
+  {
+    threads.emplace_back([&, i]
+    {
+      {
+        std::unique_lock lock(gateMutex);
+        gateCv.wait(lock, [&start] { return start; });
+      }
+      downloader.Complete(i, FailedDownload());
+    });
+  }
+  {
+    std::lock_guard lock(gateMutex);
+    start = true;
+  }
+  gateCv.notify_all();
+  for (auto & thread : threads)
+    thread.join();
+
+  TEST_EQUAL(ready.Count(), kRequestCount, ());
+  for (auto const & key : keys)
+    TEST_EQUAL(ready.Count(key), size_t{1}, (key));
 }
