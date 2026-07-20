@@ -1,5 +1,8 @@
 package app.organicmaps.routing;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -15,12 +18,11 @@ import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
-import android.transition.ChangeBounds;
-import android.transition.TransitionManager;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.IdRes;
@@ -104,6 +106,8 @@ final class RoutingBottomMenuController
   @NonNull
   private final TransitDetailsAdapter mTransitDetailsAdapter;
   private boolean mTransitExpanded;
+  @Nullable
+  private ValueAnimator mTransitDetailsAnimator;
   @NonNull
   private final View mSaveButton;
   @Nullable
@@ -235,12 +239,10 @@ final class RoutingBottomMenuController
     // wrap-content list (no internal scroll) so the whole route list scrolls as one under the fixed
     // route-type toolbar; a nested scroll here would trap the gesture and draw its tail behind the rows.
     mTransitDetailsRecyclerView.setNestedScrollingEnabled(false);
-    // No item animator: the panel's ChangeBounds owns all motion. Leaving it on lets an expanding ride
-    // row run its own move animation, which fights the transition and makes the rows bounce.
+    // No item animator: a ride row animates its own intermediate-stops height when toggled, and the
+    // default change animation would fight that and make the rows bounce.
     mTransitDetailsRecyclerView.setItemAnimator(null);
     mTransitDetailsRecyclerView.setAdapter(mTransitDetailsAdapter);
-    // A ride row toggling its intermediate stops resizes the list; animate the panel so it tweens too.
-    mTransitDetailsAdapter.setOnBeforeToggleListener(this::beginTransitTransition);
 
     // The compact strip sits on top of the panel and would otherwise swallow taps, so a tap anywhere on
     // it expands the breakdown just like tapping the summary strip. Scrolling still works for long routes.
@@ -358,29 +360,103 @@ final class RoutingBottomMenuController
     if (!mTransitTime.isClickable())
       return;
     mTransitExpanded = !mTransitExpanded;
-    beginTransitTransition();
-    applyTransitExpandedState();
-    notifyVisibilityChanged();
+    ImageView chevron = mTransitTime.findViewById(R.id.transit_details_chevron);
+    chevron.setImageResource(mTransitExpanded ? R.drawable.ic_expand_less : R.drawable.ic_expand_more);
+    animateTransitExpansion(mTransitExpanded);
   }
 
-  // Swaps the compact strip for the inline breakdown (or back) and flips the chevron to match.
+  // Applies the collapsed/expanded state without animation, for a freshly (re)built route. Also cancels
+  // any in-flight expansion so a rebuild never leaves the breakdown stuck at an animated height.
   private void applyTransitExpandedState()
   {
+    cancelTransitAnimator();
+    setViewHeight(mTransitDetailsRecyclerView, ViewGroup.LayoutParams.WRAP_CONTENT);
+    mTransitRecyclerView.setAlpha(1f);
+    mTransitDetailsRecyclerView.setAlpha(1f);
     UiUtils.showIf(mTransitExpanded, mTransitDetailsRecyclerView);
     UiUtils.showIf(!mTransitExpanded, mTransitRecyclerView);
     ImageView chevron = mTransitTime.findViewById(R.id.transit_details_chevron);
     chevron.setImageResource(mTransitExpanded ? R.drawable.ic_expand_less : R.drawable.ic_expand_more);
   }
 
-  // Tweens the panel's height and row positions on the next layout so expand/collapse is not abrupt.
-  private void beginTransitTransition()
+  // Grows/shrinks the breakdown by tweening the shared slot's height between the compact strip's height
+  // and the full breakdown's height (a parent transition can't tween a nested RecyclerView's height).
+  // The breakdown grows behind the opaque strip and the strip only fades out once it is (almost) full,
+  // so the summary never disappears before the breakdown is in place. Collapse is the reverse.
+  private void animateTransitExpansion(boolean expand)
   {
-    if (mAltitudeChartFrame instanceof ViewGroup group)
+    cancelTransitAnimator();
+    final View strip = mTransitRecyclerView;
+    final View details = mTransitDetailsRecyclerView;
+
+    int stripHeight = UiUtils.isVisible(strip) ? strip.getHeight() : measureContentHeight(strip);
+    details.setVisibility(View.VISIBLE);
+    details.setAlpha(1f);
+    int fullHeight = details.getHeight() > 0 ? details.getHeight() : measureContentHeight(details);
+    UiUtils.show(strip);
+
+    final int from = expand ? stripHeight : fullHeight;
+    final int to = expand ? fullHeight : stripHeight;
+    // Fix the start height and the strip's start opacity up front so nothing flashes before frame one.
+    setViewHeight(details, from);
+    strip.setAlpha(expand ? 1f : 0f);
+
+    ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f);
+    animator.setDuration(220);
+    animator.setInterpolator(new AccelerateDecelerateInterpolator());
+    animator.addUpdateListener(a -> {
+      float p = (float) a.getAnimatedValue();
+      setViewHeight(details, Math.round(from + (to - from) * p));
+      // Expand: strip stays opaque over the growing breakdown, then fades out over the last stretch.
+      // Collapse: strip fades in first to cover the breakdown, which then shrinks away behind it.
+      strip.setAlpha(expand ? 1f - ramp(p, 0.65f, 1f) : ramp(p, 0f, 0.35f));
+    });
+    animator.addListener(new AnimatorListenerAdapter() {
+      @Override
+      public void onAnimationEnd(Animator animation)
+      {
+        setViewHeight(details, ViewGroup.LayoutParams.WRAP_CONTENT);
+        strip.setAlpha(1f);
+        details.setAlpha(1f);
+        UiUtils.hide(expand ? strip : details);
+        mTransitDetailsAnimator = null;
+        notifyVisibilityChanged();
+      }
+    });
+    mTransitDetailsAnimator = animator;
+    animator.start();
+  }
+
+  // Maps progress p to 0..1 over [start, end], clamped outside the window.
+  private static float ramp(float p, float start, float end)
+  {
+    return Math.max(0f, Math.min(1f, (p - start) / (end - start)));
+  }
+
+  private void cancelTransitAnimator()
+  {
+    if (mTransitDetailsAnimator != null)
     {
-      ChangeBounds transition = new ChangeBounds();
-      transition.setDuration(200);
-      TransitionManager.beginDelayedTransition(group, transition);
+      mTransitDetailsAnimator.cancel();
+      mTransitDetailsAnimator = null;
     }
+  }
+
+  // Measures a match-parent child's wrap-content height within the panel's content width.
+  private static int measureContentHeight(@NonNull View child)
+  {
+    View parent = (View) child.getParent();
+    int width = parent.getWidth() - parent.getPaddingLeft() - parent.getPaddingRight();
+    child.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
+                  View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+    return child.getMeasuredHeight();
+  }
+
+  private static void setViewHeight(@NonNull View view, int height)
+  {
+    ViewGroup.LayoutParams lp = view.getLayoutParams();
+    lp.height = height;
+    view.setLayoutParams(lp);
   }
 
   @SuppressLint("SetTextI18n")
@@ -401,6 +477,10 @@ final class RoutingBottomMenuController
     mTransitTime.setClickable(false);
     UiUtils.hide(mTransitTime, R.id.transit_details_chevron);
     mTransitExpanded = false;
+    cancelTransitAnimator();
+    setViewHeight(mTransitDetailsRecyclerView, ViewGroup.LayoutParams.WRAP_CONTENT);
+    mTransitRecyclerView.setAlpha(1f);
+    mTransitDetailsRecyclerView.setAlpha(1f);
     UiUtils.hide(mTransitDetailsRecyclerView);
 
     if (points.length > 2)

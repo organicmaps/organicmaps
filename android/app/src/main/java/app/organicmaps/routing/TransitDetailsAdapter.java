@@ -1,14 +1,19 @@
 package app.organicmaps.routing;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 import androidx.core.widget.TextViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
@@ -40,14 +45,6 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
   private final List<TransitStepInfo> mItems = new ArrayList<>();
   @NonNull
   private final Set<Integer> mExpanded = new HashSet<>();
-  // Runs before the list mutates so the host can start a smooth bottom-sheet resize transition.
-  @Nullable
-  private Runnable mOnBeforeToggle;
-
-  public void setOnBeforeToggleListener(@Nullable Runnable listener)
-  {
-    mOnBeforeToggle = listener;
-  }
 
   public void setItems(@NonNull List<TransitStepInfo> items)
   {
@@ -85,19 +82,20 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     if (viewType == TYPE_INTERMEDIATE)
       return new IntermediateViewHolder(inflater.inflate(R.layout.item_transit_details_intermediate, parent, false));
     RideViewHolder holder = new RideViewHolder(inflater.inflate(R.layout.item_transit_details_ride, parent, false));
-    holder.mSummaryRow.setOnClickListener(v -> toggleExpanded(holder.getBindingAdapterPosition()));
+    holder.mSummaryRow.setOnClickListener(v -> {
+      int position = holder.getBindingAdapterPosition();
+      if (position == RecyclerView.NO_POSITION)
+        return;
+      boolean expand = !mExpanded.contains(position);
+      if (expand)
+        mExpanded.add(position);
+      else
+        mExpanded.remove(position);
+      // Animate this row's own height so the whole panel resizes gradually in step, instead of the
+      // list snapping shut. A parent-level transition can't tween a nested RecyclerView item collapse.
+      holder.setExpanded(expand, true);
+    });
     return holder;
-  }
-
-  private void toggleExpanded(int position)
-  {
-    if (position == RecyclerView.NO_POSITION)
-      return;
-    if (!mExpanded.remove(position))
-      mExpanded.add(position);
-    if (mOnBeforeToggle != null)
-      mOnBeforeToggle.run();
-    notifyItemChanged(position);
   }
 
   @Override
@@ -116,7 +114,9 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
       // The exit stop is only drawn when the next row is not a ride: a direct transfer's stop is
       // already shown as the next ride's heading, so repeating it at this leg's foot would duplicate it.
       boolean nextIsRide = isRide(position + 1);
-      ((RideViewHolder) holder).bind(info, prevIsRide, nextIsRide, isLastRide(position), mExpanded.contains(position));
+      // The incoming line's color paints the top half of the transfer stub above this leg's bar.
+      int incomingColor = prevIsRide ? mItems.get(position - 1).getColor() : info.getColor();
+      ((RideViewHolder) holder).bind(info, prevIsRide, nextIsRide, mExpanded.contains(position), incomingColor);
     }
   }
 
@@ -127,16 +127,6 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
       return false;
     TransitStepType type = mItems.get(position).getType();
     return type != TransitStepType.PEDESTRIAN && type != TransitStepType.INTERMEDIATE_POINT;
-  }
-
-  private boolean isLastRide(int position)
-  {
-    for (int i = position + 1; i < mItems.size(); i++)
-    {
-      if (isRide(i))
-        return false;
-    }
-    return true;
   }
 
   @Override
@@ -186,8 +176,7 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     {
       // The badge shows the waypoint number (index + 1), matching the summary strip.
       mBadge.setTransitStepInfo(info);
-      mLabel.setText(
-          itemView.getContext().getString(R.string.transit_waypoint_label, info.getIntermediateIndex() + 1));
+      mLabel.setText(itemView.getContext().getString(R.string.transit_waypoint_label, info.getIntermediateIndex() + 1));
     }
   }
 
@@ -205,6 +194,21 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private final TransitStepView mBadge;
     @NonNull
     private final View mSummaryRow;
+    @NonNull
+    private final View mLineBar;
+    @NonNull
+    private final View mTransferHeaderRow;
+    @NonNull
+    private final TextView mTransferHeader;
+    @NonNull
+    private final View mTransferStubTop;
+    @NonNull
+    private final View mTransferStubBottom;
+    @NonNull
+    private final View mTransferGap;
+    private boolean mHasIntermediates;
+    @Nullable
+    private ValueAnimator mHeightAnimator;
 
     RideViewHolder(@NonNull View itemView)
     {
@@ -215,18 +219,59 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
       mIntermediates = itemView.findViewById(R.id.intermediate_stops);
       mBadge = itemView.findViewById(R.id.line_badge);
       mSummaryRow = itemView.findViewById(R.id.ride_summary_row);
+      mLineBar = itemView.findViewById(R.id.line_bar);
+      mTransferHeaderRow = itemView.findViewById(R.id.transfer_header_row);
+      mTransferHeader = itemView.findViewById(R.id.transfer_header);
+      mTransferStubTop = itemView.findViewById(R.id.transfer_stub_top);
+      mTransferStubBottom = itemView.findViewById(R.id.transfer_stub_bottom);
+      mTransferGap = itemView.findViewById(R.id.transfer_gap);
     }
 
-    void bind(@NonNull TransitStepInfo info, boolean isTransfer, boolean nextIsRide, boolean isLastRide,
-              boolean expanded)
+    void bind(@NonNull TransitStepInfo info, boolean isTransfer, boolean nextIsRide, boolean expanded,
+              int incomingColor)
     {
       Context ctx = itemView.getContext();
       mBadge.setTransitStepInfo(info);
+      int lineColor = info.getColor();
+      // Each colored segment is a rounded pill. The bar's top is rounded unless it continues up out of a
+      // transfer stub (isTransfer); its bottom is rounded unless it continues down into the next leg's
+      // stub (nextIsRide). Where a stub and the bar share a color they meet square, so each run reads as
+      // one pill rounded only at its two ends.
+      mLineBar.setBackgroundResource(lineBarDrawable(!isTransfer, !nextIsRide));
+      ViewCompat.setBackgroundTintList(mLineBar, ColorStateList.valueOf(lineColor));
 
       String startStop = info.getStartStopName();
       String endStop = info.getEndStopName();
-      int startLabelRes = isTransfer ? R.string.transit_transfer_at : R.string.transit_board_at;
-      mBoardAt.setText(ctx.getString(startLabelRes, startStop == null ? "" : startStop));
+      // At a same-station transfer the shared stop is drawn once, centered beside a small break in the
+      // colored line (incoming color above, outgoing below). The in-bar boarding heading is then hidden
+      // and the bar joins straight onto the stub below the break.
+      String startStopText = startStop == null ? "" : startStop;
+      mTransferHeaderRow.setVisibility(isTransfer ? View.VISIBLE : View.GONE);
+      mBoardAt.setVisibility(isTransfer ? View.GONE : View.VISIBLE);
+      if (isTransfer)
+      {
+        mTransferHeader.setText(ctx.getString(R.string.transit_transfer_at, startStopText));
+        // The stub is the pill end at the break: incoming run rounded at its foot, outgoing at its head.
+        mTransferStubTop.setBackgroundResource(R.drawable.transit_line_bar_bottom);
+        mTransferStubBottom.setBackgroundResource(R.drawable.transit_line_bar_top);
+        ViewCompat.setBackgroundTintList(mTransferStubTop, ColorStateList.valueOf(incomingColor));
+        ViewCompat.setBackgroundTintList(mTransferStubBottom, ColorStateList.valueOf(lineColor));
+        ViewGroup.LayoutParams gapLp = mTransferGap.getLayoutParams();
+        gapLp.height = Math.round(0.3f * mTransferHeader.getLineHeight());
+        mTransferGap.setLayoutParams(gapLp);
+      }
+      else
+        mBoardAt.setText(ctx.getString(R.string.transit_board_at, startStopText));
+
+      // On a transfer the bar continues straight from the stub, so drop its usual top offset; the badge
+      // row likewise drops its top margin because the transfer header above it already spaces the rhythm.
+      int marginHalf = ctx.getResources().getDimensionPixelSize(R.dimen.margin_half);
+      ViewGroup.MarginLayoutParams barLp = (ViewGroup.MarginLayoutParams) mLineBar.getLayoutParams();
+      barLp.topMargin = isTransfer ? 0 : marginHalf;
+      mLineBar.setLayoutParams(barLp);
+      ViewGroup.MarginLayoutParams summaryLp = (ViewGroup.MarginLayoutParams) mSummaryRow.getLayoutParams();
+      summaryLp.topMargin = isTransfer ? 0 : marginHalf;
+      mSummaryRow.setLayoutParams(summaryLp);
 
       if (nextIsRide)
       {
@@ -234,9 +279,11 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
       }
       else
       {
+        // The exit heading only shows when the next leg is not a train, so the rider always leaves the
+        // train here: "Exit at <stop>". A same-station line change is the other branch (exit hidden, the
+        // next leg draws the centered "Transfer at <stop>" header instead).
         mExitAt.setVisibility(View.VISIBLE);
-        int endLabelRes = isLastRide ? R.string.transit_exit_at : R.string.transit_transfer_at;
-        mExitAt.setText(ctx.getString(endLabelRes, endStop == null ? "" : endStop));
+        mExitAt.setText(ctx.getString(R.string.transit_exit_at, endStop == null ? "" : endStop));
       }
 
       CharSequence time = Utils.formatRoutingTime(ctx, info.getTimeInSec(), R.dimen.text_size_body_3);
@@ -251,23 +298,91 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
       mSubtitle.setText(subtitle);
 
       String[] intermediates = info.getIntermediateStopNames();
-      boolean hasIntermediates = intermediates != null && intermediates.length > 0;
+      mHasIntermediates = intermediates != null && intermediates.length > 0;
       // Only a leg with intermediate stops is an expandable disclosure; others get no chevron or ripple.
-      mSummaryRow.setClickable(hasIntermediates);
-      int chevron = !hasIntermediates ? 0 : (expanded ? R.drawable.ic_expand_less : R.drawable.ic_expand_more);
+      mSummaryRow.setClickable(mHasIntermediates);
+      // Text is always set (even while hidden) so the collapse/expand animation can measure it.
+      if (mHasIntermediates)
+        // One stop per line so the intermediate stops read as a column between board and exit.
+        mIntermediates.setText(String.join("\n", intermediates));
+      setExpanded(expanded, false);
+    }
+
+    // Reflects the expanded state on the chevron and the intermediate stops. When animate is true the
+    // stops slide open/closed by tweening their own height, which drives the whole panel to resize with
+    // them; otherwise (a fresh bind) the state is applied instantly.
+    void setExpanded(boolean expanded, boolean animate)
+    {
+      Context ctx = itemView.getContext();
+      int chevron = !mHasIntermediates ? 0 : (expanded ? R.drawable.ic_expand_less : R.drawable.ic_expand_more);
       mSubtitle.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, chevron, 0);
       TextViewCompat.setCompoundDrawableTintList(mSubtitle,
                                                  ColorStateList.valueOf(ThemeUtils.getColor(ctx, R.attr.secondary)));
 
-      if (hasIntermediates && expanded)
+      if (mHeightAnimator != null)
       {
-        mIntermediates.setVisibility(View.VISIBLE);
-        mIntermediates.setText(String.join(" · ", intermediates));
+        mHeightAnimator.cancel();
+        mHeightAnimator = null;
+      }
+
+      if (!mHasIntermediates || !animate)
+      {
+        mIntermediates.setVisibility(mHasIntermediates && expanded ? View.VISIBLE : View.GONE);
+        setViewHeight(mIntermediates, ViewGroup.LayoutParams.WRAP_CONTENT);
+        return;
+      }
+
+      mIntermediates.setVisibility(View.VISIBLE);
+      int from;
+      int to;
+      if (expanded)
+      {
+        int width = ((View) mIntermediates.getParent()).getWidth();
+        mIntermediates.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
+                               View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        from = 0;
+        to = mIntermediates.getMeasuredHeight();
       }
       else
       {
-        mIntermediates.setVisibility(View.GONE);
+        from = mIntermediates.getHeight();
+        to = 0;
       }
+
+      ValueAnimator animator = ValueAnimator.ofInt(from, to);
+      animator.setDuration(150);
+      animator.setInterpolator(new AccelerateDecelerateInterpolator());
+      animator.addUpdateListener(a -> setViewHeight(mIntermediates, (int) a.getAnimatedValue()));
+      animator.addListener(new AnimatorListenerAdapter() {
+        @Override
+        public void onAnimationEnd(Animator animation)
+        {
+          if (!expanded)
+            mIntermediates.setVisibility(View.GONE);
+          setViewHeight(mIntermediates, ViewGroup.LayoutParams.WRAP_CONTENT);
+          mHeightAnimator = null;
+        }
+      });
+      mHeightAnimator = animator;
+      animator.start();
     }
+
+    private static void setViewHeight(@NonNull View view, int height)
+    {
+      ViewGroup.LayoutParams lp = view.getLayoutParams();
+      lp.height = height;
+      view.setLayoutParams(lp);
+    }
+  }
+
+  private static int lineBarDrawable(boolean roundTop, boolean roundBottom)
+  {
+    if (roundTop && roundBottom)
+      return R.drawable.transit_line_bar_round;
+    if (roundTop)
+      return R.drawable.transit_line_bar_top;
+    if (roundBottom)
+      return R.drawable.transit_line_bar_bottom;
+    return R.drawable.transit_line_bar;
   }
 }
