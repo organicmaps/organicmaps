@@ -12,21 +12,28 @@
   android:paddingStart="@dimen/margin_base"
   android:paddingEnd="@dimen/margin_base">
 
-  <app.organicmaps.routing.TransitStepView
-    android:id="@+id/intermediate_badge"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:minHeight="@dimen/routing_transit_step_min_height"
-    android:textSize="@dimen/text_size_body_1"
-    android:textColor="@android:color/white"
-    android:paddingStart="@dimen/margin_quarter"
-    android:paddingEnd="@dimen/margin_quarter"/>
+  <!-- Badge centered in the shared legend column so it shares a vertical axis with the line bars. -->
+  <FrameLayout
+    android:layout_width="@dimen/transit_details_legend_width"
+    android:layout_height="wrap_content">
+
+    <app.organicmaps.routing.TransitStepView
+      android:id="@+id/intermediate_badge"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:minHeight="@dimen/routing_transit_step_min_height"
+      android:paddingStart="@dimen/margin_quarter"
+      android:paddingEnd="@dimen/margin_quarter"
+      android:textColor="@android:color/white"
+      android:textSize="@dimen/text_size_body_1"/>
+  </FrameLayout>
 
   <TextView
     android:id="@+id/intermediate_label"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/margin_half_plus"
+    android:layout_marginStart="@dimen/margin_half"
     android:textAppearance="?fontBody1"
     android:textColor="?android:attr/textColorPrimary"
     tools:text="Stop 1"/>
