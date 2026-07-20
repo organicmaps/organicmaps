@@ -11,6 +11,7 @@
 
 #include "geometry/rect2d.hpp"
 
+#include <algorithm>
 #include <string>
 #include <vector>
 
@@ -55,6 +56,15 @@ public:
 
   ref_ptr<dp::GraphicsContext> GetContext() { return make_ref<dp::GraphicsContext>(&m_contextImpl); }
 
+  TileKey ResolveRequest(TileKey const & key) const
+  {
+    if (key.m_generation != 0)
+      return key;
+    auto const it =
+        std::find_if(m_reads.rbegin(), m_reads.rend(), [&key](TileKey const & requested) { return requested == key; });
+    return it == m_reads.rend() ? key : *it;
+  }
+
   void UpdateViewport(CoverageResult const & coverage, int zoomLevel)
   {
     m_renderer.OnUpdateViewport(GetContext(), coverage, zoomLevel);
@@ -63,16 +73,29 @@ public:
   // Delivers a tile exactly the way the provider does: upload the image, then bind it to the tile.
   void DeliverTile(TileKey const & key)
   {
-    std::string const uid = key.Coord2String();
-    m_renderer.AssignTileBackgroundImage(GetContext(), uid, make_ref<dp::TexturePool>(&m_pool),
+    AssignTileImage(key);
+    BindTileImage(key);
+  }
+
+  void AssignTileImage(TileKey const & key)
+  {
+    auto const requestKey = ResolveRequest(key);
+    m_renderer.AssignTileBackgroundImage(GetContext(), requestKey.Coord2String(), make_ref<dp::TexturePool>(&m_pool),
                                          m_pool.AcquireTexture(GetContext()), dp::BackgroundMode::Satellite);
-    m_renderer.SetTileBackgroundData(GetContext(), key, uid, m2::RectF(0.0f, 0.0f, 1.0f, 1.0f));
+  }
+
+  void BindTileImage(TileKey const & key)
+  {
+    auto const requestKey = ResolveRequest(key);
+    m_renderer.SetTileBackgroundData(GetContext(), requestKey, requestKey.Coord2String(),
+                                     m2::RectF(0.0f, 0.0f, 1.0f, 1.0f));
   }
 
   // Reports a failed read the way the provider does: no image, an empty uid.
   void DeliverFailure(TileKey const & key)
   {
-    m_renderer.SetTileBackgroundData(GetContext(), key, std::string(), m2::RectF(0.0f, 0.0f, 1.0f, 1.0f));
+    m_renderer.SetTileBackgroundData(GetContext(), ResolveRequest(key), std::string(),
+                                     m2::RectF(0.0f, 0.0f, 1.0f, 1.0f));
   }
 
   // OnUpdateViewport never re-requests a tile that is already bound, so re-entering a viewport and
@@ -361,5 +384,48 @@ UNIT_TEST(TileBackgroundRenderer_LateFailureForUnknownTileIsIgnored)
   f.DeliverFailure(TileKey(9, 9, 17));
 
   TEST(f.ProbeUnboundTiles(kCoverageZ16, 16).empty(), ("Bindings must be unaffected"));
+}
+
+// A provider request can outlive its cancellation. If the tile is requested again before the old
+// request completes, the old completion must not consume the new request's awaiting state. Without
+// a per-request generation, the following viewport update starts a third, duplicate request while
+// the second one is still in flight.
+UNIT_TEST(TileBackgroundRenderer_StaleCompletionDoesNotConsumeReRequest)
+{
+  Fixture f;
+  CoverageResult constexpr first{.m_minTileX = 0, .m_maxTileX = 1, .m_minTileY = 0, .m_maxTileY = 1};
+  CoverageResult constexpr second{.m_minTileX = 1, .m_maxTileX = 2, .m_minTileY = 0, .m_maxTileY = 1};
+  f.UpdateViewport(first, 17);  // Request A for |key|.
+  TileKey const requestA = f.m_reads.back();
+  f.UpdateViewport(second, 17);  // Cancel A.
+  f.UpdateViewport(first, 17);   // Request B for the same key.
+  TEST_EQUAL(f.m_cancels.size(), size_t{2}, ());
+
+  f.DeliverFailure(requestA);  // Late completion of A, while B is still in flight.
+
+  f.m_reads.clear();
+  f.UpdateViewport(first, 17);
+  TEST(f.m_reads.empty(), ("The current request must remain awaited after an older request completes"));
+}
+
+// Image upload and tile binding are separate renderer messages. Completions from multiple worker
+// threads may therefore enqueue all uploads before any binding. Pending images must not be treated
+// as ordinary unreferenced cache entries and evicted before their matching bind messages arrive.
+UNIT_TEST(TileBackgroundRenderer_InterleavedUploadsRemainAvailableForPendingBindings)
+{
+  Fixture f;
+  CoverageResult constexpr coverage{.m_minTileX = 0, .m_maxTileX = 5, .m_minTileY = 0, .m_maxTileY = 4};
+  f.UpdateViewport(coverage, 17);
+  auto const requested = f.m_reads;
+  TEST_EQUAL(requested.size(), size_t{20}, ());
+
+  // The unreferenced image LRU holds 16 entries. Assigning all 20 first deterministically exercises
+  // the same ordering as concurrently completed requests whose upload messages overtake bindings.
+  for (auto const & key : requested)
+    f.AssignTileImage(key);
+  for (auto it = requested.rbegin(); it != requested.rend(); ++it)
+    f.BindTileImage(*it);
+
+  TEST(f.ProbeUnboundTiles(coverage, 17).empty(), ("Every accepted request must retain its image until binding"));
 }
 }  // namespace tile_background_renderer_tests
