@@ -8,7 +8,6 @@
 
 #include "geometry/rect2d.hpp"
 
-#include <array>
 #include <functional>
 #include <list>
 #include <mutex>
@@ -16,23 +15,8 @@
 #include <unordered_map>
 #include <vector>
 
-// POC raster background-tile provider.
-//
-// Downloads standard web-mercator XYZ raster tiles (e.g. https://host/{z}/{x}/{y}.png),
-// caches the encoded files on disk, decodes them to RGBA8 and feeds them into the Drape
-// tile-background rendering API. Integration point: Framework::CreateDrapeEngine's
-// tileBackgroundReadFn (see libs/map/framework.cpp).
-//
-// Encoded tiles are cached on disk under an LRU size cap (Params::m_maxCacheBytes): the
-// least-recently-used tiles are evicted once the total is exceeded. Content is delivered through a
-// callback that the caller wires to df::DrapeEngine::AddTileBackgroundImage + SetTileBackgroundData.
-
-// Debug visualization: renders status placeholders (DOWNLOADING / NOT FOUND / ERROR) into tiles.
-// Binding a placeholder moves the tile out of the renderer's awaiting set, which conflicts with
-// the m_awaitingTiles bookkeeping (the real result must win a second bind; failed tiles are not
-// re-requested), so it is disabled by default.
-// #define ENABLE_STATUS_PLACEHOLDERS
-
+// Downloads XYZ raster tiles, caches encoded PNG/JPEG files under an LRU size cap,
+// and delivers RGBA8 data to the tile-background renderer.
 class RasterTileProvider
 {
 public:
@@ -57,9 +41,9 @@ public:
     uint64_t m_maxCacheBytes = 100ull * 1024 * 1024;  // 100 MB
   };
 
-  // Delivers decoded RGBA8 pixels for an OM tile. Invoked on a background (Network) thread.
+  // Delivers decoded RGBA8 pixels for an OM tile. Invoked on a background thread.
   // Mirrors the df::DrapeEngine::AddTileBackgroundImage + SetTileBackgroundData call pair:
-  //   AddTileBackgroundImage(imageUid, width, height, RGBA8, mode, std::move(rgba));
+  //   AddTileBackgroundImage(tileKey, imageUid, width, height, RGBA8, mode, std::move(rgba));
   //   SetTileBackgroundData(tileKey, imageUid, rect);
   using TReadyFn =
       std::function<void(df::TileKey const & tileKey, dp::BackgroundMode mode, std::string const & imageUid,
@@ -72,8 +56,8 @@ public:
 
   RasterTileProvider(Params params, TReadyFn onReady, TDownloadFn downloadFn = {});
 
-  // Called on the render thread for every newly visible tile. Non-blocking: schedules the
-  // fetch/decode on the Network thread pool.
+  // Called on the render thread for every newly visible tile. Schedules cache reads on the File
+  // thread and starts asynchronous downloads on a cache miss.
   bool RequestTile(df::TileKey const & tileKey, dp::BackgroundMode mode);
 
   // Called on the render thread when a tile scrolls out of view; drops a not-yet-delivered
@@ -105,33 +89,9 @@ public:
   static SourceTile ToSourceTile(df::TileKey const & tileKey, int minZoom, int maxZoom);
 
 private:
-#ifdef ENABLE_STATUS_PLACEHOLDERS
-  // Debug placeholder shown in place of a tile while it is being fetched or when it is missing.
-  enum class Status
-  {
-    Downloading = 0,
-    NotFound,
-    Error,
-    Count
-  };
-
-  struct Placeholder
-  {
-    std::string m_uid;
-    std::vector<uint8_t> m_rgba;
-    uint32_t m_size = 0;
-  };
-#endif
-
   // Starts a non-blocking HTTP request; its completion handler decodes, caches and delivers the tile.
-  // src carries the uid / file name / sub-rect / source zoom (the latter used for max-zoom detection).
   void StartDownload(df::TileKey const & tileKey, dp::BackgroundMode mode, std::string const & url,
                      SourceTile const & src, uint64_t requestId);
-
-#ifdef ENABLE_STATUS_PLACEHOLDERS
-  // Delivers a debug status placeholder image for the tile through m_onReady.
-  void DeliverPlaceholder(df::TileKey const & tileKey, dp::BackgroundMode mode, Status status);
-#endif
 
   bool IsActive(df::TileKey const & tileKey, uint64_t requestId) const;
   // Removes a specific request instance. An older completion must not remove a replacement request
@@ -151,7 +111,7 @@ private:
   // Deletes every cached file and resets the index. Caller must hold m_cacheMutex.
   void ClearDiskCacheLocked();
 
-  void LogConfig();
+  static void LogConfig(std::string const & urlTemplate, uint64_t maxCacheBytes);
 
   // Non-const: Reconfigure() mutates m_urlTemplate (under m_activeMutex) and m_maxCacheBytes
   // (under m_cacheMutex). All other fields are immutable after construction.
@@ -159,9 +119,6 @@ private:
   TReadyFn const m_onReady;
   TDownloadFn const m_downloadFn;
   std::string m_cacheDir;
-#ifdef ENABLE_STATUS_PLACEHOLDERS
-  std::array<Placeholder, static_cast<size_t>(Status::Count)> m_placeholders;
-#endif
 
   mutable std::mutex m_activeMutex;
   struct ActiveRequest

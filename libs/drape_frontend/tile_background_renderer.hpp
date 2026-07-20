@@ -35,42 +35,39 @@ public:
 
   void ClearContextDependentResources(ref_ptr<dp::GraphicsContext> context);
 
-  void OnUpdateViewport(ref_ptr<dp::GraphicsContext> context, CoverageResult const & coverage,
-                        uint8_t currentZoomLevel);
+  void OnUpdateViewport(ref_ptr<dp::GraphicsContext> context, CoverageResult coverage, uint8_t currentZoomLevel);
 
-  // Registers an image (uploaded by the backend) with the given uid. The image starts unreferenced;
-  // it lives in the unreferenced LRU until SetTileBackgroundData binds it to a tile.
-  void AssignTileBackgroundImage(ref_ptr<dp::GraphicsContext> context, std::string const & uid,
+  // Registers an uploaded image and keeps it alive until the matching request is bound or cancelled.
+  void AssignTileBackgroundImage(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, std::string const & uid,
                                  ref_ptr<dp::TexturePool> texturePool, dp::TexturePool::TextureId textureId,
                                  dp::BackgroundMode mode);
 
-  // Binds a tile to an image with a sub-rect (full image is (0, 0, 1, 1)). An empty |imageUid|
-  // reports a failed read instead: the tile stops being awaited and stays unbound, so the fallback
-  // can retire and the tile is eligible for a request on a later viewport update.
+  // Binds the image sub-rect. An empty uid marks a failed read until coverage exit or layer reset.
   void SetTileBackgroundData(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
                              std::string const & imageUid, m2::RectF const & rect);
 
   void SetBackgroundMode(ref_ptr<dp::GraphicsContext> context, dp::BackgroundMode mode);
   dp::BackgroundMode GetBackgroundMode() const;
 
-  // True if an image with this uid is already registered (referenced or in the unreferenced LRU).
-  // Lets the caller skip re-uploading a duplicate texture that AssignTileBackgroundImage would discard
-  // anyway (over-zoom siblings and panning re-requests deliver the same uid repeatedly).
+  // Registered images can skip duplicate uploads, including over-zoom siblings sharing an ancestor.
   bool HasImage(std::string const & uid) const { return m_images.find(uid) != m_images.end(); }
 
-  // Returns true when every current-coverage cell inside |tileKey|'s rect is bound at the current
-  // zoom, i.e. the visible part of the tile is completely hidden behind the current level (a tile
-  // with no cell inside the coverage is invisible and trivially hidden). Rendering skips such
-  // retained fallback tiles: partially transparent imagery would blend with the level above it,
-  // and opaque imagery is pure overdraw. Public for tests.
-  bool IsCoveredByCurrentZoom(TileKey const & tileKey) const;
+  struct TileRect
+  {
+    TileKey m_tileKey;
+    m2::RectF m_textureRect;
+  };
+
+  // Appends the parts not covered by current-level tiles, preserving the image's UV sub-rect.
+  // Splitting coarse fallback tiles prevents transparent imagery from blending twice. Public for tests.
+  void GetTileRects(TileKey const & tileKey, m2::RectF const & textureRect, std::vector<TileRect> & rects) const;
 
 private:
   struct ImageInfo
   {
     ref_ptr<dp::TexturePool> m_texturePool;
     dp::TexturePool::TextureId m_textureId{};
-    dp::BackgroundMode m_mode = dp::BackgroundMode::Default;
+    // Live tile bindings and uploads awaiting their matching bind message.
     uint32_t m_refCount = 0;
   };
 
@@ -91,14 +88,12 @@ private:
   void ReleaseImageRef(ref_ptr<dp::GraphicsContext> context, std::string const & uid);
   // Increments refcount; if it was 0, removes uid from the unreferenced LRU.
   void AcquireImageRef(std::string const & uid);
-  // Enforces the unreferenced-image budget once no upload/bind pairs are pending. While reads are
-  // awaited, their Assign and Set messages may be interleaved with other completions, so evicting
-  // an unreferenced image could remove it before its matching Set message arrives.
+  // Pending upload/bind pairs hold image references separately from this bounded cache.
   void TrimUnreferencedImages(ref_ptr<dp::GraphicsContext> context);
   // Fraction of |viewportRect| covered by the bindings of |zoomLevel| (0 for TileKey::kNoZoom).
   // Fallback selection compares this value because binding count does not represent screen area.
   double CoveredFraction(uint8_t zoomLevel, m2::RectD const & viewportRect) const;
-  // Releases the fallback level once the current one has nothing left to load.
+  // Releases the fallback once all accepted current-level reads succeed.
   void RetireFallbackIfReady(ref_ptr<dp::GraphicsContext> context);
 
   MapDataProvider::TTileBackgroundReadFn m_tileBackgroundReadFn;
@@ -106,9 +101,16 @@ private:
 
   dp::BackgroundMode m_currentMode = dp::BackgroundMode::Default;
 
-  // Coordinate key -> request generation. TileKey equality intentionally ignores m_generation,
-  // therefore the generation is kept in the value and checked before accepting an async result.
-  std::unordered_map<TileKey, uint64_t> m_awaitingTiles;
+  struct TileRequest
+  {
+    uint64_t m_generation;
+    // Image reference held between this request's upload and bind messages; empty before upload.
+    std::string m_imageUid;
+  };
+
+  // Pending or failed requests; failures remain until coverage exit or layer reset.
+  // Coordinate keys ignore m_generation, so check it separately.
+  std::unordered_map<TileKey, TileRequest> m_tileRequests;
   uint64_t m_nextRequestGeneration = 0;
   std::unordered_map<TileKey, TileBinding> m_tiles;
 
@@ -118,9 +120,7 @@ private:
 
   CoverageResult m_lastCoverage;
   uint8_t m_lastCurrentZoomLevel = TileKey::kNoZoom;
-  // The zoom level we most recently left that still has bindings. Its tiles keep covering the
-  // viewport (drawn beneath the current level) until the current level finishes loading, which is
-  // what keeps the layer from going blank across a zoom change. TileKey::kNoZoom == none retained.
+  // Covers pending or failed current-level gaps. TileKey::kNoZoom means no fallback is retained.
   uint8_t m_fallbackZoomLevel = TileKey::kNoZoom;
 
   dp::RenderState m_state;
@@ -129,6 +129,7 @@ private:
 
   // Per-frame scratch buffer for Render(); a member to reuse the allocation between frames.
   std::vector<DrawEntry> m_sortedTiles;
+  std::vector<TileRect> m_tileRects;
 
   drape_ptr<dp::Instancing> m_instancing;
 };

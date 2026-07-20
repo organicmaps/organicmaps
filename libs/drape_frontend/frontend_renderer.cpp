@@ -1055,8 +1055,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
                                                make_ref(data));
     }
 
-    m_tileBackgroundRenderer->AssignTileBackgroundImage(m_context, msg->GetUid(), msg->GetTexturePool(),
-                                                        msg->GetTextureId(), msg->GetMode());
+    m_tileBackgroundRenderer->AssignTileBackgroundImage(m_context, msg->GetTileKey(), msg->GetUid(),
+                                                        msg->GetTexturePool(), msg->GetTextureId(), msg->GetMode());
     msg->MarkProcessed();
     break;
   }
@@ -2476,15 +2476,7 @@ TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
 
   m_trafficRenderer->OnUpdateViewport(result, GetCurrentZoom(), tilesToDelete);
 
-  // Background raster tiles map OM tiles 1:1 onto external web-mercator tiles. On HiDPI screens one OM
-  // render tile spans many more device pixels than a standard 256px source tile, so a 256px source gets
-  // bilinearly up-scaled and looks soft. Deepen the coverage by +1 (4x tiles) when visualScale >= 2 so
-  // a source tile maps ~1:1 onto device pixels; low-DPI (desktop, visualScale ~1) needs no deepening.
-  // The real (unclamped) zoom is used: the vector-data coverage above clamps to GetUpperScale(), which
-  // would freeze m_x/m_y on a coarser grid and make ToSourceTile fetch a wrong tile (the background
-  // renderer reads rects with clipByDataMaxZoom=false to match).
-  int const extraBgZoom = VisualParams::Instance().GetVisualScale() >= 2.0 ? 1 : 0;
-  int const bgZoom = GetCurrentZoom() + extraBgZoom;
+  int const bgZoom = GetTileBackgroundZoom(GetCurrentZoom(), screen.isPerspective());
   CoverageResult const bgCoverage = CalcTilesCoverage(rect, bgZoom, nullptr /* processTile */);
   m_tileBackgroundRenderer->OnUpdateViewport(m_context, bgCoverage, base::asserted_cast<uint8_t>(bgZoom));
 

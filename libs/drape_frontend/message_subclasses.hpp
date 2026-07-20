@@ -1494,9 +1494,10 @@ private:
 class AddTileBackgroundImageMessage : public Message
 {
 public:
-  AddTileBackgroundImageMessage(std::string const & uid, uint32_t width, uint32_t height, dp::TextureFormat format,
-                                dp::BackgroundMode mode, std::vector<uint8_t> && bytes)
-    : m_uid(uid)
+  AddTileBackgroundImageMessage(df::TileKey const & tileKey, std::string const & uid, uint32_t width, uint32_t height,
+                                dp::TextureFormat format, dp::BackgroundMode mode, std::vector<uint8_t> && bytes)
+    : m_tileKey(tileKey)
+    , m_uid(uid)
     , m_width(width)
     , m_height(height)
     , m_format(format)
@@ -1506,6 +1507,7 @@ public:
 
   Type GetType() const override { return Type::AddTileBackgroundImage; }
 
+  df::TileKey const & GetTileKey() const { return m_tileKey; }
   std::string const & GetUid() const { return m_uid; }
   uint32_t GetWidth() const { return m_width; }
   uint32_t GetHeight() const { return m_height; }
@@ -1514,6 +1516,7 @@ public:
   std::vector<uint8_t> & GetBytes() { return m_bytes; }
 
 private:
+  df::TileKey m_tileKey;
   std::string m_uid;
   uint32_t m_width;
   uint32_t m_height;
@@ -1567,21 +1570,23 @@ private:
 class AssignTileBackgroundImageMessage : public Message
 {
 public:
-  AssignTileBackgroundImageMessage(ref_ptr<dp::GraphicsContext> context, std::string const & uid,
-                                   ref_ptr<dp::TexturePool> texturePool, dp::TexturePool::TextureId textureId,
-                                   dp::BackgroundMode mode)
+  AssignTileBackgroundImageMessage(ref_ptr<dp::GraphicsContext> context, df::TileKey const & tileKey,
+                                   std::string const & uid, ref_ptr<dp::TexturePool> texturePool,
+                                   dp::TexturePool::TextureId textureId, dp::BackgroundMode mode)
     : m_context(context)
+    , m_tileKey(tileKey)
     , m_uid(uid)
     , m_texturePool(texturePool)
     , m_textureId(textureId)
     , m_mode(mode)
   {}
 
-  AssignTileBackgroundImageMessage(ref_ptr<dp::GraphicsContext> context, std::string const & uid,
-                                   ref_ptr<dp::TexturePool> texturePool, dp::TexturePool::TextureId textureId,
-                                   dp::BackgroundMode mode, std::vector<uint8_t> && bytes, uint32_t width,
-                                   uint32_t height)
+  AssignTileBackgroundImageMessage(ref_ptr<dp::GraphicsContext> context, df::TileKey const & tileKey,
+                                   std::string const & uid, ref_ptr<dp::TexturePool> texturePool,
+                                   dp::TexturePool::TextureId textureId, dp::BackgroundMode mode,
+                                   std::vector<uint8_t> && bytes, uint32_t width, uint32_t height)
     : m_context(context)
+    , m_tileKey(tileKey)
     , m_uid(uid)
     , m_texturePool(texturePool)
     , m_textureId(textureId)
@@ -1604,6 +1609,7 @@ public:
   uint32_t GetWidth() const { return m_width; }
   uint32_t GetHeight() const { return m_height; }
 
+  df::TileKey const & GetTileKey() const { return m_tileKey; }
   std::string const & GetUid() const { return m_uid; }
   ref_ptr<dp::TexturePool> GetTexturePool() const { return m_texturePool; }
   dp::TexturePool::TextureId GetTextureId() const { return m_textureId; }
@@ -1618,6 +1624,7 @@ public:
 
 private:
   ref_ptr<dp::GraphicsContext> m_context;
+  df::TileKey m_tileKey;
   std::string m_uid;
   ref_ptr<dp::TexturePool> m_texturePool;
   dp::TexturePool::TextureId m_textureId;

@@ -267,6 +267,17 @@ int GetDrawTileScale(m2::RectD const & r)
   return GetDrawTileScale(r, p.GetTileSize(), p.GetVisualScale());
 }
 
+int GetTileBackgroundZoom(int drawZoom, bool isPerspective)
+{
+  // Perspective expands the far view; use the data grid to keep its raster coverage bounded.
+  if (isPerspective)
+    return std::min(drawZoom, scales::GetUpperScale());
+
+  // HiDPI needs finer imagery, up to the provider's web zoom 19 (OM zoom 20).
+  int const extraZoom = VisualParams::Instance().GetVisualScale() >= 2.0 ? 1 : 0;
+  return std::min(drawZoom + extraZoom, scales::GetUpperStyleScale());
+}
+
 void ExtractZoomFactors(ScreenBase const & s, double & zoom, int & index, float & lerpCoef)
 {
   double const zoomLevel = GetZoomLevel(s.GetScale());

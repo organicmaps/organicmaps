@@ -18,6 +18,7 @@
 #include <condition_variable>
 #include <memory>
 #include <mutex>
+#include <optional>
 #include <thread>
 #include <unordered_map>
 #include <vector>
@@ -191,9 +192,8 @@ UNIT_TEST(RasterTileProvider_ToSourceTile_MatchesWebMercator)
   }
 }
 
-// Regression for the "z18 desert tile" bug, with the exact browser-verified web tiles. The bug was
-// upstream (the OM coverage was clamped to GetUpperScale()=17, so m_x/m_y lagged m_zoomLevel above
-// zoom 17); these values lock in the conversion contract that the fix restores.
+// The OM tile grid must match m_zoomLevel, including above the vector data zoom.
+// These known XYZ coordinates verify the conversion at the reported location.
 UNIT_TEST(RasterTileProvider_ToSourceTile_BugReportCoords)
 {
   double const lat = 50.584312, lon = 33.724862;
@@ -265,12 +265,14 @@ UNIT_TEST(RasterTileProvider_ToSourceTile_AntimeridianWrap)
 
 UNIT_TEST(RasterTileProvider_CancelStopsTransportAndSuppressesLateCompletion)
 {
-  Platform::ThreadRunner runner;
   std::string const cacheSubdir = "raster_tile_provider_cancel_test";
   platform::tests_support::ScopedDirCleanup cleanup(base::JoinPath(GetPlatform().WritableDir(), cacheSubdir));
   ControlledDownloader downloader;
   ReadyRecorder ready;
-  RTP provider(TestParams(cacheSubdir), ready.GetReadyFn(), downloader.GetDownloadFn());
+  // Stop the File thread before destroying the provider and its callback state.
+  std::optional<RTP> providerStorage;
+  Platform::ThreadRunner runner;
+  auto & provider = providerStorage.emplace(TestParams(cacheSubdir), ready.GetReadyFn(), downloader.GetDownloadFn());
   auto const key = OmTileAt(50.584312, 33.724862, 10);
 
   TEST(provider.RequestTile(key, dp::BackgroundMode::Satellite), ());
@@ -284,12 +286,14 @@ UNIT_TEST(RasterTileProvider_CancelStopsTransportAndSuppressesLateCompletion)
 
 UNIT_TEST(RasterTileProvider_CancelThenRerequestIgnoresOldCompletion)
 {
-  Platform::ThreadRunner runner;
   std::string const cacheSubdir = "raster_tile_provider_rerequest_test";
   platform::tests_support::ScopedDirCleanup cleanup(base::JoinPath(GetPlatform().WritableDir(), cacheSubdir));
   ControlledDownloader downloader;
   ReadyRecorder ready;
-  RTP provider(TestParams(cacheSubdir), ready.GetReadyFn(), downloader.GetDownloadFn());
+  // Stop the File thread before destroying the provider and its callback state.
+  std::optional<RTP> providerStorage;
+  Platform::ThreadRunner runner;
+  auto & provider = providerStorage.emplace(TestParams(cacheSubdir), ready.GetReadyFn(), downloader.GetDownloadFn());
   auto const key = OmTileAt(50.584312, 33.724862, 10);
 
   TEST(provider.RequestTile(key, dp::BackgroundMode::Satellite), ());
@@ -309,12 +313,14 @@ UNIT_TEST(RasterTileProvider_CancelThenRerequestIgnoresOldCompletion)
 
 UNIT_TEST(RasterTileProvider_ConcurrentCompletionsDeliverEachRequestOnce)
 {
-  Platform::ThreadRunner runner;
   std::string const cacheSubdir = "raster_tile_provider_concurrent_test";
   platform::tests_support::ScopedDirCleanup cleanup(base::JoinPath(GetPlatform().WritableDir(), cacheSubdir));
   ControlledDownloader downloader;
   ReadyRecorder ready;
-  RTP provider(TestParams(cacheSubdir), ready.GetReadyFn(), downloader.GetDownloadFn());
+  // Stop the File thread before destroying the provider and its callback state.
+  std::optional<RTP> providerStorage;
+  Platform::ThreadRunner runner;
+  auto & provider = providerStorage.emplace(TestParams(cacheSubdir), ready.GetReadyFn(), downloader.GetDownloadFn());
 
   size_t constexpr kRequestCount = 8;
   std::vector<df::TileKey> keys;
