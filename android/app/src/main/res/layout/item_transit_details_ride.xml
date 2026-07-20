@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Spacing comes from each row's marginTop only (no item vertical padding) for an even rhythm. -->
+<!-- A transit ride leg drawn as a timeline: a line-colored bar runs down the left, spanning from the
+     boarding stop (first) to the exit stop (last). The middle holds the tappable stop-count summary
+     that discloses the intermediate stops. Spacing comes from each row's marginTop only.
+
+     For a same-station transfer the shared stop is drawn once, as the transfer header floating in the
+     gap above the bar so it centers between the previous leg's bar and this one's. In that case the
+     in-bar boarding heading is hidden and the bar starts at the badge row. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
@@ -8,65 +14,149 @@
   android:paddingStart="@dimen/margin_base"
   android:paddingEnd="@dimen/margin_base">
 
-  <TextView
-    android:id="@+id/board_at"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/margin_half"
-    android:textAppearance="?fontBody1"
-    android:textColor="?android:attr/textColorPrimary"
-    tools:text="Board at Sadovaya"/>
-
+  <!-- Transfer header: hidden unless this leg is a direct, same-station transfer. The colored line runs
+       straight through it as a two-tone stub (incoming line on top, outgoing below) with only a small
+       break, so the two bars visually almost touch; the shared stop name is centered beside the break. -->
   <LinearLayout
-    android:id="@+id/ride_summary_row"
+    android:id="@+id/transfer_header_row"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/margin_base"
-    android:layout_marginTop="@dimen/margin_half"
-    android:background="?clickableBackground"
+    android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:gravity="center_vertical">
+    android:visibility="gone"
+    tools:visibility="visible">
 
-    <app.organicmaps.routing.TransitStepView
-      android:id="@+id/line_badge"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:minHeight="@dimen/routing_transit_step_min_height"
-      android:textSize="@dimen/text_size_body_1"
-      android:textColor="@android:color/white"
-      android:paddingStart="@dimen/margin_quarter"
-      android:paddingEnd="@dimen/margin_quarter"/>
+    <LinearLayout
+      android:layout_width="@dimen/transit_details_legend_width"
+      android:layout_height="match_parent"
+      android:orientation="vertical">
 
+      <View
+        android:id="@+id/transfer_stub_top"
+        android:layout_width="@dimen/margin_quarter_plus"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:background="@drawable/transit_line_bar"
+        tools:background="#7B1FA2" />
+
+      <!-- Break between the two lines; height is set to ~30% of the stop name's text height in code. -->
+      <Space
+        android:id="@+id/transfer_gap"
+        android:layout_width="@dimen/margin_quarter_plus"
+        android:layout_height="@dimen/margin_quarter"
+        android:layout_gravity="center_horizontal" />
+
+      <View
+        android:id="@+id/transfer_stub_bottom"
+        android:layout_width="@dimen/margin_quarter_plus"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:background="@drawable/transit_line_bar"
+        tools:background="#5D4037" />
+    </LinearLayout>
+
+    <!-- 8dp above and below so the shared stop keeps the list's vertical rhythm; the stub column still
+         fills the full row height, so the two-tone line stays connected and its break stays text-centered. -->
     <TextView
-      android:id="@+id/ride_subtitle"
+      android:id="@+id/transfer_header"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/margin_half_plus"
-      android:drawablePadding="@dimen/margin_eighth"
-      android:textAppearance="?fontBody2"
-      android:textColor="?secondary"
-      tools:text="4 stops · 8 min"
-      tools:drawableEnd="@drawable/ic_expand_more"/>
+      android:layout_marginStart="@dimen/margin_half"
+      android:layout_marginTop="@dimen/margin_half"
+      android:layout_marginBottom="@dimen/margin_half"
+      android:textAppearance="?fontBody1"
+      android:textColor="?android:attr/textColorPrimary"
+      tools:text="Umsteigen an Unter den Linden" />
   </LinearLayout>
 
-  <TextView
-    android:id="@+id/intermediate_stops"
+  <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/margin_base"
-    android:layout_marginTop="@dimen/margin_half"
-    android:visibility="gone"
-    android:textAppearance="?fontBody2"
-    android:textColor="?secondary"
-    tools:visibility="visible"
-    tools:text="Frunzenskaya · Sportivnaya · Vorobyovy Gory"/>
+    android:orientation="horizontal">
 
-  <TextView
-    android:id="@+id/exit_at"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/margin_half"
-    android:textAppearance="?fontBody1"
-    android:textColor="?android:attr/textColorPrimary"
-    tools:text="Exit at Tekstilshiki"/>
+    <FrameLayout
+      android:layout_width="@dimen/transit_details_legend_width"
+      android:layout_height="match_parent">
+
+      <View
+        android:id="@+id/line_bar"
+        android:layout_width="@dimen/margin_quarter_plus"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_half"
+        android:background="@drawable/transit_line_bar"
+        tools:background="#3F51B5" />
+    </FrameLayout>
+
+    <LinearLayout
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:layout_marginStart="@dimen/margin_half"
+      android:orientation="vertical">
+
+      <TextView
+        android:id="@+id/board_at"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_half"
+        android:textAppearance="?fontBody1"
+        android:textColor="?android:attr/textColorPrimary"
+        tools:text="Board at Sadovaya" />
+
+      <LinearLayout
+        android:id="@+id/ride_summary_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_half"
+        android:background="?clickableBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <app.organicmaps.routing.TransitStepView
+          android:id="@+id/line_badge"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:minHeight="@dimen/routing_transit_step_min_height"
+          android:paddingStart="@dimen/margin_quarter"
+          android:paddingEnd="@dimen/margin_quarter"
+          android:textColor="@android:color/white"
+          android:textSize="@dimen/text_size_body_1" />
+
+        <TextView
+          android:id="@+id/ride_subtitle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/margin_half_plus"
+          android:drawablePadding="@dimen/margin_eighth"
+          android:textAppearance="?fontBody2"
+          android:textColor="?secondary"
+          tools:drawableEnd="@drawable/ic_expand_more"
+          tools:text="4 stops · 8 min" />
+      </LinearLayout>
+
+      <TextView
+        android:id="@+id/intermediate_stops"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_half"
+        android:lineSpacingExtra="@dimen/margin_half"
+        android:textAppearance="?fontBody2"
+        android:textColor="?secondary"
+        android:visibility="gone"
+        tools:text="Frunzenskaya · Sportivnaya · Vorobyovy Gory"
+        tools:visibility="visible" />
+
+      <TextView
+        android:id="@+id/exit_at"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_half"
+        android:textAppearance="?fontBody1"
+        android:textColor="?android:attr/textColorPrimary"
+        tools:text="Exit at Tekstilshiki" />
+    </LinearLayout>
+  </LinearLayout>
 </LinearLayout>
