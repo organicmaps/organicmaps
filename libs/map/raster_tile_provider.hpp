@@ -4,6 +4,8 @@
 
 #include "drape/drape_global.hpp"
 
+#include "platform/http_client.hpp"
+
 #include "geometry/rect2d.hpp"
 
 #include <array>
@@ -12,7 +14,6 @@
 #include <mutex>
 #include <string>
 #include <unordered_map>
-#include <unordered_set>
 #include <vector>
 
 // POC raster background-tile provider.
@@ -63,8 +64,13 @@ public:
   using TReadyFn =
       std::function<void(df::TileKey const & tileKey, dp::BackgroundMode mode, std::string const & imageUid,
                          uint32_t width, uint32_t height, m2::RectF const & rect, std::vector<uint8_t> && rgba)>;
+  using TCancelFn = std::function<void()>;
+  // Injectable transport start function. Production uses HttpClient; tests keep and complete the
+  // handlers in a controlled order to exercise cancellation and concurrent completion races.
+  using TDownloadFn =
+      std::function<TCancelFn(std::string const & url, platform::HttpClient::CompletionHandler handler)>;
 
-  RasterTileProvider(Params params, TReadyFn onReady);
+  RasterTileProvider(Params params, TReadyFn onReady, TDownloadFn downloadFn = {});
 
   // Called on the render thread for every newly visible tile. Non-blocking: schedules the
   // fetch/decode on the Network thread pool.
@@ -74,10 +80,8 @@ public:
   // request so it is neither bound nor uploaded once it finishes.
   void CancelTile(df::TileKey const & tileKey, dp::BackgroundMode mode);
 
-  // Live-updates m_params.m_urlTemplate and m_params.m_maxCacheBytes (thread-safe). The provider
-  // object is never destroyed (in-flight async tasks capture it), so reconfiguring rather than
-  // recreating is safe. When the URL changes the on-disk cache is cleared, since cached z/x/y now
-  // map to a different source.
+  // Live-updates m_params.m_urlTemplate and m_params.m_maxCacheBytes (thread-safe). When the URL
+  // changes the on-disk cache is cleared, since cached z/x/y now map to a different source.
   void Reconfigure(std::string urlTemplate, uint64_t maxCacheBytes);
 
   // Source web-mercator XYZ tile plus the UV sub-rect within it that the given OM tile maps to.
@@ -122,17 +126,18 @@ private:
   // Starts a non-blocking HTTP request; its completion handler decodes, caches and delivers the tile.
   // src carries the uid / file name / sub-rect / source zoom (the latter used for max-zoom detection).
   void StartDownload(df::TileKey const & tileKey, dp::BackgroundMode mode, std::string const & url,
-                     SourceTile const & src);
+                     SourceTile const & src, uint64_t requestId);
 
 #ifdef ENABLE_STATUS_PLACEHOLDERS
   // Delivers a debug status placeholder image for the tile through m_onReady.
   void DeliverPlaceholder(df::TileKey const & tileKey, dp::BackgroundMode mode, Status status);
 #endif
 
-  bool IsActive(df::TileKey const & tileKey) const;
-  // Removes tileKey from the in-flight set. Returns true if it was still present
-  // (i.e. the request was not cancelled meanwhile).
-  bool DropActive(df::TileKey const & tileKey);
+  bool IsActive(df::TileKey const & tileKey, uint64_t requestId) const;
+  // Removes a specific request instance. An older completion must not remove a replacement request
+  // for the same coordinate.
+  bool DropActive(df::TileKey const & tileKey, uint64_t requestId);
+  void AttachCancel(df::TileKey const & tileKey, uint64_t requestId, TCancelFn cancelFn);
 
   // Scans the cache dir (posted to the File thread from the constructor, ahead of any cache read)
   // and seeds the LRU order by file time.
@@ -152,13 +157,21 @@ private:
   // (under m_cacheMutex). All other fields are immutable after construction.
   Params m_params;
   TReadyFn const m_onReady;
+  TDownloadFn const m_downloadFn;
   std::string m_cacheDir;
 #ifdef ENABLE_STATUS_PLACEHOLDERS
   std::array<Placeholder, static_cast<size_t>(Status::Count)> m_placeholders;
 #endif
 
   mutable std::mutex m_activeMutex;
-  std::unordered_set<df::TileKey> m_active;
+  struct ActiveRequest
+  {
+    uint64_t m_id = 0;
+    uint64_t m_clientGeneration = 0;
+    TCancelFn m_cancelFn;
+  };
+  std::unordered_map<df::TileKey, ActiveRequest> m_active;
+  uint64_t m_nextRequestId = 0;
 
   // On-disk cache index, keyed by tile file name. m_lru orders names front (LRU) -> back (MRU);
   // m_cacheBytes is the tracked total. Guarded by m_cacheMutex.
