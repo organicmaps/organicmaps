@@ -48,6 +48,43 @@ fragment half4 fsArea(const AreaFragment_T in [[stage_in]])
   return in.color;
 }
 
+// TerrainShade
+
+typedef struct
+{
+  float3 a_position [[attribute(0)]];
+  float a_intensity [[attribute(1)]];
+} TerrainShadeVertex_T;
+
+typedef struct
+{
+  float4 position [[position]];
+  float intensity;
+} TerrainShadeFragment_T;
+
+vertex TerrainShadeFragment_T vsTerrainShade(const TerrainShadeVertex_T in [[stage_in]],
+                                             constant Uniforms_T & uniforms [[buffer(1)]])
+{
+  TerrainShadeFragment_T out;
+  float4 pos = float4(in.a_position, 1.0) * uniforms.u_modelView * uniforms.u_projection;
+  out.position = ApplyPivotTransform(pos, uniforms.u_pivotTransform, 0.0);
+  out.intensity = in.a_intensity;
+  return out;
+}
+
+fragment half4 fsTerrainShade(const TerrainShadeFragment_T in [[stage_in]],
+                              constant Uniforms_T & uniforms [[buffer(0)]])
+{
+  // See terrain_shade.fsh.glsl: shadow/highlight relative to the flat ground.
+  constexpr float kShadowMaxAlpha = 0.376;
+  constexpr float kHighlightMaxAlpha = 0.157;
+  float const shadow = clamp(-in.intensity, 0.0, 1.0);
+  float const highlight = clamp(in.intensity, 0.0, 1.0);
+  half4 color = half4(half3(step(0.0, in.intensity)), half(shadow * kShadowMaxAlpha + highlight * kHighlightMaxAlpha));
+  color.a *= half(uniforms.u_opacity);
+  return color;
+}
+
 // Area3d
 
 typedef struct
