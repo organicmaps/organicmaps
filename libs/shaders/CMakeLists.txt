@@ -61,6 +61,8 @@ set(shader_files
     GL/smaa_final.fsh.glsl
     GL/smaa_final.vsh.glsl
     GL/solid_color.fsh.glsl
+  GL/terrain_shade.vsh.glsl
+  GL/terrain_shade.fsh.glsl
     GL/text.fsh.glsl
     GL/text.vsh.glsl
     GL/text_billboard.vsh.glsl
