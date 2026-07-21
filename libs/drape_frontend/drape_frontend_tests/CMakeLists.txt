@@ -13,6 +13,7 @@ set(SRC
   shape_test_fixture.hpp
   stylist_tests.cpp
   user_event_stream_tests.cpp
+  visual_params_fixture.hpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})

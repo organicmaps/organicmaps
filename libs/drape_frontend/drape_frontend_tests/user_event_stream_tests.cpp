@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "drape_frontend/drape_frontend_tests/visual_params_fixture.hpp"
 #include "drape_frontend/user_event_stream.hpp"
 
 #include "base/thread.hpp"
@@ -9,6 +10,7 @@
 #include <functional>
 #include <list>
 
+using df::test_support::VisualParamsFixture;
 using namespace std::placeholders;
 
 #ifdef DEBUG
@@ -134,7 +136,7 @@ df::TouchEvent MakeTouchEvent(m2::PointD const & pt, df::TouchEvent::ETouchType 
 }
 }  // namespace
 
-UNIT_TEST(SimpleTap)
+UNIT_CLASS_TEST(VisualParamsFixture, SimpleTap)
 {
   UserEventStreamTest test(false);
   test.AddExpectation(df::UserEventStream::TRY_FILTER);
@@ -147,7 +149,7 @@ UNIT_TEST(SimpleTap)
   test.RunTest();
 }
 
-UNIT_TEST(SimpleLongTap)
+UNIT_CLASS_TEST(VisualParamsFixture, SimpleLongTap)
 {
   UserEventStreamTest test(false);
   test.AddExpectation(df::UserEventStream::TRY_FILTER);
@@ -163,7 +165,7 @@ UNIT_TEST(SimpleLongTap)
   test.RunTest();
 }
 
-UNIT_TEST(SimpleDrag)
+UNIT_CLASS_TEST(VisualParamsFixture, SimpleDrag)
 {
   size_t const moveEventCount = 5;
   UserEventStreamTest test(false);
@@ -186,7 +188,7 @@ UNIT_TEST(SimpleDrag)
   test.RunTest();
 }
 
-UNIT_TEST(SimpleScale)
+UNIT_CLASS_TEST(VisualParamsFixture, SimpleScale)
 {
   size_t const moveEventCount = 5;
   UserEventStreamTest test(false);
@@ -211,7 +213,7 @@ UNIT_TEST(SimpleScale)
   test.RunTest();
 }
 
-UNIT_TEST(SetCenter_AlignsToVisibleViewportCenter)
+UNIT_CLASS_TEST(VisualParamsFixture, SetCenter_AlignsToVisibleViewportCenter)
 {
   // With an asymmetric visible viewport (e.g. host UI panel covering bottom 30%),
   // SetCenter must place the geographic target at the visible-viewport center

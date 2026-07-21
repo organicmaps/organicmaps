@@ -3,7 +3,6 @@
 #include "drape_frontend/apply_feature_params.hpp"
 #include "drape_frontend/clip_splines_builder.hpp"
 #include "drape_frontend/tile_key.hpp"
-#include "drape_frontend/visual_params.hpp"
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
@@ -39,8 +38,6 @@ using P = m2::PointD;
 // exact derived value from VisualParams.
 df::ApplyFeatureParams MakeParams(uint8_t zoomLevel, double minSegmentSqr)
 {
-  df::VisualParams::Init(1.0, 1024);
-
   df::ApplyFeatureParams params;
   params.m_tileKey = df::TileKey(0, 0, zoomLevel);
   // Tile rect that comfortably contains the test points (which all live in [-100, 100]).
@@ -225,8 +222,6 @@ UNIT_TEST(ClipSplinesBuilder_LimitRect_Outside)
 {
   // Feature lies entirely outside the tile rect. Build should short-circuit
   // before reading any points; m_path stays empty.
-  df::VisualParams::Init(1.0, 1024);
-
   df::ApplyFeatureParams params;
   params.m_tileKey = df::TileKey(0, 0, kSimplifyZoom);
   params.m_tileRect = m2::RectD(0, 0, 10, 10);
@@ -246,8 +241,6 @@ UNIT_TEST(ClipSplinesBuilder_LimitRect_Inside)
 {
   // Feature lies entirely inside the tile rect. Build should set the
   // Inside hint so Release() can take the fast path.
-  df::VisualParams::Init(1.0, 1024);
-
   df::ApplyFeatureParams params;
   params.m_tileKey = df::TileKey(0, 0, kSimplifyZoom);
   params.m_tileRect = m2::RectD(-100, -100, 100, 100);
@@ -268,8 +261,6 @@ UNIT_TEST(ClipSplinesBuilder_LimitRect_Crossing)
   // Feature's limit rect overlaps the tile rect but isn't contained — the
   // hint stays Unknown and the path is read in full (clipping itself
   // happens later in Release()).
-  df::VisualParams::Init(1.0, 1024);
-
   df::ApplyFeatureParams params;
   params.m_tileKey = df::TileKey(0, 0, kSimplifyZoom);
   params.m_tileRect = m2::RectD(0, 0, 10, 10);
@@ -292,8 +283,6 @@ UNIT_TEST(ClipSplinesBuilder_LimitRect_Isoline_InSmoothBand)
   // Isoline feature whose limit rect is strictly outside tileRect but inside
   // tileRect.Scale(kIsolineSmoothScale). Must NOT be short-circuited — the isoline smoother
   // needs the full control-point set to avoid seams at tile boundaries.
-  df::VisualParams::Init(1.0, 1024);
-
   df::ApplyFeatureParams params;
   params.m_tileKey = df::TileKey(0, 0, kSimplifyZoom);
   params.m_tileRect = m2::RectD(0, 0, 10, 10);  // extTileRect = (-3, -3, 13, 13)
