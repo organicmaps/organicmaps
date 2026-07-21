@@ -28,6 +28,8 @@ enum class Program
   DashedLine,
   PathSymbol,
   TransparentArea,
+  // The smooth (per-vertex interpolated) terrain hillshade, see RuleDrawer::DrawTerrainShade.
+  TerrainShade,
   CapJoin,
   // Keep the solid-fill patterns before the Hatching* overlays: render groups in a depth layer draw in
   // program-enum order, and a hatch writes depth across its whole quad (including the transparent gaps
@@ -102,6 +104,7 @@ inline std::string_view DebugPrint(Program p)
   case Program::DashedLine: return "DashedLine";
   case Program::PathSymbol: return "PathSymbol";
   case Program::TransparentArea: return "TransparentArea";
+  case Program::TerrainShade: return "TerrainShade";
   case Program::AreaStipple: return "AreaStipple";
   case Program::AreaSpeckle: return "AreaSpeckle";
   case Program::AreaGrid: return "AreaGrid";

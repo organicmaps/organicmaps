@@ -1,5 +1,7 @@
 #include "drape_frontend/rule_drawer.hpp"
 
+#include "drape_frontend/terrain_shade_shape.hpp"
+
 #include "drape_frontend/apply_feature_functors.hpp"
 #include "drape_frontend/clip_splines_builder.hpp"
 #include "drape_frontend/engine_context.hpp"
@@ -40,6 +42,7 @@
 #include <cmath>
 #include <functional>
 #include <limits>
+#include <unordered_map>
 #include <vector>
 
 namespace df
@@ -500,19 +503,15 @@ void RuleDrawer::DrawTerrainShade(MapDataProvider const & model)
 
   m2::RectD const & tileRect = m_applyParams.m_tileRect;
 
-  // The shade palette: quantized Lambert intensity mapped to semi-transparent black
-  // (shadows) and white (highlights) blended over the map fills. The colors live in the
-  // dynamic drape palette atlas, so the palette must stay small and fixed.
-  int constexpr kShadowBuckets = 24;
-  int constexpr kHighlightBuckets = 8;
-  uint8_t constexpr kShadowMaxAlpha = 96;
-  uint8_t constexpr kHighlightMaxAlpha = 40;
   // The light direction (towards the light): azimuth 315 (NW), altitude 45 degrees;
-  // +x = east, +y = north in mercator. Flat ground gets sin(45) intensity, the shade
-  // buckets are relative to it, so the flat ground is not drawn at all.
+  // +x = east, +y = north in mercator. Flat ground gets sin(45) intensity and the shade
+  // is relative to it, so the flat ground is not drawn at all.
   double constexpr kLightX = -0.5, kLightY = 0.5, kLightZ = 0.70710678;
   double constexpr kFlatIntensity = 0.70710678;
   double constexpr kExaggeration = 1.0;
+  // A triangle whose vertices are all this close to the flat intensity is invisible
+  // (alpha under 1 of 255): skipped, the plains stay free.
+  float constexpr kFlatEps = 0.01f;
 
   // Ground meters per mercator unit at the tile latitude (the projection is conformal:
   // the x and y local scales are equal); the altitudes are meters.
@@ -520,8 +519,30 @@ void RuleDrawer::DrawTerrainShade(MapDataProvider const & model)
   double const zScale =
       kExaggeration / mercator::DistanceOnEarth({center.x - 0.5, center.y}, {center.x + 0.5, center.y});
 
-  // The bucket index is shifted by kShadowBuckets: [0, kShadowBuckets) are the shadows.
-  std::array<std::vector<m2::PointD>, kShadowBuckets + 1 + kHighlightBuckets> buckets;
+  // Pass 1: dedupe the vertices by the canonical quantized position and accumulate the
+  // area-weighted face normals. Shared vertices decode bit-identically across triangles,
+  // features and the neighbor tiles' overhang (the canonical formula, docs/TERRAIN.md),
+  // so the smoothed per-vertex normals agree along every seam. Triangles outside the
+  // tile still contribute to their vertices, only the intersecting ones are emitted.
+  struct ShadeVertex
+  {
+    m2::PointD m_pos;
+    double m_nx = 0.0, m_ny = 0.0, m_nz = 0.0;
+    float m_intensity = 0.0f;
+  };
+  std::vector<ShadeVertex> shadeVertices;
+  std::unordered_map<uint64_t, uint32_t> vertexIndices;
+  std::vector<uint32_t> shadeTriangles;
+
+  auto const vertexIndex = [&](m2::PointD const & p)
+  {
+    auto const pu = PointDToPointU(p, terrain::kTerrainCoordBits);
+    auto const [it, inserted] =
+        vertexIndices.emplace((uint64_t{pu.x} << 32) | pu.y, static_cast<uint32_t>(shadeVertices.size()));
+    if (inserted)
+      shadeVertices.push_back({p});
+    return it->second;
+  };
 
   model.ReadTriangles(tileRect, m_zoomLevel, [&](terrain::Triangles const & feature)
   {
@@ -536,13 +557,8 @@ void RuleDrawer::DrawTerrainShade(MapDataProvider const & model)
       m2::PointD const & p1 = feature.m_points[i1];
       m2::PointD const & p2 = feature.m_points[i2];
 
-      // The features overhang the tile: cheap-reject the outside triangles.
-      m2::RectD triRect(p0, p1);
-      triRect.Add(p2);
-      if (!tileRect.IsIntersect(triRect))
-        continue;
-
-      // The upward normal of the CCW triangle, altitudes scaled into mercator units.
+      // The upward normal of the CCW triangle (unnormalized, i.e. area-weighted), the
+      // altitudes scaled into mercator units.
       double const e1x = p1.x - p0.x, e1y = p1.y - p0.y;
       double const e2x = p2.x - p0.x, e2y = p2.y - p0.y;
       double const e1z = (feature.m_altitudes[i1] - feature.m_altitudes[i0]) * zScale;
@@ -550,63 +566,80 @@ void RuleDrawer::DrawTerrainShade(MapDataProvider const & model)
       double const nx = e1y * e2z - e1z * e2y;
       double const ny = e1z * e2x - e1x * e2z;
       double const nz = e1x * e2y - e1y * e2x;
-      double const len = std::sqrt(nx * nx + ny * ny + nz * nz);
-      if (len < 1e-15)
-        continue;
-      double const intensity = (nx * kLightX + ny * kLightY + nz * kLightZ) / len;
 
-      int bucket;
-      if (intensity < kFlatIntensity)
-        bucket = -static_cast<int>(
-            std::lround((kFlatIntensity - std::max(intensity, 0.0)) / kFlatIntensity * kShadowBuckets));
-      else
-        bucket =
-            static_cast<int>(std::lround((intensity - kFlatIntensity) / (1.0 - kFlatIntensity) * kHighlightBuckets));
-      if (bucket == 0)
-        continue;
-
-      auto & out = buckets[bucket + kShadowBuckets];
-      auto const emit = [&out](m2::PointD const & a, m2::PointD const & b, m2::PointD const & c)
+      uint32_t const v0 = vertexIndex(p0);
+      uint32_t const v1 = vertexIndex(p1);
+      uint32_t const v2 = vertexIndex(p2);
+      for (uint32_t const v : {v0, v1, v2})
       {
-        out.push_back(a);
-        out.push_back(b);
-        out.push_back(c);
-      };
-      // Clip to the tile: the alpha layer must not double-blend across the tiles. The
-      // drape areas use the CW winding (cf. ApplyAreaFeature), TWM triangles are CCW.
-      double const orientation = m2::robust::OrientedS(p0, p1, p2);
-      double constexpr kEmptyTriangleS = kMwmPointAccuracy * kMwmPointAccuracy * 0.01;
-      if (fabs(orientation) < kEmptyTriangleS)
-        continue;
-      if (orientation < 0)
-        m2::ClipTriangleByRect(tileRect, p0, p1, p2, emit);
-      else
-        m2::ClipTriangleByRect(tileRect, p0, p2, p1, emit);
+        shadeVertices[v].m_nx += nx;
+        shadeVertices[v].m_ny += ny;
+        shadeVertices[v].m_nz += nz;
+      }
+
+      m2::RectD triRect(p0, p1);
+      triRect.Add(p2);
+      if (tileRect.IsIntersect(triRect))
+        shadeTriangles.insert(shadeTriangles.end(), {v0, v1, v2});
     }
   });
 
   if (CheckCancelled())
     return;
 
-  for (size_t i = 0; i < buckets.size(); ++i)
+  // Pass 2: the per-vertex Lambert intensity relative to the flat ground, [-1, 1].
+  for (auto & v : shadeVertices)
   {
-    if (buckets[i].empty())
+    double const len = std::sqrt(v.m_nx * v.m_nx + v.m_ny * v.m_ny + v.m_nz * v.m_nz);
+    if (len < 1e-15)
+      continue;
+    double const intensity = (v.m_nx * kLightX + v.m_ny * kLightY + v.m_nz * kLightZ) / len;
+    v.m_intensity = static_cast<float>((intensity - kFlatIntensity) /
+                                       (intensity < kFlatIntensity ? kFlatIntensity : 1.0 - kFlatIntensity));
+  }
+
+  // Pass 3: clip to the tile (the alpha layer must not double-blend across the tiles)
+  // and emit; the clip points interpolate the vertex intensities barycentrically. The
+  // drape areas use the CW winding (cf. ApplyAreaFeature), TWM triangles are CCW.
+  std::vector<gpu::TerrainShadeVertex> vertices;
+  auto const makeVertex = [&](m2::PointD const & p, float intensity)
+  {
+    m2::PointD const local = MapShape::ConvertToLocal(p, center, kShapeCoordScalar);
+    return gpu::TerrainShadeVertex(glsl::vec3(local.x, local.y, drule::kMinLayeredDepthFg), intensity);
+  };
+  for (size_t t = 0; t + 2 < shadeTriangles.size(); t += 3)
+  {
+    ShadeVertex const & a = shadeVertices[shadeTriangles[t]];
+    ShadeVertex const & b = shadeVertices[shadeTriangles[t + 1]];
+    ShadeVertex const & c = shadeVertices[shadeTriangles[t + 2]];
+    if (std::fabs(a.m_intensity) < kFlatEps && std::fabs(b.m_intensity) < kFlatEps &&
+        std::fabs(c.m_intensity) < kFlatEps)
       continue;
 
-    int const bucket = static_cast<int>(i) - kShadowBuckets;
-    dp::Color const color =
-        bucket < 0 ? dp::Color(0, 0, 0, static_cast<uint8_t>(kShadowMaxAlpha * -bucket / kShadowBuckets))
-                   : dp::Color(255, 255, 255, static_cast<uint8_t>(kHighlightMaxAlpha * bucket / kHighlightBuckets));
+    double const orientation = m2::robust::OrientedS(a.m_pos, b.m_pos, c.m_pos);
+    double constexpr kEmptyTriangleS = kMwmPointAccuracy * kMwmPointAccuracy * 0.01;
+    if (std::fabs(orientation) < kEmptyTriangleS)
+      continue;
 
-    AreaViewParams params;
-    params.m_tileCenter = tileRect.Center();
-    // Above all the background fills, below the foreground lines; the semi-transparent
-    // color picks the TransparentArea program, which renders after the opaque geometry.
-    params.m_depth = drule::kMinLayeredDepthFg;
-    params.m_color = color;
-    params.m_baseGtoPScale = m_applyParams.m_currentScaleGtoP;
-    m_applyParams.m_insertShape(make_unique_dp<AreaShape>(std::move(buckets[i]), BuildingOutline{}, params));
+    auto const emit = [&](m2::PointD const & pa, m2::PointD const & pb, m2::PointD const & pc)
+    {
+      for (auto const & p : {pa, pb, pc})
+      {
+        double const wa = m2::robust::OrientedS(p, b.m_pos, c.m_pos) / orientation;
+        double const wb = m2::robust::OrientedS(a.m_pos, p, c.m_pos) / orientation;
+        double const wc = 1.0 - wa - wb;
+        vertices.push_back(
+            makeVertex(p, static_cast<float>(wa * a.m_intensity + wb * b.m_intensity + wc * c.m_intensity)));
+      }
+    };
+    if (orientation < 0)
+      m2::ClipTriangleByRect(tileRect, a.m_pos, b.m_pos, c.m_pos, emit);
+    else
+      m2::ClipTriangleByRect(tileRect, a.m_pos, c.m_pos, b.m_pos, emit);
   }
+
+  if (!vertices.empty())
+    m_applyParams.m_insertShape(make_unique_dp<TerrainShadeShape>(std::move(vertices)));
 
   for (auto const & shape : m_mapShapes[df::GeometryType])
     shape->Prepare(m_context->GetTextureManager());
