@@ -2,6 +2,7 @@
 
 #include "map/bookmark_helpers.hpp"
 #include "map/framework.hpp"
+#include "map/track_mark.hpp"
 
 #include "drape_frontend/visual_params.hpp"
 
@@ -312,32 +313,118 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
   TEST(base::GetFileSize(fileName, dummy), ());
 }
 
+namespace
+{
+double constexpr kTrackDistance = 10.0;
+m2::PointD constexpr kTrackPoint(0.5, 0.0);
+
+kml::TrackData MakeLineTrackData()
+{
+  kml::TrackData trackData;
+  trackData.m_layers.push_back(kml::TrackLayer());
+  trackData.m_geometry.AddLine({{{0.0, 0.0}, 1}, {{1.0, 0.0}, 2}});
+  trackData.m_geometry.AddTimestamps({});
+  return trackData;
+}
+
+kml::MarkId FindTrackSelectionMark(BookmarkManager const & bm, kml::TrackId trackId)
+{
+  for (auto markId : bm.GetUserMarkIds(UserMark::Type::TRACK_SELECTION))
+    if (bm.GetMark<TrackSelectionMark>(markId)->GetTrackId() == trackId)
+      return markId;
+  return kml::kInvalidMarkId;
+}
+
+// Emulates a tap on an already rendered user mark: Drape hit-tests it on the renderer thread and
+// posts only its id to the GUI thread, exactly like place_page::BuildInfo(df::TapInfo const &).
+void TapUserMark(Framework & fm, kml::MarkId markId)
+{
+  place_page::BuildInfo buildInfo;
+  buildInfo.m_source = place_page::BuildInfo::Source::User;
+  buildInfo.m_mercator = kTrackPoint;
+  buildInfo.m_userMarkId = markId;
+  fm.BuildAndSetPlacePageInfo(buildInfo);
+}
+}  // namespace
+
 UNIT_CLASS_TEST(Runner, Bookmarks_ClearTempRelationTrackDeletesSelectionMark)
 {
   BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
 
-  kml::TrackData trackData;
-  trackData.m_layers.push_back(kml::TrackLayer());
-  trackData.m_geometry.AddLine({{{0.0, 0.0}, 1}, {{1.0, 0.0}, 2}});
-  trackData.m_geometry.AddTimestamps({});
-
-  TEST_EQUAL(bmManager.SetTempRelationTrack(std::move(trackData)), kml::kTempRelationTrackId, ());
+  TEST_EQUAL(bmManager.SetTempRelationTrack(MakeLineTrackData()), kml::kTempRelationTrackId, ());
   TEST_NOT_EQUAL(bmManager.GetTrack(kml::kTempRelationTrackId), nullptr, ());
 
-  double constexpr kDistance = 10.0;
-  m2::PointD constexpr kTrackPoint(0.5, 0.0);
-  bmManager.SetTrackSelectionInfo({kml::kTempRelationTrackId, kTrackPoint, kDistance}, false /* notifyListeners */);
+  bmManager.SetTrackSelectionInfo({kml::kTempRelationTrackId, kTrackPoint, kTrackDistance},
+                                  false /* notifyListeners */);
 
   auto const selectionInfo = bmManager.GetTrackSelectionInfo(kml::kTempRelationTrackId);
   TEST_EQUAL(selectionInfo.m_trackId, kml::kTempRelationTrackId, ());
   TEST(selectionInfo.m_trackPoint.EqualDxDy(kTrackPoint, 1e-10), ());
-  TEST_EQUAL(selectionInfo.m_distFromBegM, kDistance, ());
+  TEST_EQUAL(selectionInfo.m_distFromBegM, kTrackDistance, ());
 
   bmManager.ClearTempRelationTrack();
 
   TEST_EQUAL(bmManager.GetTrack(kml::kTempRelationTrackId), nullptr, ());
   TEST_EQUAL(bmManager.GetTrackSelectionInfo(kml::kTempRelationTrackId).m_trackId, kml::kInvalidTrackId, ());
+}
+
+// A selection mark stores the track id only, so a tap on the mark of the current temp relation track
+// comes back without a relation id and can't be rebuilt from it. Such a tap must reuse the already
+// built track instead of clearing it - it used to leave BuildTrackPlacePage with a null Track.
+UNIT_TEST(Bookmarks_TapSelectionMarkOfTempRelationTrack)
+{
+  ScopedBookmarksDir scopedDir;
+  Framework fm(kFrameworkParams);
+  df::VisualParams::Init(1.0, 1024);
+
+  auto & bmManager = fm.GetBookmarkManager();
+  bmManager.EnableTestMode(true);
+
+  TEST_EQUAL(bmManager.SetTempRelationTrack(MakeLineTrackData()), kml::kTempRelationTrackId, ());
+  bmManager.SetTrackSelectionInfo({kml::kTempRelationTrackId, kTrackPoint, kTrackDistance},
+                                  false /* notifyListeners */);
+
+  auto const markId = FindTrackSelectionMark(bmManager, kml::kTempRelationTrackId);
+  TEST_NOT_EQUAL(markId, kml::kInvalidMarkId, ());
+
+  TapUserMark(fm, markId);
+
+  TEST_NOT_EQUAL(bmManager.GetTrack(kml::kTempRelationTrackId), nullptr, ("The tapped track was cleared"));
+  TEST(fm.HasPlacePageInfo(), ());
+  auto const & info = fm.GetCurrentPlacePageInfo();
+  TEST(info.IsRelationTrack(), ());
+  TEST_EQUAL(info.GetSelectedObject(), df::SelectionShape::OBJECT_TRACK, ());
+}
+
+// The counterpart: selecting any other track still drops the temp relation track.
+UNIT_TEST(Bookmarks_TapSelectionMarkClearsTempRelationTrack)
+{
+  ScopedBookmarksDir scopedDir;
+  Framework fm(kFrameworkParams);
+  df::VisualParams::Init(1.0, 1024);
+
+  auto & bmManager = fm.GetBookmarkManager();
+  bmManager.EnableTestMode(true);
+
+  auto const catId = bmManager.CreateBookmarkCategory("cat", false /* autoSave */);
+  kml::TrackId trackId;
+  {
+    auto es = bmManager.GetEditSession();
+    trackId = es.CreateTrack(MakeLineTrackData())->GetId();
+    es.AttachTrack(trackId, catId);
+  }
+  bmManager.SetTrackSelectionInfo({trackId, kTrackPoint, kTrackDistance}, false /* notifyListeners */);
+  TEST_EQUAL(bmManager.SetTempRelationTrack(MakeLineTrackData()), kml::kTempRelationTrackId, ());
+
+  auto const markId = FindTrackSelectionMark(bmManager, trackId);
+  TEST_NOT_EQUAL(markId, kml::kInvalidMarkId, ());
+
+  TapUserMark(fm, markId);
+
+  TEST_EQUAL(bmManager.GetTrack(kml::kTempRelationTrackId), nullptr, ());
+  TEST(fm.HasPlacePageInfo(), ());
+  TEST_EQUAL(fm.GetCurrentPlacePageInfo().GetTrackId(), trackId, ());
 }
 
 namespace
