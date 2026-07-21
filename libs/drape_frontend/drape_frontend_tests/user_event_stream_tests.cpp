@@ -1,6 +1,8 @@
 #include "testing/testing.hpp"
 
+#include "drape_frontend/animation_system.hpp"
 #include "drape_frontend/user_event_stream.hpp"
+#include "drape_frontend/visual_params.hpp"
 
 #include "base/thread.hpp"
 
@@ -8,6 +10,8 @@
 #include <cstring>
 #include <functional>
 #include <list>
+#include <string>
+#include <vector>
 
 using namespace std::placeholders;
 
@@ -21,6 +25,7 @@ public:
   explicit UserEventStreamTest(bool filtrateTouches) : m_filtrate(filtrateTouches)
   {
     m_stream.SetTestBridge(std::bind(&UserEventStreamTest::TestBridge, this, _1));
+    m_stream.SetListener(ref_ptr<df::UserEventStream::Listener>(this));
   }
 
   void OnTap(m2::PointD const & pt, bool isLong) override {}
@@ -39,7 +44,8 @@ public:
   void CorrectGlobalScalePoint(m2::PointD & pt) const override {}
   void OnScaleEnded() override {}
   void OnTouchMapAction(df::TouchEvent::ETouchType touchType, bool isMapTouch) override {}
-  void OnAnimatedScaleEnded() override {}
+  void OnAnimatedScaleStarted() override { m_animatedScaleLog.push_back("started"); }
+  void OnAnimatedScaleEnded() override { m_animatedScaleLog.push_back("ended"); }
   bool OnNewVisibleViewport(m2::RectD const & oldViewport, m2::RectD const & newViewport, bool needOffset,
                             m2::PointD & gOffset) override
   {
@@ -68,6 +74,20 @@ public:
                                                          nullptr /* parallelAnimCreator */));
   }
 
+  void AddScale(double factor, m2::PointD const & pxPoint, bool isAnim)
+  {
+    m_stream.AddEvent(make_unique_dp<df::ScaleEvent>(factor, pxPoint, isAnim));
+  }
+
+  void AddFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelZero, int preferredZoomLevel)
+  {
+    m_stream.AddEvent(make_unique_dp<df::FollowAndRotateEvent>(
+        userPos, pixelZero, 0.0 /* azimuth */, preferredZoomLevel, true /* isAnim */, nullptr /* onFinishAction */,
+        nullptr /* parallelAnimCreator */));
+  }
+
+  std::vector<std::string> const & AnimatedScaleLog() const { return m_animatedScaleLog; }
+
   ScreenBase const & GetScreen() const { return m_stream.GetCurrentScreen(); }
 
   void AddExpectation(char const * action) { m_expectation.push_back(action); }
@@ -89,10 +109,30 @@ private:
   }
 
 private:
+  // UserEventStream's constructor reads the drag threshold from VisualParams, so the params must be
+  // initialized before m_stream is constructed. This member is declared first to guarantee that
+  // order, which also lets a single test run in isolation (--filter) without another test having
+  // initialized VisualParams first.
+  struct VisualParamsInitializer
+  {
+    VisualParamsInitializer() { df::VisualParams::Init(1.0 /* visualScale */, 1024 /* tileSize */); }
+  };
+  VisualParamsInitializer m_visualParamsInitializer;
   df::UserEventStream m_stream;
   std::list<char const *> m_expectation;
+  std::vector<std::string> m_animatedScaleLog;
   bool m_filtrate;
 };
+
+// The animation system is a process-wide singleton: complete all pending animations so their
+// callbacks cannot leak into another test. Advance() only drains the front block of the animation
+// chain, so loop until the whole chain is empty.
+void FinishAllAnimations()
+{
+  auto & animationSystem = df::AnimationSystem::Instance();
+  while (animationSystem.HasAnimations())
+    animationSystem.Advance(1000.0 /* elapsedSeconds */);
+}
 
 int touchTimeStamp = 1;
 
@@ -209,6 +249,65 @@ UNIT_TEST(SimpleScale)
   }
   test.AddUserEvent(MakeTouchEvent(pointer1, pointer2, df::TouchEvent::TOUCH_UP));
   test.RunTest();
+}
+
+UNIT_TEST(AnimatedScale_CallbacksOrder)
+{
+  FinishAllAnimations();
+
+  UserEventStreamTest test(false);
+  test.AddResizeEvent(1000, 1000);
+  test.SetRect(m2::RectD(-250.0, -250.0, 250.0, 250.0));
+  test.RunTest();
+  TEST(test.AnimatedScaleLog().empty(), ());
+
+  // An accepted animated scale reports the start before running the animation...
+  test.AddScale(2.0 /* factor */, m2::PointD(500.0, 500.0), true /* isAnim */);
+  test.RunTest();
+  TEST_EQUAL(test.AnimatedScaleLog().front(), "started", ());
+
+  // ...and the end on its completion.
+  FinishAllAnimations();
+  std::vector<std::string> const expected = {"started", "ended"};
+  TEST_EQUAL(test.AnimatedScaleLog(), expected, ());
+}
+
+UNIT_TEST(AnimatedScale_RejectedScaleReportsNothing)
+{
+  FinishAllAnimations();
+
+  UserEventStreamTest test(false);
+  // Set up the screen exactly at zoom 9, so that the follow animation below changes
+  // the scale over a short distance and cannot become a "pretty" move animation.
+  test.AddResizeEvent(1000, 1000);
+  double const halfScreen = 500.0 * df::GetScreenScale(9);
+  test.SetRect(m2::RectD(-halfScreen, -halfScreen, halfScreen, halfScreen));
+  test.RunTest();
+
+  // A follow animation with a pixel offset is in flight: the animated scale must be
+  // rejected without reporting the start or the end.
+  test.AddFollowAndRotate(m2::PointD(0.0, 0.0), m2::PointD(500.0, 900.0), 8 /* preferredZoomLevel */);
+  test.AddScale(2.0 /* factor */, m2::PointD(500.0, 500.0), true /* isAnim */);
+  test.RunTest();
+  TEST(test.AnimatedScaleLog().empty(), ());
+
+  FinishAllAnimations();
+  TEST(test.AnimatedScaleLog().empty(), ());
+}
+
+UNIT_TEST(AnimatedScale_NotAnimatedScaleEndsInstantly)
+{
+  FinishAllAnimations();
+
+  UserEventStreamTest test(false);
+  test.AddResizeEvent(1000, 1000);
+  test.SetRect(m2::RectD(-250.0, -250.0, 250.0, 250.0));
+  test.RunTest();
+
+  test.AddScale(2.0 /* factor */, m2::PointD(500.0, 500.0), false /* isAnim */);
+  test.RunTest();
+  std::vector<std::string> const expected = {"ended"};
+  TEST_EQUAL(test.AnimatedScaleLog(), expected, ());
 }
 
 UNIT_TEST(SetCenter_AlignsToVisibleViewportCenter)

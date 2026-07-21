@@ -45,26 +45,32 @@ public:
                                  TAnimationCreator const & parallelAnimCreator) = 0;
     virtual void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth,
                                  m2::PointD const & pxZero, TAnimationCreator const & parallelAnimCreator) = 0;
+    virtual void MyPositionModeChanged(location::EMyPositionMode /* mode */, bool /* routingActive */) {}
   };
 
   struct Params
   {
-    Params(location::EMyPositionMode initMode, double timeInBackground, Hints const & hints, bool isRoutingActive,
-           bool isAutozoomEnabled, location::TMyPositionModeChanged && fn)
+    Params(location::EMyPositionMode initMode, location::MapOrientation routingOrientation, double timeInBackground,
+           Hints const & hints, bool isRoutingActive, bool isAutozoomEnabled, location::TMyPositionModeChanged && fn,
+           location::TRoutingOrientationChanged && routingOrientationFn)
       : m_initMode(initMode)
+      , m_routingOrientation(routingOrientation)
       , m_timeInBackground(timeInBackground)
       , m_hints(hints)
       , m_isRoutingActive(isRoutingActive)
       , m_isAutozoomEnabled(isAutozoomEnabled)
       , m_myPositionModeCallback(std::move(fn))
+      , m_routingOrientationChangedCallback(std::move(routingOrientationFn))
     {}
 
     location::EMyPositionMode m_initMode;
+    location::MapOrientation m_routingOrientation;
     double m_timeInBackground;
     Hints m_hints;
     bool m_isRoutingActive;
     bool m_isAutozoomEnabled;
     location::TMyPositionModeChanged m_myPositionModeCallback;
+    location::TRoutingOrientationChanged m_routingOrientationChangedCallback;
   };
 
   MyPositionController(Params && params, ref_ptr<DrapeNotifier> notifier);
@@ -102,7 +108,7 @@ public:
                       drape_ptr<MyPosition> && shape, Arrow3d::PreloadedData && preloadedData);
   void ResetRenderShape();
 
-  void ActivateRouting(int zoomLevel, bool enableAutoZoom, bool isArrowGlued);
+  void ActivateRouting(int zoomLevel, int zoomLevelIn3d, bool enableAutoZoom, bool isArrowGlued);
   void DeactivateRouting();
 
   void EnablePerspectiveInRouting(bool enablePerspective);
@@ -111,7 +117,7 @@ public:
   void StopLocationFollow();
   void NextMode(ScreenBase const & screen);
   void LoseLocation();
-  location::EMyPositionMode GetCurrentMode() const { return m_mode; }
+  location::EMyPositionMode GetCurrentMode() const;
 
   void OnEnterForeground(double backgroundTime);
   void OnEnterBackground();
@@ -125,6 +131,7 @@ public:
 
   bool IsRotationAvailable() const { return m_isDirectionAssigned; }
   bool IsInRouting() const { return m_isInRouting; }
+  bool ShouldEnablePerspectiveInRouting() const;
   bool IsRouteFollowingActive() const;
   bool IsModeChangeViewport() const;
 
@@ -133,7 +140,49 @@ public:
   void UpdateRoutingOffsetY(bool useDefault, int offsetY);
 
 private:
-  void ChangeMode(location::EMyPositionMode newMode);
+  // The state is split into three independent axes: whether a position is available, whether
+  // the camera follows the user and how a following camera is rotated. The platform-facing
+  // location::EMyPositionMode is a projection of them, derived in GetCurrentMode().
+  enum class PositionStatus
+  {
+    Stopped,    // Location updates are turned off.
+    Acquiring,  // Waiting for a location fix.
+    Available   // A position is available — from a location fix, or claimed when following starts.
+  };
+
+  enum class CameraTracking
+  {
+    Free,   // The user controls the viewport.
+    Follow  // The camera tracks the user position.
+  };
+
+  enum class CameraRotation
+  {
+    Fixed,       // The map keeps its current azimuth.
+    DirectionUp  // The map rotates after the movement/compass direction.
+  };
+
+  // Named state transitions: each one updates only the axes it owns, then notifies the platforms.
+  // Changing the position status leaves the tracking/rotation axes as they were; reacquisition
+  // re-derives the rotation (fixed outside routing, the preferred one in routing) rather than
+  // restoring the pre-loss rotation.
+  void SetPositionStatus(PositionStatus status);
+  void StartFollowing(CameraRotation rotation);
+  void StopFollowing();
+  void NotifyModeChanged(location::EMyPositionMode oldMode);
+
+  // Remembers the user's routing orientation choice. Automatic state restoration may apply
+  // the preference, but only an explicit user action may modify it.
+  void SetRoutingOrientation(location::MapOrientation orientation);
+  location::EMyPositionMode GetPreferredRoutingMode() const;
+  CameraRotation GetPreferredRoutingRotation() const;
+
+  // Applies the routing-follow camera according to the chosen routing orientation.
+  void UpdateRoutingViewport(int zoomLevel, Animation::TAction const & onFinishAction = nullptr);
+
+  bool IsFollowing() const;
+  bool IsFollowingDirectionUp() const;
+
   void SetDirection(double bearing);
 
   void ChangeModelView(m2::PointD const & center, int zoomLevel);
@@ -160,12 +209,19 @@ private:
 
   ref_ptr<DrapeNotifier> m_notifier;
 
-  location::EMyPositionMode m_mode;
+  PositionStatus m_positionStatus = PositionStatus::Acquiring;
+  CameraTracking m_tracking = CameraTracking::Free;
+  CameraRotation m_rotation = CameraRotation::Fixed;
+  // The mode to adopt when the very first location fix of the session arrives;
+  // it is consumed exactly once in OnLocationUpdate().
   location::EMyPositionMode m_desiredInitMode;
   location::TMyPositionModeChanged m_modeChangeCallback;
   Hints m_hints;
 
   bool m_isInRouting = false;
+  // The user's orientation choice for route navigation; persisted across sessions.
+  location::MapOrientation m_routingOrientation;
+  location::TRoutingOrientationChanged m_routingOrientationChangedCallback;
   bool m_isArrowGluedInRouting = false;
 
   bool m_needBlockAnimation;
