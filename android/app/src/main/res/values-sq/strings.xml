@@ -904,4 +904,6 @@
     <string name="color_picker_grid">Rrjetë</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Kërkim me zë</string>
+    <!-- Navigation maneuver card: label before the icon of the turn after the upcoming one, as in 'then turn right' -->
+    <string name="then">pastaj</string>
 </resources>

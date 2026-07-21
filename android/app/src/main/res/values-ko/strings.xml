@@ -906,4 +906,6 @@
     <string name="color_picker_grid">그리드</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">음성 검색</string>
+    <!-- Navigation maneuver card: label before the icon of the turn after the upcoming one, as in 'then turn right' -->
+    <string name="then">다음</string>
 </resources>

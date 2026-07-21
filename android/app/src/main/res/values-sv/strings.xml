@@ -916,4 +916,6 @@
     <string name="color_picker_grid">Rutnät</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Röstsökning</string>
+    <!-- Navigation maneuver card: label before the icon of the turn after the upcoming one, as in 'then turn right' -->
+    <string name="then">sedan</string>
 </resources>

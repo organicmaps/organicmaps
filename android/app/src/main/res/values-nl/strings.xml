@@ -919,4 +919,6 @@
     <string name="color_picker_grid">Raster</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Zoeken met spraak</string>
+    <!-- Navigation maneuver card: label before the icon of the turn after the upcoming one, as in 'then turn right' -->
+    <string name="then">dan</string>
 </resources>
