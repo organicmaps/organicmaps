@@ -1,8 +1,7 @@
-YENİ XÜSUSİYYƏTLƏR:
-• Axtarış və marşrutlaşdırma istifadəçi interfeysi yeniləndi
-• Nəqliyyat marşrutlaşdırılması (avtobus, tramvay, metro, yüngül relsli qatar)
-• Alternativ ən sürətli və ən qısa marşrutlar
-• Pilləkənlər, darvazalar və qaldırıcı darvazalar barədə marşrut xəbərdarlıqları
-• İşarələr üçün istənilən rəngi seçin
-• UK OS Grid, Irish Grid, ITM koordinatlarına dəstək
-…daha çox omaps.org/news ünvanında
+• 14 iyul tarixli OSM məlumatları
+• İctimai nəqliyyat dayanacağı, transfer və stansiya adları indi ağ konturla göstərilir
+• Açılış saatlarının nümayişinin yaxşılaşdırılması
+• Yanlış və ya əksik istiqamətlər düzəldildi
+• Dəyişdirilmiş nişanlar və izlər indi avtomatik saxlanılır
+• Marşrut xəbərdarlıqları (ödənişli yollar, bərə, asfalt olunmamış yollar, pilləkənlər və s.) indi bütün alternativ marşrutlar üçün göstərilir
+…daha çoxunu omaps.org/news saytında oxuyun

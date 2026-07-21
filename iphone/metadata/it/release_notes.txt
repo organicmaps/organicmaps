@@ -1,41 +1,28 @@
-- NOVITÀ! Calcolo dei percorsi con i mezzi pubblici: metropolitana, metropolitana leggera, autobus e tram
-- NOVITÀ! Percorsi alternativi: oltre al percorso più veloce, l’app ora mostra anche il percorso più breve
-- NOVITÀ! Avvisi relativi ai percorsi a piedi e in bicicletta riguardanti gradini, cancelli e cancelli a sollevamento presenti lungo il tragitto
-- NOVITÀ! Toccare per scegliere tra tracciati e percorsi sovrapposti
-- NOVITÀ! È possibile selezionare qualsiasi colore per i segnalibri
-- NOVITÀ! Supporto per le coordinate British National Grid (OS Grid), Irish Grid e Irish Transverse Mercator (ITM)
-- NOVITÀ! Supporto all’accessibilità per Dynamic Type e caratteri di grandi dimensioni
-- SPERIMENTALE: Abilitare le immagini satellitari nelle impostazioni di Organic Maps utilizzando un URL personalizzato per il server delle tessere raster
-- Stile delle tabelle più pulito nell’interfaccia utente
-- Digiti `?map-download-server:https://your-server.com/` nella finestra di ricerca per sovrascrivere i server di download delle mappe Organic Maps. Digiti `?no-map-download-server` per rimuovere la sovrascrittura.
-- Varie correzioni di bug e miglioramenti delle prestazioni
+• La nuova impostazione “Salva cronologia ricerche” ti aiuta a mantenere privata la cronologia delle ricerche, se necessario
 
-## Dati cartografici
+## Mappa e luoghi
+• Dati OpenStreetMap aggiornati al 14 luglio
+• Le note di OpenStreetMap vengono ora posizionate nel punto esatto selezionato, anziché nel mezzo del bosco
+• Migliorata la selezione delle mappe per le regioni che attraversano l’antimeridiano a 180°
+• I profili altimetrici dei tracciati non mostrano più grafici obsoleti o vuoti dopo la rimozione di un tracciato
+• Migliorato il grafico altimetrico vuoto per i tracciati registrati
+• Il pulsante per rimuovere i segnalibri è più facile da trovare
+• Salvataggio automatico dei segnalibri quando si esce dalla schermata di modifica
+• La tavolozza dei colori include colori predefiniti e consente di scegliere qualsiasi colore personalizzato
+• Altri miglioramenti all’interfaccia utente
 
-- Dati OpenStreetMap aggiornati al 24 giugno
-- Dati Wikipedia aggiornati al 20 giugno, inclusi gli articoli in italiano
+## Trasporto pubblico
+• I nomi delle fermate, dei cambi e delle stazioni ora utilizzano un contorno bianco per rimanere leggibili sia nel tema chiaro che in quello scuro
+• Il livello della metropolitana riappare correttamente dopo aver chiuso l’anteprima di un percorso con i mezzi pubblici
 
-## Rendering e stili delle mappe
-
-- Motivi grafici più accattivanti per le aree di spiaggia, sabbia, ghiaione, roccia nuda, frutteto e vigneto, oltre a tratteggi per le aree protette e le zone umide
-- Etichette di testo con curve più morbide per strade e fiumi
-- Fiumi, torrenti e zone umide presentano un contrasto maggiore e risultano più visibili in modalità scura
-- Icone nuove e migliorate per la ricerca per categoria e per i risultati di ricerca sulla mappa
-- Miglioramento della formattazione e del rendering del testo multilingue
-
-## Percorsi, segnalibri e itinerari
-
-- Miglioramento del rendering HTML delle descrizioni dei segnalibri e delle tracce
-- I tracciati GeoJSON ora conservano l’altitudine e i timestamp durante l’importazione e l’esportazione
-- Risolto un arresto anomalo che si verificava dopo lo spostamento di una traccia in un altro elenco
-- Ora vengono visualizzati i siti web relativi ai siti storici
-- I nomi degli operatori vengono ora visualizzati per i risultati di ricerca senza nome. Ad esempio, un operatore senza nome ATM ora mostra la propria banca
-- Redattore: è stato corretto il testo descrittivo relativo al condominio OpenStreetMap (modifiche/set di modifiche)
-- Miglioramento del rilevamento di HTML nelle descrizioni dei segnalibri e delle tracce
-- I percorsi duplicati vengono ora filtrati
+## Calcolo del percorso e navigazione
+• Risolti i problemi relativi a indicazioni errate o mancanti
+• Gli avvisi sul percorso (pedaggi, traghetti, strade non asfaltate, scale, ecc.) vengono ora visualizzati per tutti i percorsi alternativi
+• Risolto un raro blocco durante la creazione di un percorso e migliorata la gestione dei vicoli ciechi e dei punti di partenza/arrivo su una strada con limitazioni
+• Migliorata l’indicazione dell’avanzamento del percorso sul pulsante di avvio
+• Il riordino delle tappe del percorso non provoca più lo spostamento irregolare dell’elenco
 
 ## Traduzioni
-
-- Guida vocale passo-passo in cantonese
-- Aggiornate le traduzioni in tedesco e francese
-- Risolto un errore nelle traduzioni della guida vocale "onto street" per il cinese, il serbo e il catalano
+• Migliorata la formulazione in cinese
+• Aggiornate le traduzioni in ucraino
+• Corrette le traduzioni delle regioni della mappa in italiano

@@ -1,8 +1,7 @@
-NEUE FUNKTIONEN:
-• Aktualisierte Benutzeroberfläche für Suche und Routenplanung
-• Routenplanung für öffentliche Verkehrsmittel (Bus, Straßenbahn, U-Bahn, Stadtbahn)
-• Alternative schnellste und kürzeste Routen
-• Routenwarnungen zu Stufen, Toren und Hebetoren
-• Beliebige Farbe für Lesezeichen auswählen
-• Unterstützung für Koordinaten im Format UK OS Grid, Irish Grid und ITM
+• OSM-Daten vom 14. Juli
+• Haltestellen, Umsteigepunkte und Bahnhofsnamen des öffentlichen Nahverkehrs sind nun weiß umrandet
+• Verbesserte Anzeige der Öffnungszeiten
+• Falsche oder fehlende Wegbeschreibungen wurden korrigiert
+• Bearbeitete Lesezeichen und Tracks werden nun automatisch gespeichert
+• Routenwarnungen (Maut, Fähren, unbefestigte Straßen, Treppen usw.) werden nun für alle alternativen Routen angezeigt
 …mehr unter omaps.org/de/news

@@ -1,8 +1,7 @@
-IZINHLELO EZINTSHA:
-• Isibonisi somsebenzisi esivuselelwe sokusesha nokuhlela indlela
-• Ukuhlelwa kwezindlela zokuthutha zomphakathi (ibhasi, ithramu, isitimela esingaphansi komhlaba, i-light rail)
-• Ezinye izindlela ezisheshayo nezimfishane kakhulu
-• Izixwayiso zomzila mayelana nezitebhisi, iminyango, neminyango yokuphakamisa
-• Khetha noma yiluphi umbala wama-bookmark
-• Ukusekelwa kwamakhodi e-UK OS Grid, Irish Grid, ITM
+• Idatha ye-OSM kusukela mhla ziyi-14 kuJulayi
+• Izitobhi zokuthutha komphakathi, izindawo zokushintshela neziteshi manje zinemigqa emhlophe ezungeze zona
+• Ukuthuthukiswa kokubonisa amahora okuvula
+• Kulungisiwe imiyalelo engalungile noma eyayingekho
+• Amabookmark nemigqa esishicilelwe manje igcinwa ngokuzenzakalelayo
+• Izixwayiso zemigudu (imigomo yokukhokha, izikebhe, imigwaqo engagqokwanga, izitebhisi, njll.) manje seziboniswa kuzo zonke ezinye izindlela
 …okuningi ku-omaps.org/news

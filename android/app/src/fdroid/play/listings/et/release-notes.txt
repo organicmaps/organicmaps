@@ -1,8 +1,8 @@
-UUSED FUNKTSIOONID:
-• Uuendatud otsingu- ja marsruudi planeerimise kasutajaliides
-• Ühistranspordi marsruutide planeerimine (buss, tramm, metroo, kergraudtee)
-• Alternatiivsed kiireimad ja lühimad marsruudid
-• Marsruudi hoiatused astmete, väravate ja tõstetavate väravate kohta
-• Vali järjehoidjatele mis tahes värv
-• Toetus koordinaatidele UK OS Grid, Irish Grid, ITM
-…rohkem infot leiate aadressilt omaps.org/et/news
+• OSM-andmed seisuga 14. juuli
+• Ühistranspordi peatuste, ümberistumiskohtade ja jaamade nimedel on nüüd valge ääris
+• Lahtiolekuaegade kuvamine on parandatud
+• Parandatud on valed või puuduvad suunad
+• Muudetud järjehoidjad ja marsruudid salvestatakse nüüd automaatselt
+• Marsruudihoiatused (teemaksud, parvlaevad, kruusateed, trepid jne) kuvatakse nüüd kõigi alternatiivsete marsruutide puhul
+• OSM-märkmed luuakse täpselt valitud asukohas
+…rohkem infot aadressil omaps.org/et/news

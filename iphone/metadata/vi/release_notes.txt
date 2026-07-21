@@ -1,41 +1,28 @@
-- MỚI! Tính năng lập lộ trình giao thông công cộng bằng tàu điện ngầm, tàu điện nhẹ, xe buýt và xe điện
-- MỚI! Lộ trình thay thế: ngoài lộ trình nhanh nhất, ứng dụng giờ đây còn hiển thị lộ trình ngắn nhất
-- MỚI! Cảnh báo trên lộ trình đi bộ và đạp xe về số bước, cổng và cổng nâng dọc đường
-- MỚI! Nhấn để chọn giữa các lộ trình và tuyến đường chồng chéo
-- MỚI! Chọn bất kỳ màu nào cho dấu trang
-- MỚI! Hỗ trợ tọa độ British National Grid (OS Grid), Irish Grid và Irish Transverse Mercator (ITM)
-- MỚI! Hỗ trợ khả năng truy cập cho Dynamic Type và phông chữ lớn
-- THỬ NGHIỆM: Bật tính năng Hình ảnh vệ tinh trong cài đặt Organic Maps bằng URL máy chủ ô raster tùy chỉnh
-- Cải thiện kiểu dáng bảng trong giao diện người dùng
-- Nhập `?map-download-server:https://your-server.com/` vào cửa sổ tìm kiếm để ghi đè các máy chủ tải xuống bản đồ Organic Maps. Nhập `?no-map-download-server` để hủy ghi đè.
-- Sửa nhiều lỗi và cải thiện hiệu suất
+• Cài đặt mới “Lưu lịch sử tìm kiếm” giúp bạn giữ riêng tư lịch sử tìm kiếm khi cần
 
-## Dữ liệu bản đồ
+## Bản đồ & địa điểm
+• Dữ liệu OpenStreetMap cập nhật đến ngày 14 tháng 7
+• Các ghi chú OpenStreetMap giờ đây được đặt chính xác tại vị trí bạn chọn, thay vì ở giữa khu rừng
+• Cải thiện việc chọn bản đồ cho các khu vực nằm qua đường kinh tuyến đối diện 180°
+• Biểu đồ độ cao của lộ trình không còn hiển thị các biểu đồ lỗi thời hoặc trống sau khi xóa lộ trình
+• Cải thiện biểu đồ độ cao trống cho các lộ trình đã ghi lại
+• Nút xóa dấu trang dễ tìm hơn
+• Tự động lưu dấu trang khi bạn thoát khỏi màn hình chỉnh sửa
+• Bảng màu bao gồm các màu được định sẵn và cho phép bạn chọn bất kỳ màu tùy chỉnh nào
+• Các cải tiến khác về giao diện người dùng
 
-- Dữ liệu OpenStreetMap được cập nhật tính đến ngày 24 tháng 6
-- Dữ liệu Wikipedia được cập nhật tính đến ngày 20 tháng 6, bao gồm các bài viết bằng tiếng Ý
+## Giao thông công cộng
+• Tên các trạm dừng, điểm chuyển tuyến và ga hiện sử dụng viền trắng để đảm bảo dễ đọc trong cả chế độ sáng và tối
+• Lớp bản đồ tàu điện ngầm hiển thị lại chính xác sau khi bạn đóng bản xem trước lộ trình giao thông công cộng
 
-## Hiển thị bản đồ & kiểu dáng
-
-- Các mẫu họa tiết đẹp hơn cho các khu vực bãi biển, cát, đá vụn, đá trần, vườn cây ăn quả và vườn nho, cùng với các khu vực được bảo vệ và vùng đất ngập nước
-- Các nhãn văn bản cong mượt mà hơn cho đường bộ và sông ngòi
-- Các con sông, suối và vùng đất ngập nước có độ tương phản cao hơn và dễ nhìn thấy hơn trong chế độ tối
-- Biểu tượng mới và được cải tiến cho tính năng tìm kiếm theo danh mục và kết quả tìm kiếm trên bản đồ
-- Cải thiện việc định dạng và hiển thị văn bản đa ngôn ngữ
-
-## Lộ trình, dấu trang & tuyến đường
-
-- Cải thiện cách hiển thị HTML cho mô tả dấu trang và đường đi
-- Các bản ghi GeoJSON hiện giữ nguyên độ cao và dấu thời gian khi nhập và xuất
-- Đã khắc phục sự cố ứng dụng bị treo sau khi di chuyển một đường đi sang danh sách khác
-- Các trang web hiện được hiển thị cho các di tích lịch sử
-- Tên nhà cung cấp dịch vụ hiện được hiển thị cho các kết quả tìm kiếm không có tên. Ví dụ: một kết quả không có tên ATM hiện hiển thị tên ngân hàng của nó
-- Biên tập viên: đã sửa lại văn bản mô tả cho các bản sửa đổi/bộ thay đổi liên quan đến tòa nhà chung cư OpenStreetMap
-- Cải thiện khả năng phát hiện HTML trong mô tả dấu trang và đường đi
-- Các lộ trình trùng lặp hiện đã được lọc bỏ
+## Lập lộ trình & điều hướng
+• Đã khắc phục các sự cố liên quan đến chỉ dẫn sai hoặc thiếu
+• Các cảnh báo lộ trình (phí cầu đường, phà, đường chưa trải nhựa, cầu thang, v.v.) nay được hiển thị cho tất cả các lộ trình thay thế
+• Đã khắc phục tình trạng ứng dụng hiếm khi bị đơ khi xây dựng lộ trình và cải thiện cách xử lý các ngõ cụt cũng như điểm xuất phát/đích trên đường có hạn chế
+• Cải thiện hiển thị tiến trình lộ trình trên nút bắt đầu
+• Việc sắp xếp lại thứ tự các điểm dừng trên lộ trình không còn khiến danh sách bị nhảy loạn nữa
 
 ## Bản dịch
-
-- Hướng dẫn bằng giọng nói từng chặng bằng tiếng Quảng Đông
-- Cập nhật bản dịch tiếng Đức và tiếng Pháp
-- Đã sửa lỗi dịch sai hướng dẫn bằng giọng nói "onto street" cho các ngôn ngữ Trung Quốc, Serbia và Catalan
+• Cải thiện cách diễn đạt trong tiếng Trung
+• Cập nhật bản dịch tiếng Ukraina
+• Sửa lỗi bản dịch tên các khu vực trên bản đồ bằng tiếng Ý

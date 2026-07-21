@@ -1,41 +1,28 @@
-- YENİ! Metro, hafif raylı sistem, otobüs ve tramvay ile toplu taşıma rota hesaplama
-- YENİ! Alternatif rotalar: Uygulama artık en hızlı rotaya ek olarak en kısa rotayı da gösteriyor
-- YENİ! Yol boyunca karşılaşılan basamaklar, kapılar ve kaldırmalı kapılarla ilgili yürüyüş ve bisiklet rotası uyarıları
-- YENİ! Dokunarak üst üste binen rotalar ve güzergâhlar arasında seçim yapın
-- YENİ! Yer imleri için istediğiniz rengi seçin
-- YENİ! British National Grid (OS Grid), Irish Grid ve Irish Transverse Mercator (ITM) koordinatları için destek
-- YENİ! Dynamic Type ve büyük yazı tipleri için erişilebilirlik desteği
-- DENEME AŞAMASINDA: Organic Maps ayarlarında özel bir raster döşeme sunucusu URL'si kullanarak Uydu Görüntülerini etkinleştirin
-- Kullanıcı arayüzünde daha temiz tablo stili
-- Arama penceresine `?map-download-server:https://your-server.com/` yazarak Organic Maps harita indirme sunucularını geçersiz kılın. Geçersiz kılmayı kaldırmak için `?no-map-download-server` yazın.
-- Çeşitli hata düzeltmeleri ve performans iyileştirmeleri
+• Yeni “Arama geçmişini kaydet” ayarı, gerektiğinde arama geçmişinizi gizli tutmanıza yardımcı olur
 
-## Harita Verileri
+## Harita ve yerler
+• 14 Temmuz itibarıyla OpenStreetMap verileri
+• OpenStreetMap notları artık ormanın ortasında değil, seçtiğiniz tam konumda yerleştiriliyor
+• 180° antimeridyenini geçen bölgeler için harita seçimi iyileştirildi
+• Bir rota silindikten sonra yükseklik profilleri artık güncel olmayan veya boş grafikler göstermiyor
+• Kaydedilen rotalar için boş yükseklik grafiği iyileştirildi
+• Yer imlerini silme düğmesi artık daha kolay bulunur
+• Düzenleme ekranından çıktığınızda yer imleri otomatik olarak kaydedilir
+• Renk paleti önceden tanımlanmış renkleri içerir ve istediğiniz herhangi bir özel rengi seçmenize olanak tanır
+• Diğer kullanıcı arayüzü iyileştirmeleri
 
-- OpenStreetMap verileri 24 Haziran itibarıyla güncellenmiştir
-- Wikipedia verileri 20 Haziran itibarıyla güncellenmiştir; İtalyanca makaleler de dahil edilmiştir
+## Toplu taşıma
+• Durak, aktarma noktası ve istasyon adları artık hem açık hem de koyu temalarda okunabilir kalması için beyaz bir çerçeve kullanıyor
+• Toplu taşıma güzergah önizlemesini kapattıktan sonra metro katmanı doğru şekilde yeniden görünüyor
 
-## Harita görüntüleme ve stilleri
-
-- Plaj, kum, çakıl, çıplak kaya, meyve bahçesi ve bağ alanları için daha estetik desenler; ayrıca koruma alanı ve sulak alanlar için tarama desenleri
-- Yollar ve nehirler için daha yumuşak kavisli metin etiketleri
-- Nehirler, akarsular ve sulak alanlar, karanlık modda daha yüksek kontrasta sahip ve daha belirgindir
-- Harita üzerinde kategori araması ve arama sonuçları için yeni ve geliştirilmiş simgeler
-- Çok dilli metin biçimlendirme ve görüntüleme iyileştirildi
-
-## Rotalar, yer imleri ve güzergâhlar
-
-- Yer imi ve rota açıklamalarının HTML işlenmesinde iyileştirme
-- GeoJSON rotaları artık içe ve dışa aktarım sırasında rakım ve zaman damgalarını koruyor
-- Bir rotayı başka bir listeye taşıdıktan sonra meydana gelen çökme sorunu giderildi
-- Artık tarihi miras alanları için web siteleri gösterilmektedir
-- Artık isimsiz arama sonuçlarında operatör adları gösterilmektedir. Örneğin, isimsiz bir ATM artık ait olduğu bankayı göstermektedir
-- Editör: apartman binası OpenStreetMap düzenlemeleri/değişiklik kümeleri için açıklama metni düzeltildi
-- Yer imi ve rota açıklamalarında HTML algılaması iyileştirildi
-- Artık yinelenen rotalar filtrelenerek çıkarılmaktadır
+## Güzergah belirleme ve navigasyon
+• Yanlış ve eksik yol tarifleriyle ilgili sorunlar giderildi
+• Rota uyarıları (ücretli yollar, feribotlar, asfaltsız yollar, merdivenler vb.) artık tüm alternatif rotalar için gösteriliyor
+• Rota oluşturulurken nadiren yaşanan donma sorunu giderildi ve kısıtlı yollardaki çıkmazlar ile başlangıç/bitiş noktalarının işlenmesi iyileştirildi
+• Başlat düğmesindeki rota ilerleme göstergesi iyileştirildi
+• Rota duraklarının sırasını değiştirirken listenin atlaması sorunu giderildi
 
 ## Çeviriler
-
-- Kantonca adım adım sesli rehberlik
-- Almanca ve Fransızca çeviriler güncellendi
-- Çince, Sırpça ve Katalanca dillerinde "onto street" sesli rehberlik çevirilerindeki hatalar düzeltildi
+• Çince ifadeler iyileştirildi
+• Ukraynaca çeviriler güncellendi
+• İtalyanca harita bölgelerinin çevirilerindeki hatalar düzeltildi
