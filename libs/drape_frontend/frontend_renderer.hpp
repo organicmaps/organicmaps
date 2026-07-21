@@ -364,9 +364,8 @@ private:
   ScreenBase m_lastReadedModelView;
   TTilesCollection m_notFinishedTiles;
 
-  // ResolveZoomLevel is called early in RenderFrame, so zoom is always valid during rendering.
-  // This check is only needed for UpdateContextDependentResources, which can be triggered
-  // by messages processed before the first RenderFrame.
+  // ProcessEvents marks the first frame as changed, so ResolveZoomLevel initializes zoom before rendering.
+  // This check is only needed for messages processed before the first RenderFrame.
   bool IsValidCurrentZoom() const { return m_currentZoomLevel >= 0; }
 
   int GetCurrentZoom() const
@@ -375,6 +374,7 @@ private:
     return m_currentZoomLevel;
   }
 
+  double m_lastResolvedVisualScale;
   int m_currentZoomLevel = -1;
 
   ref_ptr<RequestedTiles> m_requestedTiles;

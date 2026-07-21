@@ -166,6 +166,7 @@ FrontendRenderer::FrontendRenderer(Params && params)
   , m_modelViewChangedHandler(std::move(params.m_modelViewChangedHandler))
   , m_tapEventInfoHandler(std::move(params.m_tapEventHandler))
   , m_userPositionChangedHandler(std::move(params.m_positionChangedHandler))
+  , m_lastResolvedVisualScale(VisualParams::Instance().GetVisualScale())
   , m_requestedTiles(params.m_requestedTiles)
   , m_maxGeneration(0)
   , m_maxUserMarksGeneration(0)
@@ -1802,9 +1803,7 @@ void FrontendRenderer::RenderFrame()
   if (viewportChanged || m_needRestoreSize)
     OnResize(modelView);
 
-  bool const zoomChanged = ResolveZoomLevel(modelView);
-  /// @todo Put ResolveZoomLevel under modelViewChanged after testing.
-  ASSERT(!zoomChanged || modelViewChanged, ());
+  bool const zoomChanged = modelViewChanged && ResolveZoomLevel(modelView);
 
   // Skip starting a new GPU frame if rendering is being disabled (e.g. the app is going to the
   // background). SetRenderingEnabled(false) sets the flag on the UI thread and then blocks until this
@@ -2075,7 +2074,9 @@ void FrontendRenderer::CheckIsometryMinScale(ScreenBase const & screen)
 bool FrontendRenderer::ResolveZoomLevel(ScreenBase const & screen)
 {
   int const prevZoomLevel = m_currentZoomLevel;
-  m_currentZoomLevel = GetDrawTileScale(screen);
+  VisualParams const & visualParams = VisualParams::Instance();
+  m_lastResolvedVisualScale = visualParams.GetVisualScale();
+  m_currentZoomLevel = GetDrawTileScale(screen, visualParams.GetTileSize(), m_lastResolvedVisualScale);
   gui::DrapeGui::Instance().GetScaleFpsHelper().SetScale(m_currentZoomLevel);
 
   CheckIsometryMinScale(screen);
@@ -2656,6 +2657,10 @@ ScreenBase const & FrontendRenderer::ProcessEvents(bool & modelViewChanged, bool
   // modelViewChanged == false and m_currentZoomLevel == -1 is possible on the first render ..
   // Set modelViewChanged flag is logical here ATM.
   if (!IsValidCurrentZoom())
+    modelViewChanged = true;
+
+  // Draw-tile zoom also depends on visual scale, not only on the model view.
+  if (!modelViewChanged && m_lastResolvedVisualScale != VisualParams::Instance().GetVisualScale())
     modelViewChanged = true;
 
   // Location- or compass-update could have changed model view on the previous frame.
