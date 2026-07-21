@@ -7,6 +7,7 @@ namespace
 enum VertexType
 {
   Area,
+  TerrainShade,
   Area3d,
   HatchingArea,
   SolidTexturing,
@@ -208,8 +209,19 @@ dp::BindingInfo ColoredSymbolBindingInit()
   return filler.m_info;
 }
 
+dp::BindingInfo TerrainShadeBindingInit()
+{
+  static_assert(sizeof(TerrainShadeVertex) == sizeof(TerrainShadeVertex::TPosition) + sizeof(float));
+  dp::BindingFiller<TerrainShadeVertex> filler(2);
+  filler.FillDecl<TerrainShadeVertex::TPosition>("a_position");
+  filler.FillDecl<float>("a_intensity");
+
+  return filler.m_info;
+}
+
 BindingNode g_bindingNodes[TypeCount];
 TInitFunction g_initFunctions[TypeCount] = {&AreaBindingInit,
+                                            &TerrainShadeBindingInit,
                                             &Area3dBindingInit,
                                             &HatchingAreaBindingInit,
                                             &SolidTexturingBindingInit,
@@ -244,6 +256,16 @@ AreaVertex::AreaVertex(TPosition const & position, TTexCoord const & colorTexCoo
 dp::BindingInfo const & AreaVertex::GetBindingInfo()
 {
   return GetBinding(Area);
+}
+
+TerrainShadeVertex::TerrainShadeVertex(TPosition const & position, float intensity)
+  : m_position(position)
+  , m_intensity(intensity)
+{}
+
+dp::BindingInfo const & TerrainShadeVertex::GetBindingInfo()
+{
+  return GetBinding(TerrainShade);
 }
 
 Area3dVertex::Area3dVertex(TPosition const & position, TPosition const & normal, TTexCoord const & colorTexCoord)
