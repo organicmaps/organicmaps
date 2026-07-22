@@ -108,8 +108,22 @@ size_t CountNormLowerSymbols(UniString const & s, UniString const & lowStr);
 
 size_t Utf8Length(std::string_view const s);
 
+constexpr char AsciiToLower(char c) noexcept
+{
+  return c >= 'A' && c <= 'Z' ? static_cast<char>(c - 'A' + 'a') : c;
+}
+
+constexpr char AsciiToUpper(char c) noexcept
+{
+  return c >= 'a' && c <= 'z' ? static_cast<char>(c - 'a' + 'A') : c;
+}
+
 void AsciiToLower(std::string & s);
 void AsciiToUpper(std::string & s);
+
+/// Compares ASCII strings ignoring case. Unlike EqualNoCase() it neither allocates nor applies
+/// Unicode case folding, so it is only correct for ASCII inputs like language tags or URL schemes.
+bool EqualAsciiNoCase(std::string_view s1, std::string_view s2) noexcept;
 
 // All trimming functions do in-place trimming. Only ASCII whitespaces are trimmed.
 void Trim(std::string & s);
