@@ -1,6 +1,6 @@
 #pragma once
 
-#include "geometry/point_with_altitude.hpp"
+#include "platform/measurement_utils.hpp"
 
 #include "base/assert.hpp"
 
@@ -22,9 +22,18 @@ inline std::string GetBlockFileName(int bottomLat, int leftLon)
   return buffer;
 }
 
-// The isolines step in meters for the draw zoom level (cf. the maplibre-contour intervals).
-inline geometry::Altitude GetIsolinesStepForZoom(int zoom)
+// The isolines step for the draw zoom level, in meters or feet per the measurement units
+// (cf. the maplibre-contour intervals; the feet steps are the USGS-style round values).
+// The steps must be multiples of 10 to keep the isoline style class mapping working, and
+// the traced levels land on the style classes with per-class zoom visibility gates (see
+// kAltClasses in RuleDrawer::DrawDynamicIsolines): e.g. the metric 50 m trace at z12-13
+// renders only the 100 m lines until the step_50 class opens. The feet values are chosen
+// so the VISIBLE density stays close to the metric one through those gates: 200 ft maps
+// to the step_100/500/1000 classes only, mirroring the metric 100 m ladder.
+inline int32_t GetIsolinesStepForZoom(int zoom, measurement_utils::Units units)
 {
+  if (units == measurement_utils::Units::Imperial)
+    return zoom <= 14 ? 200 : 20;
   if (zoom <= 11)
     return 100;
   if (zoom <= 13)
@@ -34,9 +43,21 @@ inline geometry::Altitude GetIsolinesStepForZoom(int zoom)
   return 10;
 }
 
-// The altitude labels step for the draw zoom and the tile's traced altitudes range, 0 = no labels.
-inline geometry::Altitude GetIsolinesLabelStepForZoom(int zoom, geometry::Altitude altitudeRange)
+// The altitude labels step for the draw zoom and the tile's traced altitudes range
+// (both in the units), 0 = no labels. Must be a multiple of the corresponding
+// GetIsolinesStepForZoom, so the labeled levels exist among the traced ones.
+inline int32_t GetIsolinesLabelStepForZoom(int zoom, int32_t altitudeRange, measurement_utils::Units units)
 {
+  if (units == measurement_utils::Units::Imperial)
+  {
+    if (zoom <= 11)
+      return 1000;
+    if (zoom <= 13)
+      return altitudeRange > 3000 ? 1000 : 200;
+    if (zoom == 14)
+      return 200;
+    return altitudeRange > 600 ? 100 : 40;
+  }
   if (zoom <= 11)
     return 500;
   if (zoom <= 13)

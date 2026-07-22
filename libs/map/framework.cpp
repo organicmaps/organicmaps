@@ -2030,6 +2030,12 @@ void Framework::SetupMeasurementSystem()
   GetPlatform().SetupMeasurementSystem();
 
   m_routingManager.SetTurnNotificationsUnits(measurement_utils::GetMeasurementUnits());
+
+  // The dynamic isolines are traced in the measurement units: re-read the kept tiles.
+  // The world rect covers the off-screen margin tiles too (the viewport rect would
+  // leave them traced in the old units, showing mixed-units seams when panned in).
+  if (m_drapeEngine)
+    InvalidateRect(mercator::Bounds::FullRect());
 }
 
 void Framework::SetWidgetLayout(gui::TWidgetsLayoutInfo && layout)

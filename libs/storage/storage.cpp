@@ -281,6 +281,11 @@ void Storage::DownloadTerrain(CountryId const & countryId)
   }
 
   size_t scheduled = 0;
+  // TODO(terrain): the country limit rects are canonical and never wrap the +-180
+  // antimeridian, so a region spanning it (Fiji, the Aleutians) yields a nearly
+  // world-wide rect and the plain intersection over-selects the blocks. Needs the
+  // wrapped rects from the countries data (here and in GetTerrainAttrs), cf. the
+  // rendering-side split in TwmSet::ForEachCanonicalRect.
   for (auto const & terrainBlock : m_twmGrid)
   {
     auto const & block = terrainBlock.m_block;
@@ -539,6 +544,9 @@ void Storage::Clear()
   m_failedCountries.clear();
   m_localFiles.clear();
   m_localFilesForFakeCountries.clear();
+  m_terrainQueue.clear();
+  m_terrainFailed.clear();
+  m_terrainBlockRegions.clear();
   SaveDownloadQueue();
 }
 
@@ -2191,6 +2199,43 @@ void Storage::CancelDownloadNode(CountryId const & countryId)
     if (needNotify)
       NotifyStatusChangedForHierarchy(descendantId);
   });
+
+  // The terrain blocks ride the same queue as synthetic countries invisible to the
+  // country-tree traversal above: cancel the ones requested for the canceled subtree.
+  if (!m_terrainBlockRegions.empty())
+  {
+    CountriesSet subtree;
+    ForEachInSubtree(countryId, [&](CountryId const & id, bool /* groupNode */) { subtree.insert(id); });
+
+    CountriesSet toNotify;
+    for (auto it = m_terrainBlockRegions.begin(); it != m_terrainBlockRegions.end();)
+    {
+      auto & regions = it->second;
+      for (auto rIt = regions.begin(); rIt != regions.end();)
+      {
+        if (subtree.count(*rIt) > 0)
+        {
+          toNotify.insert(*rIt);
+          rIt = regions.erase(rIt);
+        }
+        else
+          ++rIt;
+      }
+      if (regions.empty())
+      {
+        // Nobody is interested in the block anymore: drop it from the queue.
+        auto const & name = it->first;
+        if (m_terrainQueue.erase(name) > 0)
+          m_downloader->Remove(name);
+        m_terrainFailed.erase(name);
+        it = m_terrainBlockRegions.erase(it);
+      }
+      else
+        ++it;
+    }
+    for (auto const & id : toNotify)
+      NotifyStatusChangedForHierarchy(id);
+  }
 }
 
 void Storage::RetryDownloadNode(CountryId const & countryId)

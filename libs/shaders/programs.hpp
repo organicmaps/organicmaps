@@ -28,8 +28,6 @@ enum class Program
   DashedLine,
   PathSymbol,
   TransparentArea,
-  // The smooth (per-vertex interpolated) terrain hillshade, see RuleDrawer::DrawTerrainShade.
-  TerrainShade,
   CapJoin,
   // Keep the solid-fill patterns before the Hatching* overlays: render groups in a depth layer draw in
   // program-enum order, and a hatch writes depth across its whole quad (including the transparent gaps
@@ -37,6 +35,12 @@ enum class Program
   AreaStipple,
   AreaSpeckle,
   AreaGrid,
+  // The smooth (per-vertex interpolated) terrain hillshade, see RuleDrawer::DrawTerrainShade.
+  // Drawn after the solid fills and patterns (it writes depth at the foreground level, so
+  // a pattern drawn later at the background depths would be culled underneath it), but
+  // before the Hatching* overlays: a hatch quad writes depth everywhere too, and the shade
+  // placed after it would be culled across the whole quad (e.g. the national park hatch).
+  TerrainShade,
   HatchingArea,
   HatchingAreaDash,
   TexturingGui,

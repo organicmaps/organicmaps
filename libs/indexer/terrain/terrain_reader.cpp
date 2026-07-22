@@ -47,6 +47,8 @@ void Reader::ForEachFeature(m2::RectD const & rect, size_t geomIndex, FeatureFn 
   uint64_t const geometrySize = geometry.Size();
   for (uint32_t const offset : offsets)
   {
+    // Guards the unsigned size subtraction below.
+    CHECK_LESS(offset, featuresSize, ());
     ReaderSource<ModelReaderPtr> src(features.SubReader(offset, featuresSize - offset));
     FeatureRecord record;
     DeserializeFeatureRecord(src, m_header, record);
@@ -55,6 +57,7 @@ void Reader::ForEachFeature(m2::RectD const & rect, size_t geomIndex, FeatureFn 
       continue;
 
     uint64_t const geomOffset = record.m_geomOffsets[geomIndex];
+    CHECK_LESS(geomOffset, geometrySize, ());
     ReaderSource<ModelReaderPtr> geomSrc(geometry.SubReader(geomOffset, geometrySize - geomOffset));
     Triangles triangles;
     DeserializeFeatureGeometry(geomSrc, m_header, record, triangles);

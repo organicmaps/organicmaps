@@ -12,9 +12,9 @@ namespace df
 void TerrainShadeShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
                              ref_ptr<dp::TextureManager> /* textures */) const
 {
-  // The same slot as the legacy semi-transparent AreaShape shade: the geometry layer,
-  // right after TransparentArea in the program order, the default alpha blending. The
-  // intensity is a vertex attribute, so no color texture is needed.
+  // The geometry layer with the default alpha blending, drawn after every area fill and
+  // pattern in the program order (see the Program enum). The intensity is a vertex
+  // attribute, so no color texture is needed.
   auto state = CreateRenderState(gpu::Program::TerrainShade, DepthLayer::GeometryLayer);
   state.SetDepthTestEnabled(true);
 
