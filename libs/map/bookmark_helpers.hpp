@@ -142,7 +142,16 @@ namespace feature
 {
 class TypesHolder;
 }
+
+namespace place_page
+{
+class Info;
+}
+
+class Framework;
+
 void SaveFeatureTypes(feature::TypesHolder const & types, kml::BookmarkData & bmData);
+void SaveFeatureProperties(Framework const & framework, place_page::Info const & info, kml::BookmarkData & bmData);
 
 std::string GetPreferredBookmarkName(kml::BookmarkData const & bmData);
 
