@@ -201,6 +201,11 @@ void DrapeEngine::Rotate(double azimuth, bool isAnim)
   AddUserEvent(make_unique_dp<RotateEvent>(azimuth, isAnim, nullptr /* parallelAnimCreator */));
 }
 
+void DrapeEngine::Rotate(double delta)
+{
+  AddUserEvent(make_unique_dp<RotateDeltaEvent>(delta));
+}
+
 void DrapeEngine::MakeFrameActive()
 {
   AddUserEvent(make_unique_dp<ActiveFrameEvent>());

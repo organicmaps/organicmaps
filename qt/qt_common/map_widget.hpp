@@ -83,6 +83,7 @@ protected:
 
   void OnViewportChanged(ScreenBase const & screen);
 
+  bool event(QEvent * e) override;
   // QOpenGLWidget overrides:
   void initializeGL() override;
   void paintGL() override;

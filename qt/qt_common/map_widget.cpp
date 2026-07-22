@@ -381,6 +381,28 @@ void MapWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
   menu.exec(e->globalPosition().toPoint());
 }
 
+bool MapWidget::event(QEvent * e)
+{
+  if (e->type() == QEvent::NativeGesture)
+  {
+    e->accept();
+    auto qNativeGestureEvent = dynamic_cast<QNativeGestureEvent *>(e);
+    if (qNativeGestureEvent->gestureType() == Qt::ZoomNativeGesture)
+    {
+      QPointF const pos = qNativeGestureEvent->position();
+      double const factor = qNativeGestureEvent->value();
+      m_framework.Scale(exp(factor), m2::PointD(L2D(pos.x()), L2D(pos.y())), false);
+      return true;
+    }
+    if (qNativeGestureEvent->gestureType() == Qt::RotateNativeGesture)
+    {
+      m_framework.Rotate(math::DegToRad(qNativeGestureEvent->value()));
+      return true;
+    }
+  }
+  return QOpenGLWidget::event(e);
+}
+
 void MapWidget::initializeGL()
 {
   ASSERT(m_contextFactory == nullptr, ());
