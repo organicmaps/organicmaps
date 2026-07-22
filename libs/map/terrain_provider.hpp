@@ -20,14 +20,33 @@ public:
   // dir is the directory with the .twm files.
   explicit TerrainProvider(std::string const & dir) : m_dir(dir) {}
 
-  // Rescans the directory: registers the new files, deregisters the vanished ones
-  // (delayed for the blocks locked by the running queries).
+  // Rescans the directory: registers the files of every version folder (newest first, so
+  // the TwmSet overlap rejection implements "the newest data wins, the older
+  // non-overlapping blocks keep rendering"), plus the flat legacy files as the version 0.
   void Rescan();
   void Clear();
+
+  // The downloaded block landed (see Storage terrain downloading): registers it and
+  // deletes the registered OLDER blocks it intersects, even partially - the newer
+  // coverage replaces them (the deregistration is delayed past the running queries).
+  // Extends invalidRect over the deleted blocks, so the caller invalidates all the
+  // affected tiles at once.
+  void OnBlockDownloaded(std::string const & path, m2::RectD & invalidRect);
+
+  // Deletes every registered block intersecting any of the rects, all the versions:
+  // the region terrain delete from the downloader UI. Extends invalidRect the same way.
+  void DeleteBlocks(std::vector<m2::RectD> const & rects, m2::RectD & invalidRect);
 
   // Returns true if any registered terrain block intersects the mercator rect.
   // Cheap registry lookup, safe for the UI thread.
   bool HasTerrain(m2::RectD const & rect) const { return m_set.HasBlocks(rect); }
+
+  // True when a registered block older than the version intersects the rect: the
+  // OnDiskOutOfDate terrain status source. Safe for the UI thread.
+  bool HasOlderTerrain(m2::RectD const & rect, int64_t version) const
+  {
+    return m_set.HasOlderBlocks(rect, version);
+  }
 
   using IsolineFn = std::function<void(Isoline &&)>;
 
@@ -42,6 +61,9 @@ public:
   void ForEachTriangles(m2::RectD const & rect, int zoom, TrianglesFn const & fn) const;
 
 private:
+  void DeleteBlocksImpl(std::vector<m2::RectD> const & rects, std::function<bool(TwmInfo const &)> const & pred,
+                        m2::RectD & invalidRect);
+
   std::string m_dir;
   // Mutable: the const queries lock the readers and condemn the corrupt blocks.
   mutable TwmSet m_set;
