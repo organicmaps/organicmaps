@@ -178,30 +178,18 @@ size_t Utf8Length(std::string_view const s)
 
 void AsciiToLower(std::string & s)
 {
-  std::transform(s.begin(), s.end(), s.begin(), [](char in)
-  {
-    char constexpr diff = 'z' - 'Z';
-    static_assert(diff == 'a' - 'A');
-    static_assert(diff > 0);
-
-    if (in >= 'A' && in <= 'Z')
-      return char(in + diff);
-    return in;
-  });
+  std::transform(s.begin(), s.end(), s.begin(), [](char c) { return AsciiToLower(c); });
 }
 
 void AsciiToUpper(std::string & s)
 {
-  std::transform(s.begin(), s.end(), s.begin(), [](char in)
-  {
-    char constexpr diff = 'z' - 'Z';
-    static_assert(diff == 'a' - 'A');
-    static_assert(diff > 0);
+  std::transform(s.begin(), s.end(), s.begin(), [](char c) { return AsciiToUpper(c); });
+}
 
-    if (in >= 'a' && in <= 'z')
-      return char(in - diff);
-    return in;
-  });
+bool EqualAsciiNoCase(std::string_view s1, std::string_view s2) noexcept
+{
+  return s1.size() == s2.size() && std::equal(s1.begin(), s1.end(), s2.begin(),
+                                              [](char c1, char c2) { return AsciiToLower(c1) == AsciiToLower(c2); });
 }
 
 void Trim(std::string & s)

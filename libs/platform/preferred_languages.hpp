@@ -18,6 +18,9 @@ std::string GetPreferred();
 /// @return Original language code for the current user in the form "en-US", "zh-Hant".
 std::string GetCurrentOrig();
 
+/// @return @a lang in our Twine translations compatible format, e.g. "en", "pt" or "zh-Hant".
+std::string GetTwine(std::string_view lang);
+
 /// @return Current language in out Twine translations compatible format, e.g. "en", "pt" or "zh-Hant".
 std::string GetCurrentTwine();
 std::string GetCurrentMapTwine();
@@ -29,6 +32,32 @@ std::string GetCurrentMapTwine();
 std::string Normalize(std::string_view lang);
 std::string GetCurrentNorm();
 std::string GetCurrentMapLanguage();
+
+/// @return The first of @a preferred languages the core supports, with its original script and
+/// region kept (e.g. "zh-Hant", not "zh"), or the default language code if none is supported.
+/// Normalize() it for a core language code, or GetTwine() it for a Twine locale.
+std::string SelectMapLanguage(buffer_vector<std::string, 4> const & preferred);
+
+/// Script a Chinese language tag is written in.
+enum class ChineseScript
+{
+  NotChinese,
+  Simplified,
+  Traditional,
+};
+
+/// @return Script of the Chinese locale @a tag, or NotChinese if its primary subtag is not "zh".
+/// Case-insensitive and subtag-aware: region and script subtags are matched as whole segments, so
+/// an Android regional preference like "zh-CN-u-fw-mon" (first day of week = Monday) stays
+/// Simplified instead of matching Macau ("mo") inside "mon".
+ChineseScript GetChineseScript(std::string_view tag);
+
+std::string DebugPrint(ChineseScript script);
+
+/// @return True if @a tag begins with @a prefix and @a prefix ends on a subtag boundary, so that
+/// the three-letter "fil-PH" (Filipino) does not start with "fi" (Finnish). Case-sensitive, and
+/// @a prefix must use the same subtag delimiters as @a tag: "en-US" is not a prefix of "en_US".
+bool StartsWithSubtags(std::string_view tag, std::string_view prefix) noexcept;
 
 buffer_vector<std::string, 4> const & GetSystemPreferred();
 
@@ -48,7 +77,7 @@ public:
 
   /// Case-insensitive, primary-subtag aware. SC for non-CJK tags so callers always have a usable
   /// variant.
-  static Variant FromLanguageTag(std::string tag);
+  static Variant FromLanguageTag(std::string_view tag);
   static std::optional<Variant> FromSfntFamilyName(std::string_view family) noexcept;
   static std::optional<Variant> FromFontFileName(std::string_view fileName) noexcept;
 
