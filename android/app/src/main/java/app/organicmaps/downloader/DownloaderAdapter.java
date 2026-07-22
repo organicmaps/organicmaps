@@ -11,6 +11,7 @@ import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.LayoutRes;
@@ -26,6 +27,7 @@ import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.widget.WheelProgressView;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -41,6 +43,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 {
   private static final int TYPE_COUNTRY = 0;
   private static final int TYPE_HEADER = 1;
+  private static final int TYPE_TERRAIN = 2;
 
   private static final String DOWNLOADER_MENU_ID = "DOWNLOADER_BOTTOM_SHEET";
 
@@ -79,15 +82,23 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     public final String mHeaderText;
     @Nullable
     public final CountryItem mItem;
+    // True for the synthetic terrain (.twm) sub-row of mItem's region.
+    public final boolean mIsTerrain;
     public GenericItem(@Nullable CountryItem item)
+    {
+      this(item, false);
+    }
+    public GenericItem(@Nullable CountryItem item, boolean isTerrain)
     {
       mItem = item;
       mHeaderText = null;
+      mIsTerrain = isTerrain;
     }
     public GenericItem(@Nullable String headerText)
     {
       mItem = null;
       mHeaderText = headerText;
+      mIsTerrain = false;
     }
   }
 
@@ -194,7 +205,8 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         for (int i = first; i <= last; i++)
         {
           ViewHolderWrapper vh = (ViewHolderWrapper) mRecycler.findViewHolderForAdapterPosition(i);
-          if (vh != null && vh.mKind == TYPE_COUNTRY && ((CountryItem) vh.mHolder.mItem).id.equals(countryId))
+          if (vh != null && (vh.mKind == TYPE_COUNTRY || vh.mKind == TYPE_TERRAIN)
+              && ((CountryItem) vh.mHolder.mItem).id.equals(countryId))
             vh.mHolder.rebind();
         }
       }
@@ -227,7 +239,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
   private View createViewHolderFrame(ViewGroup parent, int kind)
   {
-    if (kind == TYPE_COUNTRY)
+    if (kind == TYPE_COUNTRY || kind == TYPE_TERRAIN)
       return inflate(parent, R.layout.downloader_item);
     else
       return inflate(parent, R.layout.downloader_item_header);
@@ -246,6 +258,8 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       mKind = kind;
       if (mKind == TYPE_COUNTRY)
         mHolder = new ItemViewHolder(itemView);
+      else if (mKind == TYPE_TERRAIN)
+        mHolder = new TerrainViewHolder(itemView);
       else
         mHolder = new HeaderViewHolder(itemView);
     }
@@ -254,7 +268,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     void bind(int position)
     {
       final GenericItem item = mItemsAndHeader.get(position);
-      if (mKind == TYPE_COUNTRY && item.mItem != null)
+      if ((mKind == TYPE_COUNTRY || mKind == TYPE_TERRAIN) && item.mItem != null)
         mHolder.bind(item.mItem);
       else if (item.mHeaderText != null)
         mHolder.bind(item.mHeaderText);
@@ -273,6 +287,103 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     void rebind()
     {
       bind(mItem);
+    }
+  }
+
+  // The synthetic terrain (.twm) sub-row of a region: status + size + progress; a tap
+  // starts the terrain downloading. Reuses the downloader_item layout.
+  // TODO(terrain): move the titles into data/strings/strings.txt before shipping.
+  private class TerrainViewHolder extends BaseInnerViewHolder<CountryItem>
+  {
+    static final int TERRAIN_NOT_AVAILABLE = 0;
+    static final int TERRAIN_NOT_DOWNLOADED = 1;
+    static final int TERRAIN_DOWNLOADING = 2;
+    static final int TERRAIN_PARTLY = 3;
+    static final int TERRAIN_ON_DISK = 4;
+    static final int TERRAIN_FAILED = 5;
+
+    private final WheelProgressView mProgress;
+    private final ImageView mStatus;
+    private final TextView mName;
+    private final TextView mSubtitle;
+    private final TextView mSize;
+
+    TerrainViewHolder(View frame)
+    {
+      mProgress = frame.findViewById(R.id.downloader_progress_wheel);
+      mStatus = frame.findViewById(R.id.downloader_status);
+      mName = frame.findViewById(R.id.name);
+      mSubtitle = frame.findViewById(R.id.subtitle);
+      mSize = frame.findViewById(R.id.size);
+      frame.findViewById(R.id.found_name).setVisibility(View.GONE);
+
+      // The status icon is the download button (like the map rows); the whole row
+      // triggers the same action for a bigger tap target.
+      final View.OnClickListener clickListener = v ->
+      {
+        if (mItem == null)
+          return;
+        if (mItem.terrainStatus == TERRAIN_NOT_DOWNLOADED || mItem.terrainStatus == TERRAIN_PARTLY
+            || mItem.terrainStatus == TERRAIN_FAILED)
+        {
+          // The same flow as the maps: the cellular warning, then the foreground
+          // service keeps the shared download queue alive in the background.
+          final String id = mItem.id;
+          final long remaining = mItem.terrainTotalSize - mItem.terrainDownloadedBytes;
+          MapManagerHelper.warnOn3g(mActivity, remaining,
+                                    () -> DownloaderService.startTerrainDownload(mActivity, id));
+        }
+      };
+      frame.setOnClickListener(clickListener);
+      frame.findViewById(R.id.downloader_status_frame).setOnClickListener(clickListener);
+    }
+
+    @Override
+    void bind(CountryItem item)
+    {
+      super.bind(item);
+
+      mName.setText("Terrain");
+      mSize.setText(StringUtils.getFileSizeString(mSize.getContext(), item.terrainTotalSize));
+
+      boolean downloading = item.terrainStatus == TERRAIN_DOWNLOADING;
+      UiUtils.showIf(downloading, mProgress);
+      UiUtils.showIf(!downloading, mStatus);
+      if (downloading)
+      {
+        int percent = item.terrainTotalSize > 0
+                        ? (int) (item.terrainDownloadedBytes * 100 / item.terrainTotalSize) : 0;
+        mProgress.setPending(false);
+        mProgress.setProgress(percent);
+        mSubtitle.setText(StringUtils.getFileSizeString(mSubtitle.getContext(), item.terrainDownloadedBytes) + " / "
+                          + StringUtils.getFileSizeString(mSubtitle.getContext(), item.terrainTotalSize));
+      }
+      else
+      {
+        switch (item.terrainStatus)
+        {
+        case TERRAIN_ON_DISK ->
+        {
+          mStatus.setImageResource(R.drawable.ic_check);
+          mSubtitle.setText("Downloaded");
+        }
+        case TERRAIN_PARTLY ->
+        {
+          mStatus.setImageResource(R.drawable.ic_download);
+          mSubtitle.setText("Partly downloaded");
+        }
+        case TERRAIN_FAILED ->
+        {
+          mStatus.setImageResource(R.drawable.ic_download);
+          mSubtitle.setText("Failed - tap to retry");
+        }
+        default ->
+        {
+          mStatus.setImageResource(R.drawable.ic_download);
+          mSubtitle.setText("Tap to download");
+        }
+        }
+      }
     }
   }
 
@@ -332,6 +443,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     return new MenuBottomSheetItem(R.string.downloader_download_map, R.drawable.ic_download,
                                    () -> onDownloadActionSelected(mSelectedItem, DownloaderAdapter.this));
   }
+
 
   private MenuBottomSheetItem getUpdateMenuItem()
   {
@@ -560,6 +672,9 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         ci.headerId = headerId;
       }
       mItemsAndHeader.add(new GenericItem(ci));
+      // The terrain sub-row: the countries.json leafs only (groups aggregate too coarsely).
+      if (!ci.isExpandable() && ci.terrainStatus != TerrainViewHolder.TERRAIN_NOT_AVAILABLE)
+        mItemsAndHeader.add(new GenericItem(ci, true /* isTerrain */));
     }
   }
 
@@ -649,10 +764,10 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   @Override
   public int getItemViewType(int position)
   {
-    if (mItemsAndHeader.get(position).mItem != null)
-      return TYPE_COUNTRY;
-    else
-      return TYPE_HEADER;
+    final GenericItem item = mItemsAndHeader.get(position);
+    if (item.mItem != null)
+      return item.mIsTerrain ? TYPE_TERRAIN : TYPE_COUNTRY;
+    return TYPE_HEADER;
   }
 
   @Override

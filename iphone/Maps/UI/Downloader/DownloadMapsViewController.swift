@@ -23,6 +23,7 @@ class DownloadMapsViewController: MWMViewController {
 
   private var searchController = UISearchController(searchResultsController: nil)
   var dataSource: IDownloaderDataSource!
+  fileprivate var rowMaps: [Int: [(item: Int, isTerrain: Bool)]] = [:]
   @objc var mode: MWMMapDownloaderMode = .downloaded
   private var skipCountryEvent = false
   private var hasAddMapSection: Bool { dataSource.isRoot && mode == .downloaded }
@@ -190,6 +191,7 @@ class DownloadMapsViewController: MWMViewController {
   }
 
   fileprivate func reloadTableView() {
+    rowMaps.removeAll()
     tableView.reloadData()
     configButtons()
   }
@@ -264,6 +266,35 @@ class DownloadMapsViewController: MWMViewController {
 
 // MARK: - UITableViewDataSource
 
+extension DownloadMapsViewController {
+  // A region row is followed by the terrain sub-row for the leafs with terrain
+  // coverage; the per-section row maps are cached and rebuilt with the table.
+  // TODO(terrain): move the titles into data/strings/strings.txt before shipping.
+  func rowMap(for section: Int) -> [(item: Int, isTerrain: Bool)] {
+    if let cached = rowMaps[section] {
+      return cached
+    }
+    var rows: [(item: Int, isTerrain: Bool)] = []
+    for item in 0..<dataSource.numberOfItems(in: section) {
+      rows.append((item, false))
+      let nodeAttrs = dataSource.item(at: IndexPath(row: item, section: section))
+      if !nodeAttrs.hasChildren, nodeAttrs.terrainStatus != .notAvailable {
+        rows.append((item, true))
+      }
+    }
+    rowMaps[section] = rows
+    return rows
+  }
+
+  func isTerrainRow(_ indexPath: IndexPath) -> Bool {
+    rowMap(for: indexPath.section)[indexPath.row].isTerrain
+  }
+
+  func itemIndexPath(_ indexPath: IndexPath) -> IndexPath {
+    IndexPath(row: rowMap(for: indexPath.section)[indexPath.row].item, section: indexPath.section)
+  }
+}
+
 extension DownloadMapsViewController: UITableViewDataSource {
   func numberOfSections(in _: UITableView) -> Int {
     dataSource.numberOfSections() + (hasAddMapSection ? 1 : 0)
@@ -273,7 +304,7 @@ extension DownloadMapsViewController: UITableViewDataSource {
     if hasAddMapSection, section == dataSource.numberOfSections() {
       return 1
     }
-    return dataSource.numberOfItems(in: section)
+    return rowMap(for: section).count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -282,13 +313,23 @@ extension DownloadMapsViewController: UITableViewDataSource {
       return tableView.dequeueReusableCell(cell: cellType, indexPath: indexPath)
     }
 
-    let nodeAttrs = dataSource.item(at: indexPath)
+    if isTerrainRow(indexPath) {
+      let nodeAttrs = dataSource.item(at: itemIndexPath(indexPath))
+      let cellType = MWMMapDownloaderTableViewCell.self
+      let terrainCell = tableView.dequeueReusableCell(cell: cellType, indexPath: indexPath)
+      terrainCell.mode = dataSource.isSearching ? .available : mode
+      terrainCell.configTerrain(nodeAttrs)
+      terrainCell.delegate = self
+      return terrainCell
+    }
+
+    let nodeAttrs = dataSource.item(at: itemIndexPath(indexPath))
     let cell: MWMMapDownloaderTableViewCell
     if nodeAttrs.hasChildren {
       let cellType = MWMMapDownloaderLargeCountryTableViewCell.self
       let largeCountryCell = tableView.dequeueReusableCell(cell: cellType, indexPath: indexPath)
       cell = largeCountryCell
-    } else if let matchedName = dataSource.matchedName(at: indexPath), matchedName != nodeAttrs.nodeName {
+    } else if let matchedName = dataSource.matchedName(at: itemIndexPath(indexPath)), matchedName != nodeAttrs.nodeName {
       let cellType = MWMMapDownloaderSubplaceTableViewCell.self
       let subplaceCell = tableView.dequeueReusableCell(cell: cellType, indexPath: indexPath)
       subplaceCell.setSubplaceText(matchedName)
@@ -321,10 +362,10 @@ extension DownloadMapsViewController: UITableViewDataSource {
   }
 
   func tableView(_: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-    if indexPath.section == dataSource.numberOfSections() {
+    if indexPath.section == dataSource.numberOfSections() || isTerrainRow(indexPath) {
       return false
     }
-    let nodeAttrs = dataSource.item(at: indexPath)
+    let nodeAttrs = dataSource.item(at: itemIndexPath(indexPath))
     switch nodeAttrs.nodeStatus {
     case .onDisk, .onDiskOutOfDate, .partly:
       return true
@@ -335,7 +376,7 @@ extension DownloadMapsViewController: UITableViewDataSource {
 
   func tableView(_: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     if editingStyle == .delete {
-      let nodeAttrs = dataSource.item(at: indexPath)
+      let nodeAttrs = dataSource.item(at: itemIndexPath(indexPath))
       Storage.shared().deleteNode(nodeAttrs.countryId)
     }
   }
@@ -350,9 +391,19 @@ extension DownloadMapsViewController: UITableViewDelegate {
       onAddMaps()
       return
     }
-    let nodeAttrs = dataSource.item(at: indexPath)
+    let nodeAttrs = dataSource.item(at: itemIndexPath(indexPath))
+    if isTerrainRow(indexPath) {
+      // A tap on the terrain sub-row starts (or retries) the terrain downloading.
+      switch nodeAttrs.terrainStatus {
+      case .notDownloaded, .partly, .failed:
+        Storage.shared().downloadTerrain(nodeAttrs.countryId)
+      default:
+        break
+      }
+      return
+    }
     if nodeAttrs.hasChildren {
-      showChildren(dataSource.item(at: indexPath))
+      showChildren(nodeAttrs)
       return
     }
     showActions(nodeAttrs, in: tableView.cellForRow(at: indexPath)!)
@@ -372,7 +423,16 @@ extension DownloadMapsViewController: UIScrollViewDelegate {
 extension DownloadMapsViewController: MWMMapDownloaderTableViewCellDelegate {
   func mapDownloaderCellDidPressProgress(_ cell: MWMMapDownloaderTableViewCell) {
     guard let indexPath = tableView.indexPath(for: cell) else { return }
-    let nodeAttrs = dataSource.item(at: indexPath)
+    let nodeAttrs = dataSource.item(at: itemIndexPath(indexPath))
+    if isTerrainRow(indexPath) {
+      switch nodeAttrs.terrainStatus {
+      case .notDownloaded, .partly, .failed:
+        Storage.shared().downloadTerrain(nodeAttrs.countryId)
+      default:
+        break
+      }
+      return
+    }
     switch nodeAttrs.nodeStatus {
     case .undefined, .error:
       Storage.shared().retryDownloadNode(nodeAttrs.countryId)
@@ -395,8 +455,8 @@ extension DownloadMapsViewController: MWMMapDownloaderTableViewCellDelegate {
   }
 
   func mapDownloaderCellDidLongPress(_ cell: MWMMapDownloaderTableViewCell) {
-    guard let indexPath = tableView.indexPath(for: cell) else { return }
-    let nodeAttrs = dataSource.item(at: indexPath)
+    guard let indexPath = tableView.indexPath(for: cell), !isTerrainRow(indexPath) else { return }
+    let nodeAttrs = dataSource.item(at: itemIndexPath(indexPath))
     showActions(nodeAttrs, in: cell)
   }
 }
@@ -417,7 +477,12 @@ extension DownloadMapsViewController: StorageObserver {
         guard let downloaderCell = cell as? MWMMapDownloaderTableViewCell else { continue }
         if downloaderCell.nodeAttrs.countryId != countryId { continue }
         guard let indexPath = tableView.indexPath(for: downloaderCell) else { continue }
-        downloaderCell.config(dataSource.item(at: indexPath), searchQuery: searchController.searchBar.text)
+        let nodeAttrs = dataSource.item(at: itemIndexPath(indexPath))
+        if isTerrainRow(indexPath) {
+          downloaderCell.configTerrain(nodeAttrs)
+        } else {
+          downloaderCell.config(nodeAttrs, searchQuery: searchController.searchBar.text)
+        }
       }
       configButtons()
     }
@@ -426,7 +491,7 @@ extension DownloadMapsViewController: StorageObserver {
   func processCountry(_ countryId: String, downloadedBytes: UInt64, totalBytes: UInt64) {
     for cell in tableView.visibleCells {
       guard let downloaderCell = cell as? MWMMapDownloaderTableViewCell else { continue }
-      if downloaderCell.nodeAttrs.countryId != countryId { continue }
+      if downloaderCell.nodeAttrs.countryId != countryId || downloaderCell.isTerrainCell { continue }
       downloaderCell.setDownloadProgress(CGFloat(downloadedBytes) / CGFloat(totalBytes))
     }
 

@@ -9,6 +9,9 @@ enum class MapFileType : uint8_t
 {
   Map,
   Diff,
+  // A terrain (.twm) block, keyed by the block name (see storage terrain downloading);
+  // never registered as a LocalCountryFile - the terrain registry is the TwmSet.
+  Terrain,
 
   Count
 };

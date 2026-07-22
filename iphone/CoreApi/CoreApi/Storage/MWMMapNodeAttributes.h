@@ -24,6 +24,16 @@ NS_SWIFT_NAME(CountryIdAndName)
 
 @end
 
+// Mirrors storage::Storage::TerrainStatus.
+typedef NS_ENUM(NSInteger, MWMTerrainStatus) {
+  MWMTerrainStatusNotAvailable,
+  MWMTerrainStatusNotDownloaded,
+  MWMTerrainStatusDownloading,
+  MWMTerrainStatusPartly,
+  MWMTerrainStatusOnDisk,
+  MWMTerrainStatusFailed,
+} NS_SWIFT_NAME(TerrainStatus);
+
 NS_SWIFT_NAME(MapNodeAttributes)
 @interface MWMMapNodeAttributes : NSObject
 
@@ -43,6 +53,11 @@ NS_SWIFT_NAME(MapNodeAttributes)
 @property(nonatomic, readonly) NSArray<MWMCountryIdAndName *> * parentInfo;
 @property(nonatomic, readonly, nullable) NSArray<MWMCountryIdAndName *> * topmostParentInfo;
 @property(nonatomic, readonly) float downloadingProgress;
+
+/// Terrain (.twm) coverage of the region, aggregated over the covering blocks.
+@property(nonatomic, readonly) MWMTerrainStatus terrainStatus;
+@property(nonatomic, readonly) uint64_t terrainTotalSize;
+@property(nonatomic, readonly) uint64_t terrainDownloadedSize;
 
 @end
 

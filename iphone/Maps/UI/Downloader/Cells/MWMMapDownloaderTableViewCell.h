@@ -20,8 +20,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property(weak, nonatomic) id<MWMMapDownloaderTableViewCellDelegate> delegate;
 @property(nonatomic) MWMMapDownloaderMode mode;
 @property(readonly, nonatomic) MWMMapNodeAttributes * nodeAttrs;
+/// True for the synthetic terrain (.twm) sub-row of the region.
+@property(readonly, nonatomic) BOOL isTerrainCell;
 
 - (void)config:(MWMMapNodeAttributes *)nodeAttrs searchQuery:(nullable NSString *)searchQuery;
+/// Configures the cell as the terrain sub-row of nodeAttrs' region.
+- (void)configTerrain:(MWMMapNodeAttributes *)nodeAttrs;
 - (void)configProgress:(MWMMapNodeAttributes *)nodeAttrs;
 - (void)setDownloadProgress:(CGFloat)progress;
 - (NSAttributedString *)matchedString:(NSString *)str
