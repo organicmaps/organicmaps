@@ -3,6 +3,12 @@
 #include "storage/storage_helpers.hpp"
 
 #include "platform/downloader_utils.hpp"
+
+#include "defines.hpp"
+#include "platform/platform.hpp"
+
+#include "base/file_name_utils.hpp"
+#include "base/string_utils.hpp"
 #include "platform/local_country_file_utils.hpp"
 
 #include "base/assert.hpp"
@@ -52,6 +58,9 @@ std::string QueuedCountry::GetRelativeUrl() const
 {
   auto const fileName = m_countryFile.GetFileName(m_fileType);
 
+  if (m_fileType == MapFileType::Terrain)
+    return downloader::GetTerrainDownloadUrl(fileName);
+
   uint64_t diffVersion = 0;
   if (m_fileType == MapFileType::Diff)
     CHECK(m_diffsDataSource->VersionFor(m_countryId, diffVersion), ());
@@ -61,6 +70,13 @@ std::string QueuedCountry::GetRelativeUrl() const
 
 std::string QueuedCountry::GetFileDownloadPath() const
 {
+  // Terrain blocks land into <writable>/terrain/<gridVersion>/ (the TwmSet registry
+  // scans the newest version folder), mirroring the versioned maps layout.
+  if (m_fileType == MapFileType::Terrain)
+  {
+    return base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR, strings::to_string(m_currentDataVersion),
+                          m_countryFile.GetFileName(m_fileType) + READY_FILE_EXTENSION);
+  }
   return platform::GetFileDownloadPath(m_currentDataVersion, m_dataDir, m_countryFile, m_fileType);
 }
 

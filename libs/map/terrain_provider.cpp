@@ -6,6 +6,7 @@
 #include "platform/platform.hpp"
 
 #include "base/file_name_utils.hpp"
+#include "base/string_utils.hpp"
 #include "base/logging.hpp"
 
 #include "defines.hpp"
@@ -19,11 +20,24 @@ namespace terrain
 
 void TerrainProvider::Rescan()
 {
+  // The blocks live in <dir>/<gridVersion>/ (see Storage::GetTerrainDir); scan the
+  // newest version folder, or the flat legacy files when no version folder exists.
+  Platform::TFilesWithType subdirs;
+  Platform::GetFilesByType(m_dir, Platform::EFileType::Directory, subdirs);
+  uint64_t bestVersion = 0;
+  for (auto const & [name, type] : subdirs)
+  {
+    uint64_t version;
+    if (strings::to_uint64(name, version) && version > bestVersion)
+      bestVersion = version;
+  }
+  std::string const scanDir = bestVersion > 0 ? base::JoinPath(m_dir, strings::to_string(bestVersion)) : m_dir;
+
   Platform::FilesList files;
-  Platform::GetFilesByExt(m_dir, TERRAIN_FILE_EXT, files);
+  Platform::GetFilesByExt(scanDir, TERRAIN_FILE_EXT, files);
   std::set<std::string> paths;
   for (auto const & file : files)
-    paths.insert(base::JoinPath(m_dir, file));
+    paths.insert(base::JoinPath(scanDir, file));
 
   size_t registered = 0;
   for (auto const & path : paths)

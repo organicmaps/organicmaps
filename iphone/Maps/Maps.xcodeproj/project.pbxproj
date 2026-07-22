@@ -23,6 +23,7 @@
 		6741A9421BF340DE002C974C /* sound-strings in Resources */ = {isa = PBXBuildFile; fileRef = 5605022E1B6211E100169CAD /* sound-strings */; };
 		6741A9451BF340DE002C974C /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0511D6AC0D00645242 /* classificator.txt */; };
 		6741A9491BF340DE002C974C /* countries.json in Resources */ = {isa = PBXBuildFile; fileRef = FA46DA2B12D4166E00968C36 /* countries.json */; };
+		AB12E4400002C0DE00A00002 /* twm_grid.json in Resources */ = {isa = PBXBuildFile; fileRef = AB12E4400001C0DE00A00001 /* twm_grid.json */; };
 		6741A9521BF340DE002C974C /* World.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FAFF42291347F101009BBB14 /* World.mwm */; };
 		6741A95C1BF340DE002C974C /* categories.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAFD696139D9BE2000AE70C /* categories.txt */; };
 		6741A95D1BF340DE002C974C /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA64D9A813F975AD00350ECF /* types.txt */; };
@@ -1721,6 +1722,7 @@
 		FA456C4026BDCC8E00B83C20 /* shaders.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = shaders.xcodeproj; path = ../../xcode/shaders/shaders.xcodeproj; sourceTree = "<group>"; };
 		FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = WorldCoasts.mwm; path = ../../data/WorldCoasts.mwm; sourceTree = "<group>"; };
 		FA46DA2B12D4166E00968C36 /* countries.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = countries.json; path = ../../data/countries.json; sourceTree = SOURCE_ROOT; };
+		AB12E4400001C0DE00A00001 /* twm_grid.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = twm_grid.json; path = ../../data/twm_grid.json; sourceTree = SOURCE_ROOT; };
 		FA4F29DE28BC1B35001754FC /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FA4F29DF28BC1B36001754FC /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA4F29E028BC1B36001754FC /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ca; path = ca.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -4099,6 +4101,7 @@
 				452FCA3A1B6A3DF7007019AB /* colors.txt */,
 				97A5967E19B9CD47007A963F /* copyright.html */,
 				FA46DA2B12D4166E00968C36 /* countries.json */,
+				AB12E4400001C0DE00A00001 /* twm_grid.json */,
 				DB05F1BC1BF340DE002C974C /* drules_default.bin */,
 				DB05F1BD1BF340DE002C974C /* drules_outdoors.bin */,
 				DB05F1BE1BF340DE002C974C /* drules_vehicle.bin */,
@@ -4334,6 +4337,7 @@
 				6741A9711BF340DE002C974C /* copyright.html in Resources */,
 				4A300ED51C6DCFD400140018 /* countries-strings in Resources */,
 				6741A9491BF340DE002C974C /* countries.json in Resources */,
+				AB12E4400002C0DE00A00002 /* twm_grid.json in Resources */,
 				DB05F1CC1BF340DE002C974C /* drules_default.bin in Resources */,
 				DB05F1CD1BF340DE002C974C /* drules_outdoors.bin in Resources */,
 				DB05F1CE1BF340DE002C974C /* drules_vehicle.bin in Resources */,

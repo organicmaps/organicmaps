@@ -24,6 +24,12 @@ struct GridBlock
   m2::RectD GetRectMercator() const;
 };
 
+// Parses the block name (the SW corner, e.g. "N40E045") into bottom/left degrees.
+bool ParseBlockName(std::string_view name, int & bottom, int & left);
+
+// Validates the block bounds: inside the mercator-safe world band, positive extents.
+bool IsValidBlock(GridBlock const & block);
+
 // Loads and validates the grid index. Throws RootException on the unreadable or
 // malformed input (a missing/corrupt grid is a build system error, not user data).
 std::vector<GridBlock> LoadTwmGrid(std::string const & filePath);

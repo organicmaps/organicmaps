@@ -31,6 +31,9 @@ NS_SWIFT_NAME(Storage)
 + (instancetype)sharedStorage;
 
 - (BOOL)downloadNode:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error;
+
+/// Downloads the terrain (.twm) blocks covering the country bbox (see docs/TERRAIN.md).
+- (BOOL)downloadTerrain:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error;
 - (void)retryDownloadNode:(NSString *)countryId;
 - (BOOL)updateNode:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error;
 - (BOOL)deleteNode:(NSString *)countryId
