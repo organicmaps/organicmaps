@@ -10,7 +10,6 @@
 
 #include "std/target_os.hpp"
 
-#include <algorithm>
 #include <cstdlib>  // getenv
 #include <cstring>  // strlen
 #include <string>
@@ -573,30 +572,6 @@ bool IsSubtagDelimiter(char c) noexcept
   return std::string_view{kSubtagDelimiters}.find(c) != std::string_view::npos;
 }
 
-constexpr char AsciiLower(char c) noexcept
-{
-  return c >= 'A' && c <= 'Z' ? static_cast<char>(c - 'A' + 'a') : c;
-}
-
-// Language tags are ASCII by definition, so comparing them needs neither the locale-aware
-// casefolding nor the allocations of strings::EqualNoCase.
-bool EqualAsciiNoCase(std::string_view a, std::string_view b) noexcept
-{
-  return a.size() == b.size() &&
-         std::equal(a.begin(), a.end(), b.begin(), [](char x, char y) { return AsciiLower(x) == AsciiLower(y); });
-}
-
-// True if `segment` spells `subtag`. Android resource qualifiers prefix a two-letter region with
-// "r" ("zh-rTW", cf. android/app/src/main/res/values-zh-rTW), which is accepted as an alternate
-// spelling of that region.
-bool SegmentSpells(std::string_view segment, std::string_view subtag) noexcept
-{
-  if (EqualAsciiNoCase(segment, subtag))
-    return true;
-  return subtag.size() == 2 && segment.size() == 3 && AsciiLower(segment.front()) == 'r' &&
-         EqualAsciiNoCase(segment.substr(1), subtag);
-}
-
 // Parses BCP 47 / POSIX-style language tags and reports whether `subtag` appears as a whole
 // segment, not just as a substring. Substring matching reads Android's "-u-fw-mon" regional
 // preference (first day of week = Monday) as Macau, because "mo" sits inside "mon".
@@ -607,7 +582,12 @@ bool HasSubtag(std::string_view tag, std::string_view subtag) noexcept
   {
     auto const end = tag.find_first_of(kSubtagDelimiters, start);
     // substr() clamps the count, so an npos `end` simply spans the rest of the tag.
-    if (SegmentSpells(tag.substr(start, end - start), subtag))
+    auto segment = tag.substr(start, end - start);
+    // Android resource qualifiers prefix a two-letter region with "r" ("zh-rTW", cf.
+    // android/app/src/main/res/values-zh-rTW), accepted here as an alternate spelling of it.
+    if (subtag.size() == 2 && segment.size() == 3 && strings::AsciiToLower(segment.front()) == 'r')
+      segment.remove_prefix(1);
+    if (strings::EqualAsciiNoCase(segment, subtag))
       return true;
     if (end == std::string_view::npos)
       return false;
@@ -653,7 +633,7 @@ bool StartsWithSubtags(std::string_view tag, std::string_view prefix) noexcept
 ChineseScript GetChineseScript(std::string_view tag)
 {
   // Match the primary subtag exactly so "zha" (Zhuang) isn't treated as Chinese.
-  if (!EqualAsciiNoCase(PrimarySubtag(tag), "zh"))
+  if (!strings::EqualAsciiNoCase(PrimarySubtag(tag), "zh"))
     return ChineseScript::NotChinese;
 
   // Traditional script: explicit "Hant", or the regions that use it (Taiwan, Hong Kong, Macau).
@@ -709,13 +689,13 @@ CJKResolver::Variant CJKResolver::FromLanguageTag(std::string_view tag)
   // Match the primary language subtag exactly so "jav" (Javanese) isn't treated as Japanese.
   std::string_view const primary = PrimarySubtag(tag);
 
-  if (EqualAsciiNoCase(primary, "ja"))
+  if (strings::EqualAsciiNoCase(primary, "ja"))
     return Variant::JP;
-  if (EqualAsciiNoCase(primary, "ko"))
+  if (strings::EqualAsciiNoCase(primary, "ko"))
     return Variant::KR;
 
   // Hong Kong has its own glyph variants, so it is resolved before the Traditional/Simplified split.
-  if (EqualAsciiNoCase(primary, "zh") && HasSubtag(tag, "hk"))
+  if (strings::EqualAsciiNoCase(primary, "zh") && HasSubtag(tag, "hk"))
     return Variant::HK;
   if (GetChineseScript(tag) == ChineseScript::Traditional)
     return Variant::TC;
