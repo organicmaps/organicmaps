@@ -33,6 +33,7 @@
 {
   [super prepareForReuse];
   self.nodeAttrs = nil;
+  _isTerrainCell = NO;
 }
 
 - (void)onLongPress:(UILongPressGestureRecognizer *)sender
@@ -59,10 +60,68 @@
 
 #pragma mark - Config
 
+- (void)configTerrain:(MWMMapNodeAttributes *)nodeAttrs
+{
+  // TODO(terrain): move the titles into data/strings/strings.txt before shipping.
+  self.nodeAttrs = nodeAttrs;
+  _isTerrainCell = YES;
+
+  NSString * subtitle;
+  MWMCircularProgress * progress = self.progress;
+  switch (nodeAttrs.terrainStatus)
+  {
+  case MWMTerrainStatusDownloading:
+  {
+    float const percent = nodeAttrs.terrainTotalSize > 0
+                            ? (float)nodeAttrs.terrainDownloadedSize / nodeAttrs.terrainTotalSize : 0.f;
+    subtitle = [NSString stringWithFormat:@"Terrain — %d%%", (int)(percent * 100)];
+    // Only the progress value: the state setter resets the arc, so assigning it on every
+    // notification redraws 0..X% (cf. the MWMMapNodeStatusDownloading case in config:).
+    if (percent > 0)
+      [self setDownloadProgress:percent];
+    else if (progress.state != MWMCircularProgressStateSpinner)
+      progress.state = MWMCircularProgressStateSpinner;
+    break;
+  }
+  case MWMTerrainStatusOnDisk:
+    subtitle = @"Terrain — downloaded";
+    progress.state = MWMCircularProgressStateCompleted;
+    break;
+  case MWMTerrainStatusPartly:
+    subtitle = @"Terrain — partly downloaded";
+    progress.state = MWMCircularProgressStateNormal;
+    break;
+  case MWMTerrainStatusFailed:
+    subtitle = @"Terrain — failed, tap to retry";
+    progress.state = MWMCircularProgressStateFailed;
+    break;
+  case MWMTerrainStatusOnDiskOutOfDate:
+  {
+    // The maps out-of-date affordance (cf. MWMMapNodeStatusOnDiskOutOfDate in config:).
+    subtitle = @"Terrain — update available";
+    MWMCircularProgressStateVec affectedStates =
+        @[@(MWMCircularProgressStateNormal), @(MWMCircularProgressStateSelected)];
+    [progress setImageName:@"ic_update" forStates:affectedStates];
+    [progress setColoring:MWMButtonColoringOther forStates:affectedStates];
+    progress.state = MWMCircularProgressStateNormal;
+    break;
+  }
+  default:
+    subtitle = @"Terrain";
+    progress.state = MWMCircularProgressStateNormal;
+    break;
+  }
+  self.title.text = subtitle;
+  self.title.font = UIFont.regular14.dynamic;
+  self.downloadSize.text = formattedSize(nodeAttrs.terrainTotalSize);
+  self.downloadSize.hidden = nodeAttrs.terrainTotalSize == 0;
+}
+
 - (void)config:(MWMMapNodeAttributes *)nodeAttrs searchQuery:(NSString *)searchQuery
 {
   self.searchQuery = searchQuery;
   self.nodeAttrs = nodeAttrs;
+  _isTerrainCell = NO;
   [self configProgress:nodeAttrs];
 
   self.title.attributedText = [self matchedString:nodeAttrs.nodeName
