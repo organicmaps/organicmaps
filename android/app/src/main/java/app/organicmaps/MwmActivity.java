@@ -1352,6 +1352,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {}
 
   @Override
+  public void onRouteReadyToAutoStart()
+  {
+    if (!showRoutingDisclaimer())
+      return;
+
+    closeFloatingPanels();
+    setFullscreen(false);
+    RoutingController.get().start();
+  }
+
+  @Override
   public void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps)
   {
     RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(
