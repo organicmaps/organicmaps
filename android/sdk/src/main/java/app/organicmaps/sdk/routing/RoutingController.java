@@ -67,6 +67,7 @@ public class RoutingController
     default void onPoiPickCompleted() {}
     default void onResetToPlanningState() {}
     default void onBuiltRoute() {}
+    default void onRouteReadyToAutoStart() {}
     default void onDrivingOptionsWarning() {}
 
     default void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps) {}
@@ -164,7 +165,8 @@ public class RoutingController
         && (mLastResultCode == ResultCodes.NO_ERROR || mLastResultCode == ResultCodes.HAS_WARNINGS))
     {
       mStartNavigationAfterBuild = false;
-      start();
+      if (mContainer != null)
+        mContainer.onRouteReadyToAutoStart();
     }
   }
 
