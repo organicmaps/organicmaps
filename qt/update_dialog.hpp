@@ -46,6 +46,7 @@ public:
 
 private slots:
   void OnItemClick(QTreeWidgetItem * item, int column);
+  void OnTerrainClick(storage::CountryId const & countryId);
   void OnCloseClick();
   void OnLocaleTextChanged(QString const & text);
   void OnQueryTextChanged(QString const & text);

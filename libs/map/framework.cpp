@@ -398,6 +398,28 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   m_storage.Init(std::bind(&Framework::OnCountryFileDownloaded, this, _1, _2),
                  std::bind(&Framework::OnCountryFileDelete, this, _1, _2));
 
+  // Terrain (.twm) downloading: Storage needs the country bbox resolver (the info
+  // getter belongs to the Framework), the landed blocks register into the provider
+  // (replacing the outdated coverage they intersect), and the out-of-date status
+  // queries the provider registry.
+  m_storage.SetTerrainCallbacks(
+      [this](storage::CountryId const & countryId)
+  { return storage::CalcLimitRect(countryId, m_storage, GetCountryInfoGetter()); },
+      [this](std::string const & path, m2::RectD const & rect)
+  {
+    m2::RectD invalidRect = rect;
+    m_terrainProvider.OnBlockDownloaded(path, invalidRect);
+    InvalidateRect(invalidRect);
+  },
+      [this](m2::RectD const & rect, int64_t version) { return m_terrainProvider.HasOlderTerrain(rect, version); },
+      [this](std::vector<m2::RectD> const & rects)
+  {
+    m2::RectD invalidRect;
+    m_terrainProvider.DeleteBlocks(rects, invalidRect);
+    if (invalidRect.IsValid())
+      InvalidateRect(invalidRect);
+  });
+
   m_storage.SetDownloadingPolicy(&m_storageDownloadingPolicy);
   m_storage.SetStartDownloadingCallback([this]()
   {

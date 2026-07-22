@@ -24,14 +24,11 @@ struct GridBlock
   m2::RectD GetRectMercator() const;
 };
 
-// Loads and validates the grid index. Throws RootException on the unreadable or
-// malformed input (a missing/corrupt grid is a build system error, not user data).
-std::vector<GridBlock> LoadTwmGrid(std::string const & filePath);
+// Parses the block name (the SW corner, e.g. "N40E045") into bottom/left degrees.
+bool ParseBlockName(std::string_view name, int & bottom, int & left);
 
-// The same over an in-memory buffer: the client reads the bundled grid through the
-// platform reader (on Android the file lives inside the APK, not on the filesystem).
-// sourceName is used in the error messages only.
-std::vector<GridBlock> ParseTwmGrid(std::string const & content, std::string const & sourceName);
+// Validates the block bounds: inside the mercator-safe world band, positive extents.
+bool IsValidBlock(GridBlock const & block);
 
 // Cuts the block by the lattice-aligned lines into the generation units, each at most
 // lattice x lattice degrees: the 1-degree-granular mountain sub-blocks lie inside one

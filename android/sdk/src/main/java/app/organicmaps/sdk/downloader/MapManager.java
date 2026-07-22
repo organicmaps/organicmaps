@@ -84,6 +84,14 @@ public final class MapManager
   }
 
   /**
+   * Downloads the terrain (.twm) blocks covering the {@code root} node bbox.
+   */
+  public static void startDownloadTerrain(@NonNull String countryId)
+  {
+    nativeDownloadTerrain(countryId);
+  }
+
+  /**
    * Retrieves ID of root node.
    */
   public static native String nativeGetRoot();
@@ -181,6 +189,23 @@ public final class MapManager
    * Enqueues given {@code root} node and its children in downloader.
    */
   private static native void nativeDownload(String root);
+
+  /**
+   * Downloads the terrain (.twm) blocks covering the {@code root} node bbox.
+   */
+  private static native void nativeDownloadTerrain(String root);
+
+  /**
+   * Cancels the terrain (.twm) blocks downloading for the {@code root} node (the maps
+   * downloading of the node is not affected).
+   */
+  public static native void nativeCancelTerrain(String root);
+
+  /**
+   * Deletes the downloaded terrain (.twm) blocks covering the {@code root} node bbox
+   * (the blocks shared with the neighbor regions disappear for them too).
+   */
+  public static native void nativeDeleteTerrain(String root);
 
   /**
    * Enqueues failed items under given {@code root} node in downloader.
