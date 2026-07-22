@@ -38,6 +38,7 @@ public:
     SetAnyRect,
     Resize,
     Rotate,
+    RotateDelta,
     FollowAndRotate,
     AutoPerspective,
     VisibleViewport,
@@ -340,6 +341,19 @@ private:
   TAnimationCreator m_parallelAnimCreator;
 };
 
+class RotateDeltaEvent : public UserEvent
+{
+public:
+  explicit RotateDeltaEvent(double deltaAzimuth) : m_deltaAzimuth(deltaAzimuth) {}
+
+  EventType GetType() const override { return EventType::RotateDelta; }
+
+  double GetDeltaAzimuth() const { return m_deltaAzimuth; }
+
+private:
+  double m_deltaAzimuth;
+};
+
 class ResizeEvent : public UserEvent
 {
 public:
@@ -474,6 +488,7 @@ private:
   bool OnScroll(ref_ptr<ScrollEvent> scrollEvent);
 
   bool SetAngle(double azimuth, bool isAnim, TAnimationCreator const & parallelAnimCreator = nullptr);
+  bool SetAngle(double delta);
   bool SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim, bool useVisibleViewport,
                TAnimationCreator const & parallelAnimCreator = nullptr);
   bool SetRect(m2::AnyRectD const & rect, bool isAnim, bool fitInViewport, bool useVisibleViewport,

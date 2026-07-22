@@ -579,6 +579,7 @@ public:
   void Scroll(double distanceX, double distanceY);
 
   void Rotate(double azimuth, bool isAnim);
+  void Rotate(double delta);
 
   void TouchEvent(df::TouchEvent const & touch);
 

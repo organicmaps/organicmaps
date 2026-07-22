@@ -38,6 +38,14 @@ public:
     return *this;
   }
 
+  Angle const & operator+=(T const & delta)
+  {
+    m_val += delta;
+    m_sin = std::sin(m_val);
+    m_cos = std::cos(m_val);
+    return *this;
+  }
+
   friend std::string DebugPrint(Angle<T> const & ang) { return DebugPrint(ang.m_val); }
 
 private:

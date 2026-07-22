@@ -227,6 +227,12 @@ void ScreenBase::SetAngle(double angle)
   UpdateDependentParameters();
 }
 
+void ScreenBase::AddAngleDelta(double delta)
+{
+  m_Angle += delta;
+  UpdateDependentParameters();
+}
+
 int ScreenBase::GetWidth() const
 {
   return math::iround(m_PixelRect.SizeX());
