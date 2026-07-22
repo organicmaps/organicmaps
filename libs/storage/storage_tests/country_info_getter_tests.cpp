@@ -574,4 +574,52 @@ UNIT_TEST(CountryInfoGetter_ExtendedRect_ExactLookup)
   countries = getter.GetRegionsCountryIdByRect(m2::RectD(200.0, 40.0, 220.0, 55.0), false);
   TEST(countries.empty(), ());
 }
+
+UNIT_TEST(Storage_TerrainOutOfDateStatus)
+{
+  Storage storage;
+  auto const getter = CreateCountryInfoGetter();
+
+  // The injected has-older callback flips a region with no current blocks on disk
+  // between NotDownloaded and OnDiskOutOfDate (cf. TerrainProvider::HasOlderTerrain).
+  bool hasOlder = false;
+  storage.SetTerrainCallbacks([&](CountryId const & id) { return CalcLimitRect(id, storage, *getter); }, {},
+                              [&](m2::RectD const &, int64_t /* version */) { return hasOlder; });
+
+  // Madagascar has no local terrain blocks in the test environment.
+  TEST_EQUAL(storage.GetTerrainAttrs("Madagascar").m_status, Storage::TerrainStatus::NotDownloaded, ());
+  hasOlder = true;
+  TEST_EQUAL(storage.GetTerrainAttrs("Madagascar").m_status, Storage::TerrainStatus::OnDiskOutOfDate, ());
+}
+
+UNIT_TEST(Storage_TerrainAttrsAllNodes)
+{
+  Storage storage;
+  auto const getter = CreateCountryInfoGetter();
+  storage.SetTerrainCallbacks([&](CountryId const & id) { return CalcLimitRect(id, storage, *getter); }, {}, {});
+
+  // The downloader UI queries the terrain attrs of every row: no region shape (incl.
+  // the wrapped and the entirely-beyond-antimeridian limit rects) may assert.
+  size_t checked = 0;
+  storage.ForEachInSubtree(storage.GetRootId(), [&](CountryId const & id, bool /* groupNode */)
+  {
+    storage.GetTerrainAttrs(id);
+    ++checked;
+  });
+  TEST_GREATER(checked, 1000, (checked));
+}
+
+UNIT_TEST(Storage_TerrainDelete)
+{
+  Storage storage;
+  auto const getter = CreateCountryInfoGetter();
+
+  std::vector<m2::RectD> deleted;
+  storage.SetTerrainCallbacks([&](CountryId const & id) { return CalcLimitRect(id, storage, *getter); }, {}, {},
+                              [&](std::vector<m2::RectD> const & rects) { deleted = rects; });
+
+  storage.DeleteTerrain("Madagascar");
+  TEST_EQUAL(deleted.size(), 1, ());  // One canonical rect: no antimeridian wrap.
+  TEST(deleted.front().IsValid(), ());
+}
 }  // namespace country_info_getter_tests
