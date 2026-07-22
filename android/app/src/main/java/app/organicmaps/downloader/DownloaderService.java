@@ -26,6 +26,7 @@ public class DownloaderService extends Service implements MapManager.StorageCall
   private static final String ACTION_START_DOWNLOAD = "ACTION_START_DOWNLOAD";
   private static final String ACTION_RETRY_DOWNLOAD = "ACTION_RETRY_DOWNLOAD";
   private static final String ACTION_START_UPDATE = "ACTION_START_UPDATE";
+  private static final String ACTION_START_TERRAIN = "ACTION_START_TERRAIN";
   private static final String EXTRA_COUNTRY_IDS = "EXTRA_COUNTRY_IDS";
 
   private final DownloaderNotifier mNotifier = new DownloaderNotifier(this);
@@ -69,7 +70,7 @@ public class DownloaderService extends Service implements MapManager.StorageCall
     // The download is deferred to here (instead of being started by MapManagerHelper) to
     // eliminate the race where a fast download completes before onStartCommand() runs.
     if (ACTION_START_DOWNLOAD.equals(action) || ACTION_RETRY_DOWNLOAD.equals(action)
-        || ACTION_START_UPDATE.equals(action))
+        || ACTION_START_UPDATE.equals(action) || ACTION_START_TERRAIN.equals(action))
     {
       var notification = mNotifier.buildProgressNotification();
       Logger.i(TAG, "Starting Downloader Foreground Service");
@@ -86,6 +87,13 @@ public class DownloaderService extends Service implements MapManager.StorageCall
         {
           for (String countryId : countryIds)
             MapManager.startDownload(countryId);
+        }
+        else if (ACTION_START_TERRAIN.equals(action))
+        {
+          // Terrain rides the same native queue, so the service lifecycle
+          // (nativeIsDownloading / onStatusChanged) tracks it like the maps.
+          for (String countryId : countryIds)
+            MapManager.startDownloadTerrain(countryId);
         }
         else if (ACTION_RETRY_DOWNLOAD.equals(action))
           MapManager.retryDownload(countryIds[0]);
@@ -196,6 +204,18 @@ public class DownloaderService extends Service implements MapManager.StorageCall
     Logger.i(TAG);
     Intent intent = new Intent(context, DownloaderService.class);
     intent.setAction(ACTION_START_DOWNLOAD);
+    intent.putExtra(EXTRA_COUNTRY_IDS, countryIds);
+    ContextCompat.startForegroundService(context, intent);
+  }
+
+  /**
+   * Start the foreground service and enqueue the terrain blocks of the given regions.
+   */
+  static void startTerrainDownload(Context context, String... countryIds)
+  {
+    Logger.i(TAG);
+    Intent intent = new Intent(context, DownloaderService.class);
+    intent.setAction(ACTION_START_TERRAIN);
     intent.putExtra(EXTRA_COUNTRY_IDS, countryIds);
     ContextCompat.startForegroundService(context, intent);
   }

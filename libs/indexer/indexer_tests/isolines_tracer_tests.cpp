@@ -2,6 +2,7 @@
 
 #include "indexer/terrain/isolines_tracer.hpp"
 #include "indexer/terrain/terrain_reader.hpp"
+#include "indexer/terrain/twm_set.hpp"
 
 #include "platform/http_client.hpp"
 #include "platform/platform.hpp"
@@ -12,6 +13,7 @@
 
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 
 #include <cmath>
 #include <fstream>
@@ -114,5 +116,39 @@ UNIT_TEST(TerrainIsolines_FlatPlainInvariants)
   TEST_GREATER(lines, 0, ());
   for (auto const & [altitude, count] : perAltitude)
     LOG(LINFO, ("Altitude", altitude, ":", count, "isolines"));
+}
+
+// The multi-version registry policy: the newer block wins the overlap, the older one is
+// rejected; the out-of-date query sees the registered older blocks only.
+UNIT_TEST(TerrainTwmSet_VersionPolicy)
+{
+  std::string const source = GetTestBlockPath();
+  if (source.empty())
+    return;
+
+  m2::RectD rect;
+  TEST(terrain::TwmSet::ReadLimitRect(source, rect), ());
+  TEST(rect.IsValid(), ());
+
+  // Two copies of the same block = the same header rect = a guaranteed overlap.
+  std::string const newerPath = base::JoinPath(GetPlatform().TmpDir(), "twm_v2.twm");
+  std::string const olderPath = base::JoinPath(GetPlatform().TmpDir(), "twm_v1.twm");
+  TEST(base::CopyFileX(source, newerPath), ());
+  TEST(base::CopyFileX(source, olderPath), ());
+  SCOPE_GUARD(cleanup, [&]()
+  {
+    base::DeleteFileX(newerPath);
+    base::DeleteFileX(olderPath);
+  });
+
+  terrain::TwmSet set;
+  TEST_EQUAL(set.Register(newerPath, 2 /* version */).second, terrain::TwmSet::RegResult::Success, ());
+  // The older overlapping block is rejected: the newest data wins.
+  TEST_EQUAL(set.Register(olderPath, 1 /* version */).second, terrain::TwmSet::RegResult::Overlapping, ());
+
+  TEST(set.HasBlocks(rect), ());
+  // The registered v2 block is older than a v3 grid, but not older than itself.
+  TEST(set.HasOlderBlocks(rect, 3 /* version */), ());
+  TEST(!set.HasOlderBlocks(rect, 2 /* version */), ());
 }
 }  // namespace isolines_tracer_tests

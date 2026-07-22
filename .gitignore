@@ -14,6 +14,8 @@ data/patterns_design.txt
 data/bookmarks
 data/edits.xml
 data/settings.ini
+# Downloaded terrain blocks (see libs/map/terrain_provider.hpp).
+data/terrain/
 
 # Python compiled files and dependencies
 *.pyc

@@ -55,7 +55,10 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>
     else
       iv.setImageResource(item.iconRes);
     viewHolder.getContainer().setOnClickListener((v) -> onMenuItemClick(item));
-    viewHolder.getTitleTextView().setText(item.titleRes);
+    if (item.title != null)
+      viewHolder.getTitleTextView().setText(item.title);
+    else
+      viewHolder.getTitleTextView().setText(item.titleRes);
     TextView badge = viewHolder.getBadgeTextView();
     if (item.badgeCount > 0)
     {
