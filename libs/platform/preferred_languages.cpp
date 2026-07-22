@@ -636,6 +636,11 @@ ChineseScript GetChineseScript(std::string_view tag)
   if (!strings::EqualAsciiNoCase(PrimarySubtag(tag), "zh"))
     return ChineseScript::NotChinese;
 
+  // An explicit script subtag is authoritative (BCP 47), so it wins over the region: Android can
+  // report "zh_HK_#Hans" for a Simplified-preferring user living in a Traditional region.
+  if (HasSubtag(tag, "hans"))
+    return ChineseScript::Simplified;
+
   // Traditional script: explicit "Hant", or the regions that use it (Taiwan, Hong Kong, Macau).
   for (char const * s : {"hant", "tw", "hk", "mo"})
     if (HasSubtag(tag, s))
@@ -694,14 +699,16 @@ CJKResolver::Variant CJKResolver::FromLanguageTag(std::string_view tag)
   if (strings::EqualAsciiNoCase(primary, "ko"))
     return Variant::KR;
 
-  // Hong Kong has its own glyph variants, so it is resolved before the Traditional/Simplified split.
-  if (strings::EqualAsciiNoCase(primary, "zh") && HasSubtag(tag, "hk"))
-    return Variant::HK;
-  if (GetChineseScript(tag) == ChineseScript::Traditional)
-    return Variant::TC;
+  switch (GetChineseScript(tag))
+  {
+  // Hong Kong has its own glyph variants of the Traditional script.
+  case ChineseScript::Traditional: return HasSubtag(tag, "hk") ? Variant::HK : Variant::TC;
+  case ChineseScript::Simplified:
+  case ChineseScript::NotChinese: break;
+  }
 
-  // Non-CJK locales fall back to Simplified Chinese — the most widely recognized variant for any
-  // Han glyph the user might encounter on the map.
+  // Simplified and non-CJK locales alike fall back to Simplified Chinese — the most widely
+  // recognized variant for any Han glyph the user might encounter on the map.
   return Variant::SC;
 }
 
