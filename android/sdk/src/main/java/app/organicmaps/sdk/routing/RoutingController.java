@@ -163,6 +163,13 @@ public class RoutingController
     mLastBuildProgress = 100;
     if (mContainer != null)
       mContainer.onBuiltRoute();
+    if (mStartNavigationAfterBuild
+        && (mLastResultCode == ResultCodes.NO_ERROR || mLastResultCode == ResultCodes.HAS_WARNINGS))
+    {
+      mStartNavigationAfterBuild = false;
+      if (mContainer != null)
+        mContainer.onRouteReadyToAutoStart();
+    }
   }
 
   private final RoutingProgressListener mRoutingProgressListener = progress ->

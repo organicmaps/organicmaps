@@ -837,30 +837,25 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetParsedRoutingData(
 {
   using namespace url_scheme;
   static jclass const pointClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/api/RoutePoint");
-  // Java signature : RoutePoint(double lat, double lon, String name, String callback, boolean isMyPosition)
-  static jmethodID const pointConstructor =
-      jni::GetConstructorID(env, pointClazz, "(DDLjava/lang/String;Ljava/lang/String;Z)V");
+  // Java signature : RoutePoint(double lat, double lon, String name)
+  static jmethodID const pointConstructor = jni::GetConstructorID(env, pointClazz, "(DDLjava/lang/String;)V");
+
   static jclass const routeDataClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/api/ParsedRoutingData");
-  // Java signature : ParsedRoutingData(RoutePoint[] points, int routerType, boolean optimizeRoutePoints,
-  // boolean startRouteNavigation, double startDirectionX, double startDirectionY) {
+  // Java signature : ParsedRoutingData(RoutePoint[] points, int routerType, boolean startRouteNavigation)
   static jmethodID const routeDataConstructor =
-      jni::GetConstructorID(env, routeDataClazz, "([Lapp/organicmaps/sdk/api/RoutePoint;IZZDD)V");
+      jni::GetConstructorID(env, routeDataClazz, "([Lapp/organicmaps/sdk/api/RoutePoint;IZ)V");
 
   auto const & routingData = frm()->GetParsedRoutingData();
   jobjectArray points =
       jni::ToJavaArray(env, pointClazz, routingData.m_points, [](JNIEnv * env, RoutePoint const & point)
   {
     jni::TScopedLocalRef const name(env, jni::ToJavaString(env, point.m_name));
-    jni::TScopedLocalRef const callback(env, jni::ToJavaString(env, point.m_callback));
     return env->NewObject(pointClazz, pointConstructor, mercator::YToLat(point.m_org.y),
-                          mercator::XToLon(point.m_org.x), name.get(), callback.get(),
-                          static_cast<jboolean>(point.m_isMyPosition));
+                          mercator::XToLon(point.m_org.x), name.get());
   });
 
   return env->NewObject(routeDataClazz, routeDataConstructor, points, static_cast<jint>(routingData.m_type),
-                        static_cast<jboolean>(routingData.m_optimizeRoutePoints),
-                        static_cast<jboolean>(routingData.m_startRouteNavigation), routingData.m_startDirection.x,
-                        routingData.m_startDirection.y);
+                        static_cast<jboolean>(routingData.m_startRouteNavigation));
 }
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetParsedSearchRequest(JNIEnv * env, jclass clazz)
