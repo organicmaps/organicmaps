@@ -14,6 +14,7 @@ std::string GetFileName(std::string const & countryName, MapFileType type)
   {
   case MapFileType::Map: return countryName + DATA_FILE_EXTENSION;
   case MapFileType::Diff: return countryName + DIFF_FILE_EXTENSION;
+  case MapFileType::Terrain: return countryName + TERRAIN_FILE_EXT;
   case MapFileType::Count: break;
   }
 

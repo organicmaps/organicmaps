@@ -5,7 +5,6 @@
 // clang-format off
 #define DATA_FILE_EXTENSION ".mwm"
 #define TERRAIN_FILE_EXT ".twm"
-#define TERRAIN_DIR "terrain"
 #define DATA_FILE_EXTENSION_TMP ".mwm.tmp"
 #define RELATIONS_FILE_EXTENSION_TMP ".rels.tmp"
 #define DIFF_FILE_EXTENSION ".mwmdiff"
@@ -79,6 +78,9 @@ auto constexpr TMP_OFFSETS_EXT = OFFSET_EXT EXTENSION_TMP;
 #define COUNTRIES_FILE "countries.json"
 #define SERVER_DATAVERSION_FILE "data_version.json"
 #define COUNTRIES_ROOT "Countries"
+
+#define TERRAIN_DIR "terrain"
+#define TERRAIN_GRID_FILE "twm_grid.json"
 
 #define COUNTRIES_META_FILE "countries_meta.txt"
 #define TIMEZONE_INFO_FILE "generator/timezone/timezone_info.json"

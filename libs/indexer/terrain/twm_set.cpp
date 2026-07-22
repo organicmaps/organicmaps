@@ -53,7 +53,7 @@ std::string DebugPrint(TwmId const & id)
   return "TwmId [invalid]";
 }
 
-std::pair<TwmId, TwmSet::RegResult> TwmSet::Register(std::string const & filePath)
+std::pair<TwmId, TwmSet::RegResult> TwmSet::Register(std::string const & filePath, int64_t version /* = 0 */)
 {
   std::pair<TwmId, RegResult> result;
   WithEventLog([&](EventList & events)
@@ -73,17 +73,9 @@ std::pair<TwmId, TwmSet::RegResult> TwmSet::Register(std::string const & filePat
     }
 
     m2::RectD limitRect;
-    try
+    if (!ReadLimitRect(filePath, limitRect))
     {
-      FilesContainerR const container(filePath);
-      TwmHeader header;
-      ReaderSource<ModelReaderPtr> src(container.GetReader(kHeaderTag));
-      header.Deserialize(src);
-      limitRect = header.GetLimitRect();
-    }
-    catch (RootException const & ex)
-    {
-      LOG(LWARNING, ("Condemning the unreadable terrain file", filePath, ":", ex.Msg()));
+      LOG(LWARNING, ("Condemning the unreadable terrain file", filePath));
       m_condemned.insert(filePath);
       result = {TwmId(), RegResult::BadFile};
       return;
@@ -104,12 +96,30 @@ std::pair<TwmId, TwmSet::RegResult> TwmSet::Register(std::string const & filePat
       }
     }
 
-    auto const info = std::make_shared<TwmInfo>(filePath, limitRect);
+    auto const info = std::make_shared<TwmInfo>(filePath, limitRect, version);
     SetStatus(*info, TwmInfo::STATUS_REGISTERED, events);
     AddToRegistryImpl(info);
     result = {TwmId(info), RegResult::Success};
   });
   return result;
+}
+
+bool TwmSet::ReadLimitRect(std::string const & filePath, m2::RectD & limitRect)
+{
+  try
+  {
+    FilesContainerR const container(filePath);
+    TwmHeader header;
+    ReaderSource<ModelReaderPtr> src(container.GetReader(kHeaderTag));
+    header.Deserialize(src);
+    limitRect = header.GetLimitRect();
+  }
+  catch (RootException const & ex)
+  {
+    LOG(LWARNING, ("Can't read the terrain header", filePath, ":", ex.Msg()));
+    return false;
+  }
+  return true;
 }
 
 bool TwmSet::Deregister(std::string const & filePath)
@@ -170,6 +180,18 @@ bool TwmSet::HasBlocks(m2::RectD const & rect) const
   ForEachBlockByRectImpl(rect, [&](std::shared_ptr<TwmInfo> const &) { found = true; });
   return found;
 }
+
+bool TwmSet::HasOlderBlocks(m2::RectD const & rect, int64_t version) const
+{
+  bool found = false;
+  ForEachBlockByRectImpl(rect, [&](std::shared_ptr<TwmInfo> const & info)
+  {
+    if (info->GetVersion() < version)
+      found = true;
+  });
+  return found;
+}
+
 
 TwmSet::Handle TwmSet::GetHandleById(TwmId const & id)
 {

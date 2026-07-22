@@ -18,11 +18,18 @@ namespace terrain
 class TwmInfo : public ds::SetInfoBase
 {
 public:
-  TwmInfo(std::string const & filePath, m2::RectD const & limitRect) : m_filePath(filePath), m_limitRect(limitRect) {}
+  TwmInfo(std::string const & filePath, m2::RectD const & limitRect, int64_t version)
+    : m_filePath(filePath)
+    , m_limitRect(limitRect)
+    , m_version(version)
+  {}
 
   std::string const & GetFilePath() const { return m_filePath; }
   /// The block coverage in mercator, from the TWM header.
   m2::RectD const & GetLimitRect() const { return m_limitRect; }
+  /// The data version of the block (the client version folder name, 0 for the legacy
+  /// flat files), cf. MwmInfo::GetVersion.
+  int64_t GetVersion() const { return m_version; }
 
 protected:
   using ds::SetInfoBase::SetStatus;
@@ -30,6 +37,7 @@ protected:
 
   std::string m_filePath;
   m2::RectD m_limitRect;
+  int64_t m_version = 0;
 };
 
 class TwmId : public ds::SetId<TwmInfo>
@@ -119,7 +127,18 @@ public:
     virtual void OnTerrainDeregistered(std::string const & /* filePath */) {}
   };
 
-  std::pair<TwmId, RegResult> Register(std::string const & filePath);
+  /// version is the block data version (the client version folder), see TwmInfo::GetVersion.
+  /// Register the newer versions first: an older block overlapping an already registered
+  /// newer one is rejected as Overlapping, which IS the multi-version policy (newest wins,
+  /// older non-overlapping blocks keep rendering).
+  std::pair<TwmId, RegResult> Register(std::string const & filePath, int64_t version = 0);
+
+  /// Reads the block coverage from the .twm header; false on an unreadable file.
+  static bool ReadLimitRect(std::string const & filePath, m2::RectD & limitRect);
+
+  /// True when a registered block older than the version intersects the mercator rect
+  /// (the out-of-date terrain status source, cf. Storage::GetTerrainAttrs).
+  bool HasOlderBlocks(m2::RectD const & rect, int64_t version) const;
 
   /// @return true if the file was deregistered right away; a file locked by outstanding
   /// handles is deregistered by the last unlock (the delayed deregistration).

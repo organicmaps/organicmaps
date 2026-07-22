@@ -83,6 +83,11 @@ static MWMMapNodeStatus convertStatus(storage::NodeStatus status)
     else
       _totalUpdateSizeBytes = 0;
 
+    auto const terrainAttrs = GetFramework().GetStorage().GetTerrainAttrs([countryId UTF8String]);
+    _terrainStatus = static_cast<MWMTerrainStatus>(terrainAttrs.m_status);
+    _terrainTotalSize = terrainAttrs.m_totalSize;
+    _terrainDownloadedSize = terrainAttrs.m_downloadedSize;
+
     auto const total = attributes.m_downloadingProgress.m_bytesTotal;
     if (total > 0)
       _downloadingProgress = static_cast<float>(attributes.m_downloadingProgress.m_bytesDownloaded) / total;
