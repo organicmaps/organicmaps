@@ -2991,15 +2991,14 @@ bool BookmarkManager::SaveBookmarkCategory(kml::MarkGroupId groupId, Writer & wr
 BookmarkManager::KMLDataCollectionPtr BookmarkManager::PrepareToSaveBookmarksForTrack(kml::TrackId trackId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto collection = std::make_shared<KMLDataCollection>();
   auto const & track = GetTrack(trackId);
-  auto name = kml::LocalizableString();
-  kml::SetDefaultStr(name, track->GetName());
-  auto const & trackData = track->GetData();
-  auto const & fileData = new kml::FileData();
-  fileData->m_categoryData = kml::CategoryData{.m_name = name};
-  fileData->m_tracksData.push_back(trackData);
-  collection->emplace_back("", fileData);
+
+  auto fileData = std::make_unique<kml::FileData>();
+  kml::SetDefaultStr(fileData->m_categoryData.m_name, track->GetName());
+  fileData->m_tracksData.push_back(track->GetData());
+
+  auto collection = std::make_shared<KMLDataCollection>();
+  collection->emplace_back("", std::move(fileData));
   return collection;
 }
 

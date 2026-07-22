@@ -10,6 +10,8 @@
 #include <functional>
 #include <list>
 
+namespace user_event_stream_test
+{
 using df::test_support::VisualParamsFixture;
 using namespace std::placeholders;
 
@@ -245,3 +247,4 @@ UNIT_CLASS_TEST(VisualParamsFixture, SetCenter_AlignsToVisibleViewportCenter)
 }
 
 #endif
+}  // namespace user_event_stream_test
