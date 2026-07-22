@@ -3,6 +3,7 @@
 #include "indexer/scales.hpp"
 #include "indexer/terrain/terrain_utils.hpp"
 
+#include "platform/measurement_utils.hpp"
 #include "platform/platform.hpp"
 
 #include "base/file_name_utils.hpp"
@@ -86,7 +87,8 @@ void TerrainProvider::ForEachIsoline(m2::RectD const & rect, int zoom, IsolineFn
   {
     size_t const geomIndex = readers.front()->GetHeader().GetGeometryIndex(std::min(zoom, scales::GetUpperScale()));
     IsolinesTracer const tracer(readers);
-    tracer.Trace(rect, geomIndex, GetIsolinesStepForZoom(zoom), fn);
+    auto const units = measurement_utils::GetMeasurementUnits();
+    tracer.Trace(rect, geomIndex, GetIsolinesStepForZoom(zoom, units), units, fn);
   }
   catch (RootException const & ex)
   {

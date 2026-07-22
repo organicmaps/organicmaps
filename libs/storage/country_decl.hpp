@@ -40,29 +40,37 @@ struct CountryDef
 
   bool IsRectOverlap(m2::RectD const & r) const { return IsIntersectOrInside(r, m_rect) != Overlap::NONE; }
 
-  /// Calls \a fn(p1, p2) for each side of \a rect, but in _canonical_ coordinates (x in [-180, 180]).
+  /// Calls \a fn(rect) for the _canonical_ (x in [-180, 180]) parts of \a rect.
   /// @param[in] rect is wrapped, but may cross the antimeridian (maxX > 180 or
-  /// minX < -180). In that case it is split into its two canonical halves and 4 + 4 = 8 segments are
-  /// emitted, so they can be tested against country polygons that always live in the canonical range.
+  /// minX < -180). In that case its two canonical halves are emitted, so they can be
+  /// tested against rects and polygons that always live in the canonical range.
   template <typename Fn>
-  static void ForEachRectSideWrapped(m2::RectD const & rect, Fn && fn)
+  static void ForEachRectWrapped(m2::RectD const & rect, Fn && fn)
   {
     if (rect.maxX() > 180.0)
     {
       // [minX, 180] stays canonical; the part beyond 180 wraps to [-180, maxX - 360].
-      m2::RectD(rect.minX(), rect.minY(), 180.0, rect.maxY()).ForEachSide(fn);
-      m2::RectD(-180.0, rect.minY(), rect.maxX() - 360.0, rect.maxY()).ForEachSide(fn);
+      fn(m2::RectD(rect.minX(), rect.minY(), 180.0, rect.maxY()));
+      fn(m2::RectD(-180.0, rect.minY(), rect.maxX() - 360.0, rect.maxY()));
     }
     else if (rect.minX() < -180.0)
     {
       // [-180, maxX] stays canonical; the part below -180 wraps to [minX + 360, 180].
-      m2::RectD(-180.0, rect.minY(), rect.maxX(), rect.maxY()).ForEachSide(fn);
-      m2::RectD(rect.minX() + 360.0, rect.minY(), 180.0, rect.maxY()).ForEachSide(fn);
+      fn(m2::RectD(-180.0, rect.minY(), rect.maxX(), rect.maxY()));
+      fn(m2::RectD(rect.minX() + 360.0, rect.minY(), 180.0, rect.maxY()));
     }
     else
     {
-      rect.ForEachSide(fn);
+      fn(rect);
     }
+  }
+
+  /// Calls \a fn(p1, p2) for each side of the canonical parts of \a rect (4 + 4 = 8
+  /// segments when the wrapped rect crosses the antimeridian).
+  template <typename Fn>
+  static void ForEachRectSideWrapped(m2::RectD const & rect, Fn && fn)
+  {
+    ForEachRectWrapped(rect, [&fn](m2::RectD const & r) { r.ForEachSide(fn); });
   }
 
   static m2::RectD SaveBoundRect() { return m2::RectD(-360, -180, 360, 180); }

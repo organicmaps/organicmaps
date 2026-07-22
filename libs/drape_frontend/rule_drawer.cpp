@@ -18,6 +18,8 @@
 #include "indexer/scales.hpp"
 #include "indexer/terrain/terrain_utils.hpp"
 
+#include "platform/measurement_utils.hpp"
+
 #include "coding/point_coding.hpp"
 
 #include "geometry/clipping.hpp"
@@ -521,9 +523,8 @@ void RuleDrawer::DrawTerrainShade(MapDataProvider const & model)
 
   // Pass 1: dedupe the vertices by the canonical quantized position and accumulate the
   // area-weighted face normals. Shared vertices decode bit-identically across triangles,
-  // features and the neighbor tiles' overhang (the canonical formula, docs/TERRAIN.md),
-  // so the smoothed per-vertex normals agree along every seam. Triangles outside the
-  // tile still contribute to their vertices, only the intersecting ones are emitted.
+  // features and the neighbor tiles' overhang, so the smoothed per-vertex normals agree along every seam.
+  // Triangles outside the tile still contribute to their vertices, only the intersecting ones are emitted.
   struct ShadeVertex
   {
     m2::PointD m_pos;
@@ -699,9 +700,10 @@ void RuleDrawer::DrawDynamicIsolines(MapDataProvider const & model)
   queryRect.Scale(kIsolineSmoothScale);
 
   // The altitude labels policy needs the tile relief upfront: buffer the drawn isolines.
+  // The altitudes come in the measurement units (see IsolinesTracer::Trace).
   std::vector<terrain::Isoline> isolines;
-  geometry::Altitude minAltitude = std::numeric_limits<geometry::Altitude>::max();
-  geometry::Altitude maxAltitude = std::numeric_limits<geometry::Altitude>::min();
+  int32_t minAltitude = std::numeric_limits<int32_t>::max();
+  int32_t maxAltitude = std::numeric_limits<int32_t>::min();
   model.ReadIsolines(queryRect, m_zoomLevel, [&](terrain::Isoline && isoline)
   {
     if (CheckCancelled() || ruleForAltitude(isoline.m_altitude) == nullptr)
@@ -717,8 +719,10 @@ void RuleDrawer::DrawDynamicIsolines(MapDataProvider const & model)
   // the styles), but the density is dynamic: terrain::GetIsolinesLabelStepForZoom picks the
   // labeled levels from the tile relief, overriding the per-class style zoom gates - a class
   // whose pathtext is gated to a deeper zoom resolves at the upper style scale instead.
-  auto const labelStep =
-      terrain::GetIsolinesLabelStepForZoom(m_zoomLevel, static_cast<geometry::Altitude>(maxAltitude - minAltitude));
+  // A units toggle between the trace above and this read can mislabel one tile for one
+  // frame; the SetupMeasurementSystem invalidation re-reads it right away.
+  auto const units = measurement_utils::GetMeasurementUnits();
+  auto const labelStep = terrain::GetIsolinesLabelStepForZoom(m_zoomLevel, maxAltitude - minAltitude, units);
 
   auto const resolvePathtextRule = [this](char const * subType) -> drule::PathTextRule const *
   {
@@ -802,6 +806,8 @@ void RuleDrawer::DrawDynamicIsolines(MapDataProvider const & model)
       // Pathtext drule priorities map to the overlay depth directly.
       textParams.m_depth = textRule->priority;
       textParams.m_mainText = strings::to_string(isoline.m_altitude);
+      if (units == measurement_utils::Units::Imperial)
+        textParams.m_mainText += " ft";
       float constexpr kMinVisibleFontSize = 8.0f;
       textParams.m_textFont = dp::FontDecl(
           ToDrapeColor(caption.color), std::max(kMinVisibleFontSize, static_cast<float>(caption.height * visScale)));

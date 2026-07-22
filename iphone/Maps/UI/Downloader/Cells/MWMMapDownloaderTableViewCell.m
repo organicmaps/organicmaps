@@ -75,8 +75,12 @@
     float const percent = nodeAttrs.terrainTotalSize > 0
                             ? (float)nodeAttrs.terrainDownloadedSize / nodeAttrs.terrainTotalSize : 0.f;
     subtitle = [NSString stringWithFormat:@"Terrain — %d%%", (int)(percent * 100)];
-    progress.state = MWMCircularProgressStateProgress;
-    progress.progress = percent;
+    // Only the progress value: the state setter resets the arc, so assigning it on every
+    // notification redraws 0..X% (cf. the MWMMapNodeStatusDownloading case in config:).
+    if (percent > 0)
+      [self setDownloadProgress:percent];
+    else if (progress.state != MWMCircularProgressStateSpinner)
+      progress.state = MWMCircularProgressStateSpinner;
     break;
   }
   case MWMTerrainStatusOnDisk:

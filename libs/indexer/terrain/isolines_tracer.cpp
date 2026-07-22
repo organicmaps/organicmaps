@@ -6,6 +6,7 @@
 #include "base/math.hpp"
 
 #include <algorithm>
+#include <cmath>
 #include <limits>
 #include <unordered_map>
 
@@ -89,15 +90,6 @@ CrossedEdges GetCrossedEdges(TracedMesh const & mesh, uint32_t tri, int32_t h)
 }
 }  // namespace
 
-Altitude SelectIsolinesStep(Altitude minAltitude, Altitude maxAltitude)
-{
-  int32_t const range = std::max(0, maxAltitude - minAltitude);
-  for (Altitude const step : {10, 20, 50})
-    if (range / step <= 500)
-      return step;
-  return 100;
-}
-
 IsolinesTracer::IsolinesTracer(std::vector<Reader const *> const & readers) : m_readers(readers)
 {
   CHECK(!m_readers.empty(), ());
@@ -113,9 +105,11 @@ IsolinesTracer::IsolinesTracer(std::vector<Reader const *> const & readers) : m_
   }
 }
 
-void IsolinesTracer::Trace(m2::RectD const & rect, size_t geomIndex, Altitude step, IsolineFn const & fn) const
+void IsolinesTracer::Trace(m2::RectD const & rect, size_t geomIndex, int32_t step, measurement_utils::Units units,
+                           IsolineFn const & fn) const
 {
   ASSERT_GREATER(step, 0, ());
+  bool const imperial = units == measurement_utils::Units::Imperial;
 
   // Collect the mesh from all the features intersecting the rect.
   TracedMesh mesh;
@@ -136,7 +130,11 @@ void IsolinesTracer::Trace(m2::RectD const & rect, size_t geomIndex, Altitude st
           if (inserted)
           {
             mesh.m_points.push_back(feature.m_points[i]);
-            mesh.m_altitudes.push_back(feature.m_altitudes[i]);
+            // The rounded conversion is deterministic, so the shared vertices still agree
+            // across features and blocks and the chains stay seamless.
+            int32_t const altitude = feature.m_altitudes[i];
+            mesh.m_altitudes.push_back(
+                imperial ? static_cast<int32_t>(std::lround(measurement_utils::MetersToFeet(altitude))) : altitude);
           }
           remap[i] = it->second;
         }
@@ -218,7 +216,7 @@ void IsolinesTracer::Trace(m2::RectD const & rect, size_t geomIndex, Altitude st
       }
 
       Isoline isoline;
-      isoline.m_altitude = static_cast<Altitude>(h);
+      isoline.m_altitude = h;
       isoline.m_closed = closed;
       auto & points = isoline.m_points;
       auto const append = [&points](m2::PointD const & pt)

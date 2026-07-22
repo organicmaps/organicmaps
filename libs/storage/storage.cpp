@@ -1,5 +1,6 @@
 #include "storage/storage.hpp"
 
+#include "storage/country_decl.hpp"
 #include "storage/country_tree_helpers.hpp"
 #include "storage/diff_scheme/apply_diff.hpp"
 // #include "storage/diff_scheme/diff_scheme_loader.hpp"
@@ -243,6 +244,28 @@ void Storage::SetTerrainCallbacks(TerrainCountryRectFn rectFn, TerrainDownloaded
   m_terrainDownloadedFn = std::move(onDownloaded);
 }
 
+template <class ToDo>
+void Storage::ForEachCountryRect(CountryId const & countryId, ToDo && toDo) const
+{
+  if (m_twmGrid.empty() || !m_terrainRectFn)
+    return;
+  m2::RectD const rect = m_terrainRectFn(countryId);
+  if (!rect.IsValid())
+    return;
+  CountryDef::ForEachRectWrapped(rect, toDo);
+}
+
+namespace
+{
+bool IsIntersectAny(buffer_vector<m2::RectD, 2> const & rects, m2::RectD const & r)
+{
+  for (auto const & rect : rects)
+    if (rect.IsIntersect(r))
+      return true;
+  return false;
+}
+}  // namespace
+
 std::string Storage::GetTerrainDir() const
 {
   return base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR, strings::to_string(m_twmGridVersion));
@@ -260,13 +283,9 @@ void Storage::DownloadTerrain(CountryId const & countryId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  if (m_twmGrid.empty() || !m_terrainRectFn)
-  {
-    LOG(LWARNING, ("Terrain downloading is not initialized"));
-    return;
-  }
-  m2::RectD const rect = m_terrainRectFn(countryId);
-  if (!rect.IsValid())
+  buffer_vector<m2::RectD, 2> rects;
+  ForEachCountryRect(countryId, [&rects](m2::RectD const & r) { rects.push_back(r); });
+  if (rects.empty())
   {
     LOG(LWARNING, ("No limit rect for the country", countryId));
     return;
@@ -284,7 +303,7 @@ void Storage::DownloadTerrain(CountryId const & countryId)
   for (auto const & terrainBlock : m_twmGrid)
   {
     auto const & block = terrainBlock.m_block;
-    if (!rect.IsIntersect(block.GetRectMercator()))
+    if (!IsIntersectAny(rects, block.GetRectMercator()))
       continue;
 
     auto const fileName = block.GetFileName();
@@ -317,10 +336,9 @@ Storage::TerrainAttrs Storage::GetTerrainAttrs(CountryId const & countryId) cons
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   TerrainAttrs attrs;
-  if (m_twmGrid.empty() || !m_terrainRectFn)
-    return attrs;
-  m2::RectD const rect = m_terrainRectFn(countryId);
-  if (!rect.IsValid())
+  buffer_vector<m2::RectD, 2> rects;
+  ForEachCountryRect(countryId, [&rects](m2::RectD const & r) { rects.push_back(r); });
+  if (rects.empty())
     return attrs;
 
   std::string const dir = GetTerrainDir();
@@ -331,7 +349,7 @@ Storage::TerrainAttrs Storage::GetTerrainAttrs(CountryId const & countryId) cons
   for (auto const & terrainBlock : m_twmGrid)
   {
     auto const & block = terrainBlock.m_block;
-    if (!rect.IsIntersect(block.GetRectMercator()))
+    if (!IsIntersectAny(rects, block.GetRectMercator()))
       continue;
 
     ++covering;
@@ -539,6 +557,9 @@ void Storage::Clear()
   m_failedCountries.clear();
   m_localFiles.clear();
   m_localFilesForFakeCountries.clear();
+  m_terrainQueue.clear();
+  m_terrainFailed.clear();
+  m_terrainBlockRegions.clear();
   SaveDownloadQueue();
 }
 
@@ -2191,6 +2212,43 @@ void Storage::CancelDownloadNode(CountryId const & countryId)
     if (needNotify)
       NotifyStatusChangedForHierarchy(descendantId);
   });
+
+  // The terrain blocks ride the same queue as synthetic countries invisible to the
+  // country-tree traversal above: cancel the ones requested for the canceled subtree.
+  if (!m_terrainBlockRegions.empty())
+  {
+    CountriesSet subtree;
+    ForEachInSubtree(countryId, [&](CountryId const & id, bool /* groupNode */) { subtree.insert(id); });
+
+    CountriesSet toNotify;
+    for (auto it = m_terrainBlockRegions.begin(); it != m_terrainBlockRegions.end();)
+    {
+      auto & regions = it->second;
+      for (auto rIt = regions.begin(); rIt != regions.end();)
+      {
+        if (subtree.count(*rIt) > 0)
+        {
+          toNotify.insert(*rIt);
+          rIt = regions.erase(rIt);
+        }
+        else
+          ++rIt;
+      }
+      if (regions.empty())
+      {
+        // Nobody is interested in the block anymore: drop it from the queue.
+        auto const & name = it->first;
+        if (m_terrainQueue.erase(name) > 0)
+          m_downloader->Remove(name);
+        m_terrainFailed.erase(name);
+        it = m_terrainBlockRegions.erase(it);
+      }
+      else
+        ++it;
+    }
+    for (auto const & id : toNotify)
+      NotifyStatusChangedForHierarchy(id);
+  }
 }
 
 void Storage::RetryDownloadNode(CountryId const & countryId)

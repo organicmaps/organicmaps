@@ -2,6 +2,8 @@
 
 #include "indexer/terrain/terrain_reader.hpp"
 
+#include "platform/measurement_utils.hpp"
+
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
@@ -10,18 +12,15 @@
 
 namespace terrain
 {
-// One traced isoline: the level altitude and the polyline in mercator.
-// A closed ring stores the first point again as the last one.
+// One traced isoline: the level altitude (in the units of the trace, see Trace) and the
+// polyline in mercator. A closed ring stores the first point again as the last one.
+// int32_t, not the storage Altitude: the feet values overflow int16_t for the deep bathymetry.
 struct Isoline
 {
-  Altitude m_altitude = 0;
+  int32_t m_altitude = 0;
   std::vector<m2::PointD> m_points;
   bool m_closed = false;
 };
-
-// Selects the isolines step in meters for the altitudes range: the smallest standard step
-// keeping the levels count reasonable (10 m by default, coarser for high ranges).
-Altitude SelectIsolinesStep(Altitude minAltitude, Altitude maxAltitude);
 
 // Extracts isolines from TWM terrain meshes by marching triangles:
 // - a single pass per query serves all the levels: triangles are binned by the levels
@@ -45,11 +44,14 @@ public:
 
   using IsolineFn = std::function<void(Isoline &&)>;
 
-  // Traces the isolines of all the altitude levels multiple of step (meters) over the
-  // features intersecting the mercator rect at the given geometry scale index.
+  // Traces the isolines of all the altitude levels multiple of step over the features
+  // intersecting the mercator rect at the given geometry scale index. The stored meter
+  // altitudes are converted to feet for the imperial units, so the step and the result
+  // levels are round values in the display units.
   // Chains are maximal: they close into rings or end on the collected mesh boundary,
   // so the caller should inflate the rect if the isolines must cover it entirely.
-  void Trace(m2::RectD const & rect, size_t geomIndex, Altitude step, IsolineFn const & fn) const;
+  void Trace(m2::RectD const & rect, size_t geomIndex, int32_t step, measurement_utils::Units units,
+             IsolineFn const & fn) const;
 
 private:
   std::vector<Reader const *> m_readers;

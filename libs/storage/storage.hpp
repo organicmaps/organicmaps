@@ -710,6 +710,13 @@ private:
   template <class ToDo>
   void ForEachAncestorExceptForTheRoot(CountryTree::NodesBufferT const & nodes, ToDo && toDo) const;
 
+  /// Calls \a fn for each canonical part of the country limit rect: the rect of a region
+  /// crossing the +-180 antimeridian is wrapped (see CountryInfoGetter::GetLimitRectForLeaf)
+  /// and is split into its two canonical halves, so the block coverage never degenerates
+  /// into the whole longitude strip. No calls when the rect is unknown.
+  template <class ToDo>
+  void ForEachCountryRect(CountryId const & countryId, ToDo && toDo) const;
+
   /// @return true if |node.Value().Name()| is a disputed territory and false otherwise.
   bool IsDisputed(CountryTree::Node const & node) const;
 
