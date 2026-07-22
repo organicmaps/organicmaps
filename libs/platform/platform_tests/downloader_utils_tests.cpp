@@ -41,6 +41,14 @@ UNIT_TEST(Downloader_GetFilePathByUrl)
 
   TEST_EQUAL(downloader::GetFilePathByUrl("/maps/220314/Belarus_Brest Region.mwm"),
              base::JoinPath(GetPlatform().WritableDir(), "220314/Belarus_Brest Region.mwm.ready"), ());
+
+  {
+    // The terrain blocks: terrain/<version>/<name>.twm -> <writable>/terrain/<version>/<name>.twm.ready.
+    auto const url = downloader::GetTerrainDownloadUrl(260728, "N40E040.twm");
+    TEST_EQUAL(url, "terrain/260728/N40E040.twm", ());
+    TEST_EQUAL(downloader::GetFilePathByUrl(url),
+               base::JoinPath(GetPlatform().WritableDir(), "terrain/260728/N40E040.twm.ready"), ());
+  }
 }
 
 UNIT_TEST(Downloader_IsUrlSupported)
@@ -58,6 +66,11 @@ UNIT_TEST(Downloader_IsUrlSupported)
   TEST(!downloader::IsUrlSupported("maps/x/Luna.mwm"), ());
   TEST(!downloader::IsUrlSupported("macarena/0/Luna.mwm"), ());
   TEST(!downloader::IsUrlSupported("/hack/maps/0/Luna.mwm"), ());
+
+  TEST(downloader::IsUrlSupported("terrain/260728/N40E040.twm"), ());
+  TEST(!downloader::IsUrlSupported("terrain/abc/N40E040.twm"), ());
+  TEST(!downloader::IsUrlSupported("terrain/260728/N40E040.mwm"), ());
+  TEST(!downloader::IsUrlSupported("terrain/N40E040.twm"), ());
   TEST(!downloader::IsUrlSupported("0/Luna.mwm"), ());
   TEST(!downloader::IsUrlSupported("maps/0/Luna"), ());
   TEST(!downloader::IsUrlSupported("0/Luna.mwm"), ());
