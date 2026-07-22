@@ -68,6 +68,12 @@ public final class CountryItem implements Comparable<CountryItem>
   public long downloadedBytes;
   public long bytesToDownload;
 
+  // Terrain (.twm) coverage of this region; see storage::Storage::TerrainAttrs.
+  // 0 NotAvailable, 1 NotDownloaded, 2 Downloading, 3 Partly, 4 OnDisk, 5 Failed.
+  public int terrainStatus;
+  public long terrainTotalSize;
+  public long terrainDownloadedBytes;
+
   // Internal ID for grouping under headers in the list
   public int headerId;
   // Internal field to store search result name
