@@ -51,6 +51,11 @@ UNIT_TEST(LangGetChineseScript)
   TEST_EQUAL(GetChineseScript("zh-Hans-CN"), ChineseScript::Simplified, ());
   TEST_EQUAL(GetChineseScript("zh-SG"), ChineseScript::Simplified, ());
 
+  // An explicit script subtag is authoritative and wins over a Traditional region.
+  TEST_EQUAL(GetChineseScript("zh-Hans-HK"), ChineseScript::Simplified, ());
+  TEST_EQUAL(GetChineseScript("zh_HK_#Hans"), ChineseScript::Simplified, ());
+  TEST_EQUAL(GetChineseScript("zh-Hans-TW"), ChineseScript::Simplified, ());
+
   TEST_EQUAL(GetChineseScript("zh-Hant"), ChineseScript::Traditional, ());
   TEST_EQUAL(GetChineseScript("zh_TW"), ChineseScript::Traditional, ());
   TEST_EQUAL(GetChineseScript("zh-HK"), ChineseScript::Traditional, ());
