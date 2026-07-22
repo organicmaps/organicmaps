@@ -15,7 +15,13 @@
 #include "geometry/point2d.hpp"
 #include "geometry/spline.hpp"
 
+#include <cstdint>
 #include <vector>
+
+namespace feature
+{
+class TypesHolder;
+}
 
 namespace dp
 {
@@ -24,6 +30,17 @@ class TextureManager;
 
 namespace df
 {
+
+enum class BicycleLineKind : uint8_t
+{
+  None,
+  SharedLane,
+  Lane,
+  Track,
+  Cycleway
+};
+
+BicycleLineKind GetBicycleLineKind(feature::TypesHolder const & featureTypes);
 
 struct TextViewParams;
 struct BuildingOutline;
@@ -161,6 +178,7 @@ private:
   void ProcessRule(drule::LineRule const & lineRule);
 
   RelationsDrawInfo m_relsInfo;
+  BicycleLineKind m_bicycleLineKind;
   ClipSplinesBuilder m_builder;
   std::vector<m2::SharedSpline> m_clippedSplines;
 

@@ -1651,3 +1651,6 @@ amenity|recycling|container
 *building|construction
 *roller_coaster|track
 *man_made|ceremonial_gate
+*cyclewaytag|track
+*cyclewaytag|lane
+*cyclewaytag|shared_lane

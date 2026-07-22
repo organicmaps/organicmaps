@@ -3,6 +3,7 @@ project(drape_frontend_tests)
 set(SRC
   area_pattern_gpu_test.cpp
   area_shape_tests.cpp
+  bicycle_line_types_tests.cpp
   clip_splines_builder_tests.cpp
   frame_values_tests.cpp
   navigator_test.cpp

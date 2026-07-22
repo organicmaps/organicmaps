@@ -402,6 +402,11 @@ world  +
         vegetarian  -
         vietnamese  -
         {}
+    cyclewaytag  +
+        lane  -
+        shared_lane  -
+        track  -
+        {}
     drinking_water  +
         no  -
         yes  -

@@ -612,6 +612,16 @@ line|z18-[highway=pedestrian][tunnel?],
 
 /* 8.4 Cycleway 18-22 ZOOM */
 
+/* Invisible activation rules for Cycling-layer overlays. Their visible
+   widths, caps and patterns are applied in ApplyBicycleLineStyle(). */
+line|z13-[highway=cycleway]::cycleoverlay,
+line|z13-[highway=path][bicycle=designated]::cycleoverlay,
+line|z13-[highway=footway][bicycle=designated]::cycleoverlay,
+line|z13-[cyclewaytag=track]::cycleoverlay,
+line|z14-[cyclewaytag=lane]::cycleoverlay,
+line|z14-[cyclewaytag=shared_lane]::cycleoverlay
+{color: #FFFFFF; width: 0.1;}
+
 line|z18-[highway=cycleway],
 {color: @cycleway; opacity: 0.6; width: 1;}
 line|z18-[highway=cycleway][tunnel?],
