@@ -9,6 +9,7 @@ import static app.organicmaps.sdk.downloader.CountryItem.STATUS_PARTLY;
 import static app.organicmaps.sdk.downloader.CountryItem.STATUS_PROGRESS;
 import static app.organicmaps.sdk.downloader.CountryItem.STATUS_UPDATABLE;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import app.organicmaps.R;
@@ -29,7 +30,7 @@ class BottomPanel
     @Override
     public void onClick(View v)
     {
-      MapManagerHelper.warn3gAndDownload(mFragment.getContext(), mFragment.getCurrentRoot(), null);
+      MapManagerHelper.warn3gAndDownload(v.getContext(), mFragment.getCurrentRoot(), null);
     }
   };
 
@@ -38,8 +39,9 @@ class BottomPanel
     public void onClick(View v)
     {
       final String country = mFragment.getCurrentRoot();
-      MapManagerHelper.warnOn3gUpdate(mFragment.getContext(), country,
-                                      () -> { MapManagerHelper.startUpdate(mFragment.getContext(), country); });
+      final Context context = v.getContext();
+      final Context appContext = context.getApplicationContext();
+      MapManagerHelper.warnOn3gUpdate(context, country, () -> { MapManagerHelper.startUpdate(appContext, country); });
     }
   };
 
@@ -56,7 +58,7 @@ class BottomPanel
     @Override
     public void onClick(View v)
     {
-      MapManagerHelper.warn3gAndRetry(mFragment.requireActivity(), mFragment.getCurrentRoot(), null);
+      MapManagerHelper.warn3gAndRetry(v.getContext(), mFragment.getCurrentRoot(), null);
     }
   };
 
