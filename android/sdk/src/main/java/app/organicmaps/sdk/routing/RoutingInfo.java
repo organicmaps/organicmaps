@@ -36,6 +36,10 @@ public final class RoutingInfo
   public final int exitNum;
   @Nullable
   public final LaneInfo[] lanes;
+  // Lane entries were dropped past the corresponding edge of the strip (physical road sides),
+  // so the UI should hint that more lanes exist there.
+  public final boolean lanesTrimmedLeft;
+  public final boolean lanesTrimmedRight;
   // For pedestrian routing.
   @NonNull
   public final PedestrianDirection pedestrianDirection;
@@ -50,8 +54,8 @@ public final class RoutingInfo
                       @Nullable RoadShieldInfo nextNextStreetRoadShields, double completionPercent,
                       @NonNull CarDirection carTurnDirection, @NonNull CarDirection carNextTurnDirection,
                       @NonNull PedestrianDirection pedestrianDirection, int exitNum, int totalTime,
-                      @Nullable LaneInfo[] lanes, double speedLimitMps, boolean speedLimitExceeded,
-                      boolean shouldPlayWarningSignal)
+                      @Nullable LaneInfo[] lanes, boolean lanesTrimmedLeft, boolean lanesTrimmedRight,
+                      double speedLimitMps, boolean speedLimitExceeded, boolean shouldPlayWarningSignal)
   {
     this.distToTarget = distToTarget;
     this.distToTurn = distToTurn;
@@ -65,6 +69,8 @@ public final class RoutingInfo
     this.carDirection = carTurnDirection;
     this.nextCarDirection = carNextTurnDirection;
     this.lanes = lanes;
+    this.lanesTrimmedLeft = lanesTrimmedLeft;
+    this.lanesTrimmedRight = lanesTrimmedRight;
     this.exitNum = exitNum;
     this.pedestrianDirection = pedestrianDirection;
     this.speedLimitMps = speedLimitMps;

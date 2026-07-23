@@ -61,7 +61,7 @@ public class MapButtonsController extends Fragment
   FloatingActionButton mTrackRecordingStatusButton;
   @Nullable
   private MyPositionButton mNavMyPosition;
-  private SearchWheel mSearchWheel;
+  private SearchOptionsButton mSearchOptionsButton;
   private BadgeDrawable mBadgeDrawable;
   @Nullable
   private ObjectAnimator mBlinkingAnimator;
@@ -80,7 +80,7 @@ public class MapButtonsController extends Fragment
   private final Observer<Integer> mSearchPageDistanceToTopObserver = this::moveForSearch;
   private final Observer<Boolean> mButtonHiddenObserver = this::setButtonsHidden;
   private final Observer<Integer> mMyPositionModeObserver = this::updateNavMyPositionButton;
-  private final Observer<SearchWheel.SearchOption> mSearchOptionObserver = this::onSearchOptionChange;
+  private final Observer<SearchOptionsButton.SearchOption> mSearchOptionObserver = this::onSearchOptionChange;
   private final Observer<Boolean> mTrackRecorderObserver = (enable) ->
   {
     updateMenuBadge(enable);
@@ -151,11 +151,11 @@ public class MapButtonsController extends Fragment
     if (helpButton != null)
       helpButton.setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.help));
 
-    mSearchWheel =
-        new SearchWheel(mFrame,
-                        (v)
-                            -> mMapButtonClickListener.onMapButtonClick(MapButtons.search),
-                        (v) -> mMapButtonClickListener.onSearchCanceled(), mMapButtonsViewModel, mSearchPageViewModel);
+    mSearchOptionsButton = new SearchOptionsButton(
+        mFrame,
+        (v)
+            -> mMapButtonClickListener.onMapButtonClick(MapButtons.search),
+        (v) -> mMapButtonClickListener.onSearchCanceled(), mMapButtonsViewModel, mSearchPageViewModel);
     final View searchButton = mFrame.findViewById(R.id.btn_search);
 
     // Used to get the maximum height the buttons will evolve in
@@ -202,7 +202,7 @@ public class MapButtonsController extends Fragment
       if (mNavMyPosition != null)
         mNavMyPosition.showButton(show);
       break;
-    case search: mSearchWheel.show(show);
+    case search: mSearchOptionsButton.show(show);
     case bookmarks:
     case menu: UiUtils.showIf(show, buttonView); break;
     case trackRecordingStatus:
@@ -469,7 +469,7 @@ public class MapButtonsController extends Fragment
   {
     super.onResume();
     if (mMapButtonsViewModel.getLayoutMode().getValue() == LayoutMode.navigation)
-      mSearchWheel.onResume();
+      mSearchOptionsButton.onResume();
     updateMenuBadge();
     updateLayerButton();
     updateHelpButtonIcon();
@@ -499,10 +499,10 @@ public class MapButtonsController extends Fragment
     }
   }
 
-  public void onSearchOptionChange(@Nullable SearchWheel.SearchOption searchOption)
+  public void onSearchOptionChange(@Nullable SearchOptionsButton.SearchOption searchOption)
   {
     if (searchOption == null && mMapButtonsViewModel.getLayoutMode().getValue() == LayoutMode.navigation)
-      mSearchWheel.reset();
+      mSearchOptionsButton.reset();
   }
 
   public enum LayoutMode

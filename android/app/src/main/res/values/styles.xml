@@ -277,6 +277,10 @@
     <item name="android:textAppearance">@style/MwmTextAppearance.NavStreet</item>
   </style>
 
+  <style name="MwmWidget.TextView.NavStreet.Secondary">
+    <item name="android:textAppearance">@style/MwmTextAppearance.NavStreet.Secondary</item>
+  </style>
+
   <style name="MwmWidget.TextView.NavNextTurn">
     <item name="android:textAppearance">@style/MwmTextAppearance.NavNextTurn</item>
   </style>

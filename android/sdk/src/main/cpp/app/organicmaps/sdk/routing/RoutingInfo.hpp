@@ -28,6 +28,8 @@ jobject CreateRoutingInfo(JNIEnv * env, routing::FollowingInfo const & info, Rou
     "I"                                                        // exitNum
     "I"                                                        // totalTime
     "[Lapp/organicmaps/sdk/routing/LaneInfo;"                  // lanes
+    "Z"                                                        // lanesTrimmedLeft
+    "Z"                                                        // lanesTrimmedRight
     "D"                                                        // speedLimitMps
     "Z"                                                        // speedLimitExceeded
     "Z"                                                        // shouldPlayWarningSignal
@@ -51,6 +53,8 @@ jobject CreateRoutingInfo(JNIEnv * env, routing::FollowingInfo const & info, Rou
     info.m_exitNum,
     info.m_time,
     CreateLanesInfo(env, info.m_lanes),
+    static_cast<jboolean>(info.m_lanesTrimmedLeft),
+    static_cast<jboolean>(info.m_lanesTrimmedRight),
     info.m_speedLimitMps,
     static_cast<jboolean>(rm.IsSpeedCamLimitExceeded()),
     static_cast<jboolean>(rm.GetSpeedCamManager().ShouldPlayBeepSignal())
