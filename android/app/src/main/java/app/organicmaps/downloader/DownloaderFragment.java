@@ -37,6 +37,7 @@ public class DownloaderFragment
   private boolean mSearchRunning;
 
   private int mSubscriberSlot;
+  private final Runnable mUpdateRunnable = this::update;
 
   final ActivityResultLauncher<Intent> startVoiceRecognitionForResult =
       registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -111,6 +112,10 @@ public class DownloaderFragment
 
   void update()
   {
+    // Ignore asynchronous updates after the fragment's view has been destroyed.
+    if (getView() == null)
+      return;
+
     mToolbarController.update();
     mBottomPanel.update();
   }
@@ -133,8 +138,13 @@ public class DownloaderFragment
       @Override
       public void onStatusChanged(List<MapManager.StorageCallbackData> data)
       {
-        if (isAdded())
-          update();
+        final View view = getView();
+        if (view == null)
+          return;
+
+        // Return from the native callback before querying storage again and collapse notification bursts.
+        view.removeCallbacks(mUpdateRunnable);
+        view.post(mUpdateRunnable);
       }
 
       @Override
@@ -162,6 +172,10 @@ public class DownloaderFragment
   @Override
   public void onDestroyView()
   {
+    final View view = getView();
+    if (view != null)
+      view.removeCallbacks(mUpdateRunnable);
+
     super.onDestroyView();
     if (mAdapter != null)
       mAdapter.detach();

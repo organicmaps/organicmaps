@@ -104,9 +104,14 @@ class BottomPanel
   public void update()
   {
     DownloaderAdapter adapter = mFragment.getAdapter();
-    boolean search = adapter.isSearchResultsMode();
+    if (adapter.isSearchResultsMode())
+    {
+      UiUtils.hide(mFab, mButton);
+      mFragment.requireView().requestApplyInsets();
+      return;
+    }
 
-    boolean show = !search;
+    boolean show = true;
     String root = adapter.getCurrentRootId();
     int status = MapManager.nativeGetStatus(root);
 
