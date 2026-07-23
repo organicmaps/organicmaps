@@ -166,8 +166,10 @@ UNIT_TEST(OpeningHours2TimeTableSet)
     TEST(!MakeTimeTableSet(oh, tts), ());
   }
   {
+    // Year selectors now parse (the old boost parser rejected them); the simple
+    // editor still can't represent a year, so it falls back to advanced mode.
     OpeningHours oh("2016 Mo-Fr 08:00-10:00");
-    TEST(!oh.IsValid(), ());
+    TEST(oh.IsValid(), ());
 
     TimeTableSet tts;
 

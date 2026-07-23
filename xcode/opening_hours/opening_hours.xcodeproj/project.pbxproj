@@ -7,20 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		675879CB1DE5CCA000CA757C /* parse_timespans.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675879CA1DE5CCA000CA757C /* parse_timespans.cpp */; };
-		675879CD1DE5D9F300CA757C /* parse_weekdays.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675879CC1DE5D9F300CA757C /* parse_weekdays.cpp */; };
-		675879CF1DE5DF3900CA757C /* parse_months.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675879CE1DE5DF3900CA757C /* parse_months.cpp */; };
-		675879D11DE5DF8400CA757C /* parse_years.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675879D01DE5DF8400CA757C /* parse_years.cpp */; };
-		675879D31DE5DFE400CA757C /* parse_weeks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675879D21DE5DFE400CA757C /* parse_weeks.cpp */; };
-		675879D51DE5F8E300CA757C /* opening_hours_parsers_terminals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E91738861BECCB5400717F6E /* opening_hours_parsers_terminals.cpp */; };
-		E91738911BECCB5400717F6E /* opening_hours_parsers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = E91738871BECCB5400717F6E /* opening_hours_parsers.hpp */; };
+		4C1056A61759911FE8414C12 /* convert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3074DE1D78A58AB04223900E /* convert.cpp */; };
 		E91738921BECCB5400717F6E /* opening_hours.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E91738881BECCB5400717F6E /* opening_hours.cpp */; };
 		E91738931BECCB5400717F6E /* opening_hours.hpp in Headers */ = {isa = PBXBuildFile; fileRef = E91738891BECCB5400717F6E /* opening_hours.hpp */; };
-		E91738941BECCB5400717F6E /* parse_opening_hours.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E917388B1BECCB5400717F6E /* parse_opening_hours.cpp */; };
-		E91738951BECCB5400717F6E /* parse_opening_hours.hpp in Headers */ = {isa = PBXBuildFile; fileRef = E917388C1BECCB5400717F6E /* parse_opening_hours.hpp */; };
-		E91738961BECCB5400717F6E /* rules_evaluation_private.hpp in Headers */ = {isa = PBXBuildFile; fileRef = E917388D1BECCB5400717F6E /* rules_evaluation_private.hpp */; };
-		E91738971BECCB5400717F6E /* rules_evaluation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E917388E1BECCB5400717F6E /* rules_evaluation.cpp */; };
-		E91738981BECCB5400717F6E /* rules_evaluation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = E917388F1BECCB5400717F6E /* rules_evaluation.hpp */; };
 		E917389C1BECCC1000717F6E /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670C61E71AC3511700C38A8C /* libopening_hours.a */; };
 		E91738AE1BECCFAC00717F6E /* opening_hours_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E91738A81BECCF4800717F6E /* opening_hours_tests.cpp */; };
 		E91738BA1BECD03B00717F6E /* opening_hours_supported_features_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E91738AC1BECCF9C00717F6E /* opening_hours_supported_features_tests.cpp */; };
@@ -67,24 +56,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		11302EE04CEFA7ABF87D85EE /* eval.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = eval.hpp; path = oh/eval.hpp; sourceTree = "<group>"; };
+		3074DE1D78A58AB04223900E /* convert.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = convert.cpp; path = oh/convert.cpp; sourceTree = "<group>"; };
 		34F558641DBF460300A4FC11 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		34F558651DBF460300A4FC11 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		621AAEDA377688A8E086E2AF /* parser.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = parser.hpp; path = oh/parser.hpp; sourceTree = "<group>"; };
 		670C61E71AC3511700C38A8C /* libopening_hours.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libopening_hours.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		670C61FF1AC351AC00C38A8C /* opening_hours_test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = opening_hours_test; sourceTree = BUILT_PRODUCTS_DIR; };
-		675879CA1DE5CCA000CA757C /* parse_timespans.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parse_timespans.cpp; sourceTree = "<group>"; };
-		675879CC1DE5D9F300CA757C /* parse_weekdays.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parse_weekdays.cpp; sourceTree = "<group>"; };
-		675879CE1DE5DF3900CA757C /* parse_months.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parse_months.cpp; sourceTree = "<group>"; };
-		675879D01DE5DF8400CA757C /* parse_years.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parse_years.cpp; sourceTree = "<group>"; };
-		675879D21DE5DFE400CA757C /* parse_weeks.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parse_weeks.cpp; sourceTree = "<group>"; };
-		E91738861BECCB5400717F6E /* opening_hours_parsers_terminals.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = opening_hours_parsers_terminals.cpp; sourceTree = "<group>"; };
-		E91738871BECCB5400717F6E /* opening_hours_parsers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opening_hours_parsers.hpp; sourceTree = "<group>"; };
+		D1D18E85BE9E783DEFA12360 /* convert.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = convert.hpp; path = oh/convert.hpp; sourceTree = "<group>"; };
 		E91738881BECCB5400717F6E /* opening_hours.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = opening_hours.cpp; sourceTree = "<group>"; };
 		E91738891BECCB5400717F6E /* opening_hours.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opening_hours.hpp; sourceTree = "<group>"; };
-		E917388B1BECCB5400717F6E /* parse_opening_hours.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parse_opening_hours.cpp; sourceTree = "<group>"; };
-		E917388C1BECCB5400717F6E /* parse_opening_hours.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = parse_opening_hours.hpp; sourceTree = "<group>"; };
-		E917388D1BECCB5400717F6E /* rules_evaluation_private.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = rules_evaluation_private.hpp; sourceTree = "<group>"; };
-		E917388E1BECCB5400717F6E /* rules_evaluation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rules_evaluation.cpp; sourceTree = "<group>"; };
-		E917388F1BECCB5400717F6E /* rules_evaluation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = rules_evaluation.hpp; sourceTree = "<group>"; };
 		E91738A81BECCF4800717F6E /* opening_hours_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = opening_hours_tests.cpp; sourceTree = "<group>"; };
 		E91738AA1BECCF7A00717F6E /* opening_hours_integration_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = opening_hours_integration_tests.cpp; sourceTree = "<group>"; };
 		E91738AC1BECCF9C00717F6E /* opening_hours_supported_features_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = opening_hours_supported_features_tests.cpp; sourceTree = "<group>"; };
@@ -177,20 +158,12 @@
 		670C61E91AC3511700C38A8C /* opening_hours */ = {
 			isa = PBXGroup;
 			children = (
-				E91738861BECCB5400717F6E /* opening_hours_parsers_terminals.cpp */,
-				E91738871BECCB5400717F6E /* opening_hours_parsers.hpp */,
 				E91738881BECCB5400717F6E /* opening_hours.cpp */,
 				E91738891BECCB5400717F6E /* opening_hours.hpp */,
-				E917388B1BECCB5400717F6E /* parse_opening_hours.cpp */,
-				E917388C1BECCB5400717F6E /* parse_opening_hours.hpp */,
-				E917388D1BECCB5400717F6E /* rules_evaluation_private.hpp */,
-				E917388E1BECCB5400717F6E /* rules_evaluation.cpp */,
-				E917388F1BECCB5400717F6E /* rules_evaluation.hpp */,
-				675879CA1DE5CCA000CA757C /* parse_timespans.cpp */,
-				675879CC1DE5D9F300CA757C /* parse_weekdays.cpp */,
-				675879CE1DE5DF3900CA757C /* parse_months.cpp */,
-				675879D01DE5DF8400CA757C /* parse_years.cpp */,
-				675879D21DE5DFE400CA757C /* parse_weeks.cpp */,
+				621AAEDA377688A8E086E2AF /* parser.hpp */,
+				11302EE04CEFA7ABF87D85EE /* eval.hpp */,
+				D1D18E85BE9E783DEFA12360 /* convert.hpp */,
+				3074DE1D78A58AB04223900E /* convert.cpp */,
 			);
 			name = opening_hours;
 			path = ../../3party/opening_hours;
@@ -239,11 +212,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E91738981BECCB5400717F6E /* rules_evaluation.hpp in Headers */,
-				E91738911BECCB5400717F6E /* opening_hours_parsers.hpp in Headers */,
 				E91738931BECCB5400717F6E /* opening_hours.hpp in Headers */,
-				E91738951BECCB5400717F6E /* parse_opening_hours.hpp in Headers */,
-				E91738961BECCB5400717F6E /* rules_evaluation_private.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,15 +397,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				675879D51DE5F8E300CA757C /* opening_hours_parsers_terminals.cpp in Sources */,
-				E91738941BECCB5400717F6E /* parse_opening_hours.cpp in Sources */,
-				675879D31DE5DFE400CA757C /* parse_weeks.cpp in Sources */,
 				E91738921BECCB5400717F6E /* opening_hours.cpp in Sources */,
-				675879D11DE5DF8400CA757C /* parse_years.cpp in Sources */,
-				675879CF1DE5DF3900CA757C /* parse_months.cpp in Sources */,
-				675879CD1DE5D9F300CA757C /* parse_weekdays.cpp in Sources */,
-				675879CB1DE5CCA000CA757C /* parse_timespans.cpp in Sources */,
-				E91738971BECCB5400717F6E /* rules_evaluation.cpp in Sources */,
+				4C1056A61759911FE8414C12 /* convert.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -23,8 +23,10 @@
 */
 
 #include "opening_hours.hpp"
-#include "rules_evaluation.hpp"
-#include "parse_opening_hours.hpp"
+
+#include "3party/opening_hours/oh/convert.hpp"
+#include "3party/opening_hours/oh/eval.hpp"
+#include "3party/opening_hours/oh/parser.hpp"
 
 #include <algorithm>
 #include <cstdlib>
@@ -872,49 +874,130 @@ std::ostream & operator<<(std::ostream & ost, TRuleSequences const & s)
 }
 
 // OpeningHours ------------------------------------------------------------------------------------
-OpeningHours::OpeningHours(std::string const & rule):
-    m_valid(Parse(rule, m_rule))
+namespace
 {
+namespace oh = opening_hours;
+
+// Wall-clock seconds (as if UTC) in the POI's zone: gmtime(result) is the local
+// wall clock. With a zone we use the mwm timezone db; otherwise device-local.
+int64_t ToZonedSeconds(time_t t, std::optional<om::tz::TimeZone> const & tz)
+{
+  if (tz)
+    return om::tz::Convert(t, *tz);
+
+  std::tm lt{};
+#ifdef _WIN32
+  localtime_s(&lt, &t);
+#else
+  localtime_r(&t, &lt);
+#endif
+  auto const ymd = std::chrono::year{lt.tm_year + 1900} / std::chrono::month{static_cast<unsigned>(lt.tm_mon + 1)} /
+                   std::chrono::day{static_cast<unsigned>(lt.tm_mday)};
+  int64_t const days = std::chrono::sys_days{ymd}.time_since_epoch().count();
+  return days * 86400 + lt.tm_hour * 3600 + lt.tm_min * 60 + lt.tm_sec;
+}
+
+oh::NaiveDateTime ToNaive(int64_t zonedSeconds)
+{
+  int64_t const days = oh::floordiv(zonedSeconds, 86400);
+  int const minute = static_cast<int>((zonedSeconds - days * 86400) / 60);
+  return oh::NaiveDateTime{oh::NaiveDate{std::chrono::sys_days{std::chrono::days{days}}}, minute};
+}
+
+int64_t NaiveToZoned(oh::NaiveDateTime n)
+{
+  return static_cast<int64_t>(n.date().day_number()) * 86400 + static_cast<int64_t>(n.minute_of_day()) * 60;
+}
+
+RuleState ToRuleState(oh::RuleKind k)
+{
+  switch (k)
+  {
+  case oh::RuleKind::Open: return RuleState::Open;
+  case oh::RuleKind::Closed: return RuleState::Closed;
+  case oh::RuleKind::Unknown: return RuleState::Unknown;
+  }
+  return RuleState::Unknown;
+}
+
+oh::OpeningHours<> MakeEval(std::shared_ptr<oh::OpeningHoursExpression const> const & expr)
+{
+  return oh::OpeningHours<>(expr, oh::Context<oh::NoLocation>{});
+}
+}  // namespace
+
+OpeningHours::OpeningHours(std::string const & rule)
+{
+  if (auto parsed = opening_hours::parse(rule))
+  {
+    m_expr = std::make_shared<opening_hours::OpeningHoursExpression const>(std::move(*parsed));
+    m_rule = ToOsmoh(*m_expr);
+    m_valid = true;
+  }
 }
 
 OpeningHours::OpeningHours(TRuleSequences const & rule):
     m_rule(rule),
+    m_expr(std::make_shared<opening_hours::OpeningHoursExpression const>(ToPort(rule))),
     m_valid(true)
 {
 }
 
 bool OpeningHours::IsOpen(time_t const dateTime) const
 {
-  return osmoh::IsOpen(m_rule, dateTime);
+  if (!m_expr)
+    return false;
+  return MakeEval(m_expr).is_open(ToNaive(ToZonedSeconds(dateTime, std::nullopt)));
 }
 
 bool OpeningHours::IsClosed(time_t const dateTime) const
 {
-  return osmoh::IsClosed(m_rule, dateTime);
+  if (!m_expr)
+    return false;
+  return MakeEval(m_expr).is_closed(ToNaive(ToZonedSeconds(dateTime, std::nullopt)));
 }
 
 bool OpeningHours::IsUnknown(time_t const dateTime) const
 {
-  return osmoh::IsUnknown(m_rule, dateTime);
+  if (!m_expr)
+    return false;
+  return MakeEval(m_expr).is_unknown(ToNaive(ToZonedSeconds(dateTime, std::nullopt)));
 }
 
 OpeningHours::InfoT OpeningHours::GetInfo(time_t const dateTime, std::optional<om::tz::TimeZone> const & timeZone) const
 {
   InfoT info;
-  info.state = GetState(m_rule, dateTime, timeZone);
-  if (info.state != RuleState::Unknown)
+  if (!m_expr)
   {
-   if (info.state == RuleState::Open)
-      info.nextTimeOpen = dateTime;
-    else
-      info.nextTimeOpen = osmoh::GetNextTimeState(m_rule, dateTime, RuleState::Open);
-
-    if (info.state == RuleState::Closed)
-      info.nextTimeClosed = dateTime;
-    else
-      info.nextTimeClosed = osmoh::GetNextTimeState(m_rule, dateTime, RuleState::Closed);
+    info.state = RuleState::Unknown;
+    return info;
   }
 
+  int64_t const baseZoned = ToZonedSeconds(dateTime, timeZone);
+  oh::NaiveDateTime const now = ToNaive(baseZoned);
+  auto const eval = MakeEval(m_expr);
+  info.state = ToRuleState(eval.state(now).first);
+
+  if (info.state == RuleState::Unknown)
+    return info;
+
+  // First transition to `target` state at or after `now`, back in time_t.
+  // Scanning a bounded window keeps seasonal schedules cheap; kTimeTMax means
+  // "no change found" (consumers render this as "never").
+  time_t constexpr kTimeTMax = std::numeric_limits<time_t>::max();
+  auto nextTimeOf = [&](oh::RuleKind target) -> time_t
+  {
+    oh::NaiveDateTime const to = now.add_minutes(static_cast<int64_t>(400) * 24 * 60);
+    for (auto const & interval : eval.iter_range(now, to))
+    {
+      if (interval.kind == target)
+        return dateTime + (NaiveToZoned(interval.start) - baseZoned);
+    }
+    return kTimeTMax;
+  };
+
+  info.nextTimeOpen = info.state == RuleState::Open ? dateTime : nextTimeOf(oh::RuleKind::Open);
+  info.nextTimeClosed = info.state == RuleState::Closed ? dateTime : nextTimeOf(oh::RuleKind::Closed);
   return info;
 }
 
@@ -951,6 +1034,7 @@ bool OpeningHours::HasYearSelector() const
 void swap(OpeningHours & lhs, OpeningHours & rhs)
 {
   std::swap(lhs.m_rule, rhs.m_rule);
+  std::swap(lhs.m_expr, rhs.m_expr);
   std::swap(lhs.m_valid, rhs.m_valid);
 }
 
