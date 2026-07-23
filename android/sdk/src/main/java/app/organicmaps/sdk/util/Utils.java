@@ -35,6 +35,10 @@ public class Utils
   @StringRes
   private static final int INVALID_ID = 0;
 
+  // Packaged resource ids, including INVALID_ID, are stable for the process. Values are still read from the current
+  // Context so locale and other configuration changes remain effective.
+  private static final ResourceIdCache STRING_ID_CACHE = new ResourceIdCache();
+
   static String makeUrlSafe(@NonNull final String url)
   {
     return url.replaceAll("(token|password|key)=([^&]+)", "***");
@@ -136,9 +140,14 @@ public class Utils
   @NonNull
   public static String getStringValueByKey(@NonNull Context context, @NonNull String key)
   {
+    @StringRes
+    final int stringId = getStringIdByKey(context, key);
+    if (stringId == INVALID_ID || stringId == View.NO_ID)
+      return key;
+
     try
     {
-      return context.getString(getStringIdByKey(context, key));
+      return context.getString(stringId);
     }
     catch (Resources.NotFoundException e)
     {
@@ -153,12 +162,21 @@ public class Utils
   {
     try
     {
-      Resources res = context.getResources();
-      @StringRes
-      int nameId = res.getIdentifier(key, "string", context.getPackageName());
-      if (nameId == INVALID_ID || nameId == View.NO_ID)
-        throw new Resources.NotFoundException("String id '" + key + "' is not found");
-      return nameId;
+      final Resources resources = context.getResources();
+      final String packageName = context.getPackageName();
+      return STRING_ID_CACHE.get(packageName, key, () -> {
+        @StringRes
+        final int stringId = resources.getIdentifier(key, "string", packageName);
+        if (stringId == INVALID_ID || stringId == View.NO_ID)
+        {
+          final Resources.NotFoundException exception =
+              new Resources.NotFoundException("String id '" + key + "' is not found");
+          Logger.e(TAG, "Failed to get string with id '" + key + "'", exception);
+          if (BuildConfig.BUILD_TYPE.equals("debug") || BuildConfig.BUILD_TYPE.equals("beta"))
+            Toast.makeText(context, "Add string id for '" + key + "'!", Toast.LENGTH_LONG).show();
+        }
+        return stringId;
+      });
     }
     catch (RuntimeException e)
     {
