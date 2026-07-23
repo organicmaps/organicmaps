@@ -112,10 +112,6 @@ sudo apt update && sudo apt install -y \
     libicu-dev \
     libqt6svg6-dev \
     libsqlite3-dev \
-    libxrandr-dev \
-    libxinerama-dev \
-    libxcursor-dev \
-    libxi-dev \
     zlib1g-dev
 ```
 
