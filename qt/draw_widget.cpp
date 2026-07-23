@@ -195,7 +195,7 @@ void DrawWidget::initializeGL()
 bool DrawWidget::event(QEvent * event)
 {
 #if !defined(OMIM_OS_LINUX)
-  return QOpenGLWidget::event(event);
+  return MapWidget::event(event);
 #else
   // TouchScreen
   if (auto dfTouchEventType = qtTouchEventTypeToDfTouchEventType(event->type());
@@ -224,21 +224,8 @@ bool DrawWidget::event(QEvent * event)
     m_framework.TouchEvent(dfTouchEvent);
     return true;
   }
-  // TouchPad
-  else if (event->type() == QEvent::NativeGesture)
-  {
-    event->accept();
-    auto qNativeGestureEvent = dynamic_cast<QNativeGestureEvent *>(event);
-    if (qNativeGestureEvent->gestureType() == Qt::ZoomNativeGesture)
-    {
-      QPointF const pos = qNativeGestureEvent->position();
-      double const factor = qNativeGestureEvent->value();
-      m_framework.Scale(exp(factor), m2::PointD(L2D(pos.x()), L2D(pos.y())), false);
-      return true;
-    }
-  }
   // Everything else
-  return QOpenGLWidget::event(event);
+  return MapWidget::event(event);
 #endif
 }
 
