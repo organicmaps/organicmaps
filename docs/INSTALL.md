@@ -267,9 +267,8 @@ tools/unix/build_omim.sh -r desktop
 
 - If you get "not enough memory" errors during builds, you may disable
   [CMake Unity Builds](https://cmake.org/cmake/help/latest/prop_tgt/UNITY_BUILD.html) by passing
-  `-DCMAKE_UNITY_BUILD=OFF` option to `cmake` invocation.
-  For systems with at least 13GB virtual memory available, Unity Build batch size is `CMAKE_UNITY_BUILD_BATCH_SIZE=50`,
-  otherwise, CMake default `CMAKE_UNITY_BUILD_BATCH_SIZE=8` is used (adjustable if needed).
+  `-DCMAKE_UNITY_BUILD=OFF` option to `cmake` invocation. \
+  Unity Build and the batch size are auto-configured depending on virtual memory available at the moment and the build type. Use `-DCMAKE_UNITY_BUILD_BATCH_SIZE=<size>` to override. \
   Note that these changes may significantly impact the build time and system responsiveness.
 
 ### Running
