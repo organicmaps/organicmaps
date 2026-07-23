@@ -94,7 +94,11 @@ std::string Result::GetLocalizedFeatureType() const
 
 std::string Result::GetFeatureDescription() const
 {
-  std::string res = GetLocalizedFeatureType();
+  return GetFeatureDescription(GetLocalizedFeatureType());
+}
+
+std::string Result::GetFeatureDescription(std::string res) const
+{
   if (res.empty())
     return res;
 

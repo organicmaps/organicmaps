@@ -92,6 +92,8 @@ public:
   std::string GetLocalizedFeatureType() const;
   // Secondary title for the result.
   std::string GetFeatureDescription() const;
+  // Avoids localizing the feature type twice when a caller also displays it separately.
+  std::string GetFeatureDescription(std::string localizedFeatureType) const;
 
   // Center point of a feature.
   // Precondition: HasPoint() == true.
