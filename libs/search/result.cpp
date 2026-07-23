@@ -92,9 +92,8 @@ std::string Result::GetLocalizedFeatureType() const
   }
 }
 
-std::string Result::GetFeatureDescription() const
+std::string Result::GetFeatureDescription(std::string res) const
 {
-  std::string res = GetLocalizedFeatureType();
   if (res.empty())
     return res;
 
