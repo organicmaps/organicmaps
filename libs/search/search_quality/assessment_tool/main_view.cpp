@@ -326,6 +326,18 @@ void MainView::InitMapWidget()
 
     layout->addWidget(mapWidget);
     layout->addWidget(toolBar);
+
+    auto quickWidget = new QQuickWidget(mapWidget);
+    // quickWidget->setWindowFlags(Qt::SplashScreen);
+    quickWidget->setAttribute(Qt::WA_AlwaysStackOnTop);
+    quickWidget->setAttribute(Qt::WA_TranslucentBackground);
+    quickWidget->setClearColor(Qt::transparent);
+    quickWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
+    quickWidget->setSource(QUrl("qrc:/qquickwidgetversuswindow_opengl/cloud.qml"));
+    quickWidget->show();
+    // quickWidget->setVisible(true);
+    quickWidget->raise();
+    // switchTo(quickWidget);
   }
 
   setCentralWidget(widget);

@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/qquickwidgetversuswindow_opengl">
+        <file>cloud.qml</file>
+    </qresource>
+</RCC>

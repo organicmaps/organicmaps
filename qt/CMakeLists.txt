@@ -76,6 +76,15 @@ target_link_libraries(${PROJECT_NAME}
     location_service
 )
 
+qt_add_qml_module(${PROJECT_NAME}
+    URI Map
+    # QML_FILES cloud.qml
+    # RESOURCE_PREFIX /qquickwidgetversuswindow_opengl
+    # NO_RESOURCE_TARGET_PATH
+    # DEPENDENCIES QtQuick
+    # SOURCES draw_widget.cpp draw_widget.hpp
+)
+
 if (BUILD_DESIGNER)
   target_link_libraries(${PROJECT_NAME} PRIVATE generator)
   set(BUNDLE_NAME "OMaps.Designer")
