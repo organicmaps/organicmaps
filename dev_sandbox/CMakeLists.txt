@@ -70,10 +70,26 @@ endif()
 
 target_compile_definitions(${PROJECT_NAME}
   PRIVATE
-    $<$<BOOL:${PLATFORM_LINUX}>:VK_USE_PLATFORM_XLIB_KHR>
+    $<$<BOOL:${PLATFORM_LINUX}>:VK_USE_PLATFORM_WAYLAND_KHR>
     $<$<BOOL:${PLATFORM_WIN}>:VK_USE_PLATFORM_WIN32_KHR>
     $<$<BOOL:${PLATFORM_ANDROID}>:VK_USE_PLATFORM_ANDROID_KHR>
 )
+
+if (PLATFORM_LINUX)
+  find_package(PkgConfig QUIET)
+  if (PKG_CONFIG_FOUND)
+    pkg_check_modules(EGL IMPORTED_TARGET egl)
+  endif()
+
+  if (EGL_FOUND)
+    target_link_libraries(${PROJECT_NAME} PRIVATE PkgConfig::EGL)
+  else()
+    find_library(EGL_LIB EGL)
+    if (EGL_LIB)
+      target_link_libraries(${PROJECT_NAME} PRIVATE ${EGL_LIB})
+    endif()
+  endif()
+endif()
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${OMIM_ROOT}/3party/glfw/include)
 target_include_directories(${PROJECT_NAME} PUBLIC ${OMIM_ROOT}/3party/imgui)

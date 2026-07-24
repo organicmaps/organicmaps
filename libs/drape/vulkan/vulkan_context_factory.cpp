@@ -334,11 +334,22 @@ bool VulkanContextFactory::QuerySurfaceSize()
   }
 
 #if !defined(OMIM_OS_WINDOWS)
-  if (!(m_surfaceCapabilities.supportedCompositeAlpha & VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR))
+  if (!(m_surfaceCapabilities.supportedCompositeAlpha &
+        (VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR | VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR |
+         VK_COMPOSITE_ALPHA_PRE_MULTIPLIED_BIT_KHR | VK_COMPOSITE_ALPHA_POST_MULTIPLIED_BIT_KHR)))
   {
-    LOG_ERROR_VK("Alpha channel is not supported.");
+    LOG_ERROR_VK("No supported composite alpha mode found.");
     return false;
   }
+  // Prefer INHERIT, then OPAQUE, then PRE_MULTIPLIED, then POST_MULTIPLIED.
+  if (m_surfaceCapabilities.supportedCompositeAlpha & VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR)
+    m_surfaceCapabilities.supportedCompositeAlpha = VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR;
+  else if (m_surfaceCapabilities.supportedCompositeAlpha & VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR)
+    m_surfaceCapabilities.supportedCompositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR;
+  else if (m_surfaceCapabilities.supportedCompositeAlpha & VK_COMPOSITE_ALPHA_PRE_MULTIPLIED_BIT_KHR)
+    m_surfaceCapabilities.supportedCompositeAlpha = VK_COMPOSITE_ALPHA_PRE_MULTIPLIED_BIT_KHR;
+  else
+    m_surfaceCapabilities.supportedCompositeAlpha = VK_COMPOSITE_ALPHA_POST_MULTIPLIED_BIT_KHR;
 #endif
 
   m_surfaceFormat = formats[chosenFormat];
