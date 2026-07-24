@@ -5,7 +5,6 @@
         <file>down.png</file>
         <file>left.png</file>
         <file>right.png</file>
-        <file>world.png</file>
         <file>download.png</file>
         <file>location-search.png</file>
         <file>location.png</file>
@@ -31,7 +30,6 @@
         <file>layers.png</file>
         <file>subway.png</file>
         <file>isolines.png</file>
-        <file>guides.png</file>
         <file>settings-routing.png</file>
         <file>borders_selection.png</file>
     </qresource>
