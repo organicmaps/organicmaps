@@ -2,6 +2,8 @@
 #include "indexer/classificator.hpp"
 #include "indexer/search_string_utils.hpp"
 
+#include "platform/preferred_languages.hpp"
+
 #include "coding/reader.hpp"
 #include "coding/reader_streambuf.hpp"
 
@@ -307,21 +309,17 @@ int8_t CategoriesHolder::MapLocaleToInteger(std::string_view const locale)
   ASSERT_EQUAL(kLocaleMapping[0].m_name, std::string_view("en"), ());
   ASSERT_EQUAL(kLocaleMapping[0].m_code, kEnglishCode, ());
 
+  // Reverse order so that a regional variant ("en-GB") wins over its base language ("en").
   for (auto it = kLocaleMapping.crbegin(); it != kLocaleMapping.crend(); ++it)
-    if (locale.find(it->m_name) == 0)
+    if (languages::StartsWithSubtags(locale, it->m_name))
       return it->m_code;
 
   // Special cases for different Chinese variations
-  if (locale.find("zh") == 0)
+  switch (languages::GetChineseScript(locale))
   {
-    std::string lower(locale);
-    strings::AsciiToLower(lower);
-
-    for (char const * s : {"hant", "tw", "hk", "mo"})
-      if (lower.find(s) != std::string::npos)
-        return kTraditionalChineseCode;
-    // Simplified Chinese by default for all other cases.
-    return kSimplifiedChineseCode;
+  case languages::ChineseScript::Traditional: return kTraditionalChineseCode;
+  case languages::ChineseScript::Simplified: return kSimplifiedChineseCode;
+  case languages::ChineseScript::NotChinese: break;
   }
 
   return kUnsupportedLocaleCode;
