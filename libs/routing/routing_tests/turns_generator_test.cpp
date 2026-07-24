@@ -230,6 +230,43 @@ UNIT_TEST(TestCheckUTurnOnRoute)
   TEST_EQUAL(CheckUTurnOnRoute(resultTest, 3 /* outgoingSegmentIndex */, NumMwmIds(), vehicleSettings, turn3), 0, ());
 }
 
+// GetPointForTurn() must not overshoot its limits on sparse geometry: when one long geometry
+// edge crosses the time limit, a point on this edge at the limit is expected instead of its
+// far end. Otherwise the turn angle gets the road curvature accumulated far from the junction.
+// See https://github.com/organicmaps/organicmaps/issues/13152
+UNIT_TEST(GetPointForTurnOnSparseGeometry)
+{
+  // For HighwayClass::LivingStreet (20 km/h) the 3 seconds limit of GetPointForTurn()
+  // is reached in 20 / 3.6 * 3 ~= 16.67 meters.
+  double constexpr kExpectedDistM = 20.0 / 3.6 * 3.0;
+  double constexpr kEpsM = 0.2;
+
+  m2::PointD const junction = mercator::FromLatLon(0.0, 0.0);
+
+  TUnpackedPathSegments pathSegments(2, LoadedPathSegment());
+  pathSegments[0].m_highwayClass = ftypes::HighwayClass::LivingStreet;
+  pathSegments[0].m_path = {
+      {mercator::GetSmPoint(junction, -105.0, 0.0), 0}, {mercator::GetSmPoint(junction, -5.0, 0.0), 0}, {junction, 0}};
+  pathSegments[1].m_highwayClass = ftypes::HighwayClass::LivingStreet;
+  pathSegments[1].m_path = {
+      {junction, 0}, {mercator::GetSmPoint(junction, 5.0, 0.0), 0}, {mercator::GetSmPoint(junction, 105.0, 0.0), 0}};
+
+  RoutingResultTest resultTest(pathSegments);
+  RoutingSettings const vehicleSettings = GetRoutingSettings(VehicleType::Car);
+
+  // Forward: a 5 m edge, then a 100 m edge which overshoots the limit.
+  m2::PointD const outgoingPoint =
+      GetPointForTurn(resultTest, 1 /* outgoingSegmentIndex */, NumMwmIds(), vehicleSettings.m_maxOutgoingPointsCount,
+                      vehicleSettings.m_minOutgoingDistMeters, true /* forward */);
+  TEST_ALMOST_EQUAL_ABS(mercator::DistanceOnEarth(junction, outgoingPoint), kExpectedDistM, kEpsM, ());
+
+  // Backward: the same, in the ingoing direction.
+  m2::PointD const ingoingPoint =
+      GetPointForTurn(resultTest, 1 /* outgoingSegmentIndex */, NumMwmIds(), vehicleSettings.m_maxIngoingPointsCount,
+                      vehicleSettings.m_minIngoingDistMeters, false /* forward */);
+  TEST_ALMOST_EQUAL_ABS(mercator::DistanceOnEarth(junction, ingoingPoint), kExpectedDistM, kEpsM, ());
+}
+
 UNIT_TEST(GetNextRoutePointIndex)
 {
   TUnpackedPathSegments pathSegments(2, LoadedPathSegment());
