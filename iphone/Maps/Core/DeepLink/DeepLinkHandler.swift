@@ -51,9 +51,11 @@
   }
 
   func getBackUrl() -> String? {
-    guard let urlString = url?.absoluteString else { return nil }
-    guard let url = URLComponents(string: urlString) else { return nil }
-    return (url.queryItems?.first(where: { $0.name == "backurl" })?.value ?? nil)
+    // The core parses both the legacy map backurl= and the v2 route callback= into a single
+    // value while handling the deep link (see Framework::GetParsedBackUrl), so iOS just reads
+    // it back instead of re-parsing the URL and re-implementing the escaping here.
+    let backUrl = FrameworkHelper.parsedBackUrl()
+    return backUrl.isEmpty ? nil : backUrl
   }
 
   func getInAppFeatureHighlightData() -> DeepLinkInAppFeatureHighlightData? {
@@ -132,8 +134,8 @@
     LOG(.info, "URL type: \(urlType)")
     switch urlType {
     case .route:
-      if let adapter = DeepLinkRouteStrategyAdapter(url) {
-        MWMRouter.buildApiRoute(with: adapter.type, start: adapter.p1, finish: adapter.p2)
+      if let adapter = DeepLinkRouteStrategyAdapter() {
+        MWMRouter.buildApiRoute(with: adapter.type, startRouteNavigation: adapter.startRouteNavigation)
         MapsAppDelegate.theApp().showMap()
         return true
       }

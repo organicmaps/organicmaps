@@ -56,10 +56,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)buildFromPoint:(MWMRoutePoint *)start bestRouter:(BOOL)bestRouter;
 + (void)buildToPoint:(MWMRoutePoint *)finish bestRouter:(BOOL)bestRouter;
-+ (void)buildApiRouteWithType:(MWMRouterType)type
-                   startPoint:(MWMRoutePoint *)startPoint
-                  finishPoint:(MWMRoutePoint *)finishPoint;
++ (void)buildApiRouteWithType:(MWMRouterType)type startRouteNavigation:(BOOL)startRouteNavigation;
 + (void)rebuildWithBestRouter:(BOOL)bestRouter;
+
+/// Builds an openable URL from a deep-link callback/back string that the core already
+/// URL-decoded, re-encoding dangling '%' and other invalid characters before parsing.
++ (nullable NSURL *)callbackURLFromString:(NSString *)callbackString;
 
 + (BOOL)hasRouteAltitude;
 + (void)saveRouteAsTrack;

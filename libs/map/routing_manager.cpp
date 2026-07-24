@@ -52,6 +52,7 @@ struct RoutePointJson
   int type = 0;
   std::string title;
   std::string subtitle;
+  std::string callback;
   double x = 0.0;
   double y = 0.0;
   bool replaceWithMyPosition = false;
@@ -62,6 +63,7 @@ RoutePointJson ToRoutePointJson(RouteMarkData const & data)
   return {.type = static_cast<int>(data.m_pointType),
           .title = data.m_title,
           .subtitle = data.m_subTitle,
+          .callback = data.m_callback,
           .x = data.m_position.x,
           .y = data.m_position.y,
           .replaceWithMyPosition = data.m_replaceWithMyPositionAfterRestart};
@@ -73,6 +75,7 @@ RouteMarkData ToRouteMarkData(RoutePointJson const & point)
   data.m_pointType = static_cast<RouteMarkType>(point.type);
   data.m_title = point.title;
   data.m_subTitle = point.subtitle;
+  data.m_callback = point.callback;
   data.m_position = {point.x, point.y};
   data.m_replaceWithMyPositionAfterRestart = point.replaceWithMyPosition;
   return data;
@@ -135,6 +138,7 @@ RouteMarkData GetLastPassedPoint(BookmarkManager * bmManager, std::vector<RouteM
   // Last passed point will be considered as start point.
   data.m_pointType = RouteMarkType::Start;
   data.m_intermediateIndex = 0;
+  data.m_callback.clear();
   if (data.m_isMyPosition)
   {
     data.m_position = bmManager->MyPositionMark().GetPivot();
@@ -471,6 +475,17 @@ void RoutingManager::OnRoutePointPassed(RouteMarkType type, size_t intermediateI
   // Remove route point.
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
+  if (auto const * point = routePoints.GetRoutePoint(type, intermediateIndex); point != nullptr && !point->IsPassed())
+  {
+    auto const & callback = point->GetMarkData().m_callback;
+    if (!callback.empty())
+    {
+      if (m_routePointCallback)
+        m_routePointCallback(callback);
+      else
+        m_pendingRoutePointCallback = callback;
+    }
+  }
   routePoints.PassRoutePoint(type, intermediateIndex);
 
   if (type == RouteMarkType::Finish)
@@ -1045,6 +1060,24 @@ std::vector<RouteMarkData> RoutingManager::GetRoutePoints() const
   return result;
 }
 
+void RoutingManager::SetRoutePointCallback(RoutePointCallback && callback)
+{
+  m_routePointCallback = std::move(callback);
+  if (!m_routePointCallback || m_pendingRoutePointCallback.empty())
+    return;
+
+  // Swap the buffer out first: the callback runs platform code that may re-enter
+  // SetRoutePointCallback.
+  std::string pendingCallback;
+  pendingCallback.swap(m_pendingRoutePointCallback);
+  m_routePointCallback(pendingCallback);
+}
+
+std::vector<RouteMarkData> RoutingManager::DeserializeRoutePointsForTesting(std::string const & data)
+{
+  return DeserializeRoutePoints(data);
+}
+
 size_t RoutingManager::GetRoutePointsCount() const
 {
   RoutePointsLayout routePoints(*m_bmManager);
@@ -1217,7 +1250,12 @@ void RoutingManager::ReorderIntermediatePoints()
 
   RouteMarkPoint * addedPoint = nullptr;
   m2::PointD addedPosition;
-  for (auto const & p : routePoints.GetRoutePoints())
+  auto const points = routePoints.GetRoutePoints();
+  if (points.size() < 2 || points.front()->GetRoutePointType() != RouteMarkType::Start ||
+      points.back()->GetRoutePointType() != RouteMarkType::Finish)
+    return;
+
+  for (auto const & p : points)
   {
     CHECK(p, ());
     if (p->GetRoutePointType() == RouteMarkType::Intermediate)
@@ -1239,7 +1277,25 @@ void RoutingManager::ReorderIntermediatePoints()
   if (addedPoint == nullptr)
     return;
 
-  CheckpointPredictor predictor(m_routingSession.GetStartPoint(), m_routingSession.GetEndPoint());
+  m2::PointD startPosition = points.front()->GetPivot();
+  if (points.front()->IsMyPosition())
+  {
+    auto const & myPosition = m_bmManager->MyPositionMark();
+    if (!myPosition.HasPosition())
+      return;
+    startPosition = myPosition.GetPivot();
+  }
+
+  m2::PointD finishPosition = points.back()->GetPivot();
+  if (points.back()->IsMyPosition())
+  {
+    auto const & myPosition = m_bmManager->MyPositionMark();
+    if (!myPosition.HasPosition())
+      return;
+    finishPosition = myPosition.GetPivot();
+  }
+
+  CheckpointPredictor predictor(startPosition, finishPosition);
 
   size_t const insertIndex = predictor.PredictPosition(prevPositions, addedPosition);
   addedPoint->SetIntermediateIndex(insertIndex);
@@ -1252,7 +1308,7 @@ void RoutingManager::GenerateNotifications(std::vector<std::string> & turnNotifi
   m_routingSession.GenerateNotifications(turnNotifications, announceStreets);
 }
 
-void RoutingManager::BuildRoute(uint32_t timeoutSec)
+void RoutingManager::BuildRoute(uint32_t timeoutSec, m2::PointD const & startDirection)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
 
@@ -1282,6 +1338,7 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
     if (!myPosition.HasPosition())
     {
       CallRouteBuilded(RouterResultCode::NoCurrentPosition, storage::CountriesSet());
+      CloseRouting(false /* remove route points */);
       return;
     }
     p.m_position = myPosition.GetPivot();
@@ -1323,7 +1380,7 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
   for (auto const & point : routePoints)
     points.push_back(point.m_position);
 
-  m_routingSession.BuildRoute(Checkpoints(std::move(points)), timeoutSec);
+  m_routingSession.BuildRoute(Checkpoints(std::move(points)), timeoutSec, startDirection);
 }
 
 void RoutingManager::SetUserCurrentPosition(m2::PointD const & position)

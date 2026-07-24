@@ -142,6 +142,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
   private boolean mIntentConsumed = false;
   private boolean mPreciseLocationDialogShown = false;
+  private boolean mSkipParsedBackUrlOnStop = false;
 
   private static final String MAIN_MENU_ID = "MAIN_MENU_BOTTOM_SHEET";
   private static final String LAYERS_MENU_ID = "LAYERS_MENU_BOTTOM_SHEET";
@@ -976,9 +977,22 @@ public class MwmActivity extends BaseMwmFragmentActivity
     MwmApplication.from(getApplicationContext()).getIsolinesManager().detach();
     Utils.keepScreenOn(false, getWindow());
 
-    final String backUrl = Framework.nativeGetParsedBackUrl();
-    if (!TextUtils.isEmpty(backUrl))
-      Utils.openUri(this, Uri.parse(backUrl), null);
+    if (mSkipParsedBackUrlOnStop)
+      mSkipParsedBackUrlOnStop = false;
+    // Returning to the caller is a one-shot action for the moment the user leaves the
+    // app; while navigation is running, leaving (screen lock, app switch) is a normal
+    // part of the session, so keep the back URL for the stop after navigation ends.
+    else if (!RoutingController.get().isNavigating())
+    {
+      final String backUrl = Framework.nativeGetParsedBackUrl();
+      if (!TextUtils.isEmpty(backUrl) && Utils.openUri(this, Uri.parse(backUrl), null))
+        Framework.nativeClearParsedBackUrl();
+    }
+  }
+
+  void skipParsedBackUrlOnNextStop()
+  {
+    mSkipParsedBackUrlOnStop = true;
   }
 
   @CallSuper
@@ -1347,6 +1361,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onBuiltRoute()
   {}
+
+  @Override
+  public void onRouteReadyToAutoStart()
+  {
+    if (!showRoutingDisclaimer())
+      return;
+
+    closeFloatingPanels();
+    setFullscreen(false);
+    RoutingController.get().start();
+  }
 
   @Override
   public void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps)
