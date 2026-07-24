@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Skautahöll";
 "type.leisure.marina" = "Bátalægi";
 "type.leisure.nature_reserve" = "Náttúruverndarsvæði";
+"type.leisure.bird_hide" = "Fuglaskoðunarbyrgi";
 "type.leisure.outdoor_seating" = "Sæti utandyra";
 "type.leisure.firepit" = "Eldgryfja";
 "type.leisure.park" = "Almenningsgarður";

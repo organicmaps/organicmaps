@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Patinoire";
 "type.leisure.marina" = "Port de plaisance";
 "type.leisure.nature_reserve" = "Réserve naturelle";
+"type.leisure.bird_hide" = "Observatoire ornithologique";
 "type.leisure.outdoor_seating" = "Sièges extérieurs";
 "type.leisure.firepit" = "Aire de pique-nique";
 "type.leisure.park" = "Parc";

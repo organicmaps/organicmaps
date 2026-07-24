@@ -550,6 +550,7 @@
     <string name="type.leisure.garden.residential">Situs arkeologi</string>
     <string name="type.leisure.golf_course">Lapangan golf</string>
     <string name="type.leisure.nature_reserve">Cagar Alam</string>
+    <string name="type.leisure.bird_hide">Tempat pengamatan burung</string>
     <string name="type.leisure.outdoor_seating">Tempat duduk di luar ruangan</string>
     <string name="type.leisure.park">Taman</string>
     <string name="type.leisure.park.no.access">Taman</string>

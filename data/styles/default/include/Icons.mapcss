@@ -659,6 +659,9 @@ node|z14[tourism=viewpoint]
 {icon-image: viewpoint-s.svg;text-offset: 1;icon-min-distance: 8;}
 node|z15-[tourism=viewpoint]
 {icon-image: viewpoint-m.svg;icon-min-distance: 8;}
+node|z16-[leisure=bird_hide],
+area|z16-[leisure=bird_hide]
+{icon-image: bird_hide-m.svg;icon-min-distance: 8;font-size: 11;}
 
 node|z16-[tourism=information]
 {icon-image: information-m.svg;text-offset: 1;icon-min-distance: 10;}
@@ -971,6 +974,8 @@ node|z16-[amenity=taxi],
 area|z16-[amenity=taxi],
 node|z16-[leisure=dog_park],
 area|z16-[leisure=dog_park],
+node|z16-[leisure=bird_hide],
+area|z16-[leisure=bird_hide],
 node|z16-[man_made=windmill],
 area|z16-[man_made=windmill],
 node|z16-[amenity=college],

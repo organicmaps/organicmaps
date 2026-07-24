@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Pista de gel";
 "type.leisure.marina" = "Port esportiu";
 "type.leisure.nature_reserve" = "Reserva natural";
+"type.leisure.bird_hide" = "Aguait d'ocells";
 "type.leisure.outdoor_seating" = "Seients a l’aire lliure";
 "type.leisure.firepit" = "Braser";
 "type.leisure.park" = "Parc";

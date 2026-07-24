@@ -657,6 +657,7 @@
     <string name="type.leisure.ice_rink">Skøjtebane</string>
     <string name="type.leisure.marina">Lystbådehavn</string>
     <string name="type.leisure.nature_reserve">Naturreservat</string>
+    <string name="type.leisure.bird_hide">Fugleskjul</string>
     <string name="type.leisure.outdoor_seating">Udendørs siddepladser</string>
     <string name="type.leisure.firepit">Bålsted</string>
     <string name="type.leisure.park">Park</string>

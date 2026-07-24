@@ -658,6 +658,7 @@
     <string name="type.leisure.ice_rink">Lodowisko</string>
     <string name="type.leisure.marina">Przystań</string>
     <string name="type.leisure.nature_reserve">Rezerwat przyrody</string>
+    <string name="type.leisure.bird_hide">Kryjówka do obserwacji ptaków</string>
     <string name="type.leisure.outdoor_seating">Siedzenia zewnętrzne</string>
     <string name="type.leisure.firepit">Ognisko</string>
     <string name="type.leisure.park">Park</string>

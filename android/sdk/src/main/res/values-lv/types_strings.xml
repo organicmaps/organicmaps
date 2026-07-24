@@ -48,6 +48,7 @@
     <string name="type.man_made.ceremonial_gate">Ceremonijas vārti</string>
     <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
     <string name="type.man_made.cross">Krusts</string>
+    <string name="type.leisure.bird_hide">Putnu vērošanas slēpnis</string>
     <string name="type.leisure.track">Skrejceļš</string>
     <string name="type.leisure.track.area">Skrejceļš</string>
     <!-- A deep hole drilled into the earth to extract oil or gas. -->

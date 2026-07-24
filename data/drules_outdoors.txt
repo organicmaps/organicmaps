@@ -10447,6 +10447,25 @@ type leisure-beach_resort
     area color=c205 priority=-1970
     symbol name=beach-m priority=3300
     caption primary[height=11 color=c082 dy=1 optional] priority=-6700
+type leisure-bird_hide
+  z15
+    symbol name=bird_hide-m priority=2300 min_distance=8
+    caption primary[height=11 color=c082 dy=1 optional] priority=-7700
+  z16
+    symbol name=bird_hide-m priority=2300 min_distance=8
+    caption primary[height=11 color=c082 dy=1 optional] priority=-7700
+  z17
+    symbol name=bird_hide-m priority=2300 min_distance=8
+    caption primary[height=11 color=c082 dy=1 optional] priority=-7700
+  z18
+    symbol name=bird_hide-m priority=2300 min_distance=8
+    caption primary[height=11 color=c082 dy=1 optional] priority=-7700
+  z19
+    symbol name=bird_hide-m priority=2300 min_distance=8
+    caption primary[height=11 color=c082 dy=1 optional] priority=-7700
+  z20
+    symbol name=bird_hide-m priority=2300 min_distance=8
+    caption primary[height=11 color=c082 dy=1 optional] priority=-7700
 type leisure-bowling_alley
   z17
     symbol name=bowling_alley-m priority=2450

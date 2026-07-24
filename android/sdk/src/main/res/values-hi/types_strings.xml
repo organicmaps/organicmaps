@@ -371,6 +371,7 @@
     <string name="type.leisure.hackerspace">हैकर्सस्पेस</string>
     <string name="type.leisure.marina">मरीना</string>
     <string name="type.leisure.nature_reserve">संरक्षित प्रकृतिक्षेत्र</string>
+    <string name="type.leisure.bird_hide">पक्षी अवलोकन आश्रय</string>
     <string name="type.leisure.park">उद्यान</string>
     <string name="type.leisure.park.no.access">उद्यान</string>
     <string name="type.leisure.park.permissive">उद्यान</string>
