@@ -1,11 +1,13 @@
 #include "testing/testing.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/classificator_loader.hpp"
 #include "indexer/feature_data.hpp"
+
+#include "generator/generator_tests_support/test_with_classificator.hpp"
 
 namespace feature_types_test
 {
+using namespace generator::tests_support;
 
 feature::TypesHolder MakeTypesHolder(std::initializer_list<base::StringIL> const & arr, bool sortBySpec = true,
                                      feature::GeomType geomType = feature::GeomType::Point)
@@ -23,10 +25,8 @@ feature::TypesHolder MakeTypesHolder(std::initializer_list<base::StringIL> const
   return types;
 }
 
-UNIT_TEST(Feature_UselessTypes)
+UNIT_CLASS_TEST(TestWithClassificator, Feature_UselessTypes)
 {
-  /// @todo Take out TestWithClassificator into some common test support lib.
-  classificator::Load();
   auto const & cl = classif();
 
   {
@@ -52,10 +52,8 @@ UNIT_TEST(Feature_UselessTypes)
   }
 }
 
-UNIT_TEST(Feature_TypesPriority)
+UNIT_CLASS_TEST(TestWithClassificator, Feature_TypesPriority)
 {
-  /// @todo Take out TestWithClassificator into some common test support lib.
-  classificator::Load();
   auto const & cl = classif();
 
   {
@@ -137,10 +135,8 @@ UNIT_TEST(Feature_TypesPriority)
   }
 }
 
-UNIT_TEST(Feature_TypesEqualUsefulSorted)
+UNIT_CLASS_TEST(TestWithClassificator, Feature_TypesEqualUsefulSorted)
 {
-  classificator::Load();
-
   {
     auto types1 = MakeTypesHolder(
         {

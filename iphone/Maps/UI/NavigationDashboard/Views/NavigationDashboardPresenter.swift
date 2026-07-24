@@ -30,8 +30,9 @@ extension NavigationDashboard {
         if state == .planning {
           viewModel.progress = 0
         }
-        if state == .error {
+        if state == .prepare || state == .error {
           viewModel.routeElevationPreviewData = nil
+          viewModel.routeElevationActivePointDistance = nil
         }
 
       case .close:
@@ -77,8 +78,9 @@ extension NavigationDashboard {
       case .updateTrackRecordingState(let state):
         viewModel.trackRecordingState = state
 
-      case .updateElevationInfo(let elevationInfo):
+      case .updateElevationInfo(let elevationInfo, let activePointDistance):
         viewModel.routeElevationPreviewData = elevationInfo
+        viewModel.routeElevationActivePointDistance = activePointDistance
 
       case .updateNavigationInfoAvailableArea(let rect):
         viewModel.navigationInfo.availableArea = rect

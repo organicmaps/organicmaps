@@ -1,10 +1,11 @@
 #include "testing/testing.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/classificator_loader.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/scales.hpp"
+
+#include "generator/generator_tests_support/test_with_classificator.hpp"
 
 #include "base/logging.hpp"
 
@@ -16,6 +17,7 @@
 
 namespace visibility_test
 {
+using namespace generator::tests_support;
 using namespace std;
 
 namespace
@@ -77,7 +79,7 @@ public:
 
 }  // namespace
 
-UNIT_TEST(VisibleScales_Highway)
+UNIT_CLASS_TEST(TestWithClassificator, VisibleScales_Highway)
 {
   Classificator const & c = classif();
 

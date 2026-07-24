@@ -1,7 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "drape_frontend/drape_frontend_tests/visual_params_fixture.hpp"
 #include "drape_frontend/path_text_handle.hpp"
-#include "drape_frontend/visual_params.hpp"
 
 #include "qt_tstfrm/test_main_loop.hpp"
 
@@ -11,6 +11,8 @@
 #include <string>
 #include <vector>
 
+namespace path_text_test
+{
 namespace
 {
 bool IsSmooth(m2::SplineEx const & spline)
@@ -30,10 +32,10 @@ m2::SplineEx BuildRounded(std::vector<m2::PointD> const & pts)
 }
 }  // namespace
 
-UNIT_TEST(Rounding_Spline)
-{
-  df::VisualParams::Init(1.0, 1024);  // AddPointAndRound reads GetVisualScale().
+using df::test_support::VisualParamsFixture;
 
+UNIT_CLASS_TEST(VisualParamsFixture, Rounding_Spline)
+{
   // For rounded corners we assert smoothness and that rounding added points, but not the exact count:
   // the number of arc steps is ceil(turn / kValidPathSplineTurn), which is FP/platform-dependent when
   // the turn is an exact multiple of the step (e.g. 90 or 45 deg), so the total can differ by +-1.
@@ -178,9 +180,9 @@ void RenderRoundingCases(QPaintDevice * device)
 
 // Visual inspection of AddPointAndRound corner rounding (see drape_tests/glyph_mng_tests for the pattern).
 // Draw test cases from Rounding_Spline.
-UNIT_TEST(Rounding_Spline_Visual)
+UNIT_CLASS_TEST(VisualParamsFixture, Rounding_Spline_Visual)
 {
-  df::VisualParams::Init(1.0, 1024);  // AddPointAndRound reads GetVisualScale().
-
   RunTestLoop("PathText AddPointAndRound corner rounding", &RenderRoundingCases, true /* autoExit; false to inspect */);
 }
+
+}  // namespace path_text_test

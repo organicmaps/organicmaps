@@ -6,7 +6,7 @@
 #include "map/framework.hpp"
 #include "map/place_page_info.hpp"
 
-#include "drape_frontend/visual_params.hpp"
+#include "drape_frontend/drape_frontend_tests/visual_params_fixture.hpp"
 
 #include "editor/editor_notes.hpp"
 #include "editor/osm_editor.hpp"
@@ -28,6 +28,7 @@
 namespace editor_notes_tests
 {
 using namespace generator::tests_support;
+using df::test_support::VisualParamsFixture;
 using platform::LocalCountryFile;
 using platform::tests_support::ScopedFile;
 
@@ -35,10 +36,9 @@ using platform::tests_support::ScopedFile;
 // A note created via "Edit place" on a line/area feature must be attached to the user's map
 // selection (tap) point, not to the feature's geometric center, which for a road or forest can be
 // far from where the problem was reported.
-UNIT_TEST(EditorNotes_UseSelectionPointNotFeatureCenter)
+UNIT_CLASS_TEST(VisualParamsFixture, EditorNotes_UseSelectionPointNotFeatureCenter)
 {
   Framework frm({} /* params */, false /* loadMaps */);
-  df::VisualParams::Init(1.0, 1024);
 
   // A straight horizontal road; its geometric center is the midpoint (0.5, 0).
   LocalCountryFile country(GetPlatform().WritableDir(), platform::CountryFile("EditorNotesLand"), 0 /* version */);
@@ -78,10 +78,9 @@ UNIT_TEST(EditorNotes_UseSelectionPointNotFeatureCenter)
   country.DeleteFromDisk(MapFileType::Map);
 }
 
-UNIT_TEST(EditorNotes_UseSelectionPointForExplicitFeatureTap)
+UNIT_CLASS_TEST(VisualParamsFixture, EditorNotes_UseSelectionPointForExplicitFeatureTap)
 {
   Framework frm({} /* params */, false /* loadMaps */);
-  df::VisualParams::Init(1.0, 1024);
 
   LocalCountryFile country(GetPlatform().WritableDir(), platform::CountryFile("EditorNotesExplicitLand"),
                            0 /* version */);

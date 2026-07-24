@@ -52,7 +52,7 @@ final class ElevationProfileViewController: UIViewController {
       case .track:
         nil
       case .routePreview:
-        false
+        true
       }
     }
 
@@ -61,7 +61,7 @@ final class ElevationProfileViewController: UIViewController {
       case .track:
         nil
       case .routePreview:
-        true
+        false
       }
     }
   }

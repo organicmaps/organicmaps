@@ -20,7 +20,7 @@ class ChartInfoView: ExpandedTouchView {
   private let myPositionView = ChartMyPositionView(frame: CGRect(x: 0, y: 0, width: 2, height: 0))
   private var lineInfo: ChartLineInfo?
 
-  fileprivate var captured = false
+  private(set) var captured = false
 
   private var _infoX: CGFloat = 0
   var infoX: CGFloat {

@@ -85,6 +85,28 @@ using namespace routing;
   return [[RouteElevationPreviewData alloc] initWithTrackInfo:trackInfo elevationInfo:profileData];
 }
 
++ (void)setRouteElevationActivePointDistance:(double)distance
+{
+  auto & framework = GetFramework();
+  if (framework.GetDrapeEngine() == nullptr)
+    return;
+
+  auto const point = framework.GetRoutingManager().GetRoutePointAtDistance(distance);
+  if (!point)
+    return;
+
+  framework.GetDrapeEngine()->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK, *point, FeatureID(),
+                                           false /* isAnim */, false /* isGeometrySelectionAllowed */,
+                                           true /* isSelectionShapeVisible */);
+}
+
++ (void)resetRouteElevationActivePoint
+{
+  auto & framework = GetFramework();
+  if (!framework.HasPlacePageInfo())
+    framework.DeactivateMapSelectionCircle(false /* restoreViewport */);
+}
+
 + (void)saveRouteAsTrack
 {
   GetFramework().SaveRoute();

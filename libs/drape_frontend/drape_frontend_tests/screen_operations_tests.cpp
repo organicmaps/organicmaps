@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "drape_frontend/drape_frontend_tests/visual_params_fixture.hpp"
 #include "drape_frontend/navigator.hpp"
 #include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/tile_key.hpp"
@@ -13,6 +14,7 @@
 
 namespace screen_operations_tests
 {
+using df::test_support::VisualParamsFixture;
 
 // -- WrapTileX ----------------------------------------------------------------
 
@@ -283,8 +285,6 @@ UNIT_TEST(ShrinkInto_DoesNotClampX)
 
 UNIT_TEST(ScaleInto_ScalesForY)
 {
-  df::VisualParams::Init(1.0, 1024);
-
   ScreenBase screen;
   screen.OnSize(0, 0, 800, 600);
   // Screen with Y exceeding world bounds.
@@ -300,8 +300,6 @@ UNIT_TEST(ScaleInto_ScalesForY)
 
 UNIT_TEST(ScaleInto_ClampsXWidth)
 {
-  df::VisualParams::Init(1.0, 1024);
-
   ScreenBase screen;
   screen.OnSize(0, 0, 2000, 100);
   // Viewport wider than world; center off the canonical range to verify X
@@ -321,8 +319,6 @@ UNIT_TEST(ScaleInto_ClampsXWidth)
 
 UNIT_TEST(ShrinkAndScaleInto_ClampsXWidth)
 {
-  df::VisualParams::Init(1.0, 1024);
-
   ScreenBase screen;
   screen.OnSize(0, 0, 2000, 100);
   // Viewport wider than world.
@@ -337,8 +333,6 @@ UNIT_TEST(ShrinkAndScaleInto_ClampsXWidth)
 
 UNIT_TEST(ShrinkAndScaleInto_ClampsY)
 {
-  df::VisualParams::Init(1.0, 1024);
-
   ScreenBase screen;
   screen.OnSize(0, 0, 800, 600);
   screen.SetFromRect(m2::AnyRectD(m2::RectD(-50, 100, 50, 200)));
@@ -353,9 +347,8 @@ UNIT_TEST(ShrinkAndScaleInto_ClampsY)
 
 // -- Navigator DoDrag (antimeridian wrapping) ----------------------------------
 
-UNIT_TEST(Navigator_DoDrag_HorizontalUnbounded)
+UNIT_CLASS_TEST(VisualParamsFixture, Navigator_DoDrag_HorizontalUnbounded)
 {
-  df::VisualParams::Init(1.0, 1024);
   df::Navigator navigator;
 
   navigator.OnSize(800, 600);
@@ -373,9 +366,8 @@ UNIT_TEST(Navigator_DoDrag_HorizontalUnbounded)
   TEST_GREATER(navigator.Screen().GetOrg().x, 170.0, ());
 }
 
-UNIT_TEST(Navigator_SetFromRect_ClampsWideX)
+UNIT_CLASS_TEST(VisualParamsFixture, Navigator_SetFromRect_ClampsWideX)
 {
-  df::VisualParams::Init(1.0, 1024);
   df::Navigator navigator;
   navigator.OnSize(800, 600);
 
@@ -387,9 +379,8 @@ UNIT_TEST(Navigator_SetFromRect_ClampsWideX)
   TEST_LESS_OR_EQUAL(clip.SizeX(), worldR.SizeX() + 1e-5, ());
 }
 
-UNIT_TEST(Navigator_DoDrag_VerticalClamped)
+UNIT_CLASS_TEST(VisualParamsFixture, Navigator_DoDrag_VerticalClamped)
 {
-  df::VisualParams::Init(1.0, 1024);
   df::Navigator navigator;
 
   navigator.OnSize(800, 600);
@@ -447,9 +438,8 @@ bool PointsClose(m2::PointD const & a, m2::PointD const & b, double eps)
 }
 }  // namespace
 
-UNIT_TEST(Navigator_PerspectiveScale_KeepsFingersOnSameGeoPoints)
+UNIT_CLASS_TEST(VisualParamsFixture, Navigator_PerspectiveScale_KeepsFingersOnSameGeoPoints)
 {
-  df::VisualParams::Init(1.0, 1024);
   df::Navigator nav = MakePerspectiveNavigator(800, 600);
 
   // Two fingers on a horizontal line, centered near the middle of the screen.
@@ -482,9 +472,8 @@ UNIT_TEST(Navigator_PerspectiveScale_KeepsFingersOnSameGeoPoints)
   TEST(PointsClose(g2After, g2Before, 0.03 * fingerSpan), (g2Before, g2After));
 }
 
-UNIT_TEST(Navigator_PerspectiveRotate_KeepsFingersOnSameGeoPoints)
+UNIT_CLASS_TEST(VisualParamsFixture, Navigator_PerspectiveRotate_KeepsFingersOnSameGeoPoints)
 {
-  df::VisualParams::Init(1.0, 1024);
   df::Navigator nav = MakePerspectiveNavigator(800, 600);
 
   m2::PointD const screenCenter(400, 400);
@@ -519,9 +508,8 @@ UNIT_TEST(Navigator_PerspectiveRotate_KeepsFingersOnSameGeoPoints)
   TEST(PointsClose(g2After, g2Before, 0.02 * fingerSpan), (g2Before, g2After));
 }
 
-UNIT_TEST(Navigator_PerspectiveRotate_LargeAngle_TracksOffPivotFinger)
+UNIT_CLASS_TEST(VisualParamsFixture, Navigator_PerspectiveRotate_LargeAngle_TracksOffPivotFinger)
 {
-  df::VisualParams::Init(1.0, 1024);
   df::Navigator nav = MakePerspectiveNavigator(800, 600);
 
   // Vertical finger pair — the two fingers sit at very different perspective
@@ -556,9 +544,8 @@ UNIT_TEST(Navigator_PerspectiveRotate_LargeAngle_TracksOffPivotFinger)
   TEST(PointsClose(g2After, g2Before, 0.1 * fingerSpan), (g2Before, g2After));
 }
 
-UNIT_TEST(Navigator_PerspectiveScaleAndRotate_KeepsBothFingersAnchored)
+UNIT_CLASS_TEST(VisualParamsFixture, Navigator_PerspectiveScaleAndRotate_KeepsBothFingersAnchored)
 {
-  df::VisualParams::Init(1.0, 1024);
   df::Navigator nav = MakePerspectiveNavigator(800, 600);
 
   // Asymmetric pair: finger 2 noticeably above finger 1 (closer to the

@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Даўжыня";
 "share_my_location" = "Абагуліць маё месцазнаходжанне";
+"prefs_group_network" = "Сетка";
 "prefs_group_route" = "Навігацыя";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Памылка пры адпраўцы пошты";
-
-/* Settings item title */
-"pref_calibration_title" = "Каліброўка компаса";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Даступныя";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Гэтая назва ўжо занятая";
 "profile" = "Профіль OpenStreetMap";
 "restore" = "Аднавіць";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Прыватнасць";
 "privacy_policy" = "Палітыка прыватнасці";
 "terms_of_use" = "Умовы выкарыстання";
 

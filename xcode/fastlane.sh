@@ -15,7 +15,8 @@ check_keys() {
 }
 
 check_screenshots() {
-    if [[ ! -r ../screenshots/ios/en-US/0_APP_IPHONE_65_0.png ]]; then
+    if ! find ../screenshots/ios/en-US \
+             \( -name '*.png' -o -name '*.jpg' \) -print -quit | grep -q .; then
         echo >&2 "Please checkout screenshots to ../screenshots"
         exit 3
     fi
