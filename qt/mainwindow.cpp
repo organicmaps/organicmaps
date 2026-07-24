@@ -369,6 +369,7 @@ void MainWindow::CreateNavigationBar()
     toolBtn = m_selection->create();
     toolBtn->setToolTip(tr("Select mode and use RMB to define selection box"));
     pToolBar->addWidget(toolBtn);
+    m_selection->setCurrent(SelectionMode::Features);
 
     pToolBar->addAction(QIcon(":/navig64/clear.png"), tr("Clear selection"), this, SLOT(OnClearSelection()));
 
