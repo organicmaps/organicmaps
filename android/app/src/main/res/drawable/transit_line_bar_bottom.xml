@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Transit line bar rounded at the bottom only, for the very last ride leg (the end of the line).
+     White so a runtime tint paints it with the line's own color. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+  android:shape="rectangle">
+  <solid android:color="@android:color/white" />
+  <corners
+    android:bottomLeftRadius="@dimen/routing_transit_step_corner_radius"
+    android:bottomRightRadius="@dimen/routing_transit_step_corner_radius" />
+</shape>
