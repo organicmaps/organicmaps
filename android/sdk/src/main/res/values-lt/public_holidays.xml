@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: public_holidays -->
+    <!-- Countries: DE, LT, LV, PL -->
+    <string name="_2nd_day_of_christmas">Šv. Kalėdos</string>
+    <!-- Countries: AD, AT, BE, ES, FR, HR, HU, IT, LI, LT, MC, PL, PT, SE, SK, SM -->
+    <string name="all_saints_day">Visų šventųjų diena</string>
+    <!-- Countries: LT, SM -->
+    <string name="all_souls_day">Vėlinės</string>
+    <!-- Countries: AD, AT, BE, ES, FR, HR, IT, LT, MC, MT, PL, PT, RO, SI, SM -->
+    <string name="assumption_of_mary">Žolinė</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MT, MX, NL, PL, PT, SE, SI, SK, SM, ZA -->
+    <string name="christmas_day_catholic">Šv. Kalėdos</string>
+    <!-- Countries: BG, CZ, EE, LT, LV, PL, SK -->
+    <string name="christmas_eve_catholic">Šv. Kūčios</string>
+    <!-- Countries: LT -->
+    <string name="day_of_restoration_of_independence_of_lithuania">Lietuvos nepriklausomybės atkūrimo diena</string>
+    <!-- Countries: LT -->
+    <string name="day_of_restoration_of_the_lithuanian_state">Lietuvos valstybės atkūrimo diena</string>
+    <!-- Countries: AD, AL, AT, BE, BG, CZ, DE, ES-CT, ES-IB, ES-NC, ES-PV, ES-VC, FR, HR, HU, IE, IT, LI, LT, LV, MC, NL, PL, SE, SI, SK, SM -->
+    <string name="easter_monday">Antroji Velykų diena</string>
+    <!-- Countries: AL, BG, EE, LT, LV, NL, PL, PT, SE, SI -->
+    <string name="easter_sunday">Velykos</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CZ, DE, ES, FR, HR, HU, IT, LI, LT, LV, MC, MD, MX, PL, PT, RO, RS, SE, SI, SK, SM -->
+    <string name="labour_day">Tarptautinė darbo diena</string>
+    <!-- Countries: EE, LT, LV, SE -->
+    <string name="midsummer_day">Rasos ir Joninių diena</string>
+    <!-- Countries: AT, BE, FR, HU, LT, SE -->
+    <string name="national_day">Valstybės diena</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MD, MT, MX, NL, PL, PT, RO, RS, SE, SI, ZA -->
+    <string name="new_years_day">Naujieji metai</string>
+</resources>

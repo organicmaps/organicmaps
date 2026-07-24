@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: public_holidays -->
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MT, MX, NL, PL, PT, SE, SI, SK, SM, ZA -->
+    <string name="christmas_day_catholic">1. svátek vánoční</string>
+    <!-- Countries: BG, CZ, EE, LT, LV, PL, SK -->
+    <string name="christmas_eve_catholic">Štědrý den</string>
+    <!-- Countries: CZ -->
+    <string name="czech_statehood_day">Den české státnosti</string>
+    <!-- Countries: CZ, SK -->
+    <string name="day_of_struggle_for_freedom_and_democracy">Den boje za svobodu a demokracii a Mezinárodní den studentstva</string>
+    <!-- Countries: CZ -->
+    <string name="day_of_the_burning_of_jan_hus">Den upálení mistra Jana Husa</string>
+    <!-- Countries: CZ -->
+    <string name="day_of_the_restoration_of_the_independent_czech_state">Den obnovy samostatného českého státu</string>
+    <!-- Countries: AD, AL, AT, BE, BG, CZ, DE, ES-CT, ES-IB, ES-NC, ES-PV, ES-VC, FR, HR, HU, IE, IT, LI, LT, LV, MC, NL, PL, SE, SI, SK, SM -->
+    <string name="easter_monday">Velikonoční pondělí</string>
+    <!-- Countries: AD, BG, CZ, DE, EE, ES, HU, LV, MT, NL, PT, RS, SE, SK, ZA -->
+    <string name="good_friday">Velký pátek</string>
+    <!-- Countries: BG, CH, CZ, EE, MD, MT, MX, PL, PT -->
+    <string name="independence_day">Den vzniku samostatného československého státu</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CZ, DE, ES, FR, HR, HU, IT, LI, LT, LV, MC, MD, MX, PL, PT, RO, RS, SE, SI, SK, SM -->
+    <string name="labour_day">Svátek práce</string>
+    <!-- Countries: AL, CZ, IT, NL -->
+    <string name="liberation_day">Den vítězství</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MD, MT, MX, NL, PL, PT, RO, RS, SE, SI, ZA -->
+    <string name="new_years_day">Nový rok</string>
+    <!-- Countries: CZ, RO, SK -->
+    <string name="second_christmas_day">2. svátek vánoční</string>
+    <!-- Countries: CZ, SK -->
+    <string name="st_cyril_and_methodius_day">Den slovanských věrozvěstů Cyrila a Metoděje</string>
+</resources>

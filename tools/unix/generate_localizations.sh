@@ -71,6 +71,9 @@ GenerateStringResource "strings.txt" iphone/Chart/Chart apple apple-chart ""
 # Generate Android types strings
 GenerateStringResource "types_strings.txt" android/sdk/src/main/res android "" types_strings.xml
 
+# Generate Android public holidays strings
+GenerateStringResource "public_holidays.txt" android/sdk/src/main/res android "" public_holidays.xml
+
 # Generate iPhone types strings
 GenerateStringResource "types_strings.txt" iphone/Maps/LocalizedStrings apple "" LocalizableTypes.strings
 
