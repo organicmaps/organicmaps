@@ -41,6 +41,8 @@ set(SRC
   mwm_url.hpp
   place_page_info.cpp
   place_page_info.hpp
+  share.cpp
+  share.hpp
   selection_processor.cpp
   selection_processor.hpp
   position_provider.hpp

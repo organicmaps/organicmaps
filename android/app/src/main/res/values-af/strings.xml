@@ -171,16 +171,14 @@
     <string name="cant_change_this_setting">Jammer, Kaartbergingsinstellings is tans gedeaktiveer.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Die kaart word tans afgelaai.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Kyk my huidige posisie in Organic Maps! %1$s of %2$s Het u nie vanlyn kaarte nie? Laai hier af: https://omaps.app/get</string>
-    <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Hallo, kyk my liggingmerker in Organic Maps!</string>
-    <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Hallo, sien my huidige ligging op die Organic Maps-toep!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Dagsê,\n\nEk is nou hier: %1$s. Klik op die skakel %2$s of hierdie een %3$s om die plek op die kaart te sien.\n\nDankie.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Deel</string>
+    <!-- Text shown before a shared "my position" link, and the email subject when sharing the current location. -->
+    <string name="share_my_position">Ek is hier op Organic Maps</string>
+    <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
+    <string name="share_place_subject">%1$s op Organic Maps</string>
+    <!-- Email subject when sharing a place that has no name or address. -->
+    <string name="share_place_subject_default">\'n Plek op Organic Maps</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">E-pos</string>
     <!-- Text for message when used successfully copied something -->

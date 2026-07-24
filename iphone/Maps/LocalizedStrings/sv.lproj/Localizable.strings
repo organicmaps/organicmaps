@@ -174,11 +174,23 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Din position har inte fastslagits ännu";
 
-/* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Hej, kolla min kartnål på Organic Maps!";
+/* Text shown before a shared "my position" link, and the email subject when sharing the current location. */
+"share_my_position" = "Jag är här på Organic Maps";
 
-/* Subject for emailed position */
-"my_position_share_email_subject" = "Hej, kolla på min nuvarande position på Organic Maps kartan!";
+/* Email subject when sharing a place. %1$@ is the place name or address. */
+"share_place_subject" = "%1$@ på Organic Maps";
+
+/* Email subject when sharing a place that has no name or address. */
+"share_place_subject_default" = "En plats på Organic Maps";
+
+/* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
+"share_open_in_om_or_browser" = "Öppna i Organic Maps eller i en webbläsare";
+
+/* Shared email link text; opens the shared place in another (geo:) maps app. */
+"share_open_in_maps_app" = "Öppna i en annan kartapp";
+
+/* Shared email link text; leads to the Organic Maps download page. */
+"share_get_om" = "Hämta Organic Maps";
 
 /* Share by email button text, also used in editor and About. */
 "email" = "E-post";
@@ -834,9 +846,6 @@
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Stäng av inspelningen av din senaste rutt?";
 "off_recent_track_background_button" = "Avaktivera";
-
-/* For sharing via SMS and so on */
-"sharing_call_action_look" = "Kolla in";
 "recent_track_background_dialog_message" = "Organic Maps använder din geografiska position i bakgrunden för att spela in din senaste resta rutt.";
 "general_settings" = "Allmänna inställningar";
 

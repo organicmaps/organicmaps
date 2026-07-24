@@ -27,6 +27,10 @@ namespace
 std::string_view constexpr kCenterLatLon = "cll";
 std::string_view constexpr kAppName = "appname";
 
+// Default zoom for a shared clear-coordinate link (omaps.app/<lat>,<lon>) that omits "?z=".
+// Matches url-processor's normalizeZoom default.
+int constexpr kDefaultClearCoordinatesZoom = 14;
+
 namespace map
 {
 std::string_view constexpr kLatLon = "ll";
@@ -191,16 +195,39 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
     }
     else if (checkForGe0Link)
     {
-      // The URL is prefixed by one of the kGe0Prefixes AND doesn't match any supported API call:
-      // => try to decode ge0 short link.
+      // The URL is prefixed by one of the kGe0Prefixes AND doesn't match any supported API call.
       ge0::Ge0Parser::Result info;
-      if (!ge0::Ge0Parser{}.ParseAfterPrefix(raw, prefix, info))
-        return UrlType::Incorrect;
 
-      m_zoomLevel = info.m_zoomLevel;
-      m_mapPoints.push_back({info.m_lat, info.m_lon, info.m_name, "" /* m_id */, "" /* m_style */});
+      // First try a ge0 short link (base64-encoded zoom + coordinates).
+      if (ge0::Ge0Parser{}.ParseAfterPrefix(raw, prefix, info))
+      {
+        m_zoomLevel = info.m_zoomLevel;
+        m_mapPoints.push_back({info.m_lat, info.m_lon, info.m_name, "" /* m_id */, "" /* m_style */});
+        return m_requestType = UrlType::Map;
+      }
 
-      return m_requestType = UrlType::Map;
+      // Then try clear decimal coordinates: omaps.app/<lat>,<lon>[/<name>]?z=<zoom>.
+      // Strip the query and fragment first, mirroring url-processor which matches only the pathname.
+      std::string_view path{raw};
+      path.remove_prefix(prefix);
+      if (auto const q = path.find_first_of("?#"); q != std::string_view::npos)
+        path = path.substr(0, q);
+
+      if (ge0::Ge0Parser::ParseClearCoordinates(path, info))
+      {
+        // Zoom comes from "?z=" only; fall back to a default when it is absent or unparsable.
+        double zoom = kDefaultClearCoordinatesZoom;
+        if (auto const * z = url.GetParamValue(std::string{map::kZoomLevel}))
+        {
+          if (double parsed; strings::to_double(*z, parsed))
+            zoom = parsed;
+        }
+        m_zoomLevel = zoom;
+        m_mapPoints.push_back({info.m_lat, info.m_lon, info.m_name, "" /* m_id */, "" /* m_style */});
+        return m_requestType = UrlType::Map;
+      }
+
+      return m_requestType = UrlType::Incorrect;
     }
     else
     {

@@ -171,16 +171,14 @@
     <string name="cant_change_this_setting">Désolé, les paramètres de stockage des cartes sont actuellement désactivés.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Le téléchargement de la carte est en cours.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Hé, regardez ma position actuelle sur Organic Maps ! %1$s ou %2$s. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : https://omaps.app/get</string>
-    <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Hé, regardez mon signet sur la carte Organic Maps !</string>
-    <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Hé, regardez ma position actuelle sur la carte Organic Maps !</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Bonjour,\n\nJe suis actuellement ici : %1$s. Cliquez sur ce lien %2$s ou sur celui-ci %3$s pour voir l\'endroit sur la carte.\n\nMerci.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Partager</string>
+    <!-- Text shown before a shared "my position" link, and the email subject when sharing the current location. -->
+    <string name="share_my_position">Je suis ici sur Organic Maps</string>
+    <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
+    <string name="share_place_subject">%1$s sur Organic Maps</string>
+    <!-- Email subject when sharing a place that has no name or address. -->
+    <string name="share_place_subject_default">Un lieu sur Organic Maps</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">Courriel</string>
     <!-- Text for message when used successfully copied something -->

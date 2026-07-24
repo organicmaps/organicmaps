@@ -174,11 +174,23 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Az Ön tartózkodási helye még nincs meghatározva";
 
-/* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Tekintse meg a térképjelzőmet az Organic Maps alkalmazásban!";
+/* Text shown before a shared "my position" link, and the email subject when sharing the current location. */
+"share_my_position" = "Itt vagyok az Organic Mapsben";
 
-/* Subject for emailed position */
-"my_position_share_email_subject" = "Tekintse meg a tartózkodási helyemet az Organic Maps alkalmazásban!";
+/* Email subject when sharing a place. %1$@ is the place name or address. */
+"share_place_subject" = "%1$@ az Organic Mapsben";
+
+/* Email subject when sharing a place that has no name or address. */
+"share_place_subject_default" = "Egy hely az Organic Mapsben";
+
+/* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
+"share_open_in_om_or_browser" = "Megnyitás az Organic Mapsben vagy böngészőben";
+
+/* Shared email link text; opens the shared place in another (geo:) maps app. */
+"share_open_in_maps_app" = "Megnyitás másik térképalkalmazásban";
+
+/* Shared email link text; leads to the Organic Maps download page. */
+"share_get_om" = "Organic Maps letöltése";
 
 /* Share by email button text, also used in editor and About. */
 "email" = "E-mail-cím";
@@ -834,9 +846,6 @@
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Megszakítod a legutóbb megtett utad rögzítését?";
 "off_recent_track_background_button" = "Letiltás";
-
-/* For sharing via SMS and so on */
-"sharing_call_action_look" = "Tekintse meg";
 "recent_track_background_dialog_message" = "Az Organic Maps a háttérben az Ön tartózkodási helyét használja a nemrég megtett útvonal rögzítéséhez.";
 "general_settings" = "Általános beállítások";
 

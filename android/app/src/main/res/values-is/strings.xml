@@ -171,16 +171,14 @@
     <string name="cant_change_this_setting">Því miður, stillingar á geymslu korta eru óvirkar.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Verið er að sækja landakort.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Skoðaðu núverandi staðsetninguna mína á Organic Maps landakortinu! %1$s eða %2$s Ertu ekki með ónettengd kort? Sæktu þau hér: https://omaps.app/get</string>
-    <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Hæ, skoðaðu staðsetninguna mína á Organic Maps!</string>
-    <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Hæ, skoðaðu núverandi staðsetninguna mína á Organic Maps landakortinu!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Hæ, \n \nÉg er núna hérna: %1$s. Smelltu á þennan tengil %2$s eða þennan %3$s til að sjá staðinn á kortinu. \n \nBestu þakkir.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Deila</string>
+    <!-- Text shown before a shared "my position" link, and the email subject when sharing the current location. -->
+    <string name="share_my_position">Ég er hér í Organic Maps</string>
+    <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
+    <string name="share_place_subject">%1$s í Organic Maps</string>
+    <!-- Email subject when sharing a place that has no name or address. -->
+    <string name="share_place_subject_default">Staður í Organic Maps</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">Tölvupóstur</string>
     <!-- Text for message when used successfully copied something -->

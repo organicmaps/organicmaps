@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- SECTION: Other translations -->
+    <!-- Text shown before a shared "my position" link, and the email subject when sharing the current location. -->
+    <string name="share_my_position">Ես այստեղ եմ Organic Maps-ում</string>
+    <!-- Shared email link text; opens the shared place in Organic Maps or in a web browser. -->
+    <string name="share_open_in_om_or_browser">Բացել Organic Maps-ում կամ դիտարկիչում</string>
+    <!-- Shared email link text; opens the shared place in another (geo:) maps app. -->
+    <string name="share_open_in_maps_app">Բացել այլ քարտեզների հավելվածում</string>
+    <!-- Shared email link text; leads to the Organic Maps download page. -->
+    <string name="share_get_om">Ներբեռնել Organic Maps</string>
+
     <!-- SECTION: Uncategorized -->
     <!-- Settings/Downloader - size string, only strings different from English should be translated -->
     <string name="mb">ՄԲ</string>

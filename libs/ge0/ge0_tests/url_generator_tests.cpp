@@ -1,9 +1,11 @@
 #include "testing/testing.hpp"
 
 #include "ge0/geo_url_parser.hpp"
+#include "ge0/parser.hpp"
 #include "ge0/url_generator.hpp"
 
 #include <string>
+#include <string_view>
 
 namespace url_generator_tests
 {
@@ -358,6 +360,63 @@ UNIT_TEST(GenerateGeoUri_SmokeTest)
   TEST_ALMOST_EQUAL_ABS(info.m_lon, 35.5066454, kEps, ());
   TEST_ALMOST_EQUAL_ABS(info.m_zoom, 16.5, kEps, ());
   TEST_EQUAL(info.m_label, "Falafel M. Sahyoun", ());
+}
+
+UNIT_TEST(GenerateClearShowMapUrl_SmokeTest)
+{
+  TEST_EQUAL(GenerateClearShowMapUrl(48.858093, 2.294694, 16, "Eiffel Tower"),
+             "https://omaps.app/48.858093,2.294694/Eiffel_Tower?z=16", ());
+}
+
+UNIT_TEST(GenerateClearShowMapUrl_NameIsEmpty)
+{
+  TEST_EQUAL(GenerateClearShowMapUrl(48.858093, 2.294694, 17, ""), "https://omaps.app/48.858093,2.294694?z=17", ());
+}
+
+UNIT_TEST(GenerateClearShowMapUrl_ZoomOmittedWhenNotPositive)
+{
+  TEST_EQUAL(GenerateClearShowMapUrl(0, 0, 0, ""), "https://omaps.app/0.000000,0.000000", ());
+}
+
+UNIT_TEST(GenerateClearShowMapUrl_RoundTrip)
+{
+  // Generate a link, then decode its path with the same parser the app uses.
+  string const url = GenerateClearShowMapUrl(33.890408, 35.506645, 16, "Falafel M. Sahyoun");
+  TEST_EQUAL(url, "https://omaps.app/33.890408,35.506645/Falafel_M._Sahyoun?z=16", ());
+
+  string_view path = url;
+  path.remove_prefix(string_view("https://omaps.app/").size());
+  path = path.substr(0, path.find('?'));
+
+  Ge0Parser::Result info;
+  TEST(Ge0Parser::ParseClearCoordinates(path, info), ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lat, 33.890408, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lon, 35.506645, kEps, ());
+  TEST_EQUAL(info.m_name, "Falafel M. Sahyoun", ());
+}
+
+UNIT_TEST(ParseClearCoordinates_Rejects)
+{
+  Ge0Parser::Result info;
+  TEST(!Ge0Parser::ParseClearCoordinates("o4B4pYZsRs", info), ("ge0 base64 has no dot"));
+  TEST(!Ge0Parser::ParseClearCoordinates("foo", info), ());
+  TEST(!Ge0Parser::ParseClearCoordinates("foo/48.858093,2.294694", info), ("coordinates must start the path"));
+  TEST(!Ge0Parser::ParseClearCoordinates("48.858093,2.294694suffix", info), ("lon must consume the path segment"));
+  TEST(!Ge0Parser::ParseClearCoordinates("48,2", info), ("integer-only coordinates are not clear links"));
+  TEST(!Ge0Parser::ParseClearCoordinates("91.0,0.0", info), ("lat out of range"));
+  TEST(!Ge0Parser::ParseClearCoordinates("0.0,181.0", info), ("lon out of range"));
+}
+
+UNIT_TEST(ParseClearCoordinates_Boundaries)
+{
+  Ge0Parser::Result info;
+  TEST(Ge0Parser::ParseClearCoordinates("-90.000000,-180.000000", info), ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lat, -90.0, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lon, -180.0, kEps, ());
+
+  TEST(Ge0Parser::ParseClearCoordinates("90.000000,180.000000", info), ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lat, 90.0, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lon, 180.0, kEps, ());
 }
 
 }  // namespace url_generator_tests

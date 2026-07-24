@@ -174,11 +174,23 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Vaše poloha zatím nebyla určena";
 
-/* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Koukni na mojí značku na mapě v Organic Maps!";
+/* Text shown before a shared "my position" link, and the email subject when sharing the current location. */
+"share_my_position" = "Jsem tady v Organic Maps";
 
-/* Subject for emailed position */
-"my_position_share_email_subject" = "Podívej se na mou aktuální polohu na mapě v Organic Maps!";
+/* Email subject when sharing a place. %1$@ is the place name or address. */
+"share_place_subject" = "%1$@ v Organic Maps";
+
+/* Email subject when sharing a place that has no name or address. */
+"share_place_subject_default" = "Místo v Organic Maps";
+
+/* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
+"share_open_in_om_or_browser" = "Otevřít v Organic Maps nebo v prohlížeči";
+
+/* Shared email link text; opens the shared place in another (geo:) maps app. */
+"share_open_in_maps_app" = "Otevřít v jiné mapové aplikaci";
+
+/* Shared email link text; leads to the Organic Maps download page. */
+"share_get_om" = "Získat Organic Maps";
 
 /* Share by email button text, also used in editor and About. */
 "email" = "E-mail";
@@ -834,9 +846,6 @@
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Zakázat zaznamenávání vaší nedávno ujeté trasy?";
 "off_recent_track_background_button" = "Zakázat";
-
-/* For sharing via SMS and so on */
-"sharing_call_action_look" = "Odjezd";
 "recent_track_background_dialog_message" = "Organic Maps používají geopozici na pozadí, aby se zaznamenala vaše nedávno ujetá trasa.";
 "general_settings" = "Obecná nastavení";
 
