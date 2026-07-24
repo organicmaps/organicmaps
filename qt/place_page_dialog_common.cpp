@@ -1,6 +1,7 @@
 #include "qt/place_page_dialog_common.hpp"
 
 #include "qt/draw_widget.hpp"
+#include "qt/qt_common/toolbar_icons.hpp"
 
 #include "map/framework.hpp"
 #include "map/place_page_info.hpp"
@@ -70,17 +71,17 @@ QToolBar * createActionToolBar(QWidget * parent, qt::DrawWidget * drawWidget, pl
 
   m2::PointD const mercator = info.GetMercator();
 
-  QAction * fromAction = toolBar->addAction(QIcon(":/navig64/point-start.png"), "Route From");
+  QAction * fromAction = toolBar->addAction(qt::GetToolbarIcon(qt::ToolbarIcon::PointStart), "Route From");
   fromAction->setToolTip("Route From");
   QObject::connect(fromAction, &QAction::triggered, parent,
                    [drawWidget, mercator] { drawWidget->RoutePointFromPlace(RouteMarkType::Start, mercator); });
 
-  QAction * stopAction = toolBar->addAction(QIcon(":/navig64/point-intermediate.png"), "Add Stop");
+  QAction * stopAction = toolBar->addAction(qt::GetToolbarIcon(qt::ToolbarIcon::PointIntermediate), "Add Stop");
   stopAction->setToolTip("Add Stop");
   QObject::connect(stopAction, &QAction::triggered, parent,
                    [drawWidget, mercator] { drawWidget->RoutePointFromPlace(RouteMarkType::Intermediate, mercator); });
 
-  QAction * toAction = toolBar->addAction(QIcon(":/navig64/point-finish.png"), "Route To");
+  QAction * toAction = toolBar->addAction(qt::GetToolbarIcon(qt::ToolbarIcon::PointFinish), "Route To");
   toAction->setToolTip("Route To");
   QObject::connect(toAction, &QAction::triggered, parent,
                    [drawWidget, mercator] { drawWidget->RoutePointFromPlace(RouteMarkType::Finish, mercator); });

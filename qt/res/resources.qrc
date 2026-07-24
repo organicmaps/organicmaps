@@ -1,43 +1,75 @@
 <RCC>
-    <qresource prefix="/navig64">
-        <file>search.png</file>
-        <file>up.png</file>
-        <file>down.png</file>
-        <file>left.png</file>
-        <file>right.png</file>
-        <file>world.png</file>
-        <file>download.png</file>
-        <file>location-search.png</file>
-        <file>location.png</file>
-        <file>select.png</file>
-        <file>selectmode.png</file>
-        <file>clear.png</file>
-        <file>traffic.png</file>
-        <file>city_boundaries.png</file>
-        <file>city_roads.png</file>
-        <file>point-finish.png</file>
-        <file>point-intermediate.png</file>
-        <file>point-start.png</file>
-        <file>clear-route.png</file>
-        <file>routing.png</file>
-        <file>run.png</file>
-        <file>bug.png</file>
-        <file>chart.png</file>
-        <file>test.png</file>
-        <file>geom.png</file>
-        <file>phonepack.png</file>
-        <file>bookmark.png</file>
-        <file>ruler.png</file>
-        <file>layers.png</file>
-        <file>subway.png</file>
-        <file>isolines.png</file>
-        <file>guides.png</file>
-        <file>settings-routing.png</file>
-        <file>borders_selection.png</file>
+    <qresource prefix="/navig64-light">
+        <file alias="search.png">light/search.png</file>
+        <file alias="up.png">light/up.png</file>
+        <file alias="down.png">light/down.png</file>
+        <file alias="left.png">light/left.png</file>
+        <file alias="right.png">light/right.png</file>
+        <file alias="download.png">light/download.png</file>
+        <file alias="location-search.png">light/location-search.png</file>
+        <file alias="location.png">light/location.png</file>
+        <file alias="select.png">light/select.png</file>
+        <file alias="selectmode.png">light/selectmode.png</file>
+        <file alias="clear.png">light/clear.png</file>
+        <file alias="traffic.png">light/traffic.png</file>
+        <file alias="city_boundaries.png">light/city_boundaries.png</file>
+        <file alias="city_roads.png">light/city_roads.png</file>
+        <file alias="point-finish.png">light/point-finish.png</file>
+        <file alias="point-intermediate.png">light/point-intermediate.png</file>
+        <file alias="point-start.png">light/point-start.png</file>
+        <file alias="clear-route.png">light/clear-route.png</file>
+        <file alias="routing.png">light/routing.png</file>
+        <file alias="run.png">light/run.png</file>
+        <file alias="bug.png">light/bug.png</file>
+        <file alias="chart.png">light/chart.png</file>
+        <file alias="test.png">light/test.png</file>
+        <file alias="geom.png">light/geom.png</file>
+        <file alias="phonepack.png">light/phonepack.png</file>
+        <file alias="bookmark.png">light/bookmark.png</file>
+        <file alias="ruler.png">light/ruler.png</file>
+        <file alias="layers.png">light/layers.png</file>
+        <file alias="subway.png">light/subway.png</file>
+        <file alias="isolines.png">light/isolines.png</file>
+        <file alias="settings-routing.png">light/settings-routing.png</file>
+        <file alias="borders_selection.png">light/borders_selection.png</file>
+    </qresource>
+    <qresource prefix="/navig64-dark">
+        <file alias="search.png">dark/search.png</file>
+        <file alias="up.png">dark/up.png</file>
+        <file alias="down.png">dark/down.png</file>
+        <file alias="left.png">dark/left.png</file>
+        <file alias="right.png">dark/right.png</file>
+        <file alias="download.png">dark/download.png</file>
+        <file alias="location-search.png">dark/location-search.png</file>
+        <file alias="location.png">dark/location.png</file>
+        <file alias="select.png">dark/select.png</file>
+        <file alias="selectmode.png">dark/selectmode.png</file>
+        <file alias="clear.png">dark/clear.png</file>
+        <file alias="traffic.png">dark/traffic.png</file>
+        <file alias="city_boundaries.png">dark/city_boundaries.png</file>
+        <file alias="city_roads.png">dark/city_roads.png</file>
+        <file alias="point-finish.png">dark/point-finish.png</file>
+        <file alias="point-intermediate.png">dark/point-intermediate.png</file>
+        <file alias="point-start.png">dark/point-start.png</file>
+        <file alias="clear-route.png">dark/clear-route.png</file>
+        <file alias="routing.png">dark/routing.png</file>
+        <file alias="run.png">dark/run.png</file>
+        <file alias="bug.png">dark/bug.png</file>
+        <file alias="chart.png">dark/chart.png</file>
+        <file alias="test.png">dark/test.png</file>
+        <file alias="geom.png">dark/geom.png</file>
+        <file alias="phonepack.png">dark/phonepack.png</file>
+        <file alias="bookmark.png">dark/bookmark.png</file>
+        <file alias="ruler.png">dark/ruler.png</file>
+        <file alias="layers.png">dark/layers.png</file>
+        <file alias="subway.png">dark/subway.png</file>
+        <file alias="isolines.png">dark/isolines.png</file>
+        <file alias="settings-routing.png">dark/settings-routing.png</file>
+        <file alias="borders_selection.png">dark/borders_selection.png</file>
     </qresource>
     <qresource prefix="/ui">
-        <file>logo.png</file>
-        <file>busy.png</file>
-        <file>x.png</file>
+        <file alias="logo.png">light/logo.png</file>
+        <file alias="busy.png">light/busy.png</file>
+        <file alias="x.png">light/x.png</file>
     </qresource>
 </RCC>

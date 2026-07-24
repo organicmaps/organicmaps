@@ -8,6 +8,7 @@
 #include <QtGui/QMouseEvent>
 
 class Framework;
+class QIcon;
 
 namespace qt::common
 {
@@ -36,4 +37,10 @@ void SetDefaultSurfaceFormat(QString const & platformName);
 
 bool IsSystemInDarkMode();
 void ApplySystemNightMode(Framework & framework);
+
+// Returns the appropriate toolbar icon for the current system theme.
+// |lightPath| is a resource path like ":/navig64/search.png".
+// The dark variant is expected under the same path with "-dark" prefix
+// (e.g. ":/navig64-dark/search.png").
+QIcon GetToolbarIcon(char const * lightPath);
 }  // namespace qt::common

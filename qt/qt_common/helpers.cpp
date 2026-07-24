@@ -13,6 +13,7 @@
 #include <QtCore/QDateTime>
 #include <QtCore/Qt>
 #include <QtGui/QGuiApplication>
+#include <QtGui/QIcon>
 #include <QtGui/QMouseEvent>
 #include <QtGui/QPalette>
 #include <QtGui/QStyleHints>
@@ -134,6 +135,22 @@ void ApplySystemNightMode(Framework & framework)
   auto const desiredStyle = useDark ? GetDarkMapStyleVariant(currentStyle) : GetLightMapStyleVariant(currentStyle);
   if (desiredStyle != currentStyle)
     framework.SetMapStyle(desiredStyle);
+}
+
+QIcon GetToolbarIcon(char const * lightPath)
+{
+  if (!IsSystemInDarkMode())
+  {
+    QString path(lightPath);
+    // ":/navig64-light/X.png" → ":/navig64-dark/X.png"
+    int const idx = path.indexOf("-light/");
+    if (idx != -1)
+    {
+      QString darkPath = path.left(idx) + "-dark" + path.mid(idx + 6);
+      return QIcon(darkPath);
+    }
+  }
+  return QIcon(lightPath);
 }
 
 }  // namespace qt::common

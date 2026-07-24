@@ -1,7 +1,13 @@
 <RCC>
+    <qresource prefix="/common-light">
+        <file alias="minus.png">light/minus.png</file>
+        <file alias="plus.png">light/plus.png</file>
+    </qresource>
+    <qresource prefix="/common-dark">
+        <file alias="minus.png">dark/minus.png</file>
+        <file alias="plus.png">dark/plus.png</file>
+    </qresource>
     <qresource prefix="/common">
-        <file>minus.png</file>
-        <file>plus.png</file>
         <file>shaders/gl_150.fsh.glsl</file>
         <file>shaders/gl_150.vsh.glsl</file>
         <file>shaders/gles_300.fsh.glsl</file>
