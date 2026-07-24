@@ -258,6 +258,12 @@ dependencies {
   huaweiImplementation project(':sdk:location:gms:google')
   fdroidImplementation project(':sdk:location:gms:foss')
 
+  // Wear OS phone-side bridge: the all-flavors seam (interface + registry + no-op) plus the Google
+  // Wear Data Layer publisher, which self-registers and ships in Google builds only. wear-protocol
+  // arrives transitively via :sdk:wear:core (api).
+  implementation project(':sdk:wear:core')
+  googleImplementation project(':sdk:wear:gms')
+
   coreLibraryDesugaring libs.android.tools.desugaring
 
   // Google Firebase Services
