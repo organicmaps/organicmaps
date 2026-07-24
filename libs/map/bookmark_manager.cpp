@@ -619,15 +619,17 @@ void BookmarkManager::NotifyChanges(bool saveChangesOnDisk)
 
   if (m_bookmarksChangesTracker.HasBookmarksChanges())
   {
-    kml::GroupIdCollection categoriesToSave;
-    for (auto groupId : m_bookmarksChangesTracker.GetUpdatedGroupIds())
-      if (IsBookmarkCategory(groupId) && GetBmCategory(groupId)->IsAutoSaveEnabled())
-        categoriesToSave.push_back(groupId);
-
     // During the category reloading/updating the file saving should be skipped
     // because of the file is already up to date.
     if (saveChangesOnDisk)
+    {
+      kml::GroupIdCollection categoriesToSave;
+      for (auto groupId : m_bookmarksChangesTracker.GetUpdatedGroupIds())
+        if (IsBookmarkCategory(groupId) && GetBmCategory(groupId)->IsAutoSaveEnabled())
+          categoriesToSave.push_back(groupId);
+
       SaveBookmarks(categoriesToSave);
+    }
 
     SendBookmarksChanges(m_bookmarksChangesTracker);
   }
@@ -2294,6 +2296,10 @@ void BookmarkManager::NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && coll
     }
     else if (!m_loadBookmarksFinished)
     {
+      // Create an empty default category if nothing was loaded. Called on the first launch after async LoadBookmarks.
+      /// @todo We don't have any valid category in a timeframe between starting the app and finishing async
+      /// LoadBookmarks.
+
       CheckAndResetLastIds();
       CheckAndCreateDefaultCategory();
     }
@@ -2302,13 +2308,15 @@ void BookmarkManager::NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && coll
 
     if (!m_bookmarkLoadingQueue.empty())
     {
-      ASSERT(m_asyncLoadingInProgress, ());
-      if (m_bookmarkLoadingQueue.front().m_isReloading)
-        ReloadBookmarkRoutine(m_bookmarkLoadingQueue.front().m_filename);
-      else
-        LoadBookmarkRoutine(m_bookmarkLoadingQueue.front().m_filename,
-                            m_bookmarkLoadingQueue.front().m_isTemporaryFile);
+      // Pop from the queue first, load bookmarks next. Avoid possible races if this thread gets stuck.
+      auto info = std::move(m_bookmarkLoadingQueue.front());
       m_bookmarkLoadingQueue.pop_front();
+
+      ASSERT(m_asyncLoadingInProgress, ());
+      if (info.m_isReloading)
+        ReloadBookmarkRoutine(info.m_filename);
+      else
+        LoadBookmarkRoutine(info.m_filename, info.m_isTemporaryFile);
     }
     else
     {
@@ -2983,15 +2991,14 @@ bool BookmarkManager::SaveBookmarkCategory(kml::MarkGroupId groupId, Writer & wr
 BookmarkManager::KMLDataCollectionPtr BookmarkManager::PrepareToSaveBookmarksForTrack(kml::TrackId trackId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto collection = std::make_shared<KMLDataCollection>();
   auto const & track = GetTrack(trackId);
-  auto name = kml::LocalizableString();
-  kml::SetDefaultStr(name, track->GetName());
-  auto const & trackData = track->GetData();
-  auto const & fileData = new kml::FileData();
-  fileData->m_categoryData = kml::CategoryData{.m_name = name};
-  fileData->m_tracksData.push_back(trackData);
-  collection->emplace_back("", fileData);
+
+  auto fileData = std::make_unique<kml::FileData>();
+  kml::SetDefaultStr(fileData->m_categoryData.m_name, track->GetName());
+  fileData->m_tracksData.push_back(track->GetData());
+
+  auto collection = std::make_shared<KMLDataCollection>();
+  collection->emplace_back("", std::move(fileData));
   return collection;
 }
 
@@ -3043,6 +3050,9 @@ void BookmarkManager::SaveBookmarks(kml::GroupIdCollection const & groupIdCollec
   auto kmlDataCollection = PrepareToSaveBookmarks(groupIdCollection);
   if (!kmlDataCollection)
     return;
+
+  // Saving bookmarks invoked. Log in main (UI) thread to check reasonable necessity.
+  LOG(LINFO, ("See async files below (SaveKmlFileSafe)"));
 
   if (m_testModeEnabled)
   {

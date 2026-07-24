@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Lungime";
 "share_my_location" = "Trimite poziția mea";
+"prefs_group_network" = "Rețea";
 "prefs_group_route" = "Navigare";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Eroare de trimitere e-mail";
-
-/* Settings item title */
-"pref_calibration_title" = "Calibrare busolă";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Disponibile";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Acest nume este deja folosit";
 "profile" = "Profil OpenStreetMap";
 "restore" = "Restabilește";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Intimitate";
 "privacy_policy" = "Confidențialitate";
 "terms_of_use" = "Termeni de utilizare";
 

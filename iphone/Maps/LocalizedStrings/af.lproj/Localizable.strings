@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Lengte";
 "share_my_location" = "Deel my ligging";
+"prefs_group_network" = "Netwerk";
 "prefs_group_route" = "Navigasie";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "E-posstuurfout";
-
-/* Settings item title */
-"pref_calibration_title" = "Kompaskalibrering";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Beskikbaar";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Die naam is reeds in gebruik";
 "profile" = "OpenStreetMap-profiel";
 "restore" = "Stel terug";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Privaatheid";
 "privacy_policy" = "Privaatheidsbeleid";
 "terms_of_use" = "Gebruiksvoorwaardes";
 

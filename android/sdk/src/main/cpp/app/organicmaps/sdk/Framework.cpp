@@ -34,6 +34,7 @@
 #include "coding/files_container.hpp"
 
 #include "geometry/angles.hpp"
+#include "geometry/distance_on_sphere.hpp"
 #include "geometry/mercator.hpp"
 #include "geometry/point_with_altitude.hpp"
 

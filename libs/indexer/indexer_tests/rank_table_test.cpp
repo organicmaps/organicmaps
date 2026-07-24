@@ -1,10 +1,11 @@
 #include "testing/testing.hpp"
 #include "tmp_mwm_copy.hpp"
 
-#include "indexer/classificator_loader.hpp"
 #include "indexer/data_source.hpp"
 #include "indexer/mwm_set.hpp"
 #include "indexer/rank_table.hpp"
+
+#include "generator/generator_tests_support/test_with_classificator.hpp"
 
 #include "coding/file_writer.hpp"
 #include "coding/files_container.hpp"
@@ -19,6 +20,7 @@
 
 namespace rank_table_test
 {
+using namespace generator::tests_support;
 using namespace std;
 
 namespace
@@ -71,10 +73,8 @@ UNIT_TEST(RankTableBuilder_Smoke)
   TestTable(ranks, kTestCont);
 }
 
-UNIT_TEST(RankTableBuilder_EndToEnd)
+UNIT_CLASS_TEST(TestWithClassificator, RankTableBuilder_EndToEnd)
 {
-  classificator::Load();
-
   tests::TempMwmCopy mwmCopy("minsk-pass");
   auto const & mwmPath = mwmCopy.GetPath();
 

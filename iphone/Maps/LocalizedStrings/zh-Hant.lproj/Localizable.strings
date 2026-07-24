@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "長度";
 "share_my_location" = "分享我的位置";
+"prefs_group_network" = "網路";
 "prefs_group_route" = "導航";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "電子郵件發送失敗";
-
-/* Settings item title */
-"pref_calibration_title" = "校正指南針";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "可用";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "這個名稱已經被使用了";
 "profile" = "OpenStreetMap 資料";
 "restore" = "恢復";
+
+/* Settings privacy group in settings screen */
+"privacy" = "隱私";
 "privacy_policy" = "隱私政策";
 "terms_of_use" = "使用條款";
 

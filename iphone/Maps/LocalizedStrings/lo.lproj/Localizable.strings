@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "ຄວາມຍາວ";
 "share_my_location" = "ແບ່ງປັນຕຳແໜ່ງຂອງຂ້ອຍ";
+"prefs_group_network" = "ເຄືອຂ່າຍ";
 "prefs_group_route" = "ການນຳທາງ";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "ເກີດຂໍ້ຜິດພາດໃນການສົ່ງອີເມລ";
-
-/* Settings item title */
-"pref_calibration_title" = "ການປັບຕັ້ງເຂັມທິດ";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "ມີໃຫ້ໃຊ້";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "ຊື່ນີ້ຖືກໃຊ້ແລ້ວ";
 "profile" = "ໂປຣໄຟລ໌ OpenStreetMap";
 "restore" = "ກູ້ຄືນ";
+
+/* Settings privacy group in settings screen */
+"privacy" = "ຄວາມເປັນສ່ວນຕົວ";
 "privacy_policy" = "ນະໂຍບາຍຄວາມເປັນສ່ວນຕົວ";
 "terms_of_use" = "ເງື່ອນໄຂການໃຊ້ງານ";
 

@@ -647,7 +647,7 @@ void Framework::FillPointInfoForBookmark(Bookmark const & bmk, place_page::Info 
   });
 }
 
-void Framework::FillUserMarkInfo(UserMark const * mark, place_page::Info & outInfo)
+bool Framework::FillUserMarkInfo(UserMark const * mark, place_page::Info & outInfo)
 {
   outInfo.SetSelectedObject(df::SelectionShape::OBJECT_USER_MARK);
 
@@ -661,14 +661,12 @@ void Framework::FillUserMarkInfo(UserMark const * mark, place_page::Info & outIn
   case UserMark::Type::TRACK_INFO:
   {
     auto const & infoMark = *static_cast<TrackInfoMark const *>(mark);
-    BuildTrackPlacePage(GetBookmarkManager().GetTrackSelectionInfo(infoMark.GetTrackId()), outInfo);
-    return;
+    return BuildTrackPlacePage(GetBookmarkManager().GetTrackSelectionInfo(infoMark.GetTrackId()), outInfo);
   }
   case UserMark::Type::TRACK_SELECTION:
   {
     auto const & selMark = *static_cast<TrackSelectionMark const *>(mark);
-    BuildTrackPlacePage(GetBookmarkManager().GetTrackSelectionInfo(selMark.GetTrackId()), outInfo);
-    return;
+    return BuildTrackPlacePage(GetBookmarkManager().GetTrackSelectionInfo(selMark.GetTrackId()), outInfo);
   }
   case UserMark::Type::TRANSIT:
   {
@@ -684,6 +682,7 @@ void Framework::FillUserMarkInfo(UserMark const * mark, place_page::Info & outIn
   }
 
   GetSelectionProcessor().SetPlacePageLocation(outInfo);
+  return true;
 }
 
 void Framework::FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const
@@ -958,7 +957,8 @@ void Framework::SelectTrackCandidate(kml::TrackId trackId, RelationID const & re
   CHECK(candidate != candidates.end(), ());
   CHECK(candidate->IsValid(), ());
 
-  BuildTrackPlacePage(*candidate, m_currentPlacePageInfo.value());
+  if (!BuildTrackPlacePage(*candidate, m_currentPlacePageInfo.value()))
+    return;
 
   GetBookmarkManager().UpdateElevationMyPosition(trackId, true /* ignoreLocationCache */);
   ActivateMapSelection();
@@ -2361,28 +2361,32 @@ FeatureID Framework::FindBuildingAtPoint(m2::PointD const & mercator) const
 
 bool Framework::BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelectionInfo, place_page::Info & info)
 {
-  info.SetSelectedObject(df::SelectionShape::OBJECT_TRACK);
   auto & bm = GetBookmarkManager();
-  Track const * track = nullptr;
   Track::TrackSelectionInfo selectedInfo = trackSelectionInfo;
 
-  if (trackSelectionInfo.IsRelation())
+  if (selectedInfo.IsRelation())
   {
     auto trackData = TryBuildRelationTrack(selectedInfo);
     if (!trackData)
       return false;
 
     bm.SetTempRelationTrack(std::move(trackData.value()));
-    track = bm.GetTrack(kml::kTempRelationTrackId);
     auto const tapPoint = selectedInfo.m_trackPoint;  // Copy tap point before mutation.
-    track->UpdateSelectionInfo(tapPoint, selectedInfo);
+    bm.GetTrack(kml::kTempRelationTrackId)->UpdateSelectionInfo(tapPoint, selectedInfo);
   }
-  else
+  else if (selectedInfo.m_trackId != kml::kTempRelationTrackId)
   {
+    // Never drop the temporary track when it is the selected one: it can't be rebuilt without the
+    // relation metadata that this selection is missing.
     bm.ClearTempRelationTrack();
-    track = bm.GetTrack(selectedInfo.m_trackId);
   }
 
+  // Can be null for a stale selection mark, left over from an already deleted track.
+  auto const * track = bm.GetTrack(selectedInfo.m_trackId);
+  if (track == nullptr)
+    return false;
+
+  info.SetSelectedObject(df::SelectionShape::OBJECT_TRACK);
   FillTrackInfo(*track, selectedInfo, info);
   bm.SetTrackSelectionInfo(selectedInfo, true /* notifyListeners */);
   return true;
@@ -2410,8 +2414,12 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
 
     if (mark)
     {
-      FillUserMarkInfo(mark, outInfo);
-      return outInfo;
+      if (FillUserMarkInfo(mark, outInfo))
+        return outInfo;
+
+      // Stale track mark: drop the partially filled info and continue with the regular matching.
+      outInfo = {};
+      outInfo.SetBuildInfo(buildInfo);
     }
   }
 
@@ -2439,9 +2447,9 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
       auto const rect = df::TapInfo::GetPreciseTapRect(outInfo.GetMercator(), kEps);
       UserMark const * mark = GetBookmarkManager().FindNearestUserMark([&rect](UserMark::Type) { return rect; },
                                                                        [](UserMark::Type) { return true; });
-      if (mark)
+      // On a stale track mark keep the feature info filled above and fall back to the POI selection.
+      if (mark && FillUserMarkInfo(mark, outInfo))
       {
-        FillUserMarkInfo(mark, outInfo);
         sp.SetPlacePageLocation(outInfo);
         return outInfo;
       }

@@ -4,7 +4,6 @@
 #include "drape/index_storage.hpp"
 
 #include "base/assert.hpp"
-#include "base/math.hpp"
 
 #include <algorithm>
 
@@ -304,19 +303,28 @@ void LineStripBatch::BatchData(ref_ptr<GraphicsContext> context, ref_ptr<Attribu
     if (IsBufferFilled(GetAvailableVertexCount(), GetAvailableIndexCount()))
       ChangeBuffer(context);
 
-    uint32_t avVertex = GetAvailableVertexCount();
-    uint32_t avIndex = GetAvailableIndexCount();
+    uint32_t const avVertex = GetAvailableVertexCount();
+    uint32_t const avIndex = GetAvailableIndexCount();
     uint32_t vertexCount = streams->GetVertexCount();
     ASSERT_GREATER_OR_EQUAL(vertexCount, 2, ());
-    uint32_t indexCount = (vertexCount - 1) * 2;
 
-    if (!IsEnoughMemory(avVertex, vertexCount, avIndex, indexCount))
+    // A strip longer than the whole buffer is split into chunks; the boundary vertex
+    // repeats in the next chunk, so the strip stays continuous. V strip vertices take
+    // (V - 1) * 2 indices, so v <= avIndex / 2 + 1 is exactly IsEnoughMemory solved
+    // for the vertex count: the indices bind first, at ~2 slots per vertex.
+    uint32_t const maxVertexCount = std::min(avVertex, avIndex / 2 + 1);
+    bool split = false;
+    if (vertexCount > maxVertexCount)
     {
-      ChangeBuffer(context);
-      avVertex = GetAvailableVertexCount();
-      avIndex = GetAvailableIndexCount();
-      ASSERT(IsEnoughMemory(avVertex, vertexCount, avIndex, indexCount), ());
+      if (maxVertexCount < 2)
+      {
+        ChangeBuffer(context);
+        continue;
+      }
+      vertexCount = maxVertexCount;
+      split = true;
     }
+    uint32_t const indexCount = (vertexCount - 1) * 2;
 
     uint32_t startIndex = 0;
     void * indicesStorage = GetIndexStorage(indexCount, startIndex);
@@ -324,7 +332,7 @@ void LineStripBatch::BatchData(ref_ptr<GraphicsContext> context, ref_ptr<Attribu
     SubmitIndices(context);
 
     FlushData(context, streams, vertexCount);
-    streams->Advance(vertexCount);
+    streams->Advance(split ? vertexCount - 1 : vertexCount);
   }
 }
 

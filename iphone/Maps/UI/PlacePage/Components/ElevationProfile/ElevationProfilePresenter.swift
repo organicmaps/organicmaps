@@ -112,16 +112,14 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
     view?.isChartViewHidden = false
 
     switch state {
-    case .track(let data):
-      configureTrack(data)
+    case .track(let data), .routePreview(let data):
+      configureInteractiveProfile(data)
     case .trackRecording(let data):
       configureTrackRecording(data)
-    case .routePreview(let data):
-      configureRoutePreview(data)
     }
   }
 
-  private func configureTrack(_ data: ElevationProfileDisplayData) {
+  private func configureInteractiveProfile(_ data: ElevationProfileDisplayData) {
     view?.setChartData(ChartPresentationData(data.chartData, formatter: formatter))
     view?.reloadDescription()
     view?.isXAxisViewHidden = false
@@ -139,17 +137,6 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
     view?.placeholderText = data.chartData.isPlaceholder ? Constants.placeholderText : nil
     view?.userInteractionEnabled = false
     view?.isChartViewInfoHidden = true
-  }
-
-  private func configureRoutePreview(_ data: ElevationProfileDisplayData) {
-    view?.setChartData(ChartPresentationData(data.chartData, formatter: formatter))
-    view?.reloadDescription()
-    view?.isXAxisViewHidden = false
-    view?.placeholderText = nil
-    view?.userInteractionEnabled = false
-    view?.isChartViewInfoHidden = true
-    view?.setActivePointDistance(data.activePointDistance)
-    view?.setMyPositionDistance(data.myPositionDistance)
   }
 
   func onSelectedPointChanged(_ distance: Double) {

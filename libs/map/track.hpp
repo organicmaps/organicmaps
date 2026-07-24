@@ -65,6 +65,9 @@ public:
     /// @return true  Data is initialized and correct (after UpdateSelectionInfo call).
     /// Can be false if input m_squareDist filtered all track's segments.
     bool IsValid() const { return m_trackId != kml::kInvalidTrackId; }
+    /// @return true if the relation metadata to (re)build the temporary track is here. Stronger than
+    /// "this selection is the temporary relation track": a selection restored from a
+    /// TrackSelectionMark keeps m_trackId only (see BookmarkManager::GetTrackSelectionInfo).
     bool IsRelation() const { return m_trackId == kml::kTempRelationTrackId && m_relationId.IsValid(); }
 
     kml::TrackId m_trackId = kml::kInvalidTrackId;

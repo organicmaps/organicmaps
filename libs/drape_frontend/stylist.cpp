@@ -209,10 +209,12 @@ void Stylist::ProcessKey(FeatureType & f, drule::Key const & key)
 Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, bool forceOutdoorStyle)
   : m_rulesHolder(forceOutdoorStyle ? drule::GetOutdoorRules() : drule::GetCurrentRules())
 {
+#ifdef DEBUG
   auto const style = GetStyleReader().GetCurrentStyle();
   ASSERT(classificator::IsStyleLoaded(
              forceOutdoorStyle ? (MapStyleIsDark(style) ? MapStyleOutdoorsDark : MapStyleOutdoorsLight) : style),
          ("Drawing rules for the current style are not loaded", style, forceOutdoorStyle));
+#endif  // DEBUG
 
   feature::TypesHolder const types(f);
   Classificator const & cl = forceOutdoorStyle ? GetOutdoorClassif() : classif();

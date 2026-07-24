@@ -18,6 +18,10 @@ std::string GetPreferred();
 /// @return Original language code for the current user in the form "en-US", "zh-Hant".
 std::string GetCurrentOrig();
 
+/// @return @a lang in our Twine translations compatible format, e.g. "en", "pt" or "zh-Hant".
+/// Drops the region but keeps the Chinese script.
+std::string GetTwine(std::string const & lang);
+
 /// @return Current language in out Twine translations compatible format, e.g. "en", "pt" or "zh-Hant".
 std::string GetCurrentTwine();
 std::string GetCurrentMapTwine();

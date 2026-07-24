@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Garums";
 "share_my_location" = "Kopīgot manu atrašanās vietu";
+"prefs_group_network" = "Tīkls";
 "prefs_group_route" = "Navigācija";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Kļūda, nosūtot vēstuli";
-
-/* Settings item title */
-"pref_calibration_title" = "Kompasa kalibrēšana";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Pieejamas";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Šāds nosaukums jau ir aizņemts";
 "profile" = "„OpenStreetMap“ profils";
 "restore" = "Atjaunot";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Privātums";
 "privacy_policy" = "Privātuma politika";
 "terms_of_use" = "Lietošanas noteikumi";
 

@@ -13,7 +13,6 @@ namespace
 {
 char const * kAutoDownloadEnabledKey = "AutoDownloadEnabled";
 char const * kZoomButtonsEnabledKey = "ZoomButtonsEnabled";
-char const * kCompassCalibrationEnabledKey = "CompassCalibrationEnabled";
 char const * kRoutingDisclaimerApprovedKey = "IsDisclaimerApproved";
 char const * kSearchHistoryEnabledKey = "SearchHistoryEnabled";
 
@@ -96,18 +95,6 @@ NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidShowIClo
   default: UNREACHABLE();
   }
   GetFramework().SetBookmarksTextPlacement(setting);
-}
-
-+ (BOOL)compassCalibrationEnabled
-{
-  bool enabled = true;
-  UNUSED_VALUE(settings::Get(kCompassCalibrationEnabledKey, enabled));
-  return enabled;
-}
-
-+ (void)setCompassCalibrationEnabled:(BOOL)compassCalibrationEnabled
-{
-  settings::Set(kCompassCalibrationEnabledKey, static_cast<bool>(compassCalibrationEnabled));
 }
 
 + (MWMTheme)theme

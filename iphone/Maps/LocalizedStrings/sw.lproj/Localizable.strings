@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Urefu";
 "share_my_location" = "Shiriki Mahali Pangu";
+"prefs_group_network" = "Mtandao";
 "prefs_group_route" = "Uelekezi";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Hitilafu katika kutuma barua pepe";
-
-/* Settings item title */
-"pref_calibration_title" = "Kalibresheni ya kompasi";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Inapatikana";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Jina hili tayari limechukuliwa";
 "profile" = "Wasifu wa OpenStreetMap";
 "restore" = "Rejesha";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Faragha";
 "privacy_policy" = "Sera ya faragha";
 "terms_of_use" = "Masharti ya matumizi";
 

@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Gjatësia";
 "share_my_location" = "Ndaj Vendndodhjen Time";
+"prefs_group_network" = "Rrjeti";
 "prefs_group_route" = "Lundrimi";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Gabim gjatë dërgimit të emailit";
-
-/* Settings item title */
-"pref_calibration_title" = "Kalibrimi i busullës";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Në dispozicion";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Ky emër është tashmë i zënë";
 "profile" = "Profili OpenStreetMap";
 "restore" = "Restauro";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Privatësia";
 "privacy_policy" = "Politika e privatësisë";
 "terms_of_use" = "Kushtet e përdorimit";
 

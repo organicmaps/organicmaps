@@ -629,7 +629,9 @@ private:
 
   static bool ParseAllTypesDebugCommand(search::SearchParams const & params);
 
-  void FillUserMarkInfo(UserMark const * mark, place_page::Info & outInfo);
+  /// @return false if @a outInfo was not filled (e.g. a stale track mark), so the caller should fall
+  /// back to the regular tap matching instead of activating an empty selection.
+  bool FillUserMarkInfo(UserMark const * mark, place_page::Info & outInfo);
   void FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const;
   void FillSearchResultInfo(SearchMarkPoint const & smp, place_page::Info & info) const;
   void FillMyPositionInfo(place_page::Info & info, place_page::BuildInfo const & buildInfo) const;

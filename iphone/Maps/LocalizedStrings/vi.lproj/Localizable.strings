@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Độ dài";
 "share_my_location" = "Chia sẻ Vị trí của tôi";
+"prefs_group_network" = "Mạng";
 "prefs_group_route" = "Điều hướng";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Lỗi gửi thư";
-
-/* Settings item title */
-"pref_calibration_title" = "Chuẩn hóa la bàn";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Đã có";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Tên này đã được sử dụng";
 "profile" = "Hồ sơ OpenStreetMap";
 "restore" = "Khôi phục";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Sự riêng tư";
 "privacy_policy" = "Chính sách bảo mật";
 "terms_of_use" = "Điều khoảng sử dụng";
 

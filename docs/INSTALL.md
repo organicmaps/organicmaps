@@ -80,9 +80,9 @@ Check `./configure.sh --help` to see how to copy the configs automatically from 
 
 ### Preparing
 
-You need a Linux or a MacOS machine to build a desktop version of Organic Maps. [Windows](#windows) users can use the [WSL](https://learn.microsoft.com/en-us/windows/wsl/) (Windows Subsystem for Linux) and follow ["Linux or Mac"](#linux-or-mac) steps described below.
+You need a Linux or a macOS machine to build a desktop version of Organic Maps. [Windows](#windows) users can use the [WSL](https://learn.microsoft.com/en-us/windows/wsl/) (Windows Subsystem for Linux) and follow ["Linux or Mac"](#linux-or-mac) steps described below.
 
-### Linux or MacOS
+### Linux or macOS
 
 Ensure that you have at least 20GB of free space.
 
@@ -200,9 +200,8 @@ LD_PRELOAD=/usr/lib64/libGL.so.1 ./OMaps                  # Fedora/RHEL
 
 ### Windows
 
-We haven't compiled Organic Maps on Windows *natively* in a long time, though it is possible.
-Some files should be updated. There is a work in progress on [windows](https://github.com/organicmaps/organicmaps/tree/windows) branch.
-Please contribute if you have time.
+Native Windows builds of Organic Maps are not actively maintained, but building on Windows is still possible. Some parts of the build system may require updates, and there is ongoing work on the [windows](https://github.com/organicmaps/organicmaps/tree/windows) branch. Contributions are welcome.
+
 You'll need to have python3, cmake, ninja, and QT6 in the PATH, and Visual Studio 2022 or Visual Studio 2022 Build Tools installed. Use [Visual Studio Developer Command Prompt](https://learn.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022) or generate Visual Studio project files with CMake to build the project.
 
 However, it is possible to use the WSL (Windows Subsystem for Linux) to run GUI applications.
@@ -329,32 +328,10 @@ To skip building tests, configure with `-DBUILD_TESTING=OFF`.
 
 To generate a test coverage report you'll need [gcovr](https://gcovr.com) and gcov tools installed.
 
-Installing gcovr on Linux:
-```bash
-pip3 install gcovr
-```
-
-Installing gcovr on MacOS:
-```bash
-brew install gcovr
-```
-
-Installing gcov on Linux:
-```bash
-# If you're using GCC compiler
-sudo apt-get install cpp
-
-# If you're using Clang compiler
-sudo apt-get install llvm
-```
-
-Installing gcov on MacOS:
-```bash
-# If you're using AppleClang compiler it should already be installed
-
-# If you're using Clang compiler
-brew install llvm
-```
+| Platform | `gcovr` | `gcov` tools |
+|----------|---------|--------------|
+| **Linux** | `pip3 install gcovr` | **GCC:** `sudo apt install gcc`<br>**Clang:** `sudo apt install llvm` |
+| **macOS** | `brew install gcovr` | **Apple Clang:** already included with Xcode Command Line Tools.<br>**LLVM Clang:** `brew install llvm` |
 
 Steps to generate coverage report:
 
@@ -397,9 +374,9 @@ By default `OMaps` expects a repository's `data` folder to be present in the cur
 
 Check `OMaps -help` for a list of all run-time options.
 
-When running the desktop app with lots of maps, increase the open files limit. In MacOS the default value is only 256.
+When running the desktop app with lots of maps, increase the open files limit. In macOS the default value is only 256.
 Use `ulimit -n 2000`, put it into `~/.bash_profile` to apply it to all new sessions.
-In MacOS to increase this limit globally, add `limit maxfiles 2048 2048` to `/etc/launchd.conf`
+In macOS to increase this limit globally, add `limit maxfiles 2048 2048` to `/etc/launchd.conf`
 and run
 
 ```bash
@@ -420,7 +397,7 @@ The `build_omim.sh` script basically runs these commands:
 
 ### Preparing
 
-Linux, MacOS, or Windows should work to build Organic Maps for Android.
+Linux, macOS, or Windows should work to build Organic Maps for Android.
 
 Ensure that you have at least 30GB of free space and Python 3 installed.
 

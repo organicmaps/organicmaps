@@ -63,38 +63,45 @@ UNIT_TEST(Transit_Piter_FrunzenskyaToPlochadVosstaniya)
   integration::CheckSubwayExistence(*routeResult.first);
 }
 
-UNIT_TEST(Transit_Piter_TooLongPedestrian)
+/// @todo The last pedestrian segment should use a dedicated footway instead of a primary road.
+/// Now it happens because:
+/// - transit graph snaps on stop_position which is on primary (V2 PT scheme).
+/// - there is no footway connection mapped from stop_position -> regular footway.
+/// 2 possible solutions:
+/// - Generator side: snap transit graph on a real stop instead of stop_position
+/// - Client side: Treat a real stop as Gate in routing (they are calculated in ReadTransitTask::Do)
+///   and find projection on the nearby footways from this stop.
+UNIT_TEST(Transit_Piter_StrangeLastWalk)
 {
   TRouteResult const routeResult = integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Transit),
                                                                mercator::FromLatLon(59.90511, 30.31425), {0.0, 0.0},
                                                                mercator::FromLatLon(59.78014, 30.50036));
-
-  /// @todo Returns valid route now with long pedestrian part in the end, I don't see problems here.
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
   TEST(routeResult.first, ());
   auto const & route = *routeResult.first;
 
   integration::CheckSubwayExistence(route);
-  integration::TestRouteLength(route, 23521.9);
-  TEST_LESS(route.GetTotalTimeSec(), 3600 * 3, ());
+  integration::TestRouteLength(route, 22917.7);
+  TEST_LESS(route.GetTotalTimeSec(), 5000, ());
 }
 
-UNIT_TEST(Transit_Vatikan_NotEnoughGraphDataAtThenEnd)
+// Interesting test after adding buses.
+// Main route: walk->bus->walk (long walking segments)
+// Alt route: bus->subway->bus->walk (minimal walk distances).
+/// @todo Maybe, expect bus->bus->bus->walk shorter and minimal walk distances.
+UNIT_TEST(Transit_Vatikan_InterestingAltRoutes)
 {
   TRouteResult const routeResult = integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Transit),
                                                                mercator::FromLatLon(41.89543, 12.41481), {0.0, 0.0},
                                                                mercator::FromLatLon(41.89203, 12.46263));
-
-  // Returns valid route now with long pedestrian part in the end, I don't see a problem here.
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
   TEST(routeResult.first, ());
   auto const & route = *routeResult.first;
 
-  integration::CheckSubwayExistence(route);
-  integration::TestRouteLength(route, 7564.21);
-  TEST_LESS(route.GetTotalTimeSec(), 4000, ());
+  integration::TestRouteLength(route, 6217.61);
+  TEST_LESS(route.GetTotalTimeSec(), 3000, ());
 }
 
 UNIT_TEST(Transit_Vatikan_CorneliaToOttaviano)

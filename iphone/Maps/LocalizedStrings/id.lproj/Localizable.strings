@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Panjang";
 "share_my_location" = "Bagikan Lokasi Saya";
+"prefs_group_network" = "Jaringan";
 "prefs_group_route" = "Navigasi";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Gangguan pengiriman surel";
-
-/* Settings item title */
-"pref_calibration_title" = "Kalibrasi kompas";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Tersedia";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Nama ini sudah dipakai";
 "profile" = "Profil OpenStreetMap";
 "restore" = "Mengembalikan";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Privasi";
 "privacy_policy" = "Kebijakan privasi";
 "terms_of_use" = "Ketentuan penggunaan";
 

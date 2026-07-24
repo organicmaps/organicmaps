@@ -1,10 +1,11 @@
 #include "testing/testing.hpp"
 
-#include "indexer/classificator_loader.hpp"
 #include "indexer/data_source.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/index_builder.hpp"
 #include "indexer/scales.hpp"
+
+#include "generator/generator_tests_support/test_with_classificator.hpp"
 
 #include "defines.hpp"
 
@@ -20,12 +21,12 @@
 
 namespace index_builder_test
 {
+using namespace generator::tests_support;
 using namespace std;
 
-UNIT_TEST(BuildIndexTest)
+UNIT_CLASS_TEST(TestWithClassificator, BuildIndexTest)
 {
   Platform & p = GetPlatform();
-  classificator::Load();
 
   FilesContainerR originalContainer(p.GetReader("minsk-pass" DATA_FILE_EXTENSION));
 

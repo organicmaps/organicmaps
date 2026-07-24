@@ -1,7 +1,8 @@
 #include "testing/testing.hpp"
 
-#include "indexer/classificator_loader.hpp"
 #include "indexer/data_source.hpp"
+
+#include "generator/generator_tests_support/test_with_classificator.hpp"
 
 #include "platform/local_country_file.hpp"
 
@@ -11,12 +12,11 @@
 
 namespace read_features_tests
 {
+using namespace generator::tests_support;
 using namespace std;
 
-UNIT_TEST(ReadFeatures_Smoke)
+UNIT_CLASS_TEST(TestWithClassificator, ReadFeatures_Smoke)
 {
-  classificator::Load();
-
   FrozenDataSource dataSource;
   dataSource.RegisterMap(platform::LocalCountryFile::MakeForTesting("minsk-pass"));
 

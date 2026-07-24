@@ -101,7 +101,6 @@ set(SRC
   app/organicmaps/sdk/util/Config.cpp
   app/organicmaps/sdk/util/GeoUtils.cpp
   app/organicmaps/sdk/util/HttpClient.cpp
-  app/organicmaps/sdk/util/Language.cpp
   app/organicmaps/sdk/util/LogsManager.cpp
   app/organicmaps/sdk/util/NetworkPolicy.cpp
   app/organicmaps/sdk/util/StringUtils.cpp

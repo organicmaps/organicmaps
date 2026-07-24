@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Longitud";
 "share_my_location" = "Comparteix la meva ubicació";
+"prefs_group_network" = "Xarxa";
 "prefs_group_route" = "Navegació";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "S'ha produït un error en enviar el correu";
-
-/* Settings item title */
-"pref_calibration_title" = "Calibratge de la brúixola";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Disponibles";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Aquest nom ja és en ús";
 "profile" = "Perfil de l’OpenStreetMap";
 "restore" = "Restaura";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Privadesa";
 "privacy_policy" = "Política de privadesa";
 "terms_of_use" = "Condicions del servei";
 
