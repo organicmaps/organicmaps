@@ -154,6 +154,7 @@ public:
                        TAnimationCreator const & parallelAnimCreator) override;
   void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
                        TAnimationCreator const & parallelAnimCreator) override;
+  void MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive) override;
 
   drape_ptr<ScenarioManager> const & GetScenarioManager() const { return m_scenarioManager; }
   location::EMyPositionMode GetMyPositionMode() const { return m_myPositionController->GetCurrentMode(); }
@@ -277,6 +278,7 @@ private:
   void RemoveRenderGroupsLater(TRenderGroupRemovePredicate const & predicate);
 
   void FollowRoute(int preferredZoomLevel, int preferredZoomLevelIn3d, bool enableAutoZoom, bool isArrowGlued);
+  void UpdateRoutingPerspective();
 
   bool CheckRouteRecaching(ref_ptr<BaseSubrouteData> subrouteData);
 
