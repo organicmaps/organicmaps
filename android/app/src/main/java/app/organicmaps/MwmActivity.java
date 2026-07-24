@@ -41,6 +41,7 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.graphics.Insets;
@@ -139,7 +140,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public static final String EXTRA_BOOKMARK_ID = "bookmark_id";
   public static final String EXTRA_TRACK_ID = "track_id";
   public static final String EXTRA_UPDATE_THEME = "update_theme";
-  private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
+  // Stored both in the saved instance state and, when the core restarts, in the intent itself.
+  static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
   private boolean mIntentConsumed = false;
   private boolean mPreciseLocationDialogShown = false;
 
@@ -453,6 +455,35 @@ public class MwmActivity extends BaseMwmFragmentActivity
     recreate();
   }
 
+  /**
+   * The activity created once the core is up does not inherit this instance's saved state, so the
+   * mark has to travel in the intent, which outlives the flag reset in {@link SplashActivity}.
+   * <p>
+   * The mark is written even when it is {@code false}. Its mere presence tells the splash that the
+   * state of this intent is known, so a file that has not been imported yet is not written off as
+   * handled by {@link SplashActivity#markIntentConsumedIfRelaunchedFromHistory}.
+   */
+  @Override
+  protected void prepareIntentForCoreRestart(@NonNull Intent intent, @Nullable Bundle savedInstanceState)
+  {
+    if (savedInstanceState != null)
+      intent.putExtra(EXTRA_CONSUMED, savedInstanceState.getBoolean(EXTRA_CONSUMED, false));
+  }
+
+  /**
+   * Tells whether the intent this activity starts with has already been processed. A configuration
+   * change restores the mark from the instance's own state, while a core restart through
+   * {@link SplashActivity} re-creates the activity from scratch and only the intent survives.
+   */
+  @VisibleForTesting
+  static boolean isIntentConsumed(@Nullable Bundle savedInstanceState, @Nullable Intent intent)
+  {
+    if (savedInstanceState != null)
+      return savedInstanceState.getBoolean(EXTRA_CONSUMED, false);
+
+    return intent != null && intent.getBooleanExtra(EXTRA_CONSUMED, false);
+  }
+
   @SuppressLint("InlinedApi")
   @CallSuper
   @Override
@@ -460,8 +491,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onSafeCreate(savedInstanceState);
 
-    if (savedInstanceState != null)
-      mIntentConsumed = savedInstanceState.getBoolean(EXTRA_CONSUMED, false);
+    mIntentConsumed = isIntentConsumed(savedInstanceState, getIntent());
 
     setContentView(R.layout.activity_map);
     makeNavigationBarTransparentInLightMode();
