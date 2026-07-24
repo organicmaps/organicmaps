@@ -280,7 +280,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
                      alert.alpha = 1.;
                      alert.transform = CGAffineTransformIdentity;
                    }];
-  [[MapsAppDelegate theApp].window endEditing:YES];
+  [ownerVC.view.window endEditing:YES];
 }
 
 - (void)closeAlert:(nullable MWMVoidBlock)completion
