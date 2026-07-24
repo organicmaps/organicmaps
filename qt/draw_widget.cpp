@@ -143,12 +143,7 @@ void DrawWidget::PrepareShutdown()
 {
   auto & routingManager = m_framework.GetRoutingManager();
   if (routingManager.IsRoutingActive() && routingManager.IsRoutingFollowing())
-  {
     routingManager.SaveRoutePoints();
-
-    auto style = m_framework.GetMapStyle();
-    m_framework.MarkMapStyle(MapStyleIsDark(style) ? MapStyle::MapStyleDefaultDark : MapStyle::MapStyleDefaultLight);
-  }
 }
 
 void DrawWidget::UpdateAfterSettingsChanged()
@@ -618,22 +613,13 @@ void DrawWidget::FollowRoute()
   if (!points.front().m_isMyPosition && !points.back().m_isMyPosition)
     return;
   if (routingManager.IsRoutingActive() && !routingManager.IsRoutingFollowing())
-  {
     routingManager.FollowRoute();
-    SetMapStyleToVehicle();
-  }
 }
 
 void DrawWidget::ClearRoute()
 {
   auto & routingManager = m_framework.GetRoutingManager();
-
-  bool const wasActive = routingManager.IsRoutingActive() && routingManager.IsRoutingFollowing();
   routingManager.CloseRouting(true /* remove route points */);
-
-  if (wasActive)
-    SetMapStyleToDefault();
-
   m_turnsVisualizer.ClearTurns(m_framework.GetDrapeApi());
 }
 
@@ -712,24 +698,6 @@ void DrawWidget::SetRuler(bool enabled)
 void DrawWidget::RefreshDrawingRules()
 {
   SetMapStyle(MapStyleDefaultLight);
-}
-
-void DrawWidget::SetMapStyleToDefault()
-{
-  auto const style = m_framework.GetMapStyle();
-  SetMapStyle(MapStyleIsDark(style) ? MapStyle::MapStyleDefaultDark : MapStyle::MapStyleDefaultLight);
-}
-
-void DrawWidget::SetMapStyleToVehicle()
-{
-  auto const style = m_framework.GetMapStyle();
-  SetMapStyle(MapStyleIsDark(style) ? MapStyle::MapStyleVehicleDark : MapStyle::MapStyleVehicleLight);
-}
-
-void DrawWidget::SetMapStyleToOutdoors()
-{
-  auto const style = m_framework.GetMapStyle();
-  SetMapStyle(MapStyleIsDark(style) ? MapStyle::MapStyleOutdoorsDark : MapStyle::MapStyleOutdoorsLight);
 }
 
 m2::PointD DrawWidget::P2G(m2::PointD const & pt) const

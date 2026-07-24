@@ -71,6 +71,7 @@
 #include "std/target_os.hpp"
 
 #include <algorithm>
+#include <optional>
 
 using namespace location;
 using namespace routing;
@@ -346,7 +347,18 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   std::string mapStyleStr;
   if (settings::Get(kMapStyleKey, mapStyleStr))
     mapStyle = MapStyleFromSettings(mapStyleStr);
+  // Normalize the persisted style against the outdoors flag: with no active route at launch a
+  // transient Vehicle style collapses to the base family. Presence-aware, so a legacy Outdoors-only
+  // persistence (flag absent) seeds the flag without clobbering an explicitly stored value.
+  std::optional<bool> persistedOutdoors;
+  if (bool enabled; settings::Get(kOutdoorsEnabledKey, enabled))
+    persistedOutdoors = enabled;
+  auto const startup = NormalizeStartupMapStyle(mapStyle, persistedOutdoors);
+  if (startup.persistOutdoorsFlag)
+    SaveOutdoorsEnabled(startup.outdoorsEnabled);
+  mapStyle = startup.style;
   GetStyleReader().SetCurrentStyle(mapStyle);
+  m_nightMode = MapStyleIsDark(mapStyle);
   df::LoadTransitColors();
 
   // Init strings bundle.
@@ -1983,6 +1995,9 @@ void Framework::MarkMapStyle(MapStyle mapStyle)
     mapStyleStr = MapStyleToString(mapStyle);
   }
   settings::Set(kMapStyleKey, mapStyleStr);
+  // Keep the night mode in sync with the active style's darkness so ResolveMapStyleForMode() stays
+  // correct after any direct style change (debug commands, SDK MapStyle.set/mark).
+  m_nightMode = MapStyleIsDark(mapStyle);
   // Make sure the new style's family is resident before switching (a no-op once it is loaded, so
   // light<->dark stays zero-IO); drape worker threads observe the switch only via UpdateMapStyle.
   classificator::EnsureStyleLoaded(mapStyle);
@@ -1997,6 +2012,31 @@ void Framework::SetMapStyle(MapStyle mapStyle)
   InvalidateUserMarks();
   UpdateBookmarksTextPlacement();
   UpdateMinBuildingsTapZoom();
+}
+
+void Framework::SetNightMode(bool nightMode)
+{
+  m_nightMode = nightMode;
+}
+
+MapStyle Framework::ResolveMapStyleForMode() const
+{
+  auto const & rm = GetRoutingManager();
+  bool const vehicleFollowing = rm.IsRoutingFollowing() && rm.GetRouter() == routing::RouterType::Vehicle;
+  return GetMapStyleForFamily(SelectMapStyleFamily(vehicleFollowing, LoadOutdoorsEnabled()), m_nightMode);
+}
+
+void Framework::ApplyMapStyleForMode()
+{
+  auto const style = ResolveMapStyleForMode();
+  if (style != GetMapStyle())
+    SetMapStyle(style);
+}
+
+void Framework::ApplyMapStyleForMode(bool nightMode)
+{
+  SetNightMode(nightMode);
+  ApplyMapStyleForMode();
 }
 
 MapStyle Framework::GetMapStyle() const
@@ -3789,6 +3829,11 @@ std::vector<MwmSet::MwmId> Framework::GetMwmsByRect(m2::RectD const & rect, bool
 // RoutingManager::Delegate
 void Framework::OnRouteFollow(routing::RouterType type)
 {
+  // Following just started with m_isFollowing already final. The session-state callback can miss this:
+  // when a preview location update already advanced the session to OnRoute, EnableFollowMode re-issues
+  // SetState(OnRoute) — a no-op that emits no callback — so resolve the (now Vehicle) family here.
+  ApplyMapStyleForMode();
+
   bool const isPedestrianRoute = type == RouterType::Pedestrian;
   bool const enableAutoZoom = isPedestrianRoute ? false : LoadAutoZoom();
   int const scale = isPedestrianRoute ? scales::GetPedestrianNavigationScale() : scales::GetNavigationScale();
@@ -3807,6 +3852,14 @@ void Framework::OnRouteFollow(routing::RouterType type)
   // |isArrowGlued| parameter fully corresponds to |m_matchRoute| in RoutingSettings.
   // For pedestrian and bicycle modes, use compass heading when stopped (isArrowGlued = false).
   m_drapeEngine->FollowRoute(scale, scale3d, enableAutoZoom, !(isPedestrianRoute || isBicycleRoute) /* isArrowGlued */);
+}
+
+// RoutingManager::Delegate
+void Framework::OnRoutingSessionStateChanged()
+{
+  // Entered or left active navigation; re-resolve the map style family at the night mode the
+  // platform last supplied.
+  ApplyMapStyleForMode();
 }
 
 // RoutingManager::Delegate

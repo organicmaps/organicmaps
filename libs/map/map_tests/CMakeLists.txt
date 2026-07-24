@@ -15,6 +15,7 @@ set(SRC
   gps_track_storage_test.cpp
   gps_track_test.cpp
   kmz_unarchive_test.cpp
+  map_style_resolve_tests.cpp
   mwm_url_tests.cpp
   power_manager_tests.cpp
   road_warning_tests.cpp

@@ -8,7 +8,7 @@ final class AppearanceSettingsInteractor {
   }
 
   func loadSettings() {
-    present(AppearanceSettingsState(theme: settings.theme().settingsTheme),
+    present(AppearanceSettingsState(theme: settings.theme()),
             animatingDifferences: false)
   }
 

@@ -46,6 +46,17 @@ std::string DebugPrint(MapStyle mapStyle)
   return MapStyleToString(mapStyle);
 }
 
+std::string DebugPrint(MapStyleFamily family)
+{
+  switch (family)
+  {
+  case MapStyleFamily::Default: return "Default";
+  case MapStyleFamily::Vehicle: return "Vehicle";
+  case MapStyleFamily::Outdoors: return "Outdoors";
+  }
+  return "Unknown MapStyleFamily";
+}
+
 bool MapStyleIsDark(MapStyle mapStyle)
 {
   for (auto const darkStyle : {MapStyleDefaultDark, MapStyleVehicleDark, MapStyleOutdoorsDark})
@@ -54,30 +65,40 @@ bool MapStyleIsDark(MapStyle mapStyle)
   return false;
 }
 
-MapStyle GetDarkMapStyleVariant(MapStyle mapStyle)
+MapStyle GetMapStyleForFamily(MapStyleFamily family, bool dark)
 {
-  if (MapStyleIsDark(mapStyle) || mapStyle == MapStyleMerged)
-    return mapStyle;
-
-  switch (mapStyle)
+  switch (family)
   {
-  case MapStyleDefaultLight: return MapStyleDefaultDark;
-  case MapStyleVehicleLight: return MapStyleVehicleDark;
-  case MapStyleOutdoorsLight: return MapStyleOutdoorsDark;
-  default: CHECK(false, ()); return MapStyleDefaultDark;
+  case MapStyleFamily::Default: return dark ? MapStyleDefaultDark : MapStyleDefaultLight;
+  case MapStyleFamily::Vehicle: return dark ? MapStyleVehicleDark : MapStyleVehicleLight;
+  case MapStyleFamily::Outdoors: return dark ? MapStyleOutdoorsDark : MapStyleOutdoorsLight;
   }
+  CHECK(false, ("Unhandled MapStyleFamily", static_cast<int>(family)));
+  return dark ? MapStyleDefaultDark : MapStyleDefaultLight;
 }
 
-MapStyle GetLightMapStyleVariant(MapStyle mapStyle)
+bool IsOutdoorsStyle(MapStyle mapStyle)
 {
-  if (!MapStyleIsDark(mapStyle))
-    return mapStyle;
+  return mapStyle == MapStyleOutdoorsLight || mapStyle == MapStyleOutdoorsDark;
+}
 
-  switch (mapStyle)
-  {
-  case MapStyleDefaultDark: return MapStyleDefaultLight;
-  case MapStyleVehicleDark: return MapStyleVehicleLight;
-  case MapStyleOutdoorsDark: return MapStyleOutdoorsLight;
-  default: CHECK(false, ()); return MapStyleDefaultLight;
-  }
+MapStyleFamily SelectMapStyleFamily(bool vehicleFollowing, bool outdoorsEnabled)
+{
+  // Priority, highest first. A new higher-priority family (e.g. Satellite) prepends its own branch.
+  if (vehicleFollowing)
+    return MapStyleFamily::Vehicle;
+  if (outdoorsEnabled)
+    return MapStyleFamily::Outdoors;
+  return MapStyleFamily::Default;
+}
+
+StartupMapStyle NormalizeStartupMapStyle(MapStyle persisted, std::optional<bool> persistedOutdoorsEnabled)
+{
+  // The stored flag is authoritative; only a legacy Outdoors-only persistence (flag absent) derives it
+  // from the style. Persist only that derived value, so an explicit stored value is never overwritten.
+  bool const outdoorsEnabled = persistedOutdoorsEnabled.value_or(IsOutdoorsStyle(persisted));
+  bool const persistFlag = !persistedOutdoorsEnabled.has_value() && outdoorsEnabled;
+  // No active route at launch, so no Vehicle family: pick the base family at the persisted darkness.
+  auto const family = SelectMapStyleFamily(false /* vehicleFollowing */, outdoorsEnabled);
+  return {GetMapStyleForFamily(family, MapStyleIsDark(persisted)), outdoorsEnabled, persistFlag};
 }
