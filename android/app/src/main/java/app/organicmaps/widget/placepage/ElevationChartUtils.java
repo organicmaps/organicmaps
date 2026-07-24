@@ -71,6 +71,7 @@ public final class ElevationChartUtils
     x.setGranularityEnabled(true);
     x.setTextColor(ThemeUtils.getColor(context, R.attr.elevationProfileAxisLabelColor));
     x.setPosition(XAxis.XAxisPosition.BOTTOM);
+    x.setAvoidFirstLastClipping(true);
     int dividerColor = ThemeUtils.getColor(context, androidx.appcompat.R.attr.dividerHorizontal);
     x.setAxisLineColor(dividerColor);
     x.setAxisLineWidth(context.getResources().getDimensionPixelSize(R.dimen.divider_height));

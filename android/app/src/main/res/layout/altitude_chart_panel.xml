@@ -9,12 +9,12 @@
   android:layout_marginTop="@dimen/margin_quarter_plus"
   android:layout_weight="1"
   android:orientation="vertical"
-  android:paddingStart="@dimen/altitude_chart_container_padding_left"
-  android:paddingEnd="@dimen/altitude_chart_container_padding_left"
   android:paddingBottom="@dimen/margin_half_plus"
   tools:showIn="@layout/routing_bottom_sheet">
 
   <LinearLayout
+    android:paddingStart="@dimen/routing_plan_horizontal_padding"
+    android:paddingEnd="@dimen/routing_plan_horizontal_padding"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -171,6 +171,8 @@
     android:id="@+id/transit_recycler_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/routing_plan_horizontal_padding"
+    android:layout_marginEnd="@dimen/routing_plan_horizontal_padding"
     android:layout_marginTop="@dimen/margin_half_plus"
     android:visibility="gone"
     tools:visibility="visible" />
