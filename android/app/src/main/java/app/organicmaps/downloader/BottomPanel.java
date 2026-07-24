@@ -111,16 +111,34 @@ class BottomPanel
       return;
     }
 
-    boolean show = true;
-    String root = adapter.getCurrentRootId();
-    int status = MapManager.nativeGetStatus(root);
+    final String root = adapter.getCurrentRootId();
+    final int status = MapManager.nativeGetStatus(root);
+    final boolean myMapsMode = adapter.isMyMapsMode();
 
     // Hide FAB when all maps are already downloaded - nothing new to download
-    UiUtils.showIf(show && adapter.isMyMapsMode() && status != STATUS_DONE, mFab);
+    UiUtils.showIf(myMapsMode && status != STATUS_DONE, mFab);
 
-    if (show)
+    boolean showActionButton;
+    if (myMapsMode)
     {
-      if (adapter.isMyMapsMode())
+      showActionButton = true;
+      switch (status)
+      {
+      case STATUS_UPDATABLE ->
+      {
+        UpdateInfo info = MapManager.nativeGetUpdateInfo(root);
+        setUpdateAllState(info);
+      } // Special case for "Countries" node when no maps currently downloaded.
+      case STATUS_DOWNLOADABLE, STATUS_DONE, STATUS_PARTLY -> showActionButton = false;
+      case STATUS_PROGRESS, STATUS_APPLYING, STATUS_ENQUEUED -> setCancelState();
+      case STATUS_FAILED -> setRetryFailedStates();
+      default -> throw new IllegalArgumentException("Inappropriate status for \"" + root + "\": " + status);
+      }
+    }
+    else
+    {
+      showActionButton = !CountryItem.isRoot(root);
+      if (showActionButton)
       {
         switch (status)
         {
@@ -128,35 +146,16 @@ class BottomPanel
         {
           UpdateInfo info = MapManager.nativeGetUpdateInfo(root);
           setUpdateAllState(info);
-        } // Special case for "Countries" node when no maps currently downloaded.
-        case STATUS_DOWNLOADABLE, STATUS_DONE, STATUS_PARTLY -> show = false;
+        }
+        case STATUS_DONE -> showActionButton = false;
         case STATUS_PROGRESS, STATUS_APPLYING, STATUS_ENQUEUED -> setCancelState();
         case STATUS_FAILED -> setRetryFailedStates();
-        default -> throw new IllegalArgumentException("Inappropriate status for \"" + root + "\": " + status);
-        }
-      }
-      else
-      {
-        show = !CountryItem.isRoot(root);
-        if (show)
-        {
-          switch (status)
-          {
-          case STATUS_UPDATABLE ->
-          {
-            UpdateInfo info = MapManager.nativeGetUpdateInfo(root);
-            setUpdateAllState(info);
-          }
-          case STATUS_DONE -> show = false;
-          case STATUS_PROGRESS, STATUS_APPLYING, STATUS_ENQUEUED -> setCancelState();
-          case STATUS_FAILED -> setRetryFailedStates();
-          default -> setDownloadAllState();
-          }
+        default -> setDownloadAllState();
         }
       }
     }
 
-    UiUtils.showIf(show, mButton);
+    UiUtils.showIf(showActionButton, mButton);
 
     mFragment.requireView().requestApplyInsets();
   }
