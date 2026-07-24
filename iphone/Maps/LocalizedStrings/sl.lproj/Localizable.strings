@@ -919,6 +919,9 @@
 "medicine" = "Medicina";
 "search_in_the_list" = "Išči na seznamu";
 "religious_places" = "Verski kraji";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Izberite";
 "transit_not_found" = "Navigacija s podzemno železnico v tej regiji še ni na voljo";
 "dialog_pedestrian_route_is_long_header" = "Ni najdene poti s podzemno železnico";
 "dialog_pedestrian_route_is_long_message" = "Izberite začetno ali končno točko bližje postaji podzemne železnice";

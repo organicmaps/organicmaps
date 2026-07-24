@@ -919,6 +919,9 @@
 "medicine" = "Dərman";
 "search_in_the_list" = "Siyahıda axtarın";
 "religious_places" = "Dini yerlər";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Seçin";
 "transit_not_found" = "Metro naviqasiyası bu ərazidə hələ mövcud deyil";
 "dialog_pedestrian_route_is_long_header" = "Metro marşrutu tapılmadı";
 "dialog_pedestrian_route_is_long_message" = "Metro stansiyasına ən yaxın marşrutun başlanğıc və ya bitmə nöqtəsini seçin";

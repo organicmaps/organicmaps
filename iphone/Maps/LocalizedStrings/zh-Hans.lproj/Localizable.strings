@@ -919,6 +919,9 @@
 "medicine" = "医疗";
 "search_in_the_list" = "在列表中搜索";
 "religious_places" = "宗教场所";
+
+/* Button title to enter multi-selection mode. */
+"select" = "选择";
 "transit_not_found" = "本区域的地铁导航目前不可用";
 "dialog_pedestrian_route_is_long_header" = "未找到地铁路线图";
 "dialog_pedestrian_route_is_long_message" = "选择地铁站附近的起点和终点";

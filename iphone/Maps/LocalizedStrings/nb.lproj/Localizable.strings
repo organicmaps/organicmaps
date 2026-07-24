@@ -919,6 +919,9 @@
 "medicine" = "Medisin";
 "search_in_the_list" = "Søk på lista";
 "religious_places" = "Hellige steder";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Velg";
 "transit_not_found" = "T-bane navigasjon er ikke tilgjengelig i denne regionen ennå";
 "dialog_pedestrian_route_is_long_header" = "T-bane rute ikke funnet";
 "dialog_pedestrian_route_is_long_message" = "Velg utgangspunkt eller destinasjon som befinner seg nærmere en T-bane stasjon";

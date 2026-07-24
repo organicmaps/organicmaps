@@ -16,6 +16,11 @@ enum GroupReloadingResult {
   case notFound
 }
 
+enum BookmarksListItemId: Hashable {
+  case bookmark(MWMMarkID)
+  case track(MWMTrackID)
+}
+
 protocol IBookmarksListSectionViewModel {
   var numberOfItems: Int { get }
   var sectionTitle: String { get }
@@ -31,12 +36,17 @@ protocol ITracksSectionViewModel: IBookmarksListSectionViewModel {
   var tracks: [IBookmarksListItemViewModel] { get }
 }
 
+protocol IBookmarksListEditableSectionViewModel: IBookmarksListSectionViewModel {
+  var editableItems: [IBookmarksListItemViewModel] { get }
+}
+
 protocol ISubgroupsSectionViewModel: IBookmarksListSectionViewModel {
   var subgroups: [ISubgroupViewModel] { get }
   var type: BookmarkGroupType { get }
 }
 
 protocol IBookmarksListItemViewModel {
+  var itemId: BookmarksListItemId { get }
   var name: String { get }
   var subtitle: String { get }
   var image: UIImage { get }
@@ -77,6 +87,7 @@ protocol IBookmarksListPresenter {
   func more()
   func editCategory()
   func deleteItem(in section: IBookmarksListSectionViewModel, at index: Int)
+  func deleteItems(with itemIds: Set<BookmarksListItemId>)
   func moveItem(in section: IBookmarksListSectionViewModel, at index: Int)
   func editItem(in section: IBookmarksListSectionViewModel, at index: Int)
   func selectItem(in section: IBookmarksListSectionViewModel, at index: Int)

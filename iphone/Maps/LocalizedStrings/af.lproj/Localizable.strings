@@ -919,6 +919,9 @@
 "medicine" = "Geneeskunde";
 "search_in_the_list" = "Soek in die lys";
 "religious_places" = "Plekke van aanbidding";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Kies";
 "transit_not_found" = "Moltreinnavigasie is nog nie in hierdie streek beskikbaar nie";
 "dialog_pedestrian_route_is_long_header" = "Moltreinroete nie gevind";
 "dialog_pedestrian_route_is_long_message" = "Kies asb. ’n begin- of eindpunt nader aan die moltreinstasie";

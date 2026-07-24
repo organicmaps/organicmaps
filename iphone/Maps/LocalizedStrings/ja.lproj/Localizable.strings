@@ -919,6 +919,9 @@
 "medicine" = "医薬品";
 "search_in_the_list" = "リスト内で検索";
 "religious_places" = "礼拝所";
+
+/* Button title to enter multi-selection mode. */
+"select" = "選択";
 "transit_not_found" = "この地域の地下鉄ナビはまだ利用できません";
 "dialog_pedestrian_route_is_long_header" = "地下鉄ルートが見つかりませんでした";
 "dialog_pedestrian_route_is_long_message" = "もっと地下鉄駅に近い出発地または目的地を選択してください";

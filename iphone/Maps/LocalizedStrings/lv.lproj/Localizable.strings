@@ -919,6 +919,9 @@
 "medicine" = "Medicīna";
 "search_in_the_list" = "Meklēt sarakstā";
 "religious_places" = "Reliģiskas vietas";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Atlasīt";
 "transit_not_found" = "Metro navigācija šajā reģionā nav pieejama";
 "dialog_pedestrian_route_is_long_header" = "Metro maršruts nav atrasts";
 "dialog_pedestrian_route_is_long_message" = "Izvēlieties sākuma un beigu punktu tuvāk metro stacijai";
