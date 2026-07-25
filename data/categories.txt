@@ -1144,8 +1144,8 @@ hu:3Benzinkút|benzin
 id:Pompa bensin
 it:3Stazione di rifornimento
 ja:ガスステーション|ガス|燃料|軽油|給油|ガソリンスタンド
-lv:3DUS
 lt:4Degalinė|4Benzinas|4Dyzelis
+lv:3DUS
 mr:पेट्रोल|इंधन|डिझेल|पेट्रोल पंप|पंप
 nb:3Bensinstasjon
 nl:3Tankstation|3brandstof
@@ -1403,8 +1403,8 @@ de:4Hofladen|4Bauernhofladen
 es:4Granja|productos de granja
 et:Talutoit|talutoitude pood
 fr:4Produits fermiers|ferme
-lt:4Ūkio produktai|5fermerio parduotuvė|ūkininkų parduotuvė
 hi:3खेती से उत्पन्न खाद्द की दुकान
+lt:4Ūkio produktai|5fermerio parduotuvė|ūkininkų parduotuvė
 lv:Lauku produkti
 ru:Фермерская еда|фермерский магазин
 sl:4Kmetija|4kmetijski izdelki
@@ -1457,9 +1457,9 @@ de:Lebensmittelkonserven
 es:Tienda de comestibles|Almacén|Provisión
 et:Toidukaubad|toidukauplus
 fr:Épicerie
-lt:5Bakalija|5maisto prekės|bakalėja
 hi:3किराने की दुकान
 ko:식료품점
+lt:5Bakalija|5maisto prekės|bakalėja
 lv:Pārtika
 ru:Бакалея
 sl:4Živila|4bakalija|živilska trgovina
@@ -1471,9 +1471,9 @@ de:4Reformhaus|5Naturkostladen|4Bioladen
 es:Alimentos saludables
 et:Tervisetoit
 fr:4Diététique
-lt:5Sveika mityba|5bio parduotuvė
 hi:4स्वस्थ भोजन की दुकान|4हेल्थ फ़ूड स्टोर
 ko:건강식품 가게|건강식품점
+lt:5Sveika mityba|5bio parduotuvė
 lv:Veselīgs uzturs
 ru:Здоровая еда
 sl:4Zdrava hrana|5bio trgovina
@@ -2870,8 +2870,8 @@ de:5Wohnmobilhändler|5Wohnwagenhändler
 es:Venta de caravanas|venta de autocaravanas|venta de motorhomes
 et:Haagiselamute müük
 fr:Concessionnaire de caravanes et camping-cars
-lt:5Automobilinių namų pardavimas|5kemperiai
 hi:4कैंपर डीलर
+lt:5Automobilinių namų pardavimas|5kemperiai
 lv:5kemperu veikals|5treileru veikals
 ru:Автодом|Продажа автодомов
 sl:4Avtodomi|5prodaja avtodomov|4kampirci|prodajalna avtodomov
@@ -5605,13 +5605,13 @@ et:Auto jagamine|autojagamisteenus
 eu:Partekatu autoa|auto partekatzea
 fi:Autojen yhteiskäyttö
 fr:Station d'autopartage|auto-partage
-lt:5Automobilių dalijimasis|5Carpooling
 hi:3गाड़ी साँझा
 hu:Gépjárműmegosztás|autómegosztás
 id:Berbagi mobil
 it:3Car Sharing
 ja:カーシェアリング
 ko:카 셰어링|카 쉐어링|자동차 공유|차 공유|카셰어링
+lt:5Automobilių dalijimasis|5Carpooling
 lv:Automobiļu koplietošana|auto koplietošana|automašīnu koplietošana|koplietošana|automobilis
 mr:कार पूल|कार शेअर|कार शेअरिंग
 nb:3Bildeling
@@ -6377,8 +6377,8 @@ hu:Rendelőintézet|3orvos|kórház
 id:Rumah sakit|rumahsakit
 ja:病院|クリニック|医師|医者|ドクター|救急|診療
 ko:병원
-lv:Slimnīca|klīnika|poliklīnika|ārsts|dakteris|medicīnas centrs|medicīniskie pakalpojumi|ambulance
 lt:5Ligoninė|5Klinika|5Gydytojas|5Greitoji pagalba
+lv:Slimnīca|klīnika|poliklīnika|ārsts|dakteris|medicīnas centrs|medicīniskie pakalpojumi|ambulance
 mr:रुग्णालय|हॉस्पिटल
 nl:Ziekenhuis|kliniek|hospitaal|3dokter|3eerste hulp
 pl:Szpital|klinika|lekarz|4doktor|leczenie
@@ -6415,8 +6415,8 @@ hu:Rendelőintézet|kórház|szanatórium
 id:4Klinik|rumah sakit
 it:4Clinica|ospedale
 ja:クリニック|病院、診療所
-lv:Klīnika|slimnīca|poliklīnika
 lt:5Klinika|5Ligoninė|5Gydytojas
+lv:Klīnika|slimnīca|poliklīnika
 mr:चिकित्सालय|क्लिनिक|दवाखाना
 nb:4Klinikk|sykehus
 nl:4Kliniek|ziekenhuis|hospitaal
@@ -6456,8 +6456,8 @@ id:Praktik dokter|Klinik|rumah sakit
 it:Studio medico|Clinica|ambulatorio|ospedale
 ja:医院|医者のオフィス|クリニック
 ko:의원
-lv:Ārsts|dakteris|klīnika|poliklīnika
 lt:5Gydytojas|5Daktaras|5Klinika
+lv:Ārsts|dakteris|klīnika|poliklīnika
 mr:वैद्य|डॉक्टर|चिकित्सक
 nb:Legekontor|Klinikk|legesenter|sykehus
 nl:Huisartsenpost|Kliniek|huisarts|ziekenhuis|dokter
@@ -6870,8 +6870,8 @@ healthcare-sample_collection
 en:Sample collection
 be:Аналізы|збор аналізаў
 de:Probenahme
-lt:5Mėginių ėmimas|5analizės
 hi:नमूना संग्रह केंद्र
+lt:5Mėginių ėmimas|5analizės
 ru:Анализы|сбор анализов
 sl:5Odvzem vzorcev|laboratorij|analize
 uk:Аналізи|збір аналізів
@@ -7862,8 +7862,8 @@ de:3VE-Station|4Entsorgungsstation|4Versorgungsstation|2RV Dump
 es:Estación de vaciado para caravanas
 et:Haagiselamute jäätmepunkt|heitvee purgimiskoht
 fr:Station de vidange|4vidange
-lt:5Kemperių atliekų išliejimo vieta|5kanalizacijos išliejimas
 it:4Camper service
+lt:5Kemperių atliekų išliejimo vieta|5kanalizacijos išliejimas
 lv:Mobilo māju apkalpošana|kemperu apkalpošana
 ru:4Слив нечистот|слив туалета|слив для туалета|нечистоты|канализация
 sl:4Postaja za izpraznitev|6izpraznitev stranišča
@@ -9301,8 +9301,8 @@ hi:3होटल
 hu:Szálloda|hotel|motel|szállás
 it:Albergo|hotel
 ja:ホテル
-lv:motelis
 lt:5Viešbutis|5Motelis
+lv:motelis
 nl:Motel|hotel
 pl:Hotel
 pt:Motel|hotel
@@ -11573,6 +11573,279 @@ uk:Софтбол
 vi:Bóng mềm|softball
 zh-Hans:垒球
 zh-Hant:壘球
+
+sport-badminton
+en:Badminton
+ar:ريشة الطائرة
+be:Бадмінтон
+bg:Бадминтон
+ca:Bàdminton
+cs:Badminton
+da:Badminton
+de:Badminton
+el:Αντιπτέριση
+es:Bádminton
+et:Sulgpall
+eu:Badmintona
+fa:ﻥﻮﺘﻨﯿﻣﺪﺑ
+fi:Sulkapallo
+fr:Badminton
+he:תיצונ
+hi:बैडमिंटन
+hu:Tollaslabda
+id:Bulu tangkis
+it:Badminton
+ja:バドミントン
+ko:배드민턴
+lt:Badmintonas
+nb:Badminton
+nl:Badminton
+pl:Badminton
+pt:Badminton
+ro:Badminton
+ru:Бадминтон
+sk:Bedminton
+sr:Бадминтон
+sv:Badminton
+sw:Badminton
+th:แบดมินตัน
+tr:Badminton
+uk:Бадмінтон
+vi:Cầu lông
+zh-Hans:羽毛球
+zh-Hant:羽毛球
+
+sport-diving
+en:Diving|diving pool|platform diving
+be:Дайвінг
+ca:Salts
+cs:Potápění
+da:Dykning
+de:Tauchen
+el:Κατάδυση
+es:Clavados
+et:Sukeldumine
+fr:Plongée
+hu:Búvárkodás
+it:Tuffi
+lt:Šuoliai į vandenį
+nl:Duiken
+pl:Nurkowanie
+pt-BR:Mergulho
+ru:Высотные прыжки в воду
+sl:Potapljanje
+tr:Dalış
+uk:Дайвінг
+zh-Hans:潜水
+zh-Hant:潛水
+
+sport-field_hockey
+en:Field Hockey|grass hockey|hockey pitch
+ar:هوكي الميدان
+be:Хакей на траве
+bg:Хокей на трева
+ca:Hoquei sobre herba
+cs:Pozemní hokej
+da:Landhockey
+de:Feldhockey
+el:Χόκεϊ επί χόρτου
+es:Hockey sobre césped
+et:Maahoki
+eu:Belar hockey
+fa:ﻦﻤﭼ ﯼﻭﺭ ﯽﮐﺎﻫ
+fi:Maahockey
+fr:Hockey sur gazon
+he:הדש יקוה
+hi:मैदानी हॉकी
+hu:Gyeplabda
+id:Hoki Lapangan
+it:Hockey su prato
+ja:フィールドホッケー
+ko:필드 하키
+lt:Žolės riedulys
+nb:Landhockey
+nl:Veldhockey
+pl:Hokej na trawie
+pt:Hóquei em campo
+ro:Hochei pe iarbă
+ru:Хоккей на траве
+sk:Pozemný hokej
+sl:Hokej na travi
+sr:Хокеј на трави
+sv:Landhockey
+sw:Hoki ya shamba
+th:กีฬาฮอกกี้
+tr:Çim Hokeyi
+uk:Хокей на траві
+vi:Khúc côn cầu
+zh-Hans:曲棍球
+zh-Hant:曲棍球
+
+sport-futsal
+en:Futsal|indoor soccer|indoor football
+ar:كرة الصالات
+be:Футзал
+bg:Футзал
+ca:Futbol sala
+cs:Futsal
+da:Futsal
+de:Futsal
+el:Ποδόσφαιρο σάλας
+es:Fútbol sala
+et:Saalijalgpall
+eu:Areto-futbola
+fa:ﻝﺎﺴﺗﻮﻓ
+fi:Futsal
+fr:Futsal
+he:לסטופ
+hu:Futsal
+id:Futsal
+it:Futsal
+ja:フットサル
+ko:풋살
+lt:Salės futbolas
+nb:Futsal
+nl:Zaalvoetbal
+pl:Futsal
+pt:Futsal
+ro:Futsal
+ru:Футзал
+sk:Futsal
+sr:Футсал
+sv:Futsal
+sw:Futsal
+th:ฟุตซอล
+tr:Futsal
+uk:Футзал
+vi:Futsal
+zh-Hans:五人制足球
+zh-Hant:五人制足球
+
+sport-ice_hockey
+en:Ice Hockey|hockey rink
+ar:هوكي الجليد
+be:Хакей з шайбай
+bg:Хокей на лед
+ca:Hoquei sobre gel
+cs:Lední hokej
+da:Ishockey
+de:Eishockey
+el:Χόκεϊ στον παγο
+es:Hockey sobre hielo
+et:Jäähoki
+eu:Izotz hockey
+fa:ﺦﯾ ﯼﻭﺭ ﯽﮐﺎﻫ
+fi:Jääkiekko
+fr:Hockey sur glace
+he:חרק יקוה
+hi:आइस हॉकी
+hu:Jégkorong
+id:Hoki es
+it:Hockey su ghiaccio
+ja:アイスホッケー
+ko:아이스 하키
+lt:Ledo ritulys
+nb:Ishockey
+nl:IJshockey
+pl:Hokej na lodzie
+pt:Hóquei no gelo
+ro:Hochei pe gheata
+ru:Хоккей с шайбой
+sk:Ľadový hokej
+sl:Hokej na ledu
+sr:Хокеј
+sv:Ishockey
+sw:Hoki ya barafu
+th:ฮอคกี้น้ำแข็ง
+tr:Buz Hokeyi
+uk:Хокей із шайбою
+vi:Khúc côn cầu trên băng
+zh-Hans:冰球
+zh-Hant:冰球
+
+sport-multi
+en:Various Sports|sports complex|sports hall|multi-sport
+ar:رياضات متنوعة
+be:Розныя віды спорту
+bg:Различни спортове
+ca:Diversos esports
+cs:Různé sporty
+da:Forskellige sportsgrene
+de:Verschiedene Sportarten
+el:Διάφορα αθλήματα
+es:Varios deportes
+et:Erinevad spordialad
+eu:Hainbat kirol
+fa:ورزش های مختلف
+fi:Erilaisia urheilulajeja
+fr:Sports multiples
+he:ענפי ספורט שונים
+hu:Különféle sportágak
+id:Berbagai Olahraga
+it:Sport vari
+ja:複数
+ko:다양한 스포츠
+lt:Įvairios sporto šakos
+mr:विविध खेळ
+nb:Ulike idretter
+nl:Diverse sporten
+pl:Różne sporty
+pt:Vários desportos
+pt-BR:Poliesportivo
+ro:Sporturi Diverse
+ru:Различные виды спорта
+sk:Rôzne športy
+sl:Različni športi
+sr:Разни спортови
+sv:Olika sporter
+sw:Michezo Mbalimbali
+th:กีฬาต่างๆ
+tr:Çeşitli Sporlar
+uk:Різноманітні типи спорту
+vi:Các môn thể thao khác nhau
+zh-Hans:各种运动
+zh-Hant:各種運動
+
+sport-pelota
+en:Basque Pelota|jai alai
+ar:باسك بيلوتا
+be:Баскская пелота
+bg:Баска пелота
+ca:Pilota basca
+cs:Baskická pelota
+da:Baskisk pelota
+de:Pelota Vasca
+el:Βασκική πελότα
+es:Pelota vasca
+et:Baski pelota
+eu:Euskal pilota
+fa:ﯽﮑﺳﺎﺑ ﯼﺎﺗﻮﻠﭘ
+fi:Baskimaan pelota
+fr:Pelote basque
+he:תיקסאב הטלפ
+hu:Baszk pelota
+id:Basque pelota
+it:Palla basca
+ja:バスクペロタ
+ko:바스크 펠로타
+lt:Baskų pelota
+nb:Baskisk pelota
+nl:Baskische peloton
+pl:Pelota baskijska
+pt:Pelota basca
+ro:Pilota bascilor
+ru:Баскская пелота
+sk:Baskická pelota
+sl:Baskovska pelota
+sr:Баскијска пелота
+sv:Baskisk pelota
+sw:Basque pelota
+th:Basque pelota
+tr:Bask pelotası
+uk:Баскська пелота
+vi:Pơ mu Basque
+zh-Hans:巴斯克回力球
+zh-Hant:巴斯克回力球
 
 building
 en:Building|U+1F3E0|U+1F3E1|U+1F3E2
@@ -14694,7 +14967,6 @@ zh-Hant:自行車充電|自行車充電站
 
 amenity-charging_station-motorcar|@charging_station
 en:2EV Charger|EV Charging|4Motorcar Charging|3Car Charger|Car Charging|3Tesla|Ionity|ChargePoint
-en-GB:2EV Charger|EV Charging|4Motorcar Charging|3Car Charger|Car Charging|3Tesla|Ionity|ChargePoint|Pod Point
 ar:3شاحن سيارة|شحن سيارة كهربائية
 be:4Зарадка для электрамабіляў|4станцыя зарадкі электрамабіляў|MALANKA|МАЛАНКА|evika|эвіка
 bg:зарядна станция за електромобили|зареждане на кола
@@ -14703,6 +14975,7 @@ cs:nabíječka pro elektromobily|3auto nabíječka
 da:Elbil opladning|billadestander
 de:4E-Ladestation|ladesäule|4auto laden|stromtankstelle|enBW|ionity|allego|kfz-Ladestation
 el:φόρτιση ηλεκτρικού αυτοκινήτου|φορτιστής αυτοκινήτου
+en-GB:2EV Charger|EV Charging|4Motorcar Charging|3Car Charger|Car Charging|3Tesla|Ionity|ChargePoint|Pod Point
 es:cargador de coche|electrolinera|Iberdrola|Endesa X|Repsol
 et:Elektriauto laadimine|autolaadija|autode laadimisjaam
 eu:auto elektrikoa kargatzea
@@ -19006,6 +19279,7 @@ hi:3कपड़े की दुकान
 it:Merceria
 ja:生地屋
 ko:원단 가게
+lt:5Audinių parduotuvė|5tekstilė|audiniai
 lv:Auduma veikals|tekstilu veikals
 nl:Stoffenwinkel
 pt:Loja de tecidos
@@ -19014,7 +19288,6 @@ ru:Текстиль|ткани|магазин тканей
 sl:Posojilodajalec
 sr:Текстил|Метража|Tekstil|Metraža
 tr:Kumaş mağazası|Tekstil mağazası
-lt:5Audinių parduotuvė|5tekstilė|audiniai
 
 shop-money_lender
 en:Money lender
@@ -21099,6 +21372,7 @@ fr:Station de transfert de déchets
 he:תחנת מעבר פסולת
 hi:कचरा स्थानांतरण स्टेशन
 it:Centro trasferimento rifiuti
+lt:5Atliekų tvarkymo stotis|5atliekų surinkimo punktas
 mr:कचरा हस्तांतरण केंद्र
 nl:Overslagstation voor afval
 pl:Stacja przeładunku odpadów
@@ -21106,7 +21380,6 @@ pt-BR:Estação de transferência de resíduos
 ru:Станция перевалки отходов
 sk:Prekládková stanica odpadu
 sl:5Zbirni center za odpadke|odpadki
-lt:5Atliekų tvarkymo stotis|5atliekų surinkimo punktas
 tr:Atık Transfer İstasyonu
 uk:Станція передачі сміття
 zh-Hans:垃圾转运站
