@@ -196,6 +196,12 @@ public final class MapManager
   private static native void nativeDownloadTerrain(String root);
 
   /**
+   * Cancels the terrain (.twm) blocks downloading for the {@code root} node (the maps
+   * downloading of the node is not affected).
+   */
+  public static native void nativeCancelTerrain(String root);
+
+  /**
    * Enqueues failed items under given {@code root} node in downloader.
    */
   private static native void nativeRetry(String root);

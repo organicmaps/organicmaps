@@ -2214,41 +2214,48 @@ void Storage::CancelDownloadNode(CountryId const & countryId)
   });
 
   // The terrain blocks ride the same queue as synthetic countries invisible to the
-  // country-tree traversal above: cancel the ones requested for the canceled subtree.
-  if (!m_terrainBlockRegions.empty())
-  {
-    CountriesSet subtree;
-    ForEachInSubtree(countryId, [&](CountryId const & id, bool /* groupNode */) { subtree.insert(id); });
+  // country-tree traversal above.
+  CancelTerrain(countryId);
+}
 
-    CountriesSet toNotify;
-    for (auto it = m_terrainBlockRegions.begin(); it != m_terrainBlockRegions.end();)
+void Storage::CancelTerrain(CountryId const & countryId)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  if (m_terrainBlockRegions.empty())
+    return;
+
+  CountriesSet subtree;
+  ForEachInSubtree(countryId, [&](CountryId const & id, bool /* groupNode */) { subtree.insert(id); });
+
+  CountriesSet toNotify;
+  for (auto it = m_terrainBlockRegions.begin(); it != m_terrainBlockRegions.end();)
+  {
+    auto & regions = it->second;
+    for (auto rIt = regions.begin(); rIt != regions.end();)
     {
-      auto & regions = it->second;
-      for (auto rIt = regions.begin(); rIt != regions.end();)
+      if (subtree.count(*rIt) > 0)
       {
-        if (subtree.count(*rIt) > 0)
-        {
-          toNotify.insert(*rIt);
-          rIt = regions.erase(rIt);
-        }
-        else
-          ++rIt;
-      }
-      if (regions.empty())
-      {
-        // Nobody is interested in the block anymore: drop it from the queue.
-        auto const & name = it->first;
-        if (m_terrainQueue.erase(name) > 0)
-          m_downloader->Remove(name);
-        m_terrainFailed.erase(name);
-        it = m_terrainBlockRegions.erase(it);
+        toNotify.insert(*rIt);
+        rIt = regions.erase(rIt);
       }
       else
-        ++it;
+        ++rIt;
     }
-    for (auto const & id : toNotify)
-      NotifyStatusChangedForHierarchy(id);
+    if (regions.empty())
+    {
+      // Nobody is interested in the block anymore: drop it from the queue.
+      auto const & name = it->first;
+      if (m_terrainQueue.erase(name) > 0)
+        m_downloader->Remove(name);
+      m_terrainFailed.erase(name);
+      it = m_terrainBlockRegions.erase(it);
+    }
+    else
+      ++it;
   }
+  for (auto const & id : toNotify)
+    NotifyStatusChangedForHierarchy(id);
 }
 
 void Storage::RetryDownloadNode(CountryId const & countryId)

@@ -393,10 +393,13 @@ extension DownloadMapsViewController: UITableViewDelegate {
     }
     let nodeAttrs = dataSource.item(at: itemIndexPath(indexPath))
     if isTerrainRow(indexPath) {
-      // A tap on the terrain sub-row starts (or retries) the terrain downloading.
+      // A tap on the terrain sub-row starts (or retries) the terrain downloading;
+      // while downloading it cancels the terrain only, the maps are not affected.
       switch nodeAttrs.terrainStatus {
       case .notDownloaded, .partly, .failed:
         Storage.shared().downloadTerrain(nodeAttrs.countryId)
+      case .downloading:
+        Storage.shared().cancelTerrain(nodeAttrs.countryId)
       default:
         break
       }
@@ -428,6 +431,8 @@ extension DownloadMapsViewController: MWMMapDownloaderTableViewCellDelegate {
       switch nodeAttrs.terrainStatus {
       case .notDownloaded, .partly, .failed:
         Storage.shared().downloadTerrain(nodeAttrs.countryId)
+      case .downloading:
+        Storage.shared().cancelTerrain(nodeAttrs.countryId)
       default:
         break
       }

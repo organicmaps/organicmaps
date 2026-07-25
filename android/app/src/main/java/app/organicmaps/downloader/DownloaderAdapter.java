@@ -323,8 +323,14 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       {
         if (mItem == null)
           return;
-        if (mItem.terrainStatus == TERRAIN_NOT_DOWNLOADED || mItem.terrainStatus == TERRAIN_PARTLY
-            || mItem.terrainStatus == TERRAIN_FAILED)
+        if (mItem.terrainStatus == TERRAIN_DOWNLOADING)
+        {
+          // The cross on the progress wheel: cancel the terrain only, the maps
+          // downloading of the country is not affected.
+          MapManager.nativeCancelTerrain(mItem.id);
+        }
+        else if (mItem.terrainStatus == TERRAIN_NOT_DOWNLOADED || mItem.terrainStatus == TERRAIN_PARTLY
+                 || mItem.terrainStatus == TERRAIN_FAILED)
         {
           // The same flow as the maps: the cellular warning, then the foreground
           // service keeps the shared download queue alive in the background.

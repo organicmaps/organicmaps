@@ -417,6 +417,13 @@ JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeDownloadTerr
   GetStorage().DownloadTerrain(jni::ToNativeString(env, root));
 }
 
+// static void nativeCancelTerrain(String root);
+JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeCancelTerrain(JNIEnv * env, jclass clazz,
+                                                                                  jstring root)
+{
+  GetStorage().CancelTerrain(jni::ToNativeString(env, root));
+}
+
 // static boolean nativeRetry(String root);
 JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeRetry(JNIEnv * env, jclass clazz, jstring root)
 {

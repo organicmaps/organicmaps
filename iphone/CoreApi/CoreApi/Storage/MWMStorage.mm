@@ -77,6 +77,11 @@ using namespace storage;
   [self.observers removeObject:observer];
 }
 
+- (void)cancelTerrain:(NSString *)countryId
+{
+  GetFramework().GetStorage().CancelTerrain(countryId.UTF8String);
+}
+
 - (BOOL)downloadTerrain:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error
 {
   // The same gates as downloadNode: the connection check here, the cellular policy

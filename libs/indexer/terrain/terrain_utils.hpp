@@ -56,6 +56,8 @@ inline int32_t GetIsolinesLabelStepForZoom(int zoom, int32_t altitudeRange, meas
       return altitudeRange > 3000 ? 1000 : 200;
     if (zoom == 14)
       return 200;
+    if (zoom >= 18)
+      return 20;
     return altitudeRange > 600 ? 100 : 40;
   }
   if (zoom <= 11)
@@ -64,6 +66,8 @@ inline int32_t GetIsolinesLabelStepForZoom(int zoom, int32_t altitudeRange, meas
     return altitudeRange > 1000 ? 500 : 100;
   if (zoom == 14)
     return 100;
+  if (zoom >= 18)
+    return 10;
   return altitudeRange > 200 ? 50 : 20;
 }
 }  // namespace terrain

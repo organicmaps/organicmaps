@@ -34,6 +34,8 @@ NS_SWIFT_NAME(Storage)
 
 /// Downloads the terrain (.twm) blocks covering the country bbox (see docs/TERRAIN.md).
 - (BOOL)downloadTerrain:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error;
+/// Cancels the terrain blocks downloading for the country (the maps downloading is not affected).
+- (void)cancelTerrain:(NSString *)countryId;
 - (void)retryDownloadNode:(NSString *)countryId;
 - (BOOL)updateNode:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error;
 - (BOOL)deleteNode:(NSString *)countryId

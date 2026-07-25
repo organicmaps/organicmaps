@@ -362,6 +362,11 @@ public:
   /// check; the observers get the region id notifications (no separate channel).
   void DownloadTerrain(CountryId const & countryId);
 
+  /// Cancels the terrain blocks requested for the countryId subtree (the blocks another
+  /// region still wants stay in the queue). CancelDownloadNode calls it too, so a country
+  /// cancel drops both the maps and the terrain; this one drops the terrain only.
+  void CancelTerrain(CountryId const & countryId);
+
   enum class TerrainStatus : uint8_t
   {
     NotAvailable,   // No terrain grid or no bbox for the id.
