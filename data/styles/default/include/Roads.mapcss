@@ -629,6 +629,15 @@ line|z13-[highway=pedestrian],
 line|z16-[highway=platform],
 line|z13-[highway=ford]
 {color: @pedestrian;opacity: 1;}
+/* Invisible activation rules for Cycling-layer overlays. Their visible
+   widths, caps and patterns are applied in ApplyBicycleLineStyle(). */
+line|z13-[highway=cycleway]::cycleoverlay,
+line|z13-[highway=path][bicycle=designated]::cycleoverlay,
+line|z13-[highway=footway][bicycle=designated]::cycleoverlay,
+line|z13-[cyclewaytag=track]::cycleoverlay,
+line|z14-[cyclewaytag=lane]::cycleoverlay,
+line|z14-[cyclewaytag=shared_lane]::cycleoverlay
+{color: #FFFFFF; width: 0.1;}
 line|z13-[highway=cycleway],
 line|z14-[highway=path][bicycle=designated]::cycleline,
 line|z15-[highway=footway][bicycle=designated]::cycleline,

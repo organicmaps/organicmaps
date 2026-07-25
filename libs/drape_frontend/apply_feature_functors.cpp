@@ -11,6 +11,7 @@
 #include "drape_frontend/text_layout.hpp"
 #include "drape_frontend/text_shape.hpp"
 
+#include "indexer/classificator.hpp"
 #include "indexer/road_shields_parser.hpp"
 
 #include "geometry/clipping.hpp"
@@ -51,6 +52,132 @@ df::ColorConstant const kRoadShieldOrangeBackgroundColor = "RoadShieldOrangeBack
 
 uint32_t constexpr kPathTextBaseTextIndex = 128;
 uint32_t constexpr kShieldBaseTextIndex = 0;
+
+dp::Color constexpr kDefaultCycleRouteColor{128, 0, 128};
+float constexpr kBicycleActivationLineWidth = 0.1f;
+uint32_t constexpr kBicycleActivationLineColor = 0x00FFFFFF;
+int constexpr kMinDashedBicycleLineZoom = 14;
+
+class BicycleLineTypes
+{
+public:
+  static BicycleLineTypes const & Instance()
+  {
+    static BicycleLineTypes const instance;
+    return instance;
+  }
+
+  BicycleLineKind GetKind(feature::TypesHolder const & featureTypes) const
+  {
+    if (featureTypes.Has(m_cycleway) || featureTypes.Has(m_pathBicycle) || featureTypes.Has(m_footwayBicycle))
+      return BicycleLineKind::Cycleway;
+    if (featureTypes.Has(m_track))
+      return BicycleLineKind::Track;
+    if (featureTypes.Has(m_lane))
+      return BicycleLineKind::Lane;
+    if (featureTypes.Has(m_sharedLane))
+      return BicycleLineKind::SharedLane;
+
+    // Generic fallback for older maps that lack specific cycleway tags. Only roads
+    // where bicycles share the carriageway can be inferred from access metadata.
+    if (featureTypes.Has(m_yesBicycle))
+    {
+      if (featureTypes.Has(m_residential) || featureTypes.Has(m_livingStreet))
+        return BicycleLineKind::SharedLane;
+    }
+
+    return BicycleLineKind::None;
+  }
+
+private:
+  BicycleLineTypes()
+  {
+    auto const & c = classif();
+    m_cycleway = c.GetTypeByPath({"highway", "cycleway"});
+    m_pathBicycle = c.GetTypeByPath({"highway", "path", "bicycle"});
+    m_footwayBicycle = c.GetTypeByPath({"highway", "footway", "bicycle"});
+    m_track = c.GetTypeByPath({"cyclewaytag", "track"});
+    m_lane = c.GetTypeByPath({"cyclewaytag", "lane"});
+    m_sharedLane = c.GetTypeByPath({"cyclewaytag", "shared_lane"});
+    m_yesBicycle = c.GetTypeByPath({"hwtag", "yesbicycle"});
+    m_residential = c.GetTypeByPath({"highway", "residential"});
+    m_livingStreet = c.GetTypeByPath({"highway", "living_street"});
+  }
+
+  uint32_t m_cycleway = 0;
+  uint32_t m_pathBicycle = 0;
+  uint32_t m_footwayBicycle = 0;
+  uint32_t m_track = 0;
+  uint32_t m_lane = 0;
+  uint32_t m_sharedLane = 0;
+  uint32_t m_yesBicycle = 0;
+  uint32_t m_residential = 0;
+  uint32_t m_livingStreet = 0;
+};
+
+bool IsBicycleLineVisibleAtZoom(BicycleLineKind kind, int zoomLevel)
+{
+  switch (kind)
+  {
+  case BicycleLineKind::Lane:
+  case BicycleLineKind::SharedLane: return zoomLevel >= kMinDashedBicycleLineZoom;
+  case BicycleLineKind::Cycleway:
+  case BicycleLineKind::Track: return true;
+  case BicycleLineKind::None: return false;
+  }
+
+  UNREACHABLE();
+}
+
+bool IsBicycleActivationRule(drule::LineRule const & lineRule)
+{
+  // White 0.1px MapCSS rules only activate this C++ Cycling-layer overlay.
+  // Actual visible widths, caps and dash patterns are applied in ApplyBicycleLineStyle().
+  return lineRule.color == kBicycleActivationLineColor && lineRule.width > 0.0 &&
+         lineRule.width <= kBicycleActivationLineWidth;
+}
+
+void SetLinePattern(double visScale, LineViewParams & params, std::initializer_list<double> pattern)
+{
+  params.m_pattern.clear();
+  params.m_pattern.reserve(pattern.size());
+  for (double v : pattern)
+    params.m_pattern.push_back(dp::PatternFloat2Pixel(v * visScale));
+}
+
+void ApplyBicycleLineStyle(BicycleLineKind kind, double visScale, LineViewParams & params)
+{
+  // Keep Cycling-layer cycleway infrastructure visuals here while their patterns
+  // depend on the runtime layer setting.
+  params.m_join = dp::RoundJoin;
+
+  switch (kind)
+  {
+  case BicycleLineKind::Cycleway:
+    params.m_width = static_cast<float>(std::max(2.0 * visScale, 1.0));
+    params.m_cap = dp::RoundCap;
+    params.m_pattern.clear();
+    return;
+  case BicycleLineKind::Track:
+    params.m_width = static_cast<float>(std::max(1.9 * visScale, 1.0));
+    params.m_cap = dp::RoundCap;
+    params.m_pattern.clear();
+    return;
+  case BicycleLineKind::Lane:
+    params.m_width = static_cast<float>(std::max(1.5 * visScale, 1.0));
+    params.m_cap = dp::ButtCap;
+    SetLinePattern(visScale, params, {6.4, 4.8});
+    return;
+  case BicycleLineKind::SharedLane:
+    params.m_width = static_cast<float>(std::max(1.35 * visScale, 1.0));
+    params.m_cap = dp::RoundCap;
+    SetLinePattern(visScale, params, {1.2, 4.2});
+    return;
+  case BicycleLineKind::None: UNREACHABLE();
+  }
+
+  UNREACHABLE();
+}
 
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS
 class LinesStat
@@ -318,6 +445,11 @@ void CalculateRoadShieldPositions(std::vector<double> const & offsets, m2::Share
   }
 }
 }  // namespace
+
+BicycleLineKind GetBicycleLineKind(feature::TypesHolder const & featureTypes)
+{
+  return BicycleLineTypes::Instance().GetKind(featureTypes);
+}
 
 void BaseApplyFeature::FillCommonParams(CommonOverlayViewParams & p) const
 {
@@ -710,6 +842,7 @@ ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(Params const & params, Featur
                                                    RelationsDrawSettings const & relsSettings)
   : TBase(params, f, {})
   , m_relsInfo(relsSettings)
+  , m_bicycleLineKind(relsSettings.cycling ? GetBicycleLineKind(feature::TypesHolder(f)) : BicycleLineKind::None)
   , m_builder(params)
 {
   if (m_params.IsRelationRoutes())
@@ -781,14 +914,23 @@ void ApplyLineFeatureGeometry::ProcessRule(drule::LineRule const & lineRule)
     params.m_baseGtoPScale = m_params.m_currentScaleGtoP;
     params.m_zoomLevel = m_params.m_tileKey.m_zoomLevel;
 
-    for (auto const & spline : m_clippedSplines)
-      m_params.m_insertShape(make_unique_dp<LineShape>(spline, params));
+    // Activation rules provide one dedicated drawing pass for Cycling-layer overlays.
+    bool const isBicycleActivationRule = IsBicycleActivationRule(lineRule);
+    if (!isBicycleActivationRule)
+      for (auto const & spline : m_clippedSplines)
+        m_params.m_insertShape(make_unique_dp<LineShape>(spline, params));
 
-    // Place rainbow color stripes using a color strip texture on the same geometry.
-    if (m_relsInfo.HasColors())
+    bool const isBicycleLineVisible = IsBicycleLineVisibleAtZoom(m_bicycleLineKind, m_params.m_tileKey.m_zoomLevel);
+
+    // Route relation stripes use regular line rules; infrastructure uses only its
+    // activation rule so road casing/foreground rules cannot duplicate the overlay.
+    bool const showHighlight =
+        (isBicycleActivationRule && isBicycleLineVisible) ||
+        (!isBicycleActivationRule && m_bicycleLineKind == BicycleLineKind::None && m_relsInfo.HasColors());
+    if (showHighlight)
     {
       float const stripeWidth = 3 * visScale;
-      auto const colors = m_relsInfo.GetColors();
+      auto const colors = m_relsInfo.HasColors() ? m_relsInfo.GetColors() : dp::RainbowColors{kDefaultCycleRouteColor};
 
       LineViewParams rParams;
       rParams.m_tileCenter = params.m_tileCenter;
@@ -799,12 +941,17 @@ void ApplyLineFeatureGeometry::ProcessRule(drule::LineRule const & lineRule)
       rParams.m_width = stripeWidth * static_cast<float>(colors.size());
       rParams.m_depth = params.m_depth + 10;
       rParams.m_depthTestEnabled = params.m_depthTestEnabled;
-      rParams.m_depthLayer = params.m_depthLayer;
+      // Render only the cycling overlay above roads. Hiking and public-transport
+      // route stripes retain the depth layer selected by their drawing rule.
+      rParams.m_depthLayer = isBicycleActivationRule ? DepthLayer::UserLineLayer : params.m_depthLayer;
       rParams.m_minVisibleScale = params.m_minVisibleScale;
       rParams.m_rank = params.m_rank;
       rParams.m_baseGtoPScale = m_params.m_currentScaleGtoP;
       rParams.m_zoomLevel = m_params.m_tileKey.m_zoomLevel;
       rParams.m_rainbowColors = colors;
+
+      if (isBicycleLineVisible)
+        ApplyBicycleLineStyle(m_bicycleLineKind, visScale, rParams);
 
       for (auto const & spline : m_clippedSplines)
         m_params.m_insertShape(make_unique_dp<LineShape>(spline, rParams));

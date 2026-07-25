@@ -4810,6 +4810,53 @@ type craft-winery
   z20
     symbol name=winery-m priority=2400
     caption primary[height=11 color=c082 dy=1 optional] priority=-7600
+type cyclewaytag-lane
+  z14
+    line width=0.1 color=c002 join=round cap=butt priority=330
+  z15
+    line width=0.1 color=c002 join=round cap=butt priority=330
+  z16
+    line width=0.1 color=c002 join=round cap=round priority=330
+  z17
+    line width=0.1 color=c002 join=round cap=round priority=330
+  z18
+    line width=0.1 color=c002 join=round cap=round priority=330
+  z19
+    line width=0.1 color=c002 join=round cap=round priority=330
+  z20
+    line width=0.1 color=c002 join=round cap=round priority=330
+type cyclewaytag-shared_lane
+  z14
+    line width=0.1 color=c002 join=round cap=butt priority=330
+  z15
+    line width=0.1 color=c002 join=round cap=butt priority=330
+  z16
+    line width=0.1 color=c002 join=round cap=round priority=330
+  z17
+    line width=0.1 color=c002 join=round cap=round priority=330
+  z18
+    line width=0.1 color=c002 join=round cap=round priority=330
+  z19
+    line width=0.1 color=c002 join=round cap=round priority=330
+  z20
+    line width=0.1 color=c002 join=round cap=round priority=330
+type cyclewaytag-track
+  z13
+    line width=0.1 color=c002 join=round cap=butt priority=330
+  z14
+    line width=0.1 color=c002 join=round cap=butt priority=330
+  z15
+    line width=0.1 color=c002 join=round cap=butt priority=330
+  z16
+    line width=0.1 color=c002 join=round cap=round priority=330
+  z17
+    line width=0.1 color=c002 join=round cap=round priority=330
+  z18
+    line width=0.1 color=c002 join=round cap=round priority=330
+  z19
+    line width=0.1 color=c002 join=round cap=round priority=330
+  z20
+    line width=0.1 color=c002 join=round cap=round priority=330
 type emergency-assembly_point
   z18
     symbol name=assembly_point-m priority=-9980
@@ -5263,27 +5310,35 @@ type highway-cycleway
   z12
     line width=1 color=c150 join=bevel cap=butt priority=330
   z13
+    line width=0.1 color=c002 join=round cap=butt priority=330
     line width=1.1 color=c151 join=round cap=butt priority=330
     path_text primary[height=10 color=c107 stroke=c108] priority=2953
   z14
+    line width=0.1 color=c002 join=round cap=butt priority=330
     line width=1.3 color=c152 join=round cap=butt priority=330
     path_text primary[height=11 color=c107 stroke=c108] priority=2953
   z15
+    line width=0.1 color=c002 join=round cap=butt priority=330
     line width=1.5 color=c152 join=round cap=butt priority=330
     path_text primary[height=11 color=c107 stroke=c108] priority=2953
   z16
+    line width=0.1 color=c002 join=round cap=round priority=330
     line width=1.7 color=c152 join=round cap=round priority=330
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
   z17
+    line width=0.1 color=c002 join=round cap=round priority=330
     line width=2 color=c152 join=round cap=round priority=330
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
   z18
+    line width=0.1 color=c002 join=round cap=round priority=330
     line width=2.4 color=c152 join=round cap=round priority=330
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
   z19
+    line width=0.1 color=c002 join=round cap=round priority=330
     line width=2.4 color=c152 join=round cap=round priority=330
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
   z20
+    line width=0.1 color=c002 join=round cap=round priority=330
     line width=2.4 color=c152 join=round cap=round priority=330
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
 type highway-cycleway-bridge
@@ -5292,37 +5347,45 @@ type highway-cycleway-bridge
   z12
     line width=1 color=c150 join=bevel cap=butt priority=330
   z13
+    line width=0.1 color=c002 join=round cap=butt priority=330
     line width=1.1 color=c151 join=round cap=butt priority=330
     path_text primary[height=10 color=c107 stroke=c108] priority=2953
   z14
+    line width=0.1 color=c002 join=round cap=butt priority=330
     line width=1.3 color=c152 join=round cap=butt priority=330
     path_text primary[height=11 color=c107 stroke=c108] priority=2953
   z15
-    line width=4 color=c144 join=round cap=butt priority=150
+    line width=1.2 color=c144 join=round cap=butt priority=150
+    line width=0.1 color=c002 join=round cap=butt priority=330
     line width=1.5 color=c152 join=round cap=butt priority=330
     path_text primary[height=11 color=c107 stroke=c108] priority=2953
   z16
-    line width=4.4 color=c144 join=round cap=butt priority=150
+    line width=1.2 color=c144 join=round cap=butt priority=150
+    line width=0.1 color=c002 join=round cap=round priority=330
     line width=1.7 color=c152 join=round cap=round priority=330
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
   z17
-    line width=7 color=c145 join=round cap=butt priority=140
-    line width=6 color=c144 join=round cap=butt priority=150
+    line width=3.2 color=c145 join=round cap=butt priority=140
+    line width=2.2 color=c144 join=round cap=butt priority=150
+    line width=0.1 color=c002 join=round cap=round priority=330
     line width=2 color=c152 join=round cap=round priority=330
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
   z18
-    line width=9.8 color=c145 join=round cap=butt priority=140
-    line width=8.8 color=c144 join=round cap=butt priority=150
+    line width=5.2 color=c145 join=round cap=butt priority=140
+    line width=4.2 color=c144 join=round cap=butt priority=150
+    line width=0.1 color=c002 join=round cap=round priority=330
     line width=2.4 color=c152 join=round cap=round priority=330
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
   z19
-    line width=10.8 color=c145 join=round cap=butt priority=140
-    line width=9.8 color=c144 join=round cap=butt priority=150
+    line width=6.2 color=c145 join=round cap=butt priority=140
+    line width=5.2 color=c144 join=round cap=butt priority=150
+    line width=0.1 color=c002 join=round cap=round priority=330
     line width=2.4 color=c152 join=round cap=round priority=330
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
   z20
-    line width=10.8 color=c145 join=round cap=butt priority=140
-    line width=9.8 color=c144 join=round cap=butt priority=150
+    line width=6.2 color=c145 join=round cap=butt priority=140
+    line width=5.2 color=c144 join=round cap=butt priority=150
+    line width=0.1 color=c002 join=round cap=round priority=330
     line width=2.4 color=c152 join=round cap=round priority=330
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
 type highway-cycleway-tunnel
@@ -5331,36 +5394,44 @@ type highway-cycleway-tunnel
   z12
     line width=1 color=c150 join=bevel cap=butt priority=330
   z13
+    line width=0.1 color=c002 join=round cap=butt priority=330
     line width=1.1 color=c151 join=round cap=butt priority=330
     path_text primary[height=10 color=c107 stroke=c108] priority=2953
   z14
+    line width=0.1 color=c002 join=round cap=butt priority=330
     line width=1.3 color=c152 join=round cap=butt priority=330
     path_text primary[height=11 color=c107 stroke=c108] priority=2953
   z15
+    line width=0.1 color=c002 join=round cap=butt priority=330
     line width=1.5 color=c152 join=round cap=butt priority=330
     path_text primary[height=11 color=c107 stroke=c108] priority=2953
   z16
+    line width=0.1 color=c002 join=round cap=round priority=330
     line width=1.7 color=c152 join=round cap=round priority=330
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
   z17
+    line width=0.1 color=c002 join=round cap=round priority=330
     line width=2 color=c152 join=round cap=round priority=330
-    line width=6 color=c146 join=round cap=butt priority=154
-    line width=7 color=c145 join=round cap=butt dash=[2,2] priority=153
+    line width=2.2 color=c146 join=round cap=butt priority=154
+    line width=3.2 color=c145 join=round cap=butt dash=[2,2] priority=153
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
   z18
+    line width=0.1 color=c002 join=round cap=round priority=330
     line width=2.4 color=c152 join=round cap=round priority=330
-    line width=8.8 color=c146 join=round cap=butt priority=154
-    line width=9.8 color=c145 join=round cap=butt dash=[2,2] priority=153
+    line width=4.2 color=c146 join=round cap=butt priority=154
+    line width=5.2 color=c145 join=round cap=butt dash=[2,2] priority=153
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
   z19
+    line width=0.1 color=c002 join=round cap=round priority=330
     line width=2.4 color=c152 join=round cap=round priority=330
-    line width=9.8 color=c146 join=round cap=butt priority=154
-    line width=10.8 color=c145 join=round cap=butt dash=[2,2] priority=153
+    line width=5.2 color=c146 join=round cap=butt priority=154
+    line width=6.2 color=c145 join=round cap=butt dash=[2,2] priority=153
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
   z20
+    line width=0.1 color=c002 join=round cap=round priority=330
     line width=2.4 color=c152 join=round cap=round priority=330
-    line width=9.8 color=c146 join=round cap=butt priority=154
-    line width=10.8 color=c145 join=round cap=butt dash=[2,2] priority=153
+    line width=5.2 color=c146 join=round cap=butt priority=154
+    line width=6.2 color=c145 join=round cap=butt dash=[2,2] priority=153
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
 type highway-elevator
   z16
@@ -5424,34 +5495,42 @@ type highway-footway-bicycle
     line width=1.1 color=c085 join=bevel cap=butt dash=[3.5,2.5] priority=180
   z13
     line width=1.1 color=c151 join=round cap=butt priority=170
+    line width=0.1 color=c002 join=round cap=butt priority=330
     line width=1.3 color=c086 join=round cap=butt dash=[4,3] priority=180
     path_text primary[height=10 color=c107 stroke=c108] priority=2950
   z14
     line width=1.3 color=c151 join=round cap=butt priority=170
+    line width=0.1 color=c002 join=round cap=butt priority=330
     line width=1.6 color=c086 join=round cap=butt dash=[4,3] priority=180
     path_text primary[height=11 color=c107 stroke=c108] priority=2950
   z15
     line width=1.5 color=c151 join=round cap=butt priority=170
+    line width=0.1 color=c002 join=round cap=butt priority=330
     line width=2 color=c086 join=round cap=butt dash=[6,4.5] priority=180
     path_text primary[height=11 color=c107 stroke=c108] priority=2950
   z16
     line width=1.7 color=c151 join=round cap=round priority=170
+    line width=0.1 color=c002 join=round cap=round priority=330
     line width=2.6 color=c086 join=round cap=round dash=[6,4.5] priority=180
     path_text primary[height=12 color=c143 stroke=c087] priority=2950
   z17
     line width=2 color=c151 join=round cap=round priority=170
+    line width=0.1 color=c002 join=round cap=round priority=330
     line width=3.3 color=c086 join=round cap=round dash=[8,6] priority=180
     path_text primary[height=12 color=c143 stroke=c087] priority=2950
   z18
     line width=2.4 color=c151 join=round cap=round priority=170
+    line width=0.1 color=c002 join=round cap=round priority=330
     line width=4 color=c147 join=round cap=round dash=[8,6] priority=180
     path_text primary[height=12 color=c143 stroke=c087] priority=2950
   z19
     line width=2.4 color=c151 join=round cap=round priority=170
+    line width=0.1 color=c002 join=round cap=round priority=330
     line width=4 color=c147 join=round cap=round dash=[8,6] priority=180
     path_text primary[height=12 color=c143 stroke=c087] priority=2950
   z20
     line width=2.4 color=c151 join=round cap=round priority=170
+    line width=0.1 color=c002 join=round cap=round priority=330
     line width=4 color=c147 join=round cap=round dash=[8,6] priority=180
     path_text primary[height=12 color=c143 stroke=c087] priority=2950
 type highway-footway-bridge
@@ -6085,34 +6164,42 @@ type highway-path-bicycle
     line width=1.1 color=c141 join=bevel cap=butt dash=[3.5,2.5] priority=180
   z13
     line width=1.1 color=c151 join=round cap=butt priority=170
+    line width=0.1 color=c002 join=round cap=butt priority=330
     line width=1.3 color=c165 join=round cap=butt dash=[4,3] priority=180
     path_text primary[height=10 color=c107 stroke=c108] priority=2820
   z14
     line width=1.3 color=c152 join=round cap=butt priority=170
+    line width=0.1 color=c002 join=round cap=butt priority=330
     line width=1.6 color=c165 join=round cap=butt dash=[4,3] priority=180
     path_text primary[height=11 color=c107 stroke=c108] priority=2820
   z15
     line width=1.5 color=c152 join=round cap=butt priority=170
+    line width=0.1 color=c002 join=round cap=butt priority=330
     line width=2 color=c165 join=round cap=butt dash=[6,4.5] priority=180
     path_text primary[height=11 color=c107 stroke=c108] priority=2820
   z16
     line width=1.7 color=c152 join=round cap=round priority=170
+    line width=0.1 color=c002 join=round cap=round priority=330
     line width=2.6 color=c165 join=round cap=round dash=[6,4.5] priority=180
     path_text primary[height=12 color=c143 stroke=c087] priority=2820
   z17
     line width=2 color=c152 join=round cap=round priority=170
+    line width=0.1 color=c002 join=round cap=round priority=330
     line width=3.3 color=c165 join=round cap=round dash=[8,6] priority=180
     path_text primary[height=12 color=c143 stroke=c087] priority=2820
   z18
     line width=2.4 color=c152 join=round cap=round priority=170
+    line width=0.1 color=c002 join=round cap=round priority=330
     line width=4 color=c142 join=round cap=round dash=[8,6] priority=180
     path_text primary[height=12 color=c143 stroke=c087] priority=2820
   z19
     line width=2.4 color=c152 join=round cap=round priority=170
+    line width=0.1 color=c002 join=round cap=round priority=330
     line width=4 color=c142 join=round cap=round dash=[8,6] priority=180
     path_text primary[height=12 color=c143 stroke=c087] priority=2820
   z20
     line width=2.4 color=c152 join=round cap=round priority=170
+    line width=0.1 color=c002 join=round cap=round priority=330
     line width=4 color=c142 join=round cap=round dash=[8,6] priority=180
     path_text primary[height=12 color=c143 stroke=c087] priority=2820
 type highway-path-bridge

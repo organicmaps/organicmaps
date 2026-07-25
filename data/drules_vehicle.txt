@@ -2009,6 +2009,53 @@ type building:part
     area color=c100 border[width=1 color=c099 join=round cap=round] priority=90
   z20
     area color=c100 border[width=1 color=c099 join=round cap=round] priority=90
+type cyclewaytag-lane
+  z14
+    line width=0.1 color=c002 join=round cap=butt priority=270
+  z15
+    line width=0.1 color=c002 join=round cap=butt priority=270
+  z16
+    line width=0.1 color=c002 join=round cap=round priority=270
+  z17
+    line width=0.1 color=c002 join=round cap=round priority=270
+  z18
+    line width=0.1 color=c002 join=round cap=round priority=270
+  z19
+    line width=0.1 color=c002 join=round cap=round priority=270
+  z20
+    line width=0.1 color=c002 join=round cap=round priority=270
+type cyclewaytag-shared_lane
+  z14
+    line width=0.1 color=c002 join=round cap=butt priority=270
+  z15
+    line width=0.1 color=c002 join=round cap=butt priority=270
+  z16
+    line width=0.1 color=c002 join=round cap=round priority=270
+  z17
+    line width=0.1 color=c002 join=round cap=round priority=270
+  z18
+    line width=0.1 color=c002 join=round cap=round priority=270
+  z19
+    line width=0.1 color=c002 join=round cap=round priority=270
+  z20
+    line width=0.1 color=c002 join=round cap=round priority=270
+type cyclewaytag-track
+  z13
+    line width=0.1 color=c002 join=round cap=butt priority=270
+  z14
+    line width=0.1 color=c002 join=round cap=butt priority=270
+  z15
+    line width=0.1 color=c002 join=round cap=butt priority=270
+  z16
+    line width=0.1 color=c002 join=round cap=round priority=270
+  z17
+    line width=0.1 color=c002 join=round cap=round priority=270
+  z18
+    line width=0.1 color=c002 join=round cap=round priority=270
+  z19
+    line width=0.1 color=c002 join=round cap=round priority=270
+  z20
+    line width=0.1 color=c002 join=round cap=round priority=270
 type emergency-emergency_ward_entrance
   z18
     symbol name=entrance-emergency-s priority=500
@@ -2075,19 +2122,62 @@ type highway-construction
   z20
     line width=6 color=c104 join=round cap=round dash=[18,6.2] priority=120
 type highway-cycleway
+  z13
+    line width=0.1 color=c002 join=round cap=butt priority=270
+  z14
+    line width=0.1 color=c002 join=round cap=butt priority=270
+  z15
+    line width=0.1 color=c002 join=round cap=butt priority=270
+  z16
+    line width=0.1 color=c002 join=round cap=round priority=270
+  z17
+    line width=0.1 color=c002 join=round cap=round priority=270
   z18
+    line width=0.1 color=c002 join=round cap=round priority=270
     line width=1 color=c105 join=round cap=round priority=130
   z19
+    line width=0.1 color=c002 join=round cap=round priority=270
     line width=1 color=c105 join=round cap=round priority=130
   z20
+    line width=0.1 color=c002 join=round cap=round priority=270
     line width=1 color=c105 join=round cap=round priority=130
 type highway-cycleway-bridge
+  z13
+    line width=0.1 color=c002 join=round cap=butt priority=270
+  z14
+    line width=0.1 color=c002 join=round cap=butt priority=270
+  z15
+    line width=0.1 color=c002 join=round cap=butt priority=270
+  z16
+    line width=0.1 color=c002 join=round cap=round priority=270
+  z17
+    line width=0.1 color=c002 join=round cap=round priority=270
   z18
+    line width=0.1 color=c002 join=round cap=round priority=270
     line width=1 color=c105 join=round cap=round priority=130
   z19
+    line width=0.1 color=c002 join=round cap=round priority=270
     line width=1 color=c105 join=round cap=round priority=130
   z20
+    line width=0.1 color=c002 join=round cap=round priority=270
     line width=1 color=c105 join=round cap=round priority=130
+type highway-cycleway-tunnel
+  z13
+    line width=0.1 color=c002 join=round cap=butt priority=270
+  z14
+    line width=0.1 color=c002 join=round cap=butt priority=270
+  z15
+    line width=0.1 color=c002 join=round cap=butt priority=270
+  z16
+    line width=0.1 color=c002 join=round cap=round priority=270
+  z17
+    line width=0.1 color=c002 join=round cap=round priority=270
+  z18
+    line width=0.1 color=c002 join=round cap=round priority=270
+  z19
+    line width=0.1 color=c002 join=round cap=round priority=270
+  z20
+    line width=0.1 color=c002 join=round cap=round priority=270
 type highway-footway
   z18
     line width=1.5 color=c106 join=round cap=round dash=[5,2] priority=130
@@ -2103,11 +2193,24 @@ type highway-footway-area
   z20
     line width=1.5 color=c106 join=round cap=round dash=[5,2] priority=130
 type highway-footway-bicycle
+  z13
+    line width=0.1 color=c002 join=round cap=butt priority=270
+  z14
+    line width=0.1 color=c002 join=round cap=butt priority=270
+  z15
+    line width=0.1 color=c002 join=round cap=butt priority=270
+  z16
+    line width=0.1 color=c002 join=round cap=round priority=270
+  z17
+    line width=0.1 color=c002 join=round cap=round priority=270
   z18
+    line width=0.1 color=c002 join=round cap=round priority=270
     line width=1.5 color=c106 join=round cap=round dash=[5,2] priority=130
   z19
+    line width=0.1 color=c002 join=round cap=round priority=270
     line width=1.5 color=c106 join=round cap=round dash=[5,2] priority=130
   z20
+    line width=0.1 color=c002 join=round cap=round priority=270
     line width=1.5 color=c106 join=round cap=round dash=[5,2] priority=130
 type highway-footway-bridge
   z18
@@ -2625,13 +2728,25 @@ type highway-path
   z20
     line width=1.5 color=c128 join=round cap=round dash=[4,2.5] priority=130
 type highway-path-bicycle
+  z13
+    line width=0.1 color=c002 join=round cap=butt priority=270
+  z14
+    line width=0.1 color=c002 join=round cap=butt priority=270
+  z15
+    line width=0.1 color=c002 join=round cap=butt priority=270
+  z16
+    line width=0.1 color=c002 join=round cap=round priority=270
   z17
+    line width=0.1 color=c002 join=round cap=round priority=270
     line width=0.9 color=c128 join=round cap=round dash=[3.5,2] priority=130
   z18
+    line width=0.1 color=c002 join=round cap=round priority=270
     line width=1.1 color=c128 join=round cap=round dash=[3.5,2] priority=130
   z19
+    line width=0.1 color=c002 join=round cap=round priority=270
     line width=1.5 color=c128 join=round cap=round dash=[4,2.5] priority=130
   z20
+    line width=0.1 color=c002 join=round cap=round priority=270
     line width=1.5 color=c128 join=round cap=round dash=[4,2.5] priority=130
 type highway-path-bridge
   z17
