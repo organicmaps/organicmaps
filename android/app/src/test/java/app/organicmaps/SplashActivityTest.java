@@ -2,10 +2,7 @@ package app.organicmaps;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.anyBoolean;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -18,24 +15,20 @@ public class SplashActivityTest
   public void intentRelaunchedFromHistoryIsMarkedConsumed()
   {
     final Intent intent = mock(Intent.class);
-    when(intent.hasExtra(MwmActivity.EXTRA_CONSUMED)).thenReturn(false);
-    when(intent.getFlags()).thenReturn(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
 
-    assertTrue(SplashActivity.markIntentConsumedIfRelaunchedFromHistory(intent));
+    assertTrue(
+        SplashActivity.markIntentConsumedIfRelaunchedFromHistory(intent, Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY));
 
     verify(intent).putExtra(MwmActivity.EXTRA_CONSUMED, true);
   }
 
   @Test
-  public void freshIntentIsLeftUntouched()
+  public void freshIntentIsNotMarked()
   {
     final Intent intent = mock(Intent.class);
-    when(intent.hasExtra(MwmActivity.EXTRA_CONSUMED)).thenReturn(false);
-    when(intent.getFlags()).thenReturn(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-    assertFalse(SplashActivity.markIntentConsumedIfRelaunchedFromHistory(intent));
-
-    verify(intent, never()).putExtra(anyString(), anyBoolean());
+    assertFalse(
+        SplashActivity.markIntentConsumedIfRelaunchedFromHistory(intent, Intent.FLAG_GRANT_READ_URI_PERMISSION));
   }
 
   /**
@@ -47,10 +40,8 @@ public class SplashActivityTest
   {
     final Intent intent = mock(Intent.class);
     when(intent.hasExtra(MwmActivity.EXTRA_CONSUMED)).thenReturn(true);
-    when(intent.getFlags()).thenReturn(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
 
-    assertFalse(SplashActivity.markIntentConsumedIfRelaunchedFromHistory(intent));
-
-    verify(intent, never()).putExtra(anyString(), anyBoolean());
+    assertFalse(
+        SplashActivity.markIntentConsumedIfRelaunchedFromHistory(intent, Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY));
   }
 }

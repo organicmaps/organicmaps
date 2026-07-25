@@ -12,18 +12,10 @@ import org.junit.Test;
 public class MwmActivityTest
 {
   @Test
-  public void freshIntentIsNotConsumed()
-  {
-    final Intent intent = mock(Intent.class);
-    when(intent.getBooleanExtra(MwmActivity.EXTRA_CONSUMED, false)).thenReturn(false);
-
-    assertFalse(MwmActivity.isIntentConsumed(null, intent));
-  }
-
-  @Test
-  public void missingIntentIsNotConsumed()
+  public void unmarkedOrMissingIntentIsNotConsumed()
   {
     assertFalse(MwmActivity.isIntentConsumed(null, null));
+    assertFalse(MwmActivity.isIntentConsumed(null, mock(Intent.class)));
   }
 
   @Test
