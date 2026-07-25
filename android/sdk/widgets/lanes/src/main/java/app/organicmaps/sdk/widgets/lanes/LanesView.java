@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -46,8 +45,7 @@ public class LanesView extends View
 
   @Nullable
   private LanesDrawable mLanesDrawable;
-  @Nullable
-  private Rect mViewBounds = null;
+  private final RectF mViewBounds = new RectF();
 
   public LanesView(Context context, @Nullable AttributeSet attrs)
   {
@@ -79,10 +77,21 @@ public class LanesView extends View
 
   public void setLanes(@Nullable LaneInfo[] lanes)
   {
+    setLanes(lanes, false, false);
+  }
+
+  /**
+   * Lanes arrive pre-collapsed from routing (see C++ CollapseLanes): entries may stand for
+   * several identical lanes. The trimmed flags tell that entries were dropped past the
+   * corresponding edge of the strip (physical road sides), rendered as chevron hints.
+   */
+  public void setLanes(@Nullable LaneInfo[] lanes, boolean trimmedLeft, boolean trimmedRight)
+  {
     if (lanes == null || lanes.length == 0)
       mLanesDrawable = null;
     else
-      mLanesDrawable = new LanesDrawable(getContext(), lanes, mActiveLaneTintColor, mInactiveLaneTintColor);
+      mLanesDrawable = new LanesDrawable(getContext(), lanes, trimmedLeft, trimmedRight, mActiveLaneTintColor,
+                                         mInactiveLaneTintColor);
     update();
   }
 
@@ -94,21 +103,10 @@ public class LanesView extends View
     if (mLanesDrawable == null)
       return;
 
-    final int paddingStart = getPaddingStart();
-    final int paddingTop = getPaddingTop();
-    final int paddingEnd = getPaddingEnd();
-    final int paddingBottom = getPaddingBottom();
+    mLanesDrawable.setBounds(0, 0, getWidth(), getHeight());
+    mViewBounds.set(0, 0, getWidth(), getHeight());
 
-    mLanesDrawable.setBounds(paddingStart, paddingTop, getWidth() - paddingEnd, getHeight() - paddingBottom);
-
-    mViewBounds = new Rect(mLanesDrawable.getBounds());
-
-    mViewBounds.left -= paddingStart;
-    mViewBounds.top -= paddingTop;
-    mViewBounds.right += paddingEnd;
-    mViewBounds.bottom += paddingBottom;
-
-    canvas.drawRoundRect(new RectF(mViewBounds), mCornerRadius, mCornerRadius, mBackgroundPaint);
+    canvas.drawRoundRect(mViewBounds, mCornerRadius, mCornerRadius, mBackgroundPaint);
 
     mLanesDrawable.draw(canvas);
   }
@@ -116,13 +114,9 @@ public class LanesView extends View
   @Override
   public boolean onTouchEvent(MotionEvent event)
   {
-    if (mViewBounds != null && mViewBounds.contains((int) event.getX(), (int) event.getY()))
-    {
-      performClick();
-      return true;
-    }
-
-    return false;
+    // Every touch Android dispatches here is already within the view bounds.
+    performClick();
+    return true;
   }
 
   @Override

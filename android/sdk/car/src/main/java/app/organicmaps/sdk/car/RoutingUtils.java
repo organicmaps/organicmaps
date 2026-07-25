@@ -1,7 +1,6 @@
 package app.organicmaps.sdk.car;
 
 import android.graphics.Bitmap;
-import android.text.TextUtils;
 import android.text.style.CharacterStyle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -60,7 +59,9 @@ public final class RoutingUtils
 
     // TODO (AndrewShkrob): Use real distance and time estimates
     builder.addStep(createCurrentStep(context, info), createTravelEstimate(info.distToTurn, 0, distanceColor));
-    if (!TextUtils.isEmpty(info.nextStreet))
+    // Same predicate as the phone's maneuver-card "then" chip, so both surfaces show the
+    // second step under identical conditions (and nextNextStreet is guaranteed non-empty).
+    if (info.hasNextNextTurn())
       builder.addStep(createNextStep(context, info), createTravelEstimate(Distance.EMPTY, 0, distanceColor));
     return builder.build();
   }
@@ -74,22 +75,35 @@ public final class RoutingUtils
                                                                false));
     builder.setRoad(info.nextStreet);
     builder.setManeuver(RoutingHelpers.createManeuver(context, info.carDirection, info.exitNum));
-    if (info.lanes != null)
+    // A non-null but empty array would make LanesDrawable dereference lanes[0]; guard the length.
+    if (info.lanes != null && info.lanes.length > 0)
     {
       for (final LaneInfo laneInfo : info.lanes)
-      {
-        final Lane.Builder laneBuilder = new Lane.Builder();
-        for (final LaneWay laneWay : laneInfo.mLaneWays)
-          laneBuilder.addDirection(
-              RoutingHelpers.createLaneDirection(laneWay, /* isRecommended */ laneWay == laneInfo.mActiveLaneWay));
-        builder.addLane(laneBuilder.build());
-      }
-      final LanesDrawable lanesDrawable = new LanesDrawable(context, info.lanes);
+        addStructuredLanes(builder, laneInfo);
+      final LanesDrawable lanesDrawable =
+          new LanesDrawable(context, info.lanes, info.lanesTrimmedLeft, info.lanesTrimmedRight);
       final Bitmap lanesBitmap = Graphics.drawableToBitmap(lanesDrawable);
       builder.setLanesImage(new CarIcon.Builder(IconCompat.createWithBitmap(lanesBitmap)).build());
     }
 
     return builder.build();
+  }
+
+  /**
+   * Adds the lane to the structured lane list used by cluster/HUD displays. A collapsed entry
+   * stands for {@code mSimilarLanesCount} identical physical lanes (see the C++ CollapseLanes),
+   * and the structured list must describe physical lanes, so the entry is repeated — unlike the
+   * main-display lanes image (setLanesImage), which renders it once with a ×N badge.
+   */
+  private static void addStructuredLanes(@NonNull Step.Builder builder, @NonNull LaneInfo laneInfo)
+  {
+    final Lane.Builder laneBuilder = new Lane.Builder();
+    for (final LaneWay laneWay : laneInfo.mLaneWays)
+      laneBuilder.addDirection(
+          RoutingHelpers.createLaneDirection(laneWay, /* isRecommended */ laneWay == laneInfo.mActiveLaneWay));
+    final Lane lane = laneBuilder.build();
+    for (int i = 0; i < laneInfo.mSimilarLanesCount; ++i)
+      builder.addLane(lane);
   }
 
   @NonNull

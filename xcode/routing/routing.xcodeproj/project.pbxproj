@@ -51,6 +51,8 @@
 		1667FB002E3F845D00F06E59 /* lanes_parser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1667FAFB2E3F845D00F06E59 /* lanes_parser.hpp */; };
 		1667FB012E3F845D00F06E59 /* lane_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1667FAF72E3F845D00F06E59 /* lane_info.hpp */; };
 		1667FB022E3F845D00F06E59 /* lanes_recommendation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1667FAFD2E3F845D00F06E59 /* lanes_recommendation.hpp */; };
+		DA111DBE5D35434D825F0E4B /* lanes_collapse.hpp in Headers */ = {isa = PBXBuildFile; fileRef = DA37B4D094884958AFF56ADA /* lanes_collapse.hpp */; };
+		6FE1AB55E19B40038F5BEB48 /* lanes_collapse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6E016A8958634A909E89DD4F /* lanes_collapse.cpp */; };
 		1667FB032E3F845D00F06E59 /* lane_way.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1667FAF92E3F845D00F06E59 /* lane_way.hpp */; };
 		1667FB042E3F845D00F06E59 /* lane_info.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1667FAF82E3F845D00F06E59 /* lane_info.cpp */; };
 		1667FB052E3F845D00F06E59 /* lanes_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1667FAFC2E3F845D00F06E59 /* lanes_parser.cpp */; };
@@ -317,6 +319,8 @@
 		1667FAFC2E3F845D00F06E59 /* lanes_parser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = lanes_parser.cpp; sourceTree = "<group>"; };
 		1667FAFD2E3F845D00F06E59 /* lanes_recommendation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = lanes_recommendation.hpp; sourceTree = "<group>"; };
 		1667FAFE2E3F845D00F06E59 /* lanes_recommendation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = lanes_recommendation.cpp; sourceTree = "<group>"; };
+		6E016A8958634A909E89DD4F /* lanes_collapse.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = lanes_collapse.cpp; sourceTree = "<group>"; };
+		DA37B4D094884958AFF56ADA /* lanes_collapse.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = lanes_collapse.hpp; sourceTree = "<group>"; };
 		1667FB082E3F847B00F06E59 /* lanes_parser_tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = lanes_parser_tests.cpp; sourceTree = "<group>"; };
 		1667FB092E3F847B00F06E59 /* lanes_recommendation_tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = lanes_recommendation_tests.cpp; sourceTree = "<group>"; };
 		349D1CDE1E3F589900A878FD /* restrictions_serialization.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = restrictions_serialization.cpp; sourceTree = "<group>"; };
@@ -562,6 +566,8 @@
 				1667FAFC2E3F845D00F06E59 /* lanes_parser.cpp */,
 				1667FAFD2E3F845D00F06E59 /* lanes_recommendation.hpp */,
 				1667FAFE2E3F845D00F06E59 /* lanes_recommendation.cpp */,
+				6E016A8958634A909E89DD4F /* lanes_collapse.cpp */,
+				DA37B4D094884958AFF56ADA /* lanes_collapse.hpp */,
 			);
 			path = lanes;
 			sourceTree = "<group>";
@@ -941,6 +947,7 @@
 				1667FB002E3F845D00F06E59 /* lanes_parser.hpp in Headers */,
 				1667FB012E3F845D00F06E59 /* lane_info.hpp in Headers */,
 				1667FB022E3F845D00F06E59 /* lanes_recommendation.hpp in Headers */,
+				DA111DBE5D35434D825F0E4B /* lanes_collapse.hpp in Headers */,
 				1667FB032E3F845D00F06E59 /* lane_way.hpp in Headers */,
 				0C81E1541F02589800DC66DF /* traffic_stash.hpp in Headers */,
 				40A111D01F2F9704005E6AD5 /* astar_weight.hpp in Headers */,
@@ -1187,6 +1194,7 @@
 				1667FB052E3F845D00F06E59 /* lanes_parser.cpp in Sources */,
 				1667FB042E3F845D00F06E59 /* lane_info.cpp in Sources */,
 				1667FB072E3F845D00F06E59 /* lanes_recommendation.cpp in Sources */,
+				6FE1AB55E19B40038F5BEB48 /* lanes_collapse.cpp in Sources */,
 				D5481E4F24BF4F70008FB1D8 /* mwm_hierarchy_handler.cpp in Sources */,
 				0C5FEC641DDE192A0017688C /* joint.cpp in Sources */,
 				0C090C871E4E276700D52AFD /* world_graph.cpp in Sources */,
