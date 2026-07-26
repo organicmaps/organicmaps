@@ -35,6 +35,7 @@ waterway-dock                                       # area z1-
 === 40
 
 organicapp-mwm_border                               # area z1-7
+organicapp-twm_border                               # area z1-7
 === 30
 
 landuse-basin-intermittent                          # area z12-
