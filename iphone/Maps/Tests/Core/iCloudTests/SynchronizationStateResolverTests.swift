@@ -88,17 +88,25 @@ final class SynchronizationStateResolverTests: XCTestCase {
                    [.updateLocalItem(with: changedCloudItem, preserving: changedLocalItem)])
   }
 
-  func testNotDownloadedFileIsRequestedOnlyOnce() {
+  func testDownloadIsRequestedAgainWhenICloudDoesNotAct() {
     let cloudItem = cloud("file.kml", "A", isDownloaded: false)
     XCTAssertTrue(update(local: []).isEmpty)
 
     XCTAssertEqual(update(cloud: [cloudItem]), [.startDownloading(cloudItem)])
-    XCTAssertTrue(update(cloud: [cloudItem]).isEmpty)
+    XCTAssertTrue(resolver.hasPendingConfirmations, "The file waits for something a new snapshot has to report")
+    XCTAssertTrue(update(cloud: [cloudItem]).isEmpty, "iCloud reports the progress a lot: do not ask on every one")
     clock.advance(by: 1)
     XCTAssertTrue(update(cloud: [cloudItem]).isEmpty)
 
+    // Nothing happened for a while -- a paused account, Low Data Mode, no space -- so the request is repeated
+    // instead of leaving the file unsynchronized for the rest of the session.
+    clock.advance(by: iCloudSynchronizationStateResolver.Constants.requestRepeatInterval)
+    XCTAssertEqual(update(cloud: [cloudItem]), [.startDownloading(cloudItem)])
+
     let downloadedItem = cloud("file.kml", "A")
     XCTAssertEqual(update(cloud: [downloadedItem]), [.createLocalItem(with: downloadedItem)])
+    clock.advance(by: iCloudSynchronizationStateResolver.Constants.requestRepeatInterval)
+    XCTAssertTrue(update(cloud: [downloadedItem]).isEmpty, "The file is downloaded: nothing is requested again")
   }
 
   // MARK: - A file is deleted only when its absence is confirmed
@@ -131,7 +139,7 @@ final class SynchronizationStateResolverTests: XCTestCase {
     // iCloud removes the file while it is being replaced and reports it as missing for a while.
     for _ in 0 ..< 5 {
       XCTAssertTrue(update(cloud: []).isEmpty, "The file the app has just written must not be deleted")
-      clock.advance(by: kAbsenceConfirmationInterval)
+      clock.advance(by: iCloudSynchronizationStateResolver.Constants.absenceConfirmationInterval)
     }
 
     // The upload settles and the file is synchronized.
@@ -187,7 +195,7 @@ final class SynchronizationStateResolverTests: XCTestCase {
     // absence lasts long enough to look confirmed, but nobody ever confirmed it with a second observation.
     XCTAssertTrue(update(cloud: [cloud("file.kml", "A")]).isEmpty)
     XCTAssertTrue(update(cloud: []).isEmpty, "The confirmation starts from scratch")
-    clock.advance(by: kAbsenceConfirmationInterval)
+    clock.advance(by: iCloudSynchronizationStateResolver.Constants.absenceConfirmationInterval)
     XCTAssertFalse(resolver.authorizes(deletion), "The confirmed absence is not the one standing now")
   }
 
@@ -240,7 +248,7 @@ final class SynchronizationStateResolverTests: XCTestCase {
 
     for _ in 0 ..< 5 {
       XCTAssertTrue(update(cloud: []).isEmpty, "The changed local file must not be deleted")
-      clock.advance(by: kAbsenceConfirmationInterval)
+      clock.advance(by: iCloudSynchronizationStateResolver.Constants.absenceConfirmationInterval)
     }
   }
 
@@ -370,7 +378,7 @@ final class SynchronizationStateResolverTests: XCTestCase {
                                         file: StaticString = #filePath, line: UInt = #line) -> TimeInterval {
     let absentSince = clock.activeTime
     XCTAssertTrue(observe().isEmpty, "The first absence must not delete anything", file: file, line: line)
-    clock.advance(by: kAbsenceConfirmationInterval)
+    clock.advance(by: iCloudSynchronizationStateResolver.Constants.absenceConfirmationInterval)
     return absentSince
   }
 
