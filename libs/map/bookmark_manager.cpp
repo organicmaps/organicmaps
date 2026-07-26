@@ -2610,11 +2610,17 @@ void BookmarkManager::UpdateBookmarkCategory(kml::MarkGroupId groupId, kml::Cate
                                              bool autoSave /* = true */)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  CHECK_NOT_EQUAL(m_categories.count(groupId), 0, ());
-  // The current implementation reloads the provided group.
+  auto const it = m_categories.find(groupId);
+  CHECK(it != m_categories.end(), (groupId));
+
+  // The category is replaced by the one built from the file: not only its marks and tracks, but also its name,
+  // description, visibility and timestamps come from there. Compilations of the replaced version are not
+  // referenced by the new data anymore; the new ones have already been created by the caller.
   /// @todo implement more accurate merging instead of full reloading
+  auto const obsoleteCompilations = it->second->GetCategoryData().m_compilationIds;
   ClearGroup(groupId);
-  m_categories.emplace(groupId, std::make_unique<BookmarkCategory>(std::move(data), autoSave));
+  it->second = std::make_unique<BookmarkCategory>(std::move(data), autoSave);
+  DeleteCompilations(obsoleteCompilations);
   m_changesTracker.OnAddGroup(groupId);
 }
 
@@ -2808,11 +2814,13 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
       childGroup->SetServerId(fileData.m_serverId);
     }
 
-    SetUniqueName(categoryData, [this](auto const & name) { return !IsUsedCategoryName(name); });
+    // A file that is already loaded replaces its own category, so the name that category holds right now must
+    // not be the reason to rename the incoming one.
+    auto groupId = GetCategoryByFileName(fileName);
+    SetUniqueName(categoryData, [this, groupId](auto const & name) { return !IsUsedCategoryName(name, groupId); });
 
     UserMarkIdStorage::Instance().EnableSaving(false);
 
-    auto groupId = GetCategoryByFileName(fileName);
     // Set autoSave = false now to avoid useless saving in NotifyChanges().
     // autoSave flag will be assigned in the end of this function.
     if (groupId != kml::kInvalidMarkGroupId)
@@ -3139,11 +3147,12 @@ bool BookmarkManager::IsCategoryEmpty(kml::MarkGroupId categoryId) const
   return GetBmCategory(categoryId)->IsEmpty();
 }
 
-bool BookmarkManager::IsUsedCategoryName(std::string const & name) const
+bool BookmarkManager::IsUsedCategoryName(std::string const & name,
+                                         kml::MarkGroupId excludedId /* = kml::kInvalidMarkGroupId */) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   for (auto const & c : m_categories)
-    if (c.second->GetName() == name)
+    if (c.first != excludedId && c.second->GetName() == name)
       return true;
   return false;
 }
