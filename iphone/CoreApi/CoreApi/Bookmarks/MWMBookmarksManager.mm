@@ -9,6 +9,7 @@
 
 #include "Framework.h"
 
+#include "map/bookmark_helpers.hpp"
 #include "map/bookmarks_search_params.hpp"
 
 #include "coding/internal/file_data.hpp"
@@ -227,11 +228,24 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
   self.bm.ReloadBookmark(filePath.UTF8String);
 }
 
-- (void)deleteCategoryAtFilePath:(NSString *)filePath
+- (BOOL)deleteCategoryAtFilePath:(NSString *)filePath
+{
+  // A pending load can still install the category from data read before the deletion.
+  if (!self.areBookmarksLoaded)
+    return NO;
+  auto const groupId = self.bm.GetCategoryByFileName(filePath.UTF8String);
+  if (groupId == kml::kInvalidMarkGroupId)
+    return MoveBookmarkFileToTrash(filePath.UTF8String);
+  // Synchronization must observe the completed saves before deciding whether to delete their contents.
+  if (self.bm.IsCategorySaving(groupId))
+    return NO;
+  return [self deleteCategory:groupId];
+}
+
+- (BOOL)isCategoryFileSavingAtPath:(NSString *)filePath
 {
   auto const groupId = self.bm.GetCategoryByFileName(filePath.UTF8String);
-  if (groupId)
-    [self deleteCategory:groupId];
+  return groupId != kml::kInvalidMarkGroupId && self.bm.IsCategorySaving(groupId);
 }
 
 #pragma mark - Categories
@@ -360,13 +374,15 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
   GetFramework().SetTrackVisibility(trackId, isVisible);
 }
 
-- (void)deleteCategory:(MWMMarkGroupID)groupId
+- (BOOL)deleteCategory:(MWMMarkGroupID)groupId
 {
-  self.bm.GetEditSession().DeleteBmCategory(groupId, false /* move to the Trash */);
+  if (!self.bm.GetEditSession().DeleteBmCategory(groupId, false /* move to the Trash */))
+    return NO;
   [self loopObservers:^(id<MWMBookmarksObserver> observer) {
     if ([observer respondsToSelector:@selector(onBookmarksCategoryDeleted:)])
       [observer onBookmarksCategoryDeleted:groupId];
   }];
+  return YES;
 }
 
 - (BOOL)checkCategoryName:(NSString *)name

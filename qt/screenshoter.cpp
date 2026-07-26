@@ -200,7 +200,13 @@ void Screenshoter::ProcessNextKml()
   auto es = bookmarkManager.GetEditSession();
   auto const idList = bookmarkManager.GetUnsortedBmGroupsIdList();
   for (auto catId : idList)
-    es.DeleteBmCategory(catId, true);
+  {
+    if (!es.DeleteBmCategory(catId, true))
+    {
+      ChangeState(State::FileError, "Failed to delete bookmark category " + bookmarkManager.GetCategoryFileName(catId));
+      return;
+    }
+  }
 
   bookmarkManager.CreateCategories(std::move(collection));
 
