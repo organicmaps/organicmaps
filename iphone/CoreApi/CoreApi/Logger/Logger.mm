@@ -4,9 +4,11 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 #include "coding/zip_creator.hpp"
 
 #include <atomic>
+#include <string>
 
 @interface Logger ()
 
@@ -35,6 +37,22 @@ NSString * const kLogFilePath = [[NSSearchPathForDirectoriesInDomains(NSDocument
     firstObject] stringByAppendingPathComponent:kLogFileName];
 // TODO: (KK) Review and change this limit after some testing.
 NSUInteger const kMaxLogFileSize = 1024 * 1024 * 100;  // 100 MB;
+
+// The unified logging implementation silently cuts a single record and renders the loss as "<…>"
+// on retrieval. The observed limit is 1015 bytes, but it is not a public constant, so stay below
+// it with a margin and spend a part of the budget on saying what was lost.
+size_t constexpr kMaxSystemLogRecordSize = 900;
+
+/// @return |logString| shortened to kMaxSystemLogRecordSize bytes, marker included, so that the
+/// truncation is explicit instead of being silently applied by the system.
+static std::string TruncateForSystemLog(std::string const & logString)
+{
+  auto const marker = " [truncated, " + std::to_string(logString.size()) +
+                      " bytes total, enable logging in Settings to get the full record]";
+  ASSERT_LESS(marker.size(), kMaxSystemLogRecordSize, ());
+  auto const prefix = strings::TruncateUtf8(logString, kMaxSystemLogRecordSize - marker.size());
+  return std::string{prefix} + marker;
+}
 
 static os_log_type_t OSLogTypeFor(base::LogLevel level)
 {
@@ -282,8 +300,13 @@ bool AssertMessage(base::SrcPoint const & src, std::string const & message)
 
   auto const logString = output.str();
 
-  // Log the message into the system log.
-  os_log_with_type([self logger].osLogger, OSLogTypeFor(level), "%{public}s", logString.c_str());
+  // Log the message into the system log. Oversized records are rare, so nothing is copied here
+  // unless one has to be rebuilt with a truncation marker.
+  std::string truncated;
+  if (logString.size() > kMaxSystemLogRecordSize)
+    truncated = TruncateForSystemLog(logString);
+  os_log_with_type([self logger].osLogger, OSLogTypeFor(level), "%{public}s",
+                   truncated.empty() ? logString.c_str() : truncated.c_str());
 
   if (!_fileLoggingEnabled.load(std::memory_order_relaxed))
     return;
