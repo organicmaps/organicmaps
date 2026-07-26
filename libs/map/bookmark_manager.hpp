@@ -358,7 +358,8 @@ public:
   bool AreAllCategoriesEmpty() const;
   bool IsCategoryEmpty(kml::MarkGroupId categoryId) const;
 
-  bool IsUsedCategoryName(std::string const & name) const;
+  /// @param excludedId Category that is about to be replaced and therefore does not reserve its own name.
+  bool IsUsedCategoryName(std::string const & name, kml::MarkGroupId excludedId = kml::kInvalidMarkGroupId) const;
   bool AreAllCategoriesVisible() const;
   bool AreAllCategoriesInvisible() const;
   void SetAllCategoriesVisibility(bool visible);

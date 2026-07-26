@@ -280,8 +280,52 @@ UNIT_CLASS_TEST(Runner, Bookmarks_LoadedCategoryIsNotSavedBack)
 
   // Autosave is enabled after the loading, so the user's changes are still saved.
   auto const groupId = bmManager.GetUnsortedBmGroupsIdList().front();
+  // A category does not reserve its own name against the file it is reloaded from.
+  TEST_EQUAL(bmManager.GetCategoryName(groupId), "MapName", ("A reload must not rename the category"));
   bmManager.GetEditSession().SetCategoryName(groupId, "Edited");
   TEST(Platform::IsFileExistsByFullPath(fileName), ("An edited category must be saved"));
+}
+
+// A file changed on another device is reloaded in place: everything the file describes, including the category's
+// own metadata, must be taken from it. A name left over from the previous version would be uploaded back by the
+// next local edit and would revert the rename made on the other device.
+UNIT_CLASS_TEST(Runner, Bookmarks_ReloadedCategoryTakesMetadataFromTheFile)
+{
+  string const fileName = base::JoinPath(GetBookmarksDirectory(), "Reloaded.kml");
+  SCOPE_GUARD(fileDeleter, [&]() { (void)base::DeleteFileX(fileName); });
+
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  auto const loadFromFile = [&](string const & kml)
+  {
+    BookmarkManager::KMLDataCollection kmlDataCollection;
+    kmlDataCollection.emplace_back(fileName, LoadKmlData(MemReader(kml.data(), kml.size()), FileType::Kml));
+    TEST(kmlDataCollection.back().second, ());
+    bmManager.CreateCategories(std::move(kmlDataCollection), true /* autoSave */);
+    TEST_EQUAL(bmManager.GetBmGroupsCount(), 1, ());
+  };
+
+  loadFromFile(kmlString);
+  auto const groupId = bmManager.GetUnsortedBmGroupsIdList().front();
+  TEST_EQUAL(bmManager.GetCategoryName(groupId), "MapName", ());
+  TEST_EQUAL(bmManager.IsVisible(groupId), false, ());
+
+  string changed(kmlString);
+  auto const replace = [&changed](string const & from, string const & to)
+  {
+    auto const pos = changed.find(from);
+    TEST_NOT_EQUAL(pos, string::npos, ("Not found in the test KML:", from));
+    changed.replace(pos, from.size(), to);
+  };
+  replace("<name>MapName</name>", "<name>RemoteName</name>");
+  replace("<visibility>0</visibility>", "<visibility>1</visibility>");
+
+  loadFromFile(changed);
+  TEST_EQUAL(bmManager.GetUnsortedBmGroupsIdList().front(), groupId, ("The category is replaced in place"));
+  TEST_EQUAL(bmManager.GetCategoryName(groupId), "RemoteName", ("The name comes from the reloaded file"));
+  TEST_EQUAL(bmManager.IsVisible(groupId), true, ("The visibility comes from the reloaded file"));
+  CheckBookmarks(bmManager, groupId);
 }
 
 UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
