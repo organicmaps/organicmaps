@@ -1751,6 +1751,48 @@ m2::PointD Framework::P3dtoG(m2::PointD const & p) const
   return pt;
 }
 
+namespace
+{
+// The synthetic null-mwm FeatureID index space of the downloaded regions highlight:
+// the CountryInfoGetter region ids are small, the terrain block ids start from the
+// base and encode the block's bottom-left corner in integer degrees.
+uint32_t constexpr kTwmBorderIndexBase = 1 << 20;
+
+uint32_t EncodeTwmBorderIndex(m2::RectD const & blockRect)
+{
+  auto const lat = std::lround(mercator::YToLat(blockRect.minY()));
+  auto const lon = std::lround(blockRect.minX());
+  return kTwmBorderIndexBase + static_cast<uint32_t>(lat + 90) * 360u + static_cast<uint32_t>(lon + 180);
+}
+
+bool GetTwmBorderTriangles(terrain::TerrainProvider const & provider, uint32_t index,
+                           std::vector<m2::PointD> & triangles)
+{
+  index -= kTwmBorderIndexBase;
+  int const lat = static_cast<int>(index / 360u) - 90;
+  int const lon = static_cast<int>(index % 360u) - 180;
+
+  // Probe around the encoded corner and match the block by it (the corner is shared
+  // with the neighbor blocks, the probe can return them too).
+  m2::PointD const corner(lon, mercator::LatToY(lat));
+  m2::RectD probe(corner, corner);
+  probe.Inflate(0.1, 0.1);
+  std::vector<m2::RectD> rects;
+  provider.GetDownloadedRects(probe, rects);
+  for (auto const & r : rects)
+  {
+    if (std::lround(r.minX()) == lon && std::lround(mercator::YToLat(r.minY())) == lat)
+    {
+      // The two CW triangles of the block rect (cf. ApplyAreaFeature winding).
+      m2::PointD const a = r.LeftBottom(), b = r.RightBottom(), c = r.RightTop(), d = r.LeftTop();
+      triangles = {a, d, c, a, c, b};
+      return true;
+    }
+  }
+  return false;  // Deregistered between the id and the geometry reads: just skip.
+}
+}  // namespace
+
 void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFactory, DrapeCreationParams && params)
 {
   auto idReadFn = [this](auto const & fn, m2::RectD const & r, int scale)
@@ -1762,20 +1804,41 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
       auto names = m_featuresFetcher.GetDataSource().GetLoadedCountryNames(r);
       ASSERT(base::IsSortedAndUnique(names), ());
       m_infoGetter->ForEachRegionId(names, [&fn](size_t id) { fn(FeatureID({}, id)); });
+
+      // The downloaded terrain blocks ride the same synthetic channel; the block
+      // (integer degrees, see terrain::GridBlock) is encoded into the feature index.
+      std::vector<m2::RectD> rects;
+      m_terrainProvider.GetDownloadedRects(r, rects);
+      for (auto const & rect : rects)
+        fn(FeatureID({}, EncodeTwmBorderIndex(rect)));
     }
   };
 
   uint32_t const borderType = classif().GetTypeByPath({"organicapp", "mwm_border"});
-  auto featureReadFn = [this, borderType](auto const & fn, std::vector<FeatureID> const & ids)
+  uint32_t const twmBorderType = classif().GetTypeByPath({"organicapp", "twm_border"});
+  auto featureReadFn = [this, borderType, twmBorderType](auto const & fn, std::vector<FeatureID> const & ids)
   {
     m_featuresFetcher.ReadFeatures(fn, ids);
 
     for (auto const & id : ids)
       if (id.m_mwmId.IsNull())
       {
-        FeatureType ft(id, borderType);
-        m_infoGetter->GetTriangles(id.m_index, ft);
-        fn(ft);
+        if (id.m_index >= kTwmBorderIndexBase)
+        {
+          FeatureType ft(id, twmBorderType);
+          std::vector<m2::PointD> triangles;
+          if (GetTwmBorderTriangles(m_terrainProvider, id.m_index, triangles))
+          {
+            ft.SetTriangles(triangles);
+            fn(ft);
+          }
+        }
+        else
+        {
+          FeatureType ft(id, borderType);
+          m_infoGetter->GetTriangles(id.m_index, ft);
+          fn(ft);
+        }
       }
       else
         break;
