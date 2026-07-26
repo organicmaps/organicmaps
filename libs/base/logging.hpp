@@ -2,12 +2,12 @@
 
 #include "base/internal/message.hpp"
 #include "base/src_point.hpp"
-#include "base/thread.hpp"
+// TODO: Not needed here anymore. Drop it once every base::Timer user includes it directly - many
+// files across the tree currently reach base::Timer through this header.
 #include "base/timer.hpp"
 
 #include <array>
 #include <atomic>
-#include <map>
 #include <optional>
 #include <string>
 
@@ -24,21 +24,14 @@ enum LogLevel
   NUM_LOG_LEVELS
 };
 
-class LogHelper
+/// Formats log records. All functions are thread-safe.
+namespace LogHelper
 {
-public:
-  static LogHelper & Instance();
-
-  int GetThreadID();
-  void WriteProlog(std::ostream & s, LogLevel level);
-  static void WriteLog(std::ostream & s, SrcPoint const & srcPoint, std::string const & msg);
-
-private:
-  int m_threadsCount{0};
-  std::map<threads::ThreadID, int> m_threadID;
-
-  Timer m_timer;
-};
+/// @return Small sequential id of the calling thread, assigned on its first call.
+int GetThreadID();
+void WriteProlog(std::ostream & s, LogLevel level);
+void WriteLog(std::ostream & s, SrcPoint const & srcPoint, std::string const & msg);
+}  // namespace LogHelper
 
 std::string ToString(LogLevel level);
 std::optional<LogLevel> FromString(std::string const & s);
