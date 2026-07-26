@@ -1,9 +1,12 @@
 #import "Logger.h"
 #import <OSLog/OSLog.h>
+#import <UIKit/UIKit.h>
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "coding/zip_creator.hpp"
+
+#include <atomic>
 
 @interface Logger ()
 
@@ -38,7 +41,8 @@ NSUInteger const kMaxLogFileSize = 1024 * 1024 * 100;  // 100 MB;
 
 @implementation Logger
 
-static BOOL _fileLoggingEnabled = NO;
+/// Read from any thread on every log call, mutated on the fileLoggingQueue only.
+static std::atomic<bool> _fileLoggingEnabled{false};
 static void * kFileLoggingQueueKey = &kFileLoggingQueueKey;
 
 + (void)initialize
@@ -47,6 +51,15 @@ static void * kFileLoggingQueueKey = &kFileLoggingQueueKey;
   {
     SetLogMessageFn(&LogMessage);
     SetAssertFunction(&AssertMessage);
+    // Ordinary records are written asynchronously, so the ones that are still queued would be lost
+    // if the app is killed while suspended. An empty block on the serial queue waits for them.
+    [NSNotificationCenter.defaultCenter addObserverForName:UIApplicationDidEnterBackgroundNotification
+                                                    object:nil
+                                                     queue:nil
+                                                usingBlock:^(NSNotification *) {
+                                                  if ([self fileLoggingEnabled])
+                                                    [self runSyncOnFileLoggingQueue:^{}];
+                                                }];
   }
 }
 
@@ -94,9 +107,7 @@ static void * kFileLoggingQueueKey = &kFileLoggingQueueKey;
 
 + (BOOL)fileLoggingEnabled
 {
-  __block BOOL fileLoggingEnabled = NO;
-  [self runSyncOnFileLoggingQueue:^{ fileLoggingEnabled = _fileLoggingEnabled; }];
-  return fileLoggingEnabled;
+  return _fileLoggingEnabled.load(std::memory_order_relaxed);
 }
 
 + (void)log:(LogLevel)level message:(NSString *)message
@@ -113,6 +124,8 @@ static void * kFileLoggingQueueKey = &kFileLoggingQueueKey;
 {
   if ([self fileLoggingEnabled])
   {
+    // Drain the writes that are already submitted to the serial queue.
+    [self runSyncOnFileLoggingQueue:^{}];
     if (![NSFileManager.defaultManager fileExistsAtPath:kLogFilePath])
     {
       LOG(LERROR, ("Log file doesn't exist while file logging is enabled:", kLogFilePath.UTF8String));
@@ -225,7 +238,7 @@ bool AssertMessage(base::SrcPoint const & src, std::string const & message)
 
     logger.fileHandle = fileHandle;
 
-    _fileLoggingEnabled = YES;
+    _fileLoggingEnabled.store(true, std::memory_order_relaxed);
   }];
 }
 
@@ -234,11 +247,11 @@ bool AssertMessage(base::SrcPoint const & src, std::string const & message)
   [self runSyncOnFileLoggingQueue:^{
     Logger * logger = [self logger];
 
+    _fileLoggingEnabled.store(false, std::memory_order_relaxed);
+
     [logger.fileHandle closeFile];
     logger.fileHandle = nil;
     [self removeFileAtPath:kLogFilePath];
-
-    _fileLoggingEnabled = NO;
   }];
 }
 
@@ -254,10 +267,17 @@ bool AssertMessage(base::SrcPoint const & src, std::string const & message)
   // Log the message into the system log.
   os_log([self logger].osLogger, "%{public}s", logString.c_str());
 
-  if (level < LINFO)
-    dispatch_async([self fileLoggingQueue], ^{ [self tryWriteToFile:logString]; });
-  else
+  if (!_fileLoggingEnabled.load(std::memory_order_relaxed))
+    return;
+
+  // Write errors synchronously: an error is often the last record before the process dies - through
+  // the abort in LogMessage, or in the code that reported it - and that is exactly the record a
+  // diagnostic log is collected for. Everything else goes asynchronously to keep the calling
+  // (usually the main) thread out of the file I/O. The queue is serial, so the order is preserved.
+  if (level >= base::LERROR)
     [self runSyncOnFileLoggingQueue:^{ [self tryWriteToFile:logString]; }];
+  else
+    dispatch_async([self fileLoggingQueue], ^{ [self tryWriteToFile:logString]; });
 }
 
 + (void)tryWriteToFile:(std::string const &)logString
