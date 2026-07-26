@@ -11,8 +11,9 @@ struct SynchronizedFileState: Codable, Equatable {
 protocol SynchronizedStateStore: AnyObject {
   func state(for fileName: String) -> SynchronizedFileState?
   func setState(_ state: SynchronizedFileState?, for fileName: String)
-  /// Forgets everything when the iCloud account has changed: files of another account share no history.
-  func resetIfCloudIdentityChanged(_ identity: Data?)
+  /// Forgets everything when the iCloud account has changed: files of another account share no history. An
+  /// account that is momentarily unknown is not another one, so the identity is never optional here.
+  func resetIfCloudIdentityChanged(_ identity: Data)
 }
 
 /// Keeps the state in a JSON file outside of the synchronized directory, so that it is never synchronized itself.
@@ -55,11 +56,25 @@ final class FileSynchronizedStateStore: SynchronizedStateStore {
     scheduleSave()
   }
 
-  func resetIfCloudIdentityChanged(_ identity: Data?) {
-    guard contents.cloudIdentity != identity else { return }
+  func resetIfCloudIdentityChanged(_ identity: Data) {
+    guard let storedIdentity = contents.cloudIdentity else {
+      contents.cloudIdentity = identity
+      scheduleSave()
+      return
+    }
+    guard !Self.isSameIdentity(storedIdentity, identity) else { return }
     LOG(.info, "The iCloud account has changed: the synchronized state is reset")
     contents = Contents(cloudIdentity: identity, files: [:])
     scheduleSave()
+  }
+
+  /// A ubiquity identity token is an opaque object that Apple asks to compare with isEqual: two archives of the
+  /// same token are not promised to be equal byte for byte.
+  private static func isSameIdentity(_ lhs: Data, _ rhs: Data) -> Bool {
+    guard let lhsToken = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSObject.self], from: lhs),
+          let rhsToken = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSObject.self], from: rhs)
+    else { return lhs == rhs }
+    return (lhsToken as AnyObject).isEqual(rhsToken)
   }
 
   /// A lot of files become synchronized in a row: the file is written once, and never on the main queue.

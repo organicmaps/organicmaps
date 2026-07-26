@@ -63,5 +63,5 @@ final class SynchronizedStateStoreMock: SynchronizedStateStore {
 
   func setState(_ state: SynchronizedFileState?, for fileName: String) { states[fileName] = state }
 
-  func resetIfCloudIdentityChanged(_: Data?) { states.removeAll() }
+  func resetIfCloudIdentityChanged(_: Data) { states.removeAll() }
 }
