@@ -107,7 +107,7 @@ final class iCloudDocumentsMonitor: NSObject, CloudDirectoryMonitor {
         DispatchQueue.main.async { completion?(.failure(SynchronizationError.containerNotFound)) }
         return
       }
-      let documentsContainerUrl = containerUrl.appendingPathComponent(kDocumentsDirectoryName)
+      let documentsContainerUrl = containerUrl.appendingPathComponent(kDocumentsDirectoryName, isDirectory: true)
       if !self.fileManager.fileExists(atPath: documentsContainerUrl.path) {
         LOG(.debug, "Creating directory at path: \(documentsContainerUrl.path)...")
         do {
@@ -200,7 +200,9 @@ private extension iCloudDocumentsMonitor {
     metadataQuery.sortDescriptors = [NSSortDescriptor(key: NSMetadataItemFSNameKey, ascending: true)]
     return metadataQuery
   }
+}
 
+extension iCloudDocumentsMonitor {
   static func snapshot(of metadataQuery: NSMetadataQuery, in directory: URL) -> CloudSnapshot {
     var items = CloudContents()
     var unavailableFileNames = Set<String>()
@@ -209,9 +211,13 @@ private extension iCloudDocumentsMonitor {
       switch CloudMetadataItem.observation(from: metadataItem) {
       case .actionable(let item):
         // Files in the trash and in nested directories are not synchronized and are not a part of the directory.
-        guard item.fileUrl.deletingLastPathComponent() == directory else { continue }
+        guard item.fileUrl.isInside(directory) else { continue }
         items.append(item)
-      case .unusable(let fileName, let missingAttributes):
+      case .unusable(let fileName, let fileUrl, let missingAttributes):
+        /* The same holds for a file that is only known to exist: reported under its bare name, a copy iCloud is
+         moving to the trash would stand for the file in the directory and keep it from ever being confirmed as
+         gone. An item without a URL cannot be placed anywhere, so it counts for the directory it was found in. */
+        guard fileUrl.map({ $0.isInside(directory) }) ?? true else { continue }
         LOG(.warning, "iCloud file \(fileName) is not available: no \(missingAttributes.joined(separator: ", "))")
         unavailableFileNames.insert(fileName)
       case .unidentifiable(let missingAttributes):
@@ -220,5 +226,13 @@ private extension iCloudDocumentsMonitor {
       }
     }
     return CloudSnapshot(items: items, unavailableFileNames: unavailableFileNames, isComplete: isComplete)
+  }
+}
+
+private extension URL {
+  /// Paths are compared, not URLs: whether appendingPathComponent produced a trailing slash depends on the
+  /// directory already existing when the URL was built, and on the first launch it does not.
+  func isInside(_ directory: URL) -> Bool {
+    deletingLastPathComponent().path == directory.path
   }
 }

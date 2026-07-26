@@ -56,8 +56,9 @@ extension CloudMetadataItem {
   enum Observation {
     /// The item is complete enough to be used for file operations.
     case actionable(CloudMetadataItem)
-    /// The file is known to exist in iCloud but is not usable right now.
-    case unusable(fileName: String, missingAttributes: [String])
+    /// The file is known to exist in iCloud but is not usable right now. Its URL is the only way to tell whether
+    /// it belongs to the synchronized directory, and it is exactly what may be missing.
+    case unusable(fileName: String, fileUrl: URL?, missingAttributes: [String])
     /// The item cannot even be identified: the snapshot it belongs to is incomplete.
     case unidentifiable(missingAttributes: [String])
   }
@@ -81,7 +82,7 @@ extension CloudMetadataItem {
       return .unidentifiable(missingAttributes: missingAttributes)
     }
     guard let fileUrl, let lastModificationDate, let downloadingStatus else {
-      return .unusable(fileName: fileName, missingAttributes: missingAttributes)
+      return .unusable(fileName: fileName, fileUrl: fileUrl?.standardizedFileURL, missingAttributes: missingAttributes)
     }
     // Attributes below are not required to perform file operations and have safe defaults.
     let size = metadataItem.value(forAttribute: NSMetadataItemFSSizeKey) as? NSNumber
