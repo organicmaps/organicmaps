@@ -56,11 +56,12 @@ final class SynchronizationFileWriter {
     }
   }
 
+  /// The file was absent when this was decided. If it is there now it holds something nobody has compared with
+  /// the cloud copy yet, and overwriting it would lose it without keeping a copy.
   private func createInLocalContainer(_ cloudMetadataItem: CloudMetadataItem, completion: @escaping WritingResultCompletionHandler) {
     let targetLocalFileUrl = cloudMetadataItem.relatedLocalItemUrl(to: localDirectoryUrl)
     guard !fileManager.fileExists(atPath: targetLocalFileUrl.path) else {
-      LOG(.info, "File \(cloudMetadataItem.fileName) already exists in the local iCloud container.")
-      completion(.success)
+      completion(.skipped("\(cloudMetadataItem.fileName) is back in the local directory"))
       return
     }
     writeToLocalContainer(cloudMetadataItem, completion: completion)
@@ -80,12 +81,16 @@ final class SynchronizationFileWriter {
         return
       }
     }
+    let fileManager = fileManager
     writeToLocalContainer(cloudMetadataItem) { result in
-      guard case .reloadCategoriesAtURLs(let urls) = result else {
+      switch result {
+      case .reloadCategoriesAtURLs(let urls):
+        completion(.reloadCategoriesAtURLs(preservedUrls + urls))
+      default:
+        // The local file was not replaced after all, so the copy of it preserves nothing and is only a duplicate.
+        preservedUrls.forEach { try? fileManager.removeItem(at: $0) }
         completion(result)
-        return
       }
-      completion(.reloadCategoriesAtURLs(preservedUrls + urls))
     }
   }
 
@@ -108,12 +113,10 @@ final class SynchronizationFileWriter {
     let targetLocalFileUrl = cloudMetadataItem.relatedLocalItemUrl(to: localDirectoryUrl)
     fileCoordinator.coordinate(readingItemAt: cloudMetadataItem.fileUrl, writingItemAt: targetLocalFileUrl, error: &coordinationError) { readingUrl, writingUrl in
       do {
-        /* During the synchronization process, when the file in trashed by iCloud,
-         the notification still can contain the already deleted file in the `updated` list instead of `deleted`.
-         In this case, the file replacement should be skipped. */
+        /* The cloud copy this was decided from is gone: iCloud trashed or replaced it between the snapshot and
+         this coordinated read. There is nothing to write and nothing is wrong. */
         guard fileManager.fileExists(atPath: readingUrl.path) else {
-          LOG(.error, "iCloud file \(readingUrl.lastPathComponent) doesn't exist.")
-          completion(.failure(SynchronizationError.fileUnavailable))
+          completion(.skipped("\(readingUrl.lastPathComponent) is not in iCloud anymore"))
           return
         }
         try fileManager.replaceFileSafe(at: writingUrl, with: readingUrl)
@@ -142,8 +145,7 @@ final class SynchronizationFileWriter {
   private func createInCloudContainer(_ localMetadataItem: LocalMetadataItem, completion: @escaping WritingResultCompletionHandler) {
     let targetCloudFileUrl = localMetadataItem.relatedCloudItemUrl(to: cloudDirectoryUrl)
     guard !fileManager.fileExists(atPath: targetCloudFileUrl.path) else {
-      LOG(.info, "File \(localMetadataItem.fileName) already exists in the cloud directory")
-      completion(.success)
+      completion(.skipped("\(localMetadataItem.fileName) is back in the cloud directory"))
       return
     }
     writeToCloudContainer(localMetadataItem, completion: completion)

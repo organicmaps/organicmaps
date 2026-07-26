@@ -1,5 +1,8 @@
 enum WritingResult {
   case success
+  /// Nothing was written because what the operation assumed is not true anymore. It is not a failure and not a
+  /// success either: the file is reconciled again from what is observed next.
+  case skipped(String)
   case reloadCategoriesAtURLs([URL])
   /// Deletions are only requested by the writer: they are irreversible and are authorized against the latest
   /// observations, on the queue where the synchronization state lives.
@@ -316,6 +319,11 @@ private extension iCloudSynchronizaionManager {
       switch result {
       case .success:
         break
+      case .skipped(let reason):
+        // The content that was going to be written must not become the common base: it was not written.
+        LOG(.info, "Skipped \(event): \(reason)")
+        stateResolver.resolveEvent(.didFailWriting(event))
+        return
       case .reloadCategoriesAtURLs(let urls):
         urls.forEach { self.bookmarksManager.reloadCategory(atFilePath: $0.path) }
       case .deleteCategoriesAtURLs(let urls):
