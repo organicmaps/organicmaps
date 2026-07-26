@@ -72,7 +72,7 @@ final class SynchronizationStateResolverTests: XCTestCase {
     synchronize("file.kml", content: "A")
 
     let changedCloudItem = cloud("file.kml", "B", modified: 2)
-    XCTAssertEqual(update(cloud: [changedCloudItem]), [.updateLocalItem(with: changedCloudItem)])
+    XCTAssertEqual(update(cloud: [changedCloudItem]), [.updateLocalItem(with: changedCloudItem, preserving: nil)])
   }
 
   func testFileChangedOnBothSidesKeepsBothVersions() {
@@ -81,10 +81,11 @@ final class SynchronizationStateResolverTests: XCTestCase {
     let changedLocalItem = local("file.kml", "B", modified: 2)
     XCTAssertEqual(update(local: [changedLocalItem]), [.updateCloudItem(with: changedLocalItem)])
 
-    // The file was changed on another device before the local change was uploaded.
+    // The file was changed on another device before the local change was uploaded. The local version is preserved
+    // by the same operation that overwrites it, so a failure to keep it cannot be followed by its destruction.
     let changedCloudItem = cloud("file.kml", "C", modified: 3)
     XCTAssertEqual(update(cloud: [changedCloudItem]),
-                   [.duplicateLocalItem(changedLocalItem), .updateLocalItem(with: changedCloudItem)])
+                   [.updateLocalItem(with: changedCloudItem, preserving: changedLocalItem)])
   }
 
   func testNotDownloadedFileIsRequestedOnlyOnce() {

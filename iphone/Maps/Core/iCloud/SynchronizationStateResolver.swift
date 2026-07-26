@@ -32,25 +32,24 @@ enum OutgoingSynchronizationEvent: Equatable {
   case startDownloading(CloudMetadataItem)
 
   case createLocalItem(with: CloudMetadataItem)
-  case updateLocalItem(with: CloudMetadataItem)
+  /// Replaces the local file with the cloud one. When the local version holds changes that were never
+  /// synchronized, it is the only copy of them and is preserved under a new name by the same operation.
+  case updateLocalItem(with: CloudMetadataItem, preserving: LocalMetadataItem?)
   case removeLocalItem(LocalMetadataItem)
 
   case createCloudItem(with: LocalMetadataItem)
   case updateCloudItem(with: LocalMetadataItem)
   case removeCloudItem(CloudMetadataItem)
 
-  /// Keeps a copy of the local file under a new name before its content is replaced with the cloud one.
-  case duplicateLocalItem(LocalMetadataItem)
   case resolveVersionsConflict(CloudMetadataItem)
   case didReceiveError(SynchronizationError)
 
   var fileName: String? {
     switch self {
-    case .startDownloading(let item), .createLocalItem(let item), .updateLocalItem(let item),
+    case .startDownloading(let item), .createLocalItem(let item), .updateLocalItem(let item, _),
          .removeCloudItem(let item), .resolveVersionsConflict(let item):
       return item.fileName
-    case .createCloudItem(let item), .updateCloudItem(let item), .removeLocalItem(let item),
-         .duplicateLocalItem(let item):
+    case .createCloudItem(let item), .updateCloudItem(let item), .removeLocalItem(let item):
       return item.fileName
     case .didReceiveError:
       return nil
@@ -246,16 +245,23 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
       return []
     }
     if synchronized?.fingerprint == localFingerprint {
-      return write(.updateLocalItem(with: cloudItem), content: cloudFingerprint, to: &state.ownedLocalWrite)
+      return write(.updateLocalItem(with: cloudItem, preserving: nil), content: cloudFingerprint, to: &state.ownedLocalWrite)
     }
     if synchronized?.fingerprint == cloudFingerprint {
       return write(.updateCloudItem(with: localItem), content: localFingerprint, to: &state.ownedCloudWrite)
     }
-    // Both sides changed since they were synchronized, or they never were: keep both versions.
-    let events = write(.updateLocalItem(with: cloudItem), content: cloudFingerprint, to: &state.ownedLocalWrite)
-    guard !events.isEmpty else { return [] }
-    LOG(.warning, "\(fileName) was changed on both sides. The local version is kept under a new name.")
-    return [.duplicateLocalItem(localItem)] + events
+    // Both sides changed since they were synchronized, or they never were: the local version is the only copy of
+    // its changes, so the same operation preserves it under a new name before overwriting it.
+    let events = write(.updateLocalItem(with: cloudItem, preserving: localItem),
+                       content: cloudFingerprint,
+                       to: &state.ownedLocalWrite)
+    if !events.isEmpty {
+      LOG(.warning, """
+      \(fileName) was changed on both sides (local \(localFingerprint), cloud \(cloudFingerprint), \
+      synchronized \(synchronized?.fingerprint.description ?? "never")). The local version is kept under a new name.
+      """)
+    }
+    return events
   }
 
   private func resolveMissingCloudFile(_ localItem: LocalMetadataItem,
@@ -367,7 +373,7 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
       if isSuccessful {
         store.setState(nil, for: fileName)
       }
-    case .startDownloading, .duplicateLocalItem, .resolveVersionsConflict, .didReceiveError:
+    case .startDownloading, .resolveVersionsConflict, .didReceiveError:
       break
     }
     states[fileName] = state
