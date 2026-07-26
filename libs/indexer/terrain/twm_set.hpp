@@ -156,6 +156,9 @@ public:
   /// canonical pieces, so the seam queries find the blocks on both sides.
   void GetBlocksByRect(m2::RectD const & rect, std::vector<TwmId> & ids) const;
   bool HasBlocks(m2::RectD const & rect) const;
+  /// The limit rects of the registered blocks intersecting the mercator rect (canonical,
+  /// deduplicated: a wrapped query can probe the same block from both sides).
+  void GetBlockRectsByRect(m2::RectD const & rect, std::vector<m2::RectD> & rects) const;
 
   Handle GetHandleById(TwmId const & id);
   Handle GetHandleById(TwmId const & id) const { return const_cast<TwmSet *>(this)->GetHandleById(id); }
