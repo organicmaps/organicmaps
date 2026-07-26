@@ -29,6 +29,7 @@
 #include <chrono>
 #include <cstring>  // strlen
 #include <ctime>
+#include <future>
 #include <map>
 #include <numeric>  // std::reduce
 #include <set>
@@ -2514,6 +2515,59 @@ UNIT_CLASS_TEST(Runner, Bookmarks_RecentlyDeleted)
 
   TEST(!Platform::IsFileExistsByFullPath(filePath), ());
   TEST(!Platform::IsFileExistsByFullPath(deletedFilePath), ());
+}
+
+void DeleteCategoryWithPendingSave(bool permanently)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  auto const groupId = bmManager.CreateBookmarkCategory("PendingSave");
+  AddBookmark(bmManager, groupId, 10);
+  auto const filePath = bmManager.GetCategoryFileName(groupId);
+  TEST(Platform::IsFileExistsByFullPath(filePath), ());
+
+  std::promise<void> fileThreadBlocked;
+  std::promise<void> releaseFileThread;
+  std::promise<void> savesFinished;
+  GetPlatform().RunTask(Platform::Thread::File, [&]()
+  {
+    fileThreadBlocked.set_value();
+    releaseFileThread.get_future().wait();
+  });
+  fileThreadBlocked.get_future().wait();
+
+  bmManager.EnableTestMode(false);
+  bmManager.GetEditSession().SetCategoryName(groupId, "Edited before deletion");
+  bool const hadPendingSave = bmManager.IsCategorySaving(groupId);
+  bool const deleted = bmManager.GetEditSession().DeleteBmCategory(groupId, permanently);
+  GetPlatform().RunTask(Platform::Thread::File, [&]() { savesFinished.set_value(); });
+  releaseFileThread.set_value();
+  savesFinished.get_future().wait();
+  bmManager.EnableTestMode(true);
+
+  TEST(hadPendingSave, ());
+  TEST(deleted, ());
+  TEST(!bmManager.HasBmCategory(groupId), ());
+  TEST(!Platform::IsFileExistsByFullPath(filePath), ("An earlier autosave must not recreate a deleted file"));
+  if (!permanently)
+  {
+    auto const trashedFile = base::JoinPath(GetTrashDirectory(), base::FileNameFromFullPath(filePath));
+    SCOPE_GUARD(trashFileGuard, [&]() { (void)base::DeleteFileX(trashedFile); });
+    auto const data = LoadKmlFile(trashedFile, FileType::Kml);
+    TEST(data, ());
+    TEST_EQUAL(kml::GetDefaultStr(data->m_categoryData.m_name), "Edited before deletion",
+               ("The trash must preserve the edit that had not reached disk"));
+  }
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_DeletedCategoryIsNotRecreatedByPendingSave)
+{
+  DeleteCategoryWithPendingSave(true /* permanently */);
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_TrashedCategoryPreservesPendingChanges)
+{
+  DeleteCategoryWithPendingSave(false /* permanently */);
 }
 
 UNIT_CLASS_TEST(Runner, Bookmarks_TestSaveRoute)

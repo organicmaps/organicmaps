@@ -1685,6 +1685,12 @@ std::string BookmarkManager::GetCategoryFileName(kml::MarkGroupId categoryId) co
   return GetBmCategory(categoryId)->GetFileName();
 }
 
+bool BookmarkManager::IsCategorySaving(kml::MarkGroupId categoryId) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  return GetBmCategory(categoryId)->m_fileSaveState->m_pendingCount != 0;
+}
+
 kml::MarkGroupId BookmarkManager::GetCategoryByFileName(std::string const & fileName) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -2569,7 +2575,9 @@ void BookmarkManager::UpdateBookmarkCategory(kml::MarkGroupId groupId, kml::Cate
   // UI and search retain the group ID when a category is reloaded from its file.
   ClearGroup(groupId);
   data.m_id = groupId;
+  auto const fileSaveState = it->second->m_fileSaveState;
   it->second = std::make_unique<BookmarkCategory>(std::move(data), false /* autoSave */);
+  it->second->m_fileSaveState = fileSaveState;
   m_changesTracker.OnAddGroup(groupId);
 }
 
@@ -2599,24 +2607,41 @@ bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId, bool permanentl
   if (it == m_categories.end())
     return false;
 
+  auto const fileSaveState = it->second->m_fileSaveState;
+  std::lock_guard const saveLock(fileSaveState->m_mutex);
+  // The trash must hold the current category, including edits whose autosaves are still queued.
+  if (!permanently && fileSaveState->m_pendingCount != 0 && !SaveBookmarkCategory(groupId))
+    return false;
+
+  // The file goes first: a category that is gone from the memory while its file is still in the bookmarks
+  // directory comes back on the next launch, and iCloud synchronization uploads it again as a new one.
+  auto const & filePath = it->second->GetFileName();
+  if (Platform::IsFileExistsByFullPath(filePath))
+  {
+    if (permanently)
+    {
+      if (!base::DeleteFileX(filePath))
+      {
+        LOG(LERROR, ("Failed to delete the category at", filePath));
+        return false;
+      }
+      LOG(LINFO, ("Category at", filePath, "is deleted"));
+    }
+    else
+    {
+      auto const trashedFilePath = GenerateValidAndUniqueTrashedFilePath(base::FileNameFromFullPath(filePath));
+      if (!base::MoveFileX(filePath, trashedFilePath))
+      {
+        LOG(LERROR, ("Failed to move", filePath, "into the trash at", trashedFilePath));
+        return false;
+      }
+      LOG(LINFO, ("Category at", filePath, "is trashed to the", trashedFilePath));
+    }
+  }
+
+  fileSaveState->m_cancelled = true;
   ClearGroup(groupId);
   m_changesTracker.OnDeleteGroup(groupId);
-
-  auto const & filePath = it->second->GetFileName();
-  if (permanently)
-  {
-    base::DeleteFileX(filePath);
-    LOG(LINFO, ("Category at", filePath, "is deleted"));
-  }
-  else
-  {
-    auto const trashedFilePath = GenerateValidAndUniqueTrashedFilePath(base::FileNameFromFullPath(filePath));
-    if (base::MoveFileX(filePath, trashedFilePath))
-      LOG(LINFO, ("Category at", filePath, "is trashed to the", trashedFilePath));
-    else
-      LOG(LERROR, ("Failed to move", filePath, "into the trash at", trashedFilePath));
-  }
-
   m_categories.erase(it);
   UpdateBmGroupIdList();
   return true;
@@ -2927,10 +2952,29 @@ void BookmarkManager::SaveBookmarks(kml::GroupIdCollection const & groupIdCollec
     return;
   }
 
-  GetPlatform().RunTask(Platform::Thread::File, [kmlDataCollection = std::move(kmlDataCollection)]()
+  std::vector<std::shared_ptr<BookmarkCategory::FileSaveState>> fileSaveStates;
+  fileSaveStates.reserve(groupIdCollection.size());
+  for (auto const groupId : groupIdCollection)
   {
-    for (auto const & kmlItem : *kmlDataCollection)
+    auto const state = GetBmCategory(groupId)->m_fileSaveState;
+    ++state->m_pendingCount;
+    fileSaveStates.push_back(state);
+  }
+  CHECK_EQUAL(fileSaveStates.size(), kmlDataCollection->size(), ());
+
+  GetPlatform().RunTask(Platform::Thread::File,
+                        [kmlDataCollection = std::move(kmlDataCollection), fileSaveStates = std::move(fileSaveStates)]()
+  {
+    for (size_t i = 0; i < kmlDataCollection->size(); ++i)
+    {
+      auto const & state = fileSaveStates[i];
+      std::lock_guard const saveLock(state->m_mutex);
+      SCOPE_GUARD(pendingCountGuard, [&]() { --state->m_pendingCount; });
+      if (state->m_cancelled)
+        continue;
+      auto const & kmlItem = (*kmlDataCollection)[i];
       SaveKmlFileByExt(*kmlItem.second, kmlItem.first);
+    }
   });
 }
 
