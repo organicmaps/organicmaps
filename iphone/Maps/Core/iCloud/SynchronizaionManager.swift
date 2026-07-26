@@ -279,7 +279,15 @@ private extension iCloudSynchronizaionManager {
           stateResolver.resolveEvent(.didFailWriting(event))
           return
         }
-        urls.forEach { self.bookmarksManager.deleteCategory(atFilePath: $0.path) }
+        // A category that is not loaded, or whose file could not be moved to the trash, is not deleted. Reporting
+        // that as a failure keeps the content that was last synchronized, so the file is confirmed and deleted
+        // again instead of being uploaded back as a new one.
+        let results = urls.map { self.bookmarksManager.deleteCategory(atFilePath: $0.path) }
+        guard results.allSatisfy({ $0 }) else {
+          LOG(.warning, "Failed to delete the category: \(event)")
+          stateResolver.resolveEvent(.didFailWriting(event))
+          return
+        }
       case .failure(let error):
         stateResolver.resolveEvent(.didFailWriting(event))
         return processError(error)

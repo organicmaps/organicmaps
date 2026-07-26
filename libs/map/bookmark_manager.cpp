@@ -2697,24 +2697,34 @@ bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId, bool permanentl
   if (it == m_categories.end())
     return false;
 
+  // The file goes first: a category that is gone from the memory while its file is still in the bookmarks
+  // directory comes back on the next launch, and iCloud synchronization uploads it again as a new one.
+  auto const & filePath = it->second->GetFileName();
+  if (Platform::IsFileExistsByFullPath(filePath))
+  {
+    if (permanently)
+    {
+      if (!base::DeleteFileX(filePath))
+      {
+        LOG(LERROR, ("Failed to delete the category at", filePath));
+        return false;
+      }
+      LOG(LINFO, ("Category at", filePath, "is deleted"));
+    }
+    else
+    {
+      auto const trashedFilePath = GenerateValidAndUniqueTrashedFilePath(base::FileNameFromFullPath(filePath));
+      if (!base::MoveFileX(filePath, trashedFilePath))
+      {
+        LOG(LERROR, ("Failed to move", filePath, "into the trash at", trashedFilePath));
+        return false;
+      }
+      LOG(LINFO, ("Category at", filePath, "is trashed to the", trashedFilePath));
+    }
+  }
+
   ClearGroup(groupId);
   m_changesTracker.OnDeleteGroup(groupId);
-
-  auto const & filePath = it->second->GetFileName();
-  if (permanently)
-  {
-    base::DeleteFileX(filePath);
-    LOG(LINFO, ("Category at", filePath, "is deleted"));
-  }
-  else
-  {
-    auto const trashedFilePath = GenerateValidAndUniqueTrashedFilePath(base::FileNameFromFullPath(filePath));
-    if (base::MoveFileX(filePath, trashedFilePath))
-      LOG(LINFO, ("Category at", filePath, "is trashed to the", trashedFilePath));
-    else
-      LOG(LERROR, ("Failed to move", filePath, "into the trash at", trashedFilePath));
-  }
-
   DeleteCompilations(it->second->GetCategoryData().m_compilationIds);
   m_categories.erase(it);
   UpdateBmGroupIdList();
