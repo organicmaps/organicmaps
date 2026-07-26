@@ -2,30 +2,17 @@
 import XCTest
 
 class UbiquitousDirectoryMonitorDelegateMock: CloudDirectoryMonitorDelegate {
-  var didFinishGatheringCalled = false
-  var didUpdateCalled = false
-  var didReceiveErrorCalled = false
-
-  var didFinishGatheringExpectation: XCTestExpectation?
-  var didUpdateExpectation: XCTestExpectation?
-  var didReceiveErrorExpectation: XCTestExpectation?
-
   var contents = CloudContents()
 
-  func didFinishGathering(_ contents: CloudContents) {
-    didFinishGatheringCalled = true
-    didFinishGatheringExpectation?.fulfill()
-    self.contents = contents
-  }
+  var didReceiveSnapshotExpectation: XCTestExpectation?
+  var didReceiveErrorExpectation: XCTestExpectation?
 
-  func didUpdate(_ contents: CloudContents, _: CloudContentsUpdate) {
-    didUpdateCalled = true
-    didUpdateExpectation?.fulfill()
-    self.contents = contents
+  func didReceiveCloudSnapshot(_ snapshot: CloudSnapshot) {
+    contents = snapshot.items
+    didReceiveSnapshotExpectation?.fulfill()
   }
 
   func didReceiveCloudMonitorError(_: Error) {
-    didReceiveErrorCalled = true
     didReceiveErrorExpectation?.fulfill()
   }
 }
