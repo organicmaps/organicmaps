@@ -342,7 +342,8 @@ final class SynchronizationStateResolverTests: XCTestCase {
       return XCTFail("An item with all the required attributes must be actionable")
     }
     XCTAssertEqual(item.fileName, "file.kml")
-    XCTAssertEqual(item.lastModificationDate, 100)
+    // Not truncated to a whole second: two changes within the same second would look like one.
+    XCTAssertEqual(item.lastModificationDate, 100.7, accuracy: 0.000001)
     XCTAssertEqual(item.size, 42)
     XCTAssertTrue(item.isDownloaded)
     XCTAssertFalse(item.hasUnresolvedConflicts)

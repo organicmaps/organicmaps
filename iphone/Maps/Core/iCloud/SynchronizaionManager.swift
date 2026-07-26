@@ -39,6 +39,7 @@ final class iCloudSynchronizaionManager: NSObject {
   private let bookmarksManager: BookmarksManager
   private let stateResolver: SynchronizationStateResolver
   private let stateStore: SynchronizedStateStore
+  private let fingerprintProvider: FingerprintProvider
   private let clock: ActiveSynchronizationClock
   private var fileWriter: SynchronizationFileWriter?
   private var confirmationTimer: Timer?
@@ -53,7 +54,10 @@ final class iCloudSynchronizaionManager: NSObject {
     let cloudDirectoryMonitor = iCloudDocumentsMonitor(fileManager: fileManager, fileType: fileType)
     let stateStore = FileSynchronizedStateStore()
     let clock = ActiveSynchronizationClock()
-    let stateResolver = iCloudSynchronizationStateResolver(store: stateStore, clock: clock)
+    let fingerprintProvider = FileContentFingerprintProvider()
+    let stateResolver = iCloudSynchronizationStateResolver(store: stateStore,
+                                                           fingerprintProvider: fingerprintProvider,
+                                                           clock: clock)
     do {
       let localDirectoryMonitor = try FileSystemDispatchSourceMonitor(fileManager: fileManager, directory: fileManager.bookmarksDirectoryUrl, fileType: fileType)
       return iCloudSynchronizaionManager(fileManager: fileManager,
@@ -63,6 +67,7 @@ final class iCloudSynchronizaionManager: NSObject {
                                          localDirectoryMonitor: localDirectoryMonitor,
                                          stateResolver: stateResolver,
                                          stateStore: stateStore,
+                                         fingerprintProvider: fingerprintProvider,
                                          clock: clock)
     } catch {
       fatalError("Failed to create shared iCloud storage manager with error: \(error)")
@@ -78,6 +83,7 @@ final class iCloudSynchronizaionManager: NSObject {
        localDirectoryMonitor: LocalDirectoryMonitor,
        stateResolver: SynchronizationStateResolver,
        stateStore: SynchronizedStateStore,
+       fingerprintProvider: FingerprintProvider,
        clock: ActiveSynchronizationClock) {
     self.fileManager = fileManager
     self.settings = settings
@@ -86,6 +92,7 @@ final class iCloudSynchronizaionManager: NSObject {
     self.localDirectoryMonitor = localDirectoryMonitor
     self.stateResolver = stateResolver
     self.stateStore = stateStore
+    self.fingerprintProvider = fingerprintProvider
     self.clock = clock
     super.init()
   }
@@ -97,6 +104,12 @@ final class iCloudSynchronizaionManager: NSObject {
     subscribeToApplicationLifecycleNotifications()
     cloudDirectoryMonitor.delegate = self
     localDirectoryMonitor.delegate = self
+    // A file that could not be compared before was read in the background: the directories did not change, but
+    // what is known about their content did, so they are reconciled again.
+    fingerprintProvider.onFingerprintReady = { [weak self] in
+      guard let self else { return }
+      processEvents(stateResolver.resolveEvent(.didComputeFingerprint))
+    }
   }
 }
 
