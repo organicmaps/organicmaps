@@ -148,9 +148,10 @@ private extension iCloudSynchronizaionManager {
     clock.pause()
     fileWriter = nil
     stateResolver.resetState()
-
-    guard let error else { return }
+    // Observers are told in both cases: an error that stopped the engine, or that nothing is wrong anymore.
     synchronizationError = error
+
+    guard error != nil else { return }
     MWMAlertViewController.activeAlert().presentBugReportAlert(withTitle: L("icloud_synchronization_error_alert_title"))
   }
 
@@ -180,7 +181,7 @@ private extension iCloudSynchronizaionManager {
 
   func scheduleConfirmation() {
     guard confirmationTimer == nil else { return }
-    confirmationTimer = Timer.scheduledTimer(withTimeInterval: kAbsenceConfirmationInterval, repeats: false) { [weak self] _ in
+    confirmationTimer = Timer.scheduledTimer(withTimeInterval: iCloudSynchronizationStateResolver.Constants.absenceConfirmationInterval, repeats: false) { [weak self] _ in
       self?.confirmationTimer = nil
       self?.refreshContents()
     }
@@ -238,6 +239,10 @@ extension iCloudSynchronizaionManager: LocalDirectoryMonitorDelegate {
 
 extension iCloudSynchronizaionManager: CloudDirectoryMonitorDelegate {
   func didReceiveCloudSnapshot(_ snapshot: CloudSnapshot) {
+    /* An item error is a property of the cloud directory, not the result of a write: it stands until iCloud
+     stops reporting it. Every snapshot carries it, including the ones that repeat the previous one and are not
+     reconciled, so this is the only place where the condition is observed exactly. */
+    updateSynchronizationError(snapshot.items.compactMap(\.synchronizationError).first)
     processEvents(stateResolver.resolveEvent(.didUpdateCloudContents(snapshot)))
   }
 
@@ -250,9 +255,6 @@ extension iCloudSynchronizaionManager: CloudDirectoryMonitorDelegate {
 
 private extension iCloudSynchronizaionManager {
   func processEvents(_ events: [OutgoingSynchronizationEvent]) {
-    if events.isEmpty, synchronizationError != nil {
-      synchronizationError = nil
-    }
     for event in events {
       guard let fileWriter else {
         // Synchronization was stopped: nothing should wait for a write that will not happen.
@@ -322,10 +324,8 @@ private extension iCloudSynchronizaionManager {
       case .fileUnavailable,
            .fileNotUploadedDueToQuota,
            .ubiquityServerNotAvailable:
-        // The same error is reported by every snapshot until it is resolved: report it once.
-        guard synchronizationError as? SynchronizationError != syncError else { return }
-        LOG(.warning, "Synchronization Warning: \(syncError.localizedDescription)")
-        synchronizationError = syncError
+        // A transient condition: it is shown while it lasts and cleared by the next snapshot without it.
+        updateSynchronizationError(syncError)
       case .iCloudIsNotAvailable:
         LOG(.warning, "Synchronization Warning: \(error.localizedDescription)")
         stopSynchronization()
@@ -335,9 +335,21 @@ private extension iCloudSynchronizaionManager {
         stopSynchronization(withError: error)
       }
     default:
+      // An iCloud error that reached the app as a plain NSError means the same thing as the mapped one.
+      if let ubiquitousError = error.ubiquitousError {
+        return processError(ubiquitousError)
+      }
       LOG(.error, "System Error: \(error.localizedDescription)")
       stopSynchronization(withError: error)
     }
+  }
+
+  func updateSynchronizationError(_ error: SynchronizationError?) {
+    guard synchronizationError as? SynchronizationError != error else { return }
+    if let error {
+      LOG(.warning, "Synchronization Warning: \(error.localizedDescription)")
+    }
+    synchronizationError = error
   }
 }
 

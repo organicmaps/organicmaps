@@ -33,7 +33,6 @@ final class SynchronizationFileWriter {
       case .updateCloudItem(let localMetadataItem): self.updateInCloudContainer(localMetadataItem, completion: resultCompletion)
       case .removeCloudItem(let cloudMetadataItem, _): self.removeFromCloudContainer(cloudMetadataItem, completion: resultCompletion)
       case .resolveVersionsConflict(let cloudMetadataItem): self.resolveVersionsConflict(cloudMetadataItem, completion: resultCompletion)
-      case .didReceiveError(let error): resultCompletion(.failure(error))
       }
     }
   }
@@ -50,7 +49,10 @@ final class SynchronizationFileWriter {
       }
       completion(.success)
     } catch {
-      completion(.failure(error))
+      /* Downloading does not start while offline, in Low Data Mode, or when iCloud is busy with the item. None
+       of that is a reason to stop synchronizing: the request is repeated on a later snapshot. */
+      LOG(.warning, "Failed to start downloading \(cloudMetadataItem.fileName): \(error.localizedDescription)")
+      completion(.failure(SynchronizationError.fileUnavailable))
     }
   }
 

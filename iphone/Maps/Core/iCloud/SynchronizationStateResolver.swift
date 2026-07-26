@@ -3,10 +3,6 @@ typealias CloudContents = [CloudMetadataItem]
 typealias LocalSnapshot = DirectorySnapshot<LocalMetadataItem>
 typealias CloudSnapshot = DirectorySnapshot<CloudMetadataItem>
 
-/// How long a file must stay missing, in active synchronization time, before it is deleted on the other side.
-/// The directories are observed anew after this interval: a file that stays missing is reported by nobody.
-let kAbsenceConfirmationInterval: TimeInterval = 30
-
 protocol SynchronizationStateResolver {
   /// True while some file waits for a confirmation that can only come from a fresh snapshot.
   var hasPendingConfirmations: Bool { get }
@@ -52,17 +48,14 @@ enum OutgoingSynchronizationEvent: Equatable {
   case removeCloudItem(CloudMetadataItem, DeletionEvidence)
 
   case resolveVersionsConflict(CloudMetadataItem)
-  case didReceiveError(SynchronizationError)
 
-  var fileName: String? {
+  var fileName: String {
     switch self {
     case .startDownloading(let item), .createLocalItem(let item), .updateLocalItem(let item, _),
          .removeCloudItem(let item, _), .resolveVersionsConflict(let item):
       return item.fileName
     case .createCloudItem(let item), .updateCloudItem(let item), .removeLocalItem(let item, _):
       return item.fileName
-    case .didReceiveError:
-      return nil
     }
   }
 }
@@ -73,7 +66,11 @@ enum OutgoingSynchronizationEvent: Equatable {
 /// derives what has to be written from the content of both sides, comparing them with the content that was
 /// last synchronized. Deletions are the only irreversible operation and require a confirmed absence.
 final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
-  private enum Constants {
+  enum Constants {
+    /// How long a file must stay missing, in active synchronization time, before it is deleted on the other
+    /// side. The directories are observed anew after this interval: a file that stays missing is reported by
+    /// nobody.
+    static let absenceConfirmationInterval: TimeInterval = 30
     /// A write that iCloud never confirms should not block deletions forever.
     static let writeSettlingInterval: TimeInterval = 300
     /// iCloud reports the downloading progress with a lot of notifications: do not repeat requests on each one.
@@ -96,9 +93,12 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
     var downloadRequestedAt: TimeInterval?
     var conflictResolutionRequestedAt: TimeInterval?
 
-    /// True while the file waits for something that only a new snapshot can confirm.
+    /// True while the file waits for something that only a new snapshot can confirm: an absence that has to be
+    /// observed again, a write that has to settle, or a request iCloud has not acted on yet. Without this the
+    /// repeated snapshots are skipped, and a request that iCloud ignores is never repeated.
     var isPending: Bool {
       localAbsentSince != nil || cloudAbsentSince != nil || ownedLocalWrite != nil || ownedCloudWrite != nil
+        || downloadRequestedAt != nil || conflictResolutionRequestedAt != nil
     }
   }
 
@@ -177,7 +177,7 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
     guard let localSnapshot, let cloudSnapshot else { return [] }
     mustReconcile = false
 
-    var events = cloudSnapshot.items.compactMap(\.synchronizationError).map { OutgoingSynchronizationEvent.didReceiveError($0) }
+    var events = [OutgoingSynchronizationEvent]()
     for fileName in localSnapshot.fileNames.union(cloudSnapshot.fileNames).union(states.keys) {
       let local = localSnapshot.state(of: fileName)
       let cloud = cloudSnapshot.state(of: fileName)
@@ -202,6 +202,7 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
       cancelAbsences(&state)
       return shouldRequest(&state.conflictResolutionRequestedAt) ? [.resolveVersionsConflict(cloudItem)] : []
     }
+    state.conflictResolutionRequestedAt = nil
 
     switch (local, cloud) {
     case (.present(let localItem), .present(let cloudItem)):
@@ -335,7 +336,7 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
 
   private func isAbsenceConfirmed(_ absentSince: TimeInterval?) -> Bool {
     guard let absentSince else { return false }
-    return clock.activeTime - absentSince >= kAbsenceConfirmationInterval
+    return clock.activeTime - absentSince >= iCloudSynchronizationStateResolver.Constants.absenceConfirmationInterval
   }
 
   /// Exactly the rule that produced the deletion: the very absence that was confirmed still stands -- an absence
@@ -384,7 +385,7 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
   }
 
   private func finishWriting(_ event: OutgoingSynchronizationEvent, isSuccessful: Bool) {
-    guard let fileName = event.fileName else { return }
+    let fileName = event.fileName
     mustReconcile = true
     var state = states[fileName] ?? FileState()
     switch event {
@@ -400,7 +401,7 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
        could not be moved to the trash -- and forgetting the common base here would turn the file that is still
        on disk into a new one to upload. */
       cancelAbsences(&state)
-    case .startDownloading, .resolveVersionsConflict, .didReceiveError:
+    case .startDownloading, .resolveVersionsConflict:
       break
     }
     states[fileName] = state
