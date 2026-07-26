@@ -19,7 +19,14 @@ typedef NS_ENUM(NSUInteger, LogLevel) {
 
 + (void)log:(LogLevel)level message:(NSString *)message;
 + (BOOL)canLog:(LogLevel)level;
-+ (nullable NSURL *)getLogFileURL;
+
+/// Creates a zipped copy of the diagnostic log, or of a report rebuilt from the system log when
+/// file logging is off. Everything is done on a background queue, and the completion is called
+/// there too, with nil if the archive cannot be created. The caller owns the returned file and is
+/// expected to remove its enclosing temporary directory.
++ (void)getLogFileURLWithCompletion:(void (^)(NSURL * _Nullable logFileURL))completion;
+
+/// Total size of the diagnostic log files.
 + (uint64_t)getLogFileSize;
 
 @end
