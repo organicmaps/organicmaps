@@ -293,10 +293,11 @@ final class SynchronizationStateResolverTests: XCTestCase {
 
   func testItemWithoutUrlIsPresentButNotActionable() {
     let observation = CloudMetadataItem.observation(from: MetadataItemMock([NSMetadataItemFSNameKey: "file.kml"]))
-    guard case .unusable(let fileName, let missingAttributes) = observation else {
+    guard case .unusable(let fileName, let fileUrl, let missingAttributes) = observation else {
       return XCTFail("A named item without other attributes must be observed as unusable")
     }
     XCTAssertEqual(fileName, "file.kml")
+    XCTAssertNil(fileUrl)
     XCTAssertTrue(missingAttributes.contains(NSMetadataItemURLKey))
   }
 
@@ -304,10 +305,40 @@ final class SynchronizationStateResolverTests: XCTestCase {
     let observation = CloudMetadataItem.observation(from: MetadataItemMock([
       NSMetadataItemURLKey: URL(fileURLWithPath: "/cloud/file.kml"),
     ]))
-    guard case .unusable(let fileName, _) = observation else {
+    guard case .unusable(let fileName, _, _) = observation else {
       return XCTFail("An item with a URL must be observed as unusable and not as unidentifiable")
     }
     XCTAssertEqual(fileName, "file.kml")
+  }
+
+  func testUnusableItemOutsideOfTheDirectoryDoesNotStandForTheFileInIt() {
+    let directory = URL(fileURLWithPath: "/cloud")
+    // A copy iCloud is moving to the trash: its attributes are already gone, but its URL is not the directory.
+    let query = MetadataQueryMock([MetadataItemMock([
+      NSMetadataItemFSNameKey: "file.kml",
+      NSMetadataItemURLKey: URL(fileURLWithPath: "/cloud/.Trash/file.kml"),
+    ])])
+
+    let snapshot = iCloudDocumentsMonitor.snapshot(of: query, in: directory)
+    XCTAssertTrue(snapshot.unavailableFileNames.isEmpty)
+    XCTAssertTrue(snapshot.isComplete)
+    guard case .absent = snapshot.state(of: "file.kml") else {
+      return XCTFail("A file that is only in the trash is absent from the directory")
+    }
+  }
+
+  func testUnusableItemInTheDirectoryProvesThatTheFileIsThere() {
+    let directory = URL(fileURLWithPath: "/cloud")
+    let query = MetadataQueryMock([MetadataItemMock([
+      NSMetadataItemFSNameKey: "file.kml",
+      NSMetadataItemURLKey: URL(fileURLWithPath: "/cloud/file.kml"),
+    ])])
+
+    let snapshot = iCloudDocumentsMonitor.snapshot(of: query, in: directory)
+    XCTAssertEqual(snapshot.unavailableFileNames, ["file.kml"])
+    guard case .unavailable = snapshot.state(of: "file.kml") else {
+      return XCTFail("The file exists but cannot be used yet")
+    }
   }
 
   func testItemWithoutNameAndUrlIsUnidentifiable() {

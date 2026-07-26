@@ -40,6 +40,18 @@ final class MetadataItemMock: NSMetadataItem {
   override func value(forAttribute key: String) -> Any? { values[key] }
 }
 
+/// Metadata query that returns the given results only.
+final class MetadataQueryMock: NSMetadataQuery {
+  private let items: [NSMetadataItem]
+
+  init(_ items: [NSMetadataItem]) {
+    self.items = items
+    super.init()
+  }
+
+  override var results: [Any] { items }
+}
+
 final class SynchronizationClockMock: SynchronizationClock {
   var activeTime: TimeInterval = 0
 
