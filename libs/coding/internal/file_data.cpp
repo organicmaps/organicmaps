@@ -16,6 +16,7 @@
 #include <cstring>
 #include <exception>
 #include <fstream>
+#include <thread>
 #include <vector>
 
 #ifdef OMIM_OS_WINDOWS
