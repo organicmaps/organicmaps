@@ -32,6 +32,9 @@ enum IncomingSynchronizationEvent {
   case didUpdateCloudContents(CloudSnapshot)
   case didFinishWriting(OutgoingSynchronizationEvent)
   case didFailWriting(OutgoingSynchronizationEvent)
+  /// A file the resolver could not compare before has been read: the directories did not change, but what is
+  /// known about their content did.
+  case didComputeFingerprint
 }
 
 enum OutgoingSynchronizationEvent: Equatable {
@@ -141,6 +144,8 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
     case .didFailWriting(let event):
       finishWriting(event, isSuccessful: false)
       return []
+    case .didComputeFingerprint:
+      break
     }
 
     let outgoingEvents = reconcile()
@@ -255,10 +260,15 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
                      for: fileName)
       return []
     }
+    /* A side the app is still writing to may be observed as it was before that write: iCloud reports the
+     attributes of a file it is replacing with a delay, and a file that still looks the same is not read again.
+     What is seen there proves nothing until the write settles. */
     if synchronized?.fingerprint == localFingerprint {
+      guard state.ownedCloudWrite == nil else { return [] }
       return write(.updateLocalItem(with: cloudItem, preserving: nil), content: cloudFingerprint, to: &state.ownedLocalWrite)
     }
     if synchronized?.fingerprint == cloudFingerprint {
+      guard state.ownedLocalWrite == nil else { return [] }
       return write(.updateCloudItem(with: localItem), content: localFingerprint, to: &state.ownedCloudWrite)
     }
     // Both sides changed since they were synchronized, or they never were: the local version is the only copy of

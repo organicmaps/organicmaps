@@ -34,7 +34,7 @@ struct CloudMetadataItem: MetadataItem {
 extension LocalMetadataItem {
   init?(fileUrl: URL) {
     guard let resources = try? fileUrl.resourceValues(forKeys: [.contentModificationDateKey, .fileSizeKey]),
-          let lastModificationDate = resources.contentModificationDate?.roundedTime
+          let lastModificationDate = resources.contentModificationDate?.timeIntervalSince1970
     else {
       LOG(.warning, "Failed to read attributes of the local file \(fileUrl.lastPathComponent)")
       return nil
@@ -74,7 +74,7 @@ extension CloudMetadataItem {
 
     let fileName = required(NSMetadataItemFSNameKey, as: String.self)
     let fileUrl = required(NSMetadataItemURLKey, as: URL.self)
-    let lastModificationDate = required(NSMetadataItemFSContentChangeDateKey, as: Date.self)?.roundedTime
+    let lastModificationDate = required(NSMetadataItemFSContentChangeDateKey, as: Date.self)?.timeIntervalSince1970
     let downloadingStatus = required(NSMetadataUbiquitousItemDownloadingStatusKey, as: String.self)
 
     guard let fileName = fileName ?? fileUrl?.lastPathComponent else {
@@ -164,11 +164,5 @@ struct DirectorySnapshot<Item: MetadataItem>: Equatable {
       description += ", unavailable: \(unavailableFileNames.sorted().joined(separator: ", "))"
     }
     return items.reduce(into: description) { $0 += "\n\($1.shortDebugDescription)" }
-  }
-}
-
-private extension Date {
-  var roundedTime: TimeInterval {
-    timeIntervalSince1970.rounded(.down)
   }
 }
