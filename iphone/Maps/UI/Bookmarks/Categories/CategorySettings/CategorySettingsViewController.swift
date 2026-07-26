@@ -239,7 +239,12 @@ extension CategorySettingsViewController: MWMNoteCellDelegate {
 extension CategorySettingsViewController: MWMButtonCellDelegate {
   func cellDidPressButton(_: UITableViewCell) {
     isDeleting = true
-    bookmarksManager.deleteCategory(bookmarkGroup.categoryId)
+    guard bookmarksManager.deleteCategory(bookmarkGroup.categoryId) else {
+      // The list is still there: the screen stays open and keeps saving the changes made in it.
+      LOG(.warning, "Failed to delete the category \(bookmarkGroup.categoryId)")
+      isDeleting = false
+      return
+    }
     delegate?.categorySettingsController(self, didDelete: bookmarkGroup.categoryId)
   }
 }
