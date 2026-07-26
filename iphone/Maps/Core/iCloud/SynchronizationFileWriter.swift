@@ -25,14 +25,14 @@ final class SynchronizationFileWriter {
       guard let self else { return }
       switch event {
       case .createLocalItem(let cloudMetadataItem): self.createInLocalContainer(cloudMetadataItem, completion: resultCompletion)
-      case .updateLocalItem(let cloudMetadataItem): self.updateInLocalContainer(cloudMetadataItem, completion: resultCompletion)
+      case .updateLocalItem(let cloudMetadataItem, let preservedItem):
+        self.updateInLocalContainer(cloudMetadataItem, preserving: preservedItem, completion: resultCompletion)
       case .removeLocalItem(let localMetadataItem): self.removeFromLocalContainer(localMetadataItem, completion: resultCompletion)
       case .startDownloading(let cloudMetadataItem): self.startDownloading(cloudMetadataItem, completion: resultCompletion)
       case .createCloudItem(let localMetadataItem): self.createInCloudContainer(localMetadataItem, completion: resultCompletion)
       case .updateCloudItem(let localMetadataItem): self.updateInCloudContainer(localMetadataItem, completion: resultCompletion)
       case .removeCloudItem(let cloudMetadataItem): self.removeFromCloudContainer(cloudMetadataItem, completion: resultCompletion)
       case .resolveVersionsConflict(let cloudMetadataItem): self.resolveVersionsConflict(cloudMetadataItem, completion: resultCompletion)
-      case .duplicateLocalItem(let localMetadataItem): self.duplicateInLocalContainer(localMetadataItem, completion: resultCompletion)
       case .didReceiveError(let error): resultCompletion(.failure(error))
       }
     }
@@ -64,8 +64,40 @@ final class SynchronizationFileWriter {
     writeToLocalContainer(cloudMetadataItem, completion: completion)
   }
 
-  private func updateInLocalContainer(_ cloudMetadataItem: CloudMetadataItem, completion: @escaping WritingResultCompletionHandler) {
-    writeToLocalContainer(cloudMetadataItem, completion: completion)
+  /// The preserved copy is made before the local file is overwritten and the replacement is abandoned when it
+  /// fails: that copy is the only one holding the local changes.
+  private func updateInLocalContainer(_ cloudMetadataItem: CloudMetadataItem,
+                                      preserving localMetadataItem: LocalMetadataItem?,
+                                      completion: @escaping WritingResultCompletionHandler) {
+    var preservedUrls = [URL]()
+    if let localMetadataItem {
+      do {
+        try preservedUrls.append(preserveCopy(of: localMetadataItem))
+      } catch {
+        completion(.failure(error))
+        return
+      }
+    }
+    writeToLocalContainer(cloudMetadataItem) { result in
+      guard case .reloadCategoriesAtURLs(let urls) = result else {
+        completion(result)
+        return
+      }
+      completion(.reloadCategoriesAtURLs(preservedUrls + urls))
+    }
+  }
+
+  /// The copy gets a name no other device and no earlier conflict can produce, and never replaces an existing
+  /// file: every preserved version of every device survives.
+  private func preserveCopy(of localMetadataItem: LocalMetadataItem) throws -> URL {
+    let fileUrl = localMetadataItem.fileUrl
+    let baseName = fileUrl.deletingPathExtension().lastPathComponent
+    let copyUrl = fileUrl
+      .deletingLastPathComponent()
+      .appendingPathComponent("\(baseName)_\(UUID().uuidString.prefix(8)).\(fileUrl.pathExtension)")
+    LOG(.info, "Keep a copy of \(localMetadataItem.fileName) as \(copyUrl.lastPathComponent) to resolve a conflict")
+    try fileManager.copyItem(at: fileUrl, to: copyUrl)
+    return copyUrl
   }
 
   private func writeToLocalContainer(_ cloudMetadataItem: CloudMetadataItem, completion: @escaping WritingResultCompletionHandler) {
@@ -222,33 +254,13 @@ final class SynchronizationFileWriter {
     }
   }
 
-  private func duplicateInLocalContainer(_ localMetadataItem: LocalMetadataItem, completion: @escaping WritingResultCompletionHandler) {
-    LOG(.info, "Keep a copy of the file \(localMetadataItem.fileName) with a new name to resolve a conflict...")
-    do {
-      let newFileUrl = generateNewFileUrl(for: localMetadataItem.fileUrl, addDeviceName: true)
-      if !fileManager.fileExists(atPath: newFileUrl.path) {
-        try fileManager.copyItem(at: localMetadataItem.fileUrl, to: newFileUrl)
-      } else {
-        try fileManager.replaceFileSafe(at: newFileUrl, with: localMetadataItem.fileUrl)
-      }
-      LOG(.info, "File \(localMetadataItem.fileName) was successfully resolved.")
-      completion(.reloadCategoriesAtURLs([newFileUrl]))
-    } catch {
-      completion(.failure(error))
-    }
-  }
-
   // MARK: - Helper methods
 
-  /// Generate a new file URL with a new name for the file with the same name.
-  /// This method should generate the same name for the same file on different devices during the simultaneous conflict resolving.
-  private func generateNewFileUrl(for fileUrl: URL, addDeviceName: Bool = false) -> URL {
+  /// A version kept aside by iCloud's own conflict resolution. The name is derived from the original one, so two
+  /// devices resolving the same conflict at the same time produce the same file instead of two copies of it.
+  private func generateNewFileUrl(for fileUrl: URL) -> URL {
     let baseName = fileUrl.deletingPathExtension().lastPathComponent
-    let fileExtension = fileUrl.pathExtension
-    let newBaseName = baseName + "_1"
-    let deviceName = addDeviceName ? "_\(UIDevice.current.name)" : ""
-    let newFileName = newBaseName + deviceName + "." + fileExtension
-    return fileUrl.deletingLastPathComponent().appendingPathComponent(newFileName)
+    return fileUrl.deletingLastPathComponent().appendingPathComponent("\(baseName)_1.\(fileUrl.pathExtension)")
   }
 }
 
