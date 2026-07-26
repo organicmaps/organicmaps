@@ -1,5 +1,7 @@
 enum DirectoryMonitorState: CaseIterable, Equatable {
   case started
+  /// The start is in progress: the cloud monitor waits for iCloud to tell where the directory it observes is.
+  case starting
   case stopped
   case paused
 }
@@ -11,6 +13,8 @@ protocol DirectoryMonitor: AnyObject {
   func stop()
   func pause()
   func resume()
+  /// Observes the directory again and publishes its content, even when nothing has changed.
+  func refresh()
 }
 
 protocol LocalDirectoryMonitor: DirectoryMonitor {
@@ -19,8 +23,7 @@ protocol LocalDirectoryMonitor: DirectoryMonitor {
 }
 
 protocol LocalDirectoryMonitorDelegate: AnyObject {
-  func didFinishGathering(_ contents: LocalContents)
-  func didUpdate(_ contents: LocalContents, _ update: LocalContentsUpdate)
+  func didReceiveLocalSnapshot(_ snapshot: LocalSnapshot)
   func didReceiveLocalMonitorError(_ error: Error)
 }
 
@@ -39,8 +42,6 @@ final class FileSystemDispatchSourceMonitor: LocalDirectoryMonitor {
   private var dispatchSourceDebounceState: DispatchSourceDebounceState = .stopped
   private var dispatchSourceIsSuspended = false
   private var dispatchSourceIsResumed = false
-  private var didFinishGatheringIsCalled = false
-  private var contents: LocalContents = []
 
   // MARK: - Public properties
 
@@ -69,8 +70,10 @@ final class FileSystemDispatchSourceMonitor: LocalDirectoryMonitor {
 
     LOG(.debug, "Start local monitor.")
     if let dispatchSource {
+      invalidateDebounce()
       dispatchSourceDebounceState = .debounce(source: dispatchSource, timer: nowTimer)
-      resume()
+      resumeDispatchSource()
+      state = .started
       completion?(.success(directory))
       return
     }
@@ -92,32 +95,38 @@ final class FileSystemDispatchSourceMonitor: LocalDirectoryMonitor {
   }
 
   func stop() {
-    guard state == .started else { return }
+    guard state != .stopped else { return }
     LOG(.debug, "Stop.")
+    invalidateDebounce()
     suspendDispatchSource()
-    didFinishGatheringIsCalled = false
     dispatchSourceDebounceState = .stopped
     state = .stopped
-    contents.removeAll()
   }
 
   func pause() {
     guard state == .started else { return }
     LOG(.debug, "Pause.")
+    invalidateDebounce()
     suspendDispatchSource()
     state = .paused
   }
 
   func resume() {
-    guard state != .started else { return }
+    guard state == .paused else { return }
     LOG(.debug, "Resume.")
     resumeDispatchSource()
     state = .started
   }
 
+  func refresh() {
+    guard state == .started else { return }
+    publishSnapshot()
+  }
+
   // MARK: - Private
 
   private func queueDidFire() {
+    guard state == .started else { return }
     let debounceTimeInterval = 0.5
     switch dispatchSourceDebounceState {
     case .started(let source):
@@ -136,6 +145,15 @@ final class FileSystemDispatchSourceMonitor: LocalDirectoryMonitor {
     }
   }
 
+  /// A one-shot timer that fires while paused becomes invalid. Keeping it as the debounce timer would prevent
+  /// subsequent directory events from scheduling a fresh one.
+  private func invalidateDebounce() {
+    if case .debounce(let source, let timer) = dispatchSourceDebounceState {
+      timer.invalidate()
+      dispatchSourceDebounceState = .started(source: source)
+    }
+  }
+
   private func debounceTimerDidFire() {
     LOG(.debug, "Debounce timer did fire.")
     guard state == .started else {
@@ -145,46 +163,29 @@ final class FileSystemDispatchSourceMonitor: LocalDirectoryMonitor {
     guard case .debounce(let source, let timer) = dispatchSourceDebounceState else { fatalError() }
     timer.invalidate()
     dispatchSourceDebounceState = .started(source: source)
+    publishSnapshot()
+  }
 
+  private func publishSnapshot() {
     do {
       let files = try fileManager
-        .contentsOfDirectory(at: directory, includingPropertiesForKeys: [.contentModificationDateKey], options: [.skipsHiddenFiles])
+        .contentsOfDirectory(at: directory, includingPropertiesForKeys: [.contentModificationDateKey, .fileSizeKey], options: [.skipsHiddenFiles])
         .filter { $0.pathExtension == fileType.fileExtension }
-      let currentContents = try files.map { try LocalMetadataItem(fileUrl: $0) }
-      didFinishGatheringIsCalled ? didUpdate(currentContents) : didFinishGathering(currentContents)
+      // A file whose attributes cannot be read exists but cannot be used: it is not a removed file.
+      var unavailableFileNames = Set<String>()
+      let items = files.compactMap { fileUrl -> LocalMetadataItem? in
+        guard let item = LocalMetadataItem(fileUrl: fileUrl) else {
+          unavailableFileNames.insert(fileUrl.lastPathComponent)
+          return nil
+        }
+        return item
+      }
+      let snapshot = LocalSnapshot(items: items, unavailableFileNames: unavailableFileNames)
+      LOG(.debug, "Local contents: \(snapshot.shortDebugDescription)")
+      delegate?.didReceiveLocalSnapshot(snapshot)
     } catch {
       delegate?.didReceiveLocalMonitorError(error)
     }
-  }
-
-  private func didFinishGathering(_ currentContents: LocalContents) {
-    didFinishGatheringIsCalled = true
-    contents = currentContents
-    LOG(.info, "Local contents (\(currentContents.count)):")
-    currentContents.forEach { LOG(.info, $0.shortDebugDescription) }
-    delegate?.didFinishGathering(currentContents)
-  }
-
-  private func didUpdate(_ currentContents: LocalContents) {
-    let changedContents = Self.getChangedContents(oldContents: contents, newContents: currentContents)
-    contents = currentContents
-    LOG(.info, "Local contents (\(currentContents.count)):")
-    currentContents.forEach { LOG(.info, $0.shortDebugDescription) }
-    LOG(.info, "Added to the local content (\(changedContents.added.count)): \n\(changedContents.added.shortDebugDescription)")
-    LOG(.info, "Updated in the local content (\(changedContents.updated.count)): \n\(changedContents.updated.shortDebugDescription)")
-    LOG(.info, "Removed from the local content (\(changedContents.removed.count)): \n\(changedContents.removed.shortDebugDescription)")
-    delegate?.didUpdate(currentContents, changedContents)
-  }
-
-  private static func getChangedContents(oldContents: LocalContents, newContents: LocalContents) -> LocalContentsUpdate {
-    let added = newContents.filter { !oldContents.containsByName($0) }
-    let updated = newContents.reduce(into: LocalContents()) { partialResult, newItem in
-      if let oldItem = oldContents.firstByName(newItem), newItem.lastModificationDate > oldItem.lastModificationDate {
-        partialResult.append(newItem)
-      }
-    }
-    let removed = oldContents.filter { !newContents.containsByName($0) }
-    return LocalContentsUpdate(added: added, updated: updated, removed: removed)
   }
 
   private func suspendDispatchSource() {
