@@ -160,19 +160,20 @@ final class FileSystemDispatchSourceMonitor: LocalDirectoryMonitor {
   private func didFinishGathering(_ currentContents: LocalContents) {
     didFinishGatheringIsCalled = true
     contents = currentContents
-    LOG(.info, "Local contents (\(currentContents.count)):")
-    currentContents.forEach { LOG(.info, $0.shortDebugDescription) }
+    LOG(.info, "Local contents (\(currentContents.count))")
+    currentContents.forEach { LOG(.debug, $0.shortDebugDescription) }
     delegate?.didFinishGathering(currentContents)
   }
 
   private func didUpdate(_ currentContents: LocalContents) {
     let changedContents = Self.getChangedContents(oldContents: contents, newContents: currentContents)
     contents = currentContents
-    LOG(.info, "Local contents (\(currentContents.count)):")
-    currentContents.forEach { LOG(.info, $0.shortDebugDescription) }
-    LOG(.info, "Added to the local content (\(changedContents.added.count)): \n\(changedContents.added.shortDebugDescription)")
-    LOG(.info, "Updated in the local content (\(changedContents.updated.count)): \n\(changedContents.updated.shortDebugDescription)")
-    LOG(.info, "Removed from the local content (\(changedContents.removed.count)): \n\(changedContents.removed.shortDebugDescription)")
+    LOG(.info, "Local contents (\(currentContents.count)), added \(changedContents.added.count), updated \(changedContents.updated.count), removed \(changedContents.removed.count)")
+    currentContents.forEach { LOG(.debug, $0.shortDebugDescription) }
+    // See iCloudDocumentsMonitor.queryDidUpdate for why only the inventory is a debug record.
+    changedContents.added.forEach { LOG(.info, "Added: \($0.shortDebugDescription)") }
+    changedContents.updated.forEach { LOG(.info, "Updated: \($0.shortDebugDescription)") }
+    changedContents.removed.forEach { LOG(.info, "Removed: \($0.shortDebugDescription)") }
     delegate?.didUpdate(currentContents, changedContents)
   }
 
