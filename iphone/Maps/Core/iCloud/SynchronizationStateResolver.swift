@@ -21,6 +21,16 @@ protocol SynchronizationStateResolver {
   func resetState()
 }
 
+/// What made a deletion legitimate, carried by the event that crosses the queues. Both the absence that was
+/// confirmed and the content the surviving copy is expected to hold are checked again right before the file is
+/// deleted: a file that disappeared, came back and disappeared again is missing for a reason nobody confirmed.
+struct DeletionEvidence: Equatable {
+  /// When the confirmed absence started, in active synchronization time.
+  let absentSince: TimeInterval
+  /// The content both sides held when they were last synchronized.
+  let base: Fingerprint
+}
+
 enum IncomingSynchronizationEvent {
   case didUpdateLocalContents(LocalSnapshot)
   case didUpdateCloudContents(CloudSnapshot)
@@ -35,11 +45,11 @@ enum OutgoingSynchronizationEvent: Equatable {
   /// Replaces the local file with the cloud one. When the local version holds changes that were never
   /// synchronized, it is the only copy of them and is preserved under a new name by the same operation.
   case updateLocalItem(with: CloudMetadataItem, preserving: LocalMetadataItem?)
-  case removeLocalItem(LocalMetadataItem)
+  case removeLocalItem(LocalMetadataItem, DeletionEvidence)
 
   case createCloudItem(with: LocalMetadataItem)
   case updateCloudItem(with: LocalMetadataItem)
-  case removeCloudItem(CloudMetadataItem)
+  case removeCloudItem(CloudMetadataItem, DeletionEvidence)
 
   case resolveVersionsConflict(CloudMetadataItem)
   case didReceiveError(SynchronizationError)
@@ -47,9 +57,9 @@ enum OutgoingSynchronizationEvent: Equatable {
   var fileName: String? {
     switch self {
     case .startDownloading(let item), .createLocalItem(let item), .updateLocalItem(let item, _),
-         .removeCloudItem(let item), .resolveVersionsConflict(let item):
+         .removeCloudItem(let item, _), .resolveVersionsConflict(let item):
       return item.fileName
-    case .createCloudItem(let item), .updateCloudItem(let item), .removeLocalItem(let item):
+    case .createCloudItem(let item), .updateCloudItem(let item), .removeLocalItem(let item, _):
       return item.fileName
     case .didReceiveError:
       return nil
@@ -143,10 +153,10 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
 
   func authorizes(_ event: OutgoingSynchronizationEvent) -> Bool {
     switch event {
-    case .removeLocalItem(let item):
-      return states[item.fileName]?.cloudAbsentSince != nil
-    case .removeCloudItem(let item):
-      return states[item.fileName]?.localAbsentSince != nil
+    case .removeLocalItem(let item, let evidence):
+      return isDeletionConfirmed(states[item.fileName]?.cloudAbsentSince, evidence, of: item.fileName)
+    case .removeCloudItem(let item, let evidence):
+      return isDeletionConfirmed(states[item.fileName]?.localAbsentSince, evidence, of: item.fileName)
     default:
       return true
     }
@@ -280,8 +290,8 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
       state.cloudAbsentSince = nil
       return []
     }
-    guard confirmAbsence(&state.cloudAbsentSince) else { return [] }
-    return [.removeLocalItem(localItem)]
+    guard let absentSince = confirmAbsence(&state.cloudAbsentSince) else { return [] }
+    return [.removeLocalItem(localItem, DeletionEvidence(absentSince: absentSince, base: localFingerprint))]
   }
 
   private func resolveMissingLocalFile(_ cloudItem: CloudMetadataItem,
@@ -301,8 +311,8 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
       state.localAbsentSince = nil
       return []
     }
-    guard confirmAbsence(&state.localAbsentSince) else { return [] }
-    return [.removeCloudItem(cloudItem)]
+    guard let absentSince = confirmAbsence(&state.localAbsentSince) else { return [] }
+    return [.removeCloudItem(cloudItem, DeletionEvidence(absentSince: absentSince, base: cloudFingerprint))]
   }
 
   // MARK: - File state
@@ -314,12 +324,28 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
 
   /// A file must stay missing for a while, and in more than one complete snapshot, before its absence is
   /// trusted. iCloud reports a file as removed while it is being replaced or reindexed.
-  private func confirmAbsence(_ absentSince: inout TimeInterval?) -> Bool {
+  /// @returns When the confirmed absence started, or nil while it is not confirmed yet.
+  private func confirmAbsence(_ absentSince: inout TimeInterval?) -> TimeInterval? {
     guard let since = absentSince else {
       absentSince = clock.activeTime
-      return false
+      return nil
     }
-    return clock.activeTime - since >= kAbsenceConfirmationInterval
+    return isAbsenceConfirmed(since) ? since : nil
+  }
+
+  private func isAbsenceConfirmed(_ absentSince: TimeInterval?) -> Bool {
+    guard let absentSince else { return false }
+    return clock.activeTime - absentSince >= kAbsenceConfirmationInterval
+  }
+
+  /// Exactly the rule that produced the deletion: the very absence that was confirmed still stands -- an absence
+  /// that was cancelled and started anew was never confirmed -- and the copy that survives still holds the
+  /// content that was last synchronized, so nothing changed there while the event was crossing the queues.
+  private func isDeletionConfirmed(_ absentSince: TimeInterval?,
+                                   _ evidence: DeletionEvidence,
+                                   of fileName: String) -> Bool {
+    absentSince == evidence.absentSince && isAbsenceConfirmed(absentSince)
+      && store.state(for: fileName)?.fingerprint == evidence.base
   }
 
   /// Remembers the content the app is about to write, so that the same content is not written twice and the
@@ -369,10 +395,11 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
     case .createCloudItem, .updateCloudItem:
       complete(&state.ownedCloudWrite, of: fileName, isSuccessful: isSuccessful)
     case .removeLocalItem, .removeCloudItem:
+      /* The content that was last synchronized is kept until both directories report the file as gone. A
+       deletion that reported success may still have done nothing -- the category was not loaded, or its file
+       could not be moved to the trash -- and forgetting the common base here would turn the file that is still
+       on disk into a new one to upload. */
       cancelAbsences(&state)
-      if isSuccessful {
-        store.setState(nil, for: fileName)
-      }
     case .startDownloading, .resolveVersionsConflict, .didReceiveError:
       break
     }

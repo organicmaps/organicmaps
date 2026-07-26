@@ -1,7 +1,10 @@
 enum WritingResult {
   case success
   case reloadCategoriesAtURLs([URL])
+  /// Deletions are only requested by the writer: they are irreversible and are authorized against the latest
+  /// observations, on the queue where the synchronization state lives.
   case deleteCategoriesAtURLs([URL])
+  case trashCloudItemsAtURLs([URL])
   case failure(Error)
 }
 
@@ -263,6 +266,17 @@ private extension iCloudSynchronizaionManager {
     }
   }
 
+  /// The file was observed again while the event was crossing the queues: the deletion of a file that is back,
+  /// or that was changed in the meantime, must not be performed.
+  func authorizesDeletion(_ event: OutgoingSynchronizationEvent) -> Bool {
+    guard stateResolver.authorizes(event) else {
+      LOG(.info, "Skip the outdated deletion: \(event)")
+      stateResolver.resolveEvent(.didFailWriting(event))
+      return false
+    }
+    return true
+  }
+
   func writingResultHandler(for event: OutgoingSynchronizationEvent) -> WritingResultCompletionHandler {
     { [weak self] result in
       guard let self else { return }
@@ -272,13 +286,7 @@ private extension iCloudSynchronizaionManager {
       case .reloadCategoriesAtURLs(let urls):
         urls.forEach { self.bookmarksManager.reloadCategory(atFilePath: $0.path) }
       case .deleteCategoriesAtURLs(let urls):
-        /* The file was observed again while the event was crossing the queues: the deletion of a file that is
-         back, or that was changed in the meantime, must not be performed. */
-        guard stateResolver.authorizes(event) else {
-          LOG(.info, "Skip the outdated deletion: \(event)")
-          stateResolver.resolveEvent(.didFailWriting(event))
-          return
-        }
+        guard authorizesDeletion(event) else { return }
         // A category that is not loaded, or whose file could not be moved to the trash, is not deleted. Reporting
         // that as a failure keeps the content that was last synchronized, so the file is confirmed and deleted
         // again instead of being uploaded back as a new one.
@@ -288,6 +296,15 @@ private extension iCloudSynchronizaionManager {
           stateResolver.resolveEvent(.didFailWriting(event))
           return
         }
+      case .trashCloudItemsAtURLs(let urls):
+        guard authorizesDeletion(event) else { return }
+        guard let fileWriter else {
+          stateResolver.resolveEvent(.didFailWriting(event))
+          return
+        }
+        // The trashing itself reports the result: this handler is called again with .success or .failure.
+        fileWriter.trashCloudItems(at: urls, completion: writingResultHandler(for: event))
+        return
       case .failure(let error):
         stateResolver.resolveEvent(.didFailWriting(event))
         return processError(error)
