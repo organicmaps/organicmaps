@@ -778,6 +778,11 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Surface)
   TestSurfaceTypes("mud", "good", "1", "unpaved_good");
   TestSurfaceTypes("mud", "", "3", "unpaved_good");
   TestSurfaceTypes("mud", "", "", "unpaved_bad");
+  TestSurfaceTypes("laterite", "good", "1", "unpaved_good");
+  TestSurfaceTypes("laterite", "", "3", "unpaved_good");
+  TestSurfaceTypes("laterite", "", "", "unpaved_bad");
+  TestSurfaceTypes("laterite", "intermediate", "", "unpaved_bad");
+  TestSurfaceTypes("laterite", "bad", "", "unpaved_bad");
 
   TestSurfaceTypes("", "bad", "", "paved_bad");
   TestSurfaceTypes("", "unknown", "", "paved_bad");
