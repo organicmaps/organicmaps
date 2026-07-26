@@ -1,6 +1,7 @@
 #import "Logger.h"
 #import <OSLog/OSLog.h>
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "coding/zip_creator.hpp"
 

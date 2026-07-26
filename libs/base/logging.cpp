@@ -1,9 +1,9 @@
 #include "base/logging.hpp"
 
 #include "base/assert.hpp"
-#include "base/thread.hpp"
 
 #include <algorithm>
+#include <atomic>
 #include <cassert>
 #include <cstring>
 #include <iomanip>
@@ -50,11 +50,12 @@ LogHelper & LogHelper::Instance()
   return instance;
 }
 
+// static
 int LogHelper::GetThreadID()
 {
-  int & id = m_threadID[threads::GetCurrentThreadID()];
-  if (id == 0)
-    id = ++m_threadsCount;
+  static std::atomic<int> counter{0};
+  // Ids are never reused, unlike the underlying OS thread ids.
+  thread_local int const id = ++counter;
   return id;
 }
 
@@ -73,12 +74,14 @@ void LogMessageDefault(LogLevel level, SrcPoint const & srcPoint, std::string co
 {
   auto & logger = LogHelper::Instance();
   std::ostringstream out;
-
-  std::lock_guard lock(g_logMutex);
   logger.WriteProlog(out, level);
   logger.WriteLog(out, srcPoint, msg);
 
-  std::cerr << out.str();
+  {
+    // The mutex serializes the output only, WriteProlog/WriteLog are thread-safe.
+    std::lock_guard lock(g_logMutex);
+    std::cerr << out.str();
+  }
 
   CHECK_LESS(level, g_LogAbortLevel, ("Abort. Log level is too serious", level));
 }
