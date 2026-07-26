@@ -189,8 +189,10 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
       var state = states[fileName] ?? FileState()
       expire(&state.ownedLocalWrite)
       expire(&state.ownedCloudWrite)
-      events.append(contentsOf: resolve(fileName, local: local, cloud: cloud, state: &state))
+      events.append(contentsOf: resolve(local: local, cloud: cloud, state: &state))
       if case .absent = local, case .absent = cloud {
+        // Nobody holds the file anymore: there is nothing left to compare it against and nothing to wait for.
+        store.setState(nil, for: fileName)
         states.removeValue(forKey: fileName)
       } else {
         states[fileName] = state
@@ -199,8 +201,7 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
     return events
   }
 
-  private func resolve(_ fileName: String,
-                       local: LocalSnapshot.ItemState,
+  private func resolve(local: LocalSnapshot.ItemState,
                        cloud: CloudSnapshot.ItemState,
                        state: inout FileState) -> [OutgoingSynchronizationEvent] {
     if case .present(let cloudItem) = cloud, cloudItem.hasUnresolvedConflicts {
@@ -220,7 +221,6 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
       state.cloudAbsentSince = nil
       return resolveMissingLocalFile(cloudItem, &state)
     case (.absent, .absent):
-      store.setState(nil, for: fileName)
       return []
     case (.unavailable, _), (.unknown, _), (_, .unavailable), (_, .unknown):
       // At least one side is present but unusable, or was not observed in full. Nothing can be concluded and a
@@ -245,7 +245,8 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
       settle(&state.ownedCloudWrite, observed: synchronized.fingerprint)
       return []
     }
-    // A file that cannot be read now (it is being replaced by iCloud) is reconciled on the next snapshot.
+    // The content is not known yet -- it is being read in the background, or the file cannot be read at all
+    // while iCloud replaces it. Either way the file is reconciled again as soon as anything is known about it.
     guard let localFingerprint = fingerprintProvider.fingerprint(of: localItem),
           let cloudFingerprint = fingerprintProvider.fingerprint(of: cloudItem)
     else { return [] }
@@ -334,8 +335,8 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
   }
 
   /// A file must stay missing for a while, and in more than one complete snapshot, before its absence is
-  /// trusted. iCloud reports a file as removed while it is being replaced or reindexed.
-  /// @returns When the confirmed absence started, or nil while it is not confirmed yet.
+  /// trusted: iCloud reports a file as removed while it is being replaced or reindexed. Returns when the
+  /// confirmed absence started, or nil while it is not confirmed yet.
   private func confirmAbsence(_ absentSince: inout TimeInterval?) -> TimeInterval? {
     guard let since = absentSince else {
       absentSince = clock.activeTime
@@ -346,7 +347,7 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
 
   private func isAbsenceConfirmed(_ absentSince: TimeInterval?) -> Bool {
     guard let absentSince else { return false }
-    return clock.activeTime - absentSince >= iCloudSynchronizationStateResolver.Constants.absenceConfirmationInterval
+    return clock.activeTime - absentSince >= Constants.absenceConfirmationInterval
   }
 
   /// Exactly the rule that produced the deletion: the very absence that was confirmed still stands -- an absence
