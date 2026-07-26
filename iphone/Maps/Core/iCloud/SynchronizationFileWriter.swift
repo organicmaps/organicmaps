@@ -16,8 +16,10 @@ final class SynchronizationFileWriter {
   }
 
   func processEvent(_ event: OutgoingSynchronizationEvent, completion: @escaping WritingResultCompletionHandler) {
+    // The result is handled on the main queue, where the synchronization state lives. It must not be delivered
+    // synchronously: the file coordination that produced it is still in progress.
     let resultCompletion: WritingResultCompletionHandler = { result in
-      DispatchQueue.main.sync { completion(result) }
+      DispatchQueue.main.async { completion(result) }
     }
     backgroundQueue.async { [weak self] in
       guard let self else { return }
@@ -30,8 +32,7 @@ final class SynchronizationFileWriter {
       case .updateCloudItem(let localMetadataItem): self.updateInCloudContainer(localMetadataItem, completion: resultCompletion)
       case .removeCloudItem(let cloudMetadataItem): self.removeFromCloudContainer(cloudMetadataItem, completion: resultCompletion)
       case .resolveVersionsConflict(let cloudMetadataItem): self.resolveVersionsConflict(cloudMetadataItem, completion: resultCompletion)
-      case .resolveInitialSynchronizationConflict(let localMetadataItem): self.resolveInitialSynchronizationConflict(localMetadataItem, completion: resultCompletion)
-      case .didFinishInitialSynchronization: resultCompletion(.success)
+      case .duplicateLocalItem(let localMetadataItem): self.duplicateInLocalContainer(localMetadataItem, completion: resultCompletion)
       case .didReceiveError(let error): resultCompletion(.failure(error))
       }
     }
@@ -221,8 +222,8 @@ final class SynchronizationFileWriter {
     }
   }
 
-  private func resolveInitialSynchronizationConflict(_ localMetadataItem: LocalMetadataItem, completion: @escaping WritingResultCompletionHandler) {
-    LOG(.info, "Start resolving initial sync conflict for file \(localMetadataItem.fileName) by copying with a new name...")
+  private func duplicateInLocalContainer(_ localMetadataItem: LocalMetadataItem, completion: @escaping WritingResultCompletionHandler) {
+    LOG(.info, "Keep a copy of the file \(localMetadataItem.fileName) with a new name to resolve a conflict...")
     do {
       let newFileUrl = generateNewFileUrl(for: localMetadataItem.fileUrl, addDeviceName: true)
       if !fileManager.fileExists(atPath: newFileUrl.path) {
