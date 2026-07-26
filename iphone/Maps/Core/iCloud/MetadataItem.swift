@@ -1,4 +1,4 @@
-protocol MetadataItem: Equatable, Hashable {
+protocol MetadataItem: Hashable {
   var fileName: String { get }
   var fileUrl: URL { get }
   var lastModificationDate: TimeInterval { get }
@@ -120,13 +120,6 @@ struct DirectorySnapshot<Item: MetadataItem>: Equatable {
     case absent
     /// The directory was not observed in full: nothing can be concluded about the file.
     case unknown
-
-    var item: Item? {
-      if case .present(let item) = self {
-        return item
-      }
-      return nil
-    }
   }
 
   /// Files that exist but whose attributes or content are not available: they prove presence only.

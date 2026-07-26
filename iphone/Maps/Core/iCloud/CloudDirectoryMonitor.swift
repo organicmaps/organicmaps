@@ -12,7 +12,6 @@ protocol CloudDirectoryMonitorDelegate: AnyObject {
   func didReceiveCloudMonitorError(_ error: Error)
 }
 
-private let kUDCloudIdentityKey = "com.apple.organicmaps.UbiquityIdentityToken"
 private let kDocumentsDirectoryName = "Documents"
 
 final class iCloudDocumentsMonitor: NSObject, CloudDirectoryMonitor {
@@ -139,12 +138,7 @@ final class iCloudDocumentsMonitor: NSObject, CloudDirectoryMonitor {
   }
 
   func isCloudAvailable() -> Bool {
-    guard let cloudIdentity else {
-      UserDefaults.standard.removeObject(forKey: kUDCloudIdentityKey)
-      return false
-    }
-    UserDefaults.standard.set(cloudIdentity, forKey: kUDCloudIdentityKey)
-    return true
+    fileManager.ubiquityIdentityToken != nil
   }
 }
 
