@@ -14,7 +14,7 @@ final class GeoNavigationToOMURLConverterTests: XCTestCase {
     let geoUrl = geoURLStub("geo-navigation:///directions?source=\(coordinate1)&destination=\(coordinate2)")
     let omUrl = try XCTUnwrap(converter.convert(geoUrl))
     let routingType = MWMRouter.type()
-    XCTAssertEqual(omUrl.absoluteString, "om://route?sll=\(coordinate1)&saddr=&dll=\(coordinate2)&daddr=&type=\(MWMRouter.string(from: routingType)!)")
+    XCTAssertEqual(omUrl.absoluteString, "om://route?sll=\(coordinate1)&saddr=&dll=\(coordinate2)&daddr=&type=\(MWMRouter.string(from: routingType))")
     let urlType = DeepLinkParser.parseAndSetApiURL(omUrl)
     switch urlType {
     case .route:
