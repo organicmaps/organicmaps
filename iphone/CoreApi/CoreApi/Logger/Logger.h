@@ -12,9 +12,13 @@ typedef NS_ENUM(NSUInteger, LogLevel) {
 
 @interface Logger : NSObject
 
+/// Detailed diagnostic logging into a file. Enabling it also unlocks the debug log level.
+/// Reading it back reports the state the logger is actually in: enabling fails if the log
+/// file cannot be opened.
+@property(class, nonatomic) BOOL fileLoggingEnabled;
+
 + (void)log:(LogLevel)level message:(NSString *)message;
 + (BOOL)canLog:(LogLevel)level;
-+ (void)setFileLoggingEnabled:(BOOL)fileLoggingEnabled;
 + (nullable NSURL *)getLogFileURL;
 + (uint64_t)getLogFileSize;
 
