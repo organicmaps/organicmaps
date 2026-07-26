@@ -102,6 +102,7 @@ final class iCloudSynchronizaionManager: NSObject {
   func start() {
     subscribeToSettingsNotifications()
     subscribeToApplicationLifecycleNotifications()
+    subscribeToCloudIdentityNotifications()
     cloudDirectoryMonitor.delegate = self
     localDirectoryMonitor.delegate = self
     // A file that could not be compared before was read in the background: the directories did not change, but
@@ -126,8 +127,12 @@ private extension iCloudSynchronizaionManager {
     case .paused:
       resumeSynchronization()
     case .stopped:
-      // Files of another iCloud account have nothing in common with the previously synchronized ones.
-      stateStore.resetIfCloudIdentityChanged(cloudDirectoryMonitor.cloudIdentity)
+      /* Files of another iCloud account have nothing in common with the previously synchronized ones. A missing
+       token means the account is unknown, not that it is another one -- signed out, iCloud Drive off, container
+       not ready yet -- and forgetting the history then would keep both versions of every file that differs. */
+      if let cloudIdentity = cloudDirectoryMonitor.cloudIdentity {
+        stateStore.resetIfCloudIdentityChanged(cloudIdentity)
+      }
       clock.resume()
       cloudDirectoryMonitor.start { [weak self] result in
         guard let self else { return }
@@ -219,6 +224,19 @@ private extension iCloudSynchronizaionManager {
 
   func subscribeToSettingsNotifications() {
     NotificationCenter.default.addObserver(self, selector: #selector(didChangeEnabledState), name: NSNotification.iCloudSynchronizationDidChangeEnabledState, object: nil)
+  }
+
+  func subscribeToCloudIdentityNotifications() {
+    NotificationCenter.default.addObserver(self, selector: #selector(didChangeCloudIdentity), name: .NSUbiquityIdentityDidChange, object: nil)
+  }
+
+  /// The user signed in or out while the app was running: everything observed so far, and everything that was
+  /// synchronized, belongs to the previous account. Starting again resets it once the new account is known.
+  @objc func didChangeCloudIdentity() {
+    LOG(.info, "The iCloud identity has changed")
+    stopSynchronization()
+    guard settings.iCLoudSynchronizationEnabled() else { return }
+    startSynchronization()
   }
 
   @objc func appWillEnterForeground() {
