@@ -11,9 +11,6 @@
 
 @property(nullable, nonatomic) NSFileHandle * fileHandle;
 @property(nonnull, nonatomic) os_log_t osLogger;
-/// This property is introduced to avoid the CoreApi => Maps target dependency and stores the
-/// MWMSettings.isFileLoggingEnabled value.
-@property(class, nonatomic) BOOL fileLoggingEnabled;
 @property(class, readonly, nonatomic) dispatch_queue_t fileLoggingQueue;
 
 + (Logger *)logger;
@@ -37,6 +34,22 @@ NSString * const kLogFilePath = [[NSSearchPathForDirectoriesInDomains(NSDocument
     firstObject] stringByAppendingPathComponent:kLogFileName];
 // TODO: (KK) Review and change this limit after some testing.
 NSUInteger const kMaxLogFileSize = 1024 * 1024 * 100;  // 100 MB;
+
+static os_log_type_t OSLogTypeFor(base::LogLevel level)
+{
+  switch (level)
+  {
+  case base::LDEBUG: return OS_LOG_TYPE_DEBUG;
+  // Deliberately not OS_LOG_TYPE_INFO: unlike the default one it is not persisted, and bug
+  // reports are reconstructed from the OSLog store when file logging is off.
+  case base::LINFO:
+  case base::LWARNING: return OS_LOG_TYPE_DEFAULT;
+  // OS_LOG_TYPE_FAULT is reserved for system-level failures, LCRITICAL is a process-level one.
+  case base::LERROR:
+  case base::LCRITICAL: return OS_LOG_TYPE_ERROR;
+  case base::NUM_LOG_LEVELS: return OS_LOG_TYPE_DEFAULT;
+  }
+}
 
 @implementation Logger
 
@@ -87,6 +100,10 @@ static void * kFileLoggingQueueKey = &kFileLoggingQueueKey;
 + (void)setFileLoggingEnabled:(BOOL)fileLoggingEnabled
 {
   fileLoggingEnabled ? [self enableFileLogging] : [self disableFileLogging];
+  // Debug records are worth formatting only when there is a file to keep them in, so derive the
+  // level from the state the logger ended up in, not from the requested one. Mirrors Android's
+  // LogsManager.nativeToggleCoreDebugLogs().
+  base::g_LogLevel = [self fileLoggingEnabled] ? base::LDEBUG : base::GetDefaultLogLevel();
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
     LOG_SHORT(LINFO, ("Local time:", NSDate.date.description.UTF8String,
@@ -257,7 +274,7 @@ bool AssertMessage(base::SrcPoint const & src, std::string const & message)
   auto const logString = output.str();
 
   // Log the message into the system log.
-  os_log([self logger].osLogger, "%{public}s", logString.c_str());
+  os_log_with_type([self logger].osLogger, OSLogTypeFor(level), "%{public}s", logString.c_str());
 
   if (!_fileLoggingEnabled.load(std::memory_order_relaxed))
     return;
