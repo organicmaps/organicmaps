@@ -47,6 +47,12 @@ public:
   {
     return m_set.HasOlderBlocks(rect, version);
   }
+  /// The rects of the downloaded (registered) blocks intersecting the mercator rect,
+  /// e.g. for the downloaded regions highlight on the world zoom.
+  void GetDownloadedRects(m2::RectD const & rect, std::vector<m2::RectD> & rects) const
+  {
+    m_set.GetBlockRectsByRect(rect, rects);
+  }
 
   using IsolineFn = std::function<void(Isoline &&)>;
 
