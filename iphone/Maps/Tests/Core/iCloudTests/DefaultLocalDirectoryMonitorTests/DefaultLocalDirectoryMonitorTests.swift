@@ -47,6 +47,21 @@ final class DefaultLocalDirectoryMonitorTests: XCTestCase {
     XCTAssertTrue(directoryMonitor.state == .stopped, "Monitor should be stopped.")
   }
 
+  func testStoppedMonitorIsNotStartedByResume() {
+    directoryMonitor.resume()
+    XCTAssertEqual(directoryMonitor.state, .stopped)
+  }
+
+  func testPausedMonitorCanBeStoppedAndStartedAgain() {
+    directoryMonitor.start()
+    directoryMonitor.pause()
+    directoryMonitor.stop()
+    XCTAssertEqual(directoryMonitor.state, .stopped)
+
+    directoryMonitor.start()
+    XCTAssertEqual(directoryMonitor.state, .started)
+  }
+
   func testPauseAndResumeMonitoring() {
     directoryMonitor.start()
     directoryMonitor.pause()
@@ -56,10 +71,25 @@ final class DefaultLocalDirectoryMonitorTests: XCTestCase {
     XCTAssertTrue(directoryMonitor.state == .started, "Monitor should be started.")
   }
 
-  func testDelegateDidFinishGathering() throws {
-    mockDelegate.didFinishGatheringExpectation = expectation(description: "didFinishGathering called")
+  func testPausingDuringDebounceDoesNotSuppressLaterChanges() throws {
     directoryMonitor.start()
-    try wait(for: [XCTUnwrap(mockDelegate.didFinishGatheringExpectation)], timeout: 5.0)
+    directoryMonitor.pause()
+    let timerDrained = expectation(description: "The paused initial debounce timer has fired")
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) { timerDrained.fulfill() }
+    wait(for: [timerDrained], timeout: 1)
+
+    directoryMonitor.resume()
+    directoryMonitor.refresh()
+    let changed = expectation(description: "A new file is reported after resuming")
+    mockDelegate.didReceiveNextSnapshotExpectation = changed
+    try Data("content".utf8).write(to: tempDirectory.appendingPathComponent("file.kml"), options: .atomic)
+    wait(for: [changed], timeout: 2)
+  }
+
+  func testDelegateDidReceiveSnapshot() throws {
+    mockDelegate.didReceiveFirstSnapshotExpectation = expectation(description: "The first snapshot is published")
+    directoryMonitor.start()
+    try wait(for: [XCTUnwrap(mockDelegate.didReceiveFirstSnapshotExpectation)], timeout: 5.0)
   }
 
   func testDelegateDidReceiveError() throws {
@@ -73,11 +103,11 @@ final class DefaultLocalDirectoryMonitorTests: XCTestCase {
 
   func testContentUpdateDetection() {
     let startExpectation = expectation(description: "Start monitoring")
-    let didFinishGatheringExpectation = expectation(description: "didFinishGathering called")
-    let didUpdateExpectation = expectation(description: "didUpdate called")
+    let didReceiveFirstSnapshotExpectation = expectation(description: "The first snapshot is published")
+    let didReceiveNextSnapshotExpectation = expectation(description: "The next snapshot is published")
 
-    mockDelegate.didFinishGatheringExpectation = didFinishGatheringExpectation
-    mockDelegate.didUpdateExpectation = didUpdateExpectation
+    mockDelegate.didReceiveFirstSnapshotExpectation = didReceiveFirstSnapshotExpectation
+    mockDelegate.didReceiveNextSnapshotExpectation = didReceiveNextSnapshotExpectation
 
     directoryMonitor.start { result in
       if case .success = result {
@@ -94,13 +124,13 @@ final class DefaultLocalDirectoryMonitorTests: XCTestCase {
       self.fileManager.createFile(atPath: fileURL.path, contents: Data(), attributes: nil)
     }
 
-    wait(for: [didFinishGatheringExpectation, didUpdateExpectation], timeout: 20)
+    wait(for: [didReceiveFirstSnapshotExpectation, didReceiveNextSnapshotExpectation], timeout: 20)
   }
 
   func testFileWithIncorrectExtension() throws {
     let startExpectation = expectation(description: "Start monitoring")
-    let didFinishGatheringExpectation = expectation(description: "didFinishGathering called")
-    mockDelegate.didFinishGatheringExpectation = didFinishGatheringExpectation
+    let didReceiveFirstSnapshotExpectation = expectation(description: "The first snapshot is published")
+    mockDelegate.didReceiveFirstSnapshotExpectation = didReceiveFirstSnapshotExpectation
 
     let file1URL = tempDirectory.appendingPathComponent("test.kml.tmp")
     let file2URL = tempDirectory.appendingPathComponent("test2.tmp")
@@ -122,7 +152,7 @@ final class DefaultLocalDirectoryMonitorTests: XCTestCase {
         startExpectation.fulfill()
       }
     }
-    wait(for: [startExpectation, didFinishGatheringExpectation], timeout: 5)
+    wait(for: [startExpectation, didReceiveFirstSnapshotExpectation], timeout: 5)
 
     let contents = mockDelegate.contents.map(\.fileUrl)
     XCTAssertFalse(contents.contains(file1URL), "File with incorrect extension should not be included")
