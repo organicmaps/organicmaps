@@ -106,8 +106,9 @@ final class SynchronizationStateResolverTests: XCTestCase {
   func testRemoteDeletionRequiresTwoStableObservations() {
     synchronize("file.kml", content: "A")
 
-    startAbsenceConfirmation { update(cloud: []) }
-    XCTAssertEqual(update(cloud: []), [.removeLocalItem(local("file.kml", "A"))])
+    let absentSince = startAbsenceConfirmation { update(cloud: []) }
+    XCTAssertEqual(update(cloud: []),
+                   [.removeLocalItem(local("file.kml", "A"), evidence(absentSince: absentSince, content: "A"))])
   }
 
   func testRemovedFileThatReappearsIsNotDeleted() {
@@ -176,6 +177,59 @@ final class SynchronizationStateResolverTests: XCTestCase {
     XCTAssertFalse(resolver.authorizes(deletion), "The file is back: the deletion is outdated")
   }
 
+  func testDeletionIsNotAuthorizedByAnAbsenceThatWasNeverConfirmed() throws {
+    synchronize("file.kml", content: "A")
+
+    startAbsenceConfirmation { update(cloud: []) }
+    let deletion = try XCTUnwrap(update(cloud: []).first)
+
+    // The file is observed again and disappears once more while the deletion is crossing the queues. The new
+    // absence lasts long enough to look confirmed, but nobody ever confirmed it with a second observation.
+    XCTAssertTrue(update(cloud: [cloud("file.kml", "A")]).isEmpty)
+    XCTAssertTrue(update(cloud: []).isEmpty, "The confirmation starts from scratch")
+    clock.advance(by: kAbsenceConfirmationInterval)
+    XCTAssertFalse(resolver.authorizes(deletion), "The confirmed absence is not the one standing now")
+  }
+
+  func testDeletionIsNotAuthorizedWhenTheSynchronizedContentChanged() throws {
+    synchronize("file.kml", content: "A")
+
+    startAbsenceConfirmation { update(cloud: []) }
+    let deletion = try XCTUnwrap(update(cloud: []).first)
+    XCTAssertTrue(resolver.authorizes(deletion))
+
+    // A write completed while the deletion was crossing the queues and made another content the common base.
+    store.setState(SynchronizedFileState(fingerprint: fingerprint("B")), for: "file.kml")
+    XCTAssertFalse(resolver.authorizes(deletion), "The surviving copy no longer holds the synchronized content")
+  }
+
+  func testCloudDeletionIsAuthorizedByTheSameRule() throws {
+    synchronize("file.kml", content: "A")
+
+    startAbsenceConfirmation { update(local: []) }
+    let deletion = try XCTUnwrap(update(local: []).first)
+    XCTAssertTrue(resolver.authorizes(deletion))
+
+    XCTAssertTrue(update(local: [local("file.kml", "A")]).isEmpty)
+    XCTAssertFalse(resolver.authorizes(deletion), "The file is back: trashing the cloud copy is outdated")
+  }
+
+  func testCommonBaseIsKeptUntilBothSidesReportTheFileGone() throws {
+    synchronize("file.kml", content: "A")
+
+    startAbsenceConfirmation { update(cloud: []) }
+    let deletion = try XCTUnwrap(update(cloud: []).first)
+
+    // The deletion reported success, but the category was not loaded and the file is still in the directory.
+    resolver.resolveEvent(.didFinishWriting(deletion))
+    XCTAssertEqual(store.state(for: "file.kml")?.fingerprint, fingerprint("A"))
+    XCTAssertTrue(update(local: [local("file.kml", "A")]).isEmpty, "The file must not be uploaded back as a new one")
+
+    // The common base is forgotten only when nobody holds the file anymore.
+    XCTAssertTrue(update(local: []).isEmpty)
+    XCTAssertNil(store.state(for: "file.kml"))
+  }
+
   func testRemoteDeletionOfALocallyChangedFilePreservesIt() {
     synchronize("file.kml", content: "A")
 
@@ -193,8 +247,9 @@ final class SynchronizationStateResolverTests: XCTestCase {
   func testLocalDeletionRemovesTheCloudFileAfterConfirmation() {
     synchronize("file.kml", content: "A")
 
-    startAbsenceConfirmation { update(local: []) }
-    XCTAssertEqual(update(local: []), [.removeCloudItem(cloud("file.kml", "A"))])
+    let absentSince = startAbsenceConfirmation { update(local: []) }
+    XCTAssertEqual(update(local: []),
+                   [.removeCloudItem(cloud("file.kml", "A"), evidence(absentSince: absentSince, content: "A"))])
   }
 
   func testFileWrittenLocallyIsNotUploadedBack() {
@@ -309,10 +364,18 @@ final class SynchronizationStateResolverTests: XCTestCase {
   private func fingerprint(_ content: String) -> Fingerprint { Fingerprint(hashing: Data(content.utf8)) }
 
   /// The first snapshot without the file only starts the confirmation: a deletion needs the interval to pass.
+  /// @returns When the absence started, as the resolver reports it in the evidence of a deletion.
+  @discardableResult
   private func startAbsenceConfirmation(_ observe: () -> [OutgoingSynchronizationEvent],
-                                        file: StaticString = #filePath, line: UInt = #line) {
+                                        file: StaticString = #filePath, line: UInt = #line) -> TimeInterval {
+    let absentSince = clock.activeTime
     XCTAssertTrue(observe().isEmpty, "The first absence must not delete anything", file: file, line: line)
     clock.advance(by: kAbsenceConfirmationInterval)
+    return absentSince
+  }
+
+  private func evidence(absentSince: TimeInterval, content: String) -> DeletionEvidence {
+    DeletionEvidence(absentSince: absentSince, base: fingerprint(content))
   }
 
   private func update(local items: LocalContents) -> [OutgoingSynchronizationEvent] {

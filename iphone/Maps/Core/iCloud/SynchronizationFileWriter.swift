@@ -27,11 +27,11 @@ final class SynchronizationFileWriter {
       case .createLocalItem(let cloudMetadataItem): self.createInLocalContainer(cloudMetadataItem, completion: resultCompletion)
       case .updateLocalItem(let cloudMetadataItem, let preservedItem):
         self.updateInLocalContainer(cloudMetadataItem, preserving: preservedItem, completion: resultCompletion)
-      case .removeLocalItem(let localMetadataItem): self.removeFromLocalContainer(localMetadataItem, completion: resultCompletion)
+      case .removeLocalItem(let localMetadataItem, _): self.removeFromLocalContainer(localMetadataItem, completion: resultCompletion)
       case .startDownloading(let cloudMetadataItem): self.startDownloading(cloudMetadataItem, completion: resultCompletion)
       case .createCloudItem(let localMetadataItem): self.createInCloudContainer(localMetadataItem, completion: resultCompletion)
       case .updateCloudItem(let localMetadataItem): self.updateInCloudContainer(localMetadataItem, completion: resultCompletion)
-      case .removeCloudItem(let cloudMetadataItem): self.removeFromCloudContainer(cloudMetadataItem, completion: resultCompletion)
+      case .removeCloudItem(let cloudMetadataItem, _): self.removeFromCloudContainer(cloudMetadataItem, completion: resultCompletion)
       case .resolveVersionsConflict(let cloudMetadataItem): self.resolveVersionsConflict(cloudMetadataItem, completion: resultCompletion)
       case .didReceiveError(let error): resultCompletion(.failure(error))
       }
@@ -169,19 +169,30 @@ final class SynchronizationFileWriter {
     }
   }
 
+  /// Trashing is irreversible and the decision to do it was made on another queue, so the file is only reported
+  /// as ready to be trashed: the caller authorizes it against the latest observations and calls `trashCloudItems`.
   private func removeFromCloudContainer(_ cloudMetadataItem: CloudMetadataItem, completion: @escaping WritingResultCompletionHandler) {
-    LOG(.info, "Trash file \(cloudMetadataItem.fileName) to the iCloud trash")
     let targetCloudFileUrl = cloudMetadataItem.fileUrl
     guard fileManager.fileExists(atPath: targetCloudFileUrl.path) else {
       LOG(.warning, "File \(cloudMetadataItem.fileName) doesn't exist in the cloud directory and cannot be moved to the trash")
       completion(.success)
       return
     }
-    do {
-      try fileManager.trashItem(at: targetCloudFileUrl, resultingItemURL: nil)
-      completion(.success)
-    } catch {
-      completion(.failure(error))
+    completion(.trashCloudItemsAtURLs([targetCloudFileUrl]))
+  }
+
+  func trashCloudItems(at urls: [URL], completion: @escaping WritingResultCompletionHandler) {
+    backgroundQueue.async { [weak self] in
+      guard let self else { return }
+      do {
+        for url in urls {
+          LOG(.info, "Trash file \(url.lastPathComponent) to the iCloud trash")
+          try fileManager.trashItem(at: url, resultingItemURL: nil)
+        }
+        DispatchQueue.main.async { completion(.success) }
+      } catch {
+        DispatchQueue.main.async { completion(.failure(error)) }
+      }
     }
   }
 
