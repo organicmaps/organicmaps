@@ -192,6 +192,16 @@ bool TwmSet::HasOlderBlocks(m2::RectD const & rect, int64_t version) const
   return found;
 }
 
+void TwmSet::GetBlockRectsByRect(m2::RectD const & rect, std::vector<m2::RectD> & rects) const
+{
+  rects.clear();
+  ForEachBlockByRectImpl(rect, [&](std::shared_ptr<TwmInfo> const & info)
+  {
+    m2::RectD const r = info->GetLimitRect();
+    if (std::find(rects.begin(), rects.end(), r) == rects.end())
+      rects.push_back(r);
+  });
+}
 
 TwmSet::Handle TwmSet::GetHandleById(TwmId const & id)
 {
