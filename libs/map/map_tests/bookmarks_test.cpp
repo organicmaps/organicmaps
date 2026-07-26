@@ -351,6 +351,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ReloadPreservesCategoryIdentityAndMetadata)
 
   auto initialData = makeFileData("MapName", "initial", 1000, 2);
   TEST(SaveKmlFileSafe(*initialData, filePath, FileType::Kml), ());
+  TEST(Platform::SetFileModificationTime(filePath, 5000), ());
 
   BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
@@ -362,12 +363,14 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ReloadPreservesCategoryIdentityAndMetadata)
     collection.emplace_back(filePath, std::move(data));
     bmManager.CreateCategories(std::move(collection), autoSave);
   };
-  loadFile(false /* autoSave */);
+  loadFile(true /* autoSave */);
+  TEST_EQUAL(Platform::GetFileModificationTime(filePath), 5000, ("Loading must not rewrite the source file"));
 
   auto const groupId = bmManager.GetCategoryByFileName(filePath);
   TEST_NOT_EQUAL(groupId, kml::kInvalidMarkGroupId, ());
   TEST_EQUAL(bmManager.GetUserMarkIds(groupId).size(), 2, ());
   TEST_EQUAL(bmManager.GetTrackIds(groupId).size(), 1, ());
+  TEST(!bmManager.IsVisible(groupId), ());
   auto oldBookmarkId = *bmManager.GetUserMarkIds(groupId).begin();
   auto oldTrackId = *bmManager.GetTrackIds(groupId).begin();
 
@@ -375,6 +378,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ReloadPreservesCategoryIdentityAndMetadata)
       [&](std::string const & name, std::string const & description, std::time_t modified, size_t bookmarkCount)
   {
     auto data = makeFileData(name, description, modified, bookmarkCount);
+    data->m_categoryData.m_visible = true;
     TEST(SaveKmlFileSafe(*data, filePath, FileType::Kml), ());
     TEST(Platform::SetFileModificationTime(filePath, 5000), ());
 
@@ -387,6 +391,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ReloadPreservesCategoryIdentityAndMetadata)
     TEST_EQUAL(bmManager.GetCategoryName(groupId), name, ());
     TEST_EQUAL(kml::GetDefaultStr(categoryData.m_description), description, ());
     TEST_EQUAL(categoryData.m_lastModified, kml::TimestampClock::from_time_t(modified), ());
+    TEST(bmManager.IsVisible(groupId), ());
     TEST_EQUAL(bmManager.GetUserMarkIds(groupId).size(), bookmarkCount, ());
     TEST_EQUAL(bmManager.GetTrackIds(groupId).size(), 1, ());
     TEST(!bmManager.HasBookmark(oldBookmarkId), ());
@@ -409,7 +414,13 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ReloadPreservesCategoryIdentityAndMetadata)
   TEST_EQUAL(bmManager.GetBmGroupsCount(), 2, ());
   TEST_EQUAL(bmManager.GetCategoryName(groupId), "Taken1", ());
   TEST_EQUAL(bmManager.GetCategoryName(otherId), "Taken", ());
+  TEST(!bmManager.IsVisible(groupId), ());
   TEST_EQUAL(Platform::GetFileModificationTime(filePath), 5000, ());
+
+  bmManager.GetEditSession().SetCategoryName(groupId, "Edited after reload");
+  auto const saved = LoadKmlFile(filePath, FileType::Kml);
+  TEST(saved, ());
+  TEST_EQUAL(kml::GetDefaultStr(saved->m_categoryData.m_name), "Edited after reload", ());
 }
 
 kml::MarkId FindTrackSelectionMark(BookmarkManager const & bm, kml::TrackId trackId)
