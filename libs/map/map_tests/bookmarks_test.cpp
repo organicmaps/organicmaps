@@ -251,6 +251,39 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ImportKML)
   TEST_EQUAL(bmManager.IsVisible(groupId), false, ());
 }
 
+// Categories are loaded from files that already exist on disk: the initial loading of the bookmarks directory,
+// an import that has been saved before, and a file reloaded after iCloud has changed it. Writing such a file
+// back would change its modification time and make every other device download a file nobody has edited.
+UNIT_CLASS_TEST(Runner, Bookmarks_LoadedCategoryIsNotSavedBack)
+{
+  string const fileName = base::JoinPath(GetBookmarksDirectory(), "NotSavedBack.kml");
+  SCOPE_GUARD(fileDeleter, [&]() { (void)base::DeleteFileX(fileName); });
+
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);  // Bookmarks are saved synchronously.
+
+  auto const loadFromFile = [&]()
+  {
+    BookmarkManager::KMLDataCollection kmlDataCollection;
+    kmlDataCollection.emplace_back(fileName, LoadKmlData(MemReader(kmlString, strlen(kmlString)), FileType::Kml));
+    TEST(kmlDataCollection.back().second, ());
+    bmManager.CreateCategories(std::move(kmlDataCollection), true /* autoSave */);
+    TEST_EQUAL(bmManager.GetBmGroupsCount(), 1, ());
+  };
+
+  loadFromFile();
+  TEST(!Platform::IsFileExistsByFullPath(fileName), ("A loaded category must not be saved back"));
+
+  // The same file is reloaded, as it happens when iCloud replaces it.
+  loadFromFile();
+  TEST(!Platform::IsFileExistsByFullPath(fileName), ("A reloaded category must not be saved back"));
+
+  // Autosave is enabled after the loading, so the user's changes are still saved.
+  auto const groupId = bmManager.GetUnsortedBmGroupsIdList().front();
+  bmManager.GetEditSession().SetCategoryName(groupId, "Edited");
+  TEST(Platform::IsFileExistsByFullPath(fileName), ("An edited category must be saved"));
+}
+
 UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
 {
   string const ext = ".kmb";
