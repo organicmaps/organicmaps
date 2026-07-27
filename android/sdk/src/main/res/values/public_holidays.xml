@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: public_holidays -->
+    <!-- Countries: DE, LT, LV, PL -->
+    <string name="_2nd_day_of_christmas">2nd Day of Christmas</string>
+    <!-- Countries: AD, AT, BE, ES, FR, HR, HU, IT, LI, LT, MC, PL, PT, SE, SK, SM -->
+    <string name="all_saints_day">All Saints\' Day</string>
+    <!-- Countries: LT, SM -->
+    <string name="all_souls_day">All Souls\' Day</string>
+    <!-- Countries: SM -->
+    <string name="anniversary_of_the_1906_arengo_and_commemoration_of_the_militia">Anniversary of the 1906 Arengo and commemoration of the Militia</string>
+    <!-- Countries: SM -->
+    <string name="anniversary_of_the_fall_of_fascism_and_day_of_freedom">Anniversary of the Fall of Fascism and Day of Freedom</string>
+    <!-- Countries: HR -->
+    <string name="anti_fascist_struggle_day">Anti-Fascist Struggle Day</string>
+    <!-- Countries: BE, FR, RS -->
+    <string name="armistice_day">Armistice Day</string>
+    <!-- Countries: AT, BE, CH, DE, FR, LI, NL, SE -->
+    <string name="ascension_day">Ascension Day</string>
+    <!-- Countries: MC -->
+    <string name="ascensions_day">Ascension\'s Day</string>
+    <!-- Countries: AD, AT, BE, ES, FR, HR, IT, LT, MC, MT, PL, PT, RO, SI, SM -->
+    <string name="assumption_of_mary">Assumption of Mary</string>
+    <!-- Countries: IE -->
+    <string name="august_holiday">August Holiday</string>
+    <!-- Countries: MX -->
+    <string name="benito_juarezs_birthday">Benito Juárez\'s birthday</string>
+    <!-- Countries: MD -->
+    <string name="birth_of_jesus_christ_christmas_in_a_new_style">Birth of Jesus Christ (Christmas in a new style)</string>
+    <!-- Countries: MD -->
+    <string name="birth_of_jesus_christ_christmas_in_the_old_style">Birth of Jesus Christ (Christmas in the old style)</string>
+    <!-- Countries: EE, NL, SE -->
+    <string name="boxing_day">Boxing Day</string>
+    <!-- Countries: BG -->
+    <string name="bulgarian_education_and_culture_and_slavic_script_day">Bulgarian Education and Culture, and Slavic Script Day</string>
+    <!-- Countries: BG -->
+    <string name="bulgarias_liberation_from_the_ottoman_empire">Bulgaria’s Liberation from the Ottoman Empire</string>
+    <!-- Countries: AD -->
+    <string name="carnival">Carnival</string>
+    <!-- Countries: MD, RO -->
+    <string name="childrens_day">Children\'s Day</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MT, MX, NL, PL, PT, SE, SI, SK, SM, ZA -->
+    <string name="christmas_day_catholic">Christmas Day (Catholic)</string>
+    <!-- Countries: BY, RS -->
+    <string name="christmas_day_orthodox">Christmas Day (Orthodox)</string>
+    <!-- Countries: BG, CZ, EE, LT, LV, PL, SK -->
+    <string name="christmas_eve_catholic">Christmas Eve (Catholic)</string>
+    <!-- Countries: MD -->
+    <string name="commemoration_day_radonitsa">Commemoration Day (Radonitsa)</string>
+    <!-- Countries: AD, ES, MX, PL -->
+    <string name="constitution_day">Constitution Day</string>
+    <!-- Countries: AT, HR, LI, MC, PL, PT, SM -->
+    <string name="corpus_christi">Corpus Christi</string>
+    <!-- Countries: CZ -->
+    <string name="czech_statehood_day">Czech Statehood Day</string>
+    <!-- Countries: DE -->
+    <string name="day_of_german_unity">Day of German Unity</string>
+    <!-- Countries: ZA -->
+    <string name="day_of_goodwill">Day of Goodwill</string>
+    <!-- Countries: SK -->
+    <string name="day_of_our_lady_of_the_seven_sorrows">Day of Our Lady of the Seven Sorrows</string>
+    <!-- Countries: ZA -->
+    <string name="day_of_reconciliation">Day of Reconciliation</string>
+    <!-- Countries: SI -->
+    <string name="day_of_remembrance_for_the_dead">Day of Remembrance for the Dead</string>
+    <!-- Countries: EE -->
+    <string name="day_of_restoration_of_independence">Day of Restoration of Independence</string>
+    <!-- Countries: LT -->
+    <string name="day_of_restoration_of_independence_of_lithuania">Day of Restoration of Independence of Lithuania</string>
+    <!-- Countries: LT -->
+    <string name="day_of_restoration_of_the_lithuanian_state">Day of restoration of the Lithuanian state</string>
+    <!-- Countries: CZ, SK -->
+    <string name="day_of_struggle_for_freedom_and_democracy">Day of Struggle for Freedom and Democracy</string>
+    <!-- Countries: CZ -->
+    <string name="day_of_the_burning_of_jan_hus">Day of the Burning of Jan Hus</string>
+    <!-- Countries: LV -->
+    <string name="day_of_the_proclamation_of_the_republic_of_latvia">Day of the Proclamation of the Republic of Latvia</string>
+    <!-- Countries: BY -->
+    <string name="day_of_the_republic">Day of the Republic</string>
+    <!-- Countries: LV -->
+    <string name="day_of_the_restoration_of_independence">Day of the Restoration of Independence</string>
+    <!-- Countries: CZ -->
+    <string name="day_of_the_restoration_of_the_independent_czech_state">Day of the Restoration of the Independent Czech State</string>
+    <!-- Countries: SK -->
+    <string name="day_of_the_slovak_republic">Day of the Slovak Republic</string>
+    <!-- Countries: RO -->
+    <string name="day_of_the_unification_of_the_romanian_principalities">Day of the Unification of the Romanian Principalities</string>
+    <!-- Countries: SI -->
+    <string name="day_of_uprising_against_the_occupation">Day of Uprising Against the Occupation</string>
+    <!-- Countries: SK -->
+    <string name="day_of_victory_over_fascism">Day of Victory over fascism</string>
+    <!-- Countries: BE, SM -->
+    <string name="easter">Easter</string>
+    <!-- Countries: AD, AL, AT, BE, BG, CZ, DE, ES-CT, ES-IB, ES-NC, ES-PV, ES-VC, FR, HR, HU, IE, IT, LI, LT, LV, MC, NL, PL, SE, SI, SK, SM -->
+    <string name="easter_monday">Easter Monday</string>
+    <!-- Countries: RS -->
+    <string name="easter_monday_orthodox">Easter Monday (Orthodox)</string>
+    <!-- Countries: RS -->
+    <string name="easter_saturday_orthodox">Easter Saturday (Orthodox)</string>
+    <!-- Countries: AL, BG, EE, LT, LV, NL, PL, PT, SE, SI -->
+    <string name="easter_sunday">Easter Sunday</string>
+    <!-- Countries: RS -->
+    <string name="easter_sunday_orthodox">Easter Sunday (Orthodox)</string>
+    <!-- Countries: AL -->
+    <string name="eid_al_fitr_holiday_of_breaking_the_fast">Eid al-Fitr (Holiday of Breaking the Fast)</string>
+    <!-- Countries: AL -->
+    <string name="eid_ul_adha_feast_of_sacrifice">Eid ul-Adha (Feast of Sacrifice)</string>
+    <!-- Countries: ES-CE, ES-ML -->
+    <string name="end_of_ramadan_eid_al_fitr">End of Ramadan (Eid al-Fitr)</string>
+    <!-- Countries: AD, AT, ES, HR, IT, LI, PL, RO, SE, SK, SM -->
+    <string name="epiphany">Epiphany</string>
+    <!-- Countries: BG -->
+    <string name="euro_adoption_day">Euro Adoption Day</string>
+    <!-- Countries: MD -->
+    <string name="europe_day">Europe Day</string>
+    <!-- Countries: ZA -->
+    <string name="family_day">Family Day</string>
+    <!-- Countries: MT -->
+    <string name="feast_of_our_lady_of_victories">Feast of Our Lady of Victories</string>
+    <!-- Countries: ES-CE, ES-ML -->
+    <string name="feast_of_sacrifice_eid_al_adha">Feast of Sacrifice (Eid al-Adha)</string>
+    <!-- Countries: MT -->
+    <string name="feast_of_saints_peter_and_paul">Feast of Saints Peter and Paul</string>
+    <!-- Countries: MT -->
+    <string name="feast_of_st_joseph">Feast of St. Joseph</string>
+    <!-- Countries: MT -->
+    <string name="feast_of_st_pauls_shipwreck">Feast of St. Paul\'s Shipwreck</string>
+    <!-- Countries: AD, AT, ES, IT, LI, MC, MT, PT, SM -->
+    <string name="feast_of_the_immaculate_conception">Feast of the Immaculate Conception</string>
+    <!-- Countries: RO -->
+    <string name="first_christmas_day">First Christmas Day</string>
+    <!-- Countries: AL -->
+    <string name="flag_and_independence_day">Flag and Independence Day</string>
+    <!-- Countries: MT, ZA -->
+    <string name="freedom_day">Freedom Day</string>
+    <!-- Countries: AD, BG, CZ, DE, EE, ES, HU, LV, MT, NL, PT, RS, SE, SK, ZA -->
+    <string name="good_friday">Good Friday</string>
+    <!-- Countries: ZA -->
+    <string name="heritage_day">Heritage Day</string>
+    <!-- Countries: BG -->
+    <string name="holy_saturday">Holy Saturday</string>
+    <!-- Countries: ZA -->
+    <string name="human_rights_day">Human Rights Day</string>
+    <!-- Countries: SI -->
+    <string name="independence_and_unity_day">Independence and Unity Day</string>
+    <!-- Countries: BG, CH, CZ, EE, MD, MT, MX, PL, PT -->
+    <string name="independence_day">Independence Day</string>
+    <!-- Countries: BY, MD, ZA -->
+    <string name="international_womens_day">International Women\'s Day</string>
+    <!-- Countries: MT, ZA -->
+    <string name="international_workers_day">International Workers\' Day</string>
+    <!-- Countries: SM -->
+    <string name="investiture_of_the_captains_regent_heads_of_state">Investiture of the Captains Regent (Heads of State)</string>
+    <!-- Countries: IE -->
+    <string name="june_holiday">June Holiday</string>
+    <!-- Countries: NL -->
+    <string name="kings_day">King\'s Day</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CZ, DE, ES, FR, HR, HU, IT, LI, LT, LV, MC, MD, MX, PL, PT, RO, RS, SE, SI, SK, SM -->
+    <string name="labour_day">Labour Day</string>
+    <!-- Countries: AL, CZ, IT, NL -->
+    <string name="liberation_day">Liberation Day</string>
+    <!-- Countries: PT -->
+    <string name="liberty_day">Liberty Day</string>
+    <!-- Countries: ES-CE, ES-CN, ES-IB, ES-ML, ES-NC, ES-PV -->
+    <string name="maundy_thursday">Maundy Thursday</string>
+    <!-- Countries: IE -->
+    <string name="may_day">May Day</string>
+    <!-- Countries: EE, LT, LV, SE -->
+    <string name="midsummer_day">Midsummer Day</string>
+    <!-- Countries: LV -->
+    <string name="midsummers_eve">Midsummer\'s Eve</string>
+    <!-- Countries: ES-CN, ES-NC -->
+    <string name="monday_following_all_saints_day">Monday following All Saints\' Day</string>
+    <!-- Countries: ES-ML -->
+    <string name="monday_following_constitution_day">Monday following Constitution Day</string>
+    <!-- Countries: AL -->
+    <string name="mother_teresa_day">Mother Teresa Day</string>
+    <!-- Countries: LV -->
+    <string name="mothers_day">Mother\'s Day</string>
+    <!-- Countries: AT, BE, FR, HU, LT, SE -->
+    <string name="national_day">National Day</string>
+    <!-- Countries: LI -->
+    <string name="national_day_assumption">National Day (Assumption)</string>
+    <!-- Countries: ES-CT -->
+    <string name="national_day_of_catalonia">National Day of Catalonia</string>
+    <!-- Countries: RO -->
+    <string name="national_day_of_romania">National Day of Romania</string>
+    <!-- Countries: AD -->
+    <string name="national_holiday">National Holiday</string>
+    <!-- Countries: MD -->
+    <string name="national_language_day">National Language Day</string>
+    <!-- Countries: LI -->
+    <string name="nativity_of_mary">Nativity of Mary</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MD, MT, MX, NL, PL, PT, RO, RS, SE, SI, ZA -->
+    <string name="new_years_day">New Year\'s Day</string>
+    <!-- Countries: LV -->
+    <string name="new_years_eve">New Year\'s Eve</string>
+    <!-- Countries: AL -->
+    <string name="nowruz_persian_new_year">Nowruz (Persian New Year)</string>
+    <!-- Countries: IE -->
+    <string name="october_holiday">October Holiday</string>
+    <!-- Countries: BY -->
+    <string name="october_revolution_day">October Revolution Day</string>
+    <!-- Countries: AL, MD, RO -->
+    <string name="orthodox_easter_monday">Orthodox Easter Monday</string>
+    <!-- Countries: AL, MD, RO -->
+    <string name="orthodox_easter_sunday">Orthodox Easter Sunday</string>
+    <!-- Countries: RO -->
+    <string name="orthodox_good_friday">Orthodox Good Friday</string>
+    <!-- Countries: RO -->
+    <string name="orthodox_pentecost_monday">Orthodox Pentecost Monday</string>
+    <!-- Countries: RO -->
+    <string name="orthodox_pentecost_sunday">Orthodox Pentecost Sunday</string>
+    <!-- Countries: BE, EE, LV, PL -->
+    <string name="pentecost">Pentecost</string>
+    <!-- Countries: AD, AT, BE, DE, FR, HU, LI -->
+    <string name="pentecost_monday">Pentecost Monday</string>
+    <!-- Countries: PT -->
+    <string name="portugal_day">Portugal Day</string>
+    <!-- Countries: SI -->
+    <string name="preseren_day">Prešeren Day</string>
+    <!-- Countries: MC -->
+    <string name="princes_day">Prince\'s Day</string>
+    <!-- Countries: BY -->
+    <string name="radunitsa">Radunitsa</string>
+    <!-- Countries: SI -->
+    <string name="reformation_day">Reformation Day</string>
+    <!-- Countries: ES-CE -->
+    <string name="regional_holiday_in_ceuta">Regional Holiday in Ceuta</string>
+    <!-- Countries: ES-ML -->
+    <string name="regional_holiday_in_meilla">Regional Holiday in Meilla</string>
+    <!-- Countries: ES-ML -->
+    <string name="regional_holiday_in_melilla">Regional Holiday in Melilla</string>
+    <!-- Countries: ES-VC -->
+    <string name="regional_holiday_in_valencia">Regional Holiday in Valencia</string>
+    <!-- Countries: ES-IB -->
+    <string name="regional_holiday_on_the_balearic_islands">Regional Holiday on the Balearic Islands</string>
+    <!-- Countries: ES-CN -->
+    <string name="regional_holiday_on_the_canary_islands">Regional Holiday on the Canary Islands</string>
+    <!-- Countries: HR -->
+    <string name="remembrance_day">Remembrance Day</string>
+    <!-- Countries: IT, MT, PT -->
+    <string name="republic_day">Republic Day</string>
+    <!-- Countries: MX -->
+    <string name="revolution_day">Revolution Day</string>
+    <!-- Countries: SM -->
+    <string name="saint_agathas_day">Saint Agatha\'s Day</string>
+    <!-- Countries: RO -->
+    <string name="saint_andrews_day">Saint Andrew\'s Day</string>
+    <!-- Countries: IE -->
+    <string name="saint_brigids_day">Saint Brigid\'s Day</string>
+    <!-- Countries: MC -->
+    <string name="saint_devotes_day">Saint Dévote\'s Day</string>
+    <!-- Countries: ES-NC, ES-PV -->
+    <string name="saint_james_day">Saint James\' Day</string>
+    <!-- Countries: RO -->
+    <string name="saint_john_the_baptist_day">Saint John the Baptist Day</string>
+    <!-- Countries: IE -->
+    <string name="saint_patricks_day">Saint Patrick\'s Day</string>
+    <!-- Countries: SM -->
+    <string name="saint_stephens_day">Saint Stephen’s Day</string>
+    <!-- Countries: ES-NC -->
+    <string name="san_francisco_javier">San Francisco Javier</string>
+    <!-- Countries: SM -->
+    <string name="san_marino_national_holiday_foundation_of_the_republic_301_ad">San Marino National Holiday / Foundation of the Republic (301 A.D.)</string>
+    <!-- Countries: CZ, RO, SK -->
+    <string name="second_christmas_day">Second Christmas Day</string>
+    <!-- Countries: HU -->
+    <string name="second_day_of_christmas">Second Day of Christmas</string>
+    <!-- Countries: MT -->
+    <string name="sette_giugno">Sette Giugno</string>
+    <!-- Countries: SK -->
+    <string name="slovak_national_uprising_anniversary">Slovak National Uprising anniversary</string>
+    <!-- Countries: SM -->
+    <string name="solemnity_of_mary_the_holy_mother_of_god">Solemnity of Mary, the Holy Mother of God</string>
+    <!-- Countries: RS -->
+    <string name="sovereignty_day">Sovereignty Day</string>
+    <!-- Countries: ES -->
+    <string name="spanish_national_day">Spanish National Day</string>
+    <!-- Countries: EE -->
+    <string name="spring_day">Spring Day</string>
+    <!-- Countries: ES-CE -->
+    <string name="st_anthony">St Anthony</string>
+    <!-- Countries: CZ, SK -->
+    <string name="st_cyril_and_methodius_day">St. Cyril and Methodius Day</string>
+    <!-- Countries: BG -->
+    <string name="st_georges_day_and_the_bulgarian_armys_day">St. George\'s Day, and the Bulgarian Army’s Day</string>
+    <!-- Countries: ES-CT, ES-VC -->
+    <string name="st_johns_day">St. John\'s Day</string>
+    <!-- Countries: ES-NC, ES-PV, ES-VC -->
+    <string name="st_josephs_day">St Joseph\'s Day</string>
+    <!-- Countries: AD, AT, ES-CT, ES-IB, IE, IT, LI -->
+    <string name="st_stephens_day">St. Stephen\'s Day</string>
+    <!-- Countries: HU -->
+    <string name="state_foundation_day">State Foundation Day</string>
+    <!-- Countries: HR, SI -->
+    <string name="statehood_day">Statehood Day</string>
+    <!-- Countries: AL -->
+    <string name="summer_day">Summer Day</string>
+    <!-- Countries: BG -->
+    <string name="unification_day">Unification Day</string>
+    <!-- Countries: HR -->
+    <string name="victory_and_homeland_thanksgiving_day_and_the_day_of_croatian_defenders">Victory and Homeland Thanksgiving Day and the Day of Croatian Defenders</string>
+    <!-- Countries: BY, EE, FR, MD -->
+    <string name="victory_day">Victory Day</string>
+    <!-- Countries: MC, NL -->
+    <string name="whit_monday">Whit Monday</string>
+    <!-- Countries: NL, SE, SI -->
+    <string name="whit_sunday">Whit Sunday</string>
+    <!-- Countries: AL, ZA -->
+    <string name="youth_day">Youth Day</string>
+</resources>
