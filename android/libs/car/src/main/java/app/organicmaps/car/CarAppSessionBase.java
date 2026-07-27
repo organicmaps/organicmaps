@@ -10,6 +10,7 @@ import androidx.car.app.ScreenManager;
 import androidx.car.app.Session;
 import androidx.car.app.SessionInfo;
 import androidx.lifecycle.DefaultLifecycleObserver;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.car.screens.NavigationScreen;
 import app.organicmaps.car.screens.PlaceScreen;
@@ -54,6 +55,8 @@ public abstract class CarAppSessionBase
   protected CarSensorsManager mSensorsManager;
   @Nullable
   protected DisplayManager mDisplayManager;
+  private boolean mNativeHooksAttached = false;
+  private boolean mDeferredHookCallbackPending = false;
 
   public CarAppSessionBase(@NonNull OrganicMaps organicMapsContext, @Nullable SessionInfo sessionInfo, boolean isDebug)
   {
@@ -108,20 +111,22 @@ public abstract class CarAppSessionBase
   public void onStart(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
-    if (isCarScreenUsed())
-    {
-      LocationState.nativeSetListener(this);
-      Framework.nativePlacePageActivationListener(this);
-      mCurrentCountryChangedListener.onStart(getCarContext(), mOrganicMapsContext);
-    }
 
     if (LocationUtils.checkFineLocationPermission(getCarContext()))
       mSensorsManager.onStart();
 
-    if (isCarScreenUsed())
+    attachNativeHooksIfReady();
+
+    // If core isn't ready yet, defer hook attachment until initialization completes.
+    // Guard with a flag to avoid accumulating duplicate callbacks on start/stop cycles.
+    if (!mNativeHooksAttached && !mDeferredHookCallbackPending)
     {
-      ThemeUtils.update(getCarContext());
-      onRestoreRoute();
+      mDeferredHookCallbackPending = true;
+      mOrganicMapsContext.runWhenReady(() -> {
+        mDeferredHookCallbackPending = false;
+        if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED))
+          attachNativeHooksIfReady();
+      });
     }
   }
 
@@ -133,13 +138,27 @@ public abstract class CarAppSessionBase
 
     mSensorsManager.onStop();
 
-    if (isCarScreenUsed())
+    if (mNativeHooksAttached && isCarScreenUsed())
     {
       LocationState.nativeRemoveListener();
       Framework.nativeRemovePlacePageActivationListener(this);
+      mNativeHooksAttached = false;
     }
 
     mCurrentCountryChangedListener.onStop();
+  }
+
+  private void attachNativeHooksIfReady()
+  {
+    if (mNativeHooksAttached || !isCarScreenUsed() || !mOrganicMapsContext.arePlatformAndCoreInitialized())
+      return;
+
+    mNativeHooksAttached = true;
+    LocationState.nativeSetListener(this);
+    Framework.nativePlacePageActivationListener(this);
+    mCurrentCountryChangedListener.onStart(getCarContext(), mOrganicMapsContext);
+    ThemeUtils.update(getCarContext());
+    onRestoreRoute();
   }
 
   protected abstract Screen prepareScreens();

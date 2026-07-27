@@ -10,6 +10,7 @@ import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 import app.organicmaps.MwmApplication;
+import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.editor.Editor;
 import app.organicmaps.sdk.editor.OsmOAuth;
 import app.organicmaps.sdk.util.log.Logger;
@@ -44,8 +45,14 @@ public class OsmUploadWork extends Worker
   @Override
   public Result doWork()
   {
-    if (!MwmApplication.from(mContext).getOrganicMaps().arePlatformAndCoreInitialized())
+    final OrganicMaps om = MwmApplication.from(mContext).getOrganicMaps();
+    if (!om.arePlatformAndCoreInitialized())
     {
+      if (om.isCoreInitializing())
+      {
+        Logger.i(TAG, "Core still initializing, will retry: " + mWorkerParameters);
+        return Result.retry();
+      }
       Logger.w(TAG, "Application is not initialized, ignoring " + mWorkerParameters);
       return Result.failure();
     }
