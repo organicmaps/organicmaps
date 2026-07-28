@@ -1,5 +1,8 @@
 package app.organicmaps.routing;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -15,12 +18,18 @@ import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
@@ -89,8 +98,16 @@ final class RoutingBottomMenuController
   private final DotDividerItemDecoration mTransitViewDecorator;
   @NonNull
   private final TransitStepAdapter mTransitAdapter;
+  // Collapsed compact leg strip; swapped for the inline expanded breakdown when the summary is tapped.
   @NonNull
   private final RecyclerView mTransitRecyclerView;
+  @NonNull
+  private final RecyclerView mTransitDetailsRecyclerView;
+  @NonNull
+  private final TransitDetailsAdapter mTransitDetailsAdapter;
+  private boolean mTransitExpanded;
+  @Nullable
+  private ValueAnimator mTransitDetailsAnimator;
   @NonNull
   private final View mSaveButton;
   @Nullable
@@ -214,6 +231,40 @@ final class RoutingBottomMenuController
     mTransitRecyclerView.setNestedScrollingEnabled(false);
     mTransitRecyclerView.addItemDecoration(mTransitViewDecorator);
     mTransitRecyclerView.setAdapter(mTransitAdapter);
+
+    mTransitDetailsRecyclerView = altitudeChartFrame.findViewById(R.id.transit_details_recycler);
+    mTransitDetailsAdapter = new TransitDetailsAdapter();
+    mTransitDetailsRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+    // The breakdown is a header in the route list, above the route-point rows. Keep it a plain
+    // wrap-content list (no internal scroll) so the whole route list scrolls as one under the fixed
+    // route-type toolbar; a nested scroll here would trap the gesture and draw its tail behind the rows.
+    mTransitDetailsRecyclerView.setNestedScrollingEnabled(false);
+    // No item animator: a ride row animates its own intermediate-stops height when toggled, and the
+    // default change animation would fight that and make the rows bounce.
+    mTransitDetailsRecyclerView.setItemAnimator(null);
+    mTransitDetailsRecyclerView.setAdapter(mTransitDetailsAdapter);
+
+    // The compact strip sits on top of the panel and would otherwise swallow taps, so a tap anywhere on
+    // it expands the breakdown just like tapping the summary strip. Scrolling still works for long routes.
+    // Gated on the panel being clickable so it stays inert for ruler (straight-line) routes.
+    final GestureDetector transitTapDetector =
+        new GestureDetector(mContext, new GestureDetector.SimpleOnGestureListener() {
+          @Override
+          public boolean onSingleTapUp(@NonNull MotionEvent e)
+          {
+            if (!mTransitTime.isClickable())
+              return false;
+            toggleTransitDetails();
+            return true;
+          }
+        });
+    mTransitRecyclerView.addOnItemTouchListener(new RecyclerView.SimpleOnItemTouchListener() {
+      @Override
+      public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e)
+      {
+        return transitTapDetector.onTouchEvent(e);
+      }
+    });
   }
 
   private void openSearchForRoutePick()
@@ -266,7 +317,8 @@ final class RoutingBottomMenuController
 
   void hideAltitudeChartAndRoutingDetails()
   {
-    UiUtils.hide(mAltitudeChart, mTimeVehicle, mTimeElevationLine, mTransitTime, mTimeRuler, mTransitRecyclerView);
+    UiUtils.hide(mAltitudeChart, mTimeVehicle, mTimeElevationLine, mTransitTime, mTimeRuler, mTransitRecyclerView,
+                 mTransitDetailsRecyclerView);
     notifyVisibilityChanged();
   }
 
@@ -281,6 +333,7 @@ final class RoutingBottomMenuController
     setStartState(StartState.DISABLED);
     UiUtils.show(transit_time, mTransitRecyclerView);
     mTransitAdapter.setItems(info.getTransitSteps());
+    mTransitDetailsAdapter.setItems(info.getTransitSteps());
 
     TextView totalTimeView = mAltitudeChartFrame.findViewById(R.id.total_time);
     totalTimeView.setText(Utils.formatRoutingTime(mContext, info.getTotalTime(), R.dimen.text_size_routing_number));
@@ -289,7 +342,121 @@ final class RoutingBottomMenuController
     TextView distanceView = mAltitudeChartFrame.findViewById(R.id.total_distance);
     UiUtils.showIf(info.getTotalPedestrianTimeInSec() > 0, dotView, pedestrianIcon, distanceView);
     distanceView.setText(info.getTotalPedestrianDistance() + " " + info.getTotalPedestrianDistanceUnits());
+
+    // Tapping the summary strip expands the per-leg breakdown (board/exit stops + line badges) in place;
+    // the chevron is the cue that the strip is expandable. The ripple foreground is declared in the
+    // layout and only draws while the strip stays clickable. Each (re)build starts collapsed.
+    mTransitTime.setClickable(true);
+    mTransitTime.setOnClickListener(v -> toggleTransitDetails());
+    UiUtils.show(mTransitTime.findViewById(R.id.transit_details_chevron));
+    mTransitExpanded = false;
+    applyTransitExpandedState();
+
     notifyVisibilityChanged();
+  }
+
+  private void toggleTransitDetails()
+  {
+    if (!mTransitTime.isClickable())
+      return;
+    mTransitExpanded = !mTransitExpanded;
+    ImageView chevron = mTransitTime.findViewById(R.id.transit_details_chevron);
+    chevron.setImageResource(mTransitExpanded ? R.drawable.ic_expand_less : R.drawable.ic_expand_more);
+    animateTransitExpansion(mTransitExpanded);
+  }
+
+  // Applies the collapsed/expanded state without animation, for a freshly (re)built route. Also cancels
+  // any in-flight expansion so a rebuild never leaves the breakdown stuck at an animated height.
+  private void applyTransitExpandedState()
+  {
+    cancelTransitAnimator();
+    setViewHeight(mTransitDetailsRecyclerView, ViewGroup.LayoutParams.WRAP_CONTENT);
+    mTransitRecyclerView.setAlpha(1f);
+    mTransitDetailsRecyclerView.setAlpha(1f);
+    UiUtils.showIf(mTransitExpanded, mTransitDetailsRecyclerView);
+    UiUtils.showIf(!mTransitExpanded, mTransitRecyclerView);
+    ImageView chevron = mTransitTime.findViewById(R.id.transit_details_chevron);
+    chevron.setImageResource(mTransitExpanded ? R.drawable.ic_expand_less : R.drawable.ic_expand_more);
+  }
+
+  // Grows/shrinks the breakdown by tweening the shared slot's height between the compact strip's height
+  // and the full breakdown's height (a parent transition can't tween a nested RecyclerView's height).
+  // The breakdown grows behind the opaque strip and the strip only fades out once it is (almost) full,
+  // so the summary never disappears before the breakdown is in place. Collapse is the reverse.
+  private void animateTransitExpansion(boolean expand)
+  {
+    cancelTransitAnimator();
+    final View strip = mTransitRecyclerView;
+    final View details = mTransitDetailsRecyclerView;
+
+    int stripHeight = UiUtils.isVisible(strip) ? strip.getHeight() : measureContentHeight(strip);
+    details.setVisibility(View.VISIBLE);
+    details.setAlpha(1f);
+    int fullHeight = details.getHeight() > 0 ? details.getHeight() : measureContentHeight(details);
+    UiUtils.show(strip);
+
+    final int from = expand ? stripHeight : fullHeight;
+    final int to = expand ? fullHeight : stripHeight;
+    // Fix the start height and the strip's start opacity up front so nothing flashes before frame one.
+    setViewHeight(details, from);
+    strip.setAlpha(expand ? 1f : 0f);
+
+    ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f);
+    animator.setDuration(220);
+    animator.setInterpolator(new AccelerateDecelerateInterpolator());
+    animator.addUpdateListener(a -> {
+      float p = (float) a.getAnimatedValue();
+      setViewHeight(details, Math.round(from + (to - from) * p));
+      // Expand: strip stays opaque over the growing breakdown, then fades out over the last stretch.
+      // Collapse: strip fades in first to cover the breakdown, which then shrinks away behind it.
+      strip.setAlpha(expand ? 1f - ramp(p, 0.65f, 1f) : ramp(p, 0f, 0.35f));
+    });
+    animator.addListener(new AnimatorListenerAdapter() {
+      @Override
+      public void onAnimationEnd(Animator animation)
+      {
+        setViewHeight(details, ViewGroup.LayoutParams.WRAP_CONTENT);
+        strip.setAlpha(1f);
+        details.setAlpha(1f);
+        UiUtils.hide(expand ? strip : details);
+        mTransitDetailsAnimator = null;
+        notifyVisibilityChanged();
+      }
+    });
+    mTransitDetailsAnimator = animator;
+    animator.start();
+  }
+
+  // Maps progress p to 0..1 over [start, end], clamped outside the window.
+  private static float ramp(float p, float start, float end)
+  {
+    return Math.max(0f, Math.min(1f, (p - start) / (end - start)));
+  }
+
+  private void cancelTransitAnimator()
+  {
+    if (mTransitDetailsAnimator != null)
+    {
+      mTransitDetailsAnimator.cancel();
+      mTransitDetailsAnimator = null;
+    }
+  }
+
+  // Measures a match-parent child's wrap-content height within the panel's content width.
+  private static int measureContentHeight(@NonNull View child)
+  {
+    View parent = (View) child.getParent();
+    int width = parent.getWidth() - parent.getPaddingLeft() - parent.getPaddingRight();
+    child.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
+                  View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+    return child.getMeasuredHeight();
+  }
+
+  private static void setViewHeight(@NonNull View view, int height)
+  {
+    ViewGroup.LayoutParams lp = view.getLayoutParams();
+    lp.height = height;
+    view.setLayoutParams(lp);
   }
 
   @SuppressLint("SetTextI18n")
@@ -301,6 +468,21 @@ final class RoutingBottomMenuController
     setStartState(StartState.DISABLED);
     hideAltitudeChartAndRoutingDetails();
     UiUtils.show(mAltitudeChartFrame, mTransitRecyclerView, mTimeRuler);
+
+    // The summary strip is shared with public transport routing; the per-leg breakdown does not
+    // apply to a straight-line ruler route, so drop the tap handler here. Clearing clickability also
+    // suppresses the ripple foreground declared in the layout. Force the collapsed (compact) state so a
+    // route rebuilt from transit into a ruler route never leaves the expanded breakdown showing.
+    mTransitTime.setOnClickListener(null);
+    mTransitTime.setClickable(false);
+    UiUtils.hide(mTransitTime, R.id.transit_details_chevron);
+    mTransitExpanded = false;
+    cancelTransitAnimator();
+    setViewHeight(mTransitDetailsRecyclerView, ViewGroup.LayoutParams.WRAP_CONTENT);
+    mTransitRecyclerView.setAlpha(1f);
+    mTransitDetailsRecyclerView.setAlpha(1f);
+    UiUtils.hide(mTransitDetailsRecyclerView);
+
     if (points.length > 2)
     {
       UiUtils.show(mTransitRecyclerView);

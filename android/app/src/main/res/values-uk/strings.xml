@@ -923,4 +923,23 @@
     <string name="color_picker_grid">Сітка</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Голосовий пошук</string>
+    <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
+    <string name="transit_details_title">Деталі маршруту</string>
+    <!-- Label preceding the boarding stop name in transit details (%1$s = stop name). -->
+    <string name="transit_board_at">Сісти на %1$s</string>
+    <!-- Label for an intermediate transit leg's end stop, where the user switches lines (%1$s = stop name). -->
+    <string name="transit_transfer_at">Пересадка на %1$s</string>
+    <!-- Label for the final transit leg's end stop, where the user leaves transit for good (%1$s = stop name). -->
+    <string name="transit_exit_at">Зійти на %1$s</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">Пішки</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Зупинка %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d зупинка</item>
+        <item quantity="few">%d зупинки</item>
+        <item quantity="many">%d зупинок</item>
+        <item quantity="other">%d зупинки</item>
+    </plurals>
 </resources>
