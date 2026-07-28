@@ -16,6 +16,7 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import app.organicmaps.downloader.DownloaderActivity;
@@ -178,7 +179,11 @@ public class SplashActivity extends AppCompatActivity
     // https://github.com/organicmaps/organicmaps/pull/7287
     // FORWARD_RESULT_FLAG conflicts with the ActivityResultLauncher.
     // https://github.com/organicmaps/organicmaps/issues/8984
-    intent.setFlags(intent.getFlags() & Intent.FLAG_GRANT_READ_URI_PERMISSION);
+    final int launchFlags = intent.getFlags();
+    intent.setFlags(launchFlags & Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+    if (markIntentConsumedIfRelaunchedFromHistory(intent, launchFlags))
+      Logger.w(TAG, "Relaunched from history, the intent payload is treated as already processed");
 
     if (Factory.isStartedForApiResult(intent))
     {
@@ -190,6 +195,29 @@ public class SplashActivity extends AppCompatActivity
     Config.setFirstStartDialogSeen(this);
     startActivity(intent);
     finish();
+  }
+
+  /**
+   * A relaunch from Recents re-delivers the intent the task started with, whose one-shot payload is
+   * most likely spent: a bookmarks file shared through a temporary content:// URI is gone by then
+   * and would only fail to open. An explicit {@link MwmActivity#EXTRA_CONSUMED} wins over this
+   * guess, since only the map activity really knows. Without one the two cases are indistinguishable
+   * here, and resolving them to "processed" drops a file shared just before a kill during startup.
+   *
+   * @param launchFlags the flags the intent was launched with, taken before they are reset.
+   * @return whether the intent was marked as already processed.
+   */
+  @VisibleForTesting
+  static boolean markIntentConsumedIfRelaunchedFromHistory(@NonNull Intent intent, int launchFlags)
+  {
+    if (intent.hasExtra(MwmActivity.EXTRA_CONSUMED))
+      return false;
+
+    if ((launchFlags & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0)
+      return false;
+
+    intent.putExtra(MwmActivity.EXTRA_CONSUMED, true);
+    return true;
   }
 
   private boolean isManageSpaceActivity(@NonNull Intent intent)

@@ -198,6 +198,22 @@ UNIT_TEST(EqualNoCase)
   TEST(strings::EqualNoCase("HaHaHa", "hahaha"), ());
 }
 
+UNIT_TEST(EqualAsciiNoCase)
+{
+  TEST(strings::EqualAsciiNoCase("", ""), ());
+  TEST(strings::EqualAsciiNoCase("HaHaHa", "hahaha"), ());
+  TEST(strings::EqualAsciiNoCase("zh-Hant", "ZH-HANT"), ());
+  TEST(strings::EqualAsciiNoCase("0;9z", "0;9Z"), ());
+
+  TEST(!strings::EqualAsciiNoCase("fi", "fil"), ());
+  TEST(!strings::EqualAsciiNoCase("fil", "fi"), ());
+  TEST(!strings::EqualAsciiNoCase("", "a"), ());
+  // Case-insensitive comparison must not fold characters that merely differ by the same 0x20 bit.
+  TEST(!strings::EqualAsciiNoCase("[", "{"), ());
+  // Non-ASCII bytes are compared as-is, without Unicode case folding.
+  TEST(!strings::EqualAsciiNoCase("Ä", "ä"), ());
+}
+
 UNIT_TEST(to_double)
 {
   std::string s;
@@ -1465,6 +1481,12 @@ UNIT_TEST(ToLower_ToUpper)
 
   strings::AsciiToUpper(s);
   TEST_EQUAL(s, "ABC0;9Z", ());
+
+  // Only ASCII letters are converted, everything else is passed through unchanged.
+  static_assert(strings::AsciiToLower('A') == 'a' && strings::AsciiToLower('a') == 'a');
+  static_assert(strings::AsciiToUpper('z') == 'Z' && strings::AsciiToUpper('Z') == 'Z');
+  static_assert(strings::AsciiToLower('9') == '9' && strings::AsciiToUpper(';') == ';');
+  static_assert(strings::AsciiToLower('[') == '[' && strings::AsciiToUpper('{') == '{');
 }
 
 }  // namespace string_utils_test

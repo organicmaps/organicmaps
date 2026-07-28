@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Dužina";
 "share_my_location" = "Dijeli moju lokaciju";
+"prefs_group_network" = "Mreža";
 "prefs_group_route" = "Navigacija";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Greška pri slanju e-pošte";
-
-/* Settings item title */
-"pref_calibration_title" = "Kalibracija kompasa";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Dostupno";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Ovo se ime već koristi";
 "profile" = "OpenStreetMap profil";
 "restore" = "Obnovi";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Privatnost";
 "privacy_policy" = "Politika privatnosti";
 "terms_of_use" = "Uvjeti korištenja";
 

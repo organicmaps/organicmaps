@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Ilgis";
 "share_my_location" = "Bendrinti mano vietą";
+"prefs_group_network" = "Tinklas";
 "prefs_group_route" = "Navigacija";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Klaida siunčiant laišką";
-
-/* Settings item title */
-"pref_calibration_title" = "Kompaso kalibravimas";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Prieinama";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Toks pavadinimas jau naudojamas";
 "profile" = "„OpenStreetMap“ profilis";
 "restore" = "Atkurti";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Privatumas";
 "privacy_policy" = "Privatumo politika";
 "terms_of_use" = "Naudojimo sąlygos";
 

@@ -112,7 +112,14 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
     }
 
     MapManagerHelper.warnOn3g(requireActivity(), size, () -> {
-      final FragmentManager manager = requireActivity().getSupportFragmentManager();
+      // The mobile-data confirmation may outlive this dialog fragment.
+      if (!isAdded())
+        return;
+
+      final FragmentManager manager = getParentFragmentManager();
+      if (manager.isStateSaved() || manager.isDestroyed())
+        return;
+
       RoutingMapsDownloadFragment downloader =
           RoutingMapsDownloadFragment.create(manager.getFragmentFactory(), getAppContextOrThrow(), mMapsArray);
       downloader.show(manager, downloader.getClass().getSimpleName());

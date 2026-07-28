@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "长度";
 "share_my_location" = "分享我的位置";
+"prefs_group_network" = "网络";
 "prefs_group_route" = "导航";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "电子邮件发送失败";
-
-/* Settings item title */
-"pref_calibration_title" = "指南针校准";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "可用";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "这个名称已经被使用了";
 "profile" = "OpenStreetMap 资料";
 "restore" = "恢复";
+
+/* Settings privacy group in settings screen */
+"privacy" = "隐私";
 "privacy_policy" = "隐私政策";
 "terms_of_use" = "使用条款";
 

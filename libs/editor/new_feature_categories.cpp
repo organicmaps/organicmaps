@@ -3,6 +3,7 @@
 #include "base/string_utils.hpp"
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
+#include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 
 #include <algorithm>
@@ -40,6 +41,15 @@ NewFeatureCategories::NewFeatureCategories(NewFeatureCategories && other) noexce
 
 void NewFeatureCategories::AddLanguage(std::string lang)
 {
+  // A regional locale translates only a handful of categories ("es-MX" has 34 synonyms against 518
+  // for "es"), and the index matches the language code exactly, so add the base language too or
+  // everything it does not cover would fall back to English names. GetTwine() drops the region but
+  // keeps the script: unlike a region, a script is a translation of its own, and merging the other
+  // one is not a coverage gap to fill ("zh-Hant" has 483 synonyms, "zh-Hans" 488).
+  auto base = languages::GetTwine(lang);
+  if (base != lang)
+    AddLanguage(std::move(base));
+
   auto langCode = CategoriesHolder::MapLocaleToInteger(lang);
   if (langCode == CategoriesHolder::kUnsupportedLocaleCode)
   {

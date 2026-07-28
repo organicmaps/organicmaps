@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Luzera";
 "share_my_location" = "Partekatu nire kokapena";
+"prefs_group_network" = "Sarea";
 "prefs_group_route" = "Nabigazioa";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Errore bat mezua bidaltzean";
-
-/* Settings item title */
-"pref_calibration_title" = "Iparrorratzaren kalibrazioa";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Eskuragarria";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Izen hau dagoeneko hartua da";
 "profile" = "OpenStreetMap profila";
 "restore" = "Berreskuratu";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Pribatutasuna";
 "privacy_policy" = "Pribatutasun politika";
 "terms_of_use" = "Erabilera baldintzak";
 

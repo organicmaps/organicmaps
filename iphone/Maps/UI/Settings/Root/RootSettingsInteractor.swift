@@ -125,7 +125,6 @@ final class RootSettingsInteractor {
                       bookmarksTextPlacement: settings.bookmarksTextPlacement(),
                       largeFontSize: settings.largeFontSize(),
                       transliteration: settings.transliteration(),
-                      compassCalibrationEnabled: settings.compassCalibrationEnabled(),
                       theme: settings.theme(),
                       iCloudSynchronizationEnabled: settings.iCLoudSynchronizationEnabled(),
                       iCloudSynchronizationState: iCloudSynchronizationState,
@@ -155,8 +154,6 @@ final class RootSettingsInteractor {
       settings.setLargeFontSize(enabled)
     case .transliteration:
       settings.setTransliteration(enabled)
-    case .compassCalibration:
-      settings.setCompassCalibrationEnabled(enabled)
     case .iCloud:
       settings.setICLoudSynchronizationEnabled(enabled)
     case .logging:

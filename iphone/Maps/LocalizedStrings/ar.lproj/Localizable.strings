@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "الطول";
 "share_my_location" = "مشاركة موقعي";
+"prefs_group_network" = "الشبكة";
 "prefs_group_route" = "الملاحة";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "حدث خطأ في إرسال البريد الإلكتروني";
-
-/* Settings item title */
-"pref_calibration_title" = "معايرة البوصلة";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "متوفر";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "هذا الاسم موجود سابقا";
 "profile" = "ملف الشخصي على خريطة الشارع المفتوحة";
 "restore" = "استعادة";
+
+/* Settings privacy group in settings screen */
+"privacy" = "خصوصية";
 "privacy_policy" = "سياسة الخصوصية";
 "terms_of_use" = "شروط الاستخدام";
 

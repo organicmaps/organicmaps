@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Довжина";
 "share_my_location" = "Поділитися моїм місцезнаходженням";
+"prefs_group_network" = "Мережа";
 "prefs_group_route" = "Навігація";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Помилка при відправленні листа";
-
-/* Settings item title */
-"pref_calibration_title" = "Калібрування компаса";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Доступні";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Це ім'я вже зайнято";
 "profile" = "Профіль OpenStreetMap";
 "restore" = "Відновити";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Приватність";
 "privacy_policy" = "Політика конфіденційності";
 "terms_of_use" = "Умови використання";
 

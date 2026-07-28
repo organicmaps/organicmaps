@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Délka";
 "share_my_location" = "Sdílet mé umístění";
+"prefs_group_network" = "Síť";
 "prefs_group_route" = "Navigace";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Chyba při odesílání emailu";
-
-/* Settings item title */
-"pref_calibration_title" = "Kalibrace kompasu";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Dostupné";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Toto jméno již bylo provedeno";
 "profile" = "Profil OpenStreetMap";
 "restore" = "Obnovit";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Soukromí";
 "privacy_policy" = "Zásady ochrany osobních údajů";
 "terms_of_use" = "Podmínky užívání";
 

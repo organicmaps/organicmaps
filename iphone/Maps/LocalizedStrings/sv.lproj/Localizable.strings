@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Längd";
 "share_my_location" = "Dela min plats";
+"prefs_group_network" = "Nätverk";
 "prefs_group_route" = "Navigering";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Fel när mailet skulle skickas";
-
-/* Settings item title */
-"pref_calibration_title" = "Kompasskalibrering";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Tillgänglig";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Det här namnet är redan taget";
 "profile" = "OpenStreetMap profil";
 "restore" = "Återställa";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Integritet";
 "privacy_policy" = "Integritetspolicy";
 "terms_of_use" = "Allmänna villkor";
 

@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Lengd";
 "share_my_location" = "Deila staðsetningu minni";
+"prefs_group_network" = "Netkerfi";
 "prefs_group_route" = "Leiðsögn";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Villa við að senda tölvupóst";
-
-/* Settings item title */
-"pref_calibration_title" = "Kvörðun áttavita";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Tiltækt";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Þetta nafn er þegar í notkun";
 "profile" = "OpenStreetMap-notandasnið";
 "restore" = "Endurheimta";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Friðhelgi";
 "privacy_policy" = "Meðferð persónuupplýsinga";
 "terms_of_use" = "Notkunarskilmálar";
 

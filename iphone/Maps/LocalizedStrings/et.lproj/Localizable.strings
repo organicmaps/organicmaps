@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Pikkus";
 "share_my_location" = "Jaga minu asukohta";
+"prefs_group_network" = "Võrgustik";
 "prefs_group_route" = "Tee juhatamine";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -408,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Viga teate saatmisel";
-
-/* Settings item title */
-"pref_calibration_title" = "Kompassi kalibreerimine";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Saadaval";
@@ -661,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "See nimi on juba kasutusel";
 "profile" = "OpenStreetMapi profiil";
 "restore" = "Taasta";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Privaatsus";
 "privacy_policy" = "Andmekaitsepõhimõtted";
 "terms_of_use" = "Kasutustingimused";
 

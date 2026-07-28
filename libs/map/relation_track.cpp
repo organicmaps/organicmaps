@@ -419,10 +419,13 @@ std::optional<df::TransitInfo> RelationTrackBuilder::BuildTransitInfo(uint32_t r
         ASSERT(stopFt, ());
         switch (stopFt->GetGeomType())
         {
+        case feature::GeomType::Point: break;  // the usual stop/station node
         case feature::GeomType::Line: continue;
         case feature::GeomType::Area:  // skip platforms
           if (!isStation(*stopFt) && !isStop(*stopFt))
             continue;
+          break;
+        case feature::GeomType::Undefined: ASSERT(false, ()); continue;
         }
 
         auto const ftCenter = feature::GetCenter(*stopFt);

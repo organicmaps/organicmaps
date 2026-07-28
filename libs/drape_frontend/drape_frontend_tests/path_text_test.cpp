@@ -11,8 +11,8 @@
 #include <string>
 #include <vector>
 
-using df::test_support::VisualParamsFixture;
-
+namespace path_text_test
+{
 namespace
 {
 bool IsSmooth(m2::SplineEx const & spline)
@@ -31,6 +31,8 @@ m2::SplineEx BuildRounded(std::vector<m2::PointD> const & pts)
   return spline;
 }
 }  // namespace
+
+using df::test_support::VisualParamsFixture;
 
 UNIT_CLASS_TEST(VisualParamsFixture, Rounding_Spline)
 {
@@ -182,3 +184,5 @@ UNIT_CLASS_TEST(VisualParamsFixture, Rounding_Spline_Visual)
 {
   RunTestLoop("PathText AddPointAndRound corner rounding", &RenderRoundingCases, true /* autoExit; false to inspect */);
 }
+
+}  // namespace path_text_test
