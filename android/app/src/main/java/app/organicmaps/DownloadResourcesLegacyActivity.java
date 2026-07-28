@@ -331,6 +331,19 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     showMap();
   }
 
+  /**
+   * This screen is shown while the resources required to start are still downloading, so the payload
+   * has not reached {@link MwmActivity} yet. Say it explicitly, otherwise a relaunch from Recents lets
+   * {@link SplashActivity} treat a shared file as already imported. Only fills in what is still
+   * unknown: an existing mark came from someone better informed, and downgrading it revives the replay.
+   */
+  @Override
+  protected void prepareIntentForCoreRestart(@NonNull Intent intent, @Nullable Bundle savedInstanceState)
+  {
+    if (!intent.hasExtra(MwmActivity.EXTRA_CONSUMED))
+      intent.putExtra(MwmActivity.EXTRA_CONSUMED, false);
+  }
+
   public void showMap()
   {
     if (!mAreResourcesDownloaded)

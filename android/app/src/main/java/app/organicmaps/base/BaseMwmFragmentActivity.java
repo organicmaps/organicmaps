@@ -43,6 +43,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     if (!MwmApplication.from(this).getOrganicMaps().arePlatformAndCoreInitialized())
     {
       final Intent intent = Objects.requireNonNull(getIntent());
+      prepareIntentForCoreRestart(intent, savedInstanceState);
       intent.setComponent(new ComponentName(this, SplashActivity.class));
       startActivity(intent);
       finish();
@@ -51,6 +52,16 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
 
     onSafeCreate(savedInstanceState);
   }
+
+  /**
+   * Preserves activity-specific state when a restored activity must restart the core through
+   * {@link SplashActivity}. The new activity created after initialization does not receive this
+   * instance's saved state.
+   * <p>
+   * Staying silent means "the state of this intent is unknown", which lets {@link SplashActivity}
+   * guess. Override whenever this screen's intent can carry a payload that MwmActivity acts on.
+   */
+  protected void prepareIntentForCoreRestart(@NonNull Intent intent, @Nullable Bundle savedInstanceState) {}
 
   /**
    * Status-bar style passed to {@link EdgeToEdge#enable}. The default uses light (white)
