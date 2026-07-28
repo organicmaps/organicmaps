@@ -37,6 +37,8 @@ set(SRC
   gps_tracker.hpp
   isolines_manager.cpp
   isolines_manager.hpp
+  location_country_tracker.cpp
+  location_country_tracker.hpp
   mwm_url.cpp
   mwm_url.hpp
   place_page_info.cpp
