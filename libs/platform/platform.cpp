@@ -21,9 +21,9 @@ std::string RandomString(size_t length)
 {
   static std::string_view constexpr kCharset = "0123456789abcdefghijklmnopqrstuvwxyz";
 
-  base::UniformRandom<size_t> rand(0, kCharset.size() - 1);
+  thread_local base::UniformRandom<size_t> rand(0, kCharset.size() - 1);
   std::string str(length, 0);
-  std::generate_n(str.begin(), length, [&rand]() { return kCharset[rand()]; });
+  std::generate_n(str.begin(), length, []() { return kCharset[rand()]; });
   return str;
 }
 
