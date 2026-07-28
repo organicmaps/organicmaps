@@ -45,6 +45,9 @@
          location = "container:harfbuzz/harfbuzz.xcodeproj">
       </FileRef>
       <FileRef
+         location = "container:lunasvg/lunasvg.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "container:minizip/minizip.xcodeproj">
       </FileRef>
       <FileRef
