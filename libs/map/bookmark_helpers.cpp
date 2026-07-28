@@ -24,6 +24,11 @@
 
 #include "std/target_os.hpp"
 
+#include "map/framework.hpp"
+#include "map/place_page_info.hpp"
+
+#include "search/reverse_geocoder.hpp"
+
 #include <algorithm>
 #include <array>
 #include <ranges>
@@ -764,6 +769,52 @@ BookmarkMatchInfo GetBookmarkMatchInfo(uint32_t type)
   while (TruncType(typeStr));
 
   return {kml::BookmarkIcon::None, BookmarkBaseType::None};
+}
+
+namespace
+{
+void SaveNonEmptyProperty(kml::BookmarkData & bmData, char const * key, std::string_view value)
+{
+  if (!value.empty())
+    bmData.m_properties[key].assign(value);
+}
+
+void SplitRegionAddress(std::string const & regionAddress, std::string & city, std::string & country)
+{
+  auto const separator = regionAddress.rfind(", ");
+  if (separator != std::string::npos)
+  {
+    city = regionAddress.substr(0, separator);
+    country = regionAddress.substr(separator + 2);
+  }
+  else
+  {
+    country = regionAddress;
+  }
+}
+}  // namespace
+
+void SaveFeatureProperties(Framework const & framework, place_page::Info const & info, kml::BookmarkData & bmData)
+{
+  using Metadata = feature::Metadata::EType;
+
+  auto const address = framework.GetAddressAtPoint(bmData.m_point);
+
+  std::string city;
+  std::string country;
+  SplitRegionAddress(framework.GetLocalizedRegionAddressAtPoint(bmData.m_point), city, country);
+
+  std::string_view osmType;
+  std::string osmId;
+  framework.GetOsmObjectId(info.GetID(), osmType, osmId);
+
+  SaveNonEmptyProperty(bmData, "osm_type", osmType);
+  SaveNonEmptyProperty(bmData, "osm_id", osmId);
+  SaveNonEmptyProperty(bmData, "addr:street", address.GetStreetName());
+  SaveNonEmptyProperty(bmData, "addr:housenumber", address.GetHouseNumber());
+  SaveNonEmptyProperty(bmData, "addr:postcode", info.GetMetadata(Metadata::FMD_POSTCODE));
+  SaveNonEmptyProperty(bmData, "addr:city", city);
+  SaveNonEmptyProperty(bmData, "addr:country", country);
 }
 
 void SaveFeatureTypes(feature::TypesHolder const & types, kml::BookmarkData & bmData)

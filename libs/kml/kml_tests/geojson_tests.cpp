@@ -1515,4 +1515,43 @@ UNIT_TEST(GeoJson_Writer_Elevation_AllDefault)
     TEST_EQUAL(pt.GetAltitude(), geometry::kInvalidAltitude, ());
 }
 
+UNIT_TEST(GeoJson_SavesOsmBookmarkProperties)
+{
+  kml::FileData fileData;
+  auto & bookmark = fileData.m_bookmarksData.emplace_back();
+
+  bookmark.m_properties["osm_id"] = "123456";
+  bookmark.m_properties["osm_type"] = "node";
+  bookmark.m_properties["addr:street"] = "Ellis Street";
+  bookmark.m_properties["addr:housenumber"] = "63";
+  bookmark.m_properties["addr:city"] = "San Francisco";
+  bookmark.m_properties["addr:postcode"] = "94102";
+  bookmark.m_properties["addr:country"] = "USA";
+
+  auto const json = SaveToGeoJsonString(fileData, true);
+
+  TEST(json.find("\"osm_id\":\"123456\"") != std::string::npos, (json));
+  TEST(json.find("\"osm_type\":\"node\"") != std::string::npos, (json));
+  TEST(json.find("\"addr:street\":\"Ellis Street\"") != std::string::npos, (json));
+  TEST(json.find("\"addr:housenumber\":\"63\"") != std::string::npos, (json));
+  TEST(json.find("\"addr:city\":\"San Francisco\"") != std::string::npos, (json));
+  TEST(json.find("\"addr:postcode\":\"94102\"") != std::string::npos, (json));
+  TEST(json.find("\"addr:country\":\"USA\"") != std::string::npos, (json));
+}
+
+UNIT_TEST(GeoJson_DoesNotSaveUnsupportedBookmarkProperties)
+{
+  kml::FileData fileData;
+  auto & bookmark = fileData.m_bookmarksData.emplace_back();
+
+  bookmark.m_properties["unsupported"] = "should not be exported";
+  bookmark.m_properties["addr:street"] = "Ellis Street";
+
+  auto const json = SaveToGeoJsonString(fileData, true);
+
+  TEST(json.find("\"addr:street\":\"Ellis Street\"") != std::string::npos, (json));
+  TEST(json.find("unsupported") == std::string::npos, (json));
+  TEST(json.find("should not be exported") == std::string::npos, (json));
+}
+
 }  // namespace geojson_tests
