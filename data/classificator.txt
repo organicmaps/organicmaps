@@ -685,6 +685,7 @@ world  +
         adult_gaming_centre  -
         amusement_arcade  -
         beach_resort  -
+        bird_hide  -
         bowling_alley  -
         common  -
         dance  -
