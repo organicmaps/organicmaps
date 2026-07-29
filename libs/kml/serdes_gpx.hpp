@@ -97,7 +97,6 @@ private:
 
   MultiGeometry::LineT m_line;
   MultiGeometry::TimeT m_timestamps;
-  std::string m_customName;
   void ParseName(std::string const & value, std::string const & prevTag);
   void ParseDescription(std::string const & value, std::string const & prevTag);
   void ParseAltitude(std::string const & value);
