@@ -79,14 +79,6 @@ void SaveStringWithCDATA(Writer & writer, std::string const & s)
     writer << *clean;
 }
 
-std::string const * GetDefaultLanguage(LocalizableString const & lstr)
-{
-  auto const find = lstr.find(kDefaultLang);
-  if (find != lstr.end())
-    return &find->second;
-  return nullptr;
-}
-
 std::string GetStringForExport(LocalizableString const & lstr)
 {
   auto const getNonEmpty = [&lstr](int8_t const lang) -> std::string const *

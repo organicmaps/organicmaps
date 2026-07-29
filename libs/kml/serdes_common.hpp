@@ -22,7 +22,6 @@ std::string PointToGxString(geometry::PointWithAltitude const & pt);
 bool LineHasAltitude(TrackGeometry const & line);
 
 void SaveStringWithCDATA(Writer & writer, std::string const & s);
-std::string const * GetDefaultLanguage(LocalizableString const & lstr);
 
 // Name/description to write into an exported file, shared by all exporters (KML, GPX, GeoJSON).
 // A name typed by the user is stored in m_customName and must win over the original (POI) name

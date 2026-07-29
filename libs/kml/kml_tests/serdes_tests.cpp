@@ -1132,6 +1132,18 @@ kml::ColorData RoundTripBookmarkColor(kml::ColorData const & color)
 }
 }  // namespace
 
+UNIT_TEST(Kml_Export_NameWithoutPreferredLanguage)
+{
+  kml::FileData data;
+  kml::BookmarkData bookmark;
+  bookmark.m_point = mercator::FromLatLon(53.89, 27.55);
+  bookmark.m_name[StringUtf8Multilang::GetLangIndex("ru")] = "Эрмитаж";
+  bookmark.m_name[StringUtf8Multilang::GetLangIndex("de")] = "Eremitage";
+  data.m_bookmarksData.push_back(std::move(bookmark));
+
+  TEST(SerializeKmlText(data).find("<name>Eremitage</name>") != std::string::npos, ());
+}
+
 UNIT_TEST(Kml_BookmarkColor_CustomRoundTrip)
 {
   auto const custom = kml::MakeCustomBookmarkColorData(dp::Color(0x12, 0x34, 0x56, 0xFF));
