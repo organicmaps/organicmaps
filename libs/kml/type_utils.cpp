@@ -28,6 +28,12 @@ std::string GetPreferredBookmarkStr(LocalizableString const & name, std::string 
   if (name.size() == 1)
     return name.begin()->second;
 
+  // "default" requests a device-independent value for serialization and other stable output.
+  // Resolve it directly to preserve an int_name verbatim; feature-name rendering deliberately
+  // shortens comma-separated int_name values and therefore has different semantics.
+  if (languageNorm == StringUtf8Multilang::GetLangByCode(kDefaultLangCode))
+    return std::string{GetStringForExport(name)};
+
   /// @todo Complicated logic here when transforming LocalizableString -> StringUtf8Multilang to call GetPreferredName.
   StringUtf8Multilang nameMultilang;
   for (auto const & pair : name)
@@ -106,12 +112,4 @@ std::string_view GetStringForExport(LocalizableString const & lstr)
   return best;
 }
 
-std::string GetNameForExport(BookmarkData const & bmData)
-{
-  if (auto const name = GetStringForExport(bmData.m_customName); !name.empty())
-    return std::string{name};
-  if (auto const name = GetStringForExport(bmData.m_name); !name.empty())
-    return std::string{name};
-  return GetLocalizedFeatureType(bmData.m_featureTypes);
-}
 }  // namespace kml

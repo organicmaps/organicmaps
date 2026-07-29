@@ -78,12 +78,4 @@ void SaveStringWithCDATA(Writer & writer, std::string_view s)
     writer << clean;
 }
 
-std::string const * GetDefaultLanguage(LocalizableString const & lstr)
-{
-  auto const find = lstr.find(kDefaultLang);
-  if (find != lstr.end())
-    return &find->second;
-  return nullptr;
-}
-
 }  // namespace kml

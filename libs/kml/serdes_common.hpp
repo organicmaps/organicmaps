@@ -22,7 +22,6 @@ std::string PointToGxString(geometry::PointWithAltitude const & pt);
 bool LineHasAltitude(TrackGeometry const & line);
 
 void SaveStringWithCDATA(Writer & writer, std::string_view s);
-std::string const * GetDefaultLanguage(LocalizableString const & lstr);
 
 std::string_view constexpr kIndent0{};
 std::string_view constexpr kIndent2{"  "};

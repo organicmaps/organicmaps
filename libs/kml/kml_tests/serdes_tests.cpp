@@ -1082,7 +1082,7 @@ UNIT_TEST(ExportStringLanguageFallbacks)
   TEST_EQUAL(kml::GetStringForExport(onlyPseudo), "Alt", ());
 }
 
-UNIT_TEST(ExportBookmarkCustomNameFallback)
+UNIT_TEST(DefaultLanguageBookmarkCustomNameFallback)
 {
   auto const kDeLang = StringUtf8Multilang::GetLangIndex("de");
   auto const kRuLang = StringUtf8Multilang::GetLangIndex("ru");
@@ -1091,7 +1091,7 @@ UNIT_TEST(ExportBookmarkCustomNameFallback)
   bookmark.m_name[kml::kDefaultLang] = "Original name";
   bookmark.m_customName[kRuLang] = "Любимое место";
   bookmark.m_customName[kDeLang] = "Lieblingsort";
-  TEST_EQUAL(kml::GetNameForExport(bookmark), "Lieblingsort", ());
+  TEST_EQUAL(kml::GetPreferredBookmarkName(bookmark, "default"), "Lieblingsort", ());
 }
 
 namespace
@@ -1142,6 +1142,69 @@ kml::ColorData RoundTripBookmarkColor(kml::ColorData const & color)
   return parsed.m_bookmarksData.front().m_color;
 }
 }  // namespace
+
+UNIT_TEST(Kml_Export_NameWithoutPreferredLanguage)
+{
+  kml::FileData data;
+  kml::BookmarkData bookmark;
+  bookmark.m_point = mercator::FromLatLon(53.89, 27.55);
+  bookmark.m_name[StringUtf8Multilang::GetLangIndex("ru")] = "Эрмитаж";
+  bookmark.m_name[StringUtf8Multilang::GetLangIndex("de")] = "Eremitage";
+  data.m_bookmarksData.push_back(std::move(bookmark));
+
+  TEST(SerializeKmlText(data).find("<name>Eremitage</name>") != std::string::npos, ());
+}
+
+UNIT_TEST(Kml_RoundTrip_PromotesFallbackToDefaultLanguage)
+{
+  auto const kDeLang = StringUtf8Multilang::GetLangIndex("de");
+  auto const kRuLang = StringUtf8Multilang::GetLangIndex("ru");
+
+  kml::FileData data;
+  data.m_categoryData.m_name[kDeLang] = "Kategorie";
+  data.m_categoryData.m_name[kRuLang] = "Категория";
+  data.m_categoryData.m_description[kDeLang] = "Kategoriebeschreibung";
+  data.m_categoryData.m_description[kRuLang] = "Описание категории";
+
+  kml::BookmarkData bookmark;
+  bookmark.m_point = mercator::FromLatLon(53.89, 27.55);
+  bookmark.m_name[kDeLang] = "Lesezeichen";
+  bookmark.m_name[kRuLang] = "Метка";
+  bookmark.m_description[kDeLang] = "Lesezeichenbeschreibung";
+  bookmark.m_description[kRuLang] = "Описание метки";
+  data.m_bookmarksData.push_back(std::move(bookmark));
+
+  kml::TrackData track;
+  track.m_name[kDeLang] = "Strecke";
+  track.m_name[kRuLang] = "Трек";
+  track.m_description[kDeLang] = "Streckenbeschreibung";
+  track.m_description[kRuLang] = "Описание трека";
+  track.m_layers.emplace_back();
+  track.m_geometry.AddLine({{{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}});
+  track.m_geometry.AddTimestamps({});
+  data.m_tracksData.push_back(std::move(track));
+
+  auto const parsed = ParseKmlText(SerializeKmlText(data));
+  TEST_EQUAL(parsed.m_bookmarksData.size(), 1, ());
+  TEST_EQUAL(parsed.m_tracksData.size(), 1, ());
+
+  // Plain KML elements have no metadata that distinguishes a deterministic projection from an
+  // explicit default. The parser retains that projection as default and preserves both translations.
+  auto const promoted =
+      [=](kml::LocalizableString const & s, std::string const & expectedDe, std::string const & expectedRu)
+  {
+    TEST_EQUAL(s.size(), 3, ());
+    TEST_EQUAL(kml::GetDefaultStr(s), expectedDe, ());
+    TEST_EQUAL(s.at(kDeLang), expectedDe, ());
+    TEST_EQUAL(s.at(kRuLang), expectedRu, ());
+  };
+  promoted(parsed.m_categoryData.m_name, "Kategorie", "Категория");
+  promoted(parsed.m_categoryData.m_description, "Kategoriebeschreibung", "Описание категории");
+  promoted(parsed.m_bookmarksData.front().m_name, "Lesezeichen", "Метка");
+  promoted(parsed.m_bookmarksData.front().m_description, "Lesezeichenbeschreibung", "Описание метки");
+  promoted(parsed.m_tracksData.front().m_name, "Strecke", "Трек");
+  promoted(parsed.m_tracksData.front().m_description, "Streckenbeschreibung", "Описание трека");
+}
 
 UNIT_TEST(Kml_BookmarkColor_CustomRoundTrip)
 {
