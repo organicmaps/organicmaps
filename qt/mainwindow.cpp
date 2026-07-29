@@ -135,7 +135,10 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
   // quickWidget->setAttribute(Qt::WA_TranslucentBackground);
   quickWidget->setClearColor(Qt::transparent);
   quickWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
+
+  quickWidget->setInitialProperties({{"map", QVariant::fromValue(this)}});
   quickWidget->setSource(QUrl::fromLocalFile("/workspace/qt/cloud.qml"));
+  // quickWidget->rootContext()->setContextProperty("map", this);
 
   if (m_screenshotMode)
   {
