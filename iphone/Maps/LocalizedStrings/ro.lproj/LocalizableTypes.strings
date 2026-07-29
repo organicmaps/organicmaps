@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Patinoar";
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "Rezervație naturală";
+"type.leisure.bird_hide" = "Observator de păsări";
 "type.leisure.outdoor_seating" = "Scaune în aer liber";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "Parc";

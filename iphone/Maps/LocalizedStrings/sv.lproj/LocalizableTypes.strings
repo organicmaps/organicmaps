@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Skridskobana";
 "type.leisure.marina" = "Småbåtshamn";
 "type.leisure.nature_reserve" = "Naturreservat";
+"type.leisure.bird_hide" = "Fågelgömsle";
 "type.leisure.outdoor_seating" = "Sittplatser utomhus";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "Parken";

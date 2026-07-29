@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Սահադաշտ";
 "type.leisure.marina" = "Նավակայան";
 "type.leisure.nature_reserve" = "Արգելոց";
+"type.leisure.bird_hide" = "Թռչունների դիտակետ";
 "type.leisure.outdoor_seating" = "Բացօթյա նստատեղեր";
 "type.leisure.firepit" = "Խարուկատեղ";
 "type.leisure.park" = "Զբոսայգի";

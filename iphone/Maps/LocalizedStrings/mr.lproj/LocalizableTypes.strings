@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "हिम क्रीडा क्षेत्र";
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "संरक्षित निसर्गक्षेत्र";
+"type.leisure.bird_hide" = "पक्षी निरीक्षण आसरा";
 "type.leisure.outdoor_seating" = "बाहेरची आसनव्यवस्था";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "उद्यान";

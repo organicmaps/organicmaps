@@ -658,6 +658,7 @@
     <string name="type.leisure.ice_rink">Pista de hielo</string>
     <string name="type.leisure.marina">Puerto o amarradero</string>
     <string name="type.leisure.nature_reserve">Reserva natural</string>
+    <string name="type.leisure.bird_hide">Observatorio de aves</string>
     <string name="type.leisure.outdoor_seating">Asientos al aire libre</string>
     <string name="type.leisure.firepit">Fogón</string>
     <string name="type.leisure.park">Parque</string>

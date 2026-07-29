@@ -632,6 +632,7 @@
     <string name="type.leisure.ice_rink">Klzisko</string>
     <string name="type.leisure.marina">Marína</string>
     <string name="type.leisure.nature_reserve">Prírodná rezervácia</string>
+    <string name="type.leisure.bird_hide">Pozorovateľňa vtákov</string>
     <string name="type.leisure.outdoor_seating">Posedenie vonku</string>
     <string name="type.leisure.park">Park</string>
     <string name="type.leisure.park.no.access">Park</string>

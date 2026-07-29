@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Клизалиште";
 "type.leisure.marina" = "Марина";
 "type.leisure.nature_reserve" = "Природни резерват";
+"type.leisure.bird_hide" = "Осматрачница за птице";
 "type.leisure.outdoor_seating" = "Седење на отвореном";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "Парк";

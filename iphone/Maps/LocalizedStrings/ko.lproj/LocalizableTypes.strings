@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Ice Rink";
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "천연보호구역";
+"type.leisure.bird_hide" = "조류 관찰 은신처";
 "type.leisure.outdoor_seating" = "야외 좌석";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "공원";

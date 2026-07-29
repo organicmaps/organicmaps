@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Jégpálya";
 "type.leisure.marina" = "Kishajókikötő";
 "type.leisure.nature_reserve" = "Természetvédelmi terület";
+"type.leisure.bird_hide" = "Madárles";
 "type.leisure.outdoor_seating" = "Kiülős helyek";
 "type.leisure.firepit" = "Tűzrakóhely";
 "type.leisure.park" = "Park";

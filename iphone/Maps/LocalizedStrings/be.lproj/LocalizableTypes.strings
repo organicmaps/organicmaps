@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Каток";
 "type.leisure.marina" = "Марына";
 "type.leisure.nature_reserve" = "Прыродны запаведнік";
+"type.leisure.bird_hide" = "Укрыццё для назірання за птушкамі";
 "type.leisure.outdoor_seating" = "Месцы на адкрытым паветры";
 "type.leisure.firepit" = "Кастрышча";
 "type.leisure.park" = "Парк";

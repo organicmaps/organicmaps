@@ -657,6 +657,7 @@
     <string name="type.leisure.ice_rink">Skautahöll</string>
     <string name="type.leisure.marina">Bátalægi</string>
     <string name="type.leisure.nature_reserve">Náttúruverndarsvæði</string>
+    <string name="type.leisure.bird_hide">Fuglaskoðunarbyrgi</string>
     <string name="type.leisure.outdoor_seating">Sæti utandyra</string>
     <string name="type.leisure.firepit">Eldgryfja</string>
     <string name="type.leisure.park">Almenningsgarður</string>

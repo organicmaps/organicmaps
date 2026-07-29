@@ -658,6 +658,7 @@
     <string name="type.leisure.ice_rink">Jégpálya</string>
     <string name="type.leisure.marina">Kishajókikötő</string>
     <string name="type.leisure.nature_reserve">Természetvédelmi terület</string>
+    <string name="type.leisure.bird_hide">Madárles</string>
     <string name="type.leisure.outdoor_seating">Kiülős helyek</string>
     <string name="type.leisure.firepit">Tűzrakóhely</string>
     <string name="type.leisure.park">Park</string>

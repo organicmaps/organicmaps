@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "ລານສະເກັດນໍ້າແຂງ";
 "type.leisure.marina" = "ທ່າຈອດເຮືອສຳລານ";
 "type.leisure.nature_reserve" = "ເຂດສະຫງວນທຳມະຊາດ";
+"type.leisure.bird_hide" = "ບ່ອນສັງເກດນົກ";
 "type.leisure.outdoor_seating" = "ບ່ອນນັ່ງກາງແຈ້ງ";
 "type.leisure.firepit" = "ກອງໄຟ";
 "type.leisure.park" = "ສວນສາທາລະນະ";

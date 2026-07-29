@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Pisa de patinaxe";
 "type.leisure.marina" = "Mariña";
 "type.leisure.nature_reserve" = "Reserva natural";
+"type.leisure.bird_hide" = "Observatorio de aves";
 "type.leisure.outdoor_seating" = "Asentos ao aire libre";
 "type.leisure.firepit" = "Fogar (para cacharela)";
 "type.leisure.park" = "Parque";

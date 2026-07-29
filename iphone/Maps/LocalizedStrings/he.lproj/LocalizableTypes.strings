@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "החלקה על קרח";
 "type.leisure.marina" = "מרינה";
 "type.leisure.nature_reserve" = "שמורת טבע";
+"type.leisure.bird_hide" = "מסתור לצפייה בציפורים";
 "type.leisure.outdoor_seating" = "ישיבה בחוץ";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "פארק";
