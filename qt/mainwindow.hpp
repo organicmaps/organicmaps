@@ -10,6 +10,7 @@
 
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>
+#include <QtQmlIntegration/qqmlintegration.h>
 
 #include <array>
 #include <memory>
@@ -92,6 +93,8 @@ private:
 #endif  // BUILD_DESIGNER
 
   Q_OBJECT
+  QML_ELEMENT
+  QML_UNCREATABLE("")
 
 public:
   MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> && screenshotParams, QRect const & screenGeometry
@@ -105,6 +108,8 @@ public:
   // (Developer or User variant depending on settings::kDeveloperMode) and shows the dock.
   void ShowPlacePage(place_page::Info const & info);
   void HidePlacePage();
+
+  Q_INVOKABLE QAction * getMyPositionAction() const { return m_pMyPositionAction; }
 
 protected:
   Framework & GetFramework() const;

@@ -3,9 +3,11 @@
 // Retrieved 2026-06-30, License - CC BY-SA 4.0
 
 import QtQuick 2.0
+import Map
 
 Item {
     id: root
+    required property MainWindow map
 
     Canvas {
         id: cloud
@@ -48,6 +50,7 @@ Item {
                 console.log("Cloud released");
         }
         onClicked: {
+            root.map.getMyPositionAction().trigger();
             console.log("Cloud clicked");
         }
     }
