@@ -18687,6 +18687,48 @@ vi:Giữ chỗ
 zh-Hans:野生动物园|自然保护区
 zh-Hant:自然保護區
 
+leisure-bird_hide|@category_tourism
+en:Bird Hide|Birdwatching
+ar:مخبأ لمراقبة الطيور
+be:Назіранне за птушкамі
+bg:Укритие за наблюдение на птици
+cs:Pozorovatelna ptáků
+da:Fugleskjul
+de:Vogelbeobachtungsstand
+el:Παρατηρητήριο πουλιών
+es:Observatorio de aves
+et:Linnuvaatlusvarje
+eu:Hegaztiak behatzeko ezkutalekua
+fi:Lintupiilo
+fr:Observatoire ornithologique
+hi:पक्षी अवलोकन आश्रय
+hu:Madárles
+id:Tempat pengamatan burung
+it:Capanno per il birdwatching
+ja:野鳥観察舎
+ko:조류 관찰 은신처
+lt:Paukščių stebėjimo slėptuvė
+lv:Putnu vērošanas slēpnis
+mr:पक्षी निरीक्षण आसरा
+nb:Fugleskjul
+nl:Vogelkijkhut
+pl:Kryjówka do obserwacji ptaków
+pt:Observatório de aves
+pt-BR:Observatório de aves
+ro:Observator de păsări
+ru:Укрытие для наблюдения за птицами
+sk:Pozorovateľňa vtákov
+sl:Opazovalnica ptic
+sr:Осматрачница за птице
+sv:Fågelgömsle
+sw:Kibanda cha kutazama ndege
+th:ที่ซ่อนดูนก
+tr:Kuş gözlem kulübesi
+uk:Укриття для спостереження за птахами
+vi:Chòi quan sát chim
+zh-Hans:观鸟屋
+zh-Hant:觀鳥屋
+
 natural-cape
 en:Cape
 ar:رأس
