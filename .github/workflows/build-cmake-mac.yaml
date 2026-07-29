@@ -62,6 +62,23 @@ jobs:
             -DCMAKE_C_COMPILER_LAUNCHER=ccache \
             -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 
+      # dev_sandbox is skipped with a warning when the Metal toolchain is
+      # unavailable (see dev_sandbox/CMakeLists.txt), which would defeat the
+      # purpose of this workflow. Naming the target fails the job in that case,
+      # and doing it before the full build fails within minutes instead of after
+      # it, at no extra cost: dev_sandbox is a part of ALL_BUILD anyway.
+      - name: Check dev_sandbox is not skipped
+        working-directory: ${{ env.BUILD_DIR }}
+        run: |
+          xcodebuild build \
+            -project omim.xcodeproj \
+            -target dev_sandbox \
+            -configuration ${{ matrix.cmake-build-type }} \
+            -parallelizeTargets \
+            -quiet \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+
       - name: Build all targets
         working-directory: ${{ env.BUILD_DIR }}
         run: |

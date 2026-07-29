@@ -6,7 +6,48 @@ set(SRC
   imgui_renderer.hpp
 )
 
-if (${PLATFORM_MAC})
+if (PLATFORM_MAC)
+  # Metal language support. dev_sandbox is its only CMake consumer: iOS compiles
+  # the same libs/shaders/Metal/*.metal via xcode/omim.xcworkspace.
+  list(APPEND CMAKE_MODULE_PATH ${OMIM_ROOT}/3party/CMake-MetalShaderSupport/cmake)
+  include(CheckLanguage)
+  include(MetalShaderSupport)
+
+  # The Metal compiler lives in an on-demand cryptex mount whose path contains a
+  # suffix that changes on every remount, so a cached path goes dead. Drop it and
+  # let check_language() retry, as it skips detection when the variable is set,
+  # together with the compiler info file, which enable_language() would otherwise
+  # load in place of the freshly detected path.
+  if (NOT EXISTS "${CMAKE_Metal_COMPILER}")
+    unset(CMAKE_Metal_COMPILER CACHE)
+    file(REMOVE "${CMAKE_PLATFORM_INFO_DIR}/CMakeMetalCompiler.cmake")
+  endif()
+  check_language(Metal)
+
+  # While that mount is down xcrun answers with a stub in XcodeDefault.xctoolchain
+  # that does exist but fails to run. check_language()'s try_compile rejects it,
+  # except with the Xcode generator, where CMakeTestMetalCompiler assumes a
+  # working compiler and skips the test, so probe it directly. Clear the cache as
+  # well, otherwise the stub would be picked up again once the mount is back.
+  if (CMAKE_Metal_COMPILER)
+    execute_process(COMMAND "${CMAKE_Metal_COMPILER}" --version
+                    RESULT_VARIABLE METAL_COMPILER_RUNS OUTPUT_QUIET ERROR_QUIET)
+    if (NOT METAL_COMPILER_RUNS EQUAL 0)
+      unset(CMAKE_Metal_COMPILER CACHE)
+      unset(CMAKE_Metal_COMPILER)
+      file(REMOVE "${CMAKE_PLATFORM_INFO_DIR}/CMakeMetalCompiler.cmake")
+    endif()
+  endif()
+
+  if (NOT CMAKE_Metal_COMPILER)
+    # The shaders target below would still be generated, but with unexpanded rule
+    # placeholders that fail the build with a cryptic message.
+    message(WARNING "Skipping dev_sandbox: no Metal toolchain."
+                    " Install it with: xcodebuild -downloadComponent MetalToolchain")
+    return()
+  endif()
+  enable_language(Metal)
+
   append(SRC
     main.mm
     ../iphone/Maps/Core/MapRendering/MetalContextFactory.h
