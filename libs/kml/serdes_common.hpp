@@ -21,7 +21,7 @@ std::string PointToGxString(geometry::PointWithAltitude const & pt);
 // flat sea-level track isn't bloated with zero altitudes. Mirrors Track::HasAltitudes intent.
 bool LineHasAltitude(TrackGeometry const & line);
 
-void SaveStringWithCDATA(Writer & writer, std::string const & s);
+void SaveStringWithCDATA(Writer & writer, std::string_view s);
 std::string const * GetDefaultLanguage(LocalizableString const & lstr);
 
 std::string_view constexpr kIndent0{};
