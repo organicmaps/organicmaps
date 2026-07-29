@@ -252,6 +252,10 @@ presets include `relwithdebinfo`, `debug-no-unity` (disables Unity batching for
 lower peak memory), `coverage`, and `xcode` (macOS only; generates an Xcode
 project, needed for `dev_sandbox` and Metal shader development).
 
+On macOS `dev_sandbox` also needs Xcode's separately downloaded Metal toolchain.
+Install it with `xcodebuild -downloadComponent MetalToolchain`, otherwise CMake
+skips the target with a warning and the rest of the build proceeds as usual.
+
 Besides _desktop_ there are other targets like _generator_tool_; pass them to
 `--target`, or omit `--target` to build everything.
 

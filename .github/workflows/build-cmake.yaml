@@ -146,6 +146,15 @@ jobs:
       - name: Enable inline compiler annotations
         run: echo "::add-matcher::.github/problem-matchers/gcc.json"
 
+      # dev_sandbox is skipped with a warning when the Metal toolchain is
+      # unavailable (see dev_sandbox/CMakeLists.txt). Ask for the target
+      # explicitly so that a skip fails the job instead of hiding in the log.
+      # Before the full build: ninja rejects an unknown target immediately, and
+      # dev_sandbox is a part of the default target anyway, so nothing is wasted.
+      - name: Check dev_sandbox is not skipped (macOS)
+        if: ${{ runner.os == 'macOS' }}
+        run: cmake --build --preset ci --target dev_sandbox
+
       - name: Compile
         run: cmake --build --preset ci
 
