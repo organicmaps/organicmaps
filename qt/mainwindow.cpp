@@ -141,7 +141,7 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
   quickWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
   // quickWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-  quickWidget->setInitialProperties({{"map", QVariant::fromValue(m_pDrawWidget)}});
+  quickWidget->setInitialProperties({{"map", QVariant::fromValue(this)}});
   // quickWidget->setSource(QUrl("qrc:/qquickwidgetversuswindow_opengl/cloud.qml"));
   quickWidget->setSource(QUrl::fromLocalFile("/workspace/qt/cloud.qml"));
   // quickWidget->setSource(QUrl::fromLocalFile("cloud.qml"));

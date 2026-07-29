@@ -7,7 +7,7 @@ import Map
 
 Item {
     id: root
-    required property DrawWidget map
+    required property MainWindow map
 
     width: 400
     height: 300
@@ -75,6 +75,7 @@ Item {
                 console.log("Cloud released");
         }
         onClicked: mouse => {
+            root.map.getMyPositionAction().trigger();
             console.log("Cloud clicked");
         }
     }
