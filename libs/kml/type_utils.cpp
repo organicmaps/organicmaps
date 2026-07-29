@@ -9,6 +9,8 @@
 
 #include "coding/string_utf8_multilang.hpp"
 
+#include <limits>
+
 namespace kml
 {
 bool IsEqual(m2::PointD const & lhs, m2::PointD const & rhs)
@@ -73,5 +75,43 @@ std::string GetPreferredBookmarkName(BookmarkData const & bmData, std::string_vi
   if (name.empty())
     name = GetLocalizedFeatureType(bmData.m_featureTypes);
   return name;
+}
+
+std::string_view GetStringForExport(LocalizableString const & lstr)
+{
+  // Rank of a language in the export priority list, the lowest one wins.
+  auto const rank = [](int8_t lang)
+  {
+    // alt_name/old_name are OSM pseudo-names, not translations: an old name is worse than any
+    // real one, so push both behind every language instead of letting their codes (53/55) win
+    // over kk/mr/et/ku/mn/mk/lv/hi (56..63).
+    int constexpr kPseudoNamePenalty = StringUtf8Multilang::kMaxSupportedLanguages;
+    switch (lang)
+    {
+    case kDefaultLangCode: return 0;
+    case StringUtf8Multilang::kInternationalCode: return 1;
+    case StringUtf8Multilang::kEnglishCode: return 2;
+    // Any other language is a deterministic last resort, ordered by its stable code.
+    default: return 3 + lang + (StringUtf8Multilang::IsAltOrOldName(lang) ? kPseudoNamePenalty : 0);
+    }
+  };
+
+  std::string_view best;
+  int bestRank = std::numeric_limits<int>::max();
+  for (auto const & [lang, value] : lstr)
+    if (!value.empty())
+      if (auto const r = rank(lang); r < bestRank)
+        bestRank = r, best = value;
+
+  return best;
+}
+
+std::string GetNameForExport(BookmarkData const & bmData)
+{
+  if (auto const name = GetStringForExport(bmData.m_customName); !name.empty())
+    return std::string{name};
+  if (auto const name = GetStringForExport(bmData.m_name); !name.empty())
+    return std::string{name};
+  return GetLocalizedFeatureType(bmData.m_featureTypes);
 }
 }  // namespace kml

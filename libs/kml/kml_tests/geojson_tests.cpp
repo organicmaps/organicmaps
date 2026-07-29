@@ -4,6 +4,7 @@
 
 #include "base/timer.hpp"
 #include "indexer/classificator.hpp"
+#include "indexer/classificator_loader.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/point_with_altitude.hpp"
@@ -388,7 +389,7 @@ UNIT_TEST(GeoJson_Writer_Simple)
         ]
       },
       "properties": {
-        "name": "Marcador de prueba",
+        "name": "Mi lugar favorito",
         "marker-color": "blue",
         "description": "Test bookmark description"
       }
@@ -527,7 +528,7 @@ UNIT_TEST(GeoJson_Writer_MultiTrack)
 UNIT_TEST(GeoJson_Writer_Simple_Minimized)
 {
   // clang-format off
-  std::string_view constexpr expected_geojson = R"({"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[13.39712,52.48982]},"properties":{"name":"Marcador de prueba","marker-color":"blue","description":"Test bookmark description"}}]})";
+  std::string_view constexpr expected_geojson = R"({"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[13.39712,52.48982]},"properties":{"name":"Mi lugar favorito","marker-color":"blue","description":"Test bookmark description"}}]})";
   // clang-format on
 
   kml::FileData const testData = GenerateKmlFileData();
@@ -551,7 +552,7 @@ UNIT_TEST(GeoJson_Writer_UMap)
         ]
       },
       "properties": {
-        "name": "Marcador de prueba",
+        "name": "Mi lugar favorito",
         "marker-color": "blue",
         "description": "Test bookmark description",
         "_umap_options": {
@@ -678,7 +679,7 @@ UNIT_TEST(GeoJson_Writer_UMap_Invalid_Json)
         ]
       },
       "properties": {
-        "name": "Marcador de prueba",
+        "name": "Mi lugar favorito",
         "marker-color": "blue",
         "description": "Test bookmark description"
       }
@@ -1513,6 +1514,93 @@ UNIT_TEST(GeoJson_Writer_Elevation_AllDefault)
   TEST_EQUAL(parsed.m_tracksData.size(), 1, ());
   for (auto const & pt : parsed.m_tracksData[0].m_geometry.m_lines[0])
     TEST_EQUAL(pt.GetAltitude(), geometry::kInvalidAltitude, ());
+}
+
+// Exports a single bookmark and returns the value of its "name" property, or nullopt if the
+// property is absent. Parses the result instead of scraping the raw Json so that escaped string
+// content is compared correctly.
+std::optional<std::string> ExportedName(kml::BookmarkData bookmark)
+{
+  bookmark.m_point = mercator::FromLatLon(52.48982, 13.39712);
+  kml::FileData fileData;
+  fileData.m_bookmarksData.push_back(std::move(bookmark));
+
+  auto const json = SaveToGeoJsonString(fileData, true /* minimize */);
+  kml::geojson::GeoJsonData exported;
+  auto const error = glz::read_json(exported, json);
+  TEST(!error, (glz::format_error(error, json)));
+  TEST_EQUAL(exported.features.size(), 1, (json));
+
+  auto const & properties = exported.features.front().properties;
+  auto const name = properties.find("name");
+  if (name == properties.end())
+    return std::nullopt;
+  TEST(name->second.is_string(), (json));
+  return name->second.get_string();
+}
+
+UNIT_TEST(GeoJson_Writer_CustomName)
+{
+  // A name typed by the user lives in m_customName, while m_name keeps the auto-generated one
+  // (for a bookmark saved at the current position it is the creation date). Exporting m_name
+  // only would replace the user's name with that date, see issue #13237.
+  kml::BookmarkData bookmark;
+  bookmark.m_name[kml::kDefaultLangCode] = "28 July 2026 at 20:14";
+  bookmark.m_customName[kml::kDefaultLangCode] = "Скважина 12";
+  TEST_EQUAL(ExportedName(bookmark), "Скважина 12", ());
+
+  // Multiple custom translations still win when none uses default/int_name/en.
+  auto const kDeLang = StringUtf8Multilang::GetLangIndex("de");
+  auto const kRuLang = StringUtf8Multilang::GetLangIndex("ru");
+  kml::BookmarkData localizedCustom;
+  localizedCustom.m_name[kml::kDefaultLangCode] = "Original name";
+  localizedCustom.m_customName[kRuLang] = "Любимое место";
+  localizedCustom.m_customName[kDeLang] = "Lieblingsort";
+  TEST_EQUAL(ExportedName(localizedCustom), "Lieblingsort", ());
+
+  // Json-special characters survive the round trip unchanged.
+  kml::BookmarkData escaped;
+  escaped.m_customName[kml::kDefaultLangCode] = "The \"quoted\" \\\\ place";
+  TEST_EQUAL(ExportedName(escaped), "The \"quoted\" \\\\ place", ());
+}
+
+UNIT_TEST(GeoJson_Writer_NameWithoutDefaultLanguage)
+{
+  auto const kEnLang = StringUtf8Multilang::kEnglishCode;
+  auto const kRuLang = StringUtf8Multilang::GetLangIndex("ru");
+
+  // A POI tagged with name:ru/name:en only (no plain name) has no default-language entry.
+  kml::BookmarkData bookmark;
+  bookmark.m_name[kRuLang] = "Эрмитаж";
+  bookmark.m_name[kEnLang] = "Hermitage";
+  TEST_EQUAL(ExportedName(bookmark), "Hermitage", ());
+
+  // The only available name is exported regardless of its language.
+  kml::BookmarkData single;
+  single.m_name[kRuLang] = "Эрмитаж";
+  TEST_EQUAL(ExportedName(single), "Эрмитаж", ());
+
+  // With several non-preferred translations, use the lowest stable language code instead of
+  // dropping the name. "de" has a lower StringUtf8Multilang code than "ru".
+  auto const kDeLang = StringUtf8Multilang::GetLangIndex("de");
+  kml::BookmarkData multiple;
+  multiple.m_name[kRuLang] = "Эрмитаж";
+  multiple.m_name[kDeLang] = "Eremitage";
+  TEST_EQUAL(ExportedName(multiple), "Eremitage", ());
+}
+
+UNIT_TEST(GeoJson_Writer_NameFallbacks)
+{
+  classificator::Load();
+
+  // Nameless bookmarks are exported with their localized type, as KML and GPX do. In tests
+  // platform::GetLocalizedTypeName() is the identity, so the readable type name is written as is.
+  kml::BookmarkData typed;
+  typed.m_featureTypes = {classif().GetTypeByPath({"historic", "castle"})};
+  TEST_EQUAL(ExportedName(typed), "historic-castle", ());
+
+  // Nothing to export at all: the property is omitted instead of being empty.
+  TEST(!ExportedName({}), ());
 }
 
 }  // namespace geojson_tests

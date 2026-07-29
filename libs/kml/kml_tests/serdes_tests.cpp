@@ -1049,6 +1049,51 @@ UNIT_TEST(SaveStringWithCDATA_AllInvalidBecomesEmpty)
   TEST_EQUAL(WriteCDATA(std::string("\x01\x02\x03\x1F")), "", ());
 }
 
+UNIT_TEST(ExportStringLanguageFallbacks)
+{
+  auto const kDeLang = StringUtf8Multilang::GetLangIndex("de");
+  auto const kRuLang = StringUtf8Multilang::GetLangIndex("ru");
+
+  kml::LocalizableString value{{kRuLang, "Русский"}, {kDeLang, "Deutsch"}};
+  TEST_EQUAL(kml::GetStringForExport(value), "Deutsch", ());
+
+  value[StringUtf8Multilang::kEnglishCode] = "English";
+  TEST_EQUAL(kml::GetStringForExport(value), "English", ());
+
+  value[StringUtf8Multilang::kInternationalCode] = "International";
+  TEST_EQUAL(kml::GetStringForExport(value), "International", ());
+
+  value[StringUtf8Multilang::kDefaultCode] = "Default";
+  TEST_EQUAL(kml::GetStringForExport(value), "Default", ());
+
+  // Empty preferred entries do not hide a usable lower-priority value.
+  value[StringUtf8Multilang::kDefaultCode].clear();
+  TEST_EQUAL(kml::GetStringForExport(value), "International", ());
+
+  // alt_name/old_name are OSM pseudo-names: a real language wins even with a higher code.
+  kml::LocalizableString const pseudo{{StringUtf8Multilang::kOldNameCode, "Old"},
+                                      {StringUtf8Multilang::kAltNameCode, "Alt"},
+                                      {StringUtf8Multilang::GetLangIndex("hi"), "हिन्दी"}};
+  TEST_EQUAL(kml::GetStringForExport(pseudo), "हिन्दी", ());
+
+  // ...but they are still better than exporting nothing.
+  kml::LocalizableString const onlyPseudo{{StringUtf8Multilang::kOldNameCode, "Old"},
+                                          {StringUtf8Multilang::kAltNameCode, "Alt"}};
+  TEST_EQUAL(kml::GetStringForExport(onlyPseudo), "Alt", ());
+}
+
+UNIT_TEST(ExportBookmarkCustomNameFallback)
+{
+  auto const kDeLang = StringUtf8Multilang::GetLangIndex("de");
+  auto const kRuLang = StringUtf8Multilang::GetLangIndex("ru");
+
+  kml::BookmarkData bookmark;
+  bookmark.m_name[kml::kDefaultLang] = "Original name";
+  bookmark.m_customName[kRuLang] = "Любимое место";
+  bookmark.m_customName[kDeLang] = "Lieblingsort";
+  TEST_EQUAL(kml::GetNameForExport(bookmark), "Lieblingsort", ());
+}
+
 namespace
 {
 std::string WrapKmlDoc(std::string const & body)

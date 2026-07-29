@@ -42,7 +42,7 @@ bool LineHasAltitude(TrackGeometry const & line)
   });
 }
 
-void SaveStringWithCDATA(Writer & writer, std::string const & s)
+void SaveStringWithCDATA(Writer & writer, std::string_view s)
 {
   if (s.empty())
     return;
@@ -61,21 +61,21 @@ void SaveStringWithCDATA(Writer & writer, std::string const & s)
 
   // Only copy and modify the string if invalid chars are actually found (rare case).
   std::string filtered;
-  std::string const * clean = &s;
+  std::string_view clean = s;
   if (std::any_of(s.begin(), s.end(), isInvalidXmlChar))
   {
     filtered = s;
     std::erase_if(filtered, isInvalidXmlChar);
     if (filtered.empty())
       return;
-    clean = &filtered;
+    clean = filtered;
   }
 
   // According to kml/xml spec, we need to escape special symbols with CDATA.
-  if (clean->find_first_of("<&") != std::string::npos)
-    writer << "<![CDATA[" << *clean << "]]>";
+  if (clean.find_first_of("<&") != std::string_view::npos)
+    writer << "<![CDATA[" << clean << "]]>";
   else
-    writer << *clean;
+    writer << clean;
 }
 
 std::string const * GetDefaultLanguage(LocalizableString const & lstr)
