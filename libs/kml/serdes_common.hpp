@@ -24,6 +24,13 @@ bool LineHasAltitude(TrackGeometry const & line);
 void SaveStringWithCDATA(Writer & writer, std::string const & s);
 std::string const * GetDefaultLanguage(LocalizableString const & lstr);
 
+// Name/description to write into an exported file, shared by all exporters (KML, GPX, GeoJSON).
+// A name typed by the user is stored in m_customName and must win over the original (POI) name
+// kept in m_name. Strings prefer default/int_name/en; if none exists, the lowest language code is
+// used as a deterministic last resort so that a non-empty localized value is never dropped.
+std::string GetNameForExport(BookmarkData const & bmData);
+std::string GetStringForExport(LocalizableString const & lstr);
+
 std::string_view constexpr kIndent0{};
 std::string_view constexpr kIndent2{"  "};
 std::string_view constexpr kIndent4{"    "};
