@@ -459,16 +459,16 @@ void SaveColorToARGB(Writer & writer, uint32_t rgba)
 void SaveCategoryData(Writer & writer, CategoryData const & categoryData)
 {
   writer << "<metadata>\n";
-  if (auto const name = GetDefaultLanguage(categoryData.m_name))
+  if (auto const name = GetStringForExport(categoryData.m_name); !name.empty())
   {
     writer << kIndent2 << "<name>";
-    SaveStringWithCDATA(writer, *name);
+    SaveStringWithCDATA(writer, name);
     writer << "</name>\n";
   }
-  if (auto const description = GetDefaultLanguage(categoryData.m_description))
+  if (auto const description = GetStringForExport(categoryData.m_description); !description.empty())
   {
     writer << kIndent2 << "<desc>";
-    SaveStringWithCDATA(writer, *description);
+    SaveStringWithCDATA(writer, description);
     writer << "</desc>\n";
   }
   writer << "</metadata>\n";
@@ -488,20 +488,16 @@ void SaveBookmarkData(Writer & writer, BookmarkData const & bookmarkData)
 {
   auto const [lat, lon] = mercator::ToLatLon(bookmarkData.m_point);
   writer << "<wpt lat=\"" << CoordToString(lat) << "\" lon=\"" << CoordToString(lon) << "\">\n";
-  // If user customized the default bookmark name, it's saved in m_customName.
-  auto name = GetDefaultLanguage(bookmarkData.m_customName);
-  if (!name)
-    name = GetDefaultLanguage(bookmarkData.m_name);  // Original POI name stored when bookmark was created.
-  if (name)
+  if (auto const name = GetPreferredBookmarkName(bookmarkData, "default"); !name.empty())
   {
     writer << kIndent2 << "<name>";
-    SaveStringWithCDATA(writer, *name);
+    SaveStringWithCDATA(writer, name);
     writer << "</name>\n";
   }
-  if (auto const description = GetDefaultLanguage(bookmarkData.m_description))
+  if (auto const description = GetStringForExport(bookmarkData.m_description); !description.empty())
   {
     writer << kIndent2 << "<desc>";
-    SaveStringWithCDATA(writer, *description);
+    SaveStringWithCDATA(writer, description);
     writer << "</desc>\n";
   }
   if (auto const color = BookmarkColor(bookmarkData); color != kInvalidColor)
@@ -533,17 +529,16 @@ uint32_t TrackColor(TrackData const & trackData)
 void SaveTrackData(Writer & writer, TrackData const & trackData)
 {
   writer << "<trk>\n";
-  auto name = GetDefaultLanguage(trackData.m_name);
-  if (name)
+  if (auto const name = GetStringForExport(trackData.m_name); !name.empty())
   {
     writer << kIndent2 << "<name>";
-    SaveStringWithCDATA(writer, *name);
+    SaveStringWithCDATA(writer, name);
     writer << "</name>\n";
   }
-  if (auto const description = GetDefaultLanguage(trackData.m_description))
+  if (auto const description = GetStringForExport(trackData.m_description); !description.empty())
   {
     writer << kIndent2 << "<desc>";
-    SaveStringWithCDATA(writer, *description);
+    SaveStringWithCDATA(writer, description);
     writer << "</desc>\n";
   }
   if (auto const color = TrackColor(trackData); color != kDefaultTrackColor)

@@ -556,7 +556,7 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimizeOutput)
   {
     auto const [lat, lon] = mercator::ToLatLon(bookmark.m_point);
     GenericJsonMap bookmarkProperties;
-    if (auto name = GetNameForExport(bookmark); !name.empty())
+    if (auto name = GetPreferredBookmarkName(bookmark, "default"); !name.empty())
       bookmarkProperties["name"] = std::move(name);
     bookmarkProperties["marker-color"] = ToGeoJsonColor(bookmark.m_color);
     if (auto const description = GetStringForExport(bookmark.m_description); !description.empty())

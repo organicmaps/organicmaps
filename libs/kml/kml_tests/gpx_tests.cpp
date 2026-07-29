@@ -495,4 +495,38 @@ UNIT_TEST(MapGarminColor)
   TEST_EQUAL("DarkYellow", kml::MapGarminColor(0xb5b721ff), ());
 }
 
+UNIT_TEST(Gpx_Export_Names)
+{
+  auto const exportBookmark = [](kml::BookmarkData bookmark)
+  {
+    bookmark.m_point = mercator::FromLatLon(52.48982, 13.39712);
+    kml::FileData fileData;
+    fileData.m_bookmarksData.push_back(std::move(bookmark));
+    return Serialize(fileData);
+  };
+
+  // A name typed by the user (m_customName) wins over the one the bookmark was created with.
+  kml::BookmarkData renamed;
+  renamed.m_name[kml::kDefaultLang] = "28 July 2026 at 20:14";
+  renamed.m_customName[kml::kDefaultLang] = "Скважина 12";
+  TEST(exportBookmark(renamed).find("<name>Скважина 12</name>") != std::string::npos, ());
+
+  // A POI tagged with name:ru/name:en only has no default-language name, but must not be
+  // exported nameless.
+  kml::BookmarkData localized;
+  localized.m_name[StringUtf8Multilang::GetLangIndex("ru")] = "Эрмитаж";
+  localized.m_name[StringUtf8Multilang::kEnglishCode] = "Hermitage";
+  TEST(exportBookmark(localized).find("<name>Hermitage</name>") != std::string::npos, ());
+
+  // Several non-preferred translations still produce a name. "de" has a lower stable language
+  // code than "ru", so it is the deterministic last resort.
+  kml::BookmarkData multipleLocalized;
+  multipleLocalized.m_name[StringUtf8Multilang::GetLangIndex("ru")] = "Эрмитаж";
+  multipleLocalized.m_name[StringUtf8Multilang::GetLangIndex("de")] = "Eremitage";
+  TEST(exportBookmark(multipleLocalized).find("<name>Eremitage</name>") != std::string::npos, ());
+
+  // A bookmark with no name at all has no <name> element.
+  TEST(exportBookmark({}).find("<name>") == std::string::npos, ());
+}
+
 }  // namespace gpx_tests
