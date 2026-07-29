@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Skøjtebane";
 "type.leisure.marina" = "Lystbådehavn";
 "type.leisure.nature_reserve" = "Naturreservat";
+"type.leisure.bird_hide" = "Fugleskjul";
 "type.leisure.outdoor_seating" = "Udendørs siddepladser";
 "type.leisure.firepit" = "Bålsted";
 "type.leisure.park" = "Park";

@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Čiuožykla";
 "type.leisure.marina" = "Prieplauka";
 "type.leisure.nature_reserve" = "Gamtos rezervatas";
+"type.leisure.bird_hide" = "Paukščių stebėjimo slėptuvė";
 "type.leisure.outdoor_seating" = "Lauko kavinė";
 "type.leisure.firepit" = "Laužavietė";
 "type.leisure.park" = "Parkas";

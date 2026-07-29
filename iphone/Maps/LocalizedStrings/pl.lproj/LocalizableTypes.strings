@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Lodowisko";
 "type.leisure.marina" = "Przystań";
 "type.leisure.nature_reserve" = "Rezerwat przyrody";
+"type.leisure.bird_hide" = "Kryjówka do obserwacji ptaków";
 "type.leisure.outdoor_seating" = "Siedzenia zewnętrzne";
 "type.leisure.firepit" = "Ognisko";
 "type.leisure.park" = "Park";

@@ -561,6 +561,7 @@
     <string name="type.leisure.miniature_golf">มินิกอล์ฟ</string>
     <string name="type.leisure.hackerspace">แฮกเกอร์สเปซ</string>
     <string name="type.leisure.nature_reserve">เขตอนุรักษ์ธรรมชาติ</string>
+    <string name="type.leisure.bird_hide">ที่ซ่อนดูนก</string>
     <string name="type.leisure.outdoor_seating">ที่นั่งกลางแจ้ง</string>
     <string name="type.leisure.park">สวนสาธารณะ</string>
     <string name="type.leisure.park.no.access">สวนสาธารณะ</string>

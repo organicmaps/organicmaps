@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Ice Rink";
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "Giữ chỗ";
+"type.leisure.bird_hide" = "Chòi quan sát chim";
 "type.leisure.outdoor_seating" = "Chỗ ngồi ngoài trời";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "Công viên";

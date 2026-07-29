@@ -658,6 +658,7 @@
     <string name="type.leisure.ice_rink">Buz Pateni Pisti</string>
     <string name="type.leisure.marina">Liman</string>
     <string name="type.leisure.nature_reserve">Doğal Koruma Alanı</string>
+    <string name="type.leisure.bird_hide">Kuş gözlem kulübesi</string>
     <string name="type.leisure.outdoor_seating">Dış Mekan Oturağı</string>
     <string name="type.leisure.firepit">Ateş Çukuru</string>
     <string name="type.leisure.park">Park</string>
