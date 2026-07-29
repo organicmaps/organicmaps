@@ -93,12 +93,9 @@ if (Vulkan_FOUND)
   target_link_libraries(${PROJECT_NAME} PRIVATE Vulkan::Vulkan)
 endif()
 
-if(PLATFORM_MAC)
-  omim_target_embed_metal_shader_libraries(${PROJECT_NAME} shaders_metal)
-endif()
-
 target_compile_definitions(${PROJECT_NAME} PUBLIC GL_SILENCE_DEPRECATION)
 if (PLATFORM_MAC)
+  target_embed_metal_shader_libraries(${PROJECT_NAME} shaders_metal)
   set_target_properties(${PROJECT_NAME} PROPERTIES XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC YES)
   # Xcode's multi-config generator puts the .app under $(CONFIGURATION)/ by default,
   # while copy_resources() writes directly to ${CMAKE_BINARY_DIR}/${BUNDLE_NAME}.app.
