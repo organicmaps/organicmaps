@@ -756,8 +756,7 @@
     <string name="religious_places">Верска места</string>
     <string name="select_list">Изаберите листу</string>
     <string name="button_layer_isolines">Изолиније</string>
-    <string name="isolines_activation_error_dialog">Приказивање изолинија захтева преузмање података са мапе за ову област</string>
-    <string name="isolines_location_error_dialog">Изолиније нису доступне за ову област</string>
+    <string name="isolines_location_error_dialog">Преузмите терен за ову област да бисте видели изолиније</string>
     <string name="elevation_profile_ascent">Успон</string>
     <string name="elevation_profile_descent">Спуст</string>
     <string name="elevation_profile_min_elevation">Минимална висина</string>

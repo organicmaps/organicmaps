@@ -753,8 +753,7 @@
     <string name="religious_places">מקומות דת</string>
     <string name="select_list">בחר רשימה</string>
     <string name="button_layer_isolines">קווי מתאר</string>
-    <string name="isolines_activation_error_dialog">כדי להפעיל קווי מתאר יש להוריד את המפה לאזור זה</string>
-    <string name="isolines_location_error_dialog">קווי מתאר עוד לא זמינים לאזור זה</string>
+    <string name="isolines_location_error_dialog">הורידו את נתוני השטח של אזור זה כדי לראות קווי מתאר</string>
     <string name="elevation_profile_ascent">עלייה</string>
     <string name="elevation_profile_descent">ירידה</string>
     <string name="elevation_profile_min_elevation">מינ\' גובה</string>

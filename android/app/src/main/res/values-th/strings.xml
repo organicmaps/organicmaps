@@ -752,8 +752,7 @@
     <string name="religious_places">สถานที่ทางศาสนา</string>
     <string name="select_list">เลือกรายการ</string>
     <string name="button_layer_isolines">ความสูง</string>
-    <string name="isolines_activation_error_dialog">ในการเปิดใช้งานเลเยอร์แผนที่ภูมิประเทศโปรดอัปเดตหรือดาวน์โหลดแผนที่ของบริเวณนั้น</string>
-    <string name="isolines_location_error_dialog">เลเยอร์แผนที่ภูมิประเทศยังใช้งานไม่ได้ในพื้นที่นี้</string>
+    <string name="isolines_location_error_dialog">ดาวน์โหลดภูมิประเทศสำหรับพื้นที่นี้เพื่อดูเส้นชั้นความสูง</string>
     <string name="elevation_profile_ascent">การขึ้น</string>
     <string name="elevation_profile_descent">การลง</string>
     <string name="elevation_profile_min_elevation">ต่ำสุด</string>

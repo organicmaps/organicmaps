@@ -923,8 +923,7 @@
 "dialog_pedestrian_route_is_long_header" = "لم يتم العثور على مسار مترو الأنفاق";
 "dialog_pedestrian_route_is_long_message" = "يرجى اختيار نقطة بداية أو نهاية أقرب لمحطة مترو الأنفاق";
 "button_layer_isolines" = "تضاريس";
-"isolines_activation_error_dialog" = "لتفعيل الطبقة الطبوغرافية واستخدامها ، يرجى تحديث أو تنزيل خريطة المنطقة";
-"isolines_location_error_dialog" = "الطبقة الطبوغرافية ليست متاحة بعد في هذه المنطقة";
+"isolines_location_error_dialog" = "نزِّل التضاريس لهذه المنطقة لرؤية خطوط الكفاف";
 "elevation_profile_ascent" = "تصاعدي";
 "elevation_profile_descent" = "تنازلي";
 "elevation_profile_min_elevation" = "أقل ارتفاع";

@@ -923,8 +923,7 @@
 "dialog_pedestrian_route_is_long_header" = "Metroreittiä ei löytynyt";
 "dialog_pedestrian_route_is_long_message" = "Valitse reitin aloitus- tai loppupiste lähemmäksi metroasemaa";
 "button_layer_isolines" = "Maasto";
-"isolines_activation_error_dialog" = "Päivitä tai lataa haluamasi alueen kartta käyttääksesi korkeuskäyriä";
-"isolines_location_error_dialog" = "Korkeuskäyrät eivät ole vielä saatavilla tällä alueella";
+"isolines_location_error_dialog" = "Lataa maasto tälle alueelle nähdäksesi korkeuskäyrät";
 "elevation_profile_ascent" = "Nousua";
 "elevation_profile_descent" = "Laskua";
 "elevation_profile_min_elevation" = "Min. korkeus";

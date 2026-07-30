@@ -923,8 +923,7 @@
 "dialog_pedestrian_route_is_long_header" = "Metro maršruts nav atrasts";
 "dialog_pedestrian_route_is_long_message" = "Izvēlieties sākuma un beigu punktu tuvāk metro stacijai";
 "button_layer_isolines" = "Reljefa līnijas";
-"isolines_activation_error_dialog" = "Reljefa līniju parādīšanai nepieciešamas lejupielādēt šī reģiona karti";
-"isolines_location_error_dialog" = "Topogrāfiskais slānis šim reģionam nav pieejams";
+"isolines_location_error_dialog" = "Lejupielādējiet šī reģiona reljefu, lai redzētu horizontāles";
 "elevation_profile_ascent" = "Kāpums";
 "elevation_profile_descent" = "Kritums";
 "elevation_profile_min_elevation" = "Zemākais punkts";

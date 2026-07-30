@@ -923,8 +923,7 @@
 "dialog_pedestrian_route_is_long_header" = "Δεν βρέθηκε διαδρομή του μετρό";
 "dialog_pedestrian_route_is_long_message" = "Επιλέξτε το σημείο εκκίνησης ή τέλους διαδρομής πιο κοντά στο σταθμό του μετρό";
 "button_layer_isolines" = "Υψομετρικά";
-"isolines_activation_error_dialog" = "Για να χρησιμοποιήσετε υψομετρικές γραμμές, ενημερώστε ή κατεβάστε τον χάρτη της επιθυμητής περιοχής";
-"isolines_location_error_dialog" = "Οι υψομετρικές γραμμές δεν είναι ακόμα διαθέσιμες σε αυτή την περιοχή";
+"isolines_location_error_dialog" = "Κατεβάστε το ανάγλυφο για αυτήν την περιοχή για να δείτε τις υψομετρικές γραμμές";
 "elevation_profile_ascent" = "Ανάβαση";
 "elevation_profile_descent" = "Κατάβαση";
 "elevation_profile_min_elevation" = "Ελάχ. υψόμετρο";

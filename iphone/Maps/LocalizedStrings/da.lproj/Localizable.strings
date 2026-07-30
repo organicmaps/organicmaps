@@ -923,8 +923,7 @@
 "dialog_pedestrian_route_is_long_header" = "Ingen undergrundsrute fundet";
 "dialog_pedestrian_route_is_long_message" = "Vælg venligst et start- eller stoppunkt tættere på en metrostation";
 "button_layer_isolines" = "Konturlinjer";
-"isolines_activation_error_dialog" = "Aktivering af konturlinjer kræver download af kortdata for dette område";
-"isolines_location_error_dialog" = "Konturlinjer er endnu ikke tilgængelige i dette område";
+"isolines_location_error_dialog" = "Download terræn for dette område for at se konturlinjer";
 "elevation_profile_ascent" = "Stigning";
 "elevation_profile_descent" = "Nedstigning";
 "elevation_profile_min_elevation" = "Min. højde";

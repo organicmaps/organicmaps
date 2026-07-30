@@ -756,8 +756,7 @@
     <string name="religious_places">Vallási helyek</string>
     <string name="select_list">Lista kiválasztása</string>
     <string name="button_layer_isolines">Szintvonalak</string>
-    <string name="isolines_activation_error_dialog">A szintvonalak aktiválásához a terület térképadatainak letöltése szükséges</string>
-    <string name="isolines_location_error_dialog">A szintvonalak még nem állnak rendelkezésre ezen a területen</string>
+    <string name="isolines_location_error_dialog">Töltse le a terepet ehhez a területhez a szintvonalak megjelenítéséhez</string>
     <string name="elevation_profile_ascent">Növekvő</string>
     <string name="elevation_profile_descent">Csökkenő</string>
     <string name="elevation_profile_min_elevation">Legkisebb magasság</string>

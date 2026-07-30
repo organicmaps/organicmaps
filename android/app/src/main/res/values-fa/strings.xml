@@ -753,8 +753,7 @@
     <string name="religious_places">اماکن مقدس</string>
     <string name="select_list">انتخاب فهرست</string>
     <string name="button_layer_isolines">خط تراز</string>
-    <string name="isolines_activation_error_dialog">برای فعال سازی و استفاده از لایه توپوگرافی نقشه منطقه را به روزرسانی یا دانلود کنید</string>
-    <string name="isolines_location_error_dialog">لایه توپوگرافی هنوز برای این منطقه در دسترس نیست</string>
+    <string name="isolines_location_error_dialog">برای دیدن خطوط تراز، عوارض زمین این منطقه را دانلود کنید</string>
     <string name="elevation_profile_ascent">بالا رفتن</string>
     <string name="elevation_profile_descent">پایین آمدن</string>
     <string name="elevation_profile_min_elevation">کم ارتفاع</string>

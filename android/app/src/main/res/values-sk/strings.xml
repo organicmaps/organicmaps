@@ -754,8 +754,7 @@
     <string name="religious_places">Náboženské miesta</string>
     <string name="select_list">Vybrať zoznam</string>
     <string name="button_layer_isolines">Terén</string>
-    <string name="isolines_activation_error_dialog">Ak chcete aktivovať a používať topografickú vrstvu, aktualizujte alebo stiahnite mapu oblasti</string>
-    <string name="isolines_location_error_dialog">Topografická vrstva ešte nie je v tejto oblasti k dispozícii</string>
+    <string name="isolines_location_error_dialog">Stiahnite si terén pre túto oblasť, aby ste videli vrstevnice</string>
     <string name="elevation_profile_ascent">Stúpanie</string>
     <string name="elevation_profile_descent">Klesanie</string>
     <string name="elevation_profile_min_elevation">Min. výška</string>

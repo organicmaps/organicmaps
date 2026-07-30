@@ -750,8 +750,7 @@
     <string name="religious_places">Plekke van aanbidding</string>
     <string name="select_list">Kies lys</string>
     <string name="button_layer_isolines">Kontoerlyne</string>
-    <string name="isolines_activation_error_dialog">Om kontoerlyne te aktiveer moet u kaartdata vir hierdie area aflaai</string>
-    <string name="isolines_location_error_dialog">Die kontoerlyne is nog nie in hierdie area beskikbaar nie</string>
+    <string name="isolines_location_error_dialog">Laai terrein vir hierdie area af om kontoerlyne te sien</string>
     <string name="elevation_profile_ascent">Styging</string>
     <string name="elevation_profile_descent">Daling</string>
     <string name="elevation_profile_min_elevation">Min. hoogte</string>

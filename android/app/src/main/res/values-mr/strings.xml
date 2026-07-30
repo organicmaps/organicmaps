@@ -753,8 +753,7 @@
     <string name="religious_places">धार्मिक स्थळ</string>
     <string name="select_list">यादी निवडा</string>
     <string name="button_layer_isolines">भूप्रदेश</string>
-    <string name="isolines_activation_error_dialog">भूस्वरूप स्तर वापरण्यासाठी कृपया नकाशा डाउनलोड किंवा अद्ययावत करा</string>
-    <string name="isolines_location_error_dialog">या भागात भूस्वरूप स्तर अद्याप उपलब्ध नाही</string>
+    <string name="isolines_location_error_dialog">समोच्च रेषा पाहण्यासाठी या भागाचा भूभाग डाउनलोड करा</string>
     <string name="elevation_profile_ascent">चढण</string>
     <string name="elevation_profile_descent">उतरण</string>
     <string name="elevation_profile_min_elevation">किमान उंची</string>

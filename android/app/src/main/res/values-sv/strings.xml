@@ -753,8 +753,7 @@
     <string name="religious_places">Heliga platser</string>
     <string name="select_list">Välj lista</string>
     <string name="button_layer_isolines">Terräng</string>
-    <string name="isolines_activation_error_dialog">Om du vill använda höjdlinjer, uppdatera eller ladda ner en karta över önskat område</string>
-    <string name="isolines_location_error_dialog">Höjdkurvor är ännu inte tillgängliga i det här området</string>
+    <string name="isolines_location_error_dialog">Ladda ner terräng för det här området för att se höjdkurvor</string>
     <string name="elevation_profile_ascent">Stigning</string>
     <string name="elevation_profile_descent">Backe</string>
     <string name="elevation_profile_min_elevation">Min. höjd</string>
