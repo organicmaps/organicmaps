@@ -1,6 +1,6 @@
 #pragma once
 
-#include "indexer/terrain/isolines_tracer.hpp"
+#include "indexer/terrain/tile_mesh.hpp"
 #include "indexer/terrain/twm_set.hpp"
 
 #include "geometry/rect2d.hpp"
@@ -51,19 +51,11 @@ public:
     m_set.GetBlockRectsByRect(rect, rects);
   }
 
-  using IsolineFn = std::function<void(Isoline &&)>;
-
-  // Traces the isolines covering the mercator rect at the geometry scale selected for
-  // the draw zoom. The positive step (in the display units) comes from the caller's
-  // style resolution (see terrain::IsolinesStyle), so only the drawable levels are
-  // traced. Called from the drape tile reading threads.
-  void ForEachIsoline(m2::RectD const & rect, int zoom, int32_t step, IsolineFn const & fn) const;
-
-  using TrianglesFn = std::function<void(Triangles const &)>;
-
-  // Reads the raw terrain triangles of the features intersecting the mercator rect at the
-  // geometry scale selected for the draw zoom. Called from the drape tile reading threads.
-  void ForEachTriangles(m2::RectD const & rect, int zoom, TrianglesFn const & fn) const;
+  // Reads the merged deduplicated mesh of the features intersecting the mercator rect
+  // at the geometry scale selected for the draw zoom: the single source for the
+  // hillshading and the isolines of a tile (see RuleDrawer::DrawTerrain). Called from
+  // the drape tile reading threads.
+  void ReadMesh(m2::RectD const & rect, int zoom, TileMesh & mesh) const;
 
 private:
   void DeleteBlocksImpl(std::vector<m2::RectD> const & rects, std::function<bool(TwmInfo const &)> const & pred,

@@ -4,6 +4,7 @@
 #include "indexer/cell_id.hpp"
 #include "indexer/cell_value_pair.hpp"
 #include "indexer/interval_index_builder.hpp"
+#include "indexer/terrain/tile_mesh.hpp"
 
 #include "coding/geometry_coding.hpp"
 #include "coding/point_coding.hpp"
@@ -61,8 +62,6 @@ using Altitude = geometry::Altitude;
 // files decodes to the identical point - adjacency can be restored by hashing points.
 
 uint8_t constexpr kTwmVersion = 1;
-// ~0.3 m of a horizontal precision, enough against the ~30 m DEM samples step.
-uint8_t constexpr kTerrainCoordBits = 27;
 // The cell depth of the geometry index, the same as the MWM scale index uses.
 int constexpr kCellDepth = RectId::DEPTH_LEVELS;
 size_t constexpr kMaxCellsPerFeature = 32;
@@ -238,20 +237,6 @@ struct FeatureData
   }
 };
 
-// Decoded TrianglesFeature: vertices with altitudes deduplicated within the feature and
-// CCW vertex index triples of the requested geometry scale.
-struct Triangles
-{
-  std::vector<m2::PointD> m_points;
-  std::vector<Altitude> m_altitudes;
-  std::vector<uint32_t> m_triangles;
-  m2::RectD m_rect;
-  Altitude m_minAltitude = 0;
-  Altitude m_maxAltitude = 0;
-  // DFS chains of the decoded geometry, mostly 1 (a connected mesh chunk).
-  uint32_t m_chainsCount = 0;
-};
-
 namespace impl
 {
 uint32_t constexpr kNoTri = std::numeric_limits<uint32_t>::max();
@@ -259,11 +244,6 @@ uint32_t constexpr kNoTri = std::numeric_limits<uint32_t>::max();
 inline uint64_t EdgeKey(uint32_t u, uint32_t v)
 {
   return (static_cast<uint64_t>(u) << 32) | v;
-}
-
-inline uint64_t PointKey(m2::PointU const & pt)
-{
-  return (static_cast<uint64_t>(pt.x) << 32) | pt.y;
 }
 
 // DFS tree chains encoder, the scheme of serial::TrianglesChainSaver extended with altitudes.
@@ -445,44 +425,42 @@ private:
   std::vector<bool> m_visited;
 };
 
+// Appends the decoded feature chains straight into the tile mesh: the vertices dedup
+// globally there (one map per tile, no per-feature maps or intermediate vectors). The
+// chain walk state stays feature-local: the codec point and altitude predictions must
+// use this feature's OWN decoded values, which may differ from the mesh ones on a
+// border vertex shared with an already added block of another data version.
 template <typename Source>
-void DecodeChains(Source & src, serial::GeometryCodingParams const & cp, Altitude minAltitude, Triangles & out)
+void DecodeChains(Source & src, serial::GeometryCodingParams const & cp, Altitude minAltitude, TileMesh & mesh)
 {
   uint64_t const count = ReadVarUint<uint64_t>(src);
-  // Every encoded triangle takes at least 2 bytes, don't let a corrupt count drive
-  // a huge allocation which would bypass the corrupt data handling.
+  // Every encoded triangle takes at least 2 bytes: fail on a corrupt count early,
+  // before it drives the decode loop. The mesh triangles vector grows amortized, an
+  // exact per-feature reserve would realloc the accumulated indices on every feature.
   if (count > src.Size())
     MYTHROW(TwmException, ("Corrupt triangles count", count));
-  out.m_points.clear();
-  out.m_altitudes.clear();
-  out.m_triangles.clear();
-  // The count upper bound above is loose (the source spans to the section end),
-  // don't let a corrupt value drive a huge upfront allocation.
-  out.m_triangles.reserve(std::min(count, uint64_t{1} << 20) * 3);
-  out.m_chainsCount = 0;
 
   m2::PointU const basePoint = cp.GetBasePoint();
   m2::PointD const maxPoint(serial::pts::GetMaxPoint(cp));
-  std::vector<m2::PointU> points;  // Quantized vertices, parallel to out.m_points.
-  std::unordered_map<uint64_t, uint32_t> pointToIndex;
+
+  // The feature-local decoded vertices (the prediction sources) with their mesh
+  // indices. A vertex the encoder emitted twice (chains sharing a corner) takes two
+  // local slots with identical values - the mesh index is the same for both.
+  std::vector<m2::PointU> points;
+  std::vector<int32_t> altitudes;
+  std::vector<uint32_t> meshIndex;
 
   auto const addVertex = [&](m2::PointU const & pt, int64_t alt) -> uint32_t
   {
-    auto const [it, inserted] = pointToIndex.emplace(PointKey(pt), static_cast<uint32_t>(points.size()));
-    if (inserted)
-    {
-      points.push_back(pt);
-      out.m_points.push_back(PointUToPointD(pt, cp.GetCoordBits()));
-      out.m_altitudes.push_back(static_cast<Altitude>(alt));
-    }
-    else
-      ASSERT_EQUAL(out.m_altitudes[it->second], alt, ());
-    return it->second;
+    points.push_back(pt);
+    altitudes.push_back(static_cast<int32_t>(alt));
+    meshIndex.push_back(mesh.AddVertex(pt, static_cast<int32_t>(alt)));
+    return static_cast<uint32_t>(points.size() - 1);
   };
 
   // Not named "emit" to keep the header compatible with the Qt keyword macros.
   auto const emitTriangle = [&](uint32_t a, uint32_t b, uint32_t c)
-  { out.m_triangles.insert(out.m_triangles.end(), {a, b, c}); };
+  { mesh.AddTriangle(meshIndex[a], meshIndex[b], meshIndex[c]); };
 
   struct Ctx
   {
@@ -494,7 +472,6 @@ void DecodeChains(Source & src, serial::GeometryCodingParams const & cp, Altitud
   while (decoded < count)
   {
     // A new chain root.
-    ++out.m_chainsCount;
     m2::PointU const p0 = coding::DecodePointDeltaFromUint(ReadVarUint<uint64_t>(src), basePoint);
     m2::PointU const p1 = coding::DecodePointDeltaFromUint(ReadVarUint<uint64_t>(src), p0);
     uint64_t const packed = ReadVarUint<uint64_t>(src);
@@ -513,7 +490,7 @@ void DecodeChains(Source & src, serial::GeometryCodingParams const & cp, Altitud
     {
       Ctx cur;
       if (bits & 2)
-        stack.push_back({pa, pc, pb});
+        stack.emplace_back(pa, pc, pb);
       if (bits & 1)
       {
         cur = {pc, pb, pa};
@@ -533,8 +510,8 @@ void DecodeChains(Source & src, serial::GeometryCodingParams const & cp, Altitud
       auto const prediction =
           coding::PredictPointInTriangle(maxPoint, points[cur.m_u], points[cur.m_v], points[cur.m_pred]);
       m2::PointU const pw = coding::DecodePointDeltaFromUint(next >> 2, prediction);
-      int64_t const zw = int64_t{out.m_altitudes[cur.m_u]} + out.m_altitudes[cur.m_v] - out.m_altitudes[cur.m_pred] +
-                         ReadVarInt<int32_t>(src);
+      int64_t const zw =
+          int64_t{altitudes[cur.m_u]} + altitudes[cur.m_v] - altitudes[cur.m_pred] + ReadVarInt<int32_t>(src);
 
       uint32_t const w = addVertex(pw, zw);
       emitTriangle(cur.m_u, cur.m_v, w);
@@ -561,15 +538,12 @@ void SerializeFeatureGeometry(Sink & sink, FeatureData const & data, std::vector
   encoder.Save(sink);
 }
 
-// Decodes one geometry located by a FeatureRecord. The record supplies the altitudes range
-// and the rect; the header supplies the shared coding params.
+// Decodes one geometry located by a FeatureRecord into the tile mesh. The record
+// supplies the altitudes base; the header supplies the shared coding params.
 template <typename Source>
-void DeserializeFeatureGeometry(Source & src, TwmHeader const & header, FeatureRecord const & record, Triangles & out)
+void DeserializeFeatureGeometry(Source & src, TwmHeader const & header, FeatureRecord const & record, TileMesh & mesh)
 {
-  out.m_minAltitude = record.m_minAltitude;
-  out.m_maxAltitude = record.m_maxAltitude;
-  out.m_rect = record.GetRect(header.m_coordBits);
-  impl::DecodeChains(src, header.GetCodingParams(), record.m_minAltitude, out);
+  impl::DecodeChains(src, header.GetCodingParams(), record.m_minAltitude, mesh);
 }
 
 }  // namespace terrain

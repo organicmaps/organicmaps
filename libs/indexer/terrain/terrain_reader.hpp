@@ -7,7 +7,6 @@
 
 #include "geometry/rect2d.hpp"
 
-#include <functional>
 #include <memory>
 
 namespace terrain
@@ -22,11 +21,9 @@ public:
 
   TwmHeader const & GetHeader() const { return m_header; }
 
-  using FeatureFn = std::function<void(Triangles const &)>;
-
-  // Decodes every feature intersecting the mercator rect at the given geometry scale index,
-  // in the file order.
-  void ForEachFeature(m2::RectD const & rect, size_t geomIndex, FeatureFn const & fn) const;
+  // Decodes every feature intersecting the mercator rect at the given geometry scale
+  // index, in the file order, straight into the tile mesh (see DecodeChains).
+  void ReadMesh(m2::RectD const & rect, size_t geomIndex, TileMesh & mesh) const;
 
 private:
   FilesContainerR m_container;

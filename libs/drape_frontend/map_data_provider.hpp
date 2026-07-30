@@ -2,17 +2,18 @@
 
 #include "drape_frontend/tile_key.hpp"
 
-#include "storage/storage_defines.hpp"
-
 #include "drape/drape_global.hpp"
 
 #include "geometry/rect2d.hpp"
 #include "indexer/feature.hpp"
-#include "indexer/terrain/isolines_tracer.hpp"
 
 #include <functional>
-#include <string>
 #include <vector>
+
+namespace terrain
+{
+class TileMesh;
+}
 
 namespace df
 {
@@ -29,26 +30,21 @@ public:
   using TTileBackgroundReadFn = std::function<bool(df::TileKey const &, dp::BackgroundMode)>;
   using TCancelTileBackgroundReadingFn = std::function<void(df::TileKey const &, dp::BackgroundMode)>;
   // Dynamic isolines and hillshading from the TWM terrain files.
-  using TIsolineCallback = std::function<void(terrain::Isoline &&)>;
-  using TTrianglesCallback = std::function<void(terrain::Triangles const &)>;
   using THasTerrainFn = std::function<bool(m2::RectD const &)>;
-  using TReadIsolinesFn = std::function<void(m2::RectD const &, int, int32_t, TIsolineCallback const &)>;
-  using TReadTrianglesFn = std::function<void(m2::RectD const &, int, TTrianglesCallback const &)>;
+  using TReadTerrainFn = std::function<void(m2::RectD const &, int, terrain::TileMesh &)>;
 
   MapDataProvider(TReadIDsFn && idsReader, TReadFeaturesFn && featureReader,
                   TIsCountryLoadedByNameFn && isCountryLoadedByNameFn,
                   TUpdateCurrentCountryFn && updateCurrentCountryFn, TTileBackgroundReadFn && tileBackgroundReadFn,
                   TCancelTileBackgroundReadingFn && cancelTileBackgroundReadingFn, THasTerrainFn && hasTerrainFn,
-                  TReadIsolinesFn && readIsolinesFn, TReadTrianglesFn && readTrianglesFn);
+                  TReadTerrainFn && readTerrainFn);
 
   void ReadFeaturesID(TReadCallback<FeatureID const> const & fn, m2::RectD const & r, int scale) const;
   void ReadFeatures(TReadCallback<FeatureType> const & fn, std::vector<FeatureID> const & ids) const;
 
-  // Dynamic isolines availability and reading; safe to call from the tile reading threads.
-  // The positive isolines step comes from the caller's style resolution (terrain::IsolinesStyle).
+  // Terrain availability and the tile mesh reading; safe to call from the tile reading threads.
   bool HasTerrain(m2::RectD const & rect) const;
-  void ReadIsolines(m2::RectD const & rect, int zoom, int32_t step, TIsolineCallback const & fn) const;
-  void ReadTriangles(m2::RectD const & rect, int zoom, TTrianglesCallback const & fn) const;
+  void ReadTerrainMesh(m2::RectD const & rect, int zoom, terrain::TileMesh & mesh) const;
 
   TTileBackgroundReadFn ReadTileBackgroundFn() const;
   TCancelTileBackgroundReadingFn CancelTileBackgroundReadingFn() const;
@@ -64,7 +60,6 @@ private:
   TTileBackgroundReadFn m_tileBackgroundReader;
   TCancelTileBackgroundReadingFn m_cancelTileBackgroundReading;
   THasTerrainFn m_hasTerrain;
-  TReadIsolinesFn m_readIsolines;
-  TReadTrianglesFn m_readTriangles;
+  TReadTerrainFn m_readTerrain;
 };
 }  // namespace df
