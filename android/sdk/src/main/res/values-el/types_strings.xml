@@ -658,6 +658,7 @@
     <string name="type.leisure.ice_rink">Παγοδρόμιο</string>
     <string name="type.leisure.marina">Μαρίνα</string>
     <string name="type.leisure.nature_reserve">Προστατευόμενος βιότοπος</string>
+    <string name="type.leisure.bird_hide">Παρατηρητήριο πουλιών</string>
     <string name="type.leisure.outdoor_seating">Καθίσματα εξωτερικού χώρου</string>
     <string name="type.leisure.firepit">Εστία φωτιάς</string>
     <string name="type.leisure.park">Πάρκο</string>

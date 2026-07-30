@@ -6,6 +6,7 @@
 
     <!-- SECTION: Types: Historic -->
     <string name="type.man_made.ceremonial_gate">আনুষ্ঠানিক গেট</string>
+    <string name="type.leisure.bird_hide">পাখি দেখার আড়াল</string>
     <string name="type.leisure.track">স্পোর্টস ট্র্যাক</string>
     <string name="type.leisure.track.area">স্পোর্টস ট্র্যাক</string>
     <string name="type.natural.volcano.active">সক্রিয় আগ্নেয়গিরি</string>

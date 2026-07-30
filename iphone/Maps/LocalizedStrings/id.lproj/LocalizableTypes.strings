@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Ice Rink";
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "Cagar Alam";
+"type.leisure.bird_hide" = "Tempat pengamatan burung";
 "type.leisure.outdoor_seating" = "Tempat duduk di luar ruangan";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "Taman";

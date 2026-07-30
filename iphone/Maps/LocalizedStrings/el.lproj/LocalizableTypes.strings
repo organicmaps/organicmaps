@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Παγοδρόμιο";
 "type.leisure.marina" = "Μαρίνα";
 "type.leisure.nature_reserve" = "Προστατευόμενος βιότοπος";
+"type.leisure.bird_hide" = "Παρατηρητήριο πουλιών";
 "type.leisure.outdoor_seating" = "Καθίσματα εξωτερικού χώρου";
 "type.leisure.firepit" = "Εστία φωτιάς";
 "type.leisure.park" = "Πάρκο";

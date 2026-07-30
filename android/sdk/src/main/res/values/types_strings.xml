@@ -686,6 +686,7 @@
     <string name="type.leisure.ice_rink">Ice Rink</string>
     <string name="type.leisure.marina">Marina</string>
     <string name="type.leisure.nature_reserve">Nature Reserve</string>
+    <string name="type.leisure.bird_hide">Bird Hide</string>
     <string name="type.leisure.outdoor_seating">Outdoor Seating</string>
     <string name="type.leisure.firepit">Firepit</string>
     <string name="type.leisure.park">Park</string>

@@ -103,56 +103,47 @@ class BottomPanel
 
   public void update()
   {
-    DownloaderAdapter adapter = mFragment.getAdapter();
-    boolean search = adapter.isSearchResultsMode();
+    final DownloaderAdapter adapter = mFragment.getAdapter();
+    boolean showFab = false;
+    boolean showButton = false;
 
-    boolean show = !search;
-    String root = adapter.getCurrentRootId();
-    int status = MapManager.nativeGetStatus(root);
-
-    // Hide FAB when all maps are already downloaded - nothing new to download
-    UiUtils.showIf(show && adapter.isMyMapsMode() && status != STATUS_DONE, mFab);
-
-    if (show)
+    if (!adapter.isSearchResultsMode())
     {
-      if (adapter.isMyMapsMode())
+      final String root = adapter.getCurrentRootId();
+      final boolean myMapsMode = adapter.isMyMapsMode();
+
+      showButton = myMapsMode || !CountryItem.isRoot(root);
+      if (showButton)
       {
+        final int status = MapManager.nativeGetStatus(root);
+        // Hide FAB when all maps are already downloaded - nothing new to download.
+        showFab = myMapsMode && status != STATUS_DONE;
         switch (status)
         {
-        case STATUS_UPDATABLE ->
-        {
-          UpdateInfo info = MapManager.nativeGetUpdateInfo(root);
-          setUpdateAllState(info);
-        } // Special case for "Countries" node when no maps currently downloaded.
-        case STATUS_DOWNLOADABLE, STATUS_DONE, STATUS_PARTLY -> show = false;
+        case STATUS_UPDATABLE -> setUpdateAllState(MapManager.nativeGetUpdateInfo(root));
         case STATUS_PROGRESS, STATUS_APPLYING, STATUS_ENQUEUED -> setCancelState();
         case STATUS_FAILED -> setRetryFailedStates();
-        default -> throw new IllegalArgumentException("Inappropriate status for \"" + root + "\": " + status);
-        }
-      }
-      else
-      {
-        show = !CountryItem.isRoot(root);
-        if (show)
+        case STATUS_DONE -> showButton = false;
+        case STATUS_DOWNLOADABLE, STATUS_PARTLY ->
         {
-          switch (status)
-          {
-          case STATUS_UPDATABLE ->
-          {
-            UpdateInfo info = MapManager.nativeGetUpdateInfo(root);
-            setUpdateAllState(info);
-          }
-          case STATUS_DONE -> show = false;
-          case STATUS_PROGRESS, STATUS_APPLYING, STATUS_ENQUEUED -> setCancelState();
-          case STATUS_FAILED -> setRetryFailedStates();
-          default -> setDownloadAllState();
-          }
+          // My Maps lists downloaded maps only, so there is nothing to offer here.
+          if (myMapsMode)
+            showButton = false;
+          else
+            setDownloadAllState();
+        }
+        default ->
+        {
+          if (myMapsMode)
+            throw new IllegalArgumentException("Inappropriate status for \"" + root + "\": " + status);
+          setDownloadAllState();
+        }
         }
       }
     }
 
-    UiUtils.showIf(show, mButton);
-
+    UiUtils.showIf(showFab, mFab);
+    UiUtils.showIf(showButton, mButton);
     mFragment.requireView().requestApplyInsets();
   }
 }

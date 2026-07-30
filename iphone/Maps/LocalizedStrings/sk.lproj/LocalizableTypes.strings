@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Klzisko";
 "type.leisure.marina" = "Marína";
 "type.leisure.nature_reserve" = "Prírodná rezervácia";
+"type.leisure.bird_hide" = "Pozorovateľňa vtákov";
 "type.leisure.outdoor_seating" = "Posedenie vonku";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "Park";

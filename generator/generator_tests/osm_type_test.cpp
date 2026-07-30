@@ -2404,6 +2404,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
       {"landuse", "salt_pond"},
       {"landuse", "village_green"},
       {"landuse", "vineyard"},
+      {"leisure", "bird_hide"},
       {"leisure", "common"},
       {"leisure", "dog_park"},
       {"leisure", "fitness_centre"},

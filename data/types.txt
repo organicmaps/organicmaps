@@ -1651,3 +1651,4 @@ amenity|recycling|container
 *building|construction
 *roller_coaster|track
 *man_made|ceremonial_gate
+*leisure|bird_hide

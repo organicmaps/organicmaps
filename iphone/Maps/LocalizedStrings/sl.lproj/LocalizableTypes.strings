@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Drsališče";
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "Naravni rezervat";
+"type.leisure.bird_hide" = "Opazovalnica ptic";
 "type.leisure.outdoor_seating" = "Sedenje na prostem";
 "type.leisure.firepit" = "Kurišče";
 "type.leisure.park" = "Park";

@@ -612,6 +612,7 @@
     <string name="type.leisure.ice_rink">Ysskaatsbaan</string>
     <string name="type.leisure.marina">Jaghawe</string>
     <string name="type.leisure.nature_reserve">Natuurreservaat</string>
+    <string name="type.leisure.bird_hide">Voëlskuiling</string>
     <string name="type.leisure.park">Park</string>
     <string name="type.leisure.park.no.access">Park</string>
     <string name="type.leisure.park.permissive">Park</string>

@@ -90,8 +90,9 @@ public:
   bool IsSameType(uint32_t type) const;
 
   std::string GetLocalizedFeatureType() const;
-  // Secondary title for the result.
-  std::string GetFeatureDescription() const;
+  // Secondary title for the result. Takes the already localized feature type, so callers that also display it
+  // separately do not localize it twice.
+  std::string GetFeatureDescription(std::string localizedFeatureType) const;
 
   // Center point of a feature.
   // Precondition: HasPoint() == true.

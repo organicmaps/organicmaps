@@ -21,6 +21,7 @@
 
 #include <chrono>
 #include <memory>
+#include <string>
 #include <vector>
 
 using namespace std::placeholders;
@@ -109,10 +110,12 @@ jobject ToJavaResult(Result const & result, search::ProductInfo const & productI
 
   bool const popularityHasHigherPriority = PopularityHasHigherPriority(hasPosition, distanceInMeters);
 
-  jni::TScopedLocalRef featureType(env, jni::ToJavaString(env, result.GetLocalizedFeatureType()));
+  std::string const localizedFeatureType = result.GetLocalizedFeatureType();
+  jni::TScopedLocalRef featureType(env, jni::ToJavaString(env, localizedFeatureType));
   jni::TScopedLocalRef address(env, jni::ToJavaString(env, result.GetAddress()));
   jni::TScopedLocalRef dist(env, ToJavaDistance(env, distance));
-  jni::TScopedLocalRef description(env, jni::ToJavaStringWithSupplementalCharsFix(env, result.GetFeatureDescription()));
+  jni::TScopedLocalRef description(
+      env, jni::ToJavaStringWithSupplementalCharsFix(env, result.GetFeatureDescription(localizedFeatureType)));
 
   jni::TScopedLocalRef desc(
       env, env->NewObject(g_descriptionClass, g_descriptionConstructor, featureType.get(), address.get(), dist.get(),

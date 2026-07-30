@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Pistë akulli";
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "Rezervat natyror";
+"type.leisure.bird_hide" = "Strehë për vëzhgimin e zogjve";
 "type.leisure.outdoor_seating" = "Ndenjëse jashtë";
 "type.leisure.firepit" = "Vatër zjarri";
 "type.leisure.park" = "Park";

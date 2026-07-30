@@ -658,6 +658,7 @@
     <string name="type.leisure.ice_rink">Каток</string>
     <string name="type.leisure.marina">Причал</string>
     <string name="type.leisure.nature_reserve">Заповедник</string>
+    <string name="type.leisure.bird_hide">Укрытие для наблюдения за птицами</string>
     <string name="type.leisure.outdoor_seating">Сидения на открытом воздухе</string>
     <string name="type.leisure.firepit">Кострище</string>
     <string name="type.leisure.park">Парк</string>
