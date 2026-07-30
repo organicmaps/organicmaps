@@ -43,10 +43,7 @@ public:
 
   // True when a registered block older than the version intersects the rect: the
   // OnDiskOutOfDate terrain status source. Safe for the UI thread.
-  bool HasOlderTerrain(m2::RectD const & rect, int64_t version) const
-  {
-    return m_set.HasOlderBlocks(rect, version);
-  }
+  bool HasOlderTerrain(m2::RectD const & rect, int64_t version) const { return m_set.HasOlderBlocks(rect, version); }
   /// The rects of the downloaded (registered) blocks intersecting the mercator rect,
   /// e.g. for the downloaded regions highlight on the world zoom.
   void GetDownloadedRects(m2::RectD const & rect, std::vector<m2::RectD> & rects) const
@@ -56,9 +53,11 @@ public:
 
   using IsolineFn = std::function<void(Isoline &&)>;
 
-  // Traces the isolines covering the mercator rect with the step and the geometry scale
-  // selected for the draw zoom. Called from the drape tile reading threads.
-  void ForEachIsoline(m2::RectD const & rect, int zoom, IsolineFn const & fn) const;
+  // Traces the isolines covering the mercator rect at the geometry scale selected for
+  // the draw zoom. The positive step (in the display units) comes from the caller's
+  // style resolution (see terrain::IsolinesStyle), so only the drawable levels are
+  // traced. Called from the drape tile reading threads.
+  void ForEachIsoline(m2::RectD const & rect, int zoom, int32_t step, IsolineFn const & fn) const;
 
   using TrianglesFn = std::function<void(Triangles const &)>;
 
