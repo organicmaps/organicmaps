@@ -396,17 +396,15 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   // getter belongs to the Framework), the landed blocks register into the provider
   // (replacing the outdated coverage they intersect), and the out-of-date status
   // queries the provider registry.
-  m_storage.SetTerrainCallbacks(
-      [this](storage::CountryId const & countryId)
+  m_storage.SetTerrainCallbacks([this](storage::CountryId const & countryId)
   { return storage::CalcLimitRect(countryId, m_storage, GetCountryInfoGetter()); },
-      [this](std::string const & path, m2::RectD const & rect)
+                                [this](std::string const & path, m2::RectD const & rect)
   {
     m2::RectD invalidRect = rect;
     m_terrainProvider.OnBlockDownloaded(path, invalidRect);
     InvalidateRect(invalidRect);
-  },
-      [this](m2::RectD const & rect, int64_t version) { return m_terrainProvider.HasOlderTerrain(rect, version); },
-      [this](std::vector<m2::RectD> const & rects)
+  }, [this](m2::RectD const & rect, int64_t version) { return m_terrainProvider.HasOlderTerrain(rect, version); },
+                                [this](std::vector<m2::RectD> const & rects)
   {
     m2::RectD invalidRect;
     m_terrainProvider.DeleteBlocks(rects, invalidRect);
@@ -1813,8 +1811,9 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   auto updateCurrentCountryFn = std::bind(&Framework::OnUpdateCurrentCountry, this, _1, _2);
 
   auto hasTerrainFn = [this](m2::RectD const & rect) { return m_terrainProvider.HasTerrain(rect); };
-  auto readIsolinesFn = [this](m2::RectD const & rect, int zoom, df::MapDataProvider::TIsolineCallback const & fn)
-  { m_terrainProvider.ForEachIsoline(rect, zoom, fn); };
+  auto readIsolinesFn =
+      [this](m2::RectD const & rect, int zoom, int32_t step, df::MapDataProvider::TIsolineCallback const & fn)
+  { m_terrainProvider.ForEachIsoline(rect, zoom, step, fn); };
   auto readTrianglesFn = [this](m2::RectD const & rect, int zoom, df::MapDataProvider::TTrianglesCallback const & fn)
   { m_terrainProvider.ForEachTriangles(rect, zoom, fn); };
 

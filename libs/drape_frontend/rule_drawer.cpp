@@ -9,7 +9,6 @@
 #include "drape_frontend/metaline_manager.hpp"
 #include "drape_frontend/traffic_renderer.hpp"
 
-#include "indexer/classificator.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
@@ -43,7 +42,6 @@
 #include <array>
 #include <cmath>
 #include <functional>
-#include <limits>
 #include <unordered_map>
 #include <vector>
 
@@ -557,8 +555,7 @@ void RuleDrawer::DrawTerrainShade(MapDataProvider const & model)
       params.m_depthLayer = DepthLayer::GeometryLayer;
       params.m_width = 1;
       params.m_zoomLevel = m_zoomLevel;
-      m_applyParams.m_insertShape(
-          make_unique_dp<LineShape>(m2::SharedSpline(std::vector<m2::PointD>{pa, pb}), params));
+      m_applyParams.m_insertShape(make_unique_dp<LineShape>(m2::SharedSpline(std::vector<m2::PointD>{pa, pb}), params));
     }
 
     // The running text index keeps the per-tile OverlayIDs unique (cf. the isoline
@@ -754,37 +751,14 @@ void RuleDrawer::DrawDynamicIsolines(MapDataProvider const & model)
   if (CheckCancelled())
     return;
 
-  // Resolve the isoline line drules for this zoom, one per step class. The altitude ->
-  // class mapping matches the baked isoline features, see generator/isolines_generator.cpp.
-  static std::array<std::pair<int, char const *>, 5> const kAltClasses = {
-      {{1000, "step_1000"}, {500, "step_500"}, {100, "step_100"}, {50, "step_50"}, {10, "step_10"}}};
-
-  auto const resolveLineRule = [this](char const * subType) -> drule::LineRule const *
-  {
-    auto const & cl = classif();
-    uint32_t const type = cl.GetTypeByPath({"isoline", subType});
-    drule::KeysT keys;
-    cl.GetObject(type)->GetSuitable(m_zoomLevel, feature::GeomType::Line, keys);
-    for (auto const & key : keys)
-      if (key.m_type == drule::line)
-        return drule::GetCurrentRules().Find(key)->GetLine();
-    return nullptr;  // Invisible at this zoom.
-  };
-
-  drule::LineRule const * const zeroRule = resolveLineRule("zero");
-  std::array<drule::LineRule const *, kAltClasses.size()> stepRules;
-  for (size_t i = 0; i < kAltClasses.size(); ++i)
-    stepRules[i] = resolveLineRule(kAltClasses[i].second);
-
-  auto const ruleForAltitude = [&](int altitude) -> drule::LineRule const *
-  {
-    if (altitude == 0)
-      return zeroRule;
-    for (size_t i = 0; i < kAltClasses.size(); ++i)
-      if (altitude % kAltClasses[i].first == 0)
-        return stepRules[i];
-    return nullptr;
-  };
+  // The drawing policy (trace step, line and label rules per altitude) is resolved from
+  // the current style once per tile, and the step is passed down to the trace, so only
+  // the drawable levels arrive here. A units toggle mid-read can mismatch one tile for
+  // one frame; the SetupMeasurementSystem invalidation re-reads it right away.
+  auto const units = measurement_utils::GetMeasurementUnits();
+  terrain::IsolinesStyle const isolinesStyle(m_zoomLevel, units);
+  if (isolinesStyle.GetStep() == 0)
+    return;
 
   double const visScale = m_applyParams.m_vparams.GetVisualScale();
   ClipSplinesBuilder builder(m_applyParams);
@@ -794,84 +768,20 @@ void RuleDrawer::DrawDynamicIsolines(MapDataProvider const & model)
   m2::RectD queryRect = m_applyParams.m_tileRect;
   queryRect.Scale(kIsolineSmoothScale);
 
-  // The altitude labels policy needs the tile relief upfront: buffer the drawn isolines.
-  // The altitudes come in the measurement units (see IsolinesTracer::Trace).
-  std::vector<terrain::Isoline> isolines;
-  int32_t minAltitude = std::numeric_limits<int32_t>::max();
-  int32_t maxAltitude = std::numeric_limits<int32_t>::min();
-  model.ReadIsolines(queryRect, m_zoomLevel, [&](terrain::Isoline && isoline)
-  {
-    if (CheckCancelled() || ruleForAltitude(isoline.m_altitude) == nullptr)
-      return;
-    minAltitude = std::min(minAltitude, isoline.m_altitude);
-    maxAltitude = std::max(maxAltitude, isoline.m_altitude);
-    isolines.push_back(std::move(isoline));
-  });
-  if (CheckCancelled() || isolines.empty())
-    return;
-
-  // Labels ride the isoline pathtext drules (their font and priority are zoom-constant in
-  // the styles), but the density is dynamic: terrain::GetIsolinesLabelStepForZoom picks the
-  // labeled levels from the tile relief, overriding the per-class style zoom gates - a class
-  // whose pathtext is gated to a deeper zoom resolves at the upper style scale instead.
-  // A units toggle between the trace above and this read can mislabel one tile for one
-  // frame; the SetupMeasurementSystem invalidation re-reads it right away.
-  auto const units = measurement_utils::GetMeasurementUnits();
-  auto const labelStep = terrain::GetIsolinesLabelStepForZoom(m_zoomLevel, maxAltitude - minAltitude, units);
-
-  auto const resolvePathtextRule = [this](char const * subType) -> drule::PathTextRule const *
-  {
-    auto const & cl = classif();
-    uint32_t const type = cl.GetTypeByPath({"isoline", subType});
-    for (int const zoom : {static_cast<int>(m_zoomLevel), scales::GetUpperStyleScale()})
-    {
-      drule::KeysT keys;
-      cl.GetObject(type)->GetSuitable(zoom, feature::GeomType::Line, keys);
-      for (auto const & key : keys)
-      {
-        if (key.m_type != drule::pathtext)
-          continue;
-        auto const * rule = drule::GetCurrentRules().Find(key)->GetPathtext();
-        if (rule != nullptr && rule->primary)
-          return rule;
-      }
-    }
-    return nullptr;  // No isoline labels in this style.
-  };
-
-  drule::PathTextRule const * zeroTextRule = nullptr;
-  std::array<drule::PathTextRule const *, kAltClasses.size()> stepTextRules{};
-  if (labelStep != 0)
-  {
-    zeroTextRule = resolvePathtextRule("zero");
-    for (size_t i = 0; i < kAltClasses.size(); ++i)
-      stepTextRules[i] = resolvePathtextRule(kAltClasses[i].second);
-  }
-
-  auto const textRuleForAltitude = [&](int altitude) -> drule::PathTextRule const *
-  {
-    if (labelStep == 0 || altitude % labelStep != 0)
-      return nullptr;
-    if (altitude == 0)
-      return zeroTextRule;
-    for (size_t i = 0; i < kAltClasses.size(); ++i)
-      if (altitude % kAltClasses[i].first == 0)
-        return stepTextRules[i];
-    return nullptr;
-  };
-
   // All the dynamic labels of a tile share an invalid FeatureID, so their OverlayID
   // uniqueness rests entirely on the running text index (cf. kPathTextBaseTextIndex
   // of the baked path texts); each shape reserves one index per repeated placement.
   uint32_t textIndex = 128;
 
-  for (auto & isoline : isolines)
+  // The altitudes come in the measurement units (see IsolinesTracer::Trace).
+  model.ReadIsolines(queryRect, m_zoomLevel, isolinesStyle.GetStep(), [&](terrain::Isoline && isoline)
   {
     if (CheckCancelled())
       return;
-    auto const * lineRule = ruleForAltitude(isoline.m_altitude);
-    ASSERT(lineRule != nullptr, ());
-    auto const * textRule = textRuleForAltitude(isoline.m_altitude);
+    auto const * lineRule = isolinesStyle.GetLineRule(isoline.m_altitude);
+    if (lineRule == nullptr)
+      return;
+    auto const * textRule = isolinesStyle.GetPathTextRule(isoline.m_altitude);
 
     builder.SetPath(std::move(isoline.m_points));
     for (auto const & spline : builder.Release(true /* isIsoline */))
@@ -920,7 +830,10 @@ void RuleDrawer::DrawDynamicIsolines(MapDataProvider const & model)
       textIndex += static_cast<uint32_t>(shape->GetOffsets().size());
       m_applyParams.m_insertShape(std::move(shape));
     }
-  }
+  });
+
+  if (CheckCancelled())
+    return;
 
   for (auto const & shape : m_mapShapes[df::GeometryType])
     shape->Prepare(m_context->GetTextureManager());
