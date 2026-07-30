@@ -127,6 +127,8 @@ set(SRC
   terrain/terrain_serdes.hpp
   terrain/terrain_utils.cpp
   terrain/terrain_utils.hpp
+  terrain/tile_mesh.cpp
+  terrain/tile_mesh.hpp
   terrain/twm_grid.cpp
   terrain/twm_grid.hpp
   terrain/twm_set.cpp
