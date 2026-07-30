@@ -2,10 +2,8 @@
 
 #include "indexer/scales.hpp"
 
-#include "platform/measurement_utils.hpp"
 #include "platform/platform.hpp"
 
-#include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
@@ -152,51 +150,11 @@ void TerrainProvider::Clear()
   m_set.Clear();
 }
 
-void TerrainProvider::ForEachIsoline(m2::RectD const & rect, int zoom, int32_t step, IsolineFn const & fn) const
+void TerrainProvider::ReadMesh(m2::RectD const & rect, int zoom, TileMesh & mesh) const
 {
-  ASSERT_GREATER(step, 0, ());
-
   // TODO(terrain): a tile straddling the +-180 antimeridian keeps its global rect (see
-  // TileKey::GetWrappedDataRect), so its beyond-seam half needs the isolines shifted back
-  // by the world width. Until then the straddling tiles get the canonical-side isolines only.
-  std::vector<TwmId> ids;
-  m_set.GetBlocksByRect(rect, ids);
-  if (ids.empty())
-    return;
-
-  // The handles hand the opened readers off exclusively and keep the blocks alive
-  // (a concurrent deregistration is delayed until the last unlock).
-  std::vector<TwmSet::Handle> handles;
-  std::vector<Reader const *> readers;
-  for (auto const & id : ids)
-  {
-    auto handle = m_set.GetHandleById(id);
-    if (!handle.IsAlive())
-      continue;
-    readers.push_back(&handle.GetValue()->GetReader());
-    handles.push_back(std::move(handle));
-  }
-  if (readers.empty())
-    return;
-
-  try
-  {
-    size_t const geomIndex = readers.front()->GetHeader().GetGeometryIndex(std::min(zoom, scales::GetUpperScale()));
-    IsolinesTracer const tracer(readers);
-    tracer.Trace(rect, geomIndex, step, measurement_utils::GetMeasurementUnits(), fn);
-  }
-  catch (RootException const & ex)
-  {
-    // Corrupt data can be detected this late (e.g. inconsistent triangles), condemn the
-    // participating blocks so the next queries don't hit it again. The deregistration
-    // is delayed past the handles held here.
-    LOG(LERROR, ("Condemning the corrupt terrain blocks of the query:", ex.Msg()));
-    m_set.Condemn(ids);
-  }
-}
-
-void TerrainProvider::ForEachTriangles(m2::RectD const & rect, int zoom, TrianglesFn const & fn) const
-{
+  // TileKey::GetWrappedDataRect), so its beyond-seam half needs the mesh shifted back
+  // by the world width. Until then the straddling tiles get the canonical-side mesh only.
   std::vector<TwmId> ids;
   m_set.GetBlocksByRect(rect, ids);
   if (ids.empty())
@@ -204,21 +162,35 @@ void TerrainProvider::ForEachTriangles(m2::RectD const & rect, int zoom, Triangl
 
   try
   {
+    uint8_t coordBits = 0;
     for (auto const & id : ids)
     {
-      auto handle = m_set.GetHandleById(id);
-      if (handle.IsAlive())
+      auto const handle = m_set.GetHandleById(id);
+      if (!handle.IsAlive())
+        continue;
+      auto const & reader = handle.GetValue()->GetReader();
+      // The blocks come from independent files: the vertex deduplication needs the
+      // uniform quantization, keep the mismatches catchable.
+      if (coordBits == 0)
       {
-        auto const & reader = handle.GetValue()->GetReader();
-        size_t const geomIndex = reader.GetHeader().GetGeometryIndex(std::min(zoom, scales::GetUpperScale()));
-        reader.ForEachFeature(rect, geomIndex, fn);
+        coordBits = reader.GetHeader().m_coordBits;
+        mesh = TileMesh(coordBits);
       }
+      else if (reader.GetHeader().m_coordBits != coordBits)
+      {
+        MYTHROW(TwmException, ("Mixed terrain blocks configuration"));
+      }
+      size_t const geomIndex = reader.GetHeader().GetGeometryIndex(std::min(zoom, scales::GetUpperScale()));
+      reader.ReadMesh(rect, geomIndex, mesh);
     }
   }
   catch (RootException const & ex)
   {
+    // Corrupt data can be detected this late, condemn the participating blocks so the
+    // next queries don't hit it again. The deregistration is delayed past the handles.
     LOG(LERROR, ("Condemning the corrupt terrain blocks of the query:", ex.Msg()));
     m_set.Condemn(ids);
+    mesh = TileMesh();
   }
 }
 }  // namespace terrain
