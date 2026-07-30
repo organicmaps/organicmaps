@@ -751,8 +751,7 @@
     <string name="religious_places">Locuri sfinte</string>
     <string name="select_list">Alege lista</string>
     <string name="button_layer_isolines">Înălțimi</string>
-    <string name="isolines_activation_error_dialog">Pentru a activa și utiliza stratul topografic actualizează sau descarcă harta zonei</string>
-    <string name="isolines_location_error_dialog">Stratul topografic nu este încă disponibil în această zonă</string>
+    <string name="isolines_location_error_dialog">Descărcați relieful acestei regiuni pentru a vedea curbele de nivel</string>
     <string name="elevation_profile_ascent">Urcare</string>
     <string name="elevation_profile_descent">Coborâre</string>
     <string name="elevation_profile_min_elevation">Min. altitudine</string>

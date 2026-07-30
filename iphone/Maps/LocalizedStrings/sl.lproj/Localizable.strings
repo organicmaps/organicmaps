@@ -935,8 +935,7 @@
 "dialog_pedestrian_route_is_long_header" = "Ni najdene poti s podzemno železnico";
 "dialog_pedestrian_route_is_long_message" = "Izberite začetno ali končno točko bližje postaji podzemne železnice";
 "button_layer_isolines" = "Plastnice";
-"isolines_activation_error_dialog" = "Aktiviranje plastnic zahteva prenos podatkov zemljevida za to območje";
-"isolines_location_error_dialog" = "Plastnice na tem območju še niso na voljo";
+"isolines_location_error_dialog" = "Prenesite teren za to območje, da vidite plastnice";
 "elevation_profile_ascent" = "Vzpon";
 "elevation_profile_descent" = "Spust";
 "elevation_profile_min_elevation" = "Min. višina";

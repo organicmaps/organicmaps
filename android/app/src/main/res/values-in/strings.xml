@@ -749,8 +749,7 @@
     <string name="religious_places">Tempat ibadah</string>
     <string name="select_list">Pilih daftar</string>
     <string name="button_layer_isolines">Isometrik</string>
-    <string name="isolines_activation_error_dialog">Untuk mengaktifkan dan menggunakan lapisan topografi, silakan perbarui atau unduh peta area</string>
-    <string name="isolines_location_error_dialog">Lapisan topografi belum tersedia untuk wilayah ini</string>
+    <string name="isolines_location_error_dialog">Unduh data medan wilayah ini untuk melihat garis kontur</string>
     <string name="elevation_profile_ascent">Menanjak</string>
     <string name="elevation_profile_descent">Menurun</string>
     <string name="elevation_profile_min_elevation">Min. tinggi</string>

@@ -935,8 +935,7 @@
 "dialog_pedestrian_route_is_long_header" = "Metro marşrutu tapılmadı";
 "dialog_pedestrian_route_is_long_message" = "Metro stansiyasına ən yaxın marşrutun başlanğıc və ya bitmə nöqtəsini seçin";
 "button_layer_isolines" = "Ərazi";
-"isolines_activation_error_dialog" = "Ərazi qatını aktivləşdirmək və istifadə etmək üçün xəritəni yeniləyin və ya endirin";
-"isolines_location_error_dialog" = "Bu bölgədə relyef təbəqəsi hələ mövcud deyil";
+"isolines_location_error_dialog" = "Kontur xətlərini görmək üçün bu bölgənin relyefini yükləyin";
 "elevation_profile_ascent" = "Qalxmaq";
 "elevation_profile_descent" = "Eniş";
 "elevation_profile_min_elevation" = "Min. hündürlük";

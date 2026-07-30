@@ -752,8 +752,7 @@
     <string name="religious_places">Χώροι Λατρείας</string>
     <string name="select_list">Επιλογή λίστας</string>
     <string name="button_layer_isolines">Υψομετρικά</string>
-    <string name="isolines_activation_error_dialog">Για να χρησιμοποιήσετε υψομετρικές γραμμές, ενημερώστε ή κατεβάστε τον χάρτη της επιθυμητής περιοχής</string>
-    <string name="isolines_location_error_dialog">Οι υψομετρικές γραμμές δεν είναι ακόμα διαθέσιμες σε αυτή την περιοχή</string>
+    <string name="isolines_location_error_dialog">Κατεβάστε το ανάγλυφο για αυτήν την περιοχή για να δείτε τις υψομετρικές γραμμές</string>
     <string name="elevation_profile_ascent">Ανάβαση</string>
     <string name="elevation_profile_descent">Κατάβαση</string>
     <string name="elevation_profile_min_elevation">Ελάχ. υψόμετρο</string>

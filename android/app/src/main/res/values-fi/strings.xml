@@ -751,8 +751,7 @@
     <string name="religious_places">Uskonnolliset paikat</string>
     <string name="select_list">Valitse luettelo</string>
     <string name="button_layer_isolines">Maasto</string>
-    <string name="isolines_activation_error_dialog">Päivitä tai lataa haluamasi alueen kartta käyttääksesi korkeuskäyriä</string>
-    <string name="isolines_location_error_dialog">Korkeuskäyrät eivät ole vielä saatavilla tällä alueella</string>
+    <string name="isolines_location_error_dialog">Lataa maasto tälle alueelle nähdäksesi korkeuskäyrät</string>
     <string name="elevation_profile_ascent">Nousua</string>
     <string name="elevation_profile_descent">Laskua</string>
     <string name="elevation_profile_min_elevation">Min. korkeus</string>

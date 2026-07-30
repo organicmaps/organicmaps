@@ -751,8 +751,7 @@
     <string name="religious_places">Erlijio guneak</string>
     <string name="select_list">Hautatu zerrenda</string>
     <string name="button_layer_isolines">Sestra kurbak</string>
-    <string name="isolines_activation_error_dialog">Sestra kurbak erabiltzeko, eguneratu edo deskargatu nahi duzun eremuko mapa</string>
-    <string name="isolines_location_error_dialog">Erliebearen altitudea oraindik ez dago eskuragarri eskualde honetan</string>
+    <string name="isolines_location_error_dialog">Deskargatu eskualde honetako erliebea sestra-kurbak ikusteko</string>
     <string name="elevation_profile_ascent">Maldan gora</string>
     <string name="elevation_profile_descent">Maldan behera</string>
     <string name="elevation_profile_min_elevation">Altitude min</string>

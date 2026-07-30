@@ -326,7 +326,7 @@
     <string name="search_in_the_list">Guetar na llista</string>
     <string name="religious_places">Llugares relixosos</string>
     <string name="button_layer_isolines">Curves de nivel</string>
-    <string name="isolines_location_error_dialog">Les curves de nivel entá nun tán disponibles nesta rexón</string>
+    <string name="isolines_location_error_dialog">Baxa\'l relieve d\'esta rexón pa ver les curves de nivel</string>
     <string name="elevation_profile_ascent">Ascensu</string>
     <string name="elevation_profile_descent">Descensu</string>
     <string name="elevation_profile_min_elevation">Elevación mín.</string>

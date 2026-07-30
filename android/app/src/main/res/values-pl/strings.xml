@@ -757,8 +757,7 @@
     <string name="religious_places">Święte miejsca</string>
     <string name="select_list">Wybierz listę</string>
     <string name="button_layer_isolines">Poziomice</string>
-    <string name="isolines_activation_error_dialog">Do skorzystania z poziomic, pobierz mapę tego obszaru.</string>
-    <string name="isolines_location_error_dialog">Poziomice nie są jeszcze dostępne w tym regionie</string>
+    <string name="isolines_location_error_dialog">Pobierz teren dla tego regionu, aby zobaczyć poziomice</string>
     <string name="elevation_profile_ascent">Wejście</string>
     <string name="elevation_profile_descent">Zejście</string>
     <string name="elevation_profile_min_elevation">Min. wysokość</string>

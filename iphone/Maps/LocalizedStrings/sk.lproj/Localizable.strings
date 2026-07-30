@@ -935,8 +935,7 @@
 "dialog_pedestrian_route_is_long_header" = "Trasa metra sa nenašla";
 "dialog_pedestrian_route_is_long_message" = "Vyberte počiatočný alebo konečný bod bližšie k stanici metra";
 "button_layer_isolines" = "Terén";
-"isolines_activation_error_dialog" = "Ak chcete aktivovať a používať topografickú vrstvu, aktualizujte alebo stiahnite mapu oblasti";
-"isolines_location_error_dialog" = "Topografická vrstva ešte nie je v tejto oblasti k dispozícii";
+"isolines_location_error_dialog" = "Stiahnite si terén pre túto oblasť, aby ste videli vrstevnice";
 "elevation_profile_ascent" = "Stúpanie";
 "elevation_profile_descent" = "Klesanie";
 "elevation_profile_min_elevation" = "Min. výška";

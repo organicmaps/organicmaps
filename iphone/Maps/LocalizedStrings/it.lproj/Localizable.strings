@@ -935,8 +935,7 @@
 "dialog_pedestrian_route_is_long_header" = "Percorso della metro non trovato";
 "dialog_pedestrian_route_is_long_message" = "Scegli un punto di partenza o di arrivo più vicino a una stazione della metropolitana";
 "button_layer_isolines" = "Curve di livello";
-"isolines_activation_error_dialog" = "Per attivare le curve di livello devi aggiornare o scaricare la mappa dell'area interessata";
-"isolines_location_error_dialog" = "Le curve di livello per questa regione non sono ancora disponibili";
+"isolines_location_error_dialog" = "Scarica il terreno di questa regione per vedere le curve di livello";
 "elevation_profile_ascent" = "Salita";
 "elevation_profile_descent" = "Discesa";
 "elevation_profile_min_elevation" = "Elevazione minima";

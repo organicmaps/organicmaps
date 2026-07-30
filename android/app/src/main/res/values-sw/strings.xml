@@ -742,8 +742,7 @@
     <string name="religious_places">Sehemu za ibada</string>
     <string name="select_list">Chagua orodha</string>
     <string name="button_layer_isolines">Topografia</string>
-    <string name="isolines_activation_error_dialog">Kuamilisha na kutumia tabaka la nchi tafadhali sasisha au pakua ramani ya eneo hilo</string>
-    <string name="isolines_location_error_dialog">Mistari ya mwinuko bado haipatikani katika eneo hili</string>
+    <string name="isolines_location_error_dialog">Pakua umbo la ardhi la eneo hili ili kuona mistari ya mwinuko</string>
     <string name="elevation_profile_ascent">Upandaji</string>
     <string name="elevation_profile_descent">Ushukaji</string>
     <string name="elevation_profile_min_elevation">Min. mwinuko</string>

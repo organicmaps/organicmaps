@@ -935,8 +935,7 @@
 "dialog_pedestrian_route_is_long_header" = "Keine U-Bahn-Route gefunden";
 "dialog_pedestrian_route_is_long_message" = "Bitte wähle einen Start- oder Zielpunkt, der näher an einer U-Bahn-Station liegt";
 "button_layer_isolines" = "Höhenlinien";
-"isolines_activation_error_dialog" = "Um die Höhenlinien nutzen zu können, aktualisiere die Karte des betreffenden Gebiets oder lade diese herunter";
-"isolines_location_error_dialog" = "Höhenlinien sind für dieses Gebiet noch nicht verfügbar";
+"isolines_location_error_dialog" = "Lade das Gelände dieser Region herunter, um Höhenlinien zu sehen";
 "elevation_profile_ascent" = "Bergauf";
 "elevation_profile_descent" = "Bergab";
 "elevation_profile_min_elevation" = "Min. Höhe";

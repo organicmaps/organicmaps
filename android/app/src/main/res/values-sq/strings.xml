@@ -739,8 +739,7 @@
     <string name="religious_places">Vende fetare</string>
     <string name="select_list">Zgjidh listën</string>
     <string name="button_layer_isolines">Vija Konture</string>
-    <string name="isolines_activation_error_dialog">Aktivizimi i vijave të konturit kërkon shkarkimin e të dhënave të hartës për këtë zonë</string>
-    <string name="isolines_location_error_dialog">Vijat e konturit nuk janë ende të disponueshme në këtë zonë</string>
+    <string name="isolines_location_error_dialog">Shkarkoni terrenin për këtë zonë për të parë vijat e konturit</string>
     <string name="elevation_profile_ascent">Ngjitje</string>
     <string name="elevation_profile_descent">Zbritje</string>
     <string name="elevation_profile_min_elevation">Lartësia min.</string>

@@ -935,8 +935,7 @@
 "dialog_pedestrian_route_is_long_header" = "Traseul metroului nu a fost găsit";
 "dialog_pedestrian_route_is_long_message" = "Alege un punct de plecare sau de sosire mai aproape de o stație de metrou";
 "button_layer_isolines" = "Înălțimi";
-"isolines_activation_error_dialog" = "Pentru a activa și utiliza stratul topografic actualizează sau descarcă harta zonei";
-"isolines_location_error_dialog" = "Stratul topografic nu este încă disponibil în această zonă";
+"isolines_location_error_dialog" = "Descărcați relieful acestei regiuni pentru a vedea curbele de nivel";
 "elevation_profile_ascent" = "Urcare";
 "elevation_profile_descent" = "Coborâre";
 "elevation_profile_min_elevation" = "Min. altitudine";

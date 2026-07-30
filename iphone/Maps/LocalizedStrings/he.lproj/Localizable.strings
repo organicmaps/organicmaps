@@ -935,8 +935,7 @@
 "dialog_pedestrian_route_is_long_header" = "מסלול רכבת תחתית לא נמצא";
 "dialog_pedestrian_route_is_long_message" = "נא לבחור נקודת התחלה או סוף קרובה יותר לתחנת רכבת תחתית";
 "button_layer_isolines" = "קווי מתאר";
-"isolines_activation_error_dialog" = "כדי להפעיל קווי מתאר יש להוריד את המפה לאזור זה";
-"isolines_location_error_dialog" = "קווי מתאר עוד לא זמינים לאזור זה";
+"isolines_location_error_dialog" = "הורידו את נתוני השטח של אזור זה כדי לראות קווי מתאר";
 "elevation_profile_ascent" = "עלייה";
 "elevation_profile_descent" = "ירידה";
 "elevation_profile_min_elevation" = "מינ' גובה";

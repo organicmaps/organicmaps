@@ -935,8 +935,7 @@
 "dialog_pedestrian_route_is_long_header" = "Nem található metróútvonal";
 "dialog_pedestrian_route_is_long_message" = "Válasszon egy, a metróállomáshoz közelebb eső kiindulási pontot vagy úti célt";
 "button_layer_isolines" = "Szintvonalak";
-"isolines_activation_error_dialog" = "A szintvonalak aktiválásához a terület térképadatainak letöltése szükséges";
-"isolines_location_error_dialog" = "A szintvonalak még nem állnak rendelkezésre ezen a területen";
+"isolines_location_error_dialog" = "Töltse le a terepet ehhez a területhez a szintvonalak megjelenítéséhez";
 "elevation_profile_ascent" = "Növekvő";
 "elevation_profile_descent" = "Csökkenő";
 "elevation_profile_min_elevation" = "Legkisebb magasság";

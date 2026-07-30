@@ -935,8 +935,7 @@
 "dialog_pedestrian_route_is_long_header" = "No subway route found";
 "dialog_pedestrian_route_is_long_message" = "Please choose a start or end point closer to a subway station";
 "button_layer_isolines" = "Curves de nivel";
-"isolines_activation_error_dialog" = "Activating contour lines requires downloading map data for this area";
-"isolines_location_error_dialog" = "Les curves de nivel entá nun tán disponibles nesta rexón";
+"isolines_location_error_dialog" = "Baxa'l relieve d'esta rexón pa ver les curves de nivel";
 "elevation_profile_ascent" = "Ascensu";
 "elevation_profile_descent" = "Descensu";
 "elevation_profile_min_elevation" = "Elevación mín.";

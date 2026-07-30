@@ -935,8 +935,7 @@
 "dialog_pedestrian_route_is_long_header" = "Não foi encontrada nenhuma rota de metro";
 "dialog_pedestrian_route_is_long_message" = "Escolha um ponto inicial ou final do percurso próximo da estação de metropolitano";
 "button_layer_isolines" = "Terreno";
-"isolines_activation_error_dialog" = "Para ativar e usar a camada Terreno, por favor atualize ou descarregue o mapa da área";
-"isolines_location_error_dialog" = "A camada Terreno ainda não está disponível nesta área";
+"isolines_location_error_dialog" = "Descarregue o terreno desta região para ver as curvas de nível";
 "elevation_profile_ascent" = "Subida";
 "elevation_profile_descent" = "Descida";
 "elevation_profile_min_elevation" = "Elevação mín.";

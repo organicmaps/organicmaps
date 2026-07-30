@@ -751,8 +751,7 @@
     <string name="religious_places">Կրոնական վայրեր</string>
     <string name="select_list">Ընտրել ցուցակը</string>
     <string name="button_layer_isolines">Հորիզոնականներ</string>
-    <string name="isolines_activation_error_dialog">Հորիզոնականների ակտիվացումը պահանջում է ներբեռնել այս տարածքի քարտեզի տվյալները</string>
-    <string name="isolines_location_error_dialog">Հորիզոնականները դեռ հասանելի չեն այս տարածքում</string>
+    <string name="isolines_location_error_dialog">Ներբեռնեք այս տարածաշրջանի տեղանքը՝ հորիզոնականները տեսնելու համար</string>
     <string name="elevation_profile_ascent">Վերելք</string>
     <string name="elevation_profile_descent">Վայրէջք</string>
     <string name="elevation_profile_min_elevation">Նվազգ. բարձրություն</string>

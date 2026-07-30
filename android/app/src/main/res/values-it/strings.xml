@@ -756,8 +756,7 @@
     <string name="religious_places">Luoghi di culto</string>
     <string name="select_list">Seleziona lista</string>
     <string name="button_layer_isolines">Curve di livello</string>
-    <string name="isolines_activation_error_dialog">Per attivare le curve di livello devi aggiornare o scaricare la mappa dell\'area interessata</string>
-    <string name="isolines_location_error_dialog">Le curve di livello per questa regione non sono ancora disponibili</string>
+    <string name="isolines_location_error_dialog">Scarica il terreno di questa regione per vedere le curve di livello</string>
     <string name="elevation_profile_ascent">Salita</string>
     <string name="elevation_profile_descent">Discesa</string>
     <string name="elevation_profile_min_elevation">Elevazione minima</string>

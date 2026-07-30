@@ -757,8 +757,7 @@
     <string name="religious_places">Verski kraji</string>
     <string name="select_list">Izberite seznam</string>
     <string name="button_layer_isolines">Plastnice</string>
-    <string name="isolines_activation_error_dialog">Aktiviranje plastnic zahteva prenos podatkov zemljevida za to območje</string>
-    <string name="isolines_location_error_dialog">Plastnice na tem območju še niso na voljo</string>
+    <string name="isolines_location_error_dialog">Prenesite teren za to območje, da vidite plastnice</string>
     <string name="elevation_profile_ascent">Vzpon</string>
     <string name="elevation_profile_descent">Spust</string>
     <string name="elevation_profile_min_elevation">Min. višina</string>

@@ -754,8 +754,7 @@
     <string name="religious_places">Religinės vietos</string>
     <string name="select_list">Pasirinkite sąrašą</string>
     <string name="button_layer_isolines">Reljefas</string>
-    <string name="isolines_activation_error_dialog">Atsisiųskite vietovės žemėlapį, jei norite aktyvinti ir naudoti reljefo sluoksnį</string>
-    <string name="isolines_location_error_dialog">Reljefo sluoksnis šiai vietovei dar neprieinamas</string>
+    <string name="isolines_location_error_dialog">Atsisiųskite šios vietovės reljefą, kad matytumėte izolinijas</string>
     <string name="elevation_profile_ascent">Pakilimas</string>
     <string name="elevation_profile_descent">Nusileidimas</string>
     <string name="elevation_profile_min_elevation">Min. aukštis</string>

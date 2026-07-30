@@ -935,8 +935,7 @@
 "dialog_pedestrian_route_is_long_header" = "Није пронађена метро рута";
 "dialog_pedestrian_route_is_long_message" = "Молим вас изаберите почетну и крајњу тачку ближе метро станицама";
 "button_layer_isolines" = "Изолиније";
-"isolines_activation_error_dialog" = "Приказивање изолинија захтева преузмање података са мапе за ову област";
-"isolines_location_error_dialog" = "Изолиније нису доступне за ову област";
+"isolines_location_error_dialog" = "Преузмите терен за ову област да бисте видели изолиније";
 "elevation_profile_ascent" = "Успон";
 "elevation_profile_descent" = "Спуст";
 "elevation_profile_min_elevation" = "Минимална висина";
