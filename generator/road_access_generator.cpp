@@ -133,6 +133,7 @@ TagMapping const kDefaultTagMapping = {
     {OsmElement::Tag("access", "military"), RoadAccess::Type::No},
     {OsmElement::Tag("access", "agricultural"), RoadAccess::Type::Private},
     {OsmElement::Tag("access", "forestry"), RoadAccess::Type::Private},
+    {OsmElement::Tag("access", "unknown"), RoadAccess::Type::Destination},
     {OsmElement::Tag("locked", "yes"), RoadAccess::Type::Locked},
 };
 
