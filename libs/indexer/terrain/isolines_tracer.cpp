@@ -162,8 +162,8 @@ void IsolinesTracer::Trace(m2::RectD const & rect, size_t geomIndex, int32_t ste
   {
     auto const [minAlt, maxAlt] = std::minmax({mesh.m_altitudes[mesh.Vertex(t, 0)], mesh.m_altitudes[mesh.Vertex(t, 1)],
                                                mesh.m_altitudes[mesh.Vertex(t, 2)]});
-    int32_t const lo = math::FloorDiv(minAlt, int32_t{step}) + 1;
-    int32_t const hi = math::FloorDiv(maxAlt, int32_t{step});
+    int32_t const lo = math::FloorDiv(minAlt, step) + 1;
+    int32_t const hi = math::FloorDiv(maxAlt, step);
 
     // A triangle crossing this many levels is physically impossible for real terrain:
     // don't let a crafted altitudes range blow up the level bins below.
