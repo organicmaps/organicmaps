@@ -49,9 +49,9 @@ bool MapDataProvider::HasTerrain(m2::RectD const & rect) const
   return m_hasTerrain(rect);
 }
 
-void MapDataProvider::ReadIsolines(m2::RectD const & rect, int zoom, TIsolineCallback const & fn) const
+void MapDataProvider::ReadIsolines(m2::RectD const & rect, int zoom, int32_t step, TIsolineCallback const & fn) const
 {
-  m_readIsolines(rect, zoom, fn);
+  m_readIsolines(rect, zoom, step, fn);
 }
 
 void MapDataProvider::ReadTriangles(m2::RectD const & rect, int zoom, TTrianglesCallback const & fn) const
