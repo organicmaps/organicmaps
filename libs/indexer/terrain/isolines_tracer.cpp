@@ -1,7 +1,5 @@
 #include "indexer/terrain/isolines_tracer.hpp"
 
-#include "coding/point_coding.hpp"
-
 #include "base/assert.hpp"
 #include "base/math.hpp"
 
@@ -16,13 +14,13 @@ namespace
 {
 uint32_t constexpr kNone = std::numeric_limits<uint32_t>::max();
 
-// The mesh collected from all the features of the query: vertices deduplicated globally
-// by the quantized keys, so the adjacency map sews triangles across features and blocks.
+// The traced view over the deduplicated tile mesh: the altitudes are in the display
+// units, the adjacency map sews the triangles across features and blocks.
 struct TracedMesh
 {
-  std::vector<m2::PointD> m_points;
-  std::vector<int32_t> m_altitudes;
-  std::vector<uint32_t> m_triangles;
+  std::vector<m2::PointD> const & m_points;
+  std::vector<int32_t> const & m_altitudes;
+  std::vector<uint32_t> const & m_triangles;
   // Directed edge (u << 32 | v) -> the owning triangle.
   std::unordered_map<uint64_t, uint32_t> m_edgeToTri;
 
@@ -90,62 +88,25 @@ CrossedEdges GetCrossedEdges(TracedMesh const & mesh, uint32_t tri, int32_t h)
 }
 }  // namespace
 
-IsolinesTracer::IsolinesTracer(std::vector<Reader const *> const & readers) : m_readers(readers)
-{
-  CHECK(!m_readers.empty(), ());
-  for (auto const * reader : m_readers)
-  {
-    CHECK(reader != nullptr, ());
-    // The header fields come from independent files: keep the mismatches catchable.
-    if (reader->GetHeader().m_coordBits != m_readers.front()->GetHeader().m_coordBits ||
-        reader->GetHeader().m_geometries.size() != m_readers.front()->GetHeader().m_geometries.size())
-    {
-      MYTHROW(TwmException, ("Mixed terrain blocks configuration"));
-    }
-  }
-}
-
-void IsolinesTracer::Trace(m2::RectD const & rect, size_t geomIndex, int32_t step, measurement_utils::Units units,
-                           IsolineFn const & fn) const
+void TraceIsolines(TileMesh const & tileMesh, int32_t step, measurement_utils::Units units, IsolineFn const & fn)
 {
   ASSERT_GREATER(step, 0, ());
-  bool const imperial = units == measurement_utils::Units::Imperial;
-
-  // Collect the mesh from all the features intersecting the rect.
-  TracedMesh mesh;
-  {
-    uint8_t const coordBits = m_readers.front()->GetHeader().m_coordBits;
-    std::unordered_map<uint64_t, uint32_t> pointToIndex;
-    std::vector<uint32_t> remap;
-    for (auto const * reader : m_readers)
-    {
-      reader->ForEachFeature(rect, geomIndex, [&](Triangles const & feature)
-      {
-        remap.resize(feature.m_points.size());
-        for (size_t i = 0; i < feature.m_points.size(); ++i)
-        {
-          // Re-quantization of a decoded point is exact, shared vertices of features and blocks get identical keys.
-          auto const key = impl::PointKey(PointDToPointU(feature.m_points[i], coordBits));
-          auto const [it, inserted] = pointToIndex.emplace(key, static_cast<uint32_t>(mesh.m_points.size()));
-          if (inserted)
-          {
-            mesh.m_points.push_back(feature.m_points[i]);
-            // The rounded conversion is deterministic, so the shared vertices still agree
-            // across features and blocks and the chains stay seamless.
-            int32_t const altitude = feature.m_altitudes[i];
-            mesh.m_altitudes.push_back(
-                imperial ? static_cast<int32_t>(std::lround(measurement_utils::MetersToFeet(altitude))) : altitude);
-          }
-          remap[i] = it->second;
-        }
-        for (uint32_t const v : feature.m_triangles)
-          mesh.m_triangles.push_back(remap[v]);
-      });
-    }
-  }
-  size_t const trianglesCount = mesh.m_triangles.size() / 3;
+  size_t const trianglesCount = tileMesh.GetTrianglesCount();
   if (trianglesCount == 0)
     return;
+
+  // The display units altitudes: the rounded feet conversion is deterministic per
+  // vertex, so the shared vertices still agree across features and blocks and the
+  // chains stay seamless.
+  std::vector<int32_t> feet;
+  if (units == measurement_utils::Units::Imperial)
+  {
+    feet.reserve(tileMesh.GetAltitudes().size());
+    for (int32_t const altitude : tileMesh.GetAltitudes())
+      feet.push_back(static_cast<int32_t>(std::lround(measurement_utils::MetersToFeet(altitude))));
+  }
+
+  TracedMesh mesh{tileMesh.GetPoints(), feet.empty() ? tileMesh.GetAltitudes() : feet, tileMesh.GetTriangles(), {}};
 
   mesh.m_edgeToTri.reserve(trianglesCount * 3);
   for (uint32_t t = 0; t < trianglesCount; ++t)

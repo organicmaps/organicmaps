@@ -14,11 +14,19 @@
 
 #include "geometry/spline.hpp"
 
+#include "platform/measurement_utils.hpp"
+
 #include <array>
 #include <functional>
 #include <unordered_set>
 
 class FeatureType;
+
+namespace terrain
+{
+class IsolinesStyle;
+class TileMesh;
+}  // namespace terrain
 
 namespace df
 {
@@ -39,19 +47,16 @@ public:
   using TIsCountryLoadedByNameFn = std::function<bool(std::string_view)>;
 
   RuleDrawer(TIsCountryLoadedByNameFn const & isLoadedFn, ref_ptr<EngineContext> engineContext, int8_t deviceLang,
-             bool drawDynamicIsolines = false);
+             bool drawTerrain = false);
   ~RuleDrawer();
 
   void operator()(FeatureType & f);
 
-  /// Traces dynamic isolines from the TWM terrain data over the tile rect and emits line
-  /// shapes through the same smoothing/clipping pipeline as the baked isoline features
-  /// (which are suppressed when the dynamic isolines are used).
-  void DrawDynamicIsolines(MapDataProvider const & model);
-
-  /// Flat-shaded terrain hillshading from the TWM triangles: per-triangle Lambert intensity
-  /// quantized into semi-transparent shade buckets emitted as area shapes over the map fills.
-  void DrawTerrainShade(MapDataProvider const & model);
+  /// The terrain layers of the tile - the hillshading and the dynamic isolines (and the
+  /// debug mesh instead of the hillshading under TERRAIN_DEBUG_MESH) - drawn over ONE
+  /// shared tile mesh read: the isolines drawing policy is resolved from the current
+  /// style once, and the mesh is decoded once for all the consumers.
+  void DrawTerrain(MapDataProvider const & model);
 
 #ifdef DRAW_TILE_NET
   void DrawTileNet();
@@ -67,6 +72,17 @@ private:
   bool CheckCancelled() const;
 
   bool IsDiscardCustomFeature(FeatureID const & id) const;
+
+  /// Smooth terrain hillshading: the area-weighted per-vertex normals over the shared
+  /// mesh give the Lambert intensity interpolated by the terrain shade shader.
+  void DrawTerrainShade(terrain::TileMesh const & mesh);
+  /// Traces the dynamic isolines over the shared mesh and emits line shapes through the
+  /// same smoothing/clipping pipeline as the baked isoline features (which are
+  /// suppressed when the dynamic isolines are used).
+  void DrawDynamicIsolines(terrain::TileMesh const & mesh, terrain::IsolinesStyle const & isolinesStyle,
+                           measurement_utils::Units units);
+  /// The raw mesh inspection: the triangle edges and the vertex altitudes in red.
+  void DrawTerrainDebugMesh(terrain::TileMesh const & mesh);
 
   TIsCountryLoadedByNameFn m_isLoadedFn;
 
@@ -86,7 +102,7 @@ private:
 
   uint8_t m_zoomLevel;
   int8_t m_deviceLang;
-  bool m_drawDynamicIsolines = false;
+  bool m_drawTerrain = false;
 
   ftypes::IsBuildingHasPartsChecker const & m_isBuildingHasParts = ftypes::IsBuildingHasPartsChecker::Instance();
   ftypes::IsBuildingPartChecker const & m_isBuildingPart = ftypes::IsBuildingPartChecker::Instance();

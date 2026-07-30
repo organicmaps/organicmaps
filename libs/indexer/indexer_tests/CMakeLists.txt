@@ -36,6 +36,7 @@ set(SRC
   sort_and_merge_intervals_test.cpp
   string_slice_tests.cpp
   terrain_utils_tests.cpp
+  tile_mesh_tests.cpp
   test_mwm_set.hpp
   test_type.cpp
   tmp_mwm_copy.hpp
