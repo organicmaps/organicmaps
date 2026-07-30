@@ -32,7 +32,7 @@ public:
   using TIsolineCallback = std::function<void(terrain::Isoline &&)>;
   using TTrianglesCallback = std::function<void(terrain::Triangles const &)>;
   using THasTerrainFn = std::function<bool(m2::RectD const &)>;
-  using TReadIsolinesFn = std::function<void(m2::RectD const &, int, TIsolineCallback const &)>;
+  using TReadIsolinesFn = std::function<void(m2::RectD const &, int, int32_t, TIsolineCallback const &)>;
   using TReadTrianglesFn = std::function<void(m2::RectD const &, int, TTrianglesCallback const &)>;
 
   MapDataProvider(TReadIDsFn && idsReader, TReadFeaturesFn && featureReader,
@@ -45,8 +45,9 @@ public:
   void ReadFeatures(TReadCallback<FeatureType> const & fn, std::vector<FeatureID> const & ids) const;
 
   // Dynamic isolines availability and reading; safe to call from the tile reading threads.
+  // The positive isolines step comes from the caller's style resolution (terrain::IsolinesStyle).
   bool HasTerrain(m2::RectD const & rect) const;
-  void ReadIsolines(m2::RectD const & rect, int zoom, TIsolineCallback const & fn) const;
+  void ReadIsolines(m2::RectD const & rect, int zoom, int32_t step, TIsolineCallback const & fn) const;
   void ReadTriangles(m2::RectD const & rect, int zoom, TTrianglesCallback const & fn) const;
 
   TTileBackgroundReadFn ReadTileBackgroundFn() const;

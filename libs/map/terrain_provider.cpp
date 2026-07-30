@@ -1,14 +1,14 @@
 #include "map/terrain_provider.hpp"
 
 #include "indexer/scales.hpp"
-#include "indexer/terrain/terrain_utils.hpp"
 
 #include "platform/measurement_utils.hpp"
 #include "platform/platform.hpp"
 
+#include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
-#include "base/string_utils.hpp"
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include "defines.hpp"
 
@@ -152,8 +152,10 @@ void TerrainProvider::Clear()
   m_set.Clear();
 }
 
-void TerrainProvider::ForEachIsoline(m2::RectD const & rect, int zoom, IsolineFn const & fn) const
+void TerrainProvider::ForEachIsoline(m2::RectD const & rect, int zoom, int32_t step, IsolineFn const & fn) const
 {
+  ASSERT_GREATER(step, 0, ());
+
   // TODO(terrain): a tile straddling the +-180 antimeridian keeps its global rect (see
   // TileKey::GetWrappedDataRect), so its beyond-seam half needs the isolines shifted back
   // by the world width. Until then the straddling tiles get the canonical-side isolines only.
@@ -181,8 +183,7 @@ void TerrainProvider::ForEachIsoline(m2::RectD const & rect, int zoom, IsolineFn
   {
     size_t const geomIndex = readers.front()->GetHeader().GetGeometryIndex(std::min(zoom, scales::GetUpperScale()));
     IsolinesTracer const tracer(readers);
-    auto const units = measurement_utils::GetMeasurementUnits();
-    tracer.Trace(rect, geomIndex, GetIsolinesStepForZoom(zoom, units), units, fn);
+    tracer.Trace(rect, geomIndex, step, measurement_utils::GetMeasurementUnits(), fn);
   }
   catch (RootException const & ex)
   {
