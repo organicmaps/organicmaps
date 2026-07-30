@@ -6,10 +6,10 @@
   android:orientation="vertical">
   <androidx.appcompat.widget.Toolbar
     android:id="@+id/toolbar"
-    style="@style/MwmWidget.Toolbar.EditBookmark"
+    style="@style/MwmWidget.Toolbar.Card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:theme="@style/ThemeOverlay.Mwm.EditToolbar" />
+    android:theme="@style/ThemeOverlay.Mwm.Toolbar.Card" />
   <androidx.core.widget.NestedScrollView
     android:id="@+id/edit_bookmark_scroll"
     android:layout_width="match_parent"
