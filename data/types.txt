@@ -1652,3 +1652,4 @@ amenity|recycling|container
 *roller_coaster|track
 *man_made|ceremonial_gate
 *leisure|bird_hide
+*organicapp|twm_border
