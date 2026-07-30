@@ -2,8 +2,6 @@
 
 #include "base/assert.hpp"
 
-#include <utility>
-
 namespace df
 {
 MapDataProvider::MapDataProvider(TReadIDsFn && idsReader, TReadFeaturesFn && featureReader,
@@ -11,8 +9,7 @@ MapDataProvider::MapDataProvider(TReadIDsFn && idsReader, TReadFeaturesFn && fea
                                  TUpdateCurrentCountryFn && updateCurrentCountryFn,
                                  TTileBackgroundReadFn && tileBackgroundReadFn,
                                  TCancelTileBackgroundReadingFn && cancelTileBackgroundReadingFn,
-                                 THasTerrainFn && hasTerrainFn, TReadIsolinesFn && readIsolinesFn,
-                                 TReadTrianglesFn && readTrianglesFn)
+                                 THasTerrainFn && hasTerrainFn, TReadTerrainFn && readTerrainFn)
   : m_isCountryLoadedByName(std::move(isCountryLoadedByNameFn))
   , m_featureReader(std::move(featureReader))
   , m_idsReader(std::move(idsReader))
@@ -20,8 +17,7 @@ MapDataProvider::MapDataProvider(TReadIDsFn && idsReader, TReadFeaturesFn && fea
   , m_tileBackgroundReader(std::move(tileBackgroundReadFn))
   , m_cancelTileBackgroundReading(std::move(cancelTileBackgroundReadingFn))
   , m_hasTerrain(std::move(hasTerrainFn))
-  , m_readIsolines(std::move(readIsolinesFn))
-  , m_readTriangles(std::move(readTrianglesFn))
+  , m_readTerrain(std::move(readTerrainFn))
 {
   CHECK(m_isCountryLoadedByName != nullptr, ());
   CHECK(m_featureReader != nullptr, ());
@@ -30,8 +26,7 @@ MapDataProvider::MapDataProvider(TReadIDsFn && idsReader, TReadFeaturesFn && fea
   CHECK(m_tileBackgroundReader != nullptr, ());
   CHECK(m_cancelTileBackgroundReading != nullptr, ());
   CHECK(m_hasTerrain != nullptr, ());
-  CHECK(m_readIsolines != nullptr, ());
-  CHECK(m_readTriangles != nullptr, ());
+  CHECK(m_readTerrain != nullptr, ());
 }
 
 void MapDataProvider::ReadFeaturesID(TReadCallback<FeatureID const> const & fn, m2::RectD const & r, int scale) const
@@ -49,14 +44,9 @@ bool MapDataProvider::HasTerrain(m2::RectD const & rect) const
   return m_hasTerrain(rect);
 }
 
-void MapDataProvider::ReadIsolines(m2::RectD const & rect, int zoom, int32_t step, TIsolineCallback const & fn) const
+void MapDataProvider::ReadTerrainMesh(m2::RectD const & rect, int zoom, terrain::TileMesh & mesh) const
 {
-  m_readIsolines(rect, zoom, step, fn);
-}
-
-void MapDataProvider::ReadTriangles(m2::RectD const & rect, int zoom, TTrianglesCallback const & fn) const
-{
-  m_readTriangles(rect, zoom, fn);
+  m_readTerrain(rect, zoom, mesh);
 }
 
 MapDataProvider::TTileBackgroundReadFn MapDataProvider::ReadTileBackgroundFn() const
