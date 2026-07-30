@@ -581,32 +581,14 @@ string DetermineSurfaceAndHighwayType(OsmElement * p)
       "paving_stones", "sett",        "brick",    "bricks",   "unhewn_cobblestone", "wood"};
 
   // All not explicitly listed surface types are considered unpaved good, e.g. "compacted", "fine_gravel".
-  static base::StringIL badSurfaces = {"cobblestone",
-                                       "dirt",
-                                       "earth",
-                                       "soil",
-                                       "grass",
-                                       "gravel",
-                                       "ground",
-                                       "metal",
-                                       "mud",
-                                       "rock",
-                                       "stone",
-                                       "unpaved",
-                                       "pebblestone",
-                                       "sand",
-                                       "sett",
-                                       "brick",
-                                       "bricks",
-                                       "snow",
-                                       "stepping_stones",
-                                       "unhewn_cobblestone",
-                                       "grass_paver",
-                                       "wood",
-                                       "woodchips"};
+  static base::StringIL badSurfaces = {
+      "cobblestone", "dirt",  "earth",    "soil",   "grass", "gravel",          "ground",
+      "laterite",    "metal", "mud",      "rock",   "stone", "unpaved",         "pebblestone",
+      "sand",        "sett",  "brick",    "bricks", "snow",  "stepping_stones", "unhewn_cobblestone",
+      "grass_paver", "wood",  "woodchips"};
 
-  static base::StringIL veryBadSurfaces = {"dirt", "earth", "soil", "grass",           "ground",   "mud",
-                                           "rock", "sand",  "snow", "stepping_stones", "woodchips"};
+  static base::StringIL veryBadSurfaces = {"dirt", "earth", "soil", "grass", "ground",          "laterite",
+                                           "mud",  "rock",  "sand", "snow",  "stepping_stones", "woodchips"};
 
   // surface=tartan/artificial_turf/clay are not used for highways (but for sport pitches etc).
 
