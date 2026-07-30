@@ -205,6 +205,47 @@
     <item name="android:homeAsUpIndicator">@drawable/ic_down</item>
   </style>
 
+  <!-- Cannot inherit MwmWidget.ToolbarStyle: that family is a Dark.ActionBar overlay, where
+       ?android:textColorPrimary resolves to white and the light theme breaks. -->
+  <style name="MwmWidget.Toolbar.Card" parent="">
+    <item name="android:background">?cardBackground</item>
+    <item name="contentInsetStart">0dp</item>
+    <item name="titleTextAppearance">@style/MwmTextAppearance.Toolbar.Title</item>
+    <item name="titleTextColor">?android:textColorPrimary</item>
+  </style>
+
+  <style name="ThemeOverlay.Mwm.Toolbar.Card" parent="ThemeOverlay.MaterialComponents">
+    <item name="colorControlNormal">?android:textColorPrimary</item>
+    <item name="iconTint">?android:textColorPrimary</item>
+    <item name="actionMenuTextColor">?android:textColorPrimary</item>
+    <item name="actionMenuTextAppearance">@style/MwmTextAppearance.Body1</item>
+    <item name="actionButtonStyle">@style/AppTheme.Widget.ActionButton</item>
+  </style>
+
+  <!-- Modern filled TextInputLayout with pill-rounded corners inspired by the search bar. -->
+  <style name="MwmWidget.TextInput.Filled" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+    <item name="boxBackgroundColor">?panel</item>
+    <item name="boxCornerRadiusTopStart">@dimen/corner_radius_pill</item>
+    <item name="boxCornerRadiusTopEnd">@dimen/corner_radius_pill</item>
+    <item name="boxCornerRadiusBottomStart">@dimen/corner_radius_pill</item>
+    <item name="boxCornerRadiusBottomEnd">@dimen/corner_radius_pill</item>
+    <item name="hintTextColor">?android:textColorSecondary</item>
+    <item name="boxStrokeWidth">0dp</item>
+    <item name="boxStrokeWidthFocused">0dp</item>
+    <item name="cursorColor">@color/cursor_edit_field</item>
+  </style>
+
+  <style name="MwmWidget.TextInput.Filled.EditText" parent="Widget.MaterialComponents.TextInputEditText.FilledBox">
+    <item name="android:paddingStart">@dimen/margin_base</item>
+    <item name="android:paddingEnd">@dimen/margin_base</item>
+    <item name="android:textAppearance">@style/MwmTextAppearance.Body1</item>
+    <item name="android:theme">@style/ThemeOverlay.Mwm.EditText</item>
+  </style>
+
+  <style name="ThemeOverlay.Mwm.EditText" parent="ThemeOverlay.MaterialComponents">
+    <item name="colorControlActivated">@color/cursor_edit_field</item>
+  </style>
+
   <style name="MwmWidget.ListView" parent="Widget.AppCompat.ListView">
     <item name="android:fadingEdge">none</item>
     <item name="android:divider">@color/divider</item>
