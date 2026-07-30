@@ -1926,11 +1926,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   auto updateCurrentCountryFn = std::bind(&Framework::OnUpdateCurrentCountry, this, _1, _2);
 
   auto hasTerrainFn = [this](m2::RectD const & rect) { return m_terrainProvider.HasTerrain(rect); };
-  auto readIsolinesFn =
-      [this](m2::RectD const & rect, int zoom, int32_t step, df::MapDataProvider::TIsolineCallback const & fn)
-  { m_terrainProvider.ForEachIsoline(rect, zoom, step, fn); };
-  auto readTrianglesFn = [this](m2::RectD const & rect, int zoom, df::MapDataProvider::TTrianglesCallback const & fn)
-  { m_terrainProvider.ForEachTriangles(rect, zoom, fn); };
+  auto readTerrainFn = [this](m2::RectD const & rect, int zoom, terrain::TileMesh & mesh)
+  { m_terrainProvider.ReadMesh(rect, zoom, mesh); };
 
   bool allow3d;
   bool allow3dBuildings;
@@ -1952,8 +1949,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
       params.m_apiVersion, contextFactory, dp::Viewport(0, 0, params.m_surfaceWidth, params.m_surfaceHeight),
       df::MapDataProvider(std::move(idReadFn), std::move(featureReadFn), std::move(isCountryLoadedByNameFn),
                           std::move(updateCurrentCountryFn), std::move(tileBackgroundReadFn),
-                          std::move(cancelTileBackgroundReadingFn), std::move(hasTerrainFn), std::move(readIsolinesFn),
-                          std::move(readTrianglesFn)),
+                          std::move(cancelTileBackgroundReadingFn), std::move(hasTerrainFn), std::move(readTerrainFn)),
       params.m_hints, params.m_visualScale, fontsScaleFactor, std::move(params.m_widgetsInitInfo),
       std::move(myPositionModeChangedFn), allow3dBuildings, trafficEnabled, isolinesEnabled,
       params.m_isChoosePositionMode, params.m_isChoosePositionMode, GetSelectedFeatureTriangles(),
