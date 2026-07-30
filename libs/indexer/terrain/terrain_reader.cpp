@@ -26,9 +26,11 @@ Reader::Reader(FilesContainerR const & container) : m_container(container)
   m_index = std::make_unique<IntervalIndex<ModelReaderPtr, uint32_t>>(indexReader);
 }
 
-void Reader::ForEachFeature(m2::RectD const & rect, size_t geomIndex, FeatureFn const & fn) const
+void Reader::ReadMesh(m2::RectD const & rect, size_t geomIndex, TileMesh & mesh) const
 {
   ASSERT_LESS(geomIndex, m_header.m_geometries.size(), ());
+  // The mesh dedup keys are raw quantized points: the quantization must be uniform.
+  ASSERT_EQUAL(mesh.GetCoordBits(), m_header.m_coordBits, ());
 
   // Sorted and deduplicated: read the feature records in the file order.
   auto const intervals = covering::CoverViewportAndAppendLowerLevels<RectId::DEPTH_LEVELS>(rect, kCellDepth);
@@ -59,9 +61,7 @@ void Reader::ForEachFeature(m2::RectD const & rect, size_t geomIndex, FeatureFn 
     uint64_t const geomOffset = record.m_geomOffsets[geomIndex];
     CHECK_LESS(geomOffset, geometrySize, ());
     ReaderSource<ModelReaderPtr> geomSrc(geometry.SubReader(geomOffset, geometrySize - geomOffset));
-    Triangles triangles;
-    DeserializeFeatureGeometry(geomSrc, m_header, record, triangles);
-    fn(triangles);
+    DeserializeFeatureGeometry(geomSrc, m_header, record, mesh);
   }
 }
 }  // namespace terrain
