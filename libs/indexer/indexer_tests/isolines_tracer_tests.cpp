@@ -53,43 +53,39 @@ UNIT_TEST(TerrainIsolines_FlatPlainInvariants)
 
   FilesContainerR const container(path);
   terrain::Reader const reader(container);
-  std::vector<terrain::Reader const *> const readers = {&reader};
 
   m2::RectD const rect =
       mercator::RectByCenterXYAndSizeInMeters(reader.GetHeader().GetLimitRect().Center(), 3000.0 /* meters */);
 
   size_t const geomIndex = reader.GetHeader().GetGeometryIndex(17 /* the best LOD */);
 
-  // The triangles around the block center decode and stay in a plausible altitude range.
-  size_t features = 0, triangles = 0;
+  // The mesh around the block center decodes and stays in a plausible altitude range.
+  terrain::TileMesh mesh(reader.GetHeader().m_coordBits);
+  reader.ReadMesh(rect, geomIndex, mesh);
+  TEST(!mesh.IsEmpty(), ());
   int32_t minAlt = 20000, maxAlt = -20000;
+  for (auto const alt : mesh.GetAltitudes())
+  {
+    minAlt = std::min(minAlt, alt);
+    maxAlt = std::max(maxAlt, alt);
+  }
+  TEST_GREATER(minAlt, -11000, ());
+  TEST_LESS(maxAlt, 9000, ());
+  LOG(LINFO, ("Vertices:", mesh.GetPoints().size(), "triangles:", mesh.GetTrianglesCount(), "altitudes:", minAlt, "..",
+              maxAlt));
+
   // The chains are maximal: they end on the COLLECTED mesh boundary, i.e. the union of
   // the intersecting features, which can reach far beyond the query rect.
   m2::RectD meshRect = rect;
-  reader.ForEachFeature(rect, geomIndex, [&](terrain::Triangles const & t)
-  {
-    ++features;
-    triangles += t.m_triangles.size() / 3;
-    meshRect.Add(t.m_rect);
-    for (auto const alt : t.m_altitudes)
-    {
-      minAlt = std::min(minAlt, int32_t{alt});
-      maxAlt = std::max(maxAlt, int32_t{alt});
-    }
-  });
-  TEST_GREATER(features, 0, ());
-  TEST_GREATER(triangles, 0, ());
-  TEST_GREATER(minAlt, -11000, ());
-  TEST_LESS(maxAlt, 9000, ());
-  LOG(LINFO, ("Features:", features, "triangles:", triangles, "altitudes:", minAlt, "..", maxAlt));
+  for (auto const & p : mesh.GetPoints())
+    meshRect.Add(p);
 
   // The traced isolines hold the structural invariants even on the degenerate level sets.
-  terrain::IsolinesTracer const tracer(readers);
   size_t lines = 0;
   std::map<int32_t, size_t> perAltitude;
   std::ofstream dump(base::JoinPath(GetPlatform().TmpDir(), "isolines_dump.txt"));
   dump << std::setprecision(12);
-  tracer.Trace(rect, geomIndex, 10, measurement_utils::Units::Metric, [&](terrain::Isoline && isoline)
+  terrain::TraceIsolines(mesh, 10, measurement_utils::Units::Metric, [&](terrain::Isoline && isoline)
   {
     ++lines;
     ++perAltitude[isoline.m_altitude];

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "indexer/terrain/terrain_reader.hpp"
+#include "indexer/terrain/tile_mesh.hpp"
 
 #include "platform/measurement_utils.hpp"
 
@@ -22,9 +22,12 @@ struct Isoline
   bool m_closed = false;
 };
 
-// Extracts isolines from TWM terrain meshes by marching triangles:
-// - a single pass per query serves all the levels: triangles are binned by the levels
-//   they cross, so flat regions cost nothing;
+using IsolineFn = std::function<void(Isoline &&)>;
+
+// Extracts the isolines of all the altitude levels multiple of step from the tile
+// terrain mesh by marching triangles:
+// - a single pass serves all the levels: triangles are binned by the levels they
+//   cross, so flat regions cost nothing;
 // - a vertex exactly on a level counts as the higher side (the half-open classification),
 //   so degenerate segments never appear and flat triangles are routed around - the same
 //   convention as the raster marching squares corner shift in topography_generator;
@@ -32,28 +35,13 @@ struct Isoline
 //   low->high edge (the entry), so chains are walked deterministically through the
 //   adjacency and the higher ground always stays on the RIGHT of the traversal
 //   direction, matching the marching squares orientation;
-// - the adjacency is restored by hashing quantized directed edges, and the crossing
-//   points are interpolated on canonically ordered edges: both incident triangles
-//   produce bit-identical points, so chains continue seamlessly across triangles,
-//   features and neighbor TWM blocks.
-class IsolinesTracer
-{
-public:
-  // All the readers must share the coordinate bits and geometry scales configuration.
-  explicit IsolinesTracer(std::vector<Reader const *> const & readers);
-
-  using IsolineFn = std::function<void(Isoline &&)>;
-
-  // Traces the isolines of all the altitude levels multiple of step over the features
-  // intersecting the mercator rect at the given geometry scale index. The stored meter
-  // altitudes are converted to feet for the imperial units, so the step and the result
-  // levels are round values in the display units.
-  // Chains are maximal: they close into rings or end on the collected mesh boundary,
-  // so the caller should inflate the rect if the isolines must cover it entirely.
-  void Trace(m2::RectD const & rect, size_t geomIndex, int32_t step, measurement_utils::Units units,
-             IsolineFn const & fn) const;
-
-private:
-  std::vector<Reader const *> m_readers;
-};
+// - the adjacency is restored by hashing the directed edges of the deduplicated mesh,
+//   and the crossing points are interpolated on canonically ordered edges: both
+//   incident triangles produce bit-identical points, so chains continue seamlessly
+//   across triangles, features and neighbor TWM blocks.
+// The stored meter altitudes are converted to feet for the imperial units, so the step
+// and the result levels are round values in the display units.
+// Chains are maximal: they close into rings or end on the collected mesh boundary, so
+// the mesh should be collected over an inflated rect if the isolines must cover it.
+void TraceIsolines(TileMesh const & mesh, int32_t step, measurement_utils::Units units, IsolineFn const & fn);
 }  // namespace terrain

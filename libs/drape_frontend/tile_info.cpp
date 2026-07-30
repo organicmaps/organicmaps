@@ -53,22 +53,20 @@ void TileInfo::ReadFeatures(MapDataProvider const & model)
   m_context->GetMetalineManager()->Update(m_mwms);
 
   // The zoom gate matches kMinIsolinesZoom and the isoline styles visibility start.
-  bool const drawDynamicIsolines =
+  /// @todo Separate visibility settings for the isolines and the hillshading.
+  bool const drawTerrain =
       GetZoomLevel() >= 11 && m_context->IsolinesEnabled() && model.HasTerrain(GetTileKey().GetWrappedDataRect());
 
-  if (!m_featureInfo.empty() || drawDynamicIsolines)
+  if (!m_featureInfo.empty() || drawTerrain)
   {
     std::sort(m_featureInfo.begin(), m_featureInfo.end());
 
     RuleDrawer drawer(std::bind(&TileInfo::IsCancelled, this), model.m_isCountryLoadedByName, make_ref(m_context),
-                      m_context->GetMapLangIndex(), drawDynamicIsolines);
+                      m_context->GetMapLangIndex(), drawTerrain);
     if (!m_featureInfo.empty())
       model.ReadFeatures([&drawer](FeatureType & ft) { drawer(ft); }, m_featureInfo);
-    if (drawDynamicIsolines)
-    {
-      drawer.DrawTerrainShade(model);
-      drawer.DrawDynamicIsolines(model);
-    }
+    if (drawTerrain)
+      drawer.DrawTerrain(model);
 #ifdef DRAW_TILE_NET
     drawer.DrawTileNet();
 #endif
