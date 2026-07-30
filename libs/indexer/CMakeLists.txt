@@ -129,6 +129,7 @@ set(SRC
   terrain/terrain_reader.cpp
   terrain/terrain_reader.hpp
   terrain/terrain_serdes.hpp
+  terrain/terrain_utils.cpp
   terrain/terrain_utils.hpp
   terrain/twm_grid.cpp
   terrain/twm_grid.hpp

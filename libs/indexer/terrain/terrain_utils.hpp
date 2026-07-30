@@ -1,12 +1,16 @@
 #pragma once
 
+#include "indexer/drules_struct.hpp"
+
 #include "platform/measurement_utils.hpp"
 
 #include "base/assert.hpp"
 
 #include "defines.hpp"
 
+#include <array>
 #include <cmath>
+#include <cstdint>
 #include <string>
 
 namespace terrain
@@ -22,52 +26,45 @@ inline std::string GetBlockFileName(int bottomLat, int leftLon)
   return buffer;
 }
 
-// The isolines step for the draw zoom level, in meters or feet per the measurement units
-// (cf. the maplibre-contour intervals; the feet steps are the USGS-style round values).
-// The steps must be multiples of 10 to keep the isoline style class mapping working, and
-// the traced levels land on the style classes with per-class zoom visibility gates (see
-// kAltClasses in RuleDrawer::DrawDynamicIsolines): e.g. the metric 50 m trace at z12-13
-// renders only the 100 m lines until the step_50 class opens. The feet values are chosen
-// so the VISIBLE density stays close to the metric one through those gates: 200 ft maps
-// to the step_100/500/1000 classes only, mirroring the metric 100 m ladder.
-inline int32_t GetIsolinesStepForZoom(int zoom, measurement_utils::Units units)
+// Resolves the dynamic isolines drawing policy from the current map style for one draw
+// zoom: the altitude step to trace and the line/label drules of every traced altitude.
+// The style is the single source of the steps: a class the style opens at some zoom
+// (e.g. line|z11-[isoline=step_1000]) traces and draws from exactly that zoom, and a
+// level is labeled iff its class has a visible pathtext rule. The altitude -> class
+// mapping matches the baked isoline features (see generator isolines_generator); the
+// sea depths (negative altitudes) follow the same ladder inverted: -N draws as N does.
+// Constructed once per tile draw (see RuleDrawer::DrawDynamicIsolines), the per-isoline
+// lookups are trivial.
+// TODO(terrain): correct the resolved steps by the tile relief or coordinates, e.g.
+// shift the class visibility a zoom earlier for manually highlighted regions.
+class IsolinesStyle
 {
-  if (units == measurement_utils::Units::Imperial)
-    return zoom <= 14 ? 200 : 20;
-  if (zoom <= 11)
-    return 100;
-  if (zoom <= 13)
-    return 50;
-  if (zoom == 14)
-    return 20;
-  return 10;
-}
+public:
+  IsolinesStyle(int zoom, measurement_utils::Units units);
 
-// The altitude labels step for the draw zoom and the tile's traced altitudes range
-// (both in the units), 0 = no labels. Must be a multiple of the corresponding
-// GetIsolinesStepForZoom, so the labeled levels exist among the traced ones.
-inline int32_t GetIsolinesLabelStepForZoom(int zoom, int32_t altitudeRange, measurement_utils::Units units)
-{
-  if (units == measurement_utils::Units::Imperial)
+  // The trace step in the display units: the finest class rung with a visible line
+  // drule, 0 when the style draws no isolines at this zoom.
+  int32_t GetStep() const { return m_step; }
+
+  // The line drule of the altitude's class, nullptr when invisible at this zoom.
+  drule::LineRule const * GetLineRule(int32_t altitude) const { return GetClass(altitude).m_line; }
+
+  // The label drule of the altitude's class (with the primary caption always present),
+  // nullptr when the style does not label this altitude at this zoom.
+  drule::PathTextRule const * GetPathTextRule(int32_t altitude) const { return GetClass(altitude).m_text; }
+
+private:
+  struct ClassStyle
   {
-    if (zoom <= 11)
-      return 1000;
-    if (zoom <= 13)
-      return altitudeRange > 3000 ? 1000 : 200;
-    if (zoom == 14)
-      return 200;
-    if (zoom >= 18)
-      return 20;
-    return altitudeRange > 600 ? 100 : 40;
-  }
-  if (zoom <= 11)
-    return 500;
-  if (zoom <= 13)
-    return altitudeRange > 1000 ? 500 : 100;
-  if (zoom == 14)
-    return 100;
-  if (zoom >= 18)
-    return 10;
-  return altitudeRange > 200 ? 50 : 20;
-}
+    int32_t m_rung = 0;
+    drule::LineRule const * m_line = nullptr;
+    drule::PathTextRule const * m_text = nullptr;
+  };
+
+  ClassStyle const & GetClass(int32_t altitude) const;
+
+  std::array<ClassStyle, 5> m_classes;  // Coarse to fine, see kClassDefs in the cpp.
+  ClassStyle m_zero;                    // The zero altitude line, a style class of its own.
+  int32_t m_step = 0;
+};
 }  // namespace terrain
