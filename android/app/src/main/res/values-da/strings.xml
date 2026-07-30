@@ -753,8 +753,7 @@
     <string name="religious_places">Religiøse steder</string>
     <string name="select_list">Væg liste</string>
     <string name="button_layer_isolines">Konturlinjer</string>
-    <string name="isolines_activation_error_dialog">Aktivering af konturlinjer kræver download af kortdata for dette område</string>
-    <string name="isolines_location_error_dialog">Konturlinjer er endnu ikke tilgængelige i dette område</string>
+    <string name="isolines_location_error_dialog">Download terræn for dette område for at se konturlinjer</string>
     <string name="elevation_profile_ascent">Stigning</string>
     <string name="elevation_profile_descent">Nedstigning</string>
     <string name="elevation_profile_min_elevation">Min. højde</string>

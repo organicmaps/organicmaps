@@ -756,8 +756,7 @@
     <string name="religious_places">Lugares sacros</string>
     <string name="select_list">Seleccionar lista</string>
     <string name="button_layer_isolines">Curvas de nivel</string>
-    <string name="isolines_activation_error_dialog">Para usar as curvas de nivel, actualice ou descargue o mapa da área desexada</string>
-    <string name="isolines_location_error_dialog">As curvas de nivel aínda non están dispoñibles nesta zona</string>
+    <string name="isolines_location_error_dialog">Descargue o relevo desta rexión para ver as curvas de nivel</string>
     <string name="elevation_profile_ascent">Ascenso</string>
     <string name="elevation_profile_descent">Descenso</string>
     <string name="elevation_profile_min_elevation">Elevación mín.</string>

@@ -923,8 +923,7 @@
 "dialog_pedestrian_route_is_long_header" = "地下鉄ルートが見つかりませんでした";
 "dialog_pedestrian_route_is_long_message" = "もっと地下鉄駅に近い出発地または目的地を選択してください";
 "button_layer_isolines" = "地形";
-"isolines_activation_error_dialog" = "地形レイヤーを使用するには、このエリアのマップを更新もしくはダウンロードしてください";
-"isolines_location_error_dialog" = "地形レイヤーはこの地域ではまだ利用できません";
+"isolines_location_error_dialog" = "この地域の地形をダウンロードすると等高線が表示されます";
 "elevation_profile_ascent" = "上昇";
 "elevation_profile_descent" = "下降";
 "elevation_profile_min_elevation" = "最小標高";

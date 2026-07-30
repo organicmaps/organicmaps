@@ -753,8 +753,7 @@
     <string name="religious_places">Religious places</string>
     <string name="select_list">Select list</string>
     <string name="button_layer_isolines">Contour Lines</string>
-    <string name="isolines_activation_error_dialog">Activating contour lines requires downloading map data for this area</string>
-    <string name="isolines_location_error_dialog">Contour lines are not yet available in this area</string>
+    <string name="isolines_location_error_dialog">Download terrain for this region to see contour lines</string>
     <string name="elevation_profile_ascent">Ascent</string>
     <string name="elevation_profile_descent">Descent</string>
     <string name="elevation_profile_min_elevation">Min. elevation</string>

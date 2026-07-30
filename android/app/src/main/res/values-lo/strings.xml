@@ -707,8 +707,7 @@
     <string name="religious_places">ສະຖານທີ່ທາງສາດສະໜາ</string>
     <string name="select_list">ເລືອກລາຍການ</string>
     <string name="button_layer_isolines">ເສັ້ນລະດັບຄວາມສູງ</string>
-    <string name="isolines_activation_error_dialog">ການເປີດໃຊ້ເສັ້ນລະດັບຄວາມສູງຕ້ອງດາວໂຫລດຂໍ້ມູນແຜນທີ່ສຳລັບພາກພື້ນນີ້</string>
-    <string name="isolines_location_error_dialog">ເສັ້ນລະດັບຄວາມສູງຍັງບໍ່ທັນມີເທື່ອໃນເຂດນີ້</string>
+    <string name="isolines_location_error_dialog">ດາວໂຫຼດພູມິປະເທດສຳລັບເຂດນີ້ເພື່ອເບິ່ງເສັ້ນລະດັບຄວາມສູງ</string>
     <string name="elevation_profile_ascent">ທາງຂຶ້ນ</string>
     <string name="elevation_profile_descent">ທາງລົງ</string>
     <string name="elevation_profile_min_elevation">ລະດັບຄວາມສູງຕ່ຳສຸດ</string>

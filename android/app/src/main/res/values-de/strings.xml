@@ -755,8 +755,7 @@
     <string name="religious_places">Religiöse Orte</string>
     <string name="select_list">Liste auswählen</string>
     <string name="button_layer_isolines">Höhenlinien</string>
-    <string name="isolines_activation_error_dialog">Um die Höhenlinien nutzen zu können, aktualisiere die Karte des betreffenden Gebiets oder lade diese herunter</string>
-    <string name="isolines_location_error_dialog">Höhenlinien sind für dieses Gebiet noch nicht verfügbar</string>
+    <string name="isolines_location_error_dialog">Lade das Gelände dieser Region herunter, um Höhenlinien zu sehen</string>
     <string name="elevation_profile_ascent">Bergauf</string>
     <string name="elevation_profile_descent">Bergab</string>
     <string name="elevation_profile_min_elevation">Min. Höhe</string>

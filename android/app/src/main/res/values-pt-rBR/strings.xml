@@ -517,8 +517,7 @@
     <string name="religious_places">Locais religiosos</string>
     <string name="select_list">Escolher a lista</string>
     <string name="button_layer_isolines">Relevo</string>
-    <string name="isolines_activation_error_dialog">Para ativar e usar a camada Relevo, atualize ou baixe o mapa da região</string>
-    <string name="isolines_location_error_dialog">A camada Relevo ainda não está disponível para esta região</string>
+    <string name="isolines_location_error_dialog">Baixe o terreno desta região para ver as curvas de nível</string>
     <string name="elevation_profile_min_elevation">Elevação mínima</string>
     <string name="elevation_profile_max_elevation">Elevação máxima</string>
     <string name="elevation_profile_distance">Dist.:</string>

@@ -760,8 +760,7 @@
     <string name="religious_places">Святі місця</string>
     <string name="select_list">Обрати список</string>
     <string name="button_layer_isolines">Висоти</string>
-    <string name="isolines_activation_error_dialog">Щоб скористатися лініями висот, оновіть чи завантажте мапу потрібної місцевості</string>
-    <string name="isolines_location_error_dialog">Лінії висот ще недоступні в цьому регіоні</string>
+    <string name="isolines_location_error_dialog">Завантажте рельєф цього регіону, щоб побачити лінії висот</string>
     <string name="elevation_profile_ascent">Підйом</string>
     <string name="elevation_profile_descent">Спуск</string>
     <string name="elevation_profile_min_elevation">Мін. висота</string>

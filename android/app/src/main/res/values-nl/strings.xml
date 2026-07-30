@@ -756,8 +756,7 @@
     <string name="religious_places">Religieuze plaatsen</string>
     <string name="select_list">Kies een lijst</string>
     <string name="button_layer_isolines">Contourlijnen</string>
-    <string name="isolines_activation_error_dialog">Als u gebruik wilt maken van hoogtelijnen, moet u de kaart van het gewenste gebied bijwerken of downloaden</string>
-    <string name="isolines_location_error_dialog">Hoogtelijnen zijn nog niet beschikbaar in deze regio</string>
+    <string name="isolines_location_error_dialog">Download het terrein voor deze regio om hoogtelijnen te zien</string>
     <string name="elevation_profile_ascent">Stijging</string>
     <string name="elevation_profile_descent">Daling</string>
     <string name="elevation_profile_min_elevation">Min. hoogte</string>
