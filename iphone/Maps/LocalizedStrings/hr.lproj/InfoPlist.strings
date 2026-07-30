@@ -17,18 +17,8 @@
 "report_a_bug" = "Prijavi grešku";
 
 
-/********** 3d touch strings **********/
-
-
-/* Used in home screen quick actions. */
-"route" = "Ruta";
-
-
 /********** gps strings **********/
 
-
-/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "Otkrivanje lokacije u pozadini potrebno je za potpuno uživanje u funkcionalnosti aplikacije. Koristi se za navigaciju i spremanje nedavno prešlih ruta.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Određivanje vaše lokacije potrebno je za navigaciju i za spremanje nedavno prešlih ruta.";

@@ -17,18 +17,8 @@
 "report_a_bug" = "Irrapporta problemi bl-app";
 
 
-/********** 3d touch strings **********/
-
-
-/* Used in home screen quick actions. */
-"route" = "Rotta";
-
-
 /********** gps strings **********/
 
-
-/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "Id-determinazzjoni tal-post fl-isfond hija meħtieġa biex tgawdi bis-sħiħ il-funzjonalità tal-app. Tintuża għan-navigazzjoni u biex tissejvja t-traċċa tiegħek li vvjaġġajt reċentement.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Id-determinazzjoni tal-post tiegħek hija meħtieġa għan-navigazzjoni u biex tissejvja t-traċċa tiegħek li vvjaġġajt reċentement.";

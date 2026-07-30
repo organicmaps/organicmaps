@@ -1,0 +1,12 @@
+# Keys that ARE used but cannot be found by a textual scan because they are
+# resolved at runtime from a dynamically-built name. Listed here so the unused-
+# strings check does not report them. One key per line; '#' starts a comment;
+# a trailing '*' matches a whole family by prefix.
+#
+# Before adding an entry, confirm the key really is referenced dynamically (cite
+# the call site). Do NOT add keys here just to silence the report — a key with
+# no consumer at all should be deleted, not allowlisted.
+
+# Search categories are resolved by name via Resources.getIdentifier(key, "string", ...)
+# in android/.../search/CategoriesAdapter.java (getStringResIdByKey).
+category_*

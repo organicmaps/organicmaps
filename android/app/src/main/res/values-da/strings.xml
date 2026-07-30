@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Beklager, indstillingerne for kortlagring er i øjeblikket deaktiveret.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Download af kort er i gang nu.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Hey, tjek min nuværende placering på Organic Maps! %1$s eller %2$s. Har du ikke offline kort? Download her: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Hey, tjek min knappenål på Organic Maps!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hey, tjek min nuværende placering på Organic Maps-kortet!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Hej,\n\nJeg er her nu: %1$s. Tryk på dette link %2$s eller dette %3$s for at se stedet på kortet. \n\nTak.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Del</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Aktiver venligst placeringstjenester</string>
     <string name="save">Gem</string>
     <string name="create">opret</string>
-    <!-- red color -->
-    <string name="red">Rød</string>
-    <!-- yellow color -->
-    <string name="yellow">Gul</string>
-    <!-- blue color -->
-    <string name="blue">Blå</string>
-    <!-- green color -->
-    <string name="green">Grøn</string>
-    <!-- purple color -->
-    <string name="purple">Lilla</string>
-    <!-- orange color -->
-    <string name="orange">Orange</string>
-    <!-- brown color -->
-    <string name="brown">Brun</string>
-    <!-- pink color -->
-    <string name="pink">Lyserød</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Mørkelilla</string>
-    <!-- light blue color -->
-    <string name="light_blue">Lyseblå</string>
-    <!-- cyan color -->
-    <string name="cyan">Cyan</string>
-    <!-- teal color -->
-    <string name="teal">Blågrøn</string>
-    <!-- lime color -->
-    <string name="lime">Kalk</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Dyb orange</string>
-    <!-- gray color -->
-    <string name="gray">Grå</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Blågrå</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Udseende</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Ikke nok plads</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Slet unødvendig data</string>
-    <string name="editor_login_error_dialog">Login-fejl.</string>
     <string name="editor_profile_changes">Bekræftede ændringer</string>
     <string name="editor_focus_map_on_location">Træk i kortet for at placere korset på stedet eller virksomheden.</string>
     <string name="editor_edit_place_title">Redigerer</string>
@@ -579,12 +542,9 @@
     <string name="prefs_languages_information_off_link">Se denne vejledning for flere oplysninger.</string>
     <string name="transliteration_title">Translitterer til det latinske alfabet</string>
     <string name="learn_more">Flere oplysninger</string>
-    <string name="planning_route_manage_route">Administrer rute</string>
-    <string name="button_plan">Planlæg</string>
     <string name="placepage_remove_stop">Fjern stop</string>
     <string name="placepage_add_stop">Tilføj stop</string>
     <string name="drag_to_reorder">Omordn</string>
-    <string name="saved">Gemt</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Log ind på OpenStreetMap for automatisk at uploade alle dine kortredigeringer. Få mere at vide <a href="https://github.com/organicmaps/organicmaps/issues/6144">her</a>.</string>
     <string name="dialog_error_storage_title">Problem med lageradgang</string>
@@ -680,8 +640,6 @@
     <string name="avoid_motorways">Undgå motorveje</string>
     <string name="unable_to_calc_alert_title">Kan ikke beregne rute</string>
     <string name="unable_to_calc_alert_subtitle">Der kunne ikke findes en rute. Dette kan skyldes dine ruteindstillinger eller ufuldstændige OpenStreetMap-data. Ændr dine ruteindstillinger, og prøv igen.</string>
-    <string name="define_to_avoid_btn">Definer veje du vil undgå</string>
-    <string name="change_driving_options_btn">Indstillinger for ruteberegning aktiveret</string>
     <string name="toll_road">Betalingsvej</string>
     <string name="unpaved_road">Ikke-asfalteret vej</string>
     <string name="ferry_crossing">Færgeoverfart</string>
@@ -760,8 +718,6 @@
     <string name="elevation_profile_min_elevation">Min. højde</string>
     <string name="elevation_profile_max_elevation">Maks. højde</string>
     <string name="elevation_profile_difficulty">Sværhedsgrad</string>
-    <string name="elevation_profile_distance">Afs.:</string>
-    <string name="elevation_profile_time">Tid:</string>
     <string name="isolines_toast_zooms_1_10">Zoom ind for at udforske isolinjer</string>
     <string name="downloader_loading_ios">Downloader</string>
     <string name="download_map_title">Download oversigtskortet over verden</string>
@@ -865,12 +821,6 @@
     <string name="stop_track_recording">Stop optagelse af spor</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Optagelse af rute</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Stop uden at gemme</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Fortsæt optagelse</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Gem i bogmærker og spor?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Sporet er tomt - der er ikke noget at gemme</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -878,8 +828,6 @@
     <string name="choose_color">Vælg farve</string>
     <string name="edit_track">Rediger spor</string>
     <string name="uri_open_location_failed">Ingen app installeret, der kan åbne stedet</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Auto ved navigation</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Følg systemet</string>
     <!-- Title of the bottom sheet when sharing the track -->

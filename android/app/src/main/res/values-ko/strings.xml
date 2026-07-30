@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">죄송합니다, 지도 스토리지 설정이 비활성화되어 있습니다.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">국가 다운로드가 지금 진행 중입니다.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Organic Maps에서 현재 위치를 확인해 보세요! %1$s 또는 %2$s 오프라인 지도가 없으신가요? 여기에서 다운로드하세요: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Organic Maps 지도에서 내 핀 보기</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Organic Maps 지도에서 제 현재 위치를 살펴 보시기 바랍니다</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">안녕하세요.\n\n지금 다음 위치에 있습니다: %1$s. %2$s 또는 %3$s 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">공유</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">위치 서비스를 작동시켜 주십시요.</string>
     <string name="save">저장</string>
     <string name="create">만들기</string>
-    <!-- red color -->
-    <string name="red">빨간색</string>
-    <!-- yellow color -->
-    <string name="yellow">노란색</string>
-    <!-- blue color -->
-    <string name="blue">파란색</string>
-    <!-- green color -->
-    <string name="green">녹색</string>
-    <!-- purple color -->
-    <string name="purple">보라색</string>
-    <!-- orange color -->
-    <string name="orange">오렌지색</string>
-    <!-- brown color -->
-    <string name="brown">갈색</string>
-    <!-- pink color -->
-    <string name="pink">분홍색</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">진보라색</string>
-    <!-- light blue color -->
-    <string name="light_blue">하늘색</string>
-    <!-- cyan color -->
-    <string name="cyan">시안</string>
-    <!-- teal color -->
-    <string name="teal">틸</string>
-    <!-- lime color -->
-    <string name="lime">라임</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">진주황색</string>
-    <!-- gray color -->
-    <string name="gray">회색</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">청회색</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">모양</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">충분하지 않은 여유 공간</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">불필요한 데이터를 제거하십시오.</string>
-    <string name="editor_login_error_dialog">로그인 오류.</string>
     <string name="editor_profile_changes">변경사항 승인</string>
     <string name="editor_focus_map_on_location">지도를 드래그하여 장소 또는 비즈니스의 위치에 십자가를 배치합니다.</string>
     <string name="editor_edit_place_title">편집 중</string>
@@ -579,12 +542,9 @@
     <string name="prefs_languages_information_off_link">자세한 내용을 보려면 이 가이드를 확인하세요.</string>
     <string name="transliteration_title">라틴어로 음역</string>
     <string name="learn_more">자세히 알아보기</string>
-    <string name="planning_route_manage_route">경로 관리</string>
-    <string name="button_plan">계획</string>
     <string name="placepage_remove_stop">정류장 제거</string>
     <string name="placepage_add_stop">스톱 추가</string>
     <string name="drag_to_reorder">순서 변경</string>
-    <string name="saved">저장됨</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">모든 지도 편집 내용을 자동으로 업로드하려면 오픈스트리트맵에 로그인하세요. 자세히 알아보기 <a href="https://github.com/organicmaps/organicmaps/issues/6144">여기</a>.</string>
     <string name="dialog_error_storage_title">저장소 액세스 문제</string>
@@ -678,8 +638,6 @@
     <string name="avoid_motorways">고속도로 피하기</string>
     <string name="unable_to_calc_alert_title">루트를 계산할 수 없습니다</string>
     <string name="unable_to_calc_alert_subtitle">아쉽게도 귀하가 정의한 옵션으로는 루트를 찾을 수가 없습니다. 설정을 바꾸신다음 다시 시도해주세요</string>
-    <string name="define_to_avoid_btn">피할 도로 정의하기</string>
-    <string name="change_driving_options_btn">운전 옵션이 가능합니다</string>
     <string name="toll_road">유료 도로</string>
     <string name="unpaved_road">비포장 도로</string>
     <string name="ferry_crossing">여객선 횡단길</string>
@@ -758,8 +716,6 @@
     <string name="elevation_profile_min_elevation">최소 높이</string>
     <string name="elevation_profile_max_elevation">최대 높이</string>
     <string name="elevation_profile_difficulty">난이도</string>
-    <string name="elevation_profile_distance">거리:</string>
-    <string name="elevation_profile_time">소비 시간:</string>
     <string name="isolines_toast_zooms_1_10">등치선 탐색을 위한 확대</string>
     <string name="downloader_loading_ios">다운로드 중</string>
     <string name="download_map_title">세계 개요 지도 다운로드</string>
@@ -857,12 +813,6 @@
     <string name="stop_track_recording">트랙 기록 중지</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">트랙 기록</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">저장하지 않고 중지</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">기록 계속하기</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">북마크 및 트랙에 저장하시겠습니까?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">경로가 비어 있음 - 저장할 항목이 없음</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -870,8 +820,6 @@
     <string name="choose_color">색상 선택</string>
     <string name="edit_track">경로 편집</string>
     <string name="uri_open_location_failed">위치를 열 수 있는 앱이 설치되어 있지 않습니다.</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">내비게이션 중 자동</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">시스템 설정 따름</string>
     <!-- Title of the bottom sheet when sharing the track -->

@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Žao nam je, postavke pohrane karata su trenutačno onemogućene.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Preuzimanje karte je sada u tijeku.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Provjerite moju trenutnu lokaciju na Organic Maps! %1$s ili %2$s Nemate offline karte? Preuzmite ovdje: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Hej, pogledaj moj marker u Organic Maps!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hej, pogledaj moju trenutnu lokaciju na mapi Organic Maps!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Bok,  sada sam ovdje: %1$s. Klikni na ovaj link %2$s ili na ovaj %3$s da vidiš mjesto na karti.  Hvala.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Dijeli</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Aktiviraj usluge lokacija</string>
     <string name="save">Spremi</string>
     <string name="create">stvori</string>
-    <!-- red color -->
-    <string name="red">Crvena</string>
-    <!-- yellow color -->
-    <string name="yellow">Žuta</string>
-    <!-- blue color -->
-    <string name="blue">Plava</string>
-    <!-- green color -->
-    <string name="green">Zelena</string>
-    <!-- purple color -->
-    <string name="purple">Ljubičasta</string>
-    <!-- orange color -->
-    <string name="orange">Narančasta</string>
-    <!-- brown color -->
-    <string name="brown">Smeđa</string>
-    <!-- pink color -->
-    <string name="pink">Ružičasta</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Tamnoljubičasta</string>
-    <!-- light blue color -->
-    <string name="light_blue">Svjetloplava</string>
-    <!-- cyan color -->
-    <string name="cyan">Cijan</string>
-    <!-- teal color -->
-    <string name="teal">Tirkizna</string>
-    <!-- lime color -->
-    <string name="lime">Limunasta</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Tamnonarančasta</string>
-    <!-- gray color -->
-    <string name="gray">Siva</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Plavo siva</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Izgled</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Nema dovoljno memorije</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Izbriši sve nepotrebne podatke</string>
-    <string name="editor_login_error_dialog">Greška pri prijavi.</string>
     <string name="editor_profile_changes">Potvrđene promjene</string>
     <string name="editor_focus_map_on_location">Povucite kartu da postavite križ na lokaciju mjesta ili tvrtke.</string>
     <string name="editor_edit_place_title">Uređivanje</string>
@@ -577,12 +540,9 @@
     <string name="prefs_languages_information_off_link">Za više informacija pogledajte ovaj vodič.</string>
     <string name="transliteration_title">Transliterirati u latinično pismo</string>
     <string name="learn_more">Saznajte više</string>
-    <string name="planning_route_manage_route">Upravljanje rutom</string>
-    <string name="button_plan">Plan</string>
     <string name="placepage_remove_stop">Ukloni Stop</string>
     <string name="placepage_add_stop">Dodaj stajalište</string>
     <string name="drag_to_reorder">Prelagranje</string>
-    <string name="saved">Spremljeno</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Molimo prijavite se na OpenStreetMap kako biste automatski učitali sve svoje izmjene karte. Saznajte više <a href="https://github.com/organicmaps/organicmaps/issues/6144">ovdje</a>.</string>
     <string name="dialog_error_storage_title">Problem s pristupom pohrani</string>
@@ -684,8 +644,6 @@
     <string name="avoid_motorways">Izbjegni autoputeve</string>
     <string name="unable_to_calc_alert_title">Nije moguće izračunati rutu</string>
     <string name="unable_to_calc_alert_subtitle">Nije pronađena ruta. To može biti uzrokovano vašim opcijama za rutiranje ili nepotpunim podacima OpenStreetMapa. Molimo promijenite svoje opcije za rutiranje i pokušajte ponovno.</string>
-    <string name="define_to_avoid_btn">Definirajte ceste koje želite izbjegavati</string>
-    <string name="change_driving_options_btn">Opcije za određivanje rute su aktivirane</string>
     <string name="toll_road">Cesta sa cestarinom</string>
     <string name="unpaved_road">Neasfaltirana cesta</string>
     <string name="ferry_crossing">Prijevoz trajektom</string>
@@ -758,8 +716,6 @@
     <string name="elevation_profile_min_elevation">Min. visina</string>
     <string name="elevation_profile_max_elevation">Maks. visina</string>
     <string name="elevation_profile_difficulty">Razina težine</string>
-    <string name="elevation_profile_distance">Udaljenost:</string>
-    <string name="elevation_profile_time">Vrijeme:</string>
     <string name="isolines_toast_zooms_1_10">Uvećaj prikaz karte za prikaz izohipsa</string>
     <string name="downloader_loading_ios">Preuzimanje</string>
     <string name="download_map_title">Preuzmi preglednu kartu svijeta</string>
@@ -863,12 +819,6 @@
     <string name="stop_track_recording">Zaustavi snimanje staze</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Snimanje staze</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Prekini bez spremanja</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Nastavi snimanje</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Spremiti u „Zabilješke i putevi”?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Staza je prazna - nema što spremiti</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -876,8 +826,6 @@
     <string name="choose_color">Odaberi boju</string>
     <string name="edit_track">Uredi stazu</string>
     <string name="uri_open_location_failed">Nije instalirana nijedna aplikacija koja može otvoriti lokaciju</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Automatski u navigaciji</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Prati sustav</string>
     <!-- Title of the bottom sheet when sharing the track -->
