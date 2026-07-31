@@ -47,6 +47,7 @@ public class RoutingController
     default void onPoiPickCompleted() {}
     default void onResetToPlanningState() {}
     default void onBuiltRoute() {}
+    default void onRouteReadyToAutoStart() {}
     default void onDrivingOptionsWarning() {}
 
     default void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps) {}
@@ -82,6 +83,7 @@ public class RoutingController
   private TransitRouteInfo mCachedTransitRouteInfo;
 
   private boolean mRouteSaved;
+  private boolean mStartNavigationAfterBuild;
   private int mInvalidRoutePointsTransactionId;
   private int mRemovingIntermediatePointsTransactionId;
 
@@ -107,6 +109,9 @@ public class RoutingController
           mContainer.onDrivingOptionsWarning();
       }
 
+      if (mLastResultCode != ResultCodes.NO_ERROR && mLastResultCode != ResultCodes.HAS_WARNINGS)
+        mStartNavigationAfterBuild = false;
+
       processRoutingEvent();
     }
   };
@@ -120,6 +125,13 @@ public class RoutingController
     mLastBuildProgress = 100;
     if (mContainer != null)
       mContainer.onBuiltRoute();
+    if (mStartNavigationAfterBuild
+        && (mLastResultCode == ResultCodes.NO_ERROR || mLastResultCode == ResultCodes.HAS_WARNINGS))
+    {
+      mStartNavigationAfterBuild = false;
+      if (mContainer != null)
+        mContainer.onRouteReadyToAutoStart();
+    }
   }
 
   private final RoutingProgressListener mRoutingProgressListener = progress ->
@@ -354,6 +366,41 @@ public class RoutingController
     startPlanning(startPoint, endPoint);
   }
 
+  public void prepareApiRoute(@NonNull Router routerType, boolean startNavigation)
+  {
+    cancel();
+    setState(State.PREPARE);
+
+    mLastRouterType = routerType;
+    Router.set(mLastRouterType);
+    // The core sets the auto-start flag only for nav requests, which always route
+    // from the current position, so honor the parsed flag directly.
+    mStartNavigationAfterBuild = startNavigation;
+    // BUILDING must be set before the native call: a build that fails synchronously
+    // (e.g. NoCurrentPosition) reports through onRoutingEvent during the call and
+    // overwrites this state with ERROR.
+    setBuildState(BuildState.BUILDING);
+    mLastBuildProgress = 0;
+    mRouteSaved = false;
+    if (mContainer != null)
+      mContainer.onStartRouteBuilding();
+
+    // The core materializes the parsed itinerary as route points and starts the build,
+    // so show the planning UI without triggering another build: the no-points
+    // startPlanning() overload only refreshes the plan from its completion callback.
+    Framework.nativeExecuteRouteApiRequest();
+
+    if (mContainer != null)
+    {
+      mContainer.updateMenu();
+      if (isPlanning())
+      {
+        startPlanning();
+        mContainer.onPlanningStarted();
+      }
+    }
+  }
+
   public void start()
   {
     Logger.d(TAG, "start");
@@ -470,6 +517,7 @@ public class RoutingController
     Logger.d(TAG, "cancelInternal");
 
     resetPoiPickState();
+    mStartNavigationAfterBuild = false;
 
     setBuildState(BuildState.NONE);
     setState(State.NONE);
@@ -831,16 +879,16 @@ public class RoutingController
     Pair<String, String> description = getDescriptionForPoint(point);
     if (type == RouteMarkType.Intermediate)
       Framework.nativeRemoveRoutePoint(type, replaceStopIndex);
-    Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, type,
-                                  replaceStopIndex /* intermediateIndex */, point.isMyPosition(), point.getLat(),
+    Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, "" /* callback */,
+                                  type, replaceStopIndex /* intermediateIndex */, point.isMyPosition(), point.getLat(),
                                   point.getLon(), false /* reorderIntermediatePoints */);
   }
 
   private static void addRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point)
   {
     Pair<String, String> description = getDescriptionForPoint(point);
-    Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, type,
-                                  0 /* intermediateIndex */, point.isMyPosition(), point.getLat(), point.getLon(),
+    Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, "" /* callback */,
+                                  type, 0 /* intermediateIndex */, point.isMyPosition(), point.getLat(), point.getLon(),
                                   true /* reorderIntermediatePoints */);
   }
 

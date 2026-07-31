@@ -20,6 +20,7 @@ struct RouteMarkData
 {
   std::string m_title;
   std::string m_subTitle;
+  std::string m_callback;
   RouteMarkType m_pointType = RouteMarkType::Start;
   size_t m_intermediateIndex = 0;
   bool m_isVisible = true;

@@ -591,19 +591,27 @@ public:
   /// Set correct viewport, parse API, show balloon.
   void ExecuteMapApiRequest() { m_parsedMapApi.ExecuteMapApiRequest(*this); }
 
+  /// Materialize the parsed route itinerary as route marks and start the route build.
+  void ExecuteRouteApiRequest() { m_parsedMapApi.ExecuteRouteApiRequest(*this); }
+
   url_scheme::ParsedMapApi::UrlType ParseAndSetApiURL(std::string const & url)
   {
     return m_parsedMapApi.SetUrlAndParse(url);
   }
 
+  // The route itinerary itself is applied by ExecuteRouteApiRequest(); platforms read
+  // only what their UI needs around that call.
   struct ParsedRoutingData
   {
-    ParsedRoutingData(std::vector<url_scheme::RoutePoint> const & points, routing::RouterType type)
+    ParsedRoutingData(std::vector<url_scheme::RoutePoint> const & points, routing::RouterType type,
+                      bool startRouteNavigation)
       : m_points(points)
       , m_type(type)
+      , m_startRouteNavigation(startRouteNavigation)
     {}
     std::vector<url_scheme::RoutePoint> m_points;
     routing::RouterType m_type;
+    bool m_startRouteNavigation = false;
   };
 
   ParsedRoutingData GetParsedRoutingData() const;
@@ -611,6 +619,7 @@ public:
   std::string GetParsedOAuth2Code() const;
   std::string const & GetParsedAppName() const;
   std::string const & GetParsedBackUrl() const;
+  void ClearParsedBackUrl();
   ms::LatLon GetParsedCenterLatLon() const;
   url_scheme::InAppFeatureHighlightRequest GetInAppFeatureHighlightRequest() const;
 

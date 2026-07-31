@@ -25,6 +25,8 @@ struct RoutePoint
   RoutePoint(m2::PointD const & org, std::string const & name) : m_org(org), m_name(name) {}
   m2::PointD m_org = m2::PointD::Zero();
   std::string m_name;
+  std::string m_callback;
+  bool m_isMyPosition = false;
 };
 
 struct SearchRequest
@@ -68,6 +70,9 @@ public:
   UrlType SetUrlAndParse(std::string const & url);
   UrlType GetRequestType() const { return m_requestType; }
   std::string const & GetGlobalBackUrl() const { return m_globalBackUrl; }
+  // The back URL is a one-shot "return to the caller app" action: platforms clear it
+  // after the first successful launch so later app switches don't relaunch the caller.
+  void ClearGlobalBackUrl() { m_globalBackUrl.clear(); }
   std::string const & GetAppName() const { return m_appName; }
   ms::LatLon GetCenterLatLon() const { return m_centerLatLon; }
   int GetApiVersion() const { return m_version; }
@@ -75,6 +80,10 @@ public:
   bool GoBackOnBalloonClick() const { return m_goBackOnBalloonClick; }
 
   void ExecuteMapApiRequest(Framework & fm) const;
+  /// Materializes the parsed itinerary as route marks (preserving URL order, or letting
+  /// the optimizer reorder the stops) and starts the route build. Platforms drive only
+  /// their UI state around this call: router type, planning screen, auto-start on ready.
+  void ExecuteRouteApiRequest(Framework & fm) const;
 
   // Unit test only.
   std::vector<MapPoint> const & GetMapPoints() const
@@ -92,13 +101,31 @@ public:
 
   std::vector<RoutePoint> const & GetRoutePoints() const
   {
-    ASSERT_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
+    CHECK_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
     return m_routePoints;
+  }
+
+  bool ShouldOptimizeRoutePoints() const
+  {
+    CHECK_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
+    return m_optimizeRoutePoints;
+  }
+
+  bool ShouldStartRouteNavigation() const
+  {
+    CHECK_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
+    return m_startRouteNavigation;
+  }
+
+  m2::PointD const & GetRouteStartDirection() const
+  {
+    CHECK_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
+    return m_startDirection;
   }
 
   std::string const & GetRoutingType() const
   {
-    ASSERT_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
+    CHECK_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
     return m_routingType;
   }
 
@@ -122,7 +149,8 @@ public:
 
 private:
   void ParseMapParam(std::string const & key, std::string const & value, bool & correctOrder);
-  void ParseRouteParam(std::string const & key, std::string const & value, std::vector<std::string_view> & pattern);
+  void ParseRouteParam(std::string const & key, std::string const & value, size_t & legacyRouteParamIndex,
+                       bool & legacyRouteTypeSeen, bool & usesLegacySyntax, bool & correctOrder);
   void ParseSearchParam(std::string const & key, std::string const & value);
   void ParseInAppFeatureHighlightParam(std::string const & key, std::string const & value);
   void ParseCommonParam(std::string const & key, std::string const & value);
@@ -137,6 +165,9 @@ private:
   std::string m_oauth2code;
   ms::LatLon m_centerLatLon = ms::LatLon::Invalid();
   std::string m_routingType;
+  m2::PointD m_startDirection = m2::PointD::Zero();
+  bool m_optimizeRoutePoints = false;
+  bool m_startRouteNavigation = false;
   int m_version = 0;
   /// Zoom level in OSM format (e.g. from 1.0 to 20.0)
   /// Taken into an account when calculating viewport rect, but only if points count is == 1
