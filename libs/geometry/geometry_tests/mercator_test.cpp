@@ -5,6 +5,8 @@
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
+#include <vector>
+
 UNIT_TEST(Mercator_Grid)
 {
   for (int lat = -85; lat <= 85; ++lat)
@@ -88,6 +90,51 @@ UNIT_TEST(Mercator_WrapX)
   TEST_ALMOST_EQUAL_ABS(mercator::WrapX(180.0), -180.0, 1e-10, ());
   TEST_ALMOST_EQUAL_ABS(mercator::WrapX(540.0), -180.0, 1e-10, ());
   TEST_ALMOST_EQUAL_ABS(mercator::WrapX(-540.0), -180.0, 1e-10, ());
+}
+
+UNIT_TEST(Mercator_ForEachRectWrapped)
+{
+  auto const parts = [](m2::RectD const & r)
+  {
+    std::vector<m2::RectD> out;
+    mercator::ForEachRectWrapped(r, [&out](m2::RectD const & p) { out.push_back(p); });
+    return out;
+  };
+  double constexpr kEps = 1e-10;
+
+  {  // Canonical: emitted as is.
+    auto const p = parts({10, 0, 20, 5});
+    TEST_EQUAL(p.size(), 1, ());
+    TEST(AlmostEqualAbs(p[0], m2::RectD{10, 0, 20, 5}, kEps), ());
+  }
+  {  // Crossing the east antimeridian: two canonical halves.
+    auto const p = parts({170, 0, 190, 5});
+    TEST_EQUAL(p.size(), 2, ());
+    TEST(AlmostEqualAbs(p[0], m2::RectD{170, 0, 180, 5}, kEps), ());
+    TEST(AlmostEqualAbs(p[1], m2::RectD{-180, 0, -170, 5}, kEps), ());
+  }
+  {  // Crossing the west antimeridian.
+    auto const p = parts({-190, 0, -170, 5});
+    TEST_EQUAL(p.size(), 2, ());
+    TEST(AlmostEqualAbs(p[0], m2::RectD{-180, 0, -170, 5}, kEps), ());
+    TEST(AlmostEqualAbs(p[1], m2::RectD{170, 0, 180, 5}, kEps), ());
+  }
+  {  // Entirely beyond the west antimeridian (a Wake-like region stored around -204):
+     // shifted back wholesale, never an inverted rect.
+    auto const p = parts({-210, 11, -204, 25});
+    TEST_EQUAL(p.size(), 1, ());
+    TEST(AlmostEqualAbs(p[0], m2::RectD{150, 11, 156, 25}, kEps), ());
+  }
+  {  // Entirely beyond the east antimeridian.
+    auto const p = parts({185, 0, 195, 5});
+    TEST_EQUAL(p.size(), 1, ());
+    TEST(AlmostEqualAbs(p[0], m2::RectD{-175, 0, -165, 5}, kEps), ());
+  }
+  {  // Wider than the world: covers every longitude once.
+    auto const p = parts({-540, 0, 540, 5});
+    TEST_EQUAL(p.size(), 1, ());
+    TEST(AlmostEqualAbs(p[0], m2::RectD{-180, 0, 180, 5}, kEps), ());
+  }
 }
 
 UNIT_TEST(Mercator_NearestWrapX)
