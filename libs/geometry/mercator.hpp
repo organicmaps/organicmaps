@@ -84,6 +84,46 @@ inline m2::RectD WrapRectX(m2::RectD rect)
   return rect;
 }
 
+/// Calls \a fn(rect) for the _canonical_ (x in [kMinX, kMaxX]) parts of \a rect.
+/// \a rect may cross the antimeridian (maxX > kMaxX or minX < kMinX) - its two canonical
+/// halves are emitted - or lie entirely beyond it (a geometry stored on the far side,
+/// e.g. Wake Island around -204) - then the rect is shifted back wholesale. Y is passed
+/// through untouched. The parts can be tested against rects and polygons that always
+/// live in the canonical range.
+template <typename Fn>
+void ForEachRectWrapped(m2::RectD const & rect, Fn && fn)
+{
+  if (rect.SizeX() >= Bounds::kRangeX)
+  {
+    // Wider than the world: covers every longitude.
+    fn(m2::RectD(Bounds::kMinX, rect.minY(), Bounds::kMaxX, rect.maxY()));
+  }
+  else if (rect.minX() >= Bounds::kMaxX)
+  {
+    fn(m2::RectD(rect.minX() - Bounds::kRangeX, rect.minY(), rect.maxX() - Bounds::kRangeX, rect.maxY()));
+  }
+  else if (rect.maxX() <= Bounds::kMinX)
+  {
+    fn(m2::RectD(rect.minX() + Bounds::kRangeX, rect.minY(), rect.maxX() + Bounds::kRangeX, rect.maxY()));
+  }
+  else if (rect.maxX() > Bounds::kMaxX)
+  {
+    // [minX, kMaxX] stays canonical; the part beyond kMaxX wraps to the west.
+    fn(m2::RectD(rect.minX(), rect.minY(), Bounds::kMaxX, rect.maxY()));
+    fn(m2::RectD(Bounds::kMinX, rect.minY(), rect.maxX() - Bounds::kRangeX, rect.maxY()));
+  }
+  else if (rect.minX() < Bounds::kMinX)
+  {
+    // [kMinX, maxX] stays canonical; the part below kMinX wraps to the east.
+    fn(m2::RectD(Bounds::kMinX, rect.minY(), rect.maxX(), rect.maxY()));
+    fn(m2::RectD(rect.minX() + Bounds::kRangeX, rect.minY(), Bounds::kMaxX, rect.maxY()));
+  }
+  else
+  {
+    fn(rect);
+  }
+}
+
 void ClampPoint(m2::PointD & pt);
 
 double YToLat(double y);
