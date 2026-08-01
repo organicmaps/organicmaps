@@ -88,7 +88,8 @@ CrossedEdges GetCrossedEdges(TracedMesh const & mesh, uint32_t tri, int32_t h)
 }
 }  // namespace
 
-void TraceIsolines(TileMesh const & tileMesh, int32_t step, measurement_utils::Units units, IsolineFn const & fn)
+void TraceIsolines(TileMesh const & tileMesh, int32_t step, measurement_utils::Units units, IsolineFn const & fn,
+                   std::function<bool()> const & isCancelled /* = {} */)
 {
   ASSERT_GREATER(step, 0, ());
   size_t const trianglesCount = tileMesh.GetTrianglesCount();
@@ -150,6 +151,8 @@ void TraceIsolines(TileMesh const & tileMesh, int32_t step, measurement_utils::U
   std::vector<uint32_t> visited(trianglesCount, 0);
   for (size_t bin = 0; bin < bins.size(); ++bin)
   {
+    if (isCancelled && isCancelled())
+      return;
     int32_t const h = (minLevel + static_cast<int32_t>(bin)) * step;
     uint32_t const epoch = static_cast<uint32_t>(bin) + 1;
     for (uint32_t const seed : bins[bin])
