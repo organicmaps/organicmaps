@@ -2,6 +2,7 @@ project(storage_integration_tests)
 
 set(SRC
   download_calc_size_test.cpp
+  isolines_tracer_tests.cpp
   lightweight_matching_tests.cpp
   storage_3levels_tests.cpp
   storage_downloading_tests.cpp

@@ -39,7 +39,9 @@ struct TerrainShadeVertex : BaseVertex
   TerrainShadeVertex(TPosition const & position, float intensity);
 
   TPosition m_position;
-  // The Lambert intensity relative to the flat ground, [-1, 1]: negative - shadow.
+  // The Lambert intensity relative to the flat ground: negative - shadow. The shadow
+  // half spans [-2, 0] (see RuleDrawer::DrawTerrainShade), the shader clamps to -1, so
+  // the steepest shadows saturate; the highlight half spans [0, 1].
   float m_intensity;
 
   static dp::BindingInfo const & GetBindingInfo();

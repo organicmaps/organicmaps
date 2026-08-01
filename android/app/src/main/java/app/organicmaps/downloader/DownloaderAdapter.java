@@ -27,9 +27,9 @@ import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.util.UiUtils;
-import app.organicmaps.widget.WheelProgressView;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
+import app.organicmaps.widget.WheelProgressView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -339,15 +339,13 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
           // service keeps the shared download queue alive in the background.
           final String id = mItem.id;
           final long remaining = mItem.terrainTotalSize - mItem.terrainDownloadedBytes;
-          MapManagerHelper.warnOn3g(mActivity, remaining,
-                                    () -> DownloaderService.startTerrainDownload(mActivity, id));
+          MapManagerHelper.warnOn3g(mActivity, remaining, () -> DownloaderService.startTerrainDownload(mActivity, id));
         }
       };
       frame.setOnClickListener(clickListener);
       frame.findViewById(R.id.downloader_status_frame).setOnClickListener(clickListener);
 
-      frame.setOnLongClickListener(v ->
-      {
+      frame.setOnLongClickListener(v -> {
         if (mItem == null)
           return false;
         // The context menu offers the deletion of the downloaded terrain coverage.
@@ -374,8 +372,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       UiUtils.showIf(!downloading, mStatus);
       if (downloading)
       {
-        int percent = item.terrainTotalSize > 0
-                        ? (int) (item.terrainDownloadedBytes * 100 / item.terrainTotalSize) : 0;
+        int percent = item.terrainTotalSize > 0 ? (int) (item.terrainDownloadedBytes * 100 / item.terrainTotalSize) : 0;
         mProgress.setPending(false);
         mProgress.setProgress(percent);
         mSubtitle.setText(StringUtils.getFileSizeString(mSubtitle.getContext(), item.terrainDownloadedBytes) + " / "
@@ -437,8 +434,8 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     if (mSelectedTerrain)
     {
       final String id = mSelectedItem.id;
-      items.add(new MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete,
-                                        () -> MapManager.nativeDeleteTerrain(id)));
+      items.add(
+          new MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete, () -> MapManager.nativeDeleteTerrain(id)));
       return items;
     }
     switch (mSelectedItem.status)
@@ -487,7 +484,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     return new MenuBottomSheetItem(R.string.downloader_download_map, R.drawable.ic_download,
                                    () -> onDownloadActionSelected(mSelectedItem, DownloaderAdapter.this));
   }
-
 
   private MenuBottomSheetItem getUpdateMenuItem()
   {
