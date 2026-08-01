@@ -323,8 +323,6 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
                      [this](FeatureCallback const & fn, std::vector<FeatureID> const & features)
 { return m_featuresFetcher.ReadFeatures(fn, features); },
                      std::bind(&Framework::GetMwmsByRect, this, _1, false /* rough */))
-  , m_isolinesManager(m_featuresFetcher.GetDataSource(),
-                      std::bind(&Framework::GetMwmsByRect, this, _1, false /* rough */))
   , m_terrainProvider(GetPlatform().WritableDir() + TERRAIN_DIR)
   , m_routingManager(RoutingManager::Callbacks([this]() -> DataSource & { return m_featuresFetcher.GetDataSource(); },
                                                [this]() -> storage::CountryInfoGetter const &
@@ -409,6 +407,7 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
     m2::RectD invalidRect = rect;
     m_terrainProvider.OnBlockDownloaded(path, invalidRect);
     InvalidateRect(invalidRect);
+    m_isolinesManager.Invalidate();
   }, [this](m2::RectD const & rect, int64_t version) { return m_terrainProvider.HasOlderTerrain(rect, version); },
                                 [this](std::vector<m2::RectD> const & rects)
   {
@@ -416,6 +415,7 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
     m_terrainProvider.DeleteBlocks(rects, invalidRect);
     if (invalidRect.IsValid())
       InvalidateRect(invalidRect);
+    m_isolinesManager.Invalidate();
   });
 
   m_storage.SetDownloadingPolicy(&m_storageDownloadingPolicy);
@@ -438,7 +438,18 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   // m_trafficManager.SetSimplifiedColorScheme(LoadTrafficSimplifiedColors());
   // m_trafficManager.SetEnabled(LoadTrafficEnabled());
 
-  m_isolinesManager.SetHasTerrainFn([this](m2::RectD const & rect) { return m_terrainProvider.HasTerrain(rect); });
+  // Before the initial Rescan the terrain registry is empty: claim the coverage present,
+  // the Invalidate after the scan re-evaluates the real state (no premature download hint).
+  // The viewport rect can poke beyond the +-180 antimeridian: probe the canonical pieces.
+  m_isolinesManager.SetHasTerrainFn([this](m2::RectD const & rect)
+  {
+    if (!m_terrainProvider.IsScanned())
+      return true;
+    bool has = false;
+    mercator::ForEachRectWrapped(rect,
+                                 [&](m2::RectD const & piece) { has = has || m_terrainProvider.HasTerrain(piece); });
+    return has;
+  });
   m_isolinesManager.SetEnabled(LoadIsolinesEnabled());
 
   InitTransliteration();
@@ -538,7 +549,6 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
   auto action = [this, localFile]
   {
     m_transitManager.OnMwmDeregistered(localFile);
-    m_isolinesManager.OnMwmDeregistered(localFile);
     m_trafficManager.OnMwmDeregistered(localFile);
     m_descriptionsLoader->OnMwmDeregistered(localFile);
 
@@ -633,12 +643,14 @@ void Framework::RegisterAllMaps()
   }
 
   m_terrainProvider.Rescan();
+  // RegisterAllMaps runs on the async map-loading thread (see LoadMapsAsync), while the
+  // isolines manager and its platform state listeners are GUI-thread-only.
+  GetPlatform().RunTask(Platform::Thread::Gui, [this]() { m_isolinesManager.Invalidate(); });
 }
 
 void Framework::DeregisterAllMaps()
 {
   m_transitManager.Clear();
-  m_isolinesManager.Clear();
   m_trafficManager.Clear();
   m_descriptionsLoader->Clear();
 
@@ -1775,6 +1787,8 @@ bool GetTwmBorderTriangles(terrain::TerrainProvider const & provider, uint32_t i
   m2::PointD const corner(lon, mercator::LatToY(lat));
   m2::RectD probe(corner, corner);
   probe.Inflate(0.1, 0.1);
+  // The corners at lon = +-180 inflate beyond the canonical range: clip back.
+  CHECK(probe.Intersect(mercator::Bounds::FullRect()), ());
   std::vector<m2::RectD> rects;
   provider.GetDownloadedRects(probe, rects);
   for (auto const & r : rects)

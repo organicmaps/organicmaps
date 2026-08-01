@@ -89,8 +89,15 @@ using namespace storage;
 
 - (BOOL)downloadTerrain:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error
 {
-  // The same gates as downloadNode: the connection check here, the cellular policy
-  // and the shared queue inside DownloadTerrain.
+  // The same gates as downloadNode: the space and connection checks here, the cellular
+  // policy and the shared queue inside DownloadTerrain.
+  auto const attrs = GetFramework().GetStorage().GetTerrainAttrs(countryId.UTF8String);
+  if (!storage::IsEnoughSpaceForDownload(attrs.m_totalSize - attrs.m_downloadedSize))
+  {
+    if (error)
+      *error = [NSError errorWithDomain:kStorageErrorDomain code:kStorageNotEnoughSpace userInfo:nil];
+    return NO;
+  }
   NSError * connectionError;
   if ([self checkConnection:&connectionError])
   {
