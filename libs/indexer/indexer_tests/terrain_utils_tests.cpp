@@ -94,5 +94,10 @@ UNIT_TEST(TerrainIsolinesStyle)
       }
     }
   }
+
+  // Restore the default style: the loaded style is process-global state and the other
+  // tests must not depend on the run order.
+  GetStyleReader().SetCurrentStyle(kDefaultMapStyle);
+  classificator::Load();
 }
 }  // namespace terrain_utils_tests
