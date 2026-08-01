@@ -3,17 +3,9 @@
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "indexer/terrain/terrain_utils.hpp"
+
 #include "base/assert.hpp"
-#include "base/logging.hpp"
-
-int constexpr kMinIsolinesZoom = 11;
-
-IsolinesManager::IsolinesManager(DataSource & dataSource, GetMwmsByRectFn const & getMwmsByRectFn)
-  : m_dataSource(dataSource)
-  , m_getMwmsByRectFn(getMwmsByRectFn)
-{
-  CHECK(m_getMwmsByRectFn != nullptr, ());
-}
 
 IsolinesManager::IsolinesState IsolinesManager::GetState() const
 {
@@ -34,22 +26,6 @@ void IsolinesManager::ChangeState(IsolinesState newState)
     m_onStateChangedFn(newState);
 }
 
-IsolinesManager::Info const & IsolinesManager::LoadIsolinesInfo(MwmSet::MwmId const & id) const
-{
-  Availability status = Availability::NoData;
-  isolines::Quality quality = isolines::Quality::None;
-  isolines::IsolinesInfo info;
-  if (isolines::LoadIsolinesInfo(m_dataSource, id, info))
-  {
-    LOG(LINFO, ("Isolines min altitude", info.m_minAltitude, "max altitude", info.m_maxAltitude, "altitude step",
-                info.m_altStep));
-    status = Availability::Available;
-    quality = info.GetQuality();
-  }
-
-  return m_mwmCache.emplace(id, Info(status, quality)).first->second;
-}
-
 void IsolinesManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
 {
   m_drapeEngine.Set(engine);
@@ -60,14 +36,7 @@ void IsolinesManager::SetEnabled(bool enabled)
   ChangeState(enabled ? IsolinesState::Enabled : IsolinesState::Disabled);
   m_drapeEngine.SafeCall(&df::DrapeEngine::EnableIsolines, enabled);
   if (enabled)
-  {
     Invalidate();
-  }
-  else
-  {
-    m_lastMwms.clear();
-    m_mwmCache.clear();
-  }
 }
 
 bool IsolinesManager::IsEnabled() const
@@ -77,7 +46,7 @@ bool IsolinesManager::IsEnabled() const
 
 bool IsolinesManager::IsVisible() const
 {
-  return m_currentModelView && df::GetDrawTileScale(*m_currentModelView) >= kMinIsolinesZoom;
+  return m_currentModelView && df::GetDrawTileScale(*m_currentModelView) >= terrain::kMinIsolinesZoom;
 }
 
 void IsolinesManager::UpdateViewport(ScreenBase const & screen)
@@ -89,85 +58,21 @@ void IsolinesManager::UpdateViewport(ScreenBase const & screen)
   if (!IsEnabled())
     return;
 
+  // Keep the last state on the low zooms: the platforms announce the NoData transition
+  // (the terrain download hint), don't repeat it on every zoom bounce over the same place.
   if (!IsVisible())
-  {
-    ChangeState(IsolinesState::Enabled);
     return;
-  }
 
-  // Dynamic TWM terrain isolines cover the viewport, no baked data checks needed.
-  if (m_hasTerrainFn && m_hasTerrainFn(screen.ClipRect()))
-  {
-    ChangeState(IsolinesState::Enabled);
-    return;
-  }
-
-  auto mwms = m_getMwmsByRectFn(screen.ClipRect());
-  if (m_lastMwms == mwms)
-    return;
-  m_lastMwms = std::move(mwms);
-  for (auto const & mwmId : m_lastMwms)
-  {
-    if (!mwmId.IsAlive())
-      continue;
-    auto it = m_mwmCache.find(mwmId);
-    if (it == m_mwmCache.end())
-      LoadIsolinesInfo(mwmId);
-  }
-  UpdateState();
-}
-
-void IsolinesManager::UpdateState()
-{
-  bool available = false;
-  bool expired = false;
-  bool noData = false;
-  for (auto const & mwmId : m_lastMwms)
-  {
-    if (!mwmId.IsAlive())
-      continue;
-    auto const it = m_mwmCache.find(mwmId);
-    CHECK(it != m_mwmCache.end(), ());
-    switch (it->second.m_availability)
-    {
-    case Availability::Available: available = true; break;
-    case Availability::ExpiredData: expired = true; break;
-    case Availability::NoData: noData = true; break;
-    }
-  }
-
-  if (expired)
-    ChangeState(IsolinesState::ExpiredData);
-  else if (!available && noData)
-    ChangeState(IsolinesState::NoData);
-  else
-    ChangeState(IsolinesState::Enabled);
+  bool const hasTerrain = m_hasTerrainFn && m_hasTerrainFn(screen.ClipRect());
+  ChangeState(hasTerrain ? IsolinesState::Enabled : IsolinesState::NoData);
 }
 
 void IsolinesManager::Invalidate()
 {
   if (!IsEnabled())
     return;
-  m_lastMwms.clear();
   if (m_currentModelView)
     UpdateViewport(*m_currentModelView);
-}
-
-void IsolinesManager::OnMwmDeregistered(platform::LocalCountryFile const & countryFile)
-{
-  for (auto it = m_mwmCache.begin(); it != m_mwmCache.end(); ++it)
-  {
-    if (it->first.IsDeregistered(countryFile))
-    {
-      m_mwmCache.erase(it);
-      break;
-    }
-  }
-}
-
-void IsolinesManager::Clear()
-{
-  m_mwmCache.clear();
 }
 
 std::string DebugPrint(IsolinesManager::IsolinesState state)
@@ -176,7 +81,6 @@ std::string DebugPrint(IsolinesManager::IsolinesState state)
   {
   case IsolinesManager::IsolinesState::Disabled: return "Disabled";
   case IsolinesManager::IsolinesState::Enabled: return "Enabled";
-  case IsolinesManager::IsolinesState::ExpiredData: return "ExpiredData";
   case IsolinesManager::IsolinesState::NoData: return "NoData";
   }
   UNREACHABLE();

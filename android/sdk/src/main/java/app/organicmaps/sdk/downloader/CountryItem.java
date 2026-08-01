@@ -68,8 +68,8 @@ public final class CountryItem implements Comparable<CountryItem>
   public long downloadedBytes;
   public long bytesToDownload;
 
-  // Terrain (.twm) coverage of this region; see storage::Storage::TerrainAttrs.
-  // 0 NotAvailable, 1 NotDownloaded, 2 Downloading, 3 Partly, 4 OnDisk, 5 Failed.
+  // Terrain (.twm) coverage of this region; the values mirror storage::Storage::TerrainStatus,
+  // see the TERRAIN_* constants in DownloaderAdapter.
   public int terrainStatus;
   public long terrainTotalSize;
   public long terrainDownloadedBytes;
