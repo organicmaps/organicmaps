@@ -519,16 +519,21 @@ void Storage::OnTerrainBlockDownloaded(QueuedCountry const & queuedCountry, down
     {
       m_terrainQueue.erase(name);
       if (!ok)
+      {
         m_terrainFailed.insert(name);
+      }
+      else if (auto * terrainBlock = FindTerrainBlock(name))
+      {
+        terrainBlock->m_onDisk = true;
+        if (m_terrainDownloadedFn)
+          m_terrainDownloadedFn(finalPath, terrainBlock->m_rect);
+      }
+      // The notification makes the UI re-read GetTerrainAttrs: the disk flag and the
+      // provider registration (incl. the older versions cleanup above) must be updated
+      // BEFORE it, or the last landed block of an update shows a stale OnDiskOutOfDate.
       NotifyTerrainRegions(name);
       if (ok)
       {
-        if (auto * terrainBlock = FindTerrainBlock(name))
-        {
-          terrainBlock->m_onDisk = true;
-          if (m_terrainDownloadedFn)
-            m_terrainDownloadedFn(finalPath, terrainBlock->m_rect);
-        }
         // The block landed: nothing more to notify about it this session.
         m_terrainBlockRegions.erase(name);
       }

@@ -160,8 +160,9 @@ public:
   bool RemoveObserver(Observer const & observer) { return m_observers.Remove(observer); }
 
   /// The registered blocks intersecting the mercator rect. The rect must be canonical
-  /// like the registered block rects: a wrapped viewport rect is split into the
-  /// canonical pieces by the caller (see mercator::ForEachRectWrapped).
+  /// in X (a wrapped viewport rect is split into the canonical pieces by the caller,
+  /// see mercator::ForEachRectWrapped); Y may poke beyond the world edge (the empty
+  /// low-zoom tiles above/below the map).
   void GetBlocksByRect(m2::RectD const & rect, std::vector<TwmId> & ids) const;
   bool HasBlocks(m2::RectD const & rect) const;
   /// The limit rects of the registered blocks intersecting the mercator rect.

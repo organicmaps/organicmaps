@@ -118,8 +118,12 @@ template <typename Fn>
 void TwmSet::ForEachBlockByRectImpl(m2::RectD const & rect, Fn && fn) const
 {
   std::lock_guard<std::mutex> lock(m_lock);
-  // The query rects are canonical (drape tile rects) like the registered block rects.
-  ASSERT(mercator::Bounds::FullRect().IsRectInside(rect), (rect));
+  // The query rects are canonical in X like the registered block rects: the drape tile
+  // rects are wrapped by TileKey::GetWrappedDataRect, the viewport rects are split by
+  // the callers (see mercator::ForEachRectWrapped). Y is NOT bounded: the empty tiles
+  // above/below the world edge (e.g. {x=-1, y=1, z=2} spans y [180, 360]) query too,
+  // and the plain interval intersection is already correct for them.
+  ASSERT(rect.minX() >= mercator::Bounds::kMinX && rect.maxX() <= mercator::Bounds::kMaxX, (rect));
   for (auto const & [path, infos] : m_registry)
     if (!infos.empty() && infos.back()->IsRegistered() && rect.IsIntersect(infos.back()->GetLimitRect()))
       fn(infos.back());
