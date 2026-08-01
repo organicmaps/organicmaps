@@ -4,16 +4,12 @@
 
 #include "storage/storage.hpp"
 
-#include "platform/local_country_file_utils.hpp"
-#include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/writable_dir_changer.hpp"
 
 #include "base/file_name_utils.hpp"
-#include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
-#include "base/thread.hpp"
 
 #include <string>
 
@@ -82,6 +78,8 @@ public:
 
 protected:
   WritableDirChanger const m_writableDirChanger;
+  // Storage::OnDownloadFinished validates files on Platform::Thread::File, so the pools must outlive m_storage.
+  Platform::ThreadRunner m_threadRunner;
   Storage m_storage;
   string const m_version;
   tests_support::ScopedDir const m_cleanupVersionDir;
