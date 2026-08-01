@@ -5,6 +5,7 @@
 
 #include "geometry/rect2d.hpp"
 
+#include <atomic>
 #include <functional>
 #include <string>
 
@@ -25,6 +26,9 @@ public:
   // non-overlapping blocks keep rendering"), plus the flat legacy files as the version 0.
   void Rescan();
   void Clear();
+
+  // False until the first Rescan: the registry emptiness means nothing yet.
+  bool IsScanned() const { return m_scanned; }
 
   // The downloaded block landed (see Storage terrain downloading): registers it and
   // deletes the registered OLDER blocks it intersects, even partially - the newer
@@ -62,6 +66,7 @@ private:
                         m2::RectD & invalidRect);
 
   std::string m_dir;
+  std::atomic<bool> m_scanned{false};
   // Mutable: the const queries lock the readers and condemn the corrupt blocks.
   mutable TwmSet m_set;
 };

@@ -124,7 +124,6 @@ static NSString * didChangeMapOverlay = @"didChangeMapOverlay";
   {
   case IsolinesManager::IsolinesState::Disabled: return MWMMapOverlayIsolinesStateDisabled;
   case IsolinesManager::IsolinesState::Enabled: return MWMMapOverlayIsolinesStateEnabled;
-  case IsolinesManager::IsolinesState::ExpiredData: return MWMMapOverlayIsolinesStateExpiredData;
   case IsolinesManager::IsolinesState::NoData: return MWMMapOverlayIsolinesStateNoData;
   }
 }

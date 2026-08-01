@@ -43,5 +43,8 @@ using IsolineFn = std::function<void(Isoline &&)>;
 // and the result levels are round values in the display units.
 // Chains are maximal: they close into rings or end on the collected mesh boundary, so
 // the mesh should be collected over an inflated rect if the isolines must cover it.
-void TraceIsolines(TileMesh const & mesh, int32_t step, measurement_utils::Units units, IsolineFn const & fn);
+// isCancelled (optional) is polled between the levels: a cancelled drape tile read
+// stops tracing instead of walking every remaining level of the mesh.
+void TraceIsolines(TileMesh const & mesh, int32_t step, measurement_utils::Units units, IsolineFn const & fn,
+                   std::function<bool()> const & isCancelled = {});
 }  // namespace terrain
