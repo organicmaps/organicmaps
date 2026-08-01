@@ -241,10 +241,20 @@ private:
   struct TerrainBlock
   {
     terrain::GridBlock m_block;
+    // Precomputed at the parse time: GetTerrainAttrs runs per downloader row on the
+    // GUI thread, no per-call name formatting or lat/lon conversions there.
+    std::string m_name;  // The block name without the extension, the download id.
+    m2::RectD m_rect;    // m_block.GetRectMercator().
     uint64_t m_size = 0;
     std::string m_hash;
+    // The current-version file presence, refreshed lazily (see EnsureTerrainOnDisk).
+    bool m_onDisk = false;
   };
-  std::vector<TerrainBlock> m_twmGrid;
+  // Mutable with m_terrainOnDiskFresh: the const attrs reads refresh the disk flags.
+  mutable std::vector<TerrainBlock> m_twmGrid;
+  // False when the on-disk flags must be re-stat'ed (startup, after a delete).
+  mutable bool m_terrainOnDiskFresh = false;
+  void EnsureTerrainOnDisk() const;
   // The grid snapshot version (twm_grid.json "v"): the client terrain files live in
   // <writable>/terrain/<version>/ exactly like the versioned maps folders.
   int64_t m_twmGridVersion = 0;
@@ -285,7 +295,7 @@ private:
   std::set<std::string> m_terrainFailed;
   std::map<std::string, std::set<CountryId>> m_terrainBlockRegions;
 
-  TerrainBlock const * FindTerrainBlock(std::string const & name) const;
+  TerrainBlock * FindTerrainBlock(std::string const & name);
   std::string GetTerrainDir() const;
   void OnTerrainBlockProgress(std::string const & name, downloader::Progress const & progress);
   void OnTerrainBlockDownloaded(QueuedCountry const & queuedCountry, downloader::DownloadStatus status);
@@ -365,9 +375,8 @@ public:
 
   /// Terrain (.twm) downloading. Storage does not own the CountryInfoGetter, so the country bbox resolver
   /// is injected by the Framework, together with the "files landed" hook (TerrainProvider::Rescan).
-  void SetTerrainCallbacks(TerrainCountryRectFn rectFn, TerrainDownloadedFn onDownloaded,
-                           TerrainHasOlderFn hasOlder, TerrainDeleteFn deleteFn = {});
-
+  void SetTerrainCallbacks(TerrainCountryRectFn rectFn, TerrainDownloadedFn onDownloaded, TerrainHasOlderFn hasOlder,
+                           TerrainDeleteFn deleteFn = {});
 
   /// Enqueues the terrain blocks (data/twm_grid.json) covering the country bbox into
   /// the shared downloader queue; the blocks on disk or in flight are skipped. The
@@ -387,10 +396,10 @@ public:
 
   enum class TerrainStatus : uint8_t
   {
-    NotAvailable,   // No terrain grid or no bbox for the id.
+    NotAvailable,  // No terrain grid or no bbox for the id.
     NotDownloaded,
-    Downloading,    // Any covering block is enqueued or downloading.
-    Partly,         // Some covering blocks are on disk, nothing in flight.
+    Downloading,  // Any covering block is enqueued or downloading.
+    Partly,       // Some covering blocks are on disk, nothing in flight.
     OnDisk,
     Failed,           // The last batch had failures, nothing in flight.
     OnDiskOutOfDate,  // Nothing current on disk, but the older-version blocks cover the

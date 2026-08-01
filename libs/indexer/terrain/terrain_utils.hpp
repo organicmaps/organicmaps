@@ -15,6 +15,10 @@
 
 namespace terrain
 {
+// The first zoom of the terrain layers (the isoline style classes open here, see
+// data/styles); shared by the drape gate and the isolines availability hint.
+int constexpr kMinIsolinesZoom = 11;
+
 // The block file name for its bottom-left corner, e.g. "N45E006.twm" or "S33W072.twm"
 // (the SRTM tile naming, must match SrtmTile::GetBase of the generator).
 inline std::string GetBlockFileName(int bottomLat, int leftLon)
