@@ -223,7 +223,7 @@ protected:
   }
 
   /// Deregisters the file or, when it is locked by outstanding handles, marks it to be
-  /// deregistered by the last unlock. Removes at most one cached value.
+  /// deregistered by the last unlock. Removes all the cached values of the file.
   /// @return true if the file was deregistered right away.
   /// @precondition Always called under m_lock.
   bool DeregisterImpl(IdT const & id, EventsT & events)
@@ -237,14 +237,8 @@ protected:
       SetStatus(*info, SetInfoBase::STATUS_DEREGISTERED, events);
       auto & infos = m_registry[GetRegistryKey(*info)];
       infos.erase(std::remove(infos.begin(), infos.end(), info), infos.end());
-      for (auto it = m_cache.begin(); it != m_cache.end(); ++it)
-      {
-        if (it->first == id)
-        {
-          m_cache.erase(it);
-          break;
-        }
-      }
+      // ALL the cached values: two concurrent lockers can push two values back.
+      ClearCache(id);
       return true;
     }
 

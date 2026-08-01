@@ -124,9 +124,7 @@ bool MwmSet::DeregisterImpl(CountryFile const & countryFile, EventList & events)
   MwmId const id = GetMwmIdByCountryFileImpl(countryFile);
   if (!id.IsAlive())
     return false;
-  bool const deregistered = DeregisterImpl(id, events);
-  ClearCache(id);
-  return deregistered;
+  return DeregisterImpl(id, events);
 }
 
 bool MwmSet::IsLoaded(CountryFile const & countryFile) const

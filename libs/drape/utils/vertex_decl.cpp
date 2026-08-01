@@ -220,20 +220,12 @@ dp::BindingInfo TerrainShadeBindingInit()
 }
 
 BindingNode g_bindingNodes[TypeCount];
-TInitFunction g_initFunctions[TypeCount] = {&AreaBindingInit,
-                                            &TerrainShadeBindingInit,
-                                            &Area3dBindingInit,
-                                            &HatchingAreaBindingInit,
-                                            &SolidTexturingBindingInit,
-                                            &MaskedTexturingBindingInit,
-                                            &TextStaticBindingInit,
-                                            &TextOutlinedStaticBindingInit,
-                                            &TextDynamicBindingInit,
-                                            &LineBindingInit,
-                                            &DashedLineBindingInit,
-                                            &RouteBindingInit,
-                                            &RouteMarkerBindingInit,
-                                            &ColoredSymbolBindingInit};
+TInitFunction g_initFunctions[TypeCount] = {
+    &AreaBindingInit,         &TerrainShadeBindingInit,       &Area3dBindingInit,
+    &HatchingAreaBindingInit, &SolidTexturingBindingInit,     &MaskedTexturingBindingInit,
+    &TextStaticBindingInit,   &TextOutlinedStaticBindingInit, &TextDynamicBindingInit,
+    &LineBindingInit,         &DashedLineBindingInit,         &RouteBindingInit,
+    &RouteMarkerBindingInit,  &ColoredSymbolBindingInit};
 
 dp::BindingInfo const & GetBinding(VertexType type)
 {

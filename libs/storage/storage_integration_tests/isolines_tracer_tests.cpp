@@ -16,8 +16,6 @@
 #include "base/scope_guard.hpp"
 
 #include <cmath>
-#include <fstream>
-#include <iomanip>
 #include <map>
 
 namespace isolines_tracer_tests
@@ -83,8 +81,6 @@ UNIT_TEST(TerrainIsolines_FlatPlainInvariants)
   // The traced isolines hold the structural invariants even on the degenerate level sets.
   size_t lines = 0;
   std::map<int32_t, size_t> perAltitude;
-  std::ofstream dump(base::JoinPath(GetPlatform().TmpDir(), "isolines_dump.txt"));
-  dump << std::setprecision(12);
   terrain::TraceIsolines(mesh, 10, measurement_utils::Units::Metric, [&](terrain::Isoline && isoline)
   {
     ++lines;
@@ -104,10 +100,6 @@ UNIT_TEST(TerrainIsolines_FlatPlainInvariants)
       TEST(m2::RectD(meshRect.LeftBottom() - m2::PointD(1, 1), meshRect.RightTop() + m2::PointD(1, 1)).IsPointInside(p),
            (isoline.m_altitude, p));
     }
-    dump << isoline.m_altitude << ' ' << (isoline.m_closed ? 1 : 0);
-    for (auto const & p : pts)
-      dump << ' ' << p.x << ',' << p.y;
-    dump << '\n';
   });
   TEST_GREATER(lines, 0, ());
   for (auto const & [altitude, count] : perAltitude)
