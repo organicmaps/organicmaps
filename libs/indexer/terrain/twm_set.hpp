@@ -14,6 +14,14 @@
 
 namespace terrain
 {
+// The blocks share their border lines by design, so only the interiors may overlap.
+// Both the registration overlap rejection and the covered-blocks deletion must agree
+// on this (an edge-touching neighbor is neither a conflict nor covered).
+inline bool IsInteriorOverlap(m2::RectD const & lhs, m2::RectD const & rhs)
+{
+  return lhs.minX() < rhs.maxX() && rhs.minX() < lhs.maxX() && lhs.minY() < rhs.maxY() && rhs.minY() < lhs.maxY();
+}
+
 /// Information about a registered .twm terrain block.
 class TwmInfo : public ds::SetInfoBase
 {
@@ -151,13 +159,12 @@ public:
   bool AddObserver(Observer & observer) { return m_observers.Add(observer); }
   bool RemoveObserver(Observer const & observer) { return m_observers.Remove(observer); }
 
-  /// The registered blocks intersecting the mercator rect. The rect may poke beyond the
-  /// +-180 antimeridian (see TileKey::GetWrappedDataRect) - it is split into the
-  /// canonical pieces, so the seam queries find the blocks on both sides.
+  /// The registered blocks intersecting the mercator rect. The rect must be canonical
+  /// like the registered block rects: a wrapped viewport rect is split into the
+  /// canonical pieces by the caller (see mercator::ForEachRectWrapped).
   void GetBlocksByRect(m2::RectD const & rect, std::vector<TwmId> & ids) const;
   bool HasBlocks(m2::RectD const & rect) const;
-  /// The limit rects of the registered blocks intersecting the mercator rect (canonical,
-  /// deduplicated: a wrapped query can probe the same block from both sides).
+  /// The limit rects of the registered blocks intersecting the mercator rect.
   void GetBlockRectsByRect(m2::RectD const & rect, std::vector<m2::RectD> & rects) const;
 
   Handle GetHandleById(TwmId const & id);

@@ -2,20 +2,16 @@
 
 #include "drape_frontend/drape_engine_safe_ptr.hpp"
 
-#include "indexer/data_source.hpp"
-#include "indexer/isolines_info.hpp"
-#include "indexer/mwm_set.hpp"
-
-#include "platform/local_country_file.hpp"
-
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
 #include <functional>
-#include <map>
 #include <optional>
 #include <string>
 
+// The dynamic terrain isolines layer switch and its availability hint: NoData means the
+// viewport misses the downloaded terrain coverage, the platforms prompt the user to
+// download it (see isolines_location_error_dialog).
 class IsolinesManager final
 {
 public:
@@ -23,14 +19,10 @@ public:
   {
     Disabled,
     Enabled,
-    ExpiredData,
     NoData
   };
 
   using IsolinesStateChangedFn = std::function<void(IsolinesState)>;
-  using GetMwmsByRectFn = std::function<std::vector<MwmSet::MwmId>(m2::RectD const &)>;
-
-  IsolinesManager(DataSource & dataSource, GetMwmsByRectFn const & getMwmsByRectFn);
 
   IsolinesState GetState() const;
   void SetStateListener(IsolinesStateChangedFn const & onStateChangedFn);
@@ -42,49 +34,24 @@ public:
 
   bool IsVisible() const;
 
-  // Availability of the dynamic TWM terrain isolines for a rect.
+  // Availability of the downloaded TWM terrain for a rect.
   using HasTerrainFn = std::function<bool(m2::RectD const &)>;
   void SetHasTerrainFn(HasTerrainFn const & fn) { m_hasTerrainFn = fn; }
 
   void UpdateViewport(ScreenBase const & screen);
   void Invalidate();
 
-  isolines::Quality GetDataQuality(MwmSet::MwmId const & id) const;
-
-  void OnMwmDeregistered(platform::LocalCountryFile const & countryFile);
-  void Clear();
-
 private:
-  enum class Availability
-  {
-    Available,
-    NoData,
-    ExpiredData
-  };
-
-  struct Info
-  {
-    Availability m_availability = Availability::NoData;
-    isolines::Quality m_quality = isolines::Quality::None;
-  };
-
-  void UpdateState();
   void ChangeState(IsolinesState newState);
-  Info const & LoadIsolinesInfo(MwmSet::MwmId const & id) const;
 
   IsolinesState m_state = IsolinesState::Disabled;
   IsolinesStateChangedFn m_onStateChangedFn;
 
-  DataSource & m_dataSource;
-  GetMwmsByRectFn m_getMwmsByRectFn;
   HasTerrainFn m_hasTerrainFn;
 
   df::DrapeEngineSafePtr m_drapeEngine;
 
   std::optional<ScreenBase> m_currentModelView;
-
-  std::vector<MwmSet::MwmId> m_lastMwms;
-  mutable std::map<MwmSet::MwmId, Info> m_mwmCache;
 };
 
 std::string DebugPrint(IsolinesManager::IsolinesState state);
