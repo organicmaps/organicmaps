@@ -60,6 +60,20 @@
 
 #pragma mark - Config
 
+// The progress image and coloring are stored per state and survive the cell reuse:
+// every branch showing the Normal state must (re)install its own image (cf.
+// configProgress:), or the row inherits the previous occupant's icon.
+- (void)configTerrainDownloadImage
+{
+  MWMCircularProgress * progress = self.progress;
+  MWMCircularProgressStateVec affectedStates =
+      @[@(MWMCircularProgressStateNormal), @(MWMCircularProgressStateSelected)];
+  [progress setImageName:@"ic_download" forStates:affectedStates];
+  [progress setColoring:self.mode == MWMMapDownloaderModeDownloaded ? MWMButtonColoringBlack : MWMButtonColoringBlue
+              forStates:affectedStates];
+  progress.state = MWMCircularProgressStateNormal;
+}
+
 - (void)configTerrain:(MWMMapNodeAttributes *)nodeAttrs
 {
   // TODO(terrain): move the titles into data/strings/strings.txt before shipping.
@@ -72,8 +86,8 @@
   {
   case MWMTerrainStatusDownloading:
   {
-    float const percent = nodeAttrs.terrainTotalSize > 0
-                            ? (float)nodeAttrs.terrainDownloadedSize / nodeAttrs.terrainTotalSize : 0.f;
+    float const percent =
+        nodeAttrs.terrainTotalSize > 0 ? (float)nodeAttrs.terrainDownloadedSize / nodeAttrs.terrainTotalSize : 0.f;
     subtitle = [NSString stringWithFormat:@"Terrain — %d%%", (int)(percent * 100)];
     // Only the progress value: the state setter resets the arc, so assigning it on every
     // notification redraws 0..X% (cf. the MWMMapNodeStatusDownloading case in config:).
@@ -89,7 +103,7 @@
     break;
   case MWMTerrainStatusPartly:
     subtitle = @"Terrain — partly downloaded";
-    progress.state = MWMCircularProgressStateNormal;
+    [self configTerrainDownloadImage];
     break;
   case MWMTerrainStatusFailed:
     subtitle = @"Terrain — failed, tap to retry";
@@ -108,7 +122,7 @@
   }
   default:
     subtitle = @"Terrain";
-    progress.state = MWMCircularProgressStateNormal;
+    [self configTerrainDownloadImage];
     break;
   }
   self.title.text = subtitle;
