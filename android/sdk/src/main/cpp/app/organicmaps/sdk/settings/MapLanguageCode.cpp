@@ -1,4 +1,5 @@
 #include "app/organicmaps/sdk/Framework.hpp"
+#include "app/organicmaps/sdk/core/jni_helper.hpp"
 
 #include "platform/settings.hpp"
 

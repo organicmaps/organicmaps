@@ -4,8 +4,6 @@
 
 #include "search/result.hpp"
 
-using SearchRequest = search::QuerySaver::SearchRequest;
-
 extern "C"
 {
 JNIEXPORT void Java_app_organicmaps_sdk_search_SearchRecents_nativeGetList(JNIEnv * env, jclass, jobject result)
@@ -16,7 +14,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchRecents_nativeGetList(JNIEn
 
   auto const listAddMethod = jni::ListBuilder::Instance(env).m_add;
 
-  for (SearchRequest const & item : items)
+  for (auto const & item : items)
   {
     jni::TScopedLocalRef str(env, jni::ToJavaString(env, item.second));
     env->CallBooleanMethod(result, listAddMethod, str.get());
@@ -26,7 +24,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchRecents_nativeGetList(JNIEn
 JNIEXPORT void Java_app_organicmaps_sdk_search_SearchRecents_nativeAdd(JNIEnv * env, jclass, jstring locale,
                                                                        jstring query)
 {
-  SearchRequest const sr(jni::ToNativeString(env, locale), jni::ToNativeString(env, query));
+  search::QuerySaver::SearchRequest const sr(jni::ToNativeString(env, locale), jni::ToNativeString(env, query));
   g_framework->NativeFramework()->GetSearchAPI().SaveSearchQuery(sr);
 }
 

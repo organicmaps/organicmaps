@@ -165,15 +165,13 @@ private:
   std::unordered_map<std::string, jfieldID> m_fieldIds;
 };
 
-using CancelChecker = platform::HttpClient::CancelChecker;
-
 // Context passed to Java as a native pointer, delivered back in nativeOnComplete.
 struct AsyncContext
 {
   platform::HttpClient::CompletionHandler m_handler;
   platform::HttpClient::ProgressHandler m_progressHandler;
   platform::HttpClient::DataHandler m_dataHandler;
-  CancelChecker m_cancelChecker;
+  platform::HttpClient::CancelChecker m_cancelChecker;
   // Global ref to the Params object so we can read results on the callback thread.
   jobject m_paramsGlobalRef = nullptr;
   std::atomic<bool> m_dataAborted{false};

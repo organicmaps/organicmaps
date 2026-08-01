@@ -2,19 +2,17 @@
 #include "ScopedLocalRef.hpp"
 #include "logging.hpp"
 
-#include "base/assert.hpp"
-#include "base/exception.hpp"
-
+#include "app/organicmaps/sdk/FrameworkJni.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/Icon.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/PredefinedColors.hpp"
+
+#include "base/assert.hpp"
+#include "base/exception.hpp"
+#include "base/string_utils.hpp"
 
 #include <vector>
 
 static JavaVM * g_jvm = 0;
-extern JavaVM * GetJVM()
-{
-  return g_jvm;
-}
 
 // Caching is necessary to create class from native threads.
 jclass g_mapObjectClazz;
@@ -105,6 +103,9 @@ JNIEXPORT void JNI_OnUnload(JavaVM *, void *)
 
 namespace jni
 {
+namespace
+{
+// Returns nullptr instead of throwing when the calling thread is not attached to the JVM.
 JNIEnv * GetEnvSafe()
 {
   JNIEnv * env;
@@ -116,6 +117,7 @@ JNIEnv * GetEnvSafe()
   }
   return env;
 }
+}  // namespace
 
 JNIEnv * GetEnv()
 {

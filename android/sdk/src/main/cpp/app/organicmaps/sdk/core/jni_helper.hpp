@@ -18,6 +18,7 @@
 extern jclass g_mapObjectClazz;
 extern jclass g_bookmarkClazz;
 extern jclass g_trackClazz;
+extern jclass g_trackStatisticsClazz;
 extern jclass g_httpClientClazz;
 extern jclass g_httpParamsClazz;
 extern jclass g_platformSocketClazz;
@@ -115,8 +116,7 @@ jobject ToKeyValue(JNIEnv * env, std::pair<std::string, std::string> src);
 template <typename Container>
 jobjectArray ToKeyValueArray(JNIEnv * env, Container const & src)
 {
-  return jni::ToJavaArray(env, g_keyValueClazz, src,
-                          std::bind(&ToKeyValue, std::placeholders::_1, std::placeholders::_2));
+  return jni::ToJavaArray(env, g_keyValueClazz, src, &ToKeyValue);
 }
 
 std::pair<std::string, std::string> ToNativeKeyValue(JNIEnv * env, jobject pairOfStrings);

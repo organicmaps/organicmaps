@@ -28,7 +28,6 @@
 
 namespace
 {
-using TCuisine = std::pair<std::string, std::string>;
 osm::EditableMapObject g_editableMapObject;
 
 jclass g_localNameClazz;
@@ -67,8 +66,6 @@ osm::NewFeatureCategories & GetFeatureCategories()
 
 extern "C"
 {
-using osm::Editor;
-
 JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeInit(JNIEnv * env, jclass)
 {
   g_localNameClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/editor/data/LocalizedName");
@@ -294,12 +291,13 @@ JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeSetHouseNumber(JNIEn
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeHasSomethingToUpload(JNIEnv * env, jclass clazz)
 {
-  return Editor::Instance().HaveMapEditsOrNotesToUpload();
+  return osm::Editor::Instance().HaveMapEditsOrNotesToUpload();
 }
 
 JNIEXPORT jint Java_app_organicmaps_sdk_editor_Editor_nativeUploadChanges(JNIEnv * env, jclass clazz, jstring token,
                                                                           jstring appVersion, jstring appId)
 {
+  using osm::Editor;
   std::promise<Editor::UploadResult> promise;
   auto future = promise.get_future();
 
@@ -318,7 +316,7 @@ JNIEXPORT jint Java_app_organicmaps_sdk_editor_Editor_nativeUploadChanges(JNIEnv
 
 JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeClearLocalEdits(JNIEnv * env, jclass clazz)
 {
-  Editor::Instance().ClearAllLocalEdits();
+  osm::Editor::Instance().ClearAllLocalEdits();
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeStartEdit(JNIEnv *, jclass)
@@ -408,7 +406,7 @@ JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_Editor_nativeGetCuisines(
   osm::AllCuisines const & cuisines = osm::Cuisines::Instance().AllSupportedCuisines();
   std::vector<std::string> keys;
   keys.reserve(cuisines.size());
-  for (TCuisine const & cuisine : cuisines)
+  for (auto const & cuisine : cuisines)
     keys.push_back(cuisine.first);
   return jni::ToJavaStringArray(env, keys);
 }
@@ -427,13 +425,9 @@ JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_Editor_nativeFilterCuisin
   std::vector<std::string> keys;
   keys.reserve(cuisines.size());
 
-  for (TCuisine const & cuisine : cuisines)
-  {
-    std::string const & key = cuisine.first;
-    std::string const & label = cuisine.second;
+  for (auto const & [key, label] : cuisines)
     if (noFilter || search::ContainsNormalized(key, substr) || search::ContainsNormalized(label, substr))
       keys.push_back(key);
-  }
 
   return jni::ToJavaStringArray(env, keys);
 }

@@ -35,8 +35,6 @@ SOFTWARE.
 
 #include <optional>
 
-using CancelChecker = platform::HttpClient::CancelChecker;
-
 // Per-request delegate that bridges NSURLSession callbacks to C++ HttpClient handlers.
 // Handles redirect control, streaming data, progress, and completion.
 @interface HttpClientDelegate : NSObject <NSURLSessionDataDelegate>
@@ -44,7 +42,7 @@ using CancelChecker = platform::HttpClient::CancelChecker;
   platform::HttpClient::CompletionHandler m_handler;
   platform::HttpClient::ProgressHandler m_progressHandler;
   platform::HttpClient::DataHandler m_dataHandler;
-  CancelChecker m_cancelChecker;
+  platform::HttpClient::CancelChecker m_cancelChecker;
 
   platform::HttpClient::Result m_result;
   NSMutableData * m_accumulatedData;
@@ -69,7 +67,7 @@ using CancelChecker = platform::HttpClient::CancelChecker;
 - (instancetype)initWithHandler:(platform::HttpClient::CompletionHandler)handler
                 progressHandler:(platform::HttpClient::ProgressHandler)progressHandler
                     dataHandler:(platform::HttpClient::DataHandler)dataHandler
-                  cancelChecker:(CancelChecker)cancelChecker
+                  cancelChecker:(platform::HttpClient::CancelChecker)cancelChecker
                 followRedirects:(BOOL)followRedirects
                     loadHeaders:(BOOL)loadHeaders
                    urlRequested:(std::string)urlRequested
@@ -83,7 +81,7 @@ using CancelChecker = platform::HttpClient::CancelChecker;
 - (instancetype)initWithHandler:(platform::HttpClient::CompletionHandler)handler
                 progressHandler:(platform::HttpClient::ProgressHandler)progressHandler
                     dataHandler:(platform::HttpClient::DataHandler)dataHandler
-                  cancelChecker:(CancelChecker)cancelChecker
+                  cancelChecker:(platform::HttpClient::CancelChecker)cancelChecker
                 followRedirects:(BOOL)followRedirects
                     loadHeaders:(BOOL)loadHeaders
                    urlRequested:(std::string)urlRequested

@@ -4,7 +4,7 @@
 #include "app/organicmaps/sdk/bookmarks/data/Metadata.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/Track.hpp"
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
-#include "app/organicmaps/sdk/routing/RoutePointInfo.hpp"
+#include "app/organicmaps/sdk/routing/RoutingJni.hpp"
 
 #include "map/elevation_info.hpp"
 #include "map/place_page_info.hpp"

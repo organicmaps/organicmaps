@@ -483,7 +483,8 @@ JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeSubscribeOnC
                                                                                               jclass clazz,
                                                                                               jobject listener)
 {
-  frm()->SetCurrentCountryChangedListener([listener = make_global_ref(listener)](storage::CountryId const & countryId)
+  frm()->SetCurrentCountryChangedListener(
+      [listener = jni::make_global_ref(listener)](storage::CountryId const & countryId)
   {
     JNIEnv * env = jni::GetEnv();
     jmethodID methodID = jni::GetMethodID(env, *listener, "onCurrentCountryChanged", "(Ljava/lang/String;)V");
