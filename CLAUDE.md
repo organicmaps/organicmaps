@@ -33,8 +33,11 @@ The C++ core is accessed from platforms via bridging layers:
 - Namespaces: `lower_case` with underscores
 - `using` instead of `typedef`
 - Compile-time constants: `kCamelCase` and `constexpr`
-- Auto-format: `clang-format -i file.cpp` (v22+)
+- Comments should be brief, explaining only reasoning that is not obvious from the code itself
+- Auto-format: `clang-format -i file.cpp` (v22+), or `tools/unix/clang-format.sh` for the whole tree
 - Swift: format with `swiftformat iphone/` or `swiftformat <file>` (config in `iphone/.swiftformat`)
+- Kotlin: format with `tools/unix/ktlint_format.sh` (config in `android/.editorconfig`)
+- Style checks gate CI (clang-format, swiftformat, ktlint, and detekt static analysis) -- run them before pushing
 - Pre-commit hook (auto-formats on commit): `git config core.hooksPath tools/hooks`
 - See [docs/CODE_STYLE_GUIDE.md](docs/CODE_STYLE_GUIDE.md) for more details and examples
 
@@ -124,16 +127,20 @@ ctest -j --test-dir build-$YOUR_NAME --stop-on-failure --output-on-failure -R te
 xcodebuild archive -workspace xcode/omim.xcworkspace -configuration Debug -destination generic/platform='iOS Simulator' \
     -scheme OMaps MARKETING_VERSION="$(date +%Y.%m.%d)" CURRENT_PROJECT_VERSION=1 EXCLUDED_ARCHS=x86_64
 ```
+CI builds iOS but does not run its tests yet, see [#9867](https://github.com/organicmaps/organicmaps/issues/9867).
 
 ## Build for Android
-- `cd android && ./gradlew assembleGoogleDebug -Parm64`
+- Build: `cd android && ./gradlew assembleGoogleDebug -Parm64`
+- Unit tests: `cd android && ./gradlew app:testGoogleDebug sdk:testDebug`
+- Instrumented tests (needs an emulator or device): `cd android && ./gradlew sdk:connectedDebugAndroidTest`
+- Lint (gates CI): `cd android && ./gradlew lintAllModules`
 
 ## Commit messages
 Format: `[subsystem] Summary in imperative mood` (max 80 chars). Examples of subsystems:
 `[android]`, `[ios]`, `[qt]`, `[search]`, `[routing]`, `[generator]`, `[strings]`, `[styles]`, `[platform]`, `[storage]`, `[bookmarks]`, `[3party]`, `[docs]`
 
 - Separate subject from body with a blank line; wrap body at 80 chars
-- Explain **what and why**, not how
+- Explain **what and why**, not how; keep it brief
 - Link issues on last lines: `Fixes: #123`, `Closes: #456`
 - Auto-generated files (strings, styles) must be in a **separate commit** with title like `[strings] Regenerated` or `[styles] Regenerated`
 - Signed-off-by line required (DCO): `git commit -s`
@@ -142,7 +149,7 @@ Format: `[subsystem] Summary in imperative mood` (max 80 chars). Examples of sub
 ## Pull requests
 - Prefer PRs focused and small; split unrelated changes into separate PRs, or at least separate commits with clear messages
 - Mention if LLM tools were used to generate code
-- Description must include: what changed, link to issue (`Fixes #NNN`), how it was tested
+- Description must be brief and include: what changed, link to issue (`Fixes #NNN`), how it was tested
 - Every commit must compile on all platforms and pass tests
 - New features require tests in the same PR
 - Test on multiple OS versions, themes (light/dark), orientations where applicable
@@ -154,8 +161,18 @@ Format: `[subsystem] Summary in imperative mood` (max 80 chars). Examples of sub
 - Less code/cleaner code/less changes
 - Simple architecture and design for long-term maintenance
 
+## Error handling policy
+- Downloaded files are verified on download when a hash is available, and trusted as-is otherwise --
+  they come from our servers. On-disk corruption afterwards is out of OM scope: crashing on corrupted
+  data is fine, do not harden the code against it. Exception: `Framework::RegisterAllMaps()` must
+  survive broken map files so the app still starts and bookmarks can be exported.
+- Fail fast: use `ASSERT` liberally to catch developer mistakes in Debug. Asserts are compiled out of
+  Release for performance, so keep them side-effect free (`VERIFY` still evaluates its expression).
+  Use `CHECK` when the condition must also hold in Release, and don't add defensive fallbacks for
+  conditions that can only come from a bug.
+
 ## Code review guidelines
-- Use `gh` CLI tool to review pull requests, leave comments and approve changes
+- Use the available GitHub tooling (`gh` CLI or GitHub MCP tools) to review pull requests, leave comments and approve changes
 - Check the code locally if the same PR/branch is checked out
 - Review code for bugs, correctness, maintainability, performance, and other issues
 - Review related changes and places where the code is used
@@ -167,13 +184,13 @@ Format: `[subsystem] Summary in imperative mood` (max 80 chars). Examples of sub
 - Verify auto-generated files are NOT modified by hand (styles, localizations, `classificator.txt`)
 - Check that new strings go into translation files, not hardcoded
 - Verify new map features have classifier tests in `generator/generator_tests/osm_type_test.cpp`
+- Proofread translations and suggest missing ones, following "When translating content from English"
 
 ## Translation, map styles, and new map features workflows
 See [data/CLAUDE.md](data/CLAUDE.md) for:
 - Translation workflow (editing `data/strings/`, regenerating)
 - Map styles workflow (editing MapCSS in `data/styles/`, regenerating)
 - Adding a new map feature / search category (full checklist)
-- Translation glossary and typography rules for Russian, Ukrainian, Belarusian
 
 ## Debug commands
 Enter in the search bar to activate (see [docs/DEBUG_COMMANDS.md](docs/DEBUG_COMMANDS.md)):
