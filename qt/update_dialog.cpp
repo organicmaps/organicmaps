@@ -29,8 +29,8 @@ enum
 {
   //  KItemIndexFlag = 0,
   KColumnIndexCountry,
-  KColumnIndexStatus,   // The MWM status.
-  KColumnIndexSize,     // The MWM size.
+  KColumnIndexStatus,  // The MWM status.
+  KColumnIndexSize,    // The MWM size.
   KColumnIndexTwmStatus,
   KColumnIndexTwmSize,
   KColumnIndexMatchedBy,
@@ -77,8 +77,8 @@ UpdateDialog::UpdateDialog(QWidget * parent, Framework & framework)
   m_tree = new QTreeWidget(this);
   m_tree->setColumnCount(KNumberOfColumns);
   QStringList columnLabels;
-  columnLabels << tr("Country") << tr("MWM (Click for action)") << tr("MWM Size") << tr("TWM (Click for action)") << tr("TWM Size") << tr("Matched by")
-               << tr("Rank");
+  columnLabels << tr("Country") << tr("MWM (Click for action)") << tr("MWM Size") << tr("TWM (Click for action)")
+               << tr("TWM Size") << tr("Matched by") << tr("Rank");
   m_tree->setHeaderLabels(columnLabels);
 
   m_tree->setColumnHidden(KColumnIndexPositionInRanking, true);

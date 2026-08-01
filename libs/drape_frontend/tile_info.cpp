@@ -5,6 +5,8 @@
 #include "drape_frontend/rule_drawer.hpp"
 #include "drape_frontend/tile_utils.hpp"
 
+#include "indexer/terrain/terrain_utils.hpp"
+
 #include "base/scope_guard.hpp"
 
 #include <algorithm>
@@ -52,10 +54,9 @@ void TileInfo::ReadFeatures(MapDataProvider const & model)
 
   m_context->GetMetalineManager()->Update(m_mwms);
 
-  // The zoom gate matches kMinIsolinesZoom and the isoline styles visibility start.
   /// @todo Separate visibility settings for the isolines and the hillshading.
-  bool const drawTerrain =
-      GetZoomLevel() >= 11 && m_context->IsolinesEnabled() && model.HasTerrain(GetTileKey().GetWrappedDataRect());
+  bool const drawTerrain = GetZoomLevel() >= terrain::kMinIsolinesZoom && m_context->IsolinesEnabled() &&
+                           model.HasTerrain(GetTileKey().GetWrappedDataRect());
 
   if (!m_featureInfo.empty() || drawTerrain)
   {

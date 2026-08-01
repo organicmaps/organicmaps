@@ -427,6 +427,10 @@ void RuleDrawer::operator()(FeatureType & f)
     return;
 
   feature::TypesHolder const types(f);
+  // m_drawTerrain suppresses the baked isoline features for the WHOLE tile while the
+  // dynamic ones cover only the terrain blocks: a tile straddling the coverage border
+  // shows a one-tile-wide gap. Accepted: per-feature gating against the mesh rects
+  // costs more than the artifact is worth, and the coverage grows block by block.
   if (((!m_context->IsolinesEnabled() || m_drawTerrain) && m_isIsoline(types)) ||
       (!m_context->Is3dBuildingsEnabled() && m_isBuildingPart(types) && !m_isBuilding(types)))
     return;
@@ -520,6 +524,12 @@ void RuleDrawer::DrawTerrain(MapDataProvider const & model)
   // it also completes the shade normals of the vertices near the tile border.
   m2::RectD queryRect = m_applyParams.m_tileRect;
   queryRect.Scale(kIsolineSmoothScale);
+  // The tile rect is canonical (TileKey::GetWrappedDataRect, the world copies render
+  // via the tile offset), only the inflation can poke past the +-180 seam, where the
+  // terrain mesh does not continue anyway: clip it back.
+  if (!queryRect.Intersect(mercator::Bounds::FullRect()))
+    return;
+
   terrain::TileMesh mesh;
   model.ReadTerrainMesh(queryRect, m_zoomLevel, mesh);
   if (CheckCancelled() || mesh.IsEmpty())
@@ -680,7 +690,10 @@ void RuleDrawer::DrawTerrainShade(terrain::TileMesh const & mesh)
   if (CheckCancelled())
     return;
 
-  // Pass 2: the per-vertex Lambert intensity relative to the flat ground, [-1, 1].
+  // Pass 2: the per-vertex Lambert intensity relative to the flat ground. The
+  // highlight half maps to [0, 1]; the shadow half maps to [-2, 0] and the shader
+  // clamps it to -1, so the steepest shadows share the max alpha (an intended floor:
+  // normalizing by 1 + kFlatIntensity instead would dilute the mid-slope contrast).
   std::vector<float> intensities(points.size(), 0.0f);
   for (size_t i = 0; i < normals.size(); ++i)
   {
@@ -752,7 +765,7 @@ void RuleDrawer::DrawDynamicIsolines(terrain::TileMesh const & mesh, terrain::Is
   // The isolines come in the display units (see terrain::TraceIsolines).
   terrain::TraceIsolines(mesh, isolinesStyle.GetStep(), units, [&](terrain::Isoline && isoline)
   {
-    if (CheckCancelled())
+    if (m_wasCancelled)
       return;
     auto const * lineRule = isolinesStyle.GetLineRule(isoline.m_altitude);
     if (lineRule == nullptr)
@@ -765,10 +778,11 @@ void RuleDrawer::DrawDynamicIsolines(terrain::TileMesh const & mesh, terrain::Is
       LineViewParams params;
       params.m_tileCenter = m_applyParams.m_tileRect.Center();
       ExtractLineParams(*lineRule, visScale, params);
-      // TEST MODE: depth contours (negative altitudes, the bathymetry experiment) go blue,
-      // keeping the width and the class alpha of the land isoline drules.
+
+      /// @todo Add depth contours (negative altitudes) to the styles.
       if (isoline.m_altitude < 0)
         params.m_color = dp::Color(38, 118, 196, params.m_color.GetAlpha());
+
       // Isoline drules are FG lines, their priorities map to the depth directly.
       params.m_depth = lineRule->priority;
       params.m_depthLayer = DepthLayer::GeometryLayer;
@@ -792,9 +806,11 @@ void RuleDrawer::DrawDynamicIsolines(terrain::TileMesh const & mesh, terrain::Is
       float constexpr kMinVisibleFontSize = 8.0f;
       textParams.m_textFont = dp::FontDecl(
           ToDrapeColor(caption.color), std::max(kMinVisibleFontSize, static_cast<float>(caption.height * visScale)));
-      // TEST MODE: depth labels match the blue depth contours of the bathymetry experiment.
+
+      /// @todo Add depth contours (negative altitudes) to the styles.
       if (isoline.m_altitude < 0)
         textParams.m_textFont.m_color = dp::Color(25, 96, 168, 255);
+
       if (caption.stroke_color != 0)
         textParams.m_textFont.m_outlineColor = ToDrapeColor(caption.stroke_color);
       textParams.m_baseGtoPScale = m_applyParams.m_currentScaleGtoP;
@@ -806,7 +822,7 @@ void RuleDrawer::DrawDynamicIsolines(terrain::TileMesh const & mesh, terrain::Is
       textIndex += static_cast<uint32_t>(shape->GetOffsets().size());
       m_applyParams.m_insertShape(std::move(shape));
     }
-  });
+  }, [this]() { return CheckCancelled(); });
 }
 
 #ifdef DRAW_TILE_NET

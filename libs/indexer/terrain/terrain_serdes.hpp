@@ -443,9 +443,12 @@ void DecodeChains(Source & src, serial::GeometryCodingParams const & cp, Altitud
   m2::PointU const basePoint = cp.GetBasePoint();
   m2::PointD const maxPoint(serial::pts::GetMaxPoint(cp));
 
-  // The feature-local decoded vertices (the prediction sources) with their mesh
-  // indices. A vertex the encoder emitted twice (chains sharing a corner) takes two
-  // local slots with identical values - the mesh index is the same for both.
+  // The feature-local prediction sources, NOT read back from the mesh: the altitude
+  // deltas were encoded against this feature's own values (a shared border vertex may
+  // keep another block's altitude in the mesh), and the point prediction needs the
+  // quantized points the mesh does not store. A vertex the encoder emitted twice
+  // (chains sharing a corner) takes two local slots with identical values - the mesh
+  // index is the same for both.
   std::vector<m2::PointU> points;
   std::vector<int32_t> altitudes;
   std::vector<uint32_t> meshIndex;

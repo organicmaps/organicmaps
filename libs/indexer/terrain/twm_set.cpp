@@ -11,41 +11,6 @@
 
 namespace terrain
 {
-namespace
-{
-// The blocks share their border lines by design, so only the interiors may not intersect.
-bool IsOverlapping(m2::RectD const & lhs, m2::RectD const & rhs)
-{
-  return lhs.minX() < rhs.maxX() && rhs.minX() < lhs.maxX() && lhs.minY() < rhs.maxY() && rhs.minY() < lhs.maxY();
-}
-
-// Splits the possibly beyond-the-antimeridian rect (drape tile rects can poke past +-180,
-// see TileKey::GetWrappedDataRect) into the canonical x-range pieces. The registered block
-// rects are canonical, so the seam queries must probe both sides.
-template <typename Fn>
-void ForEachCanonicalRect(m2::RectD const & rect, Fn && fn)
-{
-  double constexpr kMinX = mercator::Bounds::kMinX;
-  double constexpr kMaxX = mercator::Bounds::kMaxX;
-  double constexpr kRangeX = kMaxX - kMinX;
-
-  // A wider than the world rect covers every longitude.
-  if (rect.SizeX() >= kRangeX)
-  {
-    fn(m2::RectD(kMinX, rect.minY(), kMaxX, rect.maxY()));
-    return;
-  }
-
-  m2::RectD canonical = rect;
-  if (canonical.Intersect({kMinX, rect.minY(), kMaxX, rect.maxY()}))
-    fn(canonical);
-  if (rect.maxX() > kMaxX)
-    fn(m2::RectD(kMinX, rect.minY(), rect.maxX() - kRangeX, rect.maxY()));
-  if (rect.minX() < kMinX)
-    fn(m2::RectD(rect.minX() + kRangeX, rect.minY(), kMaxX, rect.maxY()));
-}
-}  // namespace
-
 std::string DebugPrint(TwmId const & id)
 {
   if (id.m_info)
@@ -88,7 +53,7 @@ std::pair<TwmId, TwmSet::RegResult> TwmSet::Register(std::string const & filePat
       if (infos.empty())
         continue;
       auto const & info = infos.back();
-      if (TwmId(info).IsAlive() && IsOverlapping(limitRect, info->GetLimitRect()))
+      if (TwmId(info).IsAlive() && IsInteriorOverlap(limitRect, info->GetLimitRect()))
       {
         LOG(LWARNING, ("The terrain file", filePath, "overlaps the registered", path));
         result = {TwmId(), RegResult::Overlapping};
@@ -131,7 +96,6 @@ bool TwmSet::Deregister(std::string const & filePath)
     if (id.IsNull())
       return;
     deregistered = DeregisterImpl(id, events);
-    ClearCache(id);
   });
   return deregistered;
 }
@@ -146,7 +110,6 @@ void TwmSet::Condemn(std::vector<TwmId> const & ids)
         continue;
       m_condemned.insert(id.GetInfo()->GetFilePath());
       DeregisterImpl(id, events);
-      ClearCache(id);
     }
   });
 }
@@ -155,23 +118,21 @@ template <typename Fn>
 void TwmSet::ForEachBlockByRectImpl(m2::RectD const & rect, Fn && fn) const
 {
   std::lock_guard<std::mutex> lock(m_lock);
-  ForEachCanonicalRect(rect, [&](m2::RectD const & piece)
-  {
-    for (auto const & [path, infos] : m_registry)
-      if (!infos.empty() && infos.back()->IsRegistered() && piece.IsIntersect(infos.back()->GetLimitRect()))
-        fn(infos.back());
-  });
+  // The query rects are canonical in X like the registered block rects: the drape tile
+  // rects are wrapped by TileKey::GetWrappedDataRect, the viewport rects are split by
+  // the callers (see mercator::ForEachRectWrapped). Y is NOT bounded: the empty tiles
+  // above/below the world edge (e.g. {x=-1, y=1, z=2} spans y [180, 360]) query too,
+  // and the plain interval intersection is already correct for them.
+  ASSERT(rect.minX() >= mercator::Bounds::kMinX && rect.maxX() <= mercator::Bounds::kMaxX, (rect));
+  for (auto const & [path, infos] : m_registry)
+    if (!infos.empty() && infos.back()->IsRegistered() && rect.IsIntersect(infos.back()->GetLimitRect()))
+      fn(infos.back());
 }
 
 void TwmSet::GetBlocksByRect(m2::RectD const & rect, std::vector<TwmId> & ids) const
 {
   ids.clear();
-  ForEachBlockByRectImpl(rect, [&](std::shared_ptr<TwmInfo> const & info)
-  {
-    TwmId const id(info);
-    if (std::find(ids.begin(), ids.end(), id) == ids.end())
-      ids.push_back(id);
-  });
+  ForEachBlockByRectImpl(rect, [&](std::shared_ptr<TwmInfo> const & info) { ids.emplace_back(info); });
 }
 
 bool TwmSet::HasBlocks(m2::RectD const & rect) const
@@ -195,12 +156,7 @@ bool TwmSet::HasOlderBlocks(m2::RectD const & rect, int64_t version) const
 void TwmSet::GetBlockRectsByRect(m2::RectD const & rect, std::vector<m2::RectD> & rects) const
 {
   rects.clear();
-  ForEachBlockByRectImpl(rect, [&](std::shared_ptr<TwmInfo> const & info)
-  {
-    m2::RectD const r = info->GetLimitRect();
-    if (std::find(rects.begin(), rects.end(), r) == rects.end())
-      rects.push_back(r);
-  });
+  ForEachBlockByRectImpl(rect, [&](std::shared_ptr<TwmInfo> const & info) { rects.push_back(info->GetLimitRect()); });
 }
 
 TwmSet::Handle TwmSet::GetHandleById(TwmId const & id)

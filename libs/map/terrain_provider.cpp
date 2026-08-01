@@ -87,6 +87,7 @@ void TerrainProvider::Rescan()
   }
   if (registered > 0 || replaced > 0)
     LOG(LINFO, ("Terrain blocks available:", registered, "outdated deleted:", replaced));
+  m_scanned = true;
 }
 
 void TerrainProvider::OnBlockDownloaded(std::string const & path, m2::RectD & invalidRect)
@@ -125,7 +126,9 @@ void TerrainProvider::DeleteBlocksImpl(std::vector<m2::RectD> const & rects,
     for (auto const & id : ids)
     {
       auto const & info = *id.GetInfo();
-      if (pred(info))
+      // GetBlocksByRect intersection is inclusive: an edge-touching neighbor is not
+      // covered by the rect, keep it.
+      if (IsInteriorOverlap(rect, info.GetLimitRect()) && pred(info))
         blocks.emplace(info.GetFilePath(), info.GetLimitRect());
     }
   }
@@ -148,29 +151,25 @@ void TerrainProvider::DeleteBlocksImpl(std::vector<m2::RectD> const & rects,
 void TerrainProvider::Clear()
 {
   m_set.Clear();
+  m_scanned = false;
 }
 
 void TerrainProvider::ReadMesh(m2::RectD const & rect, int zoom, TileMesh & mesh) const
 {
-  // TODO(terrain): a tile straddling the +-180 antimeridian keeps its global rect (see
-  // TileKey::GetWrappedDataRect), so its beyond-seam half needs the mesh shifted back
-  // by the world width. Until then the straddling tiles get the canonical-side mesh only.
   std::vector<TwmId> ids;
   m_set.GetBlocksByRect(rect, ids);
   if (ids.empty())
     return;
 
-  try
+  uint8_t coordBits = 0;
+  for (auto const & id : ids)
   {
-    uint8_t coordBits = 0;
-    for (auto const & id : ids)
+    try
     {
       auto const handle = m_set.GetHandleById(id);
       if (!handle.IsAlive())
         continue;
       auto const & reader = handle.GetValue()->GetReader();
-      // The blocks come from independent files: the vertex deduplication needs the
-      // uniform quantization, keep the mismatches catchable.
       if (coordBits == 0)
       {
         coordBits = reader.GetHeader().m_coordBits;
@@ -178,19 +177,21 @@ void TerrainProvider::ReadMesh(m2::RectD const & rect, int zoom, TileMesh & mesh
       }
       else if (reader.GetHeader().m_coordBits != coordBits)
       {
-        MYTHROW(TwmException, ("Mixed terrain blocks configuration"));
+        // Mixed grid snapshots: the dedup keys are raw quantized points, a block with
+        // another quantization can't join this mesh - skip it, it is not broken.
+        LOG(LWARNING, ("Skipping the terrain block", id, "of another coord bits configuration"));
+        continue;
       }
       size_t const geomIndex = reader.GetHeader().GetGeometryIndex(std::min(zoom, scales::GetUpperScale()));
       reader.ReadMesh(rect, geomIndex, mesh);
     }
-  }
-  catch (RootException const & ex)
-  {
-    // Corrupt data can be detected this late, condemn the participating blocks so the
-    // next queries don't hit it again. The deregistration is delayed past the handles.
-    LOG(LERROR, ("Condemning the corrupt terrain blocks of the query:", ex.Msg()));
-    m_set.Condemn(ids);
-    mesh = TileMesh();
+    catch (RootException const & ex)
+    {
+      // An unreadable block (e.g. an unsupported newer format) is condemned alone, the
+      // neighbor blocks keep rendering. The deregistration is delayed past the handles.
+      LOG(LERROR, ("Condemning the unreadable terrain block", id, ":", ex.Msg()));
+      m_set.Condemn({id});
+    }
   }
 }
 }  // namespace terrain
