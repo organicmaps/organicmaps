@@ -912,21 +912,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void onIsolinesStateChanged(@NonNull IsolinesState type)
   {
     if (type == IsolinesState.NODATA)
-    {
       Toast.makeText(this, R.string.isolines_location_error_dialog, Toast.LENGTH_SHORT).show();
-    }
-
-    if (type == IsolinesState.EXPIREDDATA)
-    {
-      mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-                         .setTitle(R.string.downloader_update_maps)
-                         .setMessage(R.string.isolines_activation_error_dialog)
-                         .setPositiveButton(
-                             R.string.ok, (dialog, which) -> startActivity(new Intent(this, DownloaderActivity.class)))
-                         .setNegativeButton(R.string.cancel, null)
-                         .setOnDismissListener(dialog -> mAlertDialog = null)
-                         .show();
-    }
   }
 
   @Override

@@ -59,15 +59,6 @@ T constexpr FloorDiv(T a, T b)
     return q;
 }
 
-// Rounding-towards-positive-infinity integer division for any dividend sign; the divisor
-// must be positive. Overflow-free.
-template <std::integral T>
-T constexpr CeilDiv(T a, T b)
-{
-  ASSERT_GREATER(b, 0, ());
-  T const q = a / b;
-  return (a % b != 0 && a > 0) ? q + 1 : q;
-}
 }  // namespace math
 
 // Compare floats or doubles for almost equality.
