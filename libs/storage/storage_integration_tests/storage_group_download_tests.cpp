@@ -2,17 +2,12 @@
 
 #include "storage/storage_integration_tests/test_defines.hpp"
 
-#include "map/framework.hpp"
+#include "storage/storage.hpp"
 
-#include "platform/http_request.hpp"
-#include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/writable_dir_changer.hpp"
 
-#include "storage/storage.hpp"
-
-#include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
 
 #include <string>
@@ -47,7 +42,7 @@ void DownloadGroup(Storage & storage, bool oneByOne)
 {
   Platform & platform = GetPlatform();
 
-  string const version = strings::to_string(storage.GetCurrentDataVersion());
+  string const version = std::to_string(storage.GetCurrentDataVersion());
 
   //  Get children nodes for the group node.
   CountriesVec children;
@@ -173,7 +168,7 @@ void DeleteGroup(Storage & storage, bool oneByOne)
 {
   Platform & platform = GetPlatform();
 
-  string const version = strings::to_string(storage.GetCurrentDataVersion());
+  string const version = std::to_string(storage.GetCurrentDataVersion());
 
   //  Get children nodes for the group node.
   CountriesVec v;
@@ -236,10 +231,12 @@ void DeleteGroup(Storage & storage, bool oneByOne)
 
 void TestDownloadDelete(bool downloadOneByOne, bool deleteOneByOne)
 {
+  // Storage::OnDownloadFinished validates files on Platform::Thread::File, so the pools must be running.
+  Platform::ThreadRunner threadRunner;
   WritableDirChanger writableDirChanger(kMapTestDir);
 
   Storage storage;
-  string const version = strings::to_string(storage.GetCurrentDataVersion());
+  string const version = std::to_string(storage.GetCurrentDataVersion());
 
   auto onUpdatedFn = [&](CountryId const &, storage::LocalFilePtr const localCountryFile)
   {
