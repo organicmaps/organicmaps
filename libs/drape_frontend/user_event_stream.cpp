@@ -239,6 +239,13 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
       breakAnim = OnRotate(rotateEvent);
     }
     break;
+    case UserEvent::EventType::RotateDelta:
+    {
+      m_needTrackCenter = false;
+      ref_ptr<RotateDeltaEvent> rotateEvent = make_ref(e);
+      breakAnim = SetAngle(rotateEvent->GetDeltaAzimuth());
+    }
+    break;
     case UserEvent::EventType::FollowAndRotate:
     {
       m_needTrackCenter = false;
@@ -517,6 +524,17 @@ bool UserEventStream::SetAngle(double azimuth, bool isAnim, TAnimationCreator co
   screen.SetAngle(azimuth);
   screen.MatchGandP3d(gPt, pt);
   return SetScreen(screen, isAnim, parallelAnimCreator);
+}
+
+bool UserEventStream::SetAngle(double delta)
+{
+  ScreenBase screen;
+  GetTargetScreen(screen);
+  m2::PointD pt = m_visibleViewport.Center();
+  m2::PointD gPt = screen.PtoG(screen.P3dtoP(pt));
+  screen.AddAngleDelta(delta);
+  screen.MatchGandP3d(gPt, pt);
+  return SetScreen(screen, false, nullptr);
 }
 
 bool UserEventStream::SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim, bool useVisibleViewport,
