@@ -1,0 +1,13 @@
+The July update is out — this month we went bug hunting across public transport, routing, search and bookmarks.
+
+• Route warnings — tolls, ferries, unpaved roads, steps — now show up on alternate routes too
+• Notes you report to OpenStreetMap land on the exact spot you picked
+• Stop and station names get a white outline, readable in both light and dark
+• iOS: a new bookmark color palette with predefined and fully custom colors
+• iOS: an Edit button for removing bookmarks, and lists that save themselves
+• Android: opening hours with split shifts, a cleaner search bar, a reworked bookmark editor
+• OpenStreetMap data updated as of July 14
+
+Get it at get.omaps.org — free, offline, ad-free and open source.
+
+#organicmaps #openstreetmap #offlinemaps #opensource #privacy #foss #hiking #cycling #navigation #gps #travel #maps
