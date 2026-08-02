@@ -107,7 +107,7 @@ final class PlacePagePreviewViewController: UIViewController {
 
   func updateHeading(_ angle: CGFloat) {
     placePageDirectionView?.imageView.isHidden = false
-    let duration = heading == nil ? .zero : kDefaultAnimationDuration // skip the initial setup animation
+    let duration = heading == nil ? .zero : AppConstants.defaultAnimationDuration // skip the initial setup animation
     UIView.animate(withDuration: duration,
                    delay: 0,
                    options: [.beginFromCurrentState, .curveEaseInOut],

@@ -184,7 +184,7 @@ final class BMCViewController: MWMViewController {
   private func updateLoadingPlaceholderVisibility() {
     guard let loadingPlaceholderView else { return }
     let isVisible = viewModel.shouldShowLoadingPlaceholder()
-    UIView.transition(with: view, duration: kFastAnimationDuration, options: .transitionCrossDissolve) {
+    UIView.transition(with: view, duration: AppConstants.fastAnimationDuration, options: .transitionCrossDissolve) {
       loadingPlaceholderView.isHidden = !isVisible
       self.tableView.isHidden = isVisible
     } completion: { [weak self] _ in

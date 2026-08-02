@@ -1,6 +1,6 @@
 final class EstimatesView: UIView {
   private enum Constants {
-    static let animationDuration: TimeInterval = kDefaultAnimationDuration / 2
+    static let animationDuration: TimeInterval = AppConstants.defaultAnimationDuration / 2
   }
 
   enum State: Equatable {

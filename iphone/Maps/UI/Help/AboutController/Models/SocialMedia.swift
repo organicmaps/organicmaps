@@ -22,7 +22,7 @@ enum SocialMedia: CaseIterable {
     case .linkedin:
       return "https://www.linkedin.com/company/organic-maps/"
     case .organicMapsEmail:
-      return "ios@organicmaps.app"
+      return AppConstants.contactEmail
     case .matrix:
       return "https://matrix.to/#/#organicmaps:matrix.org"
     case .fosstodon:
