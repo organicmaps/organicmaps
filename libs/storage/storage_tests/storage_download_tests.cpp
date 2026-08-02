@@ -56,13 +56,18 @@ size_t SyntheticSize(CountryId const & countryId)
   return kSyntheticBaseSize + 1024 * SyntheticSeed(countryId);
 }
 
-std::string SyntheticHash(CountryId const & countryId)
+std::string SyntheticContent(CountryId const & countryId)
 {
   auto const seed = SyntheticSeed(countryId);
   std::string content(SyntheticSize(countryId), '\0');
   for (size_t i = 0; i < content.size(); ++i)
     content[i] = static_cast<char>((i + seed) % 256);
+  return content;
+}
 
+std::string SyntheticHash(CountryId const & countryId)
+{
+  auto const content = SyntheticContent(countryId);
   coding::Blake3 hasher;
   hasher.Update(content.data(), content.size());
   return hasher.FinalizeToBase64(coding::Blake3::kMwmHashSizeInBytes);
