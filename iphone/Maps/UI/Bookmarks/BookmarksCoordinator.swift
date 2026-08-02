@@ -70,7 +70,7 @@ import UIKit
       var controllers = navigationController.viewControllers
       controllers.append(contentsOf: bookmarksControllers)
       UIView.transition(with: self.navigationController!.view,
-                        duration: kDefaultAnimationDuration,
+                        duration: AppConstants.defaultAnimationDuration,
                         options: [.curveEaseInOut, .transitionCrossDissolve],
                         animations: {
                           navigationController.setViewControllers(controllers, animated: false)
@@ -82,7 +82,7 @@ import UIKit
       bookmarksControllers = nil
     case .hidden:
       UIView.transition(with: self.navigationController!.view,
-                        duration: kDefaultAnimationDuration,
+                        duration: AppConstants.defaultAnimationDuration,
                         options: [.curveEaseInOut, .transitionCrossDissolve],
                         animations: {
                           self.bookmarksControllers = navigationController.popToRootViewController(animated: false)

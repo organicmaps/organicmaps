@@ -1,4 +1,5 @@
 #import "MWMAddPlaceNavigationBar.h"
+#import "SwiftBridge.h"
 
 #include <CoreApi/Framework.h>
 
@@ -40,7 +41,7 @@
   f.EnableChoosePositionMode(true /* enable */, enableBounds, optionalPosition);
   f.BlockTapEvents(true);
 
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^{ self.topConstraint.constant = 0; }];
+  [UIView animateWithDuration:AppConstants.defaultAnimationDuration animations:^{ self.topConstraint.constant = 0; }];
 }
 
 - (void)dismissWithBlock:(MWMVoidBlock)block
@@ -49,7 +50,7 @@
   f.EnableChoosePositionMode(false /* enable */, false /* enableBounds */, nullptr /* optionalPosition */);
   f.BlockTapEvents(false);
 
-  [UIView animateWithDuration:kDefaultAnimationDuration
+  [UIView animateWithDuration:AppConstants.defaultAnimationDuration
       animations:^{ self.topConstraint.constant = -self.height; }
       completion:^(BOOL finished) {
         [self removeFromSuperview];

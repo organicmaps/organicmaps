@@ -71,7 +71,7 @@ final class SearchHistoryViewController: MWMViewController {
 
   private func showEmptyHistoryView(_ isVisible: Bool = true, animated: Bool = true) {
     UIView.transition(with: emptyHistoryView,
-                      duration: animated ? kDefaultAnimationDuration : 0,
+                      duration: animated ? AppConstants.defaultAnimationDuration : 0,
                       options: [.transitionCrossDissolve, .curveEaseInOut]) {
       self.emptyHistoryView.alpha = isVisible ? 1.0 : 0.0
       self.emptyHistoryView.isHidden = !isVisible

@@ -116,7 +116,7 @@ final class PlacePageScrollView: UIScrollView {
       if alpha < 0.8 {
         interactor?.close()
       } else {
-        UIView.animate(withDuration: kDefaultAnimationDuration) {
+        UIView.animate(withDuration: AppConstants.defaultAnimationDuration) {
           self.view.minX = 0
           self.view.alpha = 1
         }

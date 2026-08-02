@@ -74,7 +74,7 @@ class BottomTabBarViewController: UIViewController {
                           height: avaliableArea.height)
     let alpha: CGFloat = isHidden ? 0 : 1
     if animated {
-      UIView.animate(withDuration: kDefaultAnimationDuration,
+      UIView.animate(withDuration: AppConstants.defaultAnimationDuration,
                      delay: 0,
                      options: [.beginFromCurrentState],
                      animations: {

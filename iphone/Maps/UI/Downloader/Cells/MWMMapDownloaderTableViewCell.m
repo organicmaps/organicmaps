@@ -132,7 +132,7 @@
 
 - (void)setDownloadProgress:(CGFloat)progress
 {
-  self.progress.progress = kMaxProgress * progress;
+  self.progress.progress = AppConstants.maxProgress * progress;
 }
 
 #pragma mark - MWMCircularProgressProtocol

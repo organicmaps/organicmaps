@@ -6,7 +6,6 @@
   #import <UIKit/UIKit.h>
   #import <CoreLocation/CoreLocation.h>
 
-  #import "MWMConsts.h"
   #import "MWMMacros.h"
   #import "UIColor+Colors.h"
   #import "UIKitCategories.h"

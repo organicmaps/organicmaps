@@ -21,7 +21,6 @@ CGFloat constexpr kSearchButtonsViewWidthPortrait = 200;
 CGFloat constexpr kSearchButtonsViewHeightLandscape = 56;
 CGFloat constexpr kSearchButtonsViewWidthLandscape = 286;
 CGFloat constexpr kSearchButtonsSideSize = 44;
-CGFloat constexpr kSearchButtonsBottomOffset = 32;
 CGFloat constexpr kBaseTurnsTopOffset = 28;
 CGFloat constexpr kShiftedTurnsTopOffset = 8;
 
@@ -135,27 +134,6 @@ CGFloat ScaledTurnsWidth()
 - (void)setMapSearch
 {
   [self setSearchState:NavigationSearchStateMinimizedSearch animated:YES];
-}
-
-- (void)updateSideButtonsAvailableArea:(CGRect)frame animated:(BOOL)animated
-{
-  CGFloat const height = frame.size.height;
-  if (height == 0)
-    return;
-  CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-  CGFloat bottomOffset = screenHeight - height + kSearchButtonsBottomOffset;
-
-  self.searchMainButtonBottomConstraint.constant = bottomOffset;
-  BOOL isOutOfBounds = height < kSearchButtonsViewHeightPortrait;
-  [UIView animateWithDuration:animated ? 0 : kDefaultAnimationDuration
-      animations:^{
-        self.searchMainButton.alpha = isOutOfBounds ? 0.0 : 1.0;
-        self.bookmarksButton.alpha = isOutOfBounds ? 0.0 : 1.0;
-      }
-      completion:^(BOOL finished) {
-        self.searchMainButton.hidden = isOutOfBounds;
-        self.bookmarksButton.hidden = isOutOfBounds;
-      }];
 }
 
 - (SearchOnMapManager *)searchManager
@@ -434,7 +412,7 @@ CGFloat ScaledTurnsWidth()
   if (animated)
   {
     [self layoutIfNeeded];
-    [UIView animateWithDuration:kDefaultAnimationDuration animations:block];
+    [UIView animateWithDuration:AppConstants.defaultAnimationDuration animations:block];
   }
   else
   {
@@ -501,7 +479,7 @@ CGFloat ScaledTurnsWidth()
       [self configLayout];
     }
   }
-  [UIView animateWithDuration:kDefaultAnimationDuration
+  [UIView animateWithDuration:AppConstants.defaultAnimationDuration
       animations:^{
         self.alpha = isVisible ? 1 : 0;
         [self layoutIfNeeded];

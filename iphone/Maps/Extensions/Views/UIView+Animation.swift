@@ -13,11 +13,11 @@ extension UIView {
   }
 
   @objc func animateConstraints(animations: @escaping () -> Void, completion: @escaping () -> Void) {
-    animateConstraints(duration: kDefaultAnimationDuration, animations: animations, completion: completion)
+    animateConstraints(duration: AppConstants.defaultAnimationDuration, animations: animations, completion: completion)
   }
 
   @objc func animateConstraints(animations: @escaping () -> Void) {
-    animateConstraints(duration: kDefaultAnimationDuration, animations: animations, completion: {})
+    animateConstraints(duration: AppConstants.defaultAnimationDuration, animations: animations, completion: {})
   }
 
   @objc func startRotation(_ duration: TimeInterval = 1.0) {
