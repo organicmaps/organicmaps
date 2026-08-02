@@ -2,13 +2,11 @@
 
 #include "storage/storage_integration_tests/test_defines.hpp"
 
-#include "map/framework.hpp"
+#include "storage/storage.hpp"
 
 #include "platform/platform.hpp"
-#include "platform/platform_tests_support/writable_dir_changer.hpp"
 
 #include "base/file_name_utils.hpp"
-#include "base/scope_guard.hpp"
 
 #include <algorithm>
 #include <string>
@@ -20,7 +18,6 @@ using namespace storage;
 
 namespace
 {
-
 int GetLevelCount(Storage & storage, CountryId const & countryId)
 {
   CountriesVec children;
@@ -32,34 +29,29 @@ int GetLevelCount(Storage & storage, CountryId const & countryId)
 }
 }  // namespace
 
-UNIT_TEST(SmallMwms_3levels_Test)
+UNIT_CLASS_TEST(StorageTest, SmallMwms_3levels_Test)
 {
-  WritableDirChanger writableDirChanger(kMapTestDir);
-
   Platform & platform = GetPlatform();
 
-  /// @todo So sick, but Framework.RoutingManager has so complicated logic with a bunch of
-  /// RunOnGui callbacks, so delete Framework also in RunOnGui.
-  auto * frm = new Framework(FrameworkParams(false /* m_enableDiffs */));
-
-  SCOPE_GUARD(deleteFramework, [frm]() { GetPlatform().RunTask(Platform::Thread::Gui, [frm]() { delete frm; }); });
-
-  auto & storage = frm->GetStorage();
-  std::string const version = strings::to_string(storage.GetCurrentDataVersion());
+  Storage storage;
+  std::string const version = std::to_string(storage.GetCurrentDataVersion());
 
   CountryId country = "Germany";
   TEST_EQUAL(3, GetLevelCount(storage, country), ());
 
   std::string const mapDir = base::JoinPath(platform.WritableDir(), version);
 
-  auto onProgressFn = [&](CountryId const & countryId, downloader::Progress const & /* progress */) {};
+  auto onProgressFn = [](CountryId const &, downloader::Progress const &) {};
 
-  auto onChangeCountryFn = [&](CountryId const & countryId)
+  auto onChangeCountryFn = [&storage](CountryId const &)
   {
     if (!storage.IsDownloadInProgress())
       testing::StopEventLoop();
   };
 
+  storage.Init([](CountryId const &, LocalFilePtr const) {},
+               [](CountryId const &, LocalFilePtr const) { return false; });
+  storage.RegisterAllLocalMaps();
   storage.Subscribe(onChangeCountryFn, onProgressFn);
   storage.SetDownloadingServersForTesting({kTestWebServer});
 
