@@ -6,13 +6,11 @@
 
 #include "platform/downloader_defines.hpp"
 #include "platform/platform.hpp"
-#include "platform/platform_tests_support/writable_dir_changer.hpp"
 
 namespace download_calc_size_test
 {
 using namespace storage;
 
-using Runner = Platform::ThreadRunner;
 void InitStorage(Storage & storage, Storage::UpdateCallback const & didDownload,
                  Storage::ProgressFunction const & progress)
 {
@@ -31,10 +29,8 @@ void InitStorage(Storage & storage, Storage::UpdateCallback const & didDownload,
   storage.SetDownloadingServersForTesting({kTestWebServer});
 }
 
-UNIT_CLASS_TEST(Runner, DownloadingTests_CalcOverallProgress)
+UNIT_CLASS_TEST(StorageTest, DownloadingTests_CalcOverallProgress)
 {
-  WritableDirChanger writableDirChanger(storage::kMapTestDir);
-
   // A bunch of small islands.
   CountriesVec const kTestCountries = {"Kiribati", "Tokelau", "Niue", "Palau", "Pitcairn Islands"};
 
