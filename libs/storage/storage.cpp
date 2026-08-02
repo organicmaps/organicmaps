@@ -1380,7 +1380,7 @@ void Storage::DownloadNode(CountryId const & countryId, bool isUpdate /* = false
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  CountryTree::Node const * node = m_countries.FindFirst(countryId);
+  CountryTree::Node const * const node = m_countries.FindFirst(countryId);
   if (!node)
     return;
 
