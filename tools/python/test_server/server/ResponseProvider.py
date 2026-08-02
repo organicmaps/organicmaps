@@ -155,17 +155,15 @@ class ResponseProvider:
         self.headers = headers
         self.chunk_requested()
         url = self.strip_query(url)
-        if url.startswith(SYNTHETIC_MWM_PREFIX):
-            return self.synthetic_mwm(unquote(url[url.rfind("/") + 1:]))
         try:
-            return {
+            handler = {
                 "/unit_tests/1.txt": self.test1,
                 "/unit_tests/notexisting_unittest": self.test_404,
                 "/unit_tests/permanent": self.test_301,
                 "/unit_tests/47kb.file": self.test_47_kb,
-                # Following two URIs are used to test downloading failures on different platforms.
-                "/unit_tests/mac/1234/Uruguay.mwm": self.test_404,
-                "/unit_tests/linux/1234/Uruguay.mwm": self.test_404,
+                # Used to test a failing map download; the rest of /unit_tests/maps/ is served
+                # as a synthetic mwm below.
+                "/unit_tests/maps/1234/Uruguay.mwm": self.test_404,
                 "/ping": self.pong,
                 "/kill": self.kill,
                 "/id": self.my_id,
@@ -205,7 +203,10 @@ class ResponseProvider:
                 "/unit_tests/segment/overflow_body": self.test_segment_overflow_body,
                 "/unit_tests/segment/unknown_total": self.test_segment_unknown_total,
                 "/unit_tests/segment/ok": self.test_segment_ok,
-            }.get(url, self.test_404)()
+            }.get(url)
+            if handler is None and url.startswith(SYNTHETIC_MWM_PREFIX):
+                return self.synthetic_mwm(unquote(url[url.rfind("/") + 1:]))
+            return (handler or self.test_404)()
         except Exception as e:
             logging.error("test_server: Can't build server response", exc_info=e)
             return self.test_404()
