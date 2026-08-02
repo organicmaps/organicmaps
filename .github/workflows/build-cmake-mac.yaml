@@ -99,6 +99,9 @@ jobs:
       #   opening_hours_supported_features_tests - https://github.com/organicmaps/organicmaps/issues/219
       #   routing_integration_tests - https://github.com/organicmaps/organicmaps/issues/221
       #   world_feed_integration_tests - https://github.com/organicmaps/organicmaps/issues/215
+      #   routing_benchmarks, routing_quality_tests, search_quality_tests - benchmarks, not pass/fail tests
+      #   storage_integration_tests - downloads real maps from planet.organicmaps.app (~28 min, ~690 MB);
+      #     the offline part of that coverage lives in storage_tests
       - name: Run tests
         run: ctest --preset ci-xcode -C ${{ matrix.cmake-build-type }} -j$(sysctl -n hw.logicalcpu)
 
