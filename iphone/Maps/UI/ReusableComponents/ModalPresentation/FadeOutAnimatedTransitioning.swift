@@ -1,6 +1,6 @@
 final class FadeOutAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning {
   func transitionDuration(using _: UIViewControllerContextTransitioning?) -> TimeInterval {
-    kDefaultAnimationDuration
+    AppConstants.defaultAnimationDuration
   }
 
   func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {

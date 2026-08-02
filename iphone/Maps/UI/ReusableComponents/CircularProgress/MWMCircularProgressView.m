@@ -211,7 +211,7 @@ static CGFloat angleWithProgress(CGFloat progress)
 {
   [self updatePath:toValue];
   CABasicAnimation * animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-  animation.duration = kDefaultAnimationDuration;
+  animation.duration = AppConstants.defaultAnimationDuration;
   animation.repeatCount = 1;
   animation.fromValue = @(fromValue / toValue);
   animation.toValue = @1;

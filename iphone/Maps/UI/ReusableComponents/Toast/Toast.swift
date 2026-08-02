@@ -8,7 +8,7 @@ final class Toast: NSObject {
 
   private enum Constants {
     static let presentationDuration: TimeInterval = 3
-    static let animationDuration: TimeInterval = kDefaultAnimationDuration
+    static let animationDuration: TimeInterval = AppConstants.defaultAnimationDuration
     static let bottomOffset: CGFloat = 63
     static let topOffset: CGFloat = 50
     static let horizontalOffset: CGFloat = 16
