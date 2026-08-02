@@ -6,7 +6,6 @@
 
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
-#include "platform/platform_tests_support/writable_dir_changer.hpp"
 
 #include "base/file_name_utils.hpp"
 
@@ -231,10 +230,6 @@ void DeleteGroup(Storage & storage, bool oneByOne)
 
 void TestDownloadDelete(bool downloadOneByOne, bool deleteOneByOne)
 {
-  // Storage::OnDownloadFinished validates files on Platform::Thread::File, so the pools must be running.
-  Platform::ThreadRunner threadRunner;
-  WritableDirChanger writableDirChanger(kMapTestDir);
-
   Storage storage;
   string const version = std::to_string(storage.GetCurrentDataVersion());
 
@@ -260,22 +255,22 @@ void TestDownloadDelete(bool downloadOneByOne, bool deleteOneByOne)
   DeleteGroup(storage, deleteOneByOne);
 }
 
-UNIT_TEST(SmallMwms_GroupDownloadDelete_Test1)
+UNIT_CLASS_TEST(StorageTest, SmallMwms_GroupDownloadDelete_Test1)
 {
   TestDownloadDelete(false, false);
 }
 
-UNIT_TEST(SmallMwms_GroupDownloadDelete_Test2)
+UNIT_CLASS_TEST(StorageTest, SmallMwms_GroupDownloadDelete_Test2)
 {
   TestDownloadDelete(false, true);
 }
 
-UNIT_TEST(SmallMwms_GroupDownloadDelete_Test3)
+UNIT_CLASS_TEST(StorageTest, SmallMwms_GroupDownloadDelete_Test3)
 {
   TestDownloadDelete(true, false);
 }
 
-UNIT_TEST(SmallMwms_GroupDownloadDelete_Test4)
+UNIT_CLASS_TEST(StorageTest, SmallMwms_GroupDownloadDelete_Test4)
 {
   TestDownloadDelete(true, true);
 }
