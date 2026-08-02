@@ -1635,7 +1635,6 @@
 		ED82C8192F90186900FA103D /* MWMKeyboard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMKeyboard.m; sourceTree = "<group>"; };
 		ED82C81A2F90186900FA103D /* MWMKeyboardObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMKeyboardObserver.h; sourceTree = "<group>"; };
 		ED82C81C2F90186900FA103D /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
-		ED82C81D2F90186900FA103D /* MWMConsts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMConsts.h; sourceTree = "<group>"; };
 		ED82C81E2F90186900FA103D /* MWMMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMacros.h; sourceTree = "<group>"; };
 		ED86256A2FEECAB70057BF82 /* SettingsMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMessageCell.swift; sourceTree = "<group>"; };
 		ED86256D2FEECAB70057BF82 /* MWMSettings+MapTiles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMSettings+MapTiles.h"; sourceTree = "<group>"; };
@@ -4010,7 +4009,6 @@
 			children = (
 				ED82C81B2F90186900FA103D /* Keyboard */,
 				ED82C81C2F90186900FA103D /* Common.swift */,
-				ED82C81D2F90186900FA103D /* MWMConsts.h */,
 				ED82C81E2F90186900FA103D /* MWMMacros.h */,
 			);
 			path = Common;

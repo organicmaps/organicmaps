@@ -10,7 +10,7 @@ final class DonationView: UIButton {
     static let actionButtonTitleInsets = UIEdgeInsets(top: 4, left: 12, bottom: 4, right: 12)
     static let gradientColorMultiplier: CGFloat = 0.3
     static let pressScale: CGFloat = 0.97
-    static let tapAnimationDuration: TimeInterval = kFastAnimationDuration
+    static let tapAnimationDuration: TimeInterval = AppConstants.fastAnimationDuration
     static let highlightAlpha: CGFloat = 0.12
   }
 

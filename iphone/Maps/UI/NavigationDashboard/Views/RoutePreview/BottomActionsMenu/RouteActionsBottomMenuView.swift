@@ -2,7 +2,7 @@ final class RouteActionsBottomMenuView: UIView {
   enum Constants {
     static let height: CGFloat = 44
     static let insets = UIEdgeInsets(top: 16, left: 16, bottom: MapsAppDelegate.theApp().window.safeAreaInsets.bottom.isZero ? 8 : 0, right: 16)
-    fileprivate static let animationDuration: TimeInterval = kDefaultAnimationDuration / 2
+    fileprivate static let animationDuration: TimeInterval = AppConstants.defaultAnimationDuration / 2
     static let spacing: CGFloat = 12
   }
 

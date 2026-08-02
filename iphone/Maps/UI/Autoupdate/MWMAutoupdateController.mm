@@ -117,7 +117,8 @@ using namespace storage;
   auto const progress = nodeAttrs.m_downloadingProgress;
   if (progress.m_bytesTotal > 0)
   {
-    CGFloat const prog = kMaxProgress * static_cast<CGFloat>(progress.m_bytesDownloaded) / progress.m_bytesTotal;
+    CGFloat const prog =
+        AppConstants.maxProgress * static_cast<CGFloat>(progress.m_bytesDownloaded) / progress.m_bytesTotal;
     self.spinner.progress = prog;
 
     NSNumberFormatter * numberFormatter = [[NSNumberFormatter alloc] init];
@@ -201,7 +202,7 @@ using namespace storage;
   s.GetUpdateInfo(s.GetRootId(), updateInfo);
   MwmSize const updateSizeInBytes = updateInfo.m_totalDownloadSizeInBytes;
   containerView.updateSize = formattedSize(updateSizeInBytes);
-  _sizeInMB = updateSizeInBytes / MB;
+  _sizeInMB = updateSizeInBytes / AppConstants.megabyte;
 }
 
 - (IBAction)updateTap

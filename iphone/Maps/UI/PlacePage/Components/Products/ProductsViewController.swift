@@ -154,7 +154,7 @@ final class ProductsViewController: UIViewController {
   }
 
   func hide() {
-    UIView.transition(with: view, duration: kFastAnimationDuration, options: .transitionCrossDissolve) {
+    UIView.transition(with: view, duration: AppConstants.fastAnimationDuration, options: .transitionCrossDissolve) {
       self.view.isHidden = true
     }
   }

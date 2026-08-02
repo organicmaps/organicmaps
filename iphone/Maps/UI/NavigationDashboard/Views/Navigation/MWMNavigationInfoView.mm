@@ -147,7 +147,7 @@ CGFloat ScaledTurnsWidth()
 
   self.searchMainButtonBottomConstraint.constant = bottomOffset;
   BOOL isOutOfBounds = height < kSearchButtonsViewHeightPortrait;
-  [UIView animateWithDuration:animated ? 0 : kDefaultAnimationDuration
+  [UIView animateWithDuration:animated ? 0 : AppConstants.defaultAnimationDuration
       animations:^{
         self.searchMainButton.alpha = isOutOfBounds ? 0.0 : 1.0;
         self.bookmarksButton.alpha = isOutOfBounds ? 0.0 : 1.0;
@@ -434,7 +434,7 @@ CGFloat ScaledTurnsWidth()
   if (animated)
   {
     [self layoutIfNeeded];
-    [UIView animateWithDuration:kDefaultAnimationDuration animations:block];
+    [UIView animateWithDuration:AppConstants.defaultAnimationDuration animations:block];
   }
   else
   {
@@ -501,7 +501,7 @@ CGFloat ScaledTurnsWidth()
       [self configLayout];
     }
   }
-  [UIView animateWithDuration:kDefaultAnimationDuration
+  [UIView animateWithDuration:AppConstants.defaultAnimationDuration
       animations:^{
         self.alpha = isVisible ? 1 : 0;
         [self layoutIfNeeded];

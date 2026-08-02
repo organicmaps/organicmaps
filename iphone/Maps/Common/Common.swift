@@ -1,5 +1,14 @@
 import Foundation
 
+@objcMembers
+final class AppConstants: NSObject {
+  static let defaultAnimationDuration: TimeInterval = 0.3
+  static let fastAnimationDuration: TimeInterval = 0.15
+  static let maxProgress: Float = 0.95
+  static let kilobyte: UInt64 = 1024
+  static let megabyte: UInt64 = 1024 * 1024
+}
+
 var isiPad: Bool {
   if ProcessInfo.processInfo.isiOSAppOnMac {
     return true
