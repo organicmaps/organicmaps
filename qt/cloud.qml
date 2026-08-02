@@ -12,8 +12,9 @@ Item {
     Canvas {
         id: cloud
 
-        anchors.fill: parent
-        property var ctx: null;
+        width: 400
+        height: 300
+        property var ctx: null
 
         onPaint: {
             if (!ctx)
@@ -32,26 +33,30 @@ Item {
             ctx.fillStyle = "#8ED6FF";
             ctx.fill();
         }
-    }
 
-    MouseArea {
-        anchors.fill: parent
+        MouseArea {
+            anchors.fill: parent
 
-        onPressed: mouse => {
-            const inside = cloud.ctx.isPointInPath(mouse.x, mouse.y);
-            mouse.accepted = inside;
-            if (inside)
-                console.log("Cloud pressed");
-        }
-        onReleased: mouse => {
-            const inside = cloud.ctx.isPointInPath(mouse.x, mouse.y);
-            mouse.accepted = inside;
-            if (inside)
-                console.log("Cloud released");
-        }
-        onClicked: {
-            root.map.getMyPositionAction().trigger();
-            console.log("Cloud clicked");
+            onPressed: mouse => {
+                const inside = cloud.ctx.isPointInPath(mouse.x, mouse.y);
+                mouse.accepted = inside;
+                if (inside)
+                    console.log("Cloud pressed");
+                else
+                    console.log("MouseArea pressed");
+            }
+            onReleased: mouse => {
+                const inside = cloud.ctx.isPointInPath(mouse.x, mouse.y);
+                mouse.accepted = inside;
+                if (inside)
+                    console.log("Cloud released");
+                else
+                    console.log("MouseArea released");
+            }
+            onClicked: {
+                root.map.getMyPositionAction().trigger();
+                console.log("Cloud clicked");
+            }
         }
     }
 }
