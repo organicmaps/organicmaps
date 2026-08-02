@@ -21,7 +21,7 @@ on:
       - data/sound-strings/**
       - data/strings/**
       - docs/**
-      - packaging/**
+      - qt/packaging/**
       - tools/**
       - '!tools/python/test_server/**'
       - xcode/**
