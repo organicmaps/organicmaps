@@ -21,7 +21,7 @@ on:
       - data/strings/**
       - docs/**
       - generator/**
-      - packaging/**
+      - qt/packaging/**
       - platform/*apple*
       - platform/*_ios*
       - platform/*_linux*

@@ -6,7 +6,7 @@
 - `iphone/` - iOS UI.
 - `xcode/` - XCode workspace.
 
-- `qt/` - desktop application.
+- `qt/` - desktop application and its packaging specs.
 
 ## Data
 
@@ -95,7 +95,6 @@ Automatically [generated](TRANSLATIONS.md#technical-details):
 - `kml/` - manipulation of KML files.
 - `map/` - app business logic, including a scene manager.
 - `openlr/` -
-- `packaging/` - packaging specs for various distributions.
 - `platform/` - platform abstraction classes: file paths, http requests, location services.
 - `qt_tstfrm/` - widgets for visual testing.
 - `routing_common/` -
