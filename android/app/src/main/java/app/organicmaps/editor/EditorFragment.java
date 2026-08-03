@@ -662,8 +662,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   {
     EditTextDialogFragment dialogFragment = EditTextDialogFragment.show(
         getString(R.string.editor_place_doesnt_exist), "", getString(R.string.editor_comment_hint),
-        getString(R.string.editor_report_problem_send_button), getString(R.string.cancel), this,
-        getDeleteCommentValidator());
+        getString(R.string.editor_report_problem_send_button), getString(R.string.cancel), this);
+    dialogFragment.setValidator(getDeleteCommentValidator());
     dialogFragment.setTextSaveListener(this::commitPlaceDoesntExists);
   }
 

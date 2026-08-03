@@ -88,6 +88,7 @@
   <dimen name="corner_radius_medium">14dp</dimen>
   <dimen name="corner_radius_large">20dp</dimen>
   <dimen name="bottom_sheet_corner_radius">24dp</dimen>
+  <dimen name="dialog_corner_radius">24dp</dimen>
 
   <!-- map widgets -->
   <dimen name="viewport_min_height">100dp</dimen>
@@ -204,7 +205,6 @@
 
   <!-- Purchases-->
   <dimen name="sharing_options_img_size">18dp</dimen>
-  <dimen name="bookmark_purchase_img_width">280dp</dimen>
   <dimen name="square_block_size">168dp</dimen>
   <dimen name="about_logo">96dp</dimen>
 

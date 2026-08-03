@@ -1,7 +1,6 @@
 package app.organicmaps.bookmarks;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -39,6 +38,7 @@ import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.widget.PlaceholderView;
 import app.organicmaps.widget.recycler.DividerItemDecorationWithPadding;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,8 +51,6 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
 
 {
   private static final String TAG = BookmarkCategoriesFragment.class.getSimpleName();
-
-  private static final int MAX_CATEGORY_NAME_LENGTH = 60;
 
   public static final String BOOKMARKS_CATEGORIES_MENU_ID = "BOOKMARKS_CATEGORIES_BOTTOM_SHEET";
 
@@ -242,7 +240,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
     EditTextDialogFragment dialogFragment = EditTextDialogFragment.show(
         getString(R.string.bookmarks_create_new_group), getString(R.string.bookmarks_new_list_hint),
         getString(R.string.bookmark_set_name), getString(R.string.create), getString(R.string.cancel),
-        MAX_CATEGORY_NAME_LENGTH, this, new CategoryValidator());
+        CategoryValidator.MAX_NAME_LENGTH, this);
+    dialogFragment.setValidator(new CategoryValidator());
     dialogFragment.setTextSaveListener(this::onSaveText);
   }
 
@@ -271,7 +270,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
 
   private void showNoFileManagerError()
   {
-    new AlertDialog.Builder(requireActivity())
+    new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
         .setMessage(R.string.error_no_file_manager_app)
         .setPositiveButton(android.R.string.ok, (dialog, which) -> dialog.dismiss())
         .show();

@@ -153,7 +153,7 @@ public class TimetableContainerFragment extends BaseMwmFragment implements Timet
       if (activity == null)
         return;
 
-      new MaterialAlertDialogBuilder(activity)
+      new MaterialAlertDialogBuilder(activity, R.style.MwmTheme_AlertDialog)
           .setMessage(R.string.editor_correct_mistake)
           .setPositiveButton(android.R.string.ok, null)
           .show();
