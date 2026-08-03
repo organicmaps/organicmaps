@@ -318,8 +318,9 @@ NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidShowIClo
 
 + (void)setFileLoggingEnabled:(BOOL)fileLoggingEnabled
 {
-  [NSUserDefaults.standardUserDefaults setBool:fileLoggingEnabled forKey:kUDFileLoggingEnabledKey];
-  [Logger setFileLoggingEnabled:fileLoggingEnabled];
+  Logger.fileLoggingEnabled = fileLoggingEnabled;
+  // Enabling fails if the log file cannot be opened, so persist what the logger is actually doing.
+  [NSUserDefaults.standardUserDefaults setBool:Logger.fileLoggingEnabled forKey:kUDFileLoggingEnabledKey];
 }
 
 + (uint64_t)logFileSize

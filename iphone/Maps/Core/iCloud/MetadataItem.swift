@@ -39,16 +39,51 @@ extension LocalMetadataItem {
 }
 
 extension CloudMetadataItem {
+  static let requiredAttributes = [
+    NSMetadataItemFSNameKey,
+    NSMetadataItemURLKey,
+    NSMetadataUbiquitousItemDownloadingStatusKey,
+    NSMetadataUbiquitousItemPercentDownloadedKey,
+    NSMetadataItemFSContentChangeDateKey,
+    NSMetadataUbiquitousItemHasUnresolvedConflictsKey,
+  ]
+
+  /// Names of the required attributes that are missing or have an unexpected type.
+  static func invalidAttributes(in values: [String: Any]) -> [String] {
+    var invalid: [String] = []
+    func validate(_ key: String, _ isValid: (Any) -> Bool) {
+      guard let value = values[key] else {
+        invalid.append("\(key) (missing)")
+        return
+      }
+      if !isValid(value) {
+        invalid.append("\(key) (\(type(of: value)))")
+      }
+    }
+    validate(NSMetadataItemFSNameKey) { $0 is String }
+    validate(NSMetadataItemURLKey) { $0 is URL }
+    validate(NSMetadataUbiquitousItemDownloadingStatusKey) { $0 is String }
+    validate(NSMetadataUbiquitousItemPercentDownloadedKey) { $0 is NSNumber }
+    validate(NSMetadataItemFSContentChangeDateKey) { $0 is Date }
+    validate(NSMetadataUbiquitousItemHasUnresolvedConflictsKey) { $0 is Bool }
+    return invalid
+  }
+
   init(metadataItem: NSMetadataItem) throws {
-    guard let fileName = metadataItem.value(forAttribute: NSMetadataItemFSNameKey) as? String,
-          let fileUrl = metadataItem.value(forAttribute: NSMetadataItemURLKey) as? URL,
-          let downloadStatus = metadataItem.value(forAttribute: NSMetadataUbiquitousItemDownloadingStatusKey) as? String,
-          let percentDownloaded = metadataItem.value(forAttribute: NSMetadataUbiquitousItemPercentDownloadedKey) as? NSNumber,
-          let lastModificationDate = (metadataItem.value(forAttribute: NSMetadataItemFSContentChangeDateKey) as? Date)?.roundedTime,
-          let hasUnresolvedConflicts = metadataItem.value(forAttribute: NSMetadataUbiquitousItemHasUnresolvedConflictsKey) as? Bool
+    let values = metadataItem.values(forAttributes: Self.requiredAttributes) ?? [:]
+    guard let fileName = values[NSMetadataItemFSNameKey] as? String,
+          let fileUrl = values[NSMetadataItemURLKey] as? URL,
+          let downloadStatus = values[NSMetadataUbiquitousItemDownloadingStatusKey] as? String,
+          let percentDownloaded = values[NSMetadataUbiquitousItemPercentDownloadedKey] as? NSNumber,
+          let lastModificationDate = (values[NSMetadataItemFSContentChangeDateKey] as? Date)?.roundedTime,
+          let hasUnresolvedConflicts = values[NSMetadataUbiquitousItemHasUnresolvedConflictsKey] as? Bool
     else {
-      let allAttributes = metadataItem.values(forAttributes: metadataItem.attributes)
-      LOG(.error, "Failed to initialize CloudMetadataItem from NSMetadataItem: \(allAttributes.debugDescription)")
+      // Keep this record short: the system log truncates a single record at about 1 KB, and the
+      // full dictionary used to overflow it exactly where the failing attribute was named.
+      LOG(.error, "Failed to initialize CloudMetadataItem. Invalid attributes: \(Self.invalidAttributes(in: values))")
+      for attribute in metadataItem.attributes {
+        LOG(.debug, "\(attribute): \(String(describing: metadataItem.value(forAttribute: attribute)))")
+      }
       throw SynchronizationError.failedToCreateMetadataItem
     }
     self.fileName = fileName
@@ -112,10 +147,6 @@ extension Array where Element: MetadataItem {
 
   func firstByName(_ item: any MetadataItem) -> Element? {
     first(where: { $0.fileName == item.fileName })
-  }
-
-  var shortDebugDescription: String {
-    map(\.shortDebugDescription).joined(separator: "\n")
   }
 }
 

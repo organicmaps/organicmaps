@@ -162,8 +162,8 @@ private extension iCloudDocumentsMonitor {
     LOG(.debug, "Query did finish gathering")
     do {
       let currentContents = try Self.getCurrentContents(notification)
-      LOG(.info, "Cloud contents (\(currentContents.count)):")
-      currentContents.forEach { LOG(.info, $0.shortDebugDescription) }
+      LOG(.info, "Cloud contents (\(currentContents.count))")
+      currentContents.forEach { LOG(.debug, $0.shortDebugDescription) }
       delegate?.didFinishGathering(currentContents)
     } catch {
       delegate?.didReceiveCloudMonitorError(error)
@@ -182,11 +182,11 @@ private extension iCloudDocumentsMonitor {
       if changedContents != previouslyChangedContents {
         previouslyChangedContents = changedContents
         let currentContents = try Self.getCurrentContents(notification)
-        LOG(.info, "Cloud contents (\(currentContents.count)):")
-        currentContents.forEach { LOG(.info, $0.shortDebugDescription) }
-        LOG(.info, "Added to the cloud content (\(changedContents.added.count)): \n\(changedContents.added.shortDebugDescription)")
-        LOG(.info, "Updated in the cloud content (\(changedContents.updated.count)): \n\(changedContents.updated.shortDebugDescription)")
-        LOG(.info, "Removed from the cloud content (\(changedContents.removed.count)): \n\(changedContents.removed.shortDebugDescription)")
+        LOG(.info, "Cloud contents (\(currentContents.count)), added \(changedContents.added.count), updated \(changedContents.updated.count), removed \(changedContents.removed.count)")
+        currentContents.forEach { LOG(.debug, $0.shortDebugDescription) }
+        changedContents.added.forEach { LOG(.debug, "Added: \($0.shortDebugDescription)") }
+        changedContents.updated.forEach { LOG(.debug, "Updated: \($0.shortDebugDescription)") }
+        changedContents.removed.forEach { LOG(.debug, "Removed: \($0.shortDebugDescription)") }
         delegate?.didUpdate(currentContents, changedContents)
       }
     } catch {

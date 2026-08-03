@@ -2,6 +2,9 @@
 
 #include "base/logging.hpp"
 
+#include <latch>
+#include <set>
+#include <thread>
 #include <utility>
 #include <vector>
 
@@ -45,6 +48,46 @@ UNIT_TEST(NullMessage)
 {
   char const * ptr = 0;
   LOG(LINFO, ("Null message test", ptr));
+}
+
+UNIT_TEST(Logging_ThreadIds)
+{
+  size_t constexpr kThreadsCount = 8;
+  size_t constexpr kCallsCount = 1000;
+
+  std::latch start{kThreadsCount};
+  std::latch assigned{kThreadsCount};
+  std::vector<int> ids(kThreadsCount, 0);
+
+  std::vector<std::thread> threads;
+  threads.reserve(kThreadsCount);
+  for (size_t i = 0; i < kThreadsCount; ++i)
+  {
+    threads.emplace_back([&, i]
+    {
+      // Race the very first (id-assigning) calls against each other.
+      start.arrive_and_wait();
+
+      int const id = base::LogHelper::GetThreadID();
+      bool stable = true;
+      for (size_t j = 0; j < kCallsCount; ++j)
+        stable = stable && base::LogHelper::GetThreadID() == id;
+
+      // 0 is never a valid id, so it marks an unstable one.
+      ids[i] = stable ? id : 0;
+
+      // Keep every thread alive until all ids are assigned, otherwise the OS may reuse
+      // a thread id of an already finished thread.
+      assigned.arrive_and_wait();
+    });
+  }
+
+  for (auto & thread : threads)
+    thread.join();
+
+  std::set<int> const uniqueIds(ids.begin(), ids.end());
+  TEST_EQUAL(uniqueIds.size(), kThreadsCount, ("Each live thread should get a stable unique id", ids));
+  TEST(!uniqueIds.contains(0), ("Thread id should not change during the thread's life", ids));
 }
 
 UNIT_TEST(Logging_ConditionalLog)
