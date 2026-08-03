@@ -33,10 +33,12 @@
   <style name="MwmTheme.AlertDialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
     <item name="colorAccent">?buttonDialogTextColor</item>
     <item name="colorPrimary">?buttonDialogTextColor</item>
-    <item name="android:background">?cardBackground</item>
     <item name="android:textColorPrimary">?textDialogTheme</item>
     <item name="android:textSize">@dimen/text_size_body_1</item>
     <item name="android:windowTitleStyle">@style/MwmTheme.DialogTitleStyle</item>
+    <item name="alertDialogStyle">@style/MwmWidget.AlertDialog</item>
+    <item name="android:dialogCornerRadius" tools:targetApi="p">@dimen/dialog_corner_radius</item>
+    <item name="android:windowBackground">@drawable/bg_dialog_window</item>
   </style>
 
   <style name="MwmTheme.DialogTitleBase">
@@ -86,16 +88,22 @@
     <item name="android:navigationBarColor">@android:color/transparent</item>
   </style>
 
-  <style name="MwmMain.DialogFragment.TimePicker" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+  <style name="MwmTheme.DialogFragment.Rounded" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+    <item name="android:windowBackground">@drawable/bg_dialog_window</item>
+  </style>
+
+  <style name="MwmMain.DialogFragment.TimePicker" parent="MwmTheme.AlertDialog">
     <item name="colorAccent">@color/base_accent</item>
     <item name="colorPrimary">?buttonDialogTextColor</item>
     <item name="android:fontFamily">@string/robotoMedium</item>
-    <item name="android:windowBackground">@color/bg_cards</item>
-    <item name="android:background">@color/bg_cards</item>
   </style>
 
   <style name="MwmTheme.ProgressDialog" parent="MwmTheme.AlertDialog">
     <item name="android:textColor">?textDialogTheme</item>
+  </style>
+
+  <style name="MwmTheme.StackedButtonsDialog" parent="MwmTheme.AlertDialog">
+    <item name="windowNoTitle">true</item>
   </style>
 
   <style name="MwmTheme.Downloader">

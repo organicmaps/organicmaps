@@ -57,6 +57,12 @@ public class ChooseBookmarksSortingTypeFragment
     return STYLE_NO_TITLE;
   }
 
+  @Override
+  protected int getCustomTheme()
+  {
+    return R.style.MwmTheme_DialogFragment_Rounded;
+  }
+
   @IdRes
   private int getViewId(int sortingType)
   {
