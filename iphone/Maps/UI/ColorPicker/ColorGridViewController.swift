@@ -22,7 +22,6 @@ final class ColorGridViewController: UIViewController {
   private let predefinedColors: [PredefinedColor]
   private let onSelectColor: (UIColor) -> Void
   private let onSelectCustomColor: (UIViewController) -> Void
-  private let showsCustomColor = !ProcessInfo.processInfo.isiOSAppOnMac
   private let stackView = UIStackView()
 
   init(currentColor: UIColor?,
@@ -34,7 +33,7 @@ final class ColorGridViewController: UIViewController {
     self.onSelectColor = onSelectColor
     self.onSelectCustomColor = onSelectCustomColor
     super.init(nibName: nil, bundle: nil)
-    preferredContentSize = Constants.preferredContentSize(forItemCount: predefinedColors.count + (showsCustomColor ? 1 : 0))
+    preferredContentSize = Constants.preferredContentSize(forItemCount: predefinedColors.count + 1)
   }
 
   @available(*, unavailable)
@@ -68,9 +67,7 @@ final class ColorGridViewController: UIViewController {
 
   private func configureColorButtons() {
     var buttons = predefinedColors.map { button(for: $0) }
-    if showsCustomColor {
-      buttons.append(customColorButton())
-    }
+    buttons.append(customColorButton())
 
     for rowItems in buttons.chunked(by: Constants.columnCount) {
       let rowView = UIStackView()
