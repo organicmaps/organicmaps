@@ -1005,6 +1005,12 @@
 "bookmarks_export" = "Експортуј све маркере и путање";
 "drive_through" = "Пролаз за возила";
 
+/* Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. */
+"zoom_in" = "Увећај";
+
+/* Accessibility text for the zoom-out button on the map and visible title for the CarPlay dashboard button. Keep it short. */
+"zoom_out" = "Умањи";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Линк менија";
 

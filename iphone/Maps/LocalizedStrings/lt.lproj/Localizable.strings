@@ -1005,6 +1005,12 @@
 "bookmarks_export" = "Eksportuoti visas žymes ir trasas";
 "drive_through" = "Pravažiavimas";
 
+/* Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. */
+"zoom_in" = "Pritraukti vaizdą";
+
+/* Accessibility text for the zoom-out button on the map and visible title for the CarPlay dashboard button. Keep it short. */
+"zoom_out" = "Atitraukti vaizdą";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Nuoroda į meniu";
 

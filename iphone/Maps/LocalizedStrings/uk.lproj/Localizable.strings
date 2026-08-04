@@ -1005,6 +1005,12 @@
 "bookmarks_export" = "Експортувати всі мітки та треки";
 "drive_through" = "З віконцем для водіїв";
 
+/* Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. */
+"zoom_in" = "Збільшити";
+
+/* Accessibility text for the zoom-out button on the map and visible title for the CarPlay dashboard button. Keep it short. */
+"zoom_out" = "Зменшити";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Посилання на меню";
 

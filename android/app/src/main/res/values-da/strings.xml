@@ -849,8 +849,9 @@
     <string name="pref_tts_no_system_tts">Indstillingerne for talesyntese blev ikke fundet, er du sikker på, at din enhed understøtter det?</string>
     <string name="drive_through">Gennemkørsel</string>
     <string name="clear_the_search">Ryd søgningen</string>
+    <!-- Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
     <string name="zoom_in">Zoom ind</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Accessibility text for the zoom-out button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
     <string name="zoom_out">Zoom ud</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Link til menu</string>

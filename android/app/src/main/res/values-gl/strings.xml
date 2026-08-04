@@ -854,8 +854,9 @@
     <string name="pref_tts_no_system_tts">Non se atoparon os axustes de síntese de voz. Está seguro de que o seu dispositivo admite esta función?</string>
     <string name="drive_through">Servizo desde o coche</string>
     <string name="clear_the_search">Borrar procura</string>
+    <!-- Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
     <string name="zoom_in">Achegar</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Accessibility text for the zoom-out button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
     <string name="zoom_out">Afastar</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Enlace ao menú</string>

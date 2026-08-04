@@ -1005,6 +1005,12 @@
 "bookmarks_export" = "Ekspordi kõik järjehoidjad ja rajad";
 "drive_through" = "Läbisõit";
 
+/* Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. */
+"zoom_in" = "Suumi sisse";
+
+/* Accessibility text for the zoom-out button on the map and visible title for the CarPlay dashboard button. Keep it short. */
+"zoom_out" = "Suumi välja";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Menüü link";
 

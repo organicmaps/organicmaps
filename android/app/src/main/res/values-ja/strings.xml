@@ -848,8 +848,9 @@
     <string name="pref_tts_no_system_tts">音声合成の設定が見つからなかった。</string>
     <string name="drive_through">ドライブスルー</string>
     <string name="clear_the_search">検索をクリアする</string>
+    <!-- Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
     <string name="zoom_in">ズームイン</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Accessibility text for the zoom-out button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
     <string name="zoom_out">ズームアウト</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">メニューリンク</string>

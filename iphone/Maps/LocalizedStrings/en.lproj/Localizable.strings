@@ -1005,6 +1005,12 @@
 "bookmarks_export" = "Export all Bookmarks and Tracks";
 "drive_through" = "Drive-through";
 
+/* Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. */
+"zoom_in" = "Zoom in";
+
+/* Accessibility text for the zoom-out button on the map and visible title for the CarPlay dashboard button. Keep it short. */
+"zoom_out" = "Zoom out";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Menu Link";
 

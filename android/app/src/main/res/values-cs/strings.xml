@@ -857,9 +857,10 @@
     <string name="pref_tts_no_system_tts">Nastavení syntézy řeči nebylo nalezeno, jste si jisti, že jej vaše zařízení podporuje?</string>
     <string name="drive_through">Průjezd</string>
     <string name="clear_the_search">Vymazat vyhledávání</string>
+    <!-- Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
     <string name="zoom_in">Přiblížení</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
-    <string name="zoom_out">Zvětšení</string>
+    <!-- Accessibility text for the zoom-out button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
+    <string name="zoom_out">Oddálení</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Odkaz na menu</string>
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->

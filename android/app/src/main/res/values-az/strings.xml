@@ -845,8 +845,9 @@
     <string name="pref_tts_no_system_tts">Nitq sintezi parametrləri tapılmadı, cihazınızın bunu dəstəklədiyinə əminsiniz?</string>
     <string name="drive_through">Sürüşmə</string>
     <string name="clear_the_search">Axtarışı təmizləyin</string>
+    <!-- Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
     <string name="zoom_in">Yaxınlaşdırma</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Accessibility text for the zoom-out button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
     <string name="zoom_out">Küçült</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Menyu keçidi</string>

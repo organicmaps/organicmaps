@@ -1005,6 +1005,12 @@
 "bookmarks_export" = "Exportați toate marcajele și piesele";
 "drive_through" = "Servire în mașină";
 
+/* Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. */
+"zoom_in" = "Mărire";
+
+/* Accessibility text for the zoom-out button on the map and visible title for the CarPlay dashboard button. Keep it short. */
+"zoom_out" = "Micșorare";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Legătura de meniu";
 

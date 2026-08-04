@@ -1005,6 +1005,12 @@
 "bookmarks_export" = "모든 북마크 및 트랙 내보내기";
 "drive_through" = "드라이브 스루";
 
+/* Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. */
+"zoom_in" = "확대";
+
+/* Accessibility text for the zoom-out button on the map and visible title for the CarPlay dashboard button. Keep it short. */
+"zoom_out" = "축소";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "메뉴 링크";
 

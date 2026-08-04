@@ -1005,6 +1005,12 @@
 "bookmarks_export" = "ສົ່ງອອກບຸກມາກ ແລະ ເສັ້ນທາງທັງໝົດ";
 "drive_through" = "ໄດຣຟ໌ທຣູ";
 
+/* Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. */
+"zoom_in" = "ຊູມເຂົ້າ";
+
+/* Accessibility text for the zoom-out button on the map and visible title for the CarPlay dashboard button. Keep it short. */
+"zoom_out" = "ຊູມອອກ";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "ລິ້ງເມນູ";
 

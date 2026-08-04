@@ -851,8 +851,9 @@
     <string name="pref_tts_no_system_tts">Խոսքի սինթեզի կարգավորումներ չեն գտնվել, համոզվա՞ծ եք, որ ձեր սարքն ունի այդ հնարավորությունը։</string>
     <string name="drive_through">Դրայվ-ին</string>
     <string name="clear_the_search">Մաքրել որոնումը</string>
+    <!-- Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
     <string name="zoom_in">Մեծացնել</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Accessibility text for the zoom-out button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
     <string name="zoom_out">Փոքրացնել</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Մենյուի հղում</string>
