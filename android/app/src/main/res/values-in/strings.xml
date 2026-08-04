@@ -841,8 +841,9 @@
     <string name="pref_tts_no_system_tts">Pengaturan Sintesis Ucapan tidak ditemukan, apakah Anda yakin perangkat Anda mendukungnya?</string>
     <string name="drive_through">Berkendara melewati</string>
     <string name="clear_the_search">Menghapus pencarian</string>
-    <string name="zoom_in">Memperbesar</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
+    <string name="zoom_in">Perbesar</string>
+    <!-- Accessibility text for the zoom-out button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
     <string name="zoom_out">Perkecil</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Tautan menu</string>

@@ -844,8 +844,9 @@
     <string name="pref_tts_no_system_tts">Lietotnes neatrada runas sintēzes iestatījumus. Vai ierīce tos atbalsta?</string>
     <string name="drive_through">Caurbrauktuve</string>
     <string name="clear_the_search">Notīrīt meklēšanu</string>
+    <!-- Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
     <string name="zoom_in">Tuvināt</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Accessibility text for the zoom-out button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
     <string name="zoom_out">Tālināt</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Saite uz ēdienkarti</string>

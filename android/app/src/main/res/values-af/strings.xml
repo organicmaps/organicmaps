@@ -840,8 +840,9 @@
     <string name="pref_tts_no_system_tts">Spraaksintese-instellings is nie gevind nie. Is jy seker jou toestel ondersteun dit?</string>
     <string name="drive_through">Deur-ry</string>
     <string name="clear_the_search">Vee die soektog uit</string>
+    <!-- Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
     <string name="zoom_in">Zoem in</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Accessibility text for the zoom-out button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
     <string name="zoom_out">Zoem uit</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Kieslys skakel</string>

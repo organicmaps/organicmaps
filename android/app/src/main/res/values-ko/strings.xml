@@ -841,8 +841,9 @@
     <string name="pref_tts_no_system_tts">음성 합성 설정을 찾을 수 없었는데, 기기에서 이를 지원하는 것이 맞나요?</string>
     <string name="drive_through">드라이브 스루</string>
     <string name="clear_the_search">검색 지우기</string>
+    <!-- Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
     <string name="zoom_in">확대</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Accessibility text for the zoom-out button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
     <string name="zoom_out">축소</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">메뉴 링크</string>

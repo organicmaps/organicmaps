@@ -462,7 +462,10 @@
     <string name="pref_tts_no_system_tts">No se ha encontrado la configuración de la síntesis de voz, ¿estás seguro de que tu dispositivo la admite?</string>
     <string name="drive_through">Servicio al auto</string>
     <string name="clear_the_search">Borrar la búsqueda</string>
+    <!-- Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
     <string name="zoom_in">Ampliar</string>
+    <!-- Accessibility text for the zoom-out button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
+    <string name="zoom_out">Reducir</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Menú Enlace</string>
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->

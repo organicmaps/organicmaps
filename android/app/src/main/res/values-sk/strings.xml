@@ -842,9 +842,10 @@
     <string name="pref_tts_no_system_tts">Nastavenia syntézy reči neboli nájdené, ste si istí, že ich vaše zariadenie podporuje?</string>
     <string name="drive_through">Drive-thru</string>
     <string name="clear_the_search">Vymazať vyhľadávanie</string>
+    <!-- Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
     <string name="zoom_in">Priblíženie</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
-    <string name="zoom_out">Zväčšenie</string>
+    <!-- Accessibility text for the zoom-out button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
+    <string name="zoom_out">Oddialenie</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Odkaz na menu</string>
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->

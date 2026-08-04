@@ -852,8 +852,9 @@
     <string name="pref_tts_no_system_tts">Δεν βρέθηκαν οι ρυθμίσεις σύνθεσης ομιλίας, είστε σίγουροι ότι η συσκευή σας την υποστηρίζει;</string>
     <string name="drive_through">Οδηγώ μέσα από</string>
     <string name="clear_the_search">Καθαρίστε την αναζήτηση</string>
+    <!-- Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
     <string name="zoom_in">Μεγέθυνση</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Accessibility text for the zoom-out button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
     <string name="zoom_out">Σμίκρυνση</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Σύνδεσμος μενού</string>

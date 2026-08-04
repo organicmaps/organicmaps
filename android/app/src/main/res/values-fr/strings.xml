@@ -855,8 +855,9 @@
     <string name="pref_tts_no_system_tts">Les paramètres de la synthèse vocale n\'ont pas été trouvés, êtes-vous sûr que votre appareil la prend en charge ?</string>
     <string name="drive_through">Au volant</string>
     <string name="clear_the_search">Efface la recherche</string>
+    <!-- Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
     <string name="zoom_in">Zoom avant</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Accessibility text for the zoom-out button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
     <string name="zoom_out">Zoom arrière</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Lien vers le menu</string>

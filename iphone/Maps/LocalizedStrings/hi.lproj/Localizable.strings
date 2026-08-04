@@ -1005,6 +1005,12 @@
 "bookmarks_export" = "सभी बुकमार्क और ट्रैक निर्यात करें";
 "drive_through" = "ड्राइव करते हुए किसी जगह से गुजरना";
 
+/* Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. */
+"zoom_in" = "ज़ूम इन";
+
+/* Accessibility text for the zoom-out button on the map and visible title for the CarPlay dashboard button. Keep it short. */
+"zoom_out" = "ज़ूम आउट";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "मेनू लिंक";
 

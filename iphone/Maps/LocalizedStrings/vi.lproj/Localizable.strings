@@ -1005,6 +1005,12 @@
 "bookmarks_export" = "Xuất tất cả Dấu trang và Bản nhạc";
 "drive_through" = "Lái xe qua";
 
+/* Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. */
+"zoom_in" = "Phóng to";
+
+/* Accessibility text for the zoom-out button on the map and visible title for the CarPlay dashboard button. Keep it short. */
+"zoom_out" = "Thu nhỏ";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Liên kết thực đơn";
 

@@ -1005,6 +1005,12 @@
 "bookmarks_export" = "Eksporto të gjithë Faqeshënuesit dhe Gjurmët";
 "drive_through" = "Drive-through";
 
+/* Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. */
+"zoom_in" = "Zmadho";
+
+/* Accessibility text for the zoom-out button on the map and visible title for the CarPlay dashboard button. Keep it short. */
+"zoom_out" = "Zvogëlo";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Lidhja e Menusë";
 
