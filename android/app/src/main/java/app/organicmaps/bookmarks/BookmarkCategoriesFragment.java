@@ -35,6 +35,7 @@ import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.util.bottomsheet.ExportMenuItems;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.widget.PlaceholderView;
@@ -197,12 +198,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
       items.add(new MenuBottomSheetItem(mSelectedCategory.isVisible() ? R.string.hide : R.string.show,
                                         mSelectedCategory.isVisible() ? R.drawable.ic_hide : R.drawable.ic_show,
                                         () -> onShowActionSelected(mSelectedCategory)));
-      items.add(new MenuBottomSheetItem(R.string.export_file, R.drawable.ic_file_kmz,
-                                        () -> onShareActionSelected(mSelectedCategory, FileType.Kml)));
-      items.add(new MenuBottomSheetItem(R.string.export_file_gpx, R.drawable.ic_file_gpx,
-                                        () -> onShareActionSelected(mSelectedCategory, FileType.Gpx)));
-      items.add(new MenuBottomSheetItem(R.string.export_file_geojson, R.drawable.ic_file_geojson,
-                                        () -> onShareActionSelected(mSelectedCategory, FileType.GeoJson)));
+      items.addAll(ExportMenuItems.create(fileType -> onShareActionSelected(mSelectedCategory, fileType)));
       // Disallow deleting the last category
       if (getAdapter().getBookmarkCategories().size() > 1)
         items.add(new MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete,
