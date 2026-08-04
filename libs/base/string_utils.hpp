@@ -420,6 +420,28 @@ std::vector<ResultT> Tokenize(std::string_view str, char const * delims)
   return c;
 }
 
+/// Like Tokenize, but each token is trimmed and the empty ones are skipped.
+/// Handy for OSM-style multi-value tags ("a; b ;;c").
+template <typename TFunctor>
+void TokenizeAndTrim(std::string_view str, char const * delims, TFunctor && f)
+{
+  Tokenize(str, delims, [&f](std::string_view token)
+  {
+    Trim(token);
+    if (!token.empty())
+      f(token);
+  });
+}
+
+/// @note Lifetime of return container is the same as \a str lifetime. Avoid temporary input.
+template <class ResultT = std::string_view>
+std::vector<ResultT> TokenizeAndTrim(std::string_view str, char const * delims)
+{
+  std::vector<ResultT> c;
+  TokenizeAndTrim(str, delims, [&c](std::string_view v) { c.push_back(ResultT(v)); });
+  return c;
+}
+
 /// Splits a string by the delimiter, keeps empty parts, on an empty string returns an empty vector.
 /// Does not support quoted columns, newlines in columns and escaped quotes.
 void ParseCSVRow(std::string const & s, char const delimiter, std::vector<std::string> & target);
