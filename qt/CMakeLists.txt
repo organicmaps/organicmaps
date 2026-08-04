@@ -61,6 +61,8 @@ set(SRC
   selection.hpp
   update_dialog.cpp
   update_dialog.hpp
+  qml/forwarding_quickwidget.cpp
+  qml/forwarding_quickwidget.hpp
 )
 
 omim_add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${RES_SOURCES} ${SRC})
@@ -74,6 +76,15 @@ target_link_libraries(${PROJECT_NAME}
     map
     gflags::gflags
     location_service
+)
+
+qt_add_qml_module(${PROJECT_NAME}
+    URI Map
+    # QML_FILES cloud.qml
+    # RESOURCE_PREFIX /qquickwidgetversuswindow_opengl
+    # NO_RESOURCE_TARGET_PATH
+    # DEPENDENCIES QtQuick
+    # SOURCES draw_widget.cpp draw_widget.hpp
 )
 
 if (BUILD_DESIGNER)
