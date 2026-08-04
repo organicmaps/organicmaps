@@ -833,8 +833,9 @@
     <string name="pref_tts_no_system_tts">Không tìm thấy cài đặt Tổng hợp giọng nói, bạn có chắc thiết bị của mình hỗ trợ nó không?</string>
     <string name="drive_through">Lái xe qua</string>
     <string name="clear_the_search">Xóa tìm kiếm</string>
+    <!-- Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_in">Phóng to</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_out">Thu nhỏ</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Liên kết thực đơn</string>

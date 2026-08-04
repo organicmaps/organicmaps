@@ -835,8 +835,9 @@
     <string name="pref_tts_no_system_tts">Innstillinger for talesyntese ble ikke funnet, er du sikker på at enheten din støtter dette?</string>
     <string name="drive_through">Gjennomkjøring</string>
     <string name="clear_the_search">Fjern søket</string>
+    <!-- Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_in">Zoom inn</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_out">Zoom ut</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Lenke til menyen</string>

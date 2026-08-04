@@ -995,6 +995,12 @@
 "bookmarks_export" = "Eksportēt visas trases un grāmatzīmes";
 "drive_through" = "Caurbrauktuve";
 
+/* Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_in" = "Tuvināt";
+
+/* Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_out" = "Tālināt";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Saite uz ēdienkarti";
 

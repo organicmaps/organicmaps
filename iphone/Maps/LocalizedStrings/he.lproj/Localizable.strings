@@ -995,6 +995,12 @@
 "bookmarks_export" = "ייצא את כל הסימניות והרצועות";
 "drive_through" = "דרייב ת'רו";
 
+/* Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_in" = "להתקרב";
+
+/* Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_out" = "להתרחק";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "קישור לתפריט";
 

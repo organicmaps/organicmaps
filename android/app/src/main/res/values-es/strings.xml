@@ -851,8 +851,9 @@
     <string name="pref_tts_no_system_tts">No se encontraron las configuraciones de síntesis de voz. ¿Sabe si su dispositivo la admite?</string>
     <string name="drive_through">Servicio desde el coche</string>
     <string name="clear_the_search">Borrar búsqueda</string>
+    <!-- Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_in">Acercar</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_out">Alejar</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Enlace al menú</string>

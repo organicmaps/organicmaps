@@ -995,6 +995,12 @@
 "bookmarks_export" = "Izvozi vse zaznamke in sledi";
 "drive_through" = "Vožnja skozi";
 
+/* Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_in" = "Povečaj";
+
+/* Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_out" = "Pomanjšaj";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Povezava do menija";
 

@@ -995,6 +995,12 @@
 "bookmarks_export" = "Esportar tolos marcadores y trayeutos";
 "drive_through" = "Serviciu dende’l coche";
 
+/* Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_in" = "Zoom in";
+
+/* Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_out" = "Zoom out";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Menu Link";
 

@@ -995,6 +995,12 @@
 "bookmarks_export" = "Tüm Yer İmlerini ve İzleri Dışa Aktar";
 "drive_through" = "Arabaya servis";
 
+/* Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_in" = "Yakınlaştır";
+
+/* Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_out" = "Uzaklaştır";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Menü Bağlantısı";
 

@@ -995,6 +995,12 @@
 "bookmarks_export" = "Exportați toate marcajele și piesele";
 "drive_through" = "Servire în mașină";
 
+/* Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_in" = "A mări";
+
+/* Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_out" = "A micșora";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Legătura de meniu";
 

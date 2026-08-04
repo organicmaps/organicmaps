@@ -995,6 +995,12 @@
 "bookmarks_export" = "Esporta tutti i preferiti e le tracce";
 "drive_through" = "Accesso con auto";
 
+/* Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_in" = "Ingrandisci";
+
+/* Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_out" = "Rimpicciolisci";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Link al menu";
 

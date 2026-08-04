@@ -846,8 +846,9 @@
     <string name="pref_tts_no_system_tts">Синтеза говора није пронађена, да ли сте сигурни да је ваш уређај подржава?</string>
     <string name="drive_through">Пролаз за возила</string>
     <string name="clear_the_search">Обриши претрагу</string>
+    <!-- Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_in">Увећај</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_out">Умањи</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Линк менија</string>

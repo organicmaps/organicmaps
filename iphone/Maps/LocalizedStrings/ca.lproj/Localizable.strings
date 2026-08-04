@@ -995,6 +995,12 @@
 "bookmarks_export" = "Exporta tots els marcadors i recorreguts";
 "drive_through" = "Servei des del cotxe";
 
+/* Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_in" = "Apropa";
+
+/* Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_out" = "Allunya";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Enllaç del menú";
 

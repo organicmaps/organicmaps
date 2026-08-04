@@ -846,8 +846,9 @@
     <string name="pref_tts_no_system_tts">未找到语音合成设置，您确定您的设备支持该设置吗？</string>
     <string name="drive_through">面下车通道</string>
     <string name="clear_the_search">清除搜索</string>
+    <!-- Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_in">放大</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_out">缩小</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">菜单链接</string>

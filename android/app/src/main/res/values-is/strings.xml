@@ -848,8 +848,9 @@
     <string name="pref_tts_no_system_tts">Stillingar talgervils fundust ekki, ertu viss um að tækið þitt sé með stuðning við slíkt?</string>
     <string name="drive_through">Bílaafgreiðsla</string>
     <string name="clear_the_search">Hreinsa leitina</string>
+    <!-- Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_in">Renna að</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_out">Renna frá</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Tengill í valmynd</string>
