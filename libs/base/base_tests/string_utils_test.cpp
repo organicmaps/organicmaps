@@ -875,6 +875,15 @@ UNIT_TEST(Tokenize)
   TEST_EQUAL(strings::Tokenize("  xxx yyy  ", " "), std::vector<std::string_view>({"xxx", "yyy"}), ());
 }
 
+UNIT_TEST(TokenizeAndTrim)
+{
+  // OSM-style multi-value tag: trims around the values and skips the empty ones.
+  TEST_EQUAL(strings::TokenizeAndTrim<std::string>("a; b ;;  ; c", ";"), std::vector<std::string>({"a", "b", "c"}), ());
+  TEST_EQUAL(strings::TokenizeAndTrim("  ", ";"), std::vector<std::string_view>(), ());
+  TEST_EQUAL(strings::TokenizeAndTrim("", ";"), std::vector<std::string_view>(), ());
+  TEST_EQUAL(strings::TokenizeAndTrim(" +48 12 34 ", ";"), std::vector<std::string_view>({"+48 12 34"}), ());
+}
+
 UNIT_TEST(LastUniChar)
 {
   TEST_EQUAL(strings::LastUniChar(""), 0, ());
