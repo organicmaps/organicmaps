@@ -71,6 +71,7 @@ import app.organicmaps.sdk.widget.placepage.RouteInfo;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.util.bottomsheet.ExportMenuItems;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.utils.Graphics;
@@ -1161,8 +1162,10 @@ public class PlacePageView extends Fragment
     {
       detachCountry();
       // A null mMapObject is the first delivery after recreation: the activity-scoped view model,
-      // or the core replaying the selection, hands back the object the sheet was opened for.
-      // Only a real switch (e.g. a geo: intent) leaves the sheet on a stale track.
+      // or the core replaying the selection, hands back the object the sheet was opened for, so the
+      // restored sheet is kept. A later switch (e.g. a geo: intent) is real and closes the sheet;
+      // one that coincides with the recreation is indistinguishable here, hence the instanceof
+      // guard in onShareTrackSelected.
       if (mMapObject != null)
         dismissTrackShareMenu();
     }
@@ -1247,21 +1250,9 @@ public class PlacePageView extends Fragment
   {
     return switch (id)
     {
-      case TRACK_SHARE_MENU_ID -> getTrackShareMenuItems();
+      case TRACK_SHARE_MENU_ID -> ExportMenuItems.create(this::onShareTrackSelected);
       default -> null;
     };
-  }
-
-  private ArrayList<MenuBottomSheetItem> getTrackShareMenuItems()
-  {
-    ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
-    items.add(new MenuBottomSheetItem(R.string.export_file, R.drawable.ic_file_kmz,
-                                      () -> onShareTrackSelected(FileType.Kml)));
-    items.add(new MenuBottomSheetItem(R.string.export_file_gpx, R.drawable.ic_file_gpx,
-                                      () -> onShareTrackSelected(FileType.Gpx)));
-    items.add(new MenuBottomSheetItem(R.string.export_file_geojson, R.drawable.ic_file_geojson,
-                                      () -> onShareTrackSelected(FileType.GeoJson)));
-    return items;
   }
 
   public interface PlacePageViewListener

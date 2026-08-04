@@ -42,6 +42,7 @@ import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils;
+import app.organicmaps.util.bottomsheet.ExportMenuItems;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.widget.SearchToolbarController;
@@ -860,12 +861,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     {
       if (types.length > 0)
         items.add(new MenuBottomSheetItem(R.string.sort, R.drawable.ic_sort, this::onSortOptionSelected));
-      items.add(new MenuBottomSheetItem(R.string.export_file, R.drawable.ic_file_kmz,
-                                        () -> onShareOptionSelected(FileType.Kml)));
-      items.add(new MenuBottomSheetItem(R.string.export_file_gpx, R.drawable.ic_file_gpx,
-                                        () -> onShareOptionSelected(FileType.Gpx)));
-      items.add(new MenuBottomSheetItem(R.string.export_file_geojson, R.drawable.ic_file_geojson,
-                                        () -> onShareOptionSelected(FileType.GeoJson)));
+      items.addAll(ExportMenuItems.create(this::onShareOptionSelected));
     }
     items.add(new MenuBottomSheetItem(R.string.edit, R.drawable.ic_settings, this::onSettingsOptionSelected));
     if (!isLastOwnedCategory())
@@ -890,12 +886,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     items.add(new MenuBottomSheetItem(visible ? R.string.hide_track : R.string.show_track,
                                       visible ? R.drawable.ic_hide : R.drawable.ic_show,
                                       () -> onToggleTrackVisibility(track.getTrackId())));
-    items.add(new MenuBottomSheetItem(R.string.export_file, R.drawable.ic_file_kmz,
-                                      () -> onShareTrackSelected(track.getTrackId(), FileType.Kml)));
-    items.add(new MenuBottomSheetItem(R.string.export_file_gpx, R.drawable.ic_file_gpx,
-                                      () -> onShareTrackSelected(track.getTrackId(), FileType.Gpx)));
-    items.add(new MenuBottomSheetItem(R.string.export_file_geojson, R.drawable.ic_file_geojson,
-                                      () -> onShareTrackSelected(track.getTrackId(), FileType.GeoJson)));
+    items.addAll(ExportMenuItems.create(fileType -> onShareTrackSelected(track.getTrackId(), fileType)));
     items.add(new MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete, this::onDeleteTrackSelected));
     return items;
   }
