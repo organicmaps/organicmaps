@@ -2,6 +2,8 @@
 
 #include "search/reverse_geocoder.hpp"
 
+#include "opening_hours/opening_hours.hpp"
+
 #include "storage/country_info_getter.hpp"
 
 #include "indexer/classificator.hpp"
@@ -17,8 +19,34 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
+#include <limits>
+#include <string_view>
+#include <type_traits>
 
-#include "3party/opening_hours/opening_hours.hpp"
+namespace
+{
+// Search-result consumers only distinguish transitions within the next hour.
+// Use the largest field value for a missing or more distant transition.
+constexpr uint16_t MinutesUntilTransition(time_t now, time_t transition)
+{
+  constexpr auto kUnknown = std::numeric_limits<uint16_t>::max();
+  if (transition == std::numeric_limits<time_t>::max())
+    return kUnknown;
+  if (transition <= now)
+    return 0;
+
+  using UnsignedTime = std::make_unsigned_t<time_t>;
+  auto const seconds = static_cast<UnsignedTime>(transition) - static_cast<UnsignedTime>(now);
+  auto const minutes = seconds / 60;
+  return minutes >= kUnknown ? kUnknown : static_cast<uint16_t>(minutes);
+}
+
+static_assert(MinutesUntilTransition(100, std::numeric_limits<time_t>::max()) == std::numeric_limits<uint16_t>::max());
+static_assert(MinutesUntilTransition(100, 99) == 0);
+static_assert(MinutesUntilTransition(100, 159) == 0);
+static_assert(MinutesUntilTransition(100, 160) == 1);
+static_assert(MinutesUntilTransition(100, 100 + 70000 * 60LL) == std::numeric_limits<uint16_t>::max());
+}  // namespace
 
 namespace search
 {
@@ -214,8 +242,7 @@ void RankerResult::FillDetails(FeatureType & ft, bool isBuilding, bool isHotel)
   if (m_str == brand)
     brand.clear();
 
-  /// @todo Avoid temporary string when OpeningHours (boost::spirit) will allow string_view.
-  std::string const openHours(ft.GetMetadata(feature::Metadata::FMD_OPEN_HOURS));
+  std::string_view const openHours = ft.GetMetadata(feature::Metadata::FMD_OPEN_HOURS);
   if (!openHours.empty())
   {
     using namespace osmoh;
@@ -229,8 +256,8 @@ void RankerResult::FillDetails(FeatureType & ft, bool isBuilding, bool isHotel)
         // In else case value is osm::Unknown, it's set in preview's constructor.
         m_details.m_isOpenNow = (info.state == RuleState::Open) ? osm::Yes : osm::No;
 
-        m_details.m_minutesUntilOpen = (info.nextTimeOpen - now) / 60;
-        m_details.m_minutesUntilClosed = (info.nextTimeClosed - now) / 60;
+        m_details.m_minutesUntilOpen = MinutesUntilTransition(now, info.nextTimeOpen);
+        m_details.m_minutesUntilClosed = MinutesUntilTransition(now, info.nextTimeClosed);
       }
     }
   }

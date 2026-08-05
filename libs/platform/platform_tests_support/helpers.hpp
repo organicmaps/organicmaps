@@ -1,6 +1,6 @@
 #pragma once
 
-#include "3party/opening_hours/opening_hours.hpp"
+#include "opening_hours/opening_hours.hpp"
 
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
 #include <sys/resource.h>

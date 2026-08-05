@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "opening_hours/opening_hours.hpp"
+
 #include "transit/world_feed/color_picker.hpp"
 #include "transit/world_feed/date_time_helpers.hpp"
 #include "transit/world_feed/feed_helpers.hpp"
@@ -15,7 +17,6 @@
 #include <vector>
 
 #include "3party/just_gtfs/just_gtfs.h"
-#include "3party/opening_hours/opening_hours.hpp"
 
 namespace world_feed_tests
 {
