@@ -518,9 +518,12 @@ UNIT_TEST(Maxspeed_ParseConditionalCsv)
     OsmIdToMaxspeed mapping;
     TEST(ParseCsv(csv, mapping), ());
 
-    // OH is not valid.
+    // Public-holiday day offsets ("ph -1 day") are valid opening hours, so
+    // this conditional maxspeed is recognised.
     auto const it = mapping.find(base::MakeOsmWay(13));
-    TEST(it == mapping.end(), ());
+    TEST(it != mapping.end(), ());
+    TEST(it->second.HasConditional(), ());
+    TEST_EQUAL(it->second.GetConditional(), static_cast<MaxspeedType>(30), ());
   }
 }
 }  // namespace maxspeeds_tests

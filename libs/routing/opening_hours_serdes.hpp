@@ -2,15 +2,16 @@
 
 #include "coding/bit_streams.hpp"
 #include "coding/writer.hpp"
+#include "opening_hours/opening_hours.hpp"
 
 #include "base/checked_cast.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <limits>
+#include <optional>
 #include <string>
+#include <utility>
 #include <vector>
-
-#include "3party/opening_hours/opening_hours.hpp"
 
 // TODO (@gmoryes)
 //  opening_hours does not support such string: 2019 Apr - 2020 May,
@@ -46,6 +47,24 @@ namespace routing
 class OpeningHoursSerDes
 {
 public:
+  class PreparedEncoding
+  {
+  public:
+    /// Appends the payload without byte-aligning the destination writer.
+    template <typename Writer>
+    void Write(BitWriter<Writer> & writer) const;
+
+    uint64_t GetBitCount() const { return m_bitCount; }
+
+  private:
+    friend class OpeningHoursSerDes;
+
+    PreparedEncoding(std::vector<uint8_t> bytes, uint64_t bitCount) : m_bytes(std::move(bytes)), m_bitCount(bitCount) {}
+
+    std::vector<uint8_t> m_bytes;
+    uint64_t m_bitCount = 0;
+  };
+
   class Header
   {
   public:
@@ -104,6 +123,11 @@ public:
 
   void SetSerializeEverything() { m_serializeEverything = true; }
 
+  /// Returns the exact payload only after all structural and field-width
+  /// checks pass. No destination writer is modified on failure.
+  [[nodiscard]] std::optional<PreparedEncoding> Prepare(osmoh::OpeningHours const & openingHours);
+  [[nodiscard]] std::optional<PreparedEncoding> Prepare(std::string const & openingHoursString);
+
   template <typename Writer>
   bool Serialize(BitWriter<Writer> & writer, osmoh::OpeningHours const & openingHours);
 
@@ -119,17 +143,36 @@ private:
 
   bool IsTwentyFourHourRule(osmoh::RuleSequence const & rule) const;
 
-  /// Writes pre-decomposed and validated rules. Extracted from SerializeImpl to avoid
-  /// calling the expensive DecomposeOh twice (once for trial serialization, once for real).
+  /// Writes pre-decomposed rules to a temporary encoding. A failure leaves all
+  /// destination writers untouched.
   template <typename Writer>
   bool WriteDecomposedRules(BitWriter<Writer> & writer, std::vector<osmoh::RuleSequence> const & decomposedRules);
 
   /// Decomposes and validates opening hours rules. Returns empty vector on failure.
   std::vector<osmoh::RuleSequence> DecomposeAndValidate(osmoh::OpeningHours const & openingHours);
 
+  /// True for rules that never serialize regardless of content: stale year
+  /// ranges and empty rules with a useless modifier.
+  bool Skipped(osmoh::RuleSequence const & rule) const;
+
+  /// True when any live rule carries a selector the wire format has no field
+  /// for (week selectors, year/month/time periods, event times); such values
+  /// are refused whole instead of being stored degraded.
+  bool HasUnencodableSelectors(osmoh::TRuleSequences const & rules) const;
+
+  /// True when a later non-additive open rule overlaps an earlier one (or a
+  /// rule follows 24/7): the boundary-less wire format cannot keep the
+  /// override semantics, so such values are not serialized.
+  bool HasOverridingOverlap(osmoh::TRuleSequences const & rules) const;
+
+  /// Weekdays of |rule| that survive DecomposeOh and the NotSupported filter,
+  /// i.e. the days its serialized parts actually cover; 0 for a rule that
+  /// never reaches the wire.
+  uint32_t WireWeekdayMask(osmoh::RuleSequence const & rule) const;
+
   std::vector<osmoh::RuleSequence> DecomposeOh(osmoh::OpeningHours const & oh);
   Header CreateHeader(osmoh::RuleSequence const & rule) const;
-  bool NotSupported(osmoh::RuleSequence const & rule);
+  bool NotSupported(osmoh::RuleSequence const & rule) const;
   bool ExistsFeatureInOpeningHours(Header::Bits feature, osmoh::RuleSequence const & rule) const;
   bool CheckSupportedFeatures() const;
   bool HaveSameHeaders(std::vector<osmoh::RuleSequence> const & decomposedRules) const;
@@ -170,32 +213,37 @@ OpeningHoursSerDes::Header OpeningHoursSerDes::Header::Deserialize(BitReader<Rea
 
 // OpeningHoursSerDes ------------------------------------------------------------------------------
 template <typename Writer>
+void OpeningHoursSerDes::PreparedEncoding::Write(BitWriter<Writer> & writer) const
+{
+  auto const fullBytes = m_bitCount / 8;
+  for (size_t i = 0; i < fullBytes; ++i)
+    writer.Write(m_bytes[i], 8);
+
+  auto const remainingBits = static_cast<uint8_t>(m_bitCount % 8);
+  if (remainingBits != 0)
+    writer.Write(m_bytes[fullBytes], remainingBits);
+}
+
+template <typename Writer>
 bool OpeningHoursSerDes::Serialize(BitWriter<Writer> & writer, osmoh::OpeningHours const & openingHours)
 {
-  auto decomposedRules = DecomposeAndValidate(openingHours);
-  if (decomposedRules.empty())
+  auto encoding = Prepare(openingHours);
+  if (!encoding)
     return false;
 
-  // Trial serialize to catch per-rule failures without corrupting the real writer.
-  {
-    std::vector<uint8_t> buffer;
-    MemWriter memWriter(buffer);
-    BitWriter tmpWriter(memWriter);
-    if (!WriteDecomposedRules(tmpWriter, decomposedRules))
-      return false;
-  }
-
-  return WriteDecomposedRules(writer, decomposedRules);
+  encoding->Write(writer);
+  return true;
 }
 
 template <typename Writer>
 bool OpeningHoursSerDes::Serialize(BitWriter<Writer> & writer, std::string const & openingHoursString)
 {
-  osmoh::OpeningHours const oh(openingHoursString);
-  if (!oh.IsValid())
+  auto encoding = Prepare(openingHoursString);
+  if (!encoding)
     return false;
 
-  return OpeningHoursSerDes::Serialize(writer, oh);
+  encoding->Write(writer);
+  return true;
 }
 
 template <typename Writer>
@@ -250,6 +298,14 @@ osmoh::OpeningHours OpeningHoursSerDes::Deserialize(BitReader<Reader> & reader)
 
     rules.emplace_back(std::move(rule));
   }
+
+  // DecomposeOh splits a source rule into single-selector parts (a union): one
+  // weekday rule with two time windows becomes two rules. Restore the union
+  // with the additive separator; with the default ";" the evaluator would let
+  // the parts override each other and keep only the last window on days where
+  // several parts match.
+  for (size_t i = 0; i + 1 < rules.size(); ++i)
+    rules[i].SetAnySeparator(",");
 
   if (rules.size() == 1 && IsTwentyFourHourRule(rules.back()))
   {
