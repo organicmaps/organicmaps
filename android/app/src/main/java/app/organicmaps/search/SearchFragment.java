@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.CallSuper;
@@ -38,6 +39,7 @@ import app.organicmaps.sdk.search.SearchResult;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.Language;
 import app.organicmaps.sdk.util.SharedPropertiesUtils;
+import app.organicmaps.util.Graphics;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.widget.PlaceholderView;
 import app.organicmaps.widget.SearchShimmerView;
@@ -61,6 +63,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   private int mExpandedOffset = 0;
   private View mTabFrame;
   private View mAppBar;
+  private TextView mChooseOnMap;
   private PlaceholderView mResultsPlaceholder;
   private SearchShimmerView mShimmerView;
   private SearchPageViewModel mSearchViewModel;
@@ -124,19 +127,21 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
       final SearchRequest request = mSearchViewModel.getPendingRequest();
       final String query = request != null ? request.query : null;
-      if (query == null || query.isEmpty())
-        return;
+      if (query != null && !query.isEmpty())
+      {
+        mSearchAdapter.clear();
+        stopSearch();
 
-      mSearchAdapter.clear();
-      stopSearch();
+        // setQuery() fires the text watcher, which schedules the debounced search; runSearch() consumes
+        // the pending request (locale). When the query already matches the toolbar the watcher won't
+        // fire, so go through the debouncer directly to keep the timing consistent.
+        if (query.equals(getQuery()))
+          runSearchDebounced();
+        else
+          setQuery(query, request.isCategory);
+      }
 
-      // setQuery() fires the text watcher, which schedules the debounced search; runSearch() consumes
-      // the pending request (locale). When the query already matches the toolbar the watcher won't
-      // fire, so go through the debouncer directly to keep the timing consistent.
-      if (query.equals(getQuery()))
-        runSearchDebounced();
-      else
-        setQuery(query, request.isCategory);
+      updateChooseOnMapVisibility();
     }
   };
   private final Observer<Integer> mBottomSheetStateObserver = new Observer<>() {
@@ -203,6 +208,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     UiUtils.showIf(hasQuery, mResultsFrame);
     UiUtils.showIf(!hasQuery, mTabFrame);
     UiUtils.showIf(!hasQuery, mPager);
+    updateChooseOnMapVisibility();
     if (hasQuery)
       hideDownloadSuggest();
     else if (doShowDownloadSuggest())
@@ -211,6 +217,11 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       hideDownloadSuggest();
     syncNestedScrollingState();
     updatePeekHeight();
+  }
+
+  private void updateChooseOnMapVisibility()
+  {
+    UiUtils.showIf(!mToolbarController.hasQuery() && RoutingController.get().isPlanning(), mChooseOnMap);
   }
 
   private void updatePeekHeight()
@@ -274,6 +285,9 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     mToolbarController = new ToolbarController(view);
     mTabLayout = root.findViewById(R.id.tabs);
     mTabFrame = root.findViewById(R.id.tab_frame);
+    mChooseOnMap = root.findViewById(R.id.choose_on_map);
+    Graphics.tint(mChooseOnMap);
+    mChooseOnMap.setOnClickListener(v -> mSearchFragmentListener.onChooseOnMapClicked());
     mResultsFrame = root.findViewById(R.id.results_frame);
     mResults = mResultsFrame.findViewById(R.id.recycler);
     setRecyclerScrollListener(mResults);
@@ -776,6 +790,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   {
     void onSearchClicked();
     void closeSearch();
+    void onChooseOnMapClicked();
   }
 
   private static class LastPosition

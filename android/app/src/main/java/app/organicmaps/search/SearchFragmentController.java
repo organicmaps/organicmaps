@@ -374,6 +374,13 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     hideSearchSheet();
   }
 
+  @Override
+  public void onChooseOnMapClicked()
+  {
+    InputUtils.hideKeyboard(mSearchPageContainer);
+    showSearchSheet(BottomSheetBehavior.STATE_COLLAPSED);
+  }
+
   // The sheet is kept non-hideable while visible so a swipe can't dismiss it. Re-enable hideable here so
   // this programmatic close is the only path to STATE_HIDDEN (setState(HIDDEN) is rejected when !hideable).
   private void hideSearchSheet()
