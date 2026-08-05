@@ -1,5 +1,7 @@
 #pragma once
 
+#include "opening_hours/opening_hours.hpp"
+
 #include "transit/experimental/transit_types_experimental.hpp"
 #include "transit/transit_types.hpp"
 
@@ -14,8 +16,6 @@
 
 #include "base/assert.hpp"
 #include "base/newtype.hpp"
-
-#include "3party/opening_hours/opening_hours.hpp"
 
 #include <map>
 #include <string>

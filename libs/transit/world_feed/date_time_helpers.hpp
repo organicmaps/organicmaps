@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "3party/just_gtfs/just_gtfs.h"
-#include "3party/opening_hours/opening_hours.hpp"
+#include "opening_hours/opening_hours.hpp"
 
 namespace transit
 {
