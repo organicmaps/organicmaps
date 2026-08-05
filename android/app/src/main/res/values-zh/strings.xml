@@ -917,4 +917,6 @@
     <string name="color_picker_grid">网格</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">语音搜索</string>
+    <!-- Row shown above the search tabs while a route is being planned; tapping it collapses the search panel so the user can pick a point directly on the map -->
+    <string name="choose_on_map">在地图上选择</string>
 </resources>
