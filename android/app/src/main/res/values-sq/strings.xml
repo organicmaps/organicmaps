@@ -171,16 +171,12 @@
     <string name="cant_change_this_setting">Na vjen keq, cilësimet e Ruajtjes së Hartës janë aktualisht të çaktivizuara.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Shkarkimi i hartës është në progres tani.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Shikoni vendndodhjen time aktuale në Organic Maps! %1$s ose %2$s Nuk keni harta offline? Shkarkoni këtu: https://omaps.app/get</string>
-    <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Hej, shiko vendosjen time në Organic Maps!</string>
-    <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Hej, shiko vendndodhjen time aktuale në hartën e Organic Maps!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Përshëndetje,\n\nUnë jam këtu tani: %1$s. Klikoni këtë lidhje %2$s ose këtë tjetrën %3$s për të parë vendin në hartë.\n\nFaleminderit.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Ndaj</string>
+    <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
+    <string name="share_place_subject">%1$s në Organic Maps</string>
+    <!-- Email subject when sharing a place that has no name or address. -->
+    <string name="share_place_subject_default">Një vend në Organic Maps</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">Email</string>
     <!-- Text for message when used successfully copied something -->
@@ -847,8 +843,6 @@
     <string name="website_menu">Lidhja e Menusë</string>
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
     <string name="view_menu">Shiko Menunë</string>
-    <!-- Title for the "Open in Another App" button on the PlacePage. -->
-    <string name="open_in_app">Hape në Një Aplikacion Tjetër</string>
     <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Vetë-shërbim</string>
     <string name="select_option">Zgjidh opsionin</string>

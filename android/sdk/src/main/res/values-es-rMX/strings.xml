@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- SECTION: Other translations -->
+    <!-- Shared email link text; leads to the Organic Maps download page. -->
+    <string name="share_get_om">Obtén Organic Maps</string>
+
     <!-- SECTION: Uncategorized -->
     <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
     <string name="maps_storage_internal">Almacenamiento privado interno</string>
