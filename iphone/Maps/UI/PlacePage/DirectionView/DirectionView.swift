@@ -58,7 +58,7 @@ class DirectionView: SolidTouchView {
   }
 
   func updateHeading(_ angle: CGFloat) {
-    UIView.animate(withDuration: kDefaultAnimationDuration,
+    UIView.animate(withDuration: AppConstants.defaultAnimationDuration,
                    delay: 0,
                    options: [.beginFromCurrentState, .curveEaseInOut],
                    animations: { [unowned self] in

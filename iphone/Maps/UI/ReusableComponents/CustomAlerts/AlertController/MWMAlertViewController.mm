@@ -258,7 +258,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
       if ([view isKindOfClass:[MWMLocationAlert class]])
         return;
   }
-  [UIView animateWithDuration:kDefaultAnimationDuration
+  [UIView animateWithDuration:AppConstants.defaultAnimationDuration
                         delay:0
                       options:UIViewAnimationOptionBeginFromCurrentState
                    animations:^{
@@ -274,7 +274,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   alert.alpha = 0.;
   CGFloat const scale = 1.1;
   alert.transform = CGAffineTransformMakeScale(scale, scale);
-  [UIView animateWithDuration:kDefaultAnimationDuration
+  [UIView animateWithDuration:AppConstants.defaultAnimationDuration
                    animations:^{
                      self.view.alpha = 1.;
                      alert.alpha = 1.;
@@ -288,7 +288,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   NSArray * subviews = self.view.subviews;
   MWMAlert * closeAlert = subviews.lastObject;
   MWMAlert * showAlert = (subviews.count >= 2 ? subviews[subviews.count - 2] : nil);
-  [UIView animateWithDuration:kDefaultAnimationDuration
+  [UIView animateWithDuration:AppConstants.defaultAnimationDuration
       delay:0
       options:UIViewAnimationOptionBeginFromCurrentState
       animations:^{

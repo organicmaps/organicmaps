@@ -1,6 +1,7 @@
 #import "MWMSideButtonsView.h"
 #import "MWMButton.h"
 #import "MWMMapViewControlsCommon.h"
+#import "SwiftBridge.h"
 
 #include "base/math.hpp"
 
@@ -67,7 +68,7 @@ CGFloat const kButtonsBottomOffset = 6;
 - (void)layoutYPosition
 {
   CGFloat const centerShift = (self.height - self.zoomIn.midY - self.zoomOut.midY) / 2;
-  [UIView animateWithDuration:kDefaultAnimationDuration
+  [UIView animateWithDuration:AppConstants.defaultAnimationDuration
                    animations:^{
                      self.midY = centerShift + self.superview.height / 2;
                      if (self.maxY > self.bottomBound)
@@ -78,7 +79,7 @@ CGFloat const kButtonsBottomOffset = 6;
 - (void)fadeZoomButtonsShow:(BOOL)show
 {
   CGFloat const alpha = show ? 1.0 : 0.0;
-  [UIView animateWithDuration:kDefaultAnimationDuration
+  [UIView animateWithDuration:AppConstants.defaultAnimationDuration
                    animations:^{
                      self.zoomIn.alpha = alpha;
                      self.zoomOut.alpha = alpha;
@@ -87,7 +88,8 @@ CGFloat const kButtonsBottomOffset = 6;
 
 - (void)fadeLocationButtonShow:(BOOL)show
 {
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^{ self.location.alpha = show ? 1.0 : 0.0; }];
+  [UIView animateWithDuration:AppConstants.defaultAnimationDuration
+                   animations:^{ self.location.alpha = show ? 1.0 : 0.0; }];
 }
 
 // Show/hide zoom and location buttons depending on available vertical space.
@@ -125,7 +127,7 @@ CGFloat const kButtonsBottomOffset = 6;
     // Side buttons should be visible during any our show/hide anamation.
     // Visibility should be detemined by alpha, not self.hidden.
     self.hidden = NO;
-    [UIView animateWithDuration:kDefaultAnimationDuration
+    [UIView animateWithDuration:AppConstants.defaultAnimationDuration
         animations:^{
           self.alpha = hidden ? 0.0 : 1.0;
           [self layoutXPosition:hidden];

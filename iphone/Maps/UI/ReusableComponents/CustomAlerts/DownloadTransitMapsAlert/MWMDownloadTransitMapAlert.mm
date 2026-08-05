@@ -233,7 +233,7 @@ CGFloat const kAnimationDuration = .05;
     [UIView animateWithDuration:kAnimationDuration
         animations:^{ [self layoutSubviews]; }
         completion:^(BOOL finished) {
-          [UIView animateWithDuration:kDefaultAnimationDuration animations:^{ updateCells(YES); }];
+          [UIView animateWithDuration:AppConstants.defaultAnimationDuration animations:^{ updateCells(YES); }];
         }];
   }
   else

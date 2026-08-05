@@ -99,7 +99,7 @@ final class BottomMenuViewController: MWMViewController {
       if yVelocity > 0 || (yVelocity == 0 && alpha < 0.8) {
         presenter?.onClosePressed()
       } else {
-        let duration = min(kDefaultAnimationDuration, TimeInterval(bottomConstraint.constant / yVelocity))
+        let duration = min(AppConstants.defaultAnimationDuration, TimeInterval(bottomConstraint.constant / yVelocity))
         view.layoutIfNeeded()
         UIView.animate(withDuration: duration) {
           self.chromeView.alpha = 1
