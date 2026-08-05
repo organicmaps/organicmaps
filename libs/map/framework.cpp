@@ -355,11 +355,11 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   m_stringsBundle.SetDefaultString("core_placepage_unknown_place", "Map Point");
   m_stringsBundle.SetDefaultString("core_my_places", "My Places");
   m_stringsBundle.SetDefaultString("core_my_position", "My Position");
+  m_stringsBundle.SetDefaultString("open_in_app", "Open in Another App");
   m_stringsBundle.SetDefaultString("postal_code", "Postal Code");
   // Placeholder-free labels used by GetShareData; platforms override with localized values.
   m_stringsBundle.SetDefaultString("share_my_position", "I am here on Organic Maps");
   m_stringsBundle.SetDefaultString("share_open_in_om_or_browser", "Open in Organic Maps or in a browser");
-  m_stringsBundle.SetDefaultString("share_open_in_maps_app", "Open in another maps app");
   m_stringsBundle.SetDefaultString("share_get_om", "Get Organic Maps");
 
   m_featuresFetcher.InitClassificator();
@@ -738,7 +738,7 @@ namespace
 share::Strings GetShareStrings(StringsBundle const & bundle)
 {
   return {bundle.GetString("share_my_position"), bundle.GetString("share_open_in_om_or_browser"),
-          bundle.GetString("share_open_in_maps_app"), bundle.GetString("share_get_om")};
+          bundle.GetString("open_in_app"), bundle.GetString("share_get_om")};
 }
 }  // namespace
 
