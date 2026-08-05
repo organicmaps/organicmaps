@@ -8,6 +8,7 @@
 
 #include "routing/following_info.hpp"
 #include "routing/route.hpp"
+#include "routing/route_speed_settings.hpp"
 #include "routing/router.hpp"
 #include "routing/routing_callbacks.hpp"
 #include "routing/routing_session.hpp"
@@ -120,6 +121,8 @@ public:
   routing::RoutingSession & RoutingSession() { return m_routingSession; }
   void SetRouter(routing::RouterType type);
   routing::RouterType GetRouter() const { return m_currentRouterType; }
+  routing::VehicleType GetRouterVehicleType() const;
+  void SetRouteSpeedSettings(routing::RouteSpeedSettings const & settings);
   bool IsRoutingActive() const { return m_routingSession.IsActive(); }
   bool IsRouteBuilt() const { return m_routingSession.IsBuilt(); }
   bool IsRouteBuilding() const { return m_routingSession.IsBuilding(); }

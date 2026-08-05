@@ -547,8 +547,8 @@ extension NavigationDashboardViewController {
       updateElevationProfile(with: viewModel.routeElevationPreviewData,
                              activePointDistance: viewModel.routeElevationActivePointDistance)
       routePointsView.setRoutePoints(viewModel.routePoints)
-      settingsBadge.isHidden = !viewModel.routingOptions.hasOptions
-      settingsBadge.number = viewModel.routingOptions.enabledOptionsCount
+      settingsBadge.isHidden = viewModel.routingOptionsCount == 0
+      settingsBadge.number = viewModel.routingOptionsCount
       saveRouteAsTrackButton.isEnabled = viewModel.canSaveRouteAsTrack
       navigationControlView.isVisible = false
 

@@ -41,6 +41,7 @@ set(SRC
   app/organicmaps/sdk/routing/RouteMarkType.hpp
   app/organicmaps/sdk/routing/RoutePointInfo.hpp
   app/organicmaps/sdk/routing/RouteRecommendationType.hpp
+  app/organicmaps/sdk/routing/RouteSpeedSettings.cpp
   app/organicmaps/sdk/routing/RoutingInfo.hpp
   app/organicmaps/sdk/routing/RoutingOptions.cpp
   app/organicmaps/sdk/routing/TransitRouteInfo.hpp

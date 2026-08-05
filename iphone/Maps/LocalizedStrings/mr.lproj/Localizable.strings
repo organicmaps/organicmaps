@@ -715,6 +715,21 @@
 "show_at_the_bottom" = "तळाशी दाखवा";
 "enable_logging_warning_message" = "निदान करण्याकरिता हा पर्याय लॉगिंग चालू करतो. ह्याने ऍपच्या समस्यांचे निवारण करणे आम्हाला उपयुक्त ठरू शकते. तुमच्या समस्येबद्दल तपशीलवार नोंदी रेकॉर्ड करण्यासाठी आणि आम्हाला पाठवण्यासाठी हा पर्याय तात्पुरता चालू करा.";
 "driving_options_title" = "मार्गशोधी पर्याय";
+"route_speed_title" = "Cruising speed";
+"route_speed_description" = "Your usual speed on flat pavement. Terrain and road conditions are still considered; route choice is unchanged.";
+"route_wind_enabled" = "Consider wind";
+"route_wind_speed" = "Wind speed";
+"route_wind_speed_unit_mps" = "m/s";
+"route_wind_direction" = "Wind from";
+"route_wind_description" = "Adjusts bicycle ETA using the wind component along each route segment. Direction is where the wind comes from.";
+"route_wind_direction_n" = "N";
+"route_wind_direction_ne" = "NE";
+"route_wind_direction_e" = "E";
+"route_wind_direction_se" = "SE";
+"route_wind_direction_s" = "S";
+"route_wind_direction_sw" = "SW";
+"route_wind_direction_w" = "W";
+"route_wind_direction_nw" = "NW";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "टोल रस्ते टाळा";

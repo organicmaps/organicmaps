@@ -27349,6 +27349,96 @@ vi = Thiết lập đi vòng
 zh-Hans = 绕行设置
 zh-Hant = 繞行設定
 
+[route_speed_title]
+tags = android-app,apple-maps
+en = Cruising speed
+ru = Крейсерская скорость
+uk = Крейсерська швидкість
+
+[route_speed_description]
+tags = android-app,apple-maps
+en = Your usual speed on flat pavement. Terrain and road conditions are still considered; route choice is unchanged.
+ru = Ваша обычная скорость на ровном асфальте. Рельеф и дорожные условия по-прежнему учитываются; маршрут не меняется.
+uk = Ваша звичайна швидкість на рівному асфальті. Рельєф і дорожні умови, як і раніше, враховуються; маршрут не змінюється.
+
+[route_wind_enabled]
+tags = android-app,apple-maps
+en = Consider wind
+ru = Учитывать ветер
+uk = Враховувати вітер
+
+[route_wind_speed]
+tags = android-app,apple-maps
+en = Wind speed
+ru = Скорость ветра
+uk = Швидкість вітру
+
+[route_wind_speed_unit_mps]
+tags = android-app,apple-maps
+en = m/s
+ru = м/с
+uk = м/с
+
+[route_wind_direction]
+tags = android-app,apple-maps
+en = Wind from
+ru = Ветер дует с
+uk = Вітер дме з
+
+[route_wind_description]
+tags = android-app,apple-maps
+en = Adjusts bicycle ETA using the wind component along each route segment. Direction is where the wind comes from.
+ru = Корректирует расчётное время велосипеда по составляющей ветра вдоль каждого участка. Направление указывает, откуда дует ветер.
+uk = Коригує розрахунковий час велосипеда за складовою вітру вздовж кожної ділянки. Напрямок вказує, звідки дме вітер.
+
+[route_wind_direction_n]
+tags = android-app,apple-maps
+en = N
+ru = С
+uk = Пн
+
+[route_wind_direction_ne]
+tags = android-app,apple-maps
+en = NE
+ru = СВ
+uk = ПнСх
+
+[route_wind_direction_e]
+tags = android-app,apple-maps
+en = E
+ru = В
+uk = Сх
+
+[route_wind_direction_se]
+tags = android-app,apple-maps
+en = SE
+ru = ЮВ
+uk = ПдСх
+
+[route_wind_direction_s]
+tags = android-app,apple-maps
+en = S
+ru = Ю
+uk = Пд
+
+[route_wind_direction_sw]
+tags = android-app,apple-maps
+en = SW
+ru = ЮЗ
+uk = ПдЗх
+
+[route_wind_direction_w]
+tags = android-app,apple-maps
+en = W
+ru = З
+uk = Зх
+
+[route_wind_direction_nw]
+tags = android-app,apple-maps
+en = NW
+ru = СЗ
+uk = ПнЗх
+
 [avoid_tolls]
 comment = Recommended length for CarPlay and Android Auto is around 25-27 characters
 tags = android-app,android-libs-car,apple-maps

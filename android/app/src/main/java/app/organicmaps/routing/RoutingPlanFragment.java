@@ -24,6 +24,7 @@ import app.organicmaps.R;
 import app.organicmaps.maplayer.MapButtonsController;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
+import app.organicmaps.sdk.routing.RouteSpeedSettings;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.routing.RoutingOptions;
@@ -67,7 +68,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
         if (activityResult.getResultCode() == android.app.Activity.RESULT_OK)
         {
           RoutingController.get().rebuildLastRoute();
-          mViewModel.setDrivingOptionsCount(RoutingOptions.getActiveRoadTypes().size());
+          mViewModel.setDrivingOptionsCount(getRoutingOptionsCount());
         }
       });
 
@@ -156,7 +157,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     if (savedInstanceState != null)
       restoreRoutingPanelState(savedInstanceState);
 
-    updateBadgeCount(RoutingOptions.getActiveRoadTypes().size());
+    updateBadgeCount(getRoutingOptionsCount());
     mRoutingContainer.addOnLayoutChangeListener(this);
   }
 
@@ -362,12 +363,20 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     }
   }
 
+  /** @return how many routing options the user has changed, road types and personal speed alike. */
+  private static int getRoutingOptionsCount()
+  {
+    RouteSpeedSettings speedSettings = RouteSpeedSettings.nativeGet();
+    return RoutingOptions.getActiveRoadTypes().size() + (speedSettings == null ? 0 : speedSettings.changedCount());
+  }
+
   private void updateBuildProgress(int progress, @NonNull Router router)
   {
     if (getView() == null)
       return;
 
     mRouterTypes.check(routerToButtonId(router));
+    mViewModel.setDrivingOptionsCount(getRoutingOptionsCount());
     updateProgressLabels();
     final RoutingController controller = RoutingController.get();
     if (controller.isBuilding())
@@ -400,7 +409,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mViewModel.setBottomSheetState(state.getInt(TAG + "_bottom_sheet_state", BottomSheetBehavior.STATE_COLLAPSED));
     if (mRoutingBottomMenuController != null)
       mRoutingBottomMenuController.restoreRoutingPanelState(state);
-    updateBadgeCount(RoutingOptions.getActiveRoadTypes().size());
+    updateBadgeCount(getRoutingOptionsCount());
   }
 
   @Override

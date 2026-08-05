@@ -509,6 +509,7 @@
 		ED82C7742F90186300FA103D /* SearchIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6DF2F90186300FA103D /* SearchIndex.swift */; };
 		ED82C7752F90186300FA103D /* SearchResult.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6E32F90186300FA103D /* SearchResult.mm */; };
 		ED82C7762F90186300FA103D /* MWMRoutingOptions.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6E82F90186300FA103D /* MWMRoutingOptions.mm */; };
+		ED9A11032FF0A1B10012C4A1 /* MWMRouteSpeedSettings.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED9A11022FF0A1B10012C4A1 /* MWMRouteSpeedSettings.mm */; };
 		ED82C7772F90186300FA103D /* MWMSettings.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6EA2F90186300FA103D /* MWMSettings.mm */; };
 		ED82C7782F90186300FA103D /* MWMStorage+UI.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6ED2F90186300FA103D /* MWMStorage+UI.m */; };
 		ED82C7792F90186300FA103D /* LocaleTranslator.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6F02F90186300FA103D /* LocaleTranslator.mm */; };
@@ -1506,6 +1507,8 @@
 		ED82C6E62F90186300FA103D /* MWMCoreUnits.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCoreUnits.h; sourceTree = "<group>"; };
 		ED82C6E72F90186300FA103D /* MWMRoutingOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRoutingOptions.h; sourceTree = "<group>"; };
 		ED82C6E82F90186300FA103D /* MWMRoutingOptions.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRoutingOptions.mm; sourceTree = "<group>"; };
+		ED9A11012FF0A1B10012C4A1 /* MWMRouteSpeedSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRouteSpeedSettings.h; sourceTree = "<group>"; };
+		ED9A11022FF0A1B10012C4A1 /* MWMRouteSpeedSettings.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRouteSpeedSettings.mm; sourceTree = "<group>"; };
 		ED82C6E92F90186300FA103D /* MWMSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSettings.h; sourceTree = "<group>"; };
 		ED82C6EA2F90186300FA103D /* MWMSettings.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSettings.mm; sourceTree = "<group>"; };
 		ED82C6EC2F90186300FA103D /* MWMStorage+UI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMStorage+UI.h"; sourceTree = "<group>"; };
@@ -3734,6 +3737,8 @@
 				ED82C6E62F90186300FA103D /* MWMCoreUnits.h */,
 				ED82C6E72F90186300FA103D /* MWMRoutingOptions.h */,
 				ED82C6E82F90186300FA103D /* MWMRoutingOptions.mm */,
+				ED9A11012FF0A1B10012C4A1 /* MWMRouteSpeedSettings.h */,
+				ED9A11022FF0A1B10012C4A1 /* MWMRouteSpeedSettings.mm */,
 				ED82C6E92F90186300FA103D /* MWMSettings.h */,
 				ED82C6EA2F90186300FA103D /* MWMSettings.mm */,
 				ED86256D2FEECAB70057BF82 /* MWMSettings+MapTiles.h */,
@@ -4665,6 +4670,7 @@
 				ED82C7742F90186300FA103D /* SearchIndex.swift in Sources */,
 				ED82C7752F90186300FA103D /* SearchResult.mm in Sources */,
 				ED82C7762F90186300FA103D /* MWMRoutingOptions.mm in Sources */,
+				ED9A11032FF0A1B10012C4A1 /* MWMRouteSpeedSettings.mm in Sources */,
 				ED82C7772F90186300FA103D /* MWMSettings.mm in Sources */,
 				ED86256C2FEECAB70057BF82 /* MWMSettings+MapTiles.mm in Sources */,
 				ED82C7782F90186300FA103D /* MWMStorage+UI.m in Sources */,

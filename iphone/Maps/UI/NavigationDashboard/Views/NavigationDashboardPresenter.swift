@@ -101,8 +101,8 @@ extension NavigationDashboard {
           fatalError("Unknown search state: \(state)")
         }
 
-      case .updateDrivingOptionsState(let routingOptions):
-        viewModel.routingOptions = routingOptions
+      case .updateDrivingOptionsState(let count):
+        viewModel.routingOptionsCount = count
 
       case .show(let points, let routerType):
         var canSaveRouteAsTrack = points.count > 1
