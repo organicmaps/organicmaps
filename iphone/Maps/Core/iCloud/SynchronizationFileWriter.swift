@@ -16,23 +16,23 @@ final class SynchronizationFileWriter {
   }
 
   func processEvent(_ event: OutgoingSynchronizationEvent, completion: @escaping WritingResultCompletionHandler) {
+    // The result is handled on the main queue, where the synchronization state lives. It must not be delivered
+    // synchronously: the file coordination that produced it is still in progress.
     let resultCompletion: WritingResultCompletionHandler = { result in
-      DispatchQueue.main.sync { completion(result) }
+      DispatchQueue.main.async { completion(result) }
     }
     backgroundQueue.async { [weak self] in
       guard let self else { return }
       switch event {
       case .createLocalItem(let cloudMetadataItem): self.createInLocalContainer(cloudMetadataItem, completion: resultCompletion)
-      case .updateLocalItem(let cloudMetadataItem): self.updateInLocalContainer(cloudMetadataItem, completion: resultCompletion)
-      case .removeLocalItem(let localMetadataItem): self.removeFromLocalContainer(localMetadataItem, completion: resultCompletion)
+      case .updateLocalItem(let cloudMetadataItem, let preservedItem):
+        self.updateInLocalContainer(cloudMetadataItem, preserving: preservedItem, completion: resultCompletion)
+      case .removeLocalItem(let localMetadataItem, _): self.removeFromLocalContainer(localMetadataItem, completion: resultCompletion)
       case .startDownloading(let cloudMetadataItem): self.startDownloading(cloudMetadataItem, completion: resultCompletion)
       case .createCloudItem(let localMetadataItem): self.createInCloudContainer(localMetadataItem, completion: resultCompletion)
       case .updateCloudItem(let localMetadataItem): self.updateInCloudContainer(localMetadataItem, completion: resultCompletion)
-      case .removeCloudItem(let cloudMetadataItem): self.removeFromCloudContainer(cloudMetadataItem, completion: resultCompletion)
+      case .removeCloudItem(let cloudMetadataItem, _): self.removeFromCloudContainer(cloudMetadataItem, completion: resultCompletion)
       case .resolveVersionsConflict(let cloudMetadataItem): self.resolveVersionsConflict(cloudMetadataItem, completion: resultCompletion)
-      case .resolveInitialSynchronizationConflict(let localMetadataItem): self.resolveInitialSynchronizationConflict(localMetadataItem, completion: resultCompletion)
-      case .didFinishInitialSynchronization: resultCompletion(.success)
-      case .didReceiveError(let error): resultCompletion(.failure(error))
       }
     }
   }
@@ -49,22 +49,62 @@ final class SynchronizationFileWriter {
       }
       completion(.success)
     } catch {
-      completion(.failure(error))
+      /* Downloading does not start while offline, in Low Data Mode, or when iCloud is busy with the item. None
+       of that is a reason to stop synchronizing: the request is repeated on a later snapshot. */
+      LOG(.warning, "Failed to start downloading \(cloudMetadataItem.fileName): \(error.localizedDescription)")
+      completion(.failure(SynchronizationError.fileUnavailable))
     }
   }
 
+  /// The file was absent when this was decided. If it is there now it holds something nobody has compared with
+  /// the cloud copy yet, and overwriting it would lose it without keeping a copy.
   private func createInLocalContainer(_ cloudMetadataItem: CloudMetadataItem, completion: @escaping WritingResultCompletionHandler) {
     let targetLocalFileUrl = cloudMetadataItem.relatedLocalItemUrl(to: localDirectoryUrl)
     guard !fileManager.fileExists(atPath: targetLocalFileUrl.path) else {
-      LOG(.info, "File \(cloudMetadataItem.fileName) already exists in the local iCloud container.")
-      completion(.success)
+      completion(.skipped("\(cloudMetadataItem.fileName) is back in the local directory"))
       return
     }
     writeToLocalContainer(cloudMetadataItem, completion: completion)
   }
 
-  private func updateInLocalContainer(_ cloudMetadataItem: CloudMetadataItem, completion: @escaping WritingResultCompletionHandler) {
-    writeToLocalContainer(cloudMetadataItem, completion: completion)
+  /// The preserved copy is made before the local file is overwritten and the replacement is abandoned when it
+  /// fails: that copy is the only one holding the local changes.
+  private func updateInLocalContainer(_ cloudMetadataItem: CloudMetadataItem,
+                                      preserving localMetadataItem: LocalMetadataItem?,
+                                      completion: @escaping WritingResultCompletionHandler) {
+    var preservedUrls = [URL]()
+    if let localMetadataItem {
+      do {
+        try preservedUrls.append(preserveCopy(of: localMetadataItem))
+      } catch {
+        completion(.failure(error))
+        return
+      }
+    }
+    let fileManager = fileManager
+    writeToLocalContainer(cloudMetadataItem) { result in
+      switch result {
+      case .reloadCategoriesAtURLs(let urls):
+        completion(.reloadCategoriesAtURLs(preservedUrls + urls))
+      default:
+        // The local file was not replaced after all, so the copy of it preserves nothing and is only a duplicate.
+        preservedUrls.forEach { try? fileManager.removeItem(at: $0) }
+        completion(result)
+      }
+    }
+  }
+
+  /// The copy gets a name no other device and no earlier conflict can produce, and never replaces an existing
+  /// file: every preserved version of every device survives.
+  private func preserveCopy(of localMetadataItem: LocalMetadataItem) throws -> URL {
+    let fileUrl = localMetadataItem.fileUrl
+    let baseName = fileUrl.deletingPathExtension().lastPathComponent
+    let copyUrl = fileUrl
+      .deletingLastPathComponent()
+      .appendingPathComponent("\(baseName)_\(UUID().uuidString.prefix(8)).\(fileUrl.pathExtension)")
+    LOG(.info, "Keep a copy of \(localMetadataItem.fileName) as \(copyUrl.lastPathComponent) to resolve a conflict")
+    try fileManager.copyItem(at: fileUrl, to: copyUrl)
+    return copyUrl
   }
 
   private func writeToLocalContainer(_ cloudMetadataItem: CloudMetadataItem, completion: @escaping WritingResultCompletionHandler) {
@@ -73,12 +113,10 @@ final class SynchronizationFileWriter {
     let targetLocalFileUrl = cloudMetadataItem.relatedLocalItemUrl(to: localDirectoryUrl)
     fileCoordinator.coordinate(readingItemAt: cloudMetadataItem.fileUrl, writingItemAt: targetLocalFileUrl, error: &coordinationError) { readingUrl, writingUrl in
       do {
-        /* During the synchronization process, when the file in trashed by iCloud,
-         the notification still can contain the already deleted file in the `updated` list instead of `deleted`.
-         In this case, the file replacement should be skipped. */
+        /* The cloud copy this was decided from is gone: iCloud trashed or replaced it between the snapshot and
+         this coordinated read. There is nothing to write and nothing is wrong. */
         guard fileManager.fileExists(atPath: readingUrl.path) else {
-          LOG(.error, "iCloud file \(readingUrl.lastPathComponent) doesn't exist.")
-          completion(.failure(SynchronizationError.fileUnavailable))
+          completion(.skipped("\(readingUrl.lastPathComponent) is not in iCloud anymore"))
           return
         }
         try fileManager.replaceFileSafe(at: writingUrl, with: readingUrl)
@@ -107,8 +145,7 @@ final class SynchronizationFileWriter {
   private func createInCloudContainer(_ localMetadataItem: LocalMetadataItem, completion: @escaping WritingResultCompletionHandler) {
     let targetCloudFileUrl = localMetadataItem.relatedCloudItemUrl(to: cloudDirectoryUrl)
     guard !fileManager.fileExists(atPath: targetCloudFileUrl.path) else {
-      LOG(.info, "File \(localMetadataItem.fileName) already exists in the cloud directory")
-      completion(.success)
+      completion(.skipped("\(localMetadataItem.fileName) is back in the cloud directory"))
       return
     }
     writeToCloudContainer(localMetadataItem, completion: completion)
@@ -136,19 +173,30 @@ final class SynchronizationFileWriter {
     }
   }
 
+  /// Trashing is irreversible and the decision to do it was made on another queue, so the file is only reported
+  /// as ready to be trashed: the caller authorizes it against the latest observations and calls `trashCloudItems`.
   private func removeFromCloudContainer(_ cloudMetadataItem: CloudMetadataItem, completion: @escaping WritingResultCompletionHandler) {
-    LOG(.info, "Trash file \(cloudMetadataItem.fileName) to the iCloud trash")
     let targetCloudFileUrl = cloudMetadataItem.fileUrl
     guard fileManager.fileExists(atPath: targetCloudFileUrl.path) else {
       LOG(.warning, "File \(cloudMetadataItem.fileName) doesn't exist in the cloud directory and cannot be moved to the trash")
       completion(.success)
       return
     }
-    do {
-      try fileManager.trashItem(at: targetCloudFileUrl, resultingItemURL: nil)
-      completion(.success)
-    } catch {
-      completion(.failure(error))
+    completion(.trashCloudItemsAtURLs([targetCloudFileUrl]))
+  }
+
+  func trashCloudItems(at urls: [URL], completion: @escaping WritingResultCompletionHandler) {
+    backgroundQueue.async { [weak self] in
+      guard let self else { return }
+      do {
+        for url in urls {
+          LOG(.info, "Trash file \(url.lastPathComponent) to the iCloud trash")
+          try fileManager.trashItem(at: url, resultingItemURL: nil)
+        }
+        DispatchQueue.main.async { completion(.success) }
+      } catch {
+        DispatchQueue.main.async { completion(.failure(error)) }
+      }
     }
   }
 
@@ -221,33 +269,13 @@ final class SynchronizationFileWriter {
     }
   }
 
-  private func resolveInitialSynchronizationConflict(_ localMetadataItem: LocalMetadataItem, completion: @escaping WritingResultCompletionHandler) {
-    LOG(.info, "Start resolving initial sync conflict for file \(localMetadataItem.fileName) by copying with a new name...")
-    do {
-      let newFileUrl = generateNewFileUrl(for: localMetadataItem.fileUrl, addDeviceName: true)
-      if !fileManager.fileExists(atPath: newFileUrl.path) {
-        try fileManager.copyItem(at: localMetadataItem.fileUrl, to: newFileUrl)
-      } else {
-        try fileManager.replaceFileSafe(at: newFileUrl, with: localMetadataItem.fileUrl)
-      }
-      LOG(.info, "File \(localMetadataItem.fileName) was successfully resolved.")
-      completion(.reloadCategoriesAtURLs([newFileUrl]))
-    } catch {
-      completion(.failure(error))
-    }
-  }
-
   // MARK: - Helper methods
 
-  /// Generate a new file URL with a new name for the file with the same name.
-  /// This method should generate the same name for the same file on different devices during the simultaneous conflict resolving.
-  private func generateNewFileUrl(for fileUrl: URL, addDeviceName: Bool = false) -> URL {
+  /// A version kept aside by iCloud's own conflict resolution. The name is derived from the original one, so two
+  /// devices resolving the same conflict at the same time produce the same file instead of two copies of it.
+  private func generateNewFileUrl(for fileUrl: URL) -> URL {
     let baseName = fileUrl.deletingPathExtension().lastPathComponent
-    let fileExtension = fileUrl.pathExtension
-    let newBaseName = baseName + "_1"
-    let deviceName = addDeviceName ? "_\(UIDevice.current.name)" : ""
-    let newFileName = newBaseName + deviceName + "." + fileExtension
-    return fileUrl.deletingLastPathComponent().appendingPathComponent(newFileName)
+    return fileUrl.deletingLastPathComponent().appendingPathComponent("\(baseName)_1.\(fileUrl.pathExtension)")
   }
 }
 
