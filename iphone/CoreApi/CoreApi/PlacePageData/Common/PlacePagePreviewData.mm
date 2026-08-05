@@ -4,7 +4,7 @@
 #import "PlacePagePreviewData+Core.h"
 #import "TrackInfo.h"
 
-#include "3party/opening_hours/opening_hours.hpp"
+#include "opening_hours/opening_hours.hpp"
 
 static PlacePageDataSchedule convertOpeningHours(std::string_view rawOH)
 {
@@ -16,8 +16,7 @@ static PlacePageDataSchedule convertOpeningHours(std::string_view rawOH)
     return schedule;
   }
 
-  /// @todo Avoid temporary string when OpeningHours (boost::spirit) will allow string_view.
-  osmoh::OpeningHours oh((std::string(rawOH)));
+  osmoh::OpeningHours oh(rawOH);
   if (!oh.IsValid())
   {
     schedule.state = PlacePageDataOpeningHoursUnknown;

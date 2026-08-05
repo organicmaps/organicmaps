@@ -6,9 +6,9 @@
 #include "editor/opening_hours_ui.hpp"
 #include "editor/ui2oh.hpp"
 
-#include "base/logging.hpp"
+#include "opening_hours/opening_hours.hpp"
 
-#include "3party/opening_hours/opening_hours.hpp"
+#include "base/logging.hpp"
 
 #include <algorithm>
 #include <set>
@@ -333,7 +333,10 @@ JNIEXPORT jstring Java_app_organicmaps_sdk_editor_OpeningHours_nativeTimetablesT
 JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_OpeningHours_nativeIsTimetableStringValid(JNIEnv * env, jclass clazz,
                                                                                              jstring jSource)
 {
-  return OpeningHours(jni::ToNativeString(env, jSource)).IsValid();
+  // An empty string is how the user deletes the tag; it is not a valid
+  // opening_hours value, so check it before parsing or Save stays disabled.
+  auto const source = jni::ToNativeString(env, jSource);
+  return source.empty() || OpeningHours(source).IsValid();
 }
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_editor_OpeningHours_nativeGetOpeningHoursInfoFromString(JNIEnv * env,
