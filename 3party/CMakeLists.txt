@@ -92,7 +92,6 @@ add_subdirectory(bsdiff-courgette)
 add_subdirectory(glaze)
 add_subdirectory(minizip)
 add_subdirectory(open-location-code)
-add_subdirectory(opening_hours)
 add_subdirectory(stb_image)
 add_subdirectory(succinct)
 
