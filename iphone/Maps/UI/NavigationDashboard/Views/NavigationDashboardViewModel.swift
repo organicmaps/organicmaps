@@ -5,7 +5,7 @@ enum NavigationDashboard {
     var routerType: MWMRouterType
     var entity: MWMNavigationDashboardEntity
     var trackRecordingState: TrackRecordingState
-    var routingOptions: RoutingOptions
+    var routingOptionsCount: Int
     var routeElevationPreviewData: RouteElevationPreviewData?
     var routeElevationActivePointDistance: Double?
     var navigationInfo: NavigationInfo
@@ -40,7 +40,7 @@ extension NavigationDashboard.ViewModel {
       routerType: MWMRouter.type(),
       entity: MWMNavigationDashboardEntity(),
       trackRecordingState: TrackRecordingManager.shared.recordingState,
-      routingOptions: RoutingOptions(),
+      routingOptionsCount: 0,
       routeElevationPreviewData: nil,
       routeElevationActivePointDistance: nil,
       navigationInfo: .hidden,
@@ -99,4 +99,9 @@ extension RoutingOptions {
   var enabledOptionsCount: Int {
     [avoidToll, avoidDirty, avoidFerry, avoidMotorway].filter { $0 }.count
   }
+}
+
+/// The road types the user avoids and the personal speed they set are shown by the same badge.
+var routingOptionsCount: Int {
+  RoutingOptions().enabledOptionsCount + (RouteSpeedSettings.current()?.changedCount ?? 0)
 }

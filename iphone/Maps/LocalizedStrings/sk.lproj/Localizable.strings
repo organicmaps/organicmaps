@@ -715,6 +715,21 @@
 "show_at_the_bottom" = "Zobraziť v dolnej časti";
 "enable_logging_warning_message" = "Týmto zapnete záznamenávanie diagnostických informácií, ktoré môžete poslať našej technickej podpore v prípade problémov s aplikáciou. Záznam môže obsahovať údaje o vašej polohe.";
 "driving_options_title" = "Možnosti trasy";
+"route_speed_title" = "Cruising speed";
+"route_speed_description" = "Your usual speed on flat pavement. Terrain and road conditions are still considered; route choice is unchanged.";
+"route_wind_enabled" = "Consider wind";
+"route_wind_speed" = "Wind speed";
+"route_wind_speed_unit_mps" = "m/s";
+"route_wind_direction" = "Wind from";
+"route_wind_description" = "Adjusts bicycle ETA using the wind component along each route segment. Direction is where the wind comes from.";
+"route_wind_direction_n" = "N";
+"route_wind_direction_ne" = "NE";
+"route_wind_direction_e" = "E";
+"route_wind_direction_se" = "SE";
+"route_wind_direction_s" = "S";
+"route_wind_direction_sw" = "SW";
+"route_wind_direction_w" = "W";
+"route_wind_direction_nw" = "NW";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Vyhnúť sa spoplatneným cestám";

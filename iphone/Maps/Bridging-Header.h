@@ -50,6 +50,7 @@
 #import "MWMRouter.h"
 #import "MWMRouterResultCode.h"
 #import "MWMRouterTransitStepInfo.h"
+#import "MWMRouteSpeedSettings.h"
 #import "MWMRoutingManager.h"
 #import "MWMRoutingOptions.h"
 #import "MWMSearch.h"

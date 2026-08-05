@@ -678,6 +678,21 @@
     <string name="show_at_the_bottom">Под меткой</string>
     <string name="enable_logging_warning_message">Данная настройка включается для записи действий в целях диагностики, чтобы помочь нашей команде выявить проблемы с приложением. Временно включайте эту настройку только для отправки детальной информации о найденной вами проблеме в приложении через кнопку \"Сообщить о проблеме\".</string>
     <string name="driving_options_title">Настройки объезда</string>
+    <string name="route_speed_title">Крейсерская скорость</string>
+    <string name="route_speed_description">Ваша обычная скорость на ровном асфальте. Рельеф и дорожные условия по-прежнему учитываются; маршрут не меняется.</string>
+    <string name="route_wind_enabled">Учитывать ветер</string>
+    <string name="route_wind_speed">Скорость ветра</string>
+    <string name="route_wind_speed_unit_mps">м/с</string>
+    <string name="route_wind_direction">Ветер дует с</string>
+    <string name="route_wind_description">Корректирует расчётное время велосипеда по составляющей ветра вдоль каждого участка. Направление указывает, откуда дует ветер.</string>
+    <string name="route_wind_direction_n">С</string>
+    <string name="route_wind_direction_ne">СВ</string>
+    <string name="route_wind_direction_e">В</string>
+    <string name="route_wind_direction_se">ЮВ</string>
+    <string name="route_wind_direction_s">Ю</string>
+    <string name="route_wind_direction_sw">ЮЗ</string>
+    <string name="route_wind_direction_w">З</string>
+    <string name="route_wind_direction_nw">СЗ</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Избегать платных дорог</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

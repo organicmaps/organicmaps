@@ -131,6 +131,8 @@ set(SRC
   route.cpp
   route.hpp
   route_point.hpp
+  route_speed_settings.cpp
+  route_speed_settings.hpp
   route_weight.cpp
   route_weight.hpp
   router.cpp

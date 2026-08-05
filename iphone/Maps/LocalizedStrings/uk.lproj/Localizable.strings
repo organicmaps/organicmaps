@@ -715,6 +715,21 @@
 "show_at_the_bottom" = "Показати внизу";
 "enable_logging_warning_message" = "Дана опція вмикається для логування дій з метою діагностики. Це допомагає команді виявити проблеми з додатком. Тимчасово включайте цю настройку тільки для відправки детальної інформації про знайдену вами проблему в додатку через кнопку \"Сповістити про помилку\".";
 "driving_options_title" = "Налаштування об’їзду";
+"route_speed_title" = "Крейсерська швидкість";
+"route_speed_description" = "Ваша звичайна швидкість на рівному асфальті. Рельєф і дорожні умови, як і раніше, враховуються; маршрут не змінюється.";
+"route_wind_enabled" = "Враховувати вітер";
+"route_wind_speed" = "Швидкість вітру";
+"route_wind_speed_unit_mps" = "м/с";
+"route_wind_direction" = "Вітер дме з";
+"route_wind_description" = "Коригує розрахунковий час велосипеда за складовою вітру вздовж кожної ділянки. Напрямок вказує, звідки дме вітер.";
+"route_wind_direction_n" = "Пн";
+"route_wind_direction_ne" = "ПнСх";
+"route_wind_direction_e" = "Сх";
+"route_wind_direction_se" = "ПдСх";
+"route_wind_direction_s" = "Пд";
+"route_wind_direction_sw" = "ПдЗх";
+"route_wind_direction_w" = "Зх";
+"route_wind_direction_nw" = "ПнЗх";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Уникати платних доріг";

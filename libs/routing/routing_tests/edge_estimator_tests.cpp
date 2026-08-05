@@ -1,8 +1,13 @@
 #include "testing/testing.hpp"
 
 #include "routing/edge_estimator.hpp"
+#include "routing/geometry.hpp"
+
+#include "routing_common/maxspeed_conversion.hpp"
 
 #include "geometry/point_with_altitude.hpp"
+
+#include "platform/measurement_utils.hpp"
 
 #include <cmath>
 
@@ -75,5 +80,123 @@ UNIT_TEST(ClimbPenalty_HighAboveSeaLevel)
     TEST_GREATER_OR_EQUAL(penalty2500Bicyclce, 6.0, ());
     TEST_ALMOST_EQUAL_ABS(GetCarClimbPenalty(purpose, kTan, 2500), 1.0, kAccuracyEps, ());
   }
+}
+
+void TestCruisingSpeed(VehicleType vehicleType)
+{
+  double const defaultSpeedKMpH = GetCruisingSpeedRange(vehicleType).m_default;
+  auto const estimator =
+      EdgeEstimator::Create(vehicleType, defaultSpeedKMpH, SpeedKMpH(defaultSpeedKMpH), nullptr, nullptr, nullptr);
+  ms::LatLon const from(0.0, 0.0);
+  ms::LatLon const to(0.0, 0.001);
+
+  double const weight = estimator->CalcOffroad(from, to, EdgeEstimator::Purpose::Weight);
+  double const eta = estimator->CalcOffroad(from, to, EdgeEstimator::Purpose::ETA);
+  double const ferryEta = estimator->GetFerryLandingPenalty(EdgeEstimator::Purpose::ETA);
+  RoadGeometry const road(false /* oneWay */,
+                          Maxspeed(measurement_utils::Units::Metric, defaultSpeedKMpH, kInvalidSpeed),
+                          {{0.0, 0.0}, {0.0, 0.001}});
+  Segment const segment(kFakeNumMwmId, 0 /* featureId */, 0 /* segmentIdx */, true /* forward */);
+  double const segmentWeight = estimator->CalcSegmentWeight(segment, road, EdgeEstimator::Purpose::Weight);
+  double const segmentEta = estimator->CalcSegmentWeight(segment, road, EdgeEstimator::Purpose::ETA);
+
+  double const factor = 1.25;
+  estimator->SetRouteSpeedSettings(vehicleType, {defaultSpeedKMpH * factor});
+
+  TEST_ALMOST_EQUAL_ABS(estimator->CalcOffroad(from, to, EdgeEstimator::Purpose::Weight), weight, kAccuracyEps, ());
+  TEST_ALMOST_EQUAL_ABS(estimator->CalcOffroad(from, to, EdgeEstimator::Purpose::ETA), eta / factor, kAccuracyEps, ());
+  TEST_ALMOST_EQUAL_ABS(estimator->GetFerryLandingPenalty(EdgeEstimator::Purpose::ETA), ferryEta, kAccuracyEps, ());
+  TEST_ALMOST_EQUAL_ABS(estimator->CalcSegmentWeight(segment, road, EdgeEstimator::Purpose::Weight), segmentWeight,
+                        kAccuracyEps, ());
+  TEST_ALMOST_EQUAL_ABS(estimator->CalcSegmentWeight(segment, road, EdgeEstimator::Purpose::ETA), segmentEta / factor,
+                        kAccuracyEps, ());
+}
+
+UNIT_TEST(CruisingSpeed_AffectsEtaOnly)
+{
+  TestCruisingSpeed(VehicleType::Pedestrian);
+  TestCruisingSpeed(VehicleType::Bicycle);
+}
+
+UNIT_TEST(BicycleWind_AffectsEtaBySegmentDirection)
+{
+  double const cruisingSpeedKMpH = 20.0;
+  double const windSpeedMpS = 5.0;
+  auto const estimator = EdgeEstimator::Create(VehicleType::Bicycle, cruisingSpeedKMpH, SpeedKMpH(cruisingSpeedKMpH),
+                                               nullptr, nullptr, nullptr);
+  RoadGeometry const eastboundRoad(false /* oneWay */,
+                                   Maxspeed(measurement_utils::Units::Metric, cruisingSpeedKMpH, kInvalidSpeed),
+                                   {{0.0, 0.0}, {0.001, 0.0}});
+  Segment const segment(kFakeNumMwmId, 0 /* featureId */, 0 /* segmentIdx */, true /* forward */);
+  Segment const reverseSegment(kFakeNumMwmId, 0 /* featureId */, 0 /* segmentIdx */, false /* forward */);
+  double const weight = estimator->CalcSegmentWeight(segment, eastboundRoad, EdgeEstimator::Purpose::Weight);
+  double const eta = estimator->CalcSegmentWeight(segment, eastboundRoad, EdgeEstimator::Purpose::ETA);
+
+  auto const etaWithWind = [&](Segment const & s, int windDirectionDegrees)
+  {
+    estimator->SetRouteSpeedSettings(VehicleType::Bicycle,
+                                     {cruisingSpeedKMpH, static_cast<int>(windSpeedMpS), windDirectionDegrees});
+    return estimator->CalcSegmentWeight(s, eastboundRoad, EdgeEstimator::Purpose::ETA);
+  };
+
+  TEST_ALMOST_EQUAL_ABS(estimator->CalcSegmentWeight(segment, eastboundRoad, EdgeEstimator::Purpose::Weight), weight,
+                        kAccuracyEps, ());
+
+  TEST_ALMOST_EQUAL_ABS(etaWithWind(segment, 0 /* from north */), eta, kAccuracyEps, ());
+  TEST_ALMOST_EQUAL_ABS(etaWithWind(segment, 180 /* from south */), eta, kAccuracyEps, ());
+
+  double const headwindEta = etaWithWind(segment, 90 /* from east */);
+  double const tailwindEta = etaWithWind(segment, 270 /* from west */);
+  TEST_ALMOST_EQUAL_ABS(etaWithWind(reverseSegment, 270 /* from west */), headwindEta, kAccuracyEps, ());
+  TEST_ALMOST_EQUAL_ABS(etaWithWind(reverseSegment, 90 /* from east */), tailwindEta, kAccuracyEps, ());
+  TEST_GREATER(headwindEta, eta, ());
+  TEST_LESS(tailwindEta, eta, ());
+
+  double const stillSpeedMpS = measurement_utils::KmphToMps(cruisingSpeedKMpH);
+  TEST_LESS(headwindEta, eta * stillSpeedMpS / (stillSpeedMpS - windSpeedMpS), ());
+  TEST_LESS(headwindEta, 2.0 * eta, ());
+  TEST_GREATER(tailwindEta, eta * stillSpeedMpS / (stillSpeedMpS + windSpeedMpS), ());
+  TEST_GREATER(headwindEta - eta, eta - tailwindEta, ());
+}
+
+UNIT_TEST(BicycleWind_StrongTailwindNeverSlowsDown)
+{
+  double const cruisingSpeedKMpH = GetCruisingSpeedRange(VehicleType::Bicycle).m_min;
+  auto const estimator = EdgeEstimator::Create(VehicleType::Bicycle, cruisingSpeedKMpH, SpeedKMpH(cruisingSpeedKMpH),
+                                               nullptr, nullptr, nullptr);
+  RoadGeometry const eastboundRoad(false /* oneWay */,
+                                   Maxspeed(measurement_utils::Units::Metric, cruisingSpeedKMpH, kInvalidSpeed),
+                                   {{0.0, 0.0}, {0.001, 0.0}});
+  Segment const segment(kFakeNumMwmId, 0 /* featureId */, 0 /* segmentIdx */, true /* forward */);
+
+  auto const etaWithWind = [&](int windSpeedMpS)
+  {
+    estimator->SetRouteSpeedSettings(VehicleType::Bicycle, {cruisingSpeedKMpH, windSpeedMpS, 270 /* from west */});
+    return estimator->CalcSegmentWeight(segment, eastboundRoad, EdgeEstimator::Purpose::ETA);
+  };
+
+  double previousEta = etaWithWind(0 /* still air */);
+  for (int windSpeedMpS = 1; windSpeedMpS <= kMaxWindSpeedMpS; ++windSpeedMpS)
+  {
+    double const tailwindEta = etaWithWind(windSpeedMpS);
+    TEST_LESS(tailwindEta, previousEta, (windSpeedMpS));
+    previousEta = tailwindEta;
+  }
+}
+
+UNIT_TEST(Wind_IgnoredForPedestrian)
+{
+  double const cruisingSpeedKMpH = GetCruisingSpeedRange(VehicleType::Pedestrian).m_default;
+  auto const estimator = EdgeEstimator::Create(VehicleType::Pedestrian, cruisingSpeedKMpH, SpeedKMpH(cruisingSpeedKMpH),
+                                               nullptr, nullptr, nullptr);
+  RoadGeometry const eastboundRoad(false /* oneWay */,
+                                   Maxspeed(measurement_utils::Units::Metric, cruisingSpeedKMpH, kInvalidSpeed),
+                                   {{0.0, 0.0}, {0.001, 0.0}});
+  Segment const segment(kFakeNumMwmId, 0 /* featureId */, 0 /* segmentIdx */, true /* forward */);
+  double const eta = estimator->CalcSegmentWeight(segment, eastboundRoad, EdgeEstimator::Purpose::ETA);
+
+  estimator->SetRouteSpeedSettings(VehicleType::Pedestrian, {cruisingSpeedKMpH, 5 /* m/s */, 90 /* from east */});
+  TEST_ALMOST_EQUAL_ABS(estimator->CalcSegmentWeight(segment, eastboundRoad, EdgeEstimator::Purpose::ETA), eta,
+                        kAccuracyEps, ());
 }
 }  // namespace

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/route_speed_settings.hpp"
 #include "routing/segment.hpp"
 #include "routing/vehicle_mask.hpp"
 
@@ -57,6 +58,11 @@ public:
   double GetTransitWalkWeightFactor() const { return m_transitWalkWeightFactor; }
   double GetTransitTransferFactor() const { return m_transitTransferFactor; }
 
+  /// \brief Corrects the estimated time of arrival for the pace the user actually keeps and, for
+  /// bicycles, for the wind they ride in. Routing weights and fixed penalties are unchanged, so the
+  /// route itself is chosen exactly as before.
+  void SetRouteSpeedSettings(VehicleType vehicleType, RouteSpeedSettings const & settings);
+
   double CalcHeuristic(ms::LatLon const & from, ms::LatLon const & to) const;
   // Estimates time in seconds it takes to go from point |from| to point |to| along a leap (fake)
   // edge |from|-|to| using real features.
@@ -85,12 +91,22 @@ public:
                                                std::shared_ptr<TrafficStash> trafficStash, DataSource * dataSourcePtr,
                                                std::shared_ptr<NumMwmIds> numMwmIds);
 
+protected:
+  /// \returns |timeSec| scaled to the user's pace. Purposes other than ETA are returned unchanged.
+  double ApplyEtaSpeedFactor(double timeSec, Purpose purpose) const;
+  /// Same, and additionally corrects for the wind blowing along the |from| - |to| segment.
+  double ApplyEtaWind(double timeSec, Purpose purpose, ms::LatLon const & from, ms::LatLon const & to) const;
+
 private:
   double const m_maxWeightSpeedMpS;
   SpeedKMpH const m_offroadSpeedKMpH;
   Strategy m_strategy = Strategy::Normal;
   double m_transitWalkWeightFactor = 1.0;
   double m_transitTransferFactor = 1.0;
+  double m_etaSpeedFactor = 1.0;
+  double m_windSpeedMpS = 0.0;
+  double m_windFromDirectionRad = 0.0;
+  double m_riderPowerW = 0.0;
 
   // DataSource * m_dataSourcePtr;
   // std::shared_ptr<NumMwmIds> m_numMwmIds;

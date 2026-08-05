@@ -678,6 +678,21 @@
     <string name="show_at_the_bottom">Показати внизу</string>
     <string name="enable_logging_warning_message">Дана опція вмикається для логування дій з метою діагностики. Це допомагає команді виявити проблеми з додатком. Тимчасово включайте цю настройку тільки для відправки детальної інформації про знайдену вами проблему в додатку через кнопку \"Сповістити про помилку\".</string>
     <string name="driving_options_title">Налаштування об’їзду</string>
+    <string name="route_speed_title">Крейсерська швидкість</string>
+    <string name="route_speed_description">Ваша звичайна швидкість на рівному асфальті. Рельєф і дорожні умови, як і раніше, враховуються; маршрут не змінюється.</string>
+    <string name="route_wind_enabled">Враховувати вітер</string>
+    <string name="route_wind_speed">Швидкість вітру</string>
+    <string name="route_wind_speed_unit_mps">м/с</string>
+    <string name="route_wind_direction">Вітер дме з</string>
+    <string name="route_wind_description">Коригує розрахунковий час велосипеда за складовою вітру вздовж кожної ділянки. Напрямок вказує, звідки дме вітер.</string>
+    <string name="route_wind_direction_n">Пн</string>
+    <string name="route_wind_direction_ne">ПнСх</string>
+    <string name="route_wind_direction_e">Сх</string>
+    <string name="route_wind_direction_se">ПдСх</string>
+    <string name="route_wind_direction_s">Пд</string>
+    <string name="route_wind_direction_sw">ПдЗх</string>
+    <string name="route_wind_direction_w">Зх</string>
+    <string name="route_wind_direction_nw">ПнЗх</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Уникати платних доріг</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

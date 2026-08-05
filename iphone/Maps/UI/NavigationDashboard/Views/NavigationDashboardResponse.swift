@@ -11,7 +11,7 @@ extension NavigationDashboard {
     case updatePresentationStep(NavigationDashboardModalPresentationStep)
     case updateNavigationInfoAvailableArea(CGRect)
     case updateSearchState(SearchOnMapState)
-    case updateDrivingOptionsState(RoutingOptions)
+    case updateDrivingOptionsState(count: Int)
     case setRouteAsTrackSaved
 
     case showNavigationDashboard

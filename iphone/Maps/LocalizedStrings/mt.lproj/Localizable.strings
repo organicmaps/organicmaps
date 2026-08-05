@@ -715,6 +715,21 @@
 "show_at_the_bottom" = "Uri fil-qiegħ";
 "enable_logging_warning_message" = "Attiva din l-għażla biex tirrekordja u tibgħat manwalment dijanjostiċi dettaljati dwar il-kwistjoni tiegħek lilna billi tuża “Irrapporta problemi” fid-djalogu għajnuna. Ir-reġistri jistgħu jinkludu informazzjoni dwar il-post.";
 "driving_options_title" = "Għażliet tar-rotta";
+"route_speed_title" = "Cruising speed";
+"route_speed_description" = "Your usual speed on flat pavement. Terrain and road conditions are still considered; route choice is unchanged.";
+"route_wind_enabled" = "Consider wind";
+"route_wind_speed" = "Wind speed";
+"route_wind_speed_unit_mps" = "m/s";
+"route_wind_direction" = "Wind from";
+"route_wind_description" = "Adjusts bicycle ETA using the wind component along each route segment. Direction is where the wind comes from.";
+"route_wind_direction_n" = "N";
+"route_wind_direction_ne" = "NE";
+"route_wind_direction_e" = "E";
+"route_wind_direction_se" = "SE";
+"route_wind_direction_s" = "S";
+"route_wind_direction_sw" = "SW";
+"route_wind_direction_w" = "W";
+"route_wind_direction_nw" = "NW";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Evita ħlasijiet għall-użu tat-triq";

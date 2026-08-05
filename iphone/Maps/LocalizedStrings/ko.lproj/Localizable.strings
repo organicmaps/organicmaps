@@ -715,6 +715,21 @@
 "show_at_the_bottom" = "하단에 표시";
 "enable_logging_warning_message" = "이 옵션은 진단을 목적으로 로그를 엽니다 이를 통해 앱에 대한 문제를 분석하는 우리의 스탭을 도울 수 있습니다 이 옵션은 오직 Organic Maps 지원 요청에서만 가능합니다.";
 "driving_options_title" = "운전 옵션";
+"route_speed_title" = "Cruising speed";
+"route_speed_description" = "Your usual speed on flat pavement. Terrain and road conditions are still considered; route choice is unchanged.";
+"route_wind_enabled" = "Consider wind";
+"route_wind_speed" = "Wind speed";
+"route_wind_speed_unit_mps" = "m/s";
+"route_wind_direction" = "Wind from";
+"route_wind_description" = "Adjusts bicycle ETA using the wind component along each route segment. Direction is where the wind comes from.";
+"route_wind_direction_n" = "N";
+"route_wind_direction_ne" = "NE";
+"route_wind_direction_e" = "E";
+"route_wind_direction_se" = "SE";
+"route_wind_direction_s" = "S";
+"route_wind_direction_sw" = "SW";
+"route_wind_direction_w" = "W";
+"route_wind_direction_nw" = "NW";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "유료 도로 피하기";

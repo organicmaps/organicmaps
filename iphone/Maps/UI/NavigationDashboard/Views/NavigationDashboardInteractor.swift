@@ -109,8 +109,7 @@ extension NavigationDashboard {
         return .updateSearchState(state)
 
       case .updateDrivingOptionsState:
-        let routingOptions = RoutingOptions()
-        return .updateDrivingOptionsState(routingOptions)
+        return .updateDrivingOptionsState(count: routingOptionsCount)
 
       case .moveRoutePoint(let from, let to):
         router.movePoint(at: from, to: to)

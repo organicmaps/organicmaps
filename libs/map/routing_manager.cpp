@@ -6,6 +6,7 @@
 #include "routing/checkpoint_predictor.hpp"
 #include "routing/index_router.hpp"
 #include "routing/route.hpp"
+#include "routing/route_speed_settings.hpp"
 #include "routing/routing_callbacks.hpp"
 #include "routing/ruler_router.hpp"
 #include "routing/speed_camera.hpp"
@@ -554,7 +555,7 @@ void RoutingManager::SetRouterImpl(RouterType type)
 
     router = std::make_unique<IndexRouter>(vehicleType, m_loadAltitudes, m_callbacks.m_countryParentNameGetterFn,
                                            countryFileGetter, getMwmRectByName, m_numMwmIDs, m_numMwmTree,
-                                           m_routingSession, dataSource);
+                                           m_routingSession, dataSource, LoadRouteSpeedSettings(vehicleType));
     absentFinder = std::make_unique<AbsentRegionsFinder>(countryFileGetter, localFileChecker, m_numMwmIDs, dataSource);
   }
 
@@ -1516,6 +1517,25 @@ void RoutingManager::SetRouter(RouterType type)
     return;
 
   SetRouterImpl(type);
+}
+
+VehicleType RoutingManager::GetRouterVehicleType() const
+{
+  return m_currentRouterType == RouterType::Count ? VehicleType::Count : GetVehicleType(m_currentRouterType);
+}
+
+void RoutingManager::SetRouteSpeedSettings(RouteSpeedSettings const & settings)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ("SetRouteSpeedSettings"));
+
+  auto const vehicleType = GetRouterVehicleType();
+  CHECK(IsRouteSpeedSupported(vehicleType), (m_currentRouterType));
+  if (LoadRouteSpeedSettings(vehicleType) == settings)
+    return;
+
+  SaveRouteSpeedSettings(vehicleType, settings);
+  if (m_numMwmIDs)
+    SetRouterImpl(m_currentRouterType);
 }
 
 // static
