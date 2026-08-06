@@ -1905,7 +1905,7 @@ JNINativeMethod const frameworkMethods[] = {
 
 namespace android::framework
 {
-jint registerNativeMethods(JNIEnv * env)
+jint RegisterNativeMethods(JNIEnv * env)
 {
   jclass clazz = env->FindClass("app/organicmaps/sdk/Framework");
   if (clazz == nullptr)

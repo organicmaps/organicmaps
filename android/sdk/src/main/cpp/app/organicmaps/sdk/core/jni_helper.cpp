@@ -70,11 +70,11 @@ JNIEXPORT jint JNI_OnLoad(JavaVM * jvm, void *)
 
   if (g_isAndroidLowerThan12)
   {
-    if (predefined_colors::registerNativeMethods(env) != JNI_OK)
+    if (predefined_colors::RegisterNativeMethods(env) != JNI_OK)
       return JNI_ERR;
-    if (icon::registerNativeMethods(env) != JNI_OK)
+    if (icon::RegisterNativeMethods(env) != JNI_OK)
       return JNI_ERR;
-    if (android::framework::registerNativeMethods(env) != JNI_OK)
+    if (android::framework::RegisterNativeMethods(env) != JNI_OK)
       return JNI_ERR;
   }
 

@@ -4,5 +4,5 @@
 
 namespace android::framework
 {
-jint registerNativeMethods(JNIEnv * env);
+jint RegisterNativeMethods(JNIEnv * env);
 }  // namespace android::framework
