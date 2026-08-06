@@ -6,6 +6,7 @@ final class MapTemplateBuilder {
     case zoomIn
     case zoomOut
     case recenter
+    case switchOrientation(MWMMyPositionMode)
   }
 
   enum BarButtonType {
@@ -108,11 +109,16 @@ final class MapTemplateBuilder {
       mapTemplate.hidesButtonsWithNavigationBar = true
       FrameworkHelper.switchMyPositionMode()
     }
+    // While the camera follows the user, this button toggles the orientation (north-up <-> heading-up):
+    // switchMyPositionMode() cycles the following camera's rotation through the core NextMode().
+    let orientationButton = buildMapButton(type: .switchOrientation(positionMode)) { _ in
+      FrameworkHelper.switchMyPositionMode()
+    }
 
     switch positionMode {
     case .follow, .followAndRotate:
       if !mapTemplate.isPanningInterfaceVisible {
-        mapTemplate.mapButtons = [panningButton, zoomInButton, zoomOutButton]
+        mapTemplate.mapButtons = [orientationButton, panningButton, zoomInButton, zoomOutButton]
       }
     case .notFollow:
       if !mapTemplate.isPanningInterfaceVisible {
@@ -164,6 +170,10 @@ final class MapTemplateBuilder {
       button.image = UIImage.btnZoomOut
     case .recenter:
       button.image = UIImage.btnGetPosition
+    case .switchOrientation(let positionMode):
+      // Reuse the phone location-button glyphs (as the recenter button reuses btnGetPosition) to
+      // show the current orientation: north-up (Follow) vs heading-up (FollowAndRotate).
+      button.image = positionMode == .follow ? UIImage.btnFollow : UIImage.btnFollowAndRotate
     }
     return button
   }
