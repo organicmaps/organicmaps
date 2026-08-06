@@ -339,17 +339,17 @@ void SaveCategoryData(Writer & writer, CategoryData const & categoryData, std::s
     }
 
     // Use CDATA if we have special symbols in the name.
-    if (auto name = GetDefaultLanguage(categoryData.m_name))
+    if (auto const name = GetStringForExport(categoryData.m_name); !name.empty())
     {
       writer << kIndent2 << "<name>";
-      SaveStringWithCDATA(writer, *name);
+      SaveStringWithCDATA(writer, name);
       writer << "</name>\n";
     }
 
-    if (auto const description = GetDefaultLanguage(categoryData.m_description))
+    if (auto const description = GetStringForExport(categoryData.m_description); !description.empty())
     {
       writer << kIndent2 << "<description>";
-      SaveStringWithCDATA(writer, *description);
+      SaveStringWithCDATA(writer, description);
       writer << "</description>\n";
     }
 
@@ -430,14 +430,13 @@ void SaveBookmarkData(Writer & writer, BookmarkData const & bookmarkData)
 {
   writer << kIndent2 << "<Placemark>\n";
   writer << kIndent4 << "<name>";
-  auto const defaultLang = StringUtf8Multilang::GetLangByCode(kDefaultLangCode);
-  SaveStringWithCDATA(writer, GetPreferredBookmarkName(bookmarkData, defaultLang));
+  SaveStringWithCDATA(writer, GetNameForExport(bookmarkData));
   writer << "</name>\n";
 
-  if (auto const description = GetDefaultLanguage(bookmarkData.m_description))
+  if (auto const description = GetStringForExport(bookmarkData.m_description); !description.empty())
   {
     writer << kIndent4 << "<description>";
-    SaveStringWithCDATA(writer, *description);
+    SaveStringWithCDATA(writer, description);
     writer << "</description>\n";
   }
 
@@ -596,17 +595,17 @@ void SaveTrackExtendedData(Writer & writer, TrackData const & trackData)
 void SaveTrackData(Writer & writer, TrackData const & trackData)
 {
   writer << kIndent2 << "<Placemark>\n";
-  if (auto name = GetDefaultLanguage(trackData.m_name))
+  if (auto const name = GetStringForExport(trackData.m_name); !name.empty())
   {
     writer << kIndent4 << "<name>";
-    SaveStringWithCDATA(writer, *name);
+    SaveStringWithCDATA(writer, name);
     writer << "</name>\n";
   }
 
-  if (auto const description = GetDefaultLanguage(trackData.m_description))
+  if (auto const description = GetStringForExport(trackData.m_description); !description.empty())
   {
     writer << kIndent4 << "<description>";
-    SaveStringWithCDATA(writer, *description);
+    SaveStringWithCDATA(writer, description);
     writer << "</description>\n";
   }
 

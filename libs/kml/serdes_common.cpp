@@ -1,4 +1,5 @@
 #include "kml/serdes_common.hpp"
+#include "kml/types.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -78,12 +79,39 @@ void SaveStringWithCDATA(Writer & writer, std::string const & s)
     writer << *clean;
 }
 
-std::string const * GetDefaultLanguage(LocalizableString const & lstr)
+std::string GetStringForExport(LocalizableString const & lstr)
 {
-  auto const find = lstr.find(kDefaultLang);
-  if (find != lstr.end())
-    return &find->second;
-  return nullptr;
+  auto const getNonEmpty = [&lstr](int8_t const lang) -> std::string const *
+  {
+    auto const it = lstr.find(lang);
+    return it != lstr.end() && !it->second.empty() ? &it->second : nullptr;
+  };
+
+  for (auto const lang : {kDefaultLang, StringUtf8Multilang::kInternationalCode, StringUtf8Multilang::kEnglishCode})
+    if (auto const value = getNonEmpty(lang))
+      return *value;
+
+  std::string const * fallback = nullptr;
+  int8_t fallbackLang = StringUtf8Multilang::kMaxSupportedLanguages;
+  for (auto const & [lang, value] : lstr)
+  {
+    if (!value.empty() && lang < fallbackLang)
+    {
+      fallback = &value;
+      fallbackLang = lang;
+    }
+  }
+  return fallback ? *fallback : std::string{};
+}
+
+std::string GetNameForExport(BookmarkData const & bmData)
+{
+  std::string name = GetStringForExport(bmData.m_customName);
+  if (name.empty())
+    name = GetStringForExport(bmData.m_name);
+  if (name.empty())
+    name = GetLocalizedFeatureType(bmData.m_featureTypes);
+  return name;
 }
 
 }  // namespace kml

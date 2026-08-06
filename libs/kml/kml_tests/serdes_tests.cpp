@@ -1049,6 +1049,40 @@ UNIT_TEST(SaveStringWithCDATA_AllInvalidBecomesEmpty)
   TEST_EQUAL(WriteCDATA(std::string("\x01\x02\x03\x1F")), "", ());
 }
 
+UNIT_TEST(ExportStringLanguageFallbacks)
+{
+  auto const kDeLang = StringUtf8Multilang::GetLangIndex("de");
+  auto const kRuLang = StringUtf8Multilang::GetLangIndex("ru");
+
+  kml::LocalizableString value{{kRuLang, "Русский"}, {kDeLang, "Deutsch"}};
+  TEST_EQUAL(kml::GetStringForExport(value), "Deutsch", ());
+
+  value[StringUtf8Multilang::kEnglishCode] = "English";
+  TEST_EQUAL(kml::GetStringForExport(value), "English", ());
+
+  value[StringUtf8Multilang::kInternationalCode] = "International";
+  TEST_EQUAL(kml::GetStringForExport(value), "International", ());
+
+  value[StringUtf8Multilang::kDefaultCode] = "Default";
+  TEST_EQUAL(kml::GetStringForExport(value), "Default", ());
+
+  // Empty preferred entries do not hide a usable lower-priority value.
+  value[StringUtf8Multilang::kDefaultCode].clear();
+  TEST_EQUAL(kml::GetStringForExport(value), "International", ());
+}
+
+UNIT_TEST(ExportBookmarkCustomNameFallback)
+{
+  auto const kDeLang = StringUtf8Multilang::GetLangIndex("de");
+  auto const kRuLang = StringUtf8Multilang::GetLangIndex("ru");
+
+  kml::BookmarkData bookmark;
+  bookmark.m_name[kml::kDefaultLang] = "Original name";
+  bookmark.m_customName[kRuLang] = "Любимое место";
+  bookmark.m_customName[kDeLang] = "Lieblingsort";
+  TEST_EQUAL(kml::GetNameForExport(bookmark), "Lieblingsort", ());
+}
+
 namespace
 {
 std::string WrapKmlDoc(std::string const & body)
@@ -1097,6 +1131,18 @@ kml::ColorData RoundTripBookmarkColor(kml::ColorData const & color)
   return parsed.m_bookmarksData.front().m_color;
 }
 }  // namespace
+
+UNIT_TEST(Kml_Export_NameWithoutPreferredLanguage)
+{
+  kml::FileData data;
+  kml::BookmarkData bookmark;
+  bookmark.m_point = mercator::FromLatLon(53.89, 27.55);
+  bookmark.m_name[StringUtf8Multilang::GetLangIndex("ru")] = "Эрмитаж";
+  bookmark.m_name[StringUtf8Multilang::GetLangIndex("de")] = "Eremitage";
+  data.m_bookmarksData.push_back(std::move(bookmark));
+
+  TEST(SerializeKmlText(data).find("<name>Eremitage</name>") != std::string::npos, ());
+}
 
 UNIT_TEST(Kml_BookmarkColor_CustomRoundTrip)
 {
