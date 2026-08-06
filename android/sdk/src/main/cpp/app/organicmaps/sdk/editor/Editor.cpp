@@ -403,7 +403,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeAddToRecentCategorie
 
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_Editor_nativeGetCuisines(JNIEnv * env, jclass clazz)
 {
-  osm::AllCuisines const & cuisines = osm::Cuisines::Instance().AllSupportedCuisines();
+  auto const & cuisines = osm::Cuisines::Instance().AllSupportedCuisines();
   std::vector<std::string> keys;
   keys.reserve(cuisines.size());
   for (auto const & cuisine : cuisines)
@@ -421,7 +421,7 @@ JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_Editor_nativeFilterCuisin
 {
   std::string const substr = jni::ToNativeString(env, jSubstr);
   bool const noFilter = substr.length() == 0;
-  osm::AllCuisines const & cuisines = osm::Cuisines::Instance().AllSupportedCuisines();
+  auto const & cuisines = osm::Cuisines::Instance().AllSupportedCuisines();
   std::vector<std::string> keys;
   keys.reserve(cuisines.size());
 

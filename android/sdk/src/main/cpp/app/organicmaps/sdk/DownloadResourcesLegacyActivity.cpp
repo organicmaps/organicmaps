@@ -98,11 +98,13 @@ JNIEXPORT jint Java_app_organicmaps_sdk_DownloadResourcesLegacyActivity_nativeGe
 
 static void DownloadFileFinished(std::shared_ptr<jobject> obj, downloader::HttpRequest const & req)
 {
+  using downloader::DownloadStatus;
+
   auto const status = req.GetStatus();
-  ASSERT_NOT_EQUAL(status, downloader::DownloadStatus::InProgress, ());
+  ASSERT_NOT_EQUAL(status, DownloadStatus::InProgress, ());
 
   int errorCode = ERR_DOWNLOAD_ERROR;
-  if (status == downloader::DownloadStatus::Completed)
+  if (status == DownloadStatus::Completed)
     errorCode = ERR_DOWNLOAD_SUCCESS;
 
   g_currentRequest.reset();

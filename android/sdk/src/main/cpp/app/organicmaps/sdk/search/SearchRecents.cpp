@@ -8,15 +8,17 @@ extern "C"
 {
 JNIEXPORT void Java_app_organicmaps_sdk_search_SearchRecents_nativeGetList(JNIEnv * env, jclass, jobject result)
 {
+  using namespace jni;
+
   auto const & items = g_framework->NativeFramework()->GetSearchAPI().GetLastSearchQueries();
   if (items.empty())
     return;
 
-  auto const listAddMethod = jni::ListBuilder::Instance(env).m_add;
+  auto const listAddMethod = ListBuilder::Instance(env).m_add;
 
   for (auto const & item : items)
   {
-    jni::TScopedLocalRef str(env, jni::ToJavaString(env, item.second));
+    TScopedLocalRef str(env, ToJavaString(env, item.second));
     env->CallBooleanMethod(result, listAddMethod, str.get());
   }
 }

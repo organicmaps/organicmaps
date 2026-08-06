@@ -73,12 +73,14 @@ jobject JavaTimetable(JNIEnv * env, jobject workingHours, jobject closedHours, b
 
 jobject JavaTimetable(JNIEnv * env, editor::ui::TimeTable const & tt)
 {
+  using osmoh::Weekday;
+
   auto const excludeSpans = tt.GetExcludeTime();
-  std::set<osmoh::Weekday> weekdays = tt.GetOpeningDays();
+  std::set<Weekday> weekdays = tt.GetOpeningDays();
   std::vector<int> weekdaysVector;
   weekdaysVector.reserve(weekdays.size());
   std::transform(weekdays.begin(), weekdays.end(), std::back_inserter(weekdaysVector),
-                 [](osmoh::Weekday weekday) { return static_cast<int>(weekday); });
+                 [](Weekday weekday) { return static_cast<int>(weekday); });
   jintArray jWeekdays = env->NewIntArray(static_cast<jsize>(weekdays.size()));
   env->SetIntArrayRegion(jWeekdays, 0, static_cast<jsize>(weekdaysVector.size()), &weekdaysVector[0]);
 
@@ -139,13 +141,15 @@ osmoh::Timespan NativeTimespan(JNIEnv * env, jobject jTimespan)
 
 editor::ui::TimeTable NativeTimetable(JNIEnv * env, jobject jTimetable)
 {
+  using namespace osmoh;
+
   auto tt = editor::ui::TimeTable::GetPredefinedTimeTable();
   jintArray const jWeekdays = static_cast<jintArray>(env->GetObjectField(jTimetable, g_fidWeekdays));
   int * weekdaysArr = static_cast<int *>(env->GetIntArrayElements(jWeekdays, nullptr));
   jint size = env->GetArrayLength(jWeekdays);
-  std::set<osmoh::Weekday> weekdays;
+  std::set<Weekday> weekdays;
   for (int i = 0; i < size; i++)
-    weekdays.insert(osmoh::ToWeekday(weekdaysArr[i]));
+    weekdays.insert(ToWeekday(weekdaysArr[i]));
   tt.SetOpeningDays(weekdays);
   env->ReleaseIntArrayElements(jWeekdays, weekdaysArr, 0);
   tt.SetTwentyFourHours(env->GetBooleanField(jTimetable, g_fidIsFullday));
@@ -335,13 +339,15 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_editor_OpeningHours_nativeGetOpeningH
                                                                                                    jstring jSource,
                                                                                                    jlong jCurrentTime)
 {
+  using namespace osmoh;
+
   std::string const source = jni::ToNativeString(env, jSource);
-  osmoh::OpeningHours const oh(source);
+  OpeningHours const oh(source);
 
   if (!source.empty() && oh.IsValid())
   {
-    osmoh::OpeningHours::InfoT info = oh.GetInfo(static_cast<time_t>(jCurrentTime));
-    if (info.state == osmoh::RuleState::Unknown)
+    OpeningHours::InfoT info = oh.GetInfo(static_cast<time_t>(jCurrentTime));
+    if (info.state == RuleState::Unknown)
       return nullptr;
     return JavaOpeningHoursInfo(env, info.state, oh.IsTwentyFourHours(), info.nextTimeOpen, info.nextTimeClosed);
   }

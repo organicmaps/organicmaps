@@ -14,9 +14,11 @@ namespace
 {
 bool LoadOsmUserPreferences(std::string const & oauthToken, osm::UserPreferences & outPrefs)
 {
+  using namespace osm;
+
   try
   {
-    osm::ServerApi06 const api(osm::OsmOAuth::ServerAuth(oauthToken));
+    ServerApi06 const api(OsmOAuth::ServerAuth(oauthToken));
     outPrefs = api.GetUserPreferences();
     return true;
   }

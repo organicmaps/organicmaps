@@ -29,12 +29,12 @@ void AndroidMessage(base::LogLevel level, base::SrcPoint const & src, std::strin
   case NUM_LOG_LEVELS: break;
   }
 
-  ScopedEnv env(jni::GetJVM());
-  static jmethodID const logMethod = jni::GetStaticMethodID(
-      env.get(), g_loggerClazz, "log", "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V");
+  ScopedEnv env(GetJVM());
+  static jmethodID const logMethod = GetStaticMethodID(env.get(), g_loggerClazz, "log",
+                                                       "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V");
 
   std::string const out = DebugPrint(src) + s;
-  jni::TScopedLocalRef msg(env.get(), jni::ToJavaString(env.get(), out));
+  TScopedLocalRef msg(env.get(), ToJavaString(env.get(), out));
   env->CallStaticVoidMethod(g_loggerClazz, logMethod, pr, NULL, msg.get(), NULL);
 }
 
@@ -63,9 +63,6 @@ void InitAssertLog()
 
 void ToggleDebugLogs(bool enabled)
 {
-  if (enabled)
-    base::g_LogLevel = LDEBUG;
-  else
-    base::g_LogLevel = LINFO;
+  base::g_LogLevel = enabled ? LDEBUG : LINFO;
 }
 }  // namespace jni
