@@ -104,6 +104,8 @@ public class PlacePageController
           if (PlacePageUtils.isHiddenState(newState))
           {
             mEasyDismissEnabled = false;
+            // Clear before onHiddenInternal(): it may restore a transit PP, which sets the flag again.
+            mPlacePageListener.onPlacePageActiveChanged(false);
             onHiddenInternal();
           }
         }
@@ -255,8 +257,13 @@ public class PlacePageController
   private void close()
   {
     setPlacePageInteractions(false);
-    mPlacePageBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-    mPlacePageListener.onPlacePageActiveChanged(false);
+    // Normally the flag is cleared in onStateChanged(HIDDEN), but setState() fires no callback when
+    // the sheet is already hidden: on re-entry from onHiddenInternal() -> setMapObject(null) ->
+    // onChanged(null), which happens on every close, and when dismissed before the open animation.
+    if (PlacePageUtils.isHiddenState(mPlacePageBehavior.getState()))
+      mPlacePageListener.onPlacePageActiveChanged(false);
+    else
+      mPlacePageBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
   }
 
   private void resetPlacePageHeightBounds()
