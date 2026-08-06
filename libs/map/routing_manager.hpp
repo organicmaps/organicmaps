@@ -64,6 +64,9 @@ public:
   {
   public:
     virtual void OnRouteFollow(routing::RouterType type) = 0;
+    // Called on the GUI thread after the routing session state changed, so the map style can be
+    // re-resolved for the new navigation state.
+    virtual void OnRoutingSessionStateChanged() {}
     virtual ~Delegate() = default;
   };
 

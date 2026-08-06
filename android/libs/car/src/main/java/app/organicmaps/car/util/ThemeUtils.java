@@ -9,7 +9,6 @@ import androidx.annotation.UiThread;
 import androidx.car.app.CarContext;
 import app.organicmaps.car.R;
 import app.organicmaps.sdk.MapStyle;
-import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.Config;
 
 public final class ThemeUtils
@@ -60,12 +59,9 @@ public final class ThemeUtils
     final ThemeMode newThemeMode =
         oldThemeMode == ThemeMode.AUTO ? (context.isDarkMode() ? ThemeMode.NIGHT : ThemeMode.LIGHT) : oldThemeMode;
 
-    MapStyle newMapStyle;
-    if (newThemeMode == ThemeMode.NIGHT)
-      newMapStyle = RoutingController.get().isVehicleNavigation() ? MapStyle.VehicleDark : MapStyle.Dark;
-    else
-      newMapStyle = RoutingController.get().isVehicleNavigation() ? MapStyle.VehicleClear : MapStyle.Clear;
-
+    // Push the effective darkness to the core (which owns the family) and apply what it resolves.
+    MapStyle.setNightMode(newThemeMode == ThemeMode.NIGHT);
+    final MapStyle newMapStyle = MapStyle.resolveForMode();
     if (MapStyle.get() != newMapStyle)
       MapStyle.set(newMapStyle);
   }
