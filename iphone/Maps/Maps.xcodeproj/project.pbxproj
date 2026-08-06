@@ -69,6 +69,7 @@
 		A10000000000000000000055 /* TTSLanguageSettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000058 /* TTSLanguageSettingsModels.swift */; };
 		A10000000000000000000056 /* TTSLanguageSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000059 /* TTSLanguageSettingsPresenter.swift */; };
 		A630D1EA207CA95900976DEA /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = A630D1E8207CA95900976DEA /* Localizable.stringsdict */; };
+		B26883EF0814407A8B1D73AF /* PlacePageUserDescriptionWebViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4584F20AAF794B9683B14087 /* PlacePageUserDescriptionWebViewTests.swift */; };
 		BB25B1A71FB32767007276FA /* transit_colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = BB25B1A51FB32767007276FA /* transit_colors.txt */; };
 		BB7626B61E85599C0031D71C /* icudt78l.dat in Resources */ = {isa = PBXBuildFile; fileRef = BB7626B41E8559980031D71C /* icudt78l.dat */; };
 		DB05F1CC1BF340DE002C974C /* drules_default.bin in Resources */ = {isa = PBXBuildFile; fileRef = DB05F1BC1BF340DE002C974C /* drules_default.bin */; };
@@ -820,6 +821,7 @@
 		408645FB21495EB1000A4A1D /* categories_cuisines.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = categories_cuisines.txt; path = ../../data/categories_cuisines.txt; sourceTree = "<group>"; };
 		451950391B7A3E070085DA05 /* patterns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = patterns.txt; path = ../../data/patterns.txt; sourceTree = "<group>"; };
 		452FCA3A1B6A3DF7007019AB /* colors.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = colors.txt; path = ../../data/colors.txt; sourceTree = "<group>"; };
+		4584F20AAF794B9683B14087 /* PlacePageUserDescriptionWebViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageUserDescriptionWebViewTests.swift; sourceTree = "<group>"; };
 		47AEF83F2231249E00D20538 /* categories_brands.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = categories_brands.txt; path = ../../data/categories_brands.txt; sourceTree = SOURCE_ROOT; };
 		4A300ED31C6DCFD400140018 /* countries-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "countries-strings"; path = "../../data/countries-strings"; sourceTree = "<group>"; };
 		4B4153B42BF9695500EE4B02 /* MWMTextToSpeechTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTextToSpeechTests.mm; sourceTree = "<group>"; };
@@ -2158,9 +2160,18 @@
 		ED810EC02D566E6F00ECDE2C /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				E79F77A472014212B40FDE97 /* PlacePageTests */,
 				ED810EC32D566E7600ECDE2C /* SearchOnMapTests */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		E79F77A472014212B40FDE97 /* PlacePageTests */ = {
+			isa = PBXGroup;
+			children = (
+				4584F20AAF794B9683B14087 /* PlacePageUserDescriptionWebViewTests.swift */,
+			);
+			path = PlacePageTests;
 			sourceTree = "<group>";
 		};
 		ED810EC32D566E7600ECDE2C /* SearchOnMapTests */ = {
@@ -4947,6 +4958,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B26883EF0814407A8B1D73AF /* PlacePageUserDescriptionWebViewTests.swift in Sources */,
 				EDF838C12C00B9D6007E4E67 /* iCloudDirectoryMonitorTests.swift in Sources */,
 				EDF838C02C00B9D0007E4E67 /* DefaultLocalDirectoryMonitorTests.swift in Sources */,
 				ED1ADA332BC6B1B40029209F /* CarPlayServiceTests.swift in Sources */,

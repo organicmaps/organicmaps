@@ -184,7 +184,7 @@ extension PlacePageUserDescriptionWebView: ExpandableTextContainer {
   }
 
   func expandedHeight(for _: CGFloat) -> CGFloat {
-    measuredHTMLHeight
+    measuredHTMLHeight > 0 ? measuredHTMLHeight : Constants.previewHeight
   }
 
   func collapsedHeight(for _: CGFloat) -> CGFloat {
