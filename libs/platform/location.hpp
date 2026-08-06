@@ -138,6 +138,14 @@ enum EMyPositionMode
   FollowAndRotate
 };
 
+// True for the two modes where the camera follows the user position (centered): north-up (Follow)
+// and heading-up (FollowAndRotate). Note this does not imply routing by itself: combine with the
+// routing flag (e.g. MyPositionController::IsRouteFollowingActive()) to detect active navigation.
+inline bool IsFollowingMode(EMyPositionMode mode)
+{
+  return mode == Follow || mode == FollowAndRotate;
+}
+
 using TMyPositionModeChanged = std::function<void(location::EMyPositionMode, bool)>;
 
 }  // namespace location

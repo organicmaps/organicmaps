@@ -30,7 +30,8 @@ NSUInteger constexpr kMaxPredictionCount = 20;
 
 - (void)setMyPositionMode:(MWMMyPositionMode)mode
 {
-  self.isLastPositionModeValid = (mode == MWMMyPositionModeFollowAndRotate);
+  // Predict while the camera follows the user, both heading-up (FollowAndRotate) and north-up (Follow).
+  self.isLastPositionModeValid = (mode == MWMMyPositionModeFollowAndRotate || mode == MWMMyPositionModeFollow);
   [self restart];
 }
 

@@ -45,13 +45,15 @@ public:
                                  TAnimationCreator const & parallelAnimCreator) = 0;
     virtual void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth,
                                  m2::PointD const & pxZero, TAnimationCreator const & parallelAnimCreator) = 0;
+    virtual void MyPositionModeChanged(location::EMyPositionMode /* mode */, bool /* routingActive */) {}
   };
 
   struct Params
   {
-    Params(location::EMyPositionMode initMode, double timeInBackground, Hints const & hints, bool isRoutingActive,
-           bool isAutozoomEnabled, location::TMyPositionModeChanged && fn)
+    Params(location::EMyPositionMode initMode, location::EMyPositionMode routingMode, double timeInBackground,
+           Hints const & hints, bool isRoutingActive, bool isAutozoomEnabled, location::TMyPositionModeChanged && fn)
       : m_initMode(initMode)
+      , m_routingMode(routingMode)
       , m_timeInBackground(timeInBackground)
       , m_hints(hints)
       , m_isRoutingActive(isRoutingActive)
@@ -60,6 +62,7 @@ public:
     {}
 
     location::EMyPositionMode m_initMode;
+    location::EMyPositionMode m_routingMode;
     double m_timeInBackground;
     Hints m_hints;
     bool m_isRoutingActive;
@@ -102,7 +105,7 @@ public:
                       drape_ptr<MyPosition> && shape, Arrow3d::PreloadedData && preloadedData);
   void ResetRenderShape();
 
-  void ActivateRouting(int zoomLevel, bool enableAutoZoom, bool isArrowGlued);
+  void ActivateRouting(int zoomLevel, int zoomLevelIn3d, bool enableAutoZoom, bool isArrowGlued);
   void DeactivateRouting();
 
   void EnablePerspectiveInRouting(bool enablePerspective);
@@ -125,6 +128,7 @@ public:
 
   bool IsRotationAvailable() const { return m_isDirectionAssigned; }
   bool IsInRouting() const { return m_isInRouting; }
+  bool ShouldEnablePerspectiveInRouting() const;
   bool IsRouteFollowingActive() const;
   bool IsModeChangeViewport() const;
 
@@ -166,6 +170,7 @@ private:
   Hints m_hints;
 
   bool m_isInRouting = false;
+  location::EMyPositionMode m_preferredRoutingMode;
   bool m_isArrowGluedInRouting = false;
 
   bool m_needBlockAnimation;
