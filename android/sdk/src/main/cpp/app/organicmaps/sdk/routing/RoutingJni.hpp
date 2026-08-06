@@ -14,6 +14,8 @@ namespace place_page
 class Info;
 }  // namespace place_page
 
+namespace routing_jni
+{
 jobject CreateRoutingInfo(JNIEnv * env, routing::FollowingInfo const & info, RoutingManager & rm);
 jobject GetRouteRecommendationType(JNIEnv * env, RoutingManager::Recommendation recommendation);
 jobject CreateTransitRouteInfo(JNIEnv * env, TransitRouteInfo const & routeInfo);
@@ -22,3 +24,4 @@ jobjectArray CreateJunctionInfoArray(JNIEnv * env, std::vector<geometry::PointWi
 RouteMarkType GetRouteMarkType(JNIEnv * env, jobject markType);
 jobject CreateRoutePointInfo(JNIEnv * env, place_page::Info const & info);
 jobjectArray CreateRouteMarkDataArray(JNIEnv * env, std::vector<RouteMarkData> const & points);
+}  // namespace routing_jni

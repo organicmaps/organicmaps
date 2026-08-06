@@ -17,6 +17,8 @@
 
 #include <string>
 
+namespace routing_jni
+{
 namespace
 {
 // Every routing enum below is mirrored one to one by a Java enum, so the constant is looked up by name.
@@ -343,26 +345,27 @@ jobjectArray CreateRouteMarkDataArray(JNIEnv * env, std::vector<RouteMarkData> c
                           mercator::XToLon(data.m_position.x));
   });
 }
+}  // namespace routing_jni
 
 extern "C"
 {
 JNIEXPORT jboolean Java_app_organicmaps_sdk_routing_RoutingOptions_nativeHasOption(JNIEnv *, jclass, jint option)
 {
   routing::RoutingOptions const routingOptions = routing::RoutingOptions::LoadCarOptionsFromSettings();
-  return static_cast<jboolean>(routingOptions.Has(ToRoutingOptionsRoad(option)));
+  return static_cast<jboolean>(routingOptions.Has(routing_jni::ToRoutingOptionsRoad(option)));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_routing_RoutingOptions_nativeAddOption(JNIEnv *, jclass, jint option)
 {
   routing::RoutingOptions routingOptions = routing::RoutingOptions::LoadCarOptionsFromSettings();
-  routingOptions.Add(ToRoutingOptionsRoad(option));
+  routingOptions.Add(routing_jni::ToRoutingOptionsRoad(option));
   routing::RoutingOptions::SaveCarOptionsToSettings(routingOptions);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_routing_RoutingOptions_nativeRemoveOption(JNIEnv *, jclass, jint option)
 {
   routing::RoutingOptions routingOptions = routing::RoutingOptions::LoadCarOptionsFromSettings();
-  routingOptions.Remove(ToRoutingOptionsRoad(option));
+  routingOptions.Remove(routing_jni::ToRoutingOptionsRoad(option));
   routing::RoutingOptions::SaveCarOptionsToSettings(routingOptions);
 }
 }

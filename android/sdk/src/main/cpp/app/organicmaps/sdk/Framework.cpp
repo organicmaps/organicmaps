@@ -789,7 +789,7 @@ void CallRouteRecommendationListener(std::shared_ptr<jobject> listener, RoutingM
   JNIEnv * env = jni::GetEnv();
   jmethodID const methodId =
       jni::GetMethodID(env, *listener, "onRecommend", "(Lapp/organicmaps/sdk/routing/RouteRecommendationType;)V");
-  env->CallVoidMethod(*listener, methodId, GetRouteRecommendationType(env, recommendation));
+  env->CallVoidMethod(*listener, methodId, routing_jni::GetRouteRecommendationType(env, recommendation));
 }
 
 void CallSetRoutingLoadPointsListener(std::shared_ptr<jobject> listener, bool success)
@@ -1286,7 +1286,7 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteFollowingInfo
   if (!info.IsValid())
     return nullptr;
 
-  return CreateRoutingInfo(env, info, rm);
+  return routing_jni::CreateRoutingInfo(env, info, rm);
 }
 
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetRouteJunctionPoints(JNIEnv * env, jclass,
@@ -1314,7 +1314,7 @@ JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetRouteJunction
     result.push_back(points[i]);
   }
 
-  return CreateJunctionInfoArray(env, result);
+  return routing_jni::CreateJunctionInfoArray(env, result);
 }
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteAltitudeData(JNIEnv * env, jclass)
@@ -1428,7 +1428,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(JNIEnv * e
   RouteMarkData data;
   data.m_title = jni::ToNativeString(env, title);
   data.m_subTitle = jni::ToNativeString(env, subtitle);
-  data.m_pointType = GetRouteMarkType(env, markType);
+  data.m_pointType = routing_jni::GetRouteMarkType(env, markType);
   data.m_intermediateIndex = static_cast<size_t>(intermediateIndex);
   data.m_isMyPosition = static_cast<bool>(isMyPosition);
   data.m_position = m2::PointD(mercator::FromLatLon(lat, lon));
@@ -1444,7 +1444,8 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoints(JNIEnv
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoint(JNIEnv * env, jclass, jobject markType,
                                                                          jint intermediateIndex)
 {
-  frm()->GetRoutingManager().RemoveRoutePoint(GetRouteMarkType(env, markType), static_cast<size_t>(intermediateIndex));
+  frm()->GetRoutingManager().RemoveRoutePoint(routing_jni::GetRouteMarkType(env, markType),
+                                              static_cast<size_t>(intermediateIndex));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveIntermediateRoutePoints(JNIEnv * env, jclass)
@@ -1459,7 +1460,7 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeCouldAddIntermediate
 
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetRoutePoints(JNIEnv * env, jclass)
 {
-  return CreateRouteMarkDataArray(env, frm()->GetRoutingManager().GetRoutePoints());
+  return routing_jni::CreateRouteMarkDataArray(env, frm()->GetRoutingManager().GetRoutePoints());
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeMoveRoutePoint(JNIEnv * env, jclass, jint currentIndex,
@@ -1470,7 +1471,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeMoveRoutePoint(JNIEnv * 
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetTransitRouteInfo(JNIEnv * env, jclass)
 {
-  return CreateTransitRouteInfo(env, frm()->GetRoutingManager().GetTransitRouteInfo());
+  return routing_jni::CreateTransitRouteInfo(env, frm()->GetRoutingManager().GetTransitRouteInfo());
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeReloadWorldMaps(JNIEnv * env, jclass)

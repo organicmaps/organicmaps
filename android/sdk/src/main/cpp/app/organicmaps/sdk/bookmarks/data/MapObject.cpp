@@ -78,7 +78,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
 
   jni::TScopedLocalRef routingPointInfo(env, nullptr);
   if (info.IsRoutePoint())
-    routingPointInfo.reset(CreateRoutePointInfo(env, info));
+    routingPointInfo.reset(routing_jni::CreateRoutePointInfo(env, info));
 
   if (info.IsBookmark())
     return CreateBookmark(env, info, jrawTypes, routingPointInfo);
