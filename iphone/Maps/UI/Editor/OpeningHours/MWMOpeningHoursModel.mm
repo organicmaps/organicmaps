@@ -149,7 +149,10 @@ using namespace osmoh;
 
 - (BOOL)isValid
 {
-  return osmoh::OpeningHours(self.delegate.openingHours.UTF8String).IsValid();
+  // An empty string is how the user deletes the tag; it is not a valid
+  // opening_hours value, so check it before parsing or Done stays disabled.
+  std::string const source = self.delegate.openingHours.UTF8String;
+  return source.empty() || osmoh::OpeningHours(source).IsValid();
 }
 
 - (void)setIsSimpleMode:(BOOL)isSimpleMode

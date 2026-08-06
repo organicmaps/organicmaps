@@ -1,7 +1,7 @@
 #import "OpeningHours.h"
 
-#include "3party/opening_hours/opening_hours.hpp"
 #import "MWMOpeningHours.h"
+#include "opening_hours/opening_hours.hpp"
 
 @interface WorkingDay ()
 

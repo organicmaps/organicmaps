@@ -70,12 +70,15 @@ public:
   static OpeningHoursSerDes GetSerDes() { return OpeningHoursSerDes::ForRouting(); }
 
   template <class Sink>
-  static void Serialize(std::vector<FeatureSpeedMacro> const & featureSpeeds, HW2SpeedMap typeSpeeds[], Sink & sink)
+  static void Serialize(std::vector<FeatureSpeedMacro> const & inputSpeeds, HW2SpeedMap typeSpeeds[], Sink & sink)
   {
-    CHECK(base::IsSortedAndUnique(featureSpeeds.cbegin(), featureSpeeds.cend(),
+    CHECK(base::IsSortedAndUnique(inputSpeeds.cbegin(), inputSpeeds.cend(),
                                   [](FeatureSpeedMacro const & l, FeatureSpeedMacro const & r)
     { return l.m_featureID < r.m_featureID; }),
           ());
+
+    auto preparedSpeeds = PrepareConditionals(inputSpeeds);
+    auto const & featureSpeeds = preparedSpeeds.m_speeds;
 
     // Version
     auto const startOffset = sink.Pos();
@@ -116,9 +119,10 @@ public:
 
     // Saving complex maxspeeds.
     uint32_t prevFeatureId = 0;
-    auto serDes = GetSerDes();
-    for (auto const & s : featureSpeeds)
+    size_t conditionalIndex = 0;
+    for (size_t i = 0; i < featureSpeeds.size(); ++i)
     {
+      auto const & s = featureSpeeds[i];
       if (!s.IsComplex())
         continue;
 
@@ -134,10 +138,14 @@ public:
       WriteToSink(sink, static_cast<uint8_t>(s.m_conditional));
       if (s.m_conditional != SpeedMacro::Undefined)
       {
+        CHECK_LESS(conditionalIndex, preparedSpeeds.m_conditionals.size(), (s.m_featureID));
+        auto const & conditional = preparedSpeeds.m_conditionals[conditionalIndex++];
+        CHECK_EQUAL(conditional.m_speedIndex, i, (s.m_featureID));
         BitWriter<Sink> bitWriter(sink);
-        serDes.Serialize(bitWriter, s.m_conditionalTime);
+        conditional.m_encoding.Write(bitWriter);
       }
     }
+    CHECK_EQUAL(conditionalIndex, preparedSpeeds.m_conditionals.size(), ());
 
     // Save HighwayType speeds, sorted by type.
     for (int ind = 0; ind < DEFAULT_SPEEDS_COUNT; ++ind)
@@ -271,6 +279,52 @@ public:
   }
 
 private:
+  struct PreparedConditional
+  {
+    size_t m_speedIndex;
+    OpeningHoursSerDes::PreparedEncoding m_encoding;
+  };
+
+  struct PreparedSpeeds
+  {
+    std::vector<FeatureSpeedMacro> m_speeds;
+    std::vector<PreparedConditional> m_conditionals;
+  };
+
+  // A conditional macro must be followed by a payload. Prepare each payload
+  // before writing the macro, and clear values the wire format cannot encode.
+  static PreparedSpeeds PrepareConditionals(std::vector<FeatureSpeedMacro> const & speeds)
+  {
+    PreparedSpeeds result;
+    result.m_speeds.reserve(speeds.size());
+    auto serDes = GetSerDes();
+    for (auto const & speed : speeds)
+    {
+      if (speed.m_conditional != SpeedMacro::Undefined)
+      {
+        auto encoding = serDes.Prepare(speed.m_conditionalTime);
+        if (!encoding)
+        {
+          LOG(LWARNING, ("Dropping the unserializable conditional maxspeed of feature", speed.m_featureID));
+          auto cleared = speed;
+          cleared.m_conditional = SpeedMacro::Undefined;
+          cleared.m_conditionalTime = {};
+          if (cleared.IsValid())
+            result.m_speeds.push_back(std::move(cleared));
+          continue;
+        }
+
+        auto preparedSpeed = speed;
+        preparedSpeed.m_conditionalTime = {};
+        result.m_speeds.push_back(std::move(preparedSpeed));
+        result.m_conditionals.push_back({result.m_speeds.size() - 1, std::move(*encoding)});
+        continue;
+      }
+      result.m_speeds.push_back(speed);
+    }
+    return result;
+  }
+
   static std::vector<uint8_t> GetForwardMaxspeeds(std::vector<FeatureSpeedMacro> const & speeds,
                                                   uint32_t & maxFeatureID);
 

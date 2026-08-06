@@ -105,7 +105,7 @@ std::string DebugPrint(MyType const & t);
 3. To run tests:
 ```bash
 # Mirrors the default CMake test preset while keeping the per-agent build dir.
-CTEST_EXCLUDE_REGEX="drape_tests|drape_frontend_tests|generator_integration_tests|opening_hours_integration_tests|opening_hours_supported_features_tests|routing_benchmarks|routing_integration_tests|routing_quality_tests|search_quality_tests|storage_integration_tests|shaders_tests|world_feed_integration_tests"
+CTEST_EXCLUDE_REGEX="drape_tests|drape_frontend_tests|generator_integration_tests|routing_benchmarks|routing_integration_tests|routing_quality_tests|search_quality_tests|storage_integration_tests|shaders_tests|world_feed_integration_tests"
 ctest -j --test-dir build-$YOUR_NAME --stop-on-failure --output-on-failure -L "omim-test" -E "$CTEST_EXCLUDE_REGEX"
 # Rendering tests need offscreen GL and are run separately.
 QT_QPA_PLATFORM=offscreen ctest --test-dir build-$YOUR_NAME --stop-on-failure --output-on-failure -R "drape_tests|drape_frontend_tests|shaders_tests"

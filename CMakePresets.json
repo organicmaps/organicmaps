@@ -147,7 +147,7 @@
           "label": "omim-test"
         },
         "exclude": {
-          "name": "drape_tests|drape_frontend_tests|generator_integration_tests|opening_hours_integration_tests|opening_hours_supported_features_tests|routing_benchmarks|routing_integration_tests|routing_quality_tests|search_quality_tests|storage_integration_tests|shaders_tests|world_feed_integration_tests"
+          "name": "drape_tests|drape_frontend_tests|generator_integration_tests|routing_benchmarks|routing_integration_tests|routing_quality_tests|search_quality_tests|storage_integration_tests|shaders_tests|world_feed_integration_tests"
         }
       }
     },

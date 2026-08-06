@@ -2,6 +2,8 @@
 
 #include "generator/affiliation.hpp"
 
+#include "opening_hours/opening_hours.hpp"
+
 #include "transit/transit_entities.hpp"
 #include "transit/transit_graph_data.hpp"
 #include "transit/world_feed/feed_helpers.hpp"
@@ -18,8 +20,6 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
-
-#include "3party/opening_hours/opening_hours.hpp"
 
 namespace transit
 {

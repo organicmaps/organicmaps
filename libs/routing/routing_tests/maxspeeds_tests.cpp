@@ -159,6 +159,53 @@ UNIT_TEST(MaxspeedsSerializer_Conditional)
   TestMaxspeedsSerialization({forward, backward, condOnly});
 }
 
+UNIT_TEST(MaxspeedsSerializer_UnserializableConditionalDropped)
+{
+  // Serdes refuses opening hours it cannot represent losslessly (dawn/dusk
+  // here). The writer must drop such conditionals up front: it emits the
+  // conditional macro byte before the opening hours payload, so a refusal
+  // mid-write would misalign every following record.
+  osmoh::OpeningHours unserializableOh("dawn-dusk");
+  TEST(unserializableOh.IsValid(), ());
+
+  FeatureMaxspeed dropped(0, Units::Metric, 10);
+  dropped.SetConditional(20, unserializableOh);
+
+  FeatureMaxspeed plain(1, Units::Metric, 30, 40);
+
+  FeatureMaxspeed kept(2, Units::Metric, 50);
+  kept.SetConditional(60, osmoh::OpeningHours("Mo-Fr 10:00-16:00"));
+
+  // Loses its only payload, so the whole entry must vanish.
+  FeatureMaxspeed gone(3, Units::Metric, kInvalidSpeed, kInvalidSpeed);
+  gone.SetConditional(70, unserializableOh);
+
+  vector<char> buffer;
+  MemWriter<vector<char>> w(buffer);
+
+  MaxspeedConverter const & converter = GetMaxspeedConverter();
+  std::vector<MaxspeedsSerializer::FeatureSpeedMacro> inputSpeeds;
+  for (auto const & s : {dropped, plain, kept, gone})
+    inputSpeeds.emplace_back(s.GetFeatureId(), s.GetMaxspeed(), converter);
+
+  MaxspeedsSerializer::HW2SpeedMap defaultMap[MaxspeedsSerializer::DEFAULT_SPEEDS_COUNT];
+  MaxspeedsSerializer::Serialize(inputSpeeds, defaultMap, w);
+
+  MemReader r(buffer.data(), buffer.size());
+  ReaderSource<MemReader> src(r);
+  Maxspeeds maxspeeds;
+  MaxspeedsSerializer::Deserialize(src, maxspeeds);
+
+  auto const droppedRead = maxspeeds.GetMaxspeed(0);
+  TEST_EQUAL(droppedRead.GetForward(), 10, ());
+  TEST(!droppedRead.HasConditional(), ());
+
+  TEST_EQUAL(maxspeeds.GetMaxspeed(1), plain.GetMaxspeed(), ());
+  TEST_EQUAL(maxspeeds.GetMaxspeed(2), kept.GetMaxspeed(), ());
+
+  TEST(!maxspeeds.GetMaxspeed(3).IsValid(), ());
+}
+
 UNIT_TEST(MaxspeedsSerializer_BigMetric)
 {
   std::vector<FeatureMaxspeed> const maxspeeds = {

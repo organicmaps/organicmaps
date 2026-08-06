@@ -28,9 +28,19 @@
 
 #include <chrono>
 #include <iostream>
+#include <memory>
 #include <string>
+#include <string_view>
 #include <type_traits>
 #include <vector>
+
+// The parser/evaluator live in the opening-hours-rs port (oh/parser.hpp,
+// oh/eval.hpp). The osmoh AST below is kept as the app-facing data model; the
+// OpeningHours facade holds the parsed port expression for evaluation.
+namespace oh
+{
+struct OpeningHoursExpression;
+}  // namespace oh
 
 // Implemented in accordance with the specification
 // https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification
@@ -88,15 +98,19 @@ class Time;
 class TimeEvent
 {
 public:
+  // Dawn and dusk are civil twilight, roughly an hour either side of
+  // sunrise/sunset; they are distinct values, not spellings of them.
   enum class Event
   {
     None,
+    Dawn,
     Sunrise,
-    Sunset
+    Sunset,
+    Dusk
   };
 
   TimeEvent() = default;
-  TimeEvent(Event const event): m_event(event) {}
+  TimeEvent(Event const event) : m_event(event) {}
 
   bool IsEmpty() const { return m_event == Event::None; }
   bool HasOffset() const { return !m_offset.IsEmpty(); }
@@ -126,7 +140,7 @@ class Time
     Event,
   };
 
- public:
+public:
   using THours = HourMinutes::THours;
   using TMinutes = HourMinutes::TMinutes;
 
@@ -156,19 +170,19 @@ class Time
   HourMinutes & GetHourMinutes() { return m_hourMinutes; }
   void SetHourMinutes(HourMinutes const & hm);
 
- private:
+private:
   HourMinutes m_hourMinutes;
   TimeEvent m_event;
 
   Type m_type = Type::None;
 };
 
-inline constexpr Time::THours operator ""_h(unsigned long long int h)
+inline constexpr Time::THours operator""_h(unsigned long long int h)
 {
   return Time::THours(h);
 }
 
-inline constexpr Time::TMinutes operator ""_min(unsigned long long int m)
+inline constexpr Time::TMinutes operator""_min(unsigned long long int m)
 {
   return Time::TMinutes(m);
 }
@@ -214,9 +228,8 @@ class Timespan
 {
 public:
   Timespan() = default;
-  Timespan(Time const & start, Time const & end): m_start(start), m_end(end) {}
-  Timespan(HourMinutes::TMinutes const & start,
-           HourMinutes::TMinutes const & end): m_start(start), m_end(end) {}
+  Timespan(Time const & start, Time const & end) : m_start(start), m_end(end) {}
+  Timespan(HourMinutes::TMinutes const & start, HourMinutes::TMinutes const & end) : m_start(start), m_end(end) {}
 
   bool IsEmpty() const { return !HasStart() && !HasEnd(); }
   bool IsOpen() const { return HasStart() && !HasEnd(); }
@@ -301,13 +314,12 @@ enum class Weekday
 inline constexpr Weekday ToWeekday(uint64_t day)
 {
   using TDay = decltype(day);
-  return ((day <= static_cast<TDay>(Weekday::None) ||
-           day > static_cast<TDay>(Weekday::Saturday))
-          ? Weekday::None
-          : static_cast<Weekday>(day));
+  return ((day <= static_cast<TDay>(Weekday::None) || day > static_cast<TDay>(Weekday::Saturday))
+              ? Weekday::None
+              : static_cast<Weekday>(day));
 }
 
-inline constexpr Weekday operator ""_weekday(unsigned long long int day)
+inline constexpr Weekday operator""_weekday(unsigned long long int day)
 {
   return ToWeekday(day);
 }
@@ -330,10 +342,9 @@ public:
   bool HasSaturday() const { return HasWday(Weekday::Saturday); }
 
   bool HasStart() const { return GetStart() != Weekday::None; }
-  bool HasEnd() const  {return GetEnd() != Weekday::None; }
+  bool HasEnd() const { return GetEnd() != Weekday::None; }
   bool HasOffset() const { return GetOffset() != 0; }
-  bool IsEmpty() const { return GetStart() == Weekday::None &&
-                                GetEnd() == Weekday::None; }
+  bool IsEmpty() const { return GetStart() == Weekday::None && GetEnd() == Weekday::None; }
 
   Weekday GetStart() const { return m_start; }
   Weekday GetEnd() const { return m_end; }
@@ -467,25 +478,36 @@ public:
   using TYear = uint16_t;
   using TDayNum = uint8_t;
 
-  bool IsEmpty() const { return !HasYear() && !HasMonth() && !HasDayNum() && !IsVariable(); }
+  bool IsEmpty() const { return !HasYear() && !HasMonth() && !HasDayNum() && !IsVariable() && !HasWeekdayInMonth(); }
   bool IsVariable() const { return GetVariableDate() != VariableDate::None; }
 
   bool HasYear() const { return GetYear() != 0; }
   bool HasMonth() const { return GetMonth() != Month::None; }
   bool HasDayNum() const { return GetDayNum() != 0; }
   bool HasOffset() const { return !GetOffset().IsEmpty(); }
+  /// A weekday-in-month date ("Mar Su[-1]"): the |GetNth()|-th |GetWeekday()|
+  /// of |GetMonth()|, counted from the end when negative. Distinct from
+  /// WeekdayRange's nth, which selects days rather than naming a date.
+  bool HasWeekdayInMonth() const { return GetWeekday() != Weekday::None; }
 
   TYear GetYear() const { return m_year; }
   Month GetMonth() const { return m_month; }
   TDayNum GetDayNum() const { return m_daynum; }
   DateOffset const & GetOffset() const { return m_offset; }
   VariableDate GetVariableDate() const { return m_variable_date; }
+  Weekday GetWeekday() const { return m_weekday; }
+  int8_t GetNth() const { return m_nth; }
 
   void SetYear(TYear const year) { m_year = year; }
   void SetMonth(Month const month) { m_month = month; }
   void SetDayNum(TDayNum const daynum) { m_daynum = daynum; }
   void SetOffset(DateOffset const & offset) { m_offset = offset; }
   void SetVariableDate(VariableDate const date) { m_variable_date = date; }
+  void SetWeekdayInMonth(Weekday const wday, int8_t const nth)
+  {
+    m_weekday = wday;
+    m_nth = nth;
+  }
 
   bool operator==(MonthDay const & rhs) const;
   bool operator<(MonthDay const & rhs) const;
@@ -497,18 +519,19 @@ private:
   TDayNum m_daynum = 0;
   VariableDate m_variable_date = VariableDate::None;
   DateOffset m_offset;
+  Weekday m_weekday = Weekday::None;
+  int8_t m_nth = 0;
 };
 
 inline constexpr MonthDay::Month ToMonth(uint64_t month)
 {
   using TMonth = decltype(month);
-  return ((month <= static_cast<TMonth>(MonthDay::Month::None) ||
-           month > static_cast<TMonth>(MonthDay::Month::Dec))
-          ? MonthDay::Month::None
-          : static_cast<osmoh::MonthDay::Month>(month));
+  return ((month <= static_cast<TMonth>(MonthDay::Month::None) || month > static_cast<TMonth>(MonthDay::Month::Dec))
+              ? MonthDay::Month::None
+              : static_cast<osmoh::MonthDay::Month>(month));
 }
 
-inline constexpr MonthDay::Month operator ""_M(unsigned long long int month)
+inline constexpr MonthDay::Month operator""_M(unsigned long long int month)
 {
   return ToMonth(month);
 }
@@ -628,8 +651,7 @@ public:
     Comment
   };
 
-  bool IsEmpty() const { return !HasYears() && !HasMonths() && !HasWeeks() &&
-                                !HasWeekdays() && !HasTimes(); }
+  bool IsEmpty() const { return !HasYears() && !HasMonths() && !HasWeeks() && !HasWeekdays() && !HasTimes(); }
   bool IsTwentyFourHours() const { return m_twentyFourHours; }
 
   bool HasYears() const { return !GetYears().empty(); }
@@ -638,9 +660,7 @@ public:
   bool HasWeeks() const { return !GetWeeks().empty(); }
   bool HasWeekdays() const { return !GetWeekdays().IsEmpty(); }
   bool HasTimes() const { return !GetTimes().empty(); }
-  bool HasComment() const { return !GetComment().empty(); }
   bool HasModifierComment() const { return !GetModifierComment().empty(); }
-  bool HasSeparatorForReadability() const { return m_separatorForReadability; }
 
   TYearRanges const & GetYears() const { return m_years; }
   TMonthdayRanges const & GetMonths() const { return m_months; }
@@ -648,7 +668,6 @@ public:
   Weekdays const & GetWeekdays() const { return m_weekdays; }
   TTimespans const & GetTimes() const { return m_times; }
 
-  std::string const & GetComment() const { return m_comment; }
   std::string const & GetModifierComment() const { return m_modifierComment; }
   std::string const & GetAnySeparator() const { return m_anySeparator; }
 
@@ -662,10 +681,12 @@ public:
   void SetWeekdays(Weekdays const & weekdays) { m_weekdays = weekdays; }
   void SetTimes(TTimespans const & times) { m_times = times; }
 
-  void SetComment(std::string const & comment) { m_comment = comment; }
-  void SetModifierComment(std::string & comment) { m_modifierComment = comment; }
+  void SetModifierComment(std::string const & comment) { m_modifierComment = comment; }
+  // The separator FOLLOWING this rule (the printer emits rule[i], then
+  // rule[i]'s separator, then rule[i+1]; the last rule's separator is
+  // meaningless). It is semantically load-bearing: "," joins rules as a
+  // union, ";" lets later rules override earlier ones.
   void SetAnySeparator(std::string const & separator) { m_anySeparator = separator; }
-  void SetSeparatorForReadability(bool const on) { m_separatorForReadability = on; }
 
   void SetModifier(Modifier const modifier) { m_modifier = modifier; }
 
@@ -681,9 +702,7 @@ private:
   Weekdays m_weekdays;
   TTimespans m_times;
 
-  std::string m_comment;
   std::string m_anySeparator = ";";
-  bool m_separatorForReadability = false;
 
   Modifier m_modifier = Modifier::DefaultOpen;
   std::string m_modifierComment;
@@ -702,11 +721,22 @@ enum class RuleState
   Unknown
 };
 
+inline std::string DebugPrint(RuleState state)
+{
+  switch (state)
+  {
+  case RuleState::Open: return "Open";
+  case RuleState::Closed: return "Closed";
+  case RuleState::Unknown: return "Unknown";
+  }
+  return "Unknown";
+}
+
 class OpeningHours
 {
 public:
   OpeningHours() = default;
-  OpeningHours(std::string const & rule);
+  OpeningHours(std::string_view rule);
   OpeningHours(TRuleSequences const & rule);
 
   bool IsOpen(time_t const dateTime) const;
@@ -732,16 +762,15 @@ public:
   bool HasYearSelector() const;
 
   TRuleSequences const & GetRule() const { return m_rule; }
-
-  friend void swap(OpeningHours & lhs, OpeningHours & rhs);
-
   bool operator==(OpeningHours const & rhs) const;
 
 private:
   TRuleSequences m_rule;
-  bool m_valid = false;
+  // Parsed port expression, used for evaluation (IsOpen/GetInfo). Null when
+  // invalid -- also the validity flag.
+  std::shared_ptr<oh::OpeningHoursExpression const> m_expr;
 };
 
 std::ostream & operator<<(std::ostream & ost, OpeningHours const & oh);
 std::string ToString(osmoh::OpeningHours const & openingHours);
-} // namespace osmoh
+}  // namespace osmoh

@@ -430,8 +430,10 @@ private:
       uint32_t prevFeatureId = 0;
       for (auto const & [position, accessConditional] : positionsAccessConditional)
       {
-        if (!openingHoursSerializer.Serialize(bitWriter, accessConditional.m_openingHours))
+        auto encoding = openingHoursSerializer.Prepare(accessConditional.m_openingHours);
+        if (!encoding)
           continue;
+        encoding->Write(bitWriter);
 
         uint32_t const currentFeatureId = position.GetFeatureId();
         CHECK_GREATER_OR_EQUAL(currentFeatureId, prevFeatureId, ());

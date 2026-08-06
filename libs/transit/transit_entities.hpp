@@ -1,5 +1,7 @@
 #pragma once
 
+#include "opening_hours/opening_hours.hpp"
+
 #include "transit/transit_schedule.hpp"
 
 #include "geometry/point2d.hpp"
@@ -19,8 +21,6 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
-
-#include "3party/opening_hours/opening_hours.hpp"
 
 namespace routing
 {
