@@ -1261,18 +1261,30 @@ void Framework::MemoryWarning()
   SharedBufferManager::Instance().ClearReserved();
 }
 
-void Framework::EnterBackground()
+void Framework::PersistStateBeforeBackground()
 {
+  SaveViewport();
   m_usageStats.EnterBackground();
+}
 
+void Framework::ReleaseBackgroundResources()
+{
   if (m_drapeEngine)
     m_drapeEngine->OnEnterBackground();
-
-  SaveViewport();
-
   m_trafficManager.OnEnterBackground();
-
   ClearAllCaches();
+}
+
+void Framework::OnDrapeEngineEnterForeground()
+{
+  if (m_drapeEngine)
+    m_drapeEngine->OnEnterForeground();
+}
+
+void Framework::EnterBackground()
+{
+  PersistStateBeforeBackground();
+  ReleaseBackgroundResources();
 }
 
 void Framework::EnterForeground()

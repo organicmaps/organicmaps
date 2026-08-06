@@ -144,13 +144,15 @@ public final class OrganicMaps implements DefaultLifecycleObserver
   @Override
   public void onStart(@NonNull LifecycleOwner owner)
   {
-    nativeOnTransit(true);
+    nativeOnEnterForeground();
   }
 
   @Override
   public void onStop(@NonNull LifecycleOwner owner)
   {
-    nativeOnTransit(false);
+    // UsageStats and viewport are saved earlier from MwmApplication.onActivityStopped
+    // to beat task-kill. Here only heavy resource release behind PL's debounce.
+    Framework.nativeReleaseBackgroundResources();
   }
 
   @NonNull
@@ -241,7 +243,7 @@ public final class OrganicMaps implements DefaultLifecycleObserver
 
   private static native void nativeAddLocalization(String name, String value);
 
-  private static native void nativeOnTransit(boolean foreground);
+  private static native void nativeOnEnterForeground();
 
   static
   {
