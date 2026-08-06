@@ -4,13 +4,79 @@
 
 #import <LinkPresentation/LPLinkMetadata.h>
 
-@interface MWMShareActivityItem ()
+static NSAttributedString * AttributedBodyFromHtml(NSString * html)
+{
+  NSData * data = [html dataUsingEncoding:NSUTF8StringEncoding];
+  if (!data)
+    return nil;
+  NSDictionary * options = @{
+    NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+    NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)
+  };
+  return [[NSAttributedString alloc] initWithData:data options:options documentAttributes:nil error:nil];
+}
 
-@property(nonatomic) BOOL isMyPosition;
-@property(nonatomic, copy) NSString * shareUrl;
+static NSURL * EncodedShareURL(NSString * urlString)
+{
+  // ge0 %-escapes unsafe ASCII but leaves the place name's non-ASCII bytes raw, and +URLWithString: rejects
+  // those before iOS 17. Encoding only non-ASCII cannot double-encode the escapes ge0 already produced.
+  // '\' is the single unsafe ASCII byte ge0 leaves raw, so it has to be encoded here as well.
+  NSMutableCharacterSet * allowed = [[NSCharacterSet characterSetWithRange:NSMakeRange(0, 128)] mutableCopy];
+  [allowed removeCharactersInString:@"\\"];
+  NSString * url = [urlString stringByAddingPercentEncodingWithAllowedCharacters:allowed];
+  return [NSURL URLWithString:url];
+}
+
+@interface MWMTypedShareActivityItem : NSObject <UIActivityItemSource>
+
+- (instancetype)initWithItem:(id)item activityType:(UIActivityType)activityType subject:(NSString *)subject;
+
+@end
+
+@implementation MWMTypedShareActivityItem
+{
+  id _item;
+  UIActivityType _activityType;
+  NSString * _subject;
+}
+
+- (instancetype)initWithItem:(id)item activityType:(UIActivityType)activityType subject:(NSString *)subject
+{
+  self = [super init];
+  if (self)
+  {
+    _item = item;
+    _activityType = [activityType copy];
+    _subject = [subject copy];
+  }
+  return self;
+}
+
+- (id)activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController
+{
+  return _item;
+}
+
+- (id)activityViewController:(UIActivityViewController *)activityViewController
+         itemForActivityType:(NSString *)activityType
+{
+  return [_activityType isEqualToString:activityType] ? _item : nil;
+}
+
+- (NSString *)activityViewController:(UIActivityViewController *)activityViewController
+              subjectForActivityType:(NSString *)activityType
+{
+  return _subject;
+}
+
+@end
+
+@interface MWMShareActivityItem () <UIActivityItemSource>
+
+@property(nonatomic) NSURL * shareURL;
 @property(nonatomic, copy) NSString * shareText;
-@property(nonatomic, copy) NSString * shareHtml;
-@property(nonatomic, copy) NSString * subjectBasis;
+@property(nonatomic, copy) NSAttributedString * attributedBody;
+@property(nonatomic, copy) NSString * subject;
 
 @end
 
@@ -20,10 +86,8 @@
 {
   self = [super init];
   if (self)
-  {
-    _isMyPosition = YES;
-    [self fillFrom:GetFramework().GetShareDataForMyPosition(ms::LatLon(location.latitude, location.longitude))];
-  }
+    [self fillFrom:GetFramework().GetShareDataForMyPosition(ms::LatLon(location.latitude, location.longitude))
+        isMyPosition:YES];
   return self;
 }
 
@@ -36,70 +100,72 @@
     // The place page is open, so the core has the info (with metadata) to build the shared text.
     auto & f = GetFramework();
     auto const & info = f.GetCurrentPlacePageInfo();
-    _isMyPosition = info.IsMyPosition();
-    [self fillFrom:f.GetShareData(info)];
+    [self fillFrom:f.GetShareData(info) isMyPosition:info.IsMyPosition()];
   }
   return self;
 }
 
-- (void)fillFrom:(share::Result const &)result
+- (void)fillFrom:(share::Result const &)result isMyPosition:(BOOL)isMyPosition
 {
-  _shareUrl = @(result.m_url.c_str());
+  _shareURL = EncodedShareURL(@(result.m_url.c_str()));
   _shareText = @(result.m_text.c_str());
-  _shareHtml = @(result.m_html.c_str());
-  _subjectBasis = @(result.m_subjectBasis.c_str());
+  _attributedBody = AttributedBodyFromHtml(@(result.m_html.c_str()));
+
+  // Email subject: place name/address, "I am here" for the current position, or a generic fallback.
+  if (isMyPosition)
+    _subject = L(@"share_my_position");
+  else if (!result.m_subjectBasis.empty())
+    _subject = [NSString stringWithFormat:L(@"share_place_subject"), @(result.m_subjectBasis.c_str())];
+  else
+    _subject = L(@"share_place_subject_default");
 }
 
-// Email subject: place name/address, "I am here" for the current position, or a generic fallback.
-- (NSString *)subject
+- (NSArray *)activityItems
 {
-  if (self.isMyPosition)
-    return L(@"share_my_position");
-  if (self.subjectBasis.length > 0)
-    return [NSString stringWithFormat:L(@"share_place_subject"), self.subjectBasis];
-  return L(@"share_place_subject_default");
+  NSMutableArray * items = [NSMutableArray arrayWithObject:self];
+  // Separate sources keep each placeholder class consistent with the item returned for its target activity.
+  // dataTypeIdentifierForActivityType: only applies to NSData and can't make an NSString placeholder a URL.
+  if (self.attributedBody)
+    [items addObject:[[MWMTypedShareActivityItem alloc] initWithItem:self.attributedBody
+                                                        activityType:UIActivityTypeMail
+                                                             subject:self.subject]];
+  if (self.shareURL)
+    [items addObject:[[MWMTypedShareActivityItem alloc] initWithItem:self.shareURL
+                                                        activityType:UIActivityTypeAirDrop
+                                                             subject:self.subject]];
+  return items.copy;
 }
 
-// A rich attributed body so Mail sends formatted HTML; nil when the HTML can't be parsed.
-- (NSAttributedString *)attributedBody
-{
-  NSData * data = [self.shareHtml dataUsingEncoding:NSUTF8StringEncoding];
-  if (!data)
-    return nil;
-  NSDictionary * options = @{
-    NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-    NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)
-  };
-  return [[NSAttributedString alloc] initWithData:data options:options documentAttributes:nil error:nil];
-}
-
-- (LPLinkMetadata *)linkMetadata
+- (LPLinkMetadata *)activityViewControllerLinkMetadata:(UIActivityViewController *)activityViewController
 {
   LPLinkMetadata * metadata = [[LPLinkMetadata alloc] init];
-  metadata.originalURL = [NSURL URLWithString:self.shareUrl];
-  metadata.title = [self subject];
+  metadata.originalURL = self.shareURL;
+  metadata.title = self.subject;
   metadata.iconProvider = [[NSItemProvider alloc] initWithObject:[UIImage imageNamed:@"imgLogo"]];
   return metadata;
 }
 
-- (id<UIActivityItemsConfigurationReading>)activityItemsConfiguration
+#pragma mark - UIActivityItemSource
+
+- (id)activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController
 {
-  // Keep the exported item plain text for messengers and provide the rich email body as metadata.
-  UIActivityItemsConfiguration * configuration =
-      [[UIActivityItemsConfiguration alloc] initWithObjects:@[self.shareText]];
-  NSString * subject = [self subject];
-  id messageBody = [self attributedBody] ?: self.shareText;
-  LPLinkMetadata * linkMetadata = [self linkMetadata];
-  configuration.metadataProvider = ^id(UIActivityItemsConfigurationMetadataKey key) {
-    if ([key isEqualToString:UIActivityItemsConfigurationMetadataKeyTitle])
-      return subject;
-    if ([key isEqualToString:UIActivityItemsConfigurationMetadataKeyMessageBody])
-      return messageBody;
-    if ([key isEqualToString:UIActivityItemsConfigurationMetadataKeyLinkPresentationMetadata])
-      return linkMetadata;
+  return self.shareText;
+}
+
+- (id)activityViewController:(UIActivityViewController *)activityViewController
+         itemForActivityType:(NSString *)activityType
+{
+  // The typed Mail and AirDrop sources return their own items for these activities.
+  if ((self.attributedBody && [UIActivityTypeMail isEqualToString:activityType]) ||
+      (self.shareURL && [UIActivityTypeAirDrop isEqualToString:activityType]))
     return nil;
-  };
-  return configuration;
+  return self.shareText;
+}
+
+- (NSString *)activityViewController:(UIActivityViewController *)activityViewController
+              subjectForActivityType:(NSString *)activityType
+{
+  return self.subject;
 }
 
 @end
