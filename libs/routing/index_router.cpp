@@ -74,6 +74,10 @@ double constexpr kLeapsStageContribution = 0.15;
 double constexpr kCandidatesStageContribution = 0.55;
 double constexpr kAlmostZeroContribution = 1e-7;
 
+// A soft penalty preserves unavoidable overlap near route endpoints while encouraging a bicycle
+// alternative that differs from the primary route without discarding bicycle speeds or elevation.
+double constexpr kBicycleAltRouteSegmentPenalty = 1.35;
+
 // If user left the route within this range(meters), adjust the route. Else full rebuild.
 double constexpr kAdjustRangeM = 5000.0;
 // Full rebuild if distance(meters) is less.
@@ -448,9 +452,9 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
       code = DoCalculateRoute(checkpoints, startDirection, delegate, route);
 
       // Compute an alternative alongside the Normal route. Only on a full (non-adjust) build and only
-      // within a reasonable distance budget — alt computation roughly doubles latency. Road vehicles
-      // get a Shortest-strategy alternative; transit gets a less-walking / fewer-transfers alternative
-      // (e.g. a direct bus instead of subway + walk).
+      // within a reasonable distance budget — alt computation roughly doubles latency. Cars and pedestrians
+      // get a Shortest-strategy alternative, bicycles use the normal model with an overlap penalty, and transit
+      // gets a less-walking / fewer-transfers alternative (e.g. a direct bus instead of subway + walk).
       double const altMaxDistanceM = m_vehicleType == VehicleType::Car ? 300'000.0 : 100'000.0;
       if ((code == RouterResultCode::NoError || code == RouterResultCode::HasWarnings) && !delegate.IsCancelled() &&
           mercator::DistanceOnEarth(startPoint, finalPoint) <= altMaxDistanceM)
@@ -462,6 +466,7 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
         {
           m_estimator->SetStrategy(EdgeEstimator::Strategy::Normal);
           m_estimator->SetTransitAltFactors(1.0, 1.0);
+          m_estimator->ClearRouteSegmentsPenalty();
           // Save the alternative route's adjust-cache.
           m_lastAltRoute = std::move(m_lastRoute);
           m_lastAltFakeEdges = std::move(m_lastFakeEdges);
@@ -474,6 +479,18 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
         {
           // Rewrite walking and transfer/boarding penalty for the alternative route.
           m_estimator->SetTransitAltFactors(3.0 /* walk */, 2.0 /* transfer */);
+        }
+        else if (m_vehicleType == VehicleType::Bicycle)
+        {
+          std::vector<Segment> primarySegments;
+          primarySegments.reserve(route.GetRouteSegments().size());
+          for (auto const & routeSegment : route.GetRouteSegments())
+          {
+            auto const & segment = routeSegment.GetSegment();
+            if (segment.IsRealSegment())
+              primarySegments.push_back(segment);
+          }
+          m_estimator->SetRouteSegmentsPenalty(primarySegments, kBicycleAltRouteSegmentPenalty);
         }
         else
         {

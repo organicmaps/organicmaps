@@ -10,6 +10,8 @@
 #include "geometry/point_with_altitude.hpp"
 
 #include <memory>
+#include <unordered_set>
+#include <vector>
 
 class DataSource;
 
@@ -44,6 +46,11 @@ public:
 
   void SetStrategy(Strategy strategy) { m_strategy = strategy; }
   Strategy GetStrategy() const { return m_strategy; }
+
+  // Applies a temporary routing-weight penalty to the supplied road segments. ETA remains based on
+  // the real road model. Both directions are penalized because route overlap is direction-independent.
+  void SetRouteSegmentsPenalty(std::vector<Segment> const & segments, double factor);
+  void ClearRouteSegmentsPenalty();
 
   /// \brief Transit alternative route bias. Scales the routing weight (Purpose::Weight only, ETA
   /// stays the real time) of walking legs and of the transit transfer/boarding penalty, to favour
@@ -85,12 +92,17 @@ public:
                                                std::shared_ptr<TrafficStash> trafficStash, DataSource * dataSourcePtr,
                                                std::shared_ptr<NumMwmIds> numMwmIds);
 
+protected:
+  double ApplyRouteSegmentPenalty(Segment const & segment, Purpose purpose, double weight) const;
+
 private:
   double const m_maxWeightSpeedMpS;
   SpeedKMpH const m_offroadSpeedKMpH;
   Strategy m_strategy = Strategy::Normal;
   double m_transitWalkWeightFactor = 1.0;
   double m_transitTransferFactor = 1.0;
+  std::unordered_set<Segment> m_penalizedSegments;
+  double m_routeSegmentPenaltyFactor = 1.0;
 
   // DataSource * m_dataSourcePtr;
   // std::shared_ptr<NumMwmIds> m_numMwmIds;

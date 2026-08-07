@@ -1,7 +1,11 @@
 #include "testing/testing.hpp"
 
 #include "routing/edge_estimator.hpp"
+#include "routing/geometry.hpp"
 
+#include "routing_common/maxspeed_conversion.hpp"
+
+#include "geometry/mercator.hpp"
 #include "geometry/point_with_altitude.hpp"
 
 #include <cmath>
@@ -14,6 +18,41 @@ double const kTan = 0.1;
 geometry::Altitude const kAlt = 100.0;
 auto const kPurposes = {EdgeEstimator::Purpose::Weight, EdgeEstimator::Purpose::ETA};
 constexpr double kAccuracyEps = 1e-5;
+
+UNIT_TEST(EdgeEstimator_RouteSegmentPenaltyAffectsWeightOnly)
+{
+  Segment const primary(1 /* mwmId */, 2 /* featureId */, 3 /* segmentIdx */, true /* forward */);
+  Segment const unrelated(1 /* mwmId */, 4 /* featureId */, 5 /* segmentIdx */, true /* forward */);
+  double constexpr kPenalty = 1.35;
+
+  RoadGeometry::Points const points = {mercator::FromLatLon(0.0, 0.0),   mercator::FromLatLon(0.0, 0.001),
+                                       mercator::FromLatLon(0.0, 0.002), mercator::FromLatLon(0.0, 0.003),
+                                       mercator::FromLatLon(0.0, 0.004), mercator::FromLatLon(0.0, 0.005),
+                                       mercator::FromLatLon(0.0, 0.006)};
+  Maxspeed const maxspeed(measurement_utils::Units::Metric, 20 /* forward */, 20 /* backward */);
+  RoadGeometry const road(true /* oneWay */, maxspeed, points);
+  auto estimator =
+      EdgeEstimator::Create(VehicleType::Bicycle, 30.0 /* maxWeightSpeedKMpH */, SpeedKMpH(5.0),
+                            nullptr /* trafficStash */, nullptr /* dataSourcePtr */, nullptr /* numMwmIds */);
+
+  double const primaryWeight = estimator->CalcSegmentWeight(primary, road, EdgeEstimator::Purpose::Weight);
+  double const primaryEta = estimator->CalcSegmentWeight(primary, road, EdgeEstimator::Purpose::ETA);
+
+  estimator->SetRouteSegmentsPenalty({primary}, kPenalty);
+
+  TEST_ALMOST_EQUAL_ABS(estimator->CalcSegmentWeight(primary, road, EdgeEstimator::Purpose::Weight),
+                        primaryWeight * kPenalty, kAccuracyEps, ());
+  TEST_ALMOST_EQUAL_ABS(estimator->CalcSegmentWeight(primary.GetReversed(), road, EdgeEstimator::Purpose::Weight),
+                        primaryWeight * kPenalty, kAccuracyEps, ());
+  TEST_ALMOST_EQUAL_ABS(estimator->CalcSegmentWeight(unrelated, road, EdgeEstimator::Purpose::Weight), primaryWeight,
+                        kAccuracyEps, ());
+  TEST_ALMOST_EQUAL_ABS(estimator->CalcSegmentWeight(primary, road, EdgeEstimator::Purpose::ETA), primaryEta,
+                        kAccuracyEps, ());
+
+  estimator->ClearRouteSegmentsPenalty();
+  TEST_ALMOST_EQUAL_ABS(estimator->CalcSegmentWeight(primary, road, EdgeEstimator::Purpose::Weight), primaryWeight,
+                        kAccuracyEps, ());
+}
 
 // Climb penalty on plain surface (tangent = 0) must be 1.0 for ETA and Weight estimations.
 UNIT_TEST(ClimbPenalty_ZeroTangent)
