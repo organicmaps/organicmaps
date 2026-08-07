@@ -1,12 +1,19 @@
 package app.organicmaps.settings;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
@@ -40,6 +47,11 @@ import java.util.Locale;
 
 public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements LanguagesFragment.Listener
 {
+  private boolean mEnableContactSearchWhenPermissionGranted;
+  @NonNull
+  private final ActivityResultLauncher<String> mContactsPermissionRequest =
+      registerForActivityResult(new ActivityResultContracts.RequestPermission(), this::onContactsPermissionResult);
+
   @Override
   protected int getXmlResources()
   {
@@ -69,6 +81,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     initShowDownloadedRegionsPrefsCallbacks();
     initPlayServicesPrefsCallbacks();
     initSearchPrivacyPrefsCallbacks();
+    initContactSearchPrefsCallbacks();
     initScreenSleepEnabledPrefsCallbacks();
     initShowOnLockScreenPrefsCallbacks();
     initNightNavigationPrefsCallbacks();
@@ -114,6 +127,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     updateVoiceInstructionsPrefsSummary();
     updateRoutingSettingsPrefsSummary();
     updateMapLanguageCodeSummary();
+    updateContactSearchPreference();
   }
 
   @Override
@@ -310,6 +324,78 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
       }
       return true;
     });
+  }
+
+  private void initContactSearchPrefsCallbacks()
+  {
+    final TwoStatePreference pref = getPreference(getString(R.string.pref_search_contacts));
+    pref.setOnPreferenceChangeListener((preference, newValue) -> {
+      final boolean enabled = (Boolean) newValue;
+      if (!enabled)
+      {
+        mEnableContactSearchWhenPermissionGranted = false;
+        Config.setContactSearchEnabled(false);
+        return true;
+      }
+
+      if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_CONTACTS)
+          == PackageManager.PERMISSION_GRANTED)
+      {
+        Config.setContactSearchEnabled(true);
+        return true;
+      }
+
+      mEnableContactSearchWhenPermissionGranted = true;
+      mContactsPermissionRequest.launch(Manifest.permission.READ_CONTACTS);
+      return false;
+    });
+  }
+
+  private void onContactsPermissionResult(boolean granted)
+  {
+    Config.setContactSearchEnabled(granted);
+    final TwoStatePreference pref = findPreference(getString(R.string.pref_search_contacts));
+    if (pref != null)
+      pref.setChecked(granted);
+
+    if (granted)
+    {
+      mEnableContactSearchWhenPermissionGranted = false;
+      return;
+    }
+
+    new MaterialAlertDialogBuilder(requireContext())
+        .setTitle(R.string.search_contacts_title)
+        .setMessage(R.string.search_contacts_permission_message)
+        .setNegativeButton(R.string.cancel, (dialog, which) -> mEnableContactSearchWhenPermissionGranted = false)
+        .setPositiveButton(R.string.settings, (dialog, which) -> openAppSettings())
+        .show();
+  }
+
+  private void updateContactSearchPreference()
+  {
+    final TwoStatePreference pref = findPreference(getString(R.string.pref_search_contacts));
+    if (pref == null)
+      return;
+
+    final boolean permissionGranted =
+        ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_CONTACTS)
+        == PackageManager.PERMISSION_GRANTED;
+    if (!permissionGranted)
+      Config.setContactSearchEnabled(false);
+    else if (mEnableContactSearchWhenPermissionGranted)
+    {
+      Config.setContactSearchEnabled(true);
+      mEnableContactSearchWhenPermissionGranted = false;
+    }
+    pref.setChecked(Config.isContactSearchEnabled() && permissionGranted);
+  }
+
+  private void openAppSettings()
+  {
+    final Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+    intent.setData(Uri.fromParts("package", requireContext().getPackageName(), null));
+    startActivity(intent);
   }
 
   private void init3dModePrefsCallbacks()
