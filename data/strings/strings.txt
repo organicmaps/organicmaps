@@ -14131,6 +14131,10 @@ en = Show saved contact addresses in search results
 tags = android-app
 en = Allow Contacts access in system settings to search saved addresses.
 
+[search_estimated_location]
+tags = android-app
+en = Estimated location
+
 [search_history_text]
 tags = android-app,android-libs-car,apple-maps
 en = View your recent searches.

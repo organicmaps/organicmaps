@@ -615,7 +615,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
   private boolean startInteractiveSearch(@NonNull String query, boolean isCategory)
   {
-    return startInteractiveSearch(query, isCategory, false);
+    return startInteractiveSearch(query, isCategory,
+                                  !isCategory && ContactAddressQueryNormalizer.looksLikeAddressQuery(query));
   }
 
   private boolean startInteractiveSearch(@NonNull String query, boolean isCategory, boolean allowNearbyHouseNumbers)

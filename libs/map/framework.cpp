@@ -1414,6 +1414,17 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   case Result::Type::LatLon:
     info.m_mercator = result.GetFeatureCenter();
     info.m_match = place_page::BuildInfo::Match::Nothing;
+    if (result.IsEstimatedAddress())
+    {
+      double constexpr kBuildingSnapRadiusMeters = 20.0;
+      auto const rect = mercator::RectByCenterXYAndSizeInMeters(info.m_mercator, kBuildingSnapRadiusMeters);
+      auto const building = GetSelectionProcessor().FindNearestBuildingInRect(info.m_mercator, rect);
+      if (building.IsValid())
+      {
+        info.m_featureId = building;
+        info.m_isGeometrySelectionAllowed = true;
+      }
+    }
     scale = scales::GetUpperComfortScale();
     break;
 
@@ -1432,7 +1443,9 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
 
   m_currentPlacePageInfo = BuildPlacePageInfo(info);
 
-  if (result.GetResultType() == Result::Type::Postcode)
+  if (result.IsEstimatedAddress())
+    m_currentPlacePageInfo->SetCustomNames(result.GetString(), m_stringsBundle.GetString("search_estimated_location"));
+  else if (result.GetResultType() == Result::Type::Postcode)
     m_currentPlacePageInfo->SetCustomNames(result.GetString(), m_stringsBundle.GetString("postal_code"));
 
   if (m_drapeEngine)
