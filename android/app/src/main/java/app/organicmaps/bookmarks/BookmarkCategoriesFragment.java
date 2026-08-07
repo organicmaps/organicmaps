@@ -53,8 +53,6 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
 {
   private static final String TAG = BookmarkCategoriesFragment.class.getSimpleName();
 
-  private static final int MAX_CATEGORY_NAME_LENGTH = 60;
-
   public static final String BOOKMARKS_CATEGORIES_MENU_ID = "BOOKMARKS_CATEGORIES_BOTTOM_SHEET";
 
   private static final String EXTRA_SELECTED_CATEGORY = "selected_category";
@@ -251,7 +249,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
     EditTextDialogFragment dialogFragment = EditTextDialogFragment.show(
         getString(R.string.bookmarks_create_new_group), getString(R.string.bookmarks_new_list_hint),
         getString(R.string.bookmark_set_name), getString(R.string.create), getString(R.string.cancel),
-        MAX_CATEGORY_NAME_LENGTH, this, new CategoryValidator());
+        getResources().getInteger(R.integer.bookmark_category_name_max_length), this, new CategoryValidator());
     dialogFragment.setTextSaveListener(this::onSaveText);
   }
 
