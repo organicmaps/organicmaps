@@ -919,6 +919,9 @@
 "medicine" = "Medicína";
 "search_in_the_list" = "Vyhľadať v zozname";
 "religious_places" = "Náboženské miesta";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Vybrať";
 "transit_not_found" = "Navigácia metra v tejto oblasti ešte nie je k dispozícii";
 "dialog_pedestrian_route_is_long_header" = "Trasa metra sa nenašla";
 "dialog_pedestrian_route_is_long_message" = "Vyberte počiatočný alebo konečný bod bližšie k stanici metra";

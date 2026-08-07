@@ -919,6 +919,9 @@
 "medicine" = "پزشکی";
 "search_in_the_list" = "جستجو در فهرست";
 "religious_places" = "اماکن مقدس";
+
+/* Button title to enter multi-selection mode. */
+"select" = "انتخاب";
 "transit_not_found" = "راهنمای مترو در این منطقه هنوز دردسترس نیست";
 "dialog_pedestrian_route_is_long_header" = "مسیر مترو یافت نشد";
 "dialog_pedestrian_route_is_long_message" = "لطفا نقطه آغاز و پایان نزدیک تری به ایستگاه مترو انتخاب کنید";

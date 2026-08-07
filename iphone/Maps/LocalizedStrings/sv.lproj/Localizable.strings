@@ -919,6 +919,9 @@
 "medicine" = "Medicin";
 "search_in_the_list" = "Sök i listan";
 "religious_places" = "Heliga platser";
+
+/* Button title to enter multi-selection mode. */
+"select" = "Välj";
 "transit_not_found" = "Tunnelbanenavigering är ännu inte tillgängligt i denna region";
 "dialog_pedestrian_route_is_long_header" = "Tunnelbanerutt hittades inte";
 "dialog_pedestrian_route_is_long_message" = "Välj ruttens start- eller mål närmare en tunnelbanestation";

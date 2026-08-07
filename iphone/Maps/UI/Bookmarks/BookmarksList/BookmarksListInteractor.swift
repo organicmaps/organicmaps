@@ -117,20 +117,18 @@ extension BookmarksListInteractor: IBookmarksListInteractor {
     return BookmarksListSortingType(bookmarksManager.lastSortingType(markGroupId))
   }
 
-  func deleteBookmark(_ bookmarkId: MWMMarkID) {
-    guard bookmarksManager.hasBookmark(bookmarkId) else {
-      LOG(.error, "Bookmark \(bookmarkId) does not exist")
-      return
+  func deleteItems(with itemIds: Set<BookmarksListItemId>) {
+    var bookmarkIds = [NSNumber]()
+    var trackIds = [NSNumber]()
+    for itemId in itemIds {
+      switch itemId {
+      case .bookmark(let bookmarkId):
+        bookmarkIds.append(NSNumber(value: bookmarkId))
+      case .track(let trackId):
+        trackIds.append(NSNumber(value: trackId))
+      }
     }
-    bookmarksManager.deleteBookmark(bookmarkId)
-  }
-
-  func deleteTrack(_ trackId: MWMTrackID) {
-    guard bookmarksManager.hasTrack(trackId) else {
-      LOG(.error, "Track \(trackId) does not exist")
-      return
-    }
-    bookmarksManager.deleteTrack(trackId)
+    bookmarksManager.delete(bookmarks: bookmarkIds, tracks: trackIds)
   }
 
   func moveBookmark(_ bookmarkId: MWMMarkID, toGroupId groupId: MWMMarkGroupID) {

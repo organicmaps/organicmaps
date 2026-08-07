@@ -505,21 +505,49 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
   return [collection copy];
 }
 
-- (void)deleteBookmark:(MWMMarkID)bookmarkId
+- (void)deleteBookmarks:(MWMMarkIDCollection)bookmarkIds tracks:(MWMTrackIDCollection)trackIds
 {
-  self.bm.GetEditSession().DeleteBookmark(bookmarkId);
-  [self loopObservers:^(id<MWMBookmarksObserver> observer) {
-    if ([observer respondsToSelector:@selector(onBookmarkDeleted:)])
-      [observer onBookmarkDeleted:bookmarkId];
-  }];
-}
+  BOOL const hasBookmarks = bookmarkIds.count > 0;
+  BOOL const hasTracks = trackIds.count > 0;
+  if (!hasBookmarks && !hasTracks)
+    return;
 
-- (void)deleteTrack:(MWMTrackID)trackId
-{
-  self.bm.GetEditSession().DeleteTrack(trackId);
+  auto & bm = self.bm;
+  {
+    // Scoped: deletions apply immediately, but the batch is published to the map and saved to disk only when
+    // the last EditSession closes. That must happen before observers are notified.
+    auto editSession = bm.GetEditSession();
+    for (NSNumber * bookmarkIdValue in bookmarkIds)
+    {
+      MWMMarkID const bookmarkId = bookmarkIdValue.unsignedLongLongValue;
+      if (!bm.HasBookmark(bookmarkId))
+      {
+        LOG(LWARNING, ("Bookmark does not exist:", bookmarkId));
+        continue;
+      }
+      editSession.DeleteBookmark(bookmarkId);
+    }
+
+    for (NSNumber * trackIdValue in trackIds)
+    {
+      MWMTrackID const trackId = trackIdValue.unsignedLongLongValue;
+      if (!bm.HasTrack(trackId))
+      {
+        LOG(LWARNING, ("Track does not exist:", trackId));
+        continue;
+      }
+      editSession.DeleteTrack(trackId);
+    }
+  }
+
+  // Report every requested id, including ones Core no longer has: subscribers such as EditBookmarkViewController
+  // wait for their own id to come back to dismiss, and must not be left hanging on an already-deleted id.
   [self loopObservers:^(id<MWMBookmarksObserver> observer) {
-    if ([observer respondsToSelector:@selector(onTrackDeleted:)])
-      [observer onTrackDeleted:trackId];
+    if (hasBookmarks && [observer respondsToSelector:@selector(onBookmarksDeleted:)])
+      [observer onBookmarksDeleted:bookmarkIds];
+
+    if (hasTracks && [observer respondsToSelector:@selector(onTracksDeleted:)])
+      [observer onTracksDeleted:trackIds];
   }];
 }
 
