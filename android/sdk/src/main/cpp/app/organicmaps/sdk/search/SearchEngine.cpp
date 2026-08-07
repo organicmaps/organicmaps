@@ -7,9 +7,11 @@
 #include "map/place_page_info.hpp"
 #include "map/viewport_search_params.hpp"
 
+#include "search/address_estimator.hpp"
 #include "search/mode.hpp"
 #include "search/result.hpp"
 
+#include "platform/localization.hpp"
 #include "platform/network_policy.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
@@ -59,8 +61,7 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
   return !hasPosition || distanceInMeters > search::Result::kPopularityHighPriorityMinDistance;
 }
 
-jobject ToJavaResult(search::Result const & result, search::ProductInfo const & productInfo, bool hasPosition,
-                     double lat, double lon)
+jobject ToJavaResult(search::Result const & result, bool hasPosition, double lat, double lon)
 {
   JNIEnv * env = jni::GetEnv();
 
@@ -107,7 +108,9 @@ jobject ToJavaResult(search::Result const & result, search::ProductInfo const & 
 
   bool const popularityHasHigherPriority = PopularityHasHigherPriority(hasPosition, distanceInMeters);
 
-  std::string const localizedFeatureType = result.GetLocalizedFeatureType();
+  std::string const localizedFeatureType =
+      result.IsEstimatedAddress() ? platform::GetLocalizedString("search_estimated_location")
+                                  : result.GetLocalizedFeatureType();
   jni::TScopedLocalRef featureType(env, jni::ToJavaString(env, localizedFeatureType));
   jni::TScopedLocalRef address(env, jni::ToJavaString(env, result.GetAddress()));
   jni::TScopedLocalRef dist(env, ToJavaDistance(env, distance));
@@ -128,8 +131,7 @@ jobject ToJavaResult(search::Result const & result, search::ProductInfo const & 
                         descRanges.get(), popularity.get());
 }
 
-jobjectArray BuildSearchResults(std::vector<search::ProductInfo> const & productInfo, bool hasPosition, double lat,
-                                double lon)
+jobjectArray BuildSearchResults(bool hasPosition, double lat, double lon)
 {
   JNIEnv * env = jni::GetEnv();
 
@@ -137,14 +139,15 @@ jobjectArray BuildSearchResults(std::vector<search::ProductInfo> const & product
   jobjectArray const jResults = env->NewObjectArray(count, g_resultClass, nullptr);
   for (jsize i = 0; i < count; i++)
   {
-    jni::TScopedLocalRef jRes(env, ToJavaResult(g_results[i], productInfo[i], hasPosition, lat, lon));
+    jni::TScopedLocalRef jRes(env, ToJavaResult(g_results[i], hasPosition, lat, lon));
     env->SetObjectArrayElement(jResults, i, jRes.get());
   }
   return jResults;
 }
 
-void OnResults(search::Results results, std::vector<search::ProductInfo> const & productInfo, jlong timestamp,
-               bool isMapAndTable, bool hasPosition, double lat, double lon)
+void OnResults(search::Results results, std::vector<search::ProductInfo> const &, jlong timestamp,
+               bool isMapAndTable, bool hasPosition, double lat, double lon, std::string const & query,
+               bool estimateMissingHouseNumber)
 {
   // Ignore results from obsolete searches.
   if (g_queryTimestamp > timestamp)
@@ -154,8 +157,10 @@ void OnResults(search::Results results, std::vector<search::ProductInfo> const &
 
   if (!results.IsEndMarker() || results.IsEndedNormal())
   {
+    if (estimateMissingHouseNumber)
+      results = search::MakeEstimatedAddressResults(query, results);
     g_results = std::move(results);
-    jni::TScopedLocalObjectArrayRef jResults(env, BuildSearchResults(productInfo, hasPosition, lat, lon));
+    jni::TScopedLocalObjectArrayRef jResults(env, BuildSearchResults(hasPosition, lat, lon));
     env->CallVoidMethod(g_javaListener, g_updateResultsId, jResults.get(), timestamp);
   }
 
@@ -268,7 +273,8 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearch(
       jni::ToNativeString(env, lang),
       {},  // default timeout
       static_cast<bool>(isCategory),
-      std::bind(&OnResults, std::placeholders::_1, std::placeholders::_2, timestamp, false, hasPosition, lat, lon)};
+      std::bind(&OnResults, std::placeholders::_1, std::placeholders::_2, timestamp, false, hasPosition, lat, lon,
+                std::string{}, false)};
   bool const searchStarted = g_framework->NativeFramework()->GetSearchAPI().SearchEverywhere(std::move(params));
   if (searchStarted)
     g_queryTimestamp = timestamp;
@@ -295,12 +301,14 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunInterac
 
   if (isMapAndTable)
   {
+    std::string const query = vparams.m_query;
     search::EverywhereSearchParams eparams{std::move(vparams.m_query),
                                            std::move(vparams.m_inputLocale),
                                            {},  // default timeout
                                            static_cast<bool>(isCategory),
                                            std::bind(&OnResults, std::placeholders::_1, std::placeholders::_2,
-                                                     timestamp, isMapAndTable, hasPosition, lat, lon)};
+                                                     timestamp, isMapAndTable, hasPosition, lat, lon, query,
+                                                     static_cast<bool>(allowNearbyHouseNumbers))};
     eparams.m_allowNearbyHouseNumbers = allowNearbyHouseNumbers;
 
     if (g_framework->NativeFramework()->GetSearchAPI().SearchEverywhere(std::move(eparams)))
