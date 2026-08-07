@@ -289,8 +289,11 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   return GetFramework().IsTrackRecordingEmpty();
 }
 
-+ (ElevationProfileData * _Nonnull)trackRecordingElevationInfo
++ (ElevationProfileData * _Nullable)trackRecordingElevationInfo
 {
+  if (GetFramework().IsTrackRecordingEmpty())
+    return nil;
+
   return [[ElevationProfileData alloc] initWithElevationInfo:GetFramework().GetTrackRecordingElevationInfo()];
 }
 
