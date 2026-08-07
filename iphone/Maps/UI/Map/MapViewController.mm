@@ -1129,7 +1129,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
   __weak __typeof(self) weakSelf = self;
   [self.trackRecordingManager addObserver:self
         recordingIsActiveDidChangeHandler:^(TrackRecordingState state, TrackInfo * _Nonnull trackInfo,
-                                            ElevationProfileData * _Nonnull (^_Nullable elevationData)()) {
+                                            ElevationProfileData * _Nullable (^elevationData)()) {
           __strong __typeof(weakSelf) self = weakSelf;
           if (!self)
             return;
