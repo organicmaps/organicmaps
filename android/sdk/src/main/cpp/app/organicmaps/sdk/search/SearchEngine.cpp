@@ -274,7 +274,7 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearch(
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunInteractiveSearch(
     JNIEnv * env, jclass clazz, jbyteArray bytes, jboolean isCategory, jstring lang, jlong timestamp,
-    jboolean isMapAndTable, jboolean hasPosition, jdouble lat, jdouble lon)
+    jboolean isMapAndTable, jboolean hasPosition, jdouble lat, jdouble lon, jboolean allowNearbyHouseNumbers)
 {
   search::ViewportSearchParams vparams{
       jni::ToNativeString(env, bytes),
@@ -298,6 +298,7 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunInterac
         {},  // default timeout
         static_cast<bool>(isCategory),
         std::bind(&OnResults, std::placeholders::_1, timestamp, isMapAndTable, hasPosition, lat, lon)};
+    eparams.m_allowNearbyHouseNumbers = allowNearbyHouseNumbers;
 
     if (g_framework->NativeFramework()->GetSearchAPI().SearchEverywhere(std::move(eparams)))
     {

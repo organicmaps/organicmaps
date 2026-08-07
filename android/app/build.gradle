@@ -276,6 +276,8 @@ def allowedPermissions = [
     "name='android.permission.ACCESS_COARSE_LOCATION'",
     "name='android.permission.ACCESS_FINE_LOCATION'",
     "name='android.permission.ACCESS_LOCATION_EXTRA_COMMANDS'",
+    // opt-in contact address search
+    "name='android.permission.READ_CONTACTS'",
     // network
     "name='android.permission.INTERNET'",
     "name='android.permission.ACCESS_NETWORK_STATE'",

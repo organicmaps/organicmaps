@@ -19,5 +19,6 @@ struct EverywhereSearchParams
   bool m_isCategory = false;
 
   OnResults m_onResults;
+  bool m_allowNearbyHouseNumbers = false;
 };
 }  // namespace search
