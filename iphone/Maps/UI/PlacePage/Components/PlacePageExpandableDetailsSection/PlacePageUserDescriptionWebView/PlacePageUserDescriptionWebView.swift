@@ -4,6 +4,7 @@ final class PlacePageUserDescriptionWebView: UIView {
   private enum Constants {
     static let previewHeight: CGFloat = 70
     static let baseURL = URL(string: "https://organicmaps.app")
+    static let contentHeightScript = "document.documentElement.getBoundingClientRect().height"
   }
 
   private static let webViewPool = WebViewPool()
@@ -70,9 +71,9 @@ final class PlacePageUserDescriptionWebView: UIView {
     ]
     NSLayoutConstraint.activate(webViewConstraints)
 
-    contentSizeObservation = webView.scrollView.observe(\.contentSize, options: [.new]) { [weak self] scrollView, _ in
+    contentSizeObservation = webView.scrollView.observe(\.contentSize) { [weak self] _, _ in
       guard let self, self.webView === webView else { return }
-      self.applyMeasuredHeight(scrollView.contentSize.height)
+      self.updateContentHeight()
     }
   }
 
@@ -172,19 +173,17 @@ extension PlacePageUserDescriptionWebView: ExpandableTextContainer {
 
   func updateContentHeight() {
     guard let webView else { return }
-    // WebView content height is known only after rendering. Keep this as a lightweight best-effort measurement
-    // instead of adding document-status tracking and extra JavaScript injection points.
-    webView.evaluateJavaScript("document.documentElement.scrollHeight") { [weak self] result, _ in
-      guard let self, self.webView === webView else { return }
-      let domHeight = CGFloat(htmlHeight: result) ?? 0
-      let scrollHeight = webView.scrollView.contentSize.height
-      let height = max(domHeight, scrollHeight)
-      self.applyMeasuredHeight(height)
+    let measuredHTMLString = htmlString
+    // Element bounds are used because scrollHeight/contentSize can be clamped to the current web view viewport and
+    // overestimate short descriptions. contentSize is only a fallback for a failed JS measurement.
+    webView.evaluateJavaScript(Constants.contentHeightScript) { [weak self] result, _ in
+      guard let self, self.webView === webView, self.htmlString == measuredHTMLString else { return }
+      self.applyMeasuredHeight(CGFloat(htmlHeight: result) ?? webView.scrollView.contentSize.height)
     }
   }
 
   func expandedHeight(for _: CGFloat) -> CGFloat {
-    measuredHTMLHeight
+    measuredHTMLHeight > 0 ? measuredHTMLHeight : Constants.previewHeight
   }
 
   func collapsedHeight(for _: CGFloat) -> CGFloat {
@@ -226,6 +225,7 @@ private extension PlacePageUserDescriptionWebView {
       webView.stopLoading()
       webView.navigationDelegate = nil
       webView.removeFromSuperview()
+      webView.loadHTMLString("", baseURL: nil)
       cachedWebView = webView
     }
 
