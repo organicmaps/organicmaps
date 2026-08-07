@@ -4,22 +4,15 @@
 
 #include "storage/storage.hpp"
 
-#include "platform/local_country_file_utils.hpp"
-#include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
-#include "platform/platform_tests_support/scoped_dir.hpp"
-#include "platform/platform_tests_support/writable_dir_changer.hpp"
 
 #include "coding/blake3.hpp"
 #include "coding/file_writer.hpp"
 
-#include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
-#include "base/string_utils.hpp"
-#include "base/thread.hpp"
 
-#include <cstdlib>
-#include <exception>
+#include "defines.hpp"
+
 #include <functional>
 #include <string>
 
@@ -30,7 +23,9 @@ using namespace storage;
 using namespace std;
 using namespace std::placeholders;
 
-// Uncomment to enable the test that requires network and downloads an mwm several times.
+// Uncomment to enable the test that downloads an mwm over and over again from kTestWebServer:
+// 5 iterations x 10 interrupted downloads plus a full re-download each, roughly 10 minutes and
+// 90 MB. Resuming itself is covered offline by storage_tests/storage_download_tests.cpp.
 // #define TEST_INTEGRITY
 #ifndef TEST_INTEGRITY_ITERATIONS
 #define TEST_INTEGRITY_ITERATIONS 5
@@ -38,12 +33,7 @@ using namespace std::placeholders;
 
 namespace
 {
-using Runner = Platform::ThreadRunner;
-
 string const kCountryId = "Trinidad and Tobago";
-
-class InterruptException : public exception
-{};
 
 void Update(CountryId const &, storage::LocalFilePtr const localCountryFile)
 {
@@ -68,9 +58,8 @@ void InitStorage(Storage & storage, Storage::ProgressFunction const & onProgress
 
 }  // namespace
 
-UNIT_TEST(SmallMwms_ReDownloadExistedMWMIgnored_Test)
+UNIT_CLASS_TEST(StorageTest, SmallMwms_ReDownloadExistedMWMIgnored_Test)
 {
-  WritableDirChanger writableDirChanger(kMapTestDir);
   Storage storage;
 
   InitStorage(storage, [](CountryId const &, downloader::Progress const &) {});
@@ -85,10 +74,8 @@ UNIT_TEST(SmallMwms_ReDownloadExistedMWMIgnored_Test)
   TEST(!storage.IsDownloadInProgress(), ());
 }
 
-UNIT_CLASS_TEST(Runner, SmallMwms_InterruptDownloadResumeDownload_Test)
+UNIT_CLASS_TEST(StorageTest, SmallMwms_InterruptDownloadResumeDownload_Test)
 {
-  WritableDirChanger writableDirChanger(kMapTestDir);
-
   // Start download but interrupt it
   {
     Storage storage;
@@ -140,6 +127,10 @@ UNIT_CLASS_TEST(Runner, SmallMwms_InterruptDownloadResumeDownload_Test)
       testing::StopEventLoop();
     }, [](CountryId const &, storage::LocalFilePtr const) { return false; });
 
+    // Storage doesn't restore the saved queue by itself, it is an explicit application-level
+    // startup step (see Framework::LoadMapsSync), so resume the interrupted download manually.
+    storage.RestoreDownloadQueue();
+
     testing::RunEventLoop();
 
     TEST(storage.IsDownloadInProgress(), ());
@@ -155,18 +146,28 @@ UNIT_CLASS_TEST(Runner, SmallMwms_InterruptDownloadResumeDownload_Test)
 }
 
 #ifdef TEST_INTEGRITY
-UNIT_CLASS_TEST(Runner, DownloadIntegrity_Test)
+UNIT_CLASS_TEST(StorageTest, DownloadIntegrity_Test)
 {
-  WritableDirChanger writableDirChanger(kMapTestDir);
-
   string mapPath;
   coding::Blake3::Hash mapHash;
+
+  // Wipes the registered map and any stranded .ready file. A round whose interruption came too
+  // late completes the transfer, and .ready is renamed to .mwm only by the Gui continuation of
+  // the integrity check, which cannot run once the event loop has exited. Leaving it behind
+  // would make the next DownloadNode complete synchronously in Storage::DownloadCountry, and
+  // the RunEventLoop() below would then wait forever.
+  auto const deleteMapFiles = [&mapPath]
   {
-    SCOPE_GUARD(deleteTestFileGuard, bind(&FileWriter::DeleteFileX, ref(mapPath)));
+    FileWriter::DeleteFileX(mapPath);
+    FileWriter::DeleteFileX(mapPath + READY_FILE_EXTENSION);
+  };
+
+  {
+    SCOPE_GUARD(deleteTestFileGuard, deleteMapFiles);
 
     Storage storage(COUNTRIES_FILE);
 
-    InitStorage(storage, [](CountryId const & countryId, LocalAndRemoteSize const & mapSize) {});
+    InitStorage(storage, [](CountryId const &, downloader::Progress const &) {});
     TEST(!storage.IsDownloadInProgress(), ());
 
     storage.DownloadNode(kCountryId);
@@ -186,40 +187,50 @@ UNIT_CLASS_TEST(Runner, DownloadIntegrity_Test)
     uint32_t constexpr kInterruptionsCount = 10;
     for (uint32_t j = 0; j < kInterruptionsCount; ++j)
     {
-      SCOPE_GUARD(deleteTestFileGuard, bind(&FileWriter::DeleteFileX, ref(mapPath)));
+      SCOPE_GUARD(deleteTestFileGuard, deleteMapFiles);
 
       Storage storage(COUNTRIES_FILE);
 
-      auto onProgressFn = [i, j](CountryId const & countryId, LocalAndRemoteSize const & mapSize)
+      auto onProgressFn = [i, j](CountryId const & countryId, downloader::Progress const & progress)
       {
         TEST_EQUAL(countryId, kCountryId, ());
-        auto progress = static_cast<double>(mapSize.first) / mapSize.second;
-        auto interruptionProgress =
+        auto const fraction = static_cast<double>(progress.m_bytesDownloaded) / progress.m_bytesTotal;
+        auto const interruptionFraction =
             0.1 + 0.75 * static_cast<double>((i + j) % kInterruptionsCount) / kInterruptionsCount;
-        if (progress > interruptionProgress)
+        if (fraction > interruptionFraction)
           testing::StopEventLoop();
       };
 
       InitStorage(storage, onProgressFn);
       storage.DownloadNode(kCountryId);
       testing::RunEventLoop();
-      TEST(storage.IsDownloadInProgress(), ());
+      // StopEventLoop only unwinds the loop, it does not cancel the transfer, so the progress
+      // callback that trips the threshold can be the one that also completes the file. The
+      // scope guard wipes whatever landed on disk and the next round starts over, which on the
+      // last round leaves this iteration hashing a fresh download instead of a resumed one.
+      if (!storage.IsDownloadInProgress())
+        LOG(LINFO, ("Interruption came too late, the map was downloaded fully."));
     }
 
     // Continue downloading.
     coding::Blake3::Hash newHash;
     {
+      // Delete the completed map when done: otherwise the next iteration's Storage registers it
+      // and DownloadNode silently no-ops on the up-to-date map, hanging the event loop wait.
+      SCOPE_GUARD(deleteTestFileGuard, deleteMapFiles);
+
       Storage storage(COUNTRIES_FILE);
 
-      InitStorage(storage, [](CountryId const & countryId, LocalAndRemoteSize const & mapSize) {});
+      InitStorage(storage, [](CountryId const &, downloader::Progress const &) {});
+      // Resumes from the partial download left by the interruption rounds (the downloader picks up
+      // the .resume file by path), or starts from scratch if the last round completed the map.
+      storage.DownloadNode(kCountryId);
       TEST(storage.IsDownloadInProgress(), ());
 
       NodeAttrs attrs;
       storage.GetNodeAttrs(kCountryId, attrs);
       TEST_EQUAL(NodeStatus::Downloading, attrs.m_status, ());
 
-      storage.DownloadNode(kCountryId);
-      TEST(storage.IsDownloadInProgress(), ());
       testing::RunEventLoop();
 
       newHash = coding::Blake3::Calculate(mapPath);

@@ -4,8 +4,36 @@ import jsons
 import logging
 import os
 
+from urllib.parse import unquote
+
 # Should match size defined in platform/platform_tests/downloader_tests/downloader_test.cpp
 BIG_FILE_SIZE = 47684
+
+# Synthetic map files served under /unit_tests/maps/<version>/<name>.mwm, which is the URL
+# shape platform::GetFileDownloadUrl() produces. The bytes depend only on the file name, so
+# libs/storage/storage_tests/storage_download_tests.cpp reproduces them to fill "s" and "h"
+# in its countries JSON. Keep the two generators identical: a mismatch shows up as a map
+# integrity failure rather than as a server error.
+# Sizes are 2.00-2.25 MB, i.e. 4-5 of the downloader's 512 KB chunks, so an interrupted
+# download always leaves a partial file to resume from.
+SYNTHETIC_MWM_PREFIX = "/unit_tests/maps/"
+SYNTHETIC_MWM_BASE_SIZE = 2 * 1024 * 1024
+
+
+def synthetic_mwm_seed(file_name):
+    return sum(file_name.encode("utf-8")) % 256
+
+
+def synthetic_mwm_size(file_name):
+    return SYNTHETIC_MWM_BASE_SIZE + 1024 * synthetic_mwm_seed(file_name)
+
+
+def synthetic_mwm_content(file_name):
+    seed = synthetic_mwm_seed(file_name)
+    size = synthetic_mwm_size(file_name)
+    # content[i] == (i + seed) % 256, built by tiling one period instead of per-byte.
+    period = bytes((i + seed) % 256 for i in range(256))
+    return (period * (size // 256 + 1))[:size]
 
 
 class Payload:
@@ -128,14 +156,14 @@ class ResponseProvider:
         self.chunk_requested()
         url = self.strip_query(url)
         try:
-            return {
+            handler = {
                 "/unit_tests/1.txt": self.test1,
                 "/unit_tests/notexisting_unittest": self.test_404,
                 "/unit_tests/permanent": self.test_301,
                 "/unit_tests/47kb.file": self.test_47_kb,
-                # Following two URIs are used to test downloading failures on different platforms.
-                "/unit_tests/mac/1234/Uruguay.mwm": self.test_404,
-                "/unit_tests/linux/1234/Uruguay.mwm": self.test_404,
+                # Used to test a failing map download; the rest of /unit_tests/maps/ is served
+                # as a synthetic mwm below.
+                "/unit_tests/maps/1234/Uruguay.mwm": self.test_404,
                 "/ping": self.pong,
                 "/kill": self.kill,
                 "/id": self.my_id,
@@ -175,7 +203,10 @@ class ResponseProvider:
                 "/unit_tests/segment/overflow_body": self.test_segment_overflow_body,
                 "/unit_tests/segment/unknown_total": self.test_segment_unknown_total,
                 "/unit_tests/segment/ok": self.test_segment_ok,
-            }.get(url, self.test_404)()
+            }.get(url)
+            if handler is None and url.startswith(SYNTHETIC_MWM_PREFIX):
+                return self.synthetic_mwm(unquote(url[url.rfind("/") + 1:]))
+            return (handler or self.test_404)()
         except Exception as e:
             logging.error("test_server: Can't build server response", exc_info=e)
             return self.test_404()
@@ -232,6 +263,14 @@ class ResponseProvider:
             "Content-Range" : "bytes {start}-{end}/{out_of}".format(start=self.byterange[0],
             end=self.byterange[1], out_of=size)
         }
+
+
+    def synthetic_mwm(self, file_name):
+        content = synthetic_mwm_content(file_name)
+        self.check_byterange(len(content))
+        headers = self.chunked_response_header(len(content))
+
+        return Payload(self.trim_message(content), self.response_code, headers)
 
 
     def test_47_kb(self):

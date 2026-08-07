@@ -1380,15 +1380,14 @@ void Storage::DownloadNode(CountryId const & countryId, bool isUpdate /* = false
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  LOG(LINFO, ("Downloading", countryId));
-
   CountryTree::Node const * const node = m_countries.FindFirst(countryId);
-
   if (!node)
     return;
 
   if (GetNodeStatus(*node).status == NodeStatus::OnDisk)
     return;
+
+  LOG(LINFO, ("Downloading", countryId));
 
   auto downloadAction = [this, isUpdate](CountryTree::Node const & descendantNode)
   {
