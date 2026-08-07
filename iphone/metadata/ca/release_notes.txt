@@ -1,41 +1,28 @@
-- NOVETAT! Rutes de transport públic amb metro, tramvia lleuger, autobús i tramvia
-- NOVETAT! Rutes alternatives: a més de la ruta més ràpida, l'aplicació ara mostra la ruta més curta
-- NOVETAT! Alertes de ruta per a caminar i anar en bicicleta sobre esglaons, portes i barreres elevables al llarg del camí
-- NOVETAT! Toca per triar entre recorreguts i rutes superposats
-- NOVETAT! Seleccioneu qualsevol color per als marcadors
-- NOVETAT! Suport per a les coordenades British National Grid (OS Grid), Irish Grid i Irish Transverse Mercator (ITM)
-- NOVETAT! Suport d'accessibilitat per a Dynamic Type i fonts de gran mida
-- EXPERIMENTAL: Activa les imatges per satèl·lit a la configuració d'Organic Maps amb una URL de servidor de mapes raster personalitzada
-- Estil de taula més net a la IU
-- Escriviu `?map-download-server:https://your-server.com/` a la finestra de cerca per sobreescriure els servidors de descàrrega de mapes Organic Maps. Escriviu `?no-map-download-server` per eliminar la sobreescriptura.
-- Diverses correccions d'errors i millores de rendiment
+• La nova configuració «Desa l'historial de cerques» us ajuda a mantenir privat l'historial de cerques si cal
 
-## Dades del mapa
+## Mapa i llocs
+• Dades d'OpenStreetMap a data de 14 de juliol
+• Les notes d'OpenStreetMap ara es col·loquen a la ubicació exacta que seleccioneu, en lloc del mig del bosc
+• Millorada la selecció de mapes per a regions que creuen l'antimeridià 180°
+• Els perfils d'elevació de les rutes ja no mostren gràfics obsolets o buits després de suprimir una ruta
+• Millorat el gràfic d'elevació buit de les rutes enregistrades
+• El botó per a suprimir els marcadors és més fàcil de trobar
+• Després de sortir de la pantalla d'edició, els marcadors es desen automàticament
+• La paleta de colors inclou colors predefinits i permet triar qualsevol color personalitzat
+• Altres millores de la interfície d'usuari
 
-- Dades OpenStreetMap actualitzades el 24 de juny
-- Dades Wikipedia actualitzades a data de 20 de juny, incloent-hi articles en italià
+## Transport públic
+• Els noms de les parades, les transferències i les estacions ara utilitzen un contorn blanc per mantenir-se llegibles tant en temes clars com foscos
+• La capa del metro reapareix correctament després de tancar la previsualització d'una ruta de transport públic
 
-## Renderització i estils del mapa
-
-- Patrons més atractius per a zones de platja, sorra, còdols, roca nua, horta i vinya, a més d'un traçat per a zones protegides i aiguamolls
-- Etiquetes de text corbes més suaus per a carreteres i rius
-- Els rius, els rierols i les zones humides tenen un contrast més elevat i són més visibles en mode fosc
-- Icones noves i millorades per a la cerca de categoria i els resultats de cerca al mapa
-- Millora del format i la renderització multilingüe del text
-
-## Recorreguts, marcadors i rutes
-
-- Millora de la renderització HTML de les descripcions de marcadors i recorreguts
-- Els recorreguts GeoJSON ara conserven l'altitud i les marques de temps en importar i exportar
-- S'ha corregit un bloqueig després de moure un recorregut a una altra llista
-- Ara es mostren llocs web per als llocs patrimonials
-- Ara es mostren els noms dels operadors per als resultats de cerca sense nom. Per exemple, un ATM sense nom ara mostra el seu banc
-- Editor: s'ha corregit el text de la descripció per a les edicions/conjunts de canvis OpenStreetMap d'edificis d'apartaments
-- Millora de la detecció d'HTML a les descripcions de marcadors i recorreguts
-- Ara es filtren les rutes duplicades
+## Rutes i navegació
+• S'han solucionat problemes amb indicacions incorrectes i que faltaven
+• Ara es mostren avisos de ruta (peatges, ferris, camins sense asfaltar, escales, etc.) per a totes les rutes alternatives
+• S'ha solucionat un bloqueig esporàdic en crear una ruta i s'ha millorat el tractament dels carrers sense sortida i dels punts d'inici/final en una via restringida
+• Millorat l'indicador de progrés de la ruta al botó d'inici
+• Reordenar les parades de la ruta ja no fa que la llista es mogui
 
 ## Traduccions
-
-- Indicacions de veu pas a pas en cantonès
-- S'han actualitzat les traduccions a l'alemany i al francès
-- S'han corregit les traduccions incorrectes de les instruccions de veu "onto street" per a xinès, serbi i català.
+• Millorada la redacció en xinès
+• Actualitzades les traduccions a l'ucraïnès
+• Corregides les traduccions de les regions del mapa a l'italià

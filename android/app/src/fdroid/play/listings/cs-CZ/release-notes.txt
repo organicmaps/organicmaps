@@ -1,8 +1,8 @@
-NOVÉ FUNKCE:
-• Aktualizované uživatelské rozhraní pro vyhledávání a plánování tras
-• Plánování tras veřejnou dopravou (autobus, tramvaj, metro, lehká kolejová doprava)
-• Alternativní nejrychlejší a nejkratší trasy
-• Upozornění na trase týkající se schodů, bran a zvedacích bran
-• Vyberte libovolnou barvu pro záložky
-• Podpora souřadnic UK OS Grid, Irish Grid a ITM
+• Data OSM k 14. červenci
+• Názvy zastávek veřejné dopravy, přestupních míst a stanic mají nyní bílý obrys
+• Vylepšené zobrazení otevíracích hodin
+• Opraveny nesprávné nebo chybějící pokyny k trase
+• Upravené záložky a trasy se nyní ukládají automaticky
+• Varování na trase (mýtné, trajekty, nezpevněné silnice, schody atd.) se nyní zobrazují u všech alternativních tras
+• Poznámky OSM se vytvářejí přesně na místě, které vyberete
 …více na omaps.org/cs/news

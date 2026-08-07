@@ -1,8 +1,7 @@
-NOWE FUNKCJE:
-• Zaktualizowany interfejs użytkownika funkcji wyszukiwania i wyznaczania tras
-• Wyznaczanie tras transportu publicznego (autobus, tramwaj, metro, kolej miejska)
-• Alternatywne trasy: najszybsze i najkrótsze
-• Ostrzeżenia dotyczące tras: stopni, bram i szlabanów
-• Wybierz dowolny kolor dla zakładek
-• Obsługa współrzędnych UK OS Grid, Irish Grid, ITM
-…więcej na stronie omaps.org/pl/news
+• Dane OSM na dzień 14 lipca
+• Nazwy przystanków transportu publicznego, przesiadek i stacji mają teraz białą obwódkę
+• Ulepszone wyświetlanie godzin otwarcia
+• Naprawiono nieprawidłowe lub brakujące wskazówki dojazdu
+• Edytowane zakładki i trasy są teraz zapisywane automatycznie
+• Ostrzeżenia dotyczące tras (opłaty drogowe, promy, drogi nieutwardzone, schody itp.) są teraz wyświetlane dla wszystkich tras alternatywnych
+…więcej na omaps.org/pl/news

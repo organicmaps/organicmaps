@@ -1,41 +1,28 @@
-- NOVIDADE! Rotas de transporte público por metrô, VLT, ônibus e bonde
-- NOVIDADE! Rotas alternativas: além da rota mais rápida, o app agora mostra a rota mais curta
-- NOVIDADE! Avisos em rotas para pedestres e ciclistas sobre degraus, portões e cancelas ao longo do caminho
-- NOVIDADE! Toque para escolher entre trilhas e rotas sobrepostas
-- NOVIDADE! Escolha qualquer cor para os favoritos
-- NOVIDADE! Suporte para coordenadas British National Grid (OS Grid), Irish Grid e Irish Transverse Mercator (ITM)
-- NOVIDADE! Suporte à acessibilidade para Dynamic Type e fontes grandes
-- EXPERIMENTAL: Ative as imagens de satélite nas configurações do Organic Maps com uma URL personalizada do servidor de blocos rasterizados
-- Estilo mais limpo das tabelas na interface do usuário
-- Digite `?map-download-server:https://your-server.com/` na janela de pesquisa para substituir os servidores de download de mapas Organic Maps. Digite `?no-map-download-server` para remover a substituição.
-- Várias correções de bugs e melhorias de desempenho
+• A nova configuração “Salvar histórico de pesquisa” ajuda você a manter seu histórico de pesquisa privado quando necessário
 
-## Dados do mapa
+## Mapa e locais
+• Dados do OpenStreetMap atualizados em 14 de julho
+• As anotações do OpenStreetMap agora são colocadas no local exato que você selecionar, em vez de no meio da floresta
+• Seleção de mapa aprimorada para regiões que cruzam o antimeridiano de 180°
+• Os perfis de elevação das trilhas não exibem mais gráficos desatualizados ou vazios após a remoção de uma trilha
+• O gráfico de elevação vazio para trilhas registradas foi aprimorado
+• O botão para remover marcadores ficou mais fácil de encontrar
+• Salvamento automático de marcadores ao sair da tela de edição
+• A paleta de cores inclui cores predefinidas e permite escolher qualquer cor personalizada
+• Outras melhorias na interface do usuário
 
-- Dados do OpenStreetMap atualizados em 24 de junho
-- Dados do Wikipedia atualizados em 20 de junho, incluindo artigos em italiano
+## Transporte público
+• Os nomes de paradas, baldeações e estações agora usam um contorno branco para permanecerem legíveis tanto no tema claro quanto no escuro
+• A camada do metrô reaparece corretamente após fechar a visualização de uma rota de transporte público
 
-## Renderização e estilos do mapa
-
-- Padrões mais bonitos para áreas de praia, areia, cascalho, rocha nua, pomar e vinhedo, além de hachuras para áreas protegidas e zonas úmidas
-- Rótulos de texto com curvas mais suaves para estradas e rios
-- Rios, córregos e áreas alagadas têm maior contraste e ficam mais visíveis no modo escuro
-- Ícones novos e aprimorados para a busca por categoria e os resultados da busca no mapa
-- Melhoria na formatação e renderização de texto multilíngue
-
-## Trajetos, favoritos e rotas
-
-- Melhoria na renderização HTML das descrições de favoritos e trilhas
-- Os trajetos GeoJSON agora mantêm a altitude e os carimbos de data/hora na importação e exportação
-- Corrigida uma falha que ocorria ao mover um trajeto para outra lista
-- Agora são exibidos sites para locais históricos
-- Agora, os nomes das operadoras são exibidos para resultados de pesquisa sem nome. Por exemplo, um resultado sem nome como ATM agora mostra o nome do banco
-- Editor: corrigido o texto da descrição para edições/conjuntos de alterações OpenStreetMap de prédios de apartamentos
-- Detecção aprimorada de HTML nas descrições de favoritos e trilhas
-- Rotas duplicadas agora são filtradas
+## Roteamento e navegação
+• Corrigidos problemas com instruções incorretas ou ausentes
+• Os avisos de rota (pedágios, balsas, estradas não pavimentadas, escadas etc.) agora são exibidos para todas as rotas alternativas
+• Corrigido um raro travamento durante a criação de uma rota e melhorado o tratamento de becos sem saída e pontos de início/fim em uma via restrita
+• Aprimorada a exibição do progresso da rota no botão “Iniciar”
+• A reordenação das paradas da rota não faz mais com que a lista salte de um lugar para outro
 
 ## Traduções
-
-- Orientação por voz passo a passo em cantonês
-- Atualização das traduções em alemão e francês
-- Corrigidas traduções incorretas da orientação de voz "onto street" para chinês, sérvio e catalão
+• Aprimorada a redação em chinês
+• Atualizadas as traduções em ucraniano
+• Corrigidas as traduções das regiões do mapa em italiano

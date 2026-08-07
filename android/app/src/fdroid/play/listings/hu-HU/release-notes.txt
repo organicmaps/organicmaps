@@ -1,8 +1,7 @@
-ÚJ FUNKCIÓK:
-• Frissített keresési és útvonaltervezési felhasználói felület
-• Tömegközlekedési útvonaltervezés (busz, villamos, metró, könnyűvasút)
-• Alternatív leggyorsabb és legrövidebb útvonalak
-• Útvonalra vonatkozó figyelmeztetések lépcsőkről, kapukról és emelőkapukról
-• Bármilyen szín kiválasztható a könyvjelzőkhöz
-• Támogatás az UK OS Grid, Irish Grid és ITM koordinátákhoz
+• OSM-adatok július 14-i állapot szerint
+• A tömegközlekedési megállók, átszállási pontok és állomások nevei mostantól fehér kontúrral jelennek meg
+• Javított nyitvatartási idők megjelenítése
+• Helyesbítettük a hibás vagy hiányzó útvonalterveket
+• A szerkesztett könyvjelzők és útvonalak mostantól automatikusan mentődnek
+• Az útvonal-figyelmeztetések (útdíjak, kompok, földutak, lépcsők stb.) mostantól minden alternatív útvonal esetében megjelennek
 …további információk az omaps.org/hu/news oldalon

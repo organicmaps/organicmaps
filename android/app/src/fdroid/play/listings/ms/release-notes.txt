@@ -1,9 +1,8 @@
-CIRI BARU:
-• Antaramuka pengguna carian dan penjejakan yang dikemas kini
-• Laluan pengangkutan awam (bas, trem, kereta api bawah tanah, kereta api ringan)
-• Laluan alternatif terpantas dan terpendek
-• Amaran laluan tentang tangga, pintu gerbang, dan pintu angkat
-• Pilih mana-mana warna untuk penanda buku
-• Sokongan untuk koordinat UK OS Grid, Irish Grid, ITM
-• Aktifkan Imej Satelit dalam tetapan Organic Maps dengan URL pelayan jubin raster tersuai
-…lebih lanjut di omaps.org/news
+• Data OSM setakat 14 Julai
+• Nama hentian pengangkutan awam, pertukaran dan stesen kini mempunyai garis luar putih
+• Peningkatan paparan waktu operasi
+• Arah yang salah atau hilang telah diperbaiki
+• Penanda buku dan jejak yang disunting kini disimpan secara automatik
+• Amaran laluan (cukai jalan, feri, jalan tidak berturap, tangga, dan lain-lain) kini dipaparkan untuk semua laluan alternatif
+• Nota OSM kini dibuat di lokasi tepat yang anda pilih
+…lebih banyak di omaps.org/news

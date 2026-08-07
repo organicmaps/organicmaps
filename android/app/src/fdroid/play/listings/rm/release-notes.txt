@@ -1,9 +1,8 @@
-NOVAS FUNCZIUNS:
-• Interfatscha da tschertga e da navigaziun actualisada
-• Navigaziun cun traffic public (bus, tram, metro, tren lev)
-• Rutas alternativas las pli spertas e las pli curtas
-• Avis per rutas davart stgalims, portas e barrieras
-• Tscherna mintga colur per segnapaginas
-• Sustegn per coordinatas UK OS Grid, Irish Grid ed ITM
-• Activar maletgs da satellit en ils parameters dad Organic Maps cun URL persunalisà d'in server da tiles raster
+• Datas da la carta OSM dals 14 da fanadur
+• Ils nums da fermadas, da midada e da staziuns dal traffic public han ussa in ur alv
+• Meglra preschentaziun dals uraris d'avertura
+• Corregì novitads incorrectas u mancantas
+• Segnapaginas e percurs modifitgads vegnan ussa memorisads automaticamain
+• Avis da ruta (pedagis, ferrys, vias nunpavimentadas, stgalas e.u.v.) vegnan mussads per tuttas rutas alternativas
+• novitads OSM vegnan creadas exact là nua che Vus tschernis
 …dapli sin omaps.org/news

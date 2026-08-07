@@ -1,41 +1,28 @@
-- NOWOŚĆ! Planowanie tras transportu publicznego z wykorzystaniem metra, kolei miejskiej, autobusów i tramwajów
-- NOWOŚĆ! Trasy alternatywne: oprócz najszybszej trasy aplikacja wyświetla teraz również trasę najkrótszą
-- NOWOŚĆ! Ostrzeżenia dotyczące tras pieszych i rowerowych dotyczące stopni, bram oraz podnoszonych bram na trasie
-- NOWOŚĆ! Proszę dotknąć, aby wybrać między nakładającymi się trasami a trasami nawigacyjnymi
-- NOWOŚĆ! Możliwość wyboru dowolnego koloru dla zakładek
-- NOWOŚĆ! Obsługa współrzędnych British National Grid (OS Grid), Irish Grid oraz Irish Transverse Mercator (ITM)
-- NOWOŚĆ! Obsługa funkcji ułatwień dostępu dla Dynamic Type oraz dużych czcionek
-- EKSPERYMENTALNE: Włącz zdjęcia satelitarne w ustawieniach Organic Maps, podając niestandardowy adres URL serwera kafelków rastrowych
-- Uporządkowany styl tabel w interfejsie użytkownika
-- Wpisz `?map-download-server:https://your-server.com/` w oknie wyszukiwania, aby zastąpić serwery pobierania map Organic Maps. Wpisz `?no-map-download-server`, aby usunąć to zastąpienie.
-- Różne poprawki błędów i ulepszenia wydajności
+• Nowe ustawienie „Zapisz historię wyszukiwania” pomaga w razie potrzeby zachować prywatność historii wyszukiwania
 
-## Dane mapowe
+## Mapy i miejsca
+• Dane OpenStreetMap na dzień 14 lipca
+• Notatki OpenStreetMap są teraz umieszczane dokładnie w wybranej lokalizacji, a nie na środku lasu
+• Ulepszony wybór map dla regionów przekraczających antymerydian 180°
+• Profile wysokości tras nie wyświetlają już nieaktualnych lub pustych wykresów po usunięciu trasy
+• Ulepszono pusty wykres wysokości dla zarejestrowanych tras
+• Przycisk usuwania zakładek jest łatwiejszy do znalezienia
+• Automatyczne zapisywanie zakładek po opuszczeniu ekranu edycji
+• Paleta kolorów zawiera gotowe kolory i umożliwia wybór dowolnego koloru niestandardowego
+• Inne ulepszenia interfejsu użytkownika
 
-- Dane OpenStreetMap zaktualizowane na dzień 24 czerwca
-- Dane Wikipedia zaktualizowane na dzień 20 czerwca, w tym artykuły w języku włoskim
+## Transport publiczny
+• Nazwy przystanków, przesiadek i stacji mają teraz białą obwódkę, dzięki czemu są czytelne zarówno w jasnym, jak i ciemnym motywie
+• Warstwa metra ponownie wyświetla się poprawnie po zamknięciu podglądu trasy transportu publicznego
 
-## Renderowanie map i style
-
-- Bardziej estetyczne wzory dla obszarów plaż, piasku, piargów, nagiej skały, sadów i winnic, a także cieniowanie obszarów chronionych i terenów podmokłych
-- Bardziej płynne, zakrzywione etykiety tekstowe dla dróg i rzek
-- Rzeki, strumienie i tereny podmokłe mają większy kontrast i są lepiej widoczne w trybie ciemnym
-- Nowe i ulepszone ikony do wyszukiwania według kategorii oraz wyników wyszukiwania na mapie
-- Ulepszone formatowanie i renderowanie tekstu wielojęzycznego
-
-## Trasy, zakładki i trasy
-
-- Ulepszone renderowanie opisów zakładek i tras za pomocą znacznika HTML
-- Ścieżki w aplikacji GeoJSON zachowują teraz dane dotyczące wysokości i znaczniki czasu podczas importu i eksportu
-- Naprawiono awarię występującą po przeniesieniu trasy do innej listy
-- Teraz wyświetlane są strony internetowe dotyczące zabytków
-- Nazwy operatorów są teraz wyświetlane w przypadku wyników wyszukiwania bez nazwy. Na przykład nienazwany ATM wyświetla teraz nazwę swojego banku
-- Redaktor: poprawiono tekst opisu dotyczący budynków mieszkalnych OpenStreetMap – zmiany/zestawy zmian
-- Ulepszone wykrywanie HTML w opisach zakładek i tras
-- Zduplikowane trasy są teraz odfiltrowywane
+## Wyznaczanie tras i nawigacja
+• Naprawiono problemy związane z błędnymi i brakującymi wskazówkami
+• Ostrzeżenia dotyczące trasy (opłaty drogowe, promy, drogi nieutwardzone, schody itp.) są teraz wyświetlane dla wszystkich tras alternatywnych
+• Naprawiono rzadkie zawieszanie się aplikacji podczas wyznaczania trasy oraz poprawiono obsługę ślepych uliczek oraz punktów początkowych i końcowych na drogach z ograniczeniami
+• Ulepszono wyświetlanie postępu trasy przy przycisku startu
+• Zmiana kolejności przystanków na trasie nie powoduje już przeskakiwania listy
 
 ## Tłumaczenia
-
-- Głosowe wskazówki krok po kroku w języku kantońskim
-- Zaktualizowano tłumaczenia na język niemiecki i francuski
-- Naprawiono nieprawidłowe tłumaczenia wskazówek głosowych "onto street" w językach chińskim, serbskim i katalońskim
+• Ulepszono sformułowania w języku chińskim
+• Zaktualizowano tłumaczenia na język ukraiński
+• Naprawiono tłumaczenia nazw regionów na mapie w języku włoskim

@@ -1,9 +1,7 @@
-UUDET OMINAISUUDET:
-• Päivitetty haku- ja reitityskäyttöliittymä
-• Julkisen liikenteen reittihaku (bussi, raitiovaunu, metro, pikaraitiotie)
-• Vaihtoehtoiset nopeimmat ja lyhimmät reitit
-• Reittivaroitukset portaista, porteista ja nostoporteista
-• Valitse kirjanmerkkeihin mikä tahansa väri
-• Tuki koordinaateille UK OS Grid, Irish Grid ja ITM
-• Ota satelliittikuvat käyttöön Organic Maps-asetuksissa määrittämällä mukautetun rasterikuvapalvelimen URL-osoite
+• OSM-tiedot päivätty 14. heinäkuuta
+• Julkisen liikenteen pysäkkien, vaihtopisteiden ja asemien nimissä on nyt valkoinen ääriviiva
+• Aukioloaikojen näyttöä on parannettu
+• Virheelliset tai puuttuvat reittiohjeet on korjattu
+• Muokatut kirjanmerkit ja reitit tallentuvat nyt automaattisesti
+• Reittivaroitukset (tiemaksut, lautat, päällystämättömät tiet, portaat jne.) näkyvät nyt kaikilla vaihtoehtoisilla reiteillä
 …lisää osoitteessa omaps.org/news

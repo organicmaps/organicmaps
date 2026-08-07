@@ -1,7 +1,6 @@
-NOUVELLES FONCTIONNALITÉS :
-• Mise à jour de l'interface utilisateur pour la recherche et le calcul d'itinéraires
-• Itinéraires en transports en commun (bus, tramway, métro, tramway léger)
-• Itinéraires alternatifs les plus rapides et les plus courts
-• Avertissements sur l'itinéraire concernant les marches, les barrières et les barrières levantes
-• Choisissez la couleur de votre choix pour les signets
-…plus d'informations sur omaps.org/fr/news
+• Données OSM à jour au 14 juillet
+• Les noms des arrêts de transports en commun, des correspondances et des stations sont désormais entourés d’un contour blanc
+• Amélioration de l’affichage des horaires d’ouverture
+• Correction des itinéraires incorrects ou manquants
+• Les favoris et les tracés modifiés sont désormais enregistrés automatiquement
+… plus d’informations sur omaps.org/fr/news
