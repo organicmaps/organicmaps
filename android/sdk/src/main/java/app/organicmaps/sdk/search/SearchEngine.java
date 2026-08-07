@@ -124,8 +124,17 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   public boolean searchInteractive(@NonNull String query, boolean isCategory, @NonNull String locale, long timestamp,
                                    boolean isMapAndTable, boolean hasLocation, double lat, double lon)
   {
+    return searchInteractive(query, isCategory, locale, timestamp, isMapAndTable, hasLocation, lat, lon, false);
+  }
+
+  @MainThread
+  public boolean searchInteractive(@NonNull String query, boolean isCategory, @NonNull String locale, long timestamp,
+                                   boolean isMapAndTable, boolean hasLocation, double lat, double lon,
+                                   boolean allowNearbyHouseNumbers)
+  {
     final boolean started = nativeRunInteractiveSearch(query.getBytes(StandardCharsets.UTF_8), isCategory, locale,
-                                                       timestamp, isMapAndTable, hasLocation, lat, lon);
+                                                       timestamp, isMapAndTable, hasLocation, lat, lon,
+                                                       allowNearbyHouseNumbers);
     // Cache the search-bar query only for map+table searches. Viewport-only searches (e.g. the
     // navigation search wheel) don't deliver list results, so caching their query would pair it
     // with the previous search's cached results when the search fragment is recreated.
@@ -247,7 +256,7 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
    */
   private static native boolean nativeRunInteractiveSearch(byte[] bytes, boolean isCategory, String language,
                                                            long timestamp, boolean isMapAndTable, boolean hasLocation,
-                                                           double lat, double lon);
+                                                           double lat, double lon, boolean allowNearbyHouseNumbers);
 
   /**
    * @param bytes utf-8 formatted query bytes

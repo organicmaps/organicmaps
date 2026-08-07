@@ -4,7 +4,9 @@
 #include "search/token_range.hpp"
 
 #include <map>
+#include <optional>
 #include <sstream>
+#include <string_view>
 
 namespace search
 {
@@ -67,6 +69,34 @@ std::map<std::string, std::vector<std::string>> const kSynonyms = {
     {"нов", {"новая", "новый"}},
     {"стар", {"старая", "старый"}},
 };
+
+std::string GetEnglishOrdinalSuffix(std::string_view number)
+{
+  ASSERT(!number.empty(), ());
+  if (number.ends_with("11") || number.ends_with("12") || number.ends_with("13"))
+    return "th";
+
+  switch (number.back())
+  {
+  case '1': return "st";
+  case '2': return "nd";
+  case '3': return "rd";
+  default: return "th";
+  }
+}
+
+std::optional<std::string> GetNumberedStreetSynonym(std::string const & token)
+{
+  if (strings::IsASCIINumeric(token))
+    return token + GetEnglishOrdinalSuffix(token);
+
+  if (token.size() <= 2)
+    return {};
+  auto const number = std::string_view(token).substr(0, token.size() - 2);
+  if (!strings::IsASCIINumeric(number) || token.substr(token.size() - 2) != GetEnglishOrdinalSuffix(number))
+    return {};
+  return std::string(number);
+}
 }  // namespace
 
 // QueryParams::Token ------------------------------------------------------------------------------
@@ -212,21 +242,30 @@ void QueryParams::RemoveToken(size_t i)
 
 void QueryParams::AddSynonyms()
 {
-  for (auto & token : m_tokens)
+  auto const addCommonSynonyms = [](Token & token)
   {
     std::string const ss = ToUtf8(MakeLowerCase(token.GetOriginal()));
     auto const it = kSynonyms.find(ss);
     if (it != kSynonyms.end())
       for (auto const & synonym : it->second)
         token.AddSynonym(synonym);
-  }
+  };
+
+  for (auto & token : m_tokens)
+    addCommonSynonyms(token);
   if (m_hasPrefix)
+    addCommonSynonyms(m_prefixToken);
+
+  for (size_t i = 0; i + 1 < GetNumTokens(); ++i)
   {
-    std::string const ss = ToUtf8(MakeLowerCase(m_prefixToken.GetOriginal()));
-    auto const it = kSynonyms.find(ss);
-    if (it != kSynonyms.end())
-      for (auto const & synonym : it->second)
-        m_prefixToken.AddSynonym(synonym);
+    auto const & next = GetToken(i + 1);
+    if (!next.AnyOfOriginalOrSynonyms([](String const & s) { return IsStreetSynonym(s); }))
+      continue;
+
+    auto & token = GetToken(i);
+    auto const synonym = GetNumberedStreetSynonym(ToUtf8(MakeLowerCase(token.GetOriginal())));
+    if (synonym)
+      token.AddSynonym(*synonym);
   }
 }
 

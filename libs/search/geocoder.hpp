@@ -84,6 +84,7 @@ public:
     int m_scale = scales::GetUpperScale();
 
     bool m_useDebugInfo = false;  // Set to true for debug logs and tests.
+    bool m_allowNearbyHouseNumbers = false;
   };
 
   struct LocalitiesCaches
