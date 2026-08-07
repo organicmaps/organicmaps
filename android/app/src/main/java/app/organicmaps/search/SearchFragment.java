@@ -29,6 +29,7 @@ import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.downloader.CountrySuggestFragment;
 import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.routing.RoutingController;
@@ -63,6 +64,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   private int mExpandedOffset = 0;
   private View mTabFrame;
   private View mAppBar;
+  private TextView mYourLocation;
   private TextView mChooseOnMap;
   private PlaceholderView mResultsPlaceholder;
   private SearchShimmerView mShimmerView;
@@ -122,6 +124,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
           mToolbarController.clear();
         // cancel() → cancelAllSearches() already resets the engine's stored query.
         SearchEngine.INSTANCE.cancel();
+        RoutingController.get().cancelPoiPick();
         return;
       }
 
@@ -141,7 +144,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
           setQuery(query, request.isCategory);
       }
 
-      updateChooseOnMapVisibility();
+      updatePickerRows();
     }
   };
   private final Observer<Integer> mBottomSheetStateObserver = new Observer<>() {
@@ -208,7 +211,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     UiUtils.showIf(hasQuery, mResultsFrame);
     UiUtils.showIf(!hasQuery, mTabFrame);
     UiUtils.showIf(!hasQuery, mPager);
-    updateChooseOnMapVisibility();
+    updatePickerRows();
     if (hasQuery)
       hideDownloadSuggest();
     else if (doShowDownloadSuggest())
@@ -219,9 +222,25 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     updatePeekHeight();
   }
 
-  private void updateChooseOnMapVisibility()
+  private void updatePickerRows()
   {
-    UiUtils.showIf(!mToolbarController.hasQuery() && RoutingController.get().isWaitingPoiPick(), mChooseOnMap);
+    final RoutingController controller = RoutingController.get();
+    final boolean picking = !mToolbarController.hasQuery() && controller.isWaitingPoiPick();
+    UiUtils.showIf(picking, mChooseOnMap);
+    UiUtils.showIf(picking && MwmApplication.from(requireContext()).getLocationHelper().getMyPosition() != null
+                       && !controller.hasMyPositionRoutePoint(),
+                   mYourLocation);
+  }
+
+  private void onYourLocationClicked()
+  {
+    final MapObject myPosition = MwmApplication.from(requireContext()).getLocationHelper().getMyPosition();
+    if (myPosition == null)
+      return;
+
+    // Commit first: closing the sheet cancels the pending pick, which would make this a no-op.
+    RoutingController.get().onPoiSelected(myPosition);
+    mSearchFragmentListener.closeSearch();
   }
 
   private void updatePeekHeight()
@@ -285,6 +304,9 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     mToolbarController = new ToolbarController(view);
     mTabLayout = root.findViewById(R.id.tabs);
     mTabFrame = root.findViewById(R.id.tab_frame);
+    mYourLocation = root.findViewById(R.id.your_location);
+    Graphics.tint(mYourLocation);
+    mYourLocation.setOnClickListener(v -> onYourLocationClicked());
     mChooseOnMap = root.findViewById(R.id.choose_on_map);
     Graphics.tint(mChooseOnMap);
     mChooseOnMap.setOnClickListener(v -> mSearchFragmentListener.onChooseOnMapClicked());

@@ -243,7 +243,7 @@
     <item name="android:drawablePadding">@dimen/margin_base_plus</item>
   </style>
 
-  <style name="MwmWidget.TextView.Search.ChooseOnMap">
+  <style name="MwmWidget.TextView.Search.PickerAction">
     <item name="android:layout_height">@dimen/height_block_base</item>
     <item name="android:drawablePadding">@dimen/margin_base</item>
   </style>
