@@ -145,7 +145,9 @@ private:
         continue;
       uint64_t const candidate = house_numbers::ToUInt(parse[0].m_value);
       uint64_t const difference = requested > candidate ? requested - candidate : candidate - requested;
-      if (difference <= 10 && difference % 2 == 0)
+      // Keep the range narrow enough to avoid unrelated address blocks while allowing two nearby
+      // same-parity addresses to support a conservative position estimate.
+      if (difference <= 24 && difference % 2 == 0)
         return true;
     }
     return false;

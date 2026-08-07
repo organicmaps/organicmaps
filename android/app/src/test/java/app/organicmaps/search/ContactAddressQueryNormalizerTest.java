@@ -1,6 +1,8 @@
 package app.organicmaps.search;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -37,5 +39,14 @@ public class ContactAddressQueryNormalizerTest
   {
     assertEquals("2377 West 5th Avenue", ContactAddressQueryNormalizer.normalizeStreet("2377 W 5th Ave #303"));
     assertEquals("2377 West 5th Avenue", ContactAddressQueryNormalizer.normalizeStreet("2377 W 5th Ave Apt 303"));
+  }
+
+  @Test
+  public void identifiesSimpleAddressQueries()
+  {
+    assertTrue(ContactAddressQueryNormalizer.looksLikeAddressQuery("6498 131a St, Surrey"));
+    assertTrue(ContactAddressQueryNormalizer.looksLikeAddressQuery("2377 W 5th Ave #303, Vancouver"));
+    assertFalse(ContactAddressQueryNormalizer.looksLikeAddressQuery("131a St, Surrey"));
+    assertFalse(ContactAddressQueryNormalizer.looksLikeAddressQuery("restaurants"));
   }
 }

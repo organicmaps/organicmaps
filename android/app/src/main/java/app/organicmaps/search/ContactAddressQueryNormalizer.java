@@ -45,6 +45,11 @@ final class ContactAddressQueryNormalizer
     return String.join(" ", tokens);
   }
 
+  static boolean looksLikeAddressQuery(@NonNull String value)
+  {
+    return normalizeStreet(value).matches("\\d+\\s+\\S.*");
+  }
+
   @NonNull
   private static String firstAddressLine(@NonNull String value)
   {
