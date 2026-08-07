@@ -221,7 +221,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
   private void updateChooseOnMapVisibility()
   {
-    UiUtils.showIf(!mToolbarController.hasQuery() && RoutingController.get().isPlanning(), mChooseOnMap);
+    UiUtils.showIf(!mToolbarController.hasQuery() && RoutingController.get().isWaitingPoiPick(), mChooseOnMap);
   }
 
   private void updatePeekHeight()
