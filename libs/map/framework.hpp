@@ -15,6 +15,7 @@
 #include "map/search_api.hpp"
 #include "map/search_mark.hpp"
 #include "map/selection_processor.hpp"
+#include "map/share.hpp"
 #include "map/track.hpp"
 #include "map/track_statistics.hpp"
 #include "map/traffic_manager.hpp"
@@ -649,6 +650,14 @@ private:
 public:
   search::ReverseGeocoder::Address GetAddressAtPoint(m2::PointD const & pt) const;
 
+  /// Builds the text shared for a place page object (a place, a bookmark or an unknown map point).
+  /// The address is reverse-geocoded when the place page has none.
+  share::Result GetShareData(place_page::Info const & info) const;
+  /// Builds the text shared for the current user position at |ll| (reverse-geocodes the address).
+  share::Result GetShareDataForMyPosition(ms::LatLon const & ll) const;
+  /// Builds the text shared for a bookmark by id (used when sharing straight from the bookmarks list).
+  share::Result GetShareDataForBookmark(kml::MarkId id) const;
+
   /// Delegates to SelectionProcessor::GetFeatureAtPoint.
   FeatureID GetFeatureAtPoint(m2::PointD const & mercator) const;
 
@@ -676,9 +685,6 @@ public:
                               double elapsedSeconds);
 
 public:
-  static std::string CodeGe0url(Bookmark const * bmk, bool addName);
-  static std::string CodeGe0url(double lat, double lon, double zoomLevel, std::string const & name);
-
   /// @name Api
   std::string GenerateApiBackUrl(ApiMarkPoint const & point) const;
   url_scheme::ParsedMapApi const & GetApiDataHolder() const { return m_parsedMapApi; }

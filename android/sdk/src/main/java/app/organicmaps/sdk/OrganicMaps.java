@@ -227,8 +227,12 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     nativeAddLocalization("core_my_places", mContext.getString(R.string.core_my_places));
     nativeAddLocalization("core_my_position", mContext.getString(R.string.core_my_position));
     nativeAddLocalization("core_placepage_unknown_place", mContext.getString(R.string.core_placepage_unknown_place));
+    nativeAddLocalization("open_in_app", mContext.getString(R.string.open_in_app));
     nativeAddLocalization("postal_code", mContext.getString(R.string.postal_code));
     nativeAddLocalization("wifi", mContext.getString(R.string.category_wifi));
+    nativeAddLocalization("share_my_position", mContext.getString(R.string.share_my_position));
+    nativeAddLocalization("share_open_in_om_or_browser", mContext.getString(R.string.share_open_in_om_or_browser));
+    nativeAddLocalization("share_get_om", mContext.getString(R.string.share_get_om));
   }
 
   private static native void nativeSetSettingsDir(String settingsPath);

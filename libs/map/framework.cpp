@@ -8,8 +8,6 @@
 #include "map/track_mark.hpp"
 #include "map/user_mark.hpp"
 
-#include "ge0/url_generator.hpp"
-
 #include "routing/route.hpp"
 #include "routing/speed_camera_prohibition.hpp"
 
@@ -357,7 +355,12 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   m_stringsBundle.SetDefaultString("core_placepage_unknown_place", "Map Point");
   m_stringsBundle.SetDefaultString("core_my_places", "My Places");
   m_stringsBundle.SetDefaultString("core_my_position", "My Position");
+  m_stringsBundle.SetDefaultString("open_in_app", "Open in Another App");
   m_stringsBundle.SetDefaultString("postal_code", "Postal Code");
+  // Placeholder-free labels used by GetShareData; platforms override with localized values.
+  m_stringsBundle.SetDefaultString("share_my_position", "I am here on Organic Maps");
+  m_stringsBundle.SetDefaultString("share_open_in_om_or_browser", "Open in Organic Maps or in a browser");
+  m_stringsBundle.SetDefaultString("share_get_om", "Get Organic Maps");
 
   m_featuresFetcher.InitClassificator();
   m_featuresFetcher.SetOnMapDeregisteredCallback(std::bind(&Framework::OnMapDeregistered, this, _1));
@@ -728,6 +731,78 @@ search::ReverseGeocoder::Address Framework::GetAddressAtPoint(m2::PointD const &
   search::ReverseGeocoder::Address addr;
   coder.GetNearbyAddress(pt, 0.5 /* maxDistanceM */, addr, true /* placeAsStreet */);
   return addr;
+}
+
+namespace
+{
+share::Strings GetShareStrings(StringsBundle const & bundle)
+{
+  return {bundle.GetString("share_my_position"), bundle.GetString("share_open_in_om_or_browser"),
+          bundle.GetString("open_in_app"), bundle.GetString("share_get_om")};
+}
+}  // namespace
+
+share::Result Framework::GetShareData(place_page::Info const & info) const
+{
+  share::Place place;
+  place.m_isMyPosition = info.IsMyPosition();
+  place.m_ll = info.GetLatLon();
+
+  // Share the sender's viewport zoom, or the bookmark's stored zoom when sharing a bookmark.
+  place.m_zoom = GetDrawScale();
+  if (info.IsBookmark())
+  {
+    if (auto const scale = info.GetBookmarkData().m_viewportScale; scale != 0)
+      place.m_zoom = scale;
+  }
+
+  if (!place.m_isMyPosition)
+  {
+    std::string name = info.GetTitle();
+    // Placeholder titles ("Map Point", "My Position") carry no useful information.
+    if (name == m_stringsBundle.GetString("core_placepage_unknown_place") ||
+        name == m_stringsBundle.GetString("core_my_position"))
+      name.clear();
+    place.m_name = std::move(name);
+    place.m_typeLabel = info.GetSubtitle();
+  }
+
+  place.m_address = info.GetAddress();
+  if (place.m_address.empty())
+    place.m_address = GetAddressAtPoint(info.GetMercator()).FormatAddress();
+
+  for (auto const type : share::SharedMetadataFields())
+  {
+    auto const value = info.GetMetadata(type);
+    if (value.empty())
+      continue;
+    // Same readable form as ForEachMetadataReadable(): a wiki page id becomes a URL.
+    place.m_fields.emplace_back(type, type == feature::Metadata::FMD_WIKIPEDIA
+                                          ? feature::Metadata::ToWikiURL(std::string(value))
+                                          : std::string(value));
+  }
+
+  return share::Build(place, GetShareStrings(m_stringsBundle));
+}
+
+share::Result Framework::GetShareDataForMyPosition(ms::LatLon const & ll) const
+{
+  share::Place place;
+  place.m_isMyPosition = true;
+  place.m_ll = ll;
+  place.m_zoom = GetDrawScale();
+  place.m_address = GetAddressAtPoint(mercator::FromLatLon(ll)).FormatAddress();
+  return share::Build(place, GetShareStrings(m_stringsBundle));
+}
+
+share::Result Framework::GetShareDataForBookmark(kml::MarkId id) const
+{
+  auto const * bmk = m_bmManager->GetBookmark(id);
+  CHECK(bmk, ("Invalid bookmark id", id));
+
+  place_page::Info info;
+  FillBookmarkInfo(*bmk, info);
+  return GetShareData(info);
 }
 
 std::vector<Track::TrackSelectionInfo> Framework::FindRelationTracksInTapPosition(
@@ -2635,20 +2710,6 @@ void Framework::PredictLocation(double & lat, double & lon, double accuracy, dou
 StringsBundle const & Framework::GetStringsBundle()
 {
   return m_stringsBundle;
-}
-
-// static
-std::string Framework::CodeGe0url(Bookmark const * bmk, bool addName)
-{
-  double lat = mercator::YToLat(bmk->GetPivot().y);
-  double lon = mercator::XToLon(bmk->GetPivot().x);
-  return ge0::GenerateShortShowMapUrl(lat, lon, bmk->GetScale(), addName ? bmk->GetPreferredName() : "");
-}
-
-// static
-std::string Framework::CodeGe0url(double lat, double lon, double zoomLevel, std::string const & name)
-{
-  return ge0::GenerateShortShowMapUrl(lat, lon, zoomLevel, name);
 }
 
 std::string Framework::GenerateApiBackUrl(ApiMarkPoint const & point) const
