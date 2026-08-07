@@ -42,7 +42,7 @@
     _parentViewController = viewController;
     [TrackRecordingManager.shared addObserver:self
             recordingIsActiveDidChangeHandler:^(TrackRecordingState state, TrackInfo * _Nonnull,
-                                                ElevationProfileData * _Nonnull (^_Nullable)()) {
+                                                ElevationProfileData * _Nullable (^)()) {
               __strong __typeof(weakSelf) self = weakSelf;
               if (!self)
                 return;

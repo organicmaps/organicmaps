@@ -16,7 +16,7 @@ enum StopTrackRecordingResult {
 protocol TrackRecordingObservable: AnyObject {
   var recordingState: TrackRecordingState { get }
   var trackRecordingInfo: TrackInfo { get }
-  var trackRecordingElevationProfileData: ElevationProfileData { get }
+  var trackRecordingElevationProfileData: ElevationProfileData? { get }
 
   func addObserver(_ observer: AnyObject, recordingIsActiveDidChangeHandler: @escaping TrackRecordingStateHandler)
   func removeObserver(_ observer: AnyObject)
@@ -24,14 +24,14 @@ protocol TrackRecordingObservable: AnyObject {
 }
 
 /// A handler type for extracting elevation profile data on demand.
-typealias ElevationProfileDataExtractionHandler = () -> ElevationProfileData
+typealias ElevationProfileDataExtractionHandler = () -> ElevationProfileData?
 
 /// A callback type that notifies observers about track recording state changes.
 /// - Parameters:
 ///   - state: The current recording state.
 ///   - info: The current track recording info.
 ///   - elevationProfileExtractor: A closure to fetch elevation profile data lazily.
-typealias TrackRecordingStateHandler = (TrackRecordingState, TrackInfo, ElevationProfileDataExtractionHandler?) -> Void
+typealias TrackRecordingStateHandler = (TrackRecordingState, TrackInfo, ElevationProfileDataExtractionHandler) -> Void
 
 @objcMembers
 final class TrackRecordingManager: NSObject {
@@ -60,8 +60,8 @@ final class TrackRecordingManager: NSObject {
   private var observations: [Observation] = []
   private(set) var trackRecordingInfo: TrackInfo = .empty()
 
-  var trackRecordingElevationProfileData: ElevationProfileData {
-    FrameworkHelper.trackRecordingElevationInfo()
+  var trackRecordingElevationProfileData: ElevationProfileData? {
+    trackRecorder.trackRecordingElevationInfo()
   }
 
   var recordingState: TrackRecordingState {
