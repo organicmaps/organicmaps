@@ -251,6 +251,30 @@ UNIT_TEST(RankingInfo_PrefixVsFull)
   }
 }
 
+UNIT_TEST(RankingInfo_NearbyPoiMatch)
+{
+  RankingInfo exactMatch;
+  exactMatch.m_distanceToPivot = 1000;
+  exactMatch.m_type = Model::TYPE_UNCLASSIFIED;
+  exactMatch.m_nameScore = NameScore::FULL_MATCH;
+  exactMatch.m_errorsMade = ErrorsMade(0);
+  exactMatch.m_numTokens = 2;
+  exactMatch.m_matchedFraction = 1;
+  exactMatch.m_allTokensUsed = true;
+
+  auto nearbyPoiMatch = exactMatch;
+  nearbyPoiMatch.m_type = Model::TYPE_SUBPOI;
+  nearbyPoiMatch.m_classifType.poi = PoiType::Eat;
+  nearbyPoiMatch.m_tokenRanges[Model::TYPE_SUBPOI] = TokenRange(0, 1);
+  nearbyPoiMatch.m_tokenRanges[Model::TYPE_CITY] = TokenRange(1, 2);
+  nearbyPoiMatch.m_nearbyMatch = true;
+
+  // A result assembled from a POI and a nearby street, suburb, or locality should not displace
+  // a feature whose own name is a full match for the query.
+  TEST_LESS(nearbyPoiMatch.GetLinearModelRank(), exactMatch.GetLinearModelRank(),
+            (nearbyPoiMatch, exactMatch));
+}
+
 namespace
 {
 class MwmIdWrapper
