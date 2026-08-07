@@ -30,9 +30,7 @@ typedef void (^TrackRecordingUpdatedHandler)(TrackInfo * _Nonnull trackInfo);
 + (void)saveTrackRecordingWithName:(nonnull NSString *)name;
 + (BOOL)isTrackRecordingEnabled;
 + (BOOL)isTrackRecordingEmpty;
-/// Returns current track recording elevation info.
-/// If the track recording is not in progress, returns empty ElevationProfileData.
-+ (ElevationProfileData * _Nonnull)trackRecordingElevationInfo;
++ (ElevationProfileData * _Nullable)trackRecordingElevationInfo;
 
 @end
 
