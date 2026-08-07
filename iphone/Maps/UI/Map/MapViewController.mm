@@ -551,7 +551,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
   [super viewDidAppear:animated];
   // Cold start deep links should be handled when the map is initialized.
   // Otherwise PP container view is nil, or there is no animation/selection of the point.
-  if (DeepLinkHandler.shared.isLaunchedByDeeplink)
+  if (DeepLinkHandler.shared.hasPendingColdLaunchDeepLink)
     (void)[DeepLinkHandler.shared handleDeepLinkAndReset];
 }
 

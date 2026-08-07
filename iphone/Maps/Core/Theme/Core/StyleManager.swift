@@ -27,10 +27,10 @@
     }
 
     let appDelegate = UIApplication.shared.delegate as! MapsAppDelegate
-    if let vc = appDelegate.window.rootViewController?.presentedViewController {
+    if let vc = appDelegate.connectedWindow?.rootViewController?.presentedViewController {
       vc.applyTheme()
       updateView(vc.view)
-    } else if let vcs = appDelegate.window.rootViewController?.children {
+    } else if let vcs = appDelegate.connectedWindow?.rootViewController?.children {
       for vc in vcs {
         vc.applyTheme()
       }
