@@ -321,8 +321,8 @@ public:
     if (purpose == Purpose::Weight && GetStrategy() == Strategy::Shortest)
       return road.GetDistance(segment.GetSegmentIdx()) / GetMaxWeightSpeedMpS();
 
-    return CalcClimbSegment(purpose, segment, road,
-                            [purpose, this](double speedMpS, double tangent, geometry::Altitude altitude)
+    double const weight = CalcClimbSegment(purpose, segment, road,
+                                           [purpose, this](double speedMpS, double tangent, geometry::Altitude altitude)
     {
       auto const factor = GetBicycleClimbPenalty(purpose, tangent, altitude);
       ASSERT_GREATER(factor, 0.0, ());
@@ -351,6 +351,7 @@ public:
 
       return std::min(speedMpS, GetMaxWeightSpeedMpS());
     });
+    return ApplyRouteSegmentPenalty(segment, purpose, weight);
   }
 };
 
@@ -433,6 +434,33 @@ double CarEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry con
 }
 
 // EdgeEstimator -----------------------------------------------------------------------------------
+void EdgeEstimator::SetRouteSegmentsPenalty(std::vector<Segment> const & segments, double factor)
+{
+  CHECK_GREATER_OR_EQUAL(factor, 1.0, (factor));
+
+  m_penalizedSegments.clear();
+  m_penalizedSegments.reserve(segments.size() * 2);
+  for (auto const & segment : segments)
+  {
+    m_penalizedSegments.insert(segment);
+    m_penalizedSegments.insert(segment.GetReversed());
+  }
+  m_routeSegmentPenaltyFactor = factor;
+}
+
+void EdgeEstimator::ClearRouteSegmentsPenalty()
+{
+  m_penalizedSegments.clear();
+  m_routeSegmentPenaltyFactor = 1.0;
+}
+
+double EdgeEstimator::ApplyRouteSegmentPenalty(Segment const & segment, Purpose purpose, double weight) const
+{
+  if (purpose == Purpose::Weight && m_penalizedSegments.contains(segment))
+    return weight * m_routeSegmentPenaltyFactor;
+  return weight;
+}
+
 // static
 std::shared_ptr<EdgeEstimator> EdgeEstimator::Create(VehicleType vehicleType, double maxWeighSpeedKMpH,
                                                      SpeedKMpH const & offroadSpeedKMpH,
