@@ -753,8 +753,7 @@
     <string name="religious_places">Hellige steder</string>
     <string name="select_list">Velge liste</string>
     <string name="button_layer_isolines">Høyder</string>
-    <string name="isolines_activation_error_dialog">For å bruke høydekurver oppdater eller last opp kartet til nødvendig område</string>
-    <string name="isolines_location_error_dialog">Høydekurver er ikke tilgjengelige i dette området ennå</string>
+    <string name="isolines_location_error_dialog">Last ned terreng for dette området for å se høydekurver</string>
     <string name="elevation_profile_ascent">Stigning</string>
     <string name="elevation_profile_descent">Nedstigning</string>
     <string name="elevation_profile_min_elevation">Min. høyde</string>

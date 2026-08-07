@@ -923,8 +923,7 @@
 "dialog_pedestrian_route_is_long_header" = "No se ha encontrado ninguna ruta de metro";
 "dialog_pedestrian_route_is_long_message" = "Por favor, elija un punto de inicio o final más cercano a una estación de metro";
 "button_layer_isolines" = "Líneas de contorno";
-"isolines_activation_error_dialog" = "Para usar la altitud de relieve, actualice o descargue el mapa del área deseada";
-"isolines_location_error_dialog" = "La altitud de relieve no está aún disponible en esta región";
+"isolines_location_error_dialog" = "Descargue el terreno de esta región para ver las curvas de nivel";
 "elevation_profile_ascent" = "Ascenso";
 "elevation_profile_descent" = "Descenso";
 "elevation_profile_min_elevation" = "Elevación mínima";

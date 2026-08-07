@@ -70,7 +70,8 @@ struct CountryItemBuilder
   jmethodID m_ctor;
   jfieldID m_Id, m_Name, m_DirectParentId, m_TopmostParentId, m_DirectParentName, m_TopmostParentName, m_Description,
       m_Size, m_EnqueuedSize, m_TotalSize, m_ChildCount, m_TotalChildCount, m_Present, m_Progress, m_DownloadedBytes,
-      m_BytesToDownload, m_Category, m_Status, m_ErrorCode;
+      m_BytesToDownload, m_Category, m_Status, m_ErrorCode, m_TerrainStatus, m_TerrainTotalSize,
+      m_TerrainDownloadedBytes;
 
   CountryItemBuilder(JNIEnv * env)
   {
@@ -96,6 +97,9 @@ struct CountryItemBuilder
     m_Category = env->GetFieldID(m_class, "category", "I");
     m_Status = env->GetFieldID(m_class, "status", "I");
     m_ErrorCode = env->GetFieldID(m_class, "errorCode", "I");
+    m_TerrainStatus = env->GetFieldID(m_class, "terrainStatus", "I");
+    m_TerrainTotalSize = env->GetFieldID(m_class, "terrainTotalSize", "J");
+    m_TerrainDownloadedBytes = env->GetFieldID(m_class, "terrainDownloadedBytes", "J");
   }
 
   DECLARE_BUILDER_INSTANCE(CountryItemBuilder);
@@ -177,7 +181,8 @@ static void UpdateItemShort(JNIEnv * env, jobject item, storage::NodeStatus cons
   env->SetIntField(item, ciBuilder.m_ErrorCode, static_cast<jint>(error));
 }
 
-static void UpdateItem(JNIEnv * env, jobject item, storage::NodeAttrs const & attrs)
+static void UpdateItem(JNIEnv * env, jobject item, storage::CountryId const & countryId,
+                       storage::NodeAttrs const & attrs)
 {
   auto const & ciBuilder = CountryItemBuilder::Instance(env);
   using SLR = jni::TScopedLocalRef;
@@ -239,6 +244,12 @@ static void UpdateItem(JNIEnv * env, jobject item, storage::NodeAttrs const & at
   }
 
   env->SetFloatField(item, ciBuilder.m_Progress, percentage);
+
+  // Terrain (.twm) aggregated state over the region bbox.
+  auto const terrainAttrs = GetStorage().GetTerrainAttrs(countryId);
+  env->SetIntField(item, ciBuilder.m_TerrainStatus, static_cast<jint>(terrainAttrs.m_status));
+  env->SetLongField(item, ciBuilder.m_TerrainTotalSize, static_cast<jlong>(terrainAttrs.m_totalSize));
+  env->SetLongField(item, ciBuilder.m_TerrainDownloadedBytes, static_cast<jlong>(terrainAttrs.m_downloadedSize));
   env->SetLongField(item, ciBuilder.m_DownloadedBytes, attrs.m_downloadingProgress.m_bytesDownloaded);
   env->SetLongField(item, ciBuilder.m_BytesToDownload, attrs.m_downloadingProgress.m_bytesTotal);
 }
@@ -262,7 +273,7 @@ static void PutItemsToList(
     SLR const item(env, ciBuilder.Create(env, SLR(env, jni::ToJavaString(env, child))));
     env->SetIntField(item.get(), ciBuilder.m_Category, category);
 
-    UpdateItem(env, item.get(), attrs);
+    UpdateItem(env, item.get(), child, attrs);
 
     // Put to resulting list
     env->CallBooleanMethod(list, listAddMethod, item.get());
@@ -298,12 +309,13 @@ JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeListItems(JN
 JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeGetAttributes(JNIEnv * env, jclass, jobject item)
 {
   auto const & ciBuilder = CountryItemBuilder::Instance(env);
-  jstring id = static_cast<jstring>(env->GetObjectField(item, ciBuilder.m_Id));
+  jni::TScopedLocalRef const id(env, env->GetObjectField(item, ciBuilder.m_Id));
+  auto const countryId = jni::ToNativeString(env, static_cast<jstring>(id.get()));
 
   storage::NodeAttrs attrs;
-  GetStorage().GetNodeAttrs(jni::ToNativeString(env, id), attrs);
+  GetStorage().GetNodeAttrs(countryId, attrs);
 
-  UpdateItem(env, item, attrs);
+  UpdateItem(env, item, countryId, attrs);
 }
 
 // static void nativeGetStatus(String root);
@@ -396,6 +408,27 @@ JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeDownload(JNI
   StartBatchingCallbacks();
   GetStorage().DownloadNode(jni::ToNativeString(env, root));
   EndBatchingCallbacks(env);
+}
+
+// static void nativeDownloadTerrain(String root);
+JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeDownloadTerrain(JNIEnv * env, jclass clazz,
+                                                                                    jstring root)
+{
+  GetStorage().DownloadTerrain(jni::ToNativeString(env, root));
+}
+
+// static void nativeCancelTerrain(String root);
+JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeCancelTerrain(JNIEnv * env, jclass clazz,
+                                                                                  jstring root)
+{
+  GetStorage().CancelTerrain(jni::ToNativeString(env, root));
+}
+
+// static void nativeDeleteTerrain(String root);
+JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeDeleteTerrain(JNIEnv * env, jclass clazz,
+                                                                                  jstring root)
+{
+  GetStorage().DeleteTerrain(jni::ToNativeString(env, root));
 }
 
 // static boolean nativeRetry(String root);

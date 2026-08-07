@@ -744,8 +744,7 @@
     <string name="religious_places">धार्मिक स्थल</string>
     <string name="select_list">सूची चुनें</string>
     <string name="button_layer_isolines">रूप रेखा लाइंस</string>
-    <string name="isolines_activation_error_dialog">कॉन्टूर लाइनों को सक्रिय करने के लिए इस क्षेत्र का नक्शा डेटा डाउनलोड करना आवश्यक है।</string>
-    <string name="isolines_location_error_dialog">इस क्षेत्र में समरेखीय रेखाएँ अभी उपलब्ध नहीं हैं</string>
+    <string name="isolines_location_error_dialog">समोच्च रेखाएँ देखने के लिए इस क्षेत्र का भूभाग डाउनलोड करें</string>
     <string name="elevation_profile_ascent">चढ़ाई</string>
     <string name="elevation_profile_descent">उतरान</string>
     <string name="elevation_profile_min_elevation">न्यूनतम ऊँचाई</string>

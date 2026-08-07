@@ -33,6 +33,20 @@ struct AreaVertex : BaseVertex
   static dp::BindingInfo const & GetBindingInfo();
 };
 
+struct TerrainShadeVertex : BaseVertex
+{
+  TerrainShadeVertex() = default;
+  TerrainShadeVertex(TPosition const & position, float intensity);
+
+  TPosition m_position;
+  // The Lambert intensity relative to the flat ground: negative - shadow. The shadow
+  // half spans [-2, 0] (see RuleDrawer::DrawTerrainShade), the shader clamps to -1, so
+  // the steepest shadows saturate; the highlight half spans [0, 1].
+  float m_intensity;
+
+  static dp::BindingInfo const & GetBindingInfo();
+};
+
 struct Area3dVertex : BaseVertex
 {
   Area3dVertex() = default;

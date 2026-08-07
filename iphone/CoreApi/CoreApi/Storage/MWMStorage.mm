@@ -77,6 +77,38 @@ using namespace storage;
   [self.observers removeObject:observer];
 }
 
+- (void)cancelTerrain:(NSString *)countryId
+{
+  GetFramework().GetStorage().CancelTerrain(countryId.UTF8String);
+}
+
+- (void)deleteTerrain:(NSString *)countryId
+{
+  GetFramework().GetStorage().DeleteTerrain(countryId.UTF8String);
+}
+
+- (BOOL)downloadTerrain:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error
+{
+  // The same gates as downloadNode: the space and connection checks here, the cellular
+  // policy and the shared queue inside DownloadTerrain.
+  auto const attrs = GetFramework().GetStorage().GetTerrainAttrs(countryId.UTF8String);
+  if (!storage::IsEnoughSpaceForDownload(attrs.m_totalSize - attrs.m_downloadedSize))
+  {
+    if (error)
+      *error = [NSError errorWithDomain:kStorageErrorDomain code:kStorageNotEnoughSpace userInfo:nil];
+    return NO;
+  }
+  NSError * connectionError;
+  if ([self checkConnection:&connectionError])
+  {
+    GetFramework().GetStorage().DownloadTerrain(countryId.UTF8String);
+    return YES;
+  }
+  if (error)
+    *error = connectionError;
+  return NO;
+}
+
 - (BOOL)downloadNode:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error
 {
   if (IsEnoughSpaceForDownload(countryId.UTF8String, GetFramework().GetStorage()))

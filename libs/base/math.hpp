@@ -45,6 +45,20 @@ int constexpr Sign(Number const number) noexcept
 {
   return number == 0 ? 0 : number > 0 ? 1 : -1;
 }
+
+// Rounding-towards-negative-infinity integer division for any dividend sign; the divisor
+// must be positive. Overflow-free: no a + b or -a intermediates.
+template <std::integral T>
+T constexpr FloorDiv(T a, T b)
+{
+  ASSERT_GREATER(b, 0, ());
+  T const q = a / b;
+  if constexpr (std::is_signed_v<T>)
+    return (a % b != 0 && a < 0) ? q - 1 : q;
+  else
+    return q;
+}
+
 }  // namespace math
 
 // Compare floats or doubles for almost equality.
