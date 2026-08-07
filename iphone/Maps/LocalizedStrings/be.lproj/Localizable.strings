@@ -996,6 +996,12 @@
 "bookmarks_export" = "Экспартаваць усе закладкі і маршруты";
 "drive_through" = "З акенцам для кіроўцаў";
 
+/* Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_in" = "Наблізіць";
+
+/* Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_out" = "Аддаліць";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Спасылка на меню";
 

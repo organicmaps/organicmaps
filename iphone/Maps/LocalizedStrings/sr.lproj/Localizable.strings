@@ -996,6 +996,12 @@
 "bookmarks_export" = "Експортуј све маркере и путање";
 "drive_through" = "Пролаз за возила";
 
+/* Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_in" = "Увећај";
+
+/* Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_out" = "Умањи";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Линк менија";
 

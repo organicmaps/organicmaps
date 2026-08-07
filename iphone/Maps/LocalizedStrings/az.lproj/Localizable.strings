@@ -996,6 +996,12 @@
 "bookmarks_export" = "Bütün Əlfəcinləri və Parçaları ixrac edin";
 "drive_through" = "Sürüşmə";
 
+/* Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_in" = "Yaxınlaşdırma";
+
+/* Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_out" = "Küçült";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Menyu keçidi";
 

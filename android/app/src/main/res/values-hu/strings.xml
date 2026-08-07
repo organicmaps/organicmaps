@@ -848,8 +848,9 @@
     <string name="pref_tts_no_system_tts">A beszédszintézis-beállítások nem találhatók, biztos benne, hogy az eszköze támogatja?</string>
     <string name="drive_through">Autós kiszolgálás</string>
     <string name="clear_the_search">Törölje a keresést</string>
+    <!-- Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_in">Nagyítás</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_out">Kicsinyítés</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Menühivatkozás</string>

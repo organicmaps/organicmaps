@@ -996,6 +996,12 @@
 "bookmarks_export" = "Արտահանել բոլոր էջանիշները և հետագծերը";
 "drive_through" = "Դրայվ-ին";
 
+/* Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_in" = "Մեծացնել";
+
+/* Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_out" = "Փոքրացնել";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Մենյուի հղում";
 

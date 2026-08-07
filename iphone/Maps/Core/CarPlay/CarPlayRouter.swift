@@ -283,7 +283,8 @@ extension CarPlayRouter {
     primaryManeuver.instructionVariants = [instructionVariant]
     if let imageName = routeInfo.turnImageName,
        let symbol = UIImage(named: imageName) {
-      primaryManeuver.symbolImage = symbol
+      primaryManeuver.symbolImage = symbol.withRenderingMode(.alwaysOriginal)
+      primaryManeuver.dashboardSymbolImage = symbol.withRenderingMode(.alwaysTemplate)
     }
     if let estimates = createEstimates(routeInfo) {
       primaryManeuver.initialTravelEstimates = estimates
@@ -294,7 +295,8 @@ extension CarPlayRouter {
       let secondaryManeuver = CPManeuver()
       secondaryManeuver.userInfo = CPConstants.Maneuvers.secondary
       secondaryManeuver.instructionVariants = [L("then_turn")]
-      secondaryManeuver.symbolImage = symbol
+      secondaryManeuver.symbolImage = symbol.withRenderingMode(.alwaysOriginal) // always white on green
+      secondaryManeuver.dashboardSymbolImage = symbol.withRenderingMode(.alwaysTemplate) // black/white on transparent
       maneuvers.append(secondaryManeuver)
     }
     return maneuvers
@@ -338,6 +340,11 @@ extension CarPlayRouter: RoutingManagerListener {
           $0.routeDidFinish(trip)
         }
         return
+      }
+      // Building a route disables following in the core. Resume it when an active CarPlay
+      // navigation session requested the rebuild (for example, after changing route options).
+      if routeSession != nil, !manager.isOnRoute {
+        manager.startRoute()
       }
       if let info = manager.routeInfo {
         previewTrip?.routeChoices.first?.userInfo = info

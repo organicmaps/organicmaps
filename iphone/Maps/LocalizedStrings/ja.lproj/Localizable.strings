@@ -996,6 +996,12 @@
 "bookmarks_export" = "すべてのブックマークとトラックをエクスポートする";
 "drive_through" = "ドライブスルー";
 
+/* Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_in" = "ズームイン";
+
+/* Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_out" = "ズームアウト";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "メニューリンク";
 

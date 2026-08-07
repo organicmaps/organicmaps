@@ -14,7 +14,6 @@
 #import "NSDate+TimeDistance.h"
 #import "SwiftBridge.h"
 
-#import <CarPlay/CarPlay.h>
 #import <CoreSpotlight/CoreSpotlight.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <UserNotifications/UserNotifications.h>
@@ -60,15 +59,23 @@ void InitLocalizedStrings()
 
 using namespace osm_auth_ios;
 
-@interface MapsAppDelegate () <MWMStorageObserver, CPApplicationDelegate>
+@interface MapsAppDelegate () <MWMStorageObserver>
 
 @property(nonatomic) NSInteger standbyCounter;
 @property(nonatomic) BOOL standbyDisabledForDownloads;
 @property(nonatomic) MWMBackgroundFetchScheduler * backgroundFetchScheduler;
 
+- (void)handleApplicationDidBecomeActive;
+- (void)handleApplicationWillResignActive;
+- (void)handleApplicationWillEnterForeground;
+- (void)handleApplicationDidEnterBackground;
+
 @end
 
 @implementation MapsAppDelegate
+{
+  UINavigationController * _mainNavigationController;
+}
 
 + (MapsAppDelegate *)theApp
 {
@@ -110,6 +117,55 @@ using namespace osm_auth_ios;
   [TrackRecordingManager.shared setup];
 }
 
+#pragma mark - Application lifecycle
+
+- (BOOL)hasActiveSceneExcludingScene:(UIScene *)excludedScene
+{
+  for (UIScene * scene in UIApplication.sharedApplication.connectedScenes)
+    if (scene != excludedScene && scene.activationState == UISceneActivationStateForegroundActive)
+      return YES;
+  return NO;
+}
+
+- (BOOL)hasForegroundSceneExcludingScene:(UIScene *)excludedScene
+{
+  for (UIScene * scene in UIApplication.sharedApplication.connectedScenes)
+  {
+    if (scene == excludedScene)
+      continue;
+    if (scene.activationState == UISceneActivationStateForegroundActive ||
+        scene.activationState == UISceneActivationStateForegroundInactive)
+    {
+      return YES;
+    }
+  }
+  return NO;
+}
+
+- (void)sceneDidBecomeActive:(UIScene *)scene
+{
+  if (![self hasActiveSceneExcludingScene:scene])
+    [self handleApplicationDidBecomeActive];
+}
+
+- (void)sceneWillResignActive:(UIScene *)scene
+{
+  if (![self hasActiveSceneExcludingScene:scene])
+    [self handleApplicationWillResignActive];
+}
+
+- (void)sceneWillEnterForeground:(UIScene *)scene
+{
+  if (![self hasForegroundSceneExcludingScene:scene])
+    [self handleApplicationWillEnterForeground];
+}
+
+- (void)sceneDidEnterBackground:(UIScene *)scene
+{
+  if (![self hasForegroundSceneExcludingScene:scene])
+    [self handleApplicationDidEnterBackground];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSLog(@"application:didFinishLaunchingWithOptions: %@", launchOptions);
@@ -133,12 +189,17 @@ using namespace osm_auth_ios;
   return YES;
 }
 
+- (void)handleShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler
+{
+  [self.mapViewController performAction:shortcutItem.type];
+  completionHandler(YES);
+}
+
 - (void)application:(UIApplication *)application
     performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
                completionHandler:(void (^)(BOOL))completionHandler
 {
-  [self.mapViewController performAction:shortcutItem.type];
-  completionHandler(YES);
+  [self handleShortcutItem:shortcutItem completionHandler:completionHandler];
 }
 
 - (void)runBackgroundTasks:(NSArray<BackgroundFetchTask *> * _Nonnull)tasks
@@ -159,7 +220,7 @@ using namespace osm_auth_ios;
   DeleteFramework();
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
+- (void)handleApplicationDidEnterBackground
 {
   LOG(LINFO, ("applicationDidEnterBackground - begin"));
   [DeepLinkHandler.shared reset];
@@ -171,7 +232,7 @@ using namespace osm_auth_ios;
   LOG(LINFO, ("applicationDidEnterBackground - end"));
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application
+- (void)handleApplicationWillResignActive
 {
   LOG(LINFO, ("applicationWillResignActive - begin"));
   [self.mapViewController onGetFocus:NO];
@@ -182,7 +243,7 @@ using namespace osm_auth_ios;
   LOG(LINFO, ("applicationWillResignActive - end"));
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application
+- (void)handleApplicationWillEnterForeground
 {
   LOG(LINFO, ("applicationWillEnterForeground - begin"));
   if (!GpsTracker::Instance().IsEnabled())
@@ -202,7 +263,7 @@ using namespace osm_auth_ios;
   LOG(LINFO, ("applicationWillEnterForeground - end"));
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application
+- (void)handleApplicationDidBecomeActive
 {
   LOG(LINFO, ("applicationDidBecomeActive - begin"));
 
@@ -232,9 +293,7 @@ using namespace osm_auth_ios;
   return isTests;
 }
 
-- (BOOL)application:(UIApplication *)application
-    continueUserActivity:(NSUserActivity *)userActivity
-      restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
+- (BOOL)handleUserActivity:(NSUserActivity *)userActivity
 {
   if ([userActivity.activityType isEqualToString:CSSearchableItemActionType])
   {
@@ -255,6 +314,13 @@ using namespace osm_auth_ios;
   return NO;
 }
 
+- (BOOL)application:(UIApplication *)application
+    continueUserActivity:(NSUserActivity *)userActivity
+      restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
+{
+  return [self handleUserActivity:userActivity];
+}
+
 + (void)customizeAppearanceForNavigationBar:(UINavigationBar *)navigationBar
 {
   auto backImage =
@@ -270,12 +336,19 @@ using namespace osm_auth_ios;
   [self customizeAppearanceForNavigationBar:[UINavigationBar appearance]];
 }
 
+- (BOOL)handleOpenURL:(NSURL *)url openInPlace:(BOOL)openInPlace
+{
+  NSDictionary<UIApplicationOpenURLOptionsKey, id> * options =
+      @{UIApplicationOpenURLOptionsOpenInPlaceKey: @(openInPlace)};
+  return [DeepLinkHandler.shared applicationDidOpenUrl:url options:options];
+}
+
 - (BOOL)application:(UIApplication *)app
             openURL:(NSURL *)url
             options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
 {
   NSLog(@"application:openURL: %@ options: %@", url, options);
-  return [DeepLinkHandler.shared applicationDidOpenUrl:url options:options];
+  return [self handleOpenURL:url openInPlace:[options[UIApplicationOpenURLOptionsOpenInPlaceKey] boolValue]];
 }
 
 - (void)showMap
@@ -337,18 +410,26 @@ using namespace osm_auth_ios;
 
 #pragma mark - Properties
 
+- (UINavigationController *)mainNavigationController
+{
+  // Lazily load the Main storyboard's root navigation controller so a single shared MapViewController
+  // (and its Drape engine) exists even on a CarPlay-first cold launch, before MainSceneDelegate connects
+  // the phone window scene. Both the phone scene and CarPlayService reuse this same instance.
+  if (!_mainNavigationController)
+  {
+    UIStoryboard * storyboard = [UIStoryboard instance:MWMStoryboardMain];
+    _mainNavigationController = (UINavigationController *)[storyboard instantiateInitialViewController];
+  }
+  return _mainNavigationController;
+}
+
 - (MapViewController *)mapViewController
 {
-  for (id vc in [(UINavigationController *)self.window.rootViewController viewControllers])
+  for (id vc in self.mainNavigationController.viewControllers)
     if ([vc isKindOfClass:[MapViewController class]])
       return vc;
   NSAssert(false, @"Please check the logic");
   return nil;
-}
-
-- (MWMCarPlayService *)carplayService
-{
-  return [MWMCarPlayService shared];
 }
 
 #pragma mark - TTS
@@ -414,22 +495,6 @@ using namespace osm_auth_ios;
     return NO;
 
   return YES;
-}
-
-#pragma mark - CPApplicationDelegate implementation
-
-- (void)application:(UIApplication *)application
-    didConnectCarInterfaceController:(CPInterfaceController *)interfaceController
-                            toWindow:(CPWindow *)window
-{
-  [self.carplayService setupWithWindow:window interfaceController:interfaceController];
-}
-
-- (void)application:(UIApplication *)application
-    didDisconnectCarInterfaceController:(CPInterfaceController *)interfaceController
-                             fromWindow:(CPWindow *)window
-{
-  [self.carplayService destroy];
 }
 
 @end

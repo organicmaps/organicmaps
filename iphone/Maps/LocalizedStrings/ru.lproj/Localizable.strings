@@ -996,6 +996,12 @@
 "bookmarks_export" = "Экспортировать все метки и треки";
 "drive_through" = "С окошком для водителей";
 
+/* Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_in" = "Приблизить";
+
+/* Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_out" = "Отдалить";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Ссылка на меню";
 
