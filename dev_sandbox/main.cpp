@@ -19,18 +19,8 @@
 
 #include <gflags/gflags.h>
 
-#if defined(OMIM_OS_WINDOWS)
-#define GLFW_EXPOSE_NATIVE_WIN32
-#elif defined(OMIM_OS_LINUX)
-#define GLFW_EXPOSE_NATIVE_X11
-#elif defined(OMIM_OS_MAC)
-#define GLFW_EXPOSE_NATIVE_COCOA
-#else
-#error Unsupported plaform
-#endif
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
-#include <GLFW/glfw3native.h>
 #include <imgui/backends/imgui_impl_glfw.h>
 #include <imgui/imgui.h>
 
@@ -46,12 +36,6 @@ void PrepareDestroyContextFactory(ref_ptr<dp::GraphicsContextFactory> contextFac
 void OnCreateDrapeEngine(GLFWwindow * window, dp::ApiVersion api, ref_ptr<dp::GraphicsContextFactory> contextFactory);
 void UpdateContentScale(GLFWwindow * window, float scale);
 void UpdateSize(ref_ptr<dp::GraphicsContextFactory> contextFactory, int w, int h);
-#endif
-
-#if defined(OMIM_OS_LINUX)
-// Workaround for storage::Status compilation issue:
-// /usr/include/X11/Xlib.h:83:16: note: expanded from macro 'Status'
-#undef Status
 #endif
 
 namespace
@@ -246,7 +230,10 @@ int main(int argc, char * argv[])
   float xs = 1.0f, ys = 1.0f;
   glfwGetWindowContentScale(window, &xs, &ys);
   float visualScale = std::max(xs, ys);
+#if !defined(OMIM_OS_LINUX)
+  // GLFW raises GLFW_FEATURE_UNAVAILABLE for glfwSetGamma on Wayland.
   glfwSetGamma(monitor, 1.0f);
+#endif
 
   IMGUI_CHECKVERSION();
   ImGui::CreateContext();

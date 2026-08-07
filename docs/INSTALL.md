@@ -105,17 +105,17 @@ sudo apt update && sudo apt install -y \
     qt6-base-dev \
     qt6-positioning-dev \
     libc++-dev \
+    libegl-dev \
     libfreetype-dev \
-    libglvnd-dev \
     libgl1-mesa-dev \
+    libglvnd-dev \
     libharfbuzz-dev \
     libicu-dev \
     libqt6svg6-dev \
     libsqlite3-dev \
-    libxrandr-dev \
-    libxinerama-dev \
-    libxcursor-dev \
-    libxi-dev \
+    libwayland-bin \
+    libwayland-dev \
+    libxkbcommon-dev \
     zlib1g-dev
 ```
 
@@ -155,7 +155,10 @@ sudo dnf install -y \
     qt6-qtpositioning \
     qt6-qtpositioning-devel \
     qt6-qtsvg-devel \
-    sqlite-devel
+    sqlite-devel \
+    mesa-libEGL-devel \
+    wayland-devel \
+    libxkbcommon-devel
 ```
 
 #### Alpine
@@ -172,7 +175,10 @@ sudo apk add \
     qt6-qtpositioning-dev \
     qt6-qtsvg-dev \
     samurai \
-    sqlite-dev
+    sqlite-dev \
+    mesa-dev \
+    wayland-dev \
+    libxkbcommon-dev
 ```
 
 #### macOS
@@ -255,6 +261,10 @@ project, needed for `dev_sandbox` and Metal shader development).
 On macOS `dev_sandbox` also needs Xcode's separately downloaded Metal toolchain.
 Install it with `xcodebuild -downloadComponent MetalToolchain`, otherwise CMake
 skips the target with a warning and the rest of the build proceeds as usual.
+
+On Linux `dev_sandbox` requires a Wayland session: it builds GLFW with only the
+Wayland backend and hard-requires Wayland at runtime, so it will not start on an
+X11 or XWayland session.
 
 Besides _desktop_ there are other targets like _generator_tool_; pass them to
 `--target`, or omit `--target` to build everything.

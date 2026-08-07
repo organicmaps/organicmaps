@@ -30,7 +30,7 @@ char const * const kInstanceExtensions[] = {
     "VK_KHR_get_physical_device_properties2",
 #endif
 #if defined(OMIM_OS_LINUX)
-    "VK_KHR_xlib_surface",
+    "VK_KHR_wayland_surface",
 #endif
 #if defined(OMIM_OS_WINDOWS)
     "VK_KHR_win32_surface",
