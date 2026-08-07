@@ -647,55 +647,37 @@ public class PlacePageView extends Fragment
 
   private void showCategoryList()
   {
+    final long categoryId;
+    if (mMapObject.isTrack())
+      categoryId = ((Track) mMapObject).getCategoryId();
+    else if (mMapObject.isBookmark())
+      categoryId = ((Bookmark) mMapObject).getCategoryId();
+    else
+      return;
+
     final Bundle args = new Bundle();
-    final List<BookmarkCategory> categories = BookmarkManager.INSTANCE.getCategories();
+    args.putLong(ChooseBookmarkCategoryFragment.CATEGORY_ID, categoryId);
+
     final FragmentManager manager = getChildFragmentManager();
     String className = ChooseBookmarkCategoryFragment.class.getName();
     final FragmentFactory factory = manager.getFragmentFactory();
     final ChooseBookmarkCategoryFragment frag =
         (ChooseBookmarkCategoryFragment) factory.instantiate(getContext().getClassLoader(), className);
-    if (mMapObject.isTrack())
-    {
-      Track track = (Track) mMapObject;
-      BookmarkCategory currentCategory = BookmarkManager.INSTANCE.getCategoryById(track.getCategoryId());
-      final int index = categories.indexOf(currentCategory);
-      args.putInt(ChooseBookmarkCategoryFragment.CATEGORY_POSITION, index);
-      frag.setArguments(args);
-      frag.show(manager, null);
-    }
-    else if (mMapObject.isBookmark())
-    {
-      Bookmark bookmark = (Bookmark) mMapObject;
-      BookmarkCategory currentCategory = BookmarkManager.INSTANCE.getCategoryById(bookmark.getCategoryId());
-      final int index = categories.indexOf(currentCategory);
-      args.putInt(ChooseBookmarkCategoryFragment.CATEGORY_POSITION, index);
-      frag.setArguments(args);
-      frag.show(manager, null);
-    }
+    frag.setArguments(args);
+    frag.show(manager, null);
   }
 
   @Override
   public void onCategoryChanged(@NonNull BookmarkCategory newCategory)
   {
     if (mMapObject.isTrack())
-    {
-      Track track = (Track) mMapObject;
-      BookmarkCategory previousCategory = BookmarkManager.INSTANCE.getCategoryById(track.getCategoryId());
-      if (previousCategory == newCategory)
-        return;
-      track.setCategoryId(newCategory.getId());
-      mTvCategory.setText(newCategory.getName());
-      track.setCategoryId(newCategory.getId());
-    }
+      ((Track) mMapObject).setCategoryId(newCategory.getId());
     else if (mMapObject.isBookmark())
-    {
-      Bookmark bookmark = (Bookmark) mMapObject;
-      BookmarkCategory previousCategory = BookmarkManager.INSTANCE.getCategoryById(bookmark.getCategoryId());
-      if (previousCategory == newCategory)
-        return;
-      mTvCategory.setText(newCategory.getName());
-      bookmark.setCategoryId(newCategory.getId());
-    }
+      ((Bookmark) mMapObject).setCategoryId(newCategory.getId());
+    else
+      return;
+
+    mTvCategory.setText(newCategory.getName());
   }
 
   void showBookmarkEditFragment()
