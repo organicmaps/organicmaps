@@ -1,0 +1,17 @@
+plugins {
+  id 'com.android.library'
+}
+
+apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
+
+android {
+  namespace = 'app.organicmaps.sdk.wear'
+}
+
+dependencies {
+  // WearNavigationState is part of this module's public API (see WearNavigationPublisher),
+  // so expose wear-protocol transitively to consumers.
+  api project(':libs:wear-protocol')
+
+  implementation libs.androidx.annotation
+}

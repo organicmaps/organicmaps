@@ -7,3 +7,9 @@ apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
 android {
     namespace 'app.organicmaps.wear.protocol'
 }
+
+dependencies {
+    testImplementation libs.androidx.junit
+    // Real org.json on the JVM unit-test classpath; android.jar's bundled stub throws "not mocked".
+    testImplementation libs.json
+}
