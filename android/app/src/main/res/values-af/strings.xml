@@ -905,4 +905,6 @@
     <string name="color_picker_grid">Rooster</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Stemsoektog</string>
+    <!-- Row shown above the search tabs while a route is being planned; tapping it collapses the search panel so the user can pick a point directly on the map -->
+    <string name="choose_on_map">Kies op die kaart</string>
 </resources>

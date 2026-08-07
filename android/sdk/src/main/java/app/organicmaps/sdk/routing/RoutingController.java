@@ -640,6 +640,22 @@ public class RoutingController
     return mWaitingPoiPickType != null;
   }
 
+  // Abandons a pending pick without the menu/plan-sheet refresh onPoiSelected(null) does: callers here
+  // are already closing the search sheet, which reveals the plan panel on its own.
+  public void cancelPoiPick()
+  {
+    if (isWaitingPoiPick())
+      resetPoiPickState();
+  }
+
+  public boolean hasMyPositionRoutePoint()
+  {
+    for (RouteMarkData point : Framework.nativeGetRoutePoints())
+      if (point.mIsMyPosition)
+        return true;
+    return false;
+  }
+
   public BuildState getBuildState()
   {
     return mBuildState;
