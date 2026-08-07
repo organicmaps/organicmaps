@@ -62,7 +62,7 @@ jobject ToJavaBookmarkCategory(JNIEnv * env, kml::MarkGroupId id)
 
 jobjectArray ToJavaBookmarkCategories(JNIEnv * env, kml::GroupIdCollection const & ids)
 {
-  return jni::ToJavaArray(env, getBookmarkCategoryClass(env), ids, std::bind(&ToJavaBookmarkCategory, _1, _2));
+  return jni::ToJavaArray(env, getBookmarkCategoryClass(env), ids, &ToJavaBookmarkCategory);
 }
 
 extern "C"

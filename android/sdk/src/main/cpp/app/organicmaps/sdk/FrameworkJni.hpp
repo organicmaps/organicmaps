@@ -2,7 +2,7 @@
 
 #include <jni.h>
 
-namespace icon
+namespace android::framework
 {
 jint RegisterNativeMethods(JNIEnv * env);
-}  // namespace icon
+}  // namespace android::framework

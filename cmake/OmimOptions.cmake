@@ -9,6 +9,10 @@ if (DEFINED ENV{CMAKE_UNITY_BUILD})
 endif ()
 
 set(CMAKE_UNITY_BUILD_BATCH_SIZE "50" CACHE STRING "Batch size for unity build")
+if (DEFINED ENV{CMAKE_UNITY_BUILD_BATCH_SIZE})
+  set(CMAKE_UNITY_BUILD_BATCH_SIZE $ENV{CMAKE_UNITY_BUILD_BATCH_SIZE})
+endif ()
+
 option(USE_CCACHE "Use ccache" ON)
 option(WITH_SYSTEM_PROVIDED_3PARTY "Enable compilation with system provided dependencies" OFF)
 option(BUILD_DESIGNER "Build application as design tool" OFF)

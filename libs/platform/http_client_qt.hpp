@@ -12,8 +12,6 @@
 
 namespace platform
 {
-using CancelChecker = HttpClient::CancelChecker;
-
 // True for OpenStreetMap hosts: production www.openstreetmap.org / api.openstreetmap.org and
 // the dev server master.apis.dev.openstreetmap.org (any *.openstreetmap.org subdomain plus the bare apex).
 bool IsOsmHost(QString const & host);
@@ -32,9 +30,10 @@ public:
 
   HttpClientReply(QNetworkReply * reply, HttpClient::CompletionHandler handler,
                   HttpClient::ProgressHandler progressHandler, HttpClient::DataHandler dataHandler,
-                  CancelChecker cancelChecker, bool loadHeaders, bool followRedirects, std::string urlRequested,
-                  std::string cookies, std::string outputFile, std::optional<HttpClient::ReceivedFileSegment> segment,
-                  QNetworkRequest request, std::string httpMethod, QByteArray bodyBytes, RebindCancel rebindCancel);
+                  HttpClient::CancelChecker cancelChecker, bool loadHeaders, bool followRedirects,
+                  std::string urlRequested, std::string cookies, std::string outputFile,
+                  std::optional<HttpClient::ReceivedFileSegment> segment, QNetworkRequest request,
+                  std::string httpMethod, QByteArray bodyBytes, RebindCancel rebindCancel);
 
   // Pure decision predicate for the GOAWAY/REFUSED_STREAM retry. Exposed for
   // unit testing — cancellation is intentionally not part of this, it's an
@@ -67,7 +66,7 @@ private:
   HttpClient::CompletionHandler m_handler;
   HttpClient::ProgressHandler m_progressHandler;
   HttpClient::DataHandler m_dataHandler;
-  CancelChecker m_cancelChecker;
+  HttpClient::CancelChecker m_cancelChecker;
   bool m_loadHeaders;
   bool m_followRedirects;
   std::string m_urlRequested;

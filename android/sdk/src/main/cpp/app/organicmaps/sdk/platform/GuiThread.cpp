@@ -8,7 +8,9 @@ namespace android
 {
 GuiThread::GuiThread()
 {
-  JNIEnv * env = jni::GetEnv();
+  using namespace jni;
+
+  JNIEnv * env = GetEnv();
 
   m_class = GetGlobalClassRef(env, "app/organicmaps/sdk/util/concurrency/UiThread");
   ASSERT(m_class, ());

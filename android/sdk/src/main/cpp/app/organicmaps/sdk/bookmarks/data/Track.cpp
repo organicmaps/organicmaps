@@ -5,6 +5,9 @@
 #include "app/organicmaps/sdk/bookmarks/data/Metadata.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/TrackStatistics.hpp"
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
+#include "app/organicmaps/sdk/util/Distance.hpp"
+
+#include "drape/color.hpp"
 
 namespace
 {
@@ -136,16 +139,14 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Track_nativeSetParams(JNI
   kml::SetDefaultStr(trackData.m_name, trkName);
   kml::SetDefaultStr(trackData.m_description, jni::ToNativeString(env, descr));
 
-  uint8_t alpha = ExtractByte(color, 3);
-  trackData.m_layers[0].m_color.m_rgba = static_cast<uint32_t>(shift(color, 8) + alpha);
+  trackData.m_layers[0].m_color.m_rgba = dp::Color::FromARGB(static_cast<uint32_t>(color)).GetRGBA();
 
   g_framework->ReplaceTrack(static_cast<kml::TrackId>(id), trackData);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Track_nativeChangeColor(JNIEnv *, jclass, jlong id, jint color)
 {
-  uint8_t const alpha = ExtractByte(color, 3);
-  g_framework->ChangeTrackColor(static_cast<kml::TrackId>(id), static_cast<dp::Color>(shift(color, 8) + alpha));
+  g_framework->ChangeTrackColor(static_cast<kml::TrackId>(id), dp::Color::FromARGB(static_cast<uint32_t>(color)));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Track_nativeChangeCategory(JNIEnv *, jclass, jlong oldCat,

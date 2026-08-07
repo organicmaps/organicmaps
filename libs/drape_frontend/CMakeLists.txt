@@ -219,6 +219,9 @@ set(SRC
 
 omim_add_library(${PROJECT_NAME} ${SRC})
 
+# fast_obj.h defines unprefixed macros (array_size, BUFFER_SIZE, ...) and never undefines them.
+set_property(SOURCE arrow3d.cpp PROPERTY SKIP_UNITY_BUILD_INCLUSION ON)
+
 target_link_libraries(${PROJECT_NAME}
   PUBLIC
     glaze::glaze

@@ -4,7 +4,7 @@
 #include "app/organicmaps/sdk/bookmarks/data/Metadata.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/Track.hpp"
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
-#include "app/organicmaps/sdk/routing/RoutePointInfo.hpp"
+#include "app/organicmaps/sdk/routing/RoutingJni.hpp"
 
 #include "map/elevation_info.hpp"
 #include "map/place_page_info.hpp"
@@ -74,11 +74,13 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info, int mapObje
 
 jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
 {
-  jni::TScopedLocalObjectArrayRef jrawTypes(env, jni::ToJavaStringArray(env, info.GetRawTypes()));
+  using namespace jni;
 
-  jni::TScopedLocalRef routingPointInfo(env, nullptr);
+  TScopedLocalObjectArrayRef jrawTypes(env, ToJavaStringArray(env, info.GetRawTypes()));
+
+  TScopedLocalRef routingPointInfo(env, nullptr);
   if (info.IsRoutePoint())
-    routingPointInfo.reset(CreateRoutePointInfo(env, info));
+    routingPointInfo.reset(routing_jni::CreateRoutePointInfo(env, info));
 
   if (info.IsBookmark())
     return CreateBookmark(env, info, jrawTypes, routingPointInfo);

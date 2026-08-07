@@ -1,15 +1,11 @@
 #include "app/organicmaps/sdk/Framework.hpp"
 
+#include "app/organicmaps/sdk/FrameworkJni.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/MapObject.hpp"
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
 #include "app/organicmaps/sdk/opengl/androidoglcontextfactory.hpp"
 #include "app/organicmaps/sdk/platform/AndroidPlatform.hpp"
-#include "app/organicmaps/sdk/routing/JunctionInfo.hpp"
-#include "app/organicmaps/sdk/routing/RouteMarkData.hpp"
-#include "app/organicmaps/sdk/routing/RouteMarkType.hpp"
-#include "app/organicmaps/sdk/routing/RouteRecommendationType.hpp"
-#include "app/organicmaps/sdk/routing/RoutingInfo.hpp"
-#include "app/organicmaps/sdk/routing/TransitRouteInfo.hpp"
+#include "app/organicmaps/sdk/routing/RoutingJni.hpp"
 #include "app/organicmaps/sdk/util/Distance.hpp"
 #include "app/organicmaps/sdk/util/NetworkPolicy.hpp"
 #include "app/organicmaps/sdk/vulkan/android_vulkan_context_factory.hpp"
@@ -64,13 +60,12 @@
 
 #include "ge0/url_generator.hpp"
 
+#include <functional>
 #include <memory>
 #include <string>
 #include <vector>
 
 #include <android/api-level.h>
-
-using namespace std::placeholders;
 
 CheckedPtr<android::Framework> g_framework;
 
@@ -81,11 +76,6 @@ NetworkPolicy ToNativeNetworkPolicy(JNIEnv * env, jobject obj)
   return NetworkPolicy(network_policy::GetNetworkPolicyStatus(env, obj));
 }
 }  // namespace platform
-
-using namespace storage;
-using platform::CountryFile;
-using platform::LocalCountryFile;
-using platform::ToNativeNetworkPolicy;
 
 static_assert(sizeof(int) >= 4, "Size of jint is less than 4 bytes.");
 
@@ -117,6 +107,8 @@ enum MultiTouchAction
 
 Framework::Framework(std::function<void()> && afterMapsLoaded) : m_work({} /* params */, false /* loadMaps */)
 {
+  using namespace std::placeholders;
+
   m_work.LoadMapsAsync(std::move(afterMapsLoaded));
 
   m_work.GetTrafficManager().SetStateListener(std::bind(&Framework::TrafficStateChanged, this, _1));
@@ -244,7 +236,8 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   ASSERT(!m_guiPositions.empty(), ("GUI elements must be set-up before engine is created"));
   p.m_widgetsInitInfo = m_guiPositions;
 
-  m_work.SetMyPositionModeListener(std::bind(&Framework::MyPositionModeChanged, this, _1, _2));
+  m_work.SetMyPositionModeListener(
+      std::bind(&Framework::MyPositionModeChanged, this, std::placeholders::_1, std::placeholders::_2));
 
   if (m_vulkanContextFactory)
     m_work.CreateDrapeEngine(make_ref(m_vulkanContextFactory), std::move(p));
@@ -468,7 +461,7 @@ ChoosePositionMode Framework::GetChoosePositionMode()
   return m_isChoosePositionMode;
 }
 
-Storage & Framework::GetStorage()
+storage::Storage & Framework::GetStorage()
 {
   return m_work.GetStorage();
 }
@@ -478,7 +471,7 @@ DataSource const & Framework::GetDataSource()
   return m_work.GetDataSource();
 }
 
-void Framework::ShowNode(CountryId const & idx, bool zoomToDownloadButton)
+void Framework::ShowNode(storage::CountryId const & idx, bool zoomToDownloadButton)
 {
   if (zoomToDownloadButton)
   {
@@ -796,7 +789,7 @@ void CallRouteRecommendationListener(std::shared_ptr<jobject> listener, RoutingM
   JNIEnv * env = jni::GetEnv();
   jmethodID const methodId =
       jni::GetMethodID(env, *listener, "onRecommend", "(Lapp/organicmaps/sdk/routing/RouteRecommendationType;)V");
-  env->CallVoidMethod(*listener, methodId, GetRouteRecommendationType(env, recommendation));
+  env->CallVoidMethod(*listener, methodId, routing_jni::GetRouteRecommendationType(env, recommendation));
 }
 
 void CallSetRoutingLoadPointsListener(std::shared_ptr<jobject> listener, bool success)
@@ -1205,7 +1198,7 @@ JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetBookmarksFile
 {
   static auto constexpr kExtensions =
       std::to_array({kKmzExtension, kKmlExtension, kKmbExtension, kGpxExtension, kGeoJsonExtension, kJsonExtension});
-  return jni::ToJavaArray(env, GetStringClass(env), kExtensions,
+  return jni::ToJavaArray(env, jni::GetStringClass(env), kExtensions,
                           [](JNIEnv * env, std::string_view ext) { return jni::ToJavaString(env, ext); });
 }
 
@@ -1293,7 +1286,7 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteFollowingInfo
   if (!info.IsValid())
     return nullptr;
 
-  return CreateRoutingInfo(env, info, rm);
+  return routing_jni::CreateRoutingInfo(env, info, rm);
 }
 
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetRouteJunctionPoints(JNIEnv * env, jclass,
@@ -1321,7 +1314,7 @@ JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetRouteJunction
     result.push_back(points[i]);
   }
 
-  return CreateJunctionInfoArray(env, result);
+  return routing_jni::CreateJunctionInfoArray(env, result);
 }
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteAltitudeData(JNIEnv * env, jclass)
@@ -1396,20 +1389,21 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetRoutingListener(JNIEn
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetRouteProgressListener(JNIEnv * env, jclass, jobject listener)
 {
   frm()->GetRoutingManager().SetRouteProgressListener(
-      std::bind(&CallRouteProgressListener, jni::make_global_ref(listener), _1));
+      std::bind(&CallRouteProgressListener, jni::make_global_ref(listener), std::placeholders::_1));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetRoutingRecommendationListener(JNIEnv * env, jclass,
                                                                                          jobject listener)
 {
   frm()->GetRoutingManager().SetRouteRecommendationListener(
-      std::bind(&CallRouteRecommendationListener, jni::make_global_ref(listener), _1));
+      std::bind(&CallRouteRecommendationListener, jni::make_global_ref(listener), std::placeholders::_1));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetRoutingLoadPointsListener(JNIEnv *, jclass, jobject listener)
 {
   if (listener != nullptr)
-    g_loadRouteHandler = std::bind(&CallSetRoutingLoadPointsListener, jni::make_global_ref(listener), _1);
+    g_loadRouteHandler =
+        std::bind(&CallSetRoutingLoadPointsListener, jni::make_global_ref(listener), std::placeholders::_1);
   else
     g_loadRouteHandler = nullptr;
 }
@@ -1434,7 +1428,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(JNIEnv * e
   RouteMarkData data;
   data.m_title = jni::ToNativeString(env, title);
   data.m_subTitle = jni::ToNativeString(env, subtitle);
-  data.m_pointType = GetRouteMarkType(env, markType);
+  data.m_pointType = routing_jni::GetRouteMarkType(env, markType);
   data.m_intermediateIndex = static_cast<size_t>(intermediateIndex);
   data.m_isMyPosition = static_cast<bool>(isMyPosition);
   data.m_position = m2::PointD(mercator::FromLatLon(lat, lon));
@@ -1450,7 +1444,8 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoints(JNIEnv
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoint(JNIEnv * env, jclass, jobject markType,
                                                                          jint intermediateIndex)
 {
-  frm()->GetRoutingManager().RemoveRoutePoint(GetRouteMarkType(env, markType), static_cast<size_t>(intermediateIndex));
+  frm()->GetRoutingManager().RemoveRoutePoint(routing_jni::GetRouteMarkType(env, markType),
+                                              static_cast<size_t>(intermediateIndex));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveIntermediateRoutePoints(JNIEnv * env, jclass)
@@ -1465,7 +1460,7 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeCouldAddIntermediate
 
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetRoutePoints(JNIEnv * env, jclass)
 {
-  return CreateRouteMarkDataArray(env, frm()->GetRoutingManager().GetRoutePoints());
+  return routing_jni::CreateRouteMarkDataArray(env, frm()->GetRoutingManager().GetRoutePoints());
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeMoveRoutePoint(JNIEnv * env, jclass, jint currentIndex,
@@ -1476,7 +1471,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeMoveRoutePoint(JNIEnv * 
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetTransitRouteInfo(JNIEnv * env, jclass)
 {
-  return CreateTransitRouteInfo(env, frm()->GetRoutingManager().GetTransitRouteInfo());
+  return routing_jni::CreateTransitRouteInfo(env, frm()->GetRoutingManager().GetTransitRouteInfo());
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeReloadWorldMaps(JNIEnv * env, jclass)
@@ -1910,7 +1905,7 @@ JNINativeMethod const frameworkMethods[] = {
 
 namespace android::framework
 {
-jint registerNativeMethods(JNIEnv * env)
+jint RegisterNativeMethods(JNIEnv * env)
 {
   jclass clazz = env->FindClass("app/organicmaps/sdk/Framework");
   if (clazz == nullptr)

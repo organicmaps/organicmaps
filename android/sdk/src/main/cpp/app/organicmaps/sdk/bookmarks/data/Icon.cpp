@@ -25,7 +25,7 @@ JNINativeMethod const iconMethods[] = {
 
 namespace icon
 {
-jint registerNativeMethods(JNIEnv * env)
+jint RegisterNativeMethods(JNIEnv * env)
 {
   jclass clazz = env->FindClass("app/organicmaps/sdk/bookmarks/data/Icon");
   if (clazz == nullptr)

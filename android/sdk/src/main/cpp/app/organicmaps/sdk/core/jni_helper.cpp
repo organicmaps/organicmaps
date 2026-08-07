@@ -2,19 +2,17 @@
 #include "ScopedLocalRef.hpp"
 #include "logging.hpp"
 
-#include "base/assert.hpp"
-#include "base/exception.hpp"
-
+#include "app/organicmaps/sdk/FrameworkJni.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/Icon.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/PredefinedColors.hpp"
+
+#include "base/assert.hpp"
+#include "base/exception.hpp"
+#include "base/string_utils.hpp"
 
 #include <vector>
 
 static JavaVM * g_jvm = 0;
-extern JavaVM * GetJVM()
-{
-  return g_jvm;
-}
 
 // Caching is necessary to create class from native threads.
 jclass g_mapObjectClazz;
@@ -51,32 +49,34 @@ static bool const g_isAndroidLowerThan7 = g_isAndroidLowerThan12 && IsAndroidApi
 
 JNIEXPORT jint JNI_OnLoad(JavaVM * jvm, void *)
 {
-  g_jvm = jvm;
-  jni::InitSystemLog();
-  jni::InitAssertLog();
+  using namespace jni;
 
-  JNIEnv * env = jni::GetEnv();
-  g_mapObjectClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/MapObject");
-  g_trackClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/Track");
-  g_trackStatisticsClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/TrackStatistics");
-  g_bookmarkClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/Bookmark");
-  g_httpClientClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/util/HttpClient");
-  g_httpParamsClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/util/HttpClient$Params");
-  g_platformSocketClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/location/PlatformSocket");
-  g_utilsClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/util/Utils");
-  g_loggerClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/util/log/Logger");
-  g_keyValueClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/util/KeyValue");
-  g_networkPolicyClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/util/NetworkPolicy");
-  g_elevationInfoClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/ElevationInfo");
-  g_uiThreadClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/util/concurrency/UiThread");
+  g_jvm = jvm;
+  InitSystemLog();
+  InitAssertLog();
+
+  JNIEnv * env = GetEnv();
+  g_mapObjectClazz = GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/MapObject");
+  g_trackClazz = GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/Track");
+  g_trackStatisticsClazz = GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/TrackStatistics");
+  g_bookmarkClazz = GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/Bookmark");
+  g_httpClientClazz = GetGlobalClassRef(env, "app/organicmaps/sdk/util/HttpClient");
+  g_httpParamsClazz = GetGlobalClassRef(env, "app/organicmaps/sdk/util/HttpClient$Params");
+  g_platformSocketClazz = GetGlobalClassRef(env, "app/organicmaps/sdk/location/PlatformSocket");
+  g_utilsClazz = GetGlobalClassRef(env, "app/organicmaps/sdk/util/Utils");
+  g_loggerClazz = GetGlobalClassRef(env, "app/organicmaps/sdk/util/log/Logger");
+  g_keyValueClazz = GetGlobalClassRef(env, "app/organicmaps/sdk/util/KeyValue");
+  g_networkPolicyClazz = GetGlobalClassRef(env, "app/organicmaps/sdk/util/NetworkPolicy");
+  g_elevationInfoClazz = GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/ElevationInfo");
+  g_uiThreadClazz = GetGlobalClassRef(env, "app/organicmaps/sdk/util/concurrency/UiThread");
 
   if (g_isAndroidLowerThan12)
   {
-    if (predefined_colors::registerNativeMethods(env) != JNI_OK)
+    if (predefined_colors::RegisterNativeMethods(env) != JNI_OK)
       return JNI_ERR;
-    if (icon::registerNativeMethods(env) != JNI_OK)
+    if (icon::RegisterNativeMethods(env) != JNI_OK)
       return JNI_ERR;
-    if (android::framework::registerNativeMethods(env) != JNI_OK)
+    if (android::framework::RegisterNativeMethods(env) != JNI_OK)
       return JNI_ERR;
   }
 
@@ -105,6 +105,9 @@ JNIEXPORT void JNI_OnUnload(JavaVM *, void *)
 
 namespace jni
 {
+namespace
+{
+// Returns nullptr instead of throwing when the calling thread is not attached to the JVM.
 JNIEnv * GetEnvSafe()
 {
   JNIEnv * env;
@@ -116,6 +119,7 @@ JNIEnv * GetEnvSafe()
   }
   return env;
 }
+}  // namespace
 
 JNIEnv * GetEnv()
 {
