@@ -70,8 +70,8 @@ std::string QueuedCountry::GetRelativeUrl() const
 
 std::string QueuedCountry::GetFileDownloadPath() const
 {
-  // Terrain blocks land into <writable>/terrain/<gridVersion>/ (the TwmSet registry
-  // scans the newest version folder), mirroring the versioned maps layout.
+  // Terrain blocks land into <writable>/terrain/<block version>/ (the TwmSet registry
+  // renders every version folder together), mirroring the versioned maps layout.
   if (m_fileType == MapFileType::Terrain)
   {
     return base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR, strings::to_string(m_currentDataVersion),
