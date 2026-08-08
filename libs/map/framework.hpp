@@ -548,6 +548,10 @@ public:
                          bool trackVisibleViewport = false);
 
   m2::RectD GetCurrentViewport() const;
+  /// Downloads the terrain of the downloaded regions in the current viewport: the
+  /// "Enable" action of the terrain-disabled layer dialog. False when the viewport
+  /// holds no downloaded region to fetch for (the caller hints to download a map).
+  bool DownloadTerrainForViewport();
   void SetVisibleViewport(m2::RectD const & rect);
 
   void ShowRect(m2::RectD const & rect, bool animation = true, bool useVisibleViewport = false);
