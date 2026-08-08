@@ -516,6 +516,7 @@ node|z17-[historic=pillory],
 area|z17-[historic=pillory],
 node|z17-[amenity=arts_centre],
 area|z17-[amenity=arts_centre],
+node|z17-[amenity=stage],
 node|z18-[historic=anchor],
 node|z18-[historic=cannon],
 node|z18-[historic=stone],
@@ -632,6 +633,9 @@ area|z14[amenity=theatre]
 node|z15-[amenity=theatre],
 area|z15-[amenity=theatre]
 {icon-image: theatre-m.svg;icon-min-distance: 10;}
+
+node|z17-[amenity=stage],
+{icon-image: stage-m.svg;}
 
 node|z13-14[tourism=zoo],
 area|z13-14[tourism=zoo]
