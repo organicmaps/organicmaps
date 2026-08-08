@@ -1314,6 +1314,7 @@
     <string name="type.self_service.no">Autozerbitzurik ez</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">Gizarte-ekipamendua</string>
+    <string name="type.amenity.stage">Eszenatokia</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Larrialdietarako Sarrera</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

@@ -1372,6 +1372,7 @@
     <string name="type.self_service.no">لا توجد خدمة ذاتية</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">المرفق الاجتماعي</string>
+    <string name="type.amenity.stage">خشبة المسرح</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">مدخل جناح الطوارئ</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->
