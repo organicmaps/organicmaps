@@ -8,8 +8,10 @@
 
 namespace terrain
 {
-// ~0.3 m of a horizontal precision, enough against the ~30 m DEM samples step.
-uint8_t constexpr kTerrainCoordBits = 27;
+// ~0.037 m of a horizontal precision (kPointCoordBits, the mercator quantization limit):
+// the terrain vertices cost the same at any bits count, they are coded as the lattice
+// indices of their mesh (see terrain_serdes.hpp), not as the quantized points.
+uint8_t constexpr kTerrainCoordBits = 30;
 
 namespace impl
 {
