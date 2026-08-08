@@ -84,14 +84,6 @@ public final class MapManager
   }
 
   /**
-   * Downloads the terrain (.twm) blocks covering the {@code root} node bbox.
-   */
-  public static void startDownloadTerrain(@NonNull String countryId)
-  {
-    nativeDownloadTerrain(countryId);
-  }
-
-  /**
    * Retrieves ID of root node.
    */
   public static native String nativeGetRoot();
@@ -191,21 +183,30 @@ public final class MapManager
   private static native void nativeDownload(String root);
 
   /**
-   * Downloads the terrain (.twm) blocks covering the {@code root} node bbox.
+   * True when the bundle ships a terrain grid; the setting UI hides otherwise.
    */
-  private static native void nativeDownloadTerrain(String root);
+  public static native boolean nativeIsTerrainAvailable();
 
   /**
-   * Cancels the terrain (.twm) blocks downloading for the {@code root} node (the maps
-   * downloading of the node is not affected).
+   * The "Download terrain with maps" setting: the terrain of a region downloads,
+   * updates and deletes together with its map.
    */
-  public static native void nativeCancelTerrain(String root);
+  public static native boolean nativeIsTerrainWithMaps();
 
   /**
-   * Deletes the downloaded terrain (.twm) blocks covering the {@code root} node bbox
-   * (the blocks shared with the neighbor regions disappear for them too).
+   * Flips the "Download terrain with maps" setting.
    */
-  public static native void nativeDeleteTerrain(String root);
+  public static native void nativeSetTerrainWithMaps(boolean enabled);
+
+  /**
+   * The bytes under the terrain directory, for the deletion confirmation.
+   */
+  public static native long nativeGetTerrainOnDiskSize();
+
+  /**
+   * Cancels every terrain download and removes all the terrain files.
+   */
+  public static native void nativeDeleteAllTerrain();
 
   /**
    * Enqueues failed items under given {@code root} node in downloader.

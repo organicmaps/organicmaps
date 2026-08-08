@@ -1,5 +1,6 @@
 #import "MWMAlertViewController.h"
 #import "MWMStorage+UI.h"
+#import "SwiftBridge.h"
 
 @implementation MWMStorage (UI)
 
@@ -46,25 +47,33 @@
     success();
 }
 
-- (void)downloadTerrain:(NSString *)countryId
+- (void)downloadTerrainForViewport
 {
   NSError * error;
-  [self downloadTerrain:countryId error:&error];
-  if (!error)
+  BOOL const started = [self downloadTerrainForViewport:&error];
+  if (error)
+  {
+    if (error.code == kStorageCellularForbidden)
+    {
+      __weak __typeof(self) ws = self;
+      [[MWMAlertViewController activeAlertController]
+          presentNoWiFiAlertWithOkBlock:^{
+            [self enableCellularDownload:YES];
+            [ws downloadTerrainForViewport];
+          }
+                         andCancelBlock:nil];
+    }
+    else
+    {
+      [self handleError:error];
+    }
     return;
-  if (error.code == kStorageCellularForbidden)
-  {
-    __weak __typeof(self) ws = self;
-    [[MWMAlertViewController activeAlertController]
-        presentNoWiFiAlertWithOkBlock:^{
-          [self enableCellularDownload:YES];
-          [ws downloadTerrain:countryId];
-        }
-                       andCancelBlock:nil];
   }
-  else
+  if (!started)
   {
-    [self handleError:error];
+    // Nothing downloaded under the viewport: the map itself is the missing piece.
+    // A passive toast, like the layer button hint: there is nothing to decide here.
+    [Toast showWithText:L(@"isolines_location_error_dialog")];
   }
 }
 
