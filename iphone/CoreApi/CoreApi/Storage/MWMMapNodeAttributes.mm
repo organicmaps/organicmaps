@@ -70,7 +70,11 @@ static MWMMapNodeStatus convertStatus(storage::NodeStatus status)
     _downloadingMwmCount = attributes.m_downloadingMwmCounter - attributes.m_localMwmCounter;
     _totalSize = attributes.m_mwmSize;
     _downloadedSize = attributes.m_localMwmSize;
-    _downloadingSize = attributes.m_downloadingMwmSize - attributes.m_localMwmSize;
+    // A shrunken-on-update map can make the local part exceed the remote sum: clamp,
+    // the unsigned difference must not wrap.
+    _downloadingSize = attributes.m_downloadingMwmSize > attributes.m_localMwmSize
+                         ? attributes.m_downloadingMwmSize - attributes.m_localMwmSize
+                         : 0;
     _nodeName = @(attributes.m_nodeLocalName.c_str());
     _nodeDescription = @(attributes.m_nodeLocalDescription.c_str());
     _nodeStatus = convertStatus(attributes.m_status);
@@ -82,11 +86,6 @@ static MWMMapNodeStatus convertStatus(storage::NodeStatus status)
       _totalUpdateSizeBytes = updateInfo.m_totalDownloadSizeInBytes;
     else
       _totalUpdateSizeBytes = 0;
-
-    auto const terrainAttrs = GetFramework().GetStorage().GetTerrainAttrs([countryId UTF8String]);
-    _terrainStatus = static_cast<MWMTerrainStatus>(terrainAttrs.m_status);
-    _terrainTotalSize = terrainAttrs.m_totalSize;
-    _terrainDownloadedSize = terrainAttrs.m_downloadedSize;
 
     auto const total = attributes.m_downloadingProgress.m_bytesTotal;
     if (total > 0)

@@ -12,6 +12,7 @@ enum RootSettings: String, Hashable {
   case units
   case zoomButtons
   case buildings3D
+  case terrainWithMaps
   case autoDownload
   case showDownloadedRegions
   case mobileInternet
@@ -57,6 +58,7 @@ extension RootSettings {
     case .units: return L("measurement_units")
     case .zoomButtons: return L("pref_zoom_title")
     case .buildings3D: return L("pref_map_3d_buildings_title")
+    case .terrainWithMaps: return L("pref_terrain_title")
     case .autoDownload: return L("autodownload")
     case .showDownloadedRegions: return L("show_downloaded_regions")
     case .mobileInternet: return L("mobile_data")
@@ -91,6 +93,7 @@ extension RootSettings {
     case .mapTiles: return .mapTiles
     case .zoomButtons,
          .buildings3D,
+         .terrainWithMaps,
          .autoDownload,
          .showDownloadedRegions,
          .largeFont,
@@ -173,6 +176,8 @@ struct RootSettingsState {
   let zoomButtonsEnabled: Bool
   let buildings3DEnabled: Bool
   let buildings3DEditable: Bool
+  let terrainAvailable: Bool
+  let terrainWithMaps: Bool
   let autoDownloadEnabled: Bool
   let showDownloadedRegions: Bool
   let mobileInternetPermission: MWMNetworkPolicyPermission
