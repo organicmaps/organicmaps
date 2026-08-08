@@ -77,36 +77,43 @@ using namespace storage;
   [self.observers removeObject:observer];
 }
 
-- (void)cancelTerrain:(NSString *)countryId
+#pragma mark - Terrain
+
+- (BOOL)isTerrainAvailable
 {
-  GetFramework().GetStorage().CancelTerrain(countryId.UTF8String);
+  return GetFramework().GetStorage().IsTerrainAvailable();
 }
 
-- (void)deleteTerrain:(NSString *)countryId
+- (BOOL)isTerrainWithMaps
 {
-  GetFramework().GetStorage().DeleteTerrain(countryId.UTF8String);
+  return GetFramework().GetStorage().IsTerrainWithMaps();
 }
 
-- (BOOL)downloadTerrain:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error
+- (void)setTerrainWithMaps:(BOOL)enabled
 {
-  // The same gates as downloadNode: the space and connection checks here, the cellular
-  // policy and the shared queue inside DownloadTerrain.
-  auto const attrs = GetFramework().GetStorage().GetTerrainAttrs(countryId.UTF8String);
-  if (!storage::IsEnoughSpaceForDownload(attrs.m_totalSize - attrs.m_downloadedSize))
+  GetFramework().GetStorage().SetTerrainWithMaps(enabled);
+}
+
+- (uint64_t)terrainOnDiskSize
+{
+  return GetFramework().GetStorage().GetTerrainOnDiskSize();
+}
+
+- (void)deleteAllTerrain
+{
+  GetFramework().GetStorage().DeleteAllTerrain();
+}
+
+- (BOOL)downloadTerrainForViewport:(NSError * __autoreleasing _Nullable *)error
+{
+  NSError * connectionError;
+  if (![self checkConnection:&connectionError])
   {
     if (error)
-      *error = [NSError errorWithDomain:kStorageErrorDomain code:kStorageNotEnoughSpace userInfo:nil];
+      *error = connectionError;
     return NO;
   }
-  NSError * connectionError;
-  if ([self checkConnection:&connectionError])
-  {
-    GetFramework().GetStorage().DownloadTerrain(countryId.UTF8String);
-    return YES;
-  }
-  if (error)
-    *error = connectionError;
-  return NO;
+  return GetFramework().DownloadTerrainForViewport();
 }
 
 - (BOOL)downloadNode:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error
