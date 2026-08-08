@@ -1574,6 +1574,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "Cơ sở xã hội";
+"type.amenity.stage" = "Sân khấu";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Lối vào khu cấp cứu";

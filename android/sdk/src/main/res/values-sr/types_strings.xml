@@ -1418,6 +1418,7 @@
     <string name="type.self_service.no">Нема самопослуживања</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">Социјална установа</string>
+    <string name="type.amenity.stage">Сцена</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Улаз у хитну помоћ</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

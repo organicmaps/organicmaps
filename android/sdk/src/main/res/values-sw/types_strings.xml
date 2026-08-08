@@ -687,6 +687,7 @@
     <string name="type.self_service.no">Hakuna huduma binafsi</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">Kituo cha Kijamii</string>
+    <string name="type.amenity.stage">Jukwaa</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Mlango wa Wadi ya Dharura</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->
