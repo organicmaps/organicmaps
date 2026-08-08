@@ -1574,6 +1574,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "Κοινωνική διευκόλυνση";
+"type.amenity.stage" = "Σκηνή";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Είσοδος θαλάμου έκτακτης ανάγκης";
