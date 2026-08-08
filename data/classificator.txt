@@ -169,6 +169,7 @@ world  +
             {}
         shower  -
         social_facility  -
+        stage  -
         stripclub  -
         student_accommodation  -
         studio  -
