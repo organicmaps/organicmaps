@@ -46809,6 +46809,66 @@ vi = Cơ sở xã hội
 zh-Hans = 社会设施
 zh-Hant = 社會設施
 
+[type.amenity.stage]
+en = Stage
+af = Toneel
+ar = المسرح
+az = Səhnə
+be = Сцэна
+bg = Сцена
+bn = মঞ্চ
+ca = Escenari
+cs = Jeviště
+cy = Lleoliad
+da = Scene
+de = Bühne
+el = Σκηνή
+es = Escenario
+et = Lava
+eu = Eszenatokia
+fa = صحنه
+fi = Näyttämö
+fr = Scène
+gl = Escenario
+he = במה
+hi = मंच
+hr = Scena
+hu = Színpad
+hy = Բեմ
+id = Panggung
+is = Svið
+it = Palcoscenico
+ja = 舞台
+ko = 무대
+lo = ເວທີ
+lt = Scena
+lv =skatuve 
+ml = വേദി
+mr = मंच
+mt = Palk
+nb = Scene
+nl = Podium
+oc = Escèna
+pa = ਮੰਚ
+pl = Scena
+pt = Palco
+ro = Scenă
+ru = Сцена
+sk = Javisko
+sl = Oder
+sq = Skena
+sr = Сцена
+sv = Scen
+sw = Jukwaa
+te = రంగస్థలం
+th = เวที
+tr = Sahne
+uk = Сцена
+vi = Sân khấu
+zh-Hans = 舞台
+zh-Hant = 舞台
+
+
 [type.emergency.emergency_ward_entrance]
 comment = https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance
 en = Emergency Ward Entrance
