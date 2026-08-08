@@ -52,6 +52,18 @@ final class RootSettingsInteractor {
 
     setSetting(setting, enabled: enabled)
     updateSettings()
+
+    // The switch turns off either way; the files kept keep serving the map.
+    if setting == .terrainWithMaps, !enabled {
+      let size = Storage.shared().terrainOnDiskSize()
+      if size > 0 {
+        presenter?.presentTerrainDeleteAllAlert(size: size)
+      }
+    }
+  }
+
+  func deleteAllTerrain() {
+    Storage.shared().deleteAllTerrain()
   }
 
   func confirmICloudSynchronization() {
@@ -118,6 +130,8 @@ final class RootSettingsInteractor {
                       zoomButtonsEnabled: settings.zoomButtonsEnabled(),
                       buildings3DEnabled: settings.map3dBuildingsEnabled(),
                       buildings3DEditable: isBuildings3DEditable,
+                      terrainAvailable: Storage.shared().isTerrainAvailable(),
+                      terrainWithMaps: Storage.shared().isTerrainWithMaps(),
                       autoDownloadEnabled: settings.autoDownloadEnabled(),
                       showDownloadedRegions: settings.isShowDownloadedRegions(),
                       mobileInternetPermission: settings.mobileInternetPermission(),
@@ -146,6 +160,8 @@ final class RootSettingsInteractor {
       settings.setZoomButtonsEnabled(enabled)
     case .buildings3D:
       settings.setMap3dBuildingsEnabled(enabled)
+    case .terrainWithMaps:
+      Storage.shared().setTerrainWithMaps(enabled)
     case .autoDownload:
       settings.setAutoDownloadEnabled(enabled)
     case .showDownloadedRegions:
