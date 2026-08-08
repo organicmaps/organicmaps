@@ -8016,5 +8016,6847 @@
    "s": 47698615,
    "h": "QHSNR/trjHOU"
   }
- ]
+ ],
+ "mwms": {
+  "Abkhazia": [
+   "N40E037",
+   "N40E040",
+   "N42E042"
+  ],
+  "Afghanistan": [
+   "N27E060",
+   "N27E062",
+   "N28E065",
+   "N30E060",
+   "N30E063",
+   "N30E065",
+   "N30E067",
+   "N30E069",
+   "N30E070",
+   "N33E065",
+   "N33E067",
+   "N34E070",
+   "N35E060",
+   "N35E064",
+   "N35E066",
+   "N35E068",
+   "N35E070",
+   "N35E072",
+   "N35E073",
+   "N35E074",
+   "N37E066",
+   "N37E070",
+   "N37E072",
+   "N37E073",
+   "N38E070"
+  ],
+  "Albania": [
+   "N30E015",
+   "N39E020",
+   "N40E016",
+   "N41E020"
+  ],
+  "Algeria_Central": [
+   "N13W010",
+   "N15E005",
+   "N15W005",
+   "N20E005",
+   "N20E010",
+   "N25E000",
+   "N25E007",
+   "N25E010",
+   "N25W005",
+   "N29E000",
+   "N29E007",
+   "N29W005",
+   "N30W007",
+   "N33W005",
+   "N35E000",
+   "N35E005"
+  ],
+  "Algeria_Coast": [
+   "N29E000",
+   "N33W005",
+   "N35E000",
+   "N35E005",
+   "N35W003"
+  ],
+  "Andorra": [
+   "N42E000"
+  ],
+  "Angola": [
+   "S05E010",
+   "S05E013",
+   "S08E015",
+   "S08E017",
+   "S09E020",
+   "S10E013",
+   "S15E020",
+   "S20E013",
+   "S20E015",
+   "S20E020",
+   "S20W005"
+  ],
+  "Anguilla": [
+   "N15W072"
+  ],
+  "Antarctica": [
+   "S60E020",
+   "S60E035",
+   "S60E050",
+   "S60E070",
+   "S60E084",
+   "S60E100",
+   "S60E125",
+   "S60E140",
+   "S60E155",
+   "S60E170",
+   "S60W005",
+   "S60W035",
+   "S60W045",
+   "S60W060",
+   "S60W070",
+   "S60W075",
+   "S60W090",
+   "S60W115",
+   "S60W130",
+   "S60W150",
+   "S68W075",
+   "S72E163",
+   "S77E145",
+   "S83W180",
+   "S84W063",
+   "S85E002",
+   "S85E043",
+   "S85E081",
+   "S85E145",
+   "S85E163",
+   "S85W030",
+   "S85W058",
+   "S85W075",
+   "S85W097",
+   "S85W127",
+   "S85W157"
+  ],
+  "Antigua and Barbuda": [
+   "N15W072"
+  ],
+  "Argentina_Buenos Aires_Buenos Aires": [
+   "S35W060",
+   "S60W060"
+  ],
+  "Argentina_Buenos Aires_North": [
+   "S35W060",
+   "S35W065",
+   "S46W070",
+   "S60W060"
+  ],
+  "Argentina_Buenos Aires_South": [
+   "S35W065",
+   "S46W070",
+   "S60W060"
+  ],
+  "Argentina_Cuyo": [
+   "S30W068",
+   "S30W070",
+   "S31W071",
+   "S35W065",
+   "S35W069",
+   "S35W070",
+   "S35W071",
+   "S37W072",
+   "S46W070"
+  ],
+  "Argentina_Mesopotamia": [
+   "S30W054",
+   "S30W060",
+   "S35W060",
+   "S35W065"
+  ],
+  "Argentina_Northwest": [
+   "S22W070",
+   "S25W064",
+   "S25W065",
+   "S25W066",
+   "S25W070",
+   "S27W068",
+   "S30W060",
+   "S30W068",
+   "S30W070",
+   "S35W065",
+   "S35W069"
+  ],
+  "Argentina_Pampas": [
+   "S30W068",
+   "S35W065",
+   "S35W069",
+   "S46W070"
+  ],
+  "Argentina_Patagonia": [
+   "S37W072",
+   "S40W072",
+   "S43W075",
+   "S45W072",
+   "S45W075",
+   "S46W070",
+   "S50W073",
+   "S50W075",
+   "S52W075",
+   "S60W060",
+   "S60W070",
+   "S60W075"
+  ],
+  "Argentina_Santa Fe": [
+   "S30W060",
+   "S35W060",
+   "S35W065"
+  ],
+  "Armenia": [
+   "N35E045",
+   "N38E040",
+   "N40E042",
+   "N40E045"
+  ],
+  "Australia_Brisbane": [
+   "S25E140",
+   "S25E150",
+   "S30E151",
+   "S35E140",
+   "S35E150",
+   "S40E155"
+  ],
+  "Australia_Melbourne": [
+   "S39E140",
+   "S44E140"
+  ],
+  "Australia_New South Wales": [
+   "S30E151",
+   "S35E140",
+   "S35E150",
+   "S35E151",
+   "S39E140",
+   "S39E147",
+   "S40E155"
+  ],
+  "Australia_Northern Territory": [
+   "S10E125",
+   "S20E120",
+   "S20E128",
+   "S20E132",
+   "S28E125",
+   "S28E133"
+  ],
+  "Australia_Queensland": [
+   "S10E125",
+   "S10E140",
+   "S10E143",
+   "S10E145",
+   "S10E147",
+   "S19E140",
+   "S20E132",
+   "S25E140",
+   "S25E150",
+   "S28E133",
+   "S35E140"
+  ],
+  "Australia_South Australia": [
+   "S28E125",
+   "S28E133",
+   "S35E140",
+   "S36E125",
+   "S39E140",
+   "S44E140",
+   "S60E125"
+  ],
+  "Australia_Sydney": [
+   "S35E140",
+   "S35E150",
+   "S35E151",
+   "S39E140",
+   "S39E147",
+   "S40E155",
+   "S44E140"
+  ],
+  "Australia_Tasmania": [
+   "S44E140",
+   "S60E140",
+   "S60E155"
+  ],
+  "Australia_Victoria": [
+   "S35E140",
+   "S39E140",
+   "S39E147",
+   "S44E140"
+  ],
+  "Australia_Western Australia": [
+   "S10E098",
+   "S20E100",
+   "S20E111",
+   "S20E120",
+   "S20E128",
+   "S28E125",
+   "S30E100",
+   "S30E118",
+   "S34E080",
+   "S36E100",
+   "S36E125",
+   "S60E100"
+  ],
+  "Austria_Burgenland": [
+   "N45E015",
+   "N48E015"
+  ],
+  "Austria_Carinthia": [
+   "N45E012",
+   "N45E015",
+   "N47E012"
+  ],
+  "Austria_Lower Austria_West": [
+   "N45E015",
+   "N47E012",
+   "N48E015"
+  ],
+  "Austria_Lower Austria_Wien": [
+   "N45E015",
+   "N48E015"
+  ],
+  "Austria_Salzburg": [
+   "N45E012",
+   "N47E012"
+  ],
+  "Austria_Styria_Graz": [
+   "N45E012",
+   "N45E015",
+   "N47E012"
+  ],
+  "Austria_Styria_Leoben": [
+   "N45E012",
+   "N45E015",
+   "N47E012"
+  ],
+  "Austria_Tyrol": [
+   "N45E010",
+   "N45E012",
+   "N47E008",
+   "N47E012"
+  ],
+  "Austria_Upper Austria_Linz": [
+   "N47E012"
+  ],
+  "Austria_Upper Austria_Wels": [
+   "N47E012"
+  ],
+  "Austria_Vorarlberg": [
+   "N45E008",
+   "N45E010",
+   "N47E008"
+  ],
+  "Azerbaijan": [
+   "N35E045",
+   "N35E047",
+   "N36E050",
+   "N38E040",
+   "N40E045",
+   "N40E047"
+  ],
+  "Bahrain": [
+   "N25E050"
+  ],
+  "Bangladesh": [
+   "N20E083",
+   "N20E090",
+   "N23E090",
+   "N25E088",
+   "N25E090",
+   "N25E092"
+  ],
+  "Barbados": [
+   "N05W060",
+   "N10W070"
+  ],
+  "Belarus_Brest Region": [
+   "N50E015",
+   "N50E025"
+  ],
+  "Belarus_Homiel Region": [
+   "N50E025"
+  ],
+  "Belarus_Hrodna Region": [
+   "N50E015",
+   "N50E025",
+   "N54E025"
+  ],
+  "Belarus_Maglieu Region": [
+   "N50E025",
+   "N54E029"
+  ],
+  "Belarus_Minsk Region": [
+   "N50E025",
+   "N54E025",
+   "N54E029"
+  ],
+  "Belarus_Vitebsk Region": [
+   "N54E025",
+   "N54E029"
+  ],
+  "Belgium_Antwerp": [
+   "N50E005",
+   "N50W005"
+  ],
+  "Belgium_East Flanders": [
+   "N50W005"
+  ],
+  "Belgium_Flemish Brabant": [
+   "N50E005",
+   "N50W005"
+  ],
+  "Belgium_Hainaut": [
+   "N45W005",
+   "N50W005"
+  ],
+  "Belgium_Liege": [
+   "N50E005",
+   "N50W005"
+  ],
+  "Belgium_Limburg": [
+   "N50E005",
+   "N50W005"
+  ],
+  "Belgium_Luxembourg": [
+   "N45W005",
+   "N46E005",
+   "N50E005",
+   "N50W005"
+  ],
+  "Belgium_Namur": [
+   "N45W005",
+   "N46E005",
+   "N50E005",
+   "N50W005"
+  ],
+  "Belgium_Walloon Brabant": [
+   "N50E005",
+   "N50W005"
+  ],
+  "Belgium_West Flanders": [
+   "N50W005"
+  ],
+  "Belize": [
+   "N15W088",
+   "N15W090"
+  ],
+  "Benin": [
+   "N07W005",
+   "N10W005",
+   "S05W005"
+  ],
+  "Bermuda": [
+   "N19W072"
+  ],
+  "Bhutan": [
+   "N25E088",
+   "N25E090",
+   "N25E092",
+   "N28E088",
+   "N28E090"
+  ],
+  "Bolivia_North": [
+   "S11W068",
+   "S11W070",
+   "S13W065",
+   "S15W069",
+   "S15W070",
+   "S17W070",
+   "S18W065",
+   "S18W067",
+   "S20W060",
+   "S20W065",
+   "S20W070",
+   "S25W064"
+  ],
+  "Bolivia_South": [
+   "S17W070",
+   "S18W065",
+   "S18W067",
+   "S20W065",
+   "S20W067",
+   "S20W070",
+   "S22W070",
+   "S25W064",
+   "S25W065",
+   "S25W066",
+   "S25W070"
+  ],
+  "Bosnia and Herzegovina_Brcko district of Bosnia and Herzegowina": [
+   "N43E016"
+  ],
+  "Bosnia and Herzegovina_Entity Federation of Bosnia and Herzegovina": [
+   "N40E013",
+   "N40E016",
+   "N43E016",
+   "N45E015"
+  ],
+  "Bosnia and Herzegovina_Republic of Srpska": [
+   "N40E016",
+   "N43E016",
+   "N45E015"
+  ],
+  "Botswana": [
+   "S20E020",
+   "S30E016",
+   "S30E020",
+   "S30E028"
+  ],
+  "Brazil_Bahia": [
+   "S10W038",
+   "S10W042",
+   "S10W046",
+   "S15W045",
+   "S15W050",
+   "S17W045",
+   "S20W038",
+   "S20W040",
+   "S20W042",
+   "S20W047"
+  ],
+  "Brazil_Goias_Brasilia": [
+   "S15W050",
+   "S20W047",
+   "S20W050",
+   "S20W055"
+  ],
+  "Brazil_Goias_North": [
+   "S15W050",
+   "S16W055",
+   "S20W050",
+   "S20W055"
+  ],
+  "Brazil_Mato Grosso Do Sul": [
+   "S20W055",
+   "S20W060",
+   "S25W052",
+   "S25W064"
+  ],
+  "Brazil_Mato Grosso": [
+   "S09W065",
+   "S10W053",
+   "S10W055",
+   "S10W058",
+   "S10W060",
+   "S13W062",
+   "S14W060",
+   "S16W055",
+   "S18W065",
+   "S20W055",
+   "S20W060"
+  ],
+  "Brazil_North Region_East": [
+   "N00W053",
+   "N00W055",
+   "N00W057",
+   "N00W060",
+   "N01W050",
+   "N02W053",
+   "N02W060",
+   "S02W055",
+   "S03W050",
+   "S03W053",
+   "S03W058",
+   "S05W050",
+   "S05W053",
+   "S05W055",
+   "S05W058",
+   "S05W060",
+   "S07W053",
+   "S07W058",
+   "S10W050",
+   "S10W053",
+   "S10W055",
+   "S10W058",
+   "S10W060",
+   "S15W050",
+   "S16W055"
+  ],
+  "Brazil_North Region_West": [
+   "N00W060",
+   "N01W067",
+   "N01W070",
+   "N02W060",
+   "N02W063",
+   "N02W065",
+   "N05W060",
+   "N05W062",
+   "S01W065",
+   "S02W070",
+   "S02W072",
+   "S03W058",
+   "S05W058",
+   "S05W060",
+   "S05W065",
+   "S05W070",
+   "S05W072",
+   "S05W075",
+   "S07W058",
+   "S08W068",
+   "S08W070",
+   "S08W072",
+   "S08W075",
+   "S09W065",
+   "S10W060",
+   "S10W072",
+   "S10W075",
+   "S11W068",
+   "S11W070",
+   "S13W062",
+   "S13W065",
+   "S13W072",
+   "S14W060",
+   "S15W069",
+   "S15W070",
+   "S18W065"
+  ],
+  "Brazil_Northeast Region_East": [
+   "S10W035",
+   "S10W038",
+   "S10W042",
+   "S20W038",
+   "S20W040"
+  ],
+  "Brazil_Northeast Region_West": [
+   "S03W050",
+   "S05W046",
+   "S05W050",
+   "S10W035",
+   "S10W038",
+   "S10W042",
+   "S10W046",
+   "S10W050",
+   "S15W045",
+   "S15W050"
+  ],
+  "Brazil_Paraiba": [
+   "S10W035",
+   "S10W038",
+   "S10W042"
+  ],
+  "Brazil_Parana_East": [
+   "S25W049",
+   "S25W052",
+   "S30W050",
+   "S30W052"
+  ],
+  "Brazil_Parana_West": [
+   "S25W052",
+   "S25W064",
+   "S30W052",
+   "S30W054",
+   "S30W060"
+  ],
+  "Brazil_Rio Grande do Norte": [
+   "S05W046",
+   "S10W035",
+   "S10W038",
+   "S10W042"
+  ],
+  "Brazil_Santa Catarina": [
+   "S30W050",
+   "S30W052",
+   "S30W054"
+  ],
+  "Brazil_South Region_East": [
+   "S30W050",
+   "S30W052",
+   "S30W054",
+   "S35W060"
+  ],
+  "Brazil_South Region_West": [
+   "S30W052",
+   "S30W054",
+   "S30W060",
+   "S35W060"
+  ],
+  "Brazil_Southeast Region_Espirito Santo": [
+   "S20W038",
+   "S20W040",
+   "S20W042",
+   "S22W043",
+   "S23W045",
+   "S35W035"
+  ],
+  "Brazil_Southeast Region_Minas Gerais_Contagem": [
+   "S20W042",
+   "S20W045",
+   "S20W047",
+   "S20W050",
+   "S22W043",
+   "S22W045",
+   "S23W045",
+   "S23W049"
+  ],
+  "Brazil_Southeast Region_Minas Gerais_North": [
+   "S15W045",
+   "S15W050",
+   "S17W045",
+   "S20W040",
+   "S20W042",
+   "S20W045",
+   "S20W047",
+   "S20W050",
+   "S20W055",
+   "S22W043",
+   "S23W049",
+   "S25W052"
+  ],
+  "Brazil_Southeast Region_Rio de Janeiro": [
+   "S22W043",
+   "S23W045",
+   "S60W045"
+  ],
+  "Brazil_Southeast Region_Sao Paulo_Campinas": [
+   "S23W049",
+   "S25W049",
+   "S25W052"
+  ],
+  "Brazil_Southeast Region_Sao Paulo_City": [
+   "S23W045",
+   "S23W049",
+   "S25W049",
+   "S30W050",
+   "S60W045"
+  ],
+  "Brazil_Southeast Region_Sao Paulo_West": [
+   "S20W050",
+   "S20W055",
+   "S23W049",
+   "S25W052",
+   "S25W064"
+  ],
+  "British Indian Ocean Territory": [
+   "S10E065"
+  ],
+  "British Virgin Islands": [
+   "N15W072"
+  ],
+  "Brunei": [
+   "N02E114",
+   "N02E115",
+   "N05E110"
+  ],
+  "Bulgaria_East": [
+   "N40E025",
+   "N41E022"
+  ],
+  "Bulgaria_West": [
+   "N40E025",
+   "N41E022"
+  ],
+  "Burkina Faso": [
+   "N07W005",
+   "N07W010",
+   "N10W005",
+   "N15W005"
+  ],
+  "Burundi": [
+   "S05E028",
+   "S07E030"
+  ],
+  "Cambodia": [
+   "N04E102",
+   "N10E100",
+   "N10E104"
+  ],
+  "Cameroon_Central": [
+   "N00E013",
+   "N00E016",
+   "N02E010",
+   "N02E011",
+   "N02E013",
+   "N03E016",
+   "N05E010",
+   "N05E013",
+   "N07E010",
+   "S05E005"
+  ],
+  "Cameroon_West": [
+   "N02E010",
+   "N02E011",
+   "N05E010",
+   "N06E005",
+   "N07E010",
+   "S05E005"
+  ],
+  "Campo de Hielo Sur": [
+   "S50W073",
+   "S50W075"
+  ],
+  "Canada_Alberta_Edmonton": [
+   "N49W120",
+   "N50W116",
+   "N50W117",
+   "N52W120",
+   "N53W125",
+   "N54W117",
+   "N54W120"
+  ],
+  "Canada_Alberta_North": [
+   "N53W125",
+   "N54W117",
+   "N54W120",
+   "N56W125",
+   "N60W120",
+   "N60W126"
+  ],
+  "Canada_Alberta_South": [
+   "N45W113",
+   "N45W115",
+   "N50W116",
+   "N50W117"
+  ],
+  "Canada_British Columbia_Central": [
+   "N50W123",
+   "N50W125",
+   "N50W130",
+   "N52W120",
+   "N52W128",
+   "N52W130",
+   "N53W125"
+  ],
+  "Canada_British Columbia_Far_North": [
+   "N53W125",
+   "N56W125"
+  ],
+  "Canada_British Columbia_Islands": [
+   "N35W130",
+   "N35W140",
+   "N48W125",
+   "N50W125",
+   "N50W130",
+   "N52W130"
+  ],
+  "Canada_British Columbia_North": [
+   "N35W140",
+   "N50W125",
+   "N50W130",
+   "N52W128",
+   "N52W130",
+   "N53W125",
+   "N55W128",
+   "N55W130",
+   "N55W133",
+   "N55W135",
+   "N55W140",
+   "N56W125",
+   "N57W133",
+   "N58W128",
+   "N60W130",
+   "N60W132",
+   "N60W135",
+   "N60W138",
+   "N60W140"
+  ],
+  "Canada_British Columbia_Northeast": [
+   "N53W125",
+   "N55W128",
+   "N56W125",
+   "N58W128",
+   "N60W126",
+   "N60W130"
+  ],
+  "Canada_British Columbia_Southeast": [
+   "N45W115",
+   "N45W120",
+   "N47W117",
+   "N48W122",
+   "N49W120",
+   "N50W116",
+   "N50W117",
+   "N50W123",
+   "N52W120"
+  ],
+  "Canada_British Columbia_Vancouver": [
+   "N48W122",
+   "N48W125",
+   "N50W123",
+   "N50W125",
+   "N50W130"
+  ],
+  "Canada_Labrador_North": [
+   "N48W060",
+   "N50W066",
+   "N55W066",
+   "N60W068"
+  ],
+  "Canada_Labrador_South": [
+   "N48W060",
+   "N50W066"
+  ],
+  "Canada_Labrador_West": [
+   "N48W060",
+   "N50W066",
+   "N50W075",
+   "N54W075"
+  ],
+  "Canada_Manitoba_Northeast": [
+   "N46W105",
+   "N48W090",
+   "N49W096",
+   "N53W105"
+  ],
+  "Canada_Manitoba_Northwest": [
+   "N46W105",
+   "N53W105"
+  ],
+  "Canada_Manitoba_South": [
+   "N46W105",
+   "N53W105"
+  ],
+  "Canada_Manitoba_Winnipeg": [
+   "N46W096",
+   "N46W105",
+   "N49W096"
+  ],
+  "Canada_New Brunswick": [
+   "N35W071",
+   "N45W071",
+   "N47W071"
+  ],
+  "Canada_Newfoundland_East": [
+   "N30W060",
+   "N48W060"
+  ],
+  "Canada_Newfoundland_North": [
+   "N48W060"
+  ],
+  "Canada_Newfoundland_South": [
+   "N30W060",
+   "N48W060"
+  ],
+  "Canada_Newfoundland_West": [
+   "N30W060",
+   "N48W060"
+  ],
+  "Canada_Northwest Territories_East": [
+   "N49W110",
+   "N53W105",
+   "N54W117",
+   "N60W111",
+   "N60W120"
+  ],
+  "Canada_Northwest Territories_North": [
+   "N60W120",
+   "N60W126",
+   "N60W130",
+   "N60W132",
+   "N60W135",
+   "N63W130",
+   "N65W130",
+   "N65W142",
+   "N66W111",
+   "N66W142",
+   "N67W120"
+  ],
+  "Canada_Northwest Territories_Yellowknife": [
+   "N54W117",
+   "N54W120",
+   "N60W120",
+   "N60W126"
+  ],
+  "Canada_Nova Scotia_Halifax": [
+   "N35W071",
+   "N45W071"
+  ],
+  "Canada_Nova Scotia_Sydney": [
+   "N30W060",
+   "N35W071",
+   "N45W071",
+   "N47W071",
+   "N48W060"
+  ],
+  "Canada_Nunavut_North": [
+   "N66W111",
+   "N67W120",
+   "N69W095",
+   "N70W070",
+   "N70W075",
+   "N72W060",
+   "N72W084",
+   "N75W080",
+   "N75W085",
+   "N75W089",
+   "N75W095"
+  ],
+  "Canada_Nunavut_South": [
+   "N48W090",
+   "N49W096",
+   "N53W105",
+   "N54W075",
+   "N60W060",
+   "N60W068",
+   "N60W075",
+   "N60W084",
+   "N60W111",
+   "N60W120",
+   "N61W095",
+   "N65W130",
+   "N66W068",
+   "N66W111",
+   "N67W120",
+   "N69W095",
+   "N70W070",
+   "N70W075",
+   "N72W084"
+  ],
+  "Canada_Ontario_Bame": [
+   "N40W080",
+   "N40W085",
+   "N45W079",
+   "N45W083"
+  ],
+  "Canada_Ontario_Kingston": [
+   "N40W077",
+   "N40W080",
+   "N44W075",
+   "N45W079"
+  ],
+  "Canada_Ontario_London": [
+   "N40W080",
+   "N40W085"
+  ],
+  "Canada_Ontario_Northeastern_Central": [
+   "N45W083",
+   "N48W090"
+  ],
+  "Canada_Ontario_Northeastern_North": [
+   "N48W090"
+  ],
+  "Canada_Ontario_Northeastern_S": [
+   "N45W083",
+   "N48W090"
+  ],
+  "Canada_Ontario_Northeastern_SE": [
+   "N45W079",
+   "N45W083",
+   "N48W090"
+  ],
+  "Canada_Ontario_Northeastern_SW": [
+   "N45W083",
+   "N45W090"
+  ],
+  "Canada_Ontario_Northeastern_Wawa": [
+   "N45W083",
+   "N45W090",
+   "N48W090"
+  ],
+  "Canada_Ontario_Northern": [
+   "N45W090",
+   "N46W096",
+   "N48W090"
+  ],
+  "Canada_Ontario_Northwestern": [
+   "N46W096",
+   "N48W090",
+   "N49W096"
+  ],
+  "Canada_Ontario_Toronto": [
+   "N40W080",
+   "N40W085"
+  ],
+  "Canada_Prince Edward Island": [
+   "N45W071",
+   "N47W071"
+  ],
+  "Canada_Quebec_Quebec": [
+   "N44W075",
+   "N45W071",
+   "N47W071",
+   "N47W075"
+  ],
+  "Canada_Quebek_Far North": [
+   "N48W079",
+   "N48W090",
+   "N50W066",
+   "N50W075",
+   "N54W075",
+   "N55W066",
+   "N60W068",
+   "N60W075",
+   "N60W084"
+  ],
+  "Canada_Quebek_Lachute": [
+   "N44W075",
+   "N45W079"
+  ],
+  "Canada_Quebek_Montreal": [
+   "N44W075"
+  ],
+  "Canada_Quebek_North": [
+   "N47W071",
+   "N47W075",
+   "N48W060",
+   "N50W066",
+   "N50W075"
+  ],
+  "Canada_Quebek_Southeast_Rimouski": [
+   "N30W060",
+   "N45W071",
+   "N47W071",
+   "N48W060"
+  ],
+  "Canada_Quebek_Southeast_Saguenay": [
+   "N47W071",
+   "N47W075"
+  ],
+  "Canada_Quebek_West_Chibougamau": [
+   "N44W075",
+   "N45W079",
+   "N47W075",
+   "N48W079",
+   "N50W075"
+  ],
+  "Canada_Quebek_West_Rouyn-Noranda": [
+   "N45W079",
+   "N45W083",
+   "N48W079",
+   "N48W090"
+  ],
+  "Canada_Saskatchewan_North": [
+   "N49W110",
+   "N50W116",
+   "N53W105",
+   "N54W117"
+  ],
+  "Canada_Saskatchewan_Regina": [
+   "N45W110",
+   "N46W105",
+   "N49W110",
+   "N53W105"
+  ],
+  "Canada_Saskatchewan_Saskatoon": [
+   "N45W110",
+   "N45W113",
+   "N49W110",
+   "N50W116"
+  ],
+  "Canada_Yukon_North": [
+   "N60W126",
+   "N60W130",
+   "N60W132",
+   "N60W135",
+   "N60W138",
+   "N60W140",
+   "N60W142",
+   "N63W130",
+   "N65W142",
+   "N66W142"
+  ],
+  "Canada_Yukon_Whitehorse": [
+   "N55W140",
+   "N60W130",
+   "N60W132",
+   "N60W135",
+   "N60W138",
+   "N60W140",
+   "N60W142"
+  ],
+  "Cape Verde": [
+   "N04W035",
+   "N15W030"
+  ],
+  "Caribisch Nederland": [
+   "N10W070",
+   "N10W080",
+   "N15W072"
+  ],
+  "Cayman Islands": [
+   "N10W085",
+   "N15W080",
+   "N20W080",
+   "N20W090"
+  ],
+  "Central African Republic": [
+   "N00E016",
+   "N00E023",
+   "N02E013",
+   "N02E025",
+   "N03E016",
+   "N03E020",
+   "N05E013",
+   "N05E020",
+   "N05E025",
+   "N07E010"
+  ],
+  "Chad": [
+   "N05E020",
+   "N07E010",
+   "N15E005",
+   "N15E020",
+   "N20E010",
+   "N20E015",
+   "N20E018",
+   "N22E015"
+  ],
+  "Chile_Central": [
+   "S35W070",
+   "S35W071",
+   "S35W073",
+   "S35W090",
+   "S37W072",
+   "S40W075"
+  ],
+  "Chile_North": [
+   "S20W070",
+   "S20W072",
+   "S20W075",
+   "S20W080",
+   "S20W090",
+   "S22W070",
+   "S25W070",
+   "S30W070",
+   "S30W107",
+   "S30W115",
+   "S31W071",
+   "S35W070",
+   "S35W071",
+   "S35W073",
+   "S35W090",
+   "S40W075",
+   "S40W115",
+   "S60W090"
+  ],
+  "Chile_South": [
+   "S37W072",
+   "S40W072",
+   "S40W075",
+   "S43W075",
+   "S45W072",
+   "S45W075",
+   "S48W075",
+   "S50W073",
+   "S50W075",
+   "S52W075",
+   "S60W070",
+   "S60W075",
+   "S60W090"
+  ],
+  "China_Anhui": [
+   "N27E115",
+   "N27E117",
+   "N28E118",
+   "N30E112",
+   "N30E115",
+   "N31E115",
+   "N33E111"
+  ],
+  "China_Chongqing": [
+   "N27E107",
+   "N28E105",
+   "N28E108",
+   "N28E109",
+   "N30E105",
+   "N30E107",
+   "N30E108",
+   "N30E109",
+   "N30E110",
+   "N32E108"
+  ],
+  "China_Fujian": [
+   "N20E115",
+   "N20E116",
+   "N25E115",
+   "N25E116",
+   "N25E117",
+   "N25E118",
+   "N25E120",
+   "N27E115",
+   "N27E117",
+   "N27E118",
+   "N28E118"
+  ],
+  "China_Gansu": [
+   "N32E100",
+   "N32E101",
+   "N32E103",
+   "N32E105",
+   "N33E103",
+   "N33E105",
+   "N33E106",
+   "N35E092",
+   "N35E098",
+   "N35E100",
+   "N35E102",
+   "N35E103",
+   "N35E105",
+   "N35E108",
+   "N36E105",
+   "N37E102",
+   "N38E095",
+   "N40E090",
+   "N40E094",
+   "N40E097",
+   "N40E100"
+  ],
+  "China_Guangdong": [
+   "N20E107",
+   "N20E110",
+   "N20E112",
+   "N20E115",
+   "N20E116",
+   "N23E111",
+   "N24E112",
+   "N25E112",
+   "N25E114"
+  ],
+  "China_Guangxi": [
+   "N20E105",
+   "N20E107",
+   "N20E110",
+   "N22E105",
+   "N23E103",
+   "N23E105",
+   "N23E106",
+   "N23E107",
+   "N23E110",
+   "N23E111",
+   "N24E107",
+   "N24E112",
+   "N25E106",
+   "N25E107",
+   "N25E108",
+   "N25E110",
+   "N26E109"
+  ],
+  "China_Guizhou": [
+   "N23E103",
+   "N23E105",
+   "N23E106",
+   "N25E103",
+   "N25E105",
+   "N25E106",
+   "N25E107",
+   "N25E108",
+   "N26E108",
+   "N26E109",
+   "N27E103",
+   "N27E105",
+   "N27E107",
+   "N28E105",
+   "N28E108",
+   "N28E109"
+  ],
+  "China_Hainan": [
+   "N07E110",
+   "N15E107",
+   "N20E107",
+   "N20E110",
+   "N20E112",
+   "N20E115",
+   "N20E116"
+  ],
+  "China_Hebei": [
+   "N35E113",
+   "N35E115",
+   "N35E120",
+   "N38E112",
+   "N40E110",
+   "N40E115",
+   "N40E119",
+   "N41E115",
+   "N41E117",
+   "N42E110"
+  ],
+  "China_Heilongjiang": [
+   "N41E125",
+   "N42E127",
+   "N42E130",
+   "N45E120",
+   "N45E128",
+   "N45E133",
+   "N50E120",
+   "N50E124"
+  ],
+  "China_Henan": [
+   "N28E111",
+   "N30E112",
+   "N31E115",
+   "N32E110",
+   "N33E111",
+   "N35E110",
+   "N35E112",
+   "N35E113",
+   "N35E115"
+  ],
+  "China_Hubei": [
+   "N27E112",
+   "N27E114",
+   "N27E115",
+   "N28E108",
+   "N28E109",
+   "N28E110",
+   "N28E111",
+   "N30E108",
+   "N30E109",
+   "N30E110",
+   "N30E112",
+   "N30E115",
+   "N31E115",
+   "N32E108",
+   "N32E110",
+   "N33E108",
+   "N33E111"
+  ],
+  "China_Hunan": [
+   "N23E110",
+   "N23E111",
+   "N24E112",
+   "N25E108",
+   "N25E110",
+   "N25E112",
+   "N25E114",
+   "N26E108",
+   "N26E109",
+   "N27E110",
+   "N27E112",
+   "N27E114",
+   "N28E109",
+   "N28E110",
+   "N28E111",
+   "N30E110"
+  ],
+  "China_Inner Mongolia": [
+   "N35E098",
+   "N35E100",
+   "N36E105",
+   "N37E102",
+   "N37E108",
+   "N38E110",
+   "N38E112",
+   "N40E097",
+   "N40E100",
+   "N40E105",
+   "N40E110",
+   "N40E119",
+   "N40E123",
+   "N41E115",
+   "N41E117",
+   "N42E110",
+   "N45E115",
+   "N45E120",
+   "N50E120",
+   "N50E124"
+  ],
+  "China_Jiangsu": [
+   "N29E120",
+   "N31E115",
+   "N35E115"
+  ],
+  "China_Jiangxi": [
+   "N20E115",
+   "N20E116",
+   "N24E112",
+   "N25E112",
+   "N25E114",
+   "N25E115",
+   "N25E116",
+   "N27E112",
+   "N27E114",
+   "N27E115",
+   "N27E117",
+   "N27E118",
+   "N28E118",
+   "N30E115"
+  ],
+  "China_Jilin": [
+   "N40E119",
+   "N40E123",
+   "N40E125",
+   "N40E127",
+   "N41E125",
+   "N42E127",
+   "N42E130",
+   "N45E120"
+  ],
+  "China_Liaoning": [
+   "N35E115",
+   "N35E120",
+   "N40E115",
+   "N40E119",
+   "N40E123",
+   "N40E125",
+   "N41E117",
+   "N41E125"
+  ],
+  "China_Ningxia Hui": [
+   "N35E105",
+   "N36E105",
+   "N37E102"
+  ],
+  "China_Qinghai": [
+   "N30E090",
+   "N30E095",
+   "N31E093",
+   "N32E095",
+   "N32E097",
+   "N32E100",
+   "N32E101",
+   "N33E085",
+   "N35E090",
+   "N35E092",
+   "N35E095",
+   "N35E098",
+   "N35E100",
+   "N35E102",
+   "N35E103",
+   "N37E102",
+   "N38E095"
+  ],
+  "China_Shaanxi": [
+   "N30E107",
+   "N30E108",
+   "N30E109",
+   "N32E105",
+   "N32E108",
+   "N32E110",
+   "N33E105",
+   "N33E106",
+   "N33E108",
+   "N33E111",
+   "N35E105",
+   "N35E108",
+   "N35E110",
+   "N36E105",
+   "N37E108",
+   "N37E110",
+   "N38E110"
+  ],
+  "China_Shandong": [
+   "N31E115",
+   "N33E111",
+   "N35E113",
+   "N35E115",
+   "N35E120"
+  ],
+  "China_Shanghai": [
+   "N29E120"
+  ],
+  "China_Shanxi": [
+   "N32E110",
+   "N33E111",
+   "N35E110",
+   "N35E112",
+   "N35E113",
+   "N37E110",
+   "N38E110",
+   "N38E112",
+   "N40E110"
+  ],
+  "China_Sichuan": [
+   "N25E100",
+   "N25E102",
+   "N25E103",
+   "N27E098",
+   "N27E103",
+   "N27E105",
+   "N28E098",
+   "N28E100",
+   "N28E102",
+   "N28E103",
+   "N28E105",
+   "N30E097",
+   "N30E100",
+   "N30E102",
+   "N30E103",
+   "N30E105",
+   "N30E107",
+   "N30E108",
+   "N32E097",
+   "N32E100",
+   "N32E101",
+   "N32E103",
+   "N32E105",
+   "N32E108",
+   "N33E103"
+  ],
+  "China_Tibet Autonomous Region": [
+   "N25E083",
+   "N25E085",
+   "N25E088",
+   "N25E090",
+   "N25E092",
+   "N27E095",
+   "N27E097",
+   "N28E085",
+   "N28E088",
+   "N28E090",
+   "N28E093",
+   "N28E098",
+   "N29E080",
+   "N29E095",
+   "N30E078",
+   "N30E080",
+   "N30E082",
+   "N30E085",
+   "N30E090",
+   "N30E093",
+   "N30E095",
+   "N30E097",
+   "N31E093",
+   "N32E078",
+   "N32E095",
+   "N32E097",
+   "N33E085",
+   "N35E080",
+   "N35E082"
+  ],
+  "China_Xinjiang": [
+   "N30E080",
+   "N32E078",
+   "N33E085",
+   "N35E074",
+   "N35E075",
+   "N35E077",
+   "N35E080",
+   "N35E082",
+   "N35E090",
+   "N35E092",
+   "N36E077",
+   "N37E073",
+   "N37E075",
+   "N37E077",
+   "N37E085",
+   "N37E087",
+   "N38E075",
+   "N40E072",
+   "N40E075",
+   "N40E078",
+   "N40E080",
+   "N40E082",
+   "N40E085",
+   "N40E087",
+   "N40E090",
+   "N40E094",
+   "N42E078",
+   "N43E082",
+   "N44E085",
+   "N45E072",
+   "N45E081",
+   "N46E090",
+   "N47E081",
+   "N48E085"
+  ],
+  "China_Yunnan": [
+   "N20E098",
+   "N20E102",
+   "N21E100",
+   "N22E095",
+   "N22E098",
+   "N22E103",
+   "N23E100",
+   "N23E101",
+   "N23E103",
+   "N23E105",
+   "N23E106",
+   "N24E097",
+   "N24E098",
+   "N25E100",
+   "N25E102",
+   "N25E103",
+   "N26E098",
+   "N27E098",
+   "N27E103",
+   "N27E105",
+   "N28E098",
+   "N28E100",
+   "N28E103",
+   "N28E105"
+  ],
+  "China_Zhejiang": [
+   "N25E120",
+   "N27E118",
+   "N28E118",
+   "N28E119",
+   "N29E120",
+   "N30E115",
+   "N31E115"
+  ],
+  "Colombia_East": [
+   "N00W077",
+   "N00W080",
+   "N01W067",
+   "N01W070",
+   "N01W073",
+   "N01W075",
+   "N01W080",
+   "N02W077",
+   "N05W070",
+   "N05W073",
+   "N05W075",
+   "S02W070",
+   "S02W072",
+   "S02W075",
+   "S02W078",
+   "S05W070",
+   "S05W072",
+   "S05W075"
+  ],
+  "Colombia_North": [
+   "N05W073",
+   "N05W075",
+   "N05W076",
+   "N05W080",
+   "N07W075",
+   "N07W080",
+   "N08W073",
+   "N10W080",
+   "N10W085",
+   "N15W080"
+  ],
+  "Colombia_West": [
+   "N00W077",
+   "N00W080",
+   "N01W073",
+   "N01W075",
+   "N01W080",
+   "N02W077",
+   "N03W077",
+   "N03W083",
+   "N05W073",
+   "N05W075",
+   "N05W076",
+   "N05W080",
+   "N07W080",
+   "S04W090"
+  ],
+  "Comoros": [
+   "S20E037"
+  ],
+  "Congo-Brazzaville": [
+   "N00E013",
+   "N00E016",
+   "N02E013",
+   "N03E016",
+   "S02E012",
+   "S03E013",
+   "S05E005",
+   "S05E010",
+   "S05E013",
+   "S05E015",
+   "S20W005"
+  ],
+  "Congo-Kinshasa_Kivu": [
+   "N00E025",
+   "N00E029",
+   "S02E025",
+   "S02E028",
+   "S05E025",
+   "S05E028",
+   "S09E024"
+  ],
+  "Congo-Kinshasa_West": [
+   "N00E016",
+   "N00E020",
+   "N00E023",
+   "N00E025",
+   "N00E029",
+   "N00E031",
+   "N02E025",
+   "N02E027",
+   "N03E016",
+   "N03E020",
+   "N05E013",
+   "N05E020",
+   "N05E025",
+   "S02E023",
+   "S02E025",
+   "S02E028",
+   "S03E020",
+   "S05E010",
+   "S05E013",
+   "S05E015",
+   "S05E018",
+   "S05E020",
+   "S05E023",
+   "S05E025",
+   "S05E028",
+   "S07E030",
+   "S08E015",
+   "S08E017",
+   "S09E020",
+   "S09E024",
+   "S10E013",
+   "S11E030",
+   "S15E020",
+   "S20E015",
+   "S20W005"
+  ],
+  "Cook Islands": [
+   "S15W160",
+   "S15W171",
+   "S29W165",
+   "S29W180"
+  ],
+  "Costa Rica": [
+   "N03W083",
+   "N03W090",
+   "N05W102",
+   "N10W085",
+   "N10W087",
+   "N10W090"
+  ],
+  "Cote dIvoire": [
+   "N06W010",
+   "N07W005",
+   "N07W010",
+   "N10W005",
+   "S05W005",
+   "S10W010"
+  ],
+  "Crimea": [
+   "N40E030",
+   "N40E034",
+   "N45E025",
+   "N45E033"
+  ],
+  "Croatia_Central": [
+   "N40E013",
+   "N43E016",
+   "N45E015"
+  ],
+  "Croatia_West": [
+   "N40E010",
+   "N40E013",
+   "N40E016",
+   "N43E016",
+   "N45E012",
+   "N45E015"
+  ],
+  "Cuba": [
+   "N15W080",
+   "N20W080",
+   "N20W090"
+  ],
+  "Cyprus": [
+   "N30E030"
+  ],
+  "Czech_Jihovychod_Jihomoravsky kraj": [
+   "N48E015"
+  ],
+  "Czech_Jihovychod_Kraj Vysocina": [
+   "N47E012",
+   "N48E015"
+  ],
+  "Czech_Jihozapad_Jihocesky kraj": [
+   "N47E012",
+   "N48E015"
+  ],
+  "Czech_Jihozapad_Plzensky kraj": [
+   "N47E012",
+   "N50E009"
+  ],
+  "Czech_Karlovasky kraj": [
+   "N47E012",
+   "N50E009"
+  ],
+  "Czech_Moravskoslezsko": [
+   "N48E015",
+   "N50E015"
+  ],
+  "Czech_Olomoucky kraj": [
+   "N48E015",
+   "N50E015"
+  ],
+  "Czech_Praha": [
+   "N47E012",
+   "N50E009"
+  ],
+  "Czech_Severovychod_Kralovehradecky kraj": [
+   "N50E015"
+  ],
+  "Czech_Severovychod_Liberecky kraj": [
+   "N50E009",
+   "N50E015"
+  ],
+  "Czech_Severovychod_Pardubicky kraj": [
+   "N48E015",
+   "N50E015"
+  ],
+  "Czech_Stredni Cechy_East": [
+   "N47E012",
+   "N48E015",
+   "N50E009",
+   "N50E015"
+  ],
+  "Czech_Stredni Cechy_West": [
+   "N47E012",
+   "N50E009",
+   "N50E015"
+  ],
+  "Czech_Ustecky kraj": [
+   "N50E009"
+  ],
+  "Czech_Zlinsky Kraj": [
+   "N48E015"
+  ],
+  "Denmark_Capital Region of Denmark": [
+   "N50E009",
+   "N50E015"
+  ],
+  "Denmark_Central Denmark Region": [
+   "N50E005",
+   "N50E009"
+  ],
+  "Denmark_North Denmark Region": [
+   "N50E005",
+   "N50E009"
+  ],
+  "Denmark_Region Zealand": [
+   "N50E009"
+  ],
+  "Denmark_Region of Southern Denmark": [
+   "N50E005",
+   "N50E009"
+  ],
+  "Djibouti": [
+   "N10E040",
+   "N10E043"
+  ],
+  "Dominica": [
+   "N10W070",
+   "N15W072"
+  ],
+  "Dominican Republic": [
+   "N15W072",
+   "N15W080",
+   "N19W072"
+  ],
+  "East Timor": [
+   "S10E120",
+   "S10E125"
+  ],
+  "Ecuador_East": [
+   "N00W077",
+   "N00W080",
+   "N01W080",
+   "S02W078",
+   "S03W080",
+   "S04W090",
+   "S05W078",
+   "S05W080",
+   "S07W080",
+   "S20W090"
+  ],
+  "Ecuador_West": [
+   "N00W080",
+   "N01W080",
+   "N03W083",
+   "N03W090",
+   "S03W080",
+   "S04W090",
+   "S05W080",
+   "S10W102"
+  ],
+  "Egypt": [
+   "N15E020",
+   "N15E025",
+   "N15E030",
+   "N20E035",
+   "N20E037",
+   "N22E030",
+   "N25E025",
+   "N25E033",
+   "N25E035",
+   "N30E020",
+   "N30E025",
+   "N30E030"
+  ],
+  "El Salvador": [
+   "N05W102",
+   "N10W090"
+  ],
+  "Equatorial Guinea": [
+   "N00E010",
+   "N02E010",
+   "N02E011",
+   "S05E005",
+   "S05W005"
+  ],
+  "Eritrea": [
+   "N10E040",
+   "N10E043",
+   "N12E035",
+   "N13E038",
+   "N15E035",
+   "N15E038",
+   "N15E040",
+   "N18E040"
+  ],
+  "Estonia_East": [
+   "N50E015",
+   "N54E025"
+  ],
+  "Estonia_West": [
+   "N50E015",
+   "N54E025"
+  ],
+  "Ethiopia": [
+   "N01E035",
+   "N05E025",
+   "N05E035",
+   "N05E037",
+   "N07E037",
+   "N07E040",
+   "N10E035",
+   "N10E038",
+   "N10E040",
+   "N10E043",
+   "N12E035",
+   "N12E038",
+   "N13E038",
+   "S10E040",
+   "S10E046"
+  ],
+  "Falkland Islands": [
+   "S60W060",
+   "S60W070"
+  ],
+  "Faroe Islands": [
+   "N60W021"
+  ],
+  "Federated States of Micronesia": [
+   "N00E130",
+   "N00E137",
+   "N00E145",
+   "N00E156",
+   "S09E153"
+  ],
+  "Fiji": [
+   "S12E165",
+   "S16E165",
+   "S25E172",
+   "S29W180"
+  ],
+  "Finland_Eastern Finland_North": [
+   "N60E026",
+   "N60E030",
+   "N63E030",
+   "N65E020"
+  ],
+  "Finland_Eastern Finland_South": [
+   "N60E026",
+   "N60E030"
+  ],
+  "Finland_Northern Finland": [
+   "N60E020",
+   "N60E026",
+   "N63E030",
+   "N65E020",
+   "N66E030",
+   "N70E020"
+  ],
+  "Finland_Southern Finland_Helsinki": [
+   "N50E015",
+   "N54E025",
+   "N60E020",
+   "N60E026"
+  ],
+  "Finland_Southern Finland_Lappeenranta": [
+   "N60E026",
+   "N60E030"
+  ],
+  "Finland_Southern Finland_West": [
+   "N50E015",
+   "N60E012",
+   "N60E020"
+  ],
+  "Finland_Western Finland_Jyvaskyla": [
+   "N60E020",
+   "N60E026"
+  ],
+  "Finland_Western Finland_Tampere": [
+   "N60E012",
+   "N60E020"
+  ],
+  "France_Alsace_Bas-Rhin": [
+   "N46E005",
+   "N47E008"
+  ],
+  "France_Alsace_Haut-Rhin": [
+   "N46E005"
+  ],
+  "France_Aquitaine_Dordogne": [
+   "N40W002",
+   "N42E000",
+   "N45W005"
+  ],
+  "France_Aquitaine_Gironde": [
+   "N40W002",
+   "N42E000",
+   "N45W005"
+  ],
+  "France_Aquitaine_Landes": [
+   "N40W002",
+   "N42E000"
+  ],
+  "France_Aquitaine_Lot-et-Garonne": [
+   "N40W002",
+   "N42E000"
+  ],
+  "France_Aquitaine_Pyrenees-Atlantiques": [
+   "N40W002",
+   "N42E000"
+  ],
+  "France_Auvergne_Allier": [
+   "N45W005"
+  ],
+  "France_Auvergne_Cantal": [
+   "N42E002",
+   "N45W005"
+  ],
+  "France_Auvergne_Haute-Loire": [
+   "N42E002",
+   "N45W005"
+  ],
+  "France_Auvergne_Puy-de-Dome": [
+   "N45W005"
+  ],
+  "France_Brittany_Cotes-dArmor": [
+   "N45W005"
+  ],
+  "France_Brittany_Finistere": [
+   "N42W010",
+   "N45W005"
+  ],
+  "France_Brittany_Ille-et-Vilaine": [
+   "N45W005"
+  ],
+  "France_Brittany_Morbihan": [
+   "N45W005"
+  ],
+  "France_Burgundy_Cote-dOr": [
+   "N45W005",
+   "N46E005"
+  ],
+  "France_Burgundy_Nievre": [
+   "N45W005"
+  ],
+  "France_Burgundy_Saone-et-Loire": [
+   "N45W005",
+   "N46E005"
+  ],
+  "France_Burgundy_Yonne": [
+   "N45W005"
+  ],
+  "France_Centre-Val de Loire_Cher": [
+   "N45W005"
+  ],
+  "France_Centre-Val de Loire_Eure-et-Loir": [
+   "N45W005"
+  ],
+  "France_Centre-Val de Loire_Indre-et-Loire": [
+   "N45W005"
+  ],
+  "France_Centre-Val de Loire_Indre": [
+   "N45W005"
+  ],
+  "France_Centre-Val de Loire_Loir-et-Cher": [
+   "N45W005"
+  ],
+  "France_Centre-Val de Loire_Loiret": [
+   "N45W005"
+  ],
+  "France_Champagne-Ardenne": [
+   "N45W005",
+   "N46E005",
+   "N50W005"
+  ],
+  "France_Corsica": [
+   "N35E005",
+   "N40E010",
+   "N43E005"
+  ],
+  "France_Free County_North": [
+   "N46E005"
+  ],
+  "France_Free County_South": [
+   "N46E005"
+  ],
+  "France_French Guiana": [
+   "N00W055",
+   "N02W053",
+   "N03W055",
+   "N05W060"
+  ],
+  "France_Ile-de-France_Essonne": [
+   "N45W005"
+  ],
+  "France_Ile-de-France_Hauts-de-Seine": [
+   "N45W005"
+  ],
+  "France_Ile-de-France_Paris": [
+   "N45W005"
+  ],
+  "France_Ile-de-France_Seine-Saint-Denis": [
+   "N45W005"
+  ],
+  "France_Ile-de-France_Seine-et-Marne": [
+   "N45W005"
+  ],
+  "France_Ile-de-France_Val-dOise": [
+   "N45W005"
+  ],
+  "France_Ile-de-France_Val-de-Marne": [
+   "N45W005"
+  ],
+  "France_Ile-de-France_Yvelines": [
+   "N45W005"
+  ],
+  "France_Languedoc-Roussillon_Aude": [
+   "N42E000",
+   "N42E002"
+  ],
+  "France_Languedoc-Roussillon_Gard": [
+   "N42E002"
+  ],
+  "France_Languedoc-Roussillon_Herault": [
+   "N42E002"
+  ],
+  "France_Languedoc-Roussillon_Lozere": [
+   "N42E002"
+  ],
+  "France_Languedoc-Roussillon_Pyrenees-Orientales": [
+   "N42E000",
+   "N42E002"
+  ],
+  "France_Limousin": [
+   "N42E000",
+   "N42E002",
+   "N45W005"
+  ],
+  "France_Lorraine_Meurthe-et-Moselle": [
+   "N46E005"
+  ],
+  "France_Lorraine_Meuse": [
+   "N45W005",
+   "N46E005"
+  ],
+  "France_Lorraine_Moselle": [
+   "N46E005"
+  ],
+  "France_Lorraine_Vosges": [
+   "N46E005"
+  ],
+  "France_Lower Normandy_Calvados": [
+   "N45W005",
+   "N50W005"
+  ],
+  "France_Lower Normandy_Manche": [
+   "N45W005",
+   "N50W005"
+  ],
+  "France_Lower Normandy_Orne": [
+   "N45W005"
+  ],
+  "France_Midi-Pyrenees_Ariege": [
+   "N42E000",
+   "N42E002"
+  ],
+  "France_Midi-Pyrenees_Aveyron": [
+   "N42E000",
+   "N42E002"
+  ],
+  "France_Midi-Pyrenees_Gers": [
+   "N40W002",
+   "N42E000"
+  ],
+  "France_Midi-Pyrenees_Haute-Garonne": [
+   "N42E000",
+   "N42E002"
+  ],
+  "France_Midi-Pyrenees_Hautes-Pyrenees": [
+   "N40W002",
+   "N42E000"
+  ],
+  "France_Midi-Pyrenees_Lot": [
+   "N42E000",
+   "N42E002",
+   "N45W005"
+  ],
+  "France_Midi-Pyrenees_Tarn-et-Garonne": [
+   "N42E000"
+  ],
+  "France_Midi-Pyrenees_Tarn": [
+   "N42E000",
+   "N42E002"
+  ],
+  "France_New Caledonia": [
+   "S25E150",
+   "S25E165",
+   "S25E172",
+   "S40E155"
+  ],
+  "France_Nord-Pas-de-Calais_Lille": [
+   "N50W005"
+  ],
+  "France_Nord-Pas-de-Calais_Nord": [
+   "N45W005",
+   "N50W005"
+  ],
+  "France_Nord-Pas-de-Calais_Pas-de-Calais": [
+   "N50W005"
+  ],
+  "France_Pays de la Loire_Loire-Atlantique_Nantes": [
+   "N45W005"
+  ],
+  "France_Pays de la Loire_Loire-Atlantique_Saint-Nazaire": [
+   "N45W005"
+  ],
+  "France_Pays de la Loire_Maine-et-Loire": [
+   "N45W005"
+  ],
+  "France_Pays de la Loire_Mayenne": [
+   "N45W005"
+  ],
+  "France_Pays de la Loire_Sarthe": [
+   "N45W005"
+  ],
+  "France_Pays de la Loire_Vendee": [
+   "N45W005"
+  ],
+  "France_Picardy_Aisne": [
+   "N45W005",
+   "N50W005"
+  ],
+  "France_Picardy_Oise": [
+   "N45W005"
+  ],
+  "France_Picardy_Somme": [
+   "N45W005",
+   "N50W005"
+  ],
+  "France_Poitou-Charentes_Charente-Maritime": [
+   "N45W005"
+  ],
+  "France_Poitou-Charentes_Charente": [
+   "N45W005"
+  ],
+  "France_Poitou-Charentes_Deux-Sevres": [
+   "N45W005"
+  ],
+  "France_Poitou-Charentes_Vienne": [
+   "N45W005"
+  ],
+  "France_Provence-Alpes-Cote dAzur_Alpes-de-Haute-Provence": [
+   "N43E005"
+  ],
+  "France_Provence-Alpes-Cote dAzur_Bouches-du-Rhone": [
+   "N35E005",
+   "N42E002",
+   "N43E005"
+  ],
+  "France_Provence-Alpes-Cote dAzur_Hautes-Alpes": [
+   "N43E005",
+   "N45E005"
+  ],
+  "France_Provence-Alpes-Cote dAzur_Maritime Alps": [
+   "N43E005"
+  ],
+  "France_Provence-Alpes-Cote dAzur_Var": [
+   "N35E005",
+   "N43E005"
+  ],
+  "France_Provence-Alpes-Cote dAzur_Vaucluse": [
+   "N42E002",
+   "N43E005"
+  ],
+  "France_Rhone-Alpes_Ain": [
+   "N45E005",
+   "N45W005",
+   "N46E005"
+  ],
+  "France_Rhone-Alpes_Ardeche": [
+   "N42E002",
+   "N45W005"
+  ],
+  "France_Rhone-Alpes_Drome": [
+   "N42E002",
+   "N43E005",
+   "N45E005",
+   "N45W005"
+  ],
+  "France_Rhone-Alpes_Haute-Savoie": [
+   "N45E005",
+   "N46E005"
+  ],
+  "France_Rhone-Alpes_Isere": [
+   "N43E005",
+   "N45E005",
+   "N45W005"
+  ],
+  "France_Rhone-Alpes_Loire": [
+   "N45W005"
+  ],
+  "France_Rhone-Alpes_Rhone": [
+   "N45E005",
+   "N45W005"
+  ],
+  "France_Rhone-Alpes_Savoie": [
+   "N45E005"
+  ],
+  "France_Southern Islands": [
+   "S15E045",
+   "S20E037",
+   "S20E048",
+   "S23E035",
+   "S23E047",
+   "S26E035",
+   "S26E050",
+   "S26E062",
+   "S32E050",
+   "S34E070",
+   "S34E080",
+   "S60E035",
+   "S60E050",
+   "S60E070",
+   "S60E084"
+  ],
+  "France_Upper Normandy": [
+   "N45W005",
+   "N50W005"
+  ],
+  "French Polynesia": [
+   "S15W142",
+   "S15W160",
+   "S29W165",
+   "S32W137",
+   "S32W150",
+   "S60W150"
+  ],
+  "Gabon": [
+   "N00E010",
+   "N00E013",
+   "N02E011",
+   "N02E013",
+   "S02E010",
+   "S02E012",
+   "S03E013",
+   "S05E005",
+   "S05E010",
+   "S20W005"
+  ],
+  "Georgia": [
+   "N40E040",
+   "N40E042",
+   "N40E045",
+   "N42E042"
+  ],
+  "Germany_Baden-Wurttemberg_Regierungsbezirk Freiburg": [
+   "N46E005",
+   "N47E008"
+  ],
+  "Germany_Baden-Wurttemberg_Regierungsbezirk Karlsruhe": [
+   "N46E005",
+   "N47E008"
+  ],
+  "Germany_Baden-Wurttemberg_Regierungsbezirk Stuttgart_Heilbronn": [
+   "N47E008"
+  ],
+  "Germany_Baden-Wurttemberg_Regierungsbezirk Stuttgart_Stuttgart": [
+   "N47E008"
+  ],
+  "Germany_Baden-Wurttemberg_Regierungsbezirk Tubingen": [
+   "N47E008"
+  ],
+  "Germany_Berlin": [
+   "N50E009"
+  ],
+  "Germany_Brandenburg_North": [
+   "N50E009"
+  ],
+  "Germany_Brandenburg_South": [
+   "N50E009"
+  ],
+  "Germany_Free State of Bavaria_Lower Bavaria": [
+   "N47E008",
+   "N47E012"
+  ],
+  "Germany_Free State of Bavaria_Lower Franconia": [
+   "N47E008",
+   "N50E005",
+   "N50E009"
+  ],
+  "Germany_Free State of Bavaria_Middle Franconia": [
+   "N47E008"
+  ],
+  "Germany_Free State of Bavaria_Swabia": [
+   "N47E008"
+  ],
+  "Germany_Free State of Bavaria_Upper Bavaria_East": [
+   "N47E008",
+   "N47E012"
+  ],
+  "Germany_Free State of Bavaria_Upper Bavaria_Ingolstadt": [
+   "N47E008",
+   "N47E012"
+  ],
+  "Germany_Free State of Bavaria_Upper Bavaria_Munchen": [
+   "N47E008"
+  ],
+  "Germany_Free State of Bavaria_Upper Bavaria_South": [
+   "N47E008"
+  ],
+  "Germany_Free State of Bavaria_Upper Franconia": [
+   "N47E008",
+   "N47E012",
+   "N50E009"
+  ],
+  "Germany_Free State of Bavaria_Upper Palatinate": [
+   "N47E008",
+   "N47E012",
+   "N50E009"
+  ],
+  "Germany_Hamburg_main": [
+   "N50E009"
+  ],
+  "Germany_Hesse_Regierungsbezirk Darmstadt": [
+   "N46E005",
+   "N47E008",
+   "N50E005",
+   "N50E009"
+  ],
+  "Germany_Hesse_Regierungsbezirk Giessen": [
+   "N50E005",
+   "N50E009"
+  ],
+  "Germany_Hesse_Regierungsbezirk Kassel": [
+   "N50E005",
+   "N50E009"
+  ],
+  "Germany_Lower Saxony_Braunschweig": [
+   "N50E009"
+  ],
+  "Germany_Lower Saxony_Bremen_Bremen": [
+   "N50E005",
+   "N50E009"
+  ],
+  "Germany_Lower Saxony_Bremen_Munster": [
+   "N50E005",
+   "N50E009"
+  ],
+  "Germany_Lower Saxony_Hannover": [
+   "N50E005",
+   "N50E009"
+  ],
+  "Germany_Lower Saxony_Oldenburg": [
+   "N50E005"
+  ],
+  "Germany_Mecklenburg-Vorpommern": [
+   "N50E009"
+  ],
+  "Germany_North Rhine-Westphalia_Regierungsbezirk Arnsberg_Arnsberg": [
+   "N50E005"
+  ],
+  "Germany_North Rhine-Westphalia_Regierungsbezirk Arnsberg_Dortmund": [
+   "N50E005"
+  ],
+  "Germany_North Rhine-Westphalia_Regierungsbezirk Detmold": [
+   "N50E005",
+   "N50E009"
+  ],
+  "Germany_North Rhine-Westphalia_Regierungsbezirk Dusseldorf_Dusseldorf": [
+   "N50E005"
+  ],
+  "Germany_North Rhine-Westphalia_Regierungsbezirk Dusseldorf_Mulheim": [
+   "N50E005"
+  ],
+  "Germany_North Rhine-Westphalia_Regierungsbezirk Dusseldorf_Wesel": [
+   "N50E005"
+  ],
+  "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen": [
+   "N50E005"
+  ],
+  "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Koln": [
+   "N50E005"
+  ],
+  "Germany_North Rhine-Westphalia_Regierungsbezirk Munster_Munster": [
+   "N50E005"
+  ],
+  "Germany_North Rhine-Westphalia_Regierungsbezirk Munster_Recklinghausen": [
+   "N50E005"
+  ],
+  "Germany_Rhineland-Palatinate_Koblenz": [
+   "N46E005",
+   "N50E005"
+  ],
+  "Germany_Rhineland-Palatinate_South": [
+   "N46E005",
+   "N47E008",
+   "N50E005"
+  ],
+  "Germany_Saarland": [
+   "N46E005"
+  ],
+  "Germany_Saxony-Anhalt_Halle": [
+   "N50E009"
+  ],
+  "Germany_Saxony-Anhalt_Magdeburg": [
+   "N50E009"
+  ],
+  "Germany_Saxony_Dresden": [
+   "N50E009",
+   "N50E015"
+  ],
+  "Germany_Saxony_Leipzig": [
+   "N50E009"
+  ],
+  "Germany_Schleswig-Holstein_Flensburg": [
+   "N50E005",
+   "N50E009"
+  ],
+  "Germany_Schleswig-Holstein_Kiel": [
+   "N50E009"
+  ],
+  "Germany_Thuringia": [
+   "N50E009"
+  ],
+  "Ghana": [
+   "N07W005",
+   "N10W005",
+   "S05W005"
+  ],
+  "Gibraltar": [
+   "N33W010"
+  ],
+  "Greece_Decentralized Administration of Aegean": [
+   "N30E020",
+   "N30E025",
+   "N38E025",
+   "N39E020",
+   "N40E025"
+  ],
+  "Greece_Decentralized Administration of Attica": [
+   "N30E020"
+  ],
+  "Greece_Decentralized Administration of Crete": [
+   "N30E020",
+   "N30E025"
+  ],
+  "Greece_Decentralized Administration of Epirus - Western Macedonia": [
+   "N30E015",
+   "N30E020",
+   "N39E020"
+  ],
+  "Greece_Decentralized Administration of Macedonia and Thrace": [
+   "N39E020",
+   "N40E025",
+   "N41E020",
+   "N41E022"
+  ],
+  "Greece_Decentralized Administration of Thessaly - Central Greece": [
+   "N30E020",
+   "N38E025",
+   "N39E020"
+  ],
+  "Greece_Decentralized Administration of West Greece": [
+   "N30E015",
+   "N30E020",
+   "N39E020",
+   "N40E016"
+  ],
+  "Greenland": [
+   "N41W046",
+   "N48W060",
+   "N60W021",
+   "N60W025",
+   "N60W030",
+   "N60W044",
+   "N60W050",
+   "N60W052",
+   "N60W060",
+   "N66W036",
+   "N66W050",
+   "N69W060",
+   "N70W030",
+   "N70W070",
+   "N70W075",
+   "N71W021",
+   "N72W030",
+   "N72W060",
+   "N74W025"
+  ],
+  "Grenada": [
+   "N10W070"
+  ],
+  "Guadeloupe": [
+   "N15W072"
+  ],
+  "Guatemala": [
+   "N05W102",
+   "N10W090",
+   "N15W090",
+   "N15W092",
+   "N15W095"
+  ],
+  "Guernsey": [
+   "N45W005",
+   "N50W005"
+  ],
+  "Guinea-Bissau": [
+   "N04W035"
+  ],
+  "Guinea": [
+   "N04W035",
+   "N07W010",
+   "N09W013",
+   "S10W013"
+  ],
+  "Guyana": [
+   "N00W057",
+   "N00W060",
+   "N02W060",
+   "N02W063",
+   "N05W060",
+   "N05W062"
+  ],
+  "Haiti": [
+   "N15W072",
+   "N15W080",
+   "N19W072",
+   "N20W080"
+  ],
+  "Honduras": [
+   "N10W085",
+   "N10W087",
+   "N10W090",
+   "N14W087",
+   "N15W088",
+   "N15W090"
+  ],
+  "Hong Kong": [
+   "N20E112"
+  ],
+  "Hungary_Kozep-Magyarorszag": [
+   "N45E015",
+   "N48E015"
+  ],
+  "Hungary_Northern Great Plain": [
+   "N45E015",
+   "N45E022",
+   "N48E015"
+  ],
+  "Hungary_Transdanubia": [
+   "N45E015",
+   "N48E015"
+  ],
+  "Iceland": [
+   "N60W021",
+   "N60W025",
+   "N60W030"
+  ],
+  "India_Andaman and Nicobar Islands": [
+   "N04E080",
+   "N04E095",
+   "N10E085",
+   "N10E095"
+  ],
+  "India_Andhra Pradesh": [
+   "N10E076",
+   "N10E080",
+   "N10E085",
+   "N13E076"
+  ],
+  "India_Arunachal Pradesh": [
+   "N25E090",
+   "N25E092",
+   "N26E093",
+   "N26E095",
+   "N27E095",
+   "N27E097",
+   "N28E090",
+   "N28E093",
+   "N29E095"
+  ],
+  "India_Assam": [
+   "N23E090",
+   "N23E093",
+   "N25E088",
+   "N25E090",
+   "N25E092",
+   "N25E093",
+   "N26E093",
+   "N26E095",
+   "N27E095"
+  ],
+  "India_Bihar": [
+   "N20E083",
+   "N25E083",
+   "N25E085",
+   "N25E088"
+  ],
+  "India_Chandigarh": [
+   "N30E075"
+  ],
+  "India_Chhattisgarh": [
+   "N10E080",
+   "N20E080",
+   "N20E083"
+  ],
+  "India_Delhi": [
+   "N20E076"
+  ],
+  "India_Goa": [
+   "N10E060",
+   "N10E074"
+  ],
+  "India_Gujarat": [
+   "N20E065",
+   "N20E070",
+   "N24E070"
+  ],
+  "India_Haryana": [
+   "N20E076",
+   "N24E070",
+   "N30E075",
+   "N30E077"
+  ],
+  "India_Himachal Pradesh": [
+   "N30E075",
+   "N30E077",
+   "N30E078",
+   "N32E078",
+   "N33E076"
+  ],
+  "India_Jammu and Kashmir": [
+   "N30E073",
+   "N30E075",
+   "N30E077",
+   "N32E078",
+   "N33E075",
+   "N33E076",
+   "N35E075",
+   "N35E077"
+  ],
+  "India_Jharkhand": [
+   "N20E083",
+   "N25E085"
+  ],
+  "India_Karnataka_North": [
+   "N10E060",
+   "N10E074",
+   "N13E076"
+  ],
+  "India_Karnataka_South": [
+   "N10E074",
+   "N10E076",
+   "N13E076"
+  ],
+  "India_Kerala": [
+   "N10E074",
+   "N10E076",
+   "S10E065"
+  ],
+  "India_Lakshadweep": [
+   "N10E060",
+   "N10E074",
+   "S10E065"
+  ],
+  "India_Madhya Pradesh": [
+   "N20E070",
+   "N20E076",
+   "N20E080",
+   "N24E070",
+   "N25E080"
+  ],
+  "India_Maharashtra": [
+   "N10E060",
+   "N10E074",
+   "N10E080",
+   "N13E076",
+   "N20E070",
+   "N20E076",
+   "N20E080"
+  ],
+  "India_Manipur": [
+   "N23E090",
+   "N23E093",
+   "N25E093"
+  ],
+  "India_Meghalaya": [
+   "N25E088",
+   "N25E090",
+   "N25E092"
+  ],
+  "India_Mizoram": [
+   "N20E090",
+   "N20E093",
+   "N22E093",
+   "N23E090",
+   "N23E093"
+  ],
+  "India_Nagaland": [
+   "N24E095",
+   "N25E093",
+   "N26E093",
+   "N26E095",
+   "N27E095"
+  ],
+  "India_Odisha": [
+   "N10E080",
+   "N10E085",
+   "N20E080",
+   "N20E083"
+  ],
+  "India_Punjab": [
+   "N20E076",
+   "N24E070",
+   "N30E073",
+   "N30E075"
+  ],
+  "India_Rajasthan": [
+   "N20E065",
+   "N20E070",
+   "N20E076",
+   "N24E070",
+   "N27E065",
+   "N30E073"
+  ],
+  "India_Sikkim": [
+   "N25E088",
+   "N28E088"
+  ],
+  "India_Tamil Nadu": [
+   "N10E076",
+   "N10E080",
+   "N13E076",
+   "S10E065"
+  ],
+  "India_Telangana": [
+   "N10E080",
+   "N13E076"
+  ],
+  "India_Tripura": [
+   "N20E090",
+   "N23E090"
+  ],
+  "India_Uttar Pradesh": [
+   "N20E076",
+   "N20E080",
+   "N20E083",
+   "N25E080",
+   "N25E083",
+   "N30E077"
+  ],
+  "India_Uttarakhand": [
+   "N20E076",
+   "N25E080",
+   "N29E080",
+   "N30E077",
+   "N30E078",
+   "N30E080"
+  ],
+  "India_West Bengal": [
+   "N20E083",
+   "N25E085",
+   "N25E088"
+  ],
+  "Indonesia_Central": [
+   "N00E102",
+   "N00E110",
+   "N00E114",
+   "N00E116",
+   "N00E117",
+   "N00E120",
+   "N00E125",
+   "N01E110",
+   "N01E113",
+   "N02E114",
+   "N02E115",
+   "N03E116",
+   "S05E104",
+   "S05E112",
+   "S05E115",
+   "S05E118",
+   "S05E120",
+   "S05E121",
+   "S05E125",
+   "S09E111",
+   "S10E120",
+   "S10E125"
+  ],
+  "Indonesia_East": [
+   "N00E125",
+   "N00E130",
+   "S02E132",
+   "S04E135",
+   "S04E138",
+   "S05E121",
+   "S05E125",
+   "S05E132",
+   "S05E135",
+   "S05E140",
+   "S06E140",
+   "S10E125",
+   "S10E140"
+  ],
+  "Indonesia_Jawa Barat": [
+   "S05E104",
+   "S07E100",
+   "S20E100"
+  ],
+  "Indonesia_Jawa Tengah": [
+   "S05E104",
+   "S07E100",
+   "S09E111",
+   "S20E100"
+  ],
+  "Indonesia_Jawa Timur": [
+   "S05E104",
+   "S05E112",
+   "S09E111",
+   "S20E100",
+   "S20E111"
+  ],
+  "Indonesia_Nusa Tenggara": [
+   "S09E111",
+   "S10E120",
+   "S10E125",
+   "S20E111",
+   "S20E120"
+  ],
+  "Indonesia_West": [
+   "N00E100",
+   "N00E102",
+   "N03E098",
+   "N04E080",
+   "N04E095",
+   "N04E102",
+   "S02E100",
+   "S05E100",
+   "S05E104",
+   "S07E100",
+   "S10E080",
+   "S10E098"
+  ],
+  "Iran_East": [
+   "N20E060",
+   "N25E053",
+   "N25E055",
+   "N25E057",
+   "N26E060",
+   "N27E057",
+   "N27E060",
+   "N27E062",
+   "N30E052",
+   "N30E055",
+   "N30E058",
+   "N30E060",
+   "N33E050",
+   "N35E055",
+   "N35E057",
+   "N35E060"
+  ],
+  "Iran_North": [
+   "N30E040",
+   "N30E045",
+   "N30E048",
+   "N30E055",
+   "N33E050",
+   "N35E045",
+   "N35E047",
+   "N35E055",
+   "N35E057",
+   "N36E050",
+   "N38E040"
+  ],
+  "Iran_South": [
+   "N20E045",
+   "N25E050",
+   "N25E053",
+   "N25E055",
+   "N25E057",
+   "N27E057",
+   "N30E045",
+   "N30E048",
+   "N30E050",
+   "N30E052",
+   "N30E055",
+   "N33E050",
+   "N35E045",
+   "N35E047"
+  ],
+  "Iraq_North": [
+   "N30E035",
+   "N30E040",
+   "N30E045",
+   "N35E045"
+  ],
+  "Iraq_South": [
+   "N20E045",
+   "N23E040",
+   "N30E035",
+   "N30E040",
+   "N30E045",
+   "N30E048"
+  ],
+  "Ireland_Connacht": [
+   "N37W030",
+   "N42W010"
+  ],
+  "Ireland_Leinster": [
+   "N42W010"
+  ],
+  "Ireland_Munster": [
+   "N37W030",
+   "N42W010"
+  ],
+  "Ireland_Northern Counties": [
+   "N37W030",
+   "N42W010"
+  ],
+  "Isle of Man": [
+   "N42W010",
+   "N50W005"
+  ],
+  "Israel": [
+   "N25E033",
+   "N25E035",
+   "N30E030",
+   "N30E035"
+  ],
+  "Italy_Abruzzo": [
+   "N40E013"
+  ],
+  "Italy_Aosta Valley": [
+   "N45E005"
+  ],
+  "Italy_Apulia": [
+   "N30E015",
+   "N40E013",
+   "N40E016"
+  ],
+  "Italy_Basilicata": [
+   "N30E015",
+   "N40E013",
+   "N40E016"
+  ],
+  "Italy_Calabria": [
+   "N30E015",
+   "N40E013",
+   "N40E016"
+  ],
+  "Italy_Campania": [
+   "N30E010",
+   "N30E015",
+   "N40E010",
+   "N40E013"
+  ],
+  "Italy_Emilia-Romagna_Bologna": [
+   "N40E010"
+  ],
+  "Italy_Emilia-Romagna_Ferrara": [
+   "N40E010"
+  ],
+  "Italy_Emilia-Romagna_Forli-Cesena": [
+   "N40E010"
+  ],
+  "Italy_Emilia-Romagna_Modena": [
+   "N40E010"
+  ],
+  "Italy_Emilia-Romagna_Parma": [
+   "N40E010",
+   "N43E005",
+   "N45E010"
+  ],
+  "Italy_Emilia-Romagna_Piacenza": [
+   "N40E010",
+   "N43E005",
+   "N45E008",
+   "N45E010"
+  ],
+  "Italy_Emilia-Romagna_Ravenna": [
+   "N40E010"
+  ],
+  "Italy_Emilia-Romagna_Reggio Emilia": [
+   "N40E010"
+  ],
+  "Italy_Emilia-Romagna_Rimini": [
+   "N40E010"
+  ],
+  "Italy_Friuli-Venezia Giulia_Gorizia": [
+   "N45E012"
+  ],
+  "Italy_Friuli-Venezia Giulia_Pordenone": [
+   "N45E012"
+  ],
+  "Italy_Friuli-Venezia Giulia_Trieste": [
+   "N45E012"
+  ],
+  "Italy_Friuli-Venezia Giulia_Udine": [
+   "N45E012"
+  ],
+  "Italy_Lazio": [
+   "N30E010",
+   "N40E010",
+   "N40E013"
+  ],
+  "Italy_Liguria": [
+   "N40E010",
+   "N43E005"
+  ],
+  "Italy_Lombardy_Bergamo": [
+   "N45E008",
+   "N45E010"
+  ],
+  "Italy_Lombardy_Brescia": [
+   "N45E008",
+   "N45E010"
+  ],
+  "Italy_Lombardy_Como": [
+   "N45E008"
+  ],
+  "Italy_Lombardy_Cremona": [
+   "N40E010",
+   "N45E008",
+   "N45E010"
+  ],
+  "Italy_Lombardy_Lecco": [
+   "N45E008"
+  ],
+  "Italy_Lombardy_Lodi": [
+   "N45E008"
+  ],
+  "Italy_Lombardy_Mantua": [
+   "N40E010",
+   "N45E010"
+  ],
+  "Italy_Lombardy_Milan": [
+   "N45E008"
+  ],
+  "Italy_Lombardy_Monza and Brianza": [
+   "N45E008"
+  ],
+  "Italy_Lombardy_Pavia": [
+   "N43E005",
+   "N45E008"
+  ],
+  "Italy_Lombardy_Sondrio": [
+   "N45E008",
+   "N45E010"
+  ],
+  "Italy_Lombardy_Varese": [
+   "N45E008"
+  ],
+  "Italy_Marche": [
+   "N40E010",
+   "N40E013"
+  ],
+  "Italy_Molise": [
+   "N40E013"
+  ],
+  "Italy_Piemont_Alessandria": [
+   "N43E005",
+   "N45E008"
+  ],
+  "Italy_Piemont_Asti": [
+   "N43E005",
+   "N45E005",
+   "N45E008"
+  ],
+  "Italy_Piemont_Biella": [
+   "N45E005",
+   "N45E008"
+  ],
+  "Italy_Piemont_Cuneo": [
+   "N43E005"
+  ],
+  "Italy_Piemont_Novara": [
+   "N45E008"
+  ],
+  "Italy_Piemont_Torino": [
+   "N43E005",
+   "N45E005",
+   "N45E008"
+  ],
+  "Italy_Piemont_Verbano-Cusio-Ossola": [
+   "N45E005",
+   "N45E008",
+   "N46E005"
+  ],
+  "Italy_Piemont_Vercelli": [
+   "N45E005",
+   "N45E008"
+  ],
+  "Italy_Sardinia": [
+   "N30E010",
+   "N35E005",
+   "N40E010"
+  ],
+  "Italy_Sicily": [
+   "N30E010",
+   "N30E015"
+  ],
+  "Italy_Trentino-Alto Adige Sudtirol": [
+   "N45E010",
+   "N45E012",
+   "N47E008",
+   "N47E012"
+  ],
+  "Italy_Tuscany_Grosseto": [
+   "N40E010"
+  ],
+  "Italy_Tuscany_Massa e Carrara": [
+   "N35E005",
+   "N40E010",
+   "N43E005"
+  ],
+  "Italy_Umbria": [
+   "N40E010",
+   "N40E013"
+  ],
+  "Italy_Veneto_Belluno": [
+   "N45E010",
+   "N45E012"
+  ],
+  "Italy_Veneto_Padova": [
+   "N45E010",
+   "N45E012"
+  ],
+  "Italy_Veneto_Rovigo": [
+   "N40E010",
+   "N45E010",
+   "N45E012"
+  ],
+  "Italy_Veneto_Treviso": [
+   "N45E010",
+   "N45E012"
+  ],
+  "Italy_Veneto_Venezia": [
+   "N45E010",
+   "N45E012"
+  ],
+  "Italy_Veneto_Verona": [
+   "N45E010"
+  ],
+  "Italy_Veneto_Vicenza": [
+   "N45E010"
+  ],
+  "Jamaica": [
+   "N15W080"
+  ],
+  "Japan_Chubu Region_Aichi_Nagoya": [
+   "N34E133",
+   "N35E130",
+   "N35E137"
+  ],
+  "Japan_Chubu Region_Aichi_Toyohashi": [
+   "N34E133",
+   "N35E137"
+  ],
+  "Japan_Chubu Region_Fukui": [
+   "N35E130"
+  ],
+  "Japan_Chubu Region_Gifu": [
+   "N35E130",
+   "N35E137"
+  ],
+  "Japan_Chubu Region_Ishikawa": [
+   "N35E130",
+   "N35E137",
+   "N37E137"
+  ],
+  "Japan_Chubu Region_Nagano": [
+   "N35E137",
+   "N35E138",
+   "N37E137"
+  ],
+  "Japan_Chubu Region_Niigata": [
+   "N35E137",
+   "N35E138",
+   "N37E137"
+  ],
+  "Japan_Chubu Region_Shizuoka": [
+   "N34E133",
+   "N35E137",
+   "N35E138"
+  ],
+  "Japan_Chubu Region_Toyama": [
+   "N35E130",
+   "N35E137",
+   "N37E137"
+  ],
+  "Japan_Chubu Region_Yamanashi": [
+   "N35E138"
+  ],
+  "Japan_Chugoku Region_Hiroshima": [
+   "N33E130",
+   "N34E133",
+   "N35E130"
+  ],
+  "Japan_Chugoku Region_Okayama": [
+   "N34E133",
+   "N35E130"
+  ],
+  "Japan_Chugoku Region_Shimane": [
+   "N33E130",
+   "N35E130"
+  ],
+  "Japan_Chugoku Region_Tottori": [
+   "N35E130"
+  ],
+  "Japan_Chugoku Region_Yamaguchi": [
+   "N33E130",
+   "N35E130"
+  ],
+  "Japan_Hokkaido Region_East": [
+   "N40E142",
+   "N40E143"
+  ],
+  "Japan_Hokkaido Region_North": [
+   "N37E137",
+   "N40E140",
+   "N40E142",
+   "N40E143",
+   "N45E140"
+  ],
+  "Japan_Hokkaido Region_Sapporo": [
+   "N40E140",
+   "N40E142",
+   "N40E143"
+  ],
+  "Japan_Hokkaido Region_West": [
+   "N37E137",
+   "N40E140",
+   "N40E142"
+  ],
+  "Japan_Kanto_Chiba": [
+   "N25E140",
+   "N34E133",
+   "N35E138"
+  ],
+  "Japan_Kanto_Gunma": [
+   "N35E138",
+   "N37E137"
+  ],
+  "Japan_Kanto_Ibaraki": [
+   "N25E140",
+   "N35E138",
+   "N36E140",
+   "N36E141"
+  ],
+  "Japan_Kanto_Kanagawa": [
+   "N34E133",
+   "N35E138"
+  ],
+  "Japan_Kanto_Saitama": [
+   "N35E138"
+  ],
+  "Japan_Kanto_Tochigi": [
+   "N35E138",
+   "N36E140",
+   "N37E137"
+  ],
+  "Japan_Kanto_Tokyo": [
+   "N15E130",
+   "N15E138",
+   "N16E145",
+   "N25E133",
+   "N25E140",
+   "N25E150",
+   "N34E133",
+   "N35E138"
+  ],
+  "Japan_Kinki Region_Mie": [
+   "N25E133",
+   "N34E133",
+   "N35E130"
+  ],
+  "Japan_Kinki Region_Nara": [
+   "N25E133",
+   "N34E133"
+  ],
+  "Japan_Kinki Region_Osaka_Osaka": [
+   "N34E133",
+   "N35E130"
+  ],
+  "Japan_Kinki Region_Osaka_West": [
+   "N34E133",
+   "N35E130"
+  ],
+  "Japan_Kinki Region_Wakayama": [
+   "N25E133",
+   "N34E133"
+  ],
+  "Japan_Kyushu Region_Fukuoka": [
+   "N25E125",
+   "N25E130",
+   "N33E130"
+  ],
+  "Japan_Kyushu Region_Kagoshima": [
+   "N25E125",
+   "N25E130"
+  ],
+  "Japan_Kyushu Region_Kumamoto": [
+   "N25E125",
+   "N25E130",
+   "N33E130"
+  ],
+  "Japan_Kyushu Region_Miyazaki": [
+   "N25E130"
+  ],
+  "Japan_Kyushu Region_Nagasaki": [
+   "N25E125",
+   "N25E130",
+   "N33E130",
+   "N35E127"
+  ],
+  "Japan_Kyushu Region_Oita": [
+   "N25E130",
+   "N33E130"
+  ],
+  "Japan_Kyushu Region_Okinawa": [
+   "N15E130",
+   "N20E122",
+   "N25E120",
+   "N25E125",
+   "N25E130"
+  ],
+  "Japan_Kyushu Region_Saga": [
+   "N25E125",
+   "N25E130",
+   "N33E130"
+  ],
+  "Japan_Shikoku Region_Ehime": [
+   "N25E130",
+   "N25E133",
+   "N33E130",
+   "N34E133"
+  ],
+  "Japan_Shikoku Region_Kagawa": [
+   "N34E133"
+  ],
+  "Japan_Shikoku Region_Kochi": [
+   "N25E130",
+   "N25E133",
+   "N33E130"
+  ],
+  "Japan_Shikoku Region_Kyoto": [
+   "N34E133",
+   "N35E130"
+  ],
+  "Japan_Shikoku Region_Tokushima": [
+   "N25E133",
+   "N34E133"
+  ],
+  "Japan_Tohoku_Akita": [
+   "N36E140",
+   "N37E137",
+   "N40E140"
+  ],
+  "Japan_Tohoku_Aomori": [
+   "N37E137",
+   "N40E140",
+   "N40E142",
+   "N40E143"
+  ],
+  "Japan_Tohoku_Fukushima": [
+   "N35E138",
+   "N36E140",
+   "N36E141",
+   "N37E137"
+  ],
+  "Japan_Tohoku_Iwate": [
+   "N36E140",
+   "N36E141",
+   "N40E140",
+   "N40E142",
+   "N40E143"
+  ],
+  "Japan_Tohoku_Miyagi": [
+   "N36E140",
+   "N36E141"
+  ],
+  "Japan_Tohoku_Yamagata": [
+   "N36E140",
+   "N37E137"
+  ],
+  "Jersey": [
+   "N45W005"
+  ],
+  "Jerusalem": [
+   "N30E035"
+  ],
+  "Jordan": [
+   "N25E033",
+   "N25E035",
+   "N25E037",
+   "N30E035"
+  ],
+  "Kazakhstan_North": [
+   "N44E055",
+   "N45E060",
+   "N45E072"
+  ],
+  "Kazakhstan_South": [
+   "N40E047",
+   "N40E060",
+   "N40E070",
+   "N40E080",
+   "N41E072",
+   "N42E075",
+   "N42E078",
+   "N44E045",
+   "N44E055",
+   "N44E085",
+   "N45E060",
+   "N45E072",
+   "N45E081",
+   "N47E081",
+   "N48E085",
+   "N50E081",
+   "N50E085"
+  ],
+  "Kenya": [
+   "N00E031",
+   "N01E035",
+   "N05E035",
+   "S03E035",
+   "S07E030",
+   "S08E035",
+   "S10E040"
+  ],
+  "Kingdom of Lesotho": [
+   "S30E020",
+   "S30E028",
+   "S33E027"
+  ],
+  "Kiribati": [
+   "N00E156",
+   "N03W160",
+   "S03W180",
+   "S12E165",
+   "S15W160",
+   "S15W171",
+   "S15W180"
+  ],
+  "Kuwait": [
+   "N20E045",
+   "N30E045",
+   "N30E048"
+  ],
+  "Kyrgyzstan": [
+   "N37E072",
+   "N37E073",
+   "N38E068",
+   "N38E070",
+   "N40E060",
+   "N40E070",
+   "N40E072",
+   "N40E075",
+   "N40E078",
+   "N40E080",
+   "N41E072",
+   "N42E075",
+   "N42E078"
+  ],
+  "Laos": [
+   "N10E104",
+   "N15E100",
+   "N15E102",
+   "N15E105",
+   "N15E107",
+   "N18E100",
+   "N19E102",
+   "N20E100",
+   "N20E102",
+   "N20E103",
+   "N20E104",
+   "N21E100"
+  ],
+  "Latvia": [
+   "N50E015",
+   "N54E025"
+  ],
+  "Lebanon": [
+   "N30E030",
+   "N30E035"
+  ],
+  "Liberia": [
+   "N06W010",
+   "N07W010",
+   "S10W010",
+   "S10W013"
+  ],
+  "Libya": [
+   "N15E020",
+   "N15E025",
+   "N20E010",
+   "N20E018",
+   "N22E015",
+   "N25E007",
+   "N25E010",
+   "N25E025",
+   "N29E007",
+   "N30E010",
+   "N30E015",
+   "N30E020",
+   "N30E025"
+  ],
+  "Liechtenstein": [
+   "N47E008"
+  ],
+  "Lithuania_East": [
+   "N50E015",
+   "N54E025"
+  ],
+  "Lithuania_West": [
+   "N50E015",
+   "N54E025"
+  ],
+  "Luxembourg": [
+   "N46E005",
+   "N50E005"
+  ],
+  "Macau": [
+   "N20E112"
+  ],
+  "Macedonia": [
+   "N39E020",
+   "N41E020",
+   "N41E022"
+  ],
+  "Madagascar": [
+   "S15E045",
+   "S17E045",
+   "S20E037",
+   "S20E045",
+   "S20E047",
+   "S20E048",
+   "S23E035",
+   "S23E047",
+   "S26E035",
+   "S26E050",
+   "S60E035"
+  ],
+  "Malawi": [
+   "S11E030",
+   "S16E030",
+   "S20E030",
+   "S20E035"
+  ],
+  "Malaysia_East": [
+   "N00E102",
+   "N00E110",
+   "N00E114",
+   "N01E110",
+   "N01E113",
+   "N02E114",
+   "N02E115",
+   "N03E116",
+   "N05E110",
+   "N07E110"
+  ],
+  "Malaysia_West": [
+   "N00E100",
+   "N00E102",
+   "N03E098",
+   "N04E102",
+   "N05E100"
+  ],
+  "Maldives": [
+   "S10E065"
+  ],
+  "Mali": [
+   "N07W010",
+   "N09W013",
+   "N10W005",
+   "N13W010",
+   "N15W005",
+   "N15W030",
+   "N25W005"
+  ],
+  "Malta": [
+   "N30E010"
+  ],
+  "Marshall Islands": [
+   "N00E145",
+   "N00E156",
+   "N16E156"
+  ],
+  "Martinique": [
+   "N10W070",
+   "N15W072"
+  ],
+  "Mauritania": [
+   "N09W013",
+   "N13W010",
+   "N15W005",
+   "N15W030",
+   "N25W005"
+  ],
+  "Mauritius": [
+   "S10E046",
+   "S26E050",
+   "S26E062"
+  ],
+  "Mexico_California": [
+   "N15W115",
+   "N20W110",
+   "N20W113",
+   "N20W120",
+   "N25W110",
+   "N30W114",
+   "N30W116",
+   "N30W120",
+   "S01W142"
+  ],
+  "Mexico_Central_East": [
+   "N20W099",
+   "N20W100",
+   "N20W104",
+   "N22W104",
+   "N25W094",
+   "N25W100",
+   "N25W105"
+  ],
+  "Mexico_Central_West": [
+   "N15W104",
+   "N15W115",
+   "N20W104",
+   "N20W105",
+   "N20W106",
+   "N20W110",
+   "N22W104",
+   "N25W105"
+  ],
+  "Mexico_Chihuahua": [
+   "N20W105",
+   "N20W106",
+   "N20W110",
+   "N25W100",
+   "N25W105",
+   "N25W108",
+   "N25W110",
+   "N27W108",
+   "N28W105",
+   "N28W110",
+   "N30W108",
+   "N30W110"
+  ],
+  "Mexico_East": [
+   "N05W102",
+   "N15W088",
+   "N15W090",
+   "N15W092",
+   "N15W095",
+   "N15W097",
+   "N17W095",
+   "N17W097",
+   "N20W090",
+   "N20W099"
+  ],
+  "Mexico_Mexico": [
+   "N15W100",
+   "N15W102",
+   "N17W097",
+   "N18W100",
+   "N20W099",
+   "N20W100",
+   "N20W104"
+  ],
+  "Mexico_Sonora": [
+   "N20W106",
+   "N20W110",
+   "N20W113",
+   "N20W120",
+   "N25W108",
+   "N25W110",
+   "N28W110",
+   "N30W110",
+   "N30W114",
+   "N30W116"
+  ],
+  "Mexico_South": [
+   "N03W115",
+   "N05W102",
+   "N15W097",
+   "N15W100",
+   "N15W102",
+   "N15W104",
+   "N15W115",
+   "N17W095",
+   "N17W097",
+   "N18W100",
+   "N20W099",
+   "N20W100",
+   "N20W104"
+  ],
+  "Moldova": [
+   "N45E025"
+  ],
+  "Monaco": [
+   "N43E005"
+  ],
+  "Mongolia": [
+   "N40E090",
+   "N40E094",
+   "N40E097",
+   "N40E100",
+   "N40E105",
+   "N42E110",
+   "N44E085",
+   "N45E100",
+   "N45E115",
+   "N46E090",
+   "N46E094",
+   "N47E105",
+   "N48E085",
+   "N50E090",
+   "N50E092",
+   "N50E095",
+   "N50E100",
+   "N50E105",
+   "N50E110"
+  ],
+  "Montenegro": [
+   "N40E016",
+   "N41E020",
+   "N43E016"
+  ],
+  "Montserrat": [
+   "N15W072"
+  ],
+  "Morocco_Doukkala-Abda": [
+   "N27W030",
+   "N30W007",
+   "N30W010",
+   "N33W010"
+  ],
+  "Morocco_Rabat-Sale-Zemmour-Zaer": [
+   "N29W005",
+   "N33W005",
+   "N33W010",
+   "N35W005"
+  ],
+  "Morocco_Southern": [
+   "N13W010",
+   "N27W030",
+   "N29W005",
+   "N30W007",
+   "N30W010",
+   "N33W005",
+   "N33W010",
+   "N35W003",
+   "N35W005"
+  ],
+  "Morocco_Western Sahara": [
+   "N13W010",
+   "N15W030",
+   "N27W030",
+   "N30W007",
+   "N30W010"
+  ],
+  "Mozambique": [
+   "S16E030",
+   "S20E030",
+   "S20E035",
+   "S20E037",
+   "S23E035",
+   "S26E035",
+   "S30E030"
+  ],
+  "Myanmar": [
+   "N03E098",
+   "N04E095",
+   "N10E085",
+   "N10E095",
+   "N10E099",
+   "N15E095",
+   "N15E098",
+   "N18E098",
+   "N19E095",
+   "N20E090",
+   "N20E093",
+   "N20E095",
+   "N20E098",
+   "N20E100",
+   "N21E100",
+   "N22E093",
+   "N22E095",
+   "N22E098",
+   "N23E093",
+   "N24E095",
+   "N24E097",
+   "N24E098",
+   "N25E093",
+   "N26E095",
+   "N26E098",
+   "N27E095",
+   "N27E097",
+   "N27E098",
+   "N28E098"
+  ],
+  "Nagorno-Karabakh": [
+   "N35E045",
+   "N35E047",
+   "N40E045",
+   "N40E047"
+  ],
+  "Namibia": [
+   "S20E013",
+   "S20E015",
+   "S20E020",
+   "S20W005",
+   "S30E016",
+   "S30E020",
+   "S30W005"
+  ],
+  "Nauru": [
+   "N00E156",
+   "S09E153",
+   "S12E165"
+  ],
+  "Nepal_Kathmandu": [
+   "N25E083",
+   "N25E085",
+   "N28E085"
+  ],
+  "Nepal_Madhyamanchal": [
+   "N25E083",
+   "N25E085",
+   "N28E085"
+  ],
+  "Nepal_Purwanchal": [
+   "N25E085",
+   "N25E088",
+   "N28E085"
+  ],
+  "Nepal_West": [
+   "N25E080",
+   "N25E083",
+   "N28E085",
+   "N29E080",
+   "N30E080",
+   "N30E082"
+  ],
+  "Netherlands_Drenthe": [
+   "N50E005"
+  ],
+  "Netherlands_Flevoland": [
+   "N50E005"
+  ],
+  "Netherlands_Friesland": [
+   "N50E005",
+   "N50W005"
+  ],
+  "Netherlands_Gelderland_Nijmegen": [
+   "N50E005",
+   "N50W005"
+  ],
+  "Netherlands_Gelderland_North": [
+   "N50E005"
+  ],
+  "Netherlands_Gelderland_Zutphen": [
+   "N50E005"
+  ],
+  "Netherlands_Groningen": [
+   "N50E005"
+  ],
+  "Netherlands_Limburg": [
+   "N50E005"
+  ],
+  "Netherlands_North Brabant_Eindhoven": [
+   "N50E005"
+  ],
+  "Netherlands_North Brabant_Roosendaal": [
+   "N50W005"
+  ],
+  "Netherlands_North Brabant_Tiburg": [
+   "N50E005",
+   "N50W005"
+  ],
+  "Netherlands_North Brabant_Uden": [
+   "N50E005"
+  ],
+  "Netherlands_North Holland_Alkmaar": [
+   "N50E005",
+   "N50W005"
+  ],
+  "Netherlands_North Holland_Amsterdam": [
+   "N50E005",
+   "N50W005"
+  ],
+  "Netherlands_North Holland_Zaandam": [
+   "N50E005",
+   "N50W005"
+  ],
+  "Netherlands_Overijssel_Enschede": [
+   "N50E005"
+  ],
+  "Netherlands_Overijssel_Zwolle": [
+   "N50E005"
+  ],
+  "Netherlands_South Holland_Brielle": [
+   "N50W005"
+  ],
+  "Netherlands_South Holland_Den Haag": [
+   "N50W005"
+  ],
+  "Netherlands_South Holland_Leiden": [
+   "N50W005"
+  ],
+  "Netherlands_South Holland_Rotterdam": [
+   "N50E005",
+   "N50W005"
+  ],
+  "Netherlands_Utrecht_Amersfoort": [
+   "N50E005"
+  ],
+  "Netherlands_Utrecht_Utrecht": [
+   "N50E005",
+   "N50W005"
+  ],
+  "Netherlands_Zeeland": [
+   "N50W005"
+  ],
+  "New Zealand North_Auckland": [
+   "S38E175",
+   "S40E155",
+   "S40E172",
+   "S40E175"
+  ],
+  "New Zealand North_Wellington": [
+   "S38E175",
+   "S40E155",
+   "S40E172",
+   "S40E175",
+   "S42E170",
+   "S43E170",
+   "S60E170"
+  ],
+  "New Zealand South_Canterbury": [
+   "S29W180",
+   "S40E155",
+   "S40E172",
+   "S40W180",
+   "S42E170",
+   "S43E170",
+   "S46E155",
+   "S60E170",
+   "S60W180"
+  ],
+  "New Zealand South_Southland": [
+   "S46E155",
+   "S60E155",
+   "S60E170"
+  ],
+  "Nicaragua": [
+   "N10W085",
+   "N10W087",
+   "N10W090",
+   "N14W087"
+  ],
+  "Niger": [
+   "N07E010",
+   "N10W005",
+   "N15E005",
+   "N15W005",
+   "N20E005",
+   "N20E010",
+   "N20E015",
+   "N22E015"
+  ],
+  "Nigeria_North": [
+   "N06E005",
+   "N07E010",
+   "N10W005"
+  ],
+  "Nigeria_South": [
+   "N05E010",
+   "N06E005",
+   "N07E010",
+   "N07W005",
+   "N10W005",
+   "S05E005",
+   "S05W005"
+  ],
+  "Niue": [
+   "S29W180"
+  ],
+  "North Korea": [
+   "N35E120",
+   "N35E126",
+   "N35E130",
+   "N37E127",
+   "N40E123",
+   "N40E125",
+   "N40E127",
+   "N41E125",
+   "N42E127",
+   "N42E130"
+  ],
+  "Norway_Bouvet Island": [
+   "S60W005"
+  ],
+  "Norway_Central": [
+   "N50E009",
+   "N59E005",
+   "N60E007",
+   "N60E009"
+  ],
+  "Norway_Hedmark": [
+   "N50E009",
+   "N60E009",
+   "N60E012"
+  ],
+  "Norway_Hordaland": [
+   "N50W005",
+   "N59E005",
+   "N60E000",
+   "N60E007"
+  ],
+  "Norway_Jan Mayen": [
+   "N60W021",
+   "N71W021"
+  ],
+  "Norway_Nordland": [
+   "N60E012",
+   "N65E000",
+   "N65E015",
+   "N69E015"
+  ],
+  "Norway_North Trondelag": [
+   "N60E009",
+   "N60E012",
+   "N65E000"
+  ],
+  "Norway_Northern": [
+   "N65E000",
+   "N65E015",
+   "N65E020",
+   "N66E030",
+   "N69E015",
+   "N70E020"
+  ],
+  "Norway_Oppland": [
+   "N60E007",
+   "N60E009"
+  ],
+  "Norway_Rogaland": [
+   "N50E005",
+   "N50W005",
+   "N59E005"
+  ],
+  "Norway_South Trondelag": [
+   "N60E007",
+   "N60E009",
+   "N60E012"
+  ],
+  "Norway_Southern": [
+   "N50E005",
+   "N50E009",
+   "N59E005",
+   "N60E007"
+  ],
+  "Norway_Svalbard": [
+   "N66E030",
+   "N69E015",
+   "N70E020",
+   "N73E000"
+  ],
+  "Norway_Western": [
+   "N60E000",
+   "N60E007",
+   "N60E009"
+  ],
+  "Oman": [
+   "N10E052",
+   "N16E050",
+   "N20E050",
+   "N20E055",
+   "N20E060",
+   "N25E055"
+  ],
+  "Pakistan": [
+   "N20E060",
+   "N20E065",
+   "N24E070",
+   "N26E060",
+   "N27E060",
+   "N27E062",
+   "N27E065",
+   "N28E065",
+   "N30E065",
+   "N30E067",
+   "N30E069",
+   "N30E070",
+   "N30E073",
+   "N30E075",
+   "N33E067",
+   "N33E075",
+   "N33E076",
+   "N34E070",
+   "N35E070",
+   "N35E072",
+   "N35E073",
+   "N35E074",
+   "N35E075",
+   "N35E077",
+   "N37E073",
+   "N37E075"
+  ],
+  "Palau": [
+   "N00E130"
+  ],
+  "Palestine": [
+   "N30E030",
+   "N30E035"
+  ],
+  "Panama": [
+   "N03W083",
+   "N03W090",
+   "N05W080",
+   "N07W080",
+   "N10W080",
+   "N10W085"
+  ],
+  "Papua New Guinea": [
+   "S05E140",
+   "S05E142",
+   "S06E140",
+   "S07E145",
+   "S08E147",
+   "S09E150",
+   "S09E153",
+   "S10E140",
+   "S10E143",
+   "S10E145",
+   "S10E147",
+   "S12E150",
+   "S19E140",
+   "S25E150"
+  ],
+  "Paraguay": [
+   "S20W060",
+   "S20W065",
+   "S25W064",
+   "S30W060"
+  ],
+  "Peru_Lima": [
+   "S12W075",
+   "S12W076",
+   "S12W080",
+   "S13W075",
+   "S15W075",
+   "S20W075",
+   "S20W080",
+   "S20W090"
+  ],
+  "Peru_North": [
+   "S02W075",
+   "S02W078",
+   "S04W090",
+   "S05W070",
+   "S05W072",
+   "S05W075",
+   "S05W078",
+   "S05W080",
+   "S07W078",
+   "S07W080",
+   "S08W075",
+   "S08W077",
+   "S10W072",
+   "S10W075",
+   "S10W077",
+   "S10W078",
+   "S10W080",
+   "S12W075",
+   "S12W076",
+   "S12W080",
+   "S13W072",
+   "S15W073",
+   "S20W080",
+   "S20W090"
+  ],
+  "Peru_South": [
+   "S10W072",
+   "S11W070",
+   "S12W075",
+   "S13W072",
+   "S13W075",
+   "S15W069",
+   "S15W070",
+   "S15W072",
+   "S15W073",
+   "S15W075",
+   "S17W070",
+   "S20W070",
+   "S20W072",
+   "S20W075",
+   "S20W080",
+   "S35W090"
+  ],
+  "Philippines_Luzon_Manila": [
+   "N10E120",
+   "N10E122",
+   "N13E122"
+  ],
+  "Philippines_Luzon_North": [
+   "N07E110",
+   "N10E120",
+   "N13E122",
+   "N16E120",
+   "N20E116",
+   "N20E120",
+   "N20E122"
+  ],
+  "Philippines_Luzon_South": [
+   "N07E110",
+   "N07E120",
+   "N10E120",
+   "N10E122",
+   "N13E122"
+  ],
+  "Philippines_Mindanao": [
+   "N00E120",
+   "N00E125",
+   "N03E116",
+   "N05E110",
+   "N07E110",
+   "N07E120",
+   "N07E125",
+   "N10E122"
+  ],
+  "Philippines_Visayas": [
+   "N07E110",
+   "N07E120",
+   "N07E125",
+   "N10E120",
+   "N10E122",
+   "N13E122"
+  ],
+  "Pitcairn Islands": [
+   "S32W137"
+  ],
+  "Poland_Greater Poland Voivodeship": [
+   "N50E015"
+  ],
+  "Poland_Kuyavian-Pomeranian Voivodeship": [
+   "N50E015"
+  ],
+  "Poland_Lesser Poland Voivodeship": [
+   "N48E015",
+   "N50E015"
+  ],
+  "Poland_Lodz Voivodeship": [
+   "N50E015"
+  ],
+  "Poland_Lower Silesian Voivodeship": [
+   "N50E009",
+   "N50E015"
+  ],
+  "Poland_Lublin Voivodeship": [
+   "N50E015"
+  ],
+  "Poland_Lubusz Voivodeship": [
+   "N50E009",
+   "N50E015"
+  ],
+  "Poland_Masovian Voivodeship": [
+   "N50E015"
+  ],
+  "Poland_Opole Voivodeship": [
+   "N48E015",
+   "N50E015"
+  ],
+  "Poland_Podlaskie Voivodeship": [
+   "N50E015"
+  ],
+  "Poland_Pomeranian Voivodeship": [
+   "N50E015"
+  ],
+  "Poland_Silesian Voivodeship": [
+   "N48E015",
+   "N50E015"
+  ],
+  "Poland_Subcarpathian Voivodeship": [
+   "N48E015",
+   "N50E015"
+  ],
+  "Poland_Swietokrzyskie Voivodeship": [
+   "N50E015"
+  ],
+  "Poland_Warmian-Masurian Voivodeship": [
+   "N50E015"
+  ],
+  "Poland_West Pomeranian Voivodeship": [
+   "N50E009",
+   "N50E015"
+  ],
+  "Portugal_Islands": [
+   "N27W030",
+   "N30W046",
+   "N37W030"
+  ],
+  "Portugal_Porto": [
+   "N37W010",
+   "N40W010",
+   "N42W010"
+  ],
+  "Portugal_South": [
+   "N27W030",
+   "N33W010",
+   "N37W010",
+   "N37W030"
+  ],
+  "Portugal_Viseu": [
+   "N37W010",
+   "N40W010"
+  ],
+  "Qatar": [
+   "N20E050",
+   "N25E050"
+  ],
+  "Republic of Kosovo": [
+   "N41E020"
+  ],
+  "Romania_Centre": [
+   "N45E022",
+   "N45E025"
+  ],
+  "Romania_North_East": [
+   "N45E022",
+   "N45E025"
+  ],
+  "Romania_North_West": [
+   "N45E015",
+   "N45E022",
+   "N45E025",
+   "N48E015"
+  ],
+  "Romania_South": [
+   "N40E025",
+   "N41E022",
+   "N45E022",
+   "N45E025"
+  ],
+  "Romania_South_East": [
+   "N40E025",
+   "N40E030",
+   "N45E025"
+  ],
+  "Romania_South_West": [
+   "N41E022",
+   "N45E022"
+  ],
+  "Romania_West": [
+   "N41E020",
+   "N41E022",
+   "N45E015",
+   "N45E022"
+  ],
+  "Russia_Altai Krai": [
+   "N45E072",
+   "N50E081",
+   "N50E085",
+   "N52E085",
+   "N54E081"
+  ],
+  "Russia_Altai Republic": [
+   "N47E081",
+   "N48E085",
+   "N50E081",
+   "N50E085",
+   "N52E085"
+  ],
+  "Russia_Amur Oblast": [
+   "N45E120",
+   "N45E128",
+   "N50E120",
+   "N50E124",
+   "N50E130",
+   "N50E133",
+   "N54E120",
+   "N54E130",
+   "N55E124",
+   "N56E115"
+  ],
+  "Russia_Arkhangelsk Oblast_Central": [
+   "N60E030",
+   "N60E037",
+   "N60E045",
+   "N63E030",
+   "N66E030"
+  ],
+  "Russia_Arkhangelsk Oblast_North": [
+   "N60E037",
+   "N60E045",
+   "N63E030",
+   "N64E045",
+   "N64E056",
+   "N64E065",
+   "N66E030"
+  ],
+  "Russia_Astrakhan Oblast": [
+   "N44E045",
+   "N45E038"
+  ],
+  "Russia_Bashkortostan": [
+   "N44E045",
+   "N44E055",
+   "N45E060",
+   "N55E045"
+  ],
+  "Russia_Belgorod Oblast": [
+   "N45E033",
+   "N45E038"
+  ],
+  "Russia_Bryansk Oblast": [
+   "N45E033",
+   "N50E025",
+   "N53E033"
+  ],
+  "Russia_Buryatia": [
+   "N47E105",
+   "N50E095",
+   "N50E100",
+   "N50E105",
+   "N50E110",
+   "N52E115",
+   "N53E095",
+   "N53E100",
+   "N55E105",
+   "N55E110",
+   "N55E112",
+   "N56E115"
+  ],
+  "Russia_Chechen Republic": [
+   "N40E045",
+   "N42E042",
+   "N44E045"
+  ],
+  "Russia_Chelyabinsk Oblast": [
+   "N44E055",
+   "N45E060"
+  ],
+  "Russia_Chukotka Autonomous Okrug": [
+   "N60E160",
+   "N60E165",
+   "N60E169",
+   "N60E172",
+   "N60W180",
+   "N65E145",
+   "N65E171",
+   "N66E145",
+   "N66E160",
+   "N66W180",
+   "N68E171"
+  ],
+  "Russia_Chuvashia": [
+   "N44E045",
+   "N55E045"
+  ],
+  "Russia_Ingushetia": [
+   "N40E045",
+   "N42E042"
+  ],
+  "Russia_Irkutsk Oblast": [
+   "N50E095",
+   "N50E100",
+   "N50E105",
+   "N53E095",
+   "N53E100",
+   "N55E095",
+   "N55E105",
+   "N55E110",
+   "N55E112",
+   "N56E115",
+   "N60E097",
+   "N60E105"
+  ],
+  "Russia_Ivanovo Oblast": [
+   "N56E039"
+  ],
+  "Russia_Jewish Autonomous Oblast": [
+   "N45E128",
+   "N45E133"
+  ],
+  "Russia_Kabardino-Balkaria": [
+   "N42E042"
+  ],
+  "Russia_Kaliningrad Oblast": [
+   "N50E015"
+  ],
+  "Russia_Kaluga Oblast": [
+   "N53E033"
+  ],
+  "Russia_Kamchatka Krai": [
+   "N38E161",
+   "N40E150",
+   "N50E150",
+   "N50E158",
+   "N50E160",
+   "N50E162",
+   "N60E157",
+   "N60E160",
+   "N60E165",
+   "N60E169",
+   "N60E172"
+  ],
+  "Russia_Karachay-Cherkessia": [
+   "N40E040",
+   "N42E042"
+  ],
+  "Russia_Kemerov Oblast": [
+   "N52E085",
+   "N54E081",
+   "N55E085"
+  ],
+  "Russia_Khabarovsk Krai": [
+   "N45E128",
+   "N45E133",
+   "N45E140",
+   "N47E137",
+   "N50E130",
+   "N50E133",
+   "N50E135",
+   "N50E140",
+   "N54E130",
+   "N54E135",
+   "N56E130",
+   "N60E136",
+   "N60E140",
+   "N60E142",
+   "N60E145"
+  ],
+  "Russia_Khakassia": [
+   "N50E085",
+   "N50E090",
+   "N52E085",
+   "N54E090",
+   "N55E085"
+  ],
+  "Russia_Kirov Oblast": [
+   "N55E045",
+   "N57E045",
+   "N57E052",
+   "N60E045"
+  ],
+  "Russia_Komi Republic": [
+   "N57E045",
+   "N60E045",
+   "N60E054",
+   "N64E045",
+   "N64E056",
+   "N64E065"
+  ],
+  "Russia_Kostroma Oblast": [
+   "N56E039",
+   "N57E045"
+  ],
+  "Russia_Krasnodar Krai": [
+   "N40E034",
+   "N40E037",
+   "N40E040",
+   "N45E033",
+   "N45E038"
+  ],
+  "Russia_Krasnodar Krai_Adygeya": [
+   "N40E037",
+   "N40E040",
+   "N45E038"
+  ],
+  "Russia_Krasnoyarsk Krai_North": [
+   "N53E100",
+   "N54E081",
+   "N55E085",
+   "N55E095",
+   "N55E105",
+   "N56E090",
+   "N60E080",
+   "N60E090",
+   "N60E097",
+   "N60E105",
+   "N64E065",
+   "N65E080",
+   "N66E105",
+   "N66E111",
+   "N68E090",
+   "N71E090"
+  ],
+  "Russia_Krasnoyarsk Krai_South": [
+   "N50E090",
+   "N50E092",
+   "N53E095",
+   "N53E100",
+   "N54E090",
+   "N55E085",
+   "N55E095",
+   "N56E090"
+  ],
+  "Russia_Kurgan Oblast": [
+   "N45E060"
+  ],
+  "Russia_Kursk Oblast": [
+   "N45E033",
+   "N45E038"
+  ],
+  "Russia_Leningradskaya Oblast_Karelsky": [
+   "N54E029",
+   "N60E026",
+   "N60E030"
+  ],
+  "Russia_Leningradskaya Oblast_Southeast": [
+   "N54E025",
+   "N54E029",
+   "N56E033",
+   "N60E026",
+   "N60E030"
+  ],
+  "Russia_Lipetsk Oblast": [
+   "N45E033",
+   "N45E038",
+   "N53E033"
+  ],
+  "Russia_Magadan Oblast": [
+   "N50E140",
+   "N50E150",
+   "N50E158",
+   "N60E142",
+   "N60E145",
+   "N60E148",
+   "N60E150",
+   "N60E154",
+   "N60E157",
+   "N60E160",
+   "N65E145",
+   "N66E145"
+  ],
+  "Russia_Mari El": [
+   "N55E045",
+   "N57E045"
+  ],
+  "Russia_Moscow Oblast_East": [
+   "N45E038",
+   "N53E033",
+   "N56E033"
+  ],
+  "Russia_Moscow Oblast_West": [
+   "N53E033",
+   "N56E033"
+  ],
+  "Russia_Moscow": [
+   "N53E033"
+  ],
+  "Russia_Murmansk Oblast": [
+   "N63E030",
+   "N65E020",
+   "N66E030"
+  ],
+  "Russia_Nenets Autonomous Okrug": [
+   "N64E045",
+   "N64E056",
+   "N64E065",
+   "N66E030"
+  ],
+  "Russia_Nizhny Novgorod Oblast": [
+   "N44E045",
+   "N45E038",
+   "N55E045",
+   "N56E039",
+   "N57E045"
+  ],
+  "Russia_North Ossetia-Alania": [
+   "N42E042"
+  ],
+  "Russia_Novgorod Oblast": [
+   "N54E029",
+   "N56E033"
+  ],
+  "Russia_Novosibirsk Oblast": [
+   "N45E072",
+   "N50E081",
+   "N52E085",
+   "N54E081",
+   "N55E072"
+  ],
+  "Russia_Omsk Oblast": [
+   "N45E060",
+   "N45E072",
+   "N55E072",
+   "N57E060"
+  ],
+  "Russia_Orenburg Oblast": [
+   "N44E045",
+   "N44E055",
+   "N45E060"
+  ],
+  "Russia_Oryol Oblast": [
+   "N45E033",
+   "N45E038",
+   "N53E033"
+  ],
+  "Russia_Penza Oblast": [
+   "N44E045",
+   "N45E038"
+  ],
+  "Russia_Perm Krai_North": [
+   "N57E052",
+   "N60E045",
+   "N60E054"
+  ],
+  "Russia_Perm Krai_South": [
+   "N44E055",
+   "N55E045",
+   "N57E052"
+  ],
+  "Russia_Primorsky Krai": [
+   "N35E130",
+   "N37E137",
+   "N42E130",
+   "N45E128",
+   "N45E133",
+   "N45E140",
+   "N47E137"
+  ],
+  "Russia_Pskov Oblast": [
+   "N54E025",
+   "N54E029"
+  ],
+  "Russia_Republic of Dagestan": [
+   "N40E045",
+   "N40E047",
+   "N44E045"
+  ],
+  "Russia_Republic of Kalmykia": [
+   "N44E045",
+   "N45E038"
+  ],
+  "Russia_Republic of Karelia_North": [
+   "N60E026",
+   "N60E030",
+   "N63E030",
+   "N65E020",
+   "N66E030"
+  ],
+  "Russia_Republic of Karelia_South": [
+   "N60E026",
+   "N60E030",
+   "N60E037",
+   "N63E030"
+  ],
+  "Russia_Republic of Mordovia": [
+   "N44E045",
+   "N45E038",
+   "N55E045"
+  ],
+  "Russia_Rostov Oblast": [
+   "N45E038"
+  ],
+  "Russia_Ryazan Oblast": [
+   "N45E038"
+  ],
+  "Russia_Saint Petersburg": [
+   "N54E029",
+   "N60E026",
+   "N60E030"
+  ],
+  "Russia_Sakha Republic": [
+   "N54E120",
+   "N54E130",
+   "N54E135",
+   "N55E105",
+   "N55E110",
+   "N55E112",
+   "N55E124",
+   "N56E115",
+   "N56E130",
+   "N60E105",
+   "N60E125",
+   "N60E132",
+   "N60E136",
+   "N60E140",
+   "N60E142",
+   "N60E145",
+   "N60E148",
+   "N60E150",
+   "N63E136",
+   "N65E125",
+   "N65E128",
+   "N65E135",
+   "N65E141",
+   "N65E145",
+   "N66E105",
+   "N66E111",
+   "N66E145",
+   "N66E160",
+   "N67E135",
+   "N68E125",
+   "N69E125"
+  ],
+  "Russia_Sakhalin Oblast": [
+   "N37E137",
+   "N38E161",
+   "N40E143",
+   "N40E150",
+   "N45E140",
+   "N50E140",
+   "N50E150",
+   "N50E158"
+  ],
+  "Russia_Samara Oblast": [
+   "N44E045"
+  ],
+  "Russia_Saratov Oblast": [
+   "N44E045",
+   "N45E038"
+  ],
+  "Russia_Smolensk Oblast": [
+   "N50E025",
+   "N53E033",
+   "N54E029",
+   "N56E033"
+  ],
+  "Russia_Stavropol Krai": [
+   "N40E040",
+   "N40E045",
+   "N42E042",
+   "N44E045",
+   "N45E038"
+  ],
+  "Russia_Sverdlovsk Oblast_Ekaterinburg": [
+   "N44E055",
+   "N45E060",
+   "N57E052",
+   "N57E060"
+  ],
+  "Russia_Sverdlovsk Oblast_North": [
+   "N57E052",
+   "N57E060",
+   "N60E054"
+  ],
+  "Russia_Tambov Oblast": [
+   "N45E038"
+  ],
+  "Russia_Tatarstan": [
+   "N44E045",
+   "N55E045"
+  ],
+  "Russia_Tomsk Oblast": [
+   "N54E081",
+   "N55E072",
+   "N55E085",
+   "N60E065",
+   "N60E080"
+  ],
+  "Russia_Tula Oblast": [
+   "N45E038",
+   "N53E033"
+  ],
+  "Russia_Tuva": [
+   "N46E090",
+   "N46E094",
+   "N48E085",
+   "N50E085",
+   "N50E090",
+   "N50E092",
+   "N50E095",
+   "N53E095"
+  ],
+  "Russia_Tver Oblast": [
+   "N53E033",
+   "N54E029",
+   "N56E033"
+  ],
+  "Russia_Tyumen Oblast": [
+   "N45E060",
+   "N55E072",
+   "N57E060"
+  ],
+  "Russia_Udmurt Republic": [
+   "N55E045",
+   "N57E045",
+   "N57E052"
+  ],
+  "Russia_Ulyanovsk Oblast": [
+   "N44E045"
+  ],
+  "Russia_Vladimir Oblast": [
+   "N45E038",
+   "N56E033",
+   "N56E039"
+  ],
+  "Russia_Volgograd Oblast": [
+   "N44E045",
+   "N45E038"
+  ],
+  "Russia_Vologda Oblast": [
+   "N56E033",
+   "N56E039",
+   "N57E045",
+   "N60E030",
+   "N60E037",
+   "N60E045"
+  ],
+  "Russia_Voronezh Oblast": [
+   "N45E038"
+  ],
+  "Russia_Yamalo-Nenets Autonomous Okrug": [
+   "N60E065",
+   "N60E080",
+   "N64E056",
+   "N64E065",
+   "N65E080"
+  ],
+  "Russia_Yaroslavl Oblast": [
+   "N56E033",
+   "N56E039"
+  ],
+  "Russia_Yugra_Khanty": [
+   "N57E060",
+   "N60E054",
+   "N60E065",
+   "N64E056",
+   "N64E065"
+  ],
+  "Russia_Yugra_Surgut": [
+   "N55E072",
+   "N57E060",
+   "N60E065",
+   "N60E080"
+  ],
+  "Russia_Zabaykalsky Krai": [
+   "N42E110",
+   "N45E115",
+   "N47E105",
+   "N50E105",
+   "N50E110",
+   "N50E120",
+   "N52E115",
+   "N54E120",
+   "N56E115"
+  ],
+  "Rwanda": [
+   "S02E028",
+   "S05E028",
+   "S07E030"
+  ],
+  "Sahrawi Arab Democratic Republic": [
+   "N13W010",
+   "N15W030"
+  ],
+  "Saint Barthelemy": [
+   "N15W072"
+  ],
+  "Saint Helena Ascension and Tristan da Cunha": [
+   "S10W013",
+   "S10W035",
+   "S20W005",
+   "S20W038",
+   "S35W017",
+   "S60W035"
+  ],
+  "Saint Kitts and Nevis": [
+   "N15W072"
+  ],
+  "Saint Lucia": [
+   "N10W070"
+  ],
+  "Saint Martin": [
+   "N15W072"
+  ],
+  "Saint Vincent and the Grenadines": [
+   "N10W070"
+  ],
+  "Samoa": [
+   "S15W171",
+   "S15W180",
+   "S29W180"
+  ],
+  "San Marino": [
+   "N40E010"
+  ],
+  "Sao Tome and Principe": [
+   "S05E005"
+  ],
+  "Saudi Arabia_North": [
+   "N15E038",
+   "N15E040",
+   "N18E040",
+   "N20E035",
+   "N20E037",
+   "N20E040",
+   "N20E045",
+   "N23E040",
+   "N25E033",
+   "N25E035",
+   "N25E037",
+   "N30E035",
+   "N30E040"
+  ],
+  "Saudi Arabia_South": [
+   "N10E052",
+   "N15E040",
+   "N15E044",
+   "N15E048",
+   "N16E050",
+   "N18E040",
+   "N20E040",
+   "N20E045",
+   "N20E050",
+   "N20E055",
+   "N23E040",
+   "N25E050"
+  ],
+  "Senegal": [
+   "N04W035",
+   "N09W013",
+   "N15W030"
+  ],
+  "Serbia": [
+   "N41E020",
+   "N41E022",
+   "N43E016",
+   "N45E015"
+  ],
+  "Seychelles": [
+   "S10E040",
+   "S10E046",
+   "S15E045",
+   "S26E050"
+  ],
+  "Sierra Leone": [
+   "N04W035",
+   "N09W013",
+   "S10W013"
+  ],
+  "Singapore": [
+   "N00E102"
+  ],
+  "Slovakia_Region of Banska Bystrica": [
+   "N48E015"
+  ],
+  "Slovakia_Region of Bratislava": [
+   "N48E015"
+  ],
+  "Slovakia_Region of Kosice": [
+   "N48E015"
+  ],
+  "Slovakia_Region of Nitra": [
+   "N45E015",
+   "N48E015"
+  ],
+  "Slovakia_Region of Presov": [
+   "N48E015"
+  ],
+  "Slovakia_Region of Trencin": [
+   "N48E015"
+  ],
+  "Slovakia_Region of Trnava": [
+   "N45E015",
+   "N48E015"
+  ],
+  "Slovakia_Region of Zilina": [
+   "N48E015"
+  ],
+  "Slovenia_East": [
+   "N45E012",
+   "N45E015"
+  ],
+  "Slovenia_West": [
+   "N45E012",
+   "N45E015"
+  ],
+  "Solomon Islands": [
+   "S09E153",
+   "S12E150",
+   "S12E165",
+   "S16E165",
+   "S25E150"
+  ],
+  "Somalia": [
+   "N07E040",
+   "N10E040",
+   "N10E043",
+   "N10E045",
+   "N10E047",
+   "N10E050",
+   "N10E052",
+   "S10E040",
+   "S10E046"
+  ],
+  "South Africa_Eastern Cape": [
+   "S33E020",
+   "S33E027",
+   "S34E020",
+   "S60E020"
+  ],
+  "South Africa_Free State": [
+   "S30E020",
+   "S30E028",
+   "S33E020",
+   "S33E027"
+  ],
+  "South Africa_Gauteng": [
+   "S30E020",
+   "S30E028"
+  ],
+  "South Africa_KwaZulu-Natal": [
+   "S30E028",
+   "S30E030",
+   "S33E027"
+  ],
+  "South Africa_Limpopo": [
+   "S30E020",
+   "S30E028",
+   "S30E030"
+  ],
+  "South Africa_Mpumalanga": [
+   "S30E028",
+   "S30E030"
+  ],
+  "South Africa_North West": [
+   "S30E020",
+   "S30E028"
+  ],
+  "South Africa_Northern Cape": [
+   "S30E016",
+   "S30E020",
+   "S33E020",
+   "S42W005"
+  ],
+  "South Africa_Western Cape": [
+   "S33E020",
+   "S34E020",
+   "S42W005",
+   "S60E020",
+   "S60E035"
+  ],
+  "South Georgia and the South Sandwich Islands": [
+   "S60W035",
+   "S60W045",
+   "S85W030"
+  ],
+  "South Korea_North": [
+   "N35E120",
+   "N35E126",
+   "N35E127",
+   "N35E130",
+   "N37E127"
+  ],
+  "South Korea_South": [
+   "N25E125",
+   "N35E120",
+   "N35E126",
+   "N35E127",
+   "N35E130",
+   "N37E127"
+  ],
+  "South Ossetia": [
+   "N42E042"
+  ],
+  "South Sudan": [
+   "N00E029",
+   "N00E031",
+   "N01E035",
+   "N02E027",
+   "N05E020",
+   "N05E025",
+   "N05E035"
+  ],
+  "Spain_Andalusia_Granada": [
+   "N33W010",
+   "N35W003",
+   "N35W005"
+  ],
+  "Spain_Andalusia_Sevilla": [
+   "N33W010",
+   "N35W005",
+   "N37W010"
+  ],
+  "Spain_Aragon": [
+   "N35E000",
+   "N35W003",
+   "N40W002",
+   "N40W005",
+   "N42E000"
+  ],
+  "Spain_Balearic Islands": [
+   "N35E000"
+  ],
+  "Spain_Basque Country": [
+   "N40W002",
+   "N40W005"
+  ],
+  "Spain_Canary Islands": [
+   "N27W030"
+  ],
+  "Spain_Cantabria": [
+   "N40W005"
+  ],
+  "Spain_Castile and Leon_East": [
+   "N40W002",
+   "N40W005"
+  ],
+  "Spain_Castile and Leon_West": [
+   "N40W005",
+   "N40W010",
+   "N42W010"
+  ],
+  "Spain_Castile-La Mancha": [
+   "N35W003",
+   "N35W005",
+   "N37W010",
+   "N40W002",
+   "N40W005",
+   "N40W010"
+  ],
+  "Spain_Catalonia_Provincia de Barcelona": [
+   "N35E000",
+   "N42E000",
+   "N42E002"
+  ],
+  "Spain_Catalonia_Provincia de Girona": [
+   "N35E000",
+   "N42E000",
+   "N42E002"
+  ],
+  "Spain_Catalonia_Provincia de Lleida": [
+   "N35E000",
+   "N42E000"
+  ],
+  "Spain_Catalonia_Provincia de Tarragona": [
+   "N35E000"
+  ],
+  "Spain_Ceuta": [
+   "N33W010"
+  ],
+  "Spain_Community of Madrid": [
+   "N35W005",
+   "N40W005"
+  ],
+  "Spain_Comunidad Foral de Navarra": [
+   "N40W002",
+   "N40W005"
+  ],
+  "Spain_Extremadura": [
+   "N35W005",
+   "N37W010",
+   "N40W010"
+  ],
+  "Spain_Galicia_North": [
+   "N42W010"
+  ],
+  "Spain_Galicia_South": [
+   "N40W010",
+   "N42W010"
+  ],
+  "Spain_La Rioja": [
+   "N40W002",
+   "N40W005"
+  ],
+  "Spain_Melilla": [
+   "N35W003"
+  ],
+  "Spain_Principado de Asturias": [
+   "N40W005",
+   "N42W010"
+  ],
+  "Spain_Region de Murcia": [
+   "N35W003"
+  ],
+  "Spain_Valencian Community": [
+   "N35E000",
+   "N35W003",
+   "N40W002"
+  ],
+  "Sri Lanka": [
+   "N04E080",
+   "N10E076",
+   "N10E080",
+   "S10E065"
+  ],
+  "Sudan_East": [
+   "N05E025",
+   "N10E035",
+   "N12E035",
+   "N15E030",
+   "N15E035",
+   "N15E038",
+   "N20E035",
+   "N20E037",
+   "N22E030"
+  ],
+  "Sudan_West": [
+   "N05E020",
+   "N05E025",
+   "N15E020",
+   "N15E025",
+   "N15E030",
+   "N22E030"
+  ],
+  "Suriname": [
+   "N00W055",
+   "N00W057",
+   "N02W060",
+   "N03W055",
+   "N03W057",
+   "N05W060"
+  ],
+  "Swaziland": [
+   "S30E030"
+  ],
+  "Sweden_Bergslagen": [
+   "N50E009",
+   "N50E015",
+   "N60E012"
+  ],
+  "Sweden_Malardalen": [
+   "N50E015",
+   "N60E012"
+  ],
+  "Sweden_Mellannorrland": [
+   "N60E009",
+   "N60E012",
+   "N65E000"
+  ],
+  "Sweden_Norra Sverige": [
+   "N60E012",
+   "N60E020",
+   "N65E000",
+   "N65E015",
+   "N65E020"
+  ],
+  "Sweden_Ostra Gotaland": [
+   "N50E009",
+   "N50E015"
+  ],
+  "Sweden_Sodra Gotaland": [
+   "N50E009",
+   "N50E015"
+  ],
+  "Sweden_Stockholm": [
+   "N50E015",
+   "N60E012"
+  ],
+  "Sweden_Vastra Gotaland": [
+   "N50E009"
+  ],
+  "Switzerland_Central": [
+   "N45E008",
+   "N46E005",
+   "N47E008"
+  ],
+  "Switzerland_Eastern": [
+   "N45E008",
+   "N45E010",
+   "N47E008"
+  ],
+  "Switzerland_Espace Mittelland_Bern": [
+   "N46E005",
+   "N47E008"
+  ],
+  "Switzerland_Espace Mittelland_East": [
+   "N45E008",
+   "N46E005"
+  ],
+  "Switzerland_Lake Geneva region": [
+   "N45E005",
+   "N45E008",
+   "N46E005"
+  ],
+  "Switzerland_Northwestern": [
+   "N46E005",
+   "N47E008"
+  ],
+  "Switzerland_Ticino": [
+   "N45E008"
+  ],
+  "Switzerland_Zurich": [
+   "N47E008"
+  ],
+  "Syria": [
+   "N30E030",
+   "N30E035",
+   "N30E040",
+   "N36E035"
+  ],
+  "Taiwan_North": [
+   "N20E116",
+   "N20E120",
+   "N20E122",
+   "N25E118",
+   "N25E120"
+  ],
+  "Taiwan_South": [
+   "N07E110",
+   "N20E116",
+   "N20E120",
+   "N20E122"
+  ],
+  "Tajikistan": [
+   "N35E066",
+   "N35E068",
+   "N35E070",
+   "N35E072",
+   "N37E066",
+   "N37E070",
+   "N37E072",
+   "N37E073",
+   "N37E075",
+   "N38E068",
+   "N38E070",
+   "N40E060",
+   "N40E070"
+  ],
+  "Tanzania_Central": [
+   "S07E030",
+   "S08E035",
+   "S11E030"
+  ],
+  "Tanzania_Coastal": [
+   "S08E035",
+   "S10E035",
+   "S20E035",
+   "S20E037"
+  ],
+  "Tanzania_Lake": [
+   "S03E035",
+   "S07E030",
+   "S08E035"
+  ],
+  "Tanzania_Northern": [
+   "S03E035",
+   "S07E030",
+   "S08E035"
+  ],
+  "Tanzania_Offshore Islands": [
+   "S08E035",
+   "S10E035",
+   "S10E040",
+   "S20E037"
+  ],
+  "Tanzania_Southern Highlands": [
+   "S07E030",
+   "S08E035",
+   "S10E035",
+   "S11E030",
+   "S16E030",
+   "S20E035",
+   "S20E037"
+  ],
+  "Tanzania_Western": [
+   "S05E028",
+   "S07E030",
+   "S09E024",
+   "S11E030"
+  ],
+  "Thailand_Central": [
+   "N10E095",
+   "N10E099",
+   "N10E100",
+   "N10E104",
+   "N15E098",
+   "N15E100",
+   "N15E102",
+   "N15E105",
+   "N18E100"
+  ],
+  "Thailand_North": [
+   "N15E095",
+   "N15E098",
+   "N15E100",
+   "N18E098",
+   "N18E100",
+   "N19E095",
+   "N20E098",
+   "N20E100"
+  ],
+  "Thailand_South": [
+   "N03E098",
+   "N04E095",
+   "N04E102",
+   "N05E100",
+   "N10E095",
+   "N10E099",
+   "N10E100"
+  ],
+  "The Bahamas": [
+   "N20W080",
+   "N20W090"
+  ],
+  "The Gambia": [
+   "N04W035"
+  ],
+  "Togo": [
+   "N07W005",
+   "N10W005",
+   "S05W005"
+  ],
+  "Tokelau": [
+   "S15W171",
+   "S15W180"
+  ],
+  "Tonga": [
+   "S15W180",
+   "S29W180"
+  ],
+  "Trinidad and Tobago": [
+   "N05W062",
+   "N10W070"
+  ],
+  "Tunisia": [
+   "N29E007",
+   "N30E010",
+   "N35E005"
+  ],
+  "Turkey_Aegean Region": [
+   "N30E025",
+   "N37E030",
+   "N38E025"
+  ],
+  "Turkey_Black Sea Region": [
+   "N37E030",
+   "N38E035",
+   "N40E030",
+   "N40E034",
+   "N40E037",
+   "N40E040",
+   "N40E042"
+  ],
+  "Turkey_Central Anatolia Region_Ankara": [
+   "N30E030",
+   "N37E030",
+   "N38E025",
+   "N40E030",
+   "N40E034"
+  ],
+  "Turkey_Central Anatolia Region_Kayseri": [
+   "N36E035",
+   "N37E030",
+   "N38E035",
+   "N40E034",
+   "N40E037"
+  ],
+  "Turkey_Eastern Anatolia Region": [
+   "N30E040",
+   "N36E035",
+   "N38E035",
+   "N38E040",
+   "N40E037",
+   "N40E040",
+   "N40E042"
+  ],
+  "Turkey_Marmara Region_Bursa": [
+   "N37E030",
+   "N38E025",
+   "N40E025",
+   "N40E030"
+  ],
+  "Turkey_Marmara Region_Istanbul": [
+   "N40E025"
+  ],
+  "Turkey_Mediterranean Region": [
+   "N30E025",
+   "N30E030",
+   "N30E035",
+   "N36E035",
+   "N37E030",
+   "N38E035"
+  ],
+  "Turkey_Southeastern Anatolia Region": [
+   "N30E040",
+   "N36E035",
+   "N38E035",
+   "N38E040"
+  ],
+  "Turkmenistan": [
+   "N35E055",
+   "N35E057",
+   "N35E060",
+   "N35E064",
+   "N36E050",
+   "N37E066",
+   "N40E047",
+   "N40E060"
+  ],
+  "Turks and Caicos Islands": [
+   "N19W072",
+   "N20W080"
+  ],
+  "Tuvalu": [
+   "S12E165"
+  ],
+  "UK_England_East Midlands": [
+   "N50W005"
+  ],
+  "UK_England_East of England_Essex": [
+   "N50W005"
+  ],
+  "UK_England_East of England_Norfolk": [
+   "N50W005"
+  ],
+  "UK_England_Greater London": [
+   "N50W005"
+  ],
+  "UK_England_North East England": [
+   "N50W005"
+  ],
+  "UK_England_North West England_Lancaster": [
+   "N50W005"
+  ],
+  "UK_England_North West England_Manchester": [
+   "N50W005"
+  ],
+  "UK_England_South East_Brighton": [
+   "N50W005"
+  ],
+  "UK_England_South East_Oxford": [
+   "N50W005"
+  ],
+  "UK_England_South West England_Bristol": [
+   "N50W005"
+  ],
+  "UK_England_South West England_Cornwall": [
+   "N42W010",
+   "N45W005",
+   "N50W005"
+  ],
+  "UK_England_West Midlands": [
+   "N50W005"
+  ],
+  "UK_England_Yorkshire and the Humber": [
+   "N50W005"
+  ],
+  "UK_Northern Ireland": [
+   "N42W010"
+  ],
+  "UK_Scotland_North": [
+   "N37W030",
+   "N42W010",
+   "N50W005",
+   "N60E000",
+   "N60W021"
+  ],
+  "UK_Scotland_South": [
+   "N42W010",
+   "N50W005"
+  ],
+  "UK_Wales": [
+   "N42W010",
+   "N50W005"
+  ],
+  "US_Alabama_Birmingham": [
+   "N32W087",
+   "N32W090",
+   "N35W088",
+   "N35W092"
+  ],
+  "US_Alabama_Montgomery": [
+   "N30W090",
+   "N32W087",
+   "N32W090"
+  ],
+  "US_Alaska": [
+   "N35W140",
+   "N35W158",
+   "N35W180",
+   "N50E162",
+   "N52W180",
+   "N55W130",
+   "N55W133",
+   "N55W135",
+   "N55W140",
+   "N57W133",
+   "N57W158",
+   "N60W140",
+   "N60W142",
+   "N60W145",
+   "N60W148",
+   "N60W150",
+   "N60W155",
+   "N60W160",
+   "N60W180",
+   "N63W155",
+   "N65W142",
+   "N65W150",
+   "N65W160",
+   "N66W142",
+   "N66W180",
+   "N67W155",
+   "N68W150"
+  ],
+  "US_Arizona_Flagstaff": [
+   "N30W110",
+   "N30W116",
+   "N33W114",
+   "N35W110",
+   "N35W112",
+   "N35W115",
+   "N37W115"
+  ],
+  "US_Arizona_Phoenix": [
+   "N30W114",
+   "N30W116",
+   "N33W114"
+  ],
+  "US_Arizona_Tucson": [
+   "N30W110",
+   "N30W114",
+   "N33W114"
+  ],
+  "US_Arkansas_North": [
+   "N25W094",
+   "N25W100",
+   "N35W092",
+   "N35W095"
+  ],
+  "US_Arkansas_South": [
+   "N25W094",
+   "N25W100",
+   "N35W092"
+  ],
+  "US_California_Bakersfield_Bakersfield": [
+   "N20W136",
+   "N30W120",
+   "N35W120",
+   "N35W125"
+  ],
+  "US_California_Bakersfield_Lancaster": [
+   "N30W116",
+   "N30W120",
+   "N35W115",
+   "N35W118",
+   "N35W120"
+  ],
+  "US_California_Chico": [
+   "N35W125",
+   "N35W130",
+   "N39W120",
+   "N39W125"
+  ],
+  "US_California_LA North": [
+   "N20W136",
+   "N30W120"
+  ],
+  "US_California_LA": [
+   "N30W120"
+  ],
+  "US_California_Redding": [
+   "N35W130",
+   "N39W120",
+   "N39W125",
+   "N41W123",
+   "N41W125"
+  ],
+  "US_California_Sacramento_Fresno": [
+   "N35W118",
+   "N35W120",
+   "N35W125"
+  ],
+  "US_California_Sacramento_Sacramento": [
+   "N35W120",
+   "N35W125",
+   "N39W125"
+  ],
+  "US_California_Sacramento_Stockton": [
+   "N35W120",
+   "N35W125"
+  ],
+  "US_California_San Diego": [
+   "N30W116",
+   "N30W120"
+  ],
+  "US_California_Santa_Clara_Palo Alto": [
+   "N35W125",
+   "N39W125"
+  ],
+  "US_California_Santa_Clara_Santa Cruz": [
+   "N35W125"
+  ],
+  "US_Colorado_Aspen": [
+   "N35W105",
+   "N35W107",
+   "N38W110",
+   "N40W108",
+   "N40W110"
+  ],
+  "US_Colorado_Denver": [
+   "N35W105",
+   "N35W107",
+   "N40W105",
+   "N40W108"
+  ],
+  "US_Colorado_South": [
+   "N35W105",
+   "N35W107",
+   "N35W110",
+   "N38W110"
+  ],
+  "US_Connecticut": [
+   "N35W075",
+   "N42W075"
+  ],
+  "US_Delaware": [
+   "N35W075",
+   "N35W078"
+  ],
+  "US_Florida_Gainesville": [
+   "N20W080",
+   "N20W090",
+   "N30W090"
+  ],
+  "US_Florida_Jacksonville": [
+   "N20W090",
+   "N30W090"
+  ],
+  "US_Florida_Miami": [
+   "N20W080",
+   "N20W090"
+  ],
+  "US_Florida_Orlando": [
+   "N20W090"
+  ],
+  "US_Florida_Tampa": [
+   "N20W080",
+   "N20W090"
+  ],
+  "US_Georgia_Atlanta": [
+   "N32W087"
+  ],
+  "US_Georgia_Macon": [
+   "N32W083",
+   "N32W087"
+  ],
+  "US_Georgia_North": [
+   "N32W083",
+   "N32W087",
+   "N35W085"
+  ],
+  "US_Georgia_South": [
+   "N30W090",
+   "N32W083",
+   "N32W087"
+  ],
+  "US_Guam": [
+   "N00E137",
+   "N00E145",
+   "N15E130",
+   "N15E138",
+   "N16E145"
+  ],
+  "US_Hawaii": [
+   "N03W160",
+   "N09W180",
+   "N20W162",
+   "N20W180"
+  ],
+  "US_Idaho_North": [
+   "N40W115",
+   "N42W120",
+   "N45W115",
+   "N45W117",
+   "N45W120",
+   "N47W117"
+  ],
+  "US_Idaho_South": [
+   "N39W120",
+   "N40W112",
+   "N40W115",
+   "N42W120"
+  ],
+  "US_Illinois_Chickago": [
+   "N40W090"
+  ],
+  "US_Illinois_Elgin": [
+   "N40W090"
+  ],
+  "US_Illinois_Rockford": [
+   "N40W090",
+   "N40W092"
+  ],
+  "US_Illinois_South": [
+   "N35W092",
+   "N37W088"
+  ],
+  "US_Illinois_Springfield": [
+   "N35W092",
+   "N37W088",
+   "N40W090",
+   "N40W092"
+  ],
+  "US_Indiana_Evansville": [
+   "N35W092",
+   "N37W085",
+   "N37W088"
+  ],
+  "US_Indiana_Indianapolis": [
+   "N37W085",
+   "N37W088",
+   "N40W090"
+  ],
+  "US_Indiana_North": [
+   "N37W085",
+   "N37W088",
+   "N40W085",
+   "N40W090"
+  ],
+  "US_Iowa_Des Moines": [
+   "N40W092",
+   "N40W096"
+  ],
+  "US_Iowa_Waterloo": [
+   "N40W092",
+   "N40W096"
+  ],
+  "US_Iowa_West": [
+   "N40W096",
+   "N40W105"
+  ],
+  "US_Kansas_East": [
+   "N35W095",
+   "N35W105",
+   "N40W096",
+   "N40W105"
+  ],
+  "US_Kansas_West": [
+   "N35W105",
+   "N40W105"
+  ],
+  "US_Kansas_Wichita": [
+   "N35W105"
+  ],
+  "US_Kentucky_East": [
+   "N35W082",
+   "N35W085",
+   "N37W083",
+   "N37W085",
+   "N37W088"
+  ],
+  "US_Kentucky_Louisville": [
+   "N37W085",
+   "N37W088"
+  ],
+  "US_Kentucky_West": [
+   "N35W085",
+   "N35W088",
+   "N35W092",
+   "N37W085",
+   "N37W088"
+  ],
+  "US_Louisiana_Central": [
+   "N25W094",
+   "N25W100"
+  ],
+  "US_Louisiana_New Orleans": [
+   "N20W090",
+   "N25W094",
+   "N30W090"
+  ],
+  "US_Maine": [
+   "N35W071",
+   "N44W075",
+   "N45W071",
+   "N47W071"
+  ],
+  "US_Maryland_Baltimore": [
+   "N35W075",
+   "N35W078"
+  ],
+  "US_Maryland_and_DC": [
+   "N35W078",
+   "N35W080"
+  ],
+  "US_Massachusetts_Boston": [
+   "N35W071",
+   "N42W075"
+  ],
+  "US_Massachusetts_Central": [
+   "N42W075"
+  ],
+  "US_Massachusetts_Plymouth": [
+   "N35W071",
+   "N35W075",
+   "N42W075"
+  ],
+  "US_Massachusetts_Southeastern": [
+   "N35W071",
+   "N35W075"
+  ],
+  "US_Massachusetts_West": [
+   "N35W075",
+   "N42W075"
+  ],
+  "US_Michigan_Detroit": [
+   "N40W085"
+  ],
+  "US_Michigan_Grand Rapids": [
+   "N40W085",
+   "N40W090",
+   "N45W090"
+  ],
+  "US_Michigan_Lansing": [
+   "N40W085",
+   "N40W090",
+   "N45W083",
+   "N45W090"
+  ],
+  "US_Michigan_North": [
+   "N45W090",
+   "N46W096",
+   "N48W090"
+  ],
+  "US_Minnesota_Minneapolis": [
+   "N40W096"
+  ],
+  "US_Minnesota_North": [
+   "N45W090",
+   "N46W096",
+   "N46W105",
+   "N48W090",
+   "N49W096"
+  ],
+  "US_Minnesota_Rochester": [
+   "N40W092",
+   "N40W096",
+   "N40W105"
+  ],
+  "US_Minnesota_Saint Cloud": [
+   "N40W096",
+   "N40W105",
+   "N46W096",
+   "N46W105"
+  ],
+  "US_Mississippi_Gulfport": [
+   "N30W090"
+  ],
+  "US_Mississippi_North": [
+   "N25W094",
+   "N30W090",
+   "N32W090"
+  ],
+  "US_Missouri_East": [
+   "N35W092",
+   "N35W095"
+  ],
+  "US_Missouri_Kansas": [
+   "N35W095",
+   "N35W105",
+   "N40W096"
+  ],
+  "US_Missouri_Springfield": [
+   "N35W092",
+   "N35W095"
+  ],
+  "US_Missouri_St Louis": [
+   "N35W092",
+   "N35W095",
+   "N40W092",
+   "N40W096"
+  ],
+  "US_Montana_East": [
+   "N40W105",
+   "N40W108",
+   "N40W110",
+   "N40W112",
+   "N40W115",
+   "N45W110",
+   "N45W113",
+   "N46W105",
+   "N49W110"
+  ],
+  "US_Montana_West": [
+   "N40W115",
+   "N45W113",
+   "N45W115",
+   "N45W117",
+   "N47W117"
+  ],
+  "US_Nebraska_East": [
+   "N35W105",
+   "N40W096",
+   "N40W105"
+  ],
+  "US_Nebraska_West": [
+   "N35W105",
+   "N40W105"
+  ],
+  "US_Nevada": [
+   "N35W115",
+   "N35W118",
+   "N35W120",
+   "N35W125",
+   "N37W115",
+   "N39W120",
+   "N39W125",
+   "N40W115",
+   "N41W123",
+   "N42W120"
+  ],
+  "US_New Hampshire": [
+   "N35W071",
+   "N42W075",
+   "N44W075"
+  ],
+  "US_New Jersey_North": [
+   "N35W075",
+   "N40W077"
+  ],
+  "US_New Jersey_South": [
+   "N35W075",
+   "N35W078",
+   "N40W077"
+  ],
+  "US_New Mexico_Albuquerque": [
+   "N30W108",
+   "N35W105",
+   "N35W107",
+   "N35W110"
+  ],
+  "US_New Mexico_Roswell": [
+   "N30W108",
+   "N30W110",
+   "N35W105",
+   "N35W110"
+  ],
+  "US_New York_East": [
+   "N35W075"
+  ],
+  "US_New York_New York": [
+   "N35W075"
+  ],
+  "US_New York_North": [
+   "N35W075",
+   "N40W077",
+   "N42W075",
+   "N44W075"
+  ],
+  "US_New York_West": [
+   "N35W075",
+   "N40W077",
+   "N40W080",
+   "N42W075"
+  ],
+  "US_North Carolina_Asheville": [
+   "N32W087",
+   "N35W082",
+   "N35W085"
+  ],
+  "US_North Carolina_Charlotte": [
+   "N32W083",
+   "N35W082"
+  ],
+  "US_North Carolina_Greensboro": [
+   "N20W080",
+   "N32W083",
+   "N35W080",
+   "N35W082"
+  ],
+  "US_North Carolina_Raleigh": [
+   "N35W078",
+   "N35W080"
+  ],
+  "US_North Carolina_Wilmington": [
+   "N20W080",
+   "N35W078",
+   "N35W080"
+  ],
+  "US_North Carolina_Wilson": [
+   "N20W080",
+   "N35W078",
+   "N35W080"
+  ],
+  "US_North Dakota_Bismarck": [
+   "N40W105",
+   "N46W105"
+  ],
+  "US_North Dakota_East": [
+   "N40W105",
+   "N46W105"
+  ],
+  "US_North Dakota_Minot": [
+   "N46W105"
+  ],
+  "US_Ohio_Cincinnati": [
+   "N37W085",
+   "N40W085"
+  ],
+  "US_Ohio_Cleveland": [
+   "N40W085"
+  ],
+  "US_Ohio_Columbus": [
+   "N37W083",
+   "N37W085",
+   "N38W082",
+   "N40W085"
+  ],
+  "US_Ohio_Toledo": [
+   "N40W085"
+  ],
+  "US_Oklahoma_East": [
+   "N25W100",
+   "N35W095",
+   "N35W105"
+  ],
+  "US_Oklahoma_Oklahoma": [
+   "N25W100",
+   "N30W108",
+   "N35W105"
+  ],
+  "US_Oklahoma_Tulsa": [
+   "N35W095",
+   "N35W105"
+  ],
+  "US_Oklahoma_West": [
+   "N35W105"
+  ],
+  "US_Oregon_Eugene": [
+   "N41W123",
+   "N41W125"
+  ],
+  "US_Oregon_Portland": [
+   "N41W123",
+   "N41W125",
+   "N45W122",
+   "N45W125"
+  ],
+  "US_Oregon_West": [
+   "N39W120",
+   "N41W123",
+   "N42W120",
+   "N45W117",
+   "N45W120",
+   "N45W122"
+  ],
+  "US_Pennsylvania_Central": [
+   "N35W078",
+   "N35W080",
+   "N40W077",
+   "N40W080"
+  ],
+  "US_Pennsylvania_Pittsburgh": [
+   "N35W080",
+   "N38W082",
+   "N40W080",
+   "N40W085"
+  ],
+  "US_Pennsylvania_Reading": [
+   "N35W075",
+   "N35W078",
+   "N40W077"
+  ],
+  "US_Pennsylvania_Scranton": [
+   "N35W075",
+   "N40W077",
+   "N40W080"
+  ],
+  "US_Puerto Rico": [
+   "N15W072",
+   "N19W072"
+  ],
+  "US_Rhode Island": [
+   "N35W071",
+   "N35W075",
+   "N42W075"
+  ],
+  "US_South Carolina_Charleston": [
+   "N20W080",
+   "N32W083"
+  ],
+  "US_South Carolina_Columbia": [
+   "N32W083",
+   "N32W087",
+   "N35W082",
+   "N35W085"
+  ],
+  "US_South Carolina_Florence": [
+   "N20W080",
+   "N32W083",
+   "N35W082"
+  ],
+  "US_South Dakota": [
+   "N40W105"
+  ],
+  "US_Tennessee_East": [
+   "N32W087",
+   "N35W082",
+   "N35W085",
+   "N35W088"
+  ],
+  "US_Tennessee_West": [
+   "N25W094",
+   "N32W087",
+   "N32W090",
+   "N35W088",
+   "N35W092"
+  ],
+  "US_Texas_Amarillo": [
+   "N25W100",
+   "N30W108",
+   "N35W105"
+  ],
+  "US_Texas_Austin": [
+   "N25W100"
+  ],
+  "US_Texas_Dallas": [
+   "N25W100"
+  ],
+  "US_Texas_Houston": [
+   "N25W094",
+   "N25W100"
+  ],
+  "US_Texas_Lubbock": [
+   "N25W100",
+   "N30W108"
+  ],
+  "US_Texas_San Antonio": [
+   "N25W100"
+  ],
+  "US_Texas_Southwest": [
+   "N25W100",
+   "N28W105",
+   "N30W108"
+  ],
+  "US_Texas_Tyler": [
+   "N25W100"
+  ],
+  "US_Texas_Victoria": [
+   "N25W100"
+  ],
+  "US_Texas_Wako": [
+   "N25W094",
+   "N25W100"
+  ],
+  "US_Texas_West": [
+   "N25W100",
+   "N30W108"
+  ],
+  "US_United States Minor Outlying Islands": [
+   "N09W180",
+   "N15W080",
+   "N16E156",
+   "N20W180",
+   "S03W180",
+   "S15W160"
+  ],
+  "US_Utah_North": [
+   "N35W112",
+   "N37W115",
+   "N38W110",
+   "N40W110",
+   "N40W112",
+   "N40W115"
+  ],
+  "US_Utah_South": [
+   "N35W110",
+   "N35W112",
+   "N35W115",
+   "N37W115",
+   "N38W110"
+  ],
+  "US_Vermont": [
+   "N42W075",
+   "N44W075"
+  ],
+  "US_Virginia_Alexandria": [
+   "N35W078",
+   "N35W080"
+  ],
+  "US_Virginia_Lynchburg": [
+   "N35W078",
+   "N35W080",
+   "N35W082"
+  ],
+  "US_Virginia_Norfolk": [
+   "N35W078"
+  ],
+  "US_Virginia_Richmond": [
+   "N35W078",
+   "N35W080"
+  ],
+  "US_Virginia_Roanoke": [
+   "N35W080",
+   "N35W082",
+   "N35W085",
+   "N37W083"
+  ],
+  "US_Washington_Coast": [
+   "N45W122",
+   "N45W125",
+   "N48W122",
+   "N48W125"
+  ],
+  "US_Washington_Seattle": [
+   "N45W122",
+   "N45W125",
+   "N48W122",
+   "N48W125"
+  ],
+  "US_Washington_Yakima": [
+   "N45W117",
+   "N45W120",
+   "N45W122",
+   "N45W125",
+   "N48W122",
+   "N49W120"
+  ],
+  "US_West Virginia": [
+   "N35W078",
+   "N35W080",
+   "N35W082",
+   "N37W083",
+   "N38W082",
+   "N40W085"
+  ],
+  "US_Wisconsin_Eau Claire": [
+   "N40W090",
+   "N40W092",
+   "N40W096",
+   "N45W090"
+  ],
+  "US_Wisconsin_Madison": [
+   "N40W090",
+   "N40W092"
+  ],
+  "US_Wisconsin_Milwaukee": [
+   "N40W090",
+   "N45W090"
+  ],
+  "US_Wisconsin_North": [
+   "N40W090",
+   "N40W092",
+   "N40W096",
+   "N45W090",
+   "N46W096"
+  ],
+  "US_Wyoming": [
+   "N40W105",
+   "N40W108",
+   "N40W110",
+   "N40W112",
+   "N45W110",
+   "N45W113"
+  ],
+  "Uganda": [
+   "N00E029",
+   "N00E031",
+   "N01E035",
+   "S02E028",
+   "S07E030"
+  ],
+  "Ukraine_Cherkasy Oblast": [
+   "N45E025",
+   "N50E025"
+  ],
+  "Ukraine_Chernihiv Oblast": [
+   "N45E033",
+   "N50E025"
+  ],
+  "Ukraine_Chernivtsi Oblast": [
+   "N45E022",
+   "N45E025",
+   "N48E015"
+  ],
+  "Ukraine_Dnipropetrovsk Oblast": [
+   "N45E025",
+   "N45E033"
+  ],
+  "Ukraine_Donetsk Oblast": [
+   "N45E033",
+   "N45E038"
+  ],
+  "Ukraine_Ivano-Frankivsk Oblast": [
+   "N45E022",
+   "N45E025",
+   "N48E015"
+  ],
+  "Ukraine_Kharkiv Oblast": [
+   "N45E033",
+   "N45E038"
+  ],
+  "Ukraine_Kherson Oblast": [
+   "N45E025",
+   "N45E033"
+  ],
+  "Ukraine_Khmelnytskyi Oblast": [
+   "N45E025",
+   "N50E025"
+  ],
+  "Ukraine_Kirovohrad Oblast": [
+   "N45E025",
+   "N45E033"
+  ],
+  "Ukraine_Kyiv Oblast": [
+   "N45E025",
+   "N50E025"
+  ],
+  "Ukraine_Luhansk Oblast": [
+   "N45E033",
+   "N45E038"
+  ],
+  "Ukraine_Lviv Oblast": [
+   "N45E025",
+   "N48E015",
+   "N50E015",
+   "N50E025"
+  ],
+  "Ukraine_Mykolaiv Oblast": [
+   "N45E025",
+   "N45E033"
+  ],
+  "Ukraine_Odessa Oblast": [
+   "N45E025"
+  ],
+  "Ukraine_Poltava Oblast": [
+   "N45E025",
+   "N45E033",
+   "N50E025"
+  ],
+  "Ukraine_Rivne Oblast": [
+   "N50E025"
+  ],
+  "Ukraine_Sumy Oblast": [
+   "N45E033",
+   "N50E025"
+  ],
+  "Ukraine_Ternopil Oblast": [
+   "N45E025",
+   "N48E015",
+   "N50E025"
+  ],
+  "Ukraine_Vinnytsia Oblast": [
+   "N45E025"
+  ],
+  "Ukraine_Volyn Oblast": [
+   "N50E015",
+   "N50E025"
+  ],
+  "Ukraine_Zakarpattia Oblast": [
+   "N45E022",
+   "N48E015"
+  ],
+  "Ukraine_Zaporizhia Oblast": [
+   "N45E033"
+  ],
+  "Ukraine_Zhytomyr Oblast": [
+   "N45E025",
+   "N50E025"
+  ],
+  "United Arab Emirates": [
+   "N20E050",
+   "N20E055",
+   "N25E050",
+   "N25E053",
+   "N25E055"
+  ],
+  "United States Virgin Islands": [
+   "N15W072"
+  ],
+  "Uruguay": [
+   "S35W060",
+   "S60W060"
+  ],
+  "Uzbekistan": [
+   "N35E060",
+   "N35E064",
+   "N35E068",
+   "N37E066",
+   "N38E068",
+   "N40E047",
+   "N40E060",
+   "N40E070",
+   "N40E072",
+   "N41E072",
+   "N44E055"
+  ],
+  "Vanuatu": [
+   "S16E165",
+   "S25E150",
+   "S25E165",
+   "S25E172"
+  ],
+  "Venezuela_North": [
+   "N05W062",
+   "N05W065",
+   "N05W067",
+   "N05W070",
+   "N08W073",
+   "N10W070",
+   "N10W080",
+   "N15W072"
+  ],
+  "Venezuela_South": [
+   "N01W067",
+   "N01W070",
+   "N02W063",
+   "N02W065",
+   "N05W060",
+   "N05W062",
+   "N05W065",
+   "N05W067",
+   "N05W070",
+   "N05W073",
+   "N07W075",
+   "N08W073",
+   "N10W070",
+   "N10W080",
+   "S01W065",
+   "S02W070"
+  ],
+  "Vietnam_North": [
+   "N15E102",
+   "N15E105",
+   "N15E107",
+   "N19E102",
+   "N20E102",
+   "N20E103",
+   "N20E104",
+   "N20E105",
+   "N20E107",
+   "N22E103",
+   "N22E105",
+   "N23E103",
+   "N23E105"
+  ],
+  "Vietnam_South": [
+   "N04E102",
+   "N07E110",
+   "N10E100",
+   "N10E104",
+   "N10E108",
+   "N15E107"
+  ],
+  "Wallis and Futuna": [
+   "S15W180",
+   "S29W180"
+  ],
+  "Willis Island": [
+   "S19E140",
+   "S25E150"
+  ],
+  "Yemen": [
+   "N10E040",
+   "N10E043",
+   "N10E045",
+   "N10E047",
+   "N10E050",
+   "N10E052",
+   "N15E040",
+   "N15E044",
+   "N15E048",
+   "N16E050"
+  ],
+  "Zambia": [
+   "S09E024",
+   "S11E030",
+   "S15E020",
+   "S16E030",
+   "S20E020"
+  ],
+  "Zimbabwe": [
+   "S16E030",
+   "S20E020",
+   "S20E030",
+   "S30E020",
+   "S30E028",
+   "S30E030"
+  ]
+ }
 }
