@@ -37,14 +37,22 @@ std::pair<TwmId, TwmSet::RegResult> TwmSet::Register(std::string const & filePat
       return;
     }
 
-    m2::RectD limitRect;
-    if (!ReadLimitRect(filePath, limitRect))
+    TwmHeader header;
+    if (!ReadHeader(filePath, header))
     {
+      // An old format file identifies itself by the version byte: report it for the
+      // deletion (see TerrainProvider::Rescan) instead of condemning it as corrupt.
+      if (header.m_version < kTwmVersion)
+      {
+        result = {TwmId(), RegResult::ObsoleteVersion};
+        return;
+      }
       LOG(LWARNING, ("Condemning the unreadable terrain file", filePath));
       m_condemned.insert(filePath);
       result = {TwmId(), RegResult::BadFile};
       return;
     }
+    m2::RectD const limitRect = header.GetLimitRect();
 
     // The tracer merges the triangles of all the blocks of a query: an overlap doubles
     // the shared triangles and fails the trace (the duplicate directed edge check).
@@ -69,21 +77,28 @@ std::pair<TwmId, TwmSet::RegResult> TwmSet::Register(std::string const & filePat
   return result;
 }
 
-bool TwmSet::ReadLimitRect(std::string const & filePath, m2::RectD & limitRect)
+bool TwmSet::ReadHeader(std::string const & filePath, TwmHeader & header)
 {
   try
   {
     FilesContainerR const container(filePath);
-    TwmHeader header;
     ReaderSource<ModelReaderPtr> src(container.GetReader(kHeaderTag));
     header.Deserialize(src);
-    limitRect = header.GetLimitRect();
   }
   catch (RootException const & ex)
   {
     LOG(LWARNING, ("Can't read the terrain header", filePath, ":", ex.Msg()));
     return false;
   }
+  return true;
+}
+
+bool TwmSet::ReadLimitRect(std::string const & filePath, m2::RectD & limitRect)
+{
+  TwmHeader header;
+  if (!ReadHeader(filePath, header))
+    return false;
+  limitRect = header.GetLimitRect();
   return true;
 }
 
@@ -217,6 +232,7 @@ std::string DebugPrint(TwmSet::RegResult result)
   case TwmSet::RegResult::Overlapping: return "Overlapping";
   case TwmSet::RegResult::Condemned: return "Condemned";
   case TwmSet::RegResult::BadFile: return "BadFile";
+  case TwmSet::RegResult::ObsoleteVersion: return "ObsoleteVersion";
   }
   UNREACHABLE();
 }

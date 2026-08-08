@@ -56,6 +56,7 @@ import app.organicmaps.api.Const;
 import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.bookmarks.BookmarkCategoriesActivity;
 import app.organicmaps.downloader.DownloaderActivity;
+import app.organicmaps.downloader.DownloaderService;
 import app.organicmaps.downloader.MapManagerHelper;
 import app.organicmaps.downloader.OnmapDownloader;
 import app.organicmaps.editor.EditorActivity;
@@ -901,7 +902,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (type != IsolinesState.NODATA)
       return;
-    if (MapManager.nativeIsTerrainWithMaps())
+    if (!MapManager.nativeIsTerrainAvailable() || MapManager.nativeIsTerrainWithMaps())
     {
       // The terrain arrives with the maps: the missing area means the map itself is
       // absent or the terrain is still on its way through the downloader.
@@ -920,7 +921,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
                   // (the sizes surface per region in the downloader).
                   MapManagerHelper.warnOn3g(this, 0L, () -> {
                     if (!Framework.nativeDownloadTerrainForViewport())
+                    {
                       Toast.makeText(this, R.string.isolines_location_error_dialog, Toast.LENGTH_SHORT).show();
+                      return;
+                    }
+                    // The fetch rides the shared downloader queue: promote the
+                    // foreground service so the queue survives backgrounding and
+                    // shows the progress notification.
+                    DownloaderService.startForegroundIfDownloading(this);
                   });
                 })
             .setNegativeButton(R.string.cancel, null)

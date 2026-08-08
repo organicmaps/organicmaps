@@ -122,6 +122,8 @@ public:
     Overlapping,        ///< The block rect overlaps a registered one (see the tracer).
     Condemned,          ///< The file was dropped as corrupt earlier.
     BadFile,            ///< The header is unreadable; the file gets condemned.
+    ObsoleteVersion,    ///< An old format no build reads anymore; the caller deletes the
+                        ///< file (not condemned, so a failed deletion retries next time).
   };
 
   // The observer notes: see MwmSet::Observer - the callbacks can fire on any thread
@@ -183,6 +185,12 @@ protected:
   //@}
 
 private:
+  /// Reads the .twm header; false when unreadable or unsupported. header.m_version keeps
+  /// the file version whenever its byte - the first one of the header - was read, so an
+  /// old format file reports itself even through the failed parse; the rest of the header
+  /// is valid only on true.
+  static bool ReadHeader(std::string const & filePath, TwmHeader & header);
+
   template <typename Fn>
   void ForEachBlockByRectImpl(m2::RectD const & rect, Fn && fn) const;
 

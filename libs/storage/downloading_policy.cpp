@@ -36,8 +36,11 @@ void StorageDownloadingPolicy::ScheduleTerrainRetry(storage::CountriesSet const 
     };
     m_terrainRetryWorker.RestartWith([action] { GetPlatform().RunTask(Platform::Thread::Gui, action); });
   }
-  else
+  else if (failedRegions.empty())
   {
+    // Only the all-clear drain refreshes the budget: the slot is armed once per failed
+    // BLOCK, so a reset on a non-empty batch would rewind the exhausted counter and
+    // retry an offline device forever.
     m_terrainRetryCounter = kAutoRetryCounterMax;
   }
 }

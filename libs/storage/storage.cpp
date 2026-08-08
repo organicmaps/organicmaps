@@ -832,6 +832,8 @@ void Storage::OnTerrainBlockDownloaded(QueuedCountry const & queuedCountry, down
     // would loop the full re-download of a big block to the same end.
     if (status == downloader::DownloadStatus::Failed)
       ScheduleTerrainRetry();
+    if (m_terrainQueue.empty())
+      OnFinishDownloading();
     return;
   }
 
@@ -854,9 +856,14 @@ void Storage::OnTerrainBlockDownloaded(QueuedCountry const & queuedCountry, down
     }
     GetPlatform().RunTask(Platform::Thread::Gui, [this, name, ok, finalPath]()
     {
-      // Cancelled (or all-deleted) while validating: the landed bytes are gone with it.
+      // Cancelled (or deleted) while validating: nobody registered the landed file, and
+      // a later on-disk re-stat must not resurrect it - drop the bytes.
       if (m_terrainQueue.erase(name) == 0)
+      {
+        if (ok)
+          base::DeleteFileX(finalPath);
         return;
+      }
       if (!ok)
         m_terrainFailed.insert(name);
       else if (auto * terrainBlock = FindTerrainBlock(name))
@@ -870,9 +877,14 @@ void Storage::OnTerrainBlockDownloaded(QueuedCountry const & queuedCountry, down
       NotifyTerrainRegions(name);
       if (ok)
         m_terrainBlockRegions.erase(name);
-      // The drained queue re-arms the stragglers or resets the retry budget.
+      // The drained queue re-arms the stragglers or resets the retry budget, and runs
+      // the maps' finish work: a failed map never triggers it itself while the terrain
+      // trails it in the shared queue (OnFinishDownloading needs the queue empty).
       if (m_terrainQueue.empty())
+      {
         ScheduleTerrainRetry();
+        OnFinishDownloading();
+      }
     });
   });
 }
@@ -2160,7 +2172,9 @@ void Storage::DownloadNode(CountryId const & countryId, bool isUpdate /* = false
   // not stall the later maps behind the earlier leafs' terrain); outside the map-status
   // gate - the terrain of the already-mapped leafs must complete too. One attachment
   // save for the whole subtree, the per-leaf attach below is then a no-op.
-  if (IsTerrainWithMaps())
+  // The update flow queues the terrain itself after ALL its maps (see UpdateNode): the
+  // per-leaf calls must not interleave it between them.
+  if (!isUpdate && IsTerrainWithMaps())
   {
     AttachTerrainRegions(countryId);
     node->ForEachInSubtree([this](CountryTree::Node const & descendantNode)

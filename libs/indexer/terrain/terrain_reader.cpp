@@ -12,6 +12,14 @@ Reader::Reader(FilesContainerR const & container) : m_container(container)
     ReaderSource<ModelReaderPtr> src(m_container.GetReader(kHeaderTag));
     m_header.Deserialize(src);
   }
+  {
+    ReaderSource<ModelReaderPtr> src(m_container.GetReader(kGridTag));
+    DeserializeGrid(src, m_header, m_grids);
+  }
+  {
+    ReaderSource<ModelReaderPtr> src(m_container.GetReader(kFreqTag));
+    DeserializeFreqs(src, m_header, m_tables);
+  }
 
   auto const indexReader = m_container.GetReader(kIndexTag);
   // IntervalIndex CHECKs (aborts) on a version mismatch, keep the corrupt data catchable.
@@ -29,8 +37,11 @@ Reader::Reader(FilesContainerR const & container) : m_container(container)
 void Reader::ReadMesh(m2::RectD const & rect, size_t geomIndex, TileMesh & mesh) const
 {
   ASSERT_LESS(geomIndex, m_header.m_geometries.size(), ());
+  ASSERT_EQUAL(m_tables.size(), m_header.m_geometries.size(), ());
   // The mesh dedup keys are raw quantized points: the quantization must be uniform.
   ASSERT_EQUAL(mesh.GetCoordBits(), m_header.m_coordBits, ());
+  // The record mesh index is validated against the same count on the record deserialization.
+  ASSERT_EQUAL(m_grids.size(), m_header.m_meshCount, ());
 
   // Sorted and deduplicated: read the feature records in the file order.
   auto const intervals = covering::CoverViewportAndAppendLowerLevels<RectId::DEPTH_LEVELS>(rect, kCellDepth);
@@ -47,10 +58,13 @@ void Reader::ReadMesh(m2::RectD const & rect, size_t geomIndex, TileMesh & mesh)
   auto const geometry = m_container.GetReader(GetGeometryTag(geomIndex));
   uint64_t const featuresSize = features.Size();
   uint64_t const geometrySize = geometry.Size();
+  // The decoder working vectors, grown once for the whole tile instead of per feature.
+  GeometryScratch scratch;
   for (uint32_t const offset : offsets)
   {
-    // Guards the unsigned size subtraction below.
-    CHECK_LESS(offset, featuresSize, ());
+    // Guards the unsigned size subtraction below. A corrupt index must stay catchable.
+    if (offset >= featuresSize)
+      MYTHROW(TwmException, ("Feature offset out of the section", offset, featuresSize));
     ReaderSource<ModelReaderPtr> src(features.SubReader(offset, featuresSize - offset));
     FeatureRecord record;
     DeserializeFeatureRecord(src, m_header, record);
@@ -59,9 +73,10 @@ void Reader::ReadMesh(m2::RectD const & rect, size_t geomIndex, TileMesh & mesh)
       continue;
 
     uint64_t const geomOffset = record.m_geomOffsets[geomIndex];
-    CHECK_LESS(geomOffset, geometrySize, ());
+    if (geomOffset >= geometrySize)
+      MYTHROW(TwmException, ("Geometry offset out of the section", geomOffset, geometrySize));
     ReaderSource<ModelReaderPtr> geomSrc(geometry.SubReader(geomOffset, geometrySize - geomOffset));
-    DeserializeFeatureGeometry(geomSrc, m_header, record, mesh);
+    DeserializeFeatureGeometry(geomSrc, m_grids[record.m_meshIdx], m_tables[geomIndex], record, scratch, mesh);
   }
 }
 }  // namespace terrain

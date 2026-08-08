@@ -79,6 +79,16 @@ void TerrainProvider::Rescan()
         emptied = true;
         ++replaced;
       }
+      else if (result.second == TwmSet::RegResult::ObsoleteVersion)
+      {
+        // An old format file no build reads anymore: the registration read its header
+        // only. The downloader refetches the regenerated block (its versioned path
+        // differs, see Storage::EnsureTerrainOnDisk), so free the space right away.
+        LOG(LINFO, ("Deleting the obsolete terrain file", path));
+        base::DeleteFileX(path);
+        emptied = true;
+        ++replaced;
+      }
       else
         LOG(LWARNING, ("Skipping the terrain file", path, ":", result.second));
     }

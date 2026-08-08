@@ -159,7 +159,7 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
   case MWMMapOverlayIsolinesStateNoData:
     // Keep the layer enabled: the hint prompts to download the terrain, and the state
     // recovers by itself once the viewport gets the coverage.
-    if ([[MWMStorage sharedStorage] isTerrainWithMaps])
+    if (![[MWMStorage sharedStorage] isTerrainAvailable] || [[MWMStorage sharedStorage] isTerrainWithMaps])
     {
       [MWMAlertViewController.activeAlertController presentInfoAlert:L(@"isolines_location_error_dialog")];
     }

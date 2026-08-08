@@ -9,6 +9,8 @@
 #include "platform/settings.hpp"
 #include "platform/style_utils.hpp"
 
+#include <algorithm>
+
 #include "qt/qt_common/helpers.hpp"
 
 #include <QLocale>
@@ -102,7 +104,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
       // The switch turns off either way; the files may serve the map until deleted.
       QMessageBox ask(this);
       ask.setIcon(QMessageBox::Question);
-      ask.setText(tr("Also delete the downloaded terrain data (%1 MB)?").arg(size >> 20));
+      ask.setText(tr("Also delete the downloaded terrain data (%1 MB)?").arg(std::max<uint64_t>(1, size >> 20)));
       QPushButton * const btnDelete = ask.addButton(tr("Delete"), QMessageBox::DestructiveRole);
       ask.addButton(tr("Keep"), QMessageBox::RejectRole);
       ask.exec();
