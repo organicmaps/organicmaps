@@ -16,6 +16,10 @@ Reader::Reader(FilesContainerR const & container) : m_container(container)
     ReaderSource<ModelReaderPtr> src(m_container.GetReader(kGridTag));
     DeserializeGrid(src, m_header, m_grids);
   }
+  {
+    ReaderSource<ModelReaderPtr> src(m_container.GetReader(kFreqTag));
+    DeserializeFreqs(src, m_header, m_tables);
+  }
 
   auto const indexReader = m_container.GetReader(kIndexTag);
   // IntervalIndex CHECKs (aborts) on a version mismatch, keep the corrupt data catchable.
@@ -33,6 +37,7 @@ Reader::Reader(FilesContainerR const & container) : m_container(container)
 void Reader::ReadMesh(m2::RectD const & rect, size_t geomIndex, TileMesh & mesh) const
 {
   ASSERT_LESS(geomIndex, m_header.m_geometries.size(), ());
+  ASSERT_EQUAL(m_tables.size(), m_header.m_geometries.size(), ());
   // The mesh dedup keys are raw quantized points: the quantization must be uniform.
   ASSERT_EQUAL(mesh.GetCoordBits(), m_header.m_coordBits, ());
   // The record mesh index is validated against the same count on the record deserialization.
@@ -53,6 +58,8 @@ void Reader::ReadMesh(m2::RectD const & rect, size_t geomIndex, TileMesh & mesh)
   auto const geometry = m_container.GetReader(GetGeometryTag(geomIndex));
   uint64_t const featuresSize = features.Size();
   uint64_t const geometrySize = geometry.Size();
+  // The decoder working vectors, grown once for the whole tile instead of per feature.
+  GeometryScratch scratch;
   for (uint32_t const offset : offsets)
   {
     // Guards the unsigned size subtraction below. A corrupt index must stay catchable.
@@ -69,7 +76,7 @@ void Reader::ReadMesh(m2::RectD const & rect, size_t geomIndex, TileMesh & mesh)
     if (geomOffset >= geometrySize)
       MYTHROW(TwmException, ("Geometry offset out of the section", geomOffset, geometrySize));
     ReaderSource<ModelReaderPtr> geomSrc(geometry.SubReader(geomOffset, geometrySize - geomOffset));
-    DeserializeFeatureGeometry(geomSrc, m_grids[record.m_meshIdx], record, mesh);
+    DeserializeFeatureGeometry(geomSrc, m_grids[record.m_meshIdx], m_tables[geomIndex], record, scratch, mesh);
   }
 }
 }  // namespace terrain
