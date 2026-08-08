@@ -28,6 +28,7 @@
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
 #include "platform/platform_tests_support/writable_dir_changer.hpp"
+#include "platform/settings.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -468,6 +469,32 @@ void InitStorage(Storage & storage, TaskRunner & runner, Storage::UpdateCallback
   storage.SetEnabledIntegrityValidationForTesting(false);
 }
 
+// The map download tests must not bundle the terrain (DownloadNode does when the
+// "TerrainWithMaps" setting is on): the fake downloaders would produce terrain files
+// and the landing notifications need the platform threads. Saves/restores the real
+// settings value - the fixture does not isolate the settings file.
+class ScopedTerrainWithMapsOff
+{
+public:
+  ScopedTerrainWithMapsOff()
+  {
+    m_had = settings::Get(kKey, m_saved);
+    settings::Set(kKey, false);
+  }
+  ~ScopedTerrainWithMapsOff()
+  {
+    if (m_had)
+      settings::Set(kKey, m_saved);
+    else
+      settings::Delete(kKey);
+  }
+
+private:
+  static constexpr std::string_view kKey = "TerrainWithMaps";  // Mirrors storage.cpp.
+  bool m_saved = false;
+  bool m_had = false;
+};
+
 class StorageTest
 {
 public:
@@ -477,6 +504,8 @@ protected:
   Storage storage;
   TaskRunner runner;
   WritableDirChanger writableDirChanger;
+  // The last member: WritableDirChanger's ctor settings::Clear() would wipe the flag.
+  ScopedTerrainWithMapsOff terrainOff;
 };
 
 UNIT_TEST(StorageTest_ParseIndexFile)

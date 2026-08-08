@@ -15,6 +15,9 @@ public:
   virtual ~DownloadingPolicy() = default;
   virtual bool IsDownloadingAllowed() { return true; }
   virtual void ScheduleRetry(storage::CountriesSet const &, TProcessFunc const &) {}
+  // The terrain failures retry independently: one deferred slot per family, so a map
+  // arming cannot swallow a pending terrain retry (and vice versa).
+  virtual void ScheduleTerrainRetry(storage::CountriesSet const &, TProcessFunc const &) {}
 };
 
 class StorageDownloadingPolicy : public DownloadingPolicy
@@ -24,11 +27,16 @@ class StorageDownloadingPolicy : public DownloadingPolicy
   static size_t constexpr kAutoRetryCounterMax = 3;
   size_t m_autoRetryCounter = kAutoRetryCounterMax;
   base::DeferredTask m_autoRetryWorker;
+  size_t m_terrainRetryCounter = kAutoRetryCounterMax;
+  base::DeferredTask m_terrainRetryWorker;
 
   std::chrono::time_point<std::chrono::steady_clock> m_disableCellularTime;
 
 public:
-  StorageDownloadingPolicy() : m_autoRetryWorker(std::chrono::seconds(20)) {}
+  StorageDownloadingPolicy()
+    : m_autoRetryWorker(std::chrono::seconds(20))
+    , m_terrainRetryWorker(std::chrono::seconds(20))
+  {}
   void EnableCellularDownload(bool enabled);
   bool IsCellularDownloadEnabled();
 
@@ -37,4 +45,5 @@ public:
   // DownloadingPolicy overrides:
   bool IsDownloadingAllowed() override;
   void ScheduleRetry(storage::CountriesSet const & failedCountries, TProcessFunc const & func) override;
+  void ScheduleTerrainRetry(storage::CountriesSet const & failedRegions, TProcessFunc const & func) override;
 };
