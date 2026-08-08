@@ -33,6 +33,9 @@ private:
   TwmHeader m_header;
   // Loaded upfront: small (0.03-0.34% of the file) and every feature needs its mesh tables.
   std::vector<MeshGrid> m_grids;
+  // The entropy tables of the geometry sections, one per geometry scale, tiny and needed by
+  // every geometry decode of their scale.
+  std::vector<GeometryTables> m_tables;
   std::unique_ptr<IntervalIndex<ModelReaderPtr, uint32_t>> m_index;
 };
 }  // namespace terrain
