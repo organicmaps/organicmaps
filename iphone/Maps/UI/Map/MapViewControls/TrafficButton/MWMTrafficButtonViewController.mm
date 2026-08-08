@@ -1,6 +1,7 @@
 #import "MWMTrafficButtonViewController.h"
 
 #import <CoreApi/MWMMapOverlayManager.h>
+#import <CoreApi/MWMStorage.h>
 
 #import "MWMAlertViewController.h"
 #import "MWMButton.h"
@@ -38,6 +39,7 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
 @property(nonatomic) NSLayoutConstraint * topOffset;
 @property(nonatomic) NSLayoutConstraint * leftOffset;
 @property(nonatomic) CGRect availableArea;
+@property(nonatomic) MWMMapOverlayIsolinesState lastHandledIsolinesState;
 
 @end
 
@@ -142,6 +144,11 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
 
 - (void)handleIsolinesState:(MWMMapOverlayIsolinesState)state
 {
+  // applyTheme re-derives the state on every theme/overlay poke: the alerts must fire
+  // on the actual transitions only, or they would stack over an unchanged NoData.
+  if (state == self.lastHandledIsolinesState)
+    return;
+  self.lastHandledIsolinesState = state;
   switch (state)
   {
   case MWMMapOverlayIsolinesStateDisabled: break;
@@ -152,7 +159,24 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
   case MWMMapOverlayIsolinesStateNoData:
     // Keep the layer enabled: the hint prompts to download the terrain, and the state
     // recovers by itself once the viewport gets the coverage.
-    [MWMAlertViewController.activeAlertController presentInfoAlert:L(@"isolines_location_error_dialog")];
+    if ([[MWMStorage sharedStorage] isTerrainWithMaps])
+    {
+      [MWMAlertViewController.activeAlertController presentInfoAlert:L(@"isolines_location_error_dialog")];
+    }
+    else
+    {
+      // The terrain does not arrive with the maps: offer to turn the setting on and to
+      // fetch the terrain of the downloaded regions in the current viewport.
+      [MWMAlertViewController.activeAlertController presentDefaultAlertWithTitle:L(@"terrain_disabled_dialog")
+                                                                         message:nil
+                                                                rightButtonTitle:L(@"enable")
+                                                                 leftButtonTitle:L(@"cancel")
+                                                               rightButtonAction:^{
+                                                                 MWMStorage * storage = [MWMStorage sharedStorage];
+                                                                 [storage setTerrainWithMaps:YES];
+                                                                 [storage downloadTerrainForViewport];  // MWMStorage+UI
+                                                               }];
+    }
     break;
   }
 }
@@ -164,6 +188,10 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
 
   // Traffic state machine: https://confluence.mail.ru/pages/viewpage.action?pageId=103680959
   [iv stopAnimating];
+  // The transition gate must see the layer going off, or the next NoData after a
+  // re-enable would read as a repeat and the alerts would stay silent.
+  if (![MWMMapOverlayManager isoLinesEnabled])
+    self.lastHandledIsolinesState = MWMMapOverlayIsolinesStateDisabled;
   if ([MWMMapOverlayManager trafficEnabled])
   {
     [self handleTrafficState:[MWMMapOverlayManager trafficState]];

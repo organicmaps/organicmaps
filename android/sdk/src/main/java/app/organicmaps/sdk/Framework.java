@@ -311,6 +311,13 @@ public class Framework
   public static native boolean nativeGetAutoZoomEnabled();
   public static native void nativeSetAutoZoomEnabled(boolean enabled);
 
+  /**
+   * Downloads the terrain of the downloaded regions in the current viewport (the
+   * "Enable" action of the terrain-disabled layer dialog). False when the viewport
+   * holds no downloaded region to fetch for.
+   */
+  public static native boolean nativeDownloadTerrainForViewport();
+
   public static native void nativeSetTransitSchemeEnabled(boolean enabled);
   public static native void nativeSaveSettingSchemeEnabled(boolean enabled);
   public static native boolean nativeIsTransitSchemeEnabled();

@@ -56,6 +56,7 @@ import app.organicmaps.api.Const;
 import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.bookmarks.BookmarkCategoriesActivity;
 import app.organicmaps.downloader.DownloaderActivity;
+import app.organicmaps.downloader.MapManagerHelper;
 import app.organicmaps.downloader.OnmapDownloader;
 import app.organicmaps.editor.EditorActivity;
 import app.organicmaps.editor.FeatureCategoryActivity;
@@ -898,8 +899,33 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void onIsolinesStateChanged(@NonNull IsolinesState type)
   {
-    if (type == IsolinesState.NODATA)
+    if (type != IsolinesState.NODATA)
+      return;
+    if (MapManager.nativeIsTerrainWithMaps())
+    {
+      // The terrain arrives with the maps: the missing area means the map itself is
+      // absent or the terrain is still on its way through the downloader.
       Toast.makeText(this, R.string.isolines_location_error_dialog, Toast.LENGTH_SHORT).show();
+      return;
+    }
+    dismissAlertDialog();
+    mAlertDialog =
+        new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+            .setMessage(R.string.terrain_disabled_dialog)
+            .setPositiveButton(
+                R.string.enable,
+                (dialog, which) -> {
+                  MapManager.nativeSetTerrainWithMaps(true);
+                  // The same cellular consent the downloads get; no space warn
+                  // (the sizes surface per region in the downloader).
+                  MapManagerHelper.warnOn3g(this, 0L, () -> {
+                    if (!Framework.nativeDownloadTerrainForViewport())
+                      Toast.makeText(this, R.string.isolines_location_error_dialog, Toast.LENGTH_SHORT).show();
+                  });
+                })
+            .setNegativeButton(R.string.cancel, null)
+            .setOnDismissListener(dialog -> mAlertDialog = null)
+            .show();
   }
 
   @Override
