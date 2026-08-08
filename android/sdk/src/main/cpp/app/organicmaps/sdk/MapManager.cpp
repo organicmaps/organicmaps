@@ -70,8 +70,7 @@ struct CountryItemBuilder
   jmethodID m_ctor;
   jfieldID m_Id, m_Name, m_DirectParentId, m_TopmostParentId, m_DirectParentName, m_TopmostParentName, m_Description,
       m_Size, m_EnqueuedSize, m_TotalSize, m_ChildCount, m_TotalChildCount, m_Present, m_Progress, m_DownloadedBytes,
-      m_BytesToDownload, m_Category, m_Status, m_ErrorCode, m_TerrainStatus, m_TerrainTotalSize,
-      m_TerrainDownloadedBytes;
+      m_BytesToDownload, m_Category, m_Status, m_ErrorCode;
 
   CountryItemBuilder(JNIEnv * env)
   {
@@ -97,9 +96,6 @@ struct CountryItemBuilder
     m_Category = env->GetFieldID(m_class, "category", "I");
     m_Status = env->GetFieldID(m_class, "status", "I");
     m_ErrorCode = env->GetFieldID(m_class, "errorCode", "I");
-    m_TerrainStatus = env->GetFieldID(m_class, "terrainStatus", "I");
-    m_TerrainTotalSize = env->GetFieldID(m_class, "terrainTotalSize", "J");
-    m_TerrainDownloadedBytes = env->GetFieldID(m_class, "terrainDownloadedBytes", "J");
   }
 
   DECLARE_BUILDER_INSTANCE(CountryItemBuilder);
@@ -245,11 +241,6 @@ static void UpdateItem(JNIEnv * env, jobject item, storage::CountryId const & co
 
   env->SetFloatField(item, ciBuilder.m_Progress, percentage);
 
-  // Terrain (.twm) aggregated state over the region bbox.
-  auto const terrainAttrs = GetStorage().GetTerrainAttrs(countryId);
-  env->SetIntField(item, ciBuilder.m_TerrainStatus, static_cast<jint>(terrainAttrs.m_status));
-  env->SetLongField(item, ciBuilder.m_TerrainTotalSize, static_cast<jlong>(terrainAttrs.m_totalSize));
-  env->SetLongField(item, ciBuilder.m_TerrainDownloadedBytes, static_cast<jlong>(terrainAttrs.m_downloadedSize));
   env->SetLongField(item, ciBuilder.m_DownloadedBytes, attrs.m_downloadingProgress.m_bytesDownloaded);
   env->SetLongField(item, ciBuilder.m_BytesToDownload, attrs.m_downloadingProgress.m_bytesTotal);
 }
@@ -410,25 +401,39 @@ JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeDownload(JNI
   EndBatchingCallbacks(env);
 }
 
-// static void nativeDownloadTerrain(String root);
-JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeDownloadTerrain(JNIEnv * env, jclass clazz,
-                                                                                    jstring root)
+// static boolean nativeIsTerrainAvailable();
+JNIEXPORT jboolean Java_app_organicmaps_sdk_downloader_MapManager_nativeIsTerrainAvailable(JNIEnv * env, jclass clazz)
 {
-  GetStorage().DownloadTerrain(jni::ToNativeString(env, root));
+  return static_cast<jboolean>(GetStorage().IsTerrainAvailable());
 }
 
-// static void nativeCancelTerrain(String root);
-JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeCancelTerrain(JNIEnv * env, jclass clazz,
-                                                                                  jstring root)
+// static boolean nativeIsTerrainWithMaps();
+JNIEXPORT jboolean Java_app_organicmaps_sdk_downloader_MapManager_nativeIsTerrainWithMaps(JNIEnv * env, jclass clazz)
 {
-  GetStorage().CancelTerrain(jni::ToNativeString(env, root));
+  return static_cast<jboolean>(GetStorage().IsTerrainWithMaps());
 }
 
-// static void nativeDeleteTerrain(String root);
-JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeDeleteTerrain(JNIEnv * env, jclass clazz,
-                                                                                  jstring root)
+// static void nativeSetTerrainWithMaps(boolean enabled);
+JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeSetTerrainWithMaps(JNIEnv * env, jclass clazz,
+                                                                                       jboolean enabled)
 {
-  GetStorage().DeleteTerrain(jni::ToNativeString(env, root));
+  StartBatchingCallbacks();
+  GetStorage().SetTerrainWithMaps(enabled);
+  EndBatchingCallbacks(env);
+}
+
+// static long nativeGetTerrainOnDiskSize();
+JNIEXPORT jlong Java_app_organicmaps_sdk_downloader_MapManager_nativeGetTerrainOnDiskSize(JNIEnv * env, jclass clazz)
+{
+  return static_cast<jlong>(GetStorage().GetTerrainOnDiskSize());
+}
+
+// static void nativeDeleteAllTerrain();
+JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeDeleteAllTerrain(JNIEnv * env, jclass clazz)
+{
+  StartBatchingCallbacks();
+  GetStorage().DeleteAllTerrain();
+  EndBatchingCallbacks(env);
 }
 
 // static boolean nativeRetry(String root);
