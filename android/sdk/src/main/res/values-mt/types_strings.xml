@@ -25,4 +25,5 @@
     <string name="type.sport.running">Ġiri</string>
     <string name="type.sport.softball">Softball</string>
     <string name="type.waterway.access_point">Punt ta\' Aċċess għall-Kors tal-Ilma</string>
+    <string name="type.amenity.stage">Palk</string>
 </resources>
