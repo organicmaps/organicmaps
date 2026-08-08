@@ -159,10 +159,10 @@ public:
   bool AddObserver(Observer & observer) { return m_observers.Add(observer); }
   bool RemoveObserver(Observer const & observer) { return m_observers.Remove(observer); }
 
-  /// The registered blocks intersecting the mercator rect. The rect must be canonical
-  /// in X (a wrapped viewport rect is split into the canonical pieces by the caller,
-  /// see mercator::ForEachRectWrapped); Y may poke beyond the world edge (the empty
-  /// low-zoom tiles above/below the map).
+  /// The registered blocks intersecting the mercator rect. The block rects are canonical,
+  /// so a query rect poking beyond the +-180 seam (a TileKey::GetWrappedDataRect of a tile
+  /// straddling or beyond the antimeridian) matches its canonical intersection - the same
+  /// clipping semantics the MWM feature index applies to such tile rects.
   void GetBlocksByRect(m2::RectD const & rect, std::vector<TwmId> & ids) const;
   bool HasBlocks(m2::RectD const & rect) const;
   /// The limit rects of the registered blocks intersecting the mercator rect.
