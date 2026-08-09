@@ -95,6 +95,9 @@ public:
   float GetDepth(size_t layerIndex) const override;
   void ForEachGeometry(GeometryFnT && fn) const override;
 
+  std::string GetTitle() const override;
+  int GetMinTitleZoom() const override;
+
   void Attach(kml::MarkGroupId groupId);
   void Detach();
 
