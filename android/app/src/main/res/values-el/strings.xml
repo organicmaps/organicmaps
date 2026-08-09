@@ -888,6 +888,8 @@
     <string name="share_track">Κοινοποίηση ίχνους</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Διαγραφή %s;</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Ενεργοποίηση</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -916,4 +918,14 @@
     <string name="color_picker_grid">Πλέγμα</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Φωνητική αναζήτηση</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Λήψη ανάγλυφου μαζί με τους χάρτες</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Σκίαση ανάγλυφου, υψομετρικές γραμμές και θαλάσσια βάθη. Το ανάγλυφο μιας περιοχής λαμβάνεται, ενημερώνεται και διαγράφεται μαζί με τον χάρτη της.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Να διαγραφεί και το ανάγλυφο που έχει ληφθεί (%s);</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Διατήρηση</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Η λήψη του ανάγλυφου μαζί με τους χάρτες είναι απενεργοποιημένη. Να ενεργοποιηθεί για να δείτε εδώ τις υψομετρικές γραμμές;</string>
 </resources>

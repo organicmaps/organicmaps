@@ -894,6 +894,8 @@
     <string name="share_track">Поделиться треком</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Удалить %s?</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Включить</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -922,4 +924,14 @@
     <string name="color_picker_grid">Сетка</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Голосовой поиск</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Скачивать рельеф вместе с картами</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Тени рельефа, линии высот и глубины моря. Рельеф региона скачивается, обновляется и удаляется вместе с его картой.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Также удалить скачанный рельеф (%s)?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Оставить</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Скачивание рельефа вместе с картами отключено. Включить его, чтобы увидеть здесь линии высот?</string>
 </resources>

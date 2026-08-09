@@ -877,6 +877,8 @@
     <string name="share_track">Partajează traseul</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Ștergeți %s?</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Activați</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -905,4 +907,14 @@
     <string name="color_picker_grid">Grilă</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Căutare vocală</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Descarcă relieful împreună cu hărțile</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Umbrirea reliefului, curbele de nivel și adâncimile mării. Relieful unei regiuni este descărcat, actualizat și șters împreună cu harta sa.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Ștergi și datele de relief descărcate (%s)?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Păstrează</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Descărcarea reliefului împreună cu hărțile este dezactivată. O activezi ca să vezi aici curbele de nivel?</string>
 </resources>

@@ -1070,7 +1070,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Tafadhali wezesha iCloud katika mipangilio ya kifaa chako ili kutumia kipengele hiki.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Wezesha";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1167,3 +1167,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Rangi ya njia imebadilishwa";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Pakua umbo la ardhi pamoja na ramani";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Vivuli vya milima, mistari ya mwinuko na kina cha bahari. Umbo la ardhi la eneo hupakuliwa, husasishwa na hufutwa pamoja na ramani yake.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Je, ungependa pia kufuta data ya ardhi iliyopakuliwa (%@)?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Hifadhi";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Upakuaji wa umbo la ardhi pamoja na ramani umezimwa. Uwashe ili kuona mistari ya mwinuko hapa?";

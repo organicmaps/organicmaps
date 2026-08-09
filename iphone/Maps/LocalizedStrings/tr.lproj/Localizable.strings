@@ -1070,7 +1070,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Bu özelliği kullanmak için lütfen aygıtınızın ayarlarında iCloud'u etkinleştirin.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Etkinleştir";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1167,3 +1167,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "İz rengi değiştirildi";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Araziyi haritalarla birlikte indir";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Kabartma gölgelendirme, izohipsler ve deniz derinlikleri. Bir bölgenin arazisi, haritasıyla birlikte indirilir, güncellenir ve silinir.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "İndirilen arazi verileri (%@) de silinsin mi?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Sakla";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Araziyi haritalarla birlikte indirme kapalı. Burada izohipsleri görmek için açılsın mı?";

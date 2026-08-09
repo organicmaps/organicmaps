@@ -1070,7 +1070,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Activeu l’iCloud a la configuració del dispositiu per utilitzar aquesta funció.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Activa";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1167,3 +1167,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "El color dels recorreguts ha canviat";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Baixa el relleu amb els mapes";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Ombreig del relleu, corbes de nivell i profunditats marines. El relleu d’una regió es baixa, s’actualitza i se suprimeix juntament amb el seu mapa.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Voleu suprimir també les dades de relleu baixades (%@)?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Conserva";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "La baixada del relleu amb els mapes està desactivada. Voleu activar-la per veure aquí les corbes de nivell?";

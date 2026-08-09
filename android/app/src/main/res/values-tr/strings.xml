@@ -889,6 +889,8 @@
     <string name="share_track">İz Paylaş</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">%s Silinsin Mi?</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Etkinleştir</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -917,4 +919,14 @@
     <string name="color_picker_grid">Izgara</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Sesli arama</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Araziyi haritalarla birlikte indir</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Kabartma gölgelendirme, izohipsler ve deniz derinlikleri. Bir bölgenin arazisi, haritasıyla birlikte indirilir, güncellenir ve silinir.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">İndirilen arazi verileri (%s) de silinsin mi?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Sakla</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Araziyi haritalarla birlikte indirme kapalı. Burada izohipsleri görmek için açılsın mı?</string>
 </resources>

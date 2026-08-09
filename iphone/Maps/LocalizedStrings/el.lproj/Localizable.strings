@@ -1070,7 +1070,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Ενεργοποιήστε το iCloud στις ρυθμίσεις της συσκευής σας για να χρησιμοποιήσετε αυτή τη λειτουργία.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Ενεργοποίηση";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1167,3 +1167,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Το χρώμα των διαδρομών άλλαξε";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Λήψη ανάγλυφου μαζί με τους χάρτες";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Σκίαση ανάγλυφου, υψομετρικές γραμμές και θαλάσσια βάθη. Το ανάγλυφο μιας περιοχής λαμβάνεται, ενημερώνεται και διαγράφεται μαζί με τον χάρτη της.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Να διαγραφεί και το ανάγλυφο που έχει ληφθεί (%@);";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Διατήρηση";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Η λήψη του ανάγλυφου μαζί με τους χάρτες είναι απενεργοποιημένη. Να ενεργοποιηθεί για να δείτε εδώ τις υψομετρικές γραμμές;";

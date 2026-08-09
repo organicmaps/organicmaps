@@ -877,6 +877,8 @@
     <string name="share_track">트랙 공유</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">삭제 %s?</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">사용</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -905,4 +907,14 @@
     <string name="color_picker_grid">그리드</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">음성 검색</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">지도와 함께 지형 데이터 다운로드</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">지형 음영, 등고선, 수심. 지역의 지형 데이터는 해당 지도와 함께 다운로드, 업데이트, 삭제됩니다.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">다운로드한 지형 데이터(%s)도 삭제하시겠습니까?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">유지</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">지도와 함께 지형 데이터를 다운로드하는 기능이 꺼져 있습니다. 여기에 등고선을 표시하려면 켜시겠습니까?</string>
 </resources>

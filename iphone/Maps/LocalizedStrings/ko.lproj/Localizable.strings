@@ -1070,7 +1070,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "이 기능을 사용하려면 기기 설정에서 iCloud를 활성화하세요.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "사용";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1167,3 +1167,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "트랙 색상이 변경됨";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "지도와 함께 지형 데이터 다운로드";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "지형 음영, 등고선, 수심. 지역의 지형 데이터는 해당 지도와 함께 다운로드, 업데이트, 삭제됩니다.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "다운로드한 지형 데이터(%@)도 삭제하시겠습니까?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "유지";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "지도와 함께 지형 데이터를 다운로드하는 기능이 꺼져 있습니다. 여기에 등고선을 표시하려면 켜시겠습니까?";

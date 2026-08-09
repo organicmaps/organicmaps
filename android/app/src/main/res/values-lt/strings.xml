@@ -890,6 +890,8 @@
     <string name="share_track">Dalintis trasa</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Šalinti %s?</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Įjungti</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -918,4 +920,14 @@
     <string name="color_picker_grid">Tinklelis</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Balso paieška</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Atsisiųsti reljefą kartu su žemėlapiais</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Reljefo šešėliavimas, izolinijos ir jūros gyliai. Regiono reljefas atsisiunčiamas, atnaujinamas ir pašalinamas kartu su jo žemėlapiu.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Ar pašalinti ir atsisiųstus reljefo duomenis (%s)?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Palikti</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Reljefo atsisiuntimas kartu su žemėlapiais išjungtas. Ar norite jį įjungti, kad čia matytumėte izolinijas?</string>
 </resources>

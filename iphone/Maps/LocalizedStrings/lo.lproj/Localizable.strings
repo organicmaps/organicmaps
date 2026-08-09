@@ -1070,7 +1070,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "ກະລຸນາເປີດໃຊ້ iCloud ໃນການຕັ້ງຄ່າອຸປະກອນຂອງທ່ານເພື່ອໃຊ້ຟີເຈີນີ້.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "ເປີດໃຊ້ງານ";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1167,3 +1167,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "ສີຂອງເສັ້ນທາງໄດ້ປ່ຽນແລ້ວ";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "ດາວໂຫຼດພູມິປະເທດພ້ອມກັບແຜນທີ່";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "ເງົາເນີນພູ, ເສັ້ນລະດັບຄວາມສູງ ແລະ ຄວາມເລິກຂອງທະເລ. ພູມິປະເທດຂອງເຂດໜຶ່ງຈະຖືກດາວໂຫຼດ, ອັບເດດ ແລະ ລຶບພ້ອມກັບແຜນທີ່ຂອງມັນ.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "ລຶບຂໍ້ມູນພູມິປະເທດທີ່ດາວໂຫຼດແລ້ວ (%@) ນຳບໍ?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "ເກັບໄວ້";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "ການດາວໂຫຼດພູມິປະເທດພ້ອມກັບແຜນທີ່ຖືກປິດຢູ່. ເປີດມັນເພື່ອເບິ່ງເສັ້ນລະດັບຄວາມສູງຢູ່ບ່ອນນີ້ບໍ?";

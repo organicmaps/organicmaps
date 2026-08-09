@@ -1070,7 +1070,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Aktifkan iCloud di pengaturan perangkat Anda untuk menggunakan fitur ini.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Aktifkan";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1167,3 +1167,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Warna trek diubah";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Unduh data medan beserta peta";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Bayangan relief, garis kontur, dan kedalaman laut. Data medan suatu wilayah diunduh, diperbarui, dan dihapus bersama peta wilayah tersebut.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Hapus juga data medan yang telah diunduh (%@)?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Pertahankan";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Pengunduhan data medan bersama peta dinonaktifkan. Apakah Anda ingin mengaktifkannya untuk melihat garis kontur di sini?";

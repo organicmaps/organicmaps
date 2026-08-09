@@ -1070,7 +1070,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Ota iCloud käyttöön laitteesi asetuksissa, jotta voit käyttää tätä ominaisuutta.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Ota käyttöön";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1167,3 +1167,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Reittien väri vaihdettu";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Lataa maasto karttojen mukana";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Rinnevarjostus, korkeuskäyrät ja merensyvyydet. Alueen maasto ladataan, päivitetään ja poistetaan yhdessä sen kartan kanssa.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Haluatko poistaa myös ladatut maastotiedot (%@)?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Säilytä";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Maaston lataaminen karttojen mukana on pois käytöstä. Haluatko ottaa sen käyttöön, jotta näet korkeuskäyrät täällä?";

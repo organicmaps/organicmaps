@@ -892,6 +892,8 @@
     <string name="share_track">Condividi traccia</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Cancellare %s?</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Abilitazione</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -920,4 +922,14 @@
     <string name="color_picker_grid">Griglia</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Ricerca vocale</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Scaricare il terreno con le mappe</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Ombreggiatura del rilievo, curve di livello e profondità marine. Il terreno di una regione viene scaricato, aggiornato ed eliminato insieme alla sua mappa.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Eliminare anche i dati del terreno scaricati (%s)?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Mantieni</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Il download del terreno con le mappe è disattivato. Attivarlo per vedere qui le curve di livello?</string>
 </resources>

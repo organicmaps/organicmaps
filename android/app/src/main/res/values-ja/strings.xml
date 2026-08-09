@@ -884,6 +884,8 @@
     <string name="share_track">シェアトラック</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">を削除しますか %s？</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">有効にする</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -912,4 +914,14 @@
     <string name="color_picker_grid">グリッド</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">音声検索</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">地図と一緒に地形データをダウンロードする</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">地形の陰影、等高線、水深。地域の地形データは、その地図と一緒にダウンロード、更新、削除されます。</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">ダウンロード済みの地形データ（%s）も削除しますか？</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">残す</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">地図と一緒に地形データをダウンロードする機能がオフになっています。ここに等高線を表示するために有効にしますか？</string>
 </resources>

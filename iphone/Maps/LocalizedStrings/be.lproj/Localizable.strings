@@ -1070,7 +1070,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Каб выкарыстоўваць гэту функцыю, уключыце iCloud у наладах прылады.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Уключыць";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1167,3 +1167,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Колер трэкаў зменены";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Спампоўваць рэльеф разам з мапамі";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Цені рэльефу, лініі вышынь і глыбіні мора. Рэльеф рэгіёна спампоўваецца, абнаўляецца і выдаляецца разам з яго мапай.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Таксама выдаліць спампаваны рэльеф (%@)?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Пакінуць";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Спампоўванне рэльефу разам з мапамі адключана. Уключыць яго, каб убачыць тут лініі вышынь?";

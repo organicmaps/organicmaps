@@ -890,6 +890,8 @@
     <string name="share_track">Jaga rada</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Kas kustutame %s?</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Luba</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -918,4 +920,14 @@
     <string name="color_picker_grid">Ruudustik</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Häälotsing</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Laadi reljeef koos kaartidega alla</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Reljeefivarjutus, kõrgusjooned ja mere sügavused. Piirkonna reljeef laaditakse alla, uuendatakse ja kustutatakse koos selle kaardiga.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Kas soovid kustutada ka allalaaditud reljeefiandmed (%s)?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Säilita</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Reljeefi allalaadimine koos kaartidega on välja lülitatud. Kas soovid selle sisse lülitada, et näha siin kõrgusjooni?</string>
 </resources>

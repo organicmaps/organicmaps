@@ -1070,7 +1070,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "कृपया हे वैशिष्ट्य वापरण्यासाठी तुमच्या डिव्हाइसच्या सेटिंग्जमध्ये iCloud सक्षम करा.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "सक्षम करा";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1167,3 +1167,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "ट्रॅकांचा रंग बदलला";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "नकाशांसोबत भूभाग डाउनलोड करा";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "टेकड्यांचे छायांकन, समोच्च रेषा आणि समुद्राची खोली. प्रदेशाचा भूभाग त्याच्या नकाशासोबतच डाउनलोड, अद्ययावत आणि हटवला जातो.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "डाउनलोड केलेला भूभाग डेटा (%@) देखील हटवायचा का?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "ठेवा";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "नकाशांसोबत भूभाग डाउनलोड करणे बंद आहे. येथे समोच्च रेषा पाहण्यासाठी ते चालू करायचे का?";

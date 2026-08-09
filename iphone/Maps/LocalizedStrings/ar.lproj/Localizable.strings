@@ -1070,8 +1070,8 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "يرجى تمكين iCloud في إعدادات جهازك لاستخدام هذه الميزة.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
-"enable" = "يُمكَِن";
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
+"enable" = "تفعيل";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "دعم";
@@ -1167,3 +1167,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "تم تغيير لون المسارات";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "تنزيل التضاريس مع الخرائط";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "تظليل التلال وخطوط الكفاف وأعماق البحار. يتم تنزيل تضاريس المنطقة وتحديثها وحذفها مع خريطتها.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "هل تريد أيضًا حذف التضاريس التي تم تنزيلها (%@)؟";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "احتفاظ";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "تنزيل التضاريس مع الخرائط متوقف. هل تريد تشغيله لرؤية خطوط الكفاف هنا؟";

@@ -887,6 +887,8 @@
     <string name="share_track">Partekatu arrastoa</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Ezabatu %s?</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Gaitu</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -915,4 +917,14 @@
     <string name="color_picker_grid">Sarea</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Ahots-bilaketa</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Deskargatu erliebea mapekin batera</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Erliebe-itzaldura, sestra-kurbak eta itsas sakonerak. Eskualde bateko erliebea bere maparekin batera deskargatu, eguneratu eta ezabatzen da.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Deskargatutako erliebe-datuak (%s) ere ezabatu nahi dituzu?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Mantendu</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Mapekin batera erliebea deskargatzea desaktibatuta dago. Aktibatu nahi duzu hemen sestra-kurbak ikusteko?</string>
 </resources>
