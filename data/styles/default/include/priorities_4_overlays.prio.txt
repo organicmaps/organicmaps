@@ -354,7 +354,7 @@ landuse-forest-mixed                                # icon z13- (also has captio
 === 4800
 
 natural-arch                                        # icon z17- (also has caption(optional) z17-)
-natural-cave_entrance                               # icon z14- (also has caption(optional) z15-)
+natural-cave_entrance                               # icon z15- (also has caption(optional) z15-)
 natural-geyser                                      # icon z14- (also has caption(optional) z14-)
 natural-hot_spring                                  # icon z14- (also has caption(optional) z15-)
 natural-spring                                      # icon z14- (also has caption(optional) z15-)
@@ -1567,7 +1567,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # === -5200
 
 # natural-arch                                      # caption(optional) z17- (also has icon z17-)
-# natural-cave_entrance                             # caption(optional) z15- (also has icon z14-)
+# natural-cave_entrance                             # caption(optional) z15- (also has icon z15-)
 # natural-geyser                                    # caption(optional) z14- (also has icon z14-)
 # natural-hot_spring                                # caption(optional) z15- (also has icon z14-)
 # natural-spring                                    # caption(optional) z15- (also has icon z14-)
