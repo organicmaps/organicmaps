@@ -80,11 +80,9 @@ final class RoutePointsView: UIView {
     case routePoints.count:
       cell.configure(with: .addPoint)
     default:
-      let viewModel = routePoints.cellViewModel(for: indexPath.item, onCloseHandler: { [weak self] in
-        if let point = self?.routePoints[indexPath.item] {
-          self?.interactor?.process(.deleteRoutePoint(point))
-        }
-      })
+      let viewModel = routePoints.cellViewModel(for: indexPath.item) { [weak self] request in
+        self?.interactor?.process(request)
+      }
       cell.configure(with: viewModel)
     }
   }
@@ -210,7 +208,8 @@ extension RoutePointsView: UICollectionViewDragDelegate, UICollectionViewDropDel
 }
 
 private extension NavigationDashboard.RoutePoints {
-  func cellViewModel(for index: Int, onCloseHandler: (() -> Void)?) -> RoutePointCollectionViewCell.CellType {
+  func cellViewModel(for index: Int,
+                     process: @escaping (NavigationDashboard.Request) -> Void) -> RoutePointCollectionViewCell.CellType {
     let point = self[index]
     let maskedCorners: CACornerMask
     switch index {
@@ -219,14 +218,27 @@ private extension NavigationDashboard.RoutePoints {
     default:
       maskedCorners = hasStartAndFinish ? [] : [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
     }
+
+    let trailingButton: RoutePointCollectionViewCell.PointViewModel.TrailingButton?
+    if let point, point.type == .intermediate {
+      trailingButton = .close {
+        process(.deleteRoutePoint(point))
+      }
+    } else if point?.type == .finish, hasStartAndFinish {
+      trailingButton = .swap {
+        process(.swapStartAndFinishPoints)
+      }
+    } else {
+      trailingButton = nil
+    }
+
     let viewModel = RoutePointCollectionViewCell.PointViewModel(
       title: title(for: index),
       image: image(for: index),
-      showCloseButton: point?.type == .intermediate,
+      trailingButton: trailingButton,
       maskedCorners: maskedCorners,
       isPlaceholder: point == nil,
-      showSeparator: hasStartAndFinish ? true : index < points.count,
-      onCloseHandler: onCloseHandler
+      showSeparator: hasStartAndFinish ? true : index < points.count
     )
     return .point(viewModel)
   }
