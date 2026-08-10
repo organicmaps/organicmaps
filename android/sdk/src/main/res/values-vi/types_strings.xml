@@ -626,6 +626,8 @@
     <string name="type.natural.meadow">Thảo điền</string>
     <string name="type.natural.orchard">Vườn cây ăn trái</string>
     <string name="type.natural.peak">Đỉnh</string>
+    <string name="type.natural.hill">Ngọn đồi</string>
+    <string name="type.natural.arch">Cổng đá</string>
     <string name="type.natural.saddle">Col</string>
     <string name="type.natural.rock">Đá</string>
     <string name="type.natural.scrub">Bụi rậm</string>

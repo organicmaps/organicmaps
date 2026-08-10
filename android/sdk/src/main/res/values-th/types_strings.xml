@@ -631,6 +631,8 @@
     <string name="type.natural.meadow">ทุ่งหญ้า</string>
     <string name="type.natural.orchard">สวนผลไม้</string>
     <string name="type.natural.peak">จุดสูงสุด</string>
+    <string name="type.natural.hill">เนินเขา</string>
+    <string name="type.natural.arch">ซุ้มหิน</string>
     <string name="type.natural.saddle">อานภูเขา</string>
     <string name="type.natural.rock">หิน</string>
     <string name="type.natural.scrub">ป่าละเมาะ</string>

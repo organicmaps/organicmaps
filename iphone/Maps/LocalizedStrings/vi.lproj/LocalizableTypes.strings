@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Thảo điền";
 "type.natural.orchard" = "Vườn cây ăn trái";
 "type.natural.peak" = "Đỉnh";
+"type.natural.hill" = "Ngọn đồi";
+"type.natural.arch" = "Cổng đá";
 "type.natural.saddle" = "Col";
 "type.natural.rock" = "Đá";
 "type.natural.scrub" = "Bụi rậm";

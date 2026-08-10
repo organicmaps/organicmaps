@@ -340,6 +340,8 @@
     <string name="type.natural.meadow">Meadow</string>
     <string name="type.natural.orchard">Bustani</string>
     <string name="type.natural.peak">Kilele</string>
+    <string name="type.natural.hill">Kilima</string>
+    <string name="type.natural.arch">Dhoruba ya mwamba</string>
     <string name="type.natural.saddle">Tandiko la mlima</string>
     <string name="type.natural.rock">Mwamba</string>
     <string name="type.natural.scrub">Eneo la Vichaka</string>

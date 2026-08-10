@@ -749,6 +749,8 @@
     <string name="type.natural.meadow">Λιβάδι</string>
     <string name="type.natural.orchard">Οπωρώνας</string>
     <string name="type.natural.peak">Κορυφή</string>
+    <string name="type.natural.hill">Λόφος</string>
+    <string name="type.natural.arch">Βραχώδης Αψίδα</string>
     <string name="type.natural.saddle">Σέλα Βουνού</string>
     <string name="type.natural.rock">Πέτρωμα</string>
     <string name="type.natural.scrub">Θαμνώδης περιοχή</string>

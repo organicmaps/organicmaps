@@ -722,6 +722,8 @@
     <string name="type.natural.meadow">Belardi</string>
     <string name="type.natural.orchard">Baratzea</string>
     <string name="type.natural.peak">Goiena</string>
+    <string name="type.natural.hill">Muino</string>
+    <string name="type.natural.arch">Harri-arku</string>
     <string name="type.natural.saddle">Mendiko jarlekua</string>
     <string name="type.natural.rock">Arroka</string>
     <string name="type.natural.scrub">Sastrakak</string>

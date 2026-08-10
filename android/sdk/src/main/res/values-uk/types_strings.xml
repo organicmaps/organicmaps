@@ -749,6 +749,8 @@
     <string name="type.natural.meadow">Луг</string>
     <string name="type.natural.orchard">Сад</string>
     <string name="type.natural.peak">Гора</string>
+    <string name="type.natural.hill">Пагорб</string>
+    <string name="type.natural.arch">Скельна арка</string>
     <string name="type.natural.saddle">Сідловина</string>
     <string name="type.natural.rock">Камінь</string>
     <string name="type.natural.scrub">Зарості</string>

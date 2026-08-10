@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Wiese";
 "type.natural.orchard" = "Obstplantage";
 "type.natural.peak" = "Gipfel";
+"type.natural.hill" = "Hügel";
+"type.natural.arch" = "Felsenbogen";
 "type.natural.saddle" = "Bergsattel";
 "type.natural.rock" = "Fels";
 "type.natural.scrub" = "Dickicht";

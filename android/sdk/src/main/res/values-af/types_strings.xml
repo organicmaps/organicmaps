@@ -698,6 +698,8 @@
     <string name="type.natural.meadow">Weiland</string>
     <string name="type.natural.orchard">Boord</string>
     <string name="type.natural.peak">Piek</string>
+    <string name="type.natural.hill">Heuwel</string>
+    <string name="type.natural.arch">Rotsboog</string>
     <string name="type.natural.saddle">Bergsaal</string>
     <string name="type.natural.rock">Klip</string>
     <string name="type.natural.scrub">Ruigte</string>

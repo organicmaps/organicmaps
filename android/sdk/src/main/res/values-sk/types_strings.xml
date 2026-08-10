@@ -718,6 +718,8 @@
     <string name="type.natural.meadow">Lúka</string>
     <string name="type.natural.orchard">Sad</string>
     <string name="type.natural.peak">Hora</string>
+    <string name="type.natural.hill">Kopec</string>
+    <string name="type.natural.arch">Skalný oblúk</string>
     <string name="type.natural.saddle">Sedlo</string>
     <string name="type.natural.rock">Kameň</string>
     <string name="type.natural.scrub">Krovie</string>

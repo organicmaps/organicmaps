@@ -747,6 +747,8 @@
     <string name="type.natural.meadow">ທົ່ງຫຍ້າ</string>
     <string name="type.natural.orchard">ສວນໝາກໄມ້</string>
     <string name="type.natural.peak">ຈອມພູ</string>
+    <string name="type.natural.hill">ພູ</string>
+    <string name="type.natural.arch">Rock Arch</string>
     <string name="type.natural.saddle">ກິ່ວພູ</string>
     <string name="type.natural.rock">ໂງ່ນຫີນ</string>
     <string name="type.natural.scrub">ປ່າເລົ່າ</string>

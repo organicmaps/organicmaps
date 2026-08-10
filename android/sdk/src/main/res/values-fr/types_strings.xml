@@ -749,6 +749,8 @@
     <string name="type.natural.meadow">Prairie</string>
     <string name="type.natural.orchard">Verger</string>
     <string name="type.natural.peak">Sommet</string>
+    <string name="type.natural.hill">Colline</string>
+    <string name="type.natural.arch">Arche rocheuse</string>
     <string name="type.natural.saddle">Col de montagne</string>
     <string name="type.natural.rock">Rocher</string>
     <string name="type.natural.scrub">Fourré</string>

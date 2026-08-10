@@ -729,6 +729,8 @@
     <string name="type.natural.meadow">Äng</string>
     <string name="type.natural.orchard">Fruktodling</string>
     <string name="type.natural.peak">Bergstopp</string>
+    <string name="type.natural.hill">Kulle</string>
+    <string name="type.natural.arch">Stenbågen</string>
     <string name="type.natural.saddle">Fjällsadel</string>
     <string name="type.natural.rock">Bergart</string>
     <string name="type.natural.scrub">Ruggen</string>

@@ -719,6 +719,8 @@
     <string name="type.natural.meadow">Travnik</string>
     <string name="type.natural.orchard">Sadovnjak</string>
     <string name="type.natural.peak">Vrh</string>
+    <string name="type.natural.hill">Hrib</string>
+    <string name="type.natural.arch">Skalni lok</string>
     <string name="type.natural.saddle">Gorsko sedlo</string>
     <string name="type.natural.rock">Skala</string>
     <string name="type.natural.scrub">Grmičevje</string>

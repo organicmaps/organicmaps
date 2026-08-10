@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Ливада";
 "type.natural.orchard" = "Воћњак";
 "type.natural.peak" = "Врх";
+"type.natural.hill" = "Брдо";
+"type.natural.arch" = "Стенови лук";
 "type.natural.saddle" = "Планинско седло";
 "type.natural.rock" = "Камен";
 "type.natural.scrub" = "Шикара";

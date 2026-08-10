@@ -747,6 +747,8 @@
     <string name="type.natural.meadow">Մարգագետին</string>
     <string name="type.natural.orchard">Պտղատու այգի</string>
     <string name="type.natural.peak">Գագաթ</string>
+    <string name="type.natural.hill">Բլուր</string>
+    <string name="type.natural.arch">Քարե կամար</string>
     <string name="type.natural.saddle">Թամբարդ</string>
     <string name="type.natural.rock">Քար</string>
     <string name="type.natural.scrub">Թփուտ</string>

@@ -877,6 +877,8 @@
 "type.natural.meadow" = "אָחוּ";
 "type.natural.orchard" = "פרדס";
 "type.natural.peak" = "פסגה";
+"type.natural.hill" = "גבעה";
+"type.natural.arch" = "קשת הסלע";
 "type.natural.saddle" = "אוכף הרים";
 "type.natural.rock" = "סלע";
 "type.natural.scrub" = "עשבייה";

@@ -740,6 +740,8 @@
     <string name="type.natural.meadow">Ливада</string>
     <string name="type.natural.orchard">Воћњак</string>
     <string name="type.natural.peak">Врх</string>
+    <string name="type.natural.hill">Брдо</string>
+    <string name="type.natural.arch">Стенови лук</string>
     <string name="type.natural.saddle">Планинско седло</string>
     <string name="type.natural.rock">Камен</string>
     <string name="type.natural.scrub">Шикара</string>

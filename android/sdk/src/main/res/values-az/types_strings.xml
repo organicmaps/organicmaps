@@ -717,6 +717,8 @@
     <string name="type.natural.meadow">Çəmən</string>
     <string name="type.natural.orchard">Meyvə bağı</string>
     <string name="type.natural.peak">Pik</string>
+    <string name="type.natural.hill">Təpə</string>
+    <string name="type.natural.arch">Daş qövs</string>
     <string name="type.natural.saddle">Dağ yəhəri</string>
     <string name="type.natural.rock">Qaya</string>
     <string name="type.natural.scrub">Kollar</string>

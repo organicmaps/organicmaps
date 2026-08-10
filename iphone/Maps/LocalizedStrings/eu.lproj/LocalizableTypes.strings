@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Belardi";
 "type.natural.orchard" = "Baratzea";
 "type.natural.peak" = "Goiena";
+"type.natural.hill" = "Muino";
+"type.natural.arch" = "Harri-arku";
 "type.natural.saddle" = "Mendiko jarlekua";
 "type.natural.rock" = "Arroka";
 "type.natural.scrub" = "Sastrakak";

@@ -749,6 +749,8 @@
     <string name="type.natural.meadow">草甸</string>
     <string name="type.natural.orchard">果園</string>
     <string name="type.natural.peak">山峰</string>
+    <string name="type.natural.hill">山丘</string>
+    <string name="type.natural.arch">岩石拱門</string>
     <string name="type.natural.saddle">山坳</string>
     <string name="type.natural.rock">岩石</string>
     <string name="type.natural.scrub">叢林</string>

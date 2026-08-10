@@ -877,6 +877,8 @@
 "type.natural.meadow" = "कुरण";
 "type.natural.orchard" = "फळबागा";
 "type.natural.peak" = "शिखर";
+"type.natural.hill" = "टेकडी";
+"type.natural.arch" = "शिला मेहराब";
 "type.natural.saddle" = "माउंटन सॅडल";
 "type.natural.rock" = "खडक";
 "type.natural.scrub" = "खुरटी झाडे";

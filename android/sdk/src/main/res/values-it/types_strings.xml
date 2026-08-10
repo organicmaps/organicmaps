@@ -749,6 +749,8 @@
     <string name="type.natural.meadow">Prato</string>
     <string name="type.natural.orchard">Frutteto</string>
     <string name="type.natural.peak">Monte</string>
+    <string name="type.natural.hill">Collina</string>
+    <string name="type.natural.arch">Arco roccioso</string>
     <string name="type.natural.saddle">Sella</string>
     <string name="type.natural.rock">Roccia</string>
     <string name="type.natural.scrub">Boscaglia</string>

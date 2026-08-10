@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Weiland";
 "type.natural.orchard" = "Boord";
 "type.natural.peak" = "Piek";
+"type.natural.hill" = "Heuwel";
+"type.natural.arch" = "Rotsboog";
 "type.natural.saddle" = "Bergsaal";
 "type.natural.rock" = "Klip";
 "type.natural.scrub" = "Ruigte";

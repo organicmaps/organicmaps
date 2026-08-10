@@ -877,6 +877,8 @@
 "type.natural.meadow" = "مرج";
 "type.natural.orchard" = "بستان";
 "type.natural.peak" = "قمة";
+"type.natural.hill" = "تل";
+"type.natural.arch" = "قوس الصخرة";
 "type.natural.saddle" = "سرج الجبل";
 "type.natural.rock" = "صخر";
 "type.natural.scrub" = "أَيْكَة";

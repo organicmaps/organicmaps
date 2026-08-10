@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Prato";
 "type.natural.orchard" = "Frutteto";
 "type.natural.peak" = "Monte";
+"type.natural.hill" = "Collina";
+"type.natural.arch" = "Arco roccioso";
 "type.natural.saddle" = "Sella";
 "type.natural.rock" = "Roccia";
 "type.natural.scrub" = "Boscaglia";

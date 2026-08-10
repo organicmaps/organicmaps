@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Pradaria";
 "type.natural.orchard" = "Pomar";
 "type.natural.peak" = "Pico";
+"type.natural.hill" = "Colina";
+"type.natural.arch" = "Arco de Rocha";
 "type.natural.saddle" = "Sela da Montanha";
 "type.natural.rock" = "Rochedo";
 "type.natural.scrub" = "Matagal";

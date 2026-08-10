@@ -630,6 +630,8 @@
     <string name="type.natural.meadow">초지</string>
     <string name="type.natural.orchard">과수원</string>
     <string name="type.natural.peak">산</string>
+    <string name="type.natural.hill">언덕</string>
+    <string name="type.natural.arch">바위 아치</string>
     <string name="type.natural.saddle">산 안장</string>
     <string name="type.natural.rock">암석</string>
     <string name="type.natural.scrub">관목지</string>

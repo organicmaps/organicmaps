@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Heinamaa";
 "type.natural.orchard" = "Viljapuuaed";
 "type.natural.peak" = "Mäetipp";
+"type.natural.hill" = "Küngas";
+"type.natural.arch" = "Kivikaar";
 "type.natural.saddle" = "Mäesadul";
 "type.natural.rock" = "Kaljurahn";
 "type.natural.scrub" = "Võsa";

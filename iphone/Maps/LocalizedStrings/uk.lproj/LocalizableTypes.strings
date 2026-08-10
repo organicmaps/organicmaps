@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Луг";
 "type.natural.orchard" = "Сад";
 "type.natural.peak" = "Гора";
+"type.natural.hill" = "Пагорб";
+"type.natural.arch" = "Скельна арка";
 "type.natural.saddle" = "Сідловина";
 "type.natural.rock" = "Камінь";
 "type.natural.scrub" = "Зарості";

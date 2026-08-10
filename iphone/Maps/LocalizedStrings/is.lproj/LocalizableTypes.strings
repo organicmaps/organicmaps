@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Skógarlundur";
 "type.natural.orchard" = "Trjágarður";
 "type.natural.peak" = "Tindur";
+"type.natural.hill" = "Hóll";
+"type.natural.arch" = "Steinbogagöng";
 "type.natural.saddle" = "Fjallsröðull";
 "type.natural.rock" = "Klettar";
 "type.natural.scrub" = "Runnar";

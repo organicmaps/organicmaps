@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Մարգագետին";
 "type.natural.orchard" = "Պտղատու այգի";
 "type.natural.peak" = "Գագաթ";
+"type.natural.hill" = "Բլուր";
+"type.natural.arch" = "Քարե կամար";
 "type.natural.saddle" = "Թամբարդ";
 "type.natural.rock" = "Քար";
 "type.natural.scrub" = "Թփուտ";

@@ -620,6 +620,8 @@
     <string name="type.natural.meadow">Padang rumput</string>
     <string name="type.natural.orchard">Kebun</string>
     <string name="type.natural.peak">Puncak</string>
+    <string name="type.natural.hill">Bukit</string>
+    <string name="type.natural.arch">Lengkungan Batu</string>
     <string name="type.natural.saddle">Pelana Gunung</string>
     <string name="type.natural.rock">Batu</string>
     <string name="type.natural.scrub">Semak</string>

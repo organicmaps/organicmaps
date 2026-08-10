@@ -708,6 +708,8 @@
     <string name="type.natural.meadow">Niitty</string>
     <string name="type.natural.orchard">Hedelmänviljely</string>
     <string name="type.natural.peak">Huippu</string>
+    <string name="type.natural.hill">Mäki</string>
+    <string name="type.natural.arch">Kivikaari</string>
     <string name="type.natural.saddle">Vuoristo satula</string>
     <string name="type.natural.rock">Kivi</string>
     <string name="type.natural.scrub">Tiheiköt</string>

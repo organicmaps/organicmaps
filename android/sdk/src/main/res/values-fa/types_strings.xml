@@ -653,6 +653,8 @@
     <string name="type.natural.meadow">چمنزار</string>
     <string name="type.natural.orchard">باغ میوه</string>
     <string name="type.natural.peak">قله</string>
+    <string name="type.natural.hill">تپه</string>
+    <string name="type.natural.arch">کمان سنگی</string>
     <string name="type.natural.saddle">زین کوه</string>
     <string name="type.natural.rock">سنگ</string>
     <string name="type.natural.scrub">بوته زار</string>

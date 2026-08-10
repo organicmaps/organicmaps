@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Prairie";
 "type.natural.orchard" = "Verger";
 "type.natural.peak" = "Sommet";
+"type.natural.hill" = "Colline";
+"type.natural.arch" = "Arche rocheuse";
 "type.natural.saddle" = "Col de montagne";
 "type.natural.rock" = "Rocher";
 "type.natural.scrub" = "Fourré";

@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Meadow";
 "type.natural.orchard" = "Orchard";
 "type.natural.peak" = "Peak";
+"type.natural.hill" = "Għolja";
+"type.natural.arch" = "Arka tal-blat";
 "type.natural.saddle" = "Mountain Saddle";
 "type.natural.rock" = "Rock";
 "type.natural.scrub" = "Scrub";
