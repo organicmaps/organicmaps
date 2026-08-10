@@ -211,6 +211,9 @@ node|z14-[natural=rock],
 node|z16-[natural=rock],
 {font-size: 12;}
 
+node|z16-[natural=arch],
+{icon-image: arch-m.svg; text: name; text-color: @poi_label; text-offset: 1; font-size: 12;}
+
 node|z11-12[mountain_pass],
 {icon-image: mountain-pass-s.svg;}
 node|z13-[mountain_pass],

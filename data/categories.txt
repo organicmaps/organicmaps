@@ -9158,6 +9158,52 @@ vi:Ngọn đồi
 zh-Hans:山丘
 zh-Hant:山丘
 
+natural-arch
+en:Rock Arch
+ar:قوس الصخرة
+be:Скальны арк
+bg:Скална арка
+ca:Arc rocós
+cs:Skalní oblouk
+da:Klippebuen
+de:Felsenbogen
+el:Βραχώδης Αψίδα
+es:Arco de roca
+es-MX:Arco de roca
+et:Kivikaar
+eu:Harri-arku
+fa:کمان سنگی
+fi:Kivikaari
+fr:Arche rocheuse
+he:קשת הסלע
+hi:शिला मेहराब
+hu:Sziklaív
+id:Lengkungan Batu
+it:Arco roccioso
+ja:ロック・アーチ
+ko:바위 아치
+lt:Uolų arka
+lv:Akmeņu arka
+mr:शिला मेहराब
+nb:Steinbuen
+nl:Rotsboog
+pl:Skalny łuk
+pt:Arco de Rocha
+pt-BR:Arco de Pedra
+ro:Arcul de piatră
+ru:Скальная арка
+sk:Skalný oblúk
+sl:Skalni lok
+sr:Стенови лук
+sv:Stenbågen
+sw:Dhoruba ya mwamba
+th:ซุ้มหิน
+tr:Kaya Kemeri
+uk:Скельна арка
+vi:Cổng đá
+zh-Hans:岩石拱门
+zh-Hant:岩石拱門
+
 landuse-forest
 en:Forest|U+1F332|U+1F333
 ar:غابة
