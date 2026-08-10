@@ -133,10 +133,12 @@ node|z14[natural=peak][name],
 node|z15-[natural=peak][name],
 {icon-image: peak-s.svg; font-size: 10;}
 node|z17-[natural=peak][name],
-{font-size: 11;}
+{icon-image: peak-m.svg; font-size: 11;}
 
 node|z15-[natural=peak][!name],
 {icon-image: peak-s.svg;font-size: 10;}
+node|z17-[natural=peak][!name],
+{icon-image: peak-m.svg; font-size: 10;}
 
 node|z17-[natural=rock],
 {icon-image: rock-s.svg; font-size: 10;}
