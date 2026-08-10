@@ -32,7 +32,7 @@ public:
 
   /// Returns track statistics
   TrackStatistics GetTrackStatistics() const;
-  ElevationInfo const & GetElevationInfo() const;
+  ElevationInfo GetElevationInfo() const;
 
   /// Clears any previous tracking info
   /// @note Callback is called with 'toRemove' points, if some points were removed.

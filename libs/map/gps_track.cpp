@@ -49,6 +49,7 @@ void GpsTrack::AddPoints(std::vector<location::GpsInfo> const & points)
 }
 
 /// @note These functions are called during recording, so should be synchronized with Collection writer thread.
+/// The collection is created lazily in the worker thread, so it may be absent right after recording has started.
 /// @{
 TrackStatistics GpsTrack::GetTrackStatistics() const
 {
@@ -56,11 +57,10 @@ TrackStatistics GpsTrack::GetTrackStatistics() const
   return m_collection ? m_collection->GetTrackStatistics() : TrackStatistics();
 }
 
-ElevationInfo const & GpsTrack::GetElevationInfo() const
+ElevationInfo GpsTrack::GetElevationInfo() const
 {
   std::lock_guard lg(m_threadGuard);
-  CHECK(m_collection, ());
-  return m_collection->UpdateAndGetElevationInfo();
+  return m_collection ? m_collection->UpdateAndGetElevationInfo() : ElevationInfo();
 }
 /// @}
 

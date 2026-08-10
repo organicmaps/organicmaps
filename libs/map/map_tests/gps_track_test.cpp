@@ -142,4 +142,27 @@ UNIT_TEST(GpsTrack_Simple)
     }
   }
 }
+
+UNIT_TEST(GpsTrack_ElevationInfoWithoutCollection)
+{
+  string const filePath = GetGpsTrackFilePath();
+  SCOPE_GUARD(gpsTestFileDeleter, bind(FileWriter::DeleteFileX, filePath));
+  FileWriter::DeleteFileX(filePath);
+
+  double const timestamp = system_clock::to_time_t(system_clock::now());
+
+  GpsTrack track(filePath);
+  track.AddPoint(Make(timestamp, ms::LatLon(53.9, 27.55), 10));
+  track.AddPoint(Make(timestamp + 1, ms::LatLon(53.91, 27.56), 10));
+
+  // The collection is created in the worker thread and only after a callback is set, so the elevation
+  // info must be available (and empty) while the track has no collection yet.
+  TEST(track.GetElevationInfo().IsEmpty(), ());
+
+  GpsTrackCallback callback;
+  track.SetCallback(bind(&GpsTrackCallback::OnUpdate, &callback, placeholders::_1, placeholders::_2));
+  TEST(callback.WaitForCallback(kWaitForCallbackTimeout), ());
+
+  TEST_EQUAL(track.GetElevationInfo().GetSize(), 2, ());
+}
 }  // namespace gps_track_test

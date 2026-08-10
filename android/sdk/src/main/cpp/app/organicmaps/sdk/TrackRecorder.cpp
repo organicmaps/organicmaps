@@ -44,7 +44,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_location_TrackRecorder_nativeSetTrackRec
 JNIEXPORT jobject Java_app_organicmaps_sdk_location_TrackRecorder_nativeGetElevationInfo(JNIEnv * env, jclass clazz)
 {
   ASSERT(frm()->IsTrackRecordingEnabled(), ("Track recording is not started"));
-  auto const & elevationInfo = frm()->GetTrackRecordingElevationInfo();
+  auto const elevationInfo = frm()->GetTrackRecordingElevationInfo();
   if (elevationInfo.IsEmpty())
     return nullptr;
   return ToJavaElevationInfo(env, elevationInfo);
