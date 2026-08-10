@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Niitty";
 "type.natural.orchard" = "Hedelmänviljely";
 "type.natural.peak" = "Huippu";
+"type.natural.hill" = "Mäki";
+"type.natural.arch" = "Kivikaari";
 "type.natural.saddle" = "Vuoristo satula";
 "type.natural.rock" = "Kivi";
 "type.natural.scrub" = "Tiheiköt";

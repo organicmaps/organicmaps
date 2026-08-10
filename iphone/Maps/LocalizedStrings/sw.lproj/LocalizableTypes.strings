@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Meadow";
 "type.natural.orchard" = "Bustani";
 "type.natural.peak" = "Kilele";
+"type.natural.hill" = "Kilima";
+"type.natural.arch" = "Dhoruba ya mwamba";
 "type.natural.saddle" = "Tandiko la mlima";
 "type.natural.rock" = "Mwamba";
 "type.natural.scrub" = "Eneo la Vichaka";

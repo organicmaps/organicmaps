@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Λιβάδι";
 "type.natural.orchard" = "Οπωρώνας";
 "type.natural.peak" = "Κορυφή";
+"type.natural.hill" = "Λόφος";
+"type.natural.arch" = "Βραχώδης Αψίδα";
 "type.natural.saddle" = "Σέλα Βουνού";
 "type.natural.rock" = "Πέτρωμα";
 "type.natural.scrub" = "Θαμνώδης περιοχή";

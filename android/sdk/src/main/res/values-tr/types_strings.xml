@@ -749,6 +749,8 @@
     <string name="type.natural.meadow">Çayır</string>
     <string name="type.natural.orchard">Meyve Bahçesi</string>
     <string name="type.natural.peak">Zirve</string>
+    <string name="type.natural.hill">Tepe</string>
+    <string name="type.natural.arch">Kaya Kemeri</string>
     <string name="type.natural.saddle">Dağ Eyeri</string>
     <string name="type.natural.rock">Kaya</string>
     <string name="type.natural.scrub">Çalılık</string>

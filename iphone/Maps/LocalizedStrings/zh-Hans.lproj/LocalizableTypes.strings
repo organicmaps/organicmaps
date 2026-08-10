@@ -877,6 +877,8 @@
 "type.natural.meadow" = "草甸";
 "type.natural.orchard" = "果园";
 "type.natural.peak" = "山峰";
+"type.natural.hill" = "山丘";
+"type.natural.arch" = "岩石拱门";
 "type.natural.saddle" = "山坳";
 "type.natural.rock" = "岩石";
 "type.natural.scrub" = "灌木丛";

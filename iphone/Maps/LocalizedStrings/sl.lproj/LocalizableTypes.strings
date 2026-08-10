@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Travnik";
 "type.natural.orchard" = "Sadovnjak";
 "type.natural.peak" = "Vrh";
+"type.natural.hill" = "Hrib";
+"type.natural.arch" = "Skalni lok";
 "type.natural.saddle" = "Gorsko sedlo";
 "type.natural.rock" = "Skala";
 "type.natural.scrub" = "Grmičevje";

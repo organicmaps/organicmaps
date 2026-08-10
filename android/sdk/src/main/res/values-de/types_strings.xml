@@ -749,6 +749,8 @@
     <string name="type.natural.meadow">Wiese</string>
     <string name="type.natural.orchard">Obstplantage</string>
     <string name="type.natural.peak">Gipfel</string>
+    <string name="type.natural.hill">Hügel</string>
+    <string name="type.natural.arch">Felsenbogen</string>
     <string name="type.natural.saddle">Bergsattel</string>
     <string name="type.natural.rock">Fels</string>
     <string name="type.natural.scrub">Dickicht</string>

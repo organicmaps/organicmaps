@@ -748,6 +748,8 @@
     <string name="type.natural.meadow">Skógarlundur</string>
     <string name="type.natural.orchard">Trjágarður</string>
     <string name="type.natural.peak">Tindur</string>
+    <string name="type.natural.hill">Hóll</string>
+    <string name="type.natural.arch">Steinbogagöng</string>
     <string name="type.natural.saddle">Fjallsröðull</string>
     <string name="type.natural.rock">Klettar</string>
     <string name="type.natural.scrub">Runnar</string>

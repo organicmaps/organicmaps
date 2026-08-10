@@ -630,6 +630,8 @@
     <string name="type.natural.meadow">कुरण</string>
     <string name="type.natural.orchard">फळबागा</string>
     <string name="type.natural.peak">शिखर</string>
+    <string name="type.natural.hill">टेकडी</string>
+    <string name="type.natural.arch">शिला मेहराब</string>
     <string name="type.natural.saddle">माउंटन सॅडल</string>
     <string name="type.natural.rock">खडक</string>
     <string name="type.natural.scrub">खुरटी झाडे</string>

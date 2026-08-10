@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Rét";
 "type.natural.orchard" = "Gyümölcsöskert";
 "type.natural.peak" = "Csúcs";
+"type.natural.hill" = "Domb";
+"type.natural.arch" = "Sziklaív";
 "type.natural.saddle" = "Hegynyereg";
 "type.natural.rock" = "Szikla";
 "type.natural.scrub" = "Cserjés";

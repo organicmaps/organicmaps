@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Meadow";
 "type.natural.orchard" = "Orchard";
 "type.natural.peak" = "Peak";
+"type.natural.hill" = "Pakalns";
+"type.natural.arch" = "Akmeņu arka";
 "type.natural.saddle" = "Mountain Saddle";
 "type.natural.rock" = "Rock";
 "type.natural.scrub" = "Scrub";

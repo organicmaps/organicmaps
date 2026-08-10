@@ -641,6 +641,8 @@
     <string name="type.natural.meadow">Fâneață</string>
     <string name="type.natural.orchard">Livadă</string>
     <string name="type.natural.peak">Munte</string>
+    <string name="type.natural.hill">Deal</string>
+    <string name="type.natural.arch">Arcul de piatră</string>
     <string name="type.natural.saddle">Sela da Montanha</string>
     <string name="type.natural.rock">Rocă</string>
     <string name="type.natural.scrub">Boschet</string>

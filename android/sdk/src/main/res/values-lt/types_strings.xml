@@ -749,6 +749,8 @@
     <string name="type.natural.meadow">Pievos</string>
     <string name="type.natural.orchard">Sodas</string>
     <string name="type.natural.peak">Viršūnė</string>
+    <string name="type.natural.hill">Kalva</string>
+    <string name="type.natural.arch">Uolų arka</string>
     <string name="type.natural.saddle">Balnas</string>
     <string name="type.natural.rock">Akmuo</string>
     <string name="type.natural.scrub">Krūmynai</string>

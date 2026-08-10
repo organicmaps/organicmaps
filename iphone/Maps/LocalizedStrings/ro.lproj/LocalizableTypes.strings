@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Fâneață";
 "type.natural.orchard" = "Livadă";
 "type.natural.peak" = "Munte";
+"type.natural.hill" = "Deal";
+"type.natural.arch" = "Arcul de piatră";
 "type.natural.saddle" = "Sela da Montanha";
 "type.natural.rock" = "Rocă";
 "type.natural.scrub" = "Boschet";

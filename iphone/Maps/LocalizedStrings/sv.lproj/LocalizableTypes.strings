@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Äng";
 "type.natural.orchard" = "Fruktodling";
 "type.natural.peak" = "Bergstopp";
+"type.natural.hill" = "Kulle";
+"type.natural.arch" = "Stenbågen";
 "type.natural.saddle" = "Fjällsadel";
 "type.natural.rock" = "Bergart";
 "type.natural.scrub" = "Ruggen";

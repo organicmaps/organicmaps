@@ -748,6 +748,8 @@
     <string name="type.natural.meadow">Eng</string>
     <string name="type.natural.orchard">Frugthave</string>
     <string name="type.natural.peak">Bjerg</string>
+    <string name="type.natural.hill">Bakke</string>
+    <string name="type.natural.arch">Klippebuen</string>
     <string name="type.natural.saddle">Bjergsadel</string>
     <string name="type.natural.rock">Sten</string>
     <string name="type.natural.scrub">Krat</string>

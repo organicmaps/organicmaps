@@ -55,6 +55,8 @@
     <string name="type.man_made.petroleum_well">Naftas vai gāzes urbums</string>
     <!-- A tower/mast constructed to burn off excess gas. -->
     <string name="type.man_made.flare">Gāzes deglis</string>
+    <string name="type.natural.hill">Pakalns</string>
+    <string name="type.natural.arch">Akmeņu arka</string>
     <string name="type.natural.volcano.active">Aktīvais vulkāns</string>
     <!-- Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) -->
     <string name="type.place.quarter">Apkaime</string>

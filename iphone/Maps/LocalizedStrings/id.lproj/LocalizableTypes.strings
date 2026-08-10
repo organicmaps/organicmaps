@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Padang rumput";
 "type.natural.orchard" = "Kebun";
 "type.natural.peak" = "Puncak";
+"type.natural.hill" = "Bukit";
+"type.natural.arch" = "Lengkungan Batu";
 "type.natural.saddle" = "Pelana Gunung";
 "type.natural.rock" = "Batu";
 "type.natural.scrub" = "Semak";

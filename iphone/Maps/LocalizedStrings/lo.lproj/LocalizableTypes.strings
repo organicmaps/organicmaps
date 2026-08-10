@@ -877,6 +877,8 @@
 "type.natural.meadow" = "ທົ່ງຫຍ້າ";
 "type.natural.orchard" = "ສວນໝາກໄມ້";
 "type.natural.peak" = "ຈອມພູ";
+"type.natural.hill" = "ພູ";
+"type.natural.arch" = "Rock Arch";
 "type.natural.saddle" = "ກິ່ວພູ";
 "type.natural.rock" = "ໂງ່ນຫີນ";
 "type.natural.scrub" = "ປ່າເລົ່າ";

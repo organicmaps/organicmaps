@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Pievos";
 "type.natural.orchard" = "Sodas";
 "type.natural.peak" = "Viršūnė";
+"type.natural.hill" = "Kalva";
+"type.natural.arch" = "Uolų arka";
 "type.natural.saddle" = "Balnas";
 "type.natural.rock" = "Akmuo";
 "type.natural.scrub" = "Krūmynai";

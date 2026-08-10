@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Eng";
 "type.natural.orchard" = "Frukthage";
 "type.natural.peak" = "Topp";
+"type.natural.hill" = "Bakke";
+"type.natural.arch" = "Steinbuen";
 "type.natural.saddle" = "Fjellsadel";
 "type.natural.rock" = "Fjell";
 "type.natural.scrub" = "Kratt";

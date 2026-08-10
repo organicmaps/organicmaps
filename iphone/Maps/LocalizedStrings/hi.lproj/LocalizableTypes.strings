@@ -877,6 +877,8 @@
 "type.natural.meadow" = "घास का मैदान";
 "type.natural.orchard" = "फलोद्यान";
 "type.natural.peak" = "शिखर";
+"type.natural.hill" = "पहाड़ी";
+"type.natural.arch" = "शिला मेहराब";
 "type.natural.saddle" = "Mountain Saddle";
 "type.natural.rock" = "Rock";
 "type.natural.scrub" = "झाड़ी";

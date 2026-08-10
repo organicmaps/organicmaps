@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Lëndinë";
 "type.natural.orchard" = "Pemëtore";
 "type.natural.peak" = "Majë";
+"type.natural.hill" = "Kodra";
+"type.natural.arch" = "Harku shkëmbor";
 "type.natural.saddle" = "Qafë mali";
 "type.natural.rock" = "Shkëmb";
 "type.natural.scrub" = "Shkurre";

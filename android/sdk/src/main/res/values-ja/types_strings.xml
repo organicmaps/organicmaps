@@ -700,6 +700,8 @@
     <string name="type.natural.meadow">牧草地</string>
     <string name="type.natural.orchard">果樹園</string>
     <string name="type.natural.peak">山頂</string>
+    <string name="type.natural.hill">丘</string>
+    <string name="type.natural.arch">ロック・アーチ</string>
     <string name="type.natural.saddle">鞍部</string>
     <string name="type.natural.rock">岩</string>
     <string name="type.natural.scrub">雑木林</string>

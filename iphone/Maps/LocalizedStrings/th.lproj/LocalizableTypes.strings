@@ -877,6 +877,8 @@
 "type.natural.meadow" = "ทุ่งหญ้า";
 "type.natural.orchard" = "สวนผลไม้";
 "type.natural.peak" = "จุดสูงสุด";
+"type.natural.hill" = "เนินเขา";
+"type.natural.arch" = "ซุ้มหิน";
 "type.natural.saddle" = "อานภูเขา";
 "type.natural.rock" = "หิน";
 "type.natural.scrub" = "ป่าละเมาะ";

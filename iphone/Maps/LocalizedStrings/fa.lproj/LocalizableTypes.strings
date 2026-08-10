@@ -877,6 +877,8 @@
 "type.natural.meadow" = "چمنزار";
 "type.natural.orchard" = "باغ میوه";
 "type.natural.peak" = "قله";
+"type.natural.hill" = "تپه";
+"type.natural.arch" = "کمان سنگی";
 "type.natural.saddle" = "زین کوه";
 "type.natural.rock" = "سنگ";
 "type.natural.scrub" = "بوته زار";

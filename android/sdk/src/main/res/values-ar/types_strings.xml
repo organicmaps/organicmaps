@@ -749,6 +749,8 @@
     <string name="type.natural.meadow">مرج</string>
     <string name="type.natural.orchard">بستان</string>
     <string name="type.natural.peak">قمة</string>
+    <string name="type.natural.hill">تل</string>
+    <string name="type.natural.arch">قوس الصخرة</string>
     <string name="type.natural.saddle">سرج الجبل</string>
     <string name="type.natural.rock">صخر</string>
     <string name="type.natural.scrub">أَيْكَة</string>

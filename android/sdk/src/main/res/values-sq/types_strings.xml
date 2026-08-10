@@ -748,6 +748,8 @@
     <string name="type.natural.meadow">Lëndinë</string>
     <string name="type.natural.orchard">Pemëtore</string>
     <string name="type.natural.peak">Majë</string>
+    <string name="type.natural.hill">Kodra</string>
+    <string name="type.natural.arch">Harku shkëmbor</string>
     <string name="type.natural.saddle">Qafë mali</string>
     <string name="type.natural.rock">Shkëmb</string>
     <string name="type.natural.scrub">Shkurre</string>

@@ -781,6 +781,8 @@
     <string name="type.natural.meadow">Meadow</string>
     <string name="type.natural.orchard">Orchard</string>
     <string name="type.natural.peak">Peak</string>
+    <string name="type.natural.hill">Hill</string>
+    <string name="type.natural.arch">Rock Arch</string>
     <string name="type.natural.saddle">Mountain Saddle</string>
     <string name="type.natural.rock">Rock</string>
     <string name="type.natural.scrub">Scrub</string>

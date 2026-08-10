@@ -425,6 +425,8 @@
     <string name="type.natural.meadow">घास का मैदान</string>
     <string name="type.natural.orchard">फलोद्यान</string>
     <string name="type.natural.peak">शिखर</string>
+    <string name="type.natural.hill">पहाड़ी</string>
+    <string name="type.natural.arch">शिला मेहराब</string>
     <string name="type.natural.scrub">झाड़ी</string>
     <string name="type.natural.spring">पानी का चश्मा</string>
     <string name="type.natural.spring.drinking_water_no">पानी का चश्मा</string>

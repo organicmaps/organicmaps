@@ -635,6 +635,8 @@
     <string name="type.natural.meadow">Eng</string>
     <string name="type.natural.orchard">Frukthage</string>
     <string name="type.natural.peak">Topp</string>
+    <string name="type.natural.hill">Bakke</string>
+    <string name="type.natural.arch">Steinbuen</string>
     <string name="type.natural.saddle">Fjellsadel</string>
     <string name="type.natural.rock">Fjell</string>
     <string name="type.natural.scrub">Kratt</string>

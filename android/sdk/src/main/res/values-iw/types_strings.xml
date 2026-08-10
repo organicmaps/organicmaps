@@ -734,6 +734,8 @@
     <string name="type.natural.meadow">אָחוּ</string>
     <string name="type.natural.orchard">פרדס</string>
     <string name="type.natural.peak">פסגה</string>
+    <string name="type.natural.hill">גבעה</string>
+    <string name="type.natural.arch">קשת הסלע</string>
     <string name="type.natural.saddle">אוכף הרים</string>
     <string name="type.natural.rock">סלע</string>
     <string name="type.natural.scrub">עשבייה</string>

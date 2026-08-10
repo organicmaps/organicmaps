@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Louka";
 "type.natural.orchard" = "Sad";
 "type.natural.peak" = "Hora";
+"type.natural.hill" = "Kopec";
+"type.natural.arch" = "Skalní oblouk";
 "type.natural.saddle" = "Sedlo";
 "type.natural.rock" = "Hornina";
 "type.natural.scrub" = "Křoviny";

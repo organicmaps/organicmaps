@@ -877,6 +877,8 @@
 "type.natural.meadow" = "Łąka";
 "type.natural.orchard" = "Sad";
 "type.natural.peak" = "Szczyt";
+"type.natural.hill" = "Wzgórze";
+"type.natural.arch" = "Skalny łuk";
 "type.natural.saddle" = "Siodło";
 "type.natural.rock" = "Skała";
 "type.natural.scrub" = "Zarośla";

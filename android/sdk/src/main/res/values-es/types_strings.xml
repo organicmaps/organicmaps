@@ -749,6 +749,8 @@
     <string name="type.natural.meadow">Prado</string>
     <string name="type.natural.orchard">Huerto frutal</string>
     <string name="type.natural.peak">Cima</string>
+    <string name="type.natural.hill">Colina</string>
+    <string name="type.natural.arch">Arco de roca</string>
     <string name="type.natural.saddle">Collado</string>
     <string name="type.natural.rock">Roca</string>
     <string name="type.natural.scrub">Matorrales</string>
