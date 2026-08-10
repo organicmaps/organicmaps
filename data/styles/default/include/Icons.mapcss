@@ -139,7 +139,9 @@ node|z15-[natural=peak][!name],
 {icon-image: peak-s.svg;font-size: 10;}
 
 node|z17-[natural=rock],
-{icon-image: peak-xs.svg; font-size: 10;}
+{icon-image: rock-s.svg; font-size: 10;}
+node|z19-[natural=rock],
+{icon-image: rock-m.svg; font-size: 10;}
 
 node|z17-[natural=arch],
 {icon-image: arch-m.svg; font-size: 10;}
