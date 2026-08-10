@@ -778,6 +778,7 @@ world  +
         {}
     mountain_pass  -
     natural  +
+        arch  -
         bare_rock  -
         bay  -
         beach  +
@@ -794,6 +795,7 @@ world  +
         glacier  -
         grassland  -
         heath  -
+        hill  -
         hot_spring  -
         land  -
         peak  -

@@ -12000,6 +12000,22 @@ type mountain_pass
   z20
     symbol name=mountain-pass-m priority=5050
     caption primary[height=12 color=c082 dy=1 optional] priority=-4950
+type natural-arch
+  z16
+    symbol name=arch-m priority=4650
+    caption primary[height=12 color=c082 dy=1 optional] priority=-5350
+  z17
+    symbol name=arch-m priority=4650
+    caption primary[height=12 color=c082 dy=1 optional] priority=-5350
+  z18
+    symbol name=arch-m priority=4650
+    caption primary[height=12 color=c082 dy=1 optional] priority=-5350
+  z19
+    symbol name=arch-m priority=4650
+    caption primary[height=12 color=c082 dy=1 optional] priority=-5350
+  z20
+    symbol name=arch-m priority=4650
+    caption primary[height=12 color=c082 dy=1 optional] priority=-5350
 type natural-bare_rock
   z12
     area color=c215 priority=-1920
@@ -12441,6 +12457,31 @@ type natural-heath
     area color=c194 priority=-1880
   z20
     area color=c194 priority=-1880
+type natural-hill
+  z13
+    symbol name=hill-s priority=5300
+    caption primary[height=11 color=c082 dy=1 optional] priority=-4700
+  z14
+    symbol name=hill-s priority=5300
+    caption primary[height=11 color=c082 dy=1 optional] priority=-4700
+  z15
+    symbol name=hill-s priority=5300
+    caption primary[height=11 color=c082 dy=1 optional] priority=-4700
+  z16
+    symbol name=hill-m priority=5300
+    caption primary[height=12 color=c082 dy=1 optional] priority=-4700
+  z17
+    symbol name=hill-m priority=5300
+    caption primary[height=12 color=c082 dy=1 optional] priority=-4700
+  z18
+    symbol name=hill-m priority=5300
+    caption primary[height=12 color=c082 dy=1 optional] priority=-4700
+  z19
+    symbol name=hill-m priority=5300
+    caption primary[height=12 color=c082 dy=1 optional] priority=-4700
+  z20
+    symbol name=hill-m priority=5300
+    caption primary[height=12 color=c082 dy=1 optional] priority=-4700
 type natural-hot_spring
   z12
     symbol name=drinking-water-s priority=4650
@@ -12558,22 +12599,22 @@ type natural-peak
     symbol name=peak-m priority=5400
 type natural-rock
   z14
-    symbol name=peak-s priority=2850
+    symbol name=rock-s priority=2850
   z15
-    symbol name=peak-s priority=2850
+    symbol name=rock-s priority=2850
   z16
-    symbol name=peak-s priority=2850
+    symbol name=rock-m priority=2850
   z17
-    symbol name=peak-s priority=2850
+    symbol name=rock-m priority=2850
     caption primary[height=12 color=c082 dy=1 optional] priority=-7150
   z18
-    symbol name=peak-s priority=2850
+    symbol name=rock-m priority=2850
     caption primary[height=12 color=c082 dy=1 optional] priority=-7150
   z19
-    symbol name=peak-s priority=2850
+    symbol name=rock-m priority=2850
     caption primary[height=12 color=c082 dy=1 optional] priority=-7150
   z20
-    symbol name=peak-s priority=2850
+    symbol name=rock-m priority=2850
     caption primary[height=12 color=c082 dy=1 optional] priority=-7150
 type natural-saddle
   z13
