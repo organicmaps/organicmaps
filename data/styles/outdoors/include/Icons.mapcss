@@ -207,9 +207,9 @@ node|z16-[natural=peak][!name],
 {icon-image: peak-m.svg;}
 
 node|z14-[natural=rock],
-{icon-image: peak-s.svg; font-size: 11;}
+{icon-image: rock-s.svg; font-size: 11;}
 node|z16-[natural=rock],
-{font-size: 12;}
+{icon-image: rock-m.svg; font-size: 12;}
 
 node|z16-[natural=arch],
 {icon-image: arch-m.svg; text: name; text-color: @poi_label; text-offset: 1; font-size: 12;}
