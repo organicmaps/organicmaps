@@ -271,8 +271,7 @@ UNIT_TEST(RankingInfo_NearbyPoiMatch)
 
   // A result assembled from a POI and a nearby street, suburb, or locality should not displace
   // a feature whose own name is a full match for the query.
-  TEST_LESS(nearbyPoiMatch.GetLinearModelRank(), exactMatch.GetLinearModelRank(),
-            (nearbyPoiMatch, exactMatch));
+  TEST_LESS(nearbyPoiMatch.GetLinearModelRank(), exactMatch.GetLinearModelRank(), (nearbyPoiMatch, exactMatch));
 }
 
 namespace

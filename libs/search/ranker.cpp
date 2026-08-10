@@ -614,8 +614,7 @@ private:
       // forest named "Forêt de Chantilly".
       info.m_nearbyMatch =
           Model::IsPoi(info.m_type) &&
-          (preInfo.m_geoParts.IsPoiAndComplexPoi() ||
-           preInfo.m_geoParts.m_street != IntersectionResult::kInvalidId ||
+          (preInfo.m_geoParts.IsPoiAndComplexPoi() || preInfo.m_geoParts.m_street != IntersectionResult::kInvalidId ||
            preInfo.m_geoParts.m_suburb != IntersectionResult::kInvalidId || preInfo.m_cityId.IsValid());
     }
 
