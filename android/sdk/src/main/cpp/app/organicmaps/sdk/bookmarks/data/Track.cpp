@@ -63,6 +63,7 @@ jobject CreateTrack(JNIEnv * env, place_page::Info const & info, jni::TScopedLoc
     "D"                                               // lat
     "D"                                               // lon
     "[Lapp/organicmaps/sdk/bookmarks/data/TrackSelectionCandidate;"  // candidates
+    "Z"                                               // visible
     ")V"
   );
   // clang-format on
@@ -89,7 +90,8 @@ jobject CreateTrack(JNIEnv * env, place_page::Info const & info, jni::TScopedLoc
     ToJavaDistance(env, platform::Distance::CreateFormatted(track->GetLengthMeters())),
     static_cast<jdouble>(ll.m_lat),
     static_cast<jdouble>(ll.m_lon),
-    candidatesArray.get()
+    candidatesArray.get(),
+    static_cast<jboolean>(track->IsVisible())
   );
   // clang-format on
 

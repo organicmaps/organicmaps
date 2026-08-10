@@ -1574,6 +1574,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "تسهیلات اجتماعی";
+"type.amenity.stage" = "صحنه";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "ورودی بخش اورژانس";

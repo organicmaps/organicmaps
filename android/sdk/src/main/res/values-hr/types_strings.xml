@@ -132,6 +132,7 @@
     <string name="type.sport.running">Trčanje</string>
     <string name="type.sport.softball">Softball</string>
     <string name="type.waterway.access_point">Pristupna točka plovnom putu</string>
+    <string name="type.amenity.stage">Scena</string>
     <string name="type.barrier.jersey_barrier">Blok</string>
     <string name="type.barrier.debris">Ruševina</string>
     <string name="type.amenity.boat_rental">Iznajmljivanje čamaca</string>

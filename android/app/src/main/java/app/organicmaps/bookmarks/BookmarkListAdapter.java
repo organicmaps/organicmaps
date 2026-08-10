@@ -46,6 +46,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
   @Nullable
   private RecyclerLongClickListener mLongClickListener;
   private RecyclerClickListener mMoreClickListener;
+  private RecyclerClickListener mEyeClickListener;
   private IconClickListener mIconClickListener;
 
   public static abstract class SectionsDataSource
@@ -393,6 +394,11 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     mMoreClickListener = listener;
   }
 
+  public void setEyeListener(@Nullable RecyclerClickListener listener)
+  {
+    mEyeClickListener = listener;
+  }
+
   public void setIconClickListener(IconClickListener listener)
   {
     mIconClickListener = listener;
@@ -413,6 +419,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
       trackHolder.setOnLongClickListener(mLongClickListener);
       trackHolder.setTrackIconClickListener(mIconClickListener);
       trackHolder.setMoreButtonClickListener(mMoreClickListener);
+      trackHolder.setEyeClickListener(mEyeClickListener);
       holder = trackHolder;
       break;
     case TYPE_BOOKMARK:

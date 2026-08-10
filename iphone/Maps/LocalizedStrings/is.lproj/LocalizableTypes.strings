@@ -1574,6 +1574,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "Félagsþjónusta";
+"type.amenity.stage" = "Svið";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Inngangur á bráðamóttöku";

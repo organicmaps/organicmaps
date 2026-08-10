@@ -1219,6 +1219,7 @@
     <string name="type.self_service.no">ไม่มีบริการตนเอง</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">สิ่งอำนวยความสะดวกทางสังคม</string>
+    <string name="type.amenity.stage">เวที</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">ทางเข้าแผนกฉุกเฉิน</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

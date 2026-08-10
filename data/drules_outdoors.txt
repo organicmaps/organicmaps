@@ -3002,6 +3002,19 @@ type amenity-social_facility
   z20
     symbol name=social_facility-m priority=850
     caption primary[height=10 color=c082 dy=1 optional] priority=-9150
+type amenity-stage
+  z17
+    symbol name=stage-m priority=4300
+    caption primary[height=10 color=c082 dy=1 optional] priority=-5700
+  z18
+    symbol name=stage-m priority=4300
+    caption primary[height=10 color=c082 dy=1 optional] priority=-5700
+  z19
+    symbol name=stage-m priority=4300
+    caption primary[height=10 color=c082 dy=1 optional] priority=-5700
+  z20
+    symbol name=stage-m priority=4300
+    caption primary[height=10 color=c082 dy=1 optional] priority=-5700
 type amenity-stripclub
   z18
     symbol name=stripclub-m priority=500
