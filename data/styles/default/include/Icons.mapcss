@@ -150,10 +150,13 @@ node|z14[mountain_pass],
 {icon-image: mountain-pass-s.svg;}
 node|z15-[mountain_pass],
 node|z15-[natural=saddle],
-{icon-image: mountain-pass-m.svg; font-size: 10;}
+{icon-image: mountain-pass-s.svg; font-size: 10;}
 node|z17-[mountain_pass],
 node|z17-[natural=saddle],
 {font-size: 11;}
+node|z18-[mountain_pass],
+node|z18-[natural=saddle],
+{icon-image: mountain-pass-m.svg;}
 
 node|z17-[natural=hill],
 {icon-image: hill-m.svg; font-size: 10;}
