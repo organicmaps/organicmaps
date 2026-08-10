@@ -2451,6 +2451,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
       {"man_made", "water_well"},
       {"man_made", "windmill"},
       {"man_made", "works"},
+      {"natural", "arch"},
       {"natural", "bare_rock"},
       {"natural", "bay"},
       {"natural", "beach"},
