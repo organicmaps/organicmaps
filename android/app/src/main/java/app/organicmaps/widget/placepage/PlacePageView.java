@@ -71,6 +71,7 @@ import app.organicmaps.sdk.widget.placepage.RouteInfo;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.util.bottomsheet.ExportMenuItems;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.utils.Graphics;
@@ -1176,7 +1177,16 @@ public class PlacePageView extends Fragment
     // Starting the download will fire this callback but the object will be the same
     // Detaching the country in that case will crash the app
     if (!mapObject.sameAs(mMapObject))
+    {
       detachCountry();
+      // A null mMapObject is the first delivery after recreation: the activity-scoped view model,
+      // or the core replaying the selection, hands back the object the sheet was opened for, so the
+      // restored sheet is kept. A later switch (e.g. a geo: intent) is real and closes the sheet;
+      // one that coincides with the recreation is indistinguishable here, hence the instanceof
+      // guard in onShareTrackSelected.
+      if (mMapObject != null)
+        dismissTrackShareMenu();
+    }
     setCurrentCountry();
 
     mMapObject = mapObject;
@@ -1228,7 +1238,7 @@ public class PlacePageView extends Fragment
   {
     if (mMapObject.isTrackRecording())
       return;
-    if (mMapObject.isTrack())
+    if (mMapObject instanceof Track)
     {
       MenuBottomSheetFragment.newInstance(TRACK_SHARE_MENU_ID, getString(R.string.share_track))
           .show(getChildFragmentManager(), TRACK_SHARE_MENU_ID);
@@ -1237,9 +1247,19 @@ public class PlacePageView extends Fragment
       SharingUtils.shareMapObject(requireContext(), mMapObject);
   }
 
-  private void onShareTrackSelected(long trackId, FileType fileType)
+  private void dismissTrackShareMenu()
   {
-    BookmarksSharingHelper.INSTANCE.prepareTrackForSharing(requireActivity(), shareLauncher, trackId, fileType);
+    final Fragment fragment = getChildFragmentManager().findFragmentByTag(TRACK_SHARE_MENU_ID);
+    if (fragment instanceof MenuBottomSheetFragment sheet)
+      sheet.dismissAllowingStateLoss();
+  }
+
+  private void onShareTrackSelected(FileType fileType)
+  {
+    if (!(mMapObject instanceof Track track))
+      return;
+    BookmarksSharingHelper.INSTANCE.prepareTrackForSharing(requireActivity(), shareLauncher, track.getTrackId(),
+                                                           fileType);
   }
 
   @Nullable
@@ -1248,22 +1268,9 @@ public class PlacePageView extends Fragment
   {
     return switch (id)
     {
-      case TRACK_SHARE_MENU_ID -> getTrackShareMenuItems();
+      case TRACK_SHARE_MENU_ID -> ExportMenuItems.create(this::onShareTrackSelected);
       default -> null;
     };
-  }
-
-  public ArrayList<MenuBottomSheetItem> getTrackShareMenuItems()
-  {
-    Track track = (Track) mMapObject;
-    ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
-    items.add(new MenuBottomSheetItem(R.string.export_file, R.drawable.ic_file_kmz,
-                                      () -> onShareTrackSelected(track.getTrackId(), FileType.Kml)));
-    items.add(new MenuBottomSheetItem(R.string.export_file_gpx, R.drawable.ic_file_gpx,
-                                      () -> onShareTrackSelected(track.getTrackId(), FileType.Gpx)));
-    items.add(new MenuBottomSheetItem(R.string.export_file_geojson, R.drawable.ic_file_geojson,
-                                      () -> onShareTrackSelected(track.getTrackId(), FileType.GeoJson)));
-    return items;
   }
 
   public interface PlacePageViewListener
