@@ -180,7 +180,9 @@ fragment half4 fsHatchingArea(const HatchingAreaFragment_T in [[stage_in]])
   float dist = min(m, kPeriodPx - m);
   float aa = fwidth(diag);
   float coverage = 1.0 - smoothstep(kHalfWidthPx - aa, kHalfWidthPx + aa, dist);
-  return in.color * half(coverage);
+  // coverage is the line's alpha, rgb stays the surface colour: blending is straight
+  // (SourceAlpha, OneMinusSourceAlpha), so scaling rgb would apply coverage a second time.
+  return half4(in.color.rgb, in.color.a * half(coverage));
 }
 
 // Analytic dashed hatch (see GL/hatching_area_dash.fsh.glsl).
@@ -204,7 +206,8 @@ fragment half4 fsHatchingAreaDash(const HatchingAreaFragment_T in [[stage_in]])
   float aaX = fwidth(px.x);
   float onDash = 1.0 - smoothstep(kDashHalfPx - aaX, kDashHalfPx + aaX, xDist);
 
-  return in.color * half(onRow * onDash);
+  // Alpha only - see the note in fsHatchingArea.
+  return half4(in.color.rgb, in.color.a * half(onRow * onDash));
 }
 
 // AreaPattern hash for jittered solid-fill patterns (stipple/speckle).

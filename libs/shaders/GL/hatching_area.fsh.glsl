@@ -41,10 +41,14 @@ void main()
   float diag = px.x + px.y;
   float m = mod(diag, kPeriodPx);
   float dist = min(m, kPeriodPx - m);               // distance to the nearest line center
+  // fwidth is |dFdx| + |dFdy|, and diag sums both axes, so aa is ~2 base px here - twice the canonical
+  // one-pixel filter. The line is drawn as a soft ~3px band peaking at ~0.75 coverage, which keeps the
+  // hatch a light tint (issue #4992). Halving aa makes it crisper and more prominent.
   float aa = fwidth(diag);
   float coverage = 1.0 - smoothstep(kHalfWidthPx - aa, kHalfWidthPx + aa, dist);
 
-  color *= coverage;                                // white-on-transparent mask, same as the legacy PNG
-  color.a *= u_opacity;
+  // coverage is the line's alpha, rgb stays the surface colour: blending is straight
+  // (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA), so scaling rgb would apply coverage a second time.
+  color.a *= coverage * u_opacity;
   v_FragColor = color;
 }
