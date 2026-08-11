@@ -7,6 +7,7 @@
 
 #include "geometry/mercator.hpp"
 
+
 UserMark::UserMark(kml::MarkId id, m2::PointD const & ptOrg, UserMark::Type type)
   : df::UserPointMark(id == kml::kInvalidMarkId ? UserMarkIdStorage::Instance().GetNextUserMarkId(type) : id)
   , m_ptOrg(ptOrg)
@@ -86,6 +87,38 @@ drape_ptr<df::UserPointMark::ColoredSymbolZoomInfo> ColoredMarkPoint::GetColored
   return make_unique_dp<ColoredSymbolZoomInfo>(m_coloredSymbols);
 }
 
+ContactMarkPoint::ContactMarkPoint(m2::PointD const & ptOrg) : UserMark(ptOrg, UserMark::Type::CONTACT) {}
+
+void ContactMarkPoint::SetName(std::string name)
+{
+  SetDirty();
+  m_name = std::move(name);
+}
+
+drape_ptr<df::UserPointMark::TitlesInfo> ContactMarkPoint::GetTitleDecl() const
+{
+  if (m_name.empty())
+    return nullptr;
+
+  dp::TitleDecl title;
+  title.m_primaryText = m_name;
+  title.m_primaryTextFont.m_color = dp::Color(55, 55, 55, 255);
+  title.m_primaryTextFont.m_outlineColor = dp::Color::White();
+  title.m_primaryTextFont.m_size = 11.0f;
+  title.m_anchor = dp::Left;
+  title.m_primaryOffset.x = 2.0f;
+  auto titles = make_unique_dp<TitlesInfo>();
+  titles->push_back(std::move(title));
+  return titles;
+}
+
+drape_ptr<df::UserPointMark::SymbolNameZoomInfo> ContactMarkPoint::GetSymbolNames() const
+{
+  auto symbol = make_unique_dp<SymbolNameZoomInfo>();
+  symbol->insert(std::make_pair(GetMinZoom(), "home-m"));
+  return symbol;
+}
+
 std::string DebugPrint(UserMark::Type type)
 {
   switch (type)
@@ -104,6 +137,7 @@ std::string DebugPrint(UserMark::Type type)
   case UserMark::Type::TRACK_SELECTION: return "TRACK_SELECTION";
   case UserMark::Type::COLORED: return "COLORED";
   case UserMark::Type::ROUTE_ALT: return "ROUTE_ALT";
+  case UserMark::Type::CONTACT: return "CONTACT";
   case UserMark::Type::USER_MARK_TYPES_COUNT: return "USER_MARK_TYPES_COUNT";
   case UserMark::Type::USER_MARK_TYPES_COUNT_MAX: return "USER_MARK_TYPES_COUNT_MAX";
   }

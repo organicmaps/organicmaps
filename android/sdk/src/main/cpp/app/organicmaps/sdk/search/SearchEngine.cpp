@@ -24,7 +24,9 @@
 #include <chrono>
 #include <functional>
 #include <memory>
+#include <mutex>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 namespace
@@ -55,6 +57,18 @@ jmethodID g_mapResultCtor;
 
 jmethodID g_updateBookmarksResultsId;
 jmethodID g_endBookmarksResultsId;
+jmethodID g_contactAddressResolvedId;
+
+struct ContactAddressResolveState
+{
+  std::string m_query;
+  search::Results m_results;
+  jlong m_requestId;
+  std::weak_ptr<search::ProcessorHandle> m_handle;
+};
+
+std::mutex g_contactAddressRequestsMutex;
+std::unordered_map<jlong, std::shared_ptr<ContactAddressResolveState>> g_contactAddressRequests;
 
 bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
 {
@@ -221,6 +235,41 @@ void OnBookmarksSearchResults(search::BookmarksSearchParams::Results results,
   env->CallVoidMethod(g_javaListener, method, jResults.get(), static_cast<jlong>(timestamp));
 }
 
+void OnContactAddressResults(std::shared_ptr<ContactAddressResolveState> const & state,
+                             search::Results const & results)
+{
+  if (!results.IsEndMarker())
+  {
+    state->m_results = results;
+    return;
+  }
+
+  {
+    std::lock_guard<std::mutex> lock(g_contactAddressRequestsMutex);
+    g_contactAddressRequests.erase(state->m_requestId);
+  }
+
+  bool found = false;
+  ms::LatLon latLon = ms::LatLon::Zero();
+  if (results.IsEndedNormal())
+  {
+    auto const resolved = search::MakeEstimatedAddressResults(state->m_query, state->m_results);
+    for (auto const & result : resolved)
+    {
+      if (!result.IsSuggest() && result.HasPoint())
+      {
+        latLon = mercator::ToLatLon(result.GetFeatureCenter());
+        found = true;
+        break;
+      }
+    }
+  }
+
+  JNIEnv * env = jni::GetEnv();
+  env->CallVoidMethod(g_javaListener, g_contactAddressResolvedId, state->m_requestId,
+                      static_cast<jboolean>(found), latLon.m_lat, latLon.m_lon);
+}
+
 }  // namespace
 
 extern "C"
@@ -260,6 +309,8 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeInit(JNIEnv * 
 
   g_updateBookmarksResultsId = jni::GetMethodID(env, g_javaListener, "onBookmarkSearchResultsUpdate", "([JJ)V");
   g_endBookmarksResultsId = jni::GetMethodID(env, g_javaListener, "onBookmarkSearchResultsEnd", "([JJ)V");
+  g_contactAddressResolvedId =
+      jni::GetMethodID(env, g_javaListener, "onContactAddressResolved", "(JZDD)V");
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearch(JNIEnv * env, jclass clazz,
@@ -346,6 +397,46 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearchI
   if (searchStarted)
     g_queryTimestamp = timestamp;
   return searchStarted;
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeResolveContactAddress(
+    JNIEnv * env, jclass clazz, jbyteArray bytes, jstring lang, jlong requestId)
+{
+  auto state = std::make_shared<ContactAddressResolveState>();
+  state->m_query = jni::ToNativeString(env, bytes);
+  state->m_requestId = requestId;
+
+  search::SearchParams params;
+  params.m_query = state->m_query;
+  params.m_inputLocale = jni::ToNativeString(env, lang);
+  params.m_viewport = g_framework->NativeFramework()->GetCurrentViewport();
+  params.m_needAddress = true;
+  params.m_allowNearbyHouseNumbers = true;
+  params.m_onResults = [state](search::Results const & results) { OnContactAddressResults(state, results); };
+  {
+    std::lock_guard<std::mutex> lock(g_contactAddressRequestsMutex);
+    g_contactAddressRequests[requestId] = state;
+  }
+  auto const handle = g_framework->NativeFramework()->GetSearchAPI().GetEngine().Search(std::move(params));
+  {
+    std::lock_guard<std::mutex> lock(g_contactAddressRequestsMutex);
+    if (g_contactAddressRequests.contains(requestId))
+      state->m_handle = handle;
+  }
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeCancelContactAddressResolution(
+    JNIEnv * env, jclass clazz, jlong requestId)
+{
+  std::shared_ptr<search::ProcessorHandle> handle;
+  {
+    std::lock_guard<std::mutex> lock(g_contactAddressRequestsMutex);
+    auto const it = g_contactAddressRequests.find(requestId);
+    if (it != g_contactAddressRequests.end())
+      handle = it->second->m_handle.lock();
+  }
+  if (handle)
+    handle->Cancel();
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeShowResult(JNIEnv * env, jclass clazz, jint index)

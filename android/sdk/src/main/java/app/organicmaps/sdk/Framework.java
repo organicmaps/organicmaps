@@ -150,6 +150,8 @@ public class Framework
 
   public static native void nativeClearApiPoints();
 
+  public static native void nativeSetContactMarks(double[] latitudes, double[] longitudes, String[] names);
+
   @NonNull
   public static native @RequestType int nativeParseAndSetApiUrl(String url);
   public static native ParsedRoutingData nativeGetParsedRoutingData();

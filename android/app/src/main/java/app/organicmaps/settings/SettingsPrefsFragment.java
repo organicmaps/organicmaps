@@ -38,6 +38,7 @@ import app.organicmaps.sdk.util.NetworkPolicy;
 import app.organicmaps.sdk.util.PowerManagment;
 import app.organicmaps.sdk.util.SharedPropertiesUtils;
 import app.organicmaps.sdk.util.log.LogsManager;
+import app.organicmaps.search.ContactMapManager;
 import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -335,6 +336,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
       {
         mEnableContactSearchWhenPermissionGranted = false;
         Config.setContactSearchEnabled(false);
+        ContactMapManager.INSTANCE.refresh(requireContext());
         return true;
       }
 
@@ -342,6 +344,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
           == PackageManager.PERMISSION_GRANTED)
       {
         Config.setContactSearchEnabled(true);
+        ContactMapManager.INSTANCE.refresh(requireContext());
         return true;
       }
 
@@ -354,6 +357,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
   private void onContactsPermissionResult(boolean granted)
   {
     Config.setContactSearchEnabled(granted);
+    ContactMapManager.INSTANCE.refresh(requireContext());
     final TwoStatePreference pref = findPreference(getString(R.string.pref_search_contacts));
     if (pref != null)
       pref.setChecked(granted);

@@ -52,6 +52,7 @@ public:
     DEBUG_MARK,  // Plain "DEBUG" results in a name collision.
     COLORED,
     ROUTE_ALT,  // ETA balloon attached to a route variant (active or alternative).
+    CONTACT,
     USER_MARK_TYPES_COUNT,
     USER_MARK_TYPES_COUNT_MAX = 1000,
   };
@@ -154,6 +155,23 @@ public:
 
 private:
   ColoredSymbolZoomInfo m_coloredSymbols;
+};
+
+class ContactMarkPoint : public UserMark
+{
+public:
+  explicit ContactMarkPoint(m2::PointD const & ptOrg);
+
+  void SetName(std::string name);
+  drape_ptr<TitlesInfo> GetTitleDecl() const override;
+  drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
+  df::DepthLayer GetDepthLayer() const override { return df::DepthLayer::SearchMarkLayer; }
+  bool GetDepthTestEnabled() const override { return false; }
+  bool IsMarkAboveText() const override { return true; }
+  int GetMinZoom() const override { return 16; }
+
+private:
+  std::string m_name;
 };
 
 std::string DebugPrint(UserMark::Type type);
