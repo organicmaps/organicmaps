@@ -14,7 +14,6 @@
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 
-#include "coding/blake3.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
 #include "coding/reader.hpp"
@@ -818,8 +817,7 @@ void Storage::OnDownloadFinished(QueuedCountry const & queuedCountry, DownloadSt
       std::string readError;
       try
       {
-        if (coding::Blake3::CalculateMwmBase64(path) == hash)
-          status = DownloadStatus::Completed;
+        status = ValidateDownloadedFile(path, hash);
       }
       catch (Reader::Exception const & ex)
       {

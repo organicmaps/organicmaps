@@ -5,6 +5,8 @@
 
 #include "platform/platform.hpp"
 
+#include "coding/blake3.hpp"
+
 #include "std/target_os.hpp"
 
 namespace storage
@@ -59,6 +61,12 @@ bool IsEnoughSpaceForUpdate(CountryId const & countryId, Storage const & storage
 #else
   return IsEnoughSpaceForDownload(diff + updateInfo.m_maxFileSizeInBytes);
 #endif  // OMIM_OS_IPHONE
+}
+
+downloader::DownloadStatus ValidateDownloadedFile(std::string const & path, std::string const & expectedHash)
+{
+  return coding::Blake3::CalculateMwmBase64(path) == expectedHash ? downloader::DownloadStatus::Completed
+                                                                  : downloader::DownloadStatus::FailedIntegrityCheck;
 }
 
 m2::RectD CalcLimitRect(CountryId const & countryId, Storage const & storage,
