@@ -38,7 +38,7 @@
 /* 3.1 Main natural */
 
 @glacier: #111111;
-@water: #002222;
+@water: #004E51;
 @water_bad: #00261e;
 @river: #3FA7C0;
 @wetland: #5C747F;
