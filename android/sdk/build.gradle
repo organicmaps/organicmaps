@@ -13,6 +13,12 @@ android {
     buildConfig = true
   }
 
+  testOptions {
+    // Turns android.util.Log and friends into no-op stubs on the JVM, so unit tests can
+    // cover code that incidentally logs (e.g. StorageUtils) without an emulator.
+    unitTests.returnDefaultValues = true
+  }
+
   defaultConfig {
     externalNativeBuild {
       def pchFlag = 'OFF'

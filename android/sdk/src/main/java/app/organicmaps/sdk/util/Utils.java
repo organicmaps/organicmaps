@@ -9,6 +9,8 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
+import android.system.ErrnoException;
+import android.system.OsConstants;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.view.View;
@@ -308,6 +310,34 @@ public class Utils
         }
       }
     }
+  }
+
+  /**
+   * Closes a file resource, ignoring only the EPERM reported by storage stacks that reject close(). Callers must
+   * independently verify written data; other close errors still make the operation fail.
+   */
+  static void closeIgnoringEperm(@Nullable Closeable closeable, @NonNull String context) throws IOException
+  {
+    if (closeable == null)
+      return;
+    try
+    {
+      closeable.close();
+    }
+    catch (IOException e)
+    {
+      if (!isErrno(e, OsConstants.EPERM))
+        throw e;
+      Logger.w(TAG, "Ignoring EPERM from close() for " + context + ": " + e);
+    }
+  }
+
+  static boolean isErrno(@NonNull Throwable error, int errno)
+  {
+    for (Throwable cause = error; cause != null; cause = cause.getCause())
+      if (cause instanceof ErrnoException && ((ErrnoException) cause).errno == errno)
+        return true;
+    return false;
   }
 
   public static <K, V> String mapPrettyPrint(Map<K, V> map)
