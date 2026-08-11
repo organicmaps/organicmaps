@@ -74,6 +74,7 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
     ProgramInfo("vsHatchingArea", "fsAreaStipple", {{0, 2}}),                         // AreaStipple
     ProgramInfo("vsHatchingArea", "fsAreaSpeckle", {{0, 2}}),                         // AreaSpeckle
     ProgramInfo("vsHatchingArea", "fsAreaGrid", {{0, 2}}),                            // AreaGrid
+    ProgramInfo("vsTerrainShade", "fsTerrainShade", {{0, 1}}),                        // TerrainShade
     ProgramInfo("vsHatchingArea", "fsHatchingArea", {{0, 2}}),                        // HatchingArea
     ProgramInfo("vsHatchingArea", "fsHatchingAreaDash", {{0, 2}}),                    // HatchingAreaDash
     ProgramInfo("vsTexturingGui", "fsTexturingGui", {{0, 1}}),                        // TexturingGui

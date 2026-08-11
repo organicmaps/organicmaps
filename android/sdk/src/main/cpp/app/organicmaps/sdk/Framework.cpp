@@ -1566,6 +1566,11 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetAutoZoomEnabled(JNIEn
   frm()->AllowAutoZoom(autoZoomEnabled);
 }
 
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeDownloadTerrainForViewport(JNIEnv * env, jclass)
+{
+  return static_cast<jboolean>(frm()->DownloadTerrainForViewport());
+}
+
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetTransitSchemeEnabled(JNIEnv * env, jclass, jboolean enabled)
 {
   frm()->GetTransitManager().EnableTransitSchemeMode(static_cast<bool>(enabled));

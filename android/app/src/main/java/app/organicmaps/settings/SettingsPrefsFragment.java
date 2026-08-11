@@ -30,6 +30,7 @@ import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.NetworkPolicy;
 import app.organicmaps.sdk.util.PowerManagment;
 import app.organicmaps.sdk.util.SharedPropertiesUtils;
+import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.log.LogsManager;
 import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.Utils;
@@ -67,6 +68,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     initPowerManagementPrefsCallbacks();
     initBookmarksTextPlacementPrefsCallbacks();
     initShowDownloadedRegionsPrefsCallbacks();
+    initTerrainWithMapsPrefsCallbacks();
     initPlayServicesPrefsCallbacks();
     initSearchPrivacyPrefsCallbacks();
     initScreenSleepEnabledPrefsCallbacks();
@@ -556,6 +558,35 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     bookmarksTextPlacementPref.setOnPreferenceChangeListener((preference, newValue) -> {
       final int placement = Integer.parseInt((String) newValue);
       Framework.nativeSetBookmarksTextPlacement(placement);
+      return true;
+    });
+  }
+
+  private void initTerrainWithMapsPrefsCallbacks()
+  {
+    final TwoStatePreference pref = getPreference(getString(R.string.pref_terrain_with_maps));
+
+    if (!MapManager.nativeIsTerrainAvailable())
+    {
+      removePreference(getString(R.string.pref_settings_general), pref);
+      return;
+    }
+
+    pref.setChecked(MapManager.nativeIsTerrainWithMaps());
+    pref.setOnPreferenceChangeListener((preference, newValue) -> {
+      final boolean enabled = (boolean) newValue;
+      MapManager.nativeSetTerrainWithMaps(enabled);
+      final long size = enabled ? 0 : MapManager.nativeGetTerrainOnDiskSize();
+      if (size > 0)
+      {
+        // The switch turns off either way; the files may serve the map until deleted.
+        new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
+            .setMessage(
+                getString(R.string.terrain_delete_all_message, StringUtils.getFileSizeString(requireContext(), size)))
+            .setPositiveButton(R.string.delete, (dialog, which) -> MapManager.nativeDeleteAllTerrain())
+            .setNegativeButton(R.string.keep, null)
+            .show();
+      }
       return true;
     });
   }

@@ -649,10 +649,10 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   @Override
   public int getItemViewType(int position)
   {
-    if (mItemsAndHeader.get(position).mItem != null)
+    final GenericItem item = mItemsAndHeader.get(position);
+    if (item.mItem != null)
       return TYPE_COUNTRY;
-    else
-      return TYPE_HEADER;
+    return TYPE_HEADER;
   }
 
   @Override

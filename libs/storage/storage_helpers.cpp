@@ -37,7 +37,9 @@ bool IsEnoughSpaceForDownload(CountryId const & countryId, Storage const & stora
   NodeAttrs nodeAttrs;
   storage.GetNodeAttrs(countryId, nodeAttrs);
 
-  return IsEnoughSpaceForDownload(nodeAttrs.m_mwmSize);
+  // The local part (the maps and the on-disk terrain of the fused size) is not
+  // downloaded again.
+  return IsEnoughSpaceForDownload(nodeAttrs.m_mwmSize - std::min(nodeAttrs.m_mwmSize, nodeAttrs.m_localMwmSize));
 }
 
 bool IsEnoughSpaceForUpdate(CountryId const & countryId, Storage const & storage)

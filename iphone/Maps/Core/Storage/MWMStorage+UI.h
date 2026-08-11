@@ -6,6 +6,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)downloadNode:(NSString *)countryId;
 - (void)downloadNode:(NSString *)countryId onSuccess:(nullable MWMVoidBlock)success;
+- (void)downloadTerrainForViewport;
 - (void)updateNode:(NSString *)countryId;
 - (void)updateNode:(NSString *)countryId onCancel:(nullable MWMVoidBlock)cancel;
 - (void)deleteNode:(NSString *)countryId;

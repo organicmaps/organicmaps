@@ -75,7 +75,7 @@ UpdateDialog::UpdateDialog(QWidget * parent, Framework & framework)
   m_tree = new QTreeWidget(this);
   m_tree->setColumnCount(KNumberOfColumns);
   QStringList columnLabels;
-  columnLabels << tr("Country") << tr("Status") << tr("Size") << tr("Matched by") << tr("Rank");
+  columnLabels << tr("Country") << tr("Status (Click for action)") << tr("Size") << tr("Matched by") << tr("Rank");
   m_tree->setHeaderLabels(columnLabels);
 
   m_tree->setColumnHidden(KColumnIndexPositionInRanking, true);
@@ -380,18 +380,18 @@ void UpdateDialog::UpdateRowWithCountryInfo(QTreeWidgetItem * item, CountryId co
   {
   case NodeStatus::NotDownloaded:
     ASSERT(size.second > 0, (countryId));
-    statusString = tr("Click to download");
+    statusString = tr("Absent");
     rowColor = COLOR_NOTDOWNLOADED;
     break;
 
   case NodeStatus::OnDisk:
   case NodeStatus::Partly:
-    statusString = tr("Installed (click to delete)");
+    statusString = tr("Installed");
     rowColor = COLOR_ONDISK;
     break;
 
   case NodeStatus::OnDiskOutOfDate:
-    statusString = tr("Out of date (click to update or delete)");
+    statusString = tr("Out of date");
     rowColor = COLOR_OUTOFDATE;
     break;
 

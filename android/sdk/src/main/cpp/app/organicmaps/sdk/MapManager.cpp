@@ -177,7 +177,8 @@ static void UpdateItemShort(JNIEnv * env, jobject item, storage::NodeStatus cons
   env->SetIntField(item, ciBuilder.m_ErrorCode, static_cast<jint>(error));
 }
 
-static void UpdateItem(JNIEnv * env, jobject item, storage::NodeAttrs const & attrs)
+static void UpdateItem(JNIEnv * env, jobject item, storage::CountryId const & countryId,
+                       storage::NodeAttrs const & attrs)
 {
   auto const & ciBuilder = CountryItemBuilder::Instance(env);
   using SLR = jni::TScopedLocalRef;
@@ -239,6 +240,7 @@ static void UpdateItem(JNIEnv * env, jobject item, storage::NodeAttrs const & at
   }
 
   env->SetFloatField(item, ciBuilder.m_Progress, percentage);
+
   env->SetLongField(item, ciBuilder.m_DownloadedBytes, attrs.m_downloadingProgress.m_bytesDownloaded);
   env->SetLongField(item, ciBuilder.m_BytesToDownload, attrs.m_downloadingProgress.m_bytesTotal);
 }
@@ -262,7 +264,7 @@ static void PutItemsToList(
     SLR const item(env, ciBuilder.Create(env, SLR(env, jni::ToJavaString(env, child))));
     env->SetIntField(item.get(), ciBuilder.m_Category, category);
 
-    UpdateItem(env, item.get(), attrs);
+    UpdateItem(env, item.get(), child, attrs);
 
     // Put to resulting list
     env->CallBooleanMethod(list, listAddMethod, item.get());
@@ -298,12 +300,13 @@ JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeListItems(JN
 JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeGetAttributes(JNIEnv * env, jclass, jobject item)
 {
   auto const & ciBuilder = CountryItemBuilder::Instance(env);
-  jstring id = static_cast<jstring>(env->GetObjectField(item, ciBuilder.m_Id));
+  jni::TScopedLocalRef const id(env, env->GetObjectField(item, ciBuilder.m_Id));
+  auto const countryId = jni::ToNativeString(env, static_cast<jstring>(id.get()));
 
   storage::NodeAttrs attrs;
-  GetStorage().GetNodeAttrs(jni::ToNativeString(env, id), attrs);
+  GetStorage().GetNodeAttrs(countryId, attrs);
 
-  UpdateItem(env, item, attrs);
+  UpdateItem(env, item, countryId, attrs);
 }
 
 // static void nativeGetStatus(String root);
@@ -395,6 +398,41 @@ JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeDownload(JNI
 {
   StartBatchingCallbacks();
   GetStorage().DownloadNode(jni::ToNativeString(env, root));
+  EndBatchingCallbacks(env);
+}
+
+// static boolean nativeIsTerrainAvailable();
+JNIEXPORT jboolean Java_app_organicmaps_sdk_downloader_MapManager_nativeIsTerrainAvailable(JNIEnv * env, jclass clazz)
+{
+  return static_cast<jboolean>(GetStorage().IsTerrainAvailable());
+}
+
+// static boolean nativeIsTerrainWithMaps();
+JNIEXPORT jboolean Java_app_organicmaps_sdk_downloader_MapManager_nativeIsTerrainWithMaps(JNIEnv * env, jclass clazz)
+{
+  return static_cast<jboolean>(GetStorage().IsTerrainWithMaps());
+}
+
+// static void nativeSetTerrainWithMaps(boolean enabled);
+JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeSetTerrainWithMaps(JNIEnv * env, jclass clazz,
+                                                                                       jboolean enabled)
+{
+  StartBatchingCallbacks();
+  GetStorage().SetTerrainWithMaps(enabled);
+  EndBatchingCallbacks(env);
+}
+
+// static long nativeGetTerrainOnDiskSize();
+JNIEXPORT jlong Java_app_organicmaps_sdk_downloader_MapManager_nativeGetTerrainOnDiskSize(JNIEnv * env, jclass clazz)
+{
+  return static_cast<jlong>(GetStorage().GetTerrainOnDiskSize());
+}
+
+// static void nativeDeleteAllTerrain();
+JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeDeleteAllTerrain(JNIEnv * env, jclass clazz)
+{
+  StartBatchingCallbacks();
+  GetStorage().DeleteAllTerrain();
   EndBatchingCallbacks(env);
 }
 

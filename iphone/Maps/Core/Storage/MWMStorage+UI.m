@@ -46,6 +46,35 @@
     success();
 }
 
+- (void)downloadTerrainForViewport
+{
+  NSError * error;
+  BOOL const started = [self downloadTerrainForViewport:&error];
+  if (error)
+  {
+    if (error.code == kStorageCellularForbidden)
+    {
+      __weak __typeof(self) ws = self;
+      [[MWMAlertViewController activeAlertController]
+          presentNoWiFiAlertWithOkBlock:^{
+            [self enableCellularDownload:YES];
+            [ws downloadTerrainForViewport];
+          }
+                         andCancelBlock:nil];
+    }
+    else
+    {
+      [self handleError:error];
+    }
+    return;
+  }
+  if (!started)
+  {
+    // Nothing downloaded under the viewport: the map itself is the missing piece.
+    [MWMAlertViewController.activeAlertController presentInfoAlert:L(@"isolines_location_error_dialog")];
+  }
+}
+
 - (void)updateNode:(NSString *)countryId
 {
   [self updateNode:countryId onCancel:nil];

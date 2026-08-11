@@ -9,6 +9,8 @@
 #include "platform/settings.hpp"
 #include "platform/style_utils.hpp"
 
+#include <algorithm>
+
 #include "qt/qt_common/helpers.hpp"
 
 #include <QLocale>
@@ -21,6 +23,7 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
+#include <QtWidgets/QMessageBox>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QSpinBox>
@@ -80,6 +83,33 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
 
       settings::Set(settings::kMeasurementUnits, u);
       framework.SetupMeasurementSystem();
+    });
+  }
+
+  QCheckBox * terrainCheckBox = new QCheckBox("Download terrain with maps");
+  {
+    auto & storage = framework.GetStorage();
+    // Only hide: setVisible(true) on a widget with no parent yet would flash it as a window.
+    if (!storage.IsTerrainAvailable())
+      terrainCheckBox->hide();
+    terrainCheckBox->setChecked(storage.IsTerrainWithMaps());
+    connect(terrainCheckBox, &QCheckBox::stateChanged, [this, &framework](int i)
+    {
+      auto & storage = framework.GetStorage();
+      bool const enabled = i > 0;
+      storage.SetTerrainWithMaps(enabled);
+      uint64_t const size = enabled ? 0 : storage.GetTerrainOnDiskSize();
+      if (size == 0)
+        return;
+      // The switch turns off either way; the files may serve the map until deleted.
+      QMessageBox ask(this);
+      ask.setIcon(QMessageBox::Question);
+      ask.setText(tr("Also delete the downloaded terrain data (%1 MB)?").arg(std::max<uint64_t>(1, size >> 20)));
+      QPushButton * const btnDelete = ask.addButton(tr("Delete"), QMessageBox::DestructiveRole);
+      ask.addButton(tr("Keep"), QMessageBox::RejectRole);
+      ask.exec();
+      if (ask.clickedButton() == btnDelete)
+        storage.DeleteAllTerrain();
     });
   }
 
@@ -283,6 +313,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
 
   QVBoxLayout * finalLayout = new QVBoxLayout();
   finalLayout->addWidget(unitsRadioBox);
+  finalLayout->addWidget(terrainCheckBox);
   finalLayout->addWidget(largeFontCheckBox);
   finalLayout->addWidget(transliterationCheckBox);
   finalLayout->addWidget(developerModeCheckBox);

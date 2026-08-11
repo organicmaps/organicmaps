@@ -16,6 +16,7 @@
 #include "map/search_mark.hpp"
 #include "map/selection_processor.hpp"
 #include "map/share.hpp"
+#include "map/terrain_provider.hpp"
 #include "map/track.hpp"
 #include "map/track_statistics.hpp"
 #include "map/traffic_manager.hpp"
@@ -189,6 +190,8 @@ protected:
 
   TransitReadManager m_transitManager;
   IsolinesManager m_isolinesManager;
+  // Dynamic isolines terrain data (.twm files).
+  terrain::TerrainProvider m_terrainProvider;
 
   // Note. |m_routingManager| should be declared before |m_trafficManager|
   RoutingManager m_routingManager;
@@ -546,6 +549,10 @@ public:
                          bool trackVisibleViewport = false);
 
   m2::RectD GetCurrentViewport() const;
+  /// Downloads the terrain of the downloaded regions in the current viewport: the
+  /// "Enable" action of the terrain-disabled layer dialog. False when the viewport
+  /// holds no downloaded region to fetch for (the caller hints to download a map).
+  bool DownloadTerrainForViewport();
   void SetVisibleViewport(m2::RectD const & rect);
 
   void ShowRect(m2::RectD const & rect, bool animation = true, bool useVisibleViewport = false);
