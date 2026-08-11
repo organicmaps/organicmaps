@@ -2029,6 +2029,30 @@ UNIT_CLASS_TEST(Runner, ExportSingleUnicode)
   bmManager.PrepareFileForSharing(std::move(categories), checker, FileType::Kml);
 }
 
+UNIT_CLASS_TEST(Runner, ExportSingleMultilingualCategoryName)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  kml::CategoryData category;
+  category.m_name[StringUtf8Multilang::GetLangIndex("ru")] = "Категория";
+  category.m_name[StringUtf8Multilang::GetLangIndex("de")] = "Kategorie";
+  auto const categoryId = bmManager.CreateBookmarkCategory(std::move(category), false /* autoSave */);
+
+  kml::BookmarkData bookmark;
+  bookmark.m_point = m2::PointD(0.0, 0.0);
+  kml::SetDefaultStr(bookmark.m_name, "Bookmark");
+  bmManager.GetEditSession().CreateBookmark(std::move(bookmark), categoryId);
+
+  auto const checker = [](BookmarkManager::SharingResult const & result)
+  {
+    TEST(result.m_code == BookmarkManager::SharingResult::Code::Success, (result.m_errorString));
+    TEST_EQUAL(base::FileNameFromFullPath(result.m_sharingPath), "Kategorie.geojson", ());
+    TEST(base::DeleteFileX(result.m_sharingPath), ());
+  };
+  bmManager.PrepareFileForSharing(kml::GroupIdCollection{categoryId}, checker, FileType::GeoJson);
+}
+
 UNIT_CLASS_TEST(Runner, ExportSingleTrackKmz)
 {
   std::string const file = GetPlatform().TestsDataPathForFile("test_data/gpx/export_test.gpx");
