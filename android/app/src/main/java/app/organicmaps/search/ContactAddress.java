@@ -72,11 +72,29 @@ final class ContactAddress
       queries.add(new SearchQuery(normalizedStreet, normalizedStreet, false));
       if (!locality.isEmpty())
         queries.add(new SearchQuery(normalizedStreet + " " + locality, normalizedStreet, true));
-      else
+      else if (!street.isEmpty())
         queries.add(new SearchQuery(normalizedStreet, normalizedStreet, true));
     }
-    if (street.isEmpty() && !address.isEmpty() && queries.stream().noneMatch(query -> query.query.equals(address)))
-      queries.add(new SearchQuery(address, normalizedStreet, false));
+    if (street.isEmpty() && !address.isEmpty())
+    {
+      final String normalizedAddress = ContactAddressQueryNormalizer.normalizeAddressQuery(address);
+      if (queries.stream().noneMatch(query -> query.query.equals(normalizedAddress)))
+        queries.add(new SearchQuery(normalizedAddress, normalizedStreet, true));
+      if (!normalizedAddress.equals(address) && queries.stream().noneMatch(query -> query.query.equals(address)))
+        queries.add(new SearchQuery(address, normalizedStreet, false));
+    }
     return queries;
+  }
+
+  @NonNull
+  SearchQuery getMapSearchQuery()
+  {
+    final List<SearchQuery> queries = getSearchQueries();
+    for (SearchQuery query : queries)
+    {
+      if (query.allowNearbyHouseNumbers)
+        return query;
+    }
+    return queries.isEmpty() ? new SearchQuery(address, "", true) : queries.get(0);
   }
 }

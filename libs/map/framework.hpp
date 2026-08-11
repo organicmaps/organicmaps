@@ -523,6 +523,12 @@ public:
 
   void FillSearchResultsMarks(bool clear, search::Results const & results);
   void FillSearchResultsMarks(SearchResultsIterT beg, SearchResultsIterT end, bool clear);
+  struct ContactMarkData
+  {
+    m2::PointD m_point;
+    std::string m_name;
+  };
+  void SetContactMarks(std::vector<ContactMarkData> const & marks);
 
   /// Calculate distance and direction to POI for the given position.
   /// @param[in]  point             POI's position;

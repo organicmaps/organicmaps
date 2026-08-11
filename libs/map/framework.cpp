@@ -1718,6 +1718,15 @@ void Framework::FillSearchResultsMarks(SearchResultsIterT beg, SearchResultsIter
   }
 }
 
+void Framework::SetContactMarks(std::vector<ContactMarkData> const & marks)
+{
+  auto editSession = GetBookmarkManager().GetEditSession();
+  editSession.ClearGroup(UserMark::Type::CONTACT);
+  editSession.SetIsVisible(UserMark::Type::CONTACT, true);
+  for (auto const & mark : marks)
+    editSession.CreateUserMark<ContactMarkPoint>(mark.m_point)->SetName(mark.m_name);
+}
+
 bool Framework::GetDistanceAndAzimut(m2::PointD const & point, double lat, double lon, double north,
                                      platform::Distance & distance, double & azimut)
 {

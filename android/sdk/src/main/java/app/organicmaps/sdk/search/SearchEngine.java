@@ -1,6 +1,7 @@
 package app.organicmaps.sdk.search;
 
 import android.content.Context;
+import androidx.annotation.Keep;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +15,11 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
                                     BookmarkSearchListener
 {
   INSTANCE;
+
+  public interface ContactAddressListener
+  {
+    void onContactAddressResolved(long requestId, boolean found, double lat, double lon);
+  }
 
   // Query, which results are shown on the map.
   @Nullable
@@ -73,6 +79,8 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
 
   private final ObserverList<BookmarkSearchListener> mBookmarkListeners = new ObserverList<>();
 
+  private final ObserverList<ContactAddressListener> mContactAddressListeners = new ObserverList<>();
+
   public void addListener(SearchListener listener)
   {
     mListeners.addObserver(listener);
@@ -101,6 +109,35 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   public void removeBookmarkListener(BookmarkSearchListener listener)
   {
     mBookmarkListeners.removeObserver(listener);
+  }
+
+  public void addContactAddressListener(ContactAddressListener listener)
+  {
+    mContactAddressListeners.addObserver(listener);
+  }
+
+  public void removeContactAddressListener(ContactAddressListener listener)
+  {
+    mContactAddressListeners.removeObserver(listener);
+  }
+
+  public void resolveContactAddress(@NonNull String query, @NonNull String locale, long requestId)
+  {
+    nativeResolveContactAddress(query.getBytes(StandardCharsets.UTF_8), locale, requestId);
+  }
+
+  public void cancelContactAddressResolution(long requestId)
+  {
+    nativeCancelContactAddressResolution(requestId);
+  }
+
+  @Keep
+  private void onContactAddressResolved(long requestId, boolean found, double lat, double lon)
+  {
+    UiThread.run(() -> {
+      for (ContactAddressListener listener : mContactAddressListeners)
+        listener.onContactAddressResolved(requestId, found, lat, lon);
+    });
   }
 
   /**
@@ -264,6 +301,10 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   private static native void nativeRunSearchMaps(byte[] bytes, String language, long timestamp);
 
   private static native boolean nativeRunSearchInBookmarks(byte[] bytes, long categoryId, long timestamp);
+
+  private static native void nativeResolveContactAddress(byte[] bytes, String language, long requestId);
+
+  private static native void nativeCancelContactAddressResolution(long requestId);
 
   private static native void nativeShowResult(int index);
 

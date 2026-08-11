@@ -14244,11 +14244,11 @@ zh-Hant = 搜尋歷史紀錄
 
 [search_contacts_title]
 tags = android-app
-en = Search contacts
+en = Contacts
 
 [search_contacts_summary]
 tags = android-app
-en = Show saved contact addresses in search results
+en = Show saved contact addresses in search results and on the map
 
 [search_contacts_permission_message]
 tags = android-app

@@ -814,6 +814,29 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeClearApiPoints(JNIEnv * 
   frm()->GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::API);
 }
 
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetContactMarks(JNIEnv * env, jclass clazz,
+                                                                        jdoubleArray latitudes,
+                                                                        jdoubleArray longitudes, jobjectArray names)
+{
+  jsize const count = env->GetArrayLength(latitudes);
+  if (count != env->GetArrayLength(longitudes) || count != env->GetArrayLength(names))
+    return;
+
+  std::vector<jdouble> latitudeValues(static_cast<size_t>(count));
+  std::vector<jdouble> longitudeValues(static_cast<size_t>(count));
+  env->GetDoubleArrayRegion(latitudes, 0, count, latitudeValues.data());
+  env->GetDoubleArrayRegion(longitudes, 0, count, longitudeValues.data());
+  std::vector<::Framework::ContactMarkData> marks;
+  marks.reserve(static_cast<size_t>(count));
+  for (jsize i = 0; i < count; ++i)
+  {
+    jni::TScopedLocalRef name(env, env->GetObjectArrayElement(names, i));
+    marks.push_back({mercator::FromLatLon(latitudeValues[i], longitudeValues[i]),
+                     jni::ToNativeString(env, static_cast<jstring>(name.get()))});
+  }
+  frm()->SetContactMarks(marks);
+}
+
 JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeParseAndSetApiUrl(JNIEnv * env, jclass clazz, jstring url)
 {
   return static_cast<jint>(frm()->ParseAndSetApiURL(jni::ToNativeString(env, url)));
