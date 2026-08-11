@@ -84,7 +84,10 @@ public:
 
 std::string GetFileNameForExport(BookmarkManager::KMLDataCollectionPtr::element_type::value_type const & kmlToShare)
 {
-  std::string fileName = RemoveInvalidSymbols(kml::GetDefaultStr(kmlToShare.second->m_categoryData.m_name));
+  // Same name resolution as the exported file content, so a category named in one language only
+  // is not shared under its on-disk file name.
+  std::string fileName =
+      RemoveInvalidSymbols(std::string{kml::GetStringForExport(kmlToShare.second->m_categoryData.m_name)});
   if (fileName.empty())
     fileName = base::GetNameFromFullPathWithoutExt(kmlToShare.first);
   return TruncateToValidFileName(std::move(fileName));
