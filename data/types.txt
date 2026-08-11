@@ -1653,3 +1653,4 @@ amenity|recycling|container
 *man_made|ceremonial_gate
 *leisure|bird_hide
 *amenity|stage
+*organicapp|twm_border
