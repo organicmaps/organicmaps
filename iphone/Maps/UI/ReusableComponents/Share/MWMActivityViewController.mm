@@ -69,46 +69,27 @@
 
 @implementation MWMActivityViewController
 
-- (void)applyDefaultExcludedActivityTypes
-{
-  self.excludedActivityTypes = @[
-    UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll, UIActivityTypeAddToReadingList,
-    UIActivityTypePostToFlickr, UIActivityTypePostToVimeo
-  ];
-}
-
 - (instancetype)initWithActivityItems:(NSArray *)activityItems
 {
   self = [super initWithActivityItems:activityItems applicationActivities:nil];
   if (self)
-    [self applyDefaultExcludedActivityTypes];
-  return self;
-}
-
-- (instancetype)initWithActivityItemsConfiguration:(id<UIActivityItemsConfigurationReading>)activityItemsConfiguration
-{
-  self = [super initWithActivityItemsConfiguration:activityItemsConfiguration];
-  if (self)
-    [self applyDefaultExcludedActivityTypes];
+    self.excludedActivityTypes = @[
+      UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll,
+      UIActivityTypeAddToReadingList, UIActivityTypePostToFlickr, UIActivityTypePostToVimeo
+    ];
   return self;
 }
 
 + (instancetype)shareControllerForMyPosition:(CLLocationCoordinate2D)location
 {
   MWMShareActivityItem * item = [[MWMShareActivityItem alloc] initForMyPositionAtLocation:location];
-  MWMActivityViewController * shareVC =
-      [[self alloc] initWithActivityItemsConfiguration:item.activityItemsConfiguration];
-  shareVC.excludedActivityTypes = [shareVC.excludedActivityTypes arrayByAddingObject:UIActivityTypeAirDrop];
-  return shareVC;
+  return [[self alloc] initWithActivityItems:item.activityItems];
 }
 
 + (instancetype)shareControllerForPlacePage:(PlacePageData *)data
 {
   MWMShareActivityItem * item = [[MWMShareActivityItem alloc] initForPlacePage:data];
-  MWMActivityViewController * shareVC =
-      [[self alloc] initWithActivityItemsConfiguration:item.activityItemsConfiguration];
-  shareVC.excludedActivityTypes = [shareVC.excludedActivityTypes arrayByAddingObject:UIActivityTypeAirDrop];
-  return shareVC;
+  return [[self alloc] initWithActivityItems:item.activityItems];
 }
 
 + (instancetype)shareControllerForURL:(NSURL *)url
