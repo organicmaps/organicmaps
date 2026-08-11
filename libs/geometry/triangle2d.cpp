@@ -56,7 +56,8 @@ PointD GetRandomPointInsideTriangles(std::vector<TriangleD> const & v)
   if (v.empty())
     return {};
 
-  thread_local base::UniformRandom<size_t> random(0, v.size() - 1);
+  thread_local base::UniformRandom<size_t> random;
+  random.SetLimits(0, v.size() - 1);
   return GetRandomPointInsideTriangle(v[random()]);
 }
 
