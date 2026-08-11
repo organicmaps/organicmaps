@@ -932,8 +932,7 @@
 "dialog_pedestrian_route_is_long_header" = "مسیر مترو یافت نشد";
 "dialog_pedestrian_route_is_long_message" = "لطفا نقطه آغاز و پایان نزدیک تری به ایستگاه مترو انتخاب کنید";
 "button_layer_isolines" = "خط تراز";
-"isolines_activation_error_dialog" = "برای فعال سازی و استفاده از لایه توپوگرافی نقشه منطقه را به روزرسانی یا دانلود کنید";
-"isolines_location_error_dialog" = "لایه توپوگرافی هنوز برای این منطقه در دسترس نیست";
+"isolines_location_error_dialog" = "برای دیدن خطوط تراز، این منطقه را به‌روزرسانی کنید";
 "elevation_profile_ascent" = "بالا رفتن";
 "elevation_profile_descent" = "پایین آمدن";
 "elevation_profile_min_elevation" = "کم ارتفاع";
@@ -1086,7 +1085,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "لطفاً iCloud را در تنظیمات دستگاه خود فعال کنید تا از این ویژگی استفاده کنید.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "فعال کردن";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1183,3 +1182,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "رنگ مسیرها تغییر کرد";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "دانلود عوارض زمین همراه با نقشه‌ها";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "سایه‌پردازی ناهمواری‌ها، خطوط تراز و عمق دریا. عوارض زمین هر منطقه همراه با نقشهٔ آن دانلود، به‌روزرسانی و حذف می‌شود.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "عوارض زمین دانلودشده (%@) هم حذف شود؟";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "نگه داشتن";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "دانلود عوارض زمین همراه با نقشه‌ها خاموش است. برای دیدن خطوط تراز در اینجا روشن شود؟";

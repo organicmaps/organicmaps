@@ -932,8 +932,7 @@
 "dialog_pedestrian_route_is_long_header" = "No s’ha trobat cap ruta en metro";
 "dialog_pedestrian_route_is_long_message" = "Trieu un altre punt, inicial o final, més proper a una estació de metro";
 "button_layer_isolines" = "Corbes de nivell";
-"isolines_activation_error_dialog" = "Per a activar i usar la capa topogràfica, actualitzeu o baixeu el mapa de l’àrea";
-"isolines_location_error_dialog" = "La capa topogràfica encara no és disponible en aquesta àrea";
+"isolines_location_error_dialog" = "Actualitzeu aquesta regió per veure les corbes de nivell";
 "elevation_profile_ascent" = "Ascens";
 "elevation_profile_descent" = "Descens";
 "elevation_profile_min_elevation" = "Elevació mín.";
@@ -1086,7 +1085,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Activeu l’iCloud a la configuració del dispositiu per utilitzar aquesta funció.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Activa";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1183,3 +1182,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "El color dels recorreguts ha canviat";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Baixa el relleu amb els mapes";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Ombreig del relleu, corbes de nivell i profunditats marines. El relleu d’una regió es baixa, s’actualitza i se suprimeix juntament amb el seu mapa.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Voleu suprimir també les dades de relleu baixades (%@)?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Conserva";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "La baixada del relleu amb els mapes està desactivada. Voleu activar-la per veure aquí les corbes de nivell?";

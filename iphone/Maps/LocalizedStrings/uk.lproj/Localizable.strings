@@ -932,8 +932,7 @@
 "dialog_pedestrian_route_is_long_header" = "Жодного маршруту метро не знайдено";
 "dialog_pedestrian_route_is_long_message" = "Виберіть початкову чи кінцеву точку маршруту ближче до станції метро";
 "button_layer_isolines" = "Висоти";
-"isolines_activation_error_dialog" = "Щоб скористатися лініями висот, оновіть чи завантажте мапу потрібної місцевості";
-"isolines_location_error_dialog" = "Лінії висот ще недоступні в цьому регіоні";
+"isolines_location_error_dialog" = "Оновіть цей регіон, щоб побачити лінії висот";
 "elevation_profile_ascent" = "Підйом";
 "elevation_profile_descent" = "Спуск";
 "elevation_profile_min_elevation" = "Мін. висота";
@@ -1086,7 +1085,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Щоб скористатися цією функцією, увімкніть iCloud у налаштуваннях вашого пристрою.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Увімкнути";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1183,3 +1182,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Колір треків змінено";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Завантажувати рельєф разом із мапами";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Тіні рельєфу, лінії висот і глибини моря. Рельєф регіону завантажується, оновлюється й видаляється разом із його мапою.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Також видалити завантажений рельєф (%@)?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Залишити";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Завантаження рельєфу разом із мапами вимкнено. Увімкнути його, щоб побачити тут лінії висот?";

@@ -754,8 +754,7 @@
     <string name="religious_places">Religieuze plaatsen</string>
     <string name="select_list">Kies een lijst</string>
     <string name="button_layer_isolines">Contourlijnen</string>
-    <string name="isolines_activation_error_dialog">Als u gebruik wilt maken van hoogtelijnen, moet u de kaart van het gewenste gebied bijwerken of downloaden</string>
-    <string name="isolines_location_error_dialog">Hoogtelijnen zijn nog niet beschikbaar in deze regio</string>
+    <string name="isolines_location_error_dialog">Werk deze regio bij om hoogtelijnen te zien</string>
     <string name="elevation_profile_ascent">Stijging</string>
     <string name="elevation_profile_descent">Daling</string>
     <string name="elevation_profile_min_elevation">Min. hoogte</string>
@@ -894,6 +893,8 @@
     <string name="hide_track">Route verbergen</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Route tonen</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Schakel in</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -922,4 +923,14 @@
     <string name="color_picker_grid">Raster</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Zoeken met spraak</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Terrein met kaarten downloaden</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Reliëfschaduw, hoogtelijnen en zeediepten. Het terrein van een regio wordt samen met de kaart gedownload, bijgewerkt en verwijderd.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Ook de gedownloade terreingegevens (%s) verwijderen?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Behouden</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Het downloaden van terrein met kaarten staat uit. Inschakelen om hier hoogtelijnen te zien?</string>
 </resources>

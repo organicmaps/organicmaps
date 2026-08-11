@@ -754,8 +754,7 @@
     <string name="religious_places">Trúarlegir staðir</string>
     <string name="select_list">Veldu lista</string>
     <string name="button_layer_isolines">Hæðarlínur</string>
-    <string name="isolines_activation_error_dialog">Til að virkja hæðarlínur þarf að sækja kortagögn fyrir þetta svæði</string>
-    <string name="isolines_location_error_dialog">Hæðarlínur eru ennþá ekki tiltækar á þessu svæði</string>
+    <string name="isolines_location_error_dialog">Uppfærðu þetta svæði til að sjá hæðarlínur</string>
     <string name="elevation_profile_ascent">Hækkun</string>
     <string name="elevation_profile_descent">Lækkun</string>
     <string name="elevation_profile_min_elevation">Lágm.hæð</string>
@@ -890,6 +889,8 @@
     <string name="delete_track_dialog_title">Eyða %s?</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Breyta lit</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Virkja</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -918,4 +919,14 @@
     <string name="color_picker_grid">Rist</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Raddaleit</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Sækja landslag ásamt kortum</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Hæðarskygging, hæðarlínur og sjávardýpt. Landslag svæðis er sótt, uppfært og fjarlægt ásamt korti þess.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Eyða einnig sóttum landslagsgögnum (%s)?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Halda</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Slökkt er á niðurhali landslags með kortum. Viltu kveikja á því til að sjá hæðarlínur hér?</string>
 </resources>

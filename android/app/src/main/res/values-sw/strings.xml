@@ -742,8 +742,7 @@
     <string name="religious_places">Sehemu za ibada</string>
     <string name="select_list">Chagua orodha</string>
     <string name="button_layer_isolines">Topografia</string>
-    <string name="isolines_activation_error_dialog">Kuamilisha na kutumia tabaka la nchi tafadhali sasisha au pakua ramani ya eneo hilo</string>
-    <string name="isolines_location_error_dialog">Mistari ya mwinuko bado haipatikani katika eneo hili</string>
+    <string name="isolines_location_error_dialog">Sasisha eneo hili ili kuona mistari ya mwinuko</string>
     <string name="elevation_profile_ascent">Upandaji</string>
     <string name="elevation_profile_descent">Ushukaji</string>
     <string name="elevation_profile_min_elevation">Min. mwinuko</string>
@@ -872,6 +871,8 @@
     <string name="hide_track">Ficha njia</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Onyesha njia</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Wezesha</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -900,4 +901,14 @@
     <string name="color_picker_grid">Grid</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Utafutaji kwa sauti</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Pakua umbo la ardhi pamoja na ramani</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Vivuli vya milima, mistari ya mwinuko na kina cha bahari. Umbo la ardhi la eneo hupakuliwa, husasishwa na hufutwa pamoja na ramani yake.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Je, ungependa pia kufuta data ya ardhi iliyopakuliwa (%s)?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Hifadhi</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Upakuaji wa umbo la ardhi pamoja na ramani umezimwa. Uwashe ili kuona mistari ya mwinuko hapa?</string>
 </resources>

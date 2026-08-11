@@ -932,8 +932,7 @@
 "dialog_pedestrian_route_is_long_header" = "Ma nstabet l-ebda rotta tas-subway";
 "dialog_pedestrian_route_is_long_message" = "Agħżel punt tal-bidu jew tat-tmiem eqreb lejn stazzjon tas-subway";
 "button_layer_isolines" = "Linji tal-Contour";
-"isolines_activation_error_dialog" = "L-attivazzjoni tal-linji tal-contour teħtieġ it-tniżżil tad-dejta tal-mappa għal din iż-żona";
-"isolines_location_error_dialog" = "Il-linji tal-Contour għadhom mhumiex disponibbli f ’din iż-żona";
+"isolines_location_error_dialog" = "Aġġorna din iż-żona biex tara l-linji tal-kontorn";
 "elevation_profile_ascent" = "Tlugħ";
 "elevation_profile_descent" = "Inżul";
 "elevation_profile_min_elevation" = "Elevazzjoni minima";
@@ -1086,7 +1085,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Jekk jogħġbok,attiva l-iCloud fl-issettjar tal-apparat tiegħek biex tuża din il-karatteristika.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Attiva";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1183,3 +1182,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Il-kulur tat-tracks inbidel";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Niżżel it-terren bil-mapep";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Sfumatura tal-għoljiet, linji tal-kontorn u fond tal-baħar. It-terren ta’ reġjun jitniżżel, jiġi aġġornat u jitħassar flimkien mal-mappa tiegħu.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Ħassar ukoll id-dejta tat-terren imniżżla (%@)?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Żomm";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "It-tniżżil tat-terren bil-mapep huwa mitfi. Trid tixgħel din l-għażla biex tara l-linji tal-kontorn hawn?";

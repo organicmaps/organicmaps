@@ -932,8 +932,7 @@
 "dialog_pedestrian_route_is_long_header" = "未找到地铁路线图";
 "dialog_pedestrian_route_is_long_message" = "选择地铁站附近的起点和终点";
 "button_layer_isolines" = "等高线";
-"isolines_activation_error_dialog" = "如需使用等高线，请更新或下载所需区域的地图";
-"isolines_location_error_dialog" = "暂时无法获取该地区的等高线";
+"isolines_location_error_dialog" = "更新该地区以查看等高线";
 "elevation_profile_ascent" = "上坡";
 "elevation_profile_descent" = "下坡";
 "elevation_profile_min_elevation" = "最低高度";
@@ -1086,7 +1085,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "请在您的设备设置中启用 iCloud，以使用此功能。";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "启用";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1183,3 +1182,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "轨迹颜色已更改";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "随地图一同下载地形数据";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "山体阴影、等高线和水深。地区的地形数据会随其地图一同下载、更新和删除。";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "是否同时删除已下载的地形数据（%@）？";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "保留";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "随地图下载地形数据的功能已关闭。要开启该功能以在此处查看等高线吗？";

@@ -748,8 +748,7 @@
     <string name="religious_places">Plekke van aanbidding</string>
     <string name="select_list">Kies lys</string>
     <string name="button_layer_isolines">Kontoerlyne</string>
-    <string name="isolines_activation_error_dialog">Om kontoerlyne te aktiveer moet u kaartdata vir hierdie area aflaai</string>
-    <string name="isolines_location_error_dialog">Die kontoerlyne is nog nie in hierdie area beskikbaar nie</string>
+    <string name="isolines_location_error_dialog">Werk hierdie area by om kontoerlyne te sien</string>
     <string name="elevation_profile_ascent">Styging</string>
     <string name="elevation_profile_descent">Daling</string>
     <string name="elevation_profile_min_elevation">Min. hoogte</string>
@@ -880,6 +879,8 @@
     <string name="hide_track">Versteek roete</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Wys roete</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Aktiveer</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -908,4 +909,14 @@
     <string name="color_picker_grid">Rooster</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Stemsoektog</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Laai terrein saam met kaarte af</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Reliëfskaduwee, kontoerlyne en seediepte. Die terrein van ’n streek word saam met sy kaart afgelaai, bygewerk en geskrap.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Skrap ook die afgelaaide terreindata (%s)?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Behou</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Die aflaai van terrein saam met kaarte is afgeskakel. Skakel dit aan om hier kontoerlyne te sien?</string>
 </resources>

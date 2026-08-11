@@ -932,8 +932,7 @@
 "dialog_pedestrian_route_is_long_header" = "Metro marşrutu tapılmadı";
 "dialog_pedestrian_route_is_long_message" = "Metro stansiyasına ən yaxın marşrutun başlanğıc və ya bitmə nöqtəsini seçin";
 "button_layer_isolines" = "Ərazi";
-"isolines_activation_error_dialog" = "Ərazi qatını aktivləşdirmək və istifadə etmək üçün xəritəni yeniləyin və ya endirin";
-"isolines_location_error_dialog" = "Bu bölgədə relyef təbəqəsi hələ mövcud deyil";
+"isolines_location_error_dialog" = "Kontur xətlərini görmək üçün bu bölgəni yeniləyin";
 "elevation_profile_ascent" = "Qalxmaq";
 "elevation_profile_descent" = "Eniş";
 "elevation_profile_min_elevation" = "Min. hündürlük";
@@ -1086,7 +1085,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Bu funksiyadan istifadə etmək üçün cihazınızın parametrlərində iCloud-u aktiv edin.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Aktivləşdirin";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1183,3 +1182,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Treklərin rəngi dəyişdirildi";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Relyefi xəritələrlə birlikdə yükləyin";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Relyef kölgələndirməsi, kontur xətləri və dəniz dərinlikləri. Bölgənin relyefi xəritəsi ilə birlikdə endirilir, yenilənir və silinir.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Endirilmiş relyef məlumatları (%@) da silinsin?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Saxla";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Relyefin xəritələrlə birlikdə endirilməsi deaktivdir. Burada kontur xətlərini görmək üçün aktivləşdirilsin?";

@@ -932,8 +932,7 @@
 "dialog_pedestrian_route_is_long_header" = "Không tìm thấy tuyến Metro";
 "dialog_pedestrian_route_is_long_message" = "Hãy chọn điểm đầu hoặc điểm cuối của tuyến gần với bến Metro";
 "button_layer_isolines" = "Độ cao";
-"isolines_activation_error_dialog" = "Để sử dụng các đường chỉ độ cao, hãy cập nhật hoặc tải xuống bản đồ của khu vực bạn mong muốn";
-"isolines_location_error_dialog" = "Đường hiển thị độ cao hiện chưa khả dụng tại khu vực này";
+"isolines_location_error_dialog" = "Cập nhật khu vực này để xem các đường đồng mức";
 "elevation_profile_ascent" = "Đi lên";
 "elevation_profile_descent" = "Đi xuống";
 "elevation_profile_min_elevation" = "Min. độ cao";
@@ -1086,7 +1085,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Vui lòng bật iCloud trong cài đặt thiết bị của bạn để sử dụng tính năng này.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Cho phép";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1183,3 +1182,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Màu tuyến đường đã thay đổi";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Tải xuống địa hình kèm bản đồ";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Đổ bóng địa hình, đường đồng mức và độ sâu biển. Địa hình của một khu vực được tải xuống, cập nhật và xóa cùng với bản đồ của khu vực đó.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Xóa luôn dữ liệu địa hình đã tải xuống (%@)?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Giữ lại";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Tính năng tải xuống địa hình kèm bản đồ đang tắt. Bật lên để xem đường đồng mức tại đây?";

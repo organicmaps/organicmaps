@@ -932,8 +932,7 @@
 "dialog_pedestrian_route_is_long_header" = "Keine U-Bahn-Route gefunden";
 "dialog_pedestrian_route_is_long_message" = "Bitte wähle einen Start- oder Zielpunkt, der näher an einer U-Bahn-Station liegt";
 "button_layer_isolines" = "Höhenlinien";
-"isolines_activation_error_dialog" = "Um die Höhenlinien nutzen zu können, aktualisiere die Karte des betreffenden Gebiets oder lade diese herunter";
-"isolines_location_error_dialog" = "Höhenlinien sind für dieses Gebiet noch nicht verfügbar";
+"isolines_location_error_dialog" = "Aktualisiere diese Region, um Höhenlinien zu sehen";
 "elevation_profile_ascent" = "Bergauf";
 "elevation_profile_descent" = "Bergab";
 "elevation_profile_min_elevation" = "Min. Höhe";
@@ -1086,7 +1085,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Bitte aktiviere iCloud in den Einstellungen deines Geräts, um diese Funktion zu nutzen.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Aktivieren";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1183,3 +1182,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Trackfarbe geändert";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Gelände mit Karten herunterladen";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Geländeschattierung, Höhenlinien und Meerestiefen. Das Gelände einer Region wird zusammen mit ihrer Karte heruntergeladen, aktualisiert und gelöscht.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Auch die heruntergeladenen Geländedaten (%@) löschen?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Behalten";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Das Herunterladen von Gelände mit Karten ist deaktiviert. Jetzt aktivieren, um hier Höhenlinien zu sehen?";

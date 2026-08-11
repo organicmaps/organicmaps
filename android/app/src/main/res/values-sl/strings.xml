@@ -757,8 +757,7 @@
     <string name="religious_places">Verski kraji</string>
     <string name="select_list">Izberite seznam</string>
     <string name="button_layer_isolines">Plastnice</string>
-    <string name="isolines_activation_error_dialog">Aktiviranje plastnic zahteva prenos podatkov zemljevida za to območje</string>
-    <string name="isolines_location_error_dialog">Plastnice na tem območju še niso na voljo</string>
+    <string name="isolines_location_error_dialog">Posodobite to območje, da vidite plastnice</string>
     <string name="elevation_profile_ascent">Vzpon</string>
     <string name="elevation_profile_descent">Spust</string>
     <string name="elevation_profile_min_elevation">Min. višina</string>
@@ -891,6 +890,8 @@
     <string name="delete_track_dialog_title">Izbrišem %s?</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Spremeni barvo</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Omogoči</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -919,4 +920,14 @@
     <string name="color_picker_grid">Mreža</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Glasovno iskanje</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Prenesi teren z zemljevidi</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Senčenje reliefa, plastnice in globine morja. Teren regije se prenese, posodobi in izbriše skupaj z njenim zemljevidom.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Ali naj izbrišem tudi prenesene podatke o terenu (%s)?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Ohrani</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Prenos terena z zemljevidi je izklopljen. Ali ga želite vklopiti, da bi tukaj videli plastnice?</string>
 </resources>

@@ -932,8 +932,7 @@
 "dialog_pedestrian_route_is_long_header" = "Trasa metra sa nenašla";
 "dialog_pedestrian_route_is_long_message" = "Vyberte počiatočný alebo konečný bod bližšie k stanici metra";
 "button_layer_isolines" = "Terén";
-"isolines_activation_error_dialog" = "Ak chcete aktivovať a používať topografickú vrstvu, aktualizujte alebo stiahnite mapu oblasti";
-"isolines_location_error_dialog" = "Topografická vrstva ešte nie je v tejto oblasti k dispozícii";
+"isolines_location_error_dialog" = "Aktualizujte túto oblasť, aby ste videli vrstevnice";
 "elevation_profile_ascent" = "Stúpanie";
 "elevation_profile_descent" = "Klesanie";
 "elevation_profile_min_elevation" = "Min. výška";
@@ -1086,7 +1085,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Ak chcete túto funkciu používať, povoľte iCloud v nastaveniach zariadenia.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Povoliť";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1183,3 +1182,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Farba trás bola zmenená";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Stiahnuť terén s mapami";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Tieňovanie terénu, vrstevnice a hĺbky mora. Terén regiónu sa sťahuje, aktualizuje a maže spolu s jeho mapou.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Zmazať aj stiahnuté údaje o teréne (%@)?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Ponechať";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Sťahovanie terénu s mapami je vypnuté. Zapnúť ho, aby ste tu videli vrstevnice?";

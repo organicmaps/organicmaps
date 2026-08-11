@@ -751,8 +751,7 @@
     <string name="religious_places">धार्मिक स्थळ</string>
     <string name="select_list">यादी निवडा</string>
     <string name="button_layer_isolines">भूप्रदेश</string>
-    <string name="isolines_activation_error_dialog">भूस्वरूप स्तर वापरण्यासाठी कृपया नकाशा डाउनलोड किंवा अद्ययावत करा</string>
-    <string name="isolines_location_error_dialog">या भागात भूस्वरूप स्तर अद्याप उपलब्ध नाही</string>
+    <string name="isolines_location_error_dialog">समोच्च रेषा पाहण्यासाठी हा भाग अपडेट करा</string>
     <string name="elevation_profile_ascent">चढण</string>
     <string name="elevation_profile_descent">उतरण</string>
     <string name="elevation_profile_min_elevation">किमान उंची</string>
@@ -883,6 +882,8 @@
     <string name="hide_track">मार्ग लपवा</string>
     <!-- Text for the showing track. -->
     <string name="show_track">मार्ग दाखवा</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">सक्षम करा</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -911,4 +912,14 @@
     <string name="color_picker_grid">ग्रिड</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">व्हॉइस सर्च</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">नकाशांसोबत भूभाग डाउनलोड करा</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">टेकड्यांचे छायांकन, समोच्च रेषा आणि समुद्राची खोली. प्रदेशाचा भूभाग त्याच्या नकाशासोबतच डाउनलोड, अद्ययावत आणि हटवला जातो.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">डाउनलोड केलेला भूभाग डेटा (%s) देखील हटवायचा का?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">ठेवा</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">नकाशांसोबत भूभाग डाउनलोड करणे बंद आहे. येथे समोच्च रेषा पाहण्यासाठी ते चालू करायचे का?</string>
 </resources>

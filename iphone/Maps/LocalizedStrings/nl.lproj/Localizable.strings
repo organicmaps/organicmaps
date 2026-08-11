@@ -932,8 +932,7 @@
 "dialog_pedestrian_route_is_long_header" = "Geen metroroute gevonden";
 "dialog_pedestrian_route_is_long_message" = "Kies een begin- of eindpunt dichter bij het metrostation";
 "button_layer_isolines" = "Contourlijnen";
-"isolines_activation_error_dialog" = "Als u gebruik wilt maken van hoogtelijnen, moet u de kaart van het gewenste gebied bijwerken of downloaden";
-"isolines_location_error_dialog" = "Hoogtelijnen zijn nog niet beschikbaar in deze regio";
+"isolines_location_error_dialog" = "Werk deze regio bij om hoogtelijnen te zien";
 "elevation_profile_ascent" = "Stijging";
 "elevation_profile_descent" = "Daling";
 "elevation_profile_min_elevation" = "Min. hoogte";
@@ -1086,7 +1085,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Schakel iCloud in bij de instellingen van je apparaat om deze functie te gebruiken.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Schakel in";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1183,3 +1182,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Trackkleur gewijzigd";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Terrein met kaarten downloaden";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Reliëfschaduw, hoogtelijnen en zeediepten. Het terrein van een regio wordt samen met de kaart gedownload, bijgewerkt en verwijderd.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Ook de gedownloade terreingegevens (%@) verwijderen?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Behouden";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Het downloaden van terrein met kaarten staat uit. Inschakelen om hier hoogtelijnen te zien?";
