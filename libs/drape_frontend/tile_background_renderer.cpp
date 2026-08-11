@@ -13,13 +13,32 @@ namespace
 // Max number of refcount==0 images kept alive in the LRU before their texture slots are recycled.
 constexpr size_t kMaxUnreferencedImages = 16;
 
+// Background tiles live on their own grid at the true zoom, not on the vector data grid, so their
+// rects must never be clipped by the max data zoom — doing so would compute a data-zoom-sized rect
+// from true-zoom tile coords.
+constexpr bool kClipByDataMaxZoom = false;
+
 // A tile is "wanted" iff it is in the current coverage rect at the current zoom. Background tiles
 // are keyed solely by (x, y, zoom) — there is no generation — so the viewport coverage is the single
 // source of truth; we don't consult the vector pipeline's |tilesToDelete|.
-bool IsInCoverage(TileKey const & tileKey, CoverageResult const & coverage, int currentZoomLevel)
+bool IsInCoverage(TileKey const & tileKey, CoverageResult const & coverage, uint8_t zoomLevel)
 {
-  return static_cast<int>(tileKey.m_zoomLevel) == currentZoomLevel && tileKey.m_x >= coverage.m_minTileX &&
-         tileKey.m_x < coverage.m_maxTileX && tileKey.m_y >= coverage.m_minTileY && tileKey.m_y < coverage.m_maxTileY;
+  return tileKey.m_zoomLevel == zoomLevel && tileKey.m_x >= coverage.m_minTileX && tileKey.m_x < coverage.m_maxTileX &&
+         tileKey.m_y >= coverage.m_minTileY && tileKey.m_y < coverage.m_maxTileY;
+}
+
+// Global rect spanned by the coverage at the given zoom. Retained tiles come from another zoom
+// level, so they can only be tested against the viewport geometrically.
+m2::RectD CalcCoverageRect(CoverageResult const & coverage, uint8_t zoomLevel)
+{
+  if (zoomLevel == TileKey::kNoZoom || coverage.m_minTileX >= coverage.m_maxTileX ||
+      coverage.m_minTileY >= coverage.m_maxTileY)
+    return {};
+
+  auto const minRect = TileKey(coverage.m_minTileX, coverage.m_minTileY, zoomLevel).GetGlobalRect(kClipByDataMaxZoom);
+  auto const maxRect =
+      TileKey(coverage.m_maxTileX - 1, coverage.m_maxTileY - 1, zoomLevel).GetGlobalRect(kClipByDataMaxZoom);
+  return m2::RectD(minRect.minX(), minRect.minY(), maxRect.maxX(), maxRect.maxY());
 }
 }  // namespace
 
@@ -46,8 +65,9 @@ TileBackgroundRenderer::TileBackgroundRenderer(
 }
 
 void TileBackgroundRenderer::OnUpdateViewport(ref_ptr<dp::GraphicsContext> context, CoverageResult const & coverage,
-                                              int currentZoomLevel)
+                                              uint8_t currentZoomLevel)
 {
+  uint8_t const prevZoomLevel = m_lastCurrentZoomLevel;
   m_lastCoverage = coverage;
   m_lastCurrentZoomLevel = currentZoomLevel;
   if (m_currentMode == dp::BackgroundMode::Default)
@@ -56,23 +76,29 @@ void TileBackgroundRenderer::OnUpdateViewport(ref_ptr<dp::GraphicsContext> conte
   if (context == nullptr)
     return;
 
+  // Refilling a zoom level is asynchronous (read -> decode -> upload -> bind), so dropping the level
+  // we are leaving right here would blank the layer for the whole round trip. Keep it as a fallback
+  // underneath the new level instead, and retire it only once the new one has finished loading.
+  //
+  // The level we are leaving takes over as the fallback only if it covers at least as much of the
+  // new viewport as the incumbent does. A pinch crossing several levels abandons each one part
+  // loaded, and a level holding a tile or two would otherwise displace a complete one and uncover
+  // the rest of the screen. Comparing coverage rather than demanding a complete level also keeps
+  // the best available layer when nothing covers the viewport fully — after a pan with reads still
+  // in flight, or a zoom out onto ground no level has ever loaded.
+  if (currentZoomLevel != prevZoomLevel)
+  {
+    auto const viewportRect = CalcCoverageRect(coverage, currentZoomLevel);
+    if (CoveredFraction(prevZoomLevel, viewportRect) >= CoveredFraction(m_fallbackZoomLevel, viewportRect))
+      m_fallbackZoomLevel = prevZoomLevel;
+    if (m_fallbackZoomLevel == currentZoomLevel)
+      m_fallbackZoomLevel = TileKey::kNoZoom;  // zoomed back onto it: it is the current level again
+  }
+
   // Keep background state tied to the current viewport. Sweep both awaiting reads and live bindings
   // so tiles that scrolled out of the coverage are cancelled / released (their image refcounts fall
   // back into the unreferenced LRU), regardless of how the viewport changed.
   for (auto it = m_awaitingTiles.begin(); it != m_awaitingTiles.end();)
-  {
-    if (IsInCoverage(*it, coverage, currentZoomLevel))
-    {
-      ++it;
-      continue;
-    }
-
-    TileKey const tileKey = *it;
-    it = m_awaitingTiles.erase(it);
-    m_cancelTileBackgroundReadingFn(tileKey, m_currentMode);
-  }
-
-  for (auto it = m_tiles.begin(); it != m_tiles.end();)
   {
     if (IsInCoverage(it->first, coverage, currentZoomLevel))
     {
@@ -80,9 +106,29 @@ void TileBackgroundRenderer::OnUpdateViewport(ref_ptr<dp::GraphicsContext> conte
       continue;
     }
 
-    TileKey const tileKey = it->first;
-    ++it;
-    ReleaseTileBinding(context, tileKey);
+    TileKey const tileKey(it->first, it->second, 0 /* userMarksGeneration */);
+    it = m_awaitingTiles.erase(it);
+    m_cancelTileBackgroundReadingFn(tileKey, m_currentMode);
+  }
+
+  // Bindings are kept if they belong to the current level and coverage, or to the single retained
+  // fallback level and still overlap the viewport. Everything else (older levels, tiles scrolled
+  // away) is released, which bounds the layer to at most two levels at any time.
+  m2::RectD const coverageRect =
+      m_fallbackZoomLevel != TileKey::kNoZoom ? CalcCoverageRect(coverage, currentZoomLevel) : m2::RectD();
+  for (auto it = m_tiles.begin(); it != m_tiles.end();)
+  {
+    TileKey const & tileKey = it->first;
+    if (IsInCoverage(tileKey, coverage, currentZoomLevel) ||
+        (tileKey.m_zoomLevel == m_fallbackZoomLevel &&
+         tileKey.GetGlobalRect(kClipByDataMaxZoom).IsIntersect(coverageRect)))
+    {
+      ++it;
+      continue;
+    }
+
+    ReleaseImageRef(context, it->second.m_imageUid);
+    it = m_tiles.erase(it);
   }
 
   // Request tile background reading for new tiles in the coverage area.
@@ -98,11 +144,98 @@ void TileBackgroundRenderer::OnUpdateViewport(ref_ptr<dp::GraphicsContext> conte
   {
     for (int y = coverage.m_minTileY; y < coverage.m_maxTileY; ++y)
     {
-      TileKey const key(x, y, static_cast<uint8_t>(currentZoomLevel));
-      if (m_tiles.count(key) == 0 && m_awaitingTiles.count(key) == 0 && m_tileBackgroundReadFn(key, m_currentMode))
-        m_awaitingTiles.insert(key);
+      TileKey const key(x, y, currentZoomLevel);
+      if (m_tiles.count(key) != 0 || m_awaitingTiles.count(key) != 0)
+        continue;
+
+      TileKey const requestKey(key, ++m_nextRequestGeneration, 0 /* userMarksGeneration */);
+      if (m_tileBackgroundReadFn(requestKey, m_currentMode))
+        m_awaitingTiles.emplace(key, requestKey.m_generation);
     }
   }
+
+  TrimUnreferencedImages(context);
+
+  // Nothing was requested (all bound already, or the provider declined the whole viewport) — then
+  // the current level is as complete as it will get and the fallback has nothing left to cover.
+  RetireFallbackIfReady(context);
+}
+
+double TileBackgroundRenderer::CoveredFraction(uint8_t zoomLevel, m2::RectD const & viewportRect) const
+{
+  double const viewportArea = viewportRect.SizeX() * viewportRect.SizeY();
+  if (zoomLevel == TileKey::kNoZoom || viewportArea <= 0.0)
+    return 0.0;
+
+  // Tiles of one level are a non-overlapping grid, so the covered area is just the sum of their
+  // intersections with the viewport. Walking the bindings (a screenful) rather than the viewport's
+  // tile range at |zoomLevel| matters: that range grows 4x per level of distance, so a large zoom
+  // jump would enumerate millions of tiles to answer the same question.
+  double covered = 0.0;
+  for (auto const & tile : m_tiles)
+  {
+    if (tile.first.m_zoomLevel != zoomLevel)
+      continue;
+
+    auto const r = tile.first.GetGlobalRect(kClipByDataMaxZoom);
+    double const w = std::min(r.maxX(), viewportRect.maxX()) - std::max(r.minX(), viewportRect.minX());
+    double const h = std::min(r.maxY(), viewportRect.maxY()) - std::max(r.minY(), viewportRect.minY());
+    if (w > 0.0 && h > 0.0)
+      covered += w * h;
+  }
+  return covered / viewportArea;
+}
+
+bool TileBackgroundRenderer::IsCoveredByCurrentZoom(TileKey const & tileKey) const
+{
+  int const zoomDiff = static_cast<int>(m_lastCurrentZoomLevel) - static_cast<int>(tileKey.m_zoomLevel);
+  if (zoomDiff == 0)
+    return false;
+
+  if (zoomDiff < 0)
+  {
+    // The tile is finer than the current level: hidden iff its ancestor cell is bound.
+    // Right shift of a negative coordinate is arithmetic (floor), which matches the tile grid.
+    int const k = -zoomDiff;
+    return m_tiles.count(TileKey(tileKey.m_x >> k, tileKey.m_y >> k, m_lastCurrentZoomLevel)) > 0;
+  }
+
+  // The tile is coarser than the current level: every cell inside both the tile and the coverage
+  // must be bound. Cells outside the coverage lie beyond the inflated viewport and cannot be seen,
+  // so they are not required; the iteration is thereby bounded by the coverage size (a screenful)
+  // no matter how far apart the zoom levels are.
+  int const cells = 1 << zoomDiff;
+  int const minX = std::max(tileKey.m_x * cells, m_lastCoverage.m_minTileX);
+  int const maxX = std::min((tileKey.m_x + 1) * cells, m_lastCoverage.m_maxTileX);
+  int const minY = std::max(tileKey.m_y * cells, m_lastCoverage.m_minTileY);
+  int const maxY = std::min((tileKey.m_y + 1) * cells, m_lastCoverage.m_maxTileY);
+  for (int x = minX; x < maxX; ++x)
+    for (int y = minY; y < maxY; ++y)
+      if (m_tiles.count(TileKey(x, y, m_lastCurrentZoomLevel)) == 0)
+        return false;
+  return true;
+}
+
+void TileBackgroundRenderer::RetireFallbackIfReady(ref_ptr<dp::GraphicsContext> context)
+{
+  // The awaiting set contains only current-level coverage tiles (the viewport sweep cancels the
+  // rest). The fallback retires after the current coverage has no unresolved request.
+  if (m_fallbackZoomLevel == TileKey::kNoZoom || !m_awaitingTiles.empty())
+    return;
+
+  for (auto it = m_tiles.begin(); it != m_tiles.end();)
+  {
+    if (it->first.m_zoomLevel == m_fallbackZoomLevel)
+    {
+      ReleaseImageRef(context, it->second.m_imageUid);
+      it = m_tiles.erase(it);
+    }
+    else
+    {
+      ++it;
+    }
+  }
+  m_fallbackZoomLevel = TileKey::kNoZoom;
 }
 
 void TileBackgroundRenderer::AssignTileBackgroundImage(ref_ptr<dp::GraphicsContext> context, std::string const & uid,
@@ -128,19 +261,7 @@ void TileBackgroundRenderer::AssignTileBackgroundImage(ref_ptr<dp::GraphicsConte
 
   m_images.emplace(uid, ImageInfo{texturePool, textureId, mode, 0});
   m_unreferencedLRU.push_back(uid);
-
-  // Recycle the oldest unreferenced image if the LRU is over budget.
-  while (m_unreferencedLRU.size() > kMaxUnreferencedImages)
-  {
-    auto const & oldest = m_unreferencedLRU.front();
-    auto it = m_images.find(oldest);
-    if (it != m_images.end())
-    {
-      it->second.m_texturePool->ReleaseTexture(context, it->second.m_textureId);
-      m_images.erase(it);
-    }
-    m_unreferencedLRU.pop_front();
-  }
+  TrimUnreferencedImages(context);
 }
 
 void TileBackgroundRenderer::SetTileBackgroundData(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
@@ -149,54 +270,68 @@ void TileBackgroundRenderer::SetTileBackgroundData(ref_ptr<dp::GraphicsContext> 
   if (context == nullptr)
     return;
 
-  m_awaitingTiles.erase(tileKey);
+  // TileKey's standard hash includes geometry generations while operator== intentionally does not.
+  // Background maps are coordinate-keyed, so always use a generation-free key for their lookup.
+  TileKey const coordKey(tileKey.m_x, tileKey.m_y, tileKey.m_zoomLevel);
+  auto const awaitingIt = m_awaitingTiles.find(coordKey);
+  if (awaitingIt == m_awaitingTiles.end() || awaitingIt->second != tileKey.m_generation)
+    return;  // Completion of a cancelled/replaced request.
+  m_awaitingTiles.erase(awaitingIt);
+
+  // An empty uid is a terminal read result (HTTP error, timeout, undecodable content). The tile
+  // stays unbound and becomes requestable on the next viewport update.
+  if (imageUid.empty())
+  {
+    TrimUnreferencedImages(context);
+    RetireFallbackIfReady(context);
+    return;
+  }
 
   // The provider is asynchronous: a placeholder/final result may arrive after the tile was swept
   // from the viewport. Use the same visible-tile predicate as the viewport update (it also covers
   // the zoom check) so clipped tiles are not resurrected after cancellation.
   if (!IsInCoverage(tileKey, m_lastCoverage, m_lastCurrentZoomLevel))
+  {
+    TrimUnreferencedImages(context);
     return;
+  }
 
   auto imageIt = m_images.find(imageUid);
   if (imageIt == m_images.end())
   {
-    LOG(LWARNING, ("SetTileBackgroundData: unknown image uid", imageUid, "for tile", tileKey.Coord2String()));
+    LOG(LWARNING, ("Unknown image uid", imageUid, "for tile", tileKey.Coord2String()));
+    TrimUnreferencedImages(context);
     return;
   }
 
   // Image must match the current background mode.
   if (imageIt->second.m_mode != m_currentMode)
+  {
+    TrimUnreferencedImages(context);
     return;
+  }
 
   // If the tile was already bound, release the previous image first.
-  auto tileIt = m_tiles.find(tileKey);
+  auto tileIt = m_tiles.find(coordKey);
   if (tileIt != m_tiles.end())
   {
     if (tileIt->second.m_imageUid == imageUid)
     {
       tileIt->second.m_rect = rect;
+      TrimUnreferencedImages(context);
+      RetireFallbackIfReady(context);
       return;
     }
     ReleaseImageRef(context, tileIt->second.m_imageUid);
   }
 
-  m_tiles[tileKey] = TileBinding{imageUid, rect};
+  m_tiles[coordKey] = TileBinding{imageUid, rect};
   AcquireImageRef(imageUid);
+  TrimUnreferencedImages(context);
 
-  // Drop any tile bindings for stale zoom levels (mirrors the prior behavior).
-  auto it = m_tiles.begin();
-  while (it != m_tiles.end())
-  {
-    if (it->first.m_zoomLevel != tileKey.m_zoomLevel)
-    {
-      ReleaseImageRef(context, it->second.m_imageUid);
-      it = m_tiles.erase(it);
-    }
-    else
-    {
-      ++it;
-    }
-  }
+  // Keep the fallback until the current level has resolved every requested tile, so a partially
+  // delivered level never uncovers the rest of the viewport.
+  RetireFallbackIfReady(context);
 }
 
 void TileBackgroundRenderer::AcquireImageRef(std::string const & uid)
@@ -221,32 +356,33 @@ void TileBackgroundRenderer::ReleaseImageRef(ref_ptr<dp::GraphicsContext> contex
   if (--it->second.m_refCount == 0)
   {
     m_unreferencedLRU.push_back(uid);
-    while (m_unreferencedLRU.size() > kMaxUnreferencedImages)
-    {
-      auto const & oldest = m_unreferencedLRU.front();
-      auto oldestIt = m_images.find(oldest);
-      if (oldestIt != m_images.end())
-      {
-        oldestIt->second.m_texturePool->ReleaseTexture(context, oldestIt->second.m_textureId);
-        m_images.erase(oldestIt);
-      }
-      m_unreferencedLRU.pop_front();
-    }
+    TrimUnreferencedImages(context);
   }
 }
 
-void TileBackgroundRenderer::ReleaseTileBinding(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey)
+void TileBackgroundRenderer::TrimUnreferencedImages(ref_ptr<dp::GraphicsContext> context)
 {
-  auto it = m_tiles.find(tileKey);
-  if (it == m_tiles.end())
+  // AssignTileBackgroundImage and SetTileBackgroundData travel as separate messages. Keep all
+  // unreferenced images while any request is awaiting its Set message; otherwise a burst of
+  // completions can evict an image that is about to be bound.
+  if (!m_awaitingTiles.empty())
     return;
 
-  ReleaseImageRef(context, it->second.m_imageUid);
-  m_tiles.erase(it);
+  while (m_unreferencedLRU.size() > kMaxUnreferencedImages)
+  {
+    auto const & oldest = m_unreferencedLRU.front();
+    auto it = m_images.find(oldest);
+    if (it != m_images.end())
+    {
+      it->second.m_texturePool->ReleaseTexture(context, it->second.m_textureId);
+      m_images.erase(it);
+    }
+    m_unreferencedLRU.pop_front();
+  }
 }
 
 void TileBackgroundRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                                    ScreenBase const & screen, int zoomLevel, FrameValues const & frameValues)
+                                    ScreenBase const & screen, FrameValues const & frameValues)
 {
   if (m_currentMode == dp::BackgroundMode::Default)
     return;
@@ -262,7 +398,12 @@ void TileBackgroundRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_pt
   m_sortedTiles.reserve(m_tiles.size());
   for (auto const & [tileKey, binding] : m_tiles)
   {
-    if (!screen.ClipRect().IsIntersect(tileKey.GetGlobalRect()))
+    if (!screen.ClipRect().IsIntersect(tileKey.GetGlobalRect(kClipByDataMaxZoom)))
+      continue;
+    // A fallback tile completely hidden behind the current level must not be drawn: partially
+    // transparent imagery would composite twice (the map below would darken), and opaque imagery
+    // is pure overdraw. Partially covered fallback tiles still draw beneath the current level.
+    if (tileKey.m_zoomLevel != m_lastCurrentZoomLevel && IsCoveredByCurrentZoom(tileKey))
       continue;
     auto imgIt = m_images.find(binding.m_imageUid);
     if (imgIt == m_images.end())
@@ -272,8 +413,16 @@ void TileBackgroundRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_pt
   if (m_sortedTiles.empty())
     return;
 
-  std::sort(m_sortedTiles.begin(), m_sortedTiles.end(), [](DrawEntry const & lhs, DrawEntry const & rhs)
+  std::sort(m_sortedTiles.begin(), m_sortedTiles.end(), [this](DrawEntry const & lhs, DrawEntry const & rhs)
   {
+    // Depth testing is off, so draw order is what composites the levels: the retained fallback must
+    // go underneath the current level, which is authoritative. Ordering by texture alone would let
+    // stale tiles land on top of the tiles that replace them.
+    bool const lhsCurrent = lhs.m_tileKey.m_zoomLevel == m_lastCurrentZoomLevel;
+    bool const rhsCurrent = rhs.m_tileKey.m_zoomLevel == m_lastCurrentZoomLevel;
+    if (lhsCurrent != rhsCurrent)
+      return rhsCurrent;
+
     auto const lhsTex = lhs.m_image->m_texturePool->GetTexture(lhs.m_image->m_textureId);
     auto const rhsTex = rhs.m_image->m_texturePool->GetTexture(rhs.m_image->m_textureId);
     if (lhsTex == rhsTex)
@@ -287,7 +436,7 @@ void TileBackgroundRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_pt
   for (size_t i = 0; i < m_sortedTiles.size(); ++i)
   {
     auto const & entry = m_sortedTiles[i];
-    auto const r = entry.m_tileKey.GetGlobalRect();
+    auto const r = entry.m_tileKey.GetGlobalRect(kClipByDataMaxZoom);
     auto const minR = (m2::PointD(r.minX(), r.minY()) - pivot);
     auto const maxR = (m2::PointD(r.maxX(), r.maxY()) - pivot);
     m_programParams.m_tileCoordsMinMax[instanceIndex] = glsl::vec4(
@@ -341,8 +490,8 @@ void TileBackgroundRenderer::ClearContextDependentResources(ref_ptr<dp::Graphics
   CHECK(context != nullptr, ());
 
   // Cancel awaiting tile background reading requests for the previous mode.
-  for (auto const & tileKey : m_awaitingTiles)
-    m_cancelTileBackgroundReadingFn(tileKey, m_currentMode);
+  for (auto const & [tileKey, generation] : m_awaitingTiles)
+    m_cancelTileBackgroundReadingFn(TileKey(tileKey, generation, 0 /* userMarksGeneration */), m_currentMode);
   m_awaitingTiles.clear();
 
   // Release all images (referenced or not) for the previous mode.
@@ -351,6 +500,7 @@ void TileBackgroundRenderer::ClearContextDependentResources(ref_ptr<dp::Graphics
   m_images.clear();
   m_unreferencedLRU.clear();
   m_tiles.clear();
+  m_fallbackZoomLevel = TileKey::kNoZoom;
 }
 
 void TileBackgroundRenderer::SetBackgroundMode(ref_ptr<dp::GraphicsContext> context, dp::BackgroundMode mode)

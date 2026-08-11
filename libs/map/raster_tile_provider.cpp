@@ -43,6 +43,11 @@ std::string SubstituteZXY(std::string tmpl, int z, int x, int y)
   return tmpl;
 }
 
+df::TileKey CoordinateKey(df::TileKey const & key)
+{
+  return {key.m_x, key.m_y, key.m_zoomLevel};
+}
+
 #ifdef ENABLE_STATUS_PLACEHOLDERS
 int constexpr kPlaceholderSize = 256;
 
@@ -192,7 +197,7 @@ bool WriteTileCache(std::string const & cachePath, char const * bytes, size_t si
   }
   catch (RootException const & e)
   {
-    LOG(LWARNING, ("RasterTileProvider: cache write failed", cachePath, e.what()));
+    LOG(LWARNING, ("Cache write failed", cachePath, e.what()));
     base::DeleteFileX(tmp);
     return false;
   }
@@ -200,15 +205,16 @@ bool WriteTileCache(std::string const & cachePath, char const * bytes, size_t si
 }
 }  // namespace
 
-RasterTileProvider::RasterTileProvider(Params params, TReadyFn onReady)
+RasterTileProvider::RasterTileProvider(Params params, TReadyFn onReady, TDownloadFn downloadFn)
   : m_params(std::move(params))
   , m_onReady(std::move(onReady))
+  , m_downloadFn(std::move(downloadFn))
 {
   CHECK(m_onReady != nullptr, ());
 
   m_cacheDir = GetPlatform().WritableDir() + m_params.m_cacheSubdir + "/";
   if (!Platform::MkDirRecursively(m_cacheDir))
-    LOG(LWARNING, ("RasterTileProvider: failed to create cache dir", m_cacheDir));
+    LOG(LWARNING, ("Failed to create cache dir", m_cacheDir));
 
 #ifdef ENABLE_STATUS_PLACEHOLDERS
   // Translucent colored fills + white text; all 256x256 so they share the tiles' texture pool.
@@ -220,18 +226,33 @@ RasterTileProvider::RasterTileProvider(Params params, TReadyFn onReady)
       "bgpoc:error", MakePlaceholder("ERROR", kPlaceholderSize, 120, 60, 0, 110), kPlaceholderSize};
 #endif
 
+  LogConfig();
+
   // The scan stats every cached file — run it on the File thread instead of stalling the caller.
   // RequestTile's cache reads are posted to the same (serial) File queue, so they run after it.
   GetPlatform().RunTask(Platform::Thread::File, [this]() { InitDiskCache(); });
 }
 
-RasterTileProvider::SourceTile RasterTileProvider::ToSourceTile(df::TileKey const & tileKey) const
+std::string RasterTileProvider::SourceTile::GetUid() const
+{
+  return std::to_string(m_z) + "/" + std::to_string(m_x) + "/" + std::to_string(m_y);
+}
+
+std::string RasterTileProvider::SourceTile::GetFileName() const
+{
+  // Format-neutral extension: the bytes may be PNG or JPEG depending on the endpoint, and stb_image
+  // sniffs the actual content on decode.
+  return std::to_string(m_z) + "_" + std::to_string(m_x) + "_" + std::to_string(m_y) + ".tile";
+}
+
+RasterTileProvider::SourceTile RasterTileProvider::ToSourceTile(df::TileKey const & tileKey, int minZoom, int maxZoom)
 {
   SourceTile src;
 
-  // OM splits the world into 2^(Z-1) tiles per axis at zoomLevel Z, so the web-mercator zoom is Z-1.
+  // OM splits the world into 2^(Z-1) tiles per axis at zoomLevel Z (the "-1" is scales::INITIAL_LEVEL,
+  // see scales.cpp), so the 0-based web-mercator zoom is Z-1.
   int const z = static_cast<int>(tileKey.m_zoomLevel) - 1;
-  if (z < 1 || z < m_params.m_minZoom)
+  if (z < 1 || z < minZoom)
     return src;  // degenerate or below the configured minimum zoom
 
   int const n = 1 << z;
@@ -245,17 +266,16 @@ RasterTileProvider::SourceTile RasterTileProvider::ToSourceTile(df::TileKey cons
   src.m_z = z;
   src.m_x = webX;
   src.m_y = webY;
-  src.m_rect = m2::RectF(0.0f, 0.0f, 1.0f, 1.0f);
 
   // Over-zoom: the server has no tiles deeper than maxZoom, so sample a sub-rect of the
   // ancestor tile at maxZoom. Many child OM tiles then share one downloaded image (deduped by uid).
-  if (z > m_params.m_maxZoom)
+  if (z > maxZoom)
   {
-    int const k = z - m_params.m_maxZoom;
+    int const k = z - maxZoom;
     int const f = 1 << k;
     int const subX = webX & (f - 1);
     int const subY = webY & (f - 1);  // subY == 0 is the northern-most child
-    src.m_z = m_params.m_maxZoom;
+    src.m_z = maxZoom;
     src.m_x = webX >> k;
     src.m_y = webY >> k;
     float const inv = 1.0f / static_cast<float>(f);
@@ -264,62 +284,72 @@ RasterTileProvider::SourceTile RasterTileProvider::ToSourceTile(df::TileKey cons
                            static_cast<float>(subX + 1) * inv, 1.0f - static_cast<float>(subY) * inv);
   }
 
-  src.m_valid = true;
   return src;
 }
 
 bool RasterTileProvider::RequestTile(df::TileKey const & tileKey, dp::BackgroundMode mode)
 {
-  SourceTile const src = ToSourceTile(tileKey);
-  if (!src.m_valid)
+  SourceTile const src = ToSourceTile(tileKey, m_params.m_minZoom, m_params.m_maxZoom);
+  if (!src.IsValid())
     return false;
 
   // Skip tiles that don't intersect the configured coverage box. Use the wrapped rect: extended
   // world copies past the antimeridian have lon outside [-180, 180] and would fail the box test
   // otherwise, although ToSourceTile maps them onto valid source tiles.
-  m2::RectD const ll = mercator::ToLatLon(tileKey.GetWrappedDataRect());
+  // Unclipped: background tiles use the real zoom (vector data clamps at GetUpperScale(), which would
+  // misplace the lat/lon box test above that zoom).
+  m2::RectD const ll = mercator::ToLatLon(tileKey.GetWrappedDataRect(false /* clipByDataMaxZoom */));
   if (ll.maxX() < m_params.m_minLon || ll.minX() > m_params.m_maxLon || ll.maxY() < m_params.m_minLat ||
       ll.minY() > m_params.m_maxLat)
     return false;
 
   std::string urlTemplate;
+  uint64_t requestId = 0;
+  TCancelFn supersededCancel;
   {
     std::lock_guard lock(m_activeMutex);
     urlTemplate = m_params.m_urlTemplate;  // may be changed live by Reconfigure
     if (urlTemplate.empty())
       return false;  // not configured
-    if (!m_active.insert(tileKey).second)
-      return true;  // already in flight
+
+    auto const activeKey = CoordinateKey(tileKey);
+    auto const activeIt = m_active.find(activeKey);
+    if (activeIt != m_active.end())
+    {
+      if (activeIt->second.m_clientGeneration == tileKey.m_generation)
+        return true;  // this exact request is already in flight
+      supersededCancel = std::move(activeIt->second.m_cancelFn);
+      m_active.erase(activeIt);
+    }
+
+    requestId = ++m_nextRequestId;
+    m_active.emplace(activeKey, ActiveRequest{requestId, tileKey.m_generation, {}});
   }
+  if (supersededCancel)
+    supersededCancel();
 
   std::string const url = SubstituteZXY(std::move(urlTemplate), src.m_z, src.m_x, src.m_y);
-  std::string const uid = std::to_string(src.m_z) + "/" + std::to_string(src.m_x) + "/" + std::to_string(src.m_y);
-  // Cache file name = the cache index key (the dir prefix is added only for filesystem ops).
-  // Format-neutral extension: the bytes may be PNG or JPEG depending on the endpoint, and stb_image
-  // sniffs the actual content on decode.
-  std::string const fileName =
-      std::to_string(src.m_z) + "_" + std::to_string(src.m_x) + "_" + std::to_string(src.m_y) + ".tile";
 
-  // LOG(LDEBUG, ("RasterTileProvider: OM", tileKey.Coord2String(), "-> XYZ", uid, "rect", src.m_rect, url));
+  // LOG(LDEBUG, (tileKey.Coord2String(), "-> XYZ", src.GetUid(), "rect", src.m_rect, url));
 
   // Disk cache read (and stb decode) runs on the File thread; on a miss the HTTP request is fully
   // async (see StartDownload), so no worker thread is ever parked waiting on the network.
   // Returning true from this method means the renderer may put tileKey into its awaiting set. That
   // is safe only if the task was actually posted: a later !IsActive() inside the task means the tile
   // was cancelled meanwhile, but a failed post means nothing can ever deliver or be cancelled.
-  auto const posted =
-      GetPlatform().RunTask(Platform::Thread::File, [this, tileKey, mode, url, uid, fileName, rect = src.m_rect]()
+  auto const posted = GetPlatform().RunTask(Platform::Thread::File, [this, tileKey, mode, url, src, requestId]()
   {
-    if (!IsActive(tileKey))
+    if (!IsActive(tileKey, requestId))
       return;
 
     std::vector<uint8_t> rgba;
     uint32_t width = 0, height = 0;
+    auto const fileName = src.GetFileName();
     if (DecodeFileToRGBA(m_cacheDir + fileName, rgba, width, height))  // cache hit
     {
       TouchCacheEntry(fileName);
-      if (DropActive(tileKey))
-        m_onReady(tileKey, mode, uid, width, height, rect, std::move(rgba));
+      if (DropActive(tileKey, requestId))
+        m_onReady(tileKey, mode, src.GetUid(), width, height, src.m_rect, std::move(rgba));
       return;
     }
 
@@ -327,12 +357,12 @@ bool RasterTileProvider::RequestTile(df::TileKey const & tileKey, dp::Background
 #ifdef ENABLE_STATUS_PLACEHOLDERS
     DeliverPlaceholder(tileKey, mode, Status::Downloading);
 #endif
-    StartDownload(tileKey, mode, url, uid, fileName, rect);
+    StartDownload(tileKey, mode, url, src, requestId);
   });
 
   if (!posted.m_isSuccess)
   {
-    DropActive(tileKey);
+    DropActive(tileKey, requestId);
     return false;
   }
 
@@ -340,24 +370,23 @@ bool RasterTileProvider::RequestTile(df::TileKey const & tileKey, dp::Background
 }
 
 void RasterTileProvider::StartDownload(df::TileKey const & tileKey, dp::BackgroundMode mode, std::string const & url,
-                                       std::string const & uid, std::string const & fileName, m2::RectF const & rect)
+                                       SourceTile const & src, uint64_t requestId)
 {
-  platform::HttpClient request(url);
-  request.SetTimeout(kRequestTimeoutSec);
-  request.SetFollowRedirects(true);
-
-  // RunHttpRequestAsync copies all config (so this local HttpClient can die immediately) and calls
-  // the handler on a transport thread. We decode, cache and deliver from there. The RequestHandle
-  // is discarded: cancellation is handled by the active-set (a stale result is simply not delivered).
-  request.RunHttpRequestAsync([this, tileKey, mode, uid, fileName, rect](platform::HttpClient::Result result)
+  platform::HttpClient::CompletionHandler handler =
+      [this, tileKey, mode, src, requestId](platform::HttpClient::Result result)
   {
     if (!result.m_success || result.m_errorCode != 200)
     {
+      LOG(LWARNING, ("Failed to download", src.GetUid(), "code", result.m_errorCode));
 #ifdef ENABLE_STATUS_PLACEHOLDERS
-      if (DropActive(tileKey))
+      if (DropActive(tileKey, requestId))
         DeliverPlaceholder(tileKey, mode, result.m_errorCode == 404 ? Status::NotFound : Status::Error);
 #else
-      DropActive(tileKey);
+      // Report the failed read with an empty uid: the renderer must stop awaiting the tile, or it
+      // would never be re-requested while it stays in the viewport (and the fallback level would
+      // stay retained forever).
+      if (DropActive(tileKey, requestId))
+        m_onReady(tileKey, mode, {} /* imageUid */, 0, 0, {}, {});
 #endif
       return;
     }
@@ -367,28 +396,56 @@ void RasterTileProvider::StartDownload(df::TileKey const & tileKey, dp::Backgrou
     uint32_t width = 0, height = 0;
     if (body.empty() || !DecodeMemoryToRGBA(body.data(), body.size(), rgba, width, height))
     {
-      LOG(LWARNING, ("RasterTileProvider: failed to decode", uid));
+      LOG(LWARNING, ("Failed to decode", src.GetUid()));
 #ifdef ENABLE_STATUS_PLACEHOLDERS
-      if (DropActive(tileKey))
+      if (DropActive(tileKey, requestId))
         DeliverPlaceholder(tileKey, mode, Status::Error);
 #else
-      DropActive(tileKey);
+      // Same terminal-failure report as the download path above.
+      if (DropActive(tileKey, requestId))
+        m_onReady(tileKey, mode, {} /* imageUid */, 0, 0, {}, {});
 #endif
       return;
     }
 
+    auto const fileName = src.GetFileName();
     if (WriteTileCache(m_cacheDir + fileName, body.data(), body.size()))
       AddCacheEntry(fileName, body.size());
 
     // Deliver only if the request was not cancelled while it was in flight.
-    if (DropActive(tileKey))
-      m_onReady(tileKey, mode, uid, width, height, rect, std::move(rgba));
-  });
+    if (DropActive(tileKey, requestId))
+      m_onReady(tileKey, mode, src.GetUid(), width, height, src.m_rect, std::move(rgba));
+  };
+
+  TCancelFn cancelFn;
+  if (m_downloadFn)
+  {
+    cancelFn = m_downloadFn(url, std::move(handler));
+  }
+  else
+  {
+    platform::HttpClient request(url);
+    request.SetTimeout(kRequestTimeoutSec);
+    request.SetFollowRedirects(true);
+    auto handle = request.RunHttpRequestAsync(std::move(handler));
+    cancelFn = [handle = std::move(handle)]() mutable { handle.Cancel(); };
+  }
+  AttachCancel(tileKey, requestId, std::move(cancelFn));
 }
 
 void RasterTileProvider::CancelTile(df::TileKey const & tileKey, dp::BackgroundMode /* mode */)
 {
-  DropActive(tileKey);
+  TCancelFn cancelFn;
+  {
+    std::lock_guard lock(m_activeMutex);
+    auto const it = m_active.find(CoordinateKey(tileKey));
+    if (it == m_active.end() || it->second.m_clientGeneration != tileKey.m_generation)
+      return;
+    cancelFn = std::move(it->second.m_cancelFn);
+    m_active.erase(it);
+  }
+  if (cancelFn)
+    cancelFn();
 }
 
 void RasterTileProvider::InitDiskCache()
@@ -430,7 +487,8 @@ void RasterTileProvider::InitDiskCache()
     m_cacheBytes += f.m_size;
   }
   EvictDiskCacheLocked();  // in case the cap was lowered between runs
-  LOG(LINFO, ("RasterTileProvider: disk cache", m_cacheIndex.size(), "tiles,", m_cacheBytes / 1024, "KB (cap",
+
+  LOG(LINFO, ("Disk cache", m_cacheIndex.size(), "tiles,", m_cacheBytes / 1024, "KB (cap",
               m_params.m_maxCacheBytes / 1024, "KB)"));
 }
 
@@ -480,7 +538,7 @@ void RasterTileProvider::EvictDiskCacheLocked()
     }
 
     if (!base::DeleteFileX(m_cacheDir + victim))
-      LOG(LWARNING, ("RasterTileProvider: failed to evict cache file", victim));
+      LOG(LWARNING, ("Failed to evict cache file", victim));
   }
 }
 
@@ -491,6 +549,11 @@ void RasterTileProvider::ClearDiskCacheLocked()
   m_lru.clear();
   m_cacheIndex.clear();
   m_cacheBytes = 0;
+}
+
+void RasterTileProvider::LogConfig()
+{
+  LOG(LINFO, ("URL =", m_params.m_urlTemplate, "; cache size =", m_params.m_maxCacheBytes / 1024, "KB"));
 }
 
 void RasterTileProvider::Reconfigure(std::string urlTemplate, uint64_t maxCacheBytes)
@@ -504,6 +567,9 @@ void RasterTileProvider::Reconfigure(std::string urlTemplate, uint64_t maxCacheB
 
   std::lock_guard lock(m_cacheMutex);
   m_params.m_maxCacheBytes = maxCacheBytes;
+
+  LogConfig();
+
   // A different source reuses the same z/x/y file names for different imagery, so drop the cache.
   // Same source with a smaller cap just needs eviction down to the new limit.
   if (urlChanged)
@@ -522,14 +588,34 @@ void RasterTileProvider::DeliverPlaceholder(df::TileKey const & tileKey, dp::Bac
 }
 #endif
 
-bool RasterTileProvider::IsActive(df::TileKey const & tileKey) const
+bool RasterTileProvider::IsActive(df::TileKey const & tileKey, uint64_t requestId) const
 {
   std::lock_guard lock(m_activeMutex);
-  return m_active.count(tileKey) != 0;
+  auto const it = m_active.find(CoordinateKey(tileKey));
+  return it != m_active.end() && it->second.m_id == requestId;
 }
 
-bool RasterTileProvider::DropActive(df::TileKey const & tileKey)
+bool RasterTileProvider::DropActive(df::TileKey const & tileKey, uint64_t requestId)
 {
   std::lock_guard lock(m_activeMutex);
-  return m_active.erase(tileKey) != 0;
+  auto const it = m_active.find(CoordinateKey(tileKey));
+  if (it == m_active.end() || it->second.m_id != requestId)
+    return false;
+  m_active.erase(it);
+  return true;
+}
+
+void RasterTileProvider::AttachCancel(df::TileKey const & tileKey, uint64_t requestId, TCancelFn cancelFn)
+{
+  bool cancelImmediately = false;
+  {
+    std::lock_guard lock(m_activeMutex);
+    auto const it = m_active.find(CoordinateKey(tileKey));
+    if (it == m_active.end() || it->second.m_id != requestId)
+      cancelImmediately = true;
+    else
+      it->second.m_cancelFn = cancelFn;
+  }
+  if (cancelImmediately && cancelFn)
+    cancelFn();
 }
