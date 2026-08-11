@@ -22,11 +22,11 @@ namespace df::test_support
 ///
 /// Usage:
 ///   ShapeTestFixture fixture;
-///   fixture.RenderShapesToImage(400, 300, [](ShapeTestFixture & f)
+///   fixture.Render("Test Name", 400, 300, [](ShapeTestFixture & f)
 ///   {
 ///     f.AddShape(make_unique_dp<LineShape>(spline, params));
 ///   });
-///   fixture.ShowInWindow("Test Name");
+///   QImage const & img = fixture.GetLastImage();
 ///
 class ShapeTestFixture
 {
@@ -38,7 +38,7 @@ public:
   /// @param createShapes — functor that calls AddShape() to populate geometry.
   void Render(char const * title, uint32_t width, uint32_t height, ShapeCreatorFn const & createShapes);
 
-  /// Add a shape to the current batch. Only valid inside RenderShapesToImage callback.
+  /// Add a shape to the current batch. Only valid inside the Render() callback.
   void AddShape(drape_ptr<MapShape> && shape);
 
   /// The last rendered frame; valid after Render() returns.
