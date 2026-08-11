@@ -10,6 +10,8 @@ import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 
 class CategoryValidator implements EditTextDialogFragment.Validator
 {
+  static final int MAX_NAME_LENGTH = 60;
+
   @Nullable
   @Override
   public String validate(@NonNull Activity activity, @Nullable String text)

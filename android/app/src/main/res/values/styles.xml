@@ -81,6 +81,7 @@
     <item name="android:layout_height">wrap_content</item>
     <item name="android:layout_marginBottom">@dimen/margin_dialog_title</item>
     <item name="android:textAppearance">@style/MwmTextAppearance.Body1</item>
+    <item name="android:textColor">?titleDialogTheme</item>
     <item name="android:fontFamily">@string/robotoMedium</item>
   </style>
 
@@ -154,6 +155,15 @@
 
   <style name="ShapeAppearance.App.BottomSheet" parent="ShapeAppearance.Material3.LargeComponent">
     <item name="cornerSize">@dimen/bottom_sheet_corner_radius</item>
+  </style>
+
+  <style name="ShapeAppearance.App.Dialog" parent="ShapeAppearance.Material3.MediumComponent">
+    <item name="cornerSize">@dimen/dialog_corner_radius</item>
+  </style>
+
+  <style name="MwmWidget.AlertDialog" parent="AlertDialog.AppCompat">
+    <item name="shapeAppearance">@style/ShapeAppearance.App.Dialog</item>
+    <item name="backgroundTint">?cardBackground</item>
   </style>
 
   <style name="MwmWidget.ToolbarStyle" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">

@@ -280,8 +280,7 @@ class EditBookmarkFragment :
         if (target == null) return
         ChooseBookmarkCategoryFragment().also { fragment ->
             fragment.arguments = bundleOf(
-                ChooseBookmarkCategoryFragment.CATEGORY_POSITION to
-                    BookmarkManager.INSTANCE.categories.indexOf(bookmarkCategory),
+                ChooseBookmarkCategoryFragment.CATEGORY_ID to bookmarkCategory.id,
             )
             fragment.show(childFragmentManager, null)
         }

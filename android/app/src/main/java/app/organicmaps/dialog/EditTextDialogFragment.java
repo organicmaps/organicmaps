@@ -26,6 +26,8 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class EditTextDialogFragment extends BaseMwmDialogFragment
 {
+  public static final String TAG = EditTextDialogFragment.class.getName();
+
   public static final String ARG_TITLE = "arg_dialog_title";
   public static final String ARG_INITIAL = "arg_initial";
   public static final String ARG_POSITIVE_BUTTON = "arg_positive_button";
@@ -59,21 +61,21 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
 
   public static EditTextDialogFragment show(@Nullable String title, @Nullable String initialText,
                                             @Nullable String positiveBtn, @Nullable String negativeBtn,
-                                            @NonNull Fragment parent, @Nullable Validator inputValidator)
+                                            @NonNull Fragment parent)
   {
-    return show(title, initialText, "", positiveBtn, negativeBtn, NO_LIMITED_TEXT_LENGTH, parent, inputValidator);
+    return show(title, initialText, "", positiveBtn, negativeBtn, NO_LIMITED_TEXT_LENGTH, parent);
   }
 
   public static EditTextDialogFragment show(@Nullable String title, @Nullable String initialText, @Nullable String hint,
                                             @Nullable String positiveBtn, @Nullable String negativeBtn,
-                                            @NonNull Fragment parent, @Nullable Validator inputValidator)
+                                            @NonNull Fragment parent)
   {
-    return show(title, initialText, hint, positiveBtn, negativeBtn, NO_LIMITED_TEXT_LENGTH, parent, inputValidator);
+    return show(title, initialText, hint, positiveBtn, negativeBtn, NO_LIMITED_TEXT_LENGTH, parent);
   }
 
   public static EditTextDialogFragment show(@Nullable String title, @Nullable String initialText, @Nullable String hint,
                                             @Nullable String positiveBtn, @Nullable String negativeBtn, int textLimit,
-                                            @NonNull Fragment parent, @Nullable Validator inputValidator)
+                                            @NonNull Fragment parent)
   {
     final Bundle args = new Bundle();
     args.putString(ARG_TITLE, title);
@@ -86,8 +88,7 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
     final EditTextDialogFragment fragment = (EditTextDialogFragment) fragmentManager.getFragmentFactory().instantiate(
         parent.requireActivity().getClassLoader(), EditTextDialogFragment.class.getName());
     fragment.setArguments(args);
-    fragment.show(fragmentManager, EditTextDialogFragment.class.getName());
-    fragment.mInputValidator = inputValidator;
+    fragment.show(fragmentManager, TAG);
 
     return fragment;
   }
@@ -95,6 +96,11 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
   public void setTextSaveListener(OnTextSaveListener textSaveListener)
   {
     mTextSaveListener = textSaveListener;
+  }
+
+  public void setValidator(@Nullable Validator inputValidator)
+  {
+    mInputValidator = inputValidator;
   }
 
   @NonNull
@@ -135,7 +141,8 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
       final FragmentActivity activity = getActivity();
       if (activity == null)
         return;
-      this.validateInput(activity, mInitialText);
+      // Not mInitialText: after a recreation the view hierarchy restores the typed text.
+      this.validateInput(activity, mEtInput.getText().toString());
     });
 
     // Setup validation on input edit.
