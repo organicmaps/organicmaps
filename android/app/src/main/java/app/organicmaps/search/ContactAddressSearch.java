@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.ContactsContract;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import app.organicmaps.sdk.util.concurrency.ThreadPool;
 import java.util.ArrayList;
@@ -51,6 +52,8 @@ final class ContactAddressSearch implements AutoCloseable
   private final Handler mMainHandler = new Handler(Looper.getMainLooper());
   @NonNull
   private final ContentObserver mContactsObserver;
+  @Nullable
+  private final Runnable mOnContactsChanged;
   @NonNull
   private final AtomicInteger mCacheGeneration = new AtomicInteger();
   private volatile List<ContactAddress> mCachedAddresses;
@@ -59,14 +62,22 @@ final class ContactAddressSearch implements AutoCloseable
 
   ContactAddressSearch(@NonNull Context context)
   {
+    this(context, null);
+  }
+
+  ContactAddressSearch(@NonNull Context context, @Nullable Runnable onContactsChanged)
+  {
     mContext = context.getApplicationContext();
     mResolver = mContext.getContentResolver();
+    mOnContactsChanged = onContactsChanged;
     mContactsObserver = new ContentObserver(mMainHandler) {
       @Override
       public void onChange(boolean selfChange)
       {
         mCacheGeneration.incrementAndGet();
         mCachedAddresses = null;
+        if (mOnContactsChanged != null)
+          mOnContactsChanged.run();
       }
     };
     try
@@ -76,6 +87,10 @@ final class ContactAddressSearch implements AutoCloseable
     }
     catch (SecurityException ignored)
     {}
+
+    // Reading structured postal rows is the expensive part of contact matching. Queue it as soon
+    // as contact search becomes active so the first typed query normally hits the memory cache.
+    ThreadPool.getWorker().execute(this::getAddresses);
   }
 
   static boolean hasPermission(@NonNull Context context)
@@ -191,6 +206,17 @@ final class ContactAddressSearch implements AutoCloseable
     if (cacheGeneration == mCacheGeneration.get())
       mCachedAddresses = loadedAddresses;
     return loadedAddresses;
+  }
+
+  void loadAll(@NonNull Callback callback)
+  {
+    ThreadPool.getWorker().execute(() -> {
+      final List<ContactAddress> addresses = getAddresses();
+      mMainHandler.post(() -> {
+        if (!mClosed)
+          callback.onResults("", addresses);
+      });
+    });
   }
 
   @NonNull

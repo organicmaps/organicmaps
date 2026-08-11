@@ -753,6 +753,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     hideShimmer();
     updateFrames();
     updateResultsPlaceholder();
+    ContactMapManager.INSTANCE.resume();
   }
 
   private void stopSearch()
@@ -804,6 +805,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
   private boolean startInteractiveSearch(@NonNull String query, boolean isCategory, boolean allowNearbyHouseNumbers)
   {
+    ContactMapManager.INSTANCE.pause();
+    final String searchQuery = isCategory ? query : ContactAddressQueryNormalizer.normalizeAddressQuery(query);
     boolean hasLocation = mLastPosition.valid;
     double lat = mLastPosition.lat;
     double lon = mLastPosition.lon;
@@ -829,7 +832,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
     SearchEngine.INSTANCE.setQuery(query);
     mSearchTimestamp = System.nanoTime();
-    return SearchEngine.INSTANCE.searchInteractive(query, isCategory, locale, mSearchTimestamp,
+    return SearchEngine.INSTANCE.searchInteractive(searchQuery, isCategory, locale, mSearchTimestamp,
                                                    true /* isMapAndTable */, hasLocation, lat, lon,
                                                    allowNearbyHouseNumbers);
   }
@@ -852,8 +855,11 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
     mSearchRunning = true;
     mToolbarController.showProgress(true);
-    UiUtils.show(mShimmerView);
-    mShimmerView.startShimmer();
+    if (mSearchAdapter.getItemCount() == 0)
+    {
+      UiUtils.show(mShimmerView);
+      mShimmerView.startShimmer();
+    }
     updateResultsPlaceholder();
     updateFrames();
   }
@@ -948,9 +954,11 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     if (bestResultIndex < 0 || bestHouseNumberDifference > 10)
       return false;
 
+    final SearchResult result = results[bestResultIndex];
+    ContactMapManager.INSTANCE.recordResolved(contactAddress, result.lat, result.lon);
     clearPendingContactAddress();
     updateSearchView();
-    showSingleResultOnMap(results[bestResultIndex], bestResultIndex, contactAddress.address);
+    showSingleResultOnMap(result, bestResultIndex, contactAddress.address);
     return true;
   }
 
