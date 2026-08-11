@@ -11,8 +11,21 @@
 #include "geometry/point_with_altitude.hpp"
 
 #include <algorithm>
+#include <array>
 #include <map>
 #include <string>
+
+namespace
+{
+
+// Helper to get only the OSM keys we want to export.
+bool ShouldExportOsmProperty(std::string_view key)
+{
+  static constexpr std::array<std::string_view, 7> kOsmExportKeys = {
+      "osm_id", "osm_type", "addr:street", "addr:housenumber", "addr:city", "addr:postcode", "addr:country"};
+  return std::find(kOsmExportKeys.begin(), kOsmExportKeys.end(), key) != kOsmExportKeys.end();
+}
+}  // namespace
 
 namespace kml
 {
@@ -559,6 +572,13 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimizeOutput)
                                       {"marker-color", ToGeoJsonColor(bookmark.m_color)}};
     if (!bookmark.m_description.empty())
       bookmarkProperties["description"] = GetDefaultStr(bookmark.m_description);
+
+    for (auto const & [key, value] : bookmark.m_properties)
+    {
+      // Save only OSM properties we want to export.
+      if (!value.empty() && ShouldExportOsmProperty(key))
+        bookmarkProperties[key] = value;
+    }
 
     // Add '_umap_options' if needed.
     if (auto const umapOptionsPair = bookmark.m_properties.find("_umap_options");
