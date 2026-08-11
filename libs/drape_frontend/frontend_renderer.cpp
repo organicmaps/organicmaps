@@ -685,7 +685,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::EnablePerspective:
   {
-    AddUserEvent(make_unique_dp<SetAutoPerspectiveEvent>(true /* isAutoPerspective */));
+    UpdateRoutingPerspective();
     break;
   }
 
@@ -698,7 +698,10 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     if (m_enablePerspectiveInNavigation == msg->AllowPerspective() &&
         m_enablePerspectiveInNavigation != screen.isPerspective())
     {
-      AddUserEvent(make_unique_dp<SetAutoPerspectiveEvent>(m_enablePerspectiveInNavigation));
+      if (m_myPositionController->IsInRouting())
+        UpdateRoutingPerspective();
+      else
+        AddUserEvent(make_unique_dp<SetAutoPerspectiveEvent>(m_enablePerspectiveInNavigation));
     }
 #endif
 
@@ -714,7 +717,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       m_enablePerspectiveInNavigation = msg->AllowPerspective();
       m_myPositionController->EnablePerspectiveInRouting(m_enablePerspectiveInNavigation);
       if (m_myPositionController->IsInRouting())
-        AddUserEvent(make_unique_dp<SetAutoPerspectiveEvent>(m_enablePerspectiveInNavigation));
+        UpdateRoutingPerspective();
     }
     break;
   }
@@ -1137,15 +1140,21 @@ void FrontendRenderer::UpdateContextDependentResources()
 void FrontendRenderer::FollowRoute(int preferredZoomLevel, int preferredZoomLevelIn3d, bool enableAutoZoom,
                                    bool isArrowGlued)
 {
-  m_myPositionController->ActivateRouting(
-      !m_enablePerspectiveInNavigation ? preferredZoomLevel : preferredZoomLevelIn3d, enableAutoZoom, isArrowGlued);
+  m_myPositionController->ActivateRouting(preferredZoomLevel, preferredZoomLevelIn3d, enableAutoZoom, isArrowGlued);
 
-  if (m_enablePerspectiveInNavigation)
-    AddUserEvent(make_unique_dp<SetAutoPerspectiveEvent>(true /* isAutoPerspective */));
+  UpdateRoutingPerspective();
 
   m_routeRenderer->SetFollowingEnabled(true);
   CHECK(m_context != nullptr, ());
   m_postprocessRenderer->OnChangedRouteFollowingMode(m_context, true /* active */);
+}
+
+void FrontendRenderer::UpdateRoutingPerspective()
+{
+  if (!m_myPositionController->IsInRouting())
+    return;
+
+  AddUserEvent(make_unique_dp<SetAutoPerspectiveEvent>(m_myPositionController->ShouldEnablePerspectiveInRouting()));
 }
 
 bool FrontendRenderer::CheckRouteRecaching(ref_ptr<BaseSubrouteData> subrouteData)
@@ -2224,6 +2233,14 @@ void FrontendRenderer::OnScaleEnded()
   m_selectionTrackInfo.reset();
 }
 
+void FrontendRenderer::OnAnimatedScaleStarted()
+{
+  // Block the auto zoom for the whole animation, not only after its completion in
+  // OnAnimatedScaleEnded(): otherwise a location update arriving mid-animation could
+  // cancel the user's zoom with an auto zoom one.
+  m_myPositionController->ResetBlockAutoZoomTimer();
+}
+
 void FrontendRenderer::OnAnimatedScaleEnded()
 {
   m_myPositionController->ResetBlockAutoZoomTimer();
@@ -2607,6 +2624,14 @@ void FrontendRenderer::AddUserEvent(drape_ptr<UserEvent> && event)
 void FrontendRenderer::PositionChanged(m2::PointD const & position, bool hasPosition)
 {
   m_userPositionChangedHandler(position, hasPosition);
+}
+
+void FrontendRenderer::MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive)
+{
+  // The routing perspective depends on the chosen routing orientation, so it changes only
+  // with a following mode; pending and not-follow states must not flatten the camera.
+  if (routingActive && location::IsFollowingMode(mode))
+    UpdateRoutingPerspective();
 }
 
 void FrontendRenderer::ChangeModelView(m2::PointD const & center, int zoomLevel,
