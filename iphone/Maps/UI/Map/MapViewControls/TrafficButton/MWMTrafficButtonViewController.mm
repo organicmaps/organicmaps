@@ -144,7 +144,7 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
 
 - (void)handleIsolinesState:(MWMMapOverlayIsolinesState)state
 {
-  // applyTheme re-derives the state on every theme/overlay poke: the alerts must fire
+  // applyTheme re-derives the state on every theme/overlay poke: the hints must fire
   // on the actual transitions only, or they would stack over an unchanged NoData.
   if (state == self.lastHandledIsolinesState)
     return;
@@ -158,10 +158,11 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
     break;
   case MWMMapOverlayIsolinesStateNoData:
     // Keep the layer enabled: the hint prompts to download the terrain, and the state
-    // recovers by itself once the viewport gets the coverage.
+    // recovers by itself once the viewport gets the coverage. A passive toast, like on
+    // Android: nothing to decide here, a modal alert would only get in the way.
     if (![[MWMStorage sharedStorage] isTerrainAvailable] || [[MWMStorage sharedStorage] isTerrainWithMaps])
     {
-      [MWMAlertViewController.activeAlertController presentInfoAlert:L(@"isolines_location_error_dialog")];
+      [Toast showWithText:L(@"isolines_location_error_dialog")];
     }
     else
     {

@@ -1,5 +1,6 @@
 #import "MWMAlertViewController.h"
 #import "MWMStorage+UI.h"
+#import "SwiftBridge.h"
 
 @implementation MWMStorage (UI)
 
@@ -71,7 +72,8 @@
   if (!started)
   {
     // Nothing downloaded under the viewport: the map itself is the missing piece.
-    [MWMAlertViewController.activeAlertController presentInfoAlert:L(@"isolines_location_error_dialog")];
+    // A passive toast, like the layer button hint: there is nothing to decide here.
+    [Toast showWithText:L(@"isolines_location_error_dialog")];
   }
 }
 
