@@ -2422,6 +2422,14 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
       GetBookmarkManager().UpdateElevationMyPosition(newTrackId, true /* ignoreLocationCache */);
     }
 
+    // Stop active non-navigating location follow before selection so drape can keep the place visible.
+    // The mode test is not redundant with StopLocationFollow(): that also clears the desired init mode,
+    // which would cancel the centering on the first fix while it is still pending.
+    auto const mode = GetMyPositionMode();
+    if (buildInfo.m_source == place_page::BuildInfo::Source::User &&
+        (mode == location::Follow || mode == location::FollowAndRotate) && !m_routingManager.IsRoutingFollowing())
+      StopLocationFollow();
+
     ActivateMapSelection();
   }
 }
