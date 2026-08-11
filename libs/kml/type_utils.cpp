@@ -45,7 +45,9 @@ std::string GetPreferredBookmarkStr(LocalizableString const & name, std::string 
   if (feature::GetPreferredName(nameMultilang, deviceLang, preferredName))
     return std::string(preferredName);
 
-  return {};
+  // A category or track has no feature type to fall back to, so keep every non-empty localized
+  // string visible even when none of the preferred languages is present.
+  return std::string{GetStringForExport(name)};
 }
 
 std::string GetPreferredBookmarkStr(LocalizableString const & name, feature::RegionData const & regionData,
@@ -61,7 +63,11 @@ std::string GetPreferredBookmarkStr(LocalizableString const & name, feature::Reg
 
   feature::NameParamsOut out;
   feature::GetReadableName({nameMultilang, regionData, languageNorm, false /* allowTranslit */}, out);
-  return std::string(out.primary);
+  if (!out.primary.empty())
+    return std::string(out.primary);
+
+  // Keep the value visible when neither the device nor region languages are present.
+  return std::string{GetStringForExport(name)};
 }
 
 std::string GetLocalizedFeatureType(std::vector<uint32_t> const & types)

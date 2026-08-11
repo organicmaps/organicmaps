@@ -6,6 +6,7 @@ set(SRC
   minzoom_quadtree_tests.cpp
   serdes_tests.cpp
   tests_data.hpp
+  type_utils_tests.cpp
   geojson_tests.cpp
 )
 
