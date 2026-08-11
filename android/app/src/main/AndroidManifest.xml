@@ -515,10 +515,12 @@
         android:name="app.organicmaps.editor.OsmLoginActivity"
         android:parentActivityName="app.organicmaps.MwmActivity" />
 
+    <!-- "adjustNothing" would leave WindowInsetsCompat reporting no Type.ime() below API 30, where
+         the platform has no IME inset type; BookmarkCategorySettingsActivity swaps it from API 30 -->
     <activity
       android:name="app.organicmaps.bookmarks.BookmarkCategorySettingsActivity"
       android:label="@string/edit"
-      android:windowSoftInputMode="stateVisible"/>
+      android:windowSoftInputMode="stateVisible|adjustResize"/>
     <activity
       android:name="app.organicmaps.widget.placepage.WikiArticleActivity"
       android:label="@string/place_description_title"/>
