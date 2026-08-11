@@ -551,7 +551,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
   [super viewDidAppear:animated];
   // Cold start deep links should be handled when the map is initialized.
   // Otherwise PP container view is nil, or there is no animation/selection of the point.
-  if (DeepLinkHandler.shared.isLaunchedByDeeplink)
+  if (DeepLinkHandler.shared.hasPendingColdLaunchDeepLink)
     (void)[DeepLinkHandler.shared handleDeepLinkAndReset];
 }
 
@@ -625,7 +625,9 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
   if (self.navigationDashboardManager.state == MWMNavigationDashboardStateClosed)
     self.controlsManager.menuRestoreState = self.controlsManager.menuState;
-  GetFramework().SetRenderingDisabled(false);
+  // The shared EAGLView may already be hosted by CarPlay while the phone controller disappears.
+  if (![MWMCarPlayService shared].isCarplayActivated)
+    GetFramework().SetRenderingDisabled(false);
   self.isMapVisible = NO;
 }
 

@@ -1005,6 +1005,12 @@
 "bookmarks_export" = "Eksporter alle bokmerker og spor";
 "drive_through" = "Gjennomkjøring";
 
+/* Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_in" = "Zoom inn";
+
+/* Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_out" = "Zoom ut";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Lenke til menyen";
 

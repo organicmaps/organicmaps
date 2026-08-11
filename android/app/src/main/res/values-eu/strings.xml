@@ -843,8 +843,9 @@
     <string name="pref_tts_no_system_tts">Ahots-sintesiaren ezarpenak ez dira aurkitu. Ziur zure gailuak onartzen duela?</string>
     <string name="drive_through">Autoz hartzeko</string>
     <string name="clear_the_search">Garbitu bilaketa</string>
+    <!-- Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_in">Handitu</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_out">Txikiagotu</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Menuaren esteka</string>

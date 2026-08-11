@@ -1005,6 +1005,12 @@
 "bookmarks_export" = "Izvezi sve zabilješke i puteve";
 "drive_through" = "Prolaz za automobile";
 
+/* Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_in" = "Uvećaj";
+
+/* Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_out" = "Umanji";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Poveznica za jelovnik";
 

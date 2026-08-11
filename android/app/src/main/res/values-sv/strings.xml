@@ -843,8 +843,9 @@
     <string name="pref_tts_no_system_tts">Inställningar för talsyntes hittades inte, är du säker på att din enhet stöder det?</string>
     <string name="drive_through">Drive-thru</string>
     <string name="clear_the_search">Rensa sökning</string>
+    <!-- Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_in">Zooma in</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_out">Zooma ut</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Länk till meny</string>

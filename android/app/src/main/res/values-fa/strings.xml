@@ -843,8 +843,9 @@
     <string name="pref_tts_no_system_tts">تنظیمات Speech Synthesis پیدا نشد، آیا مطمئن هستید که دستگاه شما از آن پشتیبانی می کند؟</string>
     <string name="drive_through">رانندگی از طریق</string>
     <string name="clear_the_search">جستجو را پاک کنید</string>
+    <!-- Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_in">بزرگنمایی</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_out">کوچک نمایی</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">لینک منو</string>

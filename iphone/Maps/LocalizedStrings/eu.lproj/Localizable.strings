@@ -1005,6 +1005,12 @@
 "bookmarks_export" = "Esportatu markagailu eta arrasto guztiak";
 "drive_through" = "Autoz hartzeko";
 
+/* Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_in" = "Handitu";
+
+/* Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_out" = "Txikiagotu";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Menuaren esteka";
 

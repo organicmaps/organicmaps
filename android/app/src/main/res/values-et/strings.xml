@@ -846,8 +846,9 @@
     <string name="pref_tts_no_system_tts">Kõnesünteesi seadistusi ei leidu, kas oled kindel, et sinu nutiseade toetab seda?</string>
     <string name="drive_through">Läbisõit</string>
     <string name="clear_the_search">Tühjenda otsing</string>
+    <!-- Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_in">Suumi sisse</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_out">Suumi välja</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Menüü link</string>

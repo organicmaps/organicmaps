@@ -795,8 +795,9 @@
     <string name="pref_tts_no_system_tts">ບໍ່ພົບການຕັ້ງຄ່າການສັງເຄາະສຽງ, ທ່ານແນ່ໃຈບໍ່ວ່າອຸປະກອນຂອງທ່ານຮອງຮັບ?</string>
     <string name="drive_through">ໄດຣຟ໌ທຣູ</string>
     <string name="clear_the_search">ລຶບການຄົ້ນຫາ</string>
+    <!-- Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_in">ຊູມເຂົ້າ</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_out">ຊູມອອກ</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">ລິ້ງເມນູ</string>

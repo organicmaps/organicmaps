@@ -1005,6 +1005,12 @@
 "bookmarks_export" = "Összes könyvjelző és nyomvonal exportálása";
 "drive_through" = "Autós kiszolgálás";
 
+/* Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_in" = "Nagyítás";
+
+/* Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_out" = "Kicsinyítés";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Menühivatkozás";
 

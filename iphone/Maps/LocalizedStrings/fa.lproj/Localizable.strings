@@ -1005,6 +1005,12 @@
 "bookmarks_export" = "صادر کردن همه نشانک‌ها و مسیرها";
 "drive_through" = "رانندگی از طریق";
 
+/* Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_in" = "بزرگنمایی";
+
+/* Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_out" = "کوچک نمایی";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "لینک منو";
 

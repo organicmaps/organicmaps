@@ -1005,6 +1005,12 @@
 "bookmarks_export" = "Xuất tất cả Dấu trang và Bản nhạc";
 "drive_through" = "Lái xe qua";
 
+/* Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_in" = "Phóng to";
+
+/* Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_out" = "Thu nhỏ";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Liên kết thực đơn";
 

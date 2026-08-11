@@ -1005,6 +1005,12 @@
 "bookmarks_export" = "Flytja út öll bókamerki og ferla";
 "drive_through" = "Bílaafgreiðsla";
 
+/* Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_in" = "Renna að";
+
+/* Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_out" = "Renna frá";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Tengill í valmynd";
 

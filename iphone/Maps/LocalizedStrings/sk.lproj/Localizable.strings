@@ -1005,6 +1005,12 @@
 "bookmarks_export" = "Export všetkých záložiek a stôp";
 "drive_through" = "Drive-thru";
 
+/* Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_in" = "Priblíženie";
+
+/* Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_out" = "Oddialenie";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Odkaz na menu";
 

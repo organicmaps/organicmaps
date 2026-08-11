@@ -846,8 +846,9 @@
     <string name="pref_tts_no_system_tts">Instellingen voor spraaksynthese zijn niet gevonden, weet je zeker dat je apparaat dit ondersteunt?</string>
     <string name="drive_through">Drive-through</string>
     <string name="clear_the_search">Wis de zoekopdracht</string>
+    <!-- Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_in">Inzoomen</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_out">Zoom uit</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Menulink</string>

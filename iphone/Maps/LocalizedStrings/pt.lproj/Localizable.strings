@@ -1005,6 +1005,12 @@
 "bookmarks_export" = "Exportar todos os favoritos e trajetos";
 "drive_through" = "Servizo ao volante";
 
+/* Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_in" = "Ampliar";
+
+/* Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_out" = "Diminuir o zoom";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Link do menu";
 

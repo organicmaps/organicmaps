@@ -833,9 +833,10 @@
     <string name="pref_tts_no_system_tts">הגדרות סינתזת דיבור לא נמצאו, האם אתה בטוח שהמכשיר שלך תומך בזה?</string>
     <string name="drive_through">דרייב ת\'רו</string>
     <string name="clear_the_search">נקה את החיפוש</string>
-    <string name="zoom_in">לְהִתְמַקֵד</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
-    <string name="zoom_out">להקטין את התצוגה</string>
+    <!-- Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
+    <string name="zoom_in">להתקרב</string>
+    <!-- Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
+    <string name="zoom_out">להתרחק</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">קישור לתפריט</string>
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->

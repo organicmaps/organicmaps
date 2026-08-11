@@ -846,8 +846,9 @@
     <string name="pref_tts_no_system_tts">Šnekos sintezės nustatymų modulis nerastas, ar esate tikri, kad jūsų įrenginys ją palaiko?</string>
     <string name="drive_through">Pravažiavimas</string>
     <string name="clear_the_search">Išvalyti paiešką</string>
+    <!-- Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_in">Pritraukti vaizdą</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_out">Atitraukti vaizdą</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Nuoroda į meniu</string>

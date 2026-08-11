@@ -1005,6 +1005,12 @@
 "bookmarks_export" = "导出所有书签和轨迹";
 "drive_through" = "面下车通道";
 
+/* Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_in" = "放大";
+
+/* Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_out" = "缩小";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "菜单链接";
 

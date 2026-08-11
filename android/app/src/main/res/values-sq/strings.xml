@@ -831,8 +831,9 @@
     <string name="pref_tts_no_system_tts">Cilësimet e Sintezës së Të Folurit nuk u gjetën, a jeni i sigurt që pajisja juaj e mbështet?</string>
     <string name="drive_through">Drive-through</string>
     <string name="clear_the_search">Pastroj kërkimin</string>
+    <!-- Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_in">Zmadho</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_out">Zvogëlo</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Lidhja e Menusë</string>

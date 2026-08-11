@@ -1,16 +1,57 @@
 import CarPlay
 import Contacts
 
+private enum RoutingOwner {
+  case device
+  case carPlay
+}
+
+private struct CarPlaySpeedState {
+  var currentSpeedMps: Double = 0
+  var speedLimitMps: Double?
+  var isCameraOnRoute = false
+  var cameraSpeedLimitMps: Double?
+  var isVisible = false
+}
+
 @objc(MWMCarPlayService)
 final class CarPlayService: NSObject {
+  private enum Constants {
+    static let openCarPlayURL = URL(string: "om://carplay")
+  }
+
   @objc static let shared = CarPlayService()
-  @objc var isCarplayActivated: Bool = false
+
+  @objc var isCarplayActivated: Bool {
+    effectiveDisplay != .device
+  }
+
   private var searchService: CarPlaySearchService?
   private var router: CarPlayRouter?
   private var window: CPWindow?
+  private var dashboardWindow: UIWindow?
+  private weak var dashboardScene: CPTemplateApplicationDashboardScene?
+  private var dashboardController: CPDashboardController?
   private var interfaceController: CPInterfaceController?
   private var sessionConfiguration: CPSessionConfiguration?
-  var currentPositionMode: MWMMyPositionMode = .pendingPosition
+  private var mapState = CarPlayMapOwnershipState()
+  // Layout can run while the shared map is moving, before attachedDisplay is updated.
+  private var transitioningTo: CarPlayMapDisplay?
+  private var routingOwner: RoutingOwner?
+  private var isCarPlayRoutingSubscribed = false
+  private var needsCarPlayRoutingRestore = false
+  private var isPhoneSceneConnected = false
+  private var activeCarPlayDisplay: CarPlayMapDisplay?
+  private var phoneModeAlert: CPAlertTemplate?
+  private var isTemplateOperationInProgress = false
+  private weak var visibleCarPlayTemplate: CPTemplate?
+  private var currentViewPortState: CPViewPortState = .default
+  private var speedState = CarPlaySpeedState()
+
+  private var currentPositionMode: MWMMyPositionMode {
+    MapViewController.shared()?.currentPositionMode ?? .pendingPosition
+  }
+
   var isSpeedCamActivated: Bool {
     set {
       router?.updateSpeedCameraMode(newValue ? .always : .never)
@@ -29,6 +70,10 @@ final class CarPlayService: NSObject {
     window?.rootViewController as? CarPlayMapViewController
   }
 
+  private var dashboardVC: CarPlayDashboardMapViewController? {
+    dashboardWindow?.rootViewController as? CarPlayDashboardMapViewController
+  }
+
   private var rootMapTemplate: CPMapTemplate? {
     interfaceController?.rootTemplate as? CPMapTemplate
   }
@@ -38,127 +83,575 @@ final class CarPlayService: NSObject {
   }
 
   @objc var carplayLayoutMargins: UIEdgeInsets {
-    guard isCarplayActivated, let view = carplayVC?.view else {
+    switch effectiveDisplay {
+    case .device:
       return .zero
+    case .mainCarPlay:
+      carplayVC?.view.layoutIfNeeded()
+      return carplayVC?.view.layoutMargins ?? .zero
+    case .dashboardCarPlay:
+      dashboardVC?.view.layoutIfNeeded()
+      return dashboardVC?.view.safeAreaInsets ?? .zero
     }
-    view.layoutIfNeeded()
-    return view.layoutMargins
   }
 
   var preparedToPreviewTrips: [CPTrip] = []
   private var searchText = ""
 
   @objc func setup(window: CPWindow, interfaceController: CPInterfaceController) {
-    LOG(.info, "Settting up service...")
-    isCarplayActivated = true
+    let sourceWindow = mapState.attachedDisplay == .mainCarPlay ? self.window : nil
+    let isNewSession = self.window !== window || self.interfaceController !== interfaceController
+    let replacesConnectedSession = isNewSession && self.interfaceController != nil
+
+    if replacesConnectedSession {
+      router?.cancelNavigationSession()
+    }
+    if self.window !== window {
+      carplayVC?.removeMapView()
+    }
+    if self.interfaceController !== interfaceController {
+      phoneModeAlert = nil
+      isTemplateOperationInProgress = false
+      visibleCarPlayTemplate = nil
+    }
+
     self.window = window
     self.interfaceController = interfaceController
     self.interfaceController?.delegate = self
+
     let configuration = CPSessionConfiguration(delegate: self)
     sessionConfiguration = configuration
-    searchService = CarPlaySearchService()
-    let router = CarPlayRouter()
-    router.addListener(self)
-    router.subscribeToEvents()
-    router.setupCarPlaySpeedCameraMode()
-    self.router = router
-    MWMRouter.unsubscribeFromEvents()
+    searchService = searchService ?? CarPlaySearchService()
+    let router = ensureRouter()
+
     applyRootViewController()
+    // Attach the one shared map even when CarPlay connects before the phone scene creates a window.
+    updateMapPlacement(sourceWindow: sourceWindow)
+
+    updateContentStyle(configuration.contentStyle)
+    if isNewSession || rootMapTemplate == nil {
+      configureRootTemplate(using: router)
+    } else {
+      // Reusing a connected CarPlay session does not run setRootTemplate again, so refresh its UI.
+      restoreCarPlayTemplateUI()
+    }
+    updatePhoneModeAlert()
+  }
+
+  func setupDashboard(scene: CPTemplateApplicationDashboardScene,
+                      window: UIWindow,
+                      dashboardController: CPDashboardController) {
+    let sourceWindow = mapState.attachedDisplay == .dashboardCarPlay ? dashboardWindow : nil
+    if dashboardWindow !== window {
+      dashboardVC?.removeMapView()
+    }
+    dashboardScene = scene
+    dashboardWindow = window
+    if !(window.rootViewController is CarPlayDashboardMapViewController) {
+      window.rootViewController = CarPlayDashboardMapViewController()
+    }
+    _ = ensureRouter()
+    self.dashboardController = dashboardController
+    updateMapPlacement(sourceWindow: sourceWindow)
+    updateMapPlaceholders()
+    refreshSpeedStateFromRoutingManager()
+    renderSpeedState()
+  }
+
+  private func updateDashboardButtons() {
+    guard let dashboardController else { return }
+    dashboardController.shortcutButtons = DashboardBuilder.buildShortcutButtons(
+      isMapOnPhone: mapState.isPhoneSelected,
+      openCarPlay: { [weak self] in
+        self?.openMainCarPlay()
+      }
+    )
+  }
+
+  private func updateMapPlaceholders() {
+    dashboardVC?.setPhoneModePlaceholderVisible(mapState.isPhoneSelected)
+    updateDashboardButtons()
+  }
+
+  func showOnPhone() {
+    mapState.selectPhone()
+    updateMapPlacement()
+  }
+
+  func openMainCarPlay() {
+    activateMainCarPlay()
+    guard let dashboardScene, let url = Constants.openCarPlayURL else { return }
+    dashboardScene.open(url, options: nil)
+  }
+
+  func handleOpenCarPlayURL(_ url: URL) -> Bool {
+    guard let openCarPlayURL = Constants.openCarPlayURL, url == openCarPlayURL else { return false }
+    activateMainCarPlay()
+    return true
+  }
+
+  func sceneDidBecomeActive(_ scene: UIScene) {
+    handleCarPlaySceneActivation(scene)
+  }
+
+  func sceneWillEnterForeground(_ scene: UIScene) {
+    handleCarPlaySceneActivation(scene)
+  }
+
+  private func handleCarPlaySceneActivation(_ scene: UIScene) {
+    if scene is CPTemplateApplicationDashboardScene {
+      activeCarPlayDisplay = .dashboardCarPlay
+    } else if scene is CPTemplateApplicationScene {
+      // CarPlay opens Main when the Dashboard map widget is tapped without invoking our Dashboard controls.
+      // Treat that scene activation as an explicit request to move the shared map back to the car.
+      activateMainCarPlay()
+      return
+    } else {
+      return
+    }
+    updateMapPlacement()
+  }
+
+  func phoneSceneDidConnect() {
+    isPhoneSceneConnected = true
+    updateMapPlacement()
+  }
+
+  func phoneSceneDidDisconnect() {
+    isPhoneSceneConnected = false
+    mapState.phoneDidDisconnect()
+    updateMapPlacement()
+  }
+
+  private func activateMainCarPlay() {
+    mapState.selectCar()
+    activeCarPlayDisplay = .mainCarPlay
+    updateMapPlacement()
+  }
+
+  private func updateMapPlacement(sourceWindow: UIWindow? = nil) {
+    guard let destination = mapState.desiredDisplay(for: mapAvailability) else { return }
+    guard mapState.attachedDisplay != destination || !isMapAttached(to: destination) else { return }
+    moveMap(to: destination, sourceWindow: sourceWindow)
+  }
+
+  private func moveMap(to destination: CarPlayMapDisplay, sourceWindow: UIWindow? = nil) {
+    guard let mapVC = MapViewController.shared() else {
+      return
+    }
+    mapVC.loadViewIfNeeded()
+    guard isAvailable(destination) else {
+      return
+    }
+
+    let source = mapState.attachedDisplay
+    let mapWasOnPhone = mapVC.mapView.superview === mapVC.view
+    transitioningTo = destination
+    defer { transitioningTo = nil }
+
+    // Detach from both CarPlay containers first. Phone detachment is handled by
+    // enableCarPlayRepresentation because it also installs the existing phone placeholder.
+    carplayVC?.removeMapView()
+    dashboardVC?.removeMapView()
+    mapVC.remove(self)
+
+    switch destination {
+    case .device:
+      if !mapWasOnPhone {
+        mapVC.disableCarPlayRepresentation()
+      }
+    case .mainCarPlay:
+      guard let window, let carplayVC else {
+        return
+      }
+      if mapWasOnPhone {
+        mapVC.enableCarPlayRepresentation()
+      }
+      carplayVC.addMapView(mapVC.mapView, mapButtonSafeAreaLayoutGuide: window.mapButtonSafeAreaLayoutGuide)
+      mapVC.add(self)
+    case .dashboardCarPlay:
+      guard let dashboardVC else {
+        return
+      }
+      if mapWasOnPhone {
+        mapVC.enableCarPlayRepresentation()
+      }
+      dashboardVC.addMapView(mapVC.mapView)
+      mapVC.add(self)
+    }
+
+    mapState.didAttach(to: destination)
+    updateMapPlaceholders()
+    updatePresentation(for: destination, from: source, sourceWindow: sourceWindow)
+    assertSingleMapOwner(mapVC)
+  }
+
+  private func updatePresentation(
+    for destination: CarPlayMapDisplay,
+    from source: CarPlayMapDisplay,
+    sourceWindow: UIWindow?
+  ) {
+    updateRoutingPresentation(for: destination)
+
+    let toDevice = destination == .device
+    FrameworkHelper.updatePositionArrowOffset(toDevice, offset: toDevice ? 0 : 5)
+    CarPlayWindowScaleAdjuster.updateAppearance(
+      fromWindow: sourceWindow ?? window(for: source),
+      toWindow: window(for: destination),
+      isCarplayActivated: !toDevice
+    )
+
+    switch destination {
+    case .device:
+      break
+    case .mainCarPlay:
+      carplayVC?.view.layoutIfNeeded()
+      // CPInterfaceController owns the template stack. Moving the shared map must not rebuild it:
+      // doing so while Main CarPlay appears can race the transition and drop its buttons.
+      updateVisibleViewPortState(currentViewPortState)
+    case .dashboardCarPlay:
+      dashboardVC?.view.layoutIfNeeded()
+      dashboardVC?.updateVisibleViewport()
+    }
+
+    if destination != .device {
+      refreshSpeedStateFromRoutingManager()
+    }
+    renderSpeedState()
+    ThemeManager.invalidate()
+    updatePhoneModeAlert()
+  }
+
+  private func updateRoutingPresentation(for display: CarPlayMapDisplay) {
+    let destination: RoutingOwner = display == .device ? .device : .carPlay
+    guard routingOwner != destination, let router else { return }
+
+    switch destination {
+    case .device:
+      let hadCurrentTrip = router.currentTrip != nil
+      let hadPreviewTrip = router.previewTrip != nil
+      if isCarPlayRoutingSubscribed {
+        router.removeListener(self)
+        router.unsubscribeFromEvents()
+        isCarPlayRoutingSubscribed = false
+      }
+      router.setupInitialSpeedCameraMode()
+      MWMRouter.subscribeToEvents()
+      router.cancelNavigationSession()
+      needsCarPlayRoutingRestore = false
+      if hadCurrentTrip {
+        MWMRouter.showNavigationMapControls()
+      } else if hadPreviewTrip {
+        MWMRouter.rebuild(withBestRouter: true)
+      }
+    case .carPlay:
+      if !isCarPlayRoutingSubscribed {
+        router.addListener(self)
+        router.subscribeToEvents()
+        isCarPlayRoutingSubscribed = true
+      }
+      router.setupCarPlaySpeedCameraMode()
+      MWMRouter.unsubscribeFromEvents()
+      MWMRouter.hideNavigationMapControls()
+      needsCarPlayRoutingRestore = routingOwner == .device
+    }
+
+    routingOwner = destination
+  }
+
+  private func restoreCarPlayTemplateUI() {
+    guard let mapTemplate = rootMapTemplate else {
+      return
+    }
+
+    mapTemplate.mapDelegate = self
+    mapTemplate.tripEstimateStyle = rootTemplateStyle
+    if let info = mapTemplate.userInfo as? MapInfo {
+      switch info.type {
+      case CPConstants.TemplateType.navigation:
+        MapTemplateBuilder.configureNavigationUI(mapTemplate, positionMode: currentPositionMode)
+      case CPConstants.TemplateType.main:
+        MapTemplateBuilder.configureBaseUI(
+          mapTemplate,
+          positionMode: currentPositionMode,
+          isOnRoute: isOnRoute
+        )
+      default:
+        break
+      }
+    }
+    processMyPositionStateModeEvent(currentPositionMode)
+  }
+
+  private func restoreCarPlayRoutingStateIfNeeded() {
+    guard needsCarPlayRoutingRestore,
+          mapState.attachedDisplay != .device,
+          let router,
+          let mapTemplate = rootMapTemplate
+    else {
+      return
+    }
+
+    needsCarPlayRoutingRestore = false
+    mapTemplate.mapDelegate = self
+    mapTemplate.tripEstimateStyle = rootTemplateStyle
+
+    if let (trip, routeInfo) = router.restoredNavigationSession() {
+      MapTemplateBuilder.configureNavigationUI(mapTemplate, positionMode: currentPositionMode)
+      router.startNavigationSession(forTrip: trip, template: mapTemplate)
+      if let estimates = createEstimates(routeInfo: routeInfo) {
+        mapTemplate.updateEstimates(estimates, for: trip)
+      }
+      updateSpeedState(routeInfo: routeInfo, isVisible: true)
+      updateVisibleViewPortState(.navigation)
+      return
+    }
+
+    MapTemplateBuilder.configureBaseUI(
+      mapTemplate,
+      positionMode: currentPositionMode,
+      isOnRoute: isOnRoute
+    )
+    hideSpeedState()
+    updateVisibleViewPortState(.default)
+    FrameworkHelper.rotateMap(0.0, animated: false)
+    router.restoreTripPreviewOnCarplay(beforeRootTemplateDidAppear: false)
+  }
+
+  private func configureRootTemplate(using router: CarPlayRouter) {
+    // This path restores the routing UI itself; do not repeat it from the root-template completion.
+    needsCarPlayRoutingRestore = false
+    guard mapState.attachedDisplay != .device else {
+      applyBaseRootTemplate()
+      return
+    }
+
     if let sessionData = router.restoredNavigationSession() {
       applyNavigationRootTemplate(trip: sessionData.0, routeInfo: sessionData.1)
     } else {
       applyBaseRootTemplate()
       router.restoreTripPreviewOnCarplay(beforeRootTemplateDidAppear: true)
     }
-    updateContentStyle(configuration.contentStyle)
-    FrameworkHelper.updatePositionArrowOffset(false, offset: 5)
-
-    CarPlayWindowScaleAdjuster.updateAppearance(
-      fromWindow: MapsAppDelegate.theApp().window,
-      toWindow: window,
-      isCarplayActivated: true
-    )
   }
 
-  private var savedInterfaceController: CPInterfaceController?
+  private func ensureRouter() -> CarPlayRouter {
+    if let router {
+      return router
+    }
 
-  func showOnPhone() {
-    LOG(.info, "Show on the Phone screen")
-    savedInterfaceController = interfaceController
-    switchScreenToPhone()
-    showPhoneModeAlert()
+    let router = CarPlayRouter()
+    router.addListener(self)
+    router.subscribeToEvents()
+    isCarPlayRoutingSubscribed = true
+    self.router = router
+    return router
   }
 
-  private func showOnCarplay() {
-    LOG(.info, "Show on the Car screen")
-    guard let window, let savedInterfaceController else {
-      LOG(.warning, "Failed to show on carplay: the `window` is \(String(describing: window)), the `savedInterfaceController` is \(String(describing: savedInterfaceController))")
+  private func updatePhoneModeAlert() {
+    guard let interfaceController else { return }
+    let shouldPresent = mapState.isPhoneSelected
+
+    if shouldPresent, rootMapTemplate == nil {
       return
     }
-    setup(window: window, interfaceController: savedInterfaceController)
+
+    if isTemplateOperationInProgress {
+      return
+    }
+
+    if shouldPresent {
+      if let phoneModeAlert, interfaceController.presentedTemplate === phoneModeAlert {
+        return
+      }
+      if interfaceController.presentedTemplate != nil {
+        dismissPresentedTemplate(on: interfaceController)
+        return
+      }
+      presentPhoneModeAlert(on: interfaceController)
+      return
+    }
+
+    guard let phoneModeAlert,
+          interfaceController.presentedTemplate === phoneModeAlert
+    else {
+      phoneModeAlert = nil
+      restoreCarPlayRoutingStateIfNeeded()
+      return
+    }
+    dismissPresentedTemplate(on: interfaceController)
   }
 
-  private func showPhoneModeAlert() {
+  private func presentPhoneModeAlert(on interfaceController: CPInterfaceController) {
     let switchToCarAction = CPAlertAction(
       title: L("car_continue_in_the_car"),
       style: .default,
       handler: { [weak self] _ in
-        guard let self else { return }
-        savedInterfaceController?.dismissTemplate(animated: false, completion: templateCompletion)
-        showOnCarplay()
+        self?.activateMainCarPlay()
       }
     )
     let alert = CPAlertTemplate(
       titleVariants: [L("car_used_on_the_phone_screen")],
       actions: [switchToCarAction]
     )
-    savedInterfaceController?.dismissTemplate(animated: false, completion: templateCompletion)
-    savedInterfaceController?.presentTemplate(alert, animated: false, completion: templateCompletion)
+    phoneModeAlert = alert
+    isTemplateOperationInProgress = true
+
+    interfaceController.presentTemplate(alert, animated: false) { [weak self, weak interfaceController] success, error in
+      guard let self else { return }
+      guard self.interfaceController === interfaceController else { return }
+      isTemplateOperationInProgress = false
+      templateCompletion(success, error)
+      if !success {
+        phoneModeAlert = nil
+        return
+      }
+      updatePhoneModeAlert()
+    }
   }
 
-  private func switchScreenToPhone() {
-    if let carplayVC = carplayVC {
-      carplayVC.removeMapView()
+  private func dismissPresentedTemplate(on interfaceController: CPInterfaceController) {
+    isTemplateOperationInProgress = true
+    interfaceController.dismissTemplate(animated: false) { [weak self, weak interfaceController] success, error in
+      guard let self else { return }
+      guard self.interfaceController === interfaceController else { return }
+      isTemplateOperationInProgress = false
+      templateCompletion(success, error)
+      guard success else { return }
+      phoneModeAlert = nil
+      updatePhoneModeAlert()
     }
-    if let mvc = MapViewController.shared() {
-      mvc.disableCarPlayRepresentation()
-      mvc.remove(self)
-    }
-    router?.removeListener(self)
-    router?.unsubscribeFromEvents()
-    router?.setupInitialSpeedCameraMode()
-    MWMRouter.subscribeToEvents()
-    isCarplayActivated = false
-    if router?.currentTrip != nil {
-      MWMRouter.showNavigationMapControls()
-    } else if router?.previewTrip != nil {
-      MWMRouter.rebuild(withBestRouter: true)
-    }
-    router?.cancelNavigationSession()
-    searchService = nil
-    router = nil
-    sessionConfiguration = nil
-    interfaceController = nil
-    ThemeManager.invalidate()
-    FrameworkHelper.updatePositionArrowOffset(true, offset: 0)
+  }
 
-    if let window {
-      CarPlayWindowScaleAdjuster.updateAppearance(
-        fromWindow: window,
-        toWindow: MapsAppDelegate.theApp().window,
-        isCarplayActivated: false
-      )
+  func destroyDashboard(window disconnectedWindow: UIWindow) {
+    guard dashboardWindow === disconnectedWindow else {
+      return
     }
+
+    dashboardVC?.removeMapView()
+    dashboardScene = nil
+    dashboardController = nil
+    dashboardWindow = nil
+    if activeCarPlayDisplay == .dashboardCarPlay {
+      activeCarPlayDisplay = nil
+    }
+    let sourceWindow = mapState.attachedDisplay == .dashboardCarPlay ? disconnectedWindow : nil
+    updateMapPlacement(sourceWindow: sourceWindow)
+    teardownRouterIfCarPlayDisconnected()
+  }
+
+  func destroy(window disconnectedWindow: CPWindow) {
+    guard window === disconnectedWindow else {
+      return
+    }
+
+    carplayVC?.removeMapView()
+    window = nil
+    interfaceController = nil
+    sessionConfiguration = nil
+    searchService = nil
+    phoneModeAlert = nil
+    isTemplateOperationInProgress = false
+    visibleCarPlayTemplate = nil
+    if activeCarPlayDisplay == .mainCarPlay {
+      activeCarPlayDisplay = nil
+    }
+
+    let sourceWindow = mapState.attachedDisplay == .mainCarPlay ? disconnectedWindow : nil
+    updateMapPlacement(sourceWindow: sourceWindow)
+
+    if dashboardWindow != nil {
+      router?.cancelNavigationSession()
+    }
+    teardownRouterIfCarPlayDisconnected()
   }
 
   @objc func destroy() {
-    if isCarplayActivated {
-      switchScreenToPhone()
+    guard let window else { return }
+    destroy(window: window)
+  }
+
+  private func teardownRouterIfCarPlayDisconnected() {
+    guard window == nil, dashboardWindow == nil, let router else { return }
+    let phoneRoutingIsAlreadyActive = routingOwner == .device
+    if isCarPlayRoutingSubscribed {
+      router.removeListener(self)
+      router.unsubscribeFromEvents()
+      isCarPlayRoutingSubscribed = false
     }
-    savedInterfaceController = nil
+    router.setupInitialSpeedCameraMode()
+    router.cancelNavigationSession()
+    self.router = nil
+    routingOwner = .device
+    needsCarPlayRoutingRestore = false
+    mapState.reset()
+    speedState = CarPlaySpeedState()
+    if !phoneRoutingIsAlreadyActive {
+      MWMRouter.subscribeToEvents()
+    }
+  }
+
+  private var mapAvailability: CarPlayMapAvailability {
+    CarPlayMapAvailability(
+      isDeviceConnected: isPhoneSceneConnected && MapViewController.shared() != nil,
+      isMainCarPlayConnected: window != nil && interfaceController != nil && carplayVC != nil,
+      isDashboardConnected: dashboardWindow != nil && dashboardVC != nil,
+      isMainCarPlayVisible: visibleCarPlayTemplate != nil,
+      activeCarPlayDisplay: activeCarPlayDisplay
+    )
+  }
+
+  private func isAvailable(_ display: CarPlayMapDisplay) -> Bool {
+    mapAvailability.contains(display)
+  }
+
+  private func isMapAttached(to display: CarPlayMapDisplay) -> Bool {
+    guard let mapVC = MapViewController.shared() else { return false }
+    switch display {
+    case .device:
+      return mapVC.mapView.superview === mapVC.view
+    case .mainCarPlay:
+      return carplayVC?.mapView === mapVC.mapView
+    case .dashboardCarPlay:
+      return dashboardVC?.mapView === mapVC.mapView
+    }
+  }
+
+  private func window(for display: CarPlayMapDisplay) -> UIWindow? {
+    switch display {
+    case .device:
+      return MapsAppDelegate.theApp().window
+    case .mainCarPlay:
+      return window
+    case .dashboardCarPlay:
+      return dashboardWindow
+    }
+  }
+
+  private var effectiveDisplay: CarPlayMapDisplay {
+    transitioningTo ?? mapState.attachedDisplay
+  }
+
+  private func applyRootViewController() {
+    guard let window else { return }
+    if !(window.rootViewController is CarPlayMapViewController) {
+      window.rootViewController = UIStoryboard.instance(.carPlay).instantiateInitialViewController()
+    }
+  }
+
+  private func assertSingleMapOwner(_ mapVC: MapViewController) {
+    let owners = [
+      mapVC.mapView.superview === mapVC.view,
+      carplayVC?.mapView === mapVC.mapView,
+      dashboardVC?.mapView === mapVC.mapView,
+    ].filter { $0 }.count
+    assert(owners == 1, "The shared map must have exactly one owner, got \(owners)")
   }
 
   @objc func interfaceStyle() -> UIUserInterfaceStyle {
+    if effectiveDisplay == .dashboardCarPlay,
+       dashboardWindow?.traitCollection.userInterfaceIdiom == .carPlay {
+      return dashboardWindow?.traitCollection.userInterfaceStyle ?? .unspecified
+    }
     if let window = window,
        window.traitCollection.userInterfaceIdiom == .carPlay {
       return rootTemplateStyle == .dark ? .dark : .light
@@ -168,7 +661,7 @@ final class CarPlayService: NSObject {
 
   private func updateContentStyle(_ contentStyle: CPContentStyle) {
     rootTemplateStyle = contentStyle == .dark ? .dark : .light
-    // Update the current map style in accordance with the CarPLay content theme.
+    // Update the current map style in accordance with the CarPlay content theme.
     ThemeManager.invalidate()
   }
 
@@ -178,41 +671,47 @@ final class CarPlayService: NSObject {
     }
   }
 
-  private func applyRootViewController() {
-    guard let window = window else { return }
-    let carplaySotyboard = UIStoryboard.instance(.carPlay)
-    let carplayVC = carplaySotyboard.instantiateInitialViewController() as! CarPlayMapViewController
-    window.rootViewController = carplayVC
-    if let mapVC = MapViewController.shared() {
-      currentPositionMode = mapVC.currentPositionMode
-      mapVC.enableCarPlayRepresentation()
-      carplayVC.addMapView(mapVC.mapView, mapButtonSafeAreaLayoutGuide: window.mapButtonSafeAreaLayoutGuide)
-      mapVC.add(self)
-    }
-  }
-
   private func applyBaseRootTemplate() {
     let mapTemplate = MapTemplateBuilder.buildBaseTemplate(positionMode: currentPositionMode, isOnRoute: isOnRoute)
     mapTemplate.mapDelegate = self
     mapTemplate.tripEstimateStyle = rootTemplateStyle
-    interfaceController?.setRootTemplate(mapTemplate, animated: true, completion: templateCompletion)
+    guard let interfaceController else { return }
+    isTemplateOperationInProgress = true
+    interfaceController.setRootTemplate(mapTemplate, animated: true) { [weak self, weak interfaceController] success, error in
+      guard let self else { return }
+      guard self.interfaceController === interfaceController else { return }
+      isTemplateOperationInProgress = false
+      templateCompletion(success, error)
+      if success {
+        restoreCarPlayTemplateUI()
+        updatePhoneModeAlert()
+      }
+    }
     FrameworkHelper.rotateMap(0.0, animated: false)
   }
 
   private func applyNavigationRootTemplate(trip: CPTrip, routeInfo: RouteInfo) {
     let mapTemplate = MapTemplateBuilder.buildNavigationTemplate(positionMode: currentPositionMode)
     mapTemplate.mapDelegate = self
-    interfaceController?.setRootTemplate(mapTemplate, animated: true, completion: templateCompletion)
+    guard let interfaceController else { return }
+    isTemplateOperationInProgress = true
+    interfaceController.setRootTemplate(mapTemplate, animated: true) { [weak self, weak interfaceController] success, error in
+      guard let self else { return }
+      guard self.interfaceController === interfaceController else { return }
+      isTemplateOperationInProgress = false
+      templateCompletion(success, error)
+      if success {
+        restoreCarPlayTemplateUI()
+        updatePhoneModeAlert()
+      }
+    }
     router?.startNavigationSession(forTrip: trip, template: mapTemplate)
     if let estimates = createEstimates(routeInfo: routeInfo) {
       mapTemplate.tripEstimateStyle = rootTemplateStyle
       mapTemplate.updateEstimates(estimates, for: trip)
     }
 
-    if let carplayVC = carplayVC {
-      carplayVC.updateCurrentSpeed(routeInfo.speedMps, speedLimitMps: routeInfo.speedLimitMps)
-      carplayVC.showSpeedControl()
-    }
+    updateSpeedState(routeInfo: routeInfo, isVisible: true)
   }
 
   func pushTemplate(_ templateToPush: CPTemplate, animated: Bool) {
@@ -234,22 +733,94 @@ final class CarPlayService: NSObject {
   }
 
   func presentAlert(_ template: CPAlertTemplate, animated: Bool) {
-    interfaceController?.dismissTemplate(animated: false, completion: templateCompletion)
-    interfaceController?.presentTemplate(template, animated: animated, completion: templateCompletion)
+    guard let interfaceController else { return }
+    let present = { [weak self, weak interfaceController] in
+      guard let self, let interfaceController,
+            self.interfaceController === interfaceController
+      else {
+        return
+      }
+      interfaceController.presentTemplate(template, animated: animated, completion: templateCompletion)
+    }
+    guard interfaceController.presentedTemplate != nil else {
+      present()
+      return
+    }
+    interfaceController.dismissTemplate(animated: false) { [weak self] success, error in
+      self?.templateCompletion(success, error)
+      guard success else { return }
+      present()
+    }
   }
 
   func cancelCurrentTrip() {
     LOG(.info, "Cancel current trip")
     router?.cancelTrip()
-    if let carplayVC = carplayVC {
-      carplayVC.hideSpeedControl()
-    }
+    hideSpeedState()
     updateMapTemplateUIToBase()
   }
 
   func updateCameraUI(isCameraOnRoute: Bool, speedLimitMps limit: Double?) {
-    if let carplayVC = carplayVC {
-      carplayVC.updateCameraInfo(isCameraOnRoute: isCameraOnRoute, speedLimitMps: limit)
+    speedState.isCameraOnRoute = isCameraOnRoute
+    speedState.cameraSpeedLimitMps = limit
+    renderSpeedState()
+  }
+
+  private func updateSpeedState(routeInfo: RouteInfo, isVisible: Bool? = nil) {
+    speedState.currentSpeedMps = routeInfo.speedMps
+    speedState.speedLimitMps = routeInfo.speedLimitMps
+    if let isVisible {
+      speedState.isVisible = isVisible
+    }
+    renderSpeedState()
+  }
+
+  private func hideSpeedState() {
+    speedState.isVisible = false
+    speedState.isCameraOnRoute = false
+    speedState.cameraSpeedLimitMps = nil
+    renderSpeedState()
+  }
+
+  private func refreshSpeedStateFromRoutingManager() {
+    guard isOnRoute, let routeInfo = RoutingManager.routingManager.routeInfo else {
+      speedState.isVisible = false
+      return
+    }
+    speedState.currentSpeedMps = routeInfo.speedMps
+    speedState.speedLimitMps = routeInfo.speedLimitMps
+    speedState.isVisible = true
+  }
+
+  private func renderSpeedState() {
+    carplayVC?.updateCurrentSpeed(
+      speedState.currentSpeedMps,
+      speedLimitMps: speedState.speedLimitMps
+    )
+    carplayVC?.updateCameraInfo(
+      isCameraOnRoute: speedState.isCameraOnRoute,
+      speedLimitMps: speedState.cameraSpeedLimitMps
+    )
+    dashboardVC?.updateCurrentSpeed(
+      speedState.currentSpeedMps,
+      speedLimitMps: speedState.speedLimitMps
+    )
+    dashboardVC?.updateCameraInfo(
+      isCameraOnRoute: speedState.isCameraOnRoute,
+      speedLimitMps: speedState.cameraSpeedLimitMps
+    )
+
+    let showOnMainCarPlay = speedState.isVisible && mapState.attachedDisplay == .mainCarPlay
+    let showOnDashboard = speedState.isVisible && mapState.attachedDisplay == .dashboardCarPlay
+    if showOnMainCarPlay {
+      carplayVC?.showSpeedControl()
+    } else {
+      carplayVC?.hideSpeedControl()
+    }
+    if showOnDashboard {
+      dashboardVC?.showSpeedControl()
+    } else {
+      dashboardVC?.hideSpeedControl()
     }
   }
 
@@ -290,10 +861,12 @@ final class CarPlayService: NSObject {
   }
 
   func updateVisibleViewPortState(_ state: CPViewPortState) {
-    guard let carplayVC = carplayVC else {
-      return
+    currentViewPortState = state
+    if mapState.attachedDisplay == .dashboardCarPlay {
+      dashboardVC?.updateVisibleViewport()
+    } else if mapState.attachedDisplay == .mainCarPlay {
+      carplayVC?.updateVisibleViewPortState(state)
     }
-    carplayVC.updateVisibleViewPortState(state)
   }
 
   func updateRouteAfterChangingSettings() {
@@ -327,10 +900,12 @@ final class CarPlayService: NSObject {
   }
 }
 
-// MARK: - CPInterfaceControllerDelegate implementation
+// MARK: - CPInterfaceControllerDelegate
 
 extension CarPlayService: CPInterfaceControllerDelegate {
   func templateWillAppear(_ aTemplate: CPTemplate, animated _: Bool) {
+    visibleCarPlayTemplate = aTemplate
+    updateMapPlacement()
     guard let info = aTemplate.userInfo as? MapInfo else {
       return
     }
@@ -375,6 +950,16 @@ extension CarPlayService: CPInterfaceControllerDelegate {
   }
 
   func templateDidDisappear(_ aTemplate: CPTemplate, animated _: Bool) {
+    if visibleCarPlayTemplate === aTemplate {
+      visibleCarPlayTemplate = nil
+      // A replacement template normally starts appearing before the previous one finishes
+      // disappearing. Defer one run-loop turn so an in-app template transition keeps the map on
+      // MainCP. The template visibility callbacks drive automatic MainCP/Dashboard ownership; this
+      // deferred reconciliation handles the case where the main template actually leaves the screen.
+      DispatchQueue.main.async { [weak self] in
+        self?.updateMapPlacement()
+      }
+    }
     guard !preparedToPreviewTrips.isEmpty,
           let info = aTemplate.userInfo as? [String: String],
           let alertType = info[CPConstants.TemplateKey.alert],
@@ -388,7 +973,7 @@ extension CarPlayService: CPInterfaceControllerDelegate {
   }
 }
 
-// MARK: - CPSessionConfigurationDelegate implementation
+// MARK: - CPSessionConfigurationDelegate
 
 extension CarPlayService: CPSessionConfigurationDelegate {
   func sessionConfiguration(_: CPSessionConfiguration,
@@ -401,7 +986,7 @@ extension CarPlayService: CPSessionConfigurationDelegate {
   }
 }
 
-// MARK: - CPMapTemplateDelegate implementation
+// MARK: - CPMapTemplateDelegate
 
 extension CarPlayService: CPMapTemplateDelegate {
   func mapTemplateDidShowPanningInterface(_ mapTemplate: CPMapTemplate) {
@@ -422,20 +1007,36 @@ extension CarPlayService: CPMapTemplateDelegate {
   func mapTemplate(_: CPMapTemplate, panEndedWith direction: CPMapTemplate.PanDirection) {
     var offset = UIOffset(horizontal: 0.0, vertical: 0.0)
     let offsetStep: CGFloat = 0.25
-    if direction.contains(.up) { offset.vertical -= offsetStep }
-    if direction.contains(.down) { offset.vertical += offsetStep }
-    if direction.contains(.left) { offset.horizontal += offsetStep }
-    if direction.contains(.right) { offset.horizontal -= offsetStep }
+    if direction.contains(.up) {
+      offset.vertical -= offsetStep
+    }
+    if direction.contains(.down) {
+      offset.vertical += offsetStep
+    }
+    if direction.contains(.left) {
+      offset.horizontal += offsetStep
+    }
+    if direction.contains(.right) {
+      offset.horizontal -= offsetStep
+    }
     FrameworkHelper.moveMap(offset)
   }
 
   func mapTemplate(_: CPMapTemplate, panWith direction: CPMapTemplate.PanDirection) {
     var offset = UIOffset(horizontal: 0.0, vertical: 0.0)
     let offsetStep: CGFloat = 0.1
-    if direction.contains(.up) { offset.vertical -= offsetStep }
-    if direction.contains(.down) { offset.vertical += offsetStep }
-    if direction.contains(.left) { offset.horizontal += offsetStep }
-    if direction.contains(.right) { offset.horizontal -= offsetStep }
+    if direction.contains(.up) {
+      offset.vertical -= offsetStep
+    }
+    if direction.contains(.down) {
+      offset.vertical += offsetStep
+    }
+    if direction.contains(.left) {
+      offset.horizontal += offsetStep
+    }
+    if direction.contains(.right) {
+      offset.horizontal -= offsetStep
+    }
     FrameworkHelper.moveMap(offset)
   }
 
@@ -475,10 +1076,7 @@ extension CarPlayService: CPMapTemplateDelegate {
       rootMapTemplate.updateEstimates(estimates, for: trip)
     }
 
-    if let carplayVC = carplayVC {
-      carplayVC.updateCurrentSpeed(info.speedMps, speedLimitMps: info.speedLimitMps)
-      carplayVC.showSpeedControl()
-    }
+    updateSpeedState(routeInfo: info, isVisible: true)
     updateVisibleViewPortState(.navigation)
   }
 
@@ -511,7 +1109,7 @@ extension CarPlayService: CPMapTemplateDelegate {
   }
 }
 
-// MARK: - CPSearchTemplateDelegate implementation
+// MARK: - CPSearchTemplateDelegate
 
 extension CarPlayService: CPSearchTemplateDelegate {
   func searchTemplate(_: CPSearchTemplate, updatedSearchText searchText: String, completionHandler: @escaping ([CPListItem]) -> Void) {
@@ -555,7 +1153,7 @@ extension CarPlayService: CPSearchTemplateDelegate {
   }
 }
 
-// MARK: - CarPlayRouterListener implementation
+// MARK: - CarPlayRouterListener
 
 extension CarPlayService: CarPlayRouterListener {
   func didCreateRoute(routeInfo: RouteInfo, trip: CPTrip) {
@@ -571,9 +1169,7 @@ extension CarPlayService: CarPlayRouterListener {
   }
 
   func didUpdateRouteInfo(_ routeInfo: RouteInfo, forTrip trip: CPTrip) {
-    if let carplayVC = carplayVC {
-      carplayVC.updateCurrentSpeed(routeInfo.speedMps, speedLimitMps: routeInfo.speedLimitMps)
-    }
+    updateSpeedState(routeInfo: routeInfo)
     guard let router = router,
           let template = rootMapTemplate
     else {
@@ -593,11 +1189,11 @@ extension CarPlayService: CarPlayRouterListener {
   }
 
   func routeDidFinish(_ trip: CPTrip) {
-    if router?.currentTrip == nil { return }
-    router?.finishTrip()
-    if let carplayVC = carplayVC {
-      carplayVC.hideSpeedControl()
+    if router?.currentTrip == nil {
+      return
     }
+    router?.finishTrip()
+    hideSpeedState()
     updateMapTemplateUIToTripFinished(trip)
   }
 }
@@ -606,7 +1202,6 @@ extension CarPlayService: CarPlayRouterListener {
 
 extension CarPlayService: LocationModeListener {
   func processMyPositionStateModeEvent(_ mode: MWMMyPositionMode) {
-    currentPositionMode = mode
     guard let rootMapTemplate else { return }
     MapTemplateBuilder.setupMapButtons(rootMapTemplate, positionMode: mode)
     MapTemplateBuilder.setupLeadingNavigationBarButtons(rootMapTemplate, positionMode: mode, isOnRoute: isOnRoute)
@@ -661,14 +1256,24 @@ extension CarPlayService {
 
   func preparePreview(trips: [CPTrip]) {
     let mapTemplate = MapTemplateBuilder.buildTripPreviewTemplate(forTrips: trips)
-    if let interfaceController = interfaceController {
-      mapTemplate.mapDelegate = self
+    guard let interfaceController else { return }
+    mapTemplate.mapDelegate = self
 
-      if interfaceController.templates.count > 1 {
-        interfaceController.popToRootTemplate(animated: false, completion: templateCompletion)
-      }
-      interfaceController.pushTemplate(mapTemplate, animated: false, completion: templateCompletion)
+    guard interfaceController.templates.count > 1 else {
+      pushTripPreview(mapTemplate, on: interfaceController)
+      return
     }
+
+    interfaceController.popToRootTemplate(animated: false) { [weak self, weak interfaceController] success, error in
+      guard let self, let interfaceController else { return }
+      templateCompletion(success, error)
+      guard success, self.interfaceController === interfaceController else { return }
+      pushTripPreview(mapTemplate, on: interfaceController)
+    }
+  }
+
+  private func pushTripPreview(_ mapTemplate: CPMapTemplate, on interfaceController: CPInterfaceController) {
+    interfaceController.pushTemplate(mapTemplate, animated: false, completion: templateCompletion)
   }
 
   func showPreview(mapTemplate: CPMapTemplate, trips: [CPTrip]) {

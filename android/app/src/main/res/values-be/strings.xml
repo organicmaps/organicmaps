@@ -852,8 +852,9 @@
     <string name="pref_tts_no_system_tts">Налады сінтэзу маўлення не знойдзены. Вы ўпэўнены, што ваша прылада падтрымлівае гэта?</string>
     <string name="drive_through">З акенцам для кіроўцаў</string>
     <string name="clear_the_search">Ачысціць пошук</string>
+    <!-- Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_in">Наблізіць</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_out">Аддаліць</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Спасылка на меню</string>

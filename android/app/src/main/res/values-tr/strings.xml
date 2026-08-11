@@ -845,8 +845,9 @@
     <string name="pref_tts_no_system_tts">Konuşma Sentezi ayarları bulunamadı, aygıtınızın bunu desteklediğine emin misiniz?</string>
     <string name="drive_through">Arabaya servis</string>
     <string name="clear_the_search">Aramayı temizleyin</string>
+    <!-- Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_in">Yakınlaştır</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
+    <!-- Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
     <string name="zoom_out">Uzaklaştır</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Menü Bağlantısı</string>

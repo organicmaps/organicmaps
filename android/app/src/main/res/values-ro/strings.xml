@@ -833,9 +833,10 @@
     <string name="pref_tts_no_system_tts">Nu au fost găsite setările de sinteză vocală, sunteți sigur că dispozitivul dvs. le acceptă?</string>
     <string name="drive_through">Servire în mașină</string>
     <string name="clear_the_search">Ștergeți căutarea</string>
-    <string name="zoom_in">A mari</string>
-    <!-- Accessibility text for the zoom-out button on the map -->
-    <string name="zoom_out">A micsora</string>
+    <!-- Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
+    <string name="zoom_in">A mări</string>
+    <!-- Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short -->
+    <string name="zoom_out">A micșora</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Legătura de meniu</string>
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->

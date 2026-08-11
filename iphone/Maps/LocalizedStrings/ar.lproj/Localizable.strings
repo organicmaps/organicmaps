@@ -1005,6 +1005,12 @@
 "bookmarks_export" = "تصدير كافة الإشارات المرجعية والمسارات";
 "drive_through" = "خدمة من السيارة";
 
+/* Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_in" = "تكبير";
+
+/* Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_out" = "تصغير";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "رابط القائمة";
 

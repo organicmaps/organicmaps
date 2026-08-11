@@ -1005,6 +1005,12 @@
 "bookmarks_export" = "Hamisha Alamisho na Nyimbo zote";
 "drive_through" = "Kuendesha-kupitia";
 
+/* Map zoom-in button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_in" = "Vuta karibu";
+
+/* Map zoom-out button: accessibility label on Android and visible CarPlay Dashboard button title on iOS; keep short */
+"zoom_out" = "Kuza nje";
+
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Kiungo cha menyu";
 
