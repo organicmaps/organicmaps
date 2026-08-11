@@ -54,7 +54,7 @@ void main()
   float aaX = fwidth(px.x);
   float onDash = 1.0 - smoothstep(kDashHalfPx - aaX, kDashHalfPx + aaX, xDist);
 
-  color *= onRow * onDash;                          // white-on-transparent mask, same as the legacy PNG
-  color.a *= u_opacity;
+  // Alpha only - see the note in hatching_area.fsh.glsl.
+  color.a *= onRow * onDash * u_opacity;
   v_FragColor = color;
 }

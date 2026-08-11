@@ -30,8 +30,9 @@ df::AreaViewParams MakeParams(std::string_view hatching)
 
 // Renders a hatched quad through the real GL pipeline and asserts the analytic pattern behaves: the fill
 // shows up on covered fragments, the quad is NOT flooded (gaps exist => it is a pattern, not a solid
-// fill), and nothing samples as opaque black. No mask texture is bound, so a binding mistake or a broken
-// coverage function would surface here as an empty frame, a flooded quad, or black garbage.
+// fill), and every pixel lands on the straight-alpha blend of the fill over the background. No mask
+// texture is bound, so a binding mistake, a broken coverage function or coverage applied to rgb as well
+// would surface here as an empty frame, a flooded quad, or a fill darker than the blend allows.
 void RenderAndCheck(char const * title, std::string_view hatching)
 {
   df::test_support::ShapeTestFixture fixture;
@@ -47,7 +48,11 @@ void RenderAndCheck(char const * title, std::string_view hatching)
   if (img.isNull())
     return;  // Headless env without a usable GL context - nothing to assert.
 
-  uint32_t teal = 0, opaqueBlack = 0;
+  // Blending is straight alpha, so the teal fill over the white clear must land on the white->teal
+  // segment: r = 255*(1 - a) and g = b = 255 - 95*a, i.e. g = 255 - 95*(255 - r)/255 whatever the
+  // coverage is. Scaling rgb by coverage as well (or sampling an unbound colour texture) can only drag g
+  // below that line - by up to 40 levels at a = 0.5, far above the 8-bit rounding tolerance.
+  uint32_t teal = 0, tooDark = 0;
   for (int y = 0; y < img.height(); ++y)
   {
     for (int x = 0; x < img.width(); ++x)
@@ -55,14 +60,14 @@ void RenderAndCheck(char const * title, std::string_view hatching)
       QColor const c = img.pixelColor(x, y);
       if (c.green() > c.red() + 20 && c.blue() > c.red() + 20)  // teal fill on the pattern
         ++teal;
-      if (c.alpha() > 200 && c.red() < 8 && c.green() < 8 && c.blue() < 8)  // garbage / unbound colour texture
-        ++opaqueBlack;
+      if (c.green() + 3 < 255 - 95 * (255 - c.red()) / 255)
+        ++tooDark;
     }
   }
 
   TEST_GREATER(teal, 0u, ("Pattern not visible:", title));
   TEST_LESS(teal, kW * kH / 2, ("No gaps - pattern degenerated into a solid fill?", title));
-  TEST_EQUAL(opaqueBlack, 0u, ("Opaque black pixels - colour texture not sampled?", title));
+  TEST_EQUAL(tooDark, 0u, ("Fill darker than a straight-alpha blend - is rgb modulated too?", title));
 }
 
 // A solid-fill pattern (stipple/speckle/...) fills the quad with the surface colour and modulates it with
