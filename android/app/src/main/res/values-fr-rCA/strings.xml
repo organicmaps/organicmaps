@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- SECTION: Other translations -->
+    <!-- Text shown before a shared "my position" link, and the email subject when sharing the current location. -->
+    <string name="share_my_position">Je suis ici sur Organic Maps</string>
+    <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
+    <string name="share_place_subject">%1$s sur Organic Maps</string>
+    <!-- Email subject when sharing a place that has no name or address. -->
+    <string name="share_place_subject_default">Un lieu sur Organic Maps</string>
+
     <!-- SECTION: Strings for downloading map from search -->
     <string name="transliteration_title">Translittération vers l\'alphabet latin</string>
 </resources>

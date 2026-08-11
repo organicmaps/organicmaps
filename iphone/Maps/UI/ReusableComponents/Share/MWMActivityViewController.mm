@@ -69,26 +69,35 @@
 
 @implementation MWMActivityViewController
 
-- (instancetype)initWithActivityItem:(id<UIActivityItemSource>)activityItem
+- (void)applyDefaultExcludedActivityTypes
 {
-  return [self initWithActivityItems:@[activityItem]];
+  self.excludedActivityTypes = @[
+    UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll, UIActivityTypeAddToReadingList,
+    UIActivityTypePostToFlickr, UIActivityTypePostToVimeo
+  ];
 }
 
 - (instancetype)initWithActivityItems:(NSArray *)activityItems
 {
   self = [super initWithActivityItems:activityItems applicationActivities:nil];
   if (self)
-    self.excludedActivityTypes = @[
-      UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll,
-      UIActivityTypeAddToReadingList, UIActivityTypePostToFlickr, UIActivityTypePostToVimeo
-    ];
+    [self applyDefaultExcludedActivityTypes];
+  return self;
+}
+
+- (instancetype)initWithActivityItemsConfiguration:(id<UIActivityItemsConfigurationReading>)activityItemsConfiguration
+{
+  self = [super initWithActivityItemsConfiguration:activityItemsConfiguration];
+  if (self)
+    [self applyDefaultExcludedActivityTypes];
   return self;
 }
 
 + (instancetype)shareControllerForMyPosition:(CLLocationCoordinate2D)location
 {
   MWMShareActivityItem * item = [[MWMShareActivityItem alloc] initForMyPositionAtLocation:location];
-  MWMActivityViewController * shareVC = [[self alloc] initWithActivityItem:item];
+  MWMActivityViewController * shareVC =
+      [[self alloc] initWithActivityItemsConfiguration:item.activityItemsConfiguration];
   shareVC.excludedActivityTypes = [shareVC.excludedActivityTypes arrayByAddingObject:UIActivityTypeAirDrop];
   return shareVC;
 }
@@ -96,7 +105,8 @@
 + (instancetype)shareControllerForPlacePage:(PlacePageData *)data
 {
   MWMShareActivityItem * item = [[MWMShareActivityItem alloc] initForPlacePage:data];
-  MWMActivityViewController * shareVC = [[self alloc] initWithActivityItem:item];
+  MWMActivityViewController * shareVC =
+      [[self alloc] initWithActivityItemsConfiguration:item.activityItemsConfiguration];
   shareVC.excludedActivityTypes = [shareVC.excludedActivityTypes arrayByAddingObject:UIActivityTypeAirDrop];
   return shareVC;
 }
