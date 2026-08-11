@@ -115,8 +115,11 @@ bool ShapeTestFixture::Init(uint32_t width, uint32_t height)
   m_context->SetViewport(0, 0, width, height);
   m_context->SetDepthTestEnabled(true);
   m_context->SetCullingEnabled(false);
-  m_context->SetClearColor(dp::Color::White());
-  m_context->Clear(dp::ClearBits::ColorBit | dp::ClearBits::DepthBit, 0);
+
+  // Global GL state, applied once per context by FrontendRenderer::OnContextCreate. Without it GL keeps
+  // its default (GL_ONE, GL_ZERO) and every fragment overwrites the target, so shapes would be validated
+  // against raw fragment output instead of what actually reaches the screen.
+  dp::AlphaBlendingState::Apply(contextRef);
 
   // Initialize ProgramManager (compiles all shaders).
   m_progMng = std::make_unique<gpu::ProgramManager>();
