@@ -115,7 +115,7 @@ drape_ptr<df::UserPointMark::TitlesInfo> ContactMarkPoint::GetTitleDecl() const
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> ContactMarkPoint::GetSymbolNames() const
 {
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
-  symbol->insert(std::make_pair(GetMinZoom(), "home-m"));
+  symbol->insert(std::make_pair(GetMinZoom(), "contact-m"));
   return symbol;
 }
 

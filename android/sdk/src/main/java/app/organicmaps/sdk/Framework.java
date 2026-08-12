@@ -113,6 +113,8 @@ public class Framework
 
   public static native String nativeGetAddress(double lat, double lon);
 
+  public static native long nativeGetMwmVersion(double lat, double lon);
+
   public static native void nativePlacePageActivationListener(@NonNull PlacePageActivationListener listener);
 
   public static native void nativeRemovePlacePageActivationListener(@NonNull PlacePageActivationListener listener);
