@@ -139,22 +139,29 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
   {
     @NonNull
     private final TextView mText;
+    @NonNull
+    private final TextView mSubtitle;
 
     WalkViewHolder(@NonNull View itemView)
     {
       super(itemView);
       mText = itemView.findViewById(R.id.walk_text);
+      mSubtitle = itemView.findViewById(R.id.walk_subtitle);
     }
 
     void bind(@NonNull TransitStepInfo info)
     {
+      // "Walk" label on top; the duration (and distance if known) in secondary grey underneath, mirroring
+      // the transit legs.
       Context ctx = itemView.getContext();
+      mText.setText(ctx.getString(R.string.transit_walk_label));
+      // Distance first, then duration, so the duration is last as on the transit legs ("N stops · M min").
       CharSequence time = Utils.formatRoutingTime(ctx, info.getTimeInSec(), R.dimen.text_size_body_3);
-      SpannableStringBuilder text = new SpannableStringBuilder(ctx.getString(R.string.transit_walk_label));
-      text.append(" · ").append(time);
+      SpannableStringBuilder subtitle = new SpannableStringBuilder();
       if (info.getDistance() != null && !info.getDistance().isEmpty())
-        text.append(" · ").append(info.getDistance()).append(' ').append(info.getDistanceUnits());
-      mText.setText(text);
+        subtitle.append(info.getDistance()).append(' ').append(info.getDistanceUnits()).append(" · ");
+      subtitle.append(time);
+      mSubtitle.setText(subtitle);
     }
   }
 
@@ -189,6 +196,9 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @NonNull
     private final TextView mSubtitle;
     @NonNull
+    private final TextView mRideDirection;
+    // The disclosed intermediate-stops text (one stop per line); its height is animated open/closed.
+    @NonNull
     private final TextView mIntermediates;
     @NonNull
     private final TransitStepView mBadge;
@@ -216,6 +226,7 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
       mBoardAt = itemView.findViewById(R.id.board_at);
       mExitAt = itemView.findViewById(R.id.exit_at);
       mSubtitle = itemView.findViewById(R.id.ride_subtitle);
+      mRideDirection = itemView.findViewById(R.id.ride_direction);
       mIntermediates = itemView.findViewById(R.id.intermediate_stops);
       mBadge = itemView.findViewById(R.id.line_badge);
       mSummaryRow = itemView.findViewById(R.id.ride_summary_row);
@@ -250,7 +261,8 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
       mBoardAt.setVisibility(isTransfer ? View.GONE : View.VISIBLE);
       if (isTransfer)
       {
-        mTransferHeader.setText(ctx.getString(R.string.transit_transfer_at, startStopText));
+        // Just the stop name: the two-tone line break and the leading time already say "transfer here".
+        mTransferHeader.setText(startStopText);
         // The stub is the pill end at the break: incoming run rounded at its foot, outgoing at its head.
         mTransferStubTop.setBackgroundResource(R.drawable.transit_line_bar_bottom);
         mTransferStubBottom.setBackgroundResource(R.drawable.transit_line_bar_top);
@@ -261,7 +273,7 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         mTransferGap.setLayoutParams(gapLp);
       }
       else
-        mBoardAt.setText(ctx.getString(R.string.transit_board_at, startStopText));
+        mBoardAt.setText(startStopText);
 
       // On a transfer the bar continues straight from the stub, so drop its usual top offset; the badge
       // row likewise drops its top margin because the transfer header above it already spaces the rhythm.
@@ -283,8 +295,16 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         // train here: "Exit at <stop>". A same-station line change is the other branch (exit hidden, the
         // next leg draws the centered "Transfer at <stop>" header instead).
         mExitAt.setVisibility(View.VISIBLE);
-        mExitAt.setText(ctx.getString(R.string.transit_exit_at, endStop == null ? "" : endStop));
+        mExitAt.setText(endStop == null ? "" : endStop);
       }
+
+      // Direction: the line's terminus ("Hauptbahnhof") next to the badge, so the rider sees which way
+      // the train goes. Hidden when no terminus is known.
+      String terminus = info.getLineTerminusName();
+      boolean hasDirection = terminus != null && !terminus.isEmpty();
+      mRideDirection.setVisibility(hasDirection ? View.VISIBLE : View.GONE);
+      if (hasDirection)
+        mRideDirection.setText(terminus);
 
       CharSequence time = Utils.formatRoutingTime(ctx, info.getTimeInSec(), R.dimen.text_size_body_3);
       int stopCount = info.getStopCount();
@@ -301,9 +321,9 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
       mHasIntermediates = intermediates != null && intermediates.length > 0;
       // Only a leg with intermediate stops is an expandable disclosure; others get no chevron or ripple.
       mSummaryRow.setClickable(mHasIntermediates);
-      // Text is always set (even while hidden) so the collapse/expand animation can measure it.
+      // Text is always set (even while hidden) so the collapse/expand animation can measure it. One stop
+      // per line, read as a column between board and exit.
       if (mHasIntermediates)
-        // One stop per line so the intermediate stops read as a column between board and exit.
         mIntermediates.setText(String.join("\n", intermediates));
       setExpanded(expanded, false);
     }
@@ -315,7 +335,7 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     {
       Context ctx = itemView.getContext();
       int chevron = !mHasIntermediates ? 0 : (expanded ? R.drawable.ic_expand_less : R.drawable.ic_expand_more);
-      mSubtitle.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, chevron, 0);
+      mSubtitle.setCompoundDrawablesRelativeWithIntrinsicBounds(chevron, 0, 0, 0);
       TextViewCompat.setCompoundDrawableTintList(mSubtitle,
                                                  ColorStateList.valueOf(ThemeUtils.getColor(ctx, R.attr.secondary)));
 
