@@ -91,4 +91,29 @@ UNIT_TEST(AddressEstimator_RejectsExcessiveExtrapolation)
   auto const results = MakeEstimatedAddressResults("6498 131A Street", source);
   TEST_EQUAL(results.GetCount(), 0, ());
 }
+
+UNIT_TEST(AddressEstimator_RejectsUnrelatedResultForContactMarker)
+{
+  Results source;
+  source.AddResultNoChecks(MakeAddress(49.20538, -122.770653, "16291, 111A Avenue"));
+
+  auto const results = MakeEstimatedAddressResults("11378 158A Street Surrey", source);
+  TEST_EQUAL(results.GetCount(), 1, ());
+  TEST(!IsAddressResultMatchingQuery("11378 158A Street Surrey", results[0]), ());
+}
+
+UNIT_TEST(AddressEstimator_AcceptsExactAndEstimatedContactMarkers)
+{
+  Results source;
+  source.AddResultNoChecks(MakeAddress(49.1207362, -122.8575047, "6480, 131A Street"));
+  source.AddResultNoChecks(MakeAddress(49.1208601, -122.8575937, "6486, 131A Street"));
+  source.AddResultNoChecks(MakeAddress(49.1209318, -122.8577086, "6492, 131A Street"));
+
+  auto const estimated = MakeEstimatedAddressResults("6498 131A Street", source);
+  TEST_EQUAL(estimated.GetCount(), 1, ());
+  TEST(IsAddressResultMatchingQuery("6498 131A Street", estimated[0]), ());
+
+  auto const exact = MakeAddress(49.1209318, -122.8577086, "6492, 131A Street");
+  TEST(IsAddressResultMatchingQuery("6492 131A Street", exact), ());
+}
 }  // namespace address_estimator_tests
