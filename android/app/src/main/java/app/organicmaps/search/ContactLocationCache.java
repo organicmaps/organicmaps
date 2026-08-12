@@ -30,7 +30,9 @@ final class ContactLocationCache
 
   private static final String PREFS_NAME = "contact_location_cache";
   private static final String VALUE_SEPARATOR = "\\|";
-  private static final int FORMAT_VERSION = 1;
+  // Increment when address resolution changes so cached contact marks are recomputed with the
+  // same estimator used by interactive search.
+  private static final int FORMAT_VERSION = 2;
 
   @NonNull
   private final SharedPreferences mPreferences;

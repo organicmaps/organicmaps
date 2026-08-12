@@ -175,7 +175,8 @@ public class Framework
 
   public static native void nativeClearApiPoints();
 
-  public static native void nativeSetContactMarks(double[] latitudes, double[] longitudes, String[] names);
+  public static native void nativeSetContactMarks(double[] latitudes, double[] longitudes, String[] names,
+                                                  boolean[] estimated);
 
   @NonNull
   public static native @RequestType int nativeParseAndSetApiUrl(String url);

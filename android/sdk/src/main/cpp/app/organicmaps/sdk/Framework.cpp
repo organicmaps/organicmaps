@@ -822,23 +822,28 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeClearApiPoints(JNIEnv * 
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetContactMarks(JNIEnv * env, jclass clazz,
                                                                         jdoubleArray latitudes,
-                                                                        jdoubleArray longitudes, jobjectArray names)
+                                                                        jdoubleArray longitudes, jobjectArray names,
+                                                                        jbooleanArray estimated)
 {
   jsize const count = env->GetArrayLength(latitudes);
-  if (count != env->GetArrayLength(longitudes) || count != env->GetArrayLength(names))
+  if (count != env->GetArrayLength(longitudes) || count != env->GetArrayLength(names) ||
+      count != env->GetArrayLength(estimated))
     return;
 
   std::vector<jdouble> latitudeValues(static_cast<size_t>(count));
   std::vector<jdouble> longitudeValues(static_cast<size_t>(count));
+  std::vector<jboolean> estimatedValues(static_cast<size_t>(count));
   env->GetDoubleArrayRegion(latitudes, 0, count, latitudeValues.data());
   env->GetDoubleArrayRegion(longitudes, 0, count, longitudeValues.data());
+  env->GetBooleanArrayRegion(estimated, 0, count, estimatedValues.data());
   std::vector<::Framework::ContactMarkData> marks;
   marks.reserve(static_cast<size_t>(count));
   for (jsize i = 0; i < count; ++i)
   {
     jni::TScopedLocalRef name(env, env->GetObjectArrayElement(names, i));
     marks.push_back({mercator::FromLatLon(latitudeValues[i], longitudeValues[i]),
-                     jni::ToNativeString(env, static_cast<jstring>(name.get()))});
+                     jni::ToNativeString(env, static_cast<jstring>(name.get())),
+                     static_cast<bool>(estimatedValues[i])});
   }
   frm()->SetContactMarks(marks);
 }
