@@ -302,14 +302,16 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
     final double[] latitudes = new double[marksByPosition.size()];
     final double[] longitudes = new double[marksByPosition.size()];
     final String[] names = new String[marksByPosition.size()];
+    final boolean[] estimated = new boolean[marksByPosition.size()];
     int index = 0;
     for (ContactMark mark : marksByPosition.values())
     {
       latitudes[index] = mark.coordinate.lat;
       longitudes[index] = mark.coordinate.lon;
       names[index] = String.join(", ", mark.names);
+      estimated[index] = mark.coordinate.estimated;
       ++index;
     }
-    Framework.nativeSetContactMarks(latitudes, longitudes, names);
+    Framework.nativeSetContactMarks(latitudes, longitudes, names, estimated);
   }
 }

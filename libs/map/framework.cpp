@@ -1416,9 +1416,7 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
     info.m_match = place_page::BuildInfo::Match::Nothing;
     if (result.IsEstimatedAddress() || snapToBuilding)
     {
-      double constexpr kBuildingSnapRadiusMeters = 20.0;
-      auto const rect = mercator::RectByCenterXYAndSizeInMeters(info.m_mercator, kBuildingSnapRadiusMeters);
-      auto const building = GetSelectionProcessor().FindNearestBuildingInRect(info.m_mercator, rect);
+      auto const building = FindNearestBuildingForAddress(info.m_mercator);
       if (building.IsValid())
       {
         info.m_featureId = building;
@@ -1642,7 +1640,16 @@ void Framework::SetContactMarks(std::vector<ContactMarkData> const & marks)
   editSession.ClearGroup(UserMark::Type::CONTACT);
   editSession.SetIsVisible(UserMark::Type::CONTACT, true);
   for (auto const & mark : marks)
-    editSession.CreateUserMark<ContactMarkPoint>(mark.m_point)->SetName(mark.m_name);
+  {
+    auto point = mark.m_point;
+    if (mark.m_estimated)
+    {
+      auto const building = FindNearestBuildingForAddress(point);
+      if (building.IsValid())
+        GetDataSource().ReadFeature([&point](FeatureType & ft) { point = feature::GetCenter(ft); }, building);
+    }
+    editSession.CreateUserMark<ContactMarkPoint>(point)->SetName(mark.m_name);
+  }
 }
 
 bool Framework::GetDistanceAndAzimut(m2::PointD const & point, double lat, double lon, double north,
@@ -2384,6 +2391,13 @@ void Framework::UpdateMinBuildingsTapZoom()
   constexpr int kMinTapZoom = 16;
   m_minBuildingsTapZoom =
       std::max(kMinTapZoom, feature::GetDrawableScaleRange(classif().GetTypeByPath({"building"})).first);
+}
+
+FeatureID Framework::FindNearestBuildingForAddress(m2::PointD const & mercator) const
+{
+  double constexpr kBuildingSnapRadiusMeters = 20.0;
+  auto const rect = mercator::RectByCenterXYAndSizeInMeters(mercator, kBuildingSnapRadiusMeters);
+  return GetSelectionProcessor().FindNearestBuildingInRect(mercator, rect);
 }
 
 FeatureID Framework::FindBuildingAtPoint(m2::PointD const & mercator) const

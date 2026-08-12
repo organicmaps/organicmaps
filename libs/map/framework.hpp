@@ -375,6 +375,7 @@ private:
   std::vector<Track::TrackSelectionInfo> FindRelationTracksInTapPosition(
       std::vector<std::pair<double, FeatureID>> const & lineCandidates, m2::PointD const & mercator);
   UserMark const * FindUserMarkInTapPosition(place_page::BuildInfo const & buildInfo) const;
+  FeatureID FindNearestBuildingForAddress(m2::PointD const & mercator) const;
   FeatureID FindBuildingAtPoint(m2::PointD const & mercator) const;
 
   void UpdateMinBuildingsTapZoom();
@@ -523,6 +524,7 @@ public:
   {
     m2::PointD m_point;
     std::string m_name;
+    bool m_estimated = false;
   };
   void SetContactMarks(std::vector<ContactMarkData> const & marks);
 
