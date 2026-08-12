@@ -11,7 +11,6 @@
 #include <cmath>
 #include <cstdint>
 #include <limits>
-#include <map>
 #include <optional>
 #include <set>
 #include <string_view>
@@ -62,15 +61,7 @@ std::string CanonicalizeToken(std::string token)
       return number;
   }
 
-  static std::map<std::string, std::string> const kAliases = {
-      {"ave", "avenue"}, {"av", "avenue"},   {"blvd", "boulevard"}, {"ct", "court"},
-      {"dr", "drive"},  {"e", "east"},      {"hwy", "highway"},   {"ln", "lane"},
-      {"n", "north"},   {"ne", "northeast"}, {"nw", "northwest"}, {"pkwy", "parkway"},
-      {"rd", "road"},   {"s", "south"},     {"se", "southeast"}, {"st", "street"},
-      {"sw", "southwest"}, {"ter", "terrace"}, {"terr", "terrace"}, {"trl", "trail"},
-      {"w", "west"}};
-  auto const it = kAliases.find(token);
-  return it == kAliases.end() ? token : it->second;
+  return strings::ToUtf8(GetNormalizedStreetName(token));
 }
 
 std::vector<std::string> Tokenize(std::string_view value)
@@ -261,5 +252,14 @@ Results MakeEstimatedAddressResults(std::string const & query, Results const & r
   if (results.IsEndMarker())
     transformed.SetEndMarker(results.IsEndedCancelled());
   return transformed;
+}
+
+bool IsAddressResultMatchingQuery(std::string const & query, Result const & result)
+{
+  auto const requested = ParseAddress(query);
+  if (!requested)
+    return false;
+  auto const candidate = ParseCandidate(0, result, requested->m_streetTokens, requested->m_houseNumber);
+  return candidate && candidate->m_houseNumber == requested->m_houseNumber;
 }
 }  // namespace search
