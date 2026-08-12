@@ -79,7 +79,8 @@ UNIT_TEST(AddressEstimator_RequiresTwoNearbySupports)
   source.AddResultNoChecks(MakeAddress(49.1209318, -122.8577086, "6492, 131A Street"));
 
   auto const results = MakeEstimatedAddressResults("6498 131A Street", source);
-  TEST_EQUAL(results.GetCount(), 0, ());
+  TEST_EQUAL(results.GetCount(), 1, ());
+  TEST_EQUAL(results[0].GetString(), "6492, 131A Street", ());
 }
 
 UNIT_TEST(AddressEstimator_RejectsExcessiveExtrapolation)
@@ -89,7 +90,19 @@ UNIT_TEST(AddressEstimator_RejectsExcessiveExtrapolation)
   source.AddResultNoChecks(MakeAddress(49.1208601, -122.8575937, "6486, 131A Street"));
 
   auto const results = MakeEstimatedAddressResults("6498 131A Street", source);
-  TEST_EQUAL(results.GetCount(), 0, ());
+  TEST_EQUAL(results.GetCount(), 2, ());
+  TEST(!FindEstimated(results), ());
+}
+
+UNIT_TEST(AddressEstimator_RequiresTheCompleteStreetName)
+{
+  Results source;
+  source.AddResultNoChecks(MakeAddress(49.1207362, -122.8575047, "6480, Main Street"));
+  source.AddResultNoChecks(MakeAddress(49.1208601, -122.8575937, "6486, Main Street"));
+
+  auto const results = MakeEstimatedAddressResults("6490 Main Street West", source);
+  TEST_EQUAL(results.GetCount(), 2, ());
+  TEST(!FindEstimated(results), ());
 }
 
 UNIT_TEST(AddressEstimator_RejectsUnrelatedResultForContactMarker)

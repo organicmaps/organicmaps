@@ -14255,7 +14255,7 @@ tags = android-app
 en = Allow Contacts access in system settings to search saved addresses.
 
 [search_estimated_location]
-tags = android-app
+tags = android-app,android-sdk,apple-maps
 en = Estimated location
 
 [search_history_text]

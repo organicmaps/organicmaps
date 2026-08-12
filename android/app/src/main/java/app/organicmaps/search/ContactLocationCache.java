@@ -14,6 +14,11 @@ import java.util.Set;
 
 final class ContactLocationCache
 {
+  interface MapVersionProvider
+  {
+    long get(double lat, double lon);
+  }
+
   static final class Entry
   {
     final double lat;
@@ -36,10 +41,18 @@ final class ContactLocationCache
 
   @NonNull
   private final SharedPreferences mPreferences;
+  @NonNull
+  private final MapVersionProvider mMapVersionProvider;
 
   ContactLocationCache(@NonNull Context context)
   {
+    this(context, Framework::nativeGetMwmVersion);
+  }
+
+  ContactLocationCache(@NonNull Context context, @NonNull MapVersionProvider mapVersionProvider)
+  {
     mPreferences = context.getApplicationContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+    mMapVersionProvider = mapVersionProvider;
   }
 
   @Nullable
@@ -60,7 +73,7 @@ final class ContactLocationCache
       final long version = Long.parseLong(fields[1]);
       final double lat = Double.parseDouble(fields[2]);
       final double lon = Double.parseDouble(fields[3]);
-      if (version <= 0 || Framework.nativeGetMwmVersion(lat, lon) != version)
+      if (version <= 0 || mMapVersionProvider.get(lat, lon) != version)
         return remove(storageKey);
       return new Entry(lat, lon, Boolean.parseBoolean(fields[4]));
     }
@@ -72,10 +85,10 @@ final class ContactLocationCache
 
   void put(@NonNull String addressKey, @NonNull Entry entry)
   {
-    final long version = Framework.nativeGetMwmVersion(entry.lat, entry.lon);
+    final long version = mMapVersionProvider.get(entry.lat, entry.lon);
     if (version <= 0)
       return;
-    final String value = String.format(Locale.ROOT, "%d|%d|%.8f|%.8f|%b", FORMAT_VERSION, version, entry.lat,
+    final String value = String.format(Locale.ROOT, "%d|%d|%.5f|%.5f|%b", FORMAT_VERSION, version, entry.lat,
                                        entry.lon, entry.estimated);
     mPreferences.edit().putString(hash(addressKey), value).apply();
   }
@@ -92,6 +105,11 @@ final class ContactLocationCache
         editor.remove(key);
     }
     editor.apply();
+  }
+
+  void clear()
+  {
+    mPreferences.edit().clear().apply();
   }
 
   @Nullable

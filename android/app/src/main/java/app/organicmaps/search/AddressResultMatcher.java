@@ -57,21 +57,6 @@ final class AddressResultMatcher
     return difference > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) difference;
   }
 
-  static int findUniqueExactAddress(@NonNull String query, @NonNull SearchResult[] results)
-  {
-    int resultIndex = -1;
-    for (int i = 0; i < results.length; ++i)
-    {
-      final SearchResult result = results[i];
-      if (result.isEstimatedAddress || result.description == null || !matches(query, getAddress(result)))
-        continue;
-      if (resultIndex >= 0)
-        return -1;
-      resultIndex = i;
-    }
-    return resultIndex;
-  }
-
   static boolean matches(@NonNull String expectedStreet, @NonNull String resultAddress)
   {
     final List<String> streetTokens = ContactAddressNormalizer.matchTokens(expectedStreet);

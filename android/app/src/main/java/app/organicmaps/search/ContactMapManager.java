@@ -93,6 +93,7 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
   private final Set<String> mVisibleKeys = new HashSet<>();
   private final Handler mMainHandler = new Handler(Looper.getMainLooper());
   private final Runnable mUpdateMarks = this::updateMarks;
+  private final Runnable mContactsChanged = this::onContactsChanged;
   private ContactAddressSearch mContactSearch;
   private ContactLocationCache mPersistentCache;
   private Context mContext;
@@ -117,9 +118,15 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
     mVisibleKeys.clear();
     mNames.clear();
     mFailed.clear();
+    mCache.clear();
 
     if (!isEnabled(mContext))
     {
+      ContactAddressSearch.shutdown();
+      mContactSearch = null;
+      if (mPersistentCache == null)
+        mPersistentCache = new ContactLocationCache(mContext);
+      mPersistentCache.clear();
       updateMarks();
       return;
     }
@@ -128,12 +135,28 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
     if (mContactSearch == null)
     {
       mContactSearch = ContactAddressSearch.getInstance(mContext);
-      mContactSearch.addContactsChangedListener(() -> refresh(mContext));
+      mContactSearch.addContactsChangedListener(mContactsChanged);
     }
     if (mPersistentCache == null)
       mPersistentCache = new ContactLocationCache(mContext);
     final long generation = mGeneration;
     mContactSearch.loadAll((ignored, addresses) -> onAddressesLoaded(generation, addresses));
+  }
+
+  @MainThread
+  public void refreshIfAvailabilityChanged(@NonNull Context context)
+  {
+    if (mContext != null && isEnabled(context) != (mContactSearch != null))
+      refresh(context);
+  }
+
+  @MainThread
+  private void onContactsChanged()
+  {
+    if (mPersistentCache != null)
+      mPersistentCache.clear();
+    if (mContext != null)
+      refresh(mContext);
   }
 
   private static boolean isEnabled(@NonNull Context context)
