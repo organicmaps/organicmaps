@@ -28,7 +28,8 @@ private:
 class Context : public VulkanBaseContext
 {
 public:
-  Context() : VulkanBaseContext(VK_NULL_HANDLE, VK_NULL_HANDLE, {}, VK_NULL_HANDLE, 0, nullptr, nullptr, false) {}
+  Context() : VulkanBaseContext(VK_NULL_HANDLE, VK_NULL_HANDLE, {}, VK_NULL_HANDLE, 0, nullptr, nullptr, false, false)
+  {}
 
   void MakeCurrent() override {}
 
