@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Transit summary tile: the whole tile is one tap target that opens the full-screen per-leg details.
+     Top line is the walk total and the hero duration + caret; the leg-badge strip is the second line.
+     For ruler routes the top line is hidden and only the (waypoint) strip is shown. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  android:foreground="?attr/selectableItemBackground"
+  android:paddingStart="@dimen/routing_plan_horizontal_padding"
+  android:paddingEnd="@dimen/routing_plan_horizontal_padding"
+  android:paddingTop="@dimen/margin_half"
+  android:paddingBottom="@dimen/margin_half">
+
+  <LinearLayout
+    android:id="@+id/transit_topline"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <ImageView
+      android:id="@+id/pedestrian_icon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:contentDescription="@null"
+      app:srcCompat="@drawable/ic_20px_route_planning_walk"
+      app:tint="?iconTint" />
+
+    <!-- Walk total (time). Kept as id total_distance to limit churn; gated with the icon on walk > 0. -->
+    <TextView
+      android:id="@+id/total_distance"
+      style="@style/MwmWidget.TextView.PlanDetail.Number.Secondary"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/margin_quarter_plus"
+      tools:text="16 min" />
+
+    <Space
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1" />
+
+    <TextView
+      android:id="@+id/total_time"
+      style="@style/MwmWidget.TextView.PlanDetail.Number.Time"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      tools:text="43 min" />
+
+    <!-- Caret cueing that tapping the tile opens the full-screen transit details (slides in from the right). -->
+    <ImageView
+      android:id="@+id/transit_details_chevron"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/margin_half"
+      android:contentDescription="@string/transit_details_title"
+      app:srcCompat="@drawable/ic_chevron_right_thin"
+      app:tint="?secondary" />
+  </LinearLayout>
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/transit_recycler_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_half"
+    android:visibility="gone"
+    tools:visibility="visible" />
+</LinearLayout>

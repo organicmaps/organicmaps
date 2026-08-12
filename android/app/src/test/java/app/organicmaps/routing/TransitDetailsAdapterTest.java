@@ -121,8 +121,8 @@ public class TransitDetailsAdapterTest
   {
     Constructor<TransitStepInfo> ctor = TransitStepInfo.class.getDeclaredConstructor(
         int.class, String.class, String.class, int.class, String.class, int.class, int.class, String.class,
-        String.class, int.class, String[].class);
+        String.class, int.class, String[].class, String.class);
     ctor.setAccessible(true);
-    return ctor.newInstance(type.ordinal(), null, null, 0, number, 0, 0, null, null, 0, null);
+    return ctor.newInstance(type.ordinal(), null, null, 0, number, 0, 0, null, null, 0, null, null);
   }
 }
