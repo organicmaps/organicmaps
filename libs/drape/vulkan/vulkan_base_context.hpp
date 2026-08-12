@@ -147,6 +147,8 @@ protected:
 
   void CreateSyncPrimitives();
   void DestroySyncPrimitives();
+  void CreateRenderSemaphores();
+  void DestroyRenderSemaphores();
 
   void DestroyRenderPassAndFramebuffers();
   void DestroyRenderPassAndFramebuffer(ref_ptr<BaseFramebuffer> framebuffer);
@@ -179,8 +181,9 @@ protected:
 
   // Swap chain image acquiring.
   std::array<VkSemaphore, kMaxInflightFrames> m_acquireSemaphores = {};
-  // Command buffers submission and execution.
-  std::array<VkSemaphore, kMaxInflightFrames> m_renderSemaphores = {};
+  // Command buffers submission and execution. Present-wait semaphores are associated with swapchain images, because
+  // the frame fence does not guarantee that presentation has finished waiting on a semaphore.
+  std::vector<VkSemaphore> m_renderSemaphores;
   // All rendering tasks completion.
   std::array<VkFence, kMaxInflightFrames> m_fences = {};
 
