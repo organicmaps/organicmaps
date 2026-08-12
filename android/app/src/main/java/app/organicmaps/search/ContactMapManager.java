@@ -3,8 +3,11 @@ package app.organicmaps.search;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.Handler;
+import android.os.Looper;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.search.SearchEngine;
@@ -24,26 +27,31 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
 {
   INSTANCE;
 
-  private static final class Coordinate
+  private static final int MAX_CONCURRENT_REQUESTS = 2;
+  private static final long MARK_UPDATE_DELAY_MS = 100;
+
+  static final class ResolvedAddress
   {
     final double lat;
     final double lon;
+    final boolean estimated;
 
-    Coordinate(double lat, double lon)
+    ResolvedAddress(double lat, double lon, boolean estimated)
     {
       this.lat = lat;
       this.lon = lon;
+      this.estimated = estimated;
     }
   }
 
   private static final class ContactMark
   {
     @NonNull
-    final Coordinate coordinate;
+    final ResolvedAddress coordinate;
     @NonNull
     final Set<String> names = new LinkedHashSet<>();
 
-    ContactMark(@NonNull Coordinate coordinate)
+    ContactMark(@NonNull ResolvedAddress coordinate)
     {
       this.coordinate = coordinate;
     }
@@ -54,24 +62,39 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
     @NonNull
     final String key;
     @NonNull
-    final String query;
+    final List<ContactAddress.SearchQuery> queries;
     final long generation;
+    int queryIndex;
 
-    PendingAddress(@NonNull String key, @NonNull String query, long generation)
+    PendingAddress(@NonNull String key, @NonNull List<ContactAddress.SearchQuery> queries, long generation)
     {
       this.key = key;
-      this.query = query;
+      this.queries = queries;
       this.generation = generation;
+    }
+
+    @NonNull
+    String currentQuery()
+    {
+      return queries.get(queryIndex).query;
+    }
+
+    boolean advance()
+    {
+      return ++queryIndex < queries.size();
     }
   }
 
-  private final Map<String, Coordinate> mCache = new HashMap<>();
+  private final Map<String, ResolvedAddress> mCache = new HashMap<>();
   private final Map<String, Set<String>> mNames = new HashMap<>();
   private final Set<String> mFailed = new HashSet<>();
   private final ArrayDeque<PendingAddress> mQueue = new ArrayDeque<>();
   private final Map<Long, PendingAddress> mRequests = new HashMap<>();
   private final Set<String> mVisibleKeys = new HashSet<>();
+  private final Handler mMainHandler = new Handler(Looper.getMainLooper());
+  private final Runnable mUpdateMarks = this::updateMarks;
   private ContactAddressSearch mContactSearch;
+  private ContactLocationCache mPersistentCache;
   private Context mContext;
   private String mLocale = "en";
   private long mGeneration;
@@ -93,16 +116,22 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
     mRequests.clear();
     mVisibleKeys.clear();
     mNames.clear();
+    mFailed.clear();
 
     if (!isEnabled(mContext))
     {
-      Framework.nativeSetContactMarks(new double[] {}, new double[] {}, new String[] {});
+      updateMarks();
       return;
     }
 
     mLocale = Language.getKeyboardLocale(mContext);
     if (mContactSearch == null)
-      mContactSearch = new ContactAddressSearch(mContext, () -> refresh(mContext));
+    {
+      mContactSearch = ContactAddressSearch.getInstance(mContext);
+      mContactSearch.addContactsChangedListener(() -> refresh(mContext));
+    }
+    if (mPersistentCache == null)
+      mPersistentCache = new ContactLocationCache(mContext);
     final long generation = mGeneration;
     mContactSearch.loadAll((ignored, addresses) -> onAddressesLoaded(generation, addresses));
   }
@@ -123,18 +152,25 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
     final Map<String, PendingAddress> unique = new LinkedHashMap<>();
     for (ContactAddress address : addresses)
     {
-      final ContactAddress.SearchQuery searchQuery = address.getMapSearchQuery();
-      final String key = searchQuery.query.trim().toLowerCase(Locale.ROOT);
-      if (!key.isEmpty())
+      final List<ContactAddress.SearchQuery> searchQueries = address.getMapSearchQueries();
+      if (!searchQueries.isEmpty())
       {
-        unique.putIfAbsent(key, new PendingAddress(key, searchQuery.query, generation));
+        final String key = normalizeKey(address);
+        unique.putIfAbsent(key, new PendingAddress(key, searchQueries, generation));
         mNames.computeIfAbsent(key, ignored -> new LinkedHashSet<>()).add(address.name);
       }
     }
 
     mVisibleKeys.addAll(unique.keySet());
+    mPersistentCache.retain(unique.keySet());
     for (PendingAddress address : unique.values())
     {
+      if (!mCache.containsKey(address.key))
+      {
+        final ContactLocationCache.Entry cached = mPersistentCache.get(address.key);
+        if (cached != null)
+          mCache.put(address.key, new ResolvedAddress(cached.lat, cached.lon, cached.estimated));
+      }
       if (!mCache.containsKey(address.key) && !mFailed.contains(address.key))
         mQueue.add(address);
     }
@@ -145,20 +181,24 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
   @MainThread
   private void resolveNext()
   {
-    if (mPaused || !mRequests.isEmpty())
+    if (mPaused)
       return;
-    final PendingAddress address = mQueue.poll();
-    if (address == null || address.generation != mGeneration)
-      return;
-
-    final long requestId = ++mNextRequestId;
-    mRequests.put(requestId, address);
-    SearchEngine.INSTANCE.resolveContactAddress(address.query, mLocale, requestId);
+    while (mRequests.size() < MAX_CONCURRENT_REQUESTS)
+    {
+      final PendingAddress address = mQueue.poll();
+      if (address == null)
+        return;
+      if (address.generation != mGeneration)
+        continue;
+      final long requestId = ++mNextRequestId;
+      mRequests.put(requestId, address);
+      SearchEngine.INSTANCE.resolveContactAddress(address.currentQuery(), mLocale, requestId);
+    }
   }
 
   @Override
   @MainThread
-  public void onContactAddressResolved(long requestId, boolean found, double lat, double lon)
+  public void onContactAddressResolved(long requestId, boolean found, double lat, double lon, boolean estimated)
   {
     final PendingAddress address = mRequests.remove(requestId);
     if (address == null || address.generation != mGeneration)
@@ -175,9 +215,13 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
 
     if (found)
     {
-      mCache.put(address.key, new Coordinate(lat, lon));
-      updateMarks();
+      final ResolvedAddress resolved = new ResolvedAddress(lat, lon, estimated);
+      mCache.put(address.key, resolved);
+      mPersistentCache.put(address.key, new ContactLocationCache.Entry(lat, lon, estimated));
+      scheduleMarksUpdate();
     }
+    else if (address.advance())
+      mQueue.addFirst(address);
     else
       mFailed.add(address.key);
     resolveNext();
@@ -199,16 +243,31 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
   }
 
   @MainThread
-  void recordResolved(@NonNull ContactAddress contactAddress, double lat, double lon)
+  void recordResolved(@NonNull ContactAddress contactAddress, double lat, double lon, boolean estimated)
   {
     if (mContext == null || !isEnabled(mContext))
       return;
-    final String key = contactAddress.getMapSearchQuery().query.trim().toLowerCase(Locale.ROOT);
-    mCache.put(key, new Coordinate(lat, lon));
+    final String key = normalizeKey(contactAddress);
+    final ResolvedAddress resolved = new ResolvedAddress(lat, lon, estimated);
+    mCache.put(key, resolved);
+    if (mPersistentCache != null)
+      mPersistentCache.put(key, new ContactLocationCache.Entry(lat, lon, estimated));
     mFailed.remove(key);
     mVisibleKeys.add(key);
     mNames.computeIfAbsent(key, ignored -> new LinkedHashSet<>()).add(contactAddress.name);
-    updateMarks();
+    scheduleMarksUpdate();
+  }
+
+  @Nullable
+  ResolvedAddress getResolved(@NonNull ContactAddress contactAddress)
+  {
+    return mCache.get(normalizeKey(contactAddress));
+  }
+
+  @NonNull
+  private static String normalizeKey(@NonNull ContactAddress contactAddress)
+  {
+    return ContactAddressNormalizer.normalizeAddressQuery(contactAddress.address).trim().toLowerCase(Locale.ROOT);
   }
 
   private void cancelRequests()
@@ -218,12 +277,19 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
   }
 
   @MainThread
+  private void scheduleMarksUpdate()
+  {
+    mMainHandler.removeCallbacks(mUpdateMarks);
+    mMainHandler.postDelayed(mUpdateMarks, MARK_UPDATE_DELAY_MS);
+  }
+
+  @MainThread
   private void updateMarks()
   {
     final Map<String, ContactMark> marksByPosition = new LinkedHashMap<>();
     for (String key : mVisibleKeys)
     {
-      final Coordinate coordinate = mCache.get(key);
+      final ResolvedAddress coordinate = mCache.get(key);
       if (coordinate == null)
         continue;
       final String position = Math.round(coordinate.lat * 100000.0) + ":" + Math.round(coordinate.lon * 100000.0);

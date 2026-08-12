@@ -1478,7 +1478,7 @@ search::DisplayedCategories const & Framework::GetDisplayedCategories()
   return *m_displayedCategories;
 }
 
-void Framework::SelectSearchResult(search::Result const & result, bool animation)
+void Framework::SelectSearchResult(search::Result const & result, bool animation, bool snapToBuilding)
 {
   using namespace search;
   place_page::BuildInfo info;
@@ -1497,7 +1497,7 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   case Result::Type::LatLon:
     info.m_mercator = result.GetFeatureCenter();
     info.m_match = place_page::BuildInfo::Match::Nothing;
-    if (result.IsEstimatedAddress())
+    if (result.IsEstimatedAddress() || snapToBuilding)
     {
       double constexpr kBuildingSnapRadiusMeters = 20.0;
       auto const rect = mercator::RectByCenterXYAndSizeInMeters(info.m_mercator, kBuildingSnapRadiusMeters);
@@ -1542,11 +1542,11 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   ActivateMapSelection();
 }
 
-void Framework::ShowSearchResult(search::Result const & res, bool animation)
+void Framework::ShowSearchResult(search::Result const & res, bool animation, bool snapToBuilding)
 {
   GetSearchAPI().CancelAllSearches();
   StopLocationFollow();
-  SelectSearchResult(res, animation);
+  SelectSearchResult(res, animation, snapToBuilding);
 }
 
 void Framework::SelectRoute(uint32_t relID)

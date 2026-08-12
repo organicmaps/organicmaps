@@ -809,6 +809,12 @@ JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetAddress(JNIEnv * e
   return jni::ToJavaString(env, info.FormatAddress());
 }
 
+JNIEXPORT jlong Java_app_organicmaps_sdk_Framework_nativeGetMwmVersion(JNIEnv * env, jclass clazz, jdouble lat,
+                                                                       jdouble lon)
+{
+  return frm()->GetMwmVersion(mercator::FromLatLon(lat, lon));
+}
+
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeClearApiPoints(JNIEnv * env, jclass clazz)
 {
   frm()->GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::API);

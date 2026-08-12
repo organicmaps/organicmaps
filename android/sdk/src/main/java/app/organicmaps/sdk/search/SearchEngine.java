@@ -18,7 +18,7 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
 
   public interface ContactAddressListener
   {
-    void onContactAddressResolved(long requestId, boolean found, double lat, double lon);
+    void onContactAddressResolved(long requestId, boolean found, double lat, double lon, boolean estimated);
   }
 
   // Query, which results are shown on the map.
@@ -131,12 +131,17 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
     nativeCancelContactAddressResolution(requestId);
   }
 
+  public void selectContactAddress(double lat, double lon, @NonNull String address, boolean estimated, boolean show)
+  {
+    nativeSelectContactAddress(lat, lon, address, estimated, show);
+  }
+
   @Keep
-  private void onContactAddressResolved(long requestId, boolean found, double lat, double lon)
+  private void onContactAddressResolved(long requestId, boolean found, double lat, double lon, boolean estimated)
   {
     UiThread.run(() -> {
       for (ContactAddressListener listener : mContactAddressListeners)
-        listener.onContactAddressResolved(requestId, found, lat, lon);
+        listener.onContactAddressResolved(requestId, found, lat, lon, estimated);
     });
   }
 
@@ -305,6 +310,9 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   private static native void nativeResolveContactAddress(byte[] bytes, String language, long requestId);
 
   private static native void nativeCancelContactAddressResolution(long requestId);
+
+  private static native void nativeSelectContactAddress(double lat, double lon, String address, boolean estimated,
+                                                        boolean show);
 
   private static native void nativeShowResult(int index);
 

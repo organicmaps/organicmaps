@@ -501,7 +501,7 @@ private:
 
 public:
   // Moves viewport to the search result and taps on it.
-  void SelectSearchResult(search::Result const & res, bool animation);
+  void SelectSearchResult(search::Result const & res, bool animation, bool snapToBuilding = false);
 
   // Highlights a public-transport route line on the map, using the current place page's feature
   // to locate the relation. The current place page (stop) remains open.
@@ -517,7 +517,7 @@ public:
 
   // Cancels all searches, stops location follow and then selects
   // search result.
-  void ShowSearchResult(search::Result const & res, bool animation = true);
+  void ShowSearchResult(search::Result const & res, bool animation = true, bool snapToBuilding = false);
 
   void UpdateViewport(search::Results const & results);
 

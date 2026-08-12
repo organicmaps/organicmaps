@@ -142,7 +142,7 @@ jobject ToJavaResult(search::Result const & result, bool hasPosition, double lat
                                                       0 /*static_cast<jint>(result.GetRankingInfo().m_popularity)*/));
 
   return env->NewObject(g_resultClass, g_resultConstructor, name.get(), desc.get(), ll.m_lat, ll.m_lon, ranges.get(),
-                        descRanges.get(), popularity.get());
+                        descRanges.get(), popularity.get(), static_cast<jboolean>(result.IsEstimatedAddress()));
 }
 
 jobjectArray BuildSearchResults(bool hasPosition, double lat, double lon)
@@ -250,16 +250,18 @@ void OnContactAddressResults(std::shared_ptr<ContactAddressResolveState> const &
   }
 
   bool found = false;
+  bool estimated = false;
   ms::LatLon latLon = ms::LatLon::Zero();
   if (results.IsEndedNormal())
   {
     auto const resolved = search::MakeEstimatedAddressResults(state->m_query, state->m_results);
     for (auto const & result : resolved)
     {
-      if (!result.IsSuggest() && result.HasPoint())
+      if (search::IsAddressResultMatchingQuery(state->m_query, result))
       {
         latLon = mercator::ToLatLon(result.GetFeatureCenter());
         found = true;
+        estimated = result.IsEstimatedAddress();
         break;
       }
     }
@@ -267,7 +269,8 @@ void OnContactAddressResults(std::shared_ptr<ContactAddressResolveState> const &
 
   JNIEnv * env = jni::GetEnv();
   env->CallVoidMethod(g_javaListener, g_contactAddressResolvedId, state->m_requestId,
-                      static_cast<jboolean>(found), latLon.m_lat, latLon.m_lon);
+                      static_cast<jboolean>(found), latLon.m_lat, latLon.m_lon,
+                      static_cast<jboolean>(estimated));
 }
 
 }  // namespace
@@ -286,7 +289,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeInit(JNIEnv * 
   g_resultConstructor =
       jni::GetConstructorID(env, g_resultClass,
                             "(Ljava/lang/String;Lapp/organicmaps/sdk/search/SearchResult$Description;DD[I[I"
-                            "Lapp/organicmaps/sdk/search/Popularity;)V");
+                            "Lapp/organicmaps/sdk/search/Popularity;Z)V");
   g_suggestConstructor = jni::GetConstructorID(env, g_resultClass, "(Ljava/lang/String;Ljava/lang/String;DD[I[I)V");
   g_descriptionClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/search/SearchResult$Description");
   /*
@@ -310,7 +313,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeInit(JNIEnv * 
   g_updateBookmarksResultsId = jni::GetMethodID(env, g_javaListener, "onBookmarkSearchResultsUpdate", "([JJ)V");
   g_endBookmarksResultsId = jni::GetMethodID(env, g_javaListener, "onBookmarkSearchResultsEnd", "([JJ)V");
   g_contactAddressResolvedId =
-      jni::GetMethodID(env, g_javaListener, "onContactAddressResolved", "(JZDD)V");
+      jni::GetMethodID(env, g_javaListener, "onContactAddressResolved", "(JZDDZ)V");
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearch(JNIEnv * env, jclass clazz,
@@ -437,6 +440,25 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeCancelContactA
   }
   if (handle)
     handle->Cancel();
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeSelectContactAddress(
+    JNIEnv * env, jclass clazz, jdouble lat, jdouble lon, jstring address, jboolean estimated, jboolean show)
+{
+  auto const nativeAddress = jni::ToNativeString(env, address);
+  search::Result result(mercator::FromLatLon(lat, lon), nativeAddress);
+  result.SetAddress(std::string(nativeAddress));
+  result.SetType(search::Result::Type::LatLon);
+  result.SetEstimatedAddress(estimated);
+  if (show)
+    g_framework->NativeFramework()->ShowSearchResult(result, true /* animation */, true /* snapToBuilding */);
+  else
+  {
+    auto const mode = g_framework->GetMyPositionMode();
+    if (mode == location::Follow || mode == location::FollowAndRotate)
+      g_framework->NativeFramework()->StopLocationFollow();
+    g_framework->NativeFramework()->SelectSearchResult(result, true /* animation */, true /* snapToBuilding */);
+  }
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeShowResult(JNIEnv * env, jclass clazz, jint index)
