@@ -192,11 +192,11 @@ jobjectArray CreateTransitStepInfoArray(JNIEnv * env, std::vector<TransitStepInf
   // Java signature : TransitStepInfo(int type, @Nullable String distance, @Nullable String distanceUnits,
   //                                  int timeInSec, @Nullable String number, int color, int intermediateIndex,
   //                                  @Nullable String startStopName, @Nullable String endStopName, int stopCount,
-  //                                  @Nullable String[] intermediateStopNames)
+  //                                  @Nullable String[] intermediateStopNames, @Nullable String lineTerminusName)
   static jmethodID const transitStepConstructor = GetConstructorID(
       env, transitStepClass,
       "(ILjava/lang/String;Ljava/lang/String;ILjava/lang/String;IILjava/lang/String;Ljava/lang/String;I[Ljava/lang/"
-      "String;)V");
+      "String;Ljava/lang/String;)V");
 
   return ToJavaArray(env, transitStepClass, steps, [](JNIEnv * env, TransitStepInfo const & stepInfo)
   {
@@ -206,12 +206,13 @@ jobjectArray CreateTransitStepInfoArray(JNIEnv * env, std::vector<TransitStepInf
     TScopedLocalRef const startStopName(env, ToJavaString(env, stepInfo.m_startStopName));
     TScopedLocalRef const endStopName(env, ToJavaString(env, stepInfo.m_endStopName));
     TScopedLocalObjectArrayRef const intermediatesRef(env, ToJavaStringArray(env, stepInfo.m_intermediateStopNames));
+    TScopedLocalRef const lineTerminusName(env, ToJavaString(env, stepInfo.m_lineTerminusName));
 
     return env->NewObject(transitStepClass, transitStepConstructor, static_cast<jint>(stepInfo.m_type), distance.get(),
                           distanceUnits.get(), static_cast<jint>(stepInfo.m_timeInSec), number.get(),
                           static_cast<jint>(stepInfo.m_colorARGB), static_cast<jint>(stepInfo.m_intermediateIndex),
                           startStopName.get(), endStopName.get(), static_cast<jint>(stepInfo.m_stopCount),
-                          intermediatesRef.get());
+                          intermediatesRef.get(), lineTerminusName.get());
   });
 }
 
