@@ -45,7 +45,7 @@ struct TransitStepInfo
   TransitStepInfo() = default;
   TransitStepInfo(TransitType type, double distance, int time, std::string const & number = "", uint32_t color = 0,
                   int intermediateIndex = 0, std::string const & startStopName = "",
-                  std::string const & endStopName = "");
+                  std::string const & endStopName = "", std::string const & lineTerminusName = "");
 
   bool IsEqualType(TransitStepInfo const & ts) const;
 
@@ -69,6 +69,9 @@ struct TransitStepInfo
   std::string m_endStopName;
   std::vector<std::string> m_intermediateStopNames;
   int m_stopCount = 0;
+  // The line's terminus in the direction of travel (e.g. "Hönow" for a "U5 towards Hönow" leg). Empty
+  // when it cannot be derived. Valid for transit-line steps only.
+  std::string m_lineTerminusName;
 };
 
 std::string DebugPrint(TransitStepInfo const & info);

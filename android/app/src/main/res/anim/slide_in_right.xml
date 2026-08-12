@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Enter animation for a screen pushed on top: slides in from the right edge. -->
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="250"
+    android:fromXDelta="100%p"
+    android:toXDelta="0"
+    android:interpolator="@android:interpolator/decelerate_cubic" />
