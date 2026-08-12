@@ -99,8 +99,11 @@ std::optional<ParsedAddress> ParseAddress(std::string_view value)
   return address;
 }
 
-bool StreetMatchesQuery(std::vector<std::string> const & queryTokens, std::vector<std::string> const & streetTokens)
+bool StreetMatchesQuery(std::vector<std::string> const & queryTokens, std::vector<std::string> const & streetTokens,
+                        std::vector<std::string> const & addressTokens)
 {
+  if (queryTokens.size() < streetTokens.size())
+    return false;
   std::multiset<std::string> remaining(queryTokens.begin(), queryTokens.end());
   for (auto const & token : streetTokens)
   {
@@ -109,7 +112,18 @@ bool StreetMatchesQuery(std::vector<std::string> const & queryTokens, std::vecto
       return false;
     remaining.erase(it);
   }
-  return !streetTokens.empty();
+  if (streetTokens.empty())
+    return false;
+
+  std::multiset<std::string> address(addressTokens.begin(), addressTokens.end());
+  for (auto const & token : remaining)
+  {
+    auto const it = address.find(token);
+    if (it == address.end())
+      return false;
+    address.erase(it);
+  }
+  return true;
 }
 
 std::optional<Candidate> ParseCandidate(size_t index, Result const & result,
@@ -120,7 +134,7 @@ std::optional<Candidate> ParseCandidate(size_t index, Result const & result,
 
   auto const parsed = ParseAddress(result.GetString());
   if (!parsed || parsed->m_houseNumber % 2 != requested % 2 ||
-      !StreetMatchesQuery(queryTokens, parsed->m_streetTokens))
+      !StreetMatchesQuery(queryTokens, parsed->m_streetTokens, Tokenize(result.GetAddress())))
     return {};
 
   uint64_t const difference = parsed->m_houseNumber > requested ? parsed->m_houseNumber - requested
@@ -245,7 +259,8 @@ Results MakeEstimatedAddressResults(std::string const & query, Results const & r
       transformed.AddResultNoChecks(std::move(estimated));
     }
 
-    if (!candidateIndices.contains(i) || (exact != candidates.end() && i == exact->m_index))
+    bool const keepCandidate = exact != candidates.end() ? i == exact->m_index : !estimate;
+    if (!candidateIndices.contains(i) || keepCandidate)
       transformed.AddResultNoChecks(Result(results[i]));
   }
 

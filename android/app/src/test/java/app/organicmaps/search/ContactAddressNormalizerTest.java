@@ -155,5 +155,16 @@ public class ContactAddressNormalizerTest
   {
     assertFalse(ContactAddressNormalizer.looksLikeAddressQuery("Lagjia 3 Ruga e Rehoves Pali Prifti"));
     assertFalse(ContactAddressNormalizer.looksLikeAddressQuery("Please call 12345 tomorrow"));
+    assertFalse(ContactAddressNormalizer.looksLikeAddressQuery("5 St Michel"));
+    assertFalse(ContactAddressNormalizer.looksLikeAddressQuery("12 Av Diagonal"));
+  }
+
+  @Test
+  public void doesNotCrashOnOversizedHouseOrUnitNumbers()
+  {
+    assertEquals("999999999999999999999999 10 Main Street",
+                 ContactAddressNormalizer.normalizeStreet("999999999999999999999999-10 Main Street"));
+    assertEquals("", ContactAddressNormalizer.possibleBareUnitStreet(
+                         "999999999999999999999999 10 Main Street"));
   }
 }

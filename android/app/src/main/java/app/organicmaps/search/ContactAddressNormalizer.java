@@ -61,23 +61,18 @@ final class ContactAddressNormalizer
 
   static boolean looksLikeAddressQuery(@NonNull String value)
   {
-    final String normalized = normalizeAddressQuery(value);
-    if (!normalized.matches("\\d+[\\p{L}]?\\s+\\S.*"))
-      return false;
+    final String prepared = prepareAddress(value);
+    return looksLikeStructuredStreet(prepared) && hasRecognizedStreetSuffix(prepared);
+  }
 
-    final String[] tokens = normalized.split(" ");
-    return tokens.length < 2 || !tokens[0].matches("\\d+[\\p{L}]") || !isStreetSuffix(tokens[1]);
+  static boolean looksLikeStructuredStreet(@NonNull String value)
+  {
+    return value.matches("\\d+[\\p{L}]?\\s+\\S.*");
   }
 
   static boolean hasRecognizedStreetSuffix(@NonNull String value)
   {
     return findStreetEnd(normalizeTokens(value)) >= 0;
-  }
-
-  @NonNull
-  static String normalizeLocality(@NonNull String value)
-  {
-    return value.equalsIgnoreCase("Surret") ? "Surrey" : value;
   }
 
   @NonNull
@@ -187,16 +182,23 @@ final class ContactAddressNormalizer
     final Matcher matcher = LEADING_NUMBER_SEPARATOR.matcher(value);
     if (!matcher.matches())
       return value;
-    final int first = leadingNumber(matcher.group(1));
-    final int second = leadingNumber(matcher.group(2));
+    final long first = leadingNumber(matcher.group(1));
+    final long second = leadingNumber(matcher.group(2));
     if (first < second)
       return matcher.group(2) + " " + matcher.group(3);
     return matcher.group(1) + " " + matcher.group(2) + " " + matcher.group(3);
   }
 
-  private static int leadingNumber(@NonNull String token)
+  private static long leadingNumber(@NonNull String token)
   {
-    return Integer.parseInt(token.replaceFirst("[A-Za-z]+$", ""));
+    try
+    {
+      return Long.parseLong(token.replaceFirst("[A-Za-z]+$", ""));
+    }
+    catch (NumberFormatException ignored)
+    {
+      return Long.MAX_VALUE;
+    }
   }
 
   @NonNull

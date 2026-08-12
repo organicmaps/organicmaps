@@ -364,6 +364,7 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   m_stringsBundle.SetDefaultString("share_my_position", "I am here on Organic Maps");
   m_stringsBundle.SetDefaultString("share_open_in_om_or_browser", "Open in Organic Maps or in a browser");
   m_stringsBundle.SetDefaultString("share_get_om", "Get Organic Maps");
+  m_stringsBundle.SetDefaultString("search_estimated_location", "Estimated location");
 
   m_featuresFetcher.InitClassificator();
   m_featuresFetcher.SetOnMapDeregisteredCallback(std::bind(&Framework::OnMapDeregistered, this, _1));

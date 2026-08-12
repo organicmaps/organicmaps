@@ -57,6 +57,8 @@ final class ContactAddressSearch
   @NonNull
   private final AtomicInteger mCacheGeneration = new AtomicInteger();
   private volatile List<ContactAddress> mCachedAddresses;
+  private volatile boolean mShutdown;
+  private boolean mObserverRegistered;
 
   @NonNull
   static synchronized ContactAddressSearch getInstance(@NonNull Context context)
@@ -64,6 +66,14 @@ final class ContactAddressSearch
     if (sInstance == null)
       sInstance = new ContactAddressSearch(context);
     return sInstance;
+  }
+
+  static synchronized void shutdown()
+  {
+    if (sInstance == null)
+      return;
+    sInstance.close();
+    sInstance = null;
   }
 
   private ContactAddressSearch(@NonNull Context context)
@@ -74,6 +84,8 @@ final class ContactAddressSearch
       @Override
       public void onChange(boolean selfChange)
       {
+        if (mShutdown)
+          return;
         mCacheGeneration.incrementAndGet();
         mCachedAddresses = null;
         ThreadPool.getWorker().execute(ContactAddressSearch.this::getAddresses);
@@ -84,6 +96,7 @@ final class ContactAddressSearch
     try
     {
       mResolver.registerContentObserver(ContactsContract.Data.CONTENT_URI, true, mContactsObserver);
+      mObserverRegistered = true;
     }
     catch (SecurityException ignored)
     {}
@@ -98,6 +111,19 @@ final class ContactAddressSearch
     mContactsChangedListeners.add(listener);
   }
 
+  private void close()
+  {
+    mShutdown = true;
+    mCacheGeneration.incrementAndGet();
+    mCachedAddresses = null;
+    mContactsChangedListeners.clear();
+    if (mObserverRegistered)
+    {
+      mResolver.unregisterContentObserver(mContactsObserver);
+      mObserverRegistered = false;
+    }
+  }
+
   static boolean hasPermission(@NonNull Context context)
   {
     final int permission = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS);
@@ -106,6 +132,11 @@ final class ContactAddressSearch
 
   void search(@NonNull String query, @NonNull Callback callback)
   {
+    if (mShutdown)
+    {
+      callback.onResults(query, Collections.emptyList());
+      return;
+    }
     final String normalizedQuery = query.trim().toLowerCase(Locale.ROOT);
     if (normalizedQuery.isEmpty())
     {
@@ -159,6 +190,8 @@ final class ContactAddressSearch
   @NonNull
   private synchronized List<ContactAddress> getAddresses()
   {
+    if (mShutdown)
+      return Collections.emptyList();
     final List<ContactAddress> cached = mCachedAddresses;
     if (cached != null)
       return cached;
@@ -172,27 +205,46 @@ final class ContactAddressSearch
       if (cursor == null)
         return Collections.emptyList();
 
+      final int nameColumn = cursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME_PRIMARY);
+      final int typeColumn =
+          cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.TYPE);
+      final int labelColumn =
+          cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.LABEL);
+      final int formattedAddressColumn =
+          cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS);
+      final int streetColumn =
+          cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.STREET);
+      final int poBoxColumn =
+          cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.POBOX);
+      final int neighborhoodColumn =
+          cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.NEIGHBORHOOD);
+      final int cityColumn =
+          cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.CITY);
+      final int regionColumn =
+          cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.REGION);
+      final int postcodeColumn =
+          cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.POSTCODE);
+      final int countryColumn =
+          cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.COUNTRY);
+
       while (cursor.moveToNext())
       {
-        final String name = getString(cursor, ContactsContract.Contacts.DISPLAY_NAME_PRIMARY);
+        final String name = getString(cursor, nameColumn);
         if (name.isEmpty())
           continue;
 
-        final String street = getString(cursor, ContactsContract.CommonDataKinds.StructuredPostal.STREET);
-        final String locality = getString(cursor, ContactsContract.CommonDataKinds.StructuredPostal.CITY);
-        final String address = ContactAddressNormalizer.format(
-            getString(cursor, ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS), street,
-            getString(cursor, ContactsContract.CommonDataKinds.StructuredPostal.POBOX),
-            getString(cursor, ContactsContract.CommonDataKinds.StructuredPostal.NEIGHBORHOOD), locality,
-            getString(cursor, ContactsContract.CommonDataKinds.StructuredPostal.REGION),
-            getString(cursor, ContactsContract.CommonDataKinds.StructuredPostal.POSTCODE),
-            getString(cursor, ContactsContract.CommonDataKinds.StructuredPostal.COUNTRY));
+        final String street = getString(cursor, streetColumn);
+        final String locality = getString(cursor, cityColumn);
+        final String address =
+            ContactAddressNormalizer.format(getString(cursor, formattedAddressColumn), street,
+                                            getString(cursor, poBoxColumn), getString(cursor, neighborhoodColumn),
+                                            locality, getString(cursor, regionColumn), getString(cursor, postcodeColumn),
+                                            getString(cursor, countryColumn));
         if (address.isEmpty())
           continue;
 
-        final int type =
-            cursor.getInt(cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.TYPE));
-        final String customLabel = getString(cursor, ContactsContract.CommonDataKinds.StructuredPostal.LABEL);
+        final int type = cursor.getInt(typeColumn);
+        final String customLabel = getString(cursor, labelColumn);
         final String label =
             ContactsContract.CommonDataKinds.StructuredPostal.getTypeLabel(mContext.getResources(), type, customLabel)
                 .toString();
@@ -207,7 +259,7 @@ final class ContactAddressSearch
     }
 
     final List<ContactAddress> loadedAddresses = Collections.unmodifiableList(addresses);
-    if (cacheGeneration == mCacheGeneration.get())
+    if (!mShutdown && cacheGeneration == mCacheGeneration.get())
       mCachedAddresses = loadedAddresses;
     return loadedAddresses;
   }
@@ -223,9 +275,9 @@ final class ContactAddressSearch
   }
 
   @NonNull
-  private static String getString(@NonNull Cursor cursor, @NonNull String column)
+  private static String getString(@NonNull Cursor cursor, int column)
   {
-    final String value = cursor.getString(cursor.getColumnIndexOrThrow(column));
+    final String value = cursor.getString(column);
     return value == null ? "" : value.trim();
   }
 
