@@ -75,6 +75,12 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   @NonNull
   private List<ContactAddress.SearchQuery> mPendingContactQueries = List.of();
   private int mPendingContactQueryIndex;
+  @Nullable
+  private String mSubmittedAddressQuery;
+  @Nullable
+  private String mSubmittedAddressSourceQuery;
+  @NonNull
+  private SearchResult[] mSubmittedAddressResults = {};
   private long mSearchTimestamp;
 
   // Debouncer for runSearch() — collapses bursts of keystrokes into a single engine invocation.
@@ -521,6 +527,13 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     mPendingContactQueryIndex = 0;
   }
 
+  private void clearSubmittedAddressSearch()
+  {
+    mSubmittedAddressQuery = null;
+    mSubmittedAddressSourceQuery = null;
+    mSubmittedAddressResults = new SearchResult[] {};
+  }
+
   private boolean tryRecognizeHiddenCommand(@NonNull String query)
   {
     for (HiddenCommand command : getHiddenCommands())
@@ -587,6 +600,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   {
     mSearchDebounceHandler.removeCallbacks(mDebouncedRunSearch);
     SearchEngine.INSTANCE.cancel();
+    clearSubmittedAddressSearch();
     updateSearchView();
   }
 
@@ -722,6 +736,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       mPendingContactResults = results;
       return;
     }
+    if (mSubmittedAddressQuery != null && timestamp == mSearchTimestamp)
+      mSubmittedAddressResults = results;
     refreshSearchResults(results);
   }
 
@@ -730,7 +746,27 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   {
     if (finishPendingContactAddressSearch(timestamp))
       return;
+    if (finishSubmittedAddressSearch(timestamp))
+      return;
     onSearchEnd();
+  }
+
+  private boolean finishSubmittedAddressSearch(long timestamp)
+  {
+    if (mSubmittedAddressQuery == null || mSubmittedAddressSourceQuery == null || timestamp != mSearchTimestamp)
+      return false;
+
+    final int resultIndex =
+        AddressResultMatcher.findUniqueExactAddress(mSubmittedAddressQuery, mSubmittedAddressResults);
+    final String sourceQuery = mSubmittedAddressSourceQuery;
+    final SearchResult[] results = mSubmittedAddressResults;
+    clearSubmittedAddressSearch();
+    if (resultIndex < 0)
+      return false;
+
+    updateSearchView();
+    showSingleResultOnMap(results[resultIndex], resultIndex, sourceQuery);
+    return true;
   }
 
   private boolean finishPendingContactAddressSearch(long timestamp)
@@ -766,8 +802,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     for (int i = 0; i < results.length; ++i)
     {
       final SearchResult result = results[i];
-      final int difference = ContactAddressResultMatcher.houseNumberDifference(contactAddress, query.expectedStreet,
-                                                                                result);
+      final int difference =
+          AddressResultMatcher.houseNumberDifference(contactAddress, query.expectedStreet, result);
       if (difference == Integer.MAX_VALUE || (!query.allowNearbyHouseNumbers && difference != 0) ||
           difference >= bestHouseNumberDifference)
         continue;
@@ -1060,6 +1096,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
       if (mPendingContactAddress != null && !query.equals(mPendingContactSourceQuery))
         clearPendingContactAddress();
+      if (mSubmittedAddressSourceQuery != null && !query.equals(mSubmittedAddressSourceQuery))
+        clearSubmittedAddressSearch();
 
       mSearchViewModel.setCurrentToolbarCategorical(isCategory());
 
@@ -1084,6 +1122,14 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     @Override
     protected boolean onStartSearchClick()
     {
+      clearSubmittedAddressSearch();
+      if (!isCategory() && ContactAddressNormalizer.looksLikeAddressQuery(getQuery()))
+      {
+        mSearchDebounceHandler.removeCallbacks(mDebouncedRunSearch);
+        mSubmittedAddressSourceQuery = getQuery();
+        mSubmittedAddressQuery = ContactAddressNormalizer.normalizeAddressQuery(getQuery());
+        runSearch();
+      }
       if (Config.isSearchHistoryEnabled())
       {
         SearchRecents.add(getQuery(), requireContext());
