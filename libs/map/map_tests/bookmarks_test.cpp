@@ -476,9 +476,10 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ImportPartialKmzResult)
 {
   ScopedFile const validFile("bookmark_import_partial_valid.kml", kmlString);
   ScopedFile const corruptFile("bookmark_import_partial_corrupt.kml", "not valid KML");
+  ScopedFile const macOSMetadataFile("bookmark_import_partial_macos_metadata.kml", "not valid KML");
   ScopedFile const kmzFile("bookmark_import_partial.kmz", ScopedFile::Mode::DoNotCreate);
-  TEST(CreateZipFromFiles({validFile.GetFullPath(), corruptFile.GetFullPath()}, {"valid.kml", "corrupt.kml"},
-                          kmzFile.GetFullPath()),
+  TEST(CreateZipFromFiles({validFile.GetFullPath(), corruptFile.GetFullPath(), macOSMetadataFile.GetFullPath()},
+                          {"valid.kml", "corrupt.kml", "__MACOSX/._valid.kml"}, kmzFile.GetFullPath()),
        ());
 
   ScopedManualGuiTaskLoop guiTaskLoop;
