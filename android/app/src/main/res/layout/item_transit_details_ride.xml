@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- A transit ride leg drawn as a timeline: a line-colored bar runs down the left, spanning from the
-     boarding stop (first) to the exit stop (last). The middle holds the tappable stop-count summary
-     that discloses the intermediate stops. Spacing comes from each row's marginTop only.
+     boarding stop (first) to the exit stop (last). The middle holds the badge + direction and the
+     tappable stop-count summary that discloses the intermediate stops.
 
      For a same-station transfer the shared stop is drawn once, as the transfer header floating in the
      gap above the bar so it centers between the previous leg's bar and this one's. In that case the
@@ -33,7 +33,7 @@
 
       <View
         android:id="@+id/transfer_stub_top"
-        android:layout_width="@dimen/margin_quarter_plus"
+        android:layout_width="@dimen/transit_details_bar_width"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
@@ -43,13 +43,13 @@
       <!-- Break between the two lines; height is set to ~30% of the stop name's text height in code. -->
       <Space
         android:id="@+id/transfer_gap"
-        android:layout_width="@dimen/margin_quarter_plus"
+        android:layout_width="@dimen/transit_details_bar_width"
         android:layout_height="@dimen/margin_quarter"
         android:layout_gravity="center_horizontal" />
 
       <View
         android:id="@+id/transfer_stub_bottom"
-        android:layout_width="@dimen/margin_quarter_plus"
+        android:layout_width="@dimen/transit_details_bar_width"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
@@ -57,8 +57,6 @@
         tools:background="#5D4037" />
     </LinearLayout>
 
-    <!-- 8dp above and below so the shared stop keeps the list's vertical rhythm; the stub column still
-         fills the full row height, so the two-tone line stays connected and its break stays text-centered. -->
     <TextView
       android:id="@+id/transfer_header"
       android:layout_width="wrap_content"
@@ -66,9 +64,10 @@
       android:layout_marginStart="@dimen/margin_half"
       android:layout_marginTop="@dimen/margin_half"
       android:layout_marginBottom="@dimen/margin_half"
-      android:textAppearance="?fontBody1"
+      android:fontFamily="@string/robotoMedium"
       android:textColor="?android:attr/textColorPrimary"
-      tools:text="Umsteigen an Unter den Linden" />
+      android:textSize="@dimen/transit_details_stop_text_size"
+      tools:text="Unter den Linden" />
   </LinearLayout>
 
   <LinearLayout
@@ -82,7 +81,7 @@
 
       <View
         android:id="@+id/line_bar"
-        android:layout_width="@dimen/margin_quarter_plus"
+        android:layout_width="@dimen/transit_details_bar_width"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/margin_half"
@@ -102,51 +101,75 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_half"
-        android:textAppearance="?fontBody1"
+        android:fontFamily="@string/robotoMedium"
         android:textColor="?android:attr/textColorPrimary"
-        tools:text="Board at Sadovaya" />
+        android:textSize="@dimen/transit_details_stop_text_size"
+        tools:text="Sadovaya" />
 
+      <!-- Tappable disclosure: line badge + direction on the first line, stop count + duration (with the
+           expand chevron) on the second, so nothing wraps against the badge. -->
       <LinearLayout
         android:id="@+id/ride_summary_row"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_half"
+        android:layout_marginTop="@dimen/margin_half_plus"
         android:background="?clickableBackground"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <app.organicmaps.routing.TransitStepView
-          android:id="@+id/line_badge"
-          android:layout_width="wrap_content"
+        <LinearLayout
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:minHeight="@dimen/routing_transit_step_min_height"
-          android:paddingStart="@dimen/margin_quarter"
-          android:paddingEnd="@dimen/margin_quarter"
-          android:textColor="@android:color/white"
-          android:textSize="@dimen/text_size_body_1" />
+          android:gravity="center_vertical"
+          android:orientation="horizontal">
+
+          <app.organicmaps.routing.TransitStepView
+            android:id="@+id/line_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/margin_base_plus"
+            android:paddingStart="@dimen/margin_quarter"
+            android:paddingEnd="@dimen/margin_quarter"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_body_0" />
+
+          <!-- Line direction (terminus, e.g. "Hönow"): where this train is headed. Hidden when unknown. -->
+          <TextView
+            android:id="@+id/ride_direction"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/margin_half_plus"
+            android:ellipsize="end"
+            android:fontFamily="@string/robotoMedium"
+            android:maxLines="1"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="@dimen/text_size_body_1"
+            tools:text="Hönow" />
+        </LinearLayout>
 
         <TextView
           android:id="@+id/ride_subtitle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/margin_half_plus"
+          android:layout_marginTop="@dimen/margin_quarter"
           android:drawablePadding="@dimen/margin_eighth"
-          android:textAppearance="?fontBody2"
           android:textColor="?secondary"
-          tools:drawableEnd="@drawable/ic_expand_more"
+          android:textSize="@dimen/text_size_body_1"
+          tools:drawableStart="@drawable/ic_expand_more"
           tools:text="4 stops · 8 min" />
       </LinearLayout>
 
+      <!-- Intermediate stops, one per line; disclosed by tapping the summary row above. -->
       <TextView
         android:id="@+id/intermediate_stops"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_half"
+        android:layout_marginTop="@dimen/margin_half_plus"
         android:lineSpacingExtra="@dimen/margin_half"
-        android:textAppearance="?fontBody2"
         android:textColor="?secondary"
+        android:textSize="@dimen/text_size_body_1"
         android:visibility="gone"
-        tools:text="Frunzenskaya · Sportivnaya · Vorobyovy Gory"
+        tools:text="Frunzenskaya\nSportivnaya\nVorobyovy Gory"
         tools:visibility="visible" />
 
       <TextView
@@ -154,9 +177,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_half"
-        android:textAppearance="?fontBody1"
+        android:fontFamily="@string/robotoMedium"
         android:textColor="?android:attr/textColorPrimary"
-        tools:text="Exit at Tekstilshiki" />
+        android:textSize="@dimen/transit_details_stop_text_size"
+        tools:text="Tekstilshiki" />
     </LinearLayout>
   </LinearLayout>
 </LinearLayout>
