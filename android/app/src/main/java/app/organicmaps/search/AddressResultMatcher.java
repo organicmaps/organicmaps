@@ -6,9 +6,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-final class ContactAddressResultMatcher
+final class AddressResultMatcher
 {
-  private ContactAddressResultMatcher() {}
+  private AddressResultMatcher() {}
 
   static boolean matches(@NonNull ContactAddress address, @NonNull SearchResult result)
   {
@@ -26,7 +26,7 @@ final class ContactAddressResultMatcher
   {
     if (result.type != SearchResult.TYPE_RESULT || result.description == null)
       return Integer.MAX_VALUE;
-    final String resultAddress = result.name + " " + result.description.region;
+    final String resultAddress = getAddress(result);
     if (!address.locality.isEmpty() && !containsAllTokens(resultAddress, address.locality))
       return Integer.MAX_VALUE;
     if (matches(expectedStreet, resultAddress))
@@ -57,9 +57,24 @@ final class ContactAddressResultMatcher
     return difference > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) difference;
   }
 
-  static boolean matches(@NonNull String contactStreet, @NonNull String resultAddress)
+  static int findUniqueExactAddress(@NonNull String query, @NonNull SearchResult[] results)
   {
-    final List<String> streetTokens = ContactAddressNormalizer.matchTokens(contactStreet);
+    int resultIndex = -1;
+    for (int i = 0; i < results.length; ++i)
+    {
+      final SearchResult result = results[i];
+      if (result.isEstimatedAddress || result.description == null || !matches(query, getAddress(result)))
+        continue;
+      if (resultIndex >= 0)
+        return -1;
+      resultIndex = i;
+    }
+    return resultIndex;
+  }
+
+  static boolean matches(@NonNull String expectedStreet, @NonNull String resultAddress)
+  {
+    final List<String> streetTokens = ContactAddressNormalizer.matchTokens(expectedStreet);
     if (streetTokens.size() < 2 || !isHouseNumber(streetTokens.get(0)))
       return false;
 
@@ -70,6 +85,12 @@ final class ContactAddressResultMatcher
         return false;
     }
     return true;
+  }
+
+  @NonNull
+  private static String getAddress(@NonNull SearchResult result)
+  {
+    return result.name + " " + result.description.region;
   }
 
   private static boolean containsAllTokens(@NonNull String value, @NonNull String expected)
