@@ -471,6 +471,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Lejupielādējiet reģionu, kurā meklēt, vai mēģiniet pievienot tuvumā esošas apdzīvotas vietas nosaukumu.";
 "search_history_title" = "Meklēšanas vēsture";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "Apskatiet meklēšanas vēsturi.";
 "clear_search" = "Notīrīt vēsturi";
 

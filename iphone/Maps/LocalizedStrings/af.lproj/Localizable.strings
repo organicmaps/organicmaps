@@ -471,6 +471,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Laai die streek af waar jy soek of probeer om 'n nabygeleë dorp/dorpnaam by te voeg.";
 "search_history_title" = "Soekgeskiedenis";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "Bekyk al u onlangse soektogte.";
 "clear_search" = "Wis soekgeskiedenis";
 

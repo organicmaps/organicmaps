@@ -471,6 +471,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "יש להוריד את האזור בו החיפוש מתבצע או להוסיף שם עיר/כפר קרוב.";
 "search_history_title" = "חיפושים קודמים";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "צפה בחיפושים האחרונים שלך.";
 "clear_search" = "נקה היסטוריית חיפוש";
 

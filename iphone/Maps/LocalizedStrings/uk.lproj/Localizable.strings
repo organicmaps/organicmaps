@@ -471,6 +471,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Завантажте регіон пошуку або спробуйте вказати назву найближчого міста чи села.";
 "search_history_title" = "Історія пошуку";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "Швидкий доступ до нещодавніх результатів пошуку.";
 "clear_search" = "Очистити історію пошуку";
 

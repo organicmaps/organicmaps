@@ -471,6 +471,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Scarica la regione in cui stai effettuando la ricerca oppure prova ad aggiungere il nome di una città/villaggio vicino.";
 "search_history_title" = "Cronologia delle ricerche";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "Visualizza le ricerche recenti.";
 "clear_search" = "Elimina cronologia ricerche";
 

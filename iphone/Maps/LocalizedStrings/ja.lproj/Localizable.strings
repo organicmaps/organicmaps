@@ -471,6 +471,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "検索する地域をダウンロードするか、近隣の町村名を追加してみてください。";
 "search_history_title" = "検索履歴";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "最近の検索を表示します。";
 "clear_search" = "検索履歴を消去";
 

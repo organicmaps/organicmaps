@@ -471,6 +471,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Pakua eneo ambalo unatafuta au jaribu kuongeza jina la mji/kijiji kilicho karibu.";
 "search_history_title" = "Historia ya Utafutaji";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "Tazama utafutaji wako wa hivi karibuni.";
 "clear_search" = "Futa historia ya utafutaji";
 
