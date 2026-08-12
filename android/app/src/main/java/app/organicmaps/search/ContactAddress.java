@@ -71,8 +71,7 @@ final class ContactAddress
   {
     final String formattedStreet = ContactAddressNormalizer.normalizeStreet(address);
     final String structuredStreet = ContactAddressNormalizer.normalizeStreet(street);
-    final boolean useFormattedStreet = ContactAddressNormalizer.looksLikeAddressQuery(formattedStreet) &&
-                                       ContactAddressNormalizer.hasRecognizedStreetSuffix(formattedStreet);
+    final boolean useFormattedStreet = ContactAddressNormalizer.looksLikeAddressQuery(formattedStreet);
     return useFormattedStreet ? formattedStreet : structuredStreet;
   }
 
@@ -81,22 +80,19 @@ final class ContactAddress
   {
     final String normalizedStreet = getNormalizedStreet();
     final List<SearchQuery> queries = new ArrayList<>();
-    if (ContactAddressNormalizer.looksLikeAddressQuery(normalizedStreet))
+    if (ContactAddressNormalizer.looksLikeAddressQuery(normalizedStreet) ||
+        (!street.isEmpty() && ContactAddressNormalizer.looksLikeStructuredStreet(normalizedStreet)))
     {
       addQuery(queries, new SearchQuery(normalizedStreet, normalizedStreet, false));
       if (!locality.isEmpty())
-        addQuery(queries,
-                 new SearchQuery(normalizedStreet + " " + ContactAddressNormalizer.normalizeLocality(locality),
-                                 normalizedStreet, true));
+        addQuery(queries, new SearchQuery(normalizedStreet + " " + locality, normalizedStreet, true));
 
       final String withoutBareUnit = ContactAddressNormalizer.possibleBareUnitStreet(normalizedStreet);
       if (!withoutBareUnit.isEmpty())
       {
         addQuery(queries, new SearchQuery(withoutBareUnit, withoutBareUnit, false));
         if (!locality.isEmpty())
-          addQuery(queries,
-                   new SearchQuery(withoutBareUnit + " " + ContactAddressNormalizer.normalizeLocality(locality),
-                                   withoutBareUnit, true));
+          addQuery(queries, new SearchQuery(withoutBareUnit + " " + locality, withoutBareUnit, true));
       }
     }
 

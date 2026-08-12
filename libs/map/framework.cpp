@@ -358,6 +358,7 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   m_stringsBundle.SetDefaultString("core_my_places", "My Places");
   m_stringsBundle.SetDefaultString("core_my_position", "My Position");
   m_stringsBundle.SetDefaultString("postal_code", "Postal Code");
+  m_stringsBundle.SetDefaultString("search_estimated_location", "Estimated location");
 
   m_featuresFetcher.InitClassificator();
   m_featuresFetcher.SetOnMapDeregisteredCallback(std::bind(&Framework::OnMapDeregistered, this, _1));
