@@ -2,9 +2,6 @@
 
 #include "base/internal/message.hpp"
 #include "base/src_point.hpp"
-// TODO: Not needed here anymore. Drop it once every base::Timer user includes it directly - many
-// files across the tree currently reach base::Timer through this header.
-#include "base/timer.hpp"
 
 #include <array>
 #include <atomic>
