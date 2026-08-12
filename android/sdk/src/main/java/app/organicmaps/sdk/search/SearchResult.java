@@ -67,6 +67,7 @@ public class SearchResult
 
   public final int type;
   public final Description description;
+  public final boolean isEstimatedAddress;
 
   // Consecutive pairs of indexes (each pair contains : start index, length), specifying highlighted matches of original
   // query in result
@@ -84,6 +85,7 @@ public class SearchResult
     this.lat = lat;
     this.lon = lon;
     this.description = null;
+    isEstimatedAddress = false;
     // Looks like a hack, but it's fine. Otherwise, should make one more ctor and JNI code bloat.
     if (lat == 0 && lon == 0)
       this.type = TYPE_PURE_SUGGEST;
@@ -97,6 +99,12 @@ public class SearchResult
   public SearchResult(String name, Description description, double lat, double lon, int[] highlightRanges,
                       int[] descHighlightRanges, @NonNull Popularity popularity)
   {
+    this(name, description, lat, lon, highlightRanges, descHighlightRanges, popularity, false);
+  }
+
+  public SearchResult(String name, Description description, double lat, double lon, int[] highlightRanges,
+                      int[] descHighlightRanges, @NonNull Popularity popularity, boolean isEstimatedAddress)
+  {
     this.type = TYPE_RESULT;
     this.name = name;
     mPopularity = popularity;
@@ -104,6 +112,7 @@ public class SearchResult
     this.lat = lat;
     this.lon = lon;
     this.description = description;
+    this.isEstimatedAddress = isEstimatedAddress;
     this.highlightRanges = highlightRanges;
     this.descHighlightRanges = descHighlightRanges;
   }

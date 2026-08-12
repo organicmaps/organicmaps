@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.ContactsContract;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import app.organicmaps.sdk.util.concurrency.ThreadPool;
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
-final class ContactAddressSearch implements AutoCloseable
+final class ContactAddressSearch
 {
   interface Callback
   {
@@ -30,6 +29,7 @@ final class ContactAddressSearch implements AutoCloseable
   }
 
   private static final int MAX_RESULTS = 20;
+  private static ContactAddressSearch sInstance;
   private static final String[] PROJECTION = {
       ContactsContract.Contacts.DISPLAY_NAME_PRIMARY,
       ContactsContract.CommonDataKinds.StructuredPostal.TYPE,
@@ -52,38 +52,38 @@ final class ContactAddressSearch implements AutoCloseable
   private final Handler mMainHandler = new Handler(Looper.getMainLooper());
   @NonNull
   private final ContentObserver mContactsObserver;
-  @Nullable
-  private final Runnable mOnContactsChanged;
+  @NonNull
+  private final Set<Runnable> mContactsChangedListeners = new HashSet<>();
   @NonNull
   private final AtomicInteger mCacheGeneration = new AtomicInteger();
   private volatile List<ContactAddress> mCachedAddresses;
-  private volatile boolean mClosed;
-  private boolean mObserverRegistered;
 
-  ContactAddressSearch(@NonNull Context context)
+  @NonNull
+  static synchronized ContactAddressSearch getInstance(@NonNull Context context)
   {
-    this(context, null);
+    if (sInstance == null)
+      sInstance = new ContactAddressSearch(context);
+    return sInstance;
   }
 
-  ContactAddressSearch(@NonNull Context context, @Nullable Runnable onContactsChanged)
+  private ContactAddressSearch(@NonNull Context context)
   {
     mContext = context.getApplicationContext();
     mResolver = mContext.getContentResolver();
-    mOnContactsChanged = onContactsChanged;
     mContactsObserver = new ContentObserver(mMainHandler) {
       @Override
       public void onChange(boolean selfChange)
       {
         mCacheGeneration.incrementAndGet();
         mCachedAddresses = null;
-        if (mOnContactsChanged != null)
-          mOnContactsChanged.run();
+        ThreadPool.getWorker().execute(ContactAddressSearch.this::getAddresses);
+        for (Runnable listener : List.copyOf(mContactsChangedListeners))
+          listener.run();
       }
     };
     try
     {
       mResolver.registerContentObserver(ContactsContract.Data.CONTENT_URI, true, mContactsObserver);
-      mObserverRegistered = true;
     }
     catch (SecurityException ignored)
     {}
@@ -91,6 +91,11 @@ final class ContactAddressSearch implements AutoCloseable
     // Reading structured postal rows is the expensive part of contact matching. Queue it as soon
     // as contact search becomes active so the first typed query normally hits the memory cache.
     ThreadPool.getWorker().execute(this::getAddresses);
+  }
+
+  void addContactsChangedListener(@NonNull Runnable listener)
+  {
+    mContactsChangedListeners.add(listener);
   }
 
   static boolean hasPermission(@NonNull Context context)
@@ -111,8 +116,7 @@ final class ContactAddressSearch implements AutoCloseable
     ThreadPool.getWorker().execute(() -> {
       final List<ContactAddress> matches = findMatches(normalizedQuery);
       mMainHandler.post(() -> {
-        if (!mClosed)
-          callback.onResults(query, matches);
+        callback.onResults(query, matches);
       });
     });
   }
@@ -129,13 +133,13 @@ final class ContactAddressSearch implements AutoCloseable
     final List<ContactAddress> matches = new ArrayList<>();
     for (ContactAddress address : addresses)
     {
-      if (address.name.toLowerCase(Locale.ROOT).contains(normalizedQuery))
+      if (address.normalizedName.contains(normalizedQuery))
         matches.add(address);
     }
     matches.sort(
         Comparator
             .comparingInt(
-                (ContactAddress address) -> address.name.toLowerCase(Locale.ROOT).startsWith(normalizedQuery) ? 0 : 1)
+                (ContactAddress address) -> address.normalizedName.startsWith(normalizedQuery) ? 0 : 1)
             .thenComparing(address -> address.name, String.CASE_INSENSITIVE_ORDER)
             .thenComparing(address -> address.label, String.CASE_INSENSITIVE_ORDER));
     final Set<String> names = new HashSet<>();
@@ -153,7 +157,7 @@ final class ContactAddressSearch implements AutoCloseable
   }
 
   @NonNull
-  private List<ContactAddress> getAddresses()
+  private synchronized List<ContactAddress> getAddresses()
   {
     final List<ContactAddress> cached = mCachedAddresses;
     if (cached != null)
@@ -176,7 +180,7 @@ final class ContactAddressSearch implements AutoCloseable
 
         final String street = getString(cursor, ContactsContract.CommonDataKinds.StructuredPostal.STREET);
         final String locality = getString(cursor, ContactsContract.CommonDataKinds.StructuredPostal.CITY);
-        final String address = ContactAddressFormatter.format(
+        final String address = ContactAddressNormalizer.format(
             getString(cursor, ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS), street,
             getString(cursor, ContactsContract.CommonDataKinds.StructuredPostal.POBOX),
             getString(cursor, ContactsContract.CommonDataKinds.StructuredPostal.NEIGHBORHOOD), locality,
@@ -213,8 +217,7 @@ final class ContactAddressSearch implements AutoCloseable
     ThreadPool.getWorker().execute(() -> {
       final List<ContactAddress> addresses = getAddresses();
       mMainHandler.post(() -> {
-        if (!mClosed)
-          callback.onResults("", addresses);
+        callback.onResults("", addresses);
       });
     });
   }
@@ -226,14 +229,4 @@ final class ContactAddressSearch implements AutoCloseable
     return value == null ? "" : value.trim();
   }
 
-  @Override
-  public void close()
-  {
-    mClosed = true;
-    mCacheGeneration.incrementAndGet();
-    mCachedAddresses = null;
-    if (mObserverRegistered)
-      mResolver.unregisterContentObserver(mContactsObserver);
-    mMainHandler.removeCallbacksAndMessages(null);
-  }
 }
