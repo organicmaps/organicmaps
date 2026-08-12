@@ -520,8 +520,9 @@ BookmarkFilePreparationResult PrepareFilesToLoadFromKmz(std::string const & file
   {
     ZipFileReader::FileList files;
     ZipFileReader::FilesList(filePath, files);
-    files.erase(std::remove_if(files.begin(), files.end(),
-                               [](auto const & file) { return GetLowercaseFileExt(file.first) != kKmlExtension; }),
+    // Finder may add non-KML AppleDouble metadata under __MACOSX when creating an archive.
+    files.erase(std::remove_if(files.begin(), files.end(), [](auto const & file)
+    { return file.first.starts_with("__MACOSX/") || GetLowercaseFileExt(file.first) != kKmlExtension; }),
                 files.end());
     for (auto const & [kmlFileInZip, size] : files)
     {
