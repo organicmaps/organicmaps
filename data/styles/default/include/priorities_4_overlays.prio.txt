@@ -312,6 +312,9 @@ natural-volcano                                     # icon z12- (also has captio
 natural-volcano-active                              # icon z12- (also has caption(optional) z13-)
 === 5400
 
+natural-hill                                        # icon z17- (also has caption(optional) z17-)
+=== 5300
+
 amenity-theatre                                     # icon z14- (also has caption(optional) z14-)
 historic-battlefield                                # icon z15- (also has caption(optional) z15-)
 historic-city_gate                                  # icon z13- (also has caption(optional) z13-)
@@ -1521,6 +1524,9 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # natural-volcano                                   # caption(optional) z13- (also has icon z12-)
 # natural-volcano-active                            # caption(optional) z13- (also has icon z12-)
 # === -4600
+
+# natural-hill                                      # caption(optional) z17- (also has icon z17-)
+# === -4700
 
 # amenity-theatre                                   # caption(optional) z14- (also has icon z14-)
 # historic-battlefield                              # caption(optional) z15- (also has icon z15-)
