@@ -2,7 +2,7 @@
 
 #include "platform/measurement_utils.hpp"
 
-#include "3party/opening_hours/opening_hours.hpp"
+#include "opening_hours/opening_hours.hpp"
 
 #include <array>
 #include <cstdint>

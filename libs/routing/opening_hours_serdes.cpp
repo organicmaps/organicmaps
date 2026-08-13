@@ -246,20 +246,19 @@ std::vector<osmoh::RuleSequence> OpeningHoursSerDes::DecomposeOh(osmoh::OpeningH
     if (badRule)
       continue;
 
-    apply(rules, rule.GetWeekdays().GetWeekdayRanges(),
-          [](osmoh::WeekdayRange const & range, osmoh::RuleSequence & item)
-    {
-      osmoh::Weekdays weekdays;
-      weekdays.SetWeekdayRanges({range});
-      item.SetWeekdays(weekdays);
-    });
-
-    apply(rules, rule.GetWeekdays().GetHolidays(), [](osmoh::Holiday const & holiday, osmoh::RuleSequence & item)
-    {
-      auto weekdays = item.GetWeekdays();
-      weekdays.SetHolidays({holiday});
-      item.SetWeekdays(weekdays);
-    });
+    // Weekday ranges and holidays are alternatives (a union): each spawns its
+    // own single-selector rule. Overlaying a holiday onto a weekday rule would
+    // make routing, which does not support the Holiday bit, drop the weekday
+    // part together with the holiday in NotSupported(). The per-rule encoding
+    // is unchanged; only the decomposition differs. ForRouting() omits the
+    // Holiday bit, so holiday-only rules are filtered while weekday rules stay.
+    std::vector<osmoh::Weekdays> daySelectors;
+    for (auto const & range : rule.GetWeekdays().GetWeekdayRanges())
+      daySelectors.emplace_back().SetWeekdayRanges({range});
+    for (auto const & holiday : rule.GetWeekdays().GetHolidays())
+      daySelectors.emplace_back().SetHolidays({holiday});
+    apply(rules, daySelectors,
+          [](osmoh::Weekdays const & weekdays, osmoh::RuleSequence & item) { item.SetWeekdays(weekdays); });
 
     apply(rules, rule.GetTimes(),
           [](osmoh::Timespan const & range, osmoh::RuleSequence & item) { item.SetTimes({range}); });
@@ -313,6 +312,12 @@ uint8_t OpeningHoursSerDes::GetBitsNumber(Header::Bits type) const
 bool OpeningHoursSerDes::CheckYearRange(osmoh::MonthDay::TYear start, osmoh::MonthDay::TYear end) const
 {
   if (start < kYearBias || end < kYearBias)
+    return false;
+
+  // The wire stores year - kYearBias in a fixed-width field. Open-ended
+  // selectors ("2020+") materialize as end year 9999, which must refuse
+  // gracefully, not overflow.
+  if (end - kYearBias >= (1U << GetBitsNumber(Header::Bits::Year)))
     return false;
 
   // Should be filtered after |DecomposeOh| method.
