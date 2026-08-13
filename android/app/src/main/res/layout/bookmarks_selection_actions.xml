@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Contextual actions of the multi-select mode. Floats above the list like the show-on-map FAB it
+     replaces, so it reuses the same bottom-inset handling. -->
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/selection_actions"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="@drawable/bg_selection_actions"
+  android:elevation="6dp"
+  android:minHeight="@dimen/bookmark_selection_actions_height"
+  android:orientation="horizontal"
+  android:visibility="invisible">
+
+  <com.google.android.material.button.MaterialButton
+    android:id="@+id/selection_action_color"
+    style="@style/BookmarkSelectionAction"
+    android:text="@string/change_color"
+    app:icon="@drawable/ic_palette" />
+
+  <com.google.android.material.button.MaterialButton
+    android:id="@+id/selection_action_move"
+    style="@style/BookmarkSelectionAction"
+    android:text="@string/move"
+    app:icon="@drawable/ic_move_to_list" />
+
+  <com.google.android.material.button.MaterialButton
+    android:id="@+id/selection_action_delete"
+    style="@style/BookmarkSelectionAction"
+    android:text="@string/delete"
+    app:icon="@drawable/ic_delete" />
+</LinearLayout>

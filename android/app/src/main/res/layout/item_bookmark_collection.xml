@@ -4,7 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:background="?clickableBackground"
+  android:background="@drawable/bg_card_item_middle"
   android:gravity="center_vertical"
   android:orientation="horizontal">
   <CheckBox

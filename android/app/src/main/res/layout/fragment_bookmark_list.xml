@@ -14,6 +14,10 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:clipToPadding="false"
+      android:paddingStart="@dimen/margin_base"
+      android:paddingEnd="@dimen/margin_base"
+      android:paddingTop="@dimen/margin_quarter"
+      android:scrollbarStyle="outsideOverlay"
       android:scrollbars="vertical"
       android:scrollbarSize="@dimen/scrollbar_size"
       tools:listitem="@layout/item_bookmark" />
@@ -22,6 +26,12 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="bottom|center"
+      android:layout_margin="@dimen/margin_base"/>
+    <include
+      layout="@layout/bookmarks_selection_actions"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom"
       android:layout_margin="@dimen/margin_base"/>
 
     <app.organicmaps.widget.PlaceholderView

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/text"
+  style="?fontSubtitle2"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:gravity="start|center_vertical"
+  android:textColor="?android:textColorSecondary"
+  android:paddingStart="@dimen/margin_base"
+  android:paddingTop="@dimen/margin_half"
+  android:paddingEnd="@dimen/margin_base"
+  android:paddingBottom="@dimen/margin_half"
+  tools:text="@string/bookmarks" />

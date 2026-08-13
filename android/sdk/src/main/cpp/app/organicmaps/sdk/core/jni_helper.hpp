@@ -12,6 +12,7 @@
 #include <iterator>
 #include <memory>
 #include <string>
+#include <type_traits>
 #include <utility>
 #include <vector>
 
@@ -75,6 +76,43 @@ using TScopedLocalClassRef = ScopedLocalRef<jclass>;
 using TScopedLocalObjectArrayRef = ScopedLocalRef<jobjectArray>;
 using TScopedLocalIntArrayRef = ScopedLocalRef<jintArray>;
 using TScopedLocalByteArrayRef = ScopedLocalRef<jbyteArray>;
+using TScopedLocalLongArrayRef = ScopedLocalRef<jlongArray>;
+
+// jlong and its unsigned counterpart only: ToNativeLongVector() reads the ids through a jlong *, and aliasing
+// allows that for exactly this signed/unsigned pair. Same trait on ToJavaLongArray() for a matching element type.
+template <typename T>
+inline constexpr bool kIsJavaLong = std::is_same_v<T, jlong> || std::is_same_v<T, std::make_unsigned_t<jlong>>;
+
+// Copies a range of 64-bit integer ids into a new Java long[]. Goes through a buffer because the source is often
+// a std::set, which is not contiguous; for the id counts we deal with the extra copy is not worth an overload.
+template <typename Range>
+jlongArray ToJavaLongArray(JNIEnv * env, Range const & values)
+{
+  static_assert(kIsJavaLong<typename Range::value_type>);
+
+  std::vector<jlong> const buffer(std::begin(values), std::end(values));
+  auto const size = static_cast<jsize>(buffer.size());
+  jlongArray result = env->NewLongArray(size);
+  // CheckJNI rejects the null buffer of an empty vector even for a zero-length region.
+  if (size != 0)
+    env->SetLongArrayRegion(result, 0, size, buffer.data());
+  return result;
+}
+
+// Copies a Java long[] into a contiguous container of 64-bit integer ids.
+template <typename Vector>
+Vector ToNativeLongVector(JNIEnv * env, jlongArray values)
+{
+  static_assert(kIsJavaLong<typename Vector::value_type>);
+  static_assert(std::contiguous_iterator<typename Vector::iterator>);
+
+  auto const size = env->GetArrayLength(values);
+  Vector result(static_cast<size_t>(size));
+  // CheckJNI rejects the null buffer of an empty vector even for a zero-length region.
+  if (size != 0)
+    env->GetLongArrayRegion(values, 0, size, reinterpret_cast<jlong *>(result.data()));
+  return result;
+}
 
 jobject GetNewParcelablePointD(JNIEnv * env, m2::PointD const & point);
 

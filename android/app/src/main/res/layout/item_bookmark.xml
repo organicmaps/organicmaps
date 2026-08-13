@@ -1,42 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:minHeight="@dimen/height_item_multiline"
-  android:background="@drawable/bg_clickable_card"
-  android:paddingStart="@dimen/margin_base"
-  android:paddingEnd="0dp">
+  style="@style/BookmarkListRow"
+  android:background="@drawable/bg_card_item_middle">
+
+  <CheckBox
+    android:id="@+id/selection_checkbox"
+    style="@style/BookmarkListRow.Checkbox"
+    tools:visibility="visible" />
 
   <ImageView
     android:id="@+id/iv__bookmark_color"
-    android:layout_width="@dimen/track_circle_size"
-    android:layout_height="@dimen/track_circle_size"
-    android:layout_gravity="center"
-    android:layout_marginEnd="@dimen/margin_base"
+    style="@style/BookmarkListRow.Icon"
     android:contentDescription="@string/change_color"
     tools:background="@color/base_red"
     tools:src="@drawable/ic_bookmark_transport" />
 
-  <LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_gravity="center_vertical">
+  <LinearLayout style="@style/BookmarkListRow.Text">
     <TextView
       android:id="@+id/tv__bookmark_name"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:singleLine="true"
-      android:textAppearance="@style/MwmTextAppearance.Body1"
+      style="@style/BookmarkListRow.Title"
       tools:text="Bookmark name" />
 
     <TextView
       android:id="@+id/tv__bookmark_distance"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textAppearance="@style/MwmTextAppearance.Body3"
-      tools:text="3.3 km · Category"/>
+      style="@style/BookmarkListRow.Subtitle"
+      tools:text="3.3 km · Category" />
   </LinearLayout>
+
+  <ImageView
+    android:id="@+id/more"
+    style="@style/BookmarkListRow.TrailingIcon"
+    android:contentDescription="@string/placepage_more_button"
+    app:srcCompat="@drawable/ic_more"
+    app:tint="?secondary" />
 </LinearLayout>

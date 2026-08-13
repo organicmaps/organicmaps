@@ -209,7 +209,10 @@ class EditBookmarkFragment :
             deleteAndDismiss()
             return
         }
-        DeleteConfirmationDialogFragment.showDialog(childFragmentManager, t.name)
+        DeleteConfirmationDialogFragment.showDialog(
+            childFragmentManager,
+            getString(R.string.delete_track_dialog_title, t.name),
+        )
     }
 
     private fun toggleVisibility() {
