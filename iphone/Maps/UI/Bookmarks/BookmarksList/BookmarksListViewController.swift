@@ -22,6 +22,10 @@ final class BookmarksListViewController: MWMViewController {
                                                          style: .plain,
                                                          target: self,
                                                          action: #selector(selectButtonDidTap))
+  private lazy var selectAllBarButtonItem = UIBarButtonItem(title: L("select_all"),
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(selectAllButtonDidTap))
   private lazy var cancelBarButtonItem = UIBarButtonItem(title: L("cancel"),
                                                          style: .plain,
                                                          target: self,
@@ -138,6 +142,24 @@ final class BookmarksListViewController: MWMViewController {
     setEditing(false, animated: true)
   }
 
+  @objc private func selectAllButtonDidTap() {
+    guard isEditing, let sections else { return }
+
+    if areAllEditableItemsSelected {
+      clearSelection(animated: false)
+      updateSelectionActionsState()
+      return
+    }
+
+    for (sectionIndex, section) in sections.enumerated() {
+      for (row, item) in section.editableItems.enumerated() {
+        selectedItemIds.insert(item.itemId)
+        tableView.selectRow(at: IndexPath(row: row, section: sectionIndex), animated: false, scrollPosition: .none)
+      }
+    }
+    updateSelectionActionsState()
+  }
+
   @objc private func moveButtonDidTap() {
     guard !selectedItemIds.isEmpty else { return }
     presenter.moveItems(with: selectedItemIds)
@@ -175,7 +197,7 @@ final class BookmarksListViewController: MWMViewController {
       return
     }
 
-    updateBatchActionsState()
+    updateSelectionActionsState()
     toolBar.setItems([sortToolbarItem,
                       UIBarButtonItem(systemItem: .flexibleSpace),
                       moveToolbarItem,
@@ -184,22 +206,35 @@ final class BookmarksListViewController: MWMViewController {
                      animated: animated)
   }
 
-  private func updateBatchActionsState() {
+  private func updateSelectionActionsState() {
     let isEnabled = !selectedItemIds.isEmpty
     moveToolbarItem.isEnabled = isEnabled
     colorToolbarItem.isEnabled = isEnabled
     deleteToolbarItem.isEnabled = isEnabled
+    selectAllBarButtonItem.title = L(areAllEditableItemsSelected ? "deselect_all" : "select_all")
+    selectAllBarButtonItem.isEnabled = editableItemsCount > 0
+  }
+
+  private var editableItemsCount: Int {
+    sections?.reduce(0) { $0 + $1.editableItems.count } ?? 0
+  }
+
+  private var areAllEditableItemsSelected: Bool {
+    editableItemsCount > 0 && selectedItemIds.count == editableItemsCount
   }
 
   private func updateNavigationButton() {
     guard canEdit else {
+      navigationItem.leftBarButtonItem = nil
       navigationItem.rightBarButtonItem = nil
       return
     }
 
     if isEditing {
+      navigationItem.leftBarButtonItem = selectAllBarButtonItem
       navigationItem.rightBarButtonItem = cancelBarButtonItem
     } else {
+      navigationItem.leftBarButtonItem = nil
       selectBarButtonItem.isEnabled = !isSearchActive
       navigationItem.rightBarButtonItem = selectBarButtonItem
     }
@@ -224,7 +259,7 @@ final class BookmarksListViewController: MWMViewController {
       }
     }
     selectedItemIds = restoredItemIds
-    updateBatchActionsState()
+    updateSelectionActionsState()
   }
 
   private func clearSelection(animated: Bool) {
@@ -272,7 +307,7 @@ extension BookmarksListViewController: UITableViewDelegate {
       if let itemId = itemId(at: indexPath) {
         selectedItemIds.insert(itemId)
       }
-      updateBatchActionsState()
+      updateSelectionActionsState()
       return
     }
 
@@ -296,7 +331,7 @@ extension BookmarksListViewController: UITableViewDelegate {
     if let itemId = itemId(at: indexPath) {
       selectedItemIds.remove(itemId)
     }
-    updateBatchActionsState()
+    updateSelectionActionsState()
   }
 
   func tableView(_: UITableView,
