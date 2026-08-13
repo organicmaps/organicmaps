@@ -319,6 +319,12 @@
     <string name="fuel_places">Gasolineres</string>
     <string name="search_in_the_list">Guetar na llista</string>
     <string name="religious_places">Llugares relixosos</string>
+    <!-- Button that starts multi-selection in a bookmark list. -->
+    <string name="select">Esbillar</string>
+    <!-- Action that selects every bookmark and track in a bookmark list. -->
+    <string name="select_all">Esbillar too</string>
+    <!-- Action that clears the multi-selection in a bookmark list. -->
+    <string name="deselect_all">Desesbillar too</string>
     <string name="button_layer_isolines">Curves de nivel</string>
     <string name="isolines_location_error_dialog">Les curves de nivel entá nun tán disponibles nesta rexón</string>
     <string name="elevation_profile_ascent">Ascensu</string>
@@ -371,4 +377,14 @@
     <string name="edit_track">Editar trayeutu</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Siguir el sistema</string>
+    <!-- Bookmark list title in multi-selection mode. %d is the number of selected bookmarks and tracks. -->
+    <plurals name="n_items_selected">
+        <item quantity="one">%d esbilláu</item>
+        <item quantity="other">%d esbillaos</item>
+    </plurals>
+    <!-- Title for the dialog when deleting several bookmarks and tracks at once. %d is their number. -->
+    <plurals name="delete_n_items_dialog_title">
+        <item quantity="one">¿Desaniciar %d elementu?</item>
+        <item quantity="other">¿Desaniciar %d elementos?</item>
+    </plurals>
 </resources>

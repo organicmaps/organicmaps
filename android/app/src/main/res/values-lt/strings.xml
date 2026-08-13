@@ -754,6 +754,12 @@
     <string name="medicine">Medicina</string>
     <string name="search_in_the_list">Ieškoti sąraše</string>
     <string name="religious_places">Religinės vietos</string>
+    <!-- Button that starts multi-selection in a bookmark list. -->
+    <string name="select">Pasirinkti</string>
+    <!-- Action that selects every bookmark and track in a bookmark list. -->
+    <string name="select_all">Pasirinkti viską</string>
+    <!-- Action that clears the multi-selection in a bookmark list. -->
+    <string name="deselect_all">Atšaukti pasirinkimą</string>
     <string name="select_list">Pasirinkite sąrašą</string>
     <string name="button_layer_isolines">Reljefas</string>
     <string name="isolines_activation_error_dialog">Atsisiųskite vietovės žemėlapį, jei norite aktyvinti ir naudoti reljefo sluoksnį</string>
@@ -891,6 +897,20 @@
     <string name="share_track">Dalintis trasa</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Šalinti %s?</string>
+    <!-- Bookmark list title in multi-selection mode. %d is the number of selected bookmarks and tracks. -->
+    <plurals name="n_items_selected">
+        <item quantity="one">Pasirinkta: %d</item>
+        <item quantity="few">Pasirinkta: %d</item>
+        <item quantity="other">Pasirinkta: %d</item>
+    </plurals>
+    <!-- Title for the dialog when deleting several bookmarks and tracks at once. %d is their number. -->
+    <plurals name="delete_n_items_dialog_title">
+        <item quantity="one">Ištrinti %d elementą?</item>
+        <item quantity="few">Ištrinti %d elementus?</item>
+        <item quantity="other">Ištrinti %d elementų?</item>
+    </plurals>
+    <!-- move track or bookmark from the list button text -->
+    <string name="move">Perkelti</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Keisti spalvą</string>
     <!-- Text for the hiding track. -->

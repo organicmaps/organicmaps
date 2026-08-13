@@ -919,6 +919,15 @@
 "medicine" = "Medicina";
 "search_in_the_list" = "Ieškoti sąraše";
 "religious_places" = "Religinės vietos";
+
+/* Button that starts multi-selection in a bookmark list. */
+"select" = "Pasirinkti";
+
+/* Action that selects every bookmark and track in a bookmark list. */
+"select_all" = "Pasirinkti viską";
+
+/* Action that clears the multi-selection in a bookmark list. */
+"deselect_all" = "Atšaukti pasirinkimą";
 "transit_not_found" = "Metro navigacija šiame regione dar negalima";
 "dialog_pedestrian_route_is_long_header" = "Metro maršrutas nerastas";
 "dialog_pedestrian_route_is_long_message" = "Pasirinkite pradžios ar pabaigos tašką, esančius arčiau metro stotelės";

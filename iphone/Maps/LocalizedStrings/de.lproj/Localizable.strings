@@ -919,6 +919,15 @@
 "medicine" = "Medizin";
 "search_in_the_list" = "In der Liste suchen";
 "religious_places" = "Religiöse Orte";
+
+/* Button that starts multi-selection in a bookmark list. */
+"select" = "Auswählen";
+
+/* Action that selects every bookmark and track in a bookmark list. */
+"select_all" = "Alle auswählen";
+
+/* Action that clears the multi-selection in a bookmark list. */
+"deselect_all" = "Auswahl aufheben";
 "transit_not_found" = "Die U-Bahn-Navigation ist in dieser Region noch nicht verfügbar";
 "dialog_pedestrian_route_is_long_header" = "Keine U-Bahn-Route gefunden";
 "dialog_pedestrian_route_is_long_message" = "Bitte wähle einen Start- oder Zielpunkt, der näher an einer U-Bahn-Station liegt";

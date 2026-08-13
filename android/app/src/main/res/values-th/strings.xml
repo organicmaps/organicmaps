@@ -750,6 +750,12 @@
     <string name="medicine">ยา</string>
     <string name="search_in_the_list">ค้นหาในรายการ</string>
     <string name="religious_places">สถานที่ทางศาสนา</string>
+    <!-- Button that starts multi-selection in a bookmark list. -->
+    <string name="select">เลือก</string>
+    <!-- Action that selects every bookmark and track in a bookmark list. -->
+    <string name="select_all">เลือกทั้งหมด</string>
+    <!-- Action that clears the multi-selection in a bookmark list. -->
+    <string name="deselect_all">ยกเลิกการเลือก</string>
     <string name="select_list">เลือกรายการ</string>
     <string name="button_layer_isolines">ความสูง</string>
     <string name="isolines_activation_error_dialog">ในการเปิดใช้งานเลเยอร์แผนที่ภูมิประเทศโปรดอัปเดตหรือดาวน์โหลดแผนที่ของบริเวณนั้น</string>
@@ -877,6 +883,16 @@
     <string name="share_track">แชร์ติดตาม</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">ลบ %s?</string>
+    <!-- Bookmark list title in multi-selection mode. %d is the number of selected bookmarks and tracks. -->
+    <plurals name="n_items_selected">
+        <item quantity="other">เลือก %d รายการ</item>
+    </plurals>
+    <!-- Title for the dialog when deleting several bookmarks and tracks at once. %d is their number. -->
+    <plurals name="delete_n_items_dialog_title">
+        <item quantity="other">ลบ %d รายการหรือไม่?</item>
+    </plurals>
+    <!-- move track or bookmark from the list button text -->
+    <string name="move">ย้าย</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">เปลี่ยนสี</string>
     <!-- Text for the hiding track. -->

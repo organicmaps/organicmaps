@@ -919,6 +919,15 @@
 "medicine" = "Medikuntza";
 "search_in_the_list" = "Bilatu zerrendan";
 "religious_places" = "Erlijio guneak";
+
+/* Button that starts multi-selection in a bookmark list. */
+"select" = "Hautatu";
+
+/* Action that selects every bookmark and track in a bookmark list. */
+"select_all" = "Hautatu dena";
+
+/* Action that clears the multi-selection in a bookmark list. */
+"deselect_all" = "Kendu hautapena";
 "transit_not_found" = "Metroko nabigazioa oraindik ez dago erabilgarri eskualde honetan";
 "dialog_pedestrian_route_is_long_header" = "Ez da aurkitu metroko ibilbiderik";
 "dialog_pedestrian_route_is_long_message" = "Aukeratu metrotik hurbilen dagoen ibilbidearen hasiera edo amaiera puntua";

@@ -919,6 +919,15 @@
 "medicine" = "Tervishoid";
 "search_in_the_list" = "Otsi loendist";
 "religious_places" = "Religiooniga seotud kohad";
+
+/* Button that starts multi-selection in a bookmark list. */
+"select" = "Vali";
+
+/* Action that selects every bookmark and track in a bookmark list. */
+"select_all" = "Vali kõik";
+
+/* Action that clears the multi-selection in a bookmark list. */
+"deselect_all" = "Tühista valik";
 "transit_not_found" = "Tee juhatamine metroos ei ole selles piirkonnas veel saadaval";
 "dialog_pedestrian_route_is_long_header" = "Metroo marsruuti ei leidu";
 "dialog_pedestrian_route_is_long_message" = "Palun vali metroojaamale lähemal asuv alg- või lõpp-punkt";

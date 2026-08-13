@@ -919,6 +919,15 @@
 "medicine" = "औषध";
 "search_in_the_list" = "यादीत शोधा";
 "religious_places" = "धार्मिक स्थळ";
+
+/* Button that starts multi-selection in a bookmark list. */
+"select" = "निवडा";
+
+/* Action that selects every bookmark and track in a bookmark list. */
+"select_all" = "सर्व निवडा";
+
+/* Action that clears the multi-selection in a bookmark list. */
+"deselect_all" = "निवड रद्द करा";
 "transit_not_found" = "या प्रदेशात मेट्रोचे मार्गनिर्देशन अद्याप उपलब्ध नाही";
 "dialog_pedestrian_route_is_long_header" = "मेट्रो मार्ग सापडला नाही";
 "dialog_pedestrian_route_is_long_message" = "कृपया मेट्रो स्थानकाजवळचा प्रारंभ किंवा शेवटचा बिंदू निवडा";

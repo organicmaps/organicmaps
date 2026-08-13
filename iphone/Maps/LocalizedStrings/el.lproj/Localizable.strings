@@ -919,6 +919,15 @@
 "medicine" = "Φαρμακεία";
 "search_in_the_list" = "Αναζήτηση στη λίστα";
 "religious_places" = "Χώροι Λατρείας";
+
+/* Button that starts multi-selection in a bookmark list. */
+"select" = "Επιλογή";
+
+/* Action that selects every bookmark and track in a bookmark list. */
+"select_all" = "Επιλογή όλων";
+
+/* Action that clears the multi-selection in a bookmark list. */
+"deselect_all" = "Κατάργηση επιλογής";
 "transit_not_found" = "Η πλοήγηση με μετρό γι' αυτή την περιοχή δεν είναι ακόμα διαθέσιμη";
 "dialog_pedestrian_route_is_long_header" = "Δεν βρέθηκε διαδρομή του μετρό";
 "dialog_pedestrian_route_is_long_message" = "Επιλέξτε το σημείο εκκίνησης ή τέλους διαδρομής πιο κοντά στο σταθμό του μετρό";

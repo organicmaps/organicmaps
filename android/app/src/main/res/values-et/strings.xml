@@ -754,6 +754,12 @@
     <string name="medicine">Tervishoid</string>
     <string name="search_in_the_list">Otsi loendist</string>
     <string name="religious_places">Religiooniga seotud kohad</string>
+    <!-- Button that starts multi-selection in a bookmark list. -->
+    <string name="select">Vali</string>
+    <!-- Action that selects every bookmark and track in a bookmark list. -->
+    <string name="select_all">Vali kõik</string>
+    <!-- Action that clears the multi-selection in a bookmark list. -->
+    <string name="deselect_all">Tühista valik</string>
     <string name="select_list">Vali loend</string>
     <string name="button_layer_isolines">Kontuurjooned</string>
     <string name="isolines_activation_error_dialog">Topograafilise kihi aktiveerimiseks ja kasutamiseks laadi alla piirkonna kaart</string>
@@ -891,6 +897,20 @@
     <string name="share_track">Jaga rada</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Kas kustutame %s?</string>
+    <!-- Bookmark list title in multi-selection mode. %d is the number of selected bookmarks and tracks. -->
+    <plurals name="n_items_selected">
+        <item quantity="zero">%d valitud</item>
+        <item quantity="one">%d valitud</item>
+        <item quantity="other">%d valitud</item>
+    </plurals>
+    <!-- Title for the dialog when deleting several bookmarks and tracks at once. %d is their number. -->
+    <plurals name="delete_n_items_dialog_title">
+        <item quantity="zero">Kustutada %d üksust?</item>
+        <item quantity="one">Kustutada %d üksus?</item>
+        <item quantity="other">Kustutada %d üksust?</item>
+    </plurals>
+    <!-- move track or bookmark from the list button text -->
+    <string name="move">Teisalda</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Muuda värvi</string>
     <!-- Text for the hiding track. -->

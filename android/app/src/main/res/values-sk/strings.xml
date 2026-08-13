@@ -752,6 +752,12 @@
     <string name="medicine">Medicína</string>
     <string name="search_in_the_list">Vyhľadať v zozname</string>
     <string name="religious_places">Náboženské miesta</string>
+    <!-- Button that starts multi-selection in a bookmark list. -->
+    <string name="select">Vybrať</string>
+    <!-- Action that selects every bookmark and track in a bookmark list. -->
+    <string name="select_all">Vybrať všetko</string>
+    <!-- Action that clears the multi-selection in a bookmark list. -->
+    <string name="deselect_all">Zrušiť výber</string>
     <string name="select_list">Vybrať zoznam</string>
     <string name="button_layer_isolines">Terén</string>
     <string name="isolines_activation_error_dialog">Ak chcete aktivovať a používať topografickú vrstvu, aktualizujte alebo stiahnite mapu oblasti</string>
@@ -879,6 +885,20 @@
     <string name="share_track">Zdieľať trať</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Vymazať %s?</string>
+    <!-- Bookmark list title in multi-selection mode. %d is the number of selected bookmarks and tracks. -->
+    <plurals name="n_items_selected">
+        <item quantity="one">Vybraté: %d</item>
+        <item quantity="few">Vybraté: %d</item>
+        <item quantity="other">Vybraté: %d</item>
+    </plurals>
+    <!-- Title for the dialog when deleting several bookmarks and tracks at once. %d is their number. -->
+    <plurals name="delete_n_items_dialog_title">
+        <item quantity="one">Odstrániť %d položku?</item>
+        <item quantity="few">Odstrániť %d položky?</item>
+        <item quantity="other">Odstrániť %d položiek?</item>
+    </plurals>
+    <!-- move track or bookmark from the list button text -->
+    <string name="move">Presunúť</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Zmena farby</string>
     <!-- Text for the hiding track. -->

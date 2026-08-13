@@ -755,6 +755,12 @@
     <string name="medicine">Médicament</string>
     <string name="search_in_the_list">Chercher dans la liste</string>
     <string name="religious_places">Lieux saints</string>
+    <!-- Button that starts multi-selection in a bookmark list. -->
+    <string name="select">Sélectionner</string>
+    <!-- Action that selects every bookmark and track in a bookmark list. -->
+    <string name="select_all">Tout sélectionner</string>
+    <!-- Action that clears the multi-selection in a bookmark list. -->
+    <string name="deselect_all">Tout désélectionner</string>
     <string name="select_list">Sélectionner une liste</string>
     <string name="button_layer_isolines">Terrain</string>
     <string name="isolines_activation_error_dialog">Pour activer et utiliser la couche topographique, mettez à jour ou téléchargez la carte de l\'endroit désiré</string>
@@ -892,6 +898,18 @@
     <string name="share_track">Partager la piste</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Supprimer %s ?</string>
+    <!-- Bookmark list title in multi-selection mode. %d is the number of selected bookmarks and tracks. -->
+    <plurals name="n_items_selected">
+        <item quantity="one">%d sélectionné</item>
+        <item quantity="other">%d sélectionnés</item>
+    </plurals>
+    <!-- Title for the dialog when deleting several bookmarks and tracks at once. %d is their number. -->
+    <plurals name="delete_n_items_dialog_title">
+        <item quantity="one">Supprimer %d élément ?</item>
+        <item quantity="other">Supprimer %d éléments ?</item>
+    </plurals>
+    <!-- move track or bookmark from the list button text -->
+    <string name="move">Déplacer</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Change de couleur</string>
     <!-- Text for the hiding track. -->

@@ -919,6 +919,15 @@
 "medicine" = "ยา";
 "search_in_the_list" = "ค้นหาในรายการ";
 "religious_places" = "สถานที่ทางศาสนา";
+
+/* Button that starts multi-selection in a bookmark list. */
+"select" = "เลือก";
+
+/* Action that selects every bookmark and track in a bookmark list. */
+"select_all" = "เลือกทั้งหมด";
+
+/* Action that clears the multi-selection in a bookmark list. */
+"deselect_all" = "ยกเลิกการเลือก";
 "transit_not_found" = "ยังไม่สามารถใช้การนำทางรถไฟใต้ดินในภูมิภาคนี้ได้";
 "dialog_pedestrian_route_is_long_header" = "ไม่พบเส้นทางของทางรถไฟใต้ดิน";
 "dialog_pedestrian_route_is_long_message" = "โปรดเลือกจุดเริ่มต้นและสิ้นสุดที่อยู่ใกล้สถานีรถไฟใต้ดิน";

@@ -919,6 +919,15 @@
 "medicine" = "Mediċina";
 "search_in_the_list" = "Fittex fil-lista";
 "religious_places" = "Postijiet reliġjużi";
+
+/* Button that starts multi-selection in a bookmark list. */
+"select" = "Agħżel";
+
+/* Action that selects every bookmark and track in a bookmark list. */
+"select_all" = "Agħżel kollox";
+
+/* Action that clears the multi-selection in a bookmark list. */
+"deselect_all" = "Neħħi l-għażla";
 "transit_not_found" = "In-navigazzjoni tas-subway f’ dan ir-reġjun għadha mhix disponibbli";
 "dialog_pedestrian_route_is_long_header" = "Ma nstabet l-ebda rotta tas-subway";
 "dialog_pedestrian_route_is_long_message" = "Agħżel punt tal-bidu jew tat-tmiem eqreb lejn stazzjon tas-subway";

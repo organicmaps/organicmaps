@@ -919,6 +919,15 @@
 "medicine" = "Medisin";
 "search_in_the_list" = "Søk på lista";
 "religious_places" = "Hellige steder";
+
+/* Button that starts multi-selection in a bookmark list. */
+"select" = "Velg";
+
+/* Action that selects every bookmark and track in a bookmark list. */
+"select_all" = "Velg alle";
+
+/* Action that clears the multi-selection in a bookmark list. */
+"deselect_all" = "Fjern all merking";
 "transit_not_found" = "T-bane navigasjon er ikke tilgjengelig i denne regionen ennå";
 "dialog_pedestrian_route_is_long_header" = "T-bane rute ikke funnet";
 "dialog_pedestrian_route_is_long_message" = "Velg utgangspunkt eller destinasjon som befinner seg nærmere en T-bane stasjon";

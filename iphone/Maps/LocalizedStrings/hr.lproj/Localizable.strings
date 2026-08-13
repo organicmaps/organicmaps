@@ -919,6 +919,15 @@
 "medicine" = "Medicina";
 "search_in_the_list" = "Traži u popisu";
 "religious_places" = "Vjerska mjesta";
+
+/* Button that starts multi-selection in a bookmark list. */
+"select" = "Odaberi";
+
+/* Action that selects every bookmark and track in a bookmark list. */
+"select_all" = "Odaberi sve";
+
+/* Action that clears the multi-selection in a bookmark list. */
+"deselect_all" = "Poništi odabir";
 "transit_not_found" = "Navigacija podzemnom željeznicom u ovom području još nije dostupna";
 "dialog_pedestrian_route_is_long_header" = "Nije pronađena ruta podzemne željeznice";
 "dialog_pedestrian_route_is_long_message" = "Molimo odaberite početnu ili završnu točku bliže stanici metroa";

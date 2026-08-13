@@ -919,6 +919,15 @@
 "medicine" = "دواء";
 "search_in_the_list" = "ابحث في القائمة";
 "religious_places" = "أماكن دينية";
+
+/* Button that starts multi-selection in a bookmark list. */
+"select" = "تحديد";
+
+/* Action that selects every bookmark and track in a bookmark list. */
+"select_all" = "تحديد الكل";
+
+/* Action that clears the multi-selection in a bookmark list. */
+"deselect_all" = "إلغاء تحديد الكل";
 "transit_not_found" = "التنقل باستخدام مترو الأنفاق في هذه المنطقة غير متاح حتى الآن";
 "dialog_pedestrian_route_is_long_header" = "لم يتم العثور على مسار مترو الأنفاق";
 "dialog_pedestrian_route_is_long_message" = "يرجى اختيار نقطة بداية أو نهاية أقرب لمحطة مترو الأنفاق";

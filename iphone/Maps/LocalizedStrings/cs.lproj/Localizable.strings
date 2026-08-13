@@ -919,6 +919,15 @@
 "medicine" = "Medicína";
 "search_in_the_list" = "Vyhledat v seznamu";
 "religious_places" = "Posvátná místa";
+
+/* Button that starts multi-selection in a bookmark list. */
+"select" = "Vybrat";
+
+/* Action that selects every bookmark and track in a bookmark list. */
+"select_all" = "Vybrat vše";
+
+/* Action that clears the multi-selection in a bookmark list. */
+"deselect_all" = "Zrušit výběr";
 "transit_not_found" = "Navigace metra v této oblasti zatím není k dispozici";
 "dialog_pedestrian_route_is_long_header" = "Trasa metra nebyla nalezena";
 "dialog_pedestrian_route_is_long_message" = "Zvolte prosím počáteční nebo koncový bod blíže k stanici metra";

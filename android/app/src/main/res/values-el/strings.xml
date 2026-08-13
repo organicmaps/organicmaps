@@ -752,6 +752,12 @@
     <string name="medicine">Φαρμακεία</string>
     <string name="search_in_the_list">Αναζήτηση στη λίστα</string>
     <string name="religious_places">Χώροι Λατρείας</string>
+    <!-- Button that starts multi-selection in a bookmark list. -->
+    <string name="select">Επιλογή</string>
+    <!-- Action that selects every bookmark and track in a bookmark list. -->
+    <string name="select_all">Επιλογή όλων</string>
+    <!-- Action that clears the multi-selection in a bookmark list. -->
+    <string name="deselect_all">Κατάργηση επιλογής</string>
     <string name="select_list">Επιλογή λίστας</string>
     <string name="button_layer_isolines">Υψομετρικά</string>
     <string name="isolines_activation_error_dialog">Για να χρησιμοποιήσετε υψομετρικές γραμμές, ενημερώστε ή κατεβάστε τον χάρτη της επιθυμητής περιοχής</string>
@@ -889,6 +895,18 @@
     <string name="share_track">Κοινοποίηση ίχνους</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Διαγραφή %s;</string>
+    <!-- Bookmark list title in multi-selection mode. %d is the number of selected bookmarks and tracks. -->
+    <plurals name="n_items_selected">
+        <item quantity="one">%d επιλεγμένο</item>
+        <item quantity="other">%d επιλεγμένα</item>
+    </plurals>
+    <!-- Title for the dialog when deleting several bookmarks and tracks at once. %d is their number. -->
+    <plurals name="delete_n_items_dialog_title">
+        <item quantity="one">Διαγραφή %d στοιχείου;</item>
+        <item quantity="other">Διαγραφή %d στοιχείων;</item>
+    </plurals>
+    <!-- move track or bookmark from the list button text -->
+    <string name="move">Μετακίνηση</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Αλλαγή χρώματος</string>
     <!-- Text for the hiding track. -->

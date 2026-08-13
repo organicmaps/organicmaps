@@ -919,6 +919,15 @@
 "medicine" = "Առողջապահություն";
 "search_in_the_list" = "Փնտրել ցուցակում";
 "religious_places" = "Կրոնական վայրեր";
+
+/* Button that starts multi-selection in a bookmark list. */
+"select" = "Ընտրել";
+
+/* Action that selects every bookmark and track in a bookmark list. */
+"select_all" = "Ընտրել բոլորը";
+
+/* Action that clears the multi-selection in a bookmark list. */
+"deselect_all" = "Չեղարկել ընտրությունը";
 "transit_not_found" = "Մետրոյով երթևեկությունը այս տարածաշրջանում դեռ հասանելի չէ";
 "dialog_pedestrian_route_is_long_header" = "Մետրոյի երթուղի չի գտնվել";
 "dialog_pedestrian_route_is_long_message" = "Խնդրում ենք ընտրել մետրոյի կայարանին ավելի մոտ սկզբնակետ կամ վերջնակետ";

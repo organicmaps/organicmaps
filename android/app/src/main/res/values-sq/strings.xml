@@ -739,6 +739,12 @@
     <string name="medicine">Mjekësi</string>
     <string name="search_in_the_list">Kërko në listë</string>
     <string name="religious_places">Vende fetare</string>
+    <!-- Button that starts multi-selection in a bookmark list. -->
+    <string name="select">Zgjidh</string>
+    <!-- Action that selects every bookmark and track in a bookmark list. -->
+    <string name="select_all">Zgjidh të gjitha</string>
+    <!-- Action that clears the multi-selection in a bookmark list. -->
+    <string name="deselect_all">Hiq përzgjedhjen</string>
     <string name="select_list">Zgjidh listën</string>
     <string name="button_layer_isolines">Vija Konture</string>
     <string name="isolines_activation_error_dialog">Aktivizimi i vijave të konturit kërkon shkarkimin e të dhënave të hartës për këtë zonë</string>
@@ -876,6 +882,8 @@
     <string name="share_track">Ndaj Gjurmën</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Fshi %s?</string>
+    <!-- move track or bookmark from the list button text -->
+    <string name="move">Lëviz</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Ndrysho Ngjyrën</string>
 
