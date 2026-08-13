@@ -74,6 +74,7 @@ node|z16-[natural=beach],
 area|z16-[natural=beach],
 area|z14-[natural=bare_rock],
 node|z17-[natural=rock],
+node|z17-[natural=hill],
 {text: name;text-color: @poi_label;text-position: center;text-offset: 1;}
 
 node|z13-[natural=peak][!name],
@@ -147,6 +148,9 @@ node|z15-[natural=saddle],
 node|z17-[mountain_pass],
 node|z17-[natural=saddle],
 {font-size: 11;}
+
+node|z17-[natural=hill],
+{icon-image: hill-m.svg; font-size: 10;}
 
 node|z16[leisure=beach_resort],
 {icon-image: beach-m.svg;}

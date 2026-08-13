@@ -2464,6 +2464,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
       {"natural", "glacier"},
       {"natural", "grassland"},
       {"natural", "heath"},
+      {"natural", "hill"},
       {"natural", "hot_spring"},
       {"natural", "land"},
       {"natural", "peak"},
