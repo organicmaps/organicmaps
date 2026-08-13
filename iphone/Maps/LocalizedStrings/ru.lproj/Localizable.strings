@@ -919,6 +919,15 @@
 "medicine" = "Медицина";
 "search_in_the_list" = "Искать в списке";
 "religious_places" = "Святые места";
+
+/* Button that starts multi-selection in a bookmark list. */
+"select" = "Выбрать";
+
+/* Action that selects every bookmark and track in a bookmark list. */
+"select_all" = "Выбрать все";
+
+/* Action that clears the multi-selection in a bookmark list. */
+"deselect_all" = "Отменить выбор";
 "transit_not_found" = "Навигация на метро ещё недоступна в данном регионе";
 "dialog_pedestrian_route_is_long_header" = "Маршрут метро не найден";
 "dialog_pedestrian_route_is_long_message" = "Выберите начальную или конечную точку маршрута ближе к станции метро";

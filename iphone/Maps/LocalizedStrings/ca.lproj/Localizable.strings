@@ -919,6 +919,15 @@
 "medicine" = "Medicina";
 "search_in_the_list" = "Cerca en la llista";
 "religious_places" = "Llocs de culte";
+
+/* Button that starts multi-selection in a bookmark list. */
+"select" = "Selecciona";
+
+/* Action that selects every bookmark and track in a bookmark list. */
+"select_all" = "Selecciona-ho tot";
+
+/* Action that clears the multi-selection in a bookmark list. */
+"deselect_all" = "Desselecciona-ho tot";
 "transit_not_found" = "La navegació en metro en aquesta regió encara no és disponible";
 "dialog_pedestrian_route_is_long_header" = "No s’ha trobat cap ruta en metro";
 "dialog_pedestrian_route_is_long_message" = "Trieu un altre punt, inicial o final, més proper a una estació de metro";

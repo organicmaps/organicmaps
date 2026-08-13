@@ -919,6 +919,15 @@
 "medicine" = "Lækningar";
 "search_in_the_list" = "Leita í listanum";
 "religious_places" = "Trúarlegir staðir";
+
+/* Button that starts multi-selection in a bookmark list. */
+"select" = "Velja";
+
+/* Action that selects every bookmark and track in a bookmark list. */
+"select_all" = "Velja allt";
+
+/* Action that clears the multi-selection in a bookmark list. */
+"deselect_all" = "Afvelja allt";
 "transit_not_found" = "Leiðsögn í neðanjarðarlestum er ekki tiltæk í augnablikinu á þessu svæði";
 "dialog_pedestrian_route_is_long_header" = "Engin neðanjarðarlestarleið fannst";
 "dialog_pedestrian_route_is_long_message" = "Veldu upphafs- eða endastað sem er nær neðanjarðarlestarstöð";

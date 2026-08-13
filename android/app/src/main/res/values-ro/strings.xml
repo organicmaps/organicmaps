@@ -751,6 +751,12 @@
     <string name="medicine">Farmacii</string>
     <string name="search_in_the_list">Caută în listă</string>
     <string name="religious_places">Locuri sfinte</string>
+    <!-- Button that starts multi-selection in a bookmark list. -->
+    <string name="select">Selectează</string>
+    <!-- Action that selects every bookmark and track in a bookmark list. -->
+    <string name="select_all">Selectează tot</string>
+    <!-- Action that clears the multi-selection in a bookmark list. -->
+    <string name="deselect_all">Deselectează tot</string>
     <string name="select_list">Alege lista</string>
     <string name="button_layer_isolines">Înălțimi</string>
     <string name="isolines_activation_error_dialog">Pentru a activa și utiliza stratul topografic actualizează sau descarcă harta zonei</string>
@@ -878,6 +884,20 @@
     <string name="share_track">Partajează traseul</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Ștergeți %s?</string>
+    <!-- Bookmark list title in multi-selection mode. %d is the number of selected bookmarks and tracks. -->
+    <plurals name="n_items_selected">
+        <item quantity="one">Selectat: %d</item>
+        <item quantity="few">Selectate: %d</item>
+        <item quantity="other">Selectate: %d</item>
+    </plurals>
+    <!-- Title for the dialog when deleting several bookmarks and tracks at once. %d is their number. -->
+    <plurals name="delete_n_items_dialog_title">
+        <item quantity="one">Ștergeți %d element?</item>
+        <item quantity="few">Ștergeți %d elemente?</item>
+        <item quantity="other">Ștergeți %d de elemente?</item>
+    </plurals>
+    <!-- move track or bookmark from the list button text -->
+    <string name="move">Mută</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Schimbă culoarea</string>
     <!-- Text for the hiding track. -->

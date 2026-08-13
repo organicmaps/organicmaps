@@ -919,6 +919,15 @@
 "medicine" = "ການແພດ";
 "search_in_the_list" = "ຄົ້ນຫາໃນລາຍການ";
 "religious_places" = "ສະຖານທີ່ທາງສາດສະໜາ";
+
+/* Button that starts multi-selection in a bookmark list. */
+"select" = "ເລືອກ";
+
+/* Action that selects every bookmark and track in a bookmark list. */
+"select_all" = "ເລືອກທັງໝົດ";
+
+/* Action that clears the multi-selection in a bookmark list. */
+"deselect_all" = "ຍົກເລີກການເລືອກ";
 "transit_not_found" = "ການນຳທາງດ້ວຍລົດໄຟໃຕ້ດິນໃນພາກພື້ນນີ້ຍັງບໍ່ທັນມີເທື່ອ";
 "dialog_pedestrian_route_is_long_header" = "ບໍ່ພົບເສັ້ນທາງລົດໄຟໃຕ້ດິນ";
 "dialog_pedestrian_route_is_long_message" = "ກະລຸນາເລືອກຈຸດເລີ່ມຕົ້ນ ຫຼື ປາຍທາງໃຫ້ໃກ້ກັບສະຖານີລົດໄຟໃຕ້ດິນ";

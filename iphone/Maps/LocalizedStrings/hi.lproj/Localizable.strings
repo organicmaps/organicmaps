@@ -919,6 +919,15 @@
 "medicine" = "दवा";
 "search_in_the_list" = "सूची में खोजें";
 "religious_places" = "धार्मिक स्थल";
+
+/* Button that starts multi-selection in a bookmark list. */
+"select" = "चुनें";
+
+/* Action that selects every bookmark and track in a bookmark list. */
+"select_all" = "सभी चुनें";
+
+/* Action that clears the multi-selection in a bookmark list. */
+"deselect_all" = "चयन हटाएँ";
 "transit_not_found" = "इस क्षेत्र में सबवे नेविगेशन अभी उपलब्ध नहीं है";
 "dialog_pedestrian_route_is_long_header" = "सबवे मार्ग नहीं मिला";
 "dialog_pedestrian_route_is_long_message" = "कृपया सबवे स्टेशन के निकट प्रारंभ या समाप्ति बिंदु चुनें";

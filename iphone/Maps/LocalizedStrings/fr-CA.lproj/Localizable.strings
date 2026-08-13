@@ -919,6 +919,15 @@
 "medicine" = "Médicament";
 "search_in_the_list" = "Chercher dans la liste";
 "religious_places" = "Lieux saints";
+
+/* Button that starts multi-selection in a bookmark list. */
+"select" = "Sélectionner";
+
+/* Action that selects every bookmark and track in a bookmark list. */
+"select_all" = "Tout sélectionner";
+
+/* Action that clears the multi-selection in a bookmark list. */
+"deselect_all" = "Tout désélectionner";
 "transit_not_found" = "La navigation en métro n'est pas encore disponible dans la région";
 "dialog_pedestrian_route_is_long_header" = "Itinéraire de métro non trouvé";
 "dialog_pedestrian_route_is_long_message" = "Choisissez un point de départ ou d'arrivée plus proche d'une station de métro";

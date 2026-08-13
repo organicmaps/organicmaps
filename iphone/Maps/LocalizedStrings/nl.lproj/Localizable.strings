@@ -919,6 +919,15 @@
 "medicine" = "Geneeskunde";
 "search_in_the_list" = "Zoek in de lijst";
 "religious_places" = "Religieuze plaatsen";
+
+/* Button that starts multi-selection in a bookmark list. */
+"select" = "Selecteren";
+
+/* Action that selects every bookmark and track in a bookmark list. */
+"select_all" = "Alles selecteren";
+
+/* Action that clears the multi-selection in a bookmark list. */
+"deselect_all" = "Selectie opheffen";
 "transit_not_found" = "Metro-navigatie is nog niet beschikbaar in deze regio";
 "dialog_pedestrian_route_is_long_header" = "Geen metroroute gevonden";
 "dialog_pedestrian_route_is_long_message" = "Kies een begin- of eindpunt dichter bij het metrostation";

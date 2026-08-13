@@ -757,6 +757,12 @@
     <string name="medicine">Medicina</string>
     <string name="search_in_the_list">Cerca en la llista</string>
     <string name="religious_places">Llocs de culte</string>
+    <!-- Button that starts multi-selection in a bookmark list. -->
+    <string name="select">Selecciona</string>
+    <!-- Action that selects every bookmark and track in a bookmark list. -->
+    <string name="select_all">Selecciona-ho tot</string>
+    <!-- Action that clears the multi-selection in a bookmark list. -->
+    <string name="deselect_all">Desselecciona-ho tot</string>
     <string name="select_list">Trieu una llista</string>
     <string name="button_layer_isolines">Corbes de nivell</string>
     <string name="isolines_activation_error_dialog">Per a activar i usar la capa topogràfica, actualitzeu o baixeu el mapa de l’àrea</string>
@@ -894,6 +900,22 @@
     <string name="share_track">Comparteix la pista</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Esborrar %s?</string>
+    <!-- Bookmark list title in multi-selection mode. %d is the number of selected bookmarks and tracks. -->
+    <plurals name="n_items_selected">
+        <item quantity="zero">%d seleccionats</item>
+        <item quantity="one">%d seleccionat</item>
+        <item quantity="many">%d de seleccionats</item>
+        <item quantity="other">%d seleccionats</item>
+    </plurals>
+    <!-- Title for the dialog when deleting several bookmarks and tracks at once. %d is their number. -->
+    <plurals name="delete_n_items_dialog_title">
+        <item quantity="zero">Voleu suprimir %d elements?</item>
+        <item quantity="one">Voleu suprimir %d element?</item>
+        <item quantity="many">Voleu suprimir %d d\'elements?</item>
+        <item quantity="other">Voleu suprimir %d elements?</item>
+    </plurals>
+    <!-- move track or bookmark from the list button text -->
+    <string name="move">Mou</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Canvia de color</string>
     <!-- Text for the hiding track. -->

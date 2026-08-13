@@ -754,6 +754,12 @@
     <string name="medicine">Medicina</string>
     <string name="search_in_the_list">Buscar na lista</string>
     <string name="religious_places">Lugares sacros</string>
+    <!-- Button that starts multi-selection in a bookmark list. -->
+    <string name="select">Seleccionar</string>
+    <!-- Action that selects every bookmark and track in a bookmark list. -->
+    <string name="select_all">Seleccionar todo</string>
+    <!-- Action that clears the multi-selection in a bookmark list. -->
+    <string name="deselect_all">Deseleccionar todo</string>
     <string name="select_list">Seleccionar lista</string>
     <string name="button_layer_isolines">Curvas de nivel</string>
     <string name="isolines_activation_error_dialog">Para usar as curvas de nivel, actualice ou descargue o mapa da área desexada</string>
@@ -891,6 +897,20 @@
     <string name="share_track">Compartir pista</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Eliminar %s?</string>
+    <!-- Bookmark list title in multi-selection mode. %d is the number of selected bookmarks and tracks. -->
+    <plurals name="n_items_selected">
+        <item quantity="zero">%d seleccionados</item>
+        <item quantity="one">%d seleccionado</item>
+        <item quantity="other">%d seleccionados</item>
+    </plurals>
+    <!-- Title for the dialog when deleting several bookmarks and tracks at once. %d is their number. -->
+    <plurals name="delete_n_items_dialog_title">
+        <item quantity="zero">Eliminar %d elementos?</item>
+        <item quantity="one">Eliminar %d elemento?</item>
+        <item quantity="other">Eliminar %d elementos?</item>
+    </plurals>
+    <!-- move track or bookmark from the list button text -->
+    <string name="move">Mover</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Cambiar cor</string>
 

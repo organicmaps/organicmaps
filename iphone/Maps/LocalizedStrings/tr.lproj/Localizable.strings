@@ -919,6 +919,15 @@
 "medicine" = "İlaç";
 "search_in_the_list" = "Listede ara";
 "religious_places" = "Dini yerler";
+
+/* Button that starts multi-selection in a bookmark list. */
+"select" = "Seç";
+
+/* Action that selects every bookmark and track in a bookmark list. */
+"select_all" = "Tümünü seç";
+
+/* Action that clears the multi-selection in a bookmark list. */
+"deselect_all" = "Seçimi kaldır";
 "transit_not_found" = "Metro navigasyonu henüz bu bölgede kullanılamaz";
 "dialog_pedestrian_route_is_long_header" = "Metro rotası bulunamadı";
 "dialog_pedestrian_route_is_long_message" = "Metro istasyonuna en yakın rotanın başlangıç veya bitiş noktasını seçin";

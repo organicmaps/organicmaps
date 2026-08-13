@@ -751,6 +751,12 @@
     <string name="medicine">Medicin</string>
     <string name="search_in_the_list">Sök i listan</string>
     <string name="religious_places">Heliga platser</string>
+    <!-- Button that starts multi-selection in a bookmark list. -->
+    <string name="select">Markera</string>
+    <!-- Action that selects every bookmark and track in a bookmark list. -->
+    <string name="select_all">Markera alla</string>
+    <!-- Action that clears the multi-selection in a bookmark list. -->
+    <string name="deselect_all">Avmarkera alla</string>
     <string name="select_list">Välj lista</string>
     <string name="button_layer_isolines">Terräng</string>
     <string name="isolines_activation_error_dialog">Om du vill använda höjdlinjer, uppdatera eller ladda ner en karta över önskat område</string>
@@ -888,6 +894,18 @@
     <string name="share_track">Dela spår</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Radera %s?</string>
+    <!-- Bookmark list title in multi-selection mode. %d is the number of selected bookmarks and tracks. -->
+    <plurals name="n_items_selected">
+        <item quantity="one">%d markerad</item>
+        <item quantity="other">%d markerade</item>
+    </plurals>
+    <!-- Title for the dialog when deleting several bookmarks and tracks at once. %d is their number. -->
+    <plurals name="delete_n_items_dialog_title">
+        <item quantity="one">Radera %d objekt?</item>
+        <item quantity="other">Radera %d objekt?</item>
+    </plurals>
+    <!-- move track or bookmark from the list button text -->
+    <string name="move">Flytta</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Ändra färg</string>
     <!-- Text for the hiding track. -->

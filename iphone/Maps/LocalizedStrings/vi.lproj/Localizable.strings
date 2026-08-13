@@ -919,6 +919,15 @@
 "medicine" = "Y tế";
 "search_in_the_list" = "Tìm trong danh sách";
 "religious_places" = "Những nơi tôn nghiêm";
+
+/* Button that starts multi-selection in a bookmark list. */
+"select" = "Chọn";
+
+/* Action that selects every bookmark and track in a bookmark list. */
+"select_all" = "Chọn tất cả";
+
+/* Action that clears the multi-selection in a bookmark list. */
+"deselect_all" = "Bỏ chọn tất cả";
 "transit_not_found" = "Điều hướng đến Metro hiện chưa khả dụng cho khu vực này";
 "dialog_pedestrian_route_is_long_header" = "Không tìm thấy tuyến Metro";
 "dialog_pedestrian_route_is_long_message" = "Hãy chọn điểm đầu hoặc điểm cuối của tuyến gần với bến Metro";

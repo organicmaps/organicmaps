@@ -919,6 +919,15 @@
 "medicine" = "Geneeskunde";
 "search_in_the_list" = "Soek in die lys";
 "religious_places" = "Plekke van aanbidding";
+
+/* Button that starts multi-selection in a bookmark list. */
+"select" = "Kies";
+
+/* Action that selects every bookmark and track in a bookmark list. */
+"select_all" = "Kies alles";
+
+/* Action that clears the multi-selection in a bookmark list. */
+"deselect_all" = "Ontkies alles";
 "transit_not_found" = "Moltreinnavigasie is nog nie in hierdie streek beskikbaar nie";
 "dialog_pedestrian_route_is_long_header" = "Moltreinroete nie gevind";
 "dialog_pedestrian_route_is_long_message" = "Kies asb. ’n begin- of eindpunt nader aan die moltreinstasie";

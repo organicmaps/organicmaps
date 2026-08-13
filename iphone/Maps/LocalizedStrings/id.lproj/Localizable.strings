@@ -919,6 +919,15 @@
 "medicine" = "Obat";
 "search_in_the_list" = "Cari dalam daftar";
 "religious_places" = "Tempat ibadah";
+
+/* Button that starts multi-selection in a bookmark list. */
+"select" = "Pilih";
+
+/* Action that selects every bookmark and track in a bookmark list. */
+"select_all" = "Pilih semua";
+
+/* Action that clears the multi-selection in a bookmark list. */
+"deselect_all" = "Batalkan pilihan";
 "transit_not_found" = "Navigasi kereta bawah tanah di wilayah ini belum tersedia";
 "dialog_pedestrian_route_is_long_header" = "Jalur kereta bawah tanah tidak ditemukan";
 "dialog_pedestrian_route_is_long_message" = "Silakan pilih titik awal atau akhir yang lebih dekat ke stasiun kereta bawah tanah";

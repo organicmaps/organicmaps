@@ -752,6 +752,12 @@
     <string name="medicine">医疗</string>
     <string name="search_in_the_list">在列表中搜索</string>
     <string name="religious_places">宗教场所</string>
+    <!-- Button that starts multi-selection in a bookmark list. -->
+    <string name="select">选择</string>
+    <!-- Action that selects every bookmark and track in a bookmark list. -->
+    <string name="select_all">全选</string>
+    <!-- Action that clears the multi-selection in a bookmark list. -->
+    <string name="deselect_all">取消全选</string>
     <string name="select_list">选择列表</string>
     <string name="button_layer_isolines">等高线</string>
     <string name="isolines_activation_error_dialog">如需使用等高线，请更新或下载所需区域的地图</string>
@@ -889,6 +895,18 @@
     <string name="share_track">分享轨迹</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">删除 %s？</string>
+    <!-- Bookmark list title in multi-selection mode. %d is the number of selected bookmarks and tracks. -->
+    <plurals name="n_items_selected">
+        <item quantity="zero">已选择 %d 项</item>
+        <item quantity="other">已选择 %d 项</item>
+    </plurals>
+    <!-- Title for the dialog when deleting several bookmarks and tracks at once. %d is their number. -->
+    <plurals name="delete_n_items_dialog_title">
+        <item quantity="zero">删除 %d 项？</item>
+        <item quantity="other">删除 %d 项？</item>
+    </plurals>
+    <!-- move track or bookmark from the list button text -->
+    <string name="move">移动</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">更改颜色</string>
     <!-- Text for the hiding track. -->

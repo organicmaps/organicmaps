@@ -758,6 +758,12 @@
     <string name="medicine">Медицина</string>
     <string name="search_in_the_list">Пошук у списку</string>
     <string name="religious_places">Святі місця</string>
+    <!-- Button that starts multi-selection in a bookmark list. -->
+    <string name="select">Вибрати</string>
+    <!-- Action that selects every bookmark and track in a bookmark list. -->
+    <string name="select_all">Вибрати все</string>
+    <!-- Action that clears the multi-selection in a bookmark list. -->
+    <string name="deselect_all">Скасувати вибір</string>
     <string name="select_list">Обрати список</string>
     <string name="button_layer_isolines">Висоти</string>
     <string name="isolines_activation_error_dialog">Щоб скористатися лініями висот, оновіть чи завантажте мапу потрібної місцевості</string>
@@ -895,6 +901,22 @@
     <string name="share_track">Поділитися треком</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Видалити %s?</string>
+    <!-- Bookmark list title in multi-selection mode. %d is the number of selected bookmarks and tracks. -->
+    <plurals name="n_items_selected">
+        <item quantity="one">Вибрано: %d</item>
+        <item quantity="few">Вибрано: %d</item>
+        <item quantity="many">Вибрано: %d</item>
+        <item quantity="other">Вибрано: %d</item>
+    </plurals>
+    <!-- Title for the dialog when deleting several bookmarks and tracks at once. %d is their number. -->
+    <plurals name="delete_n_items_dialog_title">
+        <item quantity="one">Видалити %d об\'єкт?</item>
+        <item quantity="few">Видалити %d об\'єкти?</item>
+        <item quantity="many">Видалити %d об\'єктів?</item>
+        <item quantity="other">Видалити %d об\'єктів?</item>
+    </plurals>
+    <!-- move track or bookmark from the list button text -->
+    <string name="move">Перемістити</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Змінити колір</string>
     <!-- Text for the hiding track. -->
