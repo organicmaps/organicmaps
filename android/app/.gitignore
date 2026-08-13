@@ -2,18 +2,14 @@
 /nativeOutputs
 
 # ignore private keys
-/google-services.json
-/secure.properties
 /release.keystore
 /secure.properties
-/libnotify.properties
 /google-services.json
 /google-play.json
 /firebase-app-distribution.json
 /firebase-test-lab.json
 /huawei-appgallery.json
 /agconnect-services.json
-/src/main/res/xml/network_security_config.xml
 
 # ignore flags symlinks
 /src/main/res/drawable-xhdpi/??.png
