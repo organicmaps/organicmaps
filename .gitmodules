@@ -10,11 +10,6 @@
   path = 3party/Vulkan-Headers
   url = https://github.com/KhronosGroup/Vulkan-Headers.git
   branch = main
-[submodule "3party/boost"]
-  path = 3party/boost
-  url = https://github.com/boostorg/boost.git
-  branch = boost-1.91.0
-  ignore = dirty
 [submodule "3party/just_gtfs"]
   path = 3party/just_gtfs
   url = https://github.com/organicmaps/just_gtfs.git
@@ -94,3 +89,7 @@
 	path = 3party/minizip-ng
 	url = https://github.com/zlib-ng/minizip-ng.git
 	branch = 4.2.2
+[submodule "3party/boost_headers"]
+	path = 3party/boost_headers
+	url = https://github.com/organicmaps/boost_headers.git
+	branch = master
