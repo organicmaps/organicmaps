@@ -2565,7 +2565,8 @@ UNIT_CLASS_TEST(Runner, Bookmarks_RecoverRecentlyDeletedBatch)
   TEST_EQUAL(2, bmManager.GetRecentlyDeletedCategoriesCount(), ());
 
   std::vector<std::string> deletedFilePaths;
-  for (auto const & [filePath, kmlData] : *bmManager.GetRecentlyDeletedCategories())
+  auto const recentlyDeletedCategories = bmManager.GetRecentlyDeletedCategories();
+  for (auto const & [filePath, kmlData] : *recentlyDeletedCategories)
   {
     UNUSED_VALUE(kmlData);
     deletedFilePaths.push_back(filePath);
