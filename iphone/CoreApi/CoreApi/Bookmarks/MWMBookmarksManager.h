@@ -109,6 +109,12 @@ NS_SWIFT_NAME(BookmarksManager)
 - (MWMMarkIDCollection)bookmarkIdsForCategory:(MWMMarkGroupID)categoryId;
 - (void)deleteBookmarks:(MWMMarkIDCollection)bookmarkIds
                  tracks:(MWMTrackIDCollection)trackIds NS_SWIFT_NAME(delete(bookmarks:tracks:));
+- (void)moveBookmarks:(MWMMarkIDCollection)bookmarkIds
+               tracks:(MWMTrackIDCollection)trackIds
+            toGroupId:(MWMMarkGroupID)groupId NS_SWIFT_NAME(move(bookmarks:tracks:toGroupId:));
+- (void)setColor:(UIColor *)color
+    forBookmarks:(MWMMarkIDCollection)bookmarkIds
+          tracks:(MWMTrackIDCollection)trackIds NS_SWIFT_NAME(setColor(_:bookmarks:tracks:));
 - (MWMBookmark *)bookmarkWithId:(MWMMarkID)bookmarkId;
 - (MWMTrack *)trackWithId:(MWMTrackID)trackId;
 - (NSArray<MWMBookmark *> *)bookmarksForGroup:(MWMMarkGroupID)groupId;
@@ -173,19 +179,12 @@ NS_SWIFT_NAME(BookmarksManager)
 
 - (void)setCategory:(MWMMarkGroupID)groupId bookmarksColor:(UIColor *)color;
 - (void)setCategory:(MWMMarkGroupID)groupId tracksColor:(UIColor *)color;
-- (void)updateBookmark:(MWMMarkID)bookmarkId setColor:(UIColor *)color;
-
-- (void)moveBookmark:(MWMMarkID)bookmarkId toGroupId:(MWMMarkGroupID)groupId;
 
 - (void)updateTrack:(MWMTrackID)trackId
          setGroupId:(MWMMarkGroupID)groupId
               color:(UIColor *)color
               title:(NSString *)title
         description:(NSString *)description;
-
-- (void)updateTrack:(MWMTrackID)trackId setColor:(UIColor *)color;
-
-- (void)moveTrack:(MWMTrackID)trackId toGroupId:(MWMMarkGroupID)groupId;
 
 - (BOOL)hasRecentlyDeletedBookmark;
 

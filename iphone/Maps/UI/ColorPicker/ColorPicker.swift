@@ -18,6 +18,30 @@ final class ColorPicker: NSObject {
                anchor: UIView?,
                currentColor: UIColor?,
                completionHandler: ((UIColor) -> Void)?) {
+    present(from: rootViewController,
+            anchorView: anchor,
+            anchorBarButtonItem: nil,
+            currentColor: currentColor,
+            completionHandler: completionHandler)
+  }
+
+  /// Presents the color grid as a popover anchored to a bar button item.
+  func present(from rootViewController: UIViewController,
+               anchor: UIBarButtonItem,
+               currentColor: UIColor?,
+               completionHandler: ((UIColor) -> Void)?) {
+    present(from: rootViewController,
+            anchorView: nil,
+            anchorBarButtonItem: anchor,
+            currentColor: currentColor,
+            completionHandler: completionHandler)
+  }
+
+  private func present(from rootViewController: UIViewController,
+                       anchorView: UIView?,
+                       anchorBarButtonItem: UIBarButtonItem?,
+                       currentColor: UIColor?,
+                       completionHandler: ((UIColor) -> Void)?) {
     nativeColorPickerViewController = nil
     let picker = ColorGridViewController(currentColor: currentColor,
                                          predefinedColors: BookmarksManager.predefinedColors().compactMap {
@@ -32,12 +56,16 @@ final class ColorPicker: NSObject {
     }
     picker.modalPresentationStyle = .popover
     if let popover = picker.popoverPresentationController {
-      let sourceView: UIView = anchor ?? rootViewController.view
-      popover.sourceView = sourceView
-      popover.sourceRect = anchor?.bounds ?? CGRect(x: sourceView.bounds.midX,
-                                                    y: sourceView.bounds.midY,
-                                                    width: 1,
-                                                    height: 1)
+      if let anchorBarButtonItem {
+        popover.barButtonItem = anchorBarButtonItem
+      } else {
+        let sourceView: UIView = anchorView ?? rootViewController.view
+        popover.sourceView = sourceView
+        popover.sourceRect = anchorView?.bounds ?? CGRect(x: sourceView.bounds.midX,
+                                                          y: sourceView.bounds.midY,
+                                                          width: 1,
+                                                          height: 1)
+      }
       popover.permittedArrowDirections = .any
       popover.delegate = picker
     }

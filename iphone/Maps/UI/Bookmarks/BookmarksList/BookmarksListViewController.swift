@@ -26,10 +26,35 @@ final class BookmarksListViewController: MWMViewController {
                                                          style: .plain,
                                                          target: self,
                                                          action: #selector(cancelButtonDidTap))
-  private lazy var deleteToolbarItem = UIBarButtonItem(title: L("delete"),
-                                                       style: .plain,
-                                                       target: self,
-                                                       action: #selector(deleteButtonDidTap))
+  private lazy var moveToolbarItem: UIBarButtonItem = {
+    let item = UIBarButtonItem(image: UIImage(named: "ic_folder")?.withRenderingMode(.alwaysTemplate),
+                               style: .plain,
+                               target: self,
+                               action: #selector(moveButtonDidTap))
+    item.accessibilityLabel = L("move")
+    item.tintColor = .linkBlue
+    return item
+  }()
+
+  private lazy var colorToolbarItem: UIBarButtonItem = {
+    let item = UIBarButtonItem(image: UIImage(named: "ic_palette")?.withRenderingMode(.alwaysTemplate),
+                               style: .plain,
+                               target: self,
+                               action: #selector(colorButtonDidTap))
+    item.accessibilityLabel = L("change_color")
+    item.tintColor = .linkBlue
+    return item
+  }()
+
+  private lazy var deleteToolbarItem: UIBarButtonItem = {
+    let item = UIBarButtonItem(image: UIImage(named: "ic_route_manager_trash")?.withRenderingMode(.alwaysTemplate),
+                               style: .plain,
+                               target: self,
+                               action: #selector(deleteButtonDidTap))
+    item.accessibilityLabel = L("delete")
+    item.tintColor = .redPrimary
+    return item
+  }()
 
   private lazy var infoViewController: BookmarksListInfoViewController = {
     let infoViewController = BookmarksListInfoViewController()
@@ -45,13 +70,8 @@ final class BookmarksListViewController: MWMViewController {
 
     let toolbarItemAttributes = [NSAttributedString.Key.font: UIFont.medium16.dynamic,
                                  NSAttributedString.Key.foregroundColor: UIColor.linkBlue]
-    let deleteToolbarItemAttributes = [NSAttributedString.Key.font: UIFont.medium16.dynamic]
-
-    deleteToolbarItem.tintColor = .redPrimary
     sortToolbarItem.setTitleTextAttributes(toolbarItemAttributes, for: .normal)
     moreToolbarItem.setTitleTextAttributes(toolbarItemAttributes, for: .normal)
-    deleteToolbarItem.setTitleTextAttributes(deleteToolbarItemAttributes, for: .normal)
-    deleteToolbarItem.setTitleTextAttributes(deleteToolbarItemAttributes, for: .disabled)
     sortToolbarItem.title = L("sort")
     defaultToolbarItems = toolBar.items ?? []
 
@@ -118,6 +138,16 @@ final class BookmarksListViewController: MWMViewController {
     setEditing(false, animated: true)
   }
 
+  @objc private func moveButtonDidTap() {
+    guard !selectedItemIds.isEmpty else { return }
+    presenter.moveItems(with: selectedItemIds)
+  }
+
+  @objc private func colorButtonDidTap() {
+    guard !selectedItemIds.isEmpty else { return }
+    presenter.changeColor(of: selectedItemIds)
+  }
+
   @objc private func deleteButtonDidTap() {
     guard !selectedItemIds.isEmpty else { return }
 
@@ -145,16 +175,20 @@ final class BookmarksListViewController: MWMViewController {
       return
     }
 
-    updateDeleteButtonState()
-    var items = defaultToolbarItems
-    if let moreItemIndex = items.firstIndex(where: { $0 === moreToolbarItem }) {
-      items[moreItemIndex] = deleteToolbarItem
-    }
-    toolBar.setItems(items, animated: animated)
+    updateBatchActionsState()
+    toolBar.setItems([sortToolbarItem,
+                      UIBarButtonItem(systemItem: .flexibleSpace),
+                      moveToolbarItem,
+                      colorToolbarItem,
+                      deleteToolbarItem],
+                     animated: animated)
   }
 
-  private func updateDeleteButtonState() {
-    deleteToolbarItem.isEnabled = !selectedItemIds.isEmpty
+  private func updateBatchActionsState() {
+    let isEnabled = !selectedItemIds.isEmpty
+    moveToolbarItem.isEnabled = isEnabled
+    colorToolbarItem.isEnabled = isEnabled
+    deleteToolbarItem.isEnabled = isEnabled
   }
 
   private func updateNavigationButton() {
@@ -190,7 +224,7 @@ final class BookmarksListViewController: MWMViewController {
       }
     }
     selectedItemIds = restoredItemIds
-    updateDeleteButtonState()
+    updateBatchActionsState()
   }
 
   private func clearSelection(animated: Bool) {
@@ -238,7 +272,7 @@ extension BookmarksListViewController: UITableViewDelegate {
       if let itemId = itemId(at: indexPath) {
         selectedItemIds.insert(itemId)
       }
-      updateDeleteButtonState()
+      updateBatchActionsState()
       return
     }
 
@@ -262,14 +296,17 @@ extension BookmarksListViewController: UITableViewDelegate {
     if let itemId = itemId(at: indexPath) {
       selectedItemIds.remove(itemId)
     }
-    updateDeleteButtonState()
+    updateBatchActionsState()
   }
 
   func tableView(_: UITableView,
                  leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
     let moveAction = UIContextualAction(style: .normal, title: L("move")) { [weak self] _, _, completion in
-      guard let section = self?.sections?[indexPath.section] else { fatalError() }
-      self?.presenter.moveItem(in: section, at: indexPath.row)
+      guard let self, let itemId = self.itemId(at: indexPath) else {
+        completion(false)
+        return
+      }
+      presenter.moveItems(with: [itemId])
       completion(true)
     }
     return UISwipeActionsConfiguration(actions: [moveAction])
@@ -367,6 +404,19 @@ extension BookmarksListViewController: IBookmarksListView {
 
   func showColorPicker(anchor: UIView?, currentColor: UIColor?, _ completionHandler: ((UIColor) -> Void)?) {
     ColorPicker.shared.present(from: self, anchor: anchor, currentColor: currentColor, completionHandler: completionHandler)
+  }
+
+  func showBatchColorPicker(_ completionHandler: ((UIColor) -> Void)?) {
+    ColorPicker.shared.present(from: self,
+                               anchor: colorToolbarItem,
+                               currentColor: nil,
+                               completionHandler: completionHandler)
+  }
+
+  func finishEditing() {
+    // Move and color finish while their modal controller is still being dismissed.
+    // Avoid running a competing toolbar transition underneath that dismissal.
+    setEditing(false, animated: false)
   }
 
   func enableEditing(_ enable: Bool) {
