@@ -1,9 +1,9 @@
 #pragma once
 
+#include "opening_hours/opening_hours.hpp"
+
 #include <set>
 #include <vector>
-
-#include "3party/opening_hours/opening_hours.hpp"
 
 namespace editor
 {

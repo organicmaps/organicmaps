@@ -5,6 +5,8 @@
 #include "editor/osm_auth.hpp"
 #include "editor/xml_feature.hpp"
 
+#include "opening_hours/opening_hours.hpp"
+
 #include "indexer/fake_feature_ids.hpp"
 #include "indexer/feature_decl.hpp"
 #include "indexer/feature_meta.hpp"
@@ -24,8 +26,6 @@
 #include <sstream>
 
 #include <pugixml.hpp>
-
-#include "3party/opening_hours/opening_hours.hpp"
 
 namespace osm
 {
@@ -532,10 +532,11 @@ EditableProperties Editor::GetEditableProperties(FeatureType & feature) const
       return {};
     }
 
-    /// @todo Avoid temporary string when OpeningHours (boost::spirit) will allow string_view.
-    string const featureOpeningHours(originalObjectPtr->GetOpeningHours());
-    /// @note Empty string is parsed as a valid opening hours rule.
-    if (!osmoh::OpeningHours(featureOpeningHours).IsValid())
+    auto const featureOpeningHours = originalObjectPtr->GetOpeningHours();
+    // Keep the field editable when there is nothing to preserve (an empty
+    // value does not parse) or when the value parses -- the advanced editor
+    // then keeps the raw string. Drop it only for values we cannot read back.
+    if (!featureOpeningHours.empty() && !osmoh::OpeningHours(featureOpeningHours).IsValid())
     {
       auto & meta = editableProperties.m_metadata;
       meta.erase(remove(begin(meta), end(meta), feature::Metadata::FMD_OPEN_HOURS), end(meta));
