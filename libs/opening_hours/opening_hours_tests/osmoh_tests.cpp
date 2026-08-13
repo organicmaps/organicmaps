@@ -1381,4 +1381,18 @@ UNIT_TEST(OpeningHours_CommentRules)
   }
 }
 
+UNIT_TEST(TimeEvent_NoClockValue)
+{
+  // A sun event has no fixed wall-clock value; platform time pickers must
+  // check IsEvent() instead of reading the zero placeholder as a clock time.
+  OpeningHours const oh("Mo-Su sunrise-sunset");
+  TEST(oh.IsValid(), ());
+  TEST_EQUAL(oh.GetRule().size(), 1, ());
+
+  auto const & span = oh.GetRule().front().GetTimes().front();
+  TEST(span.GetStart().IsEvent(), ());
+  TEST(span.GetEnd().IsEvent(), ());
+  TEST_EQUAL(span.GetStart().GetHoursCount(), 0, ());
+  TEST_EQUAL(span.GetEnd().GetHoursCount(), 0, ());
+}
 }  // namespace osmoh_tests
