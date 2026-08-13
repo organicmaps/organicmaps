@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">Duke ngarkuar Faqeshënuesit</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Faqeshënuesit u ngarkuan me sukses! Mund t\'i gjeni në hartë ose në ekranin e Menaxherit të Faqeshënuesve.</string>
+    <string name="load_kmz_successful">Faqeshënuesit u ngarkuan me sukses! Zgjidhni një listë për ta parë në hartë:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Dështoi ngarkimi i faqeshënuesve. Skedari mund të jetë i dëmtuar ose me defekt.</string>
+    <string name="load_kmz_failed">Dështoi ngarkimi i faqeshënuesve. Skedari mund të jetë i dëmtuar ose me defekt:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Lloji i skedarit nuk njihet nga aplikacioni:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

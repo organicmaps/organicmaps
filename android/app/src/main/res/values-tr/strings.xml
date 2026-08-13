@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">Yer İmleri Yükleniyor</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Yer İmleri başarılıyla yüklendi! Bunları haritada ya da Yer İmleri Yöneticisi ekranında bulabilirsiniz.</string>
+    <string name="load_kmz_successful">Yer İmleri başarılıyla yüklendi! Haritada görüntülemek için bir liste seçin:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Yer İmlerini yükleme işlemi başarısız oldu. Dosya bozuk ya da hatalı olabilir.</string>
+    <string name="load_kmz_failed">Yer İmlerini yükleme işlemi başarısız oldu. Dosya bozuk ya da hatalı olabilir:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Dosya türü uygulamaca tanınmıyor:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

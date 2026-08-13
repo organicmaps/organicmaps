@@ -163,10 +163,10 @@
 "load_kmz_title" = "Bladwijzers worden geladen";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Bladwijzers succesvol geüpload! U vindt ze op de kaart of op het scherm van de Bladwijzerbeheerder.";
+"load_kmz_successful" = "Bladwijzers succesvol geüpload! Kies een lijst om deze op de kaart te bekijken:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Bladwijzers uploaden is mislukt. Het bestand is mogelijk beschadigd of defect.";
+"load_kmz_failed" = "Bladwijzers uploaden is mislukt. Het bestand is mogelijk beschadigd of defect:";
 
 /* resource for context menu */
 "edit" = "Wijzig";

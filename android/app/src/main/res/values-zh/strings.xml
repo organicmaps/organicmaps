@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">正在加载书签</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">书签载入成功！您可以在地图或书签管理页面中找到它们。</string>
+    <string name="load_kmz_successful">书签载入成功！请选择要在地图上查看的列表：</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">书签载入失败，文件可能已损坏或不完整。</string>
+    <string name="load_kmz_failed">书签载入失败，文件可能已损坏或不完整：</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">应用程序无法识别该文件类型：\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

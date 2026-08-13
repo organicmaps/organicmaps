@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">Laster inn bokmerker</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Bokmerkene ble lastet inn! Du finner dem på kartet eller på skjermen «Bokmerkeadministrasjon».</string>
+    <string name="load_kmz_successful">Bokmerkene ble lastet inn! Velg en liste for å se den på kartet:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Opplasting av bokmerker mislyktes. Filen kan være skadet eller defekt.</string>
+    <string name="load_kmz_failed">Opplasting av bokmerker mislyktes. Filen kan være skadet eller defekt:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Filtypen gjenkjennes ikke av appen:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

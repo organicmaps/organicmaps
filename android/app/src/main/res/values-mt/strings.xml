@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">Tgħobijja tal-bookmarks</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Bookmarks mgħobbija b\'suċċess!Tista issibhom ġol-mappa jew fuq l-iskrin tal-Maniġer tal-Bookmarks.</string>
+    <string name="load_kmz_successful">Bookmarks mgħobbija b\'suċċess! Agħżel lista biex taraha fuq il-mappa:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">It-tgħobbija tal-bookmarks falliet. Il-fajl jista jkun korrott jew difettuż.</string>
+    <string name="load_kmz_failed">It-tgħobbija tal-bookmarks falliet. Il-fajl jista jkun korrott jew difettuż:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">It-tip tal-fajl mhuwiex rikonoxxut mill-applikazzjoni:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

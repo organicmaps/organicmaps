@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">در حال بارگیری نشانک‌ها</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">نشانک‌ها با موفقیت بارگیری شدند! می‌توانید آن‌ها را روی نقشه یا در صفحه مدیریت نشانک‌ها پیدا کنید.</string>
+    <string name="load_kmz_successful">نشانک‌ها با موفقیت بارگیری شدند! فهرستی را برای نمایش روی نقشه انتخاب کنید:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">بارگیری نشانک‌ها ناموفق بود. ممکن است پرونده خراب یا ناقص باشد.</string>
+    <string name="load_kmz_failed">بارگیری نشانک‌ها ناموفق بود. ممکن است پرونده خراب یا ناقص باشد:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">نوع فایل توسط برنامه تشخیص داده نمی شود:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

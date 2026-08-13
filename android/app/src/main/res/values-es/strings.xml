@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">Cargando marcadores</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">¡Los marcadores se han cargado con éxito! Puede encontrarlos en el mapa o en la pantalla de Gestión de marcadores.</string>
+    <string name="load_kmz_successful">¡Los marcadores se han cargado con éxito! Seleccione una lista para verla en el mapa:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">No se pudieron cargar los marcadores. El archivo podría tener daños o defectos.</string>
+    <string name="load_kmz_failed">No se pudieron cargar los marcadores. El archivo podría tener daños o defectos:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">La aplicación no reconoce el tipo de archivo:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

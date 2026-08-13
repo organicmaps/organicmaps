@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">Indlæser bogmærker</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Bogmærker er indlæst! Du kan finde dem på kortet eller på skærmen for bogmærkehåndtering.</string>
+    <string name="load_kmz_successful">Bogmærker er indlæst! Vælg en liste for at se den på kortet:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Bogmærkerne kunne ikke indlæses. Filen kan være skadet eller defekt.</string>
+    <string name="load_kmz_failed">Bogmærkerne kunne ikke indlæses. Filen kan være skadet eller defekt:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Filtypen genkendes ikke af appen:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

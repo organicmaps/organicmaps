@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">טוען סימניות</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">הסימניות נטענו בהצלחה! ניתן למצוא אותם על המפה או במסך ניהול הסימניות.</string>
+    <string name="load_kmz_successful">הסימניות נטענו בהצלחה! בחרו רשימה כדי להציג אותה במפה:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">טעינת הסימניות נכשלה. יתכן שהקובץ פגום.</string>
+    <string name="load_kmz_failed">טעינת הסימניות נכשלה. יתכן שהקובץ פגום:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">סוג הקובץ אינו מזוהה על ידי האפליקציה:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

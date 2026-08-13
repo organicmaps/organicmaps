@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">Hleð inn bókamerkjum</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Tókst að hlaða inn bókamerkjum! Þú getur skoðað þau á landakortinu eða í bókamerkjasafninu.</string>
+    <string name="load_kmz_successful">Tókst að hlaða inn bókamerkjum! Veldu lista til að skoða hann á kortinu:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Mistókst að hlaða inn bókamerkjum. Skráin gæti verið skemmd eða gölluð.</string>
+    <string name="load_kmz_failed">Mistókst að hlaða inn bókamerkjum. Skráin gæti verið skemmd eða gölluð:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Forritið þekkti ekki skráategundina:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

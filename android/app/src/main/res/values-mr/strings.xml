@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">खूणपत्रे वाचत आहे</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">खूणपत्रे वाचून झाले! ते तुम्ही नकाशावर किंवा खूणपत्र व्यवस्थापक पटलावर पाहू शकता.</string>
+    <string name="load_kmz_successful">खूणपत्रे वाचून झाले! नकाशावर पाहण्यासाठी यादी निवडा:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">खूणपत्रे वाचण्यात अपयश. फाइल दूषित किंवा बिघडलेली असू शकते.</string>
+    <string name="load_kmz_failed">खूणपत्रे वाचण्यात अपयश. फाइल दूषित किंवा बिघडलेली असू शकते:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">फाइल प्रकार ॲपद्वारे ओळखला जात नाही:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

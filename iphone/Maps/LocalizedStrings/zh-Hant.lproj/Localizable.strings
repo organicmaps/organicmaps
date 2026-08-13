@@ -163,10 +163,10 @@
 "load_kmz_title" = "正在載入書籤";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "書籤載入成功！ 您可以在地圖或書籤管理畫面中找到它們。";
+"load_kmz_successful" = "書籤載入成功！請選擇要在地圖上查看的列表：";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "書籤載入失敗，檔案可能已損壞或不完整。";
+"load_kmz_failed" = "書籤載入失敗，檔案可能已損壞或不完整：";
 
 /* resource for context menu */
 "edit" = "編輯";
