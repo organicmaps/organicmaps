@@ -163,10 +163,10 @@
 "load_kmz_title" = "正在加载书签";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "书签载入成功！您可以在地图或书签管理页面中找到它们。";
+"load_kmz_successful" = "书签载入成功！请选择要在地图上查看的列表：";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "书签载入失败，文件可能已损坏或不完整。";
+"load_kmz_failed" = "书签载入失败，文件可能已损坏或不完整：";
 
 /* resource for context menu */
 "edit" = "编辑";

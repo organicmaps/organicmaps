@@ -163,10 +163,10 @@
 "load_kmz_title" = "טוען סימניות";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "הסימניות נטענו בהצלחה! ניתן למצוא אותם על המפה או במסך ניהול הסימניות.";
+"load_kmz_successful" = "הסימניות נטענו בהצלחה! בחרו רשימה כדי להציג אותה במפה:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "טעינת הסימניות נכשלה. יתכן שהקובץ פגום.";
+"load_kmz_failed" = "טעינת הסימניות נכשלה. יתכן שהקובץ פגום:";
 
 /* resource for context menu */
 "edit" = "ערוך";

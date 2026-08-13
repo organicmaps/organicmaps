@@ -78,9 +78,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">Cargando favoritos</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">¡Marcadores cargados correctamente! Puedes encontrarlos en el mapa o en la pantalla del Gestor de favoritos.</string>
+    <string name="load_kmz_successful">¡Marcadores cargados correctamente! Selecciona una lista para verla en el mapa:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">La carga de marcadores ha fallado. El archivo puede estar corrupto o ser defectuoso.</string>
+    <string name="load_kmz_failed">La carga de marcadores ha fallado. El archivo puede estar corrupto o ser defectuoso:</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
     <string name="failed_to_open_file">Fallo al abrir el archivo %1$s\n\n%2$s</string>
     <!-- Warning message when doing search around current position -->

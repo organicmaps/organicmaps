@@ -163,10 +163,10 @@
 "load_kmz_title" = "Tgħobijja tal-bookmarks";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Bookmarks mgħobbija b'suċċess!Tista issibhom ġol-mappa jew fuq l-iskrin tal-Maniġer tal-Bookmarks.";
+"load_kmz_successful" = "Bookmarks mgħobbija b'suċċess! Agħżel lista biex taraha fuq il-mappa:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "It-tgħobbija tal-bookmarks falliet. Il-fajl jista jkun korrott jew difettuż.";
+"load_kmz_failed" = "It-tgħobbija tal-bookmarks falliet. Il-fajl jista jkun korrott jew difettuż:";
 
 /* resource for context menu */
 "edit" = "Editja";

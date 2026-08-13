@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">Nalaganje zaznamkov</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Zaznamki so bili uspešno naloženi! Najdete jih na zemljevidu ali na zaslonu Upravitelja zaznamkov.</string>
+    <string name="load_kmz_successful">Zaznamki so bili uspešno naloženi! Izberite seznam, ki ga želite prikazati na zemljevidu:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Nalaganje zaznamkov ni uspelo. Datoteka je morda poškodovana ali okvarjena.</string>
+    <string name="load_kmz_failed">Nalaganje zaznamkov ni uspelo. Datoteka je morda poškodovana ali okvarjena:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Aplikacija ne prepozna vrste datoteke:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

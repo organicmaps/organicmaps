@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">Ladataan kirjanmerkkejä</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Kirjanmerkkien lataaminen onnistui! Löydät ne joko kartalta tai kirjanmerkkien hallinnasta.</string>
+    <string name="load_kmz_successful">Kirjanmerkkien lataaminen onnistui! Valitse luettelo nähdäksesi sen kartalla:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Kirjanmerkkien lataus epäonnistui. Tiedosto saattaa olla vioittunut.</string>
+    <string name="load_kmz_failed">Kirjanmerkkien lataus epäonnistui. Tiedosto saattaa olla vioittunut:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Sovellus ei tunnista tiedostotyyppiä:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

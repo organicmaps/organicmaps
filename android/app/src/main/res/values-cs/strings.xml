@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">Nahrávání záložek</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Záložky byly úspěšně nahrány! Naleznete je na mapě nebo ve správci záložek.</string>
+    <string name="load_kmz_successful">Záložky byly úspěšně nahrány! Vyberte seznam, který chcete zobrazit na mapě:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Nahrávání záložek se nezdařilo. Soubor může být poškozený nebo vadný.</string>
+    <string name="load_kmz_failed">Nahrávání záložek se nezdařilo. Soubor může být poškozený nebo vadný:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Typ souboru není aplikací rozpoznán:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

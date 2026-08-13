@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">Könyvjelzők betöltése</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">A könyvjelzők sikeresen betöltődtek! Megtalálhatja őket a térképen vagy a Könyvjelzők kezelése képernyőn.</string>
+    <string name="load_kmz_successful">A könyvjelzők sikeresen betöltődtek! Válasszon egy listát a térképen való megtekintéshez:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Nem sikerült betölteni a könyvjelzőket. A fájl sérült vagy hibás lehet.</string>
+    <string name="load_kmz_failed">Nem sikerült betölteni a könyvjelzőket. A fájl sérült vagy hibás lehet:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Az alkalmazás nem ismeri fel a következő fájltípust:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

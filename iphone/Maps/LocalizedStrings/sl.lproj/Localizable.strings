@@ -163,10 +163,10 @@
 "load_kmz_title" = "Nalaganje zaznamkov";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Zaznamki so bili uspešno naloženi! Najdete jih na zemljevidu ali na zaslonu Upravitelja zaznamkov.";
+"load_kmz_successful" = "Zaznamki so bili uspešno naloženi! Izberite seznam, ki ga želite prikazati na zemljevidu:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Nalaganje zaznamkov ni uspelo. Datoteka je morda poškodovana ali okvarjena.";
+"load_kmz_failed" = "Nalaganje zaznamkov ni uspelo. Datoteka je morda poškodovana ali okvarjena:";
 
 /* resource for context menu */
 "edit" = "Uredi";
