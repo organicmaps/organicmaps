@@ -83,9 +83,6 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v6
 
-      - name: Cache Boost submodule
-        uses: ./.github/actions/cache-boost
-
       - name: Parallel submodules checkout
         run: git submodule update --depth 1 --init --recursive --jobs=20
 
@@ -115,9 +112,6 @@ jobs:
         run: |
           brew install qt@6
           pip3 install tornado --break-system-packages
-
-      - name: Configure repository
-        run: ./configure.sh
 
       - name: Configure ccache
         uses: hendrikmuhs/ccache-action@v1.2

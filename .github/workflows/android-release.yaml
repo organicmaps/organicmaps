@@ -128,9 +128,6 @@ jobs:
           fetch-depth: 100 # enough to get all commits for the current day
           ref: 'refs/tags/${{ needs.tag.outputs.tag }}'
 
-      - name: Cache Boost submodule
-        uses: ./.github/actions/cache-boost
-
       - name: Check tag
         shell: bash
         run: |
@@ -166,10 +163,6 @@ jobs:
           AGCONNECT_SERVICES_JSON: ${{ secrets.AGCONNECT_SERVICES_JSON }}
           SECURE_PROPERTIES: ${{ secrets.SECURE_PROPERTIES }}
           RELEASE_KEYSTORE: ${{ secrets.RELEASE_KEYSTORE }}
-
-      - name: Configure repository
-        shell: bash
-        run: ./configure.sh
 
       - name: Set up SDK
         shell: bash
