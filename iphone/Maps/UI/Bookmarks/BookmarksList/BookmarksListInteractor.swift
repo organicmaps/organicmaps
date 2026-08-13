@@ -118,25 +118,18 @@ extension BookmarksListInteractor: IBookmarksListInteractor {
   }
 
   func deleteItems(with itemIds: Set<BookmarksListItemId>) {
-    var bookmarkIds = [NSNumber]()
-    var trackIds = [NSNumber]()
-    for itemId in itemIds {
-      switch itemId {
-      case .bookmark(let bookmarkId):
-        bookmarkIds.append(NSNumber(value: bookmarkId))
-      case .track(let trackId):
-        trackIds.append(NSNumber(value: trackId))
-      }
-    }
+    let (bookmarkIds, trackIds) = splitItemIds(itemIds)
     bookmarksManager.delete(bookmarks: bookmarkIds, tracks: trackIds)
   }
 
-  func moveBookmark(_ bookmarkId: MWMMarkID, toGroupId groupId: MWMMarkGroupID) {
-    bookmarksManager.moveBookmark(bookmarkId, toGroupId: groupId)
+  func moveItems(with itemIds: Set<BookmarksListItemId>, toGroupId groupId: MWMMarkGroupID) {
+    let (bookmarkIds, trackIds) = splitItemIds(itemIds)
+    bookmarksManager.move(bookmarks: bookmarkIds, tracks: trackIds, toGroupId: groupId)
   }
 
-  func moveTrack(_ trackId: MWMTrackID, toGroupId groupId: MWMMarkGroupID) {
-    bookmarksManager.moveTrack(trackId, toGroupId: groupId)
+  func setColor(_ color: UIColor, for itemIds: Set<BookmarksListItemId>) {
+    let (bookmarkIds, trackIds) = splitItemIds(itemIds)
+    bookmarksManager.setColor(color, bookmarks: bookmarkIds, tracks: trackIds)
   }
 
   func deleteBookmarksGroup() {
@@ -178,4 +171,18 @@ extension BookmarksListInteractor: BookmarksObserver {
   func onBookmarksCategoryDeleted(_: MWMMarkGroupID) {
     reloadCategory()
   }
+}
+
+private func splitItemIds(_ itemIds: Set<BookmarksListItemId>) -> (bookmarks: [NSNumber], tracks: [NSNumber]) {
+  var bookmarkIds = [NSNumber]()
+  var trackIds = [NSNumber]()
+  for itemId in itemIds {
+    switch itemId {
+    case .bookmark(let bookmarkId):
+      bookmarkIds.append(NSNumber(value: bookmarkId))
+    case .track(let trackId):
+      trackIds.append(NSNumber(value: trackId))
+    }
+  }
+  return (bookmarkIds, trackIds)
 }

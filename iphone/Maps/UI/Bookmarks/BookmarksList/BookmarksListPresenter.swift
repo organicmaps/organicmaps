@@ -3,7 +3,7 @@ final class BookmarksListPresenter {
   private let router: IBookmarksListRouter
   private var interactor: IBookmarksListInteractor
   private var bookmarkGroup: BookmarkGroup
-  private var editingItem: BookmarksListItemId?
+  private var movingItemIds = Set<BookmarksListItemId>()
 
   init(view: IBookmarksListView,
        router: IBookmarksListRouter,
@@ -54,7 +54,7 @@ final class BookmarksListPresenter {
     let tracks = bookmarkGroup.tracks.map { track in
       TrackViewModel(track, formattedDistance: formatDistance(Double(track.trackLengthMeters)), colorDidTap: { anchor in
         self.view?.showColorPicker(anchor: anchor, currentColor: track.trackColor) { color in
-          BookmarksManager.shared().updateTrack(track.trackId, setColor: color)
+          self.interactor.setColor(color, for: [.track(track.trackId)])
           self.reload()
         }
       })
@@ -93,7 +93,7 @@ final class BookmarksListPresenter {
       }
       return BookmarkViewModel(bookmark, formattedDistance: formattedDistance, colorDidTap: { [weak self] anchor in
         self?.view?.showColorPicker(anchor: anchor, currentColor: bookmark.bookmarkColor) { color in
-          BookmarksManager.shared().updateBookmark(bookmark.bookmarkId, setColor: color)
+          self?.interactor.setColor(color, for: [.bookmark(bookmark.bookmarkId)])
           self?.reload()
         }
       })
@@ -208,7 +208,7 @@ final class BookmarksListPresenter {
           return TracksSectionViewModel(tracks: tracks.map { track in
             TrackViewModel(track, formattedDistance: self.formatDistance(Double(track.trackLengthMeters)), colorDidTap: { anchor in
               self.view?.showColorPicker(anchor: anchor, currentColor: track.trackColor) { color in
-                BookmarksManager.shared().updateTrack(track.trackId, setColor: color)
+                self.interactor.setColor(color, for: [.track(track.trackId)])
                 self.reload()
               }
             })
@@ -267,19 +267,19 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
     reload()
   }
 
-  func moveItem(in section: IBookmarksListSectionViewModel, at index: Int) {
-    let group = interactor.getBookmarkGroup()
-    switch section {
-    case let bookmarksSection as IBookmarksSectionViewModel:
-      guard let bookmark = bookmarksSection.bookmarks[index] as? BookmarkViewModel else { fatalError() }
-      editingItem = .bookmark(bookmark.bookmarkId)
-      router.selectGroup(currentGroupId: group.categoryId, delegate: self)
-    case let tracksSection as ITracksSectionViewModel:
-      guard let track = tracksSection.tracks[index] as? TrackViewModel else { fatalError() }
-      editingItem = .track(track.trackId)
-      router.selectGroup(currentGroupId: group.categoryId, delegate: self)
-    default:
-      fatalError("Cannot move item: unsupported section type: \(section.self)")
+  func moveItems(with itemIds: Set<BookmarksListItemId>) {
+    guard !itemIds.isEmpty else { return }
+    movingItemIds = itemIds
+    router.selectGroup(currentGroupId: bookmarkGroup.categoryId, delegate: self)
+  }
+
+  func changeColor(of itemIds: Set<BookmarksListItemId>) {
+    guard !itemIds.isEmpty else { return }
+    view?.showBatchColorPicker { [weak self] color in
+      guard let self else { return }
+      interactor.setColor(color, for: itemIds)
+      view?.finishEditing()
+      reload()
     }
   }
 
@@ -382,27 +382,21 @@ extension BookmarksListPresenter: SelectBookmarkGroupViewControllerDelegate {
                                    groupId: MWMMarkGroupID) {
     defer { viewController.dismiss(animated: true) }
 
-    guard groupId != bookmarkGroup.categoryId else { return }
+    let itemIds = movingItemIds
+    movingItemIds.removeAll()
+    guard groupId != bookmarkGroup.categoryId, !itemIds.isEmpty else { return }
 
-    switch editingItem {
-    case .bookmark(let bookmarkId):
-      interactor.moveBookmark(bookmarkId, toGroupId: groupId)
-    case .track(let trackId):
-      interactor.moveTrack(trackId, toGroupId: groupId)
-    case .none:
-      break
-    }
+    interactor.moveItems(with: itemIds, toGroupId: groupId)
+    view?.finishEditing()
 
-    editingItem = nil
-
-    if bookmarkGroup.bookmarksCount > 0 || bookmarkGroup.trackCount > 0 {
-      reload()
-    } else {
-      // if there are no bookmarks or tracks in current group no need to show this group
-      // e.g. popping view controller 2 times
+    let hasSubgroups = !bookmarkGroup.collections.isEmpty || !bookmarkGroup.categories.isEmpty
+    if bookmarkGroup.isEmpty, !hasSubgroups {
+      // Avoid briefly showing an empty group between dismissing the picker and returning to the parent list.
       if let rootNavigationController = viewController.presentingViewController as? UINavigationController {
         rootNavigationController.popViewController(animated: false)
       }
+    } else {
+      reload()
     }
   }
 }

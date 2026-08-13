@@ -551,6 +551,89 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
   }];
 }
 
+- (void)moveBookmarks:(MWMMarkIDCollection)bookmarkIds
+               tracks:(MWMTrackIDCollection)trackIds
+            toGroupId:(MWMMarkGroupID)groupId
+{
+  ASSERT_NOT_EQUAL(groupId, kml::kInvalidMarkGroupId, ());
+  if (bookmarkIds.count == 0 && trackIds.count == 0)
+    return;
+
+  auto & bm = self.bm;
+  auto editSession = bm.GetEditSession();
+  for (NSNumber * bookmarkIdValue in bookmarkIds)
+  {
+    MWMMarkID const bookmarkId = bookmarkIdValue.unsignedLongLongValue;
+    if (!bm.HasBookmark(bookmarkId))
+    {
+      LOG(LWARNING, ("Bookmark does not exist:", bookmarkId));
+      continue;
+    }
+
+    auto const currentGroupId = bm.GetBookmark(bookmarkId)->GetGroupId();
+    if (currentGroupId != groupId)
+      editSession.MoveBookmark(bookmarkId, currentGroupId, groupId);
+  }
+
+  for (NSNumber * trackIdValue in trackIds)
+  {
+    MWMTrackID const trackId = trackIdValue.unsignedLongLongValue;
+    if (!bm.HasTrack(trackId))
+    {
+      LOG(LWARNING, ("Track does not exist:", trackId));
+      continue;
+    }
+
+    auto const currentGroupId = bm.GetTrack(trackId)->GetGroupId();
+    if (currentGroupId != groupId)
+      editSession.MoveTrack(trackId, currentGroupId, groupId);
+  }
+}
+
+- (void)setColor:(UIColor *)color forBookmarks:(MWMMarkIDCollection)bookmarkIds tracks:(MWMTrackIDCollection)trackIds
+{
+  if (bookmarkIds.count == 0 && trackIds.count == 0)
+    return;
+
+  auto & bm = self.bm;
+  auto const newColor = [MWMBookmarksManager getColorFromUIColor:color];
+  auto editSession = bm.GetEditSession();
+  BOOL didChangeBookmarkColor = NO;
+
+  for (NSNumber * bookmarkIdValue in bookmarkIds)
+  {
+    MWMMarkID const bookmarkId = bookmarkIdValue.unsignedLongLongValue;
+    if (!bm.HasBookmark(bookmarkId))
+    {
+      LOG(LWARNING, ("Bookmark does not exist:", bookmarkId));
+      continue;
+    }
+
+    auto bookmark = editSession.GetBookmarkForEdit(bookmarkId);
+    ASSERT(bookmark, ("Invalid bookmark id:", bookmarkId));
+    didChangeBookmarkColor |= newColor != bookmark->GetColorForRendering();
+    bookmark->SetColor(newColor);
+  }
+
+  if (didChangeBookmarkColor)
+    bm.SetLastEditedBmColor(kml::MakeCustomBookmarkColorData(newColor));
+
+  for (NSNumber * trackIdValue in trackIds)
+  {
+    MWMTrackID const trackId = trackIdValue.unsignedLongLongValue;
+    if (!bm.HasTrack(trackId))
+    {
+      LOG(LWARNING, ("Track does not exist:", trackId));
+      continue;
+    }
+
+    auto track = editSession.GetTrackForEdit(trackId);
+    ASSERT(track, ("Invalid track id:", trackId));
+    if (newColor != track->GetColor(0))
+      track->SetColor(newColor);
+  }
+}
+
 - (MWMBookmark *)bookmarkWithId:(MWMMarkID)bookmarkId
 {
   return [[MWMBookmark alloc] initWithMarkId:bookmarkId bookmarkData:self.bm.GetBookmark(bookmarkId)];
@@ -779,20 +862,6 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
     bookmark->SetCustomName(title.UTF8String);
 }
 
-- (void)updateBookmark:(MWMMarkID)bookmarkId setColor:(UIColor *)color
-{
-  auto editSession = self.bm.GetEditSession();
-
-  auto bookmark = editSession.GetBookmarkForEdit(bookmarkId);
-  ASSERT(bookmark, ("Invalid bookmark id:", bookmarkId));
-
-  auto const newColor = [MWMBookmarksManager getColorFromUIColor:color];
-  if (newColor != bookmark->GetColorForRendering())
-    self.bm.SetLastEditedBmColor(kml::MakeCustomBookmarkColorData(newColor));
-
-  bookmark->SetColor(newColor);
-}
-
 - (void)setCategory:(MWMMarkGroupID)groupId bookmarksColor:(UIColor *)color
 {
   auto editSession = self.bm.GetEditSession();
@@ -804,17 +873,6 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
 {
   auto editSession = self.bm.GetEditSession();
   editSession.SetCategoryTracksColor(groupId, [MWMBookmarksManager getColorFromUIColor:color]);
-}
-
-- (void)moveBookmark:(MWMMarkID)bookmarkId toGroupId:(MWMMarkGroupID)groupId
-{
-  ASSERT_NOT_EQUAL(groupId, kml::kInvalidMarkGroupId, ());
-  auto const currentGroupId = self.bm.GetBookmark(bookmarkId)->GetGroupId();
-  if (currentGroupId != groupId)
-  {
-    auto editSession = self.bm.GetEditSession();
-    editSession.MoveBookmark(bookmarkId, currentGroupId, groupId);
-  }
 }
 
 - (void)updateTrack:(MWMTrackID)trackId
@@ -840,31 +898,6 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
 
   track->SetName(title.UTF8String);
   track->SetDescription(description.UTF8String);
-}
-
-- (void)updateTrack:(MWMTrackID)trackId setColor:(UIColor *)color
-{
-  auto editSession = self.bm.GetEditSession();
-
-  auto track = editSession.GetTrackForEdit(trackId);
-  ASSERT(track, ("Invalid track id:", trackId));
-
-  auto const currentColor = track->GetColor(0);
-  auto const newColor = [MWMBookmarksManager getColorFromUIColor:color];
-
-  if (newColor != currentColor)
-    track->SetColor(newColor);
-}
-
-- (void)moveTrack:(MWMTrackID)trackId toGroupId:(MWMMarkGroupID)groupId
-{
-  ASSERT_NOT_EQUAL(groupId, kml::kInvalidMarkGroupId, ());
-  auto const currentGroupId = self.bm.GetTrack(trackId)->GetGroupId();
-  if (currentGroupId != groupId)
-  {
-    auto editSession = self.bm.GetEditSession();
-    editSession.MoveTrack(trackId, currentGroupId, groupId);
-  }
 }
 
 - (BOOL)hasRecentlyDeletedBookmark
