@@ -38,6 +38,10 @@
 - (void)presentMobileInternetAlertWithBlock:(nonnull MWMMobileInternetAlertCompletionBlock)block;
 - (void)presentInfoAlert:(nonnull NSString *)title text:(nonnull NSString *)text;
 - (void)presentInfoAlert:(nonnull NSString *)title;
+- (void)presentBookmarksImportAlertWithCategoryIds:(nonnull NSArray<NSNumber *> *)categoryIds
+                                     categoryNames:(nonnull NSArray<NSString *> *)categoryNames
+                                   failedFileNames:(nonnull NSArray<NSString *> *)failedFileNames
+                                    selectCategory:(nullable void (^)(NSNumber * _Nonnull categoryId))selectCategory;
 - (void)presentCreateBookmarkCategoryAlertWithMaxCharacterNum:(NSUInteger)max
                                               minCharacterNum:(NSUInteger)min
                                                      callback:(nonnull MWMCheckStringBlock)callback;

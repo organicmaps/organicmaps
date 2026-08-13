@@ -214,6 +214,7 @@ extension BookmarksListViewController: IBookmarksListView {
 
   func setSections(_ sections: [IBookmarksListSectionViewModel]) {
     self.sections = sections
+    guard isViewLoaded else { return }
     tableView.reloadData()
   }
 

@@ -1,14 +1,15 @@
 #import <Foundation/Foundation.h>
 
+#import "MWMBookmarksImportResult.h"
 #import "MWMTypes.h"
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(BookmarksObserver)
 @protocol MWMBookmarksObserver <NSObject>
 @optional
-- (void)onBookmarksLoadFinished;
-- (void)onBookmarksFileLoadSuccess;
-- (void)onBookmarksFileLoadError;
+- (void)onBookmarksCategoryLoadingStarted;
+- (void)onBookmarksCategoryLoadingFinished;
+- (void)onBookmarksImportFinished:(MWMBookmarksImportResult *)result;
 - (void)onBookmarksCategoryDeleted:(MWMMarkGroupID)groupId;
 - (void)onRecentlyDeletedBookmarksCategoriesChanged;
 - (void)onBookmarkDeleted:(MWMMarkID)bookmarkId;
