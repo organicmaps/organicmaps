@@ -471,6 +471,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Axtardığınız bölgəni endirin və ya yaxınlıqdakı şəhər/kənd adını əlavə etməyə cəhd edin.";
 "search_history_title" = "Axtarış tarixçəsi";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "Son axtarışlara baxın.";
 "clear_search" = "Axtarış Tarixçəsini silin";
 

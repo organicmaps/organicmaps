@@ -471,6 +471,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Descarregue a região onde está a pesquisar ou tente adicionar o nome de uma cidade ou aldeia próxima.";
 "search_history_title" = "Histórico de pesquisas";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "Ver as pesquisas recentes.";
 "clear_search" = "Limpar histórico de pesquisas";
 

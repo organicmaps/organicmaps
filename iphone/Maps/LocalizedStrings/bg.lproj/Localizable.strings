@@ -471,6 +471,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Изтеглете региона, в който търсите, или опитайте да добавите име на близък град/село.";
 "search_history_title" = "История на търсенията";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "Преглед на последните търсения.";
 "clear_search" = "Изчистване на историята на търсенията";
 

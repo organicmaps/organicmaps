@@ -471,6 +471,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Ներբեռնեք այն տարածաշրջանի քարտեզը, որտեղ որոնում եք կատարում, կամ փորձեք ավելացնել մոտակա քաղաքի/գյուղի անունը:";
 "search_history_title" = "Որոնման պատմություն";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "Դիտեք ձեր վերջին որոնումները:";
 "clear_search" = "Մաքրել որոնման պատմությունը";
 

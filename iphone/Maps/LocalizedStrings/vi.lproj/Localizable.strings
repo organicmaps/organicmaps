@@ -471,6 +471,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Tải xuống khu vực bạn đang tìm kiếm hoặc thử thêm tên thị trấn/làng gần đó.";
 "search_history_title" = "Lịch sử tìm kiếm";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "Truy cập nhanh chóng đến câu hỏi tìm kiếm gần đây.";
 "clear_search" = "Xóa Lịch sử Tìm kiếm";
 

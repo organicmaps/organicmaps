@@ -61,6 +61,8 @@ public:
 
   void SetAddress(std::string && address) { m_address = std::move(address); }
   void SetType(Result::Type type) { m_resultType = type; }
+  void SetEstimatedAddress(bool estimated) { m_isEstimatedAddress = estimated; }
+  bool IsEstimatedAddress() const { return m_isEstimatedAddress; }
 
   // For Type::PureSuggest.
   Result(std::string str, std::string && suggest);
@@ -160,6 +162,7 @@ private:
   // The position that this result occupied in the vector returned by
   // a search query. -1 if undefined.
   int32_t m_positionInResults = -1;
+  bool m_isEstimatedAddress = false;
 
 #ifdef SEARCH_USE_PROVENANCE
   std::vector<ResultTracer::Branch> m_provenance;

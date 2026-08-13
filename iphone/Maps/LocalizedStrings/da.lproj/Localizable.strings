@@ -471,6 +471,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Download den region, hvor du søger i, eller prøv at tilføje et nærliggende bynavn.";
 "search_history_title" = "Søgehistorik";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "Se dine seneste søgninger.";
 "clear_search" = "Ryd søgehistorik";
 

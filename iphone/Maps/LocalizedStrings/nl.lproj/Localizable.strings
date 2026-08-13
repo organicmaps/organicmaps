@@ -471,6 +471,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Download de regio waar u zoekt of probeer een nabijgelegen stad/dorpnaam toe te voegen.";
 "search_history_title" = "Zoekgeschiedenis";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "Snel toegang tot recente zoekopdrachten.";
 "clear_search" = "Wis zoekgeschiedenis";
 

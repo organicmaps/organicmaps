@@ -178,6 +178,7 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams params)
   p.m_needAddress = true;
   p.m_needHighlighting = true;
   p.m_categorialRequest = params.m_isCategory;
+  p.m_allowNearbyHouseNumbers = params.m_allowNearbyHouseNumbers;
   if (params.m_timeout)
     p.m_timeout = *params.m_timeout;
 
