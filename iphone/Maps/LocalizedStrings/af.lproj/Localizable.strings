@@ -163,10 +163,10 @@
 "load_kmz_title" = "Laai tans boekmerke";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Boekmerke is suksesvol gelaai! U kan dit op die kaart of op die boekmerkbestuurderskerm vind.";
+"load_kmz_successful" = "Boekmerke is suksesvol gelaai! Kies ’n lys om dit op die kaart te sien:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Kon nie boekmerke laai nie. Die lêer is dalk gekorrupteer of defektief.";
+"load_kmz_failed" = "Kon nie boekmerke laai nie. Die lêer is dalk gekorrupteer of defektief:";
 
 /* resource for context menu */
 "edit" = "Wysig";

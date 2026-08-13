@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">Учитавање маркера</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Маркери су успешно учитани! Можете их проначи на мапи помоћу Менаџера маркера.</string>
+    <string name="load_kmz_successful">Маркери су успешно учитани! Изаберите листу да бисте је видели на мапи:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Неуспешно учитавање маркера. Могуће је да је фајл оштећен или неисправан.</string>
+    <string name="load_kmz_failed">Неуспешно учитавање маркера. Могуће је да је фајл оштећен или неисправан:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Апликација не препознаје ову врсту фајла:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

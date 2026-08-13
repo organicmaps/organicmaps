@@ -163,10 +163,10 @@
 "load_kmz_title" = "Ielādē grāmatzīmes";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Grāmatzīmes ir ielādētas! Tās varat atrast kartē un grāmatzīmju pārvaldīšanas ekrānā.";
+"load_kmz_successful" = "Grāmatzīmes ir ielādētas! Izvēlieties sarakstu, lai skatītu to kartē:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Grāmatzīmes ielādēt neizdevās. Iespējams, datne ir bojāta.";
+"load_kmz_failed" = "Grāmatzīmes ielādēt neizdevās. Iespējams, datne ir bojāta:";
 
 /* resource for context menu */
 "edit" = "Labot";

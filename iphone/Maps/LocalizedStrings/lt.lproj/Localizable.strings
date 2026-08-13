@@ -163,10 +163,10 @@
 "load_kmz_title" = "Žymių sąrašas įkeliamas";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Žymių sąrašas įkeltas! Galite rasti jį žemėlapyje arba žymių tvarkytuvės ekrane.";
+"load_kmz_successful" = "Žymių sąrašas įkeltas! Pasirinkite sąrašą, kurį norite matyti žemėlapyje:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Žymių sąrašo nepavyko įkelti. Gali būti, kad failas sugadintas.";
+"load_kmz_failed" = "Žymių sąrašo nepavyko įkelti. Gali būti, kad failas sugadintas:";
 
 /* resource for context menu */
 "edit" = "Taisyti";

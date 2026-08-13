@@ -163,10 +163,10 @@
 "load_kmz_title" = "Cargando favoritos";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "¡Marcadores cargados correctamente! Puedes encontrarlos en el mapa o en la pantalla del Gestor de favoritos.";
+"load_kmz_successful" = "¡Marcadores cargados correctamente! Selecciona una lista para verla en el mapa:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "La carga de marcadores ha fallado. El archivo puede estar corrupto o ser defectuoso.";
+"load_kmz_failed" = "La carga de marcadores ha fallado. El archivo puede estar corrupto o ser defectuoso:";
 
 /* resource for context menu */
 "edit" = "Editar";

@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">Chargement des signets</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Les signets ont été chargés avec succès ! Vous pouvez les trouver sur la carte ou sur l\'écran du Gestionnaire de signets.</string>
+    <string name="load_kmz_successful">Les signets ont été chargés avec succès ! Sélectionnez une liste pour l’afficher sur la carte :</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Échec lors du chargement des signets. Le fichier peut être corrompu ou défectueux.</string>
+    <string name="load_kmz_failed">Échec lors du chargement des signets. Le fichier peut être corrompu ou défectueux :</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Le type de fichier n\'est pas reconnu par l\'appli :\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

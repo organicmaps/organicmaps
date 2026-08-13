@@ -163,10 +163,10 @@
 "load_kmz_title" = "Učitavanje zabilješki";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Zabilješke su uspješno učitane! Možeš ih pronaći na karti ili na ekranu „Upravljač zabilješki”.";
+"load_kmz_successful" = "Zabilješke su uspješno učitane! Odaberi popis za prikaz na karti:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Neuspjelo učitavanje zabilješki. Datoteka je možda oštećena ili neispravna.";
+"load_kmz_failed" = "Neuspjelo učitavanje zabilješki. Datoteka je možda oštećena ili neispravna:";
 
 /* resource for context menu */
 "edit" = "Uredi";

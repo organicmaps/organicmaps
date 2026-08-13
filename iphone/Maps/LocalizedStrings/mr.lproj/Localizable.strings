@@ -163,10 +163,10 @@
 "load_kmz_title" = "खूणपत्रे वाचत आहे";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "खूणपत्रे वाचून झाले! ते तुम्ही नकाशावर किंवा खूणपत्र व्यवस्थापक पटलावर पाहू शकता.";
+"load_kmz_successful" = "खूणपत्रे वाचून झाले! नकाशावर पाहण्यासाठी यादी निवडा:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "खूणपत्रे वाचण्यात अपयश. फाइल दूषित किंवा बिघडलेली असू शकते.";
+"load_kmz_failed" = "खूणपत्रे वाचण्यात अपयश. फाइल दूषित किंवा बिघडलेली असू शकते:";
 
 /* resource for context menu */
 "edit" = "संपादन";
