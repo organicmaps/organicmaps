@@ -183,6 +183,17 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert infoAlert:title text:nil]];
 }
 
+- (void)presentBookmarksImportAlertWithCategoryIds:(nonnull NSArray<NSNumber *> *)categoryIds
+                                     categoryNames:(nonnull NSArray<NSString *> *)categoryNames
+                                   failedFileNames:(nonnull NSArray<NSString *> *)failedFileNames
+                                    selectCategory:(nullable void (^)(NSNumber * _Nonnull))selectCategory
+{
+  [self displayAlert:[MWMBookmarksImportAlert alertWithCategoryIds:categoryIds
+                                                     categoryNames:categoryNames
+                                                   failedFileNames:failedFileNames
+                                                    selectCategory:selectCategory]];
+}
+
 - (void)presentEditorViralAlert
 {
   [self displayAlert:[MWMAlert editorViralAlert]];
