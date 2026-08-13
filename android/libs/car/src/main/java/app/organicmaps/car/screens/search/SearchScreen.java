@@ -77,12 +77,12 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
       return;
     mQuery = searchText;
     mLocale = Language.getKeyboardLocale(getCarContext());
-    mResults = null;
 
     SearchEngine.INSTANCE.cancel();
 
     if (mQuery.isEmpty())
     {
+      mResults = null;
       invalidate();
       return;
     }
@@ -92,14 +92,16 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
     final double lat = hasLocation ? location.getLat() : 0;
     final double lon = hasLocation ? location.getLon() : 0;
 
+    // Don't push a template on every keystroke: car hosts may close the keyboard and search box, and the first query
+    // could replace the list with a loading template. onResultsUpdate() publishes the new results.
     SearchEngine.INSTANCE.search(getCarContext(), mQuery, false, System.nanoTime(), hasLocation, lat, lon);
-    invalidate();
   }
 
   @Override
   public void onSearchSubmitted(@NonNull String searchText)
   {
     onSearchTextChanged(searchText);
+    invalidate();
   }
 
   @Override
