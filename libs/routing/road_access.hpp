@@ -1,5 +1,7 @@
 #pragma once
 
+#include "opening_hours/opening_hours.hpp"
+
 #include "routing/road_point.hpp"
 #include "routing/route_weight.hpp"
 
@@ -7,7 +9,6 @@
 #include <string>
 #include <vector>
 
-#include "3party/opening_hours/opening_hours.hpp"
 #include "3party/skarupke/flat_hash_map.hpp"
 
 namespace routing

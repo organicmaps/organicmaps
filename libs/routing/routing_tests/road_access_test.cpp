@@ -658,14 +658,17 @@ UNIT_TEST(RoadAccess_WayBlockedWhenStartButOpenWhenReach)
   expectedEdges = {{0, 1}, {1, 2}, {2, 3}, {3, 4}, {4, 5}};
   TestTopologyGraph(graph, 0 /* from */, 5 /* to */, true /* pathFound */, expectedWeight, expectedEdges);
 
-  auto const startAt_9_00 = []()
-  { return GetUnixtimeByWeekday(2020, Month::Apr, Weekday::Monday, 9 /* hh */, 00 /* mm */); };
+  auto const startAt_8_00 = []()
+  { return GetUnixtimeByWeekday(2020, Month::Apr, Weekday::Monday, 8 /* hh */, 00 /* mm */); };
 
-  graph.SetCurrentTimeGetter(startAt_9_00);
-  // If we start at 9:00:00 we will arrive at |3| at:
-  // 9:00:00 + (0, 1) weight + (1, 2) weight + (2, 3) weight == 12:00:02
-  // At this time are sure that (3, 4) way is blocked, so (remember that we also blocked alternative
-  // way) no way should be found.
+  graph.SetCurrentTimeGetter(startAt_8_00);
+  // If we start at 8:00:00 we will arrive at |3| at:
+  // 8:00:00 + (0, 1) weight + (1, 2) weight + (2, 3) weight == 11:00:02
+  // This is deep inside the 10:00-13:00 window, so the whole confidence
+  // interval (arrival +/- 1h) stays strictly inside it and (3, 4) is surely
+  // closed. The closing minute is exclusive: an interval endpoint landing on
+  // 13:00 would already count as open and degrade the answer to Maybe. Since
+  // the alternative way is also blocked, no way should be found.
   expectedWeight = 0.0;
   expectedEdges = {};
   TestTopologyGraph(graph, 0 /* from */, 5 /* to */, false /* pathFound */, expectedWeight, expectedEdges);

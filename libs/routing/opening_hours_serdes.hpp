@@ -3,14 +3,14 @@
 #include "coding/bit_streams.hpp"
 #include "coding/writer.hpp"
 
+#include "opening_hours/opening_hours.hpp"
+
 #include "base/checked_cast.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <limits>
 #include <string>
 #include <vector>
-
-#include "3party/opening_hours/opening_hours.hpp"
 
 // TODO (@gmoryes)
 //  opening_hours does not support such string: 2019 Apr - 2020 May,
@@ -250,6 +250,14 @@ osmoh::OpeningHours OpeningHoursSerDes::Deserialize(BitReader<Reader> & reader)
 
     rules.emplace_back(std::move(rule));
   }
+
+  // DecomposeOh splits a source rule into single-selector parts (a union): one
+  // weekday rule with two time windows becomes two rules. Restore the union
+  // with the additive separator; with the default ";" the evaluator would let
+  // the parts override each other and keep only the last window on days where
+  // several parts match.
+  for (size_t i = 0; i + 1 < rules.size(); ++i)
+    rules[i].SetAnySeparator(",");
 
   if (rules.size() == 1 && IsTwentyFourHourRule(rules.back()))
   {
