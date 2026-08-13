@@ -140,7 +140,7 @@ BookmarkManager::SharingResult ExportSingleFileGeoJson(
 
 std::string BuildIndexFile(std::vector<std::string> const & filesForIndex)
 {
-  std::string const filePath = base::JoinPath(GetPlatform().TmpDir(), "doc.kml");
+  std::string const filePath = base::JoinPath(GetPlatform().TmpDir(), kKmzIndexFileName);
   FileWriter fileWriter(filePath);
   std::string content =
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -202,7 +202,7 @@ BookmarkManager::SharingResult ExportMultipleFiles(BookmarkManager::KMLDataColle
     LOG(LERROR, ("Error creating index file ", indexFilePath, " error ", e.Msg(), " cause ", e.what()));
     return {std::move(categoriesIds), BookmarkManager::SharingResult::Code::ArchiveError, "Could not create archive."};
   }
-  filesInArchive.insert(filesInArchive.begin(), "doc.kml");
+  filesInArchive.insert(filesInArchive.begin(), kKmzIndexFileName);
   pathsForArchive.insert(pathsForArchive.begin(), indexFilePath);
   if (!CreateZipFromFiles(pathsForArchive, filesInArchive, kmzFilePath))
     return {std::move(categoriesIds), BookmarkManager::SharingResult::Code::ArchiveError, "Could not create archive."};
@@ -253,14 +253,6 @@ bool GetSortingType(std::string const & typeStr, BookmarkManager::SortingType & 
   return true;
 }
 
-kml::Timestamp FileModificationTimestamp(std::string const & fullFilePath)
-{
-  auto const t = Platform::GetFileModificationTime(fullFilePath);
-  if (t > 0)
-    return kml::TimestampClock::from_time_t(t);
-  LOG(LWARNING, ("GetFileModificationTime failed for", fullFilePath, "- using current time"));
-  return kml::TimestampClock::now();
-}
 }  // namespace
 
 BookmarkManager::BookmarkManager(Callbacks && callbacks)
@@ -455,6 +447,8 @@ bool BookmarkManager::IsRecentlyDeletedCategory(std::string const & filePath) co
 void BookmarkManager::RecoverRecentlyDeletedCategoriesAtPaths(std::vector<std::string> const & filePaths)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
+  std::vector<std::string> recoveredFilePaths;
+  recoveredFilePaths.reserve(filePaths.size());
   for (auto const & deletedFilePath : filePaths)
   {
     CHECK(IsRecentlyDeletedCategory(deletedFilePath),
@@ -462,10 +456,16 @@ void BookmarkManager::RecoverRecentlyDeletedCategoriesAtPaths(std::vector<std::s
     CHECK(Platform::IsFileExistsByFullPath(deletedFilePath), ("File should exist to be recovered.", deletedFilePath));
     auto recoveredFilePath =
         GenerateValidAndUniqueFilePath(base::GetNameFromFullPathWithoutExt(deletedFilePath), FileType::Kml);
-    base::MoveFileX(deletedFilePath, recoveredFilePath);
+    if (!base::MoveFileX(deletedFilePath, recoveredFilePath))
+    {
+      LOG(LERROR, ("Failed to recover recently deleted category", deletedFilePath));
+      continue;
+    }
     LOG(LINFO, ("Recently deleted category at", deletedFilePath, "is recovered"));
-    ReloadBookmark(recoveredFilePath);
+    recoveredFilePaths.push_back(std::move(recoveredFilePath));
   }
+
+  ReloadBookmarks(std::move(recoveredFilePaths));
 }
 
 void BookmarkManager::DeleteRecentlyDeletedCategoriesAtPaths(std::vector<std::string> const & deletedFilePaths)
@@ -2137,7 +2137,6 @@ void BookmarkManager::LoadBookmarks()
   m_loadBookmarksCalled = true;
 
   LoadMetadata();
-
   NotifyAboutStartAsyncLoading();
   GetPlatform().RunTask(Platform::Thread::File, [this]()
   {
@@ -2150,121 +2149,115 @@ void BookmarkManager::LoadBookmarks()
       return;
     NotifyAboutFinishAsyncLoading(std::move(collection));
   });
-
   LoadState();
 }
 
-void BookmarkManager::LoadBookmark(std::string const & filePath, bool isTemporaryFile)
+void BookmarkManager::ImportBookmarks(std::vector<BookmarkFileLoadingContext> contexts)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  // Defer bookmark loading in case of another asynchronous process.
-  if (!m_loadBookmarksFinished || m_asyncLoadingInProgress)
-  {
-    m_bookmarkLoadingQueue.emplace_back(filePath, isTemporaryFile, false);
-    return;
-  }
+  std::erase_if(contexts, [](auto const & context) { return context.m_filePath.empty(); });
 
-  NotifyAboutStartAsyncLoading();
-  LoadBookmarkRoutine(filePath, isTemporaryFile);
+  if (!contexts.empty())
+    EnqueueBookmarkLoadingRequest({BookmarkLoadingRequestType::Import, std::move(contexts)});
 }
 
-void BookmarkManager::ReloadBookmark(std::string const & filePath)
+void BookmarkManager::ReloadBookmarks(std::vector<std::string> filePaths)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  if (!m_loadBookmarksFinished || m_asyncLoadingInProgress)
-  {
-    m_bookmarkLoadingQueue.emplace_back(filePath, false, true);
-    return;
-  }
-  NotifyAboutStartAsyncLoading();
-  ReloadBookmarkRoutine(filePath);
+  std::vector<BookmarkFileLoadingContext> contexts;
+  contexts.reserve(filePaths.size());
+  for (auto & filePath : filePaths)
+    if (!filePath.empty())
+      contexts.push_back({std::move(filePath), false /* isTemporaryFile */});
+
+  if (!contexts.empty())
+    EnqueueBookmarkLoadingRequest({BookmarkLoadingRequestType::Reload, std::move(contexts)});
 }
 
-void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isTemporaryFile)
+void BookmarkManager::EnqueueBookmarkLoadingRequest(BookmarkLoadingRequest && request)
 {
-  GetPlatform().RunTask(Platform::Thread::File, [this, filePath, isTemporaryFile]()
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  m_bookmarkLoadingQueue.push_back(std::move(request));
+
+  if (!m_loadBookmarksFinished || m_asyncLoadingInProgress)
+    return;
+
+  ProcessNextBookmarkLoadingRequest();
+}
+
+void BookmarkManager::ProcessNextBookmarkLoadingRequest()
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  ASSERT(!m_bookmarkLoadingQueue.empty(), ());
+
+  auto request = std::move(m_bookmarkLoadingQueue.front());
+  m_bookmarkLoadingQueue.pop_front();
+
+  NotifyAboutStartAsyncLoading();
+
+  switch (request.m_type)
+  {
+  case BookmarkLoadingRequestType::Import: ImportBookmarksRoutine(std::move(request.m_contexts)); break;
+  case BookmarkLoadingRequestType::Reload: ReloadBookmarksRoutine(std::move(request.m_contexts)); break;
+  }
+}
+
+void BookmarkManager::ImportBookmarksRoutine(std::vector<BookmarkFileLoadingContext> && contexts)
+{
+  GetPlatform().RunTask(Platform::Thread::File, [this, contexts = std::move(contexts)]() mutable
+  {
+    if (m_needTeardown)
+      return;
+
+    BookmarkImportSourceDataCollection dataCollection;
+    dataCollection.reserve(contexts.size());
+
+    for (auto & context : contexts)
+    {
+      auto importData = LoadBookmarkFileForImport(context.m_filePath);
+      dataCollection.push_back(
+          {std::move(context), std::move(importData.m_kmlData), std::move(importData.m_failedFileNames)});
+
+      if (m_needTeardown)
+        return;
+    }
+
+    auto dataCollectionPtr = std::make_shared<BookmarkImportSourceDataCollection>(std::move(dataCollection));
+    GetPlatform().RunTask(Platform::Thread::Gui,
+                          [this, dataCollectionPtr]() mutable { FinishImportLoading(std::move(*dataCollectionPtr)); });
+  });
+}
+
+void BookmarkManager::ReloadBookmarksRoutine(std::vector<BookmarkFileLoadingContext> && contexts)
+{
+  GetPlatform().RunTask(Platform::Thread::File, [this, contexts = std::move(contexts)]()
   {
     if (m_needTeardown)
       return;
 
     auto collection = std::make_shared<KMLDataCollection>();
-
-    // Convert KMZ/KMB files to temp KML file and copy KML/GPX/GeoJson to temp file.
-    for (auto const & fileToLoad : GetKMLOrGPXFilesPathsToLoad(filePath))
+    collection->reserve(contexts.size());
+    for (auto const & context : contexts)
     {
       std::unique_ptr<kml::FileData> kmlData;
-      if (auto const fileType = GetFileType(fileToLoad))
+      if (auto const fileType = GetFileType(context.m_filePath))
       {
         switch (*fileType)
         {
-        case FileType::Kml: kmlData = LoadKmlFile(fileToLoad, FileType::Kml); break;
-        case FileType::Gpx: kmlData = LoadKmlFile(fileToLoad, FileType::Gpx); break;
-        case FileType::GeoJson: kmlData = LoadKmlFile(fileToLoad, FileType::GeoJson); break;
-        case FileType::Json: kmlData = LoadKmlFile(fileToLoad, FileType::Json); break;
+        case FileType::Kml:
+        case FileType::Gpx: kmlData = LoadKmlFile(context.m_filePath, *fileType); break;
         default: ASSERT(false, ("Unsupported bookmarks file type", (*fileType)));
         }
       }
       else
-        ASSERT(false, ("Unknown file type for ", filePath));
+        ASSERT(false, ("Unknown file type for", context.m_filePath));
 
-      base::DeleteFileX(fileToLoad);
+      if (kmlData)
+        collection->emplace_back(context.m_filePath, std::move(kmlData));
 
       if (m_needTeardown)
         return;
-
-      if (kmlData && (!kmlData->m_tracksData.empty() || !kmlData->m_bookmarksData.empty()))
-      {
-        // Set last modified date for imported tracks before saving them, if it wasn't set in KML/GPX file.
-        if (kmlData->m_categoryData.m_lastModified == kml::Timestamp{})
-          kmlData->m_categoryData.m_lastModified = FileModificationTimestamp(filePath);
-
-        auto kmlFileToLoad =
-            GenerateValidAndUniqueFilePath(base::GetNameFromFullPathWithoutExt(fileToLoad), FileType::Kml);
-
-        if (!SaveKmlFileSafe(*kmlData, kmlFileToLoad, FileType::Kml))
-          base::DeleteFileX(kmlFileToLoad);
-        else
-          collection->emplace_back(std::move(kmlFileToLoad), std::move(kmlData));
-      }
     }
-
-    if (m_needTeardown)
-      return;
-
-    NotifyAboutFile(!collection->empty() /* success */, filePath, isTemporaryFile);
-    NotifyAboutFinishAsyncLoading(std::move(collection));
-  });
-}
-
-void BookmarkManager::ReloadBookmarkRoutine(std::string const & filePath)
-{
-  GetPlatform().RunTask(Platform::Thread::File, [this, filePath]()
-  {
-    if (m_needTeardown)
-      return;
-
-    std::unique_ptr<kml::FileData> kmlData;
-    if (auto const fileType = GetFileType(filePath))
-    {
-      switch (*fileType)
-      {
-      case FileType::Kml: kmlData = LoadKmlFile(filePath, FileType::Kml); break;
-      case FileType::Gpx: kmlData = LoadKmlFile(filePath, FileType::Gpx); break;
-      default: ASSERT(false, ("Unsupported bookmarks file type", (*fileType)));
-      }
-    }
-    else
-      ASSERT(false, ("Unknown file type for ", filePath));
-
-    if (m_needTeardown)
-      return;
-
-    auto collection = std::make_shared<KMLDataCollection>();
-    if (kmlData)
-      collection->emplace_back(std::move(filePath), std::move(kmlData));
-
-    if (m_needTeardown)
-      return;
 
     NotifyAboutFinishAsyncLoading(std::move(collection));
   });
@@ -2272,15 +2265,13 @@ void BookmarkManager::ReloadBookmarkRoutine(std::string const & filePath)
 
 void BookmarkManager::NotifyAboutStartAsyncLoading()
 {
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   if (m_needTeardown)
     return;
 
-  GetPlatform().RunTask(Platform::Thread::Gui, [this]()
-  {
-    m_asyncLoadingInProgress = true;
-    if (m_asyncLoadingCallbacks.m_onStarted != nullptr)
-      m_asyncLoadingCallbacks.m_onStarted();
-  });
+  m_asyncLoadingInProgress = true;
+  if (m_asyncLoadingCallbacks.m_onStarted != nullptr)
+    m_asyncLoadingCallbacks.m_onStarted();
 }
 
 void BookmarkManager::NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && collection)
@@ -2288,63 +2279,69 @@ void BookmarkManager::NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && coll
   if (m_needTeardown)
     return;
 
-  GetPlatform().RunTask(Platform::Thread::Gui, [this, collection]()
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, collection = std::move(collection)]() mutable
   {
     if (!collection->empty())
-    {
       CreateCategories(std::move(*collection), true /* autoSave */);
-    }
     else if (!m_loadBookmarksFinished)
     {
       // Create an empty default category if nothing was loaded. Called on the first launch after async LoadBookmarks.
-      /// @todo We don't have any valid category in a timeframe between starting the app and finishing async
-      /// LoadBookmarks.
-
       CheckAndResetLastIds();
       CheckAndCreateDefaultCategory();
     }
 
     m_loadBookmarksFinished = true;
-
-    if (!m_bookmarkLoadingQueue.empty())
-    {
-      // Pop from the queue first, load bookmarks next. Avoid possible races if this thread gets stuck.
-      auto info = std::move(m_bookmarkLoadingQueue.front());
-      m_bookmarkLoadingQueue.pop_front();
-
-      ASSERT(m_asyncLoadingInProgress, ());
-      if (info.m_isReloading)
-        ReloadBookmarkRoutine(info.m_filename);
-      else
-        LoadBookmarkRoutine(info.m_filename, info.m_isTemporaryFile);
-    }
-    else
-    {
-      m_asyncLoadingInProgress = false;
-      if (m_asyncLoadingCallbacks.m_onFinished != nullptr)
-        m_asyncLoadingCallbacks.m_onFinished();
-    }
+    FinishBookmarkLoadingRequest();
   });
 }
 
-void BookmarkManager::NotifyAboutFile(bool success, std::string const & filePath, bool isTemporaryFile)
+void BookmarkManager::FinishImportLoading(BookmarkImportSourceDataCollection && dataCollection)
 {
-  if (m_needTeardown)
-    return;
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  BookmarkImportResult result;
+  result.m_sourceResults.reserve(dataCollection.size());
 
-  GetPlatform().RunTask(Platform::Thread::Gui, [this, success, filePath, isTemporaryFile]()
+  KMLDataCollection categories;
+  std::vector<size_t> sourceIndexes;
+  for (size_t sourceIndex = 0; sourceIndex < dataCollection.size(); ++sourceIndex)
   {
-    if (success)
+    auto & data = dataCollection[sourceIndex];
+    result.m_sourceResults.push_back({std::move(data.m_context), {}, std::move(data.m_failedFileNames)});
+
+    for (auto & kmlData : data.m_kmlData)
     {
-      if (m_asyncLoadingCallbacks.m_onFileSuccess != nullptr)
-        m_asyncLoadingCallbacks.m_onFileSuccess(filePath, isTemporaryFile);
+      categories.push_back(std::move(kmlData));
+      sourceIndexes.push_back(sourceIndex);
     }
-    else
-    {
-      if (m_asyncLoadingCallbacks.m_onFileError != nullptr)
-        m_asyncLoadingCallbacks.m_onFileError(filePath, isTemporaryFile);
-    }
-  });
+  }
+
+  if (!categories.empty())
+  {
+    auto const groupIds = CreateCategories(std::move(categories), true /* autoSave */);
+    CHECK_EQUAL(groupIds.size(), sourceIndexes.size(), ());
+    for (size_t i = 0; i < groupIds.size(); ++i)
+      result.m_sourceResults[sourceIndexes[i]].m_groupIds.push_back(groupIds[i]);
+  }
+
+  FinishBookmarkLoadingRequest(&result);
+}
+
+void BookmarkManager::FinishBookmarkLoadingRequest(BookmarkImportResult const * importResult)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (m_asyncLoadingCallbacks.m_onFinished != nullptr)
+    m_asyncLoadingCallbacks.m_onFinished();
+
+  if (importResult != nullptr && m_asyncLoadingCallbacks.m_onImportFinished != nullptr)
+    m_asyncLoadingCallbacks.m_onImportFinished(*importResult);
+
+  if (m_bookmarkLoadingQueue.empty())
+  {
+    m_asyncLoadingInProgress = false;
+    return;
+  }
+
+  ProcessNextBookmarkLoadingRequest();
 }
 
 void BookmarkManager::MoveBookmark(kml::MarkId bmID, kml::MarkGroupId curGroupID, kml::MarkGroupId newGroupID)
@@ -2770,10 +2767,11 @@ UserMarkLayer * BookmarkManager::GetGroup(kml::MarkGroupId groupId) const
 }
 
 // Despite the name, this method is called not only for newly created categories, but also for loaded/imported ones.
-void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool autoSave /* = false */)
+kml::GroupIdCollection BookmarkManager::CreateCategories(KMLDataCollection && dataCollection,
+                                                         bool autoSave /* = false */)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  kml::GroupIdSet loadedGroups;
+  kml::GroupIdCollection loadedGroups;
 
   bool isUpdating = false;
   for (auto const & [fileName, fileDataPtr] : dataCollection)
@@ -2783,7 +2781,8 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
 
     // Initialize timestamp for newly created or imported categories.
     if (categoryData.m_lastModified == kml::Timestamp{})
-      categoryData.m_lastModified = fileName.empty() ? kml::TimestampClock::now() : FileModificationTimestamp(fileName);
+      categoryData.m_lastModified =
+          fileName.empty() ? kml::TimestampClock::now() : GetFileModificationTimestamp(fileName);
 
     if (!UserMarkIdStorage::Instance().CheckIds(fileData) || HasDuplicatedIds(fileData))
     {
@@ -2822,7 +2821,7 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
     }
     else
       groupId = CreateBookmarkCategory(std::move(categoryData), false /* autoSave */);
-    loadedGroups.insert(groupId);
+    loadedGroups.push_back(groupId);
     auto * group = GetBmCategory(groupId);
     group->SetFileName(fileName);
     group->SetServerId(fileData.m_serverId);
@@ -2884,6 +2883,8 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
 
   for (auto const & groupId : loadedGroups)
     GetBmCategory(groupId)->EnableAutoSave(autoSave);
+
+  return loadedGroups;
 }
 
 bool BookmarkManager::HasDuplicatedIds(kml::FileData const & fileData) const

@@ -10,15 +10,19 @@
 #include "indexer/feature_utils.hpp"
 #include "indexer/mwm_set.hpp"
 
+#include "platform/gui_thread.hpp"
 #include "platform/platform.hpp"
+#include "platform/platform_tests_support/scoped_file.hpp"
 #include "platform/preferred_languages.hpp"
 
 #include "coding/internal/file_data.hpp"
 #include "coding/string_utf8_multilang.hpp"
+#include "coding/zip_creator.hpp"
 #include "coding/zip_reader.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
+#include "base/task_loop.hpp"
 #include "base/timer.hpp"
 
 #include "std/target_os.hpp"
@@ -26,8 +30,12 @@
 #include <utf8.h>  // utf8::is_valid
 
 #include <array>
+#include <chrono>
+#include <condition_variable>
 #include <cstring>  // strlen
+#include <deque>
 #include <map>
+#include <mutex>
 #include <numeric>  // std::reduce
 #include <set>
 #include <string>
@@ -37,6 +45,7 @@ namespace bookmarks_test
 {
 using namespace std;
 using df::test_support::VisualParamsFixture;
+using platform::tests_support::ScopedFile;
 
 static FrameworkParams const kFrameworkParams(false /* m_enableDiffs */);
 
@@ -73,6 +82,78 @@ class BookmarksTestFixture
 };
 
 using Runner = BookmarksTestFixture;
+
+// Some earlier map tests leave callbacks in the application-wide GUI queue. Pumping the native event loop here would
+// execute those callbacks after their owners have been destroyed. This loop runs only BookmarkManager tasks posted by
+// this test and executes them on the original thread, as required by BookmarkManager's thread checker.
+class ScopedManualGuiTaskLoop
+{
+public:
+  ScopedManualGuiTaskLoop()
+  {
+    auto taskLoop = std::make_unique<TaskLoop>();
+    m_taskLoop = taskLoop.get();
+    GetPlatform().SetGuiThread(std::move(taskLoop));
+  }
+
+  ~ScopedManualGuiTaskLoop() { GetPlatform().SetGuiThread(std::make_unique<platform::GuiThread>()); }
+
+  bool RunNext() { return m_taskLoop->RunNext(); }
+
+private:
+  class TaskLoop : public base::TaskLoop
+  {
+  public:
+    PushResult Push(Task && task) override { return PushImpl(std::move(task)); }
+    PushResult Push(Task const & task) override { return PushImpl(task); }
+
+    bool RunNext()
+    {
+      Task task;
+      {
+        std::unique_lock lock(m_mutex);
+        if (!m_condition.wait_for(lock, std::chrono::seconds(10), [this]() { return !m_tasks.empty(); }))
+          return false;
+        task = std::move(m_tasks.front());
+        m_tasks.pop_front();
+      }
+      task();
+      return true;
+    }
+
+  private:
+    PushResult PushImpl(Task task)
+    {
+      {
+        std::lock_guard lock(m_mutex);
+        m_tasks.push_back(std::move(task));
+      }
+      m_condition.notify_one();
+      return {true, kNoId};
+    }
+
+    std::mutex m_mutex;
+    std::condition_variable m_condition;
+    std::deque<Task> m_tasks;
+  };
+
+  TaskLoop * m_taskLoop = nullptr;
+};
+
+template <typename Predicate>
+bool RunGuiTasksUntil(ScopedManualGuiTaskLoop & taskLoop, Predicate && predicate)
+{
+  while (!predicate())
+    if (!taskLoop.RunNext())
+      return false;
+  return true;
+}
+
+void WaitForFileTasks()
+{
+  GetPlatform().RunTask(Platform::Thread::File, []() { testing::Notify(); });
+  testing::Wait();
+}
 
 char const * kmlString =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
@@ -249,6 +330,248 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ImportKML)
   // Name should be overridden from the KML
   TEST_EQUAL(bmManager.GetCategoryName(groupId), "MapName", ());
   TEST_EQUAL(bmManager.IsVisible(groupId), false, ());
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_ImportRequestResult)
+{
+  ScopedFile const sourceFile("bookmark_import_request.kml", kmlString);
+  ScopedFile const reloadSourceFile("bookmark_reload_request.kml", kmlString);
+  auto const kmzFile = GetPlatform().TestsDataPathForFile("test_data/kml/BACRNKMZ.kmz");
+  auto const missingFile = base::JoinPath(GetPlatform().WritableDir(), "missing_bookmark_import.kmz");
+  base::DeleteFileX(missingFile);
+
+  ScopedManualGuiTaskLoop guiTaskLoop;
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  size_t startedCount = 0;
+  size_t finishedCount = 0;
+  size_t importFinishedCount = 0;
+  vector<string> callbackOrder;
+  BookmarkManager::BookmarkImportResult importResult;
+  BookmarkManager::AsyncLoadingCallbacks callbacks;
+  callbacks.m_onStarted = [&]()
+  {
+    ++startedCount;
+    callbackOrder.push_back("started");
+  };
+  callbacks.m_onFinished = [&]()
+  {
+    ++finishedCount;
+    if (finishedCount == 1)
+      callbackOrder.push_back("finished_initial");
+    else if (finishedCount == 2)
+      callbackOrder.push_back("finished_import");
+    else
+      callbackOrder.push_back("finished_reload");
+  };
+  callbacks.m_onImportFinished = [&](BookmarkManager::BookmarkImportResult const & result)
+  {
+    ++importFinishedCount;
+    importResult = result;
+    callbackOrder.push_back("import_result");
+  };
+  bmManager.SetAsyncLoadingCallbacks(std::move(callbacks));
+
+  bmManager.ImportBookmarks({{sourceFile.GetFullPath(), false /* isTemporaryFile */},
+                             {kmzFile, false /* isTemporaryFile */},
+                             {missingFile, false /* isTemporaryFile */}});
+  TEST_EQUAL(0, startedCount, ());
+
+  bmManager.LoadBookmarks();
+  while (importFinishedCount == 0)
+  {
+    if (!guiTaskLoop.RunNext())
+    {
+      TEST(false, ("Timed out waiting for a bookmarks loading task"));
+      break;
+    }
+  }
+
+  TEST_EQUAL(2, startedCount, ());
+  TEST_EQUAL(2, finishedCount, ());
+  TEST_EQUAL(1, importFinishedCount, ());
+  TEST_EQUAL(vector<string>({"started", "finished_initial", "started", "finished_import", "import_result"}),
+             callbackOrder, ());
+  TEST_EQUAL(3, importResult.m_sourceResults.size(), ());
+
+  auto const & success = importResult.m_sourceResults[0];
+  TEST_EQUAL(sourceFile.GetFullPath(), success.m_context.m_filePath, ());
+  TEST_EQUAL(1, success.m_groupIds.size(), ());
+  TEST(success.m_failedFileNames.empty(), (success.m_failedFileNames));
+
+  auto const & multiple = importResult.m_sourceResults[1];
+  TEST_EQUAL(kmzFile, multiple.m_context.m_filePath, ());
+  TEST_EQUAL(5, multiple.m_groupIds.size(), ());
+  TEST(multiple.m_failedFileNames.empty(), (multiple.m_failedFileNames));
+
+  auto const & failure = importResult.m_sourceResults[2];
+  TEST_EQUAL(missingFile, failure.m_context.m_filePath, ());
+  TEST(failure.m_groupIds.empty(), (failure.m_groupIds));
+  TEST_EQUAL(1, failure.m_failedFileNames.size(), (failure.m_failedFileNames));
+  TEST_EQUAL("missing_bookmark_import.kmz", failure.m_failedFileNames[0], ());
+
+  bmManager.ReloadBookmarks({sourceFile.GetFullPath(), reloadSourceFile.GetFullPath()});
+  while (finishedCount < 3)
+  {
+    if (!guiTaskLoop.RunNext())
+    {
+      TEST(false, ("Timed out waiting for a bookmarks reload task"));
+      break;
+    }
+  }
+
+  TEST_EQUAL(3, startedCount, ());
+  TEST_EQUAL(3, finishedCount, ());
+  TEST_EQUAL(1, importFinishedCount, ());
+  TEST_EQUAL("finished_reload", callbackOrder.back(), ());
+
+  GetPlatform().RunTask(Platform::Thread::File, []() { testing::Notify(); });
+  testing::Wait();
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_ImportCorruptAndEmptyFiles)
+{
+  ScopedFile const corruptFile("bookmark_import_corrupt.kml", "not valid KML");
+  ScopedFile const emptyFile("bookmark_import_empty.kml", "");
+
+  ScopedManualGuiTaskLoop guiTaskLoop;
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  bool initialLoadingFinished = false;
+  bool importFinished = false;
+  BookmarkManager::BookmarkImportResult importResult;
+  BookmarkManager::AsyncLoadingCallbacks callbacks;
+  callbacks.m_onFinished = [&]() { initialLoadingFinished = true; };
+  callbacks.m_onImportFinished = [&](BookmarkManager::BookmarkImportResult const & result)
+  {
+    importResult = result;
+    importFinished = true;
+  };
+  bmManager.SetAsyncLoadingCallbacks(std::move(callbacks));
+
+  bmManager.LoadBookmarks();
+  TEST(RunGuiTasksUntil(guiTaskLoop, [&]() { return initialLoadingFinished; }),
+       ("Timed out waiting for initial bookmark loading"));
+
+  bmManager.ImportBookmarks({{corruptFile.GetFullPath(), false /* isTemporaryFile */},
+                             {emptyFile.GetFullPath(), false /* isTemporaryFile */}});
+  TEST(RunGuiTasksUntil(guiTaskLoop, [&]() { return importFinished; }),
+       ("Timed out waiting for corrupt bookmark imports"));
+
+  TEST_EQUAL(2, importResult.m_sourceResults.size(), ());
+  auto const & corruptResult = importResult.m_sourceResults[0];
+  TEST(corruptResult.m_groupIds.empty(), (corruptResult.m_groupIds));
+  TEST_EQUAL(std::vector<std::string>({"bookmark_import_corrupt.kml"}), corruptResult.m_failedFileNames, ());
+
+  auto const & emptyResult = importResult.m_sourceResults[1];
+  TEST(emptyResult.m_groupIds.empty(), (emptyResult.m_groupIds));
+  TEST_EQUAL(std::vector<std::string>({"bookmark_import_empty.kml"}), emptyResult.m_failedFileNames, ());
+
+  WaitForFileTasks();
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_ImportPartialKmzResult)
+{
+  ScopedFile const validFile("bookmark_import_partial_valid.kml", kmlString);
+  ScopedFile const corruptFile("bookmark_import_partial_corrupt.kml", "not valid KML");
+  ScopedFile const kmzFile("bookmark_import_partial.kmz", ScopedFile::Mode::DoNotCreate);
+  TEST(CreateZipFromFiles({validFile.GetFullPath(), corruptFile.GetFullPath()}, {"valid.kml", "corrupt.kml"},
+                          kmzFile.GetFullPath()),
+       ());
+
+  ScopedManualGuiTaskLoop guiTaskLoop;
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  bool initialLoadingFinished = false;
+  bool importFinished = false;
+  BookmarkManager::BookmarkImportResult importResult;
+  BookmarkManager::AsyncLoadingCallbacks callbacks;
+  callbacks.m_onFinished = [&]() { initialLoadingFinished = true; };
+  callbacks.m_onImportFinished = [&](BookmarkManager::BookmarkImportResult const & result)
+  {
+    importResult = result;
+    importFinished = true;
+  };
+  bmManager.SetAsyncLoadingCallbacks(std::move(callbacks));
+
+  bmManager.LoadBookmarks();
+  TEST(RunGuiTasksUntil(guiTaskLoop, [&]() { return initialLoadingFinished; }),
+       ("Timed out waiting for initial bookmark loading"));
+
+  bmManager.ImportBookmarks({{kmzFile.GetFullPath(), false /* isTemporaryFile */}});
+  TEST(RunGuiTasksUntil(guiTaskLoop, [&]() { return importFinished; }), ("Timed out waiting for partial KMZ import"));
+
+  TEST_EQUAL(1, importResult.m_sourceResults.size(), ());
+  auto const & result = importResult.m_sourceResults.front();
+  TEST_EQUAL(1, result.m_groupIds.size(), (result.m_groupIds));
+  TEST(bmManager.HasBmCategory(result.m_groupIds.front()), (result.m_groupIds));
+  TEST_EQUAL(std::vector<std::string>({"corrupt.kml"}), result.m_failedFileNames, ());
+
+  WaitForFileTasks();
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_QueuedImportCallbackOrder)
+{
+  ScopedFile const firstFile("bookmark_import_queue_first.kml", kmlString);
+  ScopedFile const secondFile("bookmark_import_queue_second.kml", kmlString);
+
+  ScopedManualGuiTaskLoop guiTaskLoop;
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  bool initialLoadingFinished = false;
+  size_t startedCount = 0;
+  size_t finishedImportCount = 0;
+  size_t importResultCount = 0;
+  std::vector<std::string> callbackOrder;
+  BookmarkManager::AsyncLoadingCallbacks callbacks;
+  callbacks.m_onStarted = [&]()
+  {
+    ++startedCount;
+    callbackOrder.push_back(startedCount == 1 ? "started_initial"
+                                              : "started_import_" + std::to_string(startedCount - 1));
+  };
+  callbacks.m_onFinished = [&]()
+  {
+    if (!initialLoadingFinished)
+    {
+      callbackOrder.push_back("finished_initial");
+      initialLoadingFinished = true;
+      return;
+    }
+
+    ++finishedImportCount;
+    callbackOrder.push_back("finished_import_" + std::to_string(finishedImportCount));
+    if (finishedImportCount == 1)
+      bmManager.ImportBookmarks({{secondFile.GetFullPath(), false /* isTemporaryFile */}});
+  };
+  callbacks.m_onImportFinished = [&](BookmarkManager::BookmarkImportResult const & result)
+  {
+    ++importResultCount;
+    callbackOrder.push_back("import_result_" + std::to_string(importResultCount));
+    TEST_EQUAL(1, result.m_sourceResults.size(), ());
+    TEST_EQUAL(1, result.m_sourceResults.front().m_groupIds.size(), ());
+  };
+  bmManager.SetAsyncLoadingCallbacks(std::move(callbacks));
+
+  bmManager.LoadBookmarks();
+  TEST(RunGuiTasksUntil(guiTaskLoop, [&]() { return initialLoadingFinished; }),
+       ("Timed out waiting for initial bookmark loading"));
+
+  bmManager.ImportBookmarks({{firstFile.GetFullPath(), false /* isTemporaryFile */}});
+  TEST(RunGuiTasksUntil(guiTaskLoop, [&]() { return importResultCount == 2; }),
+       ("Timed out waiting for queued bookmark imports"));
+
+  TEST_EQUAL(std::vector<std::string>({"started_initial", "finished_initial", "started_import_1", "finished_import_1",
+                                       "import_result_1", "started_import_2", "finished_import_2", "import_result_2"}),
+             callbackOrder, ());
+  TEST_EQUAL(2, finishedImportCount, ());
+  TEST_EQUAL(2, importResultCount, ());
+
+  WaitForFileTasks();
 }
 
 UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
@@ -2202,6 +2525,65 @@ UNIT_CLASS_TEST(Runner, Bookmarks_RecentlyDeleted)
 
   TEST(!Platform::IsFileExistsByFullPath(filePath), ());
   TEST(!Platform::IsFileExistsByFullPath(deletedFilePath), ());
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_RecoverRecentlyDeletedBatch)
+{
+  auto const firstPath = base::JoinPath(GetBookmarksDirectory(), "recover_first" + std::string{kKmlExtension});
+  auto const secondPath = base::JoinPath(GetBookmarksDirectory(), "recover_second" + std::string{kKmlExtension});
+  auto firstData = LoadKmlData(MemReader(kmlString, std::strlen(kmlString)), FileType::Kml);
+  auto secondData = LoadKmlData(MemReader(kmlString, std::strlen(kmlString)), FileType::Kml);
+  TEST(firstData && SaveKmlFileSafe(*firstData, firstPath, FileType::Kml), ());
+  TEST(secondData && SaveKmlFileSafe(*secondData, secondPath, FileType::Kml), ());
+
+  ScopedManualGuiTaskLoop guiTaskLoop;
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  size_t startedCount = 0;
+  size_t finishedCount = 0;
+  size_t categoriesChangedCount = 0;
+  BookmarkManager::AsyncLoadingCallbacks callbacks;
+  callbacks.m_onStarted = [&startedCount]() { ++startedCount; };
+  callbacks.m_onFinished = [&finishedCount]() { ++finishedCount; };
+  bmManager.SetAsyncLoadingCallbacks(std::move(callbacks));
+  bmManager.SetCategoriesChangedCallback([&categoriesChangedCount]() { ++categoriesChangedCount; });
+
+  bmManager.LoadBookmarks();
+  TEST(RunGuiTasksUntil(guiTaskLoop, [&finishedCount]() { return finishedCount == 1; }),
+       ("Timed out waiting for initial bookmark loading"));
+  TEST_EQUAL(2, bmManager.GetBmGroupsCount(), ());
+
+  auto const groupIds = bmManager.GetUnsortedBmGroupsIdList();
+  for (auto const groupId : groupIds)
+  {
+    auto editSession = bmManager.GetEditSession();
+    TEST(editSession.DeleteBmCategory(groupId, false /* permanently */), (groupId));
+  }
+  TEST_EQUAL(0, bmManager.GetBmGroupsCount(), ());
+  TEST_EQUAL(2, bmManager.GetRecentlyDeletedCategoriesCount(), ());
+
+  std::vector<std::string> deletedFilePaths;
+  for (auto const & [filePath, kmlData] : *bmManager.GetRecentlyDeletedCategories())
+  {
+    UNUSED_VALUE(kmlData);
+    deletedFilePaths.push_back(filePath);
+  }
+
+  startedCount = 0;
+  finishedCount = 0;
+  categoriesChangedCount = 0;
+  bmManager.RecoverRecentlyDeletedCategoriesAtPaths(deletedFilePaths);
+  TEST(RunGuiTasksUntil(guiTaskLoop, [&finishedCount]() { return finishedCount == 1; }),
+       ("Timed out waiting for recovered bookmarks reload"));
+
+  TEST_EQUAL(1, startedCount, ());
+  TEST_EQUAL(1, finishedCount, ());
+  TEST_EQUAL(1, categoriesChangedCount, ());
+  TEST_EQUAL(2, bmManager.GetBmGroupsCount(), ());
+  TEST_EQUAL(0, bmManager.GetRecentlyDeletedCategoriesCount(), ());
+
+  WaitForFileTasks();
 }
 
 UNIT_CLASS_TEST(Runner, Bookmarks_TestSaveRoute)

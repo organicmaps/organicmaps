@@ -1000,7 +1000,7 @@ void Framework::ShowFeature(FeatureID const & featureId)
 
 void Framework::AddBookmarksFile(std::string const & filePath, bool isTemporaryFile)
 {
-  GetBookmarkManager().LoadBookmark(filePath, isTemporaryFile);
+  GetBookmarkManager().ImportBookmarks({{filePath, isTemporaryFile}});
 }
 
 void Framework::PrepareToShutdown()

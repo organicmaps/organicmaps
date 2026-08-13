@@ -155,6 +155,18 @@ void OnAsyncLoadingFileError(JNIEnv * env, std::string const & fileName, bool is
   jni::HandleJavaException(env);
 }
 
+void OnBookmarksImportFinished(JNIEnv * env, BookmarkManager::BookmarkImportResult const & result)
+{
+  for (auto const & sourceResult : result.m_sourceResults)
+  {
+    auto const & context = sourceResult.m_context;
+    if (sourceResult.m_groupIds.empty())
+      OnAsyncLoadingFileError(env, context.m_filePath, context.m_isTemporaryFile);
+    else
+      OnAsyncLoadingFileSuccess(env, context.m_filePath, context.m_isTemporaryFile);
+  }
+}
+
 void OnPreparedFileForSharing(JNIEnv * env, BookmarkManager::SharingResult const & result)
 {
   static jclass const classBookmarkSharingResult =
@@ -245,8 +257,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeLoa
   BookmarkManager::AsyncLoadingCallbacks callbacks;
   callbacks.m_onStarted = std::bind(&OnAsyncLoadingStarted, env);
   callbacks.m_onFinished = std::bind(&OnAsyncLoadingFinished, env);
-  callbacks.m_onFileSuccess = std::bind(&OnAsyncLoadingFileSuccess, env, _1, _2);
-  callbacks.m_onFileError = std::bind(&OnAsyncLoadingFileError, env, _1, _2);
+  callbacks.m_onImportFinished = std::bind(&OnBookmarksImportFinished, env, _1);
   frm()->GetBookmarkManager().SetAsyncLoadingCallbacks(std::move(callbacks));
 
   frm()->GetBookmarkManager().SetBookmarksChangedCallback(std::bind(&OnBookmarksChanged, env));

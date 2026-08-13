@@ -168,28 +168,28 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
   }
   {
     __weak auto wSelf = self;
-    bookmarkCallbacks.m_onFileSuccess = [wSelf](std::string const & filePath, bool isTemporaryFile)
+    bookmarkCallbacks.m_onImportFinished = [wSelf](BookmarkManager::BookmarkImportResult const & result)
     {
       __strong __typeof(self) self = wSelf;
-      [self loopObservers:^(id<MWMBookmarksObserver> observer) {
-        if ([observer respondsToSelector:@selector(onBookmarksFileLoadSuccess)])
-          [observer onBookmarksFileLoadSuccess];
-      }];
-      if (isTemporaryFile)
-        DeleteTemporaryBookmarksFile(filePath);
-    };
-  }
-  {
-    __weak auto wSelf = self;
-    bookmarkCallbacks.m_onFileError = [wSelf](std::string const & filePath, bool isTemporaryFile)
-    {
-      __strong __typeof(self) self = wSelf;
-      [self loopObservers:^(id<MWMBookmarksObserver> observer) {
-        if ([observer respondsToSelector:@selector(onBookmarksFileLoadError)])
-          [observer onBookmarksFileLoadError];
-      }];
-      if (isTemporaryFile)
-        DeleteTemporaryBookmarksFile(filePath);
+      for (auto const & sourceResult : result.m_sourceResults)
+      {
+        bool const success = !sourceResult.m_groupIds.empty();
+        [self loopObservers:^(id<MWMBookmarksObserver> observer) {
+          if (!success)
+          {
+            if ([observer respondsToSelector:@selector(onBookmarksFileLoadError)])
+              [observer onBookmarksFileLoadError];
+          }
+          else if ([observer respondsToSelector:@selector(onBookmarksFileLoadSuccess)])
+          {
+            [observer onBookmarksFileLoadSuccess];
+          }
+        }];
+
+        auto const & context = sourceResult.m_context;
+        if (context.m_isTemporaryFile)
+          DeleteTemporaryBookmarksFile(context.m_filePath);
+      }
     };
   }
   self.bm.SetAsyncLoadingCallbacks(std::move(bookmarkCallbacks));
@@ -209,12 +209,12 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
 
 - (void)loadBookmarkFile:(NSURL *)url
 {
-  self.bm.LoadBookmark(url.path.UTF8String, false /* isTemporaryFile */);
+  self.bm.ImportBookmarks({{url.path.UTF8String, false /* isTemporaryFile */}});
 }
 
 - (void)reloadCategoryAtFilePath:(NSString *)filePath
 {
-  self.bm.ReloadBookmark(filePath.UTF8String);
+  self.bm.ReloadBookmarks({filePath.UTF8String});
 }
 
 - (void)deleteCategoryAtFilePath:(NSString *)filePath
