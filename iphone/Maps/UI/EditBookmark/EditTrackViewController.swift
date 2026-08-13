@@ -304,7 +304,7 @@ extension EditTrackViewController: SelectBookmarkGroupViewControllerDelegate {
 // MARK: - BookmarksObserver
 
 extension EditTrackViewController: BookmarksObserver {
-  func onBookmarksLoadFinished() {
+  func onBookmarksCategoryLoadingFinished() {
     updateTrackIfNeeded()
   }
 
