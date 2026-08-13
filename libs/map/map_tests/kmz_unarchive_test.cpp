@@ -5,6 +5,7 @@
 
 #include "platform/platform.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
 
 UNIT_TEST(KMZ_UnzipTest)
