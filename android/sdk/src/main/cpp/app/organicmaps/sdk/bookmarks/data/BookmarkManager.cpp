@@ -164,11 +164,7 @@ void OnPreparedFileForSharing(JNIEnv * env, BookmarkManager::SharingResult const
   static jmethodID const ctorBookmarkSharingResult = jni::GetConstructorID(
       env, classBookmarkSharingResult, "([JILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
 
-  static_assert(sizeof(jlong) == sizeof(decltype(result.m_categoriesIds)::value_type));
-  jsize const categoriesIdsSize = static_cast<jsize>(result.m_categoriesIds.size());
-  jni::ScopedLocalRef<jlongArray> categoriesIds(env, env->NewLongArray(categoriesIdsSize));
-  env->SetLongArrayRegion(categoriesIds.get(), 0, categoriesIdsSize,
-                          reinterpret_cast<jlong const *>(result.m_categoriesIds.data()));
+  jni::TScopedLocalLongArrayRef const categoriesIds(env, jni::ToJavaLongArray(env, result.m_categoriesIds));
   jni::TScopedLocalRef const sharingPath(env, jni::ToJavaString(env, result.m_sharingPath));
   jni::TScopedLocalRef const mimeType(env, jni::ToJavaString(env, result.m_mimeType));
   jni::TScopedLocalRef const errorString(env, jni::ToJavaString(env, result.m_errorString));
@@ -221,6 +217,7 @@ void OnCategorySortingResults(JNIEnv * env, long long timestamp,
                       static_cast<jlong>(timestamp));
   jni::HandleJavaException(env);
 }
+
 }  // namespace
 
 extern "C"
@@ -281,6 +278,98 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeDel
 {
   // Routed through Framework so a Place Page showing this track is closed before deletion.
   frm()->DeleteTrack(static_cast<kml::TrackId>(trkId));
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeHasTrack(JNIEnv *, jclass,
+                                                                                          jlong trackId)
+{
+  return static_cast<jboolean>(frm()->GetBookmarkManager().HasTrack(static_cast<kml::TrackId>(trackId)));
+}
+
+// The three batch functions below hold one EditSession for the whole batch, so the kml files are saved once.
+// Ids that no longer exist are skipped: the caller works with a UI snapshot that can lag the core state.
+JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeDeleteBookmarksAndTracks(
+    JNIEnv * env, jclass, jlongArray jBookmarkIds, jlongArray jTrackIds)
+{
+  auto const bookmarkIds = jni::ToNativeLongVector<kml::MarkIdCollection>(env, jBookmarkIds);
+  auto const trackIds = jni::ToNativeLongVector<kml::TrackIdCollection>(env, jTrackIds);
+
+  auto & bm = frm()->GetBookmarkManager();
+  auto editSession = bm.GetEditSession();
+  for (auto const trackId : trackIds)
+  {
+    if (!bm.HasTrack(trackId))
+      continue;
+    // Framework::DeleteTrack closes a Place Page showing this track. Its nested EditSession is refcounted,
+    // so the changes are still published once, when the outer session closes.
+    frm()->DeleteTrack(trackId);
+  }
+  for (auto const markId : bookmarkIds)
+  {
+    if (!bm.HasBookmark(markId))
+      continue;
+    editSession.DeleteBookmark(markId);
+  }
+  // DeleteBookmark() stashes the deleted bookmark for the Place Page to restore, and a batch has no undo.
+  bm.ResetRecentlyDeletedBookmark();
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeMoveBookmarksAndTracks(
+    JNIEnv * env, jclass, jlongArray jBookmarkIds, jlongArray jTrackIds, jlong newCatId)
+{
+  auto const bookmarkIds = jni::ToNativeLongVector<kml::MarkIdCollection>(env, jBookmarkIds);
+  auto const trackIds = jni::ToNativeLongVector<kml::TrackIdCollection>(env, jTrackIds);
+  auto const newGroupId = static_cast<kml::MarkGroupId>(newCatId);
+
+  auto & bm = frm()->GetBookmarkManager();
+  if (!bm.HasBmCategory(newGroupId))
+    return;
+
+  auto editSession = bm.GetEditSession();
+  for (auto const markId : bookmarkIds)
+  {
+    auto const * bookmark = bm.GetBookmark(markId);
+    if (!bookmark)
+      continue;
+    // The current group comes from the core, not from the caller: MoveBookmark() trusts it and would detach
+    // the mark from a wrong category. It also lets us skip the no-op move the chooser can hand back.
+    auto const curGroupId = bookmark->GetGroupId();
+    if (curGroupId == newGroupId)
+      continue;
+    editSession.MoveBookmark(markId, curGroupId, newGroupId);
+  }
+  for (auto const trackId : trackIds)
+  {
+    auto const * track = bm.GetTrack(trackId);
+    if (!track)
+      continue;
+    auto const curGroupId = track->GetGroupId();
+    if (curGroupId == newGroupId)
+      continue;
+    editSession.MoveTrack(trackId, curGroupId, newGroupId);
+  }
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeChangeBookmarksAndTracksColor(
+    JNIEnv * env, jclass, jlongArray jBookmarkIds, jlongArray jTrackIds, jint color)
+{
+  auto const bookmarkIds = jni::ToNativeLongVector<kml::MarkIdCollection>(env, jBookmarkIds);
+  auto const trackIds = jni::ToNativeLongVector<kml::TrackIdCollection>(env, jTrackIds);
+  auto const dpColor = dp::Color::FromARGB(static_cast<uint32_t>(color));
+
+  auto & bm = frm()->GetBookmarkManager();
+  auto editSession = bm.GetEditSession();
+  // Mirrors EditSession::SetCategoryBookmarksColor/SetCategoryTracksColor for an explicit id list.
+  // Get*ForEdit() returns nullptr for an unknown id and marks the item dirty for re-rendering.
+  for (auto const markId : bookmarkIds)
+    if (auto * bookmark = editSession.GetBookmarkForEdit(markId))
+      bookmark->SetColor(dpColor);
+  for (auto const trackId : trackIds)
+    if (auto * track = editSession.GetTrackForEdit(trackId))
+      track->SetColor(dpColor);
+  // Recoloring tracks only must not change the last edited bookmark color.
+  if (!bookmarkIds.empty())
+    bm.SetLastEditedBmColor(kml::MakeCustomBookmarkColorData(dpColor));
 }
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeAddBookmarkToLastEditedCategory(
@@ -450,10 +539,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativePre
                                                                                                    jlongArray catIds,
                                                                                                    jint fileType)
 {
-  auto const size = env->GetArrayLength(catIds);
-  kml::GroupIdCollection catIdsVector(size);
-  static_assert(sizeof(jlong) == sizeof(decltype(catIdsVector)::value_type));
-  env->GetLongArrayRegion(catIds, 0, size, reinterpret_cast<jlong *>(catIdsVector.data()));
+  auto catIdsVector = jni::ToNativeLongVector<kml::GroupIdCollection>(env, catIds);
   frm()->GetBookmarkManager().PrepareFileForSharing(std::move(catIdsVector),
                                                     [env](BookmarkManager::SharingResult const & result)
   { OnPreparedFileForSharing(env, result); }, static_cast<FileType>(fileType));

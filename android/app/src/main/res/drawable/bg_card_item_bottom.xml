@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:color="?colorControlHighlight">
+  <item>
+    <shape>
+      <solid android:color="?panel" />
+      <corners
+        android:bottomLeftRadius="@dimen/bookmark_card_corner_radius"
+        android:bottomRightRadius="@dimen/bookmark_card_corner_radius"
+        android:topLeftRadius="0dp"
+        android:topRightRadius="0dp" />
+    </shape>
+  </item>
+  <item android:id="@android:id/mask">
+    <shape>
+      <solid android:color="@android:color/white" />
+      <corners
+        android:bottomLeftRadius="@dimen/bookmark_card_corner_radius"
+        android:bottomRightRadius="@dimen/bookmark_card_corner_radius"
+        android:topLeftRadius="0dp"
+        android:topRightRadius="0dp" />
+    </shape>
+  </item>
+</ripple>

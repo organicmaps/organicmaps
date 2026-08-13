@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+  <!-- Title is swapped in onPrepareMenu, depending on whether everything is already selected. -->
+  <item android:id="@+id/bookmarks_selection_select_all"
+    android:title="@string/select_all"
+    app:showAsAction="ifRoom"/>
+</menu>

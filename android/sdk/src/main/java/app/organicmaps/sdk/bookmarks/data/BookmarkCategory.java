@@ -152,6 +152,24 @@ public final class BookmarkCategory implements Parcelable
     return nativeGetTrackIdByPosition(mId, positionInCategory);
   }
 
+  /**
+   * Reads the whole category at once; a loop of {@link #getBookmarkIdByPosition(int)} would be quadratic.
+   */
+  @NonNull
+  public long[] getBookmarkIds()
+  {
+    return nativeGetBookmarkIds(mId);
+  }
+
+  /**
+   * @see #getBookmarkIds()
+   */
+  @NonNull
+  public long[] getTrackIds()
+  {
+    return nativeGetTrackIds(mId);
+  }
+
   public boolean hasLastSortingType()
   {
     return nativeHasLastSortingType(mId);
@@ -254,6 +272,12 @@ public final class BookmarkCategory implements Parcelable
   private static native void nativeSetCategoryTracksCustomColor(long catId, @ColorInt int color);
   private static native long nativeGetBookmarkIdByPosition(long catId, int position);
   private static native long nativeGetTrackIdByPosition(long catId, int position);
+
+  @NonNull
+  private static native long[] nativeGetBookmarkIds(long catId);
+
+  @NonNull
+  private static native long[] nativeGetTrackIds(long catId);
 
   private static native boolean nativeHasLastSortingType(long catId);
   @SortingType

@@ -15,4 +15,110 @@
         <item name="android:textAllCaps">true</item>
         <item name="android:textAppearance">@style/MwmTextAppearance.BookmarkSettings.Accent</item>
     </style>
+
+    <!-- The list sits on a ?cardBackground sheet, so the toolbar continues that surface instead of
+         cutting it with the branded ?colorPrimary bar. -->
+    <style name="MwmWidget.Toolbar.BookmarkList" parent="">
+        <item name="android:background">?cardBackground</item>
+        <item name="android:elevation">0dp</item>
+        <item name="android:displayOptions">homeAsUp|showTitle</item>
+        <item name="contentInsetStart">0dp</item>
+        <item name="titleTextAppearance">@style/MwmTextAppearance.Toolbar.Title</item>
+        <item name="titleTextColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="ThemeOverlay.Mwm.BookmarkListToolbar" parent="ThemeOverlay.MaterialComponents">
+        <item name="android:gravity">center_vertical</item>
+        <item name="colorControlNormal">?android:textColorPrimary</item>
+        <item name="iconTint">?android:textColorPrimary</item>
+        <item name="actionButtonStyle">@style/AppTheme.Widget.ActionButton</item>
+        <item name="actionMenuTextAppearance">@style/MwmTextAppearance.Body1</item>
+    </style>
+
+    <style name="BookmarkSelectionAction" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:layout_width">0dp</item>
+        <!-- Fills the bar, so the ripple spans its full height even when a neighbour wraps to two lines. -->
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">top|center_horizontal</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingTop">@dimen/margin_half_plus</item>
+        <item name="android:paddingBottom">@dimen/margin_half_plus</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textAppearance">?fontCaption</item>
+        <!-- A state-aware list, so a disabled action dims its icon and its label alike. -->
+        <item name="android:textColor">@color/toolbar_action_icon_tint</item>
+        <item name="iconGravity">top</item>
+        <item name="iconPadding">@dimen/margin_quarter</item>
+        <item name="iconTint">@color/toolbar_action_icon_tint</item>
+        <!-- Keeps the ripple inside the pill instead of splashing into square corners. -->
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Button.Round</item>
+    </style>
+
+    <!-- A bookmark and a track row must stay pixel-identical: they are adjacent cards in the same list. -->
+    <style name="BookmarkListRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/height_item_multiline</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingStart">@dimen/margin_base</item>
+        <item name="android:paddingEnd">@dimen/margin_half</item>
+    </style>
+
+    <style name="BookmarkListRow.Checkbox" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginEnd">@dimen/margin_base</item>
+        <!-- The row is the touch target; a ripple of its own would fire from the row's pressed state. -->
+        <item name="android:background">@null</item>
+        <item name="android:clickable">false</item>
+        <item name="android:focusable">false</item>
+        <item name="android:importantForAccessibility">no</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="BookmarkListRow.Icon" parent="">
+        <item name="android:layout_width">@dimen/track_circle_size</item>
+        <item name="android:layout_height">@dimen/track_circle_size</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginEnd">@dimen/margin_base</item>
+        <item name="android:background">?selectableItemBackgroundBorderless</item>
+    </style>
+
+    <style name="BookmarkListRow.Text" parent="">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="BookmarkListRow.Title" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textAppearance">?fontBody1</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="BookmarkListRow.Subtitle" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textAppearance">?fontBody2</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
+    <style name="BookmarkListRow.TrailingIcon" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">?selectableItemBackgroundBorderless</item>
+        <item name="android:paddingStart">@dimen/margin_half</item>
+        <item name="android:paddingEnd">@dimen/margin_half</item>
+    </style>
 </resources>

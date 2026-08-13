@@ -7,6 +7,8 @@
 
 #include "kml/types.hpp"
 
+#include <vector>
+
 namespace
 {
 inline jclass getBookmarkCategoryClass(JNIEnv * env)
@@ -151,6 +153,20 @@ JNIEXPORT jlong Java_app_organicmaps_sdk_bookmarks_data_BookmarkCategory_nativeG
   auto it = ids.begin();
   std::advance(it, positionInCategory);
   return static_cast<jlong>(*it);
+}
+
+// The by-position getters advance a set iterator from begin(), so reading a whole category one id at a time
+// is quadratic.
+JNIEXPORT jlongArray Java_app_organicmaps_sdk_bookmarks_data_BookmarkCategory_nativeGetBookmarkIds(JNIEnv * env, jclass,
+                                                                                                   jlong catId)
+{
+  return jni::ToJavaLongArray(env, frm()->GetBookmarkManager().GetUserMarkIds(static_cast<kml::MarkGroupId>(catId)));
+}
+
+JNIEXPORT jlongArray Java_app_organicmaps_sdk_bookmarks_data_BookmarkCategory_nativeGetTrackIds(JNIEnv * env, jclass,
+                                                                                                jlong catId)
+{
+  return jni::ToJavaLongArray(env, frm()->GetBookmarkManager().GetTrackIds(static_cast<kml::MarkGroupId>(catId)));
 }
 
 JNIEXPORT jboolean JNICALL

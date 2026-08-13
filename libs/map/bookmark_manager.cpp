@@ -2442,14 +2442,24 @@ kml::ColorData BookmarkManager::LastEditedBMColor() const
 
 void BookmarkManager::SetLastEditedBmCategory(kml::MarkGroupId groupId)
 {
+  // SaveState() rewrites the settings file, and a batch move calls this once per item with the same destination.
+  // The file name is compared too, because a rename keeps the group id.
+  auto fileName = CategoryFileName(*GetBmCategory(groupId));
+  if (m_lastEditedGroupId == groupId && m_lastCategoryFileName == fileName)
+    return;
+
   m_lastEditedGroupId = groupId;
-  m_lastCategoryFileName = CategoryFileName(*GetBmCategory(groupId));
+  m_lastCategoryFileName = std::move(fileName);
   SaveState();
 }
 
 void BookmarkManager::SetLastEditedBmColor(kml::ColorData const & color)
 {
-  m_lastColor = kml::NormalizeBookmarkColorData(color);
+  auto const normalized = kml::NormalizeBookmarkColorData(color);
+  if (m_lastColor == normalized)
+    return;
+
+  m_lastColor = normalized;
   SaveState();
 }
 

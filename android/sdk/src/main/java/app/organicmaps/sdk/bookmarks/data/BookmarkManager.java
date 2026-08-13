@@ -261,6 +261,39 @@ public enum BookmarkManager {
     nativeDeleteBookmark(bmkId);
   }
 
+  /**
+   * Unlike {@link #getTrack(long)}, it does not assert on an already deleted track.
+   */
+  public boolean hasTrack(long trackId)
+  {
+    return nativeHasTrack(trackId);
+  }
+
+  /**
+   * Deletes several bookmarks and tracks at once. Ids that no longer exist are skipped.
+   */
+  public void deleteBookmarksAndTracks(@NonNull long[] bookmarkIds, @NonNull long[] trackIds)
+  {
+    nativeDeleteBookmarksAndTracks(bookmarkIds, trackIds);
+  }
+
+  /**
+   * Moves several bookmarks and tracks into {@code newCategoryId} at once. Ids that no longer exist and items that
+   * already belong to the destination category are skipped.
+   */
+  public void moveBookmarksAndTracks(@NonNull long[] bookmarkIds, @NonNull long[] trackIds, long newCategoryId)
+  {
+    nativeMoveBookmarksAndTracks(bookmarkIds, trackIds, newCategoryId);
+  }
+
+  /**
+   * Applies a custom color to several bookmarks and tracks at once. Ids that no longer exist are skipped.
+   */
+  public void changeBookmarksAndTracksColor(@NonNull long[] bookmarkIds, @NonNull long[] trackIds, @ColorInt int color)
+  {
+    nativeChangeBookmarksAndTracksColor(bookmarkIds, trackIds, color);
+  }
+
   public long createCategory(@NonNull String name)
   {
     return nativeCreateCategory(name);
@@ -591,6 +624,16 @@ public enum BookmarkManager {
   private native void nativeDeleteTrack(long trackId);
 
   private native void nativeDeleteBookmark(long bmkId);
+
+  private static native boolean nativeHasTrack(long trackId);
+
+  private static native void nativeDeleteBookmarksAndTracks(@NonNull long[] bookmarkIds, @NonNull long[] trackIds);
+
+  private static native void nativeMoveBookmarksAndTracks(@NonNull long[] bookmarkIds, @NonNull long[] trackIds,
+                                                          long newCatId);
+
+  private static native void nativeChangeBookmarksAndTracksColor(@NonNull long[] bookmarkIds, @NonNull long[] trackIds,
+                                                                 @ColorInt int color);
 
   /**
    * @return category Id

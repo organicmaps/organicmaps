@@ -10,25 +10,34 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class DeleteConfirmationDialogFragment : BaseMwmDialogFragment() {
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
-        MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
-            .setTitle(getString(R.string.delete_track_dialog_title, requireArguments().getString(EXTRA_NAME)))
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        // Both are always written by showDialog().
+        val args = requireArguments()
+        val requestKey = checkNotNull(args.getString(EXTRA_REQUEST_KEY))
+        return MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
+            .setTitle(args.getString(EXTRA_TITLE))
             .setPositiveButton(R.string.delete) { _, _ ->
-                parentFragmentManager.setFragmentResult(REQUEST_KEY, Bundle.EMPTY)
+                parentFragmentManager.setFragmentResult(requestKey, Bundle.EMPTY)
             }
             .setNegativeButton(R.string.cancel, null)
             .create()
+    }
 
     companion object {
         const val REQUEST_KEY = "DeleteConfirmationResult"
 
-        private const val EXTRA_NAME = "name"
+        private const val EXTRA_TITLE = "title"
+        private const val EXTRA_REQUEST_KEY = "requestKey"
         private const val TAG = "DeleteConfirmationDialogFragment"
 
+        /**
+         * @param requestKey lets a screen tell several confirmations apart.
+         */
         @JvmStatic
-        fun showDialog(manager: FragmentManager, name: String) {
+        @JvmOverloads
+        fun showDialog(manager: FragmentManager, title: String, requestKey: String = REQUEST_KEY) {
             DeleteConfirmationDialogFragment().apply {
-                arguments = bundleOf(EXTRA_NAME to name)
+                arguments = bundleOf(EXTRA_TITLE to title, EXTRA_REQUEST_KEY to requestKey)
                 show(manager, TAG)
             }
         }

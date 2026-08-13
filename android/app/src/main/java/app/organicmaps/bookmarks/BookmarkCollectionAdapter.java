@@ -174,6 +174,8 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     collectionViewHolder.setOnClickListener(mClickListener);
     ToggleVisibilityClickListener listener = new ToggleVisibilityClickListener(collectionViewHolder);
     collectionViewHolder.setVisibilityListener(listener);
+    final int itemsCount = getItemsCount(position.getSectionIndex());
+    collectionViewHolder.bindCardPosition(position.getItemIndex() == 0, position.getItemIndex() == itemsCount - 1);
     updateVisibility(collectionViewHolder.itemView);
   }
 
@@ -183,6 +185,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     headerViewHolder.getText().setText(holder.itemView.getResources().getString(R.string.bookmarks));
     final boolean visibility = !BookmarkManager.INSTANCE.areAllCategoriesVisible();
     headerViewHolder.setAction(mMassOperationAction, visibility);
+    headerViewHolder.setSkipDivider(true);
     updateVisibility(headerViewHolder.itemView);
   }
 
