@@ -368,23 +368,6 @@ UNIT_TEST(OpeningHours2TimeTableSet_off)
   }
 }
 
-UNIT_TEST(OpeningHours2TimeTableSet_plus)
-{
-  OpeningHours oh("Mo-Su 11:00+");
-  TEST(oh.IsValid(), ());
-
-  TimeTableSet tts;
-
-  TEST(MakeTimeTableSet(oh, tts), ());
-  TEST_EQUAL(tts.Size(), 1, ());
-
-  auto const tt = tts.Get(0);
-  TEST_EQUAL(tts.GetUnhandledDays(), OpeningDays(), ());
-
-  TEST_EQUAL(tt.GetOpeningTime().GetStart().GetHourMinutes().GetHoursCount(), 11, ());
-  TEST_EQUAL(tt.GetOpeningTime().GetEnd().GetHourMinutes().GetHoursCount(), 24, ());
-}
-
 UNIT_TEST(TimeTableSt2OpeningHours)
 {
   {
@@ -536,5 +519,45 @@ UNIT_TEST(TimeTableSt2OpeningHours)
                "Mo, We-Th 08:00-13:00, 14:00-20:00; "
                "Sa 09:00-13:00, 14:00-18:00",
                ());
+  }
+}
+
+UNIT_TEST(OpeningHours2TimeTableSet_onlyRepresentableSchedulesUseSimpleMode)
+{
+  for (std::string const value : {
+           "Mo-Fr 08:00-18:00; PH off",
+           "Mo[1] 08:00-18:00",
+           "Mo +1 day 08:00-18:00",
+           "Mo-Fr 08:00-18:00 \"office\"",
+           "Mo-Fr 08:00-18:00 unknown",
+           "24/7 closed",
+           "Mo-Fr 08:00-18:00/02:00",
+           "Mo-Fr 20:00-26:00",
+           "Mo-Su 11:00+",
+           "Mo-Su sunrise-sunset",
+           "Mo-Fr 10:00-sunset",
+           "Mo-Su (sunrise+01:00)-sunset",
+           "sunrise-sunset",
+           "Mo-Fr 08:00-18:00; Sa sunrise-sunset",
+           "Mo-Fr 08:00-18:00, Sa 10:00-14:00",
+           "Mo-Fr 08:00-18:00 || Sa 10:00-14:00",
+       })
+  {
+    OpeningHours const oh(value);
+    TEST(oh.IsValid(), (value));
+    TimeTableSet tts;
+    TEST(!MakeTimeTableSet(oh, tts), (value));
+  }
+
+  for (std::string const value : {
+           "Mo-Fr 20:00-02:00",
+           "Mo-Fr 08:00-18:00; Sa 10:00-14:00",
+           "Mo-Fr 08:00-24:00",
+       })
+  {
+    OpeningHours const oh(value);
+    TEST(oh.IsValid(), (value));
+    TimeTableSet tts;
+    TEST(MakeTimeTableSet(oh, tts), (value));
   }
 }

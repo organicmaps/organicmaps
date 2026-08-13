@@ -46,10 +46,6 @@ void SetUpTimeTable(osmoh::TTimespans spans, editor::ui::TimeTable & tt)
 {
   using namespace osmoh;
 
-  // Expand plus: 13:15+ -> 13:15-24:00.
-  for (auto & span : spans)
-    span.ExpandPlus();
-
   std::sort(std::begin(spans), std::end(spans), [](Timespan const & a, Timespan const & b)
   {
     auto const start1 = a.GetStart().GetHourMinutes().GetDuration();
@@ -129,6 +125,58 @@ std::vector<Weekdays> SplitIntoIntervals(editor::ui::OpeningDays const & days)
   }
 
   return result;
+}
+
+bool IsRepresentableInSimpleEditor(osmoh::OpeningHours const & oh)
+{
+  using namespace osmoh;
+
+  if (!oh.IsValid())
+    return false;
+
+  auto const & rules = oh.GetRule();
+  for (size_t i = 0; i < rules.size(); ++i)
+  {
+    auto const & rule = rules[i];
+    if (rule.HasModifierComment() || rule.GetModifier() == RuleSequence::Modifier::Unknown ||
+        rule.GetModifier() == RuleSequence::Modifier::Comment)
+    {
+      return false;
+    }
+    if (rule.IsTwentyFourHours() && rule.GetModifier() == RuleSequence::Modifier::Closed)
+      return false;
+
+    if (rule.HasYears() || rule.HasMonths() || rule.HasWeeks())
+      return false;
+
+    // The timetable set combines its entries as ordinary overriding rules.
+    if (i + 1 < rules.size() && rule.GetAnySeparator() != ";")
+      return false;
+
+    auto const & weekdays = rule.GetWeekdays();
+    if (!weekdays.GetHolidays().empty())
+      return false;
+    for (auto const & range : weekdays.GetWeekdayRanges())
+      if (range.HasNth() || range.HasOffset())
+        return false;
+
+    for (auto const & span : rule.GetTimes())
+    {
+      if (!span.HasStart() || !span.HasEnd() || span.HasPlus() || span.HasPeriod() ||
+          !span.GetStart().IsHoursMinutes() || !span.GetEnd().IsHoursMinutes())
+      {
+        return false;
+      }
+
+      auto const start = span.GetStart().GetHourMinutes().GetDuration();
+      auto const end = span.GetEnd().GetHourMinutes().GetDuration();
+      // Platform pickers expose wall-clock starts and allow 24:00 only as the
+      // end of a day.
+      if (start >= 24_h || end > 24_h)
+        return false;
+    }
+  }
+  return true;
 }
 
 osmoh::Weekdays MakeWeekdays(editor::ui::TimeTable const & tt)
@@ -306,10 +354,7 @@ osmoh::OpeningHours MakeOpeningHours(ui::TimeTableSet const & tts)
 
 bool MakeTimeTableSet(osmoh::OpeningHours const & oh, ui::TimeTableSet & tts)
 {
-  if (!oh.IsValid())
-    return false;
-
-  if (oh.HasYearSelector() || oh.HasWeekSelector() || oh.HasMonthSelector())
+  if (!IsRepresentableInSimpleEditor(oh))
     return false;
 
   tts = ui::TimeTableSet();
@@ -324,11 +369,6 @@ bool MakeTimeTableSet(osmoh::OpeningHours const & oh, ui::TimeTableSet & tts)
 
     ui::TimeTable tt = ui::TimeTable::GetUninitializedTimeTable();
     tt.SetOpeningTime(tt.GetPredefinedOpeningTime());
-
-    // Comments and unknown rules belong to advanced mode.
-    if (rulePart.GetModifier() == osmoh::RuleSequence::Modifier::Unknown ||
-        rulePart.GetModifier() == osmoh::RuleSequence::Modifier::Comment)
-      return false;
 
     if (rulePart.GetModifier() == osmoh::RuleSequence::Modifier::Closed)
     {
