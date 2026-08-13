@@ -329,7 +329,16 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
 
   private void initContactSearchPrefsCallbacks()
   {
-    final TwoStatePreference pref = getPreference(getString(R.string.pref_search_contacts));
+    final TwoStatePreference pref = findPreference(getString(R.string.pref_search_contacts));
+    if (pref == null)
+      return;
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+    {
+      Config.setContactSearchEnabled(false);
+      removePreference(getString(R.string.pref_privacy), pref);
+      return;
+    }
+
     pref.setOnPreferenceChangeListener((preference, newValue) -> {
       final boolean enabled = (Boolean) newValue;
       if (!enabled)
