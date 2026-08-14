@@ -7,7 +7,6 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(BookmarksObserver)
 @protocol MWMBookmarksObserver <NSObject>
 @optional
-- (void)onBookmarksCategoryLoadingStarted;
 - (void)onBookmarksCategoryLoadingFinished;
 - (void)onBookmarksImportFinished:(MWMBookmarksImportResult *)result;
 - (void)onBookmarksCategoryDeleted:(MWMMarkGroupID)groupId;
