@@ -24,6 +24,8 @@
 
 #include "std/target_os.hpp"
 
+#include <utf8.h>
+
 #include <algorithm>
 #include <array>
 #include <ranges>
@@ -517,6 +519,9 @@ BookmarkFilePreparationResult PrepareFilesToLoadFromKmz(std::string const & file
 {
   // Extract KML files from KMZ archive and save to temp KMLs with unique name.
   BookmarkFilePreparationResult result;
+  auto archiveDisplayName = base::FileNameFromFullPath(filePath);
+  if (!::utf8::is_valid(archiveDisplayName.begin(), archiveDisplayName.end()))
+    archiveDisplayName = kDefaultBookmarksFileName + std::string(kKmzExtension);
   try
   {
     ZipFileReader::FileList files;
@@ -527,17 +532,20 @@ BookmarkFilePreparationResult PrepareFilesToLoadFromKmz(std::string const & file
     {
       auto const name = base::FileNameFromFullPath(file.first);
       return file.first.starts_with("__MACOSX/") || name.starts_with("._") ||
-             GetLowercaseFileExt(file.first) != kKmlExtension;
+             !strings::EqualAsciiNoCase(base::GetFileExtension(file.first), kKmlExtension);
     }),
                 files.end());
     for (auto const & [kmlFileInZip, size] : files)
     {
       UNUSED_VALUE(size);
-      auto const displayName = base::FileNameFromFullPath(kmlFileInZip);
+      // ZIP entry names may use legacy encodings, but import results and generated paths require valid UTF-8.
+      auto const isValidEntryName = ::utf8::is_valid(kmlFileInZip.begin(), kmlFileInZip.end());
+      auto const displayName = isValidEntryName ? base::FileNameFromFullPath(kmlFileInZip) : archiveDisplayName;
       std::string fileSavePath;
       try
       {
-        fileSavePath = GenerateValidAndUniqueFilePath(kmlFileInZip, FileType::Kml);
+        fileSavePath =
+            GenerateValidAndUniqueFilePath(isValidEntryName ? kmlFileInZip : archiveDisplayName, FileType::Kml);
         ZipFileReader::UnzipFile(filePath, kmlFileInZip, fileSavePath);
         auto const isKmzIndex = files.size() > 1 && strings::EqualAsciiNoCase(displayName, kKmzIndexFileName);
         result.m_files.push_back({std::move(fileSavePath), displayName, isKmzIndex});
