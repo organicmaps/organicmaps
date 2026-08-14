@@ -176,6 +176,12 @@ bool IsRepresentableInSimpleEditor(osmoh::OpeningHours const & oh)
       // end of a day.
       if (start >= 24_h || end > 24_h)
         return false;
+
+      // SetUpTimeTable's interval model and ExcludeRulePart's Includes() are
+      // linear in wall-clock time: keep a lone overnight span editable, but
+      // reject one combined with other spans or used as an exclusion.
+      if (end <= start && (rule.GetTimes().size() > 1 || rule.GetModifier() == RuleSequence::Modifier::Closed))
+        return false;
     }
   }
   return true;
@@ -238,6 +244,11 @@ bool Includes(osmoh::Timespan const & a, osmoh::Timespan const & b)
   return GetDuration(a.GetStart()) <= GetDuration(b.GetStart()) && GetDuration(b.GetEnd()) <= GetDuration(a.GetEnd());
 }
 
+bool WrapsMidnight(osmoh::Timespan const & span)
+{
+  return GetDuration(span.GetEnd()) <= GetDuration(span.GetStart());
+}
+
 bool ExcludeRulePart(osmoh::RuleSequence const & rulePart, editor::ui::TimeTableSet & tts)
 {
   // A closed rule with no day selector applies to the whole week, mirroring
@@ -285,6 +296,10 @@ bool ExcludeRulePart(osmoh::RuleSequence const & rulePart, editor::ui::TimeTable
 
       twentyFourHoursGuard(tt);
 
+      // Linear exclusion math cannot split an overnight opening span.
+      if (WrapsMidnight(tt.GetOpeningTime()))
+        return false;
+
       bool removed = false;
       for (auto const & time : excludeTime)
       {
@@ -317,6 +332,10 @@ bool ExcludeRulePart(osmoh::RuleSequence const & rulePart, editor::ui::TimeTable
       }
 
       twentyFourHoursGuard(tt);
+
+      // Linear exclusion math cannot split an overnight opening span.
+      if (WrapsMidnight(tt.GetOpeningTime()))
+        return false;
 
       editor::ui::TimeTable copy = tt;
       VERIFY(copy.SetOpeningDays(commonDays), ("Can't set opening days"));
