@@ -359,21 +359,14 @@ UNIT_TEST(OpeningHours2TimeTableSet_off)
                ());
   }
   {
+    // The exclusion starts where the opening time does: representing it would
+    // require shrinking the opening time, which a time table cannot express.
     OpeningHours oh("Mo-Fr 11:00-17:00; Sa-Su 12:00-16:00; Mo-Fr 11:00-13:00 off");
     TEST(oh.IsValid(), ());
 
     TimeTableSet tts;
 
-    TEST(MakeTimeTableSet(oh, tts), ());
-    TEST_EQUAL(tts.Size(), 2, ());
-
-    auto const tt = tts.Get(0);
-    TEST_EQUAL(tts.GetUnhandledDays(), OpeningDays(), ());
-
-    TEST_EQUAL(tt.GetOpeningTime().GetStart().GetHourMinutes().GetHoursCount(), 11, ());
-    TEST_EQUAL(tt.GetOpeningTime().GetEnd().GetHourMinutes().GetHoursCount(), 17, ());
-    TEST_EQUAL(tt.GetExcludeTime()[0].GetStart().GetHourMinutes().GetHoursCount(), 11, ());
-    TEST_EQUAL(tt.GetExcludeTime()[0].GetEnd().GetHourMinutes().GetHoursCount(), 13, ());
+    TEST(!MakeTimeTableSet(oh, tts), ());
   }
   {
     OpeningHours oh("Mo off; Tu-Su 09:00-17:00");
@@ -583,5 +576,93 @@ UNIT_TEST(OpeningHours2TimeTableSet_onlyRepresentableSchedulesUseSimpleMode)
        })
   {
     TestLosslessRoundTrip(value);
+  }
+}
+
+// A closed rule overrides everything it intersects; losing any part of it on
+// save would reopen closed hours.
+UNIT_TEST(OpeningHours2TimeTableSet_closedOverridesApplyEverywhere)
+{
+  {
+    // A trailing constant "off" closes the whole week: not representable.
+    OpeningHours oh("Mo-Fr 08:00-18:00; off");
+    TEST(oh.IsValid(), ());
+    TimeTableSet tts;
+    TEST(!MakeTimeTableSet(oh, tts), ());
+  }
+  {
+    // A whole-week override closes both time tables: nothing left to edit.
+    OpeningHours oh("Mo-Fr 08:00-18:00; Sa-Su 10:00-16:00; Mo-Su off");
+    TEST(oh.IsValid(), ());
+    TimeTableSet tts;
+    TEST(!MakeTimeTableSet(oh, tts), ());
+  }
+  {
+    // A selectorless closed rule applies to the whole week.
+    TestLosslessRoundTrip("Mo-Fr 08:00-18:00; 13:00-14:00 off");
+
+    OpeningHours oh("Mo-Fr 08:00-18:00; 13:00-14:00 off");
+    TEST(oh.IsValid(), ());
+    TimeTableSet tts;
+    TEST(MakeTimeTableSet(oh, tts), ());
+    TEST_EQUAL(tts.Size(), 1, ());
+
+    auto const tt = tts.Front();
+    TEST_EQUAL(tt.GetExcludeTime().size(), 1, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetStart().GetHourMinutes().GetHoursCount(), 13, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetEnd().GetHourMinutes().GetHoursCount(), 14, ());
+  }
+  {
+    // The override reaches the second time table, not only the first one.
+    TestLosslessRoundTrip("Mo-Fr 08:00-18:00; Sa-Su 10:00-16:00; Sa 12:00-13:00 off");
+
+    OpeningHours oh("Mo-Fr 08:00-18:00; Sa-Su 10:00-16:00; Sa 12:00-13:00 off");
+    TEST(oh.IsValid(), ());
+    TimeTableSet tts;
+    TEST(MakeTimeTableSet(oh, tts), ());
+    TEST_EQUAL(tts.Size(), 3, ());
+
+    TEST_EQUAL(tts.Get(0).GetOpeningDays().size(), 5, ());
+    // Saturday is split out of Sa-Su and carries the exclusion.
+    TEST_EQUAL(tts.Get(1).GetOpeningDays().size(), 1, ());
+    TEST_EQUAL(tts.Get(2).GetOpeningDays().size(), 1, ());
+    TEST_EQUAL(tts.Get(2).GetExcludeTime().size(), 1, ());
+  }
+  {
+    // The override closes a whole time table, but not the whole week.
+    TestLosslessRoundTrip("Mo-Fr 08:00-18:00; Sa-Su 10:00-16:00; Sa-Su 10:00-16:00 off");
+
+    OpeningHours oh("Mo-Fr 08:00-18:00; Sa-Su 10:00-16:00; Sa-Su 10:00-16:00 off");
+    TimeTableSet tts;
+    TEST(MakeTimeTableSet(oh, tts), ());
+    TEST_EQUAL(tts.Size(), 1, ());
+    TEST_EQUAL(tts.GetUnhandledDays(), OpeningDays({osmoh::Weekday::Saturday, osmoh::Weekday::Sunday}), ());
+  }
+  {
+    // The override closes a part of a time table completely.
+    TestLosslessRoundTrip("Mo-Fr 08:00-18:00; Mo 08:00-18:00 off");
+
+    OpeningHours oh("Mo-Fr 08:00-18:00; Mo 08:00-18:00 off");
+    TimeTableSet tts;
+    TEST(MakeTimeTableSet(oh, tts), ());
+    TEST_EQUAL(tts.Size(), 1, ());
+    TEST_EQUAL(tts.Get(0).GetOpeningDays(),
+               OpeningDays({osmoh::Weekday::Tuesday, osmoh::Weekday::Wednesday, osmoh::Weekday::Thursday,
+                            osmoh::Weekday::Friday}),
+               ());
+  }
+
+  // A closed span that only overlaps the opening one would reopen closed hours:
+  // excluding it as is leaves a zero-length span, which means open all day.
+  for (std::string_view const value : {
+           "Mo-Fr 08:00-18:00; Mo 07:00-12:00 off",
+           "Mo-Fr 08:00-18:00; Mo 12:00-20:00 off",
+           "Mo-Fr 08:00-18:00; Mo-Fr 08:00-18:00 off",
+       })
+  {
+    OpeningHours const oh(value);
+    TEST(oh.IsValid(), (value));
+    TimeTableSet tts;
+    TEST(!MakeTimeTableSet(oh, tts), (value));
   }
 }

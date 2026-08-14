@@ -143,7 +143,10 @@ bool IsRepresentableInSimpleEditor(osmoh::OpeningHours const & oh)
     {
       return false;
     }
-    if (rule.IsTwentyFourHours() && rule.GetModifier() == RuleSequence::Modifier::Closed)
+    // A constant rule carries only a modifier ("Mo-Fr 08:00-18:00; off" is
+    // closed the whole week): no time table can represent it, except a constant
+    // open rule -- that is the whole week, 24 hours a day.
+    if (rule.IsEmpty() && !rule.IsTwentyFourHours())
       return false;
 
     if (rule.HasYears() || rule.HasMonths() || rule.HasWeeks())
@@ -231,98 +234,99 @@ osmoh::HourMinutes::TMinutes::rep GetDuration(osmoh::Time const & time)
   return time.GetHourMinutes().GetDurationCount();
 }
 
-bool Includes(osmoh::Timespan const & a, osmoh::Timespan const & b)
+// The result of applying a closed rule's spans to a time table it covers.
+enum class Exclusion
 {
-  return GetDuration(a.GetStart()) <= GetDuration(b.GetStart()) && GetDuration(b.GetEnd()) <= GetDuration(a.GetEnd());
+  Applied,      // The spans became exclude times of the time table.
+  ClosedTable,  // The rule closes the whole opening span.
+  Unsupported   // No time table can express the result.
+};
+
+Exclusion ExcludeTimes(osmoh::TTimespans const & excludeTime, editor::ui::TimeTable & tt)
+{
+  if (tt.IsTwentyFourHours())
+  {
+    tt.SetTwentyFourHours(false);
+    // TODO(mgsergio): Consider TimeTable refactoring:
+    // get rid of separation of TwentyFourHours and OpeningTime.
+    tt.SetOpeningTime(kTwentyFourHours);
+  }
+
+  auto const openStart = GetDuration(tt.GetOpeningTime().GetStart());
+  auto const openEnd = GetDuration(tt.GetOpeningTime().GetEnd());
+
+  for (auto const & span : excludeTime)
+  {
+    auto const start = GetDuration(span.GetStart());
+    auto const end = GetDuration(span.GetEnd());
+
+    // The place is closed outside of its opening time anyway.
+    if (end <= openStart || openEnd <= start)
+      continue;
+
+    if (start <= openStart && openEnd <= end)
+      return Exclusion::ClosedTable;
+
+    // Only a span strictly inside the opening one is an exclude time: an
+    // overlapping one would have to shrink the opening span, and excluding it
+    // as is leaves a zero-length span, which osmoh reads as open all day.
+    if (start <= openStart || openEnd <= end || !tt.AddExcludeTime(span))
+      return Exclusion::Unsupported;
+  }
+
+  return Exclusion::Applied;
 }
 
 bool ExcludeRulePart(osmoh::RuleSequence const & rulePart, editor::ui::TimeTableSet & tts)
 {
-  auto const ttsInitialSize = tts.Size();
-  for (size_t i = 0; i < ttsInitialSize; ++i)
+  // A closed rule with no day selector applies to the whole week, mirroring
+  // the open-rule branch in MakeTimeTableSet.
+  auto const ruleDays = rulePart.HasWeekdays() ? MakeOpeningDays(rulePart.GetWeekdays()) : kWholeWeek;
+  auto const & excludeTime = rulePart.GetTimes();
+
+  // The rule overrides every time table it intersects, so visit them all;
+  // iterating backwards keeps indices valid across Remove() and never
+  // revisits the time tables Append() adds along the way.
+  for (size_t i = tts.Size(); i-- > 0;)
   {
     auto tt = tts.Get(i);
     auto const ttOpeningDays = tt.GetOpeningDays();
-    auto const commonDays = GetCommonDays(ttOpeningDays, MakeOpeningDays(rulePart.GetWeekdays()));
+    auto const commonDays = GetCommonDays(ttOpeningDays, ruleDays);
+    if (commonDays.empty())
+      continue;
 
-    auto const removeCommonDays = [&commonDays](editor::ui::TimeTableSet::Proxy & tt)
-    {
-      for (auto const day : commonDays)
-        VERIFY(tt.RemoveWorkingDay(day), ("Can't remove working day"));
-      VERIFY(tt.Commit(), ("Can't commit changes"));
-    };
-
-    auto const twentyFourHoursGuard = [](editor::ui::TimeTable & tt)
-    {
-      if (tt.IsTwentyFourHours())
-      {
-        tt.SetTwentyFourHours(false);
-        // TODO(mgsergio): Consider TimeTable refactoring:
-        // get rid of separation of TwentyFourHours and OpeningTime.
-        tt.SetOpeningTime(kTwentyFourHours);
-      }
-    };
-
-    auto const & excludeTime = rulePart.GetTimes();
-    // The whole rule matches to the tt.
+    // The rule covers the whole time table.
     if (commonDays.size() == ttOpeningDays.size())
     {
-      // rulePart applies to commonDays in a whole.
-      if (excludeTime.empty())
-        return tts.Remove(i);
+      // A closed rule with no times closes every day it covers.
+      auto const exclusion = excludeTime.empty() ? Exclusion::ClosedTable : ExcludeTimes(excludeTime, tt);
+      if (exclusion == Exclusion::Unsupported)
+        return false;
 
-      twentyFourHoursGuard(tt);
-
-      for (auto const & time : excludeTime)
-      {
-        // Whatever it is, it's already closed at a time out of opening time.
-        if (!Includes(tt.GetOpeningTime(), time))
-          continue;
-
-        // The whole opening time interval should be switched off
-        if (!tt.AddExcludeTime(time))
-          return tts.Remove(i);
-      }
-      VERIFY(tt.Commit(), ("Can't update time table"));
-      return true;
+      if (exclusion == Exclusion::Applied)
+        VERIFY(tt.Commit(), ("Can't update time table"));
+      else if (!tts.Remove(i))
+        return false;  // The last time table is closed, nothing is left to edit.
+      continue;
     }
-    // A rule is applied to a subset of a time table. We should
-    // subtract common parts from tt and add a new time table if needed.
-    if (commonDays.size() != 0)
-    {
-      // rulePart applies to commonDays in a whole.
-      if (excludeTime.empty())
-      {
-        removeCommonDays(tt);
-        continue;
-      }
 
-      twentyFourHoursGuard(tt);
+    // The rule applies to a part of the time table: move the common days into a
+    // time table of their own, unless the rule closes them completely.
+    editor::ui::TimeTable copy = tt;
+    VERIFY(copy.SetOpeningDays(commonDays), ("Can't set opening days"));
 
-      editor::ui::TimeTable copy = tt;
-      VERIFY(copy.SetOpeningDays(commonDays), ("Can't set opening days"));
+    auto const exclusion = excludeTime.empty() ? Exclusion::ClosedTable : ExcludeTimes(excludeTime, copy);
+    if (exclusion == Exclusion::Unsupported)
+      return false;
 
-      auto doAppendRest = true;
-      for (auto const & time : excludeTime)
-      {
-        // Whatever it is, it's already closed at a time out of opening time.
-        if (!Includes(copy.GetOpeningTime(), time))
-          continue;
+    for (auto const day : commonDays)
+      VERIFY(tt.RemoveWorkingDay(day), ("Can't remove working day"));
+    VERIFY(tt.Commit(), ("Can't commit changes"));
 
-        // The whole opening time interval should be switched off
-        if (!copy.AddExcludeTime(time))
-        {
-          doAppendRest = false;
-          break;
-        }
-      }
-
-      removeCommonDays(tt);
-
-      if (doAppendRest)
-        VERIFY(tts.Append(copy), ("Can't add new time table"));
-    }
+    if (exclusion == Exclusion::Applied)
+      VERIFY(tts.Append(copy), ("Can't add new time table"));
   }
+
   return true;
 }
 }  // namespace
@@ -364,9 +368,6 @@ bool MakeTimeTableSet(osmoh::OpeningHours const & oh, ui::TimeTableSet & tts)
   bool first = true;
   for (auto const & rulePart : oh.GetRule())
   {
-    if (rulePart.IsEmpty())
-      continue;
-
     ui::TimeTable tt = ui::TimeTable::GetUninitializedTimeTable();
     tt.SetOpeningTime(tt.GetPredefinedOpeningTime());
 
