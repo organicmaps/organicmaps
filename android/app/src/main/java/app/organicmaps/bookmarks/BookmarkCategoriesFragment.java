@@ -20,12 +20,14 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
+import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.adapter.OnItemClickListener;
 import app.organicmaps.base.BaseMwmRecyclerFragment;
 import app.organicmaps.dialog.EditTextDialogFragment;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
+import app.organicmaps.sdk.bookmarks.data.BookmarkImportResult;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.BookmarkSharingResult;
 import app.organicmaps.sdk.bookmarks.data.DataChangedListener;
@@ -43,7 +45,6 @@ import app.organicmaps.widget.recycler.DividerItemDecorationWithPadding;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<BookmarkCategoriesAdapter>
     implements BookmarkManager.BookmarksLoadingListener, CategoryListCallback, OnItemClickListener<BookmarkCategory>,
@@ -233,14 +234,14 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   }
 
   @Override
-  public void onBookmarksFileImportFailed()
+  public void onBookmarksImportFinished(@NonNull BookmarkImportResult result)
   {
-    // TODO: Is there a way to display several failure notifications?
-    // TODO: It would be helpful to see the file name that failed to import.
-    final View view = getView();
-    // TODO: how to get import button view to show snackbar above it?
-    if (view != null)
-      Utils.showSnackbar(requireActivity(), view, R.string.load_kmz_failed);
+    BookmarksImportDialog.show(requireActivity(), result, categoryId -> {
+      Intent intent = new Intent(requireActivity(), MwmActivity.class);
+      intent.putExtra(MwmActivity.EXTRA_CATEGORY_ID, categoryId);
+      intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+      startActivity(intent);
+    });
   }
 
   @Override
@@ -339,17 +340,13 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
     final File tempDir = new File(StorageUtils.getTempPath(app));
     final ContentResolver resolver = context.getContentResolver();
     ThreadPool.getStorage().execute(() -> {
-      AtomicInteger found = new AtomicInteger(0);
-      StorageUtils.listContentProviderFilesRecursively(resolver, rootUri, uri -> {
-        if (BookmarkManager.INSTANCE.importBookmarksFile(resolver, uri, tempDir))
-          found.incrementAndGet();
-      });
+      List<Uri> uris = new ArrayList<>();
+      StorageUtils.listContentProviderFilesRecursively(resolver, rootUri, uris::add);
+      int found = BookmarkManager.INSTANCE.importBookmarksFilesAndGetCount(resolver, uris, tempDir);
       UiThread.run(() -> {
         if (dialog.isShowing())
           dialog.dismiss();
-        int found_val = found.get();
-        String message =
-            context.getResources().getQuantityString(R.plurals.bookmarks_detect_message, found_val, found_val);
+        String message = context.getResources().getQuantityString(R.plurals.bookmarks_detect_message, found, found);
         Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show();
       });
     });
