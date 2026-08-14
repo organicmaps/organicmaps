@@ -497,55 +497,102 @@ std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, FileType fi
   return kmlData;
 }
 
-static std::vector<std::string> GetFilePathsToLoadFromKmz(std::string const & filePath)
+namespace
+{
+struct PreparedBookmarkFile
+{
+  std::string m_filePath;
+  std::string m_displayName;
+  // The root doc.kml of a multi-category archive only indexes the other entries and holds no marks of its own.
+  bool m_isKmzIndex = false;
+};
+
+struct BookmarkFilePreparationResult
+{
+  std::vector<PreparedBookmarkFile> m_files;
+  std::vector<std::string> m_failedFileNames;
+};
+
+BookmarkFilePreparationResult PrepareFilesToLoadFromKmz(std::string const & filePath)
 {
   // Extract KML files from KMZ archive and save to temp KMLs with unique name.
-  std::vector<std::string> kmlFilePaths;
+  BookmarkFilePreparationResult result;
   try
   {
     ZipFileReader::FileList files;
     ZipFileReader::FilesList(filePath, files);
+    // Finder may add non-KML AppleDouble metadata under __MACOSX or next to the original file.
     files.erase(std::remove_if(files.begin(), files.end(),
-                               [](auto const & file) { return GetLowercaseFileExt(file.first) != kKmlExtension; }),
+                               [](auto const & file)
+    {
+      auto const name = base::FileNameFromFullPath(file.first);
+      return file.first.starts_with("__MACOSX/") || name.starts_with("._") ||
+             GetLowercaseFileExt(file.first) != kKmlExtension;
+    }),
                 files.end());
     for (auto const & [kmlFileInZip, size] : files)
     {
-      auto const name = base::FileNameFromFullPath(kmlFileInZip);
-      auto fileSavePath = GenerateValidAndUniqueFilePath(kmlFileInZip, FileType::Kml);
-      ZipFileReader::UnzipFile(filePath, kmlFileInZip, fileSavePath);
-      kmlFilePaths.push_back(std::move(fileSavePath));
+      UNUSED_VALUE(size);
+      auto const displayName = base::FileNameFromFullPath(kmlFileInZip);
+      std::string fileSavePath;
+      try
+      {
+        fileSavePath = GenerateValidAndUniqueFilePath(kmlFileInZip, FileType::Kml);
+        ZipFileReader::UnzipFile(filePath, kmlFileInZip, fileSavePath);
+        auto const isKmzIndex = files.size() > 1 && strings::EqualAsciiNoCase(displayName, kKmzIndexFileName);
+        result.m_files.push_back({std::move(fileSavePath), displayName, isKmzIndex});
+      }
+      catch (RootException const & e)
+      {
+        LOG(LWARNING, ("Error unzipping file", kmlFileInZip, "from", filePath, e.Msg()));
+        if (!fileSavePath.empty())
+          base::DeleteFileX(fileSavePath);
+        result.m_failedFileNames.push_back(displayName);
+      }
     }
+
+    if (files.empty())
+      result.m_failedFileNames.push_back(base::FileNameFromFullPath(filePath));
   }
   catch (RootException const & e)
   {
     LOG(LWARNING, ("Error unzipping file", filePath, e.Msg()));
+    result.m_failedFileNames.push_back(base::FileNameFromFullPath(filePath));
   }
-  return kmlFilePaths;
+  return result;
 }
 
-static std::vector<std::string> GetFilePathsToLoadFromKmb(std::string const & filePath)
+BookmarkFilePreparationResult PrepareFilesToLoadFromKmb(std::string const & filePath)
 {
   // Convert input KMB file and save to temp KML with unique name.
+  auto const displayName = base::FileNameFromFullPath(filePath);
   auto kmlData = LoadKmlFile(filePath, FileType::Kmb);
   if (kmlData == nullptr)
-    return {};
+    return {{}, {displayName}};
 
-  auto fileSavePath = GenerateValidAndUniqueFilePath(base::FileNameFromFullPath(filePath), FileType::Kml);
+  auto fileSavePath = GenerateValidAndUniqueFilePath(displayName, FileType::Kml);
   if (!SaveKmlFileByExt(*kmlData, fileSavePath))
-    return {};
-  return {std::move(fileSavePath)};
+  {
+    base::DeleteFileX(fileSavePath);
+    return {{}, {displayName}};
+  }
+  return {{{std::move(fileSavePath), displayName}}, {}};
 }
 
-static std::vector<std::string> GetFilePathsToLoadByType(std::string const & filePath, FileType const fileType)
+BookmarkFilePreparationResult PrepareFilesToLoadByType(std::string const & filePath, FileType const fileType)
 {
   // Copy input file to temp file with unique name.
-  auto fileSavePath = GenerateValidAndUniqueFilePath(base::FileNameFromFullPath(filePath), fileType);
+  auto const displayName = base::FileNameFromFullPath(filePath);
+  auto fileSavePath = GenerateValidAndUniqueFilePath(displayName, fileType);
   if (!base::CopyFileX(filePath, fileSavePath))
-    return {};
-  return {std::move(fileSavePath)};
+  {
+    base::DeleteFileX(fileSavePath);
+    return {{}, {displayName}};
+  }
+  return {{{std::move(fileSavePath), displayName}}, {}};
 }
 
-std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePath)
+BookmarkFilePreparationResult PrepareBookmarkFileForImport(std::string const & filePath)
 {
   // Copy or convert or unpack (kmz) file from 'filePath' to GetBookmarksDirectory folder.
   if (auto const fileType = GetFileType(filePath))
@@ -555,17 +602,84 @@ std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePat
     case FileType::Kml:
     case FileType::Gpx:
     case FileType::GeoJson:
-    case FileType::Json: return GetFilePathsToLoadByType(filePath, *fileType);
-    case FileType::Kmz: return GetFilePathsToLoadFromKmz(filePath);
-    case FileType::Kmb: return GetFilePathsToLoadFromKmb(filePath);
+    case FileType::Json: return PrepareFilesToLoadByType(filePath, *fileType);
+    case FileType::Kmz: return PrepareFilesToLoadFromKmz(filePath);
+    case FileType::Kmb: return PrepareFilesToLoadFromKmb(filePath);
     }
     UNREACHABLE();
   }
-  else
+
+  LOG(LWARNING, ("Unknown file type", filePath));
+  return {{}, {base::FileNameFromFullPath(filePath)}};
+}
+}  // namespace
+
+kml::Timestamp GetFileModificationTimestamp(std::string const & filePath)
+{
+  auto const timestamp = Platform::GetFileModificationTime(filePath);
+  if (timestamp > 0)
+    return kml::TimestampClock::from_time_t(timestamp);
+  LOG(LWARNING, ("GetFileModificationTime failed for", filePath, "- using current time"));
+  return kml::TimestampClock::now();
+}
+
+BookmarkFileImportData LoadBookmarkFileForImport(std::string const & filePath)
+{
+  BookmarkFileImportData result;
+  auto preparationResult = PrepareBookmarkFileForImport(filePath);
+  result.m_failedFileNames = std::move(preparationResult.m_failedFileNames);
+
+  for (auto & preparedFile : preparationResult.m_files)
   {
-    LOG(LWARNING, ("Unknown file type", filePath));
-    return {};
+    std::unique_ptr<kml::FileData> kmlData;
+    if (auto const fileType = GetFileType(preparedFile.m_filePath))
+    {
+      switch (*fileType)
+      {
+      case FileType::Kml:
+      case FileType::Gpx:
+      case FileType::GeoJson:
+      case FileType::Json: kmlData = LoadKmlFile(preparedFile.m_filePath, *fileType); break;
+      default: ASSERT(false, ("Unsupported bookmarks file type", (*fileType)));
+      }
+    }
+    else
+      ASSERT(false, ("Unknown file type for", preparedFile.m_filePath));
+
+    base::DeleteFileX(preparedFile.m_filePath);
+
+    if (!kmlData)
+    {
+      result.m_failedFileNames.push_back(std::move(preparedFile.m_displayName));
+      continue;
+    }
+
+    if (kmlData->m_tracksData.empty() && kmlData->m_bookmarksData.empty())
+    {
+      if (!preparedFile.m_isKmzIndex)
+        result.m_failedFileNames.push_back(std::move(preparedFile.m_displayName));
+      continue;
+    }
+
+    // Imported tracks without a timestamp inherit the source file's modification time. For KMZ files, this is the
+    // archive timestamp rather than the extracted temporary file's timestamp.
+    if (kmlData->m_categoryData.m_lastModified == kml::Timestamp{})
+      kmlData->m_categoryData.m_lastModified = GetFileModificationTimestamp(filePath);
+
+    auto kmlFileToLoad =
+        GenerateValidAndUniqueFilePath(base::GetNameFromFullPathWithoutExt(preparedFile.m_filePath), FileType::Kml);
+    if (!SaveKmlFileSafe(*kmlData, kmlFileToLoad, FileType::Kml))
+    {
+      base::DeleteFileX(kmlFileToLoad);
+      result.m_failedFileNames.push_back(std::move(preparedFile.m_displayName));
+      continue;
+    }
+    result.m_kmlData.emplace_back(std::move(kmlFileToLoad), std::move(kmlData));
   }
+
+  if (result.m_kmlData.empty() && result.m_failedFileNames.empty())
+    result.m_failedFileNames.push_back(base::FileNameFromFullPath(filePath));
+  return result;
 }
 
 std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, FileType fileType)

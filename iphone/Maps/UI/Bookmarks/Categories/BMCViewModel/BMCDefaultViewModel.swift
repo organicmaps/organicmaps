@@ -99,9 +99,7 @@ extension BMCDefaultViewModel {
   }
 
   func areAllCategoriesHidden() -> Bool {
-    var result = true
-    categories.forEach { if $0.isVisible { result = false } }
-    return result
+    !categories.contains(where: \.isVisible)
   }
 
   func updateAllCategoriesVisibility(isShowAll: Bool) {
@@ -144,8 +142,7 @@ extension BMCDefaultViewModel {
   }
 
   func importCategories(from urls: [URL]) {
-    // TODO: Refactor this call when the multiple files parsing support will be added to the bookmark_manager.
-    urls.forEach(manager.loadBookmarkFile(_:))
+    manager.loadBookmarkFiles(urls)
   }
 
   func finishShareCategory() {
@@ -162,7 +159,7 @@ extension BMCDefaultViewModel {
 }
 
 extension BMCDefaultViewModel: BookmarksObserver {
-  func onBookmarksLoadFinished() {
+  func onBookmarksCategoryLoadingFinished() {
     reloadData()
   }
 

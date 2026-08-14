@@ -163,10 +163,10 @@
 "load_kmz_title" = "Chargement des signets";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Les signets ont été chargés avec succès ! Vous pouvez les trouver sur la carte ou sur l'écran du Gestionnaire de signets.";
+"load_kmz_successful" = "Les signets ont été chargés avec succès ! Sélectionnez une liste pour l’afficher sur la carte :";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Échec lors du chargement des signets. Le fichier peut être corrompu ou défectueux.";
+"load_kmz_failed" = "Échec lors du chargement des signets. Le fichier peut être corrompu ou défectueux :";
 
 /* resource for context menu */
 "edit" = "Modifier";

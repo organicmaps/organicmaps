@@ -985,6 +985,13 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
   return _bookmarksCoordinator;
 }
 
+- (void)showImportedCategoryOnMap:(MWMMarkGroupID)categoryId
+{
+  [MWMFrameworkHelper showOnMap:categoryId];
+  if (![self.bookmarksCoordinator hideIfVisible:categoryId])
+    [[MapsAppDelegate theApp] showMap];
+}
+
 #pragma mark - CarPlay map append/remove
 
 - (void)disableCarPlayRepresentation
@@ -1014,14 +1021,38 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 }
 
 #pragma mark - MWMBookmarksObserver
-- (void)onBookmarksFileLoadSuccess
+- (void)onBookmarksImportFinished:(MWMBookmarksImportResult *)result
 {
-  [[MWMAlertViewController activeAlertController] presentInfoAlert:L(@"load_kmz_title") text:L(@"load_kmz_successful")];
-}
+  MWMGroupIDCollection const importedCategoryIds = result.groupIds;
+  NSArray<NSString *> * const failedFileNames = result.failedFileNames;
 
-- (void)onBookmarksFileLoadError
-{
-  [[MWMAlertViewController activeAlertController] presentInfoAlert:L(@"load_kmz_title") text:L(@"load_kmz_failed")];
+  if (importedCategoryIds.count == 0 && failedFileNames.count == 0)
+    return;
+
+  // Show the imported category on the map automatically.
+  if (failedFileNames.count == 0 && importedCategoryIds.count == 1)
+  {
+    MWMMarkGroupID const categoryId = importedCategoryIds.firstObject.unsignedLongLongValue;
+    [self showImportedCategoryOnMap:categoryId];
+    return;
+  }
+
+  NSMutableArray<NSString *> * categoryNames = [NSMutableArray arrayWithCapacity:importedCategoryIds.count];
+  for (NSNumber * categoryIdNumber in importedCategoryIds)
+  {
+    MWMMarkGroupID const categoryId = categoryIdNumber.unsignedLongLongValue;
+    [categoryNames addObject:[MWMBookmarksManager.sharedManager getCategoryName:categoryId]];
+  }
+
+  __weak auto weakSelf = self;
+  [[MWMAlertViewController activeAlertController]
+      presentBookmarksImportAlertWithCategoryIds:importedCategoryIds
+                                   categoryNames:categoryNames
+                                 failedFileNames:failedFileNames
+                                  selectCategory:^(NSNumber * categoryIdNumber) {
+                                    MWMMarkGroupID const categoryId = categoryIdNumber.unsignedLongLongValue;
+                                    [weakSelf showImportedCategoryOnMap:categoryId];
+                                  }];
 }
 
 - (BOOL)canBecomeFirstResponder

@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">お気に入りをロード中</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">お気に入りをロードできました。 お気に入りはマップ上、またはお気に入り管理画面に表示されます。</string>
+    <string name="load_kmz_successful">お気に入りをロードできました。マップ上で表示するリストを選択してください：</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">お気に入りのロードに失敗しました。ファイルが破損していた、または問題があった可能性があります。</string>
+    <string name="load_kmz_failed">お気に入りのロードに失敗しました。ファイルが破損していた、または問題があった可能性があります：</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">ファイルタイプがアプリに認識されない：\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

@@ -5,23 +5,23 @@
 
 #include "platform/platform.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
 
 UNIT_TEST(KMZ_UnzipTest)
 {
-  /// @todo Should put somewhere in core? (like in BookmarkManager::PrepareToSaveBookmarks).
   TEST(Platform::MkDirChecked(GetBookmarksDirectory()), ());
 
   std::string const kmzFile = GetPlatform().TestsDataPathForFile("test_data/kml/test.kmz");
-  auto const filePaths = GetKMLOrGPXFilesPathsToLoad(kmzFile);
-  TEST_EQUAL(1, filePaths.size(), ());
-  auto const & filePath = filePaths[0];
-  TEST(filePath.ends_with("doc.kml"), (filePath));
+  auto result = LoadBookmarkFileForImport(kmzFile);
+  TEST(result.m_failedFileNames.empty(), (result.m_failedFileNames));
+  TEST_EQUAL(1, result.m_kmlData.size(), ());
+  auto const & filePath = result.m_kmlData.front().first;
+  TEST(filePath.ends_with(kKmzIndexFileName), (filePath));
 
   SCOPE_GUARD(fileGuard, std::bind(&base::DeleteFileX, filePath));
 
-  auto const kmlData = LoadKmlFile(filePath, FileType::Kml);
-  TEST(kmlData != nullptr, ());
+  auto & kmlData = result.m_kmlData.front().second;
 
   TEST_EQUAL(kmlData->m_bookmarksData.size(), 6, ("Category wrong number of bookmarks"));
 
@@ -48,11 +48,12 @@ UNIT_TEST(Multi_KML_KMZ_UnzipTest)
   TEST(Platform::MkDirChecked(GetBookmarksDirectory()), ());
 
   std::string const kmzFile = GetPlatform().TestsDataPathForFile("test_data/kml/BACRNKMZ.kmz");
-  auto const filePaths = GetKMLOrGPXFilesPathsToLoad(kmzFile);
-  SCOPE_GUARD(filesGuard, [&filePaths]()
+  auto const result = LoadBookmarkFileForImport(kmzFile);
+  TEST(result.m_failedFileNames.empty(), (result.m_failedFileNames));
+  SCOPE_GUARD(filesGuard, [&result]()
   {
-    for (auto const & path : filePaths)
-      base::DeleteFileX(path);
+    for (auto const & file : result.m_kmlData)
+      base::DeleteFileX(file.first);
   });
 
   base::StringIL expectedFileNames = {
@@ -61,19 +62,29 @@ UNIT_TEST(Multi_KML_KMZ_UnzipTest)
       "BACRNKMZfilesRoute 1 Canada - West-East Daily Segments",
       "BACRNKMZfilesRoute 2 Canada - West-East Daily Segments",
       "BACRNKMZfilesRoute Connector Canada - West-East Daily Segments",
-      "BACRNKMZdoc",
   };
-  TEST_EQUAL(expectedFileNames.size(), filePaths.size(), ());
+  TEST_EQUAL(expectedFileNames.size(), result.m_kmlData.size(), ());
 
-  for (auto const & filePath : filePaths)
+  for (auto const & file : result.m_kmlData)
   {
     auto matched = false;
     for (auto const & expectedFileName : expectedFileNames)
     {
-      matched = filePath.find(expectedFileName) != std::string::npos;
+      matched = file.first.find(expectedFileName) != std::string::npos;
       if (matched)
         break;
     }
-    TEST(matched, ("Unexpected file path: " + filePath));
+    TEST(matched, ("Unexpected file path: " + file.first));
   }
+}
+
+UNIT_TEST(KMZ_UnzipFailureContainsFileNameTest)
+{
+  auto const filePath = base::JoinPath(GetPlatform().WritableDir(), "missing_bookmarks.kmz");
+  base::DeleteFileX(filePath);
+
+  auto const result = LoadBookmarkFileForImport(filePath);
+  TEST(result.m_kmlData.empty(), (result.m_kmlData.size()));
+  TEST_EQUAL(1, result.m_failedFileNames.size(), (result.m_failedFileNames));
+  TEST_EQUAL("missing_bookmarks.kmz", result.m_failedFileNames[0], ());
 }

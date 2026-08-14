@@ -163,10 +163,10 @@
 "load_kmz_title" = "Lesezeichen werden geladen";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Lesezeichen erfolgreich geladen! Du kannst diese nun auf deiner Karte oder im Lesezeichen-Manager anzeigen.";
+"load_kmz_successful" = "Lesezeichen erfolgreich geladen! Wähle eine Liste aus, um sie auf der Karte anzuzeigen:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Laden der Lesezeichen fehlgeschlagen. Die Datei könnte beschädigt oder defekt sein.";
+"load_kmz_failed" = "Laden der Lesezeichen fehlgeschlagen. Die Datei könnte beschädigt oder defekt sein:";
 
 /* resource for context menu */
 "edit" = "Bearbeiten";

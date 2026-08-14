@@ -163,10 +163,10 @@
 "load_kmz_title" = "ກຳລັງໂຫລດບຸກມາກ";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "ໂຫລດບຸກມາກສຳເລັດແລ້ວ! ທ່ານສາມາດຊອກຫາພວກມັນໄດ້ໃນແຜນທີ່ ຫຼື ໃນໜ້າຈໍຈັດການບຸກມາກ.";
+"load_kmz_successful" = "ໂຫລດບຸກມາກສຳເລັດແລ້ວ! ເລືອກລາຍການເພື່ອເບິ່ງໃນແຜນທີ່:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "ໂຫລດບຸກມາກບໍ່ສຳເລັດ. ໄຟລ໌ອາດເສຍຫາຍ ຫຼື ບົກພ່ອງ.";
+"load_kmz_failed" = "ໂຫລດບຸກມາກບໍ່ສຳເລັດ. ໄຟລ໌ອາດເສຍຫາຍ ຫຼື ບົກພ່ອງ:";
 
 /* resource for context menu */
 "edit" = "ແກ້ໄຂ";

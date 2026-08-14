@@ -110,9 +110,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">ກຳລັງໂຫລດບຸກມາກ</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">ໂຫລດບຸກມາກສຳເລັດແລ້ວ! ທ່ານສາມາດຊອກຫາພວກມັນໄດ້ໃນແຜນທີ່ ຫຼື ໃນໜ້າຈໍຈັດການບຸກມາກ.</string>
+    <string name="load_kmz_successful">ໂຫລດບຸກມາກສຳເລັດແລ້ວ! ເລືອກລາຍການເພື່ອເບິ່ງໃນແຜນທີ່:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">ໂຫລດບຸກມາກບໍ່ສຳເລັດ. ໄຟລ໌ອາດເສຍຫາຍ ຫຼື ບົກພ່ອງ.</string>
+    <string name="load_kmz_failed">ໂຫລດບຸກມາກບໍ່ສຳເລັດ. ໄຟລ໌ອາດເສຍຫາຍ ຫຼື ບົກພ່ອງ:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">ແອັບບໍ່ຮູ້ຈັກປະເພດໄຟລ໌ນີ້:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

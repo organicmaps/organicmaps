@@ -163,10 +163,10 @@
 "load_kmz_title" = "Läser in bokmärken";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Bokmärkena lästes in! Du kan hitta dem på kartan eller i Bokmärkeshanteraren.";
+"load_kmz_successful" = "Bokmärkena lästes in! Välj en lista för att visa den på kartan:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Inläsningen av bokmärkena misslyckades. Filen kan vara skadad eller defekt.";
+"load_kmz_failed" = "Inläsningen av bokmärkena misslyckades. Filen kan vara skadad eller defekt:";
 
 /* resource for context menu */
 "edit" = "Redigera";

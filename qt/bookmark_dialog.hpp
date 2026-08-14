@@ -38,8 +38,6 @@ private:
   QTreeWidgetItem * CreateTreeItem(std::string const & title, QTreeWidgetItem * parent);
   void OnAsyncLoadingStarted();
   void OnAsyncLoadingFinished();
-  void OnAsyncLoadingFileSuccess(std::string const & fileName, bool isTemporaryFile);
-  void OnAsyncLoadingFileError(std::string const & fileName, bool isTemporaryFile);
 
   QTreeWidget * m_tree;
   Framework & m_framework;

@@ -163,10 +163,10 @@
 "load_kmz_title" = "Könyvjelzők betöltése";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "A könyvjelzők sikeresen betöltődtek! Megtalálhatja őket a térképen vagy a Könyvjelzők kezelése képernyőn.";
+"load_kmz_successful" = "A könyvjelzők sikeresen betöltődtek! Válasszon egy listát a térképen való megtekintéshez:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Nem sikerült betölteni a könyvjelzőket. A fájl sérült vagy hibás lehet.";
+"load_kmz_failed" = "Nem sikerült betölteni a könyvjelzőket. A fájl sérült vagy hibás lehet:";
 
 /* resource for context menu */
 "edit" = "Szerkesztés";

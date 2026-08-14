@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 @MainThread
 public enum BookmarkManager {
@@ -31,6 +32,7 @@ public enum BookmarkManager {
   private static final String[] BOOKMARKS_EXTENSIONS = Framework.nativeGetBookmarksFilesExts();
 
   private static final String TAG = BookmarkManager.class.getSimpleName();
+  private static final String TEMP_IMPORT_DIR_PREFIX = "bookmarks-import-";
 
   @NonNull
   private final BookmarkCategoriesDataProvider mCategoriesCoreDataProvider = new CoreBookmarkCategoriesDataProvider();
@@ -156,26 +158,24 @@ public enum BookmarkManager {
   @Keep
   @SuppressWarnings("unused")
   @MainThread
-  private void onBookmarksFileLoaded(boolean success, @NonNull String fileName, boolean isTemporaryFile)
+  private void onBookmarksImportFinished(@NonNull long[] categoryIds, @NonNull String[] failedFileNames,
+                                         @NonNull String[] temporaryFilePaths)
   {
     // Android could create temporary file with bookmarks in some cases (KML/KMZ file is a blob
-    // in the intent, so we have to create a temporary file on the disk). Here we can delete it.
-    if (isTemporaryFile)
+    // in the intent, so we have to create temporary files on the disk). Here we can delete them.
+    for (String filePath : temporaryFilePaths)
     {
-      File tmpFile = new File(fileName);
-      tmpFile.delete();
+      File tmpFile = new File(filePath);
+      File parent = tmpFile.getParentFile();
+      if (!tmpFile.delete())
+        Logger.w(TAG, "Failed to delete temporary bookmarks file " + filePath);
+      else if (parent != null && parent.getName().startsWith(TEMP_IMPORT_DIR_PREFIX) && !parent.delete())
+        Logger.w(TAG, "Failed to delete temporary bookmarks directory " + parent);
     }
 
-    if (success)
-    {
-      for (BookmarksLoadingListener listener : mListeners)
-        listener.onBookmarksFileImportSuccessful();
-    }
-    else
-    {
-      for (BookmarksLoadingListener listener : mListeners)
-        listener.onBookmarksFileImportFailed();
-    }
+    BookmarkImportResult result = new BookmarkImportResult(categoryIds, failedFileNames);
+    for (BookmarksLoadingListener listener : mListeners)
+      listener.onBookmarksImportFinished(result);
   }
 
   // Called from JNI.
@@ -287,6 +287,13 @@ public enum BookmarkManager {
   {
     Logger.d(TAG, "Loading bookmarks file from: " + path);
     nativeLoadBookmarksFile(path, isTemporaryFile);
+  }
+
+  @MainThread
+  public void loadBookmarksFiles(@NonNull String[] paths, boolean isTemporaryFile)
+  {
+    Logger.d(TAG, "Loading " + paths.length + " bookmarks files");
+    nativeLoadBookmarksFiles(paths, isTemporaryFile);
   }
 
   @WorkerThread
@@ -417,7 +424,20 @@ public enum BookmarkManager {
   @WorkerThread
   public boolean importBookmarksFile(@NonNull ContentResolver resolver, @NonNull Uri uri, @NonNull File tempDir)
   {
+    String path = copyBookmarksFile(resolver, uri, tempDir);
+    if (path == null)
+      return false;
+    UiThread.run(() -> loadBookmarksFiles(new String[] {path}, true));
+    return true;
+  }
+
+  @WorkerThread
+  @Nullable
+  private String copyBookmarksFile(@NonNull ContentResolver resolver, @NonNull Uri uri, @NonNull File tempDir)
+  {
     Logger.i(TAG, "Importing bookmarks from " + uri);
+    File importDir = null;
+    File tempFile = null;
     try
     {
       String filename = getBookmarksFilenameFromUri(resolver, uri);
@@ -428,32 +448,54 @@ public enum BookmarkManager {
           for (BookmarksLoadingListener listener : mListeners)
             listener.onBookmarksFileUnsupported(uri);
         });
-        return false;
+        return null;
       }
 
+      filename = new File(filename).getName();
+      importDir = new File(tempDir, TEMP_IMPORT_DIR_PREFIX + UUID.randomUUID());
+      if (!importDir.mkdirs())
+        throw new IOException("Could not create temporary import directory " + importDir);
       Logger.d(TAG, "Downloading bookmarks file from " + uri + " into " + filename);
-      final File tempFile = new File(tempDir, filename);
+      tempFile = new File(importDir, filename);
       StorageUtils.copyFile(resolver, uri, tempFile);
       Logger.d(TAG, "Downloaded bookmarks file from " + uri + " into " + filename);
-      UiThread.run(() -> loadBookmarksFile(tempFile.getAbsolutePath(), true));
-      return true;
+      return tempFile.getAbsolutePath();
     }
     catch (IOException | SecurityException e)
     {
+      if (tempFile != null && tempFile.exists() && !tempFile.delete())
+        Logger.w(TAG, "Failed to delete temporary bookmarks file " + tempFile);
+      if (importDir != null && !importDir.delete())
+        Logger.w(TAG, "Failed to delete temporary bookmarks directory " + importDir);
       Logger.e(TAG, "Could not download bookmarks file from " + uri, e);
       UiThread.run(() -> {
         for (BookmarksLoadingListener listener : mListeners)
           listener.onBookmarksFileDownloadFailed(uri, e.toString());
       });
-      return false;
+      return null;
     }
   }
 
   @WorkerThread
   public void importBookmarksFiles(@NonNull ContentResolver resolver, @NonNull List<Uri> uris, @NonNull File tempDir)
   {
+    importBookmarksFilesAndGetCount(resolver, uris, tempDir);
+  }
+
+  @WorkerThread
+  public int importBookmarksFilesAndGetCount(@NonNull ContentResolver resolver, @NonNull List<Uri> uris,
+                                             @NonNull File tempDir)
+  {
+    List<String> paths = new ArrayList<>();
     for (Uri uri : uris)
-      importBookmarksFile(resolver, uri, tempDir);
+    {
+      String path = copyBookmarksFile(resolver, uri, tempDir);
+      if (path != null)
+        paths.add(path);
+    }
+    if (!paths.isEmpty())
+      UiThread.run(() -> loadBookmarksFiles(paths.toArray(new String[0]), true));
+    return paths.size();
   }
 
   public boolean isAsyncBookmarksLoadingInProgress()
@@ -609,6 +651,8 @@ public enum BookmarkManager {
 
   private static native void nativeLoadBookmarksFile(@NonNull String path, boolean isTemporaryFile);
 
+  private static native void nativeLoadBookmarksFiles(@NonNull String[] paths, boolean isTemporaryFile);
+
   private static native boolean nativeIsAsyncBookmarksLoadingInProgress();
 
   private static native boolean nativeIsUsedCategoryName(@NonNull String name);
@@ -648,8 +692,19 @@ public enum BookmarkManager {
     default void onBookmarksLoadingFinished() {}
     default void onBookmarksFileUnsupported(@NonNull Uri uri) {}
     default void onBookmarksFileDownloadFailed(@NonNull Uri uri, @NonNull String string) {}
-    default void onBookmarksFileImportSuccessful() {}
-    default void onBookmarksFileImportFailed() {}
+    default void onBookmarksImportFinished(@NonNull BookmarkImportResult result)
+    {
+      if (result.getCategoryIds().length > 0)
+        onBookmarksFileImportSuccessful();
+      if (result.getFailedFileNames().length > 0)
+        onBookmarksFileImportFailed();
+    }
+    @Deprecated
+    default void onBookmarksFileImportSuccessful()
+    {}
+    @Deprecated
+    default void onBookmarksFileImportFailed()
+    {}
   }
 
   public interface BookmarksSortingListener

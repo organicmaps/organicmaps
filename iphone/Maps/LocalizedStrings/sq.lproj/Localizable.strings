@@ -163,10 +163,10 @@
 "load_kmz_title" = "Duke ngarkuar Faqeshënuesit";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Faqeshënuesit u ngarkuan me sukses! Mund t'i gjeni në hartë ose në ekranin e Menaxherit të Faqeshënuesve.";
+"load_kmz_successful" = "Faqeshënuesit u ngarkuan me sukses! Zgjidhni një listë për ta parë në hartë:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Dështoi ngarkimi i faqeshënuesve. Skedari mund të jetë i dëmtuar ose me defekt.";
+"load_kmz_failed" = "Dështoi ngarkimi i faqeshënuesve. Skedari mund të jetë i dëmtuar ose me defekt:";
 
 /* resource for context menu */
 "edit" = "Ndrysho";

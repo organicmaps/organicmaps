@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">Se încarcă locurile preferate</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Locuri preferate încărcate cu succes! Le poți găsi pe hartă sau în „Gestionare Locuri preferate”.</string>
+    <string name="load_kmz_successful">Locuri preferate încărcate cu succes! Alege o listă pentru a o vedea pe hartă:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Încărcarea locurilor preferate a eșuat. Fișierul poate fi defect.</string>
+    <string name="load_kmz_failed">Încărcarea locurilor preferate a eșuat. Fișierul poate fi defect:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Tipul de fișier nu este recunoscut de aplicație:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
