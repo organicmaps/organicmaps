@@ -2286,6 +2286,8 @@ void BookmarkManager::NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && coll
     else if (!m_loadBookmarksFinished)
     {
       // Create an empty default category if nothing was loaded. Called on the first launch after async LoadBookmarks.
+      /// @todo We don't have any valid category in a timeframe between starting the app and finishing async
+      /// LoadBookmarks.
       CheckAndResetLastIds();
       CheckAndCreateDefaultCategory();
     }
