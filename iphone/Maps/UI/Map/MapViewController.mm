@@ -1026,15 +1026,8 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
   MWMGroupIDCollection const importedCategoryIds = result.groupIds;
   NSArray<NSString *> * const failedFileNames = result.failedFileNames;
 
-  if (importedCategoryIds.count == 0)
-  {
-    if (failedFileNames.count > 0)
-      [[MWMAlertViewController activeAlertController] presentBookmarksImportAlertWithCategoryIds:@[]
-                                                                                   categoryNames:@[]
-                                                                                 failedFileNames:failedFileNames
-                                                                                  selectCategory:nil];
+  if (importedCategoryIds.count == 0 && failedFileNames.count == 0)
     return;
-  }
 
   // Show the imported category on the map automatically.
   if (failedFileNames.count == 0 && importedCategoryIds.count == 1)
