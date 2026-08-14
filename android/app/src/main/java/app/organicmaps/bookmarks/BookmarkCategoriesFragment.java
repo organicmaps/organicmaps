@@ -2,6 +2,7 @@ package app.organicmaps.bookmarks;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -66,6 +67,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   private BookmarkCategory mSelectedCategory;
   @Nullable
   private CategoryEditor mCategoryEditor;
+  @Nullable
+  private Dialog mBookmarksImportDialog;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -158,6 +161,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
     super.onStop();
     BookmarkManager.INSTANCE.removeLoadingListener(this);
     BookmarkManager.INSTANCE.removeSharingListener(this);
+    dismissBookmarksImportDialog();
   }
 
   @Override
@@ -236,12 +240,22 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   @Override
   public void onBookmarksImportFinished(@NonNull BookmarkImportResult result)
   {
-    BookmarksImportDialog.show(requireActivity(), result, categoryId -> {
+    dismissBookmarksImportDialog();
+    mBookmarksImportDialog = BookmarksImportDialog.show(requireActivity(), result, categoryId -> {
       Intent intent = new Intent(requireActivity(), MwmActivity.class);
       intent.putExtra(MwmActivity.EXTRA_CATEGORY_ID, categoryId);
       intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
       startActivity(intent);
     });
+  }
+
+  private void dismissBookmarksImportDialog()
+  {
+    if (mBookmarksImportDialog == null)
+      return;
+
+    mBookmarksImportDialog.dismiss();
+    mBookmarksImportDialog = null;
   }
 
   @Override
