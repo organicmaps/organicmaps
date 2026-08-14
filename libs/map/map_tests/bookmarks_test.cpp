@@ -379,14 +379,8 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ImportRequestResult)
   TEST_EQUAL(0, startedCount, ());
 
   bmManager.LoadBookmarks();
-  while (importFinishedCount == 0)
-  {
-    if (!guiTaskLoop.RunNext())
-    {
-      TEST(false, ("Timed out waiting for a bookmarks loading task"));
-      break;
-    }
-  }
+  TEST(RunGuiTasksUntil(guiTaskLoop, [&]() { return importFinishedCount == 1; }),
+       ("Timed out waiting for a bookmarks loading task"));
 
   TEST_EQUAL(2, startedCount, ());
   TEST_EQUAL(2, finishedCount, ());
@@ -412,22 +406,15 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ImportRequestResult)
   TEST_EQUAL("missing_bookmark_import.kmz", failure.m_failedFileNames[0], ());
 
   bmManager.ReloadBookmarks({sourceFile.GetFullPath(), reloadSourceFile.GetFullPath()});
-  while (finishedCount < 3)
-  {
-    if (!guiTaskLoop.RunNext())
-    {
-      TEST(false, ("Timed out waiting for a bookmarks reload task"));
-      break;
-    }
-  }
+  TEST(RunGuiTasksUntil(guiTaskLoop, [&]() { return finishedCount == 3; }),
+       ("Timed out waiting for a bookmarks reload task"));
 
   TEST_EQUAL(3, startedCount, ());
   TEST_EQUAL(3, finishedCount, ());
   TEST_EQUAL(1, importFinishedCount, ());
   TEST_EQUAL("finished_reload", callbackOrder.back(), ());
 
-  GetPlatform().RunTask(Platform::Thread::File, []() { testing::Notify(); });
-  testing::Wait();
+  WaitForFileTasks();
 }
 
 UNIT_CLASS_TEST(Runner, Bookmarks_ImportCorruptAndEmptyFiles)
@@ -477,9 +464,12 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ImportPartialKmzResult)
   ScopedFile const validFile("bookmark_import_partial_valid.kml", kmlString);
   ScopedFile const corruptFile("bookmark_import_partial_corrupt.kml", "not valid KML");
   ScopedFile const macOSMetadataFile("bookmark_import_partial_macos_metadata.kml", "not valid KML");
+  ScopedFile const adjacentMetadataFile("bookmark_import_partial_adjacent_metadata.kml", "not valid KML");
   ScopedFile const kmzFile("bookmark_import_partial.kmz", ScopedFile::Mode::DoNotCreate);
-  TEST(CreateZipFromFiles({validFile.GetFullPath(), corruptFile.GetFullPath(), macOSMetadataFile.GetFullPath()},
-                          {"valid.kml", "corrupt.kml", "__MACOSX/._valid.kml"}, kmzFile.GetFullPath()),
+  TEST(CreateZipFromFiles({validFile.GetFullPath(), corruptFile.GetFullPath(), macOSMetadataFile.GetFullPath(),
+                           adjacentMetadataFile.GetFullPath()},
+                          {"valid.kml", "corrupt.kml", "__MACOSX/._valid.kml", "nested/._valid.kml"},
+                          kmzFile.GetFullPath()),
        ());
 
   ScopedManualGuiTaskLoop guiTaskLoop;
