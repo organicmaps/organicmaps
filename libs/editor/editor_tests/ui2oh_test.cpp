@@ -671,3 +671,24 @@ UNIT_TEST(OpeningHours2TimeTableSet_closedOverridesApplyEverywhere)
     TEST(!MakeTimeTableSet(oh, tts), (value));
   }
 }
+
+// A wrapped opening span fits one time table, but other rules can change its
+// hours past midnight without sharing the opening rule's weekdays.
+UNIT_TEST(OpeningHours2TimeTableSet_overnightCombinationsStayInAdvancedMode)
+{
+  for (std::string_view const value : {
+           "Mo 20:00-02:00, 01:00-04:00",
+           "Mo 20:00-02:00; Mo 21:00-23:00 off",
+           "Mo-Fr 08:00-18:00; Sa 23:00-01:00 off",
+           "Mo 20:00-02:00; Tu off",
+           "Mo 20:00-02:00; Tu 01:00-04:00 off",
+           "Mo-Fr 20:00-02:00; Tu 10:00-12:00",
+           "Mo 20:00-02:00; Tu 12:00-13:00 off",
+       })
+  {
+    OpeningHours const oh(value);
+    TEST(oh.IsValid(), (value));
+    TimeTableSet tts;
+    TEST(!MakeTimeTableSet(oh, tts), (value));
+  }
+}
