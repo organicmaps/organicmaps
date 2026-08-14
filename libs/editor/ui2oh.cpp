@@ -127,6 +127,16 @@ std::vector<Weekdays> SplitIntoIntervals(editor::ui::OpeningDays const & days)
   return result;
 }
 
+osmoh::HourMinutes::TMinutes::rep GetDuration(osmoh::Time const & time)
+{
+  return time.GetHourMinutes().GetDurationCount();
+}
+
+bool WrapsMidnight(osmoh::Timespan const & span)
+{
+  return GetDuration(span.GetEnd()) <= GetDuration(span.GetStart());
+}
+
 bool IsRepresentableInSimpleEditor(osmoh::OpeningHours const & oh)
 {
   using namespace osmoh;
@@ -176,6 +186,12 @@ bool IsRepresentableInSimpleEditor(osmoh::OpeningHours const & oh)
       // Platform pickers expose wall-clock starts and allow 24:00 only as the
       // end of a day.
       if (start >= 24_h || end > 24_h)
+        return false;
+
+      // SetUpTimeTable's interval model and ExcludeTimes() are linear in
+      // wall-clock time: keep a lone overnight span editable, but reject one
+      // combined with other spans or used as an exclusion.
+      if (WrapsMidnight(span) && (rule.GetTimes().size() > 1 || rule.GetModifier() == RuleSequence::Modifier::Closed))
         return false;
     }
   }
@@ -229,11 +245,6 @@ editor::ui::OpeningDays GetCommonDays(editor::ui::OpeningDays const & a, editor:
   return result;
 }
 
-osmoh::HourMinutes::TMinutes::rep GetDuration(osmoh::Time const & time)
-{
-  return time.GetHourMinutes().GetDurationCount();
-}
-
 // The result of applying a closed rule's spans to a time table it covers.
 enum class Exclusion
 {
@@ -251,6 +262,10 @@ Exclusion ExcludeTimes(osmoh::TTimespans const & excludeTime, editor::ui::TimeTa
     // get rid of separation of TwentyFourHours and OpeningTime.
     tt.SetOpeningTime(kTwentyFourHours);
   }
+
+  // Linear exclusion math cannot split an overnight opening span.
+  if (WrapsMidnight(tt.GetOpeningTime()))
+    return Exclusion::Unsupported;
 
   auto const openStart = GetDuration(tt.GetOpeningTime().GetStart());
   auto const openEnd = GetDuration(tt.GetOpeningTime().GetEnd());

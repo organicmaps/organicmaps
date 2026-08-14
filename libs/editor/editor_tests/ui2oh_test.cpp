@@ -666,3 +666,29 @@ UNIT_TEST(OpeningHours2TimeTableSet_closedOverridesApplyEverywhere)
     TEST(!MakeTimeTableSet(oh, tts), (value));
   }
 }
+
+// The simple editing model is linear in wall-clock time: a lone overnight
+// span fits it, but combinations do not survive a round trip.
+UNIT_TEST(OpeningHours2TimeTableSet_overnightCombinationsStayInAdvancedMode)
+{
+  for (std::string_view const value : {
+           "Mo 20:00-02:00, 01:00-04:00",           // wrapped span plus a second span
+           "Mo 20:00-02:00; Mo 21:00-23:00 off",    // exclusion inside a wrapped span
+           "Mo-Fr 08:00-18:00; Sa 23:00-01:00 off"  // wrapping exclusion span
+       })
+  {
+    OpeningHours const oh(value);
+    TEST(oh.IsValid(), (value));
+    TimeTableSet tts;
+    TEST(!MakeTimeTableSet(oh, tts), (value));
+  }
+
+  // A closed rule on disjoint days does not disturb an overnight time table.
+  TestLosslessRoundTrip("Mo 20:00-02:00; Tu 12:00-13:00 off");
+
+  OpeningHours const disjoint("Mo 20:00-02:00; Tu 12:00-13:00 off");
+  TimeTableSet tts;
+  TEST(MakeTimeTableSet(disjoint, tts), ());
+  TEST_EQUAL(tts.Size(), 1, ());
+  TEST_EQUAL(tts.Front().GetOpeningDays().size(), 1, ());
+}
