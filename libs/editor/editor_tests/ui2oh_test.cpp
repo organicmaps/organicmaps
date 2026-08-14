@@ -561,3 +561,50 @@ UNIT_TEST(OpeningHours2TimeTableSet_onlyRepresentableSchedulesUseSimpleMode)
     TEST(MakeTimeTableSet(oh, tts), (value));
   }
 }
+
+// A closed rule overrides everything it intersects; losing any part of it on
+// save would reopen closed hours.
+UNIT_TEST(OpeningHours2TimeTableSet_closedOverridesApplyEverywhere)
+{
+  {
+    // A trailing constant "off" closes the whole week: not representable.
+    OpeningHours oh("Mo-Fr 08:00-18:00; off");
+    TEST(oh.IsValid(), ());
+    TimeTableSet tts;
+    TEST(!MakeTimeTableSet(oh, tts), ());
+  }
+  {
+    // A whole-week override closes both time tables: nothing left to edit.
+    OpeningHours oh("Mo-Fr 08:00-18:00; Sa-Su 10:00-16:00; Mo-Su off");
+    TEST(oh.IsValid(), ());
+    TimeTableSet tts;
+    TEST(!MakeTimeTableSet(oh, tts), ());
+  }
+  {
+    // A selectorless closed rule applies to the whole week.
+    OpeningHours oh("Mo-Fr 08:00-18:00; 13:00-14:00 off");
+    TEST(oh.IsValid(), ());
+    TimeTableSet tts;
+    TEST(MakeTimeTableSet(oh, tts), ());
+    TEST_EQUAL(tts.Size(), 1, ());
+
+    auto const tt = tts.Front();
+    TEST_EQUAL(tt.GetExcludeTime().size(), 1, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetStart().GetHourMinutes().GetHoursCount(), 13, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetEnd().GetHourMinutes().GetHoursCount(), 14, ());
+  }
+  {
+    // The override reaches the second time table, not only the first one.
+    OpeningHours oh("Mo-Fr 08:00-18:00; Sa-Su 10:00-16:00; Sa 12:00-13:00 off");
+    TEST(oh.IsValid(), ());
+    TimeTableSet tts;
+    TEST(MakeTimeTableSet(oh, tts), ());
+    TEST_EQUAL(tts.Size(), 3, ());
+
+    TEST_EQUAL(tts.Get(0).GetOpeningDays().size(), 5, ());
+    // Saturday is split out of Sa-Su and carries the exclusion.
+    TEST_EQUAL(tts.Get(1).GetOpeningDays().size(), 1, ());
+    TEST_EQUAL(tts.Get(2).GetOpeningDays().size(), 1, ());
+    TEST_EQUAL(tts.Get(2).GetExcludeTime().size(), 1, ());
+  }
+}
