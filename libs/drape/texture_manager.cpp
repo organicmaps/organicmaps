@@ -512,7 +512,7 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
 
   // Initialize colors (reserved ./data/colors.txt lines count).
   std::vector<dp::Color> colors;
-  colors.reserve(512);
+  colors.reserve(1024);
   ParseColorsList(params.m_colors, [&colors](dp::Color const & color) { colors.push_back(color); });
 
   m_colorTexture =
