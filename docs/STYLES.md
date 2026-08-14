@@ -98,6 +98,36 @@ A whole map needs to be [regenerated](MAPS.md) for the changes to take effect if
 Map style files syntax is based on [MapCSS/0.2](https://wiki.openstreetmap.org/wiki/MapCSS/0.2),
 though the specification is not supported in full and there are OM-specific extensions to it.
 
+### Layers (`::object-id`)
+
+A feature can be drawn in several layers, each selected by an `::object-id` suffix: `::default`
+(implicit when no suffix is given), `::int_name` for the international name, `::casing`,
+`::bridgeblack` and so on.
+
+A declaration block applies to **one** layer only — the first selector of the group that matches:
+
+```mapcss
+/* WRONG: mutes ::default and leaves ::int_name rendered. */
+node|z16-[addr:housenumber][addr:street],
+node|z16-[addr:housenumber][addr:street]::int_name,
+{text: none;}
+```
+
+Which one wins is positional, so reordering the selectors just moves the problem. Give each layer
+its own block, or select them all at once with `::*`:
+
+```mapcss
+node|z16-[addr:housenumber][addr:street]::*,
+{text: none;}
+```
+
+`::*` applies to every layer defined so far and seeds any layer defined later, which is what an
+override style (one that `@import`s another and then adjusts it) usually wants. See
+`data/styles/default/include/defaults.mapcss` for more examples.
+
+Leaving a layer behind is rarely silent: whichever layer survives owns the caption drule, so
+generation stops with `ERROR: priority is not set for caption <type>::<layer>`.
+
 The `tools/unix/generate_drules.sh` script uses a customized version of [Kothic](https://github.com/organicmaps/kothic)
 stylesheet processor to compile MapCSS files into binary drawing rules files `data/drules_*.bin`.
 The processor also produces text versions of these files (`data/drules_*.txt`) to ease debugging.
