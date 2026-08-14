@@ -74,16 +74,12 @@ BookmarkDialog::BookmarkDialog(QWidget * parent, Framework & framework)
   BookmarkManager::AsyncLoadingCallbacks callbacks;
   callbacks.m_onStarted = std::bind(&BookmarkDialog::OnAsyncLoadingStarted, this);
   callbacks.m_onFinished = std::bind(&BookmarkDialog::OnAsyncLoadingFinished, this);
-  callbacks.m_onImportFinished = [this](BookmarkManager::BookmarkImportResult const & result)
+  callbacks.m_onImportFinished = [](BookmarkManager::BookmarkImportResult const & result)
   {
     for (auto const & sourceResult : result.m_sourceResults)
-    {
-      auto const & context = sourceResult.m_context;
-      if (sourceResult.m_groupIds.empty())
-        OnAsyncLoadingFileError(context.m_filePath, context.m_isTemporaryFile);
-      else
-        OnAsyncLoadingFileSuccess(context.m_filePath, context.m_isTemporaryFile);
-    }
+      LOG(sourceResult.m_failedFileNames.empty() ? LINFO : LERROR,
+          ("Bookmarks import:", sourceResult.m_context.m_filePath, "imported:", sourceResult.m_groupIds.size(),
+           "failed:", sourceResult.m_failedFileNames));
   };
   m_framework.GetBookmarkManager().SetAsyncLoadingCallbacks(std::move(callbacks));
 }
@@ -96,16 +92,6 @@ void BookmarkDialog::OnAsyncLoadingStarted()
 void BookmarkDialog::OnAsyncLoadingFinished()
 {
   FillTree();
-}
-
-void BookmarkDialog::OnAsyncLoadingFileSuccess(std::string const & fileName, bool isTemporaryFile)
-{
-  LOG(LINFO, ("OnAsyncLoadingFileSuccess", fileName, isTemporaryFile));
-}
-
-void BookmarkDialog::OnAsyncLoadingFileError(std::string const & fileName, bool isTemporaryFile)
-{
-  LOG(LERROR, ("OnAsyncLoadingFileError", fileName, isTemporaryFile));
 }
 
 void BookmarkDialog::OnItemClick(QTreeWidgetItem * item, int column)
@@ -149,14 +135,11 @@ void BookmarkDialog::OnImportClick()
       this /* parent */, tr("Open KML, KMZ, GPX, JSON, GeoJSON..."), QString() /* dir */,
       "KML, KMZ, GPX, JSON, GeoJSON files (*.kml *.KML *.kmz *.KMZ *.gpx *.GPX *.json *.JSON *.geojson *.GEOJSON)");
 
+  std::vector<BookmarkManager::BookmarkFileLoadingContext> contexts;
+  contexts.reserve(files.size());
   for (auto const & name : files)
-  {
-    auto const file = name.toStdString();
-    if (file.empty())
-      continue;
-
-    m_framework.GetBookmarkManager().ImportBookmarks({{file, false /* isTemporaryFile */}});
-  }
+    contexts.push_back({name.toStdString(), false /* isTemporaryFile */});
+  m_framework.GetBookmarkManager().ImportBookmarks(std::move(contexts));
 }
 
 void BookmarkDialog::OnExportClick(FileType exportedFileType)

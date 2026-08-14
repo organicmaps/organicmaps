@@ -503,7 +503,8 @@ struct PreparedBookmarkFile
 {
   std::string m_filePath;
   std::string m_displayName;
-  bool m_ignoreEmptyData = false;
+  // The root doc.kml of a multi-category archive only indexes the other entries and holds no marks of its own.
+  bool m_isKmzIndex = false;
 };
 
 struct BookmarkFilePreparationResult
@@ -520,9 +521,14 @@ BookmarkFilePreparationResult PrepareFilesToLoadFromKmz(std::string const & file
   {
     ZipFileReader::FileList files;
     ZipFileReader::FilesList(filePath, files);
-    // Finder may add non-KML AppleDouble metadata under __MACOSX when creating an archive.
-    files.erase(std::remove_if(files.begin(), files.end(), [](auto const & file)
-    { return file.first.starts_with("__MACOSX/") || GetLowercaseFileExt(file.first) != kKmlExtension; }),
+    // Finder may add non-KML AppleDouble metadata under __MACOSX or next to the original file.
+    files.erase(std::remove_if(files.begin(), files.end(),
+                               [](auto const & file)
+    {
+      auto const name = base::FileNameFromFullPath(file.first);
+      return file.first.starts_with("__MACOSX/") || name.starts_with("._") ||
+             GetLowercaseFileExt(file.first) != kKmlExtension;
+    }),
                 files.end());
     for (auto const & [kmlFileInZip, size] : files)
     {
@@ -650,11 +656,13 @@ BookmarkFileImportData LoadBookmarkFileForImport(std::string const & filePath)
 
     if (kmlData->m_tracksData.empty() && kmlData->m_bookmarksData.empty())
     {
-      if (!preparedFile.m_ignoreEmptyData)
+      if (!preparedFile.m_isKmzIndex)
         result.m_failedFileNames.push_back(std::move(preparedFile.m_displayName));
       continue;
     }
 
+    // Imported tracks without a timestamp inherit the source file's modification time. For KMZ files, this is the
+    // archive timestamp rather than the extracted temporary file's timestamp.
     if (kmlData->m_categoryData.m_lastModified == kml::Timestamp{})
       kmlData->m_categoryData.m_lastModified = GetFileModificationTimestamp(filePath);
 
