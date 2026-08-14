@@ -21529,6 +21529,12 @@ type shop-beverages
     symbol name=alcohol-m priority=2400 min_distance=24
     caption primary[height=10 color=c066 dy=1 optional] priority=-7600
 type shop-bicycle
+  z14
+    symbol name=shop-bicycle-m priority=1600 min_distance=10
+    caption primary[height=10 color=c066 dy=1 optional] priority=-8400
+  z15
+    symbol name=shop-bicycle-m priority=1600 min_distance=10
+    caption primary[height=10 color=c066 dy=1 optional] priority=-8400
   z16
     symbol name=shop-bicycle-m priority=1600 min_distance=10
     caption primary[height=10 color=c066 dy=1 optional] priority=-8400
