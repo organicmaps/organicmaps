@@ -14,6 +14,10 @@ using osmoh::operator""_h;
 
 osmoh::Timespan const kTwentyFourHours = {0_h, 24_h};
 
+editor::ui::OpeningDays const kWholeWeek = {
+    osmoh::Weekday::Monday, osmoh::Weekday::Tuesday,  osmoh::Weekday::Wednesday, osmoh::Weekday::Thursday,
+    osmoh::Weekday::Friday, osmoh::Weekday::Saturday, osmoh::Weekday::Sunday};
+
 editor::ui::OpeningDays MakeOpeningDays(osmoh::Weekdays const & wds)
 {
   std::set<osmoh::Weekday> openingDays;
@@ -135,6 +139,7 @@ bool IsRepresentableInSimpleEditor(osmoh::OpeningHours const & oh)
     return false;
 
   auto const & rules = oh.GetRule();
+  editor::ui::OpeningDays coveredDays;
   for (size_t i = 0; i < rules.size(); ++i)
   {
     auto const & rule = rules[i];
@@ -152,8 +157,19 @@ bool IsRepresentableInSimpleEditor(osmoh::OpeningHours const & oh)
       return false;
 
     // The timetable set combines its entries as ordinary overriding rules.
-    if (i + 1 < rules.size() && rule.GetAnySeparator() != ";")
-      return false;
+    // An additive open rule over days disjoint from every preceding rule is
+    // equivalent to an overriding one; a fallback ("||") never is.
+    if (i > 0 && rules[i - 1].GetAnySeparator() != ";")
+    {
+      if (rules[i - 1].GetAnySeparator() != "," || !rule.HasWeekdays() ||
+          rule.GetModifier() == RuleSequence::Modifier::Closed)
+      {
+        return false;
+      }
+      for (auto const day : MakeOpeningDays(rule.GetWeekdays()))
+        if (coveredDays.count(day) != 0)
+          return false;
+    }
 
     auto const & weekdays = rule.GetWeekdays();
     if (!weekdays.GetHolidays().empty())
@@ -183,6 +199,9 @@ bool IsRepresentableInSimpleEditor(osmoh::OpeningHours const & oh)
       if (end <= start && (rule.GetTimes().size() > 1 || rule.GetModifier() == RuleSequence::Modifier::Closed))
         return false;
     }
+
+    auto const ruleDays = rule.HasWeekdays() ? MakeOpeningDays(rule.GetWeekdays()) : kWholeWeek;
+    coveredDays.insert(ruleDays.begin(), ruleDays.end());
   }
   return true;
 }
@@ -222,10 +241,6 @@ osmoh::TTimespans MakeTimespans(editor::ui::TimeTable const & tt)
 
   return spans;
 }
-
-editor::ui::OpeningDays const kWholeWeek = {
-    osmoh::Weekday::Monday, osmoh::Weekday::Tuesday,  osmoh::Weekday::Wednesday, osmoh::Weekday::Thursday,
-    osmoh::Weekday::Friday, osmoh::Weekday::Saturday, osmoh::Weekday::Sunday};
 
 editor::ui::OpeningDays GetCommonDays(editor::ui::OpeningDays const & a, editor::ui::OpeningDays const & b)
 {

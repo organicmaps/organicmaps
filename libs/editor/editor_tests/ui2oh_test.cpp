@@ -539,7 +539,6 @@ UNIT_TEST(OpeningHours2TimeTableSet_onlyRepresentableSchedulesUseSimpleMode)
            "Mo-Su (sunrise+01:00)-sunset",
            "sunrise-sunset",
            "Mo-Fr 08:00-18:00; Sa sunrise-sunset",
-           "Mo-Fr 08:00-18:00, Sa 10:00-14:00",
            "Mo-Fr 08:00-18:00 || Sa 10:00-14:00",
        })
   {
@@ -632,4 +631,30 @@ UNIT_TEST(OpeningHours2TimeTableSet_overnightCombinationsStayInAdvancedMode)
   TEST(MakeTimeTableSet(disjoint, tts), ());
   TEST_EQUAL(tts.Size(), 1, ());
   TEST_EQUAL(tts.Front().GetOpeningDays().size(), 1, ());
+}
+
+// An additive rule over days disjoint from every preceding rule is equivalent
+// to an overriding one, so the simple editor represents it losslessly; place
+// pages then render it structured instead of as raw text.
+UNIT_TEST(OpeningHours2TimeTableSet_disjointAdditiveRules)
+{
+  {
+    OpeningHours oh("Mo-Fr 08:00-18:00, Sa 10:00-14:00");
+    TEST(oh.IsValid(), ());
+    TimeTableSet tts;
+    TEST(MakeTimeTableSet(oh, tts), ());
+    TEST_EQUAL(tts.Size(), 2, ());
+    TEST_EQUAL(tts.Get(0).GetOpeningDays().size(), 5, ());
+    TEST_EQUAL(tts.Get(1).GetOpeningDays().size(), 1, ());
+  }
+
+  // Overlapping days or a closed additive rule change semantics under the
+  // overriding model: keep them in the advanced editor.
+  for (std::string const value : {"Mo-Fr 08:00-18:00, Mo 10:00-14:00", "Mo-Fr 08:00-18:00, Sa off"})
+  {
+    OpeningHours const oh(value);
+    TEST(oh.IsValid(), (value));
+    TimeTableSet tts;
+    TEST(!MakeTimeTableSet(oh, tts), (value));
+  }
 }
