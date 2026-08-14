@@ -65,9 +65,7 @@ NS_SWIFT_NAME(BookmarksManager)
 
 - (BOOL)areBookmarksLoaded;
 - (void)loadBookmarks;
-- (void)loadBookmarkFile:(NSURL *)url;
 - (void)loadBookmarkFiles:(NSArray<NSURL *> *)urls;
-- (void)reloadCategoryAtFilePath:(NSString *)filePath;
 - (void)reloadCategoriesAtFilePaths:(NSArray<NSString *> *)filePaths;
 - (void)deleteCategoryAtFilePath:(NSString *)filePath;
 

@@ -99,13 +99,7 @@ extension BMCDefaultViewModel {
   }
 
   func areAllCategoriesHidden() -> Bool {
-    var result = true
-    for category in categories {
-      if category.isVisible {
-        result = false
-      }
-    }
-    return result
+    !categories.contains(where: \.isVisible)
   }
 
   func updateAllCategoriesVisibility(isShowAll: Bool) {
