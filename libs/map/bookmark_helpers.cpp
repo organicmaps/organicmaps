@@ -669,8 +669,8 @@ BookmarkFileImportData LoadBookmarkFileForImport(std::string const & filePath)
       continue;
     }
 
-    // Imported tracks without a timestamp inherit the source file's modification time. For KMZ files, this is the
-    // archive timestamp rather than the extracted temporary file's timestamp.
+    // A category with no timestamp of its own inherits the source file's modification time. For KMZ files, this is
+    // the archive timestamp rather than the extracted temporary file's timestamp.
     if (kmlData->m_categoryData.m_lastModified == kml::Timestamp{})
       kmlData->m_categoryData.m_lastModified = GetFileModificationTimestamp(filePath);
 
