@@ -126,7 +126,10 @@ public final class UiHelpers
         new CarIcon.Builder(IconCompat.createWithResource(context, R.drawable.ic_operating_hours)).build());
 
     if (isEmptyTT)
-      builder.setTitle(ohStr);
+    {
+      // Localize bare closures, preserving comments and date ranges in other values.
+      builder.setTitle(ohStr.equals("off") || ohStr.equals("closed") ? context.getString(R.string.closed) : ohStr);
+    }
     else if (timetables[0].isFullWeek())
     {
       if (timetables[0].isFullday)
