@@ -14,6 +14,7 @@ set(SRC
   stylist_tests.cpp
   user_event_stream_tests.cpp
   visual_params_fixture.hpp
+  visual_params_tests.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})
