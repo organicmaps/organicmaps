@@ -691,16 +691,16 @@ bool ParsePoint(std::string_view s, char const * delim, m2::PointD & pt, geometr
     return false;
 
   double lon;
-  if (strings::to_double(*iter, lon) && mercator::ValidLon(lon) && ++iter)
+  if (strings::to_double(*iter, lon) && ++iter)
   {
     double lat;
-    if (strings::to_double(*iter, lat) && mercator::ValidLat(lat))
+    if (strings::to_double(*iter, lat) && IsValidLatLon(lat, lon))
     {
       pt = mercator::FromLatLon(lat, lon);
 
       double rawAltitude;
       if (++iter && strings::to_double(*iter, rawAltitude))
-        altitude = static_cast<geometry::Altitude>(round(rawAltitude));
+        altitude = ToAltitude(rawAltitude);
 
       return true;
     }
@@ -855,11 +855,14 @@ void KmlParser::ParseAreaRing(std::string_view value, AreaRing & ring)
 
 void KmlParser::SetOrigin(std::string const & s)
 {
-  m_geometryType = GEOMETRY_TYPE_POINT;
-
   m2::PointD pt;
   if (ParsePoint(s, ", \n\r\t", pt))
+  {
+    m_geometryType = GEOMETRY_TYPE_POINT;
     m_org = pt;
+  }
+  else
+    LOG(LWARNING, ("Can not parse KML point coordinates from", s));
 }
 
 void KmlParser::ParseAndAddPoints(MultiGeometry::LineT & line, std::string_view s, char const * blockSeparator,
@@ -877,8 +880,7 @@ void KmlParser::ParseAndAddPoints(MultiGeometry::LineT & line, std::string_view 
 
 void KmlParser::ParseLineString(std::string const & s)
 {
-  // If m_org is not empty, then it's still a Bookmark but with track data
-  if (m_org == m2::PointD::Zero())
+  if (m_geometryType != GEOMETRY_TYPE_POINT)
     m_geometryType = GEOMETRY_TYPE_LINE;
 
   MultiGeometry::LineT line;
@@ -928,15 +930,12 @@ bool KmlParser::MakeValid()
 
   if (GEOMETRY_TYPE_POINT == m_geometryType)
   {
-    if (mercator::ValidX(m_org.x) && mercator::ValidY(m_org.y))
-    {
-      // Set default name.
-      if (m_name.empty() && m_featureTypes.empty())
-        m_name[kDefaultLang] = PointToLineString(m_org);
+    // SetOrigin() sets this type only together with a validated m_org.
+    // Set default name.
+    if (m_name.empty() && m_featureTypes.empty())
+      m_name[kDefaultLang] = PointToLineString(m_org);
 
-      return true;
-    }
-    return false;
+    return true;
   }
   else if (GEOMETRY_TYPE_LINE == m_geometryType)
   {
@@ -1234,6 +1233,7 @@ void KmlParser::Pop(std::string_view tag)
     ASSERT(!lines.empty(), ());
     if (lines.back().size() < 2)
     {
+      m_skipTimes.erase(lines.size() - 1);
       lines.pop_back();
       m_geometry.m_timestamps.pop_back();
     }

@@ -314,6 +314,41 @@ UNIT_TEST(Gpx_Timestamp_Issues)
   TEST_EQUAL(times[7], base::StringToTimestamp("2024-05-04T19:00:05Z"), ());
 }
 
+UNIT_TEST(Gpx_Track_Invalid_Coordinates)
+{
+  // Waypoints and track points with missing or out-of-range WGS84 coordinates are skipped;
+  // skipped track points do not leave timestamps behind.
+  std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1">
+  <wpt lat="95.0" lon="8.0"><name>north</name></wpt>
+  <wpt lat="47.0"><name>missing longitude</name></wpt>
+  <wpt lat="47.0" lon="8.0"><name>ok</name></wpt>
+  <trk>
+    <trkseg>
+      <trkpt lat="47.0" lon="8.0"><time>2026-05-31T12:34:56Z</time></trkpt>
+      <trkpt lat="95.0" lon="8.1"><time>2026-05-31T12:35:01Z</time></trkpt>
+      <trkpt lat="47.2" lon="1e300"><time>2026-05-31T12:35:06Z</time></trkpt>
+      <trkpt lon="8.2"><time>2026-05-31T12:35:08Z</time></trkpt>
+      <trkpt lat="47.3" lon="8.3"><time>2026-05-31T12:35:11Z</time></trkpt>
+    </trkseg>
+  </trk>
+</gpx>
+)";
+
+  kml::FileData const data = LoadGpxFromString(input);
+  TEST_EQUAL(data.m_bookmarksData.size(), 1, ());
+  TEST_EQUAL(kml::GetDefaultStr(data.m_bookmarksData[0].m_name), "ok", ());
+  TEST_EQUAL(data.m_bookmarksData[0].m_point, mercator::FromLatLon(47.0, 8.0), ());
+  TEST_EQUAL(data.m_tracksData.size(), 1, ());
+  auto const & geometry = data.m_tracksData[0].m_geometry;
+  kml::TrackGeometry const expectedLine = {{mercator::FromLatLon(47.0, 8.0), geometry::kInvalidAltitude},
+                                           {mercator::FromLatLon(47.3, 8.3), geometry::kInvalidAltitude}};
+  TEST_EQUAL(geometry.m_lines, std::vector<kml::TrackGeometry>{expectedLine}, ());
+  kml::MultiGeometry::TimeT const expectedTimes = {base::StringToTimestamp("2026-05-31T12:34:56Z"),
+                                                   base::StringToTimestamp("2026-05-31T12:35:11Z")};
+  TEST_EQUAL(geometry.m_timestamps, std::vector<kml::MultiGeometry::TimeT>{expectedTimes}, ());
+}
+
 UNIT_TEST(GoMap)
 {
   kml::FileData const dataFromFile = LoadGpxFromFile("test_data/gpx/go_map.gpx");
