@@ -21,7 +21,7 @@ namespace geojson
 std::string DebugPrint(GeoJsonGeometryPoint const & c)
 {
   std::ostringstream out;
-  out << "GeoJsonGeometryPoint [coordinates = " << c.coordinates[1] << ", " << c.coordinates[0] << "]";
+  out << "GeoJsonGeometryPoint [coordinates = " << ::DebugPrint(c.coordinates) << "]";
   return out.str();
 }
 
@@ -181,27 +181,53 @@ PredefinedColor FindPredefinedColor(std::string colorName)
 
 }  // namespace geojson
 
-kml::TrackGeometry CoordsToPoints(std::vector<std::vector<double>> const & coords)
+// A GeoJSON position is a [lon, lat, (alt)] array. Shorter arrays and coordinates outside the
+// WGS84 range are skipped like KML import does; they would put garbage into the map otherwise.
+static bool IsValidPosition(std::vector<double> const & c)
+{
+  return c.size() >= 2 && IsValidLatLon(c[1], c[0]);
+}
+
+// Converts positions to track points, skipping invalid ones. The caller supplies either no
+// timestamps or one per position; aligned timestamps are filtered together with their points.
+static kml::TrackGeometry CoordsToPoints(std::vector<std::vector<double>> const & coords,
+                                         kml::MultiGeometry::TimeT & timestamps)
 {
   // Use kDefaultAltitudeMeters (0) — not kInvalidAltitude — for 2D points when
   // other points in the same line carry a Z coordinate. This preserves the
   // elevation chart for mixed 2D/3D tracks (HasAltitudes returns false on the
   // first kInvalidAltitude, so storing it for every partial-fix point would
   // suppress the chart entirely).
-  bool const hasAnyZ = std::any_of(coords.begin(), coords.end(), [](auto const & c) { return c.size() >= 3; });
+  bool const hasAnyZ =
+      std::any_of(coords.begin(), coords.end(), [](auto const & c) { return IsValidPosition(c) && c.size() >= 3; });
   auto const altFallback = hasAnyZ ? geometry::kDefaultAltitudeMeters : geometry::kInvalidAltitude;
 
+  bool const hasTimestamps = !timestamps.empty();
+  ASSERT(!hasTimestamps || timestamps.size() == coords.size(), (timestamps.size(), coords.size()));
+  kml::MultiGeometry::TimeT keptTimestamps;
+  keptTimestamps.reserve(timestamps.size());
   kml::TrackGeometry points;
   points.reserve(coords.size());
-  for (auto const & c : coords)
+  for (size_t i = 0; i < coords.size(); ++i)
   {
+    auto const & c = coords[i];
+    if (!IsValidPosition(c))
+    {
+      LOG(LWARNING, ("Skipping invalid GeoJson position", c));
+      continue;
+    }
+    if (hasTimestamps)
+      keptTimestamps.push_back(timestamps[i]);
+
     auto const pt = mercator::FromLatLon(c[1], c[0]);
     if (c.size() >= 3)
-      points.emplace_back(pt, static_cast<geometry::Altitude>(std::round(c[2])));
+      points.emplace_back(pt, ToAltitude(c[2]));
     else
       points.emplace_back(pt, altFallback);
   }
 
+  if (hasTimestamps)
+    timestamps = std::move(keptTimestamps);
   return points;
 }
 
@@ -296,6 +322,11 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
   {
     if (auto const * point = std::get_if<GeoJsonGeometryPoint>(&feature.geometry))
     {
+      if (point->coordinates.size() < 2)
+      {
+        LOG(LWARNING, ("Skipping GeoJson point with incomplete position", point->coordinates));
+        continue;
+      }
       double longitude = point->coordinates[0];
       double latitude = point->coordinates[1];
 
@@ -341,6 +372,12 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
           latitude = info.m_lat;
           longitude = info.m_lon;
         }
+      }
+
+      if (!IsValidLatLon(latitude, longitude))
+      {
+        LOG(LWARNING, ("Skipping GeoJson point with invalid coordinates", latitude, longitude));
+        continue;
       }
 
       // Parse description
@@ -434,32 +471,39 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
       // Convert line(s) coordinates. coordTimes may be a flat array (LineString) or an array
       // of per-line arrays (MultiLineString); see GetCoordTimesValue for the property aliases.
       auto const * coordTimesVal = GetCoordTimesValue(props_json);
-      if (lineGeometry && !lineGeometry->coordinates.empty())
+      auto appendLine = [&track](std::vector<std::vector<double>> const & coords, glz::generic const * timestampsValue)
       {
-        auto const & line = track.m_geometry.m_lines.emplace_back(CoordsToPoints(lineGeometry->coordinates));
+        if (coords.empty())
+          return;
+
         kml::MultiGeometry::TimeT timestamps;
-        if (coordTimesVal)
-          timestamps = ParseTimestampArray(*coordTimesVal);
-        track.m_geometry.m_timestamps.push_back(SanitizeTimestamps(std::move(timestamps), line.size()));
-      }
+        if (timestampsValue)
+          timestamps = SanitizeTimestamps(ParseTimestampArray(*timestampsValue), coords.size());
+
+        auto line = CoordsToPoints(coords, timestamps);
+        if (line.size() < 2)
+          return;
+
+        track.m_geometry.m_lines.push_back(std::move(line));
+        track.m_geometry.m_timestamps.push_back(std::move(timestamps));
+      };
+
+      if (lineGeometry)
+        appendLine(lineGeometry->coordinates, coordTimesVal);
       if (multilineGeometry)
       {
-        // lineIdx tracks the position in coordTimes by geometry index (including empty
-        // segments that are skipped below), so timestamps stay aligned to their line.
+        // lineIdx tracks the position in coordTimes by geometry index (including the segments
+        // that appendLine drops), so timestamps stay aligned to their line.
         for (size_t lineIdx = 0; auto const & coords : multilineGeometry->coordinates)
         {
-          if (!coords.empty())
+          glz::generic const * timestampsValue = nullptr;
+          if (coordTimesVal && coordTimesVal->is_array())
           {
-            auto const & line = track.m_geometry.m_lines.emplace_back(CoordsToPoints(coords));
-            kml::MultiGeometry::TimeT timestamps;
-            if (coordTimesVal && coordTimesVal->is_array())
-            {
-              auto const & arr = coordTimesVal->get_array();
-              if (lineIdx < arr.size())
-                timestamps = ParseTimestampArray(arr[lineIdx]);
-            }
-            track.m_geometry.m_timestamps.push_back(SanitizeTimestamps(std::move(timestamps), line.size()));
+            auto const & arr = coordTimesVal->get_array();
+            if (lineIdx < arr.size())
+              timestampsValue = &arr[lineIdx];
           }
+          appendLine(coords, timestampsValue);
           ++lineIdx;
         }
       }

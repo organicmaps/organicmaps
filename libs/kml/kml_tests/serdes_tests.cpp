@@ -26,6 +26,7 @@
 
 #include <cstring>
 #include <functional>
+#include <limits>
 #include <sstream>
 #include <vector>
 
@@ -984,6 +985,40 @@ UNIT_TEST(Kml_BadTracks)
     TEST_EQUAL(geom.m_lines[0].size(), 2, ());
     TEST_EQUAL(geom.m_lines[0].size(), geom.m_timestamps[0].size(), ());
   }
+}
+
+UNIT_TEST(Kml_AltitudeClamping)
+{
+  std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Placemark>
+    <LineString><coordinates>8.0,47.0,1e300 8.1,47.1,-1e300</coordinates></LineString>
+  </Placemark>
+</kml>)";
+
+  kml::FileData data;
+  TEST_NO_THROW({ kml::DeserializerKml(data).Deserialize(MemReader(input)); }, ());
+  TEST_EQUAL(data.m_tracksData.size(), 1, ());
+  auto const & line = data.m_tracksData[0].m_geometry.m_lines[0];
+  TEST_EQUAL(line[0].GetAltitude(), std::numeric_limits<geometry::Altitude>::max(), ());
+  TEST_EQUAL(line[1].GetAltitude(), geometry::kInvalidAltitude + 1, ());
+}
+
+UNIT_TEST(Kml_InvalidPointCoordinates)
+{
+  // A placemark with out-of-range coordinates is skipped instead of being imported at (0, 0).
+  std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Placemark><name>far</name><Point><coordinates>181.0,47.0</coordinates></Point></Placemark>
+  <Placemark><name>north</name><Point><coordinates>8.0,91.0</coordinates></Point></Placemark>
+  <Placemark><name>ok</name><Point><coordinates>8.0,47.0</coordinates></Point></Placemark>
+</kml>)";
+
+  kml::FileData data;
+  TEST_NO_THROW({ kml::DeserializerKml(data).Deserialize(MemReader(input)); }, ());
+  TEST_EQUAL(data.m_bookmarksData.size(), 1, ());
+  TEST_EQUAL(kml::GetDefaultStr(data.m_bookmarksData[0].m_name), "ok", ());
+  TEST_EQUAL(data.m_bookmarksData[0].m_point, mercator::FromLatLon(47.0, 8.0), ());
 }
 
 namespace
