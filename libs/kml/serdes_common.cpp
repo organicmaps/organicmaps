@@ -2,8 +2,14 @@
 
 #include "geometry/mercator.hpp"
 
+#include "base/assert.hpp"
+#include "base/math.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
+
+#include <algorithm>
+#include <cmath>
+#include <limits>
 
 namespace kml
 {
@@ -40,6 +46,21 @@ bool LineHasAltitude(TrackGeometry const & line)
     auto const alt = pt.GetAltitude();
     return alt != geometry::kInvalidAltitude && alt != geometry::kDefaultAltitudeMeters;
   });
+}
+
+bool IsValidLatLon(double lat, double lon)
+{
+  return mercator::ValidLat(lat) && mercator::ValidLon(lon);
+}
+
+geometry::Altitude ToAltitude(double altitude)
+{
+  ASSERT(math::is_finite(altitude), (altitude));
+
+  static_assert(geometry::kInvalidAltitude == std::numeric_limits<geometry::Altitude>::min());
+  double constexpr kMinAltitude = std::numeric_limits<geometry::Altitude>::min() + 1.0;
+  double constexpr kMaxAltitude = std::numeric_limits<geometry::Altitude>::max();
+  return static_cast<geometry::Altitude>(std::clamp(std::round(altitude), kMinAltitude, kMaxAltitude));
 }
 
 void SaveStringWithCDATA(Writer & writer, std::string_view s)

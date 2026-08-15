@@ -21,6 +21,13 @@ std::string PointToGxString(geometry::PointWithAltitude const & pt);
 // flat sea-level track isn't bloated with zero altitudes. Mirrors Track::HasAltitudes intent.
 bool LineHasAltitude(TrackGeometry const & line);
 
+// Checks WGS84 coordinate ranges. The import parsers guarantee finite inputs.
+bool IsValidLatLon(double lat, double lon);
+
+// Rounds a finite altitude to meters and clamps it to the representable range, excluding
+// geometry::kInvalidAltitude. The import parsers guarantee finite inputs.
+geometry::Altitude ToAltitude(double altitude);
+
 void SaveStringWithCDATA(Writer & writer, std::string_view s);
 
 std::string_view constexpr kIndent0{};
