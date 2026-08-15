@@ -674,7 +674,14 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::UpdateMapStyle: UpdateAll<SwitchMapStyleMessage>(); break;
 
-  case Message::Type::VisualScaleChanged: UpdateAll<VisualScaleChangedMessage>(); break;
+  case Message::Type::VisualScaleChanged:
+  {
+    // Draw tile zoom depends on the visual scale, but ResolveZoomLevel runs only when the model view
+    // changes, so re-resolve it here before all tiles are re-requested in UpdateAll.
+    ResolveZoomLevel(m_userEventStream.GetCurrentScreen());
+    UpdateAll<VisualScaleChangedMessage>();
+    break;
+  }
 
   case Message::Type::AllowAutoZoom:
   {
@@ -1802,9 +1809,7 @@ void FrontendRenderer::RenderFrame()
   if (viewportChanged || m_needRestoreSize)
     OnResize(modelView);
 
-  bool const zoomChanged = ResolveZoomLevel(modelView);
-  /// @todo Put ResolveZoomLevel under modelViewChanged after testing.
-  ASSERT(!zoomChanged || modelViewChanged, ());
+  bool const zoomChanged = modelViewChanged && ResolveZoomLevel(modelView);
 
   // Skip starting a new GPU frame if rendering is being disabled (e.g. the app is going to the
   // background). SetRenderingEnabled(false) sets the flag on the UI thread and then blocks until this
