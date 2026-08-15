@@ -67,7 +67,7 @@ fi
 
 OMIM_PATH="$(cd "${OMIM_PATH:-$(dirname "$0")/../..}"; pwd)"
 if ! grep "DEFAULT_URLS_JSON" "$OMIM_PATH/private.h" >/dev/null 2>/dev/null; then
-  echo "Please run $OMIM_PATH/configure.sh"
+  echo "$OMIM_PATH/private.h is missing or does not define DEFAULT_URLS_JSON"
   exit 2
 fi
 
