@@ -2,6 +2,7 @@
 
 #include "geometry/point2d.hpp"
 
+#include "base/math.hpp"
 #include "base/matrix.hpp"
 
 #include <cmath>
@@ -70,8 +71,9 @@ T AngleTo(m2::Point<T> const & p1, m2::Point<T> const & p2)
 template <typename T>
 T TwoVectorsAngle(m2::Point<T> const & p, m2::Point<T> const & p1, m2::Point<T> const & p2)
 {
+  // Each finite AngleTo() result is in [-pi, pi], so one period normalizes a negative difference.
   T a = ang::AngleTo(p, p2) - ang::AngleTo(p, p1);
-  while (a < 0)
+  if (a < 0)
     a += 2.0 * math::pi;
   return a;
 }
