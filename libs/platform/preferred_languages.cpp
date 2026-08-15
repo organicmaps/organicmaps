@@ -436,12 +436,33 @@ static MSLocale const gLocales[] = {
 
 namespace languages
 {
+namespace
+{
+struct SystemLanguagesState
+{
+  std::string m_override;
+  bool m_initialized = false;
+};
+
+SystemLanguagesState & GetSystemLanguagesState()
+{
+  static SystemLanguagesState state;
+  return state;
+}
+}  // namespace
+
 struct SystemLanguages
 {
   buffer_vector<std::string, 4> m_langs;
 
-  SystemLanguages()
+  explicit SystemLanguages(std::string const & languageOverride)
   {
+    if (!languageOverride.empty())
+    {
+      m_langs.push_back(languageOverride);
+      return;
+    }
+
     /// @DebugNote
     // Hardcode draw text language.
     // m_langs.push_back("hi");
@@ -523,9 +544,22 @@ struct SystemLanguages
   }
 };
 
+void SetPreferredLanguageOverride(std::string_view language)
+{
+  ASSERT(!language.empty(), ());
+  auto & state = GetSystemLanguagesState();
+  ASSERT(!state.m_initialized, ("The language override must be set before the first language lookup"));
+  state.m_override = language;
+}
+
 buffer_vector<std::string, 4> const & GetSystemPreferred()
 {
-  static SystemLanguages const langs;
+  static SystemLanguages const langs = []
+  {
+    auto & state = GetSystemLanguagesState();
+    state.m_initialized = true;
+    return SystemLanguages(state.m_override);
+  }();
   return langs.m_langs;
 }
 

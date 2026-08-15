@@ -6,7 +6,7 @@
 
 #include "opening_hours/opening_hours.hpp"
 
-#include <cstdlib>
+#include <chrono>
 #include <ctime>
 #include <iomanip>
 #include <sstream>
@@ -62,6 +62,13 @@ time_t MakeTimestamp(std::string const & dateTime, char const * fmt = "%Y-%m-%d 
   return mktime(&time);
 }
 
+time_t MakeUtcTimestamp(int year, unsigned month, unsigned day, int hour, int minute)
+{
+  auto const time = std::chrono::sys_days{std::chrono::year{year} / month / day} + std::chrono::hours{hour} +
+                    std::chrono::minutes{minute};
+  return static_cast<time_t>(std::chrono::duration_cast<std::chrono::seconds>(time.time_since_epoch()).count());
+}
+
 bool Parse(std::string const & str, OpeningHours & oh)
 {
   oh = OpeningHours(str);
@@ -86,6 +93,15 @@ bool IsUnknown(OpeningHours const & oh, std::string const & dateTime)
 std::string FormatTime(time_t t, char const * fmt)
 {
   std::tm const tm = *localtime(&t);
+  char buffer[30];
+  std::strftime(buffer, sizeof(buffer) / sizeof(buffer[0]), fmt, &tm);
+  return std::string(buffer);
+}
+
+std::string FormatZonedTime(time_t t, om::tz::TimeZone const & timeZone, char const * fmt)
+{
+  time_t const zonedTime = om::tz::Convert(t, timeZone);
+  std::tm const tm = *std::gmtime(&zonedTime);
   char buffer[30];
   std::strftime(buffer, sizeof(buffer) / sizeof(buffer[0]), fmt, &tm);
   return std::string(buffer);
@@ -1226,28 +1242,21 @@ UNIT_TEST(OpeningHours_GetInfoHorizonAndDst)
   {
     // Crossing a DST transition must not shift the reported opening time:
     // Europe/Berlin springs forward on 2026-03-29 02:00 -> 03:00.
-    char const * const oldTz = getenv("TZ");
-    setenv("TZ", "Europe/Berlin", 1);
-    tzset();
+    auto const & timeZone = om::tz::TimeZoneDb::Instance().GetTZ("Europe/Berlin");
     {
       OpeningHours const oh("Mo-Su 10:00-18:00");
-      auto const info = oh.GetInfo(MakeTimestamp("2026-03-28 23:00"));
-      TEST_EQUAL(FormatTime(info.nextTimeOpen, "%Y-%m-%d %H:%M"), "2026-03-29 10:00", ());
+      auto const info = oh.GetInfo(MakeUtcTimestamp(2026, 3, 28, 22, 0), timeZone);
+      TEST_EQUAL(FormatZonedTime(info.nextTimeOpen, timeZone, "%Y-%m-%d %H:%M"), "2026-03-29 10:00", ());
     }
     {
       // An opening boundary inside the gap snaps to the first valid instant:
       // nonexistent 02:30 becomes 03:00, exactly where IsOpen() flips.
       OpeningHours const oh("Su 02:30-04:00");
-      auto const info = oh.GetInfo(MakeTimestamp("2026-03-28 12:00"));
-      TEST_EQUAL(FormatTime(info.nextTimeOpen, "%Y-%m-%d %H:%M"), "2026-03-29 03:00", ());
-      TEST(oh.IsOpen(info.nextTimeOpen), ());
-      TEST(!oh.IsOpen(info.nextTimeOpen - 60), ());
+      auto const info = oh.GetInfo(MakeUtcTimestamp(2026, 3, 28, 11, 0), timeZone);
+      TEST_EQUAL(FormatZonedTime(info.nextTimeOpen, timeZone, "%Y-%m-%d %H:%M"), "2026-03-29 03:00", ());
+      TEST_EQUAL(oh.GetInfo(info.nextTimeOpen, timeZone).state, RuleState::Open, ());
+      TEST_EQUAL(oh.GetInfo(info.nextTimeOpen - 60, timeZone).state, RuleState::Closed, ());
     }
-    if (oldTz)
-      setenv("TZ", oldTz, 1);
-    else
-      unsetenv("TZ");
-    tzset();
   }
 }
 
