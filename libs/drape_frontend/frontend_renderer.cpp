@@ -676,6 +676,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::VisualScaleChanged:
   {
+    double const vs = VisualParams::Instance().GetVisualScale();
+    m_overlayTree->SetVisualScale(vs);
+    m_searchMarkTextOverlayTree->SetVisualScale(vs);
     // Draw tile zoom depends on the visual scale, but ResolveZoomLevel runs only when the model view
     // changes, so re-resolve it here before all tiles are re-requested in UpdateAll.
     ResolveZoomLevel(m_userEventStream.GetCurrentScreen());
@@ -2477,9 +2480,7 @@ void FrontendRenderer::OnContextCreate()
   m_debugRectRenderer->SetEnabled(m_isDebugRectRenderingEnabled);
 
   m_overlayTree->SetDebugRectRenderer(make_ref(m_debugRectRenderer));
-  m_overlayTree->SetVisualScale(VisualParams::Instance().GetVisualScale());
   m_searchMarkTextOverlayTree->SetDebugRectRenderer(make_ref(m_debugRectRenderer));
-  m_searchMarkTextOverlayTree->SetVisualScale(VisualParams::Instance().GetVisualScale());
 
   // Resources recovering.
   m_screenQuadRenderer = make_unique_dp<ScreenQuadRenderer>(m_context);
