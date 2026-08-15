@@ -39,6 +39,9 @@ std::string GetCurrentMapLanguage();
 /// Normalize() it for a core language code, or GetTwine() it for a Twine locale.
 std::string SelectMapLanguage(buffer_vector<std::string, 4> const & preferred);
 
+/// Overrides OS language preferences during process startup. Must be called before any language getter.
+void SetPreferredLanguageOverride(std::string_view language);
+
 /// Script a Chinese language tag is written in.
 enum class ChineseScript
 {
