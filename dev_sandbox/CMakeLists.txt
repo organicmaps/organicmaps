@@ -13,31 +13,15 @@ if (PLATFORM_MAC)
   include(CheckLanguage)
   include(MetalShaderSupport)
 
-  # The Metal compiler lives in an on-demand cryptex mount whose path contains a
-  # suffix that changes on every remount, so a cached path goes dead. Drop it and
-  # let check_language() retry, as it skips detection when the variable is set,
-  # together with the compiler info file, which enable_language() would otherwise
-  # load in place of the freshly detected path.
+  # The Metal compiler lives in an on-demand cryptex mount whose path suffix changes on
+  # every remount, so a cached path goes dead. check_language() skips detection while the
+  # variable is set (NOTFOUND included), and enable_language() would reuse the dead path
+  # recorded in the info file, which upstream re-resolves only at an unchanged version.
   if (NOT EXISTS "${CMAKE_Metal_COMPILER}")
     unset(CMAKE_Metal_COMPILER CACHE)
     file(REMOVE "${CMAKE_PLATFORM_INFO_DIR}/CMakeMetalCompiler.cmake")
   endif()
   check_language(Metal)
-
-  # While that mount is down xcrun answers with a stub in XcodeDefault.xctoolchain
-  # that does exist but fails to run. check_language()'s try_compile rejects it,
-  # except with the Xcode generator, where CMakeTestMetalCompiler assumes a
-  # working compiler and skips the test, so probe it directly. Clear the cache as
-  # well, otherwise the stub would be picked up again once the mount is back.
-  if (CMAKE_Metal_COMPILER)
-    execute_process(COMMAND "${CMAKE_Metal_COMPILER}" --version
-                    RESULT_VARIABLE METAL_COMPILER_RUNS OUTPUT_QUIET ERROR_QUIET)
-    if (NOT METAL_COMPILER_RUNS EQUAL 0)
-      unset(CMAKE_Metal_COMPILER CACHE)
-      unset(CMAKE_Metal_COMPILER)
-      file(REMOVE "${CMAKE_PLATFORM_INFO_DIR}/CMakeMetalCompiler.cmake")
-    endif()
-  endif()
 
   if (NOT CMAKE_Metal_COMPILER)
     # The shaders target below would still be generated, but with unexpanded rule
