@@ -65,16 +65,9 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v6
 
-      - name: Cache Boost submodule
-        uses: ./.github/actions/cache-boost
-
       - name: Parallel submodules checkout
         shell: bash
         run: git submodule update --depth 1 --init --recursive --jobs=$(($(sysctl -n hw.logicalcpu) * 20))
-
-      - name: Configure repository
-        shell: bash
-        run: ./configure.sh
 
       - name: Configure XCode cache
         uses: irgaly/xcode-cache@v1

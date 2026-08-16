@@ -9,13 +9,15 @@
 
 ## System requirements
 
-To build and run Organic Maps you'll need a machine with at least 4Gb of RAM and 20-30Gb of disk space depending on your target platform. Expect to download 5-10Gb of files.
+To build and run Organic Maps you'll need a machine with at least 4GB of RAM. Download and disk requirements depend
+on the target platform, build type, and selected clone options.
 
 For _Windows_ you need to have [Git for Windows](https://git-scm.com/download/win) installed and Git bash available in the PATH.
 
 ## Getting sources
 
-First of all get the source code. The full Organic Maps sources repository is ~10Gb in size, there are various [clone options](#special-cases-options) to reduce the download size to suit your needs.
+First get the source code. The repository and its submodules are large, so use the
+[clone options](#special-cases-options) that suit your bandwidth and disk space.
 
 For _Windows_, it's necessary to enable symlink support:
 1. Activate _Windows Development Mode_ to enable symlinks globally:
@@ -40,41 +42,17 @@ Go into the cloned repository:
 cd organicmaps
 ```
 
-Configure the repository (make sure you have a working C++ build environment):
-
-(if you plan to publish the app privately in stores check [special options](#special-cases-options))
-
-```bash
-bash ./configure.sh
-```
-
-For _Windows 10_:  You should be able to build the project by following either of these setup methods:
-
-**Setup 1: Using WSL**
-1. Install [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) on your machine.
-2. Install g++ by running the following command in WSL: `sudo apt install g++`
-3. Run `./configure.sh` in WSL.
-
-**Setup 2: Using Visual Studio Developer Command Prompt**
-1. Install the [Visual Studio Developer Command Prompt](https://docs.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022) (make sure to choose the latest MSVC x64/x86 build tool and Windows 10/11 SDK as individual components while installing Visual Studio).
-2. Run the following command and follow instructions:
-
-```bash
-"C:\Program Files\Git\bin\bash.exe" configure.sh # execute the script by using Developer Command Prompt
-```
-
 ### Special cases options
 
 If you're only doing a one-off build or your internet bandwidth or disk space is limited, add following options to the `git clone` command:
 
-- a `--filter=blob:limit=128k` option to make a _partial clone_ (saves ~4Gb), i.e. blob files over 128k in size will be excluded from the history and downloaded on-demand - is suitable for generic development.
+- a `--filter=blob:limit=128k` option to make a _partial clone_. Blob files over 128KB are downloaded on demand;
+  this is suitable for general development.
 
-- a `--depth=1` option to make a _shallow copy_ (and possibly a `--no-single-branch` to have all branches not just `master`), i.e. omit history while retaining current commits only (saves ~4.5Gb) - suitable for one-off builds.
+- a `--depth=1` option to make a _shallow copy_ (and possibly `--no-single-branch` to retain all branches rather
+  than only `master`). This omits history and is suitable for one-off builds.
 
 If you mistakenly did a `git clone` without checking out submodules, you can run `git submodule update --init --recursive`. If you don't want to clone complete submodules, you can add `--depth=1` to the update command.
-
-To be able to publish the app in stores e.g. in Google Play its necessary to populate some configs with private keys, etc.
-Check `./configure.sh --help` to see how to copy the configs automatically from a private repository.
 
 ## Desktop app
 
@@ -86,7 +64,7 @@ You need a Linux or a macOS machine to build a desktop version of Organic Maps. 
 
 Ensure that you have at least 20GB of free space.
 
-Install Cmake (**3.22.1** minimum), Boost, Qt 6 and other dependencies.
+Install CMake (**3.22.1** minimum), Qt 6, and the other dependencies.
 
 Installing *ccache* can speed up active development.
 

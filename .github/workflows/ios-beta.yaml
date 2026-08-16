@@ -54,9 +54,6 @@ jobs:
         with:
           fetch-depth: 100 # enough to get all commits for the current day
 
-      - name: Cache Boost submodule
-        uses: ./.github/actions/cache-boost
-
       - name: Parallel submodules checkout
         run: git submodule update --depth 1 --init --recursive --jobs=$(($(sysctl -n hw.logicalcpu) * 20))
 
@@ -73,10 +70,6 @@ jobs:
           APPSTORE_JSON: ${{ secrets.APPSTORE_JSON }}
           CERTIFICATES_DEV_P12: ${{ secrets.CERTIFICATES_DEV_P12 }}
           CERTIFICATES_DISTR_P12: ${{ secrets.CERTIFICATES_DISTR_P12 }}
-
-      - name: Configure repository
-        shell: bash
-        run: ./configure.sh
 
       - name: Compile and upload to TestFlight
         run: |

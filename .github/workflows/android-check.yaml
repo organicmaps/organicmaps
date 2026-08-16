@@ -101,16 +101,9 @@ jobs:
           # Needed for versioning script
           fetch-depth: 200 # enough to get all commits for the current day
 
-      - name: Cache Boost submodule
-        uses: ./.github/actions/cache-boost
-
       - name: Parallel submodules checkout
         shell: bash
         run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
-
-      - name: Configure repository
-        shell: bash
-        run: ./configure.sh
 
       - name: Configure ccache
         uses: hendrikmuhs/ccache-action@v1.2

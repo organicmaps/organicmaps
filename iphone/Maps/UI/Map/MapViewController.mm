@@ -25,8 +25,6 @@
 
 #include "geometry/mercator.hpp"
 
-// If you have a "missing header error" here, then please run configure.sh script in the root repo
-// folder.
 #import "../../../private.h"
 
 extern NSString * const kMap2FBLoginSegue = @"Map2FBLogin";

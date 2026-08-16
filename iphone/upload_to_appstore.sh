@@ -5,9 +5,6 @@
 set -euxo pipefail
 
 SCRIPT_DIR="$( cd "$(dirname "$0")" && pwd -P )"
-cd "$SCRIPT_DIR/.."
-./configure.sh git@github.com:organicmaps/organicmaps-keys
-cd "$SCRIPT_DIR"
 
 IOS_BUILD=$($SCRIPT_DIR/../tools/unix/version.sh ios_build)
 IOS_VERSION=$($SCRIPT_DIR/../tools/unix/version.sh ios_version)

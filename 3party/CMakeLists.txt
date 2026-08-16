@@ -9,7 +9,7 @@ if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
 
   add_library(Boost_headers INTERFACE)
   add_library(Boost::headers ALIAS Boost_headers)
-  target_include_directories(Boost_headers SYSTEM INTERFACE "${OMIM_ROOT}/3party/boost")
+  target_include_directories(Boost_headers SYSTEM INTERFACE "${OMIM_ROOT}/3party/boost_headers")
 
   # Configure expat library.
   set(EXPAT_BUILD_TOOLS OFF)

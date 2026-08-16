@@ -36,16 +36,9 @@ jobs:
           test -n "${{ inputs.tag }}"
           test "$(git tag --points-at HEAD)" = "${{ inputs.tag }}"
 
-      - name: Cache Boost submodule
-        uses: ./.github/actions/cache-boost
-
       - name: Parallel submodules checkout
         shell: bash
         run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
-
-      - name: Configure repository
-        shell: bash
-        run: ./configure.sh
 
       - name: Set up SDK
         shell: bash

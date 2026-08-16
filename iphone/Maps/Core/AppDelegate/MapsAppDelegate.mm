@@ -30,8 +30,6 @@
 #include "base/assert.hpp"
 
 #include "private.h"
-// If you have a "missing header error" here, then please run configure.sh script in the root repo
-// folder.
 
 namespace
 {
