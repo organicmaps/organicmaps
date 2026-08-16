@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: public_holidays -->
+    <!-- Countries: AD, AT, BE, ES, FR, HR, IT, LT, MC, MT, PL, PT, RO, SI, SM -->
+    <string name="assumption_of_mary">Marijino vnebovzetje</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MT, MX, NL, PL, PT, SE, SI, SK, SM, ZA -->
+    <string name="christmas_day_catholic">božič</string>
+    <!-- Countries: SI -->
+    <string name="day_of_remembrance_for_the_dead">dan spomina na mrtve</string>
+    <!-- Countries: SI -->
+    <string name="day_of_uprising_against_the_occupation">dan upora proti okupatorju</string>
+    <!-- Countries: AD, AL, AT, BE, BG, CZ, DE, ES-CT, ES-IB, ES-NC, ES-PV, ES-VC, FR, HR, HU, IE, IT, LI, LT, LV, MC, NL, PL, SE, SI, SK, SM -->
+    <string name="easter_monday">velikonočni ponedeljek</string>
+    <!-- Countries: AL, BG, EE, LT, LV, NL, PL, PT, SE, SI -->
+    <string name="easter_sunday">velikonočna nedelja</string>
+    <!-- Countries: SI -->
+    <string name="independence_and_unity_day">dan samostojnosti in enotnosti</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CZ, DE, ES, FR, HR, HU, IT, LI, LT, LV, MC, MD, MX, PL, PT, RO, RS, SE, SI, SK, SM -->
+    <string name="labour_day">praznik dela</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MD, MT, MX, NL, PL, PT, RO, RS, SE, SI, ZA -->
+    <string name="new_years_day">novo leto</string>
+    <!-- Countries: SI -->
+    <string name="preseren_day">Prešernov dan</string>
+    <!-- Countries: SI -->
+    <string name="reformation_day">dan reformacije</string>
+    <!-- Countries: HR, SI -->
+    <string name="statehood_day">dan državnosti</string>
+    <!-- Countries: NL, SE, SI -->
+    <string name="whit_sunday">binkoštna nedelja</string>
+</resources>

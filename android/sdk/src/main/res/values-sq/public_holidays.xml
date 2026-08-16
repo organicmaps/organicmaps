@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: public_holidays -->
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MT, MX, NL, PL, PT, SE, SI, SK, SM, ZA -->
+    <string name="christmas_day_catholic">Krishtlindjet</string>
+    <!-- Countries: AD, AL, AT, BE, BG, CZ, DE, ES-CT, ES-IB, ES-NC, ES-PV, ES-VC, FR, HR, HU, IE, IT, LI, LT, LV, MC, NL, PL, SE, SI, SK, SM -->
+    <string name="easter_monday">Hënen e Pashkët Katolike</string>
+    <!-- Countries: AL, BG, EE, LT, LV, NL, PL, PT, SE, SI -->
+    <string name="easter_sunday">Pashkët Katolike</string>
+    <!-- Countries: AL -->
+    <string name="eid_al_fitr_holiday_of_breaking_the_fast">Dita e Bajramit të Madh</string>
+    <!-- Countries: AL -->
+    <string name="eid_ul_adha_feast_of_sacrifice">Dita e Kurban Bajramit</string>
+    <!-- Countries: AL -->
+    <string name="flag_and_independence_day">Dita e Flamurit dhe e Pavarësisë</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CZ, DE, ES, FR, HR, HU, IT, LI, LT, LV, MC, MD, MX, PL, PT, RO, RS, SE, SI, SK, SM -->
+    <string name="labour_day">Dita ndërkombëtare e punonjësve</string>
+    <!-- Countries: AL, CZ, IT, NL -->
+    <string name="liberation_day">Dita e Çlirimit të Shqipërisë nga pushtuesit nazifashistë</string>
+    <!-- Countries: AL -->
+    <string name="mother_teresa_day">Dita e Lumturimit te Nene Terezës</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MD, MT, MX, NL, PL, PT, RO, RS, SE, SI, ZA -->
+    <string name="new_years_day">Viti i Ri</string>
+    <!-- Countries: AL -->
+    <string name="nowruz_persian_new_year">Dita e Nevruzit</string>
+    <!-- Countries: AL, MD, RO -->
+    <string name="orthodox_easter_monday">Hënen e Pashkët Ortodokse</string>
+    <!-- Countries: AL, MD, RO -->
+    <string name="orthodox_easter_sunday">Pashkët Ortodokse</string>
+    <!-- Countries: AL -->
+    <string name="summer_day">Dita e Verës</string>
+    <!-- Countries: AL, ZA -->
+    <string name="youth_day">Dita Kombëtare e Rinisë</string>
+</resources>
