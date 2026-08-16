@@ -2651,6 +2651,9 @@ void BookmarkManager::UpdateBookmarkCategory(kml::MarkGroupId groupId, kml::Cate
   /// @todo implement more accurate merging instead of full reloading
   auto const obsoleteCompilations = it->second->GetCategoryData().m_compilationIds;
   ClearGroup(groupId);
+  // The id does not come from the file: text KML never stores it, and a stored one that duplicated a loaded
+  // category was reset by the caller. The category keeps the id it is stored under.
+  data.m_id = groupId;
   it->second = std::make_unique<BookmarkCategory>(std::move(data), autoSave);
   DeleteCompilations(obsoleteCompilations);
   m_changesTracker.OnAddGroup(groupId);

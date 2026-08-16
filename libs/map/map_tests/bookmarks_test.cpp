@@ -326,6 +326,12 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ReloadedCategoryTakesMetadataFromTheFile)
   TEST_EQUAL(bmManager.GetCategoryName(groupId), "RemoteName", ("The name comes from the reloaded file"));
   TEST_EQUAL(bmManager.IsVisible(groupId), true, ("The visibility comes from the reloaded file"));
   CheckBookmarks(bmManager, groupId);
+
+  // The file does not carry the id, so the replaced category must keep the one it is stored under, otherwise
+  // it is not found by its file name and the next reload creates a duplicate instead of replacing it.
+  TEST_EQUAL(bmManager.GetCategoryData(groupId).m_id, groupId, ("The category keeps the id it is stored under"));
+  TEST_EQUAL(bmManager.GetCategoryByFileName(fileName), groupId, ("The reloaded category is found by its file"));
+  loadFromFile(changed);
 }
 
 UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
