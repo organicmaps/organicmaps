@@ -47,7 +47,8 @@ public final class Editor
   public static final int UPLOAD_RESULT_NOTHING_TO_UPLOAD = 2;
 
   /**
-   * Blocks the calling thread until the upload completes.
+   * Blocks the calling thread until the upload completes, but no longer than five minutes. On
+   * timeout UPLOAD_RESULT_ERROR is returned while the upload keeps running in the background.
    * @return one of UPLOAD_RESULT_* constants, or -1 if not authorized.
    */
   @WorkerThread
