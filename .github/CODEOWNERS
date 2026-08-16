@@ -48,7 +48,7 @@
 /data/classificator.txt @organicmaps/styles
 /data/drules_* @organicmaps/styles
 /docs/STYLES.md @organicmaps/styles
-/tools/kothic/ @organicmaps/styles
+/tools/kothic @organicmaps/styles
 
 # DevOps (gradle override — AFTER android catch-all).
 /.github/workflows @organicmaps/devops
