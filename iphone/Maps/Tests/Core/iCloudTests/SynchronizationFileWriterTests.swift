@@ -159,6 +159,21 @@ final class SynchronizationFileWriterTests: XCTestCase {
     XCTAssertEqual(content(of: cloudItem.fileUrl), "B")
   }
 
+  // MARK: - The version kept aside by a conflict is written where nothing else is kept
+
+  func testConflictCopyTakesTheFirstNameThatIsFree() throws {
+    let fileUrl = cloudDirectoryUrl.appendingPathComponent("file.kml")
+    XCTAssertEqual(writer.copyUrl(for: fileUrl, keeping: fingerprint("A"))?.lastPathComponent, "file_1.kml")
+
+    // The copy of another conflict, or a file of the user: it holds a version of its own.
+    try Data("B".utf8).write(to: cloudDirectoryUrl.appendingPathComponent("file_1.kml"))
+    XCTAssertEqual(writer.copyUrl(for: fileUrl, keeping: fingerprint("A"))?.lastPathComponent, "file_2.kml")
+
+    // The same version, kept by another device: the resolution is made and there is nothing to write.
+    try Data("A".utf8).write(to: cloudDirectoryUrl.appendingPathComponent("file_2.kml"))
+    XCTAssertNil(writer.copyUrl(for: fileUrl, keeping: fingerprint("A")))
+  }
+
   // MARK: - Helpers
 
   /// The writer answers from a queue of the lowest priority, so a busy machine delays a result by seconds. A

@@ -255,13 +255,20 @@ final class SynchronizationFileWriter {
       return
     }
 
-    let targetCloudFileCopyUrl = generateNewFileUrl(for: cloudMetadataItem.fileUrl)
-    var coordinationError: NSError?
-    fileCoordinator.coordinate(writingItemAt: currentVersion.url,
-                               options: [.forReplacing],
-                               writingItemAt: targetCloudFileCopyUrl,
-                               options: [],
-                               error: &coordinationError) { currentVersionUrl, copyVersionUrl in
+    /* What the losing version holds decides where it goes, so both versions are read before the write access is
+     taken. Nothing has to be written when the version is preserved already: the file itself holds it -- two
+     devices uploaded the same content -- or a copy made by another device does. */
+    guard let versionContent = coordinatedFingerprint(of: latestVersionInConflict.url),
+          let currentContent = coordinatedFingerprint(of: currentVersion.url)
+    else {
+      completion(.skipped("the versions of \(cloudMetadataItem.fileName) in conflict cannot be read"))
+      return
+    }
+    let targetCloudFileCopyUrl = versionContent == currentContent
+      ? nil
+      : copyUrl(for: cloudMetadataItem.fileUrl, keeping: versionContent)
+
+    let resolveVersions: (URL, URL?) -> Void = { currentVersionUrl, copyVersionUrl in
       // Check that during the coordination block, the current version of the file have not been already resolved by another process.
       guard let unresolvedVersions = NSFileVersion.unresolvedConflictVersionsOfItem(at: currentVersionUrl), !unresolvedVersions.isEmpty else {
         LOG(.info, "File \(cloudMetadataItem.fileName) was already resolved.")
@@ -269,28 +276,36 @@ final class SynchronizationFileWriter {
         return
       }
       do {
-        // Check if the file was already resolved by another process. The in-memory versions should be marked as resolved.
-        guard !fileManager.fileExists(atPath: copyVersionUrl.path) else {
-          LOG(.info, "File \(cloudMetadataItem.fileName) was already resolved.")
-          try NSFileVersion.removeOtherVersionsOfItem(at: currentVersionUrl)
-          completion(.success)
-          return
+        if let copyVersionUrl {
+          LOG(.info,
+              "Keep the version of \(cloudMetadataItem.fileName) in conflict as \(copyVersionUrl.lastPathComponent)")
+          try latestVersionInConflict.replaceItem(at: copyVersionUrl)
+          // The modification date should be updated to mark files that was involved into the resolving process.
+          try currentVersionUrl.setResourceModificationDate(Date())
+          try copyVersionUrl.setResourceModificationDate(Date())
+        } else {
+          LOG(.info, "The version of \(cloudMetadataItem.fileName) in conflict is kept already: nothing to write")
         }
-
-        LOG(.info, "Duplicate file \(cloudMetadataItem.fileName)...")
-        try latestVersionInConflict.replaceItem(at: copyVersionUrl)
-        // The modification date should be updated to mark files that was involved into the resolving process.
-        try currentVersionUrl.setResourceModificationDate(Date())
-        try copyVersionUrl.setResourceModificationDate(Date())
         unresolvedVersions.forEach { $0.isResolved = true }
         try NSFileVersion.removeOtherVersionsOfItem(at: currentVersionUrl)
         LOG(.info, "File \(cloudMetadataItem.fileName) was successfully resolved.")
         completion(.success)
-        return
       } catch {
         completion(.failure(error))
-        return
       }
+    }
+
+    var coordinationError: NSError?
+    if let targetCloudFileCopyUrl {
+      fileCoordinator.coordinate(writingItemAt: currentVersion.url,
+                                 options: [.forReplacing],
+                                 writingItemAt: targetCloudFileCopyUrl,
+                                 options: [],
+                                 error: &coordinationError) { resolveVersions($0, $1) }
+    } else {
+      fileCoordinator.coordinate(writingItemAt: currentVersion.url,
+                                 options: [.forReplacing],
+                                 error: &coordinationError) { resolveVersions($0, nil) }
     }
 
     if let coordinationError {
@@ -327,11 +342,22 @@ final class SynchronizationFileWriter {
     return fingerprint
   }
 
-  /// A version kept aside by iCloud's own conflict resolution. The name is derived from the original one, so two
-  /// devices resolving the same conflict at the same time produce the same file instead of two copies of it.
-  private func generateNewFileUrl(for fileUrl: URL) -> URL {
+  /// Where a version kept aside by iCloud's own conflict resolution goes: the first of `<name>_1`, `<name>_2`,
+  /// ... that is free, or nil when one of them already holds that version -- the same resolution, made by
+  /// another device. A copy holding anything else belongs to another conflict and is left alone. The names are
+  /// derived from the original one, so two devices resolving the same conflict produce the same file instead of
+  /// two copies of it.
+  func copyUrl(for fileUrl: URL, keeping versionContent: Fingerprint) -> URL? {
     let baseName = fileUrl.deletingPathExtension().lastPathComponent
-    return fileUrl.deletingLastPathComponent().appendingPathComponent("\(baseName)_1.\(fileUrl.pathExtension)")
+    let directoryUrl = fileUrl.deletingLastPathComponent()
+    var index = 1
+    // The directory holds a finite number of files, so a free name is always found.
+    while true {
+      let copyUrl = directoryUrl.appendingPathComponent("\(baseName)_\(index).\(fileUrl.pathExtension)")
+      guard fileManager.fileExists(atPath: copyUrl.path) else { return copyUrl }
+      guard coordinatedFingerprint(of: copyUrl) != versionContent else { return nil }
+      index += 1
+    }
   }
 }
 
