@@ -186,8 +186,8 @@ final class SynchronizationFileWriterTests: XCTestCase {
 
   // MARK: - Helpers
 
-  /// The writer answers from a queue of the lowest priority, so a busy machine delays a result by seconds. A
-  /// generous timeout costs nothing when the result arrives at once, which is what happens on an idle one.
+  /// A busy machine can still delay an answer from the writer's utility queue. The generous timeout costs
+  /// nothing: on an idle machine the result arrives at once.
   private static let resultTimeout: TimeInterval = 30
 
   private func process(_ event: OutgoingSynchronizationEvent) throws -> WritingResult {

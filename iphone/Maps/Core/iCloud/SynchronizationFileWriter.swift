@@ -1,6 +1,7 @@
 final class SynchronizationFileWriter {
   private let fileManager: FileManager
-  private let backgroundQueue = DispatchQueue(label: "iCloud.app.organicmaps.backgroundQueue", qos: .background)
+  // Utility, not background: a background queue is starved while the map is busy, and the user waits for these files.
+  private let backgroundQueue = DispatchQueue(label: "iCloud.app.organicmaps.backgroundQueue", qos: .utility)
   private let fileCoordinator: NSFileCoordinator
   private let localDirectoryUrl: URL
   private let cloudDirectoryUrl: URL
