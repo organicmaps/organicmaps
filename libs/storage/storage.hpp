@@ -254,7 +254,8 @@ public:
     // URL and the client folder terrain/<version>/, so a grid update touches only the
     // re-generated blocks and the unchanged files simply stay current in their folders.
     int64_t m_version = 0;
-    // The current-version file presence, refreshed lazily (see EnsureTerrainOnDisk).
+    // The current-version file presence: seeded by the provider scan (OnTerrainScanned)
+    // and maintained incrementally by the downloads and the deletes.
     bool m_onDisk = false;
   };
 
@@ -262,23 +263,21 @@ public:
   static void ParseTwmGridJson(std::string const & jsonBuffer, int64_t & version, std::vector<TerrainBlock> & blocks,
                                std::map<CountryId, std::vector<uint32_t>> & coverage);
 
+  // The on-disk truth from TerrainProvider::Rescan (the async RegisterAllMaps flow):
+  // every registered file - a file the provider condemned or deleted does not count.
+  // Until this lands the terrain is unknown: the attrs carry no terrain component and
+  // nothing terrain downloads or resumes.
+  void OnTerrainScanned(std::vector<terrain::TwmFile> const & scanned);
+
 private:
-  // Mutable with m_terrainOnDiskFresh: the const attrs reads refresh the disk flags.
-  mutable std::vector<TerrainBlock> m_twmGrid;
+  std::vector<TerrainBlock> m_twmGrid;
   // Region id -> the m_twmGrid indices of the blocks intersecting the region polygon
   // (twm_grid.json "mwms"): the download/status/delete unit is the region, no client
   // geometry involved. Group nodes resolve as the union of their leafs.
   std::map<CountryId, std::vector<uint32_t>> m_terrainCoverage;
-  // False when the on-disk flags must be re-stat'ed (startup, after a delete).
-  mutable bool m_terrainOnDiskFresh = false;
-  void EnsureTerrainOnDisk() const;
-  // The coverage leafs whose terrain the user requested, persisted across sessions
-  // (kTerrainRegionsKey; a group attaches/detaches its leafs). The ref-counted delete
-  // keeps a block while any attached region wants it, and the startup resume completes
-  // the interrupted coverage. The first run with terrain files but no key adopts the
-  // fully covered regions (the pre-attachment installs).
-  std::set<CountryId> m_terrainRegions;
-  void SaveTerrainRegions() const;
+  // See OnTerrainScanned and RestoreTerrain: the resume runs after both have landed.
+  bool m_terrainScanned = false;
+  bool m_queueRestored = false;
   // Calls fn(leafId, blockIndices) for the countryId coverage leaf or for every
   // coverage leaf of the subtree of a group.
   template <class Fn>
@@ -288,10 +287,12 @@ private:
   // GetUpdateInfo (the size) and UpdateNode (the downloads), so the two cannot drift.
   template <class Fn>
   void ForEachTerrainBlockToDownload(CountryId const & countryId, Fn && fn) const;
-  void AttachTerrainRegions(CountryId const & countryId);
-  void DetachTerrainRegions(CountryId const & countryId);
-  // The startup hook (see RestoreDownloadQueue): sweeps the downloader artifacts of the
-  // blocks nobody wants and re-enqueues the missing blocks of the attached regions.
+  // The partial downloader artifacts of the block: the resume record of an interrupted
+  // download (see RestoreTerrain), deleted by the cancel so it stays cancelled.
+  void DeleteTerrainArtifacts(TerrainBlock const & block) const;
+  // Sweeps the downloader artifacts of the blocks nobody wants and resumes the regions
+  // whose interrupted downloads left artifacts behind - the disk is the only record,
+  // there is no settings snapshot of the terrain intent (the maps are the intent).
   void RestoreTerrain();
   TerrainDownloadedFn m_terrainDownloadedFn;
   TerrainHasOlderFn m_terrainHasOlderFn;
@@ -346,11 +347,17 @@ private:
 
   TerrainBlock * FindTerrainBlock(std::string const & name);
   std::string GetTerrainDir(int64_t version) const;
+  // The downloader's target path of the block (see QueuedCountry::GetFileDownloadPath).
+  std::string GetTerrainReadyPath(TerrainBlock const & block) const;
   void OnTerrainBlockProgress(std::string const & name, downloader::Progress const & progress);
   void OnTerrainBlockDownloaded(QueuedCountry const & queuedCountry, downloader::DownloadStatus status);
   void NotifyTerrainRegions(std::string const & name);
+  // The downloaded regions the failed blocks' interest points at (setting on): derived
+  // from the live state at both the retry arming and the retry firing, so a cancel or
+  // a delete in between (both empty the interest) mutes the retry.
+  CountriesSet GetFailedTerrainRegions() const;
   // The failed blocks auto-retry like the failed maps (DownloadingPolicy::ScheduleRetry)
-  // for the attached regions interested in them.
+  // for the downloaded regions still interested in them.
   void ScheduleTerrainRetry();
   // Removes every terrain item from the downloader queue and forgets the batch state.
   void DropTerrainDownloads();
@@ -444,9 +451,9 @@ public:
   /// artifacts): the "also delete the downloaded terrain data?" dialog size.
   uint64_t GetTerrainOnDiskSize() const;
 
-  /// Cancels every terrain download, clears the attachments and removes the whole
-  /// <writable>/terrain/ tree (the registered blocks through the delete hook - the
-  /// rendered tiles invalidate - and the leftovers directly).
+  /// Cancels every terrain download and removes the whole <writable>/terrain/ tree
+  /// (the registered blocks through the delete hook - the rendered tiles invalidate -
+  /// and the leftovers directly).
   void DeleteAllTerrain();
 
   /// Enqueues the terrain blocks covering the country polygon (twm_grid.json "mwms")
@@ -608,8 +615,8 @@ public:
     // terrain has blocks to fetch (the update badges count regions, not files).
     MwmCounter m_numberOfMwmFilesToUpdate = 0;
 
-    // The sizes cover BOTH the mwm files and the missing blocks of the attached terrain
-    // regions of the subtree - the update downloads both (see UpdateNode).
+    // The sizes cover BOTH the mwm files and the missing terrain blocks of the
+    // downloaded regions of the subtree - the update downloads both (see UpdateNode).
     MwmSize m_maxFileSizeInBytes = 0;
     MwmSize m_totalDownloadSizeInBytes = 0;
 
