@@ -162,7 +162,7 @@ public:
   bool HaveMapEditsToUpload(MwmId const & mwmId) const;
 
   using ChangesetTags = std::map<std::string, std::string>;
-  /// Tries to upload all local changes to the OSM server in separate network tasks.
+  /// Tries to upload all local changes to the OSM server asynchronously on the network thread.
   /// @param[in] tags should provide additional information about client to use in changeset.
   /// Notes are handled independently and are not reflected in the returned value or @a callback.
   /// @return the map edits upload start status. A non-empty @a callback is called exactly once when
