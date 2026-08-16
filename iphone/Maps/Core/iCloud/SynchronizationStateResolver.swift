@@ -87,12 +87,24 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
     let startedAt: TimeInterval
   }
 
+  /// A file that is missing from one of the directories. Only a later snapshot of that same directory can
+  /// confirm the absence, so the one that reported it is a part of it.
+  private struct Absence {
+    /// When the file was first seen missing, in active synchronization time.
+    let since: TimeInterval
+    /// The number of the snapshot of the missing side that reported the file as gone.
+    let observedIn: Int
+  }
+
   private struct FileState {
     var ownedLocalWrite: OwnedWrite?
     var ownedCloudWrite: OwnedWrite?
-    /// When the file was first seen missing, in active synchronization time.
-    var localAbsentSince: TimeInterval?
-    var cloudAbsentSince: TimeInterval?
+    var localAbsence: Absence?
+    var cloudAbsence: Absence?
+    /// A deletion is irreversible and is requested once, however many snapshots confirm the same absence while
+    /// the request is on its way. Cancelling the absence -- which every result of the deletion does -- requests
+    /// it again after a fresh confirmation.
+    var deletionRequested = false
     var downloadRequestedAt: TimeInterval?
     var conflictResolutionRequestedAt: TimeInterval?
 
@@ -100,7 +112,7 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
     /// observed again, a write that has to settle, or a request iCloud has not acted on yet. Without this the
     /// repeated snapshots are skipped, and a request that iCloud ignores is never repeated.
     var isPending: Bool {
-      localAbsentSince != nil || cloudAbsentSince != nil || ownedLocalWrite != nil || ownedCloudWrite != nil
+      localAbsence != nil || cloudAbsence != nil || ownedLocalWrite != nil || ownedCloudWrite != nil
         || downloadRequestedAt != nil || conflictResolutionRequestedAt != nil
     }
   }
@@ -111,6 +123,10 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
   private var states = [String: FileState]()
   private var localSnapshot: LocalSnapshot?
   private var cloudSnapshot: CloudSnapshot?
+  /// How many times each directory has been observed. An absence is trusted only after the directory it is
+  /// missing from has been looked at again, and a snapshot that repeats the previous one is such a look too.
+  private var localSnapshotNumber = 0
+  private var cloudSnapshotNumber = 0
   /// Set by everything that changes the state without being a snapshot: the next snapshot has to be reconciled
   /// even when it repeats the previous one.
   private var mustReconcile = true
@@ -131,11 +147,13 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
   func resolveEvent(_ event: IncomingSynchronizationEvent) -> [OutgoingSynchronizationEvent] {
     switch event {
     case .didUpdateLocalContents(let snapshot):
+      localSnapshotNumber += 1
       // iCloud repeats a snapshot on every uploading and downloading step: reconcile it only when it brings
       // something new or when a file still waits for something.
       guard snapshot != localSnapshot || mustReconcile || hasPendingConfirmations else { return [] }
       localSnapshot = snapshot
     case .didUpdateCloudContents(let snapshot):
+      cloudSnapshotNumber += 1
       guard snapshot != cloudSnapshot || mustReconcile || hasPendingConfirmations else { return [] }
       cloudSnapshot = snapshot
     case .didFinishWriting(let event):
@@ -159,9 +177,15 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
   func authorizes(_ event: OutgoingSynchronizationEvent) -> Bool {
     switch event {
     case .removeLocalItem(let item, let evidence):
-      return isDeletionConfirmed(states[item.fileName]?.cloudAbsentSince, evidence, of: item.fileName)
+      return isDeletionConfirmed(states[item.fileName]?.cloudAbsence,
+                                 observedIn: cloudSnapshotNumber,
+                                 evidence,
+                                 of: item.fileName)
     case .removeCloudItem(let item, let evidence):
-      return isDeletionConfirmed(states[item.fileName]?.localAbsentSince, evidence, of: item.fileName)
+      return isDeletionConfirmed(states[item.fileName]?.localAbsence,
+                                 observedIn: localSnapshotNumber,
+                                 evidence,
+                                 of: item.fileName)
     default:
       return true
     }
@@ -172,6 +196,8 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
     states.removeAll()
     localSnapshot = nil
     cloudSnapshot = nil
+    localSnapshotNumber = 0
+    cloudSnapshotNumber = 0
     mustReconcile = true
   }
 
@@ -215,10 +241,10 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
       cancelAbsences(&state)
       return resolvePresentOnBothSides(localItem, cloudItem, &state)
     case (.present(let localItem), .absent):
-      state.localAbsentSince = nil
+      state.localAbsence = nil
       return resolveMissingCloudFile(localItem, &state)
     case (.absent, .present(let cloudItem)):
-      state.cloudAbsentSince = nil
+      state.cloudAbsence = nil
       return resolveMissingLocalFile(cloudItem, &state)
     case (.absent, .absent):
       return []
@@ -294,15 +320,18 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
     let fileName = localItem.fileName
     guard store.state(for: fileName)?.fingerprint == localFingerprint else {
       // The file was never synchronized or was changed after that: it is a new version to upload, not a deletion.
-      state.cloudAbsentSince = nil
+      state.cloudAbsence = nil
       return write(.createCloudItem(with: localItem), content: localFingerprint, to: &state.ownedCloudWrite)
     }
     guard state.ownedCloudWrite == nil else {
       // iCloud removes the file while it replaces it. Our own write is not a deletion.
-      state.cloudAbsentSince = nil
+      state.cloudAbsence = nil
       return []
     }
-    guard let absentSince = confirmAbsence(&state.cloudAbsentSince) else { return [] }
+    guard let absentSince = confirmAbsence(&state.cloudAbsence, observedIn: cloudSnapshotNumber),
+          !state.deletionRequested
+    else { return [] }
+    state.deletionRequested = true
     return [.removeLocalItem(localItem, DeletionEvidence(absentSince: absentSince, base: localFingerprint))]
   }
 
@@ -316,47 +345,55 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
     let fileName = cloudItem.fileName
     guard store.state(for: fileName)?.fingerprint == cloudFingerprint else {
       // The file is new or was changed in iCloud after the local one was deleted: it is restored, not deleted.
-      state.localAbsentSince = nil
+      state.localAbsence = nil
       return write(.createLocalItem(with: cloudItem), content: cloudFingerprint, to: &state.ownedLocalWrite)
     }
     guard state.ownedLocalWrite == nil else {
-      state.localAbsentSince = nil
+      state.localAbsence = nil
       return []
     }
-    guard let absentSince = confirmAbsence(&state.localAbsentSince) else { return [] }
+    guard let absentSince = confirmAbsence(&state.localAbsence, observedIn: localSnapshotNumber),
+          !state.deletionRequested
+    else { return [] }
+    state.deletionRequested = true
     return [.removeCloudItem(cloudItem, DeletionEvidence(absentSince: absentSince, base: cloudFingerprint))]
   }
 
   // MARK: - File state
 
   private func cancelAbsences(_ state: inout FileState) {
-    state.localAbsentSince = nil
-    state.cloudAbsentSince = nil
+    state.localAbsence = nil
+    state.cloudAbsence = nil
+    state.deletionRequested = false
   }
 
-  /// A file must stay missing for a while, and in more than one complete snapshot, before its absence is
-  /// trusted: iCloud reports a file as removed while it is being replaced or reindexed. Returns when the
-  /// confirmed absence started, or nil while it is not confirmed yet.
-  private func confirmAbsence(_ absentSince: inout TimeInterval?) -> TimeInterval? {
-    guard let since = absentSince else {
-      absentSince = clock.activeTime
+  /// A file must stay missing for a while, and in more than one complete snapshot of the directory it is missing
+  /// from, before its absence is trusted: iCloud reports a file as removed while it is being replaced or
+  /// reindexed. Returns when the confirmed absence started, or nil while it is not confirmed yet.
+  private func confirmAbsence(_ absence: inout Absence?, observedIn snapshotNumber: Int) -> TimeInterval? {
+    guard let started = absence else {
+      absence = Absence(since: clock.activeTime, observedIn: snapshotNumber)
       return nil
     }
-    return isAbsenceConfirmed(since) ? since : nil
+    return isAbsenceConfirmed(started, observedIn: snapshotNumber) ? started.since : nil
   }
 
-  private func isAbsenceConfirmed(_ absentSince: TimeInterval?) -> Bool {
-    guard let absentSince else { return false }
-    return clock.activeTime - absentSince >= Constants.absenceConfirmationInterval
+  /// The snapshot that started the absence confirms nothing more than it reported: the directory the file is
+  /// missing from has to be observed again, and the file has to be missing from that observation too.
+  private func isAbsenceConfirmed(_ absence: Absence?, observedIn snapshotNumber: Int) -> Bool {
+    guard let absence else { return false }
+    return snapshotNumber > absence.observedIn
+      && clock.activeTime - absence.since >= Constants.absenceConfirmationInterval
   }
 
   /// Exactly the rule that produced the deletion: the very absence that was confirmed still stands -- an absence
   /// that was cancelled and started anew was never confirmed -- and the copy that survives still holds the
   /// content that was last synchronized, so nothing changed there while the event was crossing the queues.
-  private func isDeletionConfirmed(_ absentSince: TimeInterval?,
+  private func isDeletionConfirmed(_ absence: Absence?,
+                                   observedIn snapshotNumber: Int,
                                    _ evidence: DeletionEvidence,
                                    of fileName: String) -> Bool {
-    absentSince == evidence.absentSince && isAbsenceConfirmed(absentSince)
+    absence?.since == evidence.absentSince && isAbsenceConfirmed(absence, observedIn: snapshotNumber)
       && store.state(for: fileName)?.fingerprint == evidence.base
   }
 

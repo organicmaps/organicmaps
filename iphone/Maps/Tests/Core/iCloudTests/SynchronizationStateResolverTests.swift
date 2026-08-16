@@ -119,6 +119,34 @@ final class SynchronizationStateResolverTests: XCTestCase {
                    [.removeLocalItem(local("file.kml", "A"), evidence(absentSince: absentSince, content: "A"))])
   }
 
+  func testDeletionNeedsASecondLookAtTheMissingSide() {
+    synchronize("file.kml", content: "A")
+
+    let absentSince = startAbsenceConfirmation { update(cloud: []) }
+    // The local directory is observed again, the cloud one -- the directory the file is missing from -- is not.
+    XCTAssertTrue(update(local: [local("file.kml", "A")]).isEmpty, "Nobody has looked for the file again")
+    XCTAssertEqual(update(cloud: []),
+                   [.removeLocalItem(local("file.kml", "A"), evidence(absentSince: absentSince, content: "A"))])
+  }
+
+  func testConfirmedDeletionIsRequestedOnce() throws {
+    synchronize("file.kml", content: "A")
+
+    startAbsenceConfirmation { update(local: []) }
+    let deletion = try XCTUnwrap(update(local: []).first)
+
+    // Both directories are observed again while the deletion is crossing the queues, and the absence still
+    // stands. Trashing the cloud file twice fails the second time: nothing is left to trash.
+    XCTAssertTrue(update(cloud: [cloud("file.kml", "A")]).isEmpty, "The deletion is irreversible: request it once")
+    XCTAssertTrue(update(local: []).isEmpty, "The deletion is irreversible: request it once")
+
+    // The deletion was not performed after all, so the file is deleted again once its absence is confirmed anew.
+    resolver.resolveEvent(.didFailWriting(deletion))
+    let absentSince = startAbsenceConfirmation { update(local: []) }
+    XCTAssertEqual(update(local: []),
+                   [.removeCloudItem(cloud("file.kml", "A"), evidence(absentSince: absentSince, content: "A"))])
+  }
+
   func testRemovedFileThatReappearsIsNotDeleted() {
     synchronize("file.kml", content: "A")
 
