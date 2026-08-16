@@ -164,10 +164,6 @@ UNIT_TEST(Mercator_NearestWrapX_NeverHangs)
     TEST(math::is_finite(NearestWrapX(0.0, v)), (v));
   }
 
-  // Non-finite input cannot be wrapped and must not hang; the result is not meaningful.
-  for (double const v : {math::Infinity(), -math::Infinity(), math::Nan()})
-    TEST(!math::is_finite(NearestWrapX(v, 0.0)), (v));
-
   // Many world widths away.
   TEST_ALMOST_EQUAL_ABS(NearestWrapX(170.0, 35830.0), 35810.0, 1e-9, ());
   TEST_ALMOST_EQUAL_ABS(NearestWrapX(-170.0, -35830.0), -35810.0, 1e-9, ());

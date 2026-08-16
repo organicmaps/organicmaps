@@ -90,6 +90,15 @@ UNIT_TEST(TwoVectorsAngle)
                                            m2::Point<double>(-1, 0)) /* p2 */,
                       math::pi, eps),
        ());
+  // Almost equal vectors on opposite sides of AngleTo()'s -pi/pi cut give differences near +/-2*pi.
+  TEST(AlmostEqualAbs(ang::TwoVectorsAngle(m2::Point<double>(0, 0) /* p */, m2::Point<double>(-1, 0) /* p1 */,
+                                           m2::Point<double>(-1, -1e-12)) /* p2 */,
+                      0.0, eps),
+       ());
+  TEST(AlmostEqualAbs(ang::TwoVectorsAngle(m2::Point<double>(0, 0) /* p */, m2::Point<double>(-1, -1e-12) /* p1 */,
+                                           m2::Point<double>(-1, 0)) /* p2 */,
+                      2 * math::pi, eps),
+       ());
 }
 
 UNIT_TEST(Azimuth)
