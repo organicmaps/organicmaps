@@ -27,7 +27,7 @@ public:
     V0,
   };
 
-  static Version const kLatestVersion;
+  static constexpr Version kLatestVersion = Version::V0;
 
   template <typename Sink>
   static void Serialize(Sink & sink, tree_node::Forest<Ids> const & forest)
