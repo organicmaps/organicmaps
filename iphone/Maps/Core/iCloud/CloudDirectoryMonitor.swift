@@ -28,6 +28,9 @@ final class iCloudDocumentsMonitor: NSObject, CloudDirectoryMonitor {
   private let fileType: FileType // TODO: Should be removed when the nested directory support will be implemented
   private var metadataQuery: NSMetadataQuery?
   private var ubiquitousDocumentsDirectory: URL?
+  /// Numbers the starts. Asking iCloud where the directory is may take a while, and the monitor can be stopped
+  /// or started again meanwhile: a lookup that outlives the start that asked for it must start nothing.
+  private var startGeneration = 0
 
   // MARK: - Public properties
 
@@ -51,10 +54,18 @@ final class iCloudDocumentsMonitor: NSObject, CloudDirectoryMonitor {
       completion?(.failure(SynchronizationError.iCloudIsNotAvailable))
       return
     }
+    // A monitor that is running, or one whose start is in progress, is left alone: it observes the same directory.
+    guard state == .stopped else { return }
+    state = .starting
+    startGeneration += 1
+    let generation = startGeneration
     fetchUbiquityDirectoryUrl { [weak self] result in
-      guard let self else { return }
+      // The start this answer belongs to was cancelled by a stop or superseded by a newer one: nothing of it
+      // may be started anymore, and whoever asked for it does not wait for the answer.
+      guard let self, generation == startGeneration else { return }
       switch result {
       case .failure(let error):
+        self.state = .stopped
         completion?(.failure(error))
       case .success(let url):
         LOG(.debug, "Start cloud monitor.")
@@ -69,6 +80,7 @@ final class iCloudDocumentsMonitor: NSObject, CloudDirectoryMonitor {
     // The container of another iCloud account is not the one that was looked up, and the account may change
     // while the monitor is stopped: every cached iCloud reference is forgotten here and fetched again on start.
     ubiquitousDocumentsDirectory = nil
+    startGeneration += 1
     guard state != .stopped else { return }
     LOG(.debug, "Stop cloud monitor.")
     stopQuery()

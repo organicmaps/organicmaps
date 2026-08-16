@@ -23,6 +23,7 @@ final class SynchronizationFileWriter {
       DispatchQueue.main.async { completion(result) }
     }
     backgroundQueue.async { [weak self] in
+      // Stopping the synchronization releases the writer, and the events still queued on it are dropped with it.
       guard let self else { return }
       switch event {
       case .startDownloading(let cloudMetadataItem):

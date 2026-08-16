@@ -1,5 +1,7 @@
 enum DirectoryMonitorState: CaseIterable, Equatable {
   case started
+  /// The start is in progress: the cloud monitor waits for iCloud to tell where the directory it observes is.
+  case starting
   case stopped
   case paused
 }
