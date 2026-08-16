@@ -280,9 +280,6 @@ final class SynchronizationFileWriter {
           LOG(.info,
               "Keep the version of \(cloudMetadataItem.fileName) in conflict as \(copyVersionUrl.lastPathComponent)")
           try latestVersionInConflict.replaceItem(at: copyVersionUrl)
-          // The modification date should be updated to mark files that was involved into the resolving process.
-          try currentVersionUrl.setResourceModificationDate(Date())
-          try copyVersionUrl.setResourceModificationDate(Date())
         } else {
           LOG(.info, "The version of \(cloudMetadataItem.fileName) in conflict is kept already: nothing to write")
         }
@@ -375,16 +372,5 @@ private extension FileManager {
     try copyItem(at: sourceUrl, to: tmpUrl)
     try replaceItem(at: targetUrl, withItemAt: tmpUrl, backupItemName: nil, options: [.usingNewMetadataOnly], resultingItemURL: nil)
     LOG(.debug, "File \(targetUrl.lastPathComponent) was replaced successfully.")
-  }
-}
-
-// MARK: - URL + ResourceValues
-
-private extension URL {
-  func setResourceModificationDate(_ date: Date) throws {
-    var url = self
-    var resource = try resourceValues(forKeys: [.contentModificationDateKey])
-    resource.contentModificationDate = date
-    try url.setResourceValues(resource)
   }
 }
