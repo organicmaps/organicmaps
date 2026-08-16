@@ -648,13 +648,19 @@ Editor::UploadStart Editor::UploadChanges(string const & oauthToken, ChangesetTa
 
         try
         {
+          // Obsolete and already-in-sync features below fall through to a terminal status
+          // without anything ever being sent to OSM, so they must not count as uploaded.
+          bool sentToOsm = true;
           if (useNewEditor)
           {
             switch (fti.m_status)
             {
             case FeatureStatus::Untouched: CHECK(false, (fti.m_object)); continue;
-            case FeatureStatus::Obsolete: continue;  // Obsolete features will be deleted by OSMers.
-            case FeatureStatus::Created:             // fallthrough
+            // The "place does not exist" report is uploaded as a note, and OSMers delete the
+            // feature themselves. Nothing to upload here, but it still needs a terminal status
+            // below, otherwise it is scheduled for upload again on every backgrounding.
+            case FeatureStatus::Obsolete: sentToOsm = false; break;
+            case FeatureStatus::Created:  // fallthrough
             case FeatureStatus::Modified:
             {
               auto const & journal = fti.m_object.GetJournal().GetJournal();
@@ -720,8 +726,12 @@ Editor::UploadStart Editor::UploadChanges(string const & oauthToken, ChangesetTa
 
               case EditingLifecycle::IN_SYNC:
               {
+                // An empty journal means the feature is already in sync with OSM. Nothing to
+                // upload, but it still needs a terminal status below, otherwise it is scheduled
+                // for upload again on every backgrounding.
                 LOG(LERROR, ("IN_SYNC should not be here:", fti.m_object));
-                continue;
+                sentToOsm = false;
+                break;
               }
               }
               break;
@@ -739,7 +749,8 @@ Editor::UploadStart Editor::UploadChanges(string const & oauthToken, ChangesetTa
 
           uploadInfo.m_uploadStatus = kUploaded;
           uploadInfo.m_uploadError.clear();
-          ++uploadedFeaturesCount;
+          if (sentToOsm)
+            ++uploadedFeaturesCount;
         }
         catch (ChangesetWrapper::OsmObjectWasDeletedException const & ex)
         {
