@@ -11,7 +11,6 @@
 #include <QtCore/QLocale>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>
-#include <QtQmlIntegration/qqmlintegration.h>
 
 #include <array>
 #include <memory>
@@ -50,6 +49,9 @@ public:
     kPlacePageDock = 1,
     kDockCount
   };
+
+signals:
+  void positionModeChanged(location::EMyPositionMode mode);
 
 private:
   DrawWidget * m_pDrawWidget = nullptr;
