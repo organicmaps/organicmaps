@@ -3,17 +3,10 @@
 
 # Android (catch-all — must precede android-specific overrides).
 /android/ @organicmaps/android
-# no owner for translation changes
-/android/app/src/main/res/values*/strings.xml
-/android/sdk/src/main/res/values*/strings.xml
-/android/sdk/src/main/res/values*/types_strings.xml
 
 # iOS (catch-all — must precede ios-specific overrides).
 /iphone/ @organicmaps/ios
 /xcode/ @organicmaps/ios
-# no owner for translation changes
-/iphone/plist.txt
-/iphone/Maps/LocalizedStrings/
 
 # Visual design (overrides — AFTER android/ios catch-alls).
 /android/app/src/main/res/drawable*/ @organicmaps/design
@@ -79,3 +72,18 @@
 /docs/CODE_OF_CONDUCT.md @organicmaps/legal
 /docs/DCO.md @organicmaps/legal
 /docs/GOVERNANCE.md @organicmaps/legal
+
+# Translations: no owner. Keep LAST in the file, so that a new override can't
+# silently re-claim generated files (e.g. the Android Auto rule above owns
+# android/libs/car/, including its generated strings.xml).
+# The complete list of tools/unix/generate_localizations.sh outputs:
+/android/app/src/main/res/values*/strings.xml
+/android/sdk/src/main/res/values*/strings.xml
+/android/sdk/src/main/res/values*/types_strings.xml
+/android/libs/car/src/main/res/values*/strings.xml
+/android/libs/downloader/src/main/res/values*/strings.xml
+/android/libs/routing/src/main/res/values*/strings.xml
+/android/wear/src/main/res/values*/wear_strings.xml
+/iphone/Maps/LocalizedStrings/
+/iphone/Chart/Chart/*.lproj/
+/data/sound-strings/
