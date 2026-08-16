@@ -66,6 +66,9 @@ final class iCloudDocumentsMonitor: NSObject, CloudDirectoryMonitor {
   }
 
   func stop() {
+    // The container of another iCloud account is not the one that was looked up, and the account may change
+    // while the monitor is stopped: every cached iCloud reference is forgotten here and fetched again on start.
+    ubiquitousDocumentsDirectory = nil
     guard state != .stopped else { return }
     LOG(.debug, "Stop cloud monitor.")
     stopQuery()

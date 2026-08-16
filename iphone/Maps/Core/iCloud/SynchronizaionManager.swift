@@ -49,6 +49,11 @@ final class iCloudSynchronizaionManager: NSObject {
   private let clock: ActiveSynchronizationClock
   private var fileWriter: SynchronizationFileWriter?
   private var confirmationTimer: Timer?
+  /// Numbers the synchronizations: every start after a stop begins a new one. A write outlives the session that
+  /// requested it, and its result is dropped once another session has begun: the state was reset in between and
+  /// built again from other observations -- of another iCloud account, after a switch -- so accepting the result
+  /// would confirm a write of the running session that has not happened.
+  private var session = 0
   private var observers = [ObjectIdentifier: iCloudSynchronizaionManager.Observation]()
   private var synchronizationError: Error? {
     didSet { notifyObserversOnSynchronizationError(synchronizationError) }
@@ -133,6 +138,7 @@ private extension iCloudSynchronizaionManager {
     case .paused:
       resumeSynchronization()
     case .stopped:
+      session += 1
       /* Files of another iCloud account have nothing in common with the previously synchronized ones. A missing
        token means the account is unknown, not that it is another one -- signed out, iCloud Drive off, container
        not ready yet -- and forgetting the history then would keep both versions of every file that differs. */
@@ -317,8 +323,9 @@ private extension iCloudSynchronizaionManager {
   }
 
   func writingResultHandler(for event: OutgoingSynchronizationEvent) -> WritingResultCompletionHandler {
-    { [weak self] result in
-      guard let self else { return }
+    let requestedInSession = session
+    return { [weak self] result in
+      guard let self, session == requestedInSession else { return }
       switch result {
       case .success:
         break
