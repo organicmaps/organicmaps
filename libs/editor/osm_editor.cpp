@@ -3,6 +3,7 @@
 #include "editor/changeset_wrapper.hpp"
 #include "editor/edits_migration.hpp"
 #include "editor/osm_auth.hpp"
+#include "editor/osm_tag_policy.hpp"
 #include "editor/xml_feature.hpp"
 
 #include "opening_hours/opening_hours.hpp"
@@ -1225,7 +1226,27 @@ void Editor::UpdateXMLFeatureTags(editor::XMLFeature & feature, std::vector<Jour
     case JournalEntryType::TagModification:
     {
       TagModData const & tagModData = std::get<TagModData>(entry.data);
-      feature.UpdateOSMTag(tagModData.key, tagModData.new_value);
+      // Every journal key needs a tag policy, otherwise its values are compared in the wrong domain.
+      ASSERT(editor::HasFieldPolicy(tagModData.key), ("No tag policy for the edited field", tagModData.key));
+
+      auto const result = editor::ApplyFieldEdit(feature, tagModData.key, tagModData.old_value, tagModData.new_value);
+      // A refused field is left out of the upload and the rest is still uploaded: the fields that did
+      // apply are worth more than a dropped changeset. Same for a field that was cleared but is still
+      // stated by a tag OM never showed the user. Reporting either to the user needs the upload guard,
+      // which is not here yet.
+      switch (result.m_status)
+      {
+      case editor::FieldWriteStatus::Ambiguous:
+      case editor::FieldWriteStatus::Unrepresentable:
+        LOG(LWARNING,
+            ("Edit of", tagModData.key, "not applied:", result.m_status, "server value:", result.m_serverValue));
+        break;
+      case editor::FieldWriteStatus::ClearedButStillStated:
+        LOG(LWARNING, ("Edit of", tagModData.key, "cleared the value the user saw, but the object still states",
+                       result.m_serverValue));
+        break;
+      default: LOG(LDEBUG, ("Edit of", tagModData.key, ":", result.m_status));
+      }
       break;
     }
     case JournalEntryType::ObjectCreated: break;
