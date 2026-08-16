@@ -491,8 +491,8 @@ public final class Config
       boolean ENABLED = true;
 
       float VOLUME_MIN = 0.0f;
-      float VOLUME_MAX = 1.0f;
-      float VOLUME = VOLUME_MAX;
+      float VOLUME_MAX = 3.0f;
+      float VOLUME = 1.0f;
 
       boolean STREETS = false; // TTS may mangle some languages, do not announce streets by default
     }
