@@ -371,4 +371,8 @@
     <string name="edit_track">Editar trayeutu</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Siguir el sistema</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Parada %1$d</string>
 </resources>

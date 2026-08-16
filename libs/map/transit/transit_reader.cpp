@@ -18,6 +18,7 @@
 #include <algorithm>
 #include <chrono>
 #include <memory>
+#include <unordered_set>
 
 using namespace std::chrono;
 
@@ -145,6 +146,29 @@ void ReadTransitTask::Do()
     for (auto const & line : graphData.GetLines())
       m_transitInfo->m_linesSubway[line.GetId()] = line;
     FillItemsByIdMap(graphData.GetShapes(), m_transitInfo->m_shapesSubway);
+
+    // Also retain each line's terminus stops (the ends of its stop sequence) with their names, so route
+    // details can show the line's direction ("towards <terminus>") even when the terminus lies beyond
+    // the traveled segment and was thus not seeded from the route edges. Subway stop/line counts are small.
+    if (m_loadSubset)
+    {
+      std::unordered_set<routing::transit::StopId> termini;
+      for (auto const & [lineId, line] : m_transitInfo->m_linesSubway)
+        for (auto const & range : line.GetStopIds())
+          if (!range.empty())
+          {
+            termini.insert(range.front());
+            termini.insert(range.back());
+          }
+      for (auto const & stop : graphData.GetStops())
+      {
+        if (termini.count(stop.GetId()) == 0 || m_transitInfo->m_stopsSubway.count(stop.GetId()) != 0)
+          continue;
+        m_transitInfo->m_stopsSubway[stop.GetId()] = stop;
+        if (stop.GetFeatureId() != kInvalidFeatureId)
+          m_transitInfo->m_features[FeatureID(m_mwmId, stop.GetFeatureId())] = {};
+      }
+    }
   }
   else if (transitHeaderVersion == ::transit::TransitVersion::AllPublicTransport)
   {
@@ -188,6 +212,30 @@ void ReadTransitTask::Do()
     FillItemsByIdMap(transitData.GetTransfers(), m_transitInfo->m_transfersPT);
     FillItemsByIdMap(transitData.GetShapes(), m_transitInfo->m_shapesPT);
     FillLinesAndRoutes(transitData);
+
+    // Retain each line's terminus stops with their names for direction display (see the subway note).
+    // m_linesPT already holds only the route's lines in subset mode, so this stays cheap.
+    if (m_loadSubset)
+    {
+      std::unordered_set<::transit::TransitId> termini;
+      for (auto const & [lineId, line] : m_transitInfo->m_linesPT)
+      {
+        auto const & seq = line.GetStopIds();
+        if (!seq.empty())
+        {
+          termini.insert(seq.front());
+          termini.insert(seq.back());
+        }
+      }
+      for (auto const & stop : transitData.GetStops())
+      {
+        if (termini.count(stop.GetId()) == 0 || m_transitInfo->m_stopsPT.count(stop.GetId()) != 0)
+          continue;
+        m_transitInfo->m_stopsPT[stop.GetId()] = stop;
+        if (stop.GetFeatureId() != kInvalidFeatureId)
+          m_transitInfo->m_features[FeatureID(m_mwmId, stop.GetFeatureId())] = {};
+      }
+    }
   }
   else
   {

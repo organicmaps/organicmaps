@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_marginTop="@dimen/margin_half_plus"
+  android:minHeight="64dp"
+  android:orientation="horizontal"
+  android:gravity="center_vertical"
+  android:paddingStart="@dimen/margin_base"
+  android:paddingEnd="@dimen/margin_base">
+
+  <!-- Legend column, on the same vertical axis as the ride legs' colored bars. A dotted grey line runs
+       the full height (the walking counterpart to the solid line bar) with the walk icon centered on it,
+       so the timeline reads as continuous between stops. -->
+  <FrameLayout
+    android:layout_width="@dimen/transit_details_legend_width"
+    android:layout_height="match_parent">
+
+    <app.organicmaps.routing.DottedLineView
+      android:layout_width="@dimen/transit_details_bar_width"
+      android:layout_height="match_parent"
+      android:layout_gravity="center_horizontal" />
+
+    <!-- Larger walk icon centered in the gap the dotted line leaves for it. -->
+    <ImageView
+      android:layout_width="@dimen/transit_details_legend_width"
+      android:layout_height="@dimen/transit_details_legend_width"
+      android:layout_gravity="center"
+      android:contentDescription="@null"
+      android:scaleType="fitCenter"
+      app:srcCompat="@drawable/ic_20px_route_planning_walk"
+      app:tint="?iconTint" />
+  </FrameLayout>
+
+  <!-- "Walk" label on top, distance/time in secondary grey underneath, mirroring the transit legs. -->
+  <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_half"
+    android:orientation="vertical">
+
+    <TextView
+      android:id="@+id/walk_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="@string/robotoMedium"
+      android:textColor="?android:attr/textColorPrimary"
+      android:textSize="@dimen/text_size_body_1"
+      tools:text="Walk" />
+
+    <TextView
+      android:id="@+id/walk_subtitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_quarter"
+      android:textColor="?secondary"
+      android:textSize="@dimen/text_size_body_1"
+      tools:text="3 min · 240 m" />
+  </LinearLayout>
+</LinearLayout>
