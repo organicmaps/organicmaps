@@ -64,12 +64,48 @@ final class SynchronizationFileWriterTests: XCTestCase {
     guard case .reloadCategoriesAtURLs(let urls) = result, urls.count == 2 else {
       return XCTFail("The preserved copy and the replaced file both have to be loaded, got \(result)")
     }
-    XCTAssertEqual(path(urls[0].deletingLastPathComponent()), path(localDirectoryUrl))
-    XCTAssertTrue(urls[0].lastPathComponent.hasPrefix("file_"))
-    XCTAssertEqual(urls[0].pathExtension, "kml")
+    XCTAssertEqual(path(urls[0]), path(localDirectoryUrl.appendingPathComponent(Self.copyHoldingA)))
     XCTAssertEqual(content(of: urls[0]), "A")
     XCTAssertEqual(path(urls[1]), path(localItem.fileUrl))
     XCTAssertEqual(content(of: localItem.fileUrl), "B")
+  }
+
+  /// The same version is kept once: another device, or an earlier conflict of the same file, wrote this very
+  /// copy already. It is not written again and is loaded together with the file all the same.
+  func testPreservedCopyThatIsThereAlreadyIsNotWrittenAgain() throws {
+    let cloudItem = try cloudFile("file.kml", content: "B")
+    let localItem = try localFile("file.kml", content: "A")
+    let copyUrl = localDirectoryUrl.appendingPathComponent(Self.copyHoldingA)
+    try Data("A".utf8).write(to: copyUrl)
+
+    let result = try process(.updateLocalItem(with: cloudItem, replacing: fingerprint("A"), preservingLocal: true))
+
+    guard case .reloadCategoriesAtURLs(let urls) = result else { return XCTFail("Unexpected result: \(result)") }
+    XCTAssertEqual(urls.map(path), [path(copyUrl), path(localItem.fileUrl)])
+    XCTAssertEqual(content(of: copyUrl), "A")
+    XCTAssertEqual(content(of: localItem.fileUrl), "B")
+  }
+
+  /// A copy that was there already holds a version of its own: a write that fails must not take it away. The
+  /// copy the same write made preserves nothing then -- the local file is still there -- and goes.
+  func testFailedReplaceRemovesOnlyTheCopyItWrote() throws {
+    writer = SynchronizationFileWriter(fileManager: UnreplaceableFilesFileManager(),
+                                       localDirectoryUrl: localDirectoryUrl,
+                                       cloudDirectoryUrl: cloudDirectoryUrl)
+    let cloudItem = try cloudFile("file.kml", content: "B")
+    let localItem = try localFile("file.kml", content: "A")
+    let copyUrl = localDirectoryUrl.appendingPathComponent(Self.copyHoldingA)
+    let update = OutgoingSynchronizationEvent.updateLocalItem(with: cloudItem,
+                                                              replacing: fingerprint("A"),
+                                                              preservingLocal: true)
+
+    try assertFailed(process(update))
+    XCTAssertFalse(FileManager.default.fileExists(atPath: copyUrl.path))
+    XCTAssertEqual(content(of: localItem.fileUrl), "A")
+
+    try Data("A".utf8).write(to: copyUrl)
+    try assertFailed(process(update))
+    XCTAssertEqual(content(of: copyUrl), "A")
   }
 
   func testCloudFileHoldingTheDecidedContentIsReplaced() throws {
@@ -169,22 +205,22 @@ final class SynchronizationFileWriterTests: XCTestCase {
     try assertSkipped(process(.startDownloading(cloudItem("file.kml"))))
   }
 
-  // MARK: - The version kept aside by a conflict is written where nothing else is kept
+  // MARK: - A version that is kept aside is named after the content it holds
 
-  func testConflictCopyTakesTheFirstNameThatIsFree() throws {
+  /// The name of a copy is decided by its content alone: every device that keeps this very version writes the
+  /// same file next to the original one, and a file under that name holds this version already.
+  func testConflictCopyIsNamedAfterTheContentItHolds() {
     let fileUrl = cloudDirectoryUrl.appendingPathComponent("file.kml")
-    XCTAssertEqual(writer.copyUrl(for: fileUrl, keeping: fingerprint("A"))?.lastPathComponent, "file_1.kml")
 
-    // The copy of another conflict, or a file of the user: it holds a version of its own.
-    try Data("B".utf8).write(to: cloudDirectoryUrl.appendingPathComponent("file_1.kml"))
-    XCTAssertEqual(writer.copyUrl(for: fileUrl, keeping: fingerprint("A"))?.lastPathComponent, "file_2.kml")
-
-    // The same version, kept by another device: the resolution is made and there is nothing to write.
-    try Data("A".utf8).write(to: cloudDirectoryUrl.appendingPathComponent("file_2.kml"))
-    XCTAssertNil(writer.copyUrl(for: fileUrl, keeping: fingerprint("A")))
+    XCTAssertEqual(writer.copyUrl(of: fileUrl, holding: fingerprint("A")).lastPathComponent, Self.copyHoldingA)
+    XCTAssertNotEqual(writer.copyUrl(of: fileUrl, holding: fingerprint("B")),
+                      writer.copyUrl(of: fileUrl, holding: fingerprint("A")))
   }
 
   // MARK: - Helpers
+
+  /// How a copy of "file.kml" holding "A" is named: the first six bytes of the SHA-256 of the content.
+  private static let copyHoldingA = "file_559aead08264.kml"
 
   /// A busy machine can still delay an answer from the writer's utility queue. The generous timeout costs
   /// nothing: on an idle machine the result arrives at once.
@@ -215,6 +251,12 @@ final class SynchronizationFileWriterTests: XCTestCase {
   private func assertSkipped(_ result: WritingResult, file: StaticString = #filePath, line: UInt = #line) {
     guard case .skipped = result else {
       return XCTFail("Nothing must be written, got \(result)", file: file, line: line)
+    }
+  }
+
+  private func assertFailed(_ result: WritingResult, file: StaticString = #filePath, line: UInt = #line) {
+    guard case .failure = result else {
+      return XCTFail("The write must fail, got \(result)", file: file, line: line)
     }
   }
 
@@ -271,6 +313,17 @@ final class SynchronizationFileWriterTests: XCTestCase {
 
   /// File coordination reports the file it locked through the real path of the directory it is in.
   private func path(_ url: URL) -> String { url.resolvingSymlinksInPath().path }
+}
+
+/// A directory in which a file cannot be replaced: no space is left, or something else holds the file.
+private final class UnreplaceableFilesFileManager: FileManager {
+  override func replaceItem(at _: URL,
+                            withItemAt _: URL,
+                            backupItemName _: String?,
+                            options _: FileManager.ItemReplacementOptions,
+                            resultingItemURL _: AutoreleasingUnsafeMutablePointer<NSURL?>?) throws {
+    throw CocoaError(.fileWriteOutOfSpace)
+  }
 }
 
 /// An iCloud container that refuses to download the items it reports.

@@ -17,7 +17,14 @@ struct Fingerprint: Hashable, Codable, CustomStringConvertible {
     self.init(hashing: data)
   }
 
-  var description: String { digest.prefix(4).map { String(format: "%02x", $0) }.joined() }
+  /// Names the file that holds this content: 12 hex characters, so that two contents practically never share a
+  /// name. A copy kept aside is named after what it holds, so every device that keeps the same version of a
+  /// file produces the same copy of it instead of one copy per device.
+  var fileNameSuffix: String { Self.hex(digest.prefix(6)) }
+
+  var description: String { Self.hex(digest.prefix(4)) }
+
+  private static func hex(_ bytes: Data) -> String { bytes.map { String(format: "%02x", $0) }.joined() }
 }
 
 /// Cheap properties that stand for the file's content: on APFS the modification date has nanosecond precision

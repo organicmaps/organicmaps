@@ -75,7 +75,7 @@ final class SynchronizationFileWriter {
   /// Writes the cloud file into the local directory, but only while the local file still holds the content this
   /// was decided from -- nothing at all when it was absent then. Anything else there was written after the
   /// decision, by the app itself, and nobody has compared it with the cloud copy yet. `preservingLocal` keeps
-  /// that content under a new name first: it is the only copy of it.
+  /// that content first, next to the file and under a name derived from it: it is the only copy of it.
   private func writeToLocalContainer(_ cloudMetadataItem: CloudMetadataItem,
                                      replacing expectedContent: Fingerprint?,
                                      preservingLocal: Bool,
@@ -95,19 +95,31 @@ final class SynchronizationFileWriter {
           completion(.skipped(reason))
           return
         }
-        var preservedUrls = [URL]()
-        if preservingLocal {
-          try preservedUrls.append(preserveCopy(of: writingUrl))
+        /* The local version is the only copy of itself, and the name it is kept under is derived from what it
+         holds -- verified right above. A copy that is there already holds that very content, kept by another
+         device or by an earlier conflict of the same file: it is left as it is and reported all the same, so
+         that the app loads what is next to the file. */
+        var preservedUrl: URL?
+        var isCopyWritten = false
+        if preservingLocal, let expectedContent {
+          preservedUrl = copyUrl(of: writingUrl, holding: expectedContent)
+        }
+        if let preservedUrl, !fileManager.fileExists(atPath: preservedUrl.path) {
+          LOG(.info, "Keep a copy of \(writingUrl.lastPathComponent) as \(preservedUrl.lastPathComponent)")
+          try fileManager.copyItem(at: writingUrl, to: preservedUrl)
+          isCopyWritten = true
         }
         do {
           try fileManager.replaceFileSafe(at: writingUrl, with: readingUrl)
         } catch {
-          // The local file is still there, so the copy of it preserves nothing and is only a duplicate.
-          preservedUrls.forEach { try? fileManager.removeItem(at: $0) }
+          // The local file is still there, so a copy written for it preserves nothing and is only a duplicate.
+          if isCopyWritten, let preservedUrl {
+            try? fileManager.removeItem(at: preservedUrl)
+          }
           throw error
         }
         LOG(.debug, "File \(cloudMetadataItem.fileName) is copied to local directory successfully. Start reloading bookmarks...")
-        completion(.reloadCategoriesAtURLs(preservedUrls + [writingUrl]))
+        completion(.reloadCategoriesAtURLs([preservedUrl, writingUrl].compactMap { $0 }))
       } catch {
         completion(.failure(error))
       }
@@ -115,18 +127,6 @@ final class SynchronizationFileWriter {
     if let coordinationError {
       completion(.failure(coordinationError))
     }
-  }
-
-  /// The copy gets a name no other device and no earlier conflict can produce, and never replaces an existing
-  /// file: every preserved version of every device survives.
-  private func preserveCopy(of fileUrl: URL) throws -> URL {
-    let baseName = fileUrl.deletingPathExtension().lastPathComponent
-    let copyUrl = fileUrl
-      .deletingLastPathComponent()
-      .appendingPathComponent("\(baseName)_\(UUID().uuidString.prefix(8)).\(fileUrl.pathExtension)")
-    LOG(.info, "Keep a copy of \(fileUrl.lastPathComponent) as \(copyUrl.lastPathComponent) to resolve a conflict")
-    try fileManager.copyItem(at: fileUrl, to: copyUrl)
-    return copyUrl
   }
 
   /// Reports the file for deletion only while it holds the content that was synchronized -- what it held when
@@ -237,6 +237,10 @@ final class SynchronizationFileWriter {
 
   // MARK: - Merge conflicts resolving
 
+  /** Every version iCloud kept aside is kept: the file itself holds one of them, and every distinct content of
+   the others is written next to it, under a name derived from that content. The versions are marked resolved
+   and removed only once all the copies are in place -- a failure before that leaves the conflict with all its
+   versions, and it is resolved again on a later snapshot. */
   private func resolveVersionsConflict(_ cloudMetadataItem: CloudMetadataItem, completion: @escaping WritingResultCompletionHandler) {
     LOG(.info, "Start resolving version conflict for file \(cloudMetadataItem.fileName)...")
 
@@ -248,71 +252,82 @@ final class SynchronizationFileWriter {
       return
     }
 
-    let sortedVersions = versionsInConflict.sorted { version1, version2 in
-      guard let date1 = version1.modificationDate, let date2 = version2.modificationDate else {
-        return false
+    /* What a version holds decides where it goes, so every one of them is read before the write access is taken;
+     a version iCloud has not downloaded is materialized by the coordinated read. The content the file itself
+     keeps is not kept a second time, and versions holding the same content are one version of the file. */
+    guard let currentContent = coordinatedFingerprint(of: currentVersion.url) else {
+      completion(.skipped("the current version of \(cloudMetadataItem.fileName) cannot be read"))
+      return
+    }
+    var versionsToKeep = [Fingerprint: NSFileVersion]()
+    for version in versionsInConflict {
+      guard let versionContent = coordinatedFingerprint(of: version.url) else {
+        completion(.skipped("a version of \(cloudMetadataItem.fileName) in conflict cannot be read"))
+        return
       }
-      return date1 > date2
+      guard versionContent != currentContent else { continue }
+      versionsToKeep[versionContent] = version
     }
 
-    guard let latestVersionInConflict = sortedVersions.first else {
-      LOG(.info, "No latest version in conflict found for file \(cloudMetadataItem.fileName).")
-      completion(.success)
-      return
-    }
-
-    /* What the losing version holds decides where it goes, so both versions are read before the write access is
-     taken. Nothing has to be written when the version is preserved already: the file itself holds it -- two
-     devices uploaded the same content -- or a copy made by another device does. */
-    guard let versionContent = coordinatedFingerprint(of: latestVersionInConflict.url),
-          let currentContent = coordinatedFingerprint(of: currentVersion.url)
-    else {
-      completion(.skipped("the versions of \(cloudMetadataItem.fileName) in conflict cannot be read"))
-      return
-    }
-    let targetCloudFileCopyUrl = versionContent == currentContent
-      ? nil
-      : copyUrl(for: cloudMetadataItem.fileUrl, keeping: versionContent)
-
-    let resolveVersions: (URL, URL?) -> Void = { currentVersionUrl, copyVersionUrl in
-      // Check that during the coordination block, the current version of the file have not been already resolved by another process.
+    var coordinationError: NSError?
+    fileCoordinator.coordinate(writingItemAt: currentVersion.url,
+                               options: [.forReplacing],
+                               error: &coordinationError) { currentVersionUrl in
+      // Another process may have resolved the conflict while this one was waiting for the write access.
       guard let unresolvedVersions = NSFileVersion.unresolvedConflictVersionsOfItem(at: currentVersionUrl), !unresolvedVersions.isEmpty else {
         LOG(.info, "File \(cloudMetadataItem.fileName) was already resolved.")
         completion(.success)
         return
       }
+      // A version that iCloud added while the contents were being read was never read: removing it now would
+      // lose it for good, so the whole conflict is left to a later snapshot.
+      guard unresolvedVersions.count == versionsInConflict.count else {
+        completion(.skipped("the versions of \(cloudMetadataItem.fileName) in conflict changed while they were read"))
+        return
+      }
       do {
-        if let copyVersionUrl {
-          LOG(.info,
-              "Keep the version of \(cloudMetadataItem.fileName) in conflict as \(copyVersionUrl.lastPathComponent)")
-          try latestVersionInConflict.replaceItem(at: copyVersionUrl)
-        } else {
-          LOG(.info, "The version of \(cloudMetadataItem.fileName) in conflict is kept already: nothing to write")
+        for (versionContent, version) in versionsToKeep {
+          try self.keep(version, of: currentVersionUrl, holding: versionContent)
         }
         unresolvedVersions.forEach { $0.isResolved = true }
         try NSFileVersion.removeOtherVersionsOfItem(at: currentVersionUrl)
-        LOG(.info, "File \(cloudMetadataItem.fileName) was successfully resolved.")
+        LOG(.info, "File \(cloudMetadataItem.fileName) was resolved, versions kept: \(versionsToKeep.count)")
         completion(.success)
       } catch {
         completion(.failure(error))
       }
     }
 
-    var coordinationError: NSError?
-    if let targetCloudFileCopyUrl {
-      fileCoordinator.coordinate(writingItemAt: currentVersion.url,
-                                 options: [.forReplacing],
-                                 writingItemAt: targetCloudFileCopyUrl,
-                                 options: [],
-                                 error: &coordinationError) { resolveVersions($0, $1) }
-    } else {
-      fileCoordinator.coordinate(writingItemAt: currentVersion.url,
-                                 options: [.forReplacing],
-                                 error: &coordinationError) { resolveVersions($0, nil) }
-    }
-
     if let coordinationError {
       completion(.failure(coordinationError))
+    }
+  }
+
+  /// Writes the version next to the file it belongs to, under a name derived from what it holds. A copy that is
+  /// there already holds that very content -- another device resolved the same conflict, or an earlier one of
+  /// the same file kept the same version -- and is left as it is. The caller holds the write access to the file.
+  private func keep(_ version: NSFileVersion, of fileUrl: URL, holding versionContent: Fingerprint) throws {
+    let versionCopyUrl = copyUrl(of: fileUrl, holding: versionContent)
+    guard !fileManager.fileExists(atPath: versionCopyUrl.path) else {
+      LOG(.info, "The version of \(fileUrl.lastPathComponent) is kept as \(versionCopyUrl.lastPathComponent) already")
+      return
+    }
+    var coordinationError: NSError?
+    var writingError: Error?
+    // The same coordinator: it does not wait for the access it holds on the file this copy is made next to.
+    fileCoordinator.coordinate(writingItemAt: versionCopyUrl, error: &coordinationError) { url in
+      do {
+        try version.replaceItem(at: url)
+        LOG(.info, "Keep the version of \(fileUrl.lastPathComponent) as \(url.lastPathComponent)")
+      } catch {
+        writingError = error
+      }
+    }
+    if let coordinationError {
+      throw coordinationError
+    }
+    if let writingError {
+      throw writingError
     }
   }
 
@@ -345,22 +360,14 @@ final class SynchronizationFileWriter {
     return fingerprint
   }
 
-  /// Where a version kept aside by iCloud's own conflict resolution goes: the first of `<name>_1`, `<name>_2`,
-  /// ... that is free, or nil when one of them already holds that version -- the same resolution, made by
-  /// another device. A copy holding anything else belongs to another conflict and is left alone. The names are
-  /// derived from the original one, so two devices resolving the same conflict produce the same file instead of
-  /// two copies of it.
-  func copyUrl(for fileUrl: URL, keeping versionContent: Fingerprint) -> URL? {
+  /// Where a version of the file that is kept aside goes: `<name>_<content>.<extension>`, next to the file it
+  /// belongs to. The name is derived from the content alone, so every device that keeps this very version names
+  /// it the same way, and a file under that name holds this version already.
+  func copyUrl(of fileUrl: URL, holding content: Fingerprint) -> URL {
     let baseName = fileUrl.deletingPathExtension().lastPathComponent
-    let directoryUrl = fileUrl.deletingLastPathComponent()
-    var index = 1
-    // The directory holds a finite number of files, so a free name is always found.
-    while true {
-      let copyUrl = directoryUrl.appendingPathComponent("\(baseName)_\(index).\(fileUrl.pathExtension)")
-      guard fileManager.fileExists(atPath: copyUrl.path) else { return copyUrl }
-      guard coordinatedFingerprint(of: copyUrl) != versionContent else { return nil }
-      index += 1
-    }
+    return fileUrl
+      .deletingLastPathComponent()
+      .appendingPathComponent("\(baseName)_\(content.fileNameSuffix).\(fileUrl.pathExtension)")
   }
 }
 
