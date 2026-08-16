@@ -129,8 +129,10 @@ final class SynchronizationFileWriter {
     return copyUrl
   }
 
-  /// The file must still hold the content the surviving copy was compared with: the app does not coordinate its
-  /// own saves, so a version written since is the only copy of itself and nobody has synchronized it yet.
+  /// Reports the file for deletion only while it holds the content that was synchronized -- what it held when
+  /// the writer looked, right before the report. A save the app has scheduled on its file thread, or makes
+  /// afterwards, is not seen: the app does not coordinate its saves. Such a version travels to the app's trash
+  /// with the file, or is written again after the deletion and uploaded as a new one: it is never lost silently.
   /// Deleting is left to the caller: the category has to be unloaded together with its file.
   private func removeFromLocalContainer(_ localMetadataItem: LocalMetadataItem,
                                         _ evidence: DeletionEvidence,
@@ -198,8 +200,9 @@ final class SynchronizationFileWriter {
     completion(.trashCloudItem(atURL: targetCloudFileUrl, expecting: evidence.base))
   }
 
-  /// The last look at the file before its content is gone, inside the coordinated deletion: another device may
-  /// have changed or trashed it while the deletion was crossing the queues.
+  /// The last look at the file before it is moved to the iCloud trash, taken inside the coordinated deletion:
+  /// another device may have changed or trashed it while the deletion was crossing the queues. Nothing can slip
+  /// in between the look and the deletion -- everything that writes a file in iCloud coordinates its writes.
   func trashCloudItem(at url: URL,
                       expecting expectedContent: Fingerprint,
                       completion: @escaping WritingResultCompletionHandler) {

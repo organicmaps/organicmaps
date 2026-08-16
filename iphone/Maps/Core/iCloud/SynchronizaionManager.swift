@@ -312,8 +312,9 @@ private extension iCloudSynchronizaionManager {
     }
   }
 
-  /// The file was observed again while the event was crossing the queues: the deletion of a file that is back,
-  /// or that was changed in the meantime, must not be performed.
+  /// A deletion crosses the queues before it is performed, so what it was decided from is checked once more
+  /// against the latest observations: the file that is missing is still missing, by the same confirmed absence,
+  /// and no write has been recorded for it since.
   func authorizesDeletion(_ event: OutgoingSynchronizationEvent) -> Bool {
     guard stateResolver.authorizes(event) else {
       LOG(.info, "Skip the outdated deletion: \(event)")

@@ -17,9 +17,10 @@ protocol SynchronizationStateResolver {
   func resetState()
 }
 
-/// What made a deletion legitimate, carried by the event that crosses the queues. Both the absence that was
-/// confirmed and the content the surviving copy is expected to hold are checked again right before the file is
-/// deleted: a file that disappeared, came back and disappeared again is missing for a reason nobody confirmed.
+/// What made a deletion legitimate, carried by the event that crosses the queues. Both the confirmed absence and
+/// the content that was last synchronized are checked again right before the file is deleted: a file that
+/// disappeared, came back and disappeared again is missing for a reason nobody confirmed, and one that was
+/// written since holds a version nobody has compared with anything.
 struct DeletionEvidence: Equatable {
   /// When the confirmed absence started, in active synchronization time.
   let absentSince: TimeInterval
@@ -396,8 +397,9 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
   }
 
   /// Exactly the rule that produced the deletion: the very absence that was confirmed still stands -- an absence
-  /// that was cancelled and started anew was never confirmed -- and the copy that survives still holds the
-  /// content that was last synchronized, so nothing changed there while the event was crossing the queues.
+  /// that was cancelled and started anew was never confirmed -- and the common base is still the one the
+  /// deletion was decided from, so no write has been recorded while the event was crossing the queues. What the
+  /// file itself holds is not looked at here: the writer compares it before it reports the file for deletion.
   private func isDeletionConfirmed(_ absence: Absence?,
                                    observedIn snapshotNumber: Int,
                                    _ evidence: DeletionEvidence,
