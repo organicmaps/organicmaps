@@ -17,4 +17,8 @@
     <string name="bookmarks">ਬੁੱਕਮਾਰਕ</string>
     <!-- Settings button in system menu -->
     <string name="settings">ਸੈਟਿੰਗਾਂ</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">ਸੈਟੇਲਾਈਟ</string>
 </resources>

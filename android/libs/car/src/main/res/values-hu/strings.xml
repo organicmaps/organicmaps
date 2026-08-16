@@ -74,6 +74,9 @@
     <string name="minute">p</string>
     <string name="big_font">Betűméret növelése a térképen</string>
     <string name="transliteration_title">Átírás latin betűkre</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Műhold</string>
+    <string name="layers_title">Térképstílusok és rétegek</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Térképletöltő</string>
     <string name="driving_options_title">Útvonaltervezési beállítások</string>
@@ -100,6 +103,7 @@
     <string name="by_name">Név szerint</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
+    <string name="button_layer_isolines">Szintvonalak</string>
     <string name="downloader_loading_ios">Letöltés</string>
     <string name="download_map_title">Áttekintő világtérkép letöltése</string>
     <!-- The text in the activity for location permission request. -->

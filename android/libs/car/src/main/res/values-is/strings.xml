@@ -74,6 +74,9 @@
     <string name="minute">mín</string>
     <string name="big_font">Auka stærð á skýringum</string>
     <string name="transliteration_title">Umrita yfir í latneskt stafróf</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Gervitungl</string>
+    <string name="layers_title">Stílar landakorta og þekjur</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Niðurhal landakorta</string>
     <string name="driving_options_title">Valkostir leiðagerðar</string>
@@ -100,6 +103,7 @@
     <string name="by_name">Eftir nafni</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
+    <string name="button_layer_isolines">Hæðarlínur</string>
     <string name="downloader_loading_ios">Sæki</string>
     <string name="download_map_title">Sækja heims-yfirlitskortið</string>
     <!-- The text in the activity for location permission request. -->

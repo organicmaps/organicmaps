@@ -74,6 +74,9 @@
     <string name="minute">min</string>
     <string name="big_font">Mărește dimensiunea literelor pe hartă</string>
     <string name="transliteration_title">Transcrie în alfabet latin</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Satelit</string>
+    <string name="layers_title">Stiluri și straturi de hartă</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Descărcarea hărților</string>
     <string name="driving_options_title">Opțiuni de ocolire</string>
@@ -100,6 +103,7 @@
     <string name="by_name">După nume</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
+    <string name="button_layer_isolines">Înălțimi</string>
     <string name="downloader_loading_ios">Se descarcă</string>
     <string name="download_map_title">Descarcă harta lumii</string>
     <!-- The text in the activity for location permission request. -->

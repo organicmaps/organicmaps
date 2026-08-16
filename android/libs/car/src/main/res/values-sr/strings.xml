@@ -74,6 +74,9 @@
     <string name="minute">мин</string>
     <string name="big_font">Увећана слова на мапи</string>
     <string name="transliteration_title">Транслитерација у латиницу</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Сателит</string>
+    <string name="layers_title">Стилови мапе и слојеви</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Преузимање мапа</string>
     <string name="driving_options_title">Опције рутирања</string>
@@ -100,6 +103,7 @@
     <string name="by_name">По називу</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
+    <string name="button_layer_isolines">Изолиније</string>
     <string name="downloader_loading_ios">Преузимање</string>
     <string name="download_map_title">Преузми мапу света</string>
     <!-- The text in the activity for location permission request. -->

@@ -74,6 +74,9 @@
     <string name="minute">min.</string>
     <string name="big_font">Palielināt fonta lielumu kartē</string>
     <string name="transliteration_title">Transliterācija uz latīņu alfabētu</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Satelīts</string>
+    <string name="layers_title">Kartes stili un slāņi</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Karšu lejupielādētājs</string>
     <string name="driving_options_title">Maršruta opcijas</string>
@@ -100,6 +103,7 @@
     <string name="by_name">Pēc nosaukuma</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
+    <string name="button_layer_isolines">Reljefa līnijas</string>
     <string name="downloader_loading_ios">Lejupielādē</string>
     <string name="download_map_title">Lejupielādēt pasaules pārskata karti</string>
     <!-- The text in the activity for location permission request. -->

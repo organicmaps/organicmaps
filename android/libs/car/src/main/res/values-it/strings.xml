@@ -74,6 +74,9 @@
     <string name="minute">min</string>
     <string name="big_font">Aumenta dimensione etichette sulla mappa</string>
     <string name="transliteration_title">Traslittera in caratteri latini</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Satellite</string>
+    <string name="layers_title">Stili e livelli della mappa</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Scaricamento mappe</string>
     <string name="driving_options_title">Impostazioni del percorso</string>
@@ -100,6 +103,7 @@
     <string name="by_name">Per nome</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
+    <string name="button_layer_isolines">Curve di livello</string>
     <string name="downloader_loading_ios">Scaricamento</string>
     <string name="download_map_title">Scarica la mappa generale del mondo</string>
     <!-- The text in the activity for location permission request. -->
