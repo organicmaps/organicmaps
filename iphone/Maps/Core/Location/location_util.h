@@ -29,13 +29,17 @@ static location::GpsInfo gpsInfoFromLocation(CLLocation * l, location::TLocation
   return info;
 }
 
+// A negative accuracy means the heading is invalid (both trueHeading and magneticHeading).
+static bool isValidHeading(CLHeading * h)
+{
+  return h != nil && h.headingAccuracy >= 0.0;
+}
+
+// Expects a valid heading, see isValidHeading().
 static location::CompassInfo compassInfoFromHeading(CLHeading * h)
 {
   location::CompassInfo info;
-  if (h.trueHeading >= 0.0)
-    info.m_bearing = math::DegToRad(h.trueHeading);
-  else if (h.headingAccuracy >= 0.0)
-    info.m_bearing = math::DegToRad(h.magneticHeading);
+  info.m_bearing = math::DegToRad(h.trueHeading >= 0.0 ? h.trueHeading : h.magneticHeading);
   return info;
 }
 

@@ -60,14 +60,9 @@ public:
   ms::LatLon GetLatLon() const { return {m_latitude, m_longitude}; }
 };
 
-class CompassInfo
+struct CompassInfo
 {
-public:
-  // double m_timestamp;           //!< seconds from 1st Jan 1970
-  // double m_magneticHeading;     //!< positive radians from the magnetic North
-  // double m_trueHeading;         //!< positive radians from the true North
-  // double m_accuracy;            //!< offset from the magnetic to the true North in radians
-  double m_bearing;  //!< positive radians from the true North
+  double m_bearing = 0.0;  //!< positive radians from the true North
 };
 
 static inline bool IsLatValid(double lat)
