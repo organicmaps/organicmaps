@@ -112,6 +112,28 @@ std::string EditJournal::ToString(osm::JournalEntryType journalEntryType)
   UNREACHABLE();
 }
 
+std::vector<TagModData> CollapseTagChanges(std::vector<JournalEntry> const & journal)
+{
+  std::vector<TagModData> collapsed;
+  for (JournalEntry const & entry : journal)
+  {
+    if (entry.journalEntryType != JournalEntryType::TagModification)
+      continue;
+
+    TagModData const & tagModData = std::get<TagModData>(entry.data);
+    auto const it = std::find_if(collapsed.begin(), collapsed.end(),
+                                 [&tagModData](TagModData const & tag) { return tag.key == tagModData.key; });
+    if (it == collapsed.end())
+      collapsed.push_back(tagModData);
+    else
+      it->new_value = tagModData.new_value;
+  }
+
+  // A field the user brought back to the value it started with is not an edit at all.
+  std::erase_if(collapsed, [](TagModData const & tag) { return tag.old_value == tag.new_value; });
+  return collapsed;
+}
+
 std::optional<JournalEntryType> EditJournal::TypeFromString(std::string const & entryType)
 {
   if (entryType == "TagModification")

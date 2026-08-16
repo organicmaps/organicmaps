@@ -6,6 +6,7 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
+#include "indexer/edit_journal.hpp"
 #include "indexer/editable_map_object.hpp"
 #include "indexer/feature_meta.hpp"
 
@@ -999,6 +1000,35 @@ UNIT_TEST(OsmTagPolicy_WriteDoesNotDuplicateTheUsersValue)
   TEST_EQUAL(ApplyFieldEdit(feature, "cuisine", "pizza", "klingon").m_status, FieldWriteStatus::Written, ());
 
   TEST_EQUAL(TagOrNone(feature, "cuisine"), "klingon", ());
+}
+
+UNIT_TEST(OsmTagPolicy_WriteReplaysTwoEditsOfOneField)
+{
+  // The user changed one field twice, so the upload applies the net change (edit_journal.hpp).
+  osm::EditJournal journal;
+  journal.AddTagChange("phone", "+1 5552222", "+1 5553333");
+  journal.AddTagChange("phone", "+1 5553333", "+1 5554444");
+
+  auto const changes = osm::CollapseTagChanges(journal.GetJournal());
+  TEST_EQUAL(changes.size(), 1, ());
+  auto const & change = changes.front();
+
+  auto feature = MakeNode({{"phone", "+1 5551111"}, {"mobile", "+1 5552222"}});
+  TEST_EQUAL(ApplyFieldEdit(feature, change.key, change.old_value, change.new_value).m_status,
+             FieldWriteStatus::Written, ());
+  TEST_EQUAL(TagOrNone(feature, "mobile"), "+1 5554444", ());
+  TEST_EQUAL(TagOrNone(feature, "phone"), "+1 5551111", ());
+
+  // The upload went through but its response was lost, so the same journal is replayed against the
+  // object it produced. There is nothing left to do, and no changeset is worth sending.
+  TEST_EQUAL(ApplyFieldEdit(feature, change.key, change.old_value, change.new_value).m_status,
+             FieldWriteStatus::NothingToDo, ());
+  TEST_EQUAL(TagOrNone(feature, "mobile"), "+1 5554444", ());
+  TEST_EQUAL(TagOrNone(feature, "phone"), "+1 5551111", ());
+
+  // Replaying the entries one by one instead would report a conflict on a field nobody else touched.
+  auto uploaded = MakeNode({{"phone", "+1 5551111"}, {"mobile", "+1 5554444"}});
+  TEST_EQUAL(ApplyFieldEdit(uploaded, "phone", "+1 5552222", "+1 5553333").m_status, FieldWriteStatus::Ambiguous, ());
 }
 
 UNIT_TEST(OsmTagPolicy_WriteAgreesWithTheGenerator)

@@ -83,4 +83,11 @@ public:
 
   static std::optional<JournalEntryType> TypeFromString(std::string const & entryType);
 };
+
+/// Collapses @a journal into one modification per key: the first entry's old_value, the last entry's
+/// new_value, keys that ended up where they started dropped, first-appearance order kept. The stored
+/// journal is the user's editing history and is not modified; only the upload path consumes the
+/// collapsed form, which is what makes a replayed upload see the net change instead of looking for a
+/// value an earlier entry has already replaced.
+std::vector<TagModData> CollapseTagChanges(std::vector<JournalEntry> const & journal);
 }  // namespace osm

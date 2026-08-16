@@ -32,6 +32,7 @@
 		394E1E0B22BBB5EB00E4BC75 /* utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 394E1E0922BBB5EB00E4BC75 /* utils.hpp */; };
 		39F376C0207D32450058E8E0 /* cities_boundaries_serdes_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39F376BE207D32410058E8E0 /* cities_boundaries_serdes_tests.cpp */; };
 		39F376C3207D32510058E8E0 /* scale_index_reading_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39F376C1207D324E0058E8E0 /* scale_index_reading_tests.cpp */; };
+		AB0C0A0100000000000C0005 /* edit_journal_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB0C0A0100000000000C0006 /* edit_journal_test.cpp */; };
 		3D489BC61D3D220F0052AA38 /* editable_map_object_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D489BA71D3D1F8A0052AA38 /* editable_map_object_test.cpp */; };
 		3D489BC71D3D22150052AA38 /* features_vector_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D489BA81D3D1F8A0052AA38 /* features_vector_test.cpp */; };
 		3D489BC81D3D22190052AA38 /* string_slice_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D489BA91D3D1F8A0052AA38 /* string_slice_tests.cpp */; };
@@ -244,6 +245,7 @@
 		3D452AF71EE6D9F5009EAB9B /* wheelchair_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wheelchair_tests.cpp; sourceTree = "<group>"; };
 		3D452AF81EE6D9F5009EAB9B /* feature_names_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = feature_names_test.cpp; sourceTree = "<group>"; };
 		3D452AF91EE6D9F5009EAB9B /* centers_table_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = centers_table_test.cpp; sourceTree = "<group>"; };
+		AB0C0A0100000000000C0006 /* edit_journal_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = edit_journal_test.cpp; sourceTree = "<group>"; };
 		3D489BA71D3D1F8A0052AA38 /* editable_map_object_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = editable_map_object_test.cpp; sourceTree = "<group>"; };
 		3D489BA81D3D1F8A0052AA38 /* features_vector_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = features_vector_test.cpp; sourceTree = "<group>"; };
 		3D489BA91D3D1F8A0052AA38 /* string_slice_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = string_slice_tests.cpp; sourceTree = "<group>"; };
@@ -489,6 +491,7 @@
 				40DF582C2174979200E4E0FC /* classificator_tests.cpp */,
 				670C61011AB065B100C38A8C /* data_source_test.cpp */,
 				56C74C271C749E8100B71B9F /* drules_selector_parser_test.cpp */,
+				AB0C0A0100000000000C0006 /* edit_journal_test.cpp */,
 				3D489BA71D3D1F8A0052AA38 /* editable_map_object_test.cpp */,
 				56C74C281C749E8100B71B9F /* feature_metadata_test.cpp */,
 				3D452AF81EE6D9F5009EAB9B /* feature_names_test.cpp */,
@@ -904,6 +907,7 @@
 				670BAA9C1D0B06E1000302DA /* data_source_test.cpp in Sources */,
 				670BAA9B1D0B06E1000302DA /* index_builder_test.cpp in Sources */,
 				670C612C1AB0663400C38A8C /* testingmain.cpp in Sources */,
+				AB0C0A0100000000000C0005 /* edit_journal_test.cpp in Sources */,
 				3D489BC61D3D220F0052AA38 /* editable_map_object_test.cpp in Sources */,
 				670BAA8D1D0B069A000302DA /* succinct_trie_test.cpp in Sources */,
 				670BAA951D0B06E1000302DA /* cell_coverer_test.cpp in Sources */,
