@@ -26,13 +26,13 @@
     android:layout_gravity="center_vertical"
     app:endIconMode="custom"
     app:endIconDrawable="@drawable/ic_close_rounded"
-    app:endIconTint="@android:color/white"
-    style="@style/MwmTextAppearance.Toolbar.Search"
+    app:endIconTint="?searchToolbarEndIconTint"
+    style="?searchToolbarTextAppearance"
     app:boxBackgroundMode="none"
     app:hintEnabled="false">
     <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/query"
-      style="@style/MwmTextAppearance.Toolbar.Search"
+      style="?searchToolbarTextAppearance"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:saveEnabled="false"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Lets MenuItem#setEnabled dim a toolbar action icon on its own, which it does not do by default. -->
+<!-- Dims the icon and the label of a disabled contextual action together; setEnabled() alone leaves
+     both at full strength. Also used by the toolbar navigation icon, which is never disabled. -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
   <item
     android:state_enabled="false"

@@ -27,6 +27,8 @@
     <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.App.LargeComponent</item>
     <item name="windowBackgroundForced">@color/bg_window</item>
     <item name="cardBackground">@color/bg_cards</item>
+    <item name="searchToolbarTextAppearance">@style/MwmTextAppearance.Toolbar.Search</item>
+    <item name="searchToolbarEndIconTint">@android:color/white</item>
     <item name="titleDialogTheme">@color/white_primary</item>
     <item name="textDialogTheme">@color/white_secondary</item>
     <item name="fullscreenDialogTheme">@style/MwmTheme.DialogFragment.Fullscreen</item>
