@@ -477,15 +477,20 @@ protocol SynchronizationClock: AnyObject {
   var activeTime: TimeInterval { get }
 }
 
+/// Measured with the system uptime and not with the wall clock: a clock moved forward -- by the user, by the
+/// network -- would instantly satisfy the interval a deletion has to wait for. Uptime does not advance while the
+/// device sleeps, and neither does synchronization, which observes nothing then.
 final class ActiveSynchronizationClock: SynchronizationClock {
   private var accumulatedTime: TimeInterval = 0
-  private var resumedAt: Date?
+  private var resumedAt: TimeInterval?
 
-  var activeTime: TimeInterval { accumulatedTime - (resumedAt?.timeIntervalSinceNow ?? 0) }
+  var activeTime: TimeInterval {
+    accumulatedTime + (resumedAt.map { ProcessInfo.processInfo.systemUptime - $0 } ?? 0)
+  }
 
   func resume() {
     if resumedAt == nil {
-      resumedAt = Date()
+      resumedAt = ProcessInfo.processInfo.systemUptime
     }
   }
 
