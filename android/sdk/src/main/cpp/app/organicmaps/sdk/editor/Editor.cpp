@@ -23,6 +23,7 @@
 #include <algorithm>
 #include <chrono>
 #include <future>
+#include <memory>
 #include <set>
 #include <vector>
 
@@ -298,19 +299,26 @@ JNIEXPORT jint Java_app_organicmaps_sdk_editor_Editor_nativeUploadChanges(JNIEnv
                                                                           jstring appVersion, jstring appId)
 {
   using osm::Editor;
-  std::promise<Editor::UploadResult> promise;
-  auto future = promise.get_future();
+
+  // The wait below is bounded, so the completion callback may outlive this frame: the promise is
+  // shared with it instead of living on the stack. UploadChanges runs the callback at most once,
+  // and only when it returned true.
+  auto const promise = std::make_shared<std::promise<Editor::UploadResult>>();
+  auto future = promise->get_future();
 
   if (!Editor::Instance().UploadChanges(
           jni::ToNativeString(env, token),
           {{"created_by", "Organic Maps " OMIM_OS_NAME " " + jni::ToNativeString(env, appVersion)},
            {"bundle_id", jni::ToNativeString(env, appId)}},
-          [&promise](Editor::UploadResult result) { promise.set_value(result); }))
-    promise.set_value(Editor::UploadResult::NothingToUpload);
+          [promise](Editor::UploadResult result) { promise->set_value(result); }))
+    promise->set_value(Editor::UploadResult::NothingToUpload);
 
-  auto status = future.wait_for(std::chrono::minutes(5));
-  if (status == std::future_status::timeout)
+  if (future.wait_for(std::chrono::minutes(5)) == std::future_status::timeout)
+  {
+    // Reported as an error so that the caller reschedules, but the upload itself keeps running.
+    LOG(LWARNING, ("Timed out waiting for the OSM upload, it continues in background."));
     return static_cast<jint>(Editor::UploadResult::Error);
+  }
   return static_cast<jint>(future.get());
 }
 
