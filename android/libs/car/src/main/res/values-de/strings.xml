@@ -74,6 +74,9 @@
     <string name="minute">min</string>
     <string name="big_font">Schrift auf der Karte vergrößern</string>
     <string name="transliteration_title">Transliteration ins lateinische Alphabet</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Satellit</string>
+    <string name="layers_title">Kartenstile und Ebenen</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Karten werden geladen</string>
     <string name="driving_options_title">Routenbeschränkungen</string>
@@ -100,6 +103,7 @@
     <string name="by_name">Nach Name</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
+    <string name="button_layer_isolines">Höhenlinien</string>
     <string name="downloader_loading_ios">Herunterladen</string>
     <string name="download_map_title">Lade die weltweite Übersichtskarte herunter</string>
     <!-- The text in the activity for location permission request. -->

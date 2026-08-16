@@ -74,6 +74,9 @@
     <string name="minute">分钟</string>
     <string name="big_font">增大地图上的字体大小</string>
     <string name="transliteration_title">拉丁字母音译</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">卫星</string>
+    <string name="layers_title">地图样式和图层</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">加载地图</string>
     <string name="driving_options_title">绕行设置</string>
@@ -100,6 +103,7 @@
     <string name="by_name">按名称</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
+    <string name="button_layer_isolines">等高线</string>
     <string name="downloader_loading_ios">正在下载</string>
     <string name="download_map_title">下载世界地图</string>
     <!-- The text in the activity for location permission request. -->

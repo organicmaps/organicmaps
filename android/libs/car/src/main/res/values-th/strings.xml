@@ -74,6 +74,9 @@
     <string name="minute">น.</string>
     <string name="big_font">เพิ่มขนาดฟอนต์บนแผนที่</string>
     <string name="transliteration_title">การทับศัพท์เป็นภาษาละติน</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">ดาวเทียม</string>
+    <string name="layers_title">รูปแบบและเลเยอร์ของแผนที่</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">ตัวดาวน์โหลดแผนที่</string>
     <string name="driving_options_title">ทางเลือกเส้นทางขับขี่</string>
@@ -100,6 +103,7 @@
     <string name="by_name">ตามชื่อ</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
+    <string name="button_layer_isolines">ความสูง</string>
     <string name="downloader_loading_ios">การดาวน์โหลด</string>
     <string name="download_map_title">ดาวน์โหลดแผนที่ภาพรวมของโลก</string>
     <!-- The text in the activity for location permission request. -->

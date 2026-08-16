@@ -74,6 +74,9 @@
     <string name="minute">min</string>
     <string name="big_font">Suurenda teksti suurust kaardil</string>
     <string name="transliteration_title">Transliteratsioon ladina tähestikku</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Satelliit</string>
+    <string name="layers_title">Kaardi stiilid ja kihid</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Kaartide allalaadija</string>
     <string name="driving_options_title">Tee juhatamise valikud</string>
@@ -100,6 +103,7 @@
     <string name="by_name">Nime järgi</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
+    <string name="button_layer_isolines">Kontuurjooned</string>
     <string name="downloader_loading_ios">Allalaadimisel</string>
     <string name="download_map_title">Maailma üldkaart on allalaadimisel</string>
     <!-- The text in the activity for location permission request. -->

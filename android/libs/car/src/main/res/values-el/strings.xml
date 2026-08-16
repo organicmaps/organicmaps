@@ -74,6 +74,9 @@
     <string name="minute">λπτ</string>
     <string name="big_font">Αύξηση μεγέθους γραμματοσειράς στο χάρτη</string>
     <string name="transliteration_title">Μεταγραφή στο λατινικό αλφάβητο</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Δορυφόρος</string>
+    <string name="layers_title">Στυλ χάρτη και επίπεδα</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Κατέβασμα χαρτών</string>
     <string name="driving_options_title">Ρυθμίσεις δρομολόγησης</string>
@@ -100,6 +103,7 @@
     <string name="by_name">Με όνομα</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
+    <string name="button_layer_isolines">Υψομετρικά</string>
     <string name="downloader_loading_ios">Κατέβασμα</string>
     <string name="download_map_title">Κατεβάστε τον παγκόσμιο χάρτη επισκόπησης</string>
     <!-- The text in the activity for location permission request. -->
