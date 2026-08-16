@@ -63,9 +63,10 @@ final class SynchronizationFileWriter {
       completion(.success)
     } catch {
       /* Downloading does not start while offline, in Low Data Mode, or when iCloud is busy with the item. None
-       of that is a reason to stop synchronizing: the request is repeated on a later snapshot. */
+       of that is worth an error: nothing was written, the request is repeated on a later snapshot, and a
+       condition the user has to know about is reported by the item itself in the next one. */
       LOG(.warning, "Failed to start downloading \(cloudMetadataItem.fileName): \(error.localizedDescription)")
-      completion(.failure(SynchronizationError.fileUnavailable))
+      completion(.skipped("downloading \(cloudMetadataItem.fileName) could not be started"))
     }
   }
 

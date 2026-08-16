@@ -159,6 +159,16 @@ final class SynchronizationFileWriterTests: XCTestCase {
     XCTAssertEqual(content(of: cloudItem.fileUrl), "B")
   }
 
+  /// iCloud does not start a download while offline, in Low Data Mode, or when it is busy with the item.
+  /// Nothing was written and nothing is wrong: the request is repeated on a later snapshot.
+  func testDownloadThatCannotStartIsSkipped() throws {
+    writer = SynchronizationFileWriter(fileManager: UndownloadableItemsFileManager(),
+                                       localDirectoryUrl: localDirectoryUrl,
+                                       cloudDirectoryUrl: cloudDirectoryUrl)
+
+    try assertSkipped(process(.startDownloading(cloudItem("file.kml"))))
+  }
+
   // MARK: - The version kept aside by a conflict is written where nothing else is kept
 
   func testConflictCopyTakesTheFirstNameThatIsFree() throws {
@@ -261,4 +271,13 @@ final class SynchronizationFileWriterTests: XCTestCase {
 
   /// File coordination reports the file it locked through the real path of the directory it is in.
   private func path(_ url: URL) -> String { url.resolvingSymlinksInPath().path }
+}
+
+/// An iCloud container that refuses to download the items it reports.
+private final class UndownloadableItemsFileManager: FileManager {
+  override func isUbiquitousItem(at _: URL) -> Bool { true }
+
+  override func startDownloadingUbiquitousItem(at _: URL) throws {
+    throw CocoaError(.ubiquitousFileUnavailable)
+  }
 }
