@@ -4,6 +4,7 @@
 
 import QtQuick 2.0
 import Map
+import Location
 
 Item {
     id: root
@@ -12,9 +13,13 @@ Item {
     Canvas {
         id: cloud
 
+        anchors.right: parent.right
+        y: parent.height / 2
         width: 400
         height: 300
+        rotation: 30
         property var ctx: null
+        property var fillStyle: "#8ED6FF"
 
         onPaint: {
             if (!ctx)
@@ -30,7 +35,7 @@ Item {
             ctx.lineTo(x, y + 60);
             ctx.strokeStyle = "#797874";
             ctx.stroke();
-            ctx.fillStyle = "#8ED6FF";
+            ctx.fillStyle = fillStyle;
             ctx.fill();
         }
 
@@ -57,6 +62,65 @@ Item {
                 root.map.getMyPositionAction().trigger();
                 console.log("Cloud clicked");
             }
+        }
+
+        Connections {
+            target: root.map
+            function onPositionModeChanged(mode) {
+                cloud.state = mode;
+                cloud.requestPaint();
+                console.log("Position Mode changed to " + mode);
+            }
+        }
+
+        states: [
+            State {
+                name: PositionMode.PendingPosition
+                PropertyChanges {
+                    cloud.fillStyle: undefined
+                    text.text: "Pending Position..."
+                }
+            },
+            State {
+                name: PositionMode.NotFollowNoPosition
+                extend: PositionMode.PendingPosition
+                PropertyChanges {
+                    text.text: "No Position"
+                }
+            },
+            State {
+                name: PositionMode.NotFollow
+                PropertyChanges {
+                    cloud.fillStyle: cloud.context.strokeStyle
+                    text.text: "Not Follow"
+                }
+            },
+            State {
+                name: PositionMode.Follow
+                PropertyChanges {
+                    restoreEntryValues: false
+                    cloud.rotation: 30
+                    text.text: "Follow"
+                }
+            },
+            State {
+                name: PositionMode.FollowAndRotate
+                PropertyChanges {
+                    restoreEntryValues: false
+                    cloud.rotation: 0
+                    text.text: "Follow and Rotate"
+                }
+            }
+        ]
+
+        Text {
+            id: text
+
+            font.family: "Helvetica"
+            font.pointSize: 24
+            color: "white"
+
+            anchors.centerIn: parent
         }
     }
 }
