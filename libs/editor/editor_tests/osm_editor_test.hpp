@@ -33,6 +33,7 @@ public:
   void GetFeatureStatusTest();
   void IsFeatureUploadedTest();
   void DeleteFeatureTest();
+  void DeleteUploadedFeatureTest();
   void ClearAllLocalEditsTest();
   void GetFeaturesByStatusTest();
   void OnMapDeregisteredTest();
