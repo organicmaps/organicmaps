@@ -9,10 +9,13 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import androidx.annotation.NonNull;
 import app.organicmaps.base.OnBackPressListener;
+import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.UiUtils;
 
 public abstract class WebContainerDelegate implements OnBackPressListener
 {
+  private static final String TAG = WebContainerDelegate.class.getSimpleName();
+
   private final WebView mWebView;
   private final View mProgress;
 
@@ -25,6 +28,13 @@ public abstract class WebContainerDelegate implements OnBackPressListener
       {
         UiUtils.show(mWebView);
         UiUtils.hide(mProgress);
+      }
+
+      @Override
+      public void onReceivedError(WebView view, int errorCode, String description, String failingUrl)
+      {
+        Logger.w(TAG,
+                 "WebView load error: code=" + errorCode + ", description=" + description + ", url=" + failingUrl);
       }
 
       @Override
