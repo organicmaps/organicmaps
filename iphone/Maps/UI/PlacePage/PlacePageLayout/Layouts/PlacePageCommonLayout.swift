@@ -199,7 +199,7 @@ extension PlacePageCommonLayout: MWMLocationObserver {
   func onLocationError(_: MWMLocationStatus) {}
 
   private func updateHeading(_ heading: CLLocationDirection) {
-    guard let location = lastLocation, heading > 0 else {
+    guard let location = lastLocation, heading >= 0 else {
       return
     }
 

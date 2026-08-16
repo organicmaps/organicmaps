@@ -265,7 +265,7 @@ void setShowLocationAlert(BOOL needShow)
 + (CLHeading *)lastHeading
 {
   MWMLocationManager * manager = [self manager];
-  if (!manager.started || !manager.lastHeadingInfo || manager.lastHeadingInfo.headingAccuracy < 0)
+  if (!manager.started || !location_util::isValidHeading(manager.lastHeadingInfo))
     return nil;
   return manager.lastHeadingInfo;
 }
@@ -285,7 +285,10 @@ void setShowLocationAlert(BOOL needShow)
 
 - (void)processHeadingUpdate:(CLHeading *)headingInfo
 {
+  // Stored first, so +lastHeading keeps reflecting the latest (possibly invalid) state.
   self.lastHeadingInfo = headingInfo;
+  if (!location_util::isValidHeading(headingInfo))
+    return;
   GetFramework().OnCompassUpdate(location_util::compassInfoFromHeading(headingInfo));
   for (Observer observer in self.observers)
     if ([observer respondsToSelector:@selector(onHeadingUpdate:)])
@@ -486,6 +489,13 @@ void setShowLocationAlert(BOOL needShow)
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)heading
 {
   [self processHeadingUpdate:heading];
+}
+
+// The calibration HUD is the only way back to valid headings, which are otherwise skipped, but it
+// must not cover the map while driving, where the arrow follows the route rather than the compass.
+- (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager
+{
+  return self.geoMode != GeoMode::VehicleRouting;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
