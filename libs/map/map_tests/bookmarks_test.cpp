@@ -570,6 +570,129 @@ UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_CustomColorAndLastEdited)
   TEST_EQUAL(bm2->GetData().m_color.m_rgba, customB.GetRGBA(), ());
 }
 
+// Creates a bookmark at a unique point so several of them can coexist in one category.
+kml::MarkId AddBookmark(BookmarkManager & bmManager, kml::MarkGroupId groupId, double x)
+{
+  kml::BookmarkData bmData;
+  bmData.m_point = m2::PointD(x, x);
+  return bmManager.GetEditSession().CreateBookmark(std::move(bmData), groupId)->GetId();
+}
+
+kml::TrackId AddTrack(BookmarkManager & bmManager, kml::MarkGroupId groupId)
+{
+  auto es = bmManager.GetEditSession();
+  auto const trackId = es.CreateTrack(MakeLineTrackData())->GetId();
+  es.AttachTrack(trackId, groupId);
+  return trackId;
+}
+
+UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_BatchDelete)
+{
+  ScopedBookmarksDir scopedDir;
+  Framework fm(kFrameworkParams);
+  BookmarkManager & bmManager = fm.GetBookmarkManager();
+  bmManager.EnableTestMode(true);
+
+  auto const cat = bmManager.CreateBookmarkCategory("cat", false /* autoSave */);
+  auto const bm1 = AddBookmark(bmManager, cat, 10);
+  auto const bm2 = AddBookmark(bmManager, cat, 20);
+  auto const bm3 = AddBookmark(bmManager, cat, 30);
+  auto const trk1 = AddTrack(bmManager, cat);
+  auto const trk2 = AddTrack(bmManager, cat);
+
+  // A stale id - the UI acts on a snapshot that can lag the core - must be skipped, not crash.
+  bmManager.GetEditSession().DeleteBookmark(bm3);
+  TEST(bmManager.HasRecentlyDeletedBookmark(), ("A single deletion stashes its undo"));
+
+  // Tracks only: the unrelated single-deletion undo above must survive.
+  bmManager.GetEditSession().DeleteBookmarksAndTracks({} /* bookmarkIds */, {trk1});
+  TEST_EQUAL(bmManager.GetTrackIds(cat).size(), 1, ());
+  TEST(bmManager.HasRecentlyDeletedBookmark(), ("A tracks-only batch must not drop the Place Page undo"));
+
+  // Bookmark ids that are all stale: still nothing was stashed by this batch.
+  bmManager.GetEditSession().DeleteBookmarksAndTracks({bm3}, {} /* trackIds */);
+  TEST(bmManager.HasRecentlyDeletedBookmark(), ("An all-stale batch must not drop the undo either"));
+
+  // A batch that really deletes a bookmark has no undo of its own, so the stash is dropped.
+  bmManager.GetEditSession().DeleteBookmarksAndTracks({bm1, bm3}, {trk2});
+  TEST_EQUAL(bmManager.GetUserMarkIds(cat).size(), 1, ());
+  TEST_EQUAL(bmManager.GetTrackIds(cat).size(), 0, ());
+  TEST(bmManager.HasBookmark(bm2), ("Only the listed bookmarks are deleted"));
+  TEST(!bmManager.HasRecentlyDeletedBookmark(), ());
+}
+
+UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_BatchMove)
+{
+  ScopedBookmarksDir scopedDir;
+  Framework fm(kFrameworkParams);
+  BookmarkManager & bmManager = fm.GetBookmarkManager();
+  bmManager.EnableTestMode(true);
+
+  auto const cat1 = bmManager.CreateBookmarkCategory("cat1", false /* autoSave */);
+  auto const cat2 = bmManager.CreateBookmarkCategory("cat2", false /* autoSave */);
+  auto const bm1 = AddBookmark(bmManager, cat1, 10);
+  auto const bm2 = AddBookmark(bmManager, cat1, 20);
+  auto const trk = AddTrack(bmManager, cat1);
+  auto const staleBm = AddBookmark(bmManager, cat1, 30);
+  bmManager.GetEditSession().DeleteBookmark(staleBm);
+
+  bmManager.GetEditSession().MoveBookmarksAndTracks({bm1, staleBm}, {trk}, cat2);
+  TEST_EQUAL(bmManager.GetUserMarkIds(cat1).size(), 1, ("bm2 stays behind"));
+  TEST_EQUAL(bmManager.GetUserMarkIds(cat2).size(), 1, ());
+  TEST_EQUAL(bmManager.GetTrackIds(cat1).size(), 0, ());
+  TEST_EQUAL(bmManager.GetTrackIds(cat2).size(), 1, ());
+  TEST_EQUAL(bmManager.GetBookmark(bm1)->GetGroupId(), cat2, ());
+  // A move is a real change of the last edited category, so the SetLastEditedBmCategory() guard must not swallow it.
+  TEST_EQUAL(bmManager.LastEditedBMCategory(), cat2, ());
+
+  // Moving into the category the items already belong to is the no-op the chooser hands back when the current
+  // list is picked; it must not detach anything.
+  bmManager.GetEditSession().MoveBookmarksAndTracks({bm1}, {trk}, cat2);
+  TEST_EQUAL(bmManager.GetUserMarkIds(cat2).size(), 1, ());
+  TEST_EQUAL(bmManager.GetTrackIds(cat2).size(), 1, ());
+
+  // A destination that disappeared between snapshot and tap leaves everything where it was.
+  bmManager.GetEditSession().DeleteBmCategory(cat2, true /* permanently */);
+  bmManager.GetEditSession().MoveBookmarksAndTracks({bm2}, {} /* trackIds */, cat2);
+  TEST_EQUAL(bmManager.GetUserMarkIds(cat1).size(), 1, ());
+  TEST_EQUAL(bmManager.GetBookmark(bm2)->GetGroupId(), cat1, ());
+}
+
+UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_BatchColor)
+{
+  ScopedBookmarksDir scopedDir;
+  Framework fm(kFrameworkParams);
+  BookmarkManager & bmManager = fm.GetBookmarkManager();
+  bmManager.EnableTestMode(true);
+
+  auto const cat = bmManager.CreateBookmarkCategory("cat", false /* autoSave */);
+  auto const bm = AddBookmark(bmManager, cat, 10);
+  auto const trk = AddTrack(bmManager, cat);
+  auto const staleBm = AddBookmark(bmManager, cat, 20);
+  bmManager.GetEditSession().DeleteBookmark(staleBm);
+
+  auto const seed = dp::Color(1, 2, 3, 255);
+  bmManager.SetLastEditedBmColor(kml::MakeCustomBookmarkColorData(seed));
+
+  // Tracks only: the color the next new bookmark gets must not move.
+  auto const trackColor = dp::Color(200, 100, 50, 255);
+  bmManager.GetEditSession().SetBookmarksAndTracksColor({} /* bookmarkIds */, {trk}, trackColor);
+  TEST_EQUAL(bmManager.GetTrack(trk)->GetColor(0), trackColor, ());
+  TEST_EQUAL(bmManager.LastEditedBMColor().m_rgba, seed.GetRGBA(), ());
+
+  // Bookmark ids that are all stale must be treated as a tracks-only batch.
+  bmManager.GetEditSession().SetBookmarksAndTracksColor({staleBm}, {trk}, dp::Color(9, 9, 9, 255));
+  TEST_EQUAL(bmManager.LastEditedBMColor().m_rgba, seed.GetRGBA(), ());
+
+  // Reaching a live bookmark does move it, and the color is stored as an explicit custom one.
+  auto const newColor = dp::Color(10, 20, 30, 255);
+  bmManager.GetEditSession().SetBookmarksAndTracksColor({bm, staleBm}, {trk}, newColor);
+  TEST_EQUAL(bmManager.GetBookmark(bm)->GetData().m_color.m_rgba, newColor.GetRGBA(), ());
+  TEST_EQUAL(bmManager.GetBookmark(bm)->GetData().m_color.m_predefinedColor, kml::PredefinedColor::None, ());
+  TEST_EQUAL(bmManager.GetTrack(trk)->GetColor(0), newColor, ());
+  TEST_EQUAL(bmManager.LastEditedBMColor().m_rgba, newColor.GetRGBA(), ());
+}
+
 UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_Getting)
 {
   ScopedBookmarksDir scopedDir;
