@@ -33,6 +33,8 @@
 
 #include <algorithm>
 #include <sstream>
+#include <string_view>
+#include <utility>
 
 namespace storage
 {
@@ -42,7 +44,6 @@ using namespace platform;
 namespace
 {
 std::string const kDownloadQueueKey = "DownloadQueue";
-std::string const kTerrainRegionsKey = "TerrainRegions";
 std::string const kTerrainWithMapsKey = "TerrainWithMaps";
 
 // Editing maps older than approximately three months old is disabled, since the data
@@ -165,29 +166,6 @@ Storage::Storage(std::string const & pathToCountriesFile /* = COUNTRIES_FILE */,
   catch (RootException const & ex)
   {
     LOG(LWARNING, ("Terrain grid is not available:", ex.Msg()));
-  }
-
-  if (std::string regions; settings::Get(kTerrainRegionsKey, regions))
-  {
-    strings::Tokenize(regions, ";", [this](std::string_view v)
-    {
-      // A region can drop out of the coverage on a grid/borders change.
-      if (auto it = m_terrainCoverage.find(std::string(v)); it != m_terrainCoverage.end())
-        m_terrainRegions.insert(it->first);
-    });
-  }
-  else if (!m_terrainCoverage.empty() &&
-           Platform::IsFileExistsByFullPath(base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR)))
-  {
-    // Terrain files but no attachment key: an install from before the attachments.
-    // Adopt the fully covered regions, so their updates and deletes keep working;
-    // save even an empty result - the adoption must run at most once.
-    EnsureTerrainOnDisk();
-    for (auto const & [region, blocks] : m_terrainCoverage)
-      if (std::all_of(blocks.begin(), blocks.end(), [this](uint32_t i) { return m_twmGrid[i].m_onDisk; }))
-        m_terrainRegions.insert(region);
-    LOG(LINFO, ("Terrain: adopted", m_terrainRegions.size(), "downloaded regions"));
-    SaveTerrainRegions();
   }
 
   m_downloader->SetDataVersion(m_currentVersion);
@@ -361,11 +339,6 @@ void Storage::DeleteAllTerrain()
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   DropTerrainDownloads();
-  if (!m_terrainRegions.empty())
-  {
-    m_terrainRegions.clear();
-    SaveTerrainRegions();
-  }
 
   // The registered blocks go through the delete hook (deregistration + the rendered
   // tiles invalidation), the leftovers (artifacts, condemned files) with the tree.
@@ -373,7 +346,8 @@ void Storage::DeleteAllTerrain()
     m_terrainDeleteFn({mercator::Bounds::FullRect()});
   if (!Platform::RmDirRecursively(base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR)))
     LOG(LWARNING, ("The terrain directory is not fully removed"));
-  m_terrainOnDiskFresh = false;
+  for (auto & terrainBlock : m_twmGrid)
+    terrainBlock.m_onDisk = false;
 
   for (auto const & [countryId, files] : m_localFiles)
     NotifyStatusChangedForHierarchy(countryId);
@@ -384,7 +358,6 @@ void Storage::DeleteTerrain(CountryId const & countryId)
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   CancelTerrain(countryId);
-  DetachTerrainRegions(countryId);
 
   auto const covering = GetCoveringBlocks(countryId);
   if (covering.empty() || !m_terrainDeleteFn)
@@ -413,14 +386,16 @@ void Storage::DeleteTerrain(CountryId const & countryId)
   // it no-ops cheaply over the areas with nothing on disk.
   std::vector<m2::RectD> rects;
   for (auto const index : covering)
-    if (wanted.count(index) == 0)
-      rects.push_back(m_twmGrid[index].m_rect);
-  if (!rects.empty())
   {
-    m_terrainDeleteFn(rects);
-    m_terrainOnDiskFresh = false;
+    if (wanted.count(index) == 0)
+    {
+      rects.push_back(m_twmGrid[index].m_rect);
+      m_twmGrid[index].m_onDisk = false;
+    }
   }
-  // Notify even with nothing deleted: the cancel/detach above may have changed the row.
+  if (!rects.empty())
+    m_terrainDeleteFn(rects);
+  // Notify even with nothing deleted: the cancel above may have changed the row.
   NotifyStatusChangedForHierarchy(countryId);
 }
 
@@ -450,11 +425,11 @@ template <class Fn>
 void Storage::ForEachTerrainBlockToDownload(CountryId const & countryId, Fn && fn) const
 {
   // The terrain follows the maps: the update unit is a downloaded region with the
-  // setting on (the attachments only carry the crash-resume intent, see RestoreTerrain).
-  if (m_localFiles.empty() || !IsTerrainWithMaps())
+  // setting on. Before the provider scan lands the on-disk state is unknown: no block
+  // is "to download" yet (see OnTerrainScanned).
+  if (!m_terrainScanned || m_localFiles.empty() || !IsTerrainWithMaps())
     return;
 
-  EnsureTerrainOnDisk();
   ForEachCoverageLeaf(countryId, [this, &fn](CountryId const & id, std::vector<uint32_t> const & indices)
   {
     if (m_localFiles.count(id) == 0)
@@ -482,39 +457,40 @@ std::vector<uint32_t> Storage::GetCoveringBlocks(CountryId const & countryId) co
   return blocks;
 }
 
-void Storage::SaveTerrainRegions() const
+void Storage::OnTerrainScanned(std::vector<terrain::TwmFile> const & scanned)
 {
-  // The leading ";" keeps the value non-empty: the settings storage drops the
-  // empty-valued keys, and a key absent means "adopt from the disk" (the ctor) -
-  // "the user detached everything" must survive the round trip.
-  std::ostringstream ss;
-  for (auto const & region : m_terrainRegions)
-    ss << ';' << region;
-  settings::Set(kTerrainRegionsKey, ss.str().empty() ? ";" : ss.str());
-}
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-void Storage::AttachTerrainRegions(CountryId const & countryId)
-{
-  bool changed = false;
-  ForEachCoverageLeaf(countryId, [&](CountryId const & id, std::vector<uint32_t> const &)
-  { changed = m_terrainRegions.insert(id).second || changed; });
-  if (changed)
-    SaveTerrainRegions();
-}
+  // The on-disk truth arrives from the provider registry: the files it keeps
+  // registered ARE the terrain - a file it condemned, deleted or deregistered since
+  // the scan does not count, and a flag from a previous scan does not survive (a
+  // re-registration must not keep phantom files). From here on the flags are
+  // maintained incrementally by the downloads and the deletes.
+  std::map<std::string_view, TerrainBlock *> byName;
+  for (auto & terrainBlock : m_twmGrid)
+  {
+    terrainBlock.m_onDisk = false;
+    byName.emplace(terrainBlock.m_name, &terrainBlock);
+  }
+  for (auto const & file : scanned)
+    if (auto const it = byName.find(file.m_name); it != byName.end() && it->second->m_version == file.m_version)
+      it->second->m_onDisk = true;
+  m_terrainScanned = true;
+  if (m_terrainCoverage.empty())
+    return;
 
-void Storage::DetachTerrainRegions(CountryId const & countryId)
-{
-  bool changed = false;
-  ForEachCoverageLeaf(countryId, [&](CountryId const & id, std::vector<uint32_t> const &)
-  { changed = m_terrainRegions.erase(id) > 0 || changed; });
-  if (changed)
-    SaveTerrainRegions();
+  // The terrain component appears in the statuses and the sizes only now.
+  for (auto const & [countryId, files] : m_localFiles)
+    NotifyStatusChangedForHierarchy(countryId);
+
+  if (m_queueRestored)
+    RestoreTerrain();
 }
 
 Storage::TerrainFusion Storage::GetTerrainFusion(CountryId const & countryId) const
 {
   TerrainFusion fusion;
-  if (!IsTerrainWithMaps())
+  if (!m_terrainScanned || !IsTerrainWithMaps())
     return fusion;
 
   // A shared block may be met through several leafs in any order: merge the
@@ -532,7 +508,6 @@ Storage::TerrainFusion Storage::GetTerrainFusion(CountryId const & countryId) co
   if (blocks.empty())
     return fusion;
 
-  EnsureTerrainOnDisk();
   for (auto const & [index, downloaded] : blocks)
   {
     auto const & block = m_twmGrid[index];
@@ -567,14 +542,19 @@ Storage::TerrainBlock * Storage::FindTerrainBlock(std::string const & name)
   return nullptr;
 }
 
-void Storage::EnsureTerrainOnDisk() const
+std::string Storage::GetTerrainReadyPath(TerrainBlock const & block) const
 {
-  if (m_terrainOnDiskFresh)
-    return;
-  for (auto & terrainBlock : m_twmGrid)
-    terrainBlock.m_onDisk = GetPlatform().IsFileExistsByFullPath(
-        base::JoinPath(GetTerrainDir(terrainBlock.m_version), terrainBlock.m_name) + TERRAIN_FILE_EXT);
-  m_terrainOnDiskFresh = true;
+  return base::JoinPath(GetTerrainDir(block.m_version), block.m_name) + TERRAIN_FILE_EXT READY_FILE_EXTENSION;
+}
+
+void Storage::DeleteTerrainArtifacts(TerrainBlock const & block) const
+{
+  // The chunked downloader writes exactly these three names, cf. the maps'
+  // DeleteDownloaderFilesForCountry; RemoveFileIfExists no-ops on the missing ones.
+  std::string const ready = GetTerrainReadyPath(block);
+  Platform::RemoveFileIfExists(ready);
+  Platform::RemoveFileIfExists(ready + RESUME_FILE_EXTENSION);
+  Platform::RemoveFileIfExists(ready + DOWNLOADING_FILE_EXTENSION);
 }
 
 void Storage::DownloadTerrain(CountryId const & countryId)
@@ -587,12 +567,13 @@ void Storage::DownloadTerrain(CountryId const & countryId)
     LOG(LWARNING, ("No terrain coverage for the country", countryId));
     return;
   }
+  // The provider scan always lands before anything terrain downloads: LoadMapsSync
+  // posts the queue restore behind the scan task, and every user entry point runs
+  // after the load (see OnTerrainScanned).
+  ASSERT(m_terrainScanned, (countryId));
+  if (!m_terrainScanned)
+    return;
 
-  // The durable user intent: drives the ref-counted delete, the startup resume of an
-  // interrupted coverage and the updates of the stale blocks.
-  AttachTerrainRegions(countryId);
-
-  EnsureTerrainOnDisk();
   std::string const terrainDir = base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR);
   if (!Platform::MkDirChecked(terrainDir))
   {
@@ -607,9 +588,9 @@ void Storage::DownloadTerrain(CountryId const & countryId)
     if (terrainBlock.m_onDisk)
       continue;
 
-    // The notification interest, only for the blocks in flight: CancelTerrain detaches
-    // the regions it finds here, and a region whose coverage is already complete must
-    // not lose its attachment to a later unrelated cancel.
+    // The notification interest, only for the blocks in flight: CancelTerrain erases
+    // the regions it finds here, and a region whose coverage is already complete has
+    // no entries left, so a later unrelated cancel does not touch it.
     std::string const & name = terrainBlock.m_name;
     m_terrainBlockRegions[name].insert(countryId);
     if (m_terrainQueue.count(name) > 0)
@@ -648,55 +629,66 @@ void Storage::DownloadTerrain(CountryId const & countryId)
 void Storage::RestoreTerrain()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
+  ASSERT(m_terrainScanned && m_queueRestored, ());
 
-  // The vast majority never touched the terrain: no attachments and no directory
-  // means nothing to resume and nothing to sweep, at the cost of one stat.
+  // The vast majority never touched the terrain: no directory means nothing to resume
+  // and nothing to sweep, at the cost of one stat.
   std::string const terrainDir = base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR);
-  if (m_terrainCoverage.empty() || (m_terrainRegions.empty() && !Platform::IsFileExistsByFullPath(terrainDir)))
+  if (m_terrainCoverage.empty() || !Platform::IsFileExistsByFullPath(terrainDir))
     return;
 
-  // The missing blocks of the attached regions: resumed below, and their partial
-  // downloader artifacts are kept so the chunked downloader continues where it stopped.
-  // With the terrain setting off nothing resumes (and the kept artifacts sweep).
-  std::set<std::string> wantedReady;
-  CountriesSet toResume;
-  if (!m_terrainRegions.empty() && IsTerrainWithMaps())
+  // The partial *.twm.ready* artifacts on disk ARE the record of an interrupted batch -
+  // there is no settings snapshot of the terrain intent, the downloaded maps are the
+  // intent (the flat terrain root covers the pre-versioned legacy layout). Ordinary
+  // starts find none and stop here.
+  std::vector<std::pair<std::string, std::string>> artifacts;  // (dir, file)
+  for (auto const & [dir, version] : terrain::ListVersionDirs(terrainDir))
   {
-    EnsureTerrainOnDisk();
-    for (auto const & region : m_terrainRegions)
+    Platform::FilesList files;
+    Platform::GetFilesByRegExp(dir, "\\" TERRAIN_FILE_EXT "\\" READY_FILE_EXTENSION, files);
+    for (auto & file : files)
+      artifacts.emplace_back(dir, std::move(file));
+  }
+  if (artifacts.empty())
+    return;
+
+  // An artifact of a block still missing under a downloaded map (setting on) resumes
+  // the regions wanting the block; everything else sweeps. A cancel deletes the
+  // artifacts, so what the user stopped stays stopped; a fully missing coverage
+  // without artifacts does not resume either - it reads "update available" until the
+  // explicit update. The true initiator of the interrupted batch is not recorded, but
+  // it is guaranteed among the downloaded regions wanting the block, and
+  // DownloadTerrain's on-disk/in-queue skips bound the fan-out of resuming them all.
+  std::map<std::string, CountriesSet> wantedReady;  // The artifact path prefix -> the regions wanting the block.
+  if (IsTerrainWithMaps())
+  {
+    for (auto const & [region, indices] : m_terrainCoverage)
     {
-      for (auto const index : m_terrainCoverage.at(region))
+      if (m_localFiles.count(region) == 0)
+        continue;
+      for (auto const index : indices)
       {
         auto const & block = m_twmGrid[index];
-        if (block.m_onDisk)
-          continue;
-        toResume.insert(region);
-        wantedReady.insert(base::JoinPath(GetTerrainDir(block.m_version), block.m_name) +
-                           TERRAIN_FILE_EXT READY_FILE_EXTENSION);
+        if (!block.m_onDisk)
+          wantedReady[GetTerrainReadyPath(block)].insert(region);
       }
     }
   }
 
-  // Sweep the orphans: an interrupted download of a region detached (or never attached)
-  // since leaves *.twm.ready* files behind that nothing else cleans. The flat terrain
-  // root covers the pre-versioned legacy layout.
-  Platform::TFilesWithType subdirs;
-  Platform::GetFilesByType(terrainDir, Platform::EFileType::Directory, subdirs);
-  std::vector<std::string> dirs{terrainDir};
-  for (auto const & [name, type] : subdirs)
-    if (uint64_t version; strings::to_uint64(name, version))
-      dirs.push_back(base::JoinPath(terrainDir, name));
-  for (auto const & dir : dirs)
+  CountriesSet toResume;
+  for (auto const & [dir, file] : artifacts)
   {
-    Platform::FilesList files;
-    Platform::GetFilesByRegExp(dir, "\\" TERRAIN_FILE_EXT "\\" READY_FILE_EXTENSION, files);
-    for (auto const & file : files)
-    {
-      std::string const path = base::JoinPath(dir, file);
-      auto const isWantedArtifact = [&path](std::string const & ready) { return path.starts_with(ready); };
-      if (std::none_of(wantedReady.begin(), wantedReady.end(), isWantedArtifact))
-        base::DeleteFileX(path);
-    }
+    // An artifact of a block the downloader is serving right now is not a leftover:
+    // the restore re-fires on the Android rendering init (activity recreation).
+    if (m_terrainQueue.count(file.substr(0, file.find('.'))) > 0)
+      continue;
+    std::string const path = base::JoinPath(dir, file);
+    auto const it = std::find_if(wantedReady.begin(), wantedReady.end(),
+                                 [&path](auto const & ready) { return path.starts_with(ready.first); });
+    if (it == wantedReady.end())
+      base::DeleteFileX(path);
+    else
+      toResume.insert(it->second.begin(), it->second.end());
   }
 
   if (toResume.empty())
@@ -712,10 +704,9 @@ Storage::TerrainAttrs Storage::GetTerrainAttrs(CountryId const & countryId) cons
 
   TerrainAttrs attrs;
   auto const covering = GetCoveringBlocks(countryId);
-  if (covering.empty())
+  if (covering.empty() || !m_terrainScanned)
     return attrs;
 
-  EnsureTerrainOnDisk();
   size_t onDisk = 0;
   bool inFlight = false;
   bool failed = false;
@@ -889,32 +880,38 @@ void Storage::OnTerrainBlockDownloaded(QueuedCountry const & queuedCountry, down
   });
 }
 
+CountriesSet Storage::GetFailedTerrainRegions() const
+{
+  CountriesSet regions;
+  if (!IsTerrainWithMaps())
+    return regions;
+  for (auto const & name : m_terrainFailed)
+    if (auto const it = m_terrainBlockRegions.find(name); it != m_terrainBlockRegions.end())
+      for (auto const & region : it->second)
+        if (m_localFiles.count(region) > 0)
+          regions.insert(region);
+  return regions;
+}
+
 void Storage::ScheduleTerrainRetry()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   // The same 20-seconds auto-retry the failed maps get, on the terrain's own deferred
-  // slot. Every arming still carries the attached regions of ALL the failed blocks so
+  // slot. Every arming still carries the interested regions of ALL the failed blocks so
   // far - a per-block set would overwrite the earlier failures within the slot.
   // DownloadTerrain skips the blocks on disk or in flight, so the retry only
-  // re-enqueues the failures; a cancel detaches the region and mutes both the
+  // re-enqueues the failures; a cancel empties the block interest and mutes both the
   // callback and the next arming.
-  CountriesSet regions;
-  if (IsTerrainWithMaps())
-    for (auto const & name : m_terrainFailed)
-      if (auto const it = m_terrainBlockRegions.find(name); it != m_terrainBlockRegions.end())
-        for (auto const & region : it->second)
-          if (m_terrainRegions.count(region) > 0)
-            regions.insert(region);
   // An empty set reaches the policy too: that is its retry-counter reset (the drained
   // queue calls here like the maps' OnFinishDownloading does for their slot).
-  m_downloadingPolicy->ScheduleTerrainRetry(regions, [this](CountriesSet const & toRetry)
+  m_downloadingPolicy->ScheduleTerrainRetry(GetFailedTerrainRegions(), [this](CountriesSet const &)
   {
-    if (!IsTerrainWithMaps())  // Turned off while the retry was pending.
-      return;
-    for (auto const & region : toRetry)
-      if (m_terrainRegions.count(region) > 0)
-        DownloadTerrain(region);
+    // Re-derived instead of trusting the armed snapshot: a cancel, a delete, a map
+    // removal or the setting turned off while the retry was pending must all mute the
+    // fired callback, and only the live state knows.
+    for (auto const & region : GetFailedTerrainRegions())
+      DownloadTerrain(region);
   });
 }
 
@@ -1322,8 +1319,8 @@ void Storage::SaveDownloadQueue()
   std::ostringstream ss;
   m_downloader->GetQueue().ForEachCountry([&ss](QueuedCountry const & country)
   {
-    // The terrain blocks are not tree ids; they resume from the attached regions
-    // (RestoreTerrain), not from the queue snapshot.
+    // The terrain blocks are not tree ids; they resume from the on-disk downloader
+    // artifacts (RestoreTerrain), not from the queue snapshot.
     if (country.GetFileType() == MapFileType::Terrain)
       return;
     ss << (ss.tellp() == 0 ? "" : ";") << country.GetCountryId();
@@ -1336,8 +1333,9 @@ void Storage::RestoreDownloadQueue()
 {
   std::string download;
   settings::TryGet(kDownloadQueueKey, download);
+  CountriesSet updatedTerrain;
 
-  strings::Tokenize(download, ";", [this](std::string_view v)
+  strings::Tokenize(download, ";", [this, &updatedTerrain](std::string_view v)
   {
     if (!base::IsExistIf(m_notAppliedDiffs,
                          [this, v](LocalCountryFile const & localDiff) { return v == FindCountryId(localDiff); }))
@@ -1346,11 +1344,22 @@ void Storage::RestoreDownloadQueue()
       auto localFile = GetLatestLocalFile(s);
       auto isUpdate = localFile && localFile->OnDisk(MapFileType::Map);
       DownloadNode(s, isUpdate);
+      // The update flow defers its terrain to UpdateNode, which a queue restore never
+      // runs: queue it here, after all the maps below (the scan has already landed,
+      // see the ordering note at the end).
+      if (isUpdate && IsTerrainWithMaps() && m_terrainCoverage.count(s) > 0)
+        updatedTerrain.insert(s);
     }
   });
+  for (auto const & s : updatedTerrain)
+    DownloadTerrain(s);
 
-  // After the maps: the restored map queue keeps its FIFO priority over the terrain.
-  RestoreTerrain();
+  // After the maps and after the provider scan, whichever lands last: the restored map
+  // queue keeps its FIFO priority over the terrain, and the terrain resume needs the
+  // on-disk truth (see OnTerrainScanned).
+  m_queueRestored = true;
+  if (m_terrainScanned)
+    RestoreTerrain();
 }
 
 void Storage::DownloadCountry(CountryId const & countryId, MapFileType type)
@@ -2169,13 +2178,11 @@ void Storage::DownloadNode(CountryId const & countryId, bool isUpdate /* = false
 
   // The terrain follows the maps and queues AFTER all of them (a group download must
   // not stall the later maps behind the earlier leafs' terrain); outside the map-status
-  // gate - the terrain of the already-mapped leafs must complete too. One attachment
-  // save for the whole subtree, the per-leaf attach below is then a no-op.
+  // gate - the terrain of the already-mapped leafs must complete too.
   // The update flow queues the terrain itself after ALL its maps (see UpdateNode): the
   // per-leaf calls must not interleave it between them.
   if (!isUpdate && IsTerrainWithMaps())
   {
-    AttachTerrainRegions(countryId);
     node->ForEachInSubtree([this](CountryTree::Node const & descendantNode)
     {
       if (!descendantNode.IsLeaf())
@@ -2216,8 +2223,8 @@ void Storage::DeleteNode(CountryId const & countryId)
   node->ForEachInSubtree(deleteAction);
 
   // The terrain lives under the region rows: deleting the node deletes its terrain too,
-  // in one batch (one detach save, one delete-fn call) - the blocks the remaining
-  // attached regions want stay, and the orphan coverage under the node goes with it.
+  // in one batch (one delete-fn call) - the blocks the remaining downloaded regions
+  // want stay, and the orphan coverage under the node goes with it.
   DeleteTerrain(countryId);
 }
 
@@ -2689,9 +2696,8 @@ void Storage::UpdateNode(CountryId const & countryId)
       DownloadNode(descendantId, true /* isUpdate */);
   });
 
-  // The attached terrain regions of the subtree with the stale coverage update along.
-  // Collected first: DownloadTerrain re-attaches the region it downloads, and one
-  // region owns many of the blocks below.
+  // The downloaded regions of the subtree with the stale coverage update along.
+  // Collected first: one region owns many of the blocks below.
   CountriesSet toUpdate;
   ForEachTerrainBlockToDownload(countryId,
                                 [&toUpdate](CountryId const & id, uint32_t /* index */) { toUpdate.insert(id); });
@@ -2752,26 +2758,22 @@ void Storage::CancelTerrain(CountryId const & countryId)
 
     if (regions.empty())
     {
-      // Nobody is interested in the block anymore: drop it from the queue.
+      // Nobody is interested in the block anymore: drop it from the queue, and delete
+      // its partial artifacts - they are the resume record (see RestoreTerrain), what
+      // the user stopped must not come back at the next start. The FAILED blocks left
+      // the queue already but their artifacts must go the same way. A later explicit
+      // "Update" still re-fetches the gaps - the update driver is the downloaded maps.
       auto const & name = it->first;
       if (m_terrainQueue.erase(name) > 0)
         m_downloader->Remove(name);
+      if (auto const * terrainBlock = FindTerrainBlock(name))
+        DeleteTerrainArtifacts(*terrainBlock);
       m_terrainFailed.erase(name);
       it = m_terrainBlockRegions.erase(it);
     }
     else
       ++it;
   }
-
-  // The cancel detaches the cancelled regions: the startup resume (RestoreTerrain) and
-  // the failure auto-retry must not restart what the user stopped. A later explicit
-  // "Update" still re-fetches the gaps - the update driver is the downloaded maps.
-  // The attached regions with nothing in flight (fully downloaded ones) stay attached.
-  bool changed = false;
-  for (auto const & id : toNotify)
-    changed = m_terrainRegions.erase(id) > 0 || changed;
-  if (changed)
-    SaveTerrainRegions();
 
   for (auto const & id : toNotify)
     NotifyStatusChangedForHierarchy(id);
