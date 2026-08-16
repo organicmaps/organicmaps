@@ -164,6 +164,18 @@ final class CarPlayServiceTests: XCTestCase {
     XCTAssertEqual(Self.bookmarkSnapshotCount, 0)
   }
 
+  func testDeletedBookmarkListIsDetected() throws {
+    let category = try importBookmarkFixture()
+    let template = ListTemplateBuilder.buildListTemplate(for: .bookmarks(category: category))
+    XCTAssertFalse(ListTemplateBuilder.isDeletedBookmarkList(template))
+
+    BookmarksManager.shared().deleteCategory(category.categoryId)
+
+    XCTAssertTrue(ListTemplateBuilder.isDeletedBookmarkList(template))
+    ListTemplateBuilder.refreshBookmarks(in: template)
+    XCTAssertTrue(template.sections.flatMap(\.items).isEmpty)
+  }
+
   private func importBookmarkFixture(bookmarkCount: Int = 1) throws -> BookmarkGroup {
     let bookmarkManager = BookmarksManager.shared()
     let name = "CarPlayTests-\(UUID().uuidString)"
@@ -401,5 +413,34 @@ final class CarPlayServiceTests: XCTestCase {
                      UIOffset(horizontal: horizontal * step, vertical: vertical * step),
                      "direction \(direction.rawValue)")
     }
+  }
+
+  func testListTemplateKeepsTheTypeItWasBuiltFor() {
+    let template = ListTemplateBuilder.buildListTemplate(for: .searchResults(results: []))
+
+    guard let type = template.userInfo as? ListTemplateBuilder.ListTemplateType,
+          case .searchResults = type
+    else {
+      XCTFail("The template should keep the type it was built for.")
+      return
+    }
+  }
+
+  func testRefreshKeepsRowsOfTemplatesThatDoNotShowBookmarks() {
+    let template = ListTemplateBuilder.buildListTemplate(for: .searchResults(results: []))
+    template.updateSections([CPListSection(items: [CPListItem(text: "Result", detailText: nil)])])
+
+    ListTemplateBuilder.refreshBookmarks(in: template)
+
+    XCTAssertEqual(template.sections.first?.items.count, 1)
+  }
+
+  func testRefreshKeepsRowsOfTemplatesBuiltByAnybodyElse() {
+    let section = CPListSection(items: [CPListItem(text: "Row", detailText: nil)])
+    let template = CPListTemplate(title: "Any", sections: [section])
+
+    ListTemplateBuilder.refreshBookmarks(in: template)
+
+    XCTAssertEqual(template.sections.first?.items.count, 1)
   }
 }
