@@ -11,6 +11,7 @@
 #include "defines.hpp"
 
 #include <algorithm>
+#include <memory>
 #include <set>
 #include <vector>
 
@@ -45,21 +46,11 @@ void TerrainProvider::Rescan()
   // TwmSet overlap rejection, and the older non-overlapping blocks keep rendering -
   // stale terrain beats no terrain. Cf. the maps: the same policy as the MwmSet
   // keeping the latest version of every country.
-  std::vector<std::pair<int64_t, std::string>> dirs;
-  Platform::TFilesWithType subdirs;
-  Platform::GetFilesByType(m_dir, Platform::EFileType::Directory, subdirs);
-  for (auto const & [name, type] : subdirs)
-  {
-    uint64_t version;
-    if (strings::to_uint64(name, version))
-      dirs.emplace_back(static_cast<int64_t>(version), base::JoinPath(m_dir, name));
-  }
-  std::sort(dirs.rbegin(), dirs.rend());
-  dirs.emplace_back(0, m_dir);
+  auto const dirs = ListVersionDirs(m_dir);
 
-  int64_t const newestVersion = dirs.front().first;
+  int64_t const newestVersion = dirs.front().m_version;
   size_t registered = 0, replaced = 0;
-  for (auto const & [version, dir] : dirs)
+  for (auto const & [dir, version] : dirs)
   {
     Platform::FilesList files;
     Platform::GetFilesByExt(dir, TERRAIN_FILE_EXT, files);
@@ -83,7 +74,7 @@ void TerrainProvider::Rescan()
       {
         // An old format file no build reads anymore: the registration read its header
         // only. The downloader refetches the regenerated block (its versioned path
-        // differs, see Storage::EnsureTerrainOnDisk), so free the space right away.
+        // differs, see Storage::OnTerrainScanned), so free the space right away.
         LOG(LINFO, ("Deleting the obsolete terrain file", path));
         base::DeleteFileX(path);
         emptied = true;
@@ -98,6 +89,18 @@ void TerrainProvider::Rescan()
   if (registered > 0 || replaced > 0)
     LOG(LINFO, ("Terrain blocks available:", registered, "outdated deleted:", replaced));
   m_scanned = true;
+}
+
+std::vector<TwmFile> TerrainProvider::GetRegisteredFiles() const
+{
+  std::vector<std::shared_ptr<TwmInfo>> infos;
+  m_set.GetInfos(infos);
+  std::vector<TwmFile> files;
+  files.reserve(infos.size());
+  for (auto const & info : infos)
+    if (info->IsRegistered())
+      files.push_back({base::FilenameWithoutExt(base::FileNameFromFullPath(info->GetFilePath())), info->GetVersion()});
+  return files;
 }
 
 void TerrainProvider::OnBlockDownloaded(std::string const & path, m2::RectD & invalidRect)
