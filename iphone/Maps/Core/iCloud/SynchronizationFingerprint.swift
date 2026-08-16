@@ -20,20 +20,33 @@ struct FileIdentity: Hashable, Codable {
 }
 
 protocol FingerprintProvider: AnyObject {
-  /// Called on the main queue when a fingerprint that was not known before has been computed.
-  var onFingerprintReady: (() -> Void)? { get set }
+  /// Called on the main queue when what is known about the files has changed: a fingerprint has been computed,
+  /// or a file that could not be read is worth asking about again.
+  var onContentsMayBeKnown: (() -> Void)? { get set }
   /// Returns the fingerprint of the item's content, or nil when it is not known yet. Reading and hashing a file
-  /// is too slow for the main queue, so it happens in the background and is reported through `onFingerprintReady`.
+  /// is too slow for the main queue, so it happens in the background and is reported through
+  /// `onContentsMayBeKnown`.
   func fingerprint(of item: any MetadataItem) -> Fingerprint?
 }
 
 final class FileContentFingerprintProvider: FingerprintProvider {
+  enum Constants {
+    /// How long a file that could not be read is left alone. Nothing reports that it became readable, so it is
+    /// read again from time to time, and not on every snapshot: a file iCloud is replacing stays unreadable.
+    static let failedReadRetryInterval: TimeInterval = 30
+  }
+
   private let queue = DispatchQueue(label: "iCloud.app.organicmaps.fingerprints", qos: .utility)
   private let fileCoordinator = NSFileCoordinator()
+  private let failedReadRetryInterval: TimeInterval
   private var cache = [String: (identity: FileIdentity, fingerprint: Fingerprint)]()
   private var requestedPaths = Set<String>()
 
-  var onFingerprintReady: (() -> Void)?
+  var onContentsMayBeKnown: (() -> Void)?
+
+  init(failedReadRetryInterval: TimeInterval = Constants.failedReadRetryInterval) {
+    self.failedReadRetryInterval = failedReadRetryInterval
+  }
 
   func fingerprint(of item: any MetadataItem) -> Fingerprint? {
     let path = item.fileUrl.path
@@ -49,13 +62,27 @@ final class FileContentFingerprintProvider: FingerprintProvider {
       guard let self else { return }
       let fingerprint = read(fileUrl)
       DispatchQueue.main.async {
+        guard let fingerprint else {
+          self.scheduleRetry(of: path)
+          return
+        }
         self.requestedPaths.remove(path)
-        guard let fingerprint else { return }
         self.cache[path] = (identity, fingerprint)
-        self.onFingerprintReady?()
+        self.onContentsMayBeKnown?()
       }
     }
     return nil
+  }
+
+  /// The path stays requested until the interval passes, so the file that could not be read is not read again on
+  /// every snapshot. Reporting afterwards is what makes it read again: the caller only asks about the files it
+  /// still cares about, and nothing else would ever ask about this one.
+  private func scheduleRetry(of path: String) {
+    DispatchQueue.main.asyncAfter(deadline: .now() + failedReadRetryInterval) { [weak self] in
+      guard let self else { return }
+      requestedPaths.remove(path)
+      onContentsMayBeKnown?()
+    }
   }
 
   /// The read is coordinated: iCloud replaces the files it brings, and the digest of a file caught half-written

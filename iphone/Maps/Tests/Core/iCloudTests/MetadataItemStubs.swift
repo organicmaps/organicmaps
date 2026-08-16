@@ -61,7 +61,7 @@ final class SynchronizationClockMock: SynchronizationClock {
 /// Returns the fingerprint of the content assigned to the item's URL. An item without content cannot be read.
 final class FingerprintProviderMock: FingerprintProvider {
   var contents = [URL: String]()
-  var onFingerprintReady: (() -> Void)?
+  var onContentsMayBeKnown: (() -> Void)?
 
   func fingerprint(of item: any MetadataItem) -> Fingerprint? {
     contents[item.fileUrl].map { Fingerprint(hashing: Data($0.utf8)) }

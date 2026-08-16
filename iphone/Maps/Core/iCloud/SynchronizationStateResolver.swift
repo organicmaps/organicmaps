@@ -32,9 +32,9 @@ enum IncomingSynchronizationEvent {
   case didUpdateCloudContents(CloudSnapshot)
   case didFinishWriting(OutgoingSynchronizationEvent)
   case didFailWriting(OutgoingSynchronizationEvent)
-  /// A file the resolver could not compare before has been read: the directories did not change, but what is
-  /// known about their content did.
-  case didComputeFingerprint
+  /// The directories did not change, but what is known about their content did: a file that could not be
+  /// compared before has been read, or one that could not be read at all may be readable now.
+  case didUpdateKnownContents
 }
 
 enum OutgoingSynchronizationEvent: Equatable {
@@ -162,7 +162,7 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
     case .didFailWriting(let event):
       finishWriting(event, isSuccessful: false)
       return []
-    case .didComputeFingerprint:
+    case .didUpdateKnownContents:
       break
     }
 
@@ -271,11 +271,12 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
       settle(&state.ownedCloudWrite, observed: synchronized.fingerprint)
       return []
     }
-    // The content is not known yet -- it is being read in the background, or the file cannot be read at all
-    // while iCloud replaces it. Either way the file is reconciled again as soon as anything is known about it.
-    guard let localFingerprint = fingerprintProvider.fingerprint(of: localItem),
-          let cloudFingerprint = fingerprintProvider.fingerprint(of: cloudItem)
-    else { return [] }
+    /* Both sides are asked before anything is concluded, so that the two reads start in one round instead of
+     one per report. A content that is not known yet is being read in the background, or the file cannot be read
+     at all while iCloud replaces it: the provider reports when it is worth asking again. */
+    let localFingerprint = fingerprintProvider.fingerprint(of: localItem)
+    let cloudFingerprint = fingerprintProvider.fingerprint(of: cloudItem)
+    guard let localFingerprint, let cloudFingerprint else { return [] }
 
     settle(&state.ownedLocalWrite, observed: localFingerprint)
     settle(&state.ownedCloudWrite, observed: cloudFingerprint)

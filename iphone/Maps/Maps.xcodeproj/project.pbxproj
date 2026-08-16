@@ -625,6 +625,7 @@
 		EDF838C02C00B9D0007E4E67 /* DefaultLocalDirectoryMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838AE2C00B9C7007E4E67 /* DefaultLocalDirectoryMonitorTests.swift */; };
 		EDF838C12C00B9D6007E4E67 /* iCloudDirectoryMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838B22C00B9C7007E4E67 /* iCloudDirectoryMonitorTests.swift */; };
 		EDF838C22C00B9D6007E4E67 /* MetadataItemStubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838B42C00B9C7007E4E67 /* MetadataItemStubs.swift */; };
+		ABF19E010000000000000C02 /* FileContentFingerprintProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF19E010000000000000C01 /* FileContentFingerprintProviderTests.swift */; };
 		EDF838C32C00B9D6007E4E67 /* UbiquitousDirectoryMonitorDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838B12C00B9C7007E4E67 /* UbiquitousDirectoryMonitorDelegateMock.swift */; };
 		EDF838C42C00B9D6007E4E67 /* FileManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838B32C00B9C7007E4E67 /* FileManagerMock.swift */; };
 		F623DA6C1C9C2731006A3436 /* opening_hours_how_to_edit.html in Resources */ = {isa = PBXBuildFile; fileRef = F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */; };
@@ -1704,6 +1705,7 @@
 		EDF838B22C00B9C7007E4E67 /* iCloudDirectoryMonitorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iCloudDirectoryMonitorTests.swift; sourceTree = "<group>"; };
 		EDF838B32C00B9C7007E4E67 /* FileManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerMock.swift; sourceTree = "<group>"; };
 		EDF838B42C00B9C7007E4E67 /* MetadataItemStubs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetadataItemStubs.swift; sourceTree = "<group>"; };
+		ABF19E010000000000000C01 /* FileContentFingerprintProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileContentFingerprintProviderTests.swift; sourceTree = "<group>"; };
 		EE026F0511D6AC0D00645242 /* classificator.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = classificator.txt; path = ../../data/classificator.txt; sourceTree = SOURCE_ROOT; };
 		F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = opening_hours_how_to_edit.html; path = ../../data/opening_hours_how_to_edit.html; sourceTree = "<group>"; };
 		F6C3A1B121AC22810060EEC8 /* Alert 5.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Alert 5.m4a"; sourceTree = "<group>"; };
@@ -4068,6 +4070,7 @@
 			children = (
 				EDF838AC2C00B9C7007E4E67 /* DefaultLocalDirectoryMonitorTests */,
 				EDF838AF2C00B9C7007E4E67 /* SynchronizationStateResolverTests.swift */,
+				ABF19E010000000000000C01 /* FileContentFingerprintProviderTests.swift */,
 				EDF838B02C00B9C7007E4E67 /* iCloudDirectoryMonitorTests */,
 				EDF838B42C00B9C7007E4E67 /* MetadataItemStubs.swift */,
 			);
@@ -4963,6 +4966,7 @@
 				EDC4E3692C5E6F5B009286A2 /* MockRecentlyDeletedCategoriesManager.swift in Sources */,
 				ED9DDF9D2D6F6F7900645BC8 /* TrackRecordingManagerTests.swift in Sources */,
 				EDF838BF2C00B9D0007E4E67 /* SynchronizationStateResolverTests.swift in Sources */,
+				ABF19E010000000000000C02 /* FileContentFingerprintProviderTests.swift in Sources */,
 				ED810EC52D566E9B00ECDE2C /* SearchOnMapTests.swift in Sources */,
 				4B83AE4B2C2E642100B0C3BC /* TTSTesterTest.m in Sources */,
 				EDF838C22C00B9D6007E4E67 /* MetadataItemStubs.swift in Sources */,

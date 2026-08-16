@@ -110,11 +110,11 @@ final class iCloudSynchronizaionManager: NSObject {
     subscribeToCloudIdentityNotifications()
     cloudDirectoryMonitor.delegate = self
     localDirectoryMonitor.delegate = self
-    // A file that could not be compared before was read in the background: the directories did not change, but
-    // what is known about their content did, so they are reconciled again.
-    fingerprintProvider.onFingerprintReady = { [weak self] in
+    // The directories did not change, but what is known about their content did -- a file was read in the
+    // background, or one that could not be read is worth trying again -- so they are reconciled again.
+    fingerprintProvider.onContentsMayBeKnown = { [weak self] in
       guard let self else { return }
-      processEvents(stateResolver.resolveEvent(.didComputeFingerprint))
+      processEvents(stateResolver.resolveEvent(.didUpdateKnownContents))
     }
   }
 }
