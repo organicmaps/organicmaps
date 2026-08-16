@@ -20,8 +20,10 @@ struct Fingerprint: Hashable, Codable, CustomStringConvertible {
   var description: String { digest.prefix(4).map { String(format: "%02x", $0) }.joined() }
 }
 
-/// Cheap file properties that change when the content changes. They only tell that a file has to be read
-/// again and never decide which version of a file wins.
+/// Cheap properties that stand for the file's content: on APFS the modification date has nanosecond precision
+/// and every save produces a new one, while a copy keeps the date of the source whose content it holds. Only a
+/// same-sized content written at the very same instant keeps the identity. It decides whether the file has to be
+/// read again and never which version wins: what is compared is always a fingerprint.
 struct FileIdentity: Hashable, Codable {
   let modificationDate: TimeInterval
   let size: Int64
