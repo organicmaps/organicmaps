@@ -1,0 +1,37 @@
+name: Validate translation strings
+on:
+  workflow_dispatch: # Manual trigger
+  pull_request:
+    paths:
+      - .github/workflows/strings-check.yaml  # Run check on self change
+      - data/strings/strings.txt
+      - data/strings/types_strings.txt
+      - data/strings/sound.txt
+      - libs/**
+      - android/**
+      - iphone/**
+
+jobs:
+  validate-translation-strings:
+    name: Validate translation strings
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3'
+
+      - name: Twine submodules checkout
+        shell: bash
+        run: git submodule update --depth 1 --init -- tools/python/twine
+
+      - name: Validate string files
+        shell: bash
+        run: tools/unix/strings_validate_format.sh
+
+      - name: Validate unused strings
+        shell: bash
+        run: tools/unix/strings_validate_unused.sh

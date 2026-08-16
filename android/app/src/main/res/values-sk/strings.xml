@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Prepáčte, nastavenie uloženia máp je dočasne nedostupné.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Práve prebieha sťahovanie krajiny.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Pozrite si moju aktuálnu polohu v aplikácii Organic Maps! %1$s alebo %2$s Nemáte offline mapy? Stiahnite si ich tu: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Pozri na moju značku na mape Organic Maps</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Pozrite si moju aktuálnu polohu na mape Organic Maps</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Ahoj,\n\nPráve som tu: %1$s. Stlačte jeden z týchto odkazov %2$s, %3$s a uvidíte toto miesto na mape.\n\nVďaka</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Zdieľať</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Prosím, povoľte Služby určovania polohy</string>
     <string name="save">Uložiť</string>
     <string name="create">vytvoriť</string>
-    <!-- red color -->
-    <string name="red">Červená</string>
-    <!-- yellow color -->
-    <string name="yellow">Žltá</string>
-    <!-- blue color -->
-    <string name="blue">Modrá</string>
-    <!-- green color -->
-    <string name="green">Zelená</string>
-    <!-- purple color -->
-    <string name="purple">Purpurová</string>
-    <!-- orange color -->
-    <string name="orange">Oranžová</string>
-    <!-- brown color -->
-    <string name="brown">Hnedá</string>
-    <!-- pink color -->
-    <string name="pink">Ružová</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Tmavofialová</string>
-    <!-- light blue color -->
-    <string name="light_blue">Svetlo modrá</string>
-    <!-- cyan color -->
-    <string name="cyan">Tyrkysová</string>
-    <!-- teal color -->
-    <string name="teal">Modrozelená</string>
-    <!-- lime color -->
-    <string name="lime">Limetková</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Tmavo oranžová</string>
-    <!-- gray color -->
-    <string name="gray">Sivá</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Modro sivá</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Vzhľad</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Nemáte dostatok miesta</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Prosím, odstráňte prebytočné dáta</string>
-    <string name="editor_login_error_dialog">Pri prihlasovaní sa vyskytla chyba.</string>
     <string name="editor_profile_changes">Overené zmeny</string>
     <string name="editor_focus_map_on_location">Potiahnutím mapy umiestnite krížik na miesto, kde sa nachádza miesto alebo podnik.</string>
     <string name="editor_edit_place_title">Úprava</string>
@@ -579,12 +542,9 @@
     <string name="prefs_languages_information_off_link">Viac informácií nájdete v tomto návode.</string>
     <string name="transliteration_title">Prepis do latinky</string>
     <string name="learn_more">Zistiť viac</string>
-    <string name="planning_route_manage_route">Spravovať trasu</string>
-    <string name="button_plan">Naplánovať</string>
     <string name="placepage_remove_stop">Odstrániť zastávku</string>
     <string name="placepage_add_stop">Pridať zastávku</string>
     <string name="drag_to_reorder">Zmeniť poradie</string>
-    <string name="saved">Uložené</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Prihláste sa do OpenStreetMap, aby ste mohli automaticky nahrať všetky svoje úpravy mapy. Viac informácií sa dozviete <a href="https://github.com/organicmaps/organicmaps/issues/6144">tade</a>.</string>
     <string name="dialog_error_storage_title">Problém s prístupom k úložisku</string>
@@ -681,8 +641,6 @@
     <string name="avoid_motorways">Vyhnúť sa diaľniciam</string>
     <string name="unable_to_calc_alert_title">Nepodarilo sa vypočítať trasu</string>
     <string name="unable_to_calc_alert_subtitle">Bohužiaľ sme nemohli nájsť trasu pravdepodobne z dôvodu definovaných možností. Zmeňte nastavenia a skúste to prosím znova</string>
-    <string name="define_to_avoid_btn">Definovať cesty, ktorým sa treba vyhnúť</string>
-    <string name="change_driving_options_btn">Možnosti trasy povolené</string>
     <string name="toll_road">Spoplatnená cesta</string>
     <string name="unpaved_road">Nespevnená cesta</string>
     <string name="ferry_crossing">Prechod trajektom</string>
@@ -761,8 +719,6 @@
     <string name="elevation_profile_min_elevation">Min. výška</string>
     <string name="elevation_profile_max_elevation">Max. výška</string>
     <string name="elevation_profile_difficulty">Obtiažnosť</string>
-    <string name="elevation_profile_distance">Vzdial.:</string>
-    <string name="elevation_profile_time">Čas:</string>
     <string name="isolines_toast_zooms_1_10">Priblížením preskúmajte izočiary</string>
     <string name="downloader_loading_ios">Sťahovanie</string>
     <string name="download_map_title">Stiahnuť mapu sveta</string>
@@ -858,12 +814,6 @@
     <string name="stop_track_recording">Zastaviť nahrávanie trasy</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Záznam trasy</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Zastaviť bez uloženia</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Pokračovať v nahrávaní</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Uložiť do záložiek a stôp?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Trasa je prázdna - nie je čo ukladať</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -871,8 +821,6 @@
     <string name="choose_color">Vyberte farbu</string>
     <string name="edit_track">Upraviť trasu</string>
     <string name="uri_open_location_failed">Nie je nainštalovaná žiadna aplikácia, ktorá by mohla otvoriť umiestnenie</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Automaticky v navigácii</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Podľa systému</string>
     <!-- Title of the bottom sheet when sharing the track -->

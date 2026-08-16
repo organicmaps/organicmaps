@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Na vjen keq, cilësimet e Ruajtjes së Hartës janë aktualisht të çaktivizuara.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Shkarkimi i hartës është në progres tani.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Shikoni vendndodhjen time aktuale në Organic Maps! %1$s ose %2$s Nuk keni harta offline? Shkarkoni këtu: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Hej, shiko vendosjen time në Organic Maps!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hej, shiko vendndodhjen time aktuale në hartën e Organic Maps!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Përshëndetje,\n\nUnë jam këtu tani: %1$s. Klikoni këtë lidhje %2$s ose këtë tjetrën %3$s për të parë vendin në hartë.\n\nFaleminderit.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Ndaj</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Ju lutemi aktivizoni Shërbimet e Vendndodhjes</string>
     <string name="save">Ruaj</string>
     <string name="create">krijo</string>
-    <!-- red color -->
-    <string name="red">E kuqe</string>
-    <!-- yellow color -->
-    <string name="yellow">E verdhë</string>
-    <!-- blue color -->
-    <string name="blue">Blu</string>
-    <!-- green color -->
-    <string name="green">E gjelbër</string>
-    <!-- purple color -->
-    <string name="purple">Vjollcë</string>
-    <!-- orange color -->
-    <string name="orange">Portokalli</string>
-    <!-- brown color -->
-    <string name="brown">Kafe</string>
-    <!-- pink color -->
-    <string name="pink">Rozë</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Vjollcë e errët</string>
-    <!-- light blue color -->
-    <string name="light_blue">Blu e hapur</string>
-    <!-- cyan color -->
-    <string name="cyan">Cyan</string>
-    <!-- teal color -->
-    <string name="teal">Teal</string>
-    <!-- lime color -->
-    <string name="lime">Limoni</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Portokalli e thellë</string>
-    <!-- gray color -->
-    <string name="gray">Gri</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Gri Blu</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Pamja</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Nuk ka hapësirë të mjaftueshme</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Ju lutemi fshini të dhënat e panevojshme</string>
-    <string name="editor_login_error_dialog">Gabim në hyrje.</string>
     <string name="editor_profile_changes">Ndryshime të Verifikuara</string>
     <string name="editor_focus_map_on_location">Tërhiqni hartën për të vendosur kryqin në vendndodhjen e vendit ose biznesit.</string>
     <string name="editor_edit_place_title">Duke ndryshuar</string>
@@ -579,12 +542,9 @@
     <string name="prefs_languages_information_off_link">Për më shumë informacion, ju lutemi kontrolloni këtë udhëzues.</string>
     <string name="transliteration_title">Translitero në alfabetin latin</string>
     <string name="learn_more">Mëso më shumë</string>
-    <string name="planning_route_manage_route">Menaxho Rrugën</string>
-    <string name="button_plan">Planifiko</string>
     <string name="placepage_remove_stop">Hiq Ndalesën</string>
     <string name="placepage_add_stop">Shto Ndalesë</string>
     <string name="drag_to_reorder">Rirendosje</string>
-    <string name="saved">Ruajtur</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Ju lutemi hyni në OpenStreetMap për të ngarkuar automatikisht të gjitha ndryshimet tuaja të hartës. Mësoni më shumë <a href="https://github.com/organicmaps/organicmaps/issues/6144">këtu</a>.</string>
     <string name="dialog_error_storage_title">Problem me qasjen në ruajtje</string>
@@ -668,8 +628,6 @@
     <string name="avoid_motorways">Shmang autostradat</string>
     <string name="unable_to_calc_alert_title">Nuk mund të llogaritet rruga</string>
     <string name="unable_to_calc_alert_subtitle">Rruga nuk mund të gjendej. Kjo mund të shkaktohet nga opsionet tuaja të rrugëtimit ose të dhëna të paplota të OpenStreetMap. Ju lutemi ndryshoni opsionet tuaja të rrugëtimit dhe provoni përsëri.</string>
-    <string name="define_to_avoid_btn">Përcaktoni rrugët për të shmangur</string>
-    <string name="change_driving_options_btn">Mundësitë e rrugëtimit u aktivizuan</string>
     <string name="toll_road">Rrugë me pagesë</string>
     <string name="unpaved_road">Rrugë e paasfaltuar</string>
     <string name="ferry_crossing">Kalim me traget</string>
@@ -748,8 +706,6 @@
     <string name="elevation_profile_min_elevation">Lartësia min.</string>
     <string name="elevation_profile_max_elevation">Lartësia maks.</string>
     <string name="elevation_profile_difficulty">Vështirësia</string>
-    <string name="elevation_profile_distance">Dist.:</string>
-    <string name="elevation_profile_time">Koha:</string>
     <string name="isolines_toast_zooms_1_10">Zmadhoni për të eksploruar izolinat</string>
     <string name="downloader_loading_ios">Duke shkarkuar</string>
     <string name="download_map_title">Shkarko hartën e përgjithshme të botës</string>
@@ -855,12 +811,6 @@
     <string name="stop_track_recording">Ndalo Regjistrimin e Gjurmës</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Regjistrimi i Gjurmës</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Ndalo Pa Ruajtur</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Vazhdo Regjistrimin</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Të ruhet në Faqeshënues dhe Gjurmë?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Gjurma është boshe - asgjë për t\'u ruajtur</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -868,8 +818,6 @@
     <string name="choose_color">Zgjidh Ngjyrën</string>
     <string name="edit_track">Ndrysho Gjurmën</string>
     <string name="uri_open_location_failed">Asnjë aplikacion i instaluar që mund të hapë vendndodhjen</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Automatike në lundrim</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Ndiq sistemin</string>
     <!-- Title of the bottom sheet when sharing the track -->

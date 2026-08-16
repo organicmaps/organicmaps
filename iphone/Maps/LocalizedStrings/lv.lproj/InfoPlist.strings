@@ -17,18 +17,8 @@
 "report_a_bug" = "Ziņot par kļūdu";
 
 
-/********** 3d touch strings **********/
-
-
-/* Used in home screen quick actions. */
-"route" = "Maršruts";
-
-
 /********** gps strings **********/
 
-
-/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "Lai pilnībā izmantotu lietotnes funkcionalitāti, ir nepieciešams noteikt atrašanās vietu fonā. Tā tiek izmantota navigācijai un nesen veikto ceļojumu saglabāšanai.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Atrašanās vietas noteikšana ir nepieciešama navigācijai un nesen veiktā maršruta saglabāšanai.";

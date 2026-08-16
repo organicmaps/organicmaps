@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Vabandust, kaardi salvestuse seadistused on hetkel keelatud.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Kaardi allalaadimine on hetkel käimas.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Hei, vaata minu praegust asukohta Organic Mapsi kaardil! %1$s või %2$s Võrguühenduseta kaardid puuduvad? Laadi siit: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Hei, vaata minu asukoha märget Organic Mapsi kaardil!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hei, vaata minu praegust asukohta Organic Mapsi kaardil!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Tere,\n\nOlen praegu siin: %1$s. Ava see link %2$s või see %3$s, et näha seda kohta kaardil.\n\nAitäh.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Jaga</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Palun luba asukohateenused</string>
     <string name="save">Salvesta</string>
     <string name="create">loo</string>
-    <!-- red color -->
-    <string name="red">Punane</string>
-    <!-- yellow color -->
-    <string name="yellow">Kollane</string>
-    <!-- blue color -->
-    <string name="blue">Sinine</string>
-    <!-- green color -->
-    <string name="green">Roheline</string>
-    <!-- purple color -->
-    <string name="purple">Lilla</string>
-    <!-- orange color -->
-    <string name="orange">Oranž</string>
-    <!-- brown color -->
-    <string name="brown">Pruun</string>
-    <!-- pink color -->
-    <string name="pink">Roosa</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Tumelilla</string>
-    <!-- light blue color -->
-    <string name="light_blue">Helesinine</string>
-    <!-- cyan color -->
-    <string name="cyan">Rohekassinine</string>
-    <!-- teal color -->
-    <string name="teal">Sinakasroheline</string>
-    <!-- lime color -->
-    <string name="lime">Laimiroheline</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Tumeoranž</string>
-    <!-- gray color -->
-    <string name="gray">Hall</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Sinakashall</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Välimus</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Ei ole piisavalt andmeruumi</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Palun kustuta ebavajalikud andmed</string>
-    <string name="editor_login_error_dialog">Sisselogimise viga.</string>
     <string name="editor_profile_changes">Kinnitatud muudatused</string>
     <string name="editor_focus_map_on_location">Lohista kaarti, et asetada rist koha või ettevõtte asukoha juurde.</string>
     <string name="editor_edit_place_title">Muutmine</string>
@@ -579,12 +542,9 @@
     <string name="prefs_languages_information_off_link">Lisainfo saamiseks palun vaata seda juhist.</string>
     <string name="transliteration_title">Transliteratsioon ladina tähestikku</string>
     <string name="learn_more">Lisateave</string>
-    <string name="planning_route_manage_route">Halda teekonda</string>
-    <string name="button_plan">Kavanda</string>
     <string name="placepage_remove_stop">Eemalda peatus</string>
     <string name="placepage_add_stop">Lisa peatus</string>
     <string name="drag_to_reorder">Järjestuse muutmine</string>
-    <string name="saved">Salvestatud</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Oma kaastöö automaatseks üleslaadimiseks palun logi OpenStreetMappi sisse. Lisateave <a href="https://github.com/organicmaps/organicmaps/issues/6144">leidub siin</a>.</string>
     <string name="dialog_error_storage_title">Andmeruumi ligipääsu probleem</string>
@@ -683,8 +643,6 @@
     <string name="avoid_motorways">Väldi kiirteed</string>
     <string name="unable_to_calc_alert_title">Teekonna koostamine ei õnnestu</string>
     <string name="unable_to_calc_alert_subtitle">Teekonda ei õnnestunud koostada. See võib olla põhjustatud sinu seatud tingimustest või OpenStreetMapi andmete puudumisest. Muuda algtingimusi ja proovi uuesti.</string>
-    <string name="define_to_avoid_btn">Määra välditavad teed</string>
-    <string name="change_driving_options_btn">Lubatud valikud teekonna koostamisel</string>
     <string name="toll_road">Tasuline tee</string>
     <string name="unpaved_road">Sillutamata tee</string>
     <string name="ferry_crossing">Praamiületus</string>
@@ -763,8 +721,6 @@
     <string name="elevation_profile_min_elevation">Min. kõrgus</string>
     <string name="elevation_profile_max_elevation">Maks. kõrgus</string>
     <string name="elevation_profile_difficulty">Raskusaste</string>
-    <string name="elevation_profile_distance">Kaugus:</string>
-    <string name="elevation_profile_time">Aeg:</string>
     <string name="isolines_toast_zooms_1_10">Samakõrgusjoonte sirvimiseks suurenda kaarti</string>
     <string name="downloader_loading_ios">Allalaadimisel</string>
     <string name="download_map_title">Maailma üldkaart on allalaadimisel</string>
@@ -870,12 +826,6 @@
     <string name="stop_track_recording">Peata raja salvestamine</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Rada salvestamine</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Lõpeta ilma salvestamata</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Jätka salvestamist</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Kas salvestame järjehoidjatesse ja radadesse?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Rada on tühi - ei ole midagi salvestada</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -883,8 +833,6 @@
     <string name="choose_color">Vali värv</string>
     <string name="edit_track">Muuda rada</string>
     <string name="uri_open_location_failed">Ei ole paigaldatud rakendust, mis oskaks asukohta avada</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Automaatne tee juhatamine</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Järgi süsteemi</string>
     <!-- Title of the bottom sheet when sharing the track -->

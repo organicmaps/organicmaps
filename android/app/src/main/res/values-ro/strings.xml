@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Opțiunile pentru stocarea hărților sunt dezactivate în acest moment.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Harta este în curs de descărcare.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Poți vedea poziția mea pe harta Organic Maps! %1$s sau %2$s Nu ai descărcat aplicația? O poți descărca de aici: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Poți vedea locul meu preferat pe harta Organic Maps!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Poți vedea poziția mea pe harta Organic Maps!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Bună,\n\nAcum sunt aici: %1$s. Apasă pe adresa %2$s sau pe %3$s pentru a vedea locul pe hartă.\n\nMulțumesc.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Trimite</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Activează serviciile de localizare</string>
     <string name="save">Salvează</string>
     <string name="create">creează</string>
-    <!-- red color -->
-    <string name="red">Roșu</string>
-    <!-- yellow color -->
-    <string name="yellow">Galben</string>
-    <!-- blue color -->
-    <string name="blue">Albastru</string>
-    <!-- green color -->
-    <string name="green">Verde</string>
-    <!-- purple color -->
-    <string name="purple">Violet</string>
-    <!-- orange color -->
-    <string name="orange">Portocaliu</string>
-    <!-- brown color -->
-    <string name="brown">Maro</string>
-    <!-- pink color -->
-    <string name="pink">Roz</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Violet închis</string>
-    <!-- light blue color -->
-    <string name="light_blue">Albastru deschis</string>
-    <!-- cyan color -->
-    <string name="cyan">Turcoaz</string>
-    <!-- teal color -->
-    <string name="teal">Smarald</string>
-    <!-- lime color -->
-    <string name="lime">Verde aprins</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Portocaliu închis</string>
-    <!-- gray color -->
-    <string name="gray">Gri</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Gri albăstriu</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Aspect</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Spațiu insuficient</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Șterge datele care nu sunt necesare</string>
-    <string name="editor_login_error_dialog">Eroare de conectare.</string>
     <string name="editor_profile_changes">Modificări confirmate</string>
     <string name="editor_focus_map_on_location">Trageți harta pentru a plasa crucea acolo unde vreți să adăugați un loc sau o afacere.</string>
     <string name="editor_edit_place_title">Modifică</string>
@@ -579,12 +542,9 @@
     <string name="prefs_languages_information_off_link">Consultă acest ghid pentru informații suplimentare.</string>
     <string name="transliteration_title">Transcrie în alfabet latin</string>
     <string name="learn_more">Mai multe</string>
-    <string name="planning_route_manage_route">Gestionare traseu</string>
-    <string name="button_plan">Planifică</string>
     <string name="placepage_remove_stop">Scoateți opritorul</string>
     <string name="placepage_add_stop">Adaugă oprire</string>
     <string name="drag_to_reorder">Reordonare</string>
-    <string name="saved">Salvat</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Vă rugăm să vă conectați la OpenStreetMap pentru a încărca automat toate modificările aduse hărții. Aflați mai multe <a href="https://github.com/organicmaps/organicmaps/issues/6144">aici</a>.</string>
     <string name="dialog_error_storage_title">Problemă de acces la spațiul de stocare</string>
@@ -680,8 +640,6 @@
     <string name="avoid_motorways">Evitați autostrăzile</string>
     <string name="unable_to_calc_alert_title">Nu poate fi creat un traseu</string>
     <string name="unable_to_calc_alert_subtitle">Din păcate, nu putem elabora un traseu cu opțiunile alese. Modifică-le și încearcă din nou.</string>
-    <string name="define_to_avoid_btn">Stabilește drumurile de evitat</string>
-    <string name="change_driving_options_btn">Opțiuni de ocolire activate</string>
     <string name="toll_road">Drum cu plată</string>
     <string name="unpaved_road">Drum neasfaltat</string>
     <string name="ferry_crossing">Trecere cu bac</string>
@@ -760,8 +718,6 @@
     <string name="elevation_profile_min_elevation">Min. altitudine</string>
     <string name="elevation_profile_max_elevation">Max. altitudine</string>
     <string name="elevation_profile_difficulty">Dificultate</string>
-    <string name="elevation_profile_distance">Dist.:</string>
-    <string name="elevation_profile_time">Timp:</string>
     <string name="isolines_toast_zooms_1_10">Mărește harta pentru a vedea izoliniile</string>
     <string name="downloader_loading_ios">Se descarcă</string>
     <string name="download_map_title">Descarcă harta lumii</string>
@@ -857,12 +813,6 @@
     <string name="stop_track_recording">Opriți înregistrarea traseului</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Înregistrare traseu</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Oprire fără salvare</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Continuați înregistrarea</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Salvați în Locuri preferate și trasee?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Traseul este gol - nu este nimic de salvat</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -870,8 +820,6 @@
     <string name="choose_color">Alegeți culoarea</string>
     <string name="edit_track">Editează traseul</string>
     <string name="uri_open_location_failed">Nu există nicio aplicație instalată care să poată deschide locația</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Auto în navigație</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Urmează sistemul</string>
     <!-- Title of the bottom sheet when sharing the track -->

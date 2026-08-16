@@ -17,18 +17,8 @@
 "report_a_bug" = "Signaler un bug";
 
 
-/********** 3d touch strings **********/
-
-
-/* Used in home screen quick actions. */
-"route" = "Itinéraire";
-
-
 /********** gps strings **********/
 
-
-/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "La détection de votre position en arrière-plan est nécessaire pour profiter pleinement de toutes les fonctionnalités de l'application. Elle est utilisée pour la navigation et pour enregistrer votre trajet récent.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "La détection de votre position est nécessaire pour la navigation et pour enregistrer votre trajet récent.";

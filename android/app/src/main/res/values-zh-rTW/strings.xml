@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">很抱歉，地圖儲存設定目前已停用。</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">地圖下載進行中。</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">嘿，在 Organic Maps 查看我的目前的位置吧！請打開 %1$s 或 %2$s 鏈接，還沒安裝離線地圖？在此下載: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">嘿，看看我在 Organic Maps 上標記的圖釘吧！</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">嗨，到 Organic Maps 查看我目前的位置！</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">嗨，\n\n我現在在這：%1$s。點擊此連結 %2$s 或此連結 %3$s 來查看在地圖上的位置。\n\n謝謝。</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">分享</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">請啟用定位服務</string>
     <string name="save">儲存</string>
     <string name="create">建立</string>
-    <!-- red color -->
-    <string name="red">紅色</string>
-    <!-- yellow color -->
-    <string name="yellow">黃色</string>
-    <!-- blue color -->
-    <string name="blue">藍色</string>
-    <!-- green color -->
-    <string name="green">綠色</string>
-    <!-- purple color -->
-    <string name="purple">紫色</string>
-    <!-- orange color -->
-    <string name="orange">橙色</string>
-    <!-- brown color -->
-    <string name="brown">棕色</string>
-    <!-- pink color -->
-    <string name="pink">粉色</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">暗紫色</string>
-    <!-- light blue color -->
-    <string name="light_blue">天藍色</string>
-    <!-- cyan color -->
-    <string name="cyan">藍綠色</string>
-    <!-- teal color -->
-    <string name="teal">碧綠色</string>
-    <!-- lime color -->
-    <string name="lime">青檸</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">深橙色</string>
-    <!-- gray color -->
-    <string name="gray">灰色</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">藍灰色</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">外觀</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">沒有足夠的空間</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">請刪除不必要的資料</string>
-    <string name="editor_login_error_dialog">無法登入。</string>
     <string name="editor_profile_changes">已驗證的變更</string>
     <string name="editor_focus_map_on_location">拖曳地圖以將十字放置在地點或企業的位置。</string>
     <string name="editor_edit_place_title">編輯中</string>
@@ -579,12 +542,9 @@
     <string name="prefs_languages_information_off_link">如需瞭解更多資訊，請參閱此指南。</string>
     <string name="transliteration_title">拉丁字母音譯</string>
     <string name="learn_more">瞭解更多資訊</string>
-    <string name="planning_route_manage_route">管理路線</string>
-    <string name="button_plan">計畫</string>
     <string name="placepage_remove_stop">刪除停止</string>
     <string name="placepage_add_stop">新增中途點</string>
     <string name="drag_to_reorder">重新排序</string>
-    <string name="saved">已經儲存</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">請登入 OpenStreetMap 以自動上傳您的所有地圖編輯。若要了解更多資訊請點擊<a href="https://github.com/organicmaps/organicmaps/issues/6144">這裡</a>。</string>
     <string name="dialog_error_storage_title">儲存空間存儲問題</string>
@@ -681,8 +641,6 @@
     <string name="avoid_motorways">避開高速公路</string>
     <string name="unable_to_calc_alert_title">無法規劃路線</string>
     <string name="unable_to_calc_alert_subtitle">很遺憾，我們無法使用所選的繞行設定規劃路線。請更改設定，然後重試。</string>
-    <string name="define_to_avoid_btn">選擇要避開的道路</string>
-    <string name="change_driving_options_btn">繞行設定已開啟</string>
     <string name="toll_road">收費公路</string>
     <string name="unpaved_road">未鋪面道路</string>
     <string name="ferry_crossing">渡輪</string>
@@ -761,8 +719,6 @@
     <string name="elevation_profile_min_elevation">最低高度</string>
     <string name="elevation_profile_max_elevation">最高高度</string>
     <string name="elevation_profile_difficulty">難度</string>
-    <string name="elevation_profile_distance">距離：</string>
-    <string name="elevation_profile_time">時間：</string>
     <string name="isolines_toast_zooms_1_10">放大地圖以查看等高線</string>
     <string name="downloader_loading_ios">正在下載</string>
     <string name="download_map_title">下載世界總覽地圖</string>
@@ -868,12 +824,6 @@
     <string name="stop_track_recording">停止軌跡記錄</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">軌跡記錄</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">停止而不保存</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">繼續錄製</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">儲存到書籤和軌跡？</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">軌跡為空 - 沒有可保存的內容</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -881,8 +831,6 @@
     <string name="choose_color">選擇顏色</string>
     <string name="edit_track">編輯軌跡</string>
     <string name="uri_open_location_failed">沒有安裝可以打開該位置的應用程式</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">自動導航</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">跟隨系統</string>
     <!-- Title of the bottom sheet when sharing the track -->

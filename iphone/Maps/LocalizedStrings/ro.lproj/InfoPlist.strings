@@ -17,18 +17,8 @@
 "report_a_bug" = "Raportează o eroare";
 
 
-/********** 3d touch strings **********/
-
-
-/* Used in home screen quick actions. */
-"route" = "Traseu";
-
-
 /********** gps strings **********/
 
-
-/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "Detectarea locației în fundal este necesară pentru a beneficia pe deplin de funcționalitatea aplicației. Este folosită pentru navigație și pentru salvarea traseului parcurs recent.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Determinarea locației dvs. este necesară pentru navigare și pentru salvarea traseului parcurs recent.";

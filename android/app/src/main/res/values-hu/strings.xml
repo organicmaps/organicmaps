@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">A térképek tárolása jelenleg ki van kapcsolva.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">A térkép letöltése folyamatban van.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Tekintse meg a tartózkodási helyemet az Organic Maps alkalmazásban! %1$s vagy %2$s. Nincs offline térképe? Töltse le innen: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Tekintse meg a térképjelzőmet az Organic Maps alkalmazásban!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Tekintse meg a tartózkodási helyemet az Organic Maps alkalmazásban!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Üdvözlöm!\n\nJelenleg itt tartózkodom: %1$s. Kattintson a következő hivatkozásra: %2$s, vagy ide: %3$s, hogy megtekintse a tartózkodási helyemet a térképen.\n\nKöszönöm!</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Megosztás</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Kapcsolja be a helymeghatározási szolgáltatást</string>
     <string name="save">Mentés</string>
     <string name="create">létrehozás</string>
-    <!-- red color -->
-    <string name="red">Piros</string>
-    <!-- yellow color -->
-    <string name="yellow">Sárga</string>
-    <!-- blue color -->
-    <string name="blue">Kék</string>
-    <!-- green color -->
-    <string name="green">Zöld</string>
-    <!-- purple color -->
-    <string name="purple">Lila</string>
-    <!-- orange color -->
-    <string name="orange">Narancssárga</string>
-    <!-- brown color -->
-    <string name="brown">Barna</string>
-    <!-- pink color -->
-    <string name="pink">Rózsaszín</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Mély lila</string>
-    <!-- light blue color -->
-    <string name="light_blue">Világoskék</string>
-    <!-- cyan color -->
-    <string name="cyan">Cián</string>
-    <!-- teal color -->
-    <string name="teal">Zöldeskék</string>
-    <!-- lime color -->
-    <string name="lime">Lime</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Mély narancssárga</string>
-    <!-- gray color -->
-    <string name="gray">Szürke</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Kékes szürke</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Megjelenés</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Nincs elegendő tárhely</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Törölje a felesleges adatokat</string>
-    <string name="editor_login_error_dialog">Bejelentkezési hiba.</string>
     <string name="editor_profile_changes">Jóváhagyott módosítás</string>
     <string name="editor_focus_map_on_location">Húzza a térképet, hogy a keresztet a hely vagy üzlet helyére helyezze.</string>
     <string name="editor_edit_place_title">Szerkesztés</string>
@@ -579,12 +542,9 @@
     <string name="prefs_languages_information_off_link">További tájékoztatást találhat még ebben az útmutatóban.</string>
     <string name="transliteration_title">Átírás latin betűkre</string>
     <string name="learn_more">Tudjon meg többet</string>
-    <string name="planning_route_manage_route">Útvonal kezelése</string>
-    <string name="button_plan">Tervezés</string>
     <string name="placepage_remove_stop">Megálló eltávolítása</string>
     <string name="placepage_add_stop">Köztes célpont hozzáadása</string>
     <string name="drag_to_reorder">Átsorolás</string>
-    <string name="saved">Mentve</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Jelentkezzen be az OpenStreetMap rendszerébe, hogy automatikusan feltölthesse az összes térképszerkesztését. További információ <a href="https://github.com/organicmaps/organicmaps/issues/6144">itt</a>.</string>
     <string name="dialog_error_storage_title">Tárhelyhozzáférési probléma</string>
@@ -683,8 +643,6 @@
     <string name="avoid_motorways">Autópályák elkerülése</string>
     <string name="unable_to_calc_alert_title">Nem lehet kiszámítani az útvonalat</string>
     <string name="unable_to_calc_alert_subtitle">Nem sikerült útvonalat találni. Ennek oka lehet az útvonaltervezési beállítások vagy a hiányos OpenStreetMap-adatok. Módosítsa az útvonaltervezési beállításokat, és próbálja meg újra.</string>
-    <string name="define_to_avoid_btn">Elkerülendő utak meghatározása</string>
-    <string name="change_driving_options_btn">Útvonaltervezési beállítások engedélyezve</string>
     <string name="toll_road">Díjköteles utak</string>
     <string name="unpaved_road">Burkolatlan utak</string>
     <string name="ferry_crossing">Kompátkelők</string>
@@ -763,8 +721,6 @@
     <string name="elevation_profile_min_elevation">Legkisebb magasság</string>
     <string name="elevation_profile_max_elevation">Legnagyobb magasság</string>
     <string name="elevation_profile_difficulty">Nehézség</string>
-    <string name="elevation_profile_distance">Távolság:</string>
-    <string name="elevation_profile_time">Idő:</string>
     <string name="isolines_toast_zooms_1_10">Nagyítás az izovonalak felfedezéséhez</string>
     <string name="downloader_loading_ios">Letöltés</string>
     <string name="download_map_title">Áttekintő világtérkép letöltése</string>
@@ -870,12 +826,6 @@
     <string name="stop_track_recording">Nyomvonal rögzítésének megállítása</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Nyomvonal rögzítése</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Megállítás mentés nélkül</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Rögzítés folytatása</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Menti a könyvjelzők és nyomvonalakba?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">A nyomvonal üres – nincs mit menteni</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -883,8 +833,6 @@
     <string name="choose_color">Válasszon színt</string>
     <string name="edit_track">Nyomvonal szerkesztése</string>
     <string name="uri_open_location_failed">Nincs telepített alkalmazás, amely meg tudja nyitni a helyet</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Automatikus navigáció</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Rendszer követése</string>
     <!-- Title of the bottom sheet when sharing the track -->

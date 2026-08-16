@@ -171,14 +171,10 @@
     <string name="cant_change_this_setting">Lamentamos, as definições do armazenamento do mapa estão atualmente desativadas.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">O descarregamento do país está a ser feito neste momento.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Veja a minha localização atual em Organic Maps! %1$s ou %2$s Não tem mapas offline? Descarregue aqui: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Veja o meu marcador no mapa do Organic Maps!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Veja a minha localização atual no mapa Organic Maps!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Olá,\n\nEstou neste momento aqui: %1$s. Clique nesta ligação %2$s ou nesta %3$s para ver o local no mapa.\n\nObrigado.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Partilhar</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -312,38 +308,6 @@
     <string name="enable_location_services">Por favor ative os serviços de localização</string>
     <string name="save">Guardar</string>
     <string name="create">criar</string>
-    <!-- red color -->
-    <string name="red">Vermelho</string>
-    <!-- yellow color -->
-    <string name="yellow">Amarelo</string>
-    <!-- blue color -->
-    <string name="blue">Azul</string>
-    <!-- green color -->
-    <string name="green">Verde</string>
-    <!-- purple color -->
-    <string name="purple">Roxo</string>
-    <!-- orange color -->
-    <string name="orange">Laranja</string>
-    <!-- brown color -->
-    <string name="brown">Castanho</string>
-    <!-- pink color -->
-    <string name="pink">Rosa</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Purpúreo escuro</string>
-    <!-- light blue color -->
-    <string name="light_blue">Azul Claro</string>
-    <!-- cyan color -->
-    <string name="cyan">Azul-verde</string>
-    <!-- teal color -->
-    <string name="teal">Esmeralda</string>
-    <!-- lime color -->
-    <string name="lime">Lima</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Laranja escuro</string>
-    <!-- gray color -->
-    <string name="gray">Cinza</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Azul-cinza</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Apresentação</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -469,7 +433,6 @@
     <string name="downloader_no_space_title">Não tem espaço suficiente</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Por favor, remova os dados desnecessários</string>
-    <string name="editor_login_error_dialog">Erro de início de sessão.</string>
     <string name="editor_profile_changes">Alterações verificadas</string>
     <string name="editor_focus_map_on_location">Mova o mapa para colocar a cruz na localização da empresa ou do local.</string>
     <string name="editor_edit_place_title">Edição</string>
@@ -579,12 +542,9 @@
     <string name="prefs_languages_information_off_link">Para obter mais informações, consulte este guia.</string>
     <string name="transliteration_title">Transliteração para o alfabeto latino</string>
     <string name="learn_more">Saber mais</string>
-    <string name="planning_route_manage_route">Gerir rota</string>
-    <string name="button_plan">Planear</string>
     <string name="placepage_remove_stop">Remover paragem</string>
     <string name="placepage_add_stop">Adicionar paragem</string>
     <string name="drag_to_reorder">Reordenar</string>
-    <string name="saved">Guardado</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Por favor, faz o login no OpenStreetMap para carregar automaticamente todas as tuas edições de mapas. Sabe mais <a href="https://github.com/organicmaps/organicmaps/issues/6144">aqui</a>.</string>
     <string name="dialog_error_storage_title">Problema de acesso ao armazenamento</string>
@@ -684,8 +644,6 @@
     <string name="avoid_motorways">Evitar autoestradas</string>
     <string name="unable_to_calc_alert_title">Não foi possível calcular a rota</string>
     <string name="unable_to_calc_alert_subtitle">Infelizmente não foi possível criar o percurso com as opções selecionadas. Altere as opções e tente novamente.</string>
-    <string name="define_to_avoid_btn">Definir as estradas a evitar</string>
-    <string name="change_driving_options_btn">Configurações de direção ativadas</string>
     <string name="toll_road">Estrada com portagem</string>
     <string name="unpaved_road">Estrada não pavimentada</string>
     <string name="ferry_crossing">Ferry</string>
@@ -764,8 +722,6 @@
     <string name="elevation_profile_min_elevation">Elevação mín.</string>
     <string name="elevation_profile_max_elevation">Elevação máx.</string>
     <string name="elevation_profile_difficulty">Dificuldade</string>
-    <string name="elevation_profile_distance">Distância:</string>
-    <string name="elevation_profile_time">Tempo:</string>
     <string name="isolines_toast_zooms_1_10">Amplie o mapa para ver as curvas de nível</string>
     <string name="downloader_loading_ios">A descarregar</string>
     <string name="download_map_title">Descarregar a visão geral mundial</string>
@@ -871,12 +827,6 @@
     <string name="stop_track_recording">Parar gravação de trajeto</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Gravação de percurso</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Parar sem guardar</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Continuar gravação</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Guardar em Favoritos e Trajetos?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">O trajeto está vazio - não há nada para guardar</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -884,8 +834,6 @@
     <string name="choose_color">Escolher cor</string>
     <string name="edit_track">Editar trajeto</string>
     <string name="uri_open_location_failed">Nenhuma aplicação instalada que possa abrir a localização</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Auto na navegação</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Seguir o sistema</string>
     <!-- Title of the bottom sheet when sharing the track -->
