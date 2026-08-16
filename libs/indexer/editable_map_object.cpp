@@ -709,10 +709,11 @@ void EditableMapObject::LogDiffInJournal(EditableMapObject const & unedited_emo)
 
   // Address
   if (m_street.m_defaultName != unedited_emo.GetStreet().m_defaultName)
-    m_journal.AddTagChange("addr:street", unedited_emo.GetStreet().m_defaultName, m_street.m_defaultName);
+    m_journal.AddTagChange(std::string(kJournalKeyStreet), unedited_emo.GetStreet().m_defaultName,
+                           m_street.m_defaultName);
 
   if (m_houseNumber != unedited_emo.GetHouseNumber())
-    m_journal.AddTagChange("addr:housenumber", unedited_emo.GetHouseNumber(), m_houseNumber);
+    m_journal.AddTagChange(std::string(kJournalKeyHouseNumber), unedited_emo.GetHouseNumber(), m_houseNumber);
 
   // Metadata
   for (uint8_t i = 0; i < static_cast<uint8_t>(feature::Metadata::FMD_COUNT); ++i)
@@ -743,12 +744,12 @@ void EditableMapObject::LogDiffInJournal(EditableMapObject const & unedited_emo)
   std::string new_vegetarian = findAndErase(new_cuisines, "vegetarian");
   std::string old_vegetarian = findAndErase(old_cuisines, "vegetarian");
   if (new_vegetarian != old_vegetarian)
-    m_journal.AddTagChange("diet:vegetarian", old_vegetarian, new_vegetarian);
+    m_journal.AddTagChange(std::string(kJournalKeyVegetarian), old_vegetarian, new_vegetarian);
 
   std::string new_vegan = findAndErase(new_cuisines, "vegan");
   std::string old_vegan = findAndErase(old_cuisines, "vegan");
   if (new_vegan != old_vegan)
-    m_journal.AddTagChange("diet:vegan", old_vegan, new_vegan);
+    m_journal.AddTagChange(std::string(kJournalKeyVegan), old_vegan, new_vegan);
 
   bool cuisinesModified = false;
 
@@ -767,7 +768,7 @@ void EditableMapObject::LogDiffInJournal(EditableMapObject const & unedited_emo)
   }
 
   if (cuisinesModified)
-    m_journal.AddTagChange(std::string(kTagCuisine), strings::JoinStrings(old_cuisines, ";"),
+    m_journal.AddTagChange(std::string(kJournalKeyCuisine), strings::JoinStrings(old_cuisines, ";"),
                            strings::JoinStrings(new_cuisines, ";"));
 }
 
