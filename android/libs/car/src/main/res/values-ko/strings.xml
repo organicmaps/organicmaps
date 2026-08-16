@@ -74,6 +74,9 @@
     <string name="minute">분</string>
     <string name="big_font">지도에서 글꼴 크기 늘리기</string>
     <string name="transliteration_title">라틴어로 음역</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">위성</string>
+    <string name="layers_title">맵 스타일 및 레이어</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">맵 다운로더</string>
     <string name="driving_options_title">운전 옵션</string>
@@ -100,6 +103,7 @@
     <string name="by_name">이름별</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
+    <string name="button_layer_isolines">지형</string>
     <string name="downloader_loading_ios">다운로드 중</string>
     <string name="download_map_title">세계 개요 지도 다운로드</string>
     <!-- The text in the activity for location permission request. -->

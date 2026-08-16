@@ -74,6 +74,9 @@
     <string name="minute">min</string>
     <string name="big_font">Forøg størrelsen på kortetiketter</string>
     <string name="transliteration_title">Translitterer til det latinske alfabet</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Satellit</string>
+    <string name="layers_title">Kortstile og -lag</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Kort-downloader</string>
     <string name="driving_options_title">Indstillinger for ruteberegning</string>
@@ -100,6 +103,7 @@
     <string name="by_name">Efter navn</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
+    <string name="button_layer_isolines">Konturlinjer</string>
     <string name="downloader_loading_ios">Downloader</string>
     <string name="download_map_title">Download oversigtskortet over verden</string>
     <!-- The text in the activity for location permission request. -->

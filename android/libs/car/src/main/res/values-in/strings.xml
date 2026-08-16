@@ -74,6 +74,9 @@
     <string name="minute">mnt</string>
     <string name="big_font">Perbesar ukuran huruf pada peta</string>
     <string name="transliteration_title">Transliterasi ke dalam bahasa Latin</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Satelit</string>
+    <string name="layers_title">Gaya dan Lapisan Peta</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Pengunduh peta</string>
     <string name="driving_options_title">Pilihan berkendara</string>
@@ -100,6 +103,7 @@
     <string name="by_name">Berdasarkan Nama</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
+    <string name="button_layer_isolines">Isometrik</string>
     <string name="downloader_loading_ios">Mengunduh</string>
     <string name="download_map_title">Unduh peta ikhtisar dunia</string>
     <!-- The text in the activity for location permission request. -->

@@ -74,6 +74,9 @@
     <string name="minute">min</string>
     <string name="big_font">Forstørr skriften på kartet</string>
     <string name="transliteration_title">Omskrivning til latin</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Satellitt</string>
+    <string name="layers_title">Kartstiler og -lag</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Nedlast kart</string>
     <string name="driving_options_title">Kjørealternativer</string>
@@ -100,6 +103,7 @@
     <string name="by_name">Etter navn</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
+    <string name="button_layer_isolines">Høyder</string>
     <string name="downloader_loading_ios">Nedlasting</string>
     <string name="download_map_title">Last ned verdenskart</string>
     <!-- The text in the activity for location permission request. -->

@@ -74,6 +74,9 @@
     <string name="minute">dəq</string>
     <string name="big_font">Xəritədə şrift ölçüsünü artırın</string>
     <string name="transliteration_title">Latın transliterasiyası</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Peyk</string>
+    <string name="layers_title">Xəritə Üslubları və Qatları</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Xəritə yükləyicisi</string>
     <string name="driving_options_title">Marşrutlaşdırma seçimləri</string>
@@ -100,6 +103,7 @@
     <string name="by_name">Ada görə</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
+    <string name="button_layer_isolines">Ərazi</string>
     <string name="downloader_loading_ios">Endirilir</string>
     <string name="download_map_title">Dünya xəritəsini yükləyin</string>
     <!-- The text in the activity for location permission request. -->
