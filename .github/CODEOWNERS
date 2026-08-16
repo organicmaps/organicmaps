@@ -19,10 +19,9 @@
 /android/app/src/main/res/drawable*/ @organicmaps/design
 /android/app/src/main/res/font/ @organicmaps/design
 /android/libs/branding/ @organicmaps/design
-/iphone/Maps/Images.xcassets/ @organicmaps/design
+/iphone/Maps/Resources/Images.xcassets/ @organicmaps/design
 /data/fonts/*.ttf @organicmaps/design
 /data/symbols-svg/ @organicmaps/design
-/data/search-icons/ @organicmaps/design
 
 # Android Auto (overrides — AFTER android catch-all).
 /android/app/src/main/java/app/organicmaps/car/ @organicmaps/android-auto
