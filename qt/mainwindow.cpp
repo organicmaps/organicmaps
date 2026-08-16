@@ -112,6 +112,8 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
   , m_mapcssFilePath(mapcssFilePath)
 #endif
 {
+  qmlRegisterUncreatableMetaObject(location::staticMetaObject, "Location", 1, 0, "PositionMode", "Access to enums & flags only");
+
   setGeometry(screenGeometry);
 
   if (m_screenshotMode)
@@ -669,7 +671,10 @@ void MainWindow::OnUploadEditsMenuItem()
 void MainWindow::OnBeforeEngineCreation()
 {
   m_pDrawWidget->GetFramework().SetMyPositionModeListener([this](location::EMyPositionMode mode, bool /*routingActive*/)
-  { LocationStateModeChanged(mode); });
+  {
+    emit positionModeChanged(mode);
+    LocationStateModeChanged(mode);
+  });
 }
 
 void MainWindow::OnPreferences()
