@@ -591,7 +591,10 @@ void Framework::LoadMapsSync()
 
   InitRouting();
 
-  GetStorage().RestoreDownloadQueue();
+  // Posted, not called: RegisterAllMaps above posted the terrain scan to the Gui queue,
+  // and the restored downloads depend on it (see Storage::OnTerrainScanned) - queueing
+  // behind it keeps the scan-first order on the synchronous load path too.
+  GetPlatform().RunTask(Platform::Thread::Gui, [this]() { GetStorage().RestoreDownloadQueue(); });
 }
 
 // Small copy-paste with LoadMapsSync, but I don't have a better solution.
@@ -642,8 +645,15 @@ void Framework::RegisterAllMaps()
 
   m_terrainProvider.Rescan();
   // RegisterAllMaps runs on the async map-loading thread (see LoadMapsAsync), while the
-  // isolines manager and its platform state listeners are GUI-thread-only.
-  GetPlatform().RunTask(Platform::Thread::Gui, [this]() { m_isolinesManager.Invalidate(); });
+  // storage, the isolines manager and its platform state listeners are GUI-thread-only:
+  // publish the terrain scan there, like the registered maps above publish themselves.
+  // The registry is queried at the publish time, not snapshotted here: a terrain delete
+  // that runs on the GUI thread before the task must not be resurrected by stale data.
+  GetPlatform().RunTask(Platform::Thread::Gui, [this]()
+  {
+    m_storage.OnTerrainScanned(m_terrainProvider.GetRegisteredFiles());
+    m_isolinesManager.Invalidate();
+  });
 }
 
 void Framework::DeregisterAllMaps()

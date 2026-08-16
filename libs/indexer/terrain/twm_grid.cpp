@@ -2,12 +2,28 @@
 
 #include "indexer/terrain/terrain_utils.hpp"
 
+#include "platform/platform.hpp"
+
 #include "geometry/mercator.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/string_utils.hpp"
 
 namespace terrain
 {
+std::vector<TwmFile> ListVersionDirs(std::string const & terrainDir)
+{
+  std::vector<TwmFile> dirs;
+  Platform::TFilesWithType subdirs;
+  Platform::GetFilesByType(terrainDir, Platform::EFileType::Directory, subdirs);
+  for (auto const & [name, type] : subdirs)
+    if (uint64_t version; strings::to_uint64(name, version))
+      dirs.push_back({base::JoinPath(terrainDir, name), static_cast<int64_t>(version)});
+  std::sort(dirs.begin(), dirs.end(), [](TwmFile const & a, TwmFile const & b) { return a.m_version > b.m_version; });
+  dirs.push_back({terrainDir, 0});
+  return dirs;
+}
+
 std::string GridBlock::GetFileName() const
 {
   return GetBlockFileName(m_bottom, m_left);
