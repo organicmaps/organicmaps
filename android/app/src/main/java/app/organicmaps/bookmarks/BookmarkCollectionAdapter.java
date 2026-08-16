@@ -26,8 +26,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   private final static int TYPE_CATEGORY_ITEM = BookmarkManager.CATEGORY;
   private final static int TYPE_HEADER_ITEM = 3;
 
-  @NonNull
-  private final BookmarkCategory mBookmarkCategory;
+  private final long mCategoryId;
 
   @NonNull
   private List<BookmarkCategory> mItemsCategory;
@@ -62,13 +61,28 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
 
   BookmarkCollectionAdapter(@NonNull BookmarkCategory bookmarkCategory, @NonNull List<BookmarkCategory> itemsCategories)
   {
-    mBookmarkCategory = bookmarkCategory;
+    // Only the id is kept: the object itself is a snapshot that a reload of the bookmark files replaces.
+    mCategoryId = bookmarkCategory.getId();
+    setSections(itemsCategories);
+  }
+
+  /**
+   * The child lists are read once, when the adapter is built. A reload of the bookmark files replaces the
+   * BookmarkCategory objects, and the stale ones would be queried by id in the core.
+   */
+  void setCategories(@NonNull List<BookmarkCategory> itemsCategories)
+  {
+    setSections(itemsCategories);
+    notifyDataSetChanged();
+  }
+
+  private void setSections(@NonNull List<BookmarkCategory> itemsCategories)
+  {
     // noinspection AssignmentOrReturnOfFieldWithMutableType
     mItemsCategory = itemsCategories;
 
     mSectionCount = 0;
-    if (!mItemsCategory.isEmpty())
-      mCategorySectionIndex = mSectionCount++;
+    mCategorySectionIndex = mItemsCategory.isEmpty() ? SectionPosition.INVALID_POSITION : mSectionCount++;
   }
 
   public int getItemsCount(int sectionIndex)
@@ -217,7 +231,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
 
   private void updateAllItems()
   {
-    mItemsCategory = BookmarkManager.INSTANCE.getChildrenCategories(mBookmarkCategory.getId());
+    setCategories(BookmarkManager.INSTANCE.getChildrenCategories(mCategoryId));
   }
 
   void show(boolean visible)
@@ -232,18 +246,16 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     public void onHideAll()
     {
       // TODO: Missing implementation
-      // BookmarkManager.INSTANCE.setChildCategoriesVisibility(mBookmarkCategory.getId(), false);
+      // BookmarkManager.INSTANCE.setChildCategoriesVisibility(mCategoryId, false);
       updateAllItems();
-      notifyDataSetChanged();
     }
 
     @Override
     public void onShowAll()
     {
       // TODO: Missing implementation
-      // BookmarkManager.INSTANCE.setChildCategoriesVisibility(mBookmarkCategory.getId(), true);
+      // BookmarkManager.INSTANCE.setChildCategoriesVisibility(mCategoryId, true);
       updateAllItems();
-      notifyDataSetChanged();
     }
   }
 }

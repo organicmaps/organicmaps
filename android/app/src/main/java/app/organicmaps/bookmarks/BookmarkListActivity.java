@@ -16,8 +16,8 @@ import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 public class BookmarkListActivity extends BaseToolbarActivity
 {
   /**
-   * The toolbar continues the light ?cardBackground sheet of the list instead of the branded bar, so the status
-   * bar icons must follow the theme rather than stay light.
+   * The toolbar continues the ?cardBackground surface of the list instead of the branded bar, so the status bar
+   * icons have to follow the theme - light on the dark surface, dark on the light one - rather than stay light.
    */
   @NonNull
   @Override

@@ -6,6 +6,10 @@
     <attr name="textDialogTheme" format="reference" />
     <attr name="windowBackgroundForced" format="reference|color" />
     <attr name="cardBackground" format="reference" />
+    <!-- Let one toolbar_search_controls layout serve both the branded toolbar and one that continues the
+         surface below it. -->
+    <attr name="searchToolbarTextAppearance" format="reference" />
+    <attr name="searchToolbarEndIconTint" format="color" />
     <attr name="clickableBackground" format="reference" />
     <attr name="statusBar" format="color" />
     <attr name="secondary" format="color" />

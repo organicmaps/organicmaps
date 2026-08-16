@@ -286,7 +286,7 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativ
   return static_cast<jboolean>(frm()->GetBookmarkManager().HasTrack(static_cast<kml::TrackId>(trackId)));
 }
 
-// The batch operations themselves live in the core, so that iOS shares them: see
+// The batch operations themselves live in the core, where any platform can reach them: see
 // BookmarkManager::EditSession and Framework::DeleteBookmarksAndTracks.
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeDeleteBookmarksAndTracks(
     JNIEnv * env, jclass, jlongArray jBookmarkIds, jlongArray jTrackIds)

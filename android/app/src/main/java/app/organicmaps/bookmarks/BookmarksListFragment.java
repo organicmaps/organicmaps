@@ -25,6 +25,7 @@ import androidx.core.view.MenuProvider;
 import androidx.core.view.OnApplyWindowInsetsListener;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
@@ -57,7 +58,6 @@ import app.organicmaps.widget.recycler.CardSectionDividerDecoration;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -76,11 +76,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private static final String BOOKMARKS_MENU_ID = "BOOKMARKS_MENU_BOTTOM_SHEET";
   private static final String TRACK_MENU_ID = "TRACK_MENU_BOTTOM_SHEET";
   private static final String OPTIONS_MENU_ID = "OPTIONS_MENU_BOTTOM_SHEET";
-  private static final String EXTRA_SELECTED_ITEM_ID = "selected_item_id";
-  private static final String EXTRA_SELECTED_ITEM_TYPE = "selected_item_type";
-  private static final String EXTRA_SELECTION_MODE = "selection_mode";
-  private static final String EXTRA_SELECTED_BOOKMARK_IDS = "selected_bookmark_ids";
-  private static final String EXTRA_SELECTED_TRACK_IDS = "selected_track_ids";
   private static final String DELETE_SELECTED_REQUEST_KEY = "DeleteSelectedBookmarksConfirmation";
 
   private ActivityResultLauncher<SharingUtils.SharingIntent> shareLauncher;
@@ -98,15 +93,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private CategoryDataSource mCategoryDataSource;
-  private long mSelectedItemId = -1;
-  private int mSelectedItemType = -1;
-  private boolean mSelectionMode = false;
-  // LinkedHashSet: the first selected bookmark — or track, if no bookmark is selected — defines the color the
-  // picker opens with.
+  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
-  private final Set<Long> mSelectedBookmarkIds = new LinkedHashSet<>();
-  @NonNull
-  private final Set<Long> mSelectedTrackIds = new LinkedHashSet<>();
+  private BookmarksListViewModel mViewModel;
   @Nullable
   private OnBackPressedCallback mBackCallback;
   private boolean mViewInitialized = false;
@@ -119,6 +108,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   @NonNull
   private ExtendedFloatingActionButton mFabViewOnMap;
   private View mSelectionActions;
+  private View mSelectionActionColor;
+  private View mSelectionActionMove;
+  private View mSelectionActionDelete;
   private boolean mSelectionActionsShown = false;
   // Tracks what the Select all / Deselect all title was last built from, so a toggle rebuilds the menu only
   // when that flips.
@@ -144,7 +136,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     public void onPrepareMenu(@NonNull Menu menu)
     {
       // The contextual actions live in the bottom bar; the toolbar only offers the bulk toggle.
-      if (mSelectionMode)
+      if (mViewModel.isSelectionMode())
       {
         menu.findItem(R.id.bookmarks_selection_select_all)
             .setTitle(isAllSelected() ? R.string.deselect_all : R.string.select_all);
@@ -163,7 +155,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     @Override
     public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater)
     {
-      if (mSelectionMode)
+      if (mViewModel.isSelectionMode())
       {
         menuInflater.inflate(R.menu.menu_bookmarks_selection, menu);
         return;
@@ -209,27 +201,15 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     BookmarkCategory category = getCategoryOrThrow();
     mCategoryDataSource = new CategoryDataSource(category);
 
-    if (savedInstanceState != null)
-    {
-      mSelectedItemId = savedInstanceState.getLong(EXTRA_SELECTED_ITEM_ID, -1);
-      mSelectedItemType = savedInstanceState.getInt(EXTRA_SELECTED_ITEM_TYPE, -1);
-      mSelectionMode = savedInstanceState.getBoolean(EXTRA_SELECTION_MODE, false);
-      addAll(mSelectedBookmarkIds, savedInstanceState.getLongArray(EXTRA_SELECTED_BOOKMARK_IDS));
-      addAll(mSelectedTrackIds, savedInstanceState.getLongArray(EXTRA_SELECTED_TRACK_IDS));
-    }
+    mViewModel = new ViewModelProvider(this).get(BookmarksListViewModel.class);
+
+    // A load that ran while this screen was destroyed renumbered the restored ids. No view to tear down yet.
+    final int loadingGeneration = BookmarkManager.INSTANCE.getLoadingGeneration();
+    if (mViewModel.isFromEarlierLoad(loadingGeneration))
+      mViewModel.dropState();
+    mViewModel.bindToLoad(loadingGeneration);
 
     shareLauncher = SharingUtils.RegisterLauncher(this);
-  }
-
-  @Override
-  public void onSaveInstanceState(@NonNull Bundle outState)
-  {
-    super.onSaveInstanceState(outState);
-    outState.putLong(EXTRA_SELECTED_ITEM_ID, mSelectedItemId);
-    outState.putInt(EXTRA_SELECTED_ITEM_TYPE, mSelectedItemType);
-    outState.putBoolean(EXTRA_SELECTION_MODE, mSelectionMode);
-    outState.putLongArray(EXTRA_SELECTED_BOOKMARK_IDS, toLongArray(mSelectedBookmarkIds));
-    outState.putLongArray(EXTRA_SELECTED_TRACK_IDS, toLongArray(mSelectedTrackIds));
   }
 
   @NonNull
@@ -240,14 +220,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     for (long id : ids)
       result[i++] = id;
     return result;
-  }
-
-  private static void addAll(@NonNull Set<Long> ids, @Nullable long[] values)
-  {
-    if (values == null)
-      return;
-    for (long value : values)
-      ids.add(value);
   }
 
   @NonNull
@@ -325,12 +297,12 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     getChildFragmentManager().setFragmentResultListener(DELETE_SELECTED_REQUEST_KEY, getViewLifecycleOwner(),
                                                         (key, result) -> onDeleteSelectionConfirmed());
 
-    mBackCallback = new OnBackPressedCallback(mSelectionMode || mSearchMode) {
+    mBackCallback = new OnBackPressedCallback(mViewModel.isSelectionMode() || mSearchMode) {
       @Override
       public void handleOnBackPressed()
       {
         // Both modes take over the toolbar, so back leaves the mode before it leaves the screen.
-        if (mSelectionMode)
+        if (mViewModel.isSelectionMode())
           exitSelectionMode();
         else
           resetSearchAndSort();
@@ -346,9 +318,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
     requireActivity().addMenuProvider(mMenuProvider, getViewLifecycleOwner());
 
-    ActionBar bar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-    if (bar != null)
-      bar.setTitle(mCategoryDataSource.getData().getName());
+    updateToolbarTitle();
 
     ViewGroup toolbar = requireActivity().findViewById(R.id.toolbar);
     mSearchContainer = toolbar.findViewById(R.id.search_container);
@@ -358,7 +328,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     mToolbarController.setHint(R.string.search_in_the_list);
 
     // Restores the contextual toolbar after a configuration change.
-    if (mSelectionMode)
+    if (mViewModel.isSelectionMode())
       updateSelectionUi();
 
     configureRecyclerAnimations();
@@ -392,25 +362,31 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     if (BookmarkManager.INSTANCE.isAsyncBookmarksLoadingInProgress())
       return;
 
-    BookmarkListAdapter adapter = getBookmarkListAdapter();
-    if (mSelectionMode)
+    // A load that finished between onViewCreated() and onStart(), where the listener is registered, or while the
+    // screen was stopped, never reached onBookmarksLoadingFinished(): the view may not even be set up yet, and
+    // the ids the screen holds have been renumbered. Take the same path the callback would have taken.
+    if (!mViewInitialized || mViewModel.isFromEarlierLoad(BookmarkManager.INSTANCE.getLoadingGeneration()))
     {
-      // The list can be changed from the outside (place page, editor, another list screen).
-      adapter.refreshDataSource();
+      onBookmarksLoadingFinished();
+      if (requireActivity().isFinishing())
+        return;
+    }
+
+    // The list can also be changed from the outside without a reload — the place page, the editor, another list
+    // screen — which leaves the ids alone but not the membership.
+    if (!refreshFromCore())
+      return;
+
+    if (mViewModel.isSelectionMode())
+    {
       pruneSelection();
       updateSelectionUi();
     }
 
-    adapter.notifyDataSetChanged();
+    getBookmarkListAdapter().notifyDataSetChanged();
     updateSorting();
     updateSearchVisibility();
     updateRecyclerVisibility();
-  }
-
-  @Override
-  public void onPause()
-  {
-    super.onPause();
   }
 
   @Override
@@ -450,9 +426,13 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     mSelectionActions = view.findViewById(R.id.selection_actions);
     // The freshly inflated bar is invisible, whatever the mode was before a configuration change.
     mSelectionActionsShown = false;
-    view.findViewById(R.id.selection_action_color).setOnClickListener(v -> onChangeSelectionColorSelected());
-    view.findViewById(R.id.selection_action_move).setOnClickListener(v -> onMoveSelectionSelected());
-    view.findViewById(R.id.selection_action_delete).setOnClickListener(v -> onDeleteSelectionSelected());
+    // Kept in fields: their enabled state is refreshed on every row toggle.
+    mSelectionActionColor = view.findViewById(R.id.selection_action_color);
+    mSelectionActionMove = view.findViewById(R.id.selection_action_move);
+    mSelectionActionDelete = view.findViewById(R.id.selection_action_delete);
+    mSelectionActionColor.setOnClickListener(v -> onChangeSelectionColorSelected());
+    mSelectionActionMove.setOnClickListener(v -> onMoveSelectionSelected());
+    mSelectionActionDelete.setOnClickListener(v -> onDeleteSelectionSelected());
   }
 
   /**
@@ -463,17 +443,21 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   {
     // Tracked instead of read back from the view: the bar stays VISIBLE until the slide-out ends, so the view
     // would report the state it is leaving and the pending end action would never be cancelled.
-    if (mSelectionMode != mSelectionActionsShown)
+    if (mViewModel.isSelectionMode() != mSelectionActionsShown)
     {
-      mSelectionActionsShown = mSelectionMode;
+      mSelectionActionsShown = mViewModel.isSelectionMode();
       mSelectionActions.animate().cancel();
-      if (mSelectionMode)
+      // Before the first layout the bar has no height to slide by, which is the case when selection mode is
+      // restored after a configuration change: there it simply belongs on screen from the start.
+      final boolean animate = mSelectionActions.isLaidOut();
+      if (mViewModel.isSelectionMode())
       {
-        mSelectionActions.setTranslationY(getSelectionActionsOffset());
+        mSelectionActions.setTranslationY(animate ? getSelectionActionsOffset() : 0);
         mSelectionActions.setVisibility(View.VISIBLE);
-        mSelectionActions.animate().translationY(0).setDuration(SELECTION_ACTIONS_ANIMATION_MS).start();
+        if (animate)
+          mSelectionActions.animate().translationY(0).setDuration(SELECTION_ACTIONS_ANIMATION_MS).start();
       }
-      else
+      else if (animate)
       {
         mSelectionActions.animate()
             .translationY(getSelectionActionsOffset())
@@ -481,12 +465,16 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
             .withEndAction(() -> mSelectionActions.setVisibility(View.INVISIBLE))
             .start();
       }
+      else
+      {
+        mSelectionActions.setVisibility(View.INVISIBLE);
+      }
     }
 
-    final boolean hasSelection = getSelectedCount() > 0;
-    setActionEnabled(mSelectionActions.findViewById(R.id.selection_action_color), hasSelection);
-    setActionEnabled(mSelectionActions.findViewById(R.id.selection_action_move), hasSelection);
-    setActionEnabled(mSelectionActions.findViewById(R.id.selection_action_delete), hasSelection);
+    final boolean hasSelection = mViewModel.getSelectedCount() > 0;
+    setActionEnabled(mSelectionActionColor, hasSelection);
+    setActionEnabled(mSelectionActionMove, hasSelection);
+    setActionEnabled(mSelectionActionDelete, hasSelection);
   }
 
   /**
@@ -537,8 +525,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
    */
   private void updateContentInsetsListener()
   {
-    ViewCompat.setOnApplyWindowInsetsListener(getRecyclerView(),
-                                              mSelectionMode ? mSelectionInsetsListener : mFabInsetsListener);
+    ViewCompat.setOnApplyWindowInsetsListener(
+        getRecyclerView(), mViewModel.isSelectionMode() ? mSelectionInsetsListener : mFabInsetsListener);
     getRecyclerView().requestApplyInsets();
   }
 
@@ -590,10 +578,10 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
     showPlaceholder(isEmptyRecycler);
 
-    getBookmarkCollectionAdapter().show(!mSelectionMode && !getBookmarkListAdapter().isSearchResults());
+    getBookmarkCollectionAdapter().show(!mViewModel.isSelectionMode() && !getBookmarkListAdapter().isSearchResults());
 
     UiUtils.showIf(!isEmptyRecycler, getRecyclerView());
-    UiUtils.showIf(!isEmptyRecycler && !mSelectionMode, mFabViewOnMap);
+    UiUtils.showIf(!isEmptyRecycler && !mViewModel.isSelectionMode(), mFabViewOnMap);
     // The FAB is a part of the recycler's bottom inset, so toggling it has to recompute the inset.
     getRecyclerView().requestApplyInsets();
 
@@ -778,7 +766,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private void updateBackCallback()
   {
     if (mBackCallback != null)
-      mBackCallback.setEnabled(mSelectionMode || mSearchMode);
+      mBackCallback.setEnabled(mViewModel.isSelectionMode() || mSearchMode);
   }
 
   private void resetSearchAndSort()
@@ -859,7 +847,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
   public void onItemClick(int position)
   {
-    if (mSelectionMode)
+    if (mViewModel.isSelectionMode())
     {
       toggleSelection(position);
       return;
@@ -910,36 +898,43 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     final Object item = adapter.getItem(position);
     if (item == null)
       return;
-    mSelectedItemType = adapter.getItemViewType(position);
+    final int itemType = adapter.getItemViewType(position);
 
-    if (mSelectedItemType == BookmarkListAdapter.TYPE_TRACK)
+    if (itemType == BookmarkListAdapter.TYPE_TRACK)
     {
       final Track track = (Track) item;
-      mSelectedItemId = track.getTrackId();
+      mViewModel.focusItem(track.getTrackId(), itemType);
       ColorPickerFragment.show(getChildFragmentManager(), track.getColor());
     }
-    else if (mSelectedItemType == BookmarkListAdapter.TYPE_BOOKMARK)
+    else if (itemType == BookmarkListAdapter.TYPE_BOOKMARK)
     {
       final BookmarkInfo bookmark = (BookmarkInfo) item;
-      mSelectedItemId = bookmark.getBookmarkId();
+      mViewModel.focusItem(bookmark.getBookmarkId(), itemType);
       ColorPickerFragment.show(getChildFragmentManager(), bookmark.getIcon().argb());
+    }
+    else
+    {
+      // A stale position can name a row that has neither, and the previous target must not outlive the tap.
+      mViewModel.clearFocusedItem();
     }
   }
 
   @Override
   public void onColorSet(@ColorInt int color)
   {
-    if (mSelectionMode)
+    if (mViewModel.isSelectionMode())
     {
       applyColorToSelection(color);
+      // The picker was opened for the whole selection, but a row tapped before it can still be focused.
+      mViewModel.clearFocusedItem();
       return;
     }
 
-    if (mSelectedItemId == -1)
+    if (!mViewModel.hasFocusedItem())
       return;
 
     final BookmarkListAdapter adapter = getBookmarkListAdapter();
-    final int position = adapter.getPositionById(mSelectedItemId, mSelectedItemType);
+    final int position = adapter.getPositionById(mViewModel.getFocusedItemId(), mViewModel.getFocusedItemType());
     if (position != -1)
     {
       final Object item = adapter.getItem(position);
@@ -962,8 +957,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
       }
     }
 
-    mSelectedItemId = -1;
-    mSelectedItemType = -1;
+    mViewModel.clearFocusedItem();
   }
 
   /**
@@ -994,25 +988,26 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     final Object item = adapter.getItem(position);
     if (item == null)
       return;
-    mSelectedItemType = adapter.getItemViewType(position);
+    final int itemType = adapter.getItemViewType(position);
 
-    switch (mSelectedItemType)
+    switch (itemType)
     {
     case BookmarkListAdapter.TYPE_SECTION:
     case BookmarkListAdapter.TYPE_DESC:
-      // Do nothing here?
+      // No menu to show, but a stale position lands here, and the previous target must not outlive the tap.
+      mViewModel.clearFocusedItem();
       break;
 
     case BookmarkListAdapter.TYPE_BOOKMARK:
       final BookmarkInfo bookmark = (BookmarkInfo) item;
-      mSelectedItemId = bookmark.getBookmarkId();
+      mViewModel.focusItem(bookmark.getBookmarkId(), itemType);
       MenuBottomSheetFragment.newInstance(BOOKMARKS_MENU_ID, bookmark.getName())
           .show(getChildFragmentManager(), BOOKMARKS_MENU_ID);
       break;
 
     case BookmarkListAdapter.TYPE_TRACK:
       final Track track = (Track) item;
-      mSelectedItemId = track.getTrackId();
+      mViewModel.focusItem(track.getTrackId(), itemType);
       MenuBottomSheetFragment.newInstance(TRACK_MENU_ID, track.getName())
           .show(getChildFragmentManager(), TRACK_MENU_ID);
       break;
@@ -1021,9 +1016,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
   private int getSelectedTrackPosition()
   {
-    if (mSelectedItemId == -1 || mSelectedItemType != BookmarkListAdapter.TYPE_TRACK)
+    if (!mViewModel.hasFocusedItem() || mViewModel.getFocusedItemType() != BookmarkListAdapter.TYPE_TRACK)
       return -1;
-    return getBookmarkListAdapter().getPositionById(mSelectedItemId, BookmarkListAdapter.TYPE_TRACK);
+    return getBookmarkListAdapter().getPositionById(mViewModel.getFocusedItemId(), BookmarkListAdapter.TYPE_TRACK);
   }
 
   private void onDeleteTrackSelected()
@@ -1040,7 +1035,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   {
     if (getSelectedTrackPosition() == -1)
       return;
-    final long trackId = mSelectedItemId;
+    final long trackId = mViewModel.getFocusedItemId();
     deleteBookmarkListItem(trackId, BookmarkListAdapter.TYPE_TRACK,
                            () -> BookmarkManager.INSTANCE.deleteTrack(trackId));
   }
@@ -1061,9 +1056,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
   private void onShareActionSelected()
   {
-    if (mSelectedItemId == -1)
+    if (!mViewModel.hasFocusedItem())
       return;
-    final BookmarkInfo info = BookmarkManager.INSTANCE.getBookmarkInfo(mSelectedItemId);
+    final BookmarkInfo info = BookmarkManager.INSTANCE.getBookmarkInfo(mViewModel.getFocusedItemId());
     if (info == null)
       return;
     SharingUtils.shareBookmark(requireContext(), info);
@@ -1071,9 +1066,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
   private void onEditActionSelected()
   {
-    if (mSelectedItemId == -1)
+    if (!mViewModel.hasFocusedItem())
       return;
-    final BookmarkInfo info = BookmarkManager.INSTANCE.getBookmarkInfo(mSelectedItemId);
+    final BookmarkInfo info = BookmarkManager.INSTANCE.getBookmarkInfo(mViewModel.getFocusedItemId());
     if (info == null)
       return;
     EditBookmarkFragment.editBookmark(info.getCategoryId(), info.getBookmarkId(), getChildFragmentManager());
@@ -1081,17 +1076,17 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
   private void onTrackEditActionSelected()
   {
-    if (mSelectedItemId == -1)
+    if (!mViewModel.hasFocusedItem() || !BookmarkManager.INSTANCE.hasTrack(mViewModel.getFocusedItemId()))
       return;
-    final Track track = BookmarkManager.INSTANCE.getTrack(mSelectedItemId);
+    final Track track = BookmarkManager.INSTANCE.getTrack(mViewModel.getFocusedItemId());
     EditBookmarkFragment.editTrack(track.getCategoryId(), track.getTrackId(), getChildFragmentManager());
   }
 
   private void onDeleteActionSelected()
   {
-    if (mSelectedItemId == -1)
+    if (!mViewModel.hasFocusedItem())
       return;
-    final long bookmarkId = mSelectedItemId;
+    final long bookmarkId = mViewModel.getFocusedItemId();
     deleteBookmarkListItem(bookmarkId, BookmarkListAdapter.TYPE_BOOKMARK,
                            () -> BookmarkManager.INSTANCE.deleteBookmark(bookmarkId));
   }
@@ -1105,8 +1100,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     adapter.notifyDataSetChanged();
     if (mSearchMode)
       mNeedUpdateSorting = true;
-    mSelectedItemId = -1;
-    mSelectedItemType = -1;
+    mViewModel.clearFocusedItem();
     updateSearchVisibility();
     updateRecyclerVisibility();
   }
@@ -1139,7 +1133,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   @Override
   public boolean isSelectionMode()
   {
-    return mSelectionMode;
+    return mViewModel.isSelectionMode();
   }
 
   @Override
@@ -1147,24 +1141,17 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   {
     // Bookmark and track ids are numbered independently.
     if (itemType == BookmarkListAdapter.TYPE_BOOKMARK)
-      return mSelectedBookmarkIds.contains(itemId);
+      return mViewModel.getBookmarkIds().contains(itemId);
     if (itemType == BookmarkListAdapter.TYPE_TRACK)
-      return mSelectedTrackIds.contains(itemId);
+      return mViewModel.getTrackIds().contains(itemId);
     return false;
-  }
-
-  private int getSelectedCount()
-  {
-    return mSelectedBookmarkIds.size() + mSelectedTrackIds.size();
   }
 
   private void setSelectionMode(boolean enabled)
   {
-    if (mSelectionMode == enabled)
+    if (!mViewModel.setMode(enabled))
       return;
-    mSelectionMode = enabled;
-    mSelectedBookmarkIds.clear();
-    mSelectedTrackIds.clear();
+
     getBookmarkListAdapter().notifyDataSetChanged();
     updateSelectionUi();
     updateRecyclerVisibility();
@@ -1184,17 +1171,16 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   {
     // Counted per section by the adapter, because search and sorting show a subset of the category.
     final int selectableCount = getBookmarkListAdapter().getSelectableCount();
-    return selectableCount > 0 && getSelectedCount() == selectableCount;
+    return selectableCount > 0 && mViewModel.getSelectedCount() == selectableCount;
   }
 
   private void setAllSelected(boolean selected)
   {
-    mSelectedBookmarkIds.clear();
-    mSelectedTrackIds.clear();
+    mViewModel.clearSelection();
 
     final BookmarkListAdapter adapter = getBookmarkListAdapter();
     if (selected)
-      adapter.collectSelectableIds(mSelectedBookmarkIds, mSelectedTrackIds);
+      adapter.collectSelectableIds(mViewModel.getBookmarkIds(), mViewModel.getTrackIds());
 
     adapter.notifyDataSetChanged();
     updateSelectionCountUi();
@@ -1210,8 +1196,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     if (itemId == -1)
       return;
 
-    final Set<Long> ids = adapter.getItemViewType(position) == BookmarkListAdapter.TYPE_BOOKMARK ? mSelectedBookmarkIds
-                                                                                                 : mSelectedTrackIds;
+    final Set<Long> ids = adapter.getItemViewType(position) == BookmarkListAdapter.TYPE_BOOKMARK
+                            ? mViewModel.getBookmarkIds()
+                            : mViewModel.getTrackIds();
     if (!ids.remove(itemId))
       ids.add(itemId);
 
@@ -1225,10 +1212,10 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private void pruneSelection()
   {
     final BookmarkCategory category = mCategoryDataSource.getData();
-    if (!mSelectedBookmarkIds.isEmpty())
-      retainAll(mSelectedBookmarkIds, category.getBookmarkIds());
-    if (!mSelectedTrackIds.isEmpty())
-      retainAll(mSelectedTrackIds, category.getTrackIds());
+    if (!mViewModel.getBookmarkIds().isEmpty())
+      retainAll(mViewModel.getBookmarkIds(), category.getBookmarkIds());
+    if (!mViewModel.getTrackIds().isEmpty())
+      retainAll(mViewModel.getTrackIds(), category.getTrackIds());
   }
 
   private static void retainAll(@NonNull Set<Long> ids, @NonNull long[] existing)
@@ -1245,7 +1232,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
     // Only the icon and its description are replaced: the navigation click listener belongs to
     // setSupportActionBar, and both it and the system back button end up in the OnBackPressedDispatcher.
-    if (mSelectionMode)
+    if (mViewModel.isSelectionMode())
     {
       toolbar.setNavigationIcon(R.drawable.ic_close_themed);
       toolbar.setNavigationContentDescription(R.string.cancel);
@@ -1257,7 +1244,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     }
 
     updateBackCallback();
-    // Insets first: the slide offset is derived from the bar's bottom margin, which the inset pass sets.
+    // Hands the recycler's bottom inset to whichever bar is about to float above it.
     updateContentInsetsListener();
     updateSelectionCountUi();
   }
@@ -1272,9 +1259,10 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     final ActionBar bar = ((AppCompatActivity) activity).getSupportActionBar();
     if (bar != null)
     {
-      final int count = getSelectedCount();
-      bar.setTitle(mSelectionMode ? getResources().getQuantityString(R.plurals.n_items_selected, count, count)
-                                  : mCategoryDataSource.getData().getName());
+      final int count = mViewModel.getSelectedCount();
+      bar.setTitle(mViewModel.isSelectionMode()
+                       ? getResources().getQuantityString(R.plurals.n_items_selected, count, count)
+                       : mCategoryDataSource.getData().getName());
     }
 
     updateSelectionActions();
@@ -1291,7 +1279,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
   private void onDeleteSelectionSelected()
   {
-    final int count = getSelectedCount();
+    final int count = mViewModel.getSelectedCount();
     if (count == 0)
       return;
     final String title = getResources().getQuantityString(R.plurals.delete_n_items_dialog_title, count, count);
@@ -1300,19 +1288,19 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
   private void onDeleteSelectionConfirmed()
   {
-    if (!mSelectionMode || getSelectedCount() == 0)
+    if (!mViewModel.isSelectionMode() || mViewModel.getSelectedCount() == 0)
       return;
 
-    final long[] bookmarkIds = toLongArray(mSelectedBookmarkIds);
-    final long[] trackIds = toLongArray(mSelectedTrackIds);
+    final long[] bookmarkIds = toLongArray(mViewModel.getBookmarkIds());
+    final long[] trackIds = toLongArray(mViewModel.getTrackIds());
     forgetSelectedItems();
     BookmarkManager.INSTANCE.deleteBookmarksAndTracks(bookmarkIds, trackIds);
-    finishBatchOperation();
+    finishMembershipChange();
   }
 
   private void onMoveSelectionSelected()
   {
-    if (getSelectedCount() == 0)
+    if (mViewModel.getSelectedCount() == 0)
       return;
 
     final Bundle args = new Bundle();
@@ -1326,26 +1314,24 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   @Override
   public void onCategoryChanged(@NonNull BookmarkCategory newCategory)
   {
-    if (!mSelectionMode || getSelectedCount() == 0)
+    if (!mViewModel.isSelectionMode() || mViewModel.getSelectedCount() == 0)
       return;
 
-    // The chooser preselects the current list and can hand it back.
+    // The chooser preselects the current list and can hand it back. That is a no-op, not a reason to throw away
+    // a selection the user built up by hand.
     if (newCategory.getId() == mCategoryDataSource.getData().getId())
-    {
-      exitSelectionMode();
       return;
-    }
 
-    final long[] bookmarkIds = toLongArray(mSelectedBookmarkIds);
-    final long[] trackIds = toLongArray(mSelectedTrackIds);
+    final long[] bookmarkIds = toLongArray(mViewModel.getBookmarkIds());
+    final long[] trackIds = toLongArray(mViewModel.getTrackIds());
     forgetSelectedItems();
     BookmarkManager.INSTANCE.moveBookmarksAndTracks(bookmarkIds, trackIds, newCategory.getId());
-    finishBatchOperation();
+    finishMembershipChange();
   }
 
   private void onChangeSelectionColorSelected()
   {
-    if (getSelectedCount() == 0)
+    if (mViewModel.getSelectedCount() == 0)
       return;
     ColorPickerFragment.show(getChildFragmentManager(), getInitialSelectionColor());
   }
@@ -1353,13 +1339,13 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   @ColorInt
   private int getInitialSelectionColor()
   {
-    for (long bookmarkId : mSelectedBookmarkIds)
+    for (long bookmarkId : mViewModel.getBookmarkIds())
     {
       final BookmarkInfo bookmark = BookmarkManager.INSTANCE.getBookmarkInfo(bookmarkId);
       if (bookmark != null)
         return bookmark.getIcon().argb();
     }
-    for (long trackId : mSelectedTrackIds)
+    for (long trackId : mViewModel.getTrackIds())
     {
       if (BookmarkManager.INSTANCE.hasTrack(trackId))
         return BookmarkManager.INSTANCE.getTrack(trackId).getColor();
@@ -1369,32 +1355,40 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
   private void applyColorToSelection(@ColorInt int color)
   {
-    if (!mSelectionMode || getSelectedCount() == 0)
+    if (!mViewModel.isSelectionMode() || mViewModel.getSelectedCount() == 0)
       return;
 
-    BookmarkManager.INSTANCE.changeBookmarksAndTracksColor(toLongArray(mSelectedBookmarkIds),
-                                                           toLongArray(mSelectedTrackIds), color);
-    finishBatchOperation();
+    BookmarkManager.INSTANCE.changeBookmarksAndTracksColor(toLongArray(mViewModel.getBookmarkIds()),
+                                                           toLongArray(mViewModel.getTrackIds()), color);
+    // No id and no count changed, so no refresh from the core - but every batch action ends the same way.
+    exitSelectionMode();
   }
 
   /**
    * Prunes the adapter's cached search and sorted snapshots, which {@code refreshDataSource()} does not touch.
-   * Must run before the items are deleted or moved in the core.
+   * Must run while the selection is still populated, i.e. before selection mode is left.
    */
   private void forgetSelectedItems()
   {
-    getBookmarkListAdapter().removeDeletedItems(mSelectedBookmarkIds, mSelectedTrackIds);
+    getBookmarkListAdapter().removeDeletedItems(mViewModel.getBookmarkIds(), mViewModel.getTrackIds());
   }
 
   /**
-   * The common tail of every batch action: selection mode is always left, so the user sees the result.
+   * The tail of a batch that changed which items this category holds.
    */
-  private void finishBatchOperation()
+  private void finishMembershipChange()
   {
-    // BookmarkCategory caches the item counts in Java while the ids are read from the core, and after a delete
-    // or a move a stale count makes BookmarkListAdapter.getItem() throw.
-    getBookmarkListAdapter().refreshDataSource();
-    // Also refreshes the list and restores the regular toolbar, the FAB and the child lists section.
+    // Moving items into a child list changes the count on its card, so the child adapter is refreshed too.
+    if (!refreshFromCore())
+      return;
+
+    // The batch pruned the sorted snapshot by id, but the core is free to have skipped items — a destination
+    // list deleted meanwhile, say — so only a new sort can say what this list holds now. A sort in flight is
+    // stale for the opposite reason: its results are filtered against the core, and that drops deleted items
+    // but not ones moved to another list, which would come back here.
+    resortIfSorted();
+
+    // Refreshes the list and restores the regular toolbar, the FAB and the child lists section.
     exitSelectionMode();
   }
 
@@ -1447,14 +1441,20 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
   private void handleActivityResult()
   {
-    getBookmarkListAdapter().notifyDataSetChanged();
-    if (mSelectionMode)
-    {
-      updateSelectionUi();
+    // A result is delivered as soon as the fragment is started, which can be before a load finishes and the
+    // adapters exist. onResume() rebuilds everything right after, so there is nothing to refresh here yet.
+    if (!mViewInitialized)
       return;
-    }
-    ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-    actionBar.setTitle(mCategoryDataSource.getData().getName());
+
+    // The screen that just closed can have renamed this list, moved items in or out of it, or renamed a child.
+    if (!refreshFromCore())
+      return;
+
+    resortIfSorted();
+    getBookmarkListAdapter().notifyDataSetChanged();
+    // In selection mode the toolbar shows the count instead of the name, which refreshFromCore() has restored.
+    if (mViewModel.isSelectionMode())
+      updateSelectionCountUi();
   }
 
   @Override
@@ -1464,24 +1464,109 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     if (view == null)
       return;
 
+    // Only records the load; the branches below drop what it invalidated, through paths that redraw with it.
+    mViewModel.bindToLoad(BookmarkManager.INSTANCE.getLoadingGeneration());
+
+    // A load rebuilds every category from its file, so the one this screen was opened with can be gone. Nothing
+    // below may run then, adapter creation included: every lookup, down to the ids the list is laid out from,
+    // goes to the core by category id and aborts there for a group it no longer has.
+    if (!hasCategory(mCategoryDataSource.getData().getId()))
+    {
+      requireActivity().finish();
+      return;
+    }
+
     // A load can also finish while the screen is already up — an import from another app, say. Re-running the
-    // setup would double the menu provider, the decorations and the search controller, so only the data is
-    // refreshed: the load can have replaced this very category, when the imported file kept its name.
+    // setup would double the menu provider, the decorations and the search controller, so only the state that
+    // comes from the core is rebuilt. The loading placeholder was never shown in that case.
     if (mViewInitialized)
     {
-      final BookmarkListAdapter adapter = getBookmarkListAdapter();
-      adapter.refreshDataSource();
-      adapter.notifyDataSetChanged();
+      reloadFromCore();
+      return;
     }
-    else
-    {
-      super.onViewCreated(view, mSavedInstanceState);
-      onViewCreatedInternal(view);
-    }
+
+    // The parcelled category and everything restored in onCreate() predate the load. No view built from it yet.
+    mViewModel.dropState();
+    mCategoryDataSource.invalidate();
+    super.onViewCreated(view, mSavedInstanceState);
+    onViewCreatedInternal(view);
     // Must run before updateRecyclerVisibility(): it shows the FAB unconditionally, which would undo the
     // decision to hide it in selection mode or on an empty list.
     updateLoadingPlaceholder(view, false);
     updateRecyclerVisibility();
+  }
+
+  /**
+   * Brings the screen back in line with the core after a load replaced the bookmark files behind its back. Every
+   * id the screen is holding on to — the selection, the search results, the sorted snapshot, a sort still in
+   * flight — was handed out by the previous contents of the file, so all of it is dropped rather than reconciled:
+   * a category reloaded from disk renumbers its bookmarks and tracks.
+   * <p>
+   * The caller has already established that the category is still there.
+   */
+  private void reloadFromCore()
+  {
+    if (!refreshFromCore())
+      return;
+
+    mViewModel.clearFocusedItem();
+    exitSelectionMode();
+    // Drops the search and sorted snapshots along with any sort in flight, then re-sorts the new ids.
+    resetSearchAndSort();
+  }
+
+  /**
+   * Re-reads everything the screen caches from the core: the category itself, the item ids the list is laid out
+   * from, the child lists and the name. Every path that has to assume the core moved on goes through here.
+   *
+   * @return false when the category is gone and the screen is closing. No further lookup by its id is allowed
+   *     then — see {@link #onBookmarksLoadingFinished()}.
+   */
+  private boolean refreshFromCore()
+  {
+    final long categoryId = mCategoryDataSource.getData().getId();
+    if (!hasCategory(categoryId))
+    {
+      requireActivity().finish();
+      return false;
+    }
+
+    getBookmarkListAdapter().refreshDataSource();
+    getBookmarkCollectionAdapter().setCategories(BookmarkManager.INSTANCE.getChildrenCategories(categoryId));
+    updateToolbarTitle();
+    return true;
+  }
+
+  /**
+   * A sorted snapshot lists the items the category held when the sort was requested, so anything added or taken
+   * away since then is missing from it — or still in it. Only a new sort can tell.
+   */
+  private void resortIfSorted()
+  {
+    if (!getBookmarkListAdapter().isSortedResults())
+      return;
+
+    forceUpdateSorting();
+    // Sorting by distance needs a location that can be gone by now, and no other sort would be started then.
+    // Drop the snapshot rather than keep one that no longer matches the category.
+    if (mLastSortTimestamp == 0)
+      getBookmarkListAdapter().setSortedResults(null);
+  }
+
+  private static boolean hasCategory(long categoryId)
+  {
+    // Reads the cached list rather than asking the core by id, which would abort on a category that is gone.
+    for (BookmarkCategory category : BookmarkManager.INSTANCE.getCategories())
+      if (category.getId() == categoryId)
+        return true;
+    return false;
+  }
+
+  private void updateToolbarTitle()
+  {
+    final ActionBar bar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+    if (bar != null)
+      bar.setTitle(mCategoryDataSource.getData().getName());
   }
 
   private void updateLoadingPlaceholder(@NonNull View root, boolean isShowLoadingPlaceholder)
@@ -1499,9 +1584,11 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
       return getBookmarkMenuItems();
     if (id.equals(TRACK_MENU_ID))
     {
-      if (mSelectedItemId == -1)
+      // The sheet restores itself with the focused id, which the core may have dropped since - getTrack() only
+      // asserts on that, so in Release it would hand back null.
+      if (!mViewModel.hasFocusedItem() || !BookmarkManager.INSTANCE.hasTrack(mViewModel.getFocusedItemId()))
         return null;
-      final Track track = BookmarkManager.INSTANCE.getTrack(mSelectedItemId);
+      final Track track = BookmarkManager.INSTANCE.getTrack(mViewModel.getFocusedItemId());
       return getTrackMenuItems(track);
     }
     if (id.equals(OPTIONS_MENU_ID))

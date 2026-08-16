@@ -33,6 +33,10 @@
         <item name="iconTint">?android:textColorPrimary</item>
         <item name="actionButtonStyle">@style/AppTheme.Widget.ActionButton</item>
         <item name="actionMenuTextAppearance">@style/MwmTextAppearance.Body1</item>
+        <!-- The shared search controls are drawn on this surface, not on the branded bar, so their white
+             defaults would be invisible. The back arrow inside them stays hidden here, see showBackButton(). -->
+        <item name="searchToolbarTextAppearance">@style/MwmTextAppearance.Toolbar.SearchSheet</item>
+        <item name="searchToolbarEndIconTint">?android:textColorSecondary</item>
     </style>
 
     <style name="BookmarkSelectionAction" parent="Widget.MaterialComponents.Button.TextButton">

@@ -40,6 +40,8 @@ public enum BookmarkManager {
 
   private final BookmarkCategoriesCache mBookmarkCategoriesCache = new BookmarkCategoriesCache();
 
+  private int mLoadingGeneration;
+
   @NonNull
   private final List<BookmarksLoadingListener> mListeners = new ArrayList<>();
 
@@ -126,10 +128,23 @@ public enum BookmarkManager {
   @MainThread
   private void onBookmarksLoadingFinished()
   {
+    ++mLoadingGeneration;
     updateCache();
     mCurrentDataProvider = new CacheBookmarkCategoriesDataProvider();
     for (BookmarksLoadingListener listener : mListeners)
       listener.onBookmarksLoadingFinished();
+  }
+
+  /**
+   * Counts the loads of the bookmark files that have completed. A load rebuilds every category from its file and
+   * hands out fresh ids, so a screen holding ids has to notice one even when it happened while the screen was
+   * not registered as a listener - between {@code onViewCreated()} and {@code onStart()}, or while stopped.
+   * Comparing a snapshot of this against the current value is the only way: the callback above reaches
+   * registered listeners only.
+   */
+  public int getLoadingGeneration()
+  {
+    return mLoadingGeneration;
   }
 
   // Called from JNI.
