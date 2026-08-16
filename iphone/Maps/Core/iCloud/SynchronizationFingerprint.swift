@@ -9,6 +9,14 @@ struct Fingerprint: Hashable, Codable, CustomStringConvertible {
     digest = Data(SHA256.hash(data: data))
   }
 
+  /// The content of the file, or nil when it cannot be read. The caller must hold the coordinated access to the
+  /// file: iCloud replaces the files it brings, and the digest of a file caught half-written would look like a
+  /// change nobody made.
+  init?(contentsOf fileUrl: URL) {
+    guard let data = try? Data(contentsOf: fileUrl, options: .mappedIfSafe) else { return nil }
+    self.init(hashing: data)
+  }
+
   var description: String { digest.prefix(4).map { String(format: "%02x", $0) }.joined() }
 }
 
@@ -85,17 +93,15 @@ final class FileContentFingerprintProvider: FingerprintProvider {
     }
   }
 
-  /// The read is coordinated: iCloud replaces the files it brings, and the digest of a file caught half-written
-  /// would look like a change nobody made and produce a conflict copy of nothing.
+  /// The read is coordinated: a file being replaced by iCloud is read whole or not at all.
   private func read(_ fileUrl: URL) -> Fingerprint? {
     var fingerprint: Fingerprint?
     var coordinationError: NSError?
     fileCoordinator.coordinate(readingItemAt: fileUrl, error: &coordinationError) { url in
-      guard let data = try? Data(contentsOf: url, options: .mappedIfSafe) else {
+      fingerprint = Fingerprint(contentsOf: url)
+      if fingerprint == nil {
         LOG(.warning, "Failed to read \(url.lastPathComponent) to compute its fingerprint")
-        return
       }
-      fingerprint = Fingerprint(hashing: data)
     }
     if let coordinationError {
       LOG(.warning, "Failed to read \(fileUrl.lastPathComponent): \(coordinationError.localizedDescription)")

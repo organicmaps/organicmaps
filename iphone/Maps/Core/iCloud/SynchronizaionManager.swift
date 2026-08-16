@@ -9,7 +9,8 @@ enum WritingResult {
   /// Deletions are only requested by the writer: they are irreversible and are authorized against the latest
   /// observations, on the queue where the synchronization state lives.
   case deleteCategory(atURL: URL)
-  case trashCloudItem(atURL: URL)
+  /// The content the file is expected to hold is verified once more, right before it is trashed for good.
+  case trashCloudItem(atURL: URL, expecting: Fingerprint)
   case failure(Error)
 }
 
@@ -338,14 +339,14 @@ private extension iCloudSynchronizaionManager {
           stateResolver.resolveEvent(.didFailWriting(event))
           return
         }
-      case .trashCloudItem(let url):
+      case .trashCloudItem(let url, let expectedContent):
         guard authorizesDeletion(event) else { return }
         guard let fileWriter else {
           stateResolver.resolveEvent(.didFailWriting(event))
           return
         }
-        // The trashing itself reports the result: this handler is called again with .success or .failure.
-        fileWriter.trashCloudItem(at: url, completion: writingResultHandler(for: event))
+        // The trashing itself reports the result: this handler is called again with its own outcome.
+        fileWriter.trashCloudItem(at: url, expecting: expectedContent, completion: writingResultHandler(for: event))
         return
       case .failure(let error):
         stateResolver.resolveEvent(.didFailWriting(event))

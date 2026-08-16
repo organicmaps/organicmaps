@@ -65,27 +65,30 @@ final class SynchronizationStateResolverTests: XCTestCase {
     synchronize("file.kml", content: "A")
 
     let changedLocalItem = local("file.kml", "B", modified: 2)
-    XCTAssertEqual(update(local: [changedLocalItem]), [.updateCloudItem(with: changedLocalItem)])
+    XCTAssertEqual(update(local: [changedLocalItem]),
+                   [.updateCloudItem(with: changedLocalItem, replacing: fingerprint("A"))])
   }
 
   func testChangedCloudFileIsDownloaded() {
     synchronize("file.kml", content: "A")
 
     let changedCloudItem = cloud("file.kml", "B", modified: 2)
-    XCTAssertEqual(update(cloud: [changedCloudItem]), [.updateLocalItem(with: changedCloudItem, preserving: nil)])
+    XCTAssertEqual(update(cloud: [changedCloudItem]),
+                   [.updateLocalItem(with: changedCloudItem, replacing: fingerprint("A"), preservingLocal: false)])
   }
 
   func testFileChangedOnBothSidesKeepsBothVersions() {
     synchronize("file.kml", content: "A")
 
     let changedLocalItem = local("file.kml", "B", modified: 2)
-    XCTAssertEqual(update(local: [changedLocalItem]), [.updateCloudItem(with: changedLocalItem)])
+    XCTAssertEqual(update(local: [changedLocalItem]),
+                   [.updateCloudItem(with: changedLocalItem, replacing: fingerprint("A"))])
 
     // The file was changed on another device before the local change was uploaded. The local version is preserved
     // by the same operation that overwrites it, so a failure to keep it cannot be followed by its destruction.
     let changedCloudItem = cloud("file.kml", "C", modified: 3)
     XCTAssertEqual(update(cloud: [changedCloudItem]),
-                   [.updateLocalItem(with: changedCloudItem, preserving: changedLocalItem)])
+                   [.updateLocalItem(with: changedCloudItem, replacing: fingerprint("B"), preservingLocal: true)])
   }
 
   func testDownloadIsRequestedAgainWhenICloudDoesNotAct() {
