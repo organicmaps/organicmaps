@@ -12,22 +12,25 @@
 
 @implementation MWMCarPlayBookmarkObject
 
-- (instancetype)initWithBookmarkId:(MWMMarkID)bookmarkId
+- (nullable instancetype)initWithBookmarkId:(MWMMarkID)bookmarkId
 {
   self = [super init];
-  if (self)
-  {
-    self.bookmarkId = bookmarkId;
-    auto const & bm = GetFramework().GetBookmarkManager();
-    Bookmark const * bookmark = bm.GetBookmark(bookmarkId);
-    self.prefferedName = @(bookmark->GetPreferredName().c_str());
-    auto const pivot = bookmark->GetPivot();
-    self.mercatorPoint = CGPointMake(pivot.x, pivot.y);
-    auto const & address = GetFramework().GetAddressAtPoint(pivot);
-    self.address = @(address.FormatAddress().c_str());
-    auto const location = mercator::ToLatLon(pivot);
-    self.coordinate = CLLocationCoordinate2DMake(location.m_lat, location.m_lon);
-  }
+  if (!self)
+    return nil;
+
+  // The id may outlive the bookmark, for example when a CarPlay list still shows a bookmark deleted meanwhile.
+  Bookmark const * bookmark = GetFramework().GetBookmarkManager().GetBookmark(bookmarkId);
+  if (!bookmark)
+    return nil;
+
+  self.bookmarkId = bookmarkId;
+  self.prefferedName = @(bookmark->GetPreferredName().c_str());
+  auto const pivot = bookmark->GetPivot();
+  self.mercatorPoint = CGPointMake(pivot.x, pivot.y);
+  auto const & address = GetFramework().GetAddressAtPoint(pivot);
+  self.address = @(address.FormatAddress().c_str());
+  auto const location = mercator::ToLatLon(pivot);
+  self.coordinate = CLLocationCoordinate2DMake(location.m_lat, location.m_lon);
   return self;
 }
 @end

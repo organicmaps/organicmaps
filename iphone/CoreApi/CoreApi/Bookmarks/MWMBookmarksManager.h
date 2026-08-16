@@ -107,6 +107,7 @@ NS_SWIFT_NAME(BookmarksManager)
 - (MWMBookmarksSortingType)lastSortingType:(MWMMarkGroupID)groupId;
 - (void)resetLastSortingType:(MWMMarkGroupID)groupId;
 
+/// @return an empty array when the category is not loaded.
 - (NSArray<MWMCarPlayBookmarkObject *> *)bookmarksForCategory:(MWMMarkGroupID)categoryId;
 - (MWMMarkIDCollection)bookmarkIdsForCategory:(MWMMarkGroupID)categoryId;
 - (void)deleteBookmark:(MWMMarkID)bookmarkId;
