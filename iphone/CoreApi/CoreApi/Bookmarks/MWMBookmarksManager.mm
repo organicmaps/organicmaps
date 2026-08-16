@@ -567,13 +567,22 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
 
 #pragma mark - Bookmarks
 
-- (NSArray<MWMCarPlayBookmarkObject *> *)bookmarksForCategory:(MWMMarkGroupID)categoryId
+- (NSArray<MWMCarPlayBookmarkObject *> *)bookmarksForCategory:(MWMMarkGroupID)categoryId limit:(NSInteger)limit
 {
+  CHECK_GREATER_OR_EQUAL(limit, 0, ());
+  // A CarPlay list may outlive the category it was built for.
+  if (!self.bm.HasBmCategory(categoryId))
+    return @[];
+
   NSMutableArray<MWMCarPlayBookmarkObject *> * result = [NSMutableArray array];
   auto const & bookmarkIds = self.bm.GetUserMarkIds(categoryId);
   for (auto bookmarkId : bookmarkIds)
   {
+    // Address lookup is expensive; rows CarPlay cannot display need no snapshot.
+    if (result.count == static_cast<NSUInteger>(limit))
+      break;
     MWMCarPlayBookmarkObject * bookmark = [[MWMCarPlayBookmarkObject alloc] initWithBookmarkId:bookmarkId];
+    CHECK(bookmark, ("A loaded category contains a missing bookmark", categoryId, bookmarkId));
     [result addObject:bookmark];
   }
   return [result copy];
