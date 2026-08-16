@@ -3,11 +3,13 @@ enum WritingResult {
   /// Nothing was written because what the operation assumed is not true anymore. It is not a failure and not a
   /// success either: the file is reconciled again from what is observed next.
   case skipped(String)
+  /// The written files have to be loaded by the app. There are two of them when the local version was preserved
+  /// under a new name before it was replaced.
   case reloadCategoriesAtURLs([URL])
   /// Deletions are only requested by the writer: they are irreversible and are authorized against the latest
   /// observations, on the queue where the synchronization state lives.
-  case deleteCategoriesAtURLs([URL])
-  case trashCloudItemsAtURLs([URL])
+  case deleteCategory(atURL: URL)
+  case trashCloudItem(atURL: URL)
   case failure(Error)
 }
 
@@ -326,25 +328,24 @@ private extension iCloudSynchronizaionManager {
         return
       case .reloadCategoriesAtURLs(let urls):
         urls.forEach { self.bookmarksManager.reloadCategory(atFilePath: $0.path) }
-      case .deleteCategoriesAtURLs(let urls):
+      case .deleteCategory(let url):
         guard authorizesDeletion(event) else { return }
         // A category that is not loaded, or whose file could not be moved to the trash, is not deleted. Reporting
         // that as a failure keeps the content that was last synchronized, so the file is confirmed and deleted
         // again instead of being uploaded back as a new one.
-        let results = urls.map { self.bookmarksManager.deleteCategory(atFilePath: $0.path) }
-        guard results.allSatisfy({ $0 }) else {
+        guard bookmarksManager.deleteCategory(atFilePath: url.path) else {
           LOG(.warning, "Failed to delete the category: \(event)")
           stateResolver.resolveEvent(.didFailWriting(event))
           return
         }
-      case .trashCloudItemsAtURLs(let urls):
+      case .trashCloudItem(let url):
         guard authorizesDeletion(event) else { return }
         guard let fileWriter else {
           stateResolver.resolveEvent(.didFailWriting(event))
           return
         }
         // The trashing itself reports the result: this handler is called again with .success or .failure.
-        fileWriter.trashCloudItems(at: urls, completion: writingResultHandler(for: event))
+        fileWriter.trashCloudItem(at: url, completion: writingResultHandler(for: event))
         return
       case .failure(let error):
         stateResolver.resolveEvent(.didFailWriting(event))

@@ -139,7 +139,7 @@ final class SynchronizationFileWriter {
       completion(.success)
       return
     }
-    completion(.deleteCategoriesAtURLs([targetLocalFileUrl]))
+    completion(.deleteCategory(atURL: targetLocalFileUrl))
   }
 
   private func createInCloudContainer(_ localMetadataItem: LocalMetadataItem, completion: @escaping WritingResultCompletionHandler) {
@@ -174,7 +174,7 @@ final class SynchronizationFileWriter {
   }
 
   /// Trashing is irreversible and the decision to do it was made on another queue, so the file is only reported
-  /// as ready to be trashed: the caller authorizes it against the latest observations and calls `trashCloudItems`.
+  /// as ready to be trashed: the caller authorizes it against the latest observations and calls `trashCloudItem`.
   private func removeFromCloudContainer(_ cloudMetadataItem: CloudMetadataItem, completion: @escaping WritingResultCompletionHandler) {
     let targetCloudFileUrl = cloudMetadataItem.fileUrl
     guard fileManager.fileExists(atPath: targetCloudFileUrl.path) else {
@@ -182,17 +182,15 @@ final class SynchronizationFileWriter {
       completion(.success)
       return
     }
-    completion(.trashCloudItemsAtURLs([targetCloudFileUrl]))
+    completion(.trashCloudItem(atURL: targetCloudFileUrl))
   }
 
-  func trashCloudItems(at urls: [URL], completion: @escaping WritingResultCompletionHandler) {
+  func trashCloudItem(at url: URL, completion: @escaping WritingResultCompletionHandler) {
     backgroundQueue.async { [weak self] in
       guard let self else { return }
       do {
-        for url in urls {
-          LOG(.info, "Trash file \(url.lastPathComponent) to the iCloud trash")
-          try fileManager.trashItem(at: url, resultingItemURL: nil)
-        }
+        LOG(.info, "Trash file \(url.lastPathComponent) to the iCloud trash")
+        try fileManager.trashItem(at: url, resultingItemURL: nil)
         DispatchQueue.main.async { completion(.success) }
       } catch {
         DispatchQueue.main.async { completion(.failure(error)) }
