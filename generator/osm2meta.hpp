@@ -1,6 +1,7 @@
 #pragma once
 
 #include "indexer/feature_data.hpp"
+#include "indexer/osm_value_format.hpp"
 #include "indexer/validate_and_format_contacts.hpp"
 
 #include <string>
@@ -10,9 +11,7 @@ struct MetadataTagProcessorImpl
   MetadataTagProcessorImpl(FeatureBuilderParams & params) : m_params(params) {}
 
   std::string ValidateAndFormat_maxspeed(std::string const & v) const;
-  static std::string ValidateAndFormat_stars(std::string const & v);
   std::string ValidateAndFormat_operator(std::string const & v) const;
-  static std::string ValidateAndFormat_url(std::string const & v);
   static std::string ValidateAndFormat_phone(std::string const & v);
   static std::string ValidateAndFormat_opening_hours(std::string const & v);
   std::string ValidateAndFormat_ele(std::string const & v) const;
@@ -26,10 +25,6 @@ struct MetadataTagProcessorImpl
   static std::string ValidateAndFormat_email(std::string const & v);
   static std::string ValidateAndFormat_postcode(std::string const & v);
   static std::string ValidateAndFormat_flats(std::string const & v);
-  static std::string ValidateAndFormat_internet(std::string v);
-  static std::string ValidateAndFormat_height(std::string const & v);
-  static std::string ValidateAndFormat_building_levels(std::string v);
-  static std::string ValidateAndFormat_level(std::string v);
   static std::string ValidateAndFormat_denomination(std::string const & v);
   static std::string ValidateAndFormat_wikipedia(std::string v);
   static std::string ValidateAndFormat_wikimedia_commons(std::string v);
@@ -37,9 +32,6 @@ struct MetadataTagProcessorImpl
   static std::string ValidateAndFormat_brand(std::string const & v);
   std::string ValidateAndFormat_duration(std::string const & v) const;
   static std::string ValidateAndFormat_capacity(std::string const & v);
-  static std::string ValidateAndFormat_drive_through(std::string v);
-  static std::string ValidateAndFormat_self_service(std::string v);
-  static std::string ValidateAndFormat_outdoor_seating(std::string v);
 
 protected:
   FeatureBuilderParams & m_params;

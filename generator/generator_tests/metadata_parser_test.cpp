@@ -634,17 +634,15 @@ UNIT_TEST(Metadata_ValidateAndFormat_ele)
 
 UNIT_TEST(Metadata_ValidateAndFormat_building_levels)
 {
-  FeatureBuilderParams params;
-  MetadataTagProcessorImpl tp(params);
-  TEST_EQUAL(tp.ValidateAndFormat_building_levels("４"), "4", ());
-  TEST_EQUAL(tp.ValidateAndFormat_building_levels("４floors"), "4", ());
-  TEST_EQUAL(tp.ValidateAndFormat_building_levels("between 1 and ４"), "", ());
-  TEST_EQUAL(tp.ValidateAndFormat_building_levels("0"), "0", ("OSM has many zero-level buildings."));
-  TEST_EQUAL(tp.ValidateAndFormat_building_levels("0.0"), "0", ());
-  TEST_EQUAL(tp.ValidateAndFormat_building_levels(""), "", ());
-  TEST_EQUAL(tp.ValidateAndFormat_building_levels("Level 1"), "", ());
-  TEST_EQUAL(tp.ValidateAndFormat_building_levels("2.51"), "2.5", ());
-  TEST_EQUAL(tp.ValidateAndFormat_building_levels("250"), "", ("Too many levels."));
+  TEST_EQUAL(osm::ValidateAndFormat_building_levels("４"), "4", ());
+  TEST_EQUAL(osm::ValidateAndFormat_building_levels("４floors"), "4", ());
+  TEST_EQUAL(osm::ValidateAndFormat_building_levels("between 1 and ４"), "", ());
+  TEST_EQUAL(osm::ValidateAndFormat_building_levels("0"), "0", ("OSM has many zero-level buildings."));
+  TEST_EQUAL(osm::ValidateAndFormat_building_levels("0.0"), "0", ());
+  TEST_EQUAL(osm::ValidateAndFormat_building_levels(""), "", ());
+  TEST_EQUAL(osm::ValidateAndFormat_building_levels("Level 1"), "", ());
+  TEST_EQUAL(osm::ValidateAndFormat_building_levels("2.51"), "2.5", ());
+  TEST_EQUAL(osm::ValidateAndFormat_building_levels("250"), "", ("Too many levels."));
 }
 
 UNIT_TEST(Metadata_ValidateAndFormat_website)
@@ -677,8 +675,6 @@ UNIT_TEST(Metadata_ValidateAndFormat_url)
       {"test.com/path/", "test.com/path/"},
   }};
 
-  FeatureBuilderParams params;
-  MetadataTagProcessorImpl tp(params);
   for (auto const & [input, output] : kTests)
-    TEST_EQUAL(tp.ValidateAndFormat_url(input), output, ());
+    TEST_EQUAL(osm::ValidateAndFormat_url(input), output, ());
 }

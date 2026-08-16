@@ -15,7 +15,6 @@
 #include <algorithm>
 #include <cctype>
 #include <cmath>
-#include <cstdlib>
 #include <optional>
 #include <unordered_set>
 
@@ -24,9 +23,6 @@ namespace
 using osm::EditableMapObject;
 
 constexpr char const * kOSMMultivalueDelimiter = ";";
-
-// https://en.wikipedia.org/wiki/List_of_tallest_buildings_in_the_world
-auto constexpr kMaxBuildingLevelsInTheWorld = 167;
 
 template <class T>
 void RemoveDuplicatesAndKeepOrder(std::vector<T> & vec)
@@ -72,32 +68,7 @@ bool IsNoNameNoAddressBuilding(FeatureParams const & params)
          params.name.IsEmpty();
 }
 
-bool Prefix2Double(std::string const & str, double & d)
-{
-  char * stop;
-  char const * s = str.c_str();
-  // TODO: Replace with a faster and locale-ignored double conversion.
-  d = std::strtod(s, &stop);
-  return (s != stop && math::is_finite(d));
-}
-
 }  // namespace
-
-std::string MetadataTagProcessorImpl::ValidateAndFormat_stars(std::string const & v)
-{
-  if (v.empty())
-    return {};
-
-  // We are accepting stars from 1 to 7.
-  if (v[0] <= '0' || v[0] > '7')
-    return {};
-
-  // Ignore numbers larger than 9.
-  if (v.size() > 1 && ::isdigit(v[1]))
-    return {};
-
-  return std::string(1, v[0]);
-}
 
 std::string MetadataTagProcessorImpl::ValidateAndFormat_operator(std::string const & v) const
 {
@@ -111,28 +82,6 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_operator(std::string con
   }
 
   return {};
-}
-
-std::string MetadataTagProcessorImpl::ValidateAndFormat_url(std::string const & v)
-{
-  // Remove the last slash if it's after the hostname to beautify URLs in the UI and save a byte of space:
-  // https://www.test.com/ => https://www.test.com
-  // www.test.com/ => www.test.com
-  // www.test.com/path => www.test.com/path
-  // www.test.com/path/ => www.test.com/path/
-  constexpr std::string_view kHttps = "https://";
-  constexpr std::string_view kHttp = "http://";
-  size_t start = 0;
-  if (v.starts_with(kHttps))
-    start = kHttps.size();
-  else if (v.starts_with(kHttp))
-    start = kHttp.size();
-  auto const first = v.find('/', start);
-  if (first == std::string::npos)
-    return v;
-  if (first + 1 == v.size())
-    return std::string{v.begin(), --v.end()};
-  return v;
 }
 
 std::string MetadataTagProcessorImpl::ValidateAndFormat_phone(std::string const & v)
@@ -206,42 +155,6 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_postcode(std::string con
 
 std::string MetadataTagProcessorImpl::ValidateAndFormat_flats(std::string const & v)
 {
-  return v;
-}
-
-std::string MetadataTagProcessorImpl::ValidateAndFormat_internet(std::string v)
-{
-  strings::AsciiToLower(v);
-  if (v == "wlan" || v == "wired" || v == "terminal" || v == "yes" || v == "no")
-    return v;
-  // Process additional top tags.
-  if (v == "free" || v == "wifi" || v == "public")
-    return "wlan";
-  return {};
-}
-
-std::string MetadataTagProcessorImpl::ValidateAndFormat_height(std::string const & v)
-{
-  return measurement_utils::OSMDistanceToMetersString(v, false /*supportZeroAndNegativeValues*/, 1);
-}
-
-std::string MetadataTagProcessorImpl::ValidateAndFormat_building_levels(std::string v)
-{
-  // Some mappers use full width unicode digits. We can handle that.
-  strings::NormalizeDigits(v);
-  // value of building_levels is only one number
-  double levels;
-  if (Prefix2Double(v, levels) && levels >= 0 && levels <= kMaxBuildingLevelsInTheWorld)
-    return strings::to_string_dac(levels, 1);
-
-  return {};
-}
-
-std::string MetadataTagProcessorImpl::ValidateAndFormat_level(std::string v)
-{
-  // Some mappers use full width unicode digits. We can handle that.
-  strings::NormalizeDigits(v);
-  // value of level can be more than one number, so e.g. "1;2" or "3-5"
   return v;
 }
 
@@ -341,30 +254,6 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_capacity(std::string con
 std::string MetadataTagProcessorImpl::ValidateAndFormat_local_ref(std::string const & v)
 {
   return v;
-}
-
-std::string MetadataTagProcessorImpl::ValidateAndFormat_drive_through(std::string v)
-{
-  strings::AsciiToLower(v);
-  if (v == "yes" || v == "no")
-    return v;
-  return {};
-}
-
-std::string MetadataTagProcessorImpl::ValidateAndFormat_self_service(std::string v)
-{
-  strings::AsciiToLower(v);
-  if (v == "yes" || v == "only" || v == "partially" || v == "no")
-    return v;
-  return {};
-}
-
-std::string MetadataTagProcessorImpl::ValidateAndFormat_outdoor_seating(std::string v)
-{
-  strings::AsciiToLower(v);
-  if (v == "yes" || v == "no")
-    return v;
-  return {};
 }
 
 std::string MetadataTagProcessorImpl::ValidateAndFormat_duration(std::string const & v) const
@@ -523,21 +412,21 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   case Metadata::FMD_OPEN_HOURS: valid = ValidateAndFormat_opening_hours(v); break;
   case Metadata::FMD_FAX_NUMBER:  // The same validator as for phone.
   case Metadata::FMD_PHONE_NUMBER: valid = ValidateAndFormat_phone(v); break;
-  case Metadata::FMD_STARS: valid = ValidateAndFormat_stars(v); break;
+  case Metadata::FMD_STARS: valid = osm::ValidateAndFormat_stars(v); break;
   case Metadata::FMD_OPERATOR:
     if (!m_operatorF.Add(getLang()))
       return;
     valid = ValidateAndFormat_operator(v);
     break;
-  case Metadata::FMD_WEBSITE: valid = ValidateAndFormat_url(v); break;
-  case Metadata::FMD_HERITAGE_WEBSITE: valid = ValidateAndFormat_url(v); break;
-  case Metadata::FMD_WEBSITE_MENU: valid = ValidateAndFormat_url(v); break;
+  case Metadata::FMD_WEBSITE: valid = osm::ValidateAndFormat_url(v); break;
+  case Metadata::FMD_HERITAGE_WEBSITE: valid = osm::ValidateAndFormat_url(v); break;
+  case Metadata::FMD_WEBSITE_MENU: valid = osm::ValidateAndFormat_url(v); break;
   case Metadata::FMD_CONTACT_FACEBOOK: valid = osm::ValidateAndFormat_facebook(v); break;
   case Metadata::FMD_CONTACT_INSTAGRAM: valid = osm::ValidateAndFormat_instagram(v); break;
   case Metadata::FMD_CONTACT_TWITTER: valid = osm::ValidateAndFormat_twitter(v); break;
   case Metadata::FMD_CONTACT_VK: valid = osm::ValidateAndFormat_vk(v); break;
   case Metadata::FMD_CONTACT_LINE: valid = osm::ValidateAndFormat_contactLine(v); break;
-  case Metadata::FMD_INTERNET: valid = ValidateAndFormat_internet(v); break;
+  case Metadata::FMD_INTERNET: valid = osm::ValidateAndFormat_internet(v); break;
   case Metadata::FMD_ELE: valid = ValidateAndFormat_ele(v); break;
   case Metadata::FMD_DESTINATION: valid = ValidateAndFormat_destination(v); break;
   case Metadata::FMD_DESTINATION_REF: valid = ValidateAndFormat_destination_ref(v); break;
@@ -551,11 +440,11 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   case Metadata::FMD_WIKIMEDIA_COMMONS: valid = ValidateAndFormat_wikimedia_commons(v); break;
   case Metadata::FMD_FLATS: valid = ValidateAndFormat_flats(v); break;
   case Metadata::FMD_MIN_HEIGHT:  // The same validator as for height.
-  case Metadata::FMD_HEIGHT: valid = ValidateAndFormat_height(v); break;
+  case Metadata::FMD_HEIGHT: valid = osm::ValidateAndFormat_height(v); break;
   case Metadata::FMD_DENOMINATION: valid = ValidateAndFormat_denomination(v); break;
   case Metadata::FMD_BUILDING_MIN_LEVEL:  // The same validator as for building_levels.
-  case Metadata::FMD_BUILDING_LEVELS: valid = ValidateAndFormat_building_levels(v); break;
-  case Metadata::FMD_LEVEL: valid = ValidateAndFormat_level(v); break;
+  case Metadata::FMD_BUILDING_LEVELS: valid = osm::ValidateAndFormat_building_levels(v); break;
+  case Metadata::FMD_LEVEL: valid = osm::ValidateAndFormat_level(v); break;
   case Metadata::FMD_AIRPORT_IATA: valid = ValidateAndFormat_airport_iata(v); break;
   case Metadata::FMD_BRAND:
     if (!m_brandF.Add(getLang()))
@@ -565,9 +454,9 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   case Metadata::FMD_DURATION: valid = ValidateAndFormat_duration(v); break;
   case Metadata::FMD_CAPACITY: valid = ValidateAndFormat_capacity(v); break;
   case Metadata::FMD_LOCAL_REF: valid = ValidateAndFormat_local_ref(v); break;
-  case Metadata::FMD_DRIVE_THROUGH: valid = ValidateAndFormat_drive_through(v); break;
-  case Metadata::FMD_SELF_SERVICE: valid = ValidateAndFormat_self_service(v); break;
-  case Metadata::FMD_OUTDOOR_SEATING: valid = ValidateAndFormat_outdoor_seating(v); break;
+  case Metadata::FMD_DRIVE_THROUGH: valid = osm::ValidateAndFormat_drive_through(v); break;
+  case Metadata::FMD_SELF_SERVICE: valid = osm::ValidateAndFormat_self_service(v); break;
+  case Metadata::FMD_OUTDOOR_SEATING: valid = osm::ValidateAndFormat_outdoor_seating(v); break;
   case Metadata::FMD_NETWORK: valid = ValidateAndFormat_operator(v); break;
   // Metadata types we do not get from OSM.
   case Metadata::FMD_CUISINE:

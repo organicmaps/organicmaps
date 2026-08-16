@@ -101,6 +101,8 @@ set(SRC
   metadata_serdes.hpp
   mwm_set.cpp
   mwm_set.hpp
+  osm_value_format.cpp
+  osm_value_format.hpp
   postcodes_matcher.cpp  # it's in indexer EditableMapObject depends on postcodes_matcher
   postcodes_matcher.hpp  # it's in indexer EditableMapObject depends on postcodes_matcher
   rank_table.cpp
