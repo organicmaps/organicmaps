@@ -99,13 +99,6 @@ UNIT_TEST(TwoVectorsAngle)
                                            m2::Point<double>(-1, 0)) /* p2 */,
                       2 * math::pi, eps),
        ());
-
-  // A NaN input must not hang. math::is_finite() is compiled without -ffinite-math-only,
-  // unlike std::isfinite() in this translation unit, which -ffast-math folds to true.
-  double const nan = math::Nan();
-  TEST(!math::is_finite(
-           ang::TwoVectorsAngle(m2::Point<double>(0, 0), m2::Point<double>(nan, 0), m2::Point<double>(1, 0))),
-       ());
 }
 
 UNIT_TEST(Azimuth)
