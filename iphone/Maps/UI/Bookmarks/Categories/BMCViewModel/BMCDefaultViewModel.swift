@@ -125,9 +125,15 @@ extension BMCDefaultViewModel {
     }
 
     let category = categories[index]
+    // The row is removed before the category to animate it: the deletion reloads the table synchronously through
+    // `onBookmarksCategoryDeleted`, and removing the row after that would hit an index that is not there anymore.
     categories.remove(at: index)
     view?.delete(at: [IndexPath(row: index, section: section)])
-    manager.deleteCategory(category.categoryId)
+    if !manager.deleteCategory(category.categoryId) {
+      // Nothing was deleted and no observer was called: the list has to come back on the screen.
+      LOG(.warning, "Failed to delete the category \(category.categoryId)")
+      reloadData()
+    }
   }
 
   func checkCategory(name: String) -> Bool {
