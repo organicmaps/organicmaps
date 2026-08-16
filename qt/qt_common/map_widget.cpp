@@ -5,6 +5,8 @@
 
 #include "map/framework.hpp"
 
+#include "storage/storage_defines.hpp"
+
 #include "routing/maxspeeds.hpp"
 
 #include "geometry/point2d.hpp"
@@ -121,6 +123,8 @@ void MapWidget::CreateEngine()
 
   m_framework.CreateDrapeEngine(make_ref(m_contextFactory), std::move(p));
   m_framework.SetViewportListener(std::bind(&MapWidget::OnViewportChanged, this, std::placeholders::_1));
+  m_framework.SetLocationCountryChangedListener([](storage::CountryId const & countryId)
+  { LOG(LDEBUG, ("User's location has changed to", countryId)); });
 }
 
 void MapWidget::ScalePlus()

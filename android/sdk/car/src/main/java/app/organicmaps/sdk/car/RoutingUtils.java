@@ -15,6 +15,7 @@ import androidx.car.app.navigation.model.Step;
 import androidx.car.app.navigation.model.TravelEstimate;
 import androidx.car.app.navigation.model.Trip;
 import androidx.core.graphics.drawable.IconCompat;
+import app.organicmaps.sdk.CountryMetadata;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.LaneInfo;
 import app.organicmaps.sdk.routing.LaneWay;
@@ -33,7 +34,8 @@ public final class RoutingUtils
 
   @NonNull
   public static Trip createTrip(@NonNull final CarContext context, @Nullable final RoutingInfo info,
-                                @Nullable MapObject endPoint, @NonNull CarColor distanceColor)
+                                @NonNull CountryMetadata.DrivingSide drivingSide, @Nullable MapObject endPoint,
+                                @NonNull CarColor distanceColor)
   {
     final Trip.Builder builder = new Trip.Builder();
 
@@ -59,21 +61,24 @@ public final class RoutingUtils
                            createTravelEstimate(info.distToTarget, info.totalTimeInSeconds, distanceColor));
 
     // TODO (AndrewShkrob): Use real distance and time estimates
-    builder.addStep(createCurrentStep(context, info), createTravelEstimate(info.distToTurn, 0, distanceColor));
+    builder.addStep(createCurrentStep(context, info, drivingSide),
+                    createTravelEstimate(info.distToTurn, 0, distanceColor));
     if (!TextUtils.isEmpty(info.nextStreet))
-      builder.addStep(createNextStep(context, info), createTravelEstimate(Distance.EMPTY, 0, distanceColor));
+      builder.addStep(createNextStep(context, info, drivingSide),
+                      createTravelEstimate(Distance.EMPTY, 0, distanceColor));
     return builder.build();
   }
 
   @NonNull
-  private static Step createCurrentStep(@NonNull final CarContext context, @NonNull RoutingInfo info)
+  private static Step createCurrentStep(@NonNull final CarContext context, @NonNull RoutingInfo info,
+                                        @NonNull CountryMetadata.DrivingSide drivingSide)
   {
     final Step.Builder builder = new Step.Builder();
     builder.setCue(RoadShieldUtils.createStreetTextWithShields(RoutingUtils::createRoadShieldSpan, info.nextStreet,
                                                                info.nextStreetRoadShields, 40f, /* drawOutline */
                                                                false));
     builder.setRoad(info.nextStreet);
-    builder.setManeuver(RoutingHelpers.createManeuver(context, info.carDirection, info.exitNum));
+    builder.setManeuver(RoutingHelpers.createManeuver(context, info.carDirection, info.exitNum, drivingSide));
     if (info.lanes != null)
     {
       for (final LaneInfo laneInfo : info.lanes)
@@ -93,13 +98,14 @@ public final class RoutingUtils
   }
 
   @NonNull
-  private static Step createNextStep(@NonNull final CarContext context, @NonNull RoutingInfo info)
+  private static Step createNextStep(@NonNull final CarContext context, @NonNull RoutingInfo info,
+                                     @NonNull CountryMetadata.DrivingSide drivingSide)
   {
     final Step.Builder builder = new Step.Builder();
     builder.setCue(RoadShieldUtils.createStreetTextWithShields(RoutingUtils::createRoadShieldSpan, info.nextNextStreet,
                                                                info.nextNextStreetRoadShields, 40f,
                                                                /* drawOutline */ false));
-    builder.setManeuver(RoutingHelpers.createManeuver(context, info.nextCarDirection, 0));
+    builder.setManeuver(RoutingHelpers.createManeuver(context, info.nextCarDirection, 0, drivingSide));
 
     return builder.build();
   }

@@ -10,6 +10,7 @@ import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.Icon;
 import app.organicmaps.sdk.downloader.Android7RootCertificateWorkaround;
 import app.organicmaps.sdk.editor.OsmOAuth;
+import app.organicmaps.sdk.location.CurrentCountryManager;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.SensorHelper;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesManager;
@@ -46,6 +47,8 @@ public final class OrganicMaps implements DefaultLifecycleObserver
   private final IsolinesManager mIsolinesManager;
   @NonNull
   private final SubwayManager mSubwayManager;
+  @NonNull
+  private final CurrentCountryManager mCurrentCountryManager;
 
   @NonNull
   private final LocationHelper mLocationHelper;
@@ -77,6 +80,12 @@ public final class OrganicMaps implements DefaultLifecycleObserver
   public IsolinesManager getIsolinesManager()
   {
     return mIsolinesManager;
+  }
+
+  @NonNull
+  public CurrentCountryManager getCurrentCountryManager()
+  {
+    return mCurrentCountryManager;
   }
 
   @NonNull
@@ -120,6 +129,7 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     mLocationHelper = new LocationHelper(mContext, mSensorHelper);
     mIsolinesManager = new IsolinesManager();
     mSubwayManager = new SubwayManager(mContext);
+    mCurrentCountryManager = new CurrentCountryManager();
 
     ConnectionState.INSTANCE.initialize(mContext);
   }
