@@ -971,6 +971,19 @@ void Framework::DeleteTrack(kml::TrackId trackId)
   GetBookmarkManager().GetEditSession().DeleteTrack(trackId);
 }
 
+void Framework::DeleteBookmarksAndTracks(kml::MarkIdCollection const & bookmarkIds,
+                                         kml::TrackIdCollection const & trackIds)
+{
+  // Same reason as in DeleteTrack(), extended to bookmarks: a batch deletion has no undo, so a Place Page left
+  // on one of its items could not be restored. The invalid ids a non-bookmark/non-track selection reports are
+  // never in the collections.
+  if (m_currentPlacePageInfo && (base::IsExist(bookmarkIds, m_currentPlacePageInfo->GetBookmarkId()) ||
+                                 base::IsExist(trackIds, m_currentPlacePageInfo->GetTrackId())))
+    DeactivateMapSelection();
+
+  GetBookmarkManager().GetEditSession().DeleteBookmarksAndTracks(bookmarkIds, trackIds);
+}
+
 void Framework::SelectTrackCandidate(kml::TrackId trackId, RelationID const & relationId)
 {
   CHECK(m_currentPlacePageInfo, ());

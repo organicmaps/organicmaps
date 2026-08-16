@@ -1980,11 +1980,15 @@ Track * BookmarkManager::AddTrack(std::unique_ptr<Track> && track)
 
 void BookmarkManager::SaveState() const
 {
-  settings::Set(kLastEditedBookmarkCategory, m_lastCategoryFileName);
+  // The three keys are one logical value - a color belongs next to the category it was last used in - and one
+  // Update() persists them in a single rewrite of the settings file.
   // A custom color has m_predefinedColor == None, so old clients read it as "unset" and fall back
   // to the default preset; new clients pick up the real color from the RGBA key below.
-  settings::Set(kLastEditedBookmarkColor, static_cast<uint32_t>(m_lastColor.m_predefinedColor));
-  settings::Set(kLastEditedBookmarkColorRGBA, m_lastColor.m_rgba);
+  // Update() drops keys with an empty value, which is what an unset last category should be anyway.
+  settings::Update(
+      {{kLastEditedBookmarkCategory, m_lastCategoryFileName},
+       {kLastEditedBookmarkColor, settings::ToString(static_cast<uint32_t>(m_lastColor.m_predefinedColor))},
+       {kLastEditedBookmarkColorRGBA, settings::ToString(m_lastColor.m_rgba)}});
 }
 
 void BookmarkManager::LoadState()
@@ -2443,7 +2447,8 @@ kml::ColorData BookmarkManager::LastEditedBMColor() const
 void BookmarkManager::SetLastEditedBmCategory(kml::MarkGroupId groupId)
 {
   // SaveState() rewrites the settings file, and a batch move calls this once per item with the same destination.
-  // The file name is compared too, because a rename keeps the group id.
+  // The file name is compared too, because LastEditedBMCategory() can fall back to CheckAndCreateDefaultCategory()
+  // and leave m_lastEditedGroupId pointing at a category whose name was never persisted.
   auto fileName = CategoryFileName(*GetBmCategory(groupId));
   if (m_lastEditedGroupId == groupId && m_lastCategoryFileName == fileName)
     return;
@@ -3695,6 +3700,86 @@ Track * BookmarkManager::EditSession::GetTrackForEdit(kml::TrackId trackId)
 void BookmarkManager::EditSession::DeleteTrack(kml::TrackId trackId)
 {
   m_bmManager.DeleteTrack(trackId);
+}
+
+void BookmarkManager::EditSession::DeleteBookmarksAndTracks(kml::MarkIdCollection const & bookmarkIds,
+                                                            kml::TrackIdCollection const & trackIds)
+{
+  bool deletedBookmark = false;
+  for (auto const markId : bookmarkIds)
+  {
+    if (!m_bmManager.HasBookmark(markId))
+      continue;
+    m_bmManager.DeleteBookmark(markId);
+    deletedBookmark = true;
+  }
+
+  for (auto const trackId : trackIds)
+    if (m_bmManager.HasTrack(trackId))
+      m_bmManager.DeleteTrack(trackId);
+
+  // DeleteBookmark() stashes the last deleted bookmark so the Place Page can restore it, and a batch offers no
+  // such undo. Reset only when this batch really stashed something: a tracks-only batch, or one whose bookmark
+  // ids all turned out to be stale, must leave an unrelated single deletion's undo alone.
+  if (deletedBookmark)
+    m_bmManager.ResetRecentlyDeletedBookmark();
+}
+
+void BookmarkManager::EditSession::MoveBookmarksAndTracks(kml::MarkIdCollection const & bookmarkIds,
+                                                          kml::TrackIdCollection const & trackIds,
+                                                          kml::MarkGroupId newGroupId)
+{
+  // The destination comes from a category list the UI snapshotted, so it can already be deleted; attaching to it
+  // would fail a CHECK deeper down.
+  if (!m_bmManager.HasBmCategory(newGroupId))
+    return;
+
+  for (auto const markId : bookmarkIds)
+  {
+    auto const * bookmark = m_bmManager.GetBookmark(markId);
+    if (bookmark == nullptr)
+      continue;
+    // The current group is read from the core rather than trusted from the caller: MoveBookmark() detaches from
+    // whatever group it is told, and a stale one would corrupt that category. It also skips the no-op move that
+    // the chooser hands back when the current list is picked.
+    auto const curGroupId = bookmark->GetGroupId();
+    if (curGroupId != newGroupId)
+      m_bmManager.MoveBookmark(markId, curGroupId, newGroupId);
+  }
+
+  for (auto const trackId : trackIds)
+  {
+    auto const * track = m_bmManager.GetTrack(trackId);
+    if (track == nullptr)
+      continue;
+    auto const curGroupId = track->GetGroupId();
+    if (curGroupId != newGroupId)
+      m_bmManager.MoveTrack(trackId, curGroupId, newGroupId);
+  }
+}
+
+void BookmarkManager::EditSession::SetBookmarksAndTracksColor(kml::MarkIdCollection const & bookmarkIds,
+                                                              kml::TrackIdCollection const & trackIds, dp::Color color)
+{
+  bool recoloredBookmark = false;
+  for (auto const markId : bookmarkIds)
+  {
+    if (auto * bookmark = m_bmManager.GetBookmarkForEdit(markId))
+    {
+      bookmark->SetColor(color);
+      recoloredBookmark = true;
+    }
+  }
+
+  for (auto const trackId : trackIds)
+    if (auto * track = m_bmManager.GetTrackForEdit(trackId))
+      track->SetColor(color);
+
+  // The last edited bookmark color seeds the next new bookmark, so a batch that recolored tracks only - or whose
+  // bookmark ids were all stale - must not move it. Reaching a live bookmark is enough: the user picked this color
+  // for bookmarks, whether or not one of them already had it.
+  if (recoloredBookmark)
+    m_bmManager.SetLastEditedBmColor(kml::MakeCustomBookmarkColorData(color));
 }
 
 void BookmarkManager::EditSession::ClearGroup(kml::MarkGroupId groupId)

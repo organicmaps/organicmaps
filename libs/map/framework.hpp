@@ -286,6 +286,9 @@ public:
   void SetTrackVisibility(kml::TrackId trackId, bool visible);
   // Deletes the track, closing the Place Page first if it currently shows this track.
   void DeleteTrack(kml::TrackId trackId);
+  // Same for a whole multi-select batch. Call this rather than the EditSession method it wraps, so that the
+  // Place Page cleanup does not have to be repeated per platform.
+  void DeleteBookmarksAndTracks(kml::MarkIdCollection const & bookmarkIds, kml::TrackIdCollection const & trackIds);
   void ShowFeature(FeatureID const & featureId);
   void ShowBookmarkCategory(kml::MarkGroupId categoryId, bool animation = true);
 

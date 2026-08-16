@@ -286,90 +286,30 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativ
   return static_cast<jboolean>(frm()->GetBookmarkManager().HasTrack(static_cast<kml::TrackId>(trackId)));
 }
 
-// The three batch functions below hold one EditSession for the whole batch, so the kml files are saved once.
-// Ids that no longer exist are skipped: the caller works with a UI snapshot that can lag the core state.
+// The batch operations themselves live in the core, so that iOS shares them: see
+// BookmarkManager::EditSession and Framework::DeleteBookmarksAndTracks.
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeDeleteBookmarksAndTracks(
     JNIEnv * env, jclass, jlongArray jBookmarkIds, jlongArray jTrackIds)
 {
-  auto const bookmarkIds = jni::ToNativeLongVector<kml::MarkIdCollection>(env, jBookmarkIds);
-  auto const trackIds = jni::ToNativeLongVector<kml::TrackIdCollection>(env, jTrackIds);
-
-  auto & bm = frm()->GetBookmarkManager();
-  auto editSession = bm.GetEditSession();
-  for (auto const trackId : trackIds)
-  {
-    if (!bm.HasTrack(trackId))
-      continue;
-    // Framework::DeleteTrack closes a Place Page showing this track. Its nested EditSession is refcounted,
-    // so the changes are still published once, when the outer session closes.
-    frm()->DeleteTrack(trackId);
-  }
-  for (auto const markId : bookmarkIds)
-  {
-    if (!bm.HasBookmark(markId))
-      continue;
-    editSession.DeleteBookmark(markId);
-  }
-  // DeleteBookmark() stashes the deleted bookmark for the Place Page to restore, and a batch has no undo.
-  bm.ResetRecentlyDeletedBookmark();
+  frm()->DeleteBookmarksAndTracks(jni::ToNativeLongVector<kml::MarkIdCollection>(env, jBookmarkIds),
+                                  jni::ToNativeLongVector<kml::TrackIdCollection>(env, jTrackIds));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeMoveBookmarksAndTracks(
     JNIEnv * env, jclass, jlongArray jBookmarkIds, jlongArray jTrackIds, jlong newCatId)
 {
-  auto const bookmarkIds = jni::ToNativeLongVector<kml::MarkIdCollection>(env, jBookmarkIds);
-  auto const trackIds = jni::ToNativeLongVector<kml::TrackIdCollection>(env, jTrackIds);
-  auto const newGroupId = static_cast<kml::MarkGroupId>(newCatId);
-
-  auto & bm = frm()->GetBookmarkManager();
-  if (!bm.HasBmCategory(newGroupId))
-    return;
-
-  auto editSession = bm.GetEditSession();
-  for (auto const markId : bookmarkIds)
-  {
-    auto const * bookmark = bm.GetBookmark(markId);
-    if (!bookmark)
-      continue;
-    // The current group comes from the core, not from the caller: MoveBookmark() trusts it and would detach
-    // the mark from a wrong category. It also lets us skip the no-op move the chooser can hand back.
-    auto const curGroupId = bookmark->GetGroupId();
-    if (curGroupId == newGroupId)
-      continue;
-    editSession.MoveBookmark(markId, curGroupId, newGroupId);
-  }
-  for (auto const trackId : trackIds)
-  {
-    auto const * track = bm.GetTrack(trackId);
-    if (!track)
-      continue;
-    auto const curGroupId = track->GetGroupId();
-    if (curGroupId == newGroupId)
-      continue;
-    editSession.MoveTrack(trackId, curGroupId, newGroupId);
-  }
+  frm()->GetBookmarkManager().GetEditSession().MoveBookmarksAndTracks(
+      jni::ToNativeLongVector<kml::MarkIdCollection>(env, jBookmarkIds),
+      jni::ToNativeLongVector<kml::TrackIdCollection>(env, jTrackIds), static_cast<kml::MarkGroupId>(newCatId));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeChangeBookmarksAndTracksColor(
     JNIEnv * env, jclass, jlongArray jBookmarkIds, jlongArray jTrackIds, jint color)
 {
-  auto const bookmarkIds = jni::ToNativeLongVector<kml::MarkIdCollection>(env, jBookmarkIds);
-  auto const trackIds = jni::ToNativeLongVector<kml::TrackIdCollection>(env, jTrackIds);
-  auto const dpColor = dp::Color::FromARGB(static_cast<uint32_t>(color));
-
-  auto & bm = frm()->GetBookmarkManager();
-  auto editSession = bm.GetEditSession();
-  // Mirrors EditSession::SetCategoryBookmarksColor/SetCategoryTracksColor for an explicit id list.
-  // Get*ForEdit() returns nullptr for an unknown id and marks the item dirty for re-rendering.
-  for (auto const markId : bookmarkIds)
-    if (auto * bookmark = editSession.GetBookmarkForEdit(markId))
-      bookmark->SetColor(dpColor);
-  for (auto const trackId : trackIds)
-    if (auto * track = editSession.GetTrackForEdit(trackId))
-      track->SetColor(dpColor);
-  // Recoloring tracks only must not change the last edited bookmark color.
-  if (!bookmarkIds.empty())
-    bm.SetLastEditedBmColor(kml::MakeCustomBookmarkColorData(dpColor));
+  frm()->GetBookmarkManager().GetEditSession().SetBookmarksAndTracksColor(
+      jni::ToNativeLongVector<kml::MarkIdCollection>(env, jBookmarkIds),
+      jni::ToNativeLongVector<kml::TrackIdCollection>(env, jTrackIds),
+      dp::Color::FromARGB(static_cast<uint32_t>(color)));
 }
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeAddBookmarkToLastEditedCategory(
