@@ -1,6 +1,7 @@
 #pragma once
 
 #include "indexer/terrain/tile_mesh.hpp"
+#include "indexer/terrain/twm_grid.hpp"
 #include "indexer/terrain/twm_set.hpp"
 
 #include "geometry/rect2d.hpp"
@@ -26,6 +27,11 @@ public:
   // non-overlapping blocks keep rendering"), plus the flat legacy files as the version 0.
   void Rescan();
   void Clear();
+
+  // The currently registered files - the on-disk truth for Storage::OnTerrainScanned.
+  // Queried at the publish time, not snapshotted at the scan time: a block deleted (or
+  // condemned) since the scan has left the registry and must not report.
+  std::vector<TwmFile> GetRegisteredFiles() const;
 
   // False until the first Rescan: the registry emptiness means nothing yet.
   bool IsScanned() const { return m_scanned; }
