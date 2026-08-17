@@ -25,12 +25,18 @@
       }
     };
     std::string const oauthToken = osm_auth_ios::AuthorizationGetCredentials();
-    if (!osm::Editor::Instance().UploadChanges(oauthToken,
-                                               {{"created_by", std::string("Organic Maps " OMIM_OS_NAME " ") +
-                                                                   AppInfo.sharedInfo.bundleVersion.UTF8String},
-                                                {"bundle_id", NSBundle.mainBundle.bundleIdentifier.UTF8String}},
-                                               lambda))
-      lambda(osm::Editor::UploadResult::NothingToUpload);
+    switch (osm::Editor::Instance().UploadChanges(
+        oauthToken,
+        {{"created_by", std::string("Organic Maps " OMIM_OS_NAME " ") + AppInfo.sharedInfo.bundleVersion.UTF8String},
+         {"bundle_id", NSBundle.mainBundle.bundleIdentifier.UTF8String}},
+        lambda))
+    {
+    case osm::Editor::UploadStart::Started: break;
+    // Unlike Android, the result does not reschedule anything here: it only ends the background
+    // task, so both reasons for not starting are reported the same way.
+    case osm::Editor::UploadStart::AlreadyUploading:  // fallthrough
+    case osm::Editor::UploadStart::NothingToUpload: completionHandler(UIBackgroundFetchResultNoData); break;
+    }
   }
 }
 

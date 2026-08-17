@@ -583,22 +583,22 @@ bool Editor::HaveMapEditsToUpload(MwmId const & mwmId) const
   return false;
 }
 
-bool Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, FinishUploadCallback callback)
+Editor::UploadStart Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, FinishUploadCallback callback)
 {
   /// @todo Unite data and notes uploading in one thread with one callback.
   m_notes->Upload(OsmOAuth::ServerAuth(oauthToken));
 
   if (m_isUploadingNow)
-    return false;
+    return UploadStart::AlreadyUploading;
 
   if (!HaveMapEditsToUpload(*m_features.Get()))
-    return false;
+    return UploadStart::NothingToUpload;
 
   {
     // Not sure that this function isn't called in parallel. Put safe CAS.
     bool expected = false;
     if (!m_isUploadingNow.compare_exchange_strong(expected, true))
-      return false;
+      return UploadStart::AlreadyUploading;
   }
 
   GetPlatform().RunTask(Platform::Thread::Network,
@@ -791,7 +791,7 @@ bool Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, Finish
     }
   });
 
-  return true;
+  return UploadStart::Started;
 }
 
 void Editor::SaveUploadedInformation(FeatureID const & fid, UploadInfo const & uploadInfo)
@@ -1232,6 +1232,17 @@ void Editor::UpdateXMLFeatureTags(editor::XMLFeature & feature, std::vector<Jour
     case JournalEntryType::LegacyObject: ASSERT_FAIL(("Legacy Objects are not editable")); break;
     }
   }
+}
+
+string DebugPrint(Editor::UploadStart uploadStart)
+{
+  switch (uploadStart)
+  {
+  case Editor::UploadStart::Started: return "Started";
+  case Editor::UploadStart::AlreadyUploading: return "AlreadyUploading";
+  case Editor::UploadStart::NothingToUpload: return "NothingToUpload";
+  }
+  UNREACHABLE();
 }
 
 string DebugPrint(Editor::SaveResult saveResult)
