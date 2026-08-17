@@ -300,18 +300,24 @@ JNIEXPORT jint Java_app_organicmaps_sdk_editor_Editor_nativeUploadChanges(JNIEnv
 {
   using osm::Editor;
 
-  // The wait below is bounded, so the completion callback may outlive this frame: the promise is
-  // shared with it instead of living on the stack. UploadChanges runs the callback at most once,
-  // and only when it returned true.
+  // The wait below is bounded, so the completion callback may outlive this frame. Share the promise
+  // with the callback instead of keeping it on the stack. This non-empty callback is called exactly
+  // once when UploadChanges returns Started.
   auto const promise = std::make_shared<std::promise<Editor::UploadResult>>();
   auto future = promise->get_future();
 
-  if (!Editor::Instance().UploadChanges(
-          jni::ToNativeString(env, token),
-          {{"created_by", "Organic Maps " OMIM_OS_NAME " " + jni::ToNativeString(env, appVersion)},
-           {"bundle_id", jni::ToNativeString(env, appId)}},
-          [promise](Editor::UploadResult result) { promise->set_value(result); }))
-    promise->set_value(Editor::UploadResult::NothingToUpload);
+  switch (Editor::Instance().UploadChanges(
+      jni::ToNativeString(env, token),
+      {{"created_by", "Organic Maps " OMIM_OS_NAME " " + jni::ToNativeString(env, appVersion)},
+       {"bundle_id", jni::ToNativeString(env, appId)}},
+      [promise](Editor::UploadResult result) { promise->set_value(result); }))
+  {
+  case Editor::UploadStart::Started: break;
+  // Returning NothingToUpload while a previous upload is running would make the worker finish even
+  // though its outcome is still unknown. Report an error so that the worker retries instead.
+  case Editor::UploadStart::AlreadyUploading: return static_cast<jint>(Editor::UploadResult::Error);
+  case Editor::UploadStart::NothingToUpload: return static_cast<jint>(Editor::UploadResult::NothingToUpload);
+  }
 
   if (future.wait_for(std::chrono::minutes(5)) == std::future_status::timeout)
   {

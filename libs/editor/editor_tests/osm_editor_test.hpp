@@ -39,6 +39,7 @@ public:
   void RollBackChangesTest();
   void HaveMapEditsOrNotesToUploadTest();
   void HaveMapEditsToUploadTest();
+  void UploadChangesStartResultTest();
   void GetStatsTest();
   void IsCreatedFeatureTest();
   void ForEachFeatureInMwmRectAndScaleTest();

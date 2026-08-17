@@ -72,6 +72,13 @@ public:
 
   using FinishUploadCallback = std::function<void(UploadResult)>;
 
+  enum class UploadStart
+  {
+    Started,           // The map edits upload was scheduled.
+    AlreadyUploading,  // A map edits upload is already running.
+    NothingToUpload    // There are no local map edits to upload.
+  };
+
   enum class SaveResult
   {
     NothingWasChanged,
@@ -155,10 +162,12 @@ public:
   bool HaveMapEditsToUpload(MwmId const & mwmId) const;
 
   using ChangesetTags = std::map<std::string, std::string>;
-  /// Tries to upload all local changes to OSM server in a separate thread.
+  /// Tries to upload all local changes to the OSM server in separate network tasks.
   /// @param[in] tags should provide additional information about client to use in changeset.
-  /// @return false With immediate return (nothing to upload). No callback fired.
-  bool UploadChanges(std::string const & oauthToken, ChangesetTags tags, FinishUploadCallback callBack = {});
+  /// Notes are handled independently and are not reflected in the returned value or @a callback.
+  /// @return the map edits upload start status. A non-empty @a callback is called exactly once when
+  /// the returned value is Started, and is not called for the other values.
+  UploadStart UploadChanges(std::string const & oauthToken, ChangesetTags tags, FinishUploadCallback callback = {});
   // TODO(mgsergio): Test new types from new config but with old classificator (where these types are absent).
   // Editor should silently ignore all types in config which are unknown to him.
   NewFeatureCategories GetNewFeatureCategories() const;
@@ -266,4 +275,5 @@ private:
 };
 
 std::string DebugPrint(Editor::SaveResult saveResult);
+std::string DebugPrint(Editor::UploadStart uploadStart);
 }  // namespace osm

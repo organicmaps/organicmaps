@@ -707,6 +707,25 @@ void EditorTest::HaveMapEditsToUploadTest()
   TEST(editor.HaveMapEditsToUpload(rfMwmId), ());
 }
 
+void EditorTest::UploadChangesStartResultTest()
+{
+  auto & editor = osm::Editor::Instance();
+  ScopedFile notes("upload_changes_start_result_notes.xml", ScopedFile::Mode::DoNotCreate);
+  notes.Reset();  // No note is created, so there is no file to remove.
+  editor.SetNotesForTesting(notes.GetFullPath());
+
+  size_t callbackCount = 0;
+  auto const callback = [&callbackCount](osm::Editor::UploadResult) { ++callbackCount; };
+
+  TEST_EQUAL(editor.UploadChanges({}, {}, callback), osm::Editor::UploadStart::NothingToUpload, ());
+  TEST_EQUAL(callbackCount, 0, ());
+
+  editor.m_isUploadingNow = true;
+  SCOPE_GUARD(resetUploadingFlag, [&editor]() { editor.m_isUploadingNow = false; });
+  TEST_EQUAL(editor.UploadChanges({}, {}, callback), osm::Editor::UploadStart::AlreadyUploading, ());
+  TEST_EQUAL(callbackCount, 0, ());
+}
+
 void EditorTest::GetStatsTest()
 {
   auto & editor = osm::Editor::Instance();
@@ -1362,6 +1381,11 @@ UNIT_CLASS_TEST(EditorTest, HaveMapEditsOrNotesToUploadTest)
 UNIT_CLASS_TEST(EditorTest, HaveMapEditsToUploadTest)
 {
   EditorTest::HaveMapEditsToUploadTest();
+}
+
+UNIT_CLASS_TEST(EditorTest, UploadChangesStartResultTest)
+{
+  EditorTest::UploadChangesStartResultTest();
 }
 
 UNIT_CLASS_TEST(EditorTest, GetStatsTest)

@@ -48,7 +48,8 @@ public final class Editor
 
   /**
    * Blocks the calling thread until the upload completes, but no longer than five minutes. On
-   * timeout UPLOAD_RESULT_ERROR is returned while the upload keeps running in the background.
+   * timeout UPLOAD_RESULT_ERROR is returned while the upload keeps running in the background. The
+   * same value is returned immediately if a map edits upload is already in progress.
    * @return one of UPLOAD_RESULT_* constants, or -1 if not authorized.
    */
   @WorkerThread
