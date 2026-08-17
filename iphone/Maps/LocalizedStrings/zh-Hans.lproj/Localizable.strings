@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "长度";
 "share_my_location" = "分享我的位置";
+"prefs_group_network" = "网络";
 "prefs_group_route" = "导航";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -217,6 +218,24 @@
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "3D 建筑在省电模式下处于关闭状态";
+
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "卫星图像";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "服务器 URL";
+
+/* Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) */
+"pref_bg_tiles_url_error" = "请输入包含 {z}/{x}/{y} 的有效 URL";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "缓存大小 (MB)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "面状对象不透明度";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "自定义瓦片源由您自行提供。请仅使用您有权访问的服务。署名、许可条款、API 密钥、配额和使用限制由您自行负责。";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "语音指导";
@@ -391,9 +410,6 @@
 /* Alert title */
 "email_error_title" = "电子邮件发送失败";
 
-/* Settings item title */
-"pref_calibration_title" = "指南针校准";
-
 /* Downloaded maps category */
 "downloader_available_maps" = "可用";
 "downloader_search_results" = "已找到";
@@ -556,10 +572,10 @@
 /* Title for OSM note section in the editor */
 "editor_other_info" = "OpenStreetMap 志愿者须知（可选）";
 "editor_more_about_osm" = "关于 OpenStreetMap 的更多信息";
-"editor_operator" = "操作员";
+"editor_operator" = "运营方";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
-"operator" = "操作员: %@";
+"operator" = "运营方: %@";
 "editor_category_unsuitable_title" = "找不到合适的类别？";
 "editor_category_unsuitable_text" = "Organic Maps 只允许添加简单的点类别，即无法添加城镇、道路、湖泊、建筑轮廓等类别。请直接向 <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> 添加此类类别。请查看我们的<a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">指南</a>，了解详细的步骤说明。";
 "downloader_no_downloaded_maps_title" = "您尚未下载任何地图";
@@ -643,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "这个名称已经被使用了";
 "profile" = "OpenStreetMap 资料";
 "restore" = "恢复";
+
+/* Settings privacy group in settings screen */
+"privacy" = "隐私";
 "privacy_policy" = "隐私政策";
 "terms_of_use" = "使用条款";
 
@@ -651,6 +670,9 @@
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "骑行";
+
+/* Map layers menu: toggle button for the satellite imagery layer */
+"button_layer_satellite" = "卫星";
 "button_layer_subway" = "地铁";
 "layers_title" = "地图样式和图层";
 
@@ -907,6 +929,9 @@
 "elevation_profile_descent" = "下坡";
 "elevation_profile_min_elevation" = "最低高度";
 "elevation_profile_max_elevation" = "最高高度";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "开始移动以查看海拔剖面";
 "isolines_toast_zooms_1_10" = "放大地图以查看等高线";
 "downloader_loading_ios" = "正在下载";
 

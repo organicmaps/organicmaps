@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Սահադաշտ";
 "type.leisure.marina" = "Նավակայան";
 "type.leisure.nature_reserve" = "Արգելոց";
+"type.leisure.bird_hide" = "Թռչունների դիտակետ";
 "type.leisure.outdoor_seating" = "Բացօթյա նստատեղեր";
 "type.leisure.firepit" = "Խարուկատեղ";
 "type.leisure.park" = "Զբոսայգի";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "Մարգագետին";
 "type.natural.orchard" = "Պտղատու այգի";
 "type.natural.peak" = "Գագաթ";
+"type.natural.hill" = "Բլուր";
+"type.natural.arch" = "Քարե կամար";
 "type.natural.saddle" = "Թամբարդ";
 "type.natural.rock" = "Քար";
 "type.natural.scrub" = "Թփուտ";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "Սոցիալական հաստատություն";
+"type.amenity.stage" = "Բեմ";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Շտապօգնության բաժանմունքի մուտք";

@@ -1,7 +1,8 @@
-• Atingeți o stație de transport public și selectați numere de traseu pentru a evidenția traseele pe hartă
-• Etichetele marcajelor nu se mai suprapun pe hartă
-• Date proaspete OpenStreetMap din 3 mai, cu noi tipuri de obiecte
-• Grafice de elevație îmbunătățite pentru trasee și rute
-• Descărcări de hărți mai mici pentru Vietnam, Malaezia, Hong Kong, Macao și Hainan
-• UI și animații rafinate
-…mai multe la omaps.org/news
+FUNCȚII NOI:
+• Interfața de căutare și de calculare a traseelor a fost actualizată
+• Calcularea traseelor pentru transportul public (autobuz, tramvai, metrou, tren ușor)
+• Trasee alternative, cele mai rapide și cele mai scurte
+• Avertismente privind traseul referitoare la trepte, porți și bariere
+• Alege orice culoare pentru marcaje
+• Suport pentru coordonatele UK OS Grid, Irish Grid, ITM
+…mai multe informații la omaps.org/news

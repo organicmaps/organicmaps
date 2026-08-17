@@ -71,10 +71,13 @@ void TestWithCustomMwms::RegisterLocalMapsImpl(FnT && check)
 
 void TestWithCustomMwms::RegisterLocalMapsInViewport(m2::RectD const & viewport)
 {
-  auto const countriesInfo = storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform());
+  auto const ci = storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform());
 
   RegisterLocalMapsImpl([&](std::string const & name)
-  { return countriesInfo->GetLimitRectForLeaf(name).IsIntersect(viewport); });
+  {
+    using storage::CountryDef;
+    return CountryDef::IsIntersectOrInside(viewport, ci->GetLimitRectForLeaf(name)) != CountryDef::Overlap::NONE;
+  });
 }
 
 void TestWithCustomMwms::RegisterLocalMapsByPrefix(std::string const & prefix)

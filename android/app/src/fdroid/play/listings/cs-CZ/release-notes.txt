@@ -1,9 +1,8 @@
-• Klepnutím na zastávku veřejné dopravy a výběrem čísla trasy zvýrazníte trasy na mapě.
-• Popisky záložek se již na mapě nepřekrývají.
-• Čerstvá data OpenStreetMap k 3. květnu s novými typy objektů
-• Vylepšené grafy nadmořské výšky pro tratě a trasy
-• Menší mapy ke stažení pro Vietnam, Malajsii, Hongkong, Macao a Hainan
-• Vylepšené uživatelské rozhraní a animace
-• Aktualizované obrysy pro Indonésii, Malajsii, Tanzanii, Thajsko a Vietnam
-• Opravy chyb a zlepšení výkonu
+NOVÉ FUNKCE:
+• Aktualizované uživatelské rozhraní pro vyhledávání a plánování tras
+• Plánování tras veřejnou dopravou (autobus, tramvaj, metro, lehká kolejová doprava)
+• Alternativní nejrychlejší a nejkratší trasy
+• Upozornění na trase týkající se schodů, bran a zvedacích bran
+• Vyberte libovolnou barvu pro záložky
+• Podpora souřadnic UK OS Grid, Irish Grid a ITM
 …více na omaps.org/cs/news

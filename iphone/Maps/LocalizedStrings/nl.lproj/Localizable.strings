@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Lengte";
 "share_my_location" = "Deel mijn locatie";
+"prefs_group_network" = "Netwerk";
 "prefs_group_route" = "Navigatie";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -217,6 +218,24 @@
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "3D-gebouwen worden uitgeschakeld in de energiebesparende modus";
+
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "Satellietbeelden";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "Server-URL";
+
+/* Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) */
+"pref_bg_tiles_url_error" = "Voer een geldige URL in met {z}/{x}/{y}";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "Cachegrootte (MB)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "Dekking van vlakobjecten";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "Aangepaste tegelbronnen worden door u aangeleverd. Gebruik alleen diensten waartoe u toegang mag hebben. U bent verantwoordelijk voor naamsvermelding, licentievoorwaarden, API-sleutels, quota en gebruikslimieten.";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Gesproken instructies";
@@ -390,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "E-mail verzendfout";
-
-/* Settings item title */
-"pref_calibration_title" = "Kompaskalibratie";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Beschikbaar";
@@ -643,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Deze naam is al in gebruik";
 "profile" = "OpenStreetMap-profiel";
 "restore" = "Zet terug";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Privacy";
 "privacy_policy" = "Privacybeleid";
 "terms_of_use" = "Gebruiksvoorwaarden";
 
@@ -651,6 +670,9 @@
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "Fiets";
+
+/* Map layers menu: toggle button for the satellite imagery layer */
+"button_layer_satellite" = "Satelliet";
 "button_layer_subway" = "Metro";
 "layers_title" = "Kaartstijlen en -lagen";
 
@@ -907,6 +929,9 @@
 "elevation_profile_descent" = "Daling";
 "elevation_profile_min_elevation" = "Min. hoogte";
 "elevation_profile_max_elevation" = "Max. hoogte";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Begin met bewegen om het hoogteprofiel te zien";
 "isolines_toast_zooms_1_10" = "Zoom in om hoogte/dal lijnen te bekijken";
 "downloader_loading_ios" = "Downloaden";
 

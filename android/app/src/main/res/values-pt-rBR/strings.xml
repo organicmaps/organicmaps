@@ -148,6 +148,12 @@
     <string name="pref_map_3d_buildings_title">Prédios em 3D</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">Os edifícios 3D são desativados no modo de economia de energia</string>
+    <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
+    <string name="pref_bg_tiles_size_title">Tamanho do cache (MB)</string>
+    <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
+    <string name="pref_bg_tiles_opacity_title">Opacidade dos objetos de área</string>
+    <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
+    <string name="pref_bg_tiles_disclaimer">As fontes de blocos personalizados são fornecidas por você. Use apenas serviços que você tem permissão para acessar. Você é responsável pela atribuição, termos de licença, chaves de API, cotas e limites de uso.</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Orientação por voz</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
@@ -399,10 +405,6 @@
     <string name="prefs_languages_information_off">Para alguns idiomas, você precisa instalar um sintetizador de fala ou um pacote adicional de linguagem da loja de aplicativo (Google Play Market, Samsung Apps).\nAbra as configurações do seu dispositivo → Idioma e entrada → Fala → Saída de texto para fala.\nAqui você pode gerenciar as configurações para o sintetizador de fala (por exemplo, baixar pacote de idioma para usar off-line) e selecionar outro motor de texto-para-fala.</string>
     <string name="transliteration_title">Transliterar para alfabeto latino</string>
     <string name="learn_more">Saiba mais</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Use a busca ou toque no mapa para adicionar um ponto de partida da rota</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Use a pesquisa, selecione um marcador ou toque no mapa para adicionar um ponto de destino</string>
     <string name="planning_route_manage_route">Gerenciar rota</string>
     <string name="button_plan">Planejar</string>
     <string name="placepage_remove_stop">Remover parada</string>
@@ -501,6 +503,7 @@
     <string name="opens_dayoftheweek_at">Abre %1$s em %2$s</string>
     <string name="opens_at">Abre em %s</string>
     <string name="closes_at">Encerra às %s</string>
+    <string name="placepage_replace_stop">Substituir a parada</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Alimentos</string>
@@ -628,6 +631,12 @@
     <string name="nav_auto">Automático na navegação</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Usar o padrão do sistema</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Mudança de cor</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Ocultar trilha</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Mostrar trilha</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->

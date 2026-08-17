@@ -1,0 +1,116 @@
+package app.organicmaps.routing;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+import app.organicmaps.util.SingleLiveEvent;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import java.util.Objects;
+
+public class RoutingPlanViewModel extends ViewModel
+{
+  private final MutableLiveData<Integer> mRoutingBottomDistanceToTop = new MutableLiveData<>();
+  private final MutableLiveData<Boolean> mShowRoutingBottomSheet = new MutableLiveData<>();
+  private final MutableLiveData<Boolean> mIsPlacePageActive = new MutableLiveData<>();
+  private final MutableLiveData<Boolean> mIsSearchActive = new MutableLiveData<>();
+  private final MutableLiveData<Integer> mMenuUpdateTrigger = new MutableLiveData<>(0);
+  private final MutableLiveData<int[]> mBuildProgress = new MutableLiveData<>();
+  private final MutableLiveData<Integer> mDrivingOptionsCount = new MutableLiveData<>(0);
+  private final SingleLiveEvent<Void> mDrivingOptionsError = new SingleLiveEvent<>();
+  private int mBottomSheetState = BottomSheetBehavior.STATE_COLLAPSED;
+
+  public int getBottomSheetState()
+  {
+    return mBottomSheetState;
+  }
+
+  public void setBottomSheetState(int state)
+  {
+    mBottomSheetState = state;
+  }
+
+  public LiveData<Boolean> getIsPlacePageActive()
+  {
+    return mIsPlacePageActive;
+  }
+
+  // State, not an event: only dispatch on change.
+  public void setIsPlacePageActive(boolean active)
+  {
+    if (!Objects.equals(mIsPlacePageActive.getValue(), active))
+      mIsPlacePageActive.setValue(active);
+  }
+
+  public LiveData<Boolean> getIsSearchActive()
+  {
+    return mIsSearchActive;
+  }
+
+  public void setIsSearchActive(boolean active)
+  {
+    mIsSearchActive.setValue(active);
+  }
+
+  public LiveData<Boolean> getShowRoutingBottomSheet()
+  {
+    return mShowRoutingBottomSheet;
+  }
+
+  public void setShowRoutingBottomSheet(boolean show)
+  {
+    mShowRoutingBottomSheet.setValue(show);
+  }
+
+  public LiveData<Integer> getRoutingBottomDistanceToTop()
+  {
+    return mRoutingBottomDistanceToTop;
+  }
+
+  public void setRoutingBottomDistanceToTop(int distance)
+  {
+    mRoutingBottomDistanceToTop.setValue(distance);
+  }
+
+  public LiveData<Integer> getMenuUpdateTrigger()
+  {
+    return mMenuUpdateTrigger;
+  }
+
+  public void triggerMenuUpdate()
+  {
+    Integer current = mMenuUpdateTrigger.getValue();
+    mMenuUpdateTrigger.setValue(current == null ? 1 : current + 1);
+  }
+
+  // Value layout: {progress, routerOrdinal}. Observers use routerOrdinal to look up the
+  // Router enum and reflect the currently-building router in the tab selector.
+  public LiveData<int[]> getBuildProgress()
+  {
+    return mBuildProgress;
+  }
+
+  public void setBuildProgress(int progress, int routerOrdinal)
+  {
+    mBuildProgress.setValue(new int[] {progress, routerOrdinal});
+  }
+
+  public LiveData<Integer> getDrivingOptionsCount()
+  {
+    return mDrivingOptionsCount;
+  }
+
+  public void setDrivingOptionsCount(int count)
+  {
+    mDrivingOptionsCount.setValue(count);
+  }
+
+  public LiveData<Void> getDrivingOptionsError()
+  {
+    return mDrivingOptionsError;
+  }
+
+  public void triggerDrivingOptionsError()
+  {
+    mDrivingOptionsError.call();
+  }
+}

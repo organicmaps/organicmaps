@@ -88,7 +88,7 @@ bool IsOsmHost(QString const & host)
 
 HttpClientReply::HttpClientReply(QNetworkReply * reply, HttpClient::CompletionHandler handler,
                                  HttpClient::ProgressHandler progressHandler, HttpClient::DataHandler dataHandler,
-                                 CancelChecker cancelChecker, bool loadHeaders, bool followRedirects,
+                                 HttpClient::CancelChecker cancelChecker, bool loadHeaders, bool followRedirects,
                                  std::string urlRequested, std::string cookies, std::string outputFile,
                                  std::optional<HttpClient::ReceivedFileSegment> segment, QNetworkRequest request,
                                  std::string httpMethod, QByteArray bodyBytes, RebindCancel rebindCancel)

@@ -263,6 +263,10 @@ extension BookmarksListViewController: BookmarksListInfoViewControllerDelegate {
     presenter.showDescription()
   }
 
+  func didPressEdit() {
+    presenter.editCategory()
+  }
+
   func didUpdateContent() {
     updateInfoSize()
   }

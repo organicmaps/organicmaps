@@ -485,7 +485,21 @@ void GetTurnDirectionBasic(IRoutingResult const & result, size_t const outgoingS
 
   double const turnAngle = CalcTurnAngle(result, outgoingSegmentIndex, numMwmIds, vehicleSettings);
 
-  CarDirection const intermediateDirection = IntermediateDirection(turnAngle);
+  // This angle is calculated using only 1 segment back and forward, not like turnAngle.
+  double const turnOneSegmentAngle = CalcOneSegmentTurnAngle(turnInfo);
+
+  // To not discard some disputable turns let's use max by modulus from turnOneSegmentAngle and turnAngle.
+  // It's natural since angles of turnCandidates are calculated in IRoutingResult::GetPossibleTurns()
+  // according to CalcOneSegmentTurnAngle logic. And to be safe turnAngle is used too.
+  double turnAngleToCompare = turnAngle;
+  if (turnOneSegmentAngle <= 0 && turnAngle <= 0)
+    turnAngleToCompare = std::min(turnOneSegmentAngle, turnAngle);
+  else if (turnOneSegmentAngle >= 0 && turnAngle >= 0)
+    turnAngleToCompare = std::max(turnOneSegmentAngle, turnAngle);
+  else if (std::abs(turnOneSegmentAngle) > 10)
+    LOG(LWARNING, ("Significant angles are expected to have the same sign."));
+
+  CarDirection const intermediateDirection = IntermediateDirection(turnAngleToCompare);
 
   // Checking for exits from highways.
   turn.m_turn = TryToGetExitDirection(nodes, turnInfo, firstOutgoingSeg, intermediateDirection);
@@ -508,20 +522,6 @@ void GetTurnDirectionBasic(IRoutingResult const & result, size_t const outgoingS
       return;
   }
 
-  // This angle is calculated using only 1 segment back and forward, not like turnAngle.
-  double turnOneSegmentAngle = CalcOneSegmentTurnAngle(turnInfo);
-
-  // To not discard some disputable turns let's use max by modulus from turnOneSegmentAngle and turnAngle.
-  // It's natural since angles of turnCandidates are calculated in IRoutingResult::GetPossibleTurns()
-  // according to CalcOneSegmentTurnAngle logic. And to be safe turnAngle is used too.
-  double turnAngleToCompare = turnAngle;
-  if (turnOneSegmentAngle <= 0 && turnAngle <= 0)
-    turnAngleToCompare = std::min(turnOneSegmentAngle, turnAngle);
-  else if (turnOneSegmentAngle >= 0 && turnAngle >= 0)
-    turnAngleToCompare = std::max(turnOneSegmentAngle, turnAngle);
-  else if (std::abs(turnOneSegmentAngle) > 10)
-    LOG(LWARNING, ("Significant angles are expected to have the same sign."));
-
   if (CanDiscardTurnByHighwayClassOrAngles(intermediateDirection, turnAngleToCompare, turnCandidates, turnInfo,
                                            numMwmIds))
     return;
@@ -529,7 +529,7 @@ void GetTurnDirectionBasic(IRoutingResult const & result, size_t const outgoingS
   turn.m_turn = intermediateDirection;
 
   if (turnCandidates.size() >= 2 && nodes.isCandidatesAngleValid)
-    CorrectRightmostAndLeftmost(turnCandidates, firstOutgoingSeg, turnAngle, turn);
+    CorrectRightmostAndLeftmost(turnCandidates, firstOutgoingSeg, turnAngleToCompare, turn);
 }
 
 size_t CheckUTurnOnRoute(IRoutingResult const & result, size_t const outgoingSegmentIndex, NumMwmIds const & numMwmIds,

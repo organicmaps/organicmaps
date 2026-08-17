@@ -219,6 +219,18 @@
     <string name="pref_map_3d_buildings_title">3D зграде</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">3D зграде се не приказују у режиму чувања батерије</string>
+    <!-- Settings: title of the satellite imagery (custom raster tiles) screen -->
+    <string name="pref_bg_tiles_title">Сателитски снимци</string>
+    <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
+    <string name="pref_bg_tiles_url_title">URL сервера</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">Унесите исправан URL са {z}/{x}/{y}</string>
+    <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
+    <string name="pref_bg_tiles_size_title">Величина кеша (MB)</string>
+    <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
+    <string name="pref_bg_tiles_opacity_title">Непрозирност површинских објеката</string>
+    <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
+    <string name="pref_bg_tiles_disclaimer">Изворе прилагођених плочица обезбеђујете ви. Користите само услуге којима смете да приступате. Ви сте одговорни за приписивање ауторства, услове лиценце, API кључеве, квоте и ограничења коришћења.</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Гласовне инструкције</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
@@ -231,7 +243,7 @@
     <string name="pref_tts_test_voice_title">Тестирај гласовне инструкције (Текст-у-говор)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Проверите гласноћу или системска подешавања Текста-у-говор ако сада не чујете глас.</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">Није доступно</string>
     <string name="pref_map_auto_zoom">Аутоматско увећавање</string>
     <string name="placepage_distance">Раздаљина</string>
@@ -567,14 +579,11 @@
     <string name="prefs_languages_information_off_link">За више информација погледајте ово упутство.</string>
     <string name="transliteration_title">Транслитерација у латиницу</string>
     <string name="learn_more">Сазнај више</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Користите претрагу или кратко додирните мапу да бисте додали почетну тачку руте</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Користите претрагу или кратко додирните мапу да бисте додали одредишну тачку</string>
     <string name="planning_route_manage_route">Измени руту</string>
     <string name="button_plan">План</string>
     <string name="placepage_remove_stop">Уклони међуодредиште</string>
     <string name="placepage_add_stop">Међуодредиште</string>
+    <string name="drag_to_reorder">Преуредити</string>
     <string name="saved">Сачувано</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Молим Вас да се пријавите на OpenStreetMap да бисте аутоматски послали своје промене на мапи. Сазнајте више о томе <a href="https://github.com/organicmaps/organicmaps/issues/6144">овде</a>.</string>
@@ -625,6 +634,8 @@
     <string name="button_layer_hiking">Планинарење</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Бициклизам</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Сателит</string>
     <string name="button_layer_subway">Метро</string>
     <string name="layers_title">Стилови мапе и слојеви</string>
     <string name="bookmarks_empty_list_title">Ова листа је празна</string>
@@ -724,6 +735,7 @@
     <string name="opens_at">Отвара се у %s</string>
     <string name="closes_at">Затвара се у %s</string>
     <string name="editor_add_select_category_all_subtitle">Све категорије</string>
+    <string name="placepage_replace_stop">Замени Stop</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Храна</string>
@@ -877,6 +889,8 @@
     <string name="share_track">Подели стазу</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Избриши %s?</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Промени боју</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -903,4 +917,6 @@
     <string name="color_picker_hex_label">sRGB хексадецимална боја #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Решетка</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">Претрага гласом</string>
 </resources>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.62.11 87bfad18">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2026-06-23T03:30:02Z"/>
+
+  <node id="662948360" lat="55.0769474" lon="82.9349233" version="2" timestamp="2013-08-23T14:05:03Z" changeset="17469871" uid="1219486" user="koSS_Rus"/>
+  <node id="662948365" lat="55.0768930" lon="82.9394013" version="2" timestamp="2016-09-30T14:35:32Z" changeset="42543939" uid="1219486" user="koSS_Rus"/>
+  <node id="670459162" lat="55.0767515" lon="82.9353254" version="3" timestamp="2026-03-25T17:10:18Z" changeset="180418337" uid="515330" user="Alexey_ND">
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="1361144816" lat="55.0766536" lon="82.9355530" version="1" timestamp="2011-07-14T06:26:14Z" changeset="8718768" uid="395715" user="oo-O-oo"/>
+  <node id="1670367088" lat="55.0743858" lon="82.9394101" version="1" timestamp="2012-03-11T14:12:05Z" changeset="10943276" uid="395715" user="oo-O-oo"/>
+  <node id="1670367106" lat="55.0746114" lon="82.9364890" version="1" timestamp="2012-03-11T14:12:06Z" changeset="10943276" uid="395715" user="oo-O-oo"/>
+  <node id="1670367198" lat="55.0751265" lon="82.9382547" version="1" timestamp="2012-03-11T14:12:09Z" changeset="10943276" uid="395715" user="oo-O-oo"/>
+  <node id="1670367217" lat="55.0753418" lon="82.9379205" version="1" timestamp="2012-03-11T14:12:10Z" changeset="10943276" uid="395715" user="oo-O-oo"/>
+  <node id="1670367237" lat="55.0756248" lon="82.9377083" version="2" timestamp="2016-09-30T15:41:21Z" changeset="42545754" uid="1219486" user="koSS_Rus"/>
+  <node id="1670367243" lat="55.0756578" lon="82.9385387" version="1" timestamp="2012-03-11T14:12:11Z" changeset="10943276" uid="395715" user="oo-O-oo"/>
+  <node id="1670367246" lat="55.0757119" lon="82.9386438" version="1" timestamp="2012-03-11T14:12:11Z" changeset="10943276" uid="395715" user="oo-O-oo"/>
+  <node id="1670367247" lat="55.0757466" lon="82.9387111" version="1" timestamp="2012-03-11T14:12:11Z" changeset="10943276" uid="395715" user="oo-O-oo"/>
+  <node id="1670367253" lat="55.0758721" lon="82.9382048" version="1" timestamp="2012-03-11T14:12:11Z" changeset="10943276" uid="395715" user="oo-O-oo"/>
+  <node id="1670367275" lat="55.0764542" lon="82.9400851" version="1" timestamp="2012-03-11T14:12:12Z" changeset="10943276" uid="395715" user="oo-O-oo"/>
+  <node id="1670637320" lat="55.0729145" lon="82.9364700" version="1" timestamp="2012-03-11T17:29:41Z" changeset="10945809" uid="395715" user="oo-O-oo"/>
+  <node id="1670637323" lat="55.0733269" lon="82.9372151" version="1" timestamp="2012-03-11T17:29:41Z" changeset="10945809" uid="395715" user="oo-O-oo"/>
+  <node id="1670637329" lat="55.0734753" lon="82.9374830" version="1" timestamp="2012-03-11T17:29:42Z" changeset="10945809" uid="395715" user="oo-O-oo"/>
+  <node id="1670637355" lat="55.0737115" lon="82.9379098" version="1" timestamp="2012-03-11T17:29:42Z" changeset="10945809" uid="395715" user="oo-O-oo"/>
+  <node id="1670637418" lat="55.0742515" lon="82.9389162" version="1" timestamp="2012-03-11T17:29:43Z" changeset="10945809" uid="395715" user="oo-O-oo"/>
+  <node id="1670637461" lat="55.0744570" lon="82.9392990" version="1" timestamp="2012-03-11T17:29:44Z" changeset="10945809" uid="395715" user="oo-O-oo"/>
+  <node id="1670637465" lat="55.0745281" lon="82.9384656" version="1" timestamp="2012-03-11T17:29:44Z" changeset="10945809" uid="395715" user="oo-O-oo"/>
+  <node id="1670637471" lat="55.0747705" lon="82.9368009" version="1" timestamp="2012-03-11T17:29:44Z" changeset="10945809" uid="395715" user="oo-O-oo"/>
+  <node id="1670637473" lat="55.0747719" lon="82.9380684" version="1" timestamp="2012-03-11T17:29:44Z" changeset="10945809" uid="395715" user="oo-O-oo"/>
+  <node id="1670637483" lat="55.0749640" lon="82.9371801" version="1" timestamp="2012-03-11T17:29:44Z" changeset="10945809" uid="395715" user="oo-O-oo"/>
+  <node id="1670637512" lat="55.0751243" lon="82.9374942" version="1" timestamp="2012-03-11T17:29:45Z" changeset="10945809" uid="395715" user="oo-O-oo"/>
+  <node id="1670637545" lat="55.0753655" lon="82.9379669" version="2" timestamp="2013-12-17T16:09:18Z" changeset="19500863" uid="380265" user="Anatoli"/>
+  <node id="1670637566" lat="55.0755366" lon="82.9375689" version="1" timestamp="2012-03-11T17:29:46Z" changeset="10945809" uid="395715" user="oo-O-oo"/>
+  <node id="1670637635" lat="55.0766938" lon="82.9356287" version="1" timestamp="2012-03-11T17:29:47Z" changeset="10945809" uid="395715" user="oo-O-oo"/>
+  <node id="2349278364" lat="55.0742006" lon="82.9396916" version="1" timestamp="2013-06-17T11:50:59Z" changeset="16588723" uid="645332" user="ghelius"/>
+  <node id="2429204449" lat="55.0767928" lon="82.9352433" version="1" timestamp="2013-08-23T14:05:01Z" changeset="17469871" uid="1219486" user="koSS_Rus"/>
+  <node id="4425251139" lat="55.0776299" lon="82.9376769" version="2" timestamp="2016-09-30T15:43:32Z" changeset="42545754" uid="1219486" user="koSS_Rus"/>
+  <node id="4425251144" lat="55.0769638" lon="82.9393960" version="1" timestamp="2016-09-30T15:41:18Z" changeset="42545754" uid="1219486" user="koSS_Rus"/>
+  <node id="4425251152" lat="55.0775834" lon="82.9373956" version="1" timestamp="2016-09-30T15:41:18Z" changeset="42545754" uid="1219486" user="koSS_Rus"/>
+  <node id="4425251159" lat="55.0774145" lon="82.9371220" version="1" timestamp="2016-09-30T15:41:18Z" changeset="42545754" uid="1219486" user="koSS_Rus"/>
+  <node id="4425251166" lat="55.0763395" lon="82.9372238" version="1" timestamp="2016-09-30T15:41:18Z" changeset="42545754" uid="1219486" user="koSS_Rus"/>
+  <node id="4425251169" lat="55.0770744" lon="82.9391438" version="1" timestamp="2016-09-30T15:41:18Z" changeset="42545754" uid="1219486" user="koSS_Rus"/>
+  <node id="4425251171" lat="55.0764038" lon="82.9371160" version="1" timestamp="2016-09-30T15:41:18Z" changeset="42545754" uid="1219486" user="koSS_Rus"/>
+  <node id="4425251177" lat="55.0767748" lon="82.9359482" version="1" timestamp="2016-09-30T15:41:18Z" changeset="42545754" uid="1219486" user="koSS_Rus"/>
+  <node id="4425251181" lat="55.0776333" lon="82.9379315" version="1" timestamp="2016-09-30T15:41:18Z" changeset="42545754" uid="1219486" user="koSS_Rus"/>
+  <node id="4425251184" lat="55.0776486" lon="82.9381621" version="1" timestamp="2016-09-30T15:41:18Z" changeset="42545754" uid="1219486" user="koSS_Rus"/>
+  <node id="4425252396" lat="55.0767266" lon="82.9365748" version="1" timestamp="2016-09-30T15:41:18Z" changeset="42545754" uid="1219486" user="koSS_Rus"/>
+  <node id="4425252425" lat="55.0758200" lon="82.9380947" version="1" timestamp="2016-09-30T15:41:19Z" changeset="42545754" uid="1219486" user="koSS_Rus"/>
+  <node id="4425253575" lat="55.0776159" lon="82.9378025" version="1" timestamp="2016-09-30T15:43:32Z" changeset="42545754" uid="1219486" user="koSS_Rus"/>
+  <way id="51993176" version="12" timestamp="2026-03-25T17:10:18Z" changeset="180418337" uid="515330" user="Alexey_ND">
+    <nd ref="2349278364"/>
+    <nd ref="1670367088"/>
+    <nd ref="1670637461"/>
+    <nd ref="1670367198"/>
+    <nd ref="1670367217"/>
+    <nd ref="1670637566"/>
+    <nd ref="1361144816"/>
+    <nd ref="670459162"/>
+    <nd ref="2429204449"/>
+    <nd ref="662948360"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lanes" v="2"/>
+    <tag k="name" v="Магаданская улица"/>
+    <tag k="postal_code" v="630047"/>
+  </way>
+  <way id="154509134" version="4" timestamp="2025-09-21T21:30:13Z" changeset="172266865" uid="346125" user="Глеб">
+    <nd ref="1670367275"/>
+    <nd ref="1670367247"/>
+    <nd ref="1670367246"/>
+    <nd ref="1670367243"/>
+    <nd ref="1670637545"/>
+    <nd ref="1670367217"/>
+    <nd ref="1670637512"/>
+    <nd ref="1670637483"/>
+    <nd ref="1670637471"/>
+    <nd ref="1670367106"/>
+    <tag k="highway" v="service"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="154534181" version="2" timestamp="2025-09-21T21:30:13Z" changeset="172266865" uid="346125" user="Глеб">
+    <nd ref="1670637512"/>
+    <nd ref="1670637473"/>
+    <nd ref="1670637465"/>
+    <nd ref="1670637418"/>
+    <tag k="highway" v="service"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="154534187" version="2" timestamp="2025-09-21T21:30:13Z" changeset="172266865" uid="346125" user="Глеб">
+    <nd ref="1670637461"/>
+    <nd ref="1670637418"/>
+    <nd ref="1670637355"/>
+    <nd ref="1670637329"/>
+    <nd ref="1670637323"/>
+    <nd ref="1670637320"/>
+    <tag k="highway" v="service"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="445068859" version="2" timestamp="2016-09-30T15:43:32Z" changeset="42545754" uid="1219486" user="koSS_Rus">
+    <nd ref="662948365"/>
+    <nd ref="4425251144"/>
+    <nd ref="4425251169"/>
+    <nd ref="4425251184"/>
+    <nd ref="4425251181"/>
+    <nd ref="4425253575"/>
+    <nd ref="4425251139"/>
+    <nd ref="4425251152"/>
+    <nd ref="4425251159"/>
+    <nd ref="4425251177"/>
+    <nd ref="1670637635"/>
+    <nd ref="1361144816"/>
+    <tag k="highway" v="service"/>
+  </way>
+  <way id="445068868" version="1" timestamp="2016-09-30T15:41:20Z" changeset="42545754" uid="1219486" user="koSS_Rus">
+    <nd ref="4425251177"/>
+    <nd ref="4425252396"/>
+    <nd ref="4425251171"/>
+    <nd ref="4425251166"/>
+    <nd ref="4425252425"/>
+    <tag k="highway" v="service"/>
+  </way>
+  <way id="445068875" version="2" timestamp="2025-09-21T21:30:13Z" changeset="172266865" uid="346125" user="Глеб">
+    <nd ref="1670367237"/>
+    <nd ref="4425252425"/>
+    <nd ref="1670367253"/>
+    <nd ref="1670367243"/>
+    <tag k="highway" v="service"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+
+</osm>

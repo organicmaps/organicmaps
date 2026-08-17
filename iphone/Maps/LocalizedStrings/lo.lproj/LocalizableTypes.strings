@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "ລານສະເກັດນໍ້າແຂງ";
 "type.leisure.marina" = "ທ່າຈອດເຮືອສຳລານ";
 "type.leisure.nature_reserve" = "ເຂດສະຫງວນທຳມະຊາດ";
+"type.leisure.bird_hide" = "ບ່ອນສັງເກດນົກ";
 "type.leisure.outdoor_seating" = "ບ່ອນນັ່ງກາງແຈ້ງ";
 "type.leisure.firepit" = "ກອງໄຟ";
 "type.leisure.park" = "ສວນສາທາລະນະ";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "ທົ່ງຫຍ້າ";
 "type.natural.orchard" = "ສວນໝາກໄມ້";
 "type.natural.peak" = "ຈອມພູ";
+"type.natural.hill" = "ພູ";
+"type.natural.arch" = "Rock Arch";
 "type.natural.saddle" = "ກິ່ວພູ";
 "type.natural.rock" = "ໂງ່ນຫີນ";
 "type.natural.scrub" = "ປ່າເລົ່າ";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "ສິ່ງອຳນວຍຄວາມສະດວກທາງສັງຄົມ";
+"type.amenity.stage" = "ເວທີ";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "ທາງເຂົ້າແຜນກສຸກເສີນ";

@@ -14,6 +14,10 @@ MWMRouterTransitType convertType(TransitType type)
   case TransitType::Train: return MWMRouterTransitTypeTrain;
   case TransitType::LightRail: return MWMRouterTransitTypeLightRail;
   case TransitType::Monorail: return MWMRouterTransitTypeMonorail;
+  case TransitType::Tram: return MWMRouterTransitTypeTram;
+  case TransitType::Bus: return MWMRouterTransitTypeBus;
+  // Trolleybus stops are not visually distinguished from buses in known cities; reuse the bus icon.
+  case TransitType::Trolleybus: return MWMRouterTransitTypeBus;
   // This is temporary solution for compiling iOS project after adding new
   // TransitType values. When these values will be approved we'll add them
   // above in switch(type) and remove this line.

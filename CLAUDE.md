@@ -33,8 +33,11 @@ The C++ core is accessed from platforms via bridging layers:
 - Namespaces: `lower_case` with underscores
 - `using` instead of `typedef`
 - Compile-time constants: `kCamelCase` and `constexpr`
-- Auto-format: `clang-format -i file.cpp` (v22+)
+- Comments should be brief, explaining only reasoning that is not obvious from the code itself
+- Auto-format: `clang-format -i file.cpp` (v22+), or `tools/unix/clang-format.sh` for the whole tree
 - Swift: format with `swiftformat iphone/` or `swiftformat <file>` (config in `iphone/.swiftformat`)
+- Kotlin: format with `tools/unix/ktlint_format.sh` (config in `android/.editorconfig`)
+- Style checks gate CI (clang-format, swiftformat, ktlint, and detekt static analysis) -- run them before pushing
 - Pre-commit hook (auto-formats on commit): `git config core.hooksPath tools/hooks`
 - See [docs/CODE_STYLE_GUIDE.md](docs/CODE_STYLE_GUIDE.md) for more details and examples
 
@@ -94,18 +97,23 @@ std::string DebugPrint(MyType const & t);
 - Follow the instructions in [docs/INSTALL.md](docs/INSTALL.md)
 
 ## Build on desktop
-1. CMake configure: `cmake -B build-$YOUR_NAME -S . -DCMAKE_BUILD_TYPE=Debug -GNinja` for debug configuration
+1. CMake configure: `cmake --preset debug -B build-$YOUR_NAME` for debug configuration
+   - the `debug` preset (in `CMakePresets.json`) sets Ninja + `CMAKE_BUILD_TYPE=Debug`; `-B` overrides the preset's build dir so each agent gets its own `build-$YOUR_NAME` and they don't clobber each other
    - if configure fails, repeat with `--fresh` option to clear CMake cache
 2. Build: `cmake --build build-$YOUR_NAME` to build all targets
    or specify `--target target_name` to build a specific target (e.g., `desktop` for the main app)
 3. To run tests:
 ```bash
-# Exclude some tests that are not relevant for most contributors.
-ctest -j --test-dir build-$YOUR_NAME --stop-on-failure --output-on-failure -E "drape_tests|generator_integration_tests|opening_hours_integration_tests|opening_hours_supported_features_tests|routing_benchmarks|routing_integration_tests|routing_quality_tests|search_quality_tests|storage_integration_tests|shaders_tests|world_feed_integration_tests"
+# Mirrors the default CMake test preset while keeping the per-agent build dir.
+CTEST_EXCLUDE_REGEX="drape_tests|drape_frontend_tests|generator_integration_tests|routing_benchmarks|routing_integration_tests|routing_quality_tests|search_quality_tests|storage_integration_tests|shaders_tests|world_feed_integration_tests"
+ctest -j --test-dir build-$YOUR_NAME --stop-on-failure --output-on-failure -L "omim-test" -E "$CTEST_EXCLUDE_REGEX"
+# Rendering tests need offscreen GL and are run separately.
+QT_QPA_PLATFORM=offscreen ctest --test-dir build-$YOUR_NAME --stop-on-failure --output-on-failure -R "drape_tests|drape_frontend_tests|shaders_tests"
 # Run only a specific test:
 ctest -j --test-dir build-$YOUR_NAME --stop-on-failure --output-on-failure -R test_name
 ```
 4. To filter specific tests inside a test binary, use `--filter=<ECMA Regexp>` option.
+5. Always check return result when launching test binaries to detect crashed/segfaulted test. Use `${pipestatus[*]}` array for zsh (default on MacOS) and `${PIPESTATUS[*]}` for bash.
 
 ### Common build targets
 - `desktop` -- Qt desktop app
@@ -114,21 +122,25 @@ ctest -j --test-dir build-$YOUR_NAME --stop-on-failure --output-on-failure -R te
 - `<lib>_tests` -- test binary for a library (e.g., `base_tests`, `search_tests`, `routing_tests`)
 - `skin_generator_tool`, `track_generator_tool`, `topography_generator_tool` -- auxiliary tools
 
-## Build for iOS
+## Build for iOS Simulator
 ```
 xcodebuild archive -workspace xcode/omim.xcworkspace -configuration Debug -destination generic/platform='iOS Simulator' \
-    -scheme OMaps MARKETING_VERSION="$(date +%Y.%m.%d)" CURRENT_PROJECT_VERSION=1
+    -scheme OMaps MARKETING_VERSION="$(date +%Y.%m.%d)" CURRENT_PROJECT_VERSION=1 EXCLUDED_ARCHS=x86_64
 ```
+CI builds iOS but does not run its tests yet, see [#9867](https://github.com/organicmaps/organicmaps/issues/9867).
 
 ## Build for Android
-- `cd android && ./gradlew assembleGoogleDebug -Parm64`
+- Build: `cd android && ./gradlew assembleGoogleDebug -Parm64`
+- Unit tests: `cd android && ./gradlew app:testGoogleDebug sdk:testDebug`
+- Instrumented tests (needs an emulator or device): `cd android && ./gradlew sdk:connectedDebugAndroidTest`
+- Lint (gates CI): `cd android && ./gradlew lintAllModules`
 
 ## Commit messages
 Format: `[subsystem] Summary in imperative mood` (max 80 chars). Examples of subsystems:
 `[android]`, `[ios]`, `[qt]`, `[search]`, `[routing]`, `[generator]`, `[strings]`, `[styles]`, `[platform]`, `[storage]`, `[bookmarks]`, `[3party]`, `[docs]`
 
 - Separate subject from body with a blank line; wrap body at 80 chars
-- Explain **what and why**, not how
+- Explain **what and why**, not how; keep it brief
 - Link issues on last lines: `Fixes: #123`, `Closes: #456`
 - Auto-generated files (strings, styles) must be in a **separate commit** with title like `[strings] Regenerated` or `[styles] Regenerated`
 - Signed-off-by line required (DCO): `git commit -s`
@@ -137,7 +149,7 @@ Format: `[subsystem] Summary in imperative mood` (max 80 chars). Examples of sub
 ## Pull requests
 - Prefer PRs focused and small; split unrelated changes into separate PRs, or at least separate commits with clear messages
 - Mention if LLM tools were used to generate code
-- Description must include: what changed, link to issue (`Fixes #NNN`), how it was tested
+- Description must be brief and include: what changed, link to issue (`Fixes #NNN`), how it was tested
 - Every commit must compile on all platforms and pass tests
 - New features require tests in the same PR
 - Test on multiple OS versions, themes (light/dark), orientations where applicable
@@ -149,8 +161,18 @@ Format: `[subsystem] Summary in imperative mood` (max 80 chars). Examples of sub
 - Less code/cleaner code/less changes
 - Simple architecture and design for long-term maintenance
 
+## Error handling policy
+- Downloaded files are verified on download when a hash is available, and trusted as-is otherwise --
+  they come from our servers. On-disk corruption afterwards is out of OM scope: crashing on corrupted
+  data is fine, do not harden the code against it. Exception: `Framework::RegisterAllMaps()` must
+  survive broken map files so the app still starts and bookmarks can be exported.
+- Fail fast: use `ASSERT` liberally to catch developer mistakes in Debug. Asserts are compiled out of
+  Release for performance, so keep them side-effect free (`VERIFY` still evaluates its expression).
+  Use `CHECK` when the condition must also hold in Release, and don't add defensive fallbacks for
+  conditions that can only come from a bug.
+
 ## Code review guidelines
-- Use `gh` CLI tool to review pull requests, leave comments and approve changes
+- Use the available GitHub tooling (`gh` CLI or GitHub MCP tools) to review pull requests, leave comments and approve changes
 - Check the code locally if the same PR/branch is checked out
 - Review code for bugs, correctness, maintainability, performance, and other issues
 - Review related changes and places where the code is used
@@ -162,13 +184,13 @@ Format: `[subsystem] Summary in imperative mood` (max 80 chars). Examples of sub
 - Verify auto-generated files are NOT modified by hand (styles, localizations, `classificator.txt`)
 - Check that new strings go into translation files, not hardcoded
 - Verify new map features have classifier tests in `generator/generator_tests/osm_type_test.cpp`
+- Proofread translations and suggest missing ones, following "When translating content from English"
 
 ## Translation, map styles, and new map features workflows
 See [data/CLAUDE.md](data/CLAUDE.md) for:
 - Translation workflow (editing `data/strings/`, regenerating)
 - Map styles workflow (editing MapCSS in `data/styles/`, regenerating)
 - Adding a new map feature / search category (full checklist)
-- Translation glossary and typography rules for Russian, Ukrainian, Belarusian
 
 ## Debug commands
 Enter in the search bar to activate (see [docs/DEBUG_COMMANDS.md](docs/DEBUG_COMMANDS.md)):

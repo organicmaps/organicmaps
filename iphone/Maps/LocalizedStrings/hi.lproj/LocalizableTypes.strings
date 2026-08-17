@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Ice Rink";
 "type.leisure.marina" = "मरीना";
 "type.leisure.nature_reserve" = "संरक्षित प्रकृतिक्षेत्र";
+"type.leisure.bird_hide" = "पक्षी अवलोकन आश्रय";
 "type.leisure.outdoor_seating" = "Outdoor Seating";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "उद्यान";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "घास का मैदान";
 "type.natural.orchard" = "फलोद्यान";
 "type.natural.peak" = "शिखर";
+"type.natural.hill" = "पहाड़ी";
+"type.natural.arch" = "शिला मेहराब";
 "type.natural.saddle" = "Mountain Saddle";
 "type.natural.rock" = "Rock";
 "type.natural.scrub" = "झाड़ी";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "सामाजिक सुविधा";
+"type.amenity.stage" = "मंच";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "आपातकालीन वार्ड प्रवेश द्वार";

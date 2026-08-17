@@ -5,13 +5,46 @@
 
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"
+#include "drape/hatching_decl.hpp"
 #include "drape/texture_manager.hpp"
 #include "drape/utils/vertex_decl.hpp"
 
 #include "base/buffer_vector.hpp"
 
+#include <cmath>
+
 namespace df
 {
+// Analytic area patterns (hatches and solid-fill speckles) repeat every kHatchTilePx 'base' pixels - the
+// size of the legacy mask tiles, kept so the on-screen scale is unchanged. The fragment shaders interpret
+// v_maskTexCoords * kHatchTilePx as the in-tile pixel coordinate.
+uint32_t constexpr kHatchTilePx = 16;
+
+namespace
+{
+// Maps an area-pattern key (hatch or solid-fill) to its analytic GPU program.
+gpu::Program PatternProgram(std::string_view key)
+{
+  if (key == dp::k45dHatching)
+    return gpu::Program::HatchingArea;
+  if (key == dp::kDashHatching)
+    return gpu::Program::HatchingAreaDash;
+  if (key == dp::kStipplePattern)
+    return gpu::Program::AreaStipple;
+  if (key == dp::kSpecklePattern)
+    return gpu::Program::AreaSpeckle;
+  if (key == dp::kGridPattern)
+    return gpu::Program::AreaGrid;
+  CHECK(false, ("Unknown area pattern key:", key));
+  return gpu::Program::Area;
+}
+}  // namespace
+
+double CalcHatchingPhaseAnchor(double bboxMin, uint32_t maskSizePx, double baseGtoPScale)
+{
+  double const period = maskSizePx / baseGtoPScale;  // world units per mask repeat
+  return std::floor(bboxMin / period) * period;
+}
 
 AreaShape::AreaShape(std::vector<m2::PointD> triangleList, BuildingOutline && buildingOutline,
                      AreaViewParams const & params)
@@ -39,8 +72,8 @@ void AreaShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> 
     DrawMwmBorderArea(context, batcher, colorUv, region.GetTexture());
   else if (m_params.m_is3D)
     DrawArea3D(context, batcher, colorUv, outlineUv, region.GetTexture());
-  else if (!m_params.m_hatching.empty())
-    DrawHatchingArea(context, batcher, colorUv, region.GetTexture(), textures->GetHatchingTexture(m_params.m_hatching));
+  else if (!m_params.m_areaPattern.empty())
+    DrawPatternArea(context, batcher, colorUv, region.GetTexture(), m_params.m_areaPattern);
   else
     DrawArea(context, batcher, colorUv, outlineUv, region.GetTexture());
 }
@@ -105,9 +138,9 @@ void AreaShape::DrawMwmBorderArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<
   batcher->InsertTriangleList(context, state, make_ref(&provider));
 }
 
-void AreaShape::DrawHatchingArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
-                                 m2::PointD const & colorUv, ref_ptr<dp::Texture> texture,
-                                 ref_ptr<dp::Texture> hatchingTexture) const
+void AreaShape::DrawPatternArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+                                m2::PointD const & colorUv, ref_ptr<dp::Texture> texture,
+                                std::string_view patternKey) const
 {
   glsl::vec2 const uv = glsl::ToVec2(colorUv);
 
@@ -115,23 +148,27 @@ void AreaShape::DrawHatchingArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<d
   for (auto const & v : m_vertexes)
     bbox.Add(v);
 
-  double const maxU = m_params.m_baseGtoPScale / hatchingTexture->GetWidth();
-  double const maxV = m_params.m_baseGtoPScale / hatchingTexture->GetHeight();
+  // World units per tile repeat; the fragment shader scales v_maskTexCoords back to in-tile pixels.
+  double const tilesPerWorld = m_params.m_baseGtoPScale / kHatchTilePx;
+
+  // Anchor the repeated pattern to a global, period-aligned grid instead of the clipped bbox, so the
+  // phase stays continuous across tile seams and LOD changes. See CalcHatchingPhaseAnchor / issue #12804.
+  double const anchorX = CalcHatchingPhaseAnchor(bbox.minX(), kHatchTilePx, m_params.m_baseGtoPScale);
+  double const anchorY = CalcHatchingPhaseAnchor(bbox.minY(), kHatchTilePx, m_params.m_baseGtoPScale);
 
   gpu::VBReservedSizeT<gpu::HatchingAreaVertex> vertexes;
   vertexes.reserve(m_vertexes.size());
   for (m2::PointD const & vertex : m_vertexes)
   {
     vertexes.emplace_back(ToShapeVertex3(vertex), uv,
-                          glsl::vec2(static_cast<float>(maxU * (vertex.x - bbox.minX())),
-                                     static_cast<float>(maxV * (vertex.y - bbox.minY()))));
+                          glsl::vec2(static_cast<float>(tilesPerWorld * (vertex.x - anchorX)),
+                                     static_cast<float>(tilesPerWorld * (vertex.y - anchorY))));
   }
 
-  auto state = CreateRenderState(gpu::Program::HatchingArea, DepthLayer::GeometryLayer);
+  // The pattern is computed analytically in the fragment shader (no mask texture, hence no mipmaps).
+  auto state = CreateRenderState(PatternProgram(patternKey), DepthLayer::GeometryLayer);
   state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
   state.SetColorTexture(texture);
-  state.SetMaskTexture(hatchingTexture);
-  state.SetTextureFilter(dp::TextureFilter::Linear);
 
   dp::AttributeProvider provider(1, static_cast<uint32_t>(vertexes.size()));
   provider.InitStream(0, gpu::HatchingAreaVertex::GetBindingInfo(), make_ref(vertexes.data()));

@@ -1,7 +1,8 @@
-• Pieskarieties sabiedriskā transporta pieturai un izvēlieties maršruta numurus, lai kartē izceltu maršrutus.
-• Grāmatzīmju etiķetes kartē vairs nepārklājas
-• Svaigi OpenStreetMap dati no 3. maija ar jauniem objektu tipiem
-• Uzlabotas trases un maršrutu augstuma diagrammas
-• Vjetnamas, Malaizijas, Honkongas, Makao un Hainaņas mazāka izmēra karšu lejupielādes
-• Pilnveidota lietotāja saskarne un animācijas
-…vairāk vietnē omaps.org/news
+JAUNĀS FUNKCIJAS:
+• Atjaunināta meklēšanas un maršruta plānošanas lietotāja saskarne
+• Sabiedriskā transporta maršrutu plānošana (autobuss, tramvajs, metro, vieglā dzelzceļa transports)
+• Alternatīvi ātrākie un īsākie maršruti
+• Maršruta brīdinājumi par pakāpieniem, vārtiem un pacelamajiem vārtiem
+• Izvēlieties jebkuru krāsu grāmatzīmēm
+• Atbalsts koordinātēm UK OS Grid, Irish Grid, ITM
+…vairāk omaps.org/news

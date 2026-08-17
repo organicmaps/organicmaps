@@ -219,6 +219,18 @@
     <string name="pref_map_3d_buildings_title">3D-byggingar</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">3D-byggingar eru óvirkar í orkusparnaðarham</string>
+    <!-- Settings: title of the satellite imagery (custom raster tiles) screen -->
+    <string name="pref_bg_tiles_title">Gervitunglamyndir</string>
+    <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
+    <string name="pref_bg_tiles_url_title">Vefslóð netþjóns</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">Sláðu inn gilda vefslóð með {z}/{x}/{y}</string>
+    <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
+    <string name="pref_bg_tiles_size_title">Skyndiminnisstærð (MB)</string>
+    <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
+    <string name="pref_bg_tiles_opacity_title">Ógagnsæi svæðishluta</string>
+    <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
+    <string name="pref_bg_tiles_disclaimer">Sérsniðnar flísalindir eru útvegaðar af þér. Notaðu aðeins þjónustur sem þú hefur leyfi til að nota. Þú berð ábyrgð á tilvísun, leyfisskilmálum, API-lyklum, kvótum og notkunarmörkum.</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Talaðar leiðbeiningar</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
@@ -231,7 +243,7 @@
     <string name="pref_tts_test_voice_title">Prófa raddleiðsögn (TTS, texti-í-tal)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Athugaðu hljóðstyrk eða stillingar á texti-í-tal ef þú heyrir ekkert núna.</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">Ekki tiltækt</string>
     <string name="pref_map_auto_zoom">Sjálfvirkur aðdráttur</string>
     <string name="placepage_distance">Vegalengd</string>
@@ -567,14 +579,11 @@
     <string name="prefs_languages_information_off_link">Til að sjá nánari upplýsingar, ættirðu að skoða þessar leiðbeiningar.</string>
     <string name="transliteration_title">Umrita yfir í latneskt stafróf</string>
     <string name="learn_more">Kanna nánar</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Notaðu leit, veldu bókamerki eða ýttu á kortið til að bæta við upphafspunkti leiðar</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Notaðu leit, veldu bókamerki eða ýttu á kortið til að bæta við ákvörðunarstað</string>
     <string name="planning_route_manage_route">Sýsla með leið</string>
     <string name="button_plan">Skipuleggja</string>
     <string name="placepage_remove_stop">Fjarlægja stopp</string>
     <string name="placepage_add_stop">Bæta við stoppi</string>
+    <string name="drag_to_reorder">Endurraða</string>
     <string name="saved">Vistað</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Skráðu þig inn á OpenStreetMap til að senda sjálfkrafa inn allar breytingar þínar á kortinu. Kannaðu þetta nánar <a href="https://github.com/organicmaps/organicmaps/issues/6144">hér</a>.</string>
@@ -625,6 +634,8 @@
     <string name="button_layer_hiking">Gönguleiðir</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Hjólreiðar</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Gervitungl</string>
     <string name="button_layer_subway">Neðanjarðarlest</string>
     <string name="layers_title">Stílar landakorta og þekjur</string>
     <string name="bookmarks_empty_list_title">Þessi listi er tómur</string>
@@ -724,6 +735,7 @@
     <string name="opens_at">Opnar %s</string>
     <string name="closes_at">Lokar %s</string>
     <string name="editor_add_select_category_all_subtitle">Allir flokkar</string>
+    <string name="placepage_replace_stop">Skipta út stoppi</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Matur</string>
@@ -879,6 +891,8 @@
     <string name="share_track">Deila ferli</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Eyða %s?</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Breyta lit</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -905,4 +919,6 @@
     <string name="color_picker_hex_label">sRGB hex-litur #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Rist</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">Raddaleit</string>
 </resources>

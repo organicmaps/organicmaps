@@ -219,6 +219,18 @@
     <string name="pref_map_3d_buildings_title">3Dビル</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">省電力モードで建物の 3D 表示がオフになっている</string>
+    <!-- Settings: title of the satellite imagery (custom raster tiles) screen -->
+    <string name="pref_bg_tiles_title">衛星画像</string>
+    <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
+    <string name="pref_bg_tiles_url_title">サーバーのURL</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">{z}/{x}/{y} を含む有効なURLを入力してください</string>
+    <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
+    <string name="pref_bg_tiles_size_title">キャッシュサイズ (MB)</string>
+    <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
+    <string name="pref_bg_tiles_opacity_title">面オブジェクトの不透明度</string>
+    <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
+    <string name="pref_bg_tiles_disclaimer">カスタムタイルのソースはご自身で用意するものです。アクセスが許可されているサービスのみを使用してください。帰属表示、ライセンス条件、APIキー、クォータ、利用制限についてはご自身の責任となります。</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">音声指示</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
@@ -231,7 +243,7 @@
     <string name="pref_tts_test_voice_title">音声案内をテストする（TTS、Text-To-Speech）</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">音声が聞こえない場合は、音量またはシステムの音声合成設定を確認する。</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">利用不可</string>
     <string name="pref_map_auto_zoom">自動ズーム</string>
     <string name="placepage_distance">距離</string>
@@ -567,14 +579,11 @@
     <string name="prefs_languages_information_off_link">詳細については、このガイドをご確認ください。</string>
     <string name="transliteration_title">ラテン文字への翻字</string>
     <string name="learn_more">詳細情報</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">検索を使うか、地図上をタップしてルートの出発点を追加する</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">検索を使うか、地図上をタップして目的地を追加する</string>
     <string name="planning_route_manage_route">ルートを編集</string>
     <string name="button_plan">プラン</string>
     <string name="placepage_remove_stop">停留所を削除</string>
     <string name="placepage_add_stop">中間地点を追加</string>
+    <string name="drag_to_reorder">並べ替え</string>
     <string name="saved">保存</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">すべてのマップ編集を自動的にアップロードするには、OpenStreetMapにログインしてください。詳しくは <a href="https://github.com/organicmaps/organicmaps/issues/6144">こちら</a>.</string>
@@ -621,6 +630,8 @@
     <string name="button_layer_hiking">ハイキング</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">サイクリング</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">衛星</string>
     <string name="button_layer_subway">地下鉄</string>
     <string name="layers_title">マップのスタイルとレイヤー</string>
     <string name="bookmarks_empty_list_title">このリストは空です</string>
@@ -714,12 +725,13 @@
     <string name="near_me_sorttype">近隣</string>
     <string name="others_sorttype">その他</string>
     <!-- Place Page opening hours text -->
-    <string name="closed_now">現在閉店</string>
+    <string name="closed_now">営業時間外</string>
     <string name="opens_tomorrow_at">明日の %s から営業</string>
     <string name="opens_dayoftheweek_at">%1$s の %2$s から営業</string>
     <string name="opens_at">%s から営業</string>
     <string name="closes_at">%s に閉店</string>
     <string name="editor_add_select_category_all_subtitle">全てのカテゴリ</string>
+    <string name="placepage_replace_stop">リプレースストップ</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">食べ物</string>
@@ -873,6 +885,12 @@
     <string name="share_track">シェアトラック</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">を削除しますか %s？</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">色を変える</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">ルートを非表示</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">ルートを表示</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -899,4 +917,6 @@
     <string name="color_picker_hex_label">sRGB 16進カラー #.</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">グリッド</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">音声検索</string>
 </resources>

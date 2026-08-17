@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ripple xmlns:android="http://schemas.android.com/apk/res/android"
-        android:color="?attr/colorControlHighlight">
-  <item>
-    <selector>
-      <item
-        android:state_activated="true"
-        android:drawable="@drawable/routing_toolbar_button_active"/>
-      <item
-        android:drawable="@drawable/routing_toolbar_button_normal"/>
-    </selector>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:state_checked="true">
+    <shape android:shape="rectangle">
+      <solid android:color="?attr/routingTabActiveBg"/>
+      <corners android:radius="@dimen/routing_toolbar_cell_radius"/>
+    </shape>
   </item>
-</ripple>
+  <item android:drawable="@android:color/transparent"/>
+</selector>

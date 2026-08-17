@@ -73,7 +73,7 @@ struct AreaViewParams : CommonViewParams
   float m_minPosZ = 0;
   float m_posZ = 0;
   bool m_is3D = false;
-  std::string_view m_hatching;
+  std::string_view m_areaPattern;  // analytic pattern key (hatch or solid-fill), empty for a plain fill
   double m_baseGtoPScale = 1.0;
 };
 

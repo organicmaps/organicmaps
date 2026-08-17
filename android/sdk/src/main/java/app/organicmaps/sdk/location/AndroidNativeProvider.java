@@ -100,7 +100,7 @@ public class AndroidNativeProvider extends BaseLocationProvider
     if (mProviders.isEmpty())
     {
       // Call this callback in the next event loop to allow LocationHelper::start() to finish.
-      Logger.e(TAG, "No providers available");
+      Logger.w(TAG, "No providers available");
       runLater(mListener::onLocationDisabled);
       return;
     }

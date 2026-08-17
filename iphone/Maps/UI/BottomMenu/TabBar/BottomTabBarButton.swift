@@ -30,7 +30,7 @@ class BottomTabBarButtonRenderer {
     if let imageInsets = style.imageContainerInsets {
       control.contentVerticalAlignment = .fill
       control.contentHorizontalAlignment = .fill
-      control.setImageEdgeInsets(imageInsets)
+      control.imageEdgeInsets = imageInsets
     }
     if let backgroundColor = style.backgroundColor {
       control.backgroundColor = backgroundColor

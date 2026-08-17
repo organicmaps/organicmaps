@@ -83,7 +83,8 @@ private:
 class RoutePointsLayout
 {
 public:
-  static size_t const kMaxIntermediatePointsCount;
+  static size_t constexpr kMaxIntermediatePointsCount = 100;
+  static size_t constexpr kMaxRoutePointsCount = kMaxIntermediatePointsCount + 2;
 
   RoutePointsLayout(BookmarkManager & manager);
 

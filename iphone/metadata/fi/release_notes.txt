@@ -1,26 +1,41 @@
-- UUTUUS! Napauta julkisen liikenteen pysäkkiä korostaaksesi koko reitin kartalla, kuten Transit-karttatyylissä.
-- UUTUUS! pitkän matkan joukkoliikennereitit ja muut OpenStreetMap-suhteet yhdistetään nyt karttarajojen yli yhdeksi yhtenäiseksi viivaksi.
-- OpenStreetMap-tiedot päivitetty 3. toukokuuta.
-- Vietnam ja Malesia on nyt jaettu pienempiin alueisiin, jotka voi ladata erikseen.
-- Hongkong, Macao ja Hainan on nyt erotettu Guangdongista, ja naapurimaiden rajat on päivitetty.
-- Päivitetty Indonesian, Malesian, Tansanian, Thaimaan ja Vietnamin ääriviivat.
-- Navigoinnin infopaneeliin on lisätty radan tallennuspainike.
-- Lisätty uusia OpenStreetMap-tyyppejä: tulivuoria, joilla on aktiivinen tila, vesiväylien liittymispisteitä, liukumäkiä, vesipiippuhuoneita ja rakenteilla olevia rakennuksia.
-- Lisätty "Lookout" näköalapaikkojen hakusynonyymiksi ja "pkwy" yhdysvaltalaisen kadun synonyymiksi.
-- Jalankulkualueiden värit ovat hieman tummemmat luettavuuden parantamiseksi.
-- Kirjanmerkkien merkinnät kartalla eivät enää ole päällekkäisiä.
-- Monirivinen teksti leikataan nyt siististi, eivätkä kadunnimet enää sisällä kaksoiskappaleita.
-- Reititys: jatketut reitit poistavat nyt välipisteet, jotka olet jo ohittanut.
-- Korjattu väärän kirjanmerkkiluettelon käyttäminen TestFlight-rakennuksissa.
-- Korjattu KMB-tiedoston tuonti.
-- Päivitetty luokkien, hakusynonyymien ja käyttöliittymämerkkijonojen oikolukukäännökset. Lisätty käännökset New South Walesin ja Northern Territoryn kuvauksille.
-- Parannettu vakautta ja suorituskykyä, mukaan lukien fontin muotoilu, glyfien välimuistiin tallentaminen ja reittiviivojen leikkaaminen.
-- Parannettu ratojen ja reittien korkeuskäyriä.
-- Navigointivalikon painikkeista on tehty suurempia esimerkiksi TTS:n, asetusten ja radan tallennuksen kaltaisia toimintoja varten.
-- Paikkasivun laajennettavan kuvausosan animaatiota on parannettu.
-- Paikkatietosivu ei enää sulkeudu, kun korkeuskartan pyyhkäisy päättyy, se ei enää pomppaa odottamatta ja pitää otsikon näkyvissä, kun sitä muokataan näppäimistön ollessa auki.
-- Korjattu kaatumisia, kun poistettiin raita tai kirjanmerkki, jota ei enää ole olemassa.
+- UUTTA! Julkisen liikenteen reittisuunnittelu metrolla, pikaraitiovaunulla, bussilla ja raitiovaunulla
+- UUTTA! Vaihtoehtoiset reitit: nopeimman reitin lisäksi sovellus näyttää nyt myös lyhimmän reitin
+- UUTTA! Kävely- ja pyöräilyreittien varoitukset matkan varrella olevista askelmista, porteista ja nostoportteista
+- UUTTA! Napauta valitaksesi päällekkäisten reittien ja reittien välillä
+- UUTTA! Valitse kirjanmerkkeihin mikä tahansa väri
+- UUTTA! Tuki koordinaateille British National Grid (OS Grid), Irish Grid ja Irish Transverse Mercator (ITM)
+- UUTTA! Esteettömyystuki Dynamic Type:lle ja suurille kirjasinkokoille
+- KOKEILUVAIHE: Ota satelliittikuvat käyttöön Organic Maps-asetuksissa mukautetun rasterikuvapalvelimen URL-osoitteen avulla
+- Selkeämpi taulukoiden muotoilu käyttöliittymässä
+- Kirjoita hakukenttään `?map-download-server:https://your-server.com/` ohittaaksesi Organic Maps-karttojen latauspalvelimet. Kirjoita `?no-map-download-server` poistaaksesi ohituksen.
+- Erilaisia virhekorjauksia ja suorituskyvyn parannuksia
 
-## Alustatuki
+## Karttatiedot
 
-- TestFlightissa ja App Storessa tapahtuneiden muutosten vuoksi tämä julkaisu tukee vain iOS 15:tä ja uudempia. iOS 12, iOS 13 ja iOS 14 eivät ole enää tuettuja.
+- OpenStreetMap-tiedot päivitetty 24. kesäkuuta
+- Wikipedia-tiedot päivitetty 20. kesäkuuta, mukaan lukien italiankieliset artikkelit
+
+## Karttojen renderointi ja tyylit
+
+- Paremman näköiset kuviot ranta-, hiekka-, soramurska-, paljas kallio-, hedelmätarha- ja viinitarha-alueille sekä suojelualueiden ja kosteikkojen varjostukselle
+- Sujuvammin kaarevat tekstimerkinnät teille ja jokille
+- Joet, purot ja kosteikot erottuvat paremmin ja ovat näkyvämpiä pimeässä tilassa
+- Uudet ja parannetut kuvakkeet luokkahakuun ja hakutuloksiin kartalla
+- Parannettu monikielinen tekstin muotoilu ja renderointi
+
+## Reitit, kirjanmerkit ja reitit
+
+- Parannettu HTML-renderointi kirjanmerkkien ja reittien kuvauksissa
+- GeoJSON-reiteissä säilytetään nyt korkeustiedot ja aikaleimat tuonnin ja viennin yhteydessä
+- Korjattu kaatuminen, joka ilmeni reitin siirtämisen jälkeen toiseen luetteloon
+- Kulttuuriperintökohteiden verkkosivustot näkyvät nyt
+- Nimetön hakutulos näyttää nyt operaattorin nimen. Esimerkiksi nimetön ATM näyttää nyt pankkinsa
+- Toimittaja: korjattu kerrostalon kuvausteksti OpenStreetMap muokkaukset/muutokset
+- Parannettu HTML-tunnistus kirjanmerkkien ja reittien kuvauksissa
+- Päällekkäiset reitit suodatetaan nyt pois
+
+## Käännökset
+
+- Kantoninkielinen vaiheittainen ääniohjaus
+- Päivitetyt saksan- ja ranskankieliset käännökset
+- Korjattu virheelliset "onto street"-ääniohjeiden käännökset kiinaksi, serbiaksi ja katalaaniksi

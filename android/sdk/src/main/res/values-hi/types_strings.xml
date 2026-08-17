@@ -371,6 +371,7 @@
     <string name="type.leisure.hackerspace">हैकर्सस्पेस</string>
     <string name="type.leisure.marina">मरीना</string>
     <string name="type.leisure.nature_reserve">संरक्षित प्रकृतिक्षेत्र</string>
+    <string name="type.leisure.bird_hide">पक्षी अवलोकन आश्रय</string>
     <string name="type.leisure.park">उद्यान</string>
     <string name="type.leisure.park.no.access">उद्यान</string>
     <string name="type.leisure.park.permissive">उद्यान</string>
@@ -424,6 +425,8 @@
     <string name="type.natural.meadow">घास का मैदान</string>
     <string name="type.natural.orchard">फलोद्यान</string>
     <string name="type.natural.peak">शिखर</string>
+    <string name="type.natural.hill">पहाड़ी</string>
+    <string name="type.natural.arch">शिला मेहराब</string>
     <string name="type.natural.scrub">झाड़ी</string>
     <string name="type.natural.spring">पानी का चश्मा</string>
     <string name="type.natural.spring.drinking_water_no">पानी का चश्मा</string>
@@ -701,6 +704,7 @@
     <string name="type.self_service.no">कोई स्व-सेवा नहीं</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">सामाजिक सुविधा</string>
+    <string name="type.amenity.stage">मंच</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">आपातकालीन वार्ड प्रवेश द्वार</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

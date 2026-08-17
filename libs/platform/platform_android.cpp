@@ -12,6 +12,8 @@
 #include "base/string_utils.hpp"
 #include "base/thread.hpp"
 
+#include "defines.hpp"
+
 #include <algorithm>
 #include <memory>
 #include <ranges>

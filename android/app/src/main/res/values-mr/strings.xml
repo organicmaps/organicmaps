@@ -219,6 +219,18 @@
     <string name="pref_map_3d_buildings_title">त्रिमिती (3D) इमारती</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">3D इमारती वीज बचत मोडमध्ये बंद केल्या आहेत</string>
+    <!-- Settings: title of the satellite imagery (custom raster tiles) screen -->
+    <string name="pref_bg_tiles_title">उपग्रह प्रतिमा</string>
+    <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
+    <string name="pref_bg_tiles_url_title">सर्व्हर URL</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">{z}/{x}/{y} असलेली वैध URL प्रविष्ट करा</string>
+    <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
+    <string name="pref_bg_tiles_size_title">कॅशे आकार (MB)</string>
+    <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
+    <string name="pref_bg_tiles_opacity_title">क्षेत्र वस्तूंची अपारदर्शकता</string>
+    <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
+    <string name="pref_bg_tiles_disclaimer">सानुकूल टाइल स्रोत आपण पुरवता. केवळ ज्या सेवांमध्ये प्रवेशाची परवानगी आपल्याला आहे त्याच वापरा. श्रेय, परवाना अटी, API की, कोटा आणि वापर मर्यादांसाठी आपण जबाबदार आहात.</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">ध्वनी सूचना</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
@@ -231,7 +243,7 @@
     <string name="pref_tts_test_voice_title">चाचणी आवाज दिशानिर्देश (TTS, टेक्स्ट-टू-स्पीच)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">तुम्हाला आता आवाज ऐकू येत नसल्यास व्हॉल्यूम किंवा सिस्टम टेक्स्ट-टू-स्पीच सेटिंग्ज तपासा.</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">उपलब्ध नाही</string>
     <string name="pref_map_auto_zoom">स्वयं झूम</string>
     <string name="placepage_distance">अंतर</string>
@@ -567,14 +579,11 @@
     <string name="prefs_languages_information_off_link">अधिक माहितीसाठी कृपया ही मार्गदर्शिका पहा.</string>
     <string name="transliteration_title">रोमन लिपीत लिप्यंतरण</string>
     <string name="learn_more">अधिक जाणून घ्या</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">मार्ग प्रारंभ बिंदू जोडण्यासाठी नकाशावर शोध वापरा किंवा टॅप करा</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">गंतव्य बिंदू जोडण्यासाठी नकाशावर शोधा किंवा टॅप करा</string>
     <string name="planning_route_manage_route">मार्ग व्यवस्थापन</string>
     <string name="button_plan">नियोजन</string>
     <string name="placepage_remove_stop">थांबा काढा</string>
     <string name="placepage_add_stop">स्टॉप जोडा</string>
+    <string name="drag_to_reorder">पुनःक्रमवारी</string>
     <string name="saved">जतन केले</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">तुमची सर्व नकाशा संपादने स्वयंचलितपणे अपलोड करण्यासाठी कृपया OpenStreetMap वर लॉग इन करा. <a href="https://github.com/organicmaps/organicmaps/issues/6144">येथे</a> अधिक जाणून घ्या.</string>
@@ -622,6 +631,8 @@
     <string name="button_layer_hiking">हायकिंग</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">सायकलिंग</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">उपग्रह</string>
     <string name="button_layer_subway">मेट्रो/भुयारी मार्ग</string>
     <string name="layers_title">नकाशा शैली आणि स्तर</string>
     <string name="bookmarks_empty_list_title">ही यादी रिकामी आहे</string>
@@ -721,6 +732,7 @@
     <string name="opens_at">%s ला उघडेल</string>
     <string name="closes_at">%s ला बंद होईल</string>
     <string name="editor_add_select_category_all_subtitle">सर्व प्रवर्ग</string>
+    <string name="placepage_replace_stop">स्टॉप बदला</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">अन्न</string>
@@ -868,6 +880,12 @@
     <string name="share_track">ट्रॅक शेअर करा</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">%s हटवा?</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">रंग बदला</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">मार्ग लपवा</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">मार्ग दाखवा</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -894,4 +912,6 @@
     <string name="color_picker_hex_label">sRGB हेक्स रंग #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">ग्रिड</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">व्हॉइस सर्च</string>
 </resources>

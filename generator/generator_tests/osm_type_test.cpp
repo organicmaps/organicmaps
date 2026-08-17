@@ -778,6 +778,11 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Surface)
   TestSurfaceTypes("mud", "good", "1", "unpaved_good");
   TestSurfaceTypes("mud", "", "3", "unpaved_good");
   TestSurfaceTypes("mud", "", "", "unpaved_bad");
+  TestSurfaceTypes("laterite", "good", "1", "unpaved_good");
+  TestSurfaceTypes("laterite", "", "3", "unpaved_good");
+  TestSurfaceTypes("laterite", "", "", "unpaved_bad");
+  TestSurfaceTypes("laterite", "intermediate", "", "unpaved_bad");
+  TestSurfaceTypes("laterite", "bad", "", "unpaved_bad");
 
   TestSurfaceTypes("", "bad", "", "paved_bad");
   TestSurfaceTypes("", "unknown", "", "paved_bad");
@@ -2168,6 +2173,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
       {"amenity", "school"},
       {"amenity", "shelter"},
       {"amenity", "shower"},
+      {"amenity", "stage"},
       {"amenity", "taxi"},
       {"amenity", "telephone"},
       {"amenity", "theatre"},
@@ -2399,6 +2405,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
       {"landuse", "salt_pond"},
       {"landuse", "village_green"},
       {"landuse", "vineyard"},
+      {"leisure", "bird_hide"},
       {"leisure", "common"},
       {"leisure", "dog_park"},
       {"leisure", "fitness_centre"},
@@ -2444,6 +2451,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
       {"man_made", "water_well"},
       {"man_made", "windmill"},
       {"man_made", "works"},
+      {"natural", "arch"},
       {"natural", "bare_rock"},
       {"natural", "bay"},
       {"natural", "beach"},
@@ -2457,6 +2465,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
       {"natural", "glacier"},
       {"natural", "grassland"},
       {"natural", "heath"},
+      {"natural", "hill"},
       {"natural", "hot_spring"},
       {"natural", "land"},
       {"natural", "peak"},

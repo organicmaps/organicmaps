@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "ຄວາມຍາວ";
 "share_my_location" = "ແບ່ງປັນຕຳແໜ່ງຂອງຂ້ອຍ";
+"prefs_group_network" = "ເຄືອຂ່າຍ";
 "prefs_group_route" = "ການນຳທາງ";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -217,6 +218,24 @@
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "ອາຄານ 3D ຖືກປິດໃຊ້ງານໃນໂໝດປະຢັດພະລັງງານ";
+
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "ຮູບພາບດາວທຽມ";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "URL ຂອງເຊີບເວີ";
+
+/* Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) */
+"pref_bg_tiles_url_error" = "ປ້ອນ URL ທີ່ຖືກຕ້ອງທີ່ມີ {z}/{x}/{y}";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "ຂະໜາດແຄຊ (MB)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "ຄວາມທຶບຂອງວັດຖຸພື້ນທີ່";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "ແຫຼ່ງແຜ່ນແບບກຳນົດເອງແມ່ນທ່ານເປັນຜູ້ສະໜອງ. ໃຊ້ສະເພາະບໍລິການທີ່ທ່ານໄດ້ຮັບອະນຸຍາດໃຫ້ເຂົ້າເຖິງ. ທ່ານຮັບຜິດຊອບຕໍ່ການລະບຸແຫຼ່ງທີ່ມາ, ເງື່ອນໄຂໃບອະນຸຍາດ, ກະແຈ API, ໂກຕາ ແລະ ຂີດຈຳກັດການນຳໃຊ້.";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "ຄຳແນະນຳດ້ວຍສຽງ";
@@ -390,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "ເກີດຂໍ້ຜິດພາດໃນການສົ່ງອີເມລ";
-
-/* Settings item title */
-"pref_calibration_title" = "ການປັບຕັ້ງເຂັມທິດ";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "ມີໃຫ້ໃຊ້";
@@ -643,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "ຊື່ນີ້ຖືກໃຊ້ແລ້ວ";
 "profile" = "ໂປຣໄຟລ໌ OpenStreetMap";
 "restore" = "ກູ້ຄືນ";
+
+/* Settings privacy group in settings screen */
+"privacy" = "ຄວາມເປັນສ່ວນຕົວ";
 "privacy_policy" = "ນະໂຍບາຍຄວາມເປັນສ່ວນຕົວ";
 "terms_of_use" = "ເງື່ອນໄຂການໃຊ້ງານ";
 
@@ -651,6 +670,9 @@
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "ການຂີ່ລົດຖີບ";
+
+/* Map layers menu: toggle button for the satellite imagery layer */
+"button_layer_satellite" = "ດາວທຽມ";
 "button_layer_subway" = "ລົດໄຟໃຕ້ດິນ";
 "layers_title" = "ຮູບແບບແຜນທີ່ ແລະ ເລເຢີ້";
 
@@ -907,6 +929,9 @@
 "elevation_profile_descent" = "ທາງລົງ";
 "elevation_profile_min_elevation" = "ລະດັບຄວາມສູງຕ່ຳສຸດ";
 "elevation_profile_max_elevation" = "ລະດັບຄວາມສູງສູງສຸດ";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "ເລີ່ມເຄື່ອນທີ່ເພື່ອເບິ່ງໂປຣໄຟລ໌ລະດັບຄວາມສູງ";
 "isolines_toast_zooms_1_10" = "ຊູມເຂົ້າເພື່ອເບິ່ງເສັ້ນລະດັບຄວາມສູງ";
 "downloader_loading_ios" = "ກຳລັງດາວໂຫລດ";
 

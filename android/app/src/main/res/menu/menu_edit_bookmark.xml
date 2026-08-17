@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+  <item
+    android:id="@+id/action_delete"
+    android:icon="@drawable/ic_delete"
+    android:title="@string/delete"
+    app:showAsAction="always" />
+  <group android:id="@+id/group_export">
+    <item
+      android:id="@+id/action_export_kmz"
+      android:icon="@drawable/ic_file_kmz"
+      android:title="@string/export_file"
+      app:showAsAction="never" />
+    <item
+      android:id="@+id/action_export_gpx"
+      android:icon="@drawable/ic_file_gpx"
+      android:title="@string/export_file_gpx"
+      app:showAsAction="never" />
+    <item
+      android:id="@+id/action_export_geojson"
+      android:icon="@drawable/ic_file_geojson"
+      android:title="@string/export_file_geojson"
+      app:showAsAction="never" />
+  </group>
+</menu>

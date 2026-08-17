@@ -30,8 +30,6 @@
 #include "base/assert.hpp"
 
 #include "private.h"
-// If you have a "missing header error" here, then please run configure.sh script in the root repo
-// folder.
 
 namespace
 {
@@ -275,7 +273,7 @@ using namespace osm_auth_ios;
             options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
 {
   NSLog(@"application:openURL: %@ options: %@", url, options);
-  return [DeepLinkHandler.shared applicationDidOpenUrl:url];
+  return [DeepLinkHandler.shared applicationDidOpenUrl:url options:options];
 }
 
 - (void)showMap

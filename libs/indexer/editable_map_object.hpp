@@ -8,6 +8,7 @@
 #include "indexer/map_object.hpp"
 
 #include <functional>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -89,6 +90,7 @@ public:
 
   void SetEditableProperties(osm::EditableProperties const & props);
   //  void SetFeatureID(FeatureID const & fid);
+  void SetFromFeatureType(FeatureType & ft);
   void SetName(FeatureNames names) { m_name = std::move(names); }
   void SetName(std::string_view name, int8_t langCode);
   void SetMercator(m2::PointD const & center);
@@ -100,6 +102,11 @@ public:
   void SetNearbyStreets(std::vector<LocalizedStreet> && streets);
   void SetHouseNumber(std::string const & houseNumber);
   void SetPostcode(std::string const & postcode);
+
+  // User interaction point used for editor notes when it differs from the feature center.
+  // Present only for user-selected non-point features.
+  std::optional<m2::PointD> const & GetSelectionPoint() const { return m_selectionPoint; }
+  void SetSelectionPoint(m2::PointD const & pt) { m_selectionPoint = pt; }
 
   static bool IsValidMetadata(MetadataID type, std::string const & value);
   void SetMetadata(MetadataID type, std::string value);
@@ -153,6 +160,7 @@ private:
   LocalizedStreet m_street;
   std::vector<LocalizedStreet> m_nearbyStreets;
   EditableProperties m_editableProperties;
+  std::optional<m2::PointD> m_selectionPoint;
   osm::EditJournal m_journal;
 };
 }  // namespace osm

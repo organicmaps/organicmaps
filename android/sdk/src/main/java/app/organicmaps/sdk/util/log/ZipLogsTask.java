@@ -35,10 +35,14 @@ class ZipLogsTask implements Runnable
   @Override
   public void run()
   {
+    // Drain the queue so pending lines are on disk, capture the system logcat (a separate file),
+    // then zip while the file writer is locked so no append or rotation races with reading.
+    Logger.flushFileLogs();
     saveSystemLogcat(mLogsPath);
-    final boolean success = zipFileAtPath(mLogsPath, mZipPath);
+    final boolean[] success = new boolean[1];
+    Logger.runExclusively(() -> success[0] = zipFileAtPath(mLogsPath, mZipPath));
     if (mOnCompletedListener != null)
-      mOnCompletedListener.onCompleted(success, mZipPath);
+      mOnCompletedListener.onCompleted(success[0], mZipPath);
   }
 
   private boolean zipFileAtPath(@NonNull String sourcePath, @NonNull String toLocation)
@@ -94,11 +98,12 @@ class ZipLogsTask implements Runnable
 
   private void saveSystemLogcat(String path)
   {
-    final String cmd = "logcat -d -v time";
     Process process;
     try
     {
-      process = Runtime.getRuntime().exec(cmd);
+      process = new ProcessBuilder("logcat", "-b", "main", "-b", "system", "-b", "crash", "-d", "-v", "threadtime")
+                    .redirectErrorStream(true)
+                    .start();
     }
     catch (IOException e)
     {
@@ -121,6 +126,15 @@ class ZipLogsTask implements Runnable
         writer.write(buffer, 0, n);
       }
       while (true);
+
+      final int exitCode = process.waitFor();
+      if (exitCode != 0)
+        Logger.e(TAG, "logcat finished with code " + exitCode);
+    }
+    catch (InterruptedException e)
+    {
+      Thread.currentThread().interrupt();
+      Logger.e(TAG, "Interrupted while saving system logcat to " + path, e);
     }
     catch (Throwable e)
     {

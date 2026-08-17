@@ -1,9 +1,10 @@
-• Smelltu á strætóstoppustöð og veldu leiðarnúmer til að sýna leiðir á kortinu
-• Merki bókamerkja skarast ekki lengur á kortinu
-• Ferskur OpenStreetMap-gagnasafn frá 3. maí, með nýjum hlutategundum
-• Bætt hæðarlínurit fyrir slóðir og leiðir
-• Minni kortanálganir fyrir Víetnam, Malasíu, Hong Kong, Makaó og Hainan
-• Bætt notendaviðmót og hreyfimyndir
-• Uppfærðar hæðarlínur fyrir Indónesíu, Malasíu, Tansaníu, Taíland og Víetnam
-• Villuleiðréttingar og frammistöðubætingar
+NÝJAR AÐGERÐIR:
+• Uppfærð notendaviðmót fyrir leit og leiðarleiðsögn
+• Leiðsögn almenningssamgangna (rútum, sporvögnum, neðanjarðarlestum, léttlestinni)
+• Varamlegar hraðustu og stystu leiðir
+• Leiðarviðvaranir um þrep, hlið og lyftuhurðir
+• Veldu hvaða lit sem er fyrir bókamerki
+• Stuðningur við UK OS Grid, Irish Grid, ITM hnit
+• Kveikja á gervitunglamyndum í Organic Maps-stillingum með sérsniðnum rasterflísaverðar-URL
+• OSM-gögn frá 24. júní
 …meira á omaps.org/news

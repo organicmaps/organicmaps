@@ -1,9 +1,11 @@
-• Tap a public transport stop and select route numbers to highlight routes on the map
-• Bookmark labels no longer overlap on the map
-• Fresh OpenStreetMap data as of May 3, with new object types
-• Improved elevation charts for tracks and routes
-• Smaller map downloads for Vietnam, Malaysia, Hong Kong, Macau, and Hainan
-• Refined UI and animations
-• Updated contour lines for Indonesia, Malaysia, Tanzania, Thailand, and Vietnam
-• Bug fixes and performance improvements
+NEW FEATURES!
+• Updated search and routing user interface
+• Public transport routing (bus, tram, subway, light rail)
+• Alternative fastest and shortest routes
+• Route warnings about steps, gates, and lift gates
+• Select any color for bookmarks
+• Support for UK OS Grid, Irish Grid, ITM coordinates
+• Enable Satellite Imagery in Organic Maps settings with a custom raster tile server URL
+• OSM data as of June 24
+• Wikipedia data as of June 20 (including Italian)
 …more at omaps.org/news

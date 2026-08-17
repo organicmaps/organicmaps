@@ -1,12 +1,10 @@
 #pragma once
 
-#include <cstddef>
-#include <vector>
+#include <QtWidgets/QWidget>
 
-#include <QtGui/QPixmap>
-#include <QtWidgets/QLabel>
+class QTimer;
 
-class Spinner : private QLabel
+class Spinner : private QWidget
 {
 public:
   Spinner();
@@ -14,10 +12,12 @@ public:
   void Show();
   void Hide();
 
-  QLabel & AsWidget() { return static_cast<QLabel &>(*this); }
+  QWidget & AsWidget() { return static_cast<QWidget &>(*this); }
+
+protected:
+  void paintEvent(QPaintEvent *) override;
 
 private:
-  std::vector<QPixmap> m_pixmaps;
   QTimer * m_timer = nullptr;
-  size_t m_progress = 0;
+  int m_angle = 0;
 };

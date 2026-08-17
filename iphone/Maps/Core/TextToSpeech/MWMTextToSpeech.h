@@ -1,13 +1,34 @@
+#import <Foundation/Foundation.h>
+
 #import "MWMTextToSpeechObserver.h"
+
+NS_ASSUME_NONNULL_BEGIN
+
+NS_SWIFT_NAME(TTSLanguage)
+@interface MWMTTSLanguage : NSObject
+
+@property(nonatomic, readonly) NSString * bcp47;
+@property(nonatomic, readonly) NSString * title;
+
++ (instancetype)languageWithBcp47:(NSString *)bcp47 title:(NSString *)title;
+
+- (instancetype)init __attribute__((unavailable("call +languageWithBcp47:title: instead")));
++ (instancetype)new __attribute__((unavailable("call +languageWithBcp47:title: instead")));
+
+@end
 
 @interface MWMTextToSpeech : NSObject
 
-+ (MWMTextToSpeech *)tts;
++ (MWMTextToSpeech * _Null_unspecified)tts;
 + (BOOL)isTTSEnabled;
 + (void)setTTSEnabled:(BOOL)enabled;
 + (BOOL)isStreetNamesTTSEnabled;
 + (void)setStreetNamesTTSEnabled:(BOOL)enabled;
-+ (NSString *)savedLanguage;
++ (NSString * _Nullable)savedLanguage;
++ (NSArray<MWMTTSLanguage *> *)preferredLanguages;
++ (NSArray<MWMTTSLanguage *> *)availableLanguages;
++ (void)setNotificationsLanguage:(MWMTTSLanguage *)language;
++ (void)playRandomTestString;
 
 + (void)addObserver:(id<MWMTextToSpeechObserver>)observer;
 + (void)removeObserver:(id<MWMTextToSpeechObserver>)observer;
@@ -27,3 +48,5 @@
 + (instancetype)new __attribute__((unavailable("call +tts instead")));
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -164,6 +164,12 @@ void EditableMapObject::SetEditableProperties(osm::EditableProperties const & pr
   m_editableProperties = props;
 }
 
+void EditableMapObject::SetFromFeatureType(FeatureType & ft)
+{
+  MapObject::SetFromFeatureType(ft);
+  m_selectionPoint.reset();
+}
+
 void EditableMapObject::SetName(std::string_view name, int8_t langCode)
 {
   m_name.Add(langCode, name);

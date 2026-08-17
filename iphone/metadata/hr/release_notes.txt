@@ -1,26 +1,41 @@
-- NOVO! Dodirnite stajalište javnog prijevoza kako biste istaknuli cijelu rutu na karti, kao u stilu karte Transit.
-- NOVO! Rute javnog prijevoza na duge relacije i druge OpenStreetMap relacije sada su povezane preko granica karata u jednu neprekinutu liniju.
-- Podaci OpenStreetMap ažurirani do 3. svibnja.
-- Vijetnam i Malezija sada su podijeljeni na manje regije koje se mogu zasebno preuzeti.
-- Hong Kong, Makao i Hainan sada su odvojeni od Guangdonga, a susjedne su granice ažurirane.
-- Ažurirane su izohipse za Indoneziju, Maleziju, Tanzaniju, Tajland i Vijetnam.
-- Dodan je gumb za snimanje staze u informativni panel za vrijeme navigacije.
-- Dodani su novi tipovi iz OpenStreetMapa: vulkani s aktivnim statusom, pristupne točke vodenim putevima, klizne rampe, lokali za shisha i zgrade u izgradnji.
-- Dodan je "Lookout" kao sinonim za pretraživanje vidikovaca i "pkwy" kao sinonim za američke ceste.
-- Boje pješačkih zona su nešto tamnije radi bolje čitljivosti.
-- Oznake oznaka na karti se više ne preklapaju.
-- Višoredni tekst sada se uredno skraćuje, a nazivi ulica više ne sadrže duplikate.
-- Uspostavljanje rute: nastavljene rute sada uklanjaju međustanice koje ste već prošli.
-- Ispravljena je pogreška pri korištenju pogrešne liste oznaka u verzijama za TestFlight.
-- Ispravljen je uvoz KMB datoteka.
-- Ažurirani su lektorirani prijevodi za kategorije, sinonime za pretraživanje i tekstove korisničkog sučelja. Dodani su prijevodi za opise Novog Južnog Walesa i Sjevernog Teritorija.
-- Poboljšana je stabilnost i performanse, uključujući oblikovanje fonta, keširanje znakova i obrezivanje linija ruta.
-- Poboljšan je grafikon nadmorske visine za staze i rute.
-- Povećana su gumba u izborniku za navigaciju za radnje kao što su TTS, postavke i snimanje staze.
-- Poboljšana je animacija odjeljka s opisom koji se može proširiti na stranici mjesta.
-- Stranica s informacijama o mjestu više se ne zatvara kada završi pomicanje grafikona nadmorske visine, više se ne zatvara i otvara neočekivano te zadržava naslov vidljivim dok se uređuje s otvoritom tipkovnicom.
-- Ispravljeni su padovi pri brisanju staze ili oznake koja više ne postoji.
+- NOVO! Planiranje putovanja javnim prijevozom: podzemnom željeznicom, laganim vlakom, autobusom i tramvajem
+- NOVO! Alternativne rute: uz najbržu rutu, aplikacija sada prikazuje i najkraću rutu
+- NOVO! Upozorenja za pješačke i biciklističke rute o stepenicama, kapijama i podiznim kapijama na putu
+- NOVO! Dodirnite za odabir između preklapajućih tragova i ruta
+- NOVO! Odaberite bilo koju boju za oznake
+- NOVO! Podrška za koordinate British National Grid (OS Grid), Irish Grid i Irish Transverse Mercator (ITM)
+- NOVO! Podrška za pristupačnost za Dynamic Type i velike fontove
+- EKSPERIMENTALNO: Omogućite satelitske snimke u postavkama Organic Maps pomoću prilagođenog URL-a poslužitelja rasterskih pločica
+- Uređeniji stil tablica u korisničkom sučelju
+- Upišite `?map-download-server:https://your-server.com/` u prozor za pretraživanje kako biste nadjačali poslužitelje za preuzimanje karata Organic Maps. Upišite `?no-map-download-server` kako biste uklonili nadjačavanje.
+- Razne ispravke grešaka i poboljšanja performansi
 
-## Podrška za platforme
+## Podaci o kartama
 
-- Zbog promjena u sustavima TestFlight i App Store, ovo izdanje podržava samo iOS 15 i novije verzije. iOS 12, iOS 13 i iOS 14 više nisu podržani.
+- OpenStreetMap podaci ažurirani 24. lipnja
+- Wikipedia podaci ažurirani do 20. lipnja, uključujući članke na talijanskom jeziku
+
+## Prikaz karte i stilovi
+
+- Estetski bolji uzorci za plažu, pijesak, šljunak, goli kamen, voćnjak i vinograd, plus šrafura za zaštićena područja i močvare
+- Glatkije zakrivljene tekstualne oznake za ceste i rijeke
+- Rijeke, potoci i močvarna područja imaju veći kontrast i bolje su vidljivi u tamnom načinu rada
+- Nove i poboljšane ikone za pretraživanje kategorija i rezultate pretraživanja na karti
+- Poboljšano oblikovanje i iscrtavanje višejezičnih tekstova
+
+## Tragovi, oznake i rute
+
+- Poboljšana izrada HTML opisa oznaka i tragova
+- GeoJSON Staze sada spremaju nadmorsku visinu i vremenske oznake pri uvozu i izvozu
+- Ispravljen je pad aplikacije nakon premještanja staze u drugu listu
+- Zaštićena područja sada se prikazuju putem web-stranica
+- Za neimenovane rezultate pretraživanja sada se prikazuju imena operatera. Na primjer, neimenovani ATM sada prikazuje svoju banku
+- Urednik: ispravljen tekst opisa za stambenu zgradu OpenStreetMap izmjene/setovi izmjena
+- Poboljšana detekcija HTML u opisima oznaka i tragova
+- Duplicirane rute sada su filtrirane
+
+## Prijevodi
+
+- Glasovne upute korak po korak na kantonezkom
+- Ažurirani njemački i francuski prijevodi
+- Ispravljeni netočni prijevodi glasovnih uputa "onto street" za kineski, srpski i katalonski

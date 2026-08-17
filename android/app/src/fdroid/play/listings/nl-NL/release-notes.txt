@@ -1,8 +1,8 @@
-• Tik op een halte van het openbaar vervoer en selecteer routenummers om routes op de kaart te markeren
-• Bladwijzerlabels overlappen elkaar niet meer op de kaart
-• Verse OpenStreetMap-gegevens vanaf 3 mei, met nieuwe objecttypen
-• Verbeterde hoogtekaarten voor tracks en routes
-• Kleinere kaartdownloads voor Vietnam, Maleisië, Hong Kong, Macau en Hainan
-• Verfijnde UI en animaties
-• Bijgewerkte hoogtelijnen voor Indonesië, Maleisië, Tanzania, Thailand en Vietnam
+NIEUWE FUNCTIES:
+• De gebruikersinterface voor zoeken en routebepaling is bijgewerkt
+• Routebepaling voor het openbaar vervoer (bus, tram, metro, lightrail)
+• Alternatieve snelste en kortste routes
+• Routewaarschuwingen over trappen, hekken en slagbomen
+• Kies een willekeurige kleur voor bladwijzers
+• Ondersteuning voor coördinaten van UK OS Grid, Irish Grid en ITM
 …meer op omaps.org/nl/news

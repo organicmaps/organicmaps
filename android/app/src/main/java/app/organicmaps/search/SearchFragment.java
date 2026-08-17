@@ -2,7 +2,6 @@ package app.organicmaps.search;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,7 +28,6 @@ import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.downloader.CountrySuggestFragment;
 import app.organicmaps.sdk.Framework;
-import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.routing.RoutingController;
@@ -54,7 +52,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 {
   @NonNull
   private final List<HiddenCommand> mHiddenCommands = new ArrayList<>();
-  private final List<RecyclerView> mAttachedRecyclers = new ArrayList<>();
   private final LastPosition mLastPosition = new LastPosition();
   private SearchFragmentListener mSearchFragmentListener;
   private View mResultsFrame;
@@ -221,12 +218,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     if (mAppBar == null)
       return;
 
-    mAppBar.post(() -> {
-      int height = mAppBar.getHeight();
-      if (!mToolbarController.hasQuery() && mTabFrame.getVisibility() == View.VISIBLE)
-        height += mTabFrame.getHeight();
-      mSearchViewModel.setToolbarHeight(height);
-    });
+    mAppBar.post(() -> mSearchViewModel.setToolbarHeight(mAppBar.getHeight()));
   }
 
   private void updateResultsPlaceholder()
@@ -318,12 +310,15 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       return insets;
     });
 
+    // Restore the query before adding the SearchListener — the engine caches it on search start,
+    // and without this the listener's hasQuery()=false guard would silence onResultsUpdate.
+    final String cachedQuery = SearchEngine.INSTANCE.getCachedSearchBarQuery();
+    if (!TextUtils.isEmpty(cachedQuery))
+      mToolbarController.setQuerySilently(cachedQuery, false);
+
     final SearchResult[] cachedResults = SearchEngine.INSTANCE.getCachedResults();
     if (cachedResults != null)
     {
-      final String cachedQuery = SearchEngine.INSTANCE.getCachedSearchBarQuery();
-      if (!TextUtils.isEmpty(cachedQuery))
-        mToolbarController.setQuerySilently(cachedQuery, false);
       mSearchAdapter.refreshData(cachedResults);
       mSearchRunning = false;
       mToolbarController.showProgress(false);
@@ -333,13 +328,17 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       // mSearchEnabledObserver doesn't wipe the adapter and re-fire a fresh search.
       mSearchViewModel.clearPendingRequest();
     }
+    else if (!TextUtils.isEmpty(cachedQuery))
+    {
+      // Search is in flight; results will land in onResultsUpdate.
+      mSearchRunning = true;
+      updateFrames();
+      updateResultsPlaceholder();
+      mSearchViewModel.clearPendingRequest();
+    }
 
     mSearchViewModel.getSearchPageLastState().observe(getViewLifecycleOwner(), mBottomSheetStateObserver);
 
-    if (Config.isSearchHistoryEnabled())
-      mTabLayout.setVisibility(View.VISIBLE);
-    else
-      mTabLayout.setVisibility(View.GONE);
     mAppBar = root.findViewById(R.id.app_bar);
 
     updateFrames();
@@ -353,11 +352,27 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
   private void setupTabsIfNeeded()
   {
-    if (mTabAdapter != null || getView() == null)
+    if (getView() == null)
       return;
 
+    final boolean historyEnabled = Config.isSearchHistoryEnabled();
+    if (mTabAdapter != null)
+    {
+      if (mTabAdapter.isHistoryEnabled() == historyEnabled)
+        return;
+      mPager.clearOnPageChangeListeners();
+      mTabAdapter.destroy();
+      mTabAdapter = null;
+      // The nested-scrolling snapshot is keyed by (hasQuery, activeTab); the rebuilt pager reuses
+      // those indices, so drop it or syncNestedScrollingState() would short-circuit and skip
+      // re-enabling the new tab's RecyclerView.
+      mNestedScrollingSyncedHasQuery = null;
+      mNestedScrollingSyncedActiveTab = null;
+    }
+    UiUtils.showIf(historyEnabled, mTabLayout);
+
     final ViewPager pager = mPager;
-    final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, mTabLayout);
+    final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, mTabLayout, historyEnabled);
     mTabAdapter = tabAdapter;
     pager.setOffscreenPageLimit(tabAdapter.getCount());
     pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -367,11 +382,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
         updateNestedScrollingForTab(tabAdapter, position);
       }
     });
-
-    final SharedPreferences preferences = MwmApplication.prefs(requireContext());
-    final int lastSelectedTabPosition = preferences.getInt(Config.KEY_PREF_LAST_SEARCHED_TAB, 0);
-    if (SearchRecents.getSize() == 0 && Config.isSearchHistoryEnabled())
-      pager.setCurrentItem(lastSelectedTabPosition);
 
     tabAdapter.setTabSelectedListener(tab -> {
       mToolbarController.deactivate();
@@ -388,9 +398,9 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   public void onViewStateRestored(@Nullable Bundle savedInstanceState)
   {
     super.onViewStateRestored(savedInstanceState);
-    // Android restores the EditText text here via setText(), which fires our TextWatcher and
-    // schedules a debounced runSearch — redundant on rotation when cached results are still valid.
-    // Cancel the pending debounce so the recreated fragment doesn't run the same search again.
+    // Defensive: ensure no debounced search re-fires when cached results are still valid.
+    // saveEnabled=false on mQuery + setQuerySilently() removing the watcher around setText
+    // mean nothing is normally pending here, but the guard remains as a safety net.
     if (savedInstanceState != null && SearchEngine.INSTANCE.getCachedResults() != null)
       mSearchDebounceHandler.removeCallbacks(mDebouncedRunSearch);
   }
@@ -408,6 +418,9 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   {
     super.onResume();
     MwmApplication.from(requireContext()).getLocationHelper().addListener(mLocationListener);
+
+    if (mTabAdapter != null)
+      setupTabsIfNeeded();
 
     // onPause() stops the shimmer; if we are resuming mid-search with no results yet, restore it
     // so the results pane isn't blank until the next results callback arrives.
@@ -437,9 +450,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   public void onDestroyView()
   {
     mSearchDebounceHandler.removeCallbacks(mDebouncedRunSearch);
-    for (RecyclerView v : mAttachedRecyclers)
-      v.removeOnScrollListener(mRecyclerListener);
-    mAttachedRecyclers.clear();
     SearchEngine.INSTANCE.removeListener(this);
     super.onDestroyView();
   }
@@ -494,18 +504,9 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     SearchEngine.INSTANCE.setQuery(query);
 
     if (RoutingController.get().isWaitingPoiPick())
-    {
-      final String subtitle = (result.description != null) ? result.description.localizedFeatureType : "";
-      final String title = TextUtils.isEmpty(result.name) ? subtitle : result.name;
-
-      final MapObject point = MapObject.createMapObject(MapObject.SEARCH, title, subtitle, result.lat, result.lon);
-      RoutingController.get().onPoiSelected(point);
-      mSearchFragmentListener.closeSearch();
-    }
+      SearchEngine.INSTANCE.showResult(resultIndex);
     else
-    {
       SearchEngine.INSTANCE.selectResult(resultIndex);
-    }
 
     mToolbarController.deactivate();
   }
@@ -657,7 +658,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   public void setRecyclerScrollListener(RecyclerView recycler)
   {
     recycler.addOnScrollListener(mRecyclerListener);
-    mAttachedRecyclers.add(recycler);
     if (mTabAdapter != null)
       updateNestedScrollingForTab(mTabAdapter, mPager.getCurrentItem());
   }
@@ -936,6 +936,12 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     protected boolean supportsVoiceSearch()
     {
       return true;
+    }
+
+    @Override
+    protected boolean showBackButton()
+    {
+      return false;
     }
 
     @Override

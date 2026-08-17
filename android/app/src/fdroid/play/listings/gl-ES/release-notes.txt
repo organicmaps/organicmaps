@@ -1,7 +1,8 @@
-• Toca unha parada de transporte público e selecciona os números de liña para destacar as rutas no mapa
-• As etiquetas dos marcadores xa non se solapan no mapa
-• Datos frescos de OpenStreetMap a 3 de maio, con novos tipos de obxectos
-• Melloras nos gráficos de elevación para traxectorias e rutas
-• Descargas de mapas máis pequenas para Vietnam, Malaisia, Hong Kong, Macau e Hainan
-• Interfaz de usuario refinada e animacións
+NOVAS FUNCIONALIDADES:
+• Interfaz de usuario actualizada para a busca e a navegación
+• Roteiro de transporte público (autobús, tranvía, metro, tren lixeiro)
+• Rotas alternativas máis rápidas e máis curtas
+• Avisos de ruta sobre escaleiras, portóns e portóns elevadores
+• Selecciona calquera cor para os marcadores
+• Soporte para as coordenadas UK OS Grid, Irish Grid, ITM
 …máis en omaps.org/gl/news

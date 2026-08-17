@@ -51,14 +51,18 @@ void Platform::GetFilesByRegExp(std::string const & directory, std::string const
 // static
 Platform::EError Platform::MkDir(std::string const & dirName)
 {
+  // Try to create the directory first: the mkdir syscall is atomic, while a preceding
+  // QDir::exists() check would be a TOCTOU race when several processes/threads create the
+  // same directory concurrently (e.g. parallel test binaries creating ~/.config/OMaps).
+  if (QDir().mkdir(dirName.c_str()))
+    return Platform::ERR_OK;
+  // mkdir failed: most commonly because the directory already exists. QDir::mkdir() doesn't
+  // expose errno, so re-check to map this benign case to ERR_FILE_ALREADY_EXISTS (which
+  // MkDirRecursively/MkDirChecked tolerate) instead of a misleading ERR_UNKNOWN.
   if (QDir().exists(dirName.c_str()))
     return Platform::ERR_FILE_ALREADY_EXISTS;
-  if (!QDir().mkdir(dirName.c_str()))
-  {
-    LOG(LWARNING, ("Can't create directory: ", dirName));
-    return Platform::ERR_UNKNOWN;
-  }
-  return Platform::ERR_OK;
+  LOG(LWARNING, ("Can't create directory:", dirName));
+  return Platform::ERR_UNKNOWN;
 }
 
 void Platform::SetupMeasurementSystem() const

@@ -219,6 +219,10 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, qt::DrawWidget * draw
     if (auto website = info.GetMetadata(feature::Metadata::EType::FMD_WEBSITE); !website.empty())
       addEntry(data, row, "Website", std::string(stripSchemeFromURI(website)), true);
 
+    if (auto heritageWebsite = info.GetMetadata(feature::Metadata::EType::FMD_HERITAGE_WEBSITE);
+        !heritageWebsite.empty())
+      addEntry(data, row, "Heritage", std::string(stripSchemeFromURI(heritageWebsite)), true);
+
     if (auto email = info.GetMetadata(feature::Metadata::EType::FMD_EMAIL); !email.empty())
     {
       data->addWidget(new QLabel("Email"), row, 0);

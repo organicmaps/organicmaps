@@ -85,16 +85,6 @@ function(omim_add_tool_subdirectory subdir)
   add_subdirectory(${subdir})
 endfunction()
 
-# Wrapper for the 3party target_embed_metal_shader_libraries() that always
-# declares a build-order dependency on the embedded metallib(s). The Xcode
-# branch in 3party/CMake-MetalShaderSupport sets XCODE_EMBED_RESOURCES but does
-# not call add_dependencies(), so the .metallib may not exist yet when the
-# embed phase runs. PLATFORM_MAC only — caller is expected to guard.
-function(omim_target_embed_metal_shader_libraries target)
-  target_embed_metal_shader_libraries(${target} ${ARGN})
-  add_dependencies(${target} ${ARGN})
-endfunction()
-
 function(omim_link_libraries target)
   if (TARGET ${target})
     target_link_libraries(${target} PRIVATE ${ARGN} ${CMAKE_THREAD_LIBS_INIT})

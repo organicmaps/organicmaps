@@ -65,16 +65,14 @@ inline double WrapX(double x)
   return (x < 0.0 ? x + Bounds::kRangeX : x) + Bounds::kMinX;
 }
 
-/// Returns x adjusted to be within 180 degrees of refX.
-/// Picks the nearest world copy across the antimeridian.
-/// Uses a loop to handle screen origins more than 360 degrees from the feature.
+/// Returns the world copy of x (x shifted by whole multiples of 360) nearest to refX,
+/// or x itself when it is already within 180 degrees of refX.
 inline double NearestWrapX(double x, double refX)
 {
-  while (x - refX > 180.0)
-    x -= 360.0;
-  while (x - refX < -180.0)
-    x += 360.0;
-  return x;
+  double const dx = x - refX;
+  if (dx >= -180.0 && dx <= 180.0)
+    return x;
+  return refX + std::remainder(dx, 360.0);
 }
 
 void ClampPoint(m2::PointD & pt);

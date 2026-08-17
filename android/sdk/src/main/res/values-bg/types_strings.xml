@@ -492,6 +492,7 @@
     <string name="type.landuse.flowerbed">Цветна леха</string>
     <string name="type.leisure.dance">Зала за танци</string>
     <string name="type.leisure.miniature_golf">Миниголф</string>
+    <string name="type.leisure.bird_hide">Укритие за наблюдение на птици</string>
     <string name="type.leisure.outdoor_seating">Места за сядане на открито</string>
     <string name="type.leisure.picnic_table">Маса за пикник</string>
     <string name="type.sport.climbing">Катерене</string>
@@ -542,6 +543,8 @@
     <string name="type.natural.meadow">Ливада</string>
     <string name="type.natural.orchard">Овощна градина</string>
     <string name="type.natural.peak">Връх</string>
+    <string name="type.natural.hill">Хълм</string>
+    <string name="type.natural.arch">Скална арка</string>
     <string name="type.natural.saddle">Седло</string>
     <string name="type.natural.rock">Камък</string>
     <string name="type.natural.scrub">Гъсталаци</string>
@@ -833,6 +836,7 @@
     <string name="type.self_service.no">Няма самообслужване</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">Социално съоръжение</string>
+    <string name="type.amenity.stage">Сцена</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Вход на спешното отделение</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

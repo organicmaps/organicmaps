@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Ice Rink";
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "เขตอนุรักษ์ธรรมชาติ";
+"type.leisure.bird_hide" = "ที่ซ่อนดูนก";
 "type.leisure.outdoor_seating" = "ที่นั่งกลางแจ้ง";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "สวนสาธารณะ";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "ทุ่งหญ้า";
 "type.natural.orchard" = "สวนผลไม้";
 "type.natural.peak" = "จุดสูงสุด";
+"type.natural.hill" = "เนินเขา";
+"type.natural.arch" = "ซุ้มหิน";
 "type.natural.saddle" = "อานภูเขา";
 "type.natural.rock" = "หิน";
 "type.natural.scrub" = "ป่าละเมาะ";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "สิ่งอำนวยความสะดวกทางสังคม";
+"type.amenity.stage" = "เวที";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "ทางเข้าแผนกฉุกเฉิน";

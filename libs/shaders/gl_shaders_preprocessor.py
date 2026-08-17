@@ -72,8 +72,11 @@ def read_programs_file(file_path):
                 continue
             if found and line.find('}') >= 0:
                 break
+            if found and line.lstrip().startswith('//'):
+                continue
             if found and line.find('{') == -1:
-                line_parts = re.split(',|=', line)
+                # Drop a trailing // comment so it can't be mistaken for an enum entry.
+                line_parts = re.split(',|=', line.split('//')[0])
                 name = line_parts[0].strip()
                 if name and name != 'ProgramsCount':
                     gpu_programs.append(name)

@@ -38,12 +38,7 @@ class PlacePageTrackLayout: IPlacePageLayout {
     return vc
   }()
 
-  lazy var elevationMapViewController: ElevationProfileViewController? = {
-    guard trackData.trackInfo.hasElevationInfo, trackData.elevationProfileData != nil else {
-      return nil
-    }
-    return ElevationProfileBuilder.build(trackData: trackData, delegate: interactor, presentationStyle: .track)
-  }()
+  lazy var elevationMapViewController: ElevationProfileViewController? = ElevationProfileBuilder.build(trackData: trackData, delegate: interactor, presentationStyle: .track)
 
   private lazy var actionBarViewController: ActionBarViewController = {
     let vc = storyboard.instantiateViewController(ofType: ActionBarViewController.self)

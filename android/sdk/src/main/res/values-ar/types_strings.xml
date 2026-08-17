@@ -658,6 +658,7 @@
     <string name="type.leisure.ice_rink">حلبة تزلج على الجليد</string>
     <string name="type.leisure.marina">مرسى</string>
     <string name="type.leisure.nature_reserve">محمية طبيعية</string>
+    <string name="type.leisure.bird_hide">مخبأ لمراقبة الطيور</string>
     <string name="type.leisure.outdoor_seating">جلوس في الهواء الطلق</string>
     <string name="type.leisure.firepit">موقد نار</string>
     <string name="type.leisure.park">متنزه</string>
@@ -748,6 +749,8 @@
     <string name="type.natural.meadow">مرج</string>
     <string name="type.natural.orchard">بستان</string>
     <string name="type.natural.peak">قمة</string>
+    <string name="type.natural.hill">تل</string>
+    <string name="type.natural.arch">قوس الصخرة</string>
     <string name="type.natural.saddle">سرج الجبل</string>
     <string name="type.natural.rock">صخر</string>
     <string name="type.natural.scrub">أَيْكَة</string>
@@ -1371,6 +1374,7 @@
     <string name="type.self_service.no">لا توجد خدمة ذاتية</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">المرفق الاجتماعي</string>
+    <string name="type.amenity.stage">خشبة المسرح</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">مدخل جناح الطوارئ</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

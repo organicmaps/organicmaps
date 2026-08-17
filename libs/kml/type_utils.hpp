@@ -120,11 +120,20 @@ bool IsEqual(std::vector<T> const & lhs, std::vector<T> const & rhs)
 }
 
 struct BookmarkData;
+// Passing "default" selects the device-independent LocalizableString ordering used for
+// serialization. The localized feature type remains the final fallback for a nameless bookmark.
 std::string GetPreferredBookmarkName(BookmarkData const & bmData, std::string_view languageOrig);
 std::string GetPreferredBookmarkStr(LocalizableString const & name, std::string const & languageNorm);
 std::string GetPreferredBookmarkStr(LocalizableString const & name, feature::RegionData const & regionData,
                                     std::string const & languageNorm);
 std::string GetLocalizedFeatureType(std::vector<uint32_t> const & types);
+
+// Selects one device-independent value for serialization and other stable output. Prefers
+// default/int_name/en; if none exists, the lowest language code wins as a deterministic last
+// resort, so a non-empty localized value is never dropped. The view points into lstr.
+// Note that a value picked this way is promoted to the "default" language when a KML file written
+// with it is loaded back, see KmlParser::CharData.
+std::string_view GetStringForExport(LocalizableString const & lstr);
 
 // m_collectionIndex is mutable because it is filled during serialization.
 /// @todo Not good design to store intermediate ser/des index inside data.

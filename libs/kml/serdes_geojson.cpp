@@ -555,10 +555,12 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimizeOutput)
   for (BookmarkData const & bookmark : fileData.m_bookmarksData)
   {
     auto const [lat, lon] = mercator::ToLatLon(bookmark.m_point);
-    GenericJsonMap bookmarkProperties{{"name", GetDefaultStr(bookmark.m_name)},
-                                      {"marker-color", ToGeoJsonColor(bookmark.m_color)}};
-    if (!bookmark.m_description.empty())
-      bookmarkProperties["description"] = GetDefaultStr(bookmark.m_description);
+    GenericJsonMap bookmarkProperties;
+    if (auto name = GetPreferredBookmarkName(bookmark, "default"); !name.empty())
+      bookmarkProperties["name"] = std::move(name);
+    bookmarkProperties["marker-color"] = ToGeoJsonColor(bookmark.m_color);
+    if (auto const description = GetStringForExport(bookmark.m_description); !description.empty())
+      bookmarkProperties["description"] = std::string{description};
 
     // Add '_umap_options' if needed.
     if (auto const umapOptionsPair = bookmark.m_properties.find("_umap_options");
@@ -595,9 +597,12 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimizeOutput)
     ASSERT(!track.m_layers.empty(), ());
     auto const color = track.m_layers.front().m_color;
 
-    GenericJsonMap trackProps{{"name", GetDefaultStr(track.m_name)}, {"stroke", ToGeoJsonColor(color)}};
-    if (!track.m_description.empty())
-      trackProps["description"] = GetDefaultStr(track.m_description);
+    GenericJsonMap trackProps;
+    if (auto const name = GetStringForExport(track.m_name); !name.empty())
+      trackProps["name"] = std::string{name};
+    trackProps["stroke"] = ToGeoJsonColor(color);
+    if (auto const description = GetStringForExport(track.m_description); !description.empty())
+      trackProps["description"] = std::string{description};
 
     // Add '_umap_options' if needed.
     if (auto const umapOptionsPair = track.m_properties.find("_umap_options");

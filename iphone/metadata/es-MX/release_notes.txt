@@ -1,26 +1,41 @@
-- ¡NUEVO! Toca una parada de transporte público para resaltar toda la ruta en el mapa, como en el estilo de mapa Transit.
-- ¡NUEVO! Las rutas de transporte público de larga distancia y otras relaciones de OpenStreetMap ahora se conectan a través de los límites del mapa en una línea continua.
-- Datos de OpenStreetMap actualizados al 3 de mayo.
-- Vietnam y Malasia ahora se dividen en regiones más pequeñas que se pueden descargar por separado.
-- Hong Kong, Macao y Hainan ahora están separados de Guangdong, y se han actualizado las fronteras vecinas.
-- Líneas de contorno actualizadas para Indonesia, Malasia, Tanzania, Tailandia y Vietnam.
-- Se ha añadido un botón de grabación de ruta al panel de información durante la navegación.
-- Se han añadido nuevos tipos de OpenStreetMap: volcanes en estado activo, puntos de acceso a vías navegables, rampas de botadura, salones de narguile y edificios en construcción.
-- Se ha añadido «Lookout» como sinónimo de búsqueda para miradores, y «pkwy» como sinónimo de calle en EE. UU.
-- Los colores de las zonas peatonales son ligeramente más oscuros para facilitar la lectura.
-- Las etiquetas de los marcadores en el mapa ya no se superponen.
-- El texto de varias líneas ahora se recorta de forma limpia, y los nombres de las calles ya no contienen duplicados.
-- Rutas: las rutas reanudadas ahora eliminan los puntos intermedios que ya has pasado.
-- Se corrigió el uso de una lista de marcadores incorrecta en las compilaciones de TestFlight.
-- Se ha corregido la importación de archivos KMB.
-- Se han actualizado las traducciones revisadas para las categorías, los sinónimos de búsqueda y las cadenas de la interfaz de usuario. Se han añadido traducciones para las descripciones de Nueva Gales del Sur y el Territorio del Norte.
-- Estabilidad y rendimiento mejorados, incluyendo el diseño de fuentes, el almacenamiento en caché de glifos y el recorte de líneas de ruta.
-- Se ha mejorado el gráfico de elevación para las rutas y los recorridos.
-- Se han agrandado los botones del menú de navegación para acciones como TTS, ajustes y grabación de rutas.
-- Se ha perfeccionado la animación de la sección de descripción expandible en la página del lugar.
-- La página de información del lugar ya no se cierra cuando se detiene el desplazamiento por el gráfico de elevación, ya no rebota inesperadamente y mantiene el título visible mientras se edita con el teclado abierto.
-- Se corrigieron los bloqueos al eliminar un recorrido o un marcador que ya no existe.
+- ¡NUEVO! Rutas de transporte público en metro, tren ligero, autobús y tranvía
+- ¡NUEVO! Rutas alternativas: además de la ruta más rápida, la aplicación ahora muestra la ruta más corta
+- ¡NUEVO! Advertencias en rutas para peatones y ciclistas sobre escalones, portones y compuertas elevables a lo largo del camino
+- ¡NUEVO! Toque para elegir entre trayectorias y rutas superpuestas
+- ¡NUEVO! Seleccione cualquier color para los marcadores
+- ¡NUEVO! Compatibilidad con coordenadas British National Grid (OS Grid), Irish Grid y Irish Transverse Mercator (ITM)
+- ¡NUEVO! Compatibilidad con accesibilidad para Dynamic Type y fuentes grandes
+- EXPERIMENTAL: Habilite las imágenes satelitales en la configuración de Organic Maps con una URL personalizada del servidor de mosaicos ráster
+- Estilo de tabla más limpio en la interfaz de usuario
+- Escriba `?map-download-server:https://your-server.com/` en la ventana de búsqueda para anular los servidores de descarga de mapas Organic Maps. Escriba `?no-map-download-server` para eliminar la anulación.
+- Varias correcciones de errores y mejoras de rendimiento
 
-## Plataformas compatibles
+## Datos de mapas
 
-- Debido a cambios en TestFlight y la App Store, esta versión solo es compatible con iOS 15 y versiones posteriores. Ya no se admiten iOS 12, iOS 13 e iOS 14.
+- Datos de OpenStreetMap actualizados al 24 de junio
+- Datos de Wikipedia actualizados al 20 de junio, incluyendo artículos en italiano
+
+## Representación y estilos de los mapas
+
+- Patrones más atractivos para las zonas de playa, arena, pedregal, roca desnuda, huertos y viñedos, además de sombreados para áreas protegidas y humedales
+- Etiquetas de texto con curvas más suaves para carreteras y ríos
+- Los ríos, arroyos y humedales presentan un mayor contraste y son más visibles en el modo oscuro
+- Iconos nuevos y mejorados para la búsqueda por categoría y los resultados de búsqueda en el mapa
+- Se ha mejorado el formato y la visualización del texto multilingüe
+
+## Rutas, marcadores y recorridos
+
+- Se ha mejorado la representación de HTML en las descripciones de marcadores y trazas
+- Los trazos de GeoJSON ahora conservan la elevación y las marcas de tiempo al importarlos y exportarlos
+- Se corrigió un fallo que provocaba que la aplicación se cerrara inesperadamente al mover un recorrido a otra lista
+- Ahora se muestran los sitios web de los sitios patrimoniales
+- Ahora se muestran los nombres de los operadores en los resultados de búsqueda sin nombre. Por ejemplo, un ATM sin nombre ahora muestra su banco
+- Editor: se corrigió el texto de la descripción para el edificio de apartamentos OpenStreetMap ediciones/conjuntos de cambios
+- Se ha mejorado la detección de HTML en las descripciones de marcadores y trazas
+- Ahora se filtran las rutas duplicadas
+
+## Traducciones
+
+- Guía de voz paso a paso en cantonés
+- Se han actualizado las traducciones al alemán y al francés
+- Se corrigieron traducciones incorrectas de la guía de voz "onto street" para chino, serbio y catalán

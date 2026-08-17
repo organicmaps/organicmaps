@@ -1,26 +1,41 @@
-- BARU! Ketik hentian pengangkutan awam untuk menyerlahkan keseluruhan laluan di peta, seperti dalam gaya peta Transit.
-- BARU! Laluan pengangkutan awam jarak jauh dan hubungan OpenStreetMap lain kini disambungkan merentasi sempadan peta menjadi satu garisan berterusan.
-- Data OpenStreetMap dikemas kini sehingga 3 Mei.
-- Vietnam dan Malaysia kini dibahagikan kepada wilayah yang lebih kecil yang boleh dimuat turun secara berasingan.
-- Hong Kong, Macau, dan Hainan kini dipisahkan daripada Guangdong, dengan sempadan jiran dikemas kini.
-- Garis kontur dikemas kini untuk Indonesia, Malaysia, Tanzania, Thailand, dan Vietnam.
-- Ditambah butang rakaman jejak ke panel maklumat navigasi.
-- Ditambah jenis OpenStreetMap baru: gunung berapi dengan status aktif, titik akses laluan air, jalan selam, ruang rehat hookah, dan bangunan sedang dibina.
-- Menambah "Lookout" sebagai sinonim carian untuk tempat pemerhatian, dan "pkwy" sebagai sinonim jalan AS.
-- Warna kawasan pejalan kaki sedikit lebih gelap untuk kebolehbacaan yang lebih baik.
-- Label penanda halaman pada peta tidak lagi bertindih.
-- Teks berbilang baris kini dipotong dengan kemas, dan nama jalan tidak lagi mengandungi duplikat.
-- Penjejakan: laluan yang disambung semula kini membuang titik perantaraan yang telah anda lalui.
-- Membetulkan isu senarai penanda buku yang salah digunakan dalam binaan TestFlight.
-- Membetulkan import fail KMB.
-- Mengemas kini terjemahan yang telah disemak untuk kategori, sinonim carian, dan rentetan UI. Menambah terjemahan untuk keterangan New South Wales dan Northern Territory.
-- Meningkatkan kestabilan dan prestasi, termasuk pembentukan fon, pengeksanan glif, dan pemangkasan garisan laluan.
-- Meningkatkan carta ketinggian untuk jejak dan laluan.
-- Membesarkan butang pada menu navigasi untuk tindakan seperti TTS, tetapan, dan rakaman jejak.
-- Memperhalusi animasi bahagian keterangan boleh mengembangkan pada halaman tempat.
-- Halaman maklumat tempat tidak lagi tertutup apabila pengguliran carta ketinggian selesai, tidak lagi terbuang secara tidak dijangka, dan mengekalkan tajuk dapat dilihat semasa menyunting dengan papan kekunci terbuka.
-- Membaiki pepijat yang menyebabkan aplikasi terhenti semasa memadam trek atau penanda buku yang tidak wujud lagi.
+- BARU! Laluan pengangkutan awam melalui kereta bawah tanah, rel ringan, bas, dan trem
+- BARU! Laluan alternatif: selain laluan terpantas, aplikasi kini memaparkan laluan terpendek
+- BARU! Amaran laluan berjalan kaki dan berbasikal mengenai tangga, pintu gerbang, dan pintu gerbang angkat di sepanjang laluan
+- BARU! Ketuk untuk memilih antara jejak dan laluan yang bertindih
+- BARU! Pilih mana-mana warna untuk penanda buku
+- BARU! Sokongan untuk koordinat British National Grid (OS Grid), Irish Grid, dan Irish Transverse Mercator (ITM)
+- BARU! Sokongan kebolehcapaian untuk Dynamic Type dan fon besar
+- EKSPERIMEN: Aktifkan Imbasan Satelit dalam tetapan Organic Maps dengan URL pelayan jubin raster tersuai
+- Gaya jadual yang lebih kemas dalam UI
+- Taip `?map-download-server:https://your-server.com/` dalam tetingkap carian untuk menimpa pelayan muat turun peta Organic Maps. Taip `?no-map-download-server` untuk membatalkan penimpaan.
+- Pelbagai pembetulan pepijat dan penambahbaikan prestasi
 
-## Sokongan Platform
+## Data Peta
 
-- Disebabkan perubahan pada TestFlight dan App Store, keluaran ini hanya menyokong iOS 15 dan ke atas. iOS 12, iOS 13, dan iOS 14 tidak lagi disokong.
+- Data OpenStreetMap dikemas kini sehingga 24 Jun
+- Data Wikipedia dikemas kini sehingga 20 Jun, termasuk artikel dalam bahasa Itali
+
+## Pemaparan peta & gaya
+
+- Corak yang lebih menarik untuk kawasan pantai, pasir, kerikil, batu telanjang, kebun buah-buahan, dan kebun anggur, serta coretan kawasan terpelihara dan tanah lembap
+- Label teks melengkung yang lebih lancar untuk jalan dan sungai
+- Sungai, anak sungai, dan tanah lembap mempunyai kontras yang lebih tinggi dan lebih jelas kelihatan dalam mod gelap
+- Ikon baharu dan dipertingkatkan untuk carian kategori dan keputusan carian pada peta
+- Penambahbaikan pembentukan dan paparan teks pelbagai bahasa
+
+## Jejak, penanda buku & laluan
+
+- Peningkatan paparan HTML untuk keterangan penanda buku dan jejak
+- Jejak GeoJSON kini mengekalkan ketinggian dan cap masa semasa import dan eksport
+- Membetulkan ranap selepas memindahkan jejak ke senarai lain
+- Laman web kini dipaparkan untuk tapak warisan
+- Nama pengendali kini dipaparkan untuk hasil carian tanpa nama. Sebagai contoh, ATM tanpa nama kini memaparkan banknya
+- Editor: membetulkan teks keterangan untuk suntingan/set perubahan OpenStreetMap bagi bangunan apartmen
+- Peningkatan pengesanan HTML dalam keterangan penanda buku dan jejak
+- Laluan pendua kini ditapis
+
+## Terjemahan
+
+- Arahan suara langkah demi langkah dalam loghat Kantonis
+- Kemas kini terjemahan Jerman dan Perancis
+- Membetulkan terjemahan panduan suara "onto street" yang salah untuk bahasa Cina, Serbia dan Catalan

@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Pistë akulli";
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "Rezervat natyror";
+"type.leisure.bird_hide" = "Strehë për vëzhgimin e zogjve";
 "type.leisure.outdoor_seating" = "Ndenjëse jashtë";
 "type.leisure.firepit" = "Vatër zjarri";
 "type.leisure.park" = "Park";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "Lëndinë";
 "type.natural.orchard" = "Pemëtore";
 "type.natural.peak" = "Majë";
+"type.natural.hill" = "Kodra";
+"type.natural.arch" = "Harku shkëmbor";
 "type.natural.saddle" = "Qafë mali";
 "type.natural.rock" = "Shkëmb";
 "type.natural.scrub" = "Shkurre";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "Objekt social";
+"type.amenity.stage" = "Skenë";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Hyrje e urgjencës";

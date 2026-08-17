@@ -556,6 +556,7 @@
     <string name="type.leisure.golf_course">Sân gôn</string>
     <string name="type.leisure.hackerspace">Không gian tin tặc</string>
     <string name="type.leisure.nature_reserve">Giữ chỗ</string>
+    <string name="type.leisure.bird_hide">Chòi quan sát chim</string>
     <string name="type.leisure.outdoor_seating">Chỗ ngồi ngoài trời</string>
     <string name="type.leisure.park">Công viên</string>
     <string name="type.leisure.park.no.access">Công viên</string>
@@ -625,6 +626,8 @@
     <string name="type.natural.meadow">Thảo điền</string>
     <string name="type.natural.orchard">Vườn cây ăn trái</string>
     <string name="type.natural.peak">Đỉnh</string>
+    <string name="type.natural.hill">Ngọn đồi</string>
+    <string name="type.natural.arch">Cổng đá</string>
     <string name="type.natural.saddle">Col</string>
     <string name="type.natural.rock">Đá</string>
     <string name="type.natural.scrub">Bụi rậm</string>
@@ -1214,6 +1217,7 @@
     <string name="type.self_service.no">Không tự phục vụ</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">Cơ sở xã hội</string>
+    <string name="type.amenity.stage">Sân khấu</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Lối vào khu cấp cứu</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

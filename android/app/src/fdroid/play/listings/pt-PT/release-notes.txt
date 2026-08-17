@@ -1,7 +1,8 @@
-• Toque numa paragem de transportes públicos e selecione os números dos percursos para realçar os percursos no mapa
-• As etiquetas dos marcadores já não se sobrepõem no mapa
-• Dados frescos do OpenStreetMap a partir de 3 de maio, com novos tipos de objectos
-• Gráficos de elevação melhorados para trajectos e rotas
-• Descarregamento de mapas mais pequenos para o Vietname, Malásia, Hong Kong, Macau e Hainan
-• Interface de utilizador e animações aperfeiçoadas
+NOVAS FUNCIONALIDADES:
+• Interface de utilizador atualizada para a pesquisa e o cálculo de percursos
+• Cálculo de percursos de transportes públicos (autocarro, elétrico, metro, metro ligeiro)
+• Rotas alternativas mais rápidas e mais curtas
+• Avisos de percurso sobre degraus, portões e portões elevatórios
+• Selecione qualquer cor para os marcadores
+• Suporte para coordenadas UK OS Grid, Irish Grid e ITM
 …mais em omaps.org/pt/news

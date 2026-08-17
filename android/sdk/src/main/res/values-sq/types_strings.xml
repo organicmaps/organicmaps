@@ -657,6 +657,7 @@
     <string name="type.leisure.ice_rink">Pistë akulli</string>
     <string name="type.leisure.marina">Marina</string>
     <string name="type.leisure.nature_reserve">Rezervat natyror</string>
+    <string name="type.leisure.bird_hide">Strehë për vëzhgimin e zogjve</string>
     <string name="type.leisure.outdoor_seating">Ndenjëse jashtë</string>
     <string name="type.leisure.firepit">Vatër zjarri</string>
     <string name="type.leisure.park">Park</string>
@@ -747,6 +748,8 @@
     <string name="type.natural.meadow">Lëndinë</string>
     <string name="type.natural.orchard">Pemëtore</string>
     <string name="type.natural.peak">Majë</string>
+    <string name="type.natural.hill">Kodra</string>
+    <string name="type.natural.arch">Harku shkëmbor</string>
     <string name="type.natural.saddle">Qafë mali</string>
     <string name="type.natural.rock">Shkëmb</string>
     <string name="type.natural.scrub">Shkurre</string>
@@ -1422,6 +1425,7 @@
     <string name="type.self_service.no">Pa vetë-shërbim</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">Objekt social</string>
+    <string name="type.amenity.stage">Skenë</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Hyrje e urgjencës</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

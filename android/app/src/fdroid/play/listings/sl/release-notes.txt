@@ -1,8 +1,8 @@
-• Tapnite postajališče javnega prevoza in izberite številke poti, da na zemljevidu označite poti.
-• Oznake zaznamkov se na zemljevidu ne prekrivajo več
-• Sveži podatki OpenStreetMap od 3. maja z novimi vrstami objektov
-• Izboljšane karte nadmorske višine za proge in poti
-• Manjši prenosi zemljevidov za Vietnam, Malezijo, Hongkong, Macao in Hainan
-• Izpopolnjen uporabniški vmesnik in animacije
-• Posodobljene obrisne črte za Indonezijo, Malezijo, Tanzanijo, Tajsko in Vietnam
+NOVE FUNKCIJE:
+• Posodobljen uporabniški vmesnik za iskanje in načrtovanje poti
+• Načrtovanje poti z javnim prevozom (avtobus, tramvaj, podzemna železnica, lahka železnica)
+• Alternativne najhitrejše in najkrajše poti
+• Opozorila na poti o stopnicah, vratih in dvigalnih vratih
+• Izberite katero koli barvo za zaznamke
+• Podpora za koordinate UK OS Grid, Irish Grid in ITM
 …več na omaps.org/news

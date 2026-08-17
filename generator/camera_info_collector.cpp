@@ -7,8 +7,8 @@
 
 #include "geometry/mercator.hpp"
 
+#include "coding/file_reader.hpp"
 #include "coding/point_coding.hpp"
-#include "coding/reader.hpp"
 
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"

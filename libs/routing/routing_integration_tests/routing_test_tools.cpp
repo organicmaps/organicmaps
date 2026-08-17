@@ -1,10 +1,11 @@
 #include "routing/routing_integration_tests/routing_test_tools.hpp"
 
-#include "routing/routing_tests/index_graph_tools.hpp"
-
 #include "testing/testing.hpp"
 
 #include "map/features_fetcher.hpp"
+#include "map/transit/transit_reader.hpp"
+
+#include "drape_frontend/route_shape.hpp"
 
 #include "routing/index_router.hpp"
 #include "routing/route.hpp"
@@ -24,14 +25,13 @@
 
 #include "geometry/distance_on_sphere.hpp"
 
-#include "base/file_name_utils.hpp"
 #include "base/math.hpp"
 #include "base/stl_helpers.hpp"
+#include "base/strings_bundle.hpp"
 
 namespace integration
 {
 using namespace routing;
-using namespace routing_test;
 using namespace std;
 
 namespace
@@ -168,6 +168,71 @@ TRouteResult CalculateRoute(IRouterComponents const & routerComponents, Checkpoi
       checkpoints, m2::PointD::Zero() /* startDirection */, false /* adjust */, delegate, res);
   routerComponents.GetRouter().SetGuides({});
   return TRouteResult(PromoteActive(res), result);
+}
+
+TRoutesResult CalculateRoutes(IRouterComponents const & routerComponents, Checkpoints const & checkpoints)
+{
+  RouterDelegate delegate;
+  RoutesResult res("mapsme", 0 /* routes id */);
+  RouterResultCode const result = routerComponents.GetRouter().CalculateRoute(
+      checkpoints, m2::PointD::Zero() /* startDirection */, false /* adjust */, delegate, res);
+  routerComponents.GetRouter().SetGuides({});
+
+  vector<shared_ptr<Route>> routes;
+  if (res.IsValid())
+  {
+    // Active (primary) route first, then the remaining alternatives in their stored order.
+    routes.push_back(make_shared<Route>(res.m_routes[res.m_activeIdx]));
+    for (size_t i = 0; i < res.m_routes.size(); ++i)
+      if (i != res.m_activeIdx)
+        routes.push_back(make_shared<Route>(res.m_routes[i]));
+  }
+  return {std::move(routes), result};
+}
+
+TransitRouteInfo GetTransitRouteInfo(IRouterComponents const & routerComponents, Route const & route)
+{
+  auto & fetcher = routerComponents.GetFeaturesFetcher();
+  auto & dataSource = fetcher.GetDataSource();
+
+  TransitReadManager readManager(dataSource, [&fetcher](FeatureCallback const & fn, vector<FeatureID> const & ids)
+  { fetcher.ReadFeatures(fn, ids); }, [](m2::RectD const &) { return vector<MwmSet::MwmId>(); });
+
+  auto const & numMwmIds = static_cast<IndexRouter &>(routerComponents.GetRouter()).GetNumMwmIds();
+  auto const getMwmIdFn = [&](NumMwmId numMwmId)
+  { return dataSource.GetMwmIdByCountryFile(numMwmIds->GetFile(numMwmId)); };
+
+  static StringsBundle const kEmptyBundle;
+  static std::map<std::string, m2::PointF> const kNoSymbols;
+  TransitRouteDisplay display(readManager, getMwmIdFn, []() -> StringsBundle const & { return kEmptyBundle; },
+                              nullptr /* bmManager */, kNoSymbols);
+
+  vector<RouteSegment> segments;
+  for (size_t i = 0; i < route.GetSubrouteCount(); ++i)
+  {
+    route.GetSubrouteInfo(i, segments);
+    df::Subroute subroute;
+    // ProcessSubroute appends to the polyline and asserts it is non-empty; production seeds it with
+    // the subroute start point in CreateDrapeSubroute, so do the same here.
+    subroute.m_polyline.Add(route.GetSubrouteAttrs(i).GetStart().GetPoint());
+    display.ProcessSubroute(segments, subroute);
+  }
+
+  return display.GetRouteInfo();
+}
+
+double GetWalkDistanceMeters(Route const & route)
+{
+  double walkMeters = 0.0;
+  double prevMeters = 0.0;
+  for (auto const & s : route.GetRouteSegments())
+  {
+    double const curMeters = s.GetDistFromBeginningMeters();
+    if (!s.HasTransitInfo())
+      walkMeters += curMeters - prevMeters;
+    prevMeters = curMeters;
+  }
+  return walkMeters;
 }
 
 void TestTurnCount(routing::Route const & route, uint32_t expectedTurnCount)

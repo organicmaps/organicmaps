@@ -1,4 +1,5 @@
 #pragma once
+#include "map/transit/transit_display.hpp"
 
 #include "routing/index_router.hpp"
 #include "routing/routing_callbacks.hpp"
@@ -45,6 +46,10 @@
 
 typedef std::pair<std::shared_ptr<routing::Route>, routing::RouterResultCode> TRouteResult;
 
+// All routes of a single calculation: the primary (active) route at index 0, followed by any
+// alternatives in their stored order. Used to test alternative-route generation (e.g. transit).
+typedef std::pair<std::vector<std::shared_ptr<routing::Route>>, routing::RouterResultCode> TRoutesResult;
+
 namespace integration
 {
 using namespace routing;
@@ -73,6 +78,7 @@ public:
   virtual IRouter & GetRouter() const = 0;
 
   storage::CountryInfoGetter const & GetCountryInfoGetter() const noexcept { return *m_infoGetter; }
+  FeaturesFetcher & GetFeaturesFetcher() const { return *m_featuresFetcher; }
 
 protected:
   std::shared_ptr<FeaturesFetcher> m_featuresFetcher;
@@ -117,6 +123,18 @@ TRouteResult CalculateRoute(IRouterComponents const & routerComponents, m2::Poin
 
 TRouteResult CalculateRoute(IRouterComponents const & routerComponents, Checkpoints const & checkpoints,
                             GuidesTracks && guides);
+
+// Like CalculateRoute but keeps every alternative route (primary first), for alt-route testing.
+TRoutesResult CalculateRoutes(IRouterComponents const & routerComponents, Checkpoints const & checkpoints);
+
+// Builds the transit Place Page breakdown (TransitRouteInfo with per-leg steps and line numbers) for
+// |route| via the real TransitRouteDisplay, reading the transit section through the components'
+// DataSource — same path the app uses to render the route summary.
+TransitRouteInfo GetTransitRouteInfo(IRouterComponents const & routerComponents, Route const & route);
+
+// Geodesic length in meters of the route's pedestrian (walking) legs — segments without transit
+// info. Useful to assert that a less-walking alternative actually walks less.
+double GetWalkDistanceMeters(Route const & route);
 
 void TestTurnCount(Route const & route, uint32_t expectedTurnCount);
 void TestTurns(Route const & route, std::vector<CarDirection> const & expectedTurns);

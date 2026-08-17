@@ -136,6 +136,10 @@ void Engine::InitAfterWorldLoaded()
 {
   PostMessage(Message::TYPE_BROADCAST, [](Processor & processor)
   {
+    // A cancelled search leaves its Processor cancelled until the next search. Reset that stale state before
+    // running non-search initialization that uses the Processor as its cancellation token.
+    processor.Reset();
+
     // Noteworthy that localities are made like a lazy cache, but city boundaries Load should be called manually.
     /// @todo Make lazy cache for both, including m_citiesBoundaries?
     processor.CacheWorldLocalities();

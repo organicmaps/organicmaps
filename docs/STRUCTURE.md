@@ -46,7 +46,6 @@ Automatically generated:
 - `symbols/` - symbols for different screen DPIs
 - `symbols/default/` - default resources used on all sceen DPIs
 - `symbols-svg/` - social networks icons
-- `search-icons/svg/` - source SVG files for search categories icons
 - `styles/` - map [style files](STYLES.md#files)
 
 Automatically [generated](STYLES.md#technical-details):

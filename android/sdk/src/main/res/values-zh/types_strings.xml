@@ -658,6 +658,7 @@
     <string name="type.leisure.ice_rink">滑冰场</string>
     <string name="type.leisure.marina">游艇码头</string>
     <string name="type.leisure.nature_reserve">自然保护区</string>
+    <string name="type.leisure.bird_hide">观鸟屋</string>
     <string name="type.leisure.outdoor_seating">室外座椅</string>
     <string name="type.leisure.firepit">火坑</string>
     <string name="type.leisure.park">公园</string>
@@ -748,6 +749,8 @@
     <string name="type.natural.meadow">草甸</string>
     <string name="type.natural.orchard">果园</string>
     <string name="type.natural.peak">山峰</string>
+    <string name="type.natural.hill">山丘</string>
+    <string name="type.natural.arch">岩石拱门</string>
     <string name="type.natural.saddle">山坳</string>
     <string name="type.natural.rock">岩石</string>
     <string name="type.natural.scrub">灌木丛</string>
@@ -1429,6 +1432,7 @@
     <string name="type.self_service.no">无自助服务</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">社会设施</string>
+    <string name="type.amenity.stage">舞台</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">急诊室入口</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

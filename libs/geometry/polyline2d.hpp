@@ -131,26 +131,6 @@ public:
     return m_points[idx];
   }
 
-  Point<T> GetPointByDistance(T distance) const
-  {
-    if (distance < 0)
-      return m_points.front();
-
-    T dist = 0;
-    for (size_t i = 1; i < m_points.size(); ++i)
-    {
-      T const oldDist = dist;
-      dist += m_points[i - 1].Length(m_points[i]);
-      if (distance <= dist)
-      {
-        T const t = (distance - oldDist) / (dist - oldDist);
-        return m_points[i - 1] * (1 - t) + m_points[i] * t;
-      }
-    }
-
-    return m_points.back();
-  }
-
   std::vector<Point<T>> ExtractSegment(size_t segmentIndex, bool reversed) const
   {
     if (segmentIndex + 1 >= m_points.size())
@@ -176,4 +156,49 @@ public:
 };
 
 using PolylineD = Polyline<double>;
+
+// Forward cursor that returns polyline points by distance from the beginning for a sequence of
+// (mostly) ascending distance queries. It resumes the segment walk from the previous query instead
+// of rescanning from the start, so N queries cost a single O(points + N) pass instead of O(points * N).
+// A query that steps backwards restarts the walk, so any query order stays correct (only ascending
+// order is fast). Holds a reference to the polyline: it must outlive the scanner and stay unchanged.
+template <typename T>
+class PolylineDistanceScanner
+{
+public:
+  explicit PolylineDistanceScanner(Polyline<T> const & polyline) : m_polyline(polyline) {}
+
+  Point<T> GetPointByDistance(T distance)
+  {
+    if (distance < 0)
+      return m_polyline.Front();
+
+    // A query may step backwards (e.g. slightly overlapping segments); restart the walk then.
+    if (distance < m_distAtSeg)
+    {
+      m_seg = 0;
+      m_distAtSeg = 0;
+    }
+
+    size_t const count = m_polyline.GetSize();
+    for (size_t i = m_seg + 1; i < count; ++i)
+    {
+      T const segLen = m_polyline.GetPoint(i - 1).Length(m_polyline.GetPoint(i));
+      T const nextDist = m_distAtSeg + segLen;
+      if (distance <= nextDist)
+      {
+        T const t = segLen > 0 ? (distance - m_distAtSeg) / segLen : T(0);
+        return m_polyline.GetPoint(i - 1) * (1 - t) + m_polyline.GetPoint(i) * t;
+      }
+      m_distAtSeg = nextDist;
+      m_seg = i;
+    }
+    return m_polyline.Back();
+  }
+
+private:
+  Polyline<T> const & m_polyline;
+  size_t m_seg = 0;   // segment start point index; m_distAtSeg is the distance to reach it
+  T m_distAtSeg = 0;  // accumulated distance up to m_polyline.GetPoint(m_seg)
+};
 }  // namespace m2

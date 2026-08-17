@@ -1,7 +1,9 @@
-• Ketuk hentian pengangkutan awam dan pilih nombor laluan untuk menandakan laluan pada peta
-• Label penanda halaman tidak lagi bertindih pada peta
-• Data OpenStreetMap terkini setakat 3 Mei, dengan jenis objek baharu
-• Carta ketinggian yang dipertingkatkan untuk trek dan laluan
-• Muat turun peta yang lebih kecil untuk Vietnam, Malaysia, Hong Kong, Macau, dan Hainan
-• Antaramuka dan animasi yang dipertingkatkan
+CIRI BARU:
+• Antaramuka pengguna carian dan penjejakan yang dikemas kini
+• Laluan pengangkutan awam (bas, trem, kereta api bawah tanah, kereta api ringan)
+• Laluan alternatif terpantas dan terpendek
+• Amaran laluan tentang tangga, pintu pagar, dan pintu angkat
+• Pilih mana-mana warna untuk penanda buku
+• Sokongan untuk koordinat UK OS Grid, Irish Grid, ITM
+• Aktifkan Imej Satelit dalam tetapan Organic Maps dengan URL pelayan jubin raster tersuai
 …lebih lanjut di omaps.org/news

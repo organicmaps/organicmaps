@@ -155,6 +155,19 @@ public class Framework
   @NonNull
   public static native @RequestType int nativeParseAndSetApiUrl(String url);
   public static native ParsedRoutingData nativeGetParsedRoutingData();
+
+  // Custom raster background tiles (Settings -> Background Map tiles).
+  public static native void nativeSetBackgroundTiles(boolean enabled, @NonNull String url, int cacheSizeMB,
+                                                     int areaOpacityPct);
+  // Flips only the on/off flag, keeping the configured URL / cache size / area opacity.
+  public static native void nativeSetBackgroundTilesEnabled(boolean enabled);
+  @NonNull
+  public static native String nativeGetBackgroundTilesUrl();
+  // Basic check: http(s):// scheme + host + literal {z}/{x}/{y} placeholders.
+  public static native boolean nativeIsWellFormedBackgroundTilesUrl(@NonNull String url);
+  public static native int nativeGetBackgroundTilesCacheSizeMB();
+  public static native boolean nativeIsBackgroundTilesEnabled();
+  public static native int nativeGetBackgroundTilesAreaOpacity();
   public static native ParsedSearchRequest nativeGetParsedSearchRequest();
   public static native @Nullable String nativeGetParsedAppName();
   public static native @Nullable String nativeGetParsedOAuth2Code();

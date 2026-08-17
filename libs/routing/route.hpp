@@ -40,6 +40,24 @@ SubrouteUid constexpr kInvalidSubrouteId = std::numeric_limits<uint64_t>::max();
 
 using RouteJunctions = std::vector<geometry::PointWithAltitude>;
 
+/// \brief A point-like warning sitting exactly on a route vertex, e.g. a barrier node
+/// (barrier=gate / barrier=lift_gate). Computed on the routing thread (see IndexRouter::RedressRoute)
+/// and consumed by the UI layer, which maps |m_type| to its own warning kind.
+/// |m_type| is a classificator type id (see classif()); the routing layer stays UI-agnostic.
+struct RouteWarning
+{
+  RouteWarning() = default;
+  RouteWarning(m2::PointD const & point, FeatureID const & featureId, uint32_t type)
+    : m_point(point)
+    , m_featureId(featureId)
+    , m_type(type)
+  {}
+
+  m2::PointD m_point;
+  FeatureID m_featureId;
+  uint32_t m_type = 0;
+};
+
 /// \brief The route is composed of one or several subroutes. Every subroute is composed of segments.
 /// For every Segment is kept some attributes in the structure SegmentInfo.
 class RouteSegment final
@@ -290,7 +308,13 @@ public:
 
   /// \returns The midpoint of the longest divergence span — used to place the ETA balloon
   /// where the alt actually differs from |origin| — or nullopt if the route fails the threshold (equal).
+  /// Diff is measured by real road-segment feature identity (suitable for road vehicles).
   std::optional<m2::PointD> FindMaxDiffMidpoint(std::vector<RouteSegment> const & origin) const;
+
+  /// \brief Same as FindMaxDiffMidpoint but measures the diff by junction geometry instead of
+  /// feature identity. Used for transit, where the routes are distinguished by fake transit
+  /// (subway/bus) segments that carry no meaningful, reload-stable feature id.
+  std::optional<m2::PointD> FindMaxDiffMidpointByGeometry(std::vector<RouteSegment> const & origin) const;
 
   /// \brief Polyline midpoint of segments [beginIdx, endIdx] interpolated to half their geodesic
   /// length. The 0-based indexing is into m_routeSegments; the previous "junction" of segment 0
@@ -342,6 +366,10 @@ public:
   /// about speed cameras.
   std::vector<platform::CountryFile> const & GetMwmsPartlyProhibitedForSpeedCams() const;
 
+  // Point-like warnings (barrier nodes) sitting on route vertices, computed during routing.
+  void SetWarnings(std::vector<RouteWarning> && warnings) { m_warnings = std::move(warnings); }
+  std::vector<RouteWarning> const & GetWarnings() const { return m_warnings; }
+
   template <class FnT>
   void ForEachPoint(FnT && fn) const
   {
@@ -356,6 +384,11 @@ public:
 protected:
   void SetRouteSegments(std::vector<RouteSegment> && routeSegments);
 
+  // Shared core of FindMaxDiffMidpoint*: |isDiff(i)| flags m_routeSegments[i] as diverging from the
+  // origin route. Tracks total diff length (significance gate) and the longest diff run (balloon pivot).
+  template <class DiffFnT>
+  std::optional<m2::PointD> FindMaxDiffMidpointImpl(DiffFnT const & isDiff) const;
+
   std::vector<RouteSegment> m_routeSegments;
   // |m_haveAltitudes| is true if and only if all route points have altitude information.
   bool m_haveAltitudes = false;
@@ -366,6 +399,9 @@ protected:
 
   // Mwms which are crossed by the route where speed cameras are prohibited.
   std::vector<platform::CountryFile> m_speedCamPartlyProhibitedMwms;
+
+  // Point-like warnings (barrier nodes) sitting on route vertices.
+  std::vector<RouteWarning> m_warnings;
 
   // Pivot for the alternative-route ETA balloon — midpoint of the longest segment span.
   std::optional<m2::PointD> m_diffMidpoint;

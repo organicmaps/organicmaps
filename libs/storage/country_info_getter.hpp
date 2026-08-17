@@ -92,12 +92,10 @@ public:
   // Fills info for the country by id.
   void GetRegionInfo(CountryId const & countryId, CountryInfo & info) const;
 
-  // Fills limit rects of the USA:
-  // 0 - continental part
-  // 1 - Alaska
-  // 2 - Hawaii
-  void CalcUSALimitRect(m2::RectD rects[3]) const;
-
+  /// @note These functions return non-wrapped (crossig antimeridian) rect in general case.
+  /// @see CountryDef::IsIntersectOrInside.
+  /// @todo Review all usages.
+  /// @{
   // Calculates the limit rect for all countries whose names start with |prefix|.
   m2::RectD CalcLimitRect(std::string const & prefix) const;
 
@@ -105,6 +103,7 @@ public:
   // Returns the bounding box in mercator coordinates if |countryId| is a country id of
   // a non-expandable node and zero rect otherwise.
   m2::RectD GetLimitRectForLeaf(CountryId const & leafCountryId) const;
+  /// @}
 
   // Returns identifiers for all regions matching to |affiliation|.
   virtual void GetMatchedRegions(std::string const & affiliation, RegionIdVec & regions) const;

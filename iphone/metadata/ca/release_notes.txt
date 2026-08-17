@@ -1,26 +1,41 @@
-- NOVETAT! Toca una parada de transport públic per ressaltar tota la ruta al mapa, com en l'estil de mapa Transit.
-- NOVETAT! Les rutes de transport públic de llarga distància i altres relacions d'OpenStreetMap ara es connecten a través de les fronteres del mapa en una sola línia contínua.
-- Dades d'OpenStreetMap actualitzades a 3 de maig.
-- Vietnam i Malàisia ara estan dividits en regions més petites que es poden descarregar per separat.
-- Hong Kong, Macau i Hainan ara estan separats de Guangdong, i s'han actualitzat les fronteres veïnes.
-- S'han actualitzat les isòbates d'Indonèsia, Malàisia, Tanzània, Tailàndia i Vietnam.
-- S'ha afegit un botó per gravar una ruta al panell d'informació de la navegació.
-- S'han afegit nous tipus d'OpenStreetMap: volcans amb estat actiu, punts d'accés a vies navegables, rampes d'embarcament, salons de xala i edificis en construcció.
-- S'ha afegit «Lookout» com a sinònim de cerca per a miradors i «pkwy» com a sinònim de carrer dels EUA.
-- Els colors de les zones per a vianants són una mica més foscos per millorar la llegibilitat.
-- Les etiquetes de les marques de pàgina al mapa ja no es superposen.
-- El text de diverses línies ara es retalla correctament i els noms dels carrers ja no contenen duplicats.
-- Rutes: les rutes reanomenades ara eliminen els punts intermedis que ja heu passat.
-- S'ha corregit l'ús de la llista de marcadors incorrecta en les compilacions de TestFlight.
-- S'ha corregit la importació de fitxers KMB.
-- S'han actualitzat les traduccions revisades per a les categories, els sinònims de cerca i les cadenes d'interfície d'usuari. S'han afegit traduccions per a les descripcions de Nova Gal·les del Sud i del Territori del Nord.
-- S'ha millorat l'estabilitat i el rendiment, incloent-hi el modelatge de fonts, l'emmagatzematge en memòria cau de glifs i el retallat de línies de ruta.
-- S'ha millorat el gràfic d'altitud per a rutes i traçats.
-- S'han fet més grans els botons del menú de navegació per a accions com ara la lectura en veu alta (TTS), la configuració i la gravació de rutes.
-- S'ha perfeccionat l'animació de la secció de descripció desplegable a la pàgina del lloc.
-- La pàgina d'informació del lloc ja no es tanca quan acaba el desplaçament per la gràfica d'altitud, ja no fa rebots inesperats i manté el títol visible mentre s'edita amb el teclat obert.
-- S'han corregit els bloquejos en esborrar una pista o un marcador que ja no existeixen.
+- NOVETAT! Rutes de transport públic amb metro, tramvia lleuger, autobús i tramvia
+- NOVETAT! Rutes alternatives: a més de la ruta més ràpida, l'aplicació ara mostra la ruta més curta
+- NOVETAT! Alertes de ruta per a caminar i anar en bicicleta sobre esglaons, portes i barreres elevables al llarg del camí
+- NOVETAT! Toca per triar entre recorreguts i rutes superposats
+- NOVETAT! Seleccioneu qualsevol color per als marcadors
+- NOVETAT! Suport per a les coordenades British National Grid (OS Grid), Irish Grid i Irish Transverse Mercator (ITM)
+- NOVETAT! Suport d'accessibilitat per a Dynamic Type i fonts de gran mida
+- EXPERIMENTAL: Activa les imatges per satèl·lit a la configuració d'Organic Maps amb una URL de servidor de mapes raster personalitzada
+- Estil de taula més net a la IU
+- Escriviu `?map-download-server:https://your-server.com/` a la finestra de cerca per sobreescriure els servidors de descàrrega de mapes Organic Maps. Escriviu `?no-map-download-server` per eliminar la sobreescriptura.
+- Diverses correccions d'errors i millores de rendiment
 
-## Suport de plataformes
+## Dades del mapa
 
-- A causa dels canvis a TestFlight i a l'App Store, aquesta versió només és compatible amb iOS 15 o posterior. Ja no es dona suport a iOS 12, iOS 13 i iOS 14.
+- Dades OpenStreetMap actualitzades el 24 de juny
+- Dades Wikipedia actualitzades a data de 20 de juny, incloent-hi articles en italià
+
+## Renderització i estils del mapa
+
+- Patrons més atractius per a zones de platja, sorra, còdols, roca nua, horta i vinya, a més d'un traçat per a zones protegides i aiguamolls
+- Etiquetes de text corbes més suaus per a carreteres i rius
+- Els rius, els rierols i les zones humides tenen un contrast més elevat i són més visibles en mode fosc
+- Icones noves i millorades per a la cerca de categoria i els resultats de cerca al mapa
+- Millora del format i la renderització multilingüe del text
+
+## Recorreguts, marcadors i rutes
+
+- Millora de la renderització HTML de les descripcions de marcadors i recorreguts
+- Els recorreguts GeoJSON ara conserven l'altitud i les marques de temps en importar i exportar
+- S'ha corregit un bloqueig després de moure un recorregut a una altra llista
+- Ara es mostren llocs web per als llocs patrimonials
+- Ara es mostren els noms dels operadors per als resultats de cerca sense nom. Per exemple, un ATM sense nom ara mostra el seu banc
+- Editor: s'ha corregit el text de la descripció per a les edicions/conjunts de canvis OpenStreetMap d'edificis d'apartaments
+- Millora de la detecció d'HTML a les descripcions de marcadors i recorreguts
+- Ara es filtren les rutes duplicades
+
+## Traduccions
+
+- Indicacions de veu pas a pas en cantonès
+- S'han actualitzat les traduccions a l'alemany i al francès
+- S'han corregit les traduccions incorrectes de les instruccions de veu "onto street" per a xinès, serbi i català.

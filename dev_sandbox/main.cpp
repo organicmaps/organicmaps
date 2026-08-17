@@ -564,7 +564,8 @@ int main(int argc, char * argv[])
         CreateDrapeEngine(apiVersion);
         framework.EnableDebugRectRendering(enableDebugRectRendering);
         framework.GetDrapeEngine()->SetPosteffectEnabled(df::PostprocessRenderer::Antialiasing, enableAA);
-        framework.GetDrapeEngine()->SetTileBackgroundMode(static_cast<dp::BackgroundMode>(currentTileBackground));
+        framework.GetDrapeEngine()->SetTileBackgroundMode(static_cast<dp::BackgroundMode>(currentTileBackground),
+                                                          0.5f /* satelliteAreaOpacity */);
       }
     }
     if (ImGui::Checkbox("Debug rect rendering", &enableDebugRectRendering))
@@ -624,7 +625,8 @@ int main(int argc, char * argv[])
     if (ImGui::Combo("Tile Background", &currentTileBackground, tileBackgroundLabels,
                      IM_ARRAYSIZE(tileBackgroundLabels)))
     {
-      framework.GetDrapeEngine()->SetTileBackgroundMode(static_cast<dp::BackgroundMode>(currentTileBackground));
+      framework.GetDrapeEngine()->SetTileBackgroundMode(static_cast<dp::BackgroundMode>(currentTileBackground),
+                                                        0.5f /* satelliteAreaOpacity */);
     }
     ImGui::NewLine();
     ImGui::Separator();

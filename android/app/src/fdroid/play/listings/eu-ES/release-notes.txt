@@ -1,7 +1,8 @@
-• Egin tap garraio publikoaren geltoki batean eta hautatu ibilbide-zenbakiak mapako ibilbideak nabarmentzeko
-• Markagailu-etiketek ez dute gehiago maparen gainean gainjartzen.
-• Maiatzaren 3ko OpenStreetMap datu freskoak, objektu mota berriekin
-• Ibilbide eta ibilbideen altuera-grafiko hobetuak
-• Vietnam, Malaysia, Hong Kong, Makao eta Hainannerako mapa-deskargak txikiagoak
-• UI dotoretua eta animazioak
-…gehiago omaps.org/eu/news-en
+FUNTZIO BERRIAK:
+• Bilaketa eta ibilbideetarako erabiltzaile-interfazea eguneratu da
+• Garraio publikoaren ibilbideak (autobusa, tranbia, metroa, tren arina)
+• Alternatibo azkarren eta laburren ibilbideak
+• Igoera-mailen, ateen eta altxagailu-ateen inguruko ibilbide-ohartarazpenak
+• Markatzaileentzako edozein kolore hautatu
+• UK OS Grid, Irish Grid eta ITM koordenatuen laguntza
+…gehiago omaps.org/eu/news helbidean

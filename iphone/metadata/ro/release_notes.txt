@@ -1,26 +1,41 @@
-- NOU! atingeți o stație de transport public pentru a evidenția întregul traseu pe hartă, ca în stilul de hartă Transit.
-- NOU! rutele de transport public pe distanțe lungi și alte relații OpenStreetMap sunt acum conectate peste granițele hărții într-o singură linie continuă.
-- Date OpenStreetMap actualizate la data de 3 mai.
-- Vietnamul și Malaezia sunt acum împărțite în regiuni mai mici care pot fi descărcate separat.
-- Hong Kong, Macao și Hainan sunt acum separate de Guangdong, cu frontierele învecinate actualizate.
-- Liniile de contur actualizate pentru Indonezia, Malaezia, Tanzania, Thailanda și Vietnam.
-- Adăugat un buton de înregistrare a traseului la panoul de informații din navigație.
-- Adăugat noi tipuri OpenStreetMap: vulcani cu stare activă, puncte de acces la căile navigabile, șenile, saloane de narghilea și clădiri în construcție.
-- S-a adăugat "Lookout" ca sinonim de căutare pentru punctele de belvedere și "pkwy" ca sinonim de stradă din SUA.
-- Culorile zonelor pietonale sunt ușor mai închise pentru o mai bună lizibilitate.
-- Etichetele marcajelor de pe hartă nu se mai suprapun.
-- Textul pe mai multe linii este acum tăiat curat, iar numele străzilor nu mai conțin duplicate.
-- Rutare: rutele reluate elimină acum punctele intermediare pe lângă care ați trecut deja.
-- S-a rezolvat problema utilizării unei liste greșite de marcaje în versiunile TestFlight.
-- Fixat importul de fișiere KMB.
-- Actualizate traducerile corectate pentru categorii, sinonime de căutare și șiruri UI. Au fost adăugate traduceri pentru descrierile New South Wales și Northern Territory.
-- Stabilitate și performanță îmbunătățite, inclusiv modelarea fonturilor, salvarea în cache a glifurilor și decuparea liniilor de traseu.
-- Am îmbunătățit graficul de elevație pentru trasee și rute.
-- Butoanele din meniul de navigare au devenit mai mari pentru acțiuni precum TTS, setări și înregistrarea pistelor.
-- Am rafinat animația secțiunii de descriere extensibilă de pe pagina locului.
-- Pagina de informații despre loc nu se mai închide atunci când se termină scrutarea graficului de elevație, nu mai ricoșează neașteptat și păstrează titlul vizibil în timpul editării cu tastatura deschisă.
-- S-a remediat blocarea la ștergerea unei piese sau a unui marcaj care nu mai există.
+- NOU! Calcularea traseelor de transport public cu metroul, trenul ușor, autobuzul și tramvaiul
+- NOU! Trasee alternative: pe lângă traseul cel mai rapid, aplicația afișează acum și traseul cel mai scurt
+- NOU! Avertismente privind traseele de mers pe jos și cu bicicleta referitoare la trepte, porți și porți basculante de-a lungul traseului
+- NOU! Atingeți pentru a alege între trasee și rute care se suprapun
+- NOU! Alege orice culoare pentru marcaje
+- NOU! Suport pentru coordonatele British National Grid (OS Grid), Irish Grid și Irish Transverse Mercator (ITM)
+- NOU! Suport pentru accesibilitate pentru Dynamic Type și fonturi mari
+- EXPERIMENTAL: Activați imaginile din satelit în setările Organic Maps folosind o adresă URL personalizată pentru serverul de plăci raster
+- Stil mai curat al tabelelor în interfața utilizatorului
+- Tastați `?map-download-server:https://your-server.com/` în fereastra de căutare pentru a suprascrie serverele de descărcare a hărților Organic Maps. Tastați `?no-map-download-server` pentru a anula suprascrierea.
+- Diverse remedieri de erori și îmbunătățiri de performanță
 
-## Platform Support
+## Date cartografice
 
-- Datorită modificărilor din TestFlight și App Store, această versiune acceptă numai iOS 15 și versiunile ulterioare. iOS 12, iOS 13 și iOS 14 nu mai sunt acceptate.
+- Datele OpenStreetMap au fost actualizate la data de 24 iunie
+- Datele Wikipedia au fost actualizate la 20 iunie, inclusiv articolele în italiană
+
+## Redarea hărților și stilurile
+
+- Modele mai atractive pentru zonele de plajă, nisip, grohotiș, stâncă goală, livadă și podgorie, plus hașurarea zonelor protejate și a zonelor umede
+- Etichete textuale cu curbe mai fine pentru drumuri și râuri
+- Râurile, pârâurile și zonele umede au un contrast mai ridicat și sunt mai vizibile în modul întunecat
+- Icoane noi și îmbunătățite pentru căutarea pe categorii și pentru rezultatele căutării pe hartă
+- Îmbunătățirea formatării și redării textului multilingv
+
+## Trasee, marcaje și rute
+
+- Redare îmbunătățită a descrierilor marcajelor și traseelor cu ajutorul HTML
+- Traseele GeoJSON păstrează acum altitudinea și marcajele de timp la import și export
+- S-a remediat o eroare care ducea la blocarea aplicației după mutarea unui traseu într-o altă listă
+- Acum sunt afișate site-urile web pentru siturile de patrimoniu
+- Numele operatorilor sunt afișate acum pentru rezultatele de căutare fără nume. De exemplu, un ATM fără nume afișează acum banca sa
+- Editor: s-a corectat textul descrierii pentru blocurile de apartamente OpenStreetMap modificări/seturi de modificări
+- Detectarea îmbunătățită a HTML în descrierile marcajelor și traseelor
+- Rutele duplicate sunt acum filtrate
+
+## Traduceri
+
+- Ghidare vocală pas cu pas în limba cantoneză
+- Traducerile în germană și franceză au fost actualizate
+- S-au corectat traducerile incorecte ale ghidării vocale "onto street" pentru chineză, sârbă și catalană

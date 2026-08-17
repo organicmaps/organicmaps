@@ -1,7 +1,8 @@
-• Thinta isitima sokuthutha somphakathi bese ukhetha izinombolo zemigudu ukuze ugqamise imigudu emephini
-• Amalebula wamabookmark awasehlangani emephini
-• Idatha entsha ye-OpenStreetMap kusukela mhla ziyi-3 kuMeyi, enezinhlobo ezintsha zezinto
-• Amashadi wokuphakama athuthukisiwe wemigqa nemizila
-• Ukudawuniloda kwemephu okuncane kweVietnam, iMalaysia, iHong Kong, iMacau, neHainan
-• Uhlangothi lokusebenza nolunye uhlelo lokunyakaza oluthuthukisiwe
+IZINHLELO EZINTSHA:
+• Isibonisi somsebenzisi esivuselelwe sokusesha nokuhlela indlela
+• Ukuhlelwa kwezindlela zokuthutha zomphakathi (ibhasi, ithramu, isitimela esingaphansi komhlaba, i-light rail)
+• Ezinye izindlela ezisheshayo nezimfishane kakhulu
+• Izixwayiso zomzila mayelana nezitebhisi, iminyango, neminyango yokuphakamisa
+• Khetha noma yiluphi umbala wama-bookmark
+• Ukusekelwa kwamakhodi e-UK OS Grid, Irish Grid, ITM
 …okuningi ku-omaps.org/news

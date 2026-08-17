@@ -23,7 +23,14 @@
 #include <thread>
 #include <vector>
 
+// Absolute path baked in by shaders_tests/CMakeLists.txt, so the test finds the compilers no matter
+// which directory it is started from. The xcode/shaders project does not define it and resolves the
+// compilers bundled into its Resources against the working directory.
+#ifdef OMIM_SHADERS_COMPILERS_DIR
+std::string const kCompilersDir = OMIM_SHADERS_COMPILERS_DIR;
+#else
 std::string const kCompilersDir = "shaders_compiler";
+#endif
 
 #if defined(OMIM_OS_MAC)
 std::string const kMaliCompilerOpenGLES3Dir = "macos/mali_compiler_es3";
@@ -108,10 +115,11 @@ void TestShaders(dp::ApiVersion apiVersion, std::string const & defines, QString
 {
   for (auto const & src : shaders)
   {
-    // From QTemporaryFile documentation (https://doc.qt.io/qt-5/qtemporaryfile.html):
+    // From QTemporaryFile documentation (https://doc.qt.io/qt-6/qtemporaryfile.html):
     // "Specified filenames can contain the following template XXXXXX (six upper case "X" characters),
     // which will be replaced by the auto-generated portion of the filename."
-    QTemporaryFile srcFile(QString("XXXXXX") + ext);
+    // A relative template would be resolved against the working directory.
+    QTemporaryFile srcFile(QDir::tempPath() + "/XXXXXX" + ext);
     TEST(srcFile.open(), ("Temporary file can't be created!"));
     std::string fullSrc;
     if (apiVersion == dp::ApiVersion::OpenGLES3)
@@ -128,7 +136,7 @@ std::string GetCompilerPath(std::string const & compilerName)
 {
   Platform & platform = GetPlatform();
   std::string compilerPath = base::JoinPath(kCompilersDir, compilerName);
-  TEST(platform.IsFileExistsByFullPath(compilerPath), (kCompilersDir, "should present in executable dir"));
+  TEST(platform.IsFileExistsByFullPath(compilerPath), ("Shader compiler path not found:", compilerPath));
   return compilerPath;
 }
 }  // namespace

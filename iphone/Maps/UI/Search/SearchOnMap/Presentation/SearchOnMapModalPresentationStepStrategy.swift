@@ -8,9 +8,12 @@ enum SearchOnMapModalPresentationStep: Int, CaseIterable, ModalPresentationStep 
 struct SearchOnMapModalPresentationStepStrategy: ModalPresentationStepStrategy {
   private enum Constants {
     static let iPadWidth: CGFloat = 350
-    static let compactHeightOffset: CGFloat = 120
+    static let compactBaseOffset: CGFloat = 64
     static let halfScreenHeightFactorPortrait: CGFloat = 0.55
     static let topInset: CGFloat = 8
+    static func compactHeightOffset(bottomSafeAreaInset: CGFloat) -> CGFloat {
+      compactBaseOffset + max(0, bottomSafeAreaInset - topInset) // empiric value
+    }
   }
 
   typealias Step = SearchOnMapModalPresentationStep
@@ -70,7 +73,8 @@ struct SearchOnMapModalPresentationStepStrategy: ModalPresentationStepStrategy {
       case .halfScreen:
         frame.origin.y = containerSize.height * Constants.halfScreenHeightFactorPortrait
       case .compact:
-        frame.origin.y = containerSize.height - Constants.compactHeightOffset
+        frame.origin.y =
+          containerSize.height - Constants.compactHeightOffset(bottomSafeAreaInset: safeAreaInsets.bottom)
       case .hidden:
         frame.origin.y = containerSize.height
       }
@@ -81,7 +85,8 @@ struct SearchOnMapModalPresentationStepStrategy: ModalPresentationStepStrategy {
       case .expanded:
         frame.origin.y = Constants.topInset
       case .halfScreen, .compact:
-        frame.origin.y = containerSize.height - Constants.compactHeightOffset
+        frame.origin.y =
+          containerSize.height - Constants.compactHeightOffset(bottomSafeAreaInset: safeAreaInsets.bottom)
       case .hidden:
         frame.origin.y = containerSize.height
       }

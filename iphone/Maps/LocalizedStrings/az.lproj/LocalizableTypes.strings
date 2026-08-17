@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Buz Meydançası";
 "type.leisure.marina" = "Liman";
 "type.leisure.nature_reserve" = "Təbii qoruq";
+"type.leisure.bird_hide" = "Quş müşahidə sığınacağı";
 "type.leisure.outdoor_seating" = "Açıq oturma";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "Park";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "Çəmən";
 "type.natural.orchard" = "Meyvə bağı";
 "type.natural.peak" = "Pik";
+"type.natural.hill" = "Təpə";
+"type.natural.arch" = "Daş qövs";
 "type.natural.saddle" = "Dağ yəhəri";
 "type.natural.rock" = "Qaya";
 "type.natural.scrub" = "Kollar";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "Sosial obyekt";
+"type.amenity.stage" = "Səhnə";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Təcili yardım şöbəsinin girişi";

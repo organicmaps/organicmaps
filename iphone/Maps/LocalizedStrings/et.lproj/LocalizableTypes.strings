@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Uisustaadion";
 "type.leisure.marina" = "Väikesadam";
 "type.leisure.nature_reserve" = "Looduskaitseala";
+"type.leisure.bird_hide" = "Linnuvaatlusvarje";
 "type.leisure.outdoor_seating" = "Istekohad õues";
 "type.leisure.firepit" = "Tulease";
 "type.leisure.park" = "Park";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "Heinamaa";
 "type.natural.orchard" = "Viljapuuaed";
 "type.natural.peak" = "Mäetipp";
+"type.natural.hill" = "Küngas";
+"type.natural.arch" = "Kivikaar";
 "type.natural.saddle" = "Mäesadul";
 "type.natural.rock" = "Kaljurahn";
 "type.natural.scrub" = "Võsa";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "Sotsiaalasutus";
+"type.amenity.stage" = "Lava";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Erakorralise meditsiini osakonna sissepääs";

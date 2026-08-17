@@ -52,6 +52,7 @@ struct Color
   constexpr static Color Blue() { return {0, 0, 255, 255}; }
   constexpr static Color Green() { return {0, 255, 0, 255}; }
   constexpr static Color Yellow() { return {255, 255, 0, 255}; }
+  constexpr static Color Purple() { return {128, 0, 128, 255}; }
   constexpr static Color Transparent() { return {0, 0, 0, 0}; }
 
   constexpr static Color FromARGB(uint32_t argb)

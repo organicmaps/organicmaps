@@ -632,6 +632,7 @@
     <string name="type.leisure.ice_rink">Luistinrata</string>
     <string name="type.leisure.marina">Venesatama</string>
     <string name="type.leisure.nature_reserve">Luonnonsuojelualue</string>
+    <string name="type.leisure.bird_hide">Lintupiilo</string>
     <string name="type.leisure.outdoor_seating">Ulkona istuminen</string>
     <string name="type.leisure.park">Puisto</string>
     <string name="type.leisure.park.no.access">Puisto</string>
@@ -707,6 +708,8 @@
     <string name="type.natural.meadow">Niitty</string>
     <string name="type.natural.orchard">Hedelmänviljely</string>
     <string name="type.natural.peak">Huippu</string>
+    <string name="type.natural.hill">Mäki</string>
+    <string name="type.natural.arch">Kivikaari</string>
     <string name="type.natural.saddle">Vuoristo satula</string>
     <string name="type.natural.rock">Kivi</string>
     <string name="type.natural.scrub">Tiheiköt</string>
@@ -1326,6 +1329,7 @@
     <string name="type.self_service.no">Ei itsepalvelua</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">Sosiaalinen väline</string>
+    <string name="type.amenity.stage">Näyttämö</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Hätäosaston sisäänkäynti</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

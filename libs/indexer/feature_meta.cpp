@@ -119,6 +119,8 @@ bool Metadata::TypeFromString(std::string_view k, Metadata::EType & outType)
     outType = Metadata::FMD_OPERATOR;
   else if (k == "url" || k == "website" || k == "contact:website")
     outType = Metadata::FMD_WEBSITE;
+  else if (k == "heritage:website")
+    outType = Metadata::FMD_HERITAGE_WEBSITE;
   else if (k == "facebook" || k == "contact:facebook")
     outType = Metadata::FMD_CONTACT_FACEBOOK;
   else if (k == "instagram" || k == "contact:instagram")
@@ -285,6 +287,7 @@ std::string ToString(Metadata::EType type)
   case Metadata::FMD_STARS: return "stars";
   case Metadata::FMD_OPERATOR: return "operator";
   case Metadata::FMD_WEBSITE: return "website";
+  case Metadata::FMD_HERITAGE_WEBSITE: return "heritage:website";
   case Metadata::FMD_INTERNET: return "internet_access";
   case Metadata::FMD_ELE: return "ele";
   case Metadata::FMD_TURN_LANES: return "turn:lanes";

@@ -219,6 +219,18 @@
     <string name="pref_map_3d_buildings_title">Bangunan 3D</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">Bangunan 3D dimatikan dalam mode hemat daya</string>
+    <!-- Settings: title of the satellite imagery (custom raster tiles) screen -->
+    <string name="pref_bg_tiles_title">Citra Satelit</string>
+    <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
+    <string name="pref_bg_tiles_url_title">URL server</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">Masukkan URL valid dengan {z}/{x}/{y}</string>
+    <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
+    <string name="pref_bg_tiles_size_title">Ukuran cache (MB)</string>
+    <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
+    <string name="pref_bg_tiles_opacity_title">Opasitas objek area</string>
+    <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
+    <string name="pref_bg_tiles_disclaimer">Sumber ubin khusus disediakan oleh Anda. Gunakan hanya layanan yang boleh Anda akses. Anda bertanggung jawab atas atribusi, ketentuan lisensi, kunci API, kuota, dan batas penggunaan.</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Petunjuk Suara</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
@@ -231,7 +243,7 @@
     <string name="pref_tts_test_voice_title">Menguji petunjuk suara (TTS, Text-To-Speech)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Periksa pengaturan volume atau pengaturan teks-ke-ucapan sistem jika anda tidak mendengar suara sekarang.</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">Tidak Tersedia</string>
     <string name="pref_map_auto_zoom">Perbesar otomatis</string>
     <string name="placepage_distance">Jarak</string>
@@ -567,14 +579,11 @@
     <string name="prefs_languages_information_off_link">Untuk informasi selengkapnya, bacalah panduan ini.</string>
     <string name="transliteration_title">Transliterasi ke dalam bahasa Latin</string>
     <string name="learn_more">Pelajari selengkapnya</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Gunakan pencarian atau ketuk pada peta untuk menambahkan titik awal rute</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Gunakan pencarian atau ketuk pada peta untuk menambahkan titik tujuan</string>
     <string name="planning_route_manage_route">Kelola rute</string>
     <string name="button_plan">Rencana</string>
     <string name="placepage_remove_stop">Hapus pemberhentian</string>
     <string name="placepage_add_stop">Tambah perhentian</string>
+    <string name="drag_to_reorder">Mengatur ulang</string>
     <string name="saved">Tersimpan</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Silahkan login ke OpenStreetMap untuk mengupload semua hasil edit peta Anda secara otomatis. Pelajari lebih lanjut <a href="https://github.com/organicmaps/organicmaps/issues/6144">di sini</a>.</string>
@@ -620,6 +629,8 @@
     <string name="button_layer_hiking">Pendakian</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Bersepeda</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Satelit</string>
     <string name="button_layer_subway">Kereta bawah tanah</string>
     <string name="layers_title">Gaya dan Lapisan Peta</string>
     <string name="bookmarks_empty_list_title">Daftar ini kosong</string>
@@ -719,6 +730,7 @@
     <string name="opens_at">Dibuka di %s</string>
     <string name="closes_at">Ditutup pada %s</string>
     <string name="editor_add_select_category_all_subtitle">Semua kategori</string>
+    <string name="placepage_replace_stop">Ganti Berhenti</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Makanan</string>
@@ -866,6 +878,12 @@
     <string name="share_track">Bagikan Lintasan</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Hapus %s?</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Mengubah warna</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Sembunyikan jalur</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Tampilkan jalur</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -892,4 +910,6 @@
     <string name="color_picker_hex_label">Warna Heksa sRGB #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Kisi</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">Pencarian suara</string>
 </resources>

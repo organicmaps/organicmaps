@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Độ dài";
 "share_my_location" = "Chia sẻ Vị trí của tôi";
+"prefs_group_network" = "Mạng";
 "prefs_group_route" = "Điều hướng";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -217,6 +218,24 @@
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "Tòa nhà 3D bị tắt ở chế độ tiết kiệm năng lượng";
+
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "Hình ảnh vệ tinh";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "URL máy chủ";
+
+/* Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) */
+"pref_bg_tiles_url_error" = "Nhập URL hợp lệ có {z}/{x}/{y}";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "Kích thước bộ nhớ đệm (MB)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "Độ mờ đục của đối tượng vùng";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "Nguồn ô tùy chỉnh do bạn cung cấp. Chỉ sử dụng các dịch vụ mà bạn được phép truy cập. Bạn chịu trách nhiệm về việc ghi công, điều khoản giấy phép, khóa API, hạn ngạch và giới hạn sử dụng.";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Hướng dẫn bằng Giọng nói";
@@ -390,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Lỗi gửi thư";
-
-/* Settings item title */
-"pref_calibration_title" = "Chuẩn hóa la bàn";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Đã có";
@@ -643,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Tên này đã được sử dụng";
 "profile" = "Hồ sơ OpenStreetMap";
 "restore" = "Khôi phục";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Sự riêng tư";
 "privacy_policy" = "Chính sách bảo mật";
 "terms_of_use" = "Điều khoảng sử dụng";
 
@@ -651,6 +670,9 @@
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "Đạp xe";
+
+/* Map layers menu: toggle button for the satellite imagery layer */
+"button_layer_satellite" = "Vệ tinh";
 "button_layer_subway" = "Xe điện ngầm";
 "layers_title" = "Kiểu và lớp bản đồ";
 
@@ -907,6 +929,9 @@
 "elevation_profile_descent" = "Đi xuống";
 "elevation_profile_min_elevation" = "Min. độ cao";
 "elevation_profile_max_elevation" = "Max. độ cao";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Bắt đầu di chuyển để xem biểu đồ độ cao";
 "isolines_toast_zooms_1_10" = "Phóng bản đồ để nhìn rõ đường đồng mức";
 "downloader_loading_ios" = "Tải xuống";
 

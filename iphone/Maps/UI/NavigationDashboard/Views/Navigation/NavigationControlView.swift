@@ -126,10 +126,10 @@ final class NavigationControlView: SolidTouchView {
     button.imageView?.contentMode = .scaleAspectFit
     button.contentHorizontalAlignment = .fill
     button.contentVerticalAlignment = .fill
-    button.setContentEdgeInsets(UIEdgeInsets(top: Constants.buttonContentInset,
-                                             left: Constants.buttonContentInset,
-                                             bottom: Constants.buttonContentInset,
-                                             right: Constants.buttonContentInset))
+    button.contentEdgeInsets = UIEdgeInsets(top: Constants.buttonContentInset,
+                                            left: Constants.buttonContentInset,
+                                            bottom: Constants.buttonContentInset,
+                                            right: Constants.buttonContentInset)
   }
 
   private func configureStopButton(_ button: UIButton) {

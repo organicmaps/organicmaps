@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "حلبة تزلج على الجليد";
 "type.leisure.marina" = "مرسى";
 "type.leisure.nature_reserve" = "محمية طبيعية";
+"type.leisure.bird_hide" = "مخبأ لمراقبة الطيور";
 "type.leisure.outdoor_seating" = "جلوس في الهواء الطلق";
 "type.leisure.firepit" = "موقد نار";
 "type.leisure.park" = "متنزه";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "مرج";
 "type.natural.orchard" = "بستان";
 "type.natural.peak" = "قمة";
+"type.natural.hill" = "تل";
+"type.natural.arch" = "قوس الصخرة";
 "type.natural.saddle" = "سرج الجبل";
 "type.natural.rock" = "صخر";
 "type.natural.scrub" = "أَيْكَة";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "المرفق الاجتماعي";
+"type.amenity.stage" = "خشبة المسرح";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "مدخل جناح الطوارئ";

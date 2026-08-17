@@ -16,10 +16,14 @@
     }
   }
 
-  func applicationDidOpenUrl(_ url: URL) -> Bool {
+  func applicationDidOpenUrl(_ url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
     // File reading should be processed synchronously to avoid permission issues (the Files app will close the file for reading when the application:openURL:options returns).
     if url.isFileURL {
-      return handleFileImport(url: url)
+      // UIApplication.openURL options are deprecated for scene-based apps. When scenes are adopted,
+      // handle UIApplication.OpenURLOptionsKey.openInPlace via the scene URL context instead.
+      // https://developer.apple.com/documentation/uikit/uiapplication/openurloptionskey/openinplace?language=objc
+      let openInPlace = options[.openInPlace] as? Bool ?? false
+      return handleFileImport(url: url, openInPlace: openInPlace)
     }
 
     // On the cold start, isLaunchedByDeeplink is set and handleDeepLink() call is delayed
@@ -68,18 +72,49 @@
     return false
   }
 
-  private func handleFileImport(url: URL) -> Bool {
-    LOG(.info, "handleFileImport: \(url)")
+  private func handleFileImport(url: URL, openInPlace: Bool) -> Bool {
+    LOG(.info, "handleFileImport: \(url), openInPlace: \(openInPlace)")
+    guard openInPlace else {
+      DeepLinkParser.addBookmarksFile(url, isTemporaryFile: true)
+      reset()
+      return true
+    }
+
+    let shouldStopAccessing = url.startAccessingSecurityScopedResource()
+    defer {
+      if shouldStopAccessing {
+        url.stopAccessingSecurityScopedResource()
+      }
+    }
+
     let fileCoordinator = NSFileCoordinator()
     var error: NSError?
+    var copyError: Error?
     fileCoordinator.coordinate(readingItemAt: url, options: [], error: &error) { fileURL in
-      DeepLinkParser.addBookmarksFile(fileURL)
+      do {
+        try DeepLinkParser.addBookmarksFile(copyFileToTemporaryDirectory(fileURL), isTemporaryFile: true)
+      } catch {
+        copyError = error
+      }
     }
     if let error {
       LOG(.error, "Failed to read file: \(error)")
     }
+    if let copyError {
+      LOG(.error, "Failed to copy file for import: \(copyError)")
+    }
     reset()
-    return true
+    return error == nil && copyError == nil
+  }
+
+  private func copyFileToTemporaryDirectory(_ url: URL) throws -> URL {
+    let temporaryDirectory = FileManager.default.temporaryDirectory
+      .appendingPathComponent("FileImports/\(UUID().uuidString)", isDirectory: true)
+    try FileManager.default.createDirectory(at: temporaryDirectory, withIntermediateDirectories: true)
+
+    let localCopyURL = temporaryDirectory.appendingPathComponent(url.lastPathComponent)
+    try FileManager.default.copyItem(at: url, to: localCopyURL)
+    return localCopyURL
   }
 
   private func handleDeepLink(url: URL) -> Bool {

@@ -57,8 +57,10 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
 
   private final NavMenu mNavMenu;
   View.OnClickListener mOnSettingsClickListener;
+  View.OnClickListener mOnVoiceSettingsClickListener;
 
   public NavigationController(AppCompatActivity activity, View.OnClickListener onSettingsClickListener,
+                              View.OnClickListener onVoiceSettingsClickListener,
                               NavMenu.OnMenuSizeChangedListener onMenuSizeChangedListener)
   {
     mMapButtonsViewModel = new ViewModelProvider(activity).get(MapButtonsViewModel.class);
@@ -66,6 +68,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     mFrame = activity.findViewById(R.id.navigation_frame);
     mNavMenu = new NavMenu(activity, this, onMenuSizeChangedListener);
     mOnSettingsClickListener = onSettingsClickListener;
+    mOnVoiceSettingsClickListener = onVoiceSettingsClickListener;
 
     // Top frame
     mTopFrame = mFrame.findViewById(R.id.nav_top_frame);
@@ -276,6 +279,12 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
   public void onSettingsClicked()
   {
     mOnSettingsClickListener.onClick(null);
+  }
+
+  @Override
+  public void onTtsVoiceSettingsClicked()
+  {
+    mOnVoiceSettingsClickListener.onClick(null);
   }
 
   @Override

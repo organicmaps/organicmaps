@@ -75,7 +75,7 @@ final class PlacePageOSMContributionViewController: UIViewController {
     }
     button.addTarget(self, action: action, for: .touchUpInside)
     button.setStyle(.flatNormalGrayButtonBig)
-    button.setContentEdgeInsets(UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8))
+    button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
     button.titleLabel?.configureSingleLineAutoScaling()
   }
 

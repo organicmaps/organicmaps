@@ -23,9 +23,6 @@ UNIT_TEST(CheckTrafficArrowTextures)
     {
       dp::StaticTexture texture(make_ref(&context), "traffic-arrow.png", skinPath, dp::TextureFormat::RGBA8, nullptr);
       TEST(texture.IsLoadingCorrect(), ());
-
-      dp::StaticTexture texture2(make_ref(&context), "area-hatching.png", skinPath, dp::TextureFormat::RGBA8, nullptr);
-      TEST(texture2.IsLoadingCorrect(), ());
     }
   }
 }

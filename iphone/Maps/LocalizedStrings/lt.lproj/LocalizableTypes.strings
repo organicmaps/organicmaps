@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Čiuožykla";
 "type.leisure.marina" = "Prieplauka";
 "type.leisure.nature_reserve" = "Gamtos rezervatas";
+"type.leisure.bird_hide" = "Paukščių stebėjimo slėptuvė";
 "type.leisure.outdoor_seating" = "Lauko kavinė";
 "type.leisure.firepit" = "Laužavietė";
 "type.leisure.park" = "Parkas";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "Pievos";
 "type.natural.orchard" = "Sodas";
 "type.natural.peak" = "Viršūnė";
+"type.natural.hill" = "Kalva";
+"type.natural.arch" = "Uolų arka";
 "type.natural.saddle" = "Balnas";
 "type.natural.rock" = "Akmuo";
 "type.natural.scrub" = "Krūmynai";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "Socialinė priemonė";
+"type.amenity.stage" = "Scena";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Skubios pagalbos skyriaus įėjimas";

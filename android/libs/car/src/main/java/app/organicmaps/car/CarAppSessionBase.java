@@ -181,11 +181,15 @@ public abstract class CarAppSessionBase
   public void onPlacePageDeactivated()
   {
     // The function is called when we close the PlaceScreen or when we enter the navigation mode.
-    // We only need to handle the first case
+    // We only need to handle the first case.
     if (!(mScreenManager.getTop() instanceof PlaceScreen))
       return;
 
-    RoutingController.get().cancel();
+    // Do NOT cancel routing here. This callback fires synchronously from the C++ tap handler
+    // (Framework::OnTapEvent → DeactivateMapSelection → m_onPlacePageClose), including the Ruler
+    // "extend route by tap" path which wipes the Finish mark mid-handler and aborts when the
+    // stack unwinds back to ContinueRouteToPoint. User-initiated close goes through
+    // PlaceScreen.onBackPressed(), which already calls RoutingController.cancel() explicitly.
     mScreenManager.popToRoot();
   }
 

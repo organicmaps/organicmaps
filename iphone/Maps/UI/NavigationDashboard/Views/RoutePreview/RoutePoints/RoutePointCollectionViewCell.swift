@@ -1,6 +1,4 @@
 final class RoutePointCollectionViewCell: UICollectionViewCell {
-  static let minimumHeight: CGFloat = 44
-
   enum CellType {
     case point(PointViewModel)
     case addPoint
@@ -17,14 +15,16 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
   }
 
   private enum Constants {
+    static let fontStyle = FontStyleSheet.semibold14
+    static let minimumHeight: CGFloat = 44
+    static let titleNumberOfLines: Int = 2
+    static let verticalInset: CGFloat = 8
     static let logoSize: CGFloat = 28
     static let logoImageLeadingInset: CGFloat = 12
     static let reorderButtonSize: CGFloat = 24
     static let closeButtonSize: CGFloat = 24
     static let horizontalSpacing: CGFloat = 12
     static let horizontalSpacingSmall: CGFloat = 5
-    static let verticalInset: CGFloat = 8
-    static let accessibilityVerticalInset: CGFloat = 12
   }
 
   private let logoImageView = UIImageView()
@@ -39,14 +39,6 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
   }()
 
   private var didTapClose: (() -> Void)?
-  private var textStackViewTopConstraint: NSLayoutConstraint!
-  private var textStackViewBottomConstraint: NSLayoutConstraint!
-
-  private var verticalInset: CGFloat {
-    traitCollection.preferredContentSizeCategory.isAccessibilityCategory
-      ? Constants.accessibilityVerticalInset
-      : Constants.verticalInset
-  }
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -60,12 +52,6 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
     }
   }
 
-  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    super.traitCollectionDidChange(previousTraitCollection)
-    guard previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory else { return }
-    updateVerticalInsets()
-  }
-
   @available(*, unavailable)
   required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
@@ -75,13 +61,13 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
     contentView.clipsToBounds = false
 
     contentBackgroundView.setStyle(.pressBackground)
-    contentBackgroundView.layer.setCornerRadius(.buttonDefault)
+    contentBackgroundView.layer.setCornerRadius(.buttonDefaultBig)
     contentBackgroundView.clipsToBounds = false
 
     logoImageView.contentMode = .scaleAspectFill
     logoImageView.clipsToBounds = true
 
-    titleLabel.numberOfLines = 0
+    titleLabel.numberOfLines = Constants.titleNumberOfLines
 
     textStackView.axis = .vertical
     textStackView.alignment = .leading
@@ -108,16 +94,11 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
     reorderButton.translatesAutoresizingMaskIntoConstraints = false
     closeButton.translatesAutoresizingMaskIntoConstraints = false
 
-    textStackViewTopConstraint = textStackView.topAnchor.constraint(greaterThanOrEqualTo: contentBackgroundView.topAnchor)
-    textStackViewBottomConstraint = textStackView.bottomAnchor.constraint(lessThanOrEqualTo: contentBackgroundView.bottomAnchor)
-    updateVerticalInsets()
-
     NSLayoutConstraint.activate([
       contentBackgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
       contentBackgroundView.topAnchor.constraint(equalTo: contentView.topAnchor),
       contentBackgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
       contentBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-      contentBackgroundView.heightAnchor.constraint(greaterThanOrEqualToConstant: Self.minimumHeight),
 
       logoImageView.leadingAnchor.constraint(equalTo: contentBackgroundView.leadingAnchor, constant: Constants.logoImageLeadingInset),
       logoImageView.centerYAnchor.constraint(equalTo: contentBackgroundView.centerYAnchor),
@@ -125,10 +106,8 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
       logoImageView.heightAnchor.constraint(equalToConstant: Constants.logoSize),
 
       textStackView.leadingAnchor.constraint(equalTo: logoImageView.trailingAnchor, constant: Constants.horizontalSpacing),
-      textStackViewTopConstraint,
       textStackView.centerYAnchor.constraint(equalTo: contentBackgroundView.centerYAnchor),
       textStackView.trailingAnchor.constraint(lessThanOrEqualTo: closeButton.leadingAnchor, constant: -Constants.horizontalSpacing),
-      textStackViewBottomConstraint,
 
       closeButton.trailingAnchor.constraint(equalTo: reorderButton.leadingAnchor, constant: -Constants.horizontalSpacingSmall),
       closeButton.centerYAnchor.constraint(equalTo: contentBackgroundView.centerYAnchor),
@@ -142,30 +121,6 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
     ])
   }
 
-  private func updateVerticalInsets() {
-    textStackViewTopConstraint?.constant = verticalInset
-    textStackViewBottomConstraint?.constant = -verticalInset
-  }
-
-  override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-    let attributes = layoutAttributes.copy() as! UICollectionViewLayoutAttributes
-    let width = attributes.size.width > 0 ? attributes.size.width : superview?.bounds.width ?? 0
-    guard width > 0 else { return super.preferredLayoutAttributesFitting(layoutAttributes) }
-
-    contentView.bounds.size.width = width
-    contentView.setNeedsLayout()
-    contentView.layoutIfNeeded()
-
-    let targetSize = CGSize(width: width, height: UIView.layoutFittingCompressedSize.height)
-    let size = contentView.systemLayoutSizeFitting(
-      targetSize,
-      withHorizontalFittingPriority: .required,
-      verticalFittingPriority: .fittingSizeLevel
-    )
-    attributes.size = CGSize(width: width, height: max(Self.minimumHeight, ceil(size.height)))
-    return attributes
-  }
-
   func configure(with viewModel: CellType) {
     switch viewModel {
     case .point(let viewModel):
@@ -173,7 +128,7 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
       logoImageView.image = viewModel.image
       logoImageView.setStyleAndApply(.black)
       didTapClose = viewModel.onCloseHandler
-      titleLabel.setFontStyleAndApply(.semibold14, color: viewModel.isPlaceholder ? .blackSecondary : .blackPrimary)
+      titleLabel.setFontStyleAndApply(Constants.fontStyle, color: viewModel.isPlaceholder ? .blackSecondary : .blackPrimary)
       closeButton.isHidden = !viewModel.showCloseButton
       reorderButton.isHidden = false
       contentBackgroundView.layer.maskedCorners = viewModel.maskedCorners
@@ -182,7 +137,7 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
       titleLabel.text = L("placepage_add_stop")
       logoImageView.image = UIImage(resource: .icAddButton)
       logoImageView.setStyleAndApply(.blue)
-      titleLabel.setFontStyleAndApply(.semibold14, color: .linkBlue)
+      titleLabel.setFontStyleAndApply(Constants.fontStyle, color: .linkBlue)
       closeButton.isHidden = true
       reorderButton.isHidden = true
       contentBackgroundView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
@@ -193,5 +148,10 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
   @objc
   private func didTapCloseButton() {
     didTapClose?()
+  }
+
+  static func height() -> CGFloat {
+    let titleHeight = Constants.fontStyle.font.dynamic.lineHeight * CGFloat(Constants.titleNumberOfLines)
+    return max(Constants.minimumHeight, ceil(titleHeight + Constants.verticalInset * 2))
   }
 }

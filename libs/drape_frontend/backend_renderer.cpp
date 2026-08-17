@@ -41,7 +41,7 @@ BackendRenderer::BackendRenderer(Params && params)
   , m_model(params.m_model)
   , m_readManager(make_unique_dp<ReadManager>(params.m_commutator, m_model, params.m_allow3dBuildings,
                                               params.m_trafficEnabled, params.m_isolinesEnabled,
-                                              params.m_backgroundMode))
+                                              params.m_backgroundMode, params.m_satelliteAreaOpacity))
   , m_transitBuilder(
         make_unique_dp<TransitSchemeBuilder>(std::bind(&BackendRenderer::FlushTransitRenderData, this, _1)))
   , m_trafficGenerator(make_unique_dp<TrafficGenerator>(std::bind(&BackendRenderer::FlushTrafficRenderData, this, _1)))
@@ -723,15 +723,17 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::SetTileBackgroundMode:
   {
     ref_ptr<SetTileBackgroundModeMessage> msg = message;
-    m_readManager->SetBackgroundMode(msg->GetMode());
+    m_readManager->SetBackgroundMode(msg->GetMode(), msg->GetAreaOpacity());
     m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                              make_unique_dp<SetTileBackgroundModeMessage>(msg->GetMode()), MessagePriority::Normal);
+                              make_unique_dp<SetTileBackgroundModeMessage>(msg->GetMode(), msg->GetAreaOpacity(),
+                                                                           m_readManager->IsModeChanged()),
+                              MessagePriority::Normal);
     break;
   }
 
-  case Message::Type::SetTileBackgroundData:
+  case Message::Type::AddTileBackgroundImage:
   {
-    ref_ptr<SetTileBackgroundDataMessage> msg = message;
+    ref_ptr<AddTileBackgroundImageMessage> msg = message;
 
     dp::TexturePoolDesc const desc{.m_maxTextureCount = gpu::kTileBackgroundMaxCount,
                                    .m_textureWidth = msg->GetWidth(),
@@ -754,13 +756,23 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
 
     m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                               m_context->GetApiVersion() == dp::ApiVersion::OpenGLES3
-                                  ? make_unique_dp<AssignTileBackgroundTextureMessage>(
-                                        m_context, msg->GetTileKey(), texturePool, textureId, msg->GetMode(),
+                                  ? make_unique_dp<AssignTileBackgroundImageMessage>(
+                                        m_context, msg->GetUid(), texturePool, textureId, msg->GetMode(),
                                         std::move(msg->GetBytes()), msg->GetWidth(), msg->GetHeight())
-                                  : make_unique_dp<AssignTileBackgroundTextureMessage>(
-                                        m_context, msg->GetTileKey(), texturePool, textureId, msg->GetMode()),
+                                  : make_unique_dp<AssignTileBackgroundImageMessage>(
+                                        m_context, msg->GetUid(), texturePool, textureId, msg->GetMode()),
                               MessagePriority::Normal);
 
+    break;
+  }
+
+  case Message::Type::SetTileBackgroundData:
+  {
+    ref_ptr<SetTileBackgroundDataMessage> msg = message;
+    m_commutator->PostMessage(
+        ThreadsCommutator::RenderThread,
+        make_unique_dp<SetTileBackgroundDataMessage>(msg->GetTileKey(), msg->GetImageUid(), msg->GetRect()),
+        MessagePriority::Normal);
     break;
   }
 

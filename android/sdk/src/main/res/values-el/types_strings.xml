@@ -658,6 +658,7 @@
     <string name="type.leisure.ice_rink">Παγοδρόμιο</string>
     <string name="type.leisure.marina">Μαρίνα</string>
     <string name="type.leisure.nature_reserve">Προστατευόμενος βιότοπος</string>
+    <string name="type.leisure.bird_hide">Παρατηρητήριο πουλιών</string>
     <string name="type.leisure.outdoor_seating">Καθίσματα εξωτερικού χώρου</string>
     <string name="type.leisure.firepit">Εστία φωτιάς</string>
     <string name="type.leisure.park">Πάρκο</string>
@@ -748,6 +749,8 @@
     <string name="type.natural.meadow">Λιβάδι</string>
     <string name="type.natural.orchard">Οπωρώνας</string>
     <string name="type.natural.peak">Κορυφή</string>
+    <string name="type.natural.hill">Λόφος</string>
+    <string name="type.natural.arch">Βραχώδης Αψίδα</string>
     <string name="type.natural.saddle">Σέλα Βουνού</string>
     <string name="type.natural.rock">Πέτρωμα</string>
     <string name="type.natural.scrub">Θαμνώδης περιοχή</string>
@@ -1424,6 +1427,7 @@
     <string name="type.self_service.no">Δεν υπάρχει αυτοεξυπηρέτηση</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">Κοινωνική διευκόλυνση</string>
+    <string name="type.amenity.stage">Σκηνή</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Είσοδος θαλάμου έκτακτης ανάγκης</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

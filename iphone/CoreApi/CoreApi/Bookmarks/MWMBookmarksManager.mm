@@ -53,6 +53,36 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
   }
 }
 
+static kml::PredefinedColor convertPredefinedColor(MWMPredefinedColor predefinedColor)
+{
+  return static_cast<kml::PredefinedColor>(predefinedColor);
+}
+
+static MWMPredefinedColor convertPredefinedColor(kml::PredefinedColor predefinedColor)
+{
+  return static_cast<MWMPredefinedColor>(predefinedColor);
+}
+
+static UIColor * UIColorFromCoreColor(dp::Color const & color)
+{
+  return [UIColor colorWithRed:color.GetRedF() green:color.GetGreenF() blue:color.GetBlueF() alpha:color.GetAlphaF()];
+}
+
+static void DeleteTemporaryBookmarksFile(std::string const & filePath)
+{
+  NSError * error;
+  NSString * path = [NSString stringWithUTF8String:filePath.c_str()];
+  if ([[NSFileManager defaultManager] removeItemAtPath:path error:&error])
+  {
+    LOG(LINFO, ("Temporary bookmarks file is deleted:", filePath));
+    [[NSFileManager defaultManager] removeItemAtPath:path.stringByDeletingLastPathComponent error:nil];
+  }
+  else
+  {
+    LOG(LWARNING, ("Failed to delete temporary bookmarks file:", filePath, error));
+  }
+}
+
 @interface MWMBookmarksManager ()
 
 @property(nonatomic, readonly) BookmarkManager & bm;
@@ -73,6 +103,20 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{ manager = [[self alloc] initManager]; });
   return manager;
+}
+
++ (NSArray<NSNumber *> *)predefinedColors
+{
+  NSMutableArray<NSNumber *> * result = [[NSMutableArray alloc] initWithCapacity:kml::kOrderedPredefinedColors.size()];
+  for (auto const predefinedColor : kml::kOrderedPredefinedColors)
+    if (predefinedColor != kml::PredefinedColor::None)
+      [result addObject:@(convertPredefinedColor(predefinedColor))];
+  return result;
+}
+
++ (UIColor *)colorFromPredefinedColor:(MWMPredefinedColor)predefinedColor
+{
+  return UIColorFromCoreColor(kml::ColorFromPredefinedColor(convertPredefinedColor(predefinedColor)));
 }
 
 - (BookmarkManager &)bm
@@ -131,6 +175,8 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
         if ([observer respondsToSelector:@selector(onBookmarksFileLoadSuccess)])
           [observer onBookmarksFileLoadSuccess];
       }];
+      if (isTemporaryFile)
+        DeleteTemporaryBookmarksFile(filePath);
     };
   }
   {
@@ -142,6 +188,8 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
         if ([observer respondsToSelector:@selector(onBookmarksFileLoadError)])
           [observer onBookmarksFileLoadError];
       }];
+      if (isTemporaryFile)
+        DeleteTemporaryBookmarksFile(filePath);
     };
   }
   self.bm.SetAsyncLoadingCallbacks(std::move(bookmarkCallbacks));
@@ -862,9 +910,12 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
 
 - (void)setElevationActivePointChanged:(uint64_t)trackId callback:(ElevationPointChangedBlock)callback
 {
-  __weak __typeof(self) ws = self;
-  self.bm.SetElevationActivePointChangedCallback([callback, trackId, ws]()
-  { callback(ws.bm.GetElevationActivePoint(trackId)); });
+  self.bm.SetElevationActivePointChangedCallback([callback, trackId](kml::TrackId changedTrackId, double distance)
+  {
+    if (changedTrackId != trackId)
+      return;
+    callback(distance);
+  });
 }
 
 - (void)resetElevationActivePointChanged
@@ -874,9 +925,12 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
 
 - (void)setElevationMyPositionChanged:(uint64_t)trackId callback:(ElevationPointChangedBlock)callback
 {
-  __weak __typeof(self) ws = self;
-  self.bm.SetElevationMyPositionChangedCallback([callback, trackId, ws]()
-  { callback(ws.bm.GetElevationMyPosition(trackId)); });
+  self.bm.SetElevationMyPositionChangedCallback([callback, trackId](kml::TrackId changedTrackId, double distance)
+  {
+    if (changedTrackId != trackId)
+      return;
+    callback(distance);
+  });
 }
 
 - (void)resetElevationMyPositionChanged

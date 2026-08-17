@@ -26,6 +26,7 @@
 		56D1866B24FF80E5009747D2 /* xmltok.h in Headers */ = {isa = PBXBuildFile; fileRef = 56D1865824FF80E4009747D2 /* xmltok.h */; };
 		56D1866C24FF80E5009747D2 /* winconfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 56D1865924FF80E4009747D2 /* winconfig.h */; };
 		56D1866D24FF80E5009747D2 /* xmltok.c in Sources */ = {isa = PBXBuildFile; fileRef = 56D1865A24FF80E5009747D2 /* xmltok.c */; };
+		AB3905E70F1A4B2C8D6E0002 /* random_arc4random_buf.c in Sources */ = {isa = PBXBuildFile; fileRef = AB3905E70F1A4B2C8D6E0001 /* random_arc4random_buf.c */; };
 		FAEB4C5C29195DC00044B82E /* expat_config.h in Headers */ = {isa = PBXBuildFile; fileRef = FAEB4C5B29195DC00044B82E /* expat_config.h */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +52,7 @@
 		56D1865824FF80E4009747D2 /* xmltok.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xmltok.h; path = expat/lib/xmltok.h; sourceTree = "<group>"; };
 		56D1865924FF80E4009747D2 /* winconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = winconfig.h; path = expat/lib/winconfig.h; sourceTree = "<group>"; };
 		56D1865A24FF80E5009747D2 /* xmltok.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xmltok.c; path = expat/lib/xmltok.c; sourceTree = "<group>"; };
+		AB3905E70F1A4B2C8D6E0001 /* random_arc4random_buf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = random_arc4random_buf.c; path = expat/lib/random_arc4random_buf.c; sourceTree = "<group>"; };
 		670D04F81B0BAEE50013A7AC /* libexpat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libexpat.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAEB4C5B29195DC00044B82E /* expat_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = expat_config.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -106,6 +108,7 @@
 				56D1865124FF80E4009747D2 /* xmltok_impl.h */,
 				56D1864B24FF80E4009747D2 /* xmltok_ns.c */,
 				56D1865A24FF80E5009747D2 /* xmltok.c */,
+				AB3905E70F1A4B2C8D6E0001 /* random_arc4random_buf.c */,
 				56D1865824FF80E4009747D2 /* xmltok.h */,
 			);
 			name = expat;
@@ -198,6 +201,7 @@
 				56D1865E24FF80E5009747D2 /* xmltok_ns.c in Sources */,
 				56D1866724FF80E5009747D2 /* xmltok_impl.c in Sources */,
 				56D1866D24FF80E5009747D2 /* xmltok.c in Sources */,
+				AB3905E70F1A4B2C8D6E0002 /* random_arc4random_buf.c in Sources */,
 				56D1866024FF80E5009747D2 /* xmlrole.c in Sources */,
 				56D1866A24FF80E5009747D2 /* xmlparse.c in Sources */,
 			);

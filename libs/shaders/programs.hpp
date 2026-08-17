@@ -29,7 +29,14 @@ enum class Program
   PathSymbol,
   TransparentArea,
   CapJoin,
+  // Keep the solid-fill patterns before the Hatching* overlays: render groups in a depth layer draw in
+  // program-enum order, and a hatch writes depth across its whole quad (including the transparent gaps
+  // between lines), so a fill placed after it is depth-culled where they overlap. See DrawPatternArea.
+  AreaStipple,
+  AreaSpeckle,
+  AreaGrid,
   HatchingArea,
+  HatchingAreaDash,
   TexturingGui,
   Ruler,
   Accuracy,
@@ -95,7 +102,11 @@ inline std::string_view DebugPrint(Program p)
   case Program::DashedLine: return "DashedLine";
   case Program::PathSymbol: return "PathSymbol";
   case Program::TransparentArea: return "TransparentArea";
+  case Program::AreaStipple: return "AreaStipple";
+  case Program::AreaSpeckle: return "AreaSpeckle";
+  case Program::AreaGrid: return "AreaGrid";
   case Program::HatchingArea: return "HatchingArea";
+  case Program::HatchingAreaDash: return "HatchingAreaDash";
   case Program::TexturingGui: return "TexturingGui";
   case Program::Ruler: return "Ruler";
   case Program::Accuracy: return "Accuracy";

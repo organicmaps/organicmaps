@@ -27,8 +27,6 @@
     <attr name="android:drawable"/>
   </declare-styleable>
 
-  <bool name="tabletLayout">false</bool>
-
   <declare-styleable name="PlaceholderView">
     <attr name="imgSrcDefault" format="reference"/>
     <attr name="titleDefault" format="reference"/>

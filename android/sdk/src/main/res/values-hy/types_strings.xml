@@ -656,6 +656,7 @@
     <string name="type.leisure.ice_rink">Սահադաշտ</string>
     <string name="type.leisure.marina">Նավակայան</string>
     <string name="type.leisure.nature_reserve">Արգելոց</string>
+    <string name="type.leisure.bird_hide">Թռչունների դիտակետ</string>
     <string name="type.leisure.outdoor_seating">Բացօթյա նստատեղեր</string>
     <string name="type.leisure.firepit">Խարուկատեղ</string>
     <string name="type.leisure.park">Զբոսայգի</string>
@@ -746,6 +747,8 @@
     <string name="type.natural.meadow">Մարգագետին</string>
     <string name="type.natural.orchard">Պտղատու այգի</string>
     <string name="type.natural.peak">Գագաթ</string>
+    <string name="type.natural.hill">Բլուր</string>
+    <string name="type.natural.arch">Քարե կամար</string>
     <string name="type.natural.saddle">Թամբարդ</string>
     <string name="type.natural.rock">Քար</string>
     <string name="type.natural.scrub">Թփուտ</string>
@@ -1426,6 +1429,7 @@
     <string name="type.self_service.no">Ինքնասպասարկում չկա</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">Սոցիալական հաստատություն</string>
+    <string name="type.amenity.stage">Բեմ</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Շտապօգնության բաժանմունքի մուտք</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

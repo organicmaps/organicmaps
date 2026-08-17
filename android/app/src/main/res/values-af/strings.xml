@@ -219,6 +219,18 @@
     <string name="pref_map_3d_buildings_title">3D-geboue</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">3D-geboue is gedeaktiveer in batterybesparingsmodus</string>
+    <!-- Settings: title of the satellite imagery (custom raster tiles) screen -->
+    <string name="pref_bg_tiles_title">Satellietbeelde</string>
+    <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
+    <string name="pref_bg_tiles_url_title">Bediener-URL</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">Voer \'n geldige URL met {z}/{x}/{y} in</string>
+    <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
+    <string name="pref_bg_tiles_size_title">Kasgrootte (MB)</string>
+    <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
+    <string name="pref_bg_tiles_opacity_title">Ondeursigtigheid van area-objekte</string>
+    <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
+    <string name="pref_bg_tiles_disclaimer">Pasgemaakte teëlbronne word deur jou verskaf. Gebruik slegs dienste waartoe jy toegang mag hê. Jy is verantwoordelik vir erkenning, lisensievoorwaardes, API-sleutels, kwotas en gebruiksgrense.</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Steminstruksies</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
@@ -231,7 +243,7 @@
     <string name="pref_tts_test_voice_title">Toets Stemmingsaanwysings (TTS, Teks-na-spraak)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Kontroleer die volume of die stelsel se Teks-na-Spreek-instellings as jy nou nie die stem hoor nie.</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">Nie beskikbaar</string>
     <string name="pref_map_auto_zoom">Outomatiese zoem</string>
     <string name="placepage_distance">Afstand</string>
@@ -567,14 +579,11 @@
     <string name="prefs_languages_information_off_link">Sien hierdie gids vir meer inligting</string>
     <string name="transliteration_title">Transliterasie in Latynse alfabet</string>
     <string name="learn_more">Meer inligting</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Gebruik soek of tik op die kaart om \'n roetebeginpunt by te voeg</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Gebruik soek of tik op die kaart om \'n bestemmingspunt by te voeg</string>
     <string name="planning_route_manage_route">Bestuur roete</string>
     <string name="button_plan">Beplan</string>
     <string name="placepage_remove_stop">Verwyder stop</string>
     <string name="placepage_add_stop">Voeg tussenstop toe</string>
+    <string name="drag_to_reorder">Herordening</string>
     <string name="saved">Gespaar</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Meld asseblief aan by OpenStreetMap om al jou kaartwysigings outomaties op te laai. Kom meer te wete <a href="https://github.com/organicmaps/organicmaps/issues/6144">hier</a>.</string>
@@ -619,6 +628,8 @@
     <string name="button_layer_hiking">Staptoere</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Fietsroetes</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Satelliet</string>
     <string name="button_layer_subway">Moltrein</string>
     <string name="layers_title">Kaartstyle en -lae</string>
     <string name="bookmarks_empty_list_title">Hierdie lys is leeg</string>
@@ -718,6 +729,7 @@
     <string name="opens_at">Open om %s</string>
     <string name="closes_at">Sluit om %s</string>
     <string name="editor_add_select_category_all_subtitle">Kategorieë</string>
+    <string name="placepage_replace_stop">Vervang Stop</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Kos</string>
@@ -865,6 +877,12 @@
     <string name="share_track">Deel spoor</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Verwyder %s?</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Verander kleur</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Versteek roete</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Wys roete</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -891,4 +909,6 @@
     <string name="color_picker_hex_label">sRGB-hekskleur #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Rooster</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">Stemsoektog</string>
 </resources>

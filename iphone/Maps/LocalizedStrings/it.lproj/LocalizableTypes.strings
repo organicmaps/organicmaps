@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Pista di pattinaggio";
 "type.leisure.marina" = "Porto turistico";
 "type.leisure.nature_reserve" = "Riserva naturale";
+"type.leisure.bird_hide" = "Capanno per il birdwatching";
 "type.leisure.outdoor_seating" = "Posti a sedere all'aperto";
 "type.leisure.firepit" = "Focolare";
 "type.leisure.park" = "Parco";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "Prato";
 "type.natural.orchard" = "Frutteto";
 "type.natural.peak" = "Monte";
+"type.natural.hill" = "Collina";
+"type.natural.arch" = "Arco roccioso";
 "type.natural.saddle" = "Sella";
 "type.natural.rock" = "Roccia";
 "type.natural.scrub" = "Boscaglia";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "Struttura sociale";
+"type.amenity.stage" = "Palcoscenico";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Ingresso del reparto di emergenza";

@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "滑冰场";
 "type.leisure.marina" = "游艇码头";
 "type.leisure.nature_reserve" = "自然保护区";
+"type.leisure.bird_hide" = "观鸟屋";
 "type.leisure.outdoor_seating" = "室外座椅";
 "type.leisure.firepit" = "火坑";
 "type.leisure.park" = "公园";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "草甸";
 "type.natural.orchard" = "果园";
 "type.natural.peak" = "山峰";
+"type.natural.hill" = "山丘";
+"type.natural.arch" = "岩石拱门";
 "type.natural.saddle" = "山坳";
 "type.natural.rock" = "岩石";
 "type.natural.scrub" = "灌木丛";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "社会设施";
+"type.amenity.stage" = "舞台";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "急诊室入口";

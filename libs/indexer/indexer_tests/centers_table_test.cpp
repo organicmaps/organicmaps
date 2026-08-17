@@ -1,10 +1,11 @@
 #include "testing/testing.hpp"
 
 #include "indexer/centers_table.hpp"
-#include "indexer/classificator_loader.hpp"
 #include "indexer/data_header.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/features_vector.hpp"
+
+#include "generator/generator_tests_support/test_with_classificator.hpp"
 
 #include "platform/platform.hpp"
 
@@ -21,6 +22,7 @@
 
 namespace centers_table_test
 {
+using namespace generator::tests_support;
 using namespace search;
 using namespace std;
 
@@ -28,12 +30,7 @@ namespace
 {
 using TBuffer = vector<uint8_t>;
 
-struct CentersTableTest
-{
-  CentersTableTest() { classificator::Load(); }
-};
-
-UNIT_CLASS_TEST(CentersTableTest, Smoke)
+UNIT_CLASS_TEST(TestWithClassificator, CentersTable_Smoke)
 {
   string const kMap = base::JoinPath(GetPlatform().ResourcesDir(), "minsk-pass.mwm");
 
@@ -69,7 +66,7 @@ UNIT_CLASS_TEST(CentersTableTest, Smoke)
   }
 }
 
-UNIT_CLASS_TEST(CentersTableTest, Subset)
+UNIT_CLASS_TEST(TestWithClassificator, CentersTable_Subset)
 {
   vector<pair<uint32_t, m2::PointD>> const features = {
       {1, m2::PointD(0.0, 0.0)}, {5, m2::PointD(1.0, 1.0)}, {10, m2::PointD(2.0, 2.0)}};

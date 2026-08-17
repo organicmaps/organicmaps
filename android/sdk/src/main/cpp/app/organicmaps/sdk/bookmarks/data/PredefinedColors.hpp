@@ -4,5 +4,5 @@
 
 namespace predefined_colors
 {
-jint registerNativeMethods(JNIEnv * env);
+jint RegisterNativeMethods(JNIEnv * env);
 }  // namespace predefined_colors

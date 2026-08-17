@@ -160,11 +160,118 @@ vertex HatchingAreaFragment_T vsHatchingArea(const HatchingAreaVertex_T in [[sta
   return out;
 }
 
-fragment half4 fsHatchingArea(const HatchingAreaFragment_T in [[stage_in]],
-                              texture2d<half> u_maskTex [[texture(0)]],
-                              sampler u_maskTexSampler [[sampler(0)]])
+// GLSL-style mod (always non-negative for a positive divisor), unlike Metal fmod which keeps the sign
+// of the dividend. The lattice coordinate can go slightly negative near a bbox edge, so this keeps the
+// analytic patterns identical to their GL counterparts.
+static float GLMod(float x, float y)
 {
-  return in.color * u_maskTex.sample(u_maskTexSampler, in.maskTexCoords);
+  return x - y * floor(x / y);
+}
+
+// Analytic 45-degree hatch (see GL/hatching_area.fsh.glsl). in.color already has opacity applied in
+// vsHatchingArea; in.maskTexCoords is the world-anchored lattice coordinate (1.0 == one 16px tile).
+fragment half4 fsHatchingArea(const HatchingAreaFragment_T in [[stage_in]])
+{
+  constexpr float kPeriodPx = 8.0;
+  constexpr float kHalfWidthPx = 0.7;
+  float2 px = in.maskTexCoords * 16.0;
+  float diag = px.x + px.y;
+  float m = GLMod(diag, kPeriodPx);
+  float dist = min(m, kPeriodPx - m);
+  float aa = fwidth(diag);
+  float coverage = 1.0 - smoothstep(kHalfWidthPx - aa, kHalfWidthPx + aa, dist);
+  // coverage is the line's alpha, rgb stays the surface colour: blending is straight
+  // (SourceAlpha, OneMinusSourceAlpha), so scaling rgb would apply coverage a second time.
+  return half4(in.color.rgb, in.color.a * half(coverage));
+}
+
+// Analytic dashed hatch (see GL/hatching_area_dash.fsh.glsl).
+fragment half4 fsHatchingAreaDash(const HatchingAreaFragment_T in [[stage_in]])
+{
+  constexpr float kRowPeriodPx = 8.0;
+  constexpr float kRowCenterPx = 3.5;
+  constexpr float kHalfThickPx = 0.5;
+  constexpr float kDashPeriodPx = 16.0;
+  constexpr float kDashHalfPx = 4.0;
+  float2 px = in.maskTexCoords * 16.0;
+
+  float ym = GLMod(px.y - kRowCenterPx, kRowPeriodPx);
+  float yDist = min(ym, kRowPeriodPx - ym);
+  float aaY = fwidth(px.y);
+  float onRow = 1.0 - smoothstep(kHalfThickPx - aaY, kHalfThickPx + aaY, yDist);
+
+  float rowIdx = floor((px.y - kRowCenterPx) / kRowPeriodPx + 0.5);
+  float xPhase = px.x + GLMod(rowIdx, 2.0) * (kDashPeriodPx * 0.5);
+  float xDist = fabs(GLMod(xPhase, kDashPeriodPx) - kDashHalfPx);
+  float aaX = fwidth(px.x);
+  float onDash = 1.0 - smoothstep(kDashHalfPx - aaX, kDashHalfPx + aaX, xDist);
+
+  // Alpha only - see the note in fsHatchingArea.
+  return half4(in.color.rgb, in.color.a * half(onRow * onDash));
+}
+
+// AreaPattern hash for jittered solid-fill patterns (stipple/speckle).
+static float AreaPatternHash(float2 p)
+{
+  p = fract(p * float2(127.1, 311.7));
+  p += dot(p, p + 34.23);
+  return fract(p.x * p.y);
+}
+
+// Analytic stipple (see GL/area_stipple.fsh.glsl): single-pass solid fill modulated by darker dots.
+fragment half4 fsAreaStipple(const HatchingAreaFragment_T in [[stage_in]])
+{
+  constexpr float kCellPx = 8.0;
+  constexpr float kRadiusPx = 1.2;
+  constexpr float kJitter = 0.55;
+  constexpr float kDarken = 0.80;
+  float2 px = in.maskTexCoords * 16.0;
+  float2 cell = floor(px / kCellPx);
+  float2 toCenter = (fract(px / kCellPx) - 0.5) * kCellPx -
+                    (float2(AreaPatternHash(cell), AreaPatternHash(cell + 19.7)) - 0.5) * (kJitter * kCellPx);
+  float d = length(toCenter);
+  float aa = max(fwidth(px.x), fwidth(px.y));
+  float coverage = 1.0 - smoothstep(kRadiusPx - aa, kRadiusPx + aa, d);
+  half4 color = in.color;
+  color.rgb *= half(mix(1.0, kDarken, coverage));
+  return color;
+}
+
+// Analytic speckle (see GL/area_speckle.fsh.glsl): denser, size-varied rock dots.
+fragment half4 fsAreaSpeckle(const HatchingAreaFragment_T in [[stage_in]])
+{
+  constexpr float kCellPx = 4.0;
+  constexpr float kBaseRadiusPx = 0.7;
+  constexpr float kRadiusVar = 0.6;
+  constexpr float kJitter = 0.5;
+  constexpr float kDarken = 0.78;
+  float2 px = in.maskTexCoords * 16.0;
+  float2 cell = floor(px / kCellPx);
+  float2 toCenter = (fract(px / kCellPx) - 0.5) * kCellPx -
+                    (float2(AreaPatternHash(cell), AreaPatternHash(cell + 19.7)) - 0.5) * (kJitter * kCellPx);
+  float radius = kBaseRadiusPx * (1.0 - kRadiusVar * 0.5 + kRadiusVar * AreaPatternHash(cell + 3.7));
+  float d = length(toCenter);
+  float aa = max(fwidth(px.x), fwidth(px.y));
+  float coverage = 1.0 - smoothstep(radius - aa, radius + aa, d);
+  half4 color = in.color;
+  color.rgb *= half(mix(1.0, kDarken, coverage));
+  return color;
+}
+
+// Analytic grid (see GL/area_grid.fsh.glsl): regular dot lattice for orchard/vineyard.
+fragment half4 fsAreaGrid(const HatchingAreaFragment_T in [[stage_in]])
+{
+  constexpr float kCellPx = 16.0;
+  constexpr float kRadiusPx = 1.6;
+  constexpr float kDarken = 0.82;
+  float2 px = in.maskTexCoords * 16.0;
+  float2 toCenter = (fract(px / kCellPx) - 0.5) * kCellPx;
+  float d = length(toCenter);
+  float aa = max(fwidth(px.x), fwidth(px.y));
+  float coverage = 1.0 - smoothstep(kRadiusPx - aa, kRadiusPx + aa, d);
+  half4 color = in.color;
+  color.rgb *= half(mix(1.0, kDarken, coverage));
+  return color;
 }
 
 // CirclePoint

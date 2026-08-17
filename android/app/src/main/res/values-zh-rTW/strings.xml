@@ -219,6 +219,18 @@
     <string name="pref_map_3d_buildings_title">3D 建築</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">3D 建築在省電模式下將會關閉</string>
+    <!-- Settings: title of the satellite imagery (custom raster tiles) screen -->
+    <string name="pref_bg_tiles_title">衛星影像</string>
+    <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
+    <string name="pref_bg_tiles_url_title">伺服器 URL</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">請輸入包含 {z}/{x}/{y} 的有效 URL</string>
+    <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
+    <string name="pref_bg_tiles_size_title">快取大小 (MB)</string>
+    <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
+    <string name="pref_bg_tiles_opacity_title">面狀物件不透明度</string>
+    <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
+    <string name="pref_bg_tiles_disclaimer">自訂圖磚來源由您自行提供。請僅使用您有權存取的服務。出處標示、授權條款、API 金鑰、配額與使用限制由您自行負責。</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">語音提示</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
@@ -231,7 +243,7 @@
     <string name="pref_tts_test_voice_title">測試語音指令（TTS，文字轉語音系統）</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">如果您現在聽不到聲音，請檢查音量或系統文字轉語音系統的設定。</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">無法使用</string>
     <string name="pref_map_auto_zoom">自動縮放</string>
     <string name="placepage_distance">距離</string>
@@ -494,9 +506,9 @@
     <string name="editor_more_about_osm">關於 OpenStreetMap 的更多資訊</string>
     <string name="editor_osm_history">您的編輯歷史記錄</string>
     <string name="editor_osm_notes">您的地圖資料註釋</string>
-    <string name="editor_operator">操作員</string>
+    <string name="editor_operator">運營方</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
-    <string name="operator">操作員: %s</string>
+    <string name="operator">運營方: %s</string>
     <string name="editor_category_unsuitable_title">找不到合適的類別？</string>
     <string name="editor_category_unsuitable_text">Organic Maps 只允許添加簡單的點類別，即無法添加城鎮、道路、湖泊、建築輪廓等類別。請直接向 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> 新增此類類別。請查看我們的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，以了解詳細的步驟說明。</string>
     <string name="downloader_no_downloaded_maps_title">您尚未下載任何地圖</string>
@@ -567,14 +579,11 @@
     <string name="prefs_languages_information_off_link">如需瞭解更多資訊，請參閱此指南。</string>
     <string name="transliteration_title">拉丁字母音譯</string>
     <string name="learn_more">瞭解更多資訊</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">請搜尋地點、選擇書籤或點擊地圖以新增路線起點</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">請搜尋地點、選擇書籤或點擊地圖以新增目的地</string>
     <string name="planning_route_manage_route">管理路線</string>
     <string name="button_plan">計畫</string>
     <string name="placepage_remove_stop">刪除停止</string>
     <string name="placepage_add_stop">新增中途點</string>
+    <string name="drag_to_reorder">重新排序</string>
     <string name="saved">已經儲存</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">請登入 OpenStreetMap 以自動上傳您的所有地圖編輯。若要了解更多資訊請點擊<a href="https://github.com/organicmaps/organicmaps/issues/6144">這裡</a>。</string>
@@ -623,6 +632,8 @@
     <string name="button_layer_hiking">登山</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">單車</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">衛星</string>
     <string name="button_layer_subway">捷運</string>
     <string name="layers_title">地圖樣式和圖層</string>
     <string name="bookmarks_empty_list_title">該列表為空</string>
@@ -722,6 +733,7 @@
     <string name="opens_at">%s 營業</string>
     <string name="closes_at">%s 關門</string>
     <string name="editor_add_select_category_all_subtitle">所有類別</string>
+    <string name="placepage_replace_stop">更换停机坪</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">食物</string>
@@ -877,6 +889,12 @@
     <string name="share_track">分享軌跡</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">刪除 %s？</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">更改顏色</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">隱藏軌跡</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">顯示軌跡</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -903,4 +921,6 @@
     <string name="color_picker_hex_label">sRGB 十六進制顏色 #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">網格</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">語音搜尋</string>
 </resources>

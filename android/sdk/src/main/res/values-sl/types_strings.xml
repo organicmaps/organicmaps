@@ -632,6 +632,7 @@
     <string name="type.leisure.golf_course">Igrišče za golf</string>
     <string name="type.leisure.ice_rink">Drsališče</string>
     <string name="type.leisure.nature_reserve">Naravni rezervat</string>
+    <string name="type.leisure.bird_hide">Opazovalnica ptic</string>
     <string name="type.leisure.outdoor_seating">Sedenje na prostem</string>
     <string name="type.leisure.firepit">Kurišče</string>
     <string name="type.leisure.park.no.access">Zasebni park</string>
@@ -718,6 +719,8 @@
     <string name="type.natural.meadow">Travnik</string>
     <string name="type.natural.orchard">Sadovnjak</string>
     <string name="type.natural.peak">Vrh</string>
+    <string name="type.natural.hill">Hrib</string>
+    <string name="type.natural.arch">Skalni lok</string>
     <string name="type.natural.saddle">Gorsko sedlo</string>
     <string name="type.natural.rock">Skala</string>
     <string name="type.natural.scrub">Grmičevje</string>
@@ -1380,6 +1383,7 @@
     <string name="type.self_service.no">Ni samopostrežbe</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">Socialna ustanova</string>
+    <string name="type.amenity.stage">Oder</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Vhod v urgentni oddelek</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->

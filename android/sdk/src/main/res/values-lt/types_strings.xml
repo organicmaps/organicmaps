@@ -658,6 +658,7 @@
     <string name="type.leisure.ice_rink">Čiuožykla</string>
     <string name="type.leisure.marina">Prieplauka</string>
     <string name="type.leisure.nature_reserve">Gamtos rezervatas</string>
+    <string name="type.leisure.bird_hide">Paukščių stebėjimo slėptuvė</string>
     <string name="type.leisure.outdoor_seating">Lauko kavinė</string>
     <string name="type.leisure.firepit">Laužavietė</string>
     <string name="type.leisure.park">Parkas</string>
@@ -748,6 +749,8 @@
     <string name="type.natural.meadow">Pievos</string>
     <string name="type.natural.orchard">Sodas</string>
     <string name="type.natural.peak">Viršūnė</string>
+    <string name="type.natural.hill">Kalva</string>
+    <string name="type.natural.arch">Uolų arka</string>
     <string name="type.natural.saddle">Balnas</string>
     <string name="type.natural.rock">Akmuo</string>
     <string name="type.natural.scrub">Krūmynai</string>
@@ -1429,6 +1432,7 @@
     <string name="type.self_service.no">Nėra savitarnos</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">Socialinė priemonė</string>
+    <string name="type.amenity.stage">Scena</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Skubios pagalbos skyriaus įėjimas</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

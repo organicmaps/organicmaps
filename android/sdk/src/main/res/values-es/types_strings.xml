@@ -658,6 +658,7 @@
     <string name="type.leisure.ice_rink">Pista de hielo</string>
     <string name="type.leisure.marina">Puerto o amarradero</string>
     <string name="type.leisure.nature_reserve">Reserva natural</string>
+    <string name="type.leisure.bird_hide">Observatorio de aves</string>
     <string name="type.leisure.outdoor_seating">Asientos al aire libre</string>
     <string name="type.leisure.firepit">Fogón</string>
     <string name="type.leisure.park">Parque</string>
@@ -748,6 +749,8 @@
     <string name="type.natural.meadow">Prado</string>
     <string name="type.natural.orchard">Huerto frutal</string>
     <string name="type.natural.peak">Cima</string>
+    <string name="type.natural.hill">Colina</string>
+    <string name="type.natural.arch">Arco de roca</string>
     <string name="type.natural.saddle">Collado</string>
     <string name="type.natural.rock">Roca</string>
     <string name="type.natural.scrub">Matorrales</string>
@@ -1429,6 +1432,7 @@
     <string name="type.self_service.no">Sin autoservicio</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">Servicio social</string>
+    <string name="type.amenity.stage">Escenario</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Entrada a urgencias</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Dolžina";
 "share_my_location" = "Deli mojo lokacijo";
+"prefs_group_network" = "Omrežje";
 "prefs_group_route" = "Navigacija";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -217,6 +218,24 @@
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "3D zgradbe so onemogočene v načinu varčevanja z energijo";
+
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "Satelitske slike";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "URL strežnika";
+
+/* Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) */
+"pref_bg_tiles_url_error" = "Vnesite veljaven URL z {z}/{x}/{y}";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "Velikost predpomnilnika (MB)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "Neprosojnost ploskovnih objektov";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "Vire ploščic po meri zagotavljate sami. Uporabljajte samo storitve, do katerih imate dovoljen dostop. Sami ste odgovorni za navedbo avtorstva, licenčne pogoje, ključe API, kvote in omejitve uporabe.";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Glasovna navodila";
@@ -390,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Napaka pri pošiljanju e-pošte";
-
-/* Settings item title */
-"pref_calibration_title" = "Umerjanje kompasa";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Na voljo";
@@ -643,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "To ime je že zasedeno";
 "profile" = "Profil OpenStreetMap";
 "restore" = "Obnovi";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Zasebnost";
 "privacy_policy" = "Politika zasebnosti";
 "terms_of_use" = "Pogoji uporabe";
 
@@ -651,6 +670,9 @@
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "Kolesarjenje";
+
+/* Map layers menu: toggle button for the satellite imagery layer */
+"button_layer_satellite" = "Satelit";
 "button_layer_subway" = "Podzemna železnica";
 "layers_title" = "Slogi in plasti zemljevida";
 
@@ -907,6 +929,9 @@
 "elevation_profile_descent" = "Spust";
 "elevation_profile_min_elevation" = "Min. višina";
 "elevation_profile_max_elevation" = "Maks. višina";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Začnite se premikati, da vidite višinski profil";
 "isolines_toast_zooms_1_10" = "Povečajte za raziskovanje plastnic";
 "downloader_loading_ios" = "Prenašanje";
 

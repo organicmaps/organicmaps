@@ -1,7 +1,8 @@
-• Harita üzerinde rotaları vurgulamak için bir toplu taşıma durağına dokunun ve rota numaralarını seçin
-• Yer imi etiketleri artık haritada üst üste gelmiyor
-• Yeni nesne türleriyle birlikte 3 Mayıs itibarıyla yeni OpenStreetMap verileri
-• Parkurlar ve rotalar için geliştirilmiş yükseklik grafikleri
-• Vietnam, Malezya, Hong Kong, Makao ve Hainan için daha küçük harita indirmeleri
-• Geliştirilmiş kullanıcı arayüzü ve animasyonlar
-…daha fazlası omaps.org/tr/news adresinde
+YENİ ÖZELLİKLER:
+• Arama ve rota belirleme kullanıcı arayüzü güncellendi
+• Toplu taşıma güzergâhları (otobüs, tramvay, metro, hafif raylı sistem)
+• En hızlı ve en kısa alternatif rotalar
+• Merdivenler, kapılar ve asansör kapıları ile ilgili rota uyarıları
+• Yer imleri için istediğiniz rengi seçin
+• UK OS Grid, Irish Grid ve ITM koordinatları için destek
+…daha fazlası için omaps.org/tr/news

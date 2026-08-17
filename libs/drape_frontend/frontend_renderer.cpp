@@ -1000,16 +1000,15 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::SetTileBackgroundMode:
   {
     ref_ptr<SetTileBackgroundModeMessage> msg = message;
-    auto const prevMode = m_tileBackgroundRenderer->GetBackgroundMode();
     m_tileBackgroundRenderer->SetBackgroundMode(m_context, msg->GetMode());
-    if (prevMode != m_tileBackgroundRenderer->GetBackgroundMode())
+    if (msg->NeedInvalidate())
       InvalidateRect(m_userEventStream.GetCurrentScreen().ClipRect());
     break;
   }
 
-  case Message::Type::AssignTileBackgroundTexture:
+  case Message::Type::AssignTileBackgroundImage:
   {
-    ref_ptr<AssignTileBackgroundTextureMessage> msg = message;
+    ref_ptr<AssignTileBackgroundImageMessage> msg = message;
     if (m_context->GetApiVersion() == dp::ApiVersion::OpenGLES3)
     {
       void * data = msg->GetBytes().data();
@@ -1017,9 +1016,16 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
                                                make_ref(data));
     }
 
-    m_tileBackgroundRenderer->AssignTileBackgroundTexture(m_context, msg->GetTileKey(), msg->GetTexturePool(),
-                                                          msg->GetTextureId(), msg->GetMode());
+    m_tileBackgroundRenderer->AssignTileBackgroundImage(m_context, msg->GetUid(), msg->GetTexturePool(),
+                                                        msg->GetTextureId(), msg->GetMode());
     msg->MarkProcessed();
+    break;
+  }
+
+  case Message::Type::SetTileBackgroundData:
+  {
+    ref_ptr<SetTileBackgroundDataMessage> msg = message;
+    m_tileBackgroundRenderer->SetTileBackgroundData(m_context, msg->GetTileKey(), msg->GetImageUid(), msg->GetRect());
     break;
   }
 
@@ -1800,6 +1806,14 @@ void FrontendRenderer::RenderFrame()
   /// @todo Put ResolveZoomLevel under modelViewChanged after testing.
   ASSERT(!zoomChanged || modelViewChanged, ());
 
+  // Skip starting a new GPU frame if rendering is being disabled (e.g. the app is going to the
+  // background). SetRenderingEnabled(false) sets the flag on the UI thread and then blocks until this
+  // render thread reaches CheckRenderingEnabled(); bailing out here (before BeginRendering, so GPU frame
+  // scope stays balanced) lets that handshake complete after at most the already in-flight frame instead
+  // of waiting for a full PrepareScene + RenderScene + present. Prevents ANRs in Framework::DetachSurface.
+  if (!IsRenderingEnabled())
+    return;
+
   if (!m_context->BeginRendering())
     return;
 
@@ -2368,7 +2382,7 @@ TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
   { return group->GetTileKey().m_zoomLevel != GetCurrentZoom(); });
 
   m_trafficRenderer->OnUpdateViewport(result, GetCurrentZoom(), tilesToDelete);
-  m_tileBackgroundRenderer->OnUpdateViewport(m_context, result, GetCurrentZoom(), tilesToDelete);
+  m_tileBackgroundRenderer->OnUpdateViewport(m_context, result, GetCurrentZoom());
 
 #if defined(DRAPE_MEASURER_BENCHMARK) && defined(GENERATING_STATISTIC)
   DrapeMeasurer::Instance().StartScenePreparing();

@@ -1,7 +1,9 @@
-• Nhấn vào một trạm xe buýt và chọn số tuyến để làm nổi bật các tuyến trên bản đồ
-• Các nhãn dấu trang không còn chồng chéo lên nhau trên bản đồ
-• Dữ liệu OpenStreetMap mới nhất tính đến ngày 3 tháng 5, bao gồm các loại đối tượng mới
-• Cải thiện bản đồ độ cao cho các tuyến đường và lộ trình
-• Dung lượng tải bản đồ nhỏ hơn cho Việt Nam, Malaysia, Hồng Kông, Ma Cao và Hải Nam
-• Giao diện người dùng và hiệu ứng chuyển động được tinh chỉnh
+CÁC TÍNH NĂNG MỚI:
+• Cập nhật giao diện người dùng cho tính năng tìm kiếm và chỉ đường
+• Tính năng tìm lộ trình giao thông công cộng (xe buýt, xe điện, tàu điện ngầm, tàu điện nhẹ)
+• Các lộ trình thay thế nhanh nhất và ngắn nhất
+• Cảnh báo trên lộ trình về các bậc thang, cổng và cổng nâng
+• Chọn bất kỳ màu nào cho dấu trang
+• Hỗ trợ tọa độ UK OS Grid, Irish Grid, ITM
+• Kích hoạt hình ảnh vệ tinh trong cài đặt Organic Maps bằng URL máy chủ ô raster tùy chỉnh
 …xem thêm tại omaps.org/news

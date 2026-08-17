@@ -6,11 +6,15 @@
 
     <!-- SECTION: Types: Historic -->
     <string name="type.man_made.ceremonial_gate">আনুষ্ঠানিক গেট</string>
+    <string name="type.leisure.bird_hide">পাখি দেখার আড়াল</string>
     <string name="type.leisure.track">স্পোর্টস ট্র্যাক</string>
     <string name="type.leisure.track.area">স্পোর্টস ট্র্যাক</string>
+    <string name="type.natural.hill">পাহাড়</string>
+    <string name="type.natural.arch">পাথরের খিলান</string>
     <string name="type.natural.volcano.active">সক্রিয় আগ্নেয়গিরি</string>
     <string name="type.railway.disused.tunnel">অব্যবহৃত রেল সুড়ঙ্গ</string>
     <string name="type.shop.leather">চামড়াজাত পণ্যের দোকান</string>
     <string name="type.shop.religion">ধর্মীয় সামগ্রীর দোকান</string>
     <string name="type.waterway.access_point">জলপথ প্রবেশ বিন্দু</string>
+    <string name="type.amenity.stage">মঞ্চ</string>
 </resources>

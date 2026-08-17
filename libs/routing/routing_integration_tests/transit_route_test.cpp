@@ -4,6 +4,8 @@
 
 #include "geometry/mercator.hpp"
 
+#include "base/logging.hpp"
+
 namespace transit_route_test
 {
 using namespace routing;
@@ -61,38 +63,45 @@ UNIT_TEST(Transit_Piter_FrunzenskyaToPlochadVosstaniya)
   integration::CheckSubwayExistence(*routeResult.first);
 }
 
-UNIT_TEST(Transit_Piter_TooLongPedestrian)
+/// @todo The last pedestrian segment should use a dedicated footway instead of a primary road.
+/// Now it happens because:
+/// - transit graph snaps on stop_position which is on primary (V2 PT scheme).
+/// - there is no footway connection mapped from stop_position -> regular footway.
+/// 2 possible solutions:
+/// - Generator side: snap transit graph on a real stop instead of stop_position
+/// - Client side: Treat a real stop as Gate in routing (they are calculated in ReadTransitTask::Do)
+///   and find projection on the nearby footways from this stop.
+UNIT_TEST(Transit_Piter_StrangeLastWalk)
 {
   TRouteResult const routeResult = integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Transit),
                                                                mercator::FromLatLon(59.90511, 30.31425), {0.0, 0.0},
                                                                mercator::FromLatLon(59.78014, 30.50036));
-
-  /// @todo Returns valid route now with long pedestrian part in the end, I don't see problems here.
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
   TEST(routeResult.first, ());
   auto const & route = *routeResult.first;
 
   integration::CheckSubwayExistence(route);
-  integration::TestRouteLength(route, 23521.9);
-  TEST_LESS(route.GetTotalTimeSec(), 3600 * 3, ());
+  integration::TestRouteLength(route, 22917.7);
+  TEST_LESS(route.GetTotalTimeSec(), 5000, ());
 }
 
-UNIT_TEST(Transit_Vatikan_NotEnoughGraphDataAtThenEnd)
+// Interesting test after adding buses.
+// Main route: walk->bus->walk (long walking segments)
+// Alt route: bus->subway->bus->walk (minimal walk distances).
+/// @todo Maybe, expect bus->bus->bus->walk shorter and minimal walk distances.
+UNIT_TEST(Transit_Vatikan_InterestingAltRoutes)
 {
   TRouteResult const routeResult = integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Transit),
                                                                mercator::FromLatLon(41.89543, 12.41481), {0.0, 0.0},
                                                                mercator::FromLatLon(41.89203, 12.46263));
-
-  // Returns valid route now with long pedestrian part in the end, I don't see a problem here.
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
   TEST(routeResult.first, ());
   auto const & route = *routeResult.first;
 
-  integration::CheckSubwayExistence(route);
-  integration::TestRouteLength(route, 7564.21);
-  TEST_LESS(route.GetTotalTimeSec(), 4000, ());
+  integration::TestRouteLength(route, 6217.61);
+  TEST_LESS(route.GetTotalTimeSec(), 3000, ());
 }
 
 UNIT_TEST(Transit_Vatikan_CorneliaToOttaviano)
@@ -168,4 +177,187 @@ UNIT_TEST(Transit_NewYork_GrassmereToPleasantPlains)
   CHECK(routeResult.first, ());
   integration::CheckSubwayExistence(*routeResult.first);
 }
+
+// Buenos Aires: transit routing returns a primary route plus a "less-walking / fewer-transfers"
+// alternative produced by IndexRouter::CalculateRoute (the alt is computed with a 2x walking +
+// 2x transfer penalty). The alternative walks noticeably less than the primary, trading the saved
+// walking for more in-transit time.
+UNIT_TEST(Transit_BuenosAires_SubwayVsBusAlternative)
+{
+  TRoutesResult const routesResult = integration::CalculateRoutes(
+      integration::GetVehicleComponents(VehicleType::Transit),
+      {mercator::FromLatLon(-34.5934571, -58.4051285), mercator::FromLatLon(-34.5592725, -58.4483561)});
+
+  TEST_EQUAL(routesResult.second, RouterResultCode::NoError, ());
+
+  auto const & routes = routesResult.first;
+  // A primary route plus exactly one alternative.
+  TEST_EQUAL(routes.size(), 2, ());
+
+  auto const & primary = *routes[0];
+  auto const & alt = *routes[1];
+
+  for (size_t i = 0; i < routes.size(); ++i)
+    LOG(LINFO, ("Transit route", i, "- length:", routes[i]->GetTotalDistanceMeters(), "m, ETA:",
+                routes[i]->GetTotalTimeSec(), "s, pedestrian:", integration::GetWalkDistanceMeters(*routes[i]), "m"));
+
+  integration::CheckSubwayExistence(primary);
+
+  // The alternative is the less-walking variant — it walks noticeably less than the primary.
+  TEST_LESS(integration::GetWalkDistanceMeters(alt), integration::GetWalkDistanceMeters(primary), ());
+
+  // Reference lengths from a Buenos Aires run; loose tolerance — exact geometry is data-dependent.
+  integration::TestRouteLength(primary, 7435.59, 0.1);
+  integration::TestRouteLength(alt, 6076.72, 0.1);
+}
+
+// Buenos Aires: a short hop served by two buses (41 and 118BA) sharing the same stops. The default
+// route just walks (faster for such a short distance), so we raise the transit walking penalty to
+// force the bus, then build the Place Page breakdown with the real TransitRouteDisplay and verify the
+// bus step lists BOTH parallel line numbers ("41, 118BA", see GetSharedLineNumbers).
+UNIT_TEST(Transit_BuenosAires_ParallelBusNumbers)
+{
+  auto & components = integration::GetVehicleComponents(VehicleType::Transit);
+  auto const res = integration::CalculateRoutes(
+      components, {mercator::FromLatLon(-34.5817871, -58.4157548), mercator::FromLatLon(-34.5872421, -58.3976276)});
+
+  TEST_EQUAL(res.second, RouterResultCode::NoError, ());
+  TEST(!res.first.empty(), ());
+
+  TransitRouteInfo const info = integration::GetTransitRouteInfo(components, *res.first[0]);
+
+  // The whole bus leg is a single step (same board/alight for both lines, even if intermediate stops
+  // differ) listing both parallel lines.
+  size_t busSteps = 0;
+  for (auto const & step : info.m_steps)
+  {
+    if (step.m_type != TransitType::Bus)
+      continue;
+    ++busSteps;
+    TEST_EQUAL(step.m_number, "41, 118BA", ());
+  }
+  TEST_EQUAL(busSteps, 1, ("The direct leg must be one merged step listing both parallel buses."));
+}
+
+// Belarus, Minsk: checks the pedestrian (walking) lengths of a transit route, and documents how the
+// boarding gate's road attachment shapes the first walking leg.
+//
+// The transit and pedestrian routers use the SAME pedestrian model and estimator, so footway
+// preference is identical. The difference in the first subroute is not the model but the target: the
+// walk must reach the bus through the gate's road attachment (its |bestPedestrianSegment|), which the
+// generator's CalculateBestPedestrianSegments picks as the gate's geometrically NEAREST routable
+// segment by distance, ignoring highway class. Here that nearest segment is a highway=secondary, so
+// the first leg walks ~100 m of that secondary to board, shorter than (but less footway-friendly
+// than) the route a standalone pedestrian search to the stop point would take along the parallel
+// footway. This is a known artifact of distance-based gate attachment, not a routing-model bug.
+UNIT_TEST(Transit_Minsk_PedestrianLegToGate)
+{
+  TRoutesResult const routesResult = integration::CalculateRoutes(
+      integration::GetVehicleComponents(VehicleType::Transit),
+      {mercator::FromLatLon(53.8880136, 27.4282779), mercator::FromLatLon(53.906727, 27.4542114)});
+
+  TEST_EQUAL(routesResult.second, RouterResultCode::NoError, ());
+  TEST(!routesResult.first.empty(), ());
+
+  auto const & route = *routesResult.first[0];
+  integration::CheckSubwayExistence(route);
+  integration::TestRouteLength(route, 3496.24, 0.1);
+
+  // First subroute: the walk from the start to the first boarding runs along the highway=secondary
+  // the gate attaches to (see the note above), so it is ~100 m rather than the longer footway path.
+  auto const & segs = route.GetRouteSegments();
+  size_t firstTransit = segs.size();
+  for (size_t i = 0; i < segs.size(); ++i)
+  {
+    if (segs[i].HasTransitInfo())
+    {
+      firstTransit = i;
+      break;
+    }
+  }
+  TEST_LESS(firstTransit, segs.size(), ("Route doesn't use transit."));
+  double const startWalk = segs[firstTransit - 1].GetDistFromBeginningMeters();
+  TEST_ALMOST_EQUAL_ABS(startWalk, 99.5, 10.0, ());
+
+  // Total walking length of the transit route (first leg + the short hop off the bus at the end).
+  TEST_ALMOST_EQUAL_ABS(integration::GetWalkDistanceMeters(route), 228.5, 20.0, ());
+}
+
+namespace
+{
+// Checks the walking legs at the very start and end of a transit route. The pedestrian leg to the
+// first boarding stop (and from the last alighting stop) should stay close to the straight-line
+// distance — it must not detour to a far feature junction and back. See the SPb snapping bug.
+void TestTransitStartEndWalk(Route const & route, m2::PointD const & start, m2::PointD const & finish, double maxFactor)
+{
+  auto const & segs = route.GetRouteSegments();
+  size_t firstTransit = segs.size(), lastTransit = segs.size();
+  for (size_t i = 0; i < segs.size(); ++i)
+  {
+    if (segs[i].HasTransitInfo())
+    {
+      if (firstTransit == segs.size())
+        firstTransit = i;
+      lastTransit = i;
+    }
+  }
+  TEST_LESS(firstTransit, segs.size(), ("Route doesn't use transit at all."));
+  TEST_GREATER(firstTransit, 0, ());
+
+  // Boarding point = start junction of the first transit segment = end junction of the previous one.
+  auto const boardPt = segs[firstTransit - 1].GetJunction().GetPoint();
+  double const walkToBoard = segs[firstTransit - 1].GetDistFromBeginningMeters();
+  double const directToBoard = mercator::DistanceOnEarth(start, boardPt);
+
+  // Alighting point = end junction of the last transit segment.
+  auto const alightPt = segs[lastTransit].GetJunction().GetPoint();
+  double const walkFromAlight = route.GetTotalDistanceMeters() - segs[lastTransit].GetDistFromBeginningMeters();
+  double const directFromAlight = mercator::DistanceOnEarth(alightPt, finish);
+
+  LOG(LINFO, ("Transit start walk:", walkToBoard, "m (direct", directToBoard, "m), end walk:", walkFromAlight,
+              "m (direct", directFromAlight, "m)"));
+
+  TEST_LESS(walkToBoard, maxFactor * directToBoard, ());
+  TEST_LESS(walkFromAlight, maxFactor * directFromAlight, ());
+}
+}  // namespace
+
+// St. Petersburg: a bus route whose start/finish stops are right next to the checkpoints. The
+// pedestrian legs onto/off the bus must not detour to a far highway junction and back.
+UNIT_TEST(Transit_SPb_StartEndSnapping)
+{
+  Checkpoints const cp(mercator::FromLatLon(59.933578, 30.437052), mercator::FromLatLon(59.935438, 30.498636));
+
+  auto const res = integration::CalculateRoutes(integration::GetVehicleComponents(VehicleType::Transit), cp);
+  TEST_EQUAL(res.second, RouterResultCode::NoError, ());
+  TEST(!res.first.empty(), ());
+
+  TestTransitStartEndWalk(*res.first[0], cp.GetStart(), cp.GetFinish(), 2.0 /* maxFactor */);
+}
+
+// Singapore: the alternative (less-walking / fewer-transfers) route rides bus 88 and transfers to
+// bus 50. Verifies the alternative is generated and that its bus legs are, in order, bus 88 then
+// bus 50. Each leg also lists its parallel sibling on the shared segment (88A for 88, 159 for 50),
+// see GetSharedLineNumbers.
+UNIT_TEST(Transit_Singapore_Bus88To50Alternative)
+{
+  auto & components = integration::GetVehicleComponents(VehicleType::Transit);
+  auto const res = integration::CalculateRoutes(
+      components, {mercator::FromLatLon(1.381243, 103.896809), mercator::FromLatLon(1.361733, 103.851884)});
+
+  TEST_EQUAL(res.second, RouterResultCode::NoError, ());
+  auto const & routes = res.first;
+  // A primary route plus exactly one alternative.
+  TEST_EQUAL(routes.size(), 2, ());
+
+  TransitRouteInfo const info = integration::GetTransitRouteInfo(components, *routes[1]);
+
+  std::vector<std::string> busNumbers;
+  for (auto const & step : info.m_steps)
+    if (step.m_type == TransitType::Bus)
+      busNumbers.push_back(step.m_number);
+
+  TEST_EQUAL(busNumbers, std::vector<std::string>({"88, 88A", "50, 159"}), ());
+}
+
 }  // namespace transit_route_test

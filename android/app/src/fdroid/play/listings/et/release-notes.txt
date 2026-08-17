@@ -1,7 +1,8 @@
-• Koputage ühistranspordipeatust ja valige marsruudi numbrid, et kaardil marsruute esile tõsta.
-• Järjehoidja sildid ei kattu enam kaardil
-• Värsked OpenStreetMapi andmed alates 3. maist, uute objektitüüpidega
-• Paremad kõrguskaardid radade ja marsruutide jaoks
-• Väiksemate kaartide allalaadimine Vietnami, Malaisia, Hongkongi, Aomeni ja Hainani jaoks.
-• Täiustatud kasutajaliides ja animatsioonid
-…lisateave omaps.org/et/news
+UUSED FUNKTSIOONID:
+• Uuendatud otsingu- ja marsruudi planeerimise kasutajaliides
+• Ühistranspordi marsruutide planeerimine (buss, tramm, metroo, kergraudtee)
+• Alternatiivsed kiireimad ja lühimad marsruudid
+• Marsruudi hoiatused astmete, väravate ja tõstetavate väravate kohta
+• Vali järjehoidjatele mis tahes värv
+• Toetus koordinaatidele UK OS Grid, Irish Grid, ITM
+…rohkem infot leiate aadressilt omaps.org/et/news

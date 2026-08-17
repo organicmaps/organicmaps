@@ -55,6 +55,8 @@ class VerticallyAlignedButton: UIControl {
     let imageView = UIImageView()
     imageView.contentMode = .scaleAspectFit
     imageView.translatesAutoresizingMaskIntoConstraints = false
+    imageView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+    imageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
     return imageView
   }()
 
@@ -74,6 +76,8 @@ class VerticallyAlignedButton: UIControl {
 
     NSLayoutConstraint.activate([
       imageView.topAnchor.constraint(equalTo: topAnchor),
+      imageView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
+      imageView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
       imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
       imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
       spacingConstraint,

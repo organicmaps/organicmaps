@@ -130,6 +130,7 @@ To configure which files are formatted, edit `tools/hooks/format-config.bash`
 - Cover your code with unit tests. See examples for existing libraries
 - Ask if you have any questions
 - If you don't have enough time to make it right, or see a potential issue, leave a `// TODO(DeveloperInitialsOrNickname): need to fix it` comment
+- Use brief comments only for unobvious changes, describing rationale that is not immediately clear from the code
 
 ### Useful links
 

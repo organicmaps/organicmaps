@@ -339,17 +339,17 @@ void SaveCategoryData(Writer & writer, CategoryData const & categoryData, std::s
     }
 
     // Use CDATA if we have special symbols in the name.
-    if (auto name = GetDefaultLanguage(categoryData.m_name))
+    if (auto const name = GetStringForExport(categoryData.m_name); !name.empty())
     {
       writer << kIndent2 << "<name>";
-      SaveStringWithCDATA(writer, *name);
+      SaveStringWithCDATA(writer, name);
       writer << "</name>\n";
     }
 
-    if (auto const description = GetDefaultLanguage(categoryData.m_description))
+    if (auto const description = GetStringForExport(categoryData.m_description); !description.empty())
     {
       writer << kIndent2 << "<description>";
-      SaveStringWithCDATA(writer, *description);
+      SaveStringWithCDATA(writer, description);
       writer << "</description>\n";
     }
 
@@ -400,8 +400,6 @@ void SaveBookmarkExtendedData(Writer & writer, BookmarkData const & bookmarkData
     SaveStringsArray(writer, boundTracks, "boundTracks", kIndent6);
   }
 
-  writer << kIndent6 << "<mwm:visibility>" << (bookmarkData.m_visible ? "1" : "0") << "</mwm:visibility>\n";
-
   if (!bookmarkData.m_nearestToponym.empty())
   {
     writer << kIndent6 << "<mwm:nearestToponym>";
@@ -430,16 +428,19 @@ void SaveBookmarkData(Writer & writer, BookmarkData const & bookmarkData)
 {
   writer << kIndent2 << "<Placemark>\n";
   writer << kIndent4 << "<name>";
-  auto const defaultLang = StringUtf8Multilang::GetLangByCode(kDefaultLangCode);
-  SaveStringWithCDATA(writer, GetPreferredBookmarkName(bookmarkData, defaultLang));
+  SaveStringWithCDATA(writer, GetPreferredBookmarkName(bookmarkData, "default"));
   writer << "</name>\n";
 
-  if (auto const description = GetDefaultLanguage(bookmarkData.m_description))
+  if (auto const description = GetStringForExport(bookmarkData.m_description); !description.empty())
   {
     writer << kIndent4 << "<description>";
-    SaveStringWithCDATA(writer, *description);
+    SaveStringWithCDATA(writer, description);
     writer << "</description>\n";
   }
+
+  // Use the standard KML <visibility> element (default is visible, so emit only when hidden).
+  if (!bookmarkData.m_visible)
+    writer << kIndent4 << "<visibility>0</visibility>\n";
 
   if (bookmarkData.m_timestamp != Timestamp())
     writer << kIndent4 << "<TimeStamp><when>" << TimestampToString(bookmarkData.m_timestamp) << "</when></TimeStamp>\n";
@@ -585,8 +586,6 @@ void SaveTrackExtendedData(Writer & writer, TrackData const & trackData)
   }
   writer << kIndent6 << "</mwm:additionalStyle>\n";
 
-  writer << kIndent6 << "<mwm:visibility>" << (trackData.m_visible ? "1" : "0") << "</mwm:visibility>\n";
-
   SaveStringsArray(writer, trackData.m_nearestToponyms, "nearestToponyms", kIndent6);
   SaveStringsMap(writer, trackData.m_properties, "properties", kIndent6);
 
@@ -596,19 +595,24 @@ void SaveTrackExtendedData(Writer & writer, TrackData const & trackData)
 void SaveTrackData(Writer & writer, TrackData const & trackData)
 {
   writer << kIndent2 << "<Placemark>\n";
-  if (auto name = GetDefaultLanguage(trackData.m_name))
+  if (auto const name = GetStringForExport(trackData.m_name); !name.empty())
   {
     writer << kIndent4 << "<name>";
-    SaveStringWithCDATA(writer, *name);
+    SaveStringWithCDATA(writer, name);
     writer << "</name>\n";
   }
 
-  if (auto const description = GetDefaultLanguage(trackData.m_description))
+  if (auto const description = GetStringForExport(trackData.m_description); !description.empty())
   {
     writer << kIndent4 << "<description>";
-    SaveStringWithCDATA(writer, *description);
+    SaveStringWithCDATA(writer, description);
     writer << "</description>\n";
   }
+
+  // Use the standard KML <visibility> element (default is visible, so emit only when hidden).
+  // Other KML readers honor it too, and it round-trips via the shared m_visible parse state.
+  if (!trackData.m_visible)
+    writer << kIndent4 << "<visibility>0</visibility>\n";
 
   if (trackData.m_layers.empty())
     MYTHROW(KmlWriter::WriteKmlException, ("Layers list is empty."));
@@ -1271,8 +1275,18 @@ void KmlParser::CharData(std::string & value)
         //        language in extended data.
         // 2. We have NOT read extended data yet (or at all). In this case m_name must be empty.
         // If extended data will be read, it can rewrite "default" language, since we prefer extended data.
+        //
+        // Plain KML elements are interoperability projections and carry no provenance that lets the
+        // parser distinguish a projected value from an explicit default. A round trip therefore
+        // retains the projected value as default while preserving translations from ExtendedData.
         if (m_name.find(kDefaultLang) == m_name.end())
           m_name[kDefaultLang] = value;
+      }
+      else if (currTag == "visibility")
+      {
+        // Standard KML visibility of a Placemark; applied to the bookmark/track built at its close.
+        // Individual bookmarks can't be hidden in the UI, so this only has effect for tracks.
+        m_visible = value != "0";
       }
       else if (currTag == kStyleUrl)
       {
@@ -1386,10 +1400,6 @@ void KmlParser::CharData(std::string & value)
         else if (currTag == "mwm:icon")
         {
           m_icon = GetIcon(value);
-        }
-        else if (currTag == "mwm:visibility")
-        {
-          m_visible = value != "0";
         }
         else if (currTag == "mwm:nearestToponym")
         {

@@ -3,6 +3,8 @@
 #include "generator/feature_builder.hpp"
 #include "generator/routing_helpers.hpp"
 
+#include "opening_hours/opening_hours.hpp"
+
 #include "routing/road_access.hpp"
 #include "routing/road_access_serialization.hpp"
 
@@ -17,8 +19,6 @@
 #include "defines.hpp"
 
 #include <initializer_list>
-
-#include "3party/opening_hours/opening_hours.hpp"
 
 namespace routing_builder
 {
@@ -133,6 +133,7 @@ TagMapping const kDefaultTagMapping = {
     {OsmElement::Tag("access", "military"), RoadAccess::Type::No},
     {OsmElement::Tag("access", "agricultural"), RoadAccess::Type::Private},
     {OsmElement::Tag("access", "forestry"), RoadAccess::Type::Private},
+    {OsmElement::Tag("access", "unknown"), RoadAccess::Type::Destination},
     {OsmElement::Tag("locked", "yes"), RoadAccess::Type::Locked},
 };
 

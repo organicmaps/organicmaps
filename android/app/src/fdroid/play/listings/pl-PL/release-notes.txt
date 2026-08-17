@@ -1,7 +1,8 @@
-• Stuknij przystanek transportu publicznego i wybierz numery tras, aby zaznaczyć trasy na mapie.
-• Etykiety zakładek nie nakładają się już na mapę
-• Świeże dane OpenStreetMap na dzień 3 maja, z nowymi typami obiektów
-• Ulepszone wykresy wysokości dla ścieżek i tras
-• Mniejsze mapy do pobrania dla Wietnamu, Malezji, Hongkongu, Makau i Hainan
-• Udoskonalony interfejs użytkownika i animacje
-…więcej na omaps.org/pl/news
+NOWE FUNKCJE:
+• Zaktualizowany interfejs użytkownika funkcji wyszukiwania i wyznaczania tras
+• Wyznaczanie tras transportu publicznego (autobus, tramwaj, metro, kolej miejska)
+• Alternatywne trasy: najszybsze i najkrótsze
+• Ostrzeżenia dotyczące tras: stopni, bram i szlabanów
+• Wybierz dowolny kolor dla zakładek
+• Obsługa współrzędnych UK OS Grid, Irish Grid, ITM
+…więcej na stronie omaps.org/pl/news

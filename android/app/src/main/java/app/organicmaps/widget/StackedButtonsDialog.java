@@ -40,7 +40,7 @@ public class StackedButtonsDialog extends AppCompatDialog implements View.OnClic
                                @Nullable String negative, @Nullable OnClickListener negativeListener,
                                boolean cancelable, @Nullable OnCancelListener cancelListener)
   {
-    super(context);
+    super(context, R.style.MwmTheme_StackedButtonsDialog);
     mTitle = title;
     mMessage = message;
     mPositive = positive;
@@ -61,6 +61,8 @@ public class StackedButtonsDialog extends AppCompatDialog implements View.OnClic
     setCancelable(mCancelable);
     setOnCancelListener(mCancelListener);
     setContentView(R.layout.dialog_stacked_buttons);
+
+    findViewById(R.id.dialog_root).setClipToOutline(true);
 
     TextView title = findViewById(R.id.tv__title);
     UiUtils.setTextAndHideIfEmpty(title, mTitle);

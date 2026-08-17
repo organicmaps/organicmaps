@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Ice Rink";
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "Cagar Alam";
+"type.leisure.bird_hide" = "Tempat pengamatan burung";
 "type.leisure.outdoor_seating" = "Tempat duduk di luar ruangan";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "Taman";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "Padang rumput";
 "type.natural.orchard" = "Kebun";
 "type.natural.peak" = "Puncak";
+"type.natural.hill" = "Bukit";
+"type.natural.arch" = "Lengkungan Batu";
 "type.natural.saddle" = "Pelana Gunung";
 "type.natural.rock" = "Batu";
 "type.natural.scrub" = "Semak";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "Fasilitas Sosial";
+"type.amenity.stage" = "Panggung";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Pintu Masuk Bangsal Darurat";

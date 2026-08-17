@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Tul";
 "share_my_location" = "Ixxerja l-post tiegħi";
+"prefs_group_network" = "Netwerk";
 "prefs_group_route" = "Navigazzjoni";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -217,6 +218,24 @@
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "Il-binjiet 3D huma mitfigħin fil-mod tal-iffrankar tal-enerġija";
+
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "Immaġini tas-satellita";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "URL tas-server";
+
+/* Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) */
+"pref_bg_tiles_url_error" = "Daħħal URL validu bi {z}/{x}/{y}";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "Daqs tal-cache (MB)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "Opaċità tal-oġġetti tal-erja";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "Is-sorsi tal-madum personalizzati jiġu pprovduti minnek. Uża biss servizzi li int permess taċċessa. Inti responsabbli għall-attribuzzjoni, it-termini tal-liċenzja, iċ-ċwievet API, il-kwoti u l-limiti tal-użu.";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Istruzzjonijiet tal-vuċi";
@@ -390,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Żball meta bgħatt e-mejl";
-
-/* Settings item title */
-"pref_calibration_title" = "Kalibrazzjoni tal-boxxla";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Disponibbli";
@@ -643,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Dan l-isem diġa meħud";
 "profile" = "Profil ta’ OpenStreetMap";
 "restore" = "Irrestawra";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Privatezza";
 "privacy_policy" = "Politika dwar il-privatezza";
 "terms_of_use" = "Termini tal-użu";
 
@@ -651,6 +670,9 @@
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "Ċikliżmu";
+
+/* Map layers menu: toggle button for the satellite imagery layer */
+"button_layer_satellite" = "Satellita";
 "button_layer_subway" = "Metro";
 "layers_title" = "Stili u Saffi tal-Mapep";
 
@@ -907,6 +929,9 @@
 "elevation_profile_descent" = "Inżul";
 "elevation_profile_min_elevation" = "Elevazzjoni minima";
 "elevation_profile_max_elevation" = "Elevazzjoni massima";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Ibda ċċaqlaq biex tara l-profil tal-elevazzjoni";
 "isolines_toast_zooms_1_10" = "Iżżumja ’l ġewwa biex tesplora l-isolines";
 "downloader_loading_ios" = "Tniżżil";
 

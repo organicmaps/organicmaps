@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Luistinrata";
 "type.leisure.marina" = "Venesatama";
 "type.leisure.nature_reserve" = "Luonnonsuojelualue";
+"type.leisure.bird_hide" = "Lintupiilo";
 "type.leisure.outdoor_seating" = "Ulkona istuminen";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "Puisto";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "Niitty";
 "type.natural.orchard" = "Hedelmänviljely";
 "type.natural.peak" = "Huippu";
+"type.natural.hill" = "Mäki";
+"type.natural.arch" = "Kivikaari";
 "type.natural.saddle" = "Vuoristo satula";
 "type.natural.rock" = "Kivi";
 "type.natural.scrub" = "Tiheiköt";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "Sosiaalinen väline";
+"type.amenity.stage" = "Näyttämö";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Hätäosaston sisäänkäynti";

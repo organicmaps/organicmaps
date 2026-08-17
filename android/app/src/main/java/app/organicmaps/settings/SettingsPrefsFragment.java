@@ -131,6 +131,11 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
         getSettingsActivity().stackFragment(VoiceInstructionsSettingsFragment.class,
                                             getString(R.string.pref_tts_enable_title), null);
       }
+      else if (key.equals(getString(R.string.pref_bg_tiles_screen)))
+      {
+        getSettingsActivity().stackFragment(BgTilesSettingsFragment.class, getString(R.string.pref_bg_tiles_title),
+                                            null);
+      }
       else if (key.equals(getString(R.string.pref_help)))
       {
         startActivity(new Intent(requireActivity(), HelpActivity.class));

@@ -1,7 +1,9 @@
-• Ketuk pemberhentian angkutan umum dan pilih nomor rute untuk menyorot rute pada peta
-• Label penanda tidak lagi tumpang tindih pada peta
-• Data OpenStreetMap terbaru per tanggal 3 Mei, dengan tipe objek baru
-• Grafik elevasi yang lebih baik untuk trek dan rute
-• Unduhan peta yang lebih kecil untuk Vietnam, Malaysia, Hong Kong, Makau, dan Hainan
-• UI dan animasi yang disempurnakan
+FITUR BARU:
+• Antarmuka pengguna pencarian dan perhitungan rute telah diperbarui
+• Perhitungan rute transportasi umum (bus, trem, kereta bawah tanah, kereta ringan)
+• Rute alternatif tercepat dan terpendek
+• Peringatan rute mengenai tangga, gerbang, dan gerbang angkat
+• Pilih warna apa pun untuk penanda
+• Dukungan untuk koordinat UK OS Grid, Irish Grid, dan ITM
+• Aktifkan Citra Satelit di pengaturan Organic Maps dengan URL server ubin raster khusus
 …selengkapnya di omaps.org/id/news

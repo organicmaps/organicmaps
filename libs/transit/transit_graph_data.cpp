@@ -369,9 +369,9 @@ void GraphData::CheckValidSortedUnique() const
 
 bool GraphData::IsEmpty() const
 {
-  // Note. |m_transfers| may be empty if GraphData instance is not empty.
-  return m_stops.empty() || m_gates.empty() || m_edges.empty() || m_lines.empty() || m_shapes.empty() ||
-         m_networks.empty();
+  // Note. |m_transfers| and |m_shapes| may be empty if GraphData instance is not empty.
+  // Bus and tram edges have no shapes at all.
+  return m_stops.empty() || m_gates.empty() || m_edges.empty() || m_lines.empty() || m_networks.empty();
 }
 
 void GraphData::Sort()

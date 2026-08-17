@@ -4,5 +4,5 @@
 
 namespace icon
 {
-jint registerNativeMethods(JNIEnv * env);
+jint RegisterNativeMethods(JNIEnv * env);
 }  // namespace icon

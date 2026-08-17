@@ -11,7 +11,7 @@
 
 #include "platform/platform.hpp"
 
-#include "coding/reader.hpp"
+#include "coding/file_reader.hpp"
 #include "coding/reader_writer_ops.hpp"
 #include "coding/writer.hpp"
 

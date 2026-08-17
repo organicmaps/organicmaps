@@ -39,6 +39,36 @@ public class Timetable
     return weekdays.length == 7;
   }
 
+  /**
+   * Splits the working span into open shifts around its nested breaks, joined by {@code separator},
+   * e.g. a lunch break gives "09:00—13:00" + separator + "16:00—20:00". A day fully covered by breaks
+   * yields an empty string (caller shows it as closed). Not for full-day rows.
+   */
+  @NonNull
+  public String formatOpenShifts(@NonNull String separator)
+  {
+    final StringBuilder shifts = new StringBuilder();
+    HoursMinutes shiftStart = workingTimespan.start;
+    for (final Timespan closed : closedTimespans)
+    {
+      appendShift(shifts, separator, shiftStart, closed.start);
+      shiftStart = closed.end;
+    }
+    appendShift(shifts, separator, shiftStart, workingTimespan.end);
+    return shifts.toString();
+  }
+
+  private static void appendShift(@NonNull StringBuilder shifts, @NonNull String separator, @NonNull HoursMinutes start,
+                                  @NonNull HoursMinutes end)
+  {
+    // Drop only truly empty shifts. A start later than end is a valid overnight shift, e.g. 23:00—04:00.
+    if (start.hours == end.hours && start.minutes == end.minutes)
+      return;
+    if (shifts.length() > 0)
+      shifts.append(separator);
+    shifts.append(start).append('—').append(end);
+  }
+
   @Override
   public String toString()
   {

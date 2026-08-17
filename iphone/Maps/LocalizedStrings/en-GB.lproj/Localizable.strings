@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Length";
 "share_my_location" = "Share My Location";
+"prefs_group_network" = "Network";
 "prefs_group_route" = "Navigation";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -217,6 +218,24 @@
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "3D buildings are disabled in power saving mode";
+
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "Satellite Imagery";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "Server URL";
+
+/* Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) */
+"pref_bg_tiles_url_error" = "Enter a valid URL with {z}/{x}/{y}";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "Cache size (MB)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "Area objects opacity";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "Custom tile sources are provided by you. Use only services you are allowed to access. You are responsible for attribution, license terms, API keys, quotas, and usage limits.";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Voice Instructions";
@@ -390,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Error sending email";
-
-/* Settings item title */
-"pref_calibration_title" = "Compass calibration";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Available";
@@ -643,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "This name is already taken";
 "profile" = "OpenStreetMap profile";
 "restore" = "Restore";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Privacy";
 "privacy_policy" = "Privacy policy";
 "terms_of_use" = "Terms of use";
 
@@ -651,6 +670,9 @@
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "Cycling";
+
+/* Map layers menu: toggle button for the satellite imagery layer */
+"button_layer_satellite" = "Satellite";
 "button_layer_subway" = "Metro";
 "layers_title" = "Map Styles and Layers";
 
@@ -907,6 +929,9 @@
 "elevation_profile_descent" = "Descent";
 "elevation_profile_min_elevation" = "Min. elevation";
 "elevation_profile_max_elevation" = "Max. elevation";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Start moving to see the elevation profile";
 "isolines_toast_zooms_1_10" = "Zoom in to explore isolines";
 "downloader_loading_ios" = "Downloading";
 

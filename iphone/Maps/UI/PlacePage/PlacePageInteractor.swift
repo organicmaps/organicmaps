@@ -110,6 +110,10 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
     MWMPlacePageManagerHelper.openWebsite(placePageData)
   }
 
+  func didPressHeritageWebsite() {
+    MWMPlacePageManagerHelper.openHeritageWebsite(placePageData)
+  }
+
   func didPressWebsiteMenu() {
     MWMPlacePageManagerHelper.openWebsiteMenu(placePageData)
   }

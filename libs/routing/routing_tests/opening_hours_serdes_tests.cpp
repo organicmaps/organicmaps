@@ -440,7 +440,7 @@ UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_SkipRuleOldYear)
   TEST(Serialize("Mo-Fr 07:00-17:00; 2014 Jul 28-2014 Aug 01 off"), ());
   Flush();
 
-  // Skip rule with old year range.
+  // Skip a rule with an expired year range.
   auto const oh = Deserialize();
   TEST_EQUAL(oh.GetRule().size(), 1, ());
   auto const & rule = oh.GetRule().back();
@@ -457,7 +457,7 @@ UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_10_plus)
   TEST(Serialize("Fr 10:00+"), ());
   Flush();
 
-  // Skip rule with old year range.
+  // Routing stores the open end as midnight.
   auto const oh = Deserialize();
   TEST_EQUAL(oh.GetRule().size(), 1, ());
   auto const & rule = oh.GetRule().back();
@@ -845,5 +845,41 @@ UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_InverseMonths_Usage_2)
   TEST(oh.IsOpen(GetUnixtimeByDate(2019, Month::Mar, 20, 20 /* hh */, 00 /* mm */)), ());
   TEST(!oh.IsOpen(GetUnixtimeByDate(2020, Month::Apr, 20, 20 /* hh */, 00 /* mm */)), ());
   TEST(!oh.IsOpen(GetUnixtimeByDate(2020, Month::May, 20, 20 /* hh */, 00 /* mm */)), ());
+}
+
+// A source rule with several time windows decomposes into several serialized
+// rules. After deserialization they must evaluate as a union: with the default
+// ";" separator the evaluator would let the parts override each other and keep
+// only the 14:00-16:00 window ("no @ (Mo-Fr 07:00-09:00,16:00-18:00)"-style
+// conditionals would lose their morning window).
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_MultipleTimeWindows_Evaluation)
+{
+  EnableForRouting();
+
+  TEST(Serialize("Mo-Fr 10:00-12:00,14:00-16:00"), ());
+  Flush();
+
+  auto const oh = Deserialize();
+  TEST(oh.IsValid(), ());
+
+  // 2026-07-06 is a Monday.
+  TEST(oh.IsOpen(GetUnixtimeByDate(2026, Month::Jul, 6, 11 /* hh */, 00 /* mm */)), ());
+  TEST(!oh.IsOpen(GetUnixtimeByDate(2026, Month::Jul, 6, 13 /* hh */, 00 /* mm */)), ());
+  TEST(oh.IsOpen(GetUnixtimeByDate(2026, Month::Jul, 6, 15 /* hh */, 00 /* mm */)), ());
+  TEST(!oh.IsOpen(GetUnixtimeByDate(2026, Month::Jul, 6, 17 /* hh */, 00 /* mm */)), ());
+}
+
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_OpenEndedYear_RefusedGracefully)
+{
+  EnableForRouting();
+
+  // Open-ended year selectors materialize as end year 9999, which does not fit
+  // the 8-bit wire encoding; they must refuse, not crash the generator.
+  TEST(osmoh::OpeningHours("2020+").IsValid(), ());
+  TEST(!Serialize("2020+"), ());
+  TEST(!Serialize("2020 Mar 10+ 10:00-18:00"), ());
+
+  // A year range inside the encodable window still serializes.
+  TEST(Serialize("2019-2051 Mo-Fr 10:00-18:00"), ());
 }
 }  // namespace opening_hours_serdes_tests

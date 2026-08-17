@@ -1,26 +1,41 @@
-- NOVO! tapnite postajališče javnega prevoza, da na zemljevidu označite celotno pot, tako kot v slogu zemljevida Transit.
-- NOVO! daljinske poti javnega prevoza in druge relacije OpenStreetMap so zdaj čez meje zemljevida povezane v eno neprekinjeno linijo.
-- Podatki OpenStreetMap posodobljeni na dan 3. maja.
-- Vietnam in Malezija sta zdaj razdeljena na manjši regiji, ki ju je mogoče prenesti ločeno.
-- Hongkong, Macao in Hainan so zdaj ločeni od Guangdong, sosednje meje pa so posodobljene.
-- Posodobljene obrisne črte za Indonezijo, Malezijo, Tanzanijo, Tajsko in Vietnam.
-- Na informacijsko ploščo v navigaciji je dodan gumb za snemanje skladbe.
-- Dodane nove vrste OpenStreetMap: vulkani z aktivnim statusom, dostopne točke do vodnih poti, zdrsi, saloni za vodne pijače in stavbe v gradnji.
-- Dodan je izraz "Lookout" kot sinonim za iskanje razglednih točk in "pkwy" kot sinonim za ameriške ulice.
-- Barve območij za pešce so nekoliko temnejše zaradi boljše čitljivosti.
-- Označbe zaznamkov na zemljevidu se ne prekrivajo več.
-- Večvrstično besedilo je zdaj čisto obrezano, imena ulic pa ne vsebujejo več podvajanj.
-- Usmerjanje: obnovljene poti zdaj odstranijo vmesne točke, ki ste jih že prevozili.
-- Odpravljen napačen seznam zaznamkov, ki se je uporabljal v sestavah TestFlight.
-- Popravljen uvoz datotek KMB.
-- Posodobljeni popravljeni prevodi za kategorije, sinonime iskanja in nize uporabniškega vmesnika. Dodani prevodi za opise za Novi Južni Wales in Severno ozemlje.
-- Izboljšana stabilnost in zmogljivost, vključno z oblikovanjem pisave, predpomnjenjem glifov in obrezovanjem linij poti.
-- Izboljšana višinska karta za proge in poti.
-- Povečani gumbi menija v navigaciji za dejanja, kot so TTS, nastavitve in snemanje poti.
-- Izboljšana animacija raztegljivega dela z opisom na strani kraja.
-- Stran z informacijami o kraju se ne zapre več, ko se konča brisanje višinskega diagrama, ne odbija več nepričakovano in ohranja naslov viden med urejanjem z odprto tipkovnico.
-- Odpravljeno sesutje pri brisanju sledi ali zaznamka, ki ne obstaja več.
+- NOVOST! Načrtovanje poti z javnim prevozom: podzemna železnica, lahka železnica, avtobus in tramvaj
+- NOVOST! Alternativne poti: poleg najhitrejše poti aplikacija zdaj prikazuje tudi najkrajšo pot
+- NOVOST! Opozorila na peš in kolesarskih poteh o stopnicah, vratih in dvigalnih zapornicah na poti
+- NOVOST! S tapom izberite med prekrivajočimi se potmi in trasami
+- NOVOST! Izberite katero koli barvo za zaznamke
+- NOVOST! Podpora za koordinate British National Grid (OS Grid), Irish Grid in Irish Transverse Mercator (ITM)
+- NOVOST! Podpora za dostopnost za Dynamic Type in velike pisave
+- EKSPERIMENTALNO: Vklopite satelitske posnetke v nastavitvah Organic Maps z URL-jem strežnika za rastrske ploščice po meri
+- Prečiščen slog tabel v uporabniškem vmesniku
+- V iskalno okno vpišite `?map-download-server:https://your-server.com/`, da prepisate strežnike za prenos zemljevidov Organic Maps. Vpišite `?no-map-download-server`, da preklicate prepis.
+- Različne popravke napak in izboljšave zmogljivosti
 
-## Podpora za platforme
+## Podatki o zemljevidih
 
-- Zaradi sprememb v programu TestFlight in trgovini App Store ta izdaja podpira samo iOS 15 in novejše. iOS 12, iOS 13 in iOS 14 niso več podprti.
+- Podatki OpenStreetMap so bili posodobljeni 24. junija
+- Podatki Wikipedia so bili posodobljeni 20. junija, vključno s članki v italijanščini
+
+## Prikazovanje zemljevidov in slogi
+
+- Lepše vzorce za območja plaž, peska, grušča, gole skale, sadovnjakov in vinogradov ter šrafiranje zaščitenih območij in mokrišč
+- Bolj gladko zaobljene besedilne oznake za ceste in reke
+- Reke, potoki in mokrišča imajo večji kontrast in so v temnem načinu bolj vidni
+- Nove in izboljšane ikone za iskanje po kategorijah in rezultate iskanja na zemljevidu
+- Izboljšano oblikovanje in prikazovanje večjezičnega besedila
+
+## Poti, zaznamki in poti
+
+- Izboljšano prikazovanje opisov zaznamkov in poti v formatu HTML
+- Sledi GeoJSON zdaj ohranjajo nadmorsko višino in časovne oznake pri uvozu in izvozu
+- Popravljena je bila napaka, ki je povzročala sesutje aplikacije po premestitvi poti na drug seznam
+- Zdaj so prikazane spletne strani za spomeniška območja
+- Pri neimenovanih rezultatih iskanja se zdaj prikazujejo imena operaterjev. Na primer, neimenovani ATM zdaj prikazuje svojo banko
+- Urednik: popravil opisni tekst za stanovanjske stavbe OpenStreetMap popravki/spremembe
+- Izboljšano zaznavanje HTML v opisih zaznamkov in poti
+- Podvojene poti so zdaj izločene
+
+## Prevajanja
+
+- Glasovno vodenje po korakih v kantonskem jeziku
+- Posodobljeni nemški in francoski prevodi
+- Popravljeni so bili napačni prevodi glasovnih navodil "onto street" za kitajščino, srbščino in katalonščino

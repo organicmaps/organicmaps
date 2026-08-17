@@ -3,7 +3,6 @@
 #include "drape/font_constants.hpp"
 #include "drape/font_texture.hpp"
 #include "drape/gl_functions.hpp"
-#include "drape/hatching_decl.hpp"
 #include "drape/static_texture.hpp"
 #include "drape/stipple_pen_resource.hpp"
 #include "drape/support_manager.hpp"
@@ -317,7 +316,6 @@ void TextureManager::Release()
   m_glyphGroups.clear();
 
   m_symbolTextures.clear();
-  m_hatchingTextures.clear();
 
   m_stipplePenTexture.reset();
   m_colorTexture.reset();
@@ -500,13 +498,6 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
   // Initialize static textures.
   m_trafficArrowTexture = make_unique_dp<StaticTexture>(context, "traffic-arrow.png", m_resPostfix,
                                                         dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
-
-  /// @todo Introduce array of keys and use them as mask file name prefix.
-  m_hatchingTextures[k45dHatching] = make_unique_dp<StaticTexture>(
-      context, "area-hatching.png", m_resPostfix, dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
-  m_hatchingTextures[kDashHatching] =
-      make_unique_dp<StaticTexture>(context, "dash-hatching.png", StaticTexture::kDefaultResource,
-                                    dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
 
   m_arrowTexture = CreateArrowTexture(context, make_ref(m_textureAllocator), params.m_arrowTexturePath,
                                       params.m_arrowTextureUseDefaultResourceFolder);
@@ -784,12 +775,6 @@ ref_ptr<Texture> TextureManager::GetTrafficArrowTexture() const
 {
   CHECK(m_isInitialized, ());
   return make_ref(m_trafficArrowTexture);
-}
-
-ref_ptr<Texture> TextureManager::GetHatchingTexture(std::string_view key) const
-{
-  CHECK(m_isInitialized, ());
-  return make_ref(m_hatchingTextures.at(key));
 }
 
 ref_ptr<Texture> TextureManager::GetArrowTexture() const

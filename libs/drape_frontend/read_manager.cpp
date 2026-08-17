@@ -39,7 +39,8 @@ bool ReadManager::LessByTileInfo::operator()(std::shared_ptr<TileInfo> const & l
 }
 
 ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model, bool allow3dBuildings,
-                         bool trafficEnabled, bool isolinesEnabled, dp::BackgroundMode backgroundMode)
+                         bool trafficEnabled, bool isolinesEnabled, dp::BackgroundMode backgroundMode,
+                         float areaOpacity)
   : m_commutator(commutator)
   , m_model(model)
   , m_have3dBuildings(false)
@@ -49,6 +50,7 @@ ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider 
   , m_modeChanged(false)
   , m_mapLangIndex(StringUtf8Multilang::kDefaultCode)
   , m_backgroundMode(backgroundMode)
+  , m_areaOpacity(areaOpacity)
   , m_tasksPool(64, ReadMWMTaskFactory(m_model))
   , m_counter(0)
   , m_generationCounter(0)
@@ -222,7 +224,7 @@ void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey, ref_ptr<dp::Te
   auto context = make_unique_dp<EngineContext>(TileKey(tileKey, m_generationCounter, m_userMarksGenerationCounter),
                                                m_commutator, texMng, metalineMng, m_customFeaturesContext,
                                                m_have3dBuildings && m_allow3dBuildings, m_trafficEnabled,
-                                               m_isolinesEnabled, m_mapLangIndex, m_backgroundMode);
+                                               m_isolinesEnabled, m_mapLangIndex, m_backgroundMode, m_areaOpacity);
   std::shared_ptr<TileInfo> tileInfo = std::make_shared<TileInfo>(std::move(context));
   m_tileInfos.insert(tileInfo);
 
@@ -334,12 +336,13 @@ void ReadManager::SetIsolinesEnabled(bool isolinesEnabled)
   }
 }
 
-void ReadManager::SetBackgroundMode(dp::BackgroundMode mode)
+void ReadManager::SetBackgroundMode(dp::BackgroundMode mode, float areaOpacity)
 {
-  if (m_backgroundMode != mode)
+  if (m_backgroundMode != mode || m_areaOpacity != areaOpacity)
   {
     m_modeChanged = true;
     m_backgroundMode = mode;
+    m_areaOpacity = areaOpacity;
   }
 }
 

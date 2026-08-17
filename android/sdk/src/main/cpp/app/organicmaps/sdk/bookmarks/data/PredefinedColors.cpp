@@ -30,7 +30,7 @@ JNINativeMethod const predefinedColorsMethods[] = {
 
 namespace predefined_colors
 {
-jint registerNativeMethods(JNIEnv * env)
+jint RegisterNativeMethods(JNIEnv * env)
 {
   jclass clazz = env->FindClass("app/organicmaps/sdk/bookmarks/data/PredefinedColors");
   if (clazz == nullptr)

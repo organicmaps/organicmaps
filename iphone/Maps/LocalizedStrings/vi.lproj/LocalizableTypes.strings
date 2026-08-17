@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Ice Rink";
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "Giữ chỗ";
+"type.leisure.bird_hide" = "Chòi quan sát chim";
 "type.leisure.outdoor_seating" = "Chỗ ngồi ngoài trời";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "Công viên";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "Thảo điền";
 "type.natural.orchard" = "Vườn cây ăn trái";
 "type.natural.peak" = "Đỉnh";
+"type.natural.hill" = "Ngọn đồi";
+"type.natural.arch" = "Cổng đá";
 "type.natural.saddle" = "Col";
 "type.natural.rock" = "Đá";
 "type.natural.scrub" = "Bụi rậm";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "Cơ sở xã hội";
+"type.amenity.stage" = "Sân khấu";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Lối vào khu cấp cứu";

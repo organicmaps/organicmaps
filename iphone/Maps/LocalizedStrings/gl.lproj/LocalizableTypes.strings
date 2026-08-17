@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Pisa de patinaxe";
 "type.leisure.marina" = "Mariña";
 "type.leisure.nature_reserve" = "Reserva natural";
+"type.leisure.bird_hide" = "Observatorio de aves";
 "type.leisure.outdoor_seating" = "Asentos ao aire libre";
 "type.leisure.firepit" = "Fogar (para cacharela)";
 "type.leisure.park" = "Parque";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "Prado";
 "type.natural.orchard" = "Horto froiteiro";
 "type.natural.peak" = "Cima";
+"type.natural.hill" = "Colina";
+"type.natural.arch" = "Arco rochoso";
 "type.natural.saddle" = "Colado";
 "type.natural.rock" = "Roca";
 "type.natural.scrub" = "Matogueiras";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "Servizo social";
+"type.amenity.stage" = "Escenario";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Entrada a urxencias";

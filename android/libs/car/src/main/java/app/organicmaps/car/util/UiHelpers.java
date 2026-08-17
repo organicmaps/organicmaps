@@ -132,7 +132,11 @@ public final class UiHelpers
       if (timetables[0].isFullday)
         builder.setTitle(context.getString(R.string.twentyfour_seven));
       else
-        builder.setTitle(timetables[0].workingTimespan.toWideString());
+      {
+        final String shifts = timetables[0].formatOpenShifts(", ");
+        // A day fully covered by breaks has no open shift; the place is closed.
+        builder.setTitle(shifts.isEmpty() ? context.getString(R.string.day_off_today) : shifts);
+      }
     }
     else
     {
@@ -148,8 +152,11 @@ public final class UiHelpers
           if (tt.isFullday)
             openTime = Utils.unCapitalize(context.getString(R.string.editor_time_allday));
           else
-            openTime = tt.workingTimespan.toWideString();
+            openTime = tt.formatOpenShifts(", ");
 
+          // A day fully covered by breaks has no open shift; the place is closed today.
+          if (openTime.isEmpty())
+            openTime = context.getString(R.string.day_off_today);
           builder.setTitle(openTime);
 
           break;

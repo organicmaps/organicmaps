@@ -219,6 +219,18 @@
     <string name="pref_map_3d_buildings_title">Edificios en 3D</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">Os edificios 3D desactívanse no modo de aforro de enerxía</string>
+    <!-- Settings: title of the satellite imagery (custom raster tiles) screen -->
+    <string name="pref_bg_tiles_title">Imaxes por satélite</string>
+    <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
+    <string name="pref_bg_tiles_url_title">URL do servidor</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">Introduce un URL válido con {z}/{x}/{y}</string>
+    <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
+    <string name="pref_bg_tiles_size_title">Tamaño da caché (MB)</string>
+    <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
+    <string name="pref_bg_tiles_opacity_title">Opacidade dos obxectos de área</string>
+    <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
+    <string name="pref_bg_tiles_disclaimer">As fontes de teselas personalizadas fornéceas vostede. Utilice só servizos aos que teña permiso de acceso. Vostede é responsable da atribución, os termos da licenza, as claves API, as cotas e os límites de uso.</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Instrucións de voz</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
@@ -231,7 +243,7 @@
     <string name="pref_tts_test_voice_title">Probar indicacións de voz (TTS, Text-To-Speech)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Comprobe o volume ou a configuración de texto a voz do sistema se agora non oe a voz.</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">Non dispoñible</string>
     <string name="pref_map_auto_zoom">Zum automático</string>
     <string name="placepage_distance">Distancia</string>
@@ -567,14 +579,11 @@
     <string name="prefs_languages_information_off_link">Para obter máis información, consulte esta guía.</string>
     <string name="transliteration_title">Transliteración ao alfabeto latino</string>
     <string name="learn_more">Coñecer máis</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Busca ou toca no mapa para engadir a orixe da ruta</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Busca ou toca no mapa para engadir o destino</string>
     <string name="planning_route_manage_route">Administrar roteiro</string>
     <string name="button_plan">Planificar</string>
     <string name="placepage_remove_stop">Eliminar parada</string>
     <string name="placepage_add_stop">Engadir parada</string>
+    <string name="drag_to_reorder">Reordenar</string>
     <string name="saved">Gardado</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Por favor, Inicia sesión en OpenStreetMap para cargar automaticamente todas as túas edicións de mapas. Más información <a href="https://github.com/organicmaps/organicmaps/issues/6144">aquí</a>.</string>
@@ -625,6 +634,8 @@
     <string name="button_layer_hiking">Sendeirismo</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Ciclismo</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Satélite</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Estilos e capas do mapa</string>
     <string name="bookmarks_empty_list_title">Esta lista está baleira</string>
@@ -724,6 +735,7 @@
     <string name="opens_at">Abre a Ábreas %s</string>
     <string name="closes_at">Pecha ás %s</string>
     <string name="editor_add_select_category_all_subtitle">Todas as categorías</string>
+    <string name="placepage_replace_stop">Substituír Stop</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Comida</string>
@@ -879,6 +891,8 @@
     <string name="share_track">Compartir pista</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Eliminar %s?</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Cambiar cor</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -905,4 +919,6 @@
     <string name="color_picker_hex_label">Cor Hex sRGB #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Reixa</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">Busca por voz</string>
 </resources>

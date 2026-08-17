@@ -9,9 +9,7 @@
 /* Begin PBXBuildFile section */
 		474017FF23F5B2E100A93C81 /* minizip.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D40DEA223EB5E0100A0153A /* minizip.hpp */; };
 		4740180023F5B2E500A93C81 /* minizip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D40DEBA23EB5E0100A0153A /* minizip.cpp */; };
-		4740180123F5B2E900A93C81 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 3D40DECB23EC069300A0153A /* zip.c */; };
-		4740180223F5B2EC00A93C81 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 3D40DECF23EC071400A0153A /* unzip.c */; };
-		4740180323F5B2EE00A93C81 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 39E0FA6423EDB80E00001124 /* ioapi.c */; };
+		AB11705A0000000000000002 /* minizip_ng.c in Sources */ = {isa = PBXBuildFile; fileRef = AB11705A0000000000000001 /* minizip_ng.c */; settings = {COMPILER_FLAGS = "-D_POSIX_C_SOURCE=200809L -D_BSD_SOURCE -D_DEFAULT_SOURCE -D_DARWIN_C_SOURCE"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,14 +17,9 @@
 		34EBB47D1DBF525A005BE9B8 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
 		39E0FA5F23EDB52400001124 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		39E0FA6123EDB5E000001124 /* libz.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.tbd; path = usr/lib/libz.1.tbd; sourceTree = SDKROOT; };
-		39E0FA6323EDB80E00001124 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ioapi.h; path = src/ioapi.h; sourceTree = "<group>"; };
-		39E0FA6423EDB80E00001124 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ioapi.c; path = src/ioapi.c; sourceTree = "<group>"; };
+		AB11705A0000000000000001 /* minizip_ng.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = minizip_ng.c; sourceTree = "<group>"; };
 		3D40DEA223EB5E0100A0153A /* minizip.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = minizip.hpp; sourceTree = "<group>"; };
 		3D40DEBA23EB5E0100A0153A /* minizip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = minizip.cpp; sourceTree = "<group>"; };
-		3D40DECB23EC069300A0153A /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zip.c; path = src/zip.c; sourceTree = "<group>"; };
-		3D40DECC23EC069300A0153A /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zip.h; path = src/zip.h; sourceTree = "<group>"; };
-		3D40DECF23EC071400A0153A /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = unzip.c; path = src/unzip.c; sourceTree = "<group>"; };
-		3D40DED023EC071400A0153A /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = unzip.h; path = src/unzip.h; sourceTree = "<group>"; };
 		474017F623F5B2CE00A93C81 /* minizip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = minizip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		474017F923F5B2CE00A93C81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,14 +75,9 @@
 		671F59131B8756990032311E /* minizip */ = {
 			isa = PBXGroup;
 			children = (
-				39E0FA6423EDB80E00001124 /* ioapi.c */,
-				39E0FA6323EDB80E00001124 /* ioapi.h */,
 				3D40DEBA23EB5E0100A0153A /* minizip.cpp */,
 				3D40DEA223EB5E0100A0153A /* minizip.hpp */,
-				3D40DECF23EC071400A0153A /* unzip.c */,
-				3D40DED023EC071400A0153A /* unzip.h */,
-				3D40DECB23EC069300A0153A /* zip.c */,
-				3D40DECC23EC069300A0153A /* zip.h */,
+				AB11705A0000000000000001 /* minizip_ng.c */,
 			);
 			name = minizip;
 			path = ../../3party/minizip;
@@ -176,10 +164,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4740180223F5B2EC00A93C81 /* unzip.c in Sources */,
 				4740180023F5B2E500A93C81 /* minizip.cpp in Sources */,
-				4740180323F5B2EE00A93C81 /* ioapi.c in Sources */,
-				4740180123F5B2E900A93C81 /* zip.c in Sources */,
+				AB11705A0000000000000002 /* minizip_ng.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,11 +231,14 @@
 			buildSettings = {
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"NOCRYPT=1",
-					"NOUNCRYPT=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/minizip-ng",
+					"$(PROJECT_DIR)",
+				);
 			};
 			name = Debug;
 		};
@@ -259,11 +248,14 @@
 			buildSettings = {
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"NOCRYPT=1",
-					"NOUNCRYPT=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/minizip-ng",
+					"$(PROJECT_DIR)",
+				);
 			};
 			name = Release;
 		};

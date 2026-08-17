@@ -1,10 +1,10 @@
 final class BookmarksListRouter {
-  private let mapViewController: MapViewController
+  private weak var viewController: UIViewController?
   private weak var coordinator: BookmarksCoordinator?
 
-  init(_ mapViewController: MapViewController, bookmarksCoordinator: BookmarksCoordinator?) {
-    self.mapViewController = mapViewController
-    coordinator = bookmarksCoordinator
+  init(viewController: UIViewController, coordinator: BookmarksCoordinator?) {
+    self.viewController = viewController
+    self.coordinator = coordinator
   }
 }
 
@@ -12,7 +12,7 @@ extension BookmarksListRouter: IBookmarksListRouter {
   func listSettings(_ bookmarkGroup: BookmarkGroup, delegate: CategorySettingsViewControllerDelegate?) {
     let listSettingsController = CategorySettingsViewController(bookmarkGroup: bookmarkGroup)
     listSettingsController.delegate = delegate
-    mapViewController.navigationController?.pushViewController(listSettingsController, animated: true)
+    coordinator?.push(listSettingsController)
   }
 
   func viewOnMap(_ bookmarkGroup: BookmarkGroup) {
@@ -23,7 +23,7 @@ extension BookmarksListRouter: IBookmarksListRouter {
     let description = BookmarksListRouter.prepareHtmlDescription(bookmarkGroup)
     let descriptionViewController = WebViewController(html: description, baseUrl: nil, title: bookmarkGroup.title)!
     descriptionViewController.openInSafari = true
-    mapViewController.navigationController?.pushViewController(descriptionViewController, animated: true)
+    coordinator?.push(descriptionViewController)
   }
 
   private static func prepareHtmlDescription(_ bookmarkGroup: BookmarkGroup) -> String {
@@ -57,7 +57,7 @@ extension BookmarksListRouter: IBookmarksListRouter {
   func showSubgroup(_ subgroupId: MWMMarkGroupID) {
     let bookmarksListViewController = BookmarksListBuilder.build(markGroupId: subgroupId,
                                                                  bookmarksCoordinator: coordinator)
-    mapViewController.navigationController?.pushViewController(bookmarksListViewController, animated: true)
+    coordinator?.push(bookmarksListViewController)
   }
 
   func selectGroup(currentGroupId groupId: MWMMarkGroupID,
@@ -65,21 +65,23 @@ extension BookmarksListRouter: IBookmarksListRouter {
     let groupViewController = SelectBookmarkGroupViewController(groupId: groupId)
     groupViewController.delegate = delegate
     let navigationController = UINavigationController(rootViewController: groupViewController)
-    mapViewController.present(navigationController, animated: true, completion: nil)
+    viewController?.present(navigationController, animated: true, completion: nil)
   }
 
   func editBookmark(bookmarkId: MWMMarkID, completion: @escaping (Bool) -> Void) {
     let editBookmarkController = UIStoryboard.instance(.main).instantiateViewController(withIdentifier: "MWMEditBookmarkController") as! EditBookmarkViewController
     editBookmarkController.configure(with: bookmarkId, editCompletion: completion)
-    mapViewController.navigationController?.pushViewController(editBookmarkController, animated: true)
+    coordinator?.push(editBookmarkController)
   }
 
   func editTrack(trackId: MWMTrackID, completion: @escaping (Bool) -> Void) {
     let editTrackController = EditTrackViewController(trackId: trackId, editCompletion: completion)
-    mapViewController.navigationController?.pushViewController(editTrackController, animated: true)
+    coordinator?.push(editTrackController)
   }
 
   func goBack() {
-    coordinator?.goBack()
+    if let viewController {
+      coordinator?.pop(viewController)
+    }
   }
 }

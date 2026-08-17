@@ -219,6 +219,18 @@
     <string name="pref_map_3d_buildings_title">Bygninger i 3D</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">3D-bygninger er slått av i strømsparingsmodus</string>
+    <!-- Settings: title of the satellite imagery (custom raster tiles) screen -->
+    <string name="pref_bg_tiles_title">Satellittbilder</string>
+    <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
+    <string name="pref_bg_tiles_url_title">Tjener-URL</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">Skriv inn en gyldig URL med {z}/{x}/{y}</string>
+    <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
+    <string name="pref_bg_tiles_size_title">Bufferstørrelse (MB)</string>
+    <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
+    <string name="pref_bg_tiles_opacity_title">Ugjennomsiktighet for områdeobjekter</string>
+    <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
+    <string name="pref_bg_tiles_disclaimer">Tilpassede flisekilder leveres av deg. Bruk kun tjenester du har tillatelse til å bruke. Du er ansvarlig for kreditering, lisensvilkår, API-nøkler, kvoter og bruksgrenser.</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Taleinstrukser</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
@@ -231,7 +243,7 @@
     <string name="pref_tts_test_voice_title">Test taleanvisninger (TTS, tekst-til-tale)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Kontroller volumet eller systeminnstillingene for tekst-til-tale hvis du ikke hører stemmen nå.</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">Ikke tilgjengelig</string>
     <string name="pref_map_auto_zoom">Automatisk zooming</string>
     <string name="placepage_distance">Avstand</string>
@@ -567,14 +579,11 @@
     <string name="prefs_languages_information_off_link">Les denne veiledningen for mer informasjon.</string>
     <string name="transliteration_title">Omskrivning til latin</string>
     <string name="learn_more">Finn ut mer</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Bruk søk eller trykk på kartet for å legge til et startpunkt for ruten</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Bruk søk eller trykk på kartet for å legge til et destinasjonspunkt</string>
     <string name="planning_route_manage_route">Administrere rute</string>
     <string name="button_plan">Planlegge</string>
     <string name="placepage_remove_stop">Fjern stopp</string>
     <string name="placepage_add_stop">Angi stopp</string>
+    <string name="drag_to_reorder">Omorganiser</string>
     <string name="saved">Reddet</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Logg inn på OpenStreetMap for automatisk å laste opp alle kartredigeringene dine. Finn ut mer <a href="https://github.com/organicmaps/organicmaps/issues/6144">her</a>.</string>
@@ -622,6 +631,8 @@
     <string name="button_layer_hiking">Vandring</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Sykling</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Satellitt</string>
     <string name="button_layer_subway">T-bane</string>
     <string name="layers_title">Kartstiler og -lag</string>
     <string name="bookmarks_empty_list_title">Denne listen er tom</string>
@@ -721,6 +732,7 @@
     <string name="opens_at">Åpner klokka %s</string>
     <string name="closes_at">Stenger %s</string>
     <string name="editor_add_select_category_all_subtitle">Alle kategorier</string>
+    <string name="placepage_replace_stop">Erstatt stopp</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Mat</string>
@@ -866,6 +878,12 @@
     <string name="share_track">Del spor</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Slett %s?</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Endre farge</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Skjul ruten</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Vis ruten</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -892,4 +910,6 @@
     <string name="color_picker_hex_label">sRGB Hex Color #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Rutenett</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">Stemmesøk</string>
 </resources>

@@ -74,7 +74,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_below="@id/schedule_preview_container"
-      android:layout_alignStart="@id/icon">
+      android:layout_toEndOf="@id/icon">
 
       <TextView
         android:id="@+id/tv__single_line_opening_hours"
@@ -84,12 +84,12 @@
         android:textAppearance="@style/MwmTextAppearance.Body3"
         tools:text="Very very ugly timetable format with very very very long text..." />
 
-      <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rw__full_opening_hours"
+      <LinearLayout
+        android:id="@+id/full_opening_hours"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        android:orientation="vertical" />
 
     </RelativeLayout>
 

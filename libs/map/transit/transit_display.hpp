@@ -38,6 +38,8 @@ enum class TransitType : uint32_t
 
 extern std::map<TransitType, std::string> const kTransitSymbols;
 
+std::string DebugPrint(TransitType type);
+
 struct TransitStepInfo
 {
   TransitStepInfo() = default;
@@ -61,6 +63,8 @@ struct TransitStepInfo
   // Is valid for TransitType::IntermediatePoint
   int m_intermediateIndex = 0;
 };
+
+std::string DebugPrint(TransitStepInfo const & info);
 
 struct TransitRouteInfo
 {
@@ -145,8 +149,9 @@ public:
   TransitRouteInfo const & GetRouteInfo();
 
 private:
+  using StopId = routing::transit::StopId;
   void AddEdgeSubwayForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute, SubrouteParams & sp,
-                                SubrouteSegmentParams & ssp);
+                                SubrouteSegmentParams & ssp, StopId legBoardId, StopId legAlightId);
   void AddEdgePTForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute, SubrouteParams & sp,
                             SubrouteSegmentParams & ssp);
 

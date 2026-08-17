@@ -119,6 +119,7 @@ public:
     FMD_OUTDOOR_SEATING = 48,
     FMD_NETWORK = 49,
     FMD_SCHEDULE_ID = 50,
+    FMD_HERITAGE_WEBSITE = 51,
     FMD_COUNT
   };
 

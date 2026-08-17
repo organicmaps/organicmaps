@@ -7,6 +7,7 @@ enum NavigationDashboard {
     var trackRecordingState: TrackRecordingState
     var routingOptions: RoutingOptions
     var routeElevationPreviewData: RouteElevationPreviewData?
+    var routeElevationActivePointDistance: Double?
     var navigationInfo: NavigationInfo
     var estimates: NSAttributedString
     var dashboardState: MWMNavigationDashboardState
@@ -41,6 +42,7 @@ extension NavigationDashboard.ViewModel {
       trackRecordingState: TrackRecordingManager.shared.recordingState,
       routingOptions: RoutingOptions(),
       routeElevationPreviewData: nil,
+      routeElevationActivePointDistance: nil,
       navigationInfo: .hidden,
       estimates: NSAttributedString(),
       dashboardState: .hidden,
@@ -63,13 +65,10 @@ extension NavigationDashboard.ViewModel {
       return .disabled
     }
     if progress < 1 {
-      return .loading
+      return .loading(progress: progress)
     }
-    if routerType == .ruler ||
-      routerType == .publicTransport {
-      return .disabled
-    }
-    return .enabled
+    let isStartEnabled = routerType != .ruler && routerType != .publicTransport
+    return isStartEnabled ? .enabled : .disabled
   }
 
   var estimatesState: EstimatesView.State {

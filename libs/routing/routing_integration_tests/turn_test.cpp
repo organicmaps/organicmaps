@@ -706,6 +706,41 @@ UNIT_TEST(England_London_ExitToLeft_TurnTest)
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToLeft);
 }
 
+// Test on a straight one-way road (N 20 / D 2020) which crosses mwm borders
+// (Loiret <-> Eure-et-Loir) several times. No maneuvers should be generated.
+// https://github.com/organicmaps/organicmaps/issues/5804
+UNIT_TEST(France_CrossMwm_N20_NoDummyTurns_TurnTest)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                                               mercator::FromLatLon(48.0980, 1.8846), {0.0, 0.0},
+                                                               mercator::FromLatLon(48.1676143, 1.9176601));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+  integration::TestTurnCount(route, 0 /* expectedTurnCount */);
+}
+
+// Exit from A6 highway (exit 13, Milly-la-Foret) and the right turn at the end of the exit ramp.
+// The turn at the end of the ramp was not generated because a smoothed route angle (49.9 degrees)
+// was slightly less than the TurnRight threshold, while the local turn angle is 62.6 degrees.
+// https://github.com/organicmaps/organicmaps/issues/9615
+UNIT_TEST(France_A6_ExitToRight_TurnTest)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                                               mercator::FromLatLon(48.4732126, 2.5163615), {0.0, 0.0},
+                                                               mercator::FromLatLon(48.45631, 2.518932));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnRight);
+}
+
 // Test on the route from Leninsky prospect to its frontage road and turns generated on the route.
 UNIT_TEST(Russia_Moscow_LeninskyProsp_TurnTest)
 {
@@ -810,6 +845,39 @@ UNIT_TEST(USA_Tampa_TurnTest)
   integration::TestTurnCount(route, 1 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections(
       {CarDirection::TurnSlightRight, CarDirection::TurnRight});
+}
+
+// Test on no turn generation at a driveway junction while the route follows a residential road
+// which gently curves there. The only alternative is a driveway (two highway classes below),
+// so no direction should be given. See https://github.com/organicmaps/organicmaps/issues/13152
+UNIT_TEST(USA_Connecticut_WestHartford_NoTurnAtDriveway_TurnTest)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                                               mercator::FromLatLon(41.780262, -72.943726), {0., 0.},
+                                                               mercator::FromLatLon(41.778837, -72.937728));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+  integration::TestTurnCount(route, 0 /* expectedTurnCount */);
+}
+
+// Control test for the previous one: a real turn from Vineyard Road to a same-class
+// residential road (Deer Field Trace) a few hundred meters to the west must be kept.
+UNIT_TEST(USA_Connecticut_WestHartford_TurnToDeerField_TurnTest)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                                               mercator::FromLatLon(41.780262, -72.943726), {0., 0.},
+                                                               mercator::FromLatLon(41.7800312, -72.9419313));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections(
+      {CarDirection::TurnSlightLeft, CarDirection::TurnLeft});
 }
 
 // Test on go straight direction if it's possible to go through a roundabout.

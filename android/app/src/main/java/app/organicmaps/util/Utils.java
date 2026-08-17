@@ -179,7 +179,7 @@ public class Utils
     }
     catch (ActivityNotFoundException e)
     {
-      Logger.e(TAG, "Failed to start activity", e);
+      Logger.w(TAG, "Failed to start activity", e);
     }
   }
 
@@ -243,7 +243,7 @@ public class Utils
     {
       if (failMessage != null)
         Toast.makeText(context, context.getString(failMessage), Toast.LENGTH_LONG).show();
-      Logger.e(TAG, "ActivityNotFoundException", e);
+      Logger.w(TAG, "ActivityNotFoundException", e);
     }
   }
 
@@ -332,7 +332,7 @@ public class Utils
     }
     catch (ActivityNotFoundException e)
     {
-      Logger.e(TAG, "Failed to call phone", e);
+      Logger.w(TAG, "Failed to call phone", e);
     }
   }
 

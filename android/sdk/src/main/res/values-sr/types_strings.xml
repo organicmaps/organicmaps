@@ -650,6 +650,7 @@
     <string name="type.leisure.ice_rink">Клизалиште</string>
     <string name="type.leisure.marina">Марина</string>
     <string name="type.leisure.nature_reserve">Природни резерват</string>
+    <string name="type.leisure.bird_hide">Осматрачница за птице</string>
     <string name="type.leisure.outdoor_seating">Седење на отвореном</string>
     <string name="type.leisure.park">Парк</string>
     <string name="type.leisure.park.no.access">Парк</string>
@@ -739,6 +740,8 @@
     <string name="type.natural.meadow">Ливада</string>
     <string name="type.natural.orchard">Воћњак</string>
     <string name="type.natural.peak">Врх</string>
+    <string name="type.natural.hill">Брдо</string>
+    <string name="type.natural.arch">Стенови лук</string>
     <string name="type.natural.saddle">Планинско седло</string>
     <string name="type.natural.rock">Камен</string>
     <string name="type.natural.scrub">Шикара</string>
@@ -1417,6 +1420,7 @@
     <string name="type.self_service.no">Нема самопослуживања</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">Социјална установа</string>
+    <string name="type.amenity.stage">Сцена</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Улаз у хитну помоћ</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

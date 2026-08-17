@@ -56,6 +56,36 @@ std::string_view IsHatchingTerritoryChecker::GetHatch(feature::TypesHolder const
   return {};
 }
 
+IsAreaPatternChecker::Stipple::Stipple()
+  : ftypes::BaseCheckerEx({{"natural", "beach"}, {"natural", "desert"}})  // natural=sand is a beach subtype
+{}
+
+IsAreaPatternChecker::Speckle::Speckle() : ftypes::BaseCheckerEx({{"natural", "scree"}, {"natural", "bare_rock"}}) {}
+
+IsAreaPatternChecker::Grid::Grid() : ftypes::BaseCheckerEx({{"landuse", "orchard"}, {"landuse", "vineyard"}}) {}
+
+std::string_view IsAreaPatternChecker::GetPattern(uint32_t type) const
+{
+  if (m_stipple(type))
+    return dp::kStipplePattern;
+  if (m_speckle(type))
+    return dp::kSpecklePattern;
+  if (m_grid(type))
+    return dp::kGridPattern;
+  return {};
+}
+
+std::string_view IsAreaPatternChecker::GetPattern(feature::TypesHolder const & types) const
+{
+  for (uint32_t t : types)
+  {
+    auto s = GetPattern(t);
+    if (!s.empty())
+      return s;
+  }
+  return {};
+}
+
 void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int zoomLevel, feature::GeomType geomType,
                               bool auxCaptionExists)
 {
@@ -179,10 +209,12 @@ void Stylist::ProcessKey(FeatureType & f, drule::Key const & key)
 Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, bool forceOutdoorStyle)
   : m_rulesHolder(forceOutdoorStyle ? drule::GetOutdoorRules() : drule::GetCurrentRules())
 {
+#ifdef DEBUG
   auto const style = GetStyleReader().GetCurrentStyle();
   ASSERT(classificator::IsStyleLoaded(
              forceOutdoorStyle ? (MapStyleIsDark(style) ? MapStyleOutdoorsDark : MapStyleOutdoorsLight) : style),
          ("Drawing rules for the current style are not loaded", style, forceOutdoorStyle));
+#endif  // DEBUG
 
   feature::TypesHolder const types(f);
   Classificator const & cl = forceOutdoorStyle ? GetOutdoorClassif() : classif();

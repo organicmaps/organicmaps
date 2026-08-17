@@ -1,26 +1,41 @@
-- NYTT! Trykk på et stoppested for kollektivtransport for å markere hele ruten på kartet, som i Transit-kartstilen.
-- NYTT! Langdistanseruter for kollektivtransport og andre OpenStreetMap-relasjoner er nå koblet sammen på tvers av kartgrensene til én sammenhengende linje.
-- OpenStreetMap-dataene er oppdatert fra og med 3. mai.
-- Vietnam og Malaysia er nå delt inn i mindre regioner som kan lastes ned separat.
-- Hongkong, Macao og Hainan er nå adskilt fra Guangdong, og nabogrensene er oppdatert.
-- Oppdaterte konturlinjer for Indonesia, Malaysia, Tanzania, Thailand og Vietnam.
-- Lagt til en knapp for sporopptak i infopanelet i navigasjonen.
-- Lagt til nye OpenStreetMap-typer: vulkaner med aktiv status, adkomstpunkter til vannveier, skipsleier, vannpipe-lounger og bygninger under bygging.
-- Lagt til "Lookout" som et søkesynonym for utsiktspunkter, og "pkwy" som et amerikansk gatesynonym.
-- Fargene på fotgjengerområdene er litt mørkere for bedre lesbarhet.
-- Bokmerkeetiketter på kartet overlapper ikke lenger hverandre.
-- Tekst på flere linjer klippes nå rent, og gatenavn inneholder ikke lenger duplikater.
-- Ruteplanlegging: Ruter som gjenopptas, fjerner nå mellomliggende punkter som du allerede har passert.
-- Feil bokmerkeliste ble ikke lenger brukt i TestFlight-versjoner.
-- Fikset import av KMB-filer.
-- Oppdaterte korrekturleste oversettelser for kategorier, søkesynonymer og brukergrensesnittstrenger. Lagt til oversettelser for beskrivelser av New South Wales og Northern Territory.
-- Forbedret stabilitet og ytelse, inkludert skriftforming, caching av glyfer og klipping av rutelinjer.
-- Forbedret høydegrafen for spor og ruter.
-- Større menyknapper i navigasjonsmenyen for handlinger som TTS, innstillinger og sporopptak.
-- Forbedret animasjonen av den utvidbare beskrivelsesdelen på stedssiden.
-- Siden med stedsinformasjon lukkes ikke lenger når høydeskrubbingen avsluttes, den spretter ikke lenger uventet, og tittelen forblir synlig mens du redigerer med tastaturet åpent.
-- Fikset krasj når du sletter et spor eller et bokmerke som ikke lenger eksisterer.
+- NYTT! Ruteplanlegging for offentlig transport med T-bane, bybane, buss og trikk
+- NYTT! Alternative ruter: i tillegg til den raskeste ruten viser appen nå også den korteste ruten
+- NYTT! Advarsler for gå- og sykkelruter om trappetrinn, porter og løfteporter underveis
+- NYTT! Trykk for å velge mellom overlappende ruter og stier
+- NYTT! Velg hvilken som helst farge for bokmerker
+- NYTT! Støtte for koordinatene British National Grid (OS Grid), Irish Grid og Irish Transverse Mercator (ITM)
+- NYTT! Tilgjengelighetsstøtte for Dynamic Type og store skrifttyper
+- EKSPERIMENTELT: Aktiver satellittbilder i Organic Maps-innstillingene med en tilpasset URL for rasterfliseserver
+- Renere tabellformatering i brukergrensesnittet
+- Skriv inn `?map-download-server:https://your-server.com/` i søkefeltet for å overstyre kartnedlastingsserverne for Organic Maps. Skriv inn `?no-map-download-server` for å fjerne overstyringen.
+- Diverse feilrettinger og ytelsesforbedringer
 
-## Plattformstøtte
+## Kartdata
 
-- På grunn av endringer i TestFlight og App Store støtter denne utgivelsen kun iOS 15 og nyere. iOS 12, iOS 13 og iOS 14 støttes ikke lenger.
+- OpenStreetMap-data oppdatert per 24. juni
+- Wikipedia-data oppdatert per 20. juni, inkludert artikler på italiensk
+
+## Kartgjengivelse og stiler
+
+- Penere mønstre for strender, sand, ur, bar fjell, frukthager og vingårder, samt skravering for verneområder og våtmarker
+- Jevnere, buede tekstetiketter for veier og elver
+- Elver, bekker og våtmarker har høyere kontrast og er mer synlige i mørk modus
+- Nye og forbedrede ikoner for kategorisøk og søkeresultater på kartet
+- Forbedret formatering og gjengivelse av flerspråklig tekst
+
+## Ruter, bokmerker og veibeskrivelser
+
+- Forbedret HTML-gjengivelse av beskrivelser av bokmerker og ruter
+- GeoJSON-spor lagrer nå høyde og tidsstempler ved import og eksport
+- Løste et krasj etter at en rute ble flyttet til en annen liste
+- Nettsteder vises nå for kulturminner
+- Operatørnavn vises nå for navnløse søkeresultater. For eksempel viser en navnløs ATM nå sin bank
+- Redaktør: korrigert beskrivelsesteksten for leilighetsbygg OpenStreetMap redigeringer/endringssett
+- Forbedret HTML-gjenkjenning i beskrivelser av bokmerker og ruter
+- Dupliserte ruter blir nå filtrert bort
+
+## Oversettelser
+
+- Kantonesisk stemmeveiledning med trinn-for-trinn-instruksjoner
+- Oppdaterte oversettelser til tysk og fransk
+- Rettet feilaktige oversettelser av "onto street"-stemmeguidingen for kinesisk, serbisk og katalansk

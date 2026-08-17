@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Ice Rink";
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.bird_hide" = "مخفیگاه پرنده‌نگری";
 "type.leisure.outdoor_seating" = "نشستن در فضای باز";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "پارک";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "چمنزار";
 "type.natural.orchard" = "باغ میوه";
 "type.natural.peak" = "قله";
+"type.natural.hill" = "تپه";
+"type.natural.arch" = "کمان سنگی";
 "type.natural.saddle" = "زین کوه";
 "type.natural.rock" = "سنگ";
 "type.natural.scrub" = "بوته زار";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "تسهیلات اجتماعی";
+"type.amenity.stage" = "صحنه";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "ورودی بخش اورژانس";

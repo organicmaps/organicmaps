@@ -3,7 +3,8 @@
 #include "indexer/categories_holder.hpp"
 #include "indexer/categories_index.hpp"
 #include "indexer/classificator.hpp"
-#include "indexer/classificator_loader.hpp"
+
+#include "generator/generator_tests_support/test_with_classificator.hpp"
 
 #include "coding/reader.hpp"
 #include "coding/string_utf8_multilang.hpp"
@@ -16,6 +17,7 @@
 
 namespace categories_test
 {
+using namespace generator::tests_support;
 using namespace indexer;
 using namespace std;
 
@@ -94,10 +96,8 @@ struct Checker
   size_t & m_count;
 };
 
-UNIT_TEST(LoadCategories)
+UNIT_CLASS_TEST(TestWithClassificator, LoadCategories)
 {
-  classificator::Load();
-
   CategoriesHolder h(make_unique<MemReader>(g_testCategoriesTxt, sizeof(g_testCategoriesTxt) - 1));
   size_t count = 0;
   Checker f(count);
@@ -117,10 +117,50 @@ UNIT_TEST(CategoriesHolder_Smoke)
   }
 }
 
-UNIT_TEST(CategoriesHolder_LoadDefault)
+// Android 14+ appends regional preferences to the locale as Unicode extensions, e.g.
+// Locale.toString() == "zh_CN_#Hans-u-fw-mon" when the user picks Monday as the first day of the
+// week. The "mon" value must not be matched as the Macau ("mo") region subtag, which would show
+// Traditional Chinese categories to a Simplified Chinese user.
+UNIT_TEST(CategoriesHolder_LocaleExtensions)
 {
-  classificator::Load();
+  auto const simplified = CategoriesHolder::kSimplifiedChineseCode;
+  auto const traditional = CategoriesHolder::kTraditionalChineseCode;
 
+  for (char const * locale : {"zh_CN_#u-fw-mon", "zh_CN_#Hans-u-fw-mon", "zh_CN_#Hans-u-fw-sun",
+                              "zh_CN_#u-fw-mon-ms-metric-mu-celsius", "zh_CN_#Hans"})
+    TEST_EQUAL(CategoriesHolder::MapLocaleToInteger(locale), simplified, (locale));
+
+  for (char const * locale : {"zh_TW_#Hant-u-fw-mon", "zh_HK_#u-fw-mon", "zh_MO_#u-fw-sun"})
+    TEST_EQUAL(CategoriesHolder::MapLocaleToInteger(locale), traditional, (locale));
+
+  // Non-Chinese locales are unaffected by their extensions.
+  TEST_EQUAL(CategoriesHolder::MapLocaleToInteger("en_UA_#u-fw-mon-ms-metric-mu-celsius"),
+             CategoriesHolder::kEnglishCode, ());
+
+  // Chinese variants are matched case-insensitively.
+  TEST_EQUAL(CategoriesHolder::MapLocaleToInteger("ZH_TW"), traditional, ());
+  TEST_EQUAL(CategoriesHolder::MapLocaleToInteger("ZH_CN"), simplified, ());
+
+  // POSIX $LANG on Linux/Qt carries a charset suffix.
+  TEST_EQUAL(CategoriesHolder::MapLocaleToInteger("zh_TW.UTF-8"), traditional, ());
+  TEST_EQUAL(CategoriesHolder::MapLocaleToInteger("zh_CN.UTF-8"), simplified, ());
+}
+
+// Locales are matched by whole subtags, so a three-letter language is never mistaken for a
+// two-letter one it happens to start with: Filipino ("fil") is not Finnish ("fi").
+UNIT_TEST(CategoriesHolder_ThreeLetterLanguages)
+{
+  for (char const * locale : {"fil", "fil_PH", "fil-PH", "bem_ZM", "rof_TZ", "bgc_IN"})
+    TEST_EQUAL(CategoriesHolder::MapLocaleToInteger(locale), CategoriesHolder::kUnsupportedLocaleCode, (locale));
+
+  // The two-letter languages they shadow still resolve.
+  TEST_EQUAL(CategoriesHolder::MapLocaleToInteger("fi"), CategoriesHolder::MapLocaleToInteger("fi_FI"), ());
+  TEST_NOT_EQUAL(CategoriesHolder::MapLocaleToInteger("fi"), CategoriesHolder::kUnsupportedLocaleCode, ());
+  TEST_NOT_EQUAL(CategoriesHolder::MapLocaleToInteger("be_BY"), CategoriesHolder::kUnsupportedLocaleCode, ());
+}
+
+UNIT_CLASS_TEST(TestWithClassificator, CategoriesHolder_LoadDefault)
+{
   uint32_t counter = 0;
   auto const count = [&counter](CategoriesHolder::Category const &) { ++counter; };
 
@@ -134,7 +174,7 @@ UNIT_TEST(CategoriesHolder_LoadDefault)
   TEST_GREATER(counter, 0, ());
 }
 
-UNIT_TEST(CategoriesHolder_ForEach)
+UNIT_CLASS_TEST(TestWithClassificator, CategoriesHolder_ForEach)
 {
   char const kCategories[] =
       "amenity-bar\n"
@@ -151,7 +191,6 @@ UNIT_TEST(CategoriesHolder_ForEach)
       "\n"
       "";
 
-  classificator::Load();
   CategoriesHolder holder(make_unique<MemReader>(kCategories, ARRAY_SIZE(kCategories) - 1));
 
   {
@@ -176,10 +215,8 @@ UNIT_TEST(CategoriesHolder_ForEach)
   }
 }
 
-UNIT_TEST(CategoriesIndex_Smoke)
+UNIT_CLASS_TEST(TestWithClassificator, CategoriesIndex_Smoke)
 {
-  classificator::Load();
-
   CategoriesHolder holder(make_unique<MemReader>(g_testCategoriesTxt, sizeof(g_testCategoriesTxt) - 1));
   CategoriesIndex index(holder);
 
@@ -230,7 +267,7 @@ UNIT_TEST(CategoriesIndex_Smoke)
   TEST_EQUAL(cats[1].m_synonyms[0].m_name, "village", ());
 }
 
-UNIT_TEST(CategoriesIndex_MultipleTokens)
+UNIT_CLASS_TEST(TestWithClassificator, CategoriesIndex_MultipleTokens)
 {
   char const kCategories[] =
       "shop-bakery\n"
@@ -239,7 +276,6 @@ UNIT_TEST(CategoriesIndex_MultipleTokens)
       "shop-butcher\n"
       "en:shop of meat";
 
-  classificator::Load();
   CategoriesHolder holder(make_unique<MemReader>(kCategories, sizeof(kCategories) - 1));
   CategoriesIndex index(holder);
 
@@ -261,7 +297,7 @@ UNIT_TEST(CategoriesIndex_MultipleTokens)
   testTypes("shop meat", {type2});
 }
 
-UNIT_TEST(CategoriesIndex_Groups)
+UNIT_CLASS_TEST(TestWithClassificator, CategoriesIndex_Groups)
 {
   char const kCategories[] =
       "@shop\n"
@@ -278,7 +314,6 @@ UNIT_TEST(CategoriesIndex_Groups)
       "en:butcher\n"
       "";
 
-  classificator::Load();
   CategoriesHolder holder(make_unique<MemReader>(kCategories, sizeof(kCategories) - 1));
   CategoriesIndex index(holder);
 
@@ -305,10 +340,8 @@ UNIT_TEST(CategoriesIndex_Groups)
 
 #ifdef DEBUG
 // A check that this data structure is not too heavy.
-UNIT_TEST(CategoriesIndex_AllCategories)
+UNIT_CLASS_TEST(TestWithClassificator, CategoriesIndex_AllCategories)
 {
-  classificator::Load();
-
   CategoriesIndex index;
 
   index.AddAllCategoriesInAllLangs();
@@ -318,10 +351,8 @@ UNIT_TEST(CategoriesIndex_AllCategories)
 }
 
 // A check that this data structure is not too heavy.
-UNIT_TEST(CategoriesIndex_AllCategoriesEnglishName)
+UNIT_CLASS_TEST(TestWithClassificator, CategoriesIndex_AllCategoriesEnglishName)
 {
-  classificator::Load();
-
   CategoriesIndex index;
 
   index.AddAllCategoriesInLang(CategoriesHolder::MapLocaleToInteger("en"));

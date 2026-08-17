@@ -50,6 +50,14 @@ void FakeGraph::AddConnection(Segment const & from, Segment const & to)
   m_ingoing[to].insert(from);
 }
 
+void FakeGraph::AddOuterConnection(Segment const & from, Segment const & to)
+{
+  // Unlike AddConnection, exactly one of |from|/|to| is a vertex of this graph; the other lives
+  // outside it (e.g. a transit segment resolved by the world graph), so no vertex is required.
+  m_outgoing[from].insert(to);
+  m_ingoing[to].insert(from);
+}
+
 void FakeGraph::Append(FakeGraph const & rhs)
 {
   std::map<Segment, FakeVertex> intersection;

@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Eislaufplatz";
 "type.leisure.marina" = "Jachthafen";
 "type.leisure.nature_reserve" = "Naturschutzgebiet";
+"type.leisure.bird_hide" = "Vogelbeobachtungsstand";
 "type.leisure.outdoor_seating" = "Außensitzplätze";
 "type.leisure.firepit" = "Feuerstelle";
 "type.leisure.park" = "Park";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "Wiese";
 "type.natural.orchard" = "Obstplantage";
 "type.natural.peak" = "Gipfel";
+"type.natural.hill" = "Hügel";
+"type.natural.arch" = "Felsenbogen";
 "type.natural.saddle" = "Bergsattel";
 "type.natural.rock" = "Fels";
 "type.natural.scrub" = "Dickicht";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "Soziale Einrichtung";
+"type.amenity.stage" = "Bühne";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Eingang der Notfallstation";

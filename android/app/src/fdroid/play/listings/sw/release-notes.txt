@@ -1,7 +1,8 @@
-• Gusa kituo cha usafiri wa umma na uchague nambari za njia ili kuonyesha njia kwenye ramani
-• Lebo za alamisho hazipishani tena kwenye ramani
-• Data mpya ya OpenStreetMap kuanzia Mei 3, ikiwa na aina mpya za vitu
-• Chati za juu zilizoboreshwa kwa njia na kozi
-• Upakuaji wa ramani ndogo kwa ajili ya Vietnam, Malaysia, Hong Kong, Macau, na Hainan
-• Kiolesura na uhuishaji vilivyoboreshwa
-…maelezo zaidi katika omaps.org/news
+VIPENGELE VIPYA:
+• Kiolesura cha mtumiaji cha utafutaji na upangaji njia kimesasishwa
+• Mpangilio wa usafiri wa umma (basi, tramu, treni ya chini ya ardhi, reli nyepesi)
+• Njia mbadala za haraka zaidi na fupi zaidi
+• Maonyo ya njia kuhusu ngazi, milango, na milango ya kuinua
+• Chagua rangi yoyote kwa alamisho
+• Uungaji mkono kwa kuratibu za UK OS Grid, Irish Grid, ITM
+…zaidi katika omaps.org/news

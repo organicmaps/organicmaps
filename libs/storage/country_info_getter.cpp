@@ -18,10 +18,7 @@ namespace storage
 // CountryInfoGetterBase ---------------------------------------------------------------------------
 CountryId CountryInfoGetterBase::GetRegionCountryId(m2::PointD const & pt) const
 {
-  // Wrap X to [-180, 180] so extended coordinates (past the antimeridian) map to
-  // the correct country. Country boundaries and polygons are in canonical coordinates.
-  m2::PointD const wrapped(mercator::WrapX(pt.x), pt.y);
-  RegionId const id = FindFirstCountry(wrapped);
+  RegionId const id = FindFirstCountry(pt);
   return id == kInvalidId ? kInvalidCountryId : m_countries[id].m_countryId;
 }
 
@@ -52,8 +49,9 @@ CountryInfoGetterBase::RegionId CountryInfoGetterBase::GetRegionId(CountryId con
 
 CountryInfoGetterBase::RegionId CountryInfoGetterBase::FindFirstCountry(m2::PointD const & pt) const
 {
+  m2::PointD const wrapped(mercator::WrapX(pt.x), pt.y);
   for (size_t id = 0; id < m_countries.size(); ++id)
-    if (BelongsToRegion(pt, id))
+    if (BelongsToRegion(wrapped, id))
       return id;
 
   return kInvalidId;
@@ -62,8 +60,7 @@ CountryInfoGetterBase::RegionId CountryInfoGetterBase::FindFirstCountry(m2::Poin
 // CountryInfoGetter -------------------------------------------------------------------------------
 std::vector<CountryId> CountryInfoGetter::GetRegionsCountryIdByRect(m2::RectD rect, bool rough) const
 {
-  // Normalize extended rect X into canonical range. IsRectOverlap already handles +-360 shifts,
-  // but exact polygon checks (IsIntersectedByRegion) require canonical coordinates.
+  // Wrap input rect into canonical range for further IsIntersectOrInside and IsIntersectedByRegion calls.
   if (rect.minX() >= mercator::Bounds::kMaxX || rect.maxX() <= mercator::Bounds::kMinX)
   {
     double const startX = mercator::WrapX(rect.minX());
@@ -73,9 +70,11 @@ std::vector<CountryId> CountryInfoGetter::GetRegionsCountryIdByRect(m2::RectD re
   std::vector<CountryId> result;
   for (size_t id = 0; id < m_countries.size(); ++id)
   {
-    if (!m_countries[id].IsRectOverlap(rect))
+    auto const res = CountryDef::IsIntersectOrInside(rect, m_countries[id].m_rect);
+    if (res == CountryDef::Overlap::NONE)
       continue;
-    if (rect.IsRectInside(m_countries[id].m_rect) || rough || IsIntersectedByRegion(rect, id))
+
+    if (res == CountryDef::Overlap::INSIDE || rough || IsIntersectedByRegion(rect, id))
       result.push_back(m_countries[id].m_countryId);
   }
   return result;
@@ -96,8 +95,7 @@ void CountryInfoGetter::GetRegionsCountryId(m2::PointD const & pt, CountriesVec 
 
 void CountryInfoGetter::GetRegionInfo(m2::PointD const & pt, CountryInfo & info) const
 {
-  m2::PointD const wrapped(mercator::WrapX(pt.x), pt.y);
-  RegionId const id = FindFirstCountry(wrapped);
+  RegionId const id = FindFirstCountry(pt);
   if (id != kInvalidId)
     GetRegionInfo(m_countries[id].m_countryId, info);
 }
@@ -106,21 +104,6 @@ void CountryInfoGetter::GetRegionInfo(CountryId const & countryId, CountryInfo &
 {
   info.m_name = countryId;
   CountryInfo::FileName2FullName(info.m_name);
-}
-
-void CountryInfoGetter::CalcUSALimitRect(m2::RectD rects[3]) const
-{
-  auto fn = [&](CountryDef const & c)
-  {
-    if (c.m_countryId == "USA_Alaska")
-      rects[1] = c.m_rect;
-    else if (c.m_countryId == "USA_Hawaii")
-      rects[2] = c.m_rect;
-    else
-      rects[0].Add(c.m_rect);
-  };
-
-  ForEachCountry("USA_", fn);
 }
 
 m2::RectD CountryInfoGetter::CalcLimitRect(std::string const & prefix) const
@@ -294,7 +277,9 @@ bool CountryInfoReader::IsIntersectedByRegion(m2::RectD const & rect, RegionId i
     for (auto const & region : regions)
     {
       bool isIntersect = false;
-      rect.ForEachSide([&](m2::PointD const & p1, m2::PointD const & p2)
+      // Country polygons are always canonical, but \a rect may cross the antimeridian: emit its sides
+      // in canonical coordinates (splitting a wrapped rect into its two halves).
+      CountryDef::ForEachRectSideWrapped(rect, [&](m2::PointD const & p1, m2::PointD const & p2)
       {
         if (isIntersect)
           return;
@@ -310,7 +295,16 @@ bool CountryInfoReader::IsIntersectedByRegion(m2::RectD const & rect, RegionId i
   if (WithRegion(id, contains))
     return true;
 
-  return BelongsToRegion(rect.Center(), id);
+  // Fallback for a rect fully inside the region (no side crosses its boundary). For a wrapped rect
+  // test both canonical positions of its center.
+  m2::PointD const c = rect.Center();
+  if (BelongsToRegion(c, id))
+    return true;
+  if (rect.maxX() > 180.0)
+    return BelongsToRegion({c.x - 360.0, c.y}, id);
+  if (rect.minX() < -180.0)
+    return BelongsToRegion({c.x + 360.0, c.y}, id);
+  return false;
 }
 
 bool CountryInfoReader::IsCloseEnough(RegionId id, m2::PointD const & pt, double distance) const

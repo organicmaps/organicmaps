@@ -17,7 +17,8 @@ typedef NS_ENUM(NSUInteger, DeeplinkUrlType) {
 
 + (DeeplinkUrlType)parseAndSetApiURL:(NSURL *)url;
 + (void)executeMapApiRequest;
-+ (void)addBookmarksFile:(NSURL *)url;
++ (void)addBookmarksFile:(NSURL *)url isTemporaryFile:(BOOL)isTemporaryFile;
+
 @end
 
 NS_ASSUME_NONNULL_END

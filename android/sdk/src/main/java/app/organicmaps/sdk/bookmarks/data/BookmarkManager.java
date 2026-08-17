@@ -192,10 +192,10 @@ public enum BookmarkManager {
   @Keep
   @SuppressWarnings("unused")
   @MainThread
-  private void onElevationCurrentPositionChanged()
+  private void onElevationCurrentPositionChanged(long trackId, double distance)
   {
     if (mOnElevationCurrentPositionChangedListener != null)
-      mOnElevationCurrentPositionChangedListener.onCurrentPositionChanged();
+      mOnElevationCurrentPositionChangedListener.onCurrentPositionChanged(trackId, distance);
   }
 
   public void setElevationCurrentPositionChangedListener(@Nullable OnElevationCurrentPositionChangedListener listener)
@@ -212,10 +212,10 @@ public enum BookmarkManager {
   @Keep
   @SuppressWarnings("unused")
   @MainThread
-  private void onElevationActivePointChanged()
+  private void onElevationActivePointChanged(long trackId, double distance)
   {
     if (mOnElevationActivePointChangedListener != null)
-      mOnElevationActivePointChangedListener.onElevationActivePointChanged();
+      mOnElevationActivePointChangedListener.onElevationActivePointChanged(trackId, distance);
   }
 
   @Nullable
@@ -523,6 +523,13 @@ public enum BookmarkManager {
     nativeSetAllCategoriesVisibility(visible);
   }
 
+  /// Sets individual track visibility. Uses EditSession internally for thread safety.
+  /// Category visibility takes precedence: a track renders only if both category and track are visible.
+  public void setTrackVisibility(long trackId, boolean visible)
+  {
+    nativeSetTrackVisibility(trackId, visible);
+  }
+
   public void prepareCategoriesForSharing(long[] catIds, @NonNull FileType fileType)
   {
     nativePrepareFileForSharing(catIds, fileType.ordinal());
@@ -614,6 +621,8 @@ public enum BookmarkManager {
 
   private static native void nativeSetAllCategoriesVisibility(boolean visible);
 
+  private static native void nativeSetTrackVisibility(long trackId, boolean visible);
+
   private static native void nativePrepareFileForSharing(long[] catIds, int fileType);
 
   private static native void nativePrepareTrackFileForSharing(long trackId, int fileType);
@@ -656,12 +665,12 @@ public enum BookmarkManager {
 
   public interface OnElevationActivePointChangedListener
   {
-    void onElevationActivePointChanged();
+    void onElevationActivePointChanged(long trackId, double distance);
   }
 
   public interface OnElevationCurrentPositionChangedListener
   {
-    void onCurrentPositionChanged();
+    void onCurrentPositionChanged(long trackId, double distance);
   }
 
   static class BookmarkCategoriesCache

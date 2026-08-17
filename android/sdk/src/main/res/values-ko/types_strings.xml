@@ -559,6 +559,7 @@
     <string name="type.leisure.miniature_golf">미니골프</string>
     <string name="type.leisure.hackerspace">해커스 스페이스</string>
     <string name="type.leisure.nature_reserve">천연보호구역</string>
+    <string name="type.leisure.bird_hide">조류 관찰 은신처</string>
     <string name="type.leisure.outdoor_seating">야외 좌석</string>
     <string name="type.leisure.park">공원</string>
     <string name="type.leisure.park.no.access">공원</string>
@@ -629,6 +630,8 @@
     <string name="type.natural.meadow">초지</string>
     <string name="type.natural.orchard">과수원</string>
     <string name="type.natural.peak">산</string>
+    <string name="type.natural.hill">언덕</string>
+    <string name="type.natural.arch">바위 아치</string>
     <string name="type.natural.saddle">산 안장</string>
     <string name="type.natural.rock">암석</string>
     <string name="type.natural.scrub">관목지</string>
@@ -1219,6 +1222,7 @@
     <string name="type.self_service.no">셀프 서비스 없음</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">사회 시설</string>
+    <string name="type.amenity.stage">무대</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">응급 병동 입구</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

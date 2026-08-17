@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Μήκος";
 "share_my_location" = "Κοινοποίηση της τοποθεσίας μου";
+"prefs_group_network" = "Δίκτυο";
 "prefs_group_route" = "Πλοήγηση";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -217,6 +218,24 @@
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "Τα τρισδιάστατα κτίρια είναι απενεργοποιημένα σε λειτουργία εξοικονόμησης ενέργειας";
+
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "Δορυφορικές εικόνες";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "URL διακομιστή";
+
+/* Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) */
+"pref_bg_tiles_url_error" = "Εισαγάγετε έγκυρη διεύθυνση URL με {z}/{x}/{y}";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "Μέγεθος προσωρινής μνήμης (MB)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "Αδιαφάνεια αντικειμένων επιφάνειας";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "Οι πηγές προσαρμοσμένων πλακιδίων παρέχονται από εσάς. Χρησιμοποιείτε μόνο υπηρεσίες στις οποίες επιτρέπεται να έχετε πρόσβαση. Είστε υπεύθυνοι για την αναφορά προέλευσης, τους όρους άδειας, τα κλειδιά API, τις ποσοστώσεις και τα όρια χρήσης.";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Φωνητικές οδηγίες";
@@ -390,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Σφάλμα κατά την αποστολή του e-mail";
-
-/* Settings item title */
-"pref_calibration_title" = "Καλιμπράρισμα πυξίδας";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Διαθέσιμα";
@@ -643,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Αυτό το όνομα χρησιμοποιείται ήδη";
 "profile" = "Προφίλ OpenStreetMap";
 "restore" = "Επαναφορά";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Απόρρητο";
 "privacy_policy" = "Πολιτική απορρήτου";
 "terms_of_use" = "Όροι χρήσης";
 
@@ -651,6 +670,9 @@
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "Ποδηλασία";
+
+/* Map layers menu: toggle button for the satellite imagery layer */
+"button_layer_satellite" = "Δορυφόρος";
 "button_layer_subway" = "Μετρό";
 "layers_title" = "Στυλ χάρτη και επίπεδα";
 
@@ -907,6 +929,9 @@
 "elevation_profile_descent" = "Κατάβαση";
 "elevation_profile_min_elevation" = "Ελάχ. υψόμετρο";
 "elevation_profile_max_elevation" = "Μέγ. υψόμετρο";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Ξεκινήστε να κινείστε για να δείτε το υψομετρικό προφίλ";
 "isolines_toast_zooms_1_10" = "Μεγεθύνετε για να δείτε περιγράμματα";
 "downloader_loading_ios" = "Κατέβασμα";
 

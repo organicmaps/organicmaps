@@ -22,6 +22,9 @@ public:
                  bool isOutgoing, bool isPartOfReal, Segment const & real);
   // Adds connection from existent fake segment |from| to existent fake segment |to|
   void AddConnection(Segment const & from, Segment const & to);
+  // Adds an edge |from| -> |to| where one endpoint lives outside this fake graph (e.g. a transit
+  // segment resolved by the world graph); records adjacency only, requires no vertex for that side.
+  void AddOuterConnection(Segment const & from, Segment const & to);
   // Merges |rhs| into this.
   void Append(FakeGraph const & rhs);
 

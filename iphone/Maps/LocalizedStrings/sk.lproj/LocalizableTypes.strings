@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Klzisko";
 "type.leisure.marina" = "Marína";
 "type.leisure.nature_reserve" = "Prírodná rezervácia";
+"type.leisure.bird_hide" = "Pozorovateľňa vtákov";
 "type.leisure.outdoor_seating" = "Posedenie vonku";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "Park";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "Lúka";
 "type.natural.orchard" = "Sad";
 "type.natural.peak" = "Hora";
+"type.natural.hill" = "Kopec";
+"type.natural.arch" = "Skalný oblúk";
 "type.natural.saddle" = "Sedlo";
 "type.natural.rock" = "Kameň";
 "type.natural.scrub" = "Krovie";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "Sociálne zariadenie";
+"type.amenity.stage" = "Javisko";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Vchod do pohotovostného oddelenia";

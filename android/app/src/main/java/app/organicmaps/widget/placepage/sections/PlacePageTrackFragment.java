@@ -88,19 +88,21 @@ public class PlacePageTrackFragment extends Fragment
   }
 
   @Override
-  public void onElevationActivePointChanged()
+  public void onElevationActivePointChanged(long trackId, double distance)
   {
-    if (mTrack == null)
+    if (mTrack == null || mTrack.getTrackId() != trackId)
       return;
-    mElevationProfileViewRenderer.onChartElevationActivePointChanged();
+    mElevationProfileViewRenderer.onChartElevationActivePointChanged(distance);
     final double[] coords = mTrack.getElevationActivePointCoordinates();
     mTrack.setLat(coords[0]);
     mTrack.setLon(coords[1]);
   }
 
   @Override
-  public void onCurrentPositionChanged()
+  public void onCurrentPositionChanged(long trackId, double distance)
   {
-    mElevationProfileViewRenderer.onChartCurrentPositionChanged();
+    if (mTrack == null || mTrack.getTrackId() != trackId)
+      return;
+    mElevationProfileViewRenderer.onChartCurrentPositionChanged(distance);
   }
 }

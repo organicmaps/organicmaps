@@ -110,9 +110,10 @@ std::string_view DebugPrint(Message::Type msgType)
   case Message::Type::OnEnterBackground: return "OnEnterBackground";
   case Message::Type::Arrow3dRecache: return "Arrow3dRecache";
   case Message::Type::VisualScaleChanged: return "VisualScaleChanged";
+  case Message::Type::AddTileBackgroundImage: return "AddTileBackgroundImage";
   case Message::Type::SetTileBackgroundData: return "SetTileBackgroundData";
   case Message::Type::SetTileBackgroundMode: return "SetTileBackgroundMode";
-  case Message::Type::AssignTileBackgroundTexture: return "AssignTileBackgroundTexture";
+  case Message::Type::AssignTileBackgroundImage: return "AssignTileBackgroundImage";
   }
   UNREACHABLE();
 }

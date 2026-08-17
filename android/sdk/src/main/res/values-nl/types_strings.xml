@@ -658,6 +658,7 @@
     <string name="type.leisure.ice_rink">Schaatsbaan</string>
     <string name="type.leisure.marina">Jachthaven</string>
     <string name="type.leisure.nature_reserve">Natuurreservaat</string>
+    <string name="type.leisure.bird_hide">Vogelkijkhut</string>
     <string name="type.leisure.outdoor_seating">Zitplaatsen buiten</string>
     <string name="type.leisure.firepit">Vuurplaats</string>
     <string name="type.leisure.park">Park</string>
@@ -748,6 +749,8 @@
     <string name="type.natural.meadow">Weiland</string>
     <string name="type.natural.orchard">Boomgaard</string>
     <string name="type.natural.peak">Top</string>
+    <string name="type.natural.hill">Heuvel</string>
+    <string name="type.natural.arch">Rotsboog</string>
     <string name="type.natural.saddle">Bergzadel</string>
     <string name="type.natural.rock">Steen</string>
     <string name="type.natural.scrub">Kreupel bos</string>
@@ -1429,6 +1432,7 @@
     <string name="type.self_service.no">Geen zelfbediening</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">Sociale Voorziening</string>
+    <string name="type.amenity.stage">Podium</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Ingang spoedeisende hulp</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

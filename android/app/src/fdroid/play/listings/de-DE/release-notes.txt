@@ -1,7 +1,8 @@
-• Tippen Sie auf eine Haltestelle der öffentlichen Verkehrsmittel und wählen Sie die Routennummern aus, um die Routen auf der Karte zu markieren.
-• Lesezeichenbeschriftungen überschneiden sich nicht mehr auf der Karte
-• Frische OpenStreetMap-Daten ab dem 3. Mai, mit neuen Objekttypen
-• Verbesserte Höhendiagramme für Tracks und Routen
-• Kleinere Karten-Downloads für Vietnam, Malaysia, Hongkong, Macau und Hainan
-• Verbesserte Benutzeroberfläche und Animationen
+NEUE FUNKTIONEN:
+• Aktualisierte Benutzeroberfläche für Suche und Routenplanung
+• Routenplanung für öffentliche Verkehrsmittel (Bus, Straßenbahn, U-Bahn, Stadtbahn)
+• Alternative schnellste und kürzeste Routen
+• Routenwarnungen zu Stufen, Toren und Hebetoren
+• Beliebige Farbe für Lesezeichen auswählen
+• Unterstützung für Koordinaten im Format UK OS Grid, Irish Grid und ITM
 …mehr unter omaps.org/de/news

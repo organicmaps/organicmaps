@@ -61,6 +61,7 @@ set(SRC
   features_road_graph.cpp
   features_road_graph.hpp
   following_info.hpp
+  gate_access.hpp
   geometry.cpp
   geometry.hpp
   guides_connections.cpp

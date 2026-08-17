@@ -4,6 +4,7 @@
 #include "routing/fake_ending.hpp"
 #include "routing/fake_graph.hpp"
 #include "routing/fake_vertex.hpp"
+#include "routing/gate_access.hpp"
 #include "routing/latlon_with_altitude.hpp"
 #include "routing/route_weight.hpp"
 #include "routing/segment.hpp"
@@ -49,6 +50,10 @@ public:
   void GetTransitEdges(Segment const & segment, bool isOutgoing, EdgeListT & edges) const;
   std::set<Segment> const & GetFake(Segment const & real) const;
   bool FindReal(Segment const & fake, Segment & real) const;
+
+  // Fills |out| with gate accesses (see GateAccess) within |radiusM| of |point| (mercator) matching
+  // |isEnter|.
+  void GetGatesNear(m2::PointD const & point, double radiusM, bool isEnter, GateAccessesT & out) const;
 
   void Fill(::transit::experimental::TransitData const & transitData, Endings const & stopEndings,
             Endings const & gateEndings);
@@ -98,6 +103,9 @@ private:
   NumMwmId const m_mwmId = kFakeNumMwmId;
   std::shared_ptr<EdgeEstimator> m_estimator;
   FakeGraph m_fake;
+
+  // Pedestrian access points of all gates, recorded while filling the graph (see AddGate).
+  GateAccessesT m_gateAccesses;
 
   // Fields for working with OnlySubway version of transit.
   std::map<Segment, transit::Edge> m_segmentToEdgeSubway;

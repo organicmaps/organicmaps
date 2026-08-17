@@ -136,7 +136,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
           }
           // Location settings are not satisfied. However, we have no way to fix the
           // settings so we won't show the dialog.
-          Logger.e(TAG, "Service is not available: " + e);
+          Logger.w(TAG, "Service is not available: " + e);
           // Call this callback in the next event loop to allow LocationHelper::start() to finish.
           UiThread.runLater(mListener::onFusedLocationUnsupported);
         });

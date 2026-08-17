@@ -28,6 +28,10 @@ public:
   void BuildFeatures(std::string const & mwmName);
   void BuildSearch(std::string const & mwmName);
   void BuildRouting(std::string const & mwmName, std::string const & countryName);
+  /// Builds CROSS_MWM_FILE_TAG section. The vehicle IndexRouter requires this section even for a
+  /// single-mwm route, so call it after BuildRouting to make a generated mwm routable by car/etc.
+  /// A whole-world fake border is used, so the resulting section has no cross-mwm transitions.
+  void BuildCrossMwm(std::string const & mwmName, std::string const & countryName);
 
   routing::FeatureIdToOsmId LoadFID2OsmID(std::string const & mwmName);
 

@@ -1,8 +1,7 @@
 enum PlacePageExpandableDetailsSectionBuilder {
   static func buildWikipediaSection(_ wikiDescriptionHtml: String, showLinkButton: Bool, delegate: WikiDescriptionViewControllerDelegate) -> PlacePageExpandableDetailsSectionViewController {
     let viewModel = PlacePageExpandableDetailsSectionViewModel(title: L("read_in_wikipedia"),
-                                                               style: .header,
-                                                               expandedState: .collapsed)
+                                                               style: .header)
 
     let presenter = PlacePageExpandableDetailsSectionPresenter(viewModel: viewModel)
     let interactor = PlacePageWikipediaDetailsSectionInteractor(
@@ -11,16 +10,18 @@ enum PlacePageExpandableDetailsSectionBuilder {
       wikiDescriptionHtml: wikiDescriptionHtml,
       showLinkButton: showLinkButton
     )
-    let viewController = PlacePageExpandableDetailsSectionViewController(interactor: interactor)
+    let viewController = PlacePageExpandableDetailsSectionViewController(interactor: interactor,
+                                                                         textContainerFactory: PlacePageTextContainerFactory.self)
     presenter.view = viewController
     return viewController
   }
 
   static func buildEditBookmarkAndTrackSection(data: PlacePageEditData?, delegate: PlacePageEditBookmarkOrTrackViewControllerDelegate) -> PlacePageExpandableDetailsSectionViewController {
-    let viewModel = PlacePageExpandableDetailsSectionViewModel(style: .link, accessory: .ic24PxEdit, expandedState: .hidden)
+    let viewModel = PlacePageExpandableDetailsSectionViewModel(style: .link, accessory: .ic24PxEdit)
     let presenter = PlacePageExpandableDetailsSectionPresenter(viewModel: viewModel)
     let interactor = PlacePageEditBookmarkAndTrackSectionInteractor(presenter: presenter, data: data, delegate: delegate)
-    let viewController = PlacePageExpandableDetailsSectionViewController(interactor: interactor)
+    let viewController = PlacePageExpandableDetailsSectionViewController(interactor: interactor,
+                                                                         textContainerFactory: PlacePageUserDescriptionContainerFactory.self)
     presenter.view = viewController
     return viewController
   }
@@ -32,7 +33,8 @@ enum PlacePageExpandableDetailsSectionBuilder {
                                                                expandedState: .collapsed)
     let presenter = PlacePageExpandableDetailsSectionPresenter(viewModel: viewModel)
     let interactor = PlacePageOSMDescriptionSectionInteractor(presenter: presenter, description: osmDescription)
-    let viewController = PlacePageExpandableDetailsSectionViewController(interactor: interactor)
+    let viewController = PlacePageExpandableDetailsSectionViewController(interactor: interactor,
+                                                                         textContainerFactory: PlacePageTextContainerFactory.self)
     presenter.view = viewController
     return viewController
   }

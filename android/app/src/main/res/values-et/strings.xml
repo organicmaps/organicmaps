@@ -219,6 +219,18 @@
     <string name="pref_map_3d_buildings_title">3D-vaated</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">3D-vaated lülitatakse energiasäästurežiimis välja</string>
+    <!-- Settings: title of the satellite imagery (custom raster tiles) screen -->
+    <string name="pref_bg_tiles_title">Satelliidipildid</string>
+    <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
+    <string name="pref_bg_tiles_url_title">Serveri URL</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">Sisestage kehtiv URL, mis sisaldab {z}/{x}/{y}</string>
+    <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
+    <string name="pref_bg_tiles_size_title">Vahemälu suurus (MB)</string>
+    <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
+    <string name="pref_bg_tiles_opacity_title">Pindobjektide läbipaistmatus</string>
+    <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
+    <string name="pref_bg_tiles_disclaimer">Kohandatud paaniallikad pakute teie. Kasutage ainult teenuseid, millele teil on lubatud juurde pääseda. Teie vastutate omistamise, litsentsitingimuste, API-võtmete, kvootide ja kasutuspiirangute eest.</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Hääljuhised</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
@@ -231,7 +243,7 @@
     <string name="pref_tts_test_voice_title">Testi hääljuhised (Kõnesüntees, TTS, Text-To-Speech)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Kui sa ei kuule nüüd häält, siis kontrolli helivaljust või süsteemi kõnesünteesi seadistusi.</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">Ei ole saadaval</string>
     <string name="pref_map_auto_zoom">Automaatne suum</string>
     <string name="placepage_distance">Kaugus</string>
@@ -567,14 +579,11 @@
     <string name="prefs_languages_information_off_link">Lisainfo saamiseks palun vaata seda juhist.</string>
     <string name="transliteration_title">Transliteratsioon ladina tähestikku</string>
     <string name="learn_more">Lisateave</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Teekonna alguspunkti lisamiseks kasuta otsingut, vali järjehoidja või puuduta soovitud kohta kaardil</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Sihtkoha lisamiseks kasuta otsingut, vali järjehoidja või puuduta soovitud kohta kaardil</string>
     <string name="planning_route_manage_route">Halda teekonda</string>
     <string name="button_plan">Kavanda</string>
     <string name="placepage_remove_stop">Eemalda peatus</string>
     <string name="placepage_add_stop">Lisa peatus</string>
+    <string name="drag_to_reorder">Järjestuse muutmine</string>
     <string name="saved">Salvestatud</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Oma kaastöö automaatseks üleslaadimiseks palun logi OpenStreetMappi sisse. Lisateave <a href="https://github.com/organicmaps/organicmaps/issues/6144">leidub siin</a>.</string>
@@ -625,6 +634,8 @@
     <string name="button_layer_hiking">Matkamine</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Jalgrattasõit</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Satelliit</string>
     <string name="button_layer_subway">Metroo</string>
     <string name="layers_title">Kaardi stiilid ja kihid</string>
     <string name="bookmarks_empty_list_title">See loend on tühi</string>
@@ -724,6 +735,7 @@
     <string name="opens_at">Avatakse kell %s</string>
     <string name="closes_at">Suletakse kell %s</string>
     <string name="editor_add_select_category_all_subtitle">Kõik kategooriad</string>
+    <string name="placepage_replace_stop">Asenda peatus</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Toit</string>
@@ -879,6 +891,12 @@
     <string name="share_track">Jaga rada</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Kas kustutame %s?</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Muuda värvi</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Peida rada</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Näita rada</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -905,4 +923,6 @@
     <string name="color_picker_hex_label">sRGB Hex-värv #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Ruudustik</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">Häälotsing</string>
 </resources>

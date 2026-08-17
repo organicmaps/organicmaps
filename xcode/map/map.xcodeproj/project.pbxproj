@@ -71,6 +71,8 @@
 		67F183761BD5045700AB1840 /* bookmarks_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A29CB1B26FCFE001A525C /* bookmarks_test.cpp */; };
 		67F183791BD5045700AB1840 /* kmz_unarchive_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A29CE1B26FCFE001A525C /* kmz_unarchive_test.cpp */; };
 		67F1837A1BD5045700AB1840 /* mwm_url_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A29CF1B26FCFE001A525C /* mwm_url_tests.cpp */; };
+		AC0AE5A52FDF0DDF00A44725 /* raster_tile_provider.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AC0AE5A32FDF0DDF00A44725 /* raster_tile_provider.hpp */; };
+		AC0AE5A62FDF0DDF00A44725 /* raster_tile_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC0AE5A42FDF0DDF00A44725 /* raster_tile_provider.cpp */; };
 		ACD695872F7C622400A29DF8 /* selection_processor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = ACD695852F7C622400A29DF8 /* selection_processor.hpp */; };
 		ACD695882F7C622400A29DF8 /* selection_processor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACD695862F7C622400A29DF8 /* selection_processor.cpp */; };
 		ACF95D472F74AD0A009D5D9A /* relation_track.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACF95D462F74AD0A009D5D9A /* relation_track.cpp */; };
@@ -221,6 +223,8 @@
 		679624A31D1017C200AE4E3C /* gps_track_storage_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gps_track_storage_test.cpp; sourceTree = "<group>"; };
 		679624A41D1017C200AE4E3C /* gps_track_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gps_track_test.cpp; sourceTree = "<group>"; };
 		679624A51D1017C200AE4E3C /* mwm_set_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mwm_set_test.cpp; sourceTree = "<group>"; };
+		AC0AE5A32FDF0DDF00A44725 /* raster_tile_provider.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = raster_tile_provider.hpp; sourceTree = "<group>"; };
+		AC0AE5A42FDF0DDF00A44725 /* raster_tile_provider.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = raster_tile_provider.cpp; sourceTree = "<group>"; };
 		ACD695852F7C622400A29DF8 /* selection_processor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = selection_processor.hpp; sourceTree = "<group>"; };
 		ACD695862F7C622400A29DF8 /* selection_processor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = selection_processor.cpp; sourceTree = "<group>"; };
 		ACF95D452F74AD0A009D5D9A /* relation_track.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = relation_track.hpp; sourceTree = "<group>"; };
@@ -429,6 +433,8 @@
 				34583BCE1C88556800F94664 /* place_page_info.hpp */,
 				3DF528D5237DC82E000ED0D5 /* position_provider.hpp */,
 				3DEE1AD921EE03B400054A91 /* power_management */,
+				AC0AE5A42FDF0DDF00A44725 /* raster_tile_provider.cpp */,
+				AC0AE5A32FDF0DDF00A44725 /* raster_tile_provider.hpp */,
 				ACF95D462F74AD0A009D5D9A /* relation_track.cpp */,
 				ACF95D452F74AD0A009D5D9A /* relation_track.hpp */,
 				F6D2CE7C1EDEB7F500636DFD /* routing_manager.cpp */,
@@ -525,6 +531,7 @@
 				456E1B3B1F9A3C2A009C32E1 /* search_mark.hpp in Headers */,
 				BBD9E2C71EE9D01900DF189A /* routing_mark.hpp in Headers */,
 				3DEE1ADE21EE03B400054A91 /* power_management_schemas.hpp in Headers */,
+				AC0AE5A52FDF0DDF00A44725 /* raster_tile_provider.hpp in Headers */,
 				F6B283041C1B03320081957A /* gps_track_collection.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -697,6 +704,7 @@
 				BB1C0197241BF73C0067FD5C /* track_mark.cpp in Sources */,
 				3DEE1AE021EE03B400054A91 /* power_manager.cpp in Sources */,
 				BB4E5F281FCC664A00A77250 /* transit_reader.cpp in Sources */,
+				AC0AE5A62FDF0DDF00A44725 /* raster_tile_provider.cpp in Sources */,
 				56C116602090E5670068BBC0 /* extrapolator.cpp in Sources */,
 				39E3C60423312BA800FB0C37 /* features_fetcher.cpp in Sources */,
 				348AB57C1D7EE0C6009F8301 /* chart_generator.cpp in Sources */,

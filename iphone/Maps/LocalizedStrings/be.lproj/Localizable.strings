@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Даўжыня";
 "share_my_location" = "Абагуліць маё месцазнаходжанне";
+"prefs_group_network" = "Сетка";
 "prefs_group_route" = "Навігацыя";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -217,6 +218,24 @@
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "У рэжыме энергазберажэння 3D-будынкі адключаны";
+
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "Спадарожнікавыя здымкі";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "URL сервера";
+
+/* Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) */
+"pref_bg_tiles_url_error" = "Увядзіце правільны URL з {z}/{x}/{y}";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "Памер кэша (МБ)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "Непразрыстасць плошчавых аб'ектаў";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "Крыніцы ўласных плітак прадастаўляеце вы. Карыстайцеся толькі сэрвісамі, да якіх у вас ёсць доступ. Вы нясеце адказнасць за пазначэнне аўтарства, умовы ліцэнзіі, ключы API, квоты і абмежаванні выкарыстання.";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Галасавыя інструкцыі";
@@ -390,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Памылка пры адпраўцы пошты";
-
-/* Settings item title */
-"pref_calibration_title" = "Каліброўка компаса";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Даступныя";
@@ -643,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Гэтая назва ўжо занятая";
 "profile" = "Профіль OpenStreetMap";
 "restore" = "Аднавіць";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Прыватнасць";
 "privacy_policy" = "Палітыка прыватнасці";
 "terms_of_use" = "Умовы выкарыстання";
 
@@ -651,6 +670,9 @@
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "Пакатушкі";
+
+/* Map layers menu: toggle button for the satellite imagery layer */
+"button_layer_satellite" = "Спадарожнік";
 "button_layer_subway" = "Метро";
 "layers_title" = "Стылі і слаі мапы";
 
@@ -907,6 +929,9 @@
 "elevation_profile_descent" = "Спуск";
 "elevation_profile_min_elevation" = "Мін. вышыня";
 "elevation_profile_max_elevation" = "Макс. вышыня";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Пачніце рухацца, каб убачыць профіль вышыні";
 "isolines_toast_zooms_1_10" = "Павялічце мапу, каб убачыць рэльеф";
 "downloader_loading_ios" = "Спампоўванне";
 

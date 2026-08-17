@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Pista de gel";
 "type.leisure.marina" = "Port esportiu";
 "type.leisure.nature_reserve" = "Reserva natural";
+"type.leisure.bird_hide" = "Aguait d'ocells";
 "type.leisure.outdoor_seating" = "Seients a l’aire lliure";
 "type.leisure.firepit" = "Braser";
 "type.leisure.park" = "Parc";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "Prat de dall";
 "type.natural.orchard" = "Verger";
 "type.natural.peak" = "Cim";
+"type.natural.hill" = "Turó";
+"type.natural.arch" = "Arc rocós";
 "type.natural.saddle" = "Sella de muntanya";
 "type.natural.rock" = "Roca";
 "type.natural.scrub" = "Matoll";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "Servei social";
+"type.amenity.stage" = "Escenari";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Entrada d’urgències";

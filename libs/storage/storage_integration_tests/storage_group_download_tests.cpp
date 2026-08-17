@@ -2,17 +2,11 @@
 
 #include "storage/storage_integration_tests/test_defines.hpp"
 
-#include "map/framework.hpp"
-
-#include "platform/http_request.hpp"
-#include "platform/local_country_file_utils.hpp"
-#include "platform/platform.hpp"
-#include "platform/platform_tests_support/scoped_dir.hpp"
-#include "platform/platform_tests_support/writable_dir_changer.hpp"
-
 #include "storage/storage.hpp"
 
-#include "base/assert.hpp"
+#include "platform/platform.hpp"
+#include "platform/platform_tests_support/scoped_dir.hpp"
+
 #include "base/file_name_utils.hpp"
 
 #include <string>
@@ -47,7 +41,7 @@ void DownloadGroup(Storage & storage, bool oneByOne)
 {
   Platform & platform = GetPlatform();
 
-  string const version = strings::to_string(storage.GetCurrentDataVersion());
+  string const version = std::to_string(storage.GetCurrentDataVersion());
 
   //  Get children nodes for the group node.
   CountriesVec children;
@@ -173,7 +167,7 @@ void DeleteGroup(Storage & storage, bool oneByOne)
 {
   Platform & platform = GetPlatform();
 
-  string const version = strings::to_string(storage.GetCurrentDataVersion());
+  string const version = std::to_string(storage.GetCurrentDataVersion());
 
   //  Get children nodes for the group node.
   CountriesVec v;
@@ -236,10 +230,8 @@ void DeleteGroup(Storage & storage, bool oneByOne)
 
 void TestDownloadDelete(bool downloadOneByOne, bool deleteOneByOne)
 {
-  WritableDirChanger writableDirChanger(kMapTestDir);
-
   Storage storage;
-  string const version = strings::to_string(storage.GetCurrentDataVersion());
+  string const version = std::to_string(storage.GetCurrentDataVersion());
 
   auto onUpdatedFn = [&](CountryId const &, storage::LocalFilePtr const localCountryFile)
   {
@@ -263,22 +255,22 @@ void TestDownloadDelete(bool downloadOneByOne, bool deleteOneByOne)
   DeleteGroup(storage, deleteOneByOne);
 }
 
-UNIT_TEST(SmallMwms_GroupDownloadDelete_Test1)
+UNIT_CLASS_TEST(StorageTest, SmallMwms_GroupDownloadDelete_Test1)
 {
   TestDownloadDelete(false, false);
 }
 
-UNIT_TEST(SmallMwms_GroupDownloadDelete_Test2)
+UNIT_CLASS_TEST(StorageTest, SmallMwms_GroupDownloadDelete_Test2)
 {
   TestDownloadDelete(false, true);
 }
 
-UNIT_TEST(SmallMwms_GroupDownloadDelete_Test3)
+UNIT_CLASS_TEST(StorageTest, SmallMwms_GroupDownloadDelete_Test3)
 {
   TestDownloadDelete(true, false);
 }
 
-UNIT_TEST(SmallMwms_GroupDownloadDelete_Test4)
+UNIT_CLASS_TEST(StorageTest, SmallMwms_GroupDownloadDelete_Test4)
 {
   TestDownloadDelete(true, true);
 }

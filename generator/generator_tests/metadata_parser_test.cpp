@@ -647,6 +647,22 @@ UNIT_TEST(Metadata_ValidateAndFormat_building_levels)
   TEST_EQUAL(tp.ValidateAndFormat_building_levels("250"), "", ("Too many levels."));
 }
 
+UNIT_TEST(Metadata_ValidateAndFormat_website)
+{
+  FeatureBuilderParams params;
+  MetadataTagProcessor p(params);
+  Metadata & md = params.GetMetadata();
+
+  p("website", "https://organicmaps.app/");
+  TEST_EQUAL(md.Get(Metadata::FMD_WEBSITE), "https://organicmaps.app", ());
+  md.Drop(Metadata::FMD_WEBSITE);
+
+  // heritage:website is parsed and validated the same way as a regular website.
+  p("heritage:website", "https://whc.unesco.org/en/list/1133/");
+  TEST_EQUAL(md.Get(Metadata::FMD_HERITAGE_WEBSITE), "https://whc.unesco.org/en/list/1133/", ());
+  TEST(md.Get(Metadata::FMD_WEBSITE).empty(), ());
+}
+
 UNIT_TEST(Metadata_ValidateAndFormat_url)
 {
   std::array<std::pair<char const *, char const *>, 9> constexpr kTests = {{

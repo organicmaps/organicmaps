@@ -3,12 +3,10 @@ package app.organicmaps.widget;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewParent;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import androidx.activity.OnBackPressedCallback;
@@ -21,8 +19,9 @@ import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.UiUtils;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
-public class SearchToolbarController extends ToolbarController implements View.OnClickListener
+public class SearchToolbarController extends ToolbarController
 {
   @Nullable
   private final View mToolbarContainer;
@@ -32,14 +31,15 @@ public class SearchToolbarController extends ToolbarController implements View.O
   private final View mBack;
   @NonNull
   private final TextInputEditText mQuery;
+  @Nullable
+  private final TextInputLayout mQueryLayout;
+  private boolean mEndIconQueryEmpty;
   private boolean mFromCategory = false;
   // Pending listener that shows the keyboard once the window gains focus (see activate()).
   @Nullable
   private ViewTreeObserver.OnWindowFocusChangeListener mShowKeyboardOnFocus;
-  @NonNull
+  @Nullable
   private final View mProgress;
-  @NonNull
-  private final View mVoiceInput;
   private final boolean mVoiceInputSupported = InputUtils.isVoiceInputSupported(requireActivity());
   private final TextWatcher mTextWatcher = new StringUtils.SimpleTextWatcher() {
     @Override
@@ -65,7 +65,7 @@ public class SearchToolbarController extends ToolbarController implements View.O
     mSearchContainer = getToolbar().findViewById(R.id.search_container);
     mBack = mSearchContainer.findViewById(R.id.back);
     mQuery = mSearchContainer.findViewById(R.id.query);
-    mQuery.setOnClickListener(this);
+    mQueryLayout = mSearchContainer.findViewById(R.id.query_input_layout);
     mQuery.addTextChangedListener(mTextWatcher);
     mQuery.setOnEditorActionListener((v, actionId, event) -> {
       boolean isSearchDown =
@@ -76,8 +76,6 @@ public class SearchToolbarController extends ToolbarController implements View.O
       return (isSearchDown || isSearchAction) && onStartSearchClick();
     });
     mProgress = mSearchContainer.findViewById(R.id.progress);
-    mVoiceInput = root.findViewById(R.id.voice_input);
-    mVoiceInput.setOnClickListener(this);
     showProgress(false);
     updateViewsVisibility(true);
   }
@@ -85,25 +83,52 @@ public class SearchToolbarController extends ToolbarController implements View.O
   private void updateViewsVisibility(boolean queryEmpty)
   {
     UiUtils.showIf(showBackButton(), mBack);
-    UiUtils.showIf(supportsVoiceSearch() && queryEmpty && mVoiceInputSupported, mVoiceInput);
+    updateEndIcon(queryEmpty);
+  }
+
+  // Single trailing slot: clear (X) while there is text, otherwise the voice-search mic when available.
+  private void updateEndIcon(boolean queryEmpty)
+  {
+    if (mQueryLayout == null || mEndIconQueryEmpty == queryEmpty)
+      return;
+    mEndIconQueryEmpty = queryEmpty;
+    if (!queryEmpty)
+    {
+      mQueryLayout.setEndIconDrawable(R.drawable.ic_close_rounded);
+      mQueryLayout.setEndIconContentDescription(R.string.clear_the_search);
+      mQueryLayout.setEndIconOnClickListener(v -> clear());
+      mQueryLayout.setEndIconVisible(true);
+    }
+    else if (supportsVoiceSearch() && mVoiceInputSupported)
+    {
+      mQueryLayout.setEndIconDrawable(R.drawable.ic_mic_white);
+      mQueryLayout.setEndIconContentDescription(R.string.voice_search);
+      mQueryLayout.setEndIconOnClickListener(v -> onVoiceInputClick());
+      mQueryLayout.setEndIconVisible(true);
+    }
+    else
+      mQueryLayout.setEndIconVisible(false);
   }
 
   private void onQueryChanged(@Nullable CharSequence s, boolean resetCategoryFlag)
   {
     if (resetCategoryFlag)
       mFromCategory = false;
-    final boolean isEmpty = TextUtils.isEmpty(s);
+    syncForQueryChange(s);
+    onTextChanged(s == null ? "" : s.toString());
+  }
+
+  private void syncForQueryChange(@Nullable CharSequence query)
+  {
+    final boolean isEmpty = TextUtils.isEmpty(query);
     mBackPressedCallback.setEnabled(!isEmpty);
     updateViewsVisibility(isEmpty);
-    onTextChanged(s == null ? "" : s.toString());
   }
 
   protected boolean showBackButton()
   {
     return true;
   }
-
-  protected void onQueryClick(String query) {}
 
   protected void onTextChanged(String query) {}
 
@@ -139,13 +164,6 @@ public class SearchToolbarController extends ToolbarController implements View.O
   protected @StringRes int getVoiceInputPrompt()
   {
     return R.string.search;
-  }
-
-  protected void disableQueryEditing()
-  {
-    mQuery.setFocusable(false);
-    mQuery.setLongClickable(false);
-    mQuery.setInputType(InputType.TYPE_NULL);
   }
 
   public String getQuery()
@@ -220,27 +238,11 @@ public class SearchToolbarController extends ToolbarController implements View.O
 
   public void showProgress(boolean show)
   {
+    if (mProgress == null)
+      return;
     if (UiUtils.isVisible(mProgress) == show)
       return;
-    ViewParent parent = mSearchContainer.getParent();
-    if (parent instanceof SuppressLayoutLinearLayout)
-    {
-      ((SuppressLayoutLinearLayout) parent).setSuppressLayout(true);
-      UiUtils.showIf(show, mProgress);
-      ((SuppressLayoutLinearLayout) parent).setSuppressLayout(false);
-    }
-    else
-      UiUtils.showIf(show, mProgress);
-  }
-
-  @Override
-  public void onClick(View v)
-  {
-    final int id = v.getId();
-    if (id == R.id.query)
-      onQueryClick(getQuery());
-    else if (id == R.id.voice_input)
-      onVoiceInputClick();
+    UiUtils.showIf(show, mProgress);
   }
 
   public void showSearchControls(boolean show)
@@ -283,5 +285,6 @@ public class SearchToolbarController extends ToolbarController implements View.O
     if (!TextUtils.isEmpty(query))
       mQuery.setSelection(query.length());
     mQuery.addTextChangedListener(mTextWatcher);
+    syncForQueryChange(query);
   }
 }

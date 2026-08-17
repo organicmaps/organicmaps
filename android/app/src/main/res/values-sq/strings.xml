@@ -219,6 +219,18 @@
     <string name="pref_map_3d_buildings_title">Ndërtesat 3D</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">Ndërtesat 3D janë të çaktivizuara në modalitetin e kursimit të energjisë</string>
+    <!-- Settings: title of the satellite imagery (custom raster tiles) screen -->
+    <string name="pref_bg_tiles_title">Imazhe satelitore</string>
+    <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
+    <string name="pref_bg_tiles_url_title">URL-ja e serverit</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">Vendosni një URL të vlefshme me {z}/{x}/{y}</string>
+    <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
+    <string name="pref_bg_tiles_size_title">Madhësia e cache-it (MB)</string>
+    <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
+    <string name="pref_bg_tiles_opacity_title">Errësimi i objekteve sipërfaqësore</string>
+    <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
+    <string name="pref_bg_tiles_disclaimer">Burimet e pllakave të personalizuara i jepni ju. Përdorni vetëm shërbime për të cilat keni leje qasjeje. Ju jeni përgjegjës për atribuimin, kushtet e licencës, çelësat API, kuotat dhe kufijtë e përdorimit.</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Udhëzimet Zanore</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
@@ -231,7 +243,7 @@
     <string name="pref_tts_test_voice_title">Testoni Udhëzimet me Zë (TTS, Tekst-në-Fjalë)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Kontrolloni volumin ose cilësimet e sistemit Tekst-në-Fjalë nëse nuk e dëgjoni zërin tani.</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">Nuk Disponohet</string>
     <string name="pref_map_auto_zoom">Zmadhim automatik</string>
     <string name="placepage_distance">Distanca</string>
@@ -567,14 +579,11 @@
     <string name="prefs_languages_information_off_link">Për më shumë informacion, ju lutemi kontrolloni këtë udhëzues.</string>
     <string name="transliteration_title">Translitero në alfabetin latin</string>
     <string name="learn_more">Mëso më shumë</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Përdorni kërkimin, zgjidhni një faqeshënues ose prekni në hartë për të shtuar një pikë nisjeje të rrugës</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Përdorni kërkimin, zgjidhni një faqeshënues ose prekni në hartë për të shtuar një pikë destinacioni</string>
     <string name="planning_route_manage_route">Menaxho Rrugën</string>
     <string name="button_plan">Planifiko</string>
     <string name="placepage_remove_stop">Hiq Ndalesën</string>
     <string name="placepage_add_stop">Shto Ndalesë</string>
+    <string name="drag_to_reorder">Rirendosje</string>
     <string name="saved">Ruajtur</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Ju lutemi hyni në OpenStreetMap për të ngarkuar automatikisht të gjitha ndryshimet tuaja të hartës. Mësoni më shumë <a href="https://github.com/organicmaps/organicmaps/issues/6144">këtu</a>.</string>
@@ -610,6 +619,8 @@
     <string name="button_layer_hiking">Eisje në natyrë</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Çiklizëm</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Satelit</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Stilet e Hartave dhe Shtresat</string>
     <string name="bookmarks_empty_list_title">Kjo listë është boshe</string>
@@ -709,6 +720,7 @@
     <string name="opens_at">Hapet në %s</string>
     <string name="closes_at">Mbyllet në %s</string>
     <string name="editor_add_select_category_all_subtitle">Të Gjitha Kategoritë</string>
+    <string name="placepage_replace_stop">Zëvendëso Ndalesën</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Ushqim</string>
@@ -864,6 +876,8 @@
     <string name="share_track">Ndaj Gjurmën</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Fshi %s?</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Ndrysho Ngjyrën</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -890,4 +904,6 @@
     <string name="color_picker_hex_label">Ngjyra Hex sRGB #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Rrjetë</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">Kërkim me zë</string>
 </resources>

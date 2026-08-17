@@ -1,14 +1,19 @@
-final class SettingsTableViewiCloudSwitchCell: SettingsTableViewDetailedSwitchCell {
-  @objc
-  func updateWithSynchronizationState(_ state: SynchronizationManagerState) {
-    guard state.isAvailable else {
+final class SettingsTableViewiCloudSwitchCell: SettingsTableViewSwitchCell {
+  func config(delegate: SettingsTableViewSwitchCellDelegate,
+              title: String,
+              subtitile: String? = nil,
+              isAvailable: Bool,
+              isOn: Bool) {
+    config(delegate: delegate, title: title, subtitile: subtitile, isOn: isOn)
+    guard isAvailable else {
+      setOn(isOn, animated: true)
       accessoryView = nil
       accessoryType = .detailButton
       return
     }
     accessoryView = switchButton
-    detailTextLabel?.text = state.error?.localizedDescription
-    setOn(state.isOn, animated: true)
+    accessoryType = .none
+    setOn(isOn, animated: true)
     setNeedsLayout()
   }
 }

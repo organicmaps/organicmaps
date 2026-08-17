@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "アイスリンク";
 "type.leisure.marina" = "マリーナ";
 "type.leisure.nature_reserve" = "自然保護区";
+"type.leisure.bird_hide" = "野鳥観察舎";
 "type.leisure.outdoor_seating" = "屋外席";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "公園";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "牧草地";
 "type.natural.orchard" = "果樹園";
 "type.natural.peak" = "山頂";
+"type.natural.hill" = "丘";
+"type.natural.arch" = "ロック・アーチ";
 "type.natural.saddle" = "鞍部";
 "type.natural.rock" = "岩";
 "type.natural.scrub" = "雑木林";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "社会施設";
+"type.amenity.stage" = "舞台";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "救急病棟入口";

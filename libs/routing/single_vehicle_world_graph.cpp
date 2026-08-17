@@ -313,9 +313,18 @@ bool SingleVehicleWorldGraph::AreWavesConnectibleImpl(Parents<VertexType> const 
   if (mwmId == kFakeNumMwmId)
     return true;
 
+  // Build the parent-of relation along the chain.
+  // The chain may revisit a vertex: the forward and backward waves can meet on a two-way
+  // feature, so that feature ends up in both halves of the chain with opposite directions
+  // (e.g. A -> B in the forward part and B -> A in the backward part). Wiring such a chain
+  // naively produces a cycle of same-feature joints, which makes IndexGraph::IsRestricted
+  // loop forever while walking parents. Stop at the first repeated vertex to keep the parents graph acyclic.
+  // A repeated vertex is either chain.front() (never becomes a key) or an already-inserted key.
+  /// @see India_Bangalore_ShortRoute test
   Parents<VertexType> parents;
   for (size_t i = 1; i < chain.size(); ++i)
-    parents[chain[i]] = chain[i - 1];
+    if (chain[i] == chain.front() || !parents.emplace(chain[i], chain[i - 1]).second)
+      break;
 
   auto & currentIndexGraph = GetIndexGraph(mwmId);
   for (size_t i = 1; i < chain.size(); ++i)

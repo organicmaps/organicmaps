@@ -550,6 +550,7 @@
     <string name="type.leisure.garden.residential">Situs arkeologi</string>
     <string name="type.leisure.golf_course">Lapangan golf</string>
     <string name="type.leisure.nature_reserve">Cagar Alam</string>
+    <string name="type.leisure.bird_hide">Tempat pengamatan burung</string>
     <string name="type.leisure.outdoor_seating">Tempat duduk di luar ruangan</string>
     <string name="type.leisure.park">Taman</string>
     <string name="type.leisure.park.no.access">Taman</string>
@@ -619,6 +620,8 @@
     <string name="type.natural.meadow">Padang rumput</string>
     <string name="type.natural.orchard">Kebun</string>
     <string name="type.natural.peak">Puncak</string>
+    <string name="type.natural.hill">Bukit</string>
+    <string name="type.natural.arch">Lengkungan Batu</string>
     <string name="type.natural.saddle">Pelana Gunung</string>
     <string name="type.natural.rock">Batu</string>
     <string name="type.natural.scrub">Semak</string>
@@ -1203,6 +1206,7 @@
     <string name="type.self_service.no">Tidak ada layanan mandiri</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">Fasilitas Sosial</string>
+    <string name="type.amenity.stage">Panggung</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Pintu Masuk Bangsal Darurat</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

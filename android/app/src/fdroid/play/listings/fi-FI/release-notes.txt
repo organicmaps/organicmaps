@@ -1,7 +1,9 @@
-• Napauta julkisen liikenteen pysäkkiä ja valitse reittinumerot korostaaksesi reittejä kartalla.
-• Kirjanmerkkien merkinnät eivät enää ole päällekkäisiä kartalla.
-• Tuoreet OpenStreetMap-tiedot 3. toukokuuta alkaen, uudet kohdetyypit
-• Parannetut korkeuskäyrästöt radoille ja reiteille
-• Pienemmät karttojen lataukset Vietnamin, Malesian, Hongkongin, Macaon ja Hainanin osalta.
-• Hienostunut käyttöliittymä ja animaatiot
+UUDET OMINAISUUDET:
+• Päivitetty haku- ja reitityskäyttöliittymä
+• Julkisen liikenteen reittihaku (bussi, raitiovaunu, metro, pikaraitiotie)
+• Vaihtoehtoiset nopeimmat ja lyhimmät reitit
+• Reittivaroitukset portaista, porteista ja nostoporteista
+• Valitse kirjanmerkkeihin mikä tahansa väri
+• Tuki koordinaateille UK OS Grid, Irish Grid ja ITM
+• Ota satelliittikuvat käyttöön Organic Maps-asetuksissa määrittämällä mukautetun rasterikuvapalvelimen URL-osoite
 …lisää osoitteessa omaps.org/news

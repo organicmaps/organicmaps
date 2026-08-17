@@ -255,6 +255,9 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
       return;
     }
 
+    mTtsPrefEnabled.setEnabled(true);
+    mTtsPrefEnabled.setSummary(null);
+
     final boolean enabled = TtsPlayer.isEnabled();
     updateGoogleTtsInfoSummary(enabled ? R.string.prefs_languages_information
                                        : R.string.prefs_languages_information_off);

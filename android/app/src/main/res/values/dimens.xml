@@ -54,12 +54,12 @@
   <dimen name="place_page_icon_background_size">56dp</dimen>
   <dimen name="place_page_icon_size">40dp</dimen>
   <item name="place_page_bottom_sheet_width_ratio" type="fraction">0.0</item>
+  <item type="dimen" name="bottom_sheet_widths">-1px</item>
   <dimen name="bottom_sheet_max_width">640dp</dimen>
 
   <dimen name="downloader_status_size">40dp</dimen>
   <dimen name="search_progress_size">32dp</dimen>
 
-  <dimen name="panel_width">360dp</dimen>
   <dimen name="button_width">240dp</dimen>
   <dimen name="placeholder_size">200dp</dimen>
   <dimen name="placeholder_size_small">160dp</dimen>
@@ -67,7 +67,7 @@
   <dimen name="width_dialog_base">300dp</dimen>
 
   <dimen name="start_button_width">96dp</dimen>
-  <dimen name="scrollbar_size">6dp</dimen>
+  <dimen name="scrollbar_size">4dp</dimen>
 
   <!-- direction fragment -->
   <dimen name="margin_direction_small">8dp</dimen>
@@ -87,6 +87,8 @@
   <dimen name="corner_radius_small">8dp</dimen>
   <dimen name="corner_radius_medium">14dp</dimen>
   <dimen name="corner_radius_large">20dp</dimen>
+  <dimen name="bottom_sheet_corner_radius">24dp</dimen>
+  <dimen name="dialog_corner_radius">24dp</dimen>
 
   <!-- map widgets -->
   <dimen name="viewport_min_height">100dp</dimen>
@@ -108,12 +110,15 @@
   <dimen name="map_button_arrow_icon_size">34dp</dimen>
 
   <!-- routing layout -->
-    <dimen name="routing_transit_step_corner_radius">4dp</dimen>
-  <dimen name="routing_selector_wheel_size">40dp</dimen>
-  <dimen name="routing_selector_wheel_margin">4dp</dimen>
+  <dimen name="routing_transit_step_corner_radius">4dp</dimen>
   <dimen name="routing_transit_step_min_height">20dp</dimen>
   <dimen name="routing_transit_setp_min_acceptable_with">104dp</dimen>
   <dimen name="track_recorder_status_top_margin">64dp</dimen>
+  <dimen name="routing_margin_peek_height">35dp</dimen>
+  <dimen name="routing_toolbar_pill_padding">4dp</dimen>
+  <dimen name="routing_toolbar_cell_height">40dp</dimen>
+  <dimen name="routing_toolbar_pill_corner_radius">24dp</dimen>
+  <dimen name="routing_toolbar_cell_radius">20dp</dimen>
 
   <!-- Bottom menu -->
   <dimen name="menu_line_height">48dp</dimen>
@@ -161,19 +166,26 @@
   <!-- Login -->
   <dimen name="osm_logo">64dp</dimen>
 
+  <!-- Routing plan panel: horizontal content inset (mode header, time row, transit list) -->
+  <dimen name="routing_plan_horizontal_padding">16dp</dimen>
+
   <!-- Altitude chart -->
-  <dimen name="altitude_chart_container_padding_left">16dp</dimen>
   <dimen name="altitude_chart_container_padding_bottom">10dp</dimen>
   <dimen name="altitude_chart_margin_bottom">4dp</dimen>
   <dimen name="altitude_chart_margin_top">14dp</dimen>
   <dimen name="altitude_chart_time_distance_height">20dp</dimen>
   <dimen name="altitude_chart_time_distance_text_size">16sp</dimen>
   <dimen name="altitude_chart_time_distance_margin_bottom">10dp</dimen>
-  <!-- Routing action panel -->
-  <dimen name="routing_action_panel_margin_vert">14dp</dimen>
+
+  <!--   Routing Bottom Buttons -->
+  <dimen name="routing_bottom_buttons_padding">10dp</dimen>
+  <dimen name="routing_bottom_buttons_max_height">70dp</dimen>
+
 
   <!-- Placeholder-->
   <dimen name="placeholder_margin_top">20dp</dimen>
+  <!-- Reserves the vertical block of the hidden image (20 paddingTop + 200 size + 12 margin). -->
+  <dimen name="placeholder_padding_top_no_image">232dp</dimen>
 
   <dimen name="margin_dialog_title">20dp</dimen>
 
@@ -187,12 +199,12 @@
   <dimen name="bookmark_recycler_view_bottom_margin">80dp</dimen>
   <dimen name="dp_0">0dp</dimen>
   <dimen name="toggle_map_layer_frame_height">98dp</dimen>
+  <dimen name="toggle_map_layer_icon_size">54dp</dimen>
   <dimen name="bookmark_collection_item_end_margin">56dp</dimen>
   <dimen name="bookmark_category_checkbox_width">36dp</dimen>
 
   <!-- Purchases-->
   <dimen name="sharing_options_img_size">18dp</dimen>
-  <dimen name="bookmark_purchase_img_width">280dp</dimen>
   <dimen name="square_block_size">168dp</dimen>
   <dimen name="about_logo">96dp</dimen>
 

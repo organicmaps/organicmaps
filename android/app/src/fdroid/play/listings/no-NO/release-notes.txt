@@ -1,8 +1,10 @@
-• Trykk på et stoppested for kollektivtransport, og velg rutenummer for å markere ruter på kartet
-• Bokmerkeetiketter overlapper ikke lenger på kartet
-• Ferske OpenStreetMap-data fra 3. mai, med nye objekttyper
-• Forbedrede høydekurver for spor og ruter
-• Nedlasting av mindre kart for Vietnam, Malaysia, Hongkong, Macao og Hainan
-• Forbedret brukergrensesnitt og animasjoner
-• Oppdaterte høydekurver for Indonesia, Malaysia, Tanzania, Thailand og Vietnam
+NYE FUNKSJONER:
+• Oppdatert brukergrensesnitt for søk og ruteplanlegging
+• Ruteplanlegging for offentlig transport (buss, trikk, T-bane, bybane)
+• Alternative ruter: raskeste og korteste
+• Ruteadvarsler om trappetrinn, porter og heisporter
+• Velg hvilken som helst farge for bokmerker
+• Støtte for koordinatene UK OS Grid, Irish Grid og ITM
+• Aktiver satellittbilder i Organic Maps-innstillingene med en tilpasset URL til rasterfliseserveren
+• OSM-data per 24. juni
 …mer på omaps.org/news

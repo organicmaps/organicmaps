@@ -20,6 +20,7 @@ final class EditTrackViewController: MWMTableViewController {
 
   private let trackId: MWMTrackID
   private var noteCell: MWMNoteCell?
+  private var initialTrackTitle = ""
   private var trackTitle: String?
   private var trackDescription: String?
   private var trackGroupTitle: String?
@@ -27,13 +28,15 @@ final class EditTrackViewController: MWMTableViewController {
   private var trackColor: UIColor
 
   private let bookmarksManager = BookmarksManager.shared()
+  private var isDeleting = false
 
   @objc
   init(trackId: MWMTrackID, editCompletion completion: @escaping (Bool) -> Void) {
     self.trackId = trackId
 
     let track = bookmarksManager.track(withId: trackId)
-    trackTitle = track.trackName
+    initialTrackTitle = track.trackName
+    trackTitle = initialTrackTitle
     trackColor = track.trackColor
     trackDescription = bookmarksManager.description(forTrackId: trackId)
 
@@ -50,8 +53,14 @@ final class EditTrackViewController: MWMTableViewController {
     updateTrackIfNeeded()
   }
 
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    saveChanges()
+  }
+
   deinit {
     removeFromBookmarksManagerObserverList()
+    NotificationCenter.default.removeObserver(self)
   }
 
   @available(*, unavailable)
@@ -63,15 +72,16 @@ final class EditTrackViewController: MWMTableViewController {
     super.viewDidLoad()
 
     title = L("track_title")
-    navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
-                                                        target: self,
-                                                        action: #selector(onSave))
 
-    tableView.registerNib(cell: BookmarkTitleCell.self)
+    tableView.register(cell: SettingsTextFieldCell.self)
     tableView.registerNib(cell: MWMButtonCell.self)
     tableView.registerNib(cell: MWMNoteCell.self)
 
     addToBookmarksManagerObserverList()
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(saveChanges),
+                                           name: UIApplication.willResignActiveNotification,
+                                           object: nil)
   }
 
   // MARK: - Table view data source
@@ -96,8 +106,14 @@ final class EditTrackViewController: MWMTableViewController {
     case .info:
       switch InfoSectionRows(rawValue: indexPath.row) {
       case .title:
-        let cell = tableView.dequeueReusableCell(cell: BookmarkTitleCell.self, indexPath: indexPath)
-        cell.configure(name: trackTitle ?? "", delegate: self, hint: L("placepage_track_name_hint"))
+        let cell = tableView.dequeueReusableCell(cell: SettingsTextFieldCell.self, indexPath: indexPath)
+        cell.configure(delegate: self,
+                       text: trackTitle ?? "",
+                       placeholder: L("placepage_track_name_hint"),
+                       isEnabled: true,
+                       isValid: isTitleValid(trackTitle),
+                       autocapitalizationType: .sentences,
+                       autocorrectionType: .default)
         return cell
       case .color:
         let cell = tableView.dequeueDefaultCell(for: indexPath)
@@ -162,15 +178,45 @@ final class EditTrackViewController: MWMTableViewController {
     bookmarksManager.remove(self)
   }
 
-  @objc private func onSave() {
+  private func isTitleValid(_ title: String?) -> Bool {
+    title?.isEmpty == false
+  }
+
+  @objc
+  private func saveChanges() {
+    guard !isDeleting,
+          bookmarksManager.hasTrack(trackId),
+          bookmarksManager.hasCategory(trackGroupId) else {
+      return
+    }
+
     view.endEditing(true)
-    BookmarksManager.shared().updateTrack(trackId,
-                                          setGroupId: trackGroupId,
-                                          color: trackColor,
-                                          title: trackTitle ?? "",
-                                          description: trackDescription ?? "")
-    editingCompleted(true)
-    goBack()
+
+    let track = bookmarksManager.track(withId: trackId)
+    let trackGroup = bookmarksManager.category(forTrackId: trackId)
+    let titleToSave: String
+    if let trackTitle, !trackTitle.isEmpty {
+      titleToSave = trackTitle
+    } else {
+      titleToSave = initialTrackTitle
+    }
+    let currentDescription = bookmarksManager.description(forTrackId: trackId)
+    let descriptionToSave = trackDescription ?? currentDescription
+    let changesSaved = trackGroupId != trackGroup.categoryId ||
+      !trackColor.isEqual(track.trackColor) ||
+      titleToSave != track.trackName ||
+      descriptionToSave != currentDescription
+
+    if changesSaved {
+      bookmarksManager.updateTrack(trackId,
+                                   setGroupId: trackGroupId,
+                                   color: trackColor,
+                                   title: titleToSave,
+                                   description: descriptionToSave)
+      initialTrackTitle = titleToSave
+    }
+
+    editingCompleted(changesSaved)
   }
 
   private func updateColor(_ color: UIColor) {
@@ -197,8 +243,13 @@ final class EditTrackViewController: MWMTableViewController {
   }
 }
 
-extension EditTrackViewController: BookmarkTitleCellDelegate {
-  func didFinishEditingTitle(_ title: String) {
+extension EditTrackViewController: SettingsTextFieldCellDelegate {
+  func textFieldCell(_ cell: SettingsTextFieldCell, didChangeText text: String) {
+    trackTitle = text
+    cell.setValid(isTitleValid(text))
+  }
+
+  func textFieldCell(_: SettingsTextFieldCell, didEndEditingText title: String) {
     trackTitle = title
   }
 }
@@ -227,6 +278,7 @@ extension EditTrackViewController: MWMButtonCellDelegate {
       break
     case .delete:
       cell.isUserInteractionEnabled = false
+      isDeleting = true
       // goBack() is called by onTrackDeleted observer.
       bookmarksManager.deleteTrack(trackId)
     default:

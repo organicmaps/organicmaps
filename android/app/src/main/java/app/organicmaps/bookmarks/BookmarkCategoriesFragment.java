@@ -1,7 +1,6 @@
 package app.organicmaps.bookmarks;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -27,7 +26,6 @@ import app.organicmaps.base.BaseMwmRecyclerFragment;
 import app.organicmaps.dialog.EditTextDialogFragment;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
-import app.organicmaps.sdk.bookmarks.data.BookmarkSharingResult;
 import app.organicmaps.sdk.bookmarks.data.DataChangedListener;
 import app.organicmaps.sdk.bookmarks.data.FileType;
 import app.organicmaps.sdk.util.StorageUtils;
@@ -36,10 +34,12 @@ import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.util.bottomsheet.ExportMenuItems;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.widget.PlaceholderView;
 import app.organicmaps.widget.recycler.DividerItemDecorationWithPadding;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,12 +48,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<BookmarkCategoriesAdapter>
     implements BookmarkManager.BookmarksLoadingListener, CategoryListCallback, OnItemClickListener<BookmarkCategory>,
                OnItemMoreClickListener<BookmarkCategory>, OnItemLongClickListener<BookmarkCategory>,
-               BookmarkManager.BookmarksSharingListener, MenuBottomSheetFragment.MenuBottomSheetInterface
+               MenuBottomSheetFragment.MenuBottomSheetInterface
 
 {
   private static final String TAG = BookmarkCategoriesFragment.class.getSimpleName();
-
-  private static final int MAX_CATEGORY_NAME_LENGTH = 60;
 
   public static final String BOOKMARKS_CATEGORIES_MENU_ID = "BOOKMARKS_CATEGORIES_BOTTOM_SHEET";
 
@@ -138,17 +136,10 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   }
 
   @Override
-  public void onPreparedFileForSharing(@NonNull BookmarkSharingResult result)
-  {
-    BookmarksSharingHelper.INSTANCE.onPreparedFileForSharing(requireActivity(), shareLauncher, result);
-  }
-
-  @Override
   public void onStart()
   {
     super.onStart();
     BookmarkManager.INSTANCE.addLoadingListener(this);
-    BookmarkManager.INSTANCE.addSharingListener(this);
   }
 
   @Override
@@ -156,7 +147,6 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   {
     super.onStop();
     BookmarkManager.INSTANCE.removeLoadingListener(this);
-    BookmarkManager.INSTANCE.removeSharingListener(this);
   }
 
   @Override
@@ -206,12 +196,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
       items.add(new MenuBottomSheetItem(mSelectedCategory.isVisible() ? R.string.hide : R.string.show,
                                         mSelectedCategory.isVisible() ? R.drawable.ic_hide : R.drawable.ic_show,
                                         () -> onShowActionSelected(mSelectedCategory)));
-      items.add(new MenuBottomSheetItem(R.string.export_file, R.drawable.ic_file_kmz,
-                                        () -> onShareActionSelected(mSelectedCategory, FileType.Kml)));
-      items.add(new MenuBottomSheetItem(R.string.export_file_gpx, R.drawable.ic_file_gpx,
-                                        () -> onShareActionSelected(mSelectedCategory, FileType.Gpx)));
-      items.add(new MenuBottomSheetItem(R.string.export_file_geojson, R.drawable.ic_file_geojson,
-                                        () -> onShareActionSelected(mSelectedCategory, FileType.GeoJson)));
+      items.addAll(ExportMenuItems.create(fileType -> onShareActionSelected(mSelectedCategory, fileType)));
       // Disallow deleting the last category
       if (getAdapter().getBookmarkCategories().size() > 1)
         items.add(new MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete,
@@ -251,7 +236,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
     EditTextDialogFragment dialogFragment = EditTextDialogFragment.show(
         getString(R.string.bookmarks_create_new_group), getString(R.string.bookmarks_new_list_hint),
         getString(R.string.bookmark_set_name), getString(R.string.create), getString(R.string.cancel),
-        MAX_CATEGORY_NAME_LENGTH, this, new CategoryValidator());
+        CategoryValidator.MAX_NAME_LENGTH, this);
+    dialogFragment.setValidator(new CategoryValidator());
     dialogFragment.setTextSaveListener(this::onSaveText);
   }
 
@@ -280,7 +266,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
 
   private void showNoFileManagerError()
   {
-    new AlertDialog.Builder(requireActivity())
+    new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
         .setMessage(R.string.error_no_file_manager_app)
         .setPositiveButton(android.R.string.ok, (dialog, which) -> dialog.dismiss())
         .show();
@@ -296,7 +282,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   @Override
   public void onExportButtonClick()
   {
-    BookmarksSharingHelper.INSTANCE.prepareBookmarkCategoriesForSharing(requireActivity());
+    BookmarksSharingHelper.INSTANCE.prepareBookmarkCategoriesForSharing(requireActivity(), shareLauncher);
   }
 
   private void onShowActionSelected(@NonNull BookmarkCategory category)
@@ -307,7 +293,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
 
   protected void onShareActionSelected(@NonNull BookmarkCategory category, FileType fileType)
   {
-    BookmarksSharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(requireActivity(), category.getId(), fileType);
+    BookmarksSharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(requireActivity(), shareLauncher,
+                                                                      category.getId(), fileType);
   }
 
   private void onDeleteActionSelected(@NonNull BookmarkCategory category)

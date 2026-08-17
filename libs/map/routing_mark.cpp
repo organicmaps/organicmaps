@@ -17,9 +17,7 @@ df::ColorConstant constexpr kRouteMarkSecondaryText = "RouteMarkSecondaryText";
 df::ColorConstant constexpr kRouteMarkSecondaryTextOutline = "RouteMarkSecondaryTextOutline";
 
 df::ColorConstant constexpr kTransitMarkPrimaryText = "TransitMarkPrimaryText";
-df::ColorConstant constexpr kTransitMarkPrimaryTextOutline = "TransitMarkPrimaryTextOutline";
 df::ColorConstant constexpr kTransitMarkSecondaryText = "TransitMarkSecondaryText";
-df::ColorConstant constexpr kTransitMarkSecondaryTextOutline = "TransitMarkSecondaryTextOutline";
 
 float constexpr kRouteMarkPrimaryTextSize = 10.5f;
 float constexpr kRouteMarkSecondaryTextSize = 10.0f;
@@ -247,9 +245,6 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> RouteMarkPoint::GetSymbolNames(
   return symbol;
 }
 
-// This should be tested if the routing algorithm can handle this
-size_t const RoutePointsLayout::kMaxIntermediatePointsCount = 100;
-
 RoutePointsLayout::RoutePointsLayout(BookmarkManager & manager)
   : m_manager(manager)
   , m_editSession(manager.GetEditSession())
@@ -258,7 +253,7 @@ RoutePointsLayout::RoutePointsLayout(BookmarkManager & manager)
 void RoutePointsLayout::AddRoutePoint(RouteMarkData && data)
 {
   auto const count = m_manager.GetUserMarkIds(UserMark::Type::ROUTING).size();
-  if (count == kMaxIntermediatePointsCount + 2)
+  if (count == kMaxRoutePointsCount)
     return;
 
   RouteMarkPoint * sameTypePoint = GetRoutePointForEdit(data.m_pointType, data.m_intermediateIndex);
@@ -605,11 +600,12 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> TransitMark::GetSymbolNames() c
 void TransitMark::GetDefaultTransitTitle(dp::TitleDecl & titleDecl)
 {
   titleDecl = dp::TitleDecl();
+  // White outline in both themes, because titles are usually colored with the transit line color.
   titleDecl.m_primaryTextFont.m_color = df::GetColorConstant(kTransitMarkPrimaryText);
-  titleDecl.m_primaryTextFont.m_outlineColor = df::GetColorConstant(kTransitMarkPrimaryTextOutline);
+  titleDecl.m_primaryTextFont.m_outlineColor = dp::Color::White();
   titleDecl.m_primaryTextFont.m_size = kTransitMarkTextSize;
   titleDecl.m_secondaryTextFont.m_color = df::GetColorConstant(kTransitMarkSecondaryText);
-  titleDecl.m_secondaryTextFont.m_outlineColor = df::GetColorConstant(kTransitMarkSecondaryTextOutline);
+  titleDecl.m_secondaryTextFont.m_outlineColor = dp::Color::White();
   titleDecl.m_secondaryTextFont.m_size = kTransitMarkTextSize;
 }
 

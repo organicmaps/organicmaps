@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Urefu";
 "share_my_location" = "Shiriki Mahali Pangu";
+"prefs_group_network" = "Mtandao";
 "prefs_group_route" = "Uelekezi";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -217,6 +218,24 @@
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "Majengo ya 3D yamezimwa katika hali ya kuokoa nishati";
+
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "Picha za satelaiti";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "URL ya seva";
+
+/* Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) */
+"pref_bg_tiles_url_error" = "Weka URL halali yenye {z}/{x}/{y}";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "Ukubwa wa kashe (MB)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "Ung'avu wa vitu vya eneo";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "Vyanzo vya vigae maalum vinatolewa na wewe. Tumia tu huduma ambazo unaruhusiwa kuzifikia. Wewe ndiye unayehusika na utoaji sifa, masharti ya leseni, funguo za API, mgao na vikomo vya matumizi.";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Tangaza Majina ya Mitaa";
@@ -390,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Hitilafu katika kutuma barua pepe";
-
-/* Settings item title */
-"pref_calibration_title" = "Kalibresheni ya kompasi";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Inapatikana";
@@ -643,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Jina hili tayari limechukuliwa";
 "profile" = "Wasifu wa OpenStreetMap";
 "restore" = "Rejesha";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Faragha";
 "privacy_policy" = "Sera ya faragha";
 "terms_of_use" = "Masharti ya matumizi";
 
@@ -651,6 +670,9 @@
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "Baiskeli";
+
+/* Map layers menu: toggle button for the satellite imagery layer */
+"button_layer_satellite" = "Setilaiti";
 "button_layer_subway" = "Njia ya chini";
 "layers_title" = "Mitindo ya Ramani na Tabaka";
 
@@ -907,6 +929,9 @@
 "elevation_profile_descent" = "Ushukaji";
 "elevation_profile_min_elevation" = "Min. mwinuko";
 "elevation_profile_max_elevation" = "Max. mwinuko";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Anza kusonga ili kuona wasifu wa mwinuko";
 "isolines_toast_zooms_1_10" = "Vuta karibu kutalii mistari ya kontua";
 "downloader_loading_ios" = "Inapakua";
 

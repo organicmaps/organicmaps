@@ -215,7 +215,7 @@ public:
   void GenerateNotifications(std::vector<std::string> & notifications, bool announceStreets);
 
   void AddRoutePoint(RouteMarkData && markData, bool reorderIntermediatePoints = true);
-  void ContinueRouteToPoint(RouteMarkData && markData);
+  bool ContinueRouteToPoint(RouteMarkData && markData);
   std::vector<RouteMarkData> GetRoutePoints() const;
   size_t GetRoutePointsCount() const;
   void RemoveRoutePoint(RouteMarkType type, size_t intermediateIndex = 0);
@@ -305,7 +305,8 @@ private:
   bool InsertRoute(routing::RoutesResult const & result);
 
   // Helper: build drape subroutes for a single route. |isActive| controls styling
-  // (alternatives are dimmed). |roadWarnings| is filled only for the active route.
+  // (alternatives are dimmed). |roadWarnings| is appended for every route (active and alternatives)
+  // so warning marks of all routes are shown together.
   void InsertSingleRoute(routing::RouteBase const & route, bool isActive, double depthOffset,
                          std::shared_ptr<TransitRouteDisplay> const & transitRouteDisplay,
                          RoadWarningsCollection & roadWarnings);
@@ -313,9 +314,9 @@ private:
   // Linear warnings (toll/ferry/dirty/steps): a span of the route sharing the same road type.
   void CollectRoadWarnings(std::vector<routing::RouteSegment> const & segments, m2::PointD const & startPt,
                            double baseDistance, RoadWarningsCollection & roadWarnings);
-  // Point warnings (gate/lift_gate): barrier features sitting exactly on a route vertex.
-  void CollectRoadPointWarnings(std::vector<routing::RouteSegment> const & segments, m2::PointD const & startPt,
-                                RoadWarningsCollection & roadWarnings);
+  // Point warnings (gate/lift_gate): barrier nodes precomputed on the routing thread and stored in
+  // the route (see routing::RouteBase::GetWarnings); here we just map them to mark types.
+  void CollectRoadPointWarnings(routing::RouteBase const & route, RoadWarningsCollection & roadWarnings);
   void CreateRoadWarningMarks(RoadWarningsCollection && roadWarnings);
 
   // Creates an ETA balloon (RouteAltMark) at the midpoint of each route variant in |result|.

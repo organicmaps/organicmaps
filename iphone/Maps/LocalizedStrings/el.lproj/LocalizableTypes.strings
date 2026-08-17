@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Παγοδρόμιο";
 "type.leisure.marina" = "Μαρίνα";
 "type.leisure.nature_reserve" = "Προστατευόμενος βιότοπος";
+"type.leisure.bird_hide" = "Παρατηρητήριο πουλιών";
 "type.leisure.outdoor_seating" = "Καθίσματα εξωτερικού χώρου";
 "type.leisure.firepit" = "Εστία φωτιάς";
 "type.leisure.park" = "Πάρκο";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "Λιβάδι";
 "type.natural.orchard" = "Οπωρώνας";
 "type.natural.peak" = "Κορυφή";
+"type.natural.hill" = "Λόφος";
+"type.natural.arch" = "Βραχώδης Αψίδα";
 "type.natural.saddle" = "Σέλα Βουνού";
 "type.natural.rock" = "Πέτρωμα";
 "type.natural.scrub" = "Θαμνώδης περιοχή";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "Κοινωνική διευκόλυνση";
+"type.amenity.stage" = "Σκηνή";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Είσοδος θαλάμου έκτακτης ανάγκης";

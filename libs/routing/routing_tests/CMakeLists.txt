@@ -34,6 +34,7 @@ set(SRC
   route_tests.cpp
   routing_algorithm.cpp
   routing_algorithm.hpp
+  route_weight_tests.cpp
   routing_helpers_tests.cpp
   routing_options_tests.cpp
   routing_session_test.cpp

@@ -57,7 +57,6 @@ protocol IBookmarksListMenuItem {
 }
 
 protocol IBookmarksListView: AnyObject {
-  func setTitle(_ title: String)
   func setInfo(_ info: IBookmarksListInfoViewModel)
   func setSections(_ sections: [IBookmarksListSectionViewModel])
   func showMenu(_ items: [IBookmarksListMenuItem], from source: BookmarkToolbarButtonSource)
@@ -76,6 +75,7 @@ protocol IBookmarksListPresenter {
   func search(_ text: String)
   func sort()
   func more()
+  func editCategory()
   func deleteItem(in section: IBookmarksListSectionViewModel, at index: Int)
   func moveItem(in section: IBookmarksListSectionViewModel, at index: Int)
   func editItem(in section: IBookmarksListSectionViewModel, at index: Int)
@@ -95,6 +95,7 @@ enum BookmarksListSortingType {
 protocol IBookmarksListInteractor {
   var onCategoryReload: ((GroupReloadingResult) -> Void)? { get set }
 
+  func reloadCategory()
   func getBookmarkGroup() -> BookmarkGroup
   func prepareForSearch()
   func search(_ text: String, completion: @escaping ([Bookmark]) -> Void)

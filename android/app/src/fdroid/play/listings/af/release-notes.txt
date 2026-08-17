@@ -1,8 +1,10 @@
-• Tik 'n openbare vervoerstop en kies roetenommers om roetes op die kaart uit te lig
-• Boekmerk-etikette lê nie meer oor mekaar op die kaart nie
-• Vars OpenStreetMap-data vanaf 3 Mei, met nuwe voorwerpsoorte
-• Verbeterde hoogtekaarte vir roetes en trajekte
-• Kleiner kaartaflaaie vir Viëtnam, Maleisië, Hongkong, Macau en Hainan
-• Verfynde UI en animasies
-• Opgedateerde kontuurlyne vir Indonesië, Maleisië, Tanzanië, Thailand en Viëtnam
+NUWE FUNKSIES:
+• Opgedateerde soek- en roeteringsgebruikerskoppelvlak
+• Openbare vervoerroutes (bus, tram, metro, ligspoor)
+• Alternatiewe vinnigste en kortste roetes
+• Roetewaarskuwings oor trappe, hekke en hysbakhekke
+• Kies enige kleur vir boekmerke
+• Ondersteuning vir UK OS Grid, Irish Grid, ITM-koördinate
+• Aktiveer satellietbeelde in Organic Maps-instellings met 'n pasgemaakte rasterteëlbediener-URL
+• OSM-data vanaf 24 Junie
 …meer by omaps.org/af/news

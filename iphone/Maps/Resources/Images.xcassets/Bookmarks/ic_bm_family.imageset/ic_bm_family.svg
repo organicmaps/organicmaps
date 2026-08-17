@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19" height="19" version="1.1" viewBox="0 0 19 19" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <mask id="parents-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="19" height="19">
+   <rect width="19" height="19" fill="#fff"/>
+   <circle cx="9.23" cy="10.31" r="2.646" fill="#000"/>
+   <path d="m5.666 17.33 v-2.754 c0 -2.16 1.404 -3.402 3.564 -3.402 s3.564 1.242 3.564 3.402 v2.754 z" fill="#000"/>
+  </mask>
+ </defs>
+ <g mask="url(#parents-mask)" fill="#fff">
+  <circle cx="13.064" cy="4.856" r="2.646"/>
+  <path d="m9.068 16.52 v-4.482 c0 -2.592 1.62 -4.32 3.996 -4.32 s3.996 1.728 3.996 4.32 v4.482 z"/>
+  <circle cx="5.45" cy="6.152" r="2.268"/>
+  <path d="m1.832 16.52 v-3.618 c0 -2.268 1.458 -3.726 3.618 -3.726 s3.618 1.458 3.618 3.726 v3.618 z"/>
+ </g>
+ <circle cx="9.23" cy="10.31" r="1.458" fill="#fff"/>
+ <path d="m6.854 16.52 v-1.35 c0 -1.458 0.972 -2.376 2.376 -2.376 s2.376 0.918 2.376 2.376 v1.35 z" fill="#fff"/>
+</svg>

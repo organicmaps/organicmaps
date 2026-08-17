@@ -2,11 +2,13 @@ project(map_tests)
 
 set(SRC
   address_tests.cpp
+  api_mark_tests.cpp
   bookmarks_test.cpp
   chart_generator_tests.cpp
   check_mwms.cpp
   coordinate_formats_tests.cpp
   countries_names_tests.cpp
+  editor_notes_tests.cpp
   extrapolator_tests.cpp
   feature_getters_tests.cpp
   gps_track_collection_test.cpp
@@ -19,6 +21,7 @@ set(SRC
   search_api_tests.cpp
   transliteration_test.cpp
   relation_track_tests.cpp
+  routing_manager_tests.cpp
   track_tests.cpp
 )
 
@@ -28,5 +31,6 @@ target_link_libraries(${PROJECT_NAME}
   PRIVATE
     search_tests_support
     generator_tests_support
+    platform_tests_support
     map
 )

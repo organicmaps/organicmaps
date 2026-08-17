@@ -48,12 +48,15 @@
     <string name="type.man_made.ceremonial_gate">Ceremonijas vārti</string>
     <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
     <string name="type.man_made.cross">Krusts</string>
+    <string name="type.leisure.bird_hide">Putnu vērošanas slēpnis</string>
     <string name="type.leisure.track">Skrejceļš</string>
     <string name="type.leisure.track.area">Skrejceļš</string>
     <!-- A deep hole drilled into the earth to extract oil or gas. -->
     <string name="type.man_made.petroleum_well">Naftas vai gāzes urbums</string>
     <!-- A tower/mast constructed to burn off excess gas. -->
     <string name="type.man_made.flare">Gāzes deglis</string>
+    <string name="type.natural.hill">Pakalns</string>
+    <string name="type.natural.arch">Akmeņu arka</string>
     <string name="type.natural.volcano.active">Aktīvais vulkāns</string>
     <!-- Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) -->
     <string name="type.place.quarter">Apkaime</string>
@@ -87,6 +90,7 @@
     <string name="type.roller_coaster.track">Amerikāņu kalniņi</string>
     <string name="type.attraction.water_slide">Ūdens slīdkalniņš</string>
     <string name="type.waterway.access_point">Piekļuves punkts pie ūdensceļiem</string>
+    <string name="type.amenity.stage">Skatuve</string>
     <string name="type.barrier.jersey_barrier">Bloks</string>
     <string name="type.barrier.debris">Gruveši</string>
     <string name="type.barrier.log">Baļķu barjera</string>

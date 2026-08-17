@@ -657,6 +657,7 @@
     <string name="type.leisure.ice_rink">Skautahöll</string>
     <string name="type.leisure.marina">Bátalægi</string>
     <string name="type.leisure.nature_reserve">Náttúruverndarsvæði</string>
+    <string name="type.leisure.bird_hide">Fuglaskoðunarbyrgi</string>
     <string name="type.leisure.outdoor_seating">Sæti utandyra</string>
     <string name="type.leisure.firepit">Eldgryfja</string>
     <string name="type.leisure.park">Almenningsgarður</string>
@@ -747,6 +748,8 @@
     <string name="type.natural.meadow">Skógarlundur</string>
     <string name="type.natural.orchard">Trjágarður</string>
     <string name="type.natural.peak">Tindur</string>
+    <string name="type.natural.hill">Hóll</string>
+    <string name="type.natural.arch">Steinbogagöng</string>
     <string name="type.natural.saddle">Fjallsröðull</string>
     <string name="type.natural.rock">Klettar</string>
     <string name="type.natural.scrub">Runnar</string>
@@ -1428,6 +1431,7 @@
     <string name="type.self_service.no">Ekki sjálfsafgreiðsla</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">Félagsþjónusta</string>
+    <string name="type.amenity.stage">Svið</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Inngangur á bráðamóttöku</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

@@ -25,7 +25,7 @@ public:
   using TIsCountryLoadedFn = std::function<bool(m2::PointD const &)>;
   using TIsCountryLoadedByNameFn = std::function<bool(std::string_view)>;
   using TUpdateCurrentCountryFn = std::function<void(m2::PointD const &, int)>;
-  using TTileBackgroundReadFn = std::function<void(df::TileKey const &, dp::BackgroundMode)>;
+  using TTileBackgroundReadFn = std::function<bool(df::TileKey const &, dp::BackgroundMode)>;
   using TCancelTileBackgroundReadingFn = std::function<void(df::TileKey const &, dp::BackgroundMode)>;
 
   MapDataProvider(TReadIDsFn && idsReader, TReadFeaturesFn && featureReader,

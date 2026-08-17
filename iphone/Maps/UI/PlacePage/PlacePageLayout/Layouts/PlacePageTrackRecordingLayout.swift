@@ -26,7 +26,9 @@ final class PlacePageTrackRecordingLayout: IPlacePageLayout {
     guard let trackData = placePageData.trackData else {
       return nil
     }
-    return ElevationProfileBuilder.build(trackData: trackData, delegate: interactor, presentationStyle: .track)
+    return ElevationProfileBuilder.build(trackRecordingData: trackData,
+                                         delegate: interactor,
+                                         presentationStyle: .track)
   }()
 
   private lazy var actionBarViewController: ActionBarViewController = {
@@ -76,7 +78,7 @@ private extension PlacePageTrackRecordingLayout {
   func updateTrackRecordingRelatedSections() {
     guard let elevationProfileViewController, let trackData = placePageData.trackData else { return }
     headerViewController.setTitle(placePageData.previewData.title, secondaryTitle: nil)
-    elevationProfileViewController.presenter?.update(with: trackData)
+    elevationProfileViewController.presenter?.update(with: ElevationProfileBuilder.makeTrackRecordingState(trackData: trackData))
     presenter?.layoutIfNeeded()
   }
 }

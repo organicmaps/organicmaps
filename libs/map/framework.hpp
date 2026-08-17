@@ -84,6 +84,8 @@ class Loader;
 /// build version for screenshots.
 // #define FIXED_LOCATION
 
+class RasterTileProvider;
+
 struct FrameworkParams
 {
   bool m_enableDiffs = true;
@@ -164,6 +166,9 @@ protected:
   drape_ptr<df::DrapeEngine> m_drapeEngine;
   double m_fontScaleFactor = 1.0;
 
+  // POC source of raster background tiles (see tileBackgroundReadFn in CreateDrapeEngine).
+  std::unique_ptr<RasterTileProvider> m_rasterTileProvider;
+
   StorageDownloadingPolicy m_storageDownloadingPolicy;
   storage::Storage m_storage;
   bool m_enabledDiffs;
@@ -205,6 +210,9 @@ protected:
   void OnViewportChanged(ScreenBase const & screen);
 
   void InitTransliteration();
+
+  // Builds m_rasterTileProvider for the given XYZ source and the "bg_tiles" disk cache.
+  void CreateBackgroundTilesProvider(std::string const & url, uint32_t cacheSizeMB);
 
 public:
   explicit Framework(FrameworkParams const & params = {}, bool loadMaps = true);
@@ -273,6 +281,11 @@ public:
   void ShowBookmark(kml::MarkId id);
   void ShowBookmark(Bookmark const * bookmark);
   void ShowTrack(kml::TrackId trackId);
+  // Sets individual track visibility. Hiding the track that is currently shown in the
+  // Place Page also resets the selection so nothing stays selected on an invisible track.
+  void SetTrackVisibility(kml::TrackId trackId, bool visible);
+  // Deletes the track, closing the Place Page first if it currently shows this track.
+  void DeleteTrack(kml::TrackId trackId);
   void ShowFeature(FeatureID const & featureId);
   void ShowBookmarkCategory(kml::MarkGroupId categoryId, bool animation = true);
 
@@ -621,7 +634,9 @@ private:
 
   static bool ParseAllTypesDebugCommand(search::SearchParams const & params);
 
-  void FillUserMarkInfo(UserMark const * mark, place_page::Info & outInfo);
+  /// @return false if @a outInfo was not filled (e.g. a stale track mark), so the caller should fall
+  /// back to the regular tap matching instead of activating an empty selection.
+  bool FillUserMarkInfo(UserMark const * mark, place_page::Info & outInfo);
   void FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const;
   void FillSearchResultInfo(SearchMarkPoint const & smp, place_page::Info & info) const;
   void FillMyPositionInfo(place_page::Info & info, place_page::BuildInfo const & buildInfo) const;
@@ -698,6 +713,30 @@ public:
   static std::string GetMapLanguageCode();
   void SetMapLanguageCode(std::string const & langCode);
 
+  // Custom raster background tiles (user-provided XYZ {z}/{x}/{y} source). SetBackgroundTiles is the
+  // single apply entry point for the settings UI (call it when the tiles settings are committed):
+  // it persists all values (kept even while disabled) and applies them. cacheSizeMB and
+  // areaOpacityPct are clamped to the limits below. areaOpacityPct is the opacity of vector area
+  // fills drawn over the imagery (0 hides them). The layer renders only when enabled AND a non-empty
+  // URL is set.
+  static uint32_t constexpr kBackgroundTilesMinCacheSizeMB = 1;
+  static uint32_t constexpr kBackgroundTilesMaxCacheSizeMB = 1000;
+  static uint32_t constexpr kBackgroundTilesMinAreaOpacityPct = 0;
+  static uint32_t constexpr kBackgroundTilesMaxAreaOpacityPct = 100;
+
+  void SetBackgroundTiles(bool enabled, std::string url, uint32_t cacheSizeMB, uint32_t areaOpacityPct);
+  // Flips only the on/off flag, keeping the configured URL / cache size / area opacity. Lighter than
+  // SetBackgroundTiles: it just switches the rendered mode (creating the provider on first enable).
+  void SetBackgroundTilesEnabled(bool enabled);
+  static std::string GetBackgroundTilesURL();
+  static bool IsBackgroundTilesEnabled();
+  static uint32_t GetBackgroundTilesCacheSize();
+  static uint32_t GetBackgroundTilesAreaOpacity();
+  // Basic sanity check for a user-entered XYZ template: requires an http(s):// scheme, a non-empty host,
+  // and all three {z}/{x}/{y} placeholders present literally (the braces must not be percent-encoded).
+  // The settings UI calls this before committing and refuses to close on an enabled, malformed URL.
+  static bool IsWellFormedBackgroundTilesURL(std::string const & url);
+
   void SetLargeFontsSize(bool isLargeSize);
   // Multiplied on top of the SetLargeFontsSize (Large Fonts) factor.
   void SetFontScaleFactor(double scaleFactor);
@@ -765,7 +804,8 @@ public:
   void DeleteFeature(FeatureID const & fid);
   osm::NewFeatureCategories GetEditorCategories() const;
   bool RollBackChanges(FeatureID const & fid);
-  void CreateNote(osm::MapObject const & mapObject, osm::Editor::NoteProblemType const type, std::string const & note);
+  void CreateNote(osm::EditableMapObject const & mapObject, osm::Editor::NoteProblemType const type,
+                  std::string const & note);
 
 private:
   settings::UsageStats m_usageStats;

@@ -1,7 +1,8 @@
-• I-tap ang hintuan ng pampublikong sasakyan at piliin ang mga numero ng ruta upang i-highlight ang mga ruta sa mapa
-• Ang mga label ng bookmark ay hindi na nagsasapawan sa mapa
-• Bagong data ng OpenStreetMap noong Mayo 3, na may mga bagong uri ng bagay
-• Pinahusay na mga elevation chart para sa mga track at ruta
-• Mas maliliit na pag-download ng mapa para sa Vietnam, Malaysia, Hong Kong, Macau, at Hainan
-• Pinong UI at mga animation
-…higit pa sa omaps.org/news
+MGA BAGONG TAMPOK:
+• Na-update na user interface para sa paghahanap at pagba-navigate
+• Pag-ruta ng pampublikong transportasyon (bus, tram, subway, light rail)
+• Mga alternatibong pinakamabilis at pinakamaikling ruta
+• Mga babala sa ruta tungkol sa mga baitang, tarangkahan, at lift gate
+• Pumili ng anumang kulay para sa mga bookmark
+• Suporta para sa mga koordinatong UK OS Grid, Irish Grid, ITM
+…marami pa sa omaps.org/news

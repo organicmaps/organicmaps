@@ -219,6 +219,18 @@
     <string name="pref_map_3d_buildings_title">ตึก 3D</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">สิ่งปลูกสร้าง 3 มิติจะปิดในโหมดประหยัดพลังงาน</string>
+    <!-- Settings: title of the satellite imagery (custom raster tiles) screen -->
+    <string name="pref_bg_tiles_title">ภาพถ่ายดาวเทียม</string>
+    <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
+    <string name="pref_bg_tiles_url_title">URL ของเซิร์ฟเวอร์</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">ป้อน URL ที่ถูกต้องซึ่งมี {z}/{x}/{y}</string>
+    <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
+    <string name="pref_bg_tiles_size_title">ขนาดแคช (MB)</string>
+    <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
+    <string name="pref_bg_tiles_opacity_title">ความทึบของวัตถุพื้นที่</string>
+    <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
+    <string name="pref_bg_tiles_disclaimer">แหล่งไทล์ที่กำหนดเองนั้นคุณเป็นผู้จัดหาเอง ใช้เฉพาะบริการที่คุณได้รับอนุญาตให้เข้าถึงเท่านั้น คุณเป็นผู้รับผิดชอบการระบุแหล่งที่มา เงื่อนไขสัญญาอนุญาต คีย์ API โควตา และขีดจำกัดการใช้งาน</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">คำแนะนำด้วยเสียง</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
@@ -231,7 +243,7 @@
     <string name="pref_tts_test_voice_title">ทดสอบเส้นทางด้วยเสียง (TTS, การอ่านออกเสียงข้อความ)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">ตรวจสอบระดับเสียงหรือการตั้งค่าการอ่านออกเสียงข้อความของระบบหากคุณไม่ได้ยินเสียงในตอนนี้</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">ไม่สามารถใช้ได้</string>
     <string name="pref_map_auto_zoom">ซูมอัตโนมัติ</string>
     <string name="placepage_distance">ระยะห่าง</string>
@@ -567,14 +579,11 @@
     <string name="prefs_languages_information_off_link">สำหรับข้อมูลเพิ่มเติม กรุณาเข้าชมคำแนะนำนี้</string>
     <string name="transliteration_title">การทับศัพท์เป็นภาษาละติน</string>
     <string name="learn_more">ศึกษาเพิ่มเติม</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">ใช้การค้นหาหรือแตะบนแผนที่เพื่อเพิ่มจุดเริ่มต้นเส้นทาง</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">ใช้การค้นหาหรือแตะบนแผนที่เพื่อเพิ่มจุดปลายทาง</string>
     <string name="planning_route_manage_route">จัดการเส้นทาง</string>
     <string name="button_plan">วางแผน</string>
     <string name="placepage_remove_stop">ลบจุดแวะพัก</string>
     <string name="placepage_add_stop">เพิ่มจุดแวะพัก</string>
+    <string name="drag_to_reorder">สั่งซื้อใหม่</string>
     <string name="saved">บันทึกแล้ว</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">กรุณาเข้าสู่ระบบ OpenStreetMap เพื่ออัปโหลดการแก้ไขแผนที่ทั้งหมดของคุณโดยอัตโนมัติ เรียนรู้เพิ่มเติม<a href="https://github.com/organicmaps/organicmaps/issues/6144">ที่นี่</a></string>
@@ -621,6 +630,8 @@
     <string name="button_layer_hiking">การเดินป่า</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">การปั่นจักรยาน</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">ดาวเทียม</string>
     <string name="button_layer_subway">รถไฟใต้ดิน</string>
     <string name="layers_title">รูปแบบและเลเยอร์ของแผนที่</string>
     <string name="bookmarks_empty_list_title">รายการนี้ว่างเปล่า</string>
@@ -720,6 +731,7 @@
     <string name="opens_at">เปิดที่ %s</string>
     <string name="closes_at">ปิดที่ %s</string>
     <string name="editor_add_select_category_all_subtitle">หมวดหมูทั้งหมด</string>
+    <string name="placepage_replace_stop">แทนที่หยุด</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">อาหาร</string>
@@ -865,6 +877,12 @@
     <string name="share_track">แชร์ติดตาม</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">ลบ %s?</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">เปลี่ยนสี</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">ซ่อนเส้นทาง</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">แสดงเส้นทาง</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -891,4 +909,6 @@
     <string name="color_picker_hex_label">สี sRGB ในรูปแบบ Hex #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">กริด</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">ค้นหาด้วยเสียง</string>
 </resources>

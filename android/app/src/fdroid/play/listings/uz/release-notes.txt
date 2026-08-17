@@ -1,6 +1,8 @@
-• Jamoat transporti bekatini bosing va xaritada yo'nalishlarni ajratib ko'rsatish uchun yo'nalish raqamlarini tanlang
-• Xaritadagi belgi yorliqlari endi bir-birini qoplamaydi
-• 3 may holatiga ko'ra yangi OpenStreetMap ma'lumotlari, yangi obyekt turlari bilan
-• Yo'laklar va marshrutlar uchun balandlik diagrammalari yaxshilandi
-• Vetnam, Malayziya, Gonkong, Makao va Xaynan uchun xarita yuklamalari kichikroq
-…batafsil ma'lumot uchun omaps.org/news
+YANGI XUSUSIYATLAR:
+• Qidiruv va marshrutlash foydalanuvchi interfeysi yangilandi
+• Jamoat transporti marshruti (avtobus, tramvay, metro, yengil relsli transport)
+• Alternativ eng tez va eng qisqa yo'nalishlar
+• Poygaklar, darvozalar va lift darvozalar bo'yicha yo'nalish ogohlantirishlari
+• Belgilamalar uchun istalgan rangni tanlang
+• UK OS Grid, Irish Grid, ITM koordinatalarini qo'llab-quvvatlash
+…batafsil omaps.org/news manzilida

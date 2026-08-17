@@ -39,7 +39,12 @@ TransitGraph::TransitGraph(::transit::TransitVersion transitVersion, NumMwmId nu
   : m_transitVersion(transitVersion)
   , m_mwmId(numMwmId)
   , m_estimator(estimator)
-{}
+{
+  // Mostly for clarification reasons. It is already checked in the graph loader.
+  CHECK(m_transitVersion == ::transit::TransitVersion::OnlySubway ||
+            m_transitVersion == ::transit::TransitVersion::AllPublicTransport,
+        (m_transitVersion));
+}
 
 ::transit::TransitVersion TransitGraph::GetTransitVersion() const
 {
@@ -48,14 +53,14 @@ TransitGraph::TransitGraph(::transit::TransitVersion transitVersion, NumMwmId nu
 
 LatLonWithAltitude const & TransitGraph::GetJunction(Segment const & segment, bool front) const
 {
-  CHECK(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
+  ASSERT(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
   auto const & vertex = m_fake.GetVertex(segment);
   return front ? vertex.GetJunctionTo() : vertex.GetJunctionFrom();
 }
 
 RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment, EdgeEstimator::Purpose purpose) const
 {
-  CHECK(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
+  ASSERT(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
 
   if (m_transitVersion == ::transit::TransitVersion::OnlySubway)
   {
@@ -91,11 +96,6 @@ RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment, EdgeEstimat
                          0 /* numAccessConditionalPenalties */, weight /* transitTime */);
     }
   }
-  else
-  {
-    CHECK(false, (m_transitVersion));
-    UNREACHABLE();
-  }
 
   return RouteWeight(m_estimator->CalcOffroad(GetJunction(segment, false /* front */).GetLatLon(),
                                               GetJunction(segment, true /* front */).GetLatLon(), purpose));
@@ -127,7 +127,10 @@ RouteWeight TransitGraph::GetTransferPenalty(Segment const & from, Segment const
     // 3. |from| is edge, |to| is edge from another line directly connected to |from|.
     auto const it = m_transferPenaltiesSubway.find(lineIdTo);
     CHECK(it != m_transferPenaltiesSubway.cend(), ("Segment", to, "belongs to unknown line:", lineIdTo));
-    return RouteWeight(it->second /* weight */, 0 /* nonPassThrougCross */, 0 /* numAccessChanges */,
+    // Scale only the routing weight (not transitTime) to bias the alternative route away from
+    // transfers; factor is 1.0 for the primary route.
+    double const penalty = it->second * m_estimator->GetTransitTransferFactor();
+    return RouteWeight(penalty /* weight */, 0 /* nonPassThrougCross */, 0 /* numAccessChanges */,
                        0 /* numAccessConditionalPenalties */, it->second /* transitTime */);
   }
   else if (m_transitVersion == ::transit::TransitVersion::AllPublicTransport)
@@ -158,17 +161,16 @@ RouteWeight TransitGraph::GetTransferPenalty(Segment const & from, Segment const
     // We need to call GetFrequency(time).
     size_t const headwayS = it->second.GetFrequency() / 2;
 
-    return RouteWeight(static_cast<double>(headwayS) /* weight */, 0 /* nonPassThroughCross */,
-                       0 /* numAccessChanges */, 0 /* numAccessConditionalPenalties */, headwayS /* transitTime */);
+    double const penalty = static_cast<double>(headwayS) * m_estimator->GetTransitTransferFactor();
+    return RouteWeight(penalty /* weight */, 0 /* nonPassThroughCross */, 0 /* numAccessChanges */,
+                       0 /* numAccessConditionalPenalties */, headwayS /* transitTime */);
   }
-
-  CHECK(false, (m_transitVersion));
   UNREACHABLE();
 }
 
 void TransitGraph::GetTransitEdges(Segment const & segment, bool isOutgoing, EdgeListT & edges) const
 {
-  CHECK(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
+  ASSERT(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
   for (auto const & s : m_fake.GetEdges(segment, isOutgoing))
   {
     auto const & from = isOutgoing ? segment : s;
@@ -182,6 +184,17 @@ std::set<Segment> const & TransitGraph::GetFake(Segment const & real) const
   return m_fake.GetFake(real);
 }
 
+void TransitGraph::GetGatesNear(m2::PointD const & point, double radiusM, bool isEnter, GateAccessesT & out) const
+{
+  for (auto const & access : m_gateAccesses)
+  {
+    if (access.m_isEnter != isEnter)
+      continue;
+    if (mercator::DistanceOnEarth(point, mercator::FromLatLon(access.m_projection.m_junction.GetLatLon())) <= radiusM)
+      out.push_back(access);
+  }
+}
+
 bool TransitGraph::FindReal(Segment const & fake, Segment & real) const
 {
   return m_fake.FindReal(fake, real);
@@ -190,7 +203,7 @@ bool TransitGraph::FindReal(Segment const & fake, Segment & real) const
 void TransitGraph::Fill(::transit::experimental::TransitData const & transitData, Endings const & stopEndings,
                         Endings const & gateEndings)
 {
-  CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, ());
+  ASSERT_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, ());
 
   for (auto const & line : transitData.GetLines())
     m_transferPenaltiesPT[line.GetId()] = line.GetSchedule();
@@ -254,7 +267,7 @@ void TransitGraph::Fill(::transit::experimental::TransitData const & transitData
 
 void TransitGraph::Fill(transit::GraphData const & transitData, Endings const & gateEndings)
 {
-  CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::OnlySubway, (m_transitVersion));
+  ASSERT_EQUAL(m_transitVersion, ::transit::TransitVersion::OnlySubway, (m_transitVersion));
 
   // Line has information about transit interval.
   // We assume arrival time has uniform distribution with min value |0| and max value |line.GetInterval()|.
@@ -314,7 +327,6 @@ bool TransitGraph::IsGate(Segment const & segment) const
     return m_segmentToGateSubway.count(segment) > 0;
   else if (m_transitVersion == ::transit::TransitVersion::AllPublicTransport)
     return m_segmentToGatePT.count(segment) > 0;
-  CHECK(false, (m_transitVersion));
   UNREACHABLE();
 }
 
@@ -324,7 +336,6 @@ bool TransitGraph::IsEdge(Segment const & segment) const
     return m_segmentToEdgeSubway.count(segment) > 0;
   else if (m_transitVersion == ::transit::TransitVersion::AllPublicTransport)
     return m_segmentToEdgePT.count(segment) > 0;
-  CHECK(false, (m_transitVersion));
   UNREACHABLE();
 }
 
@@ -337,7 +348,7 @@ transit::Gate const & TransitGraph::GetGate(Segment const & segment) const
 
 ::transit::experimental::Gate const & TransitGraph::GetGatePT(Segment const & segment) const
 {
-  CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, (segment));
+  ASSERT_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, (segment));
   auto const it = m_segmentToGatePT.find(segment);
   CHECK(it != m_segmentToGatePT.cend(), ("Unknown transit segment", segment));
   return it->second;
@@ -352,7 +363,7 @@ transit::Edge const & TransitGraph::GetEdge(Segment const & segment) const
 
 ::transit::experimental::Edge const & TransitGraph::GetEdgePT(Segment const & segment) const
 {
-  CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, (segment));
+  ASSERT_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, (segment));
   auto const it = m_segmentToEdgePT.find(segment);
   CHECK(it != m_segmentToEdgePT.cend(), ("Unknown transit segment", segment));
   return it->second;
@@ -381,7 +392,7 @@ void TransitGraph::AddGate(transit::Gate const & gate, FakeEnding const & ending
                            std::map<transit::StopId, LatLonWithAltitude> const & stopCoords, bool isEnter,
                            StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront)
 {
-  CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::OnlySubway, (gate));
+  ASSERT_EQUAL(m_transitVersion, ::transit::TransitVersion::OnlySubway, (gate));
 
   Segment const dummy = Segment();
   for (auto const & projection : ending.m_projections)
@@ -392,6 +403,9 @@ void TransitGraph::AddGate(transit::Gate const & gate, FakeEnding const & ending
                                 isEnter ? projection.m_junction : ending.m_originJunction,
                                 isEnter ? ending.m_originJunction : projection.m_junction, FakeVertex::Type::PureFake);
     m_fake.AddStandaloneVertex(projectionSegment, projectionVertex);
+
+    // Record the gate's pedestrian access so nearby checkpoints can use it as a snap candidate.
+    m_gateAccesses.emplace_back(projection, projectionSegment, isEnter);
 
     // Add fake parts of real
     FakeVertex forwardPartOfReal(
@@ -434,7 +448,7 @@ void TransitGraph::AddGate(::transit::experimental::Gate const & gate, FakeEndin
                            std::map<transit::StopId, LatLonWithAltitude> const & stopCoords, bool isEnter,
                            StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront)
 {
-  CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, (gate));
+  ASSERT_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, (gate));
 
   Segment const dummy = Segment();
   for (auto const & projection : ending.m_projections)
@@ -445,6 +459,9 @@ void TransitGraph::AddGate(::transit::experimental::Gate const & gate, FakeEndin
                                 isEnter ? projection.m_junction : ending.m_originJunction,
                                 isEnter ? ending.m_originJunction : projection.m_junction, FakeVertex::Type::PureFake);
     m_fake.AddStandaloneVertex(projectionSegment, projectionVertex);
+
+    // Record the gate's pedestrian access so nearby checkpoints can use it as a snap candidate.
+    m_gateAccesses.emplace_back(projection, projectionSegment, isEnter);
 
     // Add fake parts of real
     FakeVertex forwardPartOfReal(
@@ -488,7 +505,7 @@ void TransitGraph::AddStop(::transit::experimental::Stop const & stop, FakeEndin
                            std::map<transit::StopId, LatLonWithAltitude> const & stopCoords,
                            StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront)
 {
-  CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, (stop));
+  ASSERT_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, (stop));
 
   Segment const dummy = Segment();
   for (bool isEnter : {true, false})
@@ -542,7 +559,7 @@ Segment TransitGraph::AddEdge(transit::Edge const & edge,
                               std::map<transit::StopId, LatLonWithAltitude> const & stopCoords,
                               StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront)
 {
-  CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::OnlySubway, (edge));
+  ASSERT_EQUAL(m_transitVersion, ::transit::TransitVersion::OnlySubway, (edge));
 
   auto const edgeSegment = GetNewTransitSegment();
   auto const stopFromId = edge.GetStop1Id();
@@ -560,7 +577,7 @@ Segment TransitGraph::AddEdge(::transit::experimental::Edge const & edge,
                               std::map<transit::StopId, LatLonWithAltitude> const & stopCoords,
                               StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront)
 {
-  CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, (edge));
+  ASSERT_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, (edge));
 
   auto const edgeSegment = GetNewTransitSegment();
   auto const stopFromId = edge.GetStop1Id();

@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Hossz";
 "share_my_location" = "Saját tartózkodási hely megosztása";
+"prefs_group_network" = "Hálózat";
 "prefs_group_route" = "Navigáció";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -217,6 +218,24 @@
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "A 3D épületek energiatakarékos módban ki vannak kapcsolva";
+
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "Műholdas felvételek";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "Kiszolgáló URL-címe";
+
+/* Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) */
+"pref_bg_tiles_url_error" = "Adjon meg érvényes URL-t {z}/{x}/{y} elemekkel";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "Gyorsítótár mérete (MB)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "Területobjektumok átlátszatlansága";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "Az egyéni csempeforrásokat Ön biztosítja. Csak olyan szolgáltatásokat használjon, amelyekhez jogosult hozzáférni. Ön felel a forrásmegjelölésért, a licencfeltételekért, az API-kulcsokért, a kvótákért és a használati korlátokért.";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Hangutasítások";
@@ -390,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Hiba az e-mail küldése során";
-
-/* Settings item title */
-"pref_calibration_title" = "Iránytű kalibrálása";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Elérhető";
@@ -643,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Ez a név már foglalt";
 "profile" = "OpenStreetMap profil";
 "restore" = "Visszaállítás";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Adatvédelem";
 "privacy_policy" = "Adatvédelmi irányelvek";
 "terms_of_use" = "Felhasználási feltételek";
 
@@ -651,6 +670,9 @@
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "Kerékpározás";
+
+/* Map layers menu: toggle button for the satellite imagery layer */
+"button_layer_satellite" = "Műhold";
 "button_layer_subway" = "Metró";
 "layers_title" = "Térképstílusok és rétegek";
 
@@ -907,6 +929,9 @@
 "elevation_profile_descent" = "Csökkenő";
 "elevation_profile_min_elevation" = "Legkisebb magasság";
 "elevation_profile_max_elevation" = "Legnagyobb magasság";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Induljon el a magassági profil megtekintéséhez";
 "isolines_toast_zooms_1_10" = "Nagyítás az izovonalak felfedezéséhez";
 "downloader_loading_ios" = "Letöltés";
 

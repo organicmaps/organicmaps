@@ -1,14 +1,18 @@
 final class PlacePageExpandableDetailsSectionViewController: UIViewController {
   private let stackView = UIStackView()
   private let headerInfoView = InfoItemView()
-  private let expandableLabel = ExpandableLabel()
+  private let textContainerFactory: any ExpandableTextContainerFactory.Type
+  private var expandableLabel: ExpandableLabel?
+  private var expandableLabelText: ExpandableText?
 
   private(set) var interactor: any PlacePageExpandableDetailsSectionInteractor
 
   // MARK: Init
 
-  init(interactor: any PlacePageExpandableDetailsSectionInteractor) {
+  init(interactor: any PlacePageExpandableDetailsSectionInteractor,
+       textContainerFactory: any ExpandableTextContainerFactory.Type) {
     self.interactor = interactor
+    self.textContainerFactory = textContainerFactory
     super.init(nibName: nil, bundle: nil)
   }
 
@@ -26,6 +30,10 @@ final class PlacePageExpandableDetailsSectionViewController: UIViewController {
     interactor.handle(.viewDidLoad)
   }
 
+  deinit {
+    removeExpandableLabelIfNeeded()
+  }
+
   // MARK: Setup
 
   private func setupView() {
@@ -33,17 +41,11 @@ final class PlacePageExpandableDetailsSectionViewController: UIViewController {
     stackView.axis = .vertical
     stackView.distribution = .fill
     stackView.spacing = 0
-
-    expandableLabel.isHidden = true
-    expandableLabel.didTap = { [weak self] in
-      self?.interactor.handle(.didTapExpandableText)
-    }
   }
 
   private func layoutView() {
     view.addSubview(stackView)
     stackView.addArrangedSubview(headerInfoView)
-    stackView.addArrangedSubview(expandableLabel)
 
     stackView.translatesAutoresizingMaskIntoConstraints = false
     headerInfoView.translatesAutoresizingMaskIntoConstraints = false
@@ -76,18 +78,47 @@ final class PlacePageExpandableDetailsSectionViewController: UIViewController {
                                 tapHandler: { [weak self] in
                                   self?.interactor.handle(.didTapAccessory)
                                 })
-    expandableLabel.expandableText = viewModel.expandableText
 
-    switch viewModel.expandedState {
+    guard let expandableText = viewModel.expandableText else {
+      removeExpandableLabelIfNeeded()
+      return
+    }
+
+    if let expandableLabel, expandableLabelText?.isSameCase(as: expandableText) == true {
+      expandableLabel.text = expandableText.string
+    } else {
+      removeExpandableLabelIfNeeded()
+      let label = ExpandableLabel(expandableText: expandableText, textContainerFactory: textContainerFactory) { [weak self] in
+        self?.interactor.handle(.didTapExpandableText)
+      }
+      expandableLabel = label
+      expandableLabelText = expandableText
+      stackView.addArrangedSubview(label)
+    }
+
+    if let expandableLabel {
+      applyExpandedState(viewModel.expandedState, to: expandableLabel)
+    }
+  }
+
+  private func applyExpandedState(_ expandedState: PlacePageExpandableDetailsSectionViewModel.ExpandedState,
+                                  to expandableLabel: ExpandableLabel) {
+    switch expandedState {
     case .collapsed:
       expandableLabel.isHidden = false
       expandableLabel.setExpanded(false)
     case .expanded:
       expandableLabel.isHidden = false
       expandableLabel.setExpanded(true)
-    case .hidden:
-      expandableLabel.isHidden = true
-      expandableLabel.setExpanded(false)
     }
+  }
+
+  private func removeExpandableLabelIfNeeded() {
+    guard let expandableLabel else { return }
+
+    stackView.removeArrangedSubview(expandableLabel)
+    expandableLabel.removeFromSuperview()
+    self.expandableLabel = nil
+    expandableLabelText = nil
   }
 }

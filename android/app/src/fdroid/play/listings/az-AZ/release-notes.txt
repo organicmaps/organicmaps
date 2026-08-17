@@ -1,7 +1,8 @@
-• Nəqliyyat dayanacağına toxunun və xəritədə marşrutları vurğulamaq üçün marşrut nömrələrini seçin
-• Xəritədə yer imləri etiketləri artıq üst-üstə düşmür
-• 3 may tarixinə olan yeni obyekt növləri ilə təzə OpenStreetMap məlumatları
-• Yollar və marşrutlar üçün yüksəklik cədvəllərinin təkmilləşdirilməsi
-• Vyetnam, Malayziya, Honq Konq, Makao və Xaynan üçün xəritə yükləmələrinin həcminin kiçildilməsi
-• Təkmilləşdirilmiş istifadəçi interfeysi və animasiyalar
-…daha çox omaps.org/news saytında
+YENİ XÜSUSİYYƏTLƏR:
+• Axtarış və marşrutlaşdırma istifadəçi interfeysi yeniləndi
+• Nəqliyyat marşrutlaşdırılması (avtobus, tramvay, metro, yüngül relsli qatar)
+• Alternativ ən sürətli və ən qısa marşrutlar
+• Pilləkənlər, darvazalar və qaldırıcı darvazalar barədə marşrut xəbərdarlıqları
+• İşarələr üçün istənilən rəngi seçin
+• UK OS Grid, Irish Grid, ITM koordinatlarına dəstək
+…daha çox omaps.org/news ünvanında

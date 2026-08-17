@@ -1,26 +1,41 @@
-- MỚI! Nhấn vào một trạm giao thông công cộng để làm nổi bật toàn bộ lộ trình trên bản đồ, giống như trong kiểu bản đồ Transit.
-- MỚI! Các tuyến giao thông công cộng đường dài và các mối quan hệ OpenStreetMap khác hiện được kết nối qua các ranh giới bản đồ thành một đường liên tục.
-- Dữ liệu OpenStreetMap được cập nhật tính đến ngày 3 tháng 5.
-- Việt Nam và Malaysia hiện đã được chia thành các khu vực nhỏ hơn có thể tải xuống riêng biệt.
-- Hong Kong, Macau và Hainan hiện đã được tách khỏi Quảng Đông, với các đường biên giới lân cận được cập nhật.
-- Cập nhật đường đồng mức cho Indonesia, Malaysia, Tanzania, Thái Lan và Việt Nam.
-- Đã thêm nút ghi lại đường đi vào bảng thông tin trong quá trình điều hướng.
-- Đã thêm các loại OpenStreetMap mới: núi lửa đang hoạt động, điểm tiếp cận đường thủy, đường trượt, phòng hút hookah và các tòa nhà đang xây dựng.
-- Đã thêm “Lookout” làm từ đồng nghĩa trong tìm kiếm cho các điểm quan sát, và “pkwy” làm từ đồng nghĩa cho đường phố ở Mỹ.
-- Màu sắc của khu vực dành cho người đi bộ được làm tối hơn một chút để dễ đọc hơn.
-- Các nhãn Bookmark trên bản đồ không còn chồng chéo lên nhau nữa.
-- Văn bản nhiều dòng hiện được cắt gọn gàng, và tên đường phố không còn chứa các bản sao trùng lặp.
-- Tính năng định tuyến: các lộ trình tiếp tục hiện sẽ loại bỏ các điểm trung gian mà bạn đã đi qua.
-- Đã sửa lỗi sử dụng danh sách dấu trang sai trong các bản dựng TestFlight.
-- Đã sửa lỗi nhập tệp KMB.
-- Đã cập nhật các bản dịch đã được hiệu đính cho các danh mục, từ đồng nghĩa tìm kiếm và chuỗi văn bản giao diện người dùng. Đã thêm bản dịch cho các mô tả về New South Wales và Northern Territory.
-- Đã cải thiện độ ổn định và hiệu suất, bao gồm định dạng phông chữ, lưu trữ ký tự và cắt đường dẫn.
-- Đã cải thiện biểu đồ độ cao cho các đường đi và lộ trình.
-- Đã làm lớn các nút menu trong quá trình điều hướng cho các thao tác như TTS, cài đặt và ghi lại đường đi.
-- Đã tinh chỉnh hiệu ứng động của phần mô tả có thể mở rộng trên trang địa điểm.
-- Trang thông tin địa điểm không còn đóng lại khi kết thúc thao tác vuốt biểu đồ độ cao, không còn bị giật bất ngờ và giữ tiêu đề hiển thị trong khi chỉnh sửa với bàn phím mở.
-- Đã khắc phục sự cố treo ứng dụng khi xóa một track hoặc bookmark không còn tồn tại.
+- MỚI! Tính năng lập lộ trình giao thông công cộng bằng tàu điện ngầm, tàu điện nhẹ, xe buýt và xe điện
+- MỚI! Lộ trình thay thế: ngoài lộ trình nhanh nhất, ứng dụng giờ đây còn hiển thị lộ trình ngắn nhất
+- MỚI! Cảnh báo trên lộ trình đi bộ và đạp xe về số bước, cổng và cổng nâng dọc đường
+- MỚI! Nhấn để chọn giữa các lộ trình và tuyến đường chồng chéo
+- MỚI! Chọn bất kỳ màu nào cho dấu trang
+- MỚI! Hỗ trợ tọa độ British National Grid (OS Grid), Irish Grid và Irish Transverse Mercator (ITM)
+- MỚI! Hỗ trợ khả năng truy cập cho Dynamic Type và phông chữ lớn
+- THỬ NGHIỆM: Bật tính năng Hình ảnh vệ tinh trong cài đặt Organic Maps bằng URL máy chủ ô raster tùy chỉnh
+- Cải thiện kiểu dáng bảng trong giao diện người dùng
+- Nhập `?map-download-server:https://your-server.com/` vào cửa sổ tìm kiếm để ghi đè các máy chủ tải xuống bản đồ Organic Maps. Nhập `?no-map-download-server` để hủy ghi đè.
+- Sửa nhiều lỗi và cải thiện hiệu suất
 
-## Hỗ trợ nền tảng
+## Dữ liệu bản đồ
 
-- Do những thay đổi trong TestFlight và App Store, phiên bản này chỉ hỗ trợ iOS 15 trở lên. iOS 12, iOS 13 và iOS 14 không còn được hỗ trợ.
+- Dữ liệu OpenStreetMap được cập nhật tính đến ngày 24 tháng 6
+- Dữ liệu Wikipedia được cập nhật tính đến ngày 20 tháng 6, bao gồm các bài viết bằng tiếng Ý
+
+## Hiển thị bản đồ & kiểu dáng
+
+- Các mẫu họa tiết đẹp hơn cho các khu vực bãi biển, cát, đá vụn, đá trần, vườn cây ăn quả và vườn nho, cùng với các khu vực được bảo vệ và vùng đất ngập nước
+- Các nhãn văn bản cong mượt mà hơn cho đường bộ và sông ngòi
+- Các con sông, suối và vùng đất ngập nước có độ tương phản cao hơn và dễ nhìn thấy hơn trong chế độ tối
+- Biểu tượng mới và được cải tiến cho tính năng tìm kiếm theo danh mục và kết quả tìm kiếm trên bản đồ
+- Cải thiện việc định dạng và hiển thị văn bản đa ngôn ngữ
+
+## Lộ trình, dấu trang & tuyến đường
+
+- Cải thiện cách hiển thị HTML cho mô tả dấu trang và đường đi
+- Các bản ghi GeoJSON hiện giữ nguyên độ cao và dấu thời gian khi nhập và xuất
+- Đã khắc phục sự cố ứng dụng bị treo sau khi di chuyển một đường đi sang danh sách khác
+- Các trang web hiện được hiển thị cho các di tích lịch sử
+- Tên nhà cung cấp dịch vụ hiện được hiển thị cho các kết quả tìm kiếm không có tên. Ví dụ: một kết quả không có tên ATM hiện hiển thị tên ngân hàng của nó
+- Biên tập viên: đã sửa lại văn bản mô tả cho các bản sửa đổi/bộ thay đổi liên quan đến tòa nhà chung cư OpenStreetMap
+- Cải thiện khả năng phát hiện HTML trong mô tả dấu trang và đường đi
+- Các lộ trình trùng lặp hiện đã được lọc bỏ
+
+## Bản dịch
+
+- Hướng dẫn bằng giọng nói từng chặng bằng tiếng Quảng Đông
+- Cập nhật bản dịch tiếng Đức và tiếng Pháp
+- Đã sửa lỗi dịch sai hướng dẫn bằng giọng nói "onto street" cho các ngôn ngữ Trung Quốc, Serbia và Catalan

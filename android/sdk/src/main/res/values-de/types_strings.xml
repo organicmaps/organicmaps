@@ -658,6 +658,7 @@
     <string name="type.leisure.ice_rink">Eislaufplatz</string>
     <string name="type.leisure.marina">Jachthafen</string>
     <string name="type.leisure.nature_reserve">Naturschutzgebiet</string>
+    <string name="type.leisure.bird_hide">Vogelbeobachtungsstand</string>
     <string name="type.leisure.outdoor_seating">Außensitzplätze</string>
     <string name="type.leisure.firepit">Feuerstelle</string>
     <string name="type.leisure.park">Park</string>
@@ -748,6 +749,8 @@
     <string name="type.natural.meadow">Wiese</string>
     <string name="type.natural.orchard">Obstplantage</string>
     <string name="type.natural.peak">Gipfel</string>
+    <string name="type.natural.hill">Hügel</string>
+    <string name="type.natural.arch">Felsenbogen</string>
     <string name="type.natural.saddle">Bergsattel</string>
     <string name="type.natural.rock">Fels</string>
     <string name="type.natural.scrub">Dickicht</string>
@@ -1429,6 +1432,7 @@
     <string name="type.self_service.no">Keine Selbstbedienung</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">Soziale Einrichtung</string>
+    <string name="type.amenity.stage">Bühne</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Eingang der Notfallstation</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

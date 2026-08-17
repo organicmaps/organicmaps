@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Panjang";
 "share_my_location" = "Bagikan Lokasi Saya";
+"prefs_group_network" = "Jaringan";
 "prefs_group_route" = "Navigasi";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -217,6 +218,24 @@
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "Bangunan 3D dimatikan dalam mode hemat daya";
+
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "Citra Satelit";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "URL server";
+
+/* Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) */
+"pref_bg_tiles_url_error" = "Masukkan URL valid dengan {z}/{x}/{y}";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "Ukuran cache (MB)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "Opasitas objek area";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "Sumber ubin khusus disediakan oleh Anda. Gunakan hanya layanan yang boleh Anda akses. Anda bertanggung jawab atas atribusi, ketentuan lisensi, kunci API, kuota, dan batas penggunaan.";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Petunjuk Suara";
@@ -390,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Gangguan pengiriman surel";
-
-/* Settings item title */
-"pref_calibration_title" = "Kalibrasi kompas";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Tersedia";
@@ -643,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Nama ini sudah dipakai";
 "profile" = "Profil OpenStreetMap";
 "restore" = "Mengembalikan";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Privasi";
 "privacy_policy" = "Kebijakan privasi";
 "terms_of_use" = "Ketentuan penggunaan";
 
@@ -651,6 +670,9 @@
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "Bersepeda";
+
+/* Map layers menu: toggle button for the satellite imagery layer */
+"button_layer_satellite" = "Satelit";
 "button_layer_subway" = "Kereta bawah tanah";
 "layers_title" = "Gaya dan Lapisan Peta";
 
@@ -907,6 +929,9 @@
 "elevation_profile_descent" = "Menurun";
 "elevation_profile_min_elevation" = "Min. tinggi";
 "elevation_profile_max_elevation" = "Maks. tinggi";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Mulai bergerak untuk melihat profil ketinggian";
 "isolines_toast_zooms_1_10" = "Perbesar untuk menjelajahi garis kontur";
 "downloader_loading_ios" = "Mengunduh";
 

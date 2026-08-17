@@ -3,11 +3,11 @@ package app.organicmaps.search;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.SparseArray;
-import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
@@ -15,7 +15,9 @@ import app.organicmaps.sdk.util.Config;
 import app.organicmaps.util.Graphics;
 import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 class TabAdapter extends FragmentPagerAdapter
 {
@@ -103,40 +105,74 @@ class TabAdapter extends FragmentPagerAdapter
     }
   }
 
+  private final FragmentManager mFragmentManager;
   private final ViewPager mPager;
   private final List<Class<? extends Fragment>> mClasses = new ArrayList<>();
   private final SparseArray<Fragment> mFragments = new SparseArray<>();
   private OnTabSelectedListener mTabSelectedListener;
   private final TabLayout mTabs;
-  TabAdapter(FragmentManager fragmentManager, ViewPager pager, TabLayout tabs)
+  private final boolean mHistoryEnabled;
+  TabAdapter(FragmentManager fragmentManager, ViewPager pager, TabLayout tabs, boolean historyEnabled)
   {
     super(fragmentManager);
+    this.mFragmentManager = fragmentManager;
     this.mTabs = tabs;
+    this.mHistoryEnabled = historyEnabled;
     for (Tab tab : Tab.values())
     {
-      if (tab == tab.HISTORY && !Config.isSearchHistoryEnabled())
+      if (tab == Tab.HISTORY && !historyEnabled)
         continue;
       mClasses.add(tab.getFragmentClass());
     }
-    final List<Fragment> fragments = fragmentManager.getFragments();
-    if (fragments != null)
+    final List<Fragment> tabFragments = new ArrayList<>();
+    final Set<Class<? extends Fragment>> restoredClasses = new HashSet<>();
+    for (Fragment f : fragmentManager.getFragments())
+    {
+      if (f == null || !isTabFragment(f))
+        continue;
+      tabFragments.add(f);
+      restoredClasses.add(f.getClass());
+    }
+
+    if (restoredClasses.equals(new HashSet<>(mClasses)))
     {
       // Recollect already attached fragments
-      for (Fragment f : fragments)
-      {
-        if (f == null)
-          continue;
-
-        final int idx = mClasses.indexOf(f.getClass());
-        if (idx > -1)
-          mFragments.put(idx, f);
-      }
+      for (Fragment f : tabFragments)
+        mFragments.put(mClasses.indexOf(f.getClass()), f);
     }
+    else
+      removeFragments(tabFragments);
 
     mPager = pager;
     mPager.setAdapter(this);
-    if (mTabs.getVisibility() != View.GONE)
+    if (mHistoryEnabled)
       attachTo(tabs);
+  }
+
+  boolean isHistoryEnabled()
+  {
+    return mHistoryEnabled;
+  }
+
+  private void removeFragments(@NonNull List<Fragment> fragments)
+  {
+    if (fragments.isEmpty())
+      return;
+
+    final FragmentTransaction tx = mFragmentManager.beginTransaction();
+    for (Fragment f : fragments)
+      tx.remove(f);
+    tx.commitNowAllowingStateLoss();
+  }
+
+  private static boolean isTabFragment(@NonNull Fragment f)
+  {
+    for (Tab tab : Tab.values())
+    {
+      if (tab.getFragmentClass() == f.getClass())
+        return true;
+    }
+    return false;
   }
 
   private void attachTo(TabLayout tabs)
@@ -159,6 +195,17 @@ class TabAdapter extends FragmentPagerAdapter
   void setTabSelectedListener(OnTabSelectedListener listener)
   {
     mTabSelectedListener = listener;
+  }
+
+  void destroy()
+  {
+    mPager.setAdapter(null);
+    final List<Fragment> fragments = new ArrayList<>();
+    for (int i = 0; i < mFragments.size(); i++)
+      fragments.add(mFragments.valueAt(i));
+    mFragments.clear();
+    removeFragments(fragments);
+    mTabs.removeAllTabs();
   }
 
   @Override

@@ -34,12 +34,15 @@ Copyright: 2002-2004, Maxim Shemanarev (McSeem)
            2009, Mikko Mononen <memon@inside.org>
 License: Zlib
 
-Files: 3party/minizip/src/MiniZip64_info.txt
-       3party/minizip/src/unzip.h
-       3party/minizip/src/zip.h
+Files: 3party/minizip-ng/*
 Copyright: 2007-2008, Even Rouault
            1998-2010, Gilles Vollant
            2009-2010, Mathias Svensson
+           Nathan Moinvaziri
+License: Zlib
+
+Files: 3party/zlib-ng/*
+Copyright: 1995-2024, Jean-loup Gailly and Mark Adler
 License: Zlib
 
 Files: 3party/open-location-code/*

@@ -6,6 +6,8 @@
 #include "platform/http_uploader_background.hpp"
 #include "platform/platform.hpp"
 
+#include "coding/file_reader.hpp"
+
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
@@ -151,7 +153,7 @@ std::chrono::seconds ArchivalManager::ReadTimestamp(std::string const & filePath
   try
   {
     FileReader reader(filePath);
-    ReaderSource<FileReader> src(reader);
+    ReaderSource src(reader);
     uint64_t const ts = ReadPrimitiveFromSource<uint64_t>(src);
     return std::chrono::seconds(ts);
   }

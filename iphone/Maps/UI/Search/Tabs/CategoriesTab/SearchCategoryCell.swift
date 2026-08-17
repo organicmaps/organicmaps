@@ -14,11 +14,16 @@ final class SearchCategoryCell: UITableViewCell {
   func configure(with categoryName: String) {
     self.categoryName = categoryName
     textLabel?.text = L(categoryName)
-    imageView?.mwm_name = String(format: "ic_%@", categoryName)
+    updateIcon()
   }
 
   override func applyTheme() {
     super.applyTheme()
-    imageView?.mwm_name = String(format: "ic_%@", categoryName)
+    updateIcon()
+  }
+
+  private func updateIcon() {
+    imageView?.image = SearchCategoryIconRenderer.image(for: categoryName,
+                                                        userInterfaceStyle: traitCollection.userInterfaceStyle)
   }
 }

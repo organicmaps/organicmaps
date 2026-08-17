@@ -45,7 +45,7 @@ public:
     covering::CoveringGetter covering(rect, covering::ViewportWithLowLevels);
 
     vector<uint32_t> indices;
-    for (auto const & interval : covering.Get<RectId::DEPTH_LEVELS>(scaleForIntervals))
+    for (auto const & interval : covering.Get(scaleForIntervals))
     {
       index.ForEachInIntervalAndScale(interval.first, interval.second, scaleForZoomLevels,
                                       [&](uint64_t /* key */, uint32_t value) { indices.push_back(value); });

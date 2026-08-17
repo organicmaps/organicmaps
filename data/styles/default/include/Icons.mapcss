@@ -74,6 +74,8 @@ node|z16-[natural=beach],
 area|z16-[natural=beach],
 area|z14-[natural=bare_rock],
 node|z17-[natural=rock],
+node|z17-[natural=hill],
+node|z17-[natural=arch],
 {text: name;text-color: @poi_label;text-position: center;text-offset: 1;}
 
 node|z13-[natural=peak][!name],
@@ -100,12 +102,12 @@ area|z8-16[boundary=aboriginal_lands],
 area|z10-16[boundary=aboriginal_lands],
 {text-halo-opacity: 0.8; text-halo-color: @label_halo_light; text-halo-radius: 0.5;}
 
-node|z14[natural=cave_entrance],
-{icon-image: cave-s.svg;}
 node|z15-[natural=cave_entrance],
-{icon-image: cave-m.svg; font-size: 10;}
+{icon-image: cave-s.svg; font-size: 10;}
 node|z17-[natural=cave_entrance],
 {font-size: 11;}
+node|z18-[natural=cave_entrance],
+{icon-image: cave-m.svg; font-size: 11;}
 
 node|z13-16[waterway=waterfall],
 {icon-image: waterfall-s.svg; font-size: 10;}
@@ -131,22 +133,35 @@ node|z14[natural=peak][name],
 node|z15-[natural=peak][name],
 {icon-image: peak-s.svg; font-size: 10;}
 node|z17-[natural=peak][name],
-{font-size: 11;}
+{icon-image: peak-m.svg; font-size: 11;}
 
 node|z15-[natural=peak][!name],
 {icon-image: peak-s.svg;font-size: 10;}
+node|z17-[natural=peak][!name],
+{icon-image: peak-m.svg; font-size: 10;}
 
 node|z17-[natural=rock],
-{icon-image: peak-xs.svg; font-size: 10;}
+{icon-image: rock-s.svg; font-size: 10;}
+node|z19-[natural=rock],
+{icon-image: rock-m.svg; font-size: 10;}
+
+node|z17-[natural=arch],
+{icon-image: arch-m.svg; font-size: 10;}
 
 node|z14[mountain_pass],
 {icon-image: mountain-pass-s.svg;}
 node|z15-[mountain_pass],
 node|z15-[natural=saddle],
-{icon-image: mountain-pass-m.svg; font-size: 10;}
+{icon-image: mountain-pass-s.svg; font-size: 10;}
 node|z17-[mountain_pass],
 node|z17-[natural=saddle],
 {font-size: 11;}
+node|z18-[mountain_pass],
+node|z18-[natural=saddle],
+{icon-image: mountain-pass-m.svg;}
+
+node|z17-[natural=hill],
+{icon-image: hill-m.svg; font-size: 10;}
 
 node|z16[leisure=beach_resort],
 {icon-image: beach-m.svg;}
@@ -516,6 +531,7 @@ node|z17-[historic=pillory],
 area|z17-[historic=pillory],
 node|z17-[amenity=arts_centre],
 area|z17-[amenity=arts_centre],
+node|z17-[amenity=stage],
 node|z18-[historic=anchor],
 node|z18-[historic=cannon],
 node|z18-[historic=stone],
@@ -632,6 +648,9 @@ area|z14[amenity=theatre]
 node|z15-[amenity=theatre],
 area|z15-[amenity=theatre]
 {icon-image: theatre-m.svg;icon-min-distance: 10;}
+
+node|z17-[amenity=stage],
+{icon-image: stage-m.svg;}
 
 node|z13-14[tourism=zoo],
 area|z13-14[tourism=zoo]
@@ -971,6 +990,8 @@ node|z16-[amenity=taxi],
 area|z16-[amenity=taxi],
 node|z16-[leisure=dog_park],
 area|z16-[leisure=dog_park],
+node|z16-[leisure=bird_hide],
+area|z16-[leisure=bird_hide],
 node|z16-[man_made=windmill],
 area|z16-[man_made=windmill],
 node|z16-[amenity=college],
@@ -1950,6 +1971,10 @@ node|z18-[amenity=internet_cafe]
 node|z18-[amenity=hunting_stand],
 area|z18-[amenity=hunting_stand]
 {icon-image: hunting-tower-m.svg;font-size: 11;}
+
+node|z16-[leisure=bird_hide],
+area|z16-[leisure=bird_hide]
+{icon-image: bird_hide-m.svg;icon-min-distance: 8;font-size: 11;}
 
 node|z16-[man_made=chimney],
 area|z16-[man_made=chimney],

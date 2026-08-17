@@ -88,9 +88,12 @@
     <string name="type.landuse.cemetery">Groblje</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Kršćansko groblje</string>
+    <string name="type.leisure.bird_hide">Promatračnica za ptice</string>
     <string name="type.leisure.track">Sportska staza</string>
     <string name="type.leisure.track.area">Sportska staza</string>
     <string name="type.man_made.silo">Silos</string>
+    <string name="type.natural.hill">Brdo</string>
+    <string name="type.natural.arch">Stijenska luč</string>
     <string name="type.natural.volcano.active">Aktivni vulkan</string>
     <string name="type.power.generator.gas">Plinska elektrana</string>
     <string name="type.power.generator.hydro">Hidroelektrana</string>
@@ -131,6 +134,7 @@
     <string name="type.sport.running">Trčanje</string>
     <string name="type.sport.softball">Softball</string>
     <string name="type.waterway.access_point">Pristupna točka plovnom putu</string>
+    <string name="type.amenity.stage">Scena</string>
     <string name="type.barrier.jersey_barrier">Blok</string>
     <string name="type.barrier.debris">Ruševina</string>
     <string name="type.amenity.boat_rental">Iznajmljivanje čamaca</string>

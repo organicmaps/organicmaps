@@ -1,8 +1,9 @@
-• Tutul halte angkutan umum lan pilih nomer rute kanggo nandhani rute ing peta
-• Label bookmark ora tumpang tindih maneh ing peta
-• Data OpenStreetMap anyar per 3 Mei, karo jinis obyek anyar
-• Peta elevasi trek lan rute sing luwih apik
-• Undhuhan peta sing luwih cilik kanggo Vietnam, Malaysia, Hong Kong, Macau, lan Hainan
-• Antarmuka lan animasi sing luwih alus
-• Garis kontur sing wis dianyari kanggo Indonesia, Malaysia, Tanzania, Thailand, lan Vietnam
-…luwih lengkap ing omaps.org/news
+FITUR BARU:
+• Antarmuka pangguna panelusuran lan penentuan rute sing dianyari
+• Rute angkutan umum (bis, trem, kereta bawah tanah, rel ringan)
+• Rute alternatif sing paling cepet lan paling cendhak
+• Peringatan rute babagan undhak-undhakan, gapura, lan gapura angkat
+• Pilih warna apa wae kanggo penanda
+• Dhukungan kanggo koordinat UK OS Grid, Irish Grid, ITM
+• Aktipake Gambar Satelit ing setelan Organic Maps nganggo URL server raster tile kustom
+…lan liya-liyané ing omaps.org/news

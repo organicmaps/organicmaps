@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Skøjtebane";
 "type.leisure.marina" = "Lystbådehavn";
 "type.leisure.nature_reserve" = "Naturreservat";
+"type.leisure.bird_hide" = "Fugleskjul";
 "type.leisure.outdoor_seating" = "Udendørs siddepladser";
 "type.leisure.firepit" = "Bålsted";
 "type.leisure.park" = "Park";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "Eng";
 "type.natural.orchard" = "Frugthave";
 "type.natural.peak" = "Bjerg";
+"type.natural.hill" = "Bakke";
+"type.natural.arch" = "Klippebuen";
 "type.natural.saddle" = "Bjergsadel";
 "type.natural.rock" = "Sten";
 "type.natural.scrub" = "Krat";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "Social facilitet";
+"type.amenity.stage" = "Scene";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Indgang til akutafdeling";

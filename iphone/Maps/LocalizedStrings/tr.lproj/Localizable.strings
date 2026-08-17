@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Uzunluk";
 "share_my_location" = "Konumumu Paylaş";
+"prefs_group_network" = "Ağ";
 "prefs_group_route" = "Navigasyon";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -217,6 +218,24 @@
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "3B yapılar güç tutum kipindeyken kapatılır";
+
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "Uydu Görüntüleri";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "Sunucu URL'si";
+
+/* Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) */
+"pref_bg_tiles_url_error" = "{z}/{x}/{y} içeren geçerli bir URL girin";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "Önbellek boyutu (MB)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "Alan nesnelerinin opaklığı";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "Özel döşeme kaynakları sizin tarafınızdan sağlanır. Yalnızca erişim izniniz olan hizmetleri kullanın. Atıf, lisans koşulları, API anahtarları, kotalar ve kullanım sınırlarından siz sorumlusunuz.";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Sesli Yönlendirme";
@@ -390,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "E-Posta gönderme hatası";
-
-/* Settings item title */
-"pref_calibration_title" = "Pusula kalibrasyonu";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Var";
@@ -643,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Bu ad zaten alınmış";
 "profile" = "OpenStreetMap profili";
 "restore" = "Geri al";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Gizlilik";
 "privacy_policy" = "Gizlilik politikası";
 "terms_of_use" = "Kullanım koşulları";
 
@@ -651,6 +670,9 @@
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "Bisiklet";
+
+/* Map layers menu: toggle button for the satellite imagery layer */
+"button_layer_satellite" = "Uydu";
 "button_layer_subway" = "Metro";
 "layers_title" = "Harita Stilleri ve Katmanlar";
 
@@ -907,6 +929,9 @@
 "elevation_profile_descent" = "İniş";
 "elevation_profile_min_elevation" = "Min. yükselti";
 "elevation_profile_max_elevation" = "Maks. yükselti";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Yükseklik profilini görmek için hareket etmeye başlayın";
 "isolines_toast_zooms_1_10" = "İzohipsleri görmek için haritayı büyütün";
 "downloader_loading_ios" = "İndiriliyor";
 

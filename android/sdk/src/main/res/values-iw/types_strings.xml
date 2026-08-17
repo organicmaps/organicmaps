@@ -645,6 +645,7 @@
     <string name="type.leisure.ice_rink">החלקה על קרח</string>
     <string name="type.leisure.marina">מרינה</string>
     <string name="type.leisure.nature_reserve">שמורת טבע</string>
+    <string name="type.leisure.bird_hide">מסתור לצפייה בציפורים</string>
     <string name="type.leisure.outdoor_seating">ישיבה בחוץ</string>
     <string name="type.leisure.park">פארק</string>
     <string name="type.leisure.park.no.access">פארק סגור לכניסה</string>
@@ -733,6 +734,8 @@
     <string name="type.natural.meadow">אָחוּ</string>
     <string name="type.natural.orchard">פרדס</string>
     <string name="type.natural.peak">פסגה</string>
+    <string name="type.natural.hill">גבעה</string>
+    <string name="type.natural.arch">קשת הסלע</string>
     <string name="type.natural.saddle">אוכף הרים</string>
     <string name="type.natural.rock">סלע</string>
     <string name="type.natural.scrub">עשבייה</string>
@@ -1112,6 +1115,7 @@
     <string name="type.self_service.no">אין שירות עצמי</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">מתקן חברתי</string>
+    <string name="type.amenity.stage">במה</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">כניסה למיון</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

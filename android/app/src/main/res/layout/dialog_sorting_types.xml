@@ -4,7 +4,6 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:layout_margin="@dimen/margin_double_and_half"
-  android:background="?cardBackground"
   android:minWidth="@dimen/dialog_min_width"
   android:minHeight="@dimen/dialog_min_height"
   android:orientation="vertical"

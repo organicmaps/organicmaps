@@ -4,7 +4,6 @@
 #include "indexer/feature_decl.hpp"
 
 #include "coding/files_container.hpp"
-#include "coding/reader_wrapper.hpp"
 #include "coding/varint.hpp"
 
 #include "defines.hpp"
@@ -29,8 +28,7 @@ std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
   try
   {
     FilesContainerR cont(mwmId.GetInfo()->GetLocalFile().GetPath(MapFileType::Map));
-    ModelReaderPtr reader = cont.GetReader(METALINES_FILE_TAG);
-    ReaderSrc src(reader.GetPtr());
+    ReaderSource src(cont.GetReader(METALINES_FILE_TAG));
 
     std::vector<MetalineData> model;
     auto const version = ReadPrimitiveFromSource<uint8_t>(src);

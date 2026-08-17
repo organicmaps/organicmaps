@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Longueur";
 "share_my_location" = "Partager ma position";
+"prefs_group_network" = "Réseau";
 "prefs_group_route" = "Navigation";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -217,6 +218,24 @@
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "Les bâtiments 3D sont désactivés en mode d'économie d'énergie";
+
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "Imagerie satellite";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "URL du serveur";
+
+/* Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) */
+"pref_bg_tiles_url_error" = "Saisissez une URL valide avec {z}/{x}/{y}";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "Taille du cache (Mo)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "Opacité des objets surfaciques";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "Les sources de tuiles personnalisées sont fournies par vous. N'utilisez que les services auxquels vous êtes autorisé à accéder. Vous êtes responsable de l'attribution, des conditions de licence, des clés API, des quotas et des limites d'utilisation.";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Instructions vocales";
@@ -390,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Erreur d'envoi de courriel";
-
-/* Settings item title */
-"pref_calibration_title" = "Étalonnage de la boussole";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Disponible";
@@ -643,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Ce nom est déjà pris";
 "profile" = "Profil OpenStreetMap";
 "restore" = "Restaurer";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Vie privée";
 "privacy_policy" = "Politique de confidentialité";
 "terms_of_use" = "Conditions d'utilisation";
 
@@ -651,6 +670,9 @@
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "Cyclisme";
+
+/* Map layers menu: toggle button for the satellite imagery layer */
+"button_layer_satellite" = "Satellite";
 "button_layer_subway" = "Métro";
 "layers_title" = "Styles et couches de cartes";
 
@@ -907,6 +929,9 @@
 "elevation_profile_descent" = "Descente";
 "elevation_profile_min_elevation" = "Min. élévation";
 "elevation_profile_max_elevation" = "Max. élévation";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Commencez à bouger pour voir le profil d'altitude";
 "isolines_toast_zooms_1_10" = "Zoomez pour voir les courbes de niveaux";
 "downloader_loading_ios" = "Téléchargement";
 

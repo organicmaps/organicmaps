@@ -76,12 +76,12 @@ class ApplyAreaFeature : public ApplyPointFeature
 
 public:
   ApplyAreaFeature(Params const & params, FeatureType & f, CaptionDescription const & captions, bool isBuilding,
-                   bool isMwmBorder, float minPosZ, float posZ, dp::BackgroundMode backgroundMode)
+                   bool isMwmBorder, float minPosZ, float posZ, float areaOpacity)
     : TBase(params, f, captions)
     , m_minPosZ(minPosZ)
     , m_isBuilding(isBuilding)
     , m_isMwmBorder(isMwmBorder)
-    , m_backgroundMode(backgroundMode)
+    , m_areaOpacity(areaOpacity)
   {
     m_posZ = posZ;
   }
@@ -91,7 +91,7 @@ public:
 
   bool HasGeometry() const { return !m_triangles.empty(); }
   void ProcessAreaRules(drule::AreaRule const * areaRule, drule::AreaRule const * hatchingRule,
-                        std::string_view hatchKey);
+                        std::string_view hatchKey, std::string_view patternKey);
 
   struct Edge
   {
@@ -115,7 +115,8 @@ public:
 private:
   bool HasArea() const override { return true; }
 
-  void ProcessRule(drule::AreaRule const & areaRule, double areaDepth, std::string_view hatchKey);
+  void ProcessRule(drule::AreaRule const & areaRule, double areaDepth, std::string_view hatchKey,
+                   std::string_view patternKey);
   void ProcessBuildingPolygon(PointT const & p1, PointT const & p2, PointT const & p3, double crossProduct);
 
   /// @todo Factor out to a separate outline-building component.
@@ -138,7 +139,9 @@ private:
   float const m_minPosZ;
   bool const m_isBuilding;
   bool const m_isMwmBorder;
-  dp::BackgroundMode const m_backgroundMode;
+  // Multiplier applied to area-fill alpha. 1.0 means opaque (normal map); in Satellite mode it is the
+  // user-configured "area objects" opacity (0 -> fully hidden, geometry skipped before reaching here).
+  float const m_areaOpacity;
 };
 
 class ApplyLineFeatureGeometry : public BaseApplyFeature

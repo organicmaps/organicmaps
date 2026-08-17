@@ -9114,6 +9114,96 @@ vi:Eo biển
 zh-Hans:海峡
 zh-Hant:海峽
 
+natural-hill|@mountain
+en:Hill
+ar:تل
+be:Узгорак
+bg:Хълм
+ca:Turó
+cs:Kopec
+da:Bakke
+de:Hügel
+el:Λόφος
+es:Colina
+et:Küngas
+eu:Muino
+fa:تپه
+fi:Mäki
+fr:Colline
+he:גבעה
+hi:पहाड़ी
+hu:Domb
+id:Bukit
+it:Collina
+ja:丘
+ko:언덕
+lt:Kalva
+lv:Pakalns
+mr:टेकडी
+nb:Bakke
+nl:Heuvel
+pl:Wzgórze
+pt:Colina
+ro:Deal
+ru:Холм
+sk:Kopec
+sl:Hrib
+sr:Брдо
+sv:Kulle
+sw:Kilima
+th:เนินเขา
+tr:Tepe
+uk:Пагорб
+vi:Ngọn đồi
+zh-Hans:山丘
+zh-Hant:山丘
+
+natural-arch
+en:Rock Arch
+ar:قوس الصخرة
+be:Скальны арк
+bg:Скална арка
+ca:Arc rocós
+cs:Skalní oblouk
+da:Klippebuen
+de:Felsenbogen
+el:Βραχώδης Αψίδα
+es:Arco de roca
+es-MX:Arco de roca
+et:Kivikaar
+eu:Harri-arku
+fa:کمان سنگی
+fi:Kivikaari
+fr:Arche rocheuse
+he:קשת הסלע
+hi:शिला मेहराब
+hu:Sziklaív
+id:Lengkungan Batu
+it:Arco roccioso
+ja:ロック・アーチ
+ko:바위 아치
+lt:Uolų arka
+lv:Akmeņu arka
+mr:शिला मेहराब
+nb:Steinbuen
+nl:Rotsboog
+pl:Skalny łuk
+pt:Arco de Rocha
+pt-BR:Arco de Pedra
+ro:Arcul de piatră
+ru:Скальная арка
+sk:Skalný oblúk
+sl:Skalni lok
+sr:Стенови лук
+sv:Stenbågen
+sw:Dhoruba ya mwamba
+th:ซุ้มหิน
+tr:Kaya Kemeri
+uk:Скельна арка
+vi:Cổng đá
+zh-Hans:岩石拱门
+zh-Hant:岩石拱門
+
 landuse-forest
 en:Forest|U+1F332|U+1F333
 ar:غابة
@@ -18687,6 +18777,48 @@ vi:Giữ chỗ
 zh-Hans:野生动物园|自然保护区
 zh-Hant:自然保護區
 
+leisure-bird_hide|@category_tourism
+en:Bird Hide|Birdwatching
+ar:مخبأ لمراقبة الطيور
+be:Назіранне за птушкамі
+bg:Укритие за наблюдение на птици
+cs:Pozorovatelna ptáků
+da:Fugleskjul
+de:Vogelbeobachtungsstand
+el:Παρατηρητήριο πουλιών
+es:Observatorio de aves
+et:Linnuvaatlusvarje
+eu:Hegaztiak behatzeko ezkutalekua
+fi:Lintupiilo
+fr:Observatoire ornithologique
+hi:पक्षी अवलोकन आश्रय
+hu:Madárles
+id:Tempat pengamatan burung
+it:Capanno per il birdwatching
+ja:野鳥観察舎
+ko:조류 관찰 은신처
+lt:Paukščių stebėjimo slėptuvė
+lv:Putnu vērošanas slēpnis
+mr:पक्षी निरीक्षण आसरा
+nb:Fugleskjul
+nl:Vogelkijkhut
+pl:Kryjówka do obserwacji ptaków
+pt:Observatório de aves
+pt-BR:Observatório de aves
+ro:Observator de păsări
+ru:Укрытие для наблюдения за птицами
+sk:Pozorovateľňa vtákov
+sl:Opazovalnica ptic
+sr:Осматрачница за птице
+sv:Fågelgömsle
+sw:Kibanda cha kutazama ndege
+th:ที่ซ่อนดูนก
+tr:Kuş gözlem kulübesi
+uk:Укриття для спостереження за птахами
+vi:Chòi quan sát chim
+zh-Hans:观鸟屋
+zh-Hant:觀鳥屋
+
 natural-cape
 en:Cape
 ar:رأس
@@ -21445,3 +21577,47 @@ uk:4Кальянна
 vi:4Quán shisha
 zh-Hans:4水烟馆
 zh-Hant:4水煙館
+
+amenity-stage|@category_entertainment
+en:Stage
+ar:خشبة المسرح
+be:Сцэна
+bg:Сцена
+ca:Escenari
+cs:Jeviště
+da:Scene
+de:Bühne
+el:Σκηνή
+es:Escenario
+et:Lava
+eu:Eszenatokia
+fa:صحنه
+fi:Näyttämö
+fr:Scène
+he:במה
+hi:मंच
+hu:Színpad
+id:Panggung
+it:Palcoscenico
+ja:舞台
+ko:무대
+lt:Scena
+lv:Skatuve
+mr:मंच
+nb:Scene
+nl:Podium
+pl:Scena
+pt:Palco
+ro:Scenă
+ru:Сцена
+sk:Javisko
+sl:Oder
+sr:Сцена
+sv:Scen
+sw:Jukwaa
+th:เวที
+tr:Sahne
+uk:Сцена
+vi:Sân khấu
+zh-Hans:舞台
+zh-Hant:舞台

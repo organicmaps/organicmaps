@@ -9,13 +9,15 @@
 
 ## System requirements
 
-To build and run Organic Maps you'll need a machine with at least 4Gb of RAM and 20-30Gb of disk space depending on your target platform. Expect to download 5-10Gb of files.
+To build and run Organic Maps you'll need a machine with at least 4GB of RAM. Download and disk requirements depend
+on the target platform, build type, and selected clone options.
 
 For _Windows_ you need to have [Git for Windows](https://git-scm.com/download/win) installed and Git bash available in the PATH.
 
 ## Getting sources
 
-First of all get the source code. The full Organic Maps sources repository is ~10Gb in size, there are various [clone options](#special-cases-options) to reduce the download size to suit your needs.
+First get the source code. The repository and its submodules are large, so use the
+[clone options](#special-cases-options) that suit your bandwidth and disk space.
 
 For _Windows_, it's necessary to enable symlink support:
 1. Activate _Windows Development Mode_ to enable symlinks globally:
@@ -40,53 +42,29 @@ Go into the cloned repository:
 cd organicmaps
 ```
 
-Configure the repository (make sure you have a working C++ build environment):
-
-(if you plan to publish the app privately in stores check [special options](#special-cases-options))
-
-```bash
-bash ./configure.sh
-```
-
-For _Windows 10_:  You should be able to build the project by following either of these setup methods:
-
-**Setup 1: Using WSL**
-1. Install [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) on your machine.
-2. Install g++ by running the following command in WSL: `sudo apt install g++`
-3. Run `./configure.sh` in WSL.
-
-**Setup 2: Using Visual Studio Developer Command Prompt**
-1. Install the [Visual Studio Developer Command Prompt](https://docs.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022) (make sure to choose the latest MSVC x64/x86 build tool and Windows 10/11 SDK as individual components while installing Visual Studio).
-2. Run the following command and follow instructions:
-
-```bash
-"C:\Program Files\Git\bin\bash.exe" configure.sh # execute the script by using Developer Command Prompt
-```
-
 ### Special cases options
 
 If you're only doing a one-off build or your internet bandwidth or disk space is limited, add following options to the `git clone` command:
 
-- a `--filter=blob:limit=128k` option to make a _partial clone_ (saves ~4Gb), i.e. blob files over 128k in size will be excluded from the history and downloaded on-demand - is suitable for generic development.
+- a `--filter=blob:limit=128k` option to make a _partial clone_. Blob files over 128KB are downloaded on demand;
+  this is suitable for general development.
 
-- a `--depth=1` option to make a _shallow copy_ (and possibly a `--no-single-branch` to have all branches not just `master`), i.e. omit history while retaining current commits only (saves ~4.5Gb) - suitable for one-off builds.
+- a `--depth=1` option to make a _shallow copy_ (and possibly `--no-single-branch` to retain all branches rather
+  than only `master`). This omits history and is suitable for one-off builds.
 
 If you mistakenly did a `git clone` without checking out submodules, you can run `git submodule update --init --recursive`. If you don't want to clone complete submodules, you can add `--depth=1` to the update command.
-
-To be able to publish the app in stores e.g. in Google Play its necessary to populate some configs with private keys, etc.
-Check `./configure.sh --help` to see how to copy the configs automatically from a private repository.
 
 ## Desktop app
 
 ### Preparing
 
-You need a Linux or a MacOS machine to build a desktop version of Organic Maps. [Windows](#windows) users can use the [WSL](https://learn.microsoft.com/en-us/windows/wsl/) (Windows Subsystem for Linux) and follow ["Linux or Mac"](#linux-or-mac) steps described below.
+You need a Linux or a macOS machine to build a desktop version of Organic Maps. [Windows](#windows) users can use the [WSL](https://learn.microsoft.com/en-us/windows/wsl/) (Windows Subsystem for Linux) and follow ["Linux or Mac"](#linux-or-mac) steps described below.
 
-### Linux or MacOS
+### Linux or macOS
 
 Ensure that you have at least 20GB of free space.
 
-Install Cmake (**3.22.1** minimum), Boost, Qt 6 and other dependencies.
+Install CMake (**3.22.1** minimum), Qt 6, and the other dependencies.
 
 Installing *ccache* can speed up active development.
 
@@ -200,9 +178,8 @@ LD_PRELOAD=/usr/lib64/libGL.so.1 ./OMaps                  # Fedora/RHEL
 
 ### Windows
 
-We haven't compiled Organic Maps on Windows *natively* in a long time, though it is possible.
-Some files should be updated. There is a work in progress on [windows](https://github.com/organicmaps/organicmaps/tree/windows) branch.
-Please contribute if you have time.
+Native Windows builds of Organic Maps are not actively maintained, but building on Windows is still possible. Some parts of the build system may require updates, and there is ongoing work on the [windows](https://github.com/organicmaps/organicmaps/tree/windows) branch. Contributions are welcome.
+
 You'll need to have python3, cmake, ninja, and QT6 in the PATH, and Visual Studio 2022 or Visual Studio 2022 Build Tools installed. Use [Visual Studio Developer Command Prompt](https://learn.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022) or generate Visual Studio project files with CMake to build the project.
 
 However, it is possible to use the WSL (Windows Subsystem for Linux) to run GUI applications.
@@ -237,19 +214,34 @@ Running X Server is also required to run `generate_symbols.sh` script when you c
 
 ### Building
 
-To build a desktop app:
+The recommended way to configure and build is with [CMake presets](https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html),
+run from the repository root. List configure/build/test presets with
+`cmake --list-presets=all`; list only test presets with `ctest --list-presets`.
+
+To configure and build the desktop app in Debug (binaries go into `build/debug`):
+
 ```bash
-tools/unix/build_omim.sh -r desktop
+cmake --preset debug
+cmake --build --preset debug --target desktop
 ```
 
-The output binary will go into `../omim-build-release`.
+Use `--preset release` for an optimized build (binaries in `build/release`). Other
+presets include `relwithdebinfo`, `debug-no-unity` (disables Unity batching for
+lower peak memory), `coverage`, and `xcode` (macOS only; generates an Xcode
+project, needed for `dev_sandbox` and Metal shader development).
 
-Check `tools/unix/build_omim.sh -h` for more build options, e.g. to build a debug version.
+On macOS `dev_sandbox` also needs Xcode's separately downloaded Metal toolchain.
+Install it with `xcodebuild -downloadComponent MetalToolchain`, otherwise CMake
+skips the target with a warning and the rest of the build proceeds as usual.
 
-Besides _desktop_ there are other targets like _generator_tool_, to see a full list execute:
+Besides _desktop_ there are other targets like _generator_tool_; pass them to
+`--target`, or omit `--target` to build everything.
+
+Alternatively, the `tools/unix/build_omim.sh` wrapper builds into
+`../omim-build-<buildtype>` (run with `-h` for options, `-d`/`-r` for Debug/Release):
 
 ```bash
-tools/unix/build_omim.sh -d help
+tools/unix/build_omim.sh -r desktop
 ```
 
 #### Build issues
@@ -262,42 +254,50 @@ tools/unix/build_omim.sh -d help
 
 ### Running
 
-The generated binaries appear in `../omim-build-<buildtype>`.
+A preset build puts binaries in `build/<preset>` (e.g. `build/release`); the
+`build_omim.sh` wrapper uses `../omim-build-<buildtype>` instead.
 
-A desktop app binary is `OMaps`. To run e.g. a release version:
+A desktop app binary is `OMaps`. To run e.g. a release version built with the
+`release` preset:
 
 _Linux:_
 
 ```bash
-../omim-build-release/OMaps
+build/release/OMaps
 ```
 
 _macOS:_
 
 ```bash
-../omim-build-release/OMaps.app/Contents/MacOS/OMaps
+build/release/OMaps.app/Contents/MacOS/OMaps
 ```
 
 ### Testing
 
-Compile all unit tests in Debug mode:
+Configure and compile all unit tests in Debug mode:
 
 ```bash
-cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug
-cmake --build build --target all
+cmake --preset debug
+cmake --build --preset debug
 ```
 
-Run all unit tests:
+Run the unit tests (the `debug` test preset filters to the `omim-test` label and
+excludes the suites that are [known to be broken](https://github.com/organicmaps/organicmaps/issues?q=is%3Aissue+is%3Aopen+label%3ATests) on CI):
 
 ```bash
-cd build
-ctest -L "omim-test" --output-on-failure
+ctest --preset debug
+```
+
+Rendering tests need offscreen GL, so they are run via a separate preset:
+
+```bash
+ctest --preset drape-debug
 ```
 
 To run a limited set of tests, use `-R <regex>` flag. To exclude some tests, use `-E <regex>` flag:
 
 ```bash
-cd build
+cd build/debug
 ctest -R "base_tests|coding_tests" --output-on-failure
 ctest -L "omim-test" -E "base_tests|coding_tests" --output-on-failure
 ```
@@ -310,48 +310,24 @@ To skip building tests, configure with `-DBUILD_TESTING=OFF`.
 
 To generate a test coverage report you'll need [gcovr](https://gcovr.com) and gcov tools installed.
 
-Installing gcovr on Linux:
-```bash
-pip3 install gcovr
-```
-
-Installing gcovr on MacOS:
-```bash
-brew install gcovr
-```
-
-Installing gcov on Linux:
-```bash
-# If you're using GCC compiler
-sudo apt-get install cpp
-
-# If you're using Clang compiler
-sudo apt-get install llvm
-```
-
-Installing gcov on MacOS:
-```bash
-# If you're using AppleClang compiler it should already be installed
-
-# If you're using Clang compiler
-brew install llvm
-```
+| Platform | `gcovr` | `gcov` tools |
+|----------|---------|--------------|
+| **Linux** | `pip3 install gcovr` | **GCC:** `sudo apt install gcc`<br>**Clang:** `sudo apt install llvm` |
+| **macOS** | `brew install gcovr` | **Apple Clang:** already included with Xcode Command Line Tools.<br>**LLVM Clang:** `brew install llvm` |
 
 Steps to generate coverage report:
 
-1. Configure cmake with `-DCOVERAGE_REPORT=ON` flag:
+1. Configure with the `coverage` preset (enables `COVERAGE_REPORT`):
    ```bash
-   cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug \
-           -DCMAKE_CXX_FLAGS=-g1 -DCOVERAGE_REPORT=ON
+   cmake --preset coverage
    ```
-2. Compile unit tests.
-3. Run unit tests.
+2. Compile unit tests: `cmake --build --preset coverage`.
+3. Run unit tests: `ctest --preset coverage`.
 4. Run coverage report generation:
    ```bash
-   cd build
-   cmake --build . --target omim_coverage
+   cmake --build --preset coverage --target omim_coverage
    ```
-5. Report can be found in the `build/coverage_report` folder.
+5. Report can be found in the `build/coverage/coverage_report` folder.
 
 ### Debug commands
 
@@ -373,16 +349,16 @@ There are also other commands for turning on/off isolines, anti-aliasing, etc. C
 To make the desktop app display maps in a different language add a `-lang` option, e.g. for the Russian language:
 
 ```bash
-../omim-build-release/OMaps -lang ru
+build/release/OMaps -lang ru
 ```
 
 By default `OMaps` expects a repository's `data` folder to be present in the current working directory, add a `-data_path` option to override it.
 
 Check `OMaps -help` for a list of all run-time options.
 
-When running the desktop app with lots of maps, increase the open files limit. In MacOS the default value is only 256.
+When running the desktop app with lots of maps, increase the open files limit. In macOS the default value is only 256.
 Use `ulimit -n 2000`, put it into `~/.bash_profile` to apply it to all new sessions.
-In MacOS to increase this limit globally, add `limit maxfiles 2048 2048` to `/etc/launchd.conf`
+In macOS to increase this limit globally, add `limit maxfiles 2048 2048` to `/etc/launchd.conf`
 and run
 
 ```bash
@@ -403,7 +379,7 @@ The `build_omim.sh` script basically runs these commands:
 
 ### Preparing
 
-Linux, MacOS, or Windows should work to build Organic Maps for Android.
+Linux, macOS, or Windows should work to build Organic Maps for Android.
 
 Ensure that you have at least 30GB of free space and Python 3 installed.
 
@@ -609,7 +585,7 @@ Android Studio has issues in parsing the C++ part of the project, please let us 
 - [Xcode](https://developer.apple.com/xcode/)
 - [CLion](https://www.jetbrains.com/clion/)
 
-For Xcode it is required to run `cmake . -g Xcode` to generate project files, while CLion and QT Creator can import CMakeLists.txt.
+For Xcode, run `cmake --preset xcode` to generate the project (`build/xcode/omim.xcodeproj`); CLion and Qt Creator read `CMakePresets.json` directly (pick the `debug` preset).
 
 #### Enable Vulkan Validation
 

@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Дължина";
 "share_my_location" = "Споделяне на местоположение";
+"prefs_group_network" = "Мрежа";
 "prefs_group_route" = "Навигация";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -217,6 +218,24 @@
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "3D сградите са изключени в режим на пестене на енергия";
+
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "Сателитни снимки";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "URL на сървъра";
+
+/* Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) */
+"pref_bg_tiles_url_error" = "Въведете валиден URL с {z}/{x}/{y}";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "Размер на кеша (МБ)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "Непрозрачност на площните обекти";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "Източниците на персонализирани плочки се предоставят от вас. Използвайте само услуги, до които имате право на достъп. Вие носите отговорност за посочването на авторството, условията на лиценза, API ключовете, квотите и ограниченията за използване.";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Гласови инструкции";
@@ -390,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Грешка при изпращане на поща";
-
-/* Settings item title */
-"pref_calibration_title" = "Калибриране на компас";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Наличен";
@@ -643,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Това име вече е заето";
 "profile" = "Профил в OpenStreetMap";
 "restore" = "Възстановяване";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Поверителност";
 "privacy_policy" = "Политика за поверителност";
 "terms_of_use" = "Условия за ползване";
 
@@ -651,6 +670,9 @@
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "Велосипеден туризъм";
+
+/* Map layers menu: toggle button for the satellite imagery layer */
+"button_layer_satellite" = "Сателит";
 "button_layer_subway" = "Метро";
 "layers_title" = "Стилове и слоеве на картата";
 
@@ -907,6 +929,9 @@
 "elevation_profile_descent" = "Спускане";
 "elevation_profile_min_elevation" = "Мин. височина";
 "elevation_profile_max_elevation" = "Макс. височина";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Започнете да се движите, за да видите профила на височината";
 "isolines_toast_zooms_1_10" = "Увеличете мащаба, за да разгледате изолиниите";
 "downloader_loading_ios" = "Изтегляне";
 
@@ -1011,7 +1036,7 @@
 "whats_new_auto_update_button_later" = "Ръчно актуализиране по-късно";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Изтриване на песента";
+"placepage_delete_track_button" = "Изтриване на маршрут";
 
 /* The track deletion confirmaion alert message. */
 "placepage_delete_track_confirmation_alert_message" = "Сигурни ли сте, че искате да изтриете този трак?";

@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Ice Rink";
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.bird_hide" = "Укритие за наблюдение на птици";
 "type.leisure.outdoor_seating" = "Места за сядане на открито";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "Park";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "Ливада";
 "type.natural.orchard" = "Овощна градина";
 "type.natural.peak" = "Връх";
+"type.natural.hill" = "Хълм";
+"type.natural.arch" = "Скална арка";
 "type.natural.saddle" = "Седло";
 "type.natural.rock" = "Камък";
 "type.natural.scrub" = "Гъсталаци";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "Социално съоръжение";
+"type.amenity.stage" = "Сцена";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Вход на спешното отделение";

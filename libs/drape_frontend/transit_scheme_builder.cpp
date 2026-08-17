@@ -58,6 +58,17 @@ float constexpr kTransitMarkTextSize = 11.0f;
 
 m2::PointD constexpr kDefaultDirection{0.5, 0.5};
 
+// Bus, tram, etc. are not rendered on the transit (subway) layer; only kSubwayLayerTypes are.
+bool IsSubwayLayerType(std::string const & type)
+{
+  return ::transit::kSubwayLayerTypes.count(type) != 0;
+}
+
+bool IsSubwayLayerLine(routing::transit::Line const & line)
+{
+  return IsSubwayLayerType(line.GetType());
+}
+
 struct TransitStaticVertex
 {
   using TPosition = glsl::vec3;
@@ -284,6 +295,11 @@ void FillStopParamsSubway(TransitDisplayInfo const & transitDisplayInfo, MwmSet:
   stopParams.m_pivot = stop.GetPoint();
   for (auto lineId : stop.GetLineIds())
   {
+    // A stop may be shared with lines which are not rendered on the layer (e.g. buses).
+    auto const itLine = transitDisplayInfo.m_linesSubway.find(lineId);
+    if (itLine == transitDisplayInfo.m_linesSubway.end() || !IsSubwayLayerLine(itLine->second))
+      continue;
+
     StopInfo & info = stopParams.m_stopsInfo[GetRouteId(lineId)];
     info.m_featureId = featureId;
     info.m_name = title;
@@ -488,10 +504,25 @@ void TransitSchemeBuilder::CollectStopsSubway(TransitDisplayInfo const & transit
 {
   CHECK_EQUAL(transitDisplayInfo.m_transitVersion, ::transit::TransitVersion::OnlySubway, ());
 
+  // Lines not present on the layer (e.g. buses and trams) have no stop ranges in
+  // |m_linesSubway| of the scheme, so their exclusive stops are skipped here too.
+  auto const hasLayerLine = [&transitDisplayInfo](routing::transit::Stop const & stop)
+  {
+    for (auto lineId : stop.GetLineIds())
+    {
+      auto const it = transitDisplayInfo.m_linesSubway.find(lineId);
+      if (it != transitDisplayInfo.m_linesSubway.end() && IsSubwayLayerLine(it->second))
+        return true;
+    }
+    return false;
+  };
+
   for (auto const & stopInfo : transitDisplayInfo.m_stopsSubway)
   {
     routing::transit::Stop const & stop = stopInfo.second;
     if (stop.GetTransferId() != routing::transit::kInvalidTransferId)
+      continue;
+    if (!hasLayerLine(stop))
       continue;
     auto & stopNode = scheme.m_stopsSubway[stop.GetId()];
     FillStopParamsSubway(transitDisplayInfo, mwmId, stop, stopNode);
@@ -570,6 +601,10 @@ void TransitSchemeBuilder::CollectLinesSubway(TransitDisplayInfo const & transit
   std::multimap<size_t, routing::transit::LineId> linesLengths;
   for (auto const & line : transitDisplayInfo.m_linesSubway)
   {
+    // Bus and tram lines are not rendered on the subway layer.
+    if (!IsSubwayLayerLine(line.second))
+      continue;
+
     auto const lineId = line.second.GetId();
     size_t stopsCount = 0;
     auto const & stopsRanges = line.second.GetStopIds();
@@ -604,7 +639,7 @@ LinesDataPT TransitSchemeBuilder::CollectLinesPT(TransitDisplayInfo const & tran
     auto const & lineType = itRoute->second.GetType();
 
     // We skip types that are not mentioned for displaying on the layer - buses, ferries, etc.
-    if (transit::kSubwayLayerTypes.find(lineType) == transit::kSubwayLayerTypes.end())
+    if (!IsSubwayLayerType(lineType))
       continue;
 
     for (auto stopId : line.GetStopIds())
@@ -638,6 +673,9 @@ void TransitSchemeBuilder::CollectShapesSubway(TransitDisplayInfo const & transi
 
   for (auto const & line : transitDisplayInfo.m_linesSubway)
   {
+    if (!IsSubwayLayerLine(line.second))
+      continue;
+
     auto const lineId = line.second.GetId();
     auto const roadId = GetRouteId(lineId);
     roads[roadId].push_back(lineId);
@@ -645,6 +683,9 @@ void TransitSchemeBuilder::CollectShapesSubway(TransitDisplayInfo const & transi
 
   for (auto const & line : transitDisplayInfo.m_linesSubway)
   {
+    if (!IsSubwayLayerLine(line.second))
+      continue;
+
     auto const lineId = line.second.GetId();
     auto const roadId = GetRouteId(lineId);
 
@@ -1498,6 +1539,11 @@ void TransitSchemeBuilder::GenerateTransfer(ref_ptr<dp::GraphicsContext> context
       maxLinesCount = shapeInfo.second.m_linesCount;
     }
   }
+
+  // A transfer whose stops belong only to non-layer lines (e.g. bus/tram) has no layer shapes,
+  // so |maxLinesCount| stays 0. Skip it to avoid division by zero (NaN geometry) in GenerateMarker().
+  if (maxLinesCount == 0)
+    return;
 
   float const kInnerScale = 1.0f;
   float const kOuterScale = 1.5f;

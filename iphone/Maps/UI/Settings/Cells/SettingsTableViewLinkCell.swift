@@ -1,5 +1,15 @@
 @objc
 final class SettingsTableViewLinkCell: MWMTableViewCell {
+  override init(style _: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    super.init(style: .value1, reuseIdentifier: reuseIdentifier)
+    setupCell()
+  }
+
+  @available(*, unavailable)
+  required init?(coder: NSCoder) {
+    super.init(coder: coder)
+  }
+
   override func awakeFromNib() {
     super.awakeFromNib()
     setupCell()
@@ -11,6 +21,8 @@ final class SettingsTableViewLinkCell: MWMTableViewCell {
     textLabel?.numberOfLines = 0
     textLabel?.lineBreakMode = .byWordWrapping
     detailTextLabel?.setFontStyle(.regular17, color: .blackSecondary)
+    accessoryType = .disclosureIndicator
+    selectionStyle = .default
   }
 
   @objc func config(title: String, info: String?) {

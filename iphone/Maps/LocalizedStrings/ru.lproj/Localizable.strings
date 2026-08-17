@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Длина";
 "share_my_location" = "Поделиться местоположением";
+"prefs_group_network" = "Сеть";
 "prefs_group_route" = "Навигация";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -217,6 +218,24 @@
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "3D-здания отключаются в режиме энергосбережения";
+
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "Спутниковые снимки";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "URL сервера";
+
+/* Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) */
+"pref_bg_tiles_url_error" = "Введите корректный URL с {z}/{x}/{y}";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "Размер кэша (МБ)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "Непрозрачность площадных объектов";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "Источники пользовательских тайлов предоставляете вы. Используйте только сервисы, к которым у вас есть доступ. Вы несёте ответственность за указание авторства, условия лицензии, API-ключи, квоты и ограничения использования.";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Голосовые инструкции";
@@ -390,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Ошибка при отправлении письма";
-
-/* Settings item title */
-"pref_calibration_title" = "Калибровка компаса";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Доступные";
@@ -643,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Такое имя уже занято";
 "profile" = "Профиль OpenStreetMap";
 "restore" = "Восстановить";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Приватность";
 "privacy_policy" = "Политика конфиденциальности";
 "terms_of_use" = "Условия использования";
 
@@ -651,6 +670,9 @@
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "Веломаршруты";
+
+/* Map layers menu: toggle button for the satellite imagery layer */
+"button_layer_satellite" = "Спутник";
 "button_layer_subway" = "Метро";
 "layers_title" = "Стили и слои карты";
 
@@ -907,6 +929,9 @@
 "elevation_profile_descent" = "Спуск";
 "elevation_profile_min_elevation" = "Мин. высота";
 "elevation_profile_max_elevation" = "Макс. высота";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Начните движение, чтобы увидеть профиль высоты";
 "isolines_toast_zooms_1_10" = "Увеличьте карту, чтобы увидеть изолинии";
 "downloader_loading_ios" = "Загрузка";
 

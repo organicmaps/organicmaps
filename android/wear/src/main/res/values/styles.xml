@@ -1,0 +1,7 @@
+<resources>
+  <style name="WearTheme" parent="@android:style/Theme.DeviceDefault.NoActionBar">
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowActionBar">false</item>
+    <item name="android:windowLightStatusBar">false</item>
+  </style>
+</resources>

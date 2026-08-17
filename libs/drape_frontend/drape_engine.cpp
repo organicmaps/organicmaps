@@ -101,11 +101,11 @@ DrapeEngine::DrapeEngine(Params && params)
       params.m_onGraphicsContextInitialized, std::move(params.m_renderInjectionHandler),
       params.m_model.ReadTileBackgroundFn(), params.m_model.CancelTileBackgroundReadingFn());
 
-  BackendRenderer::Params brParams(params.m_apiVersion, frParams.m_commutator, frParams.m_oglContextFactory,
-                                   frParams.m_texMng, params.m_model, params.m_model.UpdateCurrentCountryFn(),
-                                   make_ref(m_requestedTiles), params.m_allow3dBuildings, params.m_trafficEnabled,
-                                   params.m_isolinesEnabled, params.m_simplifiedTrafficColors, params.m_backgroundMode,
-                                   std::move(params.m_arrow3dCustomDecl), params.m_onGraphicsContextInitialized);
+  BackendRenderer::Params brParams(
+      params.m_apiVersion, frParams.m_commutator, frParams.m_oglContextFactory, frParams.m_texMng, params.m_model,
+      params.m_model.UpdateCurrentCountryFn(), make_ref(m_requestedTiles), params.m_allow3dBuildings,
+      params.m_trafficEnabled, params.m_isolinesEnabled, params.m_simplifiedTrafficColors, params.m_backgroundMode,
+      params.m_satelliteAreaOpacity, std::move(params.m_arrow3dCustomDecl), params.m_onGraphicsContextInitialized);
 
   m_backend = make_unique_dp<BackendRenderer>(std::move(brParams));
   m_frontend = make_unique_dp<FrontendRenderer>(std::move(frParams));
@@ -946,6 +946,7 @@ drape_ptr<UserLineRenderParams> DrapeEngine::GenerateLineRenderInfo(UserLineMark
   auto renderInfo = make_unique_dp<UserLineRenderParams>();
   renderInfo->m_minZoom = mark->GetMinZoom();
   renderInfo->m_depthLayer = mark->GetDepthLayer();
+  renderInfo->m_visible = mark->IsVisible();
 
   mark->ForEachGeometry([&renderInfo](std::vector<m2::PointD> && points)
   { renderInfo->m_splines.emplace_back(std::move(points)); });
@@ -987,19 +988,28 @@ void DrapeEngine::SetCustomArrow3d(std::optional<Arrow3dCustomDecl> arrow3dCusto
                                   MessagePriority::High);
 }
 
-void DrapeEngine::SetTileBackgroundData(df::TileKey const & tileKey, uint32_t width, uint32_t height,
-                                        dp::TextureFormat format, dp::BackgroundMode mode,
-                                        std::vector<uint8_t> && bytes)
+void DrapeEngine::AddTileBackgroundImage(std::string const & uid, uint32_t width, uint32_t height,
+                                         dp::TextureFormat format, dp::BackgroundMode mode,
+                                         std::vector<uint8_t> && bytes)
 {
   m_threadCommutator->PostMessage(
       ThreadsCommutator::ResourceUploadThread,
-      make_unique_dp<SetTileBackgroundDataMessage>(tileKey, width, height, format, mode, std::move(bytes)),
+      make_unique_dp<AddTileBackgroundImageMessage>(uid, width, height, format, mode, std::move(bytes)),
       MessagePriority::Normal);
 }
 
-void DrapeEngine::SetTileBackgroundMode(dp::BackgroundMode mode)
+void DrapeEngine::SetTileBackgroundData(df::TileKey const & tileKey, std::string const & imageUid,
+                                        m2::RectF const & rect)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<SetTileBackgroundModeMessage>(mode), MessagePriority::Normal);
+                                  make_unique_dp<SetTileBackgroundDataMessage>(tileKey, imageUid, rect),
+                                  MessagePriority::Normal);
+}
+
+void DrapeEngine::SetTileBackgroundMode(dp::BackgroundMode mode, float satelliteAreaOpacity /* = 0.5f */)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<SetTileBackgroundModeMessage>(mode, satelliteAreaOpacity),
+                                  MessagePriority::Normal);
 }
 }  // namespace df

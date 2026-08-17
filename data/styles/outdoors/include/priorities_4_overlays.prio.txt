@@ -311,6 +311,9 @@ natural-volcano                                     # icon z10- (also has captio
 natural-volcano-active                              # icon z10- (also has caption(optional) z13-)
 === 5400
 
+natural-hill                                        # icon z13- (also has caption(optional) z13-)
+=== 5300
+
 amenity-theatre                                     # icon z14- (also has caption(optional) z14-)
 historic-battlefield                                # icon z15- (also has caption(optional) z15-)
 historic-city_gate                                  # icon z13- (also has caption(optional) z13-)
@@ -349,6 +352,7 @@ landuse-forest-deciduous                            # icon z12- (also has captio
 landuse-forest-mixed                                # icon z12- (also has caption(optional) z13-, area z10-)
 === 4800
 
+natural-arch                                        # icon z16- (also has caption(optional) z16-)
 natural-cave_entrance                               # icon z10- (also has caption(optional) z11-)
 natural-geyser                                      # icon z10- (also has caption(optional) z12-)
 natural-hot_spring                                  # icon z12- (also has caption(optional) z15-)
@@ -373,6 +377,7 @@ amenity-community_centre                            # icon z15- (also has captio
 amenity-conference_centre                           # icon z16- (also has caption(optional) z16-)
 amenity-events_venue                                # icon z16- (also has caption(optional) z16-)
 amenity-exhibition_centre                           # icon z16- (also has caption(optional) z16-)
+amenity-stage                                       # icon z17- (also has caption(optional) z17-)
 tourism-attraction                                  # icon z14- (also has caption(optional) z14-)
 tourism-gallery                                     # icon z15- (also has caption(optional) z15-)
 === 4300
@@ -902,6 +907,7 @@ barrier-swing_gate                                  # icon z16- (also has captio
 barrier-turnstile                                   # icon z16- (also has caption(optional) z16-)
 barrier-wicket_gate                                 # icon z16- (also has caption(optional) z16-)
 barrier-yes                                         # icon z16- (also has caption(optional) z16-)
+leisure-bird_hide                                   # icon z15- (also has caption(optional) z15-)
 leisure-dog_park                                    # icon z16- (also has caption(optional) z16-)
 === 2300
 
@@ -1523,6 +1529,9 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # natural-volcano-active                            # caption(optional) z13- (also has icon z10-)
 # === -4600
 
+# natural-hill                                      # caption(optional) z13- (also has icon z13-)
+# === -4700
+
 # amenity-theatre                                   # caption(optional) z14- (also has icon z14-)
 # historic-battlefield                              # caption(optional) z15- (also has icon z15-)
 # historic-city_gate                                # caption(optional) z13- (also has icon z13-)
@@ -1560,6 +1569,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # landuse-forest-mixed                              # caption(optional) z13- (also has icon z12-, area z10-)
 # === -5200
 
+# natural-arch                                      # caption(optional) z16- (also has icon z16-)
 # natural-cave_entrance                             # caption(optional) z11- (also has icon z10-)
 # natural-geyser                                    # caption(optional) z12- (also has icon z10-)
 # natural-hot_spring                                # caption(optional) z15- (also has icon z12-)
@@ -1583,6 +1593,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # amenity-conference_centre                         # caption(optional) z16- (also has icon z16-)
 # amenity-events_venue                              # caption(optional) z16- (also has icon z16-)
 # amenity-exhibition_centre                         # caption(optional) z16- (also has icon z16-)
+# amenity-stage                                     # caption(optional) z17- (also has icon z17-)
 # tourism-attraction                                # caption(optional) z14- (also has icon z14-)
 # tourism-gallery                                   # caption(optional) z15- (also has icon z15-)
 # === -5700
@@ -1934,6 +1945,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # barrier-turnstile                                 # caption(optional) z16- (also has icon z16-)
 # barrier-wicket_gate                               # caption(optional) z16- (also has icon z16-)
 # barrier-yes                                       # caption(optional) z16- (also has icon z16-)
+# leisure-bird_hide                                 # caption(optional) z15- (also has icon z15-)
 # leisure-dog_park                                  # caption(optional) z16- (also has icon z16-)
 # === -7700
 

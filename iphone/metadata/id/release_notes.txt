@@ -1,26 +1,41 @@
-- NEW! ketuk halte angkutan umum untuk menyorot seluruh rute pada peta, seperti pada gaya peta Transit.
-- BARU! rute angkutan umum jarak jauh dan hubungan OpenStreetMap lainnya sekarang terhubung melintasi batas peta menjadi satu garis yang berkesinambungan.
-- Data OpenStreetMap telah diperbaharui pada tanggal 3 Mei.
-- Vietnam dan Malaysia sekarang dibagi menjadi wilayah yang lebih kecil yang dapat diunduh secara terpisah.
-- Hong Kong, Makau, dan Hainan sekarang terpisah dari Guangdong, dengan batas-batas wilayah yang telah diperbarui.
-- Memperbarui garis kontur untuk Indonesia, Malaysia, Tanzania, Thailand, dan Vietnam.
-- Menambahkan tombol perekaman lintasan pada panel info navigasi.
-- Menambahkan jenis OpenStreetMap baru: gunung berapi dengan status aktif, titik akses jalur air, jalur luncur, ruang hookah, dan bangunan yang sedang dibangun.
-- Menambahkan "Lookout" sebagai sinonim pencarian untuk sudut pandang, dan "pkwy" sebagai sinonim jalan di Amerika Serikat.
-- Warna area pejalan kaki sedikit lebih gelap agar lebih mudah dibaca.
-- Label penanda pada peta tidak lagi tumpang tindih.
-- Teks multi-baris sekarang terpotong dengan rapi, dan nama jalan tidak lagi memiliki duplikasi.
-- Rute: rute yang dilanjutkan kini menghapus titik peralihan yang telah Anda lewati.
-- Memperbaiki daftar penanda yang salah yang digunakan dalam build TestFlight.
-- Memperbaiki impor file KMB.
-- Memperbarui terjemahan yang telah dikoreksi untuk kategori, sinonim pencarian, dan string UI. Menambahkan terjemahan untuk deskripsi New South Wales dan Wilayah Utara.
-- Peningkatan stabilitas dan kinerja, termasuk pembentukan font, cache mesin terbang, dan kliping garis rute.
-- Memperbaiki grafik ketinggian untuk trek dan rute.
-- Membuat tombol menu dalam navigasi menjadi lebih besar untuk tindakan seperti TTS, pengaturan, dan perekaman lintasan.
-- Menyempurnakan animasi bagian deskripsi yang dapat diperluas pada halaman tempat.
-- Halaman informasi tempat tidak lagi menutup saat penggosokan grafik elevasi berakhir, tidak lagi memantul secara tidak terduga, dan membuat judul tetap terlihat saat mengedit dengan keyboard terbuka.
-- Memperbaiki kerusakan saat menghapus trek atau penanda yang sudah tidak ada.
+- BARU! Perhitungan rute transportasi umum melalui kereta bawah tanah, kereta ringan, bus, dan trem
+- BARU! Rute alternatif: selain rute tercepat, aplikasi kini menampilkan rute terpendek
+- BARU! Peringatan rute berjalan kaki dan bersepeda mengenai anak tangga, gerbang, dan gerbang angkat di sepanjang jalan
+- BARU! Ketuk untuk memilih antara jejak dan rute yang tumpang tindih
+- BARU! Pilih warna apa pun untuk penanda
+- BARU! Dukungan untuk koordinat British National Grid (OS Grid), Irish Grid, dan Irish Transverse Mercator (ITM)
+- BARU! Dukungan aksesibilitas untuk Dynamic Type dan font besar
+- EKSPERIMENTAL: Aktifkan Citra Satelit di pengaturan Organic Maps dengan URL server ubin raster khusus
+- Gaya tabel yang lebih rapi di antarmuka pengguna
+- Ketik `?map-download-server:https://your-server.com/` di jendela pencarian untuk mengganti server unduhan peta Organic Maps. Ketik `?no-map-download-server` untuk menghapus penggantian tersebut.
+- Berbagai perbaikan bug dan peningkatan kinerja
 
-## Dukungan Platform
+## Data Peta
 
-- Karena perubahan di TestFlight dan App Store, rilis ini hanya mendukung iOS 15 dan yang lebih baru. iOS 12, iOS 13, dan iOS 14 tidak lagi didukung.
+- Data OpenStreetMap diperbarui per 24 Juni
+- Data Wikipedia diperbarui per 20 Juni, termasuk artikel dalam bahasa Italia
+
+## Rendering & gaya peta
+
+- Pola yang lebih menarik untuk area pantai, pasir, kerikil, batu telanjang, kebun buah, dan kebun anggur, serta arsiran untuk kawasan lindung dan lahan basah
+- Label teks melengkung yang lebih halus untuk jalan dan sungai
+- Sungai, aliran air, dan lahan basah memiliki kontras yang lebih tinggi dan lebih terlihat dalam mode gelap
+- Ikon baru dan yang telah ditingkatkan untuk pencarian kategori dan hasil pencarian di peta
+- Peningkatan pembentukan dan penampilan teks multibahasa
+
+## Jejak, bookmark, & rute
+
+- Peningkatan rendering HTML pada deskripsi bookmark dan jejak
+- Jejak GeoJSON kini menyimpan data ketinggian dan cap waktu saat diimpor dan diekspor
+- Memperbaiki crash setelah memindahkan jejak ke daftar lain
+- Situs web kini ditampilkan untuk situs warisan budaya
+- Nama operator kini ditampilkan untuk hasil pencarian yang tidak bernama. Misalnya, hasil pencarian tanpa nama ATM kini menampilkan nama banknya
+- Editor: memperbaiki teks deskripsi untuk gedung apartemen OpenStreetMap edits/changesets
+- Peningkatan deteksi HTML dalam deskripsi bookmark dan jejak
+- Rute ganda kini telah disaring
+
+## Terjemahan
+
+- Panduan suara langkah demi langkah dalam bahasa Kanton
+- Terjemahan bahasa Jerman dan Prancis telah diperbarui
+- Memperbaiki terjemahan panduan suara "onto street" yang salah untuk bahasa Mandarin, Serbia, dan Katalan

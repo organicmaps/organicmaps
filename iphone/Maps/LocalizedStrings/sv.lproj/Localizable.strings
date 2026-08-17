@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Längd";
 "share_my_location" = "Dela min plats";
+"prefs_group_network" = "Nätverk";
 "prefs_group_route" = "Navigering";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -217,6 +218,24 @@
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "3D-byggnader är avstängda i energisparläge";
+
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "Satellitbilder";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "Server-URL";
+
+/* Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) */
+"pref_bg_tiles_url_error" = "Ange en giltig URL med {z}/{x}/{y}";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "Cachestorlek (MB)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "Opacitet för ytobjekt";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "Anpassade rutkällor tillhandahålls av dig. Använd endast tjänster som du har behörighet att använda. Du ansvarar för upphovsangivelse, licensvillkor, API-nycklar, kvoter och användningsgränser.";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Röstinstruktioner";
@@ -390,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Fel när mailet skulle skickas";
-
-/* Settings item title */
-"pref_calibration_title" = "Kompasskalibrering";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Tillgänglig";
@@ -643,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Det här namnet är redan taget";
 "profile" = "OpenStreetMap profil";
 "restore" = "Återställa";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Integritet";
 "privacy_policy" = "Integritetspolicy";
 "terms_of_use" = "Allmänna villkor";
 
@@ -651,6 +670,9 @@
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "Cykling";
+
+/* Map layers menu: toggle button for the satellite imagery layer */
+"button_layer_satellite" = "Satellit";
 "button_layer_subway" = "Tunnelbana";
 "layers_title" = "Kartstilar och lager";
 
@@ -907,6 +929,9 @@
 "elevation_profile_descent" = "Backe";
 "elevation_profile_min_elevation" = "Min. höjd";
 "elevation_profile_max_elevation" = "Max. höjd";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Börja röra dig för att se höjdprofilen";
 "isolines_toast_zooms_1_10" = "Förstora kartan för att se höjdlinjer";
 "downloader_loading_ios" = "Nedladdning";
 

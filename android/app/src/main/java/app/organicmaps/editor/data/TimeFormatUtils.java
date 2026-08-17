@@ -4,7 +4,6 @@ import android.content.res.Resources;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import app.organicmaps.R;
-import app.organicmaps.sdk.editor.data.Timespan;
 import app.organicmaps.sdk.editor.data.Timetable;
 import app.organicmaps.utils.Utils;
 import java.text.DateFormatSymbols;
@@ -78,43 +77,26 @@ public class TimeFormatUtils
     return builder.toString();
   }
 
-  public static String formatNonBusinessTime(Timespan[] closedTimespans, String hoursClosedLabel)
-  {
-    StringBuilder closedTextBuilder = new StringBuilder();
-    boolean firstLine = true;
-
-    for (Timespan cts : closedTimespans)
-    {
-      if (!firstLine)
-        closedTextBuilder.append('\n');
-
-      closedTextBuilder.append(hoursClosedLabel).append(' ').append(cts.toWideString());
-      firstLine = false;
-    }
-    return closedTextBuilder.toString();
-  }
-
   public static String formatTimetables(@NonNull Resources resources, String ohStr, Timetable[] timetables)
   {
     if (timetables == null || timetables.length == 0)
       return ohStr;
 
-    // Generate string "24/7" or "Daily HH:MM - HH:MM".
+    // Generate string "24/7" or "Daily HH:MM—HH:MM". Breaks split the day into open shifts, e.g.
+    // "Daily 09:00—13:00, 16:00—20:00".
     if (timetables[0].isFullWeek())
     {
       Timetable tt = timetables[0];
       if (tt.isFullday)
         return resources.getString(R.string.twentyfour_seven);
-      if (tt.closedTimespans == null || tt.closedTimespans.length == 0)
-        return resources.getString(R.string.daily) + " " + tt.workingTimespan.toWideString();
-      return resources.getString(R.string.daily) + " " + tt.workingTimespan.toWideString() + "\n"
-    + formatNonBusinessTime(tt.closedTimespans, resources.getString(R.string.editor_hours_closed));
+      final String shifts = tt.formatOpenShifts(", ");
+      final String openTime = shifts.isEmpty() ? Utils.unCapitalize(resources.getString(R.string.day_off)) : shifts;
+      return resources.getString(R.string.daily) + " " + openTime;
     }
 
-    // Generate full week multiline string. E.g.
-    // "Mon-Fri HH:MM - HH:MM
-    // Sat HH:MM - HH:MM
-    // Non-business Hours HH:MM - HH:MM"
+    // Generate full week multiline string, one line per weekday group. E.g.
+    // "Mo-Fr 09:00—13:00, 16:00—20:00
+    // Sa 10:00—16:00"
     StringBuilder weekSchedule = new StringBuilder();
     boolean firstRow = true;
     for (Timetable tt : timetables)
@@ -123,13 +105,12 @@ public class TimeFormatUtils
         weekSchedule.append('\n');
 
       final String weekdays = formatWeekdays(tt);
-      final String openTime = tt.isFullday ? Utils.unCapitalize(resources.getString(R.string.editor_time_allday))
-                                           : tt.workingTimespan.toWideString();
-
+      String openTime = tt.isFullday ? Utils.unCapitalize(resources.getString(R.string.editor_time_allday))
+                                     : tt.formatOpenShifts(", ");
+      // A working day fully covered by breaks has no open shift; show it as closed.
+      if (openTime.isEmpty())
+        openTime = Utils.unCapitalize(resources.getString(R.string.day_off));
       weekSchedule.append(weekdays).append(' ').append(openTime);
-      if (tt.closedTimespans != null && tt.closedTimespans.length > 0)
-        weekSchedule.append('\n').append(
-            formatNonBusinessTime(tt.closedTimespans, resources.getString(R.string.editor_hours_closed)));
 
       firstRow = false;
     }

@@ -72,6 +72,42 @@
     <item name="android:textAppearance">@style/MwmTextAppearance.Body1</item>
   </style>
 
+  <!-- Modern filled TextInputLayout with pill-rounded corners inspired by the search bar. -->
+  <style name="MwmWidget.TextInput.Filled" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+    <item name="boxBackgroundColor">?panel</item>
+    <item name="boxCornerRadiusTopStart">28dp</item>
+    <item name="boxCornerRadiusTopEnd">28dp</item>
+    <item name="boxCornerRadiusBottomStart">28dp</item>
+    <item name="boxCornerRadiusBottomEnd">28dp</item>
+    <item name="hintTextColor">?android:textColorSecondary</item>
+    <item name="boxStrokeWidth">0dp</item>
+    <item name="boxStrokeWidthFocused">0dp</item>
+    <item name="cursorColor">@color/cursor_edit_bookmark</item>
+  </style>
+
+  <style name="MwmWidget.TextInput.Filled.EditText" parent="Widget.MaterialComponents.TextInputEditText.FilledBox">
+    <item name="android:paddingStart">@dimen/margin_base</item>
+    <item name="android:paddingEnd">@dimen/margin_base</item>
+    <item name="android:textAppearance">@style/MwmTextAppearance.Body1</item>
+    <item name="android:theme">@style/ThemeOverlay.Mwm.EditText</item>
+  </style>
+
+  <style name="ThemeOverlay.Mwm.EditText" parent="ThemeOverlay.MaterialComponents">
+    <item name="colorControlActivated">@color/cursor_edit_bookmark</item>
+  </style>
+
+  <style name="MwmWidget.Toolbar.EditBookmark" parent="">
+    <item name="android:background">?cardBackground</item>
+    <item name="contentInsetStart">0dp</item>
+    <item name="titleTextAppearance">@style/MwmTextAppearance.Toolbar.Title</item>
+    <item name="titleTextColor">?android:textColorPrimary</item>
+  </style>
+
+  <style name="ThemeOverlay.Mwm.EditToolbar" parent="ThemeOverlay.MaterialComponents">
+    <item name="colorControlNormal">?android:textColorPrimary</item>
+    <item name="iconTint">?android:textColorPrimary</item>
+  </style>
+
   <style name="MwmWidget.Editor.Problem" tools:ignore="NewApi">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">@dimen/height_block_base</item>

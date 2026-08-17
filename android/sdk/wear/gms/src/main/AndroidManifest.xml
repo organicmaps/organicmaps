@@ -1,0 +1,17 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <!--
+    Registers the Google Wear Data Layer publisher at process startup. This module is consumed via
+    googleImplementation, so the merger adds this provider to the app manifest ONLY for Google
+    builds; other flavors never see it and fall back to the no-op in WearBridge. The provider is a
+    manifest component, so R8 keeps WearBridgeInitProvider automatically — no @Keep required.
+    ${applicationId} keeps the authority unique per install (debug/beta/release coexistence).
+  -->
+  <application>
+    <provider
+      android:name="app.organicmaps.sdk.wear.gms.WearBridgeInitProvider"
+      android:authorities="${applicationId}.wear-bridge-init"
+      android:exported="false" />
+  </application>
+
+</manifest>

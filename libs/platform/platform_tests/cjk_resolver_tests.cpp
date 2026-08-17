@@ -41,6 +41,9 @@ UNIT_TEST(CJKResolver_FromLanguageTag)
   TEST_EQUAL(CJKResolver::FromLanguageTag("zh_HK"), V::HK, ());
   TEST_EQUAL(CJKResolver::FromLanguageTag("zh-Hant-HK"), V::HK, ());
   TEST_EQUAL(CJKResolver::FromLanguageTag("ZH-HK"), V::HK, ());
+  // An explicit script wins over the region, so a Simplified-preferring Hong Kong user gets SC.
+  TEST_EQUAL(CJKResolver::FromLanguageTag("zh-Hans-HK"), V::SC, ());
+  TEST_EQUAL(CJKResolver::FromLanguageTag("zh_HK_#Hans"), V::SC, ());
 
   // Non-CJK locales default to SC so a Han glyph is at least rendered.
   TEST_EQUAL(CJKResolver::FromLanguageTag("en"), V::SC, ());

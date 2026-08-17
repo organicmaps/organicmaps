@@ -219,6 +219,18 @@
     <string name="pref_map_3d_buildings_title">주변 건물 3D</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">3D 빌딩은 절전 모드에서 꺼집니다.</string>
+    <!-- Settings: title of the satellite imagery (custom raster tiles) screen -->
+    <string name="pref_bg_tiles_title">위성 이미지</string>
+    <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
+    <string name="pref_bg_tiles_url_title">서버 URL</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">{z}/{x}/{y}가 포함된 유효한 URL을 입력하세요</string>
+    <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
+    <string name="pref_bg_tiles_size_title">캐시 크기 (MB)</string>
+    <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
+    <string name="pref_bg_tiles_opacity_title">면 객체 불투명도</string>
+    <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
+    <string name="pref_bg_tiles_disclaimer">사용자 지정 타일 소스는 사용자가 제공합니다. 접근 권한이 있는 서비스만 사용하세요. 출처 표시, 라이선스 약관, API 키, 할당량 및 사용 한도는 사용자 책임입니다.</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">음성 지침</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
@@ -231,7 +243,7 @@
     <string name="pref_tts_test_voice_title">음성 길 안내 테스트(TTS, 텍스트 음성 변환)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">지금 음성이 들리지 않으면 볼륨 또는 시스템 텍스트 음성 변환 설정을 확인하세요.</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">사용할 수 없음</string>
     <string name="pref_map_auto_zoom">자동 줌</string>
     <string name="placepage_distance">거리</string>
@@ -567,14 +579,11 @@
     <string name="prefs_languages_information_off_link">자세한 내용을 보려면 이 가이드를 확인하세요.</string>
     <string name="transliteration_title">라틴어로 음역</string>
     <string name="learn_more">자세히 알아보기</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">검색을 사용하거나 지도를 탭하여 경로 시작점을 추가합니다</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">검색을 사용하거나 지도를 탭하여 목적지 지점을 추가합니다</string>
     <string name="planning_route_manage_route">경로 관리</string>
     <string name="button_plan">계획</string>
     <string name="placepage_remove_stop">정류장 제거</string>
     <string name="placepage_add_stop">스톱 추가</string>
+    <string name="drag_to_reorder">순서 변경</string>
     <string name="saved">저장됨</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">모든 지도 편집 내용을 자동으로 업로드하려면 오픈스트리트맵에 로그인하세요. 자세히 알아보기 <a href="https://github.com/organicmaps/organicmaps/issues/6144">여기</a>.</string>
@@ -620,6 +629,8 @@
     <string name="button_layer_hiking">하이킹</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">사이클링</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">위성</string>
     <string name="button_layer_subway">지하철</string>
     <string name="layers_title">맵 스타일 및 레이어</string>
     <string name="bookmarks_empty_list_title">이 목록은 비어있습니다.</string>
@@ -719,6 +730,7 @@
     <string name="opens_at">%s에 열림</string>
     <string name="closes_at">%s에서 닫힘</string>
     <string name="editor_add_select_category_all_subtitle">모든 카테고리</string>
+    <string name="placepage_replace_stop">교체 중지</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">음식</string>
@@ -866,6 +878,12 @@
     <string name="share_track">트랙 공유</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">삭제 %s?</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">색상 변경</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">경로 숨기기</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">경로 표시</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -892,4 +910,6 @@
     <string name="color_picker_hex_label">sRGB 16진수 색상 #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">그리드</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">음성 검색</string>
 </resources>

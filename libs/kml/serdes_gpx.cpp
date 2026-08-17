@@ -61,7 +61,6 @@ void GpxParser::ResetPoint()
   m_comment.clear();
   m_org = {};
   m_color = kInvalidColor;
-  m_customName.clear();
   m_geometry.Clear();
   m_geometryType = GEOMETRY_TYPE_UNKNOWN;
   m_lat = 0.;
@@ -291,13 +290,12 @@ void GpxParser::Pop(std::string_view tag)
         // one gets the default preset. See NormalizeBookmarkColorData.
         data.m_color = NormalizeBookmarkColorData({PredefinedColor::None, m_color});
         data.m_point = m_org;
-        if (!m_customName.empty())
-          data.m_customName[kDefaultLang] = std::move(m_customName);
-        else if (!data.m_name.empty())
-        {
-          // Here we set custom name from 'name' field for KML-files exported from 3rd-party services.
-          data.m_customName = data.m_name;
-        }
+        // A GPX file carries no OM extended data, so its <name> is the only name it has. Store it
+        // in m_customName as well: that is the field the place page, search and every exporter
+        // treat as the user's own name, and a later rename replaces it instead of leaving two
+        // competing names behind. The KML parser copies the name for the same reason, but only for
+        // a plain single-language one - which is all this parser ever produces.
+        data.m_customName = data.m_name;
 
         m_data.m_bookmarksData.push_back(std::move(data));
       }
@@ -459,16 +457,16 @@ void SaveColorToARGB(Writer & writer, uint32_t rgba)
 void SaveCategoryData(Writer & writer, CategoryData const & categoryData)
 {
   writer << "<metadata>\n";
-  if (auto const name = GetDefaultLanguage(categoryData.m_name))
+  if (auto const name = GetStringForExport(categoryData.m_name); !name.empty())
   {
     writer << kIndent2 << "<name>";
-    SaveStringWithCDATA(writer, *name);
+    SaveStringWithCDATA(writer, name);
     writer << "</name>\n";
   }
-  if (auto const description = GetDefaultLanguage(categoryData.m_description))
+  if (auto const description = GetStringForExport(categoryData.m_description); !description.empty())
   {
     writer << kIndent2 << "<desc>";
-    SaveStringWithCDATA(writer, *description);
+    SaveStringWithCDATA(writer, description);
     writer << "</desc>\n";
   }
   writer << "</metadata>\n";
@@ -488,20 +486,16 @@ void SaveBookmarkData(Writer & writer, BookmarkData const & bookmarkData)
 {
   auto const [lat, lon] = mercator::ToLatLon(bookmarkData.m_point);
   writer << "<wpt lat=\"" << CoordToString(lat) << "\" lon=\"" << CoordToString(lon) << "\">\n";
-  // If user customized the default bookmark name, it's saved in m_customName.
-  auto name = GetDefaultLanguage(bookmarkData.m_customName);
-  if (!name)
-    name = GetDefaultLanguage(bookmarkData.m_name);  // Original POI name stored when bookmark was created.
-  if (name)
+  if (auto const name = GetPreferredBookmarkName(bookmarkData, "default"); !name.empty())
   {
     writer << kIndent2 << "<name>";
-    SaveStringWithCDATA(writer, *name);
+    SaveStringWithCDATA(writer, name);
     writer << "</name>\n";
   }
-  if (auto const description = GetDefaultLanguage(bookmarkData.m_description))
+  if (auto const description = GetStringForExport(bookmarkData.m_description); !description.empty())
   {
     writer << kIndent2 << "<desc>";
-    SaveStringWithCDATA(writer, *description);
+    SaveStringWithCDATA(writer, description);
     writer << "</desc>\n";
   }
   if (auto const color = BookmarkColor(bookmarkData); color != kInvalidColor)
@@ -533,17 +527,16 @@ uint32_t TrackColor(TrackData const & trackData)
 void SaveTrackData(Writer & writer, TrackData const & trackData)
 {
   writer << "<trk>\n";
-  auto name = GetDefaultLanguage(trackData.m_name);
-  if (name)
+  if (auto const name = GetStringForExport(trackData.m_name); !name.empty())
   {
     writer << kIndent2 << "<name>";
-    SaveStringWithCDATA(writer, *name);
+    SaveStringWithCDATA(writer, name);
     writer << "</name>\n";
   }
-  if (auto const description = GetDefaultLanguage(trackData.m_description))
+  if (auto const description = GetStringForExport(trackData.m_description); !description.empty())
   {
     writer << kIndent2 << "<desc>";
-    SaveStringWithCDATA(writer, *description);
+    SaveStringWithCDATA(writer, description);
     writer << "</desc>\n";
   }
   if (auto const color = TrackColor(trackData); color != kDefaultTrackColor)

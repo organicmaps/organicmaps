@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Клизалиште";
 "type.leisure.marina" = "Марина";
 "type.leisure.nature_reserve" = "Природни резерват";
+"type.leisure.bird_hide" = "Осматрачница за птице";
 "type.leisure.outdoor_seating" = "Седење на отвореном";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "Парк";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "Ливада";
 "type.natural.orchard" = "Воћњак";
 "type.natural.peak" = "Врх";
+"type.natural.hill" = "Брдо";
+"type.natural.arch" = "Стенови лук";
 "type.natural.saddle" = "Планинско седло";
 "type.natural.rock" = "Камен";
 "type.natural.scrub" = "Шикара";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "Социјална установа";
+"type.amenity.stage" = "Сцена";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Улаз у хитну помоћ";

@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Каток";
 "type.leisure.marina" = "Марына";
 "type.leisure.nature_reserve" = "Прыродны запаведнік";
+"type.leisure.bird_hide" = "Укрыццё для назірання за птушкамі";
 "type.leisure.outdoor_seating" = "Месцы на адкрытым паветры";
 "type.leisure.firepit" = "Кастрышча";
 "type.leisure.park" = "Парк";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "Луг";
 "type.natural.orchard" = "Сад";
 "type.natural.peak" = "Вяршыня";
+"type.natural.hill" = "Узгорак";
+"type.natural.arch" = "Скальны арк";
 "type.natural.saddle" = "Седлавіна";
 "type.natural.rock" = "Камень";
 "type.natural.scrub" = "Зараснікі";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "Сацыяльная ўстанова";
+"type.amenity.stage" = "Сцэна";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Уваход у аддзяленне хуткай дапамогі";

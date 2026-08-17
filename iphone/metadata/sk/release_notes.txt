@@ -1,26 +1,41 @@
-- NOVINKA! Ťuknutím na zastávku verejnej dopravy sa na mape zvýrazní celá trasa, podobne ako v štýle tranzitnej mapy.
-- NOVINKA! diaľkové trasy verejnej dopravy a iné vzťahy OpenStreetMap sú teraz spojené cez hranice mapy do jednej súvislej línie.
-- Údaje OpenStreetMap aktualizované k 3. máju.
-- Vietnam a Malajzia sú teraz rozdelené na menšie regióny, ktoré sa dajú stiahnuť samostatne.
-- Hongkong, Macao a Hainan sú teraz oddelené od Guangdongu, pričom susedné hranice sú aktualizované.
-- Aktualizované obrysové čiary pre Indonéziu, Malajziu, Tanzániu, Thajsko a Vietnam.
-- Na informačný panel v navigácii bolo pridané tlačidlo nahrávania skladby.
-- Pridané nové typy OpenStreetMap: sopky s aktívnym stavom, prístupové body k vodným cestám, sklzy, salóny pre vodné fajky a budovy vo výstavbe.
-- Pridané "Lookout" ako synonymum pre vyhľadávanie vyhliadkových bodov a "pkwy" ako synonymum pre americké ulice.
-- Farby pešej zóny sú mierne tmavšie pre lepšiu čitateľnosť.
-- Označenia záložiek na mape sa už neprekrývajú.
-- Viacriadkový text je teraz čisto orezaný a názvy ulíc už neobsahujú duplikáty.
-- Trasovanie: obnovené trasy teraz odstraňujú medziľahlé body, ktoré ste už prešli.
-- Opravený nesprávny zoznam záložiek, ktorý sa používal v zostavách TestFlight.
-- Opravený import súborov KMB.
-- Aktualizované korektúry prekladov kategórií, synoným vyhľadávania a reťazcov používateľského rozhrania. Pridané preklady pre popisy Nového Južného Walesu a Severného teritória.
-- Vylepšená stabilita a výkon vrátane tvarovania písma, ukladania glyfov do medzipamäte a orezávania riadkov trasy.
-- Vylepšená tabuľka prevýšenia pre trate a trasy.
-- Zväčšené tlačidlá v navigačnom menu pre akcie, ako sú TTS, nastavenia a nahrávanie tratí.
-- Vylepšená animácia rozbaľovacej časti popisu na stránke miesta.
-- Stránka s informáciami o mieste sa už nezatvára, keď sa skončí premazávanie výškového grafu, už sa neočakávane nesklápa a počas úprav s otvorenou klávesnicou zostáva viditeľný názov.
-- Opravené pády pri odstraňovaní stopy alebo záložky, ktorá už neexistuje.
+- NOVINKA! Plánovanie trasy verejnou dopravou metrom, ľahkou železnicou, autobusom a električkou
+- NOVINKA! Alternatívne trasy: okrem najrýchlejšej trasy aplikácia teraz zobrazuje aj najkratšiu trasu
+- NOVINKA! Upozornenia na peších a cyklistických trasách týkajúce sa schodov, brán a zdvíhacích brán na trase
+- NOVINKA! Ťuknutím si môžete vybrať medzi prekrývajúcimi sa trasami a cestami
+- NOVINKA! Vyberte si ľubovoľnú farbu pre záložky
+- NOVINKA! Podpora súradníc British National Grid (OS Grid), Irish Grid a Irish Transverse Mercator (ITM)
+- NOVINKA! Podpora prístupnosti pre Dynamic Type a veľké písmo
+- EXPERIMENTÁLNE: Zapnite satelitné snímky v nastaveniach Organic Maps pomocou vlastnej URL adresy servera s rastrovými dlaždicami
+- Prehľadnejšie štýly tabuliek v používateľskom rozhraní
+- Do vyhľadávacieho okna zadajte `?map-download-server:https://your-server.com/`, aby ste prepisali servery na sťahovanie máp Organic Maps. Zadajte `?no-map-download-server`, aby ste prepis zrušili.
+- Rôzne opravy chýb a vylepšenia výkonu
 
-## Podpora platforiem
+## Mapové údaje
 
-- Kvôli zmenám v programe TestFlight a obchode App Store podporuje táto verzia len systém iOS 15 a novší. iOS 12, iOS 13 a iOS 14 už nie sú podporované.
+- Údaje OpenStreetMap aktualizované k 24. júnu
+- Údaje Wikipedia aktualizované k 20. júnu, vrátane článkov v taliančine
+
+## Vykresľovanie máp a štýly
+
+- Vylepšené vzory pre oblasti pláží, piesku, sutinových svahov, holých skál, ovocných sadov a viníc, ako aj šrafovanie chránených oblastí a mokradí
+- Plynulejšie zakrivené textové popisy ciest a riek
+- Rieky, potoky a mokrade majú vyšší kontrast a sú v tmavom režime lepšie viditeľné
+- Nové a vylepšené ikony pre vyhľadávanie podľa kategórií a výsledky vyhľadávania na mape
+- Vylepšené formátovanie a vykresľovanie viacjazyčného textu
+
+## Trasy, záložky a trasy
+
+- Vylepšené vykresľovanie popisov záložiek a trás v HTML
+- Trasy v aplikácii GeoJSON teraz pri importe a exporte zachovávajú nadmorskú výšku a časové značky
+- Opravené zlyhanie aplikácie po presunutí trasy do iného zoznamu
+- Teraz sa zobrazujú webové stránky pamiatkových objektov
+- Pri výsledkoch vyhľadávania bez názvu sa teraz zobrazujú názvy operátorov. Napríklad pri neoznačenom ATM sa teraz zobrazuje jeho banka
+- Redaktor: opravený popisný text pre bytový dom OpenStreetMap úpravy/sady zmien
+- Vylepšená detekcia HTML v popisoch záložiek a trás
+- Duplicitné trasy sa teraz filtrujú
+
+## Preklady
+
+- Kantonské hlasové navádzanie krok za krokom
+- Aktualizované nemecké a francúzske preklady
+- Opravené nesprávne preklady hlasového navádzania "onto street" pre čínštinu, srbčinu a katalánčinu

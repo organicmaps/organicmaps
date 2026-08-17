@@ -1,12 +1,12 @@
 #include "editor/ui2oh.hpp"
 
+#include "opening_hours/opening_hours.hpp"
+
 #include "base/assert.hpp"
 
 #include <algorithm>
 #include <set>
 #include <string>
-
-#include "3party/opening_hours/opening_hours.hpp"
 
 namespace
 {

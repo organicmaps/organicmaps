@@ -219,6 +219,18 @@
     <string name="pref_map_3d_buildings_title">מבנים בתלת-מימד</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">הגדרת מבנים בתלת מימד מבוטלת במצב חיסכון בחשמל</string>
+    <!-- Settings: title of the satellite imagery (custom raster tiles) screen -->
+    <string name="pref_bg_tiles_title">תמונות לוויין</string>
+    <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
+    <string name="pref_bg_tiles_url_title">כתובת URL של השרת</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">הזינו כתובת URL תקינה עם {z}/{x}/{y}</string>
+    <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
+    <string name="pref_bg_tiles_size_title">גודל מטמון (MB)</string>
+    <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
+    <string name="pref_bg_tiles_opacity_title">אטימות של אובייקטי שטח</string>
+    <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
+    <string name="pref_bg_tiles_disclaimer">מקורות אריחים מותאמים אישית מסופקים על ידך. השתמש רק בשירותים שמותר לך לגשת אליהם. האחריות על ייחוס, תנאי רישיון, מפתחות API, מכסות ומגבלות שימוש מוטלת עליך.</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">הנחיות קוליות</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
@@ -231,7 +243,7 @@
     <string name="pref_tts_test_voice_title">בדיקת הנחיות קוליות (TTS, טקסט לדיבור)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">אם אינך שומע את הקול כעת, בדוק את עוצמת הקול או את הגדרות הטקסט לדיבור של המערכת.</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">לא זמין</string>
     <string name="pref_map_auto_zoom">זום אוטומטי</string>
     <string name="placepage_distance">מרחק</string>
@@ -567,14 +579,11 @@
     <string name="prefs_languages_information_off_link">למידע נוסף ניתן לקרוא את המדריך הזה.</string>
     <string name="transliteration_title">תעתיק לאותיות לטיניות</string>
     <string name="learn_more">למידע נוסף</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">יש להוסיף נקודת התחלה למסלול באמצעות חיפוש או בלחיצה על המפה</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">יש לבחור נקודת יעד באמצעות חיפוש או בלחיצה על המפה</string>
     <string name="planning_route_manage_route">ניהול מסלול</string>
     <string name="button_plan">תכנון</string>
     <string name="placepage_remove_stop">הסר עצירה</string>
     <string name="placepage_add_stop">הוסף עצירה</string>
+    <string name="drag_to_reorder">סידור מחדש</string>
     <string name="saved">נשמר</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">התחבר ל-OpenStreetMap כדי להעלות אוטומטית את כל עריכות המפה שלך. למידע נוסף <a href="https://github.com/organicmaps/organicmaps/issues/6144">כאן</a>.</string>
@@ -622,6 +631,8 @@
     <string name="button_layer_hiking">טיולים</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">רכיבה על אופניים</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">לוויין</string>
     <string name="button_layer_subway">רכבת תחתית</string>
     <string name="layers_title">סגנונות ושכבות מפה</string>
     <string name="bookmarks_empty_list_title">רשימה זו ריקה</string>
@@ -721,6 +732,7 @@
     <string name="opens_at">נפתח מחר ב-%s</string>
     <string name="closes_at">נסגר ב-%s</string>
     <string name="editor_add_select_category_all_subtitle">כל הקטגוריות</string>
+    <string name="placepage_replace_stop">החלף תחנה</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">אוכל</string>
@@ -866,6 +878,12 @@
     <string name="share_track">שתף מסלול</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">למחוק %s?</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">שנה צבע</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">הסתר מסלול</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">הצג מסלול</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -892,4 +910,6 @@
     <string name="color_picker_hex_label">צבע sRGB הקסדצימלי #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">רשת</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">חיפוש קולי</string>
 </resources>

@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Ilgis";
 "share_my_location" = "Bendrinti mano vietą";
+"prefs_group_network" = "Tinklas";
 "prefs_group_route" = "Navigacija";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -217,6 +218,24 @@
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "Trimačiai pastatai yra išjungti energijos taupymo veiksenoje";
+
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "Palydovinės nuotraukos";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "Serverio URL";
+
+/* Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) */
+"pref_bg_tiles_url_error" = "Įveskite galiojantį URL su {z}/{x}/{y}";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "Talpyklos dydis (MB)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "Ploto objektų nepermatomumas";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "Pasirinktinius plytelių šaltinius pateikiate jūs. Naudokite tik paslaugas, prie kurių turite teisę prisijungti. Jūs atsakote už autorystės nurodymą, licencijos sąlygas, API raktus, kvotas ir naudojimo apribojimus.";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Balso instrukcijos";
@@ -390,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Klaida siunčiant laišką";
-
-/* Settings item title */
-"pref_calibration_title" = "Kompaso kalibravimas";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Prieinama";
@@ -643,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Toks pavadinimas jau naudojamas";
 "profile" = "„OpenStreetMap“ profilis";
 "restore" = "Atkurti";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Privatumas";
 "privacy_policy" = "Privatumo politika";
 "terms_of_use" = "Naudojimo sąlygos";
 
@@ -651,6 +670,9 @@
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "Kelionės dviračiu";
+
+/* Map layers menu: toggle button for the satellite imagery layer */
+"button_layer_satellite" = "Palydovas";
 "button_layer_subway" = "Metro";
 "layers_title" = "Žemėlapio stiliai ir sluoksniai";
 
@@ -907,6 +929,9 @@
 "elevation_profile_descent" = "Nusileidimas";
 "elevation_profile_min_elevation" = "Min. aukštis";
 "elevation_profile_max_elevation" = "Maks. aukštis";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Pradėkite judėti, kad matytumėte aukščio profilį";
 "isolines_toast_zooms_1_10" = "Priartinkite, jei norite patyrinėti izolinijas";
 "downloader_loading_ios" = "Atsiunčiama";
 

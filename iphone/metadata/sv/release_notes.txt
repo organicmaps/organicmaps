@@ -1,26 +1,41 @@
-- NYHET! tryck på en hållplats för kollektivtrafik för att markera hela rutten på kartan, som i kartstilen Transit.
-- NYTT! långväga kollektivtrafikrutter och andra OpenStreetMap-relationer är nu anslutna över kartgränser till en kontinuerlig linje.
-- OpenStreetMap-data uppdaterade från och med den 3 maj.
-- Vietnam och Malaysia är nu uppdelade i mindre regioner som kan laddas ner separat.
-- Hongkong, Macao och Hainan är nu separerade från Guangdong, med uppdaterade angränsande gränser.
-- Uppdaterade konturlinjer för Indonesien, Malaysia, Tanzania, Thailand och Vietnam.
-- Lagt till en spårinspelningsknapp till infopanelen i navigationen.
-- Lagt till nya OpenStreetMap-typer: vulkaner med aktiv status, vattenvägsanslutningar, sliprar, vattenpipor och byggnader under uppförande.
-- Lagt till "Lookout" som en söksynonym för utsiktspunkter och "pkwy" som en synonym för amerikanska gator.
-- Färgerna för fotgängarområden är något mörkare för bättre läsbarhet.
-- Bokmärkesetiketter på kartan överlappar inte längre varandra.
-- Text på flera rader klipps nu rent, och gatunamn innehåller inte längre dubbletter.
-- Ruttplanering: återupptagna rutter tar nu bort mellanliggande punkter som du redan har passerat.
-- Fixat fel bokmärkeslista som används i TestFlight-byggnader.
-- Fast KMB-filimport.
-- Uppdaterade korrekturlästa översättningar för kategorier, söksynonymer och användargränssnittssträngar. Lagt till översättningar för beskrivningar av New South Wales och Northern Territory.
-- Förbättrad stabilitet och prestanda, inklusive teckensnittsformning, glyfcaching och klippning av ruttlinjer.
-- Förbättrat höjddiagrammet för spår och rutter.
-- Gjort menyknapparna i navigeringen större för åtgärder som TTS, inställningar och spårinspelning.
-- Förfinat animeringen av det expanderbara beskrivningsavsnittet på platssidan.
-- Sidan med platsinformation stängs inte längre när skurningen av höjddiagrammet avslutas, studsar inte längre oväntat och titeln förblir synlig när du redigerar med tangentbordet öppet.
-- Korrigerade krascher när du tar bort ett spår eller ett bokmärke som inte längre finns.
+- NYTT! Ruttplanering för kollektivtrafik med tunnelbana, spårvagn, buss och trådbuss
+- NYTT! Alternativa rutter: utöver den snabbaste rutten visar appen nu även den kortaste rutten
+- NYTT! Varningar för gång- och cykelrutter om trappsteg, grindar och lyftgrindar längs vägen
+- NYTT! Tryck för att välja mellan överlappande spår och rutter
+- NYTT! Välj valfri färg för bokmärken
+- NYTT! Stöd för koordinaterna British National Grid (OS Grid), Irish Grid och Irish Transverse Mercator (ITM)
+- NYTT! Tillgänglighetsstöd för Dynamic Type och stora teckensnitt
+- EXPERIMENTELLT: Aktivera satellitbilder i Organic Maps-inställningarna med en anpassad URL till en rastertileserver
+- Renare tabellformatering i användargränssnittet
+- Skriv `?map-download-server:https://your-server.com/` i sökfältet för att åsidosätta kartnedladdningsservrarna för Organic Maps. Skriv `?no-map-download-server` för att ta bort åsidosättningen.
+- Olika buggfixar och prestandaförbättringar
 
-## Plattformsstöd
+## Kartdata
 
-- På grund av ändringar i TestFlight och App Store stöder den här versionen endast iOS 15 och senare. iOS 12, iOS 13 och iOS 14 stöds inte längre.
+- OpenStreetMap-data uppdaterade per den 24 juni
+- Wikipedia-data uppdaterade per den 20 juni, inklusive artiklar på italienska
+
+## Kartvisning och stilar
+
+- Snyggare mönster för stränder, sand, grus, bar klippa, fruktträdgårdar och vingårdar, samt skuggning för skyddade områden och våtmarker
+- Mjukare, böjda textetiketter för vägar och floder
+- Floder, vattendrag och våtmarker har högre kontrast och syns bättre i mörkt läge
+- Nya och förbättrade ikoner för kategorisökning och sökresultat på kartan
+- Förbättrad formatering och återgivning av flerspråkig text
+
+## Spår, bokmärken och rutter
+
+- Förbättrad HTML-rendering av beskrivningar av bokmärken och spår
+- GeoJSON-spår behåller nu höjddata och tidsstämplar vid import och export
+- Åtgärdat ett kraschat efter att en rutt flyttats till en annan lista
+- Webbplatser visas nu för kulturarvslokaler
+- Operatörsnamn visas nu för namnlösa sökresultat. Till exempel visar ett namnlöst ATM nu sin bank
+- Redaktör: korrigerade beskrivningstexten för flerbostadshus OpenStreetMap redigeringar/ändringsuppsättningar
+- Förbättrad HTML-detektering i beskrivningar av bokmärken och spår
+- Dubbletter av rutter filtreras nu bort
+
+## Översättningar
+
+- Röstvägledning steg för steg på kantonesiska
+- Uppdaterade översättningar till tyska och franska
+- Korrigering av felaktiga översättningar av röstvägledningen "onto street" för kinesiska, serbiska och katalanska

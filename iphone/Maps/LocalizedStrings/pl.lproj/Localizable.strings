@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Długość";
 "share_my_location" = "Udostępnij aktualne położenie";
+"prefs_group_network" = "Sieć";
 "prefs_group_route" = "Nawigacja";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -217,6 +218,24 @@
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "Budynki 3D są wyłączone w trybie oszczędzania energii";
+
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "Zdjęcia satelitarne";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "Adres URL serwera";
+
+/* Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) */
+"pref_bg_tiles_url_error" = "Wprowadź prawidłowy adres URL z {z}/{x}/{y}";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "Rozmiar pamięci podręcznej (MB)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "Krycie obiektów powierzchniowych";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "Źródła niestandardowych kafelków zapewniasz Ty. Korzystaj tylko z usług, do których masz uprawniony dostęp. Odpowiadasz za atrybucję, warunki licencji, klucze API, limity i ograniczenia użytkowania.";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Komunikaty głosowe";
@@ -390,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Błąd wysyłania wiadomości";
-
-/* Settings item title */
-"pref_calibration_title" = "Kalibracja kompasu";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Dostępne";
@@ -643,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Ta nazwa jest już zajęta";
 "profile" = "Profil OpenStreetMap";
 "restore" = "Przywróć";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Prywatność";
 "privacy_policy" = "Polityka prywatności";
 "terms_of_use" = "Warunki użytkowania";
 
@@ -651,6 +670,9 @@
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "Jazda rowerem";
+
+/* Map layers menu: toggle button for the satellite imagery layer */
+"button_layer_satellite" = "Satelita";
 "button_layer_subway" = "Metro";
 "layers_title" = "Style i warstwy mapy";
 
@@ -907,6 +929,9 @@
 "elevation_profile_descent" = "Zejście";
 "elevation_profile_min_elevation" = "Min. wysokość";
 "elevation_profile_max_elevation" = "Maks. wysokość";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Zacznij się poruszać, aby zobaczyć profil wysokości";
 "isolines_toast_zooms_1_10" = "Powiększ mapę, aby zobaczyć poziomice";
 "downloader_loading_ios" = "Pobieranie";
 

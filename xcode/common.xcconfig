@@ -2,7 +2,7 @@
 OMIM_ROOT = $(PROJECT_DIR)/../..
 QT_PATH[arch=x86_64] = /usr/local/opt/qt@6
 QT_PATH[arch=arm64] = /opt/homebrew/opt/qt@6
-BOOST_ROOT = $(OMIM_ROOT)/3party/boost
+BOOST_ROOT = $(OMIM_ROOT)/3party/boost_headers
 
 HEADER_SEARCH_PATHS = $(inherited) $(OMIM_ROOT) $(OMIM_ROOT)/libs $(BOOST_ROOT) $(OMIM_ROOT)/3party/glaze/include $(OMIM_ROOT)/3party/utfcpp/source
 FRAMEWORK_SEARCH_PATHS[sdk=macosx*] = $(QT_PATH)/lib

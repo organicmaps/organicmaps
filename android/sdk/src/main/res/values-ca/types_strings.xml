@@ -655,6 +655,7 @@
     <string name="type.leisure.ice_rink">Pista de gel</string>
     <string name="type.leisure.marina">Port esportiu</string>
     <string name="type.leisure.nature_reserve">Reserva natural</string>
+    <string name="type.leisure.bird_hide">Aguait d\'ocells</string>
     <string name="type.leisure.outdoor_seating">Seients a l’aire lliure</string>
     <string name="type.leisure.firepit">Braser</string>
     <string name="type.leisure.park">Parc</string>
@@ -745,6 +746,8 @@
     <string name="type.natural.meadow">Prat de dall</string>
     <string name="type.natural.orchard">Verger</string>
     <string name="type.natural.peak">Cim</string>
+    <string name="type.natural.hill">Turó</string>
+    <string name="type.natural.arch">Arc rocós</string>
     <string name="type.natural.saddle">Sella de muntanya</string>
     <string name="type.natural.rock">Roca</string>
     <string name="type.natural.scrub">Matoll</string>
@@ -1425,6 +1428,7 @@
     <string name="type.self_service.no">Sense autoservei</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">Servei social</string>
+    <string name="type.amenity.stage">Escenari</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Entrada d’urgències</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

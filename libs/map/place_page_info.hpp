@@ -211,6 +211,8 @@ public:
 
   /// Api
   void SetApiId(std::string const & apiId) { m_apiId = apiId; }
+  std::string const & GetApiId() const { return m_apiId; }
+  bool HasApiId() const { return !m_apiId.empty(); }
   void SetApiUrl(std::string const & url) { m_apiUrl = url; }
   std::string const & GetApiUrl() const { return m_apiUrl; }
 
@@ -322,9 +324,12 @@ private:
   /// Whether to treat it as plain feature.
   bool m_hasMetadata = false;
 
-  /// Api ID passed for the selected object. It's automatically included in api url below.
+  /// Per-point API id (om://map?...&id=...) echoed back to the calling app
+  /// (Android EXTRA_POINT_ID). Independent of m_apiUrl: set even when the request
+  /// carried no back_url, in which case m_apiUrl is empty.
   std::string m_apiId;
-  /// [Deep] link to open when "Back" button is pressed in a Place Page.
+  /// Back-navigation deep link opened on "Back" (the API back_url).
+  /// Empty when the request carried no back_url.
   std::string m_apiUrl;
   /// Formatted feature address for inner using.
   std::string m_address;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "coding/read_write_utils.hpp"
+#include "coding/reader.hpp"
 #include "coding/string_utf8_multilang.hpp"
 
 #include "base/buffer_vector.hpp"
@@ -87,7 +88,6 @@ public:
 
   std::string_view GetDefaultName() const { return m_name.GetDefaultString(); }
   Type GetType() const { return m_type; }
-  bool IsPTRoute() const { return m_type >= Type::Bus && m_type <= Type::Monorail; }
   dp::Color GetColor() const { return m_color; }
   std::string const & GetRef() const { return m_ref; }
   std::string const & GetNetwork() const { return m_network; }
@@ -139,6 +139,13 @@ public:
     if (flags & HasName)
       m_name.ReadNonEmpty(src);
 
+    ReadOther(src, flags);
+  }
+
+private:
+  template <class TSource>
+  void ReadOther(TSource & src, uint8_t flags)
+  {
     rw::Read(src, m_network);
     rw::Read(src, m_ref);
 
@@ -156,19 +163,36 @@ protected:
   Type m_type;  // from route or route_master tag
 
   friend class RelationBuilder;
+  friend class RelationReader;
 };
 
-/// For fast Route type loading.
-struct RouteRelationType
+class RelationReader
 {
-  using Type = RouteRelationBase::Type;
-  Type m_type;
+  ReaderSource<ModelReaderPtr> m_src;
+  RouteRelationBase m_rel;
 
-  template <class TSource>
-  void Read(TSource & src)
+  uint8_t m_flags;
+  bool m_typeR : 1 = false;
+  bool m_colorR : 1 = false;
+  bool m_nameR : 1 = false;
+  bool m_otherR : 1 = false;
+
+public:
+  using Type = RouteRelationBase::Type;
+
+  RelationReader(ModelReaderPtr const & reader, uint32_t offset) : m_src(reader) { m_src.Skip(offset); }
+
+  Type GetType();
+  bool IsPTRoute()
   {
-    m_type = static_cast<Type>(ReadPrimitiveFromSource<uint8_t>(src));
+    Type const type = GetType();
+    return type >= Type::Bus && type <= Type::Monorail;
   }
+
+  dp::Color GetColor();
+  std::string_view GetDefaultName();
+
+  RouteRelationBase const & GetRel();
 };
 
 using ShortArray = buffer_vector<uint32_t, 2>;
@@ -211,21 +235,7 @@ public:
   }
 
   /// @param[in]  idx Can be negative, 0 is first, -1 is last.
-  uint32_t GetMember(int idx) const
-  {
-    int const sz = static_cast<int>(m_ftMembers.size());
-    if (idx >= 0)
-    {
-      ASSERT_LESS(idx, sz, ());
-      return m_ftMembers[idx];
-    }
-    else
-    {
-      idx += sz;
-      ASSERT_GREATER(idx, -1, ());
-      return m_ftMembers[idx];
-    }
-  }
+  uint32_t GetMember(int idx) const;
 
   std::vector<uint32_t> const & GetMembers() const { return m_ftMembers; }
 

@@ -219,6 +219,18 @@
     <string name="pref_map_3d_buildings_title">3D сгради</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">3D сградите са изключени в режим на пестене на енергия</string>
+    <!-- Settings: title of the satellite imagery (custom raster tiles) screen -->
+    <string name="pref_bg_tiles_title">Сателитни снимки</string>
+    <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
+    <string name="pref_bg_tiles_url_title">URL на сървъра</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">Въведете валиден URL с {z}/{x}/{y}</string>
+    <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
+    <string name="pref_bg_tiles_size_title">Размер на кеша (МБ)</string>
+    <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
+    <string name="pref_bg_tiles_opacity_title">Непрозрачност на площните обекти</string>
+    <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
+    <string name="pref_bg_tiles_disclaimer">Източниците на персонализирани плочки се предоставят от вас. Използвайте само услуги, до които имате право на достъп. Вие носите отговорност за посочването на авторството, условията на лиценза, API ключовете, квотите и ограниченията за използване.</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Гласови инструкции</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
@@ -231,7 +243,7 @@
     <string name="pref_tts_test_voice_title">Тестване на гласови указания (TTS, Text-To-Speech)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Проверете силата на звука или системните настройки за преобразуване на текст в реч, ако сега не чувате гласа.</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">Не е налично</string>
     <string name="pref_map_auto_zoom">Автоматично мащабиране</string>
     <string name="placepage_distance">Разстояние</string>
@@ -567,14 +579,11 @@
     <string name="prefs_languages_information_off_link">За повече информация вижте това ръководство.</string>
     <string name="transliteration_title">Изпиши на латиница</string>
     <string name="learn_more">Научете повече</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Използвайте търсене или докоснете картата, за да добавите начална точка на маршрута</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Използвайте търсене или докоснете картата, за да добавите точка на дестинация</string>
     <string name="planning_route_manage_route">Управление на маршрут</string>
     <string name="button_plan">Планиране</string>
     <string name="placepage_remove_stop">Премахване на спирка</string>
     <string name="placepage_add_stop">Добавяне на спирка</string>
+    <string name="drag_to_reorder">Преподреждане</string>
     <string name="saved">Запазено</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Моля, влезте в OpenStreetMap, за да качвате автоматично всичките си редакции на картата. Научете повече <a href="https://github.com/organicmaps/organicmaps/issues/6144">тук</a>.</string>
@@ -621,6 +630,8 @@
     <string name="button_layer_hiking">Пешеходен туризъм</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Велосипеден туризъм</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Сателит</string>
     <string name="button_layer_subway">Метро</string>
     <string name="layers_title">Стилове и слоеве на картата</string>
     <string name="bookmarks_empty_list_title">Този списък е празен</string>
@@ -720,6 +731,7 @@
     <string name="opens_at">Отваря се в %s</string>
     <string name="closes_at">Затваря се в %s</string>
     <string name="editor_add_select_category_all_subtitle">Всички категории</string>
+    <string name="placepage_replace_stop">Замяна на спирката</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Храна</string>
@@ -873,6 +885,12 @@
     <string name="share_track">Споделяне на пистата</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Изтриване на %s?</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Промяна на цвета</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Скриване на маршрут</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Показване на маршрут</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -899,4 +917,6 @@
     <string name="color_picker_hex_label">sRGB Hex Color #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Мрежа</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">Гласово търсене</string>
 </resources>

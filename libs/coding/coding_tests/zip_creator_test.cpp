@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "3party/minizip/minizip.hpp"
+
 #include "coding/constants.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
@@ -73,6 +75,18 @@ std::vector<CompressionLevel> GetCompressionLevels()
 {
   return {CompressionLevel::DefaultCompression, CompressionLevel::BestCompression, CompressionLevel::BestSpeed,
           CompressionLevel::NoCompression};
+}
+
+unzip::FileInfo GetFirstZipFileInfo(std::string const & zipPath)
+{
+  auto zip = unzip::Open(zipPath);
+  TEST(zip != nullptr, ());
+  SCOPE_GUARD(zipGuard, [&zip]() { unzip::Close(zip); });
+
+  TEST(unzip::GoToFirstFile(zip) == unzip::Code::Ok, ());
+  unzip::FileInfo info;
+  TEST(unzip::GetCurrentFileInfo(zip, info) == unzip::Code::Ok, ());
+  return info;
 }
 }  // namespace
 
@@ -151,4 +165,32 @@ UNIT_TEST(CreateZip_MultipleFilesSingleEmpty)
 
   for (auto compression : GetCompressionLevels())
     CreateAndTestZip(fileData, "testzip.zip", compression);
+}
+
+UNIT_TEST(CreateZip_CompressionLevel)
+{
+  std::string const filePath = "compression_level_source.txt";
+  std::string const noCompressionZip = "compression_level_no_compression.zip";
+  std::string const bestCompressionZip = "compression_level_best_compression.zip";
+  SCOPE_GUARD(deleteFileGuard, [&]()
+  {
+    TEST(base::DeleteFileX(filePath), ());
+    TEST(base::DeleteFileX(noCompressionZip), ());
+    TEST(base::DeleteFileX(bestCompressionZip), ());
+  });
+
+  std::string const data(64 * 1024, 'a');
+  {
+    FileWriter f(filePath);
+    f.Write(data.c_str(), data.size());
+  }
+
+  TEST(CreateZipFromFiles({filePath}, noCompressionZip, CompressionLevel::NoCompression), ());
+  TEST(CreateZipFromFiles({filePath}, bestCompressionZip, CompressionLevel::BestCompression), ());
+
+  auto const noCompressionInfo = GetFirstZipFileInfo(noCompressionZip);
+  auto const bestCompressionInfo = GetFirstZipFileInfo(bestCompressionZip);
+  TEST_EQUAL(noCompressionInfo.m_info.uncompressed_size, data.size(), ());
+  TEST_EQUAL(bestCompressionInfo.m_info.uncompressed_size, data.size(), ());
+  TEST_LESS(bestCompressionInfo.m_info.compressed_size, noCompressionInfo.m_info.compressed_size, ());
 }

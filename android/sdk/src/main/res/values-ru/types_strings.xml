@@ -658,6 +658,7 @@
     <string name="type.leisure.ice_rink">Каток</string>
     <string name="type.leisure.marina">Причал</string>
     <string name="type.leisure.nature_reserve">Заповедник</string>
+    <string name="type.leisure.bird_hide">Укрытие для наблюдения за птицами</string>
     <string name="type.leisure.outdoor_seating">Сидения на открытом воздухе</string>
     <string name="type.leisure.firepit">Кострище</string>
     <string name="type.leisure.park">Парк</string>
@@ -748,6 +749,8 @@
     <string name="type.natural.meadow">Луг</string>
     <string name="type.natural.orchard">Сад</string>
     <string name="type.natural.peak">Гора</string>
+    <string name="type.natural.hill">Холм</string>
+    <string name="type.natural.arch">Скальная арка</string>
     <string name="type.natural.saddle">Седловина</string>
     <string name="type.natural.rock">Камень</string>
     <string name="type.natural.scrub">Заросли</string>
@@ -1429,6 +1432,7 @@
     <string name="type.self_service.no">Никакого самообслуживания</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">Социальное учреждение</string>
+    <string name="type.amenity.stage">Сцена</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Вход в отделение неотложной помощи</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

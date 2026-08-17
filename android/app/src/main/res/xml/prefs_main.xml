@@ -126,6 +126,12 @@
       app:singleLineTitle="false"
       android:persistent="false"
         android:order="19"/>
+    <Preference
+      android:key="@string/pref_bg_tiles_screen"
+      android:title="@string/pref_bg_tiles_title"
+      app:singleLineTitle="false"
+      android:persistent="false"
+      android:order="20"/>
   </androidx.preference.PreferenceCategory>
 
   <androidx.preference.PreferenceCategory

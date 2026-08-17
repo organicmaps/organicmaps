@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Délka";
 "share_my_location" = "Sdílet mé umístění";
+"prefs_group_network" = "Síť";
 "prefs_group_route" = "Navigace";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -217,6 +218,24 @@
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "3D budovy jsou vypnuty v úsporném režimu";
+
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "Satelitní snímky";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "URL serveru";
+
+/* Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) */
+"pref_bg_tiles_url_error" = "Zadejte platnou adresu URL s {z}/{x}/{y}";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "Velikost mezipaměti (MB)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "Krytí plošných objektů";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "Zdroje vlastních dlaždic poskytujete vy. Používejte pouze služby, ke kterým máte oprávněný přístup. Nesete odpovědnost za uvedení autorství, licenční podmínky, klíče API, kvóty a omezení používání.";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Hlasové instrukce";
@@ -390,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Chyba při odesílání emailu";
-
-/* Settings item title */
-"pref_calibration_title" = "Kalibrace kompasu";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Dostupné";
@@ -643,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Toto jméno již bylo provedeno";
 "profile" = "Profil OpenStreetMap";
 "restore" = "Obnovit";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Soukromí";
 "privacy_policy" = "Zásady ochrany osobních údajů";
 "terms_of_use" = "Podmínky užívání";
 
@@ -651,6 +670,9 @@
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "Cyklistika";
+
+/* Map layers menu: toggle button for the satellite imagery layer */
+"button_layer_satellite" = "Satelit";
 "button_layer_subway" = "Metro";
 "layers_title" = "Styly a vrstvy mapy";
 
@@ -907,6 +929,9 @@
 "elevation_profile_descent" = "Klesání";
 "elevation_profile_min_elevation" = "Min. výška";
 "elevation_profile_max_elevation" = "Max. výška";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Začněte se pohybovat a zobrazí se výškový profil";
 "isolines_toast_zooms_1_10" = "Přiblížit pro prozkoumání izolinií";
 "downloader_loading_ios" = "Probíhá stahování";
 

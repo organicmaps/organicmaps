@@ -686,6 +686,7 @@
     <string name="type.leisure.ice_rink">Ice Rink</string>
     <string name="type.leisure.marina">Marina</string>
     <string name="type.leisure.nature_reserve">Nature Reserve</string>
+    <string name="type.leisure.bird_hide">Bird Hide</string>
     <string name="type.leisure.outdoor_seating">Outdoor Seating</string>
     <string name="type.leisure.firepit">Firepit</string>
     <string name="type.leisure.park">Park</string>
@@ -780,6 +781,8 @@
     <string name="type.natural.meadow">Meadow</string>
     <string name="type.natural.orchard">Orchard</string>
     <string name="type.natural.peak">Peak</string>
+    <string name="type.natural.hill">Hill</string>
+    <string name="type.natural.arch">Rock Arch</string>
     <string name="type.natural.saddle">Mountain Saddle</string>
     <string name="type.natural.rock">Rock</string>
     <string name="type.natural.scrub">Scrub</string>
@@ -1461,6 +1464,7 @@
     <string name="type.self_service.no">No self-service</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">Social Facility</string>
+    <string name="type.amenity.stage">Stage</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Emergency Ward Entrance</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

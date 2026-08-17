@@ -41,6 +41,9 @@ public:
 
   void ShowModal();
 
+  void FillTreeForTesting();
+  QTreeWidget const & GetTreeForTesting() const { return *m_tree; }
+
 private slots:
   void OnItemClick(QTreeWidgetItem * item, int column);
   void OnCloseClick();

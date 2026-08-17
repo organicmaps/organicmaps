@@ -617,6 +617,7 @@
     <string name="type.leisure.ice_rink">アイスリンク</string>
     <string name="type.leisure.marina">マリーナ</string>
     <string name="type.leisure.nature_reserve">自然保護区</string>
+    <string name="type.leisure.bird_hide">野鳥観察舎</string>
     <string name="type.leisure.outdoor_seating">屋外席</string>
     <string name="type.leisure.park">公園</string>
     <string name="type.leisure.park.no.access">公園</string>
@@ -699,6 +700,8 @@
     <string name="type.natural.meadow">牧草地</string>
     <string name="type.natural.orchard">果樹園</string>
     <string name="type.natural.peak">山頂</string>
+    <string name="type.natural.hill">丘</string>
+    <string name="type.natural.arch">ロック・アーチ</string>
     <string name="type.natural.saddle">鞍部</string>
     <string name="type.natural.rock">岩</string>
     <string name="type.natural.scrub">雑木林</string>
@@ -1338,6 +1341,7 @@
     <string name="type.self_service.no">セルフサービスはない</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">社会施設</string>
+    <string name="type.amenity.stage">舞台</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">救急病棟入口</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "الطول";
 "share_my_location" = "مشاركة موقعي";
+"prefs_group_network" = "الشبكة";
 "prefs_group_route" = "الملاحة";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -217,6 +218,24 @@
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "يتم إيقاف تشغيل المباني ثلاثية الأبعاد في وضع توفير الطاقة";
+
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "صور الأقمار الصناعية";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "رابط الخادم";
+
+/* Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) */
+"pref_bg_tiles_url_error" = "أدخل رابطًا صالحًا يحتوي على {z}/{x}/{y}";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "حجم ذاكرة التخزين المؤقت (ميغابايت)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "عتامة الكائنات المساحية";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "مصادر المربعات المخصصة مقدَّمة منك. استخدم فقط الخدمات المسموح لك بالوصول إليها. أنت مسؤول عن الإسناد وشروط الترخيص ومفاتيح API والحصص وحدود الاستخدام.";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "تعليمات صوتية";
@@ -390,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "حدث خطأ في إرسال البريد الإلكتروني";
-
-/* Settings item title */
-"pref_calibration_title" = "معايرة البوصلة";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "متوفر";
@@ -643,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "هذا الاسم موجود سابقا";
 "profile" = "ملف الشخصي على خريطة الشارع المفتوحة";
 "restore" = "استعادة";
+
+/* Settings privacy group in settings screen */
+"privacy" = "خصوصية";
 "privacy_policy" = "سياسة الخصوصية";
 "terms_of_use" = "شروط الاستخدام";
 
@@ -651,6 +670,9 @@
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "ركوب الدراجات";
+
+/* Map layers menu: toggle button for the satellite imagery layer */
+"button_layer_satellite" = "قمر صناعي";
 "button_layer_subway" = "مترو الانفاق";
 "layers_title" = "أنماط الخريطة وطبقاتها";
 
@@ -907,6 +929,9 @@
 "elevation_profile_descent" = "تنازلي";
 "elevation_profile_min_elevation" = "أقل ارتفاع";
 "elevation_profile_max_elevation" = "أعلى ارتفاع";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "ابدأ التحرك لرؤية مخطط الارتفاع";
 "isolines_toast_zooms_1_10" = "قم بالتقريب لتكتشف خطوط الكنتور";
 "downloader_loading_ios" = "جاري التنزيل";
 

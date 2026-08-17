@@ -173,6 +173,18 @@
     <string name="pref_map_3d_buildings_title">ອາຄານ 3D</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">ອາຄານ 3D ຖືກປິດໃຊ້ງານໃນໂໝດປະຢັດພະລັງງານ</string>
+    <!-- Settings: title of the satellite imagery (custom raster tiles) screen -->
+    <string name="pref_bg_tiles_title">ຮູບພາບດາວທຽມ</string>
+    <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
+    <string name="pref_bg_tiles_url_title">URL ຂອງເຊີບເວີ</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">ປ້ອນ URL ທີ່ຖືກຕ້ອງທີ່ມີ {z}/{x}/{y}</string>
+    <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
+    <string name="pref_bg_tiles_size_title">ຂະໜາດແຄຊ (MB)</string>
+    <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
+    <string name="pref_bg_tiles_opacity_title">ຄວາມທຶບຂອງວັດຖຸພື້ນທີ່</string>
+    <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
+    <string name="pref_bg_tiles_disclaimer">ແຫຼ່ງແຜ່ນແບບກຳນົດເອງແມ່ນທ່ານເປັນຜູ້ສະໜອງ. ໃຊ້ສະເພາະບໍລິການທີ່ທ່ານໄດ້ຮັບອະນຸຍາດໃຫ້ເຂົ້າເຖິງ. ທ່ານຮັບຜິດຊອບຕໍ່ການລະບຸແຫຼ່ງທີ່ມາ, ເງື່ອນໄຂໃບອະນຸຍາດ, ກະແຈ API, ໂກຕາ ແລະ ຂີດຈຳກັດການນຳໃຊ້.</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">ຄຳແນະນຳດ້ວຍສຽງ</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
@@ -185,7 +197,7 @@
     <string name="pref_tts_test_voice_title">ທົດສອບຄຳແນະນຳດ້ວຍສຽງ (TTS)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">ກະລຸນາກວດເບິ່ງລະດັບສຽງ ຫຼື ການຕັ້ງຄ່າ Text-To-Speech ຂອງລະບົບ ຫາກທ່ານບໍ່ໄດ້ຍິນສຽງໃນຕອນນີ້.</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">ບໍ່ສາມາດໃຊ້ງານໄດ້</string>
     <string name="pref_map_auto_zoom">ຊູມອັດຕະໂນມັດ</string>
     <string name="placepage_distance">ໄລຍະທາງ</string>
@@ -521,14 +533,11 @@
     <string name="prefs_languages_information_off_link">ສຳລັບຂໍ້ມູນເພີ່ມເຕີມ ກະລຸນາກວດເບິ່ງຄຳແນະນຳນີ້.</string>
     <string name="transliteration_title">ຖອດອັກສອນເປັນພາສາລາແຕັງ</string>
     <string name="learn_more">ຮຽນຮູ້ເພີ່ມເຕີມ</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">ໃຊ້ການຄົ້ນຫາ, ເລືອກບຸກມາກ, ຫຼື ແຕະໃນແຜນທີ່ເພື່ອເພີ່ມຈຸດເລີ່ມຕົ້ນຂອງເສັ້ນທາງ</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">ໃຊ້ການຄົ້ນຫາ, ເລືອກບຸກມາກ, ຫຼື ແຕະໃນແຜນທີ່ເພື່ອເພີ່ມຈຸດປາຍທາງ</string>
     <string name="planning_route_manage_route">ຈັດການເສັ້ນທາງ</string>
     <string name="button_plan">ວາງແຜນ</string>
     <string name="placepage_remove_stop">ເອົາຈຸດແວ່ພັກອອກ</string>
     <string name="placepage_add_stop">ເພີ່ມຈຸດແວ່ພັກ</string>
+    <string name="drag_to_reorder">ຈັດຮຽງໃໝ່</string>
     <string name="saved">ບັນທຶກແລ້ວ</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">ກະລຸນາເຂົ້າສູ່ລະບົບ OpenStreetMap ເພື່ອອັບໂຫລດການແກ້ໄຂແຜນທີ່ທັງໝົດຂອງທ່ານໂດຍອັດຕະໂນມັດ. ສຶກສາເພີ່ມເຕີມ <a href="https://github.com/organicmaps/organicmaps/issues/6144">ທີ່ນີ້</a>.</string>
@@ -576,6 +585,8 @@
     <string name="button_layer_hiking">ການຍ່າງປ່າ</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">ການຂີ່ລົດຖີບ</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">ດາວທຽມ</string>
     <string name="button_layer_subway">ລົດໄຟໃຕ້ດິນ</string>
     <string name="layers_title">ຮູບແບບແຜນທີ່ ແລະ ເລເຢີ້</string>
     <string name="bookmarks_empty_list_title">ລາຍການນີ້ວ່າງເປົ່າ</string>
@@ -675,6 +686,7 @@
     <string name="opens_at">ຈະເປີດເວລາ %s</string>
     <string name="closes_at">ຈະປິດເວລາ %s</string>
     <string name="editor_add_select_category_all_subtitle">ໝວດໝູ່ທັງໝົດ</string>
+    <string name="placepage_replace_stop">ປ່ຽນແທນຈຸດແວ່ພັກ</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">ອາຫານ</string>
@@ -828,6 +840,8 @@
     <string name="share_track">ແບ່ງປັນເສັ້ນທາງ</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">ລຶບ %s ບໍ່?</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">ປ່ຽນສີ</string>
 
     <!-- SECTION: gps strings -->
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
@@ -850,4 +864,6 @@
     <string name="color_picker_hex_label">sRGB Hex ສີ #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">ຕາຂ່າຍ</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">ຄົ້ນຫາດ້ວຍສຽງ</string>
 </resources>

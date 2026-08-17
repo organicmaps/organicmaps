@@ -27,9 +27,13 @@ on:
       - xcode/**
 
 # Cancels previous jobs if the same branch or PR was updated again.
+# Only cancel PR runs: master runs must finish to populate the shared ccache.
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -69,7 +73,6 @@ jobs:
     runs-on: ${{ matrix.environment.os }}
 
     env:
-      BUILD_DIR: build
       DEVELOPER_DIR: ${{ matrix.environment.developer-dir }}
 
     steps:
@@ -79,14 +82,6 @@ jobs:
 
       - name: Checkout sources
         uses: actions/checkout@v6
-
-      - name: Restore Boost submodule from cache
-        uses: actions/cache@v5
-        with:
-          path: |
-            3party/boost
-            .git/modules/3party/boost
-          key: boost-submodule
 
       - name: Parallel submodules checkout
         run: git submodule update --depth 1 --init --recursive --jobs=20
@@ -118,13 +113,16 @@ jobs:
           brew install qt@6
           pip3 install tornado --break-system-packages
 
-      - name: Configure repository
-        run: ./configure.sh
-
       - name: Configure ccache
         uses: hendrikmuhs/ccache-action@v1.2
         with:
           key: ${{ github.workflow }}-${{ matrix.environment.os }}-${{ matrix.environment.cc }}-${{ matrix.environment.unity }}-${{ matrix.cmake-build-type }}
+          # No Unity compiles every TU separately, so its cache needs more room
+          # than the 500M default (max-size is a ceiling, not a reservation).
+          max-size: ${{ matrix.environment.unity == 'OFF' && '2G' || '1G' }}
+          # Restore-only on PRs: master populates the shared cache, PRs read it.
+          # Avoids overflowing the 10GB repo limit, which evicts master's caches.
+          save: ${{ github.ref == 'refs/heads/master' }}
 
       - name: Configure cmake
         env:
@@ -134,15 +132,25 @@ jobs:
           CMAKE_CXX_COMPILER_LAUNCHER: ccache
           UNITY_BUILD: ${{ matrix.environment.unity || 'ON' }}
         run: |
-          cmake . -B ${{ env.BUILD_DIR }} -G Ninja \
+          cmake --preset ci \
             -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} \
-            -DCMAKE_C_FLAGS=-g1 \
-            -DCMAKE_CXX_FLAGS=-g1 \
             -DCMAKE_UNITY_BUILD=${UNITY_BUILD}
 
+      # Surface gcc/clang warnings and errors as inline annotations on the PR diff.
+      - name: Enable inline compiler annotations
+        run: echo "::add-matcher::.github/problem-matchers/gcc.json"
+
+      # dev_sandbox is skipped with a warning when the Metal toolchain is
+      # unavailable (see dev_sandbox/CMakeLists.txt). Ask for the target
+      # explicitly so that a skip fails the job instead of hiding in the log.
+      # Before the full build: ninja rejects an unknown target immediately, and
+      # dev_sandbox is a part of the default target anyway, so nothing is wasted.
+      - name: Check dev_sandbox is not skipped (macOS)
+        if: ${{ runner.os == 'macOS' }}
+        run: cmake --build --preset ci --target dev_sandbox
+
       - name: Compile
-        working-directory: ${{ env.BUILD_DIR }}
-        run: ninja
+        run: cmake --build --preset ci
 
       - name: Prepare testing environment (Linux)
         if: ${{ runner.os == 'Linux' }}
@@ -157,24 +165,22 @@ jobs:
           sudo locale-gen ru_RU.UTF-8
           sudo update-locale
 
+      # The omim-test label filter and the exclude list live in CMakePresets.json
+      # (test preset "ci"). Excluded suites and why:
+      #   drape_tests, drape_frontend_tests, shaders_tests - need offscreen GL, run in the next step
+      #   generator_integration_tests - https://github.com/organicmaps/organicmaps/issues/225
+      #   routing_integration_tests - https://github.com/organicmaps/organicmaps/issues/221
+      #   world_feed_integration_tests - https://github.com/organicmaps/organicmaps/issues/215
+      #   routing_benchmarks, routing_quality_tests, search_quality_tests - benchmarks, not pass/fail tests
+      #   storage_integration_tests - downloads real maps from planet.organicmaps.app (~28 min, ~690 MB);
+      #     the offline part of that coverage lives in storage_tests
       - name: Run tests
         if: ${{ matrix.environment.run-tests != 'OFF' }}
-        working-directory: ${{ env.BUILD_DIR }}
-        env:
-          # drape_tests, drape_frontend_tests, shaders_tests - see next step
-          # generator_integration_tests - https://github.com/organicmaps/organicmaps/issues/225
-          # opening_hours_integration_tests - https://github.com/organicmaps/organicmaps/issues/219
-          # opening_hours_supported_features_tests - https://github.com/organicmaps/organicmaps/issues/219
-          # routing_integration_tests - https://github.com/organicmaps/organicmaps/issues/221
-          # world_feed_integration_tests - https://github.com/organicmaps/organicmaps/issues/215
-          CTEST_EXCLUDE_REGEX: "drape_tests|drape_frontend_tests|generator_integration_tests|opening_hours_integration_tests|opening_hours_supported_features_tests|routing_benchmarks|routing_integration_tests|routing_quality_tests|search_quality_tests|storage_integration_tests|shaders_tests|world_feed_integration_tests"
-        run: ctest -j$(nproc --all) -L "omim-test" -E "$CTEST_EXCLUDE_REGEX" --output-on-failure
+        run: ctest --preset ci -j$(nproc --all)
 
       # Run drape tests separately. They require offscreen rendering support.
-      # Setting QT_QPA_PLATFORM to "offscreen" breaks network tests on macOS.
+      # The "ci-drape" test preset sets QT_QPA_PLATFORM=offscreen; setting it
+      # globally breaks network tests on macOS.
       - name: Run drape tests
         if: ${{ matrix.environment.run-tests != 'OFF' }}
-        working-directory: ${{ env.BUILD_DIR }}
-        env:
-          QT_QPA_PLATFORM: "offscreen"
-        run: ctest -R "drape_tests|drape_frontend_tests|shaders_tests" --verbose
+        run: ctest --preset ci-drape --verbose

@@ -22,6 +22,11 @@ public:
   static size_t constexpr kHashSizeInBytes = BLAKE3_OUT_LEN;  // 32
   using Hash = std::array<uint8_t, kHashSizeInBytes>;
 
+  // Length of the per-map integrity hash stored in countries.json and recomputed on the
+  // client: 9 bytes -> 12 base64 chars without padding. Must match HASH_NUM_BYTES in
+  // tools/python/post_generation/hierarchy_to_countries.py.
+  static size_t constexpr kMwmHashSizeInBytes = 9;
+
   Blake3();
 
   // Feeds the next portion of data into the hash. Can be called repeatedly.

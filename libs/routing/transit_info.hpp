@@ -136,7 +136,7 @@ public:
   EdgeSubway const & GetEdgeSubway() const
   {
     ASSERT_EQUAL(m_type, Type::Edge, ());
-    CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::OnlySubway, ());
+    ASSERT_EQUAL(m_transitVersion, ::transit::TransitVersion::OnlySubway, ());
     return m_edgeSubway;
   }
 
@@ -155,21 +155,21 @@ public:
   EdgePT const & GetEdgePT() const
   {
     ASSERT_EQUAL(m_type, Type::Edge, ());
-    CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, ());
+    ASSERT_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, ());
     return m_edgePT;
   }
 
   GatePT const & GetGatePT() const
   {
-    CHECK_EQUAL(m_type, Type::Gate, ());
-    CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, ());
+    ASSERT_EQUAL(m_type, Type::Gate, ());
+    ASSERT_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, ());
     return m_gatePT;
   }
 
   TransferPT const & GetTransferPT() const
   {
     ASSERT_EQUAL(m_type, Type::Transfer, ());
-    CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, ());
+    ASSERT_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, ());
     return m_transferPT;
   }
 

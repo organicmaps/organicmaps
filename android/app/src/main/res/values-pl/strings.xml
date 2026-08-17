@@ -219,6 +219,18 @@
     <string name="pref_map_3d_buildings_title">Budynki w 3D</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">Budynki 3D są wyłączone w trybie oszczędzania energii</string>
+    <!-- Settings: title of the satellite imagery (custom raster tiles) screen -->
+    <string name="pref_bg_tiles_title">Zdjęcia satelitarne</string>
+    <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
+    <string name="pref_bg_tiles_url_title">Adres URL serwera</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">Wprowadź prawidłowy adres URL z {z}/{x}/{y}</string>
+    <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
+    <string name="pref_bg_tiles_size_title">Rozmiar pamięci podręcznej (MB)</string>
+    <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
+    <string name="pref_bg_tiles_opacity_title">Krycie obiektów powierzchniowych</string>
+    <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
+    <string name="pref_bg_tiles_disclaimer">Źródła niestandardowych kafelków zapewniasz Ty. Korzystaj tylko z usług, do których masz uprawniony dostęp. Odpowiadasz za atrybucję, warunki licencji, klucze API, limity i ograniczenia użytkowania.</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Komunikaty głosowe</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
@@ -231,7 +243,7 @@
     <string name="pref_tts_test_voice_title">Testuj wskazówki głosowe (TTS, Text-To-Speech)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Jeśli nie słyszysz głosu, sprawdź głośność lub systemowe ustawienia zamiany tekstu na mowę.</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">Niedostępne</string>
     <string name="pref_map_auto_zoom">Automatyczne powiększanie</string>
     <string name="placepage_distance">Dystans</string>
@@ -567,14 +579,11 @@
     <string name="prefs_languages_information_off_link">Aby uzyskać więcej informacji, spójrz na ten poradnik.</string>
     <string name="transliteration_title">Transkrypcja na alfabet łaciński</string>
     <string name="learn_more">Dowiedz się więcej</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Użyj wyszukiwarki, wybierz zakładkę lub dotknij mapy, aby dodać punkt początkowy trasy</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Użyj wyszukiwarki, wybierz zakładkę lub dotknij mapy, aby dodać punkt docelowy</string>
     <string name="planning_route_manage_route">Zarządzaj trasą</string>
     <string name="button_plan">Zaplanuj</string>
     <string name="placepage_remove_stop">Usuń postój</string>
     <string name="placepage_add_stop">Dodaj postój</string>
+    <string name="drag_to_reorder">Zmień kolejność</string>
     <string name="saved">Zapisano</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Zaloguj się do OpenStreetMap, aby automatycznie przesyłać wszystkie zmiany na mapie. Dowiedz się więcej <a href="https://github.com/organicmaps/organicmaps/issues/6144">tutaj</a>.</string>
@@ -628,6 +637,8 @@
     <string name="button_layer_hiking">Turystyka piesza</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Jazda rowerem</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Satelita</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Style i warstwy mapy</string>
     <string name="bookmarks_empty_list_title">Lista jest pusta</string>
@@ -727,6 +738,7 @@
     <string name="opens_at">Otwarcie o %s</string>
     <string name="closes_at">Zamknięcie o %s</string>
     <string name="editor_add_select_category_all_subtitle">Wszystkie kategorie</string>
+    <string name="placepage_replace_stop">Zastąp przystanek</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Jedzenie</string>
@@ -882,6 +894,12 @@
     <string name="share_track">Udostępnij trasę</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Usunąć %s?</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Zmień kolor</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Ukryj trasę</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Pokaż trasę</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -908,4 +926,6 @@
     <string name="color_picker_hex_label">Kolor szesnastkowy sRGB #</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Siatka</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">Wyszukiwanie głosowe</string>
 </resources>

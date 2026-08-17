@@ -1,11 +1,15 @@
 #include "testing/testing.hpp"
 
+#include "drape_frontend/drape_frontend_tests/visual_params_fixture.hpp"
 #include "drape_frontend/navigator.hpp"
-#include "drape_frontend/visual_params.hpp"
 
 #include "geometry/screenbase.hpp"
 
 #include <cmath>
+
+namespace navigator_test
+{
+using df::test_support::VisualParamsFixture;
 
 // -3 -2 -1  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
 //
@@ -27,9 +31,8 @@
 //        |                                               |
 //-1      +-----------------------------------------------+
 
-UNIT_TEST(Navigator_Scale2Points)
+UNIT_CLASS_TEST(VisualParamsFixture, Navigator_Scale2Points)
 {
-  df::VisualParams::Init(1.0, 1024);
   df::Navigator navigator;
 
   navigator.OnSize(200, 100);
@@ -63,9 +66,8 @@ void CheckNavigator(df::Navigator const & nav)
 }
 }  // namespace
 
-UNIT_TEST(Navigator_G2P_P2G)
+UNIT_CLASS_TEST(VisualParamsFixture, Navigator_G2P_P2G)
 {
-  df::VisualParams::Init(1.0, 1024);
   df::Navigator navigator;
 
   // Initialize.
@@ -82,3 +84,5 @@ UNIT_TEST(Navigator_G2P_P2G)
   navigator.Scale(center, 1 / 3.0);
   CheckNavigator(navigator);
 }
+
+}  // namespace navigator_test

@@ -8,7 +8,6 @@
 #include <condition_variable>
 #include <memory>
 #include <mutex>
-#include <unordered_set>
 #include <vector>
 
 namespace dp
@@ -26,21 +25,16 @@ public:
       if (m_isFinished)
         return;
 
-      DrapeRoutine::Instance().Wait(m_id);
+      DrapeRoutine::Instance().Wait(m_isFinished);
     }
 
   private:
     friend class DrapeRoutine;
 
-    explicit Result(uint64_t id) : m_id(id), m_isFinished(false) {}
+    Result() : m_isFinished(false) {}
 
-    uint64_t Finish()
-    {
-      m_isFinished = true;
-      return m_id;
-    }
+    void Finish() { m_isFinished = true; }
 
-    uint64_t const m_id;
     std::atomic<bool> m_isFinished;
   };
 
@@ -53,11 +47,12 @@ public:
   template <typename Task>
   static ResultPtr Run(Task && t)
   {
-    ResultPtr result(new Result(Instance().GetNextId()));
+    ResultPtr result(new Result());
     auto const pushResult = Instance().m_workerThread.Push([result, t = std::forward<Task>(t)]() mutable
     {
       t();
-      Instance().Notify(result->Finish());
+      result->Finish();
+      Instance().Notify();
     });
 
     if (!pushResult.m_isSuccess)
@@ -69,12 +64,13 @@ public:
   template <typename Task>
   static ResultPtr RunDelayed(base::DelayedThreadPool::Duration const & duration, Task && t)
   {
-    ResultPtr result(new Result(Instance().GetNextId()));
+    ResultPtr result(new Result());
     auto const pushResult =
         Instance().m_workerThread.PushDelayed(duration, [result, t = std::forward<Task>(t)]() mutable
     {
       t();
-      Instance().Notify(result->Finish());
+      result->Finish();
+      Instance().Notify();
     });
 
     if (!pushResult.m_isSuccess)
@@ -87,11 +83,12 @@ public:
   template <typename Task>
   static ResultPtr RunSequential(Task && t)
   {
-    ResultPtr result(new Result(Instance().GetNextId()));
+    ResultPtr result(new Result());
     auto const pushResult = Instance().m_sequentialWorkerThread.Push([result, t = std::forward<Task>(t)]() mutable
     {
       t();
-      Instance().Notify(result->Finish());
+      result->Finish();
+      Instance().Notify();
     });
 
     if (!pushResult.m_isSuccess)
@@ -115,26 +112,16 @@ private:
 
   DrapeRoutine() : m_workerThread(2 /* threads count */) {}
 
-  uint64_t GetNextId()
+  void Notify()
   {
     std::lock_guard<std::mutex> lock(m_mutex);
-    return m_counter++;
-  }
-
-  void Notify(uint64_t id)
-  {
-    std::lock_guard<std::mutex> lock(m_mutex);
-    m_finishedIds.insert(id);
     m_condition.notify_all();
   }
 
-  void Wait(uint64_t id)
+  void Wait(std::atomic<bool> const & isFinished)
   {
     std::unique_lock<std::mutex> lock(m_mutex);
-    if (m_finished)
-      return;
-    m_condition.wait(lock, [this, id]() { return m_finished || m_finishedIds.find(id) != m_finishedIds.end(); });
-    m_finishedIds.erase(id);
+    m_condition.wait(lock, [this, &isFinished]() { return m_finished || isFinished.load(); });
   }
 
   void FinishAll()
@@ -147,8 +134,6 @@ private:
     m_condition.notify_all();
   }
 
-  std::unordered_set<uint64_t> m_finishedIds;
-  uint64_t m_counter = 0;
   bool m_finished = false;
   std::condition_variable m_condition;
   std::mutex m_mutex;

@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Drsališče";
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "Naravni rezervat";
+"type.leisure.bird_hide" = "Opazovalnica ptic";
 "type.leisure.outdoor_seating" = "Sedenje na prostem";
 "type.leisure.firepit" = "Kurišče";
 "type.leisure.park" = "Park";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "Travnik";
 "type.natural.orchard" = "Sadovnjak";
 "type.natural.peak" = "Vrh";
+"type.natural.hill" = "Hrib";
+"type.natural.arch" = "Skalni lok";
 "type.natural.saddle" = "Gorsko sedlo";
 "type.natural.rock" = "Skala";
 "type.natural.scrub" = "Grmičevje";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "Socialna ustanova";
+"type.amenity.stage" = "Oder";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Vhod v urgentni oddelek";

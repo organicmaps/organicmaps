@@ -247,10 +247,9 @@ void RelationTrackBuilder::ForEachMetadata(std::function<void(Metadata &&)> cons
 
   for (uint32_t const relID : ft->GetRelations())
   {
-    if (!sett.MatchHikingOrCycling(ft->ReadRelationType(relID)))
+    auto rel = ft->ReadRelation(relID);
+    if (!sett.MatchHikingOrCycling(rel.GetType()))
       continue;
-
-    auto const rel = ft->ReadRelation<feature::RouteRelationBase>(relID);
 
     Metadata info;
     info.m_relationId = {m_fid.m_mwmId, relID};
@@ -367,10 +366,7 @@ bool RelationTrackBuilder::TryAppendFromMwm(MwmSet::MwmId const & mwmId, uint32_
 std::optional<df::TransitInfo> RelationTrackBuilder::BuildTransitInfo(uint32_t relID)
 {
   FeaturesLoaderGuard guard(m_dataSource, m_fid.m_mwmId);
-  auto ft = guard.GetFeatureByIndex(m_fid.m_index);
-  ASSERT(ft, ());
-
-  auto const rel = ft->ReadRelation<feature::RouteRelation>(relID);
+  auto const rel = guard.GetRelation(relID);
 
   df::TransitInfo info;
   info.m_color = rel.GetColor();
@@ -423,10 +419,13 @@ std::optional<df::TransitInfo> RelationTrackBuilder::BuildTransitInfo(uint32_t r
         ASSERT(stopFt, ());
         switch (stopFt->GetGeomType())
         {
+        case feature::GeomType::Point: break;  // the usual stop/station node
         case feature::GeomType::Line: continue;
         case feature::GeomType::Area:  // skip platforms
           if (!isStation(*stopFt) && !isStop(*stopFt))
             continue;
+          break;
+        case feature::GeomType::Undefined: ASSERT(false, ()); continue;
         }
 
         auto const ftCenter = feature::GetCenter(*stopFt);
@@ -521,10 +520,8 @@ std::optional<df::TransitInfo> RelationTrackBuilder::BuildTransitInfo(uint32_t r
 std::optional<df::SelectionInfo> RelationTrackBuilder::BuildSelectionInfo(uint32_t relID)
 {
   FeaturesLoaderGuard guard(m_dataSource, m_fid.m_mwmId);
-  auto ft = guard.GetFeatureByIndex(m_fid.m_index);
-  ASSERT(ft, ());
+  auto const rel = guard.GetRelation(relID);
 
-  auto const rel = ft->ReadRelation<feature::RouteRelation>(relID);
   auto members = LoadMemberGeometries(rel, guard, RelationID(m_fid.m_mwmId, relID));
   if (members.empty())
     return std::nullopt;

@@ -293,15 +293,14 @@ Retrieval::ExtendedFeatures RetrieveGeometryFeaturesImpl(MwmContext const & cont
 {
   EditedFeaturesHolder holder(context.GetId());
 
-  covering::Intervals coverage;
-  CoverRect(rect, scale, coverage);
+  covering::CoveringGetter covering(rect, covering::ViewportWithLowLevels);
 
   std::vector<uint64_t> features;
   std::vector<uint64_t> exactlyMatchedFeatures;
 
   FeaturesCollector collector(cancellable, features, exactlyMatchedFeatures);
 
-  context.ForEachIndex(coverage, scale, collector);
+  context.ForEachIndex(covering.Get(scale), scale, collector);
 
   holder.ForEachModifiedOrCreated([&](EditableMapObject const & emo, uint64_t index)
   {

@@ -219,6 +219,18 @@
     <string name="pref_map_3d_buildings_title">Будівлі у 3D</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">3D будівлі вимкнені в режимі енергозбереження</string>
+    <!-- Settings: title of the satellite imagery (custom raster tiles) screen -->
+    <string name="pref_bg_tiles_title">Супутникові знімки</string>
+    <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
+    <string name="pref_bg_tiles_url_title">URL сервера</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">Введіть коректний URL з {z}/{x}/{y}</string>
+    <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
+    <string name="pref_bg_tiles_size_title">Розмір кешу (МБ)</string>
+    <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
+    <string name="pref_bg_tiles_opacity_title">Непрозорість об\'єктів</string>
+    <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
+    <string name="pref_bg_tiles_disclaimer">Ви самі додаєте джерела супутникових знімків (тайлів). Використовуйте лише ті сервіси, до яких у вас є доступ. Ви несете відповідальність за дотримання авторських прав, умов ліцензії, використання ключів API, квот та обмежень.</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Голосові інструкції</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
@@ -231,7 +243,7 @@
     <string name="pref_tts_test_voice_title">Тестування голосових підказок (TTS, Text-To-Speech)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Якщо ви не чуєте голос, перевірте гучність або налаштування системи перетворення тексту на мовлення.</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
     <string name="pref_tts_unavailable">Не доступні</string>
     <string name="pref_map_auto_zoom">Автозум</string>
     <string name="placepage_distance">Відстань</string>
@@ -567,14 +579,11 @@
     <string name="prefs_languages_information_off_link">Додаткову інформацію див. у цьому керівництві.</string>
     <string name="transliteration_title">Транслітерувати латиницею</string>
     <string name="learn_more">Докладніше</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Скористайтеся пошуком, виберіть мітку, або торкніться мапи, щоб додати початкову точку маршруту</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Скористайтеся пошуком, виберіть мітку, або торкніться мапи, щоб додати пункт призначення</string>
     <string name="planning_route_manage_route">Редагування маршруту</string>
     <string name="button_plan">Маршрут</string>
     <string name="placepage_remove_stop">Видалити зупинку</string>
     <string name="placepage_add_stop">Додати зупинку</string>
+    <string name="drag_to_reorder">Змінити порядок</string>
     <string name="saved">Збережено</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Будь ласка увійдіть в акаунт OpenStreetMap.org, щоб автоматично публікувати зміни до мапи. Подробиці за <a href="https://github.com/organicmaps/organicmaps/issues/6144">посиланням</a>.</string>
@@ -629,6 +638,8 @@
     <string name="button_layer_hiking">Піші прогулянки</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Велоспорт</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Супутник</string>
     <string name="button_layer_subway">Метрополітен</string>
     <string name="layers_title">Стилі та шари мапи</string>
     <string name="bookmarks_empty_list_title">Список порожній</string>
@@ -728,6 +739,7 @@
     <string name="opens_at">Відкриття о %s</string>
     <string name="closes_at">Закривається о %s</string>
     <string name="editor_add_select_category_all_subtitle">Усі категорії</string>
+    <string name="placepage_replace_stop">Замінити зупинку</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Їжа</string>
@@ -883,6 +895,12 @@
     <string name="share_track">Поділитися треком</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Видалити %s?</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Змінити колір</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Приховати трек</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Показати трек</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -909,4 +927,6 @@
     <string name="color_picker_hex_label">Шістнадцятковий колір у форматі sRGB №</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Сітка</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">Голосовий пошук</string>
 </resources>

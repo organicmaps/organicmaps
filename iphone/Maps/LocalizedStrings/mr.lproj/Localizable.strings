@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "लांबी";
 "share_my_location" = "माझे स्थान सामायिक करा";
+"prefs_group_network" = "नेटवर्क";
 "prefs_group_route" = "मार्गनिर्देशन";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -217,6 +218,24 @@
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "3D इमारती वीज बचत मोडमध्ये बंद केल्या आहेत";
+
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "उपग्रह प्रतिमा";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "सर्व्हर URL";
+
+/* Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) */
+"pref_bg_tiles_url_error" = "{z}/{x}/{y} असलेली वैध URL प्रविष्ट करा";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "कॅशे आकार (MB)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "क्षेत्र वस्तूंची अपारदर्शकता";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "सानुकूल टाइल स्रोत आपण पुरवता. केवळ ज्या सेवांमध्ये प्रवेशाची परवानगी आपल्याला आहे त्याच वापरा. श्रेय, परवाना अटी, API की, कोटा आणि वापर मर्यादांसाठी आपण जबाबदार आहात.";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "ध्वनी सूचना";
@@ -390,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "मेल पाठवताना त्रुटी";
-
-/* Settings item title */
-"pref_calibration_title" = "होकायंत्र अंशशोधन";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "उपलब्ध";
@@ -643,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "हे नाव आधीच वापरात आहे";
 "profile" = "OpenStreetMap प्रोफाइल";
 "restore" = "पूर्ववत् करा";
+
+/* Settings privacy group in settings screen */
+"privacy" = "गोपनीयता";
 "privacy_policy" = "गोपनीयता धोरण";
 "terms_of_use" = "वापरण्याच्या अटी";
 
@@ -651,6 +670,9 @@
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "सायकलिंग";
+
+/* Map layers menu: toggle button for the satellite imagery layer */
+"button_layer_satellite" = "उपग्रह";
 "button_layer_subway" = "मेट्रो/भुयारी मार्ग";
 "layers_title" = "नकाशा शैली आणि स्तर";
 
@@ -907,6 +929,9 @@
 "elevation_profile_descent" = "उतरण";
 "elevation_profile_min_elevation" = "किमान उंची";
 "elevation_profile_max_elevation" = "कमाल उंची";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "उंची प्रोफाइल पाहण्यासाठी हालचाल सुरू करा";
 "isolines_toast_zooms_1_10" = "समोच्च रेषा पाहायला नकाशा विशाल (झूम) करा";
 "downloader_loading_ios" = "डाउनलोड करत आहे";
 

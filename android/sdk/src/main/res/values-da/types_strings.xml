@@ -657,6 +657,7 @@
     <string name="type.leisure.ice_rink">Skøjtebane</string>
     <string name="type.leisure.marina">Lystbådehavn</string>
     <string name="type.leisure.nature_reserve">Naturreservat</string>
+    <string name="type.leisure.bird_hide">Fugleskjul</string>
     <string name="type.leisure.outdoor_seating">Udendørs siddepladser</string>
     <string name="type.leisure.firepit">Bålsted</string>
     <string name="type.leisure.park">Park</string>
@@ -747,6 +748,8 @@
     <string name="type.natural.meadow">Eng</string>
     <string name="type.natural.orchard">Frugthave</string>
     <string name="type.natural.peak">Bjerg</string>
+    <string name="type.natural.hill">Bakke</string>
+    <string name="type.natural.arch">Klippebuen</string>
     <string name="type.natural.saddle">Bjergsadel</string>
     <string name="type.natural.rock">Sten</string>
     <string name="type.natural.scrub">Krat</string>
@@ -1421,6 +1424,7 @@
     <string name="type.self_service.no">Ingen selvbetjening</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">Social facilitet</string>
+    <string name="type.amenity.stage">Scene</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Indgang til akutafdeling</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

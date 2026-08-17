@@ -13,10 +13,9 @@
 
 namespace jni
 {
-
-using namespace base;
-
-void AndroidMessage(LogLevel level, SrcPoint const & src, std::string const & s)
+namespace
+{
+void AndroidMessage(base::LogLevel level, base::SrcPoint const & src, std::string const & s)
 {
   android_LogPriority pr = ANDROID_LOG_SILENT;
 
@@ -30,42 +29,40 @@ void AndroidMessage(LogLevel level, SrcPoint const & src, std::string const & s)
   case NUM_LOG_LEVELS: break;
   }
 
-  ScopedEnv env(jni::GetJVM());
-  static jmethodID const logMethod = jni::GetStaticMethodID(
-      env.get(), g_loggerClazz, "log", "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V");
+  ScopedEnv env(GetJVM());
+  static jmethodID const logMethod = GetStaticMethodID(env.get(), g_loggerClazz, "log",
+                                                       "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V");
 
   std::string const out = DebugPrint(src) + s;
-  jni::TScopedLocalRef msg(env.get(), jni::ToJavaString(env.get(), out));
+  TScopedLocalRef msg(env.get(), ToJavaString(env.get(), out));
   env->CallStaticVoidMethod(g_loggerClazz, logMethod, pr, NULL, msg.get(), NULL);
 }
 
-void AndroidLogMessage(LogLevel level, SrcPoint const & src, std::string const & s)
+void AndroidLogMessage(base::LogLevel level, base::SrcPoint const & src, std::string const & s)
 {
   AndroidMessage(level, src, s);
-  CHECK_LESS(level, g_LogAbortLevel, ("Abort. Log level is too serious", level));
+  CHECK_LESS(level, base::g_LogAbortLevel, ("Abort. Log level is too serious", level));
 }
 
-bool AndroidAssertMessage(SrcPoint const & src, std::string const & s)
+bool AndroidAssertMessage(base::SrcPoint const & src, std::string const & s)
 {
   AndroidMessage(LCRITICAL, src, s);
   return true;
 }
+}  // namespace
 
 void InitSystemLog()
 {
-  SetLogMessageFn(&AndroidLogMessage);
+  base::SetLogMessageFn(&AndroidLogMessage);
 }
 
 void InitAssertLog()
 {
-  SetAssertFunction(&AndroidAssertMessage);
+  base::SetAssertFunction(&AndroidAssertMessage);
 }
 
 void ToggleDebugLogs(bool enabled)
 {
-  if (enabled)
-    g_LogLevel = LDEBUG;
-  else
-    g_LogLevel = LINFO;
+  base::g_LogLevel = enabled ? LDEBUG : LINFO;
 }
 }  // namespace jni

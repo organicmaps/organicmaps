@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "החלקה על קרח";
 "type.leisure.marina" = "מרינה";
 "type.leisure.nature_reserve" = "שמורת טבע";
+"type.leisure.bird_hide" = "מסתור לצפייה בציפורים";
 "type.leisure.outdoor_seating" = "ישיבה בחוץ";
 "type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "פארק";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "אָחוּ";
 "type.natural.orchard" = "פרדס";
 "type.natural.peak" = "פסגה";
+"type.natural.hill" = "גבעה";
+"type.natural.arch" = "קשת הסלע";
 "type.natural.saddle" = "אוכף הרים";
 "type.natural.rock" = "סלע";
 "type.natural.scrub" = "עשבייה";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "מתקן חברתי";
+"type.amenity.stage" = "במה";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "כניסה למיון";

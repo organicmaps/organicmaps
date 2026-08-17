@@ -8,7 +8,6 @@
 
 #include "coding/reader.hpp"
 
-#include "base/assert.hpp"
 #include "base/string_utils.hpp"
 
 #include <glaze/json.hpp>
@@ -39,14 +38,37 @@ std::string const kTransitColorFileName = "transit_colors.txt";
 class TransitColorsHolder
 {
 public:
+  /// @pre IsTransitColor.
   dp::Color GetColor(std::string_view name) const
   {
     auto const isDarkStyle = MapStyleIsDark(GetStyleReader().GetCurrentStyle());
     auto const & colors = isDarkStyle ? m_nightColors : m_clearColors;
     auto const it = colors.find(name);
-    if (it == colors.cend())
-      return dp::Color();
-    return it->second;
+    if (it != colors.cend())
+      return it->second;
+
+    // Not a (subway) palette name: bus/tram lines collected from OSM have raw color like "#RRGGBB".
+    // Parse it and adjust to the current theme like the PT relations rendering does.
+    auto raw = name;
+    if (raw.starts_with(kTransitLineColorPrefix))
+      raw.remove_prefix(kTransitLineColorPrefix.size());
+    else if (raw.starts_with(kTransitTextColorPrefix))
+      raw.remove_prefix(kTransitTextColorPrefix.size());
+
+    if (raw.starts_with('#'))
+      raw.remove_prefix(1);
+
+    unsigned int rgb;
+    if (raw.size() == 6 && strings::to_uint(raw, rgb, 16))
+    {
+      auto color = df::ToDrapeColor(static_cast<uint32_t>(rgb));
+      dp::HSL hsl = dp::Color2HSL(color);
+      if (hsl.AdjustLightness(!isDarkStyle))
+        color = dp::HSL2Color(hsl);
+      return color;
+    }
+
+    return dp::Color::Purple();  // Default purple.
   }
 
   void Load()
@@ -108,12 +130,12 @@ TransitColorsHolder & TransitColors()
 
 std::string GetTransitColorName(ColorConstant const & localName)
 {
-  return (kTransitColorPrefix + kTransitLinePrefix).append(localName);
+  return kTransitLineColorPrefix + std::string(localName);
 }
 
 std::string GetTransitTextColorName(ColorConstant const & localName)
 {
-  return (kTransitColorPrefix + kTransitTextPrefix).append(localName);
+  return kTransitTextColorPrefix + std::string(localName);
 }
 
 bool IsTransitColor(ColorConstant const & constant)

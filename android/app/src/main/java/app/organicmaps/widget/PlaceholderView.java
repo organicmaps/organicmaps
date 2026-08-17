@@ -104,6 +104,8 @@ public class PlaceholderView extends LinearLayout
     mSubtitle = findViewById(R.id.subtitle);
 
     setupDefaultContent();
+    if (mImage.getDrawable() == null)
+      UiUtils.hide(mImage);
   }
 
   private void setupDefaultContent()
@@ -131,23 +133,25 @@ public class PlaceholderView extends LinearLayout
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
   {
     int childrenTextTotalHeight = calcTotalTextChildrenHeight(widthMeasureSpec, heightMeasureSpec);
-
-    final int defHeight = getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec);
-    MarginLayoutParams imgParams = (MarginLayoutParams) mImage.getLayoutParams();
-    int potentialHeight = defHeight - getPaddingBottom() - getPaddingTop() - childrenTextTotalHeight
-                        - imgParams.bottomMargin - imgParams.topMargin;
-
-    int imgSpaceRaw = Math.min(potentialHeight, mImgMaxHeight);
-    imgParams.height = imgSpaceRaw;
-    imgParams.width = imgSpaceRaw;
-    measureChildWithMargins(mImage, widthMeasureSpec, 0, heightMeasureSpec, 0);
-
-    boolean isImageSpaceAllowed = imgSpaceRaw > mImgMinHeight;
     int childrenTotalHeight = childrenTextTotalHeight;
-    if (isImageSpaceAllowed)
-      childrenTotalHeight += calcHeightWithMargins(mImage);
+    if (mImage.getDrawable() != null)
+    {
+      final int defHeight = getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec);
+      MarginLayoutParams imgParams = (MarginLayoutParams) mImage.getLayoutParams();
+      int potentialHeight = defHeight - getPaddingBottom() - getPaddingTop() - childrenTextTotalHeight
+                          - imgParams.bottomMargin - imgParams.topMargin;
 
-    UiUtils.showIf(isImageSpaceAllowed, mImage);
+      int imgSpaceRaw = Math.min(potentialHeight, mImgMaxHeight);
+      imgParams.height = imgSpaceRaw;
+      imgParams.width = imgSpaceRaw;
+      measureChildWithMargins(mImage, widthMeasureSpec, 0, heightMeasureSpec, 0);
+
+      boolean isImageSpaceAllowed = imgSpaceRaw > mImgMinHeight;
+      if (isImageSpaceAllowed)
+        childrenTotalHeight += calcHeightWithMargins(mImage);
+      UiUtils.showIf(isImageSpaceAllowed, mImage);
+    }
+
     final int height = childrenTotalHeight + getPaddingTop() + getPaddingBottom();
     final int width = getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec);
     setMeasuredDimension(width, height);

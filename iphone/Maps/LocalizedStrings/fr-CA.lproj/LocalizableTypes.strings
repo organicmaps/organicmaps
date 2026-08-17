@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Patinoire";
 "type.leisure.marina" = "Port de plaisance";
 "type.leisure.nature_reserve" = "Réserve naturelle";
+"type.leisure.bird_hide" = "Observatoire ornithologique";
 "type.leisure.outdoor_seating" = "Sièges extérieurs";
 "type.leisure.firepit" = "Aire de pique-nique";
 "type.leisure.park" = "Parc";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "Prairie";
 "type.natural.orchard" = "Verger";
 "type.natural.peak" = "Sommet";
+"type.natural.hill" = "Colline";
+"type.natural.arch" = "Arche rocheuse";
 "type.natural.saddle" = "Col de montagne";
 "type.natural.rock" = "Rocher";
 "type.natural.scrub" = "Fourré";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "Établissement de services sociaux";
+"type.amenity.stage" = "Scène";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Entrée du service des urgences";

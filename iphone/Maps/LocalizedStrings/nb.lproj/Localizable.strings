@@ -195,6 +195,7 @@
 /* Length of track in cell that describes route */
 "length" = "Lengde";
 "share_my_location" = "Del posisjonen min";
+"prefs_group_network" = "Nettverk";
 "prefs_group_route" = "Navigasjon";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -217,6 +218,24 @@
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "3D-bygninger er slått av i strømsparingsmodus";
+
+/* Settings: title of the satellite imagery (custom raster tiles) screen */
+"pref_bg_tiles_title" = "Satellittbilder";
+
+/* Settings «Satellite Imagery»: title of the tile server URL input field */
+"pref_bg_tiles_url_title" = "Tjener-URL";
+
+/* Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) */
+"pref_bg_tiles_url_error" = "Skriv inn en gyldig URL med {z}/{x}/{y}";
+
+/* Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) */
+"pref_bg_tiles_size_title" = "Bufferstørrelse (MB)";
+
+/* Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) */
+"pref_bg_tiles_opacity_title" = "Ugjennomsiktighet for områdeobjekter";
+
+/* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
+"pref_bg_tiles_disclaimer" = "Tilpassede flisekilder leveres av deg. Bruk kun tjenester du har tillatelse til å bruke. Du er ansvarlig for kreditering, lisensvilkår, API-nøkler, kvoter og bruksgrenser.";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Taleinstrukser";
@@ -390,9 +409,6 @@
 
 /* Alert title */
 "email_error_title" = "Feil ved sending av e-post";
-
-/* Settings item title */
-"pref_calibration_title" = "Kompasskalibrering";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Tilgjengelig";
@@ -643,6 +659,9 @@
 "bookmarks_error_title_list_name_already_taken" = "Dette navnet er allerede tatt";
 "profile" = "OpenStreetMap profil";
 "restore" = "Restaurere";
+
+/* Settings privacy group in settings screen */
+"privacy" = "Personvern";
 "privacy_policy" = "Personvernpolitikk";
 "terms_of_use" = "Bruksbetingelser";
 
@@ -651,6 +670,9 @@
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "Sykling";
+
+/* Map layers menu: toggle button for the satellite imagery layer */
+"button_layer_satellite" = "Satellitt";
 "button_layer_subway" = "T-bane";
 "layers_title" = "Kartstiler og -lag";
 
@@ -907,6 +929,9 @@
 "elevation_profile_descent" = "Nedstigning";
 "elevation_profile_min_elevation" = "Min. høyde";
 "elevation_profile_max_elevation" = "Maks. høyde";
+
+/* Displayed in the elevation profile chart while track recording has fewer than two points. */
+"elevation_profile_placeholder" = "Begynn å bevege deg for å se høydeprofilen";
 "isolines_toast_zooms_1_10" = "Forstørr kartet for å se høydekurver";
 "downloader_loading_ios" = "Nedlasting";
 

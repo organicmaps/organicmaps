@@ -658,6 +658,7 @@
     <string name="type.leisure.ice_rink">Ledové kluziště</string>
     <string name="type.leisure.marina">Přístav</string>
     <string name="type.leisure.nature_reserve">Rezervace</string>
+    <string name="type.leisure.bird_hide">Pozorovatelna ptáků</string>
     <string name="type.leisure.outdoor_seating">Venkovní posezení</string>
     <string name="type.leisure.firepit">Ohniště</string>
     <string name="type.leisure.park">Park</string>
@@ -748,6 +749,8 @@
     <string name="type.natural.meadow">Louka</string>
     <string name="type.natural.orchard">Sad</string>
     <string name="type.natural.peak">Hora</string>
+    <string name="type.natural.hill">Kopec</string>
+    <string name="type.natural.arch">Skalní oblouk</string>
     <string name="type.natural.saddle">Sedlo</string>
     <string name="type.natural.rock">Hornina</string>
     <string name="type.natural.scrub">Křoviny</string>
@@ -1429,6 +1432,7 @@
     <string name="type.self_service.no">Žádná samoobsluha</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">Sociální zařízení</string>
+    <string name="type.amenity.stage">Jeviště</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Vchod do pohotovostního oddělení</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->

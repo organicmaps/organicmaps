@@ -68,6 +68,10 @@ public:
 
   IndexGraph & GetIndexGraph(NumMwmId numMwmId) override { return m_indexLoader->GetIndexGraph(numMwmId); }
 
+  // Gate pedestrian-access points within |radiusM| of |point| in |mwmId|, for connecting a route
+  // checkpoint straight to transit boarding. |isEnter| picks entrance (start) vs exit (finish).
+  void GetGatesNear(NumMwmId mwmId, m2::PointD const & point, double radiusM, bool isEnter, GateAccessesT & out);
+
 private:
   // WorldGraph overrides:
   void GetTwinsInner(Segment const & s, bool isOutgoing, TwinSegmentsListT & twins) override;

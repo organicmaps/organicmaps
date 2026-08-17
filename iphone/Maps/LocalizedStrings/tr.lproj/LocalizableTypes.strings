@@ -773,6 +773,7 @@
 "type.leisure.ice_rink" = "Buz Pateni Pisti";
 "type.leisure.marina" = "Liman";
 "type.leisure.nature_reserve" = "Doğal Koruma Alanı";
+"type.leisure.bird_hide" = "Kuş gözlem kulübesi";
 "type.leisure.outdoor_seating" = "Dış Mekan Oturağı";
 "type.leisure.firepit" = "Ateş Çukuru";
 "type.leisure.park" = "Park";
@@ -876,6 +877,8 @@
 "type.natural.meadow" = "Çayır";
 "type.natural.orchard" = "Meyve Bahçesi";
 "type.natural.peak" = "Zirve";
+"type.natural.hill" = "Tepe";
+"type.natural.arch" = "Kaya Kemeri";
 "type.natural.saddle" = "Dağ Eyeri";
 "type.natural.rock" = "Kaya";
 "type.natural.scrub" = "Çalılık";
@@ -1573,6 +1576,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "Sosyal Tesis";
+"type.amenity.stage" = "Sahne";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Acil Servis Girişi";

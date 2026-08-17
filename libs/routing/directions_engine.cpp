@@ -117,20 +117,24 @@ void DirectionsEngine::GetSegmentRangeAndAdjacentEdges(IRoadGraph::EdgeListT con
 
     double angle = 0;
 
-    if (inEdge.GetFeatureId().m_mwmId == edge.GetFeatureId().m_mwmId)
+    double const distToJunction = mercator::DistanceOnEarth(junctionPoint, edge.GetStartJunction().GetPoint());
+    ASSERT(
+        inEdge.GetFeatureId().m_mwmId != edge.GetFeatureId().m_mwmId || distToJunction < turns::kFeaturesNearTurnMeters,
+        (distToJunction));
+
+    // In case of crossing mwm border (inEdge.GetFeatureId().m_mwmId != edge.GetFeatureId().m_mwmId)
+    // twins of inEdge.GetFeatureId() are considered as outgoing features. Their geometry is stored
+    // in the neighbouring mwm with its own coordinate quantization, but the angle can be calculated
+    // the same way if such an edge starts at the junction point.
+    if (distToJunction < turns::kFeaturesNearTurnMeters)
     {
-      ASSERT_LESS(mercator::DistanceOnEarth(junctionPoint, edge.GetStartJunction().GetPoint()),
-                  turns::kFeaturesNearTurnMeters, ());
       angle =
           math::RadToDeg(turns::PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, edge.GetEndJunction().GetPoint()));
     }
     else
     {
-      // Note. In case of crossing mwm border
-      // (inEdge.GetFeatureId().m_mwmId != edge.GetFeatureId().m_mwmId)
-      // twins of inEdge.GetFeatureId() are considered as outgoing features.
-      // In this case that turn candidate angle is invalid and
-      // should not be used for turn generation.
+      // The angle of a turn candidate which does not start at the junction point is invalid
+      // and should not be used for turn generation.
       outgoingTurns.isCandidatesAngleValid = false;
     }
 

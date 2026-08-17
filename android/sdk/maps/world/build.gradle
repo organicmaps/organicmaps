@@ -3,8 +3,15 @@ plugins {
 }
 
 apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
+apply from: "${rootProject.rootDir}/groovy/publishing.gradle"
 
 android {
   namespace = 'app.organicmaps.sdk.maps.world'
   // enableKotlin = true  // see app/build.gradle
 }
+
+Publish(project, [
+    'artifactId' : 'maps-world',
+    'name'       : 'Organic Maps SDK. World Maps',
+    'description': 'A library that provides world maps for the Organic Maps SDK'
+])

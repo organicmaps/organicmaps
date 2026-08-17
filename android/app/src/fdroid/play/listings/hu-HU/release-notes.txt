@@ -1,7 +1,8 @@
-• Érintse meg a tömegközlekedési megállóhelyet, és válassza ki az útvonalszámokat az útvonalak kiemeléséhez a térképen.
-• A könyvjelző címkék már nem fedik egymást a térképen
-• Friss OpenStreetMap adatok május 3-tól, új objektumtípusokkal
-• Javított magassági diagramok a pályákhoz és útvonalakhoz
-• Kisebb térképek letöltése Vietnam, Malajzia, Hongkong, Makaó és Hainan számára
-• Finomított felhasználói felület és animációk
-…még több az omaps.org/hu/news oldalon
+ÚJ FUNKCIÓK:
+• Frissített keresési és útvonaltervezési felhasználói felület
+• Tömegközlekedési útvonaltervezés (busz, villamos, metró, könnyűvasút)
+• Alternatív leggyorsabb és legrövidebb útvonalak
+• Útvonalra vonatkozó figyelmeztetések lépcsőkről, kapukról és emelőkapukról
+• Bármilyen szín kiválasztható a könyvjelzőkhöz
+• Támogatás az UK OS Grid, Irish Grid és ITM koordinátákhoz
+…további információk az omaps.org/hu/news oldalon

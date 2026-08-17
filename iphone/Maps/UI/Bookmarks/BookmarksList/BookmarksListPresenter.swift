@@ -2,7 +2,6 @@ final class BookmarksListPresenter {
   private weak var view: IBookmarksListView?
   private let router: IBookmarksListRouter
   private var interactor: IBookmarksListInteractor
-  private weak var sourceViewController: UIViewController?
   private var bookmarkGroup: BookmarkGroup
 
   private enum EditableItem {
@@ -14,11 +13,9 @@ final class BookmarksListPresenter {
 
   init(view: IBookmarksListView,
        router: IBookmarksListRouter,
-       sourceViewController: UIViewController?,
        interactor: IBookmarksListInteractor) {
     self.view = view
     self.router = router
-    self.sourceViewController = sourceViewController
     self.interactor = interactor
     bookmarkGroup = interactor.getBookmarkGroup()
     subscribeOnGroupReloading()
@@ -35,6 +32,15 @@ final class BookmarksListPresenter {
         self.reload()
       }
     }
+  }
+
+  private func updateInfo() {
+    let info = BookmarksListInfo(title: bookmarkGroup.title,
+                                 description: bookmarkGroup.detailedAnnotation,
+                                 hasDescription: bookmarkGroup.hasDescription,
+                                 isHtmlDescription: bookmarkGroup.isHtmlDescription,
+                                 imageUrl: bookmarkGroup.imageUrl)
+    view?.setInfo(info)
   }
 
   private func reload() {
@@ -135,8 +141,7 @@ final class BookmarksListPresenter {
       self?.viewOnMap()
     }))
     moreItems.append(BookmarksListMenuItem(title: L("edit"), action: { [weak self] in
-      guard let self = self else { return }
-      self.router.listSettings(self.bookmarkGroup, delegate: self)
+      self?.editCategory()
     }))
 
     func exportMenuItem(for fileType: FileType) -> BookmarksListMenuItem {
@@ -212,19 +217,12 @@ final class BookmarksListPresenter {
 extension BookmarksListPresenter: IBookmarksListPresenter {
   func viewDidLoad() {
     reload()
-    view?.setTitle(bookmarkGroup.title)
+    updateInfo()
     view?.enableEditing(true)
-
-    let info = BookmarksListInfo(title: bookmarkGroup.title,
-                                 description: bookmarkGroup.detailedAnnotation,
-                                 hasDescription: bookmarkGroup.hasDescription,
-                                 isHtmlDescription: bookmarkGroup.isHtmlDescription,
-                                 imageUrl: bookmarkGroup.imageUrl)
-    view?.setInfo(info)
   }
 
   func viewDidAppear() {
-    reload()
+    interactor.reloadCategory()
   }
 
   func activateSearch() {
@@ -248,6 +246,10 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
 
   func more() {
     showMoreMenu()
+  }
+
+  func editCategory() {
+    router.listSettings(bookmarkGroup, delegate: self)
   }
 
   func sort() {
@@ -290,12 +292,16 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
     case let bookmarksSection as IBookmarksSectionViewModel:
       guard let bookmarkId = (bookmarksSection.bookmarks[index] as? BookmarkViewModel)?.bookmarkId else { fatalError() }
       router.editBookmark(bookmarkId: bookmarkId) { [weak self] wasChanged in
-        if wasChanged { self?.reload() }
+        if wasChanged {
+          self?.reload()
+        }
       }
     case let tracksSection as ITracksSectionViewModel:
       guard let trackId = (tracksSection.tracks[index] as? TrackViewModel)?.trackId else { fatalError() }
       router.editTrack(trackId: trackId) { [weak self] wasChanged in
-        if wasChanged { self?.reload() }
+        if wasChanged {
+          self?.reload()
+        }
       }
     default:
       fatalError("Cannot edit item: unsupported section type: \(section.self)")
@@ -364,20 +370,13 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
 }
 
 extension BookmarksListPresenter: CategorySettingsViewControllerDelegate {
-  func categorySettingsController(_ viewController: CategorySettingsViewController, didEndEditing _: MWMMarkGroupID) {
-    let info = BookmarksListInfo(title: bookmarkGroup.title,
-                                 description: bookmarkGroup.detailedAnnotation,
-                                 hasDescription: bookmarkGroup.hasDescription,
-                                 isHtmlDescription: bookmarkGroup.isHtmlDescription,
-                                 imageUrl: bookmarkGroup.imageUrl)
-    view?.setInfo(info)
-    viewController.goBack()
+  func categorySettingsController(_: CategorySettingsViewController, didDelete _: MWMMarkGroupID) {
+    router.goBack()
   }
 
-  func categorySettingsController(_ viewController: CategorySettingsViewController, didDelete _: MWMMarkGroupID) {
-    if let sourceViewController {
-      viewController.navigationController?.popToViewController(sourceViewController, animated: true)
-    }
+  func categorySettingsController(_: CategorySettingsViewController, didEndEditing _: MWMMarkGroupID) {
+    bookmarkGroup = interactor.getBookmarkGroup()
+    updateInfo()
   }
 }
 

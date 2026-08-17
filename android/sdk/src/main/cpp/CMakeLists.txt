@@ -11,6 +11,7 @@ set(SRC
   app/organicmaps/sdk/core/ScopedEnv.hpp
   app/organicmaps/sdk/core/ScopedLocalRef.hpp
   app/organicmaps/sdk/Framework.hpp
+  app/organicmaps/sdk/FrameworkJni.hpp
   app/organicmaps/sdk/opengl/android_gl_utils.hpp
   app/organicmaps/sdk/opengl/androidoglcontext.hpp
   app/organicmaps/sdk/opengl/androidoglcontextfactory.hpp
@@ -24,27 +25,8 @@ set(SRC
   app/organicmaps/sdk/search/DisplayedCategories.cpp
   app/organicmaps/sdk/search/SearchEngine.cpp
   app/organicmaps/sdk/search/SearchRecents.cpp
-  app/organicmaps/sdk/routing/roadshield/RoadShield.cpp
-  app/organicmaps/sdk/routing/roadshield/RoadShield.hpp
-  app/organicmaps/sdk/routing/roadshield/RoadShieldInfo.cpp
-  app/organicmaps/sdk/routing/roadshield/RoadShieldInfo.hpp
-  app/organicmaps/sdk/routing/roadshield/RoadShieldType.cpp
-  app/organicmaps/sdk/routing/roadshield/RoadShieldType.hpp
-  app/organicmaps/sdk/routing/CarDirection.cpp
-  app/organicmaps/sdk/routing/CarDirection.hpp
-  app/organicmaps/sdk/routing/JunctionInfo.hpp
-  app/organicmaps/sdk/routing/LaneInfo.cpp
-  app/organicmaps/sdk/routing/LaneInfo.hpp
-  app/organicmaps/sdk/routing/PedestrianDirection.cpp
-  app/organicmaps/sdk/routing/PedestrianDirection.hpp
-  app/organicmaps/sdk/routing/RouteMarkData.hpp
-  app/organicmaps/sdk/routing/RouteMarkType.hpp
-  app/organicmaps/sdk/routing/RoutePointInfo.hpp
-  app/organicmaps/sdk/routing/RouteRecommendationType.hpp
-  app/organicmaps/sdk/routing/RoutingInfo.hpp
-  app/organicmaps/sdk/routing/RoutingOptions.cpp
-  app/organicmaps/sdk/routing/TransitRouteInfo.hpp
-  app/organicmaps/sdk/routing/TransitStepInfo.hpp
+  app/organicmaps/sdk/routing/RoutingJni.cpp
+  app/organicmaps/sdk/routing/RoutingJni.hpp
   app/organicmaps/sdk/ChoosePositionMode.cpp
   app/organicmaps/sdk/MapStyle.cpp
   app/organicmaps/sdk/OrganicMaps.cpp
@@ -101,7 +83,6 @@ set(SRC
   app/organicmaps/sdk/util/Config.cpp
   app/organicmaps/sdk/util/GeoUtils.cpp
   app/organicmaps/sdk/util/HttpClient.cpp
-  app/organicmaps/sdk/util/Language.cpp
   app/organicmaps/sdk/util/LogsManager.cpp
   app/organicmaps/sdk/util/NetworkPolicy.cpp
   app/organicmaps/sdk/util/StringUtils.cpp
@@ -154,7 +135,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
   EGL
   GLESv2
   atomic
-  z
 )
 
 #target_link_options(${PROJECT_NAME} PRIVATE "-fuse-ld=gold")

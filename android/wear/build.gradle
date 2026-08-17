@@ -1,0 +1,38 @@
+plugins {
+    id 'com.android.application'
+}
+
+apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
+apply from: "${rootProject.rootDir}/groovy/application-signing.gradle"
+
+android {
+    namespace 'app.organicmaps.wear'
+
+    defaultConfig {
+        applicationId rootProject.ext.appId
+        // Keep the Wear artifact version code unique from the phone app while preserving
+        // the same base Organic Maps version code for Google Play multi-form-factor uploads.
+        versionCode rootProject.ext.versionCode * 10 + 1
+        versionName rootProject.ext.versionName
+        minSdk 26
+    }
+
+    flavorDimensions 'default'
+
+    productFlavors {
+        google {
+            dimension 'default'
+            versionName = android.defaultConfig.versionName + '-Google'
+        }
+    }
+}
+
+dependencies {
+    implementation project(':libs:branding')
+    implementation project(':libs:wear-protocol')
+    implementation libs.androidx.annotation
+    implementation libs.google.gms.wearable
+
+    testImplementation libs.androidx.junit
+    testImplementation libs.mockito.core
+}
