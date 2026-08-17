@@ -78,11 +78,6 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
       return mDataSource.getData();
     }
 
-    boolean hasDescription()
-    {
-      return (!mDataSource.getData().getAnnotation().isEmpty() || !mDataSource.getData().getDescription().isEmpty());
-    }
-
     public abstract int getSectionsCount();
     public abstract boolean isEditable(int sectionIndex);
     public abstract boolean hasTitle(int sectionIndex);
@@ -291,7 +286,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
 
     private boolean isDescriptionSection(int sectionIndex)
     {
-      return hasDescription() && sectionIndex == 0;
+      return sectionIndex == 0;
     }
 
     @NonNull
@@ -299,14 +294,14 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     {
       if (isDescriptionSection(sectionIndex))
         throw new IllegalArgumentException("Invalid section index for sorted block.");
-      int blockIndex = sectionIndex - (hasDescription() ? 1 : 0);
-      return mSortedBlocks.get(blockIndex);
+      return mSortedBlocks.get(sectionIndex - 1);
     }
 
     @Override
     public int getSectionsCount()
     {
-      return mSortedBlocks.size() + (hasDescription() ? 1 : 0);
+      // Sorting does not take the description away, blank or not: the unsorted list shows it either way.
+      return mSortedBlocks.size() + 1;
     }
 
     @Override
