@@ -1,16 +1,9 @@
 #include "drape_frontend/message_queue.hpp"
 
 #include "base/assert.hpp"
-#include "base/stl_helpers.hpp"
 
 namespace df
 {
-MessageQueue::~MessageQueue()
-{
-  CancelWait();
-  ClearQuery();
-}
-
 drape_ptr<Message> MessageQueue::PopMessage(bool waitForMessage)
 {
   std::unique_lock<std::mutex> lock(m_mutex);
@@ -145,8 +138,9 @@ void MessageQueue::CancelWait()
   m_condition.notify_one();
 }
 
-void MessageQueue::ClearQuery()
+void MessageQueue::Clear()
 {
+  std::lock_guard<std::mutex> lock(m_mutex);
   m_messages.clear();
   m_lowPriorityMessages.clear();
 }

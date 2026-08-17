@@ -4,14 +4,9 @@
 
 namespace df
 {
-MessageAcceptor::MessageAcceptor() : m_infinityWaiting(false) {}
-
 bool MessageAcceptor::ProcessSingleMessage(bool waitForMessage)
 {
-  m_infinityWaiting = waitForMessage;
   drape_ptr<Message> message = m_messageQueue.PopMessage(waitForMessage);
-  m_infinityWaiting = false;
-
   if (message == nullptr)
     return false;
 
@@ -42,17 +37,12 @@ void MessageAcceptor::PostMessage(drape_ptr<Message> && message, MessagePriority
 void MessageAcceptor::CloseQueue()
 {
   m_messageQueue.CancelWait();
-  m_messageQueue.ClearQuery();
+  m_messageQueue.Clear();
 }
 
 void MessageAcceptor::CancelMessageWaiting()
 {
   m_messageQueue.CancelWait();
-}
-
-bool MessageAcceptor::IsInInfinityWaiting() const
-{
-  return m_infinityWaiting;
 }
 
 #ifdef DEBUG_MESSAGE_QUEUE

@@ -4,10 +4,6 @@
 
 #include "drape/pointers.hpp"
 
-#include <atomic>
-#include <functional>
-#include <mutex>
-
 namespace df
 {
 class Message;
@@ -15,7 +11,7 @@ class Message;
 class MessageAcceptor
 {
 protected:
-  MessageAcceptor();
+  MessageAcceptor() = default;
   virtual ~MessageAcceptor() = default;
 
   virtual void AcceptMessage(ref_ptr<Message> message) = 0;
@@ -26,8 +22,6 @@ protected:
   void CancelMessageWaiting();
 
   void CloseQueue();
-
-  bool IsInInfinityWaiting() const;
 
 #ifdef DEBUG_MESSAGE_QUEUE
   bool IsQueueEmpty() const;
@@ -44,6 +38,5 @@ private:
   void PostMessage(drape_ptr<Message> && message, MessagePriority priority);
 
   MessageQueue m_messageQueue;
-  std::atomic<bool> m_infinityWaiting;
 };
 }  // namespace df

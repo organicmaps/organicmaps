@@ -17,9 +17,6 @@ namespace df
 class MessageQueue
 {
 public:
-  MessageQueue() = default;
-  ~MessageQueue();
-
   // Returns the highest priority message, or nullptr if the queue is empty and waitForMessage is
   // false, or if the wait was interrupted by CancelWait(). A queued message wins over a pending
   // cancellation and consumes it, so a cancelled wait is not guaranteed to be observed as a nullptr.
@@ -27,7 +24,7 @@ public:
   void PushMessage(drape_ptr<Message> && message, MessagePriority priority);
   // Interrupts the current or the next PopMessage(true). A PopMessage(false) leaves it pending.
   void CancelWait();
-  void ClearQuery();
+  void Clear();
 
   using FilterMessageFn = std::function<bool(ref_ptr<Message>)>;
   void EnableMessageFiltering(FilterMessageFn && filter);
