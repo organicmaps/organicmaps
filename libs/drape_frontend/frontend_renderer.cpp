@@ -2605,8 +2605,10 @@ void FrontendRenderer::AddUserEvent(drape_ptr<UserEvent> && event)
     return;
 #endif
   m_userEventStream.AddEvent(std::move(event));
-  if (IsInInfinityWaiting())
-    CancelMessageWaiting();
+  // User events bypass the message queue, so a renderer parked in a blocking PopMessage() after a few
+  // idle frames would not see this one. CancelWait() is sticky, so the wake-up also lands when the event
+  // arrives just before the renderer starts waiting.
+  CancelMessageWaiting();
 }
 
 void FrontendRenderer::PositionChanged(m2::PointD const & position, bool hasPosition)
