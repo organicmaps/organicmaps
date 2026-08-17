@@ -9,6 +9,8 @@ namespace turns_sound_test
 {
 using namespace std;
 using routing::turns::CarDirection;
+using routing::turns::RoundaboutDirection;
+using routing::turns::RoundaboutInfo;
 using routing::turns::TurnItemDist;
 using routing::turns::sound::NotificationManager;
 using routing::turns::sound::Settings;
@@ -98,13 +100,13 @@ UNIT_TEST(TurnsSound_MetersTest)
   // 1000 meters till the turn. No sound notifications is required.
   notificationManager.GenerateTurnNotifications(turns, turnNotifications);
   TEST(turnNotifications.empty(), ());
-  TEST_EQUAL(notificationManager.GetSecondTurnNotification(), CarDirection::None, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_turn, CarDirection::None, ());
 
   // 700 meters till the turn. No sound notifications is required.
   turns.front().m_distMeters = 700.;
   notificationManager.GenerateTurnNotifications(turns, turnNotifications);
   TEST(turnNotifications.empty(), ());
-  TEST_EQUAL(notificationManager.GetSecondTurnNotification(), CarDirection::None, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_turn, CarDirection::None, ());
 
   // 699 meters till the turn. It's time to pronounce the first voice notification.
   // Why? The current speed is 30 meters per seconds. According to correctSettingsMeters
@@ -116,13 +118,13 @@ UNIT_TEST(TurnsSound_MetersTest)
   notificationManager.GenerateTurnNotifications(turns, turnNotifications);
   vector<string> const expectedNotification1 = {{"In 600 meters. Make a right turn."}};
   TEST_EQUAL(turnNotifications, expectedNotification1, ());
-  TEST_EQUAL(notificationManager.GetSecondTurnNotification(), CarDirection::None, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_turn, CarDirection::None, ());
 
   // 650 meters till the turn. No sound notifications is required.
   turns.front().m_distMeters = 650.;
   notificationManager.GenerateTurnNotifications(turns, turnNotifications);
   TEST(turnNotifications.empty(), ());
-  TEST_EQUAL(notificationManager.GetSecondTurnNotification(), CarDirection::None, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_turn, CarDirection::None, ());
 
   notificationManager.SetSpeedMetersPerSecond(32.);
 
@@ -130,38 +132,38 @@ UNIT_TEST(TurnsSound_MetersTest)
   turns.front().m_distMeters = 150.;
   notificationManager.GenerateTurnNotifications(turns, turnNotifications);
   TEST(turnNotifications.empty(), ());
-  TEST_EQUAL(notificationManager.GetSecondTurnNotification(), CarDirection::None, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_turn, CarDirection::None, ());
 
   // 100 meters till the turn. No sound notifications is required.
   turns.front().m_distMeters = 100.;
   notificationManager.GenerateTurnNotifications(turns, turnNotifications);
   TEST(turnNotifications.empty(), ());
-  TEST_EQUAL(notificationManager.GetSecondTurnNotification(), CarDirection::None, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_turn, CarDirection::None, ());
 
   // 99 meters till the turn. It's time to pronounce the second voice notification.
   turns.front().m_distMeters = 99.;
   notificationManager.GenerateTurnNotifications(turns, turnNotifications);
   vector<string> const expectedNotification2 = {{"Make a right turn."}};
   TEST_EQUAL(turnNotifications, expectedNotification2, ());
-  TEST_EQUAL(notificationManager.GetSecondTurnNotification(), CarDirection::None, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_turn, CarDirection::None, ());
 
   // 99 meters till the turn again. No sound notifications is required.
   turns.front().m_distMeters = 99.;
   notificationManager.GenerateTurnNotifications(turns, turnNotifications);
   TEST(turnNotifications.empty(), ());
-  TEST_EQUAL(notificationManager.GetSecondTurnNotification(), CarDirection::None, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_turn, CarDirection::None, ());
 
   // 50 meters till the turn. No sound notifications is required.
   turns.front().m_distMeters = 50.;
   notificationManager.GenerateTurnNotifications(turns, turnNotifications);
   TEST(turnNotifications.empty(), ());
-  TEST_EQUAL(notificationManager.GetSecondTurnNotification(), CarDirection::None, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_turn, CarDirection::None, ());
 
   // 0 meters till the turn. No sound notifications is required.
   turns.front().m_distMeters = 0.;
   notificationManager.GenerateTurnNotifications(turns, turnNotifications);
   TEST(turnNotifications.empty(), ());
-  TEST_EQUAL(notificationManager.GetSecondTurnNotification(), CarDirection::None, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_turn, CarDirection::None, ());
 
   TEST(notificationManager.IsEnabled(), ());
 }
@@ -341,16 +343,21 @@ UNIT_TEST(TurnsSound_ComposedTurnTest)
                                        {{10 /* idx */, CarDirection::EnterRoundAbout}, 1000. /* m_distMeters */}};
   notificationManager.GenerateTurnNotifications(turns1, turnNotifications);
   TEST(turnNotifications.empty(), ());
-  TEST_EQUAL(notificationManager.GetSecondTurnNotification(), CarDirection::None, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_turn, CarDirection::None, ());
 
   // 620 meters till the first turn.
   turnNotifications.clear();
-  vector<TurnItemDist> const turns2 = {{{5 /* idx */, CarDirection::TurnRight}, 620. /* m_distMeters */},
-                                       {{10 /* idx */, CarDirection::EnterRoundAbout}, 665. /* m_distMeters */}};
+  vector<TurnItemDist> turns2 = {
+      {{5 /* idx */, CarDirection::TurnRight}, 620. /* m_distMeters */},
+      {{10 /* idx */, CarDirection::EnterRoundAbout, 3 /* m_exitNum */}, 665. /* m_distMeters */}};
+  turns2[1].m_turnItem.m_roundaboutInfo = {270, RoundaboutDirection::Clockwise, true};
   vector<string> const expectedNotification2 = {{"In 600 meters. Turn right."}, {"Then. Enter the roundabout."}};
   notificationManager.GenerateTurnNotifications(turns2, turnNotifications);
   TEST_EQUAL(turnNotifications, expectedNotification2, ());
-  TEST_EQUAL(notificationManager.GetSecondTurnNotification(), CarDirection::EnterRoundAbout, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_turn, CarDirection::EnterRoundAbout, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_exitNum, 3, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_roundaboutInfo,
+             (RoundaboutInfo{270, RoundaboutDirection::Clockwise, true}), ());
 
   // 300 meters till the first turn.
   turnNotifications.clear();
@@ -358,7 +365,7 @@ UNIT_TEST(TurnsSound_ComposedTurnTest)
                                        {{10 /* idx */, CarDirection::EnterRoundAbout}, 500. /* m_distMeters */}};
   notificationManager.GenerateTurnNotifications(turns3, turnNotifications);
   TEST(turnNotifications.empty(), ());
-  TEST_EQUAL(notificationManager.GetSecondTurnNotification(), CarDirection::EnterRoundAbout, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_turn, CarDirection::EnterRoundAbout, ());
 
   // 20 meters till the first turn.
   turnNotifications.clear();
@@ -367,7 +374,7 @@ UNIT_TEST(TurnsSound_ComposedTurnTest)
   vector<string> const expectedNotification4 = {{"Turn right."}, {"Then. In 200 meters. Enter the roundabout."}};
   notificationManager.GenerateTurnNotifications(turns4, turnNotifications);
   TEST_EQUAL(turnNotifications, expectedNotification4, ());
-  TEST_EQUAL(notificationManager.GetSecondTurnNotification(), CarDirection::EnterRoundAbout, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_turn, CarDirection::EnterRoundAbout, ());
 
   // After the first turn.
   turnNotifications.clear();
@@ -376,7 +383,7 @@ UNIT_TEST(TurnsSound_ComposedTurnTest)
       {{15 /* idx */, CarDirection::ReachedYourDestination}, 1180. /* m_distMeters */}};
   notificationManager.GenerateTurnNotifications(turns5, turnNotifications);
   TEST(turnNotifications.empty(), ());
-  TEST_EQUAL(notificationManager.GetSecondTurnNotification(), CarDirection::None, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_turn, CarDirection::None, ());
 
   // Just before the second turn.
   turnNotifications.clear();
@@ -386,7 +393,7 @@ UNIT_TEST(TurnsSound_ComposedTurnTest)
   vector<string> const expectedNotification6 = {{"Enter the roundabout."}};
   notificationManager.GenerateTurnNotifications(turns6, turnNotifications);
   TEST_EQUAL(turnNotifications, expectedNotification6, ());
-  TEST_EQUAL(notificationManager.GetSecondTurnNotification(), CarDirection::None, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_turn, CarDirection::None, ());
 }
 
 UNIT_TEST(TurnsSound_RoundaboutTurnTest)
@@ -417,7 +424,7 @@ UNIT_TEST(TurnsSound_RoundaboutTurnTest)
       {{10 /* idx */, CarDirection::LeaveRoundAbout, 2 /* m_exitNum */}, 2000. /* m_distMeters */}};
   notificationManager.GenerateTurnNotifications(turns1, turnNotifications);
   TEST(turnNotifications.empty(), ());
-  TEST_EQUAL(notificationManager.GetSecondTurnNotification(), CarDirection::None, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_turn, CarDirection::None, ());
 
   // 620 meters till the first turn.
   vector<TurnItemDist> const turns2 = {
@@ -427,7 +434,7 @@ UNIT_TEST(TurnsSound_RoundaboutTurnTest)
                                                 {"Then. In 1 kilometer. Take the second exit."}};
   notificationManager.GenerateTurnNotifications(turns2, turnNotifications);
   TEST_EQUAL(turnNotifications, expectedNotification2, ());
-  TEST_EQUAL(notificationManager.GetSecondTurnNotification(), CarDirection::None, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_turn, CarDirection::None, ());
 
   // 3 meters till the first turn.
   vector<TurnItemDist> const turns3 = {
@@ -437,7 +444,7 @@ UNIT_TEST(TurnsSound_RoundaboutTurnTest)
                                                 {"Then. In 1 kilometer. Take the second exit."}};
   notificationManager.GenerateTurnNotifications(turns3, turnNotifications);
   TEST_EQUAL(turnNotifications, expectedNotification3, ());
-  TEST_EQUAL(notificationManager.GetSecondTurnNotification(), CarDirection::None, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_turn, CarDirection::None, ());
 
   // 900 meters till the second turn.
   vector<TurnItemDist> const turns4 = {
@@ -445,7 +452,7 @@ UNIT_TEST(TurnsSound_RoundaboutTurnTest)
       {{15 /* idx */, CarDirection::EnterRoundAbout, 1 /* m_exitNum */}, 1900. /* m_distMeters */}};
   notificationManager.GenerateTurnNotifications(turns4, turnNotifications);
   TEST(turnNotifications.empty(), ());
-  TEST_EQUAL(notificationManager.GetSecondTurnNotification(), CarDirection::None, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_turn, CarDirection::None, ());
 
   // 300 meters till the second turn.
   vector<TurnItemDist> const turns5 = {
@@ -453,7 +460,7 @@ UNIT_TEST(TurnsSound_RoundaboutTurnTest)
       {{15 /* idx */, CarDirection::EnterRoundAbout, 1 /* m_exitNum */}, 1300. /* m_distMeters */}};
   notificationManager.GenerateTurnNotifications(turns5, turnNotifications);
   TEST(turnNotifications.empty(), ());
-  TEST_EQUAL(notificationManager.GetSecondTurnNotification(), CarDirection::None, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_turn, CarDirection::None, ());
 
   // 3 meters till the second turn.
   vector<TurnItemDist> const turns6 = {
@@ -462,7 +469,7 @@ UNIT_TEST(TurnsSound_RoundaboutTurnTest)
   vector<string> const expectedNotification6 = {{"Leave the roundabout."}};
   notificationManager.GenerateTurnNotifications(turns6, turnNotifications);
   TEST_EQUAL(turnNotifications, expectedNotification6, ());
-  TEST_EQUAL(notificationManager.GetSecondTurnNotification(), CarDirection::None, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_turn, CarDirection::None, ());
 
   // 5 meters till the third turn.
   vector<TurnItemDist> const turns7 = {
@@ -473,7 +480,7 @@ UNIT_TEST(TurnsSound_RoundaboutTurnTest)
   notificationManager.GenerateTurnNotifications(turns7, turnNotifications);  // The first notification fast forwarding.
   notificationManager.GenerateTurnNotifications(turns7, turnNotifications);
   TEST_EQUAL(turnNotifications, expectedNotification7, ());
-  TEST_EQUAL(notificationManager.GetSecondTurnNotification(), CarDirection::None, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_turn, CarDirection::None, ());
 
   // 900 meters till the 4th turn.
   notificationManager.Reset();
@@ -482,7 +489,7 @@ UNIT_TEST(TurnsSound_RoundaboutTurnTest)
       {{30 /* idx */, CarDirection::LeaveRoundAbout, 4 /* m_exitNum */}, 1200. /* m_distMeters */}};
   notificationManager.GenerateTurnNotifications(turns8, turnNotifications);
   TEST(turnNotifications.empty(), ());
-  TEST_EQUAL(notificationManager.GetSecondTurnNotification(), CarDirection::None, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_turn, CarDirection::None, ());
 
   // 620 meters till the 4th turn.
   vector<TurnItemDist> const turns9 = {
@@ -493,7 +500,7 @@ UNIT_TEST(TurnsSound_RoundaboutTurnTest)
   notificationManager.GenerateTurnNotifications(turns9, turnNotifications,
                                                 routing::RouteSegment::RoadNameInfo("Main street"));
   TEST_EQUAL(turnNotifications, expectedNotification9, ());
-  TEST_EQUAL(notificationManager.GetSecondTurnNotification(), CarDirection::LeaveRoundAbout, ());
+  TEST_EQUAL(notificationManager.GetSecondTurn().m_turn, CarDirection::LeaveRoundAbout, ());
 }
 
 UNIT_TEST(GetJsonBufferTest)

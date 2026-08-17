@@ -25,6 +25,10 @@ protected:
 
 void FixupCarTurns(std::vector<RouteSegment> & routeSegments);
 
+/// Calculates the circulation direction and angular sweep from the roundabout path immediately
+/// before |outgoingSegmentIndex|. The angle and direction remain unknown when the geometry is unavailable.
+turns::RoundaboutInfo CalcRoundaboutInfo(turns::IRoutingResult const & result, size_t outgoingSegmentIndex);
+
 /*!
  * \brief Finds an U-turn that starts from master segment and returns how many segments it lasts.
  * \returns an index in |segments| that has the opposite direction with master segment

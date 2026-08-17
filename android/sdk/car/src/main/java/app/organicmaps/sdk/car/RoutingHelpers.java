@@ -1,14 +1,13 @@
 package app.organicmaps.sdk.car;
 
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
-import androidx.car.app.CarContext;
-import androidx.car.app.model.CarIcon;
 import androidx.car.app.model.Distance;
 import androidx.car.app.navigation.model.LaneDirection;
 import androidx.car.app.navigation.model.Maneuver;
-import androidx.core.graphics.drawable.IconCompat;
 import app.organicmaps.sdk.routing.CarDirection;
 import app.organicmaps.sdk.routing.LaneWay;
+import app.organicmaps.sdk.routing.RoundaboutDirection;
 
 public final class RoutingHelpers
 {
@@ -49,34 +48,39 @@ public final class RoutingHelpers
     return LaneDirection.create(shape, isRecommended);
   }
 
-  @NonNull
-  public static Maneuver createManeuver(@NonNull final CarContext context, @NonNull CarDirection carDirection,
-                                        int roundaboutExitNum)
+  static int getRoundaboutManeuverType(@NonNull CarDirection carDirection, int roundaboutExitNum,
+                                       @NonNull RoundaboutDirection direction,
+                                       @IntRange(from = 0, to = 360) int roundaboutExitAngle, boolean hasRoundaboutExit)
   {
-    final int maneuverType = switch (carDirection)
+    final boolean clockwise = direction == RoundaboutDirection.Clockwise;
+    if (carDirection == CarDirection.LeaveRoundAbout)
+      return clockwise ? Maneuver.TYPE_ROUNDABOUT_EXIT_CW : Maneuver.TYPE_ROUNDABOUT_EXIT_CCW;
+
+    if (!hasRoundaboutExit || roundaboutExitNum <= 0)
+      return clockwise ? Maneuver.TYPE_ROUNDABOUT_ENTER_CW : Maneuver.TYPE_ROUNDABOUT_ENTER_CCW;
+
+    if (roundaboutExitAngle > 0 && direction != RoundaboutDirection.Unknown)
     {
-      case NoTurn, GoStraight -> Maneuver.TYPE_STRAIGHT;
-      case TurnRight -> Maneuver.TYPE_TURN_NORMAL_RIGHT;
-      case TurnSharpRight -> Maneuver.TYPE_TURN_SHARP_RIGHT;
-      case TurnSlightRight -> Maneuver.TYPE_TURN_SLIGHT_RIGHT;
-      case TurnLeft -> Maneuver.TYPE_TURN_NORMAL_LEFT;
-      case TurnSharpLeft -> Maneuver.TYPE_TURN_SHARP_LEFT;
-      case TurnSlightLeft -> Maneuver.TYPE_TURN_SLIGHT_LEFT;
-      case UTurnLeft -> Maneuver.TYPE_U_TURN_LEFT;
-      case UTurnRight -> Maneuver.TYPE_U_TURN_RIGHT;
-      // TODO (AndrewShkrob): add support for CW (clockwise) directions
-      case EnterRoundAbout, LeaveRoundAbout, StayOnRoundAbout -> Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CCW;
-      case StartAtEndOfStreet -> Maneuver.TYPE_DEPART;
-      case ReachedYourDestination -> Maneuver.TYPE_DESTINATION;
-      case ExitHighwayToLeft -> Maneuver.TYPE_OFF_RAMP_SLIGHT_LEFT;
-      case ExitHighwayToRight -> Maneuver.TYPE_OFF_RAMP_SLIGHT_RIGHT;
-    };
-    final Maneuver.Builder builder = new Maneuver.Builder(maneuverType);
-    if (maneuverType == Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CCW)
-      builder.setRoundaboutExitNumber(roundaboutExitNum > 0 ? roundaboutExitNum : 1);
-    builder.setIcon(
-        new CarIcon.Builder(IconCompat.createWithResource(context, carDirection.getTurnRes(roundaboutExitNum)))
-            .build());
-    return builder.build();
+      return clockwise ? Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CW_WITH_ANGLE
+                       : Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CCW_WITH_ANGLE;
+    }
+    return clockwise ? Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CW : Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CCW;
+  }
+
+  static void setRoundaboutFields(@NonNull Maneuver.Builder builder, int maneuverType, int roundaboutExitNum,
+                                  @IntRange(from = 0, to = 360) int roundaboutExitAngle)
+  {
+    if (maneuverType == Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CW_WITH_ANGLE
+        || maneuverType == Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CCW_WITH_ANGLE)
+    {
+      builder.setRoundaboutExitNumber(roundaboutExitNum);
+      // A *_WITH_ANGLE type is chosen for a positive angle only, which lint cannot infer.
+      builder.setRoundaboutExitAngle(Math.max(1, roundaboutExitAngle));
+    }
+    else if (maneuverType == Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CW
+             || maneuverType == Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CCW)
+    {
+      builder.setRoundaboutExitNumber(roundaboutExitNum);
+    }
   }
 }

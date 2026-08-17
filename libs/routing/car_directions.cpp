@@ -8,14 +8,86 @@
 #include "geometry/angles.hpp"
 #include "geometry/mercator.hpp"
 
+#include "base/math.hpp"
+
+#include <algorithm>
+#include <cmath>
+
 namespace routing
 {
 using namespace turns;
 using namespace ftypes;
 
+namespace
+{
+bool AddRoundaboutSweep(LoadedPathSegment const & segment, double & sweep)
+{
+  if (!segment.m_roundaboutCenter || segment.m_path.size() < 2)
+    return false;
+
+  auto const & center = *segment.m_roundaboutCenter;
+  for (size_t i = 1; i < segment.m_path.size(); ++i)
+  {
+    auto const & from = segment.m_path[i - 1].GetPoint();
+    auto const & to = segment.m_path[i].GetPoint();
+    sweep += ang::GetShortestDistance(ang::AngleTo(center, from), ang::AngleTo(center, to));
+  }
+  return true;
+}
+
+RoundaboutDirection DirectionFromRoundaboutSweep(double sweep)
+{
+  if (sweep > 0.0)
+    return RoundaboutDirection::CounterClockwise;
+  if (sweep < 0.0)
+    return RoundaboutDirection::Clockwise;
+  return RoundaboutDirection::Unknown;
+}
+
+RoundaboutDirection CalcRoundaboutDirection(IRoutingResult const & result, size_t firstRoundaboutSegment)
+{
+  auto const & segments = result.GetSegments();
+  double sweep = 0.0;
+  for (size_t i = firstRoundaboutSegment; i < segments.size() && segments[i].m_onRoundabout; ++i)
+    if (!AddRoundaboutSweep(segments[i], sweep))
+      return RoundaboutDirection::Unknown;
+  return DirectionFromRoundaboutSweep(sweep);
+}
+}  // namespace
+
 CarDirectionsEngine::CarDirectionsEngine(MwmDataSource & dataSource, std::shared_ptr<NumMwmIds> numMwmIds)
   : DirectionsEngine(dataSource, std::move(numMwmIds))
 {}
+
+RoundaboutInfo CalcRoundaboutInfo(IRoutingResult const & result, size_t outgoingSegmentIndex)
+{
+  auto const & segments = result.GetSegments();
+  ASSERT_GREATER(outgoingSegmentIndex, 0, ());
+  ASSERT_LESS(outgoingSegmentIndex, segments.size(), ());
+  ASSERT(segments[outgoingSegmentIndex - 1].m_onRoundabout, ());
+  ASSERT(!segments[outgoingSegmentIndex].m_onRoundabout, ());
+
+  RoundaboutInfo info;
+  info.m_hasExit = true;
+
+  size_t firstRoundaboutSegment = outgoingSegmentIndex - 1;
+  while (firstRoundaboutSegment > 0 && segments[firstRoundaboutSegment - 1].m_onRoundabout)
+    --firstRoundaboutSegment;
+
+  double sweep = 0.0;
+  for (size_t i = firstRoundaboutSegment; i < outgoingSegmentIndex; ++i)
+    if (!AddRoundaboutSweep(segments[i], sweep))
+      return info;
+
+  auto const direction = DirectionFromRoundaboutSweep(sweep);
+  if (direction == RoundaboutDirection::Unknown)
+    return info;
+
+  auto const roundedDegrees = static_cast<int32_t>(std::lround(std::abs(math::RadToDeg(sweep))));
+  info.m_exitAngle = static_cast<uint16_t>(std::clamp(roundedDegrees, 1, 360));
+  info.m_direction = direction;
+  return info;
+}
 
 void CarDirectionsEngine::FixupTurns(std::vector<RouteSegment> & routeSegments)
 {
@@ -76,8 +148,8 @@ void FixupCarTurns(std::vector<RouteSegment> & routeSegments)
       // It's possible for car to be on roundabout without entering it
       // if route calculation started at roundabout (e.g. if user made full turn on roundabout).
       if (enterRoundAbout != kInvalidEnter)
-        routeSegments[enterRoundAbout].SetTurnExits(exitNum + 1);
-      routeSegments[idx].SetTurnExits(exitNum + 1);  // For LeaveRoundAbout turn.
+        routeSegments[enterRoundAbout].SetRoundaboutExit(exitNum + 1, t.m_roundaboutInfo);
+      routeSegments[idx].SetRoundaboutExit(exitNum + 1, t.m_roundaboutInfo);  // For LeaveRoundAbout turn.
       enterRoundAbout = kInvalidEnter;
       exitNum = 0;
     }
@@ -131,6 +203,13 @@ size_t CarDirectionsEngine::GetTurnDirection(IRoutingResult const & result, size
 
   if (turnItem.m_turn == CarDirection::None)
     GetTurnDirectionBasic(result, outgoingSegmentIndex, numMwmIds, vehicleSettings, turnItem);
+
+  if (turnItem.m_turn == CarDirection::LeaveRoundAbout)
+    turnItem.m_roundaboutInfo = CalcRoundaboutInfo(result, outgoingSegmentIndex);
+  else if (turnItem.m_turn == CarDirection::EnterRoundAbout)
+    // FixupCarTurns replaces this provisional value with the exit's complete metadata unless the route
+    // ends on the ring.
+    turnItem.m_roundaboutInfo.m_direction = CalcRoundaboutDirection(result, outgoingSegmentIndex);
 
   // Lane information.
   if (turnItem.m_turn != CarDirection::None)

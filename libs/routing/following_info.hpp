@@ -48,6 +48,9 @@ public:
   /// Turn after m_turn. Returns NoTurn if there is no turns after.
   turns::CarDirection m_nextTurn;
   uint32_t m_exitNum;
+  turns::RoundaboutInfo m_roundaboutInfo;
+  uint32_t m_nextExitNum = 0;
+  turns::RoundaboutInfo m_nextRoundaboutInfo;
   //@}
   int m_time;
   /// Contains lane information on the edge before the turn.

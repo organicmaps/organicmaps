@@ -136,12 +136,32 @@ std::string DebugPrint(SegmentRange const & segmentRange)
 
 namespace turns
 {
+std::string DebugPrint(RoundaboutDirection direction)
+{
+  switch (direction)
+  {
+  case RoundaboutDirection::Unknown: return "Unknown";
+  case RoundaboutDirection::Clockwise: return "Clockwise";
+  case RoundaboutDirection::CounterClockwise: return "CounterClockwise";
+  }
+  UNREACHABLE();
+}
+
+std::string DebugPrint(RoundaboutInfo const & info)
+{
+  std::stringstream out;
+  out << "RoundaboutInfo { m_exitAngle = " << info.m_exitAngle << ", m_direction = " << DebugPrint(info.m_direction)
+      << ", m_hasExit = " << info.m_hasExit << " }";
+  return out.str();
+}
+
 std::string DebugPrint(TurnItem const & turnItem)
 {
   std::stringstream out;
   out << "TurnItem "
       << "{ m_index = " << turnItem.m_index << ", m_turn = " << DebugPrint(turnItem.m_turn)
       << ", m_lanes = " << ::DebugPrint(turnItem.m_lanes) << ", m_exitNum = " << turnItem.m_exitNum
+      << ", m_roundaboutInfo = " << DebugPrint(turnItem.m_roundaboutInfo)
       << ", m_pedestrianDir = " << DebugPrint(turnItem.m_pedestrianTurn) << " }";
   return out.str();
 }

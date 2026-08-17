@@ -79,6 +79,25 @@ void DirectionsEngine::LoadPathAttributes(FeatureID const & featureId, LoadedPat
   pathSegment.m_onRoundabout = m_roundAboutChecker(types);
   pathSegment.m_isOneWay = m_onewayChecker(types);
 
+  if (m_vehicleType == VehicleType::Car && pathSegment.m_onRoundabout)
+  {
+    // A roundabout is split into path segments at its junctions. Reuse its center so the full
+    // feature geometry is parsed once while car turn annotations are created.
+    if (!m_pathSegments.empty() && m_pathSegments.back().m_segmentRange.GetFeature() == featureId)
+    {
+      pathSegment.m_roundaboutCenter = m_pathSegments.back().m_roundaboutCenter;
+    }
+    else
+    {
+      ft->ParseGeometry(FeatureType::BEST_GEOMETRY);
+      auto const pointsCount = ft->GetPointsCount();
+      // A split roundabout can consist of open features whose individual bounding-box centers do
+      // not represent the ring. Keep its angle unknown rather than publish misleading geometry.
+      if (pointsCount >= 4 && ft->GetPoint(0) == ft->GetPoint(pointsCount - 1))
+        pathSegment.m_roundaboutCenter = ft->GetLimitRect(FeatureType::BEST_GEOMETRY).Center();
+    }
+  }
+
   pathSegment.m_roadNameInfo.m_mwmId = ft->GetID();
   pathSegment.m_roadNameInfo.m_isLink = pathSegment.m_isLink;
   pathSegment.m_roadNameInfo.m_junction_ref = ft->GetMetadata(feature::Metadata::FMD_JUNCTION_REF);
