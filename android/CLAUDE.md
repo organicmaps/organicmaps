@@ -11,7 +11,7 @@
 - Flavors: `google` (Play Store), `fdroid`, `web`, `huawei`
 - Types: `debug`, `release`, `beta`
 - Architecture flags: `-Parm64` (default), `-Parm32`, `-Px86`, `-Px86_64`
-- Build: `./gradlew assembleGoogleDebug -Parm64`
+- Build: `cd android && ./gradlew assembleGoogleDebug -Parm64`
 - Dependency versions: `gradle/libs.versions.toml`
 
 ## JNI bridge pattern
@@ -54,6 +54,7 @@ JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetDrawScale(JNIEnv * en
 - JUnit 4 with Mockito
 - Unit tests: `app/src/test/java/`, `sdk/src/test/java/`
 - Instrumentation tests: `sdk/src/androidTest/java/`
+- If applicable, test and review landscape/portrait, dark/light mode, LTR/RTL, phone/tablet layouts, and activity state restoration ("Don't keep activities")
 
 ## Java to Kotlin porting
 - Readability over brevity — don't chain multiple scope functions or use clever one-liners that obscure intent
@@ -77,9 +78,9 @@ JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetDrawScale(JNIEnv * en
 - Minimum SDK: 21; target SDK: latest stable
 - Java 17 source/target; Kotlin enabled in `app` module, other modules can opt in via `enableKotlin = true` in `build.gradle`
 - Run `ktlint --editorconfig=android/.editorconfig --format <file.kt>` after creating or editing Kotlin files
-- Run `./gradlew :app:detektCheck` to verify Kotlin naming and code quality; config in `android/detekt.yml`
+- Run `cd android && ./gradlew :app:detektCheck` to verify Kotlin naming and code quality; config in `android/detekt.yml`
 - NDK version: 29+; CMake: 3.22.1+
 - Deep link schemes: `geo://`, `om://`, `ge0://`, `ge0.me` (HTTP/HTTPS)
 - Permissions validated at build time via `permission-checker.gradle`
 - ProGuard: obfuscation disabled (`-dontobfuscate`), line numbers preserved
-- When editing translations in `app/src/main/res/values*/strings.xml` or store metadata, follow the translation rules in `data/CLAUDE.md`
+- When editing translations in `app/src/main/res/values*/strings.xml` or store metadata, follow the translation rules in [data/CLAUDE.md](../data/CLAUDE.md)

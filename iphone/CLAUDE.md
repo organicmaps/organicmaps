@@ -101,6 +101,7 @@ Swift services/UI or legacy ObjC -> ObjC/ObjC++ wrappers (`MWM*`) -> CoreApi -> 
 - Import: `@testable import Organic_Maps__Debug_`
 - Tests in `Maps/Tests/` (Core, UI, Bookmarks, CarPlay)
 - Mock objects follow `Mock*` naming convention
+- If applicable, test and review landscape/portrait, dark/light mode, LTR/RTL, iPhone/iPad layouts (incl. Split View), and state restoration after a background relaunch
 
 ## Localization
 - Language directories in `Maps/LocalizedStrings/`
@@ -111,4 +112,4 @@ Swift services/UI or legacy ObjC -> ObjC/ObjC++ wrappers (`MWM*`) -> CoreApi -> 
   2. Add it to `data/strings/strings.txt` with the `apple-maps` tag, value, and description
   3. Regenerate with `./tools/unix/generate_localizations.sh`
   4. Add translations only when explicitly requested by the user
-- When editing store metadata in `metadata/` or localized strings, follow the translation rules in `data/CLAUDE.md`
+- When editing store metadata in `metadata/` or localized strings, follow the translation rules in [data/CLAUDE.md](../data/CLAUDE.md)
