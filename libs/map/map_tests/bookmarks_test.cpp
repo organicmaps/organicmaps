@@ -251,6 +251,89 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ImportKML)
   TEST_EQUAL(bmManager.IsVisible(groupId), false, ());
 }
 
+// Categories are loaded from files that already exist on disk: the initial loading of the bookmarks directory,
+// an import that has been saved before, and a file reloaded after iCloud has changed it. Writing such a file
+// back would change its modification time and make every other device download a file nobody has edited.
+UNIT_CLASS_TEST(Runner, Bookmarks_LoadedCategoryIsNotSavedBack)
+{
+  string const fileName = base::JoinPath(GetBookmarksDirectory(), "NotSavedBack.kml");
+  SCOPE_GUARD(fileDeleter, [&]() { (void)base::DeleteFileX(fileName); });
+
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);  // Bookmarks are saved synchronously.
+
+  auto const loadFromFile = [&]()
+  {
+    BookmarkManager::KMLDataCollection kmlDataCollection;
+    kmlDataCollection.emplace_back(fileName, LoadKmlData(MemReader(kmlString, strlen(kmlString)), FileType::Kml));
+    TEST(kmlDataCollection.back().second, ());
+    bmManager.CreateCategories(std::move(kmlDataCollection), true /* autoSave */);
+    TEST_EQUAL(bmManager.GetBmGroupsCount(), 1, ());
+  };
+
+  loadFromFile();
+  TEST(!Platform::IsFileExistsByFullPath(fileName), ("A loaded category must not be saved back"));
+
+  // The same file is reloaded, as it happens when iCloud replaces it.
+  loadFromFile();
+  TEST(!Platform::IsFileExistsByFullPath(fileName), ("A reloaded category must not be saved back"));
+
+  // Autosave is enabled after the loading, so the user's changes are still saved.
+  auto const groupId = bmManager.GetUnsortedBmGroupsIdList().front();
+  // A category does not reserve its own name against the file it is reloaded from.
+  TEST_EQUAL(bmManager.GetCategoryName(groupId), "MapName", ("A reload must not rename the category"));
+  bmManager.GetEditSession().SetCategoryName(groupId, "Edited");
+  TEST(Platform::IsFileExistsByFullPath(fileName), ("An edited category must be saved"));
+}
+
+// A file changed on another device is reloaded in place: everything the file describes, including the category's
+// own metadata, must be taken from it. A name left over from the previous version would be uploaded back by the
+// next local edit and would revert the rename made on the other device.
+UNIT_CLASS_TEST(Runner, Bookmarks_ReloadedCategoryTakesMetadataFromTheFile)
+{
+  string const fileName = base::JoinPath(GetBookmarksDirectory(), "Reloaded.kml");
+  SCOPE_GUARD(fileDeleter, [&]() { (void)base::DeleteFileX(fileName); });
+
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  auto const loadFromFile = [&](string const & kml)
+  {
+    BookmarkManager::KMLDataCollection kmlDataCollection;
+    kmlDataCollection.emplace_back(fileName, LoadKmlData(MemReader(kml.data(), kml.size()), FileType::Kml));
+    TEST(kmlDataCollection.back().second, ());
+    bmManager.CreateCategories(std::move(kmlDataCollection), true /* autoSave */);
+    TEST_EQUAL(bmManager.GetBmGroupsCount(), 1, ());
+  };
+
+  loadFromFile(kmlString);
+  auto const groupId = bmManager.GetUnsortedBmGroupsIdList().front();
+  TEST_EQUAL(bmManager.GetCategoryName(groupId), "MapName", ());
+  TEST_EQUAL(bmManager.IsVisible(groupId), false, ());
+
+  string changed(kmlString);
+  auto const replace = [&changed](string const & from, string const & to)
+  {
+    auto const pos = changed.find(from);
+    TEST_NOT_EQUAL(pos, string::npos, ("Not found in the test KML:", from));
+    changed.replace(pos, from.size(), to);
+  };
+  replace("<name>MapName</name>", "<name>RemoteName</name>");
+  replace("<visibility>0</visibility>", "<visibility>1</visibility>");
+
+  loadFromFile(changed);
+  TEST_EQUAL(bmManager.GetUnsortedBmGroupsIdList().front(), groupId, ("The category is replaced in place"));
+  TEST_EQUAL(bmManager.GetCategoryName(groupId), "RemoteName", ("The name comes from the reloaded file"));
+  TEST_EQUAL(bmManager.IsVisible(groupId), true, ("The visibility comes from the reloaded file"));
+  CheckBookmarks(bmManager, groupId);
+
+  // The file does not carry the id, so the replaced category must keep the one it is stored under, otherwise
+  // it is not found by its file name and the next reload creates a duplicate instead of replacing it.
+  TEST_EQUAL(bmManager.GetCategoryData(groupId).m_id, groupId, ("The category keeps the id it is stored under"));
+  TEST_EQUAL(bmManager.GetCategoryByFileName(fileName), groupId, ("The reloaded category is found by its file"));
+  loadFromFile(changed);
+}
+
 UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
 {
   string const ext = ".kmb";

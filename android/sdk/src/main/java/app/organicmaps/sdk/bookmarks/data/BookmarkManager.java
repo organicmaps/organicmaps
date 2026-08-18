@@ -261,9 +261,12 @@ public enum BookmarkManager {
     nativeLoadBookmarks();
   }
 
-  public void deleteCategory(long catId)
+  /**
+   * @return false when there is no such list or its file could not be deleted, the list stays loaded then.
+   */
+  public boolean deleteCategory(long catId)
   {
-    nativeDeleteCategory(catId);
+    return nativeDeleteCategory(catId);
   }
 
   public void deleteTrack(long trackId)

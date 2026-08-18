@@ -12,7 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(assign, nonatomic, readonly) CLLocationCoordinate2D coordinate;
 @property(assign, nonatomic, readonly) CGPoint mercatorPoint;
 
-- (instancetype)initWithBookmarkId:(MWMMarkID)bookmarkId;
+/// @return nil when there is no bookmark with such an id.
+- (nullable instancetype)initWithBookmarkId:(MWMMarkID)bookmarkId;
 @end
 
 NS_ASSUME_NONNULL_END

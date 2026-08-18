@@ -299,7 +299,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
 
   private void onDeleteActionSelected(@NonNull BookmarkCategory category)
   {
-    BookmarkManager.INSTANCE.deleteCategory(category.getId());
+    if (!BookmarkManager.INSTANCE.deleteCategory(category.getId()))
+      Logger.w(TAG, "Failed to delete the list " + category.getName());
     getAdapter().notifyDataSetChanged();
   }
 

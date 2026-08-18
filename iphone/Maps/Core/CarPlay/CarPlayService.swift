@@ -63,6 +63,7 @@ final class CarPlayService: NSObject {
     router.setupCarPlaySpeedCameraMode()
     self.router = router
     MWMRouter.unsubscribeFromEvents()
+    BookmarksManager.shared().add(self)
     applyRootViewController()
     if let sessionData = router.restoredNavigationSession() {
       applyNavigationRootTemplate(trip: sessionData.0, routeInfo: sessionData.1)
@@ -126,6 +127,7 @@ final class CarPlayService: NSObject {
     }
     router?.removeListener(self)
     router?.unsubscribeFromEvents()
+    BookmarksManager.shared().remove(self)
     router?.setupInitialSpeedCameraMode()
     MWMRouter.subscribeToEvents()
     isCarplayActivated = false
@@ -602,6 +604,27 @@ extension CarPlayService: CarPlayRouterListener {
   }
 }
 
+// MARK: - BookmarksObserver implementation
+
+extension CarPlayService: BookmarksObserver {
+  func onBookmarksLoadFinished() {
+    refreshBookmarkLists()
+  }
+
+  func onBookmarksCategoryDeleted(_: MWMMarkGroupID) {
+    refreshBookmarkLists()
+  }
+
+  func onBookmarkDeleted(_: MWMMarkID) {
+    refreshBookmarkLists()
+  }
+
+  /// A load of the bookmarks gives them new ids, so every shown list is rebuilt from the currently loaded ones.
+  private func refreshBookmarkLists() {
+    interfaceController?.templates.forEach(ListTemplateBuilder.refreshBookmarks(in:))
+  }
+}
+
 // MARK: - LocationModeListener implementation
 
 extension CarPlayService: LocationModeListener {
@@ -703,12 +726,21 @@ extension CarPlayService {
       })
     case CPConstants.ListItemType.bookmarkLists where userInfo.metadata is CategoryInfo:
       let metadata = userInfo.metadata as! CategoryInfo
+      guard BookmarksManager.shared().hasCategory(metadata.category.categoryId) else {
+        refreshBookmarkLists()
+        completionHandler()
+        return
+      }
       let template = ListTemplateBuilder.buildListTemplate(for: .bookmarks(category: metadata.category))
       completionHandler()
       pushTemplate(template, animated: true)
     case CPConstants.ListItemType.bookmarks where userInfo.metadata is BookmarkInfo:
       let metadata = userInfo.metadata as! BookmarkInfo
-      let bookmark = MWMCarPlayBookmarkObject(bookmarkId: metadata.bookmarkId)
+      guard let bookmark = MWMCarPlayBookmarkObject(bookmarkId: metadata.bookmarkId) else {
+        refreshBookmarkLists()
+        completionHandler()
+        return
+      }
       preparePreview(forBookmark: bookmark)
       completionHandler()
     case CPConstants.ListItemType.searchResults where userInfo.metadata is SearchResultInfo:

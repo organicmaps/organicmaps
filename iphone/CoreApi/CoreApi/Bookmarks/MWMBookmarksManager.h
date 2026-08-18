@@ -67,7 +67,8 @@ NS_SWIFT_NAME(BookmarksManager)
 - (void)loadBookmarks;
 - (void)loadBookmarkFile:(NSURL *)url;
 - (void)reloadCategoryAtFilePath:(NSString *)filePath;
-- (void)deleteCategoryAtFilePath:(NSString *)filePath;
+/// @return NO when no loaded category corresponds to the file or its file could not be removed.
+- (BOOL)deleteCategoryAtFilePath:(NSString *)filePath;
 
 - (BOOL)areAllCategoriesEmpty;
 - (BOOL)isCategoryEmpty:(MWMMarkGroupID)groupId;
@@ -91,7 +92,8 @@ NS_SWIFT_NAME(BookmarksManager)
 - (BOOL)isCategoryVisible:(MWMMarkGroupID)groupId;
 - (void)setCategory:(MWMMarkGroupID)groupId isVisible:(BOOL)isVisible;
 - (void)setUserCategoriesVisible:(BOOL)isVisible;
-- (void)deleteCategory:(MWMMarkGroupID)groupId;
+/// @return NO when there is no such category or its file could not be moved to the trash.
+- (BOOL)deleteCategory:(MWMMarkGroupID)groupId;
 - (BOOL)checkCategoryName:(NSString *)name;
 - (BOOL)hasCategory:(MWMMarkGroupID)groupId;
 - (BOOL)hasBookmark:(MWMMarkID)bookmarkId;
@@ -105,6 +107,7 @@ NS_SWIFT_NAME(BookmarksManager)
 - (MWMBookmarksSortingType)lastSortingType:(MWMMarkGroupID)groupId;
 - (void)resetLastSortingType:(MWMMarkGroupID)groupId;
 
+/// @return an empty array when the category is not loaded.
 - (NSArray<MWMCarPlayBookmarkObject *> *)bookmarksForCategory:(MWMMarkGroupID)categoryId;
 - (MWMMarkIDCollection)bookmarkIdsForCategory:(MWMMarkGroupID)categoryId;
 - (void)deleteBookmark:(MWMMarkID)bookmarkId;

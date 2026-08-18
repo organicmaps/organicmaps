@@ -217,11 +217,15 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
   self.bm.ReloadBookmark(filePath.UTF8String);
 }
 
-- (void)deleteCategoryAtFilePath:(NSString *)filePath
+- (BOOL)deleteCategoryAtFilePath:(NSString *)filePath
 {
   auto const groupId = self.bm.GetCategoryByFileName(filePath.UTF8String);
-  if (groupId)
-    [self deleteCategory:groupId];
+  if (groupId == kml::kInvalidMarkGroupId)
+  {
+    LOG(LWARNING, ("No loaded category corresponds to", filePath.UTF8String));
+    return NO;
+  }
+  return [self deleteCategory:groupId];
 }
 
 #pragma mark - Categories
@@ -358,13 +362,15 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
   self.bm.SetAllCategoriesVisibility(isVisible);
 }
 
-- (void)deleteCategory:(MWMMarkGroupID)groupId
+- (BOOL)deleteCategory:(MWMMarkGroupID)groupId
 {
-  self.bm.GetEditSession().DeleteBmCategory(groupId, false /* move to the Trash */);
+  if (!self.bm.GetEditSession().DeleteBmCategory(groupId, false /* move to the Trash */))
+    return NO;
   [self loopObservers:^(id<MWMBookmarksObserver> observer) {
     if ([observer respondsToSelector:@selector(onBookmarksCategoryDeleted:)])
       [observer onBookmarksCategoryDeleted:groupId];
   }];
+  return YES;
 }
 
 - (BOOL)checkCategoryName:(NSString *)name
@@ -486,12 +492,17 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
 
 - (NSArray<MWMCarPlayBookmarkObject *> *)bookmarksForCategory:(MWMMarkGroupID)categoryId
 {
+  // A CarPlay list may outlive the category it was built for.
+  if (!self.bm.HasBmCategory(categoryId))
+    return @[];
+
   NSMutableArray<MWMCarPlayBookmarkObject *> * result = [NSMutableArray array];
   auto const & bookmarkIds = self.bm.GetUserMarkIds(categoryId);
   for (auto bookmarkId : bookmarkIds)
   {
     MWMCarPlayBookmarkObject * bookmark = [[MWMCarPlayBookmarkObject alloc] initWithBookmarkId:bookmarkId];
-    [result addObject:bookmark];
+    if (bookmark)
+      [result addObject:bookmark];
   }
   return [result copy];
 }

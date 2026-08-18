@@ -491,6 +491,8 @@
 		ED82C7622F90186300FA103D /* SynchronizationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6B02F90186300FA103D /* SynchronizationError.swift */; };
 		ED82C7632F90186300FA103D /* SynchronizationFileWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6B12F90186300FA103D /* SynchronizationFileWriter.swift */; };
 		ED82C7642F90186300FA103D /* SynchronizationStateResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6B22F90186300FA103D /* SynchronizationStateResolver.swift */; };
+		ABF19E010000000000000B02 /* SynchronizedStateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF19E010000000000000B01 /* SynchronizedStateStore.swift */; };
+		ABF19E010000000000000A02 /* SynchronizationFingerprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF19E010000000000000A01 /* SynchronizationFingerprint.swift */; };
 		ED82C7652F90186300FA103D /* MWMLocationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6B82F90186300FA103D /* MWMLocationManager.mm */; };
 		ED82C7662F90186300FA103D /* MWMLocationManager+SpeedAndAltitude.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6B92F90186300FA103D /* MWMLocationManager+SpeedAndAltitude.swift */; };
 		ED82C7672F90186300FA103D /* MWMLocationPredictor.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6BC2F90186300FA103D /* MWMLocationPredictor.mm */; };
@@ -619,10 +621,12 @@
 		EDC4E3692C5E6F5B009286A2 /* MockRecentlyDeletedCategoriesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E3402C5D1BD3009286A2 /* MockRecentlyDeletedCategoriesManager.swift */; };
 		EDCD96352F9BB4BE00B398FC /* PopoverListSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCD96342F9BB4BE00B398FC /* PopoverListSelectorViewController.swift */; };
 		EDF838BE2C00B9D0007E4E67 /* LocalDirectoryMonitorDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838AD2C00B9C7007E4E67 /* LocalDirectoryMonitorDelegateMock.swift */; };
-		EDF838BF2C00B9D0007E4E67 /* SynchronizationStateManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838AF2C00B9C7007E4E67 /* SynchronizationStateManagerTests.swift */; };
+		EDF838BF2C00B9D0007E4E67 /* SynchronizationStateResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838AF2C00B9C7007E4E67 /* SynchronizationStateResolverTests.swift */; };
 		EDF838C02C00B9D0007E4E67 /* DefaultLocalDirectoryMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838AE2C00B9C7007E4E67 /* DefaultLocalDirectoryMonitorTests.swift */; };
 		EDF838C12C00B9D6007E4E67 /* iCloudDirectoryMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838B22C00B9C7007E4E67 /* iCloudDirectoryMonitorTests.swift */; };
 		EDF838C22C00B9D6007E4E67 /* MetadataItemStubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838B42C00B9C7007E4E67 /* MetadataItemStubs.swift */; };
+		ABF19E010000000000000C02 /* FileContentFingerprintProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF19E010000000000000C01 /* FileContentFingerprintProviderTests.swift */; };
+		ABF19E020000000000000C02 /* SynchronizationFileWriterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF19E020000000000000C01 /* SynchronizationFileWriterTests.swift */; };
 		EDF838C32C00B9D6007E4E67 /* UbiquitousDirectoryMonitorDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838B12C00B9C7007E4E67 /* UbiquitousDirectoryMonitorDelegateMock.swift */; };
 		EDF838C42C00B9D6007E4E67 /* FileManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838B32C00B9C7007E4E67 /* FileManagerMock.swift */; };
 		F623DA6C1C9C2731006A3436 /* opening_hours_how_to_edit.html in Resources */ = {isa = PBXBuildFile; fileRef = F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */; };
@@ -1459,6 +1463,8 @@
 		ED82C6B02F90186300FA103D /* SynchronizationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynchronizationError.swift; sourceTree = "<group>"; };
 		ED82C6B12F90186300FA103D /* SynchronizationFileWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynchronizationFileWriter.swift; sourceTree = "<group>"; };
 		ED82C6B22F90186300FA103D /* SynchronizationStateResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynchronizationStateResolver.swift; sourceTree = "<group>"; };
+		ABF19E010000000000000B01 /* SynchronizedStateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynchronizedStateStore.swift; sourceTree = "<group>"; };
+		ABF19E010000000000000A01 /* SynchronizationFingerprint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynchronizationFingerprint.swift; sourceTree = "<group>"; };
 		ED82C6B42F90186300FA103D /* location_util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = location_util.h; sourceTree = "<group>"; };
 		ED82C6B52F90186300FA103D /* MountainElevationGenerator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MountainElevationGenerator.hpp; sourceTree = "<group>"; };
 		ED82C6B62F90186300FA103D /* MWMLocationHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMLocationHelpers.h; sourceTree = "<group>"; };
@@ -1695,11 +1701,13 @@
 		EDCD96342F9BB4BE00B398FC /* PopoverListSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverListSelectorViewController.swift; sourceTree = "<group>"; };
 		EDF838AD2C00B9C7007E4E67 /* LocalDirectoryMonitorDelegateMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalDirectoryMonitorDelegateMock.swift; sourceTree = "<group>"; };
 		EDF838AE2C00B9C7007E4E67 /* DefaultLocalDirectoryMonitorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultLocalDirectoryMonitorTests.swift; sourceTree = "<group>"; };
-		EDF838AF2C00B9C7007E4E67 /* SynchronizationStateManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizationStateManagerTests.swift; sourceTree = "<group>"; };
+		EDF838AF2C00B9C7007E4E67 /* SynchronizationStateResolverTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizationStateResolverTests.swift; sourceTree = "<group>"; };
 		EDF838B12C00B9C7007E4E67 /* UbiquitousDirectoryMonitorDelegateMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UbiquitousDirectoryMonitorDelegateMock.swift; sourceTree = "<group>"; };
 		EDF838B22C00B9C7007E4E67 /* iCloudDirectoryMonitorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iCloudDirectoryMonitorTests.swift; sourceTree = "<group>"; };
 		EDF838B32C00B9C7007E4E67 /* FileManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerMock.swift; sourceTree = "<group>"; };
 		EDF838B42C00B9C7007E4E67 /* MetadataItemStubs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetadataItemStubs.swift; sourceTree = "<group>"; };
+		ABF19E010000000000000C01 /* FileContentFingerprintProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileContentFingerprintProviderTests.swift; sourceTree = "<group>"; };
+		ABF19E020000000000000C01 /* SynchronizationFileWriterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynchronizationFileWriterTests.swift; sourceTree = "<group>"; };
 		EE026F0511D6AC0D00645242 /* classificator.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = classificator.txt; path = ../../data/classificator.txt; sourceTree = SOURCE_ROOT; };
 		F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = opening_hours_how_to_edit.html; path = ../../data/opening_hours_how_to_edit.html; sourceTree = "<group>"; };
 		F6C3A1B121AC22810060EEC8 /* Alert 5.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Alert 5.m4a"; sourceTree = "<group>"; };
@@ -3638,6 +3646,8 @@
 				ED82C6B02F90186300FA103D /* SynchronizationError.swift */,
 				ED82C6B12F90186300FA103D /* SynchronizationFileWriter.swift */,
 				ED82C6B22F90186300FA103D /* SynchronizationStateResolver.swift */,
+				ABF19E010000000000000B01 /* SynchronizedStateStore.swift */,
+				ABF19E010000000000000A01 /* SynchronizationFingerprint.swift */,
 			);
 			path = iCloud;
 			sourceTree = "<group>";
@@ -4061,7 +4071,9 @@
 			isa = PBXGroup;
 			children = (
 				EDF838AC2C00B9C7007E4E67 /* DefaultLocalDirectoryMonitorTests */,
-				EDF838AF2C00B9C7007E4E67 /* SynchronizationStateManagerTests.swift */,
+				EDF838AF2C00B9C7007E4E67 /* SynchronizationStateResolverTests.swift */,
+				ABF19E010000000000000C01 /* FileContentFingerprintProviderTests.swift */,
+				ABF19E020000000000000C01 /* SynchronizationFileWriterTests.swift */,
 				EDF838B02C00B9C7007E4E67 /* iCloudDirectoryMonitorTests */,
 				EDF838B42C00B9C7007E4E67 /* MetadataItemStubs.swift */,
 			);
@@ -4647,6 +4659,8 @@
 				ED82C7622F90186300FA103D /* SynchronizationError.swift in Sources */,
 				ED82C7632F90186300FA103D /* SynchronizationFileWriter.swift in Sources */,
 				ED82C7642F90186300FA103D /* SynchronizationStateResolver.swift in Sources */,
+				ABF19E010000000000000B02 /* SynchronizedStateStore.swift in Sources */,
+				ABF19E010000000000000A02 /* SynchronizationFingerprint.swift in Sources */,
 				ED82C7652F90186300FA103D /* MWMLocationManager.mm in Sources */,
 				ED82C7662F90186300FA103D /* MWMLocationManager+SpeedAndAltitude.swift in Sources */,
 				ED82C7672F90186300FA103D /* MWMLocationPredictor.mm in Sources */,
@@ -4954,7 +4968,9 @@
 				EDF838BE2C00B9D0007E4E67 /* LocalDirectoryMonitorDelegateMock.swift in Sources */,
 				EDC4E3692C5E6F5B009286A2 /* MockRecentlyDeletedCategoriesManager.swift in Sources */,
 				ED9DDF9D2D6F6F7900645BC8 /* TrackRecordingManagerTests.swift in Sources */,
-				EDF838BF2C00B9D0007E4E67 /* SynchronizationStateManagerTests.swift in Sources */,
+				EDF838BF2C00B9D0007E4E67 /* SynchronizationStateResolverTests.swift in Sources */,
+				ABF19E010000000000000C02 /* FileContentFingerprintProviderTests.swift in Sources */,
+				ABF19E020000000000000C02 /* SynchronizationFileWriterTests.swift in Sources */,
 				ED810EC52D566E9B00ECDE2C /* SearchOnMapTests.swift in Sources */,
 				4B83AE4B2C2E642100B0C3BC /* TTSTesterTest.m in Sources */,
 				EDF838C22C00B9D6007E4E67 /* MetadataItemStubs.swift in Sources */,

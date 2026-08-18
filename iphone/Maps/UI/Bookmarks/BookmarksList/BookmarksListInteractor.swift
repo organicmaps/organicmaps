@@ -142,7 +142,10 @@ extension BookmarksListInteractor: IBookmarksListInteractor {
   }
 
   func deleteBookmarksGroup() {
-    bookmarksManager.deleteCategory(markGroupId)
+    // The screen is closed by the observer callback, which is not sent when the list is still there.
+    if !bookmarksManager.deleteCategory(markGroupId) {
+      LOG(.warning, "Failed to delete the category \(markGroupId)")
+    }
   }
 
   func canDeleteGroup() -> Bool {

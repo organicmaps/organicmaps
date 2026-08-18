@@ -1,17 +1,17 @@
 protocol CloudDirectoryMonitor: DirectoryMonitor {
   var delegate: CloudDirectoryMonitorDelegate? { get set }
+  /// Identifies the iCloud account the files belong to.
+  var cloudIdentity: Data? { get }
 
   func fetchUbiquityDirectoryUrl(completion: ((Result<URL, Error>) -> Void)?)
   func isCloudAvailable() -> Bool
 }
 
 protocol CloudDirectoryMonitorDelegate: AnyObject {
-  func didFinishGathering(_ contents: CloudContents)
-  func didUpdate(_ contents: CloudContents, _ update: CloudContentsUpdate)
+  func didReceiveCloudSnapshot(_ snapshot: CloudSnapshot)
   func didReceiveCloudMonitorError(_ error: Error)
 }
 
-private let kUDCloudIdentityKey = "com.apple.organicmaps.UbiquityIdentityToken"
 private let kDocumentsDirectoryName = "Documents"
 
 final class iCloudDocumentsMonitor: NSObject, CloudDirectoryMonitor {
@@ -28,7 +28,9 @@ final class iCloudDocumentsMonitor: NSObject, CloudDirectoryMonitor {
   private let fileType: FileType // TODO: Should be removed when the nested directory support will be implemented
   private var metadataQuery: NSMetadataQuery?
   private var ubiquitousDocumentsDirectory: URL?
-  private var previouslyChangedContents = CloudContentsUpdate()
+  /// Numbers the starts. Asking iCloud where the directory is may take a while, and the monitor can be stopped
+  /// or started again meanwhile: a lookup that outlives the start that asked for it must start nothing.
+  private var startGeneration = 0
 
   // MARK: - Public properties
 
@@ -52,10 +54,18 @@ final class iCloudDocumentsMonitor: NSObject, CloudDirectoryMonitor {
       completion?(.failure(SynchronizationError.iCloudIsNotAvailable))
       return
     }
+    // A monitor that is running, or one whose start is in progress, is left alone: it observes the same directory.
+    guard state == .stopped else { return }
+    state = .starting
+    startGeneration += 1
+    let generation = startGeneration
     fetchUbiquityDirectoryUrl { [weak self] result in
-      guard let self else { return }
+      // The start this answer belongs to was cancelled by a stop or superseded by a newer one: nothing of it
+      // may be started anymore, and whoever asked for it does not wait for the answer.
+      guard let self, generation == startGeneration else { return }
       switch result {
       case .failure(let error):
+        self.state = .stopped
         completion?(.failure(error))
       case .success(let url):
         LOG(.debug, "Start cloud monitor.")
@@ -67,25 +77,35 @@ final class iCloudDocumentsMonitor: NSObject, CloudDirectoryMonitor {
   }
 
   func stop() {
+    // The container of another iCloud account is not the one that was looked up, and the account may change
+    // while the monitor is stopped: every cached iCloud reference is forgotten here and fetched again on start.
+    ubiquitousDocumentsDirectory = nil
+    startGeneration += 1
     guard state != .stopped else { return }
     LOG(.debug, "Stop cloud monitor.")
     stopQuery()
     state = .stopped
-    previouslyChangedContents = CloudContentsUpdate()
   }
 
   func resume() {
-    guard state != .started else { return }
+    guard state == .paused else { return }
     LOG(.debug, "Resume cloud monitor.")
     metadataQuery?.enableUpdates()
     state = .started
   }
 
   func pause() {
-    guard state != .paused else { return }
+    guard state == .started else { return }
     LOG(.debug, "Pause cloud monitor.")
     metadataQuery?.disableUpdates()
     state = .paused
+  }
+
+  /// Publishes the current query results. Used to check that a file is still missing: iCloud does not notify
+  /// about a file that stays absent.
+  func refresh() {
+    guard state == .started, let metadataQuery, metadataQuery.isStarted else { return }
+    publishSnapshot(of: metadataQuery)
   }
 
   func fetchUbiquityDirectoryUrl(completion: ((Result<URL, Error>) -> Void)? = nil) {
@@ -93,43 +113,47 @@ final class iCloudDocumentsMonitor: NSObject, CloudDirectoryMonitor {
       completion?(.success(ubiquitousDocumentsDirectory))
       return
     }
+    // The metadata query and the directory URL belong to the main queue: only the lookup itself is done in
+    // the background, because it may block until iCloud answers.
     DispatchQueue.global().async {
       guard let containerUrl = self.fileManager.url(forUbiquityContainerIdentifier: self.containerIdentifier) else {
         LOG(.warning, "Failed to retrieve container's URL for:\(self.containerIdentifier)")
-        completion?(.failure(SynchronizationError.containerNotFound))
+        DispatchQueue.main.async { completion?(.failure(SynchronizationError.containerNotFound)) }
         return
       }
-      let documentsContainerUrl = containerUrl.appendingPathComponent(kDocumentsDirectoryName)
+      let documentsContainerUrl = containerUrl.appendingPathComponent(kDocumentsDirectoryName, isDirectory: true)
       if !self.fileManager.fileExists(atPath: documentsContainerUrl.path) {
         LOG(.debug, "Creating directory at path: \(documentsContainerUrl.path)...")
         do {
           try self.fileManager.createDirectory(at: documentsContainerUrl, withIntermediateDirectories: true)
         } catch {
-          completion?(.failure(SynchronizationError.containerNotFound))
+          DispatchQueue.main.async { completion?(.failure(SynchronizationError.containerNotFound)) }
+          return
         }
       }
       LOG(.debug, "Ubiquity directory URL: \(documentsContainerUrl)")
-      self.ubiquitousDocumentsDirectory = documentsContainerUrl
-      completion?(.success(documentsContainerUrl))
+      DispatchQueue.main.async {
+        self.ubiquitousDocumentsDirectory = documentsContainerUrl.standardizedFileURL
+        completion?(.success(documentsContainerUrl))
+      }
+    }
+  }
+
+  var cloudIdentity: Data? {
+    guard let cloudToken = fileManager.ubiquityIdentityToken else {
+      LOG(.warning, "Cloud is not available. Cloud token is nil.")
+      return nil
+    }
+    do {
+      return try NSKeyedArchiver.archivedData(withRootObject: cloudToken, requiringSecureCoding: true)
+    } catch {
+      LOG(.warning, "Failed to archive cloud token: \(error)")
+      return nil
     }
   }
 
   func isCloudAvailable() -> Bool {
-    let cloudToken = fileManager.ubiquityIdentityToken
-    guard let cloudToken else {
-      UserDefaults.standard.removeObject(forKey: kUDCloudIdentityKey)
-      LOG(.warning, "Cloud is not available. Cloud token is nil.")
-      return false
-    }
-    do {
-      let data = try NSKeyedArchiver.archivedData(withRootObject: cloudToken, requiringSecureCoding: true)
-      UserDefaults.standard.set(data, forKey: kUDCloudIdentityKey)
-      return true
-    } catch {
-      UserDefaults.standard.removeObject(forKey: kUDCloudIdentityKey)
-      LOG(.warning, "Failed to archive cloud token: \(error)")
-      return false
-    }
+    fileManager.ubiquityIdentityToken != nil
   }
 }
 
@@ -139,8 +163,8 @@ private extension iCloudDocumentsMonitor {
   // MARK: - MetadataQuery
 
   func subscribeOnMetadataQueryNotifications() {
-    NotificationCenter.default.addObserver(self, selector: #selector(queryDidFinishGathering(_:)), name: NSNotification.Name.NSMetadataQueryDidFinishGathering, object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(queryDidUpdate(_:)), name: NSNotification.Name.NSMetadataQueryDidUpdate, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(queryDidChange(_:)), name: NSNotification.Name.NSMetadataQueryDidFinishGathering, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(queryDidChange(_:)), name: NSNotification.Name.NSMetadataQueryDidUpdate, object: nil)
   }
 
   func startQuery() {
@@ -156,43 +180,25 @@ private extension iCloudDocumentsMonitor {
     metadataQuery = nil
   }
 
-  @objc func queryDidFinishGathering(_ notification: Notification) {
-    guard isCloudAvailable() else { return }
-    metadataQuery?.disableUpdates()
-    LOG(.debug, "Query did finish gathering")
-    do {
-      let currentContents = try Self.getCurrentContents(notification)
-      LOG(.info, "Cloud contents (\(currentContents.count)):")
-      currentContents.forEach { LOG(.info, $0.shortDebugDescription) }
-      delegate?.didFinishGathering(currentContents)
-    } catch {
-      delegate?.didReceiveCloudMonitorError(error)
-    }
-    metadataQuery?.enableUpdates()
+  /** The notification's `added`, `changed` and `removed` lists describe how the query results changed and not
+   what the user did: iCloud reports a file as removed while it is being replaced, reindexed or trashed.
+   Only the complete list of the current results is published, and the synchronization decides what changed. */
+  @objc func queryDidChange(_ notification: Notification) {
+    guard isCloudAvailable(), let metadataQuery, (notification.object as? NSMetadataQuery) === metadataQuery else { return }
+    publishSnapshot(of: metadataQuery)
   }
 
-  @objc func queryDidUpdate(_ notification: Notification) {
-    guard isCloudAvailable() else { return }
-    metadataQuery?.disableUpdates()
-    LOG(.debug, "Query did update")
-    do {
-      let changedContents = try Self.getChangedContents(notification)
-      /* The metadataQuery can send the same changes multiple times with only uploading/downloading process updates.
-       This unnecessary updated should be skipped. */
-      if changedContents != previouslyChangedContents {
-        previouslyChangedContents = changedContents
-        let currentContents = try Self.getCurrentContents(notification)
-        LOG(.info, "Cloud contents (\(currentContents.count)):")
-        currentContents.forEach { LOG(.info, $0.shortDebugDescription) }
-        LOG(.info, "Added to the cloud content (\(changedContents.added.count)): \n\(changedContents.added.shortDebugDescription)")
-        LOG(.info, "Updated in the cloud content (\(changedContents.updated.count)): \n\(changedContents.updated.shortDebugDescription)")
-        LOG(.info, "Removed from the cloud content (\(changedContents.removed.count)): \n\(changedContents.removed.shortDebugDescription)")
-        delegate?.didUpdate(currentContents, changedContents)
-      }
-    } catch {
-      delegate?.didReceiveCloudMonitorError(error)
+  func publishSnapshot(of metadataQuery: NSMetadataQuery) {
+    guard let ubiquitousDocumentsDirectory else {
+      delegate?.didReceiveCloudMonitorError(SynchronizationError.containerNotFound)
+      return
     }
-    metadataQuery?.enableUpdates()
+    metadataQuery.disableUpdates()
+    defer { metadataQuery.enableUpdates() }
+
+    let snapshot = Self.snapshot(of: metadataQuery, in: ubiquitousDocumentsDirectory)
+    LOG(.debug, "Cloud contents: \(snapshot.shortDebugDescription)")
+    delegate?.didReceiveCloudSnapshot(snapshot)
   }
 
   static func buildMetadataQuery(for fileType: FileType) -> NSMetadataQuery {
@@ -203,45 +209,39 @@ private extension iCloudDocumentsMonitor {
     metadataQuery.sortDescriptors = [NSSortDescriptor(key: NSMetadataItemFSNameKey, ascending: true)]
     return metadataQuery
   }
+}
 
-  static func getCurrentContents(_ notification: Notification) throws -> [CloudMetadataItem] {
-    guard let metadataQuery = notification.object as? NSMetadataQuery,
-          let metadataItems = metadataQuery.results as? [NSMetadataItem]
-    else {
-      throw SynchronizationError.failedToRetrieveMetadataQueryContent
-    }
-    return try metadataItems.map { try CloudMetadataItem(metadataItem: $0) }
-  }
-
-  static func getChangedContents(_ notification: Notification) throws -> CloudContentsUpdate {
-    guard let userInfo = notification.userInfo else {
-      throw SynchronizationError.failedToRetrieveMetadataQueryContent
-    }
-    let addedMetadataItems = userInfo[NSMetadataQueryUpdateAddedItemsKey] as? [NSMetadataItem] ?? []
-    let updatedMetadataItems = userInfo[NSMetadataQueryUpdateChangedItemsKey] as? [NSMetadataItem] ?? []
-    let removedMetadataItems = userInfo[NSMetadataQueryUpdateRemovedItemsKey] as? [NSMetadataItem] ?? []
-    let addedContents = try addedMetadataItems.map { try CloudMetadataItem(metadataItem: $0) }
-    let updatedContents = try updatedMetadataItems.map { try CloudMetadataItem(metadataItem: $0) }.filter { item in
-      /* During the file deletion from the iCloud the file may be marked as `downloaded` by the system
-       but doesn't exist because it is already deleted to the trash.
-       This file will appear in the `deleted` list in the next notification.
-       Such files should be skipped to avoid unnecessary updates and unexpected behavior.
-       See https://github.com/organicmaps/organicmaps/pull/10070 for details. */
-      if item.isDownloaded, !FileManager.default.fileExists(atPath: item.fileUrl.path) {
-        LOG(.warning, "Skip the update of the file that doesn't exist in the file system: \(item.fileUrl)")
-        return false
+extension iCloudDocumentsMonitor {
+  static func snapshot(of metadataQuery: NSMetadataQuery, in directory: URL) -> CloudSnapshot {
+    var items = CloudContents()
+    var unavailableFileNames = Set<String>()
+    var isComplete = true
+    for case let metadataItem as NSMetadataItem in metadataQuery.results {
+      switch CloudMetadataItem.observation(from: metadataItem) {
+      case .actionable(let item):
+        // Files in the trash and in nested directories are not synchronized and are not a part of the directory.
+        guard item.fileUrl.isInside(directory) else { continue }
+        items.append(item)
+      case .unusable(let fileName, let fileUrl, let missingAttributes):
+        /* The same holds for a file that is only known to exist: reported under its bare name, a copy iCloud is
+         moving to the trash would stand for the file in the directory and keep it from ever being confirmed as
+         gone. An item without a URL cannot be placed anywhere, so it counts for the directory it was found in. */
+        guard fileUrl.map({ $0.isInside(directory) }) ?? true else { continue }
+        LOG(.warning, "iCloud file \(fileName) is not available: no \(missingAttributes.joined(separator: ", "))")
+        unavailableFileNames.insert(fileName)
+      case .unidentifiable(let missingAttributes):
+        LOG(.warning, "Unidentifiable iCloud item: no \(missingAttributes.joined(separator: ", "))")
+        isComplete = false
       }
-      return true
     }
-    let removedContents = try removedMetadataItems.map { try CloudMetadataItem(metadataItem: $0) }
-    return CloudContentsUpdate(added: addedContents, updated: updatedContents, removed: removedContents)
+    return CloudSnapshot(items: items, unavailableFileNames: unavailableFileNames, isComplete: isComplete)
   }
 }
 
-private extension CloudContentsUpdate {
-  init() {
-    added = []
-    updated = []
-    removed = []
+private extension URL {
+  /// Paths are compared, not URLs: whether appendingPathComponent produced a trailing slash depends on the
+  /// directory already existing when the URL was built, and on the first launch it does not.
+  func isInside(_ directory: URL) -> Bool {
+    deletingLastPathComponent().path == directory.path
   }
 }
