@@ -22,6 +22,17 @@ namespace
 {
 double constexpr kOnEndToleranceM = 10.0;
 double constexpr kSteetNameLinkMeters = 400.0;
+// Minimum distance from the raw fix to its route projection to treat an off-road intermediate
+// checkpoint as departed: above typical lateral GPS error, below the smallest matching
+// threshold (20 m, pedestrian), so the decision is made while the fix still matches the route.
+// The stop can therefore be passed in [kCheckpointDepartM, m_matchingThresholdM] past its road
+// point: 15-50 m for a car, 15-20 m for a pedestrian -- the tightest window, ~3 fixes at 1 Hz.
+double constexpr kCheckpointDepartM = 15.0;
+// Slack for "the user is at/heading into the stop" check: dist(fix, B) < connector - slack.
+double constexpr kCheckpointStillNearM = 5.0;
+// How far above the plateau the remaining distance may still be when the projection is considered
+// saturated at the road point of the checkpoint. Rounding only: the projection lands exactly on it.
+double constexpr kCheckpointPlateauM = 1.0;
 }  //  namespace
 
 std::string DebugPrint(RouteSegment::RoadNameInfo const & rni)
@@ -642,9 +653,34 @@ bool Route::MatchLocationToRoute(location::GpsInfo & location, location::RouteMa
   return false;
 }
 
-bool Route::IsSubroutePassed(size_t subrouteIdx) const
+double Route::GetSubrouteEndConnectorMeters(SubrouteAttrs const & attrs) const
 {
-  size_t const endSegmentIdx = GetSubrouteAttrs(subrouteIdx).GetEndSegmentIdx();
+  // Ruler-router legs are 1-2 segments of pure fakes (see the layout table in ruler_router.cpp),
+  // so the tail check below would accept them and derive a bogus "connector" spanning the whole
+  // leg. Bail out first; this also keeps |endSegmentIdx| - 3 within the segments.
+  if (attrs.GetSize() < 3)
+    return 0.0;
+
+  size_t const endSegmentIdx = attrs.GetEndSegmentIdx();
+  ASSERT_LESS_OR_EQUAL(endSegmentIdx, m_routeSegments.size(), ());
+  // IndexGraphStarter::AddEnding() ends every subroute with two pure fake segments: the projection
+  // edge A->B and the zero-length standalone B->B, where B is the raw checkpoint and A is its
+  // projection onto a road -- the last drivable point of the subroute. Any other tail keeps the
+  // plain pass rule.
+  if (m_routeSegments[endSegmentIdx - 1].GetSegment().IsRealSegment() ||
+      m_routeSegments[endSegmentIdx - 2].GetSegment().IsRealSegment())
+    return 0.0;
+
+  // |A - B|: the standalone is zero-length, so this is also the remaining-distance plateau of the
+  // subroute. Both properties are pinned by PassCheckpoint_EndingTailInvariant.
+  return mercator::DistanceOnEarth(m_routeSegments[endSegmentIdx - 3].GetJunction().GetPoint(),
+                                   m_routeSegments[endSegmentIdx - 1].GetJunction().GetPoint());
+}
+
+bool Route::IsSubroutePassed(size_t subrouteIdx, m2::PointD const & fixPoint, double fixSpeedMpS) const
+{
+  auto const & attrs = GetSubrouteAttrs(subrouteIdx);
+  size_t const endSegmentIdx = attrs.GetEndSegmentIdx();
   // If all subroutes up to subrouteIdx are empty.
   if (endSegmentIdx == 0)
     return true;
@@ -653,9 +689,38 @@ bool Route::IsSubroutePassed(size_t subrouteIdx) const
   CHECK_LESS(segmentIdx, m_routeSegments.size(), ());
   double const lengthMeters = m_routeSegments[segmentIdx].GetDistFromBeginningMeters();
   double const passedDistanceMeters = m_poly.GetDistanceFromStartMeters();
-  double const finishToleranceM =
-      segmentIdx == m_routeSegments.size() - 1 ? m_routingSettings.m_finishToleranceM : kOnEndToleranceM;
-  return lengthMeters - passedDistanceMeters < finishToleranceM;
+  double const remainingMeters = lengthMeters - passedDistanceMeters;
+
+  if (segmentIdx == m_routeSegments.size() - 1)
+    return remainingMeters < m_routingSettings.m_finishToleranceM;
+
+  double const connectorMeters = GetSubrouteEndConnectorMeters(attrs);
+  if (connectorMeters < kOnEndToleranceM)
+    return remainingMeters < kOnEndToleranceM;
+
+  // The checkpoint sits >= kOnEndToleranceM off the road, so the remaining distance never drops
+  // below the connector length: it plateaus there once the projection saturates at A. Wait for the
+  // plateau -- a lateral GPS error does not move the projection, so it alone can never pass a stop
+  // the user is still driving up to.
+  if (remainingMeters > connectorMeters + kCheckpointPlateauM)
+    return false;
+
+  // Pass the stop only once the raw fix has left A behind and is not at/heading into the stop, so
+  // that a user who really visits the checkpoint keeps it until departure.
+  if (mercator::DistanceOnEarth(fixPoint, m_poly.GetCurrentIter().m_pt) < kCheckpointDepartM)
+    return false;
+
+  // B is the junction of the trailing standalone fake. It is taken from the segments and not from
+  // attrs.GetFinish(), which IndexRouter::AdjustRoute() fills with the route's final destination
+  // instead of the intermediate checkpoint for the leg it rebuilds.
+  auto const & checkpoint = m_routeSegments[segmentIdx].GetJunction().GetPoint();
+  if (mercator::DistanceOnEarth(fixPoint, checkpoint) < connectorMeters - kCheckpointStillNearM)
+    return false;
+
+  // At standstill GPS wander alone can satisfy every distance condition above; require real
+  // movement where the vehicle defines a minimum speed (car only). A fix without speed data
+  // (negative, as location::GpsInfo::HasSpeed()) must not block passing forever.
+  return fixSpeedMpS < 0.0 || fixSpeedMpS >= m_routingSettings.m_minSpeedForRouteRebuildMpS;
 }
 
 std::string Route::DebugPrintTurns() const
