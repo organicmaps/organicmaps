@@ -285,6 +285,15 @@ public enum BookmarkManager {
   }
 
   /**
+   * Unlike a scan of {@link #getCategories()}, this also sees child lists: the core keeps them in a separate map.
+   * Unlike {@link #getCategoryById(long)}, it does not abort on a category that is gone.
+   */
+  public boolean hasCategory(long catId)
+  {
+    return nativeHasCategory(catId);
+  }
+
+  /**
    * Deletes several bookmarks and tracks at once. Ids that no longer exist are skipped.
    */
   public void deleteBookmarksAndTracks(@NonNull long[] bookmarkIds, @NonNull long[] trackIds)
@@ -641,6 +650,8 @@ public enum BookmarkManager {
   private native void nativeDeleteBookmark(long bmkId);
 
   private static native boolean nativeHasTrack(long trackId);
+
+  private static native boolean nativeHasCategory(long catId);
 
   private static native void nativeDeleteBookmarksAndTracks(@NonNull long[] bookmarkIds, @NonNull long[] trackIds);
 

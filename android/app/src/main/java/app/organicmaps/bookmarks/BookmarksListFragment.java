@@ -1470,7 +1470,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     // A load rebuilds every category from its file, so the one this screen was opened with can be gone. Nothing
     // below may run then, adapter creation included: every lookup, down to the ids the list is laid out from,
     // goes to the core by category id and aborts there for a group it no longer has.
-    if (!hasCategory(mCategoryDataSource.getData().getId()))
+    if (!BookmarkManager.INSTANCE.hasCategory(mCategoryDataSource.getData().getId()))
     {
       requireActivity().finish();
       return;
@@ -1525,7 +1525,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private boolean refreshFromCore()
   {
     final long categoryId = mCategoryDataSource.getData().getId();
-    if (!hasCategory(categoryId))
+    if (!BookmarkManager.INSTANCE.hasCategory(categoryId))
     {
       requireActivity().finish();
       return false;
@@ -1551,15 +1551,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     // Drop the snapshot rather than keep one that no longer matches the category.
     if (mLastSortTimestamp == 0)
       getBookmarkListAdapter().setSortedResults(null);
-  }
-
-  private static boolean hasCategory(long categoryId)
-  {
-    // Reads the cached list rather than asking the core by id, which would abort on a category that is gone.
-    for (BookmarkCategory category : BookmarkManager.INSTANCE.getCategories())
-      if (category.getId() == categoryId)
-        return true;
-    return false;
   }
 
   private void updateToolbarTitle()

@@ -3,7 +3,6 @@ package app.organicmaps.sdk.bookmarks.data;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.sdk.content.DataSource;
-import java.util.List;
 
 public class CategoryDataSource extends RecyclerView.AdapterDataObserver implements DataSource<BookmarkCategory>
 {
@@ -26,10 +25,11 @@ public class CategoryDataSource extends RecyclerView.AdapterDataObserver impleme
   public void onChanged()
   {
     super.onChanged();
-    List<BookmarkCategory> categories = BookmarkManager.INSTANCE.getCategories();
-    int index = categories.indexOf(mCategory);
-    if (index >= 0)
-      mCategory = categories.get(index);
+    // Looked up by id rather than scanned out of getCategories(), which holds top-level lists only: a child list
+    // would never be found there and the screen would keep the snapshot it was opened with.
+    final long id = mCategory.getId();
+    if (BookmarkManager.INSTANCE.hasCategory(id))
+      mCategory = BookmarkManager.INSTANCE.getCategoryById(id);
   }
 
   @Override

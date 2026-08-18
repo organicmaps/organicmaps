@@ -286,6 +286,12 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativ
   return static_cast<jboolean>(frm()->GetBookmarkManager().HasTrack(static_cast<kml::TrackId>(trackId)));
 }
 
+JNIEXPORT jboolean Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeHasCategory(JNIEnv *, jclass,
+                                                                                             jlong catId)
+{
+  return static_cast<jboolean>(frm()->GetBookmarkManager().HasBmCategory(static_cast<kml::MarkGroupId>(catId)));
+}
+
 // The batch operations themselves live in the core, where any platform can reach them: see
 // BookmarkManager::EditSession and Framework::DeleteBookmarksAndTracks.
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeDeleteBookmarksAndTracks(
