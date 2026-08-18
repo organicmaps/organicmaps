@@ -21,8 +21,6 @@ set(SRC
   classificator.hpp
   classificator_loader.cpp
   classificator_loader.hpp
-  complex/serdes.hpp
-  complex/serdes_utils.hpp
   complex/tree_node.hpp
   cuisines.cpp
   cuisines.hpp
