@@ -7,8 +7,6 @@
 
 namespace routing
 {
-uint32_t constexpr SpeedCameraMwmHeader::kLatestVersion;
-
 void SerializeSpeedCamera(FileWriter & writer, routing::SpeedCameraMetadata const & data, uint32_t & prevFeatureId)
 {
   CHECK_EQUAL(data.m_ways.size(), 1, ());

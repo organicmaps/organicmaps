@@ -103,9 +103,6 @@ struct ScopedMarkTokens
   TokenRange const m_range;
 };
 
-// static
-BaseContext::TokenType constexpr ScopedMarkTokens::kUnused;
-
 class LazyRankTable : public RankTable
 {
 public:

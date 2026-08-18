@@ -8,10 +8,6 @@
 
 namespace routing
 {
-double constexpr PositionAccumulator::kMinTrackLengthM;
-double constexpr PositionAccumulator::kMinValidSegmentLengthM;
-double constexpr PositionAccumulator::kMaxValidSegmentLengthM;
-
 void PositionAccumulator::PushNextPoint(m2::PointD const & point)
 {
   double const lenM = m_points.empty() ? 0.0 : mercator::DistanceOnEarth(point, m_points.back());

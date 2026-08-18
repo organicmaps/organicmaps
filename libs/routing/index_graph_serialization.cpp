@@ -2,11 +2,6 @@
 
 namespace routing
 {
-// static
-uint8_t constexpr IndexGraphSerializer::kLastVersion;
-uint32_t constexpr IndexGraphSerializer::JointsFilter::kEmptyEntry;
-uint32_t constexpr IndexGraphSerializer::JointsFilter::kPushedEntry;
-
 // IndexGraphSerializer::SectionSerializer ---------------------------------------------------------
 void IndexGraphSerializer::SectionSerializer::PreSerialize(IndexGraph const & graph,
                                                            std::unordered_map<uint32_t, VehicleMask> const & masks,
