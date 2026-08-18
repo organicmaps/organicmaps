@@ -11,11 +11,11 @@ import androidx.annotation.NonNull;
 import app.organicmaps.wear.protocol.WearNavigationData;
 import app.organicmaps.wear.protocol.WearNavigationMode;
 import app.organicmaps.wear.protocol.WearNavigationState;
-import app.organicmaps.wear.protocol.WearNavigationStateCodec;
 import com.google.android.gms.wearable.CapabilityClient;
 import com.google.android.gms.wearable.DataClient;
 import com.google.android.gms.wearable.DataEventBuffer;
 import com.google.android.gms.wearable.DataItemBuffer;
+import com.google.android.gms.wearable.DataMapItem;
 import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
@@ -144,7 +144,8 @@ public final class MainActivity extends Activity implements DataClient.OnDataCha
     {
       // A node owns at most one DataItem at a path. Treat any unexpected result as no current state.
       if (dataItems.getCount() == 1)
-        state = WearNavigationStateCodec.decode(dataItems.get(0).getData());
+        state = NavigationStateSource.decodeNavigationState(
+            DataMapItem.fromDataItem(dataItems.get(0)).getDataMap());
     }
     finally
     {

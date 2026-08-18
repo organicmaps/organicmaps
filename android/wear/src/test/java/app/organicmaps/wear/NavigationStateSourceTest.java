@@ -7,7 +7,11 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import app.organicmaps.wear.protocol.WearNavigationData;
+import app.organicmaps.wear.protocol.WearNavigationMode;
+import app.organicmaps.wear.protocol.WearNavigationState;
 import com.google.android.gms.wearable.DataEvent;
+import com.google.android.gms.wearable.DataMap;
 import com.google.android.gms.wearable.Node;
 import java.util.List;
 import org.junit.Test;
@@ -51,6 +55,66 @@ public class NavigationStateSourceTest
   {
     assertFalse(NavigationStateSource.requiresRefresh(List.of()));
     assertFalse(NavigationStateSource.requiresRefresh(List.of(event(0))));
+  }
+
+  @Test
+  public void navigationDataMapDecodes()
+  {
+    final WearNavigationState state =
+        NavigationStateSource.decodeNavigationState(dataMap(WearNavigationData.VERSION, "NAVIGATION"));
+
+    assertEquals(WearNavigationMode.NAVIGATION, state.getMode());
+  }
+
+  @Test
+  public void normalDataMapDecodes()
+  {
+    final WearNavigationState state =
+        NavigationStateSource.decodeNavigationState(dataMap(WearNavigationData.VERSION, "NORMAL"));
+
+    assertEquals(WearNavigationMode.NORMAL, state.getMode());
+  }
+
+  @Test
+  public void versionMismatchReturnsNull()
+  {
+    assertNull(NavigationStateSource.decodeNavigationState(dataMap(999, "NAVIGATION")));
+  }
+
+  @Test
+  public void missingModeReturnsNull()
+  {
+    final DataMap dataMap = new DataMap();
+    dataMap.putInt(WearNavigationData.KEY_VERSION, WearNavigationData.VERSION);
+
+    assertNull(NavigationStateSource.decodeNavigationState(dataMap));
+  }
+
+  @Test
+  public void unknownModeReturnsNull()
+  {
+    assertNull(
+        NavigationStateSource.decodeNavigationState(
+            dataMap(WearNavigationData.VERSION, "BOGUS")));
+  }
+
+  @Test
+  public void unknownFieldIsIgnored()
+  {
+    final DataMap dataMap = dataMap(WearNavigationData.VERSION, "NAVIGATION");
+    dataMap.putBoolean("unknown", true);
+
+    assertEquals(
+        WearNavigationMode.NAVIGATION,
+        NavigationStateSource.decodeNavigationState(dataMap).getMode());
+  }
+
+  private static DataMap dataMap(int version, String mode)
+  {
+    final DataMap dataMap = new DataMap();
+    dataMap.putInt(WearNavigationData.KEY_VERSION, version);
+    dataMap.putString(WearNavigationData.KEY_MODE, mode);
+    return dataMap;
   }
 
   private static Node node(String id, boolean nearby)

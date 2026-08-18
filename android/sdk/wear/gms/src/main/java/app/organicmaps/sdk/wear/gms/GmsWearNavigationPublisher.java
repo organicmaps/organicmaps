@@ -6,10 +6,10 @@ import androidx.annotation.NonNull;
 import app.organicmaps.sdk.wear.WearNavigationPublisher;
 import app.organicmaps.wear.protocol.WearNavigationData;
 import app.organicmaps.wear.protocol.WearNavigationState;
-import app.organicmaps.wear.protocol.WearNavigationStateCodec;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.CommonStatusCodes;
-import com.google.android.gms.wearable.PutDataRequest;
+import com.google.android.gms.wearable.DataMap;
+import com.google.android.gms.wearable.PutDataMapRequest;
 import com.google.android.gms.wearable.Wearable;
 
 /**
@@ -33,11 +33,13 @@ final class GmsWearNavigationPublisher implements WearNavigationPublisher
   @Override
   public void publish(@NonNull WearNavigationState state)
   {
-    final PutDataRequest request = PutDataRequest.create(WearNavigationData.PATH_NAVIGATION_STATE);
-    request.setData(WearNavigationStateCodec.encode(state));
+    final PutDataMapRequest request = PutDataMapRequest.create(WearNavigationData.PATH_NAVIGATION_STATE);
+    final DataMap dataMap = request.getDataMap();
+    dataMap.putInt(WearNavigationData.KEY_VERSION, WearNavigationData.VERSION);
+    dataMap.putString(WearNavigationData.KEY_MODE, state.getMode().name());
     request.setUrgent();
     Wearable.getDataClient(mContext)
-        .putDataItem(request)
+        .putDataItem(request.asPutDataRequest())
         .addOnSuccessListener(item -> Log.d(TAG, "Published Wear navigation state: " + state.getMode()))
         .addOnFailureListener(GmsWearNavigationPublisher::logFailure);
   }
