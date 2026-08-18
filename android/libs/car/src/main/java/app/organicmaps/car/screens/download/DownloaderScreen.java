@@ -97,7 +97,8 @@ class DownloaderScreen extends BaseScreen
     mMissingMaps = new HashMap<>();
     for (final CountryItem item : missingMaps)
       mMissingMaps.put(item.id, item);
-    mProgressRefresh = () -> {
+    mProgressRefresh = () ->
+    {
       mIsProgressRefreshScheduled = false;
       if (!mMissingMaps.isEmpty())
         invalidate();
