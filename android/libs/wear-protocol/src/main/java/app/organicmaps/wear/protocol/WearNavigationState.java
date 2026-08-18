@@ -3,14 +3,14 @@ package app.organicmaps.wear.protocol;
 /**
  * Navigation state mirrored from the phone to the watch.
  *
- * <p>The object keeps the current mode-only payload behind a state type, allowing the codec schema
+ * <p>The object keeps the current mode-only payload behind a state type, allowing the wire schema
  * and publisher contract to evolve without replacing the type passed between them.
  */
 public final class WearNavigationState
 {
   private final WearNavigationMode mMode;
 
-  // Package-private: construct via the factories below or WearNavigationStateCodec.decode.
+  // Package-private: construct via the factories below.
   WearNavigationState(WearNavigationMode mode)
   {
     mMode = mode;
