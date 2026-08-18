@@ -606,7 +606,7 @@ Editor::UploadStart Editor::UploadChanges(string const & oauthToken, ChangesetTa
   {
     SCOPE_GUARD(resetUploadingFlag, [this]() { m_isUploadingNow = false; });
 
-    int uploadedFeaturesCount = 0, errorsCount = 0;
+    int uploadedFeaturesCount = 0, pendingFeaturesCount = 0;
     ChangesetWrapper changeset(oauthToken, std::move(tags));
 
     auto const features = m_features.Get();
@@ -745,7 +745,6 @@ Editor::UploadStart Editor::UploadChanges(string const & oauthToken, ChangesetTa
         {
           uploadInfo.m_uploadStatus = kDeletedFromOSMServer;
           uploadInfo.m_uploadError = ex.Msg();
-          ++errorsCount;
           LOG(LWARNING, (ex.what()));
           changeset.SetErrorDescription(ex.Msg());
         }
@@ -753,7 +752,6 @@ Editor::UploadStart Editor::UploadChanges(string const & oauthToken, ChangesetTa
         {
           uploadInfo.m_uploadStatus = kMatchedFeatureIsEmpty;
           uploadInfo.m_uploadError = ex.Msg();
-          ++errorsCount;
           LOG(LWARNING, (ex.what()));
           changeset.SetErrorDescription(ex.Msg());
         }
@@ -761,7 +759,7 @@ Editor::UploadStart Editor::UploadChanges(string const & oauthToken, ChangesetTa
         {
           uploadInfo.m_uploadStatus = kNeedsRetry;
           uploadInfo.m_uploadError = ex.Msg();
-          ++errorsCount;
+          ++pendingFeaturesCount;
           LOG(LWARNING, (ex.what()));
           changeset.SetErrorDescription(ex.Msg());
         }
@@ -783,10 +781,13 @@ Editor::UploadStart Editor::UploadChanges(string const & oauthToken, ChangesetTa
     if (callback)
     {
       UploadResult result = UploadResult::NothingToUpload;
-      if (uploadedFeaturesCount)
-        result = UploadResult::Success;
-      else if (errorsCount)
+      // Report an error while any feature is still pending, so that callers retry the rest.
+      // Permanently failed ones (deleted from OSM, empty match) are excluded by NeedsUpload() from
+      // the next upload and must not trigger one.
+      if (pendingFeaturesCount)
         result = UploadResult::Error;
+      else if (uploadedFeaturesCount)
+        result = UploadResult::Success;
       callback(result);
     }
   });
