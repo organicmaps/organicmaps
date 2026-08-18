@@ -265,36 +265,9 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
 
   m_turnNotificationsMgr.SetSpeedMetersPerSecond(info.m_speed);
 
-  auto const formerIter = m_route->GetCurrentIteratorTurn();
+  auto const formerTurn = m_route->GetCurrentIteratorTurn();
   if (m_route->MoveIterator(info))
-  {
-    m_moveAwayCounter = 0;
-    m_lastDistance = 0.0;
-
-    PassCheckpoints();
-
-    if (m_checkpoints.IsFinished())
-    {
-      m_passedDistanceOnRouteMeters += m_route->GetTotalDistanceMeters();
-      SetState(SessionState::RouteFinished);
-    }
-    else
-    {
-      SetState(SessionState::OnRoute);
-      m_speedCameraManager.OnLocationPositionChanged(info);
-    }
-
-    if (m_userCurrentPositionValid)
-      m_lastGoodPosition = m_userCurrentPosition;
-
-    auto const curIter = m_route->GetCurrentIteratorTurn();
-    // If we are moving to the next segment after passing the turn
-    // it means the turn is changed. So the |m_onNewTurn| should be called.
-    if (IsNormalTurn(formerIter) && formerIter.m_index < curIter.m_index && m_onNewTurn)
-      m_onNewTurn();
-
-    return m_state;
-  }
+    return OnRoutePosition(info, formerTurn);
 
   if (m_state != SessionState::RouteNeedRebuild && m_state != SessionState::RouteRebuilding)
   {
@@ -315,10 +288,48 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
 
     if (m_moveAwayCounter > kOnRouteMissedCount)
     {
+      // Rebuilding now would route the user back to a checkpoint they may have already passed
+      // without a single fix ever matching near it (a tunnel, a backgrounded app). Re-attach to a
+      // later subroute if the position is clearly on one, and keep following the route.
+      if (m_route->RejoinPastCheckpoints(info))
+        return OnRoutePosition(info, formerTurn);
+
       m_passedDistanceOnRouteMeters += m_route->GetCurrentDistanceFromBeginMeters();
       SetState(SessionState::RouteNeedRebuild);
     }
   }
+
+  return m_state;
+}
+
+SessionState RoutingSession::OnRoutePosition(GpsInfo const & info, turns::TurnItem const & formerTurn)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  m_moveAwayCounter = 0;
+  m_lastDistance = 0.0;
+
+  PassCheckpoints();
+
+  if (m_checkpoints.IsFinished())
+  {
+    m_passedDistanceOnRouteMeters += m_route->GetTotalDistanceMeters();
+    SetState(SessionState::RouteFinished);
+  }
+  else
+  {
+    SetState(SessionState::OnRoute);
+    m_speedCameraManager.OnLocationPositionChanged(info);
+  }
+
+  if (m_userCurrentPositionValid)
+    m_lastGoodPosition = m_userCurrentPosition;
+
+  auto const curTurn = m_route->GetCurrentIteratorTurn();
+  // If we are moving to the next segment after passing the turn
+  // it means the turn is changed. So the |m_onNewTurn| should be called.
+  if (IsNormalTurn(formerTurn) && formerTurn.m_index < curTurn.m_index && m_onNewTurn)
+    m_onNewTurn();
 
   return m_state;
 }

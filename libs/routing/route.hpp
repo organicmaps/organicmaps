@@ -522,6 +522,14 @@ public:
 
   bool IsSubroutePassed(size_t subrouteIdx) const;
 
+  /// \brief Tries to re-attach the current position to a subroute lying behind one or more pending
+  /// checkpoints. A gap in the fixes across a checkpoint (a tunnel, a backgrounded app) never
+  /// matches the route near it, so the checkpoint stays pending forever and the session ends up
+  /// rebuilding a route back to it.
+  /// \returns true if the position was moved, so that IsSubroutePassed() reports every skipped
+  /// subroute as passed.
+  bool RejoinPastCheckpoints(location::GpsInfo const & info);
+
   std::string DebugPrintTurns() const;
 
 private:

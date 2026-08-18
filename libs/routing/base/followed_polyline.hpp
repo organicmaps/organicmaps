@@ -2,6 +2,8 @@
 
 #include "geometry/polyline2d.hpp"
 
+#include "base/assert.hpp"
+
 #include <limits>
 #include <vector>
 
@@ -66,6 +68,15 @@ public:
   };
 
   Iter GetCurrentIter() const { return m_current; }
+
+  /// \brief Moves the current position to |iter|, skipping the polyline in between. Used to
+  /// re-attach to a part of the route the user reached without matching it (Route::RejoinPastCheckpoints).
+  void SetCurrentIter(Iter const & iter)
+  {
+    ASSERT(iter.IsValid(), ());
+    ASSERT_LESS(iter.m_ind, m_segProj.size(), ());
+    m_current = iter;
+  }
 
   double GetDistanceM(Iter const & it1, Iter const & it2) const;
 
