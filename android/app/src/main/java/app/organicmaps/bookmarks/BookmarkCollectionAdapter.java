@@ -26,6 +26,8 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   private final static int TYPE_CATEGORY_ITEM = BookmarkManager.CATEGORY;
   private final static int TYPE_HEADER_ITEM = 3;
 
+  private static final int HEADER_POSITION = 0;
+
   private final long mCategoryId;
 
   @NonNull
@@ -40,24 +42,6 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   private OnItemClickListener<BookmarkCategory> mClickListener;
   @NonNull
   private final MassOperationAction mMassOperationAction = new MassOperationAction();
-
-  private class ToggleVisibilityClickListener implements View.OnClickListener
-  {
-    @NonNull
-    private final Holders.CollectionViewHolder mHolder;
-
-    ToggleVisibilityClickListener(@NonNull Holders.CollectionViewHolder holder)
-    {
-      mHolder = holder;
-    }
-
-    @Override
-    public void onClick(View v)
-    {
-      mHolder.getEntity().toggleVisibility();
-      notifyItemChanged(0);
-    }
-  }
 
   BookmarkCollectionAdapter(@NonNull BookmarkCategory bookmarkCategory, @NonNull List<BookmarkCategory> itemsCategories)
   {
@@ -186,8 +170,14 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     collectionViewHolder.setSize();
     collectionViewHolder.setVisibilityState(category.isVisible());
     collectionViewHolder.setOnClickListener(mClickListener);
-    ToggleVisibilityClickListener listener = new ToggleVisibilityClickListener(collectionViewHolder);
-    collectionViewHolder.setVisibilityListener(listener);
+    // The eye is repainted on the holder that was tapped: unlike the CheckBox it replaced, an ImageView does not
+    // redraw itself, and a notify would have to survive the adapter having no position for the row yet.
+    collectionViewHolder.setVisibilityListener(v -> {
+      category.toggleVisibility();
+      collectionViewHolder.setVisibilityState(category.isVisible());
+      // The header's label depends on the child lists' visibility.
+      notifyItemChanged(HEADER_POSITION);
+    });
     final int itemsCount = getItemsCount(position.getSectionIndex());
     collectionViewHolder.bindCardPosition(position.getItemIndex() == 0, position.getItemIndex() == itemsCount - 1);
     updateVisibility(collectionViewHolder.itemView);

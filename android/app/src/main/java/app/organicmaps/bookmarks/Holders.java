@@ -318,14 +318,14 @@ public class Holders
     @NonNull
     private final TextView mName;
     @NonNull
-    private final CheckBox mVisibilityMarker;
+    private final ImageView mEyeIcon;
 
     CollectionViewHolder(@NonNull View root)
     {
       super(root);
       mView = root;
       mName = root.findViewById(R.id.name);
-      mVisibilityMarker = root.findViewById(R.id.checkbox);
+      mEyeIcon = root.findViewById(R.id.eye);
     }
 
     void setOnClickListener(@Nullable OnItemClickListener<BookmarkCategory> listener)
@@ -338,12 +338,13 @@ public class Holders
 
     void setVisibilityState(boolean visible)
     {
-      mVisibilityMarker.setChecked(visible);
+      mEyeIcon.setImageResource(visible ? R.drawable.ic_show : R.drawable.ic_hide);
+      mEyeIcon.setContentDescription(mEyeIcon.getContext().getString(visible ? R.string.hide : R.string.show));
     }
 
     void setVisibilityListener(@Nullable View.OnClickListener listener)
     {
-      mVisibilityMarker.setOnClickListener(listener);
+      mEyeIcon.setOnClickListener(listener);
     }
 
     void setName(@NonNull String name)
