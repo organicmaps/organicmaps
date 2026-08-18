@@ -20,7 +20,6 @@
 #include <algorithm>
 #include <cstdint>
 #include <memory>
-#include <string>
 #include <string_view>
 #include <utility>
 #include <vector>
@@ -132,7 +131,7 @@ public:
 
   static constexpr std::string_view kHeaderMagic = "mwmftosm";
   static constexpr Version kLatestVersion = Version::V0;
-  static constexpr size_t kMagicAndVersionSize = 9;
+  static constexpr size_t kMagicAndVersionSize = kHeaderMagic.size() + 1;
   static constexpr size_t kHeaderOffset = 16;
 
   struct HeaderV0
@@ -211,9 +210,11 @@ public:
       LOG(LINFO, ("Unable to deserialize FeatureToOsm map: wrong header magic or version"));
       return false;
     }
-    std::string magic(kHeaderMagic.size(), '\0');
-    src.Read(&magic[0], magic.size());
-    if (magic != kHeaderMagic)
+    // Read into a zero-terminated buffer: building a std::string_view from a (pointer, size)
+    // pair makes gcc 14 evaluate the view's range constructor constraints, which fails here.
+    char magic[kHeaderMagic.size() + 1] = {};
+    src.Read(magic, kHeaderMagic.size());
+    if (kHeaderMagic != magic)
     {
       LOG(LINFO, ("Unable to deserialize FeatureToOsm map: wrong header magic:", magic));
       return false;
