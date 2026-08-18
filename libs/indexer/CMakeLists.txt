@@ -48,7 +48,6 @@ set(SRC
   edit_journal.hpp
   editable_map_object.cpp
   editable_map_object.hpp
-  fake_feature_ids.cpp
   fake_feature_ids.hpp
   feature.cpp
   feature.hpp
