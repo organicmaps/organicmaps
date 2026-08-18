@@ -21,6 +21,7 @@
 #include <cstdint>
 #include <memory>
 #include <string>
+#include <string_view>
 #include <utility>
 #include <vector>
 
@@ -129,10 +130,10 @@ public:
     V0,
   };
 
-  inline static std::string const kHeaderMagic = "mwmftosm";
-  inline static Version const kLatestVersion = FeatureIdToGeoObjectIdSerDes::Version::V0;
-  inline static size_t const kMagicAndVersionSize = 9;
-  inline static size_t const kHeaderOffset = 16;
+  static constexpr std::string_view kHeaderMagic = "mwmftosm";
+  static constexpr Version kLatestVersion = Version::V0;
+  static constexpr size_t kMagicAndVersionSize = 9;
+  static constexpr size_t kHeaderOffset = 16;
 
   struct HeaderV0
   {
