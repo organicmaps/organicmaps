@@ -530,6 +530,11 @@ private:
   double GetPolySegAngle(size_t ind) const;
   void GetClosestTurnAfterIdx(size_t segIdx, turns::TurnItem & turn) const;
 
+  /// \returns Length of the trailing pure-fake connector (projection edge A->B + standalone B->B)
+  /// of the subroute, i.e. how far its checkpoint sits off the road, or 0 when the subroute does
+  /// not end with such a tail.
+  double GetSubrouteEndConnectorMeters(SubrouteAttrs const & attrs) const;
+
   /// \returns Estimated time from the beginning.
   double GetCurrentTimeFromBeginSec() const;
 
@@ -549,6 +554,12 @@ private:
   // For "fresh" Routes built via SetGeometry/SetRouteSegments the polyline is set directly;
   // for promoted alternatives, it is reconstructed from base segments by RebuildFollowedPolyline().
   FollowedPolyline m_poly;
+
+  // Raw (unmatched) position and speed of the last fix passed to MoveIterator(); the speed is
+  // negative when the fix carries none, exactly as location::GpsInfo::m_speed. Used by
+  // IsSubroutePassed() to tell driving past an off-road intermediate checkpoint from arriving at it.
+  m2::PointD m_lastFixPoint = m2::PointD::Zero();
+  double m_lastFixSpeedMpS = -1.0;
 
   // Vehicle-specific tuning (matching threshold, finish tolerance, etc.). Set by RoutingSession after
   // promoting an alternative to a followed Route.
