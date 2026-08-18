@@ -2,7 +2,7 @@
 
 @interface MWMShareActivityItem : NSObject
 
-@property(nonatomic, readonly) NSArray * activityItems;
+@property(nonatomic, readonly) id<UIActivityItemsConfigurationReading> activityItemsConfiguration;
 
 - (instancetype)initForMyPositionAtLocation:(CLLocationCoordinate2D const &)location;
 - (instancetype)initForPlacePage:(PlacePageData *)data;

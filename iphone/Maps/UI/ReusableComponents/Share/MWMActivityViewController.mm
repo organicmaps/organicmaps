@@ -69,27 +69,46 @@
 
 @implementation MWMActivityViewController
 
+- (void)applyDefaultExcludedActivityTypes
+{
+  self.excludedActivityTypes = @[
+    UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll, UIActivityTypeAddToReadingList,
+    UIActivityTypePostToFlickr, UIActivityTypePostToVimeo
+  ];
+}
+
 - (instancetype)initWithActivityItems:(NSArray *)activityItems
 {
   self = [super initWithActivityItems:activityItems applicationActivities:nil];
   if (self)
-    self.excludedActivityTypes = @[
-      UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll,
-      UIActivityTypeAddToReadingList, UIActivityTypePostToFlickr, UIActivityTypePostToVimeo
-    ];
+    [self applyDefaultExcludedActivityTypes];
+  return self;
+}
+
+- (instancetype)initWithActivityItemsConfiguration:(id<UIActivityItemsConfigurationReading>)activityItemsConfiguration
+{
+  self = [super initWithActivityItemsConfiguration:activityItemsConfiguration];
+  if (self)
+    [self applyDefaultExcludedActivityTypes];
   return self;
 }
 
 + (instancetype)shareControllerForMyPosition:(CLLocationCoordinate2D)location
 {
   MWMShareActivityItem * item = [[MWMShareActivityItem alloc] initForMyPositionAtLocation:location];
-  return [[self alloc] initWithActivityItems:item.activityItems];
+  MWMActivityViewController * shareVC =
+      [[self alloc] initWithActivityItemsConfiguration:item.activityItemsConfiguration];
+  shareVC.excludedActivityTypes = [shareVC.excludedActivityTypes arrayByAddingObject:UIActivityTypeAirDrop];
+  return shareVC;
 }
 
 + (instancetype)shareControllerForPlacePage:(PlacePageData *)data
 {
   MWMShareActivityItem * item = [[MWMShareActivityItem alloc] initForPlacePage:data];
-  return [[self alloc] initWithActivityItems:item.activityItems];
+  MWMActivityViewController * shareVC =
+      [[self alloc] initWithActivityItemsConfiguration:item.activityItemsConfiguration];
+  shareVC.excludedActivityTypes = [shareVC.excludedActivityTypes arrayByAddingObject:UIActivityTypeAirDrop];
+  return shareVC;
 }
 
 + (instancetype)shareControllerForURL:(NSURL *)url
