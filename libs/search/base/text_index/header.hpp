@@ -9,7 +9,7 @@
 #include "base/assert.hpp"
 
 #include <cstdint>
-#include <string>
+#include <string_view>
 
 namespace search_base
 {
@@ -34,9 +34,11 @@ struct TextIndexHeader
   {
     CHECK_EQUAL(m_version, TextIndexVersion::V0, ());
 
-    std::string headerMagic(kHeaderMagic.size(), ' ');
-    source.Read(&headerMagic[0], headerMagic.size());
-    CHECK_EQUAL(headerMagic, kHeaderMagic, ());
+    // Read into a zero-terminated buffer: building a std::string_view from a (pointer, size)
+    // pair makes gcc 14 evaluate the view's range constructor constraints, which fails here.
+    char headerMagic[kHeaderMagic.size() + 1] = {};
+    source.Read(headerMagic, kHeaderMagic.size());
+    CHECK_EQUAL(kHeaderMagic, headerMagic, ());
     m_version = static_cast<TextIndexVersion>(ReadPrimitiveFromSource<uint8_t>(source));
     CHECK_EQUAL(m_version, TextIndexVersion::V0, ());
     m_numTokens = ReadPrimitiveFromSource<uint32_t>(source);
@@ -46,7 +48,7 @@ struct TextIndexHeader
     m_postingsListsOffset = ReadPrimitiveFromSource<uint32_t>(source);
   }
 
-  static std::string const kHeaderMagic;
+  static constexpr std::string_view kHeaderMagic = "mapsmetextidx";
   TextIndexVersion m_version = TextIndexVersion::Latest;
   uint32_t m_numTokens = 0;
   uint32_t m_dictPositionsOffset = 0;

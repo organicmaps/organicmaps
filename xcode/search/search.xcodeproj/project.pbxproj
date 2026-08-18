@@ -74,7 +74,6 @@
 		392688CD20B2D1D600721762 /* interval_set_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34586B841DCB1E8300CF7FC9 /* interval_set_test.cpp */; };
 		392688CE20B2D1D600721762 /* locality_scorer_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34586B851DCB1E8300CF7FC9 /* locality_scorer_test.cpp */; };
 		392688CF20B2D1D600721762 /* locality_selector_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34586B861DCB1E8300CF7FC9 /* locality_selector_test.cpp */; };
-		3936A60D20EA2F5F00A68C09 /* header.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3936A60520EA2F5E00A68C09 /* header.cpp */; };
 		3936A60E20EA2F5F00A68C09 /* header.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3936A60620EA2F5E00A68C09 /* header.hpp */; };
 		3936A60F20EA2F5F00A68C09 /* text_index.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3936A60720EA2F5E00A68C09 /* text_index.hpp */; };
 		3936A61020EA2F5F00A68C09 /* mem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3936A60820EA2F5E00A68C09 /* mem.cpp */; };
@@ -358,7 +357,6 @@
 		392688B620B2D1BF00721762 /* results_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = results_tests.cpp; sourceTree = "<group>"; };
 		392688B720B2D1BF00721762 /* region_info_getter_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = region_info_getter_tests.cpp; sourceTree = "<group>"; };
 		392688B820B2D1BF00721762 /* text_index_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = text_index_tests.cpp; sourceTree = "<group>"; };
-		3936A60520EA2F5E00A68C09 /* header.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = header.cpp; path = ../text_index/header.cpp; sourceTree = "<group>"; };
 		3936A60620EA2F5E00A68C09 /* header.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = header.hpp; path = ../text_index/header.hpp; sourceTree = "<group>"; };
 		3936A60720EA2F5E00A68C09 /* text_index.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = text_index.hpp; path = ../text_index/text_index.hpp; sourceTree = "<group>"; };
 		3936A60820EA2F5E00A68C09 /* mem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mem.cpp; path = ../text_index/mem.cpp; sourceTree = "<group>"; };
@@ -657,7 +655,6 @@
 			isa = PBXGroup;
 			children = (
 				3936A60920EA2F5E00A68C09 /* dictionary.hpp */,
-				3936A60520EA2F5E00A68C09 /* header.cpp */,
 				3936A60620EA2F5E00A68C09 /* header.hpp */,
 				3936A60820EA2F5E00A68C09 /* mem.cpp */,
 				3936A60C20EA2F5F00A68C09 /* mem.hpp */,
@@ -1230,7 +1227,6 @@
 				347F33201C4540A8009758CC /* projection_on_street.cpp in Sources */,
 				347F33191C4540A8009758CC /* dummy_rank_table.cpp in Sources */,
 				F652D8F41CFDE21900FC29A0 /* house_numbers_matcher.cpp in Sources */,
-				3936A60D20EA2F5F00A68C09 /* header.cpp in Sources */,
 				F652D8F61CFDE21900FC29A0 /* house_to_street_table.cpp in Sources */,
 				0831F257200E56110034C365 /* processor.cpp in Sources */,
 				F652D8FC1CFDE21900FC29A0 /* model.cpp in Sources */,

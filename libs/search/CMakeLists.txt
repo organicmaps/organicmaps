@@ -7,7 +7,6 @@ set(SRC
   base/inverted_list.hpp
   base/mem_search_index.hpp
   base/text_index/dictionary.hpp
-  base/text_index/header.cpp
   base/text_index/header.hpp
   base/text_index/mem.cpp
   base/text_index/mem.hpp
