@@ -1190,7 +1190,7 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
 
   auto const & lastSubroutes = m_lastRoute->GetSubroutes();
   CHECK(!lastSubroutes.empty(), ());
-  auto const & lastSubroute = m_lastRoute->GetSubroute(checkpoints.GetPassedIdx());
+  auto const & rebuiltSubroute = m_lastRoute->GetSubroute(checkpoints.GetPassedIdx());
 
   auto const & steps = m_lastRoute->GetSteps();
   CHECK(!steps.empty(), ());
@@ -1202,8 +1202,8 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
   starter.Append(*m_lastFakeEdges);
 
   std::vector<SegmentEdge> prevEdges;
-  CHECK_LESS_OR_EQUAL(lastSubroute.GetEndSegmentIdx(), steps.size(), ());
-  for (size_t i = lastSubroute.GetBeginSegmentIdx(); i < lastSubroute.GetEndSegmentIdx(); ++i)
+  CHECK_LESS_OR_EQUAL(rebuiltSubroute.GetEndSegmentIdx(), steps.size(), ());
+  for (size_t i = rebuiltSubroute.GetBeginSegmentIdx(); i < rebuiltSubroute.GetEndSegmentIdx(); ++i)
   {
     auto const & step = steps[i];
     prevEdges.emplace_back(step.GetSegment(),
@@ -1235,8 +1235,10 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
   PushPassedSubroutes(checkpoints, subroutes);
 
   size_t subrouteOffset = result.m_path.size();
-  subroutes.emplace_back(starter.GetStartJunction().ToPointWithAltitude(),
-                         starter.GetFinishJunction().ToPointWithAltitude(), 0 /* beginSegmentIdx */, subrouteOffset);
+  // Append() above copied starter's finish ending from m_lastFakeEdges: it is the whole route's final
+  // destination, which differs from this leg's finish while an intermediate checkpoint is pending.
+  subroutes.emplace_back(starter.GetStartJunction().ToPointWithAltitude(), rebuiltSubroute.GetFinish(),
+                         0 /* beginSegmentIdx */, subrouteOffset);
 
   for (size_t i = checkpoints.GetPassedIdx() + 1; i < lastSubroutes.size(); ++i)
   {
