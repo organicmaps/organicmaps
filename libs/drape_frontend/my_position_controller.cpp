@@ -138,7 +138,6 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
   , m_autoScale3d(m_autoScale2d)
   , m_lastGPSBearingTimer(false)
   , m_lastLocationTimestamp(0.0)
-  , m_positionRoutingOffsetY(kPositionRoutingOffsetY * GetVisualScale())
   , m_isDirtyViewport(false)
   , m_isDirtyAutoZoom(false)
   , m_isPendingAnimation(false)
@@ -755,13 +754,18 @@ m2::PointD MyPositionController::GetRotationPixelCenter() const
 
 m2::PointD MyPositionController::GetRoutingRotationPixelCenter() const
 {
-  return {m_visiblePixelRect.Center().x, m_visiblePixelRect.maxY() - m_positionRoutingOffsetY};
+  double const vs = GetVisualScale();
+  double const offsetY =
+      m_routingOffsetY ? *m_routingOffsetY + Arrow3d::GetMaxBottomSize() * vs : kPositionRoutingOffsetY * vs;
+  return {m_visiblePixelRect.Center().x, m_visiblePixelRect.maxY() - offsetY};
 }
 
 void MyPositionController::UpdateRoutingOffsetY(bool useDefault, int offsetY)
 {
-  double const vs = GetVisualScale();
-  m_positionRoutingOffsetY = useDefault ? kPositionRoutingOffsetY * vs : offsetY + Arrow3d::GetMaxBottomSize() * vs;
+  if (useDefault)
+    m_routingOffsetY.reset();
+  else
+    m_routingOffsetY = offsetY;
 }
 
 m2::PointD MyPositionController::GetDrawablePosition()
