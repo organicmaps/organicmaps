@@ -14,6 +14,7 @@ if (DEFINED ENV{CMAKE_UNITY_BUILD_BATCH_SIZE})
 endif ()
 
 option(USE_CCACHE "Use ccache" ON)
+option(USE_LLD "Use lld linker" ON)
 option(WITH_SYSTEM_PROVIDED_3PARTY "Enable compilation with system provided dependencies" OFF)
 option(BUILD_DESIGNER "Build application as design tool" OFF)
 option(BUILD_STANDALONE "Build standalone application" OFF)
