@@ -33,7 +33,9 @@ class DimmedModalPresentationController: UIPresentationController {
   }
 
   override func presentationTransitionDidEnd(_ completed: Bool) {
-    if !completed { dimView.removeFromSuperview() }
+    if !completed {
+      dimView.removeFromSuperview()
+    }
   }
 
   override func dismissalTransitionWillBegin() {
@@ -43,6 +45,8 @@ class DimmedModalPresentationController: UIPresentationController {
   }
 
   override func dismissalTransitionDidEnd(_ completed: Bool) {
-    if completed { dimView.removeFromSuperview() }
+    if completed {
+      dimView.removeFromSuperview()
+    }
   }
 }
