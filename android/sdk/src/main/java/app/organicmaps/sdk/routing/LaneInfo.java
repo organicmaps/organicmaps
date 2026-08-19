@@ -1,5 +1,6 @@
 package app.organicmaps.sdk.routing;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 public final class LaneInfo
@@ -7,6 +8,9 @@ public final class LaneInfo
   public final LaneWay[] mLaneWays;
   public final LaneWay mActiveLaneWay;
 
+  // Called from JNI.
+  @Keep
+  @SuppressWarnings("unused")
   public LaneInfo(@NonNull LaneWay[] laneWays, LaneWay activeLane)
   {
     mLaneWays = laneWays;
