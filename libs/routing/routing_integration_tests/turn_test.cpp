@@ -1455,4 +1455,60 @@ UNIT_TEST(Segregated_MergeLeftRightTurns)
   }
 }
 
+// Zemlyanoy Val street (northbound) in Moscow: turn:lanes = through|through|through|through|right|reverse,
+// where the last (right side) lane is a dedicated U-turn loop to the opposite carriageway.
+// After the U-turn fork there is a short (~20m) segment with turn:lanes = through|through|through|through|right
+// before the right turn to Staraya Basmannaya street. Both maneuvers below should show the same
+// 6 lanes the driver actually sees on approach, with ReverseLeft as the last lane.
+UNIT_TEST(Russia_Moscow_ZemlyanoyVal_LanesTest)
+{
+  using namespace integration;
+  using namespace routing::turns::lanes;
+
+  LaneInfo const through = {{LaneWay::Through}, LaneWay::None};
+
+  // Turn right to Staraya Basmannaya street.
+  {
+    TRouteResult const res = CalculateRoute(GetVehicleComponents(VehicleType::Car), FromLatLon(55.763544, 37.6567575),
+                                            {0., 0.}, FromLatLon(55.7642684, 37.6569801));
+
+    TEST_EQUAL(res.second, RouterResultCode::NoError, ());
+    Route const & route = *res.first;
+
+    TestTurnCount(route, 1 /* expectedTurnCount */);
+    GetNthTurn(route, 0)
+        .TestValid()
+        .TestDirection(CarDirection::TurnRight)
+        .TestLanes({through,
+                    through,
+                    through,
+                    through,
+                    {{LaneWay::Right}, LaneWay::Right},
+                    // The "reverse" tag does not specify the U-turn side, so the lane is parsed into both
+                    // ReverseLeft and ReverseRight. It is disambiguated by FixRecommendedReverseLane only
+                    // when a U-turn maneuver recommends this lane (see the U-turn case below).
+                    {{LaneWay::ReverseLeft, LaneWay::ReverseRight}, LaneWay::None}});
+  }
+
+  // U-turn to the southbound carriageway of Zemlyanoy Val.
+  {
+    TRouteResult const res = CalculateRoute(GetVehicleComponents(VehicleType::Car), FromLatLon(55.763544, 37.6567575),
+                                            {0., 0.}, FromLatLon(55.7635125, 37.6564447));
+
+    TEST_EQUAL(res.second, RouterResultCode::NoError, ());
+    Route const & route = *res.first;
+
+    TestTurnCount(route, 1 /* expectedTurnCount */);
+    GetNthTurn(route, 0)
+        .TestValid()
+        .TestDirection(CarDirection::UTurnLeft)
+        .TestLanes({through,
+                    through,
+                    through,
+                    through,
+                    {{LaneWay::Right}, LaneWay::None},
+                    {{LaneWay::ReverseLeft}, LaneWay::ReverseLeft}});
+  }
+}
+
 }  // namespace turn_test
