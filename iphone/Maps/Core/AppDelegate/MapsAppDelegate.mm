@@ -14,7 +14,6 @@
 #import "NSDate+TimeDistance.h"
 #import "SwiftBridge.h"
 
-#import <CarPlay/CarPlay.h>
 #import <CoreSpotlight/CoreSpotlight.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <UserNotifications/UserNotifications.h>
@@ -58,7 +57,7 @@ void InitLocalizedStrings()
 
 using namespace osm_auth_ios;
 
-@interface MapsAppDelegate () <MWMStorageObserver, CPApplicationDelegate>
+@interface MapsAppDelegate () <MWMStorageObserver>
 
 @property(nonatomic) NSInteger standbyCounter;
 @property(nonatomic) BOOL standbyDisabledForDownloads;
@@ -67,6 +66,9 @@ using namespace osm_auth_ios;
 @end
 
 @implementation MapsAppDelegate
+{
+  UINavigationController * _mainNavigationController;
+}
 
 + (MapsAppDelegate *)theApp
 {
@@ -108,10 +110,40 @@ using namespace osm_auth_ios;
   [TrackRecordingManager.shared setup];
 }
 
+#pragma mark - Application lifecycle
+
+// With UIScene adopted, UIKit reports activation and background transitions per scene and no
+// longer calls the UIApplicationDelegate lifecycle methods. The framework, rendering and location
+// updates must follow the application as a whole: stay active while any scene (phone or CarPlay)
+// is in the foreground and go to background only when all of them are. That aggregate is exactly
+// what the app-wide UIApplication notifications express, and UIKit keeps posting them for
+// scene-based apps.
+- (void)observeApplicationLifecycle
+{
+  NSNotificationCenter * nc = NSNotificationCenter.defaultCenter;
+  [nc addObserver:self
+         selector:@selector(handleApplicationDidBecomeActive:)
+             name:UIApplicationDidBecomeActiveNotification
+           object:nil];
+  [nc addObserver:self
+         selector:@selector(handleApplicationWillResignActive:)
+             name:UIApplicationWillResignActiveNotification
+           object:nil];
+  [nc addObserver:self
+         selector:@selector(handleApplicationWillEnterForeground:)
+             name:UIApplicationWillEnterForegroundNotification
+           object:nil];
+  [nc addObserver:self
+         selector:@selector(handleApplicationDidEnterBackground:)
+             name:UIApplicationDidEnterBackgroundNotification
+           object:nil];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSLog(@"application:didFinishLaunchingWithOptions: %@", launchOptions);
 
+  [self observeApplicationLifecycle];
   InitLocalizedStrings();
   [MWMThemeManager invalidate];
 
@@ -126,14 +158,12 @@ using namespace osm_auth_ios;
   if (![MapsAppDelegate isTestsEnvironment])
     [[iCloudSynchronizaionManager shared] start];
 
-  [[DeepLinkHandler shared] applicationDidFinishLaunching:launchOptions];
-  // application:openUrl:options is called later for deep links if YES is returned.
+  // Launch URLs, user activities and quick actions arrive with the scene connection options in
+  // MainSceneDelegate; launchOptions carries none of them for a scene-based app.
   return YES;
 }
 
-- (void)application:(UIApplication *)application
-    performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
-               completionHandler:(void (^)(BOOL))completionHandler
+- (void)handleShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler
 {
   [self.mapViewController performAction:shortcutItem.type];
   completionHandler(YES);
@@ -157,7 +187,7 @@ using namespace osm_auth_ios;
   DeleteFramework();
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
+- (void)handleApplicationDidEnterBackground:(NSNotification *)notification
 {
   LOG(LINFO, ("applicationDidEnterBackground - begin"));
   [DeepLinkHandler.shared reset];
@@ -169,7 +199,7 @@ using namespace osm_auth_ios;
   LOG(LINFO, ("applicationDidEnterBackground - end"));
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application
+- (void)handleApplicationWillResignActive:(NSNotification *)notification
 {
   LOG(LINFO, ("applicationWillResignActive - begin"));
   [self.mapViewController onGetFocus:NO];
@@ -180,7 +210,7 @@ using namespace osm_auth_ios;
   LOG(LINFO, ("applicationWillResignActive - end"));
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application
+- (void)handleApplicationWillEnterForeground:(NSNotification *)notification
 {
   LOG(LINFO, ("applicationWillEnterForeground - begin"));
   if (!GpsTracker::Instance().IsEnabled())
@@ -200,7 +230,7 @@ using namespace osm_auth_ios;
   LOG(LINFO, ("applicationWillEnterForeground - end"));
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application
+- (void)handleApplicationDidBecomeActive:(NSNotification *)notification
 {
   LOG(LINFO, ("applicationDidBecomeActive - begin"));
 
@@ -230,9 +260,7 @@ using namespace osm_auth_ios;
   return isTests;
 }
 
-- (BOOL)application:(UIApplication *)application
-    continueUserActivity:(NSUserActivity *)userActivity
-      restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
+- (BOOL)handleUserActivity:(NSUserActivity *)userActivity
 {
   if ([userActivity.activityType isEqualToString:CSSearchableItemActionType])
   {
@@ -268,17 +296,9 @@ using namespace osm_auth_ios;
   [self customizeAppearanceForNavigationBar:[UINavigationBar appearance]];
 }
 
-- (BOOL)application:(UIApplication *)app
-            openURL:(NSURL *)url
-            options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
-{
-  NSLog(@"application:openURL: %@ options: %@", url, options);
-  return [DeepLinkHandler.shared applicationDidOpenUrl:url options:options];
-}
-
 - (void)showMap
 {
-  [(UINavigationController *)self.window.rootViewController popToRootViewControllerAnimated:YES];
+  [self.mainNavigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)updateApplicationIconBadgeNumber
@@ -335,18 +355,26 @@ using namespace osm_auth_ios;
 
 #pragma mark - Properties
 
+- (UINavigationController *)mainNavigationController
+{
+  // Lazily load the Main storyboard's root navigation controller so a single shared MapViewController
+  // (and its Drape engine) exists even on a CarPlay-first cold launch, before MainSceneDelegate connects
+  // the phone window scene. Both the phone scene and CarPlayService reuse this same instance.
+  if (!_mainNavigationController)
+  {
+    UIStoryboard * storyboard = [UIStoryboard instance:MWMStoryboardMain];
+    _mainNavigationController = (UINavigationController *)[storyboard instantiateInitialViewController];
+  }
+  return _mainNavigationController;
+}
+
 - (MapViewController *)mapViewController
 {
-  for (id vc in [(UINavigationController *)self.window.rootViewController viewControllers])
+  for (id vc in self.mainNavigationController.viewControllers)
     if ([vc isKindOfClass:[MapViewController class]])
       return vc;
   NSAssert(false, @"Please check the logic");
   return nil;
-}
-
-- (MWMCarPlayService *)carplayService
-{
-  return [MWMCarPlayService shared];
 }
 
 #pragma mark - TTS
@@ -412,22 +440,6 @@ using namespace osm_auth_ios;
     return NO;
 
   return YES;
-}
-
-#pragma mark - CPApplicationDelegate implementation
-
-- (void)application:(UIApplication *)application
-    didConnectCarInterfaceController:(CPInterfaceController *)interfaceController
-                            toWindow:(CPWindow *)window
-{
-  [self.carplayService setupWithWindow:window interfaceController:interfaceController];
-}
-
-- (void)application:(UIApplication *)application
-    didDisconnectCarInterfaceController:(CPInterfaceController *)interfaceController
-                             fromWindow:(CPWindow *)window
-{
-  [self.carplayService destroy];
 }
 
 @end

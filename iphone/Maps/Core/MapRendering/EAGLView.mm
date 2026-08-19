@@ -112,7 +112,14 @@ class GraphicsContextFactory;
         @{kEAGLDrawablePropertyRetainedBacking: @NO, kEAGLDrawablePropertyColorFormat: kEAGLColorFormatRGBA8};
   }
   auto & f = GetFramework();
-  f.SetGraphicsContextInitializationHandler([self]() { self.graphicContextInitialized = YES; });
+  f.SetGraphicsContextInitializationHandler([self]()
+  {
+    self.graphicContextInitialized = YES;
+    void (^handler)(void) = self.graphicContextDidInitializeHandler;
+    self.graphicContextDidInitializeHandler = nil;
+    if (handler)
+      handler();
+  });
 }
 
 - (void)createDrapeEngine
@@ -145,7 +152,9 @@ class GraphicsContextFactory;
   p.m_surfaceHeight = height;
   p.m_visualScale = df::CSF2VS(self.contentScaleFactor);
   p.m_hints.m_isFirstLaunch = [FirstSession isFirstSession];
-  p.m_hints.m_isLaunchByDeepLink = DeepLinkHandler.shared.isLaunchedByDeeplink;
+  // Custom-scheme and universal links alike: the pending link sets the viewport, so Drape must not
+  // start following the current position.
+  p.m_hints.m_isLaunchByDeepLink = DeepLinkHandler.shared.hasPendingColdLaunchDeepLink;
 
   [self.widgetsManager setupWidgets:p];
   GetFramework().CreateDrapeEngine(make_ref(m_factory), std::move(p));
@@ -195,17 +204,12 @@ class GraphicsContextFactory;
   return _widgetsManager;
 }
 
-- (void)updateVisualScaleTo:(CGFloat)visualScale
+- (void)updateVisualScaleWithContentScaleFactor:(CGFloat)contentScaleFactor
 {
-  LOG(LINFO, ("The visual scale is being updated to:", visualScale));
-  GetFramework().UpdateVisualScale(visualScale);
-}
-
-- (void)updateVisualScaleToMain
-{
-  CGFloat const visualScale = UIScreen.mainScreen.scale;
-  LOG(LINFO, ("The visual scale is being updated to the main scale:", visualScale));
-  GetFramework().UpdateVisualScale(visualScale);
+  // Convert and clamp like createDrapeEngine: an external display may report a scale below kMinVisualScale.
+  double const vs = df::CSF2VS(contentScaleFactor);
+  LOG(LINFO, ("The visual scale is being updated to:", vs));
+  GetFramework().UpdateVisualScale(vs);
 }
 
 @end
