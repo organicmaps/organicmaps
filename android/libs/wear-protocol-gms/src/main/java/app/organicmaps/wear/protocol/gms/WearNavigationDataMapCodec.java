@@ -16,6 +16,10 @@ public final class WearNavigationDataMapCodec
     dataMap.putString(WearNavigationData.KEY_MODE, state.getMode().name());
   }
 
+  /**
+   * Returns null when the peer protocol version differs or the payload is malformed, so an
+   * incompatible peer degrades to no navigation state.
+   */
   @Nullable
   public static WearNavigationState decode(@NonNull DataMap dataMap)
   {

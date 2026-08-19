@@ -148,8 +148,7 @@ public final class MainActivity extends Activity implements DataClient.OnDataCha
       {
         try
         {
-          state = WearNavigationDataMapCodec.decode(
-              DataMapItem.fromDataItem(dataItems.get(0)).getDataMap());
+          state = WearNavigationDataMapCodec.decode(DataMapItem.fromDataItem(dataItems.get(0)).getDataMap());
         }
         catch (RuntimeException e)
         {
