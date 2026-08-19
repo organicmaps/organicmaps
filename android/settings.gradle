@@ -25,6 +25,7 @@ include ':libs:googleassistant'
 include ':libs:routing'
 include ':libs:utils'
 include ':libs:wear-protocol'
+include ':libs:wear-protocol-gms'
 
 include ':wear'
 

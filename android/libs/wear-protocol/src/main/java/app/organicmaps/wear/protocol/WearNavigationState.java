@@ -16,14 +16,19 @@ public final class WearNavigationState
     mMode = mode;
   }
 
+  public static WearNavigationState of(WearNavigationMode mode)
+  {
+    return new WearNavigationState(mode);
+  }
+
   public static WearNavigationState normal()
   {
-    return new WearNavigationState(WearNavigationMode.NORMAL);
+    return of(WearNavigationMode.NORMAL);
   }
 
   public static WearNavigationState navigation()
   {
-    return new WearNavigationState(WearNavigationMode.NAVIGATION);
+    return of(WearNavigationMode.NAVIGATION);
   }
 
   public WearNavigationMode getMode()

@@ -155,7 +155,7 @@ jobs:
           working-directory: ./android
           script: >-
             ./gradlew -P${{ matrix.arch }} app:test${{ matrix.flavor }} sdk:testDebug
-            :wear:testGoogleDebugUnitTest :libs:wear-protocol:testDebugUnitTest
+            :wear:testGoogleDebugUnitTest :libs:wear-protocol-gms:testDebugUnitTest
             :sdk:wear:core:testDebugUnitTest sdk:connectedDebugAndroidTest
 
       - name: Upload ${{ matrix.flavor }} apk

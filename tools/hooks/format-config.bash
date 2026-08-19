@@ -16,6 +16,7 @@ CLANG_FORMAT_TARGETS=(
   "android/libs/routing/src|*.java"
   "android/libs/utils/src|*.java"
   "android/libs/wear-protocol/src|*.java"
+  "android/libs/wear-protocol-gms/src|*.java"
   "android/sdk/car/src|*.java"
   "android/sdk/src|*.java"
   "android/sdk/wear/core/src|*.java"

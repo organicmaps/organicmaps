@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import app.organicmaps.sdk.wear.WearNavigationPublisher;
 import app.organicmaps.wear.protocol.WearNavigationData;
 import app.organicmaps.wear.protocol.WearNavigationState;
-import com.google.android.gms.wearable.DataMap;
+import app.organicmaps.wear.protocol.gms.WearNavigationDataMapCodec;
 import com.google.android.gms.wearable.PutDataMapRequest;
 import com.google.android.gms.wearable.Wearable;
 
@@ -32,9 +32,7 @@ final class GmsWearNavigationPublisher implements WearNavigationPublisher
   public void publish(@NonNull WearNavigationState state)
   {
     final PutDataMapRequest request = PutDataMapRequest.create(WearNavigationData.PATH_NAVIGATION_STATE);
-    final DataMap dataMap = request.getDataMap();
-    dataMap.putInt(WearNavigationData.KEY_VERSION, WearNavigationData.VERSION);
-    dataMap.putString(WearNavigationData.KEY_MODE, state.getMode().name());
+    WearNavigationDataMapCodec.encode(request.getDataMap(), state);
     request.setUrgent();
     Wearable.getDataClient(mContext).putDataItem(request.asPutDataRequest()).addOnFailureListener(
         e -> Log.w(TAG, "Failed to publish Wear navigation state", e));
