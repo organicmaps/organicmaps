@@ -4045,7 +4045,7 @@ bool Framework::CanShowCrowdfundingPromo() const
   uint64_t lastDonationTapTime = 0;
   bool const donationWasTapped = settings::Get(kDonationTapTimeKey, lastDonationTapTime) && lastDonationTapTime > 0;
   bool const crowdfundingHasEnded = base::SecondsSinceEpoch() > kCrowdfundingEndTime;
-  if (donationWasTapped && crowdfundingHasEnded)
+  if (donationWasTapped || crowdfundingHasEnded)
     return false;
 
   return true;
