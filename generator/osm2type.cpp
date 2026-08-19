@@ -263,8 +263,6 @@ public:
     CyclewayTrack,
     CyclewayLane,
     CyclewaySharedLane,
-    Residential,
-    LivingStreet,
     BicycleBidir,
     SurfacePavedGood,
     SurfacePavedBad,
@@ -307,8 +305,6 @@ public:
         {CyclewayTrack, {"cyclewaytag", "track"}},
         {CyclewayLane, {"cyclewaytag", "lane"}},
         {CyclewaySharedLane, {"cyclewaytag", "shared_lane"}},
-        {Residential, {"highway", "residential"}},
-        {LivingStreet, {"highway", "living_street"}},
         {BicycleBidir, {"hwtag", "bidir_bicycle"}},
         {SurfacePavedGood, {"psurface", "paved_good"}},
         {SurfacePavedBad, {"psurface", "paved_bad"}},
@@ -1119,7 +1115,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
       bool bicycleDesignated = false;
       CachedTypes::Type cyclewayType = CachedTypes::Count;
       auto const IsPositiveCyclewayProtection = [](std::string const & value)
-      { return !value.empty() && value != "no" && value != "none" && value != "false" && value != "no_separation"; };
+      { return !value.empty() && !IsNegativeTagValue(value) && value != "no_separation"; };
       auto const SetCyclewayType = [&cyclewayType](CachedTypes::Type type)
       {
         // Rendering uses one centerline category. Prefer the most protected
@@ -1138,14 +1134,29 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
         if (GetPriority(type) > GetPriority(cyclewayType))
           cyclewayType = type;
       };
-      auto const ProcessCyclewayTypeTag = [&SetCyclewayType](std::string const & value)
+      auto const ProcessCyclewayTypeTag = [&SetCyclewayType, &IsPositiveCyclewayProtection,
+                                           p](std::string const & key, std::string const & value)
       {
+        CachedTypes::Type type = CachedTypes::Count;
         if (value == "track" || value == "opposite_track" || value == "protected_lane")
-          SetCyclewayType(CachedTypes::CyclewayTrack);
+          type = CachedTypes::CyclewayTrack;
         else if (value == "lane" || value == "opposite_lane" || value == "buffered_lane")
-          SetCyclewayType(CachedTypes::CyclewayLane);
+          type = CachedTypes::CyclewayLane;
         else if (value == "shared_lane")
-          SetCyclewayType(CachedTypes::CyclewaySharedLane);
+          type = CachedTypes::CyclewaySharedLane;
+
+        // A physically separated lane is as safe as a track. Check the same key
+        // (side) that carried the lane, not any other side.
+        if (type == CachedTypes::CyclewayLane)
+        {
+          string const prefix(key);
+          if (IsPositiveCyclewayProtection(p->GetTag(prefix + ":separation")) ||
+              IsPositiveCyclewayProtection(p->GetTag(prefix + ":barrier")))
+            type = CachedTypes::CyclewayTrack;
+        }
+
+        if (type != CachedTypes::Count)
+          SetCyclewayType(type);
       };
 
       TagProcessor(p).ApplyRules({
@@ -1214,7 +1225,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
         else if (IsPositiveRoutingTagValue(tag.m_value))
           flags[Flags::Cycleway] = 1;
 
-        ProcessCyclewayTypeTag(tag.m_value);
+        ProcessCyclewayTypeTag(tag.m_key, tag.m_value);
       }
 
       if (addOneway && !noOneway)
@@ -1240,26 +1251,11 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
       ApplyFlag(Flags::MotorCar, CachedTypes::YesCar, CachedTypes::NoCar, CachedTypes::NoCar,
                 IsCarDesignatedHighway(vType));
 
-      bool hasCyclewayProtection = false;
-      for (auto const key : kCyclewayKeys)
-      {
-        string const prefix(key);
-        if (IsPositiveCyclewayProtection(p->GetTag(prefix + ":separation")) ||
-            IsPositiveCyclewayProtection(p->GetTag(prefix + ":barrier")))
-        {
-          hasCyclewayProtection = true;
-          break;
-        }
-      }
-
-      if (cyclewayType == CachedTypes::CyclewayLane && hasCyclewayProtection)
-        SetCyclewayType(CachedTypes::CyclewayTrack);
-
       // Residential streets where bicycles are explicitly designated but no dedicated
       // cycleway is tagged: bikes share the carriageway with cars, so treat them as
       // shared_lane for rendering.
       if (cyclewayType == CachedTypes::Count && bicycleDesignated &&
-          (vType == types.Get(CachedTypes::Residential) || vType == types.Get(CachedTypes::LivingStreet)))
+          ftypes::IsWayChecker::Instance().GetSearchRank(vType) == ftypes::IsWayChecker::Residential)
       {
         SetCyclewayType(CachedTypes::CyclewaySharedLane);
       }
