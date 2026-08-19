@@ -681,6 +681,23 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
   }
 
   {
+    // A barrier on the right must not promote the left painted lane.
+    Tags const tags = {
+        {"cycleway:left", "lane"},
+        {"cycleway:right:barrier", "flex_post"},
+        {"highway", "secondary"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 3, (params));
+    TEST(params.IsTypeExist(GetType({"highway", "secondary"})), ());
+    TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), ());
+    TEST(params.IsTypeExist(GetType({"cyclewaytag", "lane"})), ());
+    TEST(!params.IsTypeExist(GetType({"cyclewaytag", "track"})), ());
+  }
+
+  {
     Tags const tags = {
         {"cycleway:right:separation", "kerb"},
         {"highway", "secondary"},
@@ -804,6 +821,21 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
 
     TEST_EQUAL(params.m_types.size(), 3, (params));
     TEST(params.IsTypeExist(GetType({"highway", "living_street"})), ());
+    TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), ());
+    TEST(params.IsTypeExist(GetType({"cyclewaytag", "shared_lane"})), ());
+  }
+
+  {
+    Tags const tags = {
+        {"bicycle", "designated"},
+        {"highway", "residential"},
+        {"bridge", "yes"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 3, (params));
+    TEST(params.IsTypeExist(GetType({"highway", "residential", "bridge"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), ());
     TEST(params.IsTypeExist(GetType({"cyclewaytag", "shared_lane"})), ());
   }
