@@ -845,7 +845,6 @@ public:
   std::string GetDonateUrl() const;
   bool CanShowCrowdfundingPromo() const;
   void DidShowDonationPage() const;
-  void DidPossiblyReturnFromDonationPage() const;
   // Only for testing purposes.
   void ResetDonations();
 
