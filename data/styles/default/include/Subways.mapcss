@@ -13,14 +13,10 @@ the bbox to MatchCity() in generator/osm2type.cpp
 node|z0-[railway=station][transport=subway],
 node|z0-[railway=station][station=light_rail],
 node|z0-[railway=station][station=monorail],
-{icon-image: none; text: none;}
-
 node|z0-[railway=station][transport=subway]::int_name,
 node|z0-[railway=station][station=light_rail]::int_name,
 node|z0-[railway=station][station=monorail]::int_name,
 {icon-image: none; text: none;}
-/*TODO: for some reason, int_name rules and normal rules have to be
-separate, otherwise generating drules fails with a priority error */
 
 node|z13-[railway=station][transport=subway],
 {icon-image: subway-s.svg;}
