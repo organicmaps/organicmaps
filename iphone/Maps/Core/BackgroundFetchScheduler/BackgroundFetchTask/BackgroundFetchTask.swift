@@ -11,9 +11,8 @@
                                                                         expirationHandler: {
                                                                           self.finish(.failed)
                                                                         })
-    if backgroundTaskIdentifier != UIBackgroundTaskIdentifier.invalid {
-      fire()
-    }
+    guard backgroundTaskIdentifier != UIBackgroundTaskIdentifier.invalid else { return }
+    fire()
   }
 
   fileprivate func fire() {
