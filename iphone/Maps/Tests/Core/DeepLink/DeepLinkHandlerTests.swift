@@ -19,8 +19,8 @@ final class DeepLinkHandlerTests: XCTestCase {
     handler.prepareForColdLaunch(url: url)
 
     XCTAssertTrue(handler.hasPendingColdLaunchDeepLink)
-    XCTAssertTrue(handler.isLaunchedByDeepLink)
     XCTAssertEqual(handler.url, url)
+    XCTAssertNil(handler.getInAppFeatureHighlightData())
   }
 
   func testColdUniversalLinkIsConvertedAndQueued() throws {
@@ -29,8 +29,8 @@ final class DeepLinkHandlerTests: XCTestCase {
     )
 
     XCTAssertTrue(handler.hasPendingColdLaunchDeepLink)
-    XCTAssertTrue(handler.isLaunchedByDeepLink)
     XCTAssertEqual(handler.url?.absoluteString, "om://AbCd/Test")
+    XCTAssertNil(handler.getInAppFeatureHighlightData())
   }
 
   func testLastLinkReceivedBeforeMapIsReadyWins() throws {
@@ -40,7 +40,7 @@ final class DeepLinkHandlerTests: XCTestCase {
 
     XCTAssertTrue(handler.applicationDidOpenUrl(laterURL))
     XCTAssertEqual(handler.url, laterURL)
-    XCTAssertTrue(handler.isLaunchedByDeepLink)
+    XCTAssertNil(handler.getInAppFeatureHighlightData())
   }
 
   func testUniversalLinkReceivedBeforeMapIsReadyIsNotHandledTwice() throws {
@@ -49,8 +49,18 @@ final class DeepLinkHandlerTests: XCTestCase {
     let universalLink = try XCTUnwrap(URL(string: "https://omaps.app/AbCd/Test"))
     XCTAssertTrue(handler.applicationDidReceiveUniversalLink(universalLink))
     XCTAssertTrue(handler.hasPendingColdLaunchDeepLink)
-    XCTAssertTrue(handler.isLaunchedByDeepLink)
     XCTAssertEqual(handler.url?.absoluteString, "om://AbCd/Test")
+    XCTAssertNil(handler.getInAppFeatureHighlightData())
+  }
+
+  func testHandlingPendingLinkRetainsBackURL() throws {
+    let url = try XCTUnwrap(URL(string: "om://invalid?backurl=testapp%3A%2F%2F"))
+    handler.prepareForColdLaunch(url: url)
+
+    XCTAssertFalse(handler.handlePendingDeepLink())
+    XCTAssertFalse(handler.hasPendingColdLaunchDeepLink)
+    XCTAssertEqual(handler.getBackUrl(), "testapp://")
+    XCTAssertEqual(handler.url, url)
   }
 
   func testResetClearsColdLaunchState() throws {
@@ -58,7 +68,7 @@ final class DeepLinkHandlerTests: XCTestCase {
     handler.reset()
 
     XCTAssertFalse(handler.hasPendingColdLaunchDeepLink)
-    XCTAssertFalse(handler.isLaunchedByDeepLink)
     XCTAssertNil(handler.url)
+    XCTAssertNil(handler.getInAppFeatureHighlightData())
   }
 }

@@ -274,7 +274,7 @@ using namespace osm_auth_ios;
   }
   else if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb] && userActivity.webpageURL != nil)
   {
-    LOG(LINFO, ("application:continueUserActivity:restorationHandler: %@", userActivity.webpageURL));
+    LOG(LINFO, ("handleUserActivity", userActivity.webpageURL.absoluteString.UTF8String));
     return [DeepLinkHandler.shared applicationDidReceiveUniversalLink:userActivity.webpageURL];
   }
 

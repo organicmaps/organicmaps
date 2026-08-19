@@ -528,7 +528,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
   /// @todo: Uncomment update dialog when will be ready to handle big traffic bursts.
   /*
-  if (!DeepLinkHandler.shared.isLaunchedByDeepLink)
+  if (!DeepLinkHandler.shared.hasPendingColdLaunchDeepLink)
   {
     auto const todo = GetFramework().ToDoAfterUpdate();
     switch (todo) {
@@ -550,7 +550,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
   // Cold start deep links should be handled when the map is initialized.
   // Otherwise PP container view is nil, or there is no animation/selection of the point.
   if (DeepLinkHandler.shared.hasPendingColdLaunchDeepLink)
-    (void)[DeepLinkHandler.shared handleDeepLinkAndReset];
+    (void)[DeepLinkHandler.shared handlePendingDeepLink];
 }
 
 - (void)viewDidLayoutSubviews
