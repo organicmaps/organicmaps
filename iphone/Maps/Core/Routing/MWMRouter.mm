@@ -8,6 +8,7 @@
 #import "MWMMapViewControlsManager.h"
 #import "MWMNavigationDashboardManager+Entity.h"
 #import "MWMRoutePoint+CPP.h"
+#import "MWMRoutingManager.h"
 #import "MWMStorage+UI.h"
 #import "MapsAppDelegate.h"
 #import "SwiftBridge.h"
@@ -436,7 +437,6 @@ using namespace routing;
 
 + (void)start
 {
-  [self saveRoute];
   auto const doStart = ^{
     auto & rm = GetFramework().GetRoutingManager();
     auto const routePoints = rm.GetRoutePoints();
@@ -448,11 +448,15 @@ using namespace routing;
       CLLocation * lastLocation = [MWMLocationManager lastLocation];
       if (p1.isMyPosition && lastLocation)
       {
-        rm.FollowRoute();
+        [[MWMRoutingManager routingManager] startRoute];
         [[MWMMapViewControlsManager manager] onRouteStart];
       }
       else
       {
+        // The route is not followed here, and only following saves the points, so save them for
+        // restoreRouteIfNeeded.
+        [self saveRoute];
+
         BOOL const needToRebuild = lastLocation && [MWMLocationManager isStarted] && !p2.isMyPosition;
 
         [[MWMAlertViewController activeAlertController]
@@ -488,9 +492,9 @@ using namespace routing;
 
 + (void)doStop:(BOOL)removeRoutePoints
 {
-  GetFramework().GetRoutingManager().CloseRouting(removeRoutePoints);
+  [[MWMRoutingManager routingManager] stopRoutingAndRemoveRoutePoints:removeRoutePoints];
   if (removeRoutePoints)
-    GetFramework().GetRoutingManager().DeleteSavedRoutePoints();
+    [[MWMRoutingManager routingManager] deleteSavedRoutePoints];
 }
 
 - (void)updateFollowingInfo

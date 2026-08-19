@@ -137,6 +137,7 @@
 - (void)stopRoutingAndRemoveRoutePoints:(BOOL)flag
 {
   self.rm.CloseRouting(flag);
+  [MWMThemeManager invalidate];
 }
 
 - (void)deleteSavedRoutePoints
@@ -194,6 +195,7 @@
 {
   [self saveRoute];
   self.rm.FollowRoute();
+  [MWMThemeManager invalidate];
 }
 
 - (MWMSpeedCameraManagerMode)speedCameraMode
