@@ -124,7 +124,8 @@ std::string_view constexpr kLastAskedForRateUsTimeKey = "LastAskedForRateUsTime"
 std::string_view constexpr kDonationTapTimeKey = "DonationTapTime";
 std::string_view constexpr kDonationTapCountKey = "DonationTapCount";
 
-// The gift box is shown during this campaign only, update both dates to run the next one.
+// The gift box is shown from 00:00 UTC of the start date until 00:00 UTC of the end date,
+// i.e. the end date is the first day without it. Update both dates to run the next campaign.
 auto const kCrowdfundingStartTime = base::YYMMDDToSecondsSinceEpoch(251220);
 auto const kCrowdfundingEndTime = base::YYMMDDToSecondsSinceEpoch(260120);
 
@@ -3931,8 +3932,12 @@ std::optional<products::ProductsConfig> Framework::GetProductsConfiguration() co
 
 void Framework::DidCloseProductsPopup(ProductsPopupCloseReason reason) const
 {
-  settings::Set(kPlacePageProductsPopupCloseTime, base::SecondsSinceEpoch());
+  auto const now = base::SecondsSinceEpoch();
+  settings::Set(kPlacePageProductsPopupCloseTime, now);
   settings::Set(kPlacePageProductsPopupCloseReason, ToString(reason));
+  // Users who say they have already donated shouldn't see the crowdfunding promo either.
+  if (reason == ProductsPopupCloseReason::AlreadyDonated)
+    settings::Set(kDonationTapTimeKey, now);
 }
 
 void Framework::DidSelectProduct(products::ProductsConfig::Product const & product) const
@@ -4047,9 +4052,8 @@ bool Framework::CanShowCrowdfundingPromo() const
 
   // Don't nag users who have already opened the donation page during this campaign.
   uint64_t lastDonationTapTime = 0;
-  bool const donatedDuringCampaign =
-      settings::Get(kDonationTapTimeKey, lastDonationTapTime) && lastDonationTapTime >= kCrowdfundingStartTime;
-  return !donatedDuringCampaign;
+  settings::TryGet(kDonationTapTimeKey, lastDonationTapTime);
+  return lastDonationTapTime < kCrowdfundingStartTime;
 }
 
 void Framework::DidShowDonationPage() const

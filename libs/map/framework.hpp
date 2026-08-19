@@ -843,7 +843,6 @@ public:
   void DidShowRateUsRequest() const;
 
   std::string GetDonateUrl() const;
-  /// @note Check that a donate URL is available too: platforms may have their own fallback.
   bool CanShowCrowdfundingPromo() const;
   void DidShowDonationPage() const;
   // Only for testing purposes.
