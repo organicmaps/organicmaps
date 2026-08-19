@@ -751,7 +751,7 @@ building-has_parts                                  # caption z18- (also has are
 === 50
 
 building-garage                                     # caption z18- (also has area z15-)
-building-guardhouse                                 # icon z17- (also has caption(optional) z18-, area z15-)
+building-guardhouse                                 # icon z17- (also has area z15-)
 === 30
 
 entrance-main                                       # icon z18- (also has caption(optional) z18-)
@@ -1230,9 +1230,6 @@ entrance-main                                       # icon z18- (also has captio
 # leisure-park-no-access                            # caption(optional) z14- (also has icon z14-, area z10-)
 # leisure-park-private                              # caption(optional) z14- (also has icon z14-, area z10-)
 # === -9900
-
-# building-guardhouse                               # caption(optional) z18- (also has icon z17-, area z15-)
-# === -9970
 
 # entrance-main                                     # caption(optional) z18- (also has icon z18-)
 # === -9980

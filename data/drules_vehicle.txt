@@ -1957,15 +1957,12 @@ type building-guardhouse
   z18
     area color=c100 border[width=1 color=c099 join=round cap=round] priority=50
     symbol name=security-m priority=30
-    caption primary[height=13 color=c075 dy=1 optional] secondary[height=12 color=c075 dy=1 optional] priority=-9970
   z19
     area color=c100 border[width=1 color=c099 join=round cap=round] priority=50
     symbol name=security-m priority=30
-    caption primary[height=14 color=c075 dy=1 optional] secondary[height=13 color=c075 dy=1 optional] priority=-9970
   z20
     area color=c100 border[width=1 color=c099 join=round cap=round] priority=50
     symbol name=security-m priority=30
-    caption primary[height=14 color=c075 dy=1 optional] secondary[height=13 color=c075 dy=1 optional] priority=-9970
 type building-has_parts
   z15
     area color=c098 border[width=1 color=c099 join=round cap=round] priority=50
