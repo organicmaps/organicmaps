@@ -9,6 +9,7 @@ android {
 }
 
 dependencies {
+  implementation project(':libs:wear-protocol-gms')
   implementation project(':sdk:wear:core')
 
   implementation libs.androidx.annotation
