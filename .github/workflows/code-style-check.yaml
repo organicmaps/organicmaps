@@ -3,25 +3,19 @@ name: Code style check
 on:
   pull_request:
     branches: [ master ]
-    paths: # Should stay in sync with tools/unix/clang-format.sh
-      - '.github/workflows/code-style-check.yaml'
-      - 'android/app/src/**.java'
-      - 'android/sdk/src/**.java'
-      - 'android/sdk/src/main/cpp/**.[ch]pp'
-      - 'dev_sandbox/**.[ch]pp'
-      - 'generator/**.[ch]pp'
-      - 'iphone/**.[ch]pp'
-      - 'iphone/**.[hm]'
-      - 'iphone/**.mm'
-      - 'libs/**.[ch]pp'
-      - 'libs/**.[hm]'
-      - '!libs/indexer/drules_struct.pb.h'
-      - 'libs/**.mm'
-      - 'qt/**.[ch]pp'
-      - 'qt/**.h'
-      - 'tools/**.[ch]pp'
+    # Filter by extension, not by directory: per-module directory lists silently drift
+    # when modules move or get added (this filter missed all of android/libs/* since the
+    # module split). Same extensions as CLANG_FORMAT_TARGETS in tools/hooks/format-config.bash.
+    paths:
+      - '**.java'
+      - '**.[ch]pp'
+      - '**.[hm]'
+      - '**.mm'
       - '.clang-format'
       - '.clang-format-ignore'
+      - '.github/workflows/code-style-check.yaml'
+      - 'tools/hooks/format-config.bash'
+      - 'tools/unix/clang-format.sh'
 
 jobs:
   code-style-check:

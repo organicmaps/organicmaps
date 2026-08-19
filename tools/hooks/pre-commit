@@ -6,10 +6,16 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT"
 
 source "$REPO_ROOT/tools/hooks/format-config.bash"
 
-STAGED_FILES=$(git diff --cached --name-only --diff-filter=AM)
+# Usage: staged_files <pathspec>...
+staged_files() {
+  git diff --cached --name-only --diff-filter=AM -- "$@"
+}
+
+STAGED_FILES=$(staged_files)
 
 if [ -z "$STAGED_FILES" ]; then
   exit 0
@@ -18,8 +24,8 @@ fi
 REFORMATTED=0
 
 # --- clang-format -----------------------------------------------------------
-CLANG_REGEX=$(build_path_regex CLANG_FORMAT_TARGETS)
-CLANG_FILES=$(echo "$STAGED_FILES" | grep -E "$CLANG_REGEX" || true)
+# Files excluded from formatting are skipped by clang-format itself, see .clang-format-ignore.
+CLANG_FILES=$(staged_files "${CLANG_FORMAT_TARGETS[@]}")
 
 if [ -n "$CLANG_FILES" ]; then
   CLANG_FORMAT=$(resolve_clang_format)
@@ -37,9 +43,8 @@ if [ -n "$CLANG_FILES" ]; then
 fi
 
 # --- swiftformat -------------------------------------------------------------
-SWIFT_DIRS=$(printf '%s|' "${SWIFTFORMAT_TARGETS[@]}" | sed 's/|$//')
-SWIFT_REGEX="^($SWIFT_DIRS)/.*\.swift$"
-SWIFT_FILES=$(echo "$STAGED_FILES" | grep -E "$SWIFT_REGEX" || true)
+# swiftformat takes directories, the hook needs per-file pathspecs: iphone -> iphone/*.swift.
+SWIFT_FILES=$(staged_files "${SWIFTFORMAT_TARGETS[@]/%//*.swift}")
 
 if [ -n "$SWIFT_FILES" ]; then
   if ! command -v swiftformat >/dev/null 2>&1; then
@@ -60,8 +65,7 @@ if [ -n "$SWIFT_FILES" ]; then
 fi
 
 # --- ktlint ------------------------------------------------------------------
-KTLINT_REGEX=$(build_path_regex KTLINT_TARGETS)
-KTLINT_FILES=$(echo "$STAGED_FILES" | grep -E "$KTLINT_REGEX" || true)
+KTLINT_FILES=$(staged_files "${KTLINT_TARGETS[@]}")
 
 if [ -n "$KTLINT_FILES" ]; then
   if KTLINT=$(resolve_ktlint); then
@@ -107,8 +111,9 @@ if [ -n "$KTLINT_FILES" ]; then
 fi
 
 # --- Store metadata (release notes, descriptions, URLs, etc.) ---------------
-METADATA_REGEX='^(android/app/src/(fdroid|google)/play/.+\.txt|iphone/metadata/.+\.txt)$'
-METADATA_FILES=$(echo "$STAGED_FILES" | grep -E "$METADATA_REGEX" || true)
+METADATA_FILES=$(staged_files 'android/app/src/fdroid/play/*.txt' \
+                             'android/app/src/google/play/*.txt' \
+                             'iphone/metadata/*.txt')
 
 if [ -n "$METADATA_FILES" ]; then
   METADATA_ARGS=()

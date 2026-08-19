@@ -5,7 +5,7 @@ on:
     branches: [ master ]
     paths: # Should stay in sync with tools/unix/ktlint_format.sh
       - '.github/workflows/code-style-check-kotlin.yaml'
-      - 'android/**/*.kt'
+      - 'android/**.kt'
       - 'android/.editorconfig'
       - 'android/gradle/libs.versions.toml'
       - 'tools/unix/ktlint_format.sh'
