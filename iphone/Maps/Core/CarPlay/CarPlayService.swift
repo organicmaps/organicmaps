@@ -18,6 +18,10 @@ private struct CarPlaySpeedState {
 final class CarPlayService: NSObject {
   private enum Constants {
     static let openCarPlayURL = URL(string: "om://carplay")
+    /// Fraction of the viewport the map is moved by, repeated while a pan button is held.
+    static let panStep: CGFloat = 0.1
+    /// Fraction of the viewport the map is moved by once, when a pan button is released.
+    static let panEndedStep: CGFloat = 0.25
   }
 
   @objc static let shared = CarPlayService()
@@ -994,39 +998,11 @@ extension CarPlayService: CPMapTemplateDelegate {
   }
 
   func mapTemplate(_: CPMapTemplate, panEndedWith direction: CPMapTemplate.PanDirection) {
-    var offset = UIOffset(horizontal: 0.0, vertical: 0.0)
-    let offsetStep: CGFloat = 0.25
-    if direction.contains(.up) {
-      offset.vertical -= offsetStep
-    }
-    if direction.contains(.down) {
-      offset.vertical += offsetStep
-    }
-    if direction.contains(.left) {
-      offset.horizontal += offsetStep
-    }
-    if direction.contains(.right) {
-      offset.horizontal -= offsetStep
-    }
-    FrameworkHelper.moveMap(offset)
+    FrameworkHelper.moveMap(direction.offset(step: Constants.panEndedStep))
   }
 
   func mapTemplate(_: CPMapTemplate, panWith direction: CPMapTemplate.PanDirection) {
-    var offset = UIOffset(horizontal: 0.0, vertical: 0.0)
-    let offsetStep: CGFloat = 0.1
-    if direction.contains(.up) {
-      offset.vertical -= offsetStep
-    }
-    if direction.contains(.down) {
-      offset.vertical += offsetStep
-    }
-    if direction.contains(.left) {
-      offset.horizontal += offsetStep
-    }
-    if direction.contains(.right) {
-      offset.horizontal -= offsetStep
-    }
-    FrameworkHelper.moveMap(offset)
+    FrameworkHelper.moveMap(direction.offset(step: Constants.panStep))
   }
 
   func mapTemplate(_ mapTemplate: CPMapTemplate, didUpdatePanGestureWithTranslation translation: CGPoint, velocity _: CGPoint) {
@@ -1178,10 +1154,8 @@ extension CarPlayService: CarPlayRouterListener {
   }
 
   func routeDidFinish(_ trip: CPTrip) {
-    if router?.currentTrip == nil {
-      return
-    }
-    router?.finishTrip()
+    guard let router, router.currentTrip != nil else { return }
+    router.finishTrip()
     hideSpeedState()
     updateMapTemplateUIToTripFinished(trip)
   }
@@ -1406,5 +1380,17 @@ extension CarPlayService {
     let alert = CPAlertTemplate(titleVariants: [title], actions: [noAction, yesAction])
     alert.userInfo = [CPConstants.TemplateKey.alert: CPConstants.TemplateType.restoreRoute]
     presentAlert(alert, animated: true)
+  }
+}
+
+// MARK: - Pan direction offset
+
+extension CPMapTemplate.PanDirection {
+  /// A pan button moves the viewport, so the map moves the opposite way.
+  /// FrameworkHelper.moveMap shifts the map by a fraction of the viewport, with the vertical
+  /// axis pointing up, unlike UIKit's.
+  func offset(step: CGFloat) -> UIOffset {
+    UIOffset(horizontal: (contains(.left) ? step : 0) - (contains(.right) ? step : 0),
+             vertical: (contains(.down) ? step : 0) - (contains(.up) ? step : 0))
   }
 }
