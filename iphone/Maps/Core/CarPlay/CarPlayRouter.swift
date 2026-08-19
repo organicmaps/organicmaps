@@ -339,6 +339,11 @@ extension CarPlayRouter: RoutingManagerListener {
         }
         return
       }
+      // Building a route disables following in the core. Resume it when an active CarPlay
+      // navigation session requested the rebuild (for example, after changing route options).
+      if routeSession != nil, !manager.isOnRoute {
+        manager.startRoute()
+      }
       if let info = manager.routeInfo {
         previewTrip?.routeChoices.first?.userInfo = info
         if routeSession == nil {
