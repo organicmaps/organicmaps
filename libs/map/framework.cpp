@@ -124,6 +124,8 @@ std::string_view constexpr kLastAskedForRateUsTimeKey = "LastAskedForRateUsTime"
 std::string_view constexpr kDonationTapTimeKey = "DonationTapTime";
 std::string_view constexpr kDonationTapCountKey = "DonationTapCount";
 
+// The gift box is shown during this campaign only, update both dates to run the next one.
+auto const kCrowdfundingStartTime = base::YYMMDDToSecondsSinceEpoch(251220);
 auto const kCrowdfundingEndTime = base::YYMMDDToSecondsSinceEpoch(260120);
 
 auto constexpr kLargeFontsScaleFactor = 1.6;
@@ -4039,16 +4041,15 @@ std::string Framework::GetDonateUrl() const
 
 bool Framework::CanShowCrowdfundingPromo() const
 {
-  if (GetDonateUrl().empty())
+  auto const now = base::SecondsSinceEpoch();
+  if (now < kCrowdfundingStartTime || now > kCrowdfundingEndTime)
     return false;
 
+  // Don't nag users who have already opened the donation page during this campaign.
   uint64_t lastDonationTapTime = 0;
-  bool const donationWasTapped = settings::Get(kDonationTapTimeKey, lastDonationTapTime) && lastDonationTapTime > 0;
-  bool const crowdfundingHasEnded = base::SecondsSinceEpoch() > kCrowdfundingEndTime;
-  if (donationWasTapped || crowdfundingHasEnded)
-    return false;
-
-  return true;
+  bool const donatedDuringCampaign =
+      settings::Get(kDonationTapTimeKey, lastDonationTapTime) && lastDonationTapTime >= kCrowdfundingStartTime;
+  return !donatedDuringCampaign;
 }
 
 void Framework::DidShowDonationPage() const

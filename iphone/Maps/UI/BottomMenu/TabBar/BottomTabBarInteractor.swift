@@ -28,7 +28,8 @@ class BottomTabBarInteractor {
 extension BottomTabBarInteractor: BottomTabBarInteractorProtocol {
   @objc
   func configureTabBar() {
-    viewController?.updateAboutButtonIcon(isCrowdfunding: Settings.canShowCrowdfundingPromo())
+    let isCrowdfunding = Settings.canShowCrowdfundingPromo() && Settings.donateUrl() != nil
+    viewController?.updateAboutButtonIcon(isCrowdfunding: isCrowdfunding)
   }
 
   func openSearch() {

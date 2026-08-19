@@ -35,9 +35,9 @@ class BottomTabBarViewController: UIViewController {
   func updateAboutButtonIcon(isCrowdfunding: Bool) {
     if isCrowdfunding {
       helpButton.setImage(UIImage(resource: .icCrowdfunding), for: .normal)
-      return
+    } else {
+      helpButton.setImage(UIImage(resource: Settings.isNY() ? .icChristmasTree : .logo), for: .normal)
     }
-    helpButton.setImage(UIImage(resource: Settings.isNY() ? .icChristmasTree : .logo), for: .normal)
     updateBadge()
   }
 
