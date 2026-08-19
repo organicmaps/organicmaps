@@ -414,9 +414,9 @@ extension DownloadMapsViewController: StorageObserver {
       reloadTableView()
     } else {
       for cell in tableView.visibleCells {
-        guard let downloaderCell = cell as? MWMMapDownloaderTableViewCell else { continue }
-        if downloaderCell.nodeAttrs.countryId != countryId { continue }
-        guard let indexPath = tableView.indexPath(for: downloaderCell) else { continue }
+        guard let downloaderCell = cell as? MWMMapDownloaderTableViewCell,
+              downloaderCell.nodeAttrs.countryId == countryId,
+              let indexPath = tableView.indexPath(for: downloaderCell) else { continue }
         downloaderCell.config(dataSource.item(at: indexPath), searchQuery: searchController.searchBar.text)
       }
       configButtons()
@@ -425,8 +425,8 @@ extension DownloadMapsViewController: StorageObserver {
 
   func processCountry(_ countryId: String, downloadedBytes: UInt64, totalBytes: UInt64) {
     for cell in tableView.visibleCells {
-      guard let downloaderCell = cell as? MWMMapDownloaderTableViewCell else { continue }
-      if downloaderCell.nodeAttrs.countryId != countryId { continue }
+      guard let downloaderCell = cell as? MWMMapDownloaderTableViewCell,
+            downloaderCell.nodeAttrs.countryId == countryId else { continue }
       downloaderCell.setDownloadProgress(CGFloat(downloadedBytes) / CGFloat(totalBytes))
     }
 

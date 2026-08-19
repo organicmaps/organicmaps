@@ -20,8 +20,7 @@ final class SettingsTemplateBuilder {
   // MARK: - CPGridButton builders
 
   private class func createTollButton(options: RoutingOptions) -> CPGridButton {
-    var tollIconName = "ic_carplay_toll"
-    if options.avoidToll { tollIconName += "_active" }
+    let tollIconName = options.avoidToll ? "ic_carplay_toll_active" : "ic_carplay_toll"
     return CPGridButton(titleVariants: [L("avoid_tolls")],
                         image: UIImage(named: tollIconName)!) { _ in
       options.avoidToll = !options.avoidToll
@@ -32,8 +31,7 @@ final class SettingsTemplateBuilder {
   }
 
   private class func createUnpavedButton(options: RoutingOptions) -> CPGridButton {
-    var unpavedIconName = "ic_carplay_unpaved"
-    if options.avoidDirty { unpavedIconName += "_active" }
+    let unpavedIconName = options.avoidDirty ? "ic_carplay_unpaved_active" : "ic_carplay_unpaved"
     return CPGridButton(titleVariants: [L("avoid_unpaved")],
                         image: UIImage(named: unpavedIconName)!) { _ in
       options.avoidDirty = !options.avoidDirty
@@ -44,8 +42,7 @@ final class SettingsTemplateBuilder {
   }
 
   private class func createFerryButton(options: RoutingOptions) -> CPGridButton {
-    var ferryIconName = "ic_carplay_ferry"
-    if options.avoidFerry { ferryIconName += "_active" }
+    let ferryIconName = options.avoidFerry ? "ic_carplay_ferry_active" : "ic_carplay_ferry"
     return CPGridButton(titleVariants: [L("avoid_ferry")],
                         image: UIImage(named: ferryIconName)!) { _ in
       options.avoidFerry = !options.avoidFerry
@@ -56,9 +53,8 @@ final class SettingsTemplateBuilder {
   }
 
   private class func createSpeedcamButton() -> CPGridButton {
-    var speedcamIconName = "ic_carplay_speedcam"
     let isSpeedCamActivated = CarPlayService.shared.isSpeedCamActivated
-    if isSpeedCamActivated { speedcamIconName += "_active" }
+    let speedcamIconName = isSpeedCamActivated ? "ic_carplay_speedcam_active" : "ic_carplay_speedcam"
     return CPGridButton(titleVariants: [L("speedcams_alert_title_carplay_1"),
                                         L("speedcams_alert_title_carplay_2")],
                         image: UIImage(named: speedcamIconName)!) { _ in
