@@ -71,7 +71,13 @@ final class SynchronizationtateManagerTests: XCTestCase {
     outgoingEvents.append(contentsOf: syncStateManager.resolveEvent(.didFinishGatheringLocalContents([localItem])))
     outgoingEvents.append(contentsOf: syncStateManager.resolveEvent(.didFinishGatheringCloudContents([cloudItem])))
 
-    XCTAssertTrue(outgoingEvents.contains { if case .resolveInitialSynchronizationConflict = $0 { return true } else { return false } }, "Expected conflict resolution for a newer cloud item")
+    XCTAssertTrue(outgoingEvents.contains {
+      if case .resolveInitialSynchronizationConflict = $0 {
+        return true
+      } else {
+        return false
+      }
+    }, "Expected conflict resolution for a newer cloud item")
   }
 
   func testInitialSynchronizationWithNewerLocalItem() {
@@ -83,7 +89,13 @@ final class SynchronizationtateManagerTests: XCTestCase {
     outgoingEvents.append(contentsOf: syncStateManager.resolveEvent(.didFinishGatheringLocalContents([localItem])))
     outgoingEvents.append(contentsOf: syncStateManager.resolveEvent(.didFinishGatheringCloudContents([cloudItem])))
 
-    XCTAssertTrue(outgoingEvents.contains { if case .resolveInitialSynchronizationConflict = $0 { return true } else { return false } }, "Expected conflict resolution for a newer local item")
+    XCTAssertTrue(outgoingEvents.contains {
+      if case .resolveInitialSynchronizationConflict = $0 {
+        return true
+      } else {
+        return false
+      }
+    }, "Expected conflict resolution for a newer local item")
   }
 
   func testInitialSynchronizationWithNonConflictingItems() {
@@ -95,8 +107,20 @@ final class SynchronizationtateManagerTests: XCTestCase {
     outgoingEvents.append(contentsOf: syncStateManager.resolveEvent(.didFinishGatheringLocalContents([localItem])))
     outgoingEvents.append(contentsOf: syncStateManager.resolveEvent(.didFinishGatheringCloudContents([cloudItem])))
 
-    XCTAssertTrue(outgoingEvents.contains { if case .createLocalItem = $0 { return true } else { return false } }, "Expected creation of local item for cloudFile")
-    XCTAssertTrue(outgoingEvents.contains { if case .createCloudItem = $0 { return true } else { return false } }, "Expected creation of cloud item for localFile")
+    XCTAssertTrue(outgoingEvents.contains {
+      if case .createLocalItem = $0 {
+        return true
+      } else {
+        return false
+      }
+    }, "Expected creation of local item for cloudFile")
+    XCTAssertTrue(outgoingEvents.contains {
+      if case .createCloudItem = $0 {
+        return true
+      } else {
+        return false
+      }
+    }, "Expected creation of cloud item for localFile")
   }
 
   func testInitialSynchronizationWhenCloudFilesAreNotDownloadedTheDownloadingShouldStart() {
