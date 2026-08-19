@@ -17,9 +17,7 @@ public class WearNavigationDataMapCodecTest
     final DataMap dataMap = new DataMap();
     WearNavigationDataMapCodec.encode(dataMap, WearNavigationState.navigation());
 
-    assertEquals(
-        WearNavigationMode.NAVIGATION,
-        WearNavigationDataMapCodec.decode(dataMap).getMode());
+    assertEquals(WearNavigationMode.NAVIGATION, WearNavigationDataMapCodec.decode(dataMap).getMode());
   }
 
   @Test
@@ -28,9 +26,7 @@ public class WearNavigationDataMapCodecTest
     final DataMap dataMap = new DataMap();
     WearNavigationDataMapCodec.encode(dataMap, WearNavigationState.normal());
 
-    assertEquals(
-        WearNavigationMode.NORMAL,
-        WearNavigationDataMapCodec.decode(dataMap).getMode());
+    assertEquals(WearNavigationMode.NORMAL, WearNavigationDataMapCodec.decode(dataMap).getMode());
   }
 
   @Test
@@ -39,26 +35,20 @@ public class WearNavigationDataMapCodecTest
     final DataMap normalDataMap = new DataMap();
     WearNavigationDataMapCodec.encode(normalDataMap, WearNavigationState.normal());
 
-    assertEquals(
-        WearNavigationData.VERSION,
-        normalDataMap.getInt(WearNavigationData.KEY_VERSION, -1));
-    assertEquals("NORMAL", normalDataMap.getString(WearNavigationData.KEY_MODE));
+    assertEquals(WearNavigationData.VERSION, normalDataMap.getInt("version", -1));
+    assertEquals("NORMAL", normalDataMap.getString("mode"));
 
     final DataMap navigationDataMap = new DataMap();
     WearNavigationDataMapCodec.encode(navigationDataMap, WearNavigationState.navigation());
 
-    assertEquals(
-        WearNavigationData.VERSION,
-        navigationDataMap.getInt(WearNavigationData.KEY_VERSION, -1));
-    assertEquals("NAVIGATION", navigationDataMap.getString(WearNavigationData.KEY_MODE));
+    assertEquals(WearNavigationData.VERSION, navigationDataMap.getInt("version", -1));
+    assertEquals("NAVIGATION", navigationDataMap.getString("mode"));
   }
 
   @Test
   public void versionMismatchReturnsNull()
   {
-    assertNull(
-        WearNavigationDataMapCodec.decode(
-            dataMap(999, "NAVIGATION")));
+    assertNull(WearNavigationDataMapCodec.decode(dataMap(999, "NAVIGATION")));
   }
 
   @Test
@@ -82,9 +72,7 @@ public class WearNavigationDataMapCodecTest
   @Test
   public void unknownModeReturnsNull()
   {
-    assertNull(
-        WearNavigationDataMapCodec.decode(
-            dataMap(WearNavigationData.VERSION, "BOGUS")));
+    assertNull(WearNavigationDataMapCodec.decode(dataMap(WearNavigationData.VERSION, "BOGUS")));
   }
 
   @Test
@@ -93,9 +81,7 @@ public class WearNavigationDataMapCodecTest
     final DataMap dataMap = dataMap(WearNavigationData.VERSION, "NAVIGATION");
     dataMap.putBoolean("unknown", true);
 
-    assertEquals(
-        WearNavigationMode.NAVIGATION,
-        WearNavigationDataMapCodec.decode(dataMap).getMode());
+    assertEquals(WearNavigationMode.NAVIGATION, WearNavigationDataMapCodec.decode(dataMap).getMode());
   }
 
   private static DataMap dataMap(int version, String mode)

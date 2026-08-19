@@ -10,8 +10,7 @@ public final class WearNavigationState
 {
   private final WearNavigationMode mMode;
 
-  // Package-private: construct via the factories below.
-  WearNavigationState(WearNavigationMode mode)
+  private WearNavigationState(WearNavigationMode mode)
   {
     mMode = mode;
   }

@@ -10,6 +10,7 @@ import app.organicmaps.wear.protocol.gms.WearNavigationDataMapCodec;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.wearable.PutDataMapRequest;
+import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
 
 /**
@@ -33,11 +34,13 @@ final class GmsWearNavigationPublisher implements WearNavigationPublisher
   @Override
   public void publish(@NonNull WearNavigationState state)
   {
-    final PutDataMapRequest request = PutDataMapRequest.create(WearNavigationData.PATH_NAVIGATION_STATE);
-    WearNavigationDataMapCodec.encode(request.getDataMap(), state);
+    final PutDataMapRequest dataMapRequest = PutDataMapRequest.create(WearNavigationData.PATH_NAVIGATION_STATE);
+    WearNavigationDataMapCodec.encode(dataMapRequest.getDataMap(), state);
+
+    final PutDataRequest request = dataMapRequest.asPutDataRequest();
     request.setUrgent();
     Wearable.getDataClient(mContext)
-        .putDataItem(request.asPutDataRequest())
+        .putDataItem(request)
         .addOnSuccessListener(item -> Log.d(TAG, "Published Wear navigation state: " + state.getMode()))
         .addOnFailureListener(GmsWearNavigationPublisher::logFailure);
   }
