@@ -55,6 +55,7 @@ bool IsLeftHandTraffic(storage::CountryId const & countryId)
 
 @interface MWMRoutingManager () <MWMFrameworkRouteBuilderObserver, MWMLocationObserver>
 @property(nonatomic, readonly) RoutingManager & rm;
+@property(nonatomic, readwrite) BOOL isNavigating;
 @property(strong, nonatomic) NSHashTable<id<MWMRoutingManagerListener>> * listeners;
 @property(nonatomic) storage::CountryInfoGetterBase::RegionId trafficRegionId;
 @property(nonatomic) BOOL isLeftHandTraffic;
@@ -199,6 +200,7 @@ bool IsLeftHandTraffic(storage::CountryId const & countryId)
 - (void)stopRoutingAndRemoveRoutePoints:(BOOL)flag
 {
   self.rm.CloseRouting(flag);
+  self.isNavigating = NO;
   [MWMThemeManager invalidate];
 }
 
@@ -257,6 +259,7 @@ bool IsLeftHandTraffic(storage::CountryId const & countryId)
 {
   [self saveRoute];
   self.rm.FollowRoute();
+  self.isNavigating = self.isOnRoute;
   [MWMThemeManager invalidate];
 }
 
