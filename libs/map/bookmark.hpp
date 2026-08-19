@@ -81,6 +81,11 @@ public:
 
   void Attach(kml::MarkGroupId groupId);
   void AttachCompilation(kml::MarkGroupId groupId);
+  /// @param compilationId the child list's id within its file, which is what m_data carries and serializes.
+  void DetachCompilation(kml::MarkGroupId groupId, kml::CompilationId compilationId);
+  /// Leaves every child list, the serialized ids included. Only for a bookmark leaving the list that owns them:
+  /// CompilationId is numbered per file, so kept across a move it would name a child list of the destination.
+  void ClearCompilations();
   void Detach();
 
   kml::GroupIdCollection const & GetCompilations() const { return m_compilationIds; }

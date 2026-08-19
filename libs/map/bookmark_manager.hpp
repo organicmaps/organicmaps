@@ -140,8 +140,10 @@ public:
     /// notified, once instead of once per item.
     /// @note Prefer Framework::DeleteBookmarksAndTracks(), which also closes a Place Page showing a deleted item.
     void DeleteBookmarksAndTracks(kml::MarkIdCollection const & bookmarkIds, kml::TrackIdCollection const & trackIds);
+    /// @param curGroupId the group the items are shown in, which is a child list when the caller is one of its
+    /// screens. Bookmarks are then taken out of it as part of the move, in this same session.
     void MoveBookmarksAndTracks(kml::MarkIdCollection const & bookmarkIds, kml::TrackIdCollection const & trackIds,
-                                kml::MarkGroupId newGroupId);
+                                kml::MarkGroupId curGroupId, kml::MarkGroupId newGroupId);
     void SetBookmarksAndTracksColor(kml::MarkIdCollection const & bookmarkIds, kml::TrackIdCollection const & trackIds,
                                     dp::Color color);
 
@@ -176,7 +178,7 @@ public:
 
     /// Removes the category from the list of categories and deletes the related file.
     /// @param permanently If true, the file will be removed from the disk. If false, the file will be marked as deleted
-    /// and moved into a trash.
+    /// and moved into a trash. Ignored for a child list, which has no file of its own -- see DeleteBmCompilation().
     bool DeleteBmCategory(kml::MarkGroupId groupId, bool permanently);
     void NotifyChanges();
 
@@ -608,6 +610,9 @@ private:
   void SetCategoryAccessRules(kml::MarkGroupId categoryId, kml::AccessRules accessRules);
   void SetCategoryCustomProperty(kml::MarkGroupId categoryId, std::string const & key, std::string const & value);
   bool DeleteBmCategory(kml::MarkGroupId groupId, bool permanently);
+  /// Removes a child list, leaving its bookmarks in the list that owns it, where they are shown either way.
+  bool DeleteBmCompilation(kml::MarkGroupId compilationId);
+  void DetachBookmarksFromCompilation(kml::MarkIdCollection const & bookmarkIds, kml::MarkGroupId compilationId);
 
   void MoveBookmark(kml::MarkId bmID, kml::MarkGroupId curGroupID, kml::MarkGroupId newGroupID);
   void UpdateBookmark(kml::MarkId bmId, kml::BookmarkData const & bm);
