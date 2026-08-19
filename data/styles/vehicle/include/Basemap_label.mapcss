@@ -542,12 +542,14 @@ area|z19-[building]::int_name,
 node|z19-[building]::int_name,
 {font-size: 13;}
 
-/* ToDo text: none; doesn't work here ..  */
+/* Guardhouse is the only building subtype with an icon, so it also picks up the generic
+   centered [building] caption above. Hide it to render icon-only, like office=security
+   and amenity=police here (no caption drule means no housenumbers either, see above). */
 node|z18-[building=guardhouse],
 area|z18-[building=guardhouse],
 node|z18-[building=guardhouse]::int_name,
 area|z18-[building=guardhouse]::int_name,
-{text-offset: 1;}
+{text: none;}
 
 
 node|z18[addr:housenumber][addr:street],
