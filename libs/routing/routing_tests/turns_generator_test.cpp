@@ -223,8 +223,31 @@ UNIT_TEST(TestCalcRoundaboutInfo)
   auto const splitInfo = CalcRoundaboutInfo(RoutingResultTest(splitSegments), splitSegments.size() - 1);
   TEST_EQUAL(splitInfo, (RoundaboutInfo{180, RoundaboutDirection::CounterClockwise, true}), ());
 
+  // Direction is derived across segment boundaries even when every part of the roundabout is an
+  // open two-point feature. Without a center, the exit angle remains unknown.
+  for (size_t i = 1; i + 1 < splitSegments.size(); ++i)
+    splitSegments[i].m_roundaboutCenter.reset();
+  auto const openSplitInfo = CalcRoundaboutInfo(RoutingResultTest(splitSegments), splitSegments.size() - 1);
+  TEST_EQUAL(openSplitInfo, (RoundaboutInfo{0, RoundaboutDirection::CounterClockwise, true}), ());
+
   segments[1].m_roundaboutCenter.reset();
   TEST_EQUAL(CalcRoundaboutInfo(RoutingResultTest(segments), 2),
+             (RoundaboutInfo{0, RoundaboutDirection::CounterClockwise, true}), ());
+
+  auto clockwiseRing = MakeLoadedPathSegment(MakeRoundaboutPath(-90.0, 180.0, false), true);
+  clockwiseRing.m_roundaboutCenter.reset();
+  TUnpackedPathSegments clockwiseSegments = {
+      MakeLoadedPathSegment({PointOnUnitCircle(-90.0) * 5.0, clockwiseRing.m_path.front().GetPoint()}, false),
+      clockwiseRing, MakeLoadedPathSegment({PointOnUnitCircle(180.0), PointOnUnitCircle(180.0) * 5.0}, false)};
+  TEST_EQUAL(CalcRoundaboutInfo(RoutingResultTest(clockwiseSegments), 2),
+             (RoundaboutInfo{0, RoundaboutDirection::Clockwise, true}), ());
+
+  auto singleEdgeRing = MakeLoadedPathSegment(MakeRoundaboutPath(-90.0, -60.0, true), true);
+  singleEdgeRing.m_roundaboutCenter.reset();
+  TUnpackedPathSegments singleEdgeSegments = {
+      MakeLoadedPathSegment({PointOnUnitCircle(-90.0) * 5.0, singleEdgeRing.m_path.front().GetPoint()}, false),
+      singleEdgeRing, MakeLoadedPathSegment({PointOnUnitCircle(-60.0), PointOnUnitCircle(-60.0) * 5.0}, false)};
+  TEST_EQUAL(CalcRoundaboutInfo(RoutingResultTest(singleEdgeSegments), 2),
              (RoundaboutInfo{0, RoundaboutDirection::Unknown, true}), ());
 }
 

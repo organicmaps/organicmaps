@@ -44,14 +44,65 @@ RoundaboutDirection DirectionFromRoundaboutSweep(double sweep)
   return RoundaboutDirection::Unknown;
 }
 
+RoundaboutDirection CalcRoundaboutDirectionFromPath(TUnpackedPathSegments const & segments,
+                                                    size_t firstRoundaboutSegment, size_t endRoundaboutSegment)
+{
+  double directionChange = 0.0;
+  double previousHeading = 0.0;
+  bool hasPreviousHeading = false;
+  bool hasDirectionChange = false;
+
+  for (size_t i = firstRoundaboutSegment; i < endRoundaboutSegment; ++i)
+  {
+    ASSERT(segments[i].m_onRoundabout, (i));
+    auto const & path = segments[i].m_path;
+    for (size_t j = 1; j < path.size(); ++j)
+    {
+      auto const & from = path[j - 1].GetPoint();
+      auto const & to = path[j].GetPoint();
+      ASSERT_NOT_EQUAL(from, to, (i, j));
+
+      double const heading = ang::AngleTo(from, to);
+      if (hasPreviousHeading)
+      {
+        directionChange += ang::GetShortestDistance(previousHeading, heading);
+        hasDirectionChange = true;
+      }
+      previousHeading = heading;
+      hasPreviousHeading = true;
+    }
+  }
+
+  if (!hasDirectionChange)
+    return RoundaboutDirection::Unknown;
+  return DirectionFromRoundaboutSweep(directionChange);
+}
+
+/// Measures the roundabout path over the annotated segments [|first|, |end|). Open or split
+/// roundabout features have no reliable center, so their circulation direction is derived from the
+/// driven path and the angle stays unknown.
+RoundaboutInfo CalcRoundaboutInfo(TUnpackedPathSegments const & segments, size_t first, size_t end)
+{
+  double sweep = 0.0;
+  for (size_t i = first; i < end; ++i)
+    if (!AddRoundaboutSweep(segments[i], sweep))
+      return {0 /* m_exitAngle */, CalcRoundaboutDirectionFromPath(segments, first, end)};
+
+  auto const direction = DirectionFromRoundaboutSweep(sweep);
+  if (direction == RoundaboutDirection::Unknown)
+    return {};
+
+  auto const roundedDegrees = static_cast<int32_t>(std::lround(std::abs(math::RadToDeg(sweep))));
+  return {static_cast<uint16_t>(std::clamp(roundedDegrees, 1, 360)), direction};
+}
+
 RoundaboutDirection CalcRoundaboutDirection(IRoutingResult const & result, size_t firstRoundaboutSegment)
 {
   auto const & segments = result.GetSegments();
-  double sweep = 0.0;
-  for (size_t i = firstRoundaboutSegment; i < segments.size() && segments[i].m_onRoundabout; ++i)
-    if (!AddRoundaboutSweep(segments[i], sweep))
-      return RoundaboutDirection::Unknown;
-  return DirectionFromRoundaboutSweep(sweep);
+  size_t end = firstRoundaboutSegment;
+  while (end < segments.size() && segments[end].m_onRoundabout)
+    ++end;
+  return CalcRoundaboutInfo(segments, firstRoundaboutSegment, end).m_direction;
 }
 }  // namespace
 
@@ -67,25 +118,12 @@ RoundaboutInfo CalcRoundaboutInfo(IRoutingResult const & result, size_t outgoing
   ASSERT(segments[outgoingSegmentIndex - 1].m_onRoundabout, ());
   ASSERT(!segments[outgoingSegmentIndex].m_onRoundabout, ());
 
-  RoundaboutInfo info;
-  info.m_hasExit = true;
-
   size_t firstRoundaboutSegment = outgoingSegmentIndex - 1;
   while (firstRoundaboutSegment > 0 && segments[firstRoundaboutSegment - 1].m_onRoundabout)
     --firstRoundaboutSegment;
 
-  double sweep = 0.0;
-  for (size_t i = firstRoundaboutSegment; i < outgoingSegmentIndex; ++i)
-    if (!AddRoundaboutSweep(segments[i], sweep))
-      return info;
-
-  auto const direction = DirectionFromRoundaboutSweep(sweep);
-  if (direction == RoundaboutDirection::Unknown)
-    return info;
-
-  auto const roundedDegrees = static_cast<int32_t>(std::lround(std::abs(math::RadToDeg(sweep))));
-  info.m_exitAngle = static_cast<uint16_t>(std::clamp(roundedDegrees, 1, 360));
-  info.m_direction = direction;
+  auto info = CalcRoundaboutInfo(segments, firstRoundaboutSegment, outgoingSegmentIndex);
+  info.m_hasExit = true;
   return info;
 }
 
