@@ -64,12 +64,16 @@ class OptionalSaveStorage : public editor::InMemoryStorage
 public:
   void AllowSave(bool allow) { m_allowSave = allow; }
 
+  /// Number of successful writes, to check that a batch save writes exactly once.
+  size_t GetSaveCount() const { return m_saveCount; }
+
   // StorageBase overrides:
   bool Save(pugi::xml_document const & doc) override
   {
     if (!m_allowSave)
       return false;
 
+    ++m_saveCount;
     return InMemoryStorage::Save(doc);
   }
 
@@ -78,11 +82,13 @@ public:
     if (!m_allowSave)
       return false;
 
+    ++m_saveCount;
     return InMemoryStorage::Reset();
   }
 
 private:
   bool m_allowSave = true;
+  size_t m_saveCount = 0;
 };
 
 class ScopedOptionalSaveStorage
@@ -101,6 +107,7 @@ public:
   }
 
   void AllowSave(bool allow) { m_storage->AllowSave(allow); }
+  size_t GetSaveCount() const { return m_storage->GetSaveCount(); }
 
 private:
   OptionalSaveStorage * m_storage = new OptionalSaveStorage;
@@ -135,6 +142,26 @@ void SetBuildingLevels(osm::EditableMapObject & emo, std::string s)
 void SetBuildingLevelsToOne(FeatureType & ft)
 {
   EditFeature(ft, [](osm::EditableMapObject & emo) { SetBuildingLevels(emo, "1"); });
+}
+
+/// Same as SetBuildingLevelsToOne, but also fills the edit journal, which in the app is done by
+/// Framework::SaveEditedMapObject and not by the editor itself.
+void SetBuildingLevelsWithJournal(FeatureType & ft, std::string levels)
+{
+  auto & editor = osm::Editor::Instance();
+
+  osm::EditableMapObject unedited;
+  unedited.SetFromFeatureType(ft);
+  unedited.SetEditableProperties(editor.GetEditableProperties(ft));
+
+  osm::EditableMapObject emo = unedited;
+  if (auto journal = editor.GetEditedFeatureJournal(ft.GetID()))
+    emo.SetJournal(std::move(*journal));
+
+  SetBuildingLevels(emo, std::move(levels));
+  emo.LogDiffInJournal(unedited);
+
+  TEST_EQUAL(editor.SaveEditedFeature(emo), osm::Editor::SaveResult::SavedSuccessfully, ());
 }
 
 void CreateCafeAtPoint(m2::PointD const & point, MwmSet::MwmId const & mwmId, osm::EditableMapObject & emo)
@@ -1234,6 +1261,151 @@ void EditorTest::SaveTransactionTest()
   TEST(editor.m_features.Get()->empty(), ());
 }
 
+void EditorTest::SaveUploadedInformationTest()
+{
+  ScopedOptionalSaveStorage optionalSaveStorage;
+  auto & editor = osm::Editor::Instance();
+
+  auto const mwmId = BuildMwm("GB", [](TestMwmBuilder & builder)
+  {
+    builder.Add(TestCafe(m2::PointD(1.0, 1.0), "London Cafe1", "en"));
+    builder.Add(TestCafe(m2::PointD(4.0, 4.0), "London Cafe2", "en"));
+
+    builder.Add(TestPOI(m2::PointD(6.0, 6.0), "Corner Post", "default"));
+  });
+
+  ForEachCafeAtPoint(m_dataSource, m2::PointD(1.0, 1.0),
+                     [](FeatureType & ft) { SetBuildingLevelsWithJournal(ft, "1"); });
+  ForEachCafeAtPoint(m_dataSource, m2::PointD(4.0, 4.0),
+                     [](FeatureType & ft) { SetBuildingLevelsWithJournal(ft, "1"); });
+
+  std::vector<osm::Editor::FeatureUploadResult> results;
+  {
+    auto const features = editor.m_features.Get();
+    auto const & edits = features->at(mwmId);
+    TEST_EQUAL(edits.size(), 2, ());
+    for (auto const & index : edits)
+    {
+      TEST(index.second.m_uploadStatus.empty(), ());
+      TEST(!index.second.m_object.GetJournal().GetJournal().empty(), ());
+      results.push_back({FeatureID(mwmId, index.first), {time(nullptr), "Uploaded", {}}, index.second.m_editRevision});
+    }
+  }
+
+  // A refused write must leave everything pending, so that the upload is retried later.
+  optionalSaveStorage.AllowSave(false);
+  TEST(!editor.SaveUploadedInformation(results), ());
+  for (auto const & index : editor.m_features.Get()->at(mwmId))
+  {
+    TEST(index.second.m_uploadStatus.empty(), ());
+    TEST(!index.second.m_object.GetJournal().GetJournal().empty(), ());
+  }
+
+  optionalSaveStorage.AllowSave(true);
+  auto const savesBeforeBatch = optionalSaveStorage.GetSaveCount();
+  TEST(editor.SaveUploadedInformation(results), ());
+  // Two features, a single edits.xml rewrite.
+  TEST_EQUAL(optionalSaveStorage.GetSaveCount(), savesBeforeBatch + 1, ());
+
+  for (auto const & index : editor.m_features.Get()->at(mwmId))
+  {
+    TEST_EQUAL(index.second.m_uploadStatus, "Uploaded", ());
+    TEST(index.second.m_object.GetJournal().GetJournal().empty(), ());
+  }
+
+  // An upload that produced no results at all must not rewrite anything.
+  auto const savesAfterBatch = optionalSaveStorage.GetSaveCount();
+  TEST(editor.SaveUploadedInformation({}), ());
+  TEST_EQUAL(optionalSaveStorage.GetSaveCount(), savesAfterBatch, ());
+}
+
+void EditorTest::EditRevisionTest()
+{
+  auto & editor = osm::Editor::Instance();
+
+  auto const mwmId = BuildMwm("GB", [](TestMwmBuilder & builder)
+  {
+    builder.Add(TestCafe(m2::PointD(1.0, 1.0), "London Cafe1", "en"));
+    builder.Add(TestCafe(m2::PointD(4.0, 4.0), "London Cafe2", "en"));
+
+    builder.Add(TestPOI(m2::PointD(6.0, 6.0), "Corner Post", "default"));
+  });
+
+  FeatureID editedFid, deletedFid;
+  ForEachCafeAtPoint(m_dataSource, m2::PointD(1.0, 1.0), [&editedFid](FeatureType & ft)
+  {
+    editedFid = ft.GetID();
+    SetBuildingLevelsWithJournal(ft, "1");
+  });
+  ForEachCafeAtPoint(m_dataSource, m2::PointD(4.0, 4.0), [&deletedFid](FeatureType & ft)
+  {
+    deletedFid = ft.GetID();
+    SetBuildingLevelsWithJournal(ft, "1");
+  });
+
+  auto const uploadedRevision = GetEditedFeatureInfo(editedFid).m_editRevision;
+  TEST_NOT_EQUAL(uploadedRevision, 0, ("A newly created entry must carry a revision"));
+
+  // The user edits the feature while its upload is in flight.
+  ForEachCafeAtPoint(m_dataSource, m2::PointD(1.0, 1.0),
+                     [](FeatureType & ft) { SetBuildingLevelsWithJournal(ft, "3"); });
+
+  auto const editedRevision = GetEditedFeatureInfo(editedFid).m_editRevision;
+  TEST_NOT_EQUAL(editedRevision, uploadedRevision, ("An edit must bump the revision"));
+
+  // Applying the stale result would mark the newer edit as uploaded and drop its journal.
+  TEST(editor.SaveUploadedInformation({{editedFid, {time(nullptr), "Uploaded", {}}, uploadedRevision}}), ());
+  {
+    auto const fti = GetEditedFeatureInfo(editedFid);
+    TEST(fti.m_uploadStatus.empty(), ());
+    TEST(!fti.m_object.GetJournal().GetJournal().empty(), ());
+    TEST_EQUAL(fti.m_editRevision, editedRevision, ());
+  }
+
+  // A result for the current revision is applied.
+  TEST(editor.SaveUploadedInformation({{editedFid, {time(nullptr), "Uploaded", {}}, editedRevision}}), ());
+  {
+    auto const fti = GetEditedFeatureInfo(editedFid);
+    TEST_EQUAL(fti.m_uploadStatus, "Uploaded", ());
+    TEST(fti.m_object.GetJournal().GetJournal().empty(), ());
+  }
+
+  // MarkFeatureWithStatus is the only path that mutates an entry in place, so check it bumps too.
+  auto const revisionBeforeDelete = GetEditedFeatureInfo(deletedFid).m_editRevision;
+  editor.DeleteFeature(deletedFid);
+  {
+    auto const fti = GetEditedFeatureInfo(deletedFid);
+    TEST_EQUAL(fti.m_status, FeatureStatus::Deleted, ());
+    TEST_NOT_EQUAL(fti.m_editRevision, revisionBeforeDelete, ("DeleteFeature must bump the revision"));
+  }
+
+  // The result of the modification that was in flight must not mark the deletion as uploaded.
+  TEST(editor.SaveUploadedInformation({{deletedFid, {time(nullptr), "Uploaded", {}}, revisionBeforeDelete}}), ());
+  {
+    auto const fti = GetEditedFeatureInfo(deletedFid);
+    TEST(fti.m_uploadStatus.empty(), ());
+    TEST_EQUAL(fti.m_status, FeatureStatus::Deleted, ());
+  }
+
+  // LoadEdits is reachable mid-upload via OnMapRegistered and rebuilds every entry from disk.
+  // A fresh entry must not inherit a revision that an upload in flight has already captured.
+  auto const revisionBeforeReload = GetEditedFeatureInfo(deletedFid).m_editRevision;
+  TEST(editor.Save(*editor.m_features.Get()), ());
+  editor.LoadEdits();
+  TEST_EQUAL(editor.m_features.Get()->at(mwmId).size(), 2, ());
+  TEST_NOT_EQUAL(GetEditedFeatureInfo(deletedFid).m_editRevision, revisionBeforeReload,
+                 ("A reloaded entry must get a new revision"));
+}
+
+// static
+osm::Editor::FeatureTypeInfo EditorTest::GetEditedFeatureInfo(FeatureID const & fid)
+{
+  auto const features = osm::Editor::Instance().m_features.Get();
+  auto const * fti = osm::Editor::GetFeatureTypeInfo(*features, fid.m_mwmId, fid.m_index);
+  CHECK(fti, ("The editor has no entry for", fid));
+  return *fti;
+}
+
 void EditorTest::Cleanup(platform::LocalCountryFile const & map)
 {
   platform::CountryIndexes::DeleteFromDisk(map);
@@ -1397,6 +1569,16 @@ UNIT_CLASS_TEST(EditorTest, SaveEditedFeatureTest)
 UNIT_CLASS_TEST(EditorTest, SaveTransactionTest)
 {
   EditorTest::SaveTransactionTest();
+}
+
+UNIT_CLASS_TEST(EditorTest, SaveUploadedInformationTest)
+{
+  EditorTest::SaveUploadedInformationTest();
+}
+
+UNIT_CLASS_TEST(EditorTest, EditRevisionTest)
+{
+  EditorTest::EditRevisionTest();
 }
 
 UNIT_CLASS_TEST(EditorTest, LoadEditsXml)

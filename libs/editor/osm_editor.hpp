@@ -178,6 +178,9 @@ public:
   static bool IsCreatedFeature(FeatureID const & fid);
 
 private:
+  /// @returns the next value of a process-wide monotonic counter. Never returns 0.
+  static uint64_t NextEditRevision();
+
   // TODO(a): Use this structure as part of FeatureTypeInfo.
   struct UploadInfo
   {
@@ -198,6 +201,20 @@ private:
     /// Is empty if upload has never occurred or one of k* constants above otherwise.
     std::string m_uploadStatus;
     std::string m_uploadError;
+    /// Every newly constructed entry gets a unique value, so a stale upload result can never be
+    /// applied to an entry the user has edited, removed or reloaded meanwhile. Paths that mutate
+    /// an entry in place must assign a new value explicitly. In-memory only: a restart loses the
+    /// in-flight upload anyway.
+    uint64_t m_editRevision = NextEditRevision();
+  };
+
+  /// An upload outcome for a single feature, applied after the whole upload has finished.
+  struct FeatureUploadResult
+  {
+    FeatureID m_fid;
+    UploadInfo m_uploadInfo;
+    /// FeatureTypeInfo::m_editRevision as it was when the feature was uploaded.
+    uint64_t m_editRevision = 0;
   };
 
   using FeaturesContainer = std::map<MwmId, std::map<uint32_t, FeatureTypeInfo>>;
@@ -221,7 +238,10 @@ private:
   /// @returns pointer to m_features[id][index] if exists, nullptr otherwise.
   static FeatureTypeInfo const * GetFeatureTypeInfo(FeaturesContainer const & features, MwmId const & mwmId,
                                                     uint32_t index);
-  void SaveUploadedInformation(FeatureID const & fid, UploadInfo const & fromUploader);
+  /// Applies all upload results in a single transaction, skipping features that were removed or
+  /// edited while the upload was in flight.
+  /// @returns false if the results could not be written to disk; nothing is applied in that case.
+  bool SaveUploadedInformation(std::vector<FeatureUploadResult> const & results);
 
   void MarkFeatureWithStatus(FeaturesContainer & editableFeatures, FeatureID const & fid, FeatureStatus status);
 
