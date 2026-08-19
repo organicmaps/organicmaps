@@ -1,0 +1,18 @@
+plugins {
+    id 'com.android.library'
+}
+
+apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
+
+android {
+    namespace 'app.organicmaps.wear.protocol.gms'
+}
+
+dependencies {
+    api project(':libs:wear-protocol')
+    api libs.google.gms.wearable
+
+    implementation libs.androidx.annotation
+
+    testImplementation libs.androidx.junit
+}
