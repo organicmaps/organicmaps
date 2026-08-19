@@ -348,6 +348,12 @@ TestTurn const & TestTurn::TestOneOfDirections(set<routing::turns::CarDirection>
   return *this;
 }
 
+TestTurn const & TestTurn::TestLanes(turns::lanes::LanesInfo const & expectedLanes) const
+{
+  TEST_EQUAL(m_lanes, expectedLanes, ());
+  return *this;
+}
+
 TestTurn const & TestTurn::TestRoundAboutExitNum(uint32_t expectedRoundAboutExitNum) const
 {
   TEST_EQUAL(m_roundAboutExitNum, expectedRoundAboutExitNum, ());
@@ -365,7 +371,7 @@ TestTurn GetNthTurn(routing::Route const & route, uint32_t turnNumber)
   }
 
   TurnItem const & turn = turns[turnNumber];
-  return TestTurn(route.GetPoly().GetPoint(turn.m_index), turn.m_turn, turn.m_exitNum);
+  return TestTurn(route.GetPoly().GetPoint(turn.m_index), turn.m_turn, turn.m_lanes, turn.m_exitNum);
 }
 
 bool IsSubwayExists(Route const & route)
