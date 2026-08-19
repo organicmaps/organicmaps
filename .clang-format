@@ -60,3 +60,10 @@ TabWidth: 2
 ---
 Language: Java
 AllowShortFunctionsOnASingleLine: Empty
+
+---
+Language: ObjC
+# clang-format 20-22 parse a block literal with an angle-bracketed return type, e.g.
+# ^NSDictionary<NSString *, NSString *> *(...) in libs/platform/http_uploader_apple.mm,
+# as a function definition, so RemoveSemicolon deletes the ; that terminates it.
+RemoveSemicolon: false

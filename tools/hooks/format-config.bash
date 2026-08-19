@@ -1,40 +1,17 @@
 #!/usr/bin/env bash
 # Shared configuration for code formatting scripts.
-# Sourced by both tools/unix/clang-format.sh and tools/hooks/pre-commit.
+# Sourced by tools/unix/clang-format.sh, tools/unix/ktlint_format.sh and tools/hooks/pre-commit.
 #
-# Each entry is "directory|find_name_pattern".
-# Patterns use find's -name syntax; multiple patterns are OR'd with -o.
+# Targets are git pathspecs matched by extension, not by directory: per-module
+# directory lists silently drift when modules are added, split or moved.
+# Files that must not be reformatted are listed in .clang-format-ignore,
+# which clang-format applies on its own.
 
 CLANG_FORMAT_TARGETS=(
-  # Android – Java
-  "android/app/src|*.java"
-  "android/libs/api/src|*.java"
-  "android/libs/branding/src|*.java"
-  "android/libs/car/src|*.java"
-  "android/libs/downloader/src|*.java"
-  "android/libs/googleassistant/src|*.java"
-  "android/libs/routing/src|*.java"
-  "android/libs/utils/src|*.java"
-  "android/libs/wear-protocol/src|*.java"
-  "android/sdk/car/src|*.java"
-  "android/sdk/src|*.java"
-  "android/sdk/wear/core/src|*.java"
-  "android/sdk/wear/gms/src|*.java"
-  "android/sdk/widgets/lanes/src|*.java"
-  "android/sdk/widgets/speedlimit/src|*.java"
-  "android/wear/src|*.java"
-  # Android – C++
-  "android/sdk/src/main/cpp|*.[hc]pp"
-  # iOS – C++/ObjC
-  "iphone|*.[hc]pp"
-  "iphone|*.[hm]"
-  "iphone|*.mm"
-  # Core / C++
-  "dev_sandbox|*.[hc]pp"
-  "generator|*.[hc]pp"
-  "libs|*.[hc]pp"
-  "qt|*.[hc]pp"
-  "tools|*.[hc]pp"
+  '*.java'
+  '*.[hc]pp'
+  '*.[hm]'  # Legacy C++ headers and Objective-C implementations.
+  '*.mm'
 )
 
 SWIFTFORMAT_TARGETS=(
@@ -42,22 +19,7 @@ SWIFTFORMAT_TARGETS=(
 )
 
 KTLINT_TARGETS=(
-  "android/app/src|*.kt"
-  "android/libs/api/src|*.kt"
-  "android/libs/branding/src|*.kt"
-  "android/libs/car/src|*.kt"
-  "android/libs/downloader/src|*.kt"
-  "android/libs/googleassistant/src|*.kt"
-  "android/libs/routing/src|*.kt"
-  "android/libs/utils/src|*.kt"
-  "android/sdk/src|*.kt"
-  "android/sdk/car/src|*.kt"
-  "android/sdk/location/core/src|*.kt"
-  "android/sdk/location/gms/foss/src|*.kt"
-  "android/sdk/location/gms/google/src|*.kt"
-  "android/sdk/maps/world/src|*.kt"
-  "android/sdk/widgets/lanes/src|*.kt"
-  "android/sdk/widgets/speedlimit/src|*.kt"
+  'android/*.kt'
 )
 
 resolve_ktlint() {
@@ -79,26 +41,4 @@ resolve_clang_format() {
   done
   echo "Error: clang-format not found." >&2
   return 1
-}
-
-# Build a grep -E pattern that matches any file covered by a targets array.
-# Usage: build_path_regex CLANG_FORMAT_TARGETS[@]
-build_path_regex() {
-  local _targets_name="$1"
-  eval "local _entries=(\"\${${_targets_name}[@]}\")"
-  local parts=()
-  for entry in "${_entries[@]}"; do
-    local dir="${entry%%|*}"
-    local glob="${entry##*|}"
-    # Convert find glob to regex: *.[hc]pp -> \.[hc]pp$, *.java -> \.java$
-    local ext_re
-    ext_re=$(printf '%s' "$glob" | sed 's/\*//; s/\./\\./g')
-    # Escape directory slashes for regex
-    local dir_re
-    dir_re=$(printf '%s' "$dir" | sed 's/\//\\\//g')
-    parts+=("^${dir_re}/.*${ext_re}\$")
-  done
-  # Join with |
-  local IFS='|'
-  echo "${parts[*]}"
 }

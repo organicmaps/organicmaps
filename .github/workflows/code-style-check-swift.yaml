@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [ master ]
     paths:
-      - '.github/workflows/swift-code-style-check.yaml'
+      - '.github/workflows/code-style-check-swift.yaml'
       - 'iphone/.swift-version'
       - 'iphone/.swiftformat'
       - 'iphone/**.swift'
@@ -29,6 +29,7 @@ jobs:
         run: |
           eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"  # Homebrew is not in PATH by default.
           swiftformat iphone
+          git diff --exit-code  # swiftformat reformats in place and always exits 0.
 
       - name: Post swiftformat comments
         if: failure()
