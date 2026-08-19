@@ -165,13 +165,15 @@ class TestTurn
 
   m2::PointD const m_point;
   CarDirection const m_direction;
+  turns::lanes::LanesInfo const m_lanes;
   uint32_t const m_roundAboutExitNum;
   bool const m_isValid;
 
   TestTurn() : m_point({0.0, 0.0}), m_direction(CarDirection::None), m_roundAboutExitNum(0), m_isValid(false) {}
-  TestTurn(m2::PointD const & pnt, CarDirection direction, uint32_t roundAboutExitNum)
+  TestTurn(m2::PointD const & pnt, CarDirection direction, turns::lanes::LanesInfo lanes, uint32_t roundAboutExitNum)
     : m_point(pnt)
     , m_direction(direction)
+    , m_lanes(std::move(lanes))
     , m_roundAboutExitNum(roundAboutExitNum)
     , m_isValid(true)
   {}
@@ -182,6 +184,7 @@ public:
   TestTurn const & TestPoint(m2::PointD const & expectedPoint, double inaccuracyMeters = 3.) const;
   TestTurn const & TestDirection(CarDirection expectedDirection) const;
   TestTurn const & TestOneOfDirections(std::set<CarDirection> const & expectedDirections) const;
+  TestTurn const & TestLanes(turns::lanes::LanesInfo const & expectedLanes) const;
   TestTurn const & TestRoundAboutExitNum(uint32_t expectedRoundAboutExitNum) const;
 };
 
