@@ -141,6 +141,7 @@ private:
         // 1-arity
         {"building:part"}, {"hwtag"},   {"psurface"},  {"internet_access"}, {"organic"},
         {"wheelchair"},    {"cuisine"}, {"recycling"}, {"area:highway"},    {"fee"},
+        {"cyclewaytag"},
     };
 
     Classificator const & c = classif();
