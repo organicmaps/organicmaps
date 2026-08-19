@@ -48,7 +48,7 @@ final class CarPlayService: NSObject {
   var preparedToPreviewTrips: [CPTrip] = []
   private var searchText = ""
 
-  @objc func setup(window: CPWindow, interfaceController: CPInterfaceController) {
+  func setup(window: CPWindow, interfaceController: CPInterfaceController) {
     LOG(.info, "Settting up service...")
     isCarplayActivated = true
     self.window = window
@@ -72,12 +72,7 @@ final class CarPlayService: NSObject {
     }
     updateContentStyle(configuration.contentStyle)
     FrameworkHelper.updatePositionArrowOffset(false, offset: 5)
-
-    CarPlayWindowScaleAdjuster.updateAppearance(
-      fromWindow: MapsAppDelegate.theApp().window,
-      toWindow: window,
-      isCarplayActivated: true
-    )
+    CarPlayWindowScaleAdjuster.applyCarPlayScale(window)
   }
 
   private var savedInterfaceController: CPInterfaceController?
@@ -104,8 +99,10 @@ final class CarPlayService: NSObject {
       style: .default,
       handler: { [weak self] _ in
         guard let self else { return }
-        savedInterfaceController?.dismissTemplate(animated: false, completion: templateCompletion)
-        showOnCarplay()
+        savedInterfaceController?.dismissTemplate(animated: false) { [weak self] success, error in
+          self?.templateCompletion(success, error)
+          self?.showOnCarplay()
+        }
       }
     )
     let alert = CPAlertTemplate(
@@ -141,17 +138,10 @@ final class CarPlayService: NSObject {
     interfaceController = nil
     ThemeManager.invalidate()
     FrameworkHelper.updatePositionArrowOffset(true, offset: 0)
-
-    if let window {
-      CarPlayWindowScaleAdjuster.updateAppearance(
-        fromWindow: window,
-        toWindow: MapsAppDelegate.theApp().window,
-        isCarplayActivated: false
-      )
-    }
+    CarPlayWindowScaleAdjuster.restorePhoneScale()
   }
 
-  @objc func destroy() {
+  func destroy() {
     if isCarplayActivated {
       switchScreenToPhone()
     }
@@ -168,7 +158,7 @@ final class CarPlayService: NSObject {
 
   private func updateContentStyle(_ contentStyle: CPContentStyle) {
     rootTemplateStyle = contentStyle == .dark ? .dark : .light
-    // Update the current map style in accordance with the CarPLay content theme.
+    // Update the current map style in accordance with the CarPlay content theme.
     ThemeManager.invalidate()
   }
 
@@ -179,16 +169,18 @@ final class CarPlayService: NSObject {
   }
 
   private func applyRootViewController() {
-    guard let window = window else { return }
-    let carplaySotyboard = UIStoryboard.instance(.carPlay)
-    let carplayVC = carplaySotyboard.instantiateInitialViewController() as! CarPlayMapViewController
+    guard let window else { return }
+    // A fresh controller per setup: its constraints and speed/camera state are not designed for reuse.
+    let carplayVC = UIStoryboard.instance(.carPlay).instantiateInitialViewController() as! CarPlayMapViewController
     window.rootViewController = carplayVC
-    if let mapVC = MapViewController.shared() {
-      currentPositionMode = mapVC.currentPositionMode
-      mapVC.enableCarPlayRepresentation()
-      carplayVC.addMapView(mapVC.mapView, mapButtonSafeAreaLayoutGuide: window.mapButtonSafeAreaLayoutGuide)
-      mapVC.add(self)
-    }
+    // On a CarPlay-first cold launch no phone scene exists yet: MapViewController.shared() lazily loads
+    // the Main storyboard, so the single shared map is created right here and later re-hosted by the
+    // phone window unchanged.
+    guard let mapVC = MapViewController.shared() else { return }
+    currentPositionMode = mapVC.currentPositionMode
+    mapVC.enableCarPlayRepresentation()
+    carplayVC.addMapView(mapVC.mapView, mapButtonSafeAreaLayoutGuide: window.mapButtonSafeAreaLayoutGuide)
+    mapVC.add(self)
   }
 
   private func applyBaseRootTemplate() {
@@ -422,20 +414,36 @@ extension CarPlayService: CPMapTemplateDelegate {
   func mapTemplate(_: CPMapTemplate, panEndedWith direction: CPMapTemplate.PanDirection) {
     var offset = UIOffset(horizontal: 0.0, vertical: 0.0)
     let offsetStep: CGFloat = 0.25
-    if direction.contains(.up) { offset.vertical -= offsetStep }
-    if direction.contains(.down) { offset.vertical += offsetStep }
-    if direction.contains(.left) { offset.horizontal += offsetStep }
-    if direction.contains(.right) { offset.horizontal -= offsetStep }
+    if direction.contains(.up) {
+      offset.vertical -= offsetStep
+    }
+    if direction.contains(.down) {
+      offset.vertical += offsetStep
+    }
+    if direction.contains(.left) {
+      offset.horizontal += offsetStep
+    }
+    if direction.contains(.right) {
+      offset.horizontal -= offsetStep
+    }
     FrameworkHelper.moveMap(offset)
   }
 
   func mapTemplate(_: CPMapTemplate, panWith direction: CPMapTemplate.PanDirection) {
     var offset = UIOffset(horizontal: 0.0, vertical: 0.0)
     let offsetStep: CGFloat = 0.1
-    if direction.contains(.up) { offset.vertical -= offsetStep }
-    if direction.contains(.down) { offset.vertical += offsetStep }
-    if direction.contains(.left) { offset.horizontal += offsetStep }
-    if direction.contains(.right) { offset.horizontal -= offsetStep }
+    if direction.contains(.up) {
+      offset.vertical -= offsetStep
+    }
+    if direction.contains(.down) {
+      offset.vertical += offsetStep
+    }
+    if direction.contains(.left) {
+      offset.horizontal += offsetStep
+    }
+    if direction.contains(.right) {
+      offset.horizontal -= offsetStep
+    }
     FrameworkHelper.moveMap(offset)
   }
 
@@ -593,7 +601,9 @@ extension CarPlayService: CarPlayRouterListener {
   }
 
   func routeDidFinish(_ trip: CPTrip) {
-    if router?.currentTrip == nil { return }
+    if router?.currentTrip == nil {
+      return
+    }
     router?.finishTrip()
     if let carplayVC = carplayVC {
       carplayVC.hideSpeedControl()
