@@ -93,6 +93,7 @@ public class MenuBottomSheetFragment extends BottomSheetDialogFragment
     super.onViewCreated(view, savedInstanceState);
     attachToNearestContext();
     TextView titleView = view.findViewById(R.id.bottomSheetTitle);
+    View headerDivider = view.findViewById(R.id.bottom_sheet_menu_header_divider);
     RecyclerView recyclerView = view.findViewById(R.id.bottomSheetMenuContainer);
     if (getArguments() != null)
     {
@@ -108,13 +109,16 @@ public class MenuBottomSheetFragment extends BottomSheetDialogFragment
     else
       titleView.setVisibility(View.GONE);
 
-    if (mMenuBottomSheetItems != null)
+    final boolean hasMenuItems = mMenuBottomSheetItems != null && !mMenuBottomSheetItems.isEmpty();
+    UiUtils.showIf(hasMenuItems, recyclerView);
+    UiUtils.showIf(mHeaderFragment != null && hasMenuItems, headerDivider);
+    if (hasMenuItems)
     {
       MenuAdapter menuAdapter = new MenuAdapter(mMenuBottomSheetItems, this::dismiss);
       recyclerView.setAdapter(menuAdapter);
       recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
     }
-    if (mHeaderFragment != null)
+    if (mHeaderFragment != null && getChildFragmentManager().findFragmentById(R.id.bottom_sheet_menu_header) == null)
       getChildFragmentManager().beginTransaction().add(R.id.bottom_sheet_menu_header, mHeaderFragment).commit();
 
     // If there is nothing to show, hide the sheet

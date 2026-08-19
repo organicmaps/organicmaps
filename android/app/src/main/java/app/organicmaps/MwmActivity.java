@@ -2048,7 +2048,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Nullable
   public Fragment getMenuBottomSheetFragment(String id)
   {
-    if (id.equals(LAYERS_MENU_ID))
+    if (id.equals(MAIN_MENU_ID) || id.equals(LAYERS_MENU_ID))
       return new ToggleMapLayerFragment();
     return null;
   }

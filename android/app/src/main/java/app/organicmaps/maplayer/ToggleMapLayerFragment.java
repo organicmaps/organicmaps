@@ -24,7 +24,6 @@ import java.util.List;
 
 public class ToggleMapLayerFragment extends Fragment
 {
-  private static final String LAYERS_MENU_ID = "LAYERS_MENU_BOTTOM_SHEET";
   @Nullable
   private LayersAdapter mAdapter;
   private MapButtonsController mMapButtonsController;
@@ -84,9 +83,6 @@ public class ToggleMapLayerFragment extends Fragment
 
   private void closeLayerBottomSheet()
   {
-    MenuBottomSheetFragment bottomSheet =
-        (MenuBottomSheetFragment) requireActivity().getSupportFragmentManager().findFragmentByTag(LAYERS_MENU_ID);
-    if (bottomSheet != null)
-      bottomSheet.dismiss();
+    ((MenuBottomSheetFragment) requireParentFragment()).dismiss();
   }
 }
