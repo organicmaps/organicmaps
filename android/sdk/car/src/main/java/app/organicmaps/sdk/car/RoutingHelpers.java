@@ -31,10 +31,17 @@ public final class RoutingHelpers
   @NonNull
   public static LaneDirection createLaneDirection(@NonNull LaneWay laneWay, boolean isRecommended)
   {
+    return createLaneDirection(laneWay, isRecommended, false);
+  }
+
+  @NonNull
+  static LaneDirection createLaneDirection(@NonNull LaneWay laneWay, boolean isRecommended,
+                                           boolean useUTurnLaneShapeFallback)
+  {
     @LaneDirection.Shape
     final int shape = switch (laneWay)
     {
-      case ReverseLeft -> LaneDirection.SHAPE_U_TURN_LEFT;
+      case ReverseLeft -> useUTurnLaneShapeFallback ? LaneDirection.SHAPE_SHARP_LEFT : LaneDirection.SHAPE_U_TURN_LEFT;
       case SharpLeft -> LaneDirection.SHAPE_SHARP_LEFT;
       case Left -> LaneDirection.SHAPE_NORMAL_LEFT;
       case MergeToLeft, SlightLeft -> LaneDirection.SHAPE_SLIGHT_LEFT;
@@ -42,7 +49,8 @@ public final class RoutingHelpers
       case SlightRight, MergeToRight -> LaneDirection.SHAPE_SLIGHT_RIGHT;
       case Right -> LaneDirection.SHAPE_NORMAL_RIGHT;
       case SharpRight -> LaneDirection.SHAPE_SHARP_RIGHT;
-      case ReverseRight -> LaneDirection.SHAPE_U_TURN_RIGHT;
+      case ReverseRight ->
+        useUTurnLaneShapeFallback ? LaneDirection.SHAPE_SHARP_RIGHT : LaneDirection.SHAPE_U_TURN_RIGHT;
       default -> LaneDirection.SHAPE_UNKNOWN;
     };
 
