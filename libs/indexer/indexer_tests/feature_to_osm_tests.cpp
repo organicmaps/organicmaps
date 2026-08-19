@@ -98,7 +98,7 @@ UNIT_CLASS_TEST(FeatureIdToGeoObjectIdTest, Smoke)
   FeatureIdToGeoObjectIdBimapMem deserMem;
   {
     MemReader reader(buf.data(), buf.size());
-    FeatureIdToGeoObjectIdSerDes::Deserialize(reader, deserMem);
+    TEST(FeatureIdToGeoObjectIdSerDes::Deserialize(reader, deserMem), ());
   }
 
   indexer::FeatureIdToGeoObjectIdOneWay deserOneWay(GetDataSource());

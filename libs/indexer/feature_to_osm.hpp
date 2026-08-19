@@ -207,7 +207,7 @@ public:
 
     if (src.Size() < kHeaderOffset)
     {
-      LOG(LINFO, ("Unable to deserialize FeatureToOsm map: wrong header magic or version"));
+      LOG(LINFO, ("Unable to deserialize FeatureToOsm map: section is too short:", src.Size()));
       return false;
     }
     // Read into a zero-terminated buffer: building a std::string_view from a (pointer, size)
