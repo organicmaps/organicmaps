@@ -16,6 +16,7 @@
 
 #include <algorithm>
 #include <iterator>
+#include <limits>
 #include <string>
 #include <type_traits>
 
@@ -431,3 +432,39 @@ bool SearchAPI::QueryMayBeSkipped(SearchParams const & prevParams, SearchParams 
 
   return true;
 }
+
+namespace search
+{
+bool ExtendViewportToNearestResult(Results const & results, m2::AnyRectD & viewport)
+{
+  m2::PointD const center = viewport.Center();
+  double minDistance = std::numeric_limits<double>::max();
+  Result const * nearest = nullptr;
+  for (auto const & r : results)
+  {
+    if (!r.HasPoint())
+      continue;
+    double const dist = center.SquaredLength(r.GetFeatureCenter());
+    if (dist < minDistance)
+    {
+      minDistance = dist;
+      nearest = &r;
+    }
+  }
+
+  if (!nearest || viewport.IsPointInside(nearest->GetFeatureCenter()))
+    return false;
+
+  // SetSizesToIncludePoint() sets the sizes symmetrically around the center from the point's offset,
+  // so restore the original size on the axis where the point is closer to the center than the border.
+  m2::RectD const original = viewport.GetLocalRect();
+  viewport.SetSizesToIncludePoint(nearest->GetFeatureCenter());
+  m2::RectD const & grown = viewport.GetLocalRect();
+  viewport.Inflate(std::max(0.0, (original.SizeX() - grown.SizeX()) / 2),
+                   std::max(0.0, (original.SizeY() - grown.SizeY()) / 2));
+
+  double constexpr kMarginFactor = 0.05;
+  viewport.Inflate(viewport.GetLocalRect().SizeX() * kMarginFactor, viewport.GetLocalRect().SizeY() * kMarginFactor);
+  return true;
+}
+}  // namespace search

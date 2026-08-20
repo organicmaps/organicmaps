@@ -12,7 +12,7 @@ final class SearchOnMapPresenter {
   }
 
   private var viewModel: ViewModel = .initial
-  private var isRouting: Bool
+  let isRouting: Bool
   private var didChangeState: ((SearchOnMapState) -> Void)?
 
   init(isRouting: Bool, didChangeState: ((SearchOnMapState) -> Void)?) {
@@ -56,7 +56,7 @@ final class SearchOnMapPresenter {
     case .showOnTheMap:
       viewModel.isTyping = false
       viewModel.skipSuggestions = true
-      viewModel.presentationStep = isRouting ? .hidden : .halfScreen
+      viewModel.presentationStep = isRouting ? .hidden : .compact
       if case .results(var results) = viewModel.contentState, !results.isEmpty {
         results.skipSuggestions()
         viewModel.contentState = .results(results)
