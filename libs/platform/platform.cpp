@@ -363,18 +363,6 @@ void Platform::SetGuiThread(std::unique_ptr<base::TaskLoop> guiThread)
   m_guiThread = std::move(guiThread);
 }
 
-void Platform::CancelTask(Thread thread, base::TaskLoop::TaskId id)
-{
-  ASSERT(m_networkThread && m_fileThread && m_backgroundThread, ());
-  switch (thread)
-  {
-  case Thread::File: m_fileThread->Cancel(id); return;
-  case Thread::Network: m_networkThread->Cancel(id); return;
-  case Thread::Gui: CHECK(false, ("Task cancelling for gui thread is not supported yet")); return;
-  case Thread::Background: m_backgroundThread->Cancel(id); return;
-  }
-}
-
 std::string DebugPrint(Platform::EError err)
 {
   switch (err)

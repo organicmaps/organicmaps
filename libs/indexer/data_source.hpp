@@ -106,7 +106,6 @@ public:
 
   /// Editor core only method, to get 'untouched', original version of feature.
   std::unique_ptr<FeatureType> GetOriginalFeatureByIndex(uint32_t index) const;
-  std::unique_ptr<FeatureType> GetOriginalOrEditedFeatureByIndex(uint32_t index) const;
 
   /// Everyone, except Editor core, should use this method.
   std::unique_ptr<FeatureType> GetFeatureByIndex(uint32_t index) const;

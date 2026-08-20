@@ -125,7 +125,6 @@ public:
   static void glUniformValuef(int location, float v1, float v2);
   static void glUniformValuef(int location, float v1, float v2, float v3);
   static void glUniformValuef(int location, float v1, float v2, float v3, float v4);
-  static void glUniformValuefv(int location, float const * v, uint32_t size);
   static void glUniformValue4fv(int location, float const * v, uint32_t size);
 
   static void glUniformMatrix4x4Value(int location, float const * values);

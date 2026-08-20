@@ -266,11 +266,6 @@ public:
 
   bool IsTablet() const { return m_isTablet; }
 
-  /// @return information about kinds of memory which are relevant for a platform.
-  /// This method is implemented for iOS and Android only.
-  /// @TODO remove as its not used anywhere?
-  std::string GetMemoryInfo() const;
-
   static EConnectionType ConnectionStatus();
   static bool IsConnected() { return ConnectionStatus() != EConnectionType::CONNECTION_NONE; }
 
@@ -316,8 +311,6 @@ public:
     }
     UNREACHABLE();
   }
-
-  void CancelTask(Thread thread, base::TaskLoop::TaskId id);
 
   // Use this method for testing purposes only.
   void SetGuiThread(std::unique_ptr<base::TaskLoop> guiThread);

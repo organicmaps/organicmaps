@@ -89,11 +89,6 @@ inline JsonValue MakeJSONArray()
   return value;
 }
 
-inline void ThrowJsonError(std::string const & message)
-{
-  MYTHROW(JsonException, (message));
-}
-
 inline JsonValue const * GetOptionalField(JsonValue const * root, char const * field)
 {
   if (root == nullptr || !root->is_object())

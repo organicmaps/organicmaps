@@ -66,11 +66,6 @@ std::shared_ptr<MatchingRule> ExactMatch(Args &&... args)
   return std::make_shared<ExactMatchingRule>(std::forward<Args>(args)...);
 }
 
-inline std::shared_ptr<MatchingRule> AlternativesMatch(std::vector<std::shared_ptr<MatchingRule>> && rules)
-{
-  return std::make_shared<AlternativesMatchingRule>(std::move(rules));
-}
-
 bool MatchResults(DataSource const & dataSource, std::vector<std::shared_ptr<MatchingRule>> rules,
                   std::vector<search::Result> const & actual);
 bool MatchResults(DataSource const & dataSource, std::vector<std::shared_ptr<MatchingRule>> rules,

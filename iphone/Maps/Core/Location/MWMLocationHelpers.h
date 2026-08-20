@@ -1,21 +1,11 @@
 #import "MWMMyPositionMode.h"
 
-#include "platform/distance.hpp"
-#include "platform/localization.hpp"
 #include "platform/location.hpp"
 
 #include "geometry/mercator.hpp"
 
 namespace location_helpers
 {
-
-static inline NSString * formattedDistance(double const & meters)
-{
-  if (meters < 0.)
-    return nil;
-
-  return @(platform::Distance::CreateFormatted(meters).ToString().c_str());
-}
 
 static inline ms::LatLon ToLatLon(m2::PointD const & p)
 {

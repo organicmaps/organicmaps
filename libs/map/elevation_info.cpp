@@ -109,12 +109,6 @@ size_t ElevationInfo::GetSize() const
   return size;
 }
 
-ElevationInfo::Altitude ElevationInfo::GetFirstAltitude() const
-{
-  ASSERT(!IsEmpty() && !m_lines.front().empty(), ());
-  return m_lines.front().front().m_altitude;
-}
-
 void ElevationInfo::Assign(std::vector<double> const & segDistances, geometry::Altitudes const & altitudes)
 {
   ASSERT_EQUAL(segDistances.size() + 1, altitudes.size(), ());

@@ -61,8 +61,6 @@ public:
   void SetInputLocale(std::string const & locale);
   void SetQuery(std::string const & query, bool categorialRequest = false);
 
-  inline bool IsEmptyQuery() const { return m_query.IsEmpty(); }
-
   void Search(SearchParams params);
 
   /// Tries to parse a custom debugging command from |m_query|.

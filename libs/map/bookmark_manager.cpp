@@ -610,9 +610,6 @@ void BookmarkManager::NotifyChanges(bool saveChangesOnDisk)
   if (m_changesTracker.HasBookmarksChanges())
     NotifyBookmarksChanged();
 
-  if (m_changesTracker.HasCategoriesChanges())
-    NotifyCategoriesChanged();
-
   m_bookmarksChangesTracker.AddChanges(m_changesTracker);
   m_drapeChangesTracker.AddChanges(m_changesTracker);
   m_changesTracker.ResetChanges();
@@ -1736,14 +1733,6 @@ void BookmarkManager::SetCategoryCustomProperty(kml::MarkGroupId categoryId, std
   GetBmCategory(categoryId)->SetCustomProperty(key, value);
 }
 
-std::string BookmarkManager::GetCategoryCustomProperty(kml::MarkGroupId categoryId, std::string const & key) const
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto const & properties = GetCategoryData(categoryId).m_properties;
-  auto const it = properties.find(key);
-  return (it != properties.end()) ? it->second : std::string();
-}
-
 std::string BookmarkManager::GetCategoryFileName(kml::MarkGroupId categoryId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -1930,11 +1919,6 @@ void BookmarkManager::UpdateViewport(ScreenBase const & screen)
 void BookmarkManager::SetBookmarksChangedCallback(BookmarksChangedCallback && callback)
 {
   m_bookmarksChangedCallback = std::move(callback);
-}
-
-void BookmarkManager::SetCategoriesChangedCallback(CategoriesChangedCallback && callback)
-{
-  m_categoriesChangedCallback = std::move(callback);
 }
 
 void BookmarkManager::SetAsyncLoadingCallbacks(AsyncLoadingCallbacks && callbacks)
@@ -2561,12 +2545,6 @@ void BookmarkManager::NotifyBookmarksChanged()
     m_bookmarksChangedCallback();
 }
 
-void BookmarkManager::NotifyCategoriesChanged()
-{
-  if (m_categoriesChangedCallback != nullptr)
-    m_categoriesChangedCallback();
-}
-
 bool BookmarkManager::HasBmCategory(kml::MarkGroupId groupId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -2649,7 +2627,6 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(std::string const & nam
   UpdateBmGroupIdList();
   m_changesTracker.OnAddGroup(groupId);
   NotifyBookmarksChanged();
-  NotifyCategoriesChanged();
   return groupId;
 }
 
@@ -3221,31 +3198,6 @@ void BookmarkManager::SetAllCategoriesVisibility(bool visible)
   auto session = GetEditSession();
   for (auto const & category : m_categories)
     category.second->SetIsVisible(visible);
-}
-
-void BookmarkManager::SetChildCategoriesVisibility(kml::MarkGroupId categoryId, kml::CompilationType compilationType,
-                                                   bool visible)
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto session = GetEditSession();
-  auto const categoryIt = m_categories.find(categoryId);
-  CHECK(categoryIt != m_categories.end(), ());
-  auto & category = *categoryIt->second;
-  for (kml::MarkGroupId const compilationId : category.GetCategoryData().m_compilationIds)
-  {
-    auto const compilationIt = m_compilations.find(compilationId);
-    CHECK(compilationIt != m_compilations.cend(), ());
-    auto & compilation = *compilationIt->second;
-    if (compilation.GetCategoryData().m_type != compilationType)
-      continue;
-    if (visible != compilation.IsVisible())
-    {
-      compilation.SetIsVisible(visible);
-      category.SetDirty(false /* updateModificationTime */);
-      if (visible)
-        category.SetIsVisible(true);
-    }
-  }
 }
 
 void BookmarkManager::SetNotificationsEnabled(bool enabled)

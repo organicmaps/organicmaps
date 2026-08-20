@@ -1701,7 +1701,6 @@ void Framework::FillSearchResultsMarks(SearchResultsIterT beg, SearchResultsIter
       mark->SetFoundFeature(fID);
       mark->SetFromType(r.GetFeatureType());
       mark->SetVisited(m_searchMarks.IsVisited(fID));
-      mark->SetSelected(m_searchMarks.IsSelected(fID));
     }
   }
 }
@@ -2243,8 +2242,6 @@ void Framework::ActivateMapSelection()
 
   auto const & featureId = m_currentPlacePageInfo->GetID();
 
-  m_searchMarks.SetSelected(featureId);
-
   auto const selObj = m_currentPlacePageInfo->GetSelectedObject();
   CHECK_NOT_EQUAL(selObj, df::SelectionShape::OBJECT_EMPTY, ("Empty selections are impossible."));
   if (m_drapeEngine)
@@ -2330,7 +2327,6 @@ void Framework::DeactivateHotelSearchMark()
   if (!m_currentPlacePageInfo)
     return;
 
-  m_searchMarks.SetSelected({});
   if (m_currentPlacePageInfo->IsHotel())
   {
     auto const & featureId = m_currentPlacePageInfo->GetID();
@@ -3828,7 +3824,6 @@ void Framework::ShowViewportSearchResults(SearchResultsIterT begin, SearchResult
 
 void Framework::ClearViewportSearchResults()
 {
-  m_searchMarks.ClearTrackedProperties();
   GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::SEARCH);
 }
 

@@ -137,13 +137,6 @@ bool FeaturesLoaderGuard::IsWorld() const
   return m_handle.GetValue()->GetHeader().GetType() == feature::DataHeader::MapType::World;
 }
 
-std::unique_ptr<FeatureType> FeaturesLoaderGuard::GetOriginalOrEditedFeatureByIndex(uint32_t index) const
-{
-  ASSERT(m_handle.IsAlive(), ());
-  ASSERT_NOT_EQUAL(m_source->GetFeatureStatus(index), FeatureStatus::Created, ());
-  return GetFeatureByIndex(index);
-}
-
 std::unique_ptr<FeatureType> FeaturesLoaderGuard::GetFeatureByIndex(uint32_t index) const
 {
   ASSERT(m_handle.IsAlive(), ());
