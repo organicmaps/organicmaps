@@ -835,6 +835,17 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     return getBookmarkListAdapter().isSearchResults() && getBookmarkListAdapter().getItemCount() == 0;
   }
 
+  private boolean isChildList()
+  {
+    // The core keeps child lists apart from the top-level ones getCategories() returns, and BookmarkCategory
+    // compares by id, so not being in that list is what makes a category a child of another.
+    return !BookmarkManager.INSTANCE.getCategories().contains(mCategoryDataSource.getData());
+  }
+
+  /**
+   * Counts top-level lists only, so it is meaningless for a child list: one is never the last list left, and
+   * deleting it leaves its parent in place. Ask {@link #isChildList()} first.
+   */
   private boolean isLastOwnedCategory()
   {
     return BookmarkManager.INSTANCE.getCategoriesCount() == 1;
@@ -1126,7 +1137,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
   private void onDeleteOptionSelected()
   {
-    requireActivity().setResult(Activity.RESULT_OK);
+    // The screen that opened this one refreshes from the core when it comes back, so it needs no result: a parent
+    // list drops the child card in refreshFromCore(), the categories screen through its data changed listener.
+    BookmarkManager.INSTANCE.deleteCategory(mCategoryDataSource.getData().getId());
     requireActivity().finish();
   }
 
@@ -1325,7 +1338,10 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     final long[] bookmarkIds = toLongArray(mViewModel.getBookmarkIds());
     final long[] trackIds = toLongArray(mViewModel.getTrackIds());
     forgetSelectedItems();
-    BookmarkManager.INSTANCE.moveBookmarksAndTracks(bookmarkIds, trackIds, newCategory.getId());
+    // The core is given the list the items are shown in, not just the destination: on a child list screen the
+    // chooser only ever offers top-level lists, and leaving the child list is part of the same move.
+    BookmarkManager.INSTANCE.moveBookmarksAndTracks(bookmarkIds, trackIds, mCategoryDataSource.getData().getId(),
+                                                    newCategory.getId());
     finishMembershipChange();
   }
 
@@ -1407,7 +1423,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
       items.addAll(ExportMenuItems.create(this::onShareOptionSelected));
     }
     items.add(new MenuBottomSheetItem(R.string.edit, R.drawable.ic_settings, this::onSettingsOptionSelected));
-    if (!isLastOwnedCategory())
+    if (isChildList() || !isLastOwnedCategory())
       items.add(new MenuBottomSheetItem(R.string.delete_list, R.drawable.ic_delete, this::onDeleteOptionSelected));
     return items;
   }
@@ -1531,6 +1547,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
       return false;
     }
 
+    // Before refreshDataSource(), which rebuilds the sections from the sorted or search snapshot when there is one
+    // and would carry an item the core has since dropped straight into the next bind.
+    getBookmarkListAdapter().removeMissingItems();
     getBookmarkListAdapter().refreshDataSource();
     getBookmarkCollectionAdapter().setCategories(BookmarkManager.INSTANCE.getChildrenCategories(categoryId));
     updateToolbarTitle();

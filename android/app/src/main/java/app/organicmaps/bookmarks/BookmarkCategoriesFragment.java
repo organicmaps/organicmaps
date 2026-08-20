@@ -68,12 +68,6 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   @NonNull
   private DataChangedListener mCategoriesAdapterObserver;
 
-  private final ActivityResultLauncher<Intent> startBookmarkListForResult =
-      registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), activityResult -> {
-        if (activityResult.getResultCode() == Activity.RESULT_OK)
-          onDeleteActionSelected(getSelectedCategory());
-      });
-
   private final ActivityResultLauncher<Intent> startImportDirectoryForResult =
       registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), activityResult -> {
         if (activityResult.getResultCode() == Activity.RESULT_OK)
@@ -275,8 +269,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   @Override
   public void onItemClick(@NonNull View v, @NonNull BookmarkCategory category)
   {
-    mSelectedCategory = category;
-    BookmarkListActivity.startForResult(this, startBookmarkListForResult, category);
+    // A list screen deletes its own list, and this one redraws from onCategoriesChanged(), so no result is expected.
+    BookmarkListActivity.start(this, category);
   }
 
   @Override
@@ -359,14 +353,6 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
       mCategoryEditor.commit(text);
 
     getAdapter().notifyDataSetChanged();
-  }
-
-  @NonNull
-  protected BookmarkCategory getSelectedCategory()
-  {
-    if (mSelectedCategory == null)
-      throw new AssertionError("Invalid attempt to use null selected category.");
-    return mSelectedCategory;
   }
 
   interface CategoryEditor

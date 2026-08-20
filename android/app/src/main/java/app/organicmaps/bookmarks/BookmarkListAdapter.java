@@ -622,6 +622,32 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     dropEmptySortedResults();
   }
 
+  /**
+   * Drops from the snapshots every id the core no longer has at all. Unlike {@link #removeDeletedItems(Set, Set)},
+   * the caller does not know what went away: an item deleted on another screen — a child list of this category has
+   * one of its own — is pruned from that screen's snapshot, never from this one. Binding an id that outlived the
+   * core aborts there or dereferences null, so nothing may be drawn in between. Items that merely left this
+   * category are still dropped by the re-sort.
+   */
+  void removeMissingItems()
+  {
+    if (mSearchResults != null)
+      mSearchResults.removeIf(id -> !BookmarkManager.INSTANCE.hasBookmark(id));
+
+    if (mSortedResults == null)
+      return;
+
+    for (int i = mSortedResults.size() - 1; i >= 0; --i)
+    {
+      final SortedBlock block = mSortedResults.get(i);
+      block.getBookmarkIds().removeIf(id -> !BookmarkManager.INSTANCE.hasBookmark(id));
+      block.getTrackIds().removeIf(id -> !BookmarkManager.INSTANCE.hasTrack(id));
+      if (block.getBookmarkIds().isEmpty() && block.getTrackIds().isEmpty())
+        mSortedResults.remove(i);
+    }
+    dropEmptySortedResults();
+  }
+
   boolean isSearchResults()
   {
     return mSearchResults != null;

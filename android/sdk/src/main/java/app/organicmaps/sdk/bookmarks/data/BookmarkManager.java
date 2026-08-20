@@ -277,6 +277,14 @@ public enum BookmarkManager {
   }
 
   /**
+   * Unlike {@link #getBookmarkInfo(long)}, it says so instead of returning null on an already deleted bookmark.
+   */
+  public boolean hasBookmark(long bmkId)
+  {
+    return nativeHasBookmark(bmkId);
+  }
+
+  /**
    * Unlike {@link #getTrack(long)}, it does not assert on an already deleted track.
    */
   public boolean hasTrack(long trackId)
@@ -302,12 +310,17 @@ public enum BookmarkManager {
   }
 
   /**
-   * Moves several bookmarks and tracks into {@code newCategoryId} at once. Ids that no longer exist and items that
-   * already belong to the destination category are skipped.
+   * Moves several bookmarks and tracks into {@code newCategoryId} at once. Ids that no longer exist are skipped, and
+   * so is the move itself for an item already in the destination category.
+   *
+   * @param curCategoryId the category they are shown in, which is a child list when the caller is one of its
+   *     screens: the bookmarks are then taken out of it, whether or not the move that follows has anything left
+   *     to do.
    */
-  public void moveBookmarksAndTracks(@NonNull long[] bookmarkIds, @NonNull long[] trackIds, long newCategoryId)
+  public void moveBookmarksAndTracks(@NonNull long[] bookmarkIds, @NonNull long[] trackIds, long curCategoryId,
+                                     long newCategoryId)
   {
-    nativeMoveBookmarksAndTracks(bookmarkIds, trackIds, newCategoryId);
+    nativeMoveBookmarksAndTracks(bookmarkIds, trackIds, curCategoryId, newCategoryId);
   }
 
   /**
@@ -651,6 +664,8 @@ public enum BookmarkManager {
 
   private native void nativeDeleteBookmark(long bmkId);
 
+  private static native boolean nativeHasBookmark(long bmkId);
+
   private static native boolean nativeHasTrack(long trackId);
 
   private static native boolean nativeHasCategory(long catId);
@@ -658,7 +673,7 @@ public enum BookmarkManager {
   private static native void nativeDeleteBookmarksAndTracks(@NonNull long[] bookmarkIds, @NonNull long[] trackIds);
 
   private static native void nativeMoveBookmarksAndTracks(@NonNull long[] bookmarkIds, @NonNull long[] trackIds,
-                                                          long newCatId);
+                                                          long curCatId, long newCatId);
 
   private static native void nativeChangeBookmarksAndTracksColor(@NonNull long[] bookmarkIds, @NonNull long[] trackIds,
                                                                  @ColorInt int color);

@@ -280,6 +280,12 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeDel
   frm()->DeleteTrack(static_cast<kml::TrackId>(trkId));
 }
 
+JNIEXPORT jboolean Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeHasBookmark(JNIEnv *, jclass,
+                                                                                             jlong bmkId)
+{
+  return static_cast<jboolean>(frm()->GetBookmarkManager().HasBookmark(static_cast<kml::MarkId>(bmkId)));
+}
+
 JNIEXPORT jboolean Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeHasTrack(JNIEnv *, jclass,
                                                                                           jlong trackId)
 {
@@ -302,11 +308,12 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeDel
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeMoveBookmarksAndTracks(
-    JNIEnv * env, jclass, jlongArray jBookmarkIds, jlongArray jTrackIds, jlong newCatId)
+    JNIEnv * env, jclass, jlongArray jBookmarkIds, jlongArray jTrackIds, jlong curCatId, jlong newCatId)
 {
   frm()->GetBookmarkManager().GetEditSession().MoveBookmarksAndTracks(
       jni::ToNativeLongVector<kml::MarkIdCollection>(env, jBookmarkIds),
-      jni::ToNativeLongVector<kml::TrackIdCollection>(env, jTrackIds), static_cast<kml::MarkGroupId>(newCatId));
+      jni::ToNativeLongVector<kml::TrackIdCollection>(env, jTrackIds), static_cast<kml::MarkGroupId>(curCatId),
+      static_cast<kml::MarkGroupId>(newCatId));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeChangeBookmarksAndTracksColor(

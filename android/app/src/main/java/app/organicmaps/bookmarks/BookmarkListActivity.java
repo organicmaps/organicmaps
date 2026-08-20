@@ -60,12 +60,22 @@ public class BookmarkListActivity extends BaseToolbarActivity
     return R.layout.bookmark_list_activity;
   }
 
+  static void start(@NonNull Fragment fragment, @NonNull BookmarkCategory category)
+  {
+    fragment.startActivity(makeIntent(fragment, category));
+  }
+
+  /// For a caller that has to refresh itself from the core once the list screen is done with it.
   static void startForResult(@NonNull Fragment fragment, ActivityResultLauncher<Intent> startBookmarkListForResult,
                              @NonNull BookmarkCategory category)
   {
-    Bundle args = new Bundle();
-    Intent intent = new Intent(fragment.requireActivity(), BookmarkListActivity.class);
-    intent.putExtra(BookmarksListFragment.EXTRA_CATEGORY, category);
-    startBookmarkListForResult.launch(intent);
+    startBookmarkListForResult.launch(makeIntent(fragment, category));
+  }
+
+  @NonNull
+  private static Intent makeIntent(@NonNull Fragment fragment, @NonNull BookmarkCategory category)
+  {
+    return new Intent(fragment.requireActivity(), BookmarkListActivity.class)
+        .putExtra(BookmarksListFragment.EXTRA_CATEGORY, category);
   }
 }
