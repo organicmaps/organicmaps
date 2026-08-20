@@ -350,53 +350,19 @@ void LineShape::ForEachSplineSection(FnT && fn) const
 template <>
 void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
 {
-  float constexpr toShapeFactor = kShapeCoordScalar;  // the same as in ToShapeVertex2
-
-  // Each segment should lie in pattern mask according to the "longest" possible pixel length in current tile.
-  // Since, we calculate vertices once, usually for the "smallest" tile scale, need to apply divide factor here.
-  // In other words, if m_baseGtoPScale = Scale(tileLevel), we should use Scale(tileLevel + 1) to calculate
-  // 'maskLengthG'.
-  /// @todo Logically, the factor should be 2, but drawing artifacts are still present at higher visual scales.
-  /// Use 3 for the best quality, but need to review here, probably I missed something.
-  float const maskLengthG = builder.GetMaskLengthG() / 3;
-
+  // The dash phase is computed per-fragment from the continuous distance (see the dashed_line
+  // shaders), so each spline section is emitted as a single segment with a monotonically growing
+  // offset. Splitting the geometry here would reset the phase and create visible seams.
   float offset = 0;
-  ForEachSplineSection([&](glsl::vec2 const & p1, glsl::vec2 const & p2, glsl::vec2 const & tangent, float toDraw,
+  ForEachSplineSection([&](glsl::vec2 const & p1, glsl::vec2 const & p2, glsl::vec2 const &, float toDraw,
                            glsl::vec2 const & leftNormal, glsl::vec2 const & rightNormal, int)
   {
-    glsl::vec2 currPivot = p1;
-    do
-    {
-      glsl::vec2 nextPivot;
-      float nextOffset = offset + toDraw;
-      if (maskLengthG >= nextOffset)
-      {
-        // Fast lane, where most of segments, that fit into mask, should draw.
-        nextPivot = p2;
-        toDraw = 0;
-      }
-      else
-      {
-        // Break path section here.
-        float const len = maskLengthG - offset;
-        ASSERT_GREATER(len, 0, ());
-        nextPivot = currPivot + tangent * (len * toShapeFactor);
+    builder.SubmitVertex({p1, m_params.m_depth}, rightNormal, false /* isLeft */, offset);
+    builder.SubmitVertex({p1, m_params.m_depth}, leftNormal, true /* isLeft */, offset);
+    builder.SubmitVertex({p2, m_params.m_depth}, rightNormal, false /* isLeft */, offset + toDraw);
+    builder.SubmitVertex({p2, m_params.m_depth}, leftNormal, true /* isLeft */, offset + toDraw);
 
-        nextOffset = maskLengthG;
-        toDraw -= len;
-      }
-
-      builder.SubmitVertex({currPivot, m_params.m_depth}, rightNormal, false /* isLeft */, offset);
-      builder.SubmitVertex({currPivot, m_params.m_depth}, leftNormal, true /* isLeft */, offset);
-      builder.SubmitVertex({nextPivot, m_params.m_depth}, rightNormal, false /* isLeft */, nextOffset);
-      builder.SubmitVertex({nextPivot, m_params.m_depth}, leftNormal, true /* isLeft */, nextOffset);
-
-      currPivot = nextPivot;
-      offset = nextOffset;
-      if (offset >= maskLengthG)
-        offset = 0;
-    }
-    while (toDraw > 0);
+    offset += toDraw;
   });
 }
 
