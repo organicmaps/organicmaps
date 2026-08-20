@@ -563,22 +563,19 @@ final class CarPlayService: NSObject {
 
   private func teardownRouterIfCarPlayDisconnected() {
     guard window == nil, dashboardWindow == nil, let router else { return }
-    let phoneRoutingIsAlreadyActive = routingOwner == .device
+    // moveMap() may not run on disconnect, so hand routing back here too. No-op if already phone-owned.
+    updateRoutingPresentation(for: .device)
     if isCarPlayRoutingSubscribed {
       router.removeListener(self)
       router.unsubscribeFromEvents()
       isCarPlayRoutingSubscribed = false
     }
-    router.setupInitialSpeedCameraMode()
     router.cancelNavigationSession()
     self.router = nil
     routingOwner = .device
     needsCarPlayRoutingRestore = false
     mapState.reset()
     speedState = CarPlaySpeedState()
-    if !phoneRoutingIsAlreadyActive {
-      MWMRouter.subscribeToEvents()
-    }
   }
 
   private var mapAvailability: CarPlayMapAvailability {
