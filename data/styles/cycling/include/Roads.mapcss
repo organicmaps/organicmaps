@@ -1,8 +1,15 @@
 /* Keep here changes of the base map style file only. */
 @import("../../outdoors/include/Roads.mapcss");
 
-/* A single cyan-blue accent identifies dedicated cycleways and designated
-   shared paths. Width and the underlying road geometry provide context. */
+/* ~~~~ CYCLING STYLE — ROADS OVERRIDES ~~~~~
+   Google Maps-like cased lines: a continuous contrasting casing underneath,
+   with a colored blue stroke centered on top. The casing always stays
+   continuous; the stroke is solid / dashed / dotted to encode the
+   infrastructure type.
+
+   Two blue intensities share one hue: dedicated (off-road) cycling
+   infrastructure (@cycleway) is slightly stronger than road-attached
+   cyclewaytag track/lane/shared_lane (@cycleway_road). */
 
 /* De-emphasize motorways and trunks, including bridge and tunnel layers. */
 line|z7-[highway=motorway],
@@ -27,30 +34,80 @@ line|z10-[highway=motorway_link][tunnel?],
 line|z10-[highway=trunk_link][tunnel?],
 {opacity: 0.4; casing-opacity: 0.4;}
 
-/* Keep cycling infrastructure visible and monotonic from overview zooms. */
+/* Dedicated cycleways and designated shared paths/footways render solid in the
+   stronger @cycleway blue, with a continuous casing. */
 line|z11-[highway=cycleway],
 line|z12-[highway=path][bicycle=designated],
 line|z13-[highway=footway][bicycle=designated],
-{color: @cycleway; opacity: 1; dashes: none;}
+{color: @cycleway; opacity: 1; dashes: none; linecap: round;
+ casing-color: @cycleway_casing; casing-width: 1.5;}
 
 line|z11[highway=cycleway],
-{width: 1.0;}
+{width: 3.0;}
 line|z12[highway=cycleway],
-{width: 1.2;}
 line|z12[highway=path][bicycle=designated],
-{width: 1.0;}
+{width: 3.6;}
 line|z13[highway=cycleway],
-{width: 1.4;}
 line|z13[highway=path][bicycle=designated],
 line|z13[highway=footway][bicycle=designated],
-{width: 1.1;}
+{width: 4.2;}
 line|z14[highway=cycleway],
-{width: 1.6;}
+line|z14[highway=path][bicycle=designated],
 line|z14[highway=footway][bicycle=designated],
-{width: 1.2;}
+{width: 4.8;}
 line|z15[highway=cycleway],
-{width: 1.9;}
+line|z15[highway=path][bicycle=designated],
+line|z15[highway=footway][bicycle=designated],
+{width: 5.7;}
 line|z16-17[highway=cycleway],
-{width: 2.3;}
+line|z16-17[highway=path][bicycle=designated],
+line|z16-17[highway=footway][bicycle=designated],
+{width: 6.9;}
 line|z18-[highway=cycleway],
-{width: 2.8;}
+line|z18-[highway=path][bicycle=designated],
+line|z18-[highway=footway][bicycle=designated],
+{width: 8.1;}
+
+/* The base path/footway line is already solid @cycleway, so the inherited
+   ::cycleline underline (a second, fainter blue line) is redundant. */
+line|z12-[highway=path][bicycle=designated]::cycleline,
+line|z13-[highway=footway][bicycle=designated]::cycleline,
+{width: 0;}
+
+/* Cycleway infrastructure attached to a road. Solid = track, dashed = lane,
+   dotted = shared_lane, all in the same @cycleway_road blue over a continuous
+   casing (the casing never inherits the stroke dashes). */
+line|z13-[cyclewaytag=track],
+line|z14-[cyclewaytag=lane],
+line|z14-[cyclewaytag=shared_lane],
+{color: @cycleway_road; opacity: 1; linecap: round;
+ casing-color: @cycleway_casing; casing-width: 1.5; casing-dashes: none;}
+
+line|z13[cyclewaytag=track],
+{width: 4.2;}
+line|z14[cyclewaytag=track],
+{width: 4.8;}
+line|z15[cyclewaytag=track],
+{width: 5.7;}
+line|z16-17[cyclewaytag=track],
+{width: 6.9;}
+line|z18-[cyclewaytag=track],
+{width: 8.1;}
+
+line|z14[cyclewaytag=lane],
+{width: 2.3; dashes: 18,4.8;}
+line|z15[cyclewaytag=lane],
+{width: 3.7; dashes: 19.5,4.8;}
+line|z16-17[cyclewaytag=lane],
+{width: 6.0; dashes: 24,5.4;}
+line|z18-[cyclewaytag=lane],
+{width: 6.9; dashes: 27,6.0;}
+
+line|z14[cyclewaytag=shared_lane],
+{width: 2.3; dashes: 4.8,4.8;}
+line|z15[cyclewaytag=shared_lane],
+{width: 3.7; dashes: 4.8,4.8;}
+line|z16-17[cyclewaytag=shared_lane],
+{width: 5.7; dashes: 5.4,5.4;}
+line|z18-[cyclewaytag=shared_lane],
+{width: 6.6; dashes: 6.0,6.0;}
