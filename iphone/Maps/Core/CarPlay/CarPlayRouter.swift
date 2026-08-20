@@ -15,6 +15,7 @@ final class CarPlayRouter: NSObject {
   private let listenerContainer: ListenerContainer<CarPlayRouterListener>
   private var routeSession: CPNavigationSession?
   private var initialSpeedCamSettings: SpeedCameraManagerMode
+  private var isRoutingPresentationActive = false
   var currentTrip: CPTrip? {
     routeSession?.trip
   }
@@ -44,6 +45,10 @@ final class CarPlayRouter: NSObject {
 
   func unsubscribeFromEvents() {
     RoutingManager.routingManager.remove(self)
+  }
+
+  func setRoutingPresentationActive(_ isActive: Bool) {
+    isRoutingPresentationActive = isActive
   }
 
   func completeRouteAndRemovePoints() {
@@ -329,6 +334,7 @@ extension CarPlayRouter: RoutingManagerListener {
   }
 
   func processRouteBuilderEvent(with code: RouterResultCode, countries: [String]) {
+    guard isRoutingPresentationActive else { return }
     guard let trip = previewTrip else {
       return
     }
@@ -368,6 +374,7 @@ extension CarPlayRouter: RoutingManagerListener {
   }
 
   func didLocationUpdate(_ notifications: [String]) {
+    guard isRoutingPresentationActive else { return }
     guard let trip = previewTrip else { return }
 
     let manager = RoutingManager.routingManager

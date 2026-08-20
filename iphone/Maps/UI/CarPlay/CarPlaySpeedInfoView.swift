@@ -107,7 +107,7 @@ final class CarPlaySpeedInfoView: UIView {
     currentSpeedView = UIView()
     currentSpeedLabel = UILabel()
     speedCamLimitContainer = UIView()
-    speedCamImageView = UIImageView(image: UIImage(named: "ic_carplay_camera"))
+    speedCamImageView = UIImageView(image: .icCarplayCamera)
     speedCamLimitLabel = UILabel()
 
     currentSpeedView.translatesAutoresizingMaskIntoConstraints = false
