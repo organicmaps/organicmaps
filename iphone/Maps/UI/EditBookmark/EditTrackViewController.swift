@@ -280,7 +280,7 @@ extension EditTrackViewController: MWMButtonCellDelegate {
       cell.isUserInteractionEnabled = false
       isDeleting = true
       // goBack() is called by onTracksDeleted observer.
-      bookmarksManager.delete(bookmarks: [], tracks: [NSNumber(value: trackId)])
+      bookmarksManager.deleteTrack(trackId)
     default:
       fatalError("Invalid section")
     }

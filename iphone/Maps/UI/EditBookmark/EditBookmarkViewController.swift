@@ -289,7 +289,7 @@ extension EditBookmarkViewController: MWMButtonCellDelegate {
     cell.isUserInteractionEnabled = false
     isDeleting = true
     // goBack() and updateAfterDeleteBookmark() are called by onBookmarksDeleted observer.
-    bookmarksManager.delete(bookmarks: [NSNumber(value: bookmarkId)], tracks: [])
+    bookmarksManager.deleteBookmark(bookmarkId)
   }
 }
 
