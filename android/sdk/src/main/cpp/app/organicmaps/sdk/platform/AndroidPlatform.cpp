@@ -16,26 +16,6 @@
 #include <memory>
 #include <utility>
 
-std::string Platform::GetMemoryInfo() const
-{
-  JNIEnv * env = jni::GetEnv();
-  if (env == nullptr)
-    return std::string();
-
-  static std::shared_ptr<jobject> classLogsManager =
-      jni::make_global_ref(env->FindClass("app/organicmaps/sdk/util/log/LogsManager"));
-  ASSERT(classLogsManager, ());
-
-  jobject context = android::Platform::Instance().GetContext();
-  static jmethodID const getMemoryInfoId = jni::GetStaticMethodID(
-      env, static_cast<jclass>(*classLogsManager), "getMemoryInfo", "(Landroid/content/Context;)Ljava/lang/String;");
-  jstring const memInfoString = static_cast<jstring>(
-      env->CallStaticObjectMethod(static_cast<jclass>(*classLogsManager), getMemoryInfoId, context));
-  ASSERT(memInfoString, ());
-
-  return jni::ToNativeString(env, memInfoString);
-}
-
 std::string Platform::DeviceName() const
 {
   JNIEnv * env = jni::GetEnv();

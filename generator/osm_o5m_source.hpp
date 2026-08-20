@@ -55,13 +55,6 @@ public:
     return *(m_position++);
   }
 
-  inline TBuffer::value_type Peek()
-  {
-    if (m_position == m_buffer.end())
-      Refill();
-    return *m_position;
-  }
-
   void Skip(size_t size = 1)
   {
     size_t const bytesLeft = std::distance(m_position, m_buffer.cend());

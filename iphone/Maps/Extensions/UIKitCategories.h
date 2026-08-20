@@ -1,25 +1,5 @@
 #import <CoreApi/MWMTypes.h>
 
-static inline CGPoint SubtractCGPoint(CGPoint p1, CGPoint p2)
-{
-  return CGPointMake(p1.x - p2.x, p1.y - p2.y);
-}
-
-static inline CGPoint AddCGPoint(CGPoint p1, CGPoint p2)
-{
-  return CGPointMake(p1.x + p2.x, p1.y + p2.y);
-}
-
-static inline CGPoint MultiplyCGPoint(CGPoint point, CGFloat multiplier)
-{
-  return CGPointMake(point.x * multiplier, point.y * multiplier);
-}
-
-static inline CGFloat LengthCGPoint(CGPoint point)
-{
-  return (CGFloat)sqrt(point.x * point.x + point.y * point.y);
-}
-
 @interface NSObject (Optimized)
 
 + (NSString *)className;

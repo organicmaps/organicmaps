@@ -59,9 +59,6 @@ public:
   static Altitude constexpr kDefThresholdMWM = 5;
   static Altitude constexpr kDefThresholdGPS = 10;
 
-  /// First altitude in the first line. Asserts non-empty.
-  Altitude GetFirstAltitude() const;
-
   struct AltitudesInfo
   {
     uint32_t m_totalAscentRaw = 0;

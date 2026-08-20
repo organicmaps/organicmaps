@@ -116,7 +116,6 @@ public:
   // This method must be used to enable or disable indexing all current and future
   // bookmarks belonging to |groupId|.
   void EnableIndexingOfBookmarkGroup(kml::MarkGroupId const & groupId, bool enable);
-  std::unordered_set<kml::MarkGroupId> const & GetIndexableGroups() const;
 
   // Returns the bookmarks search to its default, pre-launch state.
   // This includes dropping all bookmark data for created bookmarks (efficiently

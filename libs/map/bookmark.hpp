@@ -39,7 +39,6 @@ public:
   void SetName(kml::LocalizableString const & name);
   void SetName(std::string const & name, int8_t langCode);
 
-  std::string GetCustomName() const;
   void SetCustomName(std::string const & customName);
 
   // Returns the preset color, or None for a custom-colored bookmark. A bookmark is a preset only for
@@ -121,8 +120,6 @@ public:
 
   void SetServerId(std::string const & serverId);
   std::string const & GetServerId() const { return m_serverId; }
-
-  bool HasElevationProfile() const;
 
   void SetAuthor(std::string const & name, std::string const & id);
   void SetAccessRules(kml::AccessRules accessRules);

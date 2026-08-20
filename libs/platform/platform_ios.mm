@@ -14,8 +14,6 @@
 #include <fcntl.h>
 #include <ifaddrs.h>
 
-#include <mach/mach.h>
-
 #include <net/if.h>
 #include <net/if_dl.h>
 
@@ -28,7 +26,6 @@
 #import <UIKit/UIKit.h>
 
 #include <memory>
-#include <sstream>
 #include <string>
 #include <utility>
 
@@ -116,25 +113,6 @@ std::unique_ptr<ModelReader> Platform::GetReader(std::string const & file, std::
 {
   return std::make_unique<FileReader>(ReadPathForFile(file, std::move(searchScope)), READER_CHUNK_LOG_SIZE,
                                       READER_CHUNK_LOG_COUNT);
-}
-
-std::string Platform::GetMemoryInfo() const
-{
-  struct task_basic_info info;
-  mach_msg_type_number_t size = sizeof(info);
-  kern_return_t const kerr = task_info(mach_task_self(), TASK_BASIC_INFO, (task_info_t)&info, &size);
-  std::stringstream ss;
-  if (kerr == KERN_SUCCESS)
-  {
-    ss << "Memory info: Resident_size = " << info.resident_size / 1024
-       << "KB; virtual_size = " << info.resident_size / 1024 << "KB; suspend_count = " << info.suspend_count
-       << " policy = " << info.policy;
-  }
-  else
-  {
-    ss << "Error with task_info(): " << mach_error_string(kerr);
-  }
-  return ss.str();
 }
 
 std::string Platform::DeviceName() const

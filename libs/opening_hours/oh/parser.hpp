@@ -77,11 +77,6 @@ constexpr Weekday weekday_from_index(int i)
   return static_cast<Weekday>(((i % kNumWeekdays) + kNumWeekdays) % kNumWeekdays);
 }
 
-constexpr Weekday next_weekday(Weekday d)
-{
-  return weekday_from_index(static_cast<int>(d) + 1);
-}
-
 constexpr char const * weekday_short(Weekday d)
 {
   constexpr char const * tbl[] = {"Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"};
@@ -107,11 +102,6 @@ enum class Month : uint8_t
 constexpr Month next_month(Month m)
 {
   return static_cast<Month>((static_cast<int>(m) % 12) + 1);
-}
-
-constexpr Month prev_month(Month m)
-{
-  return static_cast<Month>(((static_cast<int>(m) + 10) % 12) + 1);
 }
 
 constexpr char const * month_short(Month m)

@@ -32,20 +32,4 @@ static inline NSString * formattedSize(uint64_t size)
   return [NSByteCountFormatter stringFromByteCount:size countStyle:NSByteCountFormatterCountStyleFile];
 }
 
-// Use only for screen dimensions CGFloat comparison
-static inline BOOL equalScreenDimensions(CGFloat left, CGFloat right)
-{
-  return fabs(left - right) < 0.5;
-}
-
-static inline void performOnce(MWMVoidBlock block, NSString * key)
-{
-  BOOL performed = [[NSUserDefaults standardUserDefaults] boolForKey:key];
-  if (!performed)
-  {
-    block();
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:key];
-  }
-}
-
 NS_ASSUME_NONNULL_END

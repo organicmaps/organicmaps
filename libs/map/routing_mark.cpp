@@ -117,12 +117,6 @@ bool RouteMarkPoint::IsEqualFullType(RouteMarkType type, size_t intermediateInde
   return m_markData.m_pointType == type;
 }
 
-void RouteMarkPoint::SetIsMyPosition(bool isMyPosition)
-{
-  SetDirty();
-  m_markData.m_isMyPosition = isMyPosition;
-}
-
 void RouteMarkPoint::SetPassed(bool isPassed)
 {
   SetDirty();

@@ -91,12 +91,6 @@ inline uint8_t GetBit(void const * p, uint32_t offset)
   return (pData[offset >> 3] >> (offset & 7)) & 1;
 }
 
-inline void SetBitTo0(void * p, uint32_t offset)
-{
-  uint8_t * pData = static_cast<uint8_t *>(p);
-  pData[offset >> 3] &= ~(1 << (offset & 7));
-}
-
 inline void SetBitTo1(void * p, uint32_t offset)
 {
   uint8_t * pData = static_cast<uint8_t *>(p);

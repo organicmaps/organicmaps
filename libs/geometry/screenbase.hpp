@@ -56,7 +56,6 @@ public:
   void GtoP(m2::RectD const & gr, m2::RectD & sr) const;
   void PtoG(m2::RectD const & pr, m2::RectD & gr) const;
 
-  void MatchGandP(m2::PointD const & g, m2::PointD const & p);
   void MatchGandP3d(m2::PointD const & g, m2::PointD const & p3d);
 
   m2::AnyRectD GetTouchRect(m2::PointD const & pixPoint, double const pxWidth, double const pxHeight) const;
@@ -167,6 +166,3 @@ private:
   bool m_isPerspective;
   bool m_isAutoPerspective;
 };
-
-/// checking whether the s1 transforms into s2 without scaling, only with shift and rotation
-bool IsPanningAndRotate(ScreenBase const & s1, ScreenBase const & s2);
