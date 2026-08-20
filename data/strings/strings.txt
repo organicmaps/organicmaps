@@ -31910,7 +31910,7 @@ th = ปิดการใช้งานการบันทึกเส้น
 tr = En son seyahat edilen rotanızı kaydetmeyi devre dışı bırakmak istiyor musunuz?
 uk = Вимкнути запис нещодавно пройденого шляху?
 vi = Tắt ghi lại tuyến đường đã đi gần đây của bạn?
-zh-Hans = 禁止记录您最近去过的路线吗？
+zh-Hans = 取消记录您最近去过的路线吗？
 zh-Hant = 取消記錄您最近去過的路線嗎？
 
 [off_recent_track_background_button]
@@ -41527,8 +41527,8 @@ th = คุณแน่ใจหรือไม่ว่าต้องการ
 tr = Bu izi silmek istediğinizden emin misiniz?
 uk = Ви дійсно хочете видалити цей трек?
 vi = Bạn có chắc chắn muốn xóa bản nhạc này không?
-zh-Hans = 您确定要删除这条音轨吗？
-zh-Hant = 您確定要刪除該曲目嗎？
+zh-Hans = 您确定要删除这条轨迹吗？
+zh-Hant = 您確定要刪除該軌跡嗎？
 
 [placepage_track_name_hint]
 comment = Placeholder for track name input on track edit screen
