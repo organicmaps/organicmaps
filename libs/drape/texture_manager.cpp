@@ -25,7 +25,7 @@ namespace dp
 {
 namespace
 {
-uint32_t constexpr kMaxTextureSize = 1024;
+uint32_t constexpr kMaxTextureSize = 2048;
 uint32_t constexpr kStippleTextureWidth = 512;  /// @todo Should be equal with kMaxStipplePenLength?
 uint32_t constexpr kMinStippleTextureHeight = 64;
 uint32_t constexpr kMinColorTextureSize = 32;
@@ -563,7 +563,7 @@ void TextureManager::InitStipplePen(Params const & params)
     else
     {
       ASSERT_EQUAL(toAdd.size(), 2, ());
-      ++rowsCount;
+      rowsCount += kStipplePenDashHeight;
     }
   });
 
