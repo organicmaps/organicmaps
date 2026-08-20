@@ -286,6 +286,12 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativ
   return static_cast<jboolean>(frm()->GetBookmarkManager().HasTrack(static_cast<kml::TrackId>(trackId)));
 }
 
+JNIEXPORT jboolean Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeHasCategory(JNIEnv *, jclass,
+                                                                                             jlong catId)
+{
+  return static_cast<jboolean>(frm()->GetBookmarkManager().HasBmCategory(static_cast<kml::MarkGroupId>(catId)));
+}
+
 // The batch operations themselves live in the core, where any platform can reach them: see
 // BookmarkManager::EditSession and Framework::DeleteBookmarksAndTracks.
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeDeleteBookmarksAndTracks(
@@ -446,16 +452,18 @@ Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeAreAllCategoriesIn
   return static_cast<jboolean>(frm()->GetBookmarkManager().AreAllCategoriesInvisible());
 }
 
-JNIEXPORT jboolean JNICALL
-Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeAreAllCategoriesVisible(JNIEnv *, jclass)
-{
-  return static_cast<jboolean>(frm()->GetBookmarkManager().AreAllCategoriesVisible());
-}
-
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeSetAllCategoriesVisibility(
     JNIEnv *, jclass, jboolean visible)
 {
   frm()->GetBookmarkManager().SetAllCategoriesVisibility(static_cast<bool>(visible));
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeSetChildCategoriesVisibility(
+    JNIEnv *, jclass, jlong catId, jboolean visible)
+{
+  // Category is the type nativeGetChildrenCategories() filters by, so the affected lists are the displayed ones.
+  frm()->GetBookmarkManager().SetChildCategoriesVisibility(static_cast<kml::MarkGroupId>(catId),
+                                                           kml::CompilationType::Category, static_cast<bool>(visible));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeSetTrackVisibility(JNIEnv *, jclass,

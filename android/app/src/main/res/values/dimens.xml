@@ -206,8 +206,6 @@
   <dimen name="dp_0">0dp</dimen>
   <dimen name="toggle_map_layer_frame_height">98dp</dimen>
   <dimen name="toggle_map_layer_icon_size">54dp</dimen>
-  <dimen name="bookmark_collection_item_end_margin">56dp</dimen>
-  <dimen name="bookmark_category_checkbox_width">36dp</dimen>
 
   <!-- Purchases-->
   <dimen name="sharing_options_img_size">18dp</dimen>

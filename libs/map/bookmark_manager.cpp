@@ -3195,11 +3195,6 @@ bool BookmarkManager::IsUsedCategoryName(std::string const & name) const
   return false;
 }
 
-bool BookmarkManager::AreAllCategoriesVisible() const
-{
-  return CheckVisibility(true /* isVisible */);
-}
-
 bool BookmarkManager::AreAllCategoriesInvisible() const
 {
   return CheckVisibility(false /* isVisible */);
