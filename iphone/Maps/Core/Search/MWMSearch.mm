@@ -199,6 +199,11 @@ BOOL HandleIOSDebugCommand(NSString * query)
   GetFramework().SelectSearchResult(result, true);
 }
 
++ (void)updateViewportWithResults
+{
+  GetFramework().UpdateViewport([MWMSearch manager]->m_everywhereResults);
+}
+
 + (SearchResult *)resultWithContainerIndex:(NSUInteger)index
 {
   SearchResult * result = [[SearchResult alloc] initWithResult:[MWMSearch manager]->m_everywhereResults[index]
