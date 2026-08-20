@@ -34,7 +34,7 @@ leisure-swimming_pool                               # area z13- (also has icon z
 leisure-swimming_pool-private                       # area z13- (also has icon z17-, caption(optional) z17-)
 === 230
 
-landuse-landfill                                    # area z14- (also has icon z15-, caption(optional) z15-)
+landuse-landfill                                    # area z13- (also has icon z15-, caption(optional) z15-)
 === 220
 
 leisure-playground                                  # area z15- (also has icon z17-, caption(optional) z17-)
@@ -52,16 +52,16 @@ landuse-cemetery-christian                          # area z14- (also has icon z
 
 amenity-marketplace                                 # area z16- (also has icon z16-, caption(optional) z16-)
 highway-pedestrian-area                             # area z14- (also has line z13)
-highway-rest_area                                   # area z15- (also has icon z15-, caption(optional) z15-)
+highway-rest_area                                   # area z15- (also has icon z14-, caption(optional) z15-)
 highway-services                                    # area z14- (also has icon z14-, caption(optional) z14-)
 landuse-retail                                      # area z15-
 leisure-resort                                      # area z15- (also has icon z16-, caption(optional) z16-)
 leisure-water_park                                  # area z16- (also has icon z16-, caption(optional) z16-)
-tourism-camp_site                                   # area z15- (also has icon z16-, caption(optional) z16-)
+tourism-camp_site                                   # area z13- (also has icon z13-, caption(optional) z13-)
 tourism-theme_park                                  # area z16- (also has icon z14-, caption(optional) z14-)
 === 170
 
-highway-footway-area                                # area z14- (also has line z13)
+highway-footway-area                                # area z14-
 leisure-track-area                                  # area z15- (also has caption z16-)
 === 160
 
@@ -114,7 +114,7 @@ landuse-recreation_ground                           # area z12- (also has captio
 landuse-village_green                               # area z12-
 landuse-vineyard                                    # area z12- (also has caption z15-)
 leisure-pitch                                       # area z15- (also has icon z17-, caption(optional) z17-)
-natural-bare_rock                                   # area z12- (also has caption z14-)
+natural-bare_rock                                   # area z12- (also has caption z13-)
 natural-scree                                       # area z11-
 natural-shingle                                     # area z12-
 === 80
@@ -128,24 +128,24 @@ leisure-park-permissive                             # area z10- (also has icon z
 leisure-park-private                                # area z10- (also has icon z14-, caption(optional) z14-)
 === 70
 
-landuse-forest                                      # area z10- (also has icon z13-, caption(optional) z14-)
-landuse-forest-coniferous                           # area z10- (also has icon z13-, caption(optional) z14-)
-landuse-forest-deciduous                            # area z10- (also has icon z13-, caption(optional) z14-)
-landuse-forest-mixed                                # area z10- (also has icon z13-, caption(optional) z14-)
+landuse-forest                                      # area z10- (also has icon z12-, caption(optional) z13-)
+landuse-forest-coniferous                           # area z10- (also has icon z12-, caption(optional) z13-)
+landuse-forest-deciduous                            # area z10- (also has icon z12-, caption(optional) z13-)
+landuse-forest-mixed                                # area z10- (also has icon z12-, caption(optional) z13-)
 === 60
 
-landuse-construction                                # area z14- (also has caption z15-)
-landuse-industrial                                  # area z14- (also has caption z15-)
-landuse-industrial-mine                             # area z14- (also has icon z15-, caption(optional) z15-)
-landuse-quarry                                      # area z14- (also has icon z15-, caption(optional) z15-)
-landuse-railway                                     # area z14- (also has caption z15-)
+landuse-construction                                # area z13- (also has caption z15-)
+landuse-industrial                                  # area z13- (also has caption z15-)
+landuse-industrial-mine                             # area z13- (also has icon z15-, caption(optional) z15-)
+landuse-quarry                                      # area z13- (also has icon z15-, caption(optional) z15-)
+landuse-railway                                     # area z13- (also has caption z15-)
 landuse-religious                                   # area z15-
 power-plant                                         # area z15- (also has icon z17-, caption(optional) z17-)
 power-plant-coal                                    # area z15- (also has icon z17-, caption(optional) z17-)
 power-plant-gas                                     # area z15- (also has icon z17-, caption(optional) z17-)
 power-plant-hydro                                   # area z15- (also has icon z17-, caption(optional) z17-)
 power-plant-solar                                   # area z15- (also has icon z17-, caption(optional) z17-)
-power-plant-wind                                    # area z15- (also has icon z15-, caption(optional) z17-)
+power-plant-wind                                    # area z15- (also has icon z13-, caption(optional) z17-)
 power-station                                       # area z15- (also has icon z17-, caption(optional) z17-)
 power-substation                                    # area z15- (also has icon z17-, caption(optional) z17-)
 === 50
@@ -161,9 +161,9 @@ aeroway-aerodrome                                   # area z10- (also has icon z
 aeroway-aerodrome-international                     # area z10- (also has icon z7-, caption(optional) z10-)
 landuse-education                                   # area z15-
 leisure-beach_resort                                # area z10- (also has icon z16-, caption(optional) z16-)
-natural-beach                                       # area z10- (also has caption z15-)
-natural-beach-gravel                                # area z10- (also has caption z15-)
-natural-beach-sand                                  # area z10- (also has caption z15-)
+natural-beach                                       # area z10- (also has caption z14-)
+natural-beach-gravel                                # area z10- (also has caption z14-)
+natural-beach-sand                                  # area z10- (also has caption z14-)
 natural-desert                                      # area z1- (also has caption z14-)
 natural-glacier                                     # area z1-
 === 30
