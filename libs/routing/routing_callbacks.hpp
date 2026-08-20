@@ -22,14 +22,11 @@ class RoutesResult;
 /// Routing possible statuses enumeration.
 /// \warning  this enum has JNI mirror!
 /// \see android/src/app/organicmaps/maps/routing/ResultCodesHelper.java
-// TODO(bykoianko): Items become obsolete now should be removed from the enum.
 enum class RouterResultCode
 {
   NoError = 0,
   Cancelled = 1,
   NoCurrentPosition = 2,
-  InconsistentMWMandRoute = 3,
-  RouteFileNotExist = 4,
   StartPointNotFound = 5,
   EndPointNotFound = 6,
   PointsInDifferentMWM = 7,
@@ -93,8 +90,6 @@ inline std::string ToString(RouterResultCode code)
   case RouterResultCode::NoError: return "NoError";
   case RouterResultCode::Cancelled: return "Cancelled";
   case RouterResultCode::NoCurrentPosition: return "NoCurrentPosition";
-  case RouterResultCode::InconsistentMWMandRoute: return "InconsistentMWMandRoute";
-  case RouterResultCode::RouteFileNotExist: return "RouteFileNotExist";
   case RouterResultCode::StartPointNotFound: return "StartPointNotFound";
   case RouterResultCode::EndPointNotFound: return "EndPointNotFound";
   case RouterResultCode::PointsInDifferentMWM: return "PointsInDifferentMWM";

@@ -1360,11 +1360,9 @@ extension CarPlayService {
     case .endPointNotFound:
       titleVariants = ["\(L("dialog_routing_change_end_carplay"))"]
     case .routeNotFoundRedressRouteError,
-         .routeNotFound,
-         .inconsistentMWMandRoute:
+         .routeNotFound:
       titleVariants = ["\(L("dialog_routing_unable_locate_route_carplay"))"]
-    case .routeFileNotExist,
-         .fileTooOld,
+    case .fileTooOld,
          .needMoreMaps,
          .pointsInDifferentMWM:
       titleVariants = ["\(L("dialog_routing_download_files_carplay"))"]

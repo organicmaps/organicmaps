@@ -209,14 +209,12 @@ void AsyncRouter::LogCode(RouterResultCode code, double const elapsedSec)
   case RouterResultCode::EndPointNotFound: LOG(LWARNING, ("Can't find end point node")); break;
   case RouterResultCode::PointsInDifferentMWM: LOG(LWARNING, ("Points are in different MWMs")); break;
   case RouterResultCode::RouteNotFound: LOG(LWARNING, ("Route not found")); break;
-  case RouterResultCode::RouteFileNotExist: LOG(LWARNING, ("There is no routing file")); break;
   case RouterResultCode::NeedMoreMaps:
     LOG(LINFO, ("Routing can find a better way with additional maps, elapsed seconds:", elapsedSec));
     break;
   case RouterResultCode::Cancelled: LOG(LINFO, ("Route calculation cancelled, elapsed seconds:", elapsedSec)); break;
   case RouterResultCode::NoError: LOG(LINFO, ("Route found, elapsed seconds:", elapsedSec)); break;
   case RouterResultCode::NoCurrentPosition: LOG(LINFO, ("No current position")); break;
-  case RouterResultCode::InconsistentMWMandRoute: LOG(LINFO, ("Inconsistent mwm and route")); break;
   case RouterResultCode::InternalError: LOG(LINFO, ("Internal error")); break;
   case RouterResultCode::FileTooOld: LOG(LINFO, ("File too old")); break;
   case RouterResultCode::IntermediatePointNotFound: LOG(LWARNING, ("Can't find intermediate point node")); break;
