@@ -12,9 +12,9 @@ import app.organicmaps.sdk.wear.WearBridge;
 /**
  * Registers the Google Wear Data Layer publisher at process startup.
  *
- * <p>Declared in this module's manifest, which is merged into the app only for flavors that pull in
- * {@code :sdk:wear:gms} via {@code googleImplementation} -- so the publisher is installed on Google
- * builds and absent elsewhere. Runs before {@code Application.onCreate()}, so the publisher is
+ * <p>Declared in this module's manifest, which is merged into the app only for the variants that
+ * pull in {@code :sdk:wear:gms} -- Google debug and beta -- so the publisher is absent everywhere
+ * else, including Google release. Runs before {@code Application.onCreate()}, so the publisher is
  * registered before that method's initial publish and before any later navigation-state change --
  * no startup-ordering race.
  */

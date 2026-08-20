@@ -6,9 +6,10 @@ import app.organicmaps.wear.protocol.WearNavigationState;
 /**
  * Routes navigation state to a paired Wear OS device.
  *
- * <p>The Google variant bundles {@code :sdk:wear:gms}, whose manifest-merged {@code ContentProvider}
- * registers the real publisher at startup. On F-Droid/Huawei/Web nothing registers and the bridge
- * falls back to a no-op, so callers in common code never reference Play services types.
+ * <p>Google debug and beta bundle {@code :sdk:wear:gms}, whose manifest-merged
+ * {@code ContentProvider} registers the real publisher at startup. Everywhere else -- Google
+ * release and profileable, F-Droid, Huawei, Web -- nothing registers and the bridge falls back to a
+ * no-op, so callers in common code never reference Play services types.
  */
 public final class WearBridge
 {
