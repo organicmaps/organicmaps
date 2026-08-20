@@ -8,6 +8,7 @@ set(SRC
   match_by_geometry_test.cpp
   new_feature_categories_test.cpp
   opening_hours_ui_test.cpp
+  osm_auth_test.cpp
   osm_editor_test.cpp
   osm_editor_test.hpp
   ui2oh_test.cpp
