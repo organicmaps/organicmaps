@@ -7,6 +7,8 @@ import app.organicmaps.sdk.wear.WearNavigationPublisher;
 import app.organicmaps.wear.protocol.WearNavigationData;
 import app.organicmaps.wear.protocol.WearNavigationState;
 import app.organicmaps.wear.protocol.WearNavigationStateCodec;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
 
@@ -34,7 +36,19 @@ final class GmsWearNavigationPublisher implements WearNavigationPublisher
     final PutDataRequest request = PutDataRequest.create(WearNavigationData.PATH_NAVIGATION_STATE);
     request.setData(WearNavigationStateCodec.encode(state));
     request.setUrgent();
-    Wearable.getDataClient(mContext).putDataItem(request).addOnFailureListener(
-        e -> Log.w(TAG, "Failed to publish Wear navigation state", e));
+    Wearable.getDataClient(mContext)
+        .putDataItem(request)
+        .addOnSuccessListener(item -> Log.d(TAG, "Published Wear navigation state: " + state.getMode()))
+        .addOnFailureListener(GmsWearNavigationPublisher::logFailure);
+  }
+
+  // API_NOT_CONNECTED reports that the Wearable API is unavailable, not that delivery failed, so it
+  // is expected whenever no watch is around and does not deserve a warning.
+  private static void logFailure(@NonNull Exception e)
+  {
+    if (e instanceof ApiException apiError && apiError.getStatusCode() == CommonStatusCodes.API_NOT_CONNECTED)
+      Log.d(TAG, "Wear Data Layer unavailable, navigation state not published");
+    else
+      Log.w(TAG, "Failed to publish Wear navigation state", e);
   }
 }

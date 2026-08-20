@@ -203,6 +203,16 @@ android {
   }
 }
 
+// Wear publisher only in Google debug/beta until the watch app ships (#12030); other variants keep
+// the WearBridge no-op. Deferred because AGP creates flavor+buildType configurations after the
+// script is evaluated.
+afterEvaluate {
+  dependencies {
+    googleDebugImplementation project(':sdk:wear:gms')
+    googleBetaImplementation project(':sdk:wear:gms')
+  }
+}
+
 dependencies {
   implementation project(':libs:api')
   implementation project(':libs:branding')
@@ -225,11 +235,9 @@ dependencies {
   huaweiImplementation project(':sdk:location:gms:google')
   fdroidImplementation project(':sdk:location:gms:foss')
 
-  // Wear OS phone-side bridge: the all-flavors seam (interface + registry + no-op) plus the Google
-  // Wear Data Layer publisher, which self-registers and ships in Google builds only. wear-protocol
-  // arrives transitively via :sdk:wear:core (api).
+  // Wear OS phone-side seam (interface + registry + no-op); wear-protocol arrives transitively.
+  // The Google publisher that plugs into it is declared in the afterEvaluate block above.
   implementation project(':sdk:wear:core')
-  googleImplementation project(':sdk:wear:gms')
 
   coreLibraryDesugaring libs.android.tools.desugaring
 
