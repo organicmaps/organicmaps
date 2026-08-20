@@ -21,9 +21,6 @@ set(SRC
   classificator.hpp
   classificator_loader.cpp
   classificator_loader.hpp
-  complex/serdes.cpp
-  complex/serdes.hpp
-  complex/serdes_utils.hpp
   complex/tree_node.hpp
   cuisines.cpp
   cuisines.hpp
@@ -51,7 +48,6 @@ set(SRC
   edit_journal.hpp
   editable_map_object.cpp
   editable_map_object.hpp
-  fake_feature_ids.cpp
   fake_feature_ids.hpp
   feature.cpp
   feature.hpp

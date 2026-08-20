@@ -10,8 +10,6 @@ set(SRC
   checker_test.cpp
   cities_boundaries_serdes_tests.cpp
   classificator_tests.cpp
-  complex_serdes_tests.cpp
-  complex_serdes_utils_tests.cpp
   custom_keyvalue_tests.cpp
   data_source_test.cpp
   drules_format_tests.cpp

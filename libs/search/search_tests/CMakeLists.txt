@@ -23,7 +23,6 @@ set(SRC
   segment_tree_tests.cpp
   suggest_tests.cpp
   string_match_test.cpp
-  text_index_tests.cpp
   irish_grid_coords_match_test.cpp
   os_grid_coords_match_test.cpp
   utm_mgrs_coords_match_test.cpp

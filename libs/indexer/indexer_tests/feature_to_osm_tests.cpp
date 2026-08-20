@@ -44,6 +44,30 @@ public:
   DataSource const & GetDataSource() const { return m_dataSource; }
 };
 
+UNIT_TEST(FeatureIdToGeoObjectId_BadHeader)
+{
+  using SerDes = FeatureIdToGeoObjectIdSerDes;
+
+  auto const deserialize = [](std::vector<uint8_t> const & buf)
+  {
+    FeatureIdToGeoObjectIdBimapMem map;
+    MemReader reader(buf.data(), buf.size());
+    return SerDes::Deserialize(reader, map);
+  };
+
+  // Too short to hold the header.
+  TEST(!deserialize(std::vector<uint8_t>(SerDes::kHeaderOffset - 1, 0)), ());
+
+  // Long enough, but the magic does not match.
+  TEST(!deserialize(std::vector<uint8_t>(2 * SerDes::kHeaderOffset, 0)), ());
+
+  // Valid magic, unknown version.
+  std::vector<uint8_t> buf(2 * SerDes::kHeaderOffset, 0);
+  std::copy(SerDes::kHeaderMagic.begin(), SerDes::kHeaderMagic.end(), buf.begin());
+  buf[SerDes::kHeaderMagic.size()] = 0xFF;
+  TEST(!deserialize(buf), ());
+}
+
 UNIT_CLASS_TEST(FeatureIdToGeoObjectIdTest, Smoke)
 {
   Entries const kEntries = {
@@ -74,7 +98,7 @@ UNIT_CLASS_TEST(FeatureIdToGeoObjectIdTest, Smoke)
   FeatureIdToGeoObjectIdBimapMem deserMem;
   {
     MemReader reader(buf.data(), buf.size());
-    FeatureIdToGeoObjectIdSerDes::Deserialize(reader, deserMem);
+    TEST(FeatureIdToGeoObjectIdSerDes::Deserialize(reader, deserMem), ());
   }
 
   indexer::FeatureIdToGeoObjectIdOneWay deserOneWay(GetDataSource());

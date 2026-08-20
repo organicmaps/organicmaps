@@ -43,8 +43,6 @@ bool ParseLineOfWayIds(TokenizerT & iter, std::vector<base::GeoObjectId> & numbe
   return true;
 }
 
-m2::PointD constexpr RestrictionCollector::kNoCoords;
-
 RestrictionCollector::RestrictionCollector(std::string const & osmIdsToFeatureIdPath, IndexGraph & graph)
   : m_indexGraph(graph)
 {

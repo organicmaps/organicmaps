@@ -115,10 +115,6 @@ void ProcessCategory(std::string_view line, std::vector<std::string> & groups, s
 }
 }  // namespace
 
-// static
-int8_t constexpr CategoriesHolder::kEnglishCode;
-int8_t constexpr CategoriesHolder::kUnsupportedLocaleCode;
-
 CategoriesHolder::CategoriesHolder(std::unique_ptr<Reader> && reader)
 {
   ReaderStreamBuf buffer(std::move(reader));

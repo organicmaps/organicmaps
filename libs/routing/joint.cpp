@@ -4,9 +4,6 @@
 
 namespace routing
 {
-// static
-Joint::Id constexpr Joint::kInvalidId;
-
 std::string DebugPrint(Joint const & joint)
 {
   std::ostringstream oss;
