@@ -234,7 +234,7 @@ using namespace storage;
 
 - (void)removeBookmark:(PlacePageData *)data
 {
-  [[MWMBookmarksManager sharedManager] deleteBookmarks:@[@(data.bookmarkData.bookmarkId)] tracks:@[]];
+  [[MWMBookmarksManager sharedManager] deleteBookmark:data.bookmarkData.bookmarkId];
 }
 
 - (void)updateTrack:(PlacePageData *)data
@@ -253,7 +253,7 @@ using namespace storage;
 
 - (void)removeTrack:(PlacePageData *)data
 {
-  [[MWMBookmarksManager sharedManager] deleteBookmarks:@[] tracks:@[@(data.trackData.trackId)]];
+  [[MWMBookmarksManager sharedManager] deleteTrack:data.trackData.trackId];
 }
 
 - (void)call:(PlacePagePhone *)phone
