@@ -201,6 +201,12 @@ android {
   compileOptions {
     coreLibraryDesugaringEnabled = true
   }
+
+  packagingOptions {
+    jniLibs {
+      useLegacyPackaging = false
+    }
+  }
 }
 
 dependencies {
