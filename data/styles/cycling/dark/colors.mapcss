@@ -1,5 +1,5 @@
 /* Keep here changes of the base map style file only. */
-@import("../../default/dark/colors.mapcss");
+@import("../../outdoors/dark/colors.mapcss");
 
 /* Dark-theme variant of the cycling accent. Brighter so the line still
    reads against the dark base. */

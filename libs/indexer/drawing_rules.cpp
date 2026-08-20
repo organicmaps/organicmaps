@@ -88,12 +88,6 @@ RulesHolder & GetCurrentRules()
   return rules(GetStyleReader().GetCurrentStyle());
 }
 
-RulesHolder & GetOutdoorRules()
-{
-  auto const style = GetStyleReader().GetCurrentStyle();
-  return rules(MapStyleIsDark(style) ? MapStyleOutdoorsDark : MapStyleOutdoorsLight);
-}
-
 RulesHolder & GetRules(MapStyle mapStyle)
 {
   return rules(mapStyle);

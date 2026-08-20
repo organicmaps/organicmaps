@@ -131,12 +131,8 @@ static NSString * didChangeMapOverlay = @"didChangeMapOverlay";
 
 + (MWMMapOverlayOutdoorState)outdoorState
 {
-  switch (GetFramework().GetMapStyle())
-  {
-  case MapStyleOutdoorsLight:
-  case MapStyleOutdoorsDark: return MWMMapOverlayOutdoorStateEnabled;
-  default: return MWMMapOverlayOutdoorStateDisabled;
-  }
+  return Framework::LoadMapStyleMode() == MapStyleMode::Outdoors ? MWMMapOverlayOutdoorStateEnabled
+                                                                 : MWMMapOverlayOutdoorStateDisabled;
 }
 
 + (MWMMapOverlayHikingState)hikingState
@@ -146,7 +142,8 @@ static NSString * didChangeMapOverlay = @"didChangeMapOverlay";
 
 + (MWMMapOverlayCyclingState)cyclingState
 {
-  return Framework::IsCyclingEnabled() ? MWMMapOverlayCyclingStateEnabled : MWMMapOverlayCyclingStateDisabled;
+  return Framework::LoadMapStyleMode() == MapStyleMode::Cycling ? MWMMapOverlayCyclingStateEnabled
+                                                                : MWMMapOverlayCyclingStateDisabled;
 }
 
 + (BOOL)trafficEnabled
@@ -207,17 +204,7 @@ static NSString * didChangeMapOverlay = @"didChangeMapOverlay";
 
 + (void)setOutdoorEnabled:(BOOL)enable
 {
-  auto & f = GetFramework();
-  switch (f.GetMapStyle())
-  {
-  case MapStyleDefaultLight:
-  case MapStyleVehicleLight:
-  case MapStyleOutdoorsLight: f.SetMapStyle(enable ? MapStyleOutdoorsLight : MapStyleDefaultLight); break;
-  case MapStyleDefaultDark:
-  case MapStyleVehicleDark:
-  case MapStyleOutdoorsDark: f.SetMapStyle(enable ? MapStyleOutdoorsDark : MapStyleDefaultDark); break;
-  default: break;
-  }
+  GetFramework().SetMapStyleModeEnabled(MapStyleMode::Outdoors, enable);
 
   // TODO: - Observing for the selected/deselected state of the Outdoor style should be implemented not by
   // NSNotificationCenter but the same way as for IsoLines with 'GetFramework().GetIsolinesManager().SetStateListener'.
@@ -232,20 +219,7 @@ static NSString * didChangeMapOverlay = @"didChangeMapOverlay";
 
 + (void)setCyclingEnabled:(BOOL)enable
 {
-  auto & f = GetFramework();
-  switch (f.GetMapStyle())
-  {
-  case MapStyleDefaultLight:
-  case MapStyleVehicleLight:
-  case MapStyleOutdoorsLight:
-  case MapStyleCyclingLight: f.SetMapStyle(enable ? MapStyleCyclingLight : MapStyleDefaultLight); break;
-  case MapStyleDefaultDark:
-  case MapStyleVehicleDark:
-  case MapStyleOutdoorsDark:
-  case MapStyleCyclingDark: f.SetMapStyle(enable ? MapStyleCyclingDark : MapStyleDefaultDark); break;
-  default: break;
-  }
-  f.SetCyclingEnabled(enable);
+  GetFramework().SetMapStyleModeEnabled(MapStyleMode::Cycling, enable);
   [NSNotificationCenter.defaultCenter postNotificationName:didChangeMapOverlay object:nil];
 }
 

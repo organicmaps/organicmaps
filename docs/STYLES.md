@@ -40,7 +40,8 @@ Map styles are defined in text files located in `data/styles/default/include/`:
 * Priorities of overlays (icons, captions..) [`priorities_4_overlays.prio.txt`](../data/styles/default/include/priorities_4_overlays.prio.txt)
 * Priorities of lines and areas [`priorities_3_FG.prio.txt`](../data/styles/default/include/priorities_3_FG.prio.txt), [`priorities_2_BG-top.prio.txt`](../data/styles/default/include/priorities_2_BG-top.prio.txt), [`priorities_1_BG-by-size.prio.txt`](../data/styles/default/include/priorities_1_BG-by-size.prio.txt)
 
-There is a separate set of these style files for the navigation mode in `data/styles/vehicle/`.
+The `default`, `outdoors`, `cycling`, and navigation-specific `vehicle` families each have a
+separate set of style files under `data/styles/`.
 
 Icons are stored in [`data/styles/default/light/symbols/`](../data/styles/default/light/symbols/) and their dark/night counterparts are in [`data/styles/default/dark/symbols/`](../data/styles/default/dark/symbols/).
 
@@ -104,29 +105,24 @@ A feature can be drawn in several layers, each selected by an `::object-id` suff
 (implicit when no suffix is given), `::int_name` for the international name, `::casing`,
 `::bridgeblack` and so on.
 
-A declaration block applies to **one** layer only — the first selector of the group that matches:
+A declaration block applies to every distinct layer selected by its selector group:
 
 ```mapcss
-/* WRONG: mutes ::default and leaves ::int_name rendered. */
 node|z16-[addr:housenumber][addr:street],
 node|z16-[addr:housenumber][addr:street]::int_name,
 {text: none;}
 ```
 
-Which one wins is positional, so reordering the selectors just moves the problem. Give each layer
-its own block, or select them all at once with `::*`:
+Use `::*` when the same declaration should apply to every layer without listing them individually:
 
 ```mapcss
 node|z16-[addr:housenumber][addr:street]::*,
 {text: none;}
 ```
 
-`::*` applies to every layer defined so far and seeds any layer defined later, which is what an
-override style (one that `@import`s another and then adjusts it) usually wants. See
+`::*` applies to every layer defined so far and seeds any layer defined later, which is especially
+useful in an override style that adjusts imported rules. See
 `data/styles/default/include/defaults.mapcss` for more examples.
-
-Leaving a layer behind is rarely silent: whichever layer survives owns the caption drule, so
-generation stops with `ERROR: priority is not set for caption <type>::<layer>`.
 
 The `tools/unix/generate_drules.sh` script uses a customized version of [Kothic](https://github.com/organicmaps/kothic)
 stylesheet processor to compile MapCSS files into binary drawing rules files `data/drules_*.bin`.
