@@ -74,6 +74,9 @@
     <string name="minute">मिनिट</string>
     <string name="big_font">नकाशावर अक्षरांचा आकार वाढवा</string>
     <string name="transliteration_title">रोमन लिपीत लिप्यंतरण</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">उपग्रह</string>
+    <string name="layers_title">नकाशा शैली आणि स्तर</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">नकाशा डाउनलोडक</string>
     <string name="driving_options_title">मार्गशोधी पर्याय</string>
@@ -100,6 +103,7 @@
     <string name="by_name">नावाने</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
+    <string name="button_layer_isolines">भूप्रदेश</string>
     <string name="downloader_loading_ios">डाउनलोड करत आहे</string>
     <string name="download_map_title">जगाचा नकाशा डाउनलोड करा</string>
     <!-- The text in the activity for location permission request. -->

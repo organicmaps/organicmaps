@@ -25721,7 +25721,7 @@ zh-Hant = 單車
 
 [button_layer_satellite]
 comment = Map layers menu: toggle button for the satellite imagery layer
-tags = android-app,apple-maps
+tags = android-app,android-libs-car,apple-maps
 en = Satellite
 af = Satelliet
 ar = قمر صناعي
@@ -25839,7 +25839,7 @@ zh-Hans = 地铁
 zh-Hant = 捷運
 
 [layers_title]
-tags = android-app,apple-maps
+tags = android-app,android-libs-car,apple-maps
 en = Map Styles and Layers
 af = Kaartstyle en -lae
 ar = أنماط الخريطة وطبقاتها
@@ -36095,7 +36095,7 @@ zh-Hans = 选择地铁站附近的起点和终点
 zh-Hant = 選擇捷運站附近的起點和終點
 
 [button_layer_isolines]
-tags = android-app,apple-maps
+tags = android-app,android-libs-car,apple-maps
 en = Contour Lines
 af = Kontoerlyne
 ar = تضاريس

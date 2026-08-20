@@ -6,4 +6,8 @@
     <string name="cancel">বাতিল</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">অনুসন্ধান</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">উপগ্রহ</string>
 </resources>

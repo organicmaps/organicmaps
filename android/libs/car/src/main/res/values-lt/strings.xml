@@ -74,6 +74,9 @@
     <string name="minute">min</string>
     <string name="big_font">Padidinti žemėlapio užrašų šrifto dydį</string>
     <string name="transliteration_title">Transliteruoti užrašus lotyniškais rašmenimis</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Palydovas</string>
+    <string name="layers_title">Žemėlapio stiliai ir sluoksniai</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Žemėlapių atsiuntimas</string>
     <string name="driving_options_title">Maršruto apskaičiavimo parinktys</string>
@@ -100,6 +103,7 @@
     <string name="by_name">Pagal pavadinimą</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
+    <string name="button_layer_isolines">Reljefas</string>
     <string name="downloader_loading_ios">Atsiunčiama</string>
     <string name="download_map_title">Atsisiųsti bendrą pasaulio žemėlapį</string>
     <!-- The text in the activity for location permission request. -->

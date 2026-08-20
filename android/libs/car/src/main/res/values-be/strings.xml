@@ -74,6 +74,9 @@
     <string name="minute">хв</string>
     <string name="big_font">Павялічыць шрыфт мапы</string>
     <string name="transliteration_title">Транслітарацыя лацінкай</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Спадарожнік</string>
+    <string name="layers_title">Стылі і слаі мапы</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Спампоўванне мап</string>
     <string name="driving_options_title">Налады пракладвання маршрутаў</string>
@@ -100,6 +103,7 @@
     <string name="by_name">Па імені</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
+    <string name="button_layer_isolines">Рэльеф</string>
     <string name="downloader_loading_ios">Спампоўванне</string>
     <string name="download_map_title">Спампаваць аглядную мапу свету</string>
     <!-- The text in the activity for location permission request. -->

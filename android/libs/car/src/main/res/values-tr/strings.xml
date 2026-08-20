@@ -74,6 +74,9 @@
     <string name="minute">dk</string>
     <string name="big_font">Haritadaki yazı tipi boyutunu artır</string>
     <string name="transliteration_title">Latin alfabesine çevir</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Uydu</string>
+    <string name="layers_title">Harita Stilleri ve Katmanlar</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Harita indirici</string>
     <string name="driving_options_title">Yönlendirme seçenekleri</string>
@@ -100,6 +103,7 @@
     <string name="by_name">İsme göre</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
+    <string name="button_layer_isolines">İzohipsler</string>
     <string name="downloader_loading_ios">İndiriliyor</string>
     <string name="download_map_title">Dünya genel görünüm haritasını indir</string>
     <!-- The text in the activity for location permission request. -->
