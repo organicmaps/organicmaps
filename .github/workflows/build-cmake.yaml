@@ -64,6 +64,7 @@ jobs:
           - os: ubuntu-26.04
             cc: gcc-15
             cxx: g++-15
+            run-osm-tests: true
 
           - os: ubuntu-24.04-arm
             cc: gcc-13
@@ -73,6 +74,7 @@ jobs:
             cc: clang
             cxx: clang++
             developer-dir: /Applications/Xcode_26.5.app/Contents/Developer
+            run-osm-tests: true
 
           - os: windows-2025-vs2026
             cc: cl.exe
@@ -212,12 +214,18 @@ jobs:
       #   generator_integration_tests - https://github.com/organicmaps/organicmaps/issues/225
       #   routing_integration_tests - https://github.com/organicmaps/organicmaps/issues/221
       #   routing_benchmarks, routing_quality_tests, search_quality_tests - benchmarks, not pass/fail tests
+      #   osm_auth_tests - uses the shared OSM development server; the next step runs it
+      #     once per HTTP backend (Qt on Linux, Apple on macOS), in the Debug legs only
       #   storage_integration_tests - downloads real maps from planet.organicmaps.app (~28 min, ~690 MB);
       #     the offline part of that coverage lives in storage_tests
       - name: Run tests
         if: ${{ matrix.environment.no-tests != true }}
         # CTest 3.29+ (provided by the CI images) selects the parallelism itself.
         run: ctest --preset "$PRESET" --parallel
+
+      - name: Run OSM live tests
+        if: ${{ matrix.environment.run-osm-tests == true && matrix.cmake-build-type == 'Debug' }}
+        run: ctest --preset ci-osm
 
       # Run drape tests separately. They require offscreen rendering support.
       # The drape test presets set QT_QPA_PLATFORM=offscreen; setting it
