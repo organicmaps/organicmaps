@@ -1,3 +1,5 @@
+// Live tests against the OpenStreetMap development server.
+// Offline parsing helpers are covered by editor_tests/osm_auth_test.cpp.
 #include "testing/testing.hpp"
 
 #include "editor/osm_auth.hpp"
@@ -46,81 +48,5 @@ UNIT_TEST(OSM_Auth_ForgotPassword)
   TEST_EQUAL(result, false, ("Incorrect email"));
 }
 */
-
-UNIT_TEST(OAuth_Token_parse)
-{
-  auto token = osm::FindAuthenticityToken(
-      "/oauth2/authorize",
-      R"(<div class="col-auto mx-1"><form action="/oauth2/authorize" accept-charset="UTF-8" method="post">
-    <input type="hidden" name="authenticity_token" value="J5senhh" />
-    <input value="om://oauth2/osm/callback" type="hidden" name="redirect_uri" />
-    <input type="submit" name="commit" value="Authorize" class="btn btn-primary" />
-  </form></div>)");
-
-  TEST_EQUAL(token, "J5senhh", ("Invalid token"));
-
-  // Two tokens. One for "Allow" other for "Deny". Always pick the first one.
-  token = osm::FindAuthenticityToken(
-      "/oauth2/authorize",
-      R"(<div class="col-auto mx-1"><form action="/oauth2/authorize" accept-charset="UTF-8" method="post">
-    <input type="hidden" name="authenticity_token" value="lRFbEQN0d2r7XeFq" />
-    <input value="om://oauth2/osm/callback" type="hidden" name="redirect_uri" />
-    <input type="submit" name="commit" value="Authorize" class="btn btn-primary" />
-  </form></div>
-  <div class="col-auto mx-1"><form action="/oauth2/authorize" accept-charset="UTF-8" method="post">
-    <input type="hidden" name="_method" value="delete" />
-    <input type="hidden" name="authenticity_token" value="J5senhh" />
-    <input value="om://oauth2/osm/callback" type="hidden" name="redirect_uri" />
-    <input type="submit" name="commit" value="Deny" class="btn btn-secondary" />
-  </form></div>)");
-
-  TEST_EQUAL(token, "lRFbEQN0d2r7XeFq", ("Invalid token"));
-
-  // Three forms: one for language, two for OAuth
-  token = osm::FindAuthenticityToken(
-      "/oauth2/authorize",
-      R"(<div class="modal-body px-1"><form action="/preferences/basic" accept-charset="UTF-8" method="post">
-    <input type="hidden" name="_method" value="put" />
-    <input type="hidden" name="authenticity_token" value="8h-snCINM3O" />
-  </form></div>\n"   "<div class="col-auto mx-1"><form action="/oauth2/authorize" accept-charset="UTF-8" method="post">
-    <input type="hidden" name="authenticity_token" value="8DDeqYcFHUIjw" />
-    <input value="om://oauth2/osm/callback" type="hidden" name="redirect_uri" />
-    <input type="submit" name="commit" value="Authorize" class="btn btn-primary" />
-  </form></div>
-  <div class="col-auto mx-1"><form action="/oauth2/authorize" accept-charset="UTF-8" method="post">
-    <input type="hidden" name="_method" value="delete" />
-    <input type="hidden" name="authenticity_token" value="4RbveLjuvOXlok9Q" />
-    <input value="om://oauth2/osm/callback" type="hidden" name="redirect_uri" />
-    <input type="submit" name="commit" value="Deny" class="btn btn-secondary" />
-  </form></div>)");
-
-  TEST_EQUAL(token, "8DDeqYcFHUIjw", ("Invalid token"));
-}
-
-UNIT_TEST(OAuth_FindOauthCode)
-{
-  auto code = osm::FindOauthCode("om://oauth2/osm/callback?redirect=true&code=befd_095315f197f4");
-  TEST_EQUAL(code, "befd_095315f197f4", ("Invalid code"));
-
-  code = osm::FindOauthCode("om://oauth2/osm/callback?code=45c023d6");
-  TEST_EQUAL(code, "45c023d6", ("Invalid code"));
-
-  code = osm::FindOauthCode("om://oauth2/osm/callback?the_code=cant_find");
-  TEST_EQUAL(code, std::string{}, ("Code should not be found"));
-}
-
-UNIT_TEST(OAuth_FindAccessToken)
-{
-  auto token =
-      osm::FindAccessToken(R"({"access_token":"vAK5XMBJeUDsF3xxFHt0", "token_type":"Bearer", "scope":"read_prefs"})");
-  TEST_EQUAL(token, "vAK5XMBJeUDsF3xxFHt0", ("Invalid access_token"));
-
-  token =
-      osm::FindAccessToken(R"({"token_type":"Bearer", "scope":"read_prefs", "access_token":"W1xgY0CtTDz0klQGa4Yp"})");
-  TEST_EQUAL(token, "W1xgY0CtTDz0klQGa4Yp", ("Invalid access_token"));
-
-  token = osm::FindAccessToken(R"({"token_type":"Bearer", "scope":"read_prefs", "some_other_token":"9cMyxvsOrM"})");
-  TEST_EQUAL(token, std::string{}, ("access_token should not be found"));
-}
 
 }  // namespace osm_auth
