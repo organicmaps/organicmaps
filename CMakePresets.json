@@ -190,7 +190,25 @@
     {
       "name": "ci",
       "inherits": "omim-tests",
-      "configurePreset": "ci"
+      "configurePreset": "ci",
+      "filter": {
+        "exclude": {
+          "label": "omim-live-test"
+        }
+      }
+    },
+    {
+      "name": "ci-osm",
+      "description": "Live integration tests against the OpenStreetMap development server.",
+      "configurePreset": "ci",
+      "output": {
+        "outputOnFailure": true
+      },
+      "filter": {
+        "include": {
+          "label": "omim-live-test"
+        }
+      }
     },
     {
       "name": "ci-drape",
@@ -200,7 +218,12 @@
     {
       "name": "ci-xcode",
       "inherits": "omim-tests",
-      "configurePreset": "ci-xcode"
+      "configurePreset": "ci-xcode",
+      "filter": {
+        "exclude": {
+          "label": "omim-live-test"
+        }
+      }
     },
     {
       "name": "ci-drape-xcode",
