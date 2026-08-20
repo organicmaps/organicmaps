@@ -1054,7 +1054,7 @@
 "placepage_delete_track_button" = "刪除軌跡";
 
 /* The track deletion confirmaion alert message. */
-"placepage_delete_track_confirmation_alert_message" = "您確定要刪除該曲目嗎？";
+"placepage_delete_track_confirmation_alert_message" = "您確定要刪除該軌跡嗎？";
 
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "軌跡名稱";
