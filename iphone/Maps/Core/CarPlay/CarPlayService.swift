@@ -933,6 +933,8 @@ extension CarPlayService: CPInterfaceControllerDelegate {
       return
     }
     if info.type == CPConstants.TemplateType.preview {
+      // The alert only covers the preview: the route now belongs to the phone and must survive.
+      guard !mapState.isPhoneSelected else { return }
       router?.completeRouteAndRemovePoints()
     }
   }
