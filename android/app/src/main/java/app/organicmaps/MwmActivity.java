@@ -605,6 +605,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                        this::reportUnsupported, isLaunchByDeeplink);
     getLifecycle().addObserver(mMapController);
 
+    // Hook the rider tracking overlay to its data source.
+    app.organicmaps.location.RiderMarkersView riderMarkers = findViewById(R.id.rider_markers);
+    if (riderMarkers != null)
+      riderMarkers.setManager(app.organicmaps.location.RiderTrackingManager.get(this));
+
     initNavigationButtons();
 
     mNavigationController = new NavigationController(

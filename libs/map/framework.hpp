@@ -535,6 +535,10 @@ public:
   m2::PointD P3dtoG(m2::PointD const & p) const;
   /// @}
 
+  /// Project a mercator point onto pixel space using the current model view.
+  /// Used by the Android rider tracking overlay to place text labels.
+  m2::PointD GtoP(m2::PointD const & pt) const;
+
   /// Show all model by it's world rect.
   void ShowAll();
 

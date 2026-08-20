@@ -1666,6 +1666,16 @@ m2::PointD Framework::P3dtoG(m2::PointD const & p) const
   return pt;
 }
 
+m2::PointD Framework::GtoP(m2::PointD const & pt) const
+{
+  // Flat screen projection first, then apply the perspective transform when the
+  // navigation tilt is active — otherwise labels drift as the map is pitched.
+  auto const flat = m_currentModelView.GtoP(pt);
+  if (m_currentModelView.isPerspective())
+    return m_currentModelView.PtoP3d(flat);
+  return flat;
+}
+
 void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFactory, DrapeCreationParams && params)
 {
   auto idReadFn = [this](auto const & fn, m2::RectD const & r, int scale)

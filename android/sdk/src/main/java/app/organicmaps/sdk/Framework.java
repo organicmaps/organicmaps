@@ -82,6 +82,10 @@ public class Framework
   @Size(2)
   public static native double[] nativeGetScreenRectCenter();
 
+  /** Project a WGS84 lat/lon onto pixel coordinates of the current map view. Returns {x, y}. */
+  @Size(2)
+  public static native double[] nativeLatLonToScreen(double lat, double lon);
+
   public static native DistanceAndAzimut nativeGetDistanceAndAzimuth(double dstMerX, double dstMerY, double srcLat,
                                                                      double srcLon, double north);
 

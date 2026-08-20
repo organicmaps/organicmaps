@@ -1140,6 +1140,19 @@ JNIEXPORT jdoubleArray Java_app_organicmaps_sdk_Framework_nativeGetScreenRectCen
   return jLatLon;
 }
 
+// Project (lat, lon) onto pixel coordinates of the current map view. Used by
+// the Android rider tracking overlay. Returns [pixelX, pixelY].
+JNIEXPORT jdoubleArray Java_app_organicmaps_sdk_Framework_nativeLatLonToScreen(JNIEnv * env, jclass, jdouble lat,
+                                                                               jdouble lon)
+{
+  m2::PointD const mercator = mercator::FromLatLon(lat, lon);
+  m2::PointD const pixel = frm()->GtoP(mercator);
+  double xy[] = {pixel.x, pixel.y};
+  jdoubleArray result = env->NewDoubleArray(2);
+  env->SetDoubleArrayRegion(result, 0, 2, xy);
+  return result;
+}
+
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRestoreDownloadQueue(JNIEnv * env, jclass)
 {
   frm()->GetStorage().RestoreDownloadQueue();

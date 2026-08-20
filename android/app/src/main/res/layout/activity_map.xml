@@ -47,6 +47,15 @@
       android:layout_height="match_parent"
       android:paddingBottom="@dimen/margin_base"
       android:visibility="invisible" />
+
+    <!-- Kept last so its dots/labels draw on top of the navigation overlay. -->
+    <app.organicmaps.location.RiderMarkersView
+      android:id="@+id/rider_markers"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:clickable="false"
+      android:focusable="false"
+      android:duplicateParentState="false" />
   </RelativeLayout>
   <androidx.fragment.app.FragmentContainerView
     android:id="@+id/search_container_fragment"

@@ -172,6 +172,17 @@
     </PreferenceScreen>
   </androidx.preference.PreferenceCategory>
   <androidx.preference.PreferenceCategory
+    android:key="pref_rider_tracking_category"
+    android:title="Riders"
+    android:order="1">
+    <Preference
+      android:key="pref_rider_tracking"
+      android:title="Rider Live Tracking"
+      android:summary="Share and view rider locations"
+      app:singleLineTitle="false"
+      android:fragment="app.organicmaps.settings.RiderTrackingSettingsFragment" />
+  </androidx.preference.PreferenceCategory>
+  <androidx.preference.PreferenceCategory
     android:key="@string/pref_privacy"
     android:title="@string/privacy"
     android:order="6">
