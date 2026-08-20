@@ -75,7 +75,6 @@ struct TransitStaticVertex
   using TNormal = glsl::vec4;
   using TColor = glsl::vec4;
 
-  TransitStaticVertex() = default;
   TransitStaticVertex(TPosition const & position, TNormal const & normal, TColor const & color)
     : m_position(position)
     , m_normal(normal)
@@ -144,7 +143,6 @@ void GenerateLineCaps(ref_ptr<dp::GraphicsContext> context, std::vector<SchemeSe
 
 struct TitleInfo
 {
-  TitleInfo() = default;
   explicit TitleInfo(std::string const & text) : m_text(text) {}
 
   std::string m_text;

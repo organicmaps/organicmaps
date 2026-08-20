@@ -22,7 +22,6 @@ struct CirclesPackStaticVertex
 {
   using TNormal = glsl::vec3;
 
-  CirclesPackStaticVertex() = default;
   explicit CirclesPackStaticVertex(TNormal const & normal) : m_normal(normal) {}
 
   TNormal m_normal;

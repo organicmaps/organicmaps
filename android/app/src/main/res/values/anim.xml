@@ -5,5 +5,4 @@
   <integer name="anim_menu">200</integer>
   <integer name="anim_location_pending_item">50</integer>
   <integer name="anim_spinner_pending_item">50</integer>
-  <integer name="anim_traffic_loading_item">900</integer>
 </resources>

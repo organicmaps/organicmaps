@@ -59,7 +59,6 @@ struct SelectionLineVertex
 {
   using TNormal = glsl::vec3;
 
-  SelectionLineVertex() = default;
   SelectionLineVertex(glsl::vec3 const & position, glsl::vec2 const & normal, glsl::vec2 const & colorTexCoords,
                       glsl::vec3 const & length)
     : m_position(position)

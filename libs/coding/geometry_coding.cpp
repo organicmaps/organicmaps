@@ -27,7 +27,6 @@ struct edge_less_p0
     return (e1.m_p[0] == e2.m_p[0]) ? (e1.m_side < e2.m_side) : (e1.m_p[0] < e2.m_p[0]);
   }
   bool operator()(edge_t const & e1, int e2) const { return e1.m_p[0] < e2; }
-  bool operator()(int e1, edge_t const & e2) const { return e1 < e2.m_p[0]; }
 };
 }  // namespace
 

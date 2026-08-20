@@ -18,7 +18,6 @@ using CountryId = std::string;
 using CountriesSet = std::set<CountryId>;
 using CountriesVec = std::vector<CountryId>;
 using LocalFilePtr = std::shared_ptr<platform::LocalCountryFile>;
-using OldMwmMapping = std::map<CountryId, CountriesSet>;
 /// Map from key affiliation words into CountryIds.
 using Affiliations = std::unordered_map<std::string, CountriesVec>;
 /// Map from country name synonyms and old names into CountryId.

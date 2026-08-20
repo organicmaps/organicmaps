@@ -195,21 +195,6 @@ JsonValue VectorToJson(std::vector<T> const & items)
   return arr;
 }
 
-[[maybe_unused]] JsonValue TranslationsToJson(transit::Translations const & translations)
-{
-  auto translationsArr = MakeJSONArray();
-
-  for (auto const & [lang, text] : translations)
-  {
-    auto translationJson = MakeJSONObject();
-    Set(translationJson, "lang", lang);
-    Set(translationJson, "text", text);
-    Append(translationsArr, std::move(translationJson));
-  }
-
-  return translationsArr;
-}
-
 template <class C, class S>
 bool DumpData(C const & container, S const & idSet, std::string const & path, bool overwrite)
 {

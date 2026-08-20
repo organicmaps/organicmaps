@@ -6,88 +6,58 @@
 
 namespace routing
 {
-// RoutingSettings ---------------------------------------------------------------------------------
-RoutingSettings::RoutingSettings(bool useDirectionForRouteBuilding, bool matchRoute, bool soundDirection,
-                                 double matchingThresholdM, bool showTurnAfterNext, double minSpeedForRouteRebuildMpS,
-                                 double finishToleranceM, size_t maxOutgoingPointsCount, double minOutgoingDistMeters,
-                                 size_t maxIngoingPointsCount, double minIngoingDistMeters,
-                                 size_t notSoCloseMaxPointsCount, double notSoCloseMaxDistMeters)
-
-  : m_useDirectionForRouteBuilding(useDirectionForRouteBuilding)
-  , m_matchRoute(matchRoute)
-  , m_soundDirection(soundDirection)
-  , m_matchingThresholdM(matchingThresholdM)
-  , m_showTurnAfterNext(showTurnAfterNext)
-  , m_minSpeedForRouteRebuildMpS(minSpeedForRouteRebuildMpS)
-  , m_finishToleranceM(finishToleranceM)
-  , m_maxOutgoingPointsCount(maxOutgoingPointsCount)
-  , m_minOutgoingDistMeters(minOutgoingDistMeters)
-  , m_maxIngoingPointsCount(maxIngoingPointsCount)
-  , m_minIngoingDistMeters(minIngoingDistMeters)
-  , m_notSoCloseMaxPointsCount(notSoCloseMaxPointsCount)
-  , m_notSoCloseMaxDistMeters(notSoCloseMaxDistMeters)
-{}
-
 RoutingSettings GetRoutingSettings(VehicleType vehicleType)
 {
   switch (vehicleType)
   {
   case VehicleType::Pedestrian:
-    return {false /* useDirectionForRouteBuilding */,
-            false /* m_matchRoute */,
-            true /* m_soundDirection */,
-            20.0 /* m_matchingThresholdM */,
-            false /* m_showTurnAfterNext */,
-            -1 /* m_minSpeedForRouteRebuildMpS */,
-            15.0 /* m_finishToleranceM */,
-            6 /* m_maxOutgoingPointsCount */,
-            5.0 /* m_minOutgoingDistMeters */,
-            2 /* m_maxIngoingPointsCount */,
-            4.0 /* m_minIngoingDistMeters */,
-            3 /* m_notSoCloseMaxPointsCount */,
-            25.0 /* m_notSoCloseMaxDistMeters */};
+    return {.m_useDirectionForRouteBuilding = false,
+            .m_matchRoute = false,
+            .m_soundDirection = true,
+            .m_matchingThresholdM = 20.0,
+            .m_showTurnAfterNext = false,
+            .m_minSpeedForRouteRebuildMpS = -1,
+            .m_finishToleranceM = 15.0,
+            .m_maxOutgoingPointsCount = 6,
+            .m_minOutgoingDistMeters = 5.0,
+            .m_maxIngoingPointsCount = 2,
+            .m_minIngoingDistMeters = 4.0};
   case VehicleType::Transit:
-    return {false /* useDirectionForRouteBuilding */,
-            true /* m_matchRoute */,
-            false /* m_soundDirection */,
-            40.0 /* m_matchingThresholdM */,
-            false /* m_showTurnAfterNext */,
-            -1 /* m_minSpeedForRouteRebuildMpS */,
-            15.0 /* m_finishToleranceM */,
-            6 /* m_maxOutgoingPointsCount */,
-            5.0 /* m_minOutgoingDistMeters */,
-            2 /* m_maxIngoingPointsCount */,
-            4.0 /* m_minIngoingDistMeters */,
-            3 /* m_notSoCloseMaxPointsCount */,
-            25.0 /* m_notSoCloseMaxDistMeters */};
+    return {.m_useDirectionForRouteBuilding = false,
+            .m_matchRoute = true,
+            .m_soundDirection = false,
+            .m_matchingThresholdM = 40.0,
+            .m_showTurnAfterNext = false,
+            .m_minSpeedForRouteRebuildMpS = -1,
+            .m_finishToleranceM = 15.0,
+            .m_maxOutgoingPointsCount = 6,
+            .m_minOutgoingDistMeters = 5.0,
+            .m_maxIngoingPointsCount = 2,
+            .m_minIngoingDistMeters = 4.0};
   case VehicleType::Bicycle:
-    return {false /* useDirectionForRouteBuilding */,
-            true /* m_matchRoute */,
-            true /* m_soundDirection */,
-            30.0 /* m_matchingThresholdM */,
-            false /* m_showTurnAfterNext */,
-            -1 /* m_minSpeedForRouteRebuildMpS */,
-            15.0 /* m_finishToleranceM */,
-            9 /* m_maxOutgoingPointsCount */,
-            10.0 /* m_minOutgoingDistMeters */,
-            2 /* m_maxIngoingPointsCount */,
-            10.0 /* m_minIngoingDistMeters */,
-            3 /* m_notSoCloseMaxPointsCount */,
-            25.0 /* m_notSoCloseMaxDistMeters */};
+    return {.m_useDirectionForRouteBuilding = false,
+            .m_matchRoute = true,
+            .m_soundDirection = true,
+            .m_matchingThresholdM = 30.0,
+            .m_showTurnAfterNext = false,
+            .m_minSpeedForRouteRebuildMpS = -1,
+            .m_finishToleranceM = 15.0,
+            .m_maxOutgoingPointsCount = 9,
+            .m_minOutgoingDistMeters = 10.0,
+            .m_maxIngoingPointsCount = 2,
+            .m_minIngoingDistMeters = 10.0};
   case VehicleType::Car:
-    return {true /* useDirectionForRouteBuilding */,
-            true /* m_matchRoute */,
-            true /* m_soundDirection */,
-            50.0 /* m_matchingThresholdM */,
-            true /* m_showTurnAfterNext */,
-            measurement_utils::KmphToMps(3.0) /* m_minSpeedForRouteRebuildMpS */,
-            20.0 /* m_finishToleranceM */,
-            9 /* m_maxOutgoingPointsCount */,
-            120.0 /* m_minOutgoingDistMeters */,
-            2 /* m_maxIngoingPointsCount */,
-            100.0 /* m_minIngoingDistMeters */,
-            3 /* m_notSoCloseMaxPointsCount */,
-            30.0 /* m_notSoCloseMaxDistMeters */};
+    return {.m_useDirectionForRouteBuilding = true,
+            .m_matchRoute = true,
+            .m_soundDirection = true,
+            .m_matchingThresholdM = 50.0,
+            .m_showTurnAfterNext = true,
+            .m_minSpeedForRouteRebuildMpS = measurement_utils::KmphToMps(3.0),
+            .m_finishToleranceM = 20.0,
+            .m_maxOutgoingPointsCount = 9,
+            .m_minOutgoingDistMeters = 120.0,
+            .m_maxIngoingPointsCount = 2,
+            .m_minIngoingDistMeters = 100.0};
   case VehicleType::Count: CHECK(false, ("Can't create GetRoutingSettings for", vehicleType));
   }
   UNREACHABLE();
