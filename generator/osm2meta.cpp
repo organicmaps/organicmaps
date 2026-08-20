@@ -17,53 +17,13 @@
 #include <cmath>
 #include <cstdlib>
 #include <optional>
-#include <unordered_set>
 
 namespace
 {
 using osm::EditableMapObject;
 
-constexpr char const * kOSMMultivalueDelimiter = ";";
-
 // https://en.wikipedia.org/wiki/List_of_tallest_buildings_in_the_world
 auto constexpr kMaxBuildingLevelsInTheWorld = 167;
-
-template <class T>
-void RemoveDuplicatesAndKeepOrder(std::vector<T> & vec)
-{
-  std::unordered_set<T> seen;
-  auto const predicate = [&seen](T const & value)
-  {
-    if (seen.contains(value))
-      return true;
-    seen.insert(value);
-    return false;
-  };
-  vec.erase(remove_if(vec.begin(), vec.end(), predicate), vec.end());
-}
-
-// Also filters out duplicates.
-class MultivalueCollector
-{
-public:
-  void operator()(std::string const & value)
-  {
-    if (value.empty() || value == kOSMMultivalueDelimiter)
-      return;
-    m_values.push_back(value);
-  }
-  std::string GetString()
-  {
-    if (m_values.empty())
-      return {};
-
-    RemoveDuplicatesAndKeepOrder(m_values);
-    return strings::JoinStrings(m_values, kOSMMultivalueDelimiter);
-  }
-
-private:
-  std::vector<std::string> m_values;
-};
 
 bool IsNoNameNoAddressBuilding(FeatureParams const & params)
 {

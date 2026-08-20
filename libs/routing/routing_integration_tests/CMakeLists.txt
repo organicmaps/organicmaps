@@ -9,7 +9,6 @@ project(routing_integration_tests)
 
 set(SRC
   absent_regions_finder_tests.cpp
-  archival_reporter_tests.cpp
   bicycle_route_test.cpp
   bicycle_turn_test.cpp
   concurrent_feature_parsing_test.cpp
@@ -38,7 +37,6 @@ target_link_libraries(${PROJECT_NAME}
   PRIVATE
     generator_tests_support
     platform_tests_support
-    tracking
     routing
     map
 )

@@ -55,36 +55,6 @@ namespace openlr
 {
 namespace
 {
-struct alignas(kCacheLineSize) Stats
-{
-  void Add(Stats const & rhs)
-  {
-    m_shortRoutes += rhs.m_shortRoutes;
-    m_zeroCanditates += rhs.m_zeroCanditates;
-    m_moreThanOneCandidate += rhs.m_moreThanOneCandidate;
-    m_routesFailed += rhs.m_routesFailed;
-    m_tightOffsets += rhs.m_tightOffsets;
-    m_routesHandled += rhs.m_routesHandled;
-  }
-
-  void Report() const
-  {
-    LOG(LINFO, ("Parsed segments:", m_routesHandled));
-    LOG(LINFO, ("Routes failed:", m_routesFailed));
-    LOG(LINFO, ("Tight offsets:", m_tightOffsets));
-    LOG(LINFO, ("Short routes:", m_shortRoutes));
-    LOG(LINFO, ("Ambiguous routes:", m_moreThanOneCandidate));
-    LOG(LINFO, ("Path is not reconstructed:", m_zeroCanditates));
-  }
-
-  uint32_t m_shortRoutes = 0;
-  uint32_t m_zeroCanditates = 0;
-  uint32_t m_moreThanOneCandidate = 0;
-  uint32_t m_routesFailed = 0;
-  uint32_t m_tightOffsets = 0;
-  uint32_t m_routesHandled = 0;
-};
-
 bool IsRealVertex(m2::PointD const & p, FeatureID const & fid, DataSource const & dataSource)
 {
   FeaturesLoaderGuard g(dataSource, fid.m_mwmId);

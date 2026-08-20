@@ -17,7 +17,6 @@ namespace
 
 struct Position
 {
-  Position() = default;
   Position(size_t offset, uint8_t errorsLeft, bool transposed)
     : m_offset(offset)
     , m_errorsLeft(errorsLeft)

@@ -245,8 +245,6 @@ public:
     return inserted->m_value;
   }
 
-  size_t Size() const { return m_index.size(); }
-
 private:
   struct Node
   {

@@ -9,15 +9,6 @@ namespace routing
 /// For example, route matching properties, rerouting properties and so on.
 struct RoutingSettings
 {
-  friend RoutingSettings GetRoutingSettings(VehicleType vehicleType);
-
-private:
-  RoutingSettings(bool useDirectionForRouteBuilding, bool matchRoute, bool soundDirection, double matchingThresholdM,
-                  bool showTurnAfterNext, double minSpeedForRouteRebuildMpS, double finishToleranceM,
-                  size_t maxOutgoingPointsCount, double minOutgoingDistMeters, size_t maxIngoingPointsCount,
-                  double minIngoingDistMeters, size_t notSoCloseMaxPointsCount, double notSoCloseMaxDistMeters);
-
-public:
   /// \brief We accumulate several positions to calculate current direction.
   /// So we can use this direction for car for ex. or don't for pedestrian for ex.
   bool m_useDirectionForRouteBuilding;
@@ -55,10 +46,6 @@ public:
   double m_minOutgoingDistMeters;
   size_t m_maxIngoingPointsCount;
   double m_minIngoingDistMeters;
-  /// @todo These 2 parameters are not used anymore.
-  /// It should me removed. But desktop crashes after removal.
-  size_t m_notSoCloseMaxPointsCount;
-  double m_notSoCloseMaxDistMeters;
 };
 
 RoutingSettings GetRoutingSettings(VehicleType vehicleType);

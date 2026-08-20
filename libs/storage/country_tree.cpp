@@ -40,7 +40,6 @@ class StoreCountries
 {
   CountryTree & m_countries;
   CountriesInfo & m_info;
-  OldMwmMapping m_idsMapping;
 
 public:
   StoreCountries(CountryTree & countries, CountriesInfo & countriesInfo) : m_countries(countries), m_info(countriesInfo)
@@ -59,8 +58,6 @@ public:
       country.SetFile(platform::CountryFile{id, mapSize, mapHash});
     return &m_countries.AddAtDepth(depth, std::move(country));
   }
-
-  void InsertOldMwmMapping(CountryId const & newId, CountryId const & oldId) { m_idsMapping[oldId].insert(newId); }
 
   void InsertAffiliation(CountryId const & countryId, std::string affiliation)
   {
@@ -100,8 +97,6 @@ public:
     /// Current countries.json example is "Caribisch Nederland".
     m_info.m_mwmToOld.emplace(countryId, std::move(oldId));
   }
-
-  OldMwmMapping GetMapping() const { return m_idsMapping; }
 };
 
 }  // namespace

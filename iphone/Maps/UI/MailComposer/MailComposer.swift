@@ -63,36 +63,6 @@ final class MailComposer: NSObject {
     }
   }
 
-  private static func openOutlook(subject: String, body: String, recipients: [String]) -> Bool {
-    var components = URLComponents(string: "ms-outlook://compose")!
-    components.queryItems = [
-      URLQueryItem(name: "to", value: recipients.joined(separator: ";")),
-      URLQueryItem(name: "subject", value: subject),
-      URLQueryItem(name: "body", value: body),
-    ]
-
-    if let url = components.url, UIApplication.shared.canOpenURL(url) {
-      UIApplication.shared.open(url)
-      return true
-    }
-    return false
-  }
-
-  private static func openGmail(subject: String, body: String, recipients: [String]) -> Bool {
-    var components = URLComponents(string: "googlegmail://co")!
-    components.queryItems = [
-      URLQueryItem(name: "to", value: recipients.joined(separator: ";")),
-      URLQueryItem(name: "subject", value: subject),
-      URLQueryItem(name: "body", value: body),
-    ]
-
-    if let url = components.url, UIApplication.shared.canOpenURL(url) {
-      UIApplication.shared.open(url)
-      return true
-    }
-    return false
-  }
-
   private static func openDefaultMailApp(subject: String, body: String, recipients: [String]) -> Bool {
     var components = URLComponents(string: "mailto:\(recipients.joined(separator: ";"))")
     components?.queryItems = [
