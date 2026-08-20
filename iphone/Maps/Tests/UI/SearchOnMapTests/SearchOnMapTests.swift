@@ -24,6 +24,7 @@ final class SearchOnMapTests: XCTestCase {
     view = nil
     searchManager.results = .empty
     searchManager.setSearchMode(.everywhere)
+    searchManager.updateViewportCallsCount = 0
     searchManager = nil
     super.tearDown()
   }
@@ -97,24 +98,49 @@ final class SearchOnMapTests: XCTestCase {
     interactor.handle(.searchButtonDidTap(query))
 
     XCTAssertEqual(currentState, .searching)
-    XCTAssertEqual(view.viewModel.presentationStep, .halfScreen)
+    XCTAssertEqual(view.viewModel.presentationStep, .compact)
     XCTAssertEqual(view.viewModel.contentState, .results(results))
     XCTAssertEqual(view.viewModel.searchingText, nil)
     XCTAssertEqual(view.viewModel.isTyping, false)
   }
 
-  func test_GivenCompactSearch_WhenTapSearch_ThenShowMapInHalfScreen() {
+  func test_GivenHalfScreenSearch_WhenTapSearch_ThenShowMapInCompact() {
     interactor.handle(.openSearch)
-    interactor.handle(.didStartDraggingMap)
-    XCTAssertEqual(view.viewModel.presentationStep, .compact)
+    interactor.handle(.didUpdatePresentationStep(.halfScreen))
+    XCTAssertEqual(view.viewModel.presentationStep, .halfScreen)
 
     let query = SearchQuery("text", source: .typedText)
     interactor.handle(.searchButtonDidTap(query))
     interactor.handle(.didUpdatePresentationStep(view.viewModel.presentationStep))
 
-    XCTAssertEqual(view.viewModel.presentationStep, .halfScreen)
+    XCTAssertEqual(view.viewModel.presentationStep, .compact)
     XCTAssertEqual(view.viewModel.isTyping, false)
     XCTAssertEqual(searchManager.searchMode(), .everywhereAndViewport)
+  }
+
+  func test_GivenResults_WhenTapSearch_ThenUpdateViewport() {
+    interactor.handle(.openSearch)
+    let query = SearchQuery("text", source: .typedText)
+    interactor.handle(.didType(query))
+    searchManager.results = SearchResult.stubResults()
+
+    interactor.handle(.searchButtonDidTap(query))
+    XCTAssertEqual(searchManager.updateViewportCallsCount, 1)
+  }
+
+  func test_GivenRouting_WhenTapSearch_ThenHideSearchAndKeepViewport() {
+    presenter = SearchOnMapPresenter(isRouting: true,
+                                     didChangeState: { [weak self] in self?.currentState = $0 })
+    interactor = SearchOnMapInteractor(presenter: presenter, searchManager: searchManager)
+    presenter.view = view
+    interactor.handle(.openSearch)
+
+    let query = SearchQuery("text", source: .typedText)
+    interactor.handle(.didType(query))
+    interactor.handle(.searchButtonDidTap(query))
+
+    XCTAssertEqual(view.viewModel.presentationStep, .hidden)
+    XCTAssertEqual(searchManager.updateViewportCallsCount, 0)
   }
 
   func test_GivenSearchIsOpened_WhenMapIsDragged_ThenCollapseSearchScreen() {
@@ -295,6 +321,7 @@ private class SearchManagerMock: SearchManager {
   }
 
   private static var _searchMode: SearchMode = .everywhere
+  static var updateViewportCallsCount = 0
 
   static func add(_ observer: any MWMSearchObserver) {
     observers.addListener(observer)
@@ -307,6 +334,7 @@ private class SearchManagerMock: SearchManager {
   static func save(_: SearchQuery) {}
   static func searchQuery(_: SearchQuery) {}
   static func showResult(at _: UInt) {}
+  static func updateViewportWithResults() { updateViewportCallsCount += 1 }
   static func clear() {}
   static func getResults() -> [SearchResult] { results.results }
   static func searchMode() -> SearchMode { _searchMode }

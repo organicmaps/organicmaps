@@ -369,6 +369,12 @@ public class SearchFragmentController extends Fragment implements SearchFragment
   }
 
   @Override
+  public void onQuerySubmitted()
+  {
+    showSearchSheet(BottomSheetBehavior.STATE_COLLAPSED);
+  }
+
+  @Override
   public void closeSearch()
   {
     hideSearchSheet();
