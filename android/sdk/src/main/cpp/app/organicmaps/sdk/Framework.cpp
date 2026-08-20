@@ -1569,12 +1569,12 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsIsolinesLayerEnabl
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetOutdoorsLayerEnabled(JNIEnv * env, jclass, jboolean enabled)
 {
-  Framework::SaveOutdoorsEnabled(enabled);
+  frm()->SetMapStyleModeEnabled(MapStyleMode::Outdoors, enabled);
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsOutdoorsLayerEnabled(JNIEnv * env, jclass)
 {
-  return static_cast<jboolean>(Framework::LoadOutdoorsEnabled());
+  return static_cast<jboolean>(Framework::LoadMapStyleMode() == MapStyleMode::Outdoors);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetHikingLayerEnabled(JNIEnv *, jclass, jboolean enabled)
@@ -1589,12 +1589,17 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsHikingLayerEnabled
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetCyclingLayerEnabled(JNIEnv *, jclass, jboolean enabled)
 {
-  frm()->SetCyclingEnabled(enabled);
+  frm()->SetMapStyleModeEnabled(MapStyleMode::Cycling, enabled);
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsCyclingLayerEnabled(JNIEnv *, jclass)
 {
-  return static_cast<jboolean>(frm()->IsCyclingEnabled());
+  return static_cast<jboolean>(Framework::LoadMapStyleMode() == MapStyleMode::Cycling);
+}
+
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetMapStyleForCurrentMode(JNIEnv *, jclass, jboolean dark)
+{
+  return static_cast<jint>(GetMapStyleForMode(Framework::LoadMapStyleMode(), dark));
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeNeedUpdateForRoutes(JNIEnv *, jclass)

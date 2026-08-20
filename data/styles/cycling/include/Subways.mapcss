@@ -1,2 +1,2 @@
 /* Keep here changes of the base map style file only. */
-@import("../../default/include/Subways.mapcss");
+@import("../../outdoors/include/Subways.mapcss");

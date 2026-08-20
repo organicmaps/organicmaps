@@ -18,7 +18,8 @@ trap 'rm -rf "$TMP_DIR"' EXIT
 STAGE="$TMP_DIR/data"
 mkdir -p "$STAGE"
 
-# The only two files libkomwm reads from its -d dir, everything else it touches there is an output.
+# libkomwm also treats colors.txt and patterns.txt as read-modify-write accumulators. Do not seed
+# them here: every run must rebuild the complete palettes from scratch.
 cp "$DATA_PATH/mapcss-mapping.csv" "$DATA_PATH/mapcss-dynamic.txt" "$STAGE/"
 
 # Keep vehicle last: it produces the visibility.txt & classificator.txt that ship with the apps.

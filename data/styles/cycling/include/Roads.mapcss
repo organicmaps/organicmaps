@@ -1,39 +1,53 @@
 /* Keep here changes of the base map style file only. */
-@import("../../default/include/Roads.mapcss");
+@import("../../outdoors/include/Roads.mapcss");
 
-/* ~~~~ CYCLING STYLE — ROADS OVERRIDES ~~~~~
-   Design discipline: a single cycling accent color (@cycleway = cyan-blue)
-   marks every cycling-relevant line. Infrastructure type is encoded by
-   *line treatment* (width, dashes, casing) — not by color — so beginners
-   read "blue = cycling" instantly and the dash nuance earns meaning with use.
+/* A single cyan-blue accent identifies dedicated cycleways and designated
+   shared paths. Width and the underlying road geometry provide context. */
 
-   Motorways and trunks are de-emphasized: cyclists rarely use them, so they
-   recede into the base. The cycling layer gets the visual room to breathe.
-*/
-
-/* De-emphasize motorways and trunks from z7 onwards — cyclists rarely use
-   them. Skip z6 where default already draws them at opacity 0.3 (the world
-   view, where overriding to 0.5 would make them MORE visible). */
+/* De-emphasize motorways and trunks, including bridge and tunnel layers. */
 line|z7-[highway=motorway],
 line|z7-[highway=trunk],
 line|z10-[highway=motorway_link],
 line|z10-[highway=trunk_link],
-{opacity: 0.5;}
+{opacity: 0.4;}
 
-/* Promote dedicated cycleways to z11+ (default starts at z13) so the cycling
-   network is visible at city overview zoom — the most important read for a
-   cyclist planning a trip. */
-line|z11-12[highway=cycleway],
-{color: @cycleway; opacity: 1;}
+line|z7-[highway=motorway]::bridgewhite,
+line|z7-[highway=motorway]::bridgeblack,
+line|z7-[highway=trunk]::bridgewhite,
+line|z7-[highway=trunk]::bridgeblack,
+line|z10-[highway=motorway_link]::bridgewhite,
+line|z10-[highway=motorway_link]::bridgeblack,
+line|z10-[highway=trunk_link]::bridgewhite,
+line|z10-[highway=trunk_link]::bridgeblack,
+{casing-opacity: 0.4;}
+
+line|z7-[highway=motorway][tunnel?],
+line|z7-[highway=trunk][tunnel?],
+line|z10-[highway=motorway_link][tunnel?],
+line|z10-[highway=trunk_link][tunnel?],
+{opacity: 0.4; casing-opacity: 0.4;}
+
+/* Keep cycling infrastructure visible and monotonic from overview zooms. */
+line|z11-[highway=cycleway],
+line|z12-[highway=path][bicycle=designated],
+line|z13-[highway=footway][bicycle=designated],
+{color: @cycleway; opacity: 1; dashes: none;}
 
 line|z11[highway=cycleway],
 {width: 1.0;}
 line|z12[highway=cycleway],
 {width: 1.2;}
+line|z12[highway=path][bicycle=designated],
+{width: 1.0;}
 line|z13[highway=cycleway],
 {width: 1.4;}
+line|z13[highway=path][bicycle=designated],
+line|z13[highway=footway][bicycle=designated],
+{width: 1.1;}
 line|z14[highway=cycleway],
 {width: 1.6;}
+line|z14[highway=footway][bicycle=designated],
+{width: 1.2;}
 line|z15[highway=cycleway],
 {width: 1.9;}
 line|z16-17[highway=cycleway],

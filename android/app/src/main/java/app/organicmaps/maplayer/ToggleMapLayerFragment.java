@@ -14,7 +14,6 @@ import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.sdk.maplayer.Mode;
 import app.organicmaps.sdk.util.SharedPropertiesUtils;
-import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.widget.recycler.SpanningLinearLayoutManager;
@@ -73,9 +72,6 @@ public class ToggleMapLayerFragment extends Fragment
     Context context = v.getContext();
     SharedPropertiesUtils.setLayerMarkerShownForLayerMode(mode);
     mode.setEnabled(context, !mode.isEnabled(context));
-    // TODO: dirty hack :(
-    if (mode == Mode.OUTDOORS || mode == Mode.CYCLING)
-      ThemeSwitcher.INSTANCE.synchronizeMapStyle(v.getContext(), true);
     mAdapter.notifyDataSetChanged();
     mMapButtonsController.updateLayerButton();
     if (MwmApplication.from(context).getIsolinesManager().shouldShowNotification())
