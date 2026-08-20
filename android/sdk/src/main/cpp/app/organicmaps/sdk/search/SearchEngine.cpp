@@ -27,8 +27,8 @@
 
 namespace
 {
-// This cache is needed only for showing a specific result on the map after click on the list item.
-// Don't use it with another intentions!
+// This cache is needed only for showing the results on the map (a specific result after click on the list item
+// or the viewport update on the search button). Don't use it with another intentions!
 search::Results g_results;
 
 // Timestamp of last search query. Results with older stamps are ignored.
@@ -355,6 +355,12 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeSelectResult(J
   if (mode == location::Follow || mode == location::FollowAndRotate)
     g_framework->NativeFramework()->StopLocationFollow();
   g_framework->NativeFramework()->SelectSearchResult(g_results[index], true /* animation */);
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeUpdateViewportWithLastResults(JNIEnv * env,
+                                                                                                jclass clazz)
+{
+  g_framework->NativeFramework()->UpdateViewport(g_results);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeCancelInteractiveSearch(JNIEnv * env, jclass clazz)
