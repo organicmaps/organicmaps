@@ -83,6 +83,62 @@ Reject surveillance - embrace your freedom.
 
 [**Give Organic Maps a try!**](#install)
 
+## Rider Live Tracking (fork addition)
+
+This fork adds an optional **Rider Live Tracking** feature to the Android app: a
+group of riders share their live position through a self-hosted relay server and
+see each other as labelled markers on the map, including during turn-by-turn
+navigation.
+
+Nothing is enabled by default. Sharing is off until it is switched on, and the
+app only ever talks to the server address you enter yourself — there is no
+Organic Maps backend involved.
+
+### How it works
+
+- Every device generates a random **rider code** on first launch. You share your
+  code with friends; you add their codes to see them.
+- When sharing is on, each location update is POSTed to your server
+  (`code`, `name`, `lat`, `lon`, `speed`, `bearing`).
+- Friend positions are polled every 5 seconds and drawn by a transparent overlay
+  above the map surface. Markers are re-projected every frame, so labels follow
+  pan, zoom, rotation and the navigation tilt.
+- The server keeps locations in memory only and expires them after a TTL, so a
+  rider who stops sharing disappears on their own.
+
+### Setup
+
+**Settings → Riders → Rider Live Tracking**
+
+| Setting               | Purpose                                                  |
+| --------------------- | -------------------------------------------------------- |
+| Server URL            | Base URL of your relay, e.g. `http://192.168.1.100:8080` |
+| Server Username/Password | HTTP Basic Auth credentials, if the server requires them |
+| My Rider Code         | Your code — share it with friends                        |
+| My Name               | Optional label shown instead of the code                 |
+| Share my location     | Master switch for publishing your position               |
+| Show myself           | Draw your own marker too, useful for testing             |
+| Friend codes          | Codes of the riders you want to see                      |
+
+The relay server lives in [`tools/rider_server/`](tools/rider_server/) — a
+single stdlib-only Python file:
+
+```bash
+RIDER_USER=alice RIDER_PASS=<your-password> python3 tools/rider_server/rider_server.py
+```
+
+See [`tools/rider_server/README.md`](tools/rider_server/README.md) for the API,
+environment variables, and deployment notes.
+
+### Privacy and security
+
+- Location leaves the device **only** while "Share my location" is on, and only
+  to the server you configured.
+- A rider code is a shared secret: anyone holding it can see that rider's live
+  position. Rotate your code if it leaks.
+- Basic Auth credentials are sent in cleartext over plain HTTP — put the server
+  behind TLS (nginx, Caddy) for anything beyond a trusted LAN.
+
 ## Who is paying for the development?
 
 The app is free for everyone, so we rely on your donations. Please donate at [organicmaps.app/donate](https://organicmaps.app/donate/) to support the project!
