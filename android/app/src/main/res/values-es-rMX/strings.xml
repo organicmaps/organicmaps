@@ -486,4 +486,8 @@
     <string name="login_osm_browser">Iniciar sesión utilizando el navegador</string>
     <!-- Label for the hex color input field in the color picker -->
     <string name="color_picker_hex_label">Color hexadecimal sRGB #</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short: the field is narrow, with shortcut buttons on its left and the voice search button on its right -->
+    <string name="choose_stop_along_route">Agregar parada</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Mueva y amplíe el mapa para colocar la cruz</string>
 </resources>
