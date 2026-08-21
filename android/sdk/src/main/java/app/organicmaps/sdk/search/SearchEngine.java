@@ -217,6 +217,15 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
     nativeSelectResult(index);
   }
 
+  /**
+   * Moves the map viewport to make the nearest of the last results visible.
+   */
+  @MainThread
+  public void updateViewportWithLastResults()
+  {
+    nativeUpdateViewportWithLastResults();
+  }
+
   @Nullable
   public SearchResult[] getCachedResults()
   {
@@ -259,6 +268,8 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   private static native void nativeShowResult(int index);
 
   private static native void nativeSelectResult(int index);
+
+  private static native void nativeUpdateViewportWithLastResults();
 
   private static native void nativeCancelInteractiveSearch();
 

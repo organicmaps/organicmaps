@@ -777,6 +777,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   interface SearchFragmentListener
   {
     void onSearchClicked();
+    // The "search" action on the keyboard: the sheet is minimized to show the results on the map.
+    void onQuerySubmitted();
     void closeSearch();
   }
 
@@ -907,7 +909,11 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
         mSearchViewModel.notifyHistoryChanged();
       }
       deactivate();
-      mSearchFragmentListener.onSearchClicked();
+      mSearchFragmentListener.onQuerySubmitted();
+      // During navigation the map follows the current position, so the viewport is not overridden;
+      // the results are still drawn as marks on the map.
+      if (!RoutingController.get().isNavigating())
+        SearchEngine.INSTANCE.updateViewportWithLastResults();
       return true;
     }
 

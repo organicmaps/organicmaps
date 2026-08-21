@@ -13,6 +13,7 @@
 #include "search/result.hpp"
 #include "search/search_params.hpp"
 
+#include "geometry/any_rect2d.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
@@ -172,3 +173,15 @@ private:
   // from |m_engine|.
   std::unordered_set<kml::MarkGroupId> m_indexableGroups;
 };
+
+namespace search
+{
+// Adjusts |viewport| to show the search results, keeping its rotation. Only the best matching results
+// (with the minimum number of misprints) are taken into account:
+// - one of them is already visible: nothing changes;
+// - the nearest one is not far away: zooms out around the center (keeping the extents) to include it;
+// - all of them are localized: shows all of them;
+// - otherwise shows the top ranked one at its own scale.
+// Returns true if |viewport| was changed.
+bool AdjustViewportToSearchResults(Results const & results, m2::AnyRectD & viewport);
+}  // namespace search

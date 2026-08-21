@@ -19,6 +19,7 @@ set(SRC
   power_manager_tests.cpp
   road_warning_tests.cpp
   search_api_tests.cpp
+  search_viewport_tests.cpp
   transliteration_test.cpp
   relation_track_tests.cpp
   routing_manager_tests.cpp
