@@ -1576,7 +1576,7 @@ void Framework::UpdateViewport(search::Results const & results)
   // Fit into the part of the screen that is not covered by UI (e.g. the search bottom sheet).
   auto viewport = m_currentModelView.GetTouchRect(m_visibleViewport.Center(), m_visibleViewport.SizeX() / 2,
                                                   m_visibleViewport.SizeY() / 2);
-  if (search::ExtendViewportToNearestResult(results, viewport))
+  if (search::AdjustViewportToSearchResults(results, viewport))
   {
     StopLocationFollow();
     ShowRect(viewport, true /* animation */, true /* useVisibleViewport */);

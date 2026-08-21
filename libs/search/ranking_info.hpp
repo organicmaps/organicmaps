@@ -60,6 +60,9 @@ struct StoredRankingInfo
   // Search type for the feature.
   Model::Type m_type = Model::TYPE_COUNT;
 
+  // Number of misprints.
+  ErrorsMade m_errorsMade;
+
   // Used for non-categorial requests.
   union
   {
@@ -115,9 +118,6 @@ struct RankingInfo : public StoredRankingInfo
 
   // > 0 if matched only common tokens. Bigger is worse, depending on Feature's name tokens count.
   int16_t m_commonTokensFactor = 0;
-
-  // Number of misprints.
-  ErrorsMade m_errorsMade;
 
   // Rank of the feature. Store uint16_t because of possible 'normalization'.
   uint16_t m_rank = 0;

@@ -176,7 +176,12 @@ private:
 
 namespace search
 {
-// Zooms |viewport| out around its center (keeping its extents) to include the result nearest to the center
-// with a small margin, unless that result is already inside. Returns true if |viewport| was changed.
-bool ExtendViewportToNearestResult(Results const & results, m2::AnyRectD & viewport);
+// Adjusts |viewport| to show the search results, keeping its rotation. Only the best matching results
+// (with the minimum number of misprints) are taken into account:
+// - one of them is already visible: nothing changes;
+// - the nearest one is not far away: zooms out around the center (keeping the extents) to include it;
+// - all of them are localized: shows all of them;
+// - otherwise shows the top ranked one at its own scale.
+// Returns true if |viewport| was changed.
+bool AdjustViewportToSearchResults(Results const & results, m2::AnyRectD & viewport);
 }  // namespace search
