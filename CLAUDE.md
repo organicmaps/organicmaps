@@ -160,6 +160,7 @@ Format: `[subsystem] Summary in imperative mood` (max 80 chars). Examples of sub
 - Tests covering most/all corner cases or changes
 - Less code/cleaner code/less changes
 - Simple architecture and design for long-term maintenance
+- Comments should be added for non-obvious "why", and should reflect the current state (not previous).
 
 ## Error handling policy
 - Downloaded files are verified on download when a hash is available, and trusted as-is otherwise --
