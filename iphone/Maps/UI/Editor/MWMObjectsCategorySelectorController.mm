@@ -1,4 +1,5 @@
 #import "MWMObjectsCategorySelectorController.h"
+#import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMEditorViewController.h"
 #import "MWMKeyboard.h"
@@ -21,6 +22,7 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
                                                     MWMKeyboardObserver>
 {
   m2::PointD m_createdPosition;
+  EditableMapObject m_createdObject;
 }
 
 @property(nonatomic) UISearchController * searchViewController;
@@ -155,13 +157,6 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
   ]];
 }
 
-- (void)onDone
-{
-  if (!self.selectedType)
-    return;
-  [self performSegueWithIdentifier:kToEditorSegue sender:nil];
-}
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
   if (![segue.identifier isEqualToString:kToEditorSegue])
@@ -171,8 +166,7 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
   }
   MWMEditorViewController * dest = static_cast<MWMEditorViewController *>(segue.destinationViewController);
   dest.isCreating = YES;
-  auto const object = self.createdObject;
-  [dest setEditableMapObject:object];
+  [dest setEditableMapObject:m_createdObject];
 }
 
 #pragma mark - MWMKeyboard
@@ -193,13 +187,18 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 
 #pragma mark - Create object
 
-- (EditableMapObject)createdObject
+- (BOOL)createObject
 {
-  EditableMapObject emo;
-  auto & f = GetFramework();
   auto const type = classif().GetTypeByReadableObjectName(self.selectedType.UTF8String);
-  CHECK(f.CreateMapObject(m_createdPosition, type, emo), ());
-  return emo;
+  if (GetFramework().CreateMapObject(m_createdPosition, type, m_createdObject))
+    return YES;
+
+  // The position was checked when the user confirmed it, but the map under it can be updated or
+  // deleted while the category is being picked. No other category can succeed at the same point,
+  // so return to the map instead of leaving the user on a dead-end list.
+  __weak auto weakSelf = self;
+  [self.alertController presentIncorrectFeaturePositionAlertWithOkBlock:^{ [weakSelf goBack]; }];
+  return NO;
 }
 
 #pragma mark - UITableView
@@ -230,13 +229,16 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
     self.selectedType = [self.dataSource getRecentCategoriesType:indexPath.row];
   else
     self.selectedType = [self.dataSource getType:indexPath.row];
+
+  if (![self createObject])
+    return;
+
   [self.dataSource addToRecentCategories:self.selectedType];
 
   id<MWMObjectsCategorySelectorDelegate> delegate = self.delegate;
   if (delegate)
   {
-    auto const object = self.createdObject;
-    [delegate reloadObject:object];
+    [delegate reloadObject:m_createdObject];
     [self goBack];
   }
   else
