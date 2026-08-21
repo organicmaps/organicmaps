@@ -36,7 +36,7 @@ namespace routing::turns::sound
  * Locale to the internal twine code; iOS does the equivalent mapping in
  * `LocaleTranslator.mm` and stores only the internal code here.
  */
-std::array<std::pair<std::string_view, std::string_view>, 49> constexpr kLanguageList = {{
+std::array<std::pair<std::string_view, std::string_view>, 51> constexpr kLanguageList = {{
     {"en", "English"},
     {"id", "Bahasa Indonesia"},
     {"ca", "Català"},
@@ -83,12 +83,14 @@ std::array<std::pair<std::string_view, std::string_view>, 49> constexpr kLanguag
     {"ru", "Русский"},
     {"sr", "Српски"},
     {"uk", "Українська"},
+    {"hy", "Հայերեն"},
     {"he", "עברית"},
     {"ar", "العربية"},
     {"fa", "فارسی"},
     {"mr", "मराठी"},
     {"hi", "हिंदी"},
     {"th", "ไทย"},
+    {"lo", "ລາວ"},
 #ifdef OMIM_OS_ANDROID
     {"zh-CN:zh-Hans", "中文（普通话）"},
     {"zh-TW:zh-Hant", "中文（國語）"},
