@@ -80,7 +80,7 @@
     <string name="type.healthcare.laboratory">Medicinski laboratorij</string>
 
     <!-- SECTION: Types: Roads -->
-    <string name="type.highway.platform">Platforma</string>
+    <string name="type.highway.platform">Peron javnog prijevoza</string>
 
     <!-- SECTION: Types: Historic -->
     <string name="type.man_made.ceremonial_gate">Ceremonijalna vrata</string>
@@ -103,7 +103,7 @@
     <string name="type.power.plant.hydro">Hidroelektrana</string>
     <string name="type.power.plant.solar">Solarna elektrana</string>
     <string name="type.power.plant.wind">Vjetroelektrana</string>
-    <string name="type.public_transport.platform">Platforma</string>
+    <string name="type.public_transport.platform">Peron javnog prijevoza</string>
     <string name="type.railway">Željeznica</string>
     <string name="type.railway.disused.tunnel">Nekorišteni željeznički tunel</string>
     <string name="type.railway.rail">Željeznica</string>
