@@ -3545,6 +3545,10 @@ bool Framework::CanEditMapForPosition(m2::PointD const & position) const
 bool Framework::CreateMapObject(m2::PointD const & mercator, uint32_t const featureType,
                                 osm::EditableMapObject & emo) const
 {
+  // GetRegionCountryId() below wraps internally, but Editor::CreatePoint() tests the MWM's bounding
+  // box as is, so an unwrapped point would silently fail there instead of here.
+  ASSERT(mercator::ValidX(mercator.x), (mercator));
+
   emo = {};
   auto const & dataSource = m_featuresFetcher.GetDataSource();
   MwmSet::MwmId const mwmId =

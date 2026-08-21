@@ -10,7 +10,7 @@
 + (instancetype)startPointNotFoundAlert;
 + (instancetype)intermediatePointNotFoundAlert;
 + (instancetype)internalRoutingErrorAlert;
-+ (instancetype)incorrectFeaturePositionAlert;
++ (instancetype)incorrectFeaturePositionAlertWithOkBlock:(MWMVoidBlock)okBlock;
 + (instancetype)notEnoughSpaceAlert;
 + (instancetype)invalidUserNameOrPasswordAlert;
 + (instancetype)noCurrentPositionAlert;
