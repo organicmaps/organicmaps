@@ -45,8 +45,8 @@ jobs:
           - os: ubuntu-24.04
             cc: clang-19
             cxx: clang++-19
-            unity: OFF
-            run-tests: OFF
+            no-unity: true
+            no-tests: true
 
           - os: ubuntu-24.04
             cc: clang-19
@@ -55,6 +55,7 @@ jobs:
           - os: ubuntu-24.04
             cc: gcc-14
             cxx: g++-14
+            run-osm-tests: true
 
           - os: ubuntu-24.04
             cc: gcc-13
@@ -64,11 +65,12 @@ jobs:
             cc: clang
             cxx: clang++
             developer-dir: /Applications/Xcode_26.5.app/Contents/Developer
+            run-osm-tests: true
         exclude:
-          - environment: { unity: OFF }
+          - environment: { no-unity: true }
             cmake-build-type: Release
 
-    name: "${{ matrix.environment.os }} ${{ matrix.environment.cc }} ${{ matrix.cmake-build-type }}${{ matrix.environment.unity == 'OFF' && ' No Unity' || '' }}"
+    name: "${{ matrix.environment.os }} ${{ matrix.environment.cc }} ${{ matrix.cmake-build-type }}${{ matrix.environment.no-unity && ' No Unity' || '' }}"
 
     runs-on: ${{ matrix.environment.os }}
 
@@ -116,10 +118,10 @@ jobs:
       - name: Configure ccache
         uses: hendrikmuhs/ccache-action@v1.2
         with:
-          key: ${{ github.workflow }}-${{ matrix.environment.os }}-${{ matrix.environment.cc }}-${{ matrix.environment.unity }}-${{ matrix.cmake-build-type }}
+          key: ${{ github.workflow }}-${{ matrix.environment.os }}-${{ matrix.environment.cc }}-${{ matrix.environment.no-unity && 'no-unity' || '' }}-${{ matrix.cmake-build-type }}
           # No Unity compiles every TU separately, so its cache needs more room
           # than the 500M default (max-size is a ceiling, not a reservation).
-          max-size: ${{ matrix.environment.unity == 'OFF' && '2G' || '1G' }}
+          max-size: ${{ matrix.environment.no-unity && '2G' || '1G' }}
           # Restore-only on PRs: master populates the shared cache, PRs read it.
           # Avoids overflowing the 10GB repo limit, which evicts master's caches.
           save: ${{ github.ref == 'refs/heads/master' }}
@@ -130,7 +132,7 @@ jobs:
           CXX: ${{ matrix.environment.cxx }}
           CMAKE_C_COMPILER_LAUNCHER: ccache
           CMAKE_CXX_COMPILER_LAUNCHER: ccache
-          UNITY_BUILD: ${{ matrix.environment.unity || 'ON' }}
+          UNITY_BUILD: ${{ matrix.environment.no-unity && 'OFF' || 'ON' }}
         run: |
           cmake --preset ci \
             -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} \
@@ -172,15 +174,21 @@ jobs:
       #   routing_integration_tests - https://github.com/organicmaps/organicmaps/issues/221
       #   world_feed_integration_tests - https://github.com/organicmaps/organicmaps/issues/215
       #   routing_benchmarks, routing_quality_tests, search_quality_tests - benchmarks, not pass/fail tests
+      #   osm_auth_tests - uses the shared OSM development server; the next step runs it
+      #     once per HTTP backend (Qt on Linux, Apple on macOS), in the Debug legs only
       #   storage_integration_tests - downloads real maps from planet.organicmaps.app (~28 min, ~690 MB);
       #     the offline part of that coverage lives in storage_tests
       - name: Run tests
-        if: ${{ matrix.environment.run-tests != 'OFF' }}
+        if: ${{ matrix.environment.no-tests != true }}
         run: ctest --preset ci -j$(nproc --all)
+
+      - name: Run OSM live tests
+        if: ${{ matrix.environment.run-osm-tests == true && matrix.cmake-build-type == 'Debug' }}
+        run: ctest --preset ci-osm
 
       # Run drape tests separately. They require offscreen rendering support.
       # The "ci-drape" test preset sets QT_QPA_PLATFORM=offscreen; setting it
       # globally breaks network tests on macOS.
       - name: Run drape tests
-        if: ${{ matrix.environment.run-tests != 'OFF' }}
+        if: ${{ matrix.environment.no-tests != true }}
         run: ctest --preset ci-drape --verbose
