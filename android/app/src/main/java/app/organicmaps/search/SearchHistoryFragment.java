@@ -9,14 +9,11 @@ import androidx.core.view.ViewCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmRecyclerFragment;
-import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.search.SearchRecents;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.widget.PlaceholderView;
-import app.organicmaps.widget.SearchToolbarController;
 
 public class SearchHistoryFragment extends BaseMwmRecyclerFragment<SearchHistoryAdapter>
 {
@@ -39,11 +36,7 @@ public class SearchHistoryFragment extends BaseMwmRecyclerFragment<SearchHistory
   @Override
   protected SearchHistoryAdapter createAdapter()
   {
-    final SearchToolbarController controller = ((SearchFragment) requireParentFragment()).requireController();
-    final boolean showMyPosition =
-        (RoutingController.get().isWaitingPoiPick()
-         && MwmApplication.from(requireContext()).getLocationHelper().getMyPosition() != null);
-    return new SearchHistoryAdapter(controller, showMyPosition);
+    return new SearchHistoryAdapter(((SearchFragment) requireParentFragment()).requireController());
   }
 
   @Override

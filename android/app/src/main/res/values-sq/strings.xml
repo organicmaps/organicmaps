@@ -915,4 +915,22 @@
     <string name="color_picker_grid">Rrjetë</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Kërkim me zë</string>
+    <!-- Row shown above the search tabs while choosing or replacing a route point; tapping it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Zgjidh në hartë</string>
+    <!-- Title of the full-screen map point picker shown while choosing the starting point of a route with a crosshair -->
+    <string name="choose_start_location">Zgjidh vendndodhjen e nisjes</string>
+    <!-- Title of the full-screen map point picker shown while choosing the destination of a route with a crosshair -->
+    <string name="choose_destination">Zgjidh destinacionin</string>
+    <!-- Title of the full-screen map point picker shown while choosing an intermediate stop of a route with a crosshair -->
+    <string name="choose_stop_along_route">Zgjidh ndalesën përgjatë rrugës</string>
+    <!-- Title shown while replacing the already set starting point of a route, either in the search panel or in the full-screen map point picker -->
+    <string name="change_start_location">Ndrysho vendndodhjen e nisjes</string>
+    <!-- Title shown while replacing the already set destination of a route, either in the search panel or in the full-screen map point picker -->
+    <string name="change_destination">Ndrysho destinacionin</string>
+    <!-- Title shown while replacing an already added intermediate stop of a route, either in the search panel or in the full-screen map point picker -->
+    <string name="change_stop_along_route">Ndrysho ndalesën përgjatë rrugës</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Numri maksimal i ndalesave është arritur</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Lëvizni dhe zmadhoni hartën për të vendosur shënjestrën</string>
 </resources>

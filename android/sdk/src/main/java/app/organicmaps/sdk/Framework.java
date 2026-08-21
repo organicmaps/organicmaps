@@ -267,6 +267,8 @@ public class Framework
   public static native void nativeRemoveIntermediateRoutePoints();
 
   public static native boolean nativeCouldAddIntermediatePoint();
+
+  public static native boolean nativeIsRoutePointsLimitReached();
   @NonNull
   public static native RouteMarkData[] nativeGetRoutePoints();
 

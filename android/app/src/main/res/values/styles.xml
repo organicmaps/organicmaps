@@ -294,6 +294,11 @@
     <item name="android:drawablePadding">@dimen/margin_base_plus</item>
   </style>
 
+  <style name="MwmWidget.TextView.Search.PickerAction">
+    <item name="android:layout_height">@dimen/height_block_base</item>
+    <item name="android:drawablePadding">@dimen/margin_base</item>
+  </style>
+
   <style name="MwmWidget.TextView.Direction">
     <item name="android:maxLines">3</item>
     <item name="android:textColor">@android:color/white</item>

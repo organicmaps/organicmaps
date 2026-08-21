@@ -929,4 +929,22 @@
     <string name="color_picker_grid">그리드</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">음성 검색</string>
+    <!-- Row shown above the search tabs while choosing or replacing a route point; tapping it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">지도에서 선택</string>
+    <!-- Title of the full-screen map point picker shown while choosing the starting point of a route with a crosshair -->
+    <string name="choose_start_location">시작 위치 선택</string>
+    <!-- Title of the full-screen map point picker shown while choosing the destination of a route with a crosshair -->
+    <string name="choose_destination">목적지 선택</string>
+    <!-- Title of the full-screen map point picker shown while choosing an intermediate stop of a route with a crosshair -->
+    <string name="choose_stop_along_route">경유지 선택</string>
+    <!-- Title shown while replacing the already set starting point of a route, either in the search panel or in the full-screen map point picker -->
+    <string name="change_start_location">시작 위치 변경</string>
+    <!-- Title shown while replacing the already set destination of a route, either in the search panel or in the full-screen map point picker -->
+    <string name="change_destination">목적지 변경</string>
+    <!-- Title shown while replacing an already added intermediate stop of a route, either in the search panel or in the full-screen map point picker -->
+    <string name="change_stop_along_route">경로상의 경유지 변경</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">경유지 최대 개수에 도달했습니다</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">지도를 이동하고 확대/축소하여 십자선을 원하는 위치에 배치하세요.</string>
 </resources>

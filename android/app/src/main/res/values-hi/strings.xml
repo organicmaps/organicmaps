@@ -922,4 +922,22 @@
     <string name="color_picker_grid">ग्रिड</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">वॉयस सर्च</string>
+    <!-- Row shown above the search tabs while choosing or replacing a route point; tapping it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">मानचित्र पर चुनें</string>
+    <!-- Title of the full-screen map point picker shown while choosing the starting point of a route with a crosshair -->
+    <string name="choose_start_location">प्रारंभिक स्थान चुनें</string>
+    <!-- Title of the full-screen map point picker shown while choosing the destination of a route with a crosshair -->
+    <string name="choose_destination">गंतव्य चुनें</string>
+    <!-- Title of the full-screen map point picker shown while choosing an intermediate stop of a route with a crosshair -->
+    <string name="choose_stop_along_route">मार्ग पर स्टॉप चुनें</string>
+    <!-- Title shown while replacing the already set starting point of a route, either in the search panel or in the full-screen map point picker -->
+    <string name="change_start_location">शुरुआती स्थान बदलें</string>
+    <!-- Title shown while replacing the already set destination of a route, either in the search panel or in the full-screen map point picker -->
+    <string name="change_destination">गंतव्य बदलें</string>
+    <!-- Title shown while replacing an already added intermediate stop of a route, either in the search panel or in the full-screen map point picker -->
+    <string name="change_stop_along_route">मार्ग पर स्टॉप बदलें</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">अधिकतम स्टॉप संख्या प्राप्त हो गई</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">क्रॉसहेयर को रखने के लिए नक्शा चलाएँ और ज़ूम करें</string>
 </resources>

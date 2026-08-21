@@ -941,4 +941,22 @@
     <string name="color_picker_grid">Grid</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Voice search</string>
+    <!-- Row shown above the search tabs while choosing or replacing a route point; tapping it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Choose on map</string>
+    <!-- Title of the full-screen map point picker shown while choosing the starting point of a route with a crosshair -->
+    <string name="choose_start_location">Choose start location</string>
+    <!-- Title of the full-screen map point picker shown while choosing the destination of a route with a crosshair -->
+    <string name="choose_destination">Choose destination</string>
+    <!-- Title of the full-screen map point picker shown while choosing an intermediate stop of a route with a crosshair -->
+    <string name="choose_stop_along_route">Choose stop along route</string>
+    <!-- Title shown while replacing the already set starting point of a route, either in the search panel or in the full-screen map point picker -->
+    <string name="change_start_location">Change start location</string>
+    <!-- Title shown while replacing the already set destination of a route, either in the search panel or in the full-screen map point picker -->
+    <string name="change_destination">Change destination</string>
+    <!-- Title shown while replacing an already added intermediate stop of a route, either in the search panel or in the full-screen map point picker -->
+    <string name="change_stop_along_route">Change stop along route</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Maximum number of stops reached</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Move and zoom the map to place the crosshair</string>
 </resources>

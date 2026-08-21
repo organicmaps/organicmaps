@@ -69,6 +69,7 @@ import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.maplayer.ToggleMapLayerFragment;
 import app.organicmaps.routing.NavigationController;
 import app.organicmaps.routing.NavigationService;
+import app.organicmaps.routing.RoutePointLabels;
 import app.organicmaps.routing.RoutingErrorDialogFragment;
 import app.organicmaps.routing.RoutingPlanController;
 import app.organicmaps.routing.RoutingPlanFragment;
@@ -156,6 +157,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private View mPointChooser;
   private Toolbar mPointChooserToolbar;
+  private TextView mPointChooserTitle;
+  private TextView mPointChooserHint;
 
   private NavigationController mNavigationController;
   @Nullable
@@ -626,6 +629,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     mPointChooserToolbar = mPointChooser.findViewById(R.id.toolbar_point_chooser);
+    mPointChooserTitle = mPointChooser.findViewById(R.id.title);
+    mPointChooserHint = mPointChooser.findViewById(R.id.hint);
     UiUtils.showHomeUpButton(mPointChooserToolbar);
     mPointChooserToolbar.setNavigationOnClickListener(v -> closePositionChooser());
     mPointChooser.findViewById(R.id.done).setOnClickListener(v -> {
@@ -659,6 +664,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
                              .show();
         }
         break;
+      case Routing:
+        final double[] routePoint = Framework.nativeGetScreenRectCenter();
+        // An empty address is fine: the route point then falls back to formatted coordinates.
+        RoutingController.get().onPoiSelected(MapObject.createMapObject(
+            MapObject.POI, Framework.nativeGetAddress(routePoint[0], routePoint[1]), "", routePoint[0], routePoint[1]));
+        break;
       case None: throw new IllegalStateException("Unexpected Framework.nativeGetChoosePositionMode()");
       }
       closePositionChooser();
@@ -683,7 +694,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!TextUtils.isEmpty(appName))
     {
       setTitle(appName);
-      ((TextView) mPointChooser.findViewById(R.id.title)).setText(appName);
+      mPointChooserTitle.setText(appName);
     }
   }
 
@@ -692,15 +703,41 @@ public class MwmActivity extends BaseMwmFragmentActivity
     showPositionChooser(ChoosePositionMode.Editor, isBusiness, applyPosition);
   }
 
+  public void showPositionChooserForRoutePoint()
+  {
+    showPositionChooser(ChoosePositionMode.Routing, false, false);
+  }
+
   private void showPositionChooser(ChoosePositionMode mode, boolean isBusiness, boolean applyPosition)
   {
     if (isFullscreen())
       exitFullscreen();
-    closeFloatingToolbarsAndPanels();
+    // closeFloatingToolbarsAndPanels() split apart: hiding an open chooser would clear the flag, while
+    // closing the search sheet re-shows the routing one, whose buttons row only hides on a HIDDEN callback
+    // that never fires for a sheet already hidden.
+    closePositionChooser();
+    mRoutingPlanViewModel.setIsPointChooserActive(true);
+    closeFloatingPanels();
+    updatePositionChooserText(mode);
     UiUtils.show(mPointChooser);
     mMapButtonsViewModel.setButtonsHidden(true);
     ChoosePositionMode.set(mode, isBusiness, applyPosition);
     refreshLightStatusBar();
+  }
+
+  private void updatePositionChooserText(ChoosePositionMode mode)
+  {
+    if (mode != ChoosePositionMode.Routing)
+    {
+      mPointChooserTitle.setText(R.string.editor_add_select_location);
+      mPointChooserHint.setText(R.string.editor_focus_map_on_location);
+      return;
+    }
+
+    final RoutingController controller = RoutingController.get();
+    mPointChooserTitle.setText(
+        RoutePointLabels.pickTitle(controller.getWaitingPoiPickType(), controller.isPoiPickReplaceStop()));
+    mPointChooserHint.setText(R.string.choose_point_on_map_hint);
   }
 
   private void hidePositionChooser()
@@ -709,10 +746,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     ChoosePositionMode mode = ChoosePositionMode.get();
     ChoosePositionMode.set(ChoosePositionMode.None, false, false);
     mMapButtonsViewModel.setButtonsHidden(false);
+    mRoutingPlanViewModel.setIsPointChooserActive(false);
     Framework.nativeDeactivatePopup();
     refreshLightStatusBar();
     if (mode == ChoosePositionMode.Api)
       finish();
+    // No-op once Done committed the point; cancels the pick on every other way out.
+    else if (mode == ChoosePositionMode.Routing)
+      RoutingController.get().onPoiSelected(null);
   }
 
   private void initNavigationButtons()
@@ -942,8 +983,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     makeNavigationBarTransparentInLightMode();
     if (ChoosePositionMode.get() != ChoosePositionMode.None)
     {
+      // Only the routing titles are derived from state that outlives the view. Editor keeps the layout
+      // default and Api the caller's name, so re-deriving them here would clobber the latter.
+      if (ChoosePositionMode.get() == ChoosePositionMode.Routing)
+        updatePositionChooserText(ChoosePositionMode.Routing);
       UiUtils.show(mPointChooser);
       mMapButtonsViewModel.setButtonsHidden(true);
+      mRoutingPlanViewModel.setIsPointChooserActive(true);
     }
     else if (isFullscreen())
       setFullscreen(true);
@@ -1365,6 +1411,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     forceCloseSearchFragment();
     closePlacePage();
+  }
+
+  @Override
+  public void onStopPointLimitReached()
+  {
+    Toast.makeText(this, R.string.routing_max_stops_reached, Toast.LENGTH_LONG).show();
   }
 
   @Override

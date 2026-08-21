@@ -656,4 +656,14 @@
     <string name="color_picker_sliders">Controles deslizantes</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Grade</string>
+    <!-- Title of the full-screen map point picker shown while choosing the destination of a route with a crosshair -->
+    <string name="choose_destination">Escolha o destino</string>
+    <!-- Title of the full-screen map point picker shown while choosing an intermediate stop of a route with a crosshair -->
+    <string name="choose_stop_along_route">Escolha uma parada ao longo da rota</string>
+    <!-- Title shown while replacing an already added intermediate stop of a route, either in the search panel or in the full-screen map point picker -->
+    <string name="change_stop_along_route">Alterar parada ao longo do trajeto</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Número máximo de paradas atingido</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Mova e amplie o mapa para posicionar a mira</string>
 </resources>

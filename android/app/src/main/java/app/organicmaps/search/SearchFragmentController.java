@@ -18,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
@@ -372,6 +373,13 @@ public class SearchFragmentController extends Fragment implements SearchFragment
   public void closeSearch()
   {
     hideSearchSheet();
+  }
+
+  @Override
+  public void onChooseOnMapClicked()
+  {
+    // Closes the search sheet on its way in; the pending POI pick survives and the crosshair commits into it.
+    ((MwmActivity) requireActivity()).showPositionChooserForRoutePoint();
   }
 
   // The sheet is kept non-hideable while visible so a swipe can't dismiss it. Re-enable hideable here so
