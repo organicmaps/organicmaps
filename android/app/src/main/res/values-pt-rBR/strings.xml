@@ -617,4 +617,6 @@
     <string name="routing_max_stops_reached">Número máximo de paradas atingido</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Parar e salvar</string>
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Inverter rota</string>
 </resources>

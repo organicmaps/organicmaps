@@ -909,4 +909,6 @@
     <string name="choose_point_on_map_hint">Mueva y amplíe o reduzca el mapa para situar la cruz</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Parar y guardar</string>
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Invertir ruta</string>
 </resources>

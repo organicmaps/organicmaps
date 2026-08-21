@@ -880,4 +880,6 @@
     <string name="choose_point_on_map_hint">क्रॉस रखने के लिए मानचित्र को हिलाएँ और ज़ूम करें</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">रोकें और सहेजें</string>
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">मार्ग उलटें</string>
 </resources>

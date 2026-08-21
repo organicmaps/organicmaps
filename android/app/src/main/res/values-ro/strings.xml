@@ -891,4 +891,6 @@
     <string name="choose_point_on_map_hint">Deplasați și măriți/micșorați harta pentru a poziționa crucea</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Oprire și salvare</string>
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Inversează traseul</string>
 </resources>
