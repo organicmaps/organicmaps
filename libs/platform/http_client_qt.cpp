@@ -76,6 +76,35 @@ QNetworkReply * IssueRequest(QNetworkAccessManager & manager, std::string const 
     return manager.head(request);
   return manager.sendCustomRequest(request, QByteArray::fromStdString(method), body);
 }
+
+// Qt converts completed HTTP error responses to NetworkError values in
+// QHttpThreadDelegate::statusCodeFromHttp(). Match the status and error together:
+// category ranges also contain failures such as ContentReSendError and
+// UnknownContentError from response decompression.
+bool IsHttpStatusError(QNetworkReply::NetworkError error, int httpCode)
+{
+  switch (httpCode)
+  {
+  case 400:
+  case 418: return error == QNetworkReply::ProtocolInvalidOperationError;
+  case 401: return error == QNetworkReply::AuthenticationRequiredError;
+  case 403: return error == QNetworkReply::ContentAccessDenied;
+  case 404: return error == QNetworkReply::ContentNotFoundError;
+  case 405: return error == QNetworkReply::ContentOperationNotPermittedError;
+  case 407: return error == QNetworkReply::ProxyAuthenticationRequiredError;
+  case 409: return error == QNetworkReply::ContentConflictError;
+  case 410: return error == QNetworkReply::ContentGoneError;
+  case 500: return error == QNetworkReply::InternalServerError;
+  case 501: return error == QNetworkReply::OperationNotImplementedError;
+  case 503: return error == QNetworkReply::ServiceUnavailableError;
+  default:
+    if (httpCode > 500)
+      return error == QNetworkReply::UnknownServerError;
+    if (httpCode >= 400)
+      return error == QNetworkReply::UnknownContentError;
+    return false;
+  }
+}
 }  // namespace
 
 namespace platform
@@ -172,6 +201,16 @@ bool HttpClientReply::ShouldRetry(QNetworkReply::NetworkError error, QString con
 
   default: return false;
   }
+}
+
+// static
+bool HttpClientReply::IsCompleteResponse(QNetworkReply::NetworkError error, int httpCode)
+{
+  if (httpCode == 0)
+    return false;
+  if (error == QNetworkReply::NoError)
+    return true;
+  return IsHttpStatusError(error, httpCode);
 }
 
 bool HttpClientReply::TryRetryOnGoAway()
@@ -346,10 +385,10 @@ void HttpClientReply::OnFinished()
   if (noError || httpCode != 0)
   {
     result.m_errorCode = httpCode != 0 ? httpCode : static_cast<int>(m_reply->error());
-    // Any HTTP response (even 4xx/5xx) means the connection was made successfully.
-    // Qt maps HTTP errors to QNetworkReply error codes, but callers expect m_success = true
-    // when they got an HTTP response (matching Apple/Android semantics).
-    result.m_success = (httpCode != 0);
+    // A complete HTTP response (even 4xx/5xx) means the connection was made successfully,
+    // and callers expect m_success = true there, matching Apple/Android semantics. A
+    // transport failure after the status line is not success: the body is truncated.
+    result.m_success = IsCompleteResponse(m_reply->error(), httpCode);
 
     // Use toEncoded() to preserve percent-encoding, matching Apple's absoluteString behavior.
     // toString() decodes %XX sequences, which breaks WasRedirected() URL comparison.
@@ -566,9 +605,8 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
                             [=, handler = std::move(handler), cancelChecker = std::move(cancelChecker),
                              rebindCancel = std::move(rebindCancel)]() mutable
   {
-    // Check cancellation BEFORE creating the request — fixes the race where
-    // Cancel() is called between RunHttpRequestAsync() returning and this
-    // lambda executing on the network thread.
+    // Check cancellation before creating the request because Cancel() can run between
+    // RunHttpRequestAsync() returning and this lambda executing on the network thread.
     if (cancelChecker())
     {
       HttpClient::Result result;
