@@ -117,6 +117,10 @@ public:
   int32_t GetPositionInResults() const { return m_positionInResults; }
   void SetPositionInResults(int32_t pos) { m_positionInResults = pos; }
 
+  // Number of misprints made to match the query: zero for exact matches, invalid if unknown.
+  ErrorsMade GetErrorsMade() const { return m_errorsMade; }
+  void SetErrorsMade(ErrorsMade errorsMade) { m_errorsMade = errorsMade; }
+
   /// @name Used for debug logs and tests only.
   /// @{
   RankingInfo const & GetRankingInfo() const
@@ -154,6 +158,7 @@ private:
   std::string m_suggestionStr;
   buffer_vector<std::pair<uint16_t, uint16_t>, 4> m_hightlightRanges;
   buffer_vector<std::pair<uint16_t, uint16_t>, 4> m_descHightlightRanges;
+  ErrorsMade m_errorsMade;
 
   std::shared_ptr<RankingInfo> m_dbgInfo;  // used in debug logs and tests, nullptr in production
 

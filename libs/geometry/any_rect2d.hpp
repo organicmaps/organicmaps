@@ -64,7 +64,7 @@ public:
 
   Point<T> LocalCenter() const { return m_rect.Center(); }
 
-  T GetMaxSize() const { return max(m_rect.SizeX(), m_rect.SizeY()); }
+  T GetMaxSize() const { return std::max(m_rect.SizeX(), m_rect.SizeY()); }
 
   bool EqualDxDy(AnyRect<T> const & r, T eps) const
   {
