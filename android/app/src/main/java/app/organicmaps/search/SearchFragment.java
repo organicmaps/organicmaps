@@ -614,6 +614,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       mSearchViewModel.notifyHistoryChanged();
     }
     mToolbarController.setQuery(category, true);
+    mToolbarController.deactivate();
+    mSearchFragmentListener.onSearchClicked();
   }
 
   private void refreshSearchResults(@NonNull SearchResult[] results)
@@ -864,7 +866,10 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     {
       super.setQuery(query);
       if (!TextUtils.isEmpty(query))
+      {
+        deactivate();
         mSearchFragmentListener.onSearchClicked();
+      }
     }
 
     @Override
