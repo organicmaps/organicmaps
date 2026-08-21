@@ -1093,9 +1093,10 @@ m2::PointD Framework::GetVisiblePixelCenter() const
   return m_visibleViewport.Center();
 }
 
-m2::PointD const & Framework::GetViewportCenter() const
+m2::PointD Framework::GetViewportCenter() const
 {
-  return m_currentModelView.GetOrg();
+  ASSERT(m_visibleViewport.IsValid(), ("Set by OnSize() from CreateDrapeEngine()"));
+  return P3dtoG(GetVisiblePixelCenter());
 }
 
 void Framework::SetViewportCenter(m2::PointD const & pt, int zoomLevel /* = -1 */, bool isAnim /* = true */,
@@ -3522,6 +3523,10 @@ bool Framework::CanEditMapForPosition(m2::PointD const & position) const
 bool Framework::CreateMapObject(m2::PointD const & mercator, uint32_t const featureType,
                                 osm::EditableMapObject & emo) const
 {
+  // GetRegionCountryId() below wraps internally, but Editor::CreatePoint() tests the MWM's bounding
+  // box as is, so an unwrapped point would silently fail there instead of here.
+  ASSERT(mercator::ValidX(mercator.x), (mercator));
+
   emo = {};
   auto const & dataSource = m_featuresFetcher.GetDataSource();
   MwmSet::MwmId const mwmId =

@@ -101,9 +101,9 @@
   }
 }
 
-+ (MWMAlert *)incorrectFeaturePositionAlert
++ (MWMAlert *)incorrectFeaturePositionAlertWithOkBlock:(MWMVoidBlock)okBlock
 {
-  return [MWMDefaultAlert incorrectFeaturePositionAlert];
+  return [MWMDefaultAlert incorrectFeaturePositionAlertWithOkBlock:okBlock];
 }
 
 + (MWMAlert *)notEnoughSpaceAlert

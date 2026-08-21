@@ -79,9 +79,9 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert noWiFiAlertWithOkBlock:okBlock andCancelBlock:cancelBlock]];
 }
 
-- (void)presentIncorrectFeauturePositionAlert
+- (void)presentIncorrectFeaturePositionAlertWithOkBlock:(nullable MWMVoidBlock)okBlock
 {
-  [self displayAlert:[MWMAlert incorrectFeaturePositionAlert]];
+  [self displayAlert:[MWMAlert incorrectFeaturePositionAlertWithOkBlock:okBlock]];
 }
 
 - (void)presentNotEnoughSpaceAlert
