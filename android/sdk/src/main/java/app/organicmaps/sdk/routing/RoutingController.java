@@ -44,6 +44,7 @@ public class RoutingController
     default void onPlanningStarted() {}
     default void onAddedStop() {}
     default void onRemovedStop() {}
+    default void onStopPointLimitReached() {}
     default void onPoiPickCompleted() {}
     default void onResetToPlanningState() {}
     default void onBuiltRoute() {}
@@ -384,6 +385,16 @@ public class RoutingController
 
   public void addStop(@NonNull MapObject mapObject)
   {
+    // The core drops the point without a word once the route is full, and this is the single funnel for
+    // every caller that adds a stop. Not isStopPointAllowed(): that one is also false while the routing
+    // session is merely inactive, e.g. after a failed build, where adding a stop must still go through.
+    if (Framework.nativeIsRoutePointsLimitReached())
+    {
+      if (mContainer != null)
+        mContainer.onStopPointLimitReached();
+      return;
+    }
+
     addRoutePoint(RouteMarkType.Intermediate, mapObject);
     build();
     if (mContainer != null)
@@ -638,6 +649,14 @@ public class RoutingController
   public boolean isWaitingPoiPick()
   {
     return mWaitingPoiPickType != null;
+  }
+
+  public boolean hasMyPositionRoutePoint()
+  {
+    for (RouteMarkData point : Framework.nativeGetRoutePoints())
+      if (point.mIsMyPosition)
+        return true;
+    return false;
   }
 
   public BuildState getBuildState()

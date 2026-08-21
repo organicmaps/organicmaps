@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
   xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   style="@style/MwmWidget.Floating"
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
@@ -27,6 +28,20 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content" />
     </LinearLayout>
+    <TextView
+      android:id="@+id/your_location"
+      style="@style/MwmWidget.TextView.Search.PickerAction"
+      android:text="@string/p2p_your_location"
+      android:visibility="gone"
+      app:drawableStartCompat="@drawable/ic_search_my_position"
+      tools:visibility="visible" />
+    <TextView
+      android:id="@+id/choose_on_map"
+      style="@style/MwmWidget.TextView.Search.PickerAction"
+      android:text="@string/choose_on_map"
+      android:visibility="gone"
+      app:drawableStartCompat="@drawable/ic_address"
+      tools:visibility="visible" />
     <!-- Tabs -->
     <LinearLayout
       android:id="@+id/tab_frame"
