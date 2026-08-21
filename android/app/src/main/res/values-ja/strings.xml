@@ -894,4 +894,6 @@
     <string name="choose_point_on_map_hint">地図を移動・拡大縮小して、十字を配置してください</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">停止して保存</string>
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">ルートを逆にする</string>
 </resources>

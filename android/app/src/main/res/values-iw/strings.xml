@@ -889,4 +889,6 @@
     <string name="choose_point_on_map_hint">הזז את המפה ושנה את רמת הזום כדי למקם את הצלב</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">הפסק ושמור</string>
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">הפוך את המסלול</string>
 </resources>
