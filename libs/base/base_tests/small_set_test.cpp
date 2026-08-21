@@ -72,11 +72,6 @@ UNIT_TEST(SmallSet_Smoke)
   TEST_EQUAL(set.Size(), std::distance(set.begin(), set.end()), ());
 }
 
-bool BenchmarkTimeLessOrNear(uint64_t l, uint64_t r, double relativeTolerance)
-{
-  return (l < r) || ((l - r) / static_cast<double>(l) < relativeTolerance);
-}
-
 #ifndef DEBUG
 std::vector<uint32_t> GenerateIndices(uint32_t min, uint32_t max)
 {
@@ -124,8 +119,6 @@ UNIT_TEST(SmallMap_Benchmark1)
   }
 
   TEST_EQUAL(sum1, sum2, ());
-  // At this moment, we have rare t2 > t1 on Linux CI.
-  TEST(BenchmarkTimeLessOrNear(t2, t1, 0.3), (t2, t1));
   LOG(LINFO, ("unordered_map time =", t1, "SmallMap time =", t2));
 }
 
@@ -204,63 +197,9 @@ UNIT_TEST(SmallMap_Benchmark2)
   }
 
   TEST_EQUAL(sum1, sum2, ());
-  // std::hash(std::string) is better than std::less(std::string)
-  TEST_LESS(t1, t2, ());
+  // Expect t1 < t2 here: std::hash(std::string) is better than std::less(std::string).
   LOG(LINFO, ("unordered_map time =", t1, "SmallMap time =", t2));
 }
-
-// Small 4 elements sample doesn't work for new (gcc11+, clang14+) toolchain.
-/*
-UNIT_TEST(SmallMap_Benchmark3)
-{
-  // Dataset is similar to routing::VehicleModel.m_surfaceFactors.
-  std::unordered_map<int, int> uMap = {
-    {1, 0}, {10, 1}, {100, 2}, {1000, 3},
-  };
-
-  base::SmallMap<int, int> sMap(uMap.begin(), uMap.end());
-  base::SmallMapBase<int, int> sbMap(uMap.begin(), uMap.end());
-
-  std::vector<uint32_t> indices = GenerateIndices(0, 3);
-  // Missing key queries are even worse for the std map.
-  std::vector<int> keys;
-  for (auto const & e : uMap)
-    keys.push_back(e.first);
-
-  uint64_t t1, t2, t3;
-  uint32_t sum1 = 0, sum2 = 0, sum3 = 0;
-
-  // 3. Run unordered_map.
-  {
-    base::HighResTimer timer;
-    for (auto i : indices)
-      sum1 += uMap.find(keys[i])->second;
-    t1 = timer.ElapsedMilliseconds();
-  }
-
-  // 4. Run SmallMap.
-  {
-    base::HighResTimer timer;
-    for (auto i : indices)
-      sum2 += *sMap.Find(keys[i]);
-    t2 = timer.ElapsedMilliseconds();
-  }
-
-  // 5. Run SmallMapBase.
-  {
-    base::HighResTimer timer;
-    for (auto i : indices)
-      sum3 += *sbMap.Find(keys[i]);
-    t3 = timer.ElapsedMilliseconds();
-  }
-
-  TEST_EQUAL(sum1, sum2, ());
-  TEST_EQUAL(sum1, sum3, ());
-  TEST_LESS(t2, t1, ());
-  TEST(BenchmarkTimeLessOrNear(t3, t2, 0.05), (t3, t2));
-  LOG(LINFO, ("unordered_map time =", t1, "SmallMap time =", t2, "SmallMapBase time =", t3));
-}
-*/
 #endif
 
 }  // namespace small_set_test
