@@ -6,6 +6,7 @@
 
 #include <iomanip>
 #include <sstream>
+#include <string_view>
 
 namespace
 {
@@ -109,15 +110,17 @@ std::string UrlEncodeString(std::string const & s)
 
 namespace ge0
 {
-std::string GenerateShortShowMapUrl(double lat, double lon, double zoom, std::string const & name)
+namespace
 {
-  size_t constexpr schemaLength = 5;  // strlen("om://")
-  std::string urlSample = "om://ZCoordba64";
+std::string GenerateShowMapUrl(std::string_view prefix, double lat, double lon, double zoom, std::string const & name)
+{
+  std::string urlSample{prefix};
+  urlSample += "ZCoordba64";
 
   int const zoomI = (zoom <= 4 ? 0 : (zoom >= 19.75 ? 63 : static_cast<int>((zoom - 4) * 4)));
-  urlSample[schemaLength] = Base64Char(zoomI);
+  urlSample[prefix.size()] = Base64Char(zoomI);
 
-  LatLonToString(lat, lon, urlSample.data() + schemaLength + 1, 9);
+  LatLonToString(lat, lon, urlSample.data() + prefix.size() + 1, 9);
 
   if (!name.empty())
   {
@@ -126,6 +129,33 @@ std::string GenerateShortShowMapUrl(double lat, double lon, double zoom, std::st
   }
 
   return urlSample;
+}
+}  // namespace
+
+std::string GenerateShortShowMapUrl(double lat, double lon, double zoom, std::string const & name)
+{
+  return GenerateShowMapUrl("om://", lat, lon, zoom, name);
+}
+
+std::string GenerateHttpShowMapUrl(double lat, double lon, double zoom, std::string const & name)
+{
+  return GenerateShowMapUrl("https://omaps.app/", lat, lon, zoom, name);
+}
+
+std::string GenerateClearShowMapUrl(double lat, double lon, int zoom, std::string const & name)
+{
+  std::ostringstream oss;
+  // 6 decimals ~ 0.1 m, matches CoordinatesFormat::LatLonDecimal. Comma-joined, no space, so the
+  // "lat,lon" path segment is a single copy/paste-able coordinate token.
+  oss << "https://omaps.app/" << std::fixed << std::setprecision(6) << lat << ',' << lon;
+
+  if (!name.empty())
+    oss << '/' << UrlEncodeString(TransformName(name));
+
+  if (zoom > 0)
+    oss << "?z=" << zoom;
+
+  return oss.str();
 }
 
 std::string GenerateGeoUri(double lat, double lon, double zoom, std::string const & name)
