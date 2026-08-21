@@ -490,7 +490,7 @@
 
 /* Text for allday switch. */
 "editor_time_allday" = "Todo el día (24 horas)";
-"editor_time_open" = "Abrir";
+"editor_time_open" = "Abierto";
 "editor_time_close" = "Cerrado";
 "editor_time_add_closed" = "Añadir horario no comercial";
 "editor_time_title" = "Horario comercial";
@@ -783,7 +783,7 @@
 "share_with_friends" = "Comparte con tus amigos";
 
 /* Place Page opening hours text */
-"closed_now" = "Cerrado";
+"closed_now" = "Cerrado ahora";
 "opens_tomorrow_at" = "Abre mañana en %@";
 "opens_dayoftheweek_at" = "Abre %1$@ en %2$@";
 "opens_at" = "Abre en %@";
