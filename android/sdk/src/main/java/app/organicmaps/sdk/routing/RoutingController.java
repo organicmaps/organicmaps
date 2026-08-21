@@ -1112,6 +1112,14 @@ public class RoutingController
       mContainer.updateMenu();
   }
 
+  public void reverseRoute()
+  {
+    Logger.d(TAG, "reverseRoute");
+
+    if (Framework.nativeReverseRoutePoints())
+      build();
+  }
+
   public void setRouterType(Router router)
   {
     Logger.d(TAG, "setRouterType: " + mLastRouterType + " -> " + router);
