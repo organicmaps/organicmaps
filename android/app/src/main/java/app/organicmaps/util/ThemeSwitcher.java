@@ -72,7 +72,7 @@ public enum ThemeSwitcher
    * <ul>
    *   <li>Application theme (light/dark mode)</li>
    *   <li>Navigation mode</li>
-   *   <li>Outdoor map layer availability</li>
+   *   <li>Map style mode</li>
    * </ul>
    *
    * <p><b>Important:</b> This method must be called on the UI thread and only
@@ -132,10 +132,7 @@ public enum ThemeSwitcher
   {
     if (RoutingController.get().isVehicleNavigation())
       return dark ? MapStyle.VehicleDark : MapStyle.VehicleClear;
-    else if (Framework.nativeIsOutdoorsLayerEnabled())
-      return dark ? MapStyle.OutdoorsDark : MapStyle.OutdoorsClear;
-    else
-      return dark ? MapStyle.Dark : MapStyle.Clear;
+    return MapStyle.valueOf(Framework.nativeGetMapStyleForCurrentMode(dark));
   }
 
   private void setMapStyle(MapStyle style, boolean isRendererActive)

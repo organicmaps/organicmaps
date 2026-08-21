@@ -1,0 +1,9 @@
+/* Keep here changes of the base map style file only. */
+@import("../../outdoors/include/Basemap_label.mapcss");
+
+/* Suppress addr:housenumber labels. They add dense noise at the same zooms
+   where cycling infrastructure appears, and a cyclist navigates by route
+   rather than by street address.
+   ::* also seeds any caption layers introduced by later imports. */
+node|z16-[addr:housenumber][addr:street]::*,
+{text: none;}

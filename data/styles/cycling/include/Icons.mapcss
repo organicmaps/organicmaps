@@ -1,0 +1,54 @@
+/* Keep here changes of the base map style file only. */
+@import("../../outdoors/include/Icons.mapcss");
+
+/* Outdoors already promotes drinking-water sources and toilets. Give the
+   remaining bicycle services an icon and optional caption at useful zooms.
+   Their lower zoom ranges become available after the next map generation. */
+node|z14-[shop=bicycle],
+area|z14-[shop=bicycle],
+{icon-image: shop-bicycle-m.svg; icon-min-distance: 10; text: name; text-color: @poi_label; text-offset: 1; font-size: 10;}
+
+node|z14-[amenity=bicycle_rental][bicycle_rental=shop],
+area|z14-[amenity=bicycle_rental][bicycle_rental=shop],
+{icon-image: shop-rental-bicycle-m.svg; icon-min-distance: 10; text: name; text-color: @poi_label; text-offset: 1; font-size: 10;}
+node|z14-[amenity=bicycle_rental][bicycle_rental!=shop],
+area|z14-[amenity=bicycle_rental][bicycle_rental!=shop],
+{icon-image: bicycle-rental-m.svg; icon-min-distance: 10; text: name; text-color: @poi_label; text-offset: 1; font-size: 10;}
+
+node|z14-[amenity=bicycle_repair_station],
+area|z14-[amenity=bicycle_repair_station],
+{icon-image: bicycle-repair-station-m.svg; icon-min-distance: 10; text: name; text-color: @poi_label; text-offset: 1; font-size: 10;}
+
+node|z15-[amenity=bicycle_parking],
+area|z15-[amenity=bicycle_parking],
+{icon-image: bicycle-parking-m.svg; icon-min-distance: 10; text: name; text-color: @poi_label; text-offset: 1; font-size: 10;}
+node|z15-[amenity=bicycle_parking][covered=yes],
+area|z15-[amenity=bicycle_parking][covered=yes],
+{icon-image: bicycle-parking-covered-m.svg;}
+
+node|z15-[amenity=compressed_air],
+area|z15-[amenity=compressed_air],
+{icon-image: compressed_air-m.svg; icon-min-distance: 10; text: name; text-color: @poi_label; text-offset: 1; font-size: 10;}
+
+/* Push motorist-only services back while retaining them at close zooms. */
+node|z14-16[amenity=fuel],
+area|z14-16[amenity=fuel],
+{icon-image: none; text: none;}
+
+node|z14-15[amenity=charging_station][motorcar?],
+area|z14-15[amenity=charging_station][motorcar?],
+{icon-image: none; text: none;}
+
+node|z16-17[amenity=parking],
+area|z16-17[amenity=parking],
+{icon-image: none; text: none;}
+
+node|z16-17[shop=car],
+area|z16-17[shop=car],
+node|z16-17[shop=car_parts],
+area|z16-17[shop=car_parts],
+node|z15-17[shop=car_repair],
+area|z15-17[shop=car_repair],
+node|z15-17[shop=tyres],
+area|z15-17[shop=tyres],
+{icon-image: none; text: none;}
