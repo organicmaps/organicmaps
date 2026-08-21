@@ -96,7 +96,7 @@ public class SearchToolbarController extends ToolbarController
     {
       mQueryLayout.setEndIconDrawable(R.drawable.ic_close_rounded);
       mQueryLayout.setEndIconContentDescription(R.string.clear_the_search);
-      mQueryLayout.setEndIconOnClickListener(v -> clear());
+      mQueryLayout.setEndIconOnClickListener(v -> onClearClick());
       mQueryLayout.setEndIconVisible(true);
     }
     else if (supportsVoiceSearch() && mVoiceInputSupported)
@@ -193,6 +193,13 @@ public class SearchToolbarController extends ToolbarController
   public void clear()
   {
     setQuery("");
+  }
+
+  // X button only: programmatic clear() (search close, back press) must not restore focus.
+  private void onClearClick()
+  {
+    clear();
+    activate();
   }
 
   public boolean hasQuery()
