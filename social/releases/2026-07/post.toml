@@ -1,0 +1,70 @@
+release = "2026-07"
+lang = "en"
+formats = ["4x5", "1x1", "9x16"]
+
+[[slides]]
+type = "cover"
+kicker = "Organic Maps"
+title = "July Update"
+subtitle = "This month we went hunting for bugs. Public transport, routing, search and bookmarks all got sharper."
+
+[[slides]]
+type = "feature"
+eyebrow = "Routing"
+title = "Warnings on every route"
+body = "Tolls, ferries, unpaved roads and steps are now flagged on alternate routes too — not just the first one."
+media = "raw/routes-desktop.jpg"
+device = "desktop"
+theme = "green"
+
+[[slides]]
+type = "feature"
+eyebrow = "iOS · Bookmarks"
+title = "Pick any color"
+body = "The palette now offers a set of predefined colors and lets you dial in a fully custom one."
+media = "raw/color-palette-ios.jpg"
+device = "phone"
+theme = "blue"
+bleed = 120  # the palette sits low in the shot, so keep most of the phone visible
+
+[[slides]]
+type = "feature"
+eyebrow = "iOS · Bookmarks"
+title = "Tidy up your lists"
+body = "A new Edit button makes removing bookmarks quick, and your changes now save automatically when you leave the screen."
+media = "raw/edit-list-ios.jpg"
+device = "phone"
+theme = "green"
+
+[[slides]]
+type = "list"
+eyebrow = "Android"
+title = "Smoother day to day"
+theme = "light"
+items = [
+    "Opening hours show split shifts, start from today and fit the whole week on screen",
+    "Cleaner search bar with a combined clear and voice button",
+    "Reworked bookmark and track editor",
+    "Route planning fixes, and the color picker now closes on its own",
+]
+
+[[slides]]
+type = "list"
+eyebrow = "Also in July"
+title = "Small things that add up"
+theme = "light"
+items = [
+    "OpenStreetMap data updated as of July 14",
+    "Notes you report land on the exact spot you picked",
+    "Stop and station names get a white outline, readable in both themes",
+    "The subway layer returns after closing a transit preview",
+    "Fixed a rare freeze while building a route",
+]
+
+[[slides]]
+type = "cta"
+title = "Get the July update"
+body = "Free, offline, ad-free and open source."
+url = "get.omaps.org"
+badges = ["apple-appstore", "google-play", "fdroid"]
+theme = "green"
