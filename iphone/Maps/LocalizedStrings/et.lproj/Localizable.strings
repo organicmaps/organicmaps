@@ -654,6 +654,8 @@
 "planning_route_manage_route" = "Halda teekonda";
 "button_plan" = "Kavanda";
 "placepage_remove_stop" = "Eemalda peatus";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Lisa peatus";
 "saved" = "Salvestatud";
 "error_enter_correct_name" = "Palun sisesta korrektne nimi";

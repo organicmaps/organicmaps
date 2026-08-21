@@ -654,6 +654,8 @@
 "planning_route_manage_route" = "Gestionare traseu";
 "button_plan" = "Planifică";
 "placepage_remove_stop" = "Scoateți opritorul";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Adaugă oprire";
 "saved" = "Salvat";
 "error_enter_correct_name" = "Introdu un nume corect";

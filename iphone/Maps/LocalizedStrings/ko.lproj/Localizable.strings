@@ -654,7 +654,9 @@
 "planning_route_manage_route" = "경로 관리";
 "button_plan" = "계획";
 "placepage_remove_stop" = "정류장 제거";
-"placepage_add_stop" = "스톱 추가";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "경유지 추가";
 "saved" = "저장됨";
 "error_enter_correct_name" = "올바른 이름을 입력하세요.";
 "bookmark_lists" = "목록";

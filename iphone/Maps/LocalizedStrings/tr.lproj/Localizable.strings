@@ -654,6 +654,8 @@
 "planning_route_manage_route" = "Rotayı yönet";
 "button_plan" = "Plan";
 "placepage_remove_stop" = "Durağı Kaldır";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Ara nokta ekle";
 "saved" = "Kaydedildi";
 "error_enter_correct_name" = "Lütfen doğru ad girin";

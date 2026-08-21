@@ -654,7 +654,9 @@
 "planning_route_manage_route" = "Marşrutu idarə et";
 "button_plan" = "Plan";
 "placepage_remove_stop" = "Kəsmə nöqtəsini silin";
-"placepage_add_stop" = "Dayanacaq nöqtəsini əlavə edin";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "Dayanacaq əlavə et";
 "saved" = "Yadda saxlanıldı";
 "error_enter_correct_name" = "Düzgün ad daxil edin";
 "bookmark_lists" = "Siyahılar";

@@ -654,7 +654,9 @@
 "planning_route_manage_route" = "Administrere rute";
 "button_plan" = "Planlegge";
 "placepage_remove_stop" = "Fjern stopp";
-"placepage_add_stop" = "Angi stopp";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "Legg til stopp";
 "saved" = "Reddet";
 "error_enter_correct_name" = "Skriv inn korrekt navn";
 "bookmark_lists" = "Lister";

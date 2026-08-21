@@ -654,6 +654,8 @@
 "planning_route_manage_route" = "Hantera rutt";
 "button_plan" = "Planera";
 "placepage_remove_stop" = "Ta bort stoppet";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Lägg till stopp";
 "saved" = "Sparade";
 "error_enter_correct_name" = "Ange ett korrekt namn";

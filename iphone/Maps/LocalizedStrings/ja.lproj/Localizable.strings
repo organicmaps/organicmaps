@@ -654,7 +654,9 @@
 "planning_route_manage_route" = "ルートを編集";
 "button_plan" = "プラン";
 "placepage_remove_stop" = "停留所を削除";
-"placepage_add_stop" = "中間地点を追加";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "経由地を追加";
 "saved" = "保存";
 "error_enter_correct_name" = "正しい名前を入力してください";
 "bookmark_lists" = "リスト";
