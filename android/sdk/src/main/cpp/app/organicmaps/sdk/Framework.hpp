@@ -129,8 +129,6 @@ public:
   void RemoveLocalMaps();
   void ReloadWorldMaps();
 
-  m2::PointD GetViewportCenter() const;
-
   void AddString(std::string const & name, std::string const & value);
 
   void Scale(::Framework::EScaleMode mode);
