@@ -41,6 +41,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private View mTransitStepsView;
   private ChartHeaderAdapter mChartHeaderAdapter;
   private View mDrivingOptionsBtn;
+  private View mReverseRouteBtn;
   private View mFrame;
   private View mRoutingRoot;
   private View mRoutingBottomContainer;
@@ -117,6 +118,8 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mDrivingOptionsBadge = mChartPanel.findViewById(R.id.driving_options_badge);
     mDrivingOptionsBtn = mChartPanel.findViewById(R.id.driving_options_btn_img);
     mDrivingOptionsBtn.setOnClickListener(v -> DrivingOptionsActivity.start(requireActivity()));
+    mReverseRouteBtn = mChartPanel.findViewById(R.id.reverse_route_btn);
+    mReverseRouteBtn.setOnClickListener(v -> RoutingController.get().reverseRoute());
 
     mSearchBtn = mRoutingRoot.findViewById(R.id.routing_btn_search);
     mBookmarkBtn = mButtonsLayout.findViewById(R.id.routing_btn_bookmarks);
@@ -260,16 +263,9 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
 
   private void setRoutingContentActive(boolean active)
   {
-    if (active)
-    {
-      mDrivingOptionsBtn.setEnabled(true);
-      mChartPanel.setAlpha(1.0f);
-    }
-    else
-    {
-      mDrivingOptionsBtn.setEnabled(false);
-      mChartPanel.setAlpha(0.2f);
-    }
+    mDrivingOptionsBtn.setEnabled(active);
+    mReverseRouteBtn.setEnabled(active);
+    mChartPanel.setAlpha(active ? 1.0f : 0.2f);
   }
 
   public void updateSheetLayout()
