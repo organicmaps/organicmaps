@@ -31,13 +31,12 @@ public final class RoutingHelpers
   @NonNull
   public static LaneDirection createLaneDirection(@NonNull LaneWay laneWay, boolean isRecommended)
   {
-    return createLaneDirection(laneWay, isRecommended, false);
-  }
+    // TODO: Android Automotive does not support U-turns.
+    //       Use closest shapes - SHARP_LEFT and SHARP_RIGHT instead of U-turns.
+    //       Remove this fallback when Android Automotive supports U-turns.
+    //       Bug: https://issuetracker.google.com/issues/549899072
+    final boolean useUTurnLaneShapeFallback = CarTypeHelper.getCarType() == CarType.Automotive;
 
-  @NonNull
-  static LaneDirection createLaneDirection(@NonNull LaneWay laneWay, boolean isRecommended,
-                                           boolean useUTurnLaneShapeFallback)
-  {
     @LaneDirection.Shape
     final int shape = switch (laneWay)
     {

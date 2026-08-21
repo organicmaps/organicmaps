@@ -18,6 +18,8 @@ import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.api.Const;
 import app.organicmaps.sdk.OrganicMaps;
+import app.organicmaps.sdk.car.CarType;
+import app.organicmaps.sdk.car.CarTypeHelper;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.log.Logger;
 import java.io.IOException;
@@ -52,6 +54,7 @@ public final class AndroidAutoService extends CarAppServiceBase
   {
     super.onCreate();
     createNotificationChannel();
+    CarTypeHelper.setCarType(CarType.AndroidAuto);
 
     final MwmApplication app = MwmApplication.from(getApplicationContext());
     mOrganicMapsContext = app.getOrganicMaps();

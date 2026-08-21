@@ -1,6 +1,5 @@
 package app.organicmaps.sdk.car;
 
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.text.style.CharacterStyle;
@@ -77,16 +76,12 @@ public final class RoutingUtils
     builder.setManeuver(RoutingHelpers.createManeuver(context, info.carDirection, info.exitNum));
     if (info.lanes != null)
     {
-      // Some AAOS template hosts crash on structured U-turn lane shapes. The separate lanes image
-      // retains the exact U-turn shape in the navigation template.
-      final boolean useUTurnLaneShapeFallback =
-          context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE);
       for (final LaneInfo laneInfo : info.lanes)
       {
         final Lane.Builder laneBuilder = new Lane.Builder();
         for (final LaneWay laneWay : laneInfo.mLaneWays)
-          laneBuilder.addDirection(RoutingHelpers.createLaneDirection(
-              laneWay, /* isRecommended */ laneWay == laneInfo.mActiveLaneWay, useUTurnLaneShapeFallback));
+          laneBuilder.addDirection(
+              RoutingHelpers.createLaneDirection(laneWay, /* isRecommended */ laneWay == laneInfo.mActiveLaneWay));
         builder.addLane(laneBuilder.build());
       }
       final LanesDrawable lanesDrawable = new LanesDrawable(context, info.lanes);
