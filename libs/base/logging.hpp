@@ -2,12 +2,9 @@
 
 #include "base/internal/message.hpp"
 #include "base/src_point.hpp"
-#include "base/thread.hpp"
-#include "base/timer.hpp"
 
 #include <array>
 #include <atomic>
-#include <map>
 #include <optional>
 #include <string>
 
@@ -24,20 +21,14 @@ enum LogLevel
   NUM_LOG_LEVELS
 };
 
+/// Formats log records. All functions are thread-safe.
 class LogHelper
 {
 public:
-  static LogHelper & Instance();
-
-  int GetThreadID();
-  void WriteProlog(std::ostream & s, LogLevel level);
+  /// @return Small sequential id of the calling thread, assigned on its first call.
+  static int GetThreadID();
+  static void WriteProlog(std::ostream & s, LogLevel level);
   static void WriteLog(std::ostream & s, SrcPoint const & srcPoint, std::string const & msg);
-
-private:
-  int m_threadsCount{0};
-  std::map<threads::ThreadID, int> m_threadID;
-
-  Timer m_timer;
 };
 
 std::string ToString(LogLevel level);

@@ -3,10 +3,14 @@ final class RootSettingsInteractor {
 
   private let settings: Settings.Type
   private var iCloudSynchronizationState: SynchronizationManagerState?
+  private var fileLoggingStateObserver: NSObjectProtocol?
   private var isObserving = false
 
   deinit {
     iCloudSynchronizaionManager.shared.removeObserver(self)
+    if let fileLoggingStateObserver {
+      NotificationCenter.default.removeObserver(fileLoggingStateObserver)
+    }
   }
 
   init(settings: Settings.Type = Settings.self) {
@@ -103,6 +107,13 @@ final class RootSettingsInteractor {
     iCloudSynchronizaionManager.shared.addObserver(self) { [weak self] state in
       self?.iCloudSynchronizationState = state
       self?.updateSettings()
+    }
+    fileLoggingStateObserver = NotificationCenter.default.addObserver(
+      forName: Logger.fileLoggingStateDidChangeNotification,
+      object: nil,
+      queue: .main
+    ) { [weak self] _ in
+      self?.updateSettings(reconfiguredItems: [.logging])
     }
   }
 

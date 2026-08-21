@@ -308,18 +308,30 @@ NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidShowIClo
 + (void)initializeLogging
 {
   static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{ [self setFileLoggingEnabled:[self isFileLoggingEnabled]]; });
+  dispatch_once(&onceToken, ^{
+    NSUserDefaults * defaults = NSUserDefaults.standardUserDefaults;
+    [NSNotificationCenter.defaultCenter addObserverForName:Logger.fileLoggingStateDidChangeNotification
+                                                    object:nil
+                                                     queue:NSOperationQueue.mainQueue
+                                                usingBlock:^(NSNotification *) {
+                                                  [defaults setBool:Logger.fileLoggingEnabled
+                                                             forKey:kUDFileLoggingEnabledKey];
+                                                }];
+    Logger.fileLoggingEnabled = [defaults boolForKey:kUDFileLoggingEnabledKey];
+    [defaults setBool:Logger.fileLoggingEnabled forKey:kUDFileLoggingEnabledKey];
+  });
 }
 
 + (BOOL)isFileLoggingEnabled
 {
-  return [NSUserDefaults.standardUserDefaults boolForKey:kUDFileLoggingEnabledKey];
+  return Logger.fileLoggingEnabled;
 }
 
 + (void)setFileLoggingEnabled:(BOOL)fileLoggingEnabled
 {
-  [NSUserDefaults.standardUserDefaults setBool:fileLoggingEnabled forKey:kUDFileLoggingEnabledKey];
-  [Logger setFileLoggingEnabled:fileLoggingEnabled];
+  Logger.fileLoggingEnabled = fileLoggingEnabled;
+  // Enabling can fail if the log file cannot be opened, so persist the resulting operational state.
+  [NSUserDefaults.standardUserDefaults setBool:Logger.fileLoggingEnabled forKey:kUDFileLoggingEnabledKey];
 }
 
 + (uint64_t)logFileSize

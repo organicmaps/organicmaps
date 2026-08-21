@@ -19,6 +19,7 @@
 #import <UserNotifications/UserNotifications.h>
 
 #import <CoreApi/Framework.h>
+#import <CoreApi/Logger.h>
 #import <CoreApi/MWMFrameworkHelper.h>
 
 #include "map/gps_tracker.hpp"
@@ -185,10 +186,22 @@ using namespace osm_auth_ios;
   [self.mapViewController onTerminate];
   // Global cleanup
   DeleteFramework();
+  [Logger flushSynchronously];
 }
 
 - (void)handleApplicationDidEnterBackground:(NSNotification *)notification
 {
+  __block UIBackgroundTaskIdentifier taskId = UIBackgroundTaskInvalid;
+  void (^endBackgroundTask)(void) = ^{
+    if (taskId == UIBackgroundTaskInvalid)
+      return;
+    UIBackgroundTaskIdentifier const taskToEnd = taskId;
+    taskId = UIBackgroundTaskInvalid;
+    [application endBackgroundTask:taskToEnd];
+  };
+  if (Logger.fileLoggingEnabled)
+    taskId = [application beginBackgroundTaskWithName:@"Drain diagnostic log" expirationHandler:endBackgroundTask];
+
   LOG(LINFO, ("applicationDidEnterBackground - begin"));
   [DeepLinkHandler.shared reset];
 
@@ -197,6 +210,8 @@ using namespace osm_auth_ios;
 
   [MWMRouter saveRouteIfNeeded];
   LOG(LINFO, ("applicationDidEnterBackground - end"));
+
+  [Logger flushWithCompletion:^{ dispatch_async(dispatch_get_main_queue(), endBackgroundTask); }];
 }
 
 - (void)handleApplicationWillResignActive:(NSNotification *)notification

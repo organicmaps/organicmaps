@@ -5,12 +5,9 @@ final class MailComposer: NSObject {
 
   override private init() {}
 
-  /// Composes an email with the provided subject, body and attachment file for the given recipients.
-  static func sendEmail(subject: String? = nil, body: String? = nil, toRecipients recipients: [String], attachmentFileURL: URL? = nil) {
-    sendEmailWith(subject: subject ?? "",
-                  body: body ?? "",
-                  toRecipients: recipients,
-                  attachmentFileURL: attachmentFileURL)
+  /// Composes an email with the provided subject and body for the given recipients.
+  static func sendEmail(subject: String? = nil, body: String? = nil, toRecipients recipients: [String]) {
+    sendEmailWith(subject: subject ?? "", body: body ?? "", toRecipients: recipients)
   }
 
   /// Composes an email with the additional app information and the log file attachment for the developers.
@@ -30,26 +27,37 @@ final class MailComposer: NSObject {
                     Locale.preferredLanguages.joined(separator: ", "))
     }
     UIApplication.shared.showLoadingOverlay {
-      let logFileURL = Logger.getLogFileURL()
-      UIApplication.shared.hideLoadingOverlay {
-        sendEmailWith(subject: subject(),
-                      body: body(),
-                      toRecipients: [SocialMedia.organicMapsEmail.link],
-                      attachmentFileURL: logFileURL)
+      // Archive creation and temporary-file cleanup finish on a background queue.
+      Logger.getLogArchive { archiveData in
+        let attachment = archiveData.map { Attachment(data: $0, fileName: "log.zip") }
+        DispatchQueue.main.async {
+          UIApplication.shared.hideLoadingOverlay {
+            sendEmailWith(subject: subject(),
+                          body: body(),
+                          toRecipients: [SocialMedia.organicMapsEmail.link],
+                          attachment: attachment)
+          }
+        }
       }
     }
   }
 
-  private static func sendEmailWith(subject: String, body: String, toRecipients recipients: [String], attachmentFileURL: URL? = nil) {
-    // If the attachment file path is provided, the default mail composer should be used.
-    if let attachmentFileURL {
-      if MWMMailViewController.canSendMail(), let attachmentData = try? Data(contentsOf: attachmentFileURL) {
+  private struct Attachment {
+    let data: Data
+    let fileName: String
+    let mimeType = "application/zip"
+  }
+
+  private static func sendEmailWith(subject: String, body: String, toRecipients recipients: [String], attachment: Attachment? = nil) {
+    // If the attachment is provided, the default mail composer should be used.
+    if let attachment {
+      if MWMMailViewController.canSendMail() {
         let mailViewController = MWMMailViewController()
         mailViewController.mailComposeDelegate = mailComposer
         mailViewController.setSubject(subject)
         mailViewController.setMessageBody(body, isHTML: false)
         mailViewController.setToRecipients(recipients)
-        mailViewController.addAttachmentData(attachmentData, mimeType: "application/zip", fileName: attachmentFileURL.lastPathComponent)
+        mailViewController.addAttachmentData(attachment.data, mimeType: attachment.mimeType, fileName: attachment.fileName)
         topViewController.present(mailViewController, animated: true, completion: nil)
       } else {
         showMailComposingAlert(recipients: recipients)
