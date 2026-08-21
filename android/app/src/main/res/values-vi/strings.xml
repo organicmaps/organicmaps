@@ -938,4 +938,6 @@
     <string name="choose_point_on_map_hint">Di chuyển và thu phóng bản đồ để đặt dấu thập</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Dừng và lưu</string>
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Đảo ngược tuyến đường</string>
 </resources>
