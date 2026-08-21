@@ -45327,7 +45327,7 @@ zh-Hant = 停止並儲存
 
 [reverse_route]
 comment = Accessibility label for the button that reverses the complete planned route, including intermediate stops.
-tags = apple-maps
+tags = android-app,apple-maps
 en = Reverse route
 af = Keer roete om
 ar = عكس اتجاه المسار
