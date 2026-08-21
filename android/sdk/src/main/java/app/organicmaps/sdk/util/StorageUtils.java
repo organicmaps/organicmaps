@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.DocumentsContract;
+import android.system.OsConstants;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import app.organicmaps.sdk.util.log.Logger;
@@ -15,7 +16,10 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.RandomAccessFile;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -28,10 +32,9 @@ public class StorageUtils
     final String path = dir.getPath();
     Logger.d(TAG, "Checking for writability " + path);
 
-    // Its better to be conservative here and don't allow to use the storage
-    // if any of the system calls behave unexpectedly,
-    // still we want extra logging to facilitate debugging possible fringe cases,
-    // e.g. https://github.com/organicmaps/organicmaps/issues/2684
+    // Keep the individual checks for diagnostics, but let direct probes decide whether
+    // the operations used by map storage actually work. In particular, canRead() and
+    // canWrite() are only advisory on some document-provider and FUSE-backed volumes.
     boolean success = true;
     if (!dir.isDirectory())
     {
@@ -44,15 +47,9 @@ public class StorageUtils
       success = false;
     }
     if (!dir.canWrite())
-    {
       Logger.w(TAG, "Not writable: " + path);
-      success = false;
-    }
     if (!dir.canRead())
-    {
       Logger.w(TAG, "Not readable: " + path);
-      success = false;
-    }
     if (dir.list() == null)
     {
       Logger.w(TAG, "Not listable: " + path);
@@ -81,7 +78,103 @@ public class StorageUtils
       success = false;
     }
 
+    // Probe the operations map downloads depend on: create, write, close, and read back
+    // a file. EPERM from close() is ignored exactly as the downloader ignores it.
+    final File testFile = new File(dir, "om_test_file");
+    final String testFilePath = testFile.getPath();
+    if (testFile.delete())
+      Logger.i(TAG, "Deleted the existing test file: " + testFilePath);
+    // The timestamp makes the payload differ between runs, so that a stack silently
+    // keeping a previous probe's file instead of the new one fails the read-back.
+    final byte[] payload = (testFilePath + ' ' + System.nanoTime()).getBytes(StandardCharsets.UTF_8);
+    boolean written = false;
+    RandomAccessFile writer = null;
+    try
+    {
+      // The same open mode as the downloader uses; "rw" doesn't truncate, hence setLength().
+      writer = new RandomAccessFile(testFile, "rw");
+      writer.setLength(0);
+      writer.write(payload);
+      written = true;
+    }
+    catch (IOException e)
+    {
+      // A full volume is not an unwritable one: an SD card packed with maps works again
+      // as soon as a map is deleted, while marking it read-only takes it out of the
+      // storage picker for good.
+      if (isOutOfSpace(e))
+        Logger.w(TAG, "No space left for the test file: " + testFilePath, e);
+      else
+      {
+        Logger.w(TAG, "Failed to write the test file: " + testFilePath, e);
+        success = false;
+      }
+    }
+    finally
+    {
+      try
+      {
+        Utils.closeIgnoringEperm(writer, "the written test file " + testFilePath);
+      }
+      catch (IOException e)
+      {
+        // Deferred write errors, a full volume included, are reported by close() on FUSE
+        // and network file systems. The content can't be trusted, so skip the read-back.
+        written = false;
+        if (isOutOfSpace(e))
+          Logger.w(TAG, "No space left to close the test file: " + testFilePath, e);
+        else
+        {
+          Logger.w(TAG, "Failed to close the written test file: " + testFilePath, e);
+          success = false;
+        }
+      }
+    }
+    if (written)
+    {
+      try
+      {
+        if (!fileHasExpectedContent(testFile, payload))
+        {
+          Logger.w(TAG, "Read back different content from the test file: " + testFilePath);
+          success = false;
+        }
+      }
+      catch (IOException e)
+      {
+        Logger.w(TAG, "Failed to read the test file back: " + testFilePath, e);
+        success = false;
+      }
+    }
+    if (testFile.exists() && !testFile.delete())
+    {
+      Logger.w(TAG, "Failed to delete the test file: " + testFilePath);
+      success = false;
+    }
+
     return success;
+  }
+
+  static boolean fileHasExpectedContent(@NonNull File file, @NonNull byte[] expected) throws IOException
+  {
+    final RandomAccessFile reader = new RandomAccessFile(file, "r");
+    try
+    {
+      if (reader.length() != expected.length)
+        return false;
+      final byte[] actual = new byte[expected.length];
+      reader.readFully(actual);
+      return Arrays.equals(expected, actual);
+    }
+    finally
+    {
+      Utils.closeIgnoringEperm(reader, "the read test file " + file.getPath());
+    }
+  }
+
+  static boolean isOutOfSpace(@NonNull IOException error)
+  {
+    return Utils.isErrno(error, OsConstants.ENOSPC) || Utils.isErrno(error, OsConstants.EDQUOT);
   }
 
   @NonNull
