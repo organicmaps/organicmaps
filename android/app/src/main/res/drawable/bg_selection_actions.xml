@@ -3,5 +3,5 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:shape="rectangle">
   <solid android:color="?panel" />
-  <corners android:radius="@dimen/bookmark_selection_actions_corner_radius" />
+  <corners android:radius="@dimen/corner_radius_full" />
 </shape>

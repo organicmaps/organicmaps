@@ -106,7 +106,7 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
   public void onRoutePointClicked(int position)
   {
     ArrayList<RouteMarkData> routePoints = mManageRouteAdapter.getRoutePoints();
-    if (position < 0 || routePoints == null || position >= routePoints.size())
+    if (position < 0 || position >= routePoints.size())
     {
       return;
     }

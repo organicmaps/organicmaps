@@ -131,4 +131,6 @@
   <color name="shimmer_highlight">#44FFFFFF</color>
   <!-- Search sheet -->
   <color name="bg_search">#14000000</color>
+  <color name="bg_pill_action">#14000000</color>
+  <color name="ripple_pill_action">#1F000000</color>
 </resources>

@@ -294,6 +294,24 @@
     <item name="android:drawablePadding">@dimen/margin_base_plus</item>
   </style>
 
+  <style name="MwmWidget.SearchAction" parent="Widget.MaterialComponents.Button.TextButton">
+    <item name="android:layout_width">@dimen/search_input_height</item>
+    <item name="android:layout_height">@dimen/search_input_height</item>
+    <item name="android:minWidth">@dimen/dp_0</item>
+    <item name="android:minHeight">@dimen/dp_0</item>
+    <item name="android:insetTop">@dimen/dp_0</item>
+    <item name="android:insetBottom">@dimen/dp_0</item>
+    <item name="android:paddingStart">@dimen/dp_0</item>
+    <item name="android:paddingEnd">@dimen/dp_0</item>
+    <item name="backgroundTint">@color/bg_pill_action</item>
+    <item name="rippleColor">@color/ripple_pill_action</item>
+    <item name="iconSize">@dimen/search_action_icon_size</item>
+    <item name="iconPadding">@dimen/dp_0</item>
+    <item name="iconGravity">textStart</item>
+    <item name="iconTint">?attr/textSearchField</item>
+    <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Button.Round</item>
+  </style>
+
   <style name="MwmWidget.TextView.Direction">
     <item name="android:maxLines">3</item>
     <item name="android:textColor">@android:color/white</item>
