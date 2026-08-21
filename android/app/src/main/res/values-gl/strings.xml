@@ -932,4 +932,6 @@
     <string name="color_picker_grid">Reixa</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Busca por voz</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Inverter a ruta</string>
 </resources>

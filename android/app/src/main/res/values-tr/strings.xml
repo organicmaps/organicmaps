@@ -935,4 +935,6 @@
     <string name="color_picker_grid">Izgara</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Sesli arama</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Rotayı tersine çevir</string>
 </resources>
