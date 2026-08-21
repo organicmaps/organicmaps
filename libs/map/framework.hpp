@@ -519,8 +519,7 @@ public:
   // search result.
   void ShowSearchResult(search::Result const & res, bool animation = true);
 
-  // Moves the viewport to make the result nearest to the visible viewport's center visible,
-  // if it is not visible yet.
+  // Applies the search results viewport policy, see search::AdjustViewportToSearchResults().
   void UpdateViewport(search::Results const & results);
 
   void FillSearchResultsMarks(bool clear, search::Results const & results);

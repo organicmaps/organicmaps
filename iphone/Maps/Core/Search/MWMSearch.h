@@ -25,7 +25,7 @@ typedef NS_ENUM(NSUInteger, SearchMode) { SearchModeEverywhere, SearchModeViewpo
 + (void)searchQuery:(SearchQuery *)query;
 
 + (void)showResultAtIndex:(NSUInteger)index;
-// Moves the map viewport to make the nearest result visible.
+// Applies the search results viewport policy, see Framework::UpdateViewport().
 + (void)updateViewportWithResults;
 + (SearchMode)searchMode;
 + (void)setSearchMode:(SearchMode)mode;

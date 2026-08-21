@@ -61,6 +61,7 @@ private slots:
   void OnSearchModeChanged(int mode);
   void OnSearchPanelItemClicked(int row, int column);
   void OnSearchTextChanged(QString const & str);
+  void OnReturnPressed();
   void OnEverywhereSearchResults(uint64_t timestamp, search::Results results);
 
   void OnAnimationTimer();

@@ -218,7 +218,7 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   }
 
   /**
-   * Moves the map viewport to make the nearest of the last results visible.
+   * Applies the search results viewport policy to the last results, see Framework::UpdateViewport().
    */
   @MainThread
   public void updateViewportWithLastResults()

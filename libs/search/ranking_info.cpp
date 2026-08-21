@@ -240,7 +240,7 @@ std::string DebugPrint(StoredRankingInfo const & info)
   std::ostringstream os;
   os << "StoredRankingInfo "
      << "{ m_distanceToPivot: " << info.m_distanceToPivot << ", m_type: " << DebugPrint(info.m_type)
-     << ", m_classifType: ";
+     << ", m_errorsMade: " << DebugPrint(info.m_errorsMade) << ", m_classifType: ";
 
   if (Model::IsPoi(info.m_type))
     os << DebugPrint(info.m_classifType.poi);
@@ -261,12 +261,12 @@ std::string DebugPrint(RankingInfo const & info)
   os << ", " << DebugPrint(info.m_geoParts);
 
   os << ", m_rank: " << static_cast<int>(info.m_rank) << ", m_popularity: " << static_cast<int>(info.m_popularity)
-     << ", m_nameScore: " << DebugPrint(info.m_nameScore) << ", m_errorsMade: " << DebugPrint(info.m_errorsMade)
-     << ", m_isAltOrOldName: " << info.m_isAltOrOldName << ", m_numTokens: " << info.m_numTokens
-     << ", m_commonTokensFactor: " << info.m_commonTokensFactor << ", m_matchedFraction: " << info.m_matchedFraction
-     << ", m_pureCats: " << info.m_pureCats << ", m_falseCats: " << info.m_falseCats
-     << ", m_allTokensUsed: " << info.m_allTokensUsed << ", m_categorialRequest: " << info.m_categorialRequest
-     << ", m_hasName: " << info.m_hasName << ", m_nearbyMatch: " << info.m_nearbyMatch << " }";
+     << ", m_nameScore: " << DebugPrint(info.m_nameScore) << ", m_isAltOrOldName: " << info.m_isAltOrOldName
+     << ", m_numTokens: " << info.m_numTokens << ", m_commonTokensFactor: " << info.m_commonTokensFactor
+     << ", m_matchedFraction: " << info.m_matchedFraction << ", m_pureCats: " << info.m_pureCats
+     << ", m_falseCats: " << info.m_falseCats << ", m_allTokensUsed: " << info.m_allTokensUsed
+     << ", m_categorialRequest: " << info.m_categorialRequest << ", m_hasName: " << info.m_hasName
+     << ", m_nearbyMatch: " << info.m_nearbyMatch << " }";
 
   return os.str();
 }
