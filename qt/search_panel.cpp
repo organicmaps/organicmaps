@@ -34,6 +34,7 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
 {
   m_pEditor = new QLineEdit(this);
   connect(m_pEditor, &QLineEdit::textChanged, this, &SearchPanel::OnSearchTextChanged);
+  connect(m_pEditor, &QLineEdit::returnPressed, this, &SearchPanel::OnReturnPressed);
 
   m_pTable = new QTableWidget(0, 4 /*columns*/, this);
   m_pTable->setFocusPolicy(Qt::NoFocus);
@@ -282,6 +283,12 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
 
     GetFramework().GetSearchAPI().SearchInViewport(std::move(params));
   }
+}
+
+void SearchPanel::OnReturnPressed()
+{
+  // The same as the search button on mobile: show the nearest results on the map.
+  GetFramework().UpdateViewport(m_results);
 }
 
 void SearchPanel::OnSearchModeChanged(int mode)

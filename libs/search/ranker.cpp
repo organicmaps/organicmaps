@@ -773,6 +773,10 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress, b
   case RankerResult::Type::Postcode: res.SetType(Result::Type::Postcode); break;
   }
 
+  // Coordinates and postcodes are parsed from the query as is.
+  bool const isFeature = res.GetResultType() == Result::Type::Feature;
+  res.SetErrorsMade(isFeature ? rankerResult.GetRankingInfo().m_errorsMade : ErrorsMade(0));
+
   if (needHighlighting)
     HighlightResult(m_params.m_query.m_tokens, m_params.m_query.m_prefix, res);
 
