@@ -911,4 +911,22 @@
     <string name="color_picker_grid">Grilja</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Tfittxija bil-vuċi</string>
+    <!-- Row shown above the search tabs while choosing or replacing a route point; tapping it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Agħżel fuq il-mappa</string>
+    <!-- Title of the full-screen map point picker shown while choosing the starting point of a route with a crosshair -->
+    <string name="choose_start_location">Agħżel il-post tal-bidu</string>
+    <!-- Title of the full-screen map point picker shown while choosing the destination of a route with a crosshair -->
+    <string name="choose_destination">Agħżel id-destinazzjoni</string>
+    <!-- Title of the full-screen map point picker shown while choosing an intermediate stop of a route with a crosshair -->
+    <string name="choose_stop_along_route">Agħżel waqfa tul il-rotta</string>
+    <!-- Title shown while replacing the already set starting point of a route, either in the search panel or in the full-screen map point picker -->
+    <string name="change_start_location">Biddel il-post tal-bidu</string>
+    <!-- Title shown while replacing the already set destination of a route, either in the search panel or in the full-screen map point picker -->
+    <string name="change_destination">Biddel id-destinazzjoni</string>
+    <!-- Title shown while replacing an already added intermediate stop of a route, either in the search panel or in the full-screen map point picker -->
+    <string name="change_stop_along_route">Biddel waqfa fit-triq</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Inkiseb in-numru massimu ta\' waqfiet</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Ħaddem u zoomja l-mappa biex tpoġġi l-crosshair</string>
 </resources>
