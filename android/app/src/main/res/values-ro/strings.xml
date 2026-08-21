@@ -933,4 +933,6 @@
     <string name="color_picker_grid">Grilă</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Căutare vocală</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Inversează traseul</string>
 </resources>

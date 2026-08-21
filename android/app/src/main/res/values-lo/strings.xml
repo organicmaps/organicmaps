@@ -885,4 +885,6 @@
     <string name="color_picker_grid">ຕາຂ່າຍ</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">ຄົ້ນຫາດ້ວຍສຽງ</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">ປີ້ນເສັ້ນທາງ</string>
 </resources>

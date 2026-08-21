@@ -952,4 +952,6 @@
     <string name="color_picker_grid">Сетка</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Голосовой поиск</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Обратный маршрут</string>
 </resources>

@@ -941,4 +941,6 @@
     <string name="color_picker_grid">Sarea</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Ahots-bilaketa</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Alderantzikatu ibilbidea</string>
 </resources>

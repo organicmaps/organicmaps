@@ -961,4 +961,6 @@
     <string name="color_picker_grid">الشبكة</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">البحث الصوتي</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">عكس المسار</string>
 </resources>

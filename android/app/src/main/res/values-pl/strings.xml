@@ -951,4 +951,6 @@
     <string name="color_picker_grid">Siatka</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Wyszukiwanie głosowe</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Odwróć trasę</string>
 </resources>

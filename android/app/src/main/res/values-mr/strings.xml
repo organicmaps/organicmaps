@@ -933,4 +933,6 @@
     <string name="color_picker_grid">ग्रिड</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">व्हॉइस सर्च</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">मार्ग उलटा करा</string>
 </resources>

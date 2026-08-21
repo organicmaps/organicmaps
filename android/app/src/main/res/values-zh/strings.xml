@@ -942,4 +942,6 @@
     <string name="color_picker_grid">网格</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">语音搜索</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">反转路线</string>
 </resources>

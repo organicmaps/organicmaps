@@ -945,4 +945,6 @@
     <string name="color_picker_grid">Mreža</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Glasovno iskanje</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Obrni pot</string>
 </resources>
