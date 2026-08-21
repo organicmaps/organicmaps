@@ -347,13 +347,12 @@ JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeStartEdit(JNIEnv *, 
   CHECK(fr->GetEditableMapObject(info.GetID(), g_editableMapObject), ("Invalid feature in the place page."));
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeCreateMapObject(JNIEnv * env, jclass, jstring featureType,
-                                                                            jdouble lat, jdouble lon)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeCreateMapObject(JNIEnv * env, jclass,
+                                                                                jstring featureType, jdouble lat,
+                                                                                jdouble lon)
 {
-  ::Framework * fr = frm();
   auto const type = classif().GetTypeByReadableObjectName(jni::ToNativeString(env, featureType));
-  CHECK(fr->CreateMapObject(mercator::FromLatLon(lat, lon), type, g_editableMapObject),
-        ("Couldn't create mapobject, wrong coordinates of missing mwm"));
+  return frm()->CreateMapObject(mercator::FromLatLon(lat, lon), type, g_editableMapObject);
 }
 
 // static void nativeCreateNote(String text);

@@ -164,12 +164,14 @@ public final class Editor
    * can drift between the position check and creation.
    * {@link Framework#nativeIsDownloadedMapAtScreenCenter()} should be called before
    * to check whether new feature can be created on the map.
+   *
+   * @return false if a new feature cannot be created at the given point.
    */
-  public static void createMapObject(FeatureCategory category, double lat, double lon)
+  public static boolean createMapObject(FeatureCategory category, double lat, double lon)
   {
-    nativeCreateMapObject(category.getType(), lat, lon);
+    return nativeCreateMapObject(category.getType(), lat, lon);
   }
-  public static native void nativeCreateMapObject(@NonNull String type, double lat, double lon);
+  public static native boolean nativeCreateMapObject(@NonNull String type, double lat, double lon);
   public static native void nativeCreateNote(String text);
   public static native void nativePlaceDoesNotExist(@NonNull String comment);
   public static native void nativeRollbackMapObject();

@@ -161,7 +161,7 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
           [ownerController performSegueWithIdentifier:kMapToCategorySelectorSegue sender:sender];
         }
         else
-          [ownerController.alertController presentIncorrectFeauturePositionAlert];
+          [ownerController.alertController presentIncorrectFeaturePositionAlertWithOkBlock:nil];
 
         [self didFinishAddingPlace];
       }
