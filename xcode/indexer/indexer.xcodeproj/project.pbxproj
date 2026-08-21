@@ -168,6 +168,8 @@
 		F6DF5F311CD0FD9A00A87154 /* categories_index.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6DF5F301CD0FD9A00A87154 /* categories_index.hpp */; };
 		F6F1DABE1F13D8B4006A69B7 /* ftraits.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6F1DABD1F13D8B4006A69B7 /* ftraits.hpp */; };
 		FA67C84926BB35A400B33DCA /* bounds.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40C3C090205BF9F400CED188 /* bounds.hpp */; };
+		AB0C0A0100000000000C0003 /* osm_value_format.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AB0C0A0100000000000C0001 /* osm_value_format.hpp */; };
+		AB0C0A0100000000000C0004 /* osm_value_format.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB0C0A0100000000000C0002 /* osm_value_format.cpp */; };
 		FA7F9B84273F32680093EA08 /* validate_and_format_contacts.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FA7F9B82273F32680093EA08 /* validate_and_format_contacts.hpp */; };
 		FA7F9B85273F32680093EA08 /* validate_and_format_contacts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA7F9B83273F32680093EA08 /* validate_and_format_contacts.cpp */; };
 		FACB7C0B26B9176500810C9C /* brands_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 406970A121AEF2F10024DDB2 /* brands_tests.cpp */; };
@@ -382,6 +384,8 @@
 		F6DF5F2C1CD0FC9D00A87154 /* categories_index.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = categories_index.cpp; sourceTree = "<group>"; };
 		F6DF5F301CD0FD9A00A87154 /* categories_index.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = categories_index.hpp; sourceTree = "<group>"; };
 		F6F1DABD1F13D8B4006A69B7 /* ftraits.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ftraits.hpp; sourceTree = "<group>"; };
+		AB0C0A0100000000000C0001 /* osm_value_format.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osm_value_format.hpp; sourceTree = "<group>"; };
+		AB0C0A0100000000000C0002 /* osm_value_format.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osm_value_format.cpp; sourceTree = "<group>"; };
 		FA7F9B82273F32680093EA08 /* validate_and_format_contacts.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = validate_and_format_contacts.hpp; sourceTree = "<group>"; };
 		FA7F9B83273F32680093EA08 /* validate_and_format_contacts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = validate_and_format_contacts.cpp; sourceTree = "<group>"; };
 		FACB7C1A26B919AD00810C9C /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -632,6 +636,8 @@
 				408FE47424FEB95600F5D06D /* metadata_serdes.hpp */,
 				675340E41A3F540F00A0A8C3 /* mwm_set.cpp */,
 				675340E51A3F540F00A0A8C3 /* mwm_set.hpp */,
+				AB0C0A0100000000000C0002 /* osm_value_format.cpp */,
+				AB0C0A0100000000000C0001 /* osm_value_format.hpp */,
 				E906DE391CF44934004C4F5E /* postcodes_matcher.cpp */,
 				E906DE3A1CF44934004C4F5E /* postcodes_matcher.hpp */,
 				347F33721C454242009758CC /* rank_table.cpp */,
@@ -737,6 +743,7 @@
 				DB05F0CD1A3F540F00A0A8C3 /* drules_format.hpp in Headers */,
 				DB05F0CE1A3F540F00A0A8C3 /* drules_struct.hpp in Headers */,
 				FA7F9B84273F32680093EA08 /* validate_and_format_contacts.hpp in Headers */,
+				AB0C0A0100000000000C0003 /* osm_value_format.hpp in Headers */,
 				670C615C1AB0691900C38A8C /* features_offsets_table.hpp in Headers */,
 				6758AED41BB4413000C26E27 /* drules_selector.hpp in Headers */,
 				6753412F1A3F540F00A0A8C3 /* index_builder.hpp in Headers */,
@@ -921,6 +928,7 @@
 				675341121A3F540F00A0A8C3 /* feature_algo.cpp in Sources */,
 				675341211A3F540F00A0A8C3 /* feature_utils.cpp in Sources */,
 				FA7F9B85273F32680093EA08 /* validate_and_format_contacts.cpp in Sources */,
+				AB0C0A0100000000000C0004 /* osm_value_format.cpp in Sources */,
 				46CB685E2CBC17F2003E40AB /* edit_journal.cpp in Sources */,
 				675341231A3F540F00A0A8C3 /* feature_visibility.cpp in Sources */,
 				56C74C221C749E4700B71B9F /* search_delimiters.cpp in Sources */,
