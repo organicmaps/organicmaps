@@ -384,11 +384,26 @@ void HttpClientReply::OnFinished()
 
   if (noError || httpCode != 0)
   {
-    result.m_errorCode = httpCode != 0 ? httpCode : static_cast<int>(m_reply->error());
     // A complete HTTP response (even 4xx/5xx) means the connection was made successfully,
     // and callers expect m_success = true there, matching Apple/Android semantics. A
     // transport failure after the status line is not success: the body is truncated.
     result.m_success = IsCompleteResponse(m_reply->error(), httpCode);
+    if (result.m_success)
+    {
+      result.m_errorCode = httpCode;
+    }
+    else if (httpCode != 0)
+    {
+      // A failed transfer must not carry a successful HTTP status to callers. Keep the
+      // status in the log and expose an unambiguous transport error instead.
+      LOG(LWARNING, ("Incomplete response for", m_urlRequested, "HTTP status", httpCode,
+                     "Qt error:", static_cast<int>(m_reply->error()), m_reply->errorString().toStdString()));
+      result.m_errorCode = HttpClient::kIncompleteResponse;
+    }
+    else
+    {
+      result.m_errorCode = static_cast<int>(m_reply->error());
+    }
 
     // Use toEncoded() to preserve percent-encoding, matching Apple's absoluteString behavior.
     // toString() decodes %XX sequences, which breaks WasRedirected() URL comparison.
