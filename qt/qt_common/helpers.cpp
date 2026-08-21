@@ -6,8 +6,6 @@
 #include "platform/location.hpp"
 #include "platform/style_utils.hpp"
 
-#include "indexer/map_style.hpp"
-
 #include "base/logging.hpp"
 
 #include <QtCore/QDateTime>
@@ -129,11 +127,7 @@ void ApplySystemNightMode(Framework & framework)
   if (style_utils::GetNightModeSetting() != style_utils::NightMode::System)
     return;
 
-  auto const currentStyle = framework.GetMapStyle();
-  auto const useDark = IsSystemInDarkMode();
-  auto const desiredStyle = useDark ? GetDarkMapStyleVariant(currentStyle) : GetLightMapStyleVariant(currentStyle);
-  if (desiredStyle != currentStyle)
-    framework.SetMapStyle(desiredStyle);
+  framework.ApplyMapStyleForMode(IsSystemInDarkMode());
 }
 
 }  // namespace qt::common

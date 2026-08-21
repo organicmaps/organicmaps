@@ -530,6 +530,53 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRoutePercentTest
   TEST(checkTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route checking timeout."));
 }
 
+// Regression for the map-style-on-navigation trigger. When a preview location update has already
+// advanced the session to OnRoute, EnableFollowMode() re-issues SetState(OnRoute) — a no-op that
+// fires no state-change callback — while turning following on. The vehicle map style must therefore
+// be applied from the follow hook (Framework::OnRouteFollow), not derived from that callback.
+UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, EnableFollowModeFromOnRouteFiresNoStateCallback)
+{
+  TimedSignal buildSignal;
+  GetPlatform().RunTask(Platform::Thread::Gui, [&buildSignal, this]()
+  {
+    InitRoutingSession();
+    size_t counter = 0;
+    m_session->SetRouter(make_unique<DummyRouter>(counter), nullptr);
+    m_session->SetRoutingCallbacks([&buildSignal](RoutesResult const &, RouterResultCode) {
+      buildSignal.Signal();
+    }, nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */);
+    m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), RouterDelegate::kNoTimeout);
+  });
+  TEST(buildSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
+
+  TimedSignal checkSignal;
+  GetPlatform().RunTask(Platform::Thread::Gui, [&checkSignal, this]()
+  {
+    // Advance to OnRoute via location updates without enabling following (route preview).
+    location::GpsInfo info;
+    info.m_horizontalAccuracy = 0.01;
+    info.m_verticalAccuracy = 0.01;
+    info.m_longitude = 0.;
+    info.m_latitude = 1.;
+    m_session->OnLocationPositionChanged(info);
+    info.m_latitude = 2.;
+    m_session->OnLocationPositionChanged(info);
+    TEST(m_session->IsOnRoute(), ("A preview location update advances the session to OnRoute."));
+    TEST(!m_session->IsFollowing(), ("Following is not enabled yet."));
+
+    // From OnRoute, EnableFollowMode() turns following on, but its SetState(OnRoute) is a no-op that
+    // emits no callback. The map-style switch therefore cannot rely on the session-state callback.
+    size_t callbackCount = 0;
+    m_session->SetChangeSessionStateCallback([&callbackCount](SessionState, SessionState) { ++callbackCount; });
+    TEST(m_session->EnableFollowMode(), ());
+    TEST(m_session->IsFollowing(), ());
+    TEST_EQUAL(callbackCount, 0, ("EnableFollowMode from OnRoute must not fire a state-change callback."));
+    m_session->SetChangeSessionStateCallback(nullptr);
+    checkSignal.Signal();
+  });
+  TEST(checkSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route checking timeout."));
+}
+
 UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingError)
 {
   vector<m2::PointD> const kRoute = {{0.0, 0.001}, {0.0, 0.002}, {0.0, 0.003}, {0.0, 0.004}};

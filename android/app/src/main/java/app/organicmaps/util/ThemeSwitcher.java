@@ -10,7 +10,6 @@ import androidx.annotation.UiContext;
 import androidx.appcompat.app.AppCompatDelegate;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.downloader.DownloaderStatusIcon;
-import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.MapStyle;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.Config;
@@ -88,11 +87,14 @@ public enum ThemeSwitcher
   @androidx.annotation.UiThread
   public void synchronizeMapStyle(@UiContext @NonNull Context context, boolean isRendererActive)
   {
-    var isDarkMode = ThemeUtils.isDarkTheme(context);
-    var mapStyle = calculateMapStyle(isDarkMode);
-
-    var oldStyle = MapStyle.get();
-    if (oldStyle != mapStyle)
+    // While Android Auto owns the (shared) core map style, leave it to ThemeUtils: a phone event must
+    // not push the phone's darkness into the core and override the darkness the car chose.
+    if (isCarDisplayUsed())
+      return;
+    // Push the effective darkness to the core (which owns the family) and apply what it resolves.
+    MapStyle.setNightMode(ThemeUtils.isDarkTheme(context));
+    var mapStyle = MapStyle.resolveForMode();
+    if (MapStyle.get() != mapStyle)
       setMapStyle(mapStyle, isRendererActive);
   }
 
@@ -121,6 +123,19 @@ public enum ThemeSwitcher
                                          + "and converted to either dark or light");
     }
 
+    // The AppCompat night-mode flip above recreates the activity asynchronously, so the map style
+    // would otherwise only re-sync in the following onResume. Push the darkness to the core now, so a
+    // concurrent routing-driven switch (e.g. the vehicle palette on navigation start) resolves at the
+    // right darkness immediately. SYSTEM is left to synchronizeMapStyle, which reads the settled config.
+    // Skip while Android Auto owns the (shared) core map style; it pushes its own darkness via ThemeUtils.
+    if (!isCarDisplayUsed())
+    {
+      if (theme == Config.UiTheme.LIGHT)
+        MapStyle.setNightMode(false);
+      else if (theme == Config.UiTheme.DARK)
+        MapStyle.setNightMode(true);
+    }
+
     if (mLatestTheme != null && mLatestTheme != theme)
     {
       DownloaderStatusIcon.clearCache();
@@ -128,27 +143,20 @@ public enum ThemeSwitcher
     mLatestTheme = theme;
   }
 
-  private MapStyle calculateMapStyle(boolean dark)
-  {
-    if (RoutingController.get().isVehicleNavigation())
-      return dark ? MapStyle.VehicleDark : MapStyle.VehicleClear;
-    else if (Framework.nativeIsOutdoorsLayerEnabled())
-      return dark ? MapStyle.OutdoorsDark : MapStyle.OutdoorsClear;
-    else
-      return dark ? MapStyle.Dark : MapStyle.Clear;
-  }
-
   private void setMapStyle(MapStyle style, boolean isRendererActive)
   {
-    // Because of the distinct behavior in auto theme, Android Auto employs its own mechanism for theme switching.
-    // For the Android Auto theme switcher, please consult the app.organicmaps.car.util.ThemeUtils module.
-    if (MwmApplication.from(mContext).getDisplayManager().isCarDisplayUsed())
-      return;
     // If rendering is not active we can mark map style, because all graphics
     // will be recreated after rendering activation.
     if (isRendererActive)
       MapStyle.set(style);
     else
       MapStyle.mark(style);
+  }
+
+  private boolean isCarDisplayUsed()
+  {
+    // Android Auto employs its own mechanism for theme switching, driving the shared core map style
+    // itself; see app.organicmaps.car.util.ThemeUtils.
+    return MwmApplication.from(mContext).getDisplayManager().isCarDisplayUsed();
   }
 }
