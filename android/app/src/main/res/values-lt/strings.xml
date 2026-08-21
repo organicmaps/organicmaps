@@ -957,4 +957,6 @@
     <string name="choose_point_on_map_hint">Slinkite ir keiskite žemėlapio mastelį, kad nustatytumėte kryžiuko padėtį</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Stabdyti ir įrašyti</string>
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Apgręžti maršrutą</string>
 </resources>

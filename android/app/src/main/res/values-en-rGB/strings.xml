@@ -33,4 +33,8 @@
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="fuel_places">Petrol Stations</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Reverse route</string>
 </resources>
