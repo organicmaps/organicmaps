@@ -562,11 +562,7 @@
     <string name="mobile_data_description">モバイル通信は場所、写真、価格やレビューのような詳細情報を表示するのに必要です。</string>
     <string name="mobile_data_option_never">使用しない</string>
     <string name="mobile_data_option_ask">常に確認</string>
-    <string name="traffic_update_maps_text">交通データを表示するには、地図を更新する必要があります。</string>
     <string name="big_font">地図上のフォントサイズを大きくする</string>
-    <string name="traffic_update_app">Organic Maps をアップデートしてください</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">交通データは利用できません</string>
     <string name="enable_logging">ログを有効化</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">一般的なフィードバック</string>

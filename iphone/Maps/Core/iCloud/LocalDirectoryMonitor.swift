@@ -35,7 +35,6 @@ final class FileSystemDispatchSourceMonitor: LocalDirectoryMonitor {
 
   private let fileManager: FileManager
   private let fileType: FileType
-  private let resourceKeys: [URLResourceKey] = [.nameKey]
   private var dispatchSource: DispatchSourceFileSystemObject?
   private var dispatchSourceDebounceState: DispatchSourceDebounceState = .stopped
   private var dispatchSourceIsSuspended = false

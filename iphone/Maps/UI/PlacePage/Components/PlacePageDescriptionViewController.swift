@@ -21,9 +21,4 @@ final class PlacePageDescriptionViewController: WebViewController {
       webView.loadHTMLString(configuredHtml(withText: m_htmlText), baseURL: nil)
     }
   }
-
-  private func isOnBottom(_ scrollView: UIScrollView) -> Bool {
-    let bottom = scrollView.contentSize.height + scrollView.contentInset.bottom - scrollView.bounds.height
-    return scrollView.contentOffset.y >= bottom
-  }
 }

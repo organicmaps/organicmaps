@@ -562,11 +562,7 @@
     <string name="mobile_data_description">Απαιτείται πρόσβαση στο ίντερνετ μέσω δικτύου κινητής για την εμφάνιση αναλυτικών πληροφοριών για τις τοποθεσίες, όπως φωτογραφίες, τιμές και κριτικές.</string>
     <string name="mobile_data_option_never">Να μην χρησιμοποιείται ποτέ</string>
     <string name="mobile_data_option_ask">Να γίνεται πάντα ερώτηση</string>
-    <string name="traffic_update_maps_text">Για να εμφανιστούν πληροφορίες για την κίνηση, πρέπει να ενημερωθούν οι χάρτες.</string>
     <string name="big_font">Αύξηση μεγέθους γραμματοσειράς στο χάρτη</string>
-    <string name="traffic_update_app">Κάντε ενημέρωση του Organic Maps</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">Οι πληροφορίες για την κίνηση δεν είναι διαθέσιμες</string>
     <string name="enable_logging">Ενεργοποίηση δυνατότητας καταγραφής</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Αποστολή γνώμης</string>

@@ -562,11 +562,7 @@
     <string name="mobile_data_description">Mobilt Internett er nødvendig for å vise detaljert informasjon om steder, for eksempel fotografier, priser og anmeldelser.</string>
     <string name="mobile_data_option_never">Aldri bruk</string>
     <string name="mobile_data_option_ask">Alltid spør</string>
-    <string name="traffic_update_maps_text">For å vise trafikkdata må kartene i appen være oppdaterte.</string>
     <string name="big_font">Forstørr skriften på kartet</string>
-    <string name="traffic_update_app">Vennligst oppdater Organic Maps</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">Trafikkdata er ikke tilgjengelig</string>
     <string name="enable_logging">Aktiver loggføring</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Generell tilbakemelding</string>

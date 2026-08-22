@@ -30,7 +30,6 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
-#include "base/stl_helpers.hpp"
 #include "base/sunrise_sunset.hpp"
 
 #include <iostream>
@@ -92,21 +91,7 @@ public:
 
   struct Type
   {
-    bool operator<(Type const & rhs) const
-    {
-      return tie(m_hwType, m_surfaceType) < tie(rhs.m_hwType, rhs.m_surfaceType);
-    }
-
-    bool operator==(Type const & rhs) const { return tie(m_hwType, m_surfaceType) == tie(rhs.m_hwType, m_surfaceType); }
-
-    bool operator!=(Type const & rhs) const { return !(*this == rhs); }
-
-    string GetSummary() const
-    {
-      ostringstream out;
-      out << TypeToString(m_hwType) << "," << TypeToString(m_surfaceType);
-      return out.str();
-    }
+    auto operator<=>(Type const & rhs) const = default;
 
     uint32_t m_hwType = 0;
     uint32_t m_surfaceType = 0;
@@ -143,19 +128,7 @@ private:
 
 struct RoadInfo
 {
-  bool operator==(RoadInfo const & rhs) const
-  {
-    return tie(m_type, m_maxspeedKMpH, m_isCityRoad, m_isOneWay) ==
-           tie(rhs.m_type, rhs.m_maxspeedKMpH, rhs.m_isCityRoad, rhs.m_isOneWay);
-  }
-
-  bool operator!=(RoadInfo const & rhs) const { return !(*this == rhs); }
-
-  bool operator<(RoadInfo const & rhs) const
-  {
-    return tie(m_type, m_maxspeedKMpH, m_isCityRoad, m_isOneWay) <
-           tie(rhs.m_type, rhs.m_maxspeedKMpH, rhs.m_isCityRoad, rhs.m_isOneWay);
-  }
+  auto operator<=>(RoadInfo const & rhs) const = default;
 
   string GetSummary() const
   {
@@ -175,8 +148,6 @@ struct RoadInfo
 class MoveType final
 {
 public:
-  MoveType() = default;
-
   MoveType(RoadInfo const & roadType, traffic::SpeedGroup speedGroup, DataPoint const & dataPoint)
     : m_roadInfo(roadType)
     , m_speedGroup(speedGroup)
@@ -192,9 +163,7 @@ public:
 
   bool operator<(MoveType const & rhs) const
   {
-    auto const lhsGroup = base::Underlying(m_speedGroup);
-    auto const rhsGroup = base::Underlying(rhs.m_speedGroup);
-    return tie(m_roadInfo, lhsGroup) < tie(rhs.m_roadInfo, rhsGroup);
+    return tie(m_roadInfo, m_speedGroup) < tie(rhs.m_roadInfo, rhs.m_speedGroup);
   }
 
   bool IsValid() const

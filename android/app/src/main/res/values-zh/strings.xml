@@ -562,11 +562,7 @@
     <string name="mobile_data_description">要显示地点的详细信息（例如照片、价格和评价），需要使用移动网络。</string>
     <string name="mobile_data_option_never">从不使用</string>
     <string name="mobile_data_option_ask">总是询问</string>
-    <string name="traffic_update_maps_text">若要显示交通数据，必须更新地图。</string>
     <string name="big_font">增大地图上的字体大小</string>
-    <string name="traffic_update_app">请更新 Organic Maps</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">交通数据不可用</string>
     <string name="enable_logging">启用日志记录</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">常规反馈</string>

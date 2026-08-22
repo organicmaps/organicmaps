@@ -562,11 +562,7 @@
     <string name="mobile_data_description">Internet mugikorra behar da tokiei buruzko informazio zehatza bistaratzeko, hala nola argazkiak, prezioak eta iritziak.</string>
     <string name="mobile_data_option_never">Ez erabili inoiz</string>
     <string name="mobile_data_option_ask">Galdetu beti</string>
-    <string name="traffic_update_maps_text">Trafiko datuak bistaratzeko, mapak eguneratu behar dira.</string>
     <string name="big_font">Handitu letra tamaina mapan</string>
-    <string name="traffic_update_app">Eguneratu Organic Maps</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">Trafiko datuak ez daude eskuragarri</string>
     <string name="enable_logging">Historia gaitu</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Iritzi orokorra</string>

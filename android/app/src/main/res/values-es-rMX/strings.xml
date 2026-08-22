@@ -287,11 +287,7 @@
     <!-- NOTE to translators: please synchronize your translation with the English one. -->
     <string name="mobile_data_description">Se necesita Internet móvil para las notificaciones de actualización de mapas y para cargar ediciones.</string>
     <string name="mobile_data_option_ask">Pregunte siempre</string>
-    <string name="traffic_update_maps_text">Para mostrar los datos de tráfico, los mapas deben estar actualizados.</string>
     <string name="big_font">Aumentar el tamaño de las etiquetas de los mapas</string>
-    <string name="traffic_update_app">Por favor, actualice Organic Maps</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">No se dispone de datos de tráfico</string>
     <string name="enable_logging">Activar el registro</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Comentarios generales</string>

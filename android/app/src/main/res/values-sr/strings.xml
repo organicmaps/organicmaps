@@ -562,11 +562,7 @@
     <string name="mobile_data_description">Мобилни интернет је потребан за обавештења о ажурирању мапе и за слање измена.</string>
     <string name="mobile_data_option_never">Никад не користи</string>
     <string name="mobile_data_option_ask">Увек ме питај</string>
-    <string name="traffic_update_maps_text">Да би се приказали подаци о саобраћају, мапа мора да се ажурира.</string>
     <string name="big_font">Увећана слова на мапи</string>
-    <string name="traffic_update_app">Молим Вас да ажурирате Organic Maps</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">Подаци о саобраћају нису доступни</string>
     <string name="enable_logging">Снимање лог фајлова</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Ваше мишљење</string>

@@ -562,11 +562,7 @@
     <string name="mobile_data_description">Internet di động là cần thiết để hiển thị thông tin chi tiết về các nơi, ví dụ như ảnh chụp, giá cả và đánh giá.</string>
     <string name="mobile_data_option_never">Không bao giờ sử dụng</string>
     <string name="mobile_data_option_ask">Luôn Hỏi</string>
-    <string name="traffic_update_maps_text">Để hiển thị dữ liệu giao thông, cần cập nhật bản đồ.</string>
     <string name="big_font">Tăng kích cỡ phông chữ trên bản đồ</string>
-    <string name="traffic_update_app">Vui lòng cập nhật Organic Maps</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">Dữ liệu giao thông không khả dụng</string>
     <string name="enable_logging">Bật nhật ký</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Phản hồi chung</string>

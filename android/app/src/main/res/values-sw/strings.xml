@@ -560,11 +560,7 @@
     <string name="mobile_data_description">Intaneti ya simu inahitajika kwa arifa za masasisho ya ramani na kupakia marekebisho.</string>
     <string name="mobile_data_option_never">Usitumie kamwe</string>
     <string name="mobile_data_option_ask">Daima Uliza</string>
-    <string name="traffic_update_maps_text">Ili kuonyesha data za trafiki, ramani lazima zisasishwe.</string>
     <string name="big_font">Ongeza ukubwa wa lebo za ramani</string>
-    <string name="traffic_update_app">Tafadhali sasisha Organic Maps</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">Takwimu za trafiki hazipatikani</string>
     <string name="enable_logging">Wezesha kurekodi</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Maoni Jumla</string>

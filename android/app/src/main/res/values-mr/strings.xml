@@ -562,11 +562,7 @@
     <string name="mobile_data_description">नकाशा अद्यतन सूचना तसेच ठिकाणे व खूणपत्रांबद्दल तपशीलवार माहिती प्रदर्शित करण्यासाठी मोबाइल इंटरनेट आवश्यक आहे.</string>
     <string name="mobile_data_option_never">कधीही वापरू नका</string>
     <string name="mobile_data_option_ask">नेहमी विचारा</string>
-    <string name="traffic_update_maps_text">वाहतूक माहिती दाखवण्यासाठी नकाशे अद्ययावत करणे आवश्यक आहे.</string>
     <string name="big_font">नकाशावर अक्षरांचा आकार वाढवा</string>
-    <string name="traffic_update_app">कृपया Organic Maps अद्ययावत करा</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">वाहतूक माहिती उपलब्ध नाही</string>
     <string name="enable_logging">लॉग चालू करा</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">सामान्य अभिप्राय</string>
