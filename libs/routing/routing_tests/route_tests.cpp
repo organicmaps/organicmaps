@@ -432,6 +432,42 @@ Route MakeRoute(vector<m2::PointD> const & path, vector<Segment> const & segment
   return r;
 }
 
+UNIT_TEST(RouteBase_PromoteWithLeadingEmptySubroute)
+{
+  m2::PointD const oldStart = {0, 0};
+  m2::PointD const routeStart = {0.01, 0};
+  m2::PointD const checkpoint = {0.011, 0};
+  m2::PointD const finish = {0.012, 0};
+  vector<m2::PointD> const path = {routeStart, routeStart, checkpoint, checkpoint, finish};
+  vector<Segment> segments;
+  for (uint32_t i = 0; i < path.size() - 1; ++i)
+    segments.emplace_back(0, 0, i, true);
+
+  auto source = MakeRoute(path, segments);
+  auto const withAltitude = [](m2::PointD const & point)
+  { return geometry::PointWithAltitude(point, geometry::kDefaultAltitudeMeters); };
+  // Rebuilds retain passed checkpoints as empty subroutes. Advancing once more changes currentIdx
+  // without removing the earlier route segments, so neither front() nor currentIdx is the geometry origin.
+  source.SetSubroutes(
+      vector<Route::SubrouteAttrs>{{withAltitude(oldStart), withAltitude(routeStart), 0, 0},
+                                   {withAltitude(routeStart), withAltitude(checkpoint), 0, 2},
+                                   {withAltitude(checkpoint), withAltitude(finish), 2, segments.size()}},
+      2);
+
+  Route route(static_cast<RouteBase const &>(source));
+  TEST_EQUAL(route.GetCurrentSubrouteIdx(), 2, ());
+  TEST(route.IsSubroutePassed(0), ());
+  TEST(route.MoveIterator(GetGps(checkpoint.x, checkpoint.y)), ());
+  TEST(!route.IsSubroutePassed(2), ());
+  TEST_EQUAL(route.GetPoly().GetPoints(), path, (route.GetPoly().GetPoints()));
+
+  vector<m2::PointD> points;
+  source.ForEachPoint([&points](geometry::PointWithAltitude const & point) { points.push_back(point.GetPoint()); });
+  TEST_EQUAL(points, path, (points));
+  auto const midpoint = source.GetMidpoint(0, 0);
+  TEST_EQUAL(midpoint, routeStart, (midpoint));
+}
+
 // 10 unit-length segments along the equator with junctions at (0..9, 0). The first FillSegmentInfo
 // segment carries dist=0 (the path convention duplicates path[0]==path[1]) so the total geodesic
 // length is 9 deg of longitude. The midpoint by distance lands at the (4.5, 0) interpolation
