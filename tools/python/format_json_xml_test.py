@@ -34,11 +34,11 @@ class FormatJsonTest(unittest.TestCase):
 
 class FormatXmlTest(unittest.TestCase):
     def test_never_wraps_a_single_attribute(self):
-        xml = f'<item only="{"x" * 300}"/>'
+        xml = f'<item only="{"x" * 300}" />'
         self.assertEqual(formatter.format_xml(xml.encode()), xml + "\n")
 
     def test_wraps_two_attributes_however_short(self):
-        expected = '<item\n  a="1"\n  b="2"/>\n'
+        expected = '<item\n  a="1"\n  b="2" />\n'
         self.assertEqual(formatter.format_xml(b'<item a="1" b="2"/>'), expected)
         self.assertEqual(formatter.format_xml(expected.encode()), expected)
 
@@ -55,22 +55,26 @@ class FormatXmlTest(unittest.TestCase):
     def test_keeps_leading_xmlns_on_the_tag_line(self):
         raw = b'<root xmlns:a="urn:a" first="1" second="2"/>'
         expected = (
-            '<root xmlns:a="urn:a"\n  first="1"\n  second="2"/>\n')
+            '<root xmlns:a="urn:a"\n  first="1"\n  second="2" />\n')
         self.assertEqual(formatter.format_xml(raw), expected)
         self.assertEqual(formatter.format_xml(expected.encode()), expected)
 
     def test_wraps_second_xmlns_onto_its_own_line(self):
         raw = b'<root xmlns:a="urn:a" xmlns:b="urn:b" first="1"/>'
         expected = (
-            '<root xmlns:a="urn:a"\n  xmlns:b="urn:b"\n  first="1"/>\n')
+            '<root xmlns:a="urn:a"\n  xmlns:b="urn:b"\n  first="1" />\n')
         self.assertEqual(formatter.format_xml(raw), expected)
         self.assertEqual(formatter.format_xml(expected.encode()), expected)
 
     def test_wrapped_attributes_use_the_nested_tag_indent(self):
-        expected = '<root>\n  <item\n    a="1"\n    b="2"/>\n</root>\n'
+        expected = '<root>\n  <item\n    a="1"\n    b="2" />\n</root>\n'
         self.assertEqual(
             formatter.format_xml(b'<root><item a="1" b="2"/></root>'), expected)
         self.assertEqual(formatter.format_xml(expected.encode()), expected)
+
+    def test_spaces_before_the_self_closing_bracket(self):
+        self.assertEqual(formatter.format_xml(b"<item/>"), "<item />\n")
+        self.assertEqual(formatter.format_xml(b"<item />"), "<item />\n")
 
     def test_preserves_whitespace_only_leaf(self):
         self.assertEqual(formatter.format_xml(b"<item> </item>"), "<item> </item>\n")

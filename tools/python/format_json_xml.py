@@ -15,7 +15,8 @@
 # namespaces count as attributes) puts the tag name alone on the opening line
 # and every attribute on its own line, indented like a nested tag. A leading
 # xmlns declaration stays on the tag line. Elements with 0 or 1 attribute
-# always stay on one line, however long. This is only
+# always stay on one line, however long. An empty element is closed with a
+# space before the slash, like Android tooling writes it. This is only
 # done when it is safe: files with mixed content (text interleaved with
 # elements), CDATA, xml:space="preserve", a DOCTYPE, or a non-UTF-8 encoding
 # are left untouched, because reflowing them could change their meaning.
@@ -165,7 +166,7 @@ def _is_unsafe(node):
 
 
 def _start_tag(name, attrs, pad, self_close):
-    tail = "/>" if self_close else ">"
+    tail = " />" if self_close else ">"
     # 0 or 1 attribute: always a single line, whatever its length.
     if len(attrs) <= 1:
         joined = "".join(f' {k}="{_esc_attr(v)}"' for k, v in attrs)
