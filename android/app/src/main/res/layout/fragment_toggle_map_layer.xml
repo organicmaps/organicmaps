@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
@@ -18,7 +17,7 @@
       android:text="@string/layers_title"
       android:textAppearance="?fontHeadline6"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      app:layout_constraintTop_toTopOf="parent"/>
     <com.google.android.material.button.MaterialButton
       android:id="@+id/close_button"
       style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
@@ -35,7 +34,7 @@
       app:iconTint="?iconTint"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Button.Round" />
+      app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Button.Round"/>
   </androidx.constraintlayout.widget.ConstraintLayout>
 
   <androidx.recyclerview.widget.RecyclerView
@@ -45,5 +44,5 @@
     android:layout_marginBottom="@dimen/margin_base"
     android:minHeight="@dimen/toggle_map_layer_frame_height"
     android:paddingStart="@dimen/margin_half_plus_eight"
-    android:paddingEnd="@dimen/margin_half_plus_eight" />
+    android:paddingEnd="@dimen/margin_half_plus_eight"/>
 </LinearLayout>

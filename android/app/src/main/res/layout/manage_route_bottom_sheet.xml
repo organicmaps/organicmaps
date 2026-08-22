@@ -22,7 +22,7 @@
       android:clipToPadding="false"
       app:layout_constrainedHeight="true"
       tools:itemCount="5"
-      tools:listitem="@layout/manage_route_list_item" />
+      tools:listitem="@layout/manage_route_list_item"/>
   </LinearLayout>
 
 </LinearLayout>

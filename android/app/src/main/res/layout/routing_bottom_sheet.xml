@@ -30,7 +30,7 @@
         <include
           layout="@layout/route_plan_line"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content" />
+          android:layout_height="wrap_content"/>
 
       </FrameLayout>
 
@@ -50,7 +50,7 @@
           android:layout_width="match_parent"
           android:layout_height="1dp"
           android:layout_marginBottom="@dimen/margin_eighth"
-          android:background="?dividerHorizontal" />
+          android:background="?dividerHorizontal"/>
 
         <LinearLayout
           android:layout_width="match_parent"
@@ -74,7 +74,7 @@
               app:fabCustomSize="40dp"
               app:maxImageSize="28dp"
               app:srcCompat="@drawable/ic_search"
-              app:shapeAppearanceOverlay="@style/MwmWidget.MapButton.Square.bottom" />
+              app:shapeAppearanceOverlay="@style/MwmWidget.MapButton.Square.bottom"/>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
               android:id="@+id/routing_btn_bookmarks"
@@ -85,7 +85,7 @@
               app:fabCustomSize="40dp"
               app:maxImageSize="28dp"
               app:shapeAppearanceOverlay="@style/MwmWidget.MapButton.Square"
-              app:srcCompat="@drawable/ic_bookmarks_and_tracks" />
+              app:srcCompat="@drawable/ic_bookmarks_and_tracks"/>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
               android:id="@+id/btn__save"
@@ -96,10 +96,10 @@
               app:fabCustomSize="40dp"
               app:maxImageSize="28dp"
               app:shapeAppearanceOverlay="@style/MwmWidget.MapButton.Square.bottom"
-              app:srcCompat="@drawable/icon_save" />
+              app:srcCompat="@drawable/icon_save"/>
           </LinearLayout>
 
-          <include layout="@layout/routing_start_button" />
+          <include layout="@layout/routing_start_button"/>
         </LinearLayout>
 
       </FrameLayout>

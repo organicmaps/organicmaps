@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-  xmlns:tools="http://schemas.android.com/tools"
-  style="@style/MwmWidget.Floating"
+<FrameLayout xmlns:tools="http://schemas.android.com/tools"
   xmlns:android="http://schemas.android.com/apk/res/android"
+  style="@style/MwmWidget.Floating"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="?windowBackgroundForced">
   <include
     android:id="@+id/pull_icon_container"
-    layout="@layout/bottom_sheet_handle" />
+    layout="@layout/bottom_sheet_handle"/>
   <LinearLayout
     android:id="@+id/search_content"
     android:layout_width="match_parent"
@@ -21,11 +20,11 @@
       android:background="@android:color/transparent"
       android:elevation="@dimen/dp_0"
       android:orientation="vertical">
-        <include
-          android:id="@+id/toolbar"
-          layout="@layout/toolbar_with_search_no_elevation"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content" />
+      <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_with_search_no_elevation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     </LinearLayout>
     <!-- Tabs -->
     <LinearLayout
@@ -38,12 +37,12 @@
         style="@style/MwmWidget.TabLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tabs_height"
-        android:elevation="@dimen/appbar_elevation" />
+        android:elevation="@dimen/appbar_elevation"/>
       <View
         android:id="@+id/tabs_divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="?dividerHorizontal" />
+        android:background="?dividerHorizontal"/>
     </LinearLayout>
     <FrameLayout
       android:layout_width="match_parent"
@@ -53,7 +52,7 @@
         android:id="@+id/pages"
         style="@style/MwmWidget.Floating"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
       <!-- Results -->
       <FrameLayout
@@ -73,7 +72,7 @@
           android:layout_height="match_parent"
           android:scrollbars="vertical"
           android:scrollbarSize="@dimen/scrollbar_size"
-          tools:listitem="@layout/item_search_result" />
+          tools:listitem="@layout/item_search_result"/>
 
         <app.organicmaps.widget.PlaceholderView
           android:id="@+id/placeholder"
@@ -85,12 +84,12 @@
           android:paddingTop="@dimen/placeholder_padding_top_no_image"
           android:visibility="gone"
           tools:visibility="visible"
-          tools:background="#20FF0000" />
+          tools:background="#20FF0000"/>
         <app.organicmaps.widget.SearchShimmerView
           android:id="@+id/search_shimmer"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          android:visibility="gone" />
+          android:visibility="gone"/>
       </FrameLayout>
 
       <!-- Country download suggest fragment -->
@@ -101,4 +100,3 @@
     </FrameLayout>
   </LinearLayout>
 </FrameLayout>
-

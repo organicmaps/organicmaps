@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   tools:showIn="@layout/elevation_profile_bottom_sheet">
@@ -31,7 +30,7 @@
           android:layout_height="wrap_content"
           android:layout_marginEnd="@dimen/margin_quarter"
           app:srcCompat="@drawable/ic_ascent"
-          app:tint="?elevationProfilePropIconTint" />
+          app:tint="?elevationProfilePropIconTint"/>
         <TextView
           android:id="@+id/ascent"
           android:layout_width="wrap_content"
@@ -44,7 +43,7 @@
           app:autoSizeMinTextSize="@dimen/text_size_body_min"
           app:autoSizeStepGranularity="1sp"
           app:autoSizeTextType="uniform"
-          tools:text="10000 m" />
+          tools:text="10000 m"/>
       </LinearLayout>
       <TextView
         android:layout_width="wrap_content"
@@ -54,7 +53,7 @@
         android:ellipsize="end"
         android:singleLine="true"
         android:text="@string/elevation_profile_ascent"
-        android:textAppearance="@style/MwmTextAppearance.Body5" />
+        android:textAppearance="@style/MwmTextAppearance.Body5"/>
     </RelativeLayout>
     <!--card two-->
     <RelativeLayout
@@ -74,7 +73,7 @@
           android:layout_height="wrap_content"
           android:layout_marginEnd="@dimen/margin_quarter"
           app:srcCompat="@drawable/ic_descent"
-          app:tint="?elevationProfilePropIconTint" />
+          app:tint="?elevationProfilePropIconTint"/>
         <TextView
           android:id="@+id/descent"
           android:layout_width="wrap_content"
@@ -87,7 +86,7 @@
           app:autoSizeMinTextSize="@dimen/text_size_body_min"
           app:autoSizeStepGranularity="1sp"
           app:autoSizeTextType="uniform"
-          tools:text="10000 m" />
+          tools:text="10000 m"/>
       </LinearLayout>
       <TextView
         android:layout_width="wrap_content"
@@ -97,7 +96,7 @@
         android:ellipsize="end"
         android:singleLine="true"
         android:text="@string/elevation_profile_descent"
-        android:textAppearance="@style/MwmTextAppearance.Body5" />
+        android:textAppearance="@style/MwmTextAppearance.Body5"/>
     </RelativeLayout>
     <!--card three-->
     <RelativeLayout
@@ -118,7 +117,7 @@
           android:layout_height="wrap_content"
           android:layout_marginEnd="@dimen/margin_quarter"
           app:srcCompat="@drawable/ic_maxalt"
-          app:tint="?elevationProfilePropIconTint" />
+          app:tint="?elevationProfilePropIconTint"/>
         <TextView
           android:id="@+id/max_altitude"
           android:layout_width="wrap_content"
@@ -131,7 +130,7 @@
           app:autoSizeMinTextSize="@dimen/text_size_body_min"
           app:autoSizeStepGranularity="1sp"
           app:autoSizeTextType="uniform"
-          tools:text="10000 m" />
+          tools:text="10000 m"/>
       </LinearLayout>
       <TextView
         android:layout_width="wrap_content"
@@ -141,7 +140,7 @@
         android:ellipsize="end"
         android:singleLine="true"
         android:text="@string/elevation_profile_max_elevation"
-        android:textAppearance="@style/MwmTextAppearance.Body5" />
+        android:textAppearance="@style/MwmTextAppearance.Body5"/>
     </RelativeLayout>
     <!--card four-->
     <RelativeLayout
@@ -162,7 +161,7 @@
           android:layout_height="wrap_content"
           android:layout_marginEnd="@dimen/margin_half"
           app:srcCompat="@drawable/ic_minalt"
-          app:tint="?elevationProfilePropIconTint" />
+          app:tint="?elevationProfilePropIconTint"/>
         <TextView
           android:id="@+id/min_altitude"
           android:layout_width="wrap_content"
@@ -175,7 +174,7 @@
           app:autoSizeMinTextSize="@dimen/text_size_body_min"
           app:autoSizeStepGranularity="1sp"
           app:autoSizeTextType="uniform"
-          tools:text="10000 m" />
+          tools:text="10000 m"/>
       </LinearLayout>
       <TextView
         android:layout_width="wrap_content"
@@ -185,7 +184,7 @@
         android:ellipsize="end"
         android:singleLine="true"
         android:text="@string/elevation_profile_min_elevation"
-        android:textAppearance="@style/MwmTextAppearance.Body5" />
+        android:textAppearance="@style/MwmTextAppearance.Body5"/>
     </RelativeLayout>
   </LinearLayout>
   <LinearLayout
@@ -195,7 +194,7 @@
     android:gravity="center"
     android:minHeight="@dimen/elevation_profile_chart_min_height"
     android:orientation="vertical">
-    <include layout="@layout/elevation_profile" />
+    <include layout="@layout/elevation_profile"/>
   </LinearLayout>
   <RelativeLayout
     android:layout_width="match_parent"
@@ -215,7 +214,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/elevation_profile_difficulty"
-        android:textAppearance="?android:textAppearance" />
+        android:textAppearance="?android:textAppearance"/>
       <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -228,7 +227,7 @@
           android:layout_width="@dimen/elevation_profile_difficulty_dot_size"
           android:layout_height="@dimen/elevation_profile_difficulty_dot_size"
           android:background="@drawable/dot_elevation_difficulty"
-          android:enabled="false" />
+          android:enabled="false"/>
         <TextView
           android:id="@+id/difficulty_level_2"
           android:layout_width="@dimen/elevation_profile_difficulty_dot_size"
@@ -236,13 +235,13 @@
           android:layout_marginStart="@dimen/margin_quarter"
           android:layout_marginEnd="@dimen/margin_quarter"
           android:background="@drawable/dot_elevation_difficulty"
-          android:enabled="false" />
+          android:enabled="false"/>
         <TextView
           android:id="@+id/difficulty_level_3"
           android:layout_width="@dimen/elevation_profile_difficulty_dot_size"
           android:layout_height="@dimen/elevation_profile_difficulty_dot_size"
           android:background="@drawable/dot_elevation_difficulty"
-          android:enabled="false" />
+          android:enabled="false"/>
       </LinearLayout>
     </LinearLayout>
   </RelativeLayout>

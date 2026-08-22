@@ -11,7 +11,7 @@
     <provider
       android:name="app.organicmaps.sdk.wear.gms.WearBridgeInitProvider"
       android:authorities="${applicationId}.wear-bridge-init"
-      android:exported="false" />
+      android:exported="false"/>
   </application>
 
 </manifest>

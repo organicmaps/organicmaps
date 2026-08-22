@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   tools:parentTag="app.organicmaps.widget.placepage.sections.ExpandableNotesView">
 
@@ -21,7 +20,7 @@
       android:layout="@layout/place_page_notes_webview"
       android:inflatedId="@+id/wv__notes"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content" />
+      android:layout_height="wrap_content"/>
 
     <View
       android:id="@+id/notes_fade_overlay"
@@ -31,7 +30,7 @@
       android:background="@drawable/notes_fade"
       android:clickable="false"
       android:focusable="false"
-      android:visibility="gone" />
+      android:visibility="gone"/>
   </FrameLayout>
 
   <TextView

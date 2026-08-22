@@ -8,7 +8,7 @@
 
   <include
     android:id="@+id/pull_icon_container"
-    layout="@layout/bottom_sheet_handle" />
+    layout="@layout/bottom_sheet_handle"/>
 
   <LinearLayout
     android:layout_width="match_parent"
@@ -25,7 +25,7 @@
       android:layout_marginStart="@dimen/margin_base"
       android:layout_marginTop="@dimen/margin_half"
       android:visibility="gone"
-      tools:visibility="visible" />
+      tools:visibility="visible"/>
 
     <LinearLayout
       android:id="@+id/title_container"
@@ -58,7 +58,7 @@
           android:textAppearance="@style/MwmTextAppearance.Title"
           tools:background="#C0800000"
           tools:ignore="UnusedAttribute"
-          tools:text="Title" />
+          tools:text="Title"/>
 
         <ImageView
           android:id="@+id/iv__title_chevron"
@@ -72,7 +72,7 @@
           android:src="@drawable/ic_chevron_down_thin"
           android:contentDescription="@string/select_option"
           android:visibility="gone"
-          tools:ignore="UnusedAttribute" />
+          tools:ignore="UnusedAttribute"/>
 
       </LinearLayout>
 
@@ -88,7 +88,7 @@
         android:textAppearance="@style/MwmTextAppearance.Body1"
         tools:background="#C0800000"
         tools:ignore="UnusedAttribute"
-        tools:text="Secondary Title" />
+        tools:text="Secondary Title"/>
 
       <TextView
         android:id="@+id/tv__subtitle"
@@ -100,7 +100,7 @@
         android:fontFamily="@font/organic_maps_emoji"
         android:textAppearance="@style/MwmTextAppearance.Body3"
         tools:background="#300000F0"
-        tools:text="Subtitle, very very very very very very very long" />
+        tools:text="Subtitle, very very very very very very very long"/>
 
       <TextView
         android:id="@+id/tv__address"
@@ -110,7 +110,7 @@
         android:layout_marginTop="@dimen/margin_quarter"
         android:textAppearance="@style/MwmTextAppearance.Body3"
         tools:background="#60000000"
-        tools:text="Lenina str, 10" />
+        tools:text="Lenina str, 10"/>
 
       <TextView
         android:id="@+id/tv__downloader_details"
@@ -122,7 +122,7 @@
         android:visibility="gone"
         tools:background="#8000F000"
         tools:text="2.4 GB  •  Maps: 1"
-        tools:visibility="visible" />
+        tools:visibility="visible"/>
     </LinearLayout>
 
     <LinearLayout
@@ -154,7 +154,7 @@
           app:iconPadding="0dp"
           app:iconSize="20dp"
           app:iconTint="?iconTint"
-          app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Button.Round" />
+          app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Button.Round"/>
 
         <com.google.android.material.button.MaterialButton
           android:id="@+id/close_button"
@@ -174,7 +174,7 @@
           app:iconPadding="0dp"
           app:iconSize="24dp"
           app:iconTint="?iconTint"
-          app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Button.Round" />
+          app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Button.Round"/>
       </LinearLayout>
 
       <LinearLayout
@@ -195,7 +195,7 @@
           android:layout_gravity="center"
           android:scaleType="center"
           app:srcCompat="@drawable/ic_direction_pagepreview"
-          app:tint="?colorAccent" />
+          app:tint="?colorAccent"/>
 
         <LinearLayout
           android:layout_width="wrap_content"
@@ -210,7 +210,7 @@
             android:layout_gravity="center"
             android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
             android:textSize="@dimen/text_size_body_3"
-            tools:text="2000 km" />
+            tools:text="2000 km"/>
         </LinearLayout>
       </LinearLayout>
     </LinearLayout>
@@ -222,7 +222,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <include layout="@layout/place_page_shadow_gap" />
+    <include layout="@layout/place_page_shadow_gap"/>
 
     <LinearLayout
       android:id="@+id/container"
@@ -241,7 +241,7 @@
         android:clickable="true"
         android:focusable="true"
         tools:src="@drawable/ic_bookmark_none"
-        tools:tint="@color/base_red" />
+        tools:tint="@color/base_red"/>
 
       <TextView
         android:id="@+id/tv__category"
@@ -254,7 +254,7 @@
         android:layout_weight="1"
         android:background="?clickableBackground"
         android:textAllCaps="false"
-        tools:text="@string/categories" />
+        tools:text="@string/categories"/>
 
       <ImageView
         android:id="@+id/edit_Bookmark"
@@ -266,7 +266,7 @@
         android:background="?clickableBackground"
         android:clickable="true"
         android:focusable="true"
-        android:src="@drawable/ic_edit" />
+        android:src="@drawable/ic_edit"/>
 
     </LinearLayout>
 
@@ -274,7 +274,7 @@
       android:id="@+id/place_page_notes_fragment"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      tools:layout="@layout/place_page_notes_fragment" />
+      tools:layout="@layout/place_page_notes_fragment"/>
 
   </LinearLayout>
 
@@ -285,7 +285,7 @@
     android:background="?ppBackground"
     android:orientation="vertical">
 
-    <include layout="@layout/place_page_shadow_gap" />
+    <include layout="@layout/place_page_shadow_gap"/>
 
     <LinearLayout
       android:layout_width="match_parent"
@@ -303,12 +303,12 @@
         android:layout_weight="1"
         android:background="?clickableBackground"
         android:textAllCaps="false"
-        tools:text="Some very long text for a very very very very very very very very very very very very very very very very very very very very very very very very looooooong descriptions that doesn't fit into the cell. Interesting, how will it look for even longer text" />
+        tools:text="Some very long text for a very very very very very very very very very very very very very very very very very very very very very very very very looooooong descriptions that doesn't fit into the cell. Interesting, how will it look for even longer text"/>
     </LinearLayout>
 
   </LinearLayout>
 
-  <include layout="@layout/place_page_route_ref" />
+  <include layout="@layout/place_page_route_ref"/>
 
   <LinearLayout
     android:layout_width="match_parent"
@@ -320,12 +320,12 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       tools:layout="@layout/place_page_opening_hours_fragment"
-      tools:visibility="visible" />
+      tools:visibility="visible"/>
   </LinearLayout>
 
   <androidx.fragment.app.FragmentContainerView
     android:id="@+id/place_page_track_fragment"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:layout="@layout/placepage_track_fragment" />
+    tools:layout="@layout/placepage_track_fragment"/>
 </LinearLayout>

@@ -6,7 +6,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <include layout="@layout/layout_nav_top" />
+  <include layout="@layout/layout_nav_top"/>
 
   <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:id="@+id/nav_bottom_sheet_coordinator"
@@ -21,7 +21,7 @@
       android:clickable="true"
       android:focusable="true"
       android:visibility="gone"
-      tools:visibility="visible" />
+      tools:visibility="visible"/>
 
     <FrameLayout
       android:id="@+id/nav_bottom_sheet"
@@ -31,7 +31,7 @@
       android:layout_gravity="start"
       app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-      <include layout="@layout/layout_nav_bottom" />
+      <include layout="@layout/layout_nav_bottom"/>
     </FrameLayout>
 
   </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/name"
   android:layout_width="match_parent"
@@ -21,7 +20,7 @@
       android:hint="@string/editor_edit_place_name_hint"
       android:inputType="textCapSentences"
       android:padding="@dimen/margin_base"
-      android:singleLine="true" />
+      android:singleLine="true"/>
   </com.google.android.material.textfield.TextInputLayout>
   <ImageButton
     android:id="@+id/delete"
@@ -30,5 +29,5 @@
     android:background="?selectableItemBackgroundBorderless"
     android:padding="@dimen/margin_half_plus"
     app:srcCompat="@drawable/ic_close"
-    app:tint="@color/base_red" />
+    app:tint="@color/base_red"/>
 </LinearLayout>

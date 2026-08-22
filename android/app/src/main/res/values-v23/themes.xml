@@ -2,7 +2,9 @@
 <resources>
   <!-- API 23+: adaptive LIGHT_STATUS_BAR is available, so we can safely match the toolbar
        background regardless of light/dark theme. -->
-  <style name="MwmTheme.DialogFragment.Fullscreen.Opaque" parent="MwmTheme.DialogFragment.Fullscreen">
+  <style
+    name="MwmTheme.DialogFragment.Fullscreen.Opaque"
+    parent="MwmTheme.DialogFragment.Fullscreen">
     <item name="android:windowTranslucentStatus">false</item>
     <item name="android:windowSoftInputMode">adjustResize</item>
     <item name="android:statusBarColor">?cardBackground</item>

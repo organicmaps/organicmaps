@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             style="@style/MwmWidget.FrameLayout"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+  xmlns:tools="http://schemas.android.com/tools"
+  style="@style/MwmWidget.FrameLayout"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
 
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recycler"
@@ -12,7 +12,7 @@
     android:clipToPadding="false"
     android:scrollbars="vertical"
     android:scrollbarSize="@dimen/scrollbar_size"
-    tools:listitem="@layout/item_search_result" />
+    tools:listitem="@layout/item_search_result"/>
 
   <app.organicmaps.widget.PlaceholderView
     android:id="@+id/placeholder"
@@ -24,5 +24,5 @@
     android:paddingTop="@dimen/placeholder_padding_top_no_image"
     android:visibility="gone"
     tools:visibility="visible"
-    tools:background="#20FF0000" />
+    tools:background="#20FF0000"/>
 </FrameLayout>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
@@ -23,7 +22,7 @@
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      app:layout_constraintTop_toTopOf="parent"/>
   </androidx.constraintlayout.widget.ConstraintLayout>
   <include
     layout="@layout/map_status_track_recording"
@@ -31,7 +30,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentTop="true"
-    android:layout_alignParentEnd="true" />
+    android:layout_alignParentEnd="true"/>
   <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/map_buttons_inner_right"
     android:layout_width="wrap_content"
@@ -47,19 +46,19 @@
       android:layout_height="wrap_content"
       app:layout_constraintBottom_toTopOf="@+id/my_position"
       android:layout_marginBottom="@dimen/margin_half"
-      app:layout_constraintEnd_toEndOf="parent" />
+      app:layout_constraintEnd_toEndOf="parent"/>
     <include
       layout="@layout/map_buttons_myposition"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent" />
+      app:layout_constraintEnd_toEndOf="parent"/>
   </androidx.constraintlayout.widget.ConstraintLayout>
   <include
     layout="@layout/map_buttons_bottom"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
-    android:layout_alignParentStart="true" />
+    android:layout_alignParentStart="true"/>
 </RelativeLayout>

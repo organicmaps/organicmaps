@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/search_container"
@@ -17,7 +16,7 @@
     app:srcCompat="?homeAsUpIndicator"
     android:scaleType="center"
     tools:src="@drawable/ic_down"
-    android:contentDescription="@string/back" />
+    android:contentDescription="@string/back"/>
   <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/query_input_layout"
     android:layout_width="match_parent"
@@ -44,7 +43,7 @@
       android:paddingStart="@dimen/margin_half"
       android:paddingEnd="0dp"
       android:gravity="center_vertical"
-      android:textCursorDrawable="@drawable/cursor_drawable" />
+      android:textCursorDrawable="@drawable/cursor_drawable"/>
   </com.google.android.material.textfield.TextInputLayout>
   <ProgressBar
     android:id="@+id/progress"
@@ -55,5 +54,5 @@
     android:layout_weight="0"
     android:background="@null"
     android:minHeight="@dimen/search_progress_size"
-    android:minWidth="@dimen/search_progress_size" />
+    android:minWidth="@dimen/search_progress_size"/>
 </LinearLayout>

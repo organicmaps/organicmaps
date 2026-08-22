@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ripple
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
   android:color="@color/bg_editor_light_pressed">
   <item>
     <shape android:shape="rectangle">

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-  xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.core.widget.NestedScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:id="@+id/elevation_profile"
   android:layout_width="match_parent"
@@ -16,6 +15,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <include layout="@layout/elevation_profile_internal" />
+    <include layout="@layout/elevation_profile_internal"/>
   </LinearLayout>
 </androidx.core.widget.NestedScrollView>

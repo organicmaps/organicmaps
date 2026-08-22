@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
@@ -15,7 +14,7 @@
     android:layout_alignBottom="@id/bottom_line_container"
     android:background="@null"
     android:button="@drawable/button_visibility_centre_inset"
-    android:buttonTint="?accentColorSelector" />
+    android:buttonTint="?accentColorSelector"/>
   <TextView
     android:id="@+id/name"
     android:layout_width="wrap_content"
@@ -26,7 +25,7 @@
     android:ellipsize="middle"
     android:singleLine="true"
     android:textAppearance="?fontBody1"
-    tools:text="Bookmark name looooooooooooooooooongasdasdasd" />
+    tools:text="Bookmark name looooooooooooooooooongasdasdasd"/>
   <LinearLayout
     android:id="@+id/bottom_line_container"
     android:layout_width="match_parent"
@@ -44,7 +43,7 @@
       android:ellipsize="end"
       android:singleLine="true"
       android:textAppearance="@style/MwmTextAppearance.Body3"
-      tools:text="42000000" />
+      tools:text="42000000"/>
   </LinearLayout>
   <ImageView
     android:id="@+id/more"
@@ -58,5 +57,5 @@
     android:importantForAccessibility="no"
     android:paddingHorizontal="@dimen/margin_half"
     app:srcCompat="@drawable/ic_more"
-    app:tint="?secondary" />
+    app:tint="?secondary"/>
 </RelativeLayout>

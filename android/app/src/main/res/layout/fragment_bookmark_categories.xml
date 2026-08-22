@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/recycler"
   android:layout_width="match_parent"
@@ -9,4 +8,4 @@
   android:scrollbarSize="@dimen/scrollbar_size"
   tools:listheader="@layout/item_bookmark_group_list_header"
   tools:listitem="@layout/item_bookmark_category"
-  tools:listfooter="@layout/item_bookmark_button" />
+  tools:listfooter="@layout/item_bookmark_button"/>
