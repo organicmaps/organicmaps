@@ -17,7 +17,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center_vertical"
     tools:src="@drawable/ic_menu_download"
-    app:tint="?android:textColorSecondary"/>
+    app:tint="?android:textColorSecondary" />
   <TextView
     android:id="@+id/bottom_sheet_menu_item_text"
     android:textAppearance="@style/MwmTextAppearance.Body1"

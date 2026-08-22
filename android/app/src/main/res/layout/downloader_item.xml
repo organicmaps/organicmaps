@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
@@ -16,7 +15,7 @@
     android:layout_width="@dimen/downloader_status_size"
     android:layout_height="@dimen/downloader_status_size"
     android:layout_marginEnd="@dimen/margin_base"
-    android:layout_centerVertical="true"/>
+    android:layout_centerVertical="true" />
 
   <TextView
     android:id="@+id/size"
@@ -26,7 +25,7 @@
     android:layout_centerVertical="true"
     android:textAppearance="@style/MwmTextAppearance.Body3"
     tools:text="5000 MB"
-    tools:background="#80008000"/>
+    tools:background="#80008000" />
 
   <LinearLayout
     android:layout_width="match_parent"
@@ -44,7 +43,7 @@
       android:textAppearance="@style/MwmTextAppearance.Body4"
       android:maxLines="1"
       tools:text="Крымск"
-      tools:background="#60FF00FF"/>
+      tools:background="#60FF00FF" />
 
     <TextView
       android:id="@+id/name"
@@ -52,7 +51,7 @@
       android:layout_height="wrap_content"
       android:textAppearance="@style/MwmTextAppearance.Body1"
       tools:text="Донецкая область"
-      tools:background="#40FF0000"/>
+      tools:background="#40FF0000" />
 
     <TextView
       android:id="@+id/subtitle"
@@ -60,6 +59,6 @@
       android:layout_height="wrap_content"
       android:textAppearance="@style/MwmTextAppearance.Body4"
       tools:text="Украина"
-      tools:background="#60FFFF00"/>
+      tools:background="#60FFFF00" />
   </LinearLayout>
 </RelativeLayout>

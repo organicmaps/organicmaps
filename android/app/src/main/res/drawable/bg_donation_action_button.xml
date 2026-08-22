@@ -12,12 +12,12 @@
     <shape>
       <corners android:radius="@dimen/corner_radius_medium" />
       <gradient
-          android:centerX="0.1"
-          android:centerY="0.1"
-          android:endColor="@android:color/transparent"
-          android:gradientRadius="40dp"
-          android:startColor="@color/donation_action_light"
-          android:type="radial" />
+        android:centerX="0.1"
+        android:centerY="0.1"
+        android:endColor="@android:color/transparent"
+        android:gradientRadius="40dp"
+        android:startColor="@color/donation_action_light"
+        android:type="radial" />
     </shape>
   </item>
 

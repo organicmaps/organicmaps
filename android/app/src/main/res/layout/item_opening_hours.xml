@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
@@ -35,13 +34,13 @@
       android:text="@string/editor_time_title"
       android:textAppearance="@style/MwmTextAppearance.Body3"
       android:textSize="@dimen/text_size_body_1"
-      android:visibility="visible"/>
+      android:visibility="visible" />
 
     <View
       android:layout_width="match_parent"
       android:layout_height="1dp"
       android:layout_marginTop="@dimen/margin_half"
-      android:background="?dividerHorizontal"/>
+      android:background="?dividerHorizontal" />
 
   </LinearLayout>
 
@@ -54,7 +53,7 @@
     android:background="?clickableBackground"
     android:lineSpacingExtra="@dimen/margin_base"
     android:textAppearance="@style/MwmTextAppearance.PlacePage"
-    tools:text="Mo-Fr 16:00-18.00\nSu 16:00-18.00"/>
+    tools:text="Mo-Fr 16:00-18.00\nSu 16:00-18.00" />
 
   <TextView
     android:id="@+id/edit_opening_hours"
@@ -68,6 +67,6 @@
     android:text="@string/edit_opening_hours"
     android:textAllCaps="true"
     android:textAppearance="@style/MwmTextAppearance.Body1"
-    android:textColor="?colorAccent"/>
+    android:textColor="?colorAccent" />
 
 </RelativeLayout>

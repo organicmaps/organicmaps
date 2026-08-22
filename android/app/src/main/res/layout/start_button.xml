@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Button
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/start"
   style="@style/MwmWidget.Button.Primary"
@@ -9,4 +8,4 @@
   android:minWidth="@dimen/start_button_width"
   android:layout_gravity="center"
   android:text="@string/p2p_start"
-  tools:showIn="@layout/route_plan_line"/>
+  tools:showIn="@layout/route_plan_line" />

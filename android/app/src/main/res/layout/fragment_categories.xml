@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
@@ -15,5 +14,5 @@
     android:scrollbars="vertical"
     android:scrollbarSize="@dimen/scrollbar_size"
     android:fadeScrollbars="false"
-    tools:listitem="@layout/item_feature_category"/>
+    tools:listitem="@layout/item_feature_category" />
 </LinearLayout>

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Contextual actions of the multi-select mode. Floats above the list like the show-on-map FAB it
      replaces, so it reuses the same bottom-inset handling. -->
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/selection_actions"
   android:layout_width="match_parent"
