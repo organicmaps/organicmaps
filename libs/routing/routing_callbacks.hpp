@@ -20,8 +20,10 @@ class Route;
 class RoutesResult;
 
 /// Routing possible statuses enumeration.
-/// \warning  this enum has JNI mirror!
-/// \see android/src/app/organicmaps/maps/routing/ResultCodesHelper.java
+/// \warning  this enum is mirrored by value in Java and Objective-C/Swift!
+/// \see android/sdk/src/main/java/app/organicmaps/sdk/routing/ResultCodes.java
+/// \see iphone/Maps/Core/Framework/ProxyObjects/Routing/MWMRouterResultCode.h
+/// Values 3 and 4 are retired, do not reuse or renumber the rest.
 enum class RouterResultCode
 {
   NoError = 0,
