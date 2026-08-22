@@ -939,4 +939,6 @@
     <string name="color_picker_grid">Grille</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Recherche vocale</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Inverser l\'itinéraire</string>
 </resources>

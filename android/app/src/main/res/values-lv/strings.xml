@@ -930,4 +930,6 @@
     <string name="color_picker_grid">Režģis</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Balss meklēšana</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Apgriezt maršrutu</string>
 </resources>

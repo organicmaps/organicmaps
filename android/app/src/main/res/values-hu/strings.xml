@@ -940,4 +940,6 @@
     <string name="color_picker_grid">Rács</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Hangkeresés</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Útvonal megfordítása</string>
 </resources>

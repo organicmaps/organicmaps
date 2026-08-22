@@ -935,4 +935,6 @@
     <string name="color_picker_grid">شبکه</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">جستجوی صوتی</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">معکوس کردن مسیر</string>
 </resources>

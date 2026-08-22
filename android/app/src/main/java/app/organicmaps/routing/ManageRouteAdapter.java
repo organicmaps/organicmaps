@@ -201,6 +201,13 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     notifyItemMoved(draggedItemIndex, targetIndex);
   }
 
+  public void reverseRoutePoints()
+  {
+    Collections.reverse(mRoutePoints);
+    updateRoutePointsData();
+    notifyItemRangeChanged(0, mRoutePoints.size());
+  }
+
   public void deleteRoutePoint(RecyclerView.ViewHolder viewHolder)
   {
     final int position = viewHolder.getBindingAdapterPosition();
