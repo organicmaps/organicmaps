@@ -488,7 +488,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "نفق";
-"type.highway.platform" = "منصة";
+"type.highway.platform" = "منصة النقل العام";
 "type.highway.primary" = "شارع رئيسي";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -976,7 +976,7 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "النقل العام";
-"type.public_transport.platform" = "منصة";
+"type.public_transport.platform" = "منصة النقل العام";
 "type.railway" = "سكك حديدية";
 "type.railway.abandoned" = "سكك حديدية مهجورة";
 "type.railway.abandoned.bridge" = "جسر سكة حديد مهجور";
