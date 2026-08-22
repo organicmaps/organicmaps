@@ -318,7 +318,7 @@ public:
 
   /// \brief Polyline midpoint of segments [beginIdx, endIdx] interpolated to half their geodesic
   /// length. The 0-based indexing is into m_routeSegments; the previous "junction" of segment 0
-  /// is the first subroute's start point. Both bounds are inclusive.
+  /// is the start point of the first subroute containing segments. Both bounds are inclusive.
   m2::PointD GetMidpoint(size_t beginIdx, size_t endIdx) const;
   /// \returns Midpoint of the whole route, or PointD{} when the route has no segments.
   m2::PointD GetMidpoint() const
@@ -334,7 +334,7 @@ public:
 
   double GetTotalTimeSec() const;
 
-  /// \brief Mercator bounding rect of the route's points, derived from segments + first subroute start.
+  /// \brief Mercator bounding rect of the route's points, derived from segments and their start point.
   m2::RectD GetLimitRect() const;
 
   // Subroute interface.
@@ -375,11 +375,15 @@ public:
   {
     if (!m_subrouteAttrs.empty())
     {
-      fn(m_subrouteAttrs.front().GetStart());
+      auto const & firstSubroute = m_routeSegments.empty() ? m_subrouteAttrs.front() : GetFirstNonEmptySubroute();
+      fn(firstSubroute.GetStart());
       for (auto const & s : m_routeSegments)
         fn(s.GetJunction());
     }
   }
+
+private:
+  SubrouteAttrs const & GetFirstNonEmptySubroute() const;
 
 protected:
   void SetRouteSegments(std::vector<RouteSegment> && routeSegments);
@@ -417,8 +421,8 @@ public:
 
   Route() = default;
 
-  /// \brief Promote an alternative (RouteBase) to a followed Route. The base's segments + first subroute
-  /// start are used to (re)build the FollowedPolyline for follow-time matching.
+  /// \brief Promote an alternative (RouteBase) to a followed Route. The base's segments and their start
+  /// point are used to (re)build the FollowedPolyline for follow-time matching.
   explicit Route(RouteBase const & base) : RouteBase(base) { RebuildFollowedPolyline(); }
 
   Route(Route const & rhs) = default;
@@ -533,7 +537,7 @@ private:
   /// \returns Estimated time from the beginning.
   double GetCurrentTimeFromBeginSec() const;
 
-  /// \brief Rebuild the FollowedPolyline from RouteBase segments + first subroute start.
+  /// \brief Rebuild the FollowedPolyline from RouteBase segments and their start point.
   /// Used by the Route(RouteBase) promote constructors.
   void RebuildFollowedPolyline();
 

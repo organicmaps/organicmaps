@@ -78,6 +78,15 @@ void RouteBase::SetRouteSegments(std::vector<RouteSegment> && routeSegments)
   }
 }
 
+RouteBase::SubrouteAttrs const & RouteBase::GetFirstNonEmptySubroute() const
+{
+  auto const it = std::find_if(m_subrouteAttrs.begin(), m_subrouteAttrs.end(),
+                               [](SubrouteAttrs const & attrs) { return attrs.GetSize() != 0; });
+  CHECK(it != m_subrouteAttrs.end(), ());
+  CHECK_EQUAL(it->GetBeginSegmentIdx(), 0, ());
+  return *it;
+}
+
 double RouteBase::GetTotalTimeSec() const
 {
   return m_routeSegments.empty() ? 0.0 : m_routeSegments.back().GetTimeFromBeginningSec();
@@ -99,7 +108,7 @@ m2::PointD RouteBase::GetMidpoint(size_t beginIdx, size_t endIdx) const
     double const s = i == 0 ? 0.0 : m_routeSegments[i - 1].GetDistFromBeginningMeters();
     double const t = (e > s) ? (midM - s) / (e - s) : 0.0;
     auto const & a =
-        i == 0 ? m_subrouteAttrs.front().GetStart().GetPoint() : m_routeSegments[i - 1].GetJunction().GetPoint();
+        i == 0 ? GetFirstNonEmptySubroute().GetStart().GetPoint() : m_routeSegments[i - 1].GetJunction().GetPoint();
     auto const & b = m_routeSegments[i].GetJunction().GetPoint();
     return a + (b - a) * t;
   }
@@ -300,7 +309,7 @@ void Route::SetRouteSegments(std::vector<RouteSegment> && routeSegments)
 
 void Route::RebuildFollowedPolyline()
 {
-  // Reconstruct the followed polyline from base segments + first subroute start. Used when promoting
+  // Reconstruct the followed polyline from base segments and their start point. Used when promoting
   // an alternative (RouteBase) to a followed Route.
   if (m_routeSegments.empty() || m_subrouteAttrs.empty())
   {
