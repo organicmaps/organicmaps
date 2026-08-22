@@ -149,7 +149,7 @@ final class ExpandableLabel: UIView {
     if expanded {
       textContainer.updateContentHeight()
     }
-    UIView.animate(withDuration: kFastAnimationDuration) {
+    UIView.animate(withDuration: AppConstants.fastAnimationDuration) {
       self.updateCollapsedState()
       self.superview?.layoutIfNeeded()
     }

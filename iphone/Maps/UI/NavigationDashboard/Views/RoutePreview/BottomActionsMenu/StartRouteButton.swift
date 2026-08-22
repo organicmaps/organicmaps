@@ -7,7 +7,7 @@ final class StartRouteButton: UIView {
 
   private enum Constants {
     static let buttonTitle = L("p2p_start")
-    static let animationDuration: TimeInterval = kDefaultAnimationDuration / 2
+    static let animationDuration: TimeInterval = AppConstants.defaultAnimationDuration / 2
   }
 
   private let button = UIButton(type: .system)

@@ -26,7 +26,7 @@ final class DimBackground: SolidTouchView {
     } else {
       alpha = 0.8
     }
-    UIView.animate(withDuration: kDefaultAnimationDuration,
+    UIView.animate(withDuration: AppConstants.defaultAnimationDuration,
                    animations: { self.alpha = visible ? 0.8 : 0 },
                    completion: { _ in
                      if !visible {
