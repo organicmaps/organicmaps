@@ -29,6 +29,7 @@ set(SRC
   http_request.hpp
   http_uploader.hpp
   http_uploader_background.hpp
+  languages.hpp
   local_country_file.cpp
   local_country_file.hpp
   local_country_file_utils.cpp
