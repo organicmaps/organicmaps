@@ -7,6 +7,7 @@
 
 #include "indexer/ftypes_matcher.hpp"
 
+#include <optional>
 #include <vector>
 
 namespace routing
@@ -25,6 +26,9 @@ struct LoadedPathSegment
   SegmentRange m_segmentRange;
   std::vector<Segment> m_segments; /*!< Traffic segments for |m_path|. */
   ftypes::HighwayClass m_highwayClass = ftypes::HighwayClass::Undefined;
+  // The whole feature's bounding-box center is used to measure the angular sweep of the route path.
+  // It is retained only while turn annotations are created.
+  std::optional<m2::PointD> m_roundaboutCenter;
   bool m_onRoundabout = false;
   bool m_isLink = false;
   bool m_isOneWay = false;

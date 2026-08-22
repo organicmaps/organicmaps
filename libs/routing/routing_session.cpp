@@ -427,11 +427,15 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
   // The turn after the next one.
   if (m_routingSettings.m_showTurnAfterNext)
-    info.m_nextTurn = m_turnNotificationsMgr.GetSecondTurnNotification();
-  else
-    info.m_nextTurn = routing::turns::CarDirection::None;
+  {
+    auto const & nextTurn = m_turnNotificationsMgr.GetSecondTurn();
+    info.m_nextTurn = nextTurn.m_turn;
+    info.m_nextExitNum = nextTurn.m_exitNum;
+    info.m_nextRoundaboutInfo = nextTurn.m_roundaboutInfo;
+  }
 
   info.m_exitNum = turn.m_exitNum;
+  info.m_roundaboutInfo = turn.m_roundaboutInfo;
   info.m_time = static_cast<int>(std::max(kMinimumETASec, m_route->GetCurrentTimeToEndSec()));
 
   RouteSegment::RoadNameInfo currentRoadNameInfo;

@@ -81,25 +81,9 @@ public:
   /// The method shall be called after creating a new route or after rerouting.
   void Reset();
 
-  /// \brief The method was implemented to display the second turn notification
-  /// in an appropriate moment.
-  /// @return the second closest turn.
-  /// The return value is different form TurnDirection::NoTurn
-  /// if an end user is close enough to the first (current) turn and
-  /// the distance between the closest and the second closest turn is not large.
-  /// (That means a notification about turn after the closest one was pronounced.)
-  /// For example, if while closing to the closest turn was pronounced
-  /// "Turn right. Then turn left." 500 meters before the closest turn, after that moment
-  /// GetSecondTurnNotification returns TurnDirection::TurnLeft if distance to first turn < 500
-  /// meters.
-  /// After the closest composed turn was passed GetSecondTurnNotification returns
-  /// TurnDirection::NoTurn.
-  /// \note If the returning value is TurnDirection::NoTurn no turn shall be displayed.
-  /// \note If GetSecondTurnNotification returns a value different form TurnDirection::NoTurn
-  /// for a turn once it continues returning the same value until the turn is changed.
-  /// \note This method works independent from m_enabled value.
-  /// So it works when the class enable and disable.
-  CarDirection GetSecondTurnNotification() const { return m_secondTurnNotification; }
+  /// Returns the second closest turn after its "Then" notification is issued, or a turn with
+  /// CarDirection::None when it should not be displayed. This state is independent of m_enabled.
+  TurnItem const & GetSecondTurn() const { return m_secondTurnNotification; }
 
 private:
   std::string GenerateTurnText(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
@@ -113,14 +97,8 @@ private:
   /// without pronunciation.
   void FastForwardFirstTurnNotification();
 
-  /// \param turns contains information about the next turns staring from closest turn.
-  /// That means turns[0] is the closest turn (if available).
-  /// @return the second closest turn or TurnDirection::NoTurn.
-  /// \note If GenerateSecondTurnNotification returns a value different form TurnDirection::NoTurn
-  /// for a turn once it will return the same value until the turn is changed.
-  /// \note This method works independent from m_enabled value.
-  /// So it works when the class enable and disable.
-  CarDirection GenerateSecondTurnNotification(std::vector<TurnItemDist> const & turns);
+  /// Updates m_secondTurnNotification from turns, ordered closest first.
+  void GenerateSecondTurnNotification(std::vector<TurnItemDist> const & turns);
 
   /// m_enabled == true when tts is turned on.
   /// Important! Clients (iOS/Android) implies that m_enabled is false by default.
@@ -157,16 +135,12 @@ private:
   /// notification string.
   GetTtsText m_getTtsText;
 
-  /// if m_secondTurnNotification == true it's time to display the second turn notification
-  /// visual informer, and false otherwise.
-  /// m_secondTurnNotification is a direction of the turn after the closest one
-  /// if an end user shall be informed about it. If not, m_secondTurnNotification ==
-  /// TurnDirection::NoTurn
-  CarDirection m_secondTurnNotification = CarDirection::None;
+  /// The turn after the closest one when it is time to display it, or an empty turn otherwise.
+  TurnItem m_secondTurnNotification;
 
   /// m_secondTurnNotificationIndex is an index of the closest turn on the route polyline
-  /// where m_secondTurnNotification was set to true last time for a turn.
-  /// If the closest turn is changed m_secondTurnNotification is set to 0.
+  /// where m_secondTurnNotification was last populated.
+  /// If the closest turn is changed m_secondTurnNotification is cleared.
   /// \note 0 is a valid index. But in this context it could be considered as invalid
   /// because if firstTurnIndex == 0 that means we're at very beginning of the route
   /// and we're about to making a turn. In that case it's no use to inform a user about
