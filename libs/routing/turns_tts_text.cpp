@@ -150,7 +150,7 @@ std::string GetTtsText::GetTurnNotification(Notification const & notification) c
     // We're going to pronounce the street name.
 
     // Replace any full-stop characters (in between sub-instructions) to make TTS flow better.
-    // Full stops are: . (Period) or 。 (East Asian) or । (Hindi)
+    // Full stops are: . (Period) or 。 (East Asian) or । (Hindi) or ։ (Armenian)
     RemoveLastDot(distStr);
 
     // If the turn direction with the key +_street exists for this locale, and isn't "NULL",
