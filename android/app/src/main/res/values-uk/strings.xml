@@ -562,11 +562,7 @@
     <string name="mobile_data_description">Використання мобільних даних необхідно для сповіщень про оновлення мапи та для відображення докладної інформації про місця та мітки.</string>
     <string name="mobile_data_option_never">Ніколи</string>
     <string name="mobile_data_option_ask">Завжди питати</string>
-    <string name="traffic_update_maps_text">Для відображення інформації про трафік необхідно оновити мапи.</string>
     <string name="big_font">Збільшити розмір шрифту на мапі</string>
-    <string name="traffic_update_app">Будь ласка, встановіть оновлення Organic Maps</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">Дані про трафік недоступні</string>
     <string name="enable_logging">Включити логіювання</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Загальний відгук</string>

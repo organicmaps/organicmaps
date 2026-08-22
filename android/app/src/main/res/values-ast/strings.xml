@@ -239,8 +239,6 @@
     <string name="mobile_data_option_always">Usar siempres</string>
     <string name="mobile_data_option_today">Namás güei</string>
     <string name="mobile_data_option_ask">Entrugar siempres</string>
-    <string name="traffic_update_maps_text">P’amosar datos de tráficu, tienen d’anovase los mapes.</string>
-    <string name="traffic_update_app">Anueva Organic Maps</string>
     <string name="learn_more">Deprende más</string>
     <string name="placepage_remove_stop">Desaniciar parada</string>
     <string name="placepage_add_stop">Amestar parada</string>

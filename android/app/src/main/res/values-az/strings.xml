@@ -562,11 +562,7 @@
     <string name="mobile_data_description">Xəritə yeniləmə bildirişləri və redaktələrin yüklənməsi üçün mobil internet tələb olunur.</string>
     <string name="mobile_data_option_never">Heç vaxt istifadə etməyin</string>
     <string name="mobile_data_option_ask">Həmişə Soruşun</string>
-    <string name="traffic_update_maps_text">Nəqliyyat məlumatlarını göstərmək üçün xəritələr yenilənməlidir.</string>
     <string name="big_font">Xəritədə şrift ölçüsünü artırın</string>
-    <string name="traffic_update_app">Organic Maps\'i yeniləyin</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">Nəqliyyat məlumatları mövcud deyil</string>
     <string name="enable_logging">Girişi aktivləşdirin</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Ümumi rəy</string>

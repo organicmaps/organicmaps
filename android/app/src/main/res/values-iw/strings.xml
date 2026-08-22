@@ -562,11 +562,7 @@
     <string name="mobile_data_description">אינטרנט סלולרי נחוץ בשביל הודעות על עדכון מפות ובשביל העלאת עריכות.</string>
     <string name="mobile_data_option_never">אף פעם אל תשתמש</string>
     <string name="mobile_data_option_ask">שאל תמיד</string>
-    <string name="traffic_update_maps_text">כדי להציג מידע על עומס תנועה, יש לעדכן את המפות.</string>
     <string name="big_font">הגדל תגיות במפה</string>
-    <string name="traffic_update_app">נא לעדכן את Organic Maps</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">מידע על עומס תנועה לא זמין.</string>
     <string name="enable_logging">הפעל logging</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">משוב כללי</string>

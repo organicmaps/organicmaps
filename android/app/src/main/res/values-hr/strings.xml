@@ -560,11 +560,7 @@
     <string name="mobile_data_description">Za obavijesti o ažuriranju karata i učitavanje izmjena potreban je mobilni internet.</string>
     <string name="mobile_data_option_never">Nikada ne koristiti</string>
     <string name="mobile_data_option_ask">Uvijek pitaj</string>
-    <string name="traffic_update_maps_text">Za prikaz podataka o prometu karte se moraju ažurirati.</string>
     <string name="big_font">Povećajte veličinu oznaka na karti</string>
-    <string name="traffic_update_app">Molimo ažurirajte Organic Maps</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">Podaci o prometu nisu dostupni</string>
     <string name="enable_logging">Omogući zapisivanje</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Opći povratne informacije</string>

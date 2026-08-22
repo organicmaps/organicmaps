@@ -562,11 +562,7 @@
     <string name="mobile_data_description">Mobiele internet is nodig vir kaartbywerkkennisgewings en om wysigings op te laai.</string>
     <string name="mobile_data_option_never">Gebruik nooit</string>
     <string name="mobile_data_option_ask">Vra altyd</string>
-    <string name="traffic_update_maps_text">Kaarte moet bygewerk word om verkeersdata te vertoon.</string>
     <string name="big_font">Vergroot lettergrootte op kaart</string>
-    <string name="traffic_update_app">Werk Organic Maps asb. by</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">Verkeersdata is nie beskikbaar nie</string>
     <string name="enable_logging">Staan logboekinskrywing toe</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Algemene terugvoer</string>

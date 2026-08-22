@@ -562,11 +562,7 @@
     <string name="mobile_data_description">Dane mobilne są wymagane do powiadomień o aktualizacji map i wyświetlania dokładniejszych informacji o miejscach i zakładkach.</string>
     <string name="mobile_data_option_never">Nigdy nie stosuj</string>
     <string name="mobile_data_option_ask">Zawsze pytaj</string>
-    <string name="traffic_update_maps_text">Aby wyświetlić dane o ruchu, muszą zostać zaktualizowane mapy.</string>
     <string name="big_font">Powiększ rozmiar czcionki na mapie</string>
-    <string name="traffic_update_app">Zaktualizuj Organic Maps</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">Dane o ruchu są niedostępne</string>
     <string name="enable_logging">Włącz zbieranie danych</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Ogólne uwagi</string>

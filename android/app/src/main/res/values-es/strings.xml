@@ -562,11 +562,7 @@
     <string name="mobile_data_description">Se necesita Internet móvil para mostrar información detallada de los lugares, como fotografías, precios y reseñas.</string>
     <string name="mobile_data_option_never">No usar nunca</string>
     <string name="mobile_data_option_ask">Preguntar siempre</string>
-    <string name="traffic_update_maps_text">Para mostrar los datos de tráfico, deben actualizarse los mapas.</string>
     <string name="big_font">Aumentar tamaño del texto en el mapa</string>
-    <string name="traffic_update_app">Actualice Organic Maps</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">Los datos de tráfico no están disponibles</string>
     <string name="enable_logging">Activar registros</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Opinión general</string>

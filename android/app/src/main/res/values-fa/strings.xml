@@ -562,11 +562,7 @@
     <string name="mobile_data_description">برای آگاهی از به‌روزرسانی نقشه و ارسال ویرایش‌ها، اینترنت موبایل مورد نیاز است.</string>
     <string name="mobile_data_option_never">هرگز</string>
     <string name="mobile_data_option_ask">همیشه بپرس</string>
-    <string name="traffic_update_maps_text">برای نمایش ترافیک، نقشه می بایستی بروزرسانی شود.</string>
     <string name="big_font">افزایش اندازه متن بر روی نقشه</string>
-    <string name="traffic_update_app">لطفا Organic Maps را بروزرسانی کنید</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">اطلاعات ترافیکی موجود نیست</string>
     <string name="enable_logging">ورود به سیستم را فعال کنید</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">\"تنظیمات: دکمه \"ارسال بازخورد کلی</string>

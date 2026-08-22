@@ -388,10 +388,7 @@
     <string name="mobile_data_description">Para visualizar informações detalhadas sobre os locais, tais como fotos, preços e avaliações, é necessário acesso à internet móvel.</string>
     <string name="mobile_data_option_never">Nunca usar</string>
     <string name="mobile_data_option_ask">Pergunte sempre</string>
-    <string name="traffic_update_maps_text">Para ver os dados de tráfego, os mapas devem ser atualizados.</string>
     <string name="big_font">Aumentar o tamanho dos rótulos dos mapas</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">Não existem dados de tráfego</string>
     <string name="enable_logging">Ativar o registro</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Comentários gerais</string>

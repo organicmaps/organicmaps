@@ -516,11 +516,7 @@
     <string name="mobile_data_description">ຕ້ອງການອິນເຕີເນັດມືຖືສຳລັບການແຈ້ງເຕືອນອັບເດດແຜນທີ່ ແລະ ການອັບໂຫລດການແກ້ໄຂ.</string>
     <string name="mobile_data_option_never">ບໍ່ໃຊ້ເລີຍ</string>
     <string name="mobile_data_option_ask">ຖາມທຸກຄັ້ງ</string>
-    <string name="traffic_update_maps_text">ເພື່ອສະແດງຂໍ້ມູນການຈະລາຈອນ, ຕ້ອງອັບເດດແຜນທີ່ກ່ອນ.</string>
     <string name="big_font">ເພີ່ມຂະໜາດສຳລັບປ້າຍຊື່ໃນແຜນທີ່</string>
-    <string name="traffic_update_app">ກະລຸນາອັບເດດ Organic Maps</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">ຂໍ້ມູນການຈະລາຈອນບໍ່ພ້ອມໃຊ້ງານ</string>
     <string name="enable_logging">ເປີດການບັນທຶກລັອກ</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">ຄຳຕິຊົມທົ່ວໄປ</string>
