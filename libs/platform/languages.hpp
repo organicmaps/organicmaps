@@ -1,7 +1,7 @@
 #pragma once
 
 #include <array>
-#include <string>
+#include <string_view>
 #include <utility>
 
 #include "std/target_os.hpp"
@@ -36,7 +36,7 @@ namespace routing::turns::sound
  * Locale to the internal twine code; iOS does the equivalent mapping in
  * `LocaleTranslator.mm` and stores only the internal code here.
  */
-std::array<std::pair<std::string_view, std::string_view>, 51> constexpr kLanguageList = {{
+auto constexpr kLanguageList = std::to_array<std::pair<std::string_view, std::string_view>>({
     {"en", "English"},
     {"id", "Bahasa Indonesia"},
     {"ca", "Català"},
@@ -106,5 +106,5 @@ std::array<std::pair<std::string_view, std::string_view>, 51> constexpr kLanguag
 #endif
     {"ja", "日本語"},
     {"ko", "한국어"},
-}};
+});
 }  // namespace routing::turns::sound
