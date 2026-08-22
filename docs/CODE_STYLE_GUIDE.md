@@ -119,9 +119,11 @@ so no additional formatter needs to be installed.
 
 The include and exclude rules are defined in `tools/python/format_json_xml.py`.
 CI checks in-scope JSON and XML files touched by a pull request. The formatter
-keeps XML elements on one line when they fit the 120-character limit, rejects
-duplicate or lossy JSON, and leaves XML that cannot be safely reflowed
-untouched.
+keeps an XML element on one line when it has at most one attribute, and
+otherwise puts the tag name alone on the opening line with every attribute on
+its own line -- except a leading `xmlns` declaration, which stays on the tag
+line. It rejects duplicate or lossy JSON, and leaves XML that cannot be safely
+reflowed untouched.
 
 ## Python Style
 

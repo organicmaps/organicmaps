@@ -33,34 +33,44 @@ class FormatJsonTest(unittest.TestCase):
 
 
 class FormatXmlTest(unittest.TestCase):
-    def _self_closing_with_length(self, length):
-        fixed = len('<item first="1" second=""/>')
-        return f'<item first="1" second="{"x" * (length - fixed)}"/>'
+    def test_never_wraps_a_single_attribute(self):
+        xml = f'<item only="{"x" * 300}"/>'
+        self.assertEqual(formatter.format_xml(xml.encode()), xml + "\n")
 
-    def test_keeps_short_text_leaf_on_one_line(self):
+    def test_wraps_two_attributes_however_short(self):
+        expected = '<item\n  a="1"\n  b="2"/>\n'
+        self.assertEqual(formatter.format_xml(b'<item a="1" b="2"/>'), expected)
+        self.assertEqual(formatter.format_xml(expected.encode()), expected)
+
+    def test_wraps_text_leaf_with_two_attributes(self):
         raw = (
             b'<string name="navigation_channel_name" translatable="false">'
             b'Navigation</string>')
-        self.assertEqual(formatter.format_xml(raw), raw.decode() + "\n")
-
-    def test_keeps_120_character_tag_on_one_line(self):
-        xml = self._self_closing_with_length(formatter.MAX_LINE_LENGTH)
-        self.assertEqual(formatter.format_xml(xml.encode()), xml + "\n")
-
-    def test_wraps_121_character_tag(self):
-        xml = self._self_closing_with_length(formatter.MAX_LINE_LENGTH + 1)
-        value = "x" * (len(xml) - len('<item first="1" second=""/>'))
-        expected = f'<item\n    first="1"\n    second="{value}"/>\n'
-        self.assertEqual(formatter.format_xml(xml.encode()), expected)
+        expected = (
+            '<string\n  name="navigation_channel_name"\n'
+            '  translatable="false">Navigation</string>\n')
+        self.assertEqual(formatter.format_xml(raw), expected)
         self.assertEqual(formatter.format_xml(expected.encode()), expected)
 
-    def test_nested_indentation_counts_towards_line_length(self):
-        child = self._self_closing_with_length(formatter.MAX_LINE_LENGTH - len(formatter.INDENT) + 1)
-        xml = f"<root>{child}</root>"
-        value = "x" * (len(child) - len('<item first="1" second=""/>'))
+    def test_keeps_leading_xmlns_on_the_tag_line(self):
+        raw = b'<root xmlns:a="urn:a" first="1" second="2"/>'
         expected = (
-            f'<root>\n  <item\n      first="1"\n      second="{value}"/>\n</root>\n')
-        self.assertEqual(formatter.format_xml(xml.encode()), expected)
+            '<root xmlns:a="urn:a"\n  first="1"\n  second="2"/>\n')
+        self.assertEqual(formatter.format_xml(raw), expected)
+        self.assertEqual(formatter.format_xml(expected.encode()), expected)
+
+    def test_wraps_second_xmlns_onto_its_own_line(self):
+        raw = b'<root xmlns:a="urn:a" xmlns:b="urn:b" first="1"/>'
+        expected = (
+            '<root xmlns:a="urn:a"\n  xmlns:b="urn:b"\n  first="1"/>\n')
+        self.assertEqual(formatter.format_xml(raw), expected)
+        self.assertEqual(formatter.format_xml(expected.encode()), expected)
+
+    def test_wrapped_attributes_use_the_nested_tag_indent(self):
+        expected = '<root>\n  <item\n    a="1"\n    b="2"/>\n</root>\n'
+        self.assertEqual(
+            formatter.format_xml(b'<root><item a="1" b="2"/></root>'), expected)
+        self.assertEqual(formatter.format_xml(expected.encode()), expected)
 
     def test_preserves_whitespace_only_leaf(self):
         self.assertEqual(formatter.format_xml(b"<item> </item>"), "<item> </item>\n")
