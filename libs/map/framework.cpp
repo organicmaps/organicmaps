@@ -2343,22 +2343,25 @@ void Framework::DeactivateHotelSearchMark()
 
 void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
 {
-  // Intercept taps on alternative-route ETA balloons before BuildPlacePageInfo: swap the active
-  // variant and return. Always return — even when SwapActiveAlternative declines (tap on the
-  // already-active balloon) — because FillUserMarkInfo has no ROUTE_ALT handler and would CHECK-fail.
-  if (!buildInfo.m_isLongTap && buildInfo.m_userMarkId != kml::kInvalidMarkId &&
-      UserMark::GetMarkType(buildInfo.m_userMarkId) == UserMark::Type::ROUTE_ALT)
+  if (!buildInfo.m_isLongTap)
   {
-    if (auto const * mark = static_cast<RouteAltMark const *>(GetBookmarkManager().GetUserMark(buildInfo.m_userMarkId)))
-      m_routingManager.SwapActiveAlternative(mark->GetRouteIdx());
-    return;
-  }
+    // Taps on an alternative route's ETA balloon (ROUTE_ALT mark) or on its polyline,
+    // swap the active variant instead of PP opening.
 
-  // Same swap when the tap lands on an alternative route's polyline rather than its balloon.
-  if (!buildInfo.m_isLongTap &&
-      m_routingManager.TryTapOnAlternativeRoute(buildInfo.m_mercator, m_currentModelView.GetScale()))
-  {
-    return;
+    auto const umID = buildInfo.m_userMarkId;
+    if (umID != kml::kInvalidMarkId)
+    {
+      if (UserMark::GetMarkType(umID) == UserMark::Type::ROUTE_ALT)
+      {
+        if (auto const * mark = static_cast<RouteAltMark const *>(GetBookmarkManager().GetUserMark(umID)))
+          m_routingManager.SwapActiveAlternative(mark->GetRouteIdx());
+
+        // Always return because FillUserMarkInfo has no ROUTE_ALT handler and would CHECK-fail.
+        return;
+      }
+    }
+    else if (m_routingManager.TryTapOnAlternativeRoute(buildInfo.m_mercator, m_currentModelView.GetScale()))
+      return;
   }
 
   auto placePageInfo = BuildPlacePageInfo(buildInfo);
