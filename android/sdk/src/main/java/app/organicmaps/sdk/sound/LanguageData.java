@@ -5,7 +5,7 @@ import java.util.Locale;
 
 /**
  * {@code LanguageData} describes single voice language managed by {@link TtsPlayer}.
- * Supported languages are listed in {@code strings-tts.xml} file, for details see comments there.
+ * Supported languages are listed in {@code libs/platform/languages.hpp}, for details see comments there.
  */
 public class LanguageData
 {

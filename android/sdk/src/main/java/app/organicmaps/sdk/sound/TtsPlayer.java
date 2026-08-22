@@ -25,7 +25,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  * {@code TtsPlayer} class manages available TTS voice languages.
  * Single TTS language is described by {@link LanguageData} item.
  * <p>
- * We support a set of languages listed in {@code strings-tts.xml} file.
+ * We support a set of languages listed in {@code libs/platform/languages.hpp} and passed to Java by
+ * {@link #nativeGetSupportedLanguages()}.
  * During loading each item in this list is marked as {@code downloaded} or {@code not downloaded},
  * unsupported voices are excluded.
  * <p>
