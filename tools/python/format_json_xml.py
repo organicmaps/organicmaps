@@ -11,12 +11,14 @@
 #
 # JSON is reformatted when the stdlib round-trip preserves its value exactly.
 # Duplicate object names and numbers that would lose precision are rejected.
-# XML is reflowed Android-style. Elements stay on one line when they fit the
-# 120-character limit; longer tags put every attribute on its own
-# 4-space-indented line. This is only done when it is safe: files with mixed
-# content (text interleaved with elements), CDATA, xml:space="preserve", a
-# DOCTYPE, or a non-UTF-8 encoding are left untouched, because reflowing them
-# could change their meaning.
+# XML is reflowed Android-style: an element with more than one attribute (xml
+# namespaces count as attributes) puts the tag name alone on the opening line
+# and every attribute on its own line, indented like a nested tag. A leading
+# xmlns declaration stays on the tag line. Elements with 0 or 1 attribute
+# always stay on one line, however long. This is only
+# done when it is safe: files with mixed content (text interleaved with
+# elements), CDATA, xml:space="preserve", a DOCTYPE, or a non-UTF-8 encoding
+# are left untouched, because reflowing them could change their meaning.
 #
 # Usage:
 #   format_json_xml.py all               # check every in-scope file; exit 1 on drift
@@ -37,9 +39,7 @@ from xml.dom import Node, minidom
 
 REPO = Path(__file__).resolve().parents[2]
 
-INDENT = "  "
-ATTR_INDENT = INDENT * 2  # continuation indent for wrapped attributes (4 spaces)
-MAX_LINE_LENGTH = 120
+INDENT = "  "  # one step, used for nested tags and for wrapped attributes alike
 
 # --- scope: the single source of truth --------------------------------------
 # Only files whose repo-relative POSIX path starts with one of these prefixes
@@ -164,18 +164,22 @@ def _is_unsafe(node):
     return any(_is_unsafe(c) for c in node.childNodes)
 
 
-def _start_tag(name, attrs, pad, self_close, suffix=""):
+def _start_tag(name, attrs, pad, self_close):
     tail = "/>" if self_close else ">"
-    joined = "".join(f' {key}="{_esc_attr(value)}"' for key, value in attrs)
-    inline = f"<{name}{joined}{tail}"
-    first_suffix_line = suffix.split("\n", 1)[0]
-    if len(attrs) <= 1 or len(pad + inline + first_suffix_line) <= MAX_LINE_LENGTH:
-        return inline
-
-    # For a long tag with multiple attributes, put the tag name alone on the
-    # opening line and every attribute on its own continuation line.
-    cont = pad + ATTR_INDENT
-    lines = [f"<{name}"] + [f'{cont}{k}="{_esc_attr(v)}"' for k, v in attrs]
+    # 0 or 1 attribute: always a single line, whatever its length.
+    if len(attrs) <= 1:
+        joined = "".join(f' {k}="{_esc_attr(v)}"' for k, v in attrs)
+        return f"<{name}{joined}{tail}"
+    # 2 or more attributes: tag name alone on the opening line, then every
+    # attribute on its own line, closing bracket appended to the last one.
+    # A leading namespace declaration stays on the tag line instead, as it
+    # belongs to the tag rather than describing it.
+    head, rest = f"<{name}", attrs
+    if attrs[0][0].startswith("xmlns"):
+        key, value = attrs[0]
+        head, rest = f'<{name} {key}="{_esc_attr(value)}"', attrs[1:]
+    cont = pad + INDENT
+    lines = [head] + [f'{cont}{k}="{_esc_attr(v)}"' for k, v in rest]
     return "\n".join(lines) + tail
 
 
@@ -207,10 +211,9 @@ def _serialize(node, level):
         # Text-only elements are leaves even when their text is all whitespace.
         # XML processors expose that whitespace as character data, so preserve it.
         if node.childNodes and all(c.nodeType == Node.TEXT_NODE for c in node.childNodes):
-            text = _esc_text("".join(c.data for c in node.childNodes))
-            end_tag = f"</{node.tagName}>"
-            st = _start_tag(node.tagName, attrs, pad, False, text + end_tag)
-            return f"{pad}{st}{text}{end_tag}"
+            st = _start_tag(node.tagName, attrs, pad, False)
+            text = "".join(c.data for c in node.childNodes)
+            return f"{pad}{st}{_esc_text(text)}</{node.tagName}>"
         kids = [c for c in node.childNodes if c.nodeType in _STRUCTURAL
                 or (c.nodeType == Node.TEXT_NODE and c.data.strip())]
         if not kids:
