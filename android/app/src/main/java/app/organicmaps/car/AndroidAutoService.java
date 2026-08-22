@@ -20,6 +20,8 @@ import app.organicmaps.api.Const;
 import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.car.CarType;
 import app.organicmaps.sdk.car.CarTypeHelper;
+import app.organicmaps.sdk.display.DisplayManager;
+import app.organicmaps.sdk.display.DisplayType;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.log.Logger;
 import java.io.IOException;
@@ -35,6 +37,9 @@ public final class AndroidAutoService extends CarAppServiceBase
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private OrganicMaps mOrganicMapsContext;
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private DisplayManager mDisplayManager;
   private boolean mInitFailed = false;
 
   public AndroidAutoService()
@@ -46,7 +51,9 @@ public final class AndroidAutoService extends CarAppServiceBase
   @Override
   public Session onCreateSession(@Nullable SessionInfo sessionInfo)
   {
-    return new AndroidAutoSession(mOrganicMapsContext, sessionInfo, /* isDebug */ BuildConfig.DEBUG, mInitFailed);
+    mDisplayManager.init(DisplayType.Car);
+    return new AndroidAutoSession(mOrganicMapsContext, mDisplayManager, sessionInfo, /* isDebug */ BuildConfig.DEBUG,
+                                  mInitFailed);
   }
 
   @Override
@@ -58,6 +65,8 @@ public final class AndroidAutoService extends CarAppServiceBase
 
     final MwmApplication app = MwmApplication.from(getApplicationContext());
     mOrganicMapsContext = app.getOrganicMaps();
+    mDisplayManager = app.getDisplayManager();
+
     if (!mOrganicMapsContext.arePlatformAndCoreInitialized())
     {
       try

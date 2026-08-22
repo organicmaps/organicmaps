@@ -30,12 +30,21 @@ public class DisplayManager
 
   private final Handler mHandler = new Handler(Looper.getMainLooper());
 
-  @NonNull
-  private DisplayType mCurrentDisplayType = DisplayType.Device;
+  @Nullable
+  private DisplayType mCurrentDisplayType;
   @Nullable
   private DisplayHolder mDevice;
   @Nullable
   private DisplayHolder mCar;
+
+  public void init(@NonNull final DisplayType initialDisplayType)
+  {
+    if (mCurrentDisplayType != null)
+      return;
+
+    Logger.d(TAG, "initialDisplayType = " + initialDisplayType);
+    mCurrentDisplayType = initialDisplayType;
+  }
 
   public boolean isCarConnected()
   {
