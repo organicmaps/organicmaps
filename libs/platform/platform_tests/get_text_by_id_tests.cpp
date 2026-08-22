@@ -1,8 +1,10 @@
 #include "testing/testing.hpp"
 
 #include "platform/get_text_by_id.hpp"
+#include "platform/languages.hpp"
 
 #include <string>
+#include <string_view>
 
 UNIT_TEST(GetTextByIdEnglishTest)
 {
@@ -117,4 +119,18 @@ UNIT_TEST(GetTextByIdFrenchTest)
   TEST_EQUAL((*getFrench)("some_nonexistent_key"), "", ());
   TEST_EQUAL((*getFrench)(""), "", ());
   TEST_EQUAL((*getFrench)(" "), "", ());
+}
+
+// Every language offered in the TTS picker must ship a sound-strings folder: GetTextByIdFactory
+// silently falls back to English when it is missing, so a wrong code yields English voice guidance.
+UNIT_TEST(TtsLanguageListHasSoundStrings)
+{
+  std::string jsonBuffer;
+  for (auto const & [code, name] : routing::turns::sound::kLanguageList)
+  {
+    // Android entries are "bcp47:internal"; the internal code names the sound-strings folder.
+    auto const colon = code.find(':');
+    std::string const locale{colon == std::string_view::npos ? code : code.substr(colon + 1)};
+    TEST(platform::GetJsonBuffer(platform::TextSource::TtsSound, locale, jsonBuffer), (locale, name));
+  }
 }
