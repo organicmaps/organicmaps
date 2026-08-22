@@ -36,11 +36,6 @@ public class ResultCodesHelper
         messages.add(resources.getString(R.string.dialog_routing_location_turn_wifi));
       }
       break;
-    case ResultCodes.INCONSISTENT_MWM_ROUTE:
-    case ResultCodes.ROUTING_FILE_NOT_EXIST:
-      titleRes = R.string.routing_download_maps_along;
-      messages.add(resources.getString(R.string.routing_requires_all_map));
-      break;
     case ResultCodes.START_POINT_NOT_FOUND:
       titleRes = R.string.dialog_routing_change_start;
       messages.add(resources.getString(R.string.dialog_routing_start_not_determined));
@@ -115,8 +110,7 @@ public class ResultCodesHelper
 
     return switch (resultCode)
     {
-      case ResultCodes.INCONSISTENT_MWM_ROUTE, ResultCodes.ROUTE_NOT_FOUND_REDRESS_ROUTE_ERROR,
-          ResultCodes.ROUTING_FILE_NOT_EXIST, ResultCodes.NEED_MORE_MAPS, ResultCodes.ROUTE_NOT_FOUND,
+      case ResultCodes.ROUTE_NOT_FOUND_REDRESS_ROUTE_ERROR, ResultCodes.NEED_MORE_MAPS, ResultCodes.ROUTE_NOT_FOUND,
           ResultCodes.FILE_TOO_OLD ->
         true;
       default -> false;

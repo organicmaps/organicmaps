@@ -65,9 +65,7 @@ CGFloat const kAnimationDuration = .05;
   MWMDownloadTransitMapAlert * alert = [self alertWithCountries:countries];
   switch (code)
   {
-  case routing::RouterResultCode::InconsistentMWMandRoute:
   case routing::RouterResultCode::RouteNotFound:
-  case routing::RouterResultCode::RouteFileNotExist:
     alert.titleLabel.text = L(@"dialog_routing_download_files");
     alert.messageLabel.text = L(@"dialog_routing_download_and_update_all");
     break;

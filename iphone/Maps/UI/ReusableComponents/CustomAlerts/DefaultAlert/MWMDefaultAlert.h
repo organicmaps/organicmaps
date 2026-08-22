@@ -5,7 +5,7 @@
 + (instancetype)routeNotFoundAlert;
 + (instancetype)routeNotFoundNoPublicTransportAlert;
 + (instancetype)routeNotFoundTooLongPedestrianAlert;
-+ (instancetype)routeFileNotExistAlert;
++ (instancetype)routeFileTooOldAlert;
 + (instancetype)endPointNotFoundAlert;
 + (instancetype)startPointNotFoundAlert;
 + (instancetype)intermediatePointNotFoundAlert;

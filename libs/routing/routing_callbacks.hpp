@@ -20,16 +20,15 @@ class Route;
 class RoutesResult;
 
 /// Routing possible statuses enumeration.
-/// \warning  this enum has JNI mirror!
-/// \see android/src/app/organicmaps/maps/routing/ResultCodesHelper.java
-// TODO(bykoianko): Items become obsolete now should be removed from the enum.
+/// \warning  this enum is mirrored by value in Java and Objective-C/Swift!
+/// \see android/sdk/src/main/java/app/organicmaps/sdk/routing/ResultCodes.java
+/// \see iphone/Maps/Core/Framework/ProxyObjects/Routing/MWMRouterResultCode.h
+/// Values 3 and 4 are retired, do not reuse or renumber the rest.
 enum class RouterResultCode
 {
   NoError = 0,
   Cancelled = 1,
   NoCurrentPosition = 2,
-  InconsistentMWMandRoute = 3,
-  RouteFileNotExist = 4,
   StartPointNotFound = 5,
   EndPointNotFound = 6,
   PointsInDifferentMWM = 7,
@@ -93,8 +92,6 @@ inline std::string ToString(RouterResultCode code)
   case RouterResultCode::NoError: return "NoError";
   case RouterResultCode::Cancelled: return "Cancelled";
   case RouterResultCode::NoCurrentPosition: return "NoCurrentPosition";
-  case RouterResultCode::InconsistentMWMandRoute: return "InconsistentMWMandRoute";
-  case RouterResultCode::RouteFileNotExist: return "RouteFileNotExist";
   case RouterResultCode::StartPointNotFound: return "StartPointNotFound";
   case RouterResultCode::EndPointNotFound: return "EndPointNotFound";
   case RouterResultCode::PointsInDifferentMWM: return "PointsInDifferentMWM";

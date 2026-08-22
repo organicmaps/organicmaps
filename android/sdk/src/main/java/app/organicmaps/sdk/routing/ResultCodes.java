@@ -6,8 +6,6 @@ public interface ResultCodes
   int NO_ERROR = 0;
   int CANCELLED = 1;
   int NO_POSITION = 2;
-  int INCONSISTENT_MWM_ROUTE = 3;
-  int ROUTING_FILE_NOT_EXIST = 4;
   int START_POINT_NOT_FOUND = 5;
   int END_POINT_NOT_FOUND = 6;
   int DIFFERENT_MWM = 7;

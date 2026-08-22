@@ -560,8 +560,6 @@ using namespace routing;
     if (![MWMRouter IsRouteValid])
       [[MWMNavigationDashboardManager sharedManager] onRouteError:L(@"routing_planning_error")];
     break;
-  case routing::RouterResultCode::RouteFileNotExist:
-  case routing::RouterResultCode::InconsistentMWMandRoute:
   case routing::RouterResultCode::FileTooOld:
   case routing::RouterResultCode::RouteNotFound:
     self.routingOptions = [MWMRoutingOptions new];

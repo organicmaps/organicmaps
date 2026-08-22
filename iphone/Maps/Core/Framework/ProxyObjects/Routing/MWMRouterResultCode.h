@@ -2,8 +2,6 @@ typedef NS_CLOSED_ENUM(NSUInteger, MWMRouterResultCode) {
   MWMRouterResultCodeNoError = 0,
   MWMRouterResultCodeCancelled = 1,
   MWMRouterResultCodeNoCurrentPosition = 2,
-  MWMRouterResultCodeInconsistentMWMandRoute = 3,
-  MWMRouterResultCodeRouteFileNotExist = 4,
   MWMRouterResultCodeStartPointNotFound = 5,
   MWMRouterResultCodeEndPointNotFound = 6,
   MWMRouterResultCodePointsInDifferentMWM = 7,
