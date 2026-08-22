@@ -562,11 +562,7 @@
     <string name="mobile_data_description">모바일 인터넷은 사진, 가격, 리뷰 등 장소에 대한 자세한 정보를 표시하는 데 필요합니다.</string>
     <string name="mobile_data_option_never">전혀 사용 안 함</string>
     <string name="mobile_data_option_ask">항상 표시</string>
-    <string name="traffic_update_maps_text">교통 데이터를 표시하려면 지도를 업데이트해야 합니다.</string>
     <string name="big_font">지도에서 글꼴 크기 늘리기</string>
-    <string name="traffic_update_app">Organic Maps를 업데이트하세요.</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">교통 데이터를 사용할 수 없습니다</string>
     <string name="enable_logging">로깅 사용</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">일반 피드백</string>

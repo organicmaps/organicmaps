@@ -562,11 +562,7 @@
     <string name="mobile_data_description">Kartes atjauninājumu paziņojumiem un rediģējumu augšupielādēšanai ir nepieciešami mobilie dati.</string>
     <string name="mobile_data_option_never">Nekad neizmantot</string>
     <string name="mobile_data_option_ask">Jautāt vienmēr</string>
-    <string name="traffic_update_maps_text">Lai parādītu satiksmes datus, kartes ir jāatjaunina.</string>
     <string name="big_font">Palielināt fonta lielumu kartē</string>
-    <string name="traffic_update_app">Atjauniniet „Organic Maps“</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">Satiksmes dati nav pieejami</string>
     <string name="enable_logging">Ieslēgt žurnalēšanu</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Vispārīgas atsauksmes</string>

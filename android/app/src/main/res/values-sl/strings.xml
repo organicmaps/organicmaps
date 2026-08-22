@@ -562,11 +562,7 @@
     <string name="mobile_data_description">Mobilni internet je potreben za obvestila o posodobitvah zemljevidov in nalaganje urejanj.</string>
     <string name="mobile_data_option_never">Nikoli ne uporabi</string>
     <string name="mobile_data_option_ask">Vedno vprašaj</string>
-    <string name="traffic_update_maps_text">Za prikaz podatkov o prometu je treba posodobiti zemljevide.</string>
     <string name="big_font">Povečaj velikost oznak na zemljevidu</string>
-    <string name="traffic_update_app">Posodobite Organic Maps</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">Podatki o prometu niso na voljo</string>
     <string name="enable_logging">Omogoči beleženje</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Splošne povratne informacije</string>

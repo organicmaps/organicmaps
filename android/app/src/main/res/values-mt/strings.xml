@@ -562,11 +562,7 @@
     <string name="mobile_data_description">L-internet mobbli huwa meħtieġ għan-notifiki tal-aġġornament tal-mapep u għat-tlugħ tal-editjar.</string>
     <string name="mobile_data_option_never">Tuża Qatt</string>
     <string name="mobile_data_option_ask">Staqsi Dejjem</string>
-    <string name="traffic_update_maps_text">Biex tintwera d-dejta dwar it-traffiku, il-mapep iridu jiġu aġġornati.</string>
     <string name="big_font">Żid id-daqs għat-tikketti tal-mapep</string>
-    <string name="traffic_update_app">Aġġorna Organic Maps</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">L-Informazzjoni dwar it-traffiku mhijiex disponibbli</string>
     <string name="enable_logging">Attiva l-illoggjar</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Feedback Ġenerali</string>

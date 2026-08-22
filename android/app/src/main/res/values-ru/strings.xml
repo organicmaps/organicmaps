@@ -562,11 +562,7 @@
     <string name="mobile_data_description">Мобильный интернет требуется для уведомлений об обновлении карты и для отображения более подробной информации о местах и метках.</string>
     <string name="mobile_data_option_never">Никогда не использовать</string>
     <string name="mobile_data_option_ask">Всегда спрашивать</string>
-    <string name="traffic_update_maps_text">Для отображения пробок необходимо обновить карты.</string>
     <string name="big_font">Увеличить шрифт на карте</string>
-    <string name="traffic_update_app">Обновите Organic Maps</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">Данные о пробках недоступны</string>
     <string name="enable_logging">Включить запись логов</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Отправить отзыв</string>

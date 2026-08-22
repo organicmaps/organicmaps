@@ -562,11 +562,7 @@
     <string name="mobile_data_description">Internetkapcsolatra van szükség a térképfrissítési értesítésekhez, valamint a helyekre és könyvjelzőkre vonatkozó részletes információk megjelenítéséhez.</string>
     <string name="mobile_data_option_never">Soha ne használja</string>
     <string name="mobile_data_option_ask">Mindig kérdezzen rá</string>
-    <string name="traffic_update_maps_text">Forgalmi adatok megjelenítéséhez frissíteni kell a térképeket.</string>
     <string name="big_font">Betűméret növelése a térképen</string>
-    <string name="traffic_update_app">Frissítse az Organic Maps alkalmazást</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">Forgalmi adatok nem állnak rendelkezésre</string>
     <string name="enable_logging">Naplózás engedélyezése</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Általános visszajelzés</string>

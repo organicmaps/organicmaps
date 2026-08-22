@@ -562,11 +562,7 @@
     <string name="mobile_data_description">Pranešimams apie žemėlapių naujinius ir pataisų įkėlimui reikalingas mobilusis internetas.</string>
     <string name="mobile_data_option_never">Niekada nenaudoti</string>
     <string name="mobile_data_option_ask">Visada klausti</string>
-    <string name="traffic_update_maps_text">Jeigu norite matyti eismo duomenis, reikia atnaujinti žemėlapius.</string>
     <string name="big_font">Padidinti žemėlapio užrašų šrifto dydį</string>
-    <string name="traffic_update_app">Atnaujinkite „Organic Maps“</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">Eismo duomenys neprieinami</string>
     <string name="enable_logging">Įgalinti derinimo žurnalą</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Bendro pobūdžio atsiliepimas</string>

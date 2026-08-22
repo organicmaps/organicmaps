@@ -562,11 +562,7 @@
     <string name="mobile_data_description">Բջջային ինտերնետն անհրաժեշտ է քարտեզի թարմացման ծանուցումների և խմբագրումների վերբեռնման համար:</string>
     <string name="mobile_data_option_never">Երբեք չօգտագործել</string>
     <string name="mobile_data_option_ask">Միշտ հարցնել</string>
-    <string name="traffic_update_maps_text">Երթևեկության տվյալները ցուցադրելու համար քարտեզները պետք է թարմացվեն:</string>
     <string name="big_font">Մեծացնել քարտեզի գրությունների չափսը</string>
-    <string name="traffic_update_app">Խնդրում ենք թարմացնել Organic Maps-ը</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">Երթևեկության տվյալները հասանելի չեն</string>
     <string name="enable_logging">Միացնել գրանցումը</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Ընդհանուր կարծիք</string>
