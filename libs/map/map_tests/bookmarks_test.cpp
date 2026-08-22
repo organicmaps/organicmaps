@@ -449,7 +449,7 @@ Bookmark const * GetBookmark(Framework & fm, m2::PointD const & pt)
 bool IsValidBookmark(Framework & fm, m2::PointD const & pt)
 {
   auto const * mark = GetMark(fm, pt);
-  return (mark != nullptr) && (mark->GetMarkType() == UserMark::BOOKMARK);
+  return (mark && mark->GetMarkType() == UserMark::BOOKMARK);
 }
 }  // namespace
 

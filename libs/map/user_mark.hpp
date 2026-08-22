@@ -55,6 +55,7 @@ public:
     USER_MARK_TYPES_COUNT,
     USER_MARK_TYPES_COUNT_MAX = 1000,
   };
+  static_assert(BOOKMARK == 0);
 
   UserMark(kml::MarkId id, m2::PointD const & ptOrg, UserMark::Type type);
   UserMark(m2::PointD const & ptOrg, UserMark::Type type);

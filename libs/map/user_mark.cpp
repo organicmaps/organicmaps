@@ -3,8 +3,6 @@
 
 #include "drape_frontend/visual_params.hpp"
 
-#include "indexer/scales.hpp"
-
 #include "geometry/mercator.hpp"
 
 UserMark::UserMark(kml::MarkId id, m2::PointD const & ptOrg, UserMark::Type type)
