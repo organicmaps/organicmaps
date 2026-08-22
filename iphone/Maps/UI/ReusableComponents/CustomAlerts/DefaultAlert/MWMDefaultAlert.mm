@@ -23,14 +23,14 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 
 @implementation MWMDefaultAlert
 
-+ (instancetype)routeFileNotExistAlert
++ (instancetype)routeFileTooOldAlert
 {
   return [self defaultAlertWithTitle:L(@"dialog_routing_download_files")
                              message:L(@"dialog_routing_download_and_update_all")
                     rightButtonTitle:L(@"ok")
                      leftButtonTitle:nil
                    rightButtonAction:nil
-                                 log:@"Route File Not Exist Alert"];
+                                 log:@"Route File Too Old Alert"];
 }
 
 + (instancetype)routeNotFoundAlert
@@ -40,7 +40,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                     rightButtonTitle:L(@"ok")
                      leftButtonTitle:nil
                    rightButtonAction:nil
-                                 log:@"Route File Not Exist Alert"];
+                                 log:@"Route Not Found Alert"];
 }
 
 + (instancetype)routeNotFoundNoPublicTransportAlert
