@@ -37,7 +37,9 @@ The C++ core is accessed from platforms via bridging layers:
 - Auto-format: `clang-format -i file.cpp` (v22+), or `tools/unix/clang-format.sh` for the whole tree
 - Swift: format with `swiftformat iphone/` or `swiftformat <file>` (config in `iphone/.swiftformat`)
 - Kotlin: format with `tools/unix/ktlint_format.sh` (config in `android/.editorconfig`)
-- Style checks gate CI (clang-format, swiftformat, ktlint, and detekt static analysis) -- run them before pushing
+- JSON/XML: format with `tools/python/format_json_xml.py files <files> --fix`, or use `all --fix`
+- Style checks gate CI (clang-format, swiftformat, ktlint, JSON/XML, and detekt static
+  analysis) -- run them before pushing
 - Pre-commit hook (auto-formats on commit): `git config core.hooksPath tools/hooks`
 - See [docs/CODE_STYLE_GUIDE.md](docs/CODE_STYLE_GUIDE.md) for more details and examples
 
