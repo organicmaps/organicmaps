@@ -1077,6 +1077,12 @@ void Editor::MarkFeatureWithStatus(FeaturesContainer & editableFeatures, Feature
   fti.m_object = *originalObjectPtr;
   fti.m_status = status;
   fti.m_modificationTimestamp = time(nullptr);
+
+  // This is a new operation on the feature, so a previous upload does not apply to it anymore.
+  // Otherwise an already uploaded feature would never be deleted from OSM.
+  fti.m_uploadAttemptTimestamp = base::INVALID_TIME_STAMP;
+  fti.m_uploadStatus.clear();
+  fti.m_uploadError.clear();
 }
 
 MwmSet::MwmId Editor::GetMwmIdByMapName(string const & name)
