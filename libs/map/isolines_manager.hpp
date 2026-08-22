@@ -45,8 +45,6 @@ public:
   void UpdateViewport(ScreenBase const & screen);
   void Invalidate();
 
-  isolines::Quality GetDataQuality(MwmSet::MwmId const & id) const;
-
   void OnMwmDeregistered(platform::LocalCountryFile const & countryFile);
   void Clear();
 

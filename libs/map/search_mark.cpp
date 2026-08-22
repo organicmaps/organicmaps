@@ -91,7 +91,6 @@ namespace
 df::ColorConstant const kColorConstant = "SearchmarkDefault";
 
 float const kVisitedSymbolOpacity = 0.7f;
-float const kOutOfFiltersSymbolOpacity = 0.4f;
 
 std::array<std::string, SearchMarkType::Count> const kSymbols = {
     "search-result",                          // Default.
@@ -360,11 +359,7 @@ SearchMarkType GetSearchMarkType(uint32_t type)
 SearchMarkPoint::SearchMarkPoint(m2::PointD const & ptOrg)
   : UserMark(ptOrg, UserMark::Type::SEARCH)
   , m_type(SearchMarkType::Default)
-  , m_isPreparing(false)
-  , m_hasSale(false)
-  , m_isSelected(false)
   , m_isVisited(false)
-  , m_isAvailable(true)
 {}
 
 m2::PointD SearchMarkPoint::GetPixelOffset() const
@@ -396,8 +391,6 @@ bool SearchMarkPoint::IsMarkAboveText() const
 
 float SearchMarkPoint::GetSymbolOpacity() const
 {
-  if (!m_isAvailable)
-    return kOutOfFiltersSymbolOpacity;
   return m_isVisited ? kVisitedSymbolOpacity : 1.0f;
 }
 
@@ -436,63 +429,12 @@ void SearchMarkPoint::SetNotFoundType()
   SetAttributeValue(m_type, SearchMarkType::NotFound);
 }
 
-#define SET_BOOL_ATTRIBUTE(dest, src) \
-  if (dest != src)                    \
-  {                                   \
-    dest = src;                       \
-    SetDirty();                       \
-  }
-
-void SearchMarkPoint::SetPreparing(bool isPreparing)
-{
-  SET_BOOL_ATTRIBUTE(m_isPreparing, isPreparing);
-}
-
-void SearchMarkPoint::SetSale(bool hasSale)
-{
-  SET_BOOL_ATTRIBUTE(m_hasSale, hasSale);
-}
-
-void SearchMarkPoint::SetSelected(bool isSelected)
-{
-  SET_BOOL_ATTRIBUTE(m_isSelected, isSelected);
-}
-
 void SearchMarkPoint::SetVisited(bool isVisited)
 {
-  SET_BOOL_ATTRIBUTE(m_isVisited, isVisited);
-}
-
-void SearchMarkPoint::SetAvailable(bool isAvailable)
-{
-  SET_BOOL_ATTRIBUTE(m_isAvailable, isAvailable);
-}
-
-#undef SET_BOOL_ATTRIBUTE
-
-void SearchMarkPoint::SetReason(std::string const & reason)
-{
-  SetAttributeValue(m_reason, reason);
-}
-
-bool SearchMarkPoint::IsSelected() const
-{
-  return m_isSelected;
-}
-
-bool SearchMarkPoint::IsAvailable() const
-{
-  return m_isAvailable;
-}
-
-std::string const & SearchMarkPoint::GetReason() const
-{
-  return m_reason;
-}
-
-bool SearchMarkPoint::HasReason() const
-{
-  return !m_reason.empty();
+  if (m_isVisited == isVisited)
+    return;
+  m_isVisited = isVisited;
+  SetDirty();
 }
 
 std::string const * SearchMarkPoint::GetSymbolName() const
@@ -568,34 +510,6 @@ std::optional<m2::PointD> SearchMarks::GetSize(std::string const & symbolName)
   return m2::PointD(it->second);
 }
 
-void SearchMarks::SetPreparingState(std::vector<FeatureID> const & features, bool isPreparing)
-{
-  if (features.empty())
-    return;
-
-  ProcessMarks([&features, isPreparing](SearchMarkPoint * mark) -> base::ControlFlow
-  {
-    ASSERT(std::is_sorted(features.cbegin(), features.cend()), ());
-    if (std::binary_search(features.cbegin(), features.cend(), mark->GetFeatureID()))
-      mark->SetPreparing(isPreparing);
-    return base::ControlFlow::Continue;
-  });
-}
-
-void SearchMarks::SetSales(std::vector<FeatureID> const & features, bool hasSale)
-{
-  if (features.empty())
-    return;
-
-  ProcessMarks([&features, hasSale](SearchMarkPoint * mark) -> base::ControlFlow
-  {
-    ASSERT(std::is_sorted(features.cbegin(), features.cend()), ());
-    if (std::binary_search(features.cbegin(), features.cend(), mark->GetFeatureID()))
-      mark->SetSale(hasSale);
-    return base::ControlFlow::Continue;
-  });
-}
-
 bool SearchMarks::IsThereSearchMarkForFeature(FeatureID const & featureId) const
 {
   for (auto const markId : m_bmManager->GetUserMarkIds(UserMark::Type::SEARCH))
@@ -604,66 +518,17 @@ bool SearchMarks::IsThereSearchMarkForFeature(FeatureID const & featureId) const
   return false;
 }
 
-void SearchMarks::OnActivate(FeatureID const & featureId)
-{
-  m_selectedFeature = featureId;
-  m_visitedSearchMarks.erase(featureId);
-  ProcessMarks([&featureId](SearchMarkPoint * mark) -> base::ControlFlow
-  {
-    if (featureId != mark->GetFeatureID())
-      return base::ControlFlow::Continue;
-    mark->SetVisited(false);
-    mark->SetSelected(true);
-    return base::ControlFlow::Break;
-  });
-}
-
 void SearchMarks::OnDeactivate(FeatureID const & featureId)
 {
-  m_selectedFeature = {};
   m_visitedSearchMarks.insert(featureId);
   ProcessMarks([&featureId](SearchMarkPoint * mark) -> base::ControlFlow
   {
     if (featureId != mark->GetFeatureID())
       return base::ControlFlow::Continue;
     mark->SetVisited(true);
-    mark->SetSelected(false);
     return base::ControlFlow::Break;
   });
 }
-
-/*
-void SearchMarks::SetUnavailable(SearchMarkPoint & mark, std::string const & reasonKey)
-{
-  {
-    std::scoped_lock<std::mutex> lock(m_lock);
-    m_unavailable.insert_or_assign(mark.GetFeatureID(), reasonKey);
-  }
-  mark.SetAvailable(false);
-  mark.SetReason(platform::GetLocalizedString(reasonKey));
-}
-
-void SearchMarks::SetUnavailable(std::vector<FeatureID> const & features,
-                                 std::string const & reasonKey)
-{
-  if (features.empty())
-    return;
-
-  ProcessMarks([this, &features, &reasonKey](SearchMarkPoint * mark) -> base::ControlFlow
-  {
-    ASSERT(std::is_sorted(features.cbegin(), features.cend()), ());
-    if (std::binary_search(features.cbegin(), features.cend(), mark->GetFeatureID()))
-      SetUnavailable(*mark, reasonKey);
-    return base::ControlFlow::Continue;
-  });
-}
-
-bool SearchMarks::IsUnavailable(FeatureID const & id) const
-{
-  std::scoped_lock<std::mutex> lock(m_lock);
-  return m_unavailable.find(id) != m_unavailable.cend();
-}
-*/
 
 void SearchMarks::SetVisited(FeatureID const & id)
 {
@@ -673,25 +538,6 @@ void SearchMarks::SetVisited(FeatureID const & id)
 bool SearchMarks::IsVisited(FeatureID const & id) const
 {
   return m_visitedSearchMarks.find(id) != m_visitedSearchMarks.cend();
-}
-
-void SearchMarks::SetSelected(FeatureID const & id)
-{
-  m_selectedFeature = id;
-}
-
-bool SearchMarks::IsSelected(FeatureID const & id) const
-{
-  return id == m_selectedFeature;
-}
-
-void SearchMarks::ClearTrackedProperties()
-{
-  //  {
-  //    std::scoped_lock<std::mutex> lock(m_lock);
-  //    m_unavailable.clear();
-  //  }
-  m_selectedFeature = {};
 }
 
 void SearchMarks::ProcessMarks(std::function<base::ControlFlow(SearchMarkPoint *)> && processor) const

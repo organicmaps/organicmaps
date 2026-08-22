@@ -97,16 +97,3 @@ inline std::string ByteToQuat(uint8_t n)
   }
   return result;
 }
-
-template <typename IntT>
-inline std::string NumToQuat(IntT n)
-{
-  std::string result;
-  for (size_t i = 0; i < sizeof(n); ++i)
-  {
-    uint8_t ub = n >> (sizeof(n) * 8 - 8);
-    result += ByteToQuat(ub);
-    n <<= 8;
-  }
-  return result;
-}

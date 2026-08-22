@@ -53,7 +53,6 @@ public:
   void SetRoutePointFullType(RouteMarkType type, size_t intermediateIndex);
   bool IsEqualFullType(RouteMarkType type, size_t intermediateIndex) const;
 
-  void SetIsMyPosition(bool isMyPosition);
   bool IsMyPosition() const { return m_markData.m_isMyPosition; }
 
   void SetPassed(bool isPassed);

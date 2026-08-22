@@ -53,11 +53,6 @@ struct TurnInfo;
 bool GetNextRoutePointIndex(IRoutingResult const & result, RoutePointIndex const & index, NumMwmIds const & numMwmIds,
                             bool const forward, RoutePointIndex & nextIndex);
 
-inline size_t GetFirstSegmentPointIndex(std::pair<size_t, size_t> const & p)
-{
-  return p.first;
-}
-
 bool GetTurnInfo(IRoutingResult const & result, size_t const outgoingSegmentIndex,
                  RoutingSettings const & vehicleSettings, TurnInfo & turnInfo);
 

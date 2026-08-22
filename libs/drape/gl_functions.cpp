@@ -938,14 +938,6 @@ void GLFunctions::glUniformValuef(int location, float v1, float v2, float v3, fl
   GLCHECK(glUniform4fFn(location, v1, v2, v3, v4));
 }
 
-void GLFunctions::glUniformValuefv(int location, float const * v, uint32_t size)
-{
-  ASSERT_EQUAL(CurrentApiVersion, dp::ApiVersion::OpenGLES3, ());
-  ASSERT(glUniform1fvFn != nullptr, ());
-  ASSERT(location != -1, ());
-  GLCHECK(glUniform1fvFn(location, size, v));
-}
-
 void GLFunctions::glUniformValue4fv(int location, float const * v, uint32_t size)
 {
   ASSERT_EQUAL(CurrentApiVersion, dp::ApiVersion::OpenGLES3, ());

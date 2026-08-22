@@ -319,11 +319,6 @@ void SearchAPI::EnableIndexingOfBookmarkGroup(kml::MarkGroupId const & groupId, 
   m_engine.EnableIndexingOfBookmarkGroup(KmlGroupIdToSearchGroupId(groupId), enable);
 }
 
-std::unordered_set<kml::MarkGroupId> const & SearchAPI::GetIndexableGroups() const
-{
-  return m_indexableGroups;
-}
-
 void SearchAPI::ResetBookmarksEngine()
 {
   m_indexableGroups.clear();

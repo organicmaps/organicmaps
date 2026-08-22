@@ -93,11 +93,6 @@ inline double MetersToMercator(double meters)
 {
   return meters * Bounds::kDegreesInMeter;
 }
-inline double MercatorToMeters(double mercator)
-{
-  return mercator * Bounds::kMetersInDegree;
-}
-
 /// @name Get rect for center point (lon, lat) and dimensions in meters.
 /// @return mercator rect.
 m2::RectD MetersToXY(double lon, double lat, double lonMetersR, double latMetersR);

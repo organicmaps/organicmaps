@@ -49,7 +49,6 @@ public:
   using KMLDataCollectionPtr = std::shared_ptr<KMLDataCollection>;
 
   using BookmarksChangedCallback = std::function<void()>;
-  using CategoriesChangedCallback = std::function<void()>;
   using ElevationActivePointChangedCallback = std::function<void(kml::TrackId, double)>;
   using ElevationMyPositionChangedCallback = std::function<void(kml::TrackId, double)>;
 
@@ -191,7 +190,6 @@ public:
   void InitRegionAddressGetter(DataSource const & dataSource, storage::CountryInfoGetter const & infoGetter);
 
   void SetBookmarksChangedCallback(BookmarksChangedCallback && callback);
-  void SetCategoriesChangedCallback(CategoriesChangedCallback && callback);
   void SetAsyncLoadingCallbacks(AsyncLoadingCallbacks && callbacks);
   bool IsAsyncLoadingInProgress() const { return m_asyncLoadingInProgress; }
 
@@ -288,7 +286,6 @@ public:
   kml::MarkGroupId GetCategoryByFileName(std::string const & fileName) const;
   m2::RectD GetCategoryRect(kml::MarkGroupId categoryId, bool addIconsSize) const;
   kml::CategoryData const & GetCategoryData(kml::MarkGroupId categoryId) const;
-  std::string GetCategoryCustomProperty(kml::MarkGroupId categoryId, std::string const & key) const;
 
   kml::MarkGroupId GetCategoryId(std::string const & name) const;
 
@@ -373,7 +370,6 @@ public:
   bool AreAllCategoriesVisible() const;
   bool AreAllCategoriesInvisible() const;
   void SetAllCategoriesVisibility(bool visible);
-  void SetChildCategoriesVisibility(kml::MarkGroupId categoryId, kml::CompilationType compilationType, bool visible);
 
   void SetNotificationsEnabled(bool enabled);
   bool AreNotificationsEnabled() const;
@@ -654,7 +650,6 @@ private:
   void UpdateBmGroupIdList();
 
   void NotifyBookmarksChanged();
-  void NotifyCategoriesChanged();
 
   void SendBookmarksChanges(MarksChangesTracker const & changesTracker);
   void GetBookmarksInfo(kml::MarkIdSet const & marks, std::vector<BookmarkInfo> & bookmarks) const;
@@ -754,7 +749,6 @@ private:
   std::mutex m_regionAddressMutex;
 
   BookmarksChangedCallback m_bookmarksChangedCallback;
-  CategoriesChangedCallback m_categoriesChangedCallback;
   ElevationActivePointChangedCallback m_elevationActivePointChanged;
   ElevationMyPositionChangedCallback m_elevationMyPositionChanged;
   m2::PointD m_lastElevationMyPosition = m2::PointD::Zero();

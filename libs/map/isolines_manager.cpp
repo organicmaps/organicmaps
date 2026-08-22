@@ -146,18 +146,6 @@ void IsolinesManager::Invalidate()
     UpdateViewport(*m_currentModelView);
 }
 
-isolines::Quality IsolinesManager::GetDataQuality(MwmSet::MwmId const & id) const
-{
-  if (!id.IsAlive())
-    return isolines::Quality::None;
-
-  auto const it = m_mwmCache.find(id);
-  if (it == m_mwmCache.cend())
-    return LoadIsolinesInfo(id).m_quality;
-
-  return it->second.m_quality;
-}
-
 void IsolinesManager::OnMwmDeregistered(platform::LocalCountryFile const & countryFile)
 {
   for (auto it = m_mwmCache.begin(); it != m_mwmCache.end(); ++it)

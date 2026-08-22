@@ -47,16 +47,7 @@ public:
   void SetFromType(uint32_t type);
   void SetNotFoundType();
 
-  void SetPreparing(bool isPreparing);
-  void SetSale(bool hasSale);
-  void SetSelected(bool isSelected);
   void SetVisited(bool isVisited);
-  void SetAvailable(bool isAvailable);
-  void SetReason(std::string const & reason);
-
-  bool IsSelected() const;
-  bool IsAvailable() const;
-  std::string const & GetReason() const;
 
 protected:
   template <typename T, typename U>
@@ -69,22 +60,15 @@ protected:
     dst = std::forward<U>(src);
   }
 
-  bool HasReason() const;
-
   std::string const * GetSymbolName() const;
 
   // Used to pass exact search result matched string into a place page.
   std::string m_matchedName;
-  std::string m_reason;
 
   FeatureID m_featureID;
   SearchMarkType m_type;
 
-  bool m_isPreparing : 1;
-  bool m_hasSale : 1;
-  bool m_isSelected : 1;
   bool m_isVisited : 1;
-  bool m_isAvailable : 1;
 };
 
 class SearchMarks
@@ -97,27 +81,11 @@ public:
 
   m2::PointD GetMaxDimension(ScreenBase const & modelView) const;
 
-  // NOTE: Vector of features must be sorted.
-  void SetPreparingState(std::vector<FeatureID> const & features, bool isPreparing);
-
-  // NOTE: Vector of features must be sorted.
-  void SetSales(std::vector<FeatureID> const & features, bool hasSale);
-
   bool IsThereSearchMarkForFeature(FeatureID const & featureId) const;
-  void OnActivate(FeatureID const & featureId);
   void OnDeactivate(FeatureID const & featureId);
-
-  //  void SetUnavailable(SearchMarkPoint & mark, std::string const & reasonKey);
-  //  void SetUnavailable(std::vector<FeatureID> const & features, std::string const & reasonKey);
-  //  bool IsUnavailable(FeatureID const & id) const;
 
   void SetVisited(FeatureID const & id);
   bool IsVisited(FeatureID const & id) const;
-
-  void SetSelected(FeatureID const & id);
-  bool IsSelected(FeatureID const & id) const;
-
-  void ClearTrackedProperties();
 
   static bool HaveSizes() { return !s_markSizes.empty(); }
   static std::optional<m2::PointD> GetSize(std::string const & symbolName);
@@ -134,8 +102,4 @@ private:
   m2::PointD m_maxDimension{0, 0};
 
   std::set<FeatureID> m_visitedSearchMarks;
-  FeatureID m_selectedFeature;
-
-  //  mutable std::mutex m_lock;
-  //  std::map<FeatureID, std::string /* SearchMarkPoint::m_reason */> m_unavailable;
 };
