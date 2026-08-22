@@ -403,8 +403,9 @@ struct BookmarkData
   uint8_t m_viewportScale = 0;
   // Creation timestamp.
   Timestamp m_timestamp = {};
-  // Coordinates in mercator.
-  m2::PointD m_point;
+  // Coordinates in mercator. m2::PointD leaves itself uninitialized, and every bookmark needs
+  // a defined position: an unset one used to be written out as "NaN,NaN" and dropped on reload.
+  m2::PointD m_point{};
   // Bound tracks (vector contains local track ids).
   std::vector<LocalId> m_boundTracks;
   // Visibility.

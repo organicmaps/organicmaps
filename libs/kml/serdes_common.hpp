@@ -21,6 +21,14 @@ std::string PointToGxString(geometry::PointWithAltitude const & pt);
 // flat sea-level track isn't bloated with zero altitudes. Mirrors Track::HasAltitudes intent.
 bool LineHasAltitude(TrackGeometry const & line);
 
+// True if the raw WGS84 coordinates are in range, i.e. can be projected without losing the position.
+bool IsValidLatLon(double lat, double lon);
+
+// Converts a raw altitude (KML/GPX <ele>, GeoJSON Z) to geometry::Altitude, clamping into the int16
+// range because converting an out-of-range floating-point value to an integer is undefined. Altitude
+// reserves the lowest int16 value as an invalid sentinel, returned for a non-finite input.
+geometry::Altitude ToAltitude(double altitude);
+
 void SaveStringWithCDATA(Writer & writer, std::string_view s);
 
 std::string_view constexpr kIndent0{};
