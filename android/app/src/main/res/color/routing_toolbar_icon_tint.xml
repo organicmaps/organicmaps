@@ -3,6 +3,5 @@
   <item
     android:state_checked="true"
     android:color="@color/routing_button_activated_tint"/>
-  <item
-    android:color="@color/routing_button_tint"/>
+  <item android:color="@color/routing_button_tint"/>
 </selector>

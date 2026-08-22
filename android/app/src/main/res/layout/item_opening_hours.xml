@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
@@ -17,7 +16,7 @@
     android:layout_marginEnd="@dimen/margin_base_plus"
     android:layout_marginTop="@dimen/margin_base"
     app:srcCompat="@drawable/ic_operating_hours"
-    app:tint="?iconTint" />
+    app:tint="?iconTint"/>
 
   <LinearLayout
     android:id="@+id/empty_opening_hours"

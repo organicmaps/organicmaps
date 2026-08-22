@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   style="@style/MwmWidget.Editor.CardView"
   android:layout_marginBottom="@dimen/margin_half"
@@ -253,7 +252,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="?dividerHorizontal"/>
-
 
       <LinearLayout
         android:id="@+id/closed_host"

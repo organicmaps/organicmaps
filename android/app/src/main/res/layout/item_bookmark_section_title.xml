@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/text"
   style="?fontSubtitle2"
@@ -12,4 +11,4 @@
   android:paddingTop="@dimen/margin_half"
   android:paddingEnd="@dimen/margin_base"
   android:paddingBottom="@dimen/margin_half"
-  tools:text="@string/bookmarks" />
+  tools:text="@string/bookmarks"/>

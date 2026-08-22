@@ -21,9 +21,9 @@
     android:text="@string/editor_edit_place_name_hint"
     android:textAppearance="@style/MwmTextAppearance.Body3"
     tools:drawableEnd="@drawable/ic_expand_more"
-    tools:ignore="UnusedAttribute" />
+    tools:ignore="UnusedAttribute"/>
 
-  <include layout="@layout/recycler_default" />
+  <include layout="@layout/recycler_default"/>
 
   <TextView
     android:id="@+id/more_names"
@@ -32,7 +32,7 @@
     android:background="?clickableBackground"
     android:gravity="center"
     android:text="@string/placepage_more_button"
-    android:textAppearance="@style/MwmTextAppearance.Button" />
+    android:textAppearance="@style/MwmTextAppearance.Button"/>
 
   <TextView
     android:id="@+id/add_langs"
@@ -41,6 +41,6 @@
     android:background="?clickableBackground"
     android:gravity="center"
     android:text="@string/add_language"
-    android:textAppearance="@style/MwmTextAppearance.Button" />
+    android:textAppearance="@style/MwmTextAppearance.Button"/>
 
 </LinearLayout>

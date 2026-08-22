@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:background="?panel"
   android:orientation="vertical">
 
-
   <include
     android:id="@+id/details_top_space"
-    layout="@layout/place_page_fat_shadow" />
+    layout="@layout/place_page_fat_shadow"/>
 
   <LinearLayout
     android:layout_width="match_parent"
@@ -28,7 +26,7 @@
         android:id="@+id/place_page_wikipedia_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout="@layout/place_page_wikipedia_fragment" />
+        tools:layout="@layout/place_page_wikipedia_fragment"/>
     </LinearLayout>
 
     <include layout="@layout/place_page_placename"/>
@@ -45,24 +43,23 @@
       android:id="@+id/place_page_links_fragment"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      tools:layout="@layout/place_page_links_fragment" />
+      tools:layout="@layout/place_page_links_fragment"/>
 
-    <include layout="@layout/place_page_level" />
+    <include layout="@layout/place_page_level"/>
 
-    <include layout="@layout/place_page_capacity" />
+    <include layout="@layout/place_page_capacity"/>
 
-    <include layout="@layout/place_page_wheelchair" />
+    <include layout="@layout/place_page_wheelchair"/>
 
     <include layout="@layout/place_page_wifi"/>
 
-    <include layout="@layout/place_page_atm" />
+    <include layout="@layout/place_page_atm"/>
 
-    <include layout="@layout/place_page_drive_through" />
+    <include layout="@layout/place_page_drive_through"/>
 
-    <include layout="@layout/place_page_self_service" />
+    <include layout="@layout/place_page_self_service"/>
 
     <include layout="@layout/place_page_outdoor_seating"/>
-
 
     <!-- ToDo: Address is missing compared with iOS. It's shown in title but anyway .. -->
 
@@ -72,10 +69,10 @@
   </LinearLayout>
 
   <androidx.fragment.app.FragmentContainerView
-      android:id="@+id/place_page_products_fragment"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      tools:layout="@layout/place_page_products_fragment" />
+    android:id="@+id/place_page_products_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:layout="@layout/place_page_products_fragment"/>
 
   <include
     layout="@layout/place_page_fat_shadow"
@@ -84,11 +81,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"/>
 
-  <include android:visibility="gone" layout="@layout/place_page_editor"/>
+  <include
+    android:visibility="gone"
+    layout="@layout/place_page_editor"/>
 
-  <include android:visibility="gone" layout="@layout/place_page_add_business"/>
+  <include
+    android:visibility="gone"
+    layout="@layout/place_page_add_business"/>
 
-  <include android:visibility="gone" layout="@layout/place_page_add"/>
+  <include
+    android:visibility="gone"
+    layout="@layout/place_page_add"/>
 
   <android.widget.Space
     android:layout_width="match_parent"

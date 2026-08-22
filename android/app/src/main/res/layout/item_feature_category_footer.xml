@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_gravity="center"
   android:orientation="vertical"
   android:background="?windowBackgroundForced"
@@ -15,7 +14,7 @@
     android:maxWidth="500dp"
     android:text="@string/editor_category_unsuitable_title"
     android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline6"
-    android:textStyle="bold" />
+    android:textStyle="bold"/>
   <TextView
     android:id="@+id/editor_category_unsuitable_text"
     android:layout_width="match_parent"
@@ -23,7 +22,7 @@
     android:layout_marginTop="@dimen/margin_half"
     android:maxWidth="500dp"
     android:text="@string/editor_category_unsuitable_text"
-    android:textAppearance="@style/MwmTextAppearance.Body3" />
+    android:textAppearance="@style/MwmTextAppearance.Body3"/>
 
   <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/note_input_layout"
@@ -42,9 +41,9 @@
       android:inputType="textMultiLine"
       android:gravity="top"
       android:minLines="3"
-      android:maxLines="6" />
+      android:maxLines="6"/>
   </com.google.android.material.textfield.TextInputLayout>
-  
+
   <Button
     android:id="@+id/send_note_button"
     style="@style/MwmWidget.Button.Accent"
@@ -53,5 +52,5 @@
     android:layout_gravity="center_horizontal"
     android:layout_marginTop="@dimen/margin_base"
     android:enabled="false"
-    android:text="@string/editor_report_problem_send_button" />
+    android:text="@string/editor_report_problem_send_button"/>
 </LinearLayout>

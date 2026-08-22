@@ -7,19 +7,19 @@
 
   <include
     android:id="@+id/pull_icon_container"
-    layout="@layout/bottom_sheet_handle" />
+    layout="@layout/bottom_sheet_handle"/>
 
   <include
     android:id="@+id/routing_types_frame"
     layout="@layout/routing_plan_header"
     tools:layout_height="wrap_content"
-    tools:layout_width="match_parent" />
+    tools:layout_width="match_parent"/>
 
   <include
     android:id="@+id/manage_route_panel"
     layout="@layout/manage_route_bottom_sheet"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"/>
 
   <TextView
     android:id="@+id/error"
@@ -30,5 +30,5 @@
     android:paddingEnd="@dimen/margin_base"
     android:paddingBottom="@dimen/margin_half_plus"
     android:textAppearance="@style/MwmTextAppearance.Body3"
-    android:visibility="gone" />
+    android:visibility="gone"/>
 </LinearLayout>

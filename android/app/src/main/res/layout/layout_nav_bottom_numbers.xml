@@ -30,7 +30,7 @@
       android:includeFontPadding="false"
       android:lines="1"
       android:textAppearance="@style/MwmTextAppearance.NavMenu.Number"
-      tools:text="999" />
+      tools:text="999"/>
 
     <!-- Speed -->
     <TextView
@@ -41,7 +41,7 @@
       android:lines="1"
       android:textAppearance="@style/MwmTextAppearance.NavMenu.Number.Dimension"
       tools:background="#20FF0000"
-      tools:text="km/h" />
+      tools:text="km/h"/>
   </LinearLayout>
 
   <Space
@@ -70,7 +70,7 @@
         android:includeFontPadding="false"
         android:lines="1"
         android:textAppearance="@style/MwmTextAppearance.NavMenu.Time"
-        tools:text="999" />
+        tools:text="999"/>
 
       <TextView
         android:id="@+id/time_hour_dimen"
@@ -80,7 +80,7 @@
         android:includeFontPadding="false"
         android:lines="1"
         android:textAppearance="@style/MwmTextAppearance.NavMenu.Time.Dimension"
-        tools:text="h" />
+        tools:text="h"/>
 
       <TextView
         android:id="@+id/time_minute_value"
@@ -90,7 +90,7 @@
         android:lines="1"
         android:textAlignment="center"
         android:textAppearance="@style/MwmTextAppearance.NavMenu.Time"
-        tools:text="99" />
+        tools:text="99"/>
 
       <TextView
         android:id="@+id/time_minute_dimen"
@@ -99,7 +99,7 @@
         android:includeFontPadding="false"
         android:lines="1"
         android:textAppearance="@style/MwmTextAppearance.NavMenu.Time.Dimension"
-        tools:text="m" />
+        tools:text="m"/>
     </LinearLayout>
 
     <TextView
@@ -110,7 +110,7 @@
       android:lines="1"
       android:textAlignment="center"
       android:textAppearance="@style/MwmTextAppearance.NavMenu.Number.Dimension"
-      tools:text="99:99 AM" />
+      tools:text="99:99 AM"/>
   </LinearLayout>
 
   <Space
@@ -133,7 +133,7 @@
       android:includeFontPadding="false"
       android:lines="1"
       android:textAppearance="@style/MwmTextAppearance.NavMenu.Number"
-      tools:text="99999" />
+      tools:text="99999"/>
 
     <TextView
       android:id="@+id/distance_dimen"
@@ -143,7 +143,7 @@
       android:lines="1"
       android:textAppearance="@style/MwmTextAppearance.NavMenu.Number.Dimension"
       tools:background="#20FF0000"
-      tools:text="km" />
+      tools:text="km"/>
   </LinearLayout>
 
   <Space

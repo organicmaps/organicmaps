@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools">
   <LinearLayout
     android:orientation="vertical"
@@ -31,7 +30,7 @@
         android:textStyle="normal"
         android:text="@string/learn_more"
         tools:ignore="UnusedAttribute"
-        tools:text="NOT NOW" />
+        tools:text="NOT NOW"/>
     </FrameLayout>
   </LinearLayout>
 </merge>

@@ -25,7 +25,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      tools:background="@drawable/ic_layers_subway" />
+      tools:background="@drawable/ic_layers_subway"/>
 
     <View
       android:id="@+id/marker"
@@ -36,7 +36,7 @@
       android:visibility="gone"
       app:layout_constraintEnd_toEndOf="@id/btn"
       app:layout_constraintTop_toTopOf="parent"
-      tools:visibility="visible" />
+      tools:visibility="visible"/>
   </androidx.constraintlayout.widget.ConstraintLayout>
 
   <TextView
@@ -50,5 +50,5 @@
     android:maxLines="2"
     android:textAppearance="@style/MwmTextAppearance.Body5"
     android:textColor="?attr/accentColorSelector"
-    tools:text="Layer Name" />
+    tools:text="Layer Name"/>
 </LinearLayout>

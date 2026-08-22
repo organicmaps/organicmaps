@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
@@ -22,7 +21,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:inputType="textCapSentences"
-      android:singleLine="true" />
+      android:singleLine="true"/>
   </com.google.android.material.textfield.TextInputLayout>
 
   <LinearLayout
@@ -50,7 +49,7 @@
         android:clickable="true"
         android:cursorVisible="false"
         android:focusable="false"
-        android:inputType="none" />
+        android:inputType="none"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
@@ -66,7 +65,7 @@
       android:visibility="gone"
       app:srcCompat="@drawable/ic_show"
       app:tint="?secondary"
-      tools:visibility="visible" />
+      tools:visibility="visible"/>
 
     <FrameLayout
       android:id="@+id/color_row"
@@ -82,7 +81,7 @@
         android:id="@+id/iv__bookmark_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:src="@drawable/ic_bookmark_none" />
+        tools:src="@drawable/ic_bookmark_none"/>
     </FrameLayout>
   </LinearLayout>
 
@@ -99,6 +98,6 @@
       android:layout_height="wrap_content"
       android:gravity="top"
       android:inputType="textMultiLine|textCapSentences"
-      android:minLines="3" />
+      android:minLines="3"/>
   </com.google.android.material.textfield.TextInputLayout>
 </LinearLayout>

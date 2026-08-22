@@ -8,6 +8,6 @@
     <profileable
       android:shell="true"
       android:enabled="true"
-      tools:targetApi="29" />
+      tools:targetApi="29"/>
   </application>
 </manifest>

@@ -21,7 +21,7 @@
     android:textColor="?android:attr/textColorPrimary"
     android:textAppearance="?android:attr/textAppearance"
     tools:text="asdasdadadasdasdasdasdasdasdasdadas"
-    tools:ignore="UnusedAttribute" />
+    tools:ignore="UnusedAttribute"/>
 
   <TextView
     android:id="@+id/more_btn"
@@ -35,7 +35,7 @@
     android:gravity="start|top"
     android:textColor="?attr/colorAccent"
     android:text="@string/category_desc_more"
-    android:background="@android:color/transparent" />
+    android:background="@android:color/transparent"/>
 
-  <include layout="@layout/divider_horizontal" />
+  <include layout="@layout/divider_horizontal"/>
 </LinearLayout>

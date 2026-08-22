@@ -28,12 +28,12 @@
     android:paddingEnd="@dimen/margin_base"
     android:gravity="center_vertical"
     android:singleLine="true"
-    tools:text="Menu Item" />
+    tools:text="Menu Item"/>
   <TextView
     android:id="@+id/bottom_sheet_menu_item_badge"
     style="@style/MwmWidget.Counter"
     android:layout_gravity="end|center_vertical"
     android:visibility="gone"
     tools:text="9999"
-    tools:visibility="visible" />
+    tools:visibility="visible"/>
 </LinearLayout>

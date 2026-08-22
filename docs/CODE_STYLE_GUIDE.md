@@ -102,6 +102,29 @@ The canonical detekt version is pinned in `android/gradle/libs.versions.toml`
 - Hungarian notation (`m` prefix) is forbidden for private properties: use `_camelCase` for backing fields, `camelCase` for regular properties
 - Formatting rules are handled by ktlint, not detekt (no overlap)
 
+## JSON and XML Style
+
+Hand-edited JSON and XML files are formatted by
+`tools/python/format_json_xml.py`. It uses only the Python 3 standard library,
+so no additional formatter needs to be installed.
+
+### Usage
+
+- To check selected files, run
+  `tools/python/format_json_xml.py files <file.json> <file.xml>`
+- To format selected files, add `--fix` to that command
+- To check all in-scope files, run `tools/python/format_json_xml.py all`
+- To format all in-scope files, run
+  `tools/python/format_json_xml.py all --fix`
+
+The include and exclude rules are defined in `tools/python/format_json_xml.py`.
+CI checks in-scope JSON and XML files touched by a pull request. The formatter
+keeps an XML element on one line when it has at most one attribute, and
+otherwise puts the tag name alone on the opening line with every attribute on
+its own line -- except a leading `xmlns` declaration, which stays on the tag
+line. It rejects duplicate or lossy JSON, and leaves XML that cannot be safely
+reflowed untouched.
+
 ## Python Style
 
 Follow the existing style in Python files as much as possible. We'll add a more detailed guide later.
@@ -111,13 +134,18 @@ Follow the existing style in Python files as much as possible. We'll add a more 
 Run `git config core.hooksPath tools/hooks` to set up the pre-commit hook.
 
 After that, every time you commit, the hook will automatically format your
-`.java`, `.kt`, `.swift`, `.cpp`, `.hpp`, `.m`, `.mm`, `.h`, and `.cc` code according to the project's style rules.
+`.java`, `.kt`, `.swift`, `.cpp`, `.hpp`, `.m`, `.mm`, `.h`, `.cc`, `.json`,
+and `.xml` files according to the project's style rules. JSON and XML include
+and exclude rules are applied before formatting.
 
 You can bypass the auto-formatting with `git commit --no-verify` if necessary.
 
-To configure the formatting style, edit `.clang-format`, `.swiftformat` in the project root, and `android/.editorconfig` for Kotlin.
+To configure the formatting style, edit `.clang-format`, `.swiftformat` in the
+project root, and `android/.editorconfig` for Kotlin.
 
-To configure which files are formatted, edit `tools/hooks/format-config.bash`
+To configure which source files are formatted, edit
+`tools/hooks/format-config.bash`. JSON and XML scope is configured in
+`tools/python/format_json_xml.py`.
 
 ## Tips and Hints
 

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/nav_top_frame"
@@ -17,16 +16,16 @@
     android:clickable="true"
     android:background="?cardBackground">
     <TextView
-        android:id="@+id/street"
-        style="@style/MwmWidget.TextView.NavStreet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="@dimen/nav_street_height"
-        android:layout_marginStart="@dimen/nav_street_left"
-        android:maxLines="2"
-        android:layout_gravity="center_vertical"
-        android:gravity="center"
-        tools:text="Sample street name.\nLong looooooooong!!!!"/>
+      android:id="@+id/street"
+      style="@style/MwmWidget.TextView.NavStreet"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:minHeight="@dimen/nav_street_height"
+      android:layout_marginStart="@dimen/nav_street_left"
+      android:maxLines="2"
+      android:layout_gravity="center_vertical"
+      android:gravity="center"
+      tools:text="Sample street name.\nLong looooooooong!!!!"/>
   </FrameLayout>
 
   <RelativeLayout
@@ -47,15 +46,15 @@
       android:background="?navNextTurnFrame"
       android:elevation="@dimen/nav_elevation">
       <ImageView
-          android:id="@+id/turn"
-          android:theme="?navigationTheme"
-          android:layout_width="@dimen/nav_next_turn_sign"
-          android:layout_height="@dimen/nav_next_turn_sign"
-          android:layout_marginTop="@dimen/nav_next_turn_top"
-          android:layout_marginBottom="@dimen/nav_next_turn_space"
-          android:layout_gravity="center_horizontal"
-          app:tint="?iconTint"
-          tools:src="@drawable/ic_roundabout_exit_12"/>
+        android:id="@+id/turn"
+        android:theme="?navigationTheme"
+        android:layout_width="@dimen/nav_next_turn_sign"
+        android:layout_height="@dimen/nav_next_turn_sign"
+        android:layout_marginTop="@dimen/nav_next_turn_top"
+        android:layout_marginBottom="@dimen/nav_next_turn_space"
+        android:layout_gravity="center_horizontal"
+        app:tint="?iconTint"
+        tools:src="@drawable/ic_roundabout_exit_12"/>
 
       <TextView
         android:id="@+id/distance"
@@ -92,22 +91,22 @@
   </RelativeLayout>
 
   <app.organicmaps.sdk.widgets.lanes.LanesView
-      android:id="@+id/lanes"
-      android:layout_width="0dp"
-      android:layout_height="68dp"
-      android:layout_marginEnd="@dimen/margin_half"
-      android:layout_marginTop="@dimen/margin_half"
-      android:padding="@dimen/margin_half"
-      android:visibility="gone"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@id/nav_next_turn_container"
-      app:layout_constraintTop_toBottomOf="@id/street_frame"
-      app:lanesActiveLaneTintColor="?navLaneArrowActiveColor"
-      app:lanesInactiveLaneTintColor="?navLaneArrowInactiveColor"
-      app:lanesBackgroundColor="?navLanesBackgroundColor"
-      app:lanesCornerRadius="@dimen/margin_quarter"
-      app:lanesEditModeLanesCount="5"
-      tools:visibility="visible" />
+    android:id="@+id/lanes"
+    android:layout_width="0dp"
+    android:layout_height="68dp"
+    android:layout_marginEnd="@dimen/margin_half"
+    android:layout_marginTop="@dimen/margin_half"
+    android:padding="@dimen/margin_half"
+    android:visibility="gone"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@id/nav_next_turn_container"
+    app:layout_constraintTop_toBottomOf="@id/street_frame"
+    app:lanesActiveLaneTintColor="?navLaneArrowActiveColor"
+    app:lanesInactiveLaneTintColor="?navLaneArrowInactiveColor"
+    app:lanesBackgroundColor="?navLanesBackgroundColor"
+    app:lanesCornerRadius="@dimen/margin_quarter"
+    app:lanesEditModeLanesCount="5"
+    tools:visibility="visible"/>
 
   <app.organicmaps.sdk.widgets.speedlimit.SpeedLimitView
     android:id="@+id/nav_speed_limit"
@@ -117,5 +116,5 @@
     android:layout_margin="@dimen/margin_half"
     app:layout_constraintEnd_toEndOf="@id/nav_next_turn_container"
     app:layout_constraintStart_toStartOf="@id/nav_next_turn_container"
-    app:layout_constraintTop_toBottomOf="@id/nav_next_turn_container" />
+    app:layout_constraintTop_toBottomOf="@id/nav_next_turn_container"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

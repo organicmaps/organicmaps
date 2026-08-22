@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-  <item
-    android:state_activated="true">
+  <item android:state_activated="true">
     <set>
       <objectAnimator
         android:duration="100"
@@ -10,8 +9,7 @@
         android:valueType="floatType"/>
     </set>
   </item>
-  <item
-    android:state_activated="false">
+  <item android:state_activated="false">
     <set>
       <objectAnimator
         android:duration="100"

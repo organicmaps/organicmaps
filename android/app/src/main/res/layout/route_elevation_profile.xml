@@ -6,7 +6,7 @@
   <app.organicmaps.widget.placepage.ElevationProfileChart
     android:id="@+id/elevation_profile_chart"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"/>
   <TextView
     android:id="@+id/highest_altitude"
     android:layout_width="wrap_content"
@@ -21,7 +21,7 @@
     android:paddingTop="@dimen/margin_eighth"
     android:paddingEnd="@dimen/margin_quarter_plus"
     android:paddingBottom="@dimen/margin_eighth"
-    android:textSize="@dimen/text_size_body_5" />
+    android:textSize="@dimen/text_size_body_5"/>
   <TextView
     android:id="@+id/lowest_altitude"
     android:layout_width="wrap_content"
@@ -36,5 +36,5 @@
     android:paddingTop="@dimen/margin_eighth"
     android:paddingEnd="@dimen/margin_quarter_plus"
     android:paddingBottom="@dimen/margin_eighth"
-    android:textSize="@dimen/text_size_body_5" />
+    android:textSize="@dimen/text_size_body_5"/>
 </RelativeLayout>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
@@ -13,7 +12,7 @@
     android:layout_height="match_parent"
     android:padding="@dimen/margin_half"
     android:layout_marginStart="@dimen/margin_half_plus"
-    android:layout_marginEnd="@dimen/margin_base_plus" />
+    android:layout_marginEnd="@dimen/margin_base_plus"/>
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -27,7 +26,7 @@
       android:ellipsize="middle"
       android:singleLine="true"
       android:textAppearance="?fontBody1"
-      tools:text="Bookmark name looooooooooooooooooongasdasdasd" />
+      tools:text="Bookmark name looooooooooooooooooongasdasdasd"/>
     <TextView
       android:id="@+id/size"
       android:layout_width="match_parent"
@@ -39,6 +38,6 @@
       android:singleLine="true"
       android:textColor="?android:textColorSecondary"
       style="?fontBody2"
-      tools:text="42000000" />
+      tools:text="42000000"/>
   </LinearLayout>
 </LinearLayout>

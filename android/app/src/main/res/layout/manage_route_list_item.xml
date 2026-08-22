@@ -12,7 +12,7 @@
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
     app:srcCompat="@drawable/route_point_finish"
-    android:layout_marginStart="8dp" />
+    android:layout_marginStart="8dp"/>
 
   <TextView
     android:id="@+id/title"
@@ -31,7 +31,7 @@
     app:layout_constraintEnd_toStartOf="@id/delete_icon"
     app:layout_constraintStart_toEndOf="@id/type_icon"
     app:layout_constraintTop_toTopOf="parent"
-    tools:text="Title" />
+    tools:text="Title"/>
 
   <ImageView
     android:id="@+id/delete_icon"
@@ -43,7 +43,7 @@
     app:layout_constraintEnd_toStartOf="@+id/drag_icon"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
-    app:srcCompat="@drawable/ic_cancel" />
+    app:srcCompat="@drawable/ic_cancel"/>
 
   <ImageView
     android:id="@+id/drag_icon"
@@ -57,6 +57,6 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintVertical_bias="0.583"
-    app:srcCompat="@drawable/ic_menu_open" />
+    app:srcCompat="@drawable/ic_menu_open"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

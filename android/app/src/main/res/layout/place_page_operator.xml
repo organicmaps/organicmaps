@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/ll__place_operator"
@@ -11,11 +10,11 @@
   <ImageView
     android:id="@+id/iv__place_operator"
     style="@style/PlacePageMetadataIcon"
-    app:srcCompat="@drawable/ic_bank" />
+    app:srcCompat="@drawable/ic_bank"/>
 
   <TextView
     android:id="@+id/tv__place_operator"
     android:textAlignment="viewStart"
     style="@style/PlacePageMetadataText"
-    tools:text="Operator" />
+    tools:text="Operator"/>
 </LinearLayout>

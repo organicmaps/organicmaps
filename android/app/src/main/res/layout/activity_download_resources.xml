@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
@@ -31,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_base"
         android:gravity="center"
-        android:text="@string/download_map_title" />
+        android:text="@string/download_map_title"/>
       <TextView
         android:id="@+id/download_message"
         style="?fontBody2"
@@ -42,7 +41,7 @@
         android:layout_marginEnd="@dimen/margin_base"
         android:gravity="center"
         android:textColor="?android:textColorSecondary"
-        tools:text="@string/download_resources" />
+        tools:text="@string/download_resources"/>
     </LinearLayout>
   </androidx.constraintlayout.widget.ConstraintLayout>
   <include
@@ -50,6 +49,5 @@
     layout="@layout/button_with_progress"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true" />
+    android:layout_alignParentBottom="true"/>
 </RelativeLayout>
-
