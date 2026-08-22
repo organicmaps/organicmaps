@@ -245,6 +245,20 @@ UNIT_TEST(GetTtsStreetTextTest)
       "you_have_reached_the_destination":"ﻞﻗﺩ ﻮﺼﻠﺗ."
       })";
 
+  // Armenian sentences end with the Armenian full stop (U+0589), not an ASCII colon.
+  string const hyShortJson =
+      R"({
+      "in_300_meters":"Երեք հարյուր մետրից",
+      "in_500_meters":"Հինգ հարյուր մետրից",
+      "then":"Այնուհետև",
+      "onto":"դեպի",
+      "make_a_right_turn":"Թեքվեք աջ։",
+      "make_a_left_turn":"Թեքվեք ձախ։",
+      "make_a_right_turn_street":"NULL",
+      "make_a_left_turn_street":"NULL",
+      "dist_direction_onto_street":"%1$s %2$s %3$s %4$s"
+      })";
+
   string const huShortJson =
       R"({
       "in_300_meters":"Háromszáz méter után",
@@ -332,6 +346,12 @@ UNIT_TEST(GetTtsStreetTextTest)
   TEST_EQUAL(getTtsText.GetTurnNotification(notification2), "ﺐﻋﺩ ﺙﻼﺜﻤﺋﺓ ﻢﺗﺭ ﺎﻨﻌﻄﻓ ﻲﺳﺍﺭﺍ ﺈﻟﻯ Main Street", ());
   TEST_EQUAL(getTtsText.GetTurnNotification(notification3), "ﺐﻋﺩ ﺙﻼﺜﻤﺋﺓ ﻢﺗﺭ ﺎﻨﻌﻄﻓ ﻲﺳﺍﺭﺍ.", ());
   TEST_EQUAL(getTtsText.GetTurnNotification(notification4), "ﺚﻣ ﺎﻨﻌﻄﻓ ﻲﺳﺍﺭﺍ.", ());
+
+  // The Armenian full stop must be dropped before a street name is spliced in, and kept otherwise.
+  getTtsText.ForTestingSetLocaleWithJson(hyShortJson, "hy");
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification1), "Հինգ հարյուր մետրից Թեքվեք աջ դեպի Main Street", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification3), "Երեք հարյուր մետրից Թեքվեք ձախ։", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification4), "Այնուհետև Թեքվեք ձախ։", ());
 
   getTtsText.ForTestingSetLocaleWithJson(huShortJson, "hu");
   TEST_EQUAL(getTtsText.GetTurnNotification(notification1), "Ötszáz méter után Forduljon jobbra a Main Streetre", ());

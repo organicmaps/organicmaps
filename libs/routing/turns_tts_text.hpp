@@ -46,13 +46,14 @@ private:
 
   std::unique_ptr<platform::GetTextById> m_getCurLang;
 
-  /// \brief Removes a terminal period (or CJK or Hindi equivalent) from a string
+  /// \brief Removes a terminal period (or CJK, Hindi or Armenian equivalent) from a string
   /// @param s - String to be modified
   static void RemoveLastDot(std::string & s)
   {
     strings::EatSuffix(s, ".");
     strings::EatSuffix(s, "。");
     strings::EatSuffix(s, "।");
+    strings::EatSuffix(s, "։");
   }
 };
 /// Generates text message id about the distance of the notification. For example: In 300 meters.
