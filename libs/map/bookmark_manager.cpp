@@ -3240,8 +3240,7 @@ kml::GroupIdSet BookmarkManager::MarksChangesTracker::GetAllGroupIds() const
   auto const & groupIds = m_bmManager->GetUnsortedBmGroupsIdList();
   kml::GroupIdSet resultingSet(groupIds.begin(), groupIds.end());
 
-  static_assert(UserMark::BOOKMARK == 0);
-  for (uint32_t i = UserMark::BOOKMARK + 1; i < UserMark::USER_MARK_TYPES_COUNT; ++i)
+  for (uint32_t i = 1; i < UserMark::USER_MARK_TYPES_COUNT; ++i)
     resultingSet.insert(static_cast<kml::MarkGroupId>(i));
   return resultingSet;
 }
