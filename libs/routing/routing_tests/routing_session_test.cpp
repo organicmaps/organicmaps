@@ -115,30 +115,6 @@ private:
   size_t m_returnCodesIdx = 0;
 };
 
-class TimedSignal
-{
-public:
-  TimedSignal() : m_flag(false) {}
-  void Signal()
-  {
-    lock_guard<mutex> guard(m_waitingMutex);
-    m_flag = true;
-    m_cv.notify_one();
-  }
-
-  bool WaitUntil(steady_clock::time_point const & time)
-  {
-    unique_lock<mutex> lock(m_waitingMutex);
-    m_cv.wait_until(lock, time, [this, &time] { return m_flag || steady_clock::now() > time; });
-    return m_flag;
-  }
-
-private:
-  mutex m_waitingMutex;
-  condition_variable m_cv;
-  bool m_flag;
-};
-
 /// \brief This class is developed to test callback on RoutingSession::m_state changing.
 /// An new instance of the class should be constructed for every new test.
 class SessionStateTest
