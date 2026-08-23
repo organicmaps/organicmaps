@@ -2787,13 +2787,17 @@ UNIT_CLASS_TEST(Runner, Bookmarks_TestSaveRoute)
   BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
   auto const points = {geometry::PointWithAltitude({0.0, 0.0}, 0.0), geometry::PointWithAltitude({0.001, 0.001}, 0)};
-  auto const trackId = bmManager.SaveRoute(points, "London", "Paris");
+  auto const trackId =
+      bmManager.SaveRoute(points, "London", "Paris", {{m2::PointD(0.0005, 0.0005), "Calais"}}, "bicycle");
   auto const * track = bmManager.GetTrack(trackId);
   TEST_EQUAL(track->GetName(), "London - Paris", ());
-  auto const line = track->GetData().m_geometry.m_lines[0];
+  auto const & trackData = track->GetData();
+  auto const line = trackData.m_geometry.m_lines[0];
   std::vector const expectedLine = {{geometry::PointWithAltitude(m2::PointD(0.0, 0.0), 0.0),
                                      geometry::PointWithAltitude(m2::PointD(0.001, 0.001), 0)}};
   TEST_EQUAL(line, expectedLine, ());
+  TEST_EQUAL(trackData.m_stops, (std::vector<kml::TrackStopData>{{m2::PointD(0.0005, 0.0005), "Calais"}}), ());
+  TEST_EQUAL(trackData.m_routerType, "bicycle", ());
 }
 
 // Regression test for the iOS crash in MWMPlacePageManager addBookmark: when adding a bookmark on
