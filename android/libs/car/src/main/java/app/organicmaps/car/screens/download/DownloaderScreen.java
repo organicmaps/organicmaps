@@ -2,11 +2,10 @@ package app.organicmaps.car.screens.download;
 
 import androidx.annotation.NonNull;
 import androidx.car.app.CarContext;
+import androidx.car.app.constraints.ConstraintManager;
 import androidx.car.app.model.Action;
 import androidx.car.app.model.Header;
-import androidx.car.app.model.Pane;
-import androidx.car.app.model.PaneTemplate;
-import androidx.car.app.model.Row;
+import androidx.car.app.model.MessageTemplate;
 import androidx.car.app.model.Template;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.car.R;
@@ -24,20 +23,15 @@ import java.util.Map;
 
 class DownloaderScreen extends BaseScreen
 {
-  private static final long PROGRESS_REFRESH_INTERVAL_MS = 1000;
-
   @NonNull
   private final Map<String, CountryItem> mMissingMaps;
   private final long mTotalSize;
   private final boolean mIsCancelActionDisabled;
+  private final boolean mIsAppRefreshEnabled;
 
   private long mDownloadedMapsSize = 0;
   private int mSubscriptionSlot = 0;
   private boolean mIsDownloadFailed = false;
-  private boolean mIsProgressRefreshScheduled = false;
-
-  @NonNull
-  private final Runnable mProgressRefresh;
 
   @NonNull
   private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback() {
@@ -76,11 +70,14 @@ class DownloaderScreen extends BaseScreen
     @Override
     public void onProgress(String countryId, long localSize, long remoteSize)
     {
+      if (!mIsAppRefreshEnabled)
+        return;
+
       final CountryItem item = mMissingMaps.get(countryId);
       if (item != null)
       {
-        item.downloadedBytes = localSize;
-        scheduleProgressRefresh();
+        item.update();
+        invalidate();
       }
     }
   };
@@ -97,14 +94,9 @@ class DownloaderScreen extends BaseScreen
     mMissingMaps = new HashMap<>();
     for (final CountryItem item : missingMaps)
       mMissingMaps.put(item.id, item);
-    mProgressRefresh = () ->
-    {
-      mIsProgressRefreshScheduled = false;
-      if (!mMissingMaps.isEmpty())
-        invalidate();
-    };
     mTotalSize = DownloaderHelpers.getMapsSize(mMissingMaps.values());
     mIsCancelActionDisabled = isCancelActionDisabled;
+    mIsAppRefreshEnabled = carContext.getCarService(ConstraintManager.class).isAppDrivenRefreshEnabled();
   }
 
   @Override
@@ -124,8 +116,6 @@ class DownloaderScreen extends BaseScreen
   public void onPause(@NonNull LifecycleOwner owner)
   {
     super.onPause(owner);
-    UiThread.cancelDelayedTasks(mProgressRefresh);
-    mIsProgressRefreshScheduled = false;
     if (!mIsDownloadFailed)
       cancelMapsDownloading();
     if (mSubscriptionSlot != 0)
@@ -139,8 +129,8 @@ class DownloaderScreen extends BaseScreen
   @Override
   protected Template onGetTemplateImpl()
   {
-    final Pane pane = new Pane.Builder().addRow(createProgressRow()).build();
-    final PaneTemplate.Builder builder = new PaneTemplate.Builder(pane);
+    final MessageTemplate.Builder builder = new MessageTemplate.Builder(getText());
+    builder.setLoading(true);
 
     final Header.Builder headerBuilder = new Header.Builder();
     if (mIsCancelActionDisabled)
@@ -154,19 +144,17 @@ class DownloaderScreen extends BaseScreen
   }
 
   @NonNull
-  private Row createProgressRow()
+  private String getText()
   {
+    if (!mIsAppRefreshEnabled)
+      return getCarContext().getString(R.string.downloader_loading_ios);
+
     final long downloadedSize = getDownloadedSize();
     final String progressPercent = StringUtils.formatPercent((double) downloadedSize / mTotalSize, true);
     final String totalSizeStr = StringUtils.getFileSizeString(getCarContext(), mTotalSize);
     final String downloadedSizeStr = StringUtils.getFileSizeString(getCarContext(), downloadedSize);
 
-    // Keep progress in secondary text: changing the template title or row titles would consume the host's quota.
-    return new Row.Builder()
-        .setTitle(getCarContext().getString(R.string.downloader_loading_ios))
-        .addText(progressPercent)
-        .addText(downloadedSizeStr + " / " + totalSizeStr)
-        .build();
+    return progressPercent + "\n" + downloadedSizeStr + " / " + totalSizeStr;
   }
 
   private long getDownloadedSize()
@@ -177,15 +165,6 @@ class DownloaderScreen extends BaseScreen
       downloadedSize += map.downloadedBytes;
 
     return downloadedSize + mDownloadedMapsSize;
-  }
-
-  private void scheduleProgressRefresh()
-  {
-    if (mIsProgressRefreshScheduled)
-      return;
-
-    mIsProgressRefreshScheduled = true;
-    UiThread.runLater(mProgressRefresh, PROGRESS_REFRESH_INTERVAL_MS);
   }
 
   private void onError(@NonNull final MapManager.StorageCallbackData data)
