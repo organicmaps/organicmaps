@@ -150,7 +150,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   {
     super.onCreate(owner);
     mRoutingController.attach(this);
-    ThemeUtils.update(getCarContext());
+    ThemeUtils.update(getCarContext(), getSurfaceRenderer().isRenderingActive());
     mNavigationManager.setNavigationManagerCallback(this);
     mNavigationManager.navigationStarted();
 
@@ -181,7 +181,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     if (mRoutingController.isNavigating())
       mRoutingController.onSaveState();
     mRoutingController.detach();
-    ThemeUtils.update(getCarContext());
+    ThemeUtils.update(getCarContext(), getSurfaceRenderer().isRenderingActive());
     mNavigationManager.navigationEnded();
     mNavigationManager.clearNavigationManagerCallback();
     getSurfaceRenderer().hideSpeedLimit();

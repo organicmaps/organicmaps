@@ -84,12 +84,8 @@ public abstract class CarAppSessionBase
   public void onCarConfigurationChanged(@NonNull Configuration newConfiguration)
   {
     Logger.d(TAG, "New configuration: " + newConfiguration);
-
-    if (mSurfaceRenderer.isRenderingActive())
-    {
-      ThemeUtils.update(getCarContext());
-      mScreenManager.getTop().invalidate();
-    }
+    if (mDisplayManager.isCarDisplayUsed())
+      ThemeUtils.update(getCarContext(), mSurfaceRenderer.isRenderingActive());
   }
 
   @NonNull
@@ -132,7 +128,7 @@ public abstract class CarAppSessionBase
 
     if (mDisplayManager.isCarDisplayUsed())
     {
-      ThemeUtils.update(getCarContext());
+      ThemeUtils.update(getCarContext(), mSurfaceRenderer.isRenderingActive());
       onRestoreRoute();
     }
   }

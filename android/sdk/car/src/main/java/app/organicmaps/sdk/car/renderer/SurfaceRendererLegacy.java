@@ -15,13 +15,12 @@ final class SurfaceRendererLegacy extends RendererImpl
   private static final String TAG = SurfaceRendererLegacy.class.getSimpleName();
 
   @NonNull
-  private final Map mMap;
+  private final Map mMap = new Map(Car);
 
   public SurfaceRendererLegacy(@NonNull CarContext carContext, @NonNull DisplayManager displayManager,
                                @NonNull LocationHelper locationHelper, @NonNull LifecycleOwner lifecycleOwner)
   {
     super(carContext, displayManager, locationHelper, lifecycleOwner);
-    mMap = new Map(Car, carContext);
     setSurfaceCallback(new SurfaceCallbackLegacy(mCarContext, mMap, mLocationHelper));
     mMap.setMapRenderingListener(getMapRenderingListener());
   }

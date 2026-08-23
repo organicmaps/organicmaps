@@ -78,7 +78,7 @@ public class MapView extends SurfaceView
                   @NonNull DisplayType displayType)
   {
     super(context, attrs, defStyleAttr, defStyleRes);
-    mMap = new Map(displayType, context);
+    mMap = new Map(displayType);
     getHolder().addCallback(new SurfaceHolderCallback());
   }
 
@@ -140,7 +140,7 @@ public class MapView extends SurfaceView
     final int h = getHeight();
 
     // Background
-    Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     paint.setStyle(Paint.Style.FILL);
     if (Utils.isDarkMode(getContext()))
       paint.setColor(Color.rgb(30, 30, 30));

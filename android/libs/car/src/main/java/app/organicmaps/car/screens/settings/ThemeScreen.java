@@ -73,7 +73,7 @@ public class ThemeScreen extends BaseMapScreen
     builder.setOnClickListener(() -> {
       if (themeMode == currentThemeMode)
         return;
-      ThemeUtils.setThemeMode(getCarContext(), themeMode);
+      ThemeUtils.setThemeMode(getCarContext(), themeMode, getSurfaceRenderer().isRenderingActive());
       invalidate();
     });
     if (themeMode == currentThemeMode)
