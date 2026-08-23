@@ -1187,13 +1187,16 @@ std::string BookmarkManager::GenerateSavedRouteName(std::string const & from, st
   return GenerateTrackRecordingName();
 }
 
-kml::TrackId BookmarkManager::SaveRoute(kml::TrackGeometry points, std::string const & from, std::string const & to)
+kml::TrackId BookmarkManager::SaveRoute(kml::TrackGeometry points, std::string const & from, std::string const & to,
+                                        std::vector<kml::TrackStopData> stops, std::string routerType)
 {
   CHECK(!points.empty(), ("Route points should not be empty"));
 
   kml::TrackData trackData;
   trackData.m_geometry.m_lines.push_back(std::move(points));
   trackData.m_geometry.m_timestamps.emplace_back();
+  trackData.m_stops = std::move(stops);
+  trackData.m_routerType = std::move(routerType);
 
   kml::SetDefaultStr(trackData.m_name, GenerateSavedRouteName(from, to));
 

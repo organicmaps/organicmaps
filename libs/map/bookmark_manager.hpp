@@ -436,7 +436,8 @@ public:
   std::string GenerateTrackRecordingName() const;
   dp::Color GenerateTrackRecordingColor() const;
 
-  kml::TrackId SaveRoute(kml::TrackGeometry points, std::string const & from, std::string const & to);
+  kml::TrackId SaveRoute(kml::TrackGeometry points, std::string const & from, std::string const & to,
+                         std::vector<kml::TrackStopData> stops, std::string routerType);
 
   /// Creates a temporary track from relation data. Replaces any previous temp track.
   kml::TrackId SetTempRelationTrack(kml::TrackData && trackData);

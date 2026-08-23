@@ -11,6 +11,7 @@
 
 #include "base/exception.hpp"
 
+#include <optional>
 #include <string>
 
 namespace kml
@@ -178,6 +179,11 @@ private:
   double m_trackWidth;
   // Collections are not supported, see Push(). Counted here to log them once instead of per element.
   size_t m_droppedCompilations = 0;
+  std::vector<TrackStopData> m_trackStops;
+  // <mwm:stop> being parsed; the point stays unset until it parses successfully (see CharData).
+  std::optional<m2::PointD> m_currentTrackStopPoint;
+  std::string m_currentTrackStopName;
+  std::string m_trackRouterType;
 };
 
 class DeserializerKml

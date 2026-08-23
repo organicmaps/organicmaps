@@ -701,6 +701,42 @@ UNIT_TEST(GeoJson_Writer_UMap_Invalid_Json)
   TEST_EQUAL(jsonString, expected_geojson, ());
 }
 
+// Track stops export as plain Point features readable by other apps.
+UNIT_TEST(GeoJson_Writer_Track_Stops)
+{
+  kml::FileData fileData;
+  kml::TrackData track;
+  kml::SetDefaultStr(track.m_name, "Track");
+  track.m_layers = {{5.0, {kml::PredefinedColor::Red, 0}}};
+  track.m_geometry.AddLine({{mercator::FromLatLon(47.0, 8.0), 1}, {mercator::FromLatLon(47.2, 8.2), 2}});
+  track.m_geometry.AddTimestamps({});
+  std::vector<kml::TrackStopData> const expectedStops = {{mercator::FromLatLon(47.1, 8.1), "Coffee break"},
+                                                         {mercator::FromLatLon(47.125, 8.125), ""},
+                                                         {mercator::FromLatLon(47.15, 8.15), "Viewpoint"}};
+  track.m_stops = expectedStops;
+  fileData.m_tracksData.emplace_back(std::move(track));
+
+  auto const json = SaveToGeoJsonString(fileData, true);
+  kml::geojson::GeoJsonData exported;
+  TEST(!glz::read_json(exported, json), (json));
+  TEST_EQUAL(exported.features.size(), expectedStops.size() + 1, ());
+  for (size_t i = 0; i < expectedStops.size(); ++i)
+  {
+    auto const & stop = exported.features[i];
+    TEST(std::holds_alternative<kml::geojson::GeoJsonGeometryPoint>(stop.geometry), (stop));
+    auto const & coordinates = std::get<kml::geojson::GeoJsonGeometryPoint>(stop.geometry).coordinates;
+    TEST_EQUAL(coordinates.size(), 2, ());
+    auto const expected = mercator::ToLatLon(expectedStops[i].m_point);
+    TEST_ALMOST_EQUAL_ABS(coordinates[0], expected.m_lon, 1e-6, (i));
+    TEST_ALMOST_EQUAL_ABS(coordinates[1], expected.m_lat, 1e-6, (i));
+    TEST(stop.properties.has_value(), (stop));
+    if (expectedStops[i].m_name.empty())
+      TEST(!stop.properties->contains("name"), (stop));
+    else
+      TEST_EQUAL(stop.properties->at("name").get_string(), expectedStops[i].m_name, ());
+  }
+}
+
 UNIT_TEST(GeoJson_Parse_FeatureCollection_NonStringProperties)
 {
   // FeatureCollection-level "properties" may contain non-string values

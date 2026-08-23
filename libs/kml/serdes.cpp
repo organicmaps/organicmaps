@@ -546,6 +546,31 @@ void SaveTrackExtendedData(Writer & writer, TrackData const & trackData)
   }
   writer << kIndent6 << "</mwm:additionalStyle>\n";
 
+  if (!trackData.m_routerType.empty())
+  {
+    writer << kIndent6 << "<mwm:routerType>";
+    SaveStringWithCDATA(writer, trackData.m_routerType);
+    writer << "</mwm:routerType>\n";
+  }
+
+  if (!trackData.m_stops.empty())
+  {
+    writer << kIndent6 << "<mwm:stops>\n";
+    for (auto const & stop : trackData.m_stops)
+    {
+      writer << kIndent8 << "<mwm:stop>\n";
+      writer << kIndent10 << "<mwm:point>" << PointToString(stop.m_point, ',') << "</mwm:point>\n";
+      if (!stop.m_name.empty())
+      {
+        writer << kIndent10 << "<mwm:name>";
+        SaveStringWithCDATA(writer, stop.m_name);
+        writer << "</mwm:name>\n";
+      }
+      writer << kIndent8 << "</mwm:stop>\n";
+    }
+    writer << kIndent6 << "</mwm:stops>\n";
+  }
+
   SaveStringsArray(writer, trackData.m_nearestToponyms, "nearestToponyms", kIndent6);
   SaveStringsMap(writer, trackData.m_properties, "properties", kIndent6);
 
@@ -783,6 +808,10 @@ void KmlParser::ResetPoint()
   m_trackLayers.clear();
   m_trackWidth = kDefaultTrackWidth;
   m_icon = BookmarkIcon::None;
+  m_trackStops.clear();
+  m_currentTrackStopPoint.reset();
+  m_currentTrackStopName.clear();
+  m_trackRouterType.clear();
 
   m_geometry.Clear();
   m_geometryType = GEOMETRY_TYPE_UNKNOWN;
@@ -1158,6 +1187,8 @@ void KmlParser::Pop(std::string_view tag)
           trackData.m_visible = m_visible;
           trackData.m_nearestToponyms = std::move(m_nearestToponyms);
           trackData.m_properties = bookmarkData.m_properties;
+          trackData.m_stops = std::move(m_trackStops);
+          trackData.m_routerType = std::move(m_trackRouterType);
           m_data.m_tracksData.push_back(std::move(trackData));
         }
       }
@@ -1173,6 +1204,8 @@ void KmlParser::Pop(std::string_view tag)
         data.m_visible = m_visible;
         data.m_nearestToponyms = std::move(m_nearestToponyms);
         data.m_properties = std::move(m_properties);
+        data.m_stops = std::move(m_trackStops);
+        data.m_routerType = std::move(m_trackRouterType);
         m_data.m_tracksData.push_back(std::move(data));
       }
     }
@@ -1260,6 +1293,15 @@ void KmlParser::Pop(std::string_view tag)
       e.insert(m_lastTrackPointsCount + e.size());
     }
   }
+  else if (tag == "mwm:stop" && m_tags.size() >= 4 && GetTagFromEnd(1) == "mwm:stops" &&
+           GetTagFromEnd(2) == kExtendedData && GetTagFromEnd(3) == kPlacemark)
+  {
+    // A malformed stop (without a valid point) is skipped, the track itself is kept.
+    if (m_currentTrackStopPoint)
+      m_trackStops.push_back({*m_currentTrackStopPoint, std::move(m_currentTrackStopName)});
+    m_currentTrackStopPoint.reset();
+    m_currentTrackStopName.clear();
+  }
 
   m_tags.pop_back();
 }
@@ -1276,6 +1318,7 @@ void KmlParser::CharData(std::string & value)
     string const & prevTag = m_tags[count - 2];
     string_view const ppTag = count > 2 ? m_tags[count - 3] : string_view{};
     string_view const pppTag = count > 3 ? m_tags[count - 4] : string_view{};
+    string_view const ppppTag = count > 4 ? m_tags[count - 5] : string_view{};
 
     if (m_polygon)
     {
@@ -1583,6 +1626,10 @@ void KmlParser::CharData(std::string & value)
           else if (m_minZoom > 19)
             m_minZoom = 19;
         }
+        else if (currTag == "mwm:routerType")
+        {
+          m_trackRouterType = value;
+        }
       }
       else if (prevTag == "TimeStamp")
       {
@@ -1657,6 +1704,19 @@ void KmlParser::CharData(std::string & value)
       else if ((ppTag == "MultiTrack" || ppTag == "gx:MultiTrack") && TrackTag())
       {
         // noop
+      }
+    }
+    else if (ppppTag == kPlacemark && pppTag == kExtendedData && ppTag == "mwm:stops" && prevTag == "mwm:stop")
+    {
+      if (currTag == "mwm:point")
+      {
+        m2::PointD pt;
+        if (ParsePoint(value, ", \n\r\t", pt))
+          m_currentTrackStopPoint = pt;
+      }
+      else if (currTag == "mwm:name")
+      {
+        m_currentTrackStopName = value;
       }
     }
   }
