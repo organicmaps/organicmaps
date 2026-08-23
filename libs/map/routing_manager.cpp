@@ -1486,7 +1486,14 @@ kml::TrackId RoutingManager::SaveRoute()
   std::string const from = GetNameFromPoint(routePoints.front());
   std::string const to = GetNameFromPoint(routePoints.back());
 
-  return m_bmManager->SaveRoute(std::move(junctions), from, to);
+  // GetRoutePoints() preserves stop order. A stop title needs no subtitle: imported stops have
+  // plain names, whereas from/to use the subtitle guard to filter unnamed-pin placeholders.
+  std::vector<kml::TrackStopData> stops;
+  for (auto const & point : routePoints)
+    if (point.m_pointType == RouteMarkType::Intermediate)
+      stops.push_back({point.m_position, point.m_title});
+
+  return m_bmManager->SaveRoute(std::move(junctions), from, to, std::move(stops), ToString(m_currentRouterType));
 }
 
 bool RoutingManager::DisableFollowMode()

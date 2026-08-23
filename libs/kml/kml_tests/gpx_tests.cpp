@@ -7,6 +7,9 @@
 
 #include "geometry/mercator.hpp"
 
+#include "base/logging.hpp"
+#include "base/string_utils.hpp"
+
 #include "coding/file_reader.hpp"
 
 #include "platform/platform.hpp"
@@ -398,6 +401,141 @@ UNIT_TEST(Route)
              ());
   TEST_EQUAL(line[1], geometry::PointWithAltitude(mercator::FromLatLon(48.209503040543545, 16.381065845489506), 187),
              ());
+}
+
+// Stop occurrences are distinct even when consecutive route points share coordinates.
+UNIT_TEST(Gpx_Route_Stops_Import)
+{
+  std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1">
+<rte>
+  <name>Route with stops</name>
+  <rtept lat="1" lon="1"><name>Start point</name></rtept>
+  <rtept lat="1" lon="1"><name>Stop at the start</name></rtept>
+  <rtept lat="2" lon="2"></rtept>
+  <rtept lat="3" lon="3"><name>Coffee break</name></rtept>
+  <rtept lat="1" lon="1"><name>Back at the start</name></rtept>
+  <rtept lat="4" lon="4"><name>Stop at the finish</name></rtept>
+  <rtept lat="4" lon="4"><name>Finish point</name></rtept>
+</rte>
+<rte>
+  <rtept lat="5" lon="5"><name>Next start</name></rtept>
+  <rtept lat="6" lon="6"><name>Next finish</name></rtept>
+</rte>
+</gpx>
+)";
+
+  kml::FileData const dataFromText = LoadGpxFromString(input);
+  TEST_EQUAL(dataFromText.m_tracksData.size(), 2, ());
+  auto const & track = dataFromText.m_tracksData[0];
+  TEST_EQUAL(track.m_geometry.m_lines[0].size(), 5, ());
+  std::vector<kml::TrackStopData> const expectedStops = {{mercator::FromLatLon(1, 1), "Stop at the start"},
+                                                         {mercator::FromLatLon(3, 3), "Coffee break"},
+                                                         {mercator::FromLatLon(1, 1), "Back at the start"},
+                                                         {mercator::FromLatLon(4, 4), "Stop at the finish"}};
+  TEST_EQUAL(track.m_stops, expectedStops, ());
+  TEST(dataFromText.m_tracksData[1].m_stops.empty(), ());
+}
+
+// Rejected endpoints must not turn the first/last valid route points into stops.
+// An orphan rtept must not leak a stop into the following track.
+UNIT_TEST(Gpx_Route_Stops_Invalid)
+{
+  std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1">
+<rte>
+  <rtept lat="91" lon="1"><name>Rejected start</name></rtept>
+  <rtept lat="1" lon="1"><name>Start</name></rtept>
+  <rtept lat="48,85" lon="2"><name>Broken coords</name></rtept>
+  <rtept lat="91" lon="2"><name>Invalid latitude</name></rtept>
+  <rtept lat="3" lon="181"><name>Invalid longitude</name></rtept>
+  <rtept lat="inf" lon="2"><name>Infinite latitude</name></rtept>
+  <rtept lat="3" lon="nan"><name>NaN longitude</name></rtept>
+  <rtept lon="3"><name>Missing latitude</name></rtept>
+  <rtept lat="3"><name>Missing longitude</name></rtept>
+  <rtept lat="3" lon="3"><name>Good stop</name></rtept>
+  <rtept lat="4" lon="4"><name>Finish</name></rtept>
+  <rtept lat="91" lon="4"><name>Rejected finish</name></rtept>
+</rte>
+<rtept lat="5" lon="5"><name>Orphan</name></rtept>
+<trk>
+  <trkseg>
+    <trkpt lat="6" lon="6"></trkpt>
+    <trkpt lat="7" lon="7"></trkpt>
+  </trkseg>
+</trk>
+</gpx>
+)";
+
+  // Malformed coordinates are reported via LOG(LERROR, ...), which aborts in test binaries.
+  base::ScopedLogAbortLevelChanger const logAbortGuard;
+  kml::FileData const dataFromText = LoadGpxFromString(input);
+  TEST_EQUAL(dataFromText.m_tracksData.size(), 2, ());
+  auto const & route = dataFromText.m_tracksData[0];
+  kml::TrackGeometry const expectedLine = {{mercator::FromLatLon(1, 1), geometry::kInvalidAltitude},
+                                           {mercator::FromLatLon(3, 3), geometry::kInvalidAltitude},
+                                           {mercator::FromLatLon(4, 4), geometry::kInvalidAltitude}};
+  TEST_EQUAL(route.m_geometry.m_lines, std::vector<kml::TrackGeometry>{expectedLine}, ());
+  TEST_EQUAL(route.m_stops, (std::vector<kml::TrackStopData>{{mercator::FromLatLon(3, 3), "Good stop"}}), ());
+  TEST(dataFromText.m_tracksData[1].m_stops.empty(), ());
+}
+
+// Track stops are exported as plain waypoints before the <trk> element (GPX schema order).
+UNIT_TEST(Gpx_Track_Stops_Export)
+{
+  kml::FileData data;
+  kml::TrackData trackData;
+  trackData.m_name[kml::kDefaultLang] = "Track";
+  trackData.m_geometry.AddLine({{mercator::FromLatLon(47, 8), 1}, {mercator::FromLatLon(48, 9), 2}});
+  trackData.m_geometry.AddTimestamps({});
+  trackData.m_stops = {{mercator::FromLatLon(47.1, 8.1), "Stop A"}, {mercator::FromLatLon(47.2, 8.2), "Stop B"}};
+  data.m_tracksData.push_back(std::move(trackData));
+
+  auto const exported = Serialize(data);
+  auto const wptPos = exported.find("<wpt");
+  auto const trkPos = exported.find("<trk>");
+  TEST(wptPos != std::string::npos, (exported));
+  TEST(trkPos != std::string::npos, (exported));
+  TEST_LESS(wptPos, trkPos, (exported));
+
+  TEST(exported.find("<name>Stop A</name>", wptPos) < trkPos, (exported));
+  TEST(exported.find("<name>Stop B</name>", wptPos) < trkPos, (exported));
+
+  struct Waypoints
+  {
+    bool Push(std::string_view tag)
+    {
+      m_isWaypoint = tag == "wpt";
+      if (m_isWaypoint)
+        m_points.emplace_back();
+      return true;
+    }
+    void AddAttr(std::string_view attr, std::string_view value)
+    {
+      if (!m_isWaypoint)
+        return;
+      if (attr == "lat")
+        TEST(strings::to_double(value, m_points.back().m_lat), (value));
+      else if (attr == "lon")
+        TEST(strings::to_double(value, m_points.back().m_lon), (value));
+    }
+    void Pop(std::string_view) {}
+    void CharData(std::string &) {}
+
+    std::vector<ms::LatLon> m_points;
+    bool m_isWaypoint = false;
+  } waypoints;
+
+  MemReader reader(exported);
+  NonOwningReaderSource source(reader);
+  TEST(ParseXML(source, waypoints), (exported));
+  std::vector<ms::LatLon> const expectedPoints = {{47.1, 8.1}, {47.2, 8.2}};
+  TEST_EQUAL(waypoints.m_points.size(), expectedPoints.size(), ());
+  for (size_t i = 0; i < expectedPoints.size(); ++i)
+  {
+    TEST_ALMOST_EQUAL_ABS(waypoints.m_points[i].m_lat, expectedPoints[i].m_lat, 1e-6, (i));
+    TEST_ALMOST_EQUAL_ABS(waypoints.m_points[i].m_lon, expectedPoints[i].m_lon, 1e-6, (i));
+  }
 }
 
 UNIT_TEST(Color)

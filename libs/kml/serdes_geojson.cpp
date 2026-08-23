@@ -834,6 +834,21 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimizeOutput)
                                              .properties = std::move(bookmarkProperties)});
   }
 
+  // Track stops degrade to plain Point features (GeoJSON has no notion of per-track stops), so
+  // reimporting yields bookmarks, not stops. KML keeps full fidelity.
+  for (TrackData const & track : fileData.m_tracksData)
+  {
+    for (TrackStopData const & stop : track.m_stops)
+    {
+      auto const [lat, lon] = mercator::ToLatLon(stop.m_point);
+      GenericJsonMap stopProperties;
+      if (!stop.m_name.empty())
+        stopProperties["name"] = stop.m_name;
+      geoJsonFeatures.push_back(GeoJsonFeature{.geometry = GeoJsonGeometryPoint{.coordinates = {lon, lat}},
+                                               .properties = std::move(stopProperties)});
+    }
+  }
+
   // Convert Tracks
   for (size_t i = 0; i < fileData.m_tracksData.size(); i++)
   {
