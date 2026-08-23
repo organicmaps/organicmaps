@@ -2343,32 +2343,33 @@ void Framework::DeactivateHotelSearchMark()
 
 void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
 {
-  if (!buildInfo.m_isLongTap)
+  if (buildInfo.m_isLongTap)
   {
-    // Taps on an alternative route's ETA balloon (ROUTE_ALT mark) or on its polyline,
-    // swap the active variant instead of PP opening.
-
-    auto const umID = buildInfo.m_userMarkId;
-    if (umID != kml::kInvalidMarkId)
-    {
-      if (UserMark::GetMarkType(umID) == UserMark::Type::ROUTE_ALT)
-      {
-        if (auto const * mark = static_cast<RouteAltMark const *>(GetBookmarkManager().GetUserMark(umID)))
-          m_routingManager.SwapActiveAlternative(mark->GetRouteIdx());
-
-        // Always return because FillUserMarkInfo has no ROUTE_ALT handler and would CHECK-fail.
-        return;
-      }
-    }
-    else if (m_routingManager.TryTapOnAlternativeRoute(buildInfo.m_mercator, m_currentModelView.GetScale()))
-      return;
+    SwitchFullScreen();
+    return;
   }
 
+  // Taps on an alternative route's ETA balloon (ROUTE_ALT mark) or on its polyline,
+  // swap the active variant instead of PP opening.
+  auto const umID = buildInfo.m_userMarkId;
+  if (umID != kml::kInvalidMarkId)
+  {
+    if (UserMark::GetMarkType(umID) == UserMark::Type::ROUTE_ALT)
+    {
+      if (auto const * mark = static_cast<RouteAltMark const *>(GetBookmarkManager().GetUserMark(umID)))
+        m_routingManager.SwapActiveAlternative(mark->GetRouteIdx());
+
+      // Always return because FillUserMarkInfo has no ROUTE_ALT handler and would CHECK-fail.
+      return;
+    }
+  }
+  else if (m_routingManager.TryTapOnAlternativeRoute(buildInfo.m_mercator, m_currentModelView.GetScale()))
+    return;
+
   auto placePageInfo = BuildPlacePageInfo(buildInfo);
-  bool isRoutePoint = placePageInfo.IsRoutePoint();
 
   if (m_routingManager.IsRoutingActive() && m_routingManager.GetCurrentRouterType() == routing::RouterType::Ruler &&
-      !buildInfo.m_isLongTap && !isRoutePoint)
+      !placePageInfo.IsRoutePoint())
   {
     DeactivateMapSelection();
 
@@ -2390,47 +2391,40 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
     else
       data.m_position = buildInfo.m_mercator;
 
-    if (!m_routingManager.ContinueRouteToPoint(std::move(data)))
-      return;
-
-    // Refresh route
-    m_routingManager.RemoveRoute(false /* deactivateFollowing */);
-    m_routingManager.BuildRoute();
+    if (m_routingManager.ContinueRouteToPoint(std::move(data)))
+    {
+      // Refresh route
+      m_routingManager.RemoveRoute(false /* deactivateFollowing */);
+      m_routingManager.BuildRoute();
+    }
 
     return;
   }
 
-  if (buildInfo.m_isLongTap)
-  {
-    SwitchFullScreen();
-  }
-  else
-  {
-    auto const prevTrackId = m_currentPlacePageInfo ? m_currentPlacePageInfo->GetTrackId() : kml::kInvalidTrackId;
-    DeactivateHotelSearchMark();
+  auto const prevTrackId = m_currentPlacePageInfo ? m_currentPlacePageInfo->GetTrackId() : kml::kInvalidTrackId;
+  DeactivateHotelSearchMark();
 
-    m_currentPlacePageInfo = placePageInfo;
+  m_currentPlacePageInfo = placePageInfo;
 
-    auto const newTrackId = m_currentPlacePageInfo->GetTrackId();
-    if (newTrackId != kml::kInvalidTrackId)
+  auto const newTrackId = m_currentPlacePageInfo->GetTrackId();
+  if (newTrackId != kml::kInvalidTrackId)
+  {
+    // For user tracks: tapping the same track at a different point just moves the selection circle.
+    // Temp relation tracks always reuse the same ID, so always update the PlacePage for them.
+    if (newTrackId == prevTrackId && newTrackId != kml::kTempRelationTrackId)
     {
-      // For user tracks: tapping the same track at a different point just moves the selection circle.
-      // Temp relation tracks always reuse the same ID, so always update the PlacePage for them.
-      if (newTrackId == prevTrackId && newTrackId != kml::kTempRelationTrackId)
+      if (m_drapeEngine)
       {
-        if (m_drapeEngine)
-        {
-          m_drapeEngine->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK,
-                                      m_currentPlacePageInfo->GetMercator(), FeatureID(), false /* isAnim */,
-                                      false /* isGeometrySelectionAllowed */, true /* isSelectionShapeVisible */);
-        }
-        return;
+        m_drapeEngine->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK,
+                                    m_currentPlacePageInfo->GetMercator(), FeatureID(), false /* isAnim */,
+                                    false /* isGeometrySelectionAllowed */, true /* isSelectionShapeVisible */);
       }
-      GetBookmarkManager().UpdateElevationMyPosition(newTrackId, true /* ignoreLocationCache */);
+      return;
     }
-
-    ActivateMapSelection();
+    GetBookmarkManager().UpdateElevationMyPosition(newTrackId, true /* ignoreLocationCache */);
   }
+
+  ActivateMapSelection();
 }
 
 void Framework::InvalidateRendering()
