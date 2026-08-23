@@ -850,6 +850,7 @@ world  +
         {}
     organicapp  +
         mwm_border  -
+        twm_border  -
         {}
     piste:type  +
         connection  -
