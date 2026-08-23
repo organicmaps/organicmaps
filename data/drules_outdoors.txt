@@ -231,53 +231,54 @@ colors:
   c227 #D98BD3E0 #D9002222
   c228 #007093A5 #005C747F
   c229 #807D8BE6 #807D8BE6
-  c230 #33C47AFF #33623D7F
-  c231 #99C47AFF #99623D7F
-  c232 #B3C47AFF #B3623D7F
-  c233 #990A0A0D #99222222
-  c234 #B30A0A0D #B3222222
-  c235 #D90A0A0D #D9222222
-  c236 #D9C47AFF #D9623D7F
-  c237 #990B27FB #990B27FB
-  c238 #B30B27FB #B30B27FB
-  c239 #D90B27FB #D90B27FB
-  c240 #99220625 #99333333
-  c241 #B3220625 #B3333333
-  c242 #D9220625 #D9333333
-  c243 #99EEA500 #99EEA500
-  c244 #B3EEA500 #B3EEA500
-  c245 #99FC0E1B #99FC0E1B
-  c246 #B3FC0E1B #B3FC0E1B
-  c247 #D9FC0E1B #D9FC0E1B
-  c248 #995FEB2E #995FEB2E
-  c249 #805FEB2E #805FEB2E
-  c250 #C05FEB2E #C05FEB2E
-  c251 #4DC47AFF #4D623D7F
-  c252 #66C47AFF #66623D7F
-  c253 #66FFFFFF #66060600
-  c254 #008C8C8C #005E5E5E
-  c255 #80969586 #80333333
-  c256 #66969586 #66333333
-  c257 #4D969586 #4D333333
-  c258 #002F6499 #002F6499
-  c259 #00818071 #0044374A
-  c260 #4D818071 #4D44374A
-  c261 #4DB2B1A2 #4D38303D
-  c262 #00F5F5F5 #00050505
-  c263 #00B2B1A2 #0038303D
-  c264 #00767566 #00434343
-  c265 #4D808080 #4D222222
-  c266 #009C7D65 #0045372D
-  c267 #807A7A7A #805C5C51
-  c268 #4D7A7A7A #4D5C5C51
-  c269 #337A7A7A #335C5C51
-  c270 #007A7A7A #005C5C51
-  c271 #4D9C7D65 #4D45372D
-  c272 #339C7D65 #3345372D
-  c273 #664499BB #662A4541
-  c274 #8036B0BF #803FA7C0
-  c275 #80C2C0B3 #80424242
-  c276 #00C9C8BB #003B3B3B
+  c230 #80E6952E #80E6952E
+  c231 #33C47AFF #33623D7F
+  c232 #99C47AFF #99623D7F
+  c233 #B3C47AFF #B3623D7F
+  c234 #990A0A0D #99222222
+  c235 #B30A0A0D #B3222222
+  c236 #D90A0A0D #D9222222
+  c237 #D9C47AFF #D9623D7F
+  c238 #990B27FB #990B27FB
+  c239 #B30B27FB #B30B27FB
+  c240 #D90B27FB #D90B27FB
+  c241 #99220625 #99333333
+  c242 #B3220625 #B3333333
+  c243 #D9220625 #D9333333
+  c244 #99EEA500 #99EEA500
+  c245 #B3EEA500 #B3EEA500
+  c246 #99FC0E1B #99FC0E1B
+  c247 #B3FC0E1B #B3FC0E1B
+  c248 #D9FC0E1B #D9FC0E1B
+  c249 #995FEB2E #995FEB2E
+  c250 #805FEB2E #805FEB2E
+  c251 #C05FEB2E #C05FEB2E
+  c252 #4DC47AFF #4D623D7F
+  c253 #66C47AFF #66623D7F
+  c254 #66FFFFFF #66060600
+  c255 #008C8C8C #005E5E5E
+  c256 #80969586 #80333333
+  c257 #66969586 #66333333
+  c258 #4D969586 #4D333333
+  c259 #002F6499 #002F6499
+  c260 #00818071 #0044374A
+  c261 #4D818071 #4D44374A
+  c262 #4DB2B1A2 #4D38303D
+  c263 #00F5F5F5 #00050505
+  c264 #00B2B1A2 #0038303D
+  c265 #00767566 #00434343
+  c266 #4D808080 #4D222222
+  c267 #009C7D65 #0045372D
+  c268 #807A7A7A #805C5C51
+  c269 #4D7A7A7A #4D5C5C51
+  c270 #337A7A7A #335C5C51
+  c271 #007A7A7A #005C5C51
+  c272 #4D9C7D65 #4D45372D
+  c273 #339C7D65 #3345372D
+  c274 #664499BB #662A4541
+  c275 #8036B0BF #803FA7C0
+  c276 #80C2C0B3 #80424242
+  c277 #00C9C8BB #003B3B3B
 named-colors:
   Arrow3D c000
   Arrow3DObsolete c001
@@ -13633,449 +13634,464 @@ type organicapp-mwm_border
     area color=c229 priority=-970
   z7
     area color=c229 priority=-970
+type organicapp-twm_border
+  z1
+    area color=c230 priority=-970
+  z2
+    area color=c230 priority=-970
+  z3
+    area color=c230 priority=-970
+  z4
+    area color=c230 priority=-970
+  z5
+    area color=c230 priority=-970
+  z6
+    area color=c230 priority=-970
+  z7
+    area color=c230 priority=-970
 type piste:type-connection
   z15
-    line width=1.4 color=c230 join=round cap=butt priority=120
+    line width=1.4 color=c231 join=round cap=butt priority=120
   z16
-    line width=1.6 color=c230 join=round cap=round priority=120
+    line width=1.6 color=c231 join=round cap=round priority=120
   z17
-    line width=1.9 color=c230 join=round cap=round priority=120
+    line width=1.9 color=c231 join=round cap=round priority=120
   z18
-    line width=2.3 color=c230 join=round cap=round priority=120
+    line width=2.3 color=c231 join=round cap=round priority=120
   z19
-    line width=2.3 color=c230 join=round cap=round priority=120
+    line width=2.3 color=c231 join=round cap=round priority=120
   z20
-    line width=2.3 color=c230 join=round cap=round priority=120
+    line width=2.3 color=c231 join=round cap=round priority=120
 type piste:type-downhill
   z12
-    line width=1 color=c231 join=bevel cap=butt priority=120
+    line width=1 color=c232 join=bevel cap=butt priority=120
   z13
-    line width=1.4 color=c232 join=round cap=butt priority=120
+    line width=1.4 color=c233 join=round cap=butt priority=120
   z14
-    line width=1.4 color=c232 join=round cap=butt priority=120
+    line width=1.4 color=c233 join=round cap=butt priority=120
   z15
-    line width=2.2 color=c232 join=round cap=butt priority=120
+    line width=2.2 color=c233 join=round cap=butt priority=120
     path_text primary[height=9 color=c072 stroke=c073] priority=2770
   z16
-    line width=2.2 color=c232 join=round cap=round priority=120
+    line width=2.2 color=c233 join=round cap=round priority=120
     path_text primary[height=10 color=c072 stroke=c073] priority=2770
   z17
-    line width=3.2 color=c232 join=round cap=round priority=120
+    line width=3.2 color=c233 join=round cap=round priority=120
     path_text primary[height=10 color=c072 stroke=c073] priority=2770
   z18
-    line width=3.2 color=c232 join=round cap=round priority=120
+    line width=3.2 color=c233 join=round cap=round priority=120
     path_text primary[height=12 color=c072 stroke=c073] priority=2770
   z19
-    line width=3.2 color=c232 join=round cap=round priority=120
+    line width=3.2 color=c233 join=round cap=round priority=120
     path_text primary[height=12 color=c072 stroke=c073] priority=2770
   z20
-    line width=3.2 color=c232 join=round cap=round priority=120
+    line width=3.2 color=c233 join=round cap=round priority=120
     path_text primary[height=12 color=c072 stroke=c073] priority=2770
 type piste:type-downhill-advanced
   z12
-    line width=1 color=c233 join=bevel cap=butt priority=120
+    line width=1 color=c234 join=bevel cap=butt priority=120
   z13
-    line width=1.4 color=c234 join=round cap=butt priority=120
+    line width=1.4 color=c235 join=round cap=butt priority=120
   z14
-    line width=1.4 color=c234 join=round cap=butt priority=120
+    line width=1.4 color=c235 join=round cap=butt priority=120
   z15
-    line width=2.2 color=c234 join=round cap=butt priority=120
+    line width=2.2 color=c235 join=round cap=butt priority=120
     path_text primary[height=9 color=c072 stroke=c073] priority=2770
   z16
-    line width=2.2 color=c234 join=round cap=round priority=120
+    line width=2.2 color=c235 join=round cap=round priority=120
     path_text primary[height=10 color=c072 stroke=c073] priority=2770
   z17
-    line width=3.2 color=c234 join=round cap=round priority=120
+    line width=3.2 color=c235 join=round cap=round priority=120
     path_text primary[height=10 color=c072 stroke=c073] priority=2770
   z18
-    line width=3.2 color=c234 join=round cap=round priority=120
+    line width=3.2 color=c235 join=round cap=round priority=120
     path_text primary[height=12 color=c072 stroke=c073] priority=2770
   z19
-    line width=3.2 color=c234 join=round cap=round priority=120
+    line width=3.2 color=c235 join=round cap=round priority=120
     path_text primary[height=12 color=c072 stroke=c073] priority=2770
   z20
-    line width=3.2 color=c234 join=round cap=round priority=120
+    line width=3.2 color=c235 join=round cap=round priority=120
     path_text primary[height=12 color=c072 stroke=c073] priority=2770
 type piste:type-downhill-advanced-area
   z13
-    area color=c235 priority=15
+    area color=c236 priority=15
   z14
-    area color=c235 priority=15
+    area color=c236 priority=15
   z15
-    area color=c235 priority=15
+    area color=c236 priority=15
   z16
-    area color=c235 priority=15
+    area color=c236 priority=15
   z17
-    area color=c235 priority=15
+    area color=c236 priority=15
   z18
-    area color=c235 priority=15
+    area color=c236 priority=15
   z19
-    area color=c235 priority=15
+    area color=c236 priority=15
   z20
-    area color=c235 priority=15
+    area color=c236 priority=15
 type piste:type-downhill-area
   z13
-    area color=c236 priority=15
+    area color=c237 priority=15
   z14
-    area color=c236 priority=15
+    area color=c237 priority=15
   z15
-    area color=c236 priority=15
+    area color=c237 priority=15
   z16
-    area color=c236 priority=15
+    area color=c237 priority=15
   z17
-    area color=c236 priority=15
+    area color=c237 priority=15
   z18
-    area color=c236 priority=15
+    area color=c237 priority=15
   z19
-    area color=c236 priority=15
+    area color=c237 priority=15
   z20
-    area color=c236 priority=15
+    area color=c237 priority=15
 type piste:type-downhill-easy
   z12
-    line width=1 color=c237 join=bevel cap=butt priority=120
+    line width=1 color=c238 join=bevel cap=butt priority=120
   z13
-    line width=1.4 color=c238 join=round cap=butt priority=120
+    line width=1.4 color=c239 join=round cap=butt priority=120
   z14
-    line width=1.4 color=c238 join=round cap=butt priority=120
+    line width=1.4 color=c239 join=round cap=butt priority=120
   z15
-    line width=2.2 color=c238 join=round cap=butt priority=120
+    line width=2.2 color=c239 join=round cap=butt priority=120
     path_text primary[height=9 color=c072 stroke=c073] priority=2770
   z16
-    line width=2.2 color=c238 join=round cap=round priority=120
+    line width=2.2 color=c239 join=round cap=round priority=120
     path_text primary[height=10 color=c072 stroke=c073] priority=2770
   z17
-    line width=3.2 color=c238 join=round cap=round priority=120
+    line width=3.2 color=c239 join=round cap=round priority=120
     path_text primary[height=10 color=c072 stroke=c073] priority=2770
   z18
-    line width=3.2 color=c238 join=round cap=round priority=120
+    line width=3.2 color=c239 join=round cap=round priority=120
     path_text primary[height=12 color=c072 stroke=c073] priority=2770
   z19
-    line width=3.2 color=c238 join=round cap=round priority=120
+    line width=3.2 color=c239 join=round cap=round priority=120
     path_text primary[height=12 color=c072 stroke=c073] priority=2770
   z20
-    line width=3.2 color=c238 join=round cap=round priority=120
+    line width=3.2 color=c239 join=round cap=round priority=120
     path_text primary[height=12 color=c072 stroke=c073] priority=2770
 type piste:type-downhill-easy-area
   z13
-    area color=c239 priority=15
+    area color=c240 priority=15
   z14
-    area color=c239 priority=15
+    area color=c240 priority=15
   z15
-    area color=c239 priority=15
+    area color=c240 priority=15
   z16
-    area color=c239 priority=15
+    area color=c240 priority=15
   z17
-    area color=c239 priority=15
+    area color=c240 priority=15
   z18
-    area color=c239 priority=15
+    area color=c240 priority=15
   z19
-    area color=c239 priority=15
+    area color=c240 priority=15
   z20
-    area color=c239 priority=15
+    area color=c240 priority=15
 type piste:type-downhill-expert
   z12
-    line width=1 color=c240 join=bevel cap=butt priority=120
+    line width=1 color=c241 join=bevel cap=butt priority=120
   z13
-    line width=1.4 color=c241 join=round cap=butt priority=120
+    line width=1.4 color=c242 join=round cap=butt priority=120
   z14
-    line width=1.4 color=c241 join=round cap=butt priority=120
+    line width=1.4 color=c242 join=round cap=butt priority=120
   z15
-    line width=2.2 color=c241 join=round cap=butt priority=120
+    line width=2.2 color=c242 join=round cap=butt priority=120
     path_text primary[height=9 color=c072 stroke=c073] priority=2770
   z16
-    line width=2.2 color=c241 join=round cap=round priority=120
+    line width=2.2 color=c242 join=round cap=round priority=120
     path_text primary[height=10 color=c072 stroke=c073] priority=2770
   z17
-    line width=3.2 color=c241 join=round cap=round priority=120
+    line width=3.2 color=c242 join=round cap=round priority=120
     path_text primary[height=10 color=c072 stroke=c073] priority=2770
   z18
-    line width=3.2 color=c241 join=round cap=round priority=120
+    line width=3.2 color=c242 join=round cap=round priority=120
     path_text primary[height=12 color=c072 stroke=c073] priority=2770
   z19
-    line width=3.2 color=c241 join=round cap=round priority=120
+    line width=3.2 color=c242 join=round cap=round priority=120
     path_text primary[height=12 color=c072 stroke=c073] priority=2770
   z20
-    line width=3.2 color=c241 join=round cap=round priority=120
+    line width=3.2 color=c242 join=round cap=round priority=120
     path_text primary[height=12 color=c072 stroke=c073] priority=2770
 type piste:type-downhill-expert-area
   z13
-    area color=c242 priority=15
+    area color=c243 priority=15
   z14
-    area color=c242 priority=15
+    area color=c243 priority=15
   z15
-    area color=c242 priority=15
+    area color=c243 priority=15
   z16
-    area color=c242 priority=15
+    area color=c243 priority=15
   z17
-    area color=c242 priority=15
+    area color=c243 priority=15
   z18
-    area color=c242 priority=15
+    area color=c243 priority=15
   z19
-    area color=c242 priority=15
+    area color=c243 priority=15
   z20
-    area color=c242 priority=15
+    area color=c243 priority=15
 type piste:type-downhill-freeride
   z12
-    line width=1 color=c243 join=bevel cap=butt priority=120
+    line width=1 color=c244 join=bevel cap=butt priority=120
   z13
-    line width=1.4 color=c244 join=round cap=butt priority=120
+    line width=1.4 color=c245 join=round cap=butt priority=120
   z14
-    line width=1.4 color=c244 join=round cap=butt priority=120
+    line width=1.4 color=c245 join=round cap=butt priority=120
   z15
-    line width=2.2 color=c244 join=round cap=butt priority=120
+    line width=2.2 color=c245 join=round cap=butt priority=120
     path_text primary[height=9 color=c072 stroke=c073] priority=2770
   z16
-    line width=2.2 color=c244 join=round cap=round priority=120
+    line width=2.2 color=c245 join=round cap=round priority=120
     path_text primary[height=10 color=c072 stroke=c073] priority=2770
   z17
-    line width=3.2 color=c244 join=round cap=round priority=120
+    line width=3.2 color=c245 join=round cap=round priority=120
     path_text primary[height=10 color=c072 stroke=c073] priority=2770
   z18
-    line width=3.2 color=c244 join=round cap=round priority=120
+    line width=3.2 color=c245 join=round cap=round priority=120
     path_text primary[height=12 color=c072 stroke=c073] priority=2770
   z19
-    line width=3.2 color=c244 join=round cap=round priority=120
+    line width=3.2 color=c245 join=round cap=round priority=120
     path_text primary[height=12 color=c072 stroke=c073] priority=2770
   z20
-    line width=3.2 color=c244 join=round cap=round priority=120
+    line width=3.2 color=c245 join=round cap=round priority=120
     path_text primary[height=12 color=c072 stroke=c073] priority=2770
 type piste:type-downhill-intermediate
   z12
-    line width=1 color=c245 join=bevel cap=butt priority=120
+    line width=1 color=c246 join=bevel cap=butt priority=120
   z13
-    line width=1.4 color=c246 join=round cap=butt priority=120
+    line width=1.4 color=c247 join=round cap=butt priority=120
   z14
-    line width=1.4 color=c246 join=round cap=butt priority=120
+    line width=1.4 color=c247 join=round cap=butt priority=120
   z15
-    line width=2.2 color=c246 join=round cap=butt priority=120
+    line width=2.2 color=c247 join=round cap=butt priority=120
     path_text primary[height=9 color=c072 stroke=c073] priority=2770
   z16
-    line width=2.2 color=c246 join=round cap=round priority=120
+    line width=2.2 color=c247 join=round cap=round priority=120
     path_text primary[height=10 color=c072 stroke=c073] priority=2770
   z17
-    line width=3.2 color=c246 join=round cap=round priority=120
+    line width=3.2 color=c247 join=round cap=round priority=120
     path_text primary[height=10 color=c072 stroke=c073] priority=2770
   z18
-    line width=3.2 color=c246 join=round cap=round priority=120
+    line width=3.2 color=c247 join=round cap=round priority=120
     path_text primary[height=12 color=c072 stroke=c073] priority=2770
   z19
-    line width=3.2 color=c246 join=round cap=round priority=120
+    line width=3.2 color=c247 join=round cap=round priority=120
     path_text primary[height=12 color=c072 stroke=c073] priority=2770
   z20
-    line width=3.2 color=c246 join=round cap=round priority=120
+    line width=3.2 color=c247 join=round cap=round priority=120
     path_text primary[height=12 color=c072 stroke=c073] priority=2770
 type piste:type-downhill-intermediate-area
   z13
-    area color=c247 priority=15
+    area color=c248 priority=15
   z14
-    area color=c247 priority=15
+    area color=c248 priority=15
   z15
-    area color=c247 priority=15
+    area color=c248 priority=15
   z16
-    area color=c247 priority=15
+    area color=c248 priority=15
   z17
-    area color=c247 priority=15
+    area color=c248 priority=15
   z18
-    area color=c247 priority=15
+    area color=c248 priority=15
   z19
-    area color=c247 priority=15
+    area color=c248 priority=15
   z20
-    area color=c247 priority=15
+    area color=c248 priority=15
 type piste:type-downhill-novice
   z12
-    line width=1 color=c248 join=bevel cap=butt priority=120
+    line width=1 color=c249 join=bevel cap=butt priority=120
   z13
-    line width=1.4 color=c249 join=round cap=butt priority=120
+    line width=1.4 color=c250 join=round cap=butt priority=120
   z14
-    line width=1.4 color=c249 join=round cap=butt priority=120
+    line width=1.4 color=c250 join=round cap=butt priority=120
   z15
-    line width=2.2 color=c249 join=round cap=butt priority=120
+    line width=2.2 color=c250 join=round cap=butt priority=120
     path_text primary[height=9 color=c072 stroke=c073] priority=2770
   z16
-    line width=2.2 color=c249 join=round cap=round priority=120
+    line width=2.2 color=c250 join=round cap=round priority=120
     path_text primary[height=10 color=c072 stroke=c073] priority=2770
   z17
-    line width=3.2 color=c249 join=round cap=round priority=120
+    line width=3.2 color=c250 join=round cap=round priority=120
     path_text primary[height=10 color=c072 stroke=c073] priority=2770
   z18
-    line width=3.2 color=c249 join=round cap=round priority=120
+    line width=3.2 color=c250 join=round cap=round priority=120
     path_text primary[height=12 color=c072 stroke=c073] priority=2770
   z19
-    line width=3.2 color=c249 join=round cap=round priority=120
+    line width=3.2 color=c250 join=round cap=round priority=120
     path_text primary[height=12 color=c072 stroke=c073] priority=2770
   z20
-    line width=3.2 color=c249 join=round cap=round priority=120
+    line width=3.2 color=c250 join=round cap=round priority=120
     path_text primary[height=12 color=c072 stroke=c073] priority=2770
 type piste:type-downhill-novice-area
   z13
-    area color=c250 priority=15
+    area color=c251 priority=15
   z14
-    area color=c250 priority=15
+    area color=c251 priority=15
   z15
-    area color=c250 priority=15
+    area color=c251 priority=15
   z16
-    area color=c250 priority=15
+    area color=c251 priority=15
   z17
-    area color=c250 priority=15
+    area color=c251 priority=15
   z18
-    area color=c250 priority=15
+    area color=c251 priority=15
   z19
-    area color=c250 priority=15
+    area color=c251 priority=15
   z20
-    area color=c250 priority=15
+    area color=c251 priority=15
 type piste:type-hike
   z12
-    line width=1.1 color=c251 join=bevel cap=butt dash=[3.5,2] priority=120
+    line width=1.1 color=c252 join=bevel cap=butt dash=[3.5,2] priority=120
   z13
-    line width=1.3 color=c251 join=round cap=butt dash=[4,2.5] priority=120
+    line width=1.3 color=c252 join=round cap=butt dash=[4,2.5] priority=120
     path_text primary[height=9 color=c107 stroke=c108] priority=2770
   z14
-    line width=1.6 color=c251 join=round cap=butt dash=[4,2.5] priority=120
+    line width=1.6 color=c252 join=round cap=butt dash=[4,2.5] priority=120
     path_text primary[height=9 color=c107 stroke=c108] priority=2770
   z15
-    line width=2 color=c251 join=round cap=butt dash=[6,3.5] priority=120
+    line width=2 color=c252 join=round cap=butt dash=[6,3.5] priority=120
     path_text primary[height=9 color=c107 stroke=c108] priority=2770
   z16
-    line width=2.6 color=c251 join=round cap=round dash=[6,3.5] priority=120
+    line width=2.6 color=c252 join=round cap=round dash=[6,3.5] priority=120
     path_text primary[height=10 color=c107 stroke=c108] priority=2770
   z17
-    line width=3.3 color=c251 join=round cap=round dash=[8,4.5] priority=120
+    line width=3.3 color=c252 join=round cap=round dash=[8,4.5] priority=120
     path_text primary[height=10 color=c107 stroke=c108] priority=2770
   z18
-    line width=4 color=c251 join=round cap=round dash=[8,4.5] priority=120
+    line width=4 color=c252 join=round cap=round dash=[8,4.5] priority=120
     path_text primary[height=12 color=c107 stroke=c108] priority=2770
   z19
-    line width=4 color=c251 join=round cap=round dash=[8,4.5] priority=120
+    line width=4 color=c252 join=round cap=round dash=[8,4.5] priority=120
     path_text primary[height=12 color=c107 stroke=c108] priority=2770
   z20
-    line width=4 color=c251 join=round cap=round dash=[8,4.5] priority=120
+    line width=4 color=c252 join=round cap=round dash=[8,4.5] priority=120
     path_text primary[height=12 color=c107 stroke=c108] priority=2770
 type piste:type-nordic
   z12
-    line width=0.8 color=c252 join=bevel cap=butt priority=120
+    line width=0.8 color=c253 join=bevel cap=butt priority=120
   z13
-    line width=1 color=c251 join=round cap=butt priority=120
+    line width=1 color=c252 join=round cap=butt priority=120
     path_text primary[height=9 color=c107 stroke=c108] priority=2770
   z14
-    line width=1.2 color=c230 join=round cap=butt priority=120
+    line width=1.2 color=c231 join=round cap=butt priority=120
     path_text primary[height=9 color=c107 stroke=c108] priority=2770
   z15
-    line width=1.4 color=c230 join=round cap=butt priority=120
+    line width=1.4 color=c231 join=round cap=butt priority=120
     path_text primary[height=9 color=c107 stroke=c108] priority=2770
   z16
-    line width=1.6 color=c230 join=round cap=round priority=120
+    line width=1.6 color=c231 join=round cap=round priority=120
     path_text primary[height=10 color=c107 stroke=c108] priority=2770
   z17
-    line width=1.9 color=c230 join=round cap=round priority=120
+    line width=1.9 color=c231 join=round cap=round priority=120
     path_text primary[height=10 color=c107 stroke=c108] priority=2770
   z18
-    line width=2.3 color=c230 join=round cap=round priority=120
+    line width=2.3 color=c231 join=round cap=round priority=120
     path_text primary[height=12 color=c107 stroke=c108] priority=2770
   z19
-    line width=2.3 color=c230 join=round cap=round priority=120
+    line width=2.3 color=c231 join=round cap=round priority=120
     path_text primary[height=12 color=c107 stroke=c108] priority=2770
   z20
-    line width=2.3 color=c230 join=round cap=round priority=120
+    line width=2.3 color=c231 join=round cap=round priority=120
     path_text primary[height=12 color=c107 stroke=c108] priority=2770
 type piste:type-skitour
   z12
-    line width=0.8 color=c252 join=bevel cap=butt priority=120
+    line width=0.8 color=c253 join=bevel cap=butt priority=120
   z13
-    line width=1 color=c251 join=round cap=butt priority=120
+    line width=1 color=c252 join=round cap=butt priority=120
     path_text primary[height=9 color=c107 stroke=c108] priority=2770
   z14
-    line width=1.2 color=c252 join=round cap=butt priority=120
+    line width=1.2 color=c253 join=round cap=butt priority=120
     path_text primary[height=9 color=c107 stroke=c108] priority=2770
   z15
-    line width=1.4 color=c252 join=round cap=butt priority=120
+    line width=1.4 color=c253 join=round cap=butt priority=120
     path_text primary[height=9 color=c107 stroke=c108] priority=2770
   z16
-    line width=1.6 color=c252 join=round cap=round priority=120
+    line width=1.6 color=c253 join=round cap=round priority=120
     path_text primary[height=10 color=c107 stroke=c108] priority=2770
   z17
-    line width=1.9 color=c252 join=round cap=round priority=120
+    line width=1.9 color=c253 join=round cap=round priority=120
     path_text primary[height=10 color=c107 stroke=c108] priority=2770
   z18
-    line width=2.3 color=c252 join=round cap=round priority=120
+    line width=2.3 color=c253 join=round cap=round priority=120
     path_text primary[height=12 color=c107 stroke=c108] priority=2770
   z19
-    line width=2.3 color=c252 join=round cap=round priority=120
+    line width=2.3 color=c253 join=round cap=round priority=120
     path_text primary[height=12 color=c107 stroke=c108] priority=2770
   z20
-    line width=2.3 color=c252 join=round cap=round priority=120
+    line width=2.3 color=c253 join=round cap=round priority=120
     path_text primary[height=12 color=c107 stroke=c108] priority=2770
 type piste:type-sled
   z12
-    line width=1 color=c231 join=bevel cap=butt priority=120
+    line width=1 color=c232 join=bevel cap=butt priority=120
   z13
-    line width=1.4 color=c232 join=round cap=butt priority=120
+    line width=1.4 color=c233 join=round cap=butt priority=120
   z14
-    line width=1.4 color=c232 join=round cap=butt priority=120
+    line width=1.4 color=c233 join=round cap=butt priority=120
   z15
-    line width=2.2 color=c232 join=round cap=butt priority=120
+    line width=2.2 color=c233 join=round cap=butt priority=120
     path_text primary[height=9 color=c072 stroke=c073] priority=2770
   z16
-    line width=2.2 color=c232 join=round cap=round priority=120
+    line width=2.2 color=c233 join=round cap=round priority=120
     path_text primary[height=10 color=c072 stroke=c073] priority=2770
   z17
-    line width=3.2 color=c232 join=round cap=round priority=120
+    line width=3.2 color=c233 join=round cap=round priority=120
     path_text primary[height=10 color=c072 stroke=c073] priority=2770
   z18
-    line width=3.2 color=c232 join=round cap=round priority=120
+    line width=3.2 color=c233 join=round cap=round priority=120
     path_text primary[height=12 color=c072 stroke=c073] priority=2770
   z19
-    line width=3.2 color=c232 join=round cap=round priority=120
+    line width=3.2 color=c233 join=round cap=round priority=120
     path_text primary[height=12 color=c072 stroke=c073] priority=2770
   z20
-    line width=3.2 color=c232 join=round cap=round priority=120
+    line width=3.2 color=c233 join=round cap=round priority=120
     path_text primary[height=12 color=c072 stroke=c073] priority=2770
 type piste:type-sled-area
   z13
-    area color=c236 priority=15
+    area color=c237 priority=15
   z14
-    area color=c236 priority=15
+    area color=c237 priority=15
   z15
-    area color=c236 priority=15
+    area color=c237 priority=15
   z16
-    area color=c236 priority=15
+    area color=c237 priority=15
   z17
-    area color=c236 priority=15
+    area color=c237 priority=15
   z18
-    area color=c236 priority=15
+    area color=c237 priority=15
   z19
-    area color=c236 priority=15
+    area color=c237 priority=15
   z20
-    area color=c236 priority=15
+    area color=c237 priority=15
 type piste:type-snow_park
   z13
-    area color=c236 priority=15
+    area color=c237 priority=15
   z14
-    area color=c236 priority=15
+    area color=c237 priority=15
   z15
-    area color=c236 priority=15
+    area color=c237 priority=15
     caption primary[height=9 color=c072 stroke=c073] priority=2770
   z16
-    area color=c236 priority=15
+    area color=c237 priority=15
     caption primary[height=10 color=c072 stroke=c073] priority=2770
   z17
-    area color=c236 priority=15
+    area color=c237 priority=15
     caption primary[height=10 color=c072 stroke=c073] priority=2770
   z18
-    area color=c236 priority=15
+    area color=c237 priority=15
     caption primary[height=12 color=c072 stroke=c073] priority=2770
   z19
-    area color=c236 priority=15
+    area color=c237 priority=15
     caption primary[height=12 color=c072 stroke=c073] priority=2770
   z20
-    area color=c236 priority=15
+    area color=c237 priority=15
     caption primary[height=12 color=c072 stroke=c073] priority=2770
 type place-city
   z4 if "population>=1000000"
     caption primary[height=9 color=c072 stroke=c073] secondary[height=8 color=c072 stroke=c073 dy=1] priority=7350
   z5 if "population>=150000"
-    caption primary[height=10 color=c072 stroke=c253] secondary[height=9 color=c072 stroke=c253 dy=1] priority=7350
+    caption primary[height=10 color=c072 stroke=c254] secondary[height=9 color=c072 stroke=c254 dy=1] priority=7350
   z6 if "population>=50000"
-    caption primary[height=10 color=c072 stroke=c253] secondary[height=9 color=c072 stroke=c253 dy=1] priority=7350
+    caption primary[height=10 color=c072 stroke=c254] secondary[height=9 color=c072 stroke=c254 dy=1] priority=7350
   z7 if "population>=40000"
     caption primary[height=10 color=c072 stroke=c087] secondary[height=9 color=c072 stroke=c087 dy=1] priority=7350
   z8 if "population>=40000"
@@ -14108,9 +14124,9 @@ type place-city-capital
   z4 if "population>=1000000"
     caption primary[height=9 color=c072 stroke=c073] secondary[height=8 color=c072 stroke=c073 dy=1] priority=7400
   z5 if "population>=150000"
-    caption primary[height=10 color=c072 stroke=c253] secondary[height=9 color=c072 stroke=c253 dy=1] priority=7400
+    caption primary[height=10 color=c072 stroke=c254] secondary[height=9 color=c072 stroke=c254 dy=1] priority=7400
   z6 if "population>=50000"
-    caption primary[height=10 color=c072 stroke=c253] secondary[height=9 color=c072 stroke=c253 dy=1] priority=7400
+    caption primary[height=10 color=c072 stroke=c254] secondary[height=9 color=c072 stroke=c254 dy=1] priority=7400
   z7 if "population>=40000"
     caption primary[height=10 color=c072 stroke=c087] secondary[height=9 color=c072 stroke=c087 dy=1] priority=7400
   z8 if "population>=40000"
@@ -14143,9 +14159,9 @@ type place-city-capital-10
   z4 if "population>=1000000"
     caption primary[height=9 color=c072 stroke=c073] secondary[height=8 color=c072 stroke=c073 dy=1] priority=7400
   z5 if "population>=150000"
-    caption primary[height=10 color=c072 stroke=c253] secondary[height=9 color=c072 stroke=c253 dy=1] priority=7400
+    caption primary[height=10 color=c072 stroke=c254] secondary[height=9 color=c072 stroke=c254 dy=1] priority=7400
   z6 if "population>=50000"
-    caption primary[height=10 color=c072 stroke=c253] secondary[height=9 color=c072 stroke=c253 dy=1] priority=7400
+    caption primary[height=10 color=c072 stroke=c254] secondary[height=9 color=c072 stroke=c254 dy=1] priority=7400
   z7 if "population>=40000"
     caption primary[height=10 color=c072 stroke=c087] secondary[height=9 color=c072 stroke=c087 dy=1] priority=7400
   z8 if "population>=40000"
@@ -14178,9 +14194,9 @@ type place-city-capital-11
   z4 if "population>=1000000"
     caption primary[height=9 color=c072 stroke=c073] secondary[height=8 color=c072 stroke=c073 dy=1] priority=7400
   z5 if "population>=150000"
-    caption primary[height=10 color=c072 stroke=c253] secondary[height=9 color=c072 stroke=c253 dy=1] priority=7400
+    caption primary[height=10 color=c072 stroke=c254] secondary[height=9 color=c072 stroke=c254 dy=1] priority=7400
   z6 if "population>=50000"
-    caption primary[height=10 color=c072 stroke=c253] secondary[height=9 color=c072 stroke=c253 dy=1] priority=7400
+    caption primary[height=10 color=c072 stroke=c254] secondary[height=9 color=c072 stroke=c254 dy=1] priority=7400
   z7 if "population>=40000"
     caption primary[height=10 color=c072 stroke=c087] secondary[height=9 color=c072 stroke=c087 dy=1] priority=7400
   z8 if "population>=40000"
@@ -14265,9 +14281,9 @@ type place-city-capital-3
   z4 if "population>=1000000"
     caption primary[height=9 color=c072 stroke=c073] secondary[height=8 color=c072 stroke=c073 dy=1] priority=7500
   z5 if "population>=150000"
-    caption primary[height=10 color=c072 stroke=c253] secondary[height=9 color=c072 stroke=c253 dy=1] priority=7500
+    caption primary[height=10 color=c072 stroke=c254] secondary[height=9 color=c072 stroke=c254 dy=1] priority=7500
   z6 if "population>=50000"
-    caption primary[height=10 color=c072 stroke=c253] secondary[height=9 color=c072 stroke=c253 dy=1] priority=7500
+    caption primary[height=10 color=c072 stroke=c254] secondary[height=9 color=c072 stroke=c254 dy=1] priority=7500
   z7 if "population>=40000"
     caption primary[height=10 color=c072 stroke=c087] secondary[height=9 color=c072 stroke=c087 dy=1] priority=7500
   z8 if "population>=40000"
@@ -14300,9 +14316,9 @@ type place-city-capital-4
   z4 if "population>=1000000"
     caption primary[height=9 color=c072 stroke=c073] secondary[height=8 color=c072 stroke=c073 dy=1] priority=7500
   z5 if "population>=150000"
-    caption primary[height=10 color=c072 stroke=c253] secondary[height=9 color=c072 stroke=c253 dy=1] priority=7500
+    caption primary[height=10 color=c072 stroke=c254] secondary[height=9 color=c072 stroke=c254 dy=1] priority=7500
   z6 if "population>=50000"
-    caption primary[height=10 color=c072 stroke=c253] secondary[height=9 color=c072 stroke=c253 dy=1] priority=7500
+    caption primary[height=10 color=c072 stroke=c254] secondary[height=9 color=c072 stroke=c254 dy=1] priority=7500
   z7 if "population>=40000"
     caption primary[height=10 color=c072 stroke=c087] secondary[height=9 color=c072 stroke=c087 dy=1] priority=7500
   z8 if "population>=40000"
@@ -14335,9 +14351,9 @@ type place-city-capital-5
   z4 if "population>=1000000"
     caption primary[height=9 color=c072 stroke=c073] secondary[height=8 color=c072 stroke=c073 dy=1] priority=7400
   z5 if "population>=150000"
-    caption primary[height=10 color=c072 stroke=c253] secondary[height=9 color=c072 stroke=c253 dy=1] priority=7400
+    caption primary[height=10 color=c072 stroke=c254] secondary[height=9 color=c072 stroke=c254 dy=1] priority=7400
   z6 if "population>=50000"
-    caption primary[height=10 color=c072 stroke=c253] secondary[height=9 color=c072 stroke=c253 dy=1] priority=7400
+    caption primary[height=10 color=c072 stroke=c254] secondary[height=9 color=c072 stroke=c254 dy=1] priority=7400
   z7 if "population>=40000"
     caption primary[height=10 color=c072 stroke=c087] secondary[height=9 color=c072 stroke=c087 dy=1] priority=7400
   z8 if "population>=40000"
@@ -14370,9 +14386,9 @@ type place-city-capital-6
   z4 if "population>=1000000"
     caption primary[height=9 color=c072 stroke=c073] secondary[height=8 color=c072 stroke=c073 dy=1] priority=7400
   z5 if "population>=150000"
-    caption primary[height=10 color=c072 stroke=c253] secondary[height=9 color=c072 stroke=c253 dy=1] priority=7400
+    caption primary[height=10 color=c072 stroke=c254] secondary[height=9 color=c072 stroke=c254 dy=1] priority=7400
   z6 if "population>=50000"
-    caption primary[height=10 color=c072 stroke=c253] secondary[height=9 color=c072 stroke=c253 dy=1] priority=7400
+    caption primary[height=10 color=c072 stroke=c254] secondary[height=9 color=c072 stroke=c254 dy=1] priority=7400
   z7 if "population>=40000"
     caption primary[height=10 color=c072 stroke=c087] secondary[height=9 color=c072 stroke=c087 dy=1] priority=7400
   z8 if "population>=40000"
@@ -14405,9 +14421,9 @@ type place-city-capital-7
   z4 if "population>=1000000"
     caption primary[height=9 color=c072 stroke=c073] secondary[height=8 color=c072 stroke=c073 dy=1] priority=7400
   z5 if "population>=150000"
-    caption primary[height=10 color=c072 stroke=c253] secondary[height=9 color=c072 stroke=c253 dy=1] priority=7400
+    caption primary[height=10 color=c072 stroke=c254] secondary[height=9 color=c072 stroke=c254 dy=1] priority=7400
   z6 if "population>=50000"
-    caption primary[height=10 color=c072 stroke=c253] secondary[height=9 color=c072 stroke=c253 dy=1] priority=7400
+    caption primary[height=10 color=c072 stroke=c254] secondary[height=9 color=c072 stroke=c254 dy=1] priority=7400
   z7 if "population>=40000"
     caption primary[height=10 color=c072 stroke=c087] secondary[height=9 color=c072 stroke=c087 dy=1] priority=7400
   z8 if "population>=40000"
@@ -14440,9 +14456,9 @@ type place-city-capital-8
   z4 if "population>=1000000"
     caption primary[height=9 color=c072 stroke=c073] secondary[height=8 color=c072 stroke=c073 dy=1] priority=7400
   z5 if "population>=150000"
-    caption primary[height=10 color=c072 stroke=c253] secondary[height=9 color=c072 stroke=c253 dy=1] priority=7400
+    caption primary[height=10 color=c072 stroke=c254] secondary[height=9 color=c072 stroke=c254 dy=1] priority=7400
   z6 if "population>=50000"
-    caption primary[height=10 color=c072 stroke=c253] secondary[height=9 color=c072 stroke=c253 dy=1] priority=7400
+    caption primary[height=10 color=c072 stroke=c254] secondary[height=9 color=c072 stroke=c254 dy=1] priority=7400
   z7 if "population>=40000"
     caption primary[height=10 color=c072 stroke=c087] secondary[height=9 color=c072 stroke=c087 dy=1] priority=7400
   z8 if "population>=40000"
@@ -14475,9 +14491,9 @@ type place-city-capital-9
   z4 if "population>=1000000"
     caption primary[height=9 color=c072 stroke=c073] secondary[height=8 color=c072 stroke=c073 dy=1] priority=7400
   z5 if "population>=150000"
-    caption primary[height=10 color=c072 stroke=c253] secondary[height=9 color=c072 stroke=c253 dy=1] priority=7400
+    caption primary[height=10 color=c072 stroke=c254] secondary[height=9 color=c072 stroke=c254 dy=1] priority=7400
   z6 if "population>=50000"
-    caption primary[height=10 color=c072 stroke=c253] secondary[height=9 color=c072 stroke=c253 dy=1] priority=7400
+    caption primary[height=10 color=c072 stroke=c254] secondary[height=9 color=c072 stroke=c254 dy=1] priority=7400
   z7 if "population>=40000"
     caption primary[height=10 color=c072 stroke=c087] secondary[height=9 color=c072 stroke=c087 dy=1] priority=7400
   z8 if "population>=40000"
@@ -14508,46 +14524,46 @@ type place-city-capital-9
     caption primary[height=14 color=c143 stroke=c148] secondary[height=12 color=c143 stroke=c148 dy=1] priority=7400
 type place-continent
   z1
-    caption primary[height=12 color=c254] priority=7700
+    caption primary[height=12 color=c255] priority=7700
   z2
-    caption primary[height=12 color=c254] priority=7700
+    caption primary[height=12 color=c255] priority=7700
 type place-country
   z3
-    caption primary[height=10 color=c254] secondary[height=8 color=c254 dy=1] priority=7600
+    caption primary[height=10 color=c255] secondary[height=8 color=c255 dy=1] priority=7600
   z4
-    caption primary[height=12 color=c254] secondary[height=10 color=c254 dy=1] priority=7600
+    caption primary[height=12 color=c255] secondary[height=10 color=c255 dy=1] priority=7600
   z5
-    caption primary[height=13 color=c254] secondary[height=11 color=c254 dy=1] priority=7600
+    caption primary[height=13 color=c255] secondary[height=11 color=c255 dy=1] priority=7600
   z6
-    caption primary[height=15 color=c254] secondary[height=13 color=c254 dy=1] priority=7600
+    caption primary[height=15 color=c255] secondary[height=13 color=c255 dy=1] priority=7600
   z7
-    caption primary[height=17 color=c254] secondary[height=15 color=c254 dy=1] priority=7600
+    caption primary[height=17 color=c255] secondary[height=15 color=c255 dy=1] priority=7600
   z8
-    caption primary[height=19 color=c254] secondary[height=17 color=c254 dy=1] priority=7600
+    caption primary[height=19 color=c255] secondary[height=17 color=c255 dy=1] priority=7600
   z9
-    caption primary[height=21 color=c254] secondary[height=19 color=c254 dy=1] priority=7600
+    caption primary[height=21 color=c255] secondary[height=19 color=c255 dy=1] priority=7600
   z10
-    caption primary[height=21 color=c254] secondary[height=19 color=c254 dy=1] priority=7600
+    caption primary[height=21 color=c255] secondary[height=19 color=c255 dy=1] priority=7600
   z11
-    caption primary[height=21 color=c254] secondary[height=19 color=c254 dy=1] priority=7600
+    caption primary[height=21 color=c255] secondary[height=19 color=c255 dy=1] priority=7600
   z12
-    caption primary[height=21 color=c254] secondary[height=19 color=c254 dy=1] priority=7600
+    caption primary[height=21 color=c255] secondary[height=19 color=c255 dy=1] priority=7600
   z13
-    caption primary[height=21 color=c254] secondary[height=19 color=c254 dy=1] priority=7600
+    caption primary[height=21 color=c255] secondary[height=19 color=c255 dy=1] priority=7600
   z14
-    caption primary[height=21 color=c254] secondary[height=19 color=c254 dy=1] priority=7600
+    caption primary[height=21 color=c255] secondary[height=19 color=c255 dy=1] priority=7600
   z15
-    caption primary[height=21 color=c254] secondary[height=19 color=c254 dy=1] priority=7600
+    caption primary[height=21 color=c255] secondary[height=19 color=c255 dy=1] priority=7600
   z16
-    caption primary[height=21 color=c254] secondary[height=19 color=c254 dy=1] priority=7600
+    caption primary[height=21 color=c255] secondary[height=19 color=c255 dy=1] priority=7600
   z17
-    caption primary[height=21 color=c254] secondary[height=19 color=c254 dy=1] priority=7600
+    caption primary[height=21 color=c255] secondary[height=19 color=c255 dy=1] priority=7600
   z18
-    caption primary[height=21 color=c254] secondary[height=19 color=c254 dy=1] priority=7600
+    caption primary[height=21 color=c255] secondary[height=19 color=c255 dy=1] priority=7600
   z19
-    caption primary[height=21 color=c254] secondary[height=19 color=c254 dy=1] priority=7600
+    caption primary[height=21 color=c255] secondary[height=19 color=c255 dy=1] priority=7600
   z20
-    caption primary[height=21 color=c254] secondary[height=19 color=c254 dy=1] priority=7600
+    caption primary[height=21 color=c255] secondary[height=19 color=c255 dy=1] priority=7600
 type place-farm
   z14
     caption primary[height=12 color=c204] secondary[height=10 color=c204 dy=1] priority=5700
@@ -14565,21 +14581,21 @@ type place-farm
     caption primary[height=12 color=c204] secondary[height=10 color=c204 dy=1] priority=5700
 type place-hamlet
   z13
-    caption primary[height=11 color=c099 stroke=c253] priority=5750
+    caption primary[height=11 color=c099 stroke=c254] priority=5750
   z14
-    caption primary[height=11 color=c099 stroke=c253] priority=5750
+    caption primary[height=11 color=c099 stroke=c254] priority=5750
   z15
-    caption primary[height=11 color=c099 stroke=c253] priority=5750
+    caption primary[height=11 color=c099 stroke=c254] priority=5750
   z16
-    caption primary[height=11 color=c099 stroke=c253] priority=5750
+    caption primary[height=11 color=c099 stroke=c254] priority=5750
   z17
-    caption primary[height=11 color=c099 stroke=c253] priority=5750
+    caption primary[height=11 color=c099 stroke=c254] priority=5750
   z18
-    caption primary[height=11 color=c099 stroke=c253] priority=5750
+    caption primary[height=11 color=c099 stroke=c254] priority=5750
   z19
-    caption primary[height=11 color=c099 stroke=c253] priority=5750
+    caption primary[height=11 color=c099 stroke=c254] priority=5750
   z20
-    caption primary[height=11 color=c099 stroke=c253] priority=5750
+    caption primary[height=11 color=c099 stroke=c254] priority=5750
 type place-island
   z9
     caption primary[height=8 color=c204] priority=7150
@@ -14790,28 +14806,28 @@ type place-square
     caption primary[height=11 color=c099 stroke=c199] priority=5050
 type place-state
   z6
-    caption primary[height=11 color=c254] priority=7250
+    caption primary[height=11 color=c255] priority=7250
   z7
-    caption primary[height=11 color=c254] secondary[height=10 color=c254 dy=1] priority=7250
+    caption primary[height=11 color=c255] secondary[height=10 color=c255 dy=1] priority=7250
   z8
-    caption primary[height=12 color=c254] secondary[height=11 color=c254 dy=1] priority=7250
+    caption primary[height=12 color=c255] secondary[height=11 color=c255 dy=1] priority=7250
   z9
-    caption primary[height=12 color=c254] secondary[height=11 color=c254 dy=1] priority=7250
+    caption primary[height=12 color=c255] secondary[height=11 color=c255 dy=1] priority=7250
   z10
-    caption primary[height=12 color=c254] secondary[height=11 color=c254 dy=1] priority=7250
+    caption primary[height=12 color=c255] secondary[height=11 color=c255 dy=1] priority=7250
 type place-state-major
   z5
-    caption primary[height=11 color=c254] priority=7300
+    caption primary[height=11 color=c255] priority=7300
   z6
-    caption primary[height=11 color=c254] priority=7300
+    caption primary[height=11 color=c255] priority=7300
   z7
-    caption primary[height=11 color=c254] secondary[height=10 color=c254 dy=1] priority=7300
+    caption primary[height=11 color=c255] secondary[height=10 color=c255 dy=1] priority=7300
   z8
-    caption primary[height=12 color=c254] secondary[height=11 color=c254 dy=1] priority=7300
+    caption primary[height=12 color=c255] secondary[height=11 color=c255 dy=1] priority=7300
   z9
-    caption primary[height=12 color=c254] secondary[height=11 color=c254 dy=1] priority=7300
+    caption primary[height=12 color=c255] secondary[height=11 color=c255 dy=1] priority=7300
   z10
-    caption primary[height=12 color=c254] secondary[height=11 color=c254 dy=1] priority=7300
+    caption primary[height=12 color=c255] secondary[height=11 color=c255 dy=1] priority=7300
 type place-suburb
   z10
     caption primary[height=9 color=c204] priority=7050
@@ -14932,54 +14948,54 @@ type power-generator-wind
     caption primary[height=10 color=c082 dy=1 optional] priority=-9880
 type power-line
   z13
-    line width=3.4 color=c255 join=round cap=butt dash=[1,50] priority=340
-    line width=0.8 color=c255 join=round cap=butt priority=350
+    line width=3.4 color=c256 join=round cap=butt dash=[1,50] priority=340
+    line width=0.8 color=c256 join=round cap=butt priority=350
   z14
-    line width=4 color=c256 join=round cap=butt dash=[1,50] priority=340
-    line width=1 color=c256 join=round cap=butt priority=350
+    line width=4 color=c257 join=round cap=butt dash=[1,50] priority=340
+    line width=1 color=c257 join=round cap=butt priority=350
   z15
-    line width=4.5 color=c257 join=round cap=butt dash=[1,80] priority=340
-    line width=1.3 color=c257 join=round cap=butt priority=350
+    line width=4.5 color=c258 join=round cap=butt dash=[1,80] priority=340
+    line width=1.3 color=c258 join=round cap=butt priority=350
     path_text primary[height=10 color=c107 stroke=c164] priority=1000
   z16
-    line width=4.5 color=c257 join=round cap=round dash=[1,80] priority=340
-    line width=1.3 color=c257 join=round cap=round priority=350
+    line width=4.5 color=c258 join=round cap=round dash=[1,80] priority=340
+    line width=1.3 color=c258 join=round cap=round priority=350
     path_text primary[height=11 color=c107 stroke=c164] priority=1000
   z17
-    line width=4.5 color=c257 join=round cap=round dash=[1,80] priority=340
-    line width=1.3 color=c257 join=round cap=round priority=350
+    line width=4.5 color=c258 join=round cap=round dash=[1,80] priority=340
+    line width=1.3 color=c258 join=round cap=round priority=350
     path_text primary[height=11 color=c107 stroke=c164] priority=1000
   z18
-    line width=4.5 color=c257 join=round cap=round dash=[1,80] priority=340
-    line width=1.3 color=c257 join=round cap=round priority=350
+    line width=4.5 color=c258 join=round cap=round dash=[1,80] priority=340
+    line width=1.3 color=c258 join=round cap=round priority=350
     path_text primary[height=11 color=c107 stroke=c164] priority=1000
   z19
-    line width=4.5 color=c257 join=round cap=round dash=[1,80] priority=340
-    line width=1.3 color=c257 join=round cap=round priority=350
+    line width=4.5 color=c258 join=round cap=round dash=[1,80] priority=340
+    line width=1.3 color=c258 join=round cap=round priority=350
     path_text primary[height=11 color=c107 stroke=c164] priority=1000
   z20
-    line width=4.5 color=c257 join=round cap=round dash=[1,80] priority=340
-    line width=1.3 color=c257 join=round cap=round priority=350
+    line width=4.5 color=c258 join=round cap=round dash=[1,80] priority=340
+    line width=1.3 color=c258 join=round cap=round priority=350
     path_text primary[height=11 color=c107 stroke=c164] priority=1000
 type power-minor_line
   z15
-    line width=4 color=c256 join=round cap=butt dash=[1,80] priority=340
-    line width=1 color=c256 join=round cap=butt priority=350
+    line width=4 color=c257 join=round cap=butt dash=[1,80] priority=340
+    line width=1 color=c257 join=round cap=butt priority=350
   z16
-    line width=4 color=c256 join=round cap=round dash=[1,80] priority=340
-    line width=1 color=c256 join=round cap=round priority=350
+    line width=4 color=c257 join=round cap=round dash=[1,80] priority=340
+    line width=1 color=c257 join=round cap=round priority=350
   z17
-    line width=4 color=c256 join=round cap=round dash=[1,80] priority=340
-    line width=1 color=c256 join=round cap=round priority=350
+    line width=4 color=c257 join=round cap=round dash=[1,80] priority=340
+    line width=1 color=c257 join=round cap=round priority=350
   z18
-    line width=4 color=c256 join=round cap=round dash=[1,80] priority=340
-    line width=1 color=c256 join=round cap=round priority=350
+    line width=4 color=c257 join=round cap=round dash=[1,80] priority=340
+    line width=1 color=c257 join=round cap=round priority=350
   z19
-    line width=4 color=c256 join=round cap=round dash=[1,80] priority=340
-    line width=1 color=c256 join=round cap=round priority=350
+    line width=4 color=c257 join=round cap=round dash=[1,80] priority=340
+    line width=1 color=c257 join=round cap=round priority=350
   z20
-    line width=4 color=c256 join=round cap=round dash=[1,80] priority=340
-    line width=1 color=c256 join=round cap=round priority=350
+    line width=4 color=c257 join=round cap=round dash=[1,80] priority=340
+    line width=1 color=c257 join=round cap=round priority=350
 type power-plant
   z15
     area color=c139 priority=-1950
@@ -15203,180 +15219,180 @@ type power-tower
     symbol name=power-tower-m priority=450
 type public_transport-platform
   z16
-    line width=2 color=c258 join=round cap=round priority=201
+    line width=2 color=c259 join=round cap=round priority=201
     area color=c101 priority=-1890
   z17
-    line width=2.4 color=c258 join=round cap=round priority=201
+    line width=2.4 color=c259 join=round cap=round priority=201
     area color=c101 priority=-1890
     caption primary[height=9 color=c135] priority=700
   z18
-    line width=3.2 color=c258 join=round cap=round priority=201
+    line width=3.2 color=c259 join=round cap=round priority=201
     area color=c101 priority=-1890
     caption primary[height=9 color=c135] priority=700
   z19
-    line width=4.2 color=c258 join=round cap=round priority=201
+    line width=4.2 color=c259 join=round cap=round priority=201
     area color=c101 priority=-1890
     caption primary[height=9 color=c135] priority=700
   z20
-    line width=4.2 color=c258 join=round cap=round priority=201
+    line width=4.2 color=c259 join=round cap=round priority=201
     area color=c101 priority=-1890
     caption primary[height=9 color=c135] priority=700
 type railway-abandoned
   z13
-    line width=1 color=c259 join=round cap=butt dash=[1.8,5.5] priority=160
+    line width=1 color=c260 join=round cap=butt dash=[1.8,5.5] priority=160
   z14
-    line width=1 color=c259 join=round cap=butt dash=[1.8,5.5] priority=160
+    line width=1 color=c260 join=round cap=butt dash=[1.8,5.5] priority=160
   z15
-    line width=1 color=c259 join=round cap=butt dash=[1.8,5.5] priority=160
+    line width=1 color=c260 join=round cap=butt dash=[1.8,5.5] priority=160
   z16
-    line width=1.7 color=c259 join=round cap=round dash=[2.5,7] priority=160
+    line width=1.7 color=c260 join=round cap=round dash=[2.5,7] priority=160
   z17
-    line width=1.7 color=c259 join=round cap=round dash=[2.5,7] priority=160
+    line width=1.7 color=c260 join=round cap=round dash=[2.5,7] priority=160
   z18
-    line width=1.7 color=c259 join=round cap=round dash=[2.5,7] priority=160
+    line width=1.7 color=c260 join=round cap=round dash=[2.5,7] priority=160
   z19
-    line width=1.7 color=c259 join=round cap=round dash=[2.5,7] priority=160
+    line width=1.7 color=c260 join=round cap=round dash=[2.5,7] priority=160
   z20
-    line width=1.7 color=c259 join=round cap=round dash=[2.5,7] priority=160
+    line width=1.7 color=c260 join=round cap=round dash=[2.5,7] priority=160
 type railway-construction
   z13
-    line width=1 color=c259 join=round cap=butt dash=[1.8,5.5] priority=160
+    line width=1 color=c260 join=round cap=butt dash=[1.8,5.5] priority=160
   z14
-    line width=1 color=c259 join=round cap=butt dash=[1.8,5.5] priority=160
+    line width=1 color=c260 join=round cap=butt dash=[1.8,5.5] priority=160
   z15
-    line width=1 color=c259 join=round cap=butt dash=[1.8,5.5] priority=160
+    line width=1 color=c260 join=round cap=butt dash=[1.8,5.5] priority=160
   z16
-    line width=1.7 color=c259 join=round cap=round dash=[2.5,7] priority=160
+    line width=1.7 color=c260 join=round cap=round dash=[2.5,7] priority=160
   z17
-    line width=1.7 color=c259 join=round cap=round dash=[2.5,7] priority=160
+    line width=1.7 color=c260 join=round cap=round dash=[2.5,7] priority=160
   z18
-    line width=1.7 color=c259 join=round cap=round dash=[2.5,7] priority=160
+    line width=1.7 color=c260 join=round cap=round dash=[2.5,7] priority=160
   z19
-    line width=1.7 color=c259 join=round cap=round dash=[2.5,7] priority=160
+    line width=1.7 color=c260 join=round cap=round dash=[2.5,7] priority=160
   z20
-    line width=1.7 color=c259 join=round cap=round dash=[2.5,7] priority=160
+    line width=1.7 color=c260 join=round cap=round dash=[2.5,7] priority=160
 type railway-disused
   z13
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z14
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z15
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z16
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z17
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z18
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z19
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z20
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
 type railway-disused-bridge
   z13
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z14
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z15
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z16
     line width=8.8 color=c145 join=round cap=butt priority=140
     line width=7.6 color=c144 join=round cap=butt priority=150
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z17
     line width=10.4 color=c145 join=round cap=butt priority=140
     line width=9 color=c144 join=round cap=butt priority=150
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z18
     line width=13.2 color=c145 join=round cap=butt priority=140
     line width=11.4 color=c144 join=round cap=butt priority=150
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z19
     line width=13.2 color=c145 join=round cap=butt priority=140
     line width=11.4 color=c144 join=round cap=butt priority=150
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z20
     line width=13.2 color=c145 join=round cap=butt priority=140
     line width=11.4 color=c144 join=round cap=butt priority=150
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
 type railway-disused-tunnel
   z13
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z14
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z15
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z16
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z17
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z18
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z19
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z20
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
 type railway-funicular
   z12
-    line width=1.4 color=c260 join=bevel cap=butt priority=320
+    line width=1.4 color=c261 join=bevel cap=butt priority=320
   z13
-    line width=2 color=c260 join=round cap=butt priority=320
+    line width=2 color=c261 join=round cap=butt priority=320
   z14
-    line width=2 color=c260 join=round cap=butt priority=320
+    line width=2 color=c261 join=round cap=butt priority=320
   z15
-    line width=3 color=c260 join=round cap=butt priority=320
+    line width=3 color=c261 join=round cap=butt priority=320
   z16
-    line width=3 color=c260 join=round cap=round priority=320
+    line width=3 color=c261 join=round cap=round priority=320
   z17
-    line width=3 color=c259 join=round cap=round priority=320
+    line width=3 color=c260 join=round cap=round priority=320
   z18
-    line width=3 color=c259 join=round cap=round priority=320
+    line width=3 color=c260 join=round cap=round priority=320
   z19
-    line width=3 color=c259 join=round cap=round priority=320
+    line width=3 color=c260 join=round cap=round priority=320
   z20
-    line width=3 color=c259 join=round cap=round priority=320
+    line width=3 color=c260 join=round cap=round priority=320
 type railway-funicular-bridge
   z12
-    line width=1.4 color=c260 join=bevel cap=butt priority=320
+    line width=1.4 color=c261 join=bevel cap=butt priority=320
   z13
-    line width=2 color=c260 join=round cap=butt priority=320
+    line width=2 color=c261 join=round cap=butt priority=320
   z14
-    line width=2 color=c260 join=round cap=butt priority=320
+    line width=2 color=c261 join=round cap=butt priority=320
   z15
-    line width=3 color=c260 join=round cap=butt priority=320
+    line width=3 color=c261 join=round cap=butt priority=320
   z16
-    line width=3 color=c260 join=round cap=round priority=320
+    line width=3 color=c261 join=round cap=round priority=320
   z17
-    line width=3 color=c259 join=round cap=round priority=320
+    line width=3 color=c260 join=round cap=round priority=320
   z18
-    line width=3 color=c259 join=round cap=round priority=320
+    line width=3 color=c260 join=round cap=round priority=320
   z19
-    line width=3 color=c259 join=round cap=round priority=320
+    line width=3 color=c260 join=round cap=round priority=320
   z20
-    line width=3 color=c259 join=round cap=round priority=320
+    line width=3 color=c260 join=round cap=round priority=320
 type railway-funicular-tunnel
   z12
-    line width=1.4 color=c260 join=bevel cap=butt priority=320
+    line width=1.4 color=c261 join=bevel cap=butt priority=320
   z13
-    line width=2 color=c260 join=round cap=butt priority=320
+    line width=2 color=c261 join=round cap=butt priority=320
   z14
-    line width=2 color=c260 join=round cap=butt priority=320
+    line width=2 color=c261 join=round cap=butt priority=320
   z15
-    line width=3 color=c260 join=round cap=butt priority=320
+    line width=3 color=c261 join=round cap=butt priority=320
   z16
-    line width=3 color=c260 join=round cap=round priority=320
+    line width=3 color=c261 join=round cap=round priority=320
   z17
-    line width=3 color=c259 join=round cap=round priority=320
+    line width=3 color=c260 join=round cap=round priority=320
   z18
-    line width=3 color=c259 join=round cap=round priority=320
+    line width=3 color=c260 join=round cap=round priority=320
   z19
-    line width=3 color=c259 join=round cap=round priority=320
+    line width=3 color=c260 join=round cap=round priority=320
   z20
-    line width=3 color=c259 join=round cap=round priority=320
+    line width=3 color=c260 join=round cap=round priority=320
 type railway-halt
   z13
     symbol name=train-s priority=5800
-    caption primary[height=10 color=c072 stroke=c253 dy=1 optional] secondary[height=9 color=c072 stroke=c253 dy=1 optional] priority=-4200
+    caption primary[height=10 color=c072 stroke=c254 dy=1 optional] secondary[height=9 color=c072 stroke=c254 dy=1 optional] priority=-4200
   z14
     symbol name=train-s priority=5800
     caption primary[height=11 color=c072 stroke=c073 dy=1 optional] secondary[height=10 color=c072 stroke=c073 dy=1 optional] priority=-4200
@@ -15409,207 +15425,207 @@ type railway-level_crossing
     symbol name=railway-crossing-m priority=1700
 type railway-light_rail
   z13
-    line width=0.8 color=c261 join=round cap=butt priority=210
+    line width=0.8 color=c262 join=round cap=butt priority=210
   z14
-    line width=1 color=c261 join=round cap=butt priority=210
+    line width=1 color=c262 join=round cap=butt priority=210
   z15
-    line width=1.2 color=c261 join=round cap=butt priority=210
+    line width=1.2 color=c262 join=round cap=butt priority=210
   z16
-    line width=1.3 color=c262 join=round cap=round dash=[4.5,4.5] priority=220
-    line width=2.6 color=c261 join=round cap=round priority=210
+    line width=1.3 color=c263 join=round cap=round dash=[4.5,4.5] priority=220
+    line width=2.6 color=c262 join=round cap=round priority=210
   z17
-    line width=2 color=c262 join=round cap=round dash=[6.3,6.3] priority=220
-    line width=2.9 color=c263 join=round cap=round priority=210
+    line width=2 color=c263 join=round cap=round dash=[6.3,6.3] priority=220
+    line width=2.9 color=c264 join=round cap=round priority=210
   z18
-    line width=2 color=c262 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=2.9 color=c263 join=round cap=round priority=210
+    line width=2 color=c263 join=round cap=round dash=[8.1,8.1] priority=220
+    line width=2.9 color=c264 join=round cap=round priority=210
   z19
-    line width=2 color=c262 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=2.9 color=c263 join=round cap=round priority=210
+    line width=2 color=c263 join=round cap=round dash=[8.1,8.1] priority=220
+    line width=2.9 color=c264 join=round cap=round priority=210
   z20
-    line width=2 color=c262 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=2.9 color=c263 join=round cap=round priority=210
+    line width=2 color=c263 join=round cap=round dash=[8.1,8.1] priority=220
+    line width=2.9 color=c264 join=round cap=round priority=210
 type railway-light_rail-bridge
   z13
     line width=4 color=c144 join=round cap=butt priority=150
-    line width=0.8 color=c261 join=round cap=butt priority=210
+    line width=0.8 color=c262 join=round cap=butt priority=210
   z14
     line width=4.4 color=c144 join=round cap=butt priority=150
-    line width=1 color=c261 join=round cap=butt priority=210
+    line width=1 color=c262 join=round cap=butt priority=210
   z15
     line width=4.8 color=c144 join=round cap=butt priority=150
-    line width=1.2 color=c261 join=round cap=butt priority=210
+    line width=1.2 color=c262 join=round cap=butt priority=210
   z16
     line width=7 color=c145 join=round cap=butt priority=140
     line width=5.8 color=c144 join=round cap=butt priority=150
-    line width=1.3 color=c262 join=round cap=round dash=[4.5,4.5] priority=220
-    line width=2.6 color=c261 join=round cap=round priority=210
+    line width=1.3 color=c263 join=round cap=round dash=[4.5,4.5] priority=220
+    line width=2.6 color=c262 join=round cap=round priority=210
   z17
     line width=10 color=c145 join=round cap=butt priority=140
     line width=8.6 color=c144 join=round cap=butt priority=150
-    line width=2 color=c262 join=round cap=round dash=[6.3,6.3] priority=220
-    line width=2.9 color=c263 join=round cap=round priority=210
+    line width=2 color=c263 join=round cap=round dash=[6.3,6.3] priority=220
+    line width=2.9 color=c264 join=round cap=round priority=210
   z18
     line width=12.8 color=c145 join=round cap=butt priority=140
     line width=11 color=c144 join=round cap=butt priority=150
-    line width=2 color=c262 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=2.9 color=c263 join=round cap=round priority=210
+    line width=2 color=c263 join=round cap=round dash=[8.1,8.1] priority=220
+    line width=2.9 color=c264 join=round cap=round priority=210
   z19
     line width=12.8 color=c145 join=round cap=butt priority=140
     line width=11 color=c144 join=round cap=butt priority=150
-    line width=2 color=c262 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=2.9 color=c263 join=round cap=round priority=210
+    line width=2 color=c263 join=round cap=round dash=[8.1,8.1] priority=220
+    line width=2.9 color=c264 join=round cap=round priority=210
   z20
     line width=12.8 color=c145 join=round cap=butt priority=140
     line width=11 color=c144 join=round cap=butt priority=150
-    line width=2 color=c262 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=2.9 color=c263 join=round cap=round priority=210
+    line width=2 color=c263 join=round cap=round dash=[8.1,8.1] priority=220
+    line width=2.9 color=c264 join=round cap=round priority=210
 type railway-miniature
   z13
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z14
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z15
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z16
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z17
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z18
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z19
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z20
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
 type railway-miniature-bridge
   z13
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z14
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z15
     line width=5.6 color=c144 join=round cap=butt priority=150
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z16
     line width=8.8 color=c145 join=round cap=butt priority=140
     line width=7.6 color=c144 join=round cap=butt priority=150
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z17
     line width=10.4 color=c145 join=round cap=butt priority=140
     line width=9 color=c144 join=round cap=butt priority=150
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z18
     line width=13.2 color=c145 join=round cap=butt priority=140
     line width=11.4 color=c144 join=round cap=butt priority=150
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z19
     line width=13.2 color=c145 join=round cap=butt priority=140
     line width=11.4 color=c144 join=round cap=butt priority=150
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z20
     line width=13.2 color=c145 join=round cap=butt priority=140
     line width=11.4 color=c144 join=round cap=butt priority=150
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
 type railway-miniature-tunnel
   z13
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z14
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z15
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z16
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z17
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z18
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z19
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z20
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
 type railway-monorail
   z14
-    line width=1 color=c261 join=round cap=butt priority=320
+    line width=1 color=c262 join=round cap=butt priority=320
   z15
-    line width=1.2 color=c260 join=round cap=butt priority=320
+    line width=1.2 color=c261 join=round cap=butt priority=320
   z16
-    line width=1.2 color=c260 join=round cap=round priority=320
+    line width=1.2 color=c261 join=round cap=round priority=320
   z17
-    line width=2 color=c259 join=round cap=round priority=320
+    line width=2 color=c260 join=round cap=round priority=320
   z18
-    line width=2 color=c259 join=round cap=round priority=320
+    line width=2 color=c260 join=round cap=round priority=320
   z19
-    line width=2 color=c259 join=round cap=round priority=320
+    line width=2 color=c260 join=round cap=round priority=320
   z20
-    line width=2 color=c259 join=round cap=round priority=320
+    line width=2 color=c260 join=round cap=round priority=320
 type railway-monorail-bridge
   z14
-    line width=1 color=c261 join=round cap=butt priority=320
+    line width=1 color=c262 join=round cap=butt priority=320
   z15
-    line width=1.2 color=c260 join=round cap=butt priority=320
+    line width=1.2 color=c261 join=round cap=butt priority=320
   z16
-    line width=1.2 color=c260 join=round cap=round priority=320
+    line width=1.2 color=c261 join=round cap=round priority=320
   z17
-    line width=2 color=c259 join=round cap=round priority=320
+    line width=2 color=c260 join=round cap=round priority=320
   z18
-    line width=2 color=c259 join=round cap=round priority=320
+    line width=2 color=c260 join=round cap=round priority=320
   z19
-    line width=2 color=c259 join=round cap=round priority=320
+    line width=2 color=c260 join=round cap=round priority=320
   z20
-    line width=2 color=c259 join=round cap=round priority=320
+    line width=2 color=c260 join=round cap=round priority=320
 type railway-monorail-tunnel
   z14
-    line width=1 color=c261 join=round cap=butt priority=320
+    line width=1 color=c262 join=round cap=butt priority=320
   z15
-    line width=1.2 color=c260 join=round cap=butt priority=320
+    line width=1.2 color=c261 join=round cap=butt priority=320
   z16
-    line width=1.2 color=c260 join=round cap=round priority=320
+    line width=1.2 color=c261 join=round cap=round priority=320
   z17
-    line width=2 color=c259 join=round cap=round priority=320
+    line width=2 color=c260 join=round cap=round priority=320
   z18
-    line width=2 color=c259 join=round cap=round priority=320
+    line width=2 color=c260 join=round cap=round priority=320
   z19
-    line width=2 color=c259 join=round cap=round priority=320
+    line width=2 color=c260 join=round cap=round priority=320
   z20
-    line width=2 color=c259 join=round cap=round priority=320
+    line width=2 color=c260 join=round cap=round priority=320
 type railway-narrow_gauge
   z15
-    line width=1.2 color=c260 join=round cap=butt priority=320
+    line width=1.2 color=c261 join=round cap=butt priority=320
   z16
-    line width=1.2 color=c260 join=round cap=round priority=320
+    line width=1.2 color=c261 join=round cap=round priority=320
   z17
-    line width=2 color=c259 join=round cap=round priority=320
+    line width=2 color=c260 join=round cap=round priority=320
   z18
-    line width=2 color=c259 join=round cap=round priority=320
+    line width=2 color=c260 join=round cap=round priority=320
   z19
-    line width=2 color=c259 join=round cap=round priority=320
+    line width=2 color=c260 join=round cap=round priority=320
   z20
-    line width=2 color=c259 join=round cap=round priority=320
+    line width=2 color=c260 join=round cap=round priority=320
 type railway-narrow_gauge-bridge
   z15
-    line width=1.2 color=c260 join=round cap=butt priority=320
+    line width=1.2 color=c261 join=round cap=butt priority=320
   z16
-    line width=1.2 color=c260 join=round cap=round priority=320
+    line width=1.2 color=c261 join=round cap=round priority=320
   z17
-    line width=2 color=c259 join=round cap=round priority=320
+    line width=2 color=c260 join=round cap=round priority=320
   z18
-    line width=2 color=c259 join=round cap=round priority=320
+    line width=2 color=c260 join=round cap=round priority=320
   z19
-    line width=2 color=c259 join=round cap=round priority=320
+    line width=2 color=c260 join=round cap=round priority=320
   z20
-    line width=2 color=c259 join=round cap=round priority=320
+    line width=2 color=c260 join=round cap=round priority=320
 type railway-narrow_gauge-tunnel
   z15
-    line width=1.2 color=c260 join=round cap=butt priority=320
+    line width=1.2 color=c261 join=round cap=butt priority=320
   z16
-    line width=1.2 color=c260 join=round cap=round priority=320
+    line width=1.2 color=c261 join=round cap=round priority=320
   z17
-    line width=2 color=c259 join=round cap=round priority=320
+    line width=2 color=c260 join=round cap=round priority=320
   z18
-    line width=2 color=c259 join=round cap=round priority=320
+    line width=2 color=c260 join=round cap=round priority=320
   z19
-    line width=2 color=c259 join=round cap=round priority=320
+    line width=2 color=c260 join=round cap=round priority=320
   z20
-    line width=2 color=c259 join=round cap=round priority=320
+    line width=2 color=c260 join=round cap=round priority=320
 type railway-platform
   z16
     area color=c101 priority=-1890
@@ -15628,871 +15644,871 @@ type railway-platform
     caption primary[height=9 color=c135] priority=1650
 type railway-preserved
   z13
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z14
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z15
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z16
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z17
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z18
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z19
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z20
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
 type railway-preserved-bridge
   z13
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z14
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z15
     line width=5.6 color=c144 join=round cap=butt priority=150
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z16
     line width=8.8 color=c145 join=round cap=butt priority=140
     line width=7.6 color=c144 join=round cap=butt priority=150
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z17
     line width=10.4 color=c145 join=round cap=butt priority=140
     line width=9 color=c144 join=round cap=butt priority=150
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z18
     line width=13.2 color=c145 join=round cap=butt priority=140
     line width=11.4 color=c144 join=round cap=butt priority=150
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z19
     line width=13.2 color=c145 join=round cap=butt priority=140
     line width=11.4 color=c144 join=round cap=butt priority=150
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z20
     line width=13.2 color=c145 join=round cap=butt priority=140
     line width=11.4 color=c144 join=round cap=butt priority=150
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
 type railway-preserved-tunnel
   z13
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z14
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z15
-    line width=1.6 color=c259 join=round cap=butt dash=[6.3,6.3] priority=160
+    line width=1.6 color=c260 join=round cap=butt dash=[6.3,6.3] priority=160
   z16
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z17
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z18
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z19
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
   z20
-    line width=2.2 color=c259 join=round cap=round dash=[8,8] priority=160
+    line width=2.2 color=c260 join=round cap=round dash=[8,8] priority=160
 type railway-rail
   z10
-    line width=1 color=c259 join=bevel cap=butt priority=210
+    line width=1 color=c260 join=bevel cap=butt priority=210
   z11
-    line width=1.2 color=c259 join=bevel cap=butt priority=210
+    line width=1.2 color=c260 join=bevel cap=butt priority=210
   z12
-    line width=1.4 color=c259 join=bevel cap=butt priority=210
+    line width=1.4 color=c260 join=bevel cap=butt priority=210
   z13
-    line width=1.7 color=c259 join=round cap=butt priority=210
+    line width=1.7 color=c260 join=round cap=butt priority=210
   z14
-    line width=2 color=c259 join=round cap=butt priority=210
+    line width=2 color=c260 join=round cap=butt priority=210
   z15
-    line width=1.2 color=c262 join=round cap=butt dash=[4.5,4.5] priority=220
-    line width=2.6 color=c264 join=round cap=butt priority=210
+    line width=1.2 color=c263 join=round cap=butt dash=[4.5,4.5] priority=220
+    line width=2.6 color=c265 join=round cap=butt priority=210
   z16
-    line width=1.8 color=c262 join=round cap=round dash=[5.2,5.2] priority=220
-    line width=3.5 color=c264 join=round cap=round priority=210
+    line width=1.8 color=c263 join=round cap=round dash=[5.2,5.2] priority=220
+    line width=3.5 color=c265 join=round cap=round priority=210
   z17
-    line width=2.8 color=c262 join=round cap=round dash=[6.3,6.3] priority=220
-    line width=5 color=c264 join=round cap=round priority=210
+    line width=2.8 color=c263 join=round cap=round dash=[6.3,6.3] priority=220
+    line width=5 color=c265 join=round cap=round priority=210
   z18
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=5 color=c264 join=round cap=round priority=210
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=220
+    line width=5 color=c265 join=round cap=round priority=210
   z19
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=5 color=c264 join=round cap=round priority=210
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=220
+    line width=5 color=c265 join=round cap=round priority=210
   z20
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=5 color=c264 join=round cap=round priority=210
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=220
+    line width=5 color=c265 join=round cap=round priority=210
 type railway-rail-branch
   z10
-    line width=1 color=c259 join=bevel cap=butt priority=280
+    line width=1 color=c260 join=bevel cap=butt priority=280
   z11
-    line width=1.2 color=c259 join=bevel cap=butt priority=280
+    line width=1.2 color=c260 join=bevel cap=butt priority=280
   z12
-    line width=1.4 color=c259 join=bevel cap=butt priority=280
+    line width=1.4 color=c260 join=bevel cap=butt priority=280
   z13
-    line width=1.7 color=c259 join=round cap=butt priority=280
+    line width=1.7 color=c260 join=round cap=butt priority=280
   z14
-    line width=2 color=c259 join=round cap=butt priority=280
+    line width=2 color=c260 join=round cap=butt priority=280
   z15
-    line width=1.2 color=c262 join=round cap=butt dash=[4.5,4.5] priority=290
-    line width=2.6 color=c264 join=round cap=butt priority=280
+    line width=1.2 color=c263 join=round cap=butt dash=[4.5,4.5] priority=290
+    line width=2.6 color=c265 join=round cap=butt priority=280
   z16
-    line width=1.8 color=c262 join=round cap=round dash=[5.2,5.2] priority=290
-    line width=3.5 color=c264 join=round cap=round priority=280
+    line width=1.8 color=c263 join=round cap=round dash=[5.2,5.2] priority=290
+    line width=3.5 color=c265 join=round cap=round priority=280
   z17
-    line width=2.8 color=c262 join=round cap=round dash=[6.3,6.3] priority=290
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[6.3,6.3] priority=290
+    line width=5 color=c265 join=round cap=round priority=280
   z18
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=5 color=c265 join=round cap=round priority=280
   z19
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=5 color=c265 join=round cap=round priority=280
   z20
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=5 color=c265 join=round cap=round priority=280
 type railway-rail-branch-bridge
   z10
-    line width=1 color=c259 join=bevel cap=butt priority=280
+    line width=1 color=c260 join=bevel cap=butt priority=280
   z11
-    line width=1.2 color=c259 join=bevel cap=butt priority=280
+    line width=1.2 color=c260 join=bevel cap=butt priority=280
   z12
-    line width=1.4 color=c259 join=bevel cap=butt priority=280
+    line width=1.4 color=c260 join=bevel cap=butt priority=280
   z13
     line width=5.8 color=c144 join=round cap=butt priority=150
-    line width=1.7 color=c259 join=round cap=butt priority=280
+    line width=1.7 color=c260 join=round cap=butt priority=280
   z14
     line width=6.4 color=c144 join=round cap=butt priority=150
-    line width=2 color=c259 join=round cap=butt priority=280
+    line width=2 color=c260 join=round cap=butt priority=280
   z15
     line width=4.8 color=c144 join=round cap=butt priority=150
-    line width=1.2 color=c262 join=round cap=butt dash=[4.5,4.5] priority=290
-    line width=2.6 color=c264 join=round cap=butt priority=280
+    line width=1.2 color=c263 join=round cap=butt dash=[4.5,4.5] priority=290
+    line width=2.6 color=c265 join=round cap=butt priority=280
   z16
     line width=8 color=c145 join=round cap=butt priority=140
     line width=6.8 color=c144 join=round cap=butt priority=150
-    line width=1.8 color=c262 join=round cap=round dash=[5.2,5.2] priority=290
-    line width=3.5 color=c264 join=round cap=round priority=280
+    line width=1.8 color=c263 join=round cap=round dash=[5.2,5.2] priority=290
+    line width=3.5 color=c265 join=round cap=round priority=280
   z17
     line width=11.6 color=c145 join=round cap=butt priority=140
     line width=10.2 color=c144 join=round cap=butt priority=150
-    line width=2.8 color=c262 join=round cap=round dash=[6.3,6.3] priority=290
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[6.3,6.3] priority=290
+    line width=5 color=c265 join=round cap=round priority=280
   z18
     line width=14.4 color=c145 join=round cap=butt priority=140
     line width=12.6 color=c144 join=round cap=butt priority=150
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=5 color=c265 join=round cap=round priority=280
   z19
     line width=14.4 color=c145 join=round cap=butt priority=140
     line width=12.6 color=c144 join=round cap=butt priority=150
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=5 color=c265 join=round cap=round priority=280
   z20
     line width=14.4 color=c145 join=round cap=butt priority=140
     line width=12.6 color=c144 join=round cap=butt priority=150
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=5 color=c265 join=round cap=round priority=280
 type railway-rail-branch-tunnel
   z10
-    line width=1 color=c259 join=bevel cap=butt priority=280
+    line width=1 color=c260 join=bevel cap=butt priority=280
   z11
-    line width=1.2 color=c259 join=bevel cap=butt priority=280
+    line width=1.2 color=c260 join=bevel cap=butt priority=280
   z12
-    line width=1.4 color=c259 join=bevel cap=butt priority=280
+    line width=1.4 color=c260 join=bevel cap=butt priority=280
   z13
-    line width=1.7 color=c259 join=round cap=butt priority=280
+    line width=1.7 color=c260 join=round cap=butt priority=280
   z14
-    line width=4 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=2 color=c259 join=round cap=butt priority=280
+    line width=4 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=2 color=c260 join=round cap=butt priority=280
   z15
-    line width=1.2 color=c262 join=round cap=butt dash=[4.5,4.5] priority=290
-    line width=4.6 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=2.6 color=c264 join=round cap=butt priority=280
+    line width=1.2 color=c263 join=round cap=butt dash=[4.5,4.5] priority=290
+    line width=4.6 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=2.6 color=c265 join=round cap=butt priority=280
   z16
-    line width=1.8 color=c262 join=round cap=round dash=[5.2,5.2] priority=290
-    line width=5.5 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=3.5 color=c264 join=round cap=round priority=280
+    line width=1.8 color=c263 join=round cap=round dash=[5.2,5.2] priority=290
+    line width=5.5 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=3.5 color=c265 join=round cap=round priority=280
   z17
-    line width=2.8 color=c262 join=round cap=round dash=[6.3,6.3] priority=290
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[6.3,6.3] priority=290
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=5 color=c265 join=round cap=round priority=280
   z18
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=5 color=c265 join=round cap=round priority=280
   z19
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=5 color=c265 join=round cap=round priority=280
   z20
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=5 color=c265 join=round cap=round priority=280
 type railway-rail-bridge
   z10
-    line width=1 color=c259 join=bevel cap=butt priority=210
+    line width=1 color=c260 join=bevel cap=butt priority=210
   z11
-    line width=1.2 color=c259 join=bevel cap=butt priority=210
+    line width=1.2 color=c260 join=bevel cap=butt priority=210
   z12
-    line width=1.4 color=c259 join=bevel cap=butt priority=210
+    line width=1.4 color=c260 join=bevel cap=butt priority=210
   z13
     line width=5.8 color=c144 join=round cap=butt priority=150
-    line width=1.7 color=c259 join=round cap=butt priority=210
+    line width=1.7 color=c260 join=round cap=butt priority=210
   z14
     line width=6.4 color=c144 join=round cap=butt priority=150
-    line width=2 color=c259 join=round cap=butt priority=210
+    line width=2 color=c260 join=round cap=butt priority=210
   z15
     line width=4.8 color=c144 join=round cap=butt priority=150
-    line width=1.2 color=c262 join=round cap=butt dash=[4.5,4.5] priority=220
-    line width=2.6 color=c264 join=round cap=butt priority=210
+    line width=1.2 color=c263 join=round cap=butt dash=[4.5,4.5] priority=220
+    line width=2.6 color=c265 join=round cap=butt priority=210
   z16
     line width=8 color=c145 join=round cap=butt priority=140
     line width=6.8 color=c144 join=round cap=butt priority=150
-    line width=1.8 color=c262 join=round cap=round dash=[5.2,5.2] priority=220
-    line width=3.5 color=c264 join=round cap=round priority=210
+    line width=1.8 color=c263 join=round cap=round dash=[5.2,5.2] priority=220
+    line width=3.5 color=c265 join=round cap=round priority=210
   z17
     line width=11.6 color=c145 join=round cap=butt priority=140
     line width=10.2 color=c144 join=round cap=butt priority=150
-    line width=2.8 color=c262 join=round cap=round dash=[6.3,6.3] priority=220
-    line width=5 color=c264 join=round cap=round priority=210
+    line width=2.8 color=c263 join=round cap=round dash=[6.3,6.3] priority=220
+    line width=5 color=c265 join=round cap=round priority=210
   z18
     line width=14.4 color=c145 join=round cap=butt priority=140
     line width=12.6 color=c144 join=round cap=butt priority=150
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=5 color=c264 join=round cap=round priority=210
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=220
+    line width=5 color=c265 join=round cap=round priority=210
   z19
     line width=14.4 color=c145 join=round cap=butt priority=140
     line width=12.6 color=c144 join=round cap=butt priority=150
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=5 color=c264 join=round cap=round priority=210
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=220
+    line width=5 color=c265 join=round cap=round priority=210
   z20
     line width=14.4 color=c145 join=round cap=butt priority=140
     line width=12.6 color=c144 join=round cap=butt priority=150
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=5 color=c264 join=round cap=round priority=210
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=220
+    line width=5 color=c265 join=round cap=round priority=210
 type railway-rail-highspeed
   z10
-    line width=1.2 color=c259 join=bevel cap=butt priority=280
+    line width=1.2 color=c260 join=bevel cap=butt priority=280
   z11
-    line width=1.4 color=c259 join=bevel cap=butt priority=280
+    line width=1.4 color=c260 join=bevel cap=butt priority=280
   z12
-    line width=1.7 color=c259 join=bevel cap=butt priority=280
+    line width=1.7 color=c260 join=bevel cap=butt priority=280
   z13
-    line width=2 color=c259 join=round cap=butt priority=280
+    line width=2 color=c260 join=round cap=butt priority=280
   z14
-    line width=2.3 color=c259 join=round cap=butt priority=280
+    line width=2.3 color=c260 join=round cap=butt priority=280
   z15
-    line width=1.2 color=c262 join=round cap=butt dash=[10,10] priority=290
-    line width=2.6 color=c264 join=round cap=butt priority=280
+    line width=1.2 color=c263 join=round cap=butt dash=[10,10] priority=290
+    line width=2.6 color=c265 join=round cap=butt priority=280
   z16
-    line width=1.8 color=c262 join=round cap=round dash=[13,13] priority=290
-    line width=3.5 color=c264 join=round cap=round priority=280
+    line width=1.8 color=c263 join=round cap=round dash=[13,13] priority=290
+    line width=3.5 color=c265 join=round cap=round priority=280
   z17
-    line width=2.8 color=c262 join=round cap=round dash=[16,16] priority=290
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[16,16] priority=290
+    line width=5 color=c265 join=round cap=round priority=280
   z18
-    line width=2.8 color=c262 join=round cap=round dash=[16,16] priority=290
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[16,16] priority=290
+    line width=5 color=c265 join=round cap=round priority=280
   z19
-    line width=2.8 color=c262 join=round cap=round dash=[16,16] priority=290
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[16,16] priority=290
+    line width=5 color=c265 join=round cap=round priority=280
   z20
-    line width=2.8 color=c262 join=round cap=round dash=[16,16] priority=290
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[16,16] priority=290
+    line width=5 color=c265 join=round cap=round priority=280
 type railway-rail-highspeed-bridge
   z10
-    line width=1.2 color=c259 join=bevel cap=butt priority=280
+    line width=1.2 color=c260 join=bevel cap=butt priority=280
   z11
-    line width=1.4 color=c259 join=bevel cap=butt priority=280
+    line width=1.4 color=c260 join=bevel cap=butt priority=280
   z12
-    line width=1.7 color=c259 join=bevel cap=butt priority=280
+    line width=1.7 color=c260 join=bevel cap=butt priority=280
   z13
     line width=6.4 color=c144 join=round cap=butt priority=150
-    line width=2 color=c259 join=round cap=butt priority=280
+    line width=2 color=c260 join=round cap=butt priority=280
   z14
     line width=7 color=c144 join=round cap=butt priority=150
-    line width=2.3 color=c259 join=round cap=butt priority=280
+    line width=2.3 color=c260 join=round cap=butt priority=280
   z15
     line width=4.8 color=c144 join=round cap=butt priority=150
-    line width=1.2 color=c262 join=round cap=butt dash=[10,10] priority=290
-    line width=2.6 color=c264 join=round cap=butt priority=280
+    line width=1.2 color=c263 join=round cap=butt dash=[10,10] priority=290
+    line width=2.6 color=c265 join=round cap=butt priority=280
   z16
     line width=8 color=c145 join=round cap=butt priority=140
     line width=6.8 color=c144 join=round cap=butt priority=150
-    line width=1.8 color=c262 join=round cap=round dash=[13,13] priority=290
-    line width=3.5 color=c264 join=round cap=round priority=280
+    line width=1.8 color=c263 join=round cap=round dash=[13,13] priority=290
+    line width=3.5 color=c265 join=round cap=round priority=280
   z17
     line width=11.6 color=c145 join=round cap=butt priority=140
     line width=10.2 color=c144 join=round cap=butt priority=150
-    line width=2.8 color=c262 join=round cap=round dash=[16,16] priority=290
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[16,16] priority=290
+    line width=5 color=c265 join=round cap=round priority=280
   z18
     line width=14.4 color=c145 join=round cap=butt priority=140
     line width=12.6 color=c144 join=round cap=butt priority=150
-    line width=2.8 color=c262 join=round cap=round dash=[16,16] priority=290
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[16,16] priority=290
+    line width=5 color=c265 join=round cap=round priority=280
   z19
     line width=14.4 color=c145 join=round cap=butt priority=140
     line width=12.6 color=c144 join=round cap=butt priority=150
-    line width=2.8 color=c262 join=round cap=round dash=[16,16] priority=290
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[16,16] priority=290
+    line width=5 color=c265 join=round cap=round priority=280
   z20
     line width=14.4 color=c145 join=round cap=butt priority=140
     line width=12.6 color=c144 join=round cap=butt priority=150
-    line width=2.8 color=c262 join=round cap=round dash=[16,16] priority=290
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[16,16] priority=290
+    line width=5 color=c265 join=round cap=round priority=280
 type railway-rail-highspeed-tunnel
   z10
-    line width=1.2 color=c259 join=bevel cap=butt priority=280
+    line width=1.2 color=c260 join=bevel cap=butt priority=280
   z11
-    line width=1.4 color=c259 join=bevel cap=butt priority=280
+    line width=1.4 color=c260 join=bevel cap=butt priority=280
   z12
-    line width=1.7 color=c259 join=bevel cap=butt priority=280
+    line width=1.7 color=c260 join=bevel cap=butt priority=280
   z13
-    line width=2 color=c259 join=round cap=butt priority=280
+    line width=2 color=c260 join=round cap=butt priority=280
   z14
-    line width=4.3 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=2.3 color=c259 join=round cap=butt priority=280
+    line width=4.3 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=2.3 color=c260 join=round cap=butt priority=280
   z15
-    line width=1.2 color=c262 join=round cap=butt dash=[10,10] priority=290
-    line width=4.6 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=2.6 color=c264 join=round cap=butt priority=280
+    line width=1.2 color=c263 join=round cap=butt dash=[10,10] priority=290
+    line width=4.6 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=2.6 color=c265 join=round cap=butt priority=280
   z16
-    line width=1.8 color=c262 join=round cap=round dash=[13,13] priority=290
-    line width=5.5 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=3.5 color=c264 join=round cap=round priority=280
+    line width=1.8 color=c263 join=round cap=round dash=[13,13] priority=290
+    line width=5.5 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=3.5 color=c265 join=round cap=round priority=280
   z17
-    line width=2.8 color=c262 join=round cap=round dash=[16,16] priority=290
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[16,16] priority=290
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=5 color=c265 join=round cap=round priority=280
   z18
-    line width=2.8 color=c262 join=round cap=round dash=[16,16] priority=290
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[16,16] priority=290
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=5 color=c265 join=round cap=round priority=280
   z19
-    line width=2.8 color=c262 join=round cap=round dash=[16,16] priority=290
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[16,16] priority=290
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=5 color=c265 join=round cap=round priority=280
   z20
-    line width=2.8 color=c262 join=round cap=round dash=[16,16] priority=290
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[16,16] priority=290
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=5 color=c265 join=round cap=round priority=280
 type railway-rail-main
   z10
-    line width=1 color=c259 join=bevel cap=butt priority=280
+    line width=1 color=c260 join=bevel cap=butt priority=280
   z11
-    line width=1.2 color=c259 join=bevel cap=butt priority=280
+    line width=1.2 color=c260 join=bevel cap=butt priority=280
   z12
-    line width=1.4 color=c259 join=bevel cap=butt priority=280
+    line width=1.4 color=c260 join=bevel cap=butt priority=280
   z13
-    line width=1.7 color=c259 join=round cap=butt priority=280
+    line width=1.7 color=c260 join=round cap=butt priority=280
   z14
-    line width=2 color=c259 join=round cap=butt priority=280
+    line width=2 color=c260 join=round cap=butt priority=280
   z15
-    line width=1.2 color=c262 join=round cap=butt dash=[4.5,4.5] priority=290
-    line width=2.6 color=c264 join=round cap=butt priority=280
+    line width=1.2 color=c263 join=round cap=butt dash=[4.5,4.5] priority=290
+    line width=2.6 color=c265 join=round cap=butt priority=280
   z16
-    line width=1.8 color=c262 join=round cap=round dash=[5.2,5.2] priority=290
-    line width=3.5 color=c264 join=round cap=round priority=280
+    line width=1.8 color=c263 join=round cap=round dash=[5.2,5.2] priority=290
+    line width=3.5 color=c265 join=round cap=round priority=280
   z17
-    line width=2.8 color=c262 join=round cap=round dash=[6.3,6.3] priority=290
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[6.3,6.3] priority=290
+    line width=5 color=c265 join=round cap=round priority=280
   z18
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=5 color=c265 join=round cap=round priority=280
   z19
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=5 color=c265 join=round cap=round priority=280
   z20
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=5 color=c265 join=round cap=round priority=280
 type railway-rail-main-bridge
   z10
-    line width=1 color=c259 join=bevel cap=butt priority=280
+    line width=1 color=c260 join=bevel cap=butt priority=280
   z11
-    line width=1.2 color=c259 join=bevel cap=butt priority=280
+    line width=1.2 color=c260 join=bevel cap=butt priority=280
   z12
-    line width=1.4 color=c259 join=bevel cap=butt priority=280
+    line width=1.4 color=c260 join=bevel cap=butt priority=280
   z13
     line width=5.8 color=c144 join=round cap=butt priority=150
-    line width=1.7 color=c259 join=round cap=butt priority=280
+    line width=1.7 color=c260 join=round cap=butt priority=280
   z14
     line width=6.4 color=c144 join=round cap=butt priority=150
-    line width=2 color=c259 join=round cap=butt priority=280
+    line width=2 color=c260 join=round cap=butt priority=280
   z15
     line width=4.8 color=c144 join=round cap=butt priority=150
-    line width=1.2 color=c262 join=round cap=butt dash=[4.5,4.5] priority=290
-    line width=2.6 color=c264 join=round cap=butt priority=280
+    line width=1.2 color=c263 join=round cap=butt dash=[4.5,4.5] priority=290
+    line width=2.6 color=c265 join=round cap=butt priority=280
   z16
     line width=8 color=c145 join=round cap=butt priority=140
     line width=6.8 color=c144 join=round cap=butt priority=150
-    line width=1.8 color=c262 join=round cap=round dash=[5.2,5.2] priority=290
-    line width=3.5 color=c264 join=round cap=round priority=280
+    line width=1.8 color=c263 join=round cap=round dash=[5.2,5.2] priority=290
+    line width=3.5 color=c265 join=round cap=round priority=280
   z17
     line width=11.6 color=c145 join=round cap=butt priority=140
     line width=10.2 color=c144 join=round cap=butt priority=150
-    line width=2.8 color=c262 join=round cap=round dash=[6.3,6.3] priority=290
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[6.3,6.3] priority=290
+    line width=5 color=c265 join=round cap=round priority=280
   z18
     line width=14.4 color=c145 join=round cap=butt priority=140
     line width=12.6 color=c144 join=round cap=butt priority=150
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=5 color=c265 join=round cap=round priority=280
   z19
     line width=14.4 color=c145 join=round cap=butt priority=140
     line width=12.6 color=c144 join=round cap=butt priority=150
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=5 color=c265 join=round cap=round priority=280
   z20
     line width=14.4 color=c145 join=round cap=butt priority=140
     line width=12.6 color=c144 join=round cap=butt priority=150
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=5 color=c265 join=round cap=round priority=280
 type railway-rail-main-tunnel
   z10
-    line width=1 color=c259 join=bevel cap=butt priority=280
+    line width=1 color=c260 join=bevel cap=butt priority=280
   z11
-    line width=1.2 color=c259 join=bevel cap=butt priority=280
+    line width=1.2 color=c260 join=bevel cap=butt priority=280
   z12
-    line width=1.4 color=c259 join=bevel cap=butt priority=280
+    line width=1.4 color=c260 join=bevel cap=butt priority=280
   z13
-    line width=1.7 color=c259 join=round cap=butt priority=280
+    line width=1.7 color=c260 join=round cap=butt priority=280
   z14
-    line width=4 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=2 color=c259 join=round cap=butt priority=280
+    line width=4 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=2 color=c260 join=round cap=butt priority=280
   z15
-    line width=1.2 color=c262 join=round cap=butt dash=[4.5,4.5] priority=290
-    line width=4.6 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=2.6 color=c264 join=round cap=butt priority=280
+    line width=1.2 color=c263 join=round cap=butt dash=[4.5,4.5] priority=290
+    line width=4.6 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=2.6 color=c265 join=round cap=butt priority=280
   z16
-    line width=1.8 color=c262 join=round cap=round dash=[5.2,5.2] priority=290
-    line width=5.5 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=3.5 color=c264 join=round cap=round priority=280
+    line width=1.8 color=c263 join=round cap=round dash=[5.2,5.2] priority=290
+    line width=5.5 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=3.5 color=c265 join=round cap=round priority=280
   z17
-    line width=2.8 color=c262 join=round cap=round dash=[6.3,6.3] priority=290
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[6.3,6.3] priority=290
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=5 color=c265 join=round cap=round priority=280
   z18
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=5 color=c265 join=round cap=round priority=280
   z19
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=5 color=c265 join=round cap=round priority=280
   z20
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=5 color=c264 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=5 color=c265 join=round cap=round priority=280
 type railway-rail-service
   z15
-    line width=1.7 color=c263 join=round cap=butt priority=210
+    line width=1.7 color=c264 join=round cap=butt priority=210
   z16
     line width=1.8 color=c139 join=round cap=round dash=[5.2,5.2] priority=220
-    line width=3.5 color=c259 join=round cap=round priority=210
+    line width=3.5 color=c260 join=round cap=round priority=210
   z17
     line width=2.8 color=c139 join=round cap=round dash=[6.3,6.3] priority=220
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=5 color=c260 join=round cap=round priority=210
   z18
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=5 color=c260 join=round cap=round priority=210
   z19
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=5 color=c260 join=round cap=round priority=210
   z20
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=5 color=c260 join=round cap=round priority=210
 type railway-rail-service-bridge
   z15
     line width=5.8 color=c144 join=round cap=butt priority=150
-    line width=1.7 color=c263 join=round cap=butt priority=210
+    line width=1.7 color=c264 join=round cap=butt priority=210
   z16
     line width=8 color=c145 join=round cap=butt priority=140
     line width=6.8 color=c144 join=round cap=butt priority=150
     line width=1.8 color=c139 join=round cap=round dash=[5.2,5.2] priority=220
-    line width=3.5 color=c259 join=round cap=round priority=210
+    line width=3.5 color=c260 join=round cap=round priority=210
   z17
     line width=11.6 color=c145 join=round cap=butt priority=140
     line width=10.2 color=c144 join=round cap=butt priority=150
     line width=2.8 color=c139 join=round cap=round dash=[6.3,6.3] priority=220
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=5 color=c260 join=round cap=round priority=210
   z18
     line width=14.4 color=c145 join=round cap=butt priority=140
     line width=12.6 color=c144 join=round cap=butt priority=150
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=5 color=c260 join=round cap=round priority=210
   z19
     line width=14.4 color=c145 join=round cap=butt priority=140
     line width=12.6 color=c144 join=round cap=butt priority=150
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=5 color=c260 join=round cap=round priority=210
   z20
     line width=14.4 color=c145 join=round cap=butt priority=140
     line width=12.6 color=c144 join=round cap=butt priority=150
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=5 color=c260 join=round cap=round priority=210
 type railway-rail-service-tunnel
   z15
-    line width=3.7 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=1.7 color=c263 join=round cap=butt priority=210
+    line width=3.7 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=1.7 color=c264 join=round cap=butt priority=210
   z16
     line width=1.8 color=c139 join=round cap=round dash=[5.2,5.2] priority=220
-    line width=5.5 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=3.5 color=c259 join=round cap=round priority=210
+    line width=5.5 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=3.5 color=c260 join=round cap=round priority=210
   z17
     line width=2.8 color=c139 join=round cap=round dash=[6.3,6.3] priority=220
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=5 color=c260 join=round cap=round priority=210
   z18
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=5 color=c260 join=round cap=round priority=210
   z19
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=5 color=c260 join=round cap=round priority=210
   z20
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=5 color=c260 join=round cap=round priority=210
 type railway-rail-spur
   z14
-    line width=1.4 color=c263 join=round cap=butt priority=210
+    line width=1.4 color=c264 join=round cap=butt priority=210
   z15
-    line width=1.7 color=c263 join=round cap=butt priority=210
+    line width=1.7 color=c264 join=round cap=butt priority=210
   z16
     line width=1.8 color=c139 join=round cap=round dash=[5.2,5.2] priority=220
-    line width=3.5 color=c259 join=round cap=round priority=210
+    line width=3.5 color=c260 join=round cap=round priority=210
   z17
     line width=2.8 color=c139 join=round cap=round dash=[6.3,6.3] priority=220
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=5 color=c260 join=round cap=round priority=210
   z18
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=5 color=c260 join=round cap=round priority=210
   z19
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=5 color=c260 join=round cap=round priority=210
   z20
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=5 color=c260 join=round cap=round priority=210
 type railway-rail-spur-bridge
   z14
     line width=5.2 color=c144 join=round cap=butt priority=150
-    line width=1.4 color=c263 join=round cap=butt priority=210
+    line width=1.4 color=c264 join=round cap=butt priority=210
   z15
     line width=5.8 color=c144 join=round cap=butt priority=150
-    line width=1.7 color=c263 join=round cap=butt priority=210
+    line width=1.7 color=c264 join=round cap=butt priority=210
   z16
     line width=8 color=c145 join=round cap=butt priority=140
     line width=6.8 color=c144 join=round cap=butt priority=150
     line width=1.8 color=c139 join=round cap=round dash=[5.2,5.2] priority=220
-    line width=3.5 color=c259 join=round cap=round priority=210
+    line width=3.5 color=c260 join=round cap=round priority=210
   z17
     line width=11.6 color=c145 join=round cap=butt priority=140
     line width=10.2 color=c144 join=round cap=butt priority=150
     line width=2.8 color=c139 join=round cap=round dash=[6.3,6.3] priority=220
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=5 color=c260 join=round cap=round priority=210
   z18
     line width=14.4 color=c145 join=round cap=butt priority=140
     line width=12.6 color=c144 join=round cap=butt priority=150
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=5 color=c260 join=round cap=round priority=210
   z19
     line width=14.4 color=c145 join=round cap=butt priority=140
     line width=12.6 color=c144 join=round cap=butt priority=150
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=5 color=c260 join=round cap=round priority=210
   z20
     line width=14.4 color=c145 join=round cap=butt priority=140
     line width=12.6 color=c144 join=round cap=butt priority=150
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=5 color=c260 join=round cap=round priority=210
 type railway-rail-spur-tunnel
   z14
-    line width=3.4 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=1.4 color=c263 join=round cap=butt priority=210
+    line width=3.4 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=1.4 color=c264 join=round cap=butt priority=210
   z15
-    line width=3.7 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=1.7 color=c263 join=round cap=butt priority=210
+    line width=3.7 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=1.7 color=c264 join=round cap=butt priority=210
   z16
     line width=1.8 color=c139 join=round cap=round dash=[5.2,5.2] priority=220
-    line width=5.5 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=3.5 color=c259 join=round cap=round priority=210
+    line width=5.5 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=3.5 color=c260 join=round cap=round priority=210
   z17
     line width=2.8 color=c139 join=round cap=round dash=[6.3,6.3] priority=220
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=5 color=c260 join=round cap=round priority=210
   z18
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=5 color=c260 join=round cap=round priority=210
   z19
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=5 color=c260 join=round cap=round priority=210
   z20
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=5 color=c260 join=round cap=round priority=210
 type railway-rail-tourism
   z10
-    line width=1 color=c266 join=bevel cap=butt priority=280
+    line width=1 color=c267 join=bevel cap=butt priority=280
   z11
-    line width=1.2 color=c266 join=bevel cap=butt priority=280
+    line width=1.2 color=c267 join=bevel cap=butt priority=280
   z12
-    line width=1.4 color=c266 join=bevel cap=butt priority=280
+    line width=1.4 color=c267 join=bevel cap=butt priority=280
   z13
-    line width=1.7 color=c266 join=round cap=butt priority=280
+    line width=1.7 color=c267 join=round cap=butt priority=280
   z14
-    line width=2 color=c266 join=round cap=butt priority=280
+    line width=2 color=c267 join=round cap=butt priority=280
     path_text primary[height=10 color=c143 stroke=c108] priority=3150
   z15
-    line width=1.2 color=c262 join=round cap=butt dash=[4.5,4.5] priority=290
-    line width=2.6 color=c266 join=round cap=butt priority=280
+    line width=1.2 color=c263 join=round cap=butt dash=[4.5,4.5] priority=290
+    line width=2.6 color=c267 join=round cap=butt priority=280
     path_text primary[height=11 color=c143 stroke=c108] priority=3150
   z16
-    line width=1.8 color=c262 join=round cap=round dash=[5.2,5.2] priority=290
-    line width=3.5 color=c266 join=round cap=round priority=280
+    line width=1.8 color=c263 join=round cap=round dash=[5.2,5.2] priority=290
+    line width=3.5 color=c267 join=round cap=round priority=280
     path_text primary[height=12 color=c143 stroke=c087] priority=3150
   z17
-    line width=2.8 color=c262 join=round cap=round dash=[6.3,6.3] priority=290
-    line width=5 color=c266 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[6.3,6.3] priority=290
+    line width=5 color=c267 join=round cap=round priority=280
     path_text primary[height=12 color=c143 stroke=c087] priority=3150
   z18
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=5 color=c266 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=5 color=c267 join=round cap=round priority=280
     path_text primary[height=12 color=c143 stroke=c087] priority=3150
   z19
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=5 color=c266 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=5 color=c267 join=round cap=round priority=280
     path_text primary[height=12 color=c143 stroke=c087] priority=3150
   z20
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=5 color=c266 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=5 color=c267 join=round cap=round priority=280
     path_text primary[height=12 color=c143 stroke=c087] priority=3150
 type railway-rail-tourism-bridge
   z10
-    line width=1 color=c266 join=bevel cap=butt priority=280
+    line width=1 color=c267 join=bevel cap=butt priority=280
   z11
-    line width=1.2 color=c266 join=bevel cap=butt priority=280
+    line width=1.2 color=c267 join=bevel cap=butt priority=280
   z12
-    line width=1.4 color=c266 join=bevel cap=butt priority=280
+    line width=1.4 color=c267 join=bevel cap=butt priority=280
   z13
     line width=5.8 color=c144 join=round cap=butt priority=150
-    line width=1.7 color=c266 join=round cap=butt priority=280
+    line width=1.7 color=c267 join=round cap=butt priority=280
   z14
     line width=6.4 color=c144 join=round cap=butt priority=150
-    line width=2 color=c266 join=round cap=butt priority=280
+    line width=2 color=c267 join=round cap=butt priority=280
     path_text primary[height=10 color=c143 stroke=c108] priority=3150
   z15
     line width=4.8 color=c144 join=round cap=butt priority=150
-    line width=1.2 color=c262 join=round cap=butt dash=[4.5,4.5] priority=290
-    line width=2.6 color=c266 join=round cap=butt priority=280
+    line width=1.2 color=c263 join=round cap=butt dash=[4.5,4.5] priority=290
+    line width=2.6 color=c267 join=round cap=butt priority=280
     path_text primary[height=11 color=c143 stroke=c108] priority=3150
   z16
     line width=8 color=c145 join=round cap=butt priority=140
     line width=6.8 color=c144 join=round cap=butt priority=150
-    line width=1.8 color=c262 join=round cap=round dash=[5.2,5.2] priority=290
-    line width=3.5 color=c266 join=round cap=round priority=280
+    line width=1.8 color=c263 join=round cap=round dash=[5.2,5.2] priority=290
+    line width=3.5 color=c267 join=round cap=round priority=280
     path_text primary[height=12 color=c143 stroke=c087] priority=3150
   z17
     line width=11.6 color=c145 join=round cap=butt priority=140
     line width=10.2 color=c144 join=round cap=butt priority=150
-    line width=2.8 color=c262 join=round cap=round dash=[6.3,6.3] priority=290
-    line width=5 color=c266 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[6.3,6.3] priority=290
+    line width=5 color=c267 join=round cap=round priority=280
     path_text primary[height=12 color=c143 stroke=c087] priority=3150
   z18
     line width=14.4 color=c145 join=round cap=butt priority=140
     line width=12.6 color=c144 join=round cap=butt priority=150
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=5 color=c266 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=5 color=c267 join=round cap=round priority=280
     path_text primary[height=12 color=c143 stroke=c087] priority=3150
   z19
     line width=14.4 color=c145 join=round cap=butt priority=140
     line width=12.6 color=c144 join=round cap=butt priority=150
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=5 color=c266 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=5 color=c267 join=round cap=round priority=280
     path_text primary[height=12 color=c143 stroke=c087] priority=3150
   z20
     line width=14.4 color=c145 join=round cap=butt priority=140
     line width=12.6 color=c144 join=round cap=butt priority=150
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=5 color=c266 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=5 color=c267 join=round cap=round priority=280
     path_text primary[height=12 color=c143 stroke=c087] priority=3150
 type railway-rail-tourism-tunnel
   z10
-    line width=1 color=c266 join=bevel cap=butt priority=280
+    line width=1 color=c267 join=bevel cap=butt priority=280
   z11
-    line width=1.2 color=c266 join=bevel cap=butt priority=280
+    line width=1.2 color=c267 join=bevel cap=butt priority=280
   z12
-    line width=1.4 color=c266 join=bevel cap=butt priority=280
+    line width=1.4 color=c267 join=bevel cap=butt priority=280
   z13
-    line width=1.7 color=c266 join=round cap=butt priority=280
+    line width=1.7 color=c267 join=round cap=butt priority=280
   z14
-    line width=4 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=2 color=c266 join=round cap=butt priority=280
+    line width=4 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=2 color=c267 join=round cap=butt priority=280
     path_text primary[height=10 color=c143 stroke=c108] priority=3150
   z15
-    line width=1.2 color=c262 join=round cap=butt dash=[4.5,4.5] priority=290
-    line width=4.6 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=2.6 color=c266 join=round cap=butt priority=280
+    line width=1.2 color=c263 join=round cap=butt dash=[4.5,4.5] priority=290
+    line width=4.6 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=2.6 color=c267 join=round cap=butt priority=280
     path_text primary[height=11 color=c143 stroke=c108] priority=3150
   z16
-    line width=1.8 color=c262 join=round cap=round dash=[5.2,5.2] priority=290
-    line width=5.5 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=3.5 color=c266 join=round cap=round priority=280
+    line width=1.8 color=c263 join=round cap=round dash=[5.2,5.2] priority=290
+    line width=5.5 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=3.5 color=c267 join=round cap=round priority=280
     path_text primary[height=12 color=c143 stroke=c087] priority=3150
   z17
-    line width=2.8 color=c262 join=round cap=round dash=[6.3,6.3] priority=290
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=5 color=c266 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[6.3,6.3] priority=290
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=5 color=c267 join=round cap=round priority=280
     path_text primary[height=12 color=c143 stroke=c087] priority=3150
   z18
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=5 color=c266 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=5 color=c267 join=round cap=round priority=280
     path_text primary[height=12 color=c143 stroke=c087] priority=3150
   z19
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=5 color=c266 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=5 color=c267 join=round cap=round priority=280
     path_text primary[height=12 color=c143 stroke=c087] priority=3150
   z20
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=290
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=279
-    line width=5 color=c266 join=round cap=round priority=280
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=290
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=279
+    line width=5 color=c267 join=round cap=round priority=280
     path_text primary[height=12 color=c143 stroke=c087] priority=3150
 type railway-rail-tunnel
   z10
-    line width=1 color=c259 join=bevel cap=butt priority=210
+    line width=1 color=c260 join=bevel cap=butt priority=210
   z11
-    line width=1.2 color=c259 join=bevel cap=butt priority=210
+    line width=1.2 color=c260 join=bevel cap=butt priority=210
   z12
-    line width=1.4 color=c259 join=bevel cap=butt priority=210
+    line width=1.4 color=c260 join=bevel cap=butt priority=210
   z13
-    line width=1.7 color=c259 join=round cap=butt priority=210
+    line width=1.7 color=c260 join=round cap=butt priority=210
   z14
-    line width=4 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=2 color=c259 join=round cap=butt priority=210
+    line width=4 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=2 color=c260 join=round cap=butt priority=210
   z15
-    line width=1.2 color=c262 join=round cap=butt dash=[4.5,4.5] priority=220
-    line width=4.6 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=2.6 color=c264 join=round cap=butt priority=210
+    line width=1.2 color=c263 join=round cap=butt dash=[4.5,4.5] priority=220
+    line width=4.6 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=2.6 color=c265 join=round cap=butt priority=210
   z16
-    line width=1.8 color=c262 join=round cap=round dash=[5.2,5.2] priority=220
-    line width=5.5 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=3.5 color=c264 join=round cap=round priority=210
+    line width=1.8 color=c263 join=round cap=round dash=[5.2,5.2] priority=220
+    line width=5.5 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=3.5 color=c265 join=round cap=round priority=210
   z17
-    line width=2.8 color=c262 join=round cap=round dash=[6.3,6.3] priority=220
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=5 color=c264 join=round cap=round priority=210
+    line width=2.8 color=c263 join=round cap=round dash=[6.3,6.3] priority=220
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=5 color=c265 join=round cap=round priority=210
   z18
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=5 color=c264 join=round cap=round priority=210
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=220
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=5 color=c265 join=round cap=round priority=210
   z19
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=5 color=c264 join=round cap=round priority=210
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=220
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=5 color=c265 join=round cap=round priority=210
   z20
-    line width=2.8 color=c262 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=5 color=c264 join=round cap=round priority=210
+    line width=2.8 color=c263 join=round cap=round dash=[8.1,8.1] priority=220
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=5 color=c265 join=round cap=round priority=210
 type railway-rail-utility
   z12
-    line width=1 color=c263 join=bevel cap=butt priority=210
+    line width=1 color=c264 join=bevel cap=butt priority=210
   z13
-    line width=1.2 color=c263 join=round cap=butt priority=210
+    line width=1.2 color=c264 join=round cap=butt priority=210
   z14
-    line width=1.4 color=c263 join=round cap=butt priority=210
+    line width=1.4 color=c264 join=round cap=butt priority=210
   z15
-    line width=1.7 color=c263 join=round cap=butt priority=210
+    line width=1.7 color=c264 join=round cap=butt priority=210
   z16
     line width=1.8 color=c139 join=round cap=round dash=[5.2,5.2] priority=220
-    line width=3.5 color=c259 join=round cap=round priority=210
+    line width=3.5 color=c260 join=round cap=round priority=210
   z17
     line width=2.8 color=c139 join=round cap=round dash=[6.3,6.3] priority=220
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=5 color=c260 join=round cap=round priority=210
   z18
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=5 color=c260 join=round cap=round priority=210
   z19
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=5 color=c260 join=round cap=round priority=210
   z20
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=5 color=c260 join=round cap=round priority=210
 type railway-rail-utility-bridge
   z12
-    line width=1 color=c263 join=bevel cap=butt priority=210
+    line width=1 color=c264 join=bevel cap=butt priority=210
   z13
     line width=4.8 color=c144 join=round cap=butt priority=150
-    line width=1.2 color=c263 join=round cap=butt priority=210
+    line width=1.2 color=c264 join=round cap=butt priority=210
   z14
     line width=5.2 color=c144 join=round cap=butt priority=150
-    line width=1.4 color=c263 join=round cap=butt priority=210
+    line width=1.4 color=c264 join=round cap=butt priority=210
   z15
     line width=5.8 color=c144 join=round cap=butt priority=150
-    line width=1.7 color=c263 join=round cap=butt priority=210
+    line width=1.7 color=c264 join=round cap=butt priority=210
   z16
     line width=8 color=c145 join=round cap=butt priority=140
     line width=6.8 color=c144 join=round cap=butt priority=150
     line width=1.8 color=c139 join=round cap=round dash=[5.2,5.2] priority=220
-    line width=3.5 color=c259 join=round cap=round priority=210
+    line width=3.5 color=c260 join=round cap=round priority=210
   z17
     line width=11.6 color=c145 join=round cap=butt priority=140
     line width=10.2 color=c144 join=round cap=butt priority=150
     line width=2.8 color=c139 join=round cap=round dash=[6.3,6.3] priority=220
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=5 color=c260 join=round cap=round priority=210
   z18
     line width=14.4 color=c145 join=round cap=butt priority=140
     line width=12.6 color=c144 join=round cap=butt priority=150
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=5 color=c260 join=round cap=round priority=210
   z19
     line width=14.4 color=c145 join=round cap=butt priority=140
     line width=12.6 color=c144 join=round cap=butt priority=150
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=5 color=c260 join=round cap=round priority=210
   z20
     line width=14.4 color=c145 join=round cap=butt priority=140
     line width=12.6 color=c144 join=round cap=butt priority=150
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=5 color=c260 join=round cap=round priority=210
 type railway-rail-utility-tunnel
   z12
-    line width=1 color=c263 join=bevel cap=butt priority=210
+    line width=1 color=c264 join=bevel cap=butt priority=210
   z13
-    line width=1.2 color=c263 join=round cap=butt priority=210
+    line width=1.2 color=c264 join=round cap=butt priority=210
   z14
-    line width=3.4 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=1.4 color=c263 join=round cap=butt priority=210
+    line width=3.4 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=1.4 color=c264 join=round cap=butt priority=210
   z15
-    line width=3.7 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=1.7 color=c263 join=round cap=butt priority=210
+    line width=3.7 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=1.7 color=c264 join=round cap=butt priority=210
   z16
     line width=1.8 color=c139 join=round cap=round dash=[5.2,5.2] priority=220
-    line width=5.5 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=3.5 color=c259 join=round cap=round priority=210
+    line width=5.5 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=3.5 color=c260 join=round cap=round priority=210
   z17
     line width=2.8 color=c139 join=round cap=round dash=[6.3,6.3] priority=220
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=5 color=c260 join=round cap=round priority=210
   z18
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=5 color=c260 join=round cap=round priority=210
   z19
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=5 color=c260 join=round cap=round priority=210
   z20
     line width=2.8 color=c139 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=7 color=c265 join=round cap=butt dash=[5,5] priority=209
-    line width=5 color=c259 join=round cap=round priority=210
+    line width=7 color=c266 join=round cap=butt dash=[5,5] priority=209
+    line width=5 color=c260 join=round cap=round priority=210
 type railway-station
   z12
     symbol name=train-s priority=6800
-    caption primary[height=9 color=c072 stroke=c253 dy=1 optional] secondary[height=8 color=c072 stroke=c253 dy=1 optional] priority=-3200
+    caption primary[height=9 color=c072 stroke=c254 dy=1 optional] secondary[height=8 color=c072 stroke=c254 dy=1 optional] priority=-3200
   z13
     symbol name=train-s priority=6800
-    caption primary[height=10 color=c072 stroke=c253 dy=1 optional] secondary[height=9 color=c072 stroke=c253 dy=1 optional] priority=-3200
+    caption primary[height=10 color=c072 stroke=c254 dy=1 optional] secondary[height=9 color=c072 stroke=c254 dy=1 optional] priority=-3200
   z14
     symbol name=train-s priority=6800
     caption primary[height=11 color=c072 stroke=c073 dy=1 optional] secondary[height=10 color=c072 stroke=c073 dy=1 optional] priority=-3200
@@ -16517,10 +16533,10 @@ type railway-station
 type railway-station-funicular
   z12
     symbol name=funicular-s priority=6250
-    caption primary[height=9 color=c072 stroke=c253 dy=1 optional] secondary[height=8 color=c072 stroke=c253 dy=1 optional] priority=-3750
+    caption primary[height=9 color=c072 stroke=c254 dy=1 optional] secondary[height=8 color=c072 stroke=c254 dy=1 optional] priority=-3750
   z13
     symbol name=funicular-s priority=6250
-    caption primary[height=10 color=c072 stroke=c253 dy=1 optional] secondary[height=9 color=c072 stroke=c253 dy=1 optional] priority=-3750
+    caption primary[height=10 color=c072 stroke=c254 dy=1 optional] secondary[height=9 color=c072 stroke=c254 dy=1 optional] priority=-3750
   z14
     symbol name=funicular-s priority=6250
     caption primary[height=11 color=c072 stroke=c073 dy=1 optional] secondary[height=10 color=c072 stroke=c073 dy=1 optional] priority=-3750
@@ -19044,10 +19060,10 @@ type railway-station-subway-spb
     symbol name=subway-spb-s priority=7000
   z12
     symbol name=subway-spb-s priority=7000
-    caption primary[height=10 color=c072 stroke=c253 dy=1 optional] secondary[height=9 color=c072 stroke=c253 dy=1 optional] priority=-3000
+    caption primary[height=10 color=c072 stroke=c254 dy=1 optional] secondary[height=9 color=c072 stroke=c254 dy=1 optional] priority=-3000
   z13
     symbol name=subway-spb-s priority=7000
-    caption primary[height=11 color=c072 stroke=c253 dy=1 optional] secondary[height=10 color=c072 stroke=c253 dy=1 optional] priority=-3000
+    caption primary[height=11 color=c072 stroke=c254 dy=1 optional] secondary[height=10 color=c072 stroke=c254 dy=1 optional] priority=-3000
   z14
     symbol name=subway-spb-s priority=7000
     caption primary[height=11 color=c072 stroke=c073 dy=1 optional] secondary[height=10 color=c072 stroke=c073 dy=1 optional] priority=-3000
@@ -19445,61 +19461,61 @@ type railway-station-subway-yokohama
     caption primary[height=13 color=c072 stroke=c088 dy=1 optional] secondary[height=11 color=c072 stroke=c088 dy=1 optional] priority=-3750
 type railway-subway
   z13
-    line width=0.8 color=c261 join=round cap=butt priority=210
+    line width=0.8 color=c262 join=round cap=butt priority=210
   z14
-    line width=1 color=c261 join=round cap=butt priority=210
+    line width=1 color=c262 join=round cap=butt priority=210
   z15
-    line width=1.2 color=c261 join=round cap=butt priority=210
+    line width=1.2 color=c262 join=round cap=butt priority=210
   z16
-    line width=1.3 color=c262 join=round cap=round dash=[4.5,4.5] priority=220
-    line width=2.6 color=c261 join=round cap=round priority=210
+    line width=1.3 color=c263 join=round cap=round dash=[4.5,4.5] priority=220
+    line width=2.6 color=c262 join=round cap=round priority=210
   z17
-    line width=2 color=c262 join=round cap=round dash=[6.3,6.3] priority=220
-    line width=2.9 color=c263 join=round cap=round priority=210
+    line width=2 color=c263 join=round cap=round dash=[6.3,6.3] priority=220
+    line width=2.9 color=c264 join=round cap=round priority=210
   z18
-    line width=2 color=c262 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=2.9 color=c263 join=round cap=round priority=210
+    line width=2 color=c263 join=round cap=round dash=[8.1,8.1] priority=220
+    line width=2.9 color=c264 join=round cap=round priority=210
   z19
-    line width=2 color=c262 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=2.9 color=c263 join=round cap=round priority=210
+    line width=2 color=c263 join=round cap=round dash=[8.1,8.1] priority=220
+    line width=2.9 color=c264 join=round cap=round priority=210
   z20
-    line width=2 color=c262 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=2.9 color=c263 join=round cap=round priority=210
+    line width=2 color=c263 join=round cap=round dash=[8.1,8.1] priority=220
+    line width=2.9 color=c264 join=round cap=round priority=210
 type railway-subway-bridge
   z13
     line width=4 color=c144 join=round cap=butt priority=150
-    line width=0.8 color=c261 join=round cap=butt priority=210
+    line width=0.8 color=c262 join=round cap=butt priority=210
   z14
     line width=4.4 color=c144 join=round cap=butt priority=150
-    line width=1 color=c261 join=round cap=butt priority=210
+    line width=1 color=c262 join=round cap=butt priority=210
   z15
     line width=4.8 color=c144 join=round cap=butt priority=150
-    line width=1.2 color=c261 join=round cap=butt priority=210
+    line width=1.2 color=c262 join=round cap=butt priority=210
   z16
     line width=7 color=c145 join=round cap=butt priority=140
     line width=5.8 color=c144 join=round cap=butt priority=150
-    line width=1.3 color=c262 join=round cap=round dash=[4.5,4.5] priority=220
-    line width=2.6 color=c261 join=round cap=round priority=210
+    line width=1.3 color=c263 join=round cap=round dash=[4.5,4.5] priority=220
+    line width=2.6 color=c262 join=round cap=round priority=210
   z17
     line width=10 color=c145 join=round cap=butt priority=140
     line width=8.6 color=c144 join=round cap=butt priority=150
-    line width=2 color=c262 join=round cap=round dash=[6.3,6.3] priority=220
-    line width=2.9 color=c263 join=round cap=round priority=210
+    line width=2 color=c263 join=round cap=round dash=[6.3,6.3] priority=220
+    line width=2.9 color=c264 join=round cap=round priority=210
   z18
     line width=12.8 color=c145 join=round cap=butt priority=140
     line width=11 color=c144 join=round cap=butt priority=150
-    line width=2 color=c262 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=2.9 color=c263 join=round cap=round priority=210
+    line width=2 color=c263 join=round cap=round dash=[8.1,8.1] priority=220
+    line width=2.9 color=c264 join=round cap=round priority=210
   z19
     line width=12.8 color=c145 join=round cap=butt priority=140
     line width=11 color=c144 join=round cap=butt priority=150
-    line width=2 color=c262 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=2.9 color=c263 join=round cap=round priority=210
+    line width=2 color=c263 join=round cap=round dash=[8.1,8.1] priority=220
+    line width=2.9 color=c264 join=round cap=round priority=210
   z20
     line width=12.8 color=c145 join=round cap=butt priority=140
     line width=11 color=c144 join=round cap=butt priority=150
-    line width=2 color=c262 join=round cap=round dash=[8.1,8.1] priority=220
-    line width=2.9 color=c263 join=round cap=round priority=210
+    line width=2 color=c263 join=round cap=round dash=[8.1,8.1] priority=220
+    line width=2.9 color=c264 join=round cap=round priority=210
 type railway-subway_entrance
   z16
     symbol name=subway-entrance-m priority=3700
@@ -21249,55 +21265,55 @@ type railway-subway_entrance-yokohama
     caption primary[height=13 color=c072 stroke=c088 dy=1 optional] secondary[height=11 color=c072 stroke=c088 dy=1 optional] priority=-6300
 type railway-tram
   z13
-    line width=0.6 color=c267 join=round cap=butt priority=320
+    line width=0.6 color=c268 join=round cap=butt priority=320
   z14
-    line width=0.6 color=c267 join=round cap=butt priority=320
+    line width=0.6 color=c268 join=round cap=butt priority=320
   z15
-    line width=0.7 color=c268 join=round cap=butt priority=320
+    line width=0.7 color=c269 join=round cap=butt priority=320
   z16
-    line width=0.8 color=c269 join=round cap=round priority=320
+    line width=0.8 color=c270 join=round cap=round priority=320
   z17
-    line width=1 color=c270 join=round cap=round priority=320
+    line width=1 color=c271 join=round cap=round priority=320
   z18
-    line width=1 color=c270 join=round cap=round priority=320
+    line width=1 color=c271 join=round cap=round priority=320
   z19
-    line width=1 color=c270 join=round cap=round priority=320
+    line width=1 color=c271 join=round cap=round priority=320
   z20
-    line width=1 color=c270 join=round cap=round priority=320
+    line width=1 color=c271 join=round cap=round priority=320
 type railway-tram-bridge
   z13
-    line width=0.6 color=c267 join=round cap=butt priority=320
+    line width=0.6 color=c268 join=round cap=butt priority=320
   z14
-    line width=0.6 color=c267 join=round cap=butt priority=320
+    line width=0.6 color=c268 join=round cap=butt priority=320
   z15
-    line width=0.7 color=c268 join=round cap=butt priority=320
+    line width=0.7 color=c269 join=round cap=butt priority=320
   z16
-    line width=0.8 color=c269 join=round cap=round priority=320
+    line width=0.8 color=c270 join=round cap=round priority=320
   z17
-    line width=1 color=c270 join=round cap=round priority=320
+    line width=1 color=c271 join=round cap=round priority=320
   z18
-    line width=1 color=c270 join=round cap=round priority=320
+    line width=1 color=c271 join=round cap=round priority=320
   z19
-    line width=1 color=c270 join=round cap=round priority=320
+    line width=1 color=c271 join=round cap=round priority=320
   z20
-    line width=1 color=c270 join=round cap=round priority=320
+    line width=1 color=c271 join=round cap=round priority=320
 type railway-tram-tunnel
   z13
-    line width=0.6 color=c267 join=round cap=butt priority=320
+    line width=0.6 color=c268 join=round cap=butt priority=320
   z14
-    line width=0.6 color=c267 join=round cap=butt priority=320
+    line width=0.6 color=c268 join=round cap=butt priority=320
   z15
-    line width=0.7 color=c268 join=round cap=butt priority=320
+    line width=0.7 color=c269 join=round cap=butt priority=320
   z16
-    line width=0.8 color=c269 join=round cap=round priority=320
+    line width=0.8 color=c270 join=round cap=round priority=320
   z17
-    line width=1 color=c270 join=round cap=round priority=320
+    line width=1 color=c271 join=round cap=round priority=320
   z18
-    line width=1 color=c270 join=round cap=round priority=320
+    line width=1 color=c271 join=round cap=round priority=320
   z19
-    line width=1 color=c270 join=round cap=round priority=320
+    line width=1 color=c271 join=round cap=round priority=320
   z20
-    line width=1 color=c270 join=round cap=round priority=320
+    line width=1 color=c271 join=round cap=round priority=320
 type railway-tram_stop
   z14
     symbol name=tram-s priority=3650
@@ -21319,56 +21335,56 @@ type railway-tram_stop
     caption primary[height=12 color=c072 stroke=c088 dy=1 optional] secondary[height=10 color=c072 stroke=c088 dy=1 optional] priority=-6350
 type roller_coaster-track
   z15
-    line width=0.7 color=c271 join=round cap=butt priority=280
+    line width=0.7 color=c272 join=round cap=butt priority=280
   z16
-    line width=0.8 color=c272 join=round cap=round priority=280
+    line width=0.8 color=c273 join=round cap=round priority=280
   z17
-    line width=1 color=c266 join=round cap=round priority=280
+    line width=1 color=c267 join=round cap=round priority=280
   z18
-    line width=1 color=c266 join=round cap=round priority=280
+    line width=1 color=c267 join=round cap=round priority=280
   z19
-    line width=1 color=c266 join=round cap=round priority=280
+    line width=1 color=c267 join=round cap=round priority=280
   z20
-    line width=1 color=c266 join=round cap=round priority=280
+    line width=1 color=c267 join=round cap=round priority=280
 type route-ferry
   z7
-    line width=1 color=c273 join=bevel cap=butt dash=[5.4,2.7] priority=80
+    line width=1 color=c274 join=bevel cap=butt dash=[5.4,2.7] priority=80
   z8
-    line width=1 color=c273 join=bevel cap=butt dash=[5.4,2.7] priority=80
+    line width=1 color=c274 join=bevel cap=butt dash=[5.4,2.7] priority=80
   z9
-    line width=1 color=c273 join=bevel cap=butt dash=[5.4,2.7] priority=80
+    line width=1 color=c274 join=bevel cap=butt dash=[5.4,2.7] priority=80
   z10
-    line width=1 color=c273 join=bevel cap=butt dash=[5.4,2.7] priority=80
+    line width=1 color=c274 join=bevel cap=butt dash=[5.4,2.7] priority=80
     path_text primary[height=9 color=c203] priority=6200
   z11
-    line width=1 color=c273 join=bevel cap=butt dash=[5.4,2.7] priority=80
+    line width=1 color=c274 join=bevel cap=butt dash=[5.4,2.7] priority=80
     path_text primary[height=9 color=c203] priority=6200
   z12
-    line width=1 color=c273 join=bevel cap=butt dash=[5.4,2.7] priority=80
+    line width=1 color=c274 join=bevel cap=butt dash=[5.4,2.7] priority=80
     path_text primary[height=9 color=c203] priority=6200
   z13
-    line width=1 color=c273 join=round cap=butt dash=[5.4,2.7] priority=80
+    line width=1 color=c274 join=round cap=butt dash=[5.4,2.7] priority=80
     path_text primary[height=9 color=c203] priority=6200
   z14
-    line width=1 color=c273 join=round cap=butt dash=[5.4,2.7] priority=80
+    line width=1 color=c274 join=round cap=butt dash=[5.4,2.7] priority=80
     path_text primary[height=9 color=c203] priority=6200
   z15
-    line width=1 color=c273 join=round cap=butt dash=[5.4,2.7] priority=80
+    line width=1 color=c274 join=round cap=butt dash=[5.4,2.7] priority=80
     path_text primary[height=9 color=c203] priority=6200
   z16
-    line width=1 color=c273 join=round cap=round dash=[5.4,2.7] priority=80
+    line width=1 color=c274 join=round cap=round dash=[5.4,2.7] priority=80
     path_text primary[height=9 color=c203] priority=6200
   z17
-    line width=1 color=c273 join=round cap=round dash=[5.4,2.7] priority=80
+    line width=1 color=c274 join=round cap=round dash=[5.4,2.7] priority=80
     path_text primary[height=10 color=c203] priority=6200
   z18
-    line width=1 color=c273 join=round cap=round dash=[5.4,2.7] priority=80
+    line width=1 color=c274 join=round cap=round dash=[5.4,2.7] priority=80
     path_text primary[height=10 color=c203] priority=6200
   z19
-    line width=1 color=c273 join=round cap=round dash=[5.4,2.7] priority=80
+    line width=1 color=c274 join=round cap=round dash=[5.4,2.7] priority=80
     path_text primary[height=10 color=c203] priority=6200
   z20
-    line width=1 color=c273 join=round cap=round dash=[5.4,2.7] priority=80
+    line width=1 color=c274 join=round cap=round dash=[5.4,2.7] priority=80
     path_text primary[height=10 color=c203] priority=6200
 type shop
   z18
@@ -24527,7 +24543,7 @@ type waterway-access_point
     symbol name=waterway-access_point-m priority=120
 type waterway-canal
   z12
-    line width=1 color=c274 join=bevel cap=butt priority=-990
+    line width=1 color=c275 join=bevel cap=butt priority=-990
   z13
     line width=1.3 color=c223 join=round cap=butt priority=-990
     path_text primary[height=10 color=c203 stroke=c225] priority=2900
@@ -24554,30 +24570,30 @@ type waterway-canal
     path_text primary[height=12 color=c203 stroke=c225] priority=2900
 type waterway-dam
   z14
-    line width=1.5 color=c275 join=round cap=butt priority=30
+    line width=1.5 color=c276 join=round cap=butt priority=30
     area color=c131 priority=30
   z15
-    line width=2 color=c275 join=round cap=butt priority=30
-    area color=c276 priority=30
+    line width=2 color=c276 join=round cap=butt priority=30
+    area color=c277 priority=30
     path_text primary[height=10 color=c082] priority=3150
   z16
-    line width=3 color=c275 join=round cap=round priority=30
-    area color=c276 border[width=1 color=c134 join=round cap=round] priority=30
+    line width=3 color=c276 join=round cap=round priority=30
+    area color=c277 border[width=1 color=c134 join=round cap=round] priority=30
     path_text primary[height=10 color=c082] priority=3150
   z17
-    line width=4.5 color=c275 join=round cap=round priority=30
+    line width=4.5 color=c276 join=round cap=round priority=30
     area color=c136 border[width=1 color=c137 join=round cap=round] priority=30
     path_text primary[height=10 color=c082] priority=3150
   z18
-    line width=6 color=c275 join=round cap=round priority=30
+    line width=6 color=c276 join=round cap=round priority=30
     area color=c136 border[width=1 color=c137 join=round cap=round] priority=30
     path_text primary[height=10 color=c082] priority=3150
   z19
-    line width=8 color=c275 join=round cap=round priority=30
+    line width=8 color=c276 join=round cap=round priority=30
     area color=c136 border[width=1 color=c137 join=round cap=round] priority=30
     path_text primary[height=10 color=c082] priority=3150
   z20
-    line width=8 color=c275 join=round cap=round priority=30
+    line width=8 color=c276 join=round cap=round priority=30
     area color=c136 border[width=1 color=c137 join=round cap=round] priority=30
     path_text primary[height=10 color=c082] priority=3150
 type waterway-ditch
@@ -24726,7 +24742,7 @@ type waterway-river
     path_text primary[height=12 color=c203 stroke=c225] priority=3150
 type waterway-stream
   z12
-    line width=1 color=c274 join=bevel cap=butt priority=-990
+    line width=1 color=c275 join=bevel cap=butt priority=-990
   z13
     line width=1.3 color=c223 join=round cap=butt priority=-990
     path_text primary[height=10 color=c203 stroke=c225] priority=2900
@@ -24836,24 +24852,24 @@ type waterway-waterfall
     caption primary[height=12 color=c082 dy=1 optional] priority=-4200
 type waterway-weir
   z14
-    line width=1.5 color=c275 join=round cap=butt priority=330
+    line width=1.5 color=c276 join=round cap=butt priority=330
   z15
-    line width=2 color=c275 join=round cap=butt priority=330
+    line width=2 color=c276 join=round cap=butt priority=330
     path_text primary[height=10 color=c082] priority=2900
   z16
-    line width=3 color=c275 join=round cap=round priority=330
+    line width=3 color=c276 join=round cap=round priority=330
     path_text primary[height=10 color=c082] priority=2900
   z17
-    line width=4.5 color=c275 join=round cap=round priority=330
+    line width=4.5 color=c276 join=round cap=round priority=330
     path_text primary[height=10 color=c082] priority=2900
   z18
-    line width=6 color=c275 join=round cap=round priority=330
+    line width=6 color=c276 join=round cap=round priority=330
     path_text primary[height=10 color=c082] priority=2900
   z19
-    line width=8 color=c275 join=round cap=round priority=330
+    line width=8 color=c276 join=round cap=round priority=330
     path_text primary[height=10 color=c082] priority=2900
   z20
-    line width=8 color=c275 join=round cap=round priority=330
+    line width=8 color=c276 join=round cap=round priority=330
     path_text primary[height=10 color=c082] priority=2900
 type xmas:feature-market
   z15
