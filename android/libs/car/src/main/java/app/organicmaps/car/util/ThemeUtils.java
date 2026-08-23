@@ -48,14 +48,14 @@ public final class ThemeUtils
   private static final String THEME_KEY = "ANDROID_AUTO_THEME_MODE";
 
   @UiThread
-  public static void update(@NonNull CarContext context)
+  public static void update(@NonNull CarContext context, boolean isRenderingActive)
   {
     final ThemeMode oldThemeMode = getThemeMode(context);
-    update(context, oldThemeMode);
+    update(context, oldThemeMode, isRenderingActive);
   }
 
   @UiThread
-  public static void update(@NonNull CarContext context, @NonNull ThemeMode oldThemeMode)
+  public static void update(@NonNull CarContext context, @NonNull ThemeMode oldThemeMode, boolean isRenderingActive)
   {
     final ThemeMode newThemeMode =
         oldThemeMode == ThemeMode.AUTO ? (context.isDarkMode() ? ThemeMode.NIGHT : ThemeMode.LIGHT) : oldThemeMode;
@@ -66,16 +66,23 @@ public final class ThemeUtils
     else
       newMapStyle = RoutingController.get().isVehicleNavigation() ? MapStyle.VehicleClear : MapStyle.Clear;
 
-    if (MapStyle.get() != newMapStyle)
+    if (MapStyle.get() == newMapStyle)
+      return;
+
+    // If rendering is not active we can mark map style, because all graphics
+    // will be recreated after rendering activation.
+    if (isRenderingActive)
       MapStyle.set(newMapStyle);
+    else
+      MapStyle.mark(newMapStyle);
   }
 
   @SuppressLint("ApplySharedPref")
   @UiThread
-  public static void setThemeMode(@NonNull CarContext context, @NonNull ThemeMode themeMode)
+  public static void setThemeMode(@NonNull CarContext context, @NonNull ThemeMode themeMode, boolean isRenderingActive)
   {
     getSharedPreferences(context).edit().putString(THEME_KEY, themeMode.getConfig().value).commit();
-    update(context, themeMode);
+    update(context, themeMode, isRenderingActive);
   }
 
   @NonNull
