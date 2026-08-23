@@ -694,6 +694,10 @@ void RuleDrawer::DrawTerrainShade(terrain::TileMesh const & mesh)
   // highlight half maps to [0, 1]; the shadow half maps to [-2, 0] and the shader
   // clamps it to -1, so the steepest shadows share the max alpha (an intended floor:
   // normalizing by 1 + kFlatIntensity instead would dilute the mid-slope contrast).
+  // The shadow half is gamma-lifted: the gentle slopes get a visible shade long before
+  // the steep ones saturate (0.1 of the linear response reads as 0.32), the shadow
+  // carries the relief; the highlight half stays linear and only accents it.
+  double constexpr kShadowGamma = 0.5;
   std::vector<float> intensities(points.size(), 0.0f);
   for (size_t i = 0; i < normals.size(); ++i)
   {
@@ -702,8 +706,11 @@ void RuleDrawer::DrawTerrainShade(terrain::TileMesh const & mesh)
     if (len < 1e-15)
       continue;
     double const intensity = (n.m_nx * kLightX + n.m_ny * kLightY + n.m_nz * kLightZ) / len;
-    intensities[i] = static_cast<float>((intensity - kFlatIntensity) /
-                                        (intensity < kFlatIntensity ? kFlatIntensity : 1.0 - kFlatIntensity));
+    double relative =
+        (intensity - kFlatIntensity) / (intensity < kFlatIntensity ? kFlatIntensity : 1.0 - kFlatIntensity);
+    if (relative < 0.0)
+      relative = -std::pow(-relative, kShadowGamma);
+    intensities[i] = static_cast<float>(relative);
   }
 
   // Pass 3: clip to the tile (the alpha layer must not double-blend across the tiles)
