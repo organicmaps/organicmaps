@@ -39,6 +39,12 @@ class BottomMenuLayersCell: UITableViewCell {
     }
   }
 
+  @IBOutlet private var trafficButton: BottomMenuLayerButton! {
+    didSet {
+      updateTrafficButton()
+    }
+  }
+
   var onClose: (() -> Void)?
 
   override func awakeFromNib() {
@@ -55,6 +61,7 @@ class BottomMenuLayersCell: UITableViewCell {
     cyclingButton.setupWith(image: UIImage(resource: .btnMenuCycling), text: L("button_layer_cycling"))
     subwayButton.setupWith(image: UIImage(resource: .btnMenuSubway), text: L("button_layer_subway"))
     satelliteButton.setupWith(image: UIImage(resource: .btnMenuSatellite), text: L("button_layer_satellite"))
+    trafficButton.setupWith(image: UIImage(resource: .btnMenuTraffic), text: L("button_layer_traffic"))
   }
 
   deinit {
@@ -97,6 +104,13 @@ class BottomMenuLayersCell: UITableViewCell {
     satelliteButton.setLayerEnabled(Settings.backgroundTilesEnabled())
   }
 
+  private func updateTrafficButton() {
+    // The Traffic toggle is a quick on/off for the layer; the data source key lives in Settings,
+    // so only show the button once a key is set.
+    trafficButton.isHidden = Settings.trafficApiKey().isEmpty
+    trafficButton.setLayerEnabled(MapOverlayManager.trafficEnabled())
+  }
+
   @IBAction func onCloseButtonPressed(_: Any) {
     onClose?()
   }
@@ -137,6 +151,11 @@ class BottomMenuLayersCell: UITableViewCell {
     updateSatelliteButton()
   }
 
+  @IBAction func onTrafficButton(_: Any) {
+    MapOverlayManager.setTrafficEnabled(!MapOverlayManager.trafficEnabled())
+    updateTrafficButton()
+  }
+
   private func showUpdateToastIfNeeded() {
     if FrameworkHelper.needUpdateForRoutes() {
       Toast.show(withText: L("routes_update_maps_text"), alignment: .top)
@@ -152,6 +171,7 @@ extension BottomMenuLayersCell: MapOverlayManagerObserver {
     updateHikingButton()
     updateCyclingButton()
     updateSatelliteButton()
+    updateTrafficButton()
   }
 }
 

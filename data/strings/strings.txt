@@ -7299,6 +7299,26 @@ vi = Nguồn ô tùy chỉnh do bạn cung cấp. Chỉ sử dụng các dịch 
 zh-Hans = 自定义瓦片源由您自行提供。请仅使用您有权访问的服务。署名、许可条款、API 密钥、配额和使用限制由您自行负责。
 zh-Hant = 自訂圖磚來源由您自行提供。請僅使用您有權存取的服務。出處標示、授權條款、API 金鑰、配額與使用限制由您自行負責。
 
+[pref_traffic_title]
+comment = Settings: title of the live traffic data screen
+tags = android-app,apple-maps
+en = Live Traffic Data
+
+[pref_traffic_api_key_title]
+comment = Settings «Live Traffic Data»: title of the traffic provider API key input field
+tags = android-app,apple-maps
+en = API Key
+
+[pref_traffic_key_error]
+comment = Settings «Live Traffic Data»: error shown when the entered API key has an invalid format
+tags = android-app,apple-maps
+en = The key format looks invalid (expected a short code of letters and digits).
+
+[pref_traffic_disclaimer]
+comment = Settings «Live Traffic Data»: legal note about the third-party traffic data usage
+tags = android-app,apple-maps
+en = Live traffic data is provided by TomTom. You are responsible for the API key, its quota and TomTom's terms of use. An empty key falls back to the built-in traffic source.
+
 [pref_tts_enable_title]
 comment = Settings «Route» category: «Tts enabled» title
 tags = android-app,apple-maps

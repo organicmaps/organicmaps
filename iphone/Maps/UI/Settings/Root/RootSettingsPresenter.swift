@@ -139,6 +139,8 @@ final class RootSettingsPresenter {
                             kind: .switcher(isOn: state.transliteration, isEnabled: true)),
       SettingsItemViewModel(setting: .mapTiles,
                             kind: .link),
+      SettingsItemViewModel(setting: .traffic,
+                            kind: .link),
     ]
   }
 

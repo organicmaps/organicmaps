@@ -22,6 +22,7 @@ enum RootSettings: String, Hashable {
   case appearance
   case iCloud
   case mapTiles
+  case traffic
   case logging
   case perspectiveView
   case autoZoom
@@ -67,6 +68,7 @@ extension RootSettings {
     case .appearance: return L("pref_appearance_title")
     case .iCloud: return "iCloud Synchronization (Beta)"
     case .mapTiles: return L("pref_bg_tiles_title")
+    case .traffic: return L("pref_traffic_title")
     case .logging: return L("enable_logging")
     case .perspectiveView: return L("pref_map_3d_title")
     case .autoZoom: return L("pref_map_auto_zoom")
@@ -89,6 +91,7 @@ extension RootSettings {
     case .voiceInstructions: return .voiceInstructions
     case .routingOptions: return .drivingOptions
     case .mapTiles: return .mapTiles
+    case .traffic: return .traffic
     case .zoomButtons,
          .buildings3D,
          .autoDownload,

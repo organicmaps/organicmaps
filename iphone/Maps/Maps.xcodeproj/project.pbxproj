@@ -44,6 +44,9 @@
 		A10000000000000000000018 /* MapTilesSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000010 /* MapTilesSettingsInteractor.swift */; };
 		A10000000000000000000019 /* MapTilesSettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000011 /* MapTilesSettingsModels.swift */; };
 		A1000000000000000000001A /* MapTilesSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000012 /* MapTilesSettingsPresenter.swift */; };
+		A1000000000000000000005D /* TrafficSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000005A /* TrafficSettingsInteractor.swift */; };
+		A1000000000000000000005E /* TrafficSettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000005B /* TrafficSettingsModels.swift */; };
+		A1000000000000000000005F /* TrafficSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000005C /* TrafficSettingsPresenter.swift */; };
 		A10000000000000000000020 /* MobileInternetSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000024 /* MobileInternetSettingsInteractor.swift */; };
 		A10000000000000000000021 /* MobileInternetSettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000025 /* MobileInternetSettingsModels.swift */; };
 		A10000000000000000000022 /* MobileInternetSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000026 /* MobileInternetSettingsPresenter.swift */; };
@@ -615,6 +618,7 @@
 		ED82C8212F90186900FA103D /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C81C2F90186900FA103D /* Common.swift */; };
 		ED86256B2FEECAB70057BF82 /* SettingsMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED86256A2FEECAB70057BF82 /* SettingsMessageCell.swift */; };
 		ED86256C2FEECAB70057BF82 /* MWMSettings+MapTiles.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED86256E2FEECAB70057BF82 /* MWMSettings+MapTiles.mm */; };
+		ED86257A2FEECAB70057BF82 /* MWMSettings+Traffic.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED86257C2FEECAB70057BF82 /* MWMSettings+Traffic.mm */; };
 		ED8A91E02D759B50009E063B /* LocalizableTypes.strings in Resources */ = {isa = PBXBuildFile; fileRef = ED8A91DE2D759B50009E063B /* LocalizableTypes.strings */; };
 		ED8F0F852FE962BF00780C0F /* SettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8F0F842FE962BF00780C0F /* SettingsModels.swift */; };
 		ED91432C300168020081DF0B /* MainSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED91432B300168020081DF0B /* MainSceneDelegate.swift */; };
@@ -853,6 +857,9 @@
 		A10000000000000000000010 /* MapTilesSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTilesSettingsInteractor.swift; sourceTree = "<group>"; };
 		A10000000000000000000011 /* MapTilesSettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTilesSettingsModels.swift; sourceTree = "<group>"; };
 		A10000000000000000000012 /* MapTilesSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTilesSettingsPresenter.swift; sourceTree = "<group>"; };
+		A1000000000000000000005A /* TrafficSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficSettingsInteractor.swift; sourceTree = "<group>"; };
+		A1000000000000000000005B /* TrafficSettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficSettingsModels.swift; sourceTree = "<group>"; };
+		A1000000000000000000005C /* TrafficSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficSettingsPresenter.swift; sourceTree = "<group>"; };
 		A10000000000000000000024 /* MobileInternetSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileInternetSettingsInteractor.swift; sourceTree = "<group>"; };
 		A10000000000000000000025 /* MobileInternetSettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileInternetSettingsModels.swift; sourceTree = "<group>"; };
 		A10000000000000000000026 /* MobileInternetSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileInternetSettingsPresenter.swift; sourceTree = "<group>"; };
@@ -1655,6 +1662,8 @@
 		ED86256A2FEECAB70057BF82 /* SettingsMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMessageCell.swift; sourceTree = "<group>"; };
 		ED86256D2FEECAB70057BF82 /* MWMSettings+MapTiles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMSettings+MapTiles.h"; sourceTree = "<group>"; };
 		ED86256E2FEECAB70057BF82 /* MWMSettings+MapTiles.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "MWMSettings+MapTiles.mm"; sourceTree = "<group>"; };
+		ED86257B2FEECAB70057BF82 /* MWMSettings+Traffic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMSettings+Traffic.h"; sourceTree = "<group>"; };
+		ED86257C2FEECAB70057BF82 /* MWMSettings+Traffic.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "MWMSettings+Traffic.mm"; sourceTree = "<group>"; };
 		ED8A91DF2D759B50009E063B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
 		ED8A91E32D759B59009E063B /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
 		ED8A91E42D759B61009E063B /* az */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = az; path = az.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
@@ -2018,6 +2027,16 @@
 				A10000000000000000000012 /* MapTilesSettingsPresenter.swift */,
 			);
 			path = MapTiles;
+			sourceTree = "<group>";
+		};
+		A10000000000000000000060 /* Traffic */ = {
+			isa = PBXGroup;
+			children = (
+				A1000000000000000000005B /* TrafficSettingsModels.swift */,
+				A1000000000000000000005A /* TrafficSettingsInteractor.swift */,
+				A1000000000000000000005C /* TrafficSettingsPresenter.swift */,
+			);
+			path = Traffic;
 			sourceTree = "<group>";
 		};
 		A10000000000000000000027 /* MobileInternet */ = {
@@ -3457,6 +3476,7 @@
 				A1000000000000000000000A /* SettingsViewController.swift */,
 				ED0C36262FE5A37900CAF853 /* Root */,
 				A1000000000000000000001C /* MapTiles */,
+				A10000000000000000000060 /* Traffic */,
 				A10000000000000000000027 /* MobileInternet */,
 				A1000000000000000000002D /* DrivingOptions */,
 				A10000000000000000000034 /* BookmarksTextPlacement */,
@@ -3775,6 +3795,8 @@
 				ED82C6EA2F90186300FA103D /* MWMSettings.mm */,
 				ED86256D2FEECAB70057BF82 /* MWMSettings+MapTiles.h */,
 				ED86256E2FEECAB70057BF82 /* MWMSettings+MapTiles.mm */,
+				ED86257B2FEECAB70057BF82 /* MWMSettings+Traffic.h */,
+				ED86257C2FEECAB70057BF82 /* MWMSettings+Traffic.mm */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -4717,6 +4739,7 @@
 				ED82C7762F90186300FA103D /* MWMRoutingOptions.mm in Sources */,
 				ED82C7772F90186300FA103D /* MWMSettings.mm in Sources */,
 				ED86256C2FEECAB70057BF82 /* MWMSettings+MapTiles.mm in Sources */,
+				ED86257A2FEECAB70057BF82 /* MWMSettings+Traffic.mm in Sources */,
 				ED82C7782F90186300FA103D /* MWMStorage+UI.m in Sources */,
 				ED82C7792F90186300FA103D /* LocaleTranslator.mm in Sources */,
 				ED82C77A2F90186300FA103D /* MWMTextToSpeech.mm in Sources */,
@@ -4963,6 +4986,9 @@
 				A10000000000000000000018 /* MapTilesSettingsInteractor.swift in Sources */,
 				A10000000000000000000019 /* MapTilesSettingsModels.swift in Sources */,
 				A1000000000000000000001A /* MapTilesSettingsPresenter.swift in Sources */,
+				A1000000000000000000005D /* TrafficSettingsInteractor.swift in Sources */,
+				A1000000000000000000005E /* TrafficSettingsModels.swift in Sources */,
+				A1000000000000000000005F /* TrafficSettingsPresenter.swift in Sources */,
 				A10000000000000000000020 /* MobileInternetSettingsInteractor.swift in Sources */,
 				A10000000000000000000021 /* MobileInternetSettingsModels.swift in Sources */,
 				A10000000000000000000022 /* MobileInternetSettingsPresenter.swift in Sources */,
