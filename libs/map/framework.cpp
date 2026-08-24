@@ -1,6 +1,7 @@
 #include "map/framework.hpp"
 #include "base/assert.hpp"
 #include "map/benchmark_tools.hpp"
+#include "map/flow_tiles_provider.hpp"
 #include "map/gps_tracker.hpp"
 #include "map/place_page_info.hpp"
 #include "map/raster_tile_provider.hpp"
@@ -98,6 +99,7 @@ std::string_view constexpr kAllow3dKey = "Allow3d";
 std::string_view constexpr kAllow3dBuildingsKey = "Buildings3d";
 std::string_view constexpr kAllowAutoZoom = "AutoZoom";
 std::string_view constexpr kTrafficEnabledKey = "TrafficEnabled";
+std::string_view constexpr kTrafficApiKeyKey = "TrafficApiKey";
 std::string_view constexpr kTransitSchemeEnabledKey = "TransitSchemeEnabled";
 std::string_view constexpr kIsolinesEnabledKey = "IsolinesEnabled";
 std::string_view constexpr kOutdoorsEnabledKey = "OutdoorsEnabled";
@@ -332,7 +334,8 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
 { return m_stringsBundle; }, [this]() -> power_management::PowerManager const & { return m_powerManager; }),
                      static_cast<RoutingManager::Delegate &>(*this))
   , m_trafficManager(std::bind(&Framework::GetMwmsByRect, this, _1, false /* rough */), kMaxTrafficCacheSizeBytes,
-                     m_routingManager.RoutingSession())
+                     m_routingManager.RoutingSession(),
+                     traffic::CreateFlowTilesProvider(m_featuresFetcher.GetDataSource(), GetTrafficApiKey()))
   , m_lastReportedCountry(kInvalidCountryId)
   , m_descriptionsLoader(std::make_unique<descriptions::Loader>(m_featuresFetcher.GetDataSource()))
   , m_selectionProcessor(*this)
@@ -412,10 +415,10 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   editor.SetDelegate(std::make_unique<search::EditorDelegate>(m_featuresFetcher.GetDataSource()));
   editor.SetInvalidateFn([this]() { Invalidate(); });
 
-  /// @todo Uncomment when we will integrate a traffic provider.
-  // m_trafficManager.SetCurrentDataVersion(m_storage.GetCurrentDataVersion());
-  // m_trafficManager.SetSimplifiedColorScheme(LoadTrafficSimplifiedColors());
-  // m_trafficManager.SetEnabled(LoadTrafficEnabled());
+  m_trafficManager.SetCurrentDataVersion(m_storage.GetCurrentDataVersion());
+  m_trafficManager.SetSimplifiedColorScheme(LoadTrafficSimplifiedColors());
+  // Traffic downloads stay disabled until a data provider is configured (see TRAFFIC_DATA_BASE_URL).
+  m_trafficManager.SetEnabled(LoadTrafficEnabled());
 
   m_isolinesManager.SetEnabled(LoadIsolinesEnabled());
 
@@ -2927,6 +2930,30 @@ bool Framework::IsWellFormedBackgroundTilesURL(std::string const & url)
   // Require all three placeholders present literally (braces must not be percent-encoded).
   return url.find("{z}") != std::string::npos && url.find("{x}") != std::string::npos &&
          url.find("{y}") != std::string::npos;
+}
+
+std::string Framework::GetTrafficApiKey()
+{
+  std::string apiKey;
+  settings::TryGet(kTrafficApiKeyKey, apiKey);
+  return apiKey;
+}
+
+void Framework::SetTrafficApiKey(std::string const & apiKey)
+{
+  settings::Set(kTrafficApiKeyKey, apiKey);
+  m_trafficManager.SetProvider(traffic::CreateFlowTilesProvider(m_featuresFetcher.GetDataSource(), apiKey));
+}
+
+bool Framework::IsWellFormedTrafficApiKey(std::string const & apiKey)
+{
+  if (apiKey.size() < 8 || apiKey.size() > 128)
+    return false;
+  return std::all_of(apiKey.begin(), apiKey.end(), [](char c)
+  {
+    auto const uc = static_cast<strings::UniChar>(static_cast<uint8_t>(c));
+    return strings::IsASCIILatin(uc) || strings::IsASCIIDigit(uc);
+  });
 }
 
 void Framework::ApplyMapLanguageCode(std::string const & langCode)

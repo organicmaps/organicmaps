@@ -77,6 +77,7 @@ public:
     EnableTraffic,
     FlushTrafficGeometry,
     RegenerateTraffic,
+    InvalidateTrafficTiles,
     UpdateTraffic,
     FlushTrafficData,
     ClearTrafficData,

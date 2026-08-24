@@ -74,6 +74,7 @@ public:
   TrafficInfo() = default;
 
   TrafficInfo(MwmSet::MwmId const & mwmId, int64_t currentDataVersion);
+  TrafficInfo(MwmSet::MwmId const & mwmId, Coloring && coloring);
 
   static TrafficInfo BuildForTesting(Coloring && coloring);
   void SetTrafficKeysForTesting(std::vector<RoadSegmentId> const & keys);

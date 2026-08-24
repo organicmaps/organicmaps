@@ -763,6 +763,12 @@ void DrapeEngine::EnableTraffic(bool trafficEnabled)
                                   make_unique_dp<EnableTrafficMessage>(trafficEnabled), MessagePriority::Normal);
 }
 
+void DrapeEngine::InvalidateTrafficTiles()
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<InvalidateTrafficTilesMessage>(), MessagePriority::Normal);
+}
+
 void DrapeEngine::UpdateTraffic(traffic::TrafficInfo const & info)
 {
   if (info.GetColoring().empty())
