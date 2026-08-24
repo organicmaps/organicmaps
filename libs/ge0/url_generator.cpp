@@ -26,7 +26,7 @@ std::string TransformName(std::string const & s)
 // URL restricted / unsafe / unwise characters are %-encoded.
 // See rfc3986, rfc1738, rfc2396.
 //
-// Not compatible with the url encode function from coding/.
+// Unlike url::UrlEncode(), keeps non-ASCII bytes raw so shared links stay short and readable.
 std::string UrlEncodeString(std::string const & s)
 {
   std::string result;
