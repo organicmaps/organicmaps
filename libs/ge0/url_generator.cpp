@@ -94,6 +94,7 @@ std::string UrlEncodeString(std::string const & s)
     case ']':
     case '{':
     case '}':
+    case '\\':
     case '|':
     case '^':
     case '`':
