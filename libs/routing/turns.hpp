@@ -9,6 +9,7 @@
 
 #include "geometry/point2d.hpp"
 
+#include <cstdint>
 #include <limits>
 #include <string>
 #include <vector>
@@ -30,6 +31,7 @@ struct SegmentRange
   void Clear();
   bool IsEmpty() const;
   FeatureID const & GetFeature() const;
+  bool IsForward() const { return m_forward; }
   /// \returns true if the instance of SegmentRange is correct.
   bool IsCorrect() const;
   /// \brief Fills |segment| with the first segment of this SegmentRange.
@@ -104,6 +106,32 @@ enum class CarDirection
 
 std::string DebugPrint(CarDirection const l);
 
+enum class RoundaboutDirection : uint8_t
+{
+  Unknown = 0,
+  Clockwise,
+  CounterClockwise
+};
+
+std::string DebugPrint(RoundaboutDirection direction);
+
+struct RoundaboutInfo
+{
+  bool operator==(RoundaboutInfo const &) const = default;
+
+  // Sweep from the roundabout entrance to the exit, rounded to degrees in [1, 360], or 0 when an
+  // angle cannot be derived reliably.
+  uint16_t m_exitAngle = 0;
+  // Circulation as actually driven, measured from geometry and independent of regional traffic rules.
+  RoundaboutDirection m_direction = RoundaboutDirection::Unknown;
+  // True when the route's exit from this roundabout is known. FixupCarTurns() sets it on the entry
+  // maneuver too, so it distinguishes an entry-only maneuver from a paired entry and exit when the
+  // exit angle is unavailable.
+  bool m_hasExit = false;
+};
+
+std::string DebugPrint(RoundaboutInfo const & info);
+
 /*!
  * \warning The values of PedestrianDirectionType shall be synchronized with values in java
  */
@@ -145,7 +173,7 @@ struct TurnItem
   bool operator==(TurnItem const & rhs) const
   {
     return m_index == rhs.m_index && m_turn == rhs.m_turn && m_lanes == rhs.m_lanes && m_exitNum == rhs.m_exitNum &&
-           m_pedestrianTurn == rhs.m_pedestrianTurn;
+           m_roundaboutInfo == rhs.m_roundaboutInfo && m_pedestrianTurn == rhs.m_pedestrianTurn;
   }
 
   bool IsTurnReachedYourDestination() const
@@ -160,6 +188,7 @@ struct TurnItem
   CarDirection m_turn = CarDirection::None; /*!< The turn instruction of the TurnItem */
   lanes::LanesInfo m_lanes;                 /*!< Lane information on the edge before the turn. */
   uint32_t m_exitNum;                       /*!< Number of exit on roundabout. */
+  RoundaboutInfo m_roundaboutInfo;
   /*!
    * \brief m_pedestrianTurn is type of corresponding direction for a pedestrian, or None
    * if there is no pedestrian specific direction
