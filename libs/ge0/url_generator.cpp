@@ -22,86 +22,26 @@ std::string TransformName(std::string const & s)
   return result;
 }
 
-// URL-encodes string |s|.
-// URL restricted / unsafe / unwise characters are %-encoded.
-// See rfc3986, rfc1738, rfc2396.
-//
-// Not compatible with the url encode function from coding/.
+// Percent-encodes everything except the RFC 3986 unreserved set, but passes raw UTF-8 bytes through unescaped to keep
+// shared links short and readable - the only difference from url::UrlEncode().
 std::string UrlEncodeString(std::string const & s)
 {
   std::string result;
   result.reserve(s.size() * 3 + 1);
-  for (size_t i = 0; i < s.size(); ++i)
+  for (auto const ch : s)
   {
-    auto const c = static_cast<unsigned char>(s[i]);
-    switch (c)
+    auto const c = static_cast<unsigned char>(ch);
+    bool const keepRaw = (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') || c == '-' ||
+                         c == '.' || c == '_' || c == '~' || c >= 0x80;
+    if (keepRaw)
     {
-    case 0x00:
-    case 0x01:
-    case 0x02:
-    case 0x03:
-    case 0x04:
-    case 0x05:
-    case 0x06:
-    case 0x07:
-    case 0x08:
-    case 0x09:
-    case 0x0A:
-    case 0x0B:
-    case 0x0C:
-    case 0x0D:
-    case 0x0E:
-    case 0x0F:
-    case 0x10:
-    case 0x11:
-    case 0x12:
-    case 0x13:
-    case 0x14:
-    case 0x15:
-    case 0x16:
-    case 0x17:
-    case 0x18:
-    case 0x19:
-    case 0x1A:
-    case 0x1B:
-    case 0x1C:
-    case 0x1D:
-    case 0x1E:
-    case 0x1F:
-    case 0x7F:
-    case ' ':
-    case '<':
-    case '>':
-    case '#':
-    case '%':
-    case '"':
-    case '!':
-    case '*':
-    case '\'':
-    case '(':
-    case ')':
-    case ';':
-    case ':':
-    case '@':
-    case '&':
-    case '=':
-    case '+':
-    case '$':
-    case ',':
-    case '/':
-    case '?':
-    case '[':
-    case ']':
-    case '{':
-    case '}':
-    case '|':
-    case '^':
-    case '`':
+      result += ch;
+    }
+    else
+    {
       result += '%';
       result += "0123456789ABCDEF"[c >> 4];
       result += "0123456789ABCDEF"[c & 15];
-      break;
-    default: result += s[i];
     }
   }
   return result;

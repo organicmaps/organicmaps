@@ -339,6 +339,12 @@ UNIT_TEST(GenerateShortShowMapUrl_ControlCharsAreEscaped)
   TEST_EQUAL("om://8wAAAAAAAA/Hello%09World%0A", res, ());
 }
 
+UNIT_TEST(GenerateShortShowMapUrl_BackslashIsEscaped)
+{
+  string res = GenerateShortShowMapUrl(0, 0, 19, "A\\B");
+  TEST_EQUAL("om://8wAAAAAAAA/A%5CB", res, ());
+}
+
 UNIT_TEST(GenerateShortShowMapUrl_Unicode)
 {
   string res = GenerateShortShowMapUrl(0, 0, 19, "\xe2\x98\x84");
