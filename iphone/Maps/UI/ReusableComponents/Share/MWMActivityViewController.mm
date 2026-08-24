@@ -83,17 +83,13 @@
 + (instancetype)shareControllerForMyPosition:(CLLocationCoordinate2D)location
 {
   MWMShareActivityItem * item = [[MWMShareActivityItem alloc] initForMyPositionAtLocation:location];
-  MWMActivityViewController * shareVC = [[self alloc] initWithActivityItems:@[item]];
-  shareVC.excludedActivityTypes = [shareVC.excludedActivityTypes arrayByAddingObject:UIActivityTypeAirDrop];
-  return shareVC;
+  return [[self alloc] initWithActivityItems:item.activityItems];
 }
 
 + (instancetype)shareControllerForCurrentPlacePage
 {
   MWMShareActivityItem * item = [[MWMShareActivityItem alloc] initForCurrentPlacePage];
-  MWMActivityViewController * shareVC = [[self alloc] initWithActivityItems:@[item]];
-  shareVC.excludedActivityTypes = [shareVC.excludedActivityTypes arrayByAddingObject:UIActivityTypeAirDrop];
-  return shareVC;
+  return [[self alloc] initWithActivityItems:item.activityItems];
 }
 
 + (instancetype)shareControllerForURL:(NSURL *)url
