@@ -519,8 +519,7 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
     /// RoutingSession::OnLocationPositionChanged will be called the last time.
     routingManager.RoutingSession().OnLocationPositionChanged(qt::common::MakeGpsInfo(point));
 
-    routing::FollowingInfo loc;
-    routingManager.GetRouteFollowingInfo(loc);
+    auto const loc = routingManager.GetRouteFollowingInfo();
     if (routingManager.GetCurrentRouterType() == routing::RouterType::Pedestrian)
     {
       LOG(LDEBUG, ("Distance:", loc.m_distToTarget, "Time:", loc.m_time, DebugPrint(loc.m_pedestrianTurn), "in",

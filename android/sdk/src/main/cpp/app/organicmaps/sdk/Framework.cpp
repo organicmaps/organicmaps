@@ -1302,8 +1302,7 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteFollowingInfo
   if (!rm.IsRoutingActive())
     return nullptr;
 
-  routing::FollowingInfo info;
-  rm.GetRouteFollowingInfo(info);
+  auto const info = rm.GetRouteFollowingInfo();
   if (!info.IsValid())
     return nullptr;
 
