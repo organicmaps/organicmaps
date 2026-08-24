@@ -136,6 +136,11 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
         getSettingsActivity().stackFragment(BgTilesSettingsFragment.class, getString(R.string.pref_bg_tiles_title),
                                             null);
       }
+      else if (key.equals(getString(R.string.pref_traffic_screen)))
+      {
+        getSettingsActivity().stackFragment(TrafficSettingsFragment.class, getString(R.string.pref_traffic_title),
+                                            null);
+      }
       else if (key.equals(getString(R.string.pref_help)))
       {
         startActivity(new Intent(requireActivity(), HelpActivity.class));

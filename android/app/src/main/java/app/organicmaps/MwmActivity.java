@@ -97,6 +97,7 @@ import app.organicmaps.sdk.location.LocationUtils;
 import app.organicmaps.sdk.location.SensorListener;
 import app.organicmaps.sdk.location.TrackRecorder;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesState;
+import app.organicmaps.sdk.maplayer.traffic.TrafficManager;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.search.SearchEngine;
@@ -609,7 +610,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mNavigationController = new NavigationController(
         this, v -> onSettingsOptionSelected(), v -> openVoiceInstructionsSettings(), this::updateBottomWidgetsOffset);
-    // TrafficManager.INSTANCE.attach(mNavigationController);
+    TrafficManager.INSTANCE.attach(mNavigationController);
     initOnmapDownloader();
     initPositionChooser();
   }
@@ -1024,6 +1025,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPostNotificationPermissionRequest = null;
     mPowerSaveSettings.unregister();
     mPowerSaveSettings = null;
+    TrafficManager.INSTANCE.detachAll();
     if (mRemoveDisplayListener && !isChangingConfigurations())
       mDisplayManager.removeListener(DisplayType.Device);
   }

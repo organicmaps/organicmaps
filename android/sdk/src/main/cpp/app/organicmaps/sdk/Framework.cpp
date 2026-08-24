@@ -907,6 +907,25 @@ JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetBackgroundTilesAreaOp
   return static_cast<jint>(frm()->GetBackgroundTilesAreaOpacity());
 }
 
+// Live traffic data source (Settings -> Live Traffic Data).
+JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetTrafficApiKey(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, Framework::GetTrafficApiKey());
+}
+
+// Persists the key and hot-swaps the running TrafficManager data source; an empty key restores
+// the built-in traffic source.
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetTrafficApiKey(JNIEnv * env, jclass, jstring apiKey)
+{
+  frm()->SetTrafficApiKey(jni::ToNativeString(env, apiKey));
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsWellFormedTrafficApiKey(JNIEnv * env, jclass,
+                                                                                      jstring apiKey)
+{
+  return static_cast<jboolean>(Framework::IsWellFormedTrafficApiKey(jni::ToNativeString(env, apiKey)));
+}
+
 JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetParsedBackUrl(JNIEnv * env, jclass)
 {
   std::string const & backUrl = frm()->GetParsedBackUrl();

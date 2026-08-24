@@ -132,6 +132,12 @@
       app:singleLineTitle="false"
       android:persistent="false"
       android:order="20"/>
+    <Preference
+      android:key="@string/pref_traffic_screen"
+      android:title="@string/pref_traffic_title"
+      app:singleLineTitle="false"
+      android:persistent="false"
+      android:order="21"/>
   </androidx.preference.PreferenceCategory>
 
   <androidx.preference.PreferenceCategory
