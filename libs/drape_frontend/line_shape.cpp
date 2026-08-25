@@ -353,7 +353,7 @@ void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
   // The dash phase is computed per-fragment from the continuous distance (see the dashed_line
   // shaders), so each spline section is emitted as a single segment with a monotonically growing
   // offset. Splitting the geometry here would reset the phase and create visible seams.
-  float offset = 0;
+  float offset = static_cast<float>(m_params.m_dashPhaseOffset);
   ForEachSplineSection([&](glsl::vec2 const & p1, glsl::vec2 const & p2, glsl::vec2 const &, float toDraw,
                            glsl::vec2 const & leftNormal, glsl::vec2 const & rightNormal, int)
   {
