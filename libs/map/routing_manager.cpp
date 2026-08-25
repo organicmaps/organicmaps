@@ -888,7 +888,7 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
     case RouterType::Bicycle:
     {
       subroute->m_routeType = df::RouteType::Bicycle;
-      subroute->AddStyle(df::SubrouteStyle(df::kRouteBicycle, df::RoutePattern(8.0, 2.0)));
+      subroute->AddStyle(df::SubrouteStyle(df::kRouteBicycle, df::kRouteBicycleOutline));
       if (isActive)
         FillTurnsDistancesForRendering(segments, subroute->m_baseDistance, subroute->m_turns);
       break;

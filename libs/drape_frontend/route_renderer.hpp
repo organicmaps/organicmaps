@@ -23,6 +23,7 @@ extern std::string const kRouteColor;
 extern std::string const kRouteOutlineColor;
 extern std::string const kRoutePedestrian;
 extern std::string const kRouteBicycle;
+extern std::string const kRouteBicycleOutline;
 extern std::string const kRouteRuler;
 extern std::string const kTransitStopInnerMarkerColor;
 
