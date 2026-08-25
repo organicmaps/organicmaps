@@ -104,10 +104,10 @@ line|z18-[cyclewaytag=lane],
 {width: 6.9; dashes: 27,6.0;}
 
 line|z14[cyclewaytag=shared_lane],
-{width: 2.3; dashes: 4.8,4.8;}
+{width: 2.3; dashes: 2.4,4.8;}
 line|z15[cyclewaytag=shared_lane],
-{width: 3.7; dashes: 4.8,4.8;}
+{width: 3.7; dashes: 3.6,4.8;}
 line|z16-17[cyclewaytag=shared_lane],
 {width: 5.7; dashes: 5.4,5.4;}
 line|z18-[cyclewaytag=shared_lane],
-{width: 6.6; dashes: 6.0,6.0;}
+{width: 6.6; dashes: 6.6,6.6;}
