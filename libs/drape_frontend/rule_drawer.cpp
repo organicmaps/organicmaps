@@ -322,7 +322,20 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s)
 void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s)
 {
   bool const isIsoline = m_isIsoline(f);
-  ApplyLineFeatureGeometry applyGeom(m_applyParams, f, m_relsSettings);
+  double dashPhaseOffset = 0.0;
+  bool dashPhaseReversed = false;
+  bool const hasDashedLine =
+      std::any_of(s.m_lineRules.begin(), s.m_lineRules.end(),
+                  [](drule::LineRule const * rule) { return rule->dashdot.has_value(); });
+  if (hasDashedLine)
+  {
+    if (auto const phase = m_context->GetMetalineManager()->GetDashPhase(f.GetID()))
+    {
+      dashPhaseOffset = phase->first;
+      dashPhaseReversed = phase->second;
+    }
+  }
+  ApplyLineFeatureGeometry applyGeom(m_applyParams, f, m_relsSettings, dashPhaseOffset, dashPhaseReversed);
   applyGeom.BuildGeometry(m_zoomLevel, isIsoline);
 
   if (applyGeom.HasGeometry())

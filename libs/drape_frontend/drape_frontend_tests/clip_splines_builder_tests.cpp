@@ -278,6 +278,24 @@ UNIT_TEST(ClipSplinesBuilder_LimitRect_Crossing)
   TestPath(builder, {P(-5, 5), P(15, 5)});
 }
 
+UNIT_TEST(ClipSplinesBuilder_ClippedSplineOffset)
+{
+  df::ApplyFeatureParams params;
+  params.m_tileKey = df::TileKey(0, 0, kNoSimplifyZoom);
+  params.m_tileRect = m2::RectD(5, -1, 15, 1);
+  params.m_minSegmentSqrLength = kMinSqr;
+
+  df::ClipSplinesBuilder builder(params);
+  MockTestFeature f({P(0, 0), P(10, 0), P(20, 0)});
+  builder.Build(f, kNoSimplifyZoom);
+
+  auto const splines = builder.Release(false /* isIsoline */, true /* needSplineOffsets */);
+  auto const & offsets = builder.GetSplineOffsets();
+  TEST_EQUAL(splines.size(), 1, ());
+  TEST_EQUAL(offsets.size(), splines.size(), ());
+  TEST_ALMOST_EQUAL_ABS(offsets.front(), 5.0, 1e-12, ());
+}
+
 UNIT_TEST(ClipSplinesBuilder_LimitRect_Isoline_InSmoothBand)
 {
   // Isoline feature whose limit rect is strictly outside tileRect but inside

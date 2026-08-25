@@ -49,7 +49,16 @@ m2::SharedSpline MetalineManager::GetMetaline(FeatureID const & fid) const
   auto const metalineIt = m_metalineCache.find(fid);
   if (metalineIt == m_metalineCache.end())
     return m2::SharedSpline();
-  return metalineIt->second;
+  return metalineIt->second.m_spline;
+}
+
+std::optional<std::pair<double, bool>> MetalineManager::GetDashPhase(FeatureID const & fid) const
+{
+  std::lock_guard<std::mutex> lock(m_metalineCacheMutex);
+  auto const it = m_metalineCache.find(fid);
+  if (it == m_metalineCache.end())
+    return {};
+  return std::pair(it->second.m_dashPhaseOffset, it->second.m_dashPhaseReversed);
 }
 
 void MetalineManager::OnTaskFinished(std::shared_ptr<ReadMetalineTask> const & task)
