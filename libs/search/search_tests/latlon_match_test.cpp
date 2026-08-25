@@ -189,4 +189,28 @@ UNIT_TEST(LatLon_Match_False)
   TEST(!MatchLatLonDegree("2 1st", lat, lon), ());
 }
 
+UNIT_TEST(LatLon_Match_SpaceSeparatedDMS)
+{
+  double lat, lon;
+
+  TEST(!MatchLatLonDegree("", lat, lon), ());
+
+  TEST(MatchLatLonDegree("37 00 27.73 N 08 56 41.59 W", lat, lon), ());
+  TestAlmostEqual(lat, 37.0077027777778);
+  TestAlmostEqual(lon, -8.94488611111111);
+
+  TEST(MatchLatLonDegree("W 08 56 41.59 N 37 00 27.73", lat, lon), ());
+  TestAlmostEqual(lat, 37.0077027777778);
+  TestAlmostEqual(lon, -8.94488611111111);
+
+  TEST(MatchLatLonDegree("37 00 27.73 s 08 56 41.59 e", lat, lon), ());
+  TestAlmostEqual(lat, -37.0077027777778);
+  TestAlmostEqual(lon, 8.94488611111111);
+
+  TEST(!MatchLatLonDegree("37 00 27.73 N 08 56 41.59 S", lat, lon), ());
+  TEST(!MatchLatLonDegree("37 60.1 27.73 N 08 56 41.59 W", lat, lon), ());
+  TEST(!MatchLatLonDegree("37 00 27.73 N 08 56 60.1 W", lat, lon), ());
+  TEST(!MatchLatLonDegree("37 00 27.73 N 08 56 41.59 W nearby", lat, lon), ());
+}
+
 }  // namespace latlon_match_test

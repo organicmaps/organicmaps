@@ -146,12 +146,90 @@ double EatDouble(char const * str, char ** strEnd)
 
   return strtod(str, strEnd);
 }
+
+bool SkipRequiredSpaces(char const *& s)
+{
+  char const * const start = s;
+  SkipSpaces(s);
+  return s != start;
+}
+
+bool IsCardinalDirection(char c)
+{
+  return c != 0 && strchr("NnSsEeWw", c) != nullptr;
+}
+
+bool MatchSpaceSeparatedDMS(std::string const & query, double & lat, double & lon)
+{
+  std::array<double, 6> values;
+  std::array<char, 2> directions = {};
+  char const * s = query.c_str();
+
+  for (size_t coordinate = 0; coordinate < directions.size(); ++coordinate)
+  {
+    SkipSpaces(s);
+    if (IsCardinalDirection(*s))
+    {
+      directions[coordinate] = *s++;
+      if (!SkipRequiredSpaces(s))
+        return false;
+    }
+
+    for (size_t part = 0; part < 3; ++part)
+    {
+      if (part > 0 && !SkipRequiredSpaces(s))
+        return false;
+
+      char * end;
+      auto & value = values[coordinate * 3 + part];
+      value = EatDouble(s, &end);
+      if (s == end || value < 0.0 || !std::isfinite(value) || (part > 0 && value > 60.0))
+        return false;
+      s = end;
+    }
+
+    if (directions[coordinate] == 0)
+    {
+      SkipSpaces(s);
+      if (!IsCardinalDirection(*s))
+        return false;
+      directions[coordinate] = *s++;
+    }
+
+    if (coordinate == 0 && !SkipRequiredSpaces(s))
+      return false;
+  }
+
+  SkipSpaces(s);
+  if (*s != 0)
+    return false;
+
+  std::array<bool, 2> assigned = {};
+  for (size_t coordinate = 0; coordinate < directions.size(); ++coordinate)
+  {
+    char const direction = directions[coordinate];
+    bool const isLatitude = strchr("NnSs", direction) != nullptr;
+    size_t const axis = isLatitude ? 0 : 1;
+    double value = values[coordinate * 3] + values[coordinate * 3 + 1] / 60.0 + values[coordinate * 3 + 2] / 3600.0;
+    if (assigned[axis] || value > (isLatitude ? 90.0 : 180.0))
+      return false;
+
+    if (strchr("SsWw", direction) != nullptr)
+      value = -value;
+    (isLatitude ? lat : lon) = value;
+    assigned[axis] = true;
+  }
+  return assigned[0] && assigned[1];
+}
 }  // namespace
 
 namespace search
 {
 bool MatchLatLonDegree(std::string const & query, double & lat, double & lon)
 {
+  if (MatchSpaceSeparatedDMS(query, lat, lon))
+    return true;
+
   // should be default initialization (0, false)
   std::array<std::pair<double, bool>, 6> v;
 
