@@ -1,28 +1,50 @@
-• La nova configuració «Desa l'historial de cerques» us ajuda a mantenir privat l'historial de cerques si cal
+### Mapa i llocs
 
-## Mapa i llocs
-• Dades d'OpenStreetMap a data de 14 de juliol
-• Les notes d'OpenStreetMap ara es col·loquen a la ubicació exacta que seleccioneu, en lloc del mig del bosc
-• Millorada la selecció de mapes per a regions que creuen l'antimeridià 180°
-• Els perfils d'elevació de les rutes ja no mostren gràfics obsolets o buits després de suprimir una ruta
-• Millorat el gràfic d'elevació buit de les rutes enregistrades
-• El botó per a suprimir els marcadors és més fàcil de trobar
-• Després de sortir de la pantalla d'edició, els marcadors es desen automàticament
-• La paleta de colors inclou colors predefinits i permet triar qualsevol color personalitzat
-• Altres millores de la interfície d'usuari
+• Dades d’OpenStreetMap actualitzades a 26 d’agost de 2026
+• Articles de la Viquipèdia actualitzats en àrab, bengalí, xinès, anglès, francès, alemany, hindi, italià, japonès, coreà, marati, polonès, portuguès, rus, espanyol, tàmil, telugu, turc i urdú
+• S’han afegit al mapa aguaits d’ocells, escenaris, turons i arcs rocosos, a més d’una nova icona per a les roques
+• S’ha canviat la mida de les icones de cims, coves i colls de muntanya
+• Les àrees protegides, els parcs nacionals i les zones humides ara es mostren en tons més clars
+• S’han solucionat molts problemes que feien que els horaris d’obertura es mostressin incorrectament
+• S’ha reorganitzat la configuració en les seccions «General», «Mapa», «Navegació», «Xarxa» i «Privadesa»
+• S’ha eliminat la configuració de calibratge de la brúixola perquè ara el calibratge es gestiona automàticament
+• S’han solucionat problemes amb la brúixola que podien fer que la fletxa de la posició actual apuntés en la direcció incorrecta o es congelés
+• El punt corresponent es mostra ara al mapa mentre arrossegues el dit pel perfil d’altitud en la previsualització d’una ruta de senderisme o ciclisme
+• S’han solucionat un bloqueig de l’aplicació i un problema que ocasionalment feia que s’ignoressin els tocs i els gestos
 
-## Transport públic
-• Els noms de les parades, les transferències i les estacions ara utilitzen un contorn blanc per mantenir-se llegibles tant en temes clars com foscos
-• La capa del metro reapareix correctament després de tancar la previsualització d'una ruta de transport públic
+### Compartició, marcadors i recorreguts
 
-## Rutes i navegació
-• S'han solucionat problemes amb indicacions incorrectes i que faltaven
-• Ara es mostren avisos de ruta (peatges, ferris, camins sense asfaltar, escales, etc.) per a totes les rutes alternatives
-• S'ha solucionat un bloqueig esporàdic en crear una ruta i s'ha millorat el tractament dels carrers sense sortida i dels punts d'inici/final en una via restringida
-• Millorat l'indicador de progrés de la ruta al botó d'inici
-• Reordenar les parades de la ruta ja no fa que la llista es mogui
+• NOU: s’ha afegit la selecció múltiple a les llistes de Marcadors i Recorreguts, amb accions agrupades per eliminar, moure i canviar el color dels elements seleccionats, a més de «Selecciona-ho tot» i «Desselecciona-ho tot»
+• S’ha afegit suport per a AirDrop per compartir llocs
+• Compartir un lloc, un marcador o la posició actual ara envia un enllaç llegible amb informació útil
+• Els marcadors exportats ara conserven els noms i les descripcions originals
+• Les llistes de marcadors compartides ara utilitzen el nom visible en lloc del nom de fitxer intern
+• S’ha corregit un problema de visualització del gràfic d’elevació que podia aparèixer immediatament després de començar a gravar un recorregut
+• S’ha restablert el selector de color personalitzat a la finestra emergent de la paleta de colors
+• S’ha corregit la representació de les descripcions HTML quan se selecciona un marcador al mapa
 
-## Traduccions
-• Millorada la redacció en xinès
-• Actualitzades les traduccions a l'ucraïnès
-• Corregides les traduccions de les regions del mapa a l'italià
+### Rutes i navegació
+
+• NOU: s’ha afegit un tauler de control de CarPlay i s’han solucionat diversos problemes de CarPlay
+• S’ha corregit l’activació de l’estil de mapa de navegació per a cotxe
+• Tocar una parada o una marca de la ruta ara l’obre correctament en lloc de canviar entre les rutes planificades
+• Les rutes de transport públic ara es calculen més ràpidament
+• S’han corregit instruccions de gir incorrectes
+• S’ha corregit un punt d’inici incorrecte després de recalcular una ruta
+• Durant la planificació de rutes, les carreteres de laterita ara es consideren carreteres amb una superfície no pavimentada de baixa qualitat
+• Les carreteres etiquetades com a `access=unknown` ara es tracten com a carreteres amb accés privat o només de destinació
+
+### Editor d’OpenStreetMap
+
+• S’ha corregit una fallada quan una pujada a OpenStreetMap s’acabava en segon pla
+• Buidar el camp d’horari d’obertura ja no deixa desactivats els botons «Desa» i «Fet»
+• Les pujades que fallen parcialment ara es tornen a provar en lloc de ser reportades com a completament reeixides
+
+### Traduccions
+
+• S’han afegit les instruccions de veu en armeni i laosià
+• S’ha actualitzat Ajuda/Preguntes freqüents (FAQ) i s’ha afegit la traducció al japonès
+• S’ha corregit la traducció al japonès d’«Ara és tancat»
+• S’han millorat les traduccions al xinès de «recorregut» i «desactiva»
+
+Consulteu les notes de la versió detallades a https://omaps.org/news/

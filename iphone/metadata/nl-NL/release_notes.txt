@@ -1,28 +1,50 @@
-• Met de nieuwe instelling „Zoekgeschiedenis opslaan“ kun je je zoekgeschiedenis indien nodig privé houden
+### Kaart & plaatsen
 
-## Kaart en plaatsen
-• OpenStreetMap-gegevens per 14 juli
-• OpenStreetMap-notities worden nu op de exacte locatie geplaatst die je selecteert, in plaats van midden in het bos
-• Verbeterde kaartselectie voor regio’s die de 180°-antimeridiaan doorkruisen
-• Hoogteprofielen van routes tonen geen verouderde of lege grafieken meer nadat een route is verwijderd
-• De lege hoogtegrafiek voor opgenomen routes is verbeterd
-• De knop voor het verwijderen van bladwijzers is gemakkelijker te vinden
-• Automatisch opslaan van bladwijzers wanneer je het bewerkingsscherm verlaat
-• Het kleurenpalet bevat vooraf gedefinieerde kleuren en biedt de mogelijkheid om elke gewenste kleur te kiezen
-• Overige verbeteringen aan de gebruikersinterface
+• Bijgewerkte OpenStreetMap-gegevens per 26 augustus 2026
+• Bijgewerkte Wikipedia-artikelen in het Arabisch, Bengaals, Chinees, Engels, Frans, Duits, Hindi, Italiaans, Japans, Koreaans, Marathi, Pools, Portugees, Russisch, Spaans, Tamil, Telugu, Turks en Urdu
+• Vogelkijkhutten, podia, heuvels en rotsbogen zijn aan de kaart toegevoegd, evenals een nieuw pictogram voor rotsen
+• De pictogrammen van bergtoppen, grotten en bergpassen zijn van formaat veranderd
+• Beschermde gebieden, nationale parken en wetlands worden nu in lichtere tinten weergegeven
+• Er zijn talrijke problemen verholpen waardoor de openingstijden onjuist werden weergegeven
+• De instellingen zijn opnieuw ingedeeld in de onderdelen ‘Algemeen’, ‘Kaart’, ‘Navigatie’, ‘Netwerk’ en ‘Privacy’
+• De instelling voor het kalibreren van het kompas is verwijderd, omdat de kalibratie nu automatisch wordt uitgevoerd
+• Problemen met het kompas zijn verholpen die ertoe konden leiden dat de pijl voor de huidige positie in de verkeerde richting wees of vastliep
+• Het bijbehorende punt wordt nu op de kaart weergegeven terwijl u met uw vinger over het hoogteprofiel sleept in het voorbeeld van een wandel- of fietsroute
+• Een vastlopen van de app en een probleem waardoor tikken en gebaren soms werden genegeerd, zijn verholpen
 
-## Openbaar vervoer
-• Namen van haltes, overstappunten en stations hebben nu een witte omtrek, zodat ze zowel in het lichte als het donkere thema goed leesbaar blijven
-• De metrolaag verschijnt weer correct nadat je het voorbeeld van een openbaarvervoerroute hebt gesloten
+### Delen, bladwijzers en tracks
 
-## Routebepaling en navigatie
-• Problemen met verkeerde en ontbrekende aanwijzingen zijn verholpen
-• Routewaarschuwingen (tolwegen, veerboten, onverharde wegen, trappen, enz.) worden nu voor alle alternatieve routes weergegeven
-• Een zeldzame vastloper tijdens het samenstellen van een route is verholpen en de afhandeling van doodlopende wegen en start-/eindpunten op een weg met beperkte toegang is verbeterd
-• De voortgang van de route op de startknop is verbeterd
-• Bij het herschikken van routehaltes springt de lijst niet meer heen en weer
+• NIEUW: meervoudige selectie toegevoegd aan de lijsten met bladwijzers en tracks, met batchacties om geselecteerde items te verwijderen, te verplaatsen en de kleur ervan te wijzigen, plus ‘Alles selecteren’ en ‘Selectie opheffen’
+• AirDrop-ondersteuning toegevoegd voor het delen van plaatsen
+• Wanneer u een plaats, bladwijzer of uw huidige positie deelt, wordt er nu een leesbare link met nuttige informatie verzonden
+• Geëxporteerde bladwijzers behouden nu hun oorspronkelijke namen en beschrijvingen
+• Gedeelde bladwijzerlijsten gebruiken nu hun weergegeven naam in plaats van de interne bestandsnaam
+• Een weergavefout in de hoogtegrafiek is verholpen die direct na het starten van een trackopname kon optreden
+• De aangepaste kleurenkiezer in het pop-upvenster van het kleurenpalet is hersteld
+• De weergave van HTML-beschrijvingen is gecorrigeerd wanneer een bladwijzer op de kaart wordt geselecteerd
 
-## Vertalingen
-• De Chinese bewoordingen zijn verbeterd
-• De Oekraïense vertalingen zijn bijgewerkt
-• De vertalingen van kaartregio’s in het Italiaans zijn gecorrigeerd
+### Routebepaling en navigatie
+
+• NIEUW: er is een CarPlay-dashboard toegevoegd en er zijn diverse CarPlay-problemen verholpen
+• De activering van de kaartstijl voor autonavigatie is gecorrigeerd
+• Als u nu op een routehalte of -markering tikt, wordt deze correct geopend in plaats van dat er wordt geschakeld tussen geplande routes
+• Routes voor het openbaar vervoer worden nu sneller berekend
+• Onjuiste afslaginstructies zijn gecorrigeerd
+• Een onjuist startpunt na het opnieuw berekenen van een route is verholpen
+• Laterietwegen worden bij de routeplanning nu behandeld als wegen met een onverhard wegdek van slechte kwaliteit
+• Wegen met de tag `access=unknown` worden nu behandeld als wegen met privétoegang of uitsluitend bestemmingsverkeer
+
+### OpenStreetMap-editor
+
+• Een crash is verholpen die optrad wanneer een upload naar OpenStreetMap op de achtergrond werd voltooid
+• Wanneer u het veld ‘Openingstijden’ leegmaakt, worden de knoppen ‘Bewaar’ en ‘Klaar’ niet langer uitgeschakeld
+• Uploads die gedeeltelijk mislukken, worden nu opnieuw geprobeerd in plaats van als volledig geslaagd te worden gerapporteerd
+
+### Vertalingen
+
+• Gesproken instructies in het Armeens en Laotiaans toegevoegd
+• Help/Veelgestelde vragen (FAQ) bijgewerkt, Japanse vertaling toegevoegd
+• De Japanse vertaling van ‘Nu gesloten’ is gecorrigeerd
+• De Chinese vertalingen van ‘track’ en ‘uitschakelen’ zijn verbeterd
+
+Bekijk de uitgebreide releasenotities op https://omaps.org/news/

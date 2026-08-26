@@ -1,28 +1,50 @@
-• Tetapan baharu "Simpan sejarah carian" membantu anda mengekalkan privasi sejarah carian anda jika diperlukan
+### Peta & tempat
 
-## Peta & tempat
-• Data OpenStreetMap setakat 14 Julai
-• Nota OpenStreetMap kini diletakkan di lokasi tepat yang anda pilih, bukannya di tengah hutan
-• Pilihan peta yang dipertingkatkan untuk kawasan yang melintasi antimeridian 180°
-• Profil ketinggian laluan tidak lagi memaparkan carta lapuk atau kosong selepas laluan dipadamkan
-• Dipertingkatkan carta ketinggian kosong untuk laluan yang direkodkan
-• Butang untuk memadam penanda buku kini lebih mudah ditemui
-• Penyimpanan penanda buku secara automatik apabila anda meninggalkan skrin suntingan
-• Palet warna merangkumi warna yang telah ditetapkan dan membolehkan anda memilih mana-mana warna tersuai
-• Penambahbaikan UI lain
+• Data OpenStreetMap dikemas kini sehingga 26 Ogos 2026
+• Artikel Wikipedia yang dikemas kini dalam bahasa Arab, Bengali, Cina, Inggeris, Perancis, Jerman, Hindi, Itali, Jepun, Korea, Marathi, Poland, Portugis, Rusia, Sepanyol, Tamil, Telugu, Turki, dan Urdu
+• Pondok memerhati burung, pentas, bukit, dan gerbang batu telah ditambah pada peta, serta ikon baharu untuk batu
+• Saiz ikon puncak, gua, dan genting gunung telah diubah
+• Kawasan terpelihara, taman negara, dan tanah lembap kini dipaparkan dalam rona yang lebih muda
+• Banyak isu yang menyebabkan waktu operasi dipaparkan dengan tidak betul telah diperbaiki
+• Tetapan telah disusun semula kepada bahagian "Umum", "Peta", "Navigasi", "Rangkaian", dan "Privasi"
+• Tetapan penentukuran kompas telah dikeluarkan kerana penentukuran kini dilakukan secara automatik
+• Masalah kompas yang boleh menyebabkan anak panah kedudukan semasa menunjuk ke arah yang salah atau tersekat telah diperbaiki
+• Titik yang sepadan kini dipaparkan pada peta semasa anda menyeret jari merentasi profil ketinggian dalam pratonton laluan berjalan kaki atau berbasikal
+• Masalah aplikasi terhenti dan isu yang kadangkala menyebabkan ketukan dan isyarat diabaikan telah diperbaiki
 
-## Pengangkutan awam
-• Nama perhentian, pertukaran, dan stesen kini menggunakan garis putih untuk kekal boleh dibaca dalam tema cerah dan gelap
-• Lapisan kereta bawah tanah muncul semula dengan betul selepas anda menutup pratonton laluan pengangkutan awam
+### Perkongsian, penanda buku & jejak
 
-## Laluan & navigasi
-• Masalah arahan yang salah dan hilang telah diperbaiki
-• Amaran laluan (cukai jalan, feri, jalan tidak berturap, tangga, dan lain-lain) kini dipaparkan untuk semua laluan alternatif
-• Masalah beku yang jarang berlaku semasa membina laluan telah diperbaiki dan pengendalian jalan buntu serta titik permulaan/pengakhiran di jalan terhad telah dipertingkatkan
-• Meningkatkan kemajuan laluan pada butang mula
-• Mengatur semula hentian laluan tidak lagi menyebabkan senarai melompat-lompat
+• BARU: pemilihan berbilang telah ditambah pada senarai Penanda Buku dan Jejak, dengan tindakan pukal untuk memadam, memindahkan, dan menukar warna item yang dipilih, serta "Pilih Semua" dan "Nyahpilih Semua"
+• Sokongan AirDrop untuk berkongsi tempat telah ditambah
+• Berkongsi tempat, penanda buku, atau kedudukan semasa kini menghantar pautan yang boleh dibaca dengan maklumat berguna
+• Penanda buku yang dieksport kini mengekalkan nama dan keterangan asalnya
+• Senarai penanda buku yang dikongsi kini menggunakan nama paparannya dan bukannya nama fail dalaman
+• Masalah paparan carta ketinggian yang boleh berlaku sejurus selepas memulakan rakaman jejak telah diperbaiki
+• Pemilih warna tersuai telah dipulihkan dalam popover palet warna
+• Paparan keterangan HTML apabila penanda buku dipilih pada peta telah diperbaiki
 
-## Terjemahan
-• Meningkatkan istilah bahasa Cina
-• Mengemas kini terjemahan Ukraine
-• Membetulkan terjemahan wilayah peta dalam bahasa Itali
+### Penentuan laluan & navigasi
+
+• BARU: papan pemuka CarPlay telah ditambah dan beberapa isu CarPlay telah diperbaiki
+• Pengaktifan gaya peta navigasi kereta telah dibetulkan
+• Mengetik pada hentian atau penanda laluan kini membukanya dengan betul, bukannya bertukar antara laluan yang dirancang
+• Laluan pengangkutan awam kini dikira dengan lebih pantas
+• Arahan pusingan yang salah telah dibetulkan
+• Titik permulaan yang salah selepas laluan dikira semula telah dibetulkan
+• Semasa penentuan laluan, jalan laterit kini dianggap mempunyai permukaan tidak berturap berkualiti rendah
+• Jalan yang ditandakan `access=unknown` kini dilayan seperti jalan dengan akses peribadi atau akses hanya ke destinasi
+
+### Penyunting OpenStreetMap
+
+• Ranap aplikasi apabila muat naik ke OpenStreetMap selesai di latar belakang telah diperbaiki
+• Mengosongkan medan waktu operasi tidak lagi menjadikan butang "Simpan" atau "Selesai" dinyahaktifkan
+• Muat naik yang gagal sebahagian kini dicuba semula, bukannya dilaporkan sebagai berjaya sepenuhnya
+
+### Terjemahan
+
+• Arahan suara dalam bahasa Armenia dan Laos telah ditambah
+• Bantuan/Soalan Lazim (FAQ) telah dikemas kini, terjemahan bahasa Jepun ditambah
+• Terjemahan bahasa Jepun bagi "Tutup sekarang" telah dibetulkan
+• Terjemahan bahasa Cina bagi "jejak" dan "nyahaktifkan" telah ditambah baik
+
+Lihat nota keluaran terperinci di https://omaps.org/news/

@@ -1,7 +1,10 @@
-• Datos de OSM ao 14 de xullo
-• Os nomes das paradas de transporte público, das conexións e das estacións agora teñen un contorno branco
-• Mellorouse a visualización do horario de apertura
-• Corrixíronse indicacións incorrectas ou que faltaban
-• Os marcadores e os traxectos editados gárdanse automaticamente
-• As advertencias de ruta (peaxes, ferries, estradas sen pavimentar, escaleiras, etc.) móstranse agora para todas as rutas alternativas
+• Datos de OSM a 26 de agosto
+• NOVO: selección múltiple de marcadores e traxectos
+• NOVO: agochar traxectos individuais coa icona do ollo
+• NOVO: artigos da Wikipedia en bengalí, hindi, marathi, polaco, tamil, telugu e urdú
+• Engadidos ao mapa agochos para observar aves, escenarios, outeiros e arcos naturais
+• Mellor compartición de lugares
+• Correccións para Android Auto
+• Corrixida a selección de paradas da ruta
+• Corrixidos os horarios de apertura
 …máis en omaps.org/gl/news

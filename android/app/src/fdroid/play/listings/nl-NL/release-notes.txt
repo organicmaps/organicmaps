@@ -1,7 +1,11 @@
-• OSM-gegevens per 14 juli
-• Namen van haltes, overstappunten en stations van het openbaar vervoer hebben nu een witte omtrek
-• Verbeterde weergave van openingstijden
-• Onjuiste of ontbrekende routebeschrijvingen zijn verholpen
-• Bewerkte bladwijzers en routes worden nu automatisch opgeslagen
-• Routewaarschuwingen (tol, veerboten, onverharde wegen, trappen, enz.) worden nu weergegeven voor alle alternatieve routes
+• OSM-gegevens per 26 augustus
+• NIEUW: meervoudige selectie voor bladwijzers en tracks
+• NIEUW: afzonderlijke tracks verbergen met het oogpictogram
+• NIEUW: Wikipedia-artikelen in het Bengaals, Hindi, Marathi, Pools, Tamil, Telugu en Urdu
+• Vogelkijkhutten, podia, heuvels en rotsbogen toegevoegd aan de kaart
+• Beter delen van plaatsen
+• Correcties voor Android Auto
+• Selectie van routestops hersteld
+• Openingstijden hersteld
+• Beter zoekpaneel
 …meer op omaps.org/nl/news

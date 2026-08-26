@@ -1,28 +1,50 @@
-• Az új „Keresési előzmények mentése” beállítás segít szükség esetén megőrizni keresési előzményei titkosságát
+### Térkép és helyek
 
-## Térkép és helyek
-• OpenStreetMap-adatok július 14-i állapot szerint
-• Az OpenStreetMap-jegyzetek mostantól pontosan a kiválasztott helyen jelennek meg, nem pedig az erdő közepén
-• Javított térképválasztás az 180°-os antimeridiánt átlépő régiók esetében
-• A magassági profilok már nem jelennek meg elavult vagy üres grafikonokkal, miután egy útvonalat eltávolítottak
-• Javítottuk a rögzített útvonalak üres magassági grafikonját
-• A könyvjelzők eltávolítására szolgáló gomb könnyebben megtalálható
-• Automatikus könyvjelző-mentés, amikor kilép a szerkesztőképernyőről
-• A színpaletta előre definiált színeket tartalmaz, és lehetővé teszi bármely egyéni szín kiválasztását
-• Egyéb felhasználói felület-fejlesztések
+• Frissített OpenStreetMap-adatok 2026. augusztus 26-i állapot szerint
+• Frissített Wikipédia-cikkek arab, bengáli, kínai, angol, francia, német, hindi, olasz, japán, koreai, maráti, lengyel, portugál, orosz, spanyol, tamil, telugu, török és urdu nyelven
+• Madárlesek, színpadok, dombok és sziklaívek kerültek a térképre, valamint egy új ikon a sziklákhoz
+• Átméreteztük a csúcsok, barlangok és hágók ikonjait
+• A védett területek, a nemzeti parkok és a vizes élőhelyek most világosabb árnyalatokkal jelennek meg
+• Számos olyan hibát javítottunk, amely miatt a nyitvatartási idő helytelenül jelent meg
+• A beállításokat „Általános”, „Térkép”, „Navigáció”, „Hálózat” és „Adatvédelem” szakaszokba rendeztük át
+• Eltávolítottuk az iránytű kalibrálási beállítását, mivel a kalibrálás mostantól automatikusan történik
+• Kijavítottuk azokat az iránytűvel kapcsolatos problémákat, amelyek miatt az aktuális pozíciót jelző nyíl rossz irányba mutathatott vagy befagyhatott
+• A megfelelő pont most már megjelenik a térképen, miközben a gyalogos vagy kerékpáros útvonal előnézetében a magassági profil mentén húzza az ujját
+• Kijavítottuk az alkalmazás lefagyását és azt a problémát, amely miatt időnként az érintések és gesztusok figyelmen kívül maradtak
 
-## Tömegközlekedés
-• A megállók, átszállási pontok és állomások nevei most fehér kontúrral jelennek meg, hogy világos és sötét témákban egyaránt jól olvashatók legyenek
-• A metróréteg helyesen jelenik meg újra a tömegközlekedési útvonal-előnézet bezárása után
+### Megosztás, könyvjelzők és nyomvonalak
 
-## Útvonaltervezés és navigáció
-• Kijavítottuk a hibás és hiányzó útbaigazításokkal kapcsolatos problémákat
-• Az útvonal-figyelmeztetések (útdíjak, kompok, földutak, lépcsők stb.) mostantól minden alternatív útvonal esetében megjelennek
-• Kijavítottuk az útvonal-tervezés során ritkán előforduló lefagyást, és javítottuk a zsákutcák, valamint a korlátozott forgalmú utakon lévő kiindulási és érkezési pontok kezelését
-• Javítottuk az útvonal előrehaladásának jelzését a „Start” gombon
-• Az útvonalállomások sorrendjének megváltoztatása már nem okoz ugrálást a listában
+• ÚJ: többelemes kijelölés került a Könyvjelzők és Nyomvonalak listájába, tömeges műveletekkel a kijelölt elemek törléséhez, áthelyezéséhez és színük megváltoztatásához, valamint az „Összes kijelölése” és a „Kijelölés megszüntetése” funkciókkal
+• Hozzáadtuk az AirDrop-támogatást a helyek megosztásához
+• Egy hely, könyvjelző vagy az aktuális pozíció megosztásakor mostantól olvasható, hasznos információkat tartalmazó linket küld a rendszer
+• Az exportált könyvjelzők mostantól megőrzik eredeti nevüket és leírásukat
+• A megosztott könyvjelzőlisták mostantól a megjelenített nevüket használják a belső fájlnevek helyett
+• Kijavítottuk a magassági diagram megjelenítésével kapcsolatos problémát, amely közvetlenül a nyomvonal rögzítésének megkezdése után jelentkezhetett
+• Visszaállítottuk az egyéni színválasztót a színpaletta felugró ablakában
+• Javítottuk a HTML-leírások megjelenítését, amikor egy könyvjelzőt választanak ki a térképen
 
-## Fordítások
-• Javítottuk a kínai szövegezést
-• Frissítettük az ukrán fordításokat
-• Javítottuk a térképrégiók olasz nyelvű fordításait
+### Útvonaltervezés és navigáció
+
+• ÚJ: hozzáadtunk egy CarPlay-műszerfalat, és kijavítottunk több CarPlay-problémát
+• Javítottuk az autós navigációs térképstílus aktiválását
+• Egy útvonalmegálló vagy jelölés megérintésekor az most már megfelelően megnyílik, ahelyett hogy a tervezett útvonalak között váltana
+• A tömegközlekedési útvonalak tervezése mostantól gyorsabb
+• Kijavítottuk a helytelen kanyarodási utasításokat
+• Kijavítottuk az útvonal újratervezése után fellépő helytelen kiindulási pontot
+• Az útvonaltervezés során a laterit utakat mostantól rossz minőségű, burkolat nélküli útként kezeljük
+• Az `access=unknown` címkével ellátott utakat mostantól úgy kezeljük, mint a magánutakat vagy a célforgalmi utakat
+
+### OpenStreetMap-szerkesztő
+
+• Kijavítottuk azt a hibát, amely az OpenStreetMap-feltöltés háttérben történő befejezésekor az alkalmazás összeomlását okozta
+• A nyitvatartási idő mező törlése után a „Mentés” vagy a „Kész” gomb már nem marad letiltva
+• A részben sikertelen feltöltéseket mostantól újra megpróbálja a rendszer, ahelyett hogy teljesen sikeresnek jelentené őket
+
+### Fordítások
+
+• Hangutasítások örmény és laó nyelven
+• Frissített Súgó/Gyakran Ismételt Kérdések (GYIK), hozzáadva a japán fordítás
+• Kijavítottuk a „Most zárva” japán fordítását
+• Javítottuk a „nyomvonal” és a „letiltás” kifejezések kínai fordításait
+
+A részletes kiadási megjegyzéseket lásd a https://omaps.org/news/ oldalon

@@ -1,8 +1,14 @@
-• OSM-gögn frá 14. júlí
-• Stöðvarnöfn almenningssamgangna, skiptistöðva og lestarstöðva eru nú með hvítum útlínum
-• Bættur birtingarháttur opnunartíma
-• Leyst úr röngum eða vantandi leiðbeiningum
-• Breytt bókamerki og slóðir vistast nú sjálfkrafa
-• Leiðarviðvaranir (gjöld, ferjur, ómalbikaðir vegir, stigar o.s.frv.) birtast nú fyrir allar aðrar leiðir
-• OSM-athugasemdir eru búnar til á nákvæmri staðsetningu sem þú velur
+• OSM-gögn frá 26. ágúst
+• NÝTT: fjölval fyrir bókamerki og ferla
+• NÝTT: fela staka ferla með augntákninu
+• NÝTT: Wikipedia-greinar á bengölsku, hindí, maratí, pólsku, tamílsku, telúgú og úrdú
+• Fuglaskýlum, sviðum, hólum og bergbogum bætt við kortið
+• Betri deiling staða
+• Lagfæringar fyrir Android Auto
+• Lagað val á viðkomustöðum leiðar
+• Lagaður opnunartími
+• Betra leitarspjald
+• Lagaðar villur í OSM-ritlinum
+• Lagað hæðarrit
+• Lagað hrun og frystingar
 …meira á omaps.org/news

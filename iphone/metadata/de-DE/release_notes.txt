@@ -1,28 +1,50 @@
-• Mit der neuen Einstellung „Suchverlauf speichern“ können Sie Ihren Suchverlauf bei Bedarf privat halten
+### Karte & Orte
 
-## Karte & Orte
-• OpenStreetMap-Daten vom 14. Juli
-• OpenStreetMap-Notizen werden nun genau an der von Ihnen ausgewählten Stelle platziert und nicht mehr mitten im Wald
-• Verbesserte Kartenauswahl für Regionen, die den 180°-Antimeridian überschreiten
-• Höhenprofile von Tracks zeigen nach dem Löschen eines Tracks keine veralteten oder leeren Diagramme mehr an
-• Das leere Höhendiagramm für aufgezeichnete Tracks wurde verbessert
-• Die Schaltfläche zum Löschen von Lesezeichen ist leichter zu finden
-• Automatisches Speichern von Lesezeichen beim Verlassen des Bearbeitungsbildschirms
-• Die Farbpalette enthält vordefinierte Farben und ermöglicht die Auswahl beliebiger benutzerdefinierter Farben
-• Weitere Verbesserungen der Benutzeroberfläche
+• Aktualisierte OpenStreetMap-Daten vom 26. August 2026
+• Aktualisierte Wikipedia-Artikel auf Arabisch, Bengalisch, Chinesisch, Englisch, Französisch, Deutsch, Hindi, Italienisch, Japanisch, Koreanisch, Marathi, Polnisch, Portugiesisch, Russisch, Spanisch, Tamil, Telugu, Türkisch und Urdu
+• Vogelbeobachtungsstände, Bühnen, Hügel und Felsenbögen wurden zur Karte hinzugefügt, außerdem ein neues Symbol für Felsen
+• Die Symbole für Gipfel, Höhlen und Gebirgspässe wurden in der Größe angepasst
+• Schutzgebiete, Nationalparks und Feuchtgebiete werden nun in helleren Farbtönen dargestellt
+• Zahlreiche Probleme wurden behoben, die zu einer fehlerhaften Anzeige der Öffnungszeiten führten
+• Die Einstellungen wurden in die Bereiche „Allgemein“, „Karte“, „Navigation“, „Netzwerk“ und „Privatsphäre“ neu gegliedert
+• Die Einstellung zur Kompasskalibrierung wurde entfernt, da die Kalibrierung nun automatisch erfolgt
+• Probleme mit dem Kompass wurden behoben, die dazu führen konnten, dass der Pfeil für die aktuelle Position in die falsche Richtung zeigte oder einfror
+• Der entsprechende Punkt wird nun auf der Karte angezeigt, während Sie in der Vorschau einer Wander- oder Radroute über das Höhenprofil ziehen
+• Ein Hängenbleiben der App sowie ein Problem, bei dem Tippen und Gesten gelegentlich ignoriert wurden, wurden behoben
 
-## Öffentlicher Nahverkehr
-• Haltestellen-, Umsteige- und Bahnhofsnamen werden nun mit weißem Umriss dargestellt, um sowohl im hellen als auch im dunklen Design lesbar zu bleiben
-• Die U-Bahn-Ebene wird nach dem Schließen der Vorschau einer ÖPNV-Route wieder korrekt angezeigt
+### Teilen, Lesezeichen & Tracks
 
-## Routenplanung & Navigation
-• Probleme mit falschen und fehlenden Wegbeschreibungen wurden behoben
-• Routenwarnungen (Maut, Fähren, unbefestigte Straßen, Treppen usw.) werden nun für alle alternativen Routen angezeigt
-• Ein selten auftretender Absturz beim Erstellen einer Route wurde behoben und die Behandlung von Sackgassen sowie Start- und Endpunkten auf einer gesperrten Straße verbessert
-• Der Routenfortschritt auf der Startschaltfläche wurde verbessert
-• Beim Neuanordnen von Routenpunkten springt die Liste nicht mehr unregelmäßig hin und her
+• NEU: Die Listen „Lesezeichen“ und „Tracks“ unterstützen nun die Mehrfachauswahl – mit Sammelaktionen zum Löschen, Verschieben und Ändern der Farbe ausgewählter Elemente sowie „Alle auswählen“ und „Auswahl aufheben“
+• AirDrop-Unterstützung zum Teilen von Orten hinzugefügt
+• Wenn Sie einen Ort, ein Lesezeichen oder Ihre aktuelle Position teilen, wird nun ein lesbarer Link mit nützlichen Informationen versendet
+• Exportierte Lesezeichen behalten nun ihre ursprünglichen Namen und Beschreibungen bei
+• Geteilte Lesezeichenlisten verwenden nun ihre angezeigten Namen anstelle der internen Dateinamen
+• Ein Problem bei der Anzeige des Höhenprofils, das unmittelbar nach dem Start einer Trackaufzeichnung auftreten konnte, wurde behoben
+• Die benutzerdefinierte Farbauswahl im Popover der Farbpalette wurde wiederhergestellt
+• Die Darstellung von HTML-Beschreibungen wurde korrigiert, wenn ein Lesezeichen auf der Karte ausgewählt wird
 
-## Übersetzungen
-• Die chinesischen Formulierungen wurden verbessert
-• Die ukrainischen Übersetzungen wurden aktualisiert
-• Die Übersetzungen der Kartenregionen im Italienischen wurden korrigiert
+### Routenplanung & Navigation
+
+• NEU: Ein CarPlay-Dashboard wurde hinzugefügt und mehrere CarPlay-Probleme wurden behoben
+• Die Aktivierung des Kartenstils für die Fahrzeugnavigation wurde korrigiert
+• Durch Antippen eines Routenstopps oder einer Markierung wird dieser nun korrekt geöffnet, anstatt zwischen geplanten Routen zu wechseln
+• Routen mit öffentlichen Verkehrsmitteln werden nun schneller berechnet
+• Fehlerhafte Abbiegehinweise wurden korrigiert
+• Ein fehlerhafter Startpunkt nach der Neuberechnung einer Route wurde behoben
+• Laterit-Straßen werden bei der Routenplanung nun als unbefestigte Straßen mit schlechter Fahrbahnqualität behandelt
+• Straßen mit `access=unknown` werden nun wie Straßen mit privatem Zugang oder Anliegerverkehr behandelt
+
+### OpenStreetMap-Editor
+
+• Ein Absturz wurde behoben, der auftrat, wenn ein OpenStreetMap-Upload im Hintergrund abgeschlossen wurde
+• Das Leeren des Feldes „Öffnungszeiten“ führt nicht mehr dazu, dass die Schaltflächen „Speichern“ oder „Fertig“ deaktiviert bleiben
+• Uploads, die teilweise fehlschlagen, werden nun erneut versucht, anstatt als vollständig erfolgreich gemeldet zu werden
+
+### Übersetzungen
+
+• Sprachanweisungen auf Armenisch und Laotisch hinzugefügt
+• Hilfe/Häufig gestellte Fragen (FAQ) aktualisiert, japanische Übersetzung hinzugefügt
+• Die japanische Übersetzung von „Jetzt geschlossen“ wurde korrigiert
+• Die chinesischen Übersetzungen von „Track“ und „Deaktivieren“ wurden verbessert
+
+Die ausführlichen Versionshinweise finden Sie unter https://omaps.org/news/

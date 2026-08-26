@@ -1,28 +1,50 @@
-• Noua setare „Salvare istoric de căutare” vă ajută să vă păstrați istoricul căutărilor privat, dacă este necesar
+### Harta și locuri
 
-## Hărți și locuri
-• Date OpenStreetMap actualizate la 14 iulie
-• Notele OpenStreetMap sunt acum plasate exact în locația selectată de dvs., în loc să apară în mijlocul pădurii
-• Selecție îmbunătățită a hărții pentru regiunile care traversează antimeridianul de 180°
-• Profilurile de altitudine ale traseelor nu mai afișează grafice învechite sau goale după ce un traseu este șters
-• S-a îmbunătățit graficul de altitudine gol pentru traseele înregistrate
-• Butonul pentru ștergerea marcajelor este mai ușor de găsit
-• Salvarea automată a marcajelor atunci când părăsiți ecranul de editare
-• Paleta de culori include culori predefinite și vă permite să alegeți orice culoare personalizată
-• Alte îmbunătățiri ale interfeței utilizatorului
+• Date OpenStreetMap actualizate la 26 august 2026
+• Articole Wikipedia actualizate în arabă, bengaleză, chineză, engleză, franceză, germană, hindi, italiană, japoneză, coreeană, marathi, poloneză, portugheză, rusă, spaniolă, tamilă, telugu, turcă și urdu
+• Au fost adăugate pe hartă observatoare de păsări, scene, dealuri și arcuri de piatră, precum și o nouă pictogramă pentru roci
+• S-a modificat dimensiunea pictogramelor pentru vârfuri, peșteri și pasuri montane
+• Ariile protejate, parcurile naționale și zonele umede sunt acum afișate în nuanțe mai deschise
+• S-au remediat numeroase probleme care duceau la afișarea incorectă a programului de funcționare
+• Setările au fost reorganizate în secțiunile „General”, „Hartă”, „Navigare”, „Rețea” și „Intimitate”
+• S-a eliminat setarea de calibrare a busolei, deoarece calibrarea se realizează acum automat
+• S-au remediat problemele legate de busolă care puteau determina săgeata poziției curente să indice o direcție greșită sau să se blocheze
+• Punctul corespunzător este afișat acum pe hartă în timp ce trageți cu degetul peste profilul de altitudine în previzualizarea unui traseu pe jos sau cu bicicleta
+• S-au remediat blocarea aplicației și o problemă care, ocazional, ducea la ignorarea atingerilor și a gesturilor
 
-## Transportul public
-• Numele stațiilor, ale punctelor de transfer și ale stațiilor de metrou au acum un contur alb pentru a rămâne lizibile atât în tema deschisă, cât și în cea întunecată
-• Stratul de metrou reapare corect după ce închideți previzualizarea unui traseu de transport public
+### Partajare, locuri preferate și trasee
 
-## Calcularea traseului și navigarea
-• S-au remediat problemele legate de indicații de direcție greșite sau lipsă
-• Avertismentele privind traseul (taxe de drum, feriboturi, drumuri neasfaltate, scări etc.) sunt acum afișate pentru toate traseele alternative
-• S-a remediat o blocare rară care apărea în timpul creării unui traseu și s-a îmbunătățit gestionarea străzilor fără ieșire și a punctelor de start/sosire pe un drum cu acces restricționat
-• S-a îmbunătățit afișarea progresului traseului pe butonul de pornire
-• Reordonarea opririlor de pe traseu nu mai provoacă salturi ale listei
+• NOU: s-a adăugat selecția multiplă în listele Locuri preferate și Trasee, cu acțiuni în bloc pentru ștergerea, mutarea și schimbarea culorii elementelor selectate, plus „Selectează tot” și „Deselectează tot”
+• S-a adăugat suportul pentru AirDrop la partajarea locurilor
+• Partajarea unui loc, a unui loc preferat sau a poziției curente trimite acum un link lizibil cu informații utile
+• Locurile preferate exportate își păstrează acum numele și descrierile originale
+• Listele partajate de locuri preferate folosesc acum numele afișat în locul numelui intern al fișierului
+• S-a remediat o problemă de afișare a graficului de altitudine care putea apărea imediat după începerea înregistrării unui traseu
+• S-a restabilit selectorul de culoare personalizată în fereastra pop-up a paletei de culori
+• S-a remediat afișarea descrierilor HTML atunci când se selectează un loc preferat pe hartă
 
-## Traduceri
-• S-a îmbunătățit formularea în limba chineză
-• S-au actualizat traducerile în limba ucraineană
-• S-au remediat traducerile regiunilor de pe hartă în limba italiană
+### Calcularea traseului și navigare
+
+• NOU: s-a adăugat un panou CarPlay și s-au remediat mai multe probleme legate de CarPlay
+• S-a remediat activarea stilului hărții de navigare auto
+• Atingerea unei opriri sau a unui reper de pe traseu îl deschide acum corect, în loc să comute între traseele planificate
+• Traseele de transport public sunt acum calculate mai rapid
+• S-au corectat instrucțiuni de viraj greșite
+• S-a remediat un punct de pornire incorect după recalcularea unui traseu
+• La calcularea traseului, drumurile din laterit sunt considerate acum drumuri cu suprafață neasfaltată de calitate slabă
+• Drumurile etichetate cu `access=unknown` sunt tratate acum ca drumuri cu acces privat sau cu acces permis doar către destinație
+
+### Editorul OpenStreetMap
+
+• S-a remediat o eroare care provoca blocarea aplicației la finalizarea în fundal a unei încărcări în OpenStreetMap
+• Golirea câmpului „Program de funcționare” nu mai lasă dezactivate butoanele „Salvează” și „Gata”
+• Încărcările care eșuează parțial sunt acum reluate, în loc să fie raportate ca fiind complet reușite
+
+### Traduceri
+
+• S-au adăugat instrucțiuni vocale în armeană și laotiană
+• S-au actualizat secțiunile Ajutor/Întrebări frecvente (FAQ) și s-a adăugat traducerea în limba japoneză
+• S-a corectat traducerea în limba japoneză a expresiei „Închis acum”
+• S-au îmbunătățit traducerile în chineză ale termenilor „traseu” și „dezactivare”
+
+Consultați notele de lansare detaliate la https://omaps.org/news/

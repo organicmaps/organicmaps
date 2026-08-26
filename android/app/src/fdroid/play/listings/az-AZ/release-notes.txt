@@ -1,7 +1,10 @@
-• 14 iyul tarixli OSM məlumatları
-• İctimai nəqliyyat dayanacağı, transfer və stansiya adları indi ağ konturla göstərilir
-• Açılış saatlarının nümayişinin yaxşılaşdırılması
-• Yanlış və ya əksik istiqamətlər düzəldildi
-• Dəyişdirilmiş nişanlar və izlər indi avtomatik saxlanılır
-• Marşrut xəbərdarlıqları (ödənişli yollar, bərə, asfalt olunmamış yollar, pilləkənlər və s.) indi bütün alternativ marşrutlar üçün göstərilir
+• 26 avqust tarixinə OSM məlumatları
+• YENİ: əlfəcinlər və izlər üçün çoxlu seçim
+• YENİ: göz ikonu ilə ayrı-ayrı izləri gizlətmək
+• YENİ: benqal, hind, marathi, polyak, tamil, teluqu və urdu dillərində Vikipediya məqalələri
+• Xəritəyə quş müşahidə komaları, səhnələr, təpələr və təbii tağlar əlavə edildi
+• Yerlərin daha yaxşı paylaşılması
+• Android Auto düzəlişləri
+• Marşrut dayanacaqlarının seçimi düzəldildi
+• İş saatları düzəldildi
 …daha çoxunu omaps.org/news saytında oxuyun

@@ -1,8 +1,12 @@
-• Údaje OSM k 14. júlu
-• Názvy zastávok verejnej dopravy, prestupných miest a staníc majú teraz biely obrys
-• Vylepšené zobrazenie otváracích hodín
-• Opravené nesprávne alebo chýbajúce pokyny
-• Upravené záložky a trasy sa teraz ukladajú automaticky
-• Upozornenia na trase (mýto, trajekty, nezpevnené cesty, schody atď.) sa teraz zobrazujú pre všetky alternatívne trasy
-• Poznámky OSM sa vytvárajú presne na mieste, ktoré vyberiete
+• Dáta OSM k 26. augustu
+• NOVINKA: hromadný výber záložiek a stôp
+• NOVINKA: skrytie jednotlivých stôp ikonou oka
+• NOVINKA: články Wikipédie v bengálčine, hindčine, maráthčine, poľštine, tamilčine, telugčine a urdčine
+• Na mapu pribudli pozorovateľne vtákov, pódiá, kopce a skalné oblúky
+• Lepšie zdieľanie miest
+• Opravy pre Android Auto
+• Opravený výber zastávok trasy
+• Opravené otváracie hodiny
+• Vylepšený panel hľadania
+• Opravené chyby editora OSM
 …viac na omaps.org/news

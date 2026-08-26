@@ -1,8 +1,12 @@
-• OSM dati uz 14. jūliju
-• Sabiedriskā transporta pieturvietu, pārsēšanās punktu un staciju nosaukumiem tagad ir balta kontūra
-• Uzlabots darba laiku attēlojums
-• Novērstas nepareizas vai trūkstošas norādes
-• Rediģētās grāmatzīmes un pēdojumi tagad tiek saglabāti automātiski
-• Maršruta brīdinājumi (ceļu nodevas, prāmji, neasfaltēti ceļi, kāpnes utt.) tagad tiek parādīti visiem alternatīvajiem maršrutiem
-• OSM piezīmes tiek izveidotas tieši tajā vietā, kuru izvēlaties
+• OSM dati uz 26. augustu
+• JAUNS: vairāku grāmatzīmju un pēdojumu atlase
+• JAUNS: atsevišķu pēdojumu paslēpšana ar acs ikonu
+• JAUNS: Vikipēdijas raksti bengāļu, hindi, marathi, poļu, tamilu, telugu un urdu valodā
+• Kartē pievienoti putnu vērošanas slēpņi, skatuves, pauguri un klinšu arkas
+• Labāka vietu kopīgošana
+• Android Auto labojumi
+• Izlabota maršruta pieturu izvēle
+• Izlabots darba laiks
+• Labāks meklēšanas panelis
+• Izlabotas OSM redaktora kļūdas
 …vairāk omaps.org/news

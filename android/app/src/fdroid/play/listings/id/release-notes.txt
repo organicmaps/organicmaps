@@ -1,8 +1,11 @@
-• Data OSM per 14 Juli
-• Nama halte, titik transfer, dan stasiun angkutan umum kini memiliki garis tepi putih
-• Tampilan jam operasional telah ditingkatkan
-• Petunjuk arah yang salah atau hilang telah diperbaiki
-• Bookmark dan jejak yang diedit kini disimpan secara otomatis
-• Peringatan rute (tol, feri, jalan tidak beraspal, tangga, dll.) kini ditampilkan untuk semua rute alternatif
-• Catatan OSM dibuat tepat di lokasi yang Anda pilih
+• Data OSM per 26 Agustus
+• BARU: pemilihan ganda untuk penanda dan jalur
+• BARU: sembunyikan masing-masing jalur dengan ikon mata
+• BARU: artikel Wikipedia dalam bahasa Bengali, Hindi, Marathi, Polandia, Tamil, Telugu, Urdu
+• Ditambahkan ke peta: tempat pengamatan burung, panggung, bukit, dan lengkung batu alami
+• Berbagi tempat lebih baik
+• Perbaikan Android Auto
+• Perbaikan pemilihan perhentian rute
+• Perbaikan jam buka
+• Panel pencarian lebih baik
 …selengkapnya di omaps.org/id/news

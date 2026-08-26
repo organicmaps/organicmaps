@@ -1,8 +1,13 @@
-• OSM-data per den 14 juli
-• Namn på hållplatser, byten och stationer inom kollektivtrafiken har nu en vit kontur
-• Förbättrad visning av öppettider
-• Felaktiga eller saknade vägbeskrivningar har rättats till
-• Redigerade bokmärken och spår sparas nu automatiskt
-• Ruttvarningar (vägtullar, färjor, oasfalterade vägar, trappor osv.) visas nu för alla alternativa rutter
-• OSM-anteckningar skapas på exakt den plats du väljer
+• OSM-data per den 26 augusti
+• NYTT: flerval för bokmärken och spår
+• NYTT: dölj enskilda spår med ögonikonen
+• NYTT: Wikipedia-artiklar på bengali, hindi, marathi, polska, tamil, telugu och urdu
+• Fågelgömslen, scener, kullar och klippbågar har lagts till på kartan
+• Bättre delning av platser
+• Rättningar för Android Auto
+• Rättat val av ruttstopp
+• Rättade öppettider
+• Bättre sökpanel
+• Rättade problem i OSM-redigeraren
+• Rättad höjdprofil
 …mer på omaps.org/sv/news

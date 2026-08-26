@@ -1,8 +1,12 @@
-• OSM podaci od 14. srpnja
-• Nazivi stanica javnog prijevoza, prijelaza i samih stanica sada imaju bijeli obrub
-• Poboljšan prikaz radnog vremena
-• Ispravljena netočna ili nedostajuća uputstva
-• Uređene oznake i tragovi sada se automatski spremaju
-• Upozorenja o ruti (naplatne ceste, trajekti, neravne ceste, stepenice itd.) sada se prikazuju za sve alternativne rute
-• OSM bilješke stvaraju se na točnoj lokaciji koju odaberete
+• OSM podaci od 26. kolovoza
+• NOVO: višestruki odabir zabilješki i staza
+• NOVO: skrivanje pojedinačnih staza ikonom oka
+• NOVO: članci Wikipedije na bengalskom, hindskom, marathskom, poljskom, tamilskom, teluškom i urdskom
+• Na kartu dodane promatračnice ptica, pozornice, brda i stjenoviti lukovi
+• Bolje dijeljenje mjesta
+• Ispravci za Android Auto
+• Ispravljen odabir postaja na ruti
+• Ispravljeno radno vrijeme
+• Bolja tražilica
+• Ispravljene greške OSM uređivača
 …više na omaps.org/news

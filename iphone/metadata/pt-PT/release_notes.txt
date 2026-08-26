@@ -1,28 +1,50 @@
-• A nova configuração «Guardar histórico de pesquisa» ajuda a manter privado o seu histórico de pesquisa, quando necessário
+### Mapa e locais
 
-## Mapas e locais
-• Dados do OpenStreetMap atualizados a 14 de julho
-• As notas do OpenStreetMap são agora colocadas na localização exata que selecionar, em vez de no meio da floresta
-• Seleção de mapas melhorada para regiões que atravessam o antimeridiano de 180°
-• Os perfis de elevação dos percursos já não mostram gráficos desatualizados ou vazios após a remoção de um percurso
-• Melhorou-se o gráfico de elevação vazio para percursos gravados
-• O botão para remover marcadores é mais fácil de encontrar
-• Gravação automática de marcadores ao sair do ecrã de edição
-• A paleta de cores inclui cores predefinidas e permite escolher qualquer cor personalizada
-• Outras melhorias na interface do utilizador
+• Dados do OpenStreetMap atualizados a 26 de agosto de 2026
+• Artigos da Wikipédia atualizados em árabe, bengali, chinês, inglês, francês, alemão, hindi, italiano, japonês, coreano, marata, polaco, português, russo, espanhol, tâmil, télugo, turco e urdu
+• Foram adicionados ao mapa observatórios de aves, palcos, colinas e arcos de rocha, bem como um novo ícone para rochas
+• Os ícones de picos, grutas e passos de montanha foram redimensionados
+• As áreas protegidas, os parques nacionais e as zonas húmidas são agora apresentados em tons mais claros
+• Foram corrigidos vários problemas que faziam com que o horário de funcionamento fosse apresentado incorretamente
+• As definições foram reorganizadas nas secções «Geral», «Mapa», «Navegação», «Rede» e «Privacidade»
+• Foi removida a definição de calibração da bússola, uma vez que a calibração é agora efetuada automaticamente
+• Foram corrigidos problemas com a bússola que podiam fazer com que a seta da posição atual apontasse na direção errada ou ficasse bloqueada
+• O ponto correspondente é agora apresentado no mapa enquanto arrasta o dedo pelo perfil de elevação na pré-visualização de uma rota a pé ou de bicicleta
+• Foram corrigidos um bloqueio da aplicação e um problema que, ocasionalmente, fazia com que os toques e gestos fossem ignorados
 
-## Transportes públicos
-• Os nomes das paragens, transferências e estações utilizam agora um contorno branco para se manterem legíveis tanto no tema claro como no escuro
-• A camada do metro reaparece corretamente após fechar a pré-visualização de um percurso de transportes públicos
+### Partilha, favoritos e trajetos
 
-## Traçado de percursos e navegação
-• Corrigidos problemas com indicações erradas ou em falta
-• Os avisos de percurso (portagens, ferries, estradas não pavimentadas, escadas, etc.) são agora apresentados para todas as rotas alternativas
-• Corrigido um congelamento raro durante a criação de um percurso e melhorado o tratamento de becos sem saída e pontos de partida/chegada numa estrada com restrições
-• Melhorou-se a indicação do progresso do percurso no botão «Iniciar»
-• A reordenação das paragens do percurso já não faz com que a lista salte de um lado para o outro
+• NOVIDADE: foi adicionada a seleção múltipla às listas de Favoritos e Trajetos, com ações em lote para eliminar, mover e alterar a cor dos itens selecionados, além de «Selecionar tudo» e «Desmarcar tudo»
+• Foi adicionado suporte para AirDrop na partilha de locais
+• Ao partilhar um local, um favorito ou a posição atual, é agora enviada uma hiperligação legível com informações úteis
+• Os favoritos exportados mantêm agora os nomes e as descrições originais
+• As listas de favoritos partilhadas utilizam agora o nome apresentado, em vez do nome interno do ficheiro
+• Foi corrigido um problema de apresentação do gráfico de elevação que podia ocorrer imediatamente após iniciar a gravação de um trajeto
+• Foi restaurado o seletor de cor personalizada no pop-up da paleta de cores
+• Foi corrigida a apresentação das descrições em HTML quando um favorito é selecionado no mapa
 
-## Traduções
-• Melhorou-se a redação em chinês
-• Atualizaram-se as traduções em ucraniano
-• Corrigiram-se as traduções das regiões do mapa em italiano
+### Rotas e navegação
+
+• NOVIDADE: foi adicionado um painel do CarPlay e corrigidos vários problemas relacionados com o CarPlay
+• Foi corrigida a ativação do estilo do mapa de navegação automóvel
+• Ao tocar numa paragem ou marca da rota, esta abre-se agora corretamente, em vez de alternar entre as rotas planeadas
+• As rotas de transportes públicos são agora calculadas mais rapidamente
+• Foram corrigidas instruções de viragem incorretas
+• Foi corrigido um ponto de partida incorreto após o recálculo de uma rota
+• No cálculo de rotas, as estradas de laterite são agora consideradas superfícies não pavimentadas de má qualidade
+• As estradas marcadas com `access=unknown` são agora tratadas como estradas de acesso privado ou reservado a quem se dirige ao destino
+
+### Editor do OpenStreetMap
+
+• Foi corrigida uma falha que ocorria quando um envio para o OpenStreetMap terminava em segundo plano
+• Ao limpar o campo do horário de funcionamento, os botões «Guardar» ou «Feito» deixam de ficar desativados
+• Os envios que falham parcialmente são agora repetidos, em vez de serem reportados como totalmente bem-sucedidos
+
+### Traduções
+
+• Foram adicionadas instruções de voz em arménio e laociano
+• Foi atualizada a Ajuda/Perguntas Frequentes (FAQ) e adicionada a tradução para japonês
+• Foi corrigida a tradução para japonês de «Fechado agora»
+• Foram melhoradas as traduções para chinês de «trajeto» e «desativar»
+
+Consulte as notas de lançamento detalhadas em https://omaps.org/news/

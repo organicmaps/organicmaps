@@ -1,7 +1,10 @@
-• Të dhënat OSM deri më 14 korrik
-• Emrat e ndalesave të transportit publik, të transferimit dhe të stacioneve tani kanë një kornizë të bardhë
-• Përmirësuar shfaqjen e orarit të punës
-• Rregulluar udhëzimet e pasakta ose të munguara
-• Shënimet dhe gjurmët e redaktuara tani ruhen automatikisht
-• Paralajmërimet e itinerarit (tarifat, tragetet, rrugët pa asfalt, shkallët, etj.) tani shfaqen për të gjitha rrugët alternative
+• Të dhëna OSM deri më 26 gusht
+• E RE: përzgjedhje e shumëfishtë e faqeshënuesve dhe gjurmëve
+• E RE: fshehja e gjurmëve të veçanta me ikonën e syrit
+• E RE: artikuj Wikipedia në bengalisht, hindisht, marathisht, polonisht, tamilisht, telugisht, urdu
+• Në hartë u shtuan strehë vëzhgimi zogjsh, skena, kodra dhe harqe shkëmbore
+• Ndarje më e mirë e vendeve
+• Rregullime për Android Auto
+• U rregullua zgjedhja e ndalesave të itinerarit
+• U rregulluan oraret e punës
 …më shumë në omaps.org/news

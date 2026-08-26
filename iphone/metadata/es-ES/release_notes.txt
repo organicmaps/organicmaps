@@ -1,28 +1,50 @@
-• La nueva opción «Guardar historial de búsqueda» te ayuda a mantener privado tu historial de búsqueda si lo necesitas
+### Mapa y lugares
 
-## Mapas y lugares
-• Datos de OpenStreetMap a fecha de 14 de julio
-• Las notas de OpenStreetMap ahora se sitúan en la ubicación exacta que selecciones, en lugar de en medio del bosque
-• Se ha mejorado la selección de mapas para las regiones que cruzan el antimeridiano de 180°
-• Los perfiles de altitud de los recorridos ya no muestran gráficos obsoletos o vacíos tras eliminar un recorrido
-• Se ha mejorado el gráfico de altitud vacío para los recorridos grabados
-• El botón para eliminar marcadores es más fácil de encontrar
-• Se guardan automáticamente los marcadores al salir de la pantalla de edición
-• La paleta de colores incluye colores predefinidos y permite elegir cualquier color personalizado
-• Otras mejoras en la interfaz de usuario
+• Datos de OpenStreetMap actualizados al 26 de agosto de 2026
+• Se han actualizado artículos de Wikipedia en árabe, bengalí, chino, inglés, francés, alemán, hindi, italiano, japonés, coreano, marathi, polaco, portugués, ruso, español, tamil, telugu, turco y urdu
+• Se han añadido al mapa observatorios de aves, escenarios, colinas y arcos de roca, además de un nuevo icono para las rocas
+• Se ha cambiado el tamaño de los iconos de picos, cuevas y puertos de montaña
+• Las áreas protegidas, los parques nacionales y los humedales se muestran ahora en tonos más claros
+• Se han corregido numerosos problemas que provocaban que el horario de apertura se mostrara de forma incorrecta
+• Se han reorganizado los ajustes en las secciones «General», «Mapa», «Navegación», «Red» y «Privacidad»
+• Se ha eliminado el ajuste de calibración de la brújula, ya que ahora la calibración se realiza de forma automática
+• Se han solucionado problemas con la brújula que podían hacer que la flecha de posición actual apuntara en una dirección incorrecta o se quedara bloqueada
+• El punto correspondiente se muestra ahora en el mapa mientras se arrastra el dedo por el perfil de altitud en la vista previa de una ruta a pie o en bicicleta
+• Se han solucionado un bloqueo de la aplicación y un problema que, en ocasiones, provocaba que se ignoraran los toques y los gestos
 
-## Transporte público
-• Los nombres de paradas, transbordos y estaciones ahora utilizan un contorno blanco para que sean legibles tanto en el tema claro como en el oscuro
-• La capa de metro vuelve a aparecer correctamente tras cerrar la vista previa de una ruta de transporte público
+### Compartir, marcadores y trayectos
 
-## Rutas y navegación
-• Se han solucionado problemas relacionados con indicaciones erróneas o ausentes
-• Las advertencias de ruta (peajes, transbordadores, carreteras sin asfaltar, escaleras, etc.) se muestran ahora para todas las rutas alternativas
-• Se ha solucionado un bloqueo poco frecuente al trazar una ruta y se ha mejorado la gestión de callejones sin salida y de los puntos de inicio y fin en una carretera con restricciones
-• Se ha mejorado la indicación del progreso de la ruta en el botón de inicio
-• Al reordenar las paradas de la ruta, la lista ya no salta de un lado a otro
+• NUEVO: se ha añadido la selección múltiple a las listas de marcadores y trayectos, con acciones en bloque para eliminar, mover y cambiar el color de los elementos seleccionados, además de «Seleccionar todo» y «Deseleccionar todo»
+• Se ha añadido compatibilidad con AirDrop para compartir lugares
+• Al compartir un lugar, un marcador o la posición actual, ahora se envía un enlace legible con información útil
+• Los marcadores exportados conservan ahora sus nombres y descripciones originales
+• Las listas de marcadores compartidas utilizan ahora su nombre visible en lugar del nombre de archivo interno
+• Se ha corregido un problema de visualización del gráfico de altitud que podía producirse inmediatamente después de iniciar la grabación de un trayecto
+• Se ha restaurado el selector de color personalizado en la ventana emergente de la paleta de colores
+• Se ha corregido la visualización de las descripciones en HTML cuando se selecciona un marcador en el mapa
 
-## Traducciones
-• Se ha mejorado la redacción en chino
-• Se han actualizado las traducciones al ucraniano
-• Se han corregido las traducciones de las regiones del mapa en italiano
+### Rutas y navegación
+
+• NUEVO: se ha añadido un panel de CarPlay y se han solucionado varios problemas relacionados con CarPlay
+• Se ha corregido la activación del estilo de mapa de navegación para el coche
+• Al pulsar sobre una parada o un punto de la ruta, ahora se abre correctamente en lugar de cambiar entre las rutas planificadas
+• Ahora las rutas de transporte público se calculan más rápidamente
+• Se han corregido instrucciones de giro incorrectas
+• Se ha corregido un punto de partida incorrecto tras recalcular una ruta
+• Al planificar rutas, las carreteras de laterita se consideran ahora superficies sin asfaltar de baja calidad
+• Las carreteras etiquetadas con `access=unknown` se tratan ahora como carreteras de acceso privado o de acceso exclusivo al destino
+
+### Editor de OpenStreetMap
+
+• Se ha corregido un cierre inesperado de la aplicación al finalizar en segundo plano una subida a OpenStreetMap
+• Al borrar el campo de horario de apertura, los botones «Guardar» o «Hecho» ya no quedan desactivados
+• Las subidas que fallan parcialmente ahora se vuelven a intentar, en lugar de registrarse como completamente correctas
+
+### Traducciones
+
+• Se han añadido las instrucciones de voz en armenio y lao
+• Se ha actualizado la sección de Ayuda/Preguntas frecuentes (FAQ) y se ha añadido la traducción al japonés
+• Se ha corregido la traducción al japonés de «Cerrado ahora»
+• Se han mejorado las traducciones al chino de «trayecto» y «desactivar»
+
+Consulte las notas detalladas de la versión en https://omaps.org/news/
