@@ -4,6 +4,12 @@ final class PlacePageUserDescriptionWebView: UIView {
   private enum Constants {
     static let previewHeight: CGFloat = 70
     static let baseURL = URL(string: "https://organicmaps.app")
+    static let contentHeightRatioScript = """
+    (() => {
+      const root = document.documentElement;
+      return root.clientWidth > 0 ? root.getBoundingClientRect().height / root.clientWidth : null;
+    })()
+    """
   }
 
   private static let webViewPool = WebViewPool()
@@ -14,6 +20,8 @@ final class PlacePageUserDescriptionWebView: UIView {
   private var contentSizeObservation: NSKeyValueObservation?
   private var webViewConstraints = [NSLayoutConstraint]()
   private var isLoadingHTMLString = false
+  private var currentNavigation: WKNavigation?
+  private var finishedNavigation: WKNavigation?
   private var measuredHTMLHeight: CGFloat = 0
   private var htmlString: String
   private var networkPolicy: NetworkPolicy
@@ -70,9 +78,9 @@ final class PlacePageUserDescriptionWebView: UIView {
     ]
     NSLayoutConstraint.activate(webViewConstraints)
 
-    contentSizeObservation = webView.scrollView.observe(\.contentSize, options: [.new]) { [weak self] scrollView, _ in
+    contentSizeObservation = webView.scrollView.observe(\.contentSize) { [weak self] _, _ in
       guard let self, self.webView === webView else { return }
-      self.applyMeasuredHeight(scrollView.contentSize.height)
+      self.updateContentHeight()
     }
   }
 
@@ -89,11 +97,16 @@ final class PlacePageUserDescriptionWebView: UIView {
   private func loadHTML(_ htmlString: String) {
     attachWebView()
     guard let webView else { return }
-    self.htmlString = htmlString
-    measuredHTMLHeight = 0
+    // Preserve the last height during same-content trait reloads so the section keeps its layout while re-rendering.
+    if self.htmlString != htmlString {
+      self.htmlString = htmlString
+      measuredHTMLHeight = 0
+    }
     isLoadingHTMLString = true
+    finishedNavigation = nil
     let html = Self.htmlDocumentBuilder.buildHTML(with: htmlString)
-    webView.loadHTMLString(html, baseURL: Constants.baseURL)
+    currentNavigation = webView.loadHTMLString(html, baseURL: Constants.baseURL)
+    assert(currentNavigation != nil, "WebKit refused to start the description load")
   }
 
   private func applyMeasuredHeight(_ height: CGFloat) {
@@ -136,8 +149,9 @@ final class PlacePageUserDescriptionWebView: UIView {
 // MARK: - WKNavigationDelegate
 
 extension PlacePageUserDescriptionWebView: WKNavigationDelegate {
-  func webView(_ webView: WKWebView, didFinish _: WKNavigation!) {
-    guard self.webView === webView else { return }
+  func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+    guard self.webView === webView, let navigation, navigation === currentNavigation else { return }
+    finishedNavigation = navigation
     updateContentHeight()
   }
 
@@ -171,20 +185,20 @@ extension PlacePageUserDescriptionWebView: ExpandableTextContainer {
   }
 
   func updateContentHeight() {
-    guard let webView else { return }
-    // WebView content height is known only after rendering. Keep this as a lightweight best-effort measurement
-    // instead of adding document-status tracking and extra JavaScript injection points.
-    webView.evaluateJavaScript("document.documentElement.scrollHeight") { [weak self] result, _ in
-      guard let self, self.webView === webView else { return }
-      let domHeight = CGFloat(htmlHeight: result) ?? 0
-      let scrollHeight = webView.scrollView.contentSize.height
-      let height = max(domHeight, scrollHeight)
+    guard let webView, let navigation = finishedNavigation else { return }
+    // Root bounds avoid the viewport floor imposed by scrollHeight/contentSize. Normalizing by clientWidth also
+    // converts CSS pixels for full documents without viewport metadata. contentSize is only a failure fallback.
+    webView.evaluateJavaScript(Constants.contentHeightRatioScript) { [weak self] result, _ in
+      guard let self, self.webView === webView, self.finishedNavigation === navigation else { return }
+      let height = CGFloat(javaScriptNumber: result).map { $0 * webView.bounds.width }
+        ?? webView.scrollView.contentSize.height
       self.applyMeasuredHeight(height)
     }
   }
 
   func expandedHeight(for _: CGFloat) -> CGFloat {
-    measuredHTMLHeight
+    // Use the collapsed height until WebKit measures so it has a renderable frame and More stays hidden.
+    measuredHTMLHeight > 0 ? measuredHTMLHeight : Constants.previewHeight
   }
 
   func collapsedHeight(for _: CGFloat) -> CGFloat {
@@ -257,19 +271,11 @@ private extension URL {
   }
 }
 
-// MARK: - CGFloat + HtmlHeight
+// MARK: - CGFloat + JavaScript number
 
 private extension CGFloat {
-  init?(htmlHeight value: Any?) {
-    switch value {
-    case let value as CGFloat:
-      self = value
-    case let value as Double:
-      self = CGFloat(value)
-    case let value as Int:
-      self = CGFloat(value)
-    default:
-      return nil
-    }
+  init?(javaScriptNumber value: Any?) {
+    guard let number = value as? NSNumber else { return nil }
+    self = CGFloat(number.doubleValue)
   }
 }
