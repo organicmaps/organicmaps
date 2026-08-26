@@ -1,8 +1,11 @@
-• OSM-andmed seisuga 14. juuli
-• Ühistranspordi peatuste, ümberistumiskohtade ja jaamade nimedel on nüüd valge ääris
-• Lahtiolekuaegade kuvamine on parandatud
-• Parandatud on valed või puuduvad suunad
-• Muudetud järjehoidjad ja rajad salvestatakse nüüd automaatselt
-• Marsruudihoiatused (teemaksud, parvlaevad, kruusateed, trepid jne) kuvatakse nüüd kõigi alternatiivsete marsruutide puhul
-• OSM-märkmed luuakse täpselt valitud asukohas
+• OSM-i andmed seisuga 26. august
+• UUS: järjehoidjate ja radade mitmikvalik
+• UUS: üksikute radade peitmine silmaikooniga
+• UUS: Vikipeedia artiklid bengali, hindi, marathi, poola, tamili, telugu ja urdu keeles
+• Kaardile lisatud linnuvaatluspunktid, lavad, künkad ja looduslikud kaared
+• Parem kohtade jagamine
+• Android Auto parandused
+• Parandatud marsruudi peatuste valik
+• Parandatud lahtiolekuajad
+• Parem otsingupaneel
 …rohkem infot aadressil omaps.org/et/news

@@ -1,7 +1,11 @@
-• OSM-Daten vom 14. Juli
-• Haltestellen, Umsteigepunkte und Bahnhofsnamen des öffentlichen Nahverkehrs sind nun weiß umrandet
-• Verbesserte Anzeige der Öffnungszeiten
-• Falsche oder fehlende Wegbeschreibungen wurden korrigiert
-• Bearbeitete Lesezeichen und Tracks werden nun automatisch gespeichert
-• Routenwarnungen (Maut, Fähren, unbefestigte Straßen, Treppen usw.) werden nun für alle alternativen Routen angezeigt
+• OSM-Daten vom 26. August
+• NEU: Mehrfachauswahl für Lesezeichen und Tracks
+• NEU: Einzelne Tracks über das Augensymbol ausblenden
+• NEU: Wikipedia-Artikel auf Bengalisch, Hindi, Marathi, Polnisch, Tamil, Telugu, Urdu
+• Vogelbeobachtungshütten, Bühnen, Hügel und Felsenbögen zur Karte hinzugefügt
+• Besseres Teilen von Orten
+• Korrekturen für Android Auto
+• Auswahl von Routenstopps korrigiert
+• Öffnungszeiten korrigiert
+• Bessere Suchleiste
 …mehr unter omaps.org/de/news

@@ -1,7 +1,11 @@
-• OSM-adatok július 14-i állapot szerint
-• A tömegközlekedési megállók, átszállási pontok és állomások nevei mostantól fehér kontúrral jelennek meg
-• Javított nyitvatartási idők megjelenítése
-• Helyesbítettük a hibás vagy hiányzó útbaigazításokat
-• A szerkesztett könyvjelzők és nyomvonalak automatikusan mentődnek
-• Az útvonal-figyelmeztetések (útdíjak, kompok, földutak, lépcsők stb.) mostantól minden alternatív útvonal esetében megjelennek
+• OSM-adatok augusztus 26-i állapot szerint
+• ÚJ: könyvjelzők és nyomvonalak többszörös kijelölése
+• ÚJ: egyes nyomvonalak elrejtése a szem ikonnal
+• ÚJ: Wikipédia-szócikkek bengáli, hindi, maráthi, lengyel, tamil, telugu és urdu nyelven
+• A térképre madárlesek, színpadok, dombok és sziklaívek kerültek
+• Jobb helymegosztás
+• Android Auto javítások
+• Javítva az útvonal megállóinak kiválasztása
+• Javított nyitvatartás
+• Jobb keresőpanel
 …további információk az omaps.org/hu/news oldalon

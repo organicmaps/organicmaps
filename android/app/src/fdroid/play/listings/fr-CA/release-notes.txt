@@ -1,6 +1,10 @@
-• Données OSM à jour au 14 juillet
-• Les noms des arrêts de transports en commun, des correspondances et des stations sont désormais entourés d’un contour blanc
-• Amélioration de l’affichage des horaires d’ouverture
-• Correction des indications incorrectes ou manquantes
-• Les favoris et les tracés modifiés sont désormais enregistrés automatiquement
+• Données OSM au 26 août
+• NOUVEAU : sélection multiple des signets et parcours
+• NOUVEAU : masquer un parcours avec l’icône en forme d’œil
+• NOUVEAU : articles Wikipédia en bengali, hindi, marathi, polonais, tamoul, télougou, ourdou
+• Ajout sur la carte d’affûts ornithologiques, scènes, collines et arches naturelles
+• Meilleur partage des lieux
+• Corrections pour Android Auto
+• Sélection des arrêts d’itinéraire corrigée
+• Heures d’ouverture corrigées
 … plus d’informations sur omaps.org/fr/news

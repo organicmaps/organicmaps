@@ -1,7 +1,11 @@
-• OSM duomenys atnaujinti liepos 14 d.
-• Viešojo transporto stotelių, persėdimo punktų ir stočių pavadinimai dabar pažymėti baltu kontūru
-• Pagerintas darbo valandų rodymas
-• Ištaisyti neteisingi arba trūkstami nurodymai
-• Redaguotos žymės ir trasos dabar išsaugomos automatiškai
-• Maršruto įspėjimai (mokesčiai už pravažiavimą, keltai, neasfaltuoti keliai, laiptai ir pan.) dabar rodomi visiems alternatyviems maršrutams
+• OSM duomenys iki rugpjūčio 26 d.
+• NAUJA: kelių žymių ir trasų pasirinkimas
+• NAUJA: atskirų trasų slėpimas akies piktograma
+• NAUJA: Vikipedijos straipsniai bengalų, hindi, maratų, lenkų, tamilų, telugų ir urdu kalbomis
+• Į žemėlapį įtrauktos paukščių stebyklos, scenos, kalvos ir uolų arkos
+• Geresnis vietų dalijimasis
+• „Android Auto“ pataisymai
+• Pataisytas maršruto stotelių pasirinkimas
+• Pataisytos darbo valandos
+• Geresnė paieškos juosta
 …daugiau informacijos rasite omaps.org/lt/news

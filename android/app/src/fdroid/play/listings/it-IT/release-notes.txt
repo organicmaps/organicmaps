@@ -1,7 +1,10 @@
-• Dati OSM aggiornati al 14 luglio
-• I nomi delle fermate dei mezzi pubblici, dei cambi e delle stazioni sono ora contornati di bianco
-• Migliorata la visualizzazione degli orari di apertura
-• Corrette indicazioni errate o mancanti
-• I segnalibri e i percorsi modificati vengono ora salvati automaticamente
-• Gli avvisi sul percorso (pedaggi, traghetti, strade non asfaltate, scale, ecc.) vengono ora visualizzati per tutti i percorsi alternativi
+• Dati OSM aggiornati al 26 agosto
+• NOVITÀ: selezione multipla di preferiti e tracce
+• NOVITÀ: nascondi singole tracce con l’icona dell’occhio
+• NOVITÀ: articoli di Wikipedia in bengalese, hindi, marathi, polacco, tamil, telugu e urdu
+• Aggiunti alla mappa capanni per il birdwatching, palchi, colline e archi naturali
+• Migliore condivisione dei luoghi
+• Correzioni per Android Auto
+• Corretta la selezione delle fermate del percorso
+• Corretti gli orari di apertura
 …continua su omaps.org/it/news

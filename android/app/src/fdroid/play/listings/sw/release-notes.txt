@@ -1,7 +1,10 @@
-• Data ya OSM hadi tarehe 14 Julai
-• Vituo vya usafiri wa umma, vituo vya kubadilishia na majina ya vituo sasa vina mstari mweupe wa mzunguko
-• Uboreshaji wa onyesho la saa za ufunguzi
-• Marekebisho ya maelekezo yasiyo sahihi au yaliyokosekana
-• Alama za ukurasa na njia zilizohaririwa sasa zinahifadhiwa kiotomatiki
-• Maonyo ya njia (tozo, feri, barabara zisizo za lami, ngazi, n.k.) sasa yanaonyeshwa kwa njia zote mbadala
+• Data ya OSM hadi 26 Agosti
+• MPYA: uteuzi wa alamisho na njia nyingi kwa pamoja
+• MPYA: ficha njia mahususi kwa aikoni ya jicho
+• MPYA: makala za Wikipedia kwa Kibengali, Kihindi, Kimarathi, Kipolandi, Kitamil, Kitelugu, Kiurdu
+• Ramani imeongezewa vibanda vya kutazamia ndege, majukwaa, vilima na matao asilia ya mawe
+• Ushirikishaji bora wa maeneo
+• Marekebisho ya Android Auto
+• Uteuzi wa vituo vya njia umerekebishwa
+• Saa za kufungua zimerekebishwa
 …maelezo zaidi katika omaps.org/news

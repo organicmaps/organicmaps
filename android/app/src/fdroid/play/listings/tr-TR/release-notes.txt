@@ -1,7 +1,11 @@
-• 14 Temmuz itibarıyla güncel OSM verileri
-• Toplu taşıma durakları, aktarma noktaları ve istasyon adları artık beyaz bir çerçeveyle gösteriliyor
-• Çalışma saatlerinin gösterimi iyileştirildi
-• Hatalı veya eksik yol tarifleri düzeltildi
-• Düzenlenen yer imleri ve rotalar artık otomatik olarak kaydediliyor
-• Güzergâh uyarıları (ücretli yollar, feribotlar, asfaltsız yollar, merdivenler vb.) artık tüm alternatif güzergâhlar için gösteriliyor
+• 26 Ağustos itibarıyla OSM verileri
+• YENİ: yer imleri ve izler için çoklu seçim
+• YENİ: göz simgesiyle tek tek izleri gizleme
+• YENİ: Bengalce, Hintçe, Marathice, Lehçe, Tamilce, Telugu ve Urduca Wikipedia makaleleri
+• Haritaya kuş gözlem kulübeleri, sahneler, tepeler ve doğal kemerler eklendi
+• Daha iyi yer paylaşımı
+• Android Auto düzeltmeleri
+• Rota duraklarının seçimi düzeltildi
+• Çalışma saatleri düzeltildi
+• Geliştirilmiş arama paneli
 …daha fazlası için omaps.org/tr/news

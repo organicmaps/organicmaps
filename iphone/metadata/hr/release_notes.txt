@@ -1,28 +1,50 @@
-• Nova postavka „Spremi povijest pretraživanja“ pomaže vam da po potrebi zadržite privatnost svoje povijesti pretraživanja
+### Karta i mjesta
 
-## Karte i mjesta
-• Podaci OpenStreetMapa od 14. srpnja
-• Bilješke OpenStreetMapa sada se postavljaju na točnu lokaciju koju odaberete, umjesto usred šume
-• Poboljšan odabir karte za regije koje prelaze antimeridijan od 180°
-• Profili nadmorske visine staze više ne prikazuju zastarjele ili prazne grafikone nakon uklanjanja staze
-• Poboljšan prazan grafikon nadmorske visine za snimljene staze
-• Gumb za uklanjanje oznaka lakše je pronaći
-• Automatsko spremanje oznaka pri napuštanju zaslona za uređivanje
-• Paleta boja uključuje unaprijed definirane boje i omogućuje odabir bilo koje prilagođene boje
-• Ostala poboljšanja korisničkog sučelja
+• Ažurirani podaci OpenStreetMapa od 26. kolovoza 2026
+• Ažurirani članci na Wikipediji na arapskom, bengalskom, kineskom, engleskom, francuskom, njemačkom, hindskom, talijanskom, japanskom, korejskom, maratskom, poljskom, portugalskom, ruskom, španjolskom, tamilskom, teluškom, turskom i urdu jeziku
+• Na kartu su dodane promatračnice za ptice, scene, brežuljci i stijenske luči te nova ikona za stijene
+• Promijenjene su veličine ikona vrhova, špilja i planinskih prijevoja
+• Zaštićena područja, nacionalni parkovi i močvare sada se prikazuju u svjetlijim nijansama
+• Popravljeni su brojni problemi zbog kojih se radno vrijeme prikazivalo neispravno
+• Postavke su reorganizirane u odjeljke „Općenito”, „Karta”, „Navigacija”, „Mreža” i „Privatnost”
+• Uklonjena je postavka kalibracije kompasa jer se kalibracija sada obavlja automatski
+• Popravljeni su problemi s kompasom zbog kojih je strelica trenutačnog položaja mogla pokazivati u krivom smjeru ili se zamrznuti
+• Odgovarajuća točka sada se prikazuje na karti dok prstom povlačite po profilu nadmorske visine u pregledu pješačke ili biciklističke rute
+• Popravljeno je zamrzavanje aplikacije i problem zbog kojeg su se dodiri i geste povremeno ignorirali
 
-## Javni prijevoz
-• Nazivi stanica, prijelaza i postaja sada koriste bijeli obrub kako bi ostali čitljivi i u svijetlim i u tamnim temama
-• Sloj podzemne željeznice ispravno se ponovno pojavljuje nakon zatvaranja pretpregleda rute javnog prijevoza
+### Dijeljenje, zabilješke i staze
 
-## Planiranje ruta i navigacija
-• Ispravljeni problemi s pogrešnim i nedostajućim uputama
-• Upozorenja o ruti (naplatne ceste, trajekti, neravne ceste, stepenice itd.) sada se prikazuju za sve alternativne rute
-• Ispravljena rijetka pojava zamrzavanja tijekom izrade rute i poboljšana obrada slijepih ulica te početnih/krajnjih točaka na ograničenoj cesti
-• Poboljšan prikaz napretka rute na gumbu za početak
-• Preuređivanje stanica rute više ne uzrokuje skakanje popisa
+• NOVO: na popise zabilješki i staza dodan je višestruki odabir s grupnim radnjama za brisanje, premještanje i promjenu boje odabranih stavki te opcijama „Odaberi sve” i „Poništi odabir”
+• Dodana je podrška za AirDrop za dijeljenje mjesta
+• Dijeljenje mjesta, zabilješke ili trenutačnog položaja sada šalje čitljivu poveznicu s korisnim informacijama
+• Izvezene zabilješke sada čuvaju izvorne nazive i opise
+• Dijeljeni popisi zabilješki sada koriste prikazani naziv umjesto internog naziva datoteke
+• Popravljen je problem s prikazom grafikona nadmorske visine koji se mogao pojaviti odmah nakon početka snimanja staze
+• Vraćen je odabir prilagođene boje u skočnom prozoru palete boja
+• Popravljeno je iscrtavanje HTML opisa kada je zabilješka odabrana na karti
 
-## Prijevodi
-• Poboljšan kineski tekst
-• Ažurirani ukrajinski prijevodi
-• Ispravljeni prijevodi regija karte na talijanskom
+### Planiranje rute i navigacija
+
+• NOVO: dodana je CarPlay nadzorna ploča i ispravljeni su brojni problemi s CarPlayom
+• Popravljena je aktivacija stila karte za automobilsku navigaciju
+• Dodir na stajalište ili oznaku na ruti sada ju ispravno otvara umjesto prebacivanja između planiranih ruta
+• Rute javnog prijevoza sada se planiraju brže
+• Ispravljene su netočne upute za skretanje
+• Ispravljena je netočna početna točka nakon ponovnog izračuna rute
+• Lateritne ceste sada se pri planiranju rute smatraju cestama s neasfaltiranom površinom loše kvalitete
+• Ceste označene s `access=unknown` sada se tretiraju kao ceste s privatnim pristupom ili pristupom samo do odredišta
+
+### Uređivač OpenStreetMapa
+
+• Popravljen je pad aplikacije kada bi se slanje podataka na OpenStreetMap dovršilo u pozadini
+• Pražnjenje polja radnog vremena više ne onemogućuje gumbe „Spremi” i „Gotovo”
+• Djelomično neuspjela slanja sada se ponavljaju umjesto da se prijavljuju kao potpuno uspješna
+
+### Prijevodi
+
+• Dodane su glasovne upute na armenskom i laoskom jeziku
+• Ažurirana je Pomoć/Često postavljana pitanja (FAQ), dodan je japanski prijevod
+• Ispravljen je japanski prijevod izraza „Zatvoreno sada”
+• Poboljšani su kineski prijevodi izraza „staza” i „onemogući”
+
+Pogledajte detaljne bilješke o izdanju na https://omaps.org/news/

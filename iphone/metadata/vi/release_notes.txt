@@ -1,28 +1,50 @@
-• Cài đặt mới “Lưu lịch sử tìm kiếm” giúp bạn giữ riêng tư lịch sử tìm kiếm khi cần
+### Bản đồ & địa điểm
 
-## Bản đồ & địa điểm
-• Dữ liệu OpenStreetMap cập nhật đến ngày 14 tháng 7
-• Các ghi chú OpenStreetMap giờ đây được đặt chính xác tại vị trí bạn chọn, thay vì ở giữa khu rừng
-• Cải thiện việc chọn bản đồ cho các khu vực nằm qua đường kinh tuyến đối diện 180°
-• Biểu đồ độ cao của lộ trình không còn hiển thị các biểu đồ lỗi thời hoặc trống sau khi xóa lộ trình
-• Cải thiện biểu đồ độ cao trống cho các lộ trình đã ghi lại
-• Nút xóa dấu trang dễ tìm hơn
-• Tự động lưu dấu trang khi bạn thoát khỏi màn hình chỉnh sửa
-• Bảng màu bao gồm các màu được định sẵn và cho phép bạn chọn bất kỳ màu tùy chỉnh nào
-• Các cải tiến khác về giao diện người dùng
+• Dữ liệu OpenStreetMap được cập nhật tính đến ngày 26 tháng 8 năm 2026
+• Đã cập nhật các bài viết Wikipedia bằng tiếng Ả Rập, tiếng Bengal, tiếng Trung, tiếng Anh, tiếng Pháp, tiếng Đức, tiếng Hindi, tiếng Ý, tiếng Nhật, tiếng Hàn, tiếng Marathi, tiếng Ba Lan, tiếng Bồ Đào Nha, tiếng Nga, tiếng Tây Ban Nha, tiếng Tamil, tiếng Telugu, tiếng Thổ Nhĩ Kỳ và tiếng Urdu
+• Đã thêm chòi quan sát chim, sân khấu, đồi và cổng đá vào bản đồ, cùng với một biểu tượng mới cho đá
+• Đã điều chỉnh kích thước biểu tượng đỉnh núi, hang động và đèo núi
+• Các khu vực được bảo vệ, công viên quốc gia và vùng đất ngập nước hiện được hiển thị với tông màu nhạt hơn
+• Đã khắc phục nhiều sự cố khiến giờ mở cửa hiển thị không chính xác
+• Các thiết lập đã được sắp xếp lại thành các phần "Chung", "Bản đồ", "Điều hướng", "Mạng" và "Sự riêng tư"
+• Đã loại bỏ cài đặt hiệu chỉnh la bàn vì quá trình hiệu chỉnh hiện được thực hiện tự động
+• Đã khắc phục các sự cố liên quan đến la bàn có thể khiến mũi tên vị trí hiện tại chỉ sai hướng hoặc bị đơ
+• Điểm tương ứng hiện được hiển thị trên bản đồ khi bạn kéo ngón tay dọc theo biểu đồ độ cao trong bản xem trước lộ trình đi bộ hoặc đạp xe
+• Đã khắc phục sự cố ứng dụng bị treo và một lỗi khiến các thao tác chạm và cử chỉ đôi khi bị bỏ qua
 
-## Giao thông công cộng
-• Tên các trạm dừng, điểm chuyển tuyến và ga hiện sử dụng viền trắng để đảm bảo dễ đọc trong cả chế độ sáng và tối
-• Lớp bản đồ tàu điện ngầm hiển thị lại chính xác sau khi bạn đóng bản xem trước lộ trình giao thông công cộng
+### Chia sẻ, đánh dấu & dấu vết
 
-## Lập lộ trình & điều hướng
-• Đã khắc phục các sự cố liên quan đến chỉ dẫn sai hoặc thiếu
-• Các cảnh báo lộ trình (phí cầu đường, phà, đường chưa trải nhựa, cầu thang, v.v.) nay được hiển thị cho tất cả các lộ trình thay thế
-• Đã khắc phục tình trạng ứng dụng hiếm khi bị đơ khi xây dựng lộ trình và cải thiện cách xử lý các ngõ cụt cũng như điểm xuất phát/đích trên đường có hạn chế
-• Cải thiện hiển thị tiến trình lộ trình trên nút bắt đầu
-• Việc sắp xếp lại thứ tự các điểm dừng trên lộ trình không còn khiến danh sách bị nhảy loạn nữa
+• MỚI: đã thêm tính năng chọn nhiều mục vào danh sách Đánh dấu và Dấu vết, kèm theo các thao tác hàng loạt để xóa, di chuyển và thay đổi màu sắc của các mục đã chọn, cùng với "Chọn tất cả" và "Bỏ chọn tất cả"
+• Đã thêm hỗ trợ AirDrop để chia sẻ địa điểm
+• Khi chia sẻ một địa điểm, mục đánh dấu hoặc vị trí hiện tại, ứng dụng sẽ gửi một liên kết dễ đọc kèm theo thông tin hữu ích
+• Các mục đánh dấu đã xuất giờ đây vẫn giữ nguyên tên và mô tả ban đầu
+• Các danh sách đánh dấu được chia sẻ hiện dùng tên hiển thị thay vì tên tệp nội bộ
+• Đã khắc phục sự cố hiển thị biểu đồ độ cao có thể xảy ra ngay sau khi bắt đầu ghi dấu vết
+• Đã khôi phục công cụ chọn màu tùy chỉnh trong cửa sổ bật lên bảng màu
+• Đã khắc phục lỗi hiển thị mô tả HTML khi chọn một mục đánh dấu trên bản đồ
 
-## Bản dịch
-• Cải thiện cách diễn đạt trong tiếng Trung
-• Cập nhật bản dịch tiếng Ukraina
-• Sửa lỗi bản dịch tên các khu vực trên bản đồ bằng tiếng Ý
+### Lập lộ trình và điều hướng
+
+• MỚI: đã thêm bảng điều khiển CarPlay và khắc phục nhiều sự cố liên quan đến CarPlay
+• Đã khắc phục việc kích hoạt kiểu bản đồ điều hướng ô tô
+• Khi nhấn vào một điểm dừng hoặc điểm đánh dấu trên lộ trình, ứng dụng sẽ mở đúng mục đó thay vì chuyển đổi giữa các lộ trình đã lên kế hoạch
+• Các lộ trình giao thông công cộng hiện được tính nhanh hơn
+• Đã sửa các hướng dẫn rẽ sai
+• Đã khắc phục lỗi điểm bắt đầu không chính xác sau khi lộ trình được tính lại
+• Khi lập lộ trình, các con đường laterite hiện được coi là có mặt đường không trải nhựa chất lượng kém
+• Các con đường được gắn thẻ `access=unknown` hiện được xử lý giống như đường chỉ dành cho người có quyền truy cập riêng hoặc chỉ đi tới điểm đến
+
+### Trình chỉnh sửa OpenStreetMap
+
+• Đã khắc phục lỗi ứng dụng sập khi quá trình tải lên OpenStreetMap hoàn tất ở chế độ nền
+• Việc xóa nội dung trong trường "Giờ mở cửa" sẽ không còn khiến nút "Lưu" hoặc "Xong" bị vô hiệu hóa nữa
+• Các lần tải lên không thành công một phần giờ đây sẽ được thử lại thay vì được báo cáo là thành công hoàn toàn
+
+### Bản dịch
+
+• Đã thêm hướng dẫn bằng giọng nói tiếng Armenia và tiếng Lào
+• Đã cập nhật phần Trợ giúp/Câu hỏi thường gặp (FAQ), thêm bản dịch tiếng Nhật
+• Đã sửa bản dịch tiếng Nhật của "Hiện đã đóng"
+• Đã cải thiện bản dịch tiếng Trung của "dấu vết" và "vô hiệu hóa"
+
+Xem ghi chú phát hành chi tiết tại https://omaps.org/news/

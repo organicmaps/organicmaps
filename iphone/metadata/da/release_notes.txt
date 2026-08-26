@@ -1,28 +1,50 @@
-• Den nye indstilling »Gem søgehistorik« hjælper dig med at holde din søgehistorik privat, hvis det er nødvendigt
+### Kort og steder
 
-## Kort og steder
-• OpenStreetMap-data pr. 14. juli
-• OpenStreetMap-noter placeres nu på den nøjagtige placering, du vælger, i stedet for midt i skoven
-• Forbedret kortvalg for regioner, der krydser 180°-antimeridianen
-• Højdeprofiler for ruter viser ikke længere forældede eller tomme diagrammer, når en rute fjernes
-• Det tomme højdediagram for registrerede ruter er blevet forbedret
-• Knappen til at fjerne bogmærker er nemmere at finde
-• Automatisk gemning af bogmærker, når du forlader redigeringsskærmen
-• Farvepaletten indeholder foruddefinerede farver og giver dig mulighed for at vælge en hvilken som helst brugerdefineret farve
-• Andre forbedringer af brugergrænsefladen
+• Opdaterede OpenStreetMap-data pr. 26. august 2026
+• Opdaterede Wikipedia-artikler på arabisk, bengalsk, kinesisk, engelsk, fransk, tysk, hindi, italiensk, japansk, koreansk, marathi, polsk, portugisisk, russisk, spansk, tamil, telugu, tyrkisk og urdu
+• Der er tilføjet fugleskjul, scener, bakker og klippebuer til kortet samt et nyt ikon for klipper
+• Ikonerne for bjergtoppe, huler og bjergpas har fået ændret størrelse
+• Beskyttede områder, nationalparker og vådområder vises nu i lysere nuancer
+• Der er rettet mange fejl, der medførte, at åbningstiderne blev vist forkert
+• Indstillingerne er blevet omorganiseret i sektionerne »Generelt«, »Kort«, »Navigation«, »Netværk« og »Privatliv«
+• Indstillingen for kompaskalibrering er fjernet, da kalibreringen nu foregår automatisk
+• Der er rettet problemer med kompasset, der kunne få pilen for den aktuelle position til at pege i den forkerte retning eller fryse fast
+• Det tilhørende punkt vises nu på kortet, mens du trækker fingeren hen over højdeprofilen i en forhåndsvisning af en gå- eller cykelrute
+• Rettet et problem, hvor appen frøs, samt et problem, der lejlighedsvis medførte, at tryk og bevægelser blev ignoreret
 
-## Offentlig transport
-• Navne på stoppesteder, skiftesteder og stationer har nu en hvid kontur, så de forbliver læselige i både lyse og mørke temaer
-• Metro-laget vises igen korrekt, når du lukker en forhåndsvisning af en rute med offentlig transport
+### Deling, bogmærker og spor
 
-## Ruteplanlægning og navigation
-• Problemer med forkerte og manglende vejbeskrivelser er rettet
-• Ruteadvarsler (vejafgifter, færger, grusveje, trapper osv.) vises nu for alle alternative ruter
-• Et sjældent programnedbrud under ruteplanlægning er rettet, og håndteringen af blindveje samt start- og slutpunkter på en vej med adgangsbegrænsninger er forbedret
-• Rutefremdriften på startknappen er forbedret
-• Omarrangering af ruteholdesteder får ikke længere listen til at springe rundt
+• NYT: der er tilføjet mulighed for at vælge flere elementer på listerne over bogmærker og spor, med samlede handlinger til at slette, flytte og ændre farven på de valgte elementer samt »Vælg alle« og »Fravælg alle«
+• AirDrop-understøttelse til deling af steder er tilføjet
+• Når du deler et sted, et bogmærke eller din aktuelle position, sendes der nu et læsbart link med nyttige oplysninger
+• Eksporterede bogmærker bevarer nu deres oprindelige navne og beskrivelser
+• Delte bogmærkelister bruger nu deres viste navn i stedet for det interne filnavn
+• Der er rettet et problem med visningen af højdegrafen, som kunne opstå umiddelbart efter start af en sporoptagelse
+• Den brugerdefinerede farvevælger i farvepalettens popover er blevet gendannet
+• Gengivelsen af HTML-beskrivelser er blevet rettet, når der vælges et bogmærke på kortet
 
-## Oversættelser
-• Den kinesiske formulering er forbedret
-• De ukrainske oversættelser er opdateret
-• Oversættelserne af kortregioner på italiensk er rettet
+### Ruteplanlægning og navigation
+
+• NYT: der er tilføjet et CarPlay-dashboard, og flere CarPlay-problemer er blevet løst
+• Aktiveringen af kortstilen til bilnavigation er blevet rettet
+• Når man trykker på et rutestop eller et mærke, åbnes det nu korrekt i stedet for at skifte mellem planlagte ruter
+• Ruter med offentlig transport beregnes nu hurtigere
+• Fejlagtige svinganvisninger er rettet
+• Rettet et forkert startpunkt efter at en rute blev genberegnet
+• Ved ruteplanlægning behandles lateritveje nu som veje med en uasfalteret overflade af dårlig kvalitet
+• Veje mærket med `access=unknown` behandles nu som veje med privat adgang eller kun ærindekørsel
+
+### OpenStreetMap-editor
+
+• Rettet et nedbrud, der opstod, når en upload til OpenStreetMap blev afsluttet i baggrunden
+• Når man rydder feltet for åbningstider, bliver knapperne »Gem« og »Færdig« ikke længere deaktiveret
+• Uploads, der delvist mislykkes, forsøges nu igen i stedet for at blive rapporteret som fuldt ud vellykkede
+
+### Oversættelser
+
+• Der er tilføjet stemmeinstruktioner på armensk og laotisk
+• Opdateret Hjælp/Ofte stillede spørgsmål (FAQ), tilføjet japansk oversættelse
+• Den japanske oversættelse af »Lukket nu« er blevet rettet
+• De kinesiske oversættelser af »spor« og »deaktivér« er blevet forbedret
+
+Se de detaljerede udgivelsesnoter på https://omaps.org/news/

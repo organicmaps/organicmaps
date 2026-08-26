@@ -1,7 +1,10 @@
-• Dados OSM atualizados a 14 de julho
-• Os nomes das paragens de transportes públicos, das ligações e das estações têm agora um contorno branco
-• Melhoria na apresentação dos horários de funcionamento
-• Corrigidas indicações incorretas ou em falta
-• Os marcadores e percursos editados são agora guardados automaticamente
-• Os avisos de percurso (portagens, ferries, estradas não pavimentadas, escadas, etc.) são agora apresentados para todos os percursos alternativos
+• Dados OSM de 26 de agosto
+• NOVIDADE: seleção múltipla de favoritos e trajetos
+• NOVIDADE: ocultar trajetos individuais com o ícone do olho
+• NOVIDADE: artigos da Wikipédia em bengali, hindi, marata, polaco, tâmil, télugo e urdu
+• Adicionados ao mapa abrigos de observação de aves, palcos, colinas e arcos naturais
+• Melhor partilha de locais
+• Correções para o Android Auto
+• Corrigida a seleção de paragens do percurso
+• Corrigidos os horários de funcionamento
 …mais em omaps.org/pt/news

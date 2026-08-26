@@ -1,7 +1,11 @@
-• Dades d'OSM a data de 14 de juliol
-• Els noms de les parades de transport públic, de transbordament i d'estacions ara tenen un contorn blanc
-• Millora de la visualització dels horaris d'obertura
-• S'han corregit indicacions incorrectes o que faltaven
-• Els marcadors i els recorreguts editats ara es guarden automàticament
-• Ara es mostren avisos de ruta (peatges, ferris, camins sense asfaltar, escales, etc.) per a totes les rutes alternatives
+• Dades d’OSM a 26 d’agost
+• NOU: selecció múltiple de marcadors i recorreguts
+• NOU: amaga recorreguts concrets amb la icona de l’ull
+• NOU: articles de la Viquipèdia en bengalí, hindi, marathi, polonès, tàmil, telugu i urdú
+• Afegits al mapa aguaits d’ocells, escenaris, turons i arcs naturals
+• Millor compartició de llocs
+• Correccions per a Android Auto
+• Corregida la selecció de parades de la ruta
+• Corregits els horaris d’obertura
+• Millor panell de cerca
 …més a omaps.org/ca/news

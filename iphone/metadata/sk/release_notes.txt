@@ -1,28 +1,50 @@
-• Nové nastavenie „Uložiť históriu vyhľadávania“ vám v prípade potreby pomôže zachovať súkromie histórie vyhľadávania
+### Mapa a miesta
 
-## Mapy a miesta
-• Údaje z OpenStreetMap k 14. júlu
-• Poznámky z OpenStreetMap sa teraz umiestňujú presne na miesto, ktoré vyberiete, a nie uprostred lesa
-• Vylepšený výber mapy pre regióny, ktoré prekračujú antimeridián 180°
-• Profily nadmorskej výšky už po odstránení trasy nezobrazujú neaktuálne alebo prázdne grafy
-• Vylepšený prázdny graf nadmorskej výšky pre zaznamenané trasy
-• Tlačidlo na odstránenie záložiek je ľahšie nájditeľné
-• Automatické ukladanie záložiek pri opustení obrazovky úprav
-• Paleta farieb obsahuje preddefinované farby a umožňuje vybrať si ľubovoľnú vlastnú farbu
-• Ďalšie vylepšenia používateľského rozhrania
+• Aktualizované údaje OpenStreetMap k 26. augustu 2026
+• Aktualizované články na Wikipédii v arabčine, bengálčine, čínštine, angličtine, francúzštine, nemčine, hindčine, taliančine, japončine, kórejčine, maráthčine, poľštine, portugalčine, ruštine, španielčine, tamilčine, telugčine, turečtine a urdčine
+• Na mapu boli pridané pozorovateľne vtákov, javiská, kopce a skalné oblúky, ako aj nová ikona pre skaly
+• Upravila sa veľkosť ikon vrcholov, jaskýň a horských priesmykov
+• Chránené územia, národné parky a mokrade sú teraz zobrazené vo svetlejších odtieňoch
+• Bolo opravených mnoho chýb, ktoré spôsobovali nesprávne zobrazenie otváracích hodín
+• Nastavenia boli usporiadané do sekcií „Všeobecné“, „Mapa“, „Navigácia“, „Sieť“ a „Súkromie“
+• Bolo odstránené nastavenie kalibrácie kompasu, pretože kalibrácia sa teraz vykonáva automaticky
+• Boli opravené problémy s kompasom, ktoré mohli spôsobiť, že šípka aktuálnej polohy ukazovala nesprávnym smerom alebo sa zasekla
+• Príslušný bod sa teraz zobrazuje na mape, keď ťaháte prstom po výškovom profile v náhľade pešej alebo cyklistickej trasy
+• Opravilo sa zamrznutie aplikácie a problém, ktorý občas spôsoboval, že sa ťuknutia a gestá ignorovali
 
-## Verejná doprava
-• Názvy zastávok, prestupných miest a staníc majú teraz biely obrys, aby boli čitateľné aj v svetlom, aj v tmavom motíve
-• Vrstva metra sa opäť správne zobrazí po zatvorení náhľadu trasy verejnej dopravy
+### Zdieľanie, záložky a trasy
 
-## Plánovanie trasy a navigácia
-• Opravené problémy s nesprávnymi a chýbajúcimi pokynmi
-• Upozornenia na trase (mýto, trajekty, nespevnené cesty, schody atď.) sa teraz zobrazujú pre všetky alternatívne trasy
-• Opravené zriedkavé zamrznutie pri vytváraní trasy a vylepšené spracovanie slepých uličiek a počiatočných/cieľových bodov na ceste s obmedzeným prístupom
-• Vylepšený priebeh trasy na tlačidle „Štart“
-• Zmena poradia zastávok na trase už nespôsobuje poskakovanie zoznamu
+• NOVINKA: do zoznamov záložiek a trás bol pridaný hromadný výber s hromadnými akciami na vymazanie, presun a zmenu farby vybraných položiek, ako aj možnosti „Vybrať všetko“ a „Zrušiť výber“
+• Pridaná podpora AirDrop na zdieľanie miest
+• Pri zdieľaní miesta, záložky alebo aktuálnej polohy sa teraz odošle čitateľný odkaz s užitočnými informáciami
+• Exportované záložky si teraz zachovávajú pôvodné názvy a popisy
+• Zdieľané zoznamy záložiek teraz používajú zobrazený názov namiesto interného názvu súboru
+• Bol opravený problém so zobrazením grafu nadmorskej výšky, ktorý sa mohol vyskytnúť ihneď po spustení zaznamenávania trasy
+• Bol obnovený výber vlastnej farby v rozbaľovacom okne farebnej palety
+• Opravilo sa zobrazenie popisov v HTML pri výbere záložky na mape
 
-## Preklady
-• Vylepšené čínske znenie
-• Aktualizované ukrajinské preklady
-• Opravené preklady oblastí na mape v taliančine
+### Plánovanie trás a navigácia
+
+• NOVINKA: pridaný ovládací panel pre CarPlay a opravené viaceré problémy s CarPlay
+• Opravila sa aktivácia štýlu mapy pre automobilovú navigáciu
+• Ťuknutím na zastávku alebo značku trasy sa táto položka teraz správne otvorí namiesto prepínania medzi naplánovanými trasami
+• Trasy verejnej dopravy sa teraz plánujú rýchlejšie
+• Opravené nesprávne pokyny na odbočenie
+• Opravil sa nesprávny počiatočný bod po prepočítaní trasy
+• Cesty z lateritu sa teraz pri plánovaní trasy považujú za cesty s nekvalitným nespevneným povrchom
+• Cesty označené tagom `access=unknown` sa teraz spracúvajú ako cesty so súkromným prístupom alebo s prístupom len k cieľu
+
+### Editor OpenStreetMap
+
+• Opravený pád aplikácie po dokončení odosielania údajov do OpenStreetMap na pozadí
+• Vymazanie poľa s otváracími hodinami už nespôsobuje deaktiváciu tlačidiel „Uložiť“ alebo „Hotovo“
+• Čiastočne neúspešné odoslania sa teraz opakujú namiesto toho, aby sa nahlásili ako úplne úspešné
+
+### Preklady
+
+• Pridané hlasové povely v arménčine a laoštine
+• Aktualizovaná Nápoveda/Často kladené otázky (FAQ), pridaný japonský preklad
+• Opravil sa japonský preklad výrazu „Teraz zatvorené“
+• Boli vylepšené čínske preklady slov „trasa“ a „vypnúť“
+
+Podrobné poznámky k vydaniu nájdete na stránke https://omaps.org/news/

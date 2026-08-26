@@ -1,28 +1,50 @@
-• New "Save search history" setting helps you keep your search history private if needed
+### Map & places
 
-## Map & places
-• OpenStreetMap data as of July 14
-• OpenStreetMap notes are now placed at the exact location you select, instead of in the middle of the forest
-• Improved map selection for regions that cross the 180° antimeridian
-• Track elevation profiles no longer show stale or empty charts after a track is removed
-• Improved the empty elevation chart for recorded tracks
-• The button for removing bookmarks is easier to find
-• Automatic bookmark saving when you leave the edit screen
-• The colour palette includes predefined colours and lets you choose any custom colour
-• Other UI improvements
+• Updated OpenStreetMap data as of August 26, 2026
+• Updated Wikipedia articles in Arabic, Bengali, Chinese, English, French, German, Hindi, Italian, Japanese, Korean, Marathi, Polish, Portuguese, Russian, Spanish, Tamil, Telugu, Turkish, and Urdu
+• Added bird hides, stages, hills, and natural arches to the map, plus a new icon for rocks
+• Resized peaks, caves, and mountain passes icons
+• Protected areas, national parks, and wetlands are now displayed in lighter shades
+• Fixed many issues that caused opening hours to be displayed incorrectly
+• Reorganized settings into General, Map, Navigation, Network, and Privacy sections
+• Removed the compass calibration setting because calibration is now handled automatically
+• Fixed compass issues that could cause the current-position arrow to point in the wrong direction or freeze
+• The corresponding point is now shown on the map while you drag across the elevation profile in a walking or cycling route preview
+• Fixed an app freeze and an issue that occasionally caused taps and gestures to be ignored
 
-## Public transport
-• Stop, transfer, and station names now use a white outline to remain readable in both light and dark themes
-• The subway layer reappears correctly after you close a public transport route preview
+### Sharing, bookmarks & tracks
 
-## Routing & navigation
-• Fixed issues with wrong and missing directions
-• Route warnings (tolls, ferries, unpaved roads, stairs, etc.) are now shown for all alternative routes
-• Fixed a rare freeze while building a route and improved handling of dead ends and start/finish points on a restricted road
-• Improved route progress on the start button
-• Reordering route stops no longer makes the list jump around
+• NEW: Added multi-selection to the Bookmarks and Tracks list, with batch actions to delete, move, and change the colour of selected items, plus Select All and Deselect All
+• Added AirDrop support for sharing places
+• Sharing a place, bookmark, or current position now sends a readable link with useful information
+• Exported bookmarks now preserve their original names and descriptions
+• Shared bookmark lists now use their displayed names instead of internal file names
+• Fixed an elevation chart display issue that could occur immediately after starting a track recording
+• Restored the custom colour picker in the colour palette popover
+• Fixed the rendering of HTML descriptions when a bookmark is selected on the map
 
-## Translations
-• Improved Chinese wording
-• Updated Ukrainian translations
-• Fixed translations of map regions in Italian
+### Routing & navigation
+
+• NEW: Added a CarPlay dashboard and fixed multiple CarPlay issues
+• Fixed the activation of the car navigation map style
+• Tapping a route stop or mark now opens it correctly instead of switching between planned routes
+• Public transport routes are now planned faster
+• Fixed incorrect turn instructions
+• Fixed an incorrect start point after a route was rebuilt
+• Laterite roads are now treated as having a poor-quality unpaved surface during route planning
+• Roads tagged `access=unknown` are now handled like roads with private or destination-only access
+
+### OpenStreetMap editor
+
+• Fixed a crash when an OpenStreetMap upload finished in the background
+• Clearing the opening hours field no longer leaves the Save or Done button disabled
+• Uploads that partially fail are now retried instead of being reported as fully successful
+
+### Translations
+
+• Added voice guidance in Armenian and Lao
+• Updated Help/Frequently Asked Questions (FAQ), added Japanese translation
+• Corrected the Japanese translation of "Closed now"
+• Improved the Chinese translations of "track" and "disable"
+
+See the detailed release notes at https://omaps.org/news/

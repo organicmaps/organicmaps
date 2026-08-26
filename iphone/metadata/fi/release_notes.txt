@@ -1,28 +1,50 @@
-• Uusi ”Tallenna hakuhistoria” -asetus auttaa pitämään hakuhistoriasi yksityisenä tarvittaessa
+### Kartta ja paikat
 
-## Kartta ja paikat
-• OpenStreetMap-tiedot päivätty 14. heinäkuuta
-• OpenStreetMap-muistiinpanot sijoitetaan nyt tarkalleen valitsemallesi paikalle, eivätkä enää metsän keskelle
-• Parannettu kartan valinta alueilla, jotka ylittävät 180°:n vastameridiaanin
-• Korkeusprofiileissa ei enää näy vanhentuneita tai tyhjiä kaavioita reitin poistamisen jälkeen
-• Tallennettujen reittien tyhjää korkeuskaaviota on parannettu
-• Kirjanmerkkien poistopainike on helpompi löytää
-• Kirjanmerkit tallennetaan automaattisesti, kun poistut muokkausnäytöltä
-• Värivalikoima sisältää valmiita värejä, ja voit valita minkä tahansa mukautetun värin
-• Muita käyttöliittymän parannuksia
+• Päivitetyt OpenStreetMap-tiedot 26. elokuuta 2026
+• Päivitetyt Wikipedia-artikkelit arabiaksi, bengaliksi, kiinaksi, englanniksi, ranskaksi, saksaksi, hindiksi, italiaksi, japaniksi, koreaksi, marathiksi, puolaksi, portugaliksi, venäjäksi, espanjaksi, tamiliksi, teluguksi, turkiksi ja urduksi
+• Karttaan on lisätty lintupiiloja, näyttämöitä, kukkuloita ja kivikaaria sekä uusi kiviä kuvaava kuvake
+• Vuorenhuippujen, luolien ja vuorisolien kuvakkeiden kokoa on muutettu
+• Suojelualueet, kansallispuistot ja kosteikot näkyvät nyt vaaleammissa sävyissä
+• Korjattu useita ongelmia, jotka aiheuttivat aukioloaikojen virheellisen näyttämisen
+• Asetukset on järjestetty uudelleen osioihin ”Yleiset”, ”Kartta”, ”Navigointi”, ”Verkko” ja ”Yksityisyys”
+• Kompassin kalibrointiasetus on poistettu, koska kalibrointi hoidetaan nyt automaattisesti
+• Korjattu kompassiongelmia, jotka saattoivat aiheuttaa sen, että nykyisen sijainnin nuoli osoitti väärään suuntaan tai jumiutui
+• Vastaava piste näkyy nyt kartalla, kun vedät sormea korkeusprofiilia pitkin kävely- tai pyöräilyreitin esikatselussa
+• Korjattu sovelluksen jumittuminen sekä ongelma, joka aiheutti toisinaan napautusten ja eleiden huomiotta jäämisen
 
-## Julkinen liikenne
-• Pysäkkien, vaihtopaikkojen ja asemien nimissä käytetään nyt valkoista ääriviivaa, jotta ne ovat luettavissa sekä vaaleassa että tummassa teemassa
-• Metrokarttakerros tulee jälleen näkyviin oikein, kun suljet julkisen liikenteen reitin esikatselun
+### Jakaminen, kirjanmerkit ja reitit
 
-## Reititys ja navigointi
-• Korjattu virheellisiä ja puuttuvia reittiohjeita koskevia ongelmia
-• Reittivaroitukset (tiemaksut, lautat, päällystämättömät tiet, portaat jne.) näkyvät nyt kaikilla vaihtoehtoisilla reiteillä
-• Korjattu harvinainen jumittuminen reitin suunnittelun aikana ja parannettu umpikujien sekä lähtö- ja päätepisteiden käsittelyä rajoitetuilla teillä
-• Parannettu reitin etenemisen näyttöä aloituspainikkeessa
-• Reitin pysähdyspaikkojen järjestyksen muuttaminen ei enää aiheuta luettelon hyppimistä
+• UUTTA: kirjanmerkki- ja reittiluetteloihin on lisätty monivalinta, jonka avulla valittuja kohteita voi poistaa, siirtää ja muuttaa niiden väriä joukkotoiminnoilla, sekä ”Valitse kaikki” ja ”Poista valinnat”
+• Lisätty AirDrop-tuki paikkojen jakamiseen
+• Paikan, kirjanmerkin tai nykyisen sijainnin jakaminen lähettää nyt luettavan linkin, joka sisältää hyödyllistä tietoa
+• Viedyt kirjanmerkit säilyttävät nyt alkuperäiset nimensä ja kuvauksensa
+• Jaetut kirjanmerkkiluettelot käyttävät nyt näkyvää nimeään sisäisen tiedostonimen sijaan
+• Korjattu korkeuskaavion näyttöongelma, joka saattoi ilmetä heti reitin tallennuksen aloittamisen jälkeen
+• Mukautettu värivalitsin on palautettu väripaletin ponnahdusikkunaan
+• Korjattu HTML-kuvausten näyttö, kun kirjanmerkki valitaan kartalta
 
-## Käännökset
-• Parannettu kiinankielistä sanamuotoa
-• Päivitetty ukrainankielisiä käännöksiä
-• Korjattu kartta-alueiden käännöksiä italiaksi
+### Reititys ja navigointi
+
+• UUTTA: lisätty CarPlay-kojelauta ja korjattu useita CarPlay-ongelmia
+• Korjattu autonavigointikartan tyylin aktivointi
+• Reitin pysähdyspaikkaa tai merkkiä napauttamalla se avautuu nyt oikein sen sijaan, että sovellus vaihtaisi suunniteltujen reittien välillä
+• Julkisen liikenteen reitit lasketaan nyt nopeammin
+• Korjattu virheelliset käännösohjeet
+• Korjattu virheellinen lähtöpiste reitin uudelleenlaskennan jälkeen
+• Reittisuunnittelussa lateriittiteitä käsitellään nyt huonolaatuisina päällystämättöminä teinä
+• Tiet, joissa on tunniste `access=unknown`, käsitellään nyt samalla tavalla kuin tiet, joilla on yksityinen pääsy tai pääsy vain määränpäähän
+
+### OpenStreetMap-editori
+
+• Korjattu kaatuminen, joka ilmeni, kun OpenStreetMap-lähetys päättyi taustalla
+• Aukioloaikakentän tyhjentäminen ei enää jätä ”Tallenna”- tai ”Valmis”-painiketta pois käytöstä
+• Osittain epäonnistuneet lähetykset yritetään nyt uudelleen sen sijaan, että ne raportoitaisiin täysin onnistuneiksi
+
+### Käännökset
+
+• Lisätty ääniohjeistukset armeniaksi ja laoksi
+• Päivitetty Ohje/Usein kysytyt kysymykset (FAQ), lisätty japaninkielinen käännös
+• Korjattu japaninkielinen käännös ilmaisusta ”Suljettu nyt”
+• Parannettu kiinankielisiä käännöksiä sanoille ”reitti” ja ”poista käytöstä”
+
+Katso yksityiskohtaiset julkaisutiedot osoitteessa https://omaps.org/news/

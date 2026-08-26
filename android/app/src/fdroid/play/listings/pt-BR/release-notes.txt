@@ -1,7 +1,10 @@
-• Dados do OSM atualizados em 14 de julho
-• Os nomes de pontos de transporte público, baldeações e estações agora têm um contorno branco
-• Exibição aprimorada dos horários de funcionamento
-• Corrigidas orientações incorretas ou ausentes
-• Favoritos e trilhas editados agora são salvos automaticamente
-• Avisos de rota (pedágios, balsas, estradas não pavimentadas, escadas etc.) agora são exibidos para todas as rotas alternativas
+• Dados OSM de 26 de agosto
+• NOVIDADE: seleção múltipla de marcadores e trilhas
+• NOVIDADE: ocultar trilhas individuais com o ícone de olho
+• NOVIDADE: artigos da Wikipédia em bengali, hindi, marata, polonês, tâmil, télugo e urdu
+• Adicionados ao mapa abrigos de observação de aves, palcos, colinas e arcos naturais
+• Melhor compartilhamento de locais
+• Correções para o Android Auto
+• Corrigida a seleção de paradas da rota
+• Corrigidos os horários de funcionamento
 …mais em omaps.org/pt-BR/news
