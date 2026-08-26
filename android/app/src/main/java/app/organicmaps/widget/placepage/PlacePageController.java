@@ -83,6 +83,7 @@ public class PlacePageController
 
   private ValueAnimator mCustomPeekHeightAnimator;
   private PlacePageListener mPlacePageListener;
+  @Nullable
   private Dialog mAlertDialog;
 
   private final BottomSheetBehavior.BottomSheetCallback mDefaultBottomSheetCallback =
@@ -474,41 +475,53 @@ public class PlacePageController
   {
     // mMapObject is set to null when the place page closes
     // We don't want users to interact with the buttons when the PP is closing
-    if (mMapObject == null)
-      return;
-    showTrackDeleteAlertDialog();
+    final Track track = getTrack();
+    if (track != null)
+      showTrackDeleteAlertDialog(track);
   }
 
-  void showTrackDeleteAlertDialog()
+  // The track shown in the place page, if any.
+  @Nullable
+  private Track getTrack()
   {
-    if (mMapObject == null)
-      return;
-    dismissAlertDialog();
+    return mMapObject instanceof Track track ? track : null;
+  }
+
+  private void showTrackDeleteAlertDialog(@NonNull Track track)
+  {
     mViewModel.isAlertDialogShowing = true;
-    if (mAlertDialog != null)
-    {
-      mAlertDialog.show();
-      return;
-    }
+    releaseAlertDialog();
+    final long trackId = track.getTrackId();
     mAlertDialog = new MaterialAlertDialogBuilder(requireContext(), R.style.MwmTheme_AlertDialog)
-                       .setTitle(requireContext().getString(R.string.delete_track_dialog_title, mMapObject.getTitle()))
+                       .setTitle(requireContext().getString(R.string.delete_track_dialog_title, track.getTitle()))
                        .setCancelable(true)
                        .setNegativeButton(R.string.cancel, null)
                        .setPositiveButton(R.string.delete,
                                           (dialog, which) -> {
-                                            BookmarkManager.INSTANCE.deleteTrack(((Track) mMapObject).getTrackId());
-                                            close();
+                                            // The click is dispatched from the message queue, so the place page may be
+                                            // closed by then, e.g. by a repeated click. Deleting the track closes it.
+                                            final Track current = getTrack();
+                                            if (current != null && current.getTrackId() == trackId)
+                                              BookmarkManager.INSTANCE.deleteTrack(trackId);
                                           })
                        .setOnDismissListener(dialog -> dismissAlertDialog())
                        .show();
   }
 
-  void dismissAlertDialog()
+  // Dismissed for good: the dialog is not restored after the view recreation.
+  private void dismissAlertDialog()
+  {
+    mViewModel.isAlertDialogShowing = false;
+    releaseAlertDialog();
+  }
+
+  private void releaseAlertDialog()
   {
     if (mAlertDialog == null)
       return;
+    mAlertDialog.setOnDismissListener(null);
     mAlertDialog.dismiss();
-    mViewModel.isAlertDialogShowing = false;
+    mAlertDialog = null;
   }
 
   private void onBackBtnClicked()
@@ -738,14 +751,24 @@ public class PlacePageController
       // Place page will automatically open when the bottom sheet content is loaded so we can compute the peek height
       createPlacePageFragments();
       updateButtons(mapObject, showBackButton, !(mMapObject.isMyPosition() || mMapObject.isTrackRecording()));
-      mAlertDialog = null;
-      if (mViewModel.isAlertDialogShowing)
-        showTrackDeleteAlertDialog();
+      // Restore only after onDestroyView() has released the dialog: the observer is re-subscribed
+      // on every onStart() and re-delivers the object while the dialog is still on the screen.
+      if (mViewModel.isAlertDialogShowing && mAlertDialog == null)
+      {
+        final Track track = getTrack();
+        if (track != null)
+          showTrackDeleteAlertDialog(track);
+        else
+          dismissAlertDialog();
+      }
       if (mMapObject.isTrackRecording())
         onTrackRecordingSelected();
     }
     else
+    {
+      dismissAlertDialog();
       close();
+    }
   }
 
   @Override
@@ -767,6 +790,8 @@ public class PlacePageController
   @Override
   public void onDestroyView()
   {
+    // Keeps the flag to restore the dialog after the view recreation.
+    releaseAlertDialog();
     if (mCustomPeekHeightAnimator != null)
     {
       mCustomPeekHeightAnimator.cancel();
