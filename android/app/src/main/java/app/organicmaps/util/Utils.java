@@ -53,6 +53,24 @@ import java.util.concurrent.TimeUnit;
 @Keep
 public class Utils
 {
+  public static void showSamsungBatteryWarningIfNeeded(Activity activity) {
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P &&
+        "samsung".equalsIgnoreCase(android.os.Build.MANUFACTURER)) {
+        
+      SharedPreferences prefs = activity.getSharedPreferences("OrganicMapsPrefs", Context.MODE_PRIVATE);
+      boolean hasSeenWarning = prefs.getBoolean("samsung_battery_warning_seen", false);
+        
+      if (!hasSeenWarning) {
+        new AlertDialog.Builder(activity)
+            .setTitle(app.organicmaps.R.string.samsung_background_warning_title)
+            .setMessage(app.organicmaps.R.string.samsung_background_warning_message)
+            .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                prefs.edit().putBoolean("samsung_battery_warning_seen", true).apply();
+            })
+            .show();
+      }
+    }
+  }
   private static final String TAG = Utils.class.getSimpleName();
 
   @StringRes

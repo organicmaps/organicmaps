@@ -931,4 +931,7 @@
     <string name="color_picker_grid">Grid</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Voice search</string>
+    <!-- Samsung Battery Warning -->
+  <string name="samsung_background_warning_title">Samsung Device Warning</string>
+  <string name="samsung_background_warning_message">On Samsung devices, background features like track recording may be stopped by the system. Please add Organic Maps to the "Never sleeping apps" list in your device\'s Battery settings.</string>
 </resources>

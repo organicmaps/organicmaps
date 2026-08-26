@@ -489,6 +489,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   protected void onSafeCreate(@Nullable Bundle savedInstanceState)
   {
+    @Override
+  protected void onSafeCreate(@Nullable Bundle savedInstanceState)
+  {
+    super.onSafeCreate(savedInstanceState);
+    app.organicmaps.util.Utils.showSamsungBatteryWarningIfNeeded(this); // <-- ADD THIS LINE
+    mMapFragment = (MapFragment) getSupportFragmentManager().findFragmentByTag(MapFragment.class.getName());
+    if (mMapFragment == null)
     super.onSafeCreate(savedInstanceState);
 
     mIntentConsumed = isIntentConsumed(savedInstanceState, getIntent());
