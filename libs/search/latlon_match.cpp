@@ -154,72 +154,103 @@ bool SkipRequiredSpaces(char const *& s)
   return s != start;
 }
 
+bool SkipRequiredDelimiters(char const *& s)
+{
+  char const * const start = s;
+  Skip(s);
+  return s != start;
+}
+
 bool IsCardinalDirection(char c)
 {
   return c != 0 && strchr("NnSsEeWw", c) != nullptr;
 }
 
-bool MatchSpaceSeparatedDMS(std::string const & query, double & lat, double & lon)
+// Parses "[NSEW] D M [S] [NSEW]" with spaces between the numeric parts.
+bool MatchDMSWithDirection(char const *& s, double & value, bool & isLatitude)
 {
-  std::array<double, 6> values;
-  std::array<char, 2> directions = {};
-  char const * s = query.c_str();
+  SkipSpaces(s);
 
-  for (size_t coordinate = 0; coordinate < directions.size(); ++coordinate)
+  char direction = 0;
+  if (IsCardinalDirection(*s))
   {
+    direction = *s++;
     SkipSpaces(s);
-    if (IsCardinalDirection(*s))
-    {
-      directions[coordinate] = *s++;
-      if (!SkipRequiredSpaces(s))
-        return false;
-    }
+  }
 
-    for (size_t part = 0; part < 3; ++part)
-    {
-      if (part > 0 && !SkipRequiredSpaces(s))
-        return false;
+  std::array<double, 3> parts = {};
+  for (size_t part = 0; part < 2; ++part)
+  {
+    if (part > 0 && !SkipRequiredSpaces(s))
+      return false;
 
-      char * end;
-      auto & value = values[coordinate * 3 + part];
-      value = EatDouble(s, &end);
-      if (s == end || value < 0.0 || !std::isfinite(value) || (part > 0 && value > 60.0))
+    char * end;
+    parts[part] = EatDouble(s, &end);
+    // strtod("nan") succeeds, and NaN would pass the range comparisons.
+    if (s == end || parts[part] < 0.0 || !std::isfinite(parts[part]) || (part > 0 && parts[part] > 60.0))
+      return false;
+    s = end;
+  }
+
+  char const * const afterMinutes = s;
+  SkipSpaces(s);
+  if (direction == 0 && IsCardinalDirection(*s))
+  {
+    direction = *s++;
+  }
+  else
+  {
+    char * end;
+    double const seconds = EatDouble(s, &end);
+    if (s != end)
+    {
+      if (seconds < 0.0 || !std::isfinite(seconds) || seconds > 60.0)
         return false;
+      parts[2] = seconds;
       s = end;
     }
+    else
+    {
+      s = afterMinutes;
+    }
 
-    if (directions[coordinate] == 0)
+    if (direction == 0)
     {
       SkipSpaces(s);
       if (!IsCardinalDirection(*s))
         return false;
-      directions[coordinate] = *s++;
+      direction = *s++;
     }
-
-    if (coordinate == 0 && !SkipRequiredSpaces(s))
-      return false;
   }
 
-  SkipSpaces(s);
-  if (*s != 0)
+  isLatitude = strchr("NnSs", direction) != nullptr;
+  value = parts[0] + parts[1] / 60.0 + parts[2] / 3600.0;
+  if (value > (isLatitude ? 90.0 : 180.0))
+    return false;
+  if (strchr("SsWw", direction) != nullptr)
+    value = -value;
+  return true;
+}
+
+bool MatchSpaceSeparatedDMS(std::string const & query, double & lat, double & lon)
+{
+  char const * s = query.c_str();
+  double firstValue;
+  double secondValue;
+  bool firstIsLatitude;
+  bool secondIsLatitude;
+
+  if (!MatchDMSWithDirection(s, firstValue, firstIsLatitude) || !SkipRequiredDelimiters(s) ||
+      !MatchDMSWithDirection(s, secondValue, secondIsLatitude))
     return false;
 
-  std::array<bool, 2> assigned = {};
-  for (size_t coordinate = 0; coordinate < directions.size(); ++coordinate)
-  {
-    char const direction = directions[coordinate];
-    bool const isLatitude = strchr("NnSs", direction) != nullptr;
-    size_t const axis = isLatitude ? 0 : 1;
-    double value = values[coordinate * 3] + values[coordinate * 3 + 1] / 60.0 + values[coordinate * 3 + 2] / 3600.0;
-    if (assigned[axis] || value > (isLatitude ? 90.0 : 180.0))
-      return false;
+  Skip(s);
+  if (*s != 0 || firstIsLatitude == secondIsLatitude)
+    return false;
 
-    if (strchr("SsWw", direction) != nullptr)
-      value = -value;
-    (isLatitude ? lat : lon) = value;
-    assigned[axis] = true;
-  }
-  return assigned[0] && assigned[1];
+  (firstIsLatitude ? lat : lon) = firstValue;
+  (secondIsLatitude ? lat : lon) = secondValue;
+  return true;
 }
 }  // namespace
 
@@ -227,6 +258,7 @@ namespace search
 {
 bool MatchLatLonDegree(std::string const & query, double & lat, double & lon)
 {
+  // The general parser treats every number without a DMS symbol as degrees.
   if (MatchSpaceSeparatedDMS(query, lat, lon))
     return true;
 
