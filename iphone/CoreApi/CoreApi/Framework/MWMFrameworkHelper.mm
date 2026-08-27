@@ -208,6 +208,35 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   return f.CanEditMapForPosition(f.GetViewportCenter());
 }
 
++ (void)startChoosePositionModeWithEnableBounds:(BOOL)enableBounds initialPosition:(NSValue *)initialPosition
+{
+  m2::PointD position;
+  m2::PointD const * optionalPosition = nullptr;
+  if (initialPosition)
+  {
+    CGPoint const point = initialPosition.CGPointValue;
+    position = {point.x, point.y};
+    optionalPosition = &position;
+  }
+
+  auto & framework = GetFramework();
+  framework.EnableChoosePositionMode(true /* enable */, enableBounds, optionalPosition);
+  framework.BlockTapEvents(true);
+}
+
++ (void)stopChoosePositionMode
+{
+  auto & framework = GetFramework();
+  framework.EnableChoosePositionMode(false /* enable */, false /* enableBounds */, nullptr /* optionalPosition */);
+  framework.BlockTapEvents(false);
+}
+
++ (CGPoint)viewportCenter
+{
+  auto const center = GetFramework().GetViewportCenter();
+  return CGPointMake(center.x, center.y);
+}
+
 + (void)showOnMap:(MWMMarkGroupID)categoryId
 {
   GetFramework().ShowBookmarkCategory(categoryId);

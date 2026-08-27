@@ -1,5 +1,4 @@
 #import "MWMMapViewControlsManager.h"
-#import "MWMAddPlaceNavigationBar.h"
 #import "MWMMapDownloadDialog.h"
 #import "MWMMapViewControlsManager+AddPlace.h"
 #import "MWMMapWidgetsHelper.h"
@@ -75,10 +74,14 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   MapViewController * ownerController = self.ownerController;
   BOOL const isMenuViewUnderStatusBar = self.menuState == MWMBottomMenuStateActive;
   BOOL const isDirectionViewUnderStatusBar = !self.isDirectionViewHidden;
-  BOOL const isAddPlaceUnderStatusBar = [ownerController.view hasSubviewWithViewClass:[MWMAddPlaceNavigationBar class]];
+  BOOL const isMapPointPickerUnderStatusBar =
+      [ownerController.childViewControllers
+          indexOfObjectPassingTest:^BOOL(UIViewController * controller, NSUInteger, BOOL *) {
+            return [controller isKindOfClass:[MapPointPickerViewController class]];
+          }] != NSNotFound;
   BOOL const isNightMode = ownerController.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark;
   BOOL const isSomethingUnderStatusBar =
-      isDirectionViewUnderStatusBar || isMenuViewUnderStatusBar || isAddPlaceUnderStatusBar;
+      isDirectionViewUnderStatusBar || isMenuViewUnderStatusBar || isMapPointPickerUnderStatusBar;
 
   return isSomethingUnderStatusBar || isNightMode ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
@@ -147,25 +150,30 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
   [ownerController dismissPlacePage];
 
-  [MWMAddPlaceNavigationBar showInSuperview:ownerController.view
-      isBusiness:isBusiness
-      position:optionalPosition
-      doneBlock:^{
-        if ([MWMFrameworkHelper canEditMapAtViewportCenter])
-        {
-          // Snapshot the position now: by the time the user picks a category the viewport may
-          // have drifted (location follow, layout changes) and the recheck inside CreateMapObject
-          // would land on a different — possibly unloaded — MWM.
-          m2::PointD const position = GetFramework().GetViewportCenter();
-          NSValue * sender = [NSValue valueWithBytes:&position objCType:@encode(m2::PointD)];
-          [ownerController performSegueWithIdentifier:kMapToCategorySelectorSegue sender:sender];
-        }
-        else
-          [ownerController.alertController presentIncorrectFeauturePositionAlert];
+  NSValue * initialPosition =
+      optionalPosition ? [NSValue valueWithCGPoint:CGPointMake(optionalPosition->x, optionalPosition->y)] : nil;
+  MapPointPickerViewController * picker =
+      [[MapPointPickerViewController alloc] initWithTitle:L(@"editor_add_select_location")
+                                                     hint:L(@"editor_focus_map_on_location")
+                                             enableBounds:isBusiness
+                                          initialPosition:initialPosition];
+  picker.doneHandler = ^(CGPoint point) {
+    if ([MWMFrameworkHelper canEditMapAtViewportCenter])
+    {
+      // Snapshot the position now: by the time the user picks a category the viewport may
+      // have drifted (location follow, layout changes) and the recheck inside CreateMapObject
+      // would land on a different — possibly unloaded — MWM.
+      m2::PointD const position(point.x, point.y);
+      NSValue * sender = [NSValue valueWithBytes:&position objCType:@encode(m2::PointD)];
+      [ownerController performSegueWithIdentifier:kMapToCategorySelectorSegue sender:sender];
+    }
+    else
+      [ownerController.alertController presentIncorrectFeauturePositionAlert];
 
-        [self didFinishAddingPlace];
-      }
-      cancelBlock:^{ [self didFinishAddingPlace]; }];
+    [self didFinishAddingPlace];
+  };
+  picker.cancelHandler = ^{ [self didFinishAddingPlace]; };
+  [picker presentIn:ownerController];
   [ownerController setNeedsStatusBarAppearanceUpdate];
 }
 

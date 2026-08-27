@@ -302,7 +302,7 @@
 		ED82C5C42F90180300FA103D /* PlacePageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C42F2F90180300FA103D /* PlacePageInteractor.swift */; };
 		ED82C5C52F90180300FA103D /* PlacePagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4302F90180300FA103D /* PlacePagePresenter.swift */; };
 		ED82C5C62F90180300FA103D /* PlacePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4312F90180300FA103D /* PlacePageViewController.swift */; };
-		ED82C5C72F90180300FA103D /* MWMAddPlaceNavigationBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4342F90180300FA103D /* MWMAddPlaceNavigationBar.mm */; };
+		ED82C5C72F90180300FA103D /* MapPointPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4342F90180300FA103D /* MapPointPickerViewController.swift */; };
 		ED82C5C82F90180300FA103D /* MWMCircularProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4382F90180300FA103D /* MWMCircularProgress.m */; };
 		ED82C5C92F90180300FA103D /* MWMCircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C43C2F90180300FA103D /* MWMCircularProgressView.m */; };
 		ED82C5CA2F90180300FA103D /* MWMAlertViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C43F2F90180300FA103D /* MWMAlertViewController.mm */; };
@@ -433,7 +433,6 @@
 		ED82C6562F90180300FA103D /* MWMPlacePageOpeningHoursCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4152F90180300FA103D /* MWMPlacePageOpeningHoursCell.xib */; };
 		ED82C6572F90180300FA103D /* MWMPlacePageOpeningHoursWeekDayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4182F90180300FA103D /* MWMPlacePageOpeningHoursWeekDayView.xib */; };
 		ED82C6582F90180300FA103D /* PlacePage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED82C42D2F90180300FA103D /* PlacePage.storyboard */; };
-		ED82C6592F90180300FA103D /* MWMAddPlaceNavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4352F90180300FA103D /* MWMAddPlaceNavigationBar.xib */; };
 		ED82C65A2F90180300FA103D /* MWMCircularProgress.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4392F90180300FA103D /* MWMCircularProgress.xib */; };
 		ED82C65B2F90180300FA103D /* MWMAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4402F90180300FA103D /* MWMAlertViewController.xib */; };
 		ED82C65C2F90180300FA103D /* MWMBCCreateCategoryAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4482F90180300FA103D /* MWMBCCreateCategoryAlert.xib */; };
@@ -1283,9 +1282,7 @@
 		ED82C42F2F90180300FA103D /* PlacePageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageInteractor.swift; sourceTree = "<group>"; };
 		ED82C4302F90180300FA103D /* PlacePagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePagePresenter.swift; sourceTree = "<group>"; };
 		ED82C4312F90180300FA103D /* PlacePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageViewController.swift; sourceTree = "<group>"; };
-		ED82C4332F90180300FA103D /* MWMAddPlaceNavigationBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMAddPlaceNavigationBar.h; sourceTree = "<group>"; };
-		ED82C4342F90180300FA103D /* MWMAddPlaceNavigationBar.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAddPlaceNavigationBar.mm; sourceTree = "<group>"; };
-		ED82C4352F90180300FA103D /* MWMAddPlaceNavigationBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMAddPlaceNavigationBar.xib; sourceTree = "<group>"; };
+		ED82C4342F90180300FA103D /* MapPointPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPointPickerViewController.swift; sourceTree = "<group>"; };
 		ED82C4372F90180300FA103D /* MWMCircularProgress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCircularProgress.h; sourceTree = "<group>"; };
 		ED82C4382F90180300FA103D /* MWMCircularProgress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMCircularProgress.m; sourceTree = "<group>"; };
 		ED82C4392F90180300FA103D /* MWMCircularProgress.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMCircularProgress.xib; sourceTree = "<group>"; };
@@ -3066,14 +3063,12 @@
 			path = PlacePage;
 			sourceTree = "<group>";
 		};
-		ED82C4362F90180300FA103D /* AddPlaceNavigationBar */ = {
+		ED82C4362F90180300FA103D /* MapPointPicker */ = {
 			isa = PBXGroup;
 			children = (
-				ED82C4332F90180300FA103D /* MWMAddPlaceNavigationBar.h */,
-				ED82C4342F90180300FA103D /* MWMAddPlaceNavigationBar.mm */,
-				ED82C4352F90180300FA103D /* MWMAddPlaceNavigationBar.xib */,
+				ED82C4342F90180300FA103D /* MapPointPickerViewController.swift */,
 			);
-			path = AddPlaceNavigationBar;
+			path = MapPointPicker;
 			sourceTree = "<group>";
 		};
 		ED82C43D2F90180300FA103D /* CircularProgress */ = {
@@ -3312,7 +3307,7 @@
 			isa = PBXGroup;
 			children = (
 				ED2487922FD9905800E8F7F0 /* PopoverListSelector */,
-				ED82C4362F90180300FA103D /* AddPlaceNavigationBar */,
+				ED82C4362F90180300FA103D /* MapPointPicker */,
 				ED82C43D2F90180300FA103D /* CircularProgress */,
 				ED82C47C2F90180300FA103D /* CustomAlerts */,
 				ED82C47E2F90180300FA103D /* LoadingOverlay */,
@@ -4435,7 +4430,6 @@
 				ED82C6562F90180300FA103D /* MWMPlacePageOpeningHoursCell.xib in Resources */,
 				ED82C6572F90180300FA103D /* MWMPlacePageOpeningHoursWeekDayView.xib in Resources */,
 				ED82C6582F90180300FA103D /* PlacePage.storyboard in Resources */,
-				ED82C6592F90180300FA103D /* MWMAddPlaceNavigationBar.xib in Resources */,
 				ED82C65A2F90180300FA103D /* MWMCircularProgress.xib in Resources */,
 				ED82C65B2F90180300FA103D /* MWMAlertViewController.xib in Resources */,
 				ED82C65C2F90180300FA103D /* MWMBCCreateCategoryAlert.xib in Resources */,
@@ -4834,7 +4828,7 @@
 				ED82C5C42F90180300FA103D /* PlacePageInteractor.swift in Sources */,
 				ED82C5C52F90180300FA103D /* PlacePagePresenter.swift in Sources */,
 				ED82C5C62F90180300FA103D /* PlacePageViewController.swift in Sources */,
-				ED82C5C72F90180300FA103D /* MWMAddPlaceNavigationBar.mm in Sources */,
+				ED82C5C72F90180300FA103D /* MapPointPickerViewController.swift in Sources */,
 				ED82C5C82F90180300FA103D /* MWMCircularProgress.m in Sources */,
 				ED82C5C92F90180300FA103D /* MWMCircularProgressView.m in Sources */,
 				ED82C5CA2F90180300FA103D /* MWMAlertViewController.mm in Sources */,
