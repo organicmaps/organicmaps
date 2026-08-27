@@ -64,7 +64,6 @@ private:
 
   void InitRecordsReader();
 
-  friend class FeaturesVectorTest;
   using RecordReader = VarRecordReader<FilesContainerR::TReader>;
 
   feature::SharedLoadInfo m_loadInfo;
@@ -80,6 +79,9 @@ class FeaturesVectorTest
 
   FilesContainerR m_cont;
   feature::DataHeader m_header;
+  std::unique_ptr<feature::FeaturesOffsetsTable> m_ftTable;
+  std::unique_ptr<feature::FeaturesOffsetsTable> m_relTable;
+  std::unique_ptr<indexer::MetadataDeserializer> m_metaDeserializer;
   FeaturesVector m_vector;
 
 public:

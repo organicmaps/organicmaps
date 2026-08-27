@@ -1,10 +1,13 @@
 #include "testing/testing.hpp"
 
-#include "indexer/data_source.hpp"
 #include "indexer/features_vector.hpp"
-#include "indexer/mwm_set.hpp"
+#include "indexer/route_relation.hpp"
 
-#include "platform/local_country_file.hpp"
+#include "platform/platform.hpp"
+
+#include "base/file_name_utils.hpp"
+
+#include "defines.hpp"
 
 #include <map>
 #include <string>
@@ -12,7 +15,6 @@
 
 namespace features_vector_test
 {
-using namespace platform;
 using namespace std;
 
 // Postcodes with frequencies.
@@ -34,27 +36,27 @@ UNIT_TEST(FeaturesVectorTest_ParseMetadata)
   for (auto const & p : kCodeFreq)
     expected[strings::to_string(p.first)] = p.second;
 
-  LocalCountryFile localFile = LocalCountryFile::MakeForTesting(kCountryName);
-
-  FrozenDataSource dataSource;
-  auto result = dataSource.RegisterMap(localFile);
-  TEST_EQUAL(result.second, MwmSet::RegResult::Success, ());
-
-  auto const & id = result.first;
-  MwmSet::MwmHandle handle = dataSource.GetMwmHandleById(id);
-  TEST(handle.IsAlive(), ());
-
-  auto const * value = handle.GetValue();
-  FeaturesVector fv(value->m_cont, value->GetHeader(), value->m_ftTable.get(), value->m_relTable.get(),
-                    value->m_metaDeserializer.get());
+  auto const path = base::JoinPath(GetPlatform().ResourcesDir(), kCountryName + DATA_FILE_EXTENSION);
+  FeaturesVectorTest features(path);
 
   map<string, int> actual;
-  fv.ForEach([&](FeatureType & ft, uint32_t index)
+  features.GetVector().ForEach([&](FeatureType & ft, uint32_t index)
   {
     string const postcode(ft.GetMetadata(feature::Metadata::FMD_POSTCODE));
     if (!postcode.empty())
       ++actual[postcode];
   });
   TEST_EQUAL(expected, actual, ());
+}
+
+UNIT_TEST(FeaturesVectorTest_ParseRelation)
+{
+  auto const path = base::JoinPath(GetPlatform().ResourcesDir(), "minsk-pass" DATA_FILE_EXTENSION);
+  FeaturesVectorTest features(path);
+  auto const relation = features.GetVector().GetRelation(2);
+
+  TEST(relation.GetType() == feature::RouteRelationBase::Type::Subway, ());
+  TEST_EQUAL(relation.GetRef(), "1", ());
+  TEST_EQUAL(relation.GetMembers().size(), 2, ());
 }
 }  // namespace features_vector_test
