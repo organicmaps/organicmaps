@@ -77,6 +77,9 @@ NS_SWIFT_NAME(FrameworkHelper)
                inputLocale:(NSString *)locale
                 completion:(SearchInDownloaderCompletions)completion;
 + (BOOL)canEditMapAtViewportCenter;
++ (void)startChoosePositionModeWithEnableBounds:(BOOL)enableBounds initialPosition:(nullable NSValue *)initialPosition;
++ (void)stopChoosePositionMode;
++ (CGPoint)viewportCenter;
 + (void)showOnMap:(MWMMarkGroupID)categoryId;
 + (void)showBookmark:(MWMMarkID)bookmarkId;
 + (void)showTrack:(MWMTrackID)trackId;
