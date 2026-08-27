@@ -56,10 +56,10 @@ public:
 private:
   FilesContainerR const & m_cont;
   DataHeader const & m_header;
+  feature::FeaturesOffsetsTable const * const m_relTable;
   std::optional<ModelReaderPtr> m_relsReader;
 
 public:
-  feature::FeaturesOffsetsTable const * m_relTable;
   indexer::MetadataDeserializer * m_metaDeserializer;
   feature::DatSectionHeader::Version m_version;
 
