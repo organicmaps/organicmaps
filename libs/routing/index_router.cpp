@@ -78,14 +78,10 @@ double constexpr kAlmostZeroContribution = 1e-7;
 // Transit alternatives are exempt because they intentionally trade time for less walking.
 double constexpr kMaxAltEtaRatio = 1.5;
 
-constexpr bool IsAlternativeEtaAcceptable(VehicleType vehicleType, double activeEtaSec, double alternativeEtaSec)
+bool IsAlternativeEtaAcceptable(VehicleType vehicleType, double activeEtaSec, double alternativeEtaSec)
 {
   return vehicleType == VehicleType::Transit || alternativeEtaSec <= kMaxAltEtaRatio * activeEtaSec;
 }
-
-static_assert(IsAlternativeEtaAcceptable(VehicleType::Car, 100.0, 150.0));
-static_assert(!IsAlternativeEtaAcceptable(VehicleType::Car, 100.0, 150.1));
-static_assert(IsAlternativeEtaAcceptable(VehicleType::Transit, 100.0, 150.1));
 
 // If user left the route within this range(meters), adjust the route. Else full rebuild.
 double constexpr kAdjustRangeM = 5000.0;

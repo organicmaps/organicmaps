@@ -469,4 +469,22 @@ UNIT_TEST(Germany_BicycleYes_VehicleNo)
                                    mercator::FromLatLon(48.074355, 11.2472321), 551.705);
 }
 
+// https://github.com/organicmaps/organicmaps/issues/12953
+// A useful distance-biased alternative exists on this flat route. It should remain shorter than
+// the active route without incurring an excessive ETA penalty on slow roads.
+UNIT_TEST(Germany_Munich_AlternativeRouteEta)
+{
+  auto & components = GetVehicleComponents(VehicleType::Bicycle);
+  Checkpoints const checkpoints(mercator::FromLatLon(48.1312306, 11.6872422),
+                                mercator::FromLatLon(48.2043364, 11.4145979));
+  auto const result = CalculateRoutes(components, checkpoints);
+  TEST_EQUAL(result.second, RouterResultCode::NoError, ());
+  TEST_EQUAL(result.first.size(), 2, ());
+
+  auto const & active = *result.first[0];
+  auto const & alternative = *result.first[1];
+  TEST_LESS(alternative.GetTotalDistanceMeters(), active.GetTotalDistanceMeters(), ());
+  TEST_LESS(alternative.GetTotalTimeSec(), 1.25 * active.GetTotalTimeSec(), ());
+}
+
 }  // namespace bicycle_route_test
