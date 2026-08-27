@@ -489,13 +489,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   protected void onSafeCreate(@Nullable Bundle savedInstanceState)
   {
-    @Override
-  protected void onSafeCreate(@Nullable Bundle savedInstanceState)
-  {
-    super.onSafeCreate(savedInstanceState);
-    app.organicmaps.util.Utils.showSamsungBatteryWarningIfNeeded(this); // <-- ADD THIS LINE
-    mMapFragment = (MapFragment) getSupportFragmentManager().findFragmentByTag(MapFragment.class.getName());
-    if (mMapFragment == null)
+    
     super.onSafeCreate(savedInstanceState);
 
     mIntentConsumed = isIntentConsumed(savedInstanceState, getIntent());
@@ -1951,27 +1945,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private boolean startTrackRecording()
   {
-    if (!LocationUtils.checkFineLocationPermission(this))
-    {
-      Logger.i(TAG, "Location permission not granted");
-      // This variable is a simple hack to re initiate the flow
-      // according to action of user. Calling it hack because we are avoiding
-      // creation of new methods by using this variable.
-      mLocationPermissionRequestedForRecording = true;
-      mLocationPermissionRequest.launch(new String[] {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION});
-      return false;
-    }
-
-    requestPostNotificationsPermission();
-
-    if (mCurrentWindowInsets != null)
-    {
-      final int offset = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
-      updateCompassOffset(offset + dimen(this, R.dimen.map_button_size));
-    }
-    Toast.makeText(this, R.string.track_recording, Toast.LENGTH_SHORT).show();
-    TrackRecordingService.startForegroundService(getApplicationContext());
-    mMapButtonsViewModel.setTrackRecorderState(true);
+    app.organicmaps.util.Utils.showBatteryOptimizationWarningIfNeeded(this, () -> {
+      if (mCurrentWindowInsets != null)
+      {
+        final int offset = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
+        updateCompassOffset(offset + dimen(this, R.dimen.map_button_size));
+      }
+      Toast.makeText(this, R.string.track_recording, Toast.LENGTH_SHORT).show();
+      TrackRecordingService.startForegroundService(getApplicationContext());
+      mMapButtonsViewModel.setTrackRecorderState(true);
+    });
+    
     return true;
   }
 

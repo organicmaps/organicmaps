@@ -53,24 +53,41 @@ import java.util.concurrent.TimeUnit;
 @Keep
 public class Utils
 {
-  public static void showSamsungBatteryWarningIfNeeded(Activity activity) {
-    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P &&
-        "samsung".equalsIgnoreCase(android.os.Build.MANUFACTURER)) {
-        
+  public static void showBatteryOptimizationWarningIfNeeded(Activity activity, Runnable onContinue) {
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+      
       SharedPreferences prefs = activity.getSharedPreferences("OrganicMapsPrefs", Context.MODE_PRIVATE);
-      boolean hasSeenWarning = prefs.getBoolean("samsung_battery_warning_seen", false);
+      boolean hasSeenWarning = prefs.getBoolean("battery_optimization_warning_seen", false);
         
       if (!hasSeenWarning) {
         new AlertDialog.Builder(activity)
-            .setTitle(app.organicmaps.R.string.samsung_background_warning_title)
-            .setMessage(app.organicmaps.R.string.samsung_background_warning_message)
-            .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                prefs.edit().putBoolean("samsung_battery_warning_seen", true).apply();
+            .setTitle(app.organicmaps.R.string.background_recording_warning_title)
+            .setMessage(app.organicmaps.R.string.background_recording_warning_message)
+            .setPositiveButton(app.organicmaps.R.string.open_settings, (dialog, which) -> {
+                prefs.edit().putBoolean("battery_optimization_warning_seen", true).apply();
+                
+                Intent intent = new Intent(android.provider.Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+                try {
+                    activity.startActivity(intent);
+                } catch (android.content.ActivityNotFoundException e) {
+                    activity.startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS));
+                }
+                
+                if (onContinue != null) {
+                    onContinue.run();
+                }
             })
+            .setNegativeButton(android.R.string.cancel, (dialog, which) -> {})
             .show();
+        return; 
       }
     }
+    
+    if (onContinue != null) {
+        onContinue.run();
+    }
   }
+}
   private static final String TAG = Utils.class.getSimpleName();
 
   @StringRes
