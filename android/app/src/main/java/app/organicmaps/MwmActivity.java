@@ -2065,6 +2065,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     showTrackRecordingUi();
     Toast.makeText(this, R.string.track_recording, Toast.LENGTH_SHORT).show();
     TrackRecordingService.startForegroundService(getApplicationContext());
+    Utils.showBatteryOptimizationWarningIfNeeded(this);
     return true;
   }
 
