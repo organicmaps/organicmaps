@@ -46,28 +46,17 @@
                         </mask>
                     </variation>
                 </tableView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M4g-vy-YtE" userLabel="Bottom View">
-                    <rect key="frame" x="0.0" y="862" width="414" height="34"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
-                    </userDefinedRuntimeAttributes>
-                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <gestureRecognizers/>
             <constraints>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="L4F-0e-1B7" secondAttribute="bottom" id="Crm-Ym-Ikk"/>
-                <constraint firstItem="M4g-vy-YtE" firstAttribute="top" secondItem="L4F-0e-1B7" secondAttribute="bottom" id="E7M-j3-lrN"/>
+                <constraint firstAttribute="bottom" secondItem="L4F-0e-1B7" secondAttribute="bottom" id="Crm-Ym-Ikk"/>
                 <constraint firstItem="DD7-rW-ckP" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="LOj-yu-5nE"/>
-                <constraint firstItem="M4g-vy-YtE" firstAttribute="trailing" secondItem="L4F-0e-1B7" secondAttribute="trailing" id="PdB-CC-VOI"/>
                 <constraint firstItem="DD7-rW-ckP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Vxc-mf-jVJ"/>
                 <constraint firstAttribute="trailing" secondItem="DD7-rW-ckP" secondAttribute="trailing" id="WAo-c4-geW"/>
-                <constraint firstItem="M4g-vy-YtE" firstAttribute="leading" secondItem="L4F-0e-1B7" secondAttribute="leading" id="cjE-84-gfc"/>
                 <constraint firstItem="DD7-rW-ckP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="deF-nX-Ae5"/>
                 <constraint firstItem="L4F-0e-1B7" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="top" id="fDu-HA-dhq"/>
                 <constraint firstItem="L4F-0e-1B7" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="g7h-Yh-azG"/>
-                <constraint firstAttribute="bottom" secondItem="M4g-vy-YtE" secondAttribute="bottom" priority="750" id="hFA-7p-XKe"/>
                 <constraint firstItem="L4F-0e-1B7" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="t8e-ZM-EdJ"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

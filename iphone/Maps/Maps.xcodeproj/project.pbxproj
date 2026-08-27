@@ -139,6 +139,7 @@
 		ED82C5192F90180300FA103D /* BottomMenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2DB2F90180300FA103D /* BottomMenuInteractor.swift */; };
 		ED82C51A2F90180300FA103D /* BottomMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2DC2F90180300FA103D /* BottomMenuPresenter.swift */; };
 		ED82C51B2F90180300FA103D /* BottomMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2DD2F90180300FA103D /* BottomMenuViewController.swift */; };
+		ED82CD012F90180300FA103D /* BottomMenuSheetLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82CD002F90180300FA103D /* BottomMenuSheetLayout.swift */; };
 		ED82C51C2F90180300FA103D /* BottomMenuPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2E02F90180300FA103D /* BottomMenuPresentationController.swift */; };
 		ED82C51D2F90180300FA103D /* BottomMenuTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2E12F90180300FA103D /* BottomMenuTransitioning.swift */; };
 		ED82C51E2F90180300FA103D /* BottomMenuTransitioningManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2E22F90180300FA103D /* BottomMenuTransitioningManager.swift */; };
@@ -1008,6 +1009,7 @@
 		ED82C2DB2F90180300FA103D /* BottomMenuInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuInteractor.swift; sourceTree = "<group>"; };
 		ED82C2DC2F90180300FA103D /* BottomMenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuPresenter.swift; sourceTree = "<group>"; };
 		ED82C2DD2F90180300FA103D /* BottomMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuViewController.swift; sourceTree = "<group>"; };
+		ED82CD002F90180300FA103D /* BottomMenuSheetLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuSheetLayout.swift; sourceTree = "<group>"; };
 		ED82C2DE2F90180300FA103D /* BottomMenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomMenuViewController.xib; sourceTree = "<group>"; };
 		ED82C2E02F90180300FA103D /* BottomMenuPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuPresentationController.swift; sourceTree = "<group>"; };
 		ED82C2E12F90180300FA103D /* BottomMenuTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuTransitioning.swift; sourceTree = "<group>"; };
@@ -2370,6 +2372,7 @@
 				ED82C2DB2F90180300FA103D /* BottomMenuInteractor.swift */,
 				ED82C2DC2F90180300FA103D /* BottomMenuPresenter.swift */,
 				ED82C2DD2F90180300FA103D /* BottomMenuViewController.swift */,
+				ED82CD002F90180300FA103D /* BottomMenuSheetLayout.swift */,
 				ED82C2DE2F90180300FA103D /* BottomMenuViewController.xib */,
 			);
 			path = Menu;
@@ -4544,6 +4547,7 @@
 				ED82C5192F90180300FA103D /* BottomMenuInteractor.swift in Sources */,
 				ED82C51A2F90180300FA103D /* BottomMenuPresenter.swift in Sources */,
 				ED82C51B2F90180300FA103D /* BottomMenuViewController.swift in Sources */,
+				ED82CD012F90180300FA103D /* BottomMenuSheetLayout.swift in Sources */,
 				ED82C51C2F90180300FA103D /* BottomMenuPresentationController.swift in Sources */,
 				ED82C51D2F90180300FA103D /* BottomMenuTransitioning.swift in Sources */,
 				ED82C51E2F90180300FA103D /* BottomMenuTransitioningManager.swift in Sources */,

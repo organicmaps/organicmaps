@@ -14,16 +14,10 @@ final class BottomMenuViewController: MWMViewController {
   @IBOutlet var heightConstraint: NSLayoutConstraint!
   @IBOutlet var bottomConstraint: NSLayoutConstraint!
 
-  lazy var chromeView: UIView = {
-    let view = UIView()
-    view.setStyle(.presentationBackground)
-    return view
-  }()
-
-  weak var containerView: UIView! {
-    didSet {
-      containerView.insertSubview(chromeView, at: 0)
-    }
+  /// The presentation controller owns the dimming backdrop; this is the bridge
+  /// used while the sheet is being dragged.
+  private var presentation: BottomMenuPresentationController? {
+    presentationController as? BottomMenuPresentationController
   }
 
   override func viewDidLoad() {
@@ -72,13 +66,14 @@ final class BottomMenuViewController: MWMViewController {
 
     let contentHeight = tableView.contentSize.height
     let maximumHeight = view.bounds.height - view.safeAreaInsets.bottom
-    guard contentHeight > 0, maximumHeight > 0 else { return }
+    guard let targetHeight = BottomMenuSheetLayout.height(contentHeight: contentHeight,
+                                                          maximumHeight: maximumHeight) else { return }
 
-    let targetHeight = min(contentHeight, maximumHeight)
     if heightConstraint.constant != targetHeight {
       heightConstraint.constant = targetHeight
     }
-    tableView.isScrollEnabled = contentHeight > targetHeight
+    tableView.isScrollEnabled = BottomMenuSheetLayout.isScrollable(contentHeight: contentHeight,
+                                                                   sheetHeight: targetHeight)
   }
 
   @IBAction func onClosePressed(_: Any) {
@@ -92,7 +87,7 @@ final class BottomMenuViewController: MWMViewController {
     bottomConstraint.constant = min(bottomConstraint.constant - yOffset, 0)
 
     let alpha = 1.0 - abs(bottomConstraint.constant / tableView.height)
-    chromeView.alpha = alpha
+    presentation?.setDimmingAlpha(alpha)
 
     let state = sender.state
     if state == .ended || state == .cancelled {
@@ -102,7 +97,7 @@ final class BottomMenuViewController: MWMViewController {
         let duration = min(AppConstants.defaultAnimationDuration, TimeInterval(bottomConstraint.constant / yVelocity))
         view.layoutIfNeeded()
         UIView.animate(withDuration: duration) {
-          self.chromeView.alpha = 1
+          self.presentation?.setDimmingAlpha(1)
           self.bottomConstraint.constant = 0
           self.view.layoutIfNeeded()
         }
