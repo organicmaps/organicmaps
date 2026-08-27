@@ -131,7 +131,9 @@ bool SingleVehicleWorldGraph::IsPassThroughAllowed(NumMwmId mwmId, uint32_t feat
 
 RouteWeight SingleVehicleWorldGraph::HeuristicCostEstimate(ms::LatLon const & from, ms::LatLon const & to)
 {
-  return RouteWeight(m_estimator->CalcHeuristic(from, to));
+  // In LeapsOnly mode the search sees leap edges and precomputed cross-mwm weights whose effective
+  // speeds exceed the DistanceBiased cap, so the tighter heuristic is only valid without leaps.
+  return RouteWeight(m_estimator->CalcHeuristic(from, to, m_mode != WorldGraphMode::LeapsOnly /* tightAllowed */));
 }
 
 RouteWeight SingleVehicleWorldGraph::CalcSegmentWeight(Segment const & segment, EdgeEstimator::Purpose purpose)

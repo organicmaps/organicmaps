@@ -159,7 +159,7 @@ public:
   // maxSpeedKMpH doesn't matter, but should be greater then any road speed in all tests.
   // offroadSpeedKMpH doesn't matter, but should be > 0 and <= maxSpeedKMpH.
   explicit WeightedEdgeEstimator(std::map<Segment, double> const & segmentWeights)
-    : EdgeEstimator(1e10 /* maxSpeedKMpH */, 1.0 /* offroadSpeedKMpH */)
+    : EdgeEstimator(1e10 /* maxSpeedKMpH */, 1e10 /* distanceBiasCapSpeedKMpH */, 1.0 /* offroadSpeedKMpH */)
     , m_segmentWeights(segmentWeights)
   {}
 
