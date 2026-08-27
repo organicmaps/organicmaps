@@ -81,6 +81,7 @@ import app.organicmaps.sdk.MapController;
 import app.organicmaps.sdk.MapRenderingListener;
 import app.organicmaps.sdk.PlacePageActivationListener;
 import app.organicmaps.sdk.Router;
+import app.organicmaps.sdk.api.ApiController;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.TrackRecording;
@@ -1065,7 +1066,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     MwmApplication.from(getApplicationContext()).getIsolinesManager().detach();
     Utils.keepScreenOn(false, getWindow());
 
-    final String backUrl = Framework.nativeGetParsedBackUrl();
+    final String backUrl = ApiController.nativeGetParsedBackUrl();
     if (!TextUtils.isEmpty(backUrl))
       Utils.openUri(this, Uri.parse(backUrl), null);
   }
@@ -1965,7 +1966,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     case KeyEvent.KEYCODE_DPAD_UP: Map.zoomIn(); return true;
     case KeyEvent.KEYCODE_ESCAPE:
       final Intent currIntent = getIntent();
-      final String backUrl = Framework.nativeGetParsedBackUrl();
+      final String backUrl = ApiController.nativeGetParsedBackUrl();
       if (TextUtils.isEmpty(backUrl) || (currIntent != null && Factory.isStartedForApiResult(currIntent)))
       {
         finish();

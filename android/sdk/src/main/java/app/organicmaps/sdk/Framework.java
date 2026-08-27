@@ -5,13 +5,11 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Size;
-import app.organicmaps.sdk.api.ParsedRoutingData;
-import app.organicmaps.sdk.api.ParsedSearchRequest;
-import app.organicmaps.sdk.api.RequestType;
 import app.organicmaps.sdk.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.products.ProductsConfig;
 import app.organicmaps.sdk.routing.JunctionInfo;
+import app.organicmaps.sdk.routing.RouteAltitudeData;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingInfo;
@@ -171,12 +169,6 @@ public class Framework
     }
   }
 
-  public static native void nativeClearApiPoints();
-
-  @NonNull
-  public static native @RequestType int nativeParseAndSetApiUrl(String url);
-  public static native ParsedRoutingData nativeGetParsedRoutingData();
-
   // Custom raster background tiles (Settings -> Background Map tiles).
   public static native void nativeSetBackgroundTiles(boolean enabled, @NonNull String url, int cacheSizeMB,
                                                      int areaOpacityPct);
@@ -189,13 +181,6 @@ public class Framework
   public static native int nativeGetBackgroundTilesCacheSizeMB();
   public static native boolean nativeIsBackgroundTilesEnabled();
   public static native int nativeGetBackgroundTilesAreaOpacity();
-  public static native ParsedSearchRequest nativeGetParsedSearchRequest();
-  public static native @Nullable String nativeGetParsedAppName();
-  public static native @Nullable String nativeGetParsedOAuth2Code();
-  @Nullable
-  @Size(2)
-  public static native double[] nativeGetParsedCenterLatLon();
-  public static native @Nullable String nativeGetParsedBackUrl();
 
   /// @return true if a transit route selection was recovered.
   public static native boolean nativeDeactivatePopup();
@@ -241,7 +226,7 @@ public class Framework
   public static native JunctionInfo[] nativeGetRouteJunctionPoints(double maxDistM);
 
   @Nullable
-  public static native app.organicmaps.sdk.routing.RouteAltitudeData nativeGetRouteAltitudeData();
+  public static native RouteAltitudeData nativeGetRouteAltitudeData();
 
   public static native void nativeRouteSetElevationActivePoint(double distanceMeters);
 
