@@ -20,6 +20,7 @@
 #include <CoreApi/TrackInfo+Core.h>
 
 #include "kml/type_utils.hpp"
+#include "map/routing_mark.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/localization.hpp"
 
@@ -69,8 +70,7 @@ using namespace routing;
     return nil;
 
   auto const altitudesInfo = elevationInfo.CalculateAltitudesInfo(ElevationInfo::kDefThresholdMWM);
-  // A zero vertical range collapses the chart's Y-axis transforms, so suppress the preview instead of
-  // showing a misleading flat chart. This matches the previous bitmap-based behavior.
+  // A zero vertical range collapses the chart's Y-axis transforms, so suppress the misleading flat preview.
   if (altitudesInfo.m_maxAltitude == altitudesInfo.m_minAltitude)
     return nil;
 
@@ -196,6 +196,12 @@ using namespace routing;
 + (BOOL)canAddIntermediatePoint
 {
   return GetFramework().GetRoutingManager().CouldAddIntermediatePoint();
+}
+
++ (BOOL)isRoutePointsLimitReached
+{
+  // Unlike canAddIntermediatePoint, this also works before routing becomes active.
+  return GetFramework().GetRoutingManager().GetRoutePointsCount() >= RoutePointsLayout::kMaxRoutePointsCount;
 }
 
 - (instancetype)initRouter
