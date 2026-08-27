@@ -154,9 +154,14 @@ jobs:
           target: google_apis
           working-directory: ./android
           script: >-
-            ./gradlew -P${{ matrix.arch }} app:test${{ matrix.flavor }} sdk:testDebug
-            :wear:testGoogleDebugUnitTest :libs:wear-protocol-gms:testDebugUnitTest
-            :sdk:wear:core:testDebugUnitTest sdk:connectedDebugAndroidTest
+            ./gradlew -P${{ matrix.arch }}
+            :app:test${{ matrix.flavor }}
+            :libs:googleassistant:testDebugUnitTest
+            :libs:wear-protocol-gms:testDebugUnitTest
+            :sdk:testDebug
+            :sdk:connectedDebugAndroidTest
+            :sdk:wear:core:testDebugUnitTest
+            :wear:testGoogleDebugUnitTest
 
       - name: Upload ${{ matrix.flavor }} apk
         uses: actions/upload-artifact@v7
