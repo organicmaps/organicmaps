@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)isSpeedCamLimitExceeded;
 
 + (BOOL)canAddIntermediatePoint;
++ (BOOL)isRoutePointsLimitReached;
 
 + (void)startRouting;
 + (void)stopRouting;
