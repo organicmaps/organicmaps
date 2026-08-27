@@ -45134,7 +45134,7 @@ zh-Hant = 語音搜尋
 
 [choose_on_map]
 comment = Accessibility label of the icon-only button left of the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair
-tags = android-app
+tags = android-app,apple-maps
 en = Choose on map
 af = Kies op die kaart
 ar = اختر على الخريطة
@@ -45195,7 +45195,7 @@ zh-Hant = 在地圖上選擇
 
 [choose_start_location]
 comment = Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short: the field is narrow, with shortcut buttons on its left and the voice search button on its right
-tags = android-app
+tags = android-app,apple-maps
 en = Start point
 af = Beginpunt
 ar = نقطة البداية
@@ -45256,7 +45256,7 @@ zh-Hant = 起點
 
 [choose_destination]
 comment = Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short: the field is narrow, with shortcut buttons on its left and the voice search button on its right
-tags = android-app
+tags = android-app,apple-maps
 en = Destination
 af = Bestemming
 ar = الوجهة
@@ -45317,7 +45317,7 @@ zh-Hant = 目的地
 
 [choose_stop_along_route]
 comment = Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short: the field is narrow, with shortcut buttons on its left and the voice search button on its right
-tags = android-app
+tags = android-app,apple-maps
 en = Add stop
 af = Voeg stop by
 ar = إضافة محطة
@@ -45380,7 +45380,7 @@ zh-Hant = 新增途經點
 
 [change_start_location]
 comment = Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short: the field is narrow, with shortcut buttons on its left and the voice search button on its right
-tags = android-app
+tags = android-app,apple-maps
 en = Change start
 af = Verander begin
 ar = تغيير البداية
@@ -45441,7 +45441,7 @@ zh-Hant = 變更起點
 
 [change_destination]
 comment = Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short: the field is narrow, with shortcut buttons on its left and the voice search button on its right
-tags = android-app
+tags = android-app,apple-maps
 en = New destination
 af = Nuwe bestemming
 ar = وجهة جديدة
@@ -45502,7 +45502,7 @@ zh-Hant = 新目的地
 
 [change_stop_along_route]
 comment = Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short: the field is narrow, with shortcut buttons on its left and the voice search button on its right
-tags = android-app
+tags = android-app,apple-maps
 en = Change stop
 af = Verander stop
 ar = تغيير المحطة
@@ -45564,7 +45564,7 @@ zh-Hant = 變更途經點
 
 [routing_max_stops_reached]
 comment = Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number
-tags = android-app
+tags = android-app,apple-maps
 en = Maximum number of stops reached
 af = Maksimum aantal stoppe is bereik
 ar = تم الوصول إلى الحد الأقصى لعدد المحطات
@@ -45626,7 +45626,7 @@ zh-Hant = 已達到最大途經點數量
 
 [choose_point_on_map_hint]
 comment = Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it
-tags = android-app
+tags = android-app,apple-maps
 en = Move and zoom the map to place the crosshair
 af = Skuif en zoem die kaart om die kruis te plaas
 ar = حرك الخريطة وقم بتكبيرها أو تصغيرها لوضع علامة التصويب
