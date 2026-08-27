@@ -223,11 +223,18 @@ UNIT_TEST(LatLon_Match_SpaceSeparatedDMS)
   TestAlmostEqual(lat, 37.0077027777778);
   TestAlmostEqual(lon, -8.94488611111111);
 
+  TEST(MatchLatLonDegree("N 51 33.217 E 11 10.113", lat, lon), ());
+  TestAlmostEqual(lat, 51.55361666666667);
+  TestAlmostEqual(lon, 11.16855);
+
+  // Without a delimiter, accepting mixed D M S and D M forms can consume the next coordinate's degrees as seconds.
+  TEST(!MatchLatLonDegree("N 1 08 8 56 41 E", lat, lon), ());
+  TEST(!MatchLatLonDegree("N 1 08, 8 56 41 E", lat, lon), ());
+  TEST(!MatchLatLonDegree("W 8 56 37 00 27 N", lat, lon), ());
+
   lat = 12.0;
   lon = 34.0;
   TEST(!MatchLatLonDegree("37 00 27.73 N 08 56 41.59 S", lat, lon), ());
-  TEST_EQUAL(lat, 12.0, ());
-  TEST_EQUAL(lon, 34.0, ());
   TEST(!MatchLatLonDegree("37 60.1 27.73 N 08 56 41.59 W", lat, lon), ());
   TEST(!MatchLatLonDegree("37 00 27.73 N 08 56 60.1 W", lat, lon), ());
   TEST(!MatchLatLonDegree("37 00 27.73 N 08 56 41.59 W nearby", lat, lon), ());

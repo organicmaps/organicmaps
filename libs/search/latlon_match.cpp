@@ -166,10 +166,12 @@ bool IsCardinalDirection(char c)
   return c != 0 && strchr("NnSsEeWw", c) != nullptr;
 }
 
-// Parses "[NSEW] D M [S] [NSEW]" with spaces between the numeric parts.
-bool MatchDMSWithDirection(char const *& s, double & value, bool & isLatitude)
+// Parses "[NSEW] D M [S] [NSEW]"; D and M must be separated by spaces.
+bool MatchDMSWithDirection(char const *& s, double & value, bool & isLatitude,
+                           bool & hasSeconds)
 {
   SkipSpaces(s);
+  hasSeconds = false;
 
   char direction = 0;
   if (IsCardinalDirection(*s))
@@ -192,35 +194,28 @@ bool MatchDMSWithDirection(char const *& s, double & value, bool & isLatitude)
     s = end;
   }
 
+  // Seconds are optional - "D M" is degrees with decimal minutes.
   char const * const afterMinutes = s;
   SkipSpaces(s);
-  if (direction == 0 && IsCardinalDirection(*s))
-  {
-    direction = *s++;
-  }
+  char * end;
+  double const seconds = EatDouble(s, &end);
+  if (s == end)
+    s = afterMinutes;  // Put back the delimiter the caller needs between coordinates.
+  else if (seconds < 0.0 || !std::isfinite(seconds) || seconds > 60.0)
+    return false;
   else
   {
-    char * end;
-    double const seconds = EatDouble(s, &end);
-    if (s != end)
-    {
-      if (seconds < 0.0 || !std::isfinite(seconds) || seconds > 60.0)
-        return false;
-      parts[2] = seconds;
-      s = end;
-    }
-    else
-    {
-      s = afterMinutes;
-    }
+    parts[2] = seconds;
+    s = end;
+    hasSeconds = true;
+  }
 
-    if (direction == 0)
-    {
-      SkipSpaces(s);
-      if (!IsCardinalDirection(*s))
-        return false;
-      direction = *s++;
-    }
+  if (direction == 0)
+  {
+    SkipSpaces(s);
+    if (!IsCardinalDirection(*s))
+      return false;
+    direction = *s++;
   }
 
   isLatitude = strchr("NnSs", direction) != nullptr;
@@ -239,13 +234,17 @@ bool MatchSpaceSeparatedDMS(std::string const & query, double & lat, double & lo
   double secondValue;
   bool firstIsLatitude;
   bool secondIsLatitude;
+  bool firstHasSeconds;
+  bool secondHasSeconds;
 
-  if (!MatchDMSWithDirection(s, firstValue, firstIsLatitude) || !SkipRequiredDelimiters(s) ||
-      !MatchDMSWithDirection(s, secondValue, secondIsLatitude))
+  if (!MatchDMSWithDirection(s, firstValue, firstIsLatitude, firstHasSeconds) ||
+      !SkipRequiredDelimiters(s) ||
+      !MatchDMSWithDirection(s, secondValue, secondIsLatitude, secondHasSeconds))
     return false;
 
   Skip(s);
-  if (*s != 0 || firstIsLatitude == secondIsLatitude)
+  // D M S and D M are ambiguous without a coordinate delimiter, so both axes must use the same form.
+  if (*s != 0 || firstIsLatitude == secondIsLatitude || firstHasSeconds != secondHasSeconds)
     return false;
 
   (firstIsLatitude ? lat : lon) = firstValue;
