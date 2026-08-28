@@ -38,7 +38,7 @@
 - (void)show:(BOOL)enableBounds position:(m2::PointD const *)optionalPosition
 {
   auto & f = GetFramework();
-  f.EnableChoosePositionMode(true /* enable */, enableBounds, optionalPosition);
+  f.EnableChoosePositionMode(true /* enable */, enableBounds, optionalPosition, true /* shouldChangeViewport */);
   f.BlockTapEvents(true);
 
   [UIView animateWithDuration:AppConstants.defaultAnimationDuration animations:^{ self.topConstraint.constant = 0; }];
@@ -47,7 +47,8 @@
 - (void)dismissWithBlock:(MWMVoidBlock)block
 {
   auto & f = GetFramework();
-  f.EnableChoosePositionMode(false /* enable */, false /* enableBounds */, nullptr /* optionalPosition */);
+  f.EnableChoosePositionMode(false /* enable */, false /* enableBounds */, nullptr /* optionalPosition */,
+                             true /* shouldChangeViewport */);
   f.BlockTapEvents(false);
 
   [UIView animateWithDuration:AppConstants.defaultAnimationDuration
