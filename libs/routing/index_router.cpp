@@ -1220,8 +1220,10 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
   PushPassedSubroutes(checkpoints, subroutes);
 
   size_t subrouteOffset = result.m_path.size();
-  subroutes.emplace_back(starter.GetStartJunction().ToPointWithAltitude(),
-                         starter.GetFinishJunction().ToPointWithAltitude(), 0 /* beginSegmentIdx */, subrouteOffset);
+  // Not starter.GetFinishJunction(): Append() above took the finish from the previous route's
+  // concatenated starter, i.e. the last checkpoint, not the one this subroute ends at.
+  subroutes.emplace_back(starter.GetStartJunction().ToPointWithAltitude(), lastSubroute.GetFinish(),
+                         0 /* beginSegmentIdx */, subrouteOffset);
 
   for (size_t i = checkpoints.GetPassedIdx() + 1; i < lastSubroutes.size(); ++i)
   {
