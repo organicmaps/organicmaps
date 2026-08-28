@@ -2,7 +2,7 @@
 @import("../../outdoors/dark/colors.mapcss");
 
 /* Dark-theme cycling accent: same blue hue, brighter for the dark base.
-   Dedicated/off-road infrastructure is the more luminous of the two. */
-@cycleway: #64B5F6;
-@cycleway_road: #42A5F5;
+   Dedicated cycleways and protected tracks are the more luminous of the two. */
+@cycleway: #90CAF9;
+@cycleway_road: #1E88E5;
 @cycleway_casing: #000000;
