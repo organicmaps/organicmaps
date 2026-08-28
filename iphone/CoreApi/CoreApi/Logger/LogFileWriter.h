@@ -10,6 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) NSString * rotatedFilePath;
 @property(nonatomic, readonly, getter=isOpen) BOOL open;
 
+/// |maxFileSize| is the per-file cap. One rotated file may also be retained.
 - (instancetype)initWithDirectoryPath:(NSString *)directoryPath maxFileSize:(uint64_t)maxFileSize;
 - (instancetype)initWithDirectoryPath:(NSString *)directoryPath
                           maxFileSize:(uint64_t)maxFileSize
@@ -21,11 +22,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)closeWithError:(NSError * __autoreleasing _Nullable * _Nullable)error;
 - (BOOL)closeAndRemoveFilesWithError:(NSError * __autoreleasing _Nullable * _Nullable)error;
 
-/// Copies the rotated file, when present, followed by the required current file.
+/// Copies every existing log file, with the rotated file first. Returns an empty array when no log
+/// file exists. The current file may be absent after a failed rotation reopen.
 - (nullable NSArray<NSString *> *)copyLogFilesToDirectory:(NSString *)directoryPath
                                                     error:(NSError * __autoreleasing _Nullable * _Nullable)error;
 
-/// Reads only immutable paths and filesystem attributes, so callers may use it from any queue.
+/// Does not access queue-confined in-memory state, so callers may use it from any queue.
 - (uint64_t)totalFileSize;
 
 @end

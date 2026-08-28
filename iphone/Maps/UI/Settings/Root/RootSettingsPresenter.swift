@@ -74,6 +74,14 @@ final class RootSettingsPresenter {
     viewController?.display(alert)
   }
 
+  func presentFileLoggingError(_ error: Error) {
+    let alert = UIAlertController(title: L("dialog_routing_system_error"),
+                                  message: error.localizedDescription,
+                                  preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: L("ok"), style: .default))
+    viewController?.display(alert)
+  }
+
   func presentHighlight(_ setting: RootSettings) {
     viewController?.displayHighlight(setting)
   }

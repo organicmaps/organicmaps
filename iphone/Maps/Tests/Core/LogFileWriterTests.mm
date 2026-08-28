@@ -2,13 +2,19 @@
 
 #import "../../../CoreApi/CoreApi/Logger/LogFileWriter.h"
 
-@interface MoveFailingFileManager : NSFileManager
+@interface FailingFileManager : NSFileManager
 
 @property(nonatomic) BOOL failMove;
+@property(nonatomic) BOOL failCreate;
 
 @end
 
-@implementation MoveFailingFileManager
+@implementation FailingFileManager
+
+- (BOOL)createFileAtPath:(NSString *)path contents:(NSData *)data attributes:(NSDictionary *)attributes
+{
+  return self.failCreate ? NO : [super createFileAtPath:path contents:data attributes:attributes];
+}
 
 - (BOOL)moveItemAtPath:(NSString *)sourcePath
                 toPath:(NSString *)destinationPath
@@ -104,7 +110,7 @@
 
 - (void)testMoveFailureStopsTheWriterWithoutTruncatingTheCurrentFile
 {
-  MoveFailingFileManager * fileManager = [[MoveFailingFileManager alloc] init];
+  FailingFileManager * fileManager = [[FailingFileManager alloc] init];
   LogFileWriter * writer = [[LogFileWriter alloc] initWithDirectoryPath:self.directoryPath
                                                             maxFileSize:4
                                                             fileManager:fileManager];
@@ -120,7 +126,35 @@
   XCTAssertFalse([fileManager fileExistsAtPath:writer.rotatedFilePath]);
 }
 
-- (void)testSnapshotIsChronologicalAndRequiresTheCurrentFile
+- (void)testSnapshotAcceptsRotatedFileAfterReopenFailure
+{
+  FailingFileManager * fileManager = [[FailingFileManager alloc] init];
+  LogFileWriter * writer = [[LogFileWriter alloc] initWithDirectoryPath:self.directoryPath
+                                                            maxFileSize:4
+                                                            fileManager:fileManager];
+  NSError * error = nil;
+  XCTAssertTrue([writer openWithError:&error], @"%@", error);
+  XCTAssertTrue([writer writeData:[self data:@"1234"] error:&error], @"%@", error);
+
+  fileManager.failCreate = YES;
+  XCTAssertFalse([writer writeData:[self data:@"5"] error:&error]);
+  XCTAssertFalse(writer.isOpen);
+  XCTAssertFalse([fileManager fileExistsAtPath:writer.currentFilePath]);
+  XCTAssertTrue([fileManager fileExistsAtPath:writer.rotatedFilePath]);
+
+  NSString * snapshotPath = [self.directoryPath stringByAppendingPathComponent:@"snapshot"];
+  XCTAssertTrue([fileManager createDirectoryAtPath:snapshotPath
+                       withIntermediateDirectories:NO
+                                        attributes:nil
+                                             error:&error],
+                @"%@", error);
+  NSArray<NSString *> * copies = [writer copyLogFilesToDirectory:snapshotPath error:&error];
+  XCTAssertEqual(copies.count, 1);
+  XCTAssertEqualObjects(copies.firstObject.lastPathComponent, writer.rotatedFilePath.lastPathComponent);
+  XCTAssertEqualObjects([NSData dataWithContentsOfFile:copies.firstObject], [self data:@"1234"]);
+}
+
+- (void)testSnapshotIsChronologicalAndReturnsEveryExistingFile
 {
   LogFileWriter * writer = [[LogFileWriter alloc] initWithDirectoryPath:self.directoryPath maxFileSize:4];
   NSError * error = nil;
@@ -148,8 +182,19 @@
                                                          attributes:nil
                                                               error:&error],
                 @"%@", error);
-  XCTAssertNil([writer copyLogFilesToDirectory:secondSnapshotPath error:&error]);
-  XCTAssertNotNil(error);
+  copies = [writer copyLogFilesToDirectory:secondSnapshotPath error:&error];
+  XCTAssertEqual(copies.count, 1);
+  XCTAssertEqualObjects(copies.firstObject.lastPathComponent, writer.rotatedFilePath.lastPathComponent);
+
+  XCTAssertTrue([NSFileManager.defaultManager removeItemAtPath:writer.rotatedFilePath error:&error], @"%@", error);
+  NSString * emptySnapshotPath = [self.directoryPath stringByAppendingPathComponent:@"empty-snapshot"];
+  XCTAssertTrue([NSFileManager.defaultManager createDirectoryAtPath:emptySnapshotPath
+                                        withIntermediateDirectories:NO
+                                                         attributes:nil
+                                                              error:&error],
+                @"%@", error);
+  copies = [writer copyLogFilesToDirectory:emptySnapshotPath error:&error];
+  XCTAssertEqual(copies.count, 0);
 }
 
 - (NSData *)data:(NSString *)string

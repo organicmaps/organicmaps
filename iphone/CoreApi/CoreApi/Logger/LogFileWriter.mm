@@ -157,10 +157,12 @@ BOOL SetError(NSError * __autoreleasing _Nullable * _Nullable error, LogFileWrit
 - (nullable NSArray<NSString *> *)copyLogFilesToDirectory:(NSString *)directoryPath
                                                     error:(NSError * __autoreleasing _Nullable * _Nullable)error
 {
-  // The rotated file is optional, the current one is required.
-  NSArray<NSString *> * sourcePaths = [self.fileManager fileExistsAtPath:self.rotatedFilePath]
-                                        ? @[self.rotatedFilePath, self.currentFilePath]
-                                        : @[self.currentFilePath];
+  NSMutableArray<NSString *> * sourcePaths = [NSMutableArray arrayWithCapacity:2];
+  if ([self.fileManager fileExistsAtPath:self.rotatedFilePath])
+    [sourcePaths addObject:self.rotatedFilePath];
+  if ([self.fileManager fileExistsAtPath:self.currentFilePath])
+    [sourcePaths addObject:self.currentFilePath];
+
   NSMutableArray<NSString *> * copies = [NSMutableArray arrayWithCapacity:sourcePaths.count];
   for (NSString * sourcePath in sourcePaths)
   {

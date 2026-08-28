@@ -28,9 +28,21 @@ final class MailComposer: NSObject {
     }
     UIApplication.shared.showLoadingOverlay {
       // Archive creation and temporary-file cleanup finish on a background queue.
-      Logger.getLogArchive { archiveData in
+      Logger.getLogArchive { archiveData, error in
         DispatchQueue.main.async {
           UIApplication.shared.hideLoadingOverlay {
+            if let error {
+              showLogArchiveError(error)
+              return
+            }
+            guard let archiveData else {
+              assertionFailure("Logger completed without archive data or an error")
+              let error = NSError(domain: "app.organicmaps.Logger",
+                                  code: 0,
+                                  userInfo: [NSLocalizedDescriptionKey: "The diagnostic archive is unavailable."])
+              showLogArchiveError(error)
+              return
+            }
             sendEmailWith(subject: subject(),
                           body: body(),
                           toRecipients: [SocialMedia.organicMapsEmail.link],
@@ -39,6 +51,14 @@ final class MailComposer: NSObject {
         }
       }
     }
+  }
+
+  private static func showLogArchiveError(_ error: Error) {
+    let alert = UIAlertController(title: L("dialog_routing_system_error"),
+                                  message: error.localizedDescription,
+                                  preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: L("ok"), style: .default))
+    topViewController.present(alert, animated: true)
   }
 
   private static func sendEmailWith(subject: String, body: String, toRecipients recipients: [String], attachment: Data? = nil) {

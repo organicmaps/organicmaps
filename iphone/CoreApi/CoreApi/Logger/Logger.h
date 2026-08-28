@@ -10,20 +10,27 @@ typedef NS_ENUM(NSUInteger, LogLevel) {
   LogLevelCritical
 };
 
+typedef void (^LogArchiveCompletion)(NSData * _Nullable archiveData, NSError * _Nullable error);
+
 @interface Logger : NSObject
 
 /// Detailed diagnostic logging into a file. Enabling it also unlocks the debug log level.
 /// Reading it back reports the state the logger is actually in: enabling fails if the log
 /// file cannot be opened.
 @property(class, nonatomic) BOOL fileLoggingEnabled;
+/// The notification object is the error that stopped file logging, or nil for a requested state
+/// change.
 @property(class, readonly, nonatomic) NSNotificationName fileLoggingStateDidChangeNotification;
+
+/// Applies the requested state synchronously and reports an open, close or removal failure.
++ (BOOL)setFileLoggingEnabled:(BOOL)enabled error:(NSError * __autoreleasing _Nullable * _Nullable)error;
 
 + (void)log:(LogLevel)level message:(NSString *)message;
 + (BOOL)canLog:(LogLevel)level;
 
-/// Creates a zipped diagnostic log, or rebuilds one from the system log when file logging is off.
-/// The completion runs on a background queue with nil if the archive cannot be created.
-+ (void)getLogArchiveWithCompletion:(void (^)(NSData * _Nullable archiveData))completion;
+/// Creates a zipped diagnostic report from the system log and every retained file log. Exactly one
+/// completion argument is nonnull, and the completion always runs on a background utility queue.
++ (void)getLogArchiveWithCompletion:(LogArchiveCompletion)completion;
 
 /// Calls |completion| on the file logging queue after all previously submitted writes finish.
 + (void)flushWithCompletion:(dispatch_block_t)completion;

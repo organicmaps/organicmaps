@@ -326,12 +326,14 @@ NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidShowIClo
   return Logger.fileLoggingEnabled;
 }
 
-+ (void)setFileLoggingEnabled:(BOOL)fileLoggingEnabled
++ (NSError * _Nullable)setFileLoggingEnabled:(BOOL)fileLoggingEnabled
 {
   // The stored value is what the user asked for, not what the logger managed to do, so an enable
   // that fails on a transient error is retried on the next launch instead of turning itself off.
   [NSUserDefaults.standardUserDefaults setBool:fileLoggingEnabled forKey:kUDFileLoggingEnabledKey];
-  Logger.fileLoggingEnabled = fileLoggingEnabled;
+  NSError * error = nil;
+  [Logger setFileLoggingEnabled:fileLoggingEnabled error:&error];
+  return error;
 }
 
 + (uint64_t)logFileSize

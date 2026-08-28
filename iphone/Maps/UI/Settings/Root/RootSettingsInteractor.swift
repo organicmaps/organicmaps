@@ -54,10 +54,13 @@ final class RootSettingsInteractor {
       return
     }
 
-    setSetting(setting, enabled: enabled)
+    let error = setSetting(setting, enabled: enabled)
     // Force the reconfiguration: a setter that fails or normalizes the value leaves the view model
     // unchanged, and the switch would keep the position the user just moved it to.
     updateSettings(reconfiguredItems: [setting])
+    if let error {
+      presenter?.presentFileLoggingError(error)
+    }
   }
 
   func confirmICloudSynchronization() {
@@ -114,7 +117,10 @@ final class RootSettingsInteractor {
       forName: Logger.fileLoggingStateDidChangeNotification,
       object: nil,
       queue: .main
-    ) { [weak self] _ in
+    ) { [weak self] notification in
+      if let error = notification.object as? NSError {
+        self?.presenter?.presentFileLoggingError(error)
+      }
       self?.updateSettings(reconfiguredItems: [.logging])
     }
   }
@@ -153,7 +159,8 @@ final class RootSettingsInteractor {
     !settings.isPowerManagementMaximum()
   }
 
-  private func setSetting(_ setting: RootSettings, enabled: Bool) {
+  @discardableResult
+  private func setSetting(_ setting: RootSettings, enabled: Bool) -> Error? {
     switch setting {
     case .zoomButtons:
       settings.setZoomButtonsEnabled(enabled)
@@ -170,7 +177,7 @@ final class RootSettingsInteractor {
     case .iCloud:
       settings.setICLoudSynchronizationEnabled(enabled)
     case .logging:
-      settings.setFileLoggingEnabled(enabled)
+      return settings.setFileLoggingEnabled(enabled)
     case .perspectiveView:
       settings.setPerspectiveViewEnabled(enabled)
     case .autoZoom:
@@ -191,6 +198,7 @@ final class RootSettingsInteractor {
          .routingOptions:
       break
     }
+    return nil
   }
 
   private func canBackupBookmarks() -> Bool {
