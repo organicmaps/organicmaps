@@ -1,7 +1,7 @@
 #import <XCTest/XCTest.h>
 
 #import <CoreApi/Logger.h>
-#import "../../../CoreApi/CoreApi/Logger/LogFileWriter.h"
+#import "LogFileWriter.h"
 
 #include "coding/zip_reader.hpp"
 
