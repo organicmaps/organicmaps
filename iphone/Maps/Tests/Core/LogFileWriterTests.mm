@@ -1,6 +1,6 @@
 #import <XCTest/XCTest.h>
 
-#import "../../../CoreApi/CoreApi/Logger/LogFileWriter.h"
+#import "LogFileWriter.h"
 
 @interface FailingFileManager : NSFileManager
 
