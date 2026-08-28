@@ -1498,4 +1498,43 @@ UNIT_TEST(ToLower_ToUpper)
   static_assert(strings::AsciiToLower('[') == '[' && strings::AsciiToUpper('{') == '{');
 }
 
+UNIT_TEST(TruncateUtf8)
+{
+  TEST_EQUAL(strings::TruncateUtf8("abc", 5), "abc", ());
+  TEST_EQUAL(strings::TruncateUtf8("abc", 3), "abc", ());
+  TEST_EQUAL(strings::TruncateUtf8("abc", 2), "ab", ());
+  TEST_EQUAL(strings::TruncateUtf8("abc", 0), "", ());
+  TEST_EQUAL(strings::TruncateUtf8("", 5), "", ());
+
+  // "аб" is two 2-byte code points, "€" is 3-byte and the emoji is 4-byte.
+  std::string const two = "аб";
+  TEST_EQUAL(strings::TruncateUtf8(two, 3), "а", ());
+  TEST_EQUAL(strings::TruncateUtf8(two, 2), "а", ());
+  TEST_EQUAL(strings::TruncateUtf8(two, 1), "", ());
+
+  std::string const mixed = "a€b";
+  TEST_EQUAL(strings::TruncateUtf8(mixed, 4), "a€", ());
+  TEST_EQUAL(strings::TruncateUtf8(mixed, 3), "a", ());
+
+  std::string const emoji = "a🌍";
+  TEST_EQUAL(strings::TruncateUtf8(emoji, 4), "a", ());
+  TEST_EQUAL(strings::TruncateUtf8(emoji, 1), "a", ());
+
+  // Never longer than the limit, and never splits a code point.
+  for (auto const & s : {two, mixed, emoji, std::string("abc")})
+  {
+    for (size_t maxBytes = 0; maxBytes <= s.size() + 1; ++maxBytes)
+    {
+      auto const truncated = strings::TruncateUtf8(s, maxBytes);
+      TEST_LESS_OR_EQUAL(truncated.size(), maxBytes, (s, maxBytes));
+      TEST_EQUAL(std::string(truncated), s.substr(0, truncated.size()), ());
+      TEST_EQUAL(strings::ToUtf8(strings::MakeUniString(truncated)), truncated, (s, maxBytes));
+    }
+  }
+
+  // Malformed input is cut deterministically, at most 3 bytes before the limit.
+  std::string const malformed("a\x80\x80\x80\x80\x80", 6);
+  TEST_EQUAL(strings::TruncateUtf8(malformed, 5).size(), 2, ());
+}
+
 }  // namespace string_utils_test
