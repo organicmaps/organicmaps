@@ -28,9 +28,16 @@ final class MailComposer: NSObject {
     }
     UIApplication.shared.showLoadingOverlay {
       // Archive creation and temporary-file cleanup finish on a background queue.
-      Logger.getLogArchive { archiveData in
+      Logger.getLogArchive { archiveData, error in
         DispatchQueue.main.async {
           UIApplication.shared.hideLoadingOverlay {
+            if let error {
+              showLogArchiveError(error)
+              return
+            }
+            guard let archiveData else {
+              preconditionFailure("Logger completed without archive data or an error")
+            }
             sendEmailWith(subject: subject(),
                           body: body(),
                           toRecipients: [SocialMedia.organicMapsEmail.link],
@@ -39,6 +46,15 @@ final class MailComposer: NSObject {
         }
       }
     }
+  }
+
+  private static func showLogArchiveError(_ error: Error) {
+    let systemError = error as NSError
+    let alert = UIAlertController(title: L("dialog_routing_system_error"),
+                                  message: systemError.domain == NSCocoaErrorDomain || systemError.domain == NSPOSIXErrorDomain ? systemError.localizedDescription : nil,
+                                  preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: L("ok"), style: .default))
+    topViewController.present(alert, animated: true)
   }
 
   private static func sendEmailWith(subject: String, body: String, toRecipients recipients: [String], attachment: Data? = nil) {

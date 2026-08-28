@@ -20,11 +20,14 @@
 
 @end
 
+namespace
+{
 // Subsystem and category are used for the OSLog.
 NSString * const kLoggerSubsystem = [[NSBundle mainBundle] bundleIdentifier];
 NSString * const kLoggerCategory = @"OM";
-NSString * const kLogFileName = @"log.txt";
+NSString * const kSystemLogFileName = @"system-log.txt";
 NSString * const kZipLogFileName = @"log.zip";
+NSString * const kLoggerErrorDomain = @"app.organicmaps.Logger";
 
 // A diagnostic log is collected on request and has to survive until the user sends it, so it cannot
 // live in Caches, which the system purges under storage pressure. Application Support is not
@@ -33,7 +36,7 @@ NSString * const kLogDirectoryPath =
     [[NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) firstObject]
         stringByAppendingPathComponent:@"Logs"];
 NSString * const kLegacyLogFilePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)
-    firstObject] stringByAppendingPathComponent:kLogFileName];
+    firstObject] stringByAppendingPathComponent:@"log.txt"];
 
 // Rotate a nonempty current file before a write would cross 16 MiB. One rotated file is retained.
 // Oversized records stay intact and may exceed this target.
@@ -44,9 +47,22 @@ uint64_t constexpr kMaxLogFileSize = 16 * 1024 * 1024;
 // it with a margin and spend a part of the budget on saying what was lost.
 size_t constexpr kMaxSystemLogRecordSize = 900;
 
+typedef NS_ERROR_ENUM(kLoggerErrorDomain, LoggerError){
+    LoggerErrorCreateTemporaryDirectory = 1,
+    LoggerErrorSystemLogUnavailable,
+    LoggerErrorNoLogs,
+    LoggerErrorArchiveFailed,
+    LoggerErrorReadArchiveFailed,
+};
+
+NSError * MakeLoggerError(LoggerError code, NSString * description)
+{
+  return [NSError errorWithDomain:kLoggerErrorDomain code:code userInfo:@{NSLocalizedDescriptionKey: description}];
+}
+
 /// @return |logString| shortened to kMaxSystemLogRecordSize bytes, marker included, so that the
 /// truncation is explicit instead of being silently applied by the system.
-static std::string TruncateForSystemLog(std::string const & logString)
+std::string TruncateForSystemLog(std::string const & logString)
 {
   auto const marker = " [truncated, " + std::to_string(logString.size()) +
                       " bytes total; diagnostic file logging preserves full records when enabled]";
@@ -55,13 +71,13 @@ static std::string TruncateForSystemLog(std::string const & logString)
   return std::string{prefix} + marker;
 }
 
-static os_log_type_t OSLogTypeFor(base::LogLevel level)
+os_log_type_t OSLogTypeFor(base::LogLevel level)
 {
   switch (level)
   {
   case base::LDEBUG: return OS_LOG_TYPE_DEBUG;
-  // Deliberately not OS_LOG_TYPE_INFO: unlike the default one it is not persisted, and bug
-  // reports are reconstructed from the OSLog store when file logging is off.
+  // Deliberately not OS_LOG_TYPE_INFO: unlike the default one it is not persisted, and every bug
+  // report includes the OSLog store.
   case base::LINFO:
   case base::LWARNING: return OS_LOG_TYPE_DEFAULT;
   // OS_LOG_TYPE_FAULT is reserved for system-level failures, LCRITICAL is a process-level one.
@@ -71,12 +87,13 @@ static os_log_type_t OSLogTypeFor(base::LogLevel level)
   }
 }
 
-@implementation Logger
-
 /// Read from any thread on every log call, mutated on the fileLoggingQueue only.
-static std::atomic<bool> _fileLoggingEnabled{false};
-static void * kFileLoggingQueueKey = &kFileLoggingQueueKey;
+std::atomic<bool> g_fileLoggingEnabled{false};
+void * kFileLoggingQueueKey = &kFileLoggingQueueKey;
 NSNotificationName const kFileLoggingStateDidChangeNotification = @"FileLoggingStateDidChangeNotification";
+}  // namespace
+
+@implementation Logger
 
 + (void)initialize
 {
@@ -123,8 +140,15 @@ NSNotificationName const kFileLoggingStateDidChangeNotification = @"FileLoggingS
 
 + (void)setFileLoggingEnabled:(BOOL)fileLoggingEnabled
 {
+  [self setFileLoggingEnabled:fileLoggingEnabled error:nil];
+}
+
++ (BOOL)setFileLoggingEnabled:(BOOL)fileLoggingEnabled error:(NSError * __autoreleasing _Nullable * _Nullable)error
+{
   BOOL const wasEnabled = self.fileLoggingEnabled;
-  fileLoggingEnabled ? [self enableFileLogging] : [self disableFileLogging];
+  NSError * operationError = nil;
+  BOOL const succeeded = fileLoggingEnabled ? [self enableFileLoggingWithError:&operationError]
+                                            : [self disableFileLoggingWithError:&operationError];
   BOOL const isEnabled = self.fileLoggingEnabled;
   if (!wasEnabled && isEnabled)
   {
@@ -132,11 +156,14 @@ NSNotificationName const kFileLoggingStateDidChangeNotification = @"FileLoggingS
                       ", Time Zone:", NSTimeZone.defaultTimeZone.abbreviation.UTF8String));
   }
   LOG(LINFO, ("File logging is enabled:", isEnabled ? "YES" : "NO"));
+  if (error != nullptr)
+    *error = operationError;
+  return succeeded;
 }
 
 + (BOOL)fileLoggingEnabled
 {
-  return _fileLoggingEnabled.load(std::memory_order_relaxed);
+  return g_fileLoggingEnabled.load(std::memory_order_relaxed);
 }
 
 + (NSNotificationName)fileLoggingStateDidChangeNotification
@@ -154,41 +181,71 @@ NSNotificationName const kFileLoggingStateDidChangeNotification = @"FileLoggingS
   return [Logger baseLevel:level] >= base::g_LogLevel;
 }
 
-+ (void)getLogArchiveWithCompletion:(void (^)(NSData * _Nullable archiveData))completion
++ (void)getLogArchiveWithCompletion:(LogArchiveCompletion)completion
 {
-  // Files can outlive an enabled session: a write error stops logging but keeps them. Do not test
-  // the size alone - a session that has just been enabled has an empty file and still owns it.
-  if (![self fileLoggingEnabled] && [self getLogFileSize] == 0)
-  {
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{ completion([self archiveOSLogStoreReport]); });
-    return;
-  }
-
-  // Only the snapshot runs on the file logging queue: it drains the writes that are already
-  // submitted and excludes the later ones. Archiving is seconds of work on a full log set, and
-  // synchronous error records would be stuck behind it.
+  // Directory creation and the snapshot drain previously submitted writes and exclude later ones.
+  // Archiving and OSLog enumeration stay off this queue so synchronous error records cannot be
+  // stuck behind them.
   dispatch_async([self fileLoggingQueue], ^{
-    NSString * directoryPath = [self createTemporaryDirectory];
-    if (directoryPath == nil)
-    {
-      completion(nil);
-      return;
-    }
+    NSError * directoryError = nil;
+    NSString * directoryPath = [self createTemporaryDirectoryWithError:&directoryError];
+    NSError * snapshotError = nil;
+    NSArray<NSString *> * copies =
+        directoryPath == nil ? @[]
+                             : [[self logger].fileWriter copyLogFilesToDirectory:directoryPath error:&snapshotError];
 
-    NSError * error = nil;
-    NSArray<NSString *> * copies = [[self logger].fileWriter copyLogFilesToDirectory:directoryPath error:&error];
-    if (copies == nil)
-    {
-      [self reportSystemMessage:[NSString stringWithFormat:@"Failed to snapshot the diagnostic log: %@",
-                                                           error.localizedDescription]
-                           type:OS_LOG_TYPE_ERROR];
-      [self removeFileAtPath:directoryPath];
-      completion(nil);
-      return;
-    }
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
+      if (directoryPath == nil)
+      {
+        [self reportSystemMessage:directoryError.localizedDescription type:OS_LOG_TYPE_ERROR];
+        completion(nil, directoryError);
+        return;
+      }
 
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0),
-                   ^{ completion([self archiveFiles:copies inDirectory:directoryPath]); });
+      NSMutableArray<NSString *> * reportFiles = [copies mutableCopy];
+      NSMutableString * exportErrors = [NSMutableString string];
+      if (snapshotError != nil)
+        [exportErrors appendFormat:@"Failed to snapshot the diagnostic log: %@\n", snapshotError.localizedDescription];
+
+      NSError * systemLogError = nil;
+      NSString * systemLogPath = [self writeOSLogStoreReportToDirectory:directoryPath error:&systemLogError];
+      if (systemLogPath != nil)
+        [reportFiles addObject:systemLogPath];
+      else
+        [exportErrors appendFormat:@"Failed to export the system log: %@\n", systemLogError.localizedDescription];
+
+      if (exportErrors.length > 0)
+        [self reportSystemMessage:exportErrors type:OS_LOG_TYPE_ERROR];
+
+      if (reportFiles.count == 0)
+      {
+        [self removeFileAtPath:directoryPath];
+        completion(nil, snapshotError ?: systemLogError ?:
+            MakeLoggerError(LoggerErrorNoLogs, @"No diagnostic logs are available."));
+        return;
+      }
+
+      // Keep failures alongside the surviving logs, even when the OSLog store omitted the error.
+      if (exportErrors.length > 0)
+      {
+        NSString * errorsPath = [directoryPath stringByAppendingPathComponent:@"export-errors.txt"];
+        NSError * writeError = nil;
+        if (![exportErrors writeToFile:errorsPath atomically:NO encoding:NSUTF8StringEncoding error:&writeError])
+        {
+          [self removeFileAtPath:directoryPath];
+          [self reportSystemMessage:writeError.localizedDescription type:OS_LOG_TYPE_ERROR];
+          completion(nil, writeError);
+          return;
+        }
+        [reportFiles addObject:errorsPath];
+      }
+
+      NSError * archiveError = nil;
+      NSData * archiveData = [self archiveFiles:reportFiles inDirectory:directoryPath error:&archiveError];
+      if (archiveData == nil)
+        [self reportSystemMessage:archiveError.localizedDescription type:OS_LOG_TYPE_ERROR];
+      completion(archiveData, archiveError);
+    });
   });
 }
 
@@ -207,9 +264,9 @@ NSNotificationName const kFileLoggingStateDidChangeNotification = @"FileLoggingS
   return [self logger].fileWriter.totalFileSize;
 }
 
-+ (void)removeLegacyLogFile
++ (BOOL)removeLegacyLogFile
 {
-  dispatch_async([self fileLoggingQueue], ^{ [self removeFileAtPath:kLegacyLogFilePath]; });
+  return [self removeFileAtPath:kLegacyLogFilePath];
 }
 
 // MARK: - C++ injection
@@ -228,36 +285,49 @@ bool AssertMessage(base::SrcPoint const & src, std::string const & message)
 
 // MARK: - Private
 
-+ (void)enableFileLogging
++ (BOOL)enableFileLoggingWithError:(NSError * __autoreleasing _Nullable * _Nullable)outError
 {
+  __block BOOL succeeded = YES;
+  __block NSError * operationError = nil;
   [self runSyncOnFileLoggingQueue:^{
     if ([self fileLoggingEnabled])
       return;
 
-    NSError * error = nil;
-    if (![[self logger].fileWriter openWithError:&error])
+    if (![[self logger].fileWriter openWithError:&operationError])
     {
-      [self handleFileLoggingError:error];
+      succeeded = NO;
+      [self handleFileLoggingError:operationError];
       return;
     }
-    [self setFileLoggingState:YES];
+    ASSERT([self logger].fileWriter.isOpen, ());
+    [self setFileLoggingState:YES error:nil];
   }];
+  if (outError != nullptr)
+    *outError = operationError;
+  return succeeded;
 }
 
-+ (void)disableFileLogging
++ (BOOL)disableFileLoggingWithError:(NSError * __autoreleasing _Nullable * _Nullable)outError
 {
+  __block BOOL succeeded = YES;
+  __block NSError * operationError = nil;
   [self runSyncOnFileLoggingQueue:^{
-    [self setFileLoggingState:NO];
-    NSError * error = nil;
-    if (![[self logger].fileWriter closeAndRemoveFilesWithError:&error])
-      [self reportSystemMessage:error.localizedDescription type:OS_LOG_TYPE_ERROR];
+    [self setFileLoggingState:NO error:nil];
+    if (![[self logger].fileWriter closeAndRemoveFilesWithError:&operationError])
+    {
+      succeeded = NO;
+      [self reportSystemMessage:operationError.localizedDescription type:OS_LOG_TYPE_ERROR];
+    }
   }];
+  if (outError != nullptr)
+    *outError = operationError;
+  return succeeded;
 }
 
-+ (void)setFileLoggingState:(BOOL)enabled
++ (void)setFileLoggingState:(BOOL)enabled error:(nullable NSError *)error
 {
   dispatch_assert_queue([self fileLoggingQueue]);
-  bool const changed = _fileLoggingEnabled.exchange(enabled, std::memory_order_relaxed) != enabled;
+  bool const changed = g_fileLoggingEnabled.exchange(enabled, std::memory_order_relaxed) != enabled;
   // Debug records are formatted only when a file can retain them. This mirrors Android's
   // LogsManager.nativeToggleCoreDebugLogs().
   base::g_LogLevel = enabled ? base::LDEBUG : base::GetDefaultLogLevel();
@@ -265,14 +335,16 @@ bool AssertMessage(base::SrcPoint const & src, std::string const & message)
     return;
 
   dispatch_async(dispatch_get_main_queue(), ^{
-    [NSNotificationCenter.defaultCenter postNotificationName:kFileLoggingStateDidChangeNotification object:nil];
+    [NSNotificationCenter.defaultCenter postNotificationName:kFileLoggingStateDidChangeNotification
+                                                      object:self
+                                                    userInfo:error == nil ? nil : @{NSUnderlyingErrorKey: error}];
   });
 }
 
 + (void)handleFileLoggingError:(NSError *)error
 {
   dispatch_assert_queue([self fileLoggingQueue]);
-  [self setFileLoggingState:NO];
+  [self setFileLoggingState:NO error:error];
 
   // Stop writing, but keep whatever was collected: the failure can be transient (a full disk), and
   // those records are what the user enabled logging for. Only an explicit disable removes them.
@@ -298,7 +370,7 @@ bool AssertMessage(base::SrcPoint const & src, std::string const & message)
   os_log_with_type([self logger].osLogger, OSLogTypeFor(level), "%{public}s",
                    truncated.empty() ? logString.c_str() : truncated.c_str());
 
-  if (!_fileLoggingEnabled.load(std::memory_order_relaxed))
+  if (!g_fileLoggingEnabled.load(std::memory_order_relaxed))
     return;
 
   // Copy the record once: blocks retain the NSData instead of copying the std::string again.
@@ -319,6 +391,7 @@ bool AssertMessage(base::SrcPoint const & src, std::string const & message)
   dispatch_assert_queue([self fileLoggingQueue]);
   if (![self fileLoggingEnabled])
     return;
+  ASSERT([self logger].fileWriter.isOpen, ());
 
   NSError * error = nil;
   if (![[self logger].fileWriter writeData:data error:&error])
@@ -335,7 +408,7 @@ bool AssertMessage(base::SrcPoint const & src, std::string const & message)
 
 /// @return A new uniquely named temporary directory, so that repeated or concurrent reports cannot
 /// overwrite or delete each other's files, or nil if it cannot be created.
-+ (nullable NSString *)createTemporaryDirectory
++ (nullable NSString *)createTemporaryDirectoryWithError:(NSError * __autoreleasing _Nullable * _Nullable)outError
 {
   NSString * directoryPath = [NSTemporaryDirectory() stringByAppendingPathComponent:NSUUID.UUID.UUIDString];
   NSError * error = nil;
@@ -345,15 +418,21 @@ bool AssertMessage(base::SrcPoint const & src, std::string const & message)
                                                     error:&error])
     return directoryPath;
 
-  [self reportSystemMessage:[NSString stringWithFormat:@"Failed to create a temporary directory: %@",
-                                                       error.localizedDescription]
-                       type:OS_LOG_TYPE_ERROR];
+  if (outError != nullptr)
+  {
+    *outError = MakeLoggerError(
+        LoggerErrorCreateTemporaryDirectory,
+        [NSString stringWithFormat:@"Failed to create a temporary directory: %@", error.localizedDescription]);
+  }
   return nil;
 }
 
 /// Archives |filePaths|, loads the result, and removes |directoryPath| on every return path.
-+ (nullable NSData *)archiveFiles:(NSArray<NSString *> *)filePaths inDirectory:(NSString *)directoryPath
++ (nullable NSData *)archiveFiles:(NSArray<NSString *> *)filePaths
+                      inDirectory:(NSString *)directoryPath
+                            error:(NSError * __autoreleasing _Nullable * _Nullable)outError
 {
+  ASSERT_GREATER(filePaths.count, 0, ());
   std::vector<std::string> files;
   files.reserve(filePaths.count);
   for (NSString * filePath in filePaths)
@@ -363,30 +442,35 @@ bool AssertMessage(base::SrcPoint const & src, std::string const & message)
   NSString * archivePath = [directoryPath stringByAppendingPathComponent:kZipLogFileName];
   if (!CreateZipFromFiles(files, archivePath.UTF8String))
   {
-    [self reportSystemMessage:@"Failed to archive the log files." type:OS_LOG_TYPE_ERROR];
+    if (outError != nullptr)
+      *outError = MakeLoggerError(LoggerErrorArchiveFailed, @"Failed to archive the diagnostic logs.");
   }
   else
   {
     NSError * error = nil;
     archiveData = [NSData dataWithContentsOfFile:archivePath options:0 error:&error];
-    if (archiveData == nil)
-      [self reportSystemMessage:[@"Failed to read the log archive: " stringByAppendingString:error.localizedDescription]
-                           type:OS_LOG_TYPE_ERROR];
+    if (archiveData == nil && outError != nullptr)
+    {
+      *outError =
+          MakeLoggerError(LoggerErrorReadArchiveFailed, [@"Failed to read the diagnostic archive: "
+                                                            stringByAppendingString:error.localizedDescription]);
+    }
   }
 
   [self removeFileAtPath:directoryPath];
   return archiveData;
 }
 
-/// Rebuilds a report from the system log for users who have not enabled file logging. The entries
-/// are streamed into a file instead of being accumulated in memory first.
-+ (nullable NSData *)archiveOSLogStoreReport
+/// Streams the system log into |directoryPath| instead of accumulating it in memory.
++ (nullable NSString *)writeOSLogStoreReportToDirectory:(NSString *)directoryPath
+                                                  error:(NSError * __autoreleasing _Nullable * _Nullable)outError
 {
   NSError * error = nil;
   OSLogStore * store = [OSLogStore storeWithScope:OSLogStoreCurrentProcessIdentifier error:&error];
   if (store == nil)
   {
-    [self reportSystemMessage:error.localizedDescription type:OS_LOG_TYPE_ERROR];
+    if (outError != nullptr)
+      *outError = error ?: MakeLoggerError(LoggerErrorSystemLogUnavailable, @"The system log is unavailable.");
     return nil;
   }
 
@@ -394,16 +478,12 @@ bool AssertMessage(base::SrcPoint const & src, std::string const & message)
   OSLogEnumerator * enumerator = [store entriesEnumeratorWithOptions:{} position:nil predicate:predicate error:&error];
   if (enumerator == nil)
   {
-    [self reportSystemMessage:error.localizedDescription type:OS_LOG_TYPE_ERROR];
+    if (outError != nullptr)
+      *outError = error ?: MakeLoggerError(LoggerErrorSystemLogUnavailable, @"The system log is unavailable.");
     return nil;
   }
 
-  NSString * directoryPath = [self createTemporaryDirectory];
-  if (directoryPath == nil)
-    return nil;
-
-  // Never the persistent log path: a later file logging session would append to a stale report.
-  NSString * reportFilePath = [directoryPath stringByAppendingPathComponent:kLogFileName];
+  NSString * reportFilePath = [directoryPath stringByAppendingPathComponent:kSystemLogFileName];
   bool isEmpty = true;
   try
   {
@@ -412,38 +492,45 @@ bool AssertMessage(base::SrcPoint const & src, std::string const & message)
     FileWriter reportFile(reportFilePath.UTF8String);
     for (id entry in enumerator)
     {
-      if (![entry isKindOfClass:OSLogEntryLog.class])
-        continue;
-      isEmpty = false;
-      reportFile << [entry composedMessage].UTF8String << "\n";
+      @autoreleasepool
+      {
+        if (![entry isKindOfClass:OSLogEntryLog.class])
+          continue;
+        isEmpty = false;
+        reportFile << [entry composedMessage].UTF8String << "\n";
+      }
     }
   }
   catch (RootException const & e)
   {
-    [self reportSystemMessage:[NSString stringWithFormat:@"Failed to write the system log report: %s", e.Msg().c_str()]
-                         type:OS_LOG_TYPE_ERROR];
-    [self removeFileAtPath:directoryPath];
+    if (outError != nullptr)
+    {
+      *outError =
+          MakeLoggerError(LoggerErrorSystemLogUnavailable,
+                          [NSString stringWithFormat:@"Failed to write the system log report: %s", e.Msg().c_str()]);
+    }
     return nil;
   }
 
   if (isEmpty)
   {
-    [self reportSystemMessage:@"The system log has no records to export." type:OS_LOG_TYPE_DEFAULT];
-    [self removeFileAtPath:directoryPath];
+    if (outError != nullptr)
+      *outError = MakeLoggerError(LoggerErrorNoLogs, @"The system log has no records to export.");
     return nil;
   }
 
-  return [self archiveFiles:@[reportFilePath] inDirectory:directoryPath];
+  return reportFilePath;
 }
 
-+ (void)removeFileAtPath:(NSString *)filePath
++ (BOOL)removeFileAtPath:(NSString *)filePath
 {
   NSError * error = nil;
   if ([NSFileManager.defaultManager removeItemAtPath:filePath error:&error])
-    return;
+    return YES;
   if ([error.domain isEqualToString:NSCocoaErrorDomain] && error.code == NSFileNoSuchFileError)
-    return;
+    return YES;
   [self reportSystemMessage:error.localizedDescription type:OS_LOG_TYPE_ERROR];
+  return NO;
 }
 
 + (void)reportSystemMessage:(NSString *)message type:(os_log_type_t)type

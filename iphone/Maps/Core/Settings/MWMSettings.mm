@@ -299,11 +299,10 @@ NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidShowIClo
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
     NSUserDefaults * defaults = NSUserDefaults.standardUserDefaults;
-    if (![defaults boolForKey:kUDLegacyLogFileRemoved])
-    {
-      [Logger removeLegacyLogFile];
+    if (![defaults boolForKey:kUDLegacyLogFileRemoved] && [Logger removeLegacyLogFile])
       [defaults setBool:YES forKey:kUDLegacyLogFileRemoved];
-    }
+    // Launch-time failures stay in OSLog until the user retries in Settings, avoiding an alert
+    // before the app has a visible screen. Keep the requested preference for the next launch.
     Logger.fileLoggingEnabled = [defaults boolForKey:kUDFileLoggingEnabledKey];
   });
 }
@@ -314,12 +313,14 @@ NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidShowIClo
   return Logger.fileLoggingEnabled;
 }
 
-+ (void)setFileLoggingEnabled:(BOOL)fileLoggingEnabled
++ (NSError * _Nullable)setFileLoggingEnabled:(BOOL)fileLoggingEnabled
 {
   // The stored value is what the user asked for, not what the logger managed to do, so an enable
   // that fails on a transient error is retried on the next launch instead of turning itself off.
   [NSUserDefaults.standardUserDefaults setBool:fileLoggingEnabled forKey:kUDFileLoggingEnabledKey];
-  Logger.fileLoggingEnabled = fileLoggingEnabled;
+  NSError * error = nil;
+  [Logger setFileLoggingEnabled:fileLoggingEnabled error:&error];
+  return error;
 }
 
 + (uint64_t)logFileSize

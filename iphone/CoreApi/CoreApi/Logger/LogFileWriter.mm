@@ -154,21 +154,28 @@ BOOL SetError(NSError * __autoreleasing _Nullable * _Nullable error, LogFileWrit
   return firstError == nil;
 }
 
-- (nullable NSArray<NSString *> *)copyLogFilesToDirectory:(NSString *)directoryPath
-                                                    error:(NSError * __autoreleasing _Nullable * _Nullable)error
+- (NSArray<NSString *> *)copyLogFilesToDirectory:(NSString *)directoryPath
+                                           error:(NSError * __autoreleasing _Nullable * _Nullable)error
 {
-  // The rotated file is optional, the current one is required.
-  NSArray<NSString *> * sourcePaths = [self.fileManager fileExistsAtPath:self.rotatedFilePath]
-                                        ? @[self.rotatedFilePath, self.currentFilePath]
-                                        : @[self.currentFilePath];
+  NSMutableArray<NSString *> * sourcePaths = [NSMutableArray arrayWithCapacity:2];
+  if ([self.fileManager fileExistsAtPath:self.rotatedFilePath])
+    [sourcePaths addObject:self.rotatedFilePath];
+  if ([self.fileManager fileExistsAtPath:self.currentFilePath])
+    [sourcePaths addObject:self.currentFilePath];
+
   NSMutableArray<NSString *> * copies = [NSMutableArray arrayWithCapacity:sourcePaths.count];
+  NSError * firstError = nil;
   for (NSString * sourcePath in sourcePaths)
   {
     NSString * destinationPath = [directoryPath stringByAppendingPathComponent:sourcePath.lastPathComponent];
-    if (![self.fileManager copyItemAtPath:sourcePath toPath:destinationPath error:error])
-      return nil;
-    [copies addObject:destinationPath];
+    NSError * copyError = nil;
+    if ([self.fileManager copyItemAtPath:sourcePath toPath:destinationPath error:&copyError])
+      [copies addObject:destinationPath];
+    else if (firstError == nil)
+      firstError = copyError;
   }
+  if (error != nullptr)
+    *error = firstError;
   return copies;
 }
 
