@@ -5,6 +5,7 @@
 
 #include <array>
 #include <atomic>
+#include <iosfwd>
 #include <optional>
 #include <string>
 
