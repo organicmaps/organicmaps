@@ -140,6 +140,11 @@ struct PathSymbolViewParams : CommonViewParams
   std::string m_symbolName;
   float m_offset = 0;
   float m_step = 0;
+  float m_symbolScale = 1.0f;
+  // Optional placement controls. A negative max deviation disables curvature filtering.
+  float m_placementLength = 0.0f;
+  float m_maxPathDeviation = -1.0f;
+  float m_searchRadius = 0.0f;
   double m_baseGtoPScale = 1.0;
 };
 

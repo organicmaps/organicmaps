@@ -3,6 +3,7 @@
 #include "drape_frontend/colored_symbol_shape.hpp"
 #include "drape_frontend/line_shape.hpp"
 #include "drape_frontend/map_shape.hpp"
+#include "drape_frontend/path_symbol_shape.hpp"
 #include "drape_frontend/poi_symbol_shape.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/text_layout.hpp"
@@ -21,7 +22,9 @@
 
 #include "geometry/clipping.hpp"
 
+#include <algorithm>
 #include <array>
+#include <cmath>
 #include <vector>
 
 namespace df
@@ -31,6 +34,138 @@ namespace
 std::array<double, 20> constexpr kLineWidthZoomFactor = {
     // 1   2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20
     0.3, 0.3, 0.3, 0.4, 0.5, 0.6, 0.7, 0.7, 0.7, 0.7, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
+
+int constexpr kTrackDirectionMinZoom = 11;
+int constexpr kTrackEndpointMinZoom = 8;
+float constexpr kTrackArrowOffset = 48.0f;
+float constexpr kTrackArrowStep = 96.0f;
+float constexpr kTrackArrowLength = 7.0f;
+float constexpr kTrackArrowHeight = 4.0f;
+float constexpr kTrackArrowMaxHeight = 8.0f;
+float constexpr kTrackArrowInset = 0.25f;
+float constexpr kTrackArrowMinScale = 0.75f;
+float constexpr kTrackArrowSearchRadius = 24.0f;
+float constexpr kTrackEndpointRadius = 5.0f;
+float constexpr kTrackEndpointOutlineWidth = 1.5f;
+float constexpr kTrackCombinedEndpointDistance = 12.0f;
+float constexpr kTrackShapeDepthOffset = 1.0f;
+char const kTrackDirectionBlackSymbol[] = "track-direction-arrow-black";
+char const kTrackDirectionWhiteSymbol[] = "track-direction-arrow-white";
+
+enum class TrackEndpoint
+{
+  Start,
+  Finish,
+  StartAndFinish
+};
+
+float LinearizeColorComponent(float component)
+{
+  return component <= 0.04045f ? component / 12.92f : std::pow((component + 0.055f) / 1.055f, 2.4f);
+}
+
+dp::Color GetContrastingColor(dp::Color const & color)
+{
+  float const luminance = 0.2126f * LinearizeColorComponent(color.GetRedF()) +
+                          0.7152f * LinearizeColorComponent(color.GetGreenF()) +
+                          0.0722f * LinearizeColorComponent(color.GetBlueF());
+  // Thin frames visually sink into saturated mid-dark colors before the equal-contrast threshold is reached.
+  // Prefer white up to this point; it still has at least 3.5:1 contrast, while looking clearer on pure red.
+  return luminance > 0.25f ? dp::Color::Black() : dp::Color::White();
+}
+
+dp::Color MakeOpaque(dp::Color const & color)
+{
+  return {color.GetRed(), color.GetGreen(), color.GetBlue(), 255};
+}
+
+float GetNextArrowOffset(double sourceOffset, double pixelToGlobalScale, float firstOffset, float step)
+{
+  ASSERT_GREATER(pixelToGlobalScale, 0.0, ());
+  ASSERT_GREATER(step, 0.0f, ());
+
+  double const sourceOffsetInPixels = sourceOffset / pixelToGlobalScale;
+  if (sourceOffsetInPixels <= firstOffset)
+    return static_cast<float>(firstOffset - sourceOffsetInPixels);
+
+  double const phase = std::fmod(sourceOffsetInPixels - firstOffset, step);
+  double constexpr kEps = 1e-6;
+  return phase < kEps || step - phase < kEps ? 0.0f : static_cast<float>(step - phase);
+}
+
+void DrawTrackEndpoint(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
+                       ref_ptr<dp::TextureManager> textures, m2::PointD const & point, TrackEndpoint endpoint,
+                       dp::Color const & trackColor, float depth, DepthLayer depthLayer, float visualScale,
+                       dp::Batcher & batcher)
+{
+  ColoredSymbolViewParams params;
+  params.m_tileCenter = tileKey.GetWrappedDataRect().Center();
+  params.m_depthTestEnabled = true;
+  params.m_depth = depth;
+  params.m_depthLayer = depthLayer;
+  params.m_minVisibleScale = kTrackEndpointMinZoom;
+  params.m_color = MakeOpaque(trackColor);
+  params.m_outlineColor = GetContrastingColor(trackColor);
+  params.m_outlineWidth = kTrackEndpointOutlineWidth * visualScale;
+
+  if (endpoint == TrackEndpoint::Start)
+  {
+    params.m_shape = ColoredSymbolViewParams::Shape::Circle;
+    params.m_radiusInPixels = kTrackEndpointRadius * visualScale;
+  }
+  else
+  {
+    params.m_shape = ColoredSymbolViewParams::Shape::Rectangle;
+    float const size = 2.0f * kTrackEndpointRadius * visualScale;
+    params.m_sizeInPixels = {size, size};
+  }
+
+  ColoredSymbolShape(point, params, tileKey, 0 /* textIndex */, false /* needOverlay */)
+      .Draw(context, make_ref(&batcher), textures);
+
+  if (endpoint != TrackEndpoint::StartAndFinish)
+    return;
+
+  // A dot inside the finish square keeps co-located loop endpoints distinguishable without stacking two full marks.
+  params.m_shape = ColoredSymbolViewParams::Shape::Circle;
+  params.m_radiusInPixels = 1.75f * visualScale;
+  params.m_color = params.m_outlineColor;
+  params.m_outlineWidth = 0.0f;
+  params.m_depth += kTrackShapeDepthOffset;
+  ColoredSymbolShape(point, params, tileKey, 1 /* textIndex */, false /* needOverlay */)
+      .Draw(context, make_ref(&batcher), textures);
+}
+
+void DrawTrackEndpoints(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
+                        ref_ptr<dp::TextureManager> textures, UserLineRenderParams const & renderInfo, float depth,
+                        float visualScale, dp::Batcher & batcher)
+{
+  if (tileKey.m_zoomLevel < kTrackEndpointMinZoom || renderInfo.m_splines.empty() || renderInfo.m_layers.empty())
+    return;
+
+  auto const & start = renderInfo.m_splines.front()->GetPath().front();
+  auto const & finish = renderInfo.m_splines.back()->GetPath().back();
+  auto const tileRect = tileKey.GetWrappedDataRect();
+  auto const pixelToGlobalScale = GetScreenScale(tileKey.m_zoomLevel);
+  double const combineDistance = kTrackCombinedEndpointDistance * visualScale * pixelToGlobalScale;
+  bool const combined = start.SquaredLength(finish) <= combineDistance * combineDistance;
+  auto const color = renderInfo.m_layers.back().m_color;
+
+  if (combined)
+  {
+    if (tileRect.IsPointInside(start))
+      DrawTrackEndpoint(context, tileKey, textures, start, TrackEndpoint::StartAndFinish, color, depth,
+                        renderInfo.m_depthLayer, visualScale, batcher);
+    return;
+  }
+
+  if (tileRect.IsPointInside(start))
+    DrawTrackEndpoint(context, tileKey, textures, start, TrackEndpoint::Start, color, depth, renderInfo.m_depthLayer,
+                      visualScale, batcher);
+  if (tileRect.IsPointInside(finish))
+    DrawTrackEndpoint(context, tileKey, textures, finish, TrackEndpoint::Finish, color, depth, renderInfo.m_depthLayer,
+                      visualScale, batcher);
+}
 
 template <typename TCreateVector>
 void AlignFormingNormals(TCreateVector const & fn, dp::Anchor anchor, dp::Anchor first, dp::Anchor second,
@@ -487,9 +622,33 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
     minSegmentSqrLength = math::Pow2(4.0 * vs * GetScreenScale(tileKey.m_zoomLevel));
 
   m2::RectD const tileRect = tileKey.GetWrappedDataRect();
+  bool const showDirection = tileKey.m_zoomLevel >= kTrackDirectionMinZoom;
+  double const pixelToGlobalScale = GetScreenScale(tileKey.m_zoomLevel);
+  float const arrowOffset = kTrackArrowOffset * static_cast<float>(vs);
+  float const arrowStep = kTrackArrowStep * static_cast<float>(vs);
 
   source.ForEachUniqueTrack(tileKey.m_zoomLevel, renderParams, [&](UserLineRenderParams const & renderInfo)
   {
+    if (renderInfo.m_layers.empty())
+      return;
+
+    auto const topLayer =
+        std::max_element(renderInfo.m_layers.begin(), renderInfo.m_layers.end(),
+                         [](LineLayer const & lhs, LineLayer const & rhs) { return lhs.m_depth < rhs.m_depth; });
+    float const shapesDepth = topLayer->m_depth + kTrackShapeDepthOffset;
+    float const trackWidth =
+        topLayer->m_width * static_cast<float>(vs) * static_cast<float>(kLineWidthZoomFactor[tileKey.m_zoomLevel - 1]);
+    float const maxArrowHeight = std::min(trackWidth - 2.0f * kTrackArrowInset * static_cast<float>(vs),
+                                          kTrackArrowMaxHeight * static_cast<float>(vs));
+    float const arrowScale = std::max(0.0f, maxArrowHeight / (kTrackArrowHeight * static_cast<float>(vs)));
+    bool const drawDirection = showDirection && arrowScale >= kTrackArrowMinScale;
+    float const arrowHeight = kTrackArrowHeight * static_cast<float>(vs) * arrowScale;
+    // The size calculation already reserves the inset on both sides. That reserved space is the curvature budget.
+    float const maxPathDeviation = std::max(0.0f, 0.5f * (trackWidth - arrowHeight));
+    char const * directionSymbol = GetContrastingColor(topLayer->m_color) == dp::Color::Black()
+                                     ? kTrackDirectionBlackSymbol
+                                     : kTrackDirectionWhiteSymbol;
+
     // Spline is a shared_ptr here, can reassign later.
     for (auto spline : renderInfo.m_splines)
     {
@@ -499,8 +658,12 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
       if (spline->GetSize() < 2)
         continue;
 
-      for (auto const & clippedSpline : m2::ClipSplineByRect(tileRect, spline))
+      std::vector<double> sourceOffsets;
+      auto const clippedSplines = drawDirection ? m2::ClipSplineByRect(tileRect, spline, sourceOffsets)
+                                                : m2::ClipSplineByRect(tileRect, spline);
+      for (size_t clippedIndex = 0; clippedIndex < clippedSplines.size(); ++clippedIndex)
       {
+        auto const & clippedSpline = clippedSplines[clippedIndex];
         for (auto const & layer : renderInfo.m_layers)
         {
           LineViewParams params;
@@ -518,8 +681,30 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
 
           LineShape(clippedSpline, params).Draw(context, make_ref(&batcher), textures);
         }
+
+        if (drawDirection)
+        {
+          ASSERT_EQUAL(sourceOffsets.size(), clippedSplines.size(), ());
+          PathSymbolViewParams params;
+          params.m_tileCenter = tileRect.Center();
+          params.m_depthTestEnabled = false;
+          params.m_depth = shapesDepth;
+          params.m_depthLayer = renderInfo.m_depthLayer;
+          params.m_symbolName = directionSymbol;
+          params.m_offset = GetNextArrowOffset(sourceOffsets[clippedIndex], pixelToGlobalScale, arrowOffset, arrowStep);
+          params.m_step = arrowStep;
+          params.m_symbolScale = arrowScale;
+          params.m_placementLength = kTrackArrowLength * static_cast<float>(vs) * arrowScale;
+          params.m_maxPathDeviation = maxPathDeviation;
+          params.m_searchRadius = kTrackArrowSearchRadius * static_cast<float>(vs);
+          params.m_baseGtoPScale = 1.0 / pixelToGlobalScale;
+          PathSymbolShape(clippedSpline, params).Draw(context, make_ref(&batcher), textures);
+        }
       }
     }
+
+    DrawTrackEndpoints(context, tileKey, textures, renderInfo, shapesDepth + kTrackShapeDepthOffset,
+                       static_cast<float>(vs), batcher);
   });
 }
 }  // namespace df

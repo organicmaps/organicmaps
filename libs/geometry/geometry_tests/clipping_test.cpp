@@ -281,6 +281,34 @@ UNIT_TEST(Clipping_ClipSplineByRect)
   TEST(CompareSplineLists(result6, expectedResult6), ());
 }
 
+UNIT_TEST(Clipping_ClipSplineByRect_SourceOffsets)
+{
+  m2::RectD const r(-1.0, -1.0, 1.0, 1.0);
+  vector<m2::PointD> const points = {{-2.0, 0.0}, {2.0, 1.0}, {0.5, -2.0}, {-0.5, -0.5}};
+  auto const spline = MakeSpline(points);
+
+  vector<double> sourceOffsets = {42.0};
+  auto const result = m2::ClipSplineByRect(r, spline, sourceOffsets);
+  TEST_EQUAL(result.size(), 2, ());
+  TEST_EQUAL(sourceOffsets.size(), result.size(), ());
+
+  double const expectedFirstOffset = points[0].Length(result[0]->GetPath().front());
+  double const expectedSecondOffset =
+      points[0].Length(points[1]) + points[1].Length(points[2]) + points[2].Length(result[1]->GetPath().front());
+  TEST_ALMOST_EQUAL_ABS(sourceOffsets[0], expectedFirstOffset, kClipEps, ());
+  TEST_ALMOST_EQUAL_ABS(sourceOffsets[1], expectedSecondOffset, kClipEps, ());
+
+  auto const inside = MakeSpline({{-0.5, 0.0}, {0.5, 0.5}});
+  sourceOffsets = {42.0};
+  TEST_EQUAL(m2::ClipSplineByRect(r, inside, sourceOffsets).size(), 1, ());
+  TEST_EQUAL(sourceOffsets, vector<double>{0.0}, ());
+
+  auto const outside = MakeSpline({{-2.0, 2.0}, {2.0, 3.0}});
+  sourceOffsets = {42.0};
+  TEST(m2::ClipSplineByRect(r, outside, sourceOffsets).empty(), ());
+  TEST(sourceOffsets.empty(), ());
+}
+
 UNIT_TEST(Clipping_ClipSplineByRect_GrazingRectCorner)
 {
   // A two-point spline that just touches a rect corner (and lies entirely
