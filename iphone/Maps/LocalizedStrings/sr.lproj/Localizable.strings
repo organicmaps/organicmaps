@@ -483,6 +483,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Преузмите регион где вршите претрагу, или пробајте да додате име оближњег насеља.";
 "search_history_title" = "Историја претраге";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "Погледајте ваше недавне претраге.";
 "clear_search" = "Обриши историју претраге";
 

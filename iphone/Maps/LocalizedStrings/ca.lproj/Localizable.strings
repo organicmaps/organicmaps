@@ -483,6 +483,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Baixeu la regió on esteu cercant o proveu d'afegir un nom de ciutat o poble proper.";
 "search_history_title" = "Historial de cerca";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "Mostra les cerques recents.";
 "clear_search" = "Neteja l’historial de cerques";
 

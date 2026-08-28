@@ -483,6 +483,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "ດາວໂຫລດພາກພື້ນທີ່ທ່ານກຳລັງຄົ້ນຫາ ຫຼື ລອງເພີ່ມຊື່ເມືອງ/ບ້ານທີ່ຢູ່ໃກ້ຄຽງ.";
 "search_history_title" = "ປະຫວັດການຄົ້ນຫາ";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "ເບິ່ງການຄົ້ນຫາຫຼ້າສຸດຂອງທ່ານ.";
 "clear_search" = "ລຶບປະຫວັດການຄົ້ນຫາ";
 
