@@ -95,6 +95,8 @@ public:
   float GetDepth(size_t layerIndex) const override;
   void ForEachGeometry(GeometryFnT && fn) const override;
   bool IsVisible() const override;
+  // Relation tracks are assembled from OSM ways without a reliable direction.
+  bool HasDirection() const override { return GetId() != kml::kTempRelationTrackId; }
   void SetVisibility(bool visible);
 
   void Attach(kml::MarkGroupId groupId);

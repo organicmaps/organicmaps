@@ -19,6 +19,7 @@ set(SRC
   stylist_tests.cpp
   tile_background_coverage_tests.cpp
   tile_background_renderer_tests.cpp
+  track_direction_gpu_test.cpp
   user_event_stream_tests.cpp
   visual_params_fixture.hpp
   visual_params_tests.cpp

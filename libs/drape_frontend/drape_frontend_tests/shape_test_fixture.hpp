@@ -1,6 +1,7 @@
 #pragma once
 
 #include "drape_frontend/map_shape.hpp"
+#include "drape_frontend/user_mark_shapes.hpp"
 
 #include "drape/batcher.hpp"
 #include "drape/framebuffer.hpp"
@@ -42,6 +43,13 @@ public:
   /// Add a shape to the current batch. Only valid inside the Render() callback.
   void AddShape(drape_ptr<MapShape> && shape);
 
+  /// Cache user lines into the current batch. Only valid inside the Render() callback.
+  void AddUserLines(TileKey const & tileKey, TracksSource const & source,
+                    UserLinesRenderCollection const & renderParams);
+
+  /// Sets the scale from world coordinates to pixels. Must be called before Render().
+  void SetWorldToPixelScale(float scale) { m_worldToPixelScale = scale; }
+
   /// The last rendered frame; valid after Render() returns.
   QImage const & GetLastImage() const { return m_lastImage; }
 
@@ -59,6 +67,7 @@ private:
 
   uint32_t m_width = 0;
   uint32_t m_height = 0;
+  float m_worldToPixelScale = 1.0f;
   drape_ptr<dp::Framebuffer> m_framebuffer;
 
   std::unique_ptr<dp::GraphicsContext> m_context;
