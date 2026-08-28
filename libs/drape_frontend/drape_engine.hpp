@@ -199,7 +199,7 @@ public:
   void ClearGpsTrackPoints();
 
   void EnableChoosePositionMode(bool enable, std::vector<m2::TriangleD> && boundAreaTriangles,
-                                m2::PointD const * optionalPosition);
+                                m2::PointD const * optionalPosition, bool shouldChangeViewport = true);
   void BlockTapEvents(bool block);
 
   void SetKineticScrollEnabled(bool enabled);

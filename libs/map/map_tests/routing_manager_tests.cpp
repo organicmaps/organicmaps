@@ -24,6 +24,18 @@ size_t GetIntermediatePointsCount(std::vector<RouteMarkData> const & points)
   return std::count_if(points.begin(), points.end(),
                        [](RouteMarkData const & d) { return d.m_pointType == RouteMarkType::Intermediate; });
 }
+
+void FillRouteToLimit(RoutingManager & routingManager)
+{
+  TEST(routingManager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Start, 0, 0.0)), ());
+  for (size_t i = 0; i < RoutePointsLayout::kMaxIntermediatePointsCount; ++i)
+  {
+    TEST(routingManager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Intermediate, i, static_cast<double>(i + 1)),
+                                      false /* reorderIntermediatePoints */),
+         (i));
+  }
+  TEST(routingManager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Finish, 0, 101.0)), ());
+}
 }  // namespace
 
 UNIT_TEST(RoutingManager_ContinueRouteToPointAtLimitKeepsFinish)
@@ -31,11 +43,7 @@ UNIT_TEST(RoutingManager_ContinueRouteToPointAtLimitKeepsFinish)
   Framework framework(FrameworkParams(false /* m_enableDiffs */));
   auto & routingManager = framework.GetRoutingManager();
 
-  routingManager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Start, 0, 0.0));
-  for (size_t i = 0; i < RoutePointsLayout::kMaxIntermediatePointsCount; ++i)
-    routingManager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Intermediate, i, static_cast<double>(i + 1)),
-                                 false /* reorderIntermediatePoints */);
-  routingManager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Finish, 0, 101.0));
+  FillRouteToLimit(routingManager);
 
   auto const pointsBefore = routingManager.GetRoutePoints();
   TEST_EQUAL(pointsBefore.size(), RoutePointsLayout::kMaxRoutePointsCount, ());
@@ -51,6 +59,23 @@ UNIT_TEST(RoutingManager_ContinueRouteToPointAtLimitKeepsFinish)
   TEST(pointsAfter.back().m_pointType == RouteMarkType::Finish, ());
   TEST_EQUAL(pointsAfter.back().m_position.x, pointsBefore.back().m_position.x, ());
   TEST_EQUAL(pointsAfter.back().m_position.y, pointsBefore.back().m_position.y, ());
+}
+
+UNIT_TEST(RoutingManager_AddRoutePointAtLimitReportsFailure)
+{
+  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  auto & routingManager = framework.GetRoutingManager();
+
+  FillRouteToLimit(routingManager);
+
+  auto const pointsBefore = routingManager.GetRoutePoints();
+  TEST_EQUAL(pointsBefore.size(), RoutePointsLayout::kMaxRoutePointsCount, ());
+  TEST(!routingManager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Intermediate, 100, 102.0)), ());
+  auto const pointsAfter = routingManager.GetRoutePoints();
+  TEST_EQUAL(pointsAfter.size(), pointsBefore.size(), ());
+  TEST_EQUAL(GetIntermediatePointsCount(pointsAfter), GetIntermediatePointsCount(pointsBefore), ());
+  TEST_EQUAL(pointsAfter.front().m_position, pointsBefore.front().m_position, ());
+  TEST_EQUAL(pointsAfter.back().m_position, pointsBefore.back().m_position, ());
 }
 
 // If route marks are wiped between IsRoutingActive() and ContinueRouteToPoint(),
