@@ -2,9 +2,9 @@
 @import("../../outdoors/light/colors.mapcss");
 
 /* Cycling accent: one blue hue in two intensities.
-   - @cycleway: dedicated/off-road cycling infrastructure (stronger).
-   - @cycleway_road: road-attached cyclewaytag track/lane/shared_lane.
+   - @cycleway: dedicated cycleways and protected tracks (stronger).
+   - @cycleway_road: painted and shared lanes.
    - @cycleway_casing: the continuous contrasting outline drawn underneath. */
-@cycleway: #1565C0;
-@cycleway_road: #1E88E5;
+@cycleway: #0D47A1;
+@cycleway_road: #42A5F5;
 @cycleway_casing: #FFFFFF;
