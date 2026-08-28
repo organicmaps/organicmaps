@@ -139,7 +139,6 @@
 		ED82C5192F90180300FA103D /* BottomMenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2DB2F90180300FA103D /* BottomMenuInteractor.swift */; };
 		ED82C51A2F90180300FA103D /* BottomMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2DC2F90180300FA103D /* BottomMenuPresenter.swift */; };
 		ED82C51B2F90180300FA103D /* BottomMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2DD2F90180300FA103D /* BottomMenuViewController.swift */; };
-		ED82CD012F90180300FA103D /* BottomMenuSheetLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82CD002F90180300FA103D /* BottomMenuSheetLayout.swift */; };
 		ED82C51F2F90180300FA103D /* BottomTabBarBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2E42F90180300FA103D /* BottomTabBarBuilder.swift */; };
 		ED82C5202F90180300FA103D /* BottomTabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2E52F90180300FA103D /* BottomTabBarButton.swift */; };
 		ED82C5212F90180300FA103D /* BottomTabBarInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2E62F90180300FA103D /* BottomTabBarInteractor.swift */; };
@@ -386,7 +385,6 @@
 		ED82C6252F90180300FA103D /* BMCCategoriesHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2C12F90180300FA103D /* BMCCategoriesHeader.xib */; };
 		ED82C6282F90180300FA103D /* BottomMenuItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2D52F90180300FA103D /* BottomMenuItemCell.xib */; };
 		ED82C6292F90180300FA103D /* BottomMenuLayersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2D82F90180300FA103D /* BottomMenuLayersCell.xib */; };
-		ED82C62A2F90180300FA103D /* BottomMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2DE2F90180300FA103D /* BottomMenuViewController.xib */; };
 		ED82C62B2F90180300FA103D /* BottomTabBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2EA2F90180300FA103D /* BottomTabBarViewController.xib */; };
 		ED82C62C2F90180300FA103D /* CarPlay.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2EE2F90180300FA103D /* CarPlay.storyboard */; };
 		ED82C62D2F90180300FA103D /* MWMMapDownloaderButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2F82F90180300FA103D /* MWMMapDownloaderButtonTableViewCell.xib */; };
@@ -1006,8 +1004,6 @@
 		ED82C2DB2F90180300FA103D /* BottomMenuInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuInteractor.swift; sourceTree = "<group>"; };
 		ED82C2DC2F90180300FA103D /* BottomMenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuPresenter.swift; sourceTree = "<group>"; };
 		ED82C2DD2F90180300FA103D /* BottomMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuViewController.swift; sourceTree = "<group>"; };
-		ED82CD002F90180300FA103D /* BottomMenuSheetLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuSheetLayout.swift; sourceTree = "<group>"; };
-		ED82C2DE2F90180300FA103D /* BottomMenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomMenuViewController.xib; sourceTree = "<group>"; };
 		ED82C2E42F90180300FA103D /* BottomTabBarBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomTabBarBuilder.swift; sourceTree = "<group>"; };
 		ED82C2E52F90180300FA103D /* BottomTabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomTabBarButton.swift; sourceTree = "<group>"; };
 		ED82C2E62F90180300FA103D /* BottomTabBarInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomTabBarInteractor.swift; sourceTree = "<group>"; };
@@ -2366,8 +2362,6 @@
 				ED82C2DB2F90180300FA103D /* BottomMenuInteractor.swift */,
 				ED82C2DC2F90180300FA103D /* BottomMenuPresenter.swift */,
 				ED82C2DD2F90180300FA103D /* BottomMenuViewController.swift */,
-				ED82CD002F90180300FA103D /* BottomMenuSheetLayout.swift */,
-				ED82C2DE2F90180300FA103D /* BottomMenuViewController.xib */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -4376,7 +4370,6 @@
 				ED82C6252F90180300FA103D /* BMCCategoriesHeader.xib in Resources */,
 				ED82C6282F90180300FA103D /* BottomMenuItemCell.xib in Resources */,
 				ED82C6292F90180300FA103D /* BottomMenuLayersCell.xib in Resources */,
-				ED82C62A2F90180300FA103D /* BottomMenuViewController.xib in Resources */,
 				ED82C62B2F90180300FA103D /* BottomTabBarViewController.xib in Resources */,
 				ED82C62C2F90180300FA103D /* CarPlay.storyboard in Resources */,
 				ED82C62D2F90180300FA103D /* MWMMapDownloaderButtonTableViewCell.xib in Resources */,
@@ -4530,7 +4523,6 @@
 				ED82C5192F90180300FA103D /* BottomMenuInteractor.swift in Sources */,
 				ED82C51A2F90180300FA103D /* BottomMenuPresenter.swift in Sources */,
 				ED82C51B2F90180300FA103D /* BottomMenuViewController.swift in Sources */,
-				ED82CD012F90180300FA103D /* BottomMenuSheetLayout.swift in Sources */,
 				ED82C51F2F90180300FA103D /* BottomTabBarBuilder.swift in Sources */,
 				ED82C5202F90180300FA103D /* BottomTabBarButton.swift in Sources */,
 				ED82C5212F90180300FA103D /* BottomTabBarInteractor.swift in Sources */,

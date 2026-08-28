@@ -18,7 +18,6 @@ class BottomMenuPresenter: NSObject {
     case items
   }
 
-  private weak var view: BottomMenuViewProtocol?
   private let interactor: BottomMenuInteractorProtocol
   private let sections: [Sections]
   private let menuCells: [CellType]
@@ -28,10 +27,8 @@ class BottomMenuPresenter: NSObject {
   private let countryId: String?
   private let shouldUpdateMapToContribute: Bool
 
-  init(view: BottomMenuViewProtocol,
-       interactor: BottomMenuInteractorProtocol,
+  init(interactor: BottomMenuInteractorProtocol,
        sections: [Sections]) {
-    self.view = view
     self.interactor = interactor
     self.sections = sections
     let disableDonate = Settings.donateUrl() == nil
