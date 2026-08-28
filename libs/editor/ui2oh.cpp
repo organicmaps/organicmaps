@@ -14,6 +14,10 @@ using osmoh::operator""_h;
 
 osmoh::Timespan const kTwentyFourHours = {0_h, 24_h};
 
+editor::ui::OpeningDays const kWholeWeek = {
+    osmoh::Weekday::Monday, osmoh::Weekday::Tuesday,  osmoh::Weekday::Wednesday, osmoh::Weekday::Thursday,
+    osmoh::Weekday::Friday, osmoh::Weekday::Saturday, osmoh::Weekday::Sunday};
+
 editor::ui::OpeningDays MakeOpeningDays(osmoh::Weekdays const & wds)
 {
   std::set<osmoh::Weekday> openingDays;
@@ -45,10 +49,6 @@ void SetUpWeekdays(osmoh::Weekdays const & wds, editor::ui::TimeTable & tt)
 void SetUpTimeTable(osmoh::TTimespans spans, editor::ui::TimeTable & tt)
 {
   using namespace osmoh;
-
-  // Expand plus: 13:15+ -> 13:15-24:00.
-  for (auto & span : spans)
-    span.ExpandPlus();
 
   std::sort(std::begin(spans), std::end(spans), [](Timespan const & a, Timespan const & b)
   {
@@ -131,6 +131,81 @@ std::vector<Weekdays> SplitIntoIntervals(editor::ui::OpeningDays const & days)
   return result;
 }
 
+bool IsRepresentableInSimpleEditor(osmoh::OpeningHours const & oh)
+{
+  using namespace osmoh;
+
+  if (!oh.IsValid())
+    return false;
+
+  auto const & rules = oh.GetRule();
+  editor::ui::OpeningDays coveredDays;
+  for (size_t i = 0; i < rules.size(); ++i)
+  {
+    auto const & rule = rules[i];
+    if (rule.HasModifierComment() || rule.GetModifier() == RuleSequence::Modifier::Unknown ||
+        rule.GetModifier() == RuleSequence::Modifier::Comment)
+    {
+      return false;
+    }
+    // A constant rule carries only a modifier ("Mo-Fr 08:00-18:00; off" is
+    // closed the whole week): no time table can represent it.
+    if (rule.IsEmpty())
+      return false;
+
+    if (rule.HasYears() || rule.HasMonths() || rule.HasWeeks())
+      return false;
+
+    // The timetable set combines its entries as ordinary overriding rules.
+    // An additive open rule over days disjoint from every preceding rule is
+    // equivalent to an overriding one; a fallback ("||") never is.
+    if (i > 0 && rules[i - 1].GetAnySeparator() != ";")
+    {
+      if (rules[i - 1].GetAnySeparator() != "," || !rule.HasWeekdays() ||
+          rule.GetModifier() == RuleSequence::Modifier::Closed)
+      {
+        return false;
+      }
+      for (auto const day : MakeOpeningDays(rule.GetWeekdays()))
+        if (coveredDays.count(day) != 0)
+          return false;
+    }
+
+    auto const & weekdays = rule.GetWeekdays();
+    if (!weekdays.GetHolidays().empty())
+      return false;
+    for (auto const & range : weekdays.GetWeekdayRanges())
+      if (range.HasNth() || range.HasOffset())
+        return false;
+
+    for (auto const & span : rule.GetTimes())
+    {
+      if (!span.HasStart() || !span.HasEnd() || span.HasPlus() || span.HasPeriod() ||
+          !span.GetStart().IsHoursMinutes() || !span.GetEnd().IsHoursMinutes())
+      {
+        return false;
+      }
+
+      auto const start = span.GetStart().GetHourMinutes().GetDuration();
+      auto const end = span.GetEnd().GetHourMinutes().GetDuration();
+      // Platform pickers expose wall-clock starts and allow 24:00 only as the
+      // end of a day.
+      if (start >= 24_h || end > 24_h)
+        return false;
+
+      // SetUpTimeTable's interval model and ExcludeRulePart's Includes() are
+      // linear in wall-clock time: keep a lone overnight span editable, but
+      // reject one combined with other spans or used as an exclusion.
+      if (end <= start && (rule.GetTimes().size() > 1 || rule.GetModifier() == RuleSequence::Modifier::Closed))
+        return false;
+    }
+
+    auto const ruleDays = rule.HasWeekdays() ? MakeOpeningDays(rule.GetWeekdays()) : kWholeWeek;
+    coveredDays.insert(ruleDays.begin(), ruleDays.end());
+  }
+  return true;
+}
+
 osmoh::Weekdays MakeWeekdays(editor::ui::TimeTable const & tt)
 {
   osmoh::Weekdays wds;
@@ -167,10 +242,6 @@ osmoh::TTimespans MakeTimespans(editor::ui::TimeTable const & tt)
   return spans;
 }
 
-editor::ui::OpeningDays const kWholeWeek = {
-    osmoh::Weekday::Monday, osmoh::Weekday::Tuesday,  osmoh::Weekday::Wednesday, osmoh::Weekday::Thursday,
-    osmoh::Weekday::Friday, osmoh::Weekday::Saturday, osmoh::Weekday::Sunday};
-
 editor::ui::OpeningDays GetCommonDays(editor::ui::OpeningDays const & a, editor::ui::OpeningDays const & b)
 {
   editor::ui::OpeningDays result;
@@ -188,14 +259,25 @@ bool Includes(osmoh::Timespan const & a, osmoh::Timespan const & b)
   return GetDuration(a.GetStart()) <= GetDuration(b.GetStart()) && GetDuration(b.GetEnd()) <= GetDuration(a.GetEnd());
 }
 
+bool WrapsMidnight(osmoh::Timespan const & span)
+{
+  return GetDuration(span.GetEnd()) <= GetDuration(span.GetStart());
+}
+
 bool ExcludeRulePart(osmoh::RuleSequence const & rulePart, editor::ui::TimeTableSet & tts)
 {
-  auto const ttsInitialSize = tts.Size();
-  for (size_t i = 0; i < ttsInitialSize; ++i)
+  // A closed rule with no day selector applies to the whole week, mirroring
+  // the open-rule branch in MakeTimeTableSet.
+  auto const ruleDays = rulePart.HasWeekdays() ? MakeOpeningDays(rulePart.GetWeekdays()) : kWholeWeek;
+
+  // The rule overrides every time table it intersects, so visit them all;
+  // iterating backwards keeps indices valid across Remove() and never
+  // revisits the time tables Append() adds along the way.
+  for (size_t i = tts.Size(); i-- > 0;)
   {
     auto tt = tts.Get(i);
     auto const ttOpeningDays = tt.GetOpeningDays();
-    auto const commonDays = GetCommonDays(ttOpeningDays, MakeOpeningDays(rulePart.GetWeekdays()));
+    auto const commonDays = GetCommonDays(ttOpeningDays, ruleDays);
 
     auto const removeCommonDays = [&commonDays](editor::ui::TimeTableSet::Proxy & tt)
     {
@@ -219,24 +301,39 @@ bool ExcludeRulePart(osmoh::RuleSequence const & rulePart, editor::ui::TimeTable
     // The whole rule matches to the tt.
     if (commonDays.size() == ttOpeningDays.size())
     {
-      // rulePart applies to commonDays in a whole.
+      // rulePart applies to the whole time table.
       if (excludeTime.empty())
-        return tts.Remove(i);
+      {
+        if (!tts.Remove(i))
+          return false;
+        continue;
+      }
 
       twentyFourHoursGuard(tt);
 
+      // Linear exclusion math cannot split an overnight opening span.
+      if (WrapsMidnight(tt.GetOpeningTime()))
+        return false;
+
+      bool removed = false;
       for (auto const & time : excludeTime)
       {
         // Whatever it is, it's already closed at a time out of opening time.
         if (!Includes(tt.GetOpeningTime(), time))
           continue;
 
-        // The whole opening time interval should be switched off
+        // The exclusion covers the whole opening time.
         if (!tt.AddExcludeTime(time))
-          return tts.Remove(i);
+        {
+          if (!tts.Remove(i))
+            return false;
+          removed = true;
+          break;
+        }
       }
-      VERIFY(tt.Commit(), ("Can't update time table"));
-      return true;
+      if (!removed)
+        VERIFY(tt.Commit(), ("Can't update time table"));
+      continue;
     }
     // A rule is applied to a subset of a time table. We should
     // subtract common parts from tt and add a new time table if needed.
@@ -250,6 +347,10 @@ bool ExcludeRulePart(osmoh::RuleSequence const & rulePart, editor::ui::TimeTable
       }
 
       twentyFourHoursGuard(tt);
+
+      // Linear exclusion math cannot split an overnight opening span.
+      if (WrapsMidnight(tt.GetOpeningTime()))
+        return false;
 
       editor::ui::TimeTable copy = tt;
       VERIFY(copy.SetOpeningDays(commonDays), ("Can't set opening days"));
@@ -275,7 +376,8 @@ bool ExcludeRulePart(osmoh::RuleSequence const & rulePart, editor::ui::TimeTable
         VERIFY(tts.Append(copy), ("Can't add new time table"));
     }
   }
-  return true;
+  // The rule may have closed every time table; nothing is left to edit then.
+  return !tts.Empty();
 }
 }  // namespace
 
@@ -306,10 +408,7 @@ osmoh::OpeningHours MakeOpeningHours(ui::TimeTableSet const & tts)
 
 bool MakeTimeTableSet(osmoh::OpeningHours const & oh, ui::TimeTableSet & tts)
 {
-  if (!oh.IsValid())
-    return false;
-
-  if (oh.HasYearSelector() || oh.HasWeekSelector() || oh.HasMonthSelector())
+  if (!IsRepresentableInSimpleEditor(oh))
     return false;
 
   tts = ui::TimeTableSet();
@@ -319,16 +418,8 @@ bool MakeTimeTableSet(osmoh::OpeningHours const & oh, ui::TimeTableSet & tts)
   bool first = true;
   for (auto const & rulePart : oh.GetRule())
   {
-    if (rulePart.IsEmpty())
-      continue;
-
     ui::TimeTable tt = ui::TimeTable::GetUninitializedTimeTable();
     tt.SetOpeningTime(tt.GetPredefinedOpeningTime());
-
-    // Comments and unknown rules belong to advanced mode.
-    if (rulePart.GetModifier() == osmoh::RuleSequence::Modifier::Unknown ||
-        rulePart.GetModifier() == osmoh::RuleSequence::Modifier::Comment)
-      return false;
 
     if (rulePart.GetModifier() == osmoh::RuleSequence::Modifier::Closed)
     {

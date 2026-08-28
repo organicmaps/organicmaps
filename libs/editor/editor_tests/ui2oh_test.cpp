@@ -368,23 +368,6 @@ UNIT_TEST(OpeningHours2TimeTableSet_off)
   }
 }
 
-UNIT_TEST(OpeningHours2TimeTableSet_plus)
-{
-  OpeningHours oh("Mo-Su 11:00+");
-  TEST(oh.IsValid(), ());
-
-  TimeTableSet tts;
-
-  TEST(MakeTimeTableSet(oh, tts), ());
-  TEST_EQUAL(tts.Size(), 1, ());
-
-  auto const tt = tts.Get(0);
-  TEST_EQUAL(tts.GetUnhandledDays(), OpeningDays(), ());
-
-  TEST_EQUAL(tt.GetOpeningTime().GetStart().GetHourMinutes().GetHoursCount(), 11, ());
-  TEST_EQUAL(tt.GetOpeningTime().GetEnd().GetHourMinutes().GetHoursCount(), 24, ());
-}
-
 UNIT_TEST(TimeTableSt2OpeningHours)
 {
   {
@@ -536,5 +519,142 @@ UNIT_TEST(TimeTableSt2OpeningHours)
                "Mo, We-Th 08:00-13:00, 14:00-20:00; "
                "Sa 09:00-13:00, 14:00-18:00",
                ());
+  }
+}
+
+UNIT_TEST(OpeningHours2TimeTableSet_onlyRepresentableSchedulesUseSimpleMode)
+{
+  for (std::string const value : {
+           "Mo-Fr 08:00-18:00; PH off",
+           "Mo[1] 08:00-18:00",
+           "Mo +1 day 08:00-18:00",
+           "Mo-Fr 08:00-18:00 \"office\"",
+           "Mo-Fr 08:00-18:00 unknown",
+           "24/7 closed",
+           "Mo-Fr 08:00-18:00/02:00",
+           "Mo-Fr 20:00-26:00",
+           "Mo-Su 11:00+",
+           "Mo-Su sunrise-sunset",
+           "Mo-Fr 10:00-sunset",
+           "Mo-Su (sunrise+01:00)-sunset",
+           "sunrise-sunset",
+           "Mo-Fr 08:00-18:00; Sa sunrise-sunset",
+           "Mo-Fr 08:00-18:00 || Sa 10:00-14:00",
+       })
+  {
+    OpeningHours const oh(value);
+    TEST(oh.IsValid(), (value));
+    TimeTableSet tts;
+    TEST(!MakeTimeTableSet(oh, tts), (value));
+  }
+
+  for (std::string const value : {
+           "Mo-Fr 20:00-02:00",
+           "Mo-Fr 08:00-18:00; Sa 10:00-14:00",
+           "Mo-Fr 08:00-24:00",
+       })
+  {
+    OpeningHours const oh(value);
+    TEST(oh.IsValid(), (value));
+    TimeTableSet tts;
+    TEST(MakeTimeTableSet(oh, tts), (value));
+  }
+}
+
+// A closed rule overrides everything it intersects; losing any part of it on
+// save would reopen closed hours.
+UNIT_TEST(OpeningHours2TimeTableSet_closedOverridesApplyEverywhere)
+{
+  {
+    // A trailing constant "off" closes the whole week: not representable.
+    OpeningHours oh("Mo-Fr 08:00-18:00; off");
+    TEST(oh.IsValid(), ());
+    TimeTableSet tts;
+    TEST(!MakeTimeTableSet(oh, tts), ());
+  }
+  {
+    // A whole-week override closes both time tables: nothing left to edit.
+    OpeningHours oh("Mo-Fr 08:00-18:00; Sa-Su 10:00-16:00; Mo-Su off");
+    TEST(oh.IsValid(), ());
+    TimeTableSet tts;
+    TEST(!MakeTimeTableSet(oh, tts), ());
+  }
+  {
+    // A selectorless closed rule applies to the whole week.
+    OpeningHours oh("Mo-Fr 08:00-18:00; 13:00-14:00 off");
+    TEST(oh.IsValid(), ());
+    TimeTableSet tts;
+    TEST(MakeTimeTableSet(oh, tts), ());
+    TEST_EQUAL(tts.Size(), 1, ());
+
+    auto const tt = tts.Front();
+    TEST_EQUAL(tt.GetExcludeTime().size(), 1, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetStart().GetHourMinutes().GetHoursCount(), 13, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetEnd().GetHourMinutes().GetHoursCount(), 14, ());
+  }
+  {
+    // The override reaches the second time table, not only the first one.
+    OpeningHours oh("Mo-Fr 08:00-18:00; Sa-Su 10:00-16:00; Sa 12:00-13:00 off");
+    TEST(oh.IsValid(), ());
+    TimeTableSet tts;
+    TEST(MakeTimeTableSet(oh, tts), ());
+    TEST_EQUAL(tts.Size(), 3, ());
+
+    TEST_EQUAL(tts.Get(0).GetOpeningDays().size(), 5, ());
+    // Saturday is split out of Sa-Su and carries the exclusion.
+    TEST_EQUAL(tts.Get(1).GetOpeningDays().size(), 1, ());
+    TEST_EQUAL(tts.Get(2).GetOpeningDays().size(), 1, ());
+    TEST_EQUAL(tts.Get(2).GetExcludeTime().size(), 1, ());
+  }
+}
+
+// The simple editing model is linear in wall-clock time: a lone overnight
+// span fits it, but combinations do not survive a round trip.
+UNIT_TEST(OpeningHours2TimeTableSet_overnightCombinationsStayInAdvancedMode)
+{
+  for (std::string const value : {
+           "Mo 20:00-02:00, 01:00-04:00",           // wrapped span plus a second span
+           "Mo 20:00-02:00; Mo 21:00-23:00 off",    // exclusion inside a wrapped span
+           "Mo-Fr 08:00-18:00; Sa 23:00-01:00 off"  // wrapping exclusion span
+       })
+  {
+    OpeningHours const oh(value);
+    TEST(oh.IsValid(), (value));
+    TimeTableSet tts;
+    TEST(!MakeTimeTableSet(oh, tts), (value));
+  }
+
+  // A closed rule on disjoint days does not disturb an overnight time table.
+  OpeningHours const disjoint("Mo 20:00-02:00; Tu 12:00-13:00 off");
+  TEST(disjoint.IsValid(), ());
+  TimeTableSet tts;
+  TEST(MakeTimeTableSet(disjoint, tts), ());
+  TEST_EQUAL(tts.Size(), 1, ());
+  TEST_EQUAL(tts.Front().GetOpeningDays().size(), 1, ());
+}
+
+// An additive rule over days disjoint from every preceding rule is equivalent
+// to an overriding one, so the simple editor represents it losslessly; place
+// pages then render it structured instead of as raw text.
+UNIT_TEST(OpeningHours2TimeTableSet_disjointAdditiveRules)
+{
+  {
+    OpeningHours oh("Mo-Fr 08:00-18:00, Sa 10:00-14:00");
+    TEST(oh.IsValid(), ());
+    TimeTableSet tts;
+    TEST(MakeTimeTableSet(oh, tts), ());
+    TEST_EQUAL(tts.Size(), 2, ());
+    TEST_EQUAL(tts.Get(0).GetOpeningDays().size(), 5, ());
+    TEST_EQUAL(tts.Get(1).GetOpeningDays().size(), 1, ());
+  }
+
+  // Overlapping days or a closed additive rule change semantics under the
+  // overriding model: keep them in the advanced editor.
+  for (std::string const value : {"Mo-Fr 08:00-18:00, Mo 10:00-14:00", "Mo-Fr 08:00-18:00, Sa off"})
+  {
+    OpeningHours const oh(value);
+    TEST(oh.IsValid(), (value));
+    TimeTableSet tts;
+    TEST(!MakeTimeTableSet(oh, tts), (value));
   }
 }
