@@ -26,7 +26,7 @@
 + (void)handleFileLoggingError:(NSError *)error;
 + (void)runSyncOnFileLoggingQueue:(dispatch_block_t)block;
 + (void)logMessageWithLevel:(base::LogLevel)level src:(base::SrcPoint const &)src message:(std::string const &)message;
-+ (void)tryWriteToFile:(std::string const &)logString;
++ (void)tryWriteToFile:(NSData *)data;
 + (nullable NSString *)createTemporaryDirectory;
 + (nullable NSData *)archiveFiles:(NSArray<NSString *> *)filePaths inDirectory:(NSString *)directoryPath;
 + (nullable NSData *)archiveOSLogStoreReport;
@@ -304,7 +304,7 @@ bool AssertMessage(base::SrcPoint const & src, std::string const & message)
   base::LogHelper::WriteProlog(output, level);
   base::LogHelper::WriteLog(output, src, message);
 
-  auto const logString = output.str();
+  auto const logString = std::move(output).str();
 
   // Log the message into the system log. Oversized records are rare, so nothing is copied here
   // unless one has to be rebuilt with a truncation marker.
@@ -317,24 +317,26 @@ bool AssertMessage(base::SrcPoint const & src, std::string const & message)
   if (!_fileLoggingEnabled.load(std::memory_order_relaxed))
     return;
 
+  // Copy the record once: blocks retain the NSData instead of copying the std::string again.
+  NSData * data = [NSData dataWithBytes:logString.data() length:logString.size()];
+
   // Write errors synchronously: an error is often the last record before the process dies - through
   // the abort in LogMessage, or in the code that reported it - and that is exactly the record a
   // diagnostic log is collected for. Everything else goes asynchronously to keep the calling
   // (usually the main) thread out of the file I/O. The queue is serial, so the order is preserved.
   if (level >= base::LERROR)
-    [self runSyncOnFileLoggingQueue:^{ [self tryWriteToFile:logString]; }];
+    [self runSyncOnFileLoggingQueue:^{ [self tryWriteToFile:data]; }];
   else
-    dispatch_async([self fileLoggingQueue], ^{ [self tryWriteToFile:logString]; });
+    dispatch_async([self fileLoggingQueue], ^{ [self tryWriteToFile:data]; });
 }
 
-+ (void)tryWriteToFile:(std::string const &)logString
++ (void)tryWriteToFile:(NSData *)data
 {
   dispatch_assert_queue([self fileLoggingQueue]);
   if (![self fileLoggingEnabled])
     return;
 
   NSError * error = nil;
-  NSData * data = [NSData dataWithBytes:logString.data() length:logString.size()];
   if (![[self logger].fileWriter writeData:data error:&error])
     [self handleFileLoggingError:error];
 }
