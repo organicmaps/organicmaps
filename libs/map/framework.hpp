@@ -356,7 +356,8 @@ public:
   void InvalidateRendering();
   void EnableDebugRectRendering(bool enabled);
 
-  void EnableChoosePositionMode(bool enable, bool enableBounds, m2::PointD const * optionalPosition);
+  void EnableChoosePositionMode(bool enable, bool enableBounds, m2::PointD const * optionalPosition,
+                                bool shouldChangeViewport = true);
   void BlockTapEvents(bool block);
 
   using TCurrentCountryChanged = std::function<void(storage::CountryId const &)>;
