@@ -105,14 +105,12 @@ final class ListTemplateBuilder {
       item.handler = Self.itemHandler
       return item
     }
-    if #available(iOS 15.0, *) {
-      let maxItemCount = CPListTemplate.maximumItemCount - 1
-      if items.count >= maxItemCount {
-        items = Array(items.prefix(maxItemCount))
-        let cropWarning = CPListItem(text: L("not_all_shown_bookmarks_carplay"), detailText: L("switch_to_phone_bookmarks_carplay"))
-        cropWarning.isEnabled = false
-        items.append(cropWarning)
-      }
+    let maxItemCount = CPListTemplate.maximumItemCount - 1
+    if items.count >= maxItemCount {
+      items = Array(items.prefix(maxItemCount))
+      let cropWarning = CPListItem(text: L("not_all_shown_bookmarks_carplay"), detailText: L("switch_to_phone_bookmarks_carplay"))
+      cropWarning.isEnabled = false
+      items.append(cropWarning)
     }
     let section = CPListSection(items: items)
     template.updateSections([section])
