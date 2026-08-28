@@ -17,22 +17,6 @@
 
 @property(nonnull, nonatomic) LogFileWriter * fileWriter;
 @property(nonnull, nonatomic) os_log_t osLogger;
-@property(class, readonly, nonatomic) dispatch_queue_t fileLoggingQueue;
-
-+ (Logger *)logger;
-+ (void)enableFileLogging;
-+ (void)disableFileLogging;
-+ (void)setFileLoggingState:(BOOL)enabled;
-+ (void)handleFileLoggingError:(NSError *)error;
-+ (void)runSyncOnFileLoggingQueue:(dispatch_block_t)block;
-+ (void)logMessageWithLevel:(base::LogLevel)level src:(base::SrcPoint const &)src message:(std::string const &)message;
-+ (void)tryWriteToFile:(NSData *)data;
-+ (nullable NSString *)createTemporaryDirectory;
-+ (nullable NSData *)archiveFiles:(NSArray<NSString *> *)filePaths inDirectory:(NSString *)directoryPath;
-+ (nullable NSData *)archiveOSLogStoreReport;
-+ (void)removeFileAtPath:(NSString *)filePath;
-+ (void)reportSystemMessage:(NSString *)message type:(os_log_type_t)type;
-+ (base::LogLevel)baseLevel:(LogLevel)level;
 
 @end
 
