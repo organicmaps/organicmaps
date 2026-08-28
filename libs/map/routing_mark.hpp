@@ -87,7 +87,7 @@ public:
 
   RoutePointsLayout(BookmarkManager & manager);
 
-  void AddRoutePoint(RouteMarkData && data);
+  bool AddRoutePoint(RouteMarkData && data);
   RouteMarkPoint const * GetRoutePoint(RouteMarkType type, size_t intermediateIndex = 0) const;
   RouteMarkPoint * GetRoutePointForEdit(RouteMarkType type, size_t intermediateIndex = 0);
   RouteMarkPoint const * GetMyPositionPoint() const;
