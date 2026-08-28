@@ -39,77 +39,77 @@ extension LocalMetadataItem {
 }
 
 extension CloudMetadataItem {
-  private static let required: [(key: String, isValid: (Any) -> Bool)] = [
-    (NSMetadataItemFSNameKey, { $0 is String }),
-    (NSMetadataItemURLKey, { $0 is URL }),
-    (NSMetadataUbiquitousItemDownloadingStatusKey, { $0 is String }),
-    (NSMetadataUbiquitousItemPercentDownloadedKey, { $0 is NSNumber }),
-    (NSMetadataItemFSContentChangeDateKey, { $0 is Date }),
-    (NSMetadataUbiquitousItemHasUnresolvedConflictsKey, { $0 is Bool }),
+  static let requiredAttributes = [
+    NSMetadataItemFSNameKey,
+    NSMetadataItemURLKey,
+    NSMetadataUbiquitousItemDownloadingStatusKey,
+    NSMetadataUbiquitousItemPercentDownloadedKey,
+    NSMetadataItemFSContentChangeDateKey,
+    NSMetadataUbiquitousItemHasUnresolvedConflictsKey,
   ]
 
-  private static let requiredAttributes: [String] = required.map(\.key)
+  private static let metadataAttributes = requiredAttributes + [
+    NSMetadataUbiquitousItemDownloadingErrorKey,
+    NSMetadataUbiquitousItemUploadingErrorKey,
+  ]
 
-  /// Names of the required attributes that are missing or have an unexpected type.
-  static func invalidAttributes(in values: [String: Any]) -> [String] {
-    required.compactMap { key, isValid in
-      guard let value = values[key] else { return "\(key) (missing)" }
-      return isValid(value) ? nil : "\(key) (\(type(of: value)))"
+  /// Builds the item, or reports the attributes whose absence or type made it fail.
+  static func make(from values: [String: Any]) -> (item: CloudMetadataItem?, invalid: [String]) {
+    var invalid = [String]()
+    func value<T>(_ key: String, as _: T.Type = T.self) -> T? {
+      guard let rawValue = values[key] else {
+        invalid.append("\(key) (missing)")
+        return nil
+      }
+      guard let value = rawValue as? T else {
+        invalid.append("\(key) (\(type(of: rawValue)))")
+        return nil
+      }
+      return value
     }
+
+    // Parse every attribute before checking the result so one record names every bad value.
+    let fileName: String? = value(NSMetadataItemFSNameKey)
+    let fileUrl: URL? = value(NSMetadataItemURLKey)
+    let downloadStatus: String? = value(NSMetadataUbiquitousItemDownloadingStatusKey)
+    let percentDownloaded: NSNumber? = value(NSMetadataUbiquitousItemPercentDownloadedKey)
+    let modificationDate: Date? = value(NSMetadataItemFSContentChangeDateKey)
+    let hasUnresolvedConflicts: Bool? = value(NSMetadataUbiquitousItemHasUnresolvedConflictsKey)
+    guard let fileName,
+          let fileUrl,
+          let downloadStatus,
+          let percentDownloaded,
+          let modificationDate,
+          let hasUnresolvedConflicts
+    else {
+      return (nil, invalid)
+    }
+
+    let item = CloudMetadataItem(fileName: fileName,
+                                 fileUrl: fileUrl.standardizedFileURL,
+                                 isDownloaded: downloadStatus == NSMetadataUbiquitousItemDownloadingStatusCurrent,
+                                 percentDownloaded: percentDownloaded,
+                                 lastModificationDate: modificationDate.roundedTime,
+                                 downloadingError: values[NSMetadataUbiquitousItemDownloadingErrorKey] as? NSError,
+                                 uploadingError: values[NSMetadataUbiquitousItemUploadingErrorKey] as? NSError,
+                                 hasUnresolvedConflicts: hasUnresolvedConflicts)
+    return (item, invalid)
   }
 
   init(metadataItem: NSMetadataItem) throws {
-    let values = metadataItem.values(forAttributes: Self.requiredAttributes) ?? [:]
-    guard let fileName = values[NSMetadataItemFSNameKey] as? String,
-          let fileUrl = values[NSMetadataItemURLKey] as? URL,
-          let downloadStatus = values[NSMetadataUbiquitousItemDownloadingStatusKey] as? String,
-          let percentDownloaded = values[NSMetadataUbiquitousItemPercentDownloadedKey] as? NSNumber,
-          let lastModificationDate = (values[NSMetadataItemFSContentChangeDateKey] as? Date)?.roundedTime,
-          let hasUnresolvedConflicts = values[NSMetadataUbiquitousItemHasUnresolvedConflictsKey] as? Bool
-    else {
+    let values = metadataItem.values(forAttributes: Self.metadataAttributes) ?? [:]
+    let (item, invalid) = Self.make(from: values)
+    guard let item else {
       // The joined names stay well inside the per-record limit of the system log.
-      let invalid = Self.invalidAttributes(in: values).joined(separator: ", ")
-      LOG(.error, "Failed to initialize CloudMetadataItem. Invalid attributes: \(invalid)")
-      for attribute in metadataItem.attributes {
-        LOG(.debug, "\(attribute): \(String(describing: metadataItem.value(forAttribute: attribute)))")
+      assert(!invalid.isEmpty)
+      LOG(.error, "Failed to initialize CloudMetadataItem. Invalid attributes: \(invalid.joined(separator: ", "))")
+      let allValues = metadataItem.values(forAttributes: metadataItem.attributes) ?? [:]
+      for (attribute, value) in allValues {
+        LOG(.debug, "\(attribute): \(value)")
       }
       throw SynchronizationError.failedToCreateMetadataItem
     }
-    self.fileName = fileName
-    self.fileUrl = fileUrl.standardizedFileURL
-    isDownloaded = downloadStatus == NSMetadataUbiquitousItemDownloadingStatusCurrent
-    self.percentDownloaded = percentDownloaded
-    self.lastModificationDate = lastModificationDate
-    self.hasUnresolvedConflicts = hasUnresolvedConflicts
-    downloadingError = metadataItem.value(forAttribute: NSMetadataUbiquitousItemDownloadingErrorKey) as? NSError
-    uploadingError = metadataItem.value(forAttribute: NSMetadataUbiquitousItemUploadingErrorKey) as? NSError
-  }
-
-  init(fileUrl: URL) throws {
-    let resources = try fileUrl.resourceValues(forKeys: [.nameKey,
-                                                         .contentModificationDateKey,
-                                                         .ubiquitousItemDownloadingStatusKey,
-                                                         .ubiquitousItemHasUnresolvedConflictsKey,
-                                                         .ubiquitousItemDownloadingErrorKey,
-                                                         .ubiquitousItemUploadingErrorKey])
-    guard let downloadStatus = resources.ubiquitousItemDownloadingStatus,
-          // Not used.
-          // let percentDownloaded = resources.ubiquitousItemDownloadingStatus,
-          let lastModificationDate = resources.contentModificationDate?.roundedTime,
-          let hasUnresolvedConflicts = resources.ubiquitousItemHasUnresolvedConflicts
-    else {
-      LOG(.error, "Failed to initialize CloudMetadataItem from \(fileUrl) resources: \(resources.allValues)")
-      throw SynchronizationError.failedToCreateMetadataItem
-    }
-    fileName = fileUrl.lastPathComponent
-    self.fileUrl = fileUrl.standardizedFileURL
-    let isDownloaded = downloadStatus.rawValue == NSMetadataUbiquitousItemDownloadingStatusCurrent
-    self.isDownloaded = isDownloaded
-    percentDownloaded = isDownloaded ? 0.0 : 100.0
-    self.lastModificationDate = lastModificationDate
-    self.hasUnresolvedConflicts = hasUnresolvedConflicts
-    downloadingError = resources.ubiquitousItemDownloadingError
-    uploadingError = resources.ubiquitousItemUploadingError
+    self = item
   }
 
   func relatedLocalItemUrl(to localContainer: URL) -> URL {
@@ -120,6 +120,16 @@ extension CloudMetadataItem {
 extension MetadataItem {
   var shortDebugDescription: String {
     "fileName: \(fileName), lastModified: \(lastModificationDate)"
+  }
+}
+
+extension CloudMetadataItem {
+  var synchronizationDebugDescription: String {
+    "lastModified: \(lastModificationDate), url: \(fileUrl.path), downloaded: \(isDownloaded), percentDownloaded: \(percentDownloaded), unresolvedConflicts: \(hasUnresolvedConflicts), downloadingError: \(Self.errorCode(downloadingError)), uploadingError: \(Self.errorCode(uploadingError))"
+  }
+
+  private static func errorCode(_ error: NSError?) -> String {
+    error.map { "\($0.domain)#\($0.code)" } ?? "none"
   }
 }
 
