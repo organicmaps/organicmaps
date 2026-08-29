@@ -8,6 +8,8 @@ public final class WearNavigationData
 {
   public static final String CAPABILITY_PHONE_APP = "organic_maps_phone_app";
   public static final String PATH_NAVIGATION_STATE = "/organicmaps/navigation/state";
+  // Bump only for incompatible changes. Decoders ignore unknown keys, so additive keys need no bump;
+  // a bump makes peers on the previous version treat the state as unavailable.
   public static final int VERSION = 1;
 
   public static final String KEY_VERSION = "version";

@@ -145,16 +145,11 @@ public final class MainActivity extends Activity implements DataClient.OnDataCha
     {
       // A node owns at most one DataItem at a path. Treat any unexpected result as no current state.
       if (dataItems.getCount() == 1)
-      {
-        try
-        {
-          state = WearNavigationDataMapCodec.decode(DataMapItem.fromDataItem(dataItems.get(0)).getDataMap());
-        }
-        catch (RuntimeException e)
-        {
-          Log.w(TAG, "Failed to decode Wear navigation state", e);
-        }
-      }
+        state = WearNavigationDataMapCodec.decode(DataMapItem.fromDataItem(dataItems.get(0)).getDataMap());
+    }
+    catch (RuntimeException e)
+    {
+      Log.w(TAG, "Failed to decode Wear navigation state", e);
     }
     finally
     {
