@@ -36,9 +36,8 @@ namespace
 {
 // The first zoom level in kAverageSegmentsCount.
 int constexpr kFirstZoomInAverageSegments = 10;
-std::array<size_t, 10> const kAverageSegmentsCount = {
-    // 10  11    12     13    14    15    16    17    18   19
-    10000, 5000, 10000, 5000, 2500, 5000, 2000, 1000, 500, 500};
+std::array<size_t, 10> const kAverageSegmentsCount = {// 10  11    12     13    14    15    16    17    18   19
+                                                      10000, 5000, 10000, 5000, 2500, 5000, 2000, 1000, 500, 500};
 
 double constexpr kMetersPerLevel = 3.0;
 
@@ -414,18 +413,18 @@ void RuleDrawer::operator()(FeatureType & f)
 
   feature::GeomType const geomType = f.GetGeomType();
 
-  // Force use Outdoor style (mainly because of visibility), for the hiking/cycling related Features
-  // (has correspondent Relation references). Otherwise, we get routes torn to separate pieces
-  // (e.g. highway=path is visible from z15, but highway=secondary from z13 in a regular Map style).
-  bool forceOutdoorStyle = false;
+  auto style = GetStyleReader().GetCurrentStyle();
+  // Hiking routes use Outdoors rules for consistent low-zoom visibility. Bicycle and MTB routes use
+  // the Cycling family while that mode is active, so their infrastructure treatment is not replaced
+  // by Outdoors rules.
   if (m_applyParams.IsRelationRoutes() && geomType == feature::GeomType::Line && !m_relsSettings.IsEmpty())
   {
     RelationsDrawInfo drawInfo(m_relsSettings);
-    if (drawInfo.HasHikingOrCycling(f))
-      forceOutdoorStyle = true;
+    auto const routes = drawInfo.GetActiveHikingCyclingRoutes(f);
+    style = GetMapStyleForRoute(style, routes);
   }
 
-  Stylist const s(f, m_zoomLevel, m_deviceLang, forceOutdoorStyle);
+  Stylist const s(f, m_zoomLevel, m_deviceLang, style);
 
   // No drawing rules.
   if (!s.m_symbolRule && !s.m_captionRule && !s.m_houseNumberRule && s.m_lineRules.empty() && !s.m_areaRule &&

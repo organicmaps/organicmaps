@@ -133,12 +133,6 @@ Classificator & classif(MapStyle mapStyle)
   return GetClassifImpl(mapStyle);
 }
 
-Classificator & GetOutdoorClassif()
-{
-  auto const style = GetStyleReader().GetCurrentStyle();
-  return GetClassifImpl(MapStyleIsDark(style) ? MapStyleOutdoorsDark : MapStyleOutdoorsLight);
-}
-
 namespace ftype
 {
 uint8_t const bits_count = 7;
