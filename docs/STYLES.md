@@ -40,7 +40,8 @@ Map styles are defined in text files located in `data/styles/default/include/`:
 * Priorities of overlays (icons, captions..) [`priorities_4_overlays.prio.txt`](../data/styles/default/include/priorities_4_overlays.prio.txt)
 * Priorities of lines and areas [`priorities_3_FG.prio.txt`](../data/styles/default/include/priorities_3_FG.prio.txt), [`priorities_2_BG-top.prio.txt`](../data/styles/default/include/priorities_2_BG-top.prio.txt), [`priorities_1_BG-by-size.prio.txt`](../data/styles/default/include/priorities_1_BG-by-size.prio.txt)
 
-There is a separate set of these style files for the navigation mode in `data/styles/vehicle/`.
+The `default`, `outdoors`, `cycling`, and navigation-specific `vehicle` families each have a
+separate set of style files under `data/styles/`.
 
 Icons are stored in [`data/styles/default/light/symbols/`](../data/styles/default/light/symbols/) and their dark/night counterparts are in [`data/styles/default/dark/symbols/`](../data/styles/default/dark/symbols/).
 
@@ -97,6 +98,31 @@ A whole map needs to be [regenerated](MAPS.md) for the changes to take effect if
 
 Map style files syntax is based on [MapCSS/0.2](https://wiki.openstreetmap.org/wiki/MapCSS/0.2),
 though the specification is not supported in full and there are OM-specific extensions to it.
+
+### Layers (`::object-id`)
+
+A feature can be drawn in several layers, each selected by an `::object-id` suffix: `::default`
+(implicit when no suffix is given), `::int_name` for the international name, `::casing`,
+`::bridgeblack` and so on.
+
+A declaration block applies to every distinct layer selected by its selector group:
+
+```mapcss
+node|z16-[addr:housenumber][addr:street],
+node|z16-[addr:housenumber][addr:street]::int_name,
+{text: none;}
+```
+
+Use `::*` when the same declaration should apply to every layer without listing them individually:
+
+```mapcss
+node|z16-[addr:housenumber][addr:street]::*,
+{text: none;}
+```
+
+`::*` applies to every layer defined so far and seeds any layer defined later, which is especially
+useful in an override style that adjusts imported rules. See
+`data/styles/default/include/defaults.mapcss` for more examples.
 
 The `tools/unix/generate_drules.sh` script uses a customized version of [Kothic](https://github.com/organicmaps/kothic)
 stylesheet processor to compile MapCSS files into binary drawing rules files `data/drules_*.bin`.
