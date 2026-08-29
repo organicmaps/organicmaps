@@ -120,28 +120,29 @@ endfunction()
 # The bundle resources are only read on macOS, the other platforms resolve the data directory at run time.
 if (PLATFORM_MAC)
   copy_resources(
-    fonts
-    symbols
-    countries-strings
-    vulkan_shaders
+  fonts
+  symbols
+  countries-strings
+  vulkan_shaders
 
-    categories.txt
-    categories_cuisines.txt
-    classificator.txt
-    colors.txt
-    countries.json
-    drules_default.bin
-    drules_outdoors.bin
-    drules_vehicle.bin
-    editor.config
-    packed_polygons.bin
-    patterns.txt
-    transit_colors.txt
-    types.txt
-    World.mwm
-    WorldCoasts.mwm
+  categories.txt
+  categories_cuisines.txt
+  classificator.txt
+  colors.txt
+  countries.json
+  drules_cycling.bin
+  drules_default.bin
+  drules_outdoors.bin
+  drules_vehicle.bin
+  editor.config
+  packed_polygons.bin
+  patterns.txt
+  transit_colors.txt
+  types.txt
+  World.mwm
+  WorldCoasts.mwm
   )
   if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
-    copy_resources(icudt78l.dat)
+  copy_resources(icudt78l.dat)
   endif()
 endif()

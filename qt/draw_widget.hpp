@@ -79,9 +79,7 @@ public:
   void EditPlace(FeatureID const & featureId);
 
   void RefreshDrawingRules();
-  void SetMapStyleToDefault();
-  void SetMapStyleToVehicle();
-  void SetMapStyleToOutdoors();
+  void SetMapStyleFamily(MapStyle lightVariant);
 
 protected:
   /// @name Overriden from MapWidget.
