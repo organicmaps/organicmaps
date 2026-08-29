@@ -81,11 +81,9 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
       });
 
   private final ActivityResultLauncher<Intent> startBookmarkSettingsForResult =
-      registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                                activityResult
-                                -> {
-                                    // not handled at the moment
-                                });
+      registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), activityResult -> {
+        // not handled at the moment
+      });
 
   @Override
   @LayoutRes

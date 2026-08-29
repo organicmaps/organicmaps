@@ -33,7 +33,11 @@ extern NSString * const kMap2GoogleLoginSegue = @"Map2GoogleLogin";
 static CGFloat kPlacePageCompactWidth = 350;
 static CGFloat kPlacePageLeadingOffset = IPAD ? 20 : 0;
 
-typedef NS_ENUM(NSUInteger, UserTouchesAction) { UserTouchesActionNone, UserTouchesActionDrag, UserTouchesActionScale };
+typedef NS_ENUM(NSUInteger, UserTouchesAction) {
+  UserTouchesActionNone,
+  UserTouchesActionDrag,
+  UserTouchesActionScale
+};
 
 namespace
 {

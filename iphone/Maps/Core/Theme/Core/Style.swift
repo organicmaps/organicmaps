@@ -72,7 +72,7 @@ class Style: ExpressibleByDictionaryLiteral {
   func append(_ styles: [Style]) {
     for style in styles {
       params.merge(style.params) { a, _ -> Style.Value in
-        return a
+        a
       }
     }
   }

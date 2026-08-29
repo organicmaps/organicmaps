@@ -70,7 +70,7 @@
 
   @objc func removeListener(_ themeListener: ThemeListener) {
     listeners.removeAll { container -> Bool in
-      return container.value === themeListener
+      container.value === themeListener
     }
   }
 }

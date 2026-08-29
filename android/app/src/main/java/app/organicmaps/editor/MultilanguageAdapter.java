@@ -116,15 +116,13 @@ public class MultilanguageAdapter extends RecyclerView.Adapter<MultilanguageAdap
         }
       });
 
-      itemView.findViewById(R.id.delete)
-          .setOnClickListener(v
-                              -> {
-                                  // TODO(mgsergio): Implement item deletion.
-                                  // int position = getAdapterPosition();
-                                  // mHostFragment.removeLocalizedName(position + 1);
-                                  // mNames.remove(position);
-                                  // notifyItemRemoved(position);
-                              });
+      itemView.findViewById(R.id.delete).setOnClickListener(v -> {
+        // TODO(mgsergio): Implement item deletion.
+        // int position = getAdapterPosition();
+        // mHostFragment.removeLocalizedName(position + 1);
+        // mNames.remove(position);
+        // notifyItemRemoved(position);
+      });
     }
   }
 }

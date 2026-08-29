@@ -8,7 +8,10 @@
 @class TrackInfo;
 @class ElevationProfileData;
 
-typedef NS_ENUM(NSUInteger, MWMZoomMode) { MWMZoomModeIn = 0, MWMZoomModeOut };
+typedef NS_ENUM(NSUInteger, MWMZoomMode) {
+  MWMZoomModeIn = 0,
+  MWMZoomModeOut
+};
 
 typedef NS_ENUM(NSInteger, ProductsPopupCloseReason) {
   ProductsPopupCloseReasonClose,

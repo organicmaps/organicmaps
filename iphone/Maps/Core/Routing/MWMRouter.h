@@ -3,7 +3,12 @@
 
 @class RouteElevationPreviewData;
 
-typedef NS_ENUM(NSInteger, MWMRoadType) { MWMRoadTypeToll, MWMRoadTypeDirty, MWMRoadTypeFerry, MWMRoadTypeMotorway };
+typedef NS_ENUM(NSInteger, MWMRoadType) {
+  MWMRoadTypeToll,
+  MWMRoadTypeDirty,
+  MWMRoadTypeFerry,
+  MWMRoadTypeMotorway
+};
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -8,9 +8,15 @@ typedef void (^MWMURLBlock)(NSURL *);
 typedef BOOL (^MWMCheckStringBlock)(NSString *);
 typedef void (^MWMBoolBlock)(BOOL);
 
-typedef NS_ENUM(NSUInteger, MWMDayTime) { MWMDayTimeDay, MWMDayTimeNight } NS_SWIFT_NAME(DayTime);
+typedef NS_ENUM(NSUInteger, MWMDayTime) {
+  MWMDayTimeDay,
+  MWMDayTimeNight
+} NS_SWIFT_NAME(DayTime);
 
-typedef NS_ENUM(NSUInteger, MWMUnits) { MWMUnitsMetric, MWMUnitsImperial } NS_SWIFT_NAME(Units);
+typedef NS_ENUM(NSUInteger, MWMUnits) {
+  MWMUnitsMetric,
+  MWMUnitsImperial
+} NS_SWIFT_NAME(Units);
 
 typedef NS_ENUM(NSUInteger, MWMPlacement) {
   MWMPlacementNone,
