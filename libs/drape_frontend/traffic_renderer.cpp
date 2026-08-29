@@ -29,6 +29,7 @@ int constexpr kOutlineMinZoomLevel = 14;
 
 float const kTrafficArrowAspect = 128.0f / 8.0f;
 
+// clang-format off
 std::array<float, 20> const kLeftWidthInPixel = {
     // 1   2     3     4     5     6     7     8     9    10
     0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f,
@@ -58,6 +59,7 @@ std::array<float, 20> const kTwoWayOffsetInPixel = {
     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
     // 11  12    13    14    15     16   17    18    19    20
     0.0f, 0.5f, 0.5f, 0.75f, 1.7f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f};
+// clang-format on
 
 std::array<int, 3> const kLineDrawerRoadClass1 = {12, 13, 14};
 

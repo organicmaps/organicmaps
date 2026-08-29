@@ -88,7 +88,8 @@ VehicleModel::LimitsInitList const kDefaultOptions = {
     {HighwayType::HighwayPlatform, true},
     {HighwayType::HighwayFootway, true},
     {HighwayType::ManMadePier, true},
-    {HighwayType::RouteFerry, true}};
+    {HighwayType::RouteFerry, true},
+};
 
 // Same as defaults except bridleway and cycleway are allowed.
 VehicleModel::LimitsInitList AllAllowed()

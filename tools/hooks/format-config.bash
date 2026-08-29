@@ -30,15 +30,23 @@ resolve_ktlint() {
   return 1
 }
 
-# Resolve a clang-format binary, preferring a versioned one.
+# Major version of clang-format used by CI. Different majors reformat the same
+# code differently, so local and CI runs must agree. Also read by the workflow.
+CLANG_FORMAT_VERSION=23
+
+# Resolve the clang-format binary matching CLANG_FORMAT_VERSION, preferring a versioned name.
 resolve_clang_format() {
-  local binary
-  for binary in clang-format clang-format-22; do
-    if command -v "$binary" >/dev/null 2>&1; then
+  local binary version found=
+  for binary in "clang-format-$CLANG_FORMAT_VERSION" clang-format; do
+    command -v "$binary" >/dev/null 2>&1 || continue
+    version=$("$binary" --version)
+    if [[ "$version" == *"version $CLANG_FORMAT_VERSION."* ]]; then
       echo "$binary"
       return 0
     fi
+    found="${found:-$version}"
   done
-  echo "Error: clang-format not found." >&2
+  echo "Error: clang-format $CLANG_FORMAT_VERSION.x is required, found: ${found:-none}." >&2
+  echo "See docs/CODE_STYLE_GUIDE.md for installation instructions." >&2
   return 1
 }
