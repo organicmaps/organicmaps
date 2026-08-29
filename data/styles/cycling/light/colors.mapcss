@@ -1,0 +1,6 @@
+/* Keep here changes of the base map style file only. */
+@import("../../outdoors/light/colors.mapcss");
+
+/* Single cycling accent: vivid cyan-blue. Geometry and width provide context
+   while "blue means cycling" stays immediately recognizable. */
+@cycleway: #1E88E5;
