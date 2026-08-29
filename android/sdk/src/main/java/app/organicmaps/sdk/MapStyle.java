@@ -9,7 +9,9 @@ public enum MapStyle
   VehicleClear(3),
   VehicleDark(4),
   OutdoorsClear(5),
-  OutdoorsDark(6);
+  OutdoorsDark(6),
+  CyclingClear(7),
+  CyclingDark(8);
 
   MapStyle(int value)
   {
@@ -36,6 +38,14 @@ public enum MapStyle
   public static void mark(@NonNull MapStyle mapStyle)
   {
     nativeMark(mapStyle.value);
+  }
+
+  @NonNull
+  public static MapStyle resolveForCurrentMode(boolean dark, boolean vehicleNavigation)
+  {
+    if (vehicleNavigation)
+      return dark ? VehicleDark : VehicleClear;
+    return valueOf(Framework.nativeGetMapStyleForCurrentMode(dark));
   }
 
   @NonNull

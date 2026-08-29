@@ -470,6 +470,9 @@ public:
   void SetMapStyle(MapStyle mapStyle);
   void MarkMapStyle(MapStyle mapStyle);
   MapStyle GetMapStyle() const;
+  static MapStyleMode LoadMapStyleMode();
+  void SetMapStyleMode(MapStyleMode mode);
+  void SetMapStyleModeEnabled(MapStyleMode mode, bool enabled);
 
   void SetupMeasurementSystem();
 
@@ -795,14 +798,8 @@ public:
   static bool LoadIsolinesEnabled();
   static void SaveIsolinesEnabled(bool enabled);
 
-  static bool LoadOutdoorsEnabled();
-  static void SaveOutdoorsEnabled(bool enabled);
-
   static bool IsHikingEnabled();
   void SetHikingEnabled(bool enabled);
-
-  static bool IsCyclingEnabled();
-  void SetCyclingEnabled(bool enabled);
 
   static dp::ApiVersion LoadPreferredGraphicsAPI();
   static void SavePreferredGraphicsAPI(dp::ApiVersion apiVersion);

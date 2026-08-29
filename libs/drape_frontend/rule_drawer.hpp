@@ -98,6 +98,7 @@ private:
 
   GeneratedRoadShields m_generatedRoadShields;
 
+  MapStyle const m_mapStyle;
   RelationsDrawSettings m_relsSettings;
 
   df::ApplyFeatureParams m_applyParams;

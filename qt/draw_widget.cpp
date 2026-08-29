@@ -621,7 +621,7 @@ void DrawWidget::FollowRoute()
   if (routingManager.IsRoutingActive() && !routingManager.IsRoutingFollowing())
   {
     routingManager.FollowRoute();
-    SetMapStyleToVehicle();
+    SetMapStyleFamily(MapStyleVehicleLight);
   }
 }
 
@@ -633,7 +633,7 @@ void DrawWidget::ClearRoute()
   routingManager.CloseRouting(true /* remove route points */);
 
   if (wasActive)
-    SetMapStyleToDefault();
+    SetMapStyleFamily(GetMapStyleForMode(Framework::LoadMapStyleMode(), false /* dark */));
 
   m_turnsVisualizer.ClearTurns(m_framework.GetDrapeApi());
 }
@@ -715,22 +715,10 @@ void DrawWidget::RefreshDrawingRules()
   SetMapStyle(MapStyleDefaultLight);
 }
 
-void DrawWidget::SetMapStyleToDefault()
+void DrawWidget::SetMapStyleFamily(MapStyle lightVariant)
 {
   auto const style = m_framework.GetMapStyle();
-  SetMapStyle(MapStyleIsDark(style) ? MapStyle::MapStyleDefaultDark : MapStyle::MapStyleDefaultLight);
-}
-
-void DrawWidget::SetMapStyleToVehicle()
-{
-  auto const style = m_framework.GetMapStyle();
-  SetMapStyle(MapStyleIsDark(style) ? MapStyle::MapStyleVehicleDark : MapStyle::MapStyleVehicleLight);
-}
-
-void DrawWidget::SetMapStyleToOutdoors()
-{
-  auto const style = m_framework.GetMapStyle();
-  SetMapStyle(MapStyleIsDark(style) ? MapStyle::MapStyleOutdoorsDark : MapStyle::MapStyleOutdoorsLight);
+  SetMapStyle(MapStyleIsDark(style) ? GetDarkMapStyleVariant(lightVariant) : GetLightMapStyleVariant(lightVariant));
 }
 
 m2::PointD DrawWidget::P2G(m2::PointD const & pt) const
