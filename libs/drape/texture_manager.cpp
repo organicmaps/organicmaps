@@ -35,6 +35,8 @@ uint32_t constexpr kGlyphsTextureSize = 1024;
 uint32_t constexpr kReservedPatterns = 10;
 // Extra slots for dynamically allocated colors (rainbow strips, etc.).
 size_t constexpr kReservedColors = 1024;
+// Expected upper bound for the generated palette. Avoids reallocations while loading colors.txt.
+size_t constexpr kExpectedColorsCount = 1024;
 
 // TODO(AB): Investigate if it can be set to 1.0.
 float constexpr kGlyphAreaMultiplier = 1.2f;
@@ -510,9 +512,9 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
 
   InitStipplePen(params);
 
-  // Initialize colors (reserved ./data/colors.txt lines count).
+  // Initialize colors.
   std::vector<dp::Color> colors;
-  colors.reserve(512);
+  colors.reserve(kExpectedColorsCount);
   ParseColorsList(params.m_colors, [&colors](dp::Color const & color) { colors.push_back(color); });
 
   m_colorTexture =
