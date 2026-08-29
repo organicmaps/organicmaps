@@ -117,6 +117,7 @@ copy_resources(
   colors.txt
   copyright.html
   countries.json
+  drules_cycling.bin
   drules_default.bin
   drules_outdoors.bin
   drules_vehicle.bin

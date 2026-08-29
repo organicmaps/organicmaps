@@ -60,11 +60,8 @@ public final class ThemeUtils
     final ThemeMode newThemeMode =
         oldThemeMode == ThemeMode.AUTO ? (context.isDarkMode() ? ThemeMode.NIGHT : ThemeMode.LIGHT) : oldThemeMode;
 
-    MapStyle newMapStyle;
-    if (newThemeMode == ThemeMode.NIGHT)
-      newMapStyle = RoutingController.get().isVehicleNavigation() ? MapStyle.VehicleDark : MapStyle.Dark;
-    else
-      newMapStyle = RoutingController.get().isVehicleNavigation() ? MapStyle.VehicleClear : MapStyle.Clear;
+    final MapStyle newMapStyle =
+        MapStyle.resolveForCurrentMode(newThemeMode == ThemeMode.NIGHT, RoutingController.get().isVehicleNavigation());
 
     if (MapStyle.get() == newMapStyle)
       return;

@@ -10,7 +10,6 @@ import androidx.annotation.UiContext;
 import androidx.appcompat.app.AppCompatDelegate;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.downloader.DownloaderStatusIcon;
-import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.MapStyle;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.Config;
@@ -72,7 +71,7 @@ public enum ThemeSwitcher
    * <ul>
    *   <li>Application theme (light/dark mode)</li>
    *   <li>Navigation mode</li>
-   *   <li>Outdoor map layer availability</li>
+   *   <li>Map style mode</li>
    * </ul>
    *
    * <p><b>Important:</b> This method must be called on the UI thread and only
@@ -129,12 +128,7 @@ public enum ThemeSwitcher
 
   private MapStyle calculateMapStyle(boolean dark)
   {
-    if (RoutingController.get().isVehicleNavigation())
-      return dark ? MapStyle.VehicleDark : MapStyle.VehicleClear;
-    else if (Framework.nativeIsOutdoorsLayerEnabled())
-      return dark ? MapStyle.OutdoorsDark : MapStyle.OutdoorsClear;
-    else
-      return dark ? MapStyle.Dark : MapStyle.Clear;
+    return MapStyle.resolveForCurrentMode(dark, RoutingController.get().isVehicleNavigation());
   }
 
   private void setMapStyle(MapStyle style, boolean isRendererActive)

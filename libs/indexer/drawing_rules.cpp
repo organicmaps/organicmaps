@@ -88,20 +88,13 @@ RulesHolder & GetCurrentRules()
   return rules(GetStyleReader().GetCurrentStyle());
 }
 
-RulesHolder & GetOutdoorRules()
-{
-  auto const style = GetStyleReader().GetCurrentStyle();
-  return rules(MapStyleIsDark(style) ? MapStyleOutdoorsDark : MapStyleOutdoorsLight);
-}
-
 RulesHolder & GetRules(MapStyle mapStyle)
 {
   return rules(mapStyle);
 }
 
-// Builds rules for one decoded family variant into a RulesHolder and the current classificator tree.
-// Walks the tree exactly like the old DoSetIndex did, but resolves a type to its draw rules via an
-// O(1) name lookup (and an incrementally built path) instead of a per-node binary search.
+// Builds one decoded family variant into a RulesHolder and its matching classificator tree.
+// An incrementally built path and a name lookup resolve each classificator object to its rules.
 class RulesLoader
 {
 public:
@@ -156,8 +149,7 @@ private:
     }
   }
 
-  // Emission order (lines, area, symbol, caption, path_text, shield) must match the old loader so
-  // that drule::Key indices, priorities and GetSuitable ordering stay bit-identical.
+  // Emission order defines drule::Key indices and GetSuitable ordering; keep it stable.
   void AddElement(ClassifObject * p, Element const & el)
   {
     int const scale = el.scale;
@@ -263,8 +255,8 @@ void RulesHolder::InitBackgroundColors(DrulesFormat const & fmt, size_t variant)
         continue;
       uint32_t const color = fmt.colors[variant][el.area->color];
       bgColorDefault = color;
-      // A non-zero scale must occur at most once for natural-land: VERIFY the emplace inserted (the
-      // result is checked in debug only; release still runs it, keeping the first value as before).
+      // A non-zero scale must occur at most once for natural-land. VERIFY diagnoses duplicates in
+      // Debug; try_emplace keeps the first value deterministically in Release.
       if (el.scale != 0)
         VERIFY(bgColorForScale.try_emplace(el.scale, color).second, ("Duplicate natural-land scale", el.scale));
     }

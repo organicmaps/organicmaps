@@ -53,6 +53,8 @@ VariantsT FamilyVariants(MapStyle style)
   case MapStyleVehicleDark: return {MapStyleVehicleLight, MapStyleVehicleDark};
   case MapStyleOutdoorsLight:
   case MapStyleOutdoorsDark: return {MapStyleOutdoorsLight, MapStyleOutdoorsDark};
+  case MapStyleCyclingLight:
+  case MapStyleCyclingDark: return {MapStyleCyclingLight, MapStyleCyclingDark};
   case MapStyleMerged: return {MapStyleMerged};
   case MapStyleCount: break;
   }
@@ -99,7 +101,7 @@ void Load()
 
   // Drop every loaded flag so the designer's rebuilt drules are re-read on reload, then load the
   // current and outdoors families now (others, e.g. vehicle, load lazily on first use). Outdoors is
-  // always made resident because GetOutdoorRules/GetOutdoorClassif render forced-outdoors tracks.
+  // always made resident because relation tracks can explicitly select its rules.
   for (size_t i = 0; i < MapStyleCount; ++i)
     classif(static_cast<MapStyle>(i)).SetLoaded(false);
 
