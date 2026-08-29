@@ -620,6 +620,7 @@
 		ED91432C300168020081DF0B /* MainSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED91432B300168020081DF0B /* MainSceneDelegate.swift */; };
 		ED914330300168200081DF0B /* MainSceneDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED91432F300168200081DF0B /* MainSceneDelegateTests.swift */; };
 		ED91433B3001A0000081DF0B /* DeepLinkHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED91433A3001A0000081DF0B /* DeepLinkHandlerTests.swift */; };
+		AB7E00000000000000000002 /* ThemeManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7E00000000000000000001 /* ThemeManagerTests.swift */; };
 		ED914332300168CF0081DF0B /* CarPlaySceneDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED914331300168CF0081DF0B /* CarPlaySceneDelegateTests.swift */; };
 		ED9BEED62FFEB5C8008DB423 /* ColorGridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9BEED52FFEB5C8008DB423 /* ColorGridViewController.swift */; };
 		ED9DDF9D2D6F6F7900645BC8 /* TrackRecordingManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9DDF9B2D6F6DA300645BC8 /* TrackRecordingManagerTests.swift */; };
@@ -1703,6 +1704,7 @@
 		ED91432B300168020081DF0B /* MainSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneDelegate.swift; sourceTree = "<group>"; };
 		ED91432F300168200081DF0B /* MainSceneDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneDelegateTests.swift; sourceTree = "<group>"; };
 		ED91433A3001A0000081DF0B /* DeepLinkHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkHandlerTests.swift; sourceTree = "<group>"; };
+		AB7E00000000000000000001 /* ThemeManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManagerTests.swift; sourceTree = "<group>"; };
 		ED914331300168CF0081DF0B /* CarPlaySceneDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlaySceneDelegateTests.swift; sourceTree = "<group>"; };
 		ED9BEED52FFEB5C8008DB423 /* ColorGridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorGridViewController.swift; sourceTree = "<group>"; };
 		ED9DDF9B2D6F6DA300645BC8 /* TrackRecordingManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingManagerTests.swift; sourceTree = "<group>"; };
@@ -1974,6 +1976,7 @@
 		4B4153B62BF9709100EE4B02 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				AB7E00000000000000000001 /* ThemeManagerTests.swift */,
 				ED91433C3001A0000081DF0B /* DeepLink */,
 				EDBAB6F12E980415007962B5 /* GeoNavigationToOMURLConverterTests */,
 				ED9DDF982D6F6D8000645BC8 /* TrackRecorder */,
@@ -5008,6 +5011,7 @@
 				EDF838BF2C00B9D0007E4E67 /* SynchronizationStateManagerTests.swift in Sources */,
 				ED914330300168200081DF0B /* MainSceneDelegateTests.swift in Sources */,
 				ED91433B3001A0000081DF0B /* DeepLinkHandlerTests.swift in Sources */,
+				AB7E00000000000000000002 /* ThemeManagerTests.swift in Sources */,
 				ED810EC52D566E9B00ECDE2C /* SearchOnMapTests.swift in Sources */,
 				4B83AE4B2C2E642100B0C3BC /* TTSTesterTest.m in Sources */,
 				EDF838C22C00B9D6007E4E67 /* MetadataItemStubs.swift in Sources */,
