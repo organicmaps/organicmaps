@@ -35,10 +35,7 @@ class CollectorVisitor
     static int Test(...);
 
   public:
-    enum
-    {
-      value = sizeof(Test<RealT>(0)) == sizeof(char)
-    };
+    static constexpr bool value = sizeof(Test<RealT>(0)) == sizeof(char);
   };
 
   // All types which will be visited to collect.
@@ -48,17 +45,15 @@ class CollectorVisitor
     using RealT = std::remove_cvref_t<T>;
 
   public:
-    enum
-    {
-      value = std::is_same<RealT, BookmarkData>::value || std::is_same<RealT, TrackData>::value ||
-              std::is_same<RealT, CategoryData>::value || std::is_same<RealT, FileData>::value ||
-              std::is_same<RealT, BookmarkDataV3>::value || std::is_same<RealT, TrackDataV3>::value ||
-              std::is_same<RealT, CategoryDataV3>::value || std::is_same<RealT, FileDataV3>::value ||
-              std::is_same<RealT, BookmarkDataV6>::value || std::is_same<RealT, TrackDataV6>::value ||
-              std::is_same<RealT, CategoryDataV6>::value || std::is_same<RealT, FileDataV6>::value ||
-              std::is_same<RealT, BookmarkDataV7>::value || std::is_same<RealT, TrackDataV7>::value ||
-              std::is_same<RealT, CategoryDataV7>::value || std::is_same<RealT, FileDataV7>::value
-    };
+    static constexpr bool value =
+        std::is_same<RealT, BookmarkData>::value || std::is_same<RealT, TrackData>::value ||
+        std::is_same<RealT, CategoryData>::value || std::is_same<RealT, FileData>::value ||
+        std::is_same<RealT, BookmarkDataV3>::value || std::is_same<RealT, TrackDataV3>::value ||
+        std::is_same<RealT, CategoryDataV3>::value || std::is_same<RealT, FileDataV3>::value ||
+        std::is_same<RealT, BookmarkDataV6>::value || std::is_same<RealT, TrackDataV6>::value ||
+        std::is_same<RealT, CategoryDataV6>::value || std::is_same<RealT, FileDataV6>::value ||
+        std::is_same<RealT, BookmarkDataV7>::value || std::is_same<RealT, TrackDataV7>::value ||
+        std::is_same<RealT, CategoryDataV7>::value || std::is_same<RealT, FileDataV7>::value;
   };
 
 public:

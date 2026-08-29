@@ -28,11 +28,13 @@ int const kMinVisibleZoomLevel = 5;
 uint32_t const kAveragePointsCount = 512;
 
 // Radius of circles depending on zoom levels.
+// clang-format off
 std::array<float, 20> const kRadiusInPixel = {
     // 1   2     3     4     5     6     7     8     9     10
     0.8f, 0.8f, 1.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f,
     // 11   12    13    14    15    16    17    18    19     20
     2.5f, 2.5f, 2.5f, 2.5f, 3.0f, 4.0f, 4.5f, 4.5f, 5.0f, 5.5f};
+// clang-format on
 
 double const kHumanSpeed = 2.6;  // meters per second
 double const kCarSpeed = 6.2;    // meters per second

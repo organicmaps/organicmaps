@@ -36,9 +36,11 @@ namespace
 {
 // The first zoom level in kAverageSegmentsCount.
 int constexpr kFirstZoomInAverageSegments = 10;
+// clang-format off
 std::array<size_t, 10> const kAverageSegmentsCount = {
     // 10  11    12     13    14    15    16    17    18   19
     10000, 5000, 10000, 5000, 2500, 5000, 2000, 1000, 500, 500};
+// clang-format on
 
 double constexpr kMetersPerLevel = 3.0;
 

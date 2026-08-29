@@ -34,7 +34,7 @@ The C++ core is accessed from platforms via bridging layers:
 - `using` instead of `typedef`
 - Compile-time constants: `kCamelCase` and `constexpr`
 - Comments should be brief, explaining only reasoning that is not obvious from the code itself
-- Auto-format: `clang-format -i file.cpp` (v22+), or `tools/unix/clang-format.sh` for the whole tree
+- Auto-format: `clang-format -i file.cpp` (v23), or `tools/unix/clang-format.sh` for the whole tree
 - Swift: format with `swiftformat iphone/` or `swiftformat <file>` (config in `iphone/.swiftformat`)
 - Kotlin: format with `tools/unix/ktlint_format.sh` (config in `android/.editorconfig`)
 - Style checks gate CI (clang-format, swiftformat, ktlint, and detekt static analysis) -- run them before pushing

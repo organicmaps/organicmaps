@@ -4,7 +4,7 @@ Read the code, and follow the existing style as much as possible.
 
 ## ClangFormat
 
-For C++, Java and Objective C/C++ code we use [clang-format](http://clang.llvm.org/docs/ClangFormat.html) of version 22 or later.
+For C++, Java and Objective C/C++ code we use [clang-format](http://clang.llvm.org/docs/ClangFormat.html) version 23.
 
 ### Installation
 
@@ -13,21 +13,29 @@ For C++, Java and Objective C/C++ code we use [clang-format](http://clang.llvm.o
 - Ubuntu 24:
    ```bash
    wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-   echo 'deb http://apt.llvm.org/noble/ llvm-toolchain-noble-22 main' | sudo tee /etc/apt/sources.list.d/ llvm-toolchain-noble-22.list
+   echo 'deb http://apt.llvm.org/noble/ llvm-toolchain-noble-23 main' | sudo tee /etc/apt/sources.list.d/llvm-toolchain-noble-23.list
    sudo apt-get update
-   sudo apt-get install -y clang-format-22  # Run it as clang-format-22
+   sudo apt-get install -y clang-format-23  # Run it as clang-format-23
    ```
+- Any OS, pinned to an exact version: `pip install clang-format==23.1.0`
 
-Make sure that clang-format is in your PATH.
+Make sure that clang-format 23.x is in your PATH. The formatting scripts reject other major versions to prevent
+formatting differences between local development and CI. Homebrew and MSYS2 track the current LLVM release, so
+use the pinned `pip` package (or `brew install llvm@23`, binary in `$(brew --prefix llvm@23)/bin`) once they
+move ahead of 23.
 
 ### Usage
 
 - Configuration is in `.clang-format`
 - Set up a `git commit` hook (see below) for automatic formatting of changed files
-- To manually format a file run `clang-format -i file` (`clang-format-22` for Ubuntu)
+- To manually format a file run `clang-format -i file` (`clang-format-23` for Ubuntu)
 - To format all files in the repository run `tools/unix/clang-format.sh`
 - To format changes added to commit run `git clang-format`
 - To format already committed changes run `git clang-format HEAD~1`
+
+`git clang-format` runs whichever `clang-format` is first in PATH and does not check its version, unlike
+`tools/unix/clang-format.sh` and the commit hook. Pass `--binary clang-format-23` if you have several versions
+installed.
 
 ### ClangFormat in Android Studio
 
