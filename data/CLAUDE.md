@@ -61,7 +61,8 @@ MapCSS files in `styles/default/include/`:
 - `Subways.mapcss` -- subway networks
 - `priorities_*.prio.txt` -- rendering priority order
 
-Separate sets for `styles/vehicle/` (navigation mode) and color themes in `light/` and `dark/`.
+Separate `default`, `outdoors`, `cycling`, and navigation-specific `vehicle` families, each with
+color themes in `light/` and `dark/`.
 After editing, run `tools/unix/generate_drules.sh` and commit generated files separately.
 
 ## Map data files
