@@ -14,7 +14,8 @@ import app.organicmaps.wear.protocol.WearNavigationState;
 public final class WearBridge
 {
   @NonNull
-  private static final WearNavigationPublisher NO_OP = state -> {};
+  private static final WearNavigationPublisher NO_OP = state ->
+  {};
 
   @NonNull
   private static volatile WearNavigationPublisher sPublisher = NO_OP;

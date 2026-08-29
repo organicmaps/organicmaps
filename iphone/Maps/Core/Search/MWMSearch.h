@@ -11,7 +11,11 @@ typedef NS_ENUM(NSUInteger, SearchTextSource) {
   SearchTextSourceDeeplink
 };
 
-typedef NS_ENUM(NSUInteger, SearchMode) { SearchModeEverywhere, SearchModeViewport, SearchModeEverywhereAndViewport };
+typedef NS_ENUM(NSUInteger, SearchMode) {
+  SearchModeEverywhere,
+  SearchModeViewport,
+  SearchModeEverywhereAndViewport
+};
 
 @class SearchResult;
 @class SearchQuery;
