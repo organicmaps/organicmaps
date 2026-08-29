@@ -3,6 +3,7 @@
 #include "map/framework.hpp"
 
 #include "platform/platform.hpp"
+#include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 
 #include "base/logging.hpp"
@@ -38,7 +39,7 @@ DEFINE_string(data_path, "", "Path to data directory.");
 DEFINE_string(log_abort_level, base::ToString(base::GetDefaultLogAbortLevel()),
               "Log messages severity that causes termination.");
 DEFINE_string(resources_path, "", "Path to resources directory.");
-DEFINE_string(lang, "", "Device language.");
+DEFINE_string(lang, "", "Preferred language override.");
 
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX) || defined(OMIM_OS_WINDOWS)
 drape_ptr<dp::GraphicsContextFactory> CreateContextFactory(GLFWwindow * window, dp::ApiVersion api, m2::PointU size);
@@ -213,6 +214,9 @@ int main(int argc, char * argv[])
   gflags::SetVersionString(platform.Version());
   gflags::ParseCommandLineFlags(&argc, &argv, true);
 
+  if (!FLAGS_lang.empty())
+    languages::SetPreferredLanguageOverride(FLAGS_lang);
+
   if (!FLAGS_resources_path.empty())
     platform.SetResourceDir(FLAGS_resources_path);
   if (!FLAGS_data_path.empty())
@@ -259,9 +263,6 @@ int main(int argc, char * argv[])
   bool outvalue;
   if (!settings::Get(settings::kDeveloperMode, outvalue))
     settings::Set(settings::kDeveloperMode, true);
-
-  if (!FLAGS_lang.empty())
-    (void)::setenv("LANGUAGE", FLAGS_lang.c_str(), 1);
 
   FrameworkParams frameworkParams;
   Framework framework(frameworkParams);
