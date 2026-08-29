@@ -683,6 +683,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     // changes, so re-resolve it here before all tiles are re-requested in UpdateAll.
     ResolveZoomLevel(m_userEventStream.GetCurrentScreen());
     UpdateAll<VisualScaleChangedMessage>();
+    m_myPositionController->UpdatePosition();
     break;
   }
 
