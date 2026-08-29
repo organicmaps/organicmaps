@@ -1,0 +1,8 @@
+/* Keep here changes of the base map style file only. */
+@import("../../outdoors/include/Basemap_label.mapcss");
+
+/* Suppress addr:housenumber labels where cycling infrastructure first appears
+   and the map is dense. Restore them at z19+ for final address navigation.
+   ::* also seeds any caption layers introduced by later imports. */
+node|z16-18[addr:housenumber][addr:street]::*,
+{text: none;}
