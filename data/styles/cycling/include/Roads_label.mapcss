@@ -1,0 +1,19 @@
+/* Keep here changes of the base map style file only. */
+@import("../../outdoors/include/Roads_label.mapcss");
+
+/* Motorway labels and shields add little value while planning a cycling trip. */
+line|z10-14[highway=motorway],
+line|z10-14[highway=motorway]::int_name,
+line|z10-14[highway=trunk],
+line|z10-14[highway=trunk]::int_name,
+line|z10-14[highway=motorway_link],
+line|z10-14[highway=motorway_link]::int_name,
+line|z10-14[highway=trunk_link],
+line|z10-14[highway=trunk_link]::int_name,
+{text: none;}
+
+line|z10-14[highway=motorway]::shield,
+line|z10-14[highway=trunk]::shield,
+line|z10-14[highway=motorway_link]::shield,
+line|z10-14[highway=trunk_link]::shield,
+{shield-font-size: 0;}
