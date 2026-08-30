@@ -33,6 +33,4 @@ NS_SWIFT_NAME(NavigationInfoView)
 
 - (void)onNavigationInfoUpdated:(MWMNavigationDashboardEntity *)info;
 
-- (void)updateSideButtonsAvailableArea:(CGRect)frame animated:(BOOL)animated;
-
 @end

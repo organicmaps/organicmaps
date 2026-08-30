@@ -2,7 +2,7 @@ extension UIView {
   @objc
   func highlight() {
     let color = UIColor.linkBlueHighlighted.withAlphaComponent(0.2)
-    let duration: TimeInterval = kDefaultAnimationDuration
+    let duration: TimeInterval = AppConstants.defaultAnimationDuration
     let overlayView = UIView(frame: bounds)
     overlayView.backgroundColor = color
     overlayView.alpha = 0

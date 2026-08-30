@@ -58,7 +58,7 @@ enum AboutInfo {
       // These cases don't provide redirection to the web
       return nil
     case .reportABug:
-      return "ios@organicmaps.app"
+      return AppConstants.contactEmail
     case .reportMapDataProblem:
       return "https://www.openstreetmap.org/fixthemap"
     case .volunteer:

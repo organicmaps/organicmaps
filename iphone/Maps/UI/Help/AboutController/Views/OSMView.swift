@@ -73,7 +73,7 @@ final class OSMView: UIView {
                                                      attributes: [.font: UIFont.regular14.dynamic,
                                                                   .foregroundColor: UIColor.blackPrimaryText])
     let linkRange = attributedString.mutableString.range(of: osmLink)
-    attributedString.addAttribute(.link, value: "https://www.openstreetmap.org/", range: linkRange)
+    attributedString.addAttribute(.link, value: AppConstants.openStreetMapURL, range: linkRange)
 
     return attributedString
   }

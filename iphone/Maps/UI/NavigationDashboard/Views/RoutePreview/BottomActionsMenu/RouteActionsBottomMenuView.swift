@@ -4,7 +4,7 @@ final class RouteActionsBottomMenuView: UIView {
     static let topInset: CGFloat = 16
     static let horizontalInset: CGFloat = 16
     static let bottomInsetWithoutSafeArea: CGFloat = 8
-    fileprivate static let animationDuration: TimeInterval = kDefaultAnimationDuration / 2
+    fileprivate static let animationDuration: TimeInterval = AppConstants.defaultAnimationDuration / 2
     static let spacing: CGFloat = 12
   }
 

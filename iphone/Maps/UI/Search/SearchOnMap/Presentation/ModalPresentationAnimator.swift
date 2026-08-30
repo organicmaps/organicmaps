@@ -6,7 +6,7 @@ enum PresentationStepChangeAnimation {
 
 enum ModalPresentationAnimator {
   private enum Constants {
-    static let animationDuration: TimeInterval = kDefaultAnimationDuration
+    static let animationDuration: TimeInterval = AppConstants.defaultAnimationDuration
     static let springDamping: CGFloat = 0.8
     static let springVelocity: CGFloat = 0.2
     static let controlPoint1: CGPoint = .init(x: 0.25, y: 0.1)

@@ -104,7 +104,7 @@ final class PlaceholderView: UIView {
     let offset = keyboardHeight > 0 ? max(bounds.height / 2 - keyboardHeight, minOffsetFromTheKeyboardTop + stackView.frame.height) : containerModalYTranslation / 2
     let maxOffset = bounds.height / 2 - maxOffsetFromTheTop
     centerYConstraint.constant = -min(offset, maxOffset)
-    UIView.animate(withDuration: kDefaultAnimationDuration, delay: .zero, options: [.beginFromCurrentState, .curveEaseOut]) {
+    UIView.animate(withDuration: AppConstants.defaultAnimationDuration, delay: .zero, options: [.beginFromCurrentState, .curveEaseOut]) {
       self.layoutIfNeeded()
     }
   }

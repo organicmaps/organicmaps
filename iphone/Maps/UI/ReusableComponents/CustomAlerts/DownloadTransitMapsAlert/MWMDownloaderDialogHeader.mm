@@ -1,5 +1,6 @@
 #import "MWMDownloaderDialogHeader.h"
 #import "MWMDownloadTransitMapAlert.h"
+#import "SwiftBridge.h"
 
 static NSString * const kDownloaderDialogHeaderNibName = @"MWMDownloaderDialogHeader";
 
@@ -29,7 +30,7 @@ static NSString * const kDownloaderDialogHeaderNibName = @"MWMDownloaderDialogHe
   BOOL const currentState = sender.selected;
   sender.selected = !currentState;
   self.dividerView.hidden = currentState;
-  [UIView animateWithDuration:kDefaultAnimationDuration
+  [UIView animateWithDuration:AppConstants.defaultAnimationDuration
                    animations:^{
                      self.expandImage.transform =
                          sender.selected ? CGAffineTransformMakeRotation(M_PI) : CGAffineTransformIdentity;

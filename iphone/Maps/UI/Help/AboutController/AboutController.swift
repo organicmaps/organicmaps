@@ -130,7 +130,7 @@ private extension AboutController {
     func setupOSM() {
       osmView.setMapDate(Self.formattedMapsDataVersion())
       osmView.didTapHandler = { [weak self] in
-        self?.openUrl("https://www.openstreetmap.org/")
+        self?.openUrl(AppConstants.openStreetMapURL)
       }
     }
 
