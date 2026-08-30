@@ -167,8 +167,7 @@ bool IsCardinalDirection(char c)
 }
 
 // Parses "[NSEW] D M [S] [NSEW]"; D and M must be separated by spaces.
-bool MatchDMSWithDirection(char const *& s, double & value, bool & isLatitude,
-                           bool & hasSeconds)
+bool MatchDMSWithDirection(char const *& s, double & value, bool & isLatitude, bool & hasSeconds)
 {
   SkipSpaces(s);
   hasSeconds = false;
@@ -237,8 +236,7 @@ bool MatchSpaceSeparatedDMS(std::string const & query, double & lat, double & lo
   bool firstHasSeconds;
   bool secondHasSeconds;
 
-  if (!MatchDMSWithDirection(s, firstValue, firstIsLatitude, firstHasSeconds) ||
-      !SkipRequiredDelimiters(s) ||
+  if (!MatchDMSWithDirection(s, firstValue, firstIsLatitude, firstHasSeconds) || !SkipRequiredDelimiters(s) ||
       !MatchDMSWithDirection(s, secondValue, secondIsLatitude, secondHasSeconds))
     return false;
 
