@@ -108,7 +108,7 @@ line|z18-[cyclewaytag=track],
 {width: 6.9;}
 
 line|z14[cyclewaytag=lane],
-{width: 2.3; dashes: 18,4.8;}
+{width: 2.3; dashes: 12.12,2.98;}
 line|z15[cyclewaytag=lane],
 {width: 3.7; dashes: 19.5,4.8;}
 line|z16[cyclewaytag=lane],
