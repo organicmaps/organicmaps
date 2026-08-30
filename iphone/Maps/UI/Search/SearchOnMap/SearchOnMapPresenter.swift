@@ -12,7 +12,7 @@ final class SearchOnMapPresenter {
   }
 
   private var viewModel: ViewModel = .initial
-  let isRouting: Bool
+  private var isRouting: Bool
   private var didChangeState: ((SearchOnMapState) -> Void)?
 
   init(isRouting: Bool, didChangeState: ((SearchOnMapState) -> Void)?) {

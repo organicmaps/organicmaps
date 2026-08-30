@@ -199,9 +199,9 @@ BOOL HandleIOSDebugCommand(NSString * query)
   GetFramework().SelectSearchResult(result, true);
 }
 
-+ (void)updateViewportWithResults
++ (void)fitViewportToResults
 {
-  GetFramework().UpdateViewport([MWMSearch manager]->m_everywhereResults);
+  GetFramework().FitSearchResults([MWMSearch manager]->m_everywhereResults);
 }
 
 + (SearchResult *)resultWithContainerIndex:(NSUInteger)index

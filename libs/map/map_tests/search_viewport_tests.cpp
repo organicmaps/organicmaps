@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "map/search_api.hpp"
+#include "map/search_viewport.hpp"
 
 #include "search/result.hpp"
 
@@ -69,11 +69,11 @@ double SizeForScale(int scale)
 void TestUnchanged(Results const & results, m2::AnyRectD const & viewport)
 {
   auto adjusted = viewport;
-  TEST(!AdjustViewportToSearchResults(results, adjusted), (adjusted));
+  TEST(!search_viewport::FitToResults(results, adjusted), (adjusted));
   TEST_EQUAL(adjusted.GetGlobalRect(), viewport.GetGlobalRect(), ());
 }
 
-UNIT_TEST(AdjustViewportToSearchResults_NoResults)
+UNIT_TEST(SearchViewport_NoResults)
 {
   auto const viewport = MakeViewport(kBuenosAires, 2000, 1000);
   TestUnchanged(Results(), viewport);
@@ -83,7 +83,7 @@ UNIT_TEST(AdjustViewportToSearchResults_NoResults)
   TestUnchanged(suggests, viewport);
 }
 
-UNIT_TEST(AdjustViewportToSearchResults_NearestInside)
+UNIT_TEST(SearchViewport_NearestInside)
 {
   auto const viewport = MakeViewport(kBuenosAires, 2000, 1000);
   // The nearest result is inside the viewport, so the others must not affect it.
@@ -91,7 +91,7 @@ UNIT_TEST(AdjustViewportToSearchResults_NearestInside)
                 viewport);
 }
 
-UNIT_TEST(AdjustViewportToSearchResults_NearZoomOut)
+UNIT_TEST(SearchViewport_NearZoomOut)
 {
   for (double const angle : {0.0, math::pi / 4})
   {
@@ -100,7 +100,7 @@ UNIT_TEST(AdjustViewportToSearchResults_NearZoomOut)
 
     m2::PointD const nearest = ShiftMeters(kBuenosAires, 200, 2000);
     m2::PointD const far = ShiftMeters(kBuenosAires, 0, 10000);
-    TEST(AdjustViewportToSearchResults(MakeResults({far, nearest}), viewport), ());
+    TEST(search_viewport::FitToResults(MakeResults({far, nearest}), viewport), ());
 
     // The viewport is zoomed out around its center to include the nearest result with a margin,
     // keeping the original area and the rotation.
@@ -114,11 +114,11 @@ UNIT_TEST(AdjustViewportToSearchResults_NearZoomOut)
   }
 }
 
-UNIT_TEST(AdjustViewportToSearchResults_FarSingleResult)
+UNIT_TEST(SearchViewport_FarSingleResult)
 {
   double const angle = math::pi / 6;
   auto viewport = MakeViewport(kBuenosAires, 2000, 1000, angle);
-  TEST(AdjustViewportToSearchResults(MakeResults({kMinsk}), viewport), ());
+  TEST(search_viewport::FitToResults(MakeResults({kMinsk}), viewport), ());
 
   // The viewport is moved to the result and shows it at the comfort scale instead of being zoomed out
   // over the half of the world (which also fails to fit into the mercator bounds).
@@ -131,7 +131,7 @@ UNIT_TEST(AdjustViewportToSearchResults_FarSingleResult)
   TEST_ALMOST_EQUAL_ABS(viewport.GetLocalRect().SizeX(), viewport.GetLocalRect().SizeY(), kEps, (viewport));
 }
 
-UNIT_TEST(AdjustViewportToSearchResults_FarSingleCity)
+UNIT_TEST(SearchViewport_FarSingleCity)
 {
   classificator::Load();
 
@@ -152,7 +152,7 @@ UNIT_TEST(AdjustViewportToSearchResults_FarSingleCity)
   city.FromFeature(FeatureID(MwmSet::MwmId(info), 0), classif().GetTypeByPath({"place", "city"}), 0 /* matchedType */,
                    {});
   results.AddResultNoChecks(std::move(city));
-  TEST(AdjustViewportToSearchResults(results, viewport), ());
+  TEST(search_viewport::FitToResults(results, viewport), ());
 
   // A city is shown farther than a POI.
   TEST(m2::AlmostEqualAbs(viewport.Center(), kMinsk, kEps), (viewport));
@@ -161,14 +161,14 @@ UNIT_TEST(AdjustViewportToSearchResults_FarSingleCity)
   TEST_LESS(viewport.GetLocalRect().SizeX(), 2 * size, (viewport));
 }
 
-UNIT_TEST(AdjustViewportToSearchResults_FarLocalized)
+UNIT_TEST(SearchViewport_FarLocalized)
 {
   double const angle = math::pi / 4;
   auto viewport = MakeViewport(kBuenosAires, 2000, 1000, angle);
   m2::PointD const p1 = ShiftMeters(kMinsk, -400, 0);
   m2::PointD const p2 = ShiftMeters(kMinsk, 300, 500);
   m2::PointD const p3 = ShiftMeters(kMinsk, 100, -200);
-  TEST(AdjustViewportToSearchResults(MakeResults({p1, p2, p3}), viewport), ());
+  TEST(search_viewport::FitToResults(MakeResults({p1, p2, p3}), viewport), ());
 
   // All the localized results are shown at once, keeping the rotation.
   for (auto const & pt : {p1, p2, p3})
@@ -178,12 +178,12 @@ UNIT_TEST(AdjustViewportToSearchResults_FarLocalized)
   TEST_LESS(viewport.GetMaxSize(), mercator::MetersToMercator(2 * 1000), (viewport));
 }
 
-UNIT_TEST(AdjustViewportToSearchResults_FarSpread)
+UNIT_TEST(SearchViewport_FarSpread)
 {
   double const angle = math::pi / 4;
   auto viewport = MakeViewport(kBuenosAires, 2000, 1000, angle);
   m2::PointD const nearest = ShiftMeters(kMinsk, -30000, -30000);
-  TEST(AdjustViewportToSearchResults(MakeResults({kMinsk, nearest, ShiftMeters(kMinsk, 30000, 0)}), viewport), ());
+  TEST(search_viewport::FitToResults(MakeResults({kMinsk, nearest, ShiftMeters(kMinsk, 30000, 0)}), viewport), ());
 
   // The results are spread too much to be shown at once, so the top one is shown at its own scale
   // (not the nearest one), keeping the rotation.
@@ -195,14 +195,14 @@ UNIT_TEST(AdjustViewportToSearchResults_FarSpread)
   TEST(!viewport.IsPointInside(nearest), (viewport));
 }
 
-UNIT_TEST(AdjustViewportToSearchResults_MisprintsAreIgnored)
+UNIT_TEST(SearchViewport_MisprintsAreIgnored)
 {
   // The misprinted result is much closer to the viewport, but the exact one wins.
   auto viewport = MakeViewport(kBuenosAires, 2000, 1000);
   Results results;
   results.AddResultNoChecks(MakeResult(kMinsk, 0 /* errorsMade */));
   results.AddResultNoChecks(MakeResult(kTribuMins, 1 /* errorsMade */));
-  TEST(AdjustViewportToSearchResults(results, viewport), ());
+  TEST(search_viewport::FitToResults(results, viewport), ());
   TEST(m2::AlmostEqualAbs(viewport.Center(), kMinsk, kEps), (viewport));
 
   // The same for the misprinted result inside the viewport: the exact one nearby is made visible.
@@ -212,7 +212,7 @@ UNIT_TEST(AdjustViewportToSearchResults_MisprintsAreIgnored)
   results.Clear();
   results.AddResultNoChecks(MakeResult(ShiftMeters(kBuenosAires, 100, 100), 1 /* errorsMade */));
   results.AddResultNoChecks(MakeResult(exact, 0 /* errorsMade */));
-  TEST(AdjustViewportToSearchResults(results, viewport), ());
+  TEST(search_viewport::FitToResults(results, viewport), ());
   TEST(viewport.IsPointInside(exact), (viewport));
   TEST(viewport.IsRectInside(original), (viewport));
 
@@ -221,7 +221,7 @@ UNIT_TEST(AdjustViewportToSearchResults_MisprintsAreIgnored)
   results.Clear();
   results.AddResultNoChecks(MakeResult(kMinsk, 2 /* errorsMade */));
   results.AddResultNoChecks(MakeResult(kTribuMins, 1 /* errorsMade */));
-  TEST(AdjustViewportToSearchResults(results, viewport), ());
+  TEST(search_viewport::FitToResults(results, viewport), ());
   TEST(m2::AlmostEqualAbs(viewport.Center(), kTribuMins, kEps), (viewport));
 
   // Suggestions are query completions, not matches, and do not take part.
@@ -230,11 +230,11 @@ UNIT_TEST(AdjustViewportToSearchResults_MisprintsAreIgnored)
   Result suggestion(MakeResult(ShiftMeters(kBuenosAires, 100, 100)), "Minsk");
   results.AddResultNoChecks(std::move(suggestion));
   results.AddResultNoChecks(MakeResult(kMinsk));
-  TEST(AdjustViewportToSearchResults(results, viewport), ());
+  TEST(search_viewport::FitToResults(results, viewport), ());
   TEST(m2::AlmostEqualAbs(viewport.Center(), kMinsk, kEps), (viewport));
 }
 
-UNIT_TEST(AdjustViewportToSearchResults_Antimeridian)
+UNIT_TEST(SearchViewport_Antimeridian)
 {
   // The viewport is next to the antimeridian, the results are on the other side of it.
   m2::PointD const east = mercator::FromLatLon(0.0, 179.99);
@@ -247,12 +247,12 @@ UNIT_TEST(AdjustViewportToSearchResults_Antimeridian)
 
   // Inside: the result is ~2.2 km away across the antimeridian.
   auto viewport = MakeViewport(east, 6000, 3000);
-  TEST(!AdjustViewportToSearchResults(MakeResults({west}), viewport), (viewport));
+  TEST(!search_viewport::FitToResults(MakeResults({west}), viewport), (viewport));
 
   // Near: zoomed out around the center to the nearest world copy of the result.
   auto const original = MakeViewport(east, 1000, 500);
   viewport = original;
-  TEST(AdjustViewportToSearchResults(MakeResults({west}), viewport), ());
+  TEST(search_viewport::FitToResults(MakeResults({west}), viewport), ());
   TEST(m2::AlmostEqualAbs(viewport.Center(), original.Center(), kEps), (viewport));
   TEST(viewport.IsPointInside(nearestCopy(west, original.Center())), (viewport));
   TEST_LESS(viewport.GetMaxSize(), mercator::MetersToMercator(10000), (viewport));
@@ -262,12 +262,12 @@ UNIT_TEST(AdjustViewportToSearchResults_Antimeridian)
   m2::PointD const unwrapped = mercator::FromLatLon(0.0, 190.0);
   m2::PointD const far = mercator::FromLatLon(0.0, -160.0);  // 10 degrees to the east of the viewport.
   viewport = MakeViewport(unwrapped, 2000, 1000);
-  TEST(AdjustViewportToSearchResults(MakeResults({far}), viewport), ());
+  TEST(search_viewport::FitToResults(MakeResults({far}), viewport), ());
   TEST(m2::AlmostEqualAbs(viewport.Center(), nearestCopy(far, unwrapped), kEps), (viewport));
   TEST_ALMOST_EQUAL_ABS(viewport.Center().x, 200.0, 1e-9, (viewport));
 }
 
-UNIT_TEST(AdjustViewportToSearchResults_FarThreshold)
+UNIT_TEST(SearchViewport_FarThreshold)
 {
   // Mercator meters match the real ones at the equator only.
   m2::PointD const equator = mercator::FromLatLon(0.0, 0.0);
@@ -276,14 +276,14 @@ UNIT_TEST(AdjustViewportToSearchResults_FarThreshold)
   // Just below the threshold: zoomed out around the center.
   auto viewport = original;
   m2::PointD const near = ShiftMeters(equator, 0, kFarDistanceMeters - 2000);
-  TEST(AdjustViewportToSearchResults(MakeResults({near}), viewport), ());
+  TEST(search_viewport::FitToResults(MakeResults({near}), viewport), ());
   TEST(m2::AlmostEqualAbs(viewport.Center(), original.Center(), kEps), (viewport));
   TEST(viewport.IsPointInside(near), (viewport));
 
   // Just above the threshold: moved to the result.
   viewport = original;
   m2::PointD const far = ShiftMeters(equator, 0, kFarDistanceMeters + 2000);
-  TEST(AdjustViewportToSearchResults(MakeResults({far}), viewport), ());
+  TEST(search_viewport::FitToResults(MakeResults({far}), viewport), ());
   TEST(m2::AlmostEqualAbs(viewport.Center(), far, kEps), (viewport));
 
   // The threshold grows with the viewport (30x20 km, half diagonal ~18 km), so a result just outside
@@ -291,14 +291,14 @@ UNIT_TEST(AdjustViewportToSearchResults_FarThreshold)
   auto const big = MakeViewport(equator, 30000, 20000);
   viewport = big;
   m2::PointD const nearForBig = ShiftMeters(equator, 0, kFarDistanceMeters + 2000);
-  TEST(AdjustViewportToSearchResults(MakeResults({nearForBig}), viewport), ());
+  TEST(search_viewport::FitToResults(MakeResults({nearForBig}), viewport), ());
   TEST(m2::AlmostEqualAbs(viewport.Center(), big.Center(), kEps), (viewport));
   TEST(viewport.IsPointInside(nearForBig), (viewport));
   TEST(viewport.IsRectInside(big), (viewport));
 
   viewport = big;
   m2::PointD const farForBig = ShiftMeters(equator, 0, 40000);
-  TEST(AdjustViewportToSearchResults(MakeResults({farForBig}), viewport), ());
+  TEST(search_viewport::FitToResults(MakeResults({farForBig}), viewport), ());
   TEST(m2::AlmostEqualAbs(viewport.Center(), farForBig, kEps), (viewport));
 }
 }  // namespace search_viewport_tests

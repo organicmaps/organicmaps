@@ -62,6 +62,8 @@ set(SRC
   search_api.hpp
   search_mark.cpp
   search_mark.hpp
+  search_viewport.cpp
+  search_viewport.hpp
   search_product_info.hpp
   track.cpp
   track.hpp

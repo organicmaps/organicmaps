@@ -910,10 +910,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       }
       deactivate();
       mSearchFragmentListener.onQuerySubmitted();
-      // During navigation the map follows the current position, so the viewport is not overridden;
-      // the results are still drawn as marks on the map.
-      if (!RoutingController.get().isNavigating())
-        SearchEngine.INSTANCE.updateViewportWithLastResults();
+      SearchEngine.INSTANCE.fitViewportToResults();
       return true;
     }
 

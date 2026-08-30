@@ -287,8 +287,8 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
 
 void SearchPanel::OnReturnPressed()
 {
-  // The same as the search button on mobile: apply the search results viewport policy.
-  GetFramework().UpdateViewport(m_results);
+  // The same as the search button on mobile: move the map to the results.
+  GetFramework().FitSearchResults(m_results);
 }
 
 void SearchPanel::OnSearchModeChanged(int mode)

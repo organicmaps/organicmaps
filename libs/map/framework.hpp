@@ -519,8 +519,9 @@ public:
   // search result.
   void ShowSearchResult(search::Result const & res, bool animation = true);
 
-  // Applies the search results viewport policy, see search::AdjustViewportToSearchResults().
-  void UpdateViewport(search::Results const & results);
+  // Moves the viewport to show the search results, see search_viewport::FitToResults().
+  // Does nothing during navigation, where the map follows the current position.
+  void FitSearchResults(search::Results const & results);
 
   void FillSearchResultsMarks(bool clear, search::Results const & results);
   void FillSearchResultsMarks(SearchResultsIterT beg, SearchResultsIterT end, bool clear);

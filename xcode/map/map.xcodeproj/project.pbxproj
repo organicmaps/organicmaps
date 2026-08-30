@@ -41,6 +41,9 @@
 		45580ABF1E2CBD5E00CD535D /* benchmark_tools.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45580ABD1E2CBD5E00CD535D /* benchmark_tools.hpp */; };
 		456E1B3A1F9A3C2A009C32E1 /* search_mark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 456E1B381F9A3C29009C32E1 /* search_mark.cpp */; };
 		456E1B3B1F9A3C2A009C32E1 /* search_mark.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 456E1B391F9A3C2A009C32E1 /* search_mark.hpp */; };
+		ED1338800000000000000A02 /* search_viewport.hpp in Headers */ = {isa = PBXBuildFile; fileRef = ED1338800000000000000A01 /* search_viewport.hpp */; };
+		ED1338800000000000000C02 /* search_viewport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED1338800000000000000C01 /* search_viewport.cpp */; };
+		ED1338800000000000000B02 /* search_viewport_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED1338800000000000000B01 /* search_viewport_tests.cpp */; };
 		45F6EE9D1FB1C77600019892 /* search_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45F6EE9A1FB1C77500019892 /* search_api.hpp */; };
 		45F6EE9E1FB1C77600019892 /* mwm_tree.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45F6EE9B1FB1C77500019892 /* mwm_tree.hpp */; };
 		45F6EE9F1FB1C77600019892 /* search_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45F6EE9C1FB1C77500019892 /* search_api.cpp */; };
@@ -193,6 +196,9 @@
 		45580ABD1E2CBD5E00CD535D /* benchmark_tools.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = benchmark_tools.hpp; sourceTree = "<group>"; };
 		456E1B381F9A3C29009C32E1 /* search_mark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = search_mark.cpp; sourceTree = "<group>"; };
 		456E1B391F9A3C2A009C32E1 /* search_mark.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = search_mark.hpp; sourceTree = "<group>"; };
+		ED1338800000000000000A01 /* search_viewport.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = search_viewport.hpp; sourceTree = "<group>"; };
+		ED1338800000000000000C01 /* search_viewport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = search_viewport.cpp; sourceTree = "<group>"; };
+		ED1338800000000000000B01 /* search_viewport_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = search_viewport_tests.cpp; sourceTree = "<group>"; };
 		45F6EE9A1FB1C77500019892 /* search_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = search_api.hpp; sourceTree = "<group>"; };
 		45F6EE9B1FB1C77500019892 /* mwm_tree.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mwm_tree.hpp; sourceTree = "<group>"; };
 		45F6EE9C1FB1C77500019892 /* search_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = search_api.cpp; sourceTree = "<group>"; };
@@ -359,6 +365,7 @@
 				674A29CF1B26FCFE001A525C /* mwm_url_tests.cpp */,
 				40ACC79523191C2600238E21 /* power_manager_tests.cpp */,
 				671ED38A20D403B300D4317E /* search_api_tests.cpp */,
+				ED1338800000000000000B01 /* search_viewport_tests.cpp */,
 				674A29EE1B26FD5F001A525C /* testingmain.cpp */,
 				BB421D6A1E8C0026005BFA4D /* transliteration_test.cpp */,
 				ED49D74B2CEF3CE3004AF27E /* elevation_info_tests.cpp */,
@@ -451,6 +458,8 @@
 				45F6EE9A1FB1C77500019892 /* search_api.hpp */,
 				456E1B381F9A3C29009C32E1 /* search_mark.cpp */,
 				456E1B391F9A3C2A009C32E1 /* search_mark.hpp */,
+				ED1338800000000000000C01 /* search_viewport.cpp */,
+				ED1338800000000000000A01 /* search_viewport.hpp */,
 				3D62CBCB20F4DFD600E7BB6E /* search_product_info.hpp */,
 				ACD695862F7C622400A29DF8 /* selection_processor.cpp */,
 				ACD695852F7C622400A29DF8 /* selection_processor.hpp */,
@@ -536,6 +545,7 @@
 				670E39411C46C5C700E9C0A6 /* gps_tracker.hpp in Headers */,
 				45580ABF1E2CBD5E00CD535D /* benchmark_tools.hpp in Headers */,
 				456E1B3B1F9A3C2A009C32E1 /* search_mark.hpp in Headers */,
+				ED1338800000000000000A02 /* search_viewport.hpp in Headers */,
 				BBD9E2C71EE9D01900DF189A /* routing_mark.hpp in Headers */,
 				3DEE1ADE21EE03B400054A91 /* power_management_schemas.hpp in Headers */,
 				AC0AE5A52FDF0DDF00A44725 /* raster_tile_provider.hpp in Headers */,
@@ -678,6 +688,7 @@
 				67F1837A1BD5045700AB1840 /* mwm_url_tests.cpp in Sources */,
 				679624AF1D1017DB00AE4E3C /* gps_track_collection_test.cpp in Sources */,
 				671ED38F20D403B300D4317E /* search_api_tests.cpp in Sources */,
+				ED1338800000000000000B02 /* search_viewport_tests.cpp in Sources */,
 				FAA8387526BB3C12002E54C6 /* power_manager_tests.cpp in Sources */,
 				FAA8387426BB3C0F002E54C6 /* countries_names_tests.cpp in Sources */,
 				679624B01D1017DB00AE4E3C /* gps_track_storage_test.cpp in Sources */,
@@ -691,6 +702,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				456E1B3A1F9A3C2A009C32E1 /* search_mark.cpp in Sources */,
+				ED1338800000000000000C02 /* search_viewport.cpp in Sources */,
 				F6B283051C1B03320081957A /* gps_track_filter.cpp in Sources */,
 				675346481A4054E800A0A8C3 /* bookmark_manager.cpp in Sources */,
 				BBB7060B23E45F3400A7F29A /* isolines_manager.cpp in Sources */,

@@ -79,11 +79,7 @@ final class SearchOnMapInteractor: NSObject {
 
   private func processSearchButtonDidTap(_ query: SearchQuery) -> SearchOnMap.Response {
     searchManager.save(query)
-    // During navigation the map follows the current position, so the viewport is not overridden;
-    // the results are still drawn as marks on the map.
-    if !presenter.isRouting {
-      searchManager.updateViewportWithResults()
-    }
+    searchManager.fitViewportToResults()
     return .showOnTheMap
   }
 

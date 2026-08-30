@@ -5,6 +5,7 @@
 #include "map/place_page_info.hpp"
 #include "map/raster_tile_provider.hpp"
 #include "map/relation_track.hpp"
+#include "map/search_viewport.hpp"
 #include "map/track_mark.hpp"
 #include "map/user_mark.hpp"
 
@@ -1638,12 +1639,20 @@ void Framework::HideRouteTransitIfNeeded()
     m_drapeEngine->EnableTransitScheme(false);
 }
 
-void Framework::UpdateViewport(search::Results const & results)
+void Framework::FitSearchResults(search::Results const & results)
 {
+  if (!m_drapeEngine)
+    return;
+  // During navigation the map follows the current position, so the viewport is not overridden;
+  // the results are still drawn as marks on the map.
+  if (m_routingManager.IsRoutingFollowing())
+    return;
+
+  ASSERT(m_visibleViewport.IsValid(), ());
   // Fit into the part of the screen that is not covered by UI (e.g. the search bottom sheet).
   auto viewport = m_currentModelView.GetTouchRect(m_visibleViewport.Center(), m_visibleViewport.SizeX() / 2,
                                                   m_visibleViewport.SizeY() / 2);
-  if (search::AdjustViewportToSearchResults(results, viewport))
+  if (search_viewport::FitToResults(results, viewport))
   {
     StopLocationFollow();
     ShowRect(viewport, true /* animation */, true /* useVisibleViewport */);

@@ -218,12 +218,12 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   }
 
   /**
-   * Applies the search results viewport policy to the last results, see Framework::UpdateViewport().
+   * Moves the viewport to show the last results, see Framework::FitSearchResults().
    */
   @MainThread
-  public void updateViewportWithLastResults()
+  public void fitViewportToResults()
   {
-    nativeUpdateViewportWithLastResults();
+    nativeFitViewportToResults();
   }
 
   @Nullable
@@ -269,7 +269,7 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
 
   private static native void nativeSelectResult(int index);
 
-  private static native void nativeUpdateViewportWithLastResults();
+  private static native void nativeFitViewportToResults();
 
   private static native void nativeCancelInteractiveSearch();
 

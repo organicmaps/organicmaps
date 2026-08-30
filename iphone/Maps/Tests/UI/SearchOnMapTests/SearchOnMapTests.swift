@@ -24,7 +24,7 @@ final class SearchOnMapTests: XCTestCase {
     view = nil
     searchManager.results = .empty
     searchManager.setSearchMode(.everywhere)
-    searchManager.updateViewportCallsCount = 0
+    searchManager.fitViewportCallsCount = 0
     searchManager = nil
     super.tearDown()
   }
@@ -118,17 +118,17 @@ final class SearchOnMapTests: XCTestCase {
     XCTAssertEqual(searchManager.searchMode(), .everywhereAndViewport)
   }
 
-  func test_GivenResults_WhenTapSearch_ThenUpdateViewport() {
+  func test_GivenResults_WhenTapSearch_ThenFitViewport() {
     interactor.handle(.openSearch)
     let query = SearchQuery("text", source: .typedText)
     interactor.handle(.didType(query))
     searchManager.results = SearchResult.stubResults()
 
     interactor.handle(.searchButtonDidTap(query))
-    XCTAssertEqual(searchManager.updateViewportCallsCount, 1)
+    XCTAssertEqual(searchManager.fitViewportCallsCount, 1)
   }
 
-  func test_GivenRouting_WhenTapSearch_ThenHideSearchAndKeepViewport() {
+  func test_GivenRouting_WhenTapSearch_ThenHideSearch() {
     presenter = SearchOnMapPresenter(isRouting: true,
                                      didChangeState: { [weak self] in self?.currentState = $0 })
     interactor = SearchOnMapInteractor(presenter: presenter, searchManager: searchManager)
@@ -139,8 +139,8 @@ final class SearchOnMapTests: XCTestCase {
     interactor.handle(.didType(query))
     interactor.handle(.searchButtonDidTap(query))
 
+    // Skipping the fit during navigation is the core's decision, see Framework::FitSearchResults().
     XCTAssertEqual(view.viewModel.presentationStep, .hidden)
-    XCTAssertEqual(searchManager.updateViewportCallsCount, 0)
   }
 
   func test_GivenSearchIsOpened_WhenMapIsDragged_ThenCollapseSearchScreen() {
@@ -321,7 +321,7 @@ private class SearchManagerMock: SearchManager {
   }
 
   private static var _searchMode: SearchMode = .everywhere
-  static var updateViewportCallsCount = 0
+  static var fitViewportCallsCount = 0
 
   static func add(_ observer: any MWMSearchObserver) {
     observers.addListener(observer)
@@ -334,7 +334,7 @@ private class SearchManagerMock: SearchManager {
   static func save(_: SearchQuery) {}
   static func searchQuery(_: SearchQuery) {}
   static func showResult(at _: UInt) {}
-  static func updateViewportWithResults() { updateViewportCallsCount += 1 }
+  static func fitViewportToResults() { fitViewportCallsCount += 1 }
   static func clear() {}
   static func getResults() -> [SearchResult] { results.results }
   static func searchMode() -> SearchMode { _searchMode }
