@@ -107,10 +107,9 @@ m2::RectD TileKey::GetWrappedDataRect(bool clipByDataMaxZoom /* = true */) const
   // the feature index will find data in the intersection.
   if (rect.minX() < mercator::Bounds::kMaxX && rect.maxX() > mercator::Bounds::kMinX)
     return rect;
-  // For tiles completely outside the canonical range, wrap minX into [-180, 180)
-  // so the data query covers the equivalent geographic area.
-  double const startX = mercator::WrapX(rect.minX());
-  return m2::RectD(startX, rect.minY(), startX + rect.SizeX(), rect.maxY());
+  // Tiles completely outside the canonical range are wrapped so the data query covers
+  // the equivalent geographic area.
+  return mercator::WrapRectX(rect);
 }
 
 m2::PointI TileKey::GetTileCoords() const

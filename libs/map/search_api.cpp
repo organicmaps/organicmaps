@@ -150,7 +150,10 @@ SearchAPI::SearchAPI(DataSource & dataSource, storage::Storage const & storage,
 
 void SearchAPI::OnViewportChanged(m2::RectD const & viewport)
 {
-  m_viewport = viewport;
+  // The map may be scrolled past the antimeridian, while the search engine works with canonical coordinates only.
+  /// @todo A rect crossing the antimeridian is searched in its canonical part only: the engine (mwm selection,
+  /// features collection, pivot distances) doesn't support two-parts rects.
+  m_viewport = mercator::WrapRectX(viewport);
 
   auto const forceSearchInViewport = !m_isViewportInitialized;
   if (!m_isViewportInitialized)
@@ -483,8 +486,15 @@ bool AdjustViewportToSearchResults(Results const & results, m2::AnyRectD & viewp
       minErrors = std::min(minErrors, r.GetErrorsMade().m_errorsMade);
 
   m2::PointD const center = viewport.Center();
+  // The viewport may be scrolled past the antimeridian: take the results in the world copy nearest to it.
+  auto const nearestCopy = [&center](m2::PointD pt)
+  {
+    pt.x = mercator::NearestWrapX(pt.x, center.x);
+    return pt;
+  };
+
   Result const * top = nullptr;
-  Result const * nearest = nullptr;
+  m2::PointD topPt, nearestPt;
   double minDistance = std::numeric_limits<double>::max();
   size_t count = 0;
   // Bounding rect of the results in the local coordinates of the viewport.
@@ -494,19 +504,22 @@ bool AdjustViewportToSearchResults(Results const & results, m2::AnyRectD & viewp
     if (!IsMatchedResult(r) || r.GetErrorsMade().m_errorsMade != minErrors)
       continue;
 
-    m2::PointD const pt = r.GetFeatureCenter();
+    m2::PointD const pt = nearestCopy(r.GetFeatureCenter());
     if (viewport.IsPointInside(pt))
       return false;
 
     if (!top)
+    {
       top = &r;
+      topPt = pt;
+    }
     ++count;
     bounds.Add(viewport.ConvertTo(pt));
     double const dist = center.SquaredLength(pt);
     if (dist < minDistance)
     {
       minDistance = dist;
-      nearest = &r;
+      nearestPt = pt;
     }
   }
 
@@ -514,7 +527,6 @@ bool AdjustViewportToSearchResults(Results const & results, m2::AnyRectD & viewp
     return false;
 
   m2::RectD const local = viewport.GetLocalRect();
-  m2::PointD const nearestPt = nearest->GetFeatureCenter();
   double const farDistance =
       std::max(kFarDistanceMeters,
                kFarViewportFactor * mercator::DistanceOnEarth(center, viewport.ConvertFrom(local.RightTop())));
@@ -532,7 +544,7 @@ bool AdjustViewportToSearchResults(Results const & results, m2::AnyRectD & viewp
     if (bounds.SizeX() > localizedSize || bounds.SizeY() > localizedSize)
     {
       count = 1;
-      bounds = m2::RectD(viewport.ConvertTo(top->GetFeatureCenter()), 0.0 /* dx */, 0.0 /* dy */);
+      bounds = m2::RectD(viewport.ConvertTo(topPt), 0.0 /* dx */, 0.0 /* dy */);
     }
     // Show all the results, but not closer than the comfort scale (or the single result's own scale).
     double const minSize = GetSizeForScale(count == 1 ? GetScaleForResult(*top) : scales::GetUpperComfortScale());

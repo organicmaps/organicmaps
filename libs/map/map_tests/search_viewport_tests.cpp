@@ -234,6 +234,39 @@ UNIT_TEST(AdjustViewportToSearchResults_MisprintsAreIgnored)
   TEST(m2::AlmostEqualAbs(viewport.Center(), kMinsk, kEps), (viewport));
 }
 
+UNIT_TEST(AdjustViewportToSearchResults_Antimeridian)
+{
+  // The viewport is next to the antimeridian, the results are on the other side of it.
+  m2::PointD const east = mercator::FromLatLon(0.0, 179.99);
+  m2::PointD const west = mercator::FromLatLon(0.0, -179.99);
+  auto const nearestCopy = [](m2::PointD pt, m2::PointD const & center)
+  {
+    pt.x = mercator::NearestWrapX(pt.x, center.x);
+    return pt;
+  };
+
+  // Inside: the result is ~2.2 km away across the antimeridian.
+  auto viewport = MakeViewport(east, 6000, 3000);
+  TEST(!AdjustViewportToSearchResults(MakeResults({west}), viewport), (viewport));
+
+  // Near: zoomed out around the center to the nearest world copy of the result.
+  auto const original = MakeViewport(east, 1000, 500);
+  viewport = original;
+  TEST(AdjustViewportToSearchResults(MakeResults({west}), viewport), ());
+  TEST(m2::AlmostEqualAbs(viewport.Center(), original.Center(), kEps), (viewport));
+  TEST(viewport.IsPointInside(nearestCopy(west, original.Center())), (viewport));
+  TEST_LESS(viewport.GetMaxSize(), mercator::MetersToMercator(10000), (viewport));
+
+  // The map itself may be scrolled past the antimeridian (unwrapped coordinates): a far result
+  // is shown in the world copy nearest to the viewport, not in the canonical one.
+  m2::PointD const unwrapped = mercator::FromLatLon(0.0, 190.0);
+  m2::PointD const far = mercator::FromLatLon(0.0, -160.0);  // 10 degrees to the east of the viewport.
+  viewport = MakeViewport(unwrapped, 2000, 1000);
+  TEST(AdjustViewportToSearchResults(MakeResults({far}), viewport), ());
+  TEST(m2::AlmostEqualAbs(viewport.Center(), nearestCopy(far, unwrapped), kEps), (viewport));
+  TEST_ALMOST_EQUAL_ABS(viewport.Center().x, 200.0, 1e-9, (viewport));
+}
+
 UNIT_TEST(AdjustViewportToSearchResults_FarThreshold)
 {
   // Mercator meters match the real ones at the equator only.

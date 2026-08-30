@@ -61,8 +61,8 @@ inline double ClampY(double d)
 /// geographic position across the antimeridian: WrapX(185) = -175.
 inline double WrapX(double x)
 {
-  x = std::fmod(x - Bounds::kMinX, Bounds::kRangeX);
-  return (x < 0.0 ? x + Bounds::kRangeX : x) + Bounds::kMinX;
+  x = std::remainder(x, 360.0);  // [-180, 180]
+  return x == 180.0 ? -180.0 : x;
 }
 
 /// Returns the world copy of x (x shifted by whole multiples of 360) nearest to refX,
@@ -73,6 +73,15 @@ inline double NearestWrapX(double x, double refX)
   if (dx >= -180.0 && dx <= 180.0)
     return x;
   return refX + std::remainder(dx, 360.0);
+}
+
+/// Shifts the rect by whole world widths so that its center is within [-180, 180).
+/// The result may still cross the antimeridian.
+inline m2::RectD WrapRectX(m2::RectD rect)
+{
+  double const x = rect.Center().x;
+  rect.Offset(WrapX(x) - x, 0.0);
+  return rect;
 }
 
 void ClampPoint(m2::PointD & pt);

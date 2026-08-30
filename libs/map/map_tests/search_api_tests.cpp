@@ -133,6 +133,42 @@ UNIT_CLASS_TEST(SearchAPITest, MultipleViewportsRequests)
   future1.wait();
 }
 
+UNIT_CLASS_TEST(SearchAPITest, ViewportPastAntimeridian)
+{
+  TestCafe cafe1(m2::PointD(0, 0), "cafe 1", "en");
+  TestCafe cafe2(m2::PointD(0.5, 0.5), "cafe 2", "en");
+  TestCafe cafe3(m2::PointD(10, 10), "cafe 3", "en");
+
+  auto const id = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(cafe1);
+    builder.Add(cafe2);
+    builder.Add(cafe3);
+  });
+
+  promise<void> promise;
+  auto future = promise.get_future();
+
+  ViewportSearchParams params;
+  params.m_query = "cafe ";
+  params.m_inputLocale = "en";
+  params.m_onCompleted = [&](Results const & results)
+  {
+    TEST(!results.IsEndedCancelled(), ());
+    if (!results.IsEndMarker())
+      return;
+
+    Rules const rules = {ExactMatch(id, cafe1), ExactMatch(id, cafe2)};
+    TEST(MatchResults(m_dataSource, rules, results), ());
+    promise.set_value();
+  };
+
+  // The map scrolled past the antimeridian reports the viewport shifted by the whole world.
+  m_api.OnViewportChanged(m2::RectD(359, -1, 361, 1));
+  m_api.SearchInViewport(params);
+  future.wait();
+}
+
 UNIT_CLASS_TEST(SearchAPITest, Cancellation)
 {
   TestCafe cafe(m2::PointD(0, 0), "cafe", "en");
