@@ -60,12 +60,9 @@ CountryInfoGetterBase::RegionId CountryInfoGetterBase::FindFirstCountry(m2::Poin
 // CountryInfoGetter -------------------------------------------------------------------------------
 std::vector<CountryId> CountryInfoGetter::GetRegionsCountryIdByRect(m2::RectD rect, bool rough) const
 {
-  // Wrap input rect into canonical range for further IsIntersectOrInside and IsIntersectedByRegion calls.
-  if (rect.minX() >= mercator::Bounds::kMaxX || rect.maxX() <= mercator::Bounds::kMinX)
-  {
-    double const startX = mercator::WrapX(rect.minX());
-    rect = m2::RectD(startX, rect.minY(), startX + rect.SizeX(), rect.maxY());
-  }
+  // Wrap input rect into canonical range for further IsIntersectOrInside and IsIntersectedByRegion calls
+  // (which handle rects crossing the antimeridian).
+  rect = mercator::WrapRectX(rect);
 
   std::vector<CountryId> result;
   for (size_t id = 0; id < m_countries.size(); ++id)

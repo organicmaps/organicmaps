@@ -93,6 +93,22 @@ UNIT_TEST(Mercator_WrapX)
   TEST_ALMOST_EQUAL_ABS(mercator::WrapX(-540.0), -180.0, 1e-10, ());
 }
 
+UNIT_TEST(Mercator_WrapRectX)
+{
+  auto const test = [](m2::RectD const & rect, m2::RectD const & expected)
+  { TEST(m2::IsEqual(mercator::WrapRectX(rect), expected, 1e-10, 1e-10), (rect, expected)); };
+
+  test({-1, -1, 1, 1}, {-1, -1, 1, 1});
+  test({359, -1, 361, 1}, {-1, -1, 1, 1});
+  test({-361, -1, -359, 1}, {-1, -1, 1, 1});
+  test({185, 10, 195, 20}, {-175, 10, -165, 20});
+  test({-195, 10, -185, 20}, {165, 10, 175, 20});
+  // Crossing rects are kept as is (or shifted to the equivalent copy).
+  test({170, -1, 190, 1}, {-190, -1, -170, 1});
+  test({-190, -1, -170, 1}, {-190, -1, -170, 1});
+  test({500, -1, 560, 1}, {140, -1, 200, 1});
+}
+
 UNIT_TEST(Mercator_NearestWrapX)
 {
   // No adjustment needed (within 180 of reference).
