@@ -20,13 +20,18 @@ UNIT_TEST(Framework_ForEachFeatureAtPoint_And_Others)
   Framework frm({} /* params */, false /* loadMaps */);
   frm.RegisterMap(platform::LocalCountryFile::MakeForTesting("minsk-pass"));
 
-  // May vary according to the new minsk-pass data.
+  // May vary according to the new minsk-pass data. The point is on the lift gate node, so that
+  // all three ForEachFeatureAtPoint branches (Point, Line, Area) are covered.
   vector<char const *> types = {
-      "highway|footway|",   "hwtag|yesbicycle|",    "psurface|paved_good|",
+      "highway|footway|",
+      "psurface|paved_good|",
 
-      "highway|service|",   "psurface|paved_good|",
+      "highway|service|parking_aisle|",
+      "psurface|paved_good|",
 
-      "amenity|parking|",
+      "landuse|retail|",
+
+      "amenity|parking|private|",
 
       "barrier|lift_gate|",
   };
@@ -39,7 +44,7 @@ UNIT_TEST(Framework_ForEachFeatureAtPoint_And_Others)
       TEST(found != types.end(), (strType));
       types.erase(found);
     });
-  }, mercator::FromLatLon(53.8826576, 27.5378385), scales::GetUpperScale());
+  }, mercator::FromLatLon(53.8826401, 27.5378486), scales::GetUpperScale());
   TEST_EQUAL(0, types.size(), (types));
 
   ftypes::IsBuildingChecker const & isBuilding = ftypes::IsBuildingChecker::Instance();

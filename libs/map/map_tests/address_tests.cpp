@@ -63,11 +63,10 @@ UNIT_TEST(ReverseGeocoder_Smoke)
 
   ReverseGeocoder coder(dataSource);
 
-  auto const currentLocale = languages::GetCurrentMapLanguage();
-
+  // All streets in minsk-pass have Belarusian name=, hence default == be below.
   {
     StringUtf8Multilang streetNames;
-    streetNames.AddString("default", "улица Мясникова");
+    streetNames.AddString("default", "вуліца Мяснікова");
     streetNames.AddString("int_name", "vulica Miasnikova");
     streetNames.AddString("be", "вуліца Мяснікова");
     streetNames.AddString("ru", "улица Мясникова");
@@ -75,7 +74,7 @@ UNIT_TEST(ReverseGeocoder_Smoke)
   }
   {
     StringUtf8Multilang streetNames;
-    streetNames.AddString("default", "улица Немига");
+    streetNames.AddString("default", "вуліца Няміга");
     streetNames.AddString("int_name", "vulica Niamiha");
     streetNames.AddString("be", "вуліца Няміга");
     streetNames.AddString("ru", "улица Немига");
@@ -83,7 +82,7 @@ UNIT_TEST(ReverseGeocoder_Smoke)
   }
   {
     StringUtf8Multilang streetNames;
-    streetNames.AddString("default", "Советская улица");
+    streetNames.AddString("default", "Савецкая вуліца");
     streetNames.AddString("int_name", "Savieckaja vulica");
     streetNames.AddString("be", "Савецкая вуліца");
     streetNames.AddString("ru", "Советская улица");
@@ -91,7 +90,7 @@ UNIT_TEST(ReverseGeocoder_Smoke)
   }
   {
     StringUtf8Multilang streetNames;
-    streetNames.AddString("default", "проспект Независимости");
+    streetNames.AddString("default", "праспект Незалежнасці");
     streetNames.AddString("int_name", "praspiekt Niezaliežnasci");
     streetNames.AddString("be", "праспект Незалежнасці");
     streetNames.AddString("ru", "проспект Независимости");
@@ -100,7 +99,7 @@ UNIT_TEST(ReverseGeocoder_Smoke)
   {
     StringUtf8Multilang streetNames;
     streetNames.AddString("int_name", "vulica Karla Marksa");
-    streetNames.AddString("default", "улица Карла Маркса");
+    streetNames.AddString("default", "вуліца Карла Маркса");
     streetNames.AddString("be", "вуліца Карла Маркса");
     streetNames.AddString("ru", "улица Карла Маркса");
     TestAddress(coder, mwmInfo, {53.89745, 27.55835}, streetNames, "18А");
