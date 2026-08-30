@@ -792,7 +792,7 @@ UNIT_TEST(Bookmarks_AddressInfo)
   TEST(mwmInfo != nullptr, ());
 
   StringUtf8Multilang streetNames;
-  streetNames.AddString("default", "улица Карла Маркса");
+  streetNames.AddString("default", "вуліца Карла Маркса");
   streetNames.AddString("int_name", "vulica Karla Marksa");
   streetNames.AddString("be", "вуліца Карла Маркса");
   streetNames.AddString("ru", "улица Карла Маркса");
