@@ -524,7 +524,9 @@ private:
             NameScores pcScores;
             UpdateNameScores(postcode, StringUtf8Multilang::kDefaultCode, slice, pcScores);
 
-            /// @todo Still not sure, put min (like for matched Streets/Cities below) or max (like LLM advises) here :)
+            /// @todo Still not sure whether to take min (like for the matched Streets/Cities below), so that a
+            /// weak postcode match can only lower the rank, or max, so that an exact postcode compensates for a
+            /// weak name match. Only the errors and the matched length are combined for now.
             // nameScore = std::max(pcScores.m_nameScore, nameScore);
             errorsMade += pcScores.m_errorsMade;
             matchedLength += pcScores.m_matchedLength;
@@ -627,6 +629,9 @@ private:
       ASSERT_LESS_OR_EQUAL(categoriesInfo.GetMatchedLength(), totalLength, (featureTypes));
       info.m_matchedFraction =
           std::max(info.m_matchedFraction, categoriesInfo.GetMatchedLength() / static_cast<float>(totalLength));
+      // A categorial request matches types, not names, so the branch above leaves the count invalid.
+      // Results that are not pure categories keep it invalid and thus lose to these ones, e.g. in
+      // Result::GetErrorsMade() consumers like the search results viewport policy.
       if (!info.m_errorsMade.IsValid())
         info.m_errorsMade = ErrorsMade(0);
     }

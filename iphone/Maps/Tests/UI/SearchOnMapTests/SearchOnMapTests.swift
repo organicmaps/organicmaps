@@ -128,6 +128,34 @@ final class SearchOnMapTests: XCTestCase {
     XCTAssertEqual(searchManager.fitViewportCallsCount, 1)
   }
 
+  func test_GivenNoResultsYet_WhenTapSearch_ThenFitViewportOnceTheyArrive() {
+    interactor.handle(.openSearch)
+    let query = SearchQuery("text", source: .typedText)
+    interactor.handle(.didType(query))
+
+    // The search restarts on every keystroke, so submitting it right away finds no results yet.
+    interactor.handle(.searchButtonDidTap(query))
+    XCTAssertEqual(searchManager.fitViewportCallsCount, 0)
+
+    searchManager.results = SearchResult.stubResults()
+    XCTAssertEqual(searchManager.fitViewportCallsCount, 1)
+
+    // The request is one-shot: later updates of the same search must not move the map again.
+    searchManager.results = SearchResult.stubResults()
+    XCTAssertEqual(searchManager.fitViewportCallsCount, 1)
+  }
+
+  func test_GivenPendingFit_WhenTypeAgain_ThenDoNotFitViewport() {
+    interactor.handle(.openSearch)
+    let query = SearchQuery("text", source: .typedText)
+    interactor.handle(.didType(query))
+    interactor.handle(.searchButtonDidTap(query))
+
+    interactor.handle(.didType(SearchQuery("text2", source: .typedText)))
+    searchManager.results = SearchResult.stubResults()
+    XCTAssertEqual(searchManager.fitViewportCallsCount, 0)
+  }
+
   func test_GivenRouting_WhenTapSearch_ThenHideSearch() {
     presenter = SearchOnMapPresenter(isRouting: true,
                                      didChangeState: { [weak self] in self?.currentState = $0 })
@@ -316,6 +344,8 @@ private class SearchManagerMock: SearchManager {
   static var observers = ListenerContainer<MWMSearchObserver>()
   static var results = SearchOnMap.SearchResults.empty {
     didSet {
+      // MWMSearch notifies about every batch first and completes when all the searches are done.
+      observers.forEach { $0.onSearchResultsUpdated?() }
       observers.forEach { $0.onSearchCompleted?() }
     }
   }

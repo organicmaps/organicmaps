@@ -2,6 +2,8 @@ final class SearchOnMapInteractor: NSObject {
   private let presenter: SearchOnMapPresenter
   private let searchManager: SearchManager.Type
   private var isUpdatesDisabled = false
+  /// The query was submitted with the keyboard's Search button and the map is waiting for its results.
+  private var fitViewportOnResults = false
 
   init(presenter: SearchOnMapPresenter,
        searchManager: SearchManager.Type = Search.self) {
@@ -72,6 +74,7 @@ final class SearchOnMapInteractor: NSObject {
   }
 
   private func processClearButtonDidTap() -> SearchOnMap.Response {
+    fitViewportOnResults = false
     isUpdatesDisabled = true
     searchManager.clear()
     return .clearSearch
@@ -79,17 +82,26 @@ final class SearchOnMapInteractor: NSObject {
 
   private func processSearchButtonDidTap(_ query: SearchQuery) -> SearchOnMap.Response {
     searchManager.save(query)
-    searchManager.fitViewportToResults()
+    // The search is restarted (and its results dropped) on every keystroke, so the map has to wait
+    // for the results of the submitted query instead of being moved to nothing.
+    if searchManager.getResults().isEmpty {
+      fitViewportOnResults = true
+    } else {
+      searchManager.fitViewportToResults()
+    }
     return .showOnTheMap
   }
 
   private func processTypedText(_ query: SearchQuery) -> SearchOnMap.Response {
+    // The query changed: a fit requested for the previous one is obsolete.
+    fitViewportOnResults = false
     isUpdatesDisabled = false
     searchManager.searchQuery(query)
     return .startSearching
   }
 
   private func processSelectedText(_ query: SearchQuery) -> SearchOnMap.Response {
+    fitViewportOnResults = false
     isUpdatesDisabled = false
     if query.source != .history {
       searchManager.save(query)
@@ -151,5 +163,9 @@ extension SearchOnMapInteractor: MWMSearchObserver {
     let results = searchManager.getResults()
     guard !results.isEmpty else { return }
     presenter.process(.showResults(SearchOnMap.SearchResults(results), isSearchCompleted: false))
+    if fitViewportOnResults {
+      fitViewportOnResults = false
+      searchManager.fitViewportToResults()
+    }
   }
 }

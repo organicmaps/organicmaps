@@ -39,6 +39,7 @@ Result::Result(Result && res, std::string && suggest)
   , m_matchedType(res.m_matchedType)
   , m_suggestionStr(std::move(suggest))
   , m_hightlightRanges(std::move(res.m_hightlightRanges))
+  , m_errorsMade(res.m_errorsMade)
 {
   m_resultType = m_id.IsValid() ? Type::SuggestFromFeature : Type::PureSuggest;
 }

@@ -692,6 +692,8 @@ UNIT_CLASS_TEST(ProcessorTest, RankingInfo_ErrorsMade_1)
     TEST(ResultsMatch(results, rules), (query));
     TEST_EQUAL(results.size(), 1, (query));
     TEST_EQUAL(results[0].GetRankingInfo().m_errorsMade, errorsMade, (query));
+    // GetRankingInfo() is debug-only, while GetErrorsMade() is the value production code sees.
+    TEST_EQUAL(results[0].GetErrorsMade(), errorsMade, (query));
   };
 
   // Prefix match "лермо" -> "Лермонтовъ" without errors.

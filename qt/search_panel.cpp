@@ -103,6 +103,8 @@ void SearchPanel::ClearResults()
 {
   ClearTable();
   m_results.Clear();
+  // The query changed: a fit requested for the previous one is obsolete.
+  m_fitViewportOnResults = false;
   GetFramework().GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::SEARCH);
 }
 
@@ -171,6 +173,7 @@ void SearchPanel::OnEverywhereSearchResults(uint64_t timestamp, search::Results 
   }
 
   GetFramework().FillSearchResultsMarks(true /* clear */, m_results);
+  FitViewportToResults();
 
   if (m_results.IsEndMarker())
     StopBusyIndicator();
@@ -288,6 +291,22 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
 void SearchPanel::OnReturnPressed()
 {
   // The same as the search button on mobile: move the map to the results.
+  // Only the Everywhere mode collects them in |m_results|; the viewport mode just draws the marks.
+  if (m_mode != search::Mode::Everywhere)
+    return;
+
+  m_fitViewportOnResults = true;
+  FitViewportToResults();
+}
+
+void SearchPanel::FitViewportToResults()
+{
+  // The search is restarted (and |m_results| cleared) on every keystroke, so Return pressed before
+  // the results arrive has to wait for them instead of moving the map to nothing.
+  if (!m_fitViewportOnResults || m_results.GetCount() == 0)
+    return;
+
+  m_fitViewportOnResults = false;
   GetFramework().FitSearchResults(m_results);
 }
 

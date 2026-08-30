@@ -39,6 +39,30 @@ Result MakeResult(m2::PointD const & pt, uint16_t errorsMade = 0)
   return res;
 }
 
+// A feature id of any registered country mwm, needed for a Result of the Feature type.
+FeatureID MakeFeatureID()
+{
+  struct CountryMwmInfo : public MwmInfo
+  {
+    CountryMwmInfo()
+    {
+      m_minScale = 1;
+      m_maxScale = scales::GetUpperScale();
+      SetStatus(STATUS_REGISTERED);
+    }
+  };
+  static auto const info = std::make_shared<CountryMwmInfo>();
+  return FeatureID(MwmSet::MwmId(info), 0);
+}
+
+// Result::Type::SuggestFromFeature: a query completion that still has a point, unlike a pure suggest.
+Result MakeSuggestFromFeature(m2::PointD const & pt)
+{
+  Result res(pt, "Mins");
+  res.FromFeature(MakeFeatureID(), classif().GetTypeByPath({"place", "city"}), 0 /* matchedType */, {});
+  return Result(std::move(res), "Minsk");
+}
+
 Results MakeResults(std::initializer_list<m2::PointD> const & points)
 {
   Results results;
@@ -138,19 +162,7 @@ UNIT_TEST(SearchViewport_FarSingleCity)
   auto viewport = MakeViewport(kBuenosAires, 2000, 1000);
   Results results;
   Result city(kMinsk, "Minsk");
-  // A feature id of any registered country mwm.
-  struct CountryMwmInfo : public MwmInfo
-  {
-    CountryMwmInfo()
-    {
-      m_minScale = 1;
-      m_maxScale = scales::GetUpperScale();
-      SetStatus(STATUS_REGISTERED);
-    }
-  };
-  auto const info = std::make_shared<CountryMwmInfo>();
-  city.FromFeature(FeatureID(MwmSet::MwmId(info), 0), classif().GetTypeByPath({"place", "city"}), 0 /* matchedType */,
-                   {});
+  city.FromFeature(MakeFeatureID(), classif().GetTypeByPath({"place", "city"}), 0 /* matchedType */, {});
   results.AddResultNoChecks(std::move(city));
   TEST(search_viewport::FitToResults(results, viewport), ());
 
@@ -224,11 +236,13 @@ UNIT_TEST(SearchViewport_MisprintsAreIgnored)
   TEST(search_viewport::FitToResults(results, viewport), ());
   TEST(m2::AlmostEqualAbs(viewport.Center(), kTribuMins, kEps), (viewport));
 
-  // Suggestions are query completions, not matches, and do not take part.
+  // Suggestions are query completions, not matches, and do not take part: neither the pure ones
+  // (which have no point) nor the ones made from a feature (which do have one).
+  classificator::Load();
   viewport = original;
   results.Clear();
-  Result suggestion(MakeResult(ShiftMeters(kBuenosAires, 100, 100)), "Minsk");
-  results.AddResultNoChecks(std::move(suggestion));
+  results.AddResultNoChecks(Result(MakeResult(ShiftMeters(kBuenosAires, 100, 100)), "Minsk"));
+  results.AddResultNoChecks(MakeSuggestFromFeature(ShiftMeters(kBuenosAires, -100, -100)));
   results.AddResultNoChecks(MakeResult(kMinsk));
   TEST(search_viewport::FitToResults(results, viewport), ());
   TEST(m2::AlmostEqualAbs(viewport.Center(), kMinsk, kEps), (viewport));

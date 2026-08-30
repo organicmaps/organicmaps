@@ -34,6 +34,8 @@ class SearchPanel : public QWidget
   QPixmap m_busyIcon;
 
   search::Results m_results;
+  // Set when Return is pressed before the results of the submitted query have arrived.
+  bool m_fitViewportOnResults = false;
 
   search::Mode m_mode;
   uint64_t m_timestamp;
@@ -53,6 +55,7 @@ private:
   void RunSearch();
   void ClearTable();
   void ClearResults();
+  void FitViewportToResults();
 
   void StartBusyIndicator();
   void StopBusyIndicator();

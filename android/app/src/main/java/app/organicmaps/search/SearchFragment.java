@@ -166,6 +166,10 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     }
   };
   private boolean mSearchRunning;
+  // A search is scheduled by the debounce handler but has not started yet.
+  private boolean mSearchScheduled;
+  // The query was submitted with the keyboard's Search button and the map is waiting for its results.
+  private boolean mFitViewportOnResults;
 
   private static boolean doShowDownloadSuggest()
   {
@@ -511,6 +515,21 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     mToolbarController.deactivate();
   }
 
+  // Moves the map to the results of the submitted query, waiting for them when the debounced search
+  // has not delivered them yet: the native results cache still holds the previous query's results.
+  private void fitViewportToResults()
+  {
+    // The keyboard's Search button works on an empty query too, while the native cache still holds
+    // the results of the last one.
+    if (!mToolbarController.hasQuery())
+      return;
+
+    if (mSearchScheduled || mSearchRunning)
+      mFitViewportOnResults = true;
+    else
+      SearchEngine.INSTANCE.fitViewportToResults();
+  }
+
   private void onSearchEnd()
   {
     if (mSearchRunning && isAdded())
@@ -529,6 +548,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   private void stopSearch()
   {
     mSearchDebounceHandler.removeCallbacks(mDebouncedRunSearch);
+    mSearchScheduled = false;
+    mFitViewportOnResults = false;
     SearchEngine.INSTANCE.cancel();
     updateSearchView();
   }
@@ -536,11 +557,15 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   private void runSearchDebounced()
   {
     mSearchDebounceHandler.removeCallbacks(mDebouncedRunSearch);
+    // The query changed: a viewport fit requested for the previous one is obsolete.
+    mFitViewportOnResults = false;
+    mSearchScheduled = true;
     mSearchDebounceHandler.postDelayed(mDebouncedRunSearch, SEARCH_DEBOUNCE_MS);
   }
 
   private void runSearch()
   {
+    mSearchScheduled = false;
     // The previous search should be cancelled before the new one is started, since previous search
     // results are no longer needed.
     SearchEngine.INSTANCE.cancel();
@@ -597,6 +622,11 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       return;
 
     refreshSearchResults(results);
+    if (mFitViewportOnResults)
+    {
+      mFitViewportOnResults = false;
+      SearchEngine.INSTANCE.fitViewportToResults();
+    }
   }
 
   @Override
@@ -910,7 +940,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       }
       deactivate();
       mSearchFragmentListener.onQuerySubmitted();
-      SearchEngine.INSTANCE.fitViewportToResults();
+      fitViewportToResults();
       return true;
     }
 

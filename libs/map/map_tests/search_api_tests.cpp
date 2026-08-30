@@ -166,7 +166,8 @@ UNIT_CLASS_TEST(SearchAPITest, ViewportPastAntimeridian)
   // The map scrolled past the antimeridian reports the viewport shifted by the whole world.
   m_api.OnViewportChanged(m2::RectD(359, -1, 361, 1));
   m_api.SearchInViewport(params);
-  future.wait();
+  // Fail instead of hanging the whole test binary if the wrapping regresses and nothing is found.
+  TEST(future.wait_for(chrono::seconds(30)) == future_status::ready, ());
 }
 
 UNIT_CLASS_TEST(SearchAPITest, Cancellation)
