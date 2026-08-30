@@ -161,16 +161,32 @@ bool SkipRequiredDelimiters(char const *& s)
   return s != start;
 }
 
+// strchr matches the terminator, so guard against it - otherwise '\0' is taken as a direction and the caller reads
+// past the end of the query.
 bool IsCardinalDirection(char c)
 {
   return c != 0 && strchr("NnSsEeWw", c) != nullptr;
 }
 
-// Parses "[NSEW] D M [S] [NSEW]"; D and M must be separated by spaces.
-bool MatchDMSWithDirection(char const *& s, double & value, bool & isLatitude, bool & hasSeconds)
+// strtod("nan") succeeds, and NaN would pass a plain range comparison.
+bool IsValidDMSPart(double value, double maxValue)
 {
-  SkipSpaces(s);
-  hasSeconds = false;
+  return std::isfinite(value) && value >= 0.0 && value <= maxValue;
+}
+
+struct Coordinate
+{
+  double m_value;
+  bool m_isLatitude;
+  bool m_hasSeconds;
+};
+
+// Parses "NSEW D M [S]" or "D M [S] NSEW" - exactly one direction letter, and every numeric part is separated
+// by spaces.
+bool MatchDMSWithDirection(char const *& s, Coordinate & coordinate)
+{
+  Skip(s);
+  coordinate.m_hasSeconds = false;
 
   char direction = 0;
   if (IsCardinalDirection(*s))
@@ -187,26 +203,27 @@ bool MatchDMSWithDirection(char const *& s, double & value, bool & isLatitude, b
 
     char * end;
     parts[part] = EatDouble(s, &end);
-    // strtod("nan") succeeds, and NaN would pass the range comparisons.
-    if (s == end || parts[part] < 0.0 || !std::isfinite(parts[part]) || (part > 0 && parts[part] > 60.0))
+    if (s == end || !IsValidDMSPart(parts[part], part == 0 ? 180.0 : 60.0))
       return false;
     s = end;
   }
 
   // Seconds are optional - "D M" is degrees with decimal minutes.
   char const * const afterMinutes = s;
-  SkipSpaces(s);
-  char * end;
-  double const seconds = EatDouble(s, &end);
-  if (s == end)
-    s = afterMinutes;  // Put back the delimiter the caller needs between coordinates.
-  else if (seconds < 0.0 || !std::isfinite(seconds) || seconds > 60.0)
-    return false;
-  else
+  if (SkipRequiredSpaces(s))
   {
-    parts[2] = seconds;
-    s = end;
-    hasSeconds = true;
+    char * end;
+    double const seconds = EatDouble(s, &end);
+    if (s == end)
+      s = afterMinutes;  // Put back the delimiter the caller needs between coordinates.
+    else if (!IsValidDMSPart(seconds, 60.0))
+      return false;
+    else
+    {
+      parts[2] = seconds;
+      s = end;
+      coordinate.m_hasSeconds = true;
+    }
   }
 
   if (direction == 0)
@@ -217,36 +234,31 @@ bool MatchDMSWithDirection(char const *& s, double & value, bool & isLatitude, b
     direction = *s++;
   }
 
-  isLatitude = strchr("NnSs", direction) != nullptr;
-  value = parts[0] + parts[1] / 60.0 + parts[2] / 3600.0;
-  if (value > (isLatitude ? 90.0 : 180.0))
+  coordinate.m_isLatitude = strchr("NnSs", direction) != nullptr;
+  coordinate.m_value = parts[0] + parts[1] / 60.0 + parts[2] / 3600.0;
+  if (coordinate.m_value > (coordinate.m_isLatitude ? 90.0 : 180.0))
     return false;
   if (strchr("SsWw", direction) != nullptr)
-    value = -value;
+    coordinate.m_value = -coordinate.m_value;
   return true;
 }
 
 bool MatchSpaceSeparatedDMS(std::string const & query, double & lat, double & lon)
 {
   char const * s = query.c_str();
-  double firstValue;
-  double secondValue;
-  bool firstIsLatitude;
-  bool secondIsLatitude;
-  bool firstHasSeconds;
-  bool secondHasSeconds;
+  Coordinate first;
+  Coordinate second;
 
-  if (!MatchDMSWithDirection(s, firstValue, firstIsLatitude, firstHasSeconds) || !SkipRequiredDelimiters(s) ||
-      !MatchDMSWithDirection(s, secondValue, secondIsLatitude, secondHasSeconds))
+  if (!MatchDMSWithDirection(s, first) || !SkipRequiredDelimiters(s) || !MatchDMSWithDirection(s, second))
     return false;
 
   Skip(s);
   // D M S and D M are ambiguous without a coordinate delimiter, so both axes must use the same form.
-  if (*s != 0 || firstIsLatitude == secondIsLatitude || firstHasSeconds != secondHasSeconds)
+  if (*s != 0 || first.m_isLatitude == second.m_isLatitude || first.m_hasSeconds != second.m_hasSeconds)
     return false;
 
-  (firstIsLatitude ? lat : lon) = firstValue;
-  (secondIsLatitude ? lat : lon) = secondValue;
+  (first.m_isLatitude ? lat : lon) = first.m_value;
+  (second.m_isLatitude ? lat : lon) = second.m_value;
   return true;
 }
 }  // namespace

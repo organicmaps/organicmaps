@@ -199,6 +199,22 @@ UNIT_TEST(LatLon_Match_SpaceSeparatedDMS)
   TestAlmostEqual(lat, 37.0077027777778);
   TestAlmostEqual(lon, -8.94488611111111);
 
+  TEST(MatchLatLonDegree(".37 00 27.73 N 08 56 41.59 W", lat, lon), ());
+  TestAlmostEqual(lat, 37.0077027777778);
+  TestAlmostEqual(lon, -8.94488611111111);
+
+  TEST(MatchLatLonDegree("(37 00 27.73 N 08 56 41.59 W)", lat, lon), ());
+  TestAlmostEqual(lat, 37.0077027777778);
+  TestAlmostEqual(lon, -8.94488611111111);
+
+  TEST(MatchLatLonDegree(", 37 00 27.73 N 08 56 41.59 W", lat, lon), ());
+  TestAlmostEqual(lat, 37.0077027777778);
+  TestAlmostEqual(lon, -8.94488611111111);
+
+  TEST(MatchLatLonDegree(": 37 00 27.73 N 08 56 41.59 W", lat, lon), ());
+  TestAlmostEqual(lat, 37.0077027777778);
+  TestAlmostEqual(lon, -8.94488611111111);
+
   TEST(MatchLatLonDegree("51 33.217 N 11 10.113 E", lat, lon), ());
   TestAlmostEqual(lat, 51.55361666666667);
   TestAlmostEqual(lon, 11.16855);
@@ -227,13 +243,26 @@ UNIT_TEST(LatLon_Match_SpaceSeparatedDMS)
   TestAlmostEqual(lat, 51.55361666666667);
   TestAlmostEqual(lon, 11.16855);
 
-  // Without a delimiter, accepting mixed D M S and D M forms can consume the next coordinate's degrees as seconds.
+  // D M S and D M are accepted only in matching pairs: read one coordinate at a time, "N 1 08 8 56 41 E"
+  // splits either way, so a mixed pair is rejected even where a delimiter would resolve it.
   TEST(!MatchLatLonDegree("N 1 08 8 56 41 E", lat, lon), ());
   TEST(!MatchLatLonDegree("N 1 08, 8 56 41 E", lat, lon), ());
   TEST(!MatchLatLonDegree("W 8 56 37 00 27 N", lat, lon), ());
 
+  TEST(MatchLatLonDegree("90 0 0 N 180 0 0 E", lat, lon), ());
+  TestAlmostEqual(lat, 90.0);
+  TestAlmostEqual(lon, 180.0);
+
   lat = 12.0;
   lon = 34.0;
+  TEST(!MatchLatLonDegree("91 0 0 N 1 2 3 E", lat, lon), ());
+  TEST(!MatchLatLonDegree("1 2 3 N 181 0 0 E", lat, lon), ());
+  TEST(!MatchLatLonDegree("1 2 3 N 180 0 1 E", lat, lon), ());
+  TEST(!MatchLatLonDegree("1 -2 3 N 4 5 6 E", lat, lon), ());
+  TEST(!MatchLatLonDegree("-nan 2 3 N 4 5 6 E", lat, lon), ());
+  TEST(!MatchLatLonDegree("1 2 -3 N 4 5 6 E", lat, lon), ());
+  TEST(!MatchLatLonDegree("1 2 nan N 4 5 6 E", lat, lon), ());
+  TEST(!MatchLatLonDegree("1 2+3 N 4 5+6 E", lat, lon), ());
   TEST(!MatchLatLonDegree("37 00 27.73 N 08 56 41.59 S", lat, lon), ());
   TEST(!MatchLatLonDegree("37 60.1 27.73 N 08 56 41.59 W", lat, lon), ());
   TEST(!MatchLatLonDegree("37 00 27.73 N 08 56 60.1 W", lat, lon), ());
