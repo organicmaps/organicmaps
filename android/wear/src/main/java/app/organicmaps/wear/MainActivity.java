@@ -147,7 +147,7 @@ public final class MainActivity extends Activity implements DataClient.OnDataCha
       if (dataItems.getCount() == 1)
         state = WearNavigationDataMapCodec.decode(DataMapItem.fromDataItem(dataItems.get(0)).getDataMap());
     }
-    catch (RuntimeException e)
+    catch (IllegalStateException e)
     {
       Log.w(TAG, "Failed to decode Wear navigation state", e);
     }
