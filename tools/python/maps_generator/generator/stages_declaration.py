@@ -287,7 +287,6 @@ class StageCountriesTxt(Stage):
             env.paths.mwm_path,
             env.paths.mwm_version,
         )
-
         with open(env.paths.counties_txt_path, "w") as f:
             json.dump(countries, f, ensure_ascii=False, indent=1)
 
