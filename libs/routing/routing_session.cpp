@@ -390,23 +390,20 @@ void GetFullRoadName(RouteSegment::RoadNameInfo const & road, FollowingInfo::Roa
   }
 }
 
-void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
+FollowingInfo RoutingSession::GetRouteFollowingInfo() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
+  FollowingInfo info;
+  // Nothing should be displayed on the screen about turns if the route is not being followed yet.
   if (!IsRouteValid())
-  {
-    // nothing should be displayed on the screen about turns if these lines are executed
-    info = FollowingInfo();
-    return;
-  }
+    return info;
 
   if (!IsNavigable())
   {
-    info = FollowingInfo();
     info.m_distToTarget = platform::Distance::CreateFormatted(m_route->GetTotalDistanceMeters());
     info.m_time = static_cast<int>(std::max(kMinimumETASec, m_route->GetCurrentTimeToEndSec()));
-    return;
+    return info;
   }
 
   info.m_distToTarget = platform::Distance::CreateFormatted(m_route->GetCurrentDistanceToEndMeters());
@@ -427,11 +424,15 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
   // The turn after the next one.
   if (m_routingSettings.m_showTurnAfterNext)
-    info.m_nextTurn = m_turnNotificationsMgr.GetSecondTurnNotification();
-  else
-    info.m_nextTurn = routing::turns::CarDirection::None;
+  {
+    auto const & nextTurn = m_turnNotificationsMgr.GetSecondTurn();
+    info.m_nextTurn = nextTurn.m_turn;
+    info.m_nextExitNum = nextTurn.m_exitNum;
+    info.m_nextRoundaboutInfo = nextTurn.m_roundaboutInfo;
+  }
 
   info.m_exitNum = turn.m_exitNum;
+  info.m_roundaboutInfo = turn.m_roundaboutInfo;
   info.m_time = static_cast<int>(std::max(kMinimumETASec, m_route->GetCurrentTimeToEndSec()));
 
   RouteSegment::RoadNameInfo currentRoadNameInfo;
@@ -456,6 +457,8 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   // Pedestrian info.
   info.m_pedestrianTurn =
       (distanceToTurnMeters < kShowPedestrianTurnInMeters) ? turn.m_pedestrianTurn : turns::PedestrianDirection::None;
+
+  return info;
 }
 
 double RoutingSession::GetCompletionPercent() const

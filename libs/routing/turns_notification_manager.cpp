@@ -45,8 +45,7 @@ NotificationManager::NotificationManager()
   , m_nextTurnNotificationProgress(PronouncedNotification::Nothing)
   , m_turnNotificationWithThen(false)
   , m_nextTurnIndex(0)
-  , m_secondTurnNotification(CarDirection::None)
-  , m_secondTurnNotificationIndex(0)
+  , m_closestTurnIndex(0)
 {}
 
 // static
@@ -106,7 +105,7 @@ void NotificationManager::GenerateTurnNotifications(std::vector<TurnItemDist> co
                                                     std::vector<std::string> & turnNotifications,
                                                     RouteSegment::RoadNameInfo const & nextStreetInfo)
 {
-  m_secondTurnNotification = GenerateSecondTurnNotification(turns);
+  UpdateSecondTurn(turns);
 
   turnNotifications.clear();
   if (!m_enabled || turns.empty())
@@ -264,8 +263,8 @@ void NotificationManager::Reset()
   m_nextTurnNotificationProgress = PronouncedNotification::Nothing;
   m_nextTurnIndex = 0;
   m_turnNotificationWithThen = false;
-  m_secondTurnNotification = CarDirection::None;
-  m_secondTurnNotificationIndex = 0;
+  m_secondTurn = {};
+  m_closestTurnIndex = 0;
 }
 
 void NotificationManager::FastForwardFirstTurnNotification()
@@ -275,38 +274,40 @@ void NotificationManager::FastForwardFirstTurnNotification()
     m_nextTurnNotificationProgress = PronouncedNotification::First;
 }
 
-CarDirection NotificationManager::GenerateSecondTurnNotification(std::vector<TurnItemDist> const & turns)
+void NotificationManager::UpdateSecondTurn(std::vector<TurnItemDist> const & turns)
 {
   if (turns.size() < 2)
   {
-    m_secondTurnNotificationIndex = 0;
-    return CarDirection::None;
+    m_secondTurn = {};
+    m_closestTurnIndex = 0;
+    return;
   }
 
   TurnItemDist const & firstTurn = turns[0];
   TurnItemDist const & secondTurn = turns[1];
 
-  if (firstTurn.m_turnItem.m_index != m_secondTurnNotificationIndex)
-    m_secondTurnNotificationIndex = 0;  // It's a new closest (first) turn.
-  else if (m_secondTurnNotificationIndex != 0)
-    return secondTurn.m_turnItem.m_turn;  // m_secondTurnNotificationIndex was set to true before.
+  if (m_closestTurnIndex != 0 && firstTurn.m_turnItem.m_index == m_closestTurnIndex)
+    return;
+
+  // The closest turn changed. Drop the cached second turn once; while it stays current, keep it
+  // instead of rebuilding it on every location update.
+  m_secondTurn = {};
+  m_closestTurnIndex = 0;
 
   double const distBetweenTurnsMeters = secondTurn.m_distMeters - firstTurn.m_distMeters;
   ASSERT_LESS_OR_EQUAL(0., distBetweenTurnsMeters, ());
 
   if (distBetweenTurnsMeters > kSecondTurnThresholdDistM)
-    return CarDirection::None;
+    return;
 
   uint32_t const startPronounceDistMeters = m_settings.ComputeTurnDistanceM(m_speedMetersPerSecond) +
                                             m_settings.ComputeDistToPronounceDistM(m_speedMetersPerSecond);
 
   if (firstTurn.m_distMeters <= startPronounceDistMeters)
   {
-    m_secondTurnNotificationIndex = firstTurn.m_turnItem.m_index;
-    return secondTurn.m_turnItem.m_turn;  // It's time to inform about the turn after the next one.
+    m_closestTurnIndex = firstTurn.m_turnItem.m_index;
+    m_secondTurn = secondTurn.m_turnItem;
   }
-
-  return CarDirection::None;
 }
 
 void NotificationManager::SetLocaleWithJsonForTesting(std::string const & json, std::string const & locale)

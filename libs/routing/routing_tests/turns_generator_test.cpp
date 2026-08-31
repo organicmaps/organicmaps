@@ -3,6 +3,7 @@
 #include "routing/routing_tests/tools.hpp"
 
 #include "routing/car_directions.hpp"
+#include "routing/directions_engine_helpers.hpp"
 #include "routing/loaded_path_segment.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_result_graph.hpp"
@@ -12,12 +13,16 @@
 
 #include "indexer/ftypes_matcher.hpp"
 
+#include "geometry/angles.hpp"
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/point_with_altitude.hpp"
 
 #include "base/macros.hpp"
+#include "base/math.hpp"
 
+#include <cmath>
+#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -123,6 +128,266 @@ UNIT_TEST(TestFixupTurns)
     TEST_EQUAL(routeSegments3[0].GetTurn(), expectedTurnDir3[0], ());
     TEST_EQUAL(routeSegments3[1].GetTurn(), expectedTurnDir3[1], ());
   }
+}
+
+// Angles are in degrees, counter-clockwise from the east.
+m2::PointD PointOnUnitCircle(double degrees)
+{
+  return {cos(math::DegToRad(degrees)), sin(math::DegToRad(degrees))};
+}
+
+vector<m2::PointD> MakeRoundaboutPath(double enterDeg, double exitDeg, bool counterClockwise)
+{
+  // Degrees driven in circulation from the entrance to the exit, in (0, 360].
+  double sweep = counterClockwise ? exitDeg - enterDeg : enterDeg - exitDeg;
+  while (sweep <= 0.0)
+    sweep += 360.0;
+
+  vector<m2::PointD> path = {PointOnUnitCircle(enterDeg)};
+  // -1 keeps the last point of the ring from coinciding with the exit.
+  for (double driven = 30.0; driven < sweep - 1.0; driven += 30.0)
+    path.push_back(PointOnUnitCircle(counterClockwise ? enterDeg + driven : enterDeg - driven));
+  path.push_back(PointOnUnitCircle(exitDeg));
+  return path;
+}
+
+// |roundabout| makes the segment a part of a closed ring centered at the origin. LoadPathAttributes()
+// stores a center only together with that ring's winding, so both are set here, as in production.
+LoadedPathSegment MakeLoadedPathSegment(vector<m2::PointD> const & path, bool roundabout)
+{
+  LoadedPathSegment segment;
+  for (auto const & point : path)
+    segment.m_path.emplace_back(point);
+  segment.m_onRoundabout = roundabout;
+  if (roundabout)
+  {
+    segment.m_roundaboutCenter = m2::PointD::Zero();
+    double sweep = 0.0;
+    for (size_t i = 1; i < path.size(); ++i)
+      sweep += ang::GetShortestDistance(ang::AngleTo(m2::PointD::Zero(), path[i - 1]),
+                                        ang::AngleTo(m2::PointD::Zero(), path[i]));
+    if (sweep != 0.0)
+      segment.m_roundaboutDirection =
+          sweep > 0.0 ? RoundaboutDirection::CounterClockwise : RoundaboutDirection::Clockwise;
+  }
+  return segment;
+}
+
+// Turns a ring segment into a part of an open or split roundabout feature, which has neither.
+void MakeOpenRoundabout(LoadedPathSegment & segment)
+{
+  segment.m_roundaboutCenter.reset();
+  segment.m_roundaboutDirection = RoundaboutDirection::Unknown;
+}
+
+RoundaboutInfo CalcRoundaboutInfoForAngles(double enterDeg, double exitDeg, bool counterClockwise)
+{
+  TUnpackedPathSegments segments = {
+      MakeLoadedPathSegment({PointOnUnitCircle(enterDeg) * 10.0, PointOnUnitCircle(enterDeg)}, false),
+      MakeLoadedPathSegment(MakeRoundaboutPath(enterDeg, exitDeg, counterClockwise), true),
+      MakeLoadedPathSegment({PointOnUnitCircle(exitDeg), PointOnUnitCircle(exitDeg) * 5.0}, false)};
+  RoutingResultTest result(segments);
+  return CalcRoundaboutInfo(result, 2 /* outgoingSegmentIndex */);
+}
+
+void TestRoundaboutExit(double exitDeg, bool counterClockwise, uint16_t expectedAngle)
+{
+  auto const info = CalcRoundaboutInfoForAngles(-90.0 /* enterDeg */, exitDeg, counterClockwise);
+  TEST(info.m_hasExit, (exitDeg, counterClockwise));
+  TEST_EQUAL(info.m_exitAngle, expectedAngle, (exitDeg, counterClockwise));
+  TEST_EQUAL(info.m_direction,
+             counterClockwise ? RoundaboutDirection::CounterClockwise : RoundaboutDirection::Clockwise,
+             (exitDeg, counterClockwise));
+}
+
+UNIT_TEST(TestCalcRoundaboutInfo)
+{
+  // Counter-clockwise circulation: the 1st exit is to the right.
+  TestRoundaboutExit(0.0 /* east */, true, 90);
+  TestRoundaboutExit(90.0 /* north */, true, 180);
+  TestRoundaboutExit(180.0 /* west */, true, 270);
+
+  // Clockwise circulation: the 1st exit is to the left.
+  TestRoundaboutExit(180.0 /* west */, false, 90);
+  TestRoundaboutExit(90.0 /* north */, false, 180);
+  TestRoundaboutExit(0.0 /* east */, false, 270);
+
+  // The whole circle is driven to take the exit back to the approach road.
+  TestRoundaboutExit(-90.0 /* south */, true, 360);
+  TestRoundaboutExit(-90.0 /* south */, false, 360);
+
+  // The entrance and the exit are the neighbouring points of the ring, so a single segment is
+  // driven on it.
+  TestRoundaboutExit(-60.0, true, 30);
+  TestRoundaboutExit(-120.0, false, 30);
+
+  // A non-cardinal exit is rounded to the nearest degree.
+  TestRoundaboutExit(100.4, true, 190);
+  TestRoundaboutExit(79.6, false, 190);
+
+  // Approach and exit headings do not affect the sweep measured on the ring.
+  auto ring = MakeLoadedPathSegment(MakeRoundaboutPath(-90.0, 0.0, true), true);
+  TUnpackedPathSegments segments = {MakeLoadedPathSegment({{-2.0, -1.0}, {0.0, -1.0}}, false), ring,
+                                    MakeLoadedPathSegment({{1.0, 0.0}, {3.0, 1.0}}, false)};
+  RoutingResultTest result(segments);
+  TEST_EQUAL(CalcRoundaboutInfo(result, 2).m_exitAngle, 90, ());
+
+  // Turn annotations split the ring at junctions; every annotated part contributes to the sweep.
+  auto const ringPath = MakeRoundaboutPath(-90.0, 90.0, true);
+  TUnpackedPathSegments splitSegments = {
+      MakeLoadedPathSegment({PointOnUnitCircle(-90.0) * 5.0, ringPath.front()}, false)};
+  for (size_t i = 1; i < ringPath.size(); ++i)
+    splitSegments.push_back(MakeLoadedPathSegment({ringPath[i - 1], ringPath[i]}, true));
+  splitSegments.push_back(MakeLoadedPathSegment({ringPath.back(), PointOnUnitCircle(90.0) * 5.0}, false));
+  auto const splitInfo = CalcRoundaboutInfo(RoutingResultTest(splitSegments), splitSegments.size() - 1);
+  TEST_EQUAL(splitInfo, (RoundaboutInfo{180, RoundaboutDirection::CounterClockwise, true}), ());
+
+  // Both values are derived across segment boundaries even when every part of the roundabout is an
+  // open two-point feature, and the estimated angle matches the sweep measured around a center.
+  for (size_t i = 1; i + 1 < splitSegments.size(); ++i)
+    MakeOpenRoundabout(splitSegments[i]);
+  auto const openSplitInfo = CalcRoundaboutInfo(RoutingResultTest(splitSegments), splitSegments.size() - 1);
+  TEST_EQUAL(openSplitInfo, splitInfo, ());
+
+  MakeOpenRoundabout(segments[1]);
+  TEST_EQUAL(CalcRoundaboutInfo(RoutingResultTest(segments), 2),
+             (RoundaboutInfo{90, RoundaboutDirection::CounterClockwise, true}), ());
+
+  auto clockwiseRing = MakeLoadedPathSegment(MakeRoundaboutPath(-90.0, 180.0, false), true);
+  MakeOpenRoundabout(clockwiseRing);
+  TUnpackedPathSegments clockwiseSegments = {
+      MakeLoadedPathSegment({PointOnUnitCircle(-90.0) * 5.0, clockwiseRing.m_path.front().GetPoint()}, false),
+      clockwiseRing, MakeLoadedPathSegment({PointOnUnitCircle(180.0), PointOnUnitCircle(180.0) * 5.0}, false)};
+  TEST_EQUAL(CalcRoundaboutInfo(RoutingResultTest(clockwiseSegments), 2),
+             (RoundaboutInfo{90, RoundaboutDirection::Clockwise, true}), ());
+
+  // A single driven edge has no bend, so neither value can be derived from the path alone.
+  auto singleEdgeRing = MakeLoadedPathSegment(MakeRoundaboutPath(-90.0, -60.0, true), true);
+  MakeOpenRoundabout(singleEdgeRing);
+  TUnpackedPathSegments singleEdgeSegments = {
+      MakeLoadedPathSegment({PointOnUnitCircle(-90.0) * 5.0, singleEdgeRing.m_path.front().GetPoint()}, false),
+      singleEdgeRing, MakeLoadedPathSegment({PointOnUnitCircle(-60.0), PointOnUnitCircle(-60.0) * 5.0}, false)};
+  TEST_EQUAL(CalcRoundaboutInfo(RoutingResultTest(singleEdgeSegments), 2),
+             (RoundaboutInfo{0, RoundaboutDirection::Unknown, true}), ());
+}
+
+// Drives the same ring twice: once with a validated center, and once as an open feature that has
+// none, so the exact polar sweep and the estimate made from the driven bends can be compared.
+void TestExitAngleWithoutCenter(double exitDeg, bool counterClockwise, uint16_t expectedAngle)
+{
+  TUnpackedPathSegments segments = {
+      MakeLoadedPathSegment({PointOnUnitCircle(-90.0) * 10.0, PointOnUnitCircle(-90.0)}, false),
+      MakeLoadedPathSegment(MakeRoundaboutPath(-90.0 /* enterDeg */, exitDeg, counterClockwise), true),
+      MakeLoadedPathSegment({PointOnUnitCircle(exitDeg), PointOnUnitCircle(exitDeg) * 5.0}, false)};
+  auto const exact = CalcRoundaboutInfo(RoutingResultTest(segments), 2);
+
+  MakeOpenRoundabout(segments[1]);
+  auto const estimated = CalcRoundaboutInfo(RoutingResultTest(segments), 2);
+
+  TEST_EQUAL(estimated.m_direction, exact.m_direction, (exitDeg, counterClockwise));
+  TEST_EQUAL(estimated.m_exitAngle, expectedAngle, (exitDeg, counterClockwise, exact.m_exitAngle));
+}
+
+UNIT_TEST(TestCalcRoundaboutInfoWithoutCenter)
+{
+  // Most roundabouts are mapped as several open ways and have no validated center, so the sweep is
+  // estimated from the bends of the driven path. The helper builds a ring of equal steps, for which
+  // the estimate is exact.
+  TestExitAngleWithoutCenter(0.0 /* east */, true, 90);
+  TestExitAngleWithoutCenter(90.0 /* north */, true, 180);
+  TestExitAngleWithoutCenter(180.0 /* west */, true, 270);
+  TestExitAngleWithoutCenter(180.0 /* west */, false, 90);
+  TestExitAngleWithoutCenter(90.0 /* north */, false, 180);
+  TestExitAngleWithoutCenter(0.0 /* east */, false, 270);
+  TestExitAngleWithoutCenter(-90.0 /* south */, true, 360);
+  TestExitAngleWithoutCenter(-90.0 /* south */, false, 360);
+
+  // The step onto a non-cardinal exit is shorter than the ring's other steps, so scaling by the mean
+  // step overshoots. The error stays below one step, which is well inside what car displays draw.
+  TestExitAngleWithoutCenter(100.4, true, 199);  // 190 degrees measured around a center.
+  TestExitAngleWithoutCenter(79.6, false, 199);  // 190 degrees measured around a center.
+}
+
+UNIT_TEST(TestClosedRoundaboutGeometry)
+{
+  vector<m2::PointD> const square = {{0.0, 0.0}, {4.0, 0.0}, {4.0, 4.0}, {0.0, 4.0}, {0.0, 0.0}};
+  TEST_EQUAL(CalcClosedRoundaboutDirection(square, true /* isForward */), RoundaboutDirection::CounterClockwise, ());
+  TEST_EQUAL(CalcClosedRoundaboutDirection(square, false /* isForward */), RoundaboutDirection::Clockwise, ());
+  TEST(IsAngularlyMonotonic(square, {2.0, 2.0}), ());
+
+  // The bounding-box center of this counter-clockwise L-shaped ring lies in its concavity. The two
+  // driven reflex edges have a clockwise polar sweep, so the center must not be used for an angle;
+  // the full ring's winding still provides the correct circulation direction.
+  vector<m2::PointD> const concave = {{0.0, 0.0}, {4.0, 0.0}, {4.0, 1.0}, {1.0, 1.0},
+                                      {1.0, 4.0}, {0.0, 4.0}, {0.0, 0.0}};
+  TEST_EQUAL(CalcClosedRoundaboutDirection(concave, true /* isForward */), RoundaboutDirection::CounterClockwise, ());
+  TEST(!IsAngularlyMonotonic(concave, {2.0, 2.0}), ());
+
+  // The route drives the two reflex edges of that ring. Its winding is known from the closed feature,
+  // but the rejected center leaves the angle unavailable.
+  auto ring = MakeLoadedPathSegment({{4.0, 1.0}, {1.0, 1.0}, {1.0, 4.0}}, true);
+  ring.m_roundaboutCenter.reset();
+  ring.m_roundaboutDirection = RoundaboutDirection::CounterClockwise;
+  TUnpackedPathSegments segments = {MakeLoadedPathSegment({{4.0, 0.0}, {4.0, 1.0}}, false), ring,
+                                    MakeLoadedPathSegment({{1.0, 4.0}, {0.0, 4.0}}, false)};
+  TEST_EQUAL(CalcRoundaboutInfo(RoutingResultTest(segments), 2),
+             (RoundaboutInfo{0, RoundaboutDirection::CounterClockwise, true}), ());
+
+  auto radialRing = MakeLoadedPathSegment({{2.0, 0.0}, {1.0, 0.0}}, true);
+  radialRing.m_roundaboutDirection = RoundaboutDirection::CounterClockwise;
+  TUnpackedPathSegments radialSegments = {MakeLoadedPathSegment({{3.0, 0.0}, {2.0, 0.0}}, false), radialRing,
+                                          MakeLoadedPathSegment({{1.0, 0.0}, {1.0, 1.0}}, false)};
+  TEST_EQUAL(CalcRoundaboutInfo(RoutingResultTest(radialSegments), 2),
+             (RoundaboutInfo{0, RoundaboutDirection::CounterClockwise, true}), ());
+}
+
+UNIT_TEST(TestCalcRoundaboutInfoOnMiniRoundabout)
+{
+  // Fountain Street -> Bridge Street through https://www.openstreetmap.org/node/4664432830 from
+  // https://github.com/organicmaps/organicmaps/issues/7039. The generator replaces the mini
+  // roundabout node with a ring and joins the roads to it radially, clockwise here because the UK
+  // has left-hand traffic.
+  m2::PointD const center = mercator::FromLatLon(51.6960299, -2.2181448);
+  auto const armDeg = [&center](double lat, double lon)
+  { return math::RadToDeg(ang::AngleTo(center, mercator::FromLatLon(lat, lon))); };
+
+  double const enter = armDeg(51.6955804, -2.2179469);  // Fountain Street.
+  double const leave = armDeg(51.6964762, -2.2182834);  // Bridge Street.
+  auto const info = CalcRoundaboutInfoForAngles(enter, leave, false);
+  TEST_EQUAL(info.m_exitAngle, 184, ());
+  TEST_EQUAL(info.m_direction, RoundaboutDirection::Clockwise, ());
+}
+
+UNIT_TEST(TestFixupTurnsRoundaboutExit)
+{
+  // The driver enters from the south, passes the exit to the east and takes the next one, to the
+  // north, which is the 2nd one.
+  vector<m2::PointD> path = {PointOnUnitCircle(-90.0) * 5.0};
+  auto const ringPath = MakeRoundaboutPath(-90.0 /* enterDeg */, 90.0 /* north */, true);
+  path.insert(path.end(), ringPath.begin(), ringPath.end());
+  path.push_back(PointOnUnitCircle(90.0) * 5.0);
+  // routeSegments[i] gets path[i + 1], so the exit is the 2nd route segment from the end.
+  size_t const leaveIdx = path.size() - 3;
+  vector<TurnItem> turns(path.size() - 1);
+  for (size_t i = 0; i < turns.size(); ++i)
+    turns[i] = {static_cast<uint32_t>(i + 1), CarDirection::None};
+  turns[1] = {2, CarDirection::EnterRoundAbout};
+  turns[4] = {5, CarDirection::StayOnRoundAbout};  // The exit to the east.
+  turns[leaveIdx] = {static_cast<uint32_t>(leaveIdx + 1), CarDirection::LeaveRoundAbout};
+  turns[leaveIdx].m_roundaboutInfo = {180, RoundaboutDirection::CounterClockwise, true};
+
+  vector<RouteSegment> routeSegments;
+  RouteSegmentsFrom({}, path, turns, {}, routeSegments);
+  FixupCarTurns(routeSegments);
+
+  // Both the entrance and the exit turns carry the same roundabout metadata.
+  for (size_t const idx : {size_t(1), leaveIdx})
+  {
+    TEST_EQUAL(routeSegments[idx].GetTurn().m_exitNum, 2U, (idx));
+    TEST_EQUAL(routeSegments[idx].GetTurn().m_roundaboutInfo,
+               (RoundaboutInfo{180, RoundaboutDirection::CounterClockwise, true}), (idx));
+  }
+  TEST_EQUAL(routeSegments[4].GetTurn().m_turn, CarDirection::None, ());
 }
 
 UNIT_TEST(TestGetRoundaboutDirection)

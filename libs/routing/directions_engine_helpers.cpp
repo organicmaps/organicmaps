@@ -1,6 +1,12 @@
 #include "routing/directions_engine_helpers.hpp"
 
+#include "geometry/angles.hpp"
 #include "geometry/mercator.hpp"
+
+#include "base/assert.hpp"
+#include "base/math.hpp"
+
+#include <cmath>
 
 namespace routing
 {
@@ -88,5 +94,52 @@ bool IsJoint(IRoadGraph::EdgeListT const & ingoingEdges, IRoadGraph::EdgeListT c
       return true;
   }
   return false;
+}
+
+turns::RoundaboutDirection CalcClosedRoundaboutDirection(std::span<m2::PointD const> points, bool isForward)
+{
+  ASSERT_GREATER_OR_EQUAL(points.size(), 4, ());
+  ASSERT_EQUAL(points.front(), points.back(), ());
+
+  auto const origin = points.front();
+  double twiceArea = 0.0;
+  for (size_t i = 1; i < points.size(); ++i)
+    twiceArea += m2::CrossProduct(points[i - 1] - origin, points[i] - origin);
+
+  if (twiceArea == 0.0)
+    return turns::RoundaboutDirection::Unknown;
+
+  bool counterClockwise = twiceArea > 0.0;
+  if (!isForward)
+    counterClockwise = !counterClockwise;
+  return counterClockwise ? turns::RoundaboutDirection::CounterClockwise : turns::RoundaboutDirection::Clockwise;
+}
+
+bool IsAngularlyMonotonic(std::span<m2::PointD const> points, m2::PointD const & center)
+{
+  ASSERT_GREATER_OR_EQUAL(points.size(), 4, ());
+  ASSERT_EQUAL(points.front(), points.back(), ());
+
+  double sweep = 0.0;
+  int directionSign = 0;
+  for (size_t i = 1; i < points.size(); ++i)
+  {
+    auto const & from = points[i - 1];
+    auto const & to = points[i];
+    if (from == center || to == center)
+      return false;
+
+    double const delta = ang::GetShortestDistance(ang::AngleTo(center, from), ang::AngleTo(center, to));
+    if (delta == 0.0)
+      continue;
+
+    int const deltaSign = delta > 0.0 ? 1 : -1;
+    if (directionSign != 0 && directionSign != deltaSign)
+      return false;
+    directionSign = deltaSign;
+    sweep += delta;
+  }
+
+  return directionSign != 0 && AlmostEqualAbs(std::abs(sweep), 2.0 * math::pi, 1e-6);
 }
 }  // namespace routing

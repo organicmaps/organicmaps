@@ -25,6 +25,10 @@ protected:
 
 void FixupCarTurns(std::vector<RouteSegment> & routeSegments);
 
+/// Measures the roundabout path ending at |outgoingSegmentIndex| and sets m_hasExit. The angle is 0
+/// without validated closed-ring geometry; direction can still be derived from the driven path.
+turns::RoundaboutInfo CalcRoundaboutInfo(turns::IRoutingResult const & result, size_t outgoingSegmentIndex);
+
 /*!
  * \brief Finds an U-turn that starts from master segment and returns how many segments it lasts.
  * \returns an index in |segments| that has the opposite direction with master segment
