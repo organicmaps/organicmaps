@@ -258,18 +258,6 @@ class PathProvider:
         return os.path.join(self.mwm_path, "packed_polygons.bin")
 
     @property
-    def localads_path(self) -> AnyStr:
-        return os.path.join(self.build_path, f"localads_{self.mwm_version}")
-
-    @property
-    def types_path(self) -> AnyStr:
-        return os.path.join(self.user_resource_path, "types.txt")
-
-    @property
-    def external_resources_path(self) -> AnyStr:
-        return os.path.join(self.mwm_path, "external_resources.txt")
-
-    @property
     def id_to_wikidata_path(self) -> AnyStr:
         return os.path.join(self.intermediate_data_path, "id_to_wikidata.csv")
 
@@ -280,14 +268,6 @@ class PathProvider:
     @property
     def hotels_path(self) -> AnyStr:
         return os.path.join(self.intermediate_data_path, "hotels.csv")
-
-    @property
-    def promo_catalog_cities_path(self) -> AnyStr:
-        return os.path.join(self.intermediate_data_path, "promo_catalog_cities.json")
-
-    @property
-    def promo_catalog_countries_path(self) -> AnyStr:
-        return os.path.join(self.intermediate_data_path, "promo_catalog_countries.json")
 
     @property
     def popularity_path(self) -> AnyStr:
