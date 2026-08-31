@@ -17,6 +17,7 @@ import app.organicmaps.intent.GoogleAssistantIntentHandler;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Map;
 import app.organicmaps.sdk.OrganicMaps;
+import app.organicmaps.sdk.api.ApiController;
 import app.organicmaps.sdk.api.ParsedSearchRequest;
 import app.organicmaps.sdk.api.RequestType;
 import app.organicmaps.sdk.car.renderer.Renderer;
@@ -57,8 +58,7 @@ public final class IntentUtils
   }
 
   private record CarSearchHandler(CarContext mCarContext, OrganicMaps mOrganicMapsContext, Renderer mSurfaceRenderer)
-      implements GoogleAssistantIntentHandler.SearchHandler
-  {
+      implements GoogleAssistantIntentHandler.SearchHandler {
     private CarSearchHandler(@NonNull CarContext mCarContext, @NonNull OrganicMaps mOrganicMapsContext,
                              @NonNull Renderer mSurfaceRenderer)
     {
@@ -102,7 +102,7 @@ public final class IntentUtils
       return;
 
     final ScreenManager screenManager = carContext.getCarService(ScreenManager.class);
-    switch (Framework.nativeParseAndSetApiUrl(uri.toString()))
+    switch (ApiController.nativeParseAndSetApiUrl(uri.toString()))
     {
     case RequestType.INCORRECT: return;
     case RequestType.MAP:
@@ -111,8 +111,8 @@ public final class IntentUtils
       return;
     case RequestType.SEARCH:
       screenManager.popToRoot();
-      final ParsedSearchRequest request = Framework.nativeGetParsedSearchRequest();
-      final double[] latlon = Framework.nativeGetParsedCenterLatLon();
+      final ParsedSearchRequest request = ApiController.nativeGetParsedSearchRequest();
+      final double[] latlon = ApiController.nativeGetParsedCenterLatLon();
       if (latlon != null)
       {
         Framework.nativeStopLocationFollow();

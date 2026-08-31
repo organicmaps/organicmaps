@@ -22,6 +22,7 @@ set(SRC
   app/organicmaps/sdk/vulkan/android_vulkan_context_factory.hpp
 
   # JNI sources
+  app/organicmaps/sdk/api/ApiController.cpp
   app/organicmaps/sdk/search/DisplayedCategories.cpp
   app/organicmaps/sdk/search/SearchEngine.cpp
   app/organicmaps/sdk/search/SearchRecents.cpp
