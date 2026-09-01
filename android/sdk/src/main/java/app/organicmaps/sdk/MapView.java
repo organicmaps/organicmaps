@@ -3,6 +3,7 @@ package app.organicmaps.sdk;
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -11,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.res.ConfigurationHelper;
 import app.organicmaps.sdk.display.DisplayType;
 import app.organicmaps.sdk.util.Utils;
@@ -49,36 +51,32 @@ public class MapView extends SurfaceView
   @NonNull
   private final Map mMap;
 
-  public MapView(Context context)
+  public MapView(@NonNull Context context)
   {
     this(context, null, 0);
   }
 
-  public MapView(Context context, DisplayType displayType)
-  {
-    this(context, null, 0, 0, displayType);
-  }
-
-  public MapView(Context context, AttributeSet attrs)
+  public MapView(@NonNull Context context, @Nullable AttributeSet attrs)
   {
     this(context, attrs, 0);
   }
 
-  public MapView(Context context, AttributeSet attrs, int defStyleAttr)
+  public MapView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr)
   {
-    this(context, attrs, defStyleAttr, 0);
+    this(context, attrs, defStyleAttr, R.style.MapView);
   }
 
-  public MapView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)
-  {
-    this(context, attrs, defStyleAttr, defStyleRes, DisplayType.Device);
-  }
-
-  private MapView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes,
-                  @NonNull DisplayType displayType)
+  public MapView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes)
   {
     super(context, attrs, defStyleAttr, defStyleRes);
-    mMap = new Map(displayType);
+
+    try (final TypedArray data =
+             context.getTheme().obtainStyledAttributes(attrs, R.styleable.MapView, defStyleAttr, defStyleRes))
+    {
+      final int displayTypeOrdinal = data.getInt(R.styleable.MapView_display_type, DisplayType.Device.ordinal());
+      final DisplayType displayType = DisplayType.values()[displayTypeOrdinal];
+      mMap = new Map(displayType);
+    }
     getHolder().addCallback(new SurfaceHolderCallback());
   }
 

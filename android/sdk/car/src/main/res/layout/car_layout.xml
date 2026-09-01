@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+  <app.organicmaps.sdk.MapView
+      android:id="@+id/map_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:display_type="car" />
+
+  <FrameLayout
+      android:id="@+id/visible_area_container"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_gravity="top|start">
+
+    <app.organicmaps.sdk.widgets.speedlimit.SpeedLimitView
+        android:id="@+id/speed_limit_view"
+        style="@style/MwmWidget.SpeedLimit"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="8dp" />
+  </FrameLayout>
+
+</FrameLayout>
