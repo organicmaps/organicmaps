@@ -570,7 +570,7 @@
 "login_to_make_edits_visible" = "Créez un compte OpenStreetMap ou connectez-vous pour publier vos modifications de cartes dans le monde entier.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
-"downloader_of" = "%1$d de %2$d";
+"downloader_of" = "%1$d sur %2$d";
 "download_over_mobile_header" = "Téléchargement avec une connexion réseau cellulaire ?";
 "download_over_mobile_message" = "Cela pourrait être très cher avec certains abonnements ou si vous êtes en déplacement.";
 "error_enter_correct_house_number" = "Saisir un numéro de maison correct";
@@ -862,7 +862,7 @@
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
 "alert_reauth_link_text_ios" = "ici";
 "downloader_hide_screen" = "Masquer l’écran";
-"downloader_percent" = "%@ (%@ de %@)";
+"downloader_percent" = "%@ (%@ sur %@)";
 "downloader_process" = "Téléchargement de %@…";
 "downloader_applying" = "Application de %@…";
 "bookmarks_error_title_list_name_too_long" = "Ce nom est trop long";
