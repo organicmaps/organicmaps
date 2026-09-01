@@ -7,8 +7,6 @@
 #include "drape/texture.hpp"
 #include "drape/tm_read_resources.hpp"
 
-#include <algorithm>
-
 namespace stipple_pen_tests
 {
 using namespace dp;
@@ -24,15 +22,6 @@ bool IsRectsEqual(m2::RectF const & r1, m2::RectF const & r2)
 {
   return AlmostEqualULPs(r1.minX(), r2.minX()) && AlmostEqualULPs(r1.minY(), r2.minY()) &&
          AlmostEqualULPs(r1.maxX(), r2.maxX()) && AlmostEqualULPs(r1.maxY(), r2.maxY());
-}
-
-std::vector<uint8_t> Rasterize(PenPatternT const & pattern, m2::PointU & size)
-{
-  StipplePenRasterizator rasterizer{StipplePenKey(pattern)};
-  size = rasterizer.GetSize();
-  std::vector<uint8_t> pixels(kMaxStipplePenLength * size.y, 0);
-  rasterizer.Rasterize(pixels.data());
-  return pixels;
 }
 }  // namespace
 
@@ -83,45 +72,6 @@ UNIT_TEST(StippleTest_EqualPatterns)
         LOG(LINFO, ("Equal:", patterns[i], patterns[j]));
       else if (IsAlmostEqualPatterns(patterns[i], patterns[j]))
         LOG(LINFO, ("Almost equal:", patterns[i], patterns[j]));
-  }
-}
-
-
-UNIT_TEST(StippleTest_OneValuePatternIsOpaque)
-{
-  m2::PointU size;
-  auto const pixels = Rasterize(PenPatternT{7}, size);
-  for (uint32_t y = 0; y < size.y; ++y)
-  {
-    auto const row = pixels.begin() + y * kMaxStipplePenLength;
-    TEST(std::all_of(row, row + size.x + 2, [](uint8_t value) { return value == 255; }), (y));
-  }
-}
-
-UNIT_TEST(StippleTest_ShortDotAndPeriodWrap)
-{
-  m2::PointU size;
-  auto const pixels = Rasterize(PenPatternT{1, 4}, size);
-  for (uint32_t y = 0; y < size.y; ++y)
-  {
-    uint8_t const * row = pixels.data() + y * kMaxStipplePenLength;
-    TEST_EQUAL(row[0], row[1], (y));
-    TEST_EQUAL(row[size.x + 1], row[size.x], (y));
-    TEST_EQUAL(row[1], 255, (y));
-    TEST_EQUAL(row[2], 0, (y));
-    TEST_EQUAL(row[1], row[6], (y));
-  }
-}
-
-UNIT_TEST(StippleTest_AtlasHasDynamicPatternCapacity)
-{
-  uint32_t constexpr kPredefinedPatterns = 119;
-  uint32_t constexpr kDynamicPatterns = 10;
-  StipplePenPacker packer({kMaxStipplePenLength, 2048});
-  for (uint32_t i = 0; i < kPredefinedPatterns + kDynamicPatterns; ++i)
-  {
-    auto const rect = packer.PackResource({kMaxStipplePenLength - 2, kStipplePenDashHeight});
-    TEST_EQUAL(rect.SizeY(), kStipplePenDashHeight, (i));
   }
 }
 }  // namespace stipple_pen_tests

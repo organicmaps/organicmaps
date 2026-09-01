@@ -26,7 +26,6 @@ namespace dp
 namespace
 {
 uint32_t constexpr kMaxTextureSize = 1024;
-uint32_t constexpr kMaxStippleTextureSize = 2048;
 uint32_t constexpr kStippleTextureWidth = 512;  /// @todo Should be equal with kMaxStipplePenLength?
 uint32_t constexpr kMinStippleTextureHeight = 64;
 uint32_t constexpr kMinColorTextureSize = 32;
@@ -59,10 +58,9 @@ void ParseColorsList(std::string const & colorsFile, ToDo toDo)
   }
 }
 
-m2::PointU StipplePenTextureSize(size_t rowsCount, uint32_t maxTextureSize)
+m2::PointU StipplePenTextureSize(size_t patternsCount, uint32_t maxTextureSize)
 {
-  uint32_t const reservedRows = kReservedPatterns * kStipplePenDashHeight;
-  uint32_t const sz = std::bit_ceil(static_cast<uint32_t>(rowsCount) + reservedRows);
+  uint32_t const sz = std::bit_ceil(static_cast<uint32_t>(patternsCount) + kReservedPatterns);
   // No problem if assert will fire here. Just pen texture will be 2x bigger :)
   // ASSERT_LESS_OR_EQUAL(sz, kMinStippleTextureHeight, (patternsCount));
   uint32_t const stippleTextureHeight = std::min(maxTextureSize, std::max(sz, kMinStippleTextureHeight));
@@ -568,13 +566,11 @@ void TextureManager::InitStipplePen(Params const & params)
     else
     {
       ASSERT_EQUAL(toAdd.size(), 2, ());
-      rowsCount += kStipplePenDashHeight;
+      ++rowsCount;
     }
   });
 
-  uint32_t const maxStippleTextureSize =
-      std::min(kMaxStippleTextureSize, dp::SupportManager::Instance().GetMaxTextureSize());
-  m_stipplePenTexture = make_unique_dp<StipplePenTexture>(StipplePenTextureSize(rowsCount, maxStippleTextureSize),
+  m_stipplePenTexture = make_unique_dp<StipplePenTexture>(StipplePenTextureSize(rowsCount, m_maxTextureSize),
                                                           make_ref(m_textureAllocator));
 
   LOG(LDEBUG, ("Patterns texture size =", m_stipplePenTexture->GetWidth(), m_stipplePenTexture->GetHeight()));

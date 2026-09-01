@@ -40,7 +40,7 @@ line|z11-[highway=cycleway][hwtag!=yescar],
 line|z12-[highway=path][bicycle=designated][hwtag!=yescar],
 line|z13-[highway=footway][bicycle=designated][hwtag!=yescar],
 {color: @cycleway; opacity: 1; dashes: none; linecap: round;
- casing-color: @cycleway_casing; casing-width: 1.5;}
+ casing-color: @cycleway_casing; casing-width: 1.5; casing-linecap: round;}
 
 line|z11[highway=cycleway][hwtag!=yescar],
 {width: 1.3;}
@@ -124,7 +124,7 @@ line|z13-[cyclewaytag=track],
 line|z14-[cyclewaytag=lane],
 line|z14-[cyclewaytag=shared_lane],
 {opacity: 1; linecap: round;
- casing-color: @cycleway_casing; casing-width: 1.5; casing-dashes: none;}
+ casing-color: @cycleway_casing; casing-width: 1.5; casing-dashes: none; casing-linecap: round;}
 
 line|z13-[cyclewaytag=track],
 {color: @cycleway;}
