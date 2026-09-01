@@ -30,6 +30,7 @@ android {
 dependencies {
     implementation project(':libs:branding')
     implementation project(':libs:wear-protocol')
+    implementation project(':libs:wear-protocol-gms')
     implementation libs.androidx.annotation
     implementation libs.google.gms.wearable
 
