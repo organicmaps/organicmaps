@@ -941,8 +941,7 @@
 "dialog_pedestrian_route_is_long_header" = "Nuk u gjet asnjë rrugë metroje";
 "dialog_pedestrian_route_is_long_message" = "Ju lutemi zgjidhni një pikë fillimi ose fundi më afër një stacioni metroje";
 "button_layer_isolines" = "Vija Konture";
-"isolines_activation_error_dialog" = "Aktivizimi i vijave të konturit kërkon shkarkimin e të dhënave të hartës për këtë zonë";
-"isolines_location_error_dialog" = "Vijat e konturit nuk janë ende të disponueshme në këtë zonë";
+"isolines_location_error_dialog" = "Përditësoni këtë zonë për të parë vijat e konturit";
 "elevation_profile_ascent" = "Ngjitje";
 "elevation_profile_descent" = "Zbritje";
 "elevation_profile_min_elevation" = "Lartësia min.";
@@ -1092,7 +1091,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Ju lutemi aktivizoni iCloud në cilësimet e pajisjes suaj për të përdorur këtë veçori.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Aktivizo";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1189,3 +1188,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Ngjyra e gjurmëve u ndryshua";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Shkarko terrenin bashkë me hartat";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Hijezimi i relievit, vijat e konturit dhe thellësia e detit. Terreni i një rajoni shkarkohet, përditësohet dhe fshihet së bashku me hartën e tij.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Të fshihen gjithashtu të dhënat e shkarkuara të terrenit (%@)?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Mbaj";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Shkarkimi i terrenit bashkë me hartat është i çaktivizuar. Të aktivizohet për të parë këtu vijat e konturit?";

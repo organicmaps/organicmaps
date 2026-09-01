@@ -941,8 +941,7 @@
 "dialog_pedestrian_route_is_long_header" = "Não foi encontrada nenhuma rota de metrô";
 "dialog_pedestrian_route_is_long_message" = "Escolha outro ponto de início ou fim perto da estação de metrô";
 "button_layer_isolines" = "Relevo";
-"isolines_activation_error_dialog" = "Para ativar e usar a camada Relevo, atualize ou baixe o mapa da região";
-"isolines_location_error_dialog" = "A camada Relevo ainda não está disponível para esta região";
+"isolines_location_error_dialog" = "Atualize esta região para ver as curvas de nível";
 "elevation_profile_ascent" = "Subida";
 "elevation_profile_descent" = "Descida";
 "elevation_profile_min_elevation" = "Elevação mínima";
@@ -1092,7 +1091,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Ative o iCloud nos Ajustes do seu dispositivo para usar esse recurso.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Ativar";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1189,3 +1188,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Cor das trilhas alterada";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Baixar o terreno com os mapas";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Sombreamento do relevo, curvas de nível e profundidades do mar. O terreno de uma região é baixado, atualizado e excluído junto com o seu mapa.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Excluir também os dados de terreno baixados (%@)?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Manter";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "O download do terreno com os mapas está desativado. Ativá-lo para ver aqui as curvas de nível?";

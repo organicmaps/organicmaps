@@ -752,8 +752,7 @@
     <string name="deselect_all">Zrušiť výber</string>
     <string name="select_list">Vybrať zoznam</string>
     <string name="button_layer_isolines">Terén</string>
-    <string name="isolines_activation_error_dialog">Ak chcete aktivovať a používať topografickú vrstvu, aktualizujte alebo stiahnite mapu oblasti</string>
-    <string name="isolines_location_error_dialog">Topografická vrstva ešte nie je v tejto oblasti k dispozícii</string>
+    <string name="isolines_location_error_dialog">Aktualizujte túto oblasť, aby ste videli vrstevnice</string>
     <string name="elevation_profile_ascent">Stúpanie</string>
     <string name="elevation_profile_descent">Klesanie</string>
     <string name="elevation_profile_min_elevation">Min. výška</string>
@@ -896,6 +895,8 @@
     <string name="hide_track">Skryť trasu</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Zobraziť trasu</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Povoliť</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -924,4 +925,14 @@
     <string name="color_picker_grid">Mriežka</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Hlasové vyhľadávanie</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Stiahnuť terén s mapami</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Tieňovanie terénu, vrstevnice a hĺbky mora. Terén regiónu sa sťahuje, aktualizuje a maže spolu s jeho mapou.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Zmazať aj stiahnuté údaje o teréne (%s)?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Ponechať</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Sťahovanie terénu s mapami je vypnuté. Zapnúť ho, aby ste tu videli vrstevnice?</string>
 </resources>

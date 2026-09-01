@@ -751,8 +751,7 @@
     <string name="deselect_all">Fravælg alle</string>
     <string name="select_list">Væg liste</string>
     <string name="button_layer_isolines">Konturlinjer</string>
-    <string name="isolines_activation_error_dialog">Aktivering af konturlinjer kræver download af kortdata for dette område</string>
-    <string name="isolines_location_error_dialog">Konturlinjer er endnu ikke tilgængelige i dette område</string>
+    <string name="isolines_location_error_dialog">Opdater dette område for at se konturlinjer</string>
     <string name="elevation_profile_ascent">Stigning</string>
     <string name="elevation_profile_descent">Nedstigning</string>
     <string name="elevation_profile_min_elevation">Min. højde</string>
@@ -901,6 +900,8 @@
     <string name="hide_track">Skjul spor</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Vis spor</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Aktivér</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -929,4 +930,14 @@
     <string name="color_picker_grid">Gitter</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Stemmesøgning</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Download terræn sammen med kort</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Terrænskygge, konturlinjer og havdybder. Terrænet for et område downloades, opdateres og slettes sammen med kortet.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Vil du også slette de downloadede terrændata (%s)?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Behold</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Download af terræn sammen med kort er slået fra. Vil du slå det til for at se konturlinjer her?</string>
 </resources>

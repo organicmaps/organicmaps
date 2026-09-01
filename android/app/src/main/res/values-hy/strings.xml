@@ -751,8 +751,7 @@
     <string name="deselect_all">Չեղարկել ընտրությունը</string>
     <string name="select_list">Ընտրել ցուցակը</string>
     <string name="button_layer_isolines">Հորիզոնականներ</string>
-    <string name="isolines_activation_error_dialog">Հորիզոնականների ակտիվացումը պահանջում է ներբեռնել այս տարածքի քարտեզի տվյալները</string>
-    <string name="isolines_location_error_dialog">Հորիզոնականները դեռ հասանելի չեն այս տարածքում</string>
+    <string name="isolines_location_error_dialog">Թարմացրեք այս տարածաշրջանը՝ հորիզոնականները տեսնելու համար</string>
     <string name="elevation_profile_ascent">Վերելք</string>
     <string name="elevation_profile_descent">Վայրէջք</string>
     <string name="elevation_profile_min_elevation">Նվազգ. բարձրություն</string>
@@ -899,6 +898,8 @@
     <string name="move">Տեղափոխել</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Փոխել գույնը</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Միացնել</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -927,4 +928,14 @@
     <string name="color_picker_grid">Ցանց</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Ձայնային որոնում</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Ներբեռնել տեղանքը քարտեզների հետ</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Ռելիեֆի ստվերում, հորիզոնականներ և ծովի խորություններ: Տարածաշրջանի տեղանքը ներբեռնվում, թարմացվում և ջնջվում է իր քարտեզի հետ միասին:</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Ջնջե՞լ նաև ներբեռնված տեղանքը (%s):</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Պահել</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Քարտեզների հետ տեղանքի ներբեռնումն անջատված է: Միացնե՞լ այն՝ այստեղ հորիզոնականները տեսնելու համար:</string>
 </resources>

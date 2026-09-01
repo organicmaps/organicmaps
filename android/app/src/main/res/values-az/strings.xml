@@ -751,8 +751,7 @@
     <string name="deselect_all">Seçimi ləğv et</string>
     <string name="select_list">Siyahı seçin</string>
     <string name="button_layer_isolines">Ərazi</string>
-    <string name="isolines_activation_error_dialog">Ərazi qatını aktivləşdirmək və istifadə etmək üçün xəritəni yeniləyin və ya endirin</string>
-    <string name="isolines_location_error_dialog">Bu bölgədə relyef təbəqəsi hələ mövcud deyil</string>
+    <string name="isolines_location_error_dialog">Kontur xətlərini görmək üçün bu bölgəni yeniləyin</string>
     <string name="elevation_profile_ascent">Qalxmaq</string>
     <string name="elevation_profile_descent">Eniş</string>
     <string name="elevation_profile_min_elevation">Min. hündürlük</string>
@@ -897,6 +896,8 @@
     <string name="hide_track">İzi gizlədin</string>
     <!-- Text for the showing track. -->
     <string name="show_track">İzi göstər</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Aktivləşdirin</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -925,4 +926,14 @@
     <string name="color_picker_grid">Şəbəkə</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Səsli axtarış</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Relyefi xəritələrlə birlikdə yükləyin</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Relyef kölgələndirməsi, kontur xətləri və dəniz dərinlikləri. Bölgənin relyefi xəritəsi ilə birlikdə endirilir, yenilənir və silinir.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Endirilmiş relyef məlumatları (%s) da silinsin?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Saxla</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Relyefin xəritələrlə birlikdə endirilməsi deaktivdir. Burada kontur xətlərini görmək üçün aktivləşdirilsin?</string>
 </resources>

@@ -941,8 +941,7 @@
 "dialog_pedestrian_route_is_long_header" = "Engin neðanjarðarlestarleið fannst";
 "dialog_pedestrian_route_is_long_message" = "Veldu upphafs- eða endastað sem er nær neðanjarðarlestarstöð";
 "button_layer_isolines" = "Hæðarlínur";
-"isolines_activation_error_dialog" = "Til að virkja hæðarlínur þarf að sækja kortagögn fyrir þetta svæði";
-"isolines_location_error_dialog" = "Hæðarlínur eru ennþá ekki tiltækar á þessu svæði";
+"isolines_location_error_dialog" = "Uppfærðu þetta svæði til að sjá hæðarlínur";
 "elevation_profile_ascent" = "Hækkun";
 "elevation_profile_descent" = "Lækkun";
 "elevation_profile_min_elevation" = "Lágm.hæð";
@@ -1092,7 +1091,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Virkjaðu iCloud í stillingum tækisins þíns til að nota þennan eiginleika.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Virkja";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1189,3 +1188,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Litur ferla breytt";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Sækja landslag ásamt kortum";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Hæðarskygging, hæðarlínur og sjávardýpt. Landslag svæðis er sótt, uppfært og fjarlægt ásamt korti þess.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Eyða einnig sóttum landslagsgögnum (%@)?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Halda";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Slökkt er á niðurhali landslags með kortum. Viltu kveikja á því til að sjá hæðarlínur hér?";

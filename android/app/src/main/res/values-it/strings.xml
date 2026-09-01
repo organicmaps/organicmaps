@@ -756,8 +756,7 @@
     <string name="deselect_all">Deseleziona tutto</string>
     <string name="select_list">Seleziona lista</string>
     <string name="button_layer_isolines">Curve di livello</string>
-    <string name="isolines_activation_error_dialog">Per attivare le curve di livello devi aggiornare o scaricare la mappa dell\'area interessata</string>
-    <string name="isolines_location_error_dialog">Le curve di livello per questa regione non sono ancora disponibili</string>
+    <string name="isolines_location_error_dialog">Aggiorna questa regione per vedere le curve di livello</string>
     <string name="elevation_profile_ascent">Salita</string>
     <string name="elevation_profile_descent">Discesa</string>
     <string name="elevation_profile_min_elevation">Elevazione minima</string>
@@ -910,6 +909,8 @@
     <string name="hide_track">Nascondi traccia</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Mostra traccia</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Abilitazione</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -938,4 +939,14 @@
     <string name="color_picker_grid">Griglia</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Ricerca vocale</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Scaricare il terreno con le mappe</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Ombreggiatura del rilievo, curve di livello e profondità marine. Il terreno di una regione viene scaricato, aggiornato ed eliminato insieme alla sua mappa.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Eliminare anche i dati del terreno scaricati (%s)?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Mantieni</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Il download del terreno con le mappe è disattivato. Attivarlo per vedere qui le curve di livello?</string>
 </resources>

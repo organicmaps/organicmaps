@@ -941,8 +941,7 @@
 "dialog_pedestrian_route_is_long_header" = "Metroo marsruuti ei leidu";
 "dialog_pedestrian_route_is_long_message" = "Palun vali metroojaamale lähemal asuv alg- või lõpp-punkt";
 "button_layer_isolines" = "Kontuurjooned";
-"isolines_activation_error_dialog" = "Topograafilise kihi aktiveerimiseks ja kasutamiseks laadi alla piirkonna kaart";
-"isolines_location_error_dialog" = "Topograafiline kiht ei ole selles piirkonnas veel saadaval";
+"isolines_location_error_dialog" = "Uuenda seda piirkonda, et näha kõrgusjooni";
 "elevation_profile_ascent" = "Tõus";
 "elevation_profile_descent" = "Langus";
 "elevation_profile_min_elevation" = "Min. kõrgus";
@@ -1092,7 +1091,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Selle funktsionaalsuse kasutamiseks luba nutiseadme seadistustes iCloud.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Luba";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1189,3 +1188,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Radade värv on muudetud";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Laadi reljeef koos kaartidega alla";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Reljeefivarjutus, kõrgusjooned ja mere sügavused. Piirkonna reljeef laaditakse alla, uuendatakse ja kustutatakse koos selle kaardiga.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Kas soovid kustutada ka allalaaditud reljeefiandmed (%@)?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Säilita";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Reljeefi allalaadimine koos kaartidega on välja lülitatud. Kas soovid selle sisse lülitada, et näha siin kõrgusjooni?";

@@ -941,8 +941,7 @@
 "dialog_pedestrian_route_is_long_header" = "Traseul metroului nu a fost găsit";
 "dialog_pedestrian_route_is_long_message" = "Alege un punct de plecare sau de sosire mai aproape de o stație de metrou";
 "button_layer_isolines" = "Înălțimi";
-"isolines_activation_error_dialog" = "Pentru a activa și utiliza stratul topografic actualizează sau descarcă harta zonei";
-"isolines_location_error_dialog" = "Stratul topografic nu este încă disponibil în această zonă";
+"isolines_location_error_dialog" = "Actualizați această regiune pentru a vedea curbele de nivel";
 "elevation_profile_ascent" = "Urcare";
 "elevation_profile_descent" = "Coborâre";
 "elevation_profile_min_elevation" = "Min. altitudine";
@@ -1092,7 +1091,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Vă rugăm să activați iCloud în setările dispozitivului dvs. pentru a utiliza această funcție.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Activați";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1189,3 +1188,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Culoarea traseelor a fost schimbată";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Descarcă relieful împreună cu hărțile";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Umbrirea reliefului, curbele de nivel și adâncimile mării. Relieful unei regiuni este descărcat, actualizat și șters împreună cu harta sa.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Ștergi și datele de relief descărcate (%@)?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Păstrează";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Descărcarea reliefului împreună cu hărțile este dezactivată. O activezi ca să vezi aici curbele de nivel?";

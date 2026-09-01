@@ -941,8 +941,7 @@
 "dialog_pedestrian_route_is_long_header" = "No se ha encontrado ninguna ruta de metro";
 "dialog_pedestrian_route_is_long_message" = "Por favor, elija un punto de inicio o final más cercano a una estación de metro";
 "button_layer_isolines" = "Líneas de contorno";
-"isolines_activation_error_dialog" = "Para usar la altitud de relieve, actualice o descargue el mapa del área deseada";
-"isolines_location_error_dialog" = "La altitud de relieve no está aún disponible en esta región";
+"isolines_location_error_dialog" = "Actualice esta región para ver las curvas de nivel";
 "elevation_profile_ascent" = "Ascenso";
 "elevation_profile_descent" = "Descenso";
 "elevation_profile_min_elevation" = "Elevación mínima";
@@ -1092,7 +1091,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Activa iCloud en los ajustes de tu dispositivo para utilizar esta función.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Activar";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1189,3 +1188,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Color de los trayectos cambiado";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Descargar el terreno con los mapas";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Sombreado del relieve, curvas de nivel y profundidades marinas. El terreno de una región se descarga, se actualiza y se elimina junto con su mapa.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "¿Eliminar también los datos de terreno descargados (%@)?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Conservar";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "La descarga del terreno con los mapas está desactivada. ¿Activarla para ver aquí las curvas de nivel?";

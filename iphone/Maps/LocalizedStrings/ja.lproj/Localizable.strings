@@ -941,8 +941,7 @@
 "dialog_pedestrian_route_is_long_header" = "地下鉄ルートが見つかりませんでした";
 "dialog_pedestrian_route_is_long_message" = "もっと地下鉄駅に近い出発地または目的地を選択してください";
 "button_layer_isolines" = "地形";
-"isolines_activation_error_dialog" = "地形レイヤーを使用するには、このエリアのマップを更新もしくはダウンロードしてください";
-"isolines_location_error_dialog" = "地形レイヤーはこの地域ではまだ利用できません";
+"isolines_location_error_dialog" = "この地域を更新すると等高線が表示されます";
 "elevation_profile_ascent" = "上昇";
 "elevation_profile_descent" = "下降";
 "elevation_profile_min_elevation" = "最小標高";
@@ -1092,7 +1091,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "この機能を使うには、デバイスの設定でiCloudを有効にしてほしい。";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "有効にする";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1189,3 +1188,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "トラックの色が変更されました";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "地図と一緒に地形データをダウンロードする";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "地形の陰影、等高線、水深。地域の地形データは、その地図と一緒にダウンロード、更新、削除されます。";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "ダウンロード済みの地形データ（%@）も削除しますか？";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "残す";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "地図と一緒に地形データをダウンロードする機能がオフになっています。ここに等高線を表示するために有効にしますか？";

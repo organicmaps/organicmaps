@@ -941,8 +941,7 @@
 "dialog_pedestrian_route_is_long_header" = "Trasa metra nebyla nalezena";
 "dialog_pedestrian_route_is_long_message" = "Zvolte prosím počáteční nebo koncový bod blíže k stanici metra";
 "button_layer_isolines" = "Terén";
-"isolines_activation_error_dialog" = "Chcete-li aktivovat a používat topografickou vrstvu, prosím aktualizujte nebo si stáhněte mapu oblasti";
-"isolines_location_error_dialog" = "Topografická vrstva není v této oblasti ještě dostupná";
+"isolines_location_error_dialog" = "Aktualizujte tuto oblast, abyste viděli vrstevnice";
 "elevation_profile_ascent" = "Stoupání";
 "elevation_profile_descent" = "Klesání";
 "elevation_profile_min_elevation" = "Min. výška";
@@ -1092,7 +1091,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Chcete-li tuto funkci používat, povolte v nastavení zařízení službu iCloud.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Povolit";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1189,3 +1188,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Barva tras byla změněna";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Stahovat terén s mapami";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Stínování terénu, vrstevnice a mořské hloubky. Terén oblasti se stahuje, aktualizuje a maže společně s její mapou.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Smazat také stažená data terénu (%@)?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Ponechat";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Stahování terénu s mapami je vypnuté. Zapnout ho, abyste zde viděli vrstevnice?";

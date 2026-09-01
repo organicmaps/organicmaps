@@ -941,8 +941,7 @@
 "dialog_pedestrian_route_is_long_header" = "Metro maršruts nav atrasts";
 "dialog_pedestrian_route_is_long_message" = "Izvēlieties sākuma un beigu punktu tuvāk metro stacijai";
 "button_layer_isolines" = "Reljefa līnijas";
-"isolines_activation_error_dialog" = "Reljefa līniju parādīšanai nepieciešamas lejupielādēt šī reģiona karti";
-"isolines_location_error_dialog" = "Topogrāfiskais slānis šim reģionam nav pieejams";
+"isolines_location_error_dialog" = "Atjauniniet šo reģionu, lai redzētu horizontāles";
 "elevation_profile_ascent" = "Kāpums";
 "elevation_profile_descent" = "Kritums";
 "elevation_profile_min_elevation" = "Zemākais punkts";
@@ -1092,7 +1091,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Ja vēlaties izmantot šo funkciju, ierīces iestatījumos ieslēdziet „iCloud“.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Ieslēgt";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1189,3 +1188,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Maršrutu krāsa mainīta";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Lejupielādēt reljefu kopā ar kartēm";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Reljefa ēnojums, horizontāles un jūras dziļumi. Reģiona reljefs tiek lejupielādēts, atjaunināts un dzēsts kopā ar tā karti.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Vai dzēst arī lejupielādētos reljefa datus (%@)?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Paturēt";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Reljefa lejupielāde kopā ar kartēm ir izslēgta. Vai vēlaties to ieslēgt, lai šeit redzētu horizontāles?";

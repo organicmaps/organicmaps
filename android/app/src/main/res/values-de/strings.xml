@@ -753,8 +753,7 @@
     <string name="deselect_all">Auswahl aufheben</string>
     <string name="select_list">Liste auswählen</string>
     <string name="button_layer_isolines">Höhenlinien</string>
-    <string name="isolines_activation_error_dialog">Um die Höhenlinien nutzen zu können, aktualisiere die Karte des betreffenden Gebiets oder lade diese herunter</string>
-    <string name="isolines_location_error_dialog">Höhenlinien sind für dieses Gebiet noch nicht verfügbar</string>
+    <string name="isolines_location_error_dialog">Aktualisiere diese Region, um Höhenlinien zu sehen</string>
     <string name="elevation_profile_ascent">Bergauf</string>
     <string name="elevation_profile_descent">Bergab</string>
     <string name="elevation_profile_min_elevation">Min. Höhe</string>
@@ -907,6 +906,8 @@
     <string name="hide_track">Track ausblenden</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Track anzeigen</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Aktivieren</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -935,4 +936,14 @@
     <string name="color_picker_grid">Raster</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Sprachsuche</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Gelände mit Karten herunterladen</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Geländeschattierung, Höhenlinien und Meerestiefen. Das Gelände einer Region wird zusammen mit ihrer Karte heruntergeladen, aktualisiert und gelöscht.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Auch die heruntergeladenen Geländedaten (%s) löschen?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Behalten</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Das Herunterladen von Gelände mit Karten ist deaktiviert. Jetzt aktivieren, um hier Höhenlinien zu sehen?</string>
 </resources>

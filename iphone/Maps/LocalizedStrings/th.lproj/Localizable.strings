@@ -941,8 +941,7 @@
 "dialog_pedestrian_route_is_long_header" = "ไม่พบเส้นทางของทางรถไฟใต้ดิน";
 "dialog_pedestrian_route_is_long_message" = "โปรดเลือกจุดเริ่มต้นและสิ้นสุดที่อยู่ใกล้สถานีรถไฟใต้ดิน";
 "button_layer_isolines" = "ความสูง";
-"isolines_activation_error_dialog" = "ในการเปิดใช้งานเลเยอร์แผนที่ภูมิประเทศโปรดอัปเดตหรือดาวน์โหลดแผนที่ของบริเวณนั้น";
-"isolines_location_error_dialog" = "เลเยอร์แผนที่ภูมิประเทศยังใช้งานไม่ได้ในพื้นที่นี้";
+"isolines_location_error_dialog" = "อัปเดตพื้นที่นี้เพื่อดูเส้นชั้นความสูง";
 "elevation_profile_ascent" = "การขึ้น";
 "elevation_profile_descent" = "การลง";
 "elevation_profile_min_elevation" = "ต่ำสุด";
@@ -1092,7 +1091,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "โปรดเปิดใช้งาน iCloud ในการตั้งค่าอุปกรณ์ของคุณเพื่อใช้คุณสมบัตินี้";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "เปิดใช้งาน";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1189,3 +1188,18 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "สีแทร็กเปลี่ยนแล้ว";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "ดาวน์โหลดภูมิประเทศพร้อมแผนที่";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "การแรเงาภูเขา เส้นชั้นความสูง และความลึกของทะเล ข้อมูลภูมิประเทศของแต่ละภูมิภาคจะถูกดาวน์โหลด อัปเดต และลบพร้อมกับแผนที่ของภูมิภาคนั้น";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "ลบข้อมูลภูมิประเทศที่ดาวน์โหลดไว้ (%@) ด้วยหรือไม่?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "เก็บไว้";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "การดาวน์โหลดภูมิประเทศพร้อมแผนที่ถูกปิดอยู่ เปิดใช้งานเพื่อดูเส้นชั้นความสูงที่นี่หรือไม่?";

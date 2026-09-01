@@ -749,8 +749,7 @@
     <string name="deselect_all">Poništi odabir</string>
     <string name="select_list">Odaberi popis</string>
     <string name="button_layer_isolines">Izohipse</string>
-    <string name="isolines_activation_error_dialog">Aktiviranje izohipsa zahtijeva preuzimanje podataka karte za ovo područje</string>
-    <string name="isolines_location_error_dialog">Izohipse još nisu dostupne za ovo područje</string>
+    <string name="isolines_location_error_dialog">Ažurirajte ovo područje da biste vidjeli izohipse</string>
     <string name="elevation_profile_ascent">Uzbrdo</string>
     <string name="elevation_profile_descent">Nizbrdo</string>
     <string name="elevation_profile_min_elevation">Min. visina</string>
@@ -899,6 +898,8 @@
     <string name="move">Pomakni</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Promijeni boju</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Omogući</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -927,4 +928,14 @@
     <string name="color_picker_grid">Rešetka</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Glasovno pretraživanje</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Preuzmi teren s kartama</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Sjenčanje reljefa, izohipse i dubine mora. Teren regije preuzima se, ažurira i briše zajedno s njezinom kartom.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Želite li izbrisati i preuzete podatke o terenu (%s)?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Zadrži</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Preuzimanje terena s kartama je isključeno. Želite li ga uključiti kako biste ovdje vidjeli izohipse?</string>
 </resources>
