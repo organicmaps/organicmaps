@@ -1,7 +1,10 @@
 #include "testing/testing.hpp"
 
+#include "indexer/classificator.hpp"
 #include "indexer/drules_selector.hpp"
 #include "indexer/drules_selector_parser.hpp"
+
+#include "generator/generator_tests_support/test_with_classificator.hpp"
 
 #include <string>
 #include <vector>
@@ -9,6 +12,7 @@
 namespace drules_selector_parser_test
 {
 using namespace drule;
+using namespace generator::tests_support;
 using namespace std;
 
 UNIT_TEST(TestDruleSelectorIsSet)
@@ -156,6 +160,29 @@ UNIT_TEST(NameSelector_Smoke)
 {
   TEST(ParseSelector("name"), ());
   TEST(ParseSelector("!name"), ());
+}
+
+UNIT_CLASS_TEST(TestWithClassificator, ExtraTagSelector)
+{
+  auto const & c = classif();
+  FeatureType lane(FeatureID{}, c.GetTypeByPath({"cyclewaytag", "lane"}));
+  FeatureType path(FeatureID{}, c.GetTypeByPath({"highway", "path", "bicycle"}));
+  FeatureType track(FeatureID{}, c.GetTypeByPath({"cyclewaytag", "track"}));
+
+  auto equal = ParseSelector("extra_tag=cyclewaytag=lane");
+  TEST(equal, ());
+  TEST(equal->Test(lane, 15), ());
+  TEST(!equal->Test(track, 15), ());
+
+  auto notEqual = ParseSelector("extra_tag!=cyclewaytag=lane");
+  TEST(notEqual, ());
+  TEST(!notEqual->Test(lane, 15), ());
+  TEST(notEqual->Test(track, 15), ());
+
+  auto nested = ParseSelector("extra_tag=highway=path=bicycle");
+  TEST(nested, ());
+  TEST(nested->Test(path, 15), ());
+  TEST(!nested->Test(lane, 15), ());
 }
 
 UNIT_TEST(InvalidSelector_Smoke)
