@@ -1006,6 +1006,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 - (void)enableCarPlayRepresentation
 {
+  [_searchManager close];
   UIViewController * presentedController = self.presentedViewController;
   if (presentedController != nil)
     [presentedController dismissViewControllerAnimated:NO completion:nil];

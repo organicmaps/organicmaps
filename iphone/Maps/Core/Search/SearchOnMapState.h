@@ -1,5 +1,6 @@
 typedef NS_ENUM(NSUInteger, SearchOnMapState) {
   SearchOnMapStateSearching,
   SearchOnMapStateHidden,
-  SearchOnMapStateClosed
+  SearchOnMapStateClosed,
+  SearchOnMapStateMapPointPicker
 };

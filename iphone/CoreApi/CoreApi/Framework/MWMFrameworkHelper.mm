@@ -204,23 +204,29 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
 
 + (BOOL)canEditMapAtViewportCenter
 {
-  auto const & f = GetFramework();
-  return f.CanEditMapForPosition(f.GetViewportCenter());
+  return [self canEditMapAtMercatorPoint:[self mercatorViewportCenter]];
 }
 
-+ (void)startChoosePositionModeWithEnableBounds:(BOOL)enableBounds initialPosition:(NSValue *)initialPosition
++ (BOOL)canEditMapAtMercatorPoint:(CGPoint)point
+{
+  return GetFramework().CanEditMapForPosition(m2::PointD(point.x, point.y));
+}
+
++ (void)startChoosePositionModeWithEnableBounds:(BOOL)enableBounds
+                        initialMercatorPosition:(NSValue *)initialMercatorPosition
+                           shouldChangeViewport:(BOOL)shouldChangeViewport
 {
   m2::PointD position;
   m2::PointD const * optionalPosition = nullptr;
-  if (initialPosition)
+  if (initialMercatorPosition)
   {
-    CGPoint const point = initialPosition.CGPointValue;
+    CGPoint const point = initialMercatorPosition.CGPointValue;
     position = {point.x, point.y};
     optionalPosition = &position;
   }
 
   auto & framework = GetFramework();
-  framework.EnableChoosePositionMode(true /* enable */, enableBounds, optionalPosition);
+  framework.EnableChoosePositionMode(true /* enable */, enableBounds, optionalPosition, shouldChangeViewport);
   framework.BlockTapEvents(true);
 }
 
@@ -231,7 +237,7 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   framework.BlockTapEvents(false);
 }
 
-+ (CGPoint)viewportCenter
++ (CGPoint)mercatorViewportCenter
 {
   auto const center = GetFramework().GetViewportCenter();
   return CGPointMake(center.x, center.y);
