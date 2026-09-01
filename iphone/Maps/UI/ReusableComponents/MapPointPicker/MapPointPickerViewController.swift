@@ -12,7 +12,8 @@ final class MapPointPickerViewController: UIViewController {
   private let pickerTitle: String
   private let hint: String
   private let enableBounds: Bool
-  private let initialPosition: NSValue?
+  private let initialMercatorPosition: NSValue?
+  private let shouldChangeViewport: Bool
 
   private let headerView = UIView()
   private let navigationBarView = UIView()
@@ -21,12 +22,18 @@ final class MapPointPickerViewController: UIViewController {
   private let cancelButton = UIButton(type: .system)
   private let doneButton = UIButton(type: .system)
   private var isChoosePositionModeActive = false
+  private var isDismissing = false
 
-  init(title: String, hint: String, enableBounds: Bool, initialPosition: NSValue?) {
+  init(title: String,
+       hint: String,
+       enableBounds: Bool,
+       initialMercatorPosition: NSValue?,
+       shouldChangeViewport: Bool) {
     pickerTitle = title
     self.hint = hint
     self.enableBounds = enableBounds
-    self.initialPosition = initialPosition
+    self.initialMercatorPosition = initialMercatorPosition
+    self.shouldChangeViewport = shouldChangeViewport
     super.init(nibName: nil, bundle: nil)
   }
 
@@ -59,10 +66,14 @@ final class MapPointPickerViewController: UIViewController {
     startChoosePositionMode()
     view.layoutIfNeeded()
     headerView.transform = CGAffineTransform(translationX: 0, y: -headerView.bounds.height)
-    UIView.animate(withDuration: kDefaultAnimationDuration) {
+    UIView.animate(withDuration: AppConstants.defaultAnimationDuration) {
       self.headerView.transform = .identity
     }
     parentViewController.setNeedsStatusBarAppearanceUpdate()
+  }
+
+  func close() {
+    dismiss {}
   }
 
   private func setupViews() {
@@ -72,6 +83,8 @@ final class MapPointPickerViewController: UIViewController {
     titleLabel.text = pickerTitle
     titleLabel.textAlignment = .center
     titleLabel.adjustsFontForContentSizeCategory = true
+    titleLabel.adjustsFontSizeToFitWidth = true
+    titleLabel.minimumScaleFactor = 0.5
     titleLabel.setStyleAndApply(.navigationBarItem)
 
     hintLabel.text = hint
@@ -139,7 +152,9 @@ final class MapPointPickerViewController: UIViewController {
 
   private func startChoosePositionMode() {
     guard !isChoosePositionModeActive else { return }
-    FrameworkHelper.startChoosePositionMode(withEnableBounds: enableBounds, initialPosition: initialPosition)
+    FrameworkHelper.startChoosePositionMode(withEnableBounds: enableBounds,
+                                            initialMercatorPosition: initialMercatorPosition,
+                                            shouldChangeViewport: shouldChangeViewport)
     isChoosePositionModeActive = true
   }
 
@@ -150,10 +165,14 @@ final class MapPointPickerViewController: UIViewController {
   }
 
   private func dismiss(completion: @escaping () -> Void) {
+    guard !isDismissing else { return }
+    isDismissing = true
+    cancelButton.isEnabled = false
+    doneButton.isEnabled = false
     stopChoosePositionMode()
     let parentViewController = parent
     willMove(toParent: nil)
-    UIView.animate(withDuration: kDefaultAnimationDuration,
+    UIView.animate(withDuration: AppConstants.defaultAnimationDuration,
                    animations: {
                      self.headerView.transform = CGAffineTransform(translationX: 0, y: -self.headerView.bounds.height)
                    },
@@ -166,7 +185,7 @@ final class MapPointPickerViewController: UIViewController {
   }
 
   @objc private func doneButtonDidTap() {
-    let point = FrameworkHelper.viewportCenter()
+    let point = FrameworkHelper.mercatorViewportCenter()
     dismiss { [doneHandler] in doneHandler?(point) }
   }
 

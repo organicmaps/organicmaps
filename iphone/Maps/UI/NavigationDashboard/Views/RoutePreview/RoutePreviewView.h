@@ -1,4 +1,5 @@
 #import "MWMCircularProgressState.h"
+#import "MWMRoutePoint.h"
 #import "MWMRouterType.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -8,8 +9,6 @@ typedef NS_ENUM(NSInteger, MWMDrivingOptionsState) {
   MWMDrivingOptionsStateDefine,
   MWMDrivingOptionsStateChange
 };
-
-@class MWMRoutePoint;
 
 @protocol MWMRoutePreviewDelegate;
 @protocol RoutePreviewView <NSObject>;
@@ -40,7 +39,8 @@ typedef NS_ENUM(NSInteger, MWMDrivingOptionsState) {
 
 - (void)routePreviewDidPressDrivingOptions;
 - (void)routingStartButtonDidTap;
-- (void)routePreviewDidSelectPoint:(MWMRoutePoint * _Nullable)point shouldAppend:(BOOL)shouldAppend;
+- (void)routePreviewDidSelect:(MWMRoutePointSelection *)selection;
+- (void)routePreviewDidCancelPointSelection;
 
 @end
 
