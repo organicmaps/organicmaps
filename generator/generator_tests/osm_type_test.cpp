@@ -824,6 +824,23 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
   }
 
   {
+    // Paint-level separators do not turn a lane into protected infrastructure.
+    for (char const * value : {"studs", "cone"})
+    {
+      Tags const tags = {
+          {"cycleway:left", "lane"},
+          {"cycleway:left:separation", value},
+          {"highway", "secondary"},
+      };
+
+      auto const params = GetFeatureBuilderParams(tags);
+
+      TEST(params.IsTypeExist(GetType({"cyclewaytag", "lane"})), (params, value));
+      TEST(!params.IsTypeExist(GetType({"cyclewaytag", "track"})), (params, value));
+    }
+  }
+
+  {
     Tags const tags = {
         {"cycleway:right", "lane"},
         {"cycleway:right:separation:left", "kerb"},
@@ -1006,6 +1023,53 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
     TEST(params.IsTypeExist(GetType({"highway", "residential"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), ());
     TEST(!params.IsTypeExist(GetType({"cyclewaytag", "shared_lane"})), ());
+  }
+
+  {
+    for (char const * key : {"motor_vehicle", "vehicle", "access"})
+    {
+      Tags const tags = {
+          {"bicycle", "designated"},
+          {key, "no"},
+          {"highway", "residential"},
+      };
+
+      auto const params = GetFeatureBuilderParams(tags);
+
+      TEST(params.IsTypeExist(GetType({"cyclewaytag", "track"})), (params, key));
+      TEST(!params.IsTypeExist(GetType({"cyclewaytag", "shared_lane"})), (params, key));
+    }
+  }
+
+  {
+    for (char const * key : {"bicycle_road", "cyclestreet"})
+    {
+      Tags const tags = {
+          {key, "yes"},
+          {"motor_vehicle", "no"},
+          {"highway", "residential"},
+      };
+
+      auto const params = GetFeatureBuilderParams(tags);
+
+      TEST(params.IsTypeExist(GetType({"cyclewaytag", "track"})), (params, key));
+      TEST(!params.IsTypeExist(GetType({"cyclewaytag", "shared_lane"})), (params, key));
+    }
+  }
+
+  {
+    for (char const * value : {"yes", "designated", "permissive"})
+    {
+      Tags const tags = {
+          {"bicycle", "designated"},
+          {"motor_vehicle", value},
+          {"highway", "path"},
+      };
+
+      auto const params = GetFeatureBuilderParams(tags);
+
+      TEST(params.IsTypeExist(GetType({"hwtag", "yescar"})), (params, value));
+    }
   }
 
   {

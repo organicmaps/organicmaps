@@ -1113,8 +1113,12 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
       bool addOneway = false;
       bool noOneway = false;
       CachedTypes::Type cyclewayType = CachedTypes::Count;
-      auto const IsPositiveCyclewayProtection = [](std::string const & value)
-      { return !value.empty() && !IsNegativeTagValue(value) && value != "no_separation"; };
+      auto const IsPositiveCyclewayProtection = [](std::string const & kind, std::string const & value)
+      {
+        if (value.empty() || IsNegativeTagValue(value) || value == "no_separation")
+          return false;
+        return kind != "separation" || (value != "studs" && value != "cone");
+      };
       auto const SetCyclewayType = [&cyclewayType](CachedTypes::Type type)
       {
         // Rendering uses one centerline category. When sides or directions differ,
@@ -1138,17 +1142,17 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
         for (char const * kind : {"separation", "barrier"})
         {
           string const prefix = key + ":" + kind;
-          if (IsPositiveCyclewayProtection(p->GetTag(prefix)))
+          if (IsPositiveCyclewayProtection(kind, p->GetTag(prefix)))
             return true;
 
           // A detailed :both value protects both edges, including the edge next to
           // motor traffic. For a single detailed edge, only promote the lane when
           // the adjacent traffic mode explicitly confirms motor traffic.
-          if (IsPositiveCyclewayProtection(p->GetTag(prefix + ":both")))
+          if (IsPositiveCyclewayProtection(kind, p->GetTag(prefix + ":both")))
             return true;
           for (char const * side : {"left", "right"})
           {
-            if (!IsPositiveCyclewayProtection(p->GetTag(prefix + ":" + side)))
+            if (!IsPositiveCyclewayProtection(kind, p->GetTag(prefix + ":" + side)))
               continue;
             auto const trafficMode = p->GetTag(key + ":traffic_mode:" + side);
             if (trafficMode == "motor_vehicle" || trafficMode == "motorcar" || trafficMode == "vehicle")
@@ -1250,6 +1254,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
           {"motor_vehicle", "!", [&flags] { flags[Flags::MotorVehicle] = -1; }},
           {"motor_vehicle", "yes", [&flags] { flags[Flags::MotorVehicle] = 1; }},
           {"motor_vehicle", "designated", [&flags] { flags[Flags::MotorVehicle] = 1; }},
+          {"motor_vehicle", "permissive", [&flags] { flags[Flags::MotorVehicle] = 1; }},
           {"motorcar", "private", [&flags] { flags[Flags::MotorCar] = -1; }},
           {"motorcar", "!", [&flags] { flags[Flags::MotorCar] = -1; }},
           {"motorcar", "yes", [&flags] { flags[Flags::MotorCar] = 1; }},
@@ -1298,6 +1303,17 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
                 IsBicycleDesignatedHighway(vType));
       ApplyFlag(Flags::MotorCar, CachedTypes::YesCar, CachedTypes::NoCar, CachedTypes::NoCar,
                 IsCarDesignatedHighway(vType));
+
+      bool const bicycleDesignated = p->GetTag("bicycle") == "designated";
+      auto const IsPositiveTag = [](std::string const & value)
+      { return !value.empty() && IsPositiveRoutingTagValue(value); };
+      bool const bicycleStreet =
+          IsPositiveTag(p->GetTag("bicycle_road")) || IsPositiveTag(p->GetTag("cyclestreet"));
+      bool const motorVehiclesForbidden = IsNegativeTagValue(p->GetTag("motor_vehicle")) ||
+                                          IsNegativeTagValue(p->GetTag("vehicle")) ||
+                                          IsNegativeTagValue(p->GetTag("access"));
+      if (motorVehiclesForbidden && (bicycleDesignated || bicycleStreet))
+        cyclewayType = CachedTypes::CyclewayTrack;
 
       if (cyclewayType != CachedTypes::Count && !IsBicycleDesignatedHighway(vType))
         AddParam(cyclewayType);
