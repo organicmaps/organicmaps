@@ -7,6 +7,7 @@ apply from: "${rootProject.rootDir}/groovy/application-signing.gradle"
 
 android {
     namespace 'app.organicmaps.wear'
+    enableKotlin = true  // see app/build.gradle
 
     defaultConfig {
         applicationId rootProject.ext.appId
@@ -31,7 +32,6 @@ dependencies {
     implementation project(':libs:branding')
     implementation project(':libs:wear-protocol')
     implementation project(':libs:wear-protocol-gms')
-    implementation libs.androidx.annotation
     implementation libs.google.gms.wearable
 
     testImplementation libs.androidx.junit

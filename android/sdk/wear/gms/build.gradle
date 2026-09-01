@@ -6,12 +6,12 @@ apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
 
 android {
   namespace = 'app.organicmaps.sdk.wear.gms'
+  enableKotlin = true  // see app/build.gradle
 }
 
 dependencies {
   implementation project(':libs:wear-protocol-gms')
   implementation project(':sdk:wear:core')
 
-  implementation libs.androidx.annotation
   implementation libs.google.gms.wearable
 }
