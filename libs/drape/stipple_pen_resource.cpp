@@ -65,6 +65,15 @@ void StipplePenRasterizator::RasterizeDash(uint8_t * pixels) const
 {
   ASSERT(!m_key.m_pattern.empty() && m_key.m_pattern.size() <= 2, (m_key.m_pattern.size()));
 
+  // A one-value pattern is the solid mask used by rainbow lines. It must not
+  // acquire capsule gaps when ordinary dash masks become two-dimensional.
+  if (m_key.m_pattern.size() == 1)
+  {
+    for (uint32_t y = 0; y < m_height; ++y)
+      memset(pixels + y * kMaxStipplePenLength, 255, m_pixelLength + 2);
+    return;
+  }
+
   uint32_t const dashLen = m_key.m_pattern[0];
   float const radius = std::min(kStipplePenDashRoundRadius, static_cast<float>(dashLen) / 2.0f);
   float const halfHeight = static_cast<float>(m_height) / 2.0f;

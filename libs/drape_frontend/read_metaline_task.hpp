@@ -9,7 +9,7 @@
 
 namespace df
 {
-uint8_t constexpr kMetaLinesSectionVersion = 2;
+uint8_t constexpr kMetaLinesSectionVersion = 3;
 
 class MapDataProvider;
 

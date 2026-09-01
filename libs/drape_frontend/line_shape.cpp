@@ -1,5 +1,7 @@
 #include "drape_frontend/line_shape.hpp"
 
+#include "drape_frontend/line_shape_helper.hpp"
+
 #include "shaders/programs.hpp"
 
 #include "drape/attribute_provider.hpp"
@@ -353,16 +355,17 @@ void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
   // The dash phase is computed per-fragment from the continuous distance (see the dashed_line
   // shaders), so each spline section is emitted as a single segment with a monotonically growing
   // offset. Splitting the geometry here would reset the phase and create visible seams.
-  float offset = static_cast<float>(m_params.m_dashPhaseOffset);
+  double offset = WrapDashPhase(m_params.m_dashPhaseOffset, builder.GetMaskLengthG());
   ForEachSplineSection([&](glsl::vec2 const & p1, glsl::vec2 const & p2, glsl::vec2 const &, float toDraw,
                            glsl::vec2 const & leftNormal, glsl::vec2 const & rightNormal, int)
   {
-    builder.SubmitVertex({p1, m_params.m_depth}, rightNormal, false /* isLeft */, offset);
-    builder.SubmitVertex({p1, m_params.m_depth}, leftNormal, true /* isLeft */, offset);
-    builder.SubmitVertex({p2, m_params.m_depth}, rightNormal, false /* isLeft */, offset + toDraw);
-    builder.SubmitVertex({p2, m_params.m_depth}, leftNormal, true /* isLeft */, offset + toDraw);
+    double const nextOffset = AdvanceDashPhase(offset, toDraw, m_params.m_dashPhaseReversed);
+    builder.SubmitVertex({p1, m_params.m_depth}, rightNormal, false /* isLeft */, static_cast<float>(offset));
+    builder.SubmitVertex({p1, m_params.m_depth}, leftNormal, true /* isLeft */, static_cast<float>(offset));
+    builder.SubmitVertex({p2, m_params.m_depth}, rightNormal, false /* isLeft */, static_cast<float>(nextOffset));
+    builder.SubmitVertex({p2, m_params.m_depth}, leftNormal, true /* isLeft */, static_cast<float>(nextOffset));
 
-    offset += toDraw;
+    offset = nextOffset;
   });
 }
 
