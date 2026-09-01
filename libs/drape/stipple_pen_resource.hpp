@@ -17,12 +17,6 @@ namespace dp
 {
 uint32_t constexpr kMaxStipplePenLength = 512;  /// @todo Should be equal with kStippleTextureWidth?
 
-// Height (mask rows) of each dash/dot pattern. A 2D mask lets dash/dot ends taper
-// across the line width, producing rounded (rather than square) segment ends.
-uint32_t constexpr kStipplePenDashHeight = 8;
-// Rounding radius of dash/dot ends, in pattern pixels.
-float constexpr kStipplePenDashRoundRadius = 2.0f;
-
 // Based on ./data/patterns.txt, the most of patterns have 2 entries (4 entries for triangles pattern).
 using PenPatternT = buffer_vector<uint16_t, 2>;
 

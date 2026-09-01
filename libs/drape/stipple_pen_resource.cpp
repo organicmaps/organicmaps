@@ -5,7 +5,6 @@
 #include "base/logging.hpp"
 #include "base/shared_buffer_manager.hpp"
 
-#include <algorithm>
 #include <cmath>
 #include <cstring>
 #include <iomanip>
@@ -44,7 +43,7 @@ StipplePenRasterizator::StipplePenRasterizator(StipplePenKey const & key) : m_ke
   else
   {
     m_patternLength = std::accumulate(m_key.m_pattern.begin(), m_key.m_pattern.end(), 0);
-    m_height = kStipplePenDashHeight;
+    m_height = 1;
   }
 
   uint32_t const availableSize = kMaxStipplePenLength - 2;  // the first and the last pixel reserved
@@ -65,59 +64,17 @@ void StipplePenRasterizator::RasterizeDash(uint8_t * pixels) const
 {
   ASSERT(!m_key.m_pattern.empty() && m_key.m_pattern.size() <= 2, (m_key.m_pattern.size()));
 
-  // A one-value pattern is the solid mask used by rainbow lines. It must not
-  // acquire capsule gaps when ordinary dash masks become two-dimensional.
-  if (m_key.m_pattern.size() == 1)
+  uint32_t offset = 1;
+  for (size_t i = 0; i < m_key.m_pattern.size(); ++i)
   {
-    for (uint32_t y = 0; y < m_height; ++y)
-      memset(pixels + y * kMaxStipplePenLength, 255, m_pixelLength + 2);
-    return;
+    uint8_t const length = m_key.m_pattern[i];
+    ASSERT(length > 0, ());
+
+    memset(pixels + offset, (i & 0x1) == 0 ? 255 : 0, length);
+    offset += length;
   }
 
-  uint32_t const dashLen = m_key.m_pattern[0];
-  float const radius = std::min(kStipplePenDashRoundRadius, static_cast<float>(dashLen) / 2.0f);
-  float const halfHeight = static_cast<float>(m_height) / 2.0f;
-
-  // Rasterize the first period of each row, then clone it across the mask.
-  // A dash is a capsule: full height in the middle, tapering to a rounded tip
-  // at both ends (an ellipse with X radius 'radius' and Y radius 'halfHeight').
-  for (uint32_t y = 0; y < m_height; ++y)
-  {
-    uint8_t * row = pixels + y * kMaxStipplePenLength;
-    float const dy = (static_cast<float>(y) + 0.5f) - halfHeight;
-
-    for (uint32_t x = 0; x < m_patternLength; ++x)
-    {
-      uint8_t value = 0;
-      if (x < dashLen)
-      {
-        bool on = true;
-        if (x < radius || x >= dashLen - radius)
-        {
-          float const cx = (x < radius) ? radius : static_cast<float>(dashLen) - radius;
-          float const dx = (static_cast<float>(x) + 0.5f) - cx;
-          float const nx = dx / radius;
-          float const ny = dy / halfHeight;
-          on = nx * nx + ny * ny <= 1.0f;
-        }
-        if (on)
-          value = 255;
-      }
-      row[x + 1] = value;
-    }
-
-    // Clone the period across the row (with a wrap-around pixel for seamless tiling).
-    uint32_t offset = m_patternLength + 1;
-    while (offset < m_pixelLength + 1)
-    {
-      memcpy(row + offset, row + 1, m_patternLength);
-      offset += m_patternLength;
-    }
-    ASSERT_EQUAL(offset, m_pixelLength + 1, ());
-
-    row[0] = row[1];
-    row[m_pixelLength + 1] = row[m_pixelLength];
-  }
+  ClonePattern(pixels);
 }
 
 void StipplePenRasterizator::ClonePattern(uint8_t * pixels) const
