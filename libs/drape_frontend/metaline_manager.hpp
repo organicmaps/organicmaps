@@ -27,7 +27,7 @@ public:
   void Update(std::set<MwmSet::MwmId> const & mwms);
 
   m2::SharedSpline GetMetaline(FeatureID const & fid) const;
-  std::optional<std::pair<double, bool>> GetDashPhase(FeatureID const & fid) const;
+  std::optional<MetalineInfo> GetMetalineInfo(FeatureID const & fid) const;
 
 private:
   void OnTaskFinished(std::shared_ptr<ReadMetalineTask> const & task);

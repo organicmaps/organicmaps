@@ -355,7 +355,7 @@ bool WriteMetalinesSection(std::string const & mwmPath, std::string const & meta
         auto const featureId = static_cast<uint32_t>(std::abs(fid));
         CHECK_LESS(featureId, featureLengths.size(), ());
         double const length = featureLengths[featureId];
-        float const phaseOffset = static_cast<float>(chainOffset + (fid < 0 ? length : 0.0));
+        double const phaseOffset = chainOffset + (fid < 0 ? length : 0.0);
         memWriter.Write(&phaseOffset, sizeof(phaseOffset));
         chainOffset += length;
       }

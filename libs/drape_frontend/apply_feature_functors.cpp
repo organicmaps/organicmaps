@@ -793,6 +793,7 @@ void ApplyLineFeatureGeometry::ProcessRule(drule::LineRule const & lineRule)
     {
       double const splineOffset = splineOffsets.empty() ? 0.0 : splineOffsets[i];
       params.m_dashPhaseOffset = m_dashPhaseOffset + (m_dashPhaseReversed ? -splineOffset : splineOffset);
+      params.m_dashPhaseReversed = m_dashPhaseReversed;
       m_params.m_insertShape(make_unique_dp<LineShape>(m_clippedSplines[i], params));
     }
 
@@ -822,6 +823,7 @@ void ApplyLineFeatureGeometry::ProcessRule(drule::LineRule const & lineRule)
       {
         double const splineOffset = splineOffsets.empty() ? 0.0 : splineOffsets[i];
         rParams.m_dashPhaseOffset = m_dashPhaseOffset + (m_dashPhaseReversed ? -splineOffset : splineOffset);
+        rParams.m_dashPhaseReversed = m_dashPhaseReversed;
         m_params.m_insertShape(make_unique_dp<LineShape>(m_clippedSplines[i], rParams));
       }
     }

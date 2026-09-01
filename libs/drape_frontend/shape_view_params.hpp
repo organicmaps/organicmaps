@@ -86,6 +86,7 @@ struct LineViewParams : CommonViewParams
   dp::LineJoin m_join;
   dp::PenPatternT m_pattern;
   double m_dashPhaseOffset = 0.0;
+  bool m_dashPhaseReversed = false;
   double m_baseGtoPScale = 1.0;
   int m_zoomLevel = -1;
 
