@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="MapView">
+    <item name="display_type">phone</item>
+  </style>
+
+  <declare-styleable name="MapView">
+    <attr name="display_type" format="enum">
+      <enum name="phone" value="0" />
+      <enum name="car" value="1" />
+    </attr>
+  </declare-styleable>
+</resources>

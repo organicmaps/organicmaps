@@ -12,9 +12,6 @@ public final class RendererFactory
   public static Renderer create(@NonNull CarContext carContext, @NonNull DisplayManager displayManager,
                                 @NonNull LocationHelper locationHelper, @NonNull LifecycleOwner lifecycleOwner)
   {
-    if (android.os.Build.VERSION.SDK_INT >= 23)
-      return new SurfaceRenderer(carContext, displayManager, locationHelper, lifecycleOwner);
-    else
-      return new SurfaceRendererLegacy(carContext, displayManager, locationHelper, lifecycleOwner);
+    return new SurfaceRenderer(carContext, displayManager, locationHelper, lifecycleOwner);
   }
 }

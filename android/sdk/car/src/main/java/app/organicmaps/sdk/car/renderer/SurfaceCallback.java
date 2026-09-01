@@ -1,71 +1,51 @@
 package app.organicmaps.sdk.car.renderer;
 
-import android.app.Presentation;
 import android.graphics.Rect;
-import android.hardware.display.DisplayManager;
 import android.hardware.display.VirtualDisplay;
-import android.util.TypedValue;
-import android.view.Gravity;
-import android.view.SurfaceHolder;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
-import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.car.app.CarContext;
 import androidx.car.app.SurfaceContainer;
-import app.organicmaps.sdk.MapController;
-import app.organicmaps.sdk.util.Assert;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LifecycleOwner;
+import app.organicmaps.sdk.MapRenderingListener;
+import app.organicmaps.sdk.display.DisplayManager;
+import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.util.log.Logger;
-import app.organicmaps.sdk.widgets.speedlimit.SpeedLimitView;
+import java.util.Objects;
 
-@RequiresApi(23)
 final class SurfaceCallback extends SurfaceCallbackBase
 {
   private static final String TAG = SurfaceCallback.class.getSimpleName();
 
-  private static final int SPEED_LIMIT_VIEW_SIZE_DP = 80;
-
   private static final String VIRTUAL_DISPLAY_NAME = "OM_Android_Auto_Display";
 
   @NonNull
-  private final MapController mMapController;
-  @Nullable
-  private FrameLayout mSpeedLimitContainer;
-  @Nullable
-  private SpeedLimitView mSpeedLimitView;
+  private final LifecycleOwner mLifecycleOwner;
 
-  private final int mSpeedLimitViewSize;
+  @NonNull
+  private final LocationHelper mLocationHelper;
+
+  @NonNull
+  private final MapRenderingListener mMapRenderingListener;
+
+  @NonNull
+  private final DisplayManager mDisplayManager;
 
   @Nullable
   private VirtualDisplay mVirtualDisplay;
   @Nullable
-  private Presentation mPresentation;
+  private CarPresentation mPresentation;
 
-  public SurfaceCallback(@NonNull CarContext carContext, @NonNull MapController mapController)
+  public SurfaceCallback(@NonNull CarContext carContext, @NonNull LifecycleOwner lifecycleOwner,
+                         @NonNull LocationHelper locationHelper, @NonNull MapRenderingListener mapRenderingListener,
+                         @NonNull DisplayManager displayManager)
   {
     super(carContext);
-    mMapController = mapController;
-    mMapController.getView().getHolder().addCallback(new SurfaceHolder.Callback() {
-      @Override
-      public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height)
-      {
-        mMapController.updateMyPositionRoutingOffset(0);
-      }
-      @Override
-      public void surfaceCreated(@NonNull SurfaceHolder holder)
-      {
-        mMapController.updateMyPositionRoutingOffset(0);
-      }
-      @Override
-      public void surfaceDestroyed(@NonNull SurfaceHolder holder)
-      {}
-    });
-    mSpeedLimitViewSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, SPEED_LIMIT_VIEW_SIZE_DP,
-                                                          mCarContext.getResources().getDisplayMetrics());
-    initSpeedLimitView();
+    mLifecycleOwner = lifecycleOwner;
+    mLocationHelper = locationHelper;
+    mMapRenderingListener = mapRenderingListener;
+    mDisplayManager = displayManager;
   }
 
   @Override
@@ -73,34 +53,48 @@ final class SurfaceCallback extends SurfaceCallbackBase
   {
     Logger.d(TAG, "Surface available " + surfaceContainer);
 
-    mVirtualDisplay =
-        mCarContext.getSystemService(DisplayManager.class)
-            .createVirtualDisplay(VIRTUAL_DISPLAY_NAME, surfaceContainer.getWidth(), surfaceContainer.getHeight(),
-                                  surfaceContainer.getDpi(), surfaceContainer.getSurface(), 0);
-    mPresentation = new Presentation(mCarContext, mVirtualDisplay.getDisplay());
+    if (mVirtualDisplay == null)
+    {
+      final android.hardware.display.DisplayManager displayManager =
+          ContextCompat.getSystemService(mCarContext, android.hardware.display.DisplayManager.class);
+      mVirtualDisplay =
+          Objects.requireNonNull(displayManager)
+              .createVirtualDisplay(VIRTUAL_DISPLAY_NAME, surfaceContainer.getWidth(), surfaceContainer.getHeight(),
+                                    surfaceContainer.getDpi(), surfaceContainer.getSurface(), 0);
+    }
+    else
+    {
+      mVirtualDisplay.setSurface(surfaceContainer.getSurface());
+      mVirtualDisplay.resize(surfaceContainer.getWidth(), surfaceContainer.getHeight(), surfaceContainer.getDpi());
+    }
 
-    mPresentation.setContentView(prepareViewForPresentation(mMapController.getView()));
-    mPresentation.show();
+    if (mPresentation == null)
+      createPresentation();
+    startPresenting();
   }
 
   @Override
   public void onVisibleAreaChanged(@NonNull Rect visibleArea)
   {
     super.onVisibleAreaChanged(visibleArea);
-
-    Assert.debug(mSpeedLimitContainer != null, "mSpeedLimitContainer must be initialized");
-    mSpeedLimitContainer.setLayoutParams(getSpeedLimitContainerLayoutParams());
+    if (mPresentation != null)
+      mPresentation.setVisibleArea(visibleArea);
   }
 
   @Override
   public void onSurfaceDestroyed(@NonNull SurfaceContainer surfaceContainer)
   {
     Logger.d(TAG, "Surface destroyed");
-    if (mPresentation != null)
-    {
-      mPresentation.dismiss();
-      mPresentation = null;
-    }
+
+    stopPresenting();
+    if (mVirtualDisplay != null)
+      mVirtualDisplay.setSurface(null);
+  }
+
+  void destroy()
+  {
+    clearPresentation();
+
     if (mVirtualDisplay != null)
     {
       mVirtualDisplay.release();
@@ -108,70 +102,41 @@ final class SurfaceCallback extends SurfaceCallbackBase
     }
   }
 
-  @NonNull
-  SpeedLimitView getSpeedLimitView()
-  {
-    Assert.debug(mSpeedLimitView != null, "mSpeedLimitContainer must be initialized");
-    return mSpeedLimitView;
-  }
-
   void stopPresenting()
   {
     if (mPresentation != null)
-      mPresentation.dismiss();
+      mPresentation.stopPresenting();
   }
 
   void startPresenting()
   {
+    if (mPresentation != null && mDisplayManager.isCarDisplayUsed())
+      mPresentation.startPresenting();
+  }
+
+  void setSpeedLimit(int speedLimit, boolean speedLimitExceeded)
+  {
     if (mPresentation != null)
-      mPresentation.show();
+      mPresentation.setSpeedLimit(speedLimit, speedLimitExceeded);
   }
 
-  @NonNull
-  private View prepareViewForPresentation(@NonNull View view)
+  private void createPresentation()
   {
-    final ViewParent parent = view.getParent();
-    if (parent instanceof ViewGroup)
-      ((ViewGroup) parent).removeView(view);
+    if (mVirtualDisplay == null)
+      return;
 
-    final FrameLayout container = new FrameLayout(mCarContext);
-    container.addView(
-        view, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-    initSpeedLimitView();
-    container.addView(mSpeedLimitContainer);
-
-    return container;
+    mPresentation = new CarPresentation(mCarContext, mVirtualDisplay.getDisplay(), mLifecycleOwner, mLocationHelper,
+                                        mMapRenderingListener);
+    mPresentation.create();
+    mPresentation.setVisibleArea(mVisibleArea);
   }
 
-  private void initSpeedLimitView()
+  private void clearPresentation()
   {
-    mSpeedLimitContainer = new FrameLayout(mCarContext);
-    mSpeedLimitContainer.setLayoutParams(getSpeedLimitContainerLayoutParams());
-
-    final boolean restoreOldState = mSpeedLimitView != null;
-    final boolean isAlert = restoreOldState && mSpeedLimitView.isAlert();
-    final int speedLimit = restoreOldState ? mSpeedLimitView.getSpeedLimit() : 0;
-
-    mSpeedLimitView = new SpeedLimitView(mCarContext);
-    if (restoreOldState)
-      mSpeedLimitView.setSpeedLimit(speedLimit, isAlert);
-
-    final FrameLayout.LayoutParams speedLimitLayoutParams =
-        new FrameLayout.LayoutParams(mSpeedLimitViewSize, mSpeedLimitViewSize);
-    speedLimitLayoutParams.gravity = Gravity.END | Gravity.BOTTOM;
-    mSpeedLimitContainer.addView(mSpeedLimitView, speedLimitLayoutParams);
-  }
-
-  @NonNull
-  private ViewGroup.LayoutParams getSpeedLimitContainerLayoutParams()
-  {
-    final FrameLayout.LayoutParams layoutParams =
-        new FrameLayout.LayoutParams(mVisibleArea.right - mVisibleArea.left, // width
-                                     mVisibleArea.bottom - mVisibleArea.top // height
-        );
-    layoutParams.leftMargin = mVisibleArea.left;
-    layoutParams.topMargin = mVisibleArea.top;
-    layoutParams.gravity = Gravity.NO_GRAVITY;
-    return layoutParams;
+    if (mPresentation != null)
+    {
+      mPresentation.destroy();
+      mPresentation = null;
+    }
   }
 }
