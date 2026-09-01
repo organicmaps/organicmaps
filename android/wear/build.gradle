@@ -7,6 +7,7 @@ apply from: "${rootProject.rootDir}/groovy/application-signing.gradle"
 
 android {
     namespace 'app.organicmaps.wear'
+    enableKotlin = true  // see app/build.gradle
 
     defaultConfig {
         applicationId rootProject.ext.appId
