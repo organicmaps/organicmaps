@@ -20,6 +20,7 @@
 #include <CoreApi/TrackInfo+Core.h>
 
 #include "kml/type_utils.hpp"
+#include "map/routing_mark.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/localization.hpp"
 
@@ -188,6 +189,15 @@ using namespace routing;
   return nil;
 }
 
++ (MWMRoutePoint *)myPositionPoint
+{
+  auto const routePoints = GetFramework().GetRoutingManager().GetRoutePoints();
+  for (auto const & routePoint : routePoints)
+    if (routePoint.m_isMyPosition)
+      return [[MWMRoutePoint alloc] initWithRouteMarkData:routePoint];
+  return nil;
+}
+
 + (void)enableAutoAddLastLocation:(BOOL)enable
 {
   [MWMRouter router].canAutoAddLastLocation = enable;
@@ -196,6 +206,12 @@ using namespace routing;
 + (BOOL)canAddIntermediatePoint
 {
   return GetFramework().GetRoutingManager().CouldAddIntermediatePoint();
+}
+
++ (BOOL)isRoutePointsLimitReached
+{
+  // Unlike canAddIntermediatePoint, this also works before routing becomes active.
+  return GetFramework().GetRoutingManager().GetRoutePointsCount() >= RoutePointsLayout::kMaxRoutePointsCount;
 }
 
 - (instancetype)initRouter
@@ -302,19 +318,16 @@ using namespace routing;
     NSAssert(NO, @"Target point can not be nil");
     return;
   }
-  switch (point.type)
+  auto & routingManager = GetFramework().GetRoutingManager();
+  if (point.type == MWMRoutePointTypeIntermediate)
   {
-  case MWMRoutePointTypeStart: [self buildFromPoint:newPoint bestRouter:NO]; break;
-  case MWMRoutePointTypeFinish: [self buildToPoint:newPoint bestRouter:NO]; break;
-  case MWMRoutePointTypeIntermediate:
     RouteMarkData pt = point.routeMarkData;
-    auto & routingManager = GetFramework().GetRoutingManager();
     routingManager.RemoveRoutePoint(pt.m_pointType, pt.m_intermediateIndex);
-    RouteMarkData newPt = newPoint.routeMarkData;
-    routingManager.AddRoutePoint(std::move(newPt), NO /* reorderIntermediatePoints */);
-    [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
-    [self rebuildWithBestRouter:NO];
   }
+  RouteMarkData newPt = newPoint.routeMarkData;
+  routingManager.AddRoutePoint(std::move(newPt), NO /* reorderIntermediatePoints */);
+  [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
+  [self rebuildWithBestRouter:NO];
 }
 
 + (void)swapStartAndFinish

@@ -38,17 +38,21 @@ extension NavigationDashboard {
         router.rebuild(withBestRouter: false)
         return .none
 
-      case .selectRoutePoint(let point):
-        delegate?.routePreviewDidSelect(point, shouldAppend: false)
-        searchManager.startSearching(isRouting: false)
-        if let point, !point.isMyPosition, let textToSearch = point.title {
-          searchManager.searchText(SearchQuery(textToSearch, source: .typedText))
-        }
+      case .selectRoutePoint(let selection):
+        delegate?.routePreviewDidSelect(selection)
+        searchManager.startSearching(isRouting: true)
         return .setHidden(true)
 
       case .addRoutePointButtonDidTap:
-        delegate?.routePreviewDidSelect(nil, shouldAppend: true)
-        searchManager.startSearching(isRouting: false)
+        guard !router.isRoutePointsLimitReached() else {
+          Toast.show(withText: L("routing_max_stops_reached"))
+          return .none
+        }
+        let selection = MWMRoutePointSelection(point: nil,
+                                               type: .intermediate,
+                                               shouldAppend: true)
+        delegate?.routePreviewDidSelect(selection)
+        searchManager.startSearching(isRouting: true)
         return .setHidden(true)
 
       case .deleteRoutePoint(let point):
@@ -104,7 +108,7 @@ extension NavigationDashboard {
 
       case .updateSearchState(let state):
         if state == .closed {
-          delegate?.routePreviewDidSelect(nil, shouldAppend: false)
+          delegate?.routePreviewDidCancelPointSelection()
         }
         return .updateSearchState(state)
 
