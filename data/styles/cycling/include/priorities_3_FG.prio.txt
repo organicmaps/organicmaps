@@ -45,6 +45,20 @@ power-line                                          # line z13- (also has line::
 power-minor_line                                    # line z15- (also has line::dash z15-)
 === 350
 
+hwtag-onedir_bicycle::cycling_cycleway_arrows       # line::cycling_cycleway_arrows z15- (also has line::cycling_footway_arrows z15-, line::cycling_lane_arrows z15-, line::cycling_path_arrows z15-, line::cycling_shared_lane_arrows z15-, line::cycling_track_arrows z15-)
+hwtag-onedir_bicycle::cycling_footway_arrows        # line::cycling_footway_arrows z15- (also has line::cycling_cycleway_arrows z15-, line::cycling_lane_arrows z15-, line::cycling_path_arrows z15-, line::cycling_shared_lane_arrows z15-, line::cycling_track_arrows z15-)
+hwtag-onedir_bicycle::cycling_lane_arrows           # line::cycling_lane_arrows z15- (also has line::cycling_cycleway_arrows z15-, line::cycling_footway_arrows z15-, line::cycling_path_arrows z15-, line::cycling_shared_lane_arrows z15-, line::cycling_track_arrows z15-)
+hwtag-onedir_bicycle::cycling_path_arrows           # line::cycling_path_arrows z15- (also has line::cycling_cycleway_arrows z15-, line::cycling_footway_arrows z15-, line::cycling_lane_arrows z15-, line::cycling_shared_lane_arrows z15-, line::cycling_track_arrows z15-)
+hwtag-onedir_bicycle::cycling_shared_lane_arrows    # line::cycling_shared_lane_arrows z15- (also has line::cycling_cycleway_arrows z15-, line::cycling_footway_arrows z15-, line::cycling_lane_arrows z15-, line::cycling_path_arrows z15-, line::cycling_track_arrows z15-)
+hwtag-onedir_bicycle::cycling_track_arrows          # line::cycling_track_arrows z15- (also has line::cycling_cycleway_arrows z15-, line::cycling_footway_arrows z15-, line::cycling_lane_arrows z15-, line::cycling_path_arrows z15-, line::cycling_shared_lane_arrows z15-)
+hwtag-oneway::cycling_cycleway_arrows               # line::cycling_cycleway_arrows z15- (also has line::arrows z15-, line::cycling_footway_arrows z15-, line::cycling_lane_arrows z15-, line::cycling_path_arrows z15-, line::cycling_shared_lane_arrows z15-, line::cycling_track_arrows z15-)
+hwtag-oneway::cycling_footway_arrows                # line::cycling_footway_arrows z15- (also has line::arrows z15-, line::cycling_cycleway_arrows z15-, line::cycling_lane_arrows z15-, line::cycling_path_arrows z15-, line::cycling_shared_lane_arrows z15-, line::cycling_track_arrows z15-)
+hwtag-oneway::cycling_lane_arrows                   # line::cycling_lane_arrows z15- (also has line::arrows z15-, line::cycling_cycleway_arrows z15-, line::cycling_footway_arrows z15-, line::cycling_path_arrows z15-, line::cycling_shared_lane_arrows z15-, line::cycling_track_arrows z15-)
+hwtag-oneway::cycling_path_arrows                   # line::cycling_path_arrows z15- (also has line::arrows z15-, line::cycling_cycleway_arrows z15-, line::cycling_footway_arrows z15-, line::cycling_lane_arrows z15-, line::cycling_shared_lane_arrows z15-, line::cycling_track_arrows z15-)
+hwtag-oneway::cycling_shared_lane_arrows            # line::cycling_shared_lane_arrows z15- (also has line::arrows z15-, line::cycling_cycleway_arrows z15-, line::cycling_footway_arrows z15-, line::cycling_lane_arrows z15-, line::cycling_path_arrows z15-, line::cycling_track_arrows z15-)
+hwtag-oneway::cycling_track_arrows                  # line::cycling_track_arrows z15- (also has line::arrows z15-, line::cycling_cycleway_arrows z15-, line::cycling_footway_arrows z15-, line::cycling_lane_arrows z15-, line::cycling_path_arrows z15-, line::cycling_shared_lane_arrows z15-)
+=== 343
+
 cyclewaytag-track                                   # line z13- (also has line(casing) z13-)
 highway-cycleway                                    # line z11- (also has line(casing) z11-, pathtext z13-)
 highway-cycleway-bridge                             # line z11- (also has line(casing) z11-, line::bridgeblack z17-, line::bridgewhite z15-, pathtext z13-)
@@ -76,7 +90,7 @@ highway-ladder                                      # line z12- (also has icon z
 highway-steps                                       # line z12- (also has pathtext z13-)
 highway-steps-bridge                                # line z12- (also has line::bridgeblack z17-, line::bridgewhite z15-, pathtext z13-)
 highway-steps-tunnel                                # line z12- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z13-)
-hwtag-oneway::arrows                                # line::arrows z15-
+hwtag-oneway::arrows                                # line::arrows z15- (also has line::cycling_cycleway_arrows z15-, line::cycling_footway_arrows z15-, line::cycling_lane_arrows z15-, line::cycling_path_arrows z15-, line::cycling_shared_lane_arrows z15-, line::cycling_track_arrows z15-)
 waterway-weir                                       # line z14- (also has pathtext z15-)
 === 330
 
@@ -311,10 +325,6 @@ highway-track-bridge                                # line z11- (also has line::
 highway-track-no-access                             # line z11- (also has pathtext z13-)
 highway-track-tunnel                                # line z11- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z13-)
 === 180
-
-highway-footway-bicycle::cycleline                  # WARNING: no drule defined for the priority (also has line z11-, line(casing) z13-, pathtext z13-)
-highway-path-bicycle::cycleline                     # WARNING: no drule defined for the priority (also has line z11-, line(casing) z12-, pathtext z13-)
-=== 170
 
 highway-construction                                # line z11- (also has pathtext z15-)
 leisure-track                                       # line z15- (also has caption z16-)
