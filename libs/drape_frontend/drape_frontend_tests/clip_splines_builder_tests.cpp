@@ -2,12 +2,14 @@
 
 #include "drape_frontend/apply_feature_params.hpp"
 #include "drape_frontend/clip_splines_builder.hpp"
+#include "drape_frontend/line_shape_helper.hpp"
 #include "drape_frontend/tile_key.hpp"
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_data.hpp"
 
+#include <cmath>
 #include <vector>
 
 // Friend of FeatureType (declared in indexer/feature.hpp). Lets a test set up
@@ -294,6 +296,29 @@ UNIT_TEST(ClipSplinesBuilder_ClippedSplineOffset)
   TEST_EQUAL(splines.size(), 1, ());
   TEST_EQUAL(offsets.size(), splines.size(), ());
   TEST_ALMOST_EQUAL_ABS(offsets.front(), 5.0, 1e-12, ());
+}
+
+UNIT_TEST(DashedLinePhase_ReversedMetalineMember)
+{
+  double constexpr kFeatureLength = 10.0;
+  double const forwardEnd = df::AdvanceDashPhase(0.0, kFeatureLength, false /* reversed */);
+  double const reversedEnd = df::AdvanceDashPhase(2.0 * kFeatureLength, kFeatureLength, true /* reversed */);
+
+  // Both features meet at the same chain offset even though the second feature's
+  // source geometry runs in the opposite direction.
+  TEST_ALMOST_EQUAL_ABS(df::WrapDashPhase(forwardEnd, 7.0), df::WrapDashPhase(reversedEnd, 7.0), 1e-12, ());
+}
+
+UNIT_TEST(DashedLinePhase_LargeOffsetIsWrappedBeforeFloatConversion)
+{
+  double constexpr kMaskLength = 31.0;
+  double constexpr kLargeOffset = 1.0e12 + 17.25;
+  double const wrapped = df::WrapDashPhase(kLargeOffset, kMaskLength);
+
+  TEST_GREATER_OR_EQUAL(wrapped, 0.0, ());
+  TEST_LESS(wrapped, kMaskLength, ());
+  TEST_ALMOST_EQUAL_ABS(wrapped, std::fmod(kLargeOffset, kMaskLength), 1e-12, ());
+  TEST_ALMOST_EQUAL_ABS(static_cast<double>(static_cast<float>(wrapped)), wrapped, 1e-5, ());
 }
 
 UNIT_TEST(ClipSplinesBuilder_LimitRect_Isoline_InSmoothBand)

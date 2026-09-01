@@ -33,7 +33,7 @@ std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
 
     std::vector<MetalineData> model;
     auto const version = ReadPrimitiveFromSource<uint8_t>(src);
-    if (version == 1 || version == kMetaLinesSectionVersion)
+    if (version >= 1 && version <= kMetaLinesSectionVersion)
     {
       for (auto metalineIndex = ReadVarUint<uint32_t>(src); metalineIndex > 0; --metalineIndex)
       {
@@ -43,7 +43,9 @@ std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
           auto const fid = ReadVarInt<int32_t>(src);
           FeatureID const featureId(mwmId, static_cast<uint32_t>(std::abs(fid)));
           data.m_features.emplace_back(featureId);
-          if (version >= 2)
+          if (version >= 3)
+            data.m_dashPhaseOffsets.push_back(ReadPrimitiveFromSource<double>(src));
+          else if (version == 2)
             data.m_dashPhaseOffsets.push_back(ReadPrimitiveFromSource<float>(src));
           if (fid <= 0)
             data.m_reversed.insert(featureId);

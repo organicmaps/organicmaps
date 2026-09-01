@@ -68,4 +68,7 @@ std::vector<glsl::vec2> GenerateCapNormals(dp::LineCap capType, glsl::vec2 const
 glsl::vec2 GetNormal(LineSegment const & segment, bool isLeft, ENormalType normalType);
 
 float GetProjectionLength(glsl::vec2 const & newPoint, glsl::vec2 const & startPoint, glsl::vec2 const & endPoint);
+
+double WrapDashPhase(double phase, double maskLength);
+double AdvanceDashPhase(double phase, double distance, bool reversed);
 }  // namespace df
