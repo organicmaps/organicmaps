@@ -36,41 +36,80 @@ line|z10-[highway=trunk_link][tunnel?],
 
 /* Dedicated cycleways and designated shared paths/footways render solid in the
    stronger @cycleway blue, with a continuous casing. */
-line|z11-[highway=cycleway],
-line|z12-[highway=path][bicycle=designated],
-line|z13-[highway=footway][bicycle=designated],
+line|z11-[highway=cycleway][hwtag!=yescar],
+line|z12-[highway=path][bicycle=designated][hwtag!=yescar],
+line|z13-[highway=footway][bicycle=designated][hwtag!=yescar],
 {color: @cycleway; opacity: 1; dashes: none; linecap: round;
  casing-color: @cycleway_casing; casing-width: 1.5;}
 
-line|z11[highway=cycleway],
+line|z11[highway=cycleway][hwtag!=yescar],
 {width: 1.3;}
-line|z12[highway=cycleway],
-line|z12[highway=path][bicycle=designated],
+line|z12[highway=cycleway][hwtag!=yescar],
+line|z12[highway=path][bicycle=designated][hwtag!=yescar],
 {width: 1.5;}
-line|z13[highway=cycleway],
-line|z13[highway=path][bicycle=designated],
-line|z13[highway=footway][bicycle=designated],
+line|z13[highway=cycleway][hwtag!=yescar],
+line|z13[highway=path][bicycle=designated][hwtag!=yescar],
+line|z13[highway=footway][bicycle=designated][hwtag!=yescar],
 {width: 2.0;}
-line|z14[highway=cycleway],
-line|z14[highway=path][bicycle=designated],
-line|z14[highway=footway][bicycle=designated],
+line|z14[highway=cycleway][hwtag!=yescar],
+line|z14[highway=path][bicycle=designated][hwtag!=yescar],
+line|z14[highway=footway][bicycle=designated][hwtag!=yescar],
 {width: 2.3;}
-line|z15[highway=cycleway],
-line|z15[highway=path][bicycle=designated],
-line|z15[highway=footway][bicycle=designated],
+line|z15[highway=cycleway][hwtag!=yescar],
+line|z15[highway=path][bicycle=designated][hwtag!=yescar],
+line|z15[highway=footway][bicycle=designated][hwtag!=yescar],
 {width: 3.7;}
-line|z16[highway=cycleway],
-line|z16[highway=path][bicycle=designated],
-line|z16[highway=footway][bicycle=designated],
+line|z16[highway=cycleway][hwtag!=yescar],
+line|z16[highway=path][bicycle=designated][hwtag!=yescar],
+line|z16[highway=footway][bicycle=designated][hwtag!=yescar],
 {width: 4.9;}
-line|z17[highway=cycleway],
-line|z17[highway=path][bicycle=designated],
-line|z17[highway=footway][bicycle=designated],
+line|z17[highway=cycleway][hwtag!=yescar],
+line|z17[highway=path][bicycle=designated][hwtag!=yescar],
+line|z17[highway=footway][bicycle=designated][hwtag!=yescar],
 {width: 6.0;}
-line|z18-[highway=cycleway],
-line|z18-[highway=path][bicycle=designated],
-line|z18-[highway=footway][bicycle=designated],
+line|z18-[highway=cycleway][hwtag!=yescar],
+line|z18-[highway=path][bicycle=designated][hwtag!=yescar],
+line|z18-[highway=footway][bicycle=designated][hwtag!=yescar],
 {width: 6.9;}
+
+/* A separately mapped bicycle way with explicit motor-vehicle access is shared
+   space, not protected infrastructure. Keep its normal visibility range while
+   overriding the solid stroke with the dotted shared-space treatment. */
+line|z11-[highway=cycleway][hwtag=yescar],
+line|z12-[highway=path][bicycle=designated][hwtag=yescar],
+line|z13-[highway=footway][bicycle=designated][hwtag=yescar],
+{opacity: 1; linecap: round;
+ casing-color: @cycleway_casing; casing-width: 1.5; casing-dashes: none; casing-linecap: round;}
+
+line|z11[highway=cycleway][hwtag=yescar],
+{color: @cycleway_road; width: 1.3; dashes: 1.3,2.7;}
+line|z12[highway=cycleway][hwtag=yescar],
+line|z12[highway=path][bicycle=designated][hwtag=yescar],
+{color: @cycleway_road; width: 1.5; dashes: 1.5,3.1;}
+line|z13[highway=cycleway][hwtag=yescar],
+line|z13[highway=path][bicycle=designated][hwtag=yescar],
+line|z13[highway=footway][bicycle=designated][hwtag=yescar],
+{color: @cycleway_road; width: 2.0; dashes: 2.0,4.2;}
+line|z14[highway=cycleway][hwtag=yescar],
+line|z14[highway=path][bicycle=designated][hwtag=yescar],
+line|z14[highway=footway][bicycle=designated][hwtag=yescar],
+{color: @cycleway_road; width: 2.3; dashes: 2.4,4.8;}
+line|z15[highway=cycleway][hwtag=yescar],
+line|z15[highway=path][bicycle=designated][hwtag=yescar],
+line|z15[highway=footway][bicycle=designated][hwtag=yescar],
+{color: @cycleway_road; width: 3.7; dashes: 3.6,4.8;}
+line|z16[highway=cycleway][hwtag=yescar],
+line|z16[highway=path][bicycle=designated][hwtag=yescar],
+line|z16[highway=footway][bicycle=designated][hwtag=yescar],
+{color: @cycleway_road; width: 4.9; dashes: 4.5,5.1;}
+line|z17[highway=cycleway][hwtag=yescar],
+line|z17[highway=path][bicycle=designated][hwtag=yescar],
+line|z17[highway=footway][bicycle=designated][hwtag=yescar],
+{color: @cycleway_road; width: 6.0; dashes: 5.4,5.4;}
+line|z18-[highway=cycleway][hwtag=yescar],
+line|z18-[highway=path][bicycle=designated][hwtag=yescar],
+line|z18-[highway=footway][bicycle=designated][hwtag=yescar],
+{color: @cycleway_road; width: 6.9; dashes: 6.6,6.6;}
 
 /* The base path/footway line is already solid @cycleway, so the inherited
    ::cycleline underline (a second, fainter blue line) is redundant. */
