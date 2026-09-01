@@ -20,7 +20,6 @@ std::string const kRouteColor = "Route";
 std::string const kRouteOutlineColor = "RouteOutline";
 std::string const kRoutePedestrian = "RoutePedestrian";
 std::string const kRouteBicycle = "RouteBicycle";
-std::string const kRouteBicycleOutline = "RouteBicycleOutline";
 std::string const kRouteRuler = "RouteRuler";
 std::string const kTransitStopInnerMarkerColor = "TransitStopInnerMarker";
 
