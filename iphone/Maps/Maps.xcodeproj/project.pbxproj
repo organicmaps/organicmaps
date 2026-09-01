@@ -108,6 +108,7 @@
 		ED46DDD02D098A0B007CACD6 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED46DDCF2D098A0B007CACD6 /* SwiftUI.framework */; };
 		ED46DDE12D098A0C007CACD6 /* OMapsWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = ED46DDCC2D098A0B007CACD6 /* OMapsWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		ED810EC52D566E9B00ECDE2C /* SearchOnMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED810EC42D566E9B00ECDE2C /* SearchOnMapTests.swift */; };
+		2C6B64E5A79043179FD58BDC /* SearchOnMapViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D78F8A0D5C648C585DB2864 /* SearchOnMapViewTests.swift */; };
 		ED82BCB22F900F8200FA103D /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82BCAF2F900F8200FA103D /* main.mm */; };
 		ED82C4F22F90180300FA103D /* MWMAutoupdateController.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2982F90180300FA103D /* MWMAutoupdateController.mm */; };
 		ED82C4F32F90180300FA103D /* AvailableArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C29B2F90180300FA103D /* AvailableArea.swift */; };
@@ -369,6 +370,7 @@
 		ED82C5FF2F90180300FA103D /* SearchOnMapModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4B62F90180300FA103D /* SearchOnMapModels.swift */; };
 		ED82C6002F90180300FA103D /* SearchOnMapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4B72F90180300FA103D /* SearchOnMapPresenter.swift */; };
 		ED82C6012F90180300FA103D /* SearchOnMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4B82F90180300FA103D /* SearchOnMapViewController.swift */; };
+		AB1327712F90180300FA103D /* RoutePointSearchSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1327742F90180300FA103D /* RoutePointSearchSelection.swift */; };
 		ED82C6022F90180300FA103D /* MWMSearchCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4BB2F90180300FA103D /* MWMSearchCell.mm */; };
 		ED82C6032F90180300FA103D /* MWMSearchCommonCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4BD2F90180300FA103D /* MWMSearchCommonCell.mm */; };
 		ED82C6042F90180300FA103D /* MWMSearchSuggestionCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4C02F90180300FA103D /* MWMSearchSuggestionCell.mm */; };
@@ -623,6 +625,8 @@
 		ED91433B3001A0000081DF0B /* DeepLinkHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED91433A3001A0000081DF0B /* DeepLinkHandlerTests.swift */; };
 		ED9BEED62FFEB5C8008DB423 /* ColorGridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9BEED52FFEB5C8008DB423 /* ColorGridViewController.swift */; };
 		ED9DDF9D2D6F6F7900645BC8 /* TrackRecordingManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9DDF9B2D6F6DA300645BC8 /* TrackRecordingManagerTests.swift */; };
+		AA01B2C3D4E5F60718293A02 /* MWMRoutePointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01B2C3D4E5F60718293A01 /* MWMRoutePointTests.swift */; };
+		D48A5E31FA0C45748F11AD48 /* MWMRoutePointSelectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C7250731AB471A81905386 /* MWMRoutePointSelectionTests.swift */; };
 		EDAA00012F91000000FA103D /* SearchCategoryIconRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAA00022F91000000FA103D /* SearchCategoryIconRenderer.swift */; };
 		EDBAB6F52E980421007962B5 /* GeoNavigationToOMURLConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBAB6F42E980421007962B5 /* GeoNavigationToOMURLConverterTests.swift */; };
 		EDC4E3612C5E2576009286A2 /* RecentlyDeletedCategoriesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E3412C5D1BD3009286A2 /* RecentlyDeletedCategoriesViewModelTests.swift */; };
@@ -964,6 +968,7 @@
 		ED46DDCD2D098A0B007CACD6 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		ED46DDCF2D098A0B007CACD6 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		ED810EC42D566E9B00ECDE2C /* SearchOnMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapTests.swift; sourceTree = "<group>"; };
+		4D78F8A0D5C648C585DB2864 /* SearchOnMapViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapViewTests.swift; sourceTree = "<group>"; };
 		ED82BCAE2F900F8200FA103D /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		ED82BCAF2F900F8200FA103D /* main.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		ED82BCB02F900F8200FA103D /* Maps_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Maps_Prefix.pch; sourceTree = "<group>"; };
@@ -1397,6 +1402,7 @@
 		ED82C4B62F90180300FA103D /* SearchOnMapModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapModels.swift; sourceTree = "<group>"; };
 		ED82C4B72F90180300FA103D /* SearchOnMapPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapPresenter.swift; sourceTree = "<group>"; };
 		ED82C4B82F90180300FA103D /* SearchOnMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapViewController.swift; sourceTree = "<group>"; };
+		AB1327742F90180300FA103D /* RoutePointSearchSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePointSearchSelection.swift; sourceTree = "<group>"; };
 		ED82C4BA2F90180300FA103D /* MWMSearchCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSearchCell.h; sourceTree = "<group>"; };
 		ED82C4BB2F90180300FA103D /* MWMSearchCell.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchCell.mm; sourceTree = "<group>"; };
 		ED82C4BC2F90180300FA103D /* MWMSearchCommonCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSearchCommonCell.h; sourceTree = "<group>"; };
@@ -1705,6 +1711,8 @@
 		ED91433A3001A0000081DF0B /* DeepLinkHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkHandlerTests.swift; sourceTree = "<group>"; };
 		ED9BEED52FFEB5C8008DB423 /* ColorGridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorGridViewController.swift; sourceTree = "<group>"; };
 		ED9DDF9B2D6F6DA300645BC8 /* TrackRecordingManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingManagerTests.swift; sourceTree = "<group>"; };
+		AA01B2C3D4E5F60718293A01 /* MWMRoutePointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWMRoutePointTests.swift; sourceTree = "<group>"; };
+		B9C7250731AB471A81905386 /* MWMRoutePointSelectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWMRoutePointSelectionTests.swift; sourceTree = "<group>"; };
 		EDAA00022F91000000FA103D /* SearchCategoryIconRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCategoryIconRenderer.swift; sourceTree = "<group>"; };
 		EDBAB6F42E980421007962B5 /* GeoNavigationToOMURLConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoNavigationToOMURLConverterTests.swift; sourceTree = "<group>"; };
 		EDC4E3402C5D1BD3009286A2 /* MockRecentlyDeletedCategoriesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockRecentlyDeletedCategoriesManager.swift; sourceTree = "<group>"; };
@@ -1973,6 +1981,7 @@
 			children = (
 				ED91433C3001A0000081DF0B /* DeepLink */,
 				EDBAB6F12E980415007962B5 /* GeoNavigationToOMURLConverterTests */,
+				AA01B2C3D4E5F60718293A03 /* Routing */,
 				ED9DDF982D6F6D8000645BC8 /* TrackRecorder */,
 				EDF838AB2C00B9C7007E4E67 /* iCloudTests */,
 				4B4153B72BF970A000EE4B02 /* TextToSpeech */,
@@ -2197,6 +2206,7 @@
 			isa = PBXGroup;
 			children = (
 				ED810EC42D566E9B00ECDE2C /* SearchOnMapTests.swift */,
+				4D78F8A0D5C648C585DB2864 /* SearchOnMapViewTests.swift */,
 			);
 			path = SearchOnMapTests;
 			sourceTree = "<group>";
@@ -3366,6 +3376,7 @@
 				ED82C4B62F90180300FA103D /* SearchOnMapModels.swift */,
 				ED82C4B72F90180300FA103D /* SearchOnMapPresenter.swift */,
 				ED82C4B82F90180300FA103D /* SearchOnMapViewController.swift */,
+				AB1327742F90180300FA103D /* RoutePointSearchSelection.swift */,
 			);
 			path = SearchOnMap;
 			sourceTree = "<group>";
@@ -4047,6 +4058,15 @@
 				ED82C81E2F90186900FA103D /* MWMMacros.h */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		AA01B2C3D4E5F60718293A03 /* Routing */ = {
+			isa = PBXGroup;
+			children = (
+				AA01B2C3D4E5F60718293A01 /* MWMRoutePointTests.swift */,
+				B9C7250731AB471A81905386 /* MWMRoutePointSelectionTests.swift */,
+			);
+			path = Routing;
 			sourceTree = "<group>";
 		};
 		ED91433C3001A0000081DF0B /* DeepLink */ = {
@@ -4889,6 +4909,7 @@
 				ED82C5FF2F90180300FA103D /* SearchOnMapModels.swift in Sources */,
 				ED82C6002F90180300FA103D /* SearchOnMapPresenter.swift in Sources */,
 				ED82C6012F90180300FA103D /* SearchOnMapViewController.swift in Sources */,
+				AB1327712F90180300FA103D /* RoutePointSearchSelection.swift in Sources */,
 				ED82C6022F90180300FA103D /* MWMSearchCell.mm in Sources */,
 				ED82C6032F90180300FA103D /* MWMSearchCommonCell.mm in Sources */,
 				ED82C6042F90180300FA103D /* MWMSearchSuggestionCell.mm in Sources */,
@@ -5003,10 +5024,13 @@
 				EDF838BE2C00B9D0007E4E67 /* LocalDirectoryMonitorDelegateMock.swift in Sources */,
 				EDC4E3692C5E6F5B009286A2 /* MockRecentlyDeletedCategoriesManager.swift in Sources */,
 				ED9DDF9D2D6F6F7900645BC8 /* TrackRecordingManagerTests.swift in Sources */,
+				AA01B2C3D4E5F60718293A02 /* MWMRoutePointTests.swift in Sources */,
+				D48A5E31FA0C45748F11AD48 /* MWMRoutePointSelectionTests.swift in Sources */,
 				EDF838BF2C00B9D0007E4E67 /* SynchronizationStateManagerTests.swift in Sources */,
 				ED914330300168200081DF0B /* MainSceneDelegateTests.swift in Sources */,
 				ED91433B3001A0000081DF0B /* DeepLinkHandlerTests.swift in Sources */,
 				ED810EC52D566E9B00ECDE2C /* SearchOnMapTests.swift in Sources */,
+				2C6B64E5A79043179FD58BDC /* SearchOnMapViewTests.swift in Sources */,
 				4B83AE4B2C2E642100B0C3BC /* TTSTesterTest.m in Sources */,
 				EDF838C22C00B9D6007E4E67 /* MetadataItemStubs.swift in Sources */,
 				EDC4E3612C5E2576009286A2 /* RecentlyDeletedCategoriesViewModelTests.swift in Sources */,
