@@ -6,3 +6,9 @@
 @cycleway: #90CAF9;
 @cycleway_road: #1E88E5;
 @cycleway_casing: #000000;
+@cycleway_arrow_solid_xs: cycling-arrow-solid-xs.svg;
+@cycleway_arrow_solid_s: cycling-arrow-solid-s.svg;
+@cycleway_arrow_solid_m: cycling-arrow-solid-m.svg;
+@cycleway_arrow_patterned_xs: cycling-arrow-patterned-xs.svg;
+@cycleway_arrow_patterned_s: cycling-arrow-patterned-s.svg;
+@cycleway_arrow_patterned_m: cycling-arrow-patterned-m.svg;
