@@ -6,14 +6,13 @@ apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
 
 android {
   namespace = 'app.organicmaps.sdk.wear'
+  enableKotlin = true  // see app/build.gradle
 }
 
 dependencies {
   // WearNavigationState is part of this module's public API (see WearNavigationPublisher),
   // so expose wear-protocol transitively to consumers.
   api project(':libs:wear-protocol')
-
-  implementation libs.androidx.annotation
 
   testImplementation libs.androidx.junit
 }
