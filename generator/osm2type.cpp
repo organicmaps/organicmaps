@@ -1112,14 +1112,13 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
     {
       bool addOneway = false;
       bool noOneway = false;
-      bool bicycleDesignated = false;
       CachedTypes::Type cyclewayType = CachedTypes::Count;
       auto const IsPositiveCyclewayProtection = [](std::string const & value)
       { return !value.empty() && !IsNegativeTagValue(value) && value != "no_separation"; };
       auto const SetCyclewayType = [&cyclewayType](CachedTypes::Type type)
       {
-        // Rendering uses one centerline category. Prefer the most protected
-        // infrastructure when tags describe different sides or directions.
+        // Rendering uses one centerline category. When sides or directions differ,
+        // conservatively show the least protected explicitly tagged infrastructure.
         auto const GetPriority = [](CachedTypes::Type t)
         {
           switch (t)
@@ -1131,32 +1130,66 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
           }
         };
 
-        if (GetPriority(type) > GetPriority(cyclewayType))
+        if (cyclewayType == CachedTypes::Count || GetPriority(type) < GetPriority(cyclewayType))
           cyclewayType = type;
       };
-      auto const ProcessCyclewayTypeTag = [&SetCyclewayType, &IsPositiveCyclewayProtection,
-                                           p](std::string const & key, std::string const & value)
+      auto const HasMotorTrafficSeparation = [p, &IsPositiveCyclewayProtection](std::string const & key)
+      {
+        for (char const * kind : {"separation", "barrier"})
+        {
+          string const prefix = key + ":" + kind;
+          if (IsPositiveCyclewayProtection(p->GetTag(prefix)))
+            return true;
+
+          // A detailed :both value protects both edges, including the edge next to
+          // motor traffic. For a single detailed edge, only promote the lane when
+          // the adjacent traffic mode explicitly confirms motor traffic.
+          if (IsPositiveCyclewayProtection(p->GetTag(prefix + ":both")))
+            return true;
+          for (char const * side : {"left", "right"})
+          {
+            if (!IsPositiveCyclewayProtection(p->GetTag(prefix + ":" + side)))
+              continue;
+            auto const trafficMode = p->GetTag(key + ":traffic_mode:" + side);
+            if (trafficMode == "motor_vehicle" || trafficMode == "motorcar" || trafficMode == "vehicle")
+              return true;
+          }
+        }
+        return false;
+      };
+      auto const ProcessCyclewayTypeTag = [&SetCyclewayType, &HasMotorTrafficSeparation](std::string const & key,
+                                                                                        std::string const & value)
       {
         CachedTypes::Type type = CachedTypes::Count;
         if (value == "track" || value == "opposite_track" || value == "protected_lane")
           type = CachedTypes::CyclewayTrack;
         else if (value == "lane" || value == "opposite_lane" || value == "buffered_lane")
           type = CachedTypes::CyclewayLane;
-        else if (value == "shared_lane")
+        else if (value == "shared_lane" || value == "share_busway" || value == "shoulder")
           type = CachedTypes::CyclewaySharedLane;
 
-        // A physically separated lane is as safe as a track. Check the same key
-        // (side) that carried the lane, not any other side.
-        if (type == CachedTypes::CyclewayLane)
-        {
-          string const prefix(key);
-          if (IsPositiveCyclewayProtection(p->GetTag(prefix + ":separation")) ||
-              IsPositiveCyclewayProtection(p->GetTag(prefix + ":barrier")))
-            type = CachedTypes::CyclewayTrack;
-        }
+        // A physically separated lane is as safe as a track. Check only protection
+        // from motor traffic on the same side that carried the lane.
+        if (type == CachedTypes::CyclewayLane && HasMotorTrafficSeparation(key))
+          type = CachedTypes::CyclewayTrack;
 
         if (type != CachedTypes::Count)
           SetCyclewayType(type);
+      };
+      auto const ProcessCyclewayLaneTag = [&SetCyclewayType, p](std::string const & key,
+                                                                std::string const & value)
+      {
+        string const cyclewayKey = key.substr(0, key.size() - string(":lane").size());
+        if (IsNegativeRoutingTagValue(p->GetTag(cyclewayKey)))
+          return false;
+
+        if (value == "exclusive")
+          SetCyclewayType(CachedTypes::CyclewayLane);
+        else if (value == "advisory" || value == "pictogram")
+          SetCyclewayType(CachedTypes::CyclewaySharedLane);
+        else
+          return false;
+        return true;
       };
 
       TagProcessor(p).ApplyRules({
@@ -1196,9 +1229,18 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
 
           {"bicycle", "!r", [&flags] { flags[Flags::Bicycle] = -1; }},
           {"bicycle", "~r", [&flags] { flags[Flags::Bicycle] = 1; }},
-          {"bicycle", "designated", [&bicycleDesignated] { bicycleDesignated = true; }},
-          {"bicycle_road", "~r", [&flags] { flags[Flags::Bicycle] = 1; }},
-          {"cyclestreet", "~r", [&flags] { flags[Flags::Bicycle] = 1; }},
+          {"bicycle_road", "~r",
+           [&flags, &SetCyclewayType]
+      {
+        flags[Flags::Bicycle] = 1;
+        SetCyclewayType(CachedTypes::CyclewaySharedLane);
+      }},
+          {"cyclestreet", "~r",
+           [&flags, &SetCyclewayType]
+      {
+        flags[Flags::Bicycle] = 1;
+        SetCyclewayType(CachedTypes::CyclewaySharedLane);
+      }},
           {"oneway:bicycle", "!", [&AddParam] { AddParam(CachedTypes::BicycleBidir); }},
           {"oneway:bicycle", "~", [&AddParam] { AddParam(CachedTypes::BicycleOnedir); }},
           {"cycleway", "opposite", [&AddParam] { AddParam(CachedTypes::BicycleBidir); }},
@@ -1217,7 +1259,13 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
       for (auto const & tag : p->Tags())
       {
         if (!IsCyclewayKey(tag.m_key))
+        {
+          bool const isCyclewayLaneTag = tag.m_key.ends_with(":lane") &&
+                                         IsCyclewayKey(tag.m_key.substr(0, tag.m_key.size() - string(":lane").size()));
+          if (isCyclewayLaneTag && ProcessCyclewayLaneTag(tag.m_key, tag.m_value))
+            flags[Flags::Cycleway] = 1;
           continue;
+        }
 
         bool const appliesToWholeRoad = tag.m_key == "cycleway" || tag.m_key == "cycleway:both";
         if (appliesToWholeRoad && IsNegativeRoutingTagValue(tag.m_value))
@@ -1250,15 +1298,6 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
                 IsBicycleDesignatedHighway(vType));
       ApplyFlag(Flags::MotorCar, CachedTypes::YesCar, CachedTypes::NoCar, CachedTypes::NoCar,
                 IsCarDesignatedHighway(vType));
-
-      // Residential streets where bicycles are explicitly designated but no dedicated
-      // cycleway is tagged: bikes share the carriageway with cars, so treat them as
-      // shared_lane for rendering.
-      if (cyclewayType == CachedTypes::Count && bicycleDesignated &&
-          ftypes::IsWayChecker::Instance().GetSearchRank(vType) == ftypes::IsWayChecker::Residential)
-      {
-        SetCyclewayType(CachedTypes::CyclewaySharedLane);
-      }
 
       if (cyclewayType != CachedTypes::Count && !IsBicycleDesignatedHighway(vType))
         AddParam(cyclewayType);
