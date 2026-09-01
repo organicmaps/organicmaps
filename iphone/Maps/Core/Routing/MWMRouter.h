@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)isSpeedCamLimitExceeded;
 
 + (BOOL)canAddIntermediatePoint;
++ (BOOL)isRoutePointsLimitReached;
 
 + (void)startRouting;
 + (void)stopRouting;
@@ -34,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSInteger)pointsCount;
 + (nullable MWMRoutePoint *)startPoint;
 + (nullable MWMRoutePoint *)finishPoint;
++ (nullable MWMRoutePoint *)myPositionPoint;
 
 + (void)enableAutoAddLastLocation:(BOOL)enable;
 

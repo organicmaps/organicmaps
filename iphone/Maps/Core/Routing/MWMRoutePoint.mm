@@ -7,9 +7,43 @@
 
 #include "platform/measurement_utils.hpp"
 
+namespace
+{
+NSString * FormatLatLon(m2::PointD const & point)
+{
+  return @(measurement_utils::FormatLatLon(mercator::YToLat(point.y), mercator::XToLon(point.x), true).c_str());
+}
+
+NSString * NormalizeTitle(NSString * title, m2::PointD const & point)
+{
+  return title.length > 0 ? title : FormatLatLon(point);
+}
+
+NSString * NormalizeSubtitle(NSString * subtitle)
+{
+  return subtitle ?: @"";
+}
+}  // namespace
+
 @interface MWMRoutePoint ()
 
 @property(nonatomic, readonly) m2::PointD point;
+
+@end
+
+@implementation MWMRoutePointSelection
+
+- (instancetype)initWithPoint:(MWMRoutePoint *)point type:(MWMRoutePointType)type shouldAppend:(BOOL)shouldAppend
+{
+  self = [super init];
+  if (self)
+  {
+    _point = point;
+    _type = type;
+    _shouldAppend = shouldAppend;
+  }
+  return self;
+}
 
 @end
 
@@ -44,7 +78,7 @@
   if (self)
   {
     _point = point.m_org;
-    _title = @(point.m_name.c_str());
+    _title = NormalizeTitle(@(point.m_name.c_str()), _point);
     _subtitle = @"";
     _isMyPosition = NO;
     _type = type;
@@ -61,8 +95,8 @@
   if (self)
   {
     _point = point.m_position;
-    _title = @(point.m_title.c_str());
-    _subtitle = @(point.m_subTitle.c_str());
+    _title = NormalizeTitle(@(point.m_title.c_str()), _point);
+    _subtitle = NormalizeSubtitle(@(point.m_subTitle.c_str()));
     _isMyPosition = point.m_isMyPosition;
     _intermediateIndex = point.m_intermediateIndex;
     switch (point.m_pointType)
@@ -98,8 +132,8 @@
   if (self)
   {
     _point = point;
-    _title = title;
-    _subtitle = subtitle ?: @"";
+    _title = NormalizeTitle(title, _point);
+    _subtitle = NormalizeSubtitle(subtitle);
     _isMyPosition = NO;
     _type = type;
     _intermediateIndex = intermediateIndex;
@@ -126,7 +160,7 @@
 
 - (NSString *)latLonString
 {
-  return @(measurement_utils::FormatLatLon(self.latitude, self.longitude, true).c_str());
+  return FormatLatLon(self.point);
 }
 
 - (RouteMarkData)routeMarkData
@@ -158,10 +192,9 @@
 
   MWMRoutePoint * other = (MWMRoutePoint *)object;
 
-  BOOL titlesEqual = (!self.title && !other.title) || [self.title isEqualToString:other.title];
-  BOOL subtitlesEqual = (!self.subtitle && !other.subtitle) || [self.subtitle isEqualToString:other.subtitle];
-  BOOL latLonEqual =
-      (!self.latLonString && !other.latLonString) || [self.latLonString isEqualToString:other.latLonString];
+  BOOL titlesEqual = [self.title isEqualToString:other.title];
+  BOOL subtitlesEqual = [self.subtitle isEqualToString:other.subtitle];
+  BOOL latLonEqual = [self.latLonString isEqualToString:other.latLonString];
   BOOL typeEqual = self.type == other.type;
   BOOL indexEqual = self.intermediateIndex == other.intermediateIndex;
   BOOL latitudeEqual = fabs(self.latitude - other.latitude) < DBL_EPSILON;

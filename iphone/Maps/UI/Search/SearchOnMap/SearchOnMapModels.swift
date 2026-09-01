@@ -13,6 +13,11 @@ final class SearchQuery: NSObject {
 
 enum SearchOnMap {
   struct ViewModel: Equatable {
+    struct RoutePointActions: Equatable {
+      let title: String
+      let canSelectCurrentLocation: Bool
+    }
+
     enum Content: Equatable {
       case historyAndCategory
       case results(SearchResults)
@@ -24,6 +29,7 @@ enum SearchOnMap {
     var skipSuggestions: Bool
     var searchingText: String?
     var contentState: Content
+    var routePointActions: RoutePointActions?
     var presentationStep: SearchOnMapModalPresentationStep {
       didSet {
         if presentationStep != .hidden {
@@ -63,6 +69,11 @@ enum SearchOnMap {
     case didSelectResult(SearchResult, withQuery: SearchQuery)
     case searchButtonDidTap(SearchQuery)
     case clearButtonDidTap
+    case currentLocationButtonDidTap
+    case chooseOnMapButtonDidTap
+    case didSelectMapPoint(CGPoint)
+    case didCancelMapPoint
+    case refreshRoutePointActions
     case didSelectPlaceOnMap
     case didDeselectPlaceOnMap
     case didUpdatePresentationStep(SearchOnMapModalPresentationStep)
@@ -80,6 +91,8 @@ enum SearchOnMap {
     case setSearchScreenHidden(Bool)
     case setSearchScreenCompact
     case updatePresentationStep(SearchOnMapModalPresentationStep)
+    case updateRoutePointActions(ViewModel.RoutePointActions?)
+    case showMapPointPicker(String)
     case close
     case none
   }
@@ -102,6 +115,7 @@ extension SearchOnMap.ViewModel {
                                              skipSuggestions: false,
                                              searchingText: nil,
                                              contentState: .historyAndCategory,
+                                             routePointActions: nil,
                                              presentationStep: .expanded,
                                              latestVisiblePresentationStep: .expanded)
 }

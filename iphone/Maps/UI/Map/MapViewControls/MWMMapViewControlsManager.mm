@@ -11,7 +11,6 @@
 #import "MapsAppDelegate.h"
 #import "SwiftBridge.h"
 
-#include <CoreApi/Framework.h>
 #import <CoreApi/MWMFrameworkHelper.h>
 
 #include "platform/local_country_file_utils.hpp"
@@ -150,19 +149,19 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
   [ownerController dismissPlacePage];
 
-  NSValue * initialPosition =
+  NSValue * initialMercatorPosition =
       optionalPosition ? [NSValue valueWithCGPoint:CGPointMake(optionalPosition->x, optionalPosition->y)] : nil;
   MapPointPickerViewController * picker =
       [[MapPointPickerViewController alloc] initWithTitle:L(@"editor_add_select_location")
                                                      hint:L(@"editor_focus_map_on_location")
                                              enableBounds:isBusiness
-                                          initialPosition:initialPosition];
+                                  initialMercatorPosition:initialMercatorPosition
+                                     shouldChangeViewport:YES];
   picker.doneHandler = ^(CGPoint point) {
-    if ([MWMFrameworkHelper canEditMapAtViewportCenter])
+    if ([MWMFrameworkHelper canEditMapAtMercatorPoint:point])
     {
-      // Snapshot the position now: by the time the user picks a category the viewport may
-      // have drifted (location follow, layout changes) and the recheck inside CreateMapObject
-      // would land on a different — possibly unloaded — MWM.
+      // Keep using the picked position: by the time the user picks a category the viewport may drift
+      // (location follow, layout changes) onto a different — possibly unloaded — MWM.
       m2::PointD const position(point.x, point.y);
       NSValue * sender = [NSValue valueWithBytes:&position objCType:@encode(m2::PointD)];
       [ownerController performSegueWithIdentifier:kMapToCategorySelectorSegue sender:sender];
@@ -174,7 +173,6 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   };
   picker.cancelHandler = ^{ [self didFinishAddingPlace]; };
   [picker presentIn:ownerController];
-  [ownerController setNeedsStatusBarAppearanceUpdate];
 }
 
 #pragma mark - MWMNavigationDashboardManager

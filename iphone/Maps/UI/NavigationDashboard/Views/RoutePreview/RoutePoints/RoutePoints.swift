@@ -51,6 +51,14 @@ extension NavigationDashboard.RoutePoints {
     }
   }
 
+  func type(for index: Int) -> MWMRoutePointType {
+    switch index {
+    case 0: return .start
+    case count - 1: return .finish
+    default: return .intermediate
+    }
+  }
+
   mutating func movePoint(from sourceIndex: Int, to destinationIndex: Int) {
     guard sourceIndex != destinationIndex else { return }
     var points = points

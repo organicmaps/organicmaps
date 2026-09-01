@@ -10,6 +10,8 @@ final class SearchOnMapManager: NSObject {
 
   weak var viewController: SearchOnMapViewController?
   var isSearching: Bool { viewController != nil }
+  private var isRouting = false
+  private var isSelectingRoutePoint = false
 
   override init() {
     super.init()
@@ -18,12 +20,20 @@ final class SearchOnMapManager: NSObject {
   // MARK: - Public methods
 
   func startSearching(isRouting: Bool) {
+    let isSelectingRoutePoint = isRouting && MWMNavigationDashboardManager.shared().isRoutePointSelectionActive
     if viewController != nil {
-      interactor?.handle(.openSearch)
-      return
+      if self.isRouting == isRouting, self.isSelectingRoutePoint == isSelectingRoutePoint {
+        interactor?.handle(.openSearch)
+        return
+      }
+      interactor?.closeForReplacement()
+      viewController = nil
     }
+    self.isRouting = isRouting
+    self.isSelectingRoutePoint = isSelectingRoutePoint
     FrameworkHelper.deactivateMapSelection()
     let viewController = SearchOnMapViewControllerBuilder.build(isRouting: isRouting,
+                                                                isSelectingRoutePoint: isSelectingRoutePoint,
                                                                 didChangeState: notifyObservers)
     self.viewController = viewController
   }
@@ -62,11 +72,21 @@ final class SearchOnMapManager: NSObject {
 }
 
 private enum SearchOnMapViewControllerBuilder {
-  static func build(isRouting: Bool, didChangeState: @escaping ((SearchOnMapState) -> Void)) -> SearchOnMapViewController {
+  static func build(isRouting: Bool,
+                    isSelectingRoutePoint: Bool,
+                    didChangeState: @escaping ((SearchOnMapState) -> Void)) -> SearchOnMapViewController {
+    let routePointSelector: RoutePointSelecting? = isSelectingRoutePoint ? RoutePointSearchSelection() : nil
+    let routePointActions = routePointSelector.map {
+      SearchOnMap.ViewModel.RoutePointActions(title: $0.title,
+                                              canSelectCurrentLocation: $0.canSelectCurrentLocation)
+    }
     let viewController = SearchOnMapViewController()
-    let presenter = SearchOnMapPresenter(isRouting: isRouting,
+    let presenter = SearchOnMapPresenter(shouldHideForRouting: isRouting && !isSelectingRoutePoint,
+                                         routePointActions: routePointActions,
                                          didChangeState: didChangeState)
-    let interactor = SearchOnMapInteractor(presenter: presenter)
+    let interactor = SearchOnMapInteractor(presenter: presenter,
+                                           routePointSelector: routePointSelector,
+                                           mapViewController: MapViewController.shared())
     presenter.view = viewController
     viewController.interactor = interactor
     viewController.show()
