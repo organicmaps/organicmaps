@@ -83,9 +83,9 @@
     <!-- resource for context menu -->
     <string name="edit">Editar</string>
     <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
-    <string name="share_place_subject">%1$s en Organic Maps</string>
+    <string name="share_place_subject">%1$s n’Organic Maps</string>
     <!-- Email subject when sharing a place that has no name or address. -->
-    <string name="share_place_subject_default">Un llugar en Organic Maps</string>
+    <string name="share_place_subject_default">Un llugar n’Organic Maps</string>
     <!-- Text for message when used successfully copied something -->
     <string name="copied_to_clipboard">Copióse nel cartafueyu: %s</string>
     <!-- Used for bookmark editing -->
