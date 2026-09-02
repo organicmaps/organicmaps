@@ -912,4 +912,6 @@
     <string name="color_picker_grid">Grid</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Utafutaji kwa sauti</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Geuza njia</string>
 </resources>
