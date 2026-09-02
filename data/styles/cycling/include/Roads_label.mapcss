@@ -18,66 +18,66 @@ line|z10-14[highway=motorway_link]::shield,
 line|z10-14[highway=trunk_link]::shield,
 {shield-font-size: 0;}
 
-line|z15[hwtag=oneway][extra_tag=cyclewaytag=track]::cycling_track_arrows,
-line|z15[hwtag=oneway][extra_tag=highway=cycleway]::cycling_cycleway_arrows,
-line|z15[hwtag=oneway][extra_tag=highway=path=bicycle]::cycling_path_arrows,
-line|z15[hwtag=oneway][extra_tag=highway=footway=bicycle]::cycling_footway_arrows,
+line|z15[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag=cyclewaytag=track]::cycling_track_arrows,
+line|z15[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag=highway=cycleway]::cycling_cycleway_arrows,
+line|z15[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag=highway=path=bicycle]::cycling_path_arrows,
+line|z15[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag=highway=footway=bicycle]::cycling_footway_arrows,
 line|z15[hwtag=onedir_bicycle][extra_tag=cyclewaytag=track]::cycling_track_arrows,
 line|z15[hwtag=onedir_bicycle][extra_tag=highway=cycleway]::cycling_cycleway_arrows,
 line|z15[hwtag=onedir_bicycle][extra_tag=highway=path=bicycle]::cycling_path_arrows,
 line|z15[hwtag=onedir_bicycle][extra_tag=highway=footway=bicycle]::cycling_footway_arrows
 {pattern-offset: 30; pattern-image: @cycleway_arrow_solid_xs; pattern-spacing: 60;}
 
-line|z16[hwtag=oneway][extra_tag=cyclewaytag=track]::cycling_track_arrows,
-line|z16[hwtag=oneway][extra_tag=highway=cycleway]::cycling_cycleway_arrows,
-line|z16[hwtag=oneway][extra_tag=highway=path=bicycle]::cycling_path_arrows,
-line|z16[hwtag=oneway][extra_tag=highway=footway=bicycle]::cycling_footway_arrows,
+line|z16[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag=cyclewaytag=track]::cycling_track_arrows,
+line|z16[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag=highway=cycleway]::cycling_cycleway_arrows,
+line|z16[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag=highway=path=bicycle]::cycling_path_arrows,
+line|z16[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag=highway=footway=bicycle]::cycling_footway_arrows,
 line|z16[hwtag=onedir_bicycle][extra_tag=cyclewaytag=track]::cycling_track_arrows,
 line|z16[hwtag=onedir_bicycle][extra_tag=highway=cycleway]::cycling_cycleway_arrows,
 line|z16[hwtag=onedir_bicycle][extra_tag=highway=path=bicycle]::cycling_path_arrows,
 line|z16[hwtag=onedir_bicycle][extra_tag=highway=footway=bicycle]::cycling_footway_arrows
 {pattern-offset: 50; pattern-image: @cycleway_arrow_solid_s; pattern-spacing: 70;}
 
-line|z17[hwtag=oneway][extra_tag=cyclewaytag=track]::cycling_track_arrows,
-line|z17[hwtag=oneway][extra_tag=highway=cycleway]::cycling_cycleway_arrows,
-line|z17[hwtag=oneway][extra_tag=highway=path=bicycle]::cycling_path_arrows,
-line|z17[hwtag=oneway][extra_tag=highway=footway=bicycle]::cycling_footway_arrows,
+line|z17[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag=cyclewaytag=track]::cycling_track_arrows,
+line|z17[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag=highway=cycleway]::cycling_cycleway_arrows,
+line|z17[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag=highway=path=bicycle]::cycling_path_arrows,
+line|z17[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag=highway=footway=bicycle]::cycling_footway_arrows,
 line|z17[hwtag=onedir_bicycle][extra_tag=cyclewaytag=track]::cycling_track_arrows,
 line|z17[hwtag=onedir_bicycle][extra_tag=highway=cycleway]::cycling_cycleway_arrows,
 line|z17[hwtag=onedir_bicycle][extra_tag=highway=path=bicycle]::cycling_path_arrows,
 line|z17[hwtag=onedir_bicycle][extra_tag=highway=footway=bicycle]::cycling_footway_arrows
 {pattern-offset: 70; pattern-image: @cycleway_arrow_solid_s; pattern-spacing: 80;}
 
-line|z18-[hwtag=oneway][extra_tag=cyclewaytag=track]::cycling_track_arrows,
-line|z18-[hwtag=oneway][extra_tag=highway=cycleway]::cycling_cycleway_arrows,
-line|z18-[hwtag=oneway][extra_tag=highway=path=bicycle]::cycling_path_arrows,
-line|z18-[hwtag=oneway][extra_tag=highway=footway=bicycle]::cycling_footway_arrows,
+line|z18-[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag=cyclewaytag=track]::cycling_track_arrows,
+line|z18-[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag=highway=cycleway]::cycling_cycleway_arrows,
+line|z18-[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag=highway=path=bicycle]::cycling_path_arrows,
+line|z18-[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag=highway=footway=bicycle]::cycling_footway_arrows,
 line|z18-[hwtag=onedir_bicycle][extra_tag=cyclewaytag=track]::cycling_track_arrows,
 line|z18-[hwtag=onedir_bicycle][extra_tag=highway=cycleway]::cycling_cycleway_arrows,
 line|z18-[hwtag=onedir_bicycle][extra_tag=highway=path=bicycle]::cycling_path_arrows,
 line|z18-[hwtag=onedir_bicycle][extra_tag=highway=footway=bicycle]::cycling_footway_arrows
 {pattern-offset: 90; pattern-image: @cycleway_arrow_solid_m; pattern-spacing: 90;}
 
-line|z15[hwtag=oneway][extra_tag=cyclewaytag=lane]::cycling_lane_arrows,
-line|z15[hwtag=oneway][extra_tag=cyclewaytag=shared_lane]::cycling_shared_lane_arrows,
+line|z15[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag=cyclewaytag=lane]::cycling_lane_arrows,
+line|z15[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag=cyclewaytag=shared_lane]::cycling_shared_lane_arrows,
 line|z15[hwtag=onedir_bicycle][extra_tag=cyclewaytag=lane]::cycling_lane_arrows,
 line|z15[hwtag=onedir_bicycle][extra_tag=cyclewaytag=shared_lane]::cycling_shared_lane_arrows
 {pattern-offset: 30; pattern-image: @cycleway_arrow_patterned_xs; pattern-spacing: 60;}
 
-line|z16[hwtag=oneway][extra_tag=cyclewaytag=lane]::cycling_lane_arrows,
-line|z16[hwtag=oneway][extra_tag=cyclewaytag=shared_lane]::cycling_shared_lane_arrows,
+line|z16[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag=cyclewaytag=lane]::cycling_lane_arrows,
+line|z16[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag=cyclewaytag=shared_lane]::cycling_shared_lane_arrows,
 line|z16[hwtag=onedir_bicycle][extra_tag=cyclewaytag=lane]::cycling_lane_arrows,
 line|z16[hwtag=onedir_bicycle][extra_tag=cyclewaytag=shared_lane]::cycling_shared_lane_arrows
 {pattern-offset: 50; pattern-image: @cycleway_arrow_patterned_s; pattern-spacing: 70;}
 
-line|z17[hwtag=oneway][extra_tag=cyclewaytag=lane]::cycling_lane_arrows,
-line|z17[hwtag=oneway][extra_tag=cyclewaytag=shared_lane]::cycling_shared_lane_arrows,
+line|z17[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag=cyclewaytag=lane]::cycling_lane_arrows,
+line|z17[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag=cyclewaytag=shared_lane]::cycling_shared_lane_arrows,
 line|z17[hwtag=onedir_bicycle][extra_tag=cyclewaytag=lane]::cycling_lane_arrows,
 line|z17[hwtag=onedir_bicycle][extra_tag=cyclewaytag=shared_lane]::cycling_shared_lane_arrows
 {pattern-offset: 70; pattern-image: @cycleway_arrow_patterned_s; pattern-spacing: 80;}
 
-line|z18-[hwtag=oneway][extra_tag=cyclewaytag=lane]::cycling_lane_arrows,
-line|z18-[hwtag=oneway][extra_tag=cyclewaytag=shared_lane]::cycling_shared_lane_arrows,
+line|z18-[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag=cyclewaytag=lane]::cycling_lane_arrows,
+line|z18-[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag=cyclewaytag=shared_lane]::cycling_shared_lane_arrows,
 line|z18-[hwtag=onedir_bicycle][extra_tag=cyclewaytag=lane]::cycling_lane_arrows,
 line|z18-[hwtag=onedir_bicycle][extra_tag=cyclewaytag=shared_lane]::cycling_shared_lane_arrows
 {pattern-offset: 90; pattern-image: @cycleway_arrow_patterned_m; pattern-spacing: 90;}
