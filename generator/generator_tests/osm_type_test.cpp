@@ -590,6 +590,46 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
   }
 
   {
+    for (char const * value : {"yes", "1", "true"})
+    {
+      Tags const tags = {
+          {"highway", "cycleway"},
+          {"oneway:bicycle", value},
+      };
+
+      auto const params = GetFeatureBuilderParams(tags);
+      TEST(params.IsTypeExist(GetType({"hwtag", "onedir_bicycle"})), (value, params));
+    }
+  }
+
+  {
+    for (char const * value : {"-1", "alternating", "reversible", "unknown"})
+    {
+      Tags const tags = {
+          {"highway", "cycleway"},
+          {"oneway:bicycle", value},
+      };
+
+      auto const params = GetFeatureBuilderParams(tags);
+      TEST(!params.IsTypeExist(GetType({"hwtag", "onedir_bicycle"})), (value, params));
+    }
+  }
+
+  {
+    for (char const * value : {"opposite", "opposite_lane", "opposite_track", "opposite_share_busway"})
+    {
+      Tags const tags = {
+          {"cycleway", value},
+          {"highway", "secondary"},
+          {"oneway", "yes"},
+      };
+
+      auto const params = GetFeatureBuilderParams(tags);
+      TEST(params.IsTypeExist(GetType({"hwtag", "bidir_bicycle"})), (value, params));
+    }
+  }
+
+  {
     Tags const tags = {
         {"foot", "designated"},
         {"cycleway", "lane"},
