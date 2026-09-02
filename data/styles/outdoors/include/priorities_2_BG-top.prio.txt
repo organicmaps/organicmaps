@@ -17,7 +17,6 @@
 # - BG-by-size: landcover areas sorted by their size
 
 organicapp-mwm_border                               # area z1-7
-organicapp-twm_border                               # area z1-7
 === 30
 
 landuse-basin                                       # area z12-
