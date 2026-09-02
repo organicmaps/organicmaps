@@ -273,7 +273,7 @@ void Screenshoter::PrepareCountries()
       {
         ChangeState(State::WaitCountries);
         m_countriesToDownload.insert(countryId);
-        storage.DownloadCountry(countryId, MapFileType::Map);
+        storage.DownloadNode(countryId);  // The map and its terrain.
       }
     }
   }
@@ -290,8 +290,10 @@ void Screenshoter::OnCountryChanged(storage::CountryId countryId)
   if (m_state != State::WaitCountries)
     return;
 
-  auto const status = m_framework.GetStorage().CountryStatusEx(countryId);
-  if (status == storage::Status::OnDisk)
+  // The fused status: the region is complete once its terrain has landed too.
+  storage::NodeAttrs attrs;
+  m_framework.GetStorage().GetNodeAttrs(countryId, attrs);
+  if (attrs.m_status == storage::NodeStatus::OnDisk)
   {
     m_countriesToDownload.erase(countryId);
     if (m_countriesToDownload.empty())

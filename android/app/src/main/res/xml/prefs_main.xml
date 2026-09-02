@@ -45,35 +45,29 @@
       app:singleLineTitle="false"
       android:order="4" />
     <SwitchPreferenceCompat
-      android:key="@string/pref_terrain_with_maps"
-      android:title="@string/pref_terrain_title"
-      android:summary="@string/pref_terrain_summary"
-      app:singleLineTitle="false"
-      android:order="5" />
-    <SwitchPreferenceCompat
       android:key="@string/pref_show_downloaded_regions"
       android:title="@string/show_downloaded_regions"
       app:singleLineTitle="false"
       android:defaultValue="true"
-      android:order="6" />
+      android:order="5" />
     <SwitchPreferenceCompat
       android:key="@string/pref_large_fonts_size"
       android:title="@string/big_font"
       app:singleLineTitle="false"
       android:defaultValue="false"
-      android:order="7" />
+      android:order="6" />
     <SwitchPreferenceCompat
       android:key="@string/pref_transliteration"
       android:title="@string/transliteration_title"
       app:singleLineTitle="false"
       android:defaultValue="false"
-      android:order="8" />
+      android:order="7" />
     <Preference
       android:key="@string/pref_storage"
       android:title="@string/maps_storage"
       app:singleLineTitle="false"
       android:summary="@string/maps_storage_summary"
-      android:order="9" />
+      android:order="8" />
     <SwitchPreferenceCompat
       android:key="@string/pref_enable_logging"
       android:title="@string/enable_logging"

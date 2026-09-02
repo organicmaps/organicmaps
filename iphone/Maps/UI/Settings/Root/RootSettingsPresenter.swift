@@ -45,17 +45,6 @@ final class RootSettingsPresenter {
     viewController?.display(alert)
   }
 
-  func presentTerrainDeleteAllAlert(size: UInt64) {
-    let alert = UIAlertController(title: nil,
-                                  message: String(format: L("terrain_delete_all_message"), formattedSize(size)),
-                                  preferredStyle: .alert)
-    alert.addAction(UIAlertAction(title: L("keep"), style: .cancel))
-    alert.addAction(UIAlertAction(title: L("delete"), style: .destructive) { [weak self] _ in
-      self?.interactor?.deleteAllTerrain()
-    })
-    viewController?.display(alert)
-  }
-
   func presentICloudDisabledAlert() {
     let alert = UIAlertController(title: L("icloud_disabled_title"),
                                   message: L("icloud_disabled_message"),
@@ -130,7 +119,7 @@ final class RootSettingsPresenter {
   }
 
   private func mapItems(_ state: RootSettingsState) -> [RootSettingsItemViewModel] {
-    let items: [RootSettingsItemViewModel?] = [
+    [
       SettingsItemViewModel(setting: .zoomButtons,
                             detail: nil,
                             kind: .switcher(isOn: state.zoomButtonsEnabled, isEnabled: true)),
@@ -138,11 +127,6 @@ final class RootSettingsPresenter {
                             detail: nil,
                             kind: .switcher(isOn: state.buildings3DEditable && state.buildings3DEnabled,
                                             isEnabled: state.buildings3DEditable)),
-      state.terrainAvailable
-        ? SettingsItemViewModel(setting: .terrainWithMaps,
-                                detail: L("pref_terrain_summary"),
-                                kind: .switcher(isOn: state.terrainWithMaps, isEnabled: true))
-        : nil,
       SettingsItemViewModel(setting: .showDownloadedRegions,
                             detail: nil,
                             kind: .switcher(isOn: state.showDownloadedRegions, isEnabled: true)),
@@ -156,7 +140,6 @@ final class RootSettingsPresenter {
       SettingsItemViewModel(setting: .mapTiles,
                             kind: .link),
     ]
-    return items.compactMap { $0 }
   }
 
   private func navigationItems(_ state: RootSettingsState) -> [RootSettingsItemViewModel] {

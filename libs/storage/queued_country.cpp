@@ -3,15 +3,14 @@
 #include "storage/storage_helpers.hpp"
 
 #include "platform/downloader_utils.hpp"
-
-#include "defines.hpp"
+#include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
+#include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
 #include "base/string_utils.hpp"
-#include "platform/local_country_file_utils.hpp"
 
-#include "base/assert.hpp"
+#include "defines.hpp"
 
 namespace storage
 {

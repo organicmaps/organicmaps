@@ -1,6 +1,7 @@
 #include "indexer/terrain/twm_set.hpp"
 
 #include "indexer/terrain/terrain_serdes.hpp"
+#include "indexer/terrain/twm_grid.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -164,12 +165,6 @@ bool TwmSet::HasOlderBlocks(m2::RectD const & rect, int64_t version) const
       found = true;
   });
   return found;
-}
-
-void TwmSet::GetBlockRectsByRect(m2::RectD const & rect, std::vector<m2::RectD> & rects) const
-{
-  rects.clear();
-  ForEachBlockByRectImpl(rect, [&](std::shared_ptr<TwmInfo> const & info) { rects.push_back(info->GetLimitRect()); });
 }
 
 TwmSet::Handle TwmSet::GetHandleById(TwmId const & id)

@@ -467,33 +467,10 @@ void InitStorage(Storage & storage, TaskRunner & runner, Storage::UpdateCallback
   storage.SetDownloaderForTesting(make_unique<FakeMapFilesDownloader>(runner));
   // Disable because of FakeMapFilesDownloader.
   storage.SetEnabledIntegrityValidationForTesting(false);
+  // The map download tests must not bundle the terrain (DownloadNode does): the fake
+  // downloaders would produce terrain files and the landing needs the platform threads.
+  storage.DisableTerrainForTesting();
 }
-
-// The map download tests must not bundle the terrain (DownloadNode does when the
-// "TerrainWithMaps" setting is on): the fake downloaders would produce terrain files
-// and the landing notifications need the platform threads. Saves/restores the real
-// settings value - the fixture does not isolate the settings file.
-class ScopedTerrainWithMapsOff
-{
-public:
-  ScopedTerrainWithMapsOff()
-  {
-    m_had = settings::Get(kKey, m_saved);
-    settings::Set(kKey, false);
-  }
-  ~ScopedTerrainWithMapsOff()
-  {
-    if (m_had)
-      settings::Set(kKey, m_saved);
-    else
-      settings::Delete(kKey);
-  }
-
-private:
-  static constexpr std::string_view kKey = "TerrainWithMaps";  // Mirrors storage.cpp.
-  bool m_saved = false;
-  bool m_had = false;
-};
 
 class StorageTest
 {
@@ -504,8 +481,6 @@ protected:
   Storage storage;
   TaskRunner runner;
   WritableDirChanger writableDirChanger;
-  // The last member: WritableDirChanger's ctor settings::Clear() would wipe the flag.
-  ScopedTerrainWithMapsOff terrainOff;
 };
 
 UNIT_TEST(StorageTest_ParseIndexFile)
@@ -1455,6 +1430,7 @@ UNIT_CLASS_TEST(StorageTest, MultipleMaps)
   storage.SetDownloaderForTesting(make_unique<FakeMapFilesDownloader>(runner));
   // Disable because of FakeMapFilesDownloader.
   storage.SetEnabledIntegrityValidationForTesting(false);
+  storage.DisableTerrainForTesting();
   storage.DownloadNode(nodeId);
   runner.Run();
 

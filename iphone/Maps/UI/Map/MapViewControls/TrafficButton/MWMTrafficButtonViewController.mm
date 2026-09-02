@@ -1,7 +1,6 @@
 #import "MWMTrafficButtonViewController.h"
 
 #import <CoreApi/MWMMapOverlayManager.h>
-#import <CoreApi/MWMStorage.h>
 
 #import "MWMAlertViewController.h"
 #import "MWMButton.h"
@@ -157,27 +156,9 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
       [Toast showWithText:L(@"isolines_toast_zooms_1_10")];
     break;
   case MWMMapOverlayIsolinesStateNoData:
-    // Keep the layer enabled: the hint prompts to download the terrain, and the state
-    // recovers by itself once the viewport gets the coverage. A passive toast, like on
-    // Android: nothing to decide here, a modal alert would only get in the way.
-    if (![[MWMStorage sharedStorage] isTerrainAvailable] || [[MWMStorage sharedStorage] isTerrainWithMaps])
-    {
-      [Toast showWithText:L(@"isolines_location_error_dialog")];
-    }
-    else
-    {
-      // The terrain does not arrive with the maps: offer to turn the setting on and to
-      // fetch the terrain of the downloaded regions in the current viewport.
-      [MWMAlertViewController.activeAlertController presentDefaultAlertWithTitle:L(@"terrain_disabled_dialog")
-                                                                         message:nil
-                                                                rightButtonTitle:L(@"enable")
-                                                                 leftButtonTitle:L(@"cancel")
-                                                               rightButtonAction:^{
-                                                                 MWMStorage * storage = [MWMStorage sharedStorage];
-                                                                 [storage setTerrainWithMaps:YES];
-                                                                 [storage downloadTerrainForViewport];  // MWMStorage+UI
-                                                               }];
-    }
+    // Keep the layer enabled: the state recovers by itself once the viewport gets the
+    // coverage. A passive toast, like on Android, does not block the map.
+    [Toast showWithText:L(@"isolines_location_error_dialog")];
     break;
   }
 }

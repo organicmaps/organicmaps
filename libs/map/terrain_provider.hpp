@@ -1,5 +1,7 @@
 #pragma once
 
+#include "storage/country_info_getter.hpp"
+
 #include "indexer/terrain/tile_mesh.hpp"
 #include "indexer/terrain/twm_grid.hpp"
 #include "indexer/terrain/twm_set.hpp"
@@ -9,11 +11,12 @@
 #include <atomic>
 #include <functional>
 #include <string>
+#include <string_view>
 
 namespace terrain
 {
-// The provider of the dynamic isolines over the downloaded .twm terrain files:
-// scans the directory into the TwmSet registry and serves the queries from the drape tile reading threads.
+// The provider of terrain meshes for hillshading, dynamic isolines and debug rendering:
+// scans downloaded .twm files into the TwmSet registry and serves the drape tile reading threads.
 // The set hands the opened readers off exclusively (concurrent queries get own values), so the FileReader caches need
 // no sharing; blocks detected corrupt are condemned and never retried.
 class TerrainProvider
@@ -54,12 +57,6 @@ public:
   // True when a registered block older than the version intersects the rect: the
   // OnDiskOutOfDate terrain status source. Safe for the UI thread.
   bool HasOlderTerrain(m2::RectD const & rect, int64_t version) const { return m_set.HasOlderBlocks(rect, version); }
-  /// The rects of the downloaded (registered) blocks intersecting the mercator rect,
-  /// e.g. for the downloaded regions highlight on the world zoom.
-  void GetDownloadedRects(m2::RectD const & rect, std::vector<m2::RectD> & rects) const
-  {
-    m_set.GetBlockRectsByRect(rect, rects);
-  }
 
   // Reads the merged deduplicated mesh of the features intersecting the mercator rect
   // at the geometry scale selected for the draw zoom: the single source for the
@@ -76,4 +73,13 @@ private:
   // Mutable: the const queries lock the readers and condemn the corrupt blocks.
   mutable TwmSet m_set;
 };
+
+// A tile draws its terrain where the map does: the blocks are shared by the neighbor
+// regions, so a tile whose centre lies in a region that is not downloaded shows the
+// "Download" call to action instead of the neighbor's relief, while the ocean (no region)
+// keeps its bathymetry. One region lookup per tile read; the region reader and the loaded
+// check are locked on their own, so the tile reading threads may call it.
+using IsCountryLoadedFn = std::function<bool(std::string_view)>;
+bool IsTerrainDrawableAt(storage::CountryInfoGetter const & infoGetter, IsCountryLoadedFn const & isLoaded,
+                         m2::PointD const & tileCenter);
 }  // namespace terrain

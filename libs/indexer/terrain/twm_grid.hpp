@@ -12,6 +12,12 @@
 
 namespace terrain
 {
+// Terrain blocks share border lines by design, so only their interiors overlap.
+inline bool IsInteriorOverlap(m2::RectD const & lhs, m2::RectD const & rhs)
+{
+  return lhs.minX() < rhs.maxX() && rhs.minX() < lhs.maxX() && lhs.minY() < rhs.maxY() && rhs.minY() < lhs.maxY();
+}
+
 // One block of the dynamic (non-regular) TWM blocks grid: an integer-degrees rect named
 // by its bottom-left corner (the .twm file name key).
 struct GridBlock
@@ -26,7 +32,8 @@ struct GridBlock
   m2::RectD GetRectMercator() const;
 };
 
-// One .twm file on disk: the block name and the version folder that holds it
+// One registered .twm file: the block name, the version folder that holds it,
+// the header coverage and its actual disk size
 // (terrain/<version>/<name>.twm, the flat legacy files as the version 0). The on-disk
 // truth the provider scan reports to the storage, see TerrainProvider::Rescan and
 // Storage::OnTerrainScanned.
@@ -34,13 +41,20 @@ struct TwmFile
 {
   std::string m_name;
   int64_t m_version = 0;
+  m2::RectD m_rect;
+  uint64_t m_size = 0;
 };
 
-// The version folders of the terrain dir as TwmFiles (m_name is the folder PATH here):
-// the numeric-named folders newest first, plus the flat legacy root as the version 0
-// last - the registration order for "the newest data wins" (see TerrainProvider::Rescan)
-// and the folder set of the artifact sweeps (see Storage::RestoreTerrain).
-std::vector<TwmFile> ListVersionDirs(std::string const & terrainDir);
+struct VersionDir
+{
+  std::string m_path;
+  int64_t m_version = 0;
+};
+
+// The numeric-named terrain version folders newest first, plus the flat legacy root as
+// version 0 last. This is both the registration order for "the newest data wins" and
+// the folder set of the artifact sweeps.
+std::vector<VersionDir> ListVersionDirs(std::string const & terrainDir);
 
 // Parses the block name (the SW corner, e.g. "N40E045") into bottom/left degrees.
 bool ParseBlockName(std::string_view name, int & bottom, int & left);

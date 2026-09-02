@@ -424,10 +424,10 @@ extension DownloadMapsViewController: StorageObserver {
   }
 
   func processCountry(_ countryId: String, downloadedBytes: UInt64, totalBytes: UInt64) {
-    // The observer reports the MAP bytes only, but the rows show the FUSED map+terrain
-    // ratio (see MapNodeAttributes): the raw bytes would race the bar to 100% and drop
-    // it back at the map-to-terrain handover. Re-read the fused attrs instead.
-    let fused = Storage.shared().attributes(forCountry: countryId).downloadingProgress
+    // MapNodeAttributes is the single source for the fused, deduplicated map+terrain
+    // progress and remaining size. Re-read it for both map and terrain notifications.
+    let attrs = Storage.shared().attributes(forCountry: countryId)
+    let fused = attrs.downloadingProgress
     let progress = fused > 0 ? CGFloat(fused) : CGFloat(downloadedBytes) / CGFloat(totalBytes)
     for cell in tableView.visibleCells {
       guard let downloaderCell = cell as? MWMMapDownloaderTableViewCell,
@@ -437,7 +437,7 @@ extension DownloadMapsViewController: StorageObserver {
 
     if countryId == dataSource.getParentCountryId() {
       downloadAllView.downloadProgress = progress
-      downloadAllView.downloadSize = totalBytes
+      downloadAllView.downloadSize = attrs.downloadingSize
     } else if dataSource.isRoot, dataSource is DownloadedMapsDataSource {
       downloadAllView.state = .dowloading
       downloadAllView.isSizeHidden = true

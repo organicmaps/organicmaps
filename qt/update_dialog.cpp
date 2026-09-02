@@ -29,10 +29,8 @@ enum
 {
   //  KItemIndexFlag = 0,
   KColumnIndexCountry,
-  KColumnIndexStatus,  // The MWM status.
-  KColumnIndexSize,    // The MWM size.
-  KColumnIndexTwmStatus,
-  KColumnIndexTwmSize,
+  KColumnIndexStatus,
+  KColumnIndexSize,
   KColumnIndexMatchedBy,
   KColumnIndexPositionInRanking,
   KNumberOfColumns
@@ -77,15 +75,13 @@ UpdateDialog::UpdateDialog(QWidget * parent, Framework & framework)
   m_tree = new QTreeWidget(this);
   m_tree->setColumnCount(KNumberOfColumns);
   QStringList columnLabels;
-  columnLabels << tr("Country") << tr("MWM (Click for action)") << tr("MWM Size") << tr("TWM (Click for action)")
-               << tr("TWM Size") << tr("Matched by") << tr("Rank");
+  columnLabels << tr("Country") << tr("Status") << tr("Size") << tr("Matched by") << tr("Rank");
   m_tree->setHeaderLabels(columnLabels);
 
   m_tree->setColumnHidden(KColumnIndexPositionInRanking, true);
 
   m_tree->header()->setSectionResizeMode(KColumnIndexCountry, QHeaderView::ResizeToContents);
   m_tree->header()->setSectionResizeMode(KColumnIndexStatus, QHeaderView::ResizeToContents);
-  m_tree->header()->setSectionResizeMode(KColumnIndexTwmStatus, QHeaderView::ResizeToContents);
   m_tree->header()->setSectionResizeMode(KColumnIndexMatchedBy, QHeaderView::ResizeToContents);
   m_tree->header()->setSectionResizeMode(KColumnIndexPositionInRanking, QHeaderView::ResizeToContents);
 
@@ -138,13 +134,6 @@ void UpdateDialog::OnItemClick(QTreeWidgetItem * item, int column)
   CountryId const countryId = GetCountryIdByTreeItem(item);
 
   Storage & st = GetStorage();
-
-  // The TWM columns act on the terrain coverage of the node bbox (groups included).
-  if (column == KColumnIndexTwmStatus || column == KColumnIndexTwmSize)
-  {
-    OnTerrainClick(countryId);
-    return;
-  }
 
   NodeAttrs attrs;
   st.GetNodeAttrs(countryId, attrs);
@@ -217,61 +206,6 @@ void UpdateDialog::OnItemClick(QTreeWidgetItem * item, int column)
     break;
 
   default: ASSERT(false, ("We shouldn't be here")); break;
-  }
-}
-
-/// when user clicks on the TWM columns: the terrain coverage actions.
-void UpdateDialog::OnTerrainClick(CountryId const & countryId)
-{
-  Storage & st = GetStorage();
-
-  switch (st.GetTerrainAttrs(countryId).m_status)
-  {
-  case Storage::TerrainStatus::NotAvailable: break;
-
-  case Storage::TerrainStatus::NotDownloaded:
-  case Storage::TerrainStatus::Failed: st.DownloadTerrain(countryId); break;
-
-  case Storage::TerrainStatus::Downloading: st.CancelTerrain(countryId); break;
-
-  case Storage::TerrainStatus::OnDisk:
-  {
-    // The terrain is complete: only the deletion makes sense (cf. the MWM OnDisk ask).
-    QMessageBox ask(this);
-    ask.setIcon(QMessageBox::Question);
-    ask.setText(tr("Do you want to delete the terrain of %1?").arg(countryId.c_str()));
-    QPushButton * const btnDelete = ask.addButton(tr("Delete"), QMessageBox::ActionRole);
-    QPushButton * const btnCancel = ask.addButton(tr("Cancel"), QMessageBox::NoRole);
-    UNUSED_VALUE(btnCancel);
-
-    ask.exec();
-
-    if (ask.clickedButton() == btnDelete)
-      st.DeleteTerrain(countryId);
-  }
-  break;
-
-  case Storage::TerrainStatus::Partly:
-  case Storage::TerrainStatus::OnDiskOutOfDate:
-  {
-    // "Download" completes the partial coverage or updates the outdated one.
-    QMessageBox ask(this);
-    ask.setIcon(QMessageBox::Question);
-    ask.setText(tr("Do you want to download or delete the terrain of %1?").arg(countryId.c_str()));
-    QPushButton * const btnDownload = ask.addButton(tr("Download"), QMessageBox::ActionRole);
-    QPushButton * const btnDelete = ask.addButton(tr("Delete"), QMessageBox::ActionRole);
-    QPushButton * const btnCancel = ask.addButton(tr("Cancel"), QMessageBox::NoRole);
-    UNUSED_VALUE(btnCancel);
-
-    ask.exec();
-
-    QAbstractButton * const res = ask.clickedButton();
-    if (res == btnDownload)
-      st.DownloadTerrain(countryId);
-    else if (res == btnDelete)
-      st.DeleteTerrain(countryId);
-  }
-  break;
   }
 }
 
@@ -446,18 +380,18 @@ void UpdateDialog::UpdateRowWithCountryInfo(QTreeWidgetItem * item, CountryId co
   {
   case NodeStatus::NotDownloaded:
     ASSERT(size.second > 0, (countryId));
-    statusString = tr("Absent");
+    statusString = tr("Click to download");
     rowColor = COLOR_NOTDOWNLOADED;
     break;
 
   case NodeStatus::OnDisk:
   case NodeStatus::Partly:
-    statusString = tr("Installed");
+    statusString = tr("Installed (click to delete)");
     rowColor = COLOR_ONDISK;
     break;
 
   case NodeStatus::OnDiskOutOfDate:
-    statusString = tr("Out of date");
+    statusString = tr("Out of date (click to update or delete)");
     rowColor = COLOR_OUTOFDATE;
     break;
 
@@ -504,33 +438,6 @@ void UpdateDialog::UpdateRowWithCountryInfo(QTreeWidgetItem * item, CountryId co
     }
 
     item->setData(KColumnIndexSize, Qt::UserRole, QVariant(static_cast<qint64>(size.second)));
-  }
-
-  // The terrain (TWM) columns, clicks are handled per column in OnItemClick.
-  auto const terrain = st.GetTerrainAttrs(countryId);
-  QString twmStatus;
-  switch (terrain.m_status)
-  {
-  case Storage::TerrainStatus::NotAvailable: break;
-  case Storage::TerrainStatus::NotDownloaded: twmStatus = tr("Absent"); break;
-  case Storage::TerrainStatus::Downloading: twmStatus = tr("Downloading ..."); break;
-  case Storage::TerrainStatus::Partly: twmStatus = tr("Partly installed"); break;
-  case Storage::TerrainStatus::OnDisk: twmStatus = tr("Installed"); break;
-  case Storage::TerrainStatus::Failed: twmStatus = tr("Download has failed"); break;
-  case Storage::TerrainStatus::OnDiskOutOfDate: twmStatus = tr("Out of date"); break;
-  }
-  item->setText(KColumnIndexTwmStatus, twmStatus);
-  if (terrain.m_totalSize > 0)
-  {
-    int constexpr Mb = 1024 * 1024;
-    int constexpr halfMb = Mb / 2;
-    item->setText(KColumnIndexTwmSize, QString("%1/%2 MB")
-                                           .arg(uint((terrain.m_downloadedSize + halfMb) / Mb))
-                                           .arg(uint((terrain.m_totalSize + halfMb) / Mb)));
-  }
-  else
-  {
-    item->setText(KColumnIndexTwmSize, QString());
   }
 
   // Commented out because it looks terrible on black backgrounds.

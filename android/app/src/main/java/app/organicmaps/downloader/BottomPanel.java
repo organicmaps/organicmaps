@@ -116,23 +116,14 @@ class BottomPanel
       if (showButton)
       {
         final int status = MapManager.nativeGetStatus(root);
-        // Hide FAB when all maps are already downloaded - nothing new to download.
+        // Hide FAB when the fused map and terrain data is complete.
         showFab = myMapsMode && status != STATUS_DONE;
         switch (status)
         {
         case STATUS_UPDATABLE -> setUpdateAllState(MapManager.nativeGetUpdateInfo(root));
         case STATUS_PROGRESS, STATUS_APPLYING, STATUS_ENQUEUED -> setCancelState();
         case STATUS_FAILED -> setRetryFailedStates();
-        case STATUS_DONE ->
-        {
-          // The maps are current, but the fused update (the terrain of the downloaded
-          // regions) may still have bytes to fetch.
-          final UpdateInfo info = MapManager.nativeGetUpdateInfo(root);
-          if (info != null && info.totalSize > 0)
-            setUpdateAllState(info);
-          else
-            showButton = false;
-        }
+        case STATUS_DONE -> showButton = false;
         case STATUS_DOWNLOADABLE, STATUS_PARTLY ->
         {
           // My Maps lists downloaded maps only, so there is nothing to offer here.

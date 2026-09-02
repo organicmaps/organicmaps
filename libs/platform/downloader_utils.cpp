@@ -1,16 +1,15 @@
 #include "platform/downloader_utils.hpp"
-#include "platform/platform.hpp"
-
-#include "defines.hpp"
-
-#include "base/file_name_utils.hpp"
 
 #include "platform/country_defines.hpp"
 #include "platform/local_country_file_utils.hpp"
+#include "platform/platform.hpp"
 
 #include "coding/url.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/string_utils.hpp"
+
+#include "defines.hpp"
 
 namespace
 {

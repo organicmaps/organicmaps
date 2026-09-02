@@ -62,6 +62,7 @@
 #include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/math.hpp"
 #include "base/string_utils.hpp"
@@ -323,7 +324,7 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
                      [this](FeatureCallback const & fn, std::vector<FeatureID> const & features)
 { return m_featuresFetcher.ReadFeatures(fn, features); },
                      std::bind(&Framework::GetMwmsByRect, this, _1, false /* rough */))
-  , m_terrainProvider(GetPlatform().WritableDir() + TERRAIN_DIR)
+  , m_terrainProvider(base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR))
   , m_routingManager(RoutingManager::Callbacks([this]() -> DataSource & { return m_featuresFetcher.GetDataSource(); },
                                                [this]() -> storage::CountryInfoGetter const &
 { return GetCountryInfoGetter(); }, [this](std::string const & id) -> std::string
@@ -396,9 +397,9 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   m_storage.Init(std::bind(&Framework::OnCountryFileDownloaded, this, _1, _2),
                  std::bind(&Framework::OnCountryFileDelete, this, _1, _2));
 
-  // Terrain (.twm) downloading: the landed blocks register into the provider
-  // (replacing the outdated coverage they intersect), and the out-of-date status
-  // queries the provider registry.
+  // Terrain (.twm) downloading: landed blocks register in the provider, replacing
+  // outdated overlapping coverage; deletes keep the provider and Storage snapshots
+  // synchronized.
   m_storage.SetTerrainCallbacks(
       [this](std::string const & path, m2::RectD const & rect)
   {
@@ -1222,21 +1223,6 @@ m2::RectD Framework::GetCurrentViewport() const
   return m_currentModelView.ClipRect();
 }
 
-bool Framework::DownloadTerrainForViewport()
-{
-  auto & storage = GetStorage();
-  bool any = false;
-  for (auto const & id : GetCountryInfoGetter().GetRegionsCountryIdByRect(GetCurrentViewport(), false /* rough */))
-  {
-    if (storage.IsNodeDownloaded(id))
-    {
-      storage.DownloadTerrain(id);
-      any = true;
-    }
-  }
-  return any;
-}
-
 void Framework::SetVisibleViewport(m2::RectD const & rect)
 {
   if (m_drapeEngine == nullptr)
@@ -1784,50 +1770,6 @@ m2::PointD Framework::P3dtoG(m2::PointD const & p) const
   return pt;
 }
 
-namespace
-{
-// The synthetic null-mwm FeatureID index space of the downloaded regions highlight:
-// the CountryInfoGetter region ids are small, the terrain block ids start from the
-// base and encode the block's bottom-left corner in integer degrees.
-uint32_t constexpr kTwmBorderIndexBase = 1 << 20;
-
-uint32_t EncodeTwmBorderIndex(m2::RectD const & blockRect)
-{
-  auto const lat = std::lround(mercator::YToLat(blockRect.minY()));
-  auto const lon = std::lround(blockRect.minX());
-  return kTwmBorderIndexBase + static_cast<uint32_t>(lat + 90) * 360u + static_cast<uint32_t>(lon + 180);
-}
-
-bool GetTwmBorderTriangles(terrain::TerrainProvider const & provider, uint32_t index,
-                           std::vector<m2::PointD> & triangles)
-{
-  index -= kTwmBorderIndexBase;
-  int const lat = static_cast<int>(index / 360u) - 90;
-  int const lon = static_cast<int>(index % 360u) - 180;
-
-  // Probe around the encoded corner and match the block by it (the corner is shared
-  // with the neighbor blocks, the probe can return them too).
-  m2::PointD const corner(lon, mercator::LatToY(lat));
-  m2::RectD probe(corner, corner);
-  probe.Inflate(0.1, 0.1);
-  // The corners at lon = +-180 inflate beyond the canonical range: clip back.
-  CHECK(probe.Intersect(mercator::Bounds::FullRect()), ());
-  std::vector<m2::RectD> rects;
-  provider.GetDownloadedRects(probe, rects);
-  for (auto const & r : rects)
-  {
-    if (std::lround(r.minX()) == lon && std::lround(mercator::YToLat(r.minY())) == lat)
-    {
-      // The two CW triangles of the block rect (cf. ApplyAreaFeature winding).
-      m2::PointD const a = r.LeftBottom(), b = r.RightBottom(), c = r.RightTop(), d = r.LeftTop();
-      triangles = {a, d, c, a, c, b};
-      return true;
-    }
-  }
-  return false;  // Deregistered between the id and the geometry reads: just skip.
-}
-}  // namespace
-
 void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFactory, DrapeCreationParams && params)
 {
   auto idReadFn = [this](auto const & fn, m2::RectD const & r, int scale)
@@ -1839,41 +1781,20 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
       auto names = m_featuresFetcher.GetDataSource().GetLoadedCountryNames(r);
       ASSERT(base::IsSortedAndUnique(names), ());
       m_infoGetter->ForEachRegionId(names, [&fn](size_t id) { fn(FeatureID({}, id)); });
-
-      // The downloaded terrain blocks ride the same synthetic channel; the block
-      // (integer degrees, see terrain::GridBlock) is encoded into the feature index.
-      std::vector<m2::RectD> rects;
-      m_terrainProvider.GetDownloadedRects(r, rects);
-      for (auto const & rect : rects)
-        fn(FeatureID({}, EncodeTwmBorderIndex(rect)));
     }
   };
 
   uint32_t const borderType = classif().GetTypeByPath({"organicapp", "mwm_border"});
-  uint32_t const twmBorderType = classif().GetTypeByPath({"organicapp", "twm_border"});
-  auto featureReadFn = [this, borderType, twmBorderType](auto const & fn, std::vector<FeatureID> const & ids)
+  auto featureReadFn = [this, borderType](auto const & fn, std::vector<FeatureID> const & ids)
   {
     m_featuresFetcher.ReadFeatures(fn, ids);
 
     for (auto const & id : ids)
       if (id.m_mwmId.IsNull())
       {
-        if (id.m_index >= kTwmBorderIndexBase)
-        {
-          FeatureType ft(id, twmBorderType);
-          std::vector<m2::PointD> triangles;
-          if (GetTwmBorderTriangles(m_terrainProvider, id.m_index, triangles))
-          {
-            ft.SetTriangles(triangles);
-            fn(ft);
-          }
-        }
-        else
-        {
-          FeatureType ft(id, borderType);
-          m_infoGetter->GetTriangles(id.m_index, ft);
-          fn(ft);
-        }
+        FeatureType ft(id, borderType);
+        m_infoGetter->GetTriangles(id.m_index, ft);
+        fn(ft);
       }
       else
         break;
@@ -1931,7 +1852,14 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   auto isCountryLoadedByNameFn = std::bind(&Framework::IsCountryLoadedByName, this, _1);
   auto updateCurrentCountryFn = std::bind(&Framework::OnUpdateCurrentCountry, this, _1, _2);
 
-  auto hasTerrainFn = [this](m2::RectD const & rect) { return m_terrainProvider.HasTerrain(rect); };
+  // The terrain draws where the map does (the IsolinesManager hint keeps the plain
+  // availability: the "Download" button is the call to action over a missing map).
+  auto hasTerrainFn = [this](m2::RectD const & rect)
+  {
+    return m_terrainProvider.HasTerrain(rect) &&
+           terrain::IsTerrainDrawableAt(
+               *m_infoGetter, [this](std::string_view name) { return IsCountryLoadedByName(name); }, rect.Center());
+  };
   auto readTerrainFn = [this](m2::RectD const & rect, int zoom, terrain::TileMesh & mesh)
   { m_terrainProvider.ReadMesh(rect, zoom, mesh); };
 

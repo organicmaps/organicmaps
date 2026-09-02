@@ -41,18 +41,6 @@ public class DownloaderService extends Service implements MapManager.StorageCall
     mSubscriptionSlot = MapManager.nativeSubscribe(this);
   }
 
-  /**
-   * Promotes the foreground service around downloads enqueued directly on the native
-   * queue (e.g. the viewport terrain fetch): the no-ids start action only brings up the
-   * progress notification, and the service stops itself once nothing is downloading.
-   */
-  public static void startForegroundIfDownloading(@NonNull Context context)
-  {
-    Intent intent = new Intent(context, DownloaderService.class);
-    intent.setAction(ACTION_START_DOWNLOAD);
-    androidx.core.content.ContextCompat.startForegroundService(context, intent);
-  }
-
   static PendingIntent buildCancelPendingIntent(Context context)
   {
     final int FLAG_IMMUTABLE = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? 0 : PendingIntent.FLAG_IMMUTABLE;

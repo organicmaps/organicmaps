@@ -98,8 +98,15 @@ std::vector<TwmFile> TerrainProvider::GetRegisteredFiles() const
   std::vector<TwmFile> files;
   files.reserve(infos.size());
   for (auto const & info : infos)
+  {
     if (info->IsRegistered())
-      files.push_back({base::FilenameWithoutExt(base::FileNameFromFullPath(info->GetFilePath())), info->GetVersion()});
+    {
+      uint64_t size = 0;
+      Platform::GetFileSizeByFullPath(info->GetFilePath(), size);
+      files.push_back({base::FilenameWithoutExt(base::FileNameFromFullPath(info->GetFilePath())), info->GetVersion(),
+                       info->GetLimitRect(), size});
+    }
+  }
   return files;
 }
 
@@ -165,6 +172,13 @@ void TerrainProvider::Clear()
 {
   m_set.Clear();
   m_scanned = false;
+}
+
+bool IsTerrainDrawableAt(storage::CountryInfoGetter const & infoGetter, IsCountryLoadedFn const & isLoaded,
+                         m2::PointD const & tileCenter)
+{
+  auto const countryId = infoGetter.GetRegionCountryId(tileCenter);
+  return countryId.empty() || isLoaded(countryId);
 }
 
 void TerrainProvider::ReadMesh(m2::RectD const & rect, int zoom, TileMesh & mesh) const

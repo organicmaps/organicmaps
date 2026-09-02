@@ -14,14 +14,6 @@
 
 namespace terrain
 {
-// The blocks share their border lines by design, so only the interiors may overlap.
-// Both the registration overlap rejection and the covered-blocks deletion must agree
-// on this (an edge-touching neighbor is neither a conflict nor covered).
-inline bool IsInteriorOverlap(m2::RectD const & lhs, m2::RectD const & rhs)
-{
-  return lhs.minX() < rhs.maxX() && rhs.minX() < lhs.maxX() && lhs.minY() < rhs.maxY() && rhs.minY() < lhs.maxY();
-}
-
 /// Information about a registered .twm terrain block.
 class TwmInfo : public ds::SetInfoBase
 {
@@ -147,7 +139,7 @@ public:
   static bool ReadLimitRect(std::string const & filePath, m2::RectD & limitRect);
 
   /// True when a registered block older than the version intersects the mercator rect
-  /// (the out-of-date terrain status source, cf. Storage::GetTerrainAttrs).
+  /// (the replaced-on-update source of Storage::GetUpdateInfo).
   bool HasOlderBlocks(m2::RectD const & rect, int64_t version) const;
 
   /// @return true if the file was deregistered right away; a file locked by outstanding
@@ -167,8 +159,6 @@ public:
   /// clipping semantics the MWM feature index applies to such tile rects.
   void GetBlocksByRect(m2::RectD const & rect, std::vector<TwmId> & ids) const;
   bool HasBlocks(m2::RectD const & rect) const;
-  /// The limit rects of the registered blocks intersecting the mercator rect.
-  void GetBlockRectsByRect(m2::RectD const & rect, std::vector<m2::RectD> & rects) const;
 
   Handle GetHandleById(TwmId const & id);
   Handle GetHandleById(TwmId const & id) const { return const_cast<TwmSet *>(this)->GetHandleById(id); }
