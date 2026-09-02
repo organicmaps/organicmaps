@@ -941,7 +941,7 @@
 "dialog_pedestrian_route_is_long_header" = "Non se atopou ningún roteiro de metro";
 "dialog_pedestrian_route_is_long_message" = "Elixa un punto de inicio ou fin de roteiro máis próximo a unha estación de metro";
 "button_layer_isolines" = "Curvas de nivel";
-"isolines_location_error_dialog" = "Actualice esta rexión para ver as curvas de nivel";
+"isolines_location_error_dialog" = "As curvas de nivel aínda non están dispoñibles nesta zona";
 "elevation_profile_ascent" = "Ascenso";
 "elevation_profile_descent" = "Descenso";
 "elevation_profile_min_elevation" = "Elevación mín.";
@@ -1091,7 +1091,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Active iCloud na configuración do dispositivo para utilizar esta función.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
 "enable" = "Activar";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1188,18 +1188,3 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "A cor dos traxectos cambiou";
-
-/* Settings «Map» category: the «Download terrain with maps» switch title */
-"pref_terrain_title" = "Descargar o relevo cos mapas";
-
-/* The switch subtitle: what the terrain data brings and how it lives */
-"pref_terrain_summary" = "Sombreado do relevo, curvas de nivel e profundidades mariñas. O relevo dunha rexión descárgase, actualízase e elimínase xunto co seu mapa.";
-
-/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
-"terrain_delete_all_message" = "Quere eliminar tamén os datos de relevo descargados (%@)?";
-
-/* The «keep the files» action of the terrain deletion dialog */
-"keep" = "Manter";
-
-/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
-"terrain_disabled_dialog" = "A descarga do relevo cos mapas está desactivada. Quere activala para ver aquí as curvas de nivel?";

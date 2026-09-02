@@ -754,7 +754,7 @@
     <string name="deselect_all">Neħħi l-għażla</string>
     <string name="select_list">Agħżel il-lista</string>
     <string name="button_layer_isolines">Linji tal-Contour</string>
-    <string name="isolines_location_error_dialog">Aġġorna din iż-żona biex tara l-linji tal-kontorn</string>
+    <string name="isolines_location_error_dialog">Il-linji tal-Contour għadhom mhumiex disponibbli f’din iż-żona</string>
     <string name="elevation_profile_ascent">Tlugħ</string>
     <string name="elevation_profile_descent">Inżul</string>
     <string name="elevation_profile_min_elevation">Elevazzjoni minima</string>
@@ -897,8 +897,6 @@
     <string name="move">Ħawwad</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Biddel il-kulur</string>
-    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
-    <string name="enable">Attiva</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -927,14 +925,4 @@
     <string name="color_picker_grid">Grilja</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Tfittxija bil-vuċi</string>
-    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
-    <string name="pref_terrain_title">Niżżel it-terren bil-mapep</string>
-    <!-- The switch subtitle: what the terrain data brings and how it lives -->
-    <string name="pref_terrain_summary">Sfumatura tal-għoljiet, linji tal-kontorn u fond tal-baħar. It-terren ta’ reġjun jitniżżel, jiġi aġġornat u jitħassar flimkien mal-mappa tiegħu.</string>
-    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
-    <string name="terrain_delete_all_message">Ħassar ukoll id-dejta tat-terren imniżżla (%s)?</string>
-    <!-- The «keep the files» action of the terrain deletion dialog -->
-    <string name="keep">Żomm</string>
-    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
-    <string name="terrain_disabled_dialog">It-tniżżil tat-terren bil-mapep huwa mitfi. Trid tixgħel din l-għażla biex tara l-linji tal-kontorn hawn?</string>
 </resources>

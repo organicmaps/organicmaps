@@ -757,7 +757,7 @@
     <string name="deselect_all">Odznacz wszystko</string>
     <string name="select_list">Wybierz listę</string>
     <string name="button_layer_isolines">Poziomice</string>
-    <string name="isolines_location_error_dialog">Zaktualizuj ten region, aby zobaczyć poziomice</string>
+    <string name="isolines_location_error_dialog">Poziomice nie są jeszcze dostępne w tym regionie</string>
     <string name="elevation_profile_ascent">Wejście</string>
     <string name="elevation_profile_descent">Zejście</string>
     <string name="elevation_profile_min_elevation">Min. wysokość</string>
@@ -912,8 +912,6 @@
     <string name="hide_track">Ukryj trasę</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Pokaż trasę</string>
-    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
-    <string name="enable">Włącz</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -942,14 +940,4 @@
     <string name="color_picker_grid">Siatka</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Wyszukiwanie głosowe</string>
-    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
-    <string name="pref_terrain_title">Pobieraj teren z mapami</string>
-    <!-- The switch subtitle: what the terrain data brings and how it lives -->
-    <string name="pref_terrain_summary">Cieniowanie rzeźby terenu, poziomice i głębokości morza. Teren regionu jest pobierany, aktualizowany i usuwany razem z jego mapą.</string>
-    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
-    <string name="terrain_delete_all_message">Usunąć również pobrane dane terenu (%s)?</string>
-    <!-- The «keep the files» action of the terrain deletion dialog -->
-    <string name="keep">Zachowaj</string>
-    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
-    <string name="terrain_disabled_dialog">Pobieranie terenu z mapami jest wyłączone. Włączyć je, aby zobaczyć tutaj poziomice?</string>
 </resources>

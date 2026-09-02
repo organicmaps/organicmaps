@@ -758,7 +758,7 @@
     <string name="deselect_all">Скасувати вибір</string>
     <string name="select_list">Обрати список</string>
     <string name="button_layer_isolines">Висоти</string>
-    <string name="isolines_location_error_dialog">Оновіть цей регіон, щоб побачити лінії висот</string>
+    <string name="isolines_location_error_dialog">Лінії висот ще недоступні в цьому регіоні</string>
     <string name="elevation_profile_ascent">Підйом</string>
     <string name="elevation_profile_descent">Спуск</string>
     <string name="elevation_profile_min_elevation">Мін. висота</string>
@@ -913,8 +913,6 @@
     <string name="hide_track">Приховати трек</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Показати трек</string>
-    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
-    <string name="enable">Увімкнути</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -943,14 +941,4 @@
     <string name="color_picker_grid">Сітка</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Голосовий пошук</string>
-    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
-    <string name="pref_terrain_title">Завантажувати рельєф разом із мапами</string>
-    <!-- The switch subtitle: what the terrain data brings and how it lives -->
-    <string name="pref_terrain_summary">Тіні рельєфу, лінії висот і глибини моря. Рельєф регіону завантажується, оновлюється й видаляється разом із його мапою.</string>
-    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
-    <string name="terrain_delete_all_message">Також видалити завантажений рельєф (%s)?</string>
-    <!-- The «keep the files» action of the terrain deletion dialog -->
-    <string name="keep">Залишити</string>
-    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
-    <string name="terrain_disabled_dialog">Завантаження рельєфу разом із мапами вимкнено. Увімкнути його, щоб побачити тут лінії висот?</string>
 </resources>

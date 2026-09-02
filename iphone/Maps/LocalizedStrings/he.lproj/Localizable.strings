@@ -941,7 +941,7 @@
 "dialog_pedestrian_route_is_long_header" = "מסלול רכבת תחתית לא נמצא";
 "dialog_pedestrian_route_is_long_message" = "נא לבחור נקודת התחלה או סוף קרובה יותר לתחנת רכבת תחתית";
 "button_layer_isolines" = "קווי מתאר";
-"isolines_location_error_dialog" = "עדכנו את האזור הזה כדי לראות קווי מתאר";
+"isolines_location_error_dialog" = "קווי מתאר עוד לא זמינים לאזור זה";
 "elevation_profile_ascent" = "עלייה";
 "elevation_profile_descent" = "ירידה";
 "elevation_profile_min_elevation" = "מינ' גובה";
@@ -1091,7 +1091,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "אנא הפעל את iCloud בהגדרות המכשיר שלך כדי להשתמש בתכונה זו.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
 "enable" = "לְאַפשֵׁר";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1188,18 +1188,3 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "צבע המסלולים שונה";
-
-/* Settings «Map» category: the «Download terrain with maps» switch title */
-"pref_terrain_title" = "הורדת נתוני שטח יחד עם המפות";
-
-/* The switch subtitle: what the terrain data brings and how it lives */
-"pref_terrain_summary" = "הצללת תבליט, קווי מתאר ועומקי ים. נתוני השטח של אזור מסוים מורדים, מתעדכנים ונמחקים יחד עם המפה שלו.";
-
-/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
-"terrain_delete_all_message" = "האם למחוק גם את נתוני השטח שהורדו (%@)?";
-
-/* The «keep the files» action of the terrain deletion dialog */
-"keep" = "שמור";
-
-/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
-"terrain_disabled_dialog" = "הורדת נתוני שטח יחד עם המפות כבויה. להפעיל אותה כדי לראות כאן קווי מתאר?";

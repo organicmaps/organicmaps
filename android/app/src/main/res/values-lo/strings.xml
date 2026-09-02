@@ -705,7 +705,7 @@
     <string name="deselect_all">ຍົກເລີກການເລືອກ</string>
     <string name="select_list">ເລືອກລາຍການ</string>
     <string name="button_layer_isolines">ເສັ້ນລະດັບຄວາມສູງ</string>
-    <string name="isolines_location_error_dialog">ອັບເດດເຂດນີ້ເພື່ອເບິ່ງເສັ້ນລະດັບຄວາມສູງ</string>
+    <string name="isolines_location_error_dialog">ເສັ້ນລະດັບຄວາມສູງຍັງບໍ່ທັນມີເທື່ອໃນເຂດນີ້</string>
     <string name="elevation_profile_ascent">ທາງຂຶ້ນ</string>
     <string name="elevation_profile_descent">ທາງລົງ</string>
     <string name="elevation_profile_min_elevation">ລະດັບຄວາມສູງຕ່ຳສຸດ</string>
@@ -850,8 +850,6 @@
     <string name="move">ຍ້າຍ</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">ປ່ຽນສີ</string>
-    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
-    <string name="enable">ເປີດໃຊ້ງານ</string>
 
     <!-- SECTION: gps strings -->
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
@@ -876,14 +874,4 @@
     <string name="color_picker_grid">ຕາຂ່າຍ</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">ຄົ້ນຫາດ້ວຍສຽງ</string>
-    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
-    <string name="pref_terrain_title">ດາວໂຫຼດພູມິປະເທດພ້ອມກັບແຜນທີ່</string>
-    <!-- The switch subtitle: what the terrain data brings and how it lives -->
-    <string name="pref_terrain_summary">ເງົາເນີນພູ, ເສັ້ນລະດັບຄວາມສູງ ແລະ ຄວາມເລິກຂອງທະເລ. ພູມິປະເທດຂອງເຂດໜຶ່ງຈະຖືກດາວໂຫຼດ, ອັບເດດ ແລະ ລຶບພ້ອມກັບແຜນທີ່ຂອງມັນ.</string>
-    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
-    <string name="terrain_delete_all_message">ລຶບຂໍ້ມູນພູມິປະເທດທີ່ດາວໂຫຼດແລ້ວ (%s) ນຳບໍ?</string>
-    <!-- The «keep the files» action of the terrain deletion dialog -->
-    <string name="keep">ເກັບໄວ້</string>
-    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
-    <string name="terrain_disabled_dialog">ການດາວໂຫຼດພູມິປະເທດພ້ອມກັບແຜນທີ່ຖືກປິດຢູ່. ເປີດມັນເພື່ອເບິ່ງເສັ້ນລະດັບຄວາມສູງຢູ່ບ່ອນນີ້ບໍ?</string>
 </resources>

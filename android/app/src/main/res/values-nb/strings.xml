@@ -751,7 +751,7 @@
     <string name="deselect_all">Fjern all merking</string>
     <string name="select_list">Velge liste</string>
     <string name="button_layer_isolines">Høyder</string>
-    <string name="isolines_location_error_dialog">Oppdater dette området for å se høydekurver</string>
+    <string name="isolines_location_error_dialog">Høydekurver er ikke tilgjengelige i dette området ennå</string>
     <string name="elevation_profile_ascent">Stigning</string>
     <string name="elevation_profile_descent">Nedstigning</string>
     <string name="elevation_profile_min_elevation">Min. høyde</string>
@@ -892,8 +892,6 @@
     <string name="hide_track">Skjul ruten</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Vis ruten</string>
-    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
-    <string name="enable">Aktiver</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -922,14 +920,4 @@
     <string name="color_picker_grid">Rutenett</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Stemmesøk</string>
-    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
-    <string name="pref_terrain_title">Last ned terreng sammen med kart</string>
-    <!-- The switch subtitle: what the terrain data brings and how it lives -->
-    <string name="pref_terrain_summary">Terrengskygge, høydekurver og havdybder. Terrenget for en region lastes ned, oppdateres og slettes sammen med kartet.</string>
-    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
-    <string name="terrain_delete_all_message">Vil du også slette de nedlastede terrengdataene (%s)?</string>
-    <!-- The «keep the files» action of the terrain deletion dialog -->
-    <string name="keep">Behold</string>
-    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
-    <string name="terrain_disabled_dialog">Nedlasting av terreng sammen med kart er slått av. Vil du slå det på for å se høydekurver her?</string>
 </resources>

@@ -752,7 +752,7 @@
     <string name="deselect_all">取消全選</string>
     <string name="select_list">選擇列表</string>
     <string name="button_layer_isolines">等高線</string>
-    <string name="isolines_location_error_dialog">更新該地區以查看等高線</string>
+    <string name="isolines_location_error_dialog">暫時無法獲取該地區的等高線</string>
     <string name="elevation_profile_ascent">上坡</string>
     <string name="elevation_profile_descent">下坡</string>
     <string name="elevation_profile_min_elevation">最低高度</string>
@@ -903,8 +903,6 @@
     <string name="hide_track">隱藏軌跡</string>
     <!-- Text for the showing track. -->
     <string name="show_track">顯示軌跡</string>
-    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
-    <string name="enable">啟用</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -933,14 +931,4 @@
     <string name="color_picker_grid">網格</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">語音搜尋</string>
-    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
-    <string name="pref_terrain_title">隨地圖一併下載地形資料</string>
-    <!-- The switch subtitle: what the terrain data brings and how it lives -->
-    <string name="pref_terrain_summary">山體陰影、等高線和水深。地區的地形資料會隨其地圖一併下載、更新及刪除。</string>
-    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
-    <string name="terrain_delete_all_message">是否同時刪除已下載的地形資料（%s）？</string>
-    <!-- The «keep the files» action of the terrain deletion dialog -->
-    <string name="keep">保留</string>
-    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
-    <string name="terrain_disabled_dialog">隨地圖一併下載地形資料的功能已關閉。要開啟此功能以在此處查看等高線嗎？</string>
 </resources>

@@ -941,7 +941,7 @@
 "dialog_pedestrian_route_is_long_header" = "Percorso della metro non trovato";
 "dialog_pedestrian_route_is_long_message" = "Scegli un punto di partenza o di arrivo più vicino a una stazione della metropolitana";
 "button_layer_isolines" = "Curve di livello";
-"isolines_location_error_dialog" = "Aggiorna questa regione per vedere le curve di livello";
+"isolines_location_error_dialog" = "Le curve di livello per questa regione non sono ancora disponibili";
 "elevation_profile_ascent" = "Salita";
 "elevation_profile_descent" = "Discesa";
 "elevation_profile_min_elevation" = "Elevazione minima";
@@ -1091,7 +1091,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Per utilizzare questa funzione, attiva iCloud nelle impostazioni del tuo dispositivo.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
 "enable" = "Abilitazione";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1188,18 +1188,3 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Colore delle tracce modificato";
-
-/* Settings «Map» category: the «Download terrain with maps» switch title */
-"pref_terrain_title" = "Scaricare il terreno con le mappe";
-
-/* The switch subtitle: what the terrain data brings and how it lives */
-"pref_terrain_summary" = "Ombreggiatura del rilievo, curve di livello e profondità marine. Il terreno di una regione viene scaricato, aggiornato ed eliminato insieme alla sua mappa.";
-
-/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
-"terrain_delete_all_message" = "Eliminare anche i dati del terreno scaricati (%@)?";
-
-/* The «keep the files» action of the terrain deletion dialog */
-"keep" = "Mantieni";
-
-/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
-"terrain_disabled_dialog" = "Il download del terreno con le mappe è disattivato. Attivarlo per vedere qui le curve di livello?";

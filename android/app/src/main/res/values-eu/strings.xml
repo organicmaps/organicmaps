@@ -751,7 +751,7 @@
     <string name="deselect_all">Kendu hautapena</string>
     <string name="select_list">Hautatu zerrenda</string>
     <string name="button_layer_isolines">Sestra kurbak</string>
-    <string name="isolines_location_error_dialog">Eguneratu eskualde hau sestra-kurbak ikusteko</string>
+    <string name="isolines_location_error_dialog">Erliebearen altitudea oraindik ez dago eskuragarri eskualde honetan</string>
     <string name="elevation_profile_ascent">Maldan gora</string>
     <string name="elevation_profile_descent">Maldan behera</string>
     <string name="elevation_profile_min_elevation">Altitude min</string>
@@ -902,8 +902,6 @@
     <string name="hide_track">Ezkutatu arrastoa</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Erakutsi arrastoa</string>
-    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
-    <string name="enable">Gaitu</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -932,14 +930,4 @@
     <string name="color_picker_grid">Sarea</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Ahots-bilaketa</string>
-    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
-    <string name="pref_terrain_title">Deskargatu erliebea mapekin batera</string>
-    <!-- The switch subtitle: what the terrain data brings and how it lives -->
-    <string name="pref_terrain_summary">Erliebe-itzaldura, sestra-kurbak eta itsas sakonerak. Eskualde bateko erliebea bere maparekin batera deskargatu, eguneratu eta ezabatzen da.</string>
-    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
-    <string name="terrain_delete_all_message">Deskargatutako erliebe-datuak (%s) ere ezabatu nahi dituzu?</string>
-    <!-- The «keep the files» action of the terrain deletion dialog -->
-    <string name="keep">Mantendu</string>
-    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
-    <string name="terrain_disabled_dialog">Mapekin batera erliebea deskargatzea desaktibatuta dago. Aktibatu nahi duzu hemen sestra-kurbak ikusteko?</string>
 </resources>

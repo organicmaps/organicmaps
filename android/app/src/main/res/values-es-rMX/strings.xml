@@ -388,7 +388,6 @@
     <string name="fuel_places">Gasolinería</string>
     <string name="religious_places">Sitios religiosos</string>
     <string name="button_layer_isolines">Líneas de contorno</string>
-    <string name="isolines_location_error_dialog">Actualice esta región para ver las curvas de nivel</string>
     <string name="elevation_profile_min_elevation">Elevación mínima</string>
     <string name="elevation_profile_max_elevation">Elevación máxima</string>
     <string name="elevation_profile_distance">Distancia:</string>
@@ -485,14 +484,4 @@
     <string name="login_osm_browser">Iniciar sesión utilizando el navegador</string>
     <!-- Label for the hex color input field in the color picker -->
     <string name="color_picker_hex_label">Color hexadecimal sRGB #</string>
-    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
-    <string name="pref_terrain_title">Descargar el terreno con los mapas</string>
-    <!-- The switch subtitle: what the terrain data brings and how it lives -->
-    <string name="pref_terrain_summary">Sombreado del relieve, curvas de nivel y profundidades marinas. El terreno de una región se descarga, se actualiza y se elimina junto con su mapa.</string>
-    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
-    <string name="terrain_delete_all_message">¿Eliminar también los datos de terreno descargados (%s)?</string>
-    <!-- The «keep the files» action of the terrain deletion dialog -->
-    <string name="keep">Conservar</string>
-    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
-    <string name="terrain_disabled_dialog">La descarga del terreno con los mapas está desactivada. ¿Activarla para ver aquí las curvas de nivel?</string>
 </resources>

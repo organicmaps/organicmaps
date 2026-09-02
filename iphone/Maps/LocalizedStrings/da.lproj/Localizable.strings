@@ -941,7 +941,7 @@
 "dialog_pedestrian_route_is_long_header" = "Ingen undergrundsrute fundet";
 "dialog_pedestrian_route_is_long_message" = "Vælg venligst et start- eller stoppunkt tættere på en metrostation";
 "button_layer_isolines" = "Konturlinjer";
-"isolines_location_error_dialog" = "Opdater dette område for at se konturlinjer";
+"isolines_location_error_dialog" = "Konturlinjer er endnu ikke tilgængelige i dette område";
 "elevation_profile_ascent" = "Stigning";
 "elevation_profile_descent" = "Nedstigning";
 "elevation_profile_min_elevation" = "Min. højde";
@@ -1091,7 +1091,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Aktivér iCloud i din enheds indstillinger for at bruge denne funktion.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
 "enable" = "Aktivér";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1188,18 +1188,3 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Sporfarve er ændret";
-
-/* Settings «Map» category: the «Download terrain with maps» switch title */
-"pref_terrain_title" = "Download terræn sammen med kort";
-
-/* The switch subtitle: what the terrain data brings and how it lives */
-"pref_terrain_summary" = "Terrænskygge, konturlinjer og havdybder. Terrænet for et område downloades, opdateres og slettes sammen med kortet.";
-
-/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
-"terrain_delete_all_message" = "Vil du også slette de downloadede terrændata (%@)?";
-
-/* The «keep the files» action of the terrain deletion dialog */
-"keep" = "Behold";
-
-/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
-"terrain_disabled_dialog" = "Download af terræn sammen med kort er slået fra. Vil du slå det til for at se konturlinjer her?";

@@ -748,7 +748,7 @@
     <string name="deselect_all">Noņemt atlasi</string>
     <string name="select_list">Izvēlēties sarakstu</string>
     <string name="button_layer_isolines">Reljefa līnijas</string>
-    <string name="isolines_location_error_dialog">Atjauniniet šo reģionu, lai redzētu horizontāles</string>
+    <string name="isolines_location_error_dialog">Topogrāfiskais slānis šim reģionam nav pieejams</string>
     <string name="elevation_profile_ascent">Kāpums</string>
     <string name="elevation_profile_descent">Kritums</string>
     <string name="elevation_profile_min_elevation">Zemākais punkts</string>
@@ -897,8 +897,6 @@
     <string name="hide_track">Paslēpt pēdojumu</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Rādīt pēdojumu</string>
-    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
-    <string name="enable">Ieslēgt</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -927,14 +925,4 @@
     <string name="color_picker_grid">Režģis</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Balss meklēšana</string>
-    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
-    <string name="pref_terrain_title">Lejupielādēt reljefu kopā ar kartēm</string>
-    <!-- The switch subtitle: what the terrain data brings and how it lives -->
-    <string name="pref_terrain_summary">Reljefa ēnojums, horizontāles un jūras dziļumi. Reģiona reljefs tiek lejupielādēts, atjaunināts un dzēsts kopā ar tā karti.</string>
-    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
-    <string name="terrain_delete_all_message">Vai dzēst arī lejupielādētos reljefa datus (%s)?</string>
-    <!-- The «keep the files» action of the terrain deletion dialog -->
-    <string name="keep">Paturēt</string>
-    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
-    <string name="terrain_disabled_dialog">Reljefa lejupielāde kopā ar kartēm ir izslēgta. Vai vēlaties to ieslēgt, lai šeit redzētu horizontāles?</string>
 </resources>

@@ -941,7 +941,7 @@
 "dialog_pedestrian_route_is_long_header" = "Մետրոյի երթուղի չի գտնվել";
 "dialog_pedestrian_route_is_long_message" = "Խնդրում ենք ընտրել մետրոյի կայարանին ավելի մոտ սկզբնակետ կամ վերջնակետ";
 "button_layer_isolines" = "Հորիզոնականներ";
-"isolines_location_error_dialog" = "Թարմացրեք այս տարածաշրջանը՝ հորիզոնականները տեսնելու համար";
+"isolines_location_error_dialog" = "Հորիզոնականները դեռ հասանելի չեն այս տարածքում";
 "elevation_profile_ascent" = "Վերելք";
 "elevation_profile_descent" = "Վայրէջք";
 "elevation_profile_min_elevation" = "Նվազգ. բարձրություն";
@@ -1091,7 +1091,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Այս գործառույթից օգտվելու համար խնդրում ենք միացնել iCloud-ը ձեր սարքի կարգավորումներում։";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
 "enable" = "Միացնել";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1188,18 +1188,3 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Հետագծերի գույնը փոխվեց";
-
-/* Settings «Map» category: the «Download terrain with maps» switch title */
-"pref_terrain_title" = "Ներբեռնել տեղանքը քարտեզների հետ";
-
-/* The switch subtitle: what the terrain data brings and how it lives */
-"pref_terrain_summary" = "Ռելիեֆի ստվերում, հորիզոնականներ և ծովի խորություններ: Տարածաշրջանի տեղանքը ներբեռնվում, թարմացվում և ջնջվում է իր քարտեզի հետ միասին:";
-
-/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
-"terrain_delete_all_message" = "Ջնջե՞լ նաև ներբեռնված տեղանքը (%@):";
-
-/* The «keep the files» action of the terrain deletion dialog */
-"keep" = "Պահել";
-
-/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
-"terrain_disabled_dialog" = "Քարտեզների հետ տեղանքի ներբեռնումն անջատված է: Միացնե՞լ այն՝ այստեղ հորիզոնականները տեսնելու համար:";

@@ -941,7 +941,7 @@
 "dialog_pedestrian_route_is_long_header" = "Itinéraire de métro non trouvé";
 "dialog_pedestrian_route_is_long_message" = "Choisissez un point de départ ou d'arrivée plus proche d'une station de métro";
 "button_layer_isolines" = "Terrain";
-"isolines_location_error_dialog" = "Mettez à jour cette région pour voir les courbes de niveau";
+"isolines_location_error_dialog" = "Les courbes de niveau ne sont pas encore disponibles dans cette région";
 "elevation_profile_ascent" = "Montée";
 "elevation_profile_descent" = "Descente";
 "elevation_profile_min_elevation" = "Min. élévation";
@@ -1091,7 +1091,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Veuillez activer iCloud dans les paramètres de votre appareil pour utiliser cette fonctionnalité.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
 "enable" = "Activer";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1188,18 +1188,3 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Couleur des tracés modifiée";
-
-/* Settings «Map» category: the «Download terrain with maps» switch title */
-"pref_terrain_title" = "Télécharger le terrain avec les cartes";
-
-/* The switch subtitle: what the terrain data brings and how it lives */
-"pref_terrain_summary" = "Ombrage du relief, courbes de niveau et profondeurs marines. Le terrain d’une région est téléchargé, mis à jour et supprimé avec sa carte.";
-
-/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
-"terrain_delete_all_message" = "Supprimer aussi les données de terrain téléchargées (%@) ?";
-
-/* The «keep the files» action of the terrain deletion dialog */
-"keep" = "Conserver";
-
-/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
-"terrain_disabled_dialog" = "Le téléchargement du terrain avec les cartes est désactivé. L’activer pour voir les courbes de niveau ici ?";

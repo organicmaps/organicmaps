@@ -941,7 +941,7 @@
 "dialog_pedestrian_route_is_long_header" = "ບໍ່ພົບເສັ້ນທາງລົດໄຟໃຕ້ດິນ";
 "dialog_pedestrian_route_is_long_message" = "ກະລຸນາເລືອກຈຸດເລີ່ມຕົ້ນ ຫຼື ປາຍທາງໃຫ້ໃກ້ກັບສະຖານີລົດໄຟໃຕ້ດິນ";
 "button_layer_isolines" = "ເສັ້ນລະດັບຄວາມສູງ";
-"isolines_location_error_dialog" = "ອັບເດດເຂດນີ້ເພື່ອເບິ່ງເສັ້ນລະດັບຄວາມສູງ";
+"isolines_location_error_dialog" = "ເສັ້ນລະດັບຄວາມສູງຍັງບໍ່ທັນມີເທື່ອໃນເຂດນີ້";
 "elevation_profile_ascent" = "ທາງຂຶ້ນ";
 "elevation_profile_descent" = "ທາງລົງ";
 "elevation_profile_min_elevation" = "ລະດັບຄວາມສູງຕ່ຳສຸດ";
@@ -1091,7 +1091,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "ກະລຸນາເປີດໃຊ້ iCloud ໃນການຕັ້ງຄ່າອຸປະກອນຂອງທ່ານເພື່ອໃຊ້ຟີເຈີນີ້.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
 "enable" = "ເປີດໃຊ້ງານ";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1188,18 +1188,3 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "ສີຂອງເສັ້ນທາງໄດ້ປ່ຽນແລ້ວ";
-
-/* Settings «Map» category: the «Download terrain with maps» switch title */
-"pref_terrain_title" = "ດາວໂຫຼດພູມິປະເທດພ້ອມກັບແຜນທີ່";
-
-/* The switch subtitle: what the terrain data brings and how it lives */
-"pref_terrain_summary" = "ເງົາເນີນພູ, ເສັ້ນລະດັບຄວາມສູງ ແລະ ຄວາມເລິກຂອງທະເລ. ພູມິປະເທດຂອງເຂດໜຶ່ງຈະຖືກດາວໂຫຼດ, ອັບເດດ ແລະ ລຶບພ້ອມກັບແຜນທີ່ຂອງມັນ.";
-
-/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
-"terrain_delete_all_message" = "ລຶບຂໍ້ມູນພູມິປະເທດທີ່ດາວໂຫຼດແລ້ວ (%@) ນຳບໍ?";
-
-/* The «keep the files» action of the terrain deletion dialog */
-"keep" = "ເກັບໄວ້";
-
-/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
-"terrain_disabled_dialog" = "ການດາວໂຫຼດພູມິປະເທດພ້ອມກັບແຜນທີ່ຖືກປິດຢູ່. ເປີດມັນເພື່ອເບິ່ງເສັ້ນລະດັບຄວາມສູງຢູ່ບ່ອນນີ້ບໍ?";

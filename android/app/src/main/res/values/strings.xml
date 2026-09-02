@@ -751,7 +751,7 @@
     <string name="deselect_all">Deselect All</string>
     <string name="select_list">Select list</string>
     <string name="button_layer_isolines">Contour Lines</string>
-    <string name="isolines_location_error_dialog">Update this region to see contour lines</string>
+    <string name="isolines_location_error_dialog">Contour lines are not yet available in this area</string>
     <string name="elevation_profile_ascent">Ascent</string>
     <string name="elevation_profile_descent">Descent</string>
     <string name="elevation_profile_min_elevation">Min. elevation</string>
@@ -902,8 +902,6 @@
     <string name="hide_track">Hide track</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Show track</string>
-    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
-    <string name="enable">Enable</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -932,14 +930,4 @@
     <string name="color_picker_grid">Grid</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Voice search</string>
-    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
-    <string name="pref_terrain_title">Download terrain with maps</string>
-    <!-- The switch subtitle: what the terrain data brings and how it lives -->
-    <string name="pref_terrain_summary">Hill shading, contour lines and sea depth. The terrain of a region is downloaded, updated and deleted together with its map.</string>
-    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
-    <string name="terrain_delete_all_message">Also delete the downloaded terrain data (%s)?</string>
-    <!-- The «keep the files» action of the terrain deletion dialog -->
-    <string name="keep">Keep</string>
-    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
-    <string name="terrain_disabled_dialog">Downloading terrain with maps is turned off. Turn it on to see contour lines here?</string>
 </resources>

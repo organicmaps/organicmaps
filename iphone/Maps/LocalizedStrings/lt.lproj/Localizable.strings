@@ -941,7 +941,7 @@
 "dialog_pedestrian_route_is_long_header" = "Metro maršrutas nerastas";
 "dialog_pedestrian_route_is_long_message" = "Pasirinkite pradžios ar pabaigos tašką, esančius arčiau metro stotelės";
 "button_layer_isolines" = "Reljefas";
-"isolines_location_error_dialog" = "Atnaujinkite šią vietovę, kad matytumėte izolinijas";
+"isolines_location_error_dialog" = "Reljefo sluoksnis šiai vietovei dar neprieinamas";
 "elevation_profile_ascent" = "Pakilimas";
 "elevation_profile_descent" = "Nusileidimas";
 "elevation_profile_min_elevation" = "Min. aukštis";
@@ -1091,7 +1091,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Jei norite naudotis šia funkcija, įjunkite „iCloud“ įrenginio nustatymuose.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
 "enable" = "Įjungti";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1188,18 +1188,3 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Trasų spalva pakeista";
-
-/* Settings «Map» category: the «Download terrain with maps» switch title */
-"pref_terrain_title" = "Atsisiųsti reljefą kartu su žemėlapiais";
-
-/* The switch subtitle: what the terrain data brings and how it lives */
-"pref_terrain_summary" = "Reljefo šešėliavimas, izolinijos ir jūros gyliai. Regiono reljefas atsisiunčiamas, atnaujinamas ir pašalinamas kartu su jo žemėlapiu.";
-
-/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
-"terrain_delete_all_message" = "Ar pašalinti ir atsisiųstus reljefo duomenis (%@)?";
-
-/* The «keep the files» action of the terrain deletion dialog */
-"keep" = "Palikti";
-
-/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
-"terrain_disabled_dialog" = "Reljefo atsisiuntimas kartu su žemėlapiais išjungtas. Ar norite jį įjungti, kad čia matytumėte izolinijas?";

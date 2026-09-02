@@ -752,7 +752,7 @@
     <string name="deselect_all">Κατάργηση επιλογής</string>
     <string name="select_list">Επιλογή λίστας</string>
     <string name="button_layer_isolines">Υψομετρικά</string>
-    <string name="isolines_location_error_dialog">Ενημερώστε αυτήν την περιοχή για να δείτε τις υψομετρικές γραμμές</string>
+    <string name="isolines_location_error_dialog">Οι υψομετρικές γραμμές δεν είναι ακόμα διαθέσιμες σε αυτή την περιοχή</string>
     <string name="elevation_profile_ascent">Ανάβαση</string>
     <string name="elevation_profile_descent">Κατάβαση</string>
     <string name="elevation_profile_min_elevation">Ελάχ. υψόμετρο</string>
@@ -903,8 +903,6 @@
     <string name="hide_track">Απόκρυψη διαδρομής</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Εμφάνιση διαδρομής</string>
-    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
-    <string name="enable">Ενεργοποίηση</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -933,14 +931,4 @@
     <string name="color_picker_grid">Πλέγμα</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Φωνητική αναζήτηση</string>
-    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
-    <string name="pref_terrain_title">Λήψη ανάγλυφου μαζί με τους χάρτες</string>
-    <!-- The switch subtitle: what the terrain data brings and how it lives -->
-    <string name="pref_terrain_summary">Σκίαση ανάγλυφου, υψομετρικές γραμμές και θαλάσσια βάθη. Το ανάγλυφο μιας περιοχής λαμβάνεται, ενημερώνεται και διαγράφεται μαζί με τον χάρτη της.</string>
-    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
-    <string name="terrain_delete_all_message">Να διαγραφεί και το ανάγλυφο που έχει ληφθεί (%s);</string>
-    <!-- The «keep the files» action of the terrain deletion dialog -->
-    <string name="keep">Διατήρηση</string>
-    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
-    <string name="terrain_disabled_dialog">Η λήψη του ανάγλυφου μαζί με τους χάρτες είναι απενεργοποιημένη. Να ενεργοποιηθεί για να δείτε εδώ τις υψομετρικές γραμμές;</string>
 </resources>

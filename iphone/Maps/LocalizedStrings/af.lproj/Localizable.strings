@@ -941,7 +941,7 @@
 "dialog_pedestrian_route_is_long_header" = "Moltreinroete nie gevind";
 "dialog_pedestrian_route_is_long_message" = "Kies asb. ’n begin- of eindpunt nader aan die moltreinstasie";
 "button_layer_isolines" = "Kontoerlyne";
-"isolines_location_error_dialog" = "Werk hierdie area by om kontoerlyne te sien";
+"isolines_location_error_dialog" = "Die kontoerlyne is nog nie in hierdie area beskikbaar nie";
 "elevation_profile_ascent" = "Styging";
 "elevation_profile_descent" = "Daling";
 "elevation_profile_min_elevation" = "Min. hoogte";
@@ -1091,7 +1091,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Aktiveer asseblief iCloud in jou toestel se instellings om hierdie kenmerk te gebruik.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
 "enable" = "Aktiveer";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1188,18 +1188,3 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Spoorkleur is verander";
-
-/* Settings «Map» category: the «Download terrain with maps» switch title */
-"pref_terrain_title" = "Laai terrein saam met kaarte af";
-
-/* The switch subtitle: what the terrain data brings and how it lives */
-"pref_terrain_summary" = "Reliëfskaduwee, kontoerlyne en seediepte. Die terrein van ’n streek word saam met sy kaart afgelaai, bygewerk en geskrap.";
-
-/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
-"terrain_delete_all_message" = "Skrap ook die afgelaaide terreindata (%@)?";
-
-/* The «keep the files» action of the terrain deletion dialog */
-"keep" = "Behou";
-
-/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
-"terrain_disabled_dialog" = "Die aflaai van terrein saam met kaarte is afgeskakel. Skakel dit aan om hier kontoerlyne te sien?";

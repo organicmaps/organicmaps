@@ -941,7 +941,7 @@
 "dialog_pedestrian_route_is_long_header" = "Nem található metróútvonal";
 "dialog_pedestrian_route_is_long_message" = "Válasszon egy, a metróállomáshoz közelebb eső kiindulási pontot vagy úti célt";
 "button_layer_isolines" = "Szintvonalak";
-"isolines_location_error_dialog" = "Frissítse ezt a területet a szintvonalak megjelenítéséhez";
+"isolines_location_error_dialog" = "A szintvonalak még nem állnak rendelkezésre ezen a területen";
 "elevation_profile_ascent" = "Növekvő";
 "elevation_profile_descent" = "Csökkenő";
 "elevation_profile_min_elevation" = "Legkisebb magasság";
@@ -1091,7 +1091,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "A funkció használatához engedélyezze az iCloudot a készülék beállításaiban.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
 "enable" = "Engedélyezés";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1188,18 +1188,3 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "A nyomvonalak színe megváltozott";
-
-/* Settings «Map» category: the «Download terrain with maps» switch title */
-"pref_terrain_title" = "Terep letöltése a térképekkel együtt";
-
-/* The switch subtitle: what the terrain data brings and how it lives */
-"pref_terrain_summary" = "Domborzatárnyékolás, szintvonalak és tengermélység. Egy régió terepe a térképével együtt töltődik le, frissül és törlődik.";
-
-/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
-"terrain_delete_all_message" = "Törli a letöltött terepadatokat (%@) is?";
-
-/* The «keep the files» action of the terrain deletion dialog */
-"keep" = "Megtartás";
-
-/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
-"terrain_disabled_dialog" = "A terep letöltése a térképekkel együtt ki van kapcsolva. Bekapcsolja, hogy itt lássa a szintvonalakat?";

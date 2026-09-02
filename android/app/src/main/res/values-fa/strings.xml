@@ -751,7 +751,7 @@
     <string name="deselect_all">لغو انتخاب همه</string>
     <string name="select_list">انتخاب فهرست</string>
     <string name="button_layer_isolines">خط تراز</string>
-    <string name="isolines_location_error_dialog">برای دیدن خطوط تراز، این منطقه را به‌روزرسانی کنید</string>
+    <string name="isolines_location_error_dialog">لایه توپوگرافی هنوز برای این منطقه در دسترس نیست</string>
     <string name="elevation_profile_ascent">بالا رفتن</string>
     <string name="elevation_profile_descent">پایین آمدن</string>
     <string name="elevation_profile_min_elevation">کم ارتفاع</string>
@@ -902,8 +902,6 @@
     <string name="hide_track">مخفی کردن مسیر</string>
     <!-- Text for the showing track. -->
     <string name="show_track">نمایش مسیر</string>
-    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
-    <string name="enable">فعال کردن</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -932,14 +930,4 @@
     <string name="color_picker_grid">شبکه</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">جستجوی صوتی</string>
-    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
-    <string name="pref_terrain_title">دانلود عوارض زمین همراه با نقشه‌ها</string>
-    <!-- The switch subtitle: what the terrain data brings and how it lives -->
-    <string name="pref_terrain_summary">سایه‌پردازی ناهمواری‌ها، خطوط تراز و عمق دریا. عوارض زمین هر منطقه همراه با نقشهٔ آن دانلود، به‌روزرسانی و حذف می‌شود.</string>
-    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
-    <string name="terrain_delete_all_message">عوارض زمین دانلودشده (%s) هم حذف شود؟</string>
-    <!-- The «keep the files» action of the terrain deletion dialog -->
-    <string name="keep">نگه داشتن</string>
-    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
-    <string name="terrain_disabled_dialog">دانلود عوارض زمین همراه با نقشه‌ها خاموش است. برای دیدن خطوط تراز در اینجا روشن شود؟</string>
 </resources>

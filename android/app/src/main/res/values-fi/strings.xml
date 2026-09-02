@@ -751,7 +751,7 @@
     <string name="deselect_all">Poista valinnat</string>
     <string name="select_list">Valitse luettelo</string>
     <string name="button_layer_isolines">Maasto</string>
-    <string name="isolines_location_error_dialog">Päivitä tämä alue nähdäksesi korkeuskäyrät</string>
+    <string name="isolines_location_error_dialog">Korkeuskäyrät eivät ole vielä saatavilla tällä alueella</string>
     <string name="elevation_profile_ascent">Nousua</string>
     <string name="elevation_profile_descent">Laskua</string>
     <string name="elevation_profile_min_elevation">Min. korkeus</string>
@@ -900,8 +900,6 @@
     <string name="hide_track">Piilota reitti</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Näytä reitti</string>
-    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
-    <string name="enable">Ota käyttöön</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -930,14 +928,4 @@
     <string name="color_picker_grid">Ruudukko</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Äänihaku</string>
-    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
-    <string name="pref_terrain_title">Lataa maasto karttojen mukana</string>
-    <!-- The switch subtitle: what the terrain data brings and how it lives -->
-    <string name="pref_terrain_summary">Rinnevarjostus, korkeuskäyrät ja merensyvyydet. Alueen maasto ladataan, päivitetään ja poistetaan yhdessä sen kartan kanssa.</string>
-    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
-    <string name="terrain_delete_all_message">Haluatko poistaa myös ladatut maastotiedot (%s)?</string>
-    <!-- The «keep the files» action of the terrain deletion dialog -->
-    <string name="keep">Säilytä</string>
-    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
-    <string name="terrain_disabled_dialog">Maaston lataaminen karttojen mukana on pois käytöstä. Haluatko ottaa sen käyttöön, jotta näet korkeuskäyrät täällä?</string>
 </resources>

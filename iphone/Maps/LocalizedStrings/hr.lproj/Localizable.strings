@@ -941,7 +941,7 @@
 "dialog_pedestrian_route_is_long_header" = "Nije pronađena ruta podzemne željeznice";
 "dialog_pedestrian_route_is_long_message" = "Molimo odaberite početnu ili završnu točku bliže stanici metroa";
 "button_layer_isolines" = "Izohipse";
-"isolines_location_error_dialog" = "Ažurirajte ovo područje da biste vidjeli izohipse";
+"isolines_location_error_dialog" = "Izohipse još nisu dostupne za ovo područje";
 "elevation_profile_ascent" = "Uzbrdo";
 "elevation_profile_descent" = "Nizbrdo";
 "elevation_profile_min_elevation" = "Min. visina";
@@ -1091,7 +1091,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Molimo omogućite iCloud u postavkama svog uređaja kako biste koristili ovu značajku.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
 "enable" = "Omogući";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1188,18 +1188,3 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Boja tragova je promijenjena";
-
-/* Settings «Map» category: the «Download terrain with maps» switch title */
-"pref_terrain_title" = "Preuzmi teren s kartama";
-
-/* The switch subtitle: what the terrain data brings and how it lives */
-"pref_terrain_summary" = "Sjenčanje reljefa, izohipse i dubine mora. Teren regije preuzima se, ažurira i briše zajedno s njezinom kartom.";
-
-/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
-"terrain_delete_all_message" = "Želite li izbrisati i preuzete podatke o terenu (%@)?";
-
-/* The «keep the files» action of the terrain deletion dialog */
-"keep" = "Zadrži";
-
-/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
-"terrain_disabled_dialog" = "Preuzimanje terena s kartama je isključeno. Želite li ga uključiti kako biste ovdje vidjeli izohipse?";

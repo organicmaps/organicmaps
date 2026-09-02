@@ -941,7 +941,7 @@
 "dialog_pedestrian_route_is_long_header" = "Маршрут на метро не знойдзены";
 "dialog_pedestrian_route_is_long_message" = "Выберыце пункт адпраўлення альбо прызначэння бліжэй да станцыі метро";
 "button_layer_isolines" = "Рэльеф";
-"isolines_location_error_dialog" = "Абнавіце гэты рэгіён, каб убачыць лініі вышынь";
+"isolines_location_error_dialog" = "Для гэтага рэгіёна мапы рэльефу яшчэ недаступны";
 "elevation_profile_ascent" = "Пад'ём";
 "elevation_profile_descent" = "Спуск";
 "elevation_profile_min_elevation" = "Мін. вышыня";
@@ -1091,7 +1091,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Каб выкарыстоўваць гэту функцыю, уключыце iCloud у наладах прылады.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
 "enable" = "Уключыць";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1188,18 +1188,3 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Колер трэкаў зменены";
-
-/* Settings «Map» category: the «Download terrain with maps» switch title */
-"pref_terrain_title" = "Спампоўваць рэльеф разам з мапамі";
-
-/* The switch subtitle: what the terrain data brings and how it lives */
-"pref_terrain_summary" = "Цені рэльефу, лініі вышынь і глыбіні мора. Рэльеф рэгіёна спампоўваецца, абнаўляецца і выдаляецца разам з яго мапай.";
-
-/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
-"terrain_delete_all_message" = "Таксама выдаліць спампаваны рэльеф (%@)?";
-
-/* The «keep the files» action of the terrain deletion dialog */
-"keep" = "Пакінуць";
-
-/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
-"terrain_disabled_dialog" = "Спампоўванне рэльефу разам з мапамі адключана. Уключыць яго, каб убачыць тут лініі вышынь?";
