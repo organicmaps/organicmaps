@@ -123,10 +123,7 @@ uint32_t TagSelectorToType(std::string const & value, Classificator const & clas
 class TypeSelector : public ISelector
 {
 public:
-  TypeSelector(uint32_t type, SelectorOperatorType op) : m_type(type), m_equals(op == SelectorOperatorEqual)
-  {
-    ASSERT(op == SelectorOperatorEqual || op == SelectorOperatorNotEqual, ());
-  }
+  TypeSelector(uint32_t type, bool equals) : m_type(type), m_equals(equals) {}
 
   bool Test(FeatureType & ft, int /* zoom */) const override
   {
@@ -212,13 +209,19 @@ std::unique_ptr<ISelector> ParseSelector(std::string const & str, Classificator 
   }
   else if (e.m_tag == "extra_tag")
   {
+    if (e.m_operator != SelectorOperatorEqual && e.m_operator != SelectorOperatorNotEqual)
+    {
+      LOG(LDEBUG, ("Unsupported extra_tag selector operator:", str));
+      return {};
+    }
+
     uint32_t const type = TagSelectorToType(e.m_value, classificator);
     if (type == Classificator::INVALID_TYPE)
     {
       LOG(LDEBUG, ("Invalid selector:", str));
       return {};
     }
-    return std::make_unique<TypeSelector>(type, e.m_operator);
+    return std::make_unique<TypeSelector>(type, e.m_operator == SelectorOperatorEqual);
   }
 
   LOG(LERROR, ("Unrecognized selector:", str));
