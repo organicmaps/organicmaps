@@ -270,6 +270,11 @@ public final class Map
     Map.nativeOnScroll(distanceX, distanceY);
   }
 
+  public static void onFling(double velocityX, double velocityY)
+  {
+    nativeOnFling(velocityX, velocityY);
+  }
+
   public static void zoomIn()
   {
     nativeScalePlus();
@@ -401,6 +406,8 @@ public final class Map
   private static native void nativeScaleMinus();
 
   private static native void nativeOnScroll(double distanceX, double distanceY);
+
+  private static native void nativeOnFling(double velocityX, double velocityY);
 
   private static native void nativeOnScale(double factor, double focusX, double focusY, boolean isAnim);
 
