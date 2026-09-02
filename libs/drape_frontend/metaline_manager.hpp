@@ -9,6 +9,7 @@
 
 #include <memory>
 #include <mutex>
+#include <optional>
 #include <set>
 
 namespace df
@@ -26,6 +27,7 @@ public:
   void Update(std::set<MwmSet::MwmId> const & mwms);
 
   m2::SharedSpline GetMetaline(FeatureID const & fid) const;
+  std::optional<MetalineInfo> GetMetalineInfo(FeatureID const & fid) const;
 
 private:
   void OnTaskFinished(std::shared_ptr<ReadMetalineTask> const & task);

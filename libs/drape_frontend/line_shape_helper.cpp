@@ -4,6 +4,8 @@
 
 #include "base/assert.hpp"
 
+#include <cmath>
+
 namespace df
 {
 namespace
@@ -259,5 +261,17 @@ float GetProjectionLength(glsl::vec2 const & newPoint, glsl::vec2 const & startP
   float const squareLen = glsl::dot(v1, v1);
   float const proj = glsl::dot(v1, v2) / squareLen;
   return sqrt(squareLen) * math::Clamp(proj, 0.0f, 1.0f);
+}
+
+double WrapDashPhase(double phase, double maskLength)
+{
+  ASSERT_GREATER(maskLength, 0.0, ());
+  double const wrapped = std::fmod(phase, maskLength);
+  return wrapped < 0.0 ? wrapped + maskLength : wrapped;
+}
+
+double AdvanceDashPhase(double phase, double distance, bool reversed)
+{
+  return phase + (reversed ? -distance : distance);
 }
 }  // namespace df

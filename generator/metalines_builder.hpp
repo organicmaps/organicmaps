@@ -12,6 +12,7 @@
 #include <memory>
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 namespace feature
@@ -71,9 +72,10 @@ public:
 
 private:
   using Buffer = std::unordered_map<uint64_t, LinePtr>;
+  using BlockedNodes = std::unordered_set<uint64_t>;
 
-  static bool TryMerge(LinePtr const & lineString, Buffer & buffer);
-  static bool TryMergeOne(LinePtr const & lineString, Buffer & buffer);
+  static bool TryMerge(LinePtr const & lineString, Buffer & buffer, BlockedNodes const & blockedNodes);
+  static bool TryMergeOne(LinePtr const & lineString, Buffer & buffer, BlockedNodes const & blockedNodes);
   static OutputData OrderData(InputData const & data);
 };
 

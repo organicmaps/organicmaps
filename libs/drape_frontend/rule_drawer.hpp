@@ -80,6 +80,7 @@ private:
   int8_t m_deviceLang;
   bool m_wasCancelled = false;
 
+  ftypes::BaseCheckerEx m_isPatternedCyclingInfrastructure;
   ftypes::IsBuildingHasPartsChecker const & m_isBuildingHasParts = ftypes::IsBuildingHasPartsChecker::Instance();
   ftypes::IsBuildingPartChecker const & m_isBuildingPart = ftypes::IsBuildingPartChecker::Instance();
   ftypes::IsBuildingChecker const & m_isBuilding = ftypes::IsBuildingChecker::Instance();

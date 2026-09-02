@@ -158,6 +158,7 @@ RuleDrawer::RuleDrawer(TCheckCancelledCallback const & checkCancelled, TIsCountr
   , m_context(engineContext)
   , m_customFeaturesContext(engineContext->GetCustomFeaturesContext().lock())
   , m_deviceLang(deviceLang)
+  , m_isPatternedCyclingInfrastructure({{"cyclewaytag", "lane"}, {"cyclewaytag", "shared_lane"}})
 {
   ASSERT(m_checkCancelled != nullptr, ());
 
@@ -322,7 +323,22 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s)
 void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s)
 {
   bool const isIsoline = m_isIsoline(f);
-  ApplyLineFeatureGeometry applyGeom(m_applyParams, f, m_relsSettings);
+  double dashPhaseOffset = 0.0;
+  bool dashPhaseReversed = false;
+  bool const hasDashedLine =
+      std::any_of(s.m_lineRules.begin(), s.m_lineRules.end(),
+                  [](drule::LineRule const * rule) { return rule->dashdot.has_value(); });
+  bool const needsDashPhase = hasDashedLine && m_isPatternedCyclingInfrastructure(f);
+  std::optional<MetalineInfo> metalineInfo;
+  if (needsDashPhase || s.m_pathtextRule || s.m_shieldRule)
+    metalineInfo = m_context->GetMetalineManager()->GetMetalineInfo(f.GetID());
+
+  if (needsDashPhase && metalineInfo)
+  {
+    dashPhaseOffset = metalineInfo->m_dashPhaseOffset;
+    dashPhaseReversed = metalineInfo->m_dashPhaseReversed;
+  }
+  ApplyLineFeatureGeometry applyGeom(m_applyParams, f, m_relsSettings, dashPhaseOffset, dashPhaseReversed);
   applyGeom.BuildGeometry(m_zoomLevel, isIsoline);
 
   if (applyGeom.HasGeometry())
@@ -332,7 +348,7 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s)
   {
     std::vector<m2::SharedSpline> clippedSplines;
 
-    auto const metalineSpline = m_context->GetMetalineManager()->GetMetaline(f.GetID());
+    auto const metalineSpline = metalineInfo ? metalineInfo->m_spline : m2::SharedSpline();
     if (metalineSpline.IsNull())
     {
       // There is no metaline for this feature.

@@ -853,11 +853,17 @@
   <symbol maxX="1735" maxY="1672" minX="1710" minY="1647" name="peak-xs"/>
   <symbol maxX="1793" maxY="1669" minX="1735" minY="1647" name="subway-chongqing-m"/>
   <symbol maxX="1815" maxY="1669" minX="1793" minY="1647" name="power-tower-s"/>
-  <symbol maxX="1867" maxY="1669" minX="1815" minY="1647" name="arrow-m"/>
-  <symbol maxX="1886" maxY="1666" minX="1867" minY="1647" name="zero-icon"/>
-  <symbol maxX="1902" maxY="1663" minX="1886" minY="1647" name="mast-s"/>
-  <symbol maxX="1918" maxY="1663" minX="1902" minY="1647" name="dot-m"/>
-  <symbol maxX="1955" maxY="1663" minX="1918" minY="1647" name="arrow-s"/>
-  <symbol maxX="1980" maxY="1657" minX="1955" minY="1647" name="arrow-xs"/>
+  <symbol maxX="1867" maxY="1669" minX="1815" minY="1647" name="cycling-arrow-solid-m"/>
+  <symbol maxX="1919" maxY="1669" minX="1867" minY="1647" name="cycling-arrow-patterned-m"/>
+  <symbol maxX="1971" maxY="1669" minX="1919" minY="1647" name="arrow-m"/>
+  <symbol maxX="1990" maxY="1666" minX="1971" minY="1647" name="zero-icon"/>
+  <symbol maxX="2006" maxY="1663" minX="1990" minY="1647" name="mast-s"/>
+  <symbol maxX="2022" maxY="1663" minX="2006" minY="1647" name="dot-m"/>
+  <symbol maxX="37" maxY="1697" minX="0" minY="1681" name="cycling-arrow-solid-s"/>
+  <symbol maxX="74" maxY="1697" minX="37" minY="1681" name="cycling-arrow-patterned-s"/>
+  <symbol maxX="111" maxY="1697" minX="74" minY="1681" name="arrow-s"/>
+  <symbol maxX="136" maxY="1691" minX="111" minY="1681" name="cycling-arrow-solid-xs"/>
+  <symbol maxX="161" maxY="1691" minX="136" minY="1681" name="cycling-arrow-patterned-xs"/>
+  <symbol maxX="186" maxY="1691" minX="161" minY="1681" name="arrow-xs"/>
  </file>
 </root>
