@@ -65,11 +65,16 @@ void InterpolateByZoom(SubrouteConstPtr const & subroute, ScreenBase const & scr
   float lerpCoef = 0.0f;
   ExtractZoomFactors(screen, zoom, index, lerpCoef);
 
-  std::array<float, 20> const * halfWidthInPixel = &kRouteHalfWidthInPixelOthers;
-  if (subroute->m_routeType == RouteType::Car || subroute->m_routeType == RouteType::Taxi)
-    halfWidthInPixel = &kRouteHalfWidthInPixelCar;
-  else if (subroute->m_routeType == RouteType::Transit)
-    halfWidthInPixel = &kRouteHalfWidthInPixelTransit;
+  std::array<float, 20> const * halfWidthInPixel;
+  switch (subroute->m_routeType)
+  {
+  case RouteType::Car:
+  case RouteType::Taxi: halfWidthInPixel = &kRouteHalfWidthInPixelCar; break;
+  case RouteType::Bicycle: halfWidthInPixel = &kRouteHalfWidthInPixelBicycle; break;
+  case RouteType::Transit: halfWidthInPixel = &kRouteHalfWidthInPixelTransit; break;
+  case RouteType::Pedestrian:
+  case RouteType::Ruler: halfWidthInPixel = &kRouteHalfWidthInPixelOthers; break;
+  }
 
   halfWidth = InterpolateByZoomLevels(index, lerpCoef, *halfWidthInPixel);
   halfWidth *= static_cast<float>(df::VisualParams::Instance().GetVisualScale());
@@ -705,10 +710,10 @@ void RouteRenderer::AddSubrouteData(ref_ptr<dp::GraphicsContext> context, drape_
     info.m_length = subrouteData->m_subroute->m_polyline.GetLength();
     info.m_subrouteData.push_back(std::move(subrouteData));
     BuildBuckets(context, info.m_subrouteData.back()->m_renderProperty, mng);
-    m_subroutes.push_back(std::move(info));
-
-    std::sort(m_subroutes.begin(), m_subroutes.end(), [](SubrouteInfo const & info1, SubrouteInfo const & info2)
+    auto const it = std::upper_bound(m_subroutes.begin(), m_subroutes.end(), info,
+                                     [](SubrouteInfo const & info1, SubrouteInfo const & info2)
     { return info1.m_subroute->m_baseDistance > info2.m_subroute->m_baseDistance; });
+    m_subroutes.insert(it, std::move(info));
   }
 }
 
