@@ -169,20 +169,23 @@ UNIT_CLASS_TEST(TestWithClassificator, ExtraTagSelector)
   FeatureType path(FeatureID{}, c.GetTypeByPath({"highway", "path", "bicycle"}));
   FeatureType road(FeatureID{}, c.GetTypeByPath({"highway", "primary"}));
 
-  auto equal = ParseSelector("extra_tag=highway=cycleway");
+  auto equal = ParseSelector("extra_tag=highway=cycleway", c);
   TEST(equal, ());
   TEST(equal->Test(cycleway, 15), ());
   TEST(!equal->Test(road, 15), ());
 
-  auto notEqual = ParseSelector("extra_tag!=highway=cycleway");
+  auto notEqual = ParseSelector("extra_tag!=highway=cycleway", c);
   TEST(notEqual, ());
   TEST(!notEqual->Test(cycleway, 15), ());
   TEST(notEqual->Test(road, 15), ());
 
-  auto nested = ParseSelector("extra_tag=highway=path=bicycle");
+  auto nested = ParseSelector("extra_tag=highway=path=bicycle", c);
   TEST(nested, ());
   TEST(nested->Test(path, 15), ());
   TEST(!nested->Test(cycleway, 15), ());
+
+  TEST(!ParseSelector("extra_tag<highway=cycleway", c), ());
+  TEST(!ParseSelector("extra_tag", c), ());
 }
 
 UNIT_TEST(InvalidSelector_Smoke)
