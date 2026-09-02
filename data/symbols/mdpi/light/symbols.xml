@@ -855,9 +855,15 @@
   <symbol maxX="889" maxY="477" minX="879" minY="467" name="power-tower-s"/>
   <symbol maxX="909" maxY="477" minX="889" minY="467" name="arrow-m"/>
   <symbol maxX="918" maxY="476" minX="909" minY="467" name="zero-icon"/>
-  <symbol maxX="926" maxY="475" minX="918" minY="467" name="mast-s"/>
-  <symbol maxX="934" maxY="475" minX="926" minY="467" name="dot-m"/>
-  <symbol maxX="949" maxY="475" minX="934" minY="467" name="arrow-s"/>
-  <symbol maxX="960" maxY="473" minX="949" minY="467" name="arrow-xs"/>
+  <symbol maxX="935" maxY="476" minX="918" minY="467" name="cycling-arrow-solid-m"/>
+  <symbol maxX="952" maxY="476" minX="935" minY="467" name="cycling-arrow-patterned-m"/>
+  <symbol maxX="960" maxY="475" minX="952" minY="467" name="mast-s"/>
+  <symbol maxX="968" maxY="475" minX="960" minY="467" name="dot-m"/>
+  <symbol maxX="983" maxY="475" minX="968" minY="467" name="cycling-arrow-solid-s"/>
+  <symbol maxX="998" maxY="475" minX="983" minY="467" name="cycling-arrow-patterned-s"/>
+  <symbol maxX="1013" maxY="475" minX="998" minY="467" name="arrow-s"/>
+  <symbol maxX="13" maxY="488" minX="0" minY="481" name="cycling-arrow-solid-xs"/>
+  <symbol maxX="26" maxY="488" minX="13" minY="481" name="cycling-arrow-patterned-xs"/>
+  <symbol maxX="37" maxY="487" minX="26" minY="481" name="arrow-xs"/>
  </file>
 </root>

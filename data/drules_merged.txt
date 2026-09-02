@@ -9360,6 +9360,43 @@ type historic-wreck
   z20
     symbol name=wreck-m priority=3050
     caption primary[height=10 color=c066 dy=1 optional] priority=-6950
+type hwtag-onedir_bicycle
+  z15 if "extra_tag=highway=cycleway"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-solid-xs step=44 offset=30 priority=343
+  z15 if "extra_tag=highway=path=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-xs step=44 offset=30 priority=343
+  z15 if "extra_tag=highway=footway=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-xs step=44 offset=30 priority=343
+  z16 if "extra_tag=highway=cycleway"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-solid-s step=54 offset=50 priority=343
+  z16 if "extra_tag=highway=path=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-s step=54 offset=50 priority=343
+  z16 if "extra_tag=highway=footway=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-s step=54 offset=50 priority=343
+  z17 if "extra_tag=highway=cycleway"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-solid-s step=64 offset=70 priority=343
+  z17 if "extra_tag=highway=path=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-s step=64 offset=70 priority=343
+  z17 if "extra_tag=highway=footway=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-s step=64 offset=70 priority=343
+  z18 if "extra_tag=highway=cycleway"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-solid-m step=74 offset=90 priority=343
+  z18 if "extra_tag=highway=path=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-m step=74 offset=90 priority=343
+  z18 if "extra_tag=highway=footway=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-m step=74 offset=90 priority=343
+  z19 if "extra_tag=highway=cycleway"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-solid-m step=74 offset=90 priority=343
+  z19 if "extra_tag=highway=path=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-m step=74 offset=90 priority=343
+  z19 if "extra_tag=highway=footway=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-m step=74 offset=90 priority=343
+  z20 if "extra_tag=highway=cycleway"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-solid-m step=74 offset=90 priority=343
+  z20 if "extra_tag=highway=path=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-m step=74 offset=90 priority=343
+  z20 if "extra_tag=highway=footway=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-m step=74 offset=90 priority=343
 type hwtag-oneway
   z15
     line width=0 color=c022 join=round cap=round pathsym=arrow-xs step=44 offset=30 priority=330
