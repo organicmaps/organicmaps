@@ -1169,7 +1169,8 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
           type = CachedTypes::CyclewayTrack;
         else if (value == "lane" || value == "opposite_lane" || value == "buffered_lane")
           type = CachedTypes::CyclewayLane;
-        else if (value == "shared_lane" || value == "share_busway" || value == "shoulder")
+        else if (value == "shared_lane" || value == "share_busway" || value == "opposite_share_busway" ||
+                 value == "shoulder")
           type = CachedTypes::CyclewaySharedLane;
 
         // A physically separated lane is as safe as a track. Check only protection
@@ -1199,6 +1200,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
       TagProcessor(p).ApplyRules({
           {"oneway", "yes", [&addOneway] { addOneway = true; }},
           {"oneway", "1", [&addOneway] { addOneway = true; }},
+          {"oneway", "true", [&addOneway] { addOneway = true; }},
           {"oneway", "-1",
            [&addOneway, &params]
       {
@@ -1246,8 +1248,10 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
         SetCyclewayType(CachedTypes::CyclewaySharedLane);
       }},
           {"oneway:bicycle", "!", [&AddParam] { AddParam(CachedTypes::BicycleBidir); }},
-          {"oneway:bicycle", "~", [&AddParam] { AddParam(CachedTypes::BicycleOnedir); }},
-          {"cycleway", "opposite", [&AddParam] { AddParam(CachedTypes::BicycleBidir); }},
+          {"oneway:bicycle", "yes", [&AddParam] { AddParam(CachedTypes::BicycleOnedir); }},
+          {"oneway:bicycle", "1", [&AddParam] { AddParam(CachedTypes::BicycleOnedir); }},
+          {"oneway:bicycle", "true", [&AddParam] { AddParam(CachedTypes::BicycleOnedir); }},
+          {"oneway:bicycle", "-1", [&AddParam] { AddParam(CachedTypes::BicycleOnedir); }},
 
           // For YesCar process only strict =yes/designated.
           {"motor_vehicle", "private", [&flags] { flags[Flags::MotorVehicle] = -1; }},
@@ -1277,6 +1281,12 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
           flags[Flags::Cycleway] = -1;
         else if (IsPositiveRoutingTagValue(tag.m_value))
           flags[Flags::Cycleway] = 1;
+
+        if (tag.m_value == "opposite" || tag.m_value == "opposite_lane" ||
+            tag.m_value == "opposite_track" || tag.m_value == "opposite_share_busway")
+        {
+          AddParam(CachedTypes::BicycleBidir);
+        }
 
         ProcessCyclewayTypeTag(tag.m_key, tag.m_value);
       }
