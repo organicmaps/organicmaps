@@ -572,6 +572,19 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
 
   {
     Tags const tags = {
+        {"highway", "cycleway"},
+        {"oneway", "true"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST(params.IsTypeExist(GetType({"highway", "cycleway"})), ());
+    TEST(params.IsTypeExist(GetType({"hwtag", "oneway"})), ());
+  }
+
+  {
+    Tags const tags = {
         {"oneway", "-1"}, {"highway", "primary"}, {"access", "private"},    {"lit", "no"},
         {"foot", "no"},   {"bicycle", "yes"},     {"oneway:bicycle", "no"}, {"motor_vehicle", "yes"},
     };
@@ -590,6 +603,22 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
   }
 
   {
+    for (char const * value : {"alternating", "reversible", "unknown"})
+    {
+      Tags const tags = {
+          {"highway", "cycleway"},
+          {"oneway:bicycle", value},
+      };
+
+      auto const params = GetFeatureBuilderParams(tags);
+
+      TEST_EQUAL(params.m_types.size(), 1, (params, value));
+      TEST(params.IsTypeExist(GetType({"highway", "cycleway"})), (value));
+      TEST(!params.IsTypeExist(GetType({"hwtag", "onedir_bicycle"})), (value));
+    }
+  }
+
+  {
     Tags const tags = {
         {"foot", "designated"},
         {"cycleway", "lane"},
@@ -603,6 +632,38 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
     TEST(params.IsTypeExist(GetType({"hwtag", "yesfoot"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), ());
     TEST(params.IsTypeExist(GetType({"cyclewaytag", "lane"})), ());
+  }
+
+  {
+    struct TestCase
+    {
+      char const * m_value;
+      char const * m_expectedCyclewayType;
+    };
+    std::vector<TestCase> const testCases = {
+        {"opposite_lane", "lane"},
+        {"opposite_track", "track"},
+        {"opposite_share_busway", "shared_lane"},
+    };
+
+    for (auto const & testCase : testCases)
+    {
+      Tags const tags = {
+          {"cycleway:left", testCase.m_value},
+          {"highway", "secondary"},
+          {"oneway", "yes"},
+      };
+
+      auto const params = GetFeatureBuilderParams(tags);
+
+      TEST_EQUAL(params.m_types.size(), 5, (params, testCase.m_value));
+      TEST(params.IsTypeExist(GetType({"highway", "secondary"})), (testCase.m_value));
+      TEST(params.IsTypeExist(GetType({"hwtag", "oneway"})), (testCase.m_value));
+      TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), (testCase.m_value));
+      TEST(params.IsTypeExist(GetType({"hwtag", "bidir_bicycle"})), (testCase.m_value));
+      TEST(params.IsTypeExist(GetType({"cyclewaytag", testCase.m_expectedCyclewayType})),
+           (testCase.m_value));
+    }
   }
 
   {
