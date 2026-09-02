@@ -58,8 +58,8 @@ void IsolinesManager::UpdateViewport(ScreenBase const & screen)
   if (!IsEnabled())
     return;
 
-  // Keep the last state on the low zooms: the platforms announce the NoData transition
-  // (the terrain download hint), don't repeat it on every zoom bounce over the same place.
+  // Keep the last state on the low zooms: the platforms announce the NoData transition,
+  // don't repeat it on every zoom bounce over the same place.
   if (!IsVisible())
     return;
 

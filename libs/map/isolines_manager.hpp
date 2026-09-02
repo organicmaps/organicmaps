@@ -10,8 +10,8 @@
 #include <string>
 
 // The dynamic terrain isolines layer switch and its availability hint: NoData means the
-// viewport misses the downloaded terrain coverage, the platforms prompt the user to
-// download it (see isolines_location_error_dialog).
+// viewport misses the downloaded terrain coverage, and the platforms show the neutral
+// availability hint from isolines_location_error_dialog.
 class IsolinesManager final
 {
 public:
