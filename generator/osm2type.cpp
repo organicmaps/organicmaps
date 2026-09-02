@@ -1142,8 +1142,14 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
           {"cycleway:left", "~r", [&flags] { flags[Flags::Cycleway] = 1; }},
           {"cycleway:right", "~r", [&flags] { flags[Flags::Cycleway] = 1; }},
           {"oneway:bicycle", "!", [&AddParam] { AddParam(CachedTypes::BicycleBidir); }},
-          {"oneway:bicycle", "~", [&AddParam] { AddParam(CachedTypes::BicycleOnedir); }},
+          {"oneway:bicycle", "yes", [&AddParam] { AddParam(CachedTypes::BicycleOnedir); }},
+          {"oneway:bicycle", "1", [&AddParam] { AddParam(CachedTypes::BicycleOnedir); }},
+          {"oneway:bicycle", "true", [&AddParam] { AddParam(CachedTypes::BicycleOnedir); }},
+          {"oneway:bicycle", "-1", [&AddParam] { AddParam(CachedTypes::BicycleOnedir); }},
           {"cycleway", "opposite", [&AddParam] { AddParam(CachedTypes::BicycleBidir); }},
+          {"cycleway", "opposite_lane", [&AddParam] { AddParam(CachedTypes::BicycleBidir); }},
+          {"cycleway", "opposite_track", [&AddParam] { AddParam(CachedTypes::BicycleBidir); }},
+          {"cycleway", "opposite_share_busway", [&AddParam] { AddParam(CachedTypes::BicycleBidir); }},
 
           // For YesCar process only strict =yes/designated.
           {"motor_vehicle", "private", [&flags] { flags[Flags::MotorVehicle] = -1; }},
