@@ -1074,6 +1074,12 @@
 /* Text for the editing the Track's color button. */
 "change_color" = "Farbe ändern";
 
+/* Text for the hiding track. */
+"hide_track" = "Track ausblenden";
+
+/* Text for the showing track. */
+"show_track" = "Track anzeigen";
+
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Karte";
 

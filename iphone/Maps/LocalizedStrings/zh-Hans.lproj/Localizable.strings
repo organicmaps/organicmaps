@@ -1074,6 +1074,12 @@
 /* Text for the editing the Track's color button. */
 "change_color" = "更改颜色";
 
+/* Text for the hiding track. */
+"hide_track" = "隐藏轨迹";
+
+/* Text for the showing track. */
+"show_track" = "显示轨迹";
+
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "地图";
 

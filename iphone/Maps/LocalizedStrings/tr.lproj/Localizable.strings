@@ -1074,6 +1074,12 @@
 /* Text for the editing the Track's color button. */
 "change_color" = "Renk Değiştir";
 
+/* Text for the hiding track. */
+"hide_track" = "İzi gizle";
+
+/* Text for the showing track. */
+"show_track" = "İzi göster";
+
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Harita";
 
