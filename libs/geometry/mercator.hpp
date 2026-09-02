@@ -93,34 +93,32 @@ inline m2::RectD WrapRectX(m2::RectD rect)
 template <typename Fn>
 void ForEachRectWrapped(m2::RectD const & rect, Fn && fn)
 {
+  ASSERT(rect.IsValid(), (rect));
   if (rect.SizeX() >= Bounds::kRangeX)
   {
     // Wider than the world: covers every longitude.
     fn(m2::RectD(Bounds::kMinX, rect.minY(), Bounds::kMaxX, rect.maxY()));
+    return;
   }
-  else if (rect.minX() >= Bounds::kMaxX)
-  {
-    fn(m2::RectD(rect.minX() - Bounds::kRangeX, rect.minY(), rect.maxX() - Bounds::kRangeX, rect.maxY()));
-  }
-  else if (rect.maxX() <= Bounds::kMinX)
-  {
-    fn(m2::RectD(rect.minX() + Bounds::kRangeX, rect.minY(), rect.maxX() + Bounds::kRangeX, rect.maxY()));
-  }
-  else if (rect.maxX() > Bounds::kMaxX)
+
+  auto wrapped = rect;
+  if (rect.Center().x < Bounds::kMinX || rect.Center().x > Bounds::kMaxX)
+    wrapped = WrapRectX(rect);
+  if (wrapped.maxX() > Bounds::kMaxX)
   {
     // [minX, kMaxX] stays canonical; the part beyond kMaxX wraps to the west.
-    fn(m2::RectD(rect.minX(), rect.minY(), Bounds::kMaxX, rect.maxY()));
-    fn(m2::RectD(Bounds::kMinX, rect.minY(), rect.maxX() - Bounds::kRangeX, rect.maxY()));
+    fn(m2::RectD(wrapped.minX(), wrapped.minY(), Bounds::kMaxX, wrapped.maxY()));
+    fn(m2::RectD(Bounds::kMinX, wrapped.minY(), wrapped.maxX() - Bounds::kRangeX, wrapped.maxY()));
   }
-  else if (rect.minX() < Bounds::kMinX)
+  else if (wrapped.minX() < Bounds::kMinX)
   {
     // [kMinX, maxX] stays canonical; the part below kMinX wraps to the east.
-    fn(m2::RectD(Bounds::kMinX, rect.minY(), rect.maxX(), rect.maxY()));
-    fn(m2::RectD(rect.minX() + Bounds::kRangeX, rect.minY(), Bounds::kMaxX, rect.maxY()));
+    fn(m2::RectD(Bounds::kMinX, wrapped.minY(), wrapped.maxX(), wrapped.maxY()));
+    fn(m2::RectD(wrapped.minX() + Bounds::kRangeX, wrapped.minY(), Bounds::kMaxX, wrapped.maxY()));
   }
   else
   {
-    fn(rect);
+    fn(wrapped);
   }
 }
 

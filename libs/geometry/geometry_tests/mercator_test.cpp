@@ -180,6 +180,17 @@ UNIT_TEST(Mercator_ForEachRectWrapped)
     TEST_EQUAL(p.size(), 1, ());
     TEST(AlmostEqualAbs(p[0], m2::RectD{-175, 0, -165, 5}, kEps), ());
   }
+  {  // Crossing after two eastward world wraps.
+    auto const p = parts({890, 0, 910, 5});
+    TEST_EQUAL(p.size(), 2, ());
+    TEST(AlmostEqualAbs(p[0], m2::RectD{-180, 0, -170, 5}, kEps), ());
+    TEST(AlmostEqualAbs(p[1], m2::RectD{170, 0, 180, 5}, kEps), ());
+  }
+  {  // Entirely beyond several westward world wraps.
+    auto const p = parts({-895, 0, -885, 5});
+    TEST_EQUAL(p.size(), 1, ());
+    TEST(AlmostEqualAbs(p[0], m2::RectD{-175, 0, -165, 5}, kEps), ());
+  }
   {  // Wider than the world: covers every longitude once.
     auto const p = parts({-540, 0, 540, 5});
     TEST_EQUAL(p.size(), 1, ());
