@@ -807,9 +807,8 @@ void RuleDrawer::DrawDynamicIsolines(terrain::TileMesh const & mesh, terrain::Is
       textParams.m_depthTestEnabled = false;
       // Pathtext drule priorities map to the overlay depth directly.
       textParams.m_depth = textRule->priority;
+      // A bare number in the display units, like the baked isoline labels.
       textParams.m_mainText = strings::to_string(isoline.m_altitude);
-      if (units == measurement_utils::Units::Imperial)
-        textParams.m_mainText += " ft";
       float constexpr kMinVisibleFontSize = 8.0f;
       textParams.m_textFont = dp::FontDecl(
           ToDrapeColor(caption.color), std::max(kMinVisibleFontSize, static_cast<float>(caption.height * visScale)));

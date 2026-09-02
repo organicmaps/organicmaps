@@ -202,8 +202,9 @@ struct TwmHeader
 
 // The samples lattice of one mesh: the quantized mercator coordinates of its columns and rows.
 // A geometry codes the (column, row) index pairs, this table turns them back into the points.
-// The tables are built with the canonical formula (docs/TERRAIN.md) and frozen into the file,
-// so the borders of the neighbor meshes and blocks - the same physical parallels and meridians -
+// The tables are built with the canonical formula - the quantized mercator point of the lattice
+// node, PointDToPointU(mercator::FromLatLon(lat, lon), coordBits) - and frozen into the file, so
+// the borders of the neighbor meshes and blocks - the same physical parallels and meridians -
 // map to the identical points.
 struct MeshGrid
 {
