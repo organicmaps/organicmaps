@@ -1145,7 +1145,6 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
           {"oneway:bicycle", "yes", [&AddParam] { AddParam(CachedTypes::BicycleOnedir); }},
           {"oneway:bicycle", "1", [&AddParam] { AddParam(CachedTypes::BicycleOnedir); }},
           {"oneway:bicycle", "true", [&AddParam] { AddParam(CachedTypes::BicycleOnedir); }},
-          {"oneway:bicycle", "-1", [&AddParam] { AddParam(CachedTypes::BicycleOnedir); }},
           {"cycleway", "opposite", [&AddParam] { AddParam(CachedTypes::BicycleBidir); }},
           {"cycleway", "opposite_lane", [&AddParam] { AddParam(CachedTypes::BicycleBidir); }},
           {"cycleway", "opposite_track", [&AddParam] { AddParam(CachedTypes::BicycleBidir); }},
