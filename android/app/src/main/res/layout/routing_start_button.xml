@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<app.organicmaps.widget.RoutingProgressButton
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<app.organicmaps.widget.RoutingProgressButton xmlns:android="http://schemas.android.com/apk/res/android"
   android:id="@+id/start"
   style="@style/MwmWidget.Button.Primary"
   android:layout_width="0dp"

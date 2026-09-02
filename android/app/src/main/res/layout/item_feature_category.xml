@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
@@ -17,7 +16,7 @@
     android:layout_weight="1"
     android:singleLine="true"
     android:textAppearance="@style/MwmTextAppearance.Body1"
-    tools:text="Category"/>
+    tools:text="Category" />
 
   <ImageView
     android:id="@+id/selected"
@@ -26,6 +25,6 @@
     android:layout_marginStart="@dimen/margin_base"
     android:layout_marginEnd="@dimen/margin_base"
     app:srcCompat="@drawable/ic_done"
-    app:tint="?iconTint"/>
+    app:tint="?iconTint" />
 
 </LinearLayout>

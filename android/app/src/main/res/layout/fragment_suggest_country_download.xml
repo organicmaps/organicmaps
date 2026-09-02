@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:wheel="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -31,14 +30,14 @@
       android:gravity="center"
       android:layout_marginTop="@dimen/margin_half"
       android:text="@string/search_without_internet_advertisement"
-      android:textAppearance="@style/MwmTextAppearance.Body2"/>
+      android:textAppearance="@style/MwmTextAppearance.Body2" />
 
     <ImageView
       android:layout_width="wrap_content"
       android:layout_height="@dimen/placeholder_size"
       android:layout_marginTop="@dimen/margin_half"
       app:srcCompat="@drawable/img_search_no_maps"
-      android:tag="@string/tag_height_limited"/>
+      android:tag="@string/tag_height_limited" />
 
     <LinearLayout
       android:id="@+id/ll__location_determined"
@@ -56,13 +55,13 @@
         android:paddingTop="@dimen/margin_half"
         android:paddingBottom="@dimen/margin_half"
         android:textAppearance="@style/MwmTextAppearance.Title"
-        tools:text="Some country name"/>
+        tools:text="Some country name" />
 
       <Button
         android:id="@+id/btn__download_map"
         style="@style/MwmWidget.Button.Primary"
         android:layout_marginTop="@dimen/margin_half"
-        android:text="@string/downloader_download_map"/>
+        android:text="@string/downloader_download_map" />
     </LinearLayout>
 
     <LinearLayout
@@ -81,13 +80,13 @@
         android:layout_marginTop="@dimen/margin_half"
         android:gravity="center"
         android:text="@string/unknown_current_position"
-        android:textAppearance="@style/MwmTextAppearance.Body3"/>
+        android:textAppearance="@style/MwmTextAppearance.Body3" />
 
       <Button
         android:id="@+id/btn__select_map"
         style="@style/MwmWidget.Button.Primary"
         android:layout_marginTop="@dimen/margin_half"
-        android:text="@string/search_select_map"/>
+        android:text="@string/search_select_map" />
     </LinearLayout>
   </LinearLayout>
 
@@ -107,7 +106,7 @@
       android:id="@+id/tv__active_country_name"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:textAppearance="@style/MwmTextAppearance.Title"/>
+      android:textAppearance="@style/MwmTextAppearance.Title" />
 
     <TextView
       android:id="@+id/downloader_progress"
@@ -115,7 +114,7 @@
       android:layout_height="wrap_content"
       android:layout_margin="@dimen/margin_half"
       android:textAppearance="@style/MwmTextAppearance.Body2"
-      tools:text="1024%"/>
+      tools:text="1024%" />
 
     <app.organicmaps.widget.WheelProgressView
       android:id="@+id/wpv__download_progress"
@@ -124,6 +123,6 @@
       android:background="?clickableBackground"
       wheel:wheelProgressColor="?colorAccent"
       wheel:wheelSecondaryColor="?dividerHorizontal"
-      wheel:wheelThickness="@dimen/margin_eighth"/>
+      wheel:wheelThickness="@dimen/margin_eighth" />
   </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

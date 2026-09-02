@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:layout_margin="@dimen/margin_double_and_half"
@@ -15,7 +14,7 @@
     android:paddingStart="@dimen/margin_quarter"
     android:textAppearance="?android:textAppearanceLarge"
     android:fontFamily="@string/robotoMedium"
-    android:text="@string/sort_bookmarks"/>
+    android:text="@string/sort_bookmarks" />
 
   <RadioGroup
     android:id="@+id/sorting_types"
@@ -31,7 +30,7 @@
       android:layout_height="wrap_content"
       android:padding="@dimen/margin_half_double_plus"
       android:checked="true"
-      android:text="@string/by_default"/>
+      android:text="@string/by_default" />
 
     <RadioButton
       style="?fontSubtitle1"
@@ -40,7 +39,7 @@
       android:layout_height="wrap_content"
       android:padding="@dimen/margin_half_double_plus"
       android:checked="false"
-      android:text="@string/by_name"/>
+      android:text="@string/by_name" />
 
     <RadioButton
       style="?fontSubtitle1"
@@ -49,7 +48,7 @@
       android:layout_height="wrap_content"
       android:padding="@dimen/margin_half_double_plus"
       android:checked="false"
-      android:text="@string/by_type"/>
+      android:text="@string/by_type" />
 
     <RadioButton
       style="?fontSubtitle1"
@@ -58,7 +57,7 @@
       android:layout_height="wrap_content"
       android:padding="@dimen/margin_half_double_plus"
       android:checked="false"
-      android:text="@string/by_distance"/>
+      android:text="@string/by_distance" />
 
     <RadioButton
       style="?fontSubtitle1"
@@ -67,6 +66,6 @@
       android:layout_height="wrap_content"
       android:padding="@dimen/margin_half_double_plus"
       android:checked="false"
-      android:text="@string/by_date"/>
+      android:text="@string/by_date" />
   </RadioGroup>
 </LinearLayout>

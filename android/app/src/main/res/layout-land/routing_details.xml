@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/numbers"
   android:orientation="vertical"
@@ -12,7 +11,7 @@
     android:ellipsize="end"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:text="5 h 55 min • 1555km"/>
+    tools:text="5 h 55 min • 1555km" />
   <TextView
     android:id="@+id/altitude_difference"
     android:layout_width="wrap_content"
@@ -22,5 +21,5 @@
     android:textColor="?colorAccent"
     android:visibility="gone"
     tools:text="43 m"
-    tools:visibility="visible"/>
+    tools:visibility="visible" />
 </LinearLayout>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/ll__place_editor"
   style="@style/PlacePageItemFrame"
@@ -9,5 +8,5 @@
     android:id="@+id/tv__editor"
     style="@style/PlacePageMetadataText.Button"
     android:gravity="center"
-    android:text="@string/edit_place"/>
+    android:text="@string/edit_place" />
 </LinearLayout>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:card_view="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
@@ -30,7 +29,7 @@
         android:inputType="textMultiLine"
         android:padding="@dimen/margin_base"
         android:textAppearance="@style/MwmTextAppearance.Body3"
-        tools:text="trololo \ntrololo \ntrololo"/>
+        tools:text="trololo \ntrololo \ntrololo" />
 
     </androidx.cardview.widget.CardView>
 
@@ -59,7 +58,7 @@
           android:padding="@dimen/margin_base"
           android:text="@string/editor_example_values"
           android:textAppearance="@style/MwmTextAppearance.Body3"
-          android:textColor="?colorAccent"/>
+          android:textColor="?colorAccent" />
 
         <View
           android:layout_width="match_parent"
@@ -70,7 +69,7 @@
           android:id="@+id/wv__examples"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:padding="@dimen/margin_base"/>
+          android:padding="@dimen/margin_base" />
 
       </LinearLayout>
 
