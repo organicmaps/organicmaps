@@ -757,7 +757,6 @@
     <string name="deselect_all">Desselecciona-ho tot</string>
     <string name="select_list">Trieu una llista</string>
     <string name="button_layer_isolines">Corbes de nivell</string>
-    <string name="isolines_activation_error_dialog">Per a activar i usar la capa topogràfica, actualitzeu o baixeu el mapa de l’àrea</string>
     <string name="isolines_location_error_dialog">La capa topogràfica encara no és disponible en aquesta àrea</string>
     <string name="elevation_profile_ascent">Ascens</string>
     <string name="elevation_profile_descent">Descens</string>

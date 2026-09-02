@@ -941,7 +941,6 @@
 "dialog_pedestrian_route_is_long_header" = "Nie znaleziono trasy metra";
 "dialog_pedestrian_route_is_long_message" = "Wybierz punkt początkowy lub końcowy trasy najbliżej do stacji metra";
 "button_layer_isolines" = "Poziomice";
-"isolines_activation_error_dialog" = "Do skorzystania z poziomic, pobierz mapę tego obszaru.";
 "isolines_location_error_dialog" = "Poziomice nie są jeszcze dostępne w tym regionie";
 "elevation_profile_ascent" = "Wejście";
 "elevation_profile_descent" = "Zejście";

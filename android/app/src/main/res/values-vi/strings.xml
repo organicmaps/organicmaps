@@ -749,7 +749,6 @@
     <string name="deselect_all">Bỏ chọn tất cả</string>
     <string name="select_list">Chọn danh sách</string>
     <string name="button_layer_isolines">Độ cao</string>
-    <string name="isolines_activation_error_dialog">Để sử dụng các đường chỉ độ cao, hãy cập nhật hoặc tải xuống bản đồ của khu vực bạn mong muốn</string>
     <string name="isolines_location_error_dialog">Đường hiển thị độ cao hiện chưa khả dụng tại khu vực này</string>
     <string name="elevation_profile_ascent">Đi lên</string>
     <string name="elevation_profile_descent">Đi xuống</string>

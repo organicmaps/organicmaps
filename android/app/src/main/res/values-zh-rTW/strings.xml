@@ -752,7 +752,6 @@
     <string name="deselect_all">取消全選</string>
     <string name="select_list">選擇列表</string>
     <string name="button_layer_isolines">等高線</string>
-    <string name="isolines_activation_error_dialog">如需使用等高線，請更新或下載所需區域的地圖</string>
     <string name="isolines_location_error_dialog">暫時無法獲取該地區的等高線</string>
     <string name="elevation_profile_ascent">上坡</string>
     <string name="elevation_profile_descent">下坡</string>

@@ -941,7 +941,6 @@
 "dialog_pedestrian_route_is_long_header" = "मेट्रो मार्ग सापडला नाही";
 "dialog_pedestrian_route_is_long_message" = "कृपया मेट्रो स्थानकाजवळचा प्रारंभ किंवा शेवटचा बिंदू निवडा";
 "button_layer_isolines" = "भूप्रदेश";
-"isolines_activation_error_dialog" = "भूस्वरूप स्तर वापरण्यासाठी कृपया नकाशा डाउनलोड किंवा अद्ययावत करा";
 "isolines_location_error_dialog" = "या भागात भूस्वरूप स्तर अद्याप उपलब्ध नाही";
 "elevation_profile_ascent" = "चढण";
 "elevation_profile_descent" = "उतरण";

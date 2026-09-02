@@ -748,7 +748,6 @@
     <string name="deselect_all">Noņemt atlasi</string>
     <string name="select_list">Izvēlēties sarakstu</string>
     <string name="button_layer_isolines">Reljefa līnijas</string>
-    <string name="isolines_activation_error_dialog">Reljefa līniju parādīšanai nepieciešamas lejupielādēt šī reģiona karti</string>
     <string name="isolines_location_error_dialog">Topogrāfiskais slānis šim reģionam nav pieejams</string>
     <string name="elevation_profile_ascent">Kāpums</string>
     <string name="elevation_profile_descent">Kritums</string>

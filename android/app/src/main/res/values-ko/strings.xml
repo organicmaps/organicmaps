@@ -749,7 +749,6 @@
     <string name="deselect_all">선택 해제</string>
     <string name="select_list">목록 선택</string>
     <string name="button_layer_isolines">지형</string>
-    <string name="isolines_activation_error_dialog">지형 레이어를 활성화하고 사용하려면 해당 지역의 지도를 업데이트하거나 다운로드하십시오</string>
     <string name="isolines_location_error_dialog">이 지역의 지형 레이어는 아직 사용할 수 없습니다</string>
     <string name="elevation_profile_ascent">올라가기</string>
     <string name="elevation_profile_descent">내려가기</string>

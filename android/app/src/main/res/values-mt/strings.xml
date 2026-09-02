@@ -754,8 +754,7 @@
     <string name="deselect_all">Neħħi l-għażla</string>
     <string name="select_list">Agħżel il-lista</string>
     <string name="button_layer_isolines">Linji tal-Contour</string>
-    <string name="isolines_activation_error_dialog">L-attivazzjoni tal-linji tal-contour teħtieġ it-tniżżil tad-dejta tal-mappa għal din iż-żona</string>
-    <string name="isolines_location_error_dialog">Il-linji tal-Contour għadhom mhumiex disponibbli f ’din iż-żona</string>
+    <string name="isolines_location_error_dialog">Il-linji tal-Contour għadhom mhumiex disponibbli f’din iż-żona</string>
     <string name="elevation_profile_ascent">Tlugħ</string>
     <string name="elevation_profile_descent">Inżul</string>
     <string name="elevation_profile_min_elevation">Elevazzjoni minima</string>

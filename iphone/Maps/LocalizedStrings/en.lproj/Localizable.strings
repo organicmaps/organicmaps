@@ -941,7 +941,6 @@
 "dialog_pedestrian_route_is_long_header" = "No subway route found";
 "dialog_pedestrian_route_is_long_message" = "Please choose a start or end point closer to a subway station";
 "button_layer_isolines" = "Contour Lines";
-"isolines_activation_error_dialog" = "Activating contour lines requires downloading map data for this area";
 "isolines_location_error_dialog" = "Contour lines are not yet available in this area";
 "elevation_profile_ascent" = "Ascent";
 "elevation_profile_descent" = "Descent";

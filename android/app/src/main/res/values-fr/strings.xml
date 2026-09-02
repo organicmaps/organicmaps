@@ -755,7 +755,6 @@
     <string name="deselect_all">Tout désélectionner</string>
     <string name="select_list">Sélectionner une liste</string>
     <string name="button_layer_isolines">Terrain</string>
-    <string name="isolines_activation_error_dialog">Pour activer et utiliser la couche topographique, mettez à jour ou téléchargez la carte de l\'endroit désiré</string>
     <string name="isolines_location_error_dialog">Les courbes de niveau ne sont pas encore disponibles dans cette région</string>
     <string name="elevation_profile_ascent">Montée</string>
     <string name="elevation_profile_descent">Descente</string>
