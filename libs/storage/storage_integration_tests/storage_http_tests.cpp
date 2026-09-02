@@ -68,7 +68,10 @@ void InitStorage(Storage & storage, Storage::UpdateCallback const & didDownload,
 class StorageHttpTest : public StorageTest
 {
 public:
-  StorageHttpTest() : m_version(std::to_string(m_storage.GetCurrentDataVersion())), m_cleanupVersionDir(m_version) {}
+  StorageHttpTest() : m_version(std::to_string(m_storage.GetCurrentDataVersion())), m_cleanupVersionDir(m_version)
+  {
+    m_storage.DisableTerrainForTesting();
+  }
 
 protected:
   Storage m_storage;

@@ -30,7 +30,7 @@ class FakeMapFilesDownloader : public MapFilesDownloader
 public:
   static int64_t const kBlockSize = 1024 * 1024;
 
-  FakeMapFilesDownloader(TaskRunner & taskRunner);
+  explicit FakeMapFilesDownloader(TaskRunner & taskRunner, std::vector<downloader::DownloadStatus> statuses = {});
 
   ~FakeMapFilesDownloader();
 
@@ -56,5 +56,6 @@ private:
   TaskRunner & m_taskRunner;
   ThreadChecker m_checker;
   Queue m_queue;
+  std::vector<downloader::DownloadStatus> m_statuses;
 };
 }  // namespace storage
