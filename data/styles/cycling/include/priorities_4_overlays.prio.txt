@@ -694,9 +694,9 @@ highway-residential-bridge::shield                  # shield::shield z15- (also 
 highway-residential-tunnel::shield                  # shield::shield z15- (also has pathtext z13-, line z12-, line(casing) z16-)
 === 2955
 
-highway-cycleway                                    # pathtext z13- (also has line(casing) z11-, line z11-)
-highway-cycleway-bridge                             # pathtext z13- (also has line(casing) z11-, line z11-, line::bridgeblack z17-, line::bridgewhite z15-)
-highway-cycleway-tunnel                             # pathtext z13- (also has line(casing) z11-, line z11-, line::tunnelBackground z17-, line::tunnelCasing z17-)
+highway-cycleway                                    # pathtext z13- (also has line z11-, line(casing) z14-)
+highway-cycleway-bridge                             # pathtext z13- (also has line z11-, line::bridgeblack z17-, line::bridgewhite z15-, line(casing) z14-)
+highway-cycleway-tunnel                             # pathtext z13- (also has line z11-, line::tunnelBackground z17-, line::tunnelCasing z17-, line(casing) z14-)
 === 2953
 
 area:highway-footway                                # caption z15- (also has area z14-)
