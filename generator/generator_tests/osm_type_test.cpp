@@ -590,7 +590,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
   }
 
   {
-    for (char const * value : {"yes", "1", "true", "-1"})
+    for (char const * value : {"yes", "1", "true"})
     {
       Tags const tags = {
           {"highway", "cycleway"},
@@ -603,7 +603,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
   }
 
   {
-    for (char const * value : {"alternating", "reversible", "unknown"})
+    for (char const * value : {"-1", "alternating", "reversible", "unknown"})
     {
       Tags const tags = {
           {"highway", "cycleway"},
