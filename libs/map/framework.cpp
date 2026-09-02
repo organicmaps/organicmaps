@@ -62,6 +62,7 @@
 #include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/math.hpp"
 #include "base/string_utils.hpp"
@@ -323,8 +324,7 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
                      [this](FeatureCallback const & fn, std::vector<FeatureID> const & features)
 { return m_featuresFetcher.ReadFeatures(fn, features); },
                      std::bind(&Framework::GetMwmsByRect, this, _1, false /* rough */))
-  , m_isolinesManager(m_featuresFetcher.GetDataSource(),
-                      std::bind(&Framework::GetMwmsByRect, this, _1, false /* rough */))
+  , m_terrainProvider(base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR))
   , m_routingManager(RoutingManager::Callbacks([this]() -> DataSource & { return m_featuresFetcher.GetDataSource(); },
                                                [this]() -> storage::CountryInfoGetter const &
 { return GetCountryInfoGetter(); }, [this](std::string const & id) -> std::string
@@ -397,6 +397,26 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   m_storage.Init(std::bind(&Framework::OnCountryFileDownloaded, this, _1, _2),
                  std::bind(&Framework::OnCountryFileDelete, this, _1, _2));
 
+  // Terrain (.twm) downloading: landed blocks register in the provider, replacing
+  // outdated overlapping coverage; deletes keep the provider and Storage snapshots
+  // synchronized.
+  m_storage.SetTerrainCallbacks(
+      [this](std::string const & path, m2::RectD const & rect)
+  {
+    m2::RectD invalidRect = rect;
+    m_terrainProvider.OnBlockDownloaded(path, invalidRect);
+    InvalidateRect(invalidRect);
+    m_isolinesManager.Invalidate();
+  }, [this](m2::RectD const & rect, int64_t version) { return m_terrainProvider.HasOlderTerrain(rect, version); },
+      [this](std::vector<m2::RectD> const & rects)
+  {
+    m2::RectD invalidRect;
+    m_terrainProvider.DeleteBlocks(rects, invalidRect);
+    if (invalidRect.IsValid())
+      InvalidateRect(invalidRect);
+    m_isolinesManager.Invalidate();
+  });
+
   m_storage.SetDownloadingPolicy(&m_storageDownloadingPolicy);
   m_storage.SetStartDownloadingCallback([this]()
   {
@@ -417,6 +437,18 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   // m_trafficManager.SetSimplifiedColorScheme(LoadTrafficSimplifiedColors());
   // m_trafficManager.SetEnabled(LoadTrafficEnabled());
 
+  // Before the initial Rescan the terrain registry is empty: claim the coverage present,
+  // the Invalidate after the scan re-evaluates the real state (no premature download hint).
+  // The viewport rect can poke beyond the +-180 antimeridian: probe the canonical pieces.
+  m_isolinesManager.SetHasTerrainFn([this](m2::RectD const & rect)
+  {
+    if (!m_terrainProvider.IsScanned())
+      return true;
+    bool has = false;
+    mercator::ForEachRectWrapped(rect,
+                                 [&](m2::RectD const & piece) { has = has || m_terrainProvider.HasTerrain(piece); });
+    return has;
+  });
   m_isolinesManager.SetEnabled(LoadIsolinesEnabled());
 
   InitTransliteration();
@@ -516,7 +548,6 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
   auto action = [this, localFile]
   {
     m_transitManager.OnMwmDeregistered(localFile);
-    m_isolinesManager.OnMwmDeregistered(localFile);
     m_trafficManager.OnMwmDeregistered(localFile);
     m_descriptionsLoader->OnMwmDeregistered(localFile);
 
@@ -561,7 +592,10 @@ void Framework::LoadMapsSync()
 
   InitRouting();
 
-  GetStorage().RestoreDownloadQueue();
+  // Posted, not called: RegisterAllMaps above posted the terrain scan to the Gui queue,
+  // and the restored downloads depend on it (see Storage::OnTerrainScanned) - queueing
+  // behind it keeps the scan-first order on the synchronous load path too.
+  GetPlatform().RunTask(Platform::Thread::Gui, [this]() { GetStorage().RestoreDownloadQueue(); });
 }
 
 // Small copy-paste with LoadMapsSync, but I don't have a better solution.
@@ -609,18 +643,30 @@ void Framework::RegisterAllMaps()
       // Otherwise we have blank map view instead of countries, without Download button.
     }
   }
+
+  m_terrainProvider.Rescan();
+  // RegisterAllMaps runs on the async map-loading thread (see LoadMapsAsync), while the
+  // storage, the isolines manager and its platform state listeners are GUI-thread-only:
+  // publish the terrain scan there, like the registered maps above publish themselves.
+  // The registry is queried at the publish time, not snapshotted here: a terrain delete
+  // that runs on the GUI thread before the task must not be resurrected by stale data.
+  GetPlatform().RunTask(Platform::Thread::Gui, [this]()
+  {
+    m_storage.OnTerrainScanned(m_terrainProvider.GetRegisteredFiles());
+    m_isolinesManager.Invalidate();
+  });
 }
 
 void Framework::DeregisterAllMaps()
 {
   m_transitManager.Clear();
-  m_isolinesManager.Clear();
   m_trafficManager.Clear();
   m_descriptionsLoader->Clear();
 
   GetSearchAPI().ClearCaches();
 
   m_featuresFetcher.Clear();
+  m_terrainProvider.Clear();
   m_storage.Clear();
 }
 
@@ -1806,6 +1852,17 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   auto isCountryLoadedByNameFn = std::bind(&Framework::IsCountryLoadedByName, this, _1);
   auto updateCurrentCountryFn = std::bind(&Framework::OnUpdateCurrentCountry, this, _1, _2);
 
+  // The terrain draws where the map does (the IsolinesManager hint keeps the plain
+  // availability: the "Download" button is the call to action over a missing map).
+  auto hasTerrainFn = [this](m2::RectD const & rect)
+  {
+    return m_terrainProvider.HasTerrain(rect) &&
+           terrain::IsTerrainDrawableAt(
+               *m_infoGetter, [this](std::string_view name) { return IsCountryLoadedByName(name); }, rect.Center());
+  };
+  auto readTerrainFn = [this](m2::RectD const & rect, int zoom, terrain::TileMesh & mesh)
+  { m_terrainProvider.ReadMesh(rect, zoom, mesh); };
+
   bool allow3d;
   bool allow3dBuildings;
   Load3dMode(allow3d, allow3dBuildings);
@@ -1826,7 +1883,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
       params.m_apiVersion, contextFactory, dp::Viewport(0, 0, params.m_surfaceWidth, params.m_surfaceHeight),
       df::MapDataProvider(std::move(idReadFn), std::move(featureReadFn), std::move(isCountryLoadedByNameFn),
                           std::move(updateCurrentCountryFn), std::move(tileBackgroundReadFn),
-                          std::move(cancelTileBackgroundReadingFn)),
+                          std::move(cancelTileBackgroundReadingFn), std::move(hasTerrainFn), std::move(readTerrainFn)),
       params.m_hints, params.m_visualScale, fontsScaleFactor, std::move(params.m_widgetsInitInfo),
       std::move(myPositionModeChangedFn), allow3dBuildings, trafficEnabled, isolinesEnabled,
       params.m_isChoosePositionMode, params.m_isChoosePositionMode, GetSelectedFeatureTriangles(),
@@ -2093,6 +2150,12 @@ void Framework::SetupMeasurementSystem()
   GetPlatform().SetupMeasurementSystem();
 
   m_routingManager.SetTurnNotificationsUnits(measurement_utils::GetMeasurementUnits());
+
+  // The dynamic isolines are traced in the measurement units: re-read the kept tiles.
+  // The world rect covers the off-screen margin tiles too (the viewport rect would
+  // leave them traced in the old units, showing mixed-units seams when panned in).
+  if (m_drapeEngine)
+    InvalidateRect(mercator::Bounds::FullRect());
 }
 
 void Framework::SetWidgetLayout(gui::TWidgetsLayoutInfo && layout)
