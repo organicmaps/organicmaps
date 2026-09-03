@@ -92,14 +92,14 @@ jobs:
           sudo apt update -y
           sudo apt install -y \
               clang-19 \
+              libegl-dev \
               libgl1-mesa-dev \
               libglvnd-dev \
               libharfbuzz-dev \
               libqt6svg6-dev \
-              libxcursor-dev \
-              libxi-dev \
-              libxinerama-dev \
-              libxrandr-dev \
+              libwayland-bin \
+              libwayland-dev \
+              libxkbcommon-dev \
               ninja-build \
               qt6-base-dev \
               qt6-positioning-dev \
