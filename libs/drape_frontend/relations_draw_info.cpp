@@ -10,24 +10,47 @@ namespace df
 void RelationsDrawSettings::Load()
 {
   hiking = settings::IsEnabled(kHikingEnabledKey);
-  cycling = settings::IsEnabled(kCyclingEnabledKey);
+  cycling = GetMapStyleMode(GetStyleReader().GetCurrentStyle()) == MapStyleMode::Cycling;
+}
+
+bool RelationsDrawSettings::MatchHiking(feature::RouteRelationBase::Type type) const
+{
+  using RR = feature::RouteRelationBase;
+  return hiking && (type == RR::Type::Foot || type == RR::Type::Hiking);
+}
+
+bool RelationsDrawSettings::MatchCycling(feature::RouteRelationBase::Type type) const
+{
+  using RR = feature::RouteRelationBase;
+  return cycling && (type == RR::Type::Bicycle || type == RR::Type::MTB);
 }
 
 bool RelationsDrawSettings::MatchHikingOrCycling(feature::RouteRelationBase::Type type) const
 {
-  using RR = feature::RouteRelationBase;
-  return ((hiking && (type == RR::Type::Foot || type == RR::Type::Hiking)) ||
-          (cycling && (type == RR::Type::Bicycle || type == RR::Type::MTB)));
+  return MatchHiking(type) || MatchCycling(type);
+}
+
+MapStyle GetMapStyleForRoute(MapStyle currentStyle, ActiveHikingCyclingRoutes const & routes)
+{
+  if (routes.IsEmpty() || (routes.m_cycling && GetMapStyleMode(currentStyle) == MapStyleMode::Cycling))
+    return currentStyle;
+  return MapStyleIsDark(currentStyle) ? MapStyleOutdoorsDark : MapStyleOutdoorsLight;
 }
 
 dp::Color constexpr kDefaultRouteColor = dp::Color::Purple();
 
-bool RelationsDrawInfo::HasHikingOrCycling(FeatureType & ft) const
+ActiveHikingCyclingRoutes RelationsDrawInfo::GetActiveHikingCyclingRoutes(FeatureType & ft) const
 {
+  ActiveHikingCyclingRoutes result;
   for (uint32_t relID : ft.GetRelations())
-    if (m_sett.MatchHikingOrCycling(ft.ReadRelation(relID).GetType()))
-      return true;
-  return false;
+  {
+    auto const type = ft.ReadRelation(relID).GetType();
+    result.m_hiking = result.m_hiking || m_sett.MatchHiking(type);
+    result.m_cycling = result.m_cycling || m_sett.MatchCycling(type);
+    if (result.m_hiking && result.m_cycling)
+      break;
+  }
+  return result;
 }
 
 void RelationsDrawInfo::Init(FeatureType & ft)

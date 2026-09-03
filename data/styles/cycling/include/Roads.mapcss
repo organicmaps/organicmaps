@@ -1,0 +1,49 @@
+/* Keep here changes of the base map style file only. */
+@import("../../outdoors/include/Roads.mapcss");
+
+/* Dedicated cycleways use a solid cyan-blue accent. Designated shared paths
+   retain their dashed base line above the same accent used as an underlay. */
+
+/* De-emphasize motorways and trunks, including bridge and tunnel layers. */
+line|z7-[highway=motorway],
+line|z7-[highway=trunk],
+line|z10-[highway=motorway_link],
+line|z10-[highway=trunk_link],
+{opacity: 0.4;}
+
+line|z7-[highway=motorway]::bridgewhite,
+line|z7-[highway=motorway]::bridgeblack,
+line|z7-[highway=trunk]::bridgewhite,
+line|z7-[highway=trunk]::bridgeblack,
+line|z10-[highway=motorway_link]::bridgewhite,
+line|z10-[highway=motorway_link]::bridgeblack,
+line|z10-[highway=trunk_link]::bridgewhite,
+line|z10-[highway=trunk_link]::bridgeblack,
+{casing-opacity: 0.4;}
+
+line|z7-[highway=motorway][tunnel?],
+line|z7-[highway=trunk][tunnel?],
+line|z10-[highway=motorway_link][tunnel?],
+line|z10-[highway=trunk_link][tunnel?],
+{opacity: 0.4; casing-opacity: 0.4;}
+
+/* Keep cycling infrastructure visible and monotonic from overview zooms. */
+line|z11-[highway=cycleway],
+line|z12-[highway=path][bicycle=designated]::cycleline,
+line|z13-[highway=footway][bicycle=designated]::cycleline,
+{color: @cycleway; opacity: 1; dashes: none;}
+
+line|z11[highway=cycleway],
+{width: 1.0;}
+line|z12[highway=cycleway],
+{width: 1.2;}
+line|z13[highway=cycleway],
+{width: 1.4;}
+line|z14[highway=cycleway],
+{width: 1.6;}
+line|z15[highway=cycleway],
+{width: 1.9;}
+line|z16-17[highway=cycleway],
+{width: 2.3;}
+line|z18-[highway=cycleway],
+{width: 2.8;}

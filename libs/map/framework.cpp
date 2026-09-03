@@ -88,6 +88,9 @@ Framework::FixedPosition::FixedPosition()
 namespace
 {
 std::string_view constexpr kMapStyleKey = "MapStyleKeyV1";
+std::string_view constexpr kMapStyleModeKey = "MapStyleMode";
+std::string_view constexpr kDefaultMapStyleModeName = "Default";
+std::string_view constexpr kLegacyCyclingEnabledKey = "CyclingEnabled";
 std::string_view constexpr kBgTilesEnabledKey = "BgTilesEnabled";          // custom raster tiles layer on/off
 std::string_view constexpr kBgTilesUrlKey = "BgTilesUrl";                  // custom raster tiles URL template
 std::string_view constexpr kBgTilesCacheSizeMBKey = "BgTilesCacheMB";      // custom raster tiles disk cache cap
@@ -342,11 +345,13 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   // to a wrong thread. So editor should be initialiazed before serach.
   osm::Editor & editor = osm::Editor::Instance();
 
-  // Restore map style before classificator loading
-  MapStyle mapStyle = kDefaultMapStyle;
+  // Restore the selected family before classificator loading. Vehicle is a session-only override,
+  // so preserve only the saved light/dark variant.
+  MapStyle savedMapStyle = kDefaultMapStyle;
   std::string mapStyleStr;
   if (settings::Get(kMapStyleKey, mapStyleStr))
-    mapStyle = MapStyleFromSettings(mapStyleStr);
+    savedMapStyle = MapStyleFromSettings(mapStyleStr);
+  auto const mapStyle = GetMapStyleForMode(LoadMapStyleMode(), MapStyleIsDark(savedMapStyle));
   GetStyleReader().SetCurrentStyle(mapStyle);
   df::LoadTransitColors();
 
@@ -2088,6 +2093,61 @@ MapStyle Framework::GetMapStyle() const
   return GetStyleReader().GetCurrentStyle();
 }
 
+// static
+MapStyleMode Framework::LoadMapStyleMode()
+{
+  std::string mode;
+  if (settings::Get(kMapStyleModeKey, mode))
+  {
+    if (mode == "Outdoors")
+      return MapStyleMode::Outdoors;
+    if (mode == "Cycling")
+      return MapStyleMode::Cycling;
+    ASSERT_EQUAL(mode, kDefaultMapStyleModeName, (mode));
+    return MapStyleMode::Default;
+  }
+
+  // Migrate the two legacy platform settings. Cycling used to take precedence on Android.
+  bool enabled = false;
+  if (settings::Get(kLegacyCyclingEnabledKey, enabled) && enabled)
+    return MapStyleMode::Cycling;
+  if (settings::Get(kOutdoorsEnabledKey, enabled) && enabled)
+    return MapStyleMode::Outdoors;
+
+  // iOS persisted Outdoors only as the current map style.
+  std::string style;
+  if (settings::Get(kMapStyleKey, style))
+    return GetMapStyleMode(MapStyleFromSettings(style));
+
+  return MapStyleMode::Default;
+}
+
+void Framework::SetMapStyleMode(MapStyleMode mode)
+{
+  switch (mode)
+  {
+  case MapStyleMode::Default: settings::Set(kMapStyleModeKey, std::string(kDefaultMapStyleModeName)); break;
+  case MapStyleMode::Outdoors: settings::Set(kMapStyleModeKey, std::string("Outdoors")); break;
+  case MapStyleMode::Cycling: settings::Set(kMapStyleModeKey, std::string("Cycling")); break;
+  }
+
+  // Vehicle navigation temporarily overrides the displayed family. The selected mode is restored
+  // when navigation ends.
+  if (GetStyleReader().IsCarNavigationStyle())
+    return;
+
+  auto const style = GetMapStyleForMode(mode, MapStyleIsDark(GetMapStyle()));
+  if (style != GetMapStyle())
+    SetMapStyle(style);
+}
+
+void Framework::SetMapStyleModeEnabled(MapStyleMode mode, bool enabled)
+{
+  ASSERT(mode != MapStyleMode::Default, ());
+  auto const currentMode = LoadMapStyleMode();
+  SetMapStyleMode(enabled ? mode : (currentMode == mode ? MapStyleMode::Default : currentMode));
+}
+
 void Framework::SetupMeasurementSystem()
 {
   GetPlatform().SetupMeasurementSystem();
@@ -3105,17 +3165,6 @@ void Framework::SaveIsolinesEnabled(bool enabled)
   settings::Set(kIsolinesEnabledKey, enabled);
 }
 
-bool Framework::LoadOutdoorsEnabled()
-{
-  bool enabled;
-  return settings::Get(kOutdoorsEnabledKey, enabled) && enabled;
-}
-
-void Framework::SaveOutdoorsEnabled(bool enabled)
-{
-  settings::Set(kOutdoorsEnabledKey, enabled);
-}
-
 bool Framework::IsHikingEnabled()
 {
   bool enabled;
@@ -3125,18 +3174,6 @@ bool Framework::IsHikingEnabled()
 void Framework::SetHikingEnabled(bool enabled)
 {
   settings::Set(df::RelationsDrawSettings::kHikingEnabledKey, enabled);
-  Invalidate();
-}
-
-bool Framework::IsCyclingEnabled()
-{
-  bool enabled;
-  return settings::Get(df::RelationsDrawSettings::kCyclingEnabledKey, enabled) && enabled;
-}
-
-void Framework::SetCyclingEnabled(bool enabled)
-{
-  settings::Set(df::RelationsDrawSettings::kCyclingEnabledKey, enabled);
   Invalidate();
 }
 
@@ -3191,6 +3228,10 @@ bool Framework::ParseDrapeDebugCommand(std::string const & query)
     desiredStyle = MapStyleOutdoorsLight;
   else if (query == "?odark" || query == "mapstyle:outdoors_dark")
     desiredStyle = MapStyleOutdoorsDark;
+  else if (query == "?clight" || query == "mapstyle:cycling_light")
+    desiredStyle = MapStyleCyclingLight;
+  else if (query == "?cdark" || query == "mapstyle:cycling_dark")
+    desiredStyle = MapStyleCyclingDark;
 
   if (desiredStyle != MapStyleCount)
   {
