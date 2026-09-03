@@ -5,6 +5,13 @@ protocol SearchOnMapHeaderViewDelegate: UISearchBarDelegate {
   func chooseOnMapButtonDidTap()
 }
 
+private final class RouteActionButton: UIButton {
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    layer.cornerRadius = bounds.height / 2
+  }
+}
+
 final class SearchOnMapHeaderView: UIView {
   weak var delegate: SearchOnMapHeaderViewDelegate? {
     didSet {
@@ -20,15 +27,14 @@ final class SearchOnMapHeaderView: UIView {
     static let grabberTopMargin: CGFloat = 5
     static let cancelButtonInsets: UIEdgeInsets = .init(top: 0, left: 6, bottom: 0, right: 16)
     static let routeActionButtonSpacing: CGFloat = 8
-    static let routeActionButtonToSearchSpacing: CGFloat = 0
     static let routeActionIconInset: CGFloat = 8
   }
 
   private let grabberView = UIView()
   private let grabberTapHandlerView = UIView()
   private let routeActionsStackView = UIStackView()
-  private let currentLocationButton = UIButton(type: .system)
-  private let chooseOnMapButton = UIButton(type: .system)
+  private let currentLocationButton = RouteActionButton(type: .system)
+  private let chooseOnMapButton = RouteActionButton(type: .system)
   private let searchBar = UISearchBar()
   private let cancelButton = UIButton()
   private let cancelContainer = UIView()
@@ -47,13 +53,6 @@ final class SearchOnMapHeaderView: UIView {
   @available(*, unavailable)
   required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
-  }
-
-  override func layoutSubviews() {
-    super.layoutSubviews()
-    let actionButtonRadius = searchBar.searchTextField.height / 2
-    currentLocationButton.layer.cornerRadius = actionButtonRadius
-    chooseOnMapButton.layer.cornerRadius = actionButtonRadius
   }
 
   private func setupView() {
@@ -125,7 +124,6 @@ final class SearchOnMapHeaderView: UIView {
                                           left: Constants.routeActionIconInset,
                                           bottom: Constants.routeActionIconInset,
                                           right: Constants.routeActionIconInset)
-    button.layer.cornerRadius = Constants.minSearchBarHeight / 2
     button.accessibilityLabel = accessibilityLabel
     button.addTarget(self, action: action, for: .touchUpInside)
   }
@@ -162,8 +160,7 @@ final class SearchOnMapHeaderView: UIView {
 
     searchBarLeadingDefaultConstraint = searchBar.leadingAnchor.constraint(equalTo: leadingAnchor,
                                                                            constant: Constants.searchBarInsets.left)
-    searchBarLeadingWithRouteActionsConstraint = searchBar.leadingAnchor.constraint(equalTo: routeActionsStackView.trailingAnchor,
-                                                                                    constant: Constants.routeActionButtonToSearchSpacing)
+    searchBarLeadingWithRouteActionsConstraint = searchBar.leadingAnchor.constraint(equalTo: routeActionsStackView.trailingAnchor)
 
     NSLayoutConstraint.activate([
       grabberView.topAnchor.constraint(equalTo: topAnchor, constant: Constants.grabberTopMargin),
@@ -265,8 +262,14 @@ final class SearchOnMapHeaderView: UIView {
                    options: .curveEaseInOut,
                    animations: {
                      self.routeActionsStackView.alpha = shouldShow ? 1 : 0
-                     self.searchBarLeadingDefaultConstraint.isActive = !shouldShow
-                     self.searchBarLeadingWithRouteActionsConstraint.isActive = shouldShow
+                     NSLayoutConstraint.deactivate([
+                       self.searchBarLeadingDefaultConstraint,
+                       self.searchBarLeadingWithRouteActionsConstraint,
+                     ])
+                     NSLayoutConstraint.activate([
+                       shouldShow ? self.searchBarLeadingWithRouteActionsConstraint
+                         : self.searchBarLeadingDefaultConstraint,
+                     ])
                      self.layoutIfNeeded()
                    },
                    // An interrupted animation must not settle the stack to its own outdated target.
