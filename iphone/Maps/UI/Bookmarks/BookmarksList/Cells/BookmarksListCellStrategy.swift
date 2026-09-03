@@ -38,7 +38,7 @@ final class BookmarksListCellStrategy {
     case let tracksSection as ITracksSectionViewModel:
       let track = tracksSection.tracks[indexPath.row]
       let cell = tableView.dequeueReusableCell(withIdentifier: CellId.listItem, for: indexPath) as! BookmarksListCell
-      cell.configure(.bookmark(track, infoAction: { [weak self, weak cell] _ in
+      cell.configure(.track(track, infoAction: { [weak self, weak cell] _ in
         guard let cell else { return }
         self?.cellEditHandler?(cell)
       }))

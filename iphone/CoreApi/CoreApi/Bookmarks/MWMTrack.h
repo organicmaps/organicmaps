@@ -11,6 +11,7 @@ NS_SWIFT_NAME(Track)
 @property(nonatomic, readonly) NSString * trackName;
 @property(nonatomic, readonly) NSInteger trackLengthMeters;
 @property(nonatomic, readonly) UIColor * trackColor;
+@property(nonatomic, readonly, getter=isVisible) BOOL visible;
 
 @end
 
