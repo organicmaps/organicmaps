@@ -10,6 +10,28 @@
 
 #include <CoreApi/Framework.h>
 
+#include "geometry/mercator.hpp"
+#include "indexer/feature_meta.hpp"
+#include "platform/country_file.hpp"
+#include "storage/country_info_getter.hpp"
+
+namespace
+{
+bool IsLeftHandTrafficAtLocation(CLLocation * location)
+{
+  if (!location)
+    return false;
+
+  auto & framework = GetFramework();
+  auto const coordinate = location.coordinate;
+  auto const position = mercator::FromLatLon(coordinate.latitude, coordinate.longitude);
+  auto const countryId = framework.GetCountryInfoGetter().GetRegionCountryId(position);
+  auto const mwmId = framework.GetDataSource().GetMwmIdByCountryFile(platform::CountryFile(countryId));
+  auto const & info = mwmId.GetInfo();
+  return info && info->GetRegionData().Get(feature::RegionData::RD_DRIVING) == "l";
+}
+}  // namespace
+
 @interface MWMRoutingManager () <MWMFrameworkRouteBuilderObserver, MWMLocationObserver>
 @property(nonatomic, readonly) RoutingManager & rm;
 @property(strong, nonatomic) NSHashTable<id<MWMRoutingManagerListener>> * listeners;
@@ -104,19 +126,22 @@
     roundExitNumber = info.m_exitNum;
   }
 
-  MWMRouteInfo * objCInfo =
-      [[MWMRouteInfo alloc] initWithTimeToTarget:info.m_time
-                                  targetDistance:info.m_distToTarget.GetDistance()
-                                targetUnitsIndex:static_cast<UInt8>(info.m_distToTarget.GetUnits())
-                                  distanceToTurn:info.m_distToTurn.GetDistance()
-                                  turnUnitsIndex:static_cast<UInt8>(info.m_distToTurn.GetUnits())
-                                      streetName:@(info.m_nextStreetName.c_str())
-                                   turnImageName:[self turnImageName:info.m_turn isPrimary:YES]
-                               nextTurnImageName:[self turnImageName:info.m_nextTurn isPrimary:NO]
-                                        speedMps:speedMps
-                                   speedLimitMps:info.m_speedLimitMps
-                                 roundExitNumber:roundExitNumber];
-  return objCInfo;
+  return [[MWMRouteInfo alloc] initWithTimeToTarget:info.m_time
+                                     targetDistance:info.m_distToTarget.GetDistance()
+                                   targetUnitsIndex:static_cast<UInt8>(info.m_distToTarget.GetUnits())
+                                     distanceToTurn:info.m_distToTurn.GetDistance()
+                                     turnUnitsIndex:static_cast<UInt8>(info.m_distToTurn.GetUnits())
+                                  currentStreetName:@(info.m_currentStreetName.c_str())
+                                         streetName:@(info.m_nextStreetName.c_str())
+                                     nextStreetName:@(info.m_nextNextStreetName.c_str())
+                              turnDirectionRawValue:static_cast<NSInteger>(info.m_turn)
+                          nextTurnDirectionRawValue:static_cast<NSInteger>(info.m_nextTurn)
+                                      turnImageName:[self turnImageName:info.m_turn isPrimary:YES]
+                                  nextTurnImageName:[self turnImageName:info.m_nextTurn isPrimary:NO]
+                                           speedMps:speedMps
+                                      speedLimitMps:info.m_speedLimitMps
+                                    roundExitNumber:roundExitNumber
+                                  isLeftHandTraffic:IsLeftHandTrafficAtLocation(lastLocation)];
 }
 
 - (MWMRouterType)type

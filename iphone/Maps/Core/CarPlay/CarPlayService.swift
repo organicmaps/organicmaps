@@ -389,7 +389,7 @@ final class CarPlayService: NSObject {
 
     if let (trip, routeInfo) = router.restoredNavigationSession() {
       MapTemplateBuilder.configureNavigationUI(mapTemplate, positionMode: currentPositionMode)
-      router.startNavigationSession(forTrip: trip, template: mapTemplate)
+      router.startNavigationSession(forTrip: trip, template: mapTemplate, isRestoring: true)
       if let estimates = createEstimates(routeInfo: routeInfo) {
         mapTemplate.updateEstimates(estimates, for: trip)
       }
@@ -690,9 +690,9 @@ final class CarPlayService: NSObject {
       if success {
         restoreCarPlayTemplateUI()
         updatePhoneModeAlert()
+        router?.startNavigationSession(forTrip: trip, template: mapTemplate, isRestoring: true)
       }
     }
-    router?.startNavigationSession(forTrip: trip, template: mapTemplate)
     if let estimates = createEstimates(routeInfo: routeInfo) {
       mapTemplate.tripEstimateStyle = rootTemplateStyle
       mapTemplate.updateEstimates(estimates, for: trip)
@@ -1075,6 +1075,12 @@ extension CarPlayService: CPMapTemplateDelegate {
       return .trailingSymbol
     }
     return .leadingSymbol
+  }
+
+  @available(iOS 17.4, *)
+  func mapTemplateShouldProvideNavigationMetadata(_: CPMapTemplate) -> Bool {
+    // Enables semantic maneuver metadata for the vehicle's instrument cluster and HUD.
+    true
   }
 
   func mapTemplate(_ mapTemplate: CPMapTemplate,
