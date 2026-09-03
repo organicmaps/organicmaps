@@ -1131,6 +1131,10 @@ line|z16-[railway=light_rail][!tunnel]::dash,
 line|z13-[railway=rail][bridge?]::bridgewhite,
 line|z13-[railway=subway][bridge?]::bridgewhite,
 line|z13-[railway=light_rail][bridge?]::bridgewhite,
+line|z14-[railway=tram][bridge?]::bridgewhite,
+line|z14-[railway=monorail][bridge?]::bridgewhite,
+line|z14-[railway=funicular][bridge?]::bridgewhite,
+line|z15-[railway=narrow_gauge][bridge?]::bridgewhite,
 line|z15-[railway=preserved][bridge?]::bridgewhite,
 line|z15-[railway=miniature][bridge?]::bridgewhite,
 line|z16-[railway=disused][bridge?]::bridgewhite,
@@ -1138,6 +1142,10 @@ line|z16-[railway=disused][bridge?]::bridgewhite,
 line|z16-[railway=rail][bridge?]::bridgeblack,
 line|z16-[railway=subway][bridge?]::bridgeblack,
 line|z16-[railway=light_rail][bridge?]::bridgeblack,
+line|z17-[railway=tram][bridge?]::bridgeblack,
+line|z17-[railway=monorail][bridge?]::bridgeblack,
+line|z17-[railway=funicular][bridge?]::bridgeblack,
+line|z17-[railway=narrow_gauge][bridge?]::bridgeblack,
 line|z16-[railway=preserved][bridge?]::bridgeblack,
 line|z16-[railway=miniature][bridge?]::bridgeblack,
 line|z16-[railway=disused][bridge?]::bridgeblack,
@@ -1305,25 +1313,16 @@ line|z14-[railway=rail][tunnel?],
 
 /* 9.3 Rail bridge 14-22 ZOOM */
 
-/* TODO
-Replacment of eval()s with casing-width-add (https://github.com/organicmaps/kothic/pull/5)
-led to addition of a few "new" (and incomplete, e.g. w/o color defined) bridge rules into the compiled style,
-e.g. monorail lines widths were defined after the bridge section and hence they were not processed previously but are processed now.
-
-This definition is just a plug to keep these styles "disabled" for now, because a proper addition of them is a separate work:
- - remove following definition
- - add casing-color and z-index definitions to new bridges
- - test visually
-*/
 line|z14-[railway=tram][bridge?]::bridgewhite,
 line|z14-[railway=monorail][bridge?]::bridgewhite,
 line|z14-[railway=funicular][bridge?]::bridgewhite,
-line|z14-[railway=narrow_gauge][bridge?]::bridgewhite,
-line|z14-[railway=tram][bridge?]::bridgeblack,
-line|z14-[railway=monorail][bridge?]::bridgeblack,
-line|z14-[railway=funicular][bridge?]::bridgeblack,
-line|z14-[railway=narrow_gauge][bridge?]::bridgeblack,
-{casing-linecap: round;}
+line|z15-[railway=narrow_gauge][bridge?]::bridgewhite,
+{casing-width-add: 0.5;}
+line|z17-[railway=tram][bridge?]::bridgeblack,
+line|z17-[railway=monorail][bridge?]::bridgeblack,
+line|z17-[railway=funicular][bridge?]::bridgeblack,
+line|z17-[railway=narrow_gauge][bridge?]::bridgeblack,
+{casing-width-add: 1;}
 
 
 line|z13-15[railway=rail][bridge?]::bridgewhite,
