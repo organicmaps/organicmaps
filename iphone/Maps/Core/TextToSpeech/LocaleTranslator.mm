@@ -1,5 +1,7 @@
 #include "LocaleTranslator.h"
 
+#include "platform/preferred_languages.hpp"
+
 namespace locale_translator
 {
 std::string bcp47ToTwineLanguage(NSString const * bcp47)
@@ -22,13 +24,21 @@ std::string bcp47ToTwineLanguage(NSString const * bcp47)
   if ([bcp47 hasPrefix:@"yue"])
     return "yue";
 
-  if ([@[@"zh-CN", @"zh-CHS", @"zh-SG"] containsObject:bcp47])
-    return "zh-Hans";  // Mandarin (Simplified)
+  // Mandarin. The script subtag wins over the region, so this also reads the tags the system hands
+  // out for a preferred language, e.g. "zh-Hans-CN", which a plain "zh" prefix test cannot tell from
+  // Traditional.
+  switch (languages::GetChineseScript(bcp47.UTF8String))
+  {
+  case languages::ChineseScript::Simplified: return "zh-Hans";
+  case languages::ChineseScript::Traditional: return "zh-Hant";
+  case languages::ChineseScript::NotChinese: break;
+  }
 
-  if ([bcp47 hasPrefix:@"zh"])
-    return "zh-Hant";  // Mandarin (Traditional), incl. HK/MO
-
-  // Taking two first symbols of a language name. For example ru-RU -> ru
-  return [bcp47 substringToIndex:2].UTF8String;
+  // The primary subtag of everything else, e.g. ru-RU -> ru. Only a two-letter one: no twine language
+  // has a longer code, and truncating would turn "fil" (Filipino) into "fi" (Finnish).
+  NSString * primarySubtag =
+      [bcp47 componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"-_"]]
+          .firstObject;
+  return primarySubtag.length == 2 ? primarySubtag.lowercaseString.UTF8String : std::string();
 }
 }  // namespace locale_translator

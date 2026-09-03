@@ -37,6 +37,13 @@ int testStringIndex;
 - (NSArray<NSString *> *)getTestStrings:(NSString *)language
 {
   NSString * twineLanguage = [NSString stringWithUTF8String:locale_translator::bcp47ToTwineLanguage(language).c_str()];
+  // An unsupported tag has no language of ours to look up, and an empty resource name would resolve.
+  if (twineLanguage.length == 0)
+  {
+    LOG(LWARNING, ("No twine language for ", language.UTF8String));
+    return nil;
+  }
+
   NSString * languagePath = [NSBundle.mainBundle pathForResource:twineLanguage ofType:@"lproj"];
   if (languagePath == nil)
   {
