@@ -125,7 +125,6 @@ final class SearchOnMapHeaderView: UIView {
                                           left: Constants.routeActionIconInset,
                                           bottom: Constants.routeActionIconInset,
                                           right: Constants.routeActionIconInset)
-    button.layer.cornerRadius = Constants.minSearchBarHeight / 2
     button.accessibilityLabel = accessibilityLabel
     button.addTarget(self, action: action, for: .touchUpInside)
   }
@@ -265,8 +264,14 @@ final class SearchOnMapHeaderView: UIView {
                    options: .curveEaseInOut,
                    animations: {
                      self.routeActionsStackView.alpha = shouldShow ? 1 : 0
-                     self.searchBarLeadingDefaultConstraint.isActive = !shouldShow
-                     self.searchBarLeadingWithRouteActionsConstraint.isActive = shouldShow
+                     NSLayoutConstraint.deactivate([
+                       self.searchBarLeadingDefaultConstraint,
+                       self.searchBarLeadingWithRouteActionsConstraint,
+                     ])
+                     NSLayoutConstraint.activate([
+                       shouldShow ? self.searchBarLeadingWithRouteActionsConstraint
+                         : self.searchBarLeadingDefaultConstraint,
+                     ])
                      self.layoutIfNeeded()
                    },
                    // An interrupted animation must not settle the stack to its own outdated target.
