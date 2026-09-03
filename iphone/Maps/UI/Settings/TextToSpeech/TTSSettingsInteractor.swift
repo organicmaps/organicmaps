@@ -3,55 +3,64 @@ final class TTSSettingsInteractor {
 
   private let textToSpeech: MWMTextToSpeech.Type
   private let routingManager: RoutingManager
-  private var skipsNextWillAppearUpdate = true
-  private var preferredLanguages: [TTSLanguage] = []
+  private var voicesObserver: NSObjectProtocol?
+  private lazy var previewPlayer: TTSVoicePreviewPlayer = {
+    let player = TTSVoicePreviewPlayer()
+    player.onFinished = { [weak self] in self?.loadSettings(animatingDifferences: false) }
+    return player
+  }()
 
   init(textToSpeech: MWMTextToSpeech.Type = MWMTextToSpeech.self,
        routingManager: RoutingManager = .routingManager) {
     self.textToSpeech = textToSpeech
     self.routingManager = routingManager
+    // The screen stays visible while the user installs a voice in the iOS settings, so refresh on
+    // return instead of waiting for the next appearance.
+    voicesObserver = NotificationCenter.default
+      .addObserver(forName: .MWMTextToSpeechVoicesDidChange,
+                   object: nil,
+                   queue: .main) { [weak self] _ in
+        self?.loadSettings(animatingDifferences: false)
+      }
+  }
+
+  deinit {
+    voicesObserver.map(NotificationCenter.default.removeObserver(_:))
   }
 
   private func loadSettings(animatingDifferences: Bool) {
-    present(state(), animatingDifferences: animatingDifferences)
+    presenter?.present(state(), animatingDifferences: animatingDifferences)
   }
 
   private func state() -> TTSSettingsState {
-    updatePreferredLanguages()
-    return TTSSettingsState(isTTSEnabled: textToSpeech.isTTSEnabled(),
-                            isStreetNamesTTSEnabled: textToSpeech.isStreetNamesTTSEnabled(),
-                            savedLanguage: textToSpeech.savedLanguage(),
-                            preferredLanguages: preferredLanguages,
-                            speedCameraMode: routingManager.speedCameraMode)
-  }
-
-  private func updatePreferredLanguages() {
-    let latestLanguages = textToSpeech.preferredLanguages()
-    guard !preferredLanguages.isEmpty, latestLanguages.count < preferredLanguages.count else {
-      preferredLanguages = latestLanguages
-      return
-    }
-
-    for language in latestLanguages where !preferredLanguages.contains(language) {
-      preferredLanguages.append(language)
-    }
+    TTSSettingsState(isTTSEnabled: textToSpeech.isTTSEnabled(),
+                     isStreetNamesTTSEnabled: textToSpeech.isStreetNamesTTSEnabled(),
+                     language: textToSpeech.currentLanguage(),
+                     voice: textToSpeech.currentVoice(),
+                     playingVoice: previewPlayer.playingVoice,
+                     speedCameraMode: routingManager.speedCameraMode)
   }
 
   private func select(_ item: TTSSettingsItem) {
     switch item {
-    case .language(let language):
-      textToSpeech.setNotificationsLanguage(language)
-      loadSettings(animatingDifferences: false)
-    case .otherLanguage:
+    case .language:
       presenter?.presentTTSLanguageSettings()
-    case .testVoice:
-      textToSpeech.playRandomTestString()
     case .speedCamera(let mode):
       routingManager.speedCameraMode = mode
       loadSettings(animatingDifferences: false)
     case .voiceInstructions, .streetNames:
       break
     }
+  }
+
+  private func toggleVoicePreview() {
+    guard let voice = textToSpeech.currentVoice() else { return }
+    if voice == previewPlayer.playingVoice {
+      previewPlayer.stop()
+    } else {
+      previewPlayer.play(voice)
+    }
+    loadSettings(animatingDifferences: false)
   }
 
   private func changeSwitch(_ item: TTSSettingsItem, isOn: Bool) {
@@ -66,10 +75,6 @@ final class TTSSettingsInteractor {
       break
     }
   }
-
-  private func present(_ state: TTSSettingsState, animatingDifferences: Bool = true) {
-    presenter?.present(state, animatingDifferences: animatingDifferences)
-  }
 }
 
 extension TTSSettingsInteractor: SettingsViewControllerInteractor {
@@ -78,16 +83,15 @@ extension TTSSettingsInteractor: SettingsViewControllerInteractor {
 
   func handle(_ action: SettingsViewControllerAction<Item>) {
     switch action {
-    case .didLoad:
-      loadSettings(animatingDifferences: false)
+    // viewWillAppear always follows viewDidLoad, so loading here covers the first appearance too.
     case .willAppear:
-      guard skipsNextWillAppearUpdate else {
-        loadSettings(animatingDifferences: true)
-        return
-      }
-      skipsNextWillAppearUpdate = false
+      loadSettings(animatingDifferences: false)
+    case .willDisappear:
+      previewPlayer.stop()
     case .didSelect(let item):
       select(item)
+    case .didTapPreview:
+      toggleVoicePreview()
     case .didChangeSwitch(let item, let isOn):
       changeSwitch(item, isOn: isOn)
     default:

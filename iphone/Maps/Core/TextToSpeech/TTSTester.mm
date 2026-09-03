@@ -1,38 +1,12 @@
 #import "TTSTester.h"
 
 #include "LocaleTranslator.h"
-#include "MWMTextToSpeech.h"
 
 #include "base/logging.hpp"
 
 @implementation TTSTester
 
 static NSString * const NotFoundDelimiter = @"__not_found__";
-
-NSArray<NSString *> * testStrings;
-NSString * testStringsLanguage;
-
-int testStringIndex;
-
-- (void)playRandomTestString
-{
-  NSString * currentTTSLanguage = MWMTextToSpeech.savedLanguage;
-  if (testStrings == nil || ![currentTTSLanguage isEqualToString:testStringsLanguage])
-  {
-    testStrings = [self getTestStrings:currentTTSLanguage];
-    if (testStrings == nil)
-    {
-      LOG(LWARNING, ("Couldn't load TTS test strings"));
-      return;
-    }
-    testStringsLanguage = currentTTSLanguage;
-  }
-
-  [[MWMTextToSpeech tts] play:testStrings[testStringIndex]];
-
-  if (++testStringIndex >= testStrings.count)
-    testStringIndex = 0;
-}
 
 - (NSArray<NSString *> *)getTestStrings:(NSString *)language
 {
