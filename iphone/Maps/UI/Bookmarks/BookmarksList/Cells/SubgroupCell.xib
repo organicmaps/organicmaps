@@ -18,9 +18,9 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mAZ-hb-J9T" customClass="Checkmark" customModule="Organic_Maps" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="56" height="64"/>
+                        <rect key="frame" x="0.0" y="0.0" width="52" height="64"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="56" id="aar-GM-DaJ"/>
+                            <constraint firstAttribute="width" constant="52" id="aar-GM-DaJ"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="ic_eye_off"/>
@@ -31,7 +31,7 @@
                         </connections>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L2V-JY-eeP">
-                        <rect key="frame" x="56" y="11" width="224" height="20"/>
+                        <rect key="frame" x="52" y="11" width="222" height="20"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -40,7 +40,7 @@
                         </userDefinedRuntimeAttributes>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mcK-1H-ZBS">
-                        <rect key="frame" x="56" y="35" width="224" height="16.5"/>
+                        <rect key="frame" x="52" y="35" width="222" height="16.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -49,7 +49,7 @@
                         </userDefinedRuntimeAttributes>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_disclosure" translatesAutoresizingMaskIntoConstraints="NO" id="UOn-k5-sEA">
-                        <rect key="frame" x="288" y="20" width="24" height="24"/>
+                        <rect key="frame" x="282" y="20" width="24" height="24"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMGray"/>
                         </userDefinedRuntimeAttributes>
@@ -60,7 +60,7 @@
                     <constraint firstAttribute="bottom" secondItem="mcK-1H-ZBS" secondAttribute="bottom" constant="12.5" id="Ca4-dk-CyT"/>
                     <constraint firstAttribute="bottom" secondItem="mAZ-hb-J9T" secondAttribute="bottom" id="EEL-tz-cXw"/>
                     <constraint firstItem="UOn-k5-sEA" firstAttribute="leading" secondItem="mcK-1H-ZBS" secondAttribute="trailing" constant="8" id="GMX-F4-EWk"/>
-                    <constraint firstAttribute="trailing" secondItem="UOn-k5-sEA" secondAttribute="trailing" constant="8" id="Pdg-cN-1Py"/>
+                    <constraint firstAttribute="trailing" secondItem="UOn-k5-sEA" secondAttribute="trailing" constant="14" id="Pdg-cN-1Py"/>
                     <constraint firstItem="mAZ-hb-J9T" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="SzN-rJ-pMf"/>
                     <constraint firstItem="L2V-JY-eeP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="ayo-1v-WC2"/>
                     <constraint firstItem="mcK-1H-ZBS" firstAttribute="leading" secondItem="mAZ-hb-J9T" secondAttribute="trailing" id="bsr-4x-bfr"/>
