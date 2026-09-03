@@ -123,4 +123,100 @@ Item {
             anchors.centerIn: parent
         }
     }
+
+    component LabeledText: RowLayout {
+        property alias label: label_.text
+        property alias value: text_.text
+
+        Text {
+            id: label_
+            Layout.preferredWidth: parent.parent.maxLabelWidth
+            visible: text
+        }
+        Text {
+            id: text_
+            textFormat: Text.RichText
+            onLinkActivated: link => Qt.openUrlExternally(link)
+        }
+        visible: value
+
+        Component.onCompleted: parent.maxLabelWidth = Math.max(parent.maxLabelWidth, label_.implicitWidth)
+    }
+        Column {
+            property real maxLabelWidth
+            LabeledText {
+                label: "Bookmark:"
+                value: root.map.bookmark ? "Yes" : ""
+            }
+
+            LabeledText {
+                label: "Opening hours:"
+                value: root.map.openingHours
+            }
+
+            LabeledText {
+                label: "Cuisine:"
+                value: root.map.cuisines
+            }
+
+            LabeledText {
+                label: "Phone:"
+                value: root.map.phone ? "<a href='tel:" + root.map.phone + "'>" + root.map.phone + "</a>" : ""
+            }
+
+            LabeledText {
+                label: "Operator:"
+                value: root.map.operator
+            }
+
+            LabeledText {
+                label: "Wi-Fi:"
+                value: root.map.wifi ? "Yes" : ""
+            }
+
+            LabeledText {
+                label: "Website:"
+                value: root.map.website ? "<a href='" + root.map.website + "'>" + root.map.website + "</a>" : ""
+            }
+
+            LabeledText {
+                label: "Email:"
+                value: root.map.email ? "<a href='mailto:" + root.map.email + "'>" + root.map.email + "</a>" : ""
+            }
+
+            LabeledText {
+                label: "Facebook:"
+                value: root.map.facebook
+            }
+
+            LabeledText {
+                label: "Instagram:"
+                value: root.map.instagram
+            }
+
+            LabeledText {
+                label: "Twitter:"
+                value: root.map.twitter
+            }
+
+            LabeledText {
+                label: "VK:"
+                value: root.map.vk
+            }
+
+            LabeledText {
+                label: "Line:"
+                value: root.map.line
+            }
+
+            LabeledText {
+                label: "Level:"
+                value: root.map.level
+            }
+
+            LabeledText {
+                label: "ATM:"
+                value: root.map.atm ? "Yes" : ""
+            }
+
 }
