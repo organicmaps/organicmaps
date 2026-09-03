@@ -6,6 +6,7 @@ enum SettingsItemKind: Equatable {
   case textField(text: String, placeholder: String?, isEnabled: Bool, isValid: Bool)
   case message(text: String)
   case slider(value: Float, minimumValue: Float, maximumValue: Float, valueTitle: String, isEnabled: Bool)
+  case preview(isSelected: Bool, isPlaying: Bool, showsDisclosure: Bool)
 }
 
 struct SettingsItemViewModel<Item: Hashable>: Equatable {

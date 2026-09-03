@@ -30,25 +30,36 @@ final class TTSSettingsPresenter {
       SettingsSectionViewModel(section: .language,
                                header: TTSSettingsSection.language.header,
                                footer: TTSSettingsSection.language.footer,
-                               items: languageItems(state)),
+                               items: [item(.language, state: state)]),
       SettingsSectionViewModel(section: .speedCameras,
                                header: TTSSettingsSection.speedCameras.header,
                                items: SpeedCameraManagerMode.settingsOptions.map { item(.speedCamera($0), state: state) }),
     ]
   }
 
-  private func languageItems(_ state: TTSSettingsState) -> [TTSSettingsItemViewModel] {
-    state.preferredLanguages.map { item(.language($0), state: state) } +
-      [
-        item(.otherLanguage, state: state),
-        item(.testVoice, state: state),
-      ]
-  }
-
   private func item(_ item: TTSSettingsItem, state: TTSSettingsState) -> TTSSettingsItemViewModel {
     SettingsItemViewModel(item: item,
-                          title: item.title,
+                          title: title(item, state: state),
+                          detail: detail(item, state: state),
                           kind: kind(item, state: state))
+  }
+
+  private func title(_ item: TTSSettingsItem, state: TTSSettingsState) -> String? {
+    switch item {
+    case .language:
+      state.language?.title
+    default:
+      item.title
+    }
+  }
+
+  private func detail(_ item: TTSSettingsItem, state: TTSSettingsState) -> String? {
+    switch item {
+    case .language:
+      state.voice?.title
+    default:
+      nil
+    }
   }
 
   private func kind(_ item: TTSSettingsItem, state: TTSSettingsState) -> SettingsItemKind {
@@ -57,12 +68,11 @@ final class TTSSettingsPresenter {
       .switcher(isOn: state.isTTSEnabled, isEnabled: true)
     case .streetNames:
       .switcher(isOn: state.isStreetNamesTTSEnabled, isEnabled: true)
-    case .language(let language):
-      .selectable(isSelected: language.bcp47 == state.savedLanguage)
-    case .otherLanguage:
-      .link
-    case .testVoice:
-      .selectable(isSelected: false)
+    // The play button samples the selected voice, the row itself opens the language picker.
+    case .language:
+      .preview(isSelected: false,
+               isPlaying: state.voice != nil && state.voice == state.playingVoice,
+               showsDisclosure: true)
     case .speedCamera(let mode):
       .selectable(isSelected: mode == state.speedCameraMode)
     }

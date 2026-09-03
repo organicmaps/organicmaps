@@ -32,9 +32,7 @@ extension TTSSettingsSection {
 enum TTSSettingsItem: Hashable {
   case voiceInstructions
   case streetNames
-  case language(TTSLanguage)
-  case otherLanguage
-  case testVoice
+  case language
   case speedCamera(SpeedCameraManagerMode)
 }
 
@@ -45,12 +43,9 @@ extension TTSSettingsItem {
       RootSettings.voiceInstructions.title
     case .streetNames:
       L("pref_tts_street_names_title")
-    case .language(let language):
-      language.title
-    case .otherLanguage:
-      L("pref_tts_other_section_title")
-    case .testVoice:
-      L("pref_tts_test_voice_title")
+    case .language:
+      // The name of the selected language, supplied by the presenter.
+      nil
     case .speedCamera(let mode):
       mode.title
     }
@@ -77,8 +72,9 @@ extension SpeedCameraManagerMode {
 struct TTSSettingsState {
   let isTTSEnabled: Bool
   let isStreetNamesTTSEnabled: Bool
-  let savedLanguage: String?
-  let preferredLanguages: [TTSLanguage]
+  let language: TTSLanguage?
+  let voice: TTSVoice?
+  let playingVoice: TTSVoice?
   let speedCameraMode: SpeedCameraManagerMode
 }
 
