@@ -124,99 +124,123 @@ Item {
         }
     }
 
-    component LabeledText: RowLayout {
-        property alias label: label_.text
-        property alias value: text_.text
-
-        Text {
-            id: label_
-            Layout.preferredWidth: parent.parent.maxLabelWidth
-            visible: text
-        }
-        Text {
-            id: text_
-            textFormat: Text.RichText
-            onLinkActivated: link => Qt.openUrlExternally(link)
-        }
-        visible: value
-
-        Component.onCompleted: parent.maxLabelWidth = Math.max(parent.maxLabelWidth, label_.implicitWidth)
+    component GridLabel: Text {
+        // Positioner.index doesn't work here
+        visible: parent.children[parent.children.indexOf(this) + 1].text
     }
+
+    component LinkedText: Text {
+        onLinkActivated: link => Qt.openUrlExternally(link)
+    }
+
         Column {
-            property real maxLabelWidth
-            LabeledText {
-                label: "Bookmark:"
-                value: root.map.bookmark ? "Yes" : ""
-            }
+            Grid {
+                columns: 2
+                columnSpacing: 5
 
-            LabeledText {
-                label: "Opening hours:"
-                value: root.map.openingHours
-            }
+                GridLabel {
+                    text: "Bookmark:"
+                }
+                Text {
+                    text: root.map.bookmark ? "Yes" : ""
+                }
 
-            LabeledText {
-                label: "Cuisine:"
-                value: root.map.cuisines
-            }
+                GridLabel {
+                    text: "Opening hours:"
+                }
+                Text {
+                    text: root.map.openingHours
+                }
 
-            LabeledText {
-                label: "Phone:"
-                value: root.map.phone ? "<a href='tel:" + root.map.phone + "'>" + root.map.phone + "</a>" : ""
-            }
+                GridLabel {
+                    text: "Cuisine:"
+                }
+                Text {
+                    text: root.map.cuisines
+                }
 
-            LabeledText {
-                label: "Operator:"
-                value: root.map.operator
-            }
+                GridLabel {
+                    text: "Phone:"
+                }
+                LinkedText {
+                    text: root.map.phone ? "<a href='tel:" + root.map.phone + "'>" + root.map.phone + "</a>" : ""
+                }
 
-            LabeledText {
-                label: "Wi-Fi:"
-                value: root.map.wifi ? "Yes" : ""
-            }
+                GridLabel {
+                    text: "Operator:"
+                }
+                Text {
+                    text: root.map.operator
+                }
 
-            LabeledText {
-                label: "Website:"
-                value: root.map.website ? "<a href='" + root.map.website + "'>" + root.map.website + "</a>" : ""
-            }
+                GridLabel {
+                    text: "Wi-Fi:"
+                }
+                Text {
+                    text: root.map.wifi ? "Yes" : ""
+                }
 
-            LabeledText {
-                label: "Email:"
-                value: root.map.email ? "<a href='mailto:" + root.map.email + "'>" + root.map.email + "</a>" : ""
-            }
+                GridLabel {
+                    text: "Website:"
+                }
+                LinkedText {
+                    text: root.map.website ? "<a href='" + root.map.website + "'>" + root.map.website + "</a>" : ""
+                }
 
-            LabeledText {
-                label: "Facebook:"
-                value: root.map.facebook
-            }
+                GridLabel {
+                    text: "Email:"
+                }
+                LinkedText {
+                    text: root.map.email ? "<a href='mailto:" + root.map.email + "'>" + root.map.email + "</a>" : ""
+                }
 
-            LabeledText {
-                label: "Instagram:"
-                value: root.map.instagram
-            }
+                GridLabel {
+                    text: "Facebook:"
+                }
+                LinkedText {
+                    text: root.map.facebook
+                }
 
-            LabeledText {
-                label: "Twitter:"
-                value: root.map.twitter
-            }
+                GridLabel {
+                    text: "Instagram:"
+                }
+                LinkedText {
+                    text: root.map.instagram
+                }
 
-            LabeledText {
-                label: "VK:"
-                value: root.map.vk
-            }
+                GridLabel {
+                    text: "Twitter:"
+                }
+                LinkedText {
+                    text: root.map.twitter
+                }
 
-            LabeledText {
-                label: "Line:"
-                value: root.map.line
-            }
+                GridLabel {
+                    text: "VK:"
+                }
+                LinkedText {
+                    text: root.map.vk
+                }
 
-            LabeledText {
-                label: "Level:"
-                value: root.map.level
-            }
+                GridLabel {
+                    text: "Line:"
+                }
+                LinkedText {
+                    text: root.map.line
+                }
 
-            LabeledText {
-                label: "ATM:"
-                value: root.map.atm ? "Yes" : ""
-            }
+                GridLabel {
+                    text: "Level:"
+                }
+                Text {
+                    text: root.map.level
+                }
 
+                GridLabel {
+                    text: "ATM:"
+                }
+                Text {
+                    text: root.map.atm ? "Yes" : ""
+                }
+            }
 }
