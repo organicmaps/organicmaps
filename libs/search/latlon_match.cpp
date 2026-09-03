@@ -146,12 +146,131 @@ double EatDouble(char const * str, char ** strEnd)
 
   return strtod(str, strEnd);
 }
+
+bool SkipRequiredSpaces(char const *& s)
+{
+  char const * const start = s;
+  SkipSpaces(s);
+  return s != start;
+}
+
+bool SkipRequiredDelimiters(char const *& s)
+{
+  char const * const start = s;
+  Skip(s);
+  return s != start;
+}
+
+// strchr matches the terminator, so guard against it - otherwise '\0' is taken as a direction and the caller reads
+// past the end of the query.
+bool IsCardinalDirection(char c)
+{
+  return c != 0 && strchr("NnSsEeWw", c) != nullptr;
+}
+
+// strtod("nan") succeeds, and NaN would pass a plain range comparison.
+bool IsValidDMSPart(double value, double maxValue)
+{
+  return std::isfinite(value) && value >= 0.0 && value <= maxValue;
+}
+
+struct Coordinate
+{
+  double m_value;
+  bool m_isLatitude;
+  bool m_hasSeconds;
+};
+
+// Parses "NSEW D M [S]" or "D M [S] NSEW" - exactly one direction letter, and every numeric part is separated
+// by spaces.
+bool MatchDMSWithDirection(char const *& s, Coordinate & coordinate)
+{
+  Skip(s);
+  coordinate.m_hasSeconds = false;
+
+  char direction = 0;
+  if (IsCardinalDirection(*s))
+  {
+    direction = *s++;
+    SkipSpaces(s);
+  }
+
+  std::array<double, 3> parts = {};
+  for (size_t part = 0; part < 2; ++part)
+  {
+    if (part > 0 && !SkipRequiredSpaces(s))
+      return false;
+
+    char * end;
+    parts[part] = EatDouble(s, &end);
+    if (s == end || !IsValidDMSPart(parts[part], part == 0 ? 180.0 : 60.0))
+      return false;
+    s = end;
+  }
+
+  // Seconds are optional - "D M" is degrees with decimal minutes.
+  char const * const afterMinutes = s;
+  if (SkipRequiredSpaces(s))
+  {
+    char * end;
+    double const seconds = EatDouble(s, &end);
+    if (s == end)
+      s = afterMinutes;  // Put back the delimiter the caller needs between coordinates.
+    else if (!IsValidDMSPart(seconds, 60.0))
+      return false;
+    else
+    {
+      parts[2] = seconds;
+      s = end;
+      coordinate.m_hasSeconds = true;
+    }
+  }
+
+  if (direction == 0)
+  {
+    SkipSpaces(s);
+    if (!IsCardinalDirection(*s))
+      return false;
+    direction = *s++;
+  }
+
+  coordinate.m_isLatitude = strchr("NnSs", direction) != nullptr;
+  coordinate.m_value = parts[0] + parts[1] / 60.0 + parts[2] / 3600.0;
+  if (coordinate.m_value > (coordinate.m_isLatitude ? 90.0 : 180.0))
+    return false;
+  if (strchr("SsWw", direction) != nullptr)
+    coordinate.m_value = -coordinate.m_value;
+  return true;
+}
+
+bool MatchSpaceSeparatedDMS(std::string const & query, double & lat, double & lon)
+{
+  char const * s = query.c_str();
+  Coordinate first;
+  Coordinate second;
+
+  if (!MatchDMSWithDirection(s, first) || !SkipRequiredDelimiters(s) || !MatchDMSWithDirection(s, second))
+    return false;
+
+  Skip(s);
+  // D M S and D M are ambiguous without a coordinate delimiter, so both axes must use the same form.
+  if (*s != 0 || first.m_isLatitude == second.m_isLatitude || first.m_hasSeconds != second.m_hasSeconds)
+    return false;
+
+  (first.m_isLatitude ? lat : lon) = first.m_value;
+  (second.m_isLatitude ? lat : lon) = second.m_value;
+  return true;
+}
 }  // namespace
 
 namespace search
 {
 bool MatchLatLonDegree(std::string const & query, double & lat, double & lon)
 {
+  // The general parser treats every number without a DMS symbol as degrees.
+  if (MatchSpaceSeparatedDMS(query, lat, lon))
+    return true;
+
   // should be default initialization (0, false)
   std::array<std::pair<double, bool>, 6> v;
 
