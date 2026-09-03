@@ -1,7 +1,6 @@
 #import "TTSTester.h"
 
 #include "LocaleTranslator.h"
-#include "MWMTextToSpeech.h"
 
 #include "base/logging.hpp"
 
@@ -9,34 +8,16 @@
 
 static NSString * const NotFoundDelimiter = @"__not_found__";
 
-NSArray<NSString *> * testStrings;
-NSString * testStringsLanguage;
-
-int testStringIndex;
-
-- (void)playRandomTestString
-{
-  NSString * currentTTSLanguage = MWMTextToSpeech.savedLanguage;
-  if (testStrings == nil || ![currentTTSLanguage isEqualToString:testStringsLanguage])
-  {
-    testStrings = [self getTestStrings:currentTTSLanguage];
-    if (testStrings == nil)
-    {
-      LOG(LWARNING, ("Couldn't load TTS test strings"));
-      return;
-    }
-    testStringsLanguage = currentTTSLanguage;
-  }
-
-  [[MWMTextToSpeech tts] play:testStrings[testStringIndex]];
-
-  if (++testStringIndex >= testStrings.count)
-    testStringIndex = 0;
-}
-
 - (NSArray<NSString *> *)getTestStrings:(NSString *)language
 {
   NSString * twineLanguage = [NSString stringWithUTF8String:locale_translator::bcp47ToTwineLanguage(language).c_str()];
+  // An unsupported tag has no language of ours to look up, and an empty resource name would resolve.
+  if (twineLanguage.length == 0)
+  {
+    LOG(LWARNING, ("No twine language for ", language.UTF8String));
+    return nil;
+  }
+
   NSString * languagePath = [NSBundle.mainBundle pathForResource:twineLanguage ofType:@"lproj"];
   if (languagePath == nil)
   {

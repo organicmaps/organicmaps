@@ -126,6 +126,15 @@ final class SettingsBuilder: NSObject {
     viewController.configure(interactor: interactor)
     return viewController
   }
+
+  static func buildTTSVoice(_ language: TTSLanguage) -> UIViewController {
+    let viewController = TTSVoiceSettingsViewController()
+    let presenter = TTSVoiceSettingsPresenter(viewController: viewController)
+    let interactor = TTSVoiceSettingsInteractor(language: language)
+    interactor.presenter = presenter
+    viewController.configure(interactor: interactor)
+    return viewController
+  }
 }
 
 // TODO: Remove when the OSMAuthorization view controllers will be rewritten on Swift.

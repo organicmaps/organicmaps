@@ -520,6 +520,11 @@
 		ED82C7792F90186300FA103D /* LocaleTranslator.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6F02F90186300FA103D /* LocaleTranslator.mm */; };
 		ED82C77A2F90186300FA103D /* MWMTextToSpeech.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6F22F90186300FA103D /* MWMTextToSpeech.mm */; };
 		ED82C77B2F90186300FA103D /* TTSTester.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6F62F90186300FA103D /* TTSTester.mm */; };
+		A20000000000000000000003 /* MWMTTSVoicePreviewPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000002 /* MWMTTSVoicePreviewPlayer.mm */; };
+		A20000000000000000000005 /* SettingsPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000004 /* SettingsPreviewCell.swift */; };
+		A20000000000000000000007 /* TTSVoiceSettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000006 /* TTSVoiceSettingsModels.swift */; };
+		A20000000000000000000009 /* TTSVoiceSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000008 /* TTSVoiceSettingsInteractor.swift */; };
+		A2000000000000000000000B /* TTSVoiceSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000A /* TTSVoiceSettingsPresenter.swift */; };
 		ED82C77D2F90186300FA103D /* IStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6FA2F90186300FA103D /* IStyleSheet.swift */; };
 		ED82C77E2F90186300FA103D /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6FB2F90186300FA103D /* Style.swift */; };
 		ED82C77F2F90186300FA103D /* StyleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6FC2F90186300FA103D /* StyleManager.swift */; };
@@ -1534,6 +1539,12 @@
 		ED82C6F42F90186300FA103D /* MWMTextToSpeechObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMTextToSpeechObserver.h; sourceTree = "<group>"; };
 		ED82C6F52F90186300FA103D /* TTSTester.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTSTester.h; sourceTree = "<group>"; };
 		ED82C6F62F90186300FA103D /* TTSTester.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TTSTester.mm; sourceTree = "<group>"; };
+		A20000000000000000000001 /* MWMTTSVoicePreviewPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMTTSVoicePreviewPlayer.h; sourceTree = "<group>"; };
+		A20000000000000000000002 /* MWMTTSVoicePreviewPlayer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTTSVoicePreviewPlayer.mm; sourceTree = "<group>"; };
+		A20000000000000000000004 /* SettingsPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPreviewCell.swift; sourceTree = "<group>"; };
+		A20000000000000000000006 /* TTSVoiceSettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSVoiceSettingsModels.swift; sourceTree = "<group>"; };
+		A20000000000000000000008 /* TTSVoiceSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSVoiceSettingsInteractor.swift; sourceTree = "<group>"; };
+		A2000000000000000000000A /* TTSVoiceSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSVoiceSettingsPresenter.swift; sourceTree = "<group>"; };
 		ED82C6FA2F90186300FA103D /* IStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IStyleSheet.swift; sourceTree = "<group>"; };
 		ED82C6FB2F90186300FA103D /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		ED82C6FC2F90186300FA103D /* StyleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleManager.swift; sourceTree = "<group>"; };
@@ -2089,6 +2100,9 @@
 				A10000000000000000000058 /* TTSLanguageSettingsModels.swift */,
 				A10000000000000000000057 /* TTSLanguageSettingsInteractor.swift */,
 				A10000000000000000000059 /* TTSLanguageSettingsPresenter.swift */,
+				A20000000000000000000006 /* TTSVoiceSettingsModels.swift */,
+				A20000000000000000000008 /* TTSVoiceSettingsInteractor.swift */,
+				A2000000000000000000000A /* TTSVoiceSettingsPresenter.swift */,
 			);
 			path = TextToSpeech;
 			sourceTree = "<group>";
@@ -3444,6 +3458,7 @@
 				ED82C4D52F90180300FA103D /* SettingsTableViewSwitchCell.swift */,
 				A1000000000000000000000E /* SettingsSliderCell.swift */,
 				A1000000000000000000000D /* SettingsTextFieldCell.swift */,
+				A20000000000000000000004 /* SettingsPreviewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -3793,6 +3808,8 @@
 			children = (
 				ED82C6EF2F90186300FA103D /* LocaleTranslator.h */,
 				ED82C6F02F90186300FA103D /* LocaleTranslator.mm */,
+				A20000000000000000000001 /* MWMTTSVoicePreviewPlayer.h */,
+				A20000000000000000000002 /* MWMTTSVoicePreviewPlayer.mm */,
 				ED82C6F12F90186300FA103D /* MWMTextToSpeech.h */,
 				ED82C6F22F90186300FA103D /* MWMTextToSpeech.mm */,
 				ED82C6F32F90186300FA103D /* MWMTextToSpeech+CPP.h */,
@@ -4721,6 +4738,11 @@
 				ED82C7792F90186300FA103D /* LocaleTranslator.mm in Sources */,
 				ED82C77A2F90186300FA103D /* MWMTextToSpeech.mm in Sources */,
 				ED82C77B2F90186300FA103D /* TTSTester.mm in Sources */,
+				A20000000000000000000003 /* MWMTTSVoicePreviewPlayer.mm in Sources */,
+				A20000000000000000000005 /* SettingsPreviewCell.swift in Sources */,
+				A20000000000000000000007 /* TTSVoiceSettingsModels.swift in Sources */,
+				A20000000000000000000009 /* TTSVoiceSettingsInteractor.swift in Sources */,
+				A2000000000000000000000B /* TTSVoiceSettingsPresenter.swift in Sources */,
 				ED82C77D2F90186300FA103D /* IStyleSheet.swift in Sources */,
 				ED82C77E2F90186300FA103D /* Style.swift in Sources */,
 				ED82C77F2F90186300FA103D /* StyleManager.swift in Sources */,
