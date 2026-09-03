@@ -211,6 +211,12 @@ afterEvaluate {
     googleDebugImplementation project(':sdk:wear:gms')
     googleBetaImplementation project(':sdk:wear:gms')
   }
+
+  packagingOptions {
+    jniLibs {
+      useLegacyPackaging = false
+    }
+  }
 }
 
 dependencies {
