@@ -1,37 +1,32 @@
 #import "TTSTester.h"
 
 #include "LocaleTranslator.h"
-#include "MWMTextToSpeech.h"
 
 #include "base/logging.hpp"
 
 @implementation TTSTester
 
 static NSString * const NotFoundDelimiter = @"__not_found__";
+// Keep one shuffled sequence per active language so previews cover every tip before repeating one.
+static NSArray<NSString *> * g_testStrings;
+static NSString * g_testStringsLanguage;
+static NSUInteger g_testStringIndex;
 
-NSArray<NSString *> * testStrings;
-NSString * testStringsLanguage;
-
-int testStringIndex;
-
-- (void)playRandomTestString
+- (NSString *)nextTestString:(NSString *)language
 {
-  NSString * currentTTSLanguage = MWMTextToSpeech.savedLanguage;
-  if (testStrings == nil || ![currentTTSLanguage isEqualToString:testStringsLanguage])
+  if (!g_testStrings || ![language isEqualToString:g_testStringsLanguage])
   {
-    testStrings = [self getTestStrings:currentTTSLanguage];
-    if (testStrings == nil)
-    {
-      LOG(LWARNING, ("Couldn't load TTS test strings"));
-      return;
-    }
-    testStringsLanguage = currentTTSLanguage;
+    g_testStrings = [self getTestStrings:language];
+    if (!g_testStrings)
+      return nil;
+    g_testStringsLanguage = language;
+    g_testStringIndex = 0;
   }
 
-  [[MWMTextToSpeech tts] play:testStrings[testStringIndex]];
-
-  if (++testStringIndex >= testStrings.count)
-    testStringIndex = 0;
+  NSString * result = g_testStrings[g_testStringIndex];
+  if (++g_testStringIndex >= g_testStrings.count)
+    g_testStringIndex = 0;
+  return result;
 }
 
 - (NSArray<NSString *> *)getTestStrings:(NSString *)language
