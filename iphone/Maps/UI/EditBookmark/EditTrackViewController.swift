@@ -10,6 +10,7 @@ final class EditTrackViewController: MWMTableViewController {
 
   private enum InfoSectionRows: Int {
     case title
+    case visibility
     case color
     // case lineWidth // TODO: possible new section & ability - edit track line width
     case bookmarkGroup
@@ -26,6 +27,7 @@ final class EditTrackViewController: MWMTableViewController {
   private var trackGroupTitle: String?
   private var trackGroupId = FrameworkHelper.invalidCategoryId()
   private var trackColor: UIColor
+  private var trackVisibility: Bool
 
   private let bookmarksManager = BookmarksManager.shared()
   private var isDeleting = false
@@ -38,6 +40,7 @@ final class EditTrackViewController: MWMTableViewController {
     initialTrackTitle = track.trackName
     trackTitle = initialTrackTitle
     trackColor = track.trackColor
+    trackVisibility = track.isVisible
     trackDescription = bookmarksManager.description(forTrackId: trackId)
 
     let category = bookmarksManager.category(forTrackId: trackId)
@@ -74,6 +77,7 @@ final class EditTrackViewController: MWMTableViewController {
     title = L("track_title")
 
     tableView.register(cell: SettingsTextFieldCell.self)
+    tableView.register(cell: SettingsTableViewSwitchCell.self)
     tableView.registerNib(cell: MWMButtonCell.self)
     tableView.registerNib(cell: MWMNoteCell.self)
 
@@ -120,6 +124,10 @@ final class EditTrackViewController: MWMTableViewController {
         cell.accessoryType = .disclosureIndicator
         cell.textLabel?.text = L("change_color")
         cell.imageView?.image = circleImageForColor(trackColor, frameSize: 28, diameter: 22)
+        return cell
+      case .visibility:
+        let cell = tableView.dequeueReusableCell(cell: SettingsTableViewSwitchCell.self, indexPath: indexPath)
+        cell.config(delegate: self, title: L("show_track"), isOn: trackVisibility)
         return cell
       case .bookmarkGroup:
         let cell = tableView.dequeueDefaultCell(for: indexPath)
@@ -202,12 +210,13 @@ final class EditTrackViewController: MWMTableViewController {
     }
     let currentDescription = bookmarksManager.description(forTrackId: trackId)
     let descriptionToSave = trackDescription ?? currentDescription
-    let changesSaved = trackGroupId != trackGroup.categoryId ||
+    let metadataChanged = trackGroupId != trackGroup.categoryId ||
       !trackColor.isEqual(track.trackColor) ||
       titleToSave != track.trackName ||
       descriptionToSave != currentDescription
+    let visibilityChanged = trackVisibility != track.isVisible
 
-    if changesSaved {
+    if metadataChanged {
       bookmarksManager.updateTrack(trackId,
                                    setGroupId: trackGroupId,
                                    color: trackColor,
@@ -215,8 +224,11 @@ final class EditTrackViewController: MWMTableViewController {
                                    description: descriptionToSave)
       initialTrackTitle = titleToSave
     }
+    if visibilityChanged {
+      bookmarksManager.setTrack(trackId, isVisible: trackVisibility)
+    }
 
-    editingCompleted(changesSaved)
+    editingCompleted(metadataChanged || visibilityChanged)
   }
 
   private func updateColor(_ color: UIColor) {
@@ -251,6 +263,12 @@ extension EditTrackViewController: SettingsTextFieldCellDelegate {
 
   func textFieldCell(_: SettingsTextFieldCell, didEndEditingText title: String) {
     trackTitle = title
+  }
+}
+
+extension EditTrackViewController: SettingsTableViewSwitchCellDelegate {
+  func switchCell(_: SettingsTableViewSwitchCell, didChangeValue value: Bool) {
+    trackVisibility = value
   }
 }
 
