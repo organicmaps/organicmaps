@@ -66,16 +66,16 @@ barrier-hedge                                       # line z16-
 barrier-jersey_barrier                              # line z16- (also has icon z16-, caption(optional) z16-)
 barrier-wall                                        # line z16-
 railway-funicular                                   # line z12-
-railway-funicular-bridge                            # line z12-
+railway-funicular-bridge                            # line z12- (also has line::bridgeblack z17-, line::bridgewhite z14-)
 railway-funicular-tunnel                            # line z12-
 railway-monorail                                    # line z14-
-railway-monorail-bridge                             # line z14-
+railway-monorail-bridge                             # line z14- (also has line::bridgeblack z17-, line::bridgewhite z14-)
 railway-monorail-tunnel                             # line z14-
 railway-narrow_gauge                                # line z15-
-railway-narrow_gauge-bridge                         # line z15-
+railway-narrow_gauge-bridge                         # line z15- (also has line::bridgeblack z17-, line::bridgewhite z15-)
 railway-narrow_gauge-tunnel                         # line z15-
 railway-tram                                        # line z13-
-railway-tram-bridge                                 # line z13-
+railway-tram-bridge                                 # line z13- (also has line::bridgeblack z17-, line::bridgewhite z14-)
 railway-tram-tunnel                                 # line z13-
 === 320
 
@@ -358,8 +358,11 @@ highway-trunk-bridge::bridgewhite                   # line::bridgewhite z13- (al
 highway-trunk_link-bridge::bridgewhite              # line::bridgewhite z14- (also has line z10-, line::bridgeblack z14-, pathtext z10-, shield::shield z10-)
 highway-unclassified-bridge::bridgewhite            # line::bridgewhite z14- (also has line z11-, line::bridgeblack z14-, pathtext z13-)
 railway-disused-bridge::bridgewhite                 # line::bridgewhite z16- (also has line z16-, line::bridgeblack z16-)
+railway-funicular-bridge::bridgewhite               # line::bridgewhite z14- (also has line z12-, line::bridgeblack z17-)
 railway-light_rail-bridge::bridgewhite              # line::bridgewhite z13- (also has line z13-, line::bridgeblack z16-, line::dash z16-)
 railway-miniature-bridge::bridgewhite               # line::bridgewhite z15- (also has line z15-, line::bridgeblack z16-)
+railway-monorail-bridge::bridgewhite                # line::bridgewhite z14- (also has line z14-, line::bridgeblack z17-)
+railway-narrow_gauge-bridge::bridgewhite            # line::bridgewhite z15- (also has line z15-, line::bridgeblack z17-)
 railway-preserved-bridge::bridgewhite               # line::bridgewhite z15- (also has line z15-, line::bridgeblack z16-)
 railway-rail-branch-bridge::bridgewhite             # line::bridgewhite z13- (also has line z11-, line::bridgeblack z16-, line::dash z16-)
 railway-rail-bridge::bridgewhite                    # line::bridgewhite z13- (also has line z11-, line::bridgeblack z16-, line::dash z16-)
@@ -370,6 +373,7 @@ railway-rail-spur-bridge::bridgewhite               # line::bridgewhite z15- (al
 railway-rail-tourism-bridge::bridgewhite            # line::bridgewhite z13- (also has line z10-, line::bridgeblack z16-, line::dash z16-, pathtext z14-)
 railway-rail-utility-bridge::bridgewhite            # line::bridgewhite z13- (also has line z13-, line::bridgeblack z16-, line::dash z17-)
 railway-subway-bridge::bridgewhite                  # line::bridgewhite z13- (also has line z13-, line::bridgeblack z16-, line::dash z16-)
+railway-tram-bridge::bridgewhite                    # line::bridgewhite z14- (also has line z13-, line::bridgeblack z17-)
 === 150
 
 highway-bridleway-bridge::bridgeblack               # line::bridgeblack z17- (also has line z14-, line::bridgewhite z15-, pathtext z15-)
@@ -394,8 +398,11 @@ highway-trunk-bridge::bridgeblack                   # line::bridgeblack z13- (al
 highway-trunk_link-bridge::bridgeblack              # line::bridgeblack z14- (also has line z10-, line::bridgewhite z14-, pathtext z10-, shield::shield z10-)
 highway-unclassified-bridge::bridgeblack            # line::bridgeblack z14- (also has line z11-, line::bridgewhite z14-, pathtext z13-)
 railway-disused-bridge::bridgeblack                 # line::bridgeblack z16- (also has line z16-, line::bridgewhite z16-)
+railway-funicular-bridge::bridgeblack               # line::bridgeblack z17- (also has line z12-, line::bridgewhite z14-)
 railway-light_rail-bridge::bridgeblack              # line::bridgeblack z16- (also has line z13-, line::bridgewhite z13-, line::dash z16-)
 railway-miniature-bridge::bridgeblack               # line::bridgeblack z16- (also has line z15-, line::bridgewhite z15-)
+railway-monorail-bridge::bridgeblack                # line::bridgeblack z17- (also has line z14-, line::bridgewhite z14-)
+railway-narrow_gauge-bridge::bridgeblack            # line::bridgeblack z17- (also has line z15-, line::bridgewhite z15-)
 railway-preserved-bridge::bridgeblack               # line::bridgeblack z16- (also has line z15-, line::bridgewhite z15-)
 railway-rail-branch-bridge::bridgeblack             # line::bridgeblack z16- (also has line z11-, line::bridgewhite z13-, line::dash z16-)
 railway-rail-bridge::bridgeblack                    # line::bridgeblack z16- (also has line z11-, line::bridgewhite z13-, line::dash z16-)
@@ -406,6 +413,7 @@ railway-rail-spur-bridge::bridgeblack               # line::bridgeblack z16- (al
 railway-rail-tourism-bridge::bridgeblack            # line::bridgeblack z16- (also has line z10-, line::bridgewhite z13-, line::dash z16-, pathtext z14-)
 railway-rail-utility-bridge::bridgeblack            # line::bridgeblack z16- (also has line z13-, line::bridgewhite z13-, line::dash z17-)
 railway-subway-bridge::bridgeblack                  # line::bridgeblack z16- (also has line z13-, line::bridgewhite z13-, line::dash z16-)
+railway-tram-bridge::bridgeblack                    # line::bridgeblack z17- (also has line z13-, line::bridgewhite z14-)
 === 140
 
 building                                            # area z14- (also has caption z16-)
