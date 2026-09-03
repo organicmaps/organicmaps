@@ -20,6 +20,8 @@ final class PlacePageUserDescriptionWebView: UIView {
   private var contentSizeObservation: NSKeyValueObservation?
   private var webViewConstraints = [NSLayoutConstraint]()
   private var isLoadingHTMLString = false
+  private var isHTMLNavigationInProgress = false
+  private var needsHTMLReload = true
   private var currentNavigation: WKNavigation?
   private var finishedNavigation: WKNavigation?
   private var measuredHTMLHeight: CGFloat = 0
@@ -34,7 +36,6 @@ final class PlacePageUserDescriptionWebView: UIView {
     self.htmlString = htmlString
     super.init(frame: .zero)
     setupView()
-    loadHTML(htmlString)
   }
 
   @available(*, unavailable)
@@ -46,9 +47,13 @@ final class PlacePageUserDescriptionWebView: UIView {
     detachWebView()
   }
 
+  override func didMoveToWindow() {
+    super.didMoveToWindow()
+    loadHTMLIfNeeded()
+  }
+
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
-    guard webView != nil else { return }
     let userInterfaceStyleChanged = previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle
     let contentSizeCategoryChanged = previousTraitCollection?.preferredContentSizeCategory !=
       traitCollection.preferredContentSizeCategory
@@ -61,8 +66,8 @@ final class PlacePageUserDescriptionWebView: UIView {
     clipsToBounds = false
   }
 
-  private func attachWebView() {
-    guard webView == nil else { return }
+  private func attachWebView() -> WKWebView {
+    if let webView { return webView }
 
     let webView = Self.webViewPool.getWebView()
     self.webView = webView
@@ -82,6 +87,7 @@ final class PlacePageUserDescriptionWebView: UIView {
       guard let self, self.webView === webView else { return }
       self.updateContentHeight()
     }
+    return webView
   }
 
   private func detachWebView() {
@@ -95,18 +101,35 @@ final class PlacePageUserDescriptionWebView: UIView {
   }
 
   private func loadHTML(_ htmlString: String) {
-    attachWebView()
-    guard let webView else { return }
     // Preserve the last height during same-content trait reloads so the section keeps its layout while re-rendering.
     if self.htmlString != htmlString {
       self.htmlString = htmlString
       measuredHTMLHeight = 0
     }
+    needsHTMLReload = true
+    loadHTMLIfNeeded()
+  }
+
+  private func loadHTMLIfNeeded() {
+    guard window != nil, needsHTMLReload, !isHTMLNavigationInProgress else { return }
+    needsHTMLReload = false
+    isHTMLNavigationInProgress = true
+    let webView = attachWebView()
     isLoadingHTMLString = true
     finishedNavigation = nil
-    let html = Self.htmlDocumentBuilder.buildHTML(with: htmlString)
+    let html = Self.htmlDocumentBuilder.buildHTML(with: htmlString, compatibleWith: traitCollection)
     currentNavigation = webView.loadHTMLString(html, baseURL: Constants.baseURL)
     assert(currentNavigation != nil, "WebKit refused to start the description load")
+  }
+
+  private func completeHTMLNavigation(_ webView: WKWebView, navigation: WKNavigation, didFinish: Bool) {
+    guard self.webView === webView, navigation === currentNavigation else { return }
+    isHTMLNavigationInProgress = false
+    if didFinish {
+      finishedNavigation = navigation
+      updateContentHeight()
+    }
+    loadHTMLIfNeeded()
   }
 
   private func applyMeasuredHeight(_ height: CGFloat) {
@@ -150,9 +173,18 @@ final class PlacePageUserDescriptionWebView: UIView {
 
 extension PlacePageUserDescriptionWebView: WKNavigationDelegate {
   func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-    guard self.webView === webView, let navigation, navigation === currentNavigation else { return }
-    finishedNavigation = navigation
-    updateContentHeight()
+    guard let navigation else { return }
+    completeHTMLNavigation(webView, navigation: navigation, didFinish: true)
+  }
+
+  func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError _: Error) {
+    guard let navigation else { return }
+    completeHTMLNavigation(webView, navigation: navigation, didFinish: false)
+  }
+
+  func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError _: Error) {
+    guard let navigation else { return }
+    completeHTMLNavigation(webView, navigation: navigation, didFinish: false)
   }
 
   func webView(_ webView: WKWebView,

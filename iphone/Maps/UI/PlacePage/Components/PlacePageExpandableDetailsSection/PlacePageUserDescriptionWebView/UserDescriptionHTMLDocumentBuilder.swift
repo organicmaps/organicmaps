@@ -1,10 +1,12 @@
 struct UserDescriptionHTMLDocumentBuilder {
-  func buildHTML(with htmlString: String) -> String {
+  func buildHTML(with htmlString: String, compatibleWith traitCollection: UITraitCollection) -> String {
     if isHTMLDocument(htmlString) {
       return htmlString
     }
     // Convert fragment HTML to full document.
     let htmlBody = extractHTMLBody(from: htmlString)
+    let textColor = UIColor.blackPrimaryText.resolvedColor(with: traitCollection).hexString
+    let font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .regular14, compatibleWith: traitCollection)
     return """
       <!doctype html>
       <html>
@@ -17,8 +19,8 @@ struct UserDescriptionHTMLDocumentBuilder {
           background: transparent;
         }
         body {
-          color: \(UIColor.blackPrimaryText.hexString);
-          font-size: \(UIFont.regular14.dynamic.pointSize)px;
+          color: \(textColor);
+          font-size: \(font.pointSize)px;
           font-family: -apple-system, sans-serif;
           overflow-wrap: break-word;
         }
