@@ -67,7 +67,9 @@ final class PlacePageUserDescriptionWebView: UIView {
   }
 
   private func attachWebView() -> WKWebView {
-    if let webView { return webView }
+    if let webView {
+      return webView
+    }
 
     let webView = Self.webViewPool.getWebView()
     self.webView = webView
