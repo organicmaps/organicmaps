@@ -3,6 +3,8 @@
 // Retrieved 2026-06-30, License - CC BY-SA 4.0
 
 import QtQuick 2.0
+import QtQuick.Layouts
+import QtQuick.Controls
 import Map
 import Location
 
@@ -133,7 +135,63 @@ Item {
         onLinkActivated: link => Qt.openUrlExternally(link)
     }
 
+    Pane {
+        id: pane
+
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        visible: implicitContentHeight
+
         Column {
+            width: Math.min(implicitWidth, parent.width)
+
+            Text {
+                text: root.map.title
+                font.bold: true
+            }
+
+            Text {
+                text: root.map.subTitle
+            }
+
+            Text {
+                text: root.map.address
+            }
+
+            // Rectangle wrapper is needed so the separator shrinks
+            Item {
+                implicitWidth: 1
+                implicitHeight: 1
+                visible: parent.implicitWidth
+
+                Rectangle {
+                    implicitWidth: parent.parent.implicitWidth
+
+                    implicitHeight: 1
+                    color: "#1E000000"
+                }
+            }
+
+            Row {
+                spacing: 10
+
+                Text {
+                    text: root.map.wikipedia ? "<a href='" + root.map.wikipedia + "'>Wikipedia</a>" : ""
+                    onLinkActivated: link => Qt.openUrlExternally(link)
+                }
+
+                Text {
+                    text: root.map.wikimedia ? "<a href='" + root.map.wikimedia + "'>Wikimedia Commons</a>" : ""
+                    onLinkActivated: link => Qt.openUrlExternally(link)
+                }
+            }
+
+            Text {
+                text: root.map.description
+                wrapMode: Text.Wrap
+                width: Math.min(implicitWidth, root.width - pane.leftPadding - pane.rightPadding)
+            }
+
             Grid {
                 columns: 2
                 columnSpacing: 5
@@ -243,4 +301,6 @@ Item {
                     text: root.map.atm ? "Yes" : ""
                 }
             }
+        }
+    }
 }
