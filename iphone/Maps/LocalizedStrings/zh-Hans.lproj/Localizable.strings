@@ -264,6 +264,24 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "要下载更高质量的语音，请打开“设置”App，然后前往“辅助功能”→“VoiceOver”→“语音”→“声音”。";
 
+/* Name of Apple's group of joke text-to-speech voices, shown next to a voice in the list. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
+
+/* Settings «Route» category: «Tts voice» title (the specific voice, e.g. Samantha, used to read out the selected language) */
+"pref_tts_voice_title" = "声音";
+
+/* Suffix appended to a TTS voice name for Apple's higher-quality "Enhanced" voice tier, e.g. "Samantha (Enhanced)". */
+"pref_tts_voice_quality_enhanced" = "增强";
+
+/* Suffix appended to a TTS voice name for Apple's highest-quality "Premium" voice tier, e.g. "Samantha (Premium)". */
+"pref_tts_voice_quality_premium" = "Premium";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "测试语音指令（TTS，文本转语音系统）";
 "pref_map_auto_zoom" = "自动缩放";
@@ -400,9 +418,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "深色";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "其他";
 
 /* Tex label above the Donate button */
 "donate_description" = "向数百万用户赠送无广告的免费地图！";

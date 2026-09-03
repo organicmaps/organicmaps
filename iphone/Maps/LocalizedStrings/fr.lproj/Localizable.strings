@@ -264,6 +264,24 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Pour télécharger une voix de meilleure qualité, ouvrez l’app Réglages et allez dans Accessibilité → VoiceOver → Parole → Voix.";
 
+/* Name of Apple's group of joke text-to-speech voices, shown next to a voice in the list. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
+
+/* Settings «Route» category: «Tts voice» title (the specific voice, e.g. Samantha, used to read out the selected language) */
+"pref_tts_voice_title" = "Voix";
+
+/* Suffix appended to a TTS voice name for Apple's higher-quality "Enhanced" voice tier, e.g. "Samantha (Enhanced)". */
+"pref_tts_voice_quality_enhanced" = "Améliorée";
+
+/* Suffix appended to a TTS voice name for Apple's highest-quality "Premium" voice tier, e.g. "Samantha (Premium)". */
+"pref_tts_voice_quality_premium" = "Premium";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Teste les instructions vocales (TTS, Text-To-Speech)";
 "pref_map_auto_zoom" = "Zoom automatique";
@@ -400,9 +418,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Sombre";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Autre";
 
 /* Tex label above the Donate button */
 "donate_description" = "Offrez des cartes gratuites et sans pub à des millions d'utilisateurs !";
