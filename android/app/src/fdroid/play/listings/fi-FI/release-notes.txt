@@ -1,7 +1,11 @@
-• OSM-tiedot päivätty 14. heinäkuuta
-• Julkisen liikenteen pysäkkien, vaihtopisteiden ja asemien nimissä on nyt valkoinen ääriviiva
-• Aukioloaikojen näyttöä on parannettu
-• Virheelliset tai puuttuvat reittiohjeet on korjattu
-• Muokatut kirjanmerkit ja reitit tallentuvat nyt automaattisesti
-• Reittivaroitukset (tiemaksut, lautat, päällystämättömät tiet, portaat jne.) näkyvät nyt kaikilla vaihtoehtoisilla reiteillä
+• OSM-tiedot 26. elokuuta
+• UUTTA: kirjanmerkkien ja reittien monivalinta
+• UUTTA: yksittäisten reittien piilotus silmäkuvakkeella
+• UUTTA: Wikipedia-artikkelit bengaliksi, hindiksi, marathiksi, puolaksi, tamiliksi, teluguksi ja urduksi
+• Kartalle lisätty lintupiiloja, esiintymislavoja, kukkuloita ja luonnonkaaria
+• Parempi paikkojen jakaminen
+• Android Auto -korjauksia
+• Korjattu reitin pysäkkien valinta
+• Korjattu aukioloajat
+• Parempi hakupaneeli
 …lisää osoitteessa omaps.org/news

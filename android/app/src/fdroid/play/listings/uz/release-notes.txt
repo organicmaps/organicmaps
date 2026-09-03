@@ -1,7 +1,10 @@
-• 14 iyulgacha bo'lgan OSM ma'lumotlari
-• Jamoat transporti to'xtash joylari, o'tkazish va stansiya nomlari endi oq konturga ega
-• Ish vaqtlari ko'rsatmasining yaxshilanganligi
-• Noto'g'ri yoki yetishmayotgan yo'l ko'rsatmalari tuzatildi
-• Tahrirlangan belgilamalar va izlar endi avtomatik saqlanadi
-• Barcha muqobil yo'nalishlar uchun yo'l ogohlantirishlari (pullik yo'llar, parom, asfaltlanmagan yo'llar, zinapoyalar va boshqalar) endi ko'rsatiladi
+• 26-avgust holatiga koʻra OSM maʼlumotlari
+• YANGI: xatchoʻplar va izlarni koʻp tanlash
+• YANGI: koʻz belgisi bilan alohida izlarni yashirish
+• YANGI: bengal, hind, marathi, polyak, tamil, telugu va urdu tillarida Vikipediya maqolalari
+• Xaritaga qush kuzatish kulbalari, sahnalar, tepaliklar va tabiiy ravoqlar qoʻshildi
+• Joylarni ulashish yaxshilandi
+• Android Auto tuzatishlari
+• Marshrut bekatlarini tanlash tuzatildi
+• Ish vaqti tuzatildi
 …batafsil omaps.org/news saytida

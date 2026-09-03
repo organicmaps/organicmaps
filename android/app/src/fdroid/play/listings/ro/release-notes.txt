@@ -1,7 +1,10 @@
-• Date OSM actualizate la 14 iulie
-• Numele stațiilor de transport public, ale punctelor de transfer și ale gărilor au acum un contur alb
-• Afișarea orelor de funcționare a fost îmbunătățită
-• S-au remediat indicațiile de orientare incorecte sau lipsă
-• Marcajele și traseele editate se salvează acum automat
-• Avertismentele privind traseul (taxe de drum, feriboturi, drumuri neasfaltate, scări etc.) sunt afișate acum pentru toate traseele alternative
+• Date OSM din 26 august
+• NOU: selecție multiplă pentru locuri preferate și trasee
+• NOU: ascunderea traseelor individuale cu pictograma ochi
+• NOU: articole Wikipedia în bengaleză, hindi, marathi, poloneză, tamilă, telugu și urdu
+• Adăugate pe hartă observatoare de păsări, scene, dealuri și arcade naturale
+• Partajare mai bună a locurilor
+• Corecții pentru Android Auto
+• Corectată selectarea opririlor de pe traseu
+• Corectat programul de funcționare
 …mai multe informații pe omaps.org/news

@@ -1,7 +1,12 @@
-• Dane OSM na dzień 14 lipca
-• Nazwy przystanków transportu publicznego, przesiadek i stacji mają teraz białą obwódkę
-• Ulepszone wyświetlanie godzin otwarcia
-• Naprawiono nieprawidłowe lub brakujące wskazówki dojazdu
-• Edytowane zakładki i trasy są teraz zapisywane automatycznie
-• Ostrzeżenia dotyczące tras (opłaty drogowe, promy, drogi nieutwardzone, schody itp.) są teraz wyświetlane dla wszystkich tras alternatywnych
+• Dane OSM z 26 sierpnia
+• NOWOŚĆ: zaznaczanie wielu zakładek i tras
+• NOWOŚĆ: ukrywanie pojedynczych tras ikoną oka
+• NOWOŚĆ: artykuły Wikipedii w językach bengalskim, hindi, marathi, polskim, tamilskim, telugu i urdu
+• Na mapie dodano czatownie ptasie, sceny, wzgórza i łuki skalne
+• Lepsze udostępnianie miejsc
+• Poprawki dla Android Auto
+• Poprawiony wybór przystanków trasy
+• Poprawione godziny otwarcia
+• Ulepszony panel wyszukiwania
+• Poprawione błędy edytora OSM
 …więcej na omaps.org/pl/news

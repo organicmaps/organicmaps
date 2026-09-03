@@ -1,28 +1,50 @@
-• Yeni “Arama geçmişini kaydet” ayarı, gerektiğinde arama geçmişinizi gizli tutmanıza yardımcı olur
+### Harita ve yerler
 
-## Harita ve yerler
-• 14 Temmuz itibarıyla OpenStreetMap verileri
-• OpenStreetMap notları artık ormanın ortasında değil, seçtiğiniz tam konumda yerleştiriliyor
-• 180° antimeridyenini geçen bölgeler için harita seçimi iyileştirildi
-• Bir rota silindikten sonra yükseklik profilleri artık güncel olmayan veya boş grafikler göstermiyor
-• Kaydedilen rotalar için boş yükseklik grafiği iyileştirildi
-• Yer imlerini silme düğmesi artık daha kolay bulunur
-• Düzenleme ekranından çıktığınızda yer imleri otomatik olarak kaydedilir
-• Renk paleti önceden tanımlanmış renkleri içerir ve istediğiniz herhangi bir özel rengi seçmenize olanak tanır
-• Diğer kullanıcı arayüzü iyileştirmeleri
+• 26 Ağustos 2026 itibarıyla güncellenmiş OpenStreetMap verileri
+• Arapça, Bengalce, Çince, İngilizce, Fransızca, Almanca, Hintçe, İtalyanca, Japonca, Korece, Marathi, Lehçe, Portekizce, Rusça, İspanyolca, Tamilce, Telugu, Türkçe ve Urduca dillerinde güncellenen Vikipedi maddeleri
+• Haritaya kuş gözlem kulübeleri, sahneler, tepeler ve kaya kemerleri eklendi; ayrıca kayalar için yeni bir simge eklendi
+• Zirve, mağara ve dağ geçidi simgelerinin boyutları değiştirildi
+• Koruma alanları, milli parklar ve sulak alanlar artık daha açık tonlarda görüntüleniyor
+• Çalışma saatlerinin yanlış görüntülenmesine neden olan birçok sorun giderildi
+• Ayarlar; "Genel", "Harita", "Navigasyon", "Ağ" ve "Gizlilik" bölümleri olarak yeniden düzenlendi
+• Kalibrasyon artık otomatik olarak yapıldığından pusula kalibrasyon ayarı kaldırıldı
+• Mevcut konum okunun yanlış yöne işaret etmesine veya donmasına neden olabilecek pusula sorunları düzeltildi
+• Yürüyüş veya bisiklet rotası önizlemesinde yükseklik profili üzerinde parmağınızı sürüklerken ilgili nokta artık haritada gösteriliyor
+• Uygulamanın donması sorunu ve zaman zaman dokunma ve hareketlerin göz ardı edilmesine neden olan bir sorun düzeltildi
 
-## Toplu taşıma
-• Durak, aktarma noktası ve istasyon adları artık hem açık hem de koyu temalarda okunabilir kalması için beyaz bir çerçeve kullanıyor
-• Toplu taşıma güzergah önizlemesini kapattıktan sonra metro katmanı doğru şekilde yeniden görünüyor
+### Paylaşma, yer imleri ve izler
 
-## Güzergah belirleme ve navigasyon
-• Yanlış ve eksik yol tarifleriyle ilgili sorunlar giderildi
-• Rota uyarıları (ücretli yollar, feribotlar, asfaltsız yollar, merdivenler vb.) artık tüm alternatif rotalar için gösteriliyor
-• Rota oluşturulurken nadiren yaşanan donma sorunu giderildi ve kısıtlı yollardaki çıkmazlar ile başlangıç/bitiş noktalarının işlenmesi iyileştirildi
-• Başlat düğmesindeki rota ilerleme göstergesi iyileştirildi
-• Rota duraklarının sırasını değiştirirken listenin atlaması sorunu giderildi
+• YENİ: Yer İmleri ve İzler listelerine çoklu seçim eklendi; seçilen öğeleri silme, taşıma ve rengini değiştirme gibi toplu işlemlerin yanı sıra "Tümünü seç" ve "Seçimi kaldır" seçenekleri de eklendi
+• Yerleri paylaşmak için AirDrop desteği eklendi
+• Bir yer, yer imi veya mevcut konum paylaşıldığında artık yararlı bilgiler içeren okunabilir bir bağlantı gönderiliyor
+• Dışa aktarılan yer imleri artık özgün adlarını ve açıklamalarını koruyor
+• Paylaşılan yer imi listeleri artık dahili dosya adı yerine görüntülenen adını kullanıyor
+• İz kaydı başlatıldıktan hemen sonra ortaya çıkabilen yükseklik grafiği görüntüleme sorunu giderildi
+• Renk paleti açılır penceresindeki özel renk seçici geri getirildi
+• Haritada bir yer imi seçildiğinde HTML açıklamalarının görüntülenmesindeki sorun düzeltildi
 
-## Çeviriler
-• Çince ifadeler iyileştirildi
-• Ukraynaca çeviriler güncellendi
-• İtalyanca harita bölgelerinin çevirilerindeki hatalar düzeltildi
+### Rota belirleme ve navigasyon
+
+• YENİ: CarPlay kontrol paneli eklendi ve CarPlay ile ilgili birçok sorun giderildi
+• Araç navigasyonu harita stilinin etkinleştirilmesi düzeltildi
+• Bir rota durağına veya işaretine dokunulduğunda, artık planlanan rotalar arasında geçiş yapılmak yerine doğru şekilde açılıyor
+• Toplu taşıma rotaları artık daha hızlı hesaplanıyor
+• Yanlış dönüş talimatları düzeltildi
+• Bir rota yeniden hesaplandıktan sonra ortaya çıkan hatalı başlangıç noktası düzeltildi
+• Rota planlaması sırasında laterit yollar artık kalitesiz, asfaltlanmamış yüzeyli yollar olarak değerlendiriliyor
+• `access=unknown` etiketli yollar artık özel erişimli veya yalnızca varış noktasına erişimli yollar gibi işleniyor
+
+### OpenStreetMap düzenleyicisi
+
+• OpenStreetMap'e gönderim arka planda tamamlandığında meydana gelen çökme giderildi
+• Çalışma saatleri alanını boşaltmak artık "Kaydet" veya "Bitti" düğmelerinin devre dışı kalmasına neden olmuyor
+• Kısmen başarısız olan gönderimler artık tamamen başarılı olarak raporlanmak yerine yeniden deneniyor
+
+### Çeviriler
+
+• Ermenice ve Laoca sesli yönlendirme eklendi
+• Yardım/Sık Sorulan Sorular (SSS) güncellendi, Japonca çeviri eklendi
+• "Şu anda kapalı" ifadesinin Japonca çevirisi düzeltildi
+• "iz" ve "devre dışı bırak" kelimelerinin Çince çevirileri iyileştirildi
+
+Ayrıntılı sürüm notlarını https://omaps.org/news/ adresinde inceleyebilirsiniz

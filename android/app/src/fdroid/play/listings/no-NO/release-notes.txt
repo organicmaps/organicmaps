@@ -1,8 +1,14 @@
-• OSM-data per 14. juli
-• Navn på holdeplasser, byttepunkter og stasjoner for offentlig transport har nå en hvit kontur
-• Forbedret visning av åpningstider
-• Feilaktige eller manglende veibeskrivelser er rettet
-• Redigerte bokmerker og ruter lagres nå automatisk
-• Ruteadvarsler (bompenger, ferger, grusveier, trapper osv.) vises nå for alle alternative ruter
-• OSM-notater opprettes på det nøyaktige stedet du velger
+• OSM-data per 26. august
+• NYTT: flervalg for bokmerker og spor
+• NYTT: skjul enkeltspor med øyeikonet
+• NYTT: Wikipedia-artikler på bengali, hindi, marathi, polsk, tamil, telugu og urdu
+• Fugleskjul, scener, åser og steinbuer er lagt til på kartet
+• Bedre deling av steder
+• Rettelser for Android Auto
+• Rettet valg av rutestopp
+• Rettet åpningstider
+• Bedre søkepanel
+• Rettet feil i OSM-editoren
+• Rettet høydeprofil
+• Rettet krasj og fastfrysing
 …mer på omaps.org/news

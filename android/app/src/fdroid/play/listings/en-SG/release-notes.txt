@@ -1,10 +1,14 @@
-• OSM data as of July 14
-• Public transport stop, transfer and station names now have a white outline
-• Improved display of opening hours
-• Fixed incorrect or missing directions
-• Edited bookmarks and tracks now save automatically
-• Route warnings (tolls, ferries, unpaved roads, stairs, etc.) are now shown for all alternative routes
-• OSM notes are created at the exact location you select
-• Colour picker closes automatically when you pick a preset
-• Fixed crashes
+• OSM data as of August 26
+• NEW: Multi-selection for bookmarks and tracks
+• NEW: Hide individual tracks using eye icon
+• NEW: Wikipedia articles in Bengali, Hindi, Marathi, Polish, Tamil, Telugu, Urdu
+• Added bird hides, stages, hills, and natural arches to the map
+• Better place sharing
+• Android Auto fixes
+• Fixed route stops selection
+• Fixed opening hours
+• Better search panel
+• Fixed OSM editor issues
+• Fixed elevation chart
+• Fixed crashes and freezes
 …more at omaps.org/news

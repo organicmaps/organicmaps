@@ -1,8 +1,13 @@
-• Dữ liệu OSM cập nhật đến ngày 14 tháng 7
-• Tên các trạm dừng, điểm chuyển tuyến và ga giao thông công cộng nay có viền trắng
-• Cải thiện cách hiển thị giờ mở cửa
-• Sửa lỗi chỉ đường sai hoặc thiếu
-• Các dấu trang và lộ trình đã chỉnh sửa nay được lưu tự động
-• Các cảnh báo trên lộ trình (phí cầu đường, phà, đường không trải nhựa, cầu thang, v.v.) hiện được hiển thị cho tất cả các lộ trình thay thế
-• Ghi chú OSM được tạo tại vị trí chính xác mà bạn chọn
+• Dữ liệu OSM tính đến ngày 26 tháng 8
+• MỚI: chọn nhiều đánh dấu và dấu vết
+• MỚI: ẩn từng dấu vết bằng biểu tượng con mắt
+• MỚI: bài viết Wikipedia tiếng Bengali, Hindi, Marathi, Ba Lan, Tamil, Telugu, Urdu
+• Đã thêm chòi quan sát chim, sân khấu, đồi và vòm đá tự nhiên vào bản đồ
+• Chia sẻ địa điểm tốt hơn
+• Sửa lỗi Android Auto
+• Sửa lỗi chọn điểm dừng của tuyến đường
+• Sửa giờ mở cửa
+• Bảng tìm kiếm tốt hơn
+• Sửa lỗi trình chỉnh sửa OSM
+• Sửa biểu đồ độ cao
 …xem thêm tại omaps.org/news

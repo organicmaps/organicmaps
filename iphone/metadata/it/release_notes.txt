@@ -1,28 +1,50 @@
-• La nuova impostazione “Salva cronologia ricerche” ti aiuta a mantenere privata la cronologia delle ricerche, se necessario
+### Mappa e luoghi
 
-## Mappa e luoghi
-• Dati OpenStreetMap aggiornati al 14 luglio
-• Le note di OpenStreetMap vengono ora posizionate nel punto esatto selezionato, anziché nel mezzo del bosco
-• Migliorata la selezione delle mappe per le regioni che attraversano l’antimeridiano a 180°
-• I profili altimetrici dei tracciati non mostrano più grafici obsoleti o vuoti dopo la rimozione di un tracciato
-• Migliorato il grafico altimetrico vuoto per i tracciati registrati
-• Il pulsante per rimuovere i segnalibri è più facile da trovare
-• Salvataggio automatico dei segnalibri quando si esce dalla schermata di modifica
-• La tavolozza dei colori include colori predefiniti e consente di scegliere qualsiasi colore personalizzato
-• Altri miglioramenti all’interfaccia utente
+• Dati OpenStreetMap aggiornati al 26 agosto 2026
+• Articoli di Wikipedia aggiornati in arabo, bengalese, cinese, inglese, francese, tedesco, hindi, italiano, giapponese, coreano, marathi, polacco, portoghese, russo, spagnolo, tamil, telugu, turco e urdu
+• Sono stati aggiunti alla mappa capanni per il birdwatching, palcoscenici, colline e archi rocciosi, oltre a una nuova icona per le rocce
+• Sono state ridimensionate le icone di vette, grotte e passi di montagna
+• Le aree protette, i parchi nazionali e le zone umide vengono ora visualizzati con tonalità più chiare
+• Sono stati risolti numerosi problemi che causavano la visualizzazione errata degli orari di apertura
+• Le impostazioni sono state riorganizzate nelle sezioni «Generale», «Mappa», «Navigazione», «Rete» e «Privacy»
+• È stata rimossa l’impostazione di calibrazione della bussola, poiché la calibrazione viene ora gestita automaticamente
+• Sono stati risolti i problemi della bussola che potevano far puntare la freccia della posizione corrente nella direzione sbagliata o bloccarla
+• Il punto corrispondente viene ora visualizzato sulla mappa mentre si trascina il dito lungo il profilo altimetrico nell’anteprima di un percorso a piedi o in bicicletta
+• Sono stati risolti un blocco dell’app e un problema che occasionalmente faceva ignorare tocchi e gesti
 
-## Trasporto pubblico
-• I nomi delle fermate, dei cambi e delle stazioni ora utilizzano un contorno bianco per rimanere leggibili sia nel tema chiaro che in quello scuro
-• Il livello della metropolitana riappare correttamente dopo aver chiuso l’anteprima di un percorso con i mezzi pubblici
+### Condivisione, preferiti e tracce
 
-## Calcolo del percorso e navigazione
-• Risolti i problemi relativi a indicazioni errate o mancanti
-• Gli avvisi sul percorso (pedaggi, traghetti, strade non asfaltate, scale, ecc.) vengono ora visualizzati per tutti i percorsi alternativi
-• Risolto un raro blocco durante la creazione di un percorso e migliorata la gestione dei vicoli ciechi e dei punti di partenza/arrivo su una strada con limitazioni
-• Migliorata l’indicazione dell’avanzamento del percorso sul pulsante di avvio
-• Il riordino delle tappe del percorso non provoca più lo spostamento irregolare dell’elenco
+• NOVITÀ: è stata aggiunta la selezione multipla agli elenchi dei preferiti e delle tracce, con azioni di gruppo per eliminare, spostare e cambiare il colore degli elementi selezionati, oltre a «Seleziona tutto» e «Deseleziona tutto»
+• Aggiunto il supporto AirDrop per la condivisione dei luoghi
+• La condivisione di un luogo, di un preferito o della posizione corrente invia ora un link leggibile contenente informazioni utili
+• I preferiti esportati mantengono ora i nomi e le descrizioni originali
+• Gli elenchi di preferiti condivisi utilizzano ora il nome visualizzato anziché il nome interno del file
+• È stato risolto un problema di visualizzazione del grafico altimetrico che poteva verificarsi subito dopo l’avvio della registrazione di una traccia
+• È stato ripristinato il selettore di colore personalizzato nel popover della tavolozza dei colori
+• È stata corretta la visualizzazione delle descrizioni HTML quando si seleziona un preferito sulla mappa
 
-## Traduzioni
-• Migliorata la formulazione in cinese
-• Aggiornate le traduzioni in ucraino
-• Corrette le traduzioni delle regioni della mappa in italiano
+### Percorsi e navigazione
+
+• NOVITÀ: è stata aggiunta una dashboard CarPlay e sono stati risolti diversi problemi relativi a CarPlay
+• È stata corretta l’attivazione dello stile della mappa di navigazione per auto
+• Toccando una tappa o un punto del percorso, ora questo si apre correttamente invece di passare da un percorso pianificato all’altro
+• I percorsi con i mezzi pubblici vengono ora calcolati più rapidamente
+• Sono state corrette indicazioni di svolta errate
+• È stato corretto un punto di partenza errato dopo il ricalcolo di un percorso
+• Durante il calcolo del percorso, le strade in laterite vengono ora considerate come strade non asfaltate di scarsa qualità
+• Le strade contrassegnate con `access=unknown` vengono ora gestite come strade con accesso privato o consentito solo a chi è diretto a destinazione
+
+### Editor di OpenStreetMap
+
+• È stato risolto un arresto anomalo che si verificava al termine di un caricamento su OpenStreetMap in background
+• La cancellazione del campo degli orari di apertura non lascia più disattivati i pulsanti «Salva» o «Fatto»
+• I caricamenti che falliscono parzialmente vengono ora ritentati anziché essere segnalati come completamente riusciti
+
+### Traduzioni
+
+• Aggiunte le istruzioni vocali in armeno e laotiano
+• Aggiornata la sezione Aiuto/Domande frequenti (FAQ), aggiunta la traduzione in giapponese
+• È stata corretta la traduzione in giapponese di «Ora chiuso»
+• Sono state migliorate le traduzioni in cinese di «traccia» e «disattiva»
+
+Le note di rilascio dettagliate sono disponibili su https://omaps.org/news/

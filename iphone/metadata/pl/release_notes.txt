@@ -1,28 +1,50 @@
-• Nowe ustawienie „Zapisz historię wyszukiwania” pomaga w razie potrzeby zachować prywatność historii wyszukiwania
+### Mapa i miejsca
 
-## Mapy i miejsca
-• Dane OpenStreetMap na dzień 14 lipca
-• Notatki OpenStreetMap są teraz umieszczane dokładnie w wybranej lokalizacji, a nie na środku lasu
-• Ulepszony wybór map dla regionów przekraczających antymerydian 180°
-• Profile wysokości tras nie wyświetlają już nieaktualnych lub pustych wykresów po usunięciu trasy
-• Ulepszono pusty wykres wysokości dla zarejestrowanych tras
-• Przycisk usuwania zakładek jest łatwiejszy do znalezienia
-• Automatyczne zapisywanie zakładek po opuszczeniu ekranu edycji
-• Paleta kolorów zawiera gotowe kolory i umożliwia wybór dowolnego koloru niestandardowego
-• Inne ulepszenia interfejsu użytkownika
+• Zaktualizowane dane OpenStreetMap na dzień 26 sierpnia 2026
+• Zaktualizowano artykuły Wikipedii w językach: arabskim, bengalskim, chińskim, angielskim, francuskim, niemieckim, hindi, włoskim, japońskim, koreańskim, marathi, polskim, portugalskim, rosyjskim, hiszpańskim, tamilskim, telugu, tureckim i urdu
+• Do mapy dodano kryjówki do obserwacji ptaków, sceny, wzgórza i skalne łuki, a także nową ikonę skały
+• Zmieniono rozmiar ikon szczytów, jaskiń i przełęczy górskich
+• Obszary chronione, parki narodowe i tereny podmokłe są teraz wyświetlane w jaśniejszych odcieniach
+• Naprawiono wiele problemów, które powodowały nieprawidłowe wyświetlanie godzin otwarcia
+• Ustawienia pogrupowano w sekcje „Ogólne”, „Mapa”, „Nawigacja”, „Sieć” i „Prywatność”
+• Usunięto ustawienie kalibracji kompasu, ponieważ kalibracja odbywa się teraz automatycznie
+• Naprawiono problemy z kompasem, przez które strzałka bieżącej pozycji mogła wskazywać niewłaściwy kierunek lub zawieszać się
+• Odpowiedni punkt jest teraz pokazywany na mapie podczas przeciągania palcem po profilu wysokościowym w podglądzie trasy pieszej lub rowerowej
+• Naprawiono zawieszanie się aplikacji oraz problem, który sporadycznie powodował ignorowanie dotknięć i gestów
 
-## Transport publiczny
-• Nazwy przystanków, przesiadek i stacji mają teraz białą obwódkę, dzięki czemu są czytelne zarówno w jasnym, jak i ciemnym motywie
-• Warstwa metra ponownie wyświetla się poprawnie po zamknięciu podglądu trasy transportu publicznego
+### Udostępnianie, zakładki i trasy
 
-## Wyznaczanie tras i nawigacja
-• Naprawiono problemy związane z błędnymi i brakującymi wskazówkami
-• Ostrzeżenia dotyczące trasy (opłaty drogowe, promy, drogi nieutwardzone, schody itp.) są teraz wyświetlane dla wszystkich tras alternatywnych
-• Naprawiono rzadkie zawieszanie się aplikacji podczas wyznaczania trasy oraz poprawiono obsługę ślepych uliczek oraz punktów początkowych i końcowych na drogach z ograniczeniami
-• Ulepszono wyświetlanie postępu trasy przy przycisku startu
-• Zmiana kolejności przystanków na trasie nie powoduje już przeskakiwania listy
+• NOWOŚĆ: na listach zakładek i tras dodano zaznaczanie wielu pozycji wraz z działaniami zbiorczymi — usuwaniem, przenoszeniem i zmianą koloru zaznaczonych elementów — a także opcjami „Zaznacz wszystko” i „Odznacz wszystko”
+• Dodano obsługę AirDrop do udostępniania miejsc
+• Udostępnienie miejsca, zakładki lub bieżącej pozycji powoduje teraz wysłanie czytelnego odnośnika z przydatnymi informacjami
+• Wyeksportowane zakładki zachowują teraz oryginalne nazwy i opisy
+• Udostępnione listy zakładek używają teraz wyświetlanej nazwy zamiast wewnętrznej nazwy pliku
+• Naprawiono problem z wyświetlaniem wykresu wysokości, który mógł wystąpić bezpośrednio po rozpoczęciu rejestrowania trasy
+• Przywrócono wybór własnego koloru w wyskakującym okienku palety kolorów
+• Naprawiono wyświetlanie opisów HTML po zaznaczeniu zakładki na mapie
 
-## Tłumaczenia
-• Ulepszono sformułowania w języku chińskim
-• Zaktualizowano tłumaczenia na język ukraiński
-• Naprawiono tłumaczenia nazw regionów na mapie w języku włoskim
+### Wyznaczanie tras i nawigacja
+
+• NOWOŚĆ: dodano pulpit CarPlay oraz naprawiono szereg problemów związanych z CarPlay
+• Naprawiono włączanie stylu mapy nawigacji samochodowej
+• Dotknięcie przystanku lub znacznika na trasie powoduje teraz jego prawidłowe otwarcie, zamiast przełączania między zaplanowanymi trasami
+• Trasy transportu publicznego są teraz wyznaczane szybciej
+• Poprawiono nieprawidłowe wskazówki dotyczące skrętów
+• Naprawiono nieprawidłowy punkt początkowy po ponownym wyznaczeniu trasy
+• Podczas wyznaczania trasy drogi laterytowe są teraz traktowane jako drogi o nieutwardzonej nawierzchni niskiej jakości
+• Drogi oznaczone tagiem `access=unknown` są teraz traktowane tak samo jak drogi z dostępem prywatnym lub wyłącznie do miejsca docelowego
+
+### Edytor OpenStreetMap
+
+• Naprawiono awarię występującą po zakończeniu wysyłania danych do OpenStreetMap w tle
+• Wyczyszczenie pola godzin otwarcia nie powoduje już, że przyciski „Zapisz” i „Gotowe” pozostają nieaktywne
+• Częściowo nieudane wysyłki są teraz ponawiane, zamiast być zgłaszane jako w pełni udane
+
+### Tłumaczenia
+
+• Dodano komunikaty głosowe w języku ormiańskim i laotańskim
+• Zaktualizowano Pomoc/Często zadawane pytania (FAQ) oraz dodano tłumaczenie na język japoński
+• Poprawiono japońskie tłumaczenie wyrażenia „Nieczynne”
+• Poprawiono chińskie tłumaczenia słów „trasa” i „wyłącz”
+
+Szczegółowe informacje o wydaniu: https://omaps.org/news/

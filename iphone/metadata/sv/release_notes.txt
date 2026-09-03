@@ -1,28 +1,50 @@
-• Den nya inställningen ”Spara sökhistorik” hjälper dig att hålla din sökhistorik privat vid behov
+### Karta och platser
 
-## Kartor och platser
-• OpenStreetMap-data per den 14 juli
-• OpenStreetMap-anteckningar placeras nu på den exakta platsen du väljer, istället för mitt i skogen
-• Förbättrat kartval för regioner som sträcker sig över 180°-antimeridianen
-• Höjdprofiler för spår visar inte längre inaktuella eller tomma diagram efter att ett spår har tagits bort
-• Det tomma höjddiagrammet för inspelade spår har förbättrats
-• Knappen för att ta bort bokmärken är lättare att hitta
-• Automatisk sparning av bokmärken när du lämnar redigeringsskärmen
-• Färgpaletten innehåller fördefinierade färger och låter dig välja valfri anpassad färg
-• Övriga förbättringar av användargränssnittet
+• Uppdaterade OpenStreetMap-data per den 26 augusti 2026
+• Uppdaterade Wikipedia-artiklar på arabiska, bengali, kinesiska, engelska, franska, tyska, hindi, italienska, japanska, koreanska, marathi, polska, portugisiska, ryska, spanska, tamil, telugu, turkiska och urdu
+• Fågelgömslen, scener, kullar och stenbågar har lagts till på kartan, samt en ny ikon för klippor
+• Ikonerna för bergstoppar, grottor och bergspass har ändrat storlek
+• Skyddade områden, nationalparker och våtmarker visas nu i ljusare nyanser
+• Många problem som gjorde att öppettiderna visades felaktigt har åtgärdats
+• Inställningarna har omorganiserats i avsnitten ”Allmänt”, ”Karta”, ”Navigering”, ”Nätverk” och ”Integritet”
+• Inställningen för kompasskalibrering har tagits bort eftersom kalibreringen nu sker automatiskt
+• Problem med kompassen har åtgärdats som kunde leda till att pilen för aktuell position pekade i fel riktning eller fastnade
+• Den motsvarande punkten visas nu på kartan när du drar fingret över höjdprofilen i förhandsvisningen av en vandrings- eller cykelrutt
+• Ett problem med att appen hängde sig och ett problem som ibland ledde till att tryckningar och gester ignorerades har åtgärdats
 
-## Kollektivtrafik
-• Namn på hållplatser, byten och stationer har nu en vit kontur för att förbli läsbara i både ljusa och mörka teman
-• Tunnelbanelagret visas åter korrekt efter att du stängt förhandsvisningen av en kollektivtrafikrutt
+### Delning, bokmärken och spår
 
-## Ruttplanering och navigering
-• Problem med felaktiga och saknade vägbeskrivningar har åtgärdats
-• Ruttvarningar (vägtullar, färjor, oasfalterade vägar, trappor osv.) visas nu för alla alternativa rutter
-• Ett sällsynt hängningsfel vid ruttplanering har åtgärdats och hanteringen av återvändsgränder samt start- och slutpunkter på en avstängd väg har förbättrats
-• Förbättrad visning av ruttförloppet på startknappen
-• Om man ändrar ordningen på ruttens stopp hoppar listan inte längre omkring
+• NYTT: flerval har lagts till i listorna över bokmärken och spår, med samlingsåtgärder för att radera, flytta och ändra färg på valda objekt, samt ”Markera alla” och ”Avmarkera alla”
+• Stöd för AirDrop har lagts till för delning av platser
+• När du delar en plats, ett bokmärke eller din aktuella position skickas nu en läsbar länk med användbar information
+• Exporterade bokmärken behåller nu sina ursprungliga namn och beskrivningar
+• Delade bokmärkeslistor använder nu sitt visade namn i stället för det interna filnamnet
+• Ett problem med visningen av höjddiagrammet som kunde uppstå direkt efter att man startat en spårinspelning har åtgärdats
+• Den anpassade färgväljaren i färgpalettens popup-fönster har återställts
+• Renderingen av HTML-beskrivningar har korrigerats när ett bokmärke väljs på kartan
 
-## Översättningar
-• Förbättrad formulering på kinesiska
-• Uppdaterade översättningar till ukrainska
-• Korrigerade översättningar av kartregioner på italienska
+### Ruttplanering och navigering
+
+• NYTT: en CarPlay-instrumentpanel har lagts till och flera CarPlay-problem har åtgärdats
+• Aktiveringen av kartstilen för bilnavigering har åtgärdats
+• Om du trycker på ett stopp eller en markering på rutten öppnas det nu korrekt i stället för att växla mellan planerade rutter
+• Kollektivtrafikrutter beräknas nu snabbare
+• Felaktiga svänganvisningar har rättats
+• En felaktig startpunkt efter att en rutt beräknats om har åtgärdats
+• Vid ruttplanering behandlas lateritvägar nu som vägar med oasfalterad yta av dålig kvalitet
+• Vägar som är taggade med `access=unknown` behandlas nu som vägar med privat tillträde eller endast trafik till målpunkten
+
+### OpenStreetMap-redigerare
+
+• En krasch har åtgärdats som inträffade när en uppladdning till OpenStreetMap slutfördes i bakgrunden
+• Om man rensar fältet för öppettider blir knapparna ”Spara” och ”Klar” inte längre inaktiverade
+• Uppladdningar som delvis misslyckas görs nu om i stället för att rapporteras som helt lyckade
+
+### Översättningar
+
+• Röstinstruktioner på armeniska och laotiska har lagts till
+• Uppdaterad hjälp/vanliga frågor (FAQ), japansk översättning tillagd
+• Den japanska översättningen av ”Stängt just nu” har korrigerats
+• De kinesiska översättningarna av ”spår” och ”inaktivera” har förbättrats
+
+Se de detaljerade releaseanteckningarna på https://omaps.org/news/

@@ -1,28 +1,50 @@
-• Den nye innstillingen «Lagre søkehistorikk» hjelper deg med å holde søkehistorikken din privat ved behov
+### Kart og steder
 
-## Kart og steder
-• OpenStreetMap-data per 14. juli
-• OpenStreetMap-notater plasseres nå på det nøyaktige stedet du velger, i stedet for midt i skogen
-• Forbedret kartvalg for regioner som krysser 180°-antimeridianen
-• Høydeprofiler for ruter viser ikke lenger utdaterte eller tomme diagrammer etter at en rute er fjernet
-• Det tomme høydediagrammet for registrerte ruter er forbedret
-• Knappen for å fjerne bokmerker er lettere å finne
-• Automatisk lagring av bokmerker når du forlater redigeringsskjermen
-• Fargepaletten inneholder forhåndsdefinerte farger og lar deg velge hvilken som helst egendefinert farge
-• Andre forbedringer av brukergrensesnittet
+• Oppdaterte OpenStreetMap-data per 26. august 2026
+• Oppdaterte Wikipedia-artikler på arabisk, bengalsk, kinesisk, engelsk, fransk, tysk, hindi, italiensk, japansk, koreansk, marathi, polsk, portugisisk, russisk, spansk, tamil, telugu, tyrkisk og urdu
+• Fugleskjul, scener, åser og steinbuer er lagt til på kartet, samt et nytt ikon for steiner
+• Ikonene for fjelltopper, huler og fjellpass har fått endret størrelse
+• Verneområder, nasjonalparker og våtmarker vises nå i lysere nyanser
+• Rettet mange feil som førte til at åpningstidene ble vist feil
+• Innstillingene er omorganisert i seksjonene «Generelt», «Kart», «Navigasjon», «Nettverk» og «Personvern»
+• Innstillingen for kompasskalibrering er fjernet, siden kalibreringen nå skjer automatisk
+• Løste kompassproblemer som kunne føre til at pilen for nåværende posisjon pekte i feil retning eller frøs
+• Det tilhørende punktet vises nå på kartet mens du drar fingeren over høydeprofilen i forhåndsvisningen av en gå- eller sykkelrute
+• Løste et problem der appen frøs, og et problem som av og til førte til at trykk og bevegelser ble ignorert
 
-## Offentlig transport
-• Navn på holdeplasser, byttepunkter og stasjoner har nå en hvit kontur for å forbli lesbare både i lyse og mørke temaer
-• T-banelaget vises igjen korrekt etter at du har lukket forhåndsvisningen av en rute for offentlig transport
+### Deling, bokmerker og spor
 
-## Ruteplanlegging og navigasjon
-• Løste problemer med feilaktige og manglende veibeskrivelser
-• Ruteadvarsler (bompenger, ferger, grusveier, trapper osv.) vises nå for alle alternative ruter
-• Løste et sjeldent frysingsproblem under ruteplanlegging og forbedret håndtering av blindveier og start-/målpunkter på en vei med kjøreforbud
-• Rutefremdriften på startknappen er forbedret
-• Omorganisering av rutestoppene fører ikke lenger til at listen hopper rundt
+• NYTT: flervalg er lagt til i listene over bokmerker og spor, med samlehandlinger for å slette, flytte og endre fargen på valgte elementer, samt «Velg alle» og «Fjern all merking»
+• AirDrop-støtte for deling av steder er lagt til
+• Når du deler et sted, et bokmerke eller din nåværende posisjon, sendes det nå en lesbar lenke med nyttig informasjon
+• Eksporterte bokmerker beholder nå sine opprinnelige navn og beskrivelser
+• Delte bokmerkelister bruker nå det viste navnet sitt i stedet for det interne filnavnet
+• Løste et problem med visningen av høydediagrammet som kunne oppstå umiddelbart etter at man hadde startet et sporopptak
+• Den tilpassede fargevelgeren i popup-vinduet for fargepaletten er gjenopprettet
+• Renderingen av HTML-beskrivelser er nå rettet når et bokmerke er valgt på kartet
 
-## Oversettelser
-• Forbedret kinesisk ordlyd
-• Oppdaterte ukrainske oversettelser
-• Rettet oversettelser av kartregioner på italiensk
+### Ruteplanlegging og navigasjon
+
+• NYTT: et CarPlay-dashbord er lagt til, og flere CarPlay-problemer er løst
+• Rettet aktiveringen av kartstilen for bilnavigasjon
+• Når du trykker på et stopp eller et merke på ruten, åpnes det nå riktig i stedet for å bytte mellom planlagte ruter
+• Ruter for offentlig transport beregnes nå raskere
+• Feilaktige svinginstruksjoner er rettet
+• Rettet et feil startpunkt etter at en rute ble beregnet på nytt
+• Ved ruteplanlegging behandles lateritveier nå som veier med en uasfaltert overflate av dårlig kvalitet
+• Veier merket med `access=unknown` behandles nå som veier med privat tilgang eller kun kjøring til målet
+
+### OpenStreetMap-editor
+
+• Løste et programkrasj som oppstod når en opplasting til OpenStreetMap ble fullført i bakgrunnen
+• Hvis du tømmer feltet for åpningstider, blir ikke «Lagre»- eller «Ferdig»-knappen deaktivert lenger
+• Opplastinger som delvis mislykkes, forsøkes nå på nytt i stedet for å rapporteres som fullstendig vellykkede
+
+### Oversettelser
+
+• Taleinstrukser på armensk og laotisk er lagt til
+• Oppdatert hjelp/ofte stilte spørsmål (FAQ), lagt til japansk oversettelse
+• Rettet den japanske oversettelsen av «Lukket nå»
+• Forbedret de kinesiske oversettelsene av «spor» og «deaktiver»
+
+Se de detaljerte utgivelsesnotatene på https://omaps.org/news/

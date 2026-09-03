@@ -1,28 +1,50 @@
-• Le nouveau paramètre « Enregistrer l’historique de recherche » vous aide à préserver la confidentialité de votre historique de recherche au besoin
+### Carte et lieux
 
-## Carte et lieux
-• Données OpenStreetMap à la date du 14 juillet
-• Les notes OpenStreetMap sont désormais placées à l’emplacement exact que vous sélectionnez, et non plus au milieu de la forêt
-• Amélioration de la sélection des cartes pour les régions traversant l’antiméridien de 180°
-• Les profils d’altitude des tracés n’affichent plus de graphiques obsolètes ou vides après la suppression d’un tracé
-• Amélioration du graphique d’altitude vide pour les tracés enregistrés
-• Le bouton permettant de supprimer les signets est plus facile à trouver
-• Enregistrement automatique des signets lorsque vous quittez l’écran d’édition
-• La palette de couleurs comprend des couleurs prédéfinies et vous permet de choisir n’importe quelle couleur personnalisée
-• Autres améliorations de l’interface utilisateur
+• Données OpenStreetMap mises à jour au 26 août 2026
+• Mise à jour des articles Wikipédia en arabe, bengali, chinois, anglais, français, allemand, hindi, italien, japonais, coréen, marathi, polonais, portugais, russe, espagnol, tamoul, télougou, turc et ourdou
+• Ajout d’observatoires ornithologiques, de scènes, de collines et d’arches rocheuses sur la carte, ainsi que d’une nouvelle icône pour les rochers
+• Les icônes des sommets, des grottes et des cols de montagne ont été redimensionnées
+• Les zones protégées, les parcs nationaux et les zones humides sont désormais affichés dans des teintes plus claires
+• Correction de nombreux problèmes qui entraînaient un affichage incorrect des horaires d’ouverture
+• Les réglages ont été réorganisés en sections « Général », « Carte », « Navigation », « Réseau » et « Vie privée »
+• Le réglage d’étalonnage de la boussole a été supprimé, car l’étalonnage est désormais géré automatiquement
+• Correction de problèmes de boussole qui pouvaient faire pointer la flèche de position actuelle dans la mauvaise direction ou la figer
+• Le point correspondant s’affiche désormais sur la carte lorsque vous faites glisser le doigt sur le profil d’altitude dans l’aperçu d’un itinéraire à pied ou à vélo
+• Correction d’un blocage de l’application et d’un problème qui faisait parfois ignorer les appuis et les gestes
 
-## Transports en commun
-• Les noms des arrêts, des correspondances et des stations sont désormais entourés d’un contour blanc pour rester lisibles aussi bien avec le thème clair qu’avec le thème sombre
-• La couche « métro » réapparaît correctement après la fermeture de l’aperçu d’un itinéraire en transports en commun
+### Partage, signets et parcours
 
-## Calcul d’itinéraire et navigation
-• Correction de problèmes liés à des indications erronées ou manquantes
-• Les avertissements d’itinéraire (péages, ferries, routes non goudronnées, escaliers, etc.) s’affichent désormais pour tous les itinéraires alternatifs
-• Correction d’un rare blocage lors de la création d’un itinéraire et amélioration de la gestion des impasses et des points de départ/d’arrivée sur une route à circulation restreinte
-• Amélioration de l’affichage de la progression de l’itinéraire sur le bouton « Démarrer »
-• Le réordonnancement des étapes d’un itinéraire ne provoque plus de sauts dans la liste
+• NOUVEAU : ajout de la sélection multiple dans les listes de signets et de parcours, avec des actions groupées permettant de supprimer, déplacer et modifier la couleur des éléments sélectionnés, ainsi que « Tout sélectionner » et « Tout désélectionner »
+• Ajout de la prise en charge d’AirDrop pour le partage de lieux
+• Le partage d’un lieu, d’un signet ou de votre position actuelle envoie désormais un lien lisible contenant des informations utiles
+• Les signets exportés conservent désormais leurs noms et descriptions d’origine
+• Les listes de signets partagées utilisent désormais leur nom affiché au lieu du nom de fichier interne
+• Correction d’un problème d’affichage du graphique d’altitude pouvant survenir immédiatement après le lancement de l’enregistrement d’un parcours
+• Restauration du sélecteur de couleur personnalisée dans la fenêtre contextuelle de la palette de couleurs
+• Correction de l’affichage des descriptions HTML lorsqu’un signet est sélectionné sur la carte
 
-## Traductions
-• Amélioration de la formulation en chinois
-• Mise à jour des traductions en ukrainien
-• Correction des traductions des régions cartographiques en italien
+### Itinéraires et navigation
+
+• NOUVEAU : ajout d’un tableau de bord CarPlay et correction de plusieurs problèmes liés à CarPlay
+• Correction de l’activation du style de carte de navigation automobile
+• Appuyer sur un arrêt ou un repère d’itinéraire l’ouvre désormais correctement, au lieu de basculer entre les itinéraires planifiés
+• Les itinéraires en transports en commun sont désormais calculés plus rapidement
+• Correction d’instructions de changement de direction erronées
+• Correction d’un point de départ incorrect après le recalcul d’un itinéraire
+• Lors du calcul d’itinéraire, les routes en latérite sont désormais considérées comme des surfaces non revêtues de mauvaise qualité
+• Les routes marquées `access=unknown` sont désormais traitées comme des routes à accès privé ou réservées à la desserte locale
+
+### Éditeur OpenStreetMap
+
+• Correction d’un plantage survenant lorsqu’un envoi vers OpenStreetMap se terminait en arrière-plan
+• Vider le champ des horaires d’ouverture ne désactive plus les boutons « Enregistrer » ou « Terminé »
+• Les envois partiellement échoués sont désormais relancés au lieu d’être signalés comme entièrement réussis
+
+### Traductions
+
+• Ajout des instructions vocales en arménien et en laotien
+• Mise à jour de l’aide et de la foire aux questions (FAQ) ; ajout de la traduction japonaise
+• Correction de la traduction japonaise de « Fermé actuellement »
+• Amélioration des traductions chinoises de « parcours » et « désactiver »
+
+Consultez les notes de version détaillées sur https://omaps.org/news/

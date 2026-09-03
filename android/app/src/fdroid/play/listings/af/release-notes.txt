@@ -1,8 +1,12 @@
-• OSM-data vanaf 14 Julie
-• Openbare vervoerstop-, oorgang- en stasiename het nou 'n wit omtrek
-• Verbeterde vertoning van openingstye
-• Onkorrekte of ontbrekende aanwysings reggestel
-• Gewysigde boekmerke en spore word nou outomaties gestoor
-• Roetewaarskuwings (tolheffings, veerbote, ongeasfalteerde paaie, trappe, ens.) word nou vir alle alternatiewe roetes gewys
-• OSM-notas word op die presiese ligging geskep wat jy kies
+• OSM-data van 26 Augustus
+• NUUT: meervoudige keuse vir boekmerke en spore
+• NUUT: verberg individuele spore met die oogikoon
+• NUUT: Wikipedia-artikels in Bengaals, Hindi, Marathi, Pools, Tamil, Telugu, Urdu
+• Voëlskuilings, verhoë, heuwels en rotsboë by die kaart gevoeg
+• Beter deel van plekke
+• Regstellings vir Android Auto
+• Keuse van roetestoppe reggestel
+• Openingstye reggestel
+• Beter soekpaneel
+• Foute in die OSM-redigeerder reggestel
 …meer by omaps.org/af/news

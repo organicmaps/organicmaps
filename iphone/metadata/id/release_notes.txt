@@ -1,28 +1,50 @@
-• Pengaturan baru "Simpan riwayat pencarian" membantu Anda menjaga riwayat pencarian tetap pribadi jika diperlukan
+### Peta & tempat
 
-## Peta & lokasi
-• Data OpenStreetMap per 14 Juli
-• Catatan OpenStreetMap kini ditempatkan tepat di lokasi yang Anda pilih, bukan di tengah hutan
-• Pemilihan peta telah ditingkatkan untuk wilayah yang melintasi antimeridian 180°
-• Profil ketinggian lintasan tidak lagi menampilkan grafik yang usang atau kosong setelah lintasan dihapus
-• Grafik ketinggian kosong untuk lintasan yang direkam telah ditingkatkan
-• Tombol untuk menghapus penanda kini lebih mudah ditemukan
-• Penyimpanan penanda secara otomatis saat Anda keluar dari layar pengeditan
-• Palet warna mencakup warna-warna bawaan dan memungkinkan Anda memilih warna kustom apa pun
-• Peningkatan antarmuka pengguna lainnya
+• Data OpenStreetMap yang diperbarui per 26 Agustus 2026
+• Artikel Wikipedia yang diperbarui dalam bahasa Arab, Bengali, Mandarin, Inggris, Prancis, Jerman, Hindi, Italia, Jepang, Korea, Marathi, Polandia, Portugis, Rusia, Spanyol, Tamil, Telugu, Turki, dan Urdu
+• Ditambahkan tempat pengamatan burung, panggung, bukit, dan lengkungan batu ke peta, serta ikon baru untuk bebatuan
+• Ukuran ikon puncak, gua, dan celah gunung telah diubah
+• Kawasan lindung, taman nasional, dan lahan basah kini ditampilkan dalam warna yang lebih terang
+• Diperbaiki banyak masalah yang menyebabkan jam buka ditampilkan secara tidak benar
+• Pengaturan diatur ulang menjadi bagian "Umum", "Peta", "Navigasi", "Jaringan", dan "Privasi"
+• Pengaturan kalibrasi kompas dihapus karena kalibrasi kini dilakukan secara otomatis
+• Diperbaiki masalah kompas yang dapat menyebabkan panah posisi saat ini mengarah ke arah yang salah atau macet
+• Titik yang sesuai kini ditampilkan di peta saat Anda menggeser jari di sepanjang profil ketinggian dalam pratinjau rute jalan kaki atau bersepeda
+• Diperbaiki masalah aplikasi yang macet dan masalah yang kadang-kadang menyebabkan ketukan dan gerakan diabaikan
 
-## Transportasi umum
-• Nama halte, titik transfer, dan stasiun kini menggunakan garis tepi putih agar tetap terbaca baik pada tema terang maupun gelap
-• Lapisan kereta bawah tanah muncul kembali dengan benar setelah Anda menutup pratinjau rute transportasi umum
+### Berbagi, penanda & jalur
 
-## Perencanaan rute & navigasi
-• Memperbaiki masalah petunjuk arah yang salah atau hilang
-• Peringatan rute (tol, feri, jalan tidak beraspal, tangga, dll.) kini ditampilkan untuk semua rute alternatif
-• Memperbaiki masalah aplikasi yang jarang macet saat membuat rute serta meningkatkan penanganan jalan buntu dan titik awal/akhir di jalan yang dibatasi
-• Perbaikan tampilan kemajuan rute pada tombol mulai
-• Mengubah urutan titik perhentian rute tidak lagi menyebabkan daftar melompat-lompat
+• BARU: ditambahkan pemilihan ganda pada daftar Penanda dan Jalur, dengan tindakan massal untuk menghapus, memindahkan, dan mengubah warna item yang dipilih, ditambah "Pilih semua" dan "Batalkan pilihan"
+• Ditambahkan dukungan AirDrop untuk berbagi tempat
+• Berbagi tempat, penanda, atau posisi saat ini kini mengirimkan tautan yang mudah dibaca beserta informasi berguna
+• Penanda yang diekspor kini mempertahankan nama dan deskripsi aslinya
+• Daftar penanda yang dibagikan kini menggunakan nama yang ditampilkan, bukan nama berkas internal
+• Diperbaiki masalah tampilan grafik ketinggian yang dapat terjadi segera setelah memulai perekaman jalur
+• Pemilih warna khusus di popover palet warna telah dipulihkan
+• Diperbaiki tampilan deskripsi HTML saat sebuah penanda dipilih di peta
 
-## Terjemahan
-• Perbaikan redaksi dalam bahasa Mandarin
-• Pembaruan terjemahan dalam bahasa Ukraina
-• Perbaikan terjemahan wilayah peta dalam bahasa Italia
+### Perutean & navigasi
+
+• BARU: ditambahkan dasbor CarPlay dan diperbaiki beberapa masalah CarPlay
+• Diperbaiki pengaktifan gaya peta navigasi mobil
+• Mengetuk perhentian atau penanda pada rute kini membukanya dengan benar, bukan beralih antar rute yang direncanakan
+• Rute transportasi umum kini dihitung dengan lebih cepat
+• Diperbaiki instruksi belok yang salah
+• Diperbaiki titik awal yang salah setelah rute dihitung ulang
+• Saat perencanaan rute, jalan laterit kini dianggap memiliki permukaan tidak beraspal berkualitas rendah
+• Jalan yang diberi tag `access=unknown` kini diperlakukan seperti jalan dengan akses pribadi atau akses hanya menuju tujuan
+
+### Editor OpenStreetMap
+
+• Diperbaiki mogok aplikasi saat pengunggahan ke OpenStreetMap selesai di latar belakang
+• Mengosongkan kolom jam buka tidak lagi membuat tombol "Simpan" atau "Selesai" menjadi tidak aktif
+• Unggahan yang gagal sebagian kini dicoba ulang alih-alih dilaporkan sebagai berhasil sepenuhnya
+
+### Terjemahan
+
+• Ditambahkan petunjuk suara dalam bahasa Armenia dan Laos
+• Bantuan/Pertanyaan yang Sering Diajukan (FAQ) diperbarui, ditambahkan terjemahan bahasa Jepang
+• Diperbaiki terjemahan bahasa Jepang dari "Sekarang Tutup"
+• Terjemahan bahasa Mandarin untuk "jalur" dan "nonaktifkan" telah ditingkatkan
+
+Lihat catatan rilis terperinci di https://omaps.org/news/
