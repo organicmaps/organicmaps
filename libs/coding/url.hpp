@@ -1,6 +1,8 @@
 #pragma once
 
+#include <optional>
 #include <string>
+#include <string_view>
 #include <utility>
 #include <vector>
 
@@ -48,6 +50,18 @@ private:
   std::string m_scheme, m_host, m_path;
   std::vector<Param> m_params;
 };
+
+// Strict origin-only parser for untrusted urls, e.g. resource references in imported bookmark
+// html descriptions. Parsing stops at the end of the authority, so path/query/fragment are never
+// scanned and the work is bounded by the maximum authority length.
+// Credentials, backslashes, percent-escapes, whitespace, control and non-ASCII bytes are rejected.
+// Non-canonical IPv4 spellings that a browser would reinterpret are rejected too. IPv6 is outside
+// this deliberately small safe subset. DNS names are restricted to conventional ASCII labels. The
+// caller gets no origin for valid browser URLs outside the subset, never a wrong origin.
+// Returns a normalized "http(s)://host[:port]" string. Default ports (80 for http, 443 for https)
+// are omitted.
+// allowProtocolRelative additionally accepts "//host/path" as an https origin.
+std::optional<std::string> ParseHttpOrigin(std::string_view url, bool allowProtocolRelative);
 
 // Joins URL, appends/removes slashes if needed.
 std::string Join(std::string const & lhs, std::string const & rhs);

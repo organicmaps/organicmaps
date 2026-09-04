@@ -3,10 +3,13 @@
 #include "coding/url.hpp"
 
 #include "base/math.hpp"
+#include "base/timer.hpp"
 
 #include <queue>
 #include <string>
+#include <string_view>
 #include <utility>
+#include <vector>
 
 namespace url_tests
 {
@@ -210,6 +213,315 @@ UNIT_TEST(UrlApi_Smoke)
 
   TEST(url.GetLastParam(), ());
   TEST(url.GetParamValue("m"), ());
+}
+
+struct OriginTestCase
+{
+  char const * m_url;
+  char const * m_origin;  // Empty means "no origin".
+};
+
+// Returns an empty string when there is no origin, to keep the tables below readable.
+string ParsedOrigin(string_view url, bool allowProtocolRelative = false)
+{
+  return ParseHttpOrigin(url, allowProtocolRelative).value_or(string());
+}
+
+void TestOrigins(vector<OriginTestCase> const & cases, bool allowProtocolRelative = false)
+{
+  for (auto const & c : cases)
+    TEST_EQUAL(ParsedOrigin(c.m_url, allowProtocolRelative), string(c.m_origin), (c.m_url));
+}
+
+UNIT_TEST(HttpOrigin_Valid)
+{
+  TestOrigins({
+      {"https://example.com", "https://example.com"},
+      {"http://example.com", "http://example.com"},
+      {"https://example.com/", "https://example.com"},
+      {"https://example.com/path/to/x", "https://example.com"},
+      {"https://example.com?q=1", "https://example.com"},
+      {"https://example.com#frag", "https://example.com"},
+      {"https://example.com/path?q=1#frag", "https://example.com"},
+      // Scheme and host are case insensitive and get lowercased.
+      {"HTTPS://EXAMPLE.COM/X", "https://example.com"},
+      {"HtTpS://ExAmPlE.cOm", "https://example.com"},
+      {"HTTP://Example.COM", "http://example.com"},
+      // Ports.
+      {"https://example.com:8443/x", "https://example.com:8443"},
+      {"https://example.com:1", "https://example.com:1"},
+      {"https://example.com:65535", "https://example.com:65535"},
+      {"https://example.com:443", "https://example.com"},     // Default for https.
+      {"http://example.com:80", "http://example.com"},        // Default for http.
+      {"http://example.com:443", "http://example.com:443"},   // Not a default for http.
+      {"https://example.com:80", "https://example.com:80"},   // Not a default for https.
+      {"https://example.com:0443/x", "https://example.com"},  // Leading zeros are accepted.
+      {"http://example.com:0080", "http://example.com"},
+      {"https://example.com:08443", "https://example.com:8443"},
+      // Hosts.
+      {"https://localhost/x", "https://localhost"},
+      {"https://a.b.c.d.example.co.uk", "https://a.b.c.d.example.co.uk"},
+      {"https://my-cdn.example.com", "https://my-cdn.example.com"},
+      {"https://xn--80ak6aa92e.com/x", "https://xn--80ak6aa92e.com"},  // Punycode is plain ASCII.
+      {"https://123.example.com/x", "https://123.example.com"},
+      // Only canonical dotted-decimal IPv4 is accepted.
+      {"https://0.0.0.0", "https://0.0.0.0"},
+      {"https://192.168.0.1:8080/x", "https://192.168.0.1:8080"},
+      {"https://255.255.255.255", "https://255.255.255.255"},
+      // The authority ends at the first delimiter, so the host here is evil.com, like in a browser.
+      {"https://evil.com/@example.com", "https://evil.com"},
+      {"https://evil.com?@example.com", "https://evil.com"},
+      {"https://evil.com#@example.com", "https://evil.com"},
+  });
+}
+
+UNIT_TEST(HttpOrigin_Rejected)
+{
+  TestOrigins({
+      {"", ""},
+      {"example.com", ""},
+      {"//example.com", ""},  // Protocol relative is not allowed here.
+      // Only http(s) with exactly "://".
+      {"ftp://example.com", ""},
+      {"file:///x", ""},
+      {"javascript:https://example.com", ""},
+      {"data:text/html,https://example.com", ""},
+      {"about:blank", ""},
+      {"xhttps://example.com", ""},  // The scheme starts at the beginning of the url.
+      {"shttp://example.com", ""},
+      {" https://example.com", ""},
+      {"https//example.com", ""},
+      {"https ://example.com", ""},
+      // Browsers strip tabs and newlines before parsing, we fail closed instead.
+      {"htt\tps://example.com", ""},
+      {"https\n://example.com", ""},
+      // Truncated urls must not be read past their end.
+      {"h", ""},
+      {"http", ""},
+      {"https", ""},
+      {"http:", ""},
+      {"https:/", ""},
+      {"/", ""},
+      {"//", ""},
+      // Browsers read a host out of all of these, we fail closed instead of guessing.
+      {"https:example.com", ""},
+      {"https:/example.com", ""},
+      {"HTTPS:/example.com", ""},
+      {"https:///x", ""},
+      {"https://///example.com", ""},
+      {"https://", ""},
+      {"http://", ""},
+      {"https://:443", ""},
+      {"https://:443/x", ""},
+      {"https://?q", ""},
+      {"https:\\\\example.com", ""},
+      // Credentials.
+      {"https://user:pw@example.com", ""},
+      {"https://user@example.com", ""},
+      {"https://user@example.com@evil.com", ""},
+      {"https://example.com@evil.com/x", ""},
+      // Backslashes, which some browsers treat as slashes.
+      {"https://example.com\\path", ""},
+      {"https://example.com\\@evil.com", ""},
+      // Percent escapes.
+      {"https://ex%61mple.com", ""},
+      {"https://example.com%2f@evil.com", ""},
+      // Whitespace, control and non-ASCII bytes.
+      {"https://exa mple.com", ""},
+      {"https:// example.com", ""},
+      {"https://example.com ", ""},
+      {"https://exa\tmple.com", ""},
+      {"https://exa\nmple.com", ""},
+      {"https://exa\rmple.com", ""},
+      {"https://example.com\x01", ""},
+      {"https://example.com\x7f", ""},
+      {"https://\xd0\xbf\xd1\x80\xd0\xb8\xd0\xbc\xd0\xb5\xd1\x80.\xd1\x80\xd1\x84", ""},  // "пример.рф".
+      // Ports.
+      {"https://example.com:", ""},
+      {"https://example.com:/x", ""},
+      {"https://example.com:abc", ""},
+      {"https://example.com:80x", ""},
+      {"https://example.com:8443:80", ""},
+      {"https://example.com:84:80", ""},  // Short enough to reach the digit loop.
+      {"https://example.com: 80", ""},
+      {"https://example.com:+80", ""},
+      {"https://example.com:-80", ""},
+      {"https://example.com:0", ""},
+      {"https://example.com:00000", ""},
+      {"https://example.com:65536", ""},
+      {"https://example.com:99999", ""},
+      {"https://example.com:123456", ""},  // More than 5 digits, even with leading zeros.
+      {"https://example.com:000080", ""},
+      // Hosts.
+      {"https://.example.com", ""},
+      {"https://example..com", ""},
+      {"https://example.com.", ""},
+      {"https://.", ""},
+      {"https://..", ""},
+      {"https://exa_mple.com", ""},  // Underscore is not a DNS char.
+      {"https://exa*mple.com", ""},
+      {"https://exa!mple.com", ""},
+      {"https://example.com]", ""},
+      {"https://exa[mple.com", ""},
+      // Numeric hosts a browser would reinterpret as IPv4, and malformed IPv4.
+      {"https://127.1", ""},
+      {"https://0177.0.0.1", ""},
+      {"https://0x7f.1", ""},
+      {"https://0x7f000001", ""},
+      {"https://017700000001", ""},
+      {"https://2130706433", ""},
+      {"https://192.168.000.001", ""},
+      {"https://1.2.3.999", ""},
+      {"https://1.2.3.256", ""},
+      {"https://1.2.3", ""},
+      {"https://1.2.3.4.5", ""},
+      {"https://foo.123", ""},
+      {"https://1.2.3.0x10", ""},
+      {"https://09", ""},
+      {"https://0x", ""},
+      // IPv6 is outside the strict safe subset, valid or not.
+      {"https://[::1]", ""},
+      {"https://[0:0:0:0:0:0:0:1]", ""},
+      {"https://[::ffff:192.0.2.1]", ""},
+      {"https://[::::]", ""},
+      {"https://[::1", ""},
+      {"https://[fe80::1%25eth0]", ""},
+  });
+
+  // A NUL byte can not be put into the table above.
+  TEST_EQUAL(ParsedOrigin(string_view("https://exa\0mple.com", 20)), "", ());
+}
+
+UNIT_TEST(HttpOrigin_ProtocolRelative)
+{
+  TestOrigins(
+      {
+          {"//example.com", "https://example.com"},
+          {"//example.com/x?y#z", "https://example.com"},
+          {"//example.com:8443/x", "https://example.com:8443"},
+          {"//EXAMPLE.com:443", "https://example.com"},
+          // Absolute urls are parsed exactly as with the flag disabled.
+          {"http://example.com:80/x", "http://example.com"},
+          {"https://example.com/x", "https://example.com"},
+          // Invalid authorities are still rejected.
+          {"//", ""},
+          {"///x", ""},
+          {"/example.com", ""},
+          {"//user@example.com", ""},
+          {"//exa mple.com", ""},
+          {"//example.com:0", ""},
+          {"//https://example.com", ""},
+          {"\\\\example.com", ""},  // Backslashes are not slashes for us.
+          {"//example.com\\evil.com", ""},
+          {"// example.com", ""},
+          {"//example.com:65536", ""},
+          {"//127.1/x", ""},
+          {"//[::1]:8443", ""},
+      },
+      true /* allowProtocolRelative */);
+
+  // The same inputs without the flag.
+  TestOrigins({
+      {"//example.com", ""},
+      {"//example.com:8443/x", ""},
+      {"http://example.com:80/x", "http://example.com"},
+      {"https://example.com/x", "https://example.com"},
+  });
+}
+
+UNIT_TEST(HttpOrigin_HostSizeLimits)
+{
+  string const label63(63, 'a');
+  string const host253 = label63 + '.' + label63 + '.' + label63 + '.' + string(61, 'b');
+  TEST_EQUAL(host253.size(), size_t(253), ());
+
+  TEST_EQUAL(ParsedOrigin("https://" + host253), "https://" + host253, ());
+  TEST_EQUAL(ParsedOrigin("https://" + host253 + ":8443/x"), "https://" + host253 + ":8443", ());
+  TEST_EQUAL(ParsedOrigin("https://" + host253 + "/x"), "https://" + host253, ());
+  TEST_EQUAL(ParsedOrigin("https://b" + host253), "", ());  // 254 chars.
+  TEST_EQUAL(ParsedOrigin("https://b" + host253 + "/x"), "", ());
+
+  // The longest possible authority is host + ':' + 5 port digits, one byte more is rejected
+  // without looking at the rest of the url.
+  TEST_EQUAL(ParsedOrigin("https://" + host253 + ":65535"), "https://" + host253 + ":65535", ());
+  TEST_EQUAL(ParsedOrigin("https://" + host253 + ":65535/x"), "https://" + host253 + ":65535", ());
+  TEST_EQUAL(ParsedOrigin("https://" + host253 + "?q"), "https://" + host253, ());
+  TEST_EQUAL(ParsedOrigin("https://" + host253 + "#f"), "https://" + host253, ());
+  TEST_EQUAL(ParsedOrigin("https://" + string(254, 'a') + ":65535"), "", ());
+  TEST_EQUAL(ParsedOrigin("https://" + string(1024, 'a')), "", ());  // No delimiter at all.
+  TEST_EQUAL(ParsedOrigin("https://" + string(1024, 'a') + "/x"), "", ());
+
+  TEST_EQUAL(ParsedOrigin("https://" + label63 + ".com"), "https://" + label63 + ".com", ());
+  TEST_EQUAL(ParsedOrigin("https://a" + label63 + ".com"), "", ());  // 64 chars in a label.
+}
+
+UNIT_TEST(HttpOrigin_Normalization)
+{
+  auto const origin = ParseHttpOrigin("HTTPS://Example.COM:8443/path?q#f", false);
+  TEST(origin.has_value(), ());
+  TEST_EQUAL(*origin, "https://example.com:8443", ());
+
+  auto const defaultPort = ParseHttpOrigin("https://example.com:443/x", false);
+  TEST(defaultPort.has_value(), ());
+  TEST_EQUAL(*defaultPort, "https://example.com", ());
+
+  // A normalized origin round trips unchanged.
+  for (auto const * url : {"https://example.com/x", "http://example.com:80", "https://example.com:80",
+                           "https://example.com:8443?q", "https://192.168.0.1/x"})
+  {
+    auto const parsed = ParseHttpOrigin(url, false);
+    TEST(parsed.has_value(), (url));
+    TEST_EQUAL(ParseHttpOrigin(*parsed, false), parsed, (url));
+  }
+}
+
+UNIT_TEST(HttpOrigin_QueryIsNotScanned)
+{
+  // Every byte here would make the parser fail if it ever looked past the authority.
+  string const poison = "@%\\ \t\x7f\xd0\xbf";
+  size_t const kTailSize = 10 * 1024 * 1024;
+
+  string url = "https://example.com/path?";
+  url.reserve(url.size() + kTailSize + poison.size());
+  while (url.size() < kTailSize)
+    url += poison;
+
+  TEST_EQUAL(ParsedOrigin(url), "https://example.com", ());
+  TEST_EQUAL(ParsedOrigin("https://example.com:8443#" + string(kTailSize, '\\')), "https://example.com:8443", ());
+  TEST_EQUAL(ParsedOrigin("https://example.com?" + string(kTailSize, ' ')), "https://example.com", ());
+
+  // Without any delimiter the authority is simply too long, which is also decided without
+  // scanning the tail.
+  string const noDelimiter = "https://example.com" + string(kTailSize, 'a');
+  TEST_EQUAL(ParsedOrigin(noDelimiter), "", ());
+
+  // Sanity check that the work does not depend on the tail size: a parser scanning these 10 MB
+  // would need far more than a second for 100 calls in a debug build.
+  size_t const kIterations = 100;
+  base::Timer timer;
+  for (size_t i = 0; i < kIterations; ++i)
+  {
+    TEST(ParseHttpOrigin(url, false).has_value(), ());
+    TEST(!ParseHttpOrigin(noDelimiter, false), ());
+  }
+  double const elapsed = timer.ElapsedSeconds();
+  TEST_LESS(elapsed, 1.0, ("Parsing", kIterations, "urls with a 10 MB tail took", elapsed, "seconds"));
+}
+
+// The lenient url::Url parser is intentionally left as is, ParseHttpOrigin() is a separate,
+// strict entry point.
+UNIT_TEST(HttpOrigin_UrlClassIsUnchanged)
+{
+  Url const withCredentials("https://user:pw@example.com/x");
+  TEST_EQUAL(withCredentials.GetScheme(), "https", ());
+  TEST_EQUAL(withCredentials.GetHost(), "user:pw@example.com", ());
+  TEST_EQUAL(withCredentials.GetPath(), "x", ());
+  TEST(!ParseHttpOrigin("https://user:pw@example.com/x", false), ());
+
+  Url const nonAscii = Url::FromString("\xd0\xbf\xd1\x80\xd0\xb8\xd0\xbc\xd0\xb5\xd1\x80.\xd1\x80\xd1\x84/x");
+  TEST_EQUAL(nonAscii.GetScheme(), "https", ());
+  TEST_EQUAL(nonAscii.GetHost(), "\xd0\xbf\xd1\x80\xd0\xb8\xd0\xbc\xd0\xb5\xd1\x80.\xd1\x80\xd1\x84", ());
+  TEST(!ParseHttpOrigin("https://" + nonAscii.GetHostAndPath(), false), ());
 }
 
 }  // namespace url_tests
