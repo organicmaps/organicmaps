@@ -109,8 +109,8 @@ extension Placement {
   var title: String {
     switch self {
     case .none: return L("hide")
-    case .right: return L("right")
-    case .bottom: return L("bottom")
+    case .right: return L("show_to_the_right")
+    case .bottom: return L("show_at_the_bottom")
     @unknown default: return ""
     }
   }
