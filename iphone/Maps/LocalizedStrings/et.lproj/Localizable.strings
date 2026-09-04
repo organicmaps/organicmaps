@@ -602,9 +602,6 @@
 "day" = "p";
 "second" = "sek";
 "placepage_more_button" = "Veel";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Muuda järjehoidjat";
 "placepage_personal_notes_hint" = "Isiklikud märkmed (tekst või html)";
 "editor_comment_hint" = "Kommenteeri…";
 "editor_reset_edits_message" = "Kas loobud kõigist kohalikest muudatustest?";
@@ -835,7 +832,6 @@
 "location_services_disabled_on_device_3" = "3. Vali „Asukohateenused“";
 "location_services_disabled_on_device_4" = "4. Lülita sisse asukohateenused";
 "location_services_disabled_on_device_additional_message" = "Või jätka Organic Mapsi kasutamist ilma asukohata";
-"book_button" = "Reserveeri";
 "placepage_call_button" = "Helista";
 "placepage_bookmark_name_hint" = "Järjehoidja nimi";
 "placepage_delete_bookmark_button" = "Kustuta järjehoidja";

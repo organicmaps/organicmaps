@@ -516,7 +516,7 @@
     <string name="day">d</string>
     <string name="second">s</string>
     <string name="placepage_more_button">Zaidi</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Hariri alama ya ukurasa</string>
     <string name="placepage_personal_notes_hint">Vidokezo vya kibinafsi (maandishi au HTML)</string>
     <string name="editor_comment_hint">Maoni…</string>

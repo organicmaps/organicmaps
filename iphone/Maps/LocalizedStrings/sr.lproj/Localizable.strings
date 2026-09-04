@@ -602,9 +602,6 @@
 "day" = "д";
 "second" = "с";
 "placepage_more_button" = "Више";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Измени маркер";
 "placepage_personal_notes_hint" = "Личне белешке (текст или хтмл)";
 "editor_comment_hint" = "Коментар…";
 "editor_reset_edits_message" = "Брисање свих измена које нису послате?";
@@ -835,7 +832,6 @@
 "location_services_disabled_on_device_3" = "3. Изаберите Локацијски сервиси";
 "location_services_disabled_on_device_4" = "4. Укључите Локацијске сервисе";
 "location_services_disabled_on_device_additional_message" = "Или наставите да користите Organic Maps без локације";
-"book_button" = "Резервиши";
 "placepage_call_button" = "Позови";
 "placepage_bookmark_name_hint" = "Назив маркера";
 "placepage_delete_bookmark_button" = "Обриши маркер";

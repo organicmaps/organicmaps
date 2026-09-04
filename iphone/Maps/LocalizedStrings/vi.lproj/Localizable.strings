@@ -602,9 +602,6 @@
 "day" = "ngày";
 "second" = "giây";
 "placepage_more_button" = "Bổ sung";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Sửa Dấu Trang";
 "placepage_personal_notes_hint" = "Ghi chú cá nhân (văn bản hoặc html)";
 "editor_comment_hint" = "Nhận xét…";
 "editor_reset_edits_message" = "Cài đặt lại tất cả thay đổi cục bộ?";
@@ -835,7 +832,6 @@
 "location_services_disabled_on_device_3" = "3. Chọn Dịch vụ định vị";
 "location_services_disabled_on_device_4" = "4. Bật Dịch vụ định vị";
 "location_services_disabled_on_device_additional_message" = "Hoặc tiếp tục sử dụng Organic Maps mà không cần định vị";
-"book_button" = "Đặt trước";
 "placepage_call_button" = "Gọi";
 "placepage_bookmark_name_hint" = "Tên Dấu Trang";
 "placepage_delete_bookmark_button" = "Xóa Dấu Trang";

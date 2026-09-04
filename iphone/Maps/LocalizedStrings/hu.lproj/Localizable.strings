@@ -602,9 +602,6 @@
 "day" = "nap";
 "second" = "mp";
 "placepage_more_button" = "Tovább";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Könyvjelző szerkesztése";
 "placepage_personal_notes_hint" = "Személyes jegyzetek (szöveg vagy html)";
 "editor_comment_hint" = "Megjegyzés…";
 "editor_reset_edits_message" = "Elveti az összes módosítást?";
@@ -835,7 +832,6 @@
 "location_services_disabled_on_device_3" = "3. Válassza a „Helymeghatározási szolgáltatások” menüpontot";
 "location_services_disabled_on_device_4" = "4. Engedélyezze a „Helymeghatározási szolgáltatások lehetőséget";
 "location_services_disabled_on_device_additional_message" = "Vagy folytassa az Organic Maps használatát helymeghatározás nélkül";
-"book_button" = "Foglalás";
 "placepage_call_button" = "Hívás";
 "placepage_bookmark_name_hint" = "Könyvjelző neve";
 "placepage_delete_bookmark_button" = "Könyvjelző törlése";

@@ -602,9 +602,6 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Más";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Editar marcador";
 "placepage_personal_notes_hint" = "Notas personales (texto o html)";
 "editor_comment_hint" = "Comentario…";
 "editor_reset_edits_message" = "¿Restablecer todos los cambios locales?";
@@ -835,7 +832,6 @@
 "location_services_disabled_on_device_3" = "3. Seleccione Localización";
 "location_services_disabled_on_device_4" = "4. Active la Localización";
 "location_services_disabled_on_device_additional_message" = "O seguir utilizando Organic Maps sin localización";
-"book_button" = "Reservar";
 "placepage_call_button" = "Llamar";
 "placepage_bookmark_name_hint" = "Nombre del marcador";
 "placepage_delete_bookmark_button" = "Eliminar marcador";

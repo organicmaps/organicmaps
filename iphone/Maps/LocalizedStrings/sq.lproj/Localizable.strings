@@ -602,9 +602,6 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Më shumë";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Ndrysho Faqeshënuesin";
 "placepage_personal_notes_hint" = "Shënime personale (tekst ose html)";
 "editor_comment_hint" = "Komento…";
 "editor_reset_edits_message" = "Të hiqen të gjitha ndryshimet vendase?";
@@ -835,7 +832,6 @@
 "location_services_disabled_on_device_3" = "3. Zgjidhni Shërbimet e Vendndodhjes";
 "location_services_disabled_on_device_4" = "4. Ndizni Shërbimet e Vendndodhjes";
 "location_services_disabled_on_device_additional_message" = "Ose vazhdoni të përdorni Organic Maps pa Vendndodhje";
-"book_button" = "Rezervo";
 "placepage_call_button" = "Telefono";
 "placepage_bookmark_name_hint" = "Emri i Faqeshënuesit";
 "placepage_delete_bookmark_button" = "Fshi Faqeshënuesin";
