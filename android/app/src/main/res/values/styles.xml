@@ -219,17 +219,21 @@
        ?android:textColorPrimary resolves to white and the light theme breaks. -->
   <style name="MwmWidget.Toolbar.Card" parent="">
     <item name="android:background">?cardBackground</item>
+    <item name="android:elevation">0dp</item>
     <item name="contentInsetStart">0dp</item>
     <item name="titleTextAppearance">@style/MwmTextAppearance.Toolbar.Title</item>
     <item name="titleTextColor">?android:textColorPrimary</item>
   </style>
 
   <style name="ThemeOverlay.Mwm.Toolbar.Card" parent="ThemeOverlay.MaterialComponents">
+    <item name="android:gravity">center_vertical</item>
     <item name="colorControlNormal">?android:textColorPrimary</item>
     <item name="iconTint">?android:textColorPrimary</item>
     <item name="actionMenuTextColor">?android:textColorPrimary</item>
     <item name="actionMenuTextAppearance">@style/MwmTextAppearance.Body1</item>
     <item name="actionButtonStyle">@style/AppTheme.Widget.ActionButton</item>
+    <item name="searchToolbarTextAppearance">@style/MwmTextAppearance.Toolbar.SearchSheet</item>
+    <item name="searchToolbarEndIconTint">?android:textColorSecondary</item>
   </style>
 
   <!-- Modern filled TextInputLayout with pill-rounded corners inspired by the search bar. -->
