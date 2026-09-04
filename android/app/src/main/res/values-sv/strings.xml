@@ -414,8 +414,6 @@
     <string name="editor_report_problem_send_button">Skicka</string>
     <string name="editor_report_problem_title">Problem</string>
     <string name="editor_report_problem_no_place_title">Platsen existerar inte</string>
-    <string name="editor_report_problem_under_construction_title">Stängt för underhåll</string>
-    <string name="editor_report_problem_duplicate_place_title">Duplicerad plats</string>
     <string name="autodownload">Automatisk nedladdning</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Dagligen</string>

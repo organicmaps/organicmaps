@@ -414,8 +414,6 @@
     <string name="editor_report_problem_send_button">Адправіць</string>
     <string name="editor_report_problem_title">Праблема</string>
     <string name="editor_report_problem_no_place_title">Месца не існуе</string>
-    <string name="editor_report_problem_under_construction_title">Закрыта на рамонт</string>
-    <string name="editor_report_problem_duplicate_place_title">Месца паўтараецца</string>
     <string name="autodownload">Аўтаматычнае спампоўванне</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Штодзённа</string>

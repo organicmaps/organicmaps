@@ -414,8 +414,6 @@
     <string name="editor_report_problem_send_button">Küldés</string>
     <string name="editor_report_problem_title">Hibajegy</string>
     <string name="editor_report_problem_no_place_title">A hely nem létezik</string>
-    <string name="editor_report_problem_under_construction_title">Karbantartás miatt nem érhető el</string>
-    <string name="editor_report_problem_duplicate_place_title">Duplikált hely</string>
     <string name="autodownload">Automatikus térképletöltés</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Naponta</string>

@@ -414,8 +414,6 @@
     <string name="editor_report_problem_send_button">Senden</string>
     <string name="editor_report_problem_title">Problem</string>
     <string name="editor_report_problem_no_place_title">Der Ort existiert nicht</string>
-    <string name="editor_report_problem_under_construction_title">Wegen Wartung geschlossen</string>
-    <string name="editor_report_problem_duplicate_place_title">Doppelter Ort</string>
     <string name="autodownload">Karten automatisch herunterladen</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Täglich</string>
