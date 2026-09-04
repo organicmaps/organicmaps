@@ -63,11 +63,8 @@ final class PlacePageUserDescriptionWebView: UIView {
     let contentSizeCategoryChanged = previousTraitCollection?.preferredContentSizeCategory !=
       traitCollection.preferredContentSizeCategory
     guard userInterfaceStyleChanged || contentSizeCategoryChanged else { return }
-    if loadedHTMLString == nil {
-      loadHTMLIfNeeded()
-    } else {
-      applyAppearance(compatibleWith: traitCollection)
-    }
+    applyAppearance(compatibleWith: traitCollection)
+    loadHTMLIfNeeded()
   }
 
   private func setupView() {
@@ -118,9 +115,7 @@ final class PlacePageUserDescriptionWebView: UIView {
     finishedNavigation = nil
     let html = Self.htmlDocumentBuilder.buildHTML(with: htmlString, compatibleWith: traitCollection)
     guard let navigation = htmlLoader(webView, html, Constants.baseURL) else {
-      isLoadingHTMLString = false
-      currentNavigation = nil
-      loadedHTMLString = nil
+      resetLoadState()
       assertionFailure("WebKit refused to start the description load")
       return
     }
@@ -129,10 +124,12 @@ final class PlacePageUserDescriptionWebView: UIView {
   }
 
   private func failHTMLNavigation(_ webView: WKWebView, navigation: WKNavigation?) {
-    guard self.webView === webView else { return }
-    if let navigation {
-      guard navigation === currentNavigation else { return }
-    }
+    guard self.webView === webView, let currentNavigation else { return }
+    guard navigation == nil || navigation === currentNavigation else { return }
+    resetLoadState()
+  }
+
+  private func resetLoadState() {
     isLoadingHTMLString = false
     currentNavigation = nil
     finishedNavigation = nil
@@ -142,8 +139,7 @@ final class PlacePageUserDescriptionWebView: UIView {
   func applyAppearance(compatibleWith traitCollection: UITraitCollection) {
     guard let webView, let navigation = finishedNavigation else { return }
     let assignments = Self.htmlDocumentBuilder.appearanceVariables(compatibleWith: traitCollection)
-      .sorted { $0.key < $1.key }
-      .map { "style.setProperty('\($0.key)', '\($0.value)');" }
+      .map { "style.setProperty('\($0.name)', '\($0.value)');" }
       .joined()
     let script = "(() => { const style = document.documentElement.style; \(assignments) })()"
     webView.evaluateJavaScript(script) { [weak self] _, _ in
@@ -210,10 +206,7 @@ extension PlacePageUserDescriptionWebView: WKNavigationDelegate {
 
   func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
     guard self.webView === webView else { return }
-    isLoadingHTMLString = false
-    currentNavigation = nil
-    finishedNavigation = nil
-    loadedHTMLString = nil
+    resetLoadState()
     loadHTMLIfNeeded()
   }
 
@@ -242,7 +235,6 @@ extension PlacePageUserDescriptionWebView: WKNavigationDelegate {
 
 extension PlacePageUserDescriptionWebView: ExpandableTextContainer {
   func configure(with text: String) {
-    guard htmlString != text || loadedHTMLString == nil else { return }
     if htmlString != text {
       htmlString = text
       measuredHTMLHeight = 0
