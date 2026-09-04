@@ -26,6 +26,8 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   private final static int TYPE_CATEGORY_ITEM = BookmarkManager.CATEGORY;
   private final static int TYPE_HEADER_ITEM = 3;
 
+  private static final int HEADER_POSITION = 0;
+
   private final long mCategoryId;
 
   @NonNull
@@ -40,24 +42,6 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   private OnItemClickListener<BookmarkCategory> mClickListener;
   @NonNull
   private final MassOperationAction mMassOperationAction = new MassOperationAction();
-
-  private class ToggleVisibilityClickListener implements View.OnClickListener
-  {
-    @NonNull
-    private final Holders.CollectionViewHolder mHolder;
-
-    ToggleVisibilityClickListener(@NonNull Holders.CollectionViewHolder holder)
-    {
-      mHolder = holder;
-    }
-
-    @Override
-    public void onClick(View v)
-    {
-      mHolder.getEntity().toggleVisibility();
-      notifyItemChanged(0);
-    }
-  }
 
   BookmarkCollectionAdapter(@NonNull BookmarkCategory bookmarkCategory, @NonNull List<BookmarkCategory> itemsCategories)
   {
@@ -186,8 +170,14 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     collectionViewHolder.setSize();
     collectionViewHolder.setVisibilityState(category.isVisible());
     collectionViewHolder.setOnClickListener(mClickListener);
-    ToggleVisibilityClickListener listener = new ToggleVisibilityClickListener(collectionViewHolder);
-    collectionViewHolder.setVisibilityListener(listener);
+    // The eye is repainted on the holder that was tapped: unlike the CheckBox it replaced, an ImageView does not
+    // redraw itself, and a notify would have to survive the adapter having no position for the row yet.
+    collectionViewHolder.setVisibilityListener(v -> {
+      category.toggleVisibility();
+      collectionViewHolder.setVisibilityState(category.isVisible());
+      // The header's label depends on the child lists' visibility.
+      notifyItemChanged(HEADER_POSITION);
+    });
     final int itemsCount = getItemsCount(position.getSectionIndex());
     collectionViewHolder.bindCardPosition(position.getItemIndex() == 0, position.getItemIndex() == itemsCount - 1);
     updateVisibility(collectionViewHolder.itemView);
@@ -197,10 +187,20 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   {
     Holders.HeaderViewHolder headerViewHolder = (Holders.HeaderViewHolder) holder;
     headerViewHolder.getText().setText(holder.itemView.getResources().getString(R.string.bookmarks));
-    final boolean visibility = !BookmarkManager.INSTANCE.areAllCategoriesVisible();
-    headerViewHolder.setAction(mMassOperationAction, visibility);
+    headerViewHolder.setAction(mMassOperationAction, areAllChildCategoriesInvisible());
     headerViewHolder.setSkipDivider(true);
     updateVisibility(headerViewHolder.itemView);
+  }
+
+  /**
+   * Mirrors {@link BookmarkCategoriesAdapter}: "Show all" is offered only when nothing is left to hide.
+   */
+  private boolean areAllChildCategoriesInvisible()
+  {
+    for (BookmarkCategory category : mItemsCategory)
+      if (category.isVisible())
+        return false;
+    return true;
   }
 
   private void updateVisibility(@NonNull View itemView)
@@ -229,15 +229,21 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     return itemCount;
   }
 
-  private void updateAllItems()
-  {
-    setCategories(BookmarkManager.INSTANCE.getChildrenCategories(mCategoryId));
-  }
-
   void show(boolean visible)
   {
     mVisible = visible;
     notifyDataSetChanged();
+  }
+
+  /**
+   * The rows and the header read visibility from the core when they bind, so a mass operation only has to redraw
+   * them. Re-reading the child lists would rebuild every BookmarkCategory for fields the operation cannot change,
+   * and notifyDataSetChanged() on a member of a ConcatAdapter invalidates the bookmark list next to this card too.
+   */
+  private void setChildCategoriesVisibility(boolean visible)
+  {
+    BookmarkManager.INSTANCE.setChildCategoriesVisibility(mCategoryId, visible);
+    notifyItemRangeChanged(0, getItemCount());
   }
 
   class MassOperationAction implements Holders.HeaderViewHolder.HeaderActionChildCategories
@@ -245,17 +251,13 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     @Override
     public void onHideAll()
     {
-      // TODO: Missing implementation
-      // BookmarkManager.INSTANCE.setChildCategoriesVisibility(mCategoryId, false);
-      updateAllItems();
+      setChildCategoriesVisibility(false);
     }
 
     @Override
     public void onShowAll()
     {
-      // TODO: Missing implementation
-      // BookmarkManager.INSTANCE.setChildCategoriesVisibility(mCategoryId, true);
-      updateAllItems();
+      setChildCategoriesVisibility(true);
     }
   }
 }

@@ -285,6 +285,15 @@ public enum BookmarkManager {
   }
 
   /**
+   * Unlike a scan of {@link #getCategories()}, this also sees child lists: the core keeps them in a separate map.
+   * Unlike {@link #getCategoryById(long)}, it does not abort on a category that is gone.
+   */
+  public boolean hasCategory(long catId)
+  {
+    return nativeHasCategory(catId);
+  }
+
+  /**
    * Deletes several bookmarks and tracks at once. Ids that no longer exist are skipped.
    */
   public void deleteBookmarksAndTracks(@NonNull long[] bookmarkIds, @NonNull long[] trackIds)
@@ -556,11 +565,6 @@ public enum BookmarkManager {
     nativePrepareForSearch(catId);
   }
 
-  public boolean areAllCategoriesVisible()
-  {
-    return nativeAreAllCategoriesVisible();
-  }
-
   public boolean areAllCategoriesInvisible()
   {
     return nativeAreAllCategoriesInvisible();
@@ -569,6 +573,13 @@ public enum BookmarkManager {
   public void setAllCategoriesVisibility(boolean visible)
   {
     nativeSetAllCategoriesVisibility(visible);
+  }
+
+  /// Shows or hides all child lists of a category at once.
+  /// Uses EditSession internally, so the map is redrawn once instead of once per child list.
+  public void setChildCategoriesVisibility(long catId, boolean visible)
+  {
+    nativeSetChildCategoriesVisibility(catId, visible);
   }
 
   /// Sets individual track visibility. Uses EditSession internally for thread safety.
@@ -642,6 +653,8 @@ public enum BookmarkManager {
 
   private static native boolean nativeHasTrack(long trackId);
 
+  private static native boolean nativeHasCategory(long catId);
+
   private static native void nativeDeleteBookmarksAndTracks(@NonNull long[] bookmarkIds, @NonNull long[] trackIds);
 
   private static native void nativeMoveBookmarksAndTracks(@NonNull long[] bookmarkIds, @NonNull long[] trackIds,
@@ -673,11 +686,11 @@ public enum BookmarkManager {
 
   private static native void nativePrepareForSearch(long catId);
 
-  private static native boolean nativeAreAllCategoriesVisible();
-
   private static native boolean nativeAreAllCategoriesInvisible();
 
   private static native void nativeSetAllCategoriesVisibility(boolean visible);
+
+  private static native void nativeSetChildCategoriesVisibility(long catId, boolean visible);
 
   private static native void nativeSetTrackVisibility(long trackId, boolean visible);
 

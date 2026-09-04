@@ -367,7 +367,6 @@ public:
   bool IsCategoryEmpty(kml::MarkGroupId categoryId) const;
 
   bool IsUsedCategoryName(std::string const & name) const;
-  bool AreAllCategoriesVisible() const;
   bool AreAllCategoriesInvisible() const;
   void SetAllCategoriesVisibility(bool visible);
 
