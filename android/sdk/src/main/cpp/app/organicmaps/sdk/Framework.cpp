@@ -227,7 +227,8 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   }
 
   p.m_visualScale = df::DPI2VS(densityDpi);
-  // Drape doesn't care about Editor vs Api mode differences.
+  // Only a cold start into the Api or Editor chooser reaches this, and both want the default viewport change.
+  // Routing sets its mode when the engine already exists, so it always goes through SetChoosePositionMode().
   p.m_isChoosePositionMode = m_isChoosePositionMode != ChoosePositionMode::None;
   p.m_hints.m_isFirstLaunch = firstLaunch;
   p.m_hints.m_isLaunchByDeepLink = launchByDeepLink;
@@ -451,7 +452,10 @@ void Framework::SetChoosePositionMode(ChoosePositionMode mode, bool isBusiness, 
 {
   m_isChoosePositionMode = mode;
   m_work.BlockTapEvents(mode != ChoosePositionMode::None);
-  m_work.EnableChoosePositionMode(mode != ChoosePositionMode::None, isBusiness, optionalPosition);
+  // A route point is picked from the view the user already has, so recentring and zooming in to the
+  // add-place scale would throw away the very context they are choosing from.
+  m_work.EnableChoosePositionMode(mode != ChoosePositionMode::None, isBusiness, optionalPosition,
+                                  mode != ChoosePositionMode::Routing /* shouldChangeViewport */);
 }
 
 ChoosePositionMode Framework::GetChoosePositionMode()
@@ -1427,11 +1431,11 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeDeactivateMapSelectionCi
   return g_framework->DeactivateMapSelectionCircle(restoreViewport);
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(JNIEnv * env, jclass, jstring title,
-                                                                      jstring subtitle, jobject markType,
-                                                                      jint intermediateIndex, jboolean isMyPosition,
-                                                                      jdouble lat, jdouble lon,
-                                                                      jboolean reorderIntermediatePoints)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(JNIEnv * env, jclass, jstring title,
+                                                                          jstring subtitle, jobject markType,
+                                                                          jint intermediateIndex, jboolean isMyPosition,
+                                                                          jdouble lat, jdouble lon,
+                                                                          jboolean reorderIntermediatePoints)
 {
   RouteMarkData data;
   data.m_title = jni::ToNativeString(env, title);
@@ -1441,7 +1445,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(JNIEnv * e
   data.m_isMyPosition = static_cast<bool>(isMyPosition);
   data.m_position = m2::PointD(mercator::FromLatLon(lat, lon));
 
-  frm()->GetRoutingManager().AddRoutePoint(std::move(data), reorderIntermediatePoints);
+  return frm()->GetRoutingManager().AddRoutePoint(std::move(data), reorderIntermediatePoints);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoints(JNIEnv * env, jclass)
