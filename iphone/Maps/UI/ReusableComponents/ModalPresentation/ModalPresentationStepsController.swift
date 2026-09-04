@@ -98,6 +98,10 @@ final class ModalPresentationStepsController<Step: ModalPresentationStep> {
 
       let animation: PresentationStepChangeAnimation = abs(velocity.y) > Constants.slowSwipeVelocity ? .slideAndBounce : .slide
       setStep(nextStep, animation: animation)
+    case .cancelled:
+      setStep(currentStep, animation: .slide)
+    case .failed:
+      isPanning = false
     default:
       break
     }
