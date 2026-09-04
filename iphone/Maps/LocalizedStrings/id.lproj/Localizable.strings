@@ -941,7 +941,6 @@
 "dialog_pedestrian_route_is_long_header" = "Jalur kereta bawah tanah tidak ditemukan";
 "dialog_pedestrian_route_is_long_message" = "Silakan pilih titik awal atau akhir yang lebih dekat ke stasiun kereta bawah tanah";
 "button_layer_isolines" = "Isometrik";
-"isolines_activation_error_dialog" = "Untuk mengaktifkan dan menggunakan lapisan topografi, silakan perbarui atau unduh peta area";
 "isolines_location_error_dialog" = "Lapisan topografi belum tersedia untuk wilayah ini";
 "elevation_profile_ascent" = "Menanjak";
 "elevation_profile_descent" = "Menurun";

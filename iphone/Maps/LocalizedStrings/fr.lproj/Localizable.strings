@@ -941,7 +941,6 @@
 "dialog_pedestrian_route_is_long_header" = "Itinéraire de métro non trouvé";
 "dialog_pedestrian_route_is_long_message" = "Choisissez un point de départ ou d'arrivée plus proche d'une station de métro";
 "button_layer_isolines" = "Terrain";
-"isolines_activation_error_dialog" = "Pour activer et utiliser la couche topographique, mettez à jour ou téléchargez la carte de l'endroit désiré";
 "isolines_location_error_dialog" = "Les courbes de niveau ne sont pas encore disponibles dans cette région";
 "elevation_profile_ascent" = "Montée";
 "elevation_profile_descent" = "Descente";

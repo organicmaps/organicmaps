@@ -424,15 +424,20 @@ extension DownloadMapsViewController: StorageObserver {
   }
 
   func processCountry(_ countryId: String, downloadedBytes: UInt64, totalBytes: UInt64) {
+    // MapNodeAttributes is the single source for the fused, deduplicated map+terrain
+    // progress and remaining size. Re-read it for both map and terrain notifications.
+    let attrs = Storage.shared().attributes(forCountry: countryId)
+    let fused = attrs.downloadingProgress
+    let progress = fused > 0 ? CGFloat(fused) : CGFloat(downloadedBytes) / CGFloat(totalBytes)
     for cell in tableView.visibleCells {
       guard let downloaderCell = cell as? MWMMapDownloaderTableViewCell,
             downloaderCell.nodeAttrs.countryId == countryId else { continue }
-      downloaderCell.setDownloadProgress(CGFloat(downloadedBytes) / CGFloat(totalBytes))
+      downloaderCell.setDownloadProgress(progress)
     }
 
     if countryId == dataSource.getParentCountryId() {
-      downloadAllView.downloadProgress = CGFloat(downloadedBytes) / CGFloat(totalBytes)
-      downloadAllView.downloadSize = totalBytes
+      downloadAllView.downloadProgress = progress
+      downloadAllView.downloadSize = attrs.downloadingSize
     } else if dataSource.isRoot, dataSource is DownloadedMapsDataSource {
       downloadAllView.state = .dowloading
       downloadAllView.isSizeHidden = true

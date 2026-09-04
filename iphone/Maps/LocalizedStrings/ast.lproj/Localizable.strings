@@ -941,7 +941,6 @@
 "dialog_pedestrian_route_is_long_header" = "No subway route found";
 "dialog_pedestrian_route_is_long_message" = "Please choose a start or end point closer to a subway station";
 "button_layer_isolines" = "Curves de nivel";
-"isolines_activation_error_dialog" = "Activating contour lines requires downloading map data for this area";
 "isolines_location_error_dialog" = "Les curves de nivel entá nun tán disponibles nesta rexón";
 "elevation_profile_ascent" = "Ascensu";
 "elevation_profile_descent" = "Descensu";
@@ -1093,7 +1092,7 @@
 "icloud_disabled_message" = "Please enable iCloud in your device's settings to use this feature.";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
-"enable" = "Enable";
+"enable" = "Activar";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "Backup";

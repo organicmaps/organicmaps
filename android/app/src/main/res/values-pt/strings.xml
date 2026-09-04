@@ -755,7 +755,6 @@
     <string name="deselect_all">Desmarcar tudo</string>
     <string name="select_list">Selecionar lista</string>
     <string name="button_layer_isolines">Terreno</string>
-    <string name="isolines_activation_error_dialog">Para ativar e usar a camada Terreno, por favor atualize ou descarregue o mapa da área</string>
     <string name="isolines_location_error_dialog">A camada Terreno ainda não está disponível nesta área</string>
     <string name="elevation_profile_ascent">Subida</string>
     <string name="elevation_profile_descent">Descida</string>

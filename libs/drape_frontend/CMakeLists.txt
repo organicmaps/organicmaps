@@ -181,6 +181,8 @@ set(SRC
   shape_view_params.hpp
   stylist.cpp
   stylist.hpp
+  terrain_shade_shape.cpp
+  terrain_shade_shape.hpp
   text_handle.cpp
   text_handle.hpp
   text_layout.cpp

@@ -754,7 +754,6 @@
     <string name="deselect_all">Tühista valik</string>
     <string name="select_list">Vali loend</string>
     <string name="button_layer_isolines">Kontuurjooned</string>
-    <string name="isolines_activation_error_dialog">Topograafilise kihi aktiveerimiseks ja kasutamiseks laadi alla piirkonna kaart</string>
     <string name="isolines_location_error_dialog">Topograafiline kiht ei ole selles piirkonnas veel saadaval</string>
     <string name="elevation_profile_ascent">Tõus</string>
     <string name="elevation_profile_descent">Langus</string>

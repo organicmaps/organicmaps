@@ -56,6 +56,17 @@ double constexpr kVSyncIntervalMetalVulkan = 0.03;
 
 std::string const kTransitBackgroundColor = "TransitBackground";
 
+// The tiles are read over the clip rect inflated by the off-screen margin, and an
+// invalidation must cover the same kept margin tiles.
+m2::RectD GetExtendedClipRect(ScreenBase const & screen)
+{
+  m2::RectD rect = screen.ClipRect();
+  double const extension =
+      VisualParams::Instance().GetVisualScale() * dp::kScreenPixelRectExtension * screen.GetScale();
+  rect.Inflate(extension, extension);
+  return rect;
+}
+
 bool IsTextUserMarkState(dp::RenderState const & state)
 {
   auto const program = state.GetProgram<gpu::Program>();
@@ -1167,7 +1178,9 @@ void FrontendRenderer::InvalidateRect(m2::RectD const & gRect)
 {
   ScreenBase const screen = m_userEventStream.GetCurrentScreen();
   m2::RectD rect = gRect;
-  if (rect.Intersect(screen.ClipRect()))
+  // The off-screen margin tiles are read and kept too (see ResolveTileKeys), so they
+  // must be dropped as well or they come back stale when panned in.
+  if (rect.Intersect(GetExtendedClipRect(screen)))
   {
     // Find tiles to invalidate.
     TTilesCollection tiles;
@@ -2345,10 +2358,7 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
 
 TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
 {
-  m2::RectD rect = screen.ClipRect();
-  double const vs = VisualParams::Instance().GetVisualScale();
-  double const extension = vs * dp::kScreenPixelRectExtension * screen.GetScale();
-  rect.Inflate(extension, extension);
+  m2::RectD rect = GetExtendedClipRect(screen);
   int const dataZoomLevel = ClipTileZoomByMaxDataZoom(GetCurrentZoom());
 
   m_notFinishedTiles.clear();

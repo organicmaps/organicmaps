@@ -150,6 +150,23 @@ UNIT_TEST(TEST_FLOAT_DOUBLE_EQUAL_macros)
   TEST_NOT_ALMOST_EQUAL_ULPS(dx, 2.0, ());
 }
 
+UNIT_TEST(FloorDiv)
+{
+  static_assert(math::FloorDiv(7, 3) == 2);
+  static_assert(math::FloorDiv(6, 3) == 2);
+  static_assert(math::FloorDiv(1, 3) == 0);
+  static_assert(math::FloorDiv(0, 3) == 0);
+  static_assert(math::FloorDiv(-1, 3) == -1);
+  static_assert(math::FloorDiv(-3, 3) == -1);
+  static_assert(math::FloorDiv(-4, 3) == -2);
+  static_assert(math::FloorDiv(int64_t{-10}, int64_t{5}) == -2);
+  static_assert(math::FloorDiv(7u, 3u) == 2u);
+
+  // No overflow on the extremes.
+  static_assert(math::FloorDiv(std::numeric_limits<int32_t>::min(), 1) == std::numeric_limits<int32_t>::min());
+  static_assert(math::FloorDiv(std::numeric_limits<int32_t>::min() + 1, 2) == -1073741824);
+}
+
 UNIT_TEST(GCD)
 {
   TEST_EQUAL(GCD(6, 3), 3, ());

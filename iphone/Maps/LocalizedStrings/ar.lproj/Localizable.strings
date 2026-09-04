@@ -941,7 +941,6 @@
 "dialog_pedestrian_route_is_long_header" = "لم يتم العثور على مسار مترو الأنفاق";
 "dialog_pedestrian_route_is_long_message" = "يرجى اختيار نقطة بداية أو نهاية أقرب لمحطة مترو الأنفاق";
 "button_layer_isolines" = "تضاريس";
-"isolines_activation_error_dialog" = "لتفعيل الطبقة الطبوغرافية واستخدامها ، يرجى تحديث أو تنزيل خريطة المنطقة";
 "isolines_location_error_dialog" = "الطبقة الطبوغرافية ليست متاحة بعد في هذه المنطقة";
 "elevation_profile_ascent" = "تصاعدي";
 "elevation_profile_descent" = "تنازلي";
@@ -1093,7 +1092,7 @@
 "icloud_disabled_message" = "يرجى تمكين iCloud في إعدادات جهازك لاستخدام هذه الميزة.";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
-"enable" = "يُمكَِن";
+"enable" = "تفعيل";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "دعم";

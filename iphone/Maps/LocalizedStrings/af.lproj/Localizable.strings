@@ -941,7 +941,6 @@
 "dialog_pedestrian_route_is_long_header" = "Moltreinroete nie gevind";
 "dialog_pedestrian_route_is_long_message" = "Kies asb. ’n begin- of eindpunt nader aan die moltreinstasie";
 "button_layer_isolines" = "Kontoerlyne";
-"isolines_activation_error_dialog" = "Om kontoerlyne te aktiveer moet u kaartdata vir hierdie area aflaai";
 "isolines_location_error_dialog" = "Die kontoerlyne is nog nie in hierdie area beskikbaar nie";
 "elevation_profile_ascent" = "Styging";
 "elevation_profile_descent" = "Daling";

@@ -749,7 +749,6 @@
     <string name="deselect_all">Poništi odabir</string>
     <string name="select_list">Odaberi popis</string>
     <string name="button_layer_isolines">Izohipse</string>
-    <string name="isolines_activation_error_dialog">Aktiviranje izohipsa zahtijeva preuzimanje podataka karte za ovo područje</string>
     <string name="isolines_location_error_dialog">Izohipse još nisu dostupne za ovo područje</string>
     <string name="elevation_profile_ascent">Uzbrdo</string>
     <string name="elevation_profile_descent">Nizbrdo</string>

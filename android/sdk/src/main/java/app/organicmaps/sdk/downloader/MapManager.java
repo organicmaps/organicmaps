@@ -235,6 +235,9 @@ public final class MapManager
    */
   public static native int nativeGetOverallProgress(String[] countries);
 
+  /** Returns the deduplicated map and terrain bytes required to download {@code countries}. */
+  public static native long nativeGetDownloadSize(String[] countries);
+
   /**
    * Returns {@code true} if the core will NOT do attempts to download failed maps anymore.
    */

@@ -51,7 +51,7 @@ class DownloaderScreen extends BaseScreen
           continue;
 
         map.update();
-        if (map.present)
+        if (map.status == CountryItem.STATUS_DONE)
         {
           mDownloadedMapsSize += map.totalSize;
           mMissingMaps.remove(map.id);

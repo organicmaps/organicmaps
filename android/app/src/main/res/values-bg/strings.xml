@@ -750,7 +750,6 @@
     <string name="deselect_all">Отмяна на избора</string>
     <string name="select_list">Избор на списък</string>
     <string name="button_layer_isolines">Терен</string>
-    <string name="isolines_activation_error_dialog">За да активирате и използвате топографския слой, моля, актуализирайте или изтеглете картата на района</string>
     <string name="isolines_location_error_dialog">Топографският слой все още не е наличен в тази област</string>
     <string name="elevation_profile_ascent">Изкачване</string>
     <string name="elevation_profile_descent">Спускане</string>
