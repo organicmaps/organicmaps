@@ -115,8 +115,8 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
                                                               : RouteMarkType.Intermediate;
 
     RouteMarkData point = routePoints.get(position);
-    RoutingController.get().waitForPoiPick(type);
-    RoutingController.get().replaceStopPoiPick(type == RouteMarkType.Intermediate ? point.mIntermediateIndex : 0);
+    RoutingController.get().waitForPoiReplacement(type,
+                                                  type == RouteMarkType.Intermediate ? point.mIntermediateIndex : 0);
     mCallback.onOpenRouteSearch();
   }
 
@@ -130,8 +130,7 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
   @Override
   public void onPartialSlotReplaceClicked(@NonNull RouteMarkType realType)
   {
-    RoutingController.get().waitForPoiPick(realType);
-    RoutingController.get().replaceStopPoiPick(0);
+    RoutingController.get().waitForPoiReplacement(realType, 0);
     mCallback.onOpenRouteSearch();
   }
 

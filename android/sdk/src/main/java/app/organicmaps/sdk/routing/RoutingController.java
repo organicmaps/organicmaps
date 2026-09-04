@@ -34,6 +34,22 @@ public class RoutingController
     ERROR
   }
 
+  private record PendingPoiPick(@NonNull RouteMarkType pointType, @Nullable Integer replaceStopIndex)
+  {
+    private PendingPoiPick
+    {
+      if (pointType == null)
+        throw new NullPointerException("Route point type must not be null");
+      if (replaceStopIndex != null && replaceStopIndex < 0)
+        throw new IllegalArgumentException("Replacement index must not be negative");
+    }
+
+    private boolean isReplacement()
+    {
+      return replaceStopIndex != null;
+    }
+  }
+
   public interface Container
   {
     default void showRoutePlan(boolean show, @Nullable Runnable completionListener) {}
@@ -82,11 +98,9 @@ public class RoutingController
   private BuildState mBuildState = BuildState.NONE;
   private State mState = State.NONE;
   @Nullable
-  private RouteMarkType mWaitingPoiPickType = null;
+  private PendingPoiPick mPendingPoiPick;
   private int mLastBuildProgress;
   private Router mLastRouterType;
-  private boolean isPoiPickReplaceStop;
-  private int mReplaceStopIndex = -1;
   private boolean mHasContainerSavedState;
   private boolean mContainsCachedResult;
   private int mLastResultCode;
@@ -406,8 +420,10 @@ public class RoutingController
   }
   public void replaceStop(@NonNull MapObject mapObject)
   {
-    RouteMarkType type = mWaitingPoiPickType != null ? mWaitingPoiPickType : RouteMarkType.Intermediate;
-    replaceRoutePoint(type, mapObject, mReplaceStopIndex);
+    final PendingPoiPick pick = requirePendingPoiPick();
+    if (!pick.isReplacement())
+      throw new IllegalStateException("A route point replacement was not requested");
+    replaceRoutePoint(pick.pointType(), mapObject, pick.replaceStopIndex());
     build();
     if (mContainer != null)
       mContainer.onAddedStop();
@@ -493,7 +509,7 @@ public class RoutingController
 
   public boolean isPoiPickReplaceStop()
   {
-    return isPoiPickReplaceStop;
+    return mPendingPoiPick != null && mPendingPoiPick.isReplacement();
   }
 
   public boolean isRoutePoint(@NonNull MapObject mapObject)
@@ -649,13 +665,12 @@ public class RoutingController
 
   public void waitForPoiPick(@NonNull RouteMarkType pointType)
   {
-    mWaitingPoiPickType = pointType;
+    mPendingPoiPick = new PendingPoiPick(pointType, null);
   }
 
-  public void replaceStopPoiPick(int index)
+  public void waitForPoiReplacement(@NonNull RouteMarkType pointType, int index)
   {
-    mReplaceStopIndex = index;
-    isPoiPickReplaceStop = true;
+    mPendingPoiPick = new PendingPoiPick(pointType, index);
   }
 
   private void finalizePendingPoiPick()
@@ -667,18 +682,22 @@ public class RoutingController
       mContainer.onPoiPickCompleted();
   }
 
-  // Clears the pending POI-pick selection in one place. The replace-stop index/flag must be cleared together
-  // with the waiting type, otherwise a cancelled replace leaks its index into the next, unrelated pick.
   private void resetPoiPickState()
   {
-    mWaitingPoiPickType = null;
-    isPoiPickReplaceStop = false;
-    mReplaceStopIndex = -1;
+    mPendingPoiPick = null;
   }
 
   public boolean isWaitingPoiPick()
   {
-    return mWaitingPoiPickType != null;
+    return mPendingPoiPick != null;
+  }
+
+  @NonNull
+  private PendingPoiPick requirePendingPoiPick()
+  {
+    if (mPendingPoiPick == null)
+      throw new IllegalStateException("A route point pick was not requested");
+    return mPendingPoiPick;
   }
 
   public boolean hasMyPositionRoutePoint()
@@ -979,18 +998,19 @@ public class RoutingController
 
   public void onPoiSelected(@Nullable MapObject point)
   {
-    if (!isWaitingPoiPick())
+    final PendingPoiPick pick = mPendingPoiPick;
+    if (pick == null)
       return;
 
     if (point != null)
     {
-      if (isPoiPickReplaceStop)
+      if (pick.isReplacement())
         replaceStop(point);
-      else if (mWaitingPoiPickType == RouteMarkType.Finish)
+      else if (pick.pointType() == RouteMarkType.Finish)
         setEndPoint(point);
-      else if (mWaitingPoiPickType == RouteMarkType.Start)
+      else if (pick.pointType() == RouteMarkType.Start)
         setStartPoint(point);
-      else if (mWaitingPoiPickType == RouteMarkType.Intermediate)
+      else if (pick.pointType() == RouteMarkType.Intermediate)
         addStop(point);
     }
 
@@ -1006,6 +1026,6 @@ public class RoutingController
   @Nullable
   public RouteMarkType getWaitingPoiPickType()
   {
-    return mWaitingPoiPickType;
+    return mPendingPoiPick == null ? null : mPendingPoiPick.pointType();
   }
 }
