@@ -31,8 +31,6 @@
 - (void)openMoreUrl:(PlacePageData *)data;
 - (void)openReviewUrl:(PlacePageData *)data;
 - (void)openDescriptionUrl:(PlacePageData *)data;
-- (void)openCatalogSingleItem:(PlacePageData *)data atIndex:(NSInteger)index;
-- (void)openCatalogMoreItems:(PlacePageData *)data;
 - (void)addBookmark:(PlacePageData *)data;
 - (void)updateBookmark:(PlacePageData *)data
                  title:(NSString *)title
@@ -161,16 +159,6 @@
 + (void)openDescriptionUrl:(PlacePageData *)data
 {
   [[MWMMapViewControlsManager manager].placePageManager openDescriptionUrl:data];
-}
-
-+ (void)openCatalogSingleItem:(PlacePageData *)data atIndex:(NSInteger)index
-{
-  [[MWMMapViewControlsManager manager].placePageManager openCatalogSingleItem:data atIndex:index];
-}
-
-+ (void)openCatalogMoreItems:(PlacePageData *)data
-{
-  [[MWMMapViewControlsManager manager].placePageManager openCatalogMoreItems:data];
 }
 
 + (void)addBookmark:(PlacePageData *)data
