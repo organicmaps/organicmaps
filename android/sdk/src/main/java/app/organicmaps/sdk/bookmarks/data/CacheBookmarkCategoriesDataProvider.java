@@ -1,7 +1,6 @@
 package app.organicmaps.sdk.bookmarks.data;
 
 import androidx.annotation.NonNull;
-import java.util.Arrays;
 import java.util.List;
 
 class CacheBookmarkCategoriesDataProvider implements BookmarkCategoriesDataProvider
@@ -31,13 +30,5 @@ class CacheBookmarkCategoriesDataProvider implements BookmarkCategoriesDataProvi
   public int getCategoriesCount()
   {
     return BookmarkManager.INSTANCE.nativeGetBookmarkCategoriesCount();
-  }
-
-  @NonNull
-  @Override
-  public List<BookmarkCategory> getChildrenCategories(long parentId)
-  {
-    BookmarkCategory[] categories = BookmarkManager.INSTANCE.nativeGetChildrenCategories(parentId);
-    return Arrays.asList(categories);
   }
 }

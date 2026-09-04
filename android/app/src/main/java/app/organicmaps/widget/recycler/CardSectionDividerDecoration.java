@@ -41,11 +41,6 @@ public class CardSectionDividerDecoration extends RecyclerView.ItemDecoration
     for (int i = 0; i < childCount; i++)
     {
       final View child = parent.getChildAt(i);
-      // Rows can be collapsed to a zero-height stub while staying attached (see UiUtils.showRecyclerItemView);
-      // drawing under them would stack hairlines at a single y.
-      if (child.getVisibility() != View.VISIBLE || child.getHeight() == 0)
-        continue;
-
       final RecyclerView.ViewHolder holder = parent.getChildViewHolder(child);
       if (!(holder instanceof DividerBehavior) || ((DividerBehavior) holder).skipDivider())
         continue;
