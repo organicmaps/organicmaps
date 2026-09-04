@@ -19,6 +19,7 @@
 
 #include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/timer.hpp"
 
 #include "std/target_os.hpp"
@@ -636,7 +637,7 @@ UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_BatchMove)
   auto const staleBm = AddBookmark(bmManager, cat1, 30);
   bmManager.GetEditSession().DeleteBookmark(staleBm);
 
-  bmManager.GetEditSession().MoveBookmarksAndTracks({bm1, staleBm}, {trk}, cat2);
+  bmManager.GetEditSession().MoveBookmarksAndTracks({bm1, staleBm}, {trk}, cat1, cat2);
   TEST_EQUAL(bmManager.GetUserMarkIds(cat1).size(), 1, ("bm2 stays behind"));
   TEST_EQUAL(bmManager.GetUserMarkIds(cat2).size(), 1, ());
   TEST_EQUAL(bmManager.GetTrackIds(cat1).size(), 0, ());
@@ -647,13 +648,13 @@ UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_BatchMove)
 
   // Moving into the category the items already belong to is the no-op the chooser hands back when the current
   // list is picked; it must not detach anything.
-  bmManager.GetEditSession().MoveBookmarksAndTracks({bm1}, {trk}, cat2);
+  bmManager.GetEditSession().MoveBookmarksAndTracks({bm1}, {trk}, cat2, cat2);
   TEST_EQUAL(bmManager.GetUserMarkIds(cat2).size(), 1, ());
   TEST_EQUAL(bmManager.GetTrackIds(cat2).size(), 1, ());
 
   // A destination that disappeared between snapshot and tap leaves everything where it was.
   bmManager.GetEditSession().DeleteBmCategory(cat2, true /* permanently */);
-  bmManager.GetEditSession().MoveBookmarksAndTracks({bm2}, {} /* trackIds */, cat2);
+  bmManager.GetEditSession().MoveBookmarksAndTracks({bm2}, {} /* trackIds */, cat1, cat2);
   TEST_EQUAL(bmManager.GetUserMarkIds(cat1).size(), 1, ());
   TEST_EQUAL(bmManager.GetBookmark(bm2)->GetGroupId(), cat1, ());
 }
@@ -2349,6 +2350,250 @@ UNIT_CLASS_TEST(Runner, Bookmarks_RecentlyDeleted)
 
   TEST(!Platform::IsFileExistsByFullPath(filePath), ());
   TEST(!Platform::IsFileExistsByFullPath(deletedFilePath), ());
+}
+
+// A parent list with two child lists: "Child A" holds OnlyA and Shared, "Child B" holds OnlyB and Shared, and
+// Loose belongs to no child list. Child lists are declared inside the parent's file and referenced from a
+// bookmark by the file-local kml::CompilationId, not by the runtime group id.
+kml::FileData MakeParentWithTwoChildLists()
+{
+  kml::FileData data;
+  kml::SetDefaultStr(data.m_categoryData.m_name, "Parent");
+
+  double x = 0.0;
+  auto const addBookmark = [&data, &x](string const & name, vector<kml::CompilationId> compilations)
+  {
+    kml::BookmarkData bm;
+    kml::SetDefaultStr(bm.m_name, name);
+    bm.m_point = m2::PointD(x, x);
+    x += 0.001;
+    bm.m_compilations = std::move(compilations);
+    data.m_bookmarksData.push_back(std::move(bm));
+  };
+  addBookmark("OnlyA", {1});
+  addBookmark("OnlyB", {2});
+  addBookmark("Shared", {1, 2});
+  addBookmark("Loose", {});
+
+  auto const addChildList = [&data](kml::CompilationId id, string const & name)
+  {
+    kml::CategoryData child;
+    child.m_compilationId = id;
+    child.m_type = kml::CompilationType::Category;
+    kml::SetDefaultStr(child.m_name, name);
+    data.m_compilationsData.push_back(std::move(child));
+  };
+  addChildList(1, "Child A");
+  addChildList(2, "Child B");
+
+  return data;
+}
+
+void LoadParentWithTwoChildLists(BookmarkManager & bmManager, string const & filePath)
+{
+  BookmarkManager::KMLDataCollection kmlDataCollection;
+  kmlDataCollection.emplace_back(filePath, make_unique<kml::FileData>(MakeParentWithTwoChildLists()));
+  bmManager.CreateCategories(std::move(kmlDataCollection));
+}
+
+set<string> GetMarkNames(BookmarkManager const & bmManager, kml::MarkGroupId groupId)
+{
+  set<string> names;
+  for (auto const markId : bmManager.GetUserMarkIds(groupId))
+    names.insert(kml::GetDefaultStr(bmManager.GetBookmark(markId)->GetName()));
+  return names;
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_DeleteChildList)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  string const filePath = base::JoinPath(GetBookmarksDirectory(), "compilations" + string{kKmlExtension});
+  LoadParentWithTwoChildLists(bmManager, filePath);
+
+  auto const parentId = bmManager.GetUnsortedBmGroupsIdList().front();
+  auto const children = bmManager.GetChildrenCategories(parentId);
+  TEST_EQUAL(children.size(), 2, ());
+
+  auto const childA = children.front();
+  auto const childB = children.back();
+  TEST(bmManager.IsCompilation(childA), ());
+  TEST(bmManager.HasBmCategory(childA), ());
+  TEST_EQUAL(GetMarkNames(bmManager, childA), set<string>({"OnlyA", "Shared"}), ());
+  TEST_EQUAL(GetMarkNames(bmManager, childB), set<string>({"OnlyB", "Shared"}), ());
+
+  TEST(bmManager.GetEditSession().DeleteBmCategory(childA, true /* permanently */), ());
+
+  TEST(!bmManager.HasBmCategory(childA), ());
+  TEST(!bmManager.IsCompilation(childA), ());
+  TEST_EQUAL(bmManager.GetChildrenCategories(parentId), kml::GroupIdCollection({childB}), ());
+  TEST_EQUAL(bmManager.GetCategoryData(parentId).m_compilationIds, kml::GroupIdCollection({childB}), ());
+
+  // Only the grouping goes: every bookmark stays in the list that owned the child list, and the sibling list is
+  // untouched, Shared included.
+  TEST_EQUAL(GetMarkNames(bmManager, parentId), set<string>({"OnlyA", "OnlyB", "Shared", "Loose"}), ());
+  TEST_EQUAL(GetMarkNames(bmManager, childB), set<string>({"OnlyB", "Shared"}), ());
+
+  // No bookmark was deleted, so the Place Page undo of an unrelated deletion must be left alone.
+  TEST(!bmManager.HasRecentlyDeletedBookmark(), ());
+
+  // The membership is gone on both sides, so nothing points at the deleted list any more.
+  for (auto const markId : bmManager.GetUserMarkIds(parentId))
+  {
+    auto const * bm = bmManager.GetBookmark(markId);
+    TEST(!base::IsExist(bm->GetCompilations(), childA), (kml::GetDefaultStr(bm->GetName())));
+    TEST(!base::IsExist(bm->GetData().m_compilations, kml::CompilationId(1)), (kml::GetDefaultStr(bm->GetName())));
+  }
+
+  TEST(!bmManager.GetEditSession().DeleteBmCategory(childA, true /* permanently */), ("Already deleted"));
+
+  // The parent outlives its last child list, unlike a top-level list, which cannot be the last one.
+  TEST(bmManager.GetEditSession().DeleteBmCategory(childB, true /* permanently */), ());
+  TEST(bmManager.GetChildrenCategories(parentId).empty(), ());
+  TEST(bmManager.HasBmCategory(parentId), ());
+  TEST_EQUAL(GetMarkNames(bmManager, parentId), set<string>({"OnlyA", "OnlyB", "Shared", "Loose"}), ());
+}
+
+// Files naming a child list they do not declare are out there: hand-written, made by another tool, or written by a
+// version of us that left the ids of the previous list on a moved bookmark. Loading one has to drop the membership
+// and carry on -- it used to log at a level that aborts a Debug build before the app finished starting.
+UNIT_CLASS_TEST(Runner, Bookmarks_ChildListIdWithoutDeclaration)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  auto data = MakeParentWithTwoChildLists();
+  data.m_compilationsData.pop_back();  // "Child B" stays referenced by two bookmarks but is no longer declared.
+
+  string const filePath = base::JoinPath(GetBookmarksDirectory(), "dangling" + string{kKmlExtension});
+  BookmarkManager::KMLDataCollection kmlDataCollection;
+  kmlDataCollection.emplace_back(filePath, make_unique<kml::FileData>(std::move(data)));
+  bmManager.CreateCategories(std::move(kmlDataCollection));
+
+  auto const parentId = bmManager.GetUnsortedBmGroupsIdList().front();
+  auto const children = bmManager.GetChildrenCategories(parentId);
+  TEST_EQUAL(children.size(), 1, ());
+
+  // Every bookmark is kept; only the membership in the undeclared child list is gone.
+  TEST_EQUAL(GetMarkNames(bmManager, parentId), set<string>({"OnlyA", "OnlyB", "Shared", "Loose"}), ());
+  TEST_EQUAL(GetMarkNames(bmManager, children.front()), set<string>({"OnlyA", "Shared"}), ());
+
+  // The id is dropped from the bookmarks too, so the file is written out repaired rather than carrying it forever.
+  TEST(bmManager.SaveBookmarkCategory(parentId), ());
+  auto const reloaded = LoadKmlFile(filePath, FileType::Kml);
+  TEST(reloaded != nullptr, ());
+  for (auto const & bm : reloaded->m_bookmarksData)
+    TEST(!base::IsExist(bm.m_compilations, kml::CompilationId(2)),
+         ("An undeclared child list must not survive a save", kml::GetDefaultStr(bm.m_name)));
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_MoveBookmarkOutOfChildList)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  string const filePath = base::JoinPath(GetBookmarksDirectory(), "compilations" + string{kKmlExtension});
+  LoadParentWithTwoChildLists(bmManager, filePath);
+
+  auto const parentId = bmManager.GetUnsortedBmGroupsIdList().front();
+  auto const children = bmManager.GetChildrenCategories(parentId);
+  auto const childA = children.front();
+  auto const childB = children.back();
+
+  kml::MarkIdCollection sharedId;
+  for (auto const markId : bmManager.GetUserMarkIds(childA))
+    if (kml::GetDefaultStr(bmManager.GetBookmark(markId)->GetName()) == "Shared")
+      sharedId.push_back(markId);
+  TEST_EQUAL(sharedId.size(), 1, ());
+
+  // Moving into the list that owns the child list is what the chooser offers on a child list screen: the bookmark
+  // is already there, so all the move does is take it out of the child list.
+  bmManager.GetEditSession().MoveBookmarksAndTracks(sharedId, {} /* trackIds */, childA, parentId);
+
+  // Only the membership goes away: the bookmark stays in the list that owns the child list, and in its sibling.
+  TEST_EQUAL(GetMarkNames(bmManager, childA), set<string>({"OnlyA"}), ());
+  TEST_EQUAL(GetMarkNames(bmManager, childB), set<string>({"OnlyB", "Shared"}), ());
+  TEST_EQUAL(GetMarkNames(bmManager, parentId), set<string>({"OnlyA", "OnlyB", "Shared", "Loose"}), ());
+
+  // Both halves of the membership go: the runtime group ids and the ids that get written back out.
+  auto const * shared = bmManager.GetBookmark(sharedId.front());
+  TEST_EQUAL(shared->GetCompilations(), kml::GroupIdCollection({childB}), ());
+  TEST_EQUAL(shared->GetData().m_compilations, vector<kml::CompilationId>({2}), ("Child B is 2 in the file"));
+
+  // Repeating it changes nothing: the bookmark is no longer in the child list and has nowhere to move.
+  bmManager.GetEditSession().MoveBookmarksAndTracks(sharedId, {} /* trackIds */, childA, parentId);
+  TEST_EQUAL(GetMarkNames(bmManager, childA), set<string>({"OnlyA"}), ());
+  TEST_EQUAL(GetMarkNames(bmManager, parentId), set<string>({"OnlyA", "OnlyB", "Shared", "Loose"}), ());
+
+  // A destination deleted while the chooser was open must leave the child list alone: taking the bookmarks out of
+  // it before that is known would strand them outside it without moving them anywhere.
+  auto const goneId = bmManager.CreateBookmarkCategory("Gone", false /* autoSave */);
+  bmManager.GetEditSession().DeleteBmCategory(goneId, true /* permanently */);
+
+  kml::MarkIdCollection onlyBId;
+  for (auto const markId : bmManager.GetUserMarkIds(childB))
+    onlyBId.push_back(markId);
+  bmManager.GetEditSession().MoveBookmarksAndTracks(onlyBId, {} /* trackIds */, childB, goneId);
+  TEST_EQUAL(GetMarkNames(bmManager, childB), set<string>({"OnlyB", "Shared"}), ());
+}
+
+// A bookmark carries the ids of its child lists in the data that gets serialized, and CompilationId is numbered
+// per file: left behind on a move, they would name whatever child lists the destination file happens to have.
+UNIT_CLASS_TEST(Runner, Bookmarks_MovedBookmarkLeavesItsChildLists)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  string const filePath = base::JoinPath(GetBookmarksDirectory(), "compilations" + string{kKmlExtension});
+  LoadParentWithTwoChildLists(bmManager, filePath);
+
+  auto const parentId = bmManager.GetUnsortedBmGroupsIdList().front();
+  auto const otherId = bmManager.CreateBookmarkCategory("Other", false /* autoSave */);
+
+  kml::MarkIdCollection sharedId;
+  for (auto const markId : bmManager.GetUserMarkIds(parentId))
+    if (kml::GetDefaultStr(bmManager.GetBookmark(markId)->GetName()) == "Shared")
+      sharedId.push_back(markId);
+  TEST_EQUAL(sharedId.size(), 1, ());
+
+  bmManager.GetEditSession().MoveBookmarksAndTracks(sharedId, {} /* trackIds */, parentId, otherId);
+
+  TEST_EQUAL(GetMarkNames(bmManager, otherId), set<string>({"Shared"}), ());
+  auto const * moved = bmManager.GetBookmark(sharedId.front());
+  TEST(moved->GetCompilations().empty(), ());
+  TEST(moved->GetData().m_compilations.empty(), ());
+
+  for (auto const childId : bmManager.GetChildrenCategories(parentId))
+    TEST(bmManager.GetUserMarkIds(childId).count(sharedId.front()) == 0, ());
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_DeletedChildListIsNotSaved)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  string const filePath = base::JoinPath(GetBookmarksDirectory(), "compilations" + string{kKmlExtension});
+  LoadParentWithTwoChildLists(bmManager, filePath);
+
+  auto const parentId = bmManager.GetUnsortedBmGroupsIdList().front();
+  auto const childA = bmManager.GetChildrenCategories(parentId).front();
+  TEST(bmManager.GetEditSession().DeleteBmCategory(childA, true /* permanently */), ());
+
+  // A child list has no file of its own: it is only gone from disk once the parent is written out again.
+  TEST(bmManager.SaveBookmarkCategory(parentId), ());
+  auto const reloaded = LoadKmlFile(filePath, FileType::Kml);
+  TEST(reloaded != nullptr, ());
+
+  TEST_EQUAL(reloaded->m_compilationsData.size(), 1, ());
+  TEST_EQUAL(kml::GetDefaultStr(reloaded->m_compilationsData.front().m_name), "Child B", ());
+
+  // Every bookmark is still written out, only without the membership the deleted list stood for.
+  kml::CompilationId const deletedId = 1;
+  TEST_EQUAL(reloaded->m_bookmarksData.size(), 4, ());
+  for (auto const & bm : reloaded->m_bookmarksData)
+    TEST(!base::IsExist(bm.m_compilations, deletedId),
+         ("A deleted child list must leave no reference behind", kml::GetDefaultStr(bm.m_name)));
 }
 
 UNIT_CLASS_TEST(Runner, Bookmarks_TestSaveRoute)

@@ -330,6 +330,18 @@ void Bookmark::AttachCompilation(kml::MarkGroupId groupId)
   m_compilationIds.push_back(groupId);
 }
 
+void Bookmark::DetachCompilation(kml::MarkGroupId groupId, kml::CompilationId compilationId)
+{
+  std::erase(m_compilationIds, groupId);
+  std::erase(m_data.m_compilations, compilationId);
+}
+
+void Bookmark::ClearCompilations()
+{
+  m_compilationIds.clear();
+  m_data.m_compilations.clear();
+}
+
 void Bookmark::Detach()
 {
   m_groupId = kml::kInvalidMarkGroupId;

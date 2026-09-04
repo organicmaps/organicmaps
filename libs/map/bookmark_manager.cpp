@@ -409,7 +409,12 @@ void BookmarkManager::AttachBookmark(kml::MarkId bmId, kml::MarkGroupId catId)
 void BookmarkManager::DetachBookmark(kml::MarkId bmId, kml::MarkGroupId catId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  GetBookmarkForEdit(bmId)->Detach();
+  auto * bookmark = GetBookmarkForEdit(bmId);
+  // The only path that takes a bookmark out of the list it belongs to, and so the only one where the child lists
+  // of that list stop applying. Restoring a deleted bookmark also goes through Bookmark::Detach(), but puts it
+  // back where it was.
+  bookmark->ClearCompilations();
+  bookmark->Detach();
   DetachUserMark(bmId, catId);
 }
 
@@ -2681,7 +2686,11 @@ bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId, bool permanentl
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto it = m_categories.find(groupId);
   if (it == m_categories.end())
-    return false;
+  {
+    // A child list is stored inside its parent's file, so there is nothing to trash: `permanently` has no meaning
+    // for it and the deletion is always irreversible.
+    return DeleteBmCompilation(groupId);
+  }
 
   ClearGroup(groupId);
   m_changesTracker.OnDeleteGroup(groupId);
@@ -2705,6 +2714,57 @@ bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId, bool permanentl
   m_categories.erase(it);
   UpdateBmGroupIdList();
   return true;
+}
+
+bool BookmarkManager::DeleteBmCompilation(kml::MarkGroupId compilationId)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  auto const it = m_compilations.find(compilationId);
+  if (it == m_compilations.end())
+    return false;
+
+  auto * parent = GetBmCategory(it->second->GetParentID());
+
+  // Only the grouping goes. The bookmarks belong to the list that owns this one and are shown there either way,
+  // so deleting a child list is not a way to lose them -- ClearGroup(), which would, is not an option here.
+  auto const & markIds = it->second->GetUserMarks();
+  DetachBookmarksFromCompilation({markIds.begin(), markIds.end()}, compilationId);
+
+  m_changesTracker.OnDeleteGroup(compilationId);
+  m_compilations.erase(it);
+
+  // A child list has no file of its own: it is written out with its parent, from the live m_compilationIds -- see
+  // CollectBmGroupKMLData(). Only re-saving the parent drops it from disk.
+  std::erase(parent->m_data.m_compilationIds, compilationId);
+  parent->SetDirty(true /* updateModificationDate */);
+  return true;
+}
+
+void BookmarkManager::DetachBookmarksFromCompilation(kml::MarkIdCollection const & bookmarkIds,
+                                                     kml::MarkGroupId compilationId)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  auto const it = m_compilations.find(compilationId);
+  if (it == m_compilations.end())
+    return;
+
+  auto * compilation = it->second.get();
+  auto const kmlCompilationId = compilation->GetCategoryData().m_compilationId;
+
+  bool detached = false;
+  for (auto const markId : bookmarkIds)
+  {
+    if (compilation->GetUserMarks().count(markId) == 0)
+      continue;
+    compilation->DetachUserMark(markId);
+    GetBookmarkForEdit(markId)->DetachCompilation(compilationId, kmlCompilationId);
+    detached = true;
+  }
+
+  // The bookmarks stay where they were, so only the owning list's file changes. Its dirty flag also gets the
+  // visibility of a bookmark that now belongs to no child list re-inferred.
+  if (detached)
+    GetBmCategory(compilation->GetParentID())->SetDirty(true /* updateModificationDate */);
 }
 
 namespace
@@ -2873,18 +2933,26 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
 
     for (auto & bmData : fileData.m_bookmarksData)
     {
-      auto const compilationIds = bmData.m_compilations;
+      // A file can name a child list it does not declare: hand-written, produced by another tool, or written by a
+      // version of us that left the ids of the previous list on a moved bookmark. Such an id is dropped from the
+      // bookmark's own data too, so the next save writes the file out repaired instead of carrying it forever.
+      // It must not be LERROR either, which aborts a Debug build before the app has finished starting.
+      std::erase_if(bmData.m_compilations, [&](auto const c)
+      {
+        if (compilations.count(c) != 0)
+          return false;
+        LOG(LWARNING, ("Incorrect compilation id", c, "into", fileName));
+        return true;
+      });
+
       auto * bm = CreateBookmark(std::move(bmData));
       bm->Attach(groupId);
       group->m_userMarks.insert(bm->GetId());
-      for (auto const c : compilationIds)
+      // The ids the bookmark kept are the ones the filter above let through; attaching does not touch them.
+      for (auto const c : bm->GetData().m_compilations)
       {
         auto const it = compilations.find(c);
-        if (it == compilations.end())
-        {
-          LOG(LERROR, ("Incorrect compilation id", c, "into", fileName));
-          continue;
-        }
+        ASSERT(it != compilations.end(), (c, fileName));
         bm->AttachCompilation(it->second->GetID());
         it->second->AttachUserMark(bm->GetId());
       }
@@ -3673,12 +3741,18 @@ void BookmarkManager::EditSession::DeleteBookmarksAndTracks(kml::MarkIdCollectio
 
 void BookmarkManager::EditSession::MoveBookmarksAndTracks(kml::MarkIdCollection const & bookmarkIds,
                                                           kml::TrackIdCollection const & trackIds,
-                                                          kml::MarkGroupId newGroupId)
+                                                          kml::MarkGroupId curGroupId, kml::MarkGroupId newGroupId)
 {
   // The destination comes from a category list the UI snapshotted, so it can already be deleted; attaching to it
-  // would fail a CHECK deeper down.
+  // would fail a CHECK deeper down. Nothing may leave its group before this, or a stale destination would strand
+  // the bookmarks outside the child list they were taken from without moving them anywhere.
   if (!m_bmManager.HasBmCategory(newGroupId))
     return;
+
+  // Bookmarks shown in a child list belong to the list that owns it, so the move below sees them as already in
+  // the destination whenever that destination is the owner. Leaving the child list is a step of its own.
+  if (m_bmManager.IsCompilation(curGroupId))
+    m_bmManager.DetachBookmarksFromCompilation(bookmarkIds, curGroupId);
 
   for (auto const markId : bookmarkIds)
   {
