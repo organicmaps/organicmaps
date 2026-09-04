@@ -386,9 +386,6 @@
 /* blue gray color */
 "blue_gray" = "Ljusblå grå";
 
-/* place preview title */
-"info" = "Info";
-
 /* Prints version number in About dialog */
 "version" = "Organic Maps-version: %@";
 
@@ -649,11 +646,8 @@
 "traffic_data_unavailable" = "Trafikdata är inte tillgänglig";
 "enable_logging" = "Aktivera loggning";
 "transliteration_title" = "Translitterera till latinska alfabetet";
-"planning_route_manage_route" = "Hantera rutt";
-"button_plan" = "Planera";
 "placepage_remove_stop" = "Ta bort stoppet";
 "placepage_add_stop" = "Lägg till stopp";
-"saved" = "Sparade";
 "error_enter_correct_name" = "Ange ett korrekt namn";
 "bookmark_lists" = "Listor";
 
@@ -739,8 +733,6 @@
 "avoid_motorways" = "Undvik motorvägen";
 "unable_to_calc_alert_title" = "Det går inte att hitta rutt";
 "unable_to_calc_alert_subtitle" = "Tyvärr kunde vi inte hitta en rutt. Detta kan bero på dina ruttpreferenser eller ofullständigt kartunderlag i OpenStreetMap. Ändra gärna dina val och försök igen.";
-"define_to_avoid_btn" = "Definiera oönskade vägar";
-"change_driving_options_btn" = "Ruttinställningar aktiverade";
 "toll_road" = "Betalväg";
 "unpaved_road" = "Oasfalterad väg";
 "ferry_crossing" = "Färjetrafik";
@@ -786,9 +778,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Ruttplaneringen misslyckades";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Ankomst: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "För att skapa en rutt, ladda ner och uppdatera alla kartor längs rutten.";
 "editor_done_dialog_1" = "Du har ändrat världskartan. Dela det med dina vänner och redigera den tillsammans.";
@@ -813,7 +802,6 @@
 "please_note" = "Observera";
 "migration_download_error_dialog" = "Nedladdningsfel";
 "editor_add_select_category" = "Välj kategori";
-"editor_add_select_category_popular_subtitle" = "Populärt";
 "editor_add_select_category_all_subtitle" = "Alla kategorier";
 "whatsnew_editor_message_1" = "Lägg till nya platser på kartan och redigera de befintliga direkt i appen.";
 "dialog_incorrect_feature_position" = "Ändra plats";
@@ -852,9 +840,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Applikationen måste uppdateras för att trafikdata ska kunna visas.";
 "log_file_size" = "Loggfilens storlek: %@";
-"planning_route_remove_title" = "Dra hit för att ta bort";
 "placepage_replace_stop" = "Byt ut stopp";
-"start_from_my_position" = "Starta från";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Logga in på OpenStreetMap för att automatiskt ladda upp alla dina kartredigeringar. Läs mer";
@@ -882,7 +868,6 @@
 "bottom" = "Botten";
 "trip_start" = "Nu åker vi";
 "pick_destination" = "Destination";
-"follow_my_position" = "Placera i mitten";
 "search_results" = "Sökresultat";
 "then_turn" = "Sedan";
 "redirect_route_alert" = "Vill du räkna om rutten?";
@@ -965,36 +950,6 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
-/* App Tip #00 */
-"app_tip_00" = "Tack för att du använder våra community-byggda kartor!";
-
-/* App tip #01 */
-"app_tip_01" = "Med dina donationer och stöd kan vi skapa de bästa kartorna i världen!";
-
-/* App tip #02 */
-"app_tip_02" = "Gillar du vår app? Vänligen donera för att stödja utvecklingen! Gillar du den inte ännu? Meddela oss, så fixar vi det!";
-
-/* App tip #03 */
-"app_tip_03" = "Om du känner en mjukvaruutvecklare kan du be honom eller henne att implementera en funktion som du behöver.";
-
-/* App tip #04 */
-"app_tip_04" = "Tryck var som helst på kartan för att välja något. Tryck länge för att dölja och visa gränssnittet igen.";
-
-/* App tip #05 */
-"app_tip_05" = "Vet du att du kan välja din nuvarande plats på kartan?";
-
-/* App tip #06 */
-"app_tip_06" = "Du kan hjälpa till att översätta vår app till ditt språk.";
-
-/* App tip #07 */
-"app_tip_07" = "Vår app är utvecklad av ett fåtal entusiaster och communityn.";
-
-/* App tip #08 */
-"app_tip_08" = "Du kan enkelt fixa och förbättra kartdata.";
-
-/* App tip #09 */
-"app_tip_09" = "Vårt huvudmål är att bygga snabba, integritetsfokuserade, lättanvända kartor som du kommer att älska.";
-
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Du använder nu Organic Maps på telefonens skärm";
 
@@ -1037,11 +992,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Routen är tom - inget att spara";
-"edit_track" = "Redigera spår";
-"elevation_profile_diff_level" = "Svårighetsgrad";
-"elevation_profile_diff_level_easy" = "Lätt";
-"elevation_profile_diff_level_moderate" = "Måttlig";
-"elevation_profile_diff_level_hard" = "Svår";
 "downloader_updating_ios" = "Uppdaterar";
 
 /* Autoupdate dialog on start */

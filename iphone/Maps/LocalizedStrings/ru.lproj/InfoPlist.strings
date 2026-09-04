@@ -27,14 +27,5 @@
 /********** gps strings **********/
 
 
-/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "Определение местоположения в фоне необходимо для полноценного пользования приложением. Оно используется в движении по маршруту и сохранении недавно пройденного пути.";
-
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Определение местоположения используется в движении по маршруту и сохранении недавно пройденного пути.";
-
-/* Login to OSM button text */
-"login_osm_credentials" = "Вход с паролем";
-
-/* Login to OSM button text */
-"login_osm_browser" = "Вход в систему с помощью браузера";

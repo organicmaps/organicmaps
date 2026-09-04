@@ -386,9 +386,6 @@
 /* blue gray color */
 "blue_gray" = "Gris urdinxka";
 
-/* place preview title */
-"info" = "Informazioa";
-
 /* Prints version number in About dialog */
 "version" = "Organic Maps bertsioa: %@";
 
@@ -649,11 +646,8 @@
 "traffic_data_unavailable" = "Trafiko datuak ez daude eskuragarri";
 "enable_logging" = "Historia gaitu";
 "transliteration_title" = "Latinezko transliterazioa";
-"planning_route_manage_route" = "Kudeatu ibilbidea";
-"button_plan" = "Planifikatu";
 "placepage_remove_stop" = "Kendu geltokia";
 "placepage_add_stop" = "Gehitu geltokia";
-"saved" = "Gordeta";
 "error_enter_correct_name" = "Mesedez, idatzi baliozko izen bat";
 "bookmark_lists" = "Zerrendak";
 
@@ -739,8 +733,6 @@
 "avoid_motorways" = "Autobideak saihestea";
 "unable_to_calc_alert_title" = "Ezin da ibilbidea proposatu";
 "unable_to_calc_alert_subtitle" = "Zoritxarrez, ezin izan dugu aukeratutako aukerekin ibilbiderik proposatu. Aldatu ezarpenak eta saiatu berriro.";
-"define_to_avoid_btn" = "Zehaztu saihestu beharreko bideak";
-"change_driving_options_btn" = "Bideratze aukerak gaituta";
 "toll_road" = "Ordainpeko errepidea";
 "unpaved_road" = "Asfaltatu gabeko errepidea";
 "ferry_crossing" = "Ferry zeharkaldia";
@@ -786,9 +778,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Ibilbidea planifikatzeko errorea";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Iristeko unea: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Deskargatu eta eguneratu proiektatutako bideko mapa guztiak ibilbidea kalkulatzeko.";
 "editor_done_dialog_1" = "Munduko mapa aldatu duzu. Ez ezazu zeuretzat gorde. Esan zure lagunei eta editatu elkarrekin.";
@@ -813,7 +802,6 @@
 "please_note" = "Abisua";
 "migration_download_error_dialog" = "Deskargaren errorea";
 "editor_add_select_category" = "Hautatu kategoria";
-"editor_add_select_category_popular_subtitle" = "Ospetsua";
 "editor_add_select_category_all_subtitle" = "Kategoria guztiak";
 "whatsnew_editor_message_1" = "Gehitu toki berriak mapan eta editatu uneko tokiak zuzenean aplikaziotik.";
 "dialog_incorrect_feature_position" = "Aldatu kokapena";
@@ -852,9 +840,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Trafiko datuak bistaratzeko, aplikazioa eguneratu behar duzu.";
 "log_file_size" = "Erregistro fitxategiaren tamaina: %@";
-"planning_route_remove_title" = "Arrastatu hona kentzeko";
 "placepage_replace_stop" = "Ordeztu geldialdia";
-"start_from_my_position" = "Hasi hemendik";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Hasi saioa OpenStreetMap-en zure mapen aldaketa guztiak automatikoki kargatzeko. Lortu informazio gehiago";
@@ -882,7 +868,6 @@
 "bottom" = "Behealdea";
 "trip_start" = "Goazen";
 "pick_destination" = "Helmuga";
-"follow_my_position" = "Berriz zentratu";
 "search_results" = "Bilaketa emaitzak";
 "then_turn" = "Gero";
 "redirect_route_alert" = "Ibilbidea berreraiki nahi duzu?";
@@ -965,36 +950,6 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
-/* App Tip #00 */
-"app_tip_00" = "Eskerrik asko gure komunitateak eraikitako mapak erabiltzeagatik!";
-
-/* App tip #01 */
-"app_tip_01" = "Zure dohaintza eta laguntzarekin, Munduko mapa onenak sor ditzakegu!";
-
-/* App tip #02 */
-"app_tip_02" = "Gure aplikazioa gustatzen zaizu? Mesedez, eman dohaintza garapena laguntzeko! Oraindik ez al zaizu gustatzen? Mesedez, jakinarazi iezaguzu, eta konponduko dugu!";
-
-/* App tip #03 */
-"app_tip_03" = "Software garatzaile bat ezagutzen baduzu, behar duzun funtzio bat ezartzeko eska diezaiokezu.";
-
-/* App tip #04 */
-"app_tip_04" = "Sakatu mapako edozein tokitan edozer hautatzeko. Luze sakatu interfazea ezkutatzeko eta berriro erakusteko.";
-
-/* App tip #05 */
-"app_tip_05" = "Ba al dakizu zure uneko kokapena mapan hauta dezakezula?";
-
-/* App tip #06 */
-"app_tip_06" = "Gure aplikazioa zure hizkuntzara itzultzen lagun dezakezu.";
-
-/* App tip #07 */
-"app_tip_07" = "Gure aplikazioa zale gutxi batzuek eta komunitateak garatzen dute.";
-
-/* App tip #08 */
-"app_tip_08" = "Maparen datuak erraz konpondu eta hobetu ditzakezu.";
-
-/* App tip #09 */
-"app_tip_09" = "Gure helburu nagusia maite dituzun mapa azkarrak, pribatutasunari begira eta erabilerrazak sortzea da.";
-
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Organic Maps telefonoaren pantailan erabiltzen ari zara";
 
@@ -1037,11 +992,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Arrastoa hutsik dago; ez dago ezer gordetzeko";
-"edit_track" = "Editatu arrastoa";
-"elevation_profile_diff_level" = "Zailtasun maila";
-"elevation_profile_diff_level_easy" = "Erraza";
-"elevation_profile_diff_level_moderate" = "Moderatua";
-"elevation_profile_diff_level_hard" = "Zaila";
 "downloader_updating_ios" = "Eguneratzen";
 
 /* Autoupdate dialog on start */

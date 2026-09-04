@@ -308,38 +308,6 @@
     <string name="enable_location_services">कृपया स्थान सेवाएँ सक्षम करें</string>
     <string name="save">सहेजें</string>
     <string name="create">बनाएं</string>
-    <!-- red color -->
-    <string name="red">लाल</string>
-    <!-- yellow color -->
-    <string name="yellow">पीला</string>
-    <!-- blue color -->
-    <string name="blue">नीला</string>
-    <!-- green color -->
-    <string name="green">हरा</string>
-    <!-- purple color -->
-    <string name="purple">बैंगनी</string>
-    <!-- orange color -->
-    <string name="orange">नारंगी</string>
-    <!-- brown color -->
-    <string name="brown">भूरा</string>
-    <!-- pink color -->
-    <string name="pink">गुलाबी</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">डीप पर्पल</string>
-    <!-- light blue color -->
-    <string name="light_blue">हल्का नीला</string>
-    <!-- cyan color -->
-    <string name="cyan">सायन</string>
-    <!-- teal color -->
-    <string name="teal">टील</string>
-    <!-- lime color -->
-    <string name="lime">लाइम</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">गहरा नारंगी</string>
-    <!-- gray color -->
-    <string name="gray">ग्रे</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">नीला धूसर</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">प्रकटन</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -422,7 +390,6 @@
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">आज बंद</string>
     <string name="day_off">बंद</string>
-    <string name="today">आज</string>
     <string name="opens_in">%s में खुल जाएगा</string>
     <string name="closes_in">%s में बंद हो जाता है</string>
     <string name="closed">बंद</string>
@@ -465,7 +432,6 @@
     <string name="downloader_no_space_title">पर्याप्त जगह नहीं</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">कृपया कोई भी अनावश्यक डेटा हटा दें</string>
-    <string name="editor_login_error_dialog">लॉगिन त्रुटि</string>
     <string name="editor_profile_changes">सत्यापित परिवर्तन</string>
     <string name="editor_focus_map_on_location">स्थान या व्यवसाय के स्थान पर क्रॉस लगाने के लिए मानचित्र को खींचें।</string>
     <string name="editor_edit_place_title">संपादन</string>
@@ -571,12 +537,9 @@
     <string name="prefs_languages_information_off_link">अधिक जानकारी के लिए कृपया इस गाइड को देखें।</string>
     <string name="transliteration_title">लैटिन में लिप्यंतरण</string>
     <string name="learn_more">और जानें</string>
-    <string name="planning_route_manage_route">मार्ग प्रबंधित करें</string>
-    <string name="button_plan">योजना</string>
     <string name="placepage_remove_stop">रोक हटाएँ</string>
     <string name="placepage_add_stop">गंतव्य जोड़ें</string>
     <string name="drag_to_reorder">पुनःक्रमबद्ध करें</string>
-    <string name="saved">सहेजा गया</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">कृपया अपने सभी मानचित्र संपादनों को स्वचालित रूप से अपलोड करने के लिए OpenStreetMap पर लॉगिन करें। अधिक जानें <a href="https://github.com/organicmaps/organicmaps/issues/6144">यहां</a>।</string>
     <string name="dialog_error_storage_title">भंडारण पहुँच समस्या</string>
@@ -669,8 +632,6 @@
     <string name="avoid_motorways">फ़्रीवेज़ से बचें</string>
     <string name="unable_to_calc_alert_title">मार्ग की गणना करने में असमर्थ</string>
     <string name="unable_to_calc_alert_subtitle">कोई मार्ग नहीं मिल सका. यह आपके रूटिंग विकल्पों या अधूरे OpenStreetMap डेटा के कारण हो सकता है। कृपया अपने रूटिंग विकल्प बदलें और पुनः प्रयास करें।</string>
-    <string name="define_to_avoid_btn">बचने के लिए सड़कों को परिभाषित करें</string>
-    <string name="change_driving_options_btn">रूटिंग विकल्प सक्षम</string>
     <string name="toll_road">शुल्क मार्ग</string>
     <string name="unpaved_road">अनपक्की सड़क</string>
     <string name="ferry_crossing">फेरी क्रॉसिंग</string>
@@ -749,8 +710,6 @@
     <string name="elevation_profile_min_elevation">न्यूनतम ऊँचाई</string>
     <string name="elevation_profile_max_elevation">अधिकतम ऊँचाई</string>
     <string name="elevation_profile_difficulty">कठिनाई</string>
-    <string name="elevation_profile_distance">वितरण:</string>
-    <string name="elevation_profile_time">समय:</string>
     <string name="isolines_toast_zooms_1_10">इज़ोलाइन्स का अन्वेषण करने के लिए ज़ूम इन करें</string>
     <string name="downloader_loading_ios">डाउनलोड हो रहा है</string>
     <string name="download_map_title">विश्व मानचित्र डाउनलोड करें</string>
@@ -847,21 +806,11 @@
     <string name="stop_track_recording">ट्रैक रिकॉर्डिंग रोकें</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">ट्रैक रिकॉर्डिंग</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">बिना सहेजे रुकें</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">रिकॉर्डिंग जारी रखें</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">मार्ग रिकॉर्डिंग बुकमार्क और ट्रैक में सहेजें?</string>
-    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
-    <string name="track_recording_toast_nothing_to_save">मार्ग खाली है - बचाने के लिए कुछ नहीं</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">फ़ोल्डर चयन संवाद प्रदर्शित करने में असमर्थ क्योंकि आपके डिवाइस पर कोई उपयुक्त ऐप इंस्टॉल नहीं है। कृपया एक फ़ाइल प्रबंधक ऐप इंस्टॉल करें और पुनः प्रयास करें।</string>
     <string name="choose_color">रंग चुनें</string>
     <string name="edit_track">मार्ग संपादित करें</string>
     <string name="uri_open_location_failed">कोई ऐप इंस्टॉल नहीं है जो लोकेशन खोल सके</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">नेविगेशन में ऑटो</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">सिस्टम का अनुसरण करें</string>
     <!-- Title of the bottom sheet when sharing the track -->
@@ -886,10 +835,6 @@
     <string name="show_track">मार्ग दिखाएँ</string>
 
     <!-- SECTION: gps strings -->
-    <!-- Login to OSM button text -->
-    <string name="login_osm_credentials">पासवर्ड से लॉगिन करें</string>
-    <!-- Login to OSM button text -->
-    <string name="login_osm_browser">ब्राउज़र का उपयोग करके लॉगिन करें</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">हाल ही में उपयोग किए गए</string>
     <!-- Toast message shown when bookmark colors are changed in category settings -->

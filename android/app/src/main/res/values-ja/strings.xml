@@ -308,38 +308,6 @@
     <string name="enable_location_services">位置情報サービスを有効化してください</string>
     <string name="save">保存</string>
     <string name="create">作成</string>
-    <!-- red color -->
-    <string name="red">赤</string>
-    <!-- yellow color -->
-    <string name="yellow">黄色</string>
-    <!-- blue color -->
-    <string name="blue">青</string>
-    <!-- green color -->
-    <string name="green">緑</string>
-    <!-- purple color -->
-    <string name="purple">紫</string>
-    <!-- orange color -->
-    <string name="orange">オレンジ</string>
-    <!-- brown color -->
-    <string name="brown">茶色</string>
-    <!-- pink color -->
-    <string name="pink">ピンク</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">濃い紫</string>
-    <!-- light blue color -->
-    <string name="light_blue">空色</string>
-    <!-- cyan color -->
-    <string name="cyan">青緑</string>
-    <!-- teal color -->
-    <string name="teal">ティール</string>
-    <!-- lime color -->
-    <string name="lime">ライム</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">濃いオレンジ</string>
-    <!-- gray color -->
-    <string name="gray">灰色</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">青灰色</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">外観</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -422,7 +390,6 @@
     <string name="twentyfour_seven">昼と夜</string>
     <string name="day_off_today">本日終業</string>
     <string name="day_off">終業</string>
-    <string name="today">今日は</string>
     <string name="opens_in">あと %s に営業</string>
     <string name="closes_in">あと %s に閉店</string>
     <string name="closed">閉店</string>
@@ -465,7 +432,6 @@
     <string name="downloader_no_space_title">十分な空き容量がありません</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">不要データを削除してください</string>
-    <string name="editor_login_error_dialog">ログインエラー。</string>
     <string name="editor_profile_changes">確認された変更</string>
     <string name="editor_focus_map_on_location">地図をドラッグして、場所や企業の場所に十字を配置します。</string>
     <string name="editor_edit_place_title">編集中</string>
@@ -571,12 +537,9 @@
     <string name="prefs_languages_information_off_link">詳細については、このガイドをご確認ください。</string>
     <string name="transliteration_title">ラテン文字への翻字</string>
     <string name="learn_more">詳細情報</string>
-    <string name="planning_route_manage_route">ルートを編集</string>
-    <string name="button_plan">プラン</string>
     <string name="placepage_remove_stop">停留所を削除</string>
     <string name="placepage_add_stop">中間地点を追加</string>
     <string name="drag_to_reorder">並べ替え</string>
-    <string name="saved">保存</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">すべてのマップ編集を自動的にアップロードするには、OpenStreetMapにログインしてください。詳しくは <a href="https://github.com/organicmaps/organicmaps/issues/6144">こちら</a>.</string>
     <string name="dialog_error_storage_title">ストレージアクセスの問題</string>
@@ -671,8 +634,6 @@
     <string name="avoid_motorways">高速道路を避ける</string>
     <string name="unable_to_calc_alert_title">ルートを計算できません</string>
     <string name="unable_to_calc_alert_subtitle">ルートが計算できませんでした。 これは、経路オプションまたは不完全な OpenStreetMap データが原因である可能性があります。 経路オプションを変更して再試行してください。</string>
-    <string name="define_to_avoid_btn">迂回ルートを設定する</string>
-    <string name="change_driving_options_btn">経路オプションは有効になっています</string>
     <string name="toll_road">有料道路</string>
     <string name="unpaved_road">未舗装道路</string>
     <string name="ferry_crossing">フェリー</string>
@@ -757,8 +718,6 @@
     <string name="elevation_profile_min_elevation">最小標高</string>
     <string name="elevation_profile_max_elevation">最大標高</string>
     <string name="elevation_profile_difficulty">難易度</string>
-    <string name="elevation_profile_distance">距離：</string>
-    <string name="elevation_profile_time">時間：</string>
     <string name="isolines_toast_zooms_1_10">等高線を調べるようにズームインしてください</string>
     <string name="downloader_loading_ios">ダウンロード中</string>
     <string name="download_map_title">おおまかな世界地図をダウンロード</string>
@@ -861,21 +820,11 @@
     <string name="stop_track_recording">トラック記録を停止しますか</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">トラック記録</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">保存せずに停止</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">録画を続ける</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">ブックマークとトラックに保存しますか？</string>
-    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
-    <string name="track_recording_toast_nothing_to_save">ルートが空です - 保存するものがありません</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">デバイスに適切なアプリがインストールされていないため、フォルダ選択ダイアログを表示できません。ファイルマネージャーアプリをインストールして再度お試しください。</string>
     <string name="choose_color">色を選択</string>
     <string name="edit_track">ルートを編集</string>
     <string name="uri_open_location_failed">場所を開けるアプリがインストールされていません</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">ナビゲーションオート</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">システムに従う</string>
     <!-- Title of the bottom sheet when sharing the track -->
@@ -900,10 +849,6 @@
     <string name="show_track">ルートを表示</string>
 
     <!-- SECTION: gps strings -->
-    <!-- Login to OSM button text -->
-    <string name="login_osm_credentials">パスワードでログイン</string>
-    <!-- Login to OSM button text -->
-    <string name="login_osm_browser">ブラウザでログイン</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">最近使用</string>
     <!-- Toast message shown when bookmark colors are changed in category settings -->

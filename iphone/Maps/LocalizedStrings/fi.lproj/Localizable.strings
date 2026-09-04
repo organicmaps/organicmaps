@@ -386,9 +386,6 @@
 /* blue gray color */
 "blue_gray" = "Siniharmaa";
 
-/* place preview title */
-"info" = "Tietoa";
-
 /* Prints version number in About dialog */
 "version" = "Organic Maps versio: %@";
 
@@ -649,11 +646,8 @@
 "traffic_data_unavailable" = "Liikennetietoja ei ole saatavilla";
 "enable_logging" = "Ota loki käyttöön";
 "transliteration_title" = "Translitterointi latinalaisiksi aakkosiksi";
-"planning_route_manage_route" = "Hallitse reittiä";
-"button_plan" = "Suunnittele";
 "placepage_remove_stop" = "Poista pysähdys";
 "placepage_add_stop" = "Lisää pysähdys";
-"saved" = "Tallennettu";
 "error_enter_correct_name" = "Anna oikea nimi";
 "bookmark_lists" = "Luettelot";
 
@@ -739,8 +733,6 @@
 "avoid_motorways" = "Vältä moottoritietä";
 "unable_to_calc_alert_title" = "Reittiä ei voi luoda";
 "unable_to_calc_alert_subtitle" = "Valitettavasti emme voineet luoda reittiä valituilla vaihtoehdoilla. Vaihda asetuksia ja yritä uudelleen";
-"define_to_avoid_btn" = "Määritä vältettävät tiet";
-"change_driving_options_btn" = "Reititysvalinnat ovat päällä";
 "toll_road" = "Maksullinen tie";
 "unpaved_road" = "Päällystämätön tie";
 "ferry_crossing" = "Lauttaliikenne";
@@ -786,9 +778,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Reitin suunnittelu epäonnistui";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Saavut: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Lataa ja päivitä kaikki kartat reitin varrella luodaksesi reitin.";
 "editor_done_dialog_1" = "Olet muuttanut maailmankarttaa. Älä piilota tätä! Kerro ystävillesi ja muokatkaa sitä yhdessä.";
@@ -813,7 +802,6 @@
 "please_note" = "Huomaathan, että";
 "migration_download_error_dialog" = "Latausvirhe";
 "editor_add_select_category" = "Valitse kategoria";
-"editor_add_select_category_popular_subtitle" = "Suositut";
 "editor_add_select_category_all_subtitle" = "Kaikki kategoriat";
 "whatsnew_editor_message_1" = "Lisää karttaan uusia paikkoja ja muokkaa sovelluksessa olevia karttoja suoraan sovelluksessa.";
 "dialog_incorrect_feature_position" = "Vaihda sijaintia";
@@ -852,9 +840,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Liikennetietojen näyttämiseksi sovellus on päivitettävä.";
 "log_file_size" = "Lokitiedoston koko: %@";
-"planning_route_remove_title" = "Vedä tähän poistaaksesi";
 "placepage_replace_stop" = "Vaihda Stop";
-"start_from_my_position" = "Aloita kohdasta";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Kirjaudu sisään OpenStreetMapiin, jotta voit ladata kaikki karttamuutoksesi automaattisesti. Lisätietoja";
@@ -882,7 +868,6 @@
 "bottom" = "Pohja";
 "trip_start" = "Mennään";
 "pick_destination" = "Määränpää";
-"follow_my_position" = "Kohdista";
 "search_results" = "Hakutulokset";
 "then_turn" = "Sitten";
 "redirect_route_alert" = "Haluatko luoda reitin uudelleen?";
@@ -965,36 +950,6 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
-/* App Tip #00 */
-"app_tip_00" = "Kiitos, että käytät yhteisön laatimia karttojamme!";
-
-/* App tip #01 */
-"app_tip_01" = "Lahjoituksellasi ja tuellasi voimme luoda maailman parhaat kartat!";
-
-/* App tip #02 */
-"app_tip_02" = "Pidätkö sovelluksestamme? Lahjoita tukemaan kehitystä! Etkö pidä siitä vielä? Kerro meille, niin korjaamme asian!";
-
-/* App tip #03 */
-"app_tip_03" = "Jos tunnet ohjelmistokehittäjän, voit pyytää häntä ottamaan käyttöön tarvitsemasi ominaisuuden.";
-
-/* App tip #04 */
-"app_tip_04" = "Voit valita mitä tahansa napauttamalla mitä tahansa kohtaa kartalla. Piilota ja näytä käyttöliittymä takaisin pitkällä napautuksella.";
-
-/* App tip #05 */
-"app_tip_05" = "Tiesitkö, että voit valita nykyisen sijaintisi kartalta?";
-
-/* App tip #06 */
-"app_tip_06" = "Voit auttaa kääntämään sovelluksemme kielellesi.";
-
-/* App tip #07 */
-"app_tip_07" = "Sovelluksemme on muutaman harrastajan ja yhteisön kehittämä.";
-
-/* App tip #08 */
-"app_tip_08" = "Voit helposti korjata ja parantaa karttatietoja.";
-
-/* App tip #09 */
-"app_tip_09" = "Päätavoitteemme on rakentaa nopeita, yksityisyyteen keskittyviä, helppokäyttöisiä karttoja, joista pidät.";
-
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Käytät nyt puhelimen näytöllä Organic Maps -palvelua.";
 
@@ -1037,11 +992,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Reitti on tyhjä - ei mitään tallennettavaa";
-"edit_track" = "Muokkaa reittiä";
-"elevation_profile_diff_level" = "Vaikeustaso";
-"elevation_profile_diff_level_easy" = "Helppo";
-"elevation_profile_diff_level_moderate" = "Kohtuullinen";
-"elevation_profile_diff_level_hard" = "Vaikea";
 "downloader_updating_ios" = "Päivitetään";
 
 /* Autoupdate dialog on start */

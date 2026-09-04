@@ -386,9 +386,6 @@
 /* blue gray color */
 "blue_gray" = "Modrošedá";
 
-/* place preview title */
-"info" = "Více informací";
-
 /* Prints version number in About dialog */
 "version" = "Verze Organic Maps: %@";
 
@@ -649,11 +646,8 @@
 "traffic_data_unavailable" = "Data o provozu nejsou k dispozici";
 "enable_logging" = "Povolit protokolování";
 "transliteration_title" = "Přepis do latinky";
-"planning_route_manage_route" = "Spravovat trasu";
-"button_plan" = "Naplánovat";
 "placepage_remove_stop" = "Odstranit zastávku";
 "placepage_add_stop" = "Přidat zastávku";
-"saved" = "Uloženo";
 "error_enter_correct_name" = "Zadejte prosím správný název";
 "bookmark_lists" = "Seznamy";
 
@@ -739,8 +733,6 @@
 "avoid_motorways" = "Vyhnout se dálnicím";
 "unable_to_calc_alert_title" = "Nelze vypočítat trasu";
 "unable_to_calc_alert_subtitle" = "Bohužel jsme nemohli nalézt trasu. Mohlo se tak stát kvůli vámi definovaným možnostem trasy nebo nekompletním datům OpenStreetMap. Změňte prosím nastavenímožnosti trasy a zkuste to znovu.";
-"define_to_avoid_btn" = "Definovat silnice, kterým se vyhnout";
-"change_driving_options_btn" = "Možnosti trasy aktivní";
 "toll_road" = "Silnice s mýtným";
 "unpaved_road" = "Nezpevněná silnice";
 "ferry_crossing" = "Přejezd trajektů";
@@ -786,9 +778,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Naplánování trasy se nezdařilo";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Příjezd: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Pro vytvoření trasy si prosím stáhněte a aktualizujte všechny mapy podél očekávané cesty.";
 "editor_done_dialog_1" = "Změnili jste světovou mapu. Neskrývejte to! Řekněte o tom svým kamarádům a upravujte ji společně.";
@@ -813,7 +802,6 @@
 "please_note" = "Vezměte prosím na vědomí";
 "migration_download_error_dialog" = "Chyba při stahování";
 "editor_add_select_category" = "Vyberte kategorii";
-"editor_add_select_category_popular_subtitle" = "Populární";
 "editor_add_select_category_all_subtitle" = "Všechny kategorie";
 "whatsnew_editor_message_1" = "Přidejte na mapu nová místa a upravte existující místa přímo z aplikace.";
 "dialog_incorrect_feature_position" = "Změnit umístění";
@@ -852,9 +840,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Ke zobrazení dat o provozu je nutné aplikaci aktualizovat.";
 "log_file_size" = "Velikost souboru protokolu: %@";
-"planning_route_remove_title" = "Pro odebrání přetáhněte sem";
 "placepage_replace_stop" = "Nahradit zastávku";
-"start_from_my_position" = "Začít z";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Přihlaste se do OpenStreetMap, abyste mohli automaticky nahrávat všechny své úpravy mapy. Více informací";
@@ -882,7 +868,6 @@
 "bottom" = "Dole";
 "trip_start" = "Pojďme";
 "pick_destination" = "Destinace";
-"follow_my_position" = "Znovu vystředit";
 "search_results" = "Prohledat výsledky";
 "then_turn" = "Poté";
 "redirect_route_alert" = "Chcete přestavět trasu?";
@@ -965,36 +950,6 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Cs:Co_je_OpenStreetMap";
 
-/* App Tip #00 */
-"app_tip_00" = "Děkujeme, že používáte naše komunitní mapy!";
-
-/* App tip #01 */
-"app_tip_01" = "S vašimi dary a podporou můžeme vytvořit ty nejlepší mapy na světě!";
-
-/* App tip #02 */
-"app_tip_02" = "Líbí se vám naše aplikace? Přispějte prosím na podporu rozvoje! Ještě se ti to nelíbí? Dejte nám prosím vědět a my to napravíme!";
-
-/* App tip #03 */
-"app_tip_03" = "Pokud znáte vývojáře softwaru, můžete ho požádat, aby implementoval funkci, kterou potřebujete.";
-
-/* App tip #04 */
-"app_tip_04" = "Klepnutím na libovolné místo na mapě můžete cokoli vybrat. Dlouhým klepnutím skryjete a znovu zobrazíte rozhraní.";
-
-/* App tip #05 */
-"app_tip_05" = "Víte, že si na mapě můžete vybrat svou aktuální polohu?";
-
-/* App tip #06 */
-"app_tip_06" = "Můžete pomoci přeložit naši aplikaci do vašeho jazyka.";
-
-/* App tip #07 */
-"app_tip_07" = "Naše aplikace je vyvinuta několika nadšenci a komunitou.";
-
-/* App tip #08 */
-"app_tip_08" = "Mapová data můžete snadno opravit a vylepšit.";
-
-/* App tip #09 */
-"app_tip_09" = "Naším hlavním cílem je vytvářet rychlé, na soukromí zaměřené a snadno použitelné mapy, které si zamilujete.";
-
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Na obrazovce telefonu nyní používáte aplikaci Organic Maps";
 
@@ -1037,11 +992,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Trasa je prázdná - není co ukládat";
-"edit_track" = "Upravit trasu";
-"elevation_profile_diff_level" = "Stupeň obtížnosti";
-"elevation_profile_diff_level_easy" = "Snadný";
-"elevation_profile_diff_level_moderate" = "Mírný";
-"elevation_profile_diff_level_hard" = "Těžký";
 "downloader_updating_ios" = "Probíhá aktualizace";
 
 /* Autoupdate dialog on start */

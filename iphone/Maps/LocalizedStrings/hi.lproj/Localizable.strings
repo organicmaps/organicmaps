@@ -386,9 +386,6 @@
 /* blue gray color */
 "blue_gray" = "नीला धूसर";
 
-/* place preview title */
-"info" = "जानकारी";
-
 /* Prints version number in About dialog */
 "version" = "Organic Maps संस्करण: %@";
 
@@ -649,11 +646,8 @@
 "traffic_data_unavailable" = "यातायात डेटा उपलब्ध नहीं है";
 "enable_logging" = "लॉगिंग करने देना";
 "transliteration_title" = "लैटिन में लिप्यंतरण";
-"planning_route_manage_route" = "मार्ग प्रबंधित करें";
-"button_plan" = "योजना";
 "placepage_remove_stop" = "रोक हटाएँ";
 "placepage_add_stop" = "गंतव्य जोड़ें";
-"saved" = "सहेजा गया";
 "error_enter_correct_name" = "कृपया एक सही नाम दर्ज करें";
 "bookmark_lists" = "सूचियों";
 
@@ -739,8 +733,6 @@
 "avoid_motorways" = "फ़्रीवेज़ से बचें";
 "unable_to_calc_alert_title" = "मार्ग की गणना करने में असमर्थ";
 "unable_to_calc_alert_subtitle" = "कोई मार्ग नहीं मिल सका. यह आपके रूटिंग विकल्पों या अधूरे OpenStreetMap डेटा के कारण हो सकता है। कृपया अपने रूटिंग विकल्प बदलें और पुनः प्रयास करें।";
-"define_to_avoid_btn" = "बचने के लिए सड़कों को परिभाषित करें";
-"change_driving_options_btn" = "रूटिंग विकल्प सक्षम";
 "toll_road" = "शुल्क मार्ग";
 "unpaved_road" = "अनपक्की सड़क";
 "ferry_crossing" = "फेरी क्रॉसिंग";
@@ -786,9 +778,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "रूट योजना विफल";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "आगमन का समय: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "मार्ग की गणना करने के लिए अनुमानित पथ के साथ सभी मानचित्र डाउनलोड करें और अपडेट करें।";
 "editor_done_dialog_1" = "आपने दुनिया का नक्शा बदल दिया है! इसे अपने तक ही मत रखना; अपने दोस्तों को बताएं और मिलकर इसे संपादित करें।";
@@ -813,7 +802,6 @@
 "please_note" = "कृपया ध्यान दें";
 "migration_download_error_dialog" = "डाउनलोड त्रुटि";
 "editor_add_select_category" = "श्रेणी चुनें";
-"editor_add_select_category_popular_subtitle" = "लोकप्रिय";
 "editor_add_select_category_all_subtitle" = "सभी श्रेणियाँ";
 "whatsnew_editor_message_1" = "नक्शे में नए स्थान जोड़ें, और ऐप से ही मौजूदा स्थानों को संपादित करें।";
 "dialog_incorrect_feature_position" = "स्थान बदलें";
@@ -852,9 +840,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "ट्रैफ़िक डेटा दिखाने के लिए, एप्लिकेशन को अपडेट करना होगा।";
 "log_file_size" = "लॉग फ़ाइल का आकार: %@";
-"planning_route_remove_title" = "हटाने के लिए यहां खींचें";
 "placepage_replace_stop" = "स्टॉप बदलें";
-"start_from_my_position" = "से शुरू करें";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "कृपया अपने सभी मानचित्र संपादनों को स्वचालित रूप से अपलोड करने के लिए OpenStreetMap पर लॉगिन करें। अधिक जानें";
@@ -882,7 +868,6 @@
 "bottom" = "नीचला";
 "trip_start" = "चलो चलते हैं";
 "pick_destination" = "गंतव्य";
-"follow_my_position" = "पुनः केंद्रित करें";
 "search_results" = "खोज परिणाम";
 "then_turn" = "फिर";
 "redirect_route_alert" = "क्या आप मार्ग का पुनर्निर्माण करना चाहते हैं?";
@@ -965,36 +950,6 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
-/* App Tip #00 */
-"app_tip_00" = "हमारे समुदाय-निर्मित मानचित्रों का उपयोग करने के लिए धन्यवाद!";
-
-/* App tip #01 */
-"app_tip_01" = "आपके दान और समर्थन से, हम दुनिया में सबसे अच्छे मानचित्र बना सकते हैं!";
-
-/* App tip #02 */
-"app_tip_02" = "क्या आपको हमारा ऐप पसंद है? कृपया विकास का समर्थन करने के लिए दान करें! अभी तक यह पसंद नहीं आया? कृपया हमें बताएं, और हम इसे ठीक कर देंगे!";
-
-/* App tip #03 */
-"app_tip_03" = "यदि आप किसी सॉफ़्टवेयर डेवलपर को जानते हैं, तो आप उससे वह सुविधा लागू करने के लिए कह सकते हैं जिसकी आपको आवश्यकता है।";
-
-/* App tip #04 */
-"app_tip_04" = "कुछ भी चुनने के लिए मानचित्र पर कहीं भी टैप करें। इंटरफ़ेस को छिपाने और वापस दिखाने के लिए लंबे समय तक टैप करें।";
-
-/* App tip #05 */
-"app_tip_05" = "क्या आप जानते हैं कि आप मानचित्र पर अपना वर्तमान स्थान चुन सकते हैं?";
-
-/* App tip #06 */
-"app_tip_06" = "आप हमारे ऐप को अपनी भाषा में अनुवाद करने में मदद कर सकते हैं।";
-
-/* App tip #07 */
-"app_tip_07" = "हमारा ऐप कुछ उत्साही लोगों और समुदाय द्वारा विकसित किया गया है।";
-
-/* App tip #08 */
-"app_tip_08" = "आप मानचित्र डेटा को आसानी से ठीक और सुधार सकते हैं।";
-
-/* App tip #09 */
-"app_tip_09" = "हमारा मुख्य लक्ष्य तेज़, गोपनीयता-केंद्रित, उपयोग में आसान मानचित्र बनाना है जो आपको पसंद आएंगे।";
-
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "आप अब फोन स्क्रीन पर Organic Maps का उपयोग कर रहे हैं";
 
@@ -1037,11 +992,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "मार्ग खाली है - बचाने के लिए कुछ नहीं";
-"edit_track" = "मार्ग संपादित करें";
-"elevation_profile_diff_level" = "कठिनाई का स्तर";
-"elevation_profile_diff_level_easy" = "आसान";
-"elevation_profile_diff_level_moderate" = "मध्यम";
-"elevation_profile_diff_level_hard" = "कठिन";
 "downloader_updating_ios" = "अपडेट हो रहा है";
 
 /* Autoupdate dialog on start */
