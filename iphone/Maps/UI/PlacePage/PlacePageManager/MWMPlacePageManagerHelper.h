@@ -25,8 +25,6 @@
 + (void)openMoreUrl:(PlacePageData *)data;
 + (void)openReviewUrl:(PlacePageData *)data;
 + (void)openDescriptionUrl:(PlacePageData *)data;
-+ (void)openCatalogSingleItem:(PlacePageData *)data atIndex:(NSInteger)index;
-+ (void)openCatalogMoreItems:(PlacePageData *)data;
 + (void)addBookmark:(PlacePageData *)data;
 + (void)updateBookmark:(PlacePageData *)data
                  title:(NSString *)title
