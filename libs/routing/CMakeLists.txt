@@ -206,7 +206,8 @@ target_link_libraries(${PROJECT_NAME}
     opening_hours
 )
 
-if (PLATFORM_DESKTOP)
+# Used only by the routing tools and by routing_quality_tests.
+if (PLATFORM_DESKTOP AND OMIM_TESTS_OR_TOOLS)
   add_subdirectory(routing_quality)
   add_subdirectory(routes_builder)
 endif()

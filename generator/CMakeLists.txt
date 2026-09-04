@@ -265,7 +265,7 @@ set_source_files_properties(
   PROPERTIES SKIP_UNITY_BUILD_INCLUSION TRUE
 )
 
-if (NOT SKIP_TOOLS OR BUILD_TESTING)
+if (OMIM_TESTS_OR_TOOLS)
   # Used in both tests and some tools.
   add_subdirectory(generator_tests_support)
 endif()
@@ -276,5 +276,8 @@ omim_add_tool_subdirectory(generator_tool)
 #omim_add_tool_subdirectory(complex_generator)
 omim_add_tool_subdirectory(feature_segments_checker)
 omim_add_tool_subdirectory(srtm_coverage_checker)
-add_subdirectory(world_roads_builder)
-add_subdirectory(address_parser)
+omim_add_tool_subdirectory(world_roads_builder)
+# address_parser is shared by address_parser_tool and address_parser_tests.
+if (OMIM_TESTS_OR_TOOLS)
+  add_subdirectory(address_parser)
+endif()

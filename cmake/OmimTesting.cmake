@@ -1,6 +1,12 @@
 # Tests are enabled by default.Define -DBUILD_TESTING=OFF to disable tests.
 include(CTest)
 
+# Some libraries are linked by the unit tests and by the command-line tools
+# alike, so they have to be built when either of the two is enabled.
+if (BUILD_TESTING OR (PLATFORM_DESKTOP AND NOT SKIP_TOOLS))
+  set(OMIM_TESTS_OR_TOOLS ON)
+endif()
+
 # Tests read files from a data directory.
 if (BUILD_TESTING)
   if (NOT IS_DIRECTORY ${CMAKE_BINARY_DIR}/data AND NOT IS_SYMLINK ${CMAKE_BINARY_DIR}/data)
