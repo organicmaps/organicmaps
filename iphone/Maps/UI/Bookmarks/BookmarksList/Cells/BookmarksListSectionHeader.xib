@@ -41,10 +41,11 @@
             </subviews>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="xCm-Dh-8mT" secondAttribute="bottom" id="3MG-Ep-gMo"/>
-                <constraint firstItem="xCm-Dh-8mT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="9XD-d8-7vk"/>
-                <constraint firstAttribute="trailing" secondItem="xCm-Dh-8mT" secondAttribute="trailing" constant="16" id="OGF-TS-kyi"/>
+                <constraint firstItem="xCm-Dh-8mT" firstAttribute="leading" secondItem="sHd-sA-fe2" secondAttribute="leading" constant="16" id="9XD-d8-7vk"/>
+                <constraint firstItem="sHd-sA-fe2" firstAttribute="trailing" secondItem="xCm-Dh-8mT" secondAttribute="trailing" constant="16" id="OGF-TS-kyi"/>
                 <constraint firstItem="xCm-Dh-8mT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="OLp-AI-xo9"/>
             </constraints>
+            <viewLayoutGuide key="safeArea" id="sHd-sA-fe2"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="titleLabel" destination="yNv-Yr-Hkr" id="2D1-wr-wFj"/>

@@ -60,6 +60,23 @@ final class BookmarksListCell: MWMTableViewCell {
     updateEditingState()
   }
 
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    updateSeparatorInset(leading: separatorLeadingInset, trailing: separatorTrailingInset)
+  }
+
+  /// The separator starts under the labels, wherever the leading slot and the safe area put them.
+  private var separatorLeadingInset: CGFloat {
+    leadingInset(of: labelsContainerView)
+  }
+
+  /// ...and ends at the trailing icon, the way system cells stop theirs at the accessory. The icon
+  /// is centred in a wider button, so its own padding is added to the button's inset.
+  private var separatorTrailingInset: CGFloat {
+    guard !trailingButton.isHidden, let icon = trailingButton.image(for: .normal) else { return 0 }
+    return trailingInset(of: trailingButton) + (trailingButton.bounds.width - icon.size.width) / 2
+  }
+
   override func willTransition(to state: UITableViewCell.StateMask) {
     super.willTransition(to: state)
     isShowingEditControl = state.contains(.showingEditControl)
@@ -166,8 +183,33 @@ final class BookmarksListCell: MWMTableViewCell {
       bottom: 0,
       trailing: trailingButton.isHidden ? Constants.horizontalInset : 0
     )
-    let separatorLeftInset = leadingButton.isHidden ? Constants.horizontalInset : Constants.leadingButtonWidth
-    separatorInset = UIEdgeInsets(top: 0, left: separatorLeftInset, bottom: 0, right: 0)
+  }
+}
+
+extension UITableViewCell {
+  /// Distance from the cell's leading edge to the view's leading edge. Measured on the laid out
+  /// geometry, so the safe area inset the table applies to `contentView` is included.
+  func leadingInset(of view: UIView) -> CGFloat {
+    let frame = convert(view.bounds, from: view)
+    return isRTL ? bounds.maxX - frame.maxX : frame.minX
+  }
+
+  /// Distance from the cell's trailing edge to the view's trailing edge.
+  func trailingInset(of view: UIView) -> CGFloat {
+    let frame = convert(view.bounds, from: view)
+    return isRTL ? frame.minX - bounds.minX : bounds.maxX - frame.maxX
+  }
+
+  /// Runs the separator between the two insets. UIKit mirrors `separatorInset` for the layout
+  /// direction, so the leading value belongs in `left`.
+  func updateSeparatorInset(leading: CGFloat, trailing: CGFloat) {
+    let inset = UIEdgeInsets(top: 0, left: leading, bottom: 0, right: trailing)
+    guard separatorInset != inset else { return }
+    separatorInset = inset
+  }
+
+  private var isRTL: Bool {
+    effectiveUserInterfaceLayoutDirection == .rightToLeft
   }
 }
 
