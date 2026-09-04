@@ -417,10 +417,7 @@ public class RoutingController
 
   public void addStop(@NonNull MapObject mapObject)
   {
-    // The core drops the point without a word once the route is full, and this is the single funnel for
-    // every caller that adds a stop. Not isStopPointAllowed(): that one is also false while the routing
-    // session is merely inactive, e.g. after a failed build, where adding a stop must still go through.
-    if (Framework.nativeIsRoutePointsLimitReached())
+    if (!addRoutePoint(RouteMarkType.Intermediate, mapObject))
     {
       if (mContainer != null)
         mContainer.onStopPointLimitReached();
@@ -429,7 +426,6 @@ public class RoutingController
       return;
     }
 
-    addRoutePoint(RouteMarkType.Intermediate, mapObject);
     build();
     if (mContainer != null)
       mContainer.onAddedStop();
@@ -754,11 +750,11 @@ public class RoutingController
     if (hasOnePointAtLeast)
       applyRemovingIntermediatePointsTransaction();
 
-    if (hasStart)
-      addRoutePoint(RouteMarkType.Start, startPoint);
+    if (hasStart && !addRoutePoint(RouteMarkType.Start, startPoint))
+      throw new IllegalStateException("Setting the start point must preserve route capacity");
 
-    if (hasEnd)
-      addRoutePoint(RouteMarkType.Finish, endPoint);
+    if (hasEnd && !addRoutePoint(RouteMarkType.Finish, endPoint))
+      throw new IllegalStateException("Setting the destination must preserve route capacity");
 
     if (hasOnePointAtLeast && mContainer != null)
       mContainer.updateMenu();
@@ -884,17 +880,18 @@ public class RoutingController
     Pair<String, String> description = getDescriptionForPoint(point);
     if (type == RouteMarkType.Intermediate)
       Framework.nativeRemoveRoutePoint(type, replaceStopIndex);
-    Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, type,
-                                  replaceStopIndex /* intermediateIndex */, point.isMyPosition(), point.getLat(),
-                                  point.getLon(), false /* reorderIntermediatePoints */);
+    if (!Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, type,
+                                       replaceStopIndex /* intermediateIndex */, point.isMyPosition(), point.getLat(),
+                                       point.getLon(), false /* reorderIntermediatePoints */))
+      throw new IllegalStateException("Replacing a route point must preserve route capacity");
   }
 
-  private static void addRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point)
+  private static boolean addRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point)
   {
     Pair<String, String> description = getDescriptionForPoint(point);
-    Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, type,
-                                  0 /* intermediateIndex */, point.isMyPosition(), point.getLat(), point.getLon(),
-                                  true /* reorderIntermediatePoints */);
+    return Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, type,
+                                         0 /* intermediateIndex */, point.isMyPosition(), point.getLat(),
+                                         point.getLon(), true /* reorderIntermediatePoints */);
   }
 
   @NonNull

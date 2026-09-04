@@ -268,20 +268,20 @@ public class Framework
 
   public static native void nativeShowCountry(String countryId, boolean zoomToDownloadButton);
 
-  public static void addRoutePoint(RouteMarkData point)
+  public static boolean addRoutePoint(RouteMarkData point)
   {
-    addRoutePoint(point, true);
+    return addRoutePoint(point, true);
   }
 
-  public static void addRoutePoint(RouteMarkData point, boolean reorderIntermediatePoints)
+  public static boolean addRoutePoint(RouteMarkData point, boolean reorderIntermediatePoints)
   {
-    Framework.nativeAddRoutePoint(point.mTitle, point.mSubtitle, point.mPointType, point.mIntermediateIndex,
-                                  point.mIsMyPosition, point.mLat, point.mLon, reorderIntermediatePoints);
+    return Framework.nativeAddRoutePoint(point.mTitle, point.mSubtitle, point.mPointType, point.mIntermediateIndex,
+                                         point.mIsMyPosition, point.mLat, point.mLon, reorderIntermediatePoints);
   }
 
-  public static native void nativeAddRoutePoint(String title, String subtitle, @NonNull RouteMarkType markType,
-                                                int intermediateIndex, boolean isMyPosition, double lat, double lon,
-                                                boolean reorderIntermediatePoints);
+  public static native boolean nativeAddRoutePoint(String title, String subtitle, @NonNull RouteMarkType markType,
+                                                   int intermediateIndex, boolean isMyPosition, double lat, double lon,
+                                                   boolean reorderIntermediatePoints);
 
   public static native void nativeRemoveRoutePoints();
 
@@ -291,7 +291,6 @@ public class Framework
 
   public static native boolean nativeCouldAddIntermediatePoint();
 
-  public static native boolean nativeIsRoutePointsLimitReached();
   @NonNull
   public static native RouteMarkData[] nativeGetRoutePoints();
 

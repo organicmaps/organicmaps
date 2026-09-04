@@ -15,7 +15,6 @@
 #include "map/everywhere_search_params.hpp"
 #include "map/framework.hpp"
 #include "map/place_page_info.hpp"
-#include "map/routing_mark.hpp"
 #include "map/user_mark.hpp"
 
 #include "storage/country_info_getter.hpp"
@@ -1439,11 +1438,11 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeDeactivateMapSelectionCi
   return g_framework->DeactivateMapSelectionCircle(restoreViewport);
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(JNIEnv * env, jclass, jstring title,
-                                                                      jstring subtitle, jobject markType,
-                                                                      jint intermediateIndex, jboolean isMyPosition,
-                                                                      jdouble lat, jdouble lon,
-                                                                      jboolean reorderIntermediatePoints)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(JNIEnv * env, jclass, jstring title,
+                                                                          jstring subtitle, jobject markType,
+                                                                          jint intermediateIndex, jboolean isMyPosition,
+                                                                          jdouble lat, jdouble lon,
+                                                                          jboolean reorderIntermediatePoints)
 {
   RouteMarkData data;
   data.m_title = jni::ToNativeString(env, title);
@@ -1453,7 +1452,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(JNIEnv * e
   data.m_isMyPosition = static_cast<bool>(isMyPosition);
   data.m_position = m2::PointD(mercator::FromLatLon(lat, lon));
 
-  frm()->GetRoutingManager().AddRoutePoint(std::move(data), reorderIntermediatePoints);
+  return frm()->GetRoutingManager().AddRoutePoint(std::move(data), reorderIntermediatePoints);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoints(JNIEnv * env, jclass)
@@ -1476,13 +1475,6 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveIntermediateRouteP
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeCouldAddIntermediatePoint(JNIEnv * env, jclass)
 {
   return frm()->GetRoutingManager().CouldAddIntermediatePoint();
-}
-
-// Unlike CouldAddIntermediatePoint(), which is also false while the routing session is inactive, this
-// reports only the condition on which RoutePointsLayout::AddRoutePoint silently drops the point.
-JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsRoutePointsLimitReached(JNIEnv * env, jclass)
-{
-  return frm()->GetRoutingManager().GetRoutePointsCount() >= RoutePointsLayout::kMaxRoutePointsCount;
 }
 
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetRoutePoints(JNIEnv * env, jclass)
