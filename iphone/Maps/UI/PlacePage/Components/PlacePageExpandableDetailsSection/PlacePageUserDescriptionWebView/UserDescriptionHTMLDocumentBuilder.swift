@@ -1,5 +1,10 @@
 struct UserDescriptionHTMLDocumentBuilder {
-  private static let adaptiveColorSchemeStyle = "<style>:root { color-scheme: light dark; }</style>"
+  private static let adaptiveColorSchemeStyle = """
+  <style>
+    :root { color-scheme: light dark; }
+    html, body { background: transparent; }
+  </style>
+  """
 
   func buildHTML(with htmlString: String, compatibleWith traitCollection: UITraitCollection) -> String {
     if isHTMLDocument(htmlString) {
@@ -8,8 +13,7 @@ struct UserDescriptionHTMLDocumentBuilder {
     // Convert fragment HTML to full document.
     let htmlBody = extractHTMLBody(from: htmlString)
     let appearanceDeclarations = appearanceVariables(compatibleWith: traitCollection)
-      .sorted { $0.key < $1.key }
-      .map { "\($0.key): \($0.value);" }
+      .map { "\($0.name): \($0.value);" }
       .joined(separator: "\n          ")
     return """
       <!doctype html>
@@ -48,10 +52,10 @@ struct UserDescriptionHTMLDocumentBuilder {
     """
   }
 
-  func appearanceVariables(compatibleWith traitCollection: UITraitCollection) -> [String: String] {
+  func appearanceVariables(compatibleWith traitCollection: UITraitCollection) -> [(name: String, value: String)] {
     let textColor = UIColor.blackPrimaryText.resolvedColor(with: traitCollection).hexString
     let fontSize = UIFont.regular14.dynamic(compatibleWith: traitCollection).pointSize
-    return ["--om-text-color": textColor, "--om-font-size": "\(fontSize)px"]
+    return [("--om-text-color", textColor), ("--om-font-size", "\(fontSize)px")]
   }
 
   private func isHTMLDocument(_ html: String) -> Bool {
@@ -60,17 +64,14 @@ struct UserDescriptionHTMLDocumentBuilder {
   }
 
   private func addingAdaptiveColorScheme(to html: String) -> String {
-    if let headStart = html.range(of: #"<head\b[^>]*>"#, options: [.regularExpression, .caseInsensitive]) {
-      var html = html
-      html.insert(contentsOf: Self.adaptiveColorSchemeStyle, at: headStart.upperBound)
-      return html
+    var result = html
+    let options: String.CompareOptions = [.regularExpression, .caseInsensitive]
+    if let headStart = html.range(of: #"<head\b[^>]*>"#, options: options) {
+      result.insert(contentsOf: Self.adaptiveColorSchemeStyle, at: headStart.upperBound)
+    } else if let htmlStart = html.range(of: #"<html\b[^>]*>"#, options: options) {
+      result.insert(contentsOf: "<head>\(Self.adaptiveColorSchemeStyle)</head>", at: htmlStart.upperBound)
     }
-    guard let htmlStart = html.range(of: #"<html\b[^>]*>"#, options: [.regularExpression, .caseInsensitive]) else {
-      return html
-    }
-    var html = html
-    html.insert(contentsOf: "<head>\(Self.adaptiveColorSchemeStyle)</head>", at: htmlStart.upperBound)
-    return html
+    return result
   }
 
   private func extractHTMLBody(from html: String) -> String {

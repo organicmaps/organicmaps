@@ -69,8 +69,10 @@ final class PlacePageUserDescriptionWebViewTests: XCTestCase {
     )
 
     let colorSchemeRange = try XCTUnwrap(builtHTML.range(of: ":root { color-scheme: light dark; }"))
+    let transparentBackgroundRange = try XCTUnwrap(builtHTML.range(of: "html, body { background: transparent; }"))
     let authorStyleRange = try XCTUnwrap(builtHTML.range(of: authorStyle))
     XCTAssertLessThan(colorSchemeRange.lowerBound, authorStyleRange.lowerBound)
+    XCTAssertLessThan(transparentBackgroundRange.lowerBound, authorStyleRange.lowerBound)
   }
 
   func test_GivenAlternatingPooledDocuments_WhenHeightIsMeasured_ThenIgnoresPreviousDocument() {
@@ -177,6 +179,41 @@ final class PlacePageUserDescriptionWebViewTests: XCTestCase {
     viewController.view.addSubview(descriptionView)
     XCTAssertEqual(loadCount, 2)
 
+    withExtendedLifetime(window) {}
+    window.isHidden = true
+  }
+
+  func test_GivenFinishedDocument_WhenNilFailureArrives_ThenKeepsLoadedState() throws {
+    var loadCount = 0
+    let descriptionView = PlacePageUserDescriptionWebView(htmlString: "Text") { webView, html, baseURL in
+      loadCount += 1
+      return webView.loadHTMLString(html, baseURL: baseURL)
+    }
+    let loadExpectation = expectation(description: "Initial HTML height measured")
+    var didLoad = false
+    descriptionView.onContentHeightChanged = {
+      guard !didLoad else { return }
+      didLoad = true
+      loadExpectation.fulfill()
+    }
+    let viewController = UIViewController()
+    viewController.overrideUserInterfaceStyle = .light
+    let window = UIWindow(frame: CGRect(x: 0, y: 0, width: width, height: 640))
+    window.rootViewController = viewController
+    window.isHidden = false
+    descriptionView.frame = CGRect(x: 0, y: 0, width: width, height: descriptionView.collapsedHeight(for: width))
+    viewController.view.addSubview(descriptionView)
+    wait(for: [loadExpectation], timeout: 5)
+
+    let webView = try XCTUnwrap(embeddedWebView(in: descriptionView))
+    descriptionView.webView(webView, didFailProvisionalNavigation: nil, withError: NSError(domain: "Test", code: 1))
+
+    let darkTraits = UITraitCollection(userInterfaceStyle: .dark)
+    descriptionView.applyAppearance(compatibleWith: darkTraits)
+    assertRenderedBodyColor(in: descriptionView, compatibleWith: darkTraits)
+    XCTAssertEqual(loadCount, 1)
+
+    descriptionView.onContentHeightChanged = nil
     withExtendedLifetime(window) {}
     window.isHidden = true
   }
