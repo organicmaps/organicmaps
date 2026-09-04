@@ -20,11 +20,11 @@ final class ModalPresentationStepsController<Step: ModalPresentationStep> {
   private weak var presentedView: UIView?
   private weak var containerViewController: UIViewController?
   private var currentStep: Step
+  private(set) var maxAvailableFrame: CGRect = .zero
 
   var stepStrategy: any ModalPresentationStepStrategy<Step>
   var didUpdateHandler: ((StepUpdate) -> Void)?
   var hiddenFrame: CGRect { frame(for: .hidden) }
-  var maxAvailableFrame: CGRect { frame(for: topStep) }
 
   private var initialTranslationY: CGFloat = .zero
   private var isPanning: Bool = false
@@ -64,6 +64,7 @@ final class ModalPresentationStepsController<Step: ModalPresentationStep> {
 
     switch gesture.state {
     case .began:
+      maxAvailableFrame = frame(for: topStep)
       initialTranslationY = presentedView.frame.origin.y
       isPanning = true
     case .changed:
