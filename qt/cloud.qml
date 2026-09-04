@@ -5,6 +5,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts
 import QtQuick.Controls
+import QtQuick.Controls.Material
 import Map
 import Location
 
@@ -141,21 +142,46 @@ Item {
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         visible: implicitContentHeight
+        topPadding: 0
 
         Column {
+            id: column
+
             width: Math.min(implicitWidth, parent.width)
 
-            Text {
-                text: root.map.title
-                font.bold: true
-            }
+            Row {
+                Column {
+                    id: innerColumn
 
-            Text {
-                text: root.map.subTitle
-            }
+                    Text {
+                        text: root.map.title
+                        font.bold: true
+                    }
 
-            Text {
-                text: root.map.address
+                    Text {
+                        text: root.map.subTitle
+                    }
+
+                    Text {
+                        text: root.map.address
+                    }
+                }
+
+                Item {
+                    implicitWidth: 1
+                    implicitHeight: close.implicitHeight
+
+                    Item {
+                        implicitWidth: column.implicitWidth - innerColumn.implicitWidth
+
+                        ToolButton {
+                            id: close
+
+                            anchors.right: parent.right
+                            text: "\u2715"
+                        }
+                    }
+                }
             }
 
             // Rectangle wrapper is needed so the separator shrinks
@@ -299,6 +325,23 @@ Item {
                 }
                 Text {
                     text: root.map.atm ? "Yes" : ""
+                }
+            }
+
+            Row {
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                ToolButton {
+                    text: qsTr("Route From")
+                }
+                ToolButton {
+                    text: qsTr("Add Stop")
+                }
+                ToolButton {
+                    text: qsTr("Route To")
+                }
+                Button {
+                    text: qsTr("Edit Place")
                 }
             }
         }
