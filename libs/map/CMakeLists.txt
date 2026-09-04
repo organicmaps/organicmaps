@@ -12,8 +12,6 @@ set(SRC
   bookmark_manager.cpp
   bookmark_manager.hpp
   bookmarks_search_params.hpp
-  chart_generator.cpp
-  chart_generator.hpp
   elevation_info.cpp
   elevation_info.hpp
   everywhere_search_callback.cpp
@@ -106,7 +104,6 @@ target_link_libraries(${PROJECT_NAME}
     kml
     ge0
     drape_frontend
-    agg
   PRIVATE
     stb_image
 )
