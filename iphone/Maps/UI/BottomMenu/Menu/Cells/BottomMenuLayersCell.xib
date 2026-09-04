@@ -116,6 +116,13 @@
                                     <action selector="onSubwayButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="xxM-kP-gT1"/>
                                 </connections>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tr1-af-l01" userLabel="Traffic Button" customClass="BottomMenuLayerButton" customModule="Organic_Maps" customModuleProvider="target">
+                                <rect key="frame" x="249.5" y="0.0" width="58.5" height="81"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="onTrafficButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="tr2-ac-t01"/>
+                                </connections>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sa1-te-l01" userLabel="Satellite Button" customClass="BottomMenuLayerButton" customModule="Organic_Maps" customModuleProvider="target">
                                 <rect key="frame" x="249.5" y="0.0" width="58.5" height="81"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -169,6 +176,7 @@
                 <outlet property="outdoorButton" destination="g13-pK-Eig" id="ib1-aw-Qv9"/>
                 <outlet property="satelliteButton" destination="sa1-te-l01" id="sa3-ou-t01"/>
                 <outlet property="subwayButton" destination="4US-fZ-cyg" id="eQB-HR-Wgl"/>
+                <outlet property="trafficButton" destination="tr1-af-l01" id="tr3-ou-t01"/>
             </connections>
             <point key="canvasLocation" x="137.6953125" y="201.953125"/>
         </tableViewCell>

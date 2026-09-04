@@ -40,6 +40,8 @@
 		39D5293523D60C6F006F00DA /* bwt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39D5293323D60C6F006F00DA /* bwt.cpp */; };
 		39D5293823D60C78006F00DA /* move_to_front.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39D5293623D60C78006F00DA /* move_to_front.cpp */; };
 		39D5293923D60C78006F00DA /* move_to_front.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39D5293723D60C78006F00DA /* move_to_front.hpp */; };
+		7AF10B000000000000000002 /* mvt_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7AF10B000000000000000001 /* mvt_reader.cpp */; };
+		7AF10B000000000000000004 /* mvt_reader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 7AF10B000000000000000003 /* mvt_reader.hpp */; };
 		39D5293C23D60C91006F00DA /* bwt_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39D5293A23D60C91006F00DA /* bwt_tests.cpp */; };
 		39D5293D23D60C91006F00DA /* move_to_front_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39D5293B23D60C91006F00DA /* move_to_front_tests.cpp */; };
 		39D5293E23D60C9A006F00DA /* serdes_json_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB87BF8322F9E2D1008A8A72 /* serdes_json_test.cpp */; };
@@ -214,6 +216,8 @@
 		39D5293323D60C6F006F00DA /* bwt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bwt.cpp; sourceTree = "<group>"; };
 		39D5293623D60C78006F00DA /* move_to_front.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = move_to_front.cpp; sourceTree = "<group>"; };
 		39D5293723D60C78006F00DA /* move_to_front.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = move_to_front.hpp; sourceTree = "<group>"; };
+		7AF10B000000000000000001 /* mvt_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mvt_reader.cpp; sourceTree = "<group>"; };
+		7AF10B000000000000000003 /* mvt_reader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mvt_reader.hpp; sourceTree = "<group>"; };
 		39D5293A23D60C91006F00DA /* bwt_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bwt_tests.cpp; sourceTree = "<group>"; };
 		39D5293B23D60C91006F00DA /* move_to_front_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = move_to_front_tests.cpp; sourceTree = "<group>"; };
 		39F376C4207D327B0058E8E0 /* geometry_coding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = geometry_coding.cpp; sourceTree = "<group>"; };
@@ -505,6 +509,8 @@
 				675342581A3F588B00A0A8C3 /* mmap_reader.cpp */,
 				39D5293723D60C78006F00DA /* move_to_front.hpp */,
 				39D5293623D60C78006F00DA /* move_to_front.cpp */,
+				7AF10B000000000000000003 /* mvt_reader.hpp */,
+				7AF10B000000000000000001 /* mvt_reader.cpp */,
 				6753425C1A3F588B00A0A8C3 /* parse_xml.hpp */,
 				39C3C0BA21A43060003B4712 /* point_coding.hpp */,
 				39C3C0BB21A43061003B4712 /* point_coding.cpp */,
@@ -587,6 +593,7 @@
 				347F33381C4540F0009758CC /* compressed_bit_vector.hpp in Headers */,
 				675342B21A3F588C00A0A8C3 /* parse_xml.hpp in Headers */,
 				39D5293923D60C78006F00DA /* move_to_front.hpp in Headers */,
+				7AF10B000000000000000004 /* mvt_reader.hpp in Headers */,
 				675342AF1A3F588C00A0A8C3 /* mmap_reader.hpp in Headers */,
 				4563B061205909290057556D /* serdes_binary_header.hpp in Headers */,
 				675342B81A3F588C00A0A8C3 /* reader_wrapper.hpp in Headers */,
@@ -783,6 +790,7 @@
 				BB537C5F1E8490120074D9D3 /* transliteration.cpp in Sources */,
 				39D5293523D60C6F006F00DA /* bwt.cpp in Sources */,
 				39D5293823D60C78006F00DA /* move_to_front.cpp in Sources */,
+				7AF10B000000000000000002 /* mvt_reader.cpp in Sources */,
 				675342BB1A3F588C00A0A8C3 /* reader.cpp in Sources */,
 				670BAACB1D0B0C1E000302DA /* huffman.cpp in Sources */,
 				675342A71A3F588C00A0A8C3 /* hex.cpp in Sources */,

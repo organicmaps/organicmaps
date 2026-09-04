@@ -214,6 +214,7 @@ public:
   void RequestSymbolsSize(std::vector<std::string> const & symbols, TRequestSymbolsSizeCallback const & callback);
 
   void EnableTraffic(bool trafficEnabled);
+  void InvalidateTrafficTiles();
   void UpdateTraffic(traffic::TrafficInfo const & info);
   void ClearTrafficCache(MwmSet::MwmId const & mwmId);
   void SetSimplifiedTrafficColors(bool simplified);

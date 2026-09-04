@@ -747,6 +747,18 @@ public:
   // The settings UI calls this before committing and refuses to close on an enabled, malformed URL.
   static bool IsWellFormedBackgroundTilesURL(std::string const & url);
 
+  // Live traffic data source (user-provided flow-tiles API key). SetTrafficApiKey is the single
+  // apply entry point for the settings UI (call it when the traffic settings are committed):
+  // it persists the key (kept even when the layer is off) and hot-swaps the data source of the
+  // running TrafficManager. An empty key restores the legacy per-MWM traffic downloads.
+  // TrafficEnabled remains the runtime on/off toggle for the layer.
+  static std::string GetTrafficApiKey();
+  void SetTrafficApiKey(std::string const & apiKey);
+  // Basic sanity check for a user-entered API key: non-empty, 8..128 ASCII
+  // letters and digits (covers TomTom-style base62 keys and similar vendor keys).
+  // The settings UI calls this before committing.
+  static bool IsWellFormedTrafficApiKey(std::string const & apiKey);
+
   void SetLargeFontsSize(bool isLargeSize);
   // Multiplied on top of the SetLargeFontsSize (Large Fonts) factor.
   void SetFontScaleFactor(double scaleFactor);

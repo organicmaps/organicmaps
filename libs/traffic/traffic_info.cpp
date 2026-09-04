@@ -128,6 +128,12 @@ TrafficInfo::TrafficInfo(MwmSet::MwmId const & mwmId, int64_t currentDataVersion
   }
 }
 
+TrafficInfo::TrafficInfo(MwmSet::MwmId const & mwmId, Coloring && coloring)
+  : m_coloring(std::move(coloring))
+  , m_mwmId(mwmId)
+  , m_availability(Availability::IsAvailable)
+{}
+
 // static
 TrafficInfo TrafficInfo::BuildForTesting(Coloring && coloring)
 {

@@ -23,6 +23,7 @@ set(SRC
   mem_file_reader_test.cpp
   mem_file_writer_test.cpp
   move_to_front_tests.cpp
+  mvt_reader_test.cpp
   png_decoder_test.cpp
   point_coding_tests.cpp
   reader_cache_test.cpp

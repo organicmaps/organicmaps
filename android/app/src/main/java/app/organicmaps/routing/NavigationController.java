@@ -230,13 +230,13 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
   @Override
   public void onEnabled()
   {
-    // mNavMenu.refreshTraffic();
+    // no op
   }
 
   @Override
   public void onDisabled()
   {
-    // mNavMenu.refreshTraffic();
+    // no op
   }
 
   @Override

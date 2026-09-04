@@ -8,6 +8,7 @@ enum SettingsScreen {
   case voiceInstructions
   case drivingOptions
   case mapTiles
+  case traffic
 }
 
 @objcMembers
@@ -43,6 +44,8 @@ final class SettingsBuilder: NSObject {
       return buildDrivingOptions()
     case .mapTiles:
       return buildMapTiles()
+    case .traffic:
+      return buildTraffic()
     }
   }
 
@@ -50,6 +53,15 @@ final class SettingsBuilder: NSObject {
     let viewController = MapTilesSettingsViewController()
     let presenter = MapTilesSettingsPresenter(viewController: viewController)
     let interactor = MapTilesSettingsInteractor()
+    interactor.presenter = presenter
+    viewController.configure(interactor: interactor)
+    return viewController
+  }
+
+  static func buildTraffic() -> UIViewController {
+    let viewController = TrafficSettingsViewController()
+    let presenter = TrafficSettingsPresenter(viewController: viewController)
+    let interactor = TrafficSettingsInteractor()
     interactor.presenter = presenter
     viewController.configure(interactor: interactor)
     return viewController

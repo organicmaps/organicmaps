@@ -249,6 +249,18 @@
 /* Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure */
 "pref_bg_tiles_disclaimer" = "सानुकूल टाइल स्रोत आपण पुरवता. केवळ ज्या सेवांमध्ये प्रवेशाची परवानगी आपल्याला आहे त्याच वापरा. श्रेय, परवाना अटी, API की, कोटा आणि वापर मर्यादांसाठी आपण जबाबदार आहात.";
 
+/* Settings: title of the live traffic data screen */
+"pref_traffic_title" = "Live Traffic Data";
+
+/* Settings «Live Traffic Data»: title of the traffic provider API key input field */
+"pref_traffic_api_key_title" = "API Key";
+
+/* Settings «Live Traffic Data»: error shown when the entered API key has an invalid format */
+"pref_traffic_key_error" = "The key format looks invalid (expected a short code of letters and digits).";
+
+/* Settings «Live Traffic Data»: legal note about the third-party traffic data usage */
+"pref_traffic_disclaimer" = "Live traffic data is provided by TomTom. You are responsible for the API key, its quota and TomTom's terms of use. An empty key falls back to the built-in traffic source.";
+
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "ध्वनी सूचना";
 

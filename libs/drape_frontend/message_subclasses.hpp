@@ -1088,6 +1088,14 @@ public:
   Type GetType() const override { return Type::RegenerateTraffic; }
 };
 
+// Forces the backend to re-read currently rendered tiles so that traffic
+// geometry is regenerated with the latest colorings baked in.
+class InvalidateTrafficTilesMessage : public Message
+{
+public:
+  Type GetType() const override { return Type::InvalidateTrafficTiles; }
+};
+
 class UpdateTrafficMessage : public Message
 {
 public:

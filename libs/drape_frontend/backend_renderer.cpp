@@ -475,6 +475,12 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     break;
   }
 
+  case Message::Type::InvalidateTrafficTiles:
+  {
+    m_readManager->InvalidateAll();
+    break;
+  }
+
   case Message::Type::ClearTrafficData:
   {
     ref_ptr<ClearTrafficDataMessage> msg = message;

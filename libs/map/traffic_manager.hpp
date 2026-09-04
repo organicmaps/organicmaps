@@ -1,5 +1,6 @@
 #pragma once
 
+#include "map/traffic_provider.hpp"
 #include "traffic/traffic_info.hpp"
 
 #include "drape_frontend/drape_engine_safe_ptr.hpp"
@@ -11,6 +12,7 @@
 
 #include "geometry/point2d.hpp"
 #include "geometry/polyline2d.hpp"
+#include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
 #include "base/thread.hpp"
@@ -21,6 +23,7 @@
 #include <condition_variable>
 #include <cstdint>
 #include <map>
+#include <memory>
 #include <mutex>
 #include <optional>
 #include <set>
@@ -55,8 +58,8 @@ public:
   using TrafficStateChangedFn = std::function<void(TrafficState)>;
   using GetMwmsByRectFn = std::function<std::vector<MwmSet::MwmId>(m2::RectD const &)>;
 
-  TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, size_t maxCacheSizeBytes,
-                 traffic::TrafficObserver & observer);
+  TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, size_t maxCacheSizeBytes, traffic::TrafficObserver & observer,
+                 std::unique_ptr<traffic::TrafficProvider> provider = nullptr);
   ~TrafficManager();
 
   void Teardown();
@@ -70,10 +73,17 @@ public:
   void SetEnabled(bool enabled);
   bool IsEnabled() const;
 
+  // Hot-swaps the external traffic data source (nullptr restores the legacy
+  // per-MWM downloads). Safe to call at any time; caches are reset and active
+  // data is re-requested.
+  void SetProvider(std::unique_ptr<traffic::TrafficProvider> provider);
+
   void UpdateViewport(ScreenBase const & screen);
   void UpdateMyPosition(MyPosition const & myPosition);
 
   void Invalidate();
+
+  void ApplyTrafficColoring(MwmSet::MwmId const & mwmId, traffic::TrafficInfo::Coloring && coloring);
 
   void OnDestroySurface();
   void OnRecoverSurface();
@@ -107,6 +117,7 @@ private:
   };
 
   void ThreadRoutine();
+  void ThreadRoutineProvider(std::shared_ptr<traffic::TrafficProvider> const & provider);
   bool WaitForRequest(std::vector<MwmSet::MwmId> & mwms);
 
   void OnTrafficDataResponse(traffic::TrafficInfo && info);
@@ -148,6 +159,8 @@ private:
 
   GetMwmsByRectFn m_getMwmsByRectFn;
   traffic::TrafficObserver & m_observer;
+  std::shared_ptr<traffic::TrafficProvider> m_provider;
+  std::atomic<bool> m_hasProvider{false};
 
   df::DrapeEngineSafePtr m_drapeEngine;
   std::atomic<int64_t> m_currentDataVersion;
@@ -155,6 +168,7 @@ private:
   // These fields have a flag of their initialization.
   std::pair<MyPosition, bool> m_currentPosition = {MyPosition(), false};
   std::pair<ScreenBase, bool> m_currentModelView = {ScreenBase(), false};
+  m2::RectD m_viewportRect = {};
 
   std::atomic<TrafficState> m_state;
   TrafficStateChangedFn m_onStateChangedFn;
@@ -182,6 +196,7 @@ private:
   std::atomic<bool> m_isPaused;
 
   std::vector<MwmSet::MwmId> m_requestedMwms;
+  std::optional<std::chrono::steady_clock::time_point> m_providerLastFailure;
   std::mutex m_mutex;
   threads::SimpleThread m_thread;
 };

@@ -46,6 +46,8 @@ set(SRC
   mmap_reader.hpp
   move_to_front.cpp
   move_to_front.hpp
+  mvt_reader.cpp
+  mvt_reader.hpp
   parse_xml.hpp
   point_coding.cpp
   point_coding.hpp

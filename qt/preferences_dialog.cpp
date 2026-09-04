@@ -257,6 +257,41 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
     tilesBox->setLayout(layout);
   }
 
+  QGroupBox * trafficBox = new QGroupBox("Live Traffic Data");
+  {
+    QVBoxLayout * layout = new QVBoxLayout();
+
+    QLineEdit * keyEdit = new QLineEdit();
+    keyEdit->setPlaceholderText(tr("TomTom traffic API key"));
+    keyEdit->setText(QString::fromStdString(framework.GetTrafficApiKey()));
+
+    QLabel * statusLabel = new QLabel();
+    auto const updateStatus = [&framework, statusLabel](QString const & text)
+    {
+      std::string const apiKey = text.toStdString();
+      if (apiKey.empty() || framework.IsWellFormedTrafficApiKey(apiKey))
+        statusLabel->clear();
+      else
+        statusLabel->setText(tr("The key format looks invalid (expected a short code of letters and digits)."));
+    };
+    updateStatus(keyEdit->text());
+    connect(keyEdit, &QLineEdit::textChanged, updateStatus);
+
+    // Apply the key together with the rest of the settings when the dialog is closed.
+    connect(this, &QDialog::finished,
+            [&framework, keyEdit](int) { framework.SetTrafficApiKey(keyEdit->text().toStdString()); });
+
+    QLabel * disclaimer =
+        new QLabel(tr("Live traffic data is provided by TomTom. You are responsible for the API key, its quota "
+                      "and TomTom's terms of use. An empty key falls back to the built-in traffic source."));
+    disclaimer->setWordWrap(true);
+
+    layout->addWidget(keyEdit);
+    layout->addWidget(statusLabel);
+    layout->addWidget(disclaimer);
+    trafficBox->setLayout(layout);
+  }
+
 #ifdef BUILD_DESIGNER
   QCheckBox * indexRegenCheckBox = new QCheckBox("Enable auto regeneration of geometry index");
   {
@@ -292,6 +327,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
   finalLayout->addWidget(bookmarksPlacementCB);
   finalLayout->addWidget(nightModeRadioBox);
   finalLayout->addWidget(tilesBox);
+  finalLayout->addWidget(trafficBox);
 #ifdef BUILD_DESIGNER
   finalLayout->addWidget(indexRegenCheckBox);
 #endif

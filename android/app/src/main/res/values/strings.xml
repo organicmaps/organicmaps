@@ -227,6 +227,14 @@
     <string name="pref_bg_tiles_opacity_title">Area objects opacity</string>
     <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
     <string name="pref_bg_tiles_disclaimer">Custom tile sources are provided by you. Use only services you are allowed to access. You are responsible for attribution, license terms, API keys, quotas, and usage limits.</string>
+    <!-- Settings: title of the live traffic data screen -->
+    <string name="pref_traffic_title">Live Traffic Data</string>
+    <!-- Settings «Live Traffic Data»: title of the traffic provider API key input field -->
+    <string name="pref_traffic_api_key_title">API Key</string>
+    <!-- Settings «Live Traffic Data»: error shown when the entered API key has an invalid format -->
+    <string name="pref_traffic_key_error">The key format looks invalid (expected a short code of letters and digits).</string>
+    <!-- Settings «Live Traffic Data»: legal note about the third-party traffic data usage -->
+    <string name="pref_traffic_disclaimer">Live traffic data is provided by TomTom. You are responsible for the API key, its quota and TomTom\'s terms of use. An empty key falls back to the built-in traffic source.</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Voice Instructions</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->

@@ -7,6 +7,8 @@
 
 #include "platform/platform.hpp"
 
+#include "base/stl_helpers.hpp"
+
 using namespace std::chrono;
 
 namespace
@@ -37,9 +39,11 @@ TrafficManager::CacheEntry::CacheEntry(time_point<steady_clock> const & requestT
 {}
 
 TrafficManager::TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, size_t maxCacheSizeBytes,
-                               traffic::TrafficObserver & observer)
+                               traffic::TrafficObserver & observer, std::unique_ptr<traffic::TrafficProvider> provider)
   : m_getMwmsByRectFn(getMwmsByRectFn)
   , m_observer(observer)
+  , m_provider(std::move(provider))
+  , m_hasProvider(m_provider != nullptr)
   , m_currentDataVersion(0)
   , m_state(TrafficState::Disabled)
   , m_maxCacheSizeBytes(maxCacheSizeBytes)
@@ -118,6 +122,22 @@ void TrafficManager::ClearImpl()
   m_activeRoutingMwms.clear();
   m_requestedMwms.clear();
   m_trafficETags.clear();
+}
+
+void TrafficManager::SetProvider(std::unique_ptr<traffic::TrafficProvider> provider)
+{
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    m_provider = std::move(provider);
+    m_hasProvider = (m_provider != nullptr);
+    m_providerLastFailure.reset();
+    // Drop cache entries fetched by the previous source so that no stale
+    // colorings linger after the switch.
+    ClearImpl();
+  }
+
+  if (IsEnabled())
+    Invalidate();
 }
 
 void TrafficManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
@@ -214,6 +234,10 @@ void TrafficManager::UpdateMyPosition(MyPosition const & myPosition)
 void TrafficManager::UpdateViewport(ScreenBase const & screen)
 {
   m_currentModelView = {screen, true /* initialized */};
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    m_viewportRect = screen.ClipRect();
+  }
 
   if (!IsEnabled() || IsInvalidState() || m_isPaused)
     return;
@@ -230,36 +254,136 @@ void TrafficManager::ThreadRoutine()
   std::vector<MwmSet::MwmId> mwms;
   while (WaitForRequest(mwms))
   {
-    for (auto const & mwm : mwms)
+    auto provider = [&]()
     {
-      if (!mwm.IsAlive())
-        continue;
+      std::lock_guard<std::mutex> lock(m_mutex);
+      return m_provider;
+    }();
 
-      traffic::TrafficInfo info(mwm, m_currentDataVersion);
+    if (provider)
+    {
+      // External provider replaces per-MWM downloads entirely.
+      ThreadRoutineProvider(provider);
+    }
+    else
+    {
+      for (auto const & mwm : mwms)
+      {
+        if (!mwm.IsAlive())
+          continue;
 
-      std::string tag;
-      {
-        std::lock_guard<std::mutex> lock(m_mutex);
-        tag = m_trafficETags[mwm];
-      }
+        traffic::TrafficInfo info(mwm, m_currentDataVersion);
 
-      if (info.ReceiveTrafficData(tag))
-      {
-        OnTrafficDataResponse(std::move(info));
-      }
-      else
-      {
-        LOG(LWARNING, ("Traffic request failed. Mwm =", mwm));
-        OnTrafficRequestFailed(std::move(info));
-      }
+        std::string tag;
+        {
+          std::lock_guard<std::mutex> lock(m_mutex);
+          tag = m_trafficETags[mwm];
+        }
 
-      {
-        std::lock_guard<std::mutex> lock(m_mutex);
-        m_trafficETags[mwm] = tag;
+        if (info.ReceiveTrafficData(tag))
+        {
+          OnTrafficDataResponse(std::move(info));
+        }
+        else
+        {
+          LOG(LWARNING, ("Traffic request failed. Mwm =", mwm));
+          OnTrafficRequestFailed(std::move(info));
+        }
+
+        {
+          std::lock_guard<std::mutex> lock(m_mutex);
+          m_trafficETags[mwm] = tag;
+        }
       }
     }
     mwms.clear();
   }
+}
+
+void TrafficManager::ThreadRoutineProvider(std::shared_ptr<traffic::TrafficProvider> const & provider)
+{
+  ASSERT(provider != nullptr, ());
+
+  std::vector<MwmSet::MwmId> mwms;
+  m2::RectD viewportRect;
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    std::set<MwmSet::MwmId> activeMwms;
+    UniteActiveMwms(activeMwms);
+    mwms.assign(activeMwms.cbegin(), activeMwms.cend());
+    viewportRect = m_viewportRect;
+
+    // Back off after repeated failures but never latch permanently: retry
+    // once kNetworkErrorTimeout has passed since the last failure.
+    if (m_state == TrafficState::NetworkError)
+    {
+      auto const now = steady_clock::now();
+      if (m_providerLastFailure && now - *m_providerLastFailure < kNetworkErrorTimeout)
+        return;
+      m_providerLastFailure.reset();
+      for (auto const & mwm : mwms)
+      {
+        auto const it = m_mwmCache.find(mwm);
+        if (it != m_mwmCache.end())
+          it->second.m_retriesCount = 0;
+      }
+    }
+  }
+
+  base::EraseIf(mwms, [](MwmSet::MwmId const & mwm) { return !mwm.IsAlive(); });
+  if (mwms.empty() || !viewportRect.IsValid())
+    return;
+
+  std::map<MwmSet::MwmId, traffic::TrafficInfo::Coloring> colorings;
+  auto const fetchResult = provider->FetchColorings(viewportRect, colorings);
+
+  if (!fetchResult.m_ok)
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    m_providerLastFailure = steady_clock::now();
+    for (auto const & mwm : mwms)
+    {
+      auto it = m_mwmCache.find(mwm);
+      if (it == m_mwmCache.end())
+        continue;
+      it->second.m_isWaitingForResponse = false;
+      it->second.m_lastAvailability = traffic::TrafficInfo::Availability::Unknown;
+      ++it->second.m_retriesCount;
+    }
+    UpdateState();
+    return;
+  }
+
+  size_t totalEntries = 0;
+  for (auto & [mwmId, coloring] : colorings)
+  {
+    totalEntries += coloring.size();
+    ApplyTrafficColoring(mwmId, std::move(coloring));
+  }
+
+  if (totalEntries > 0 && fetchResult.m_hasFreshData)
+  {
+    // Traffic colors are baked into tile geometry during tile reads. Force
+    // re-reading of the rendered tiles so fresh data shows up without
+    // waiting for the next pan or zoom.
+    m_drapeEngine.SafeCall(&df::DrapeEngine::InvalidateTrafficTiles);
+  }
+
+  std::lock_guard<std::mutex> lock(m_mutex);
+  m_providerLastFailure.reset();
+  auto const now = steady_clock::now();
+  for (auto const & mwm : mwms)
+  {
+    auto it = m_mwmCache.find(mwm);
+    if (it == m_mwmCache.end())
+      continue;
+    it->second.m_isLoaded = true;
+    it->second.m_isWaitingForResponse = false;
+    it->second.m_lastResponseTime = now;
+    it->second.m_retriesCount = 0;
+    it->second.m_lastAvailability = traffic::TrafficInfo::Availability::IsAvailable;
+  }
+  UpdateState();
 }
 
 bool TrafficManager::WaitForRequest(std::vector<MwmSet::MwmId> & mwms)
@@ -316,10 +440,12 @@ void TrafficManager::RequestTrafficData()
   if ((m_activeDrapeMwms.empty() && m_activeRoutingMwms.empty()) || !IsEnabled() || IsInvalidState() || m_isPaused)
     return;
 
-  ForEachActiveMwm([this](MwmSet::MwmId const & mwmId)
+  bool const force = m_hasProvider.load();
+
+  ForEachActiveMwm([&](MwmSet::MwmId const & mwmId)
   {
     ASSERT(mwmId.IsAlive(), ());
-    RequestTrafficData(mwmId, false /* force */);
+    RequestTrafficData(mwmId, force);
   });
   UpdateState();
 }
@@ -358,6 +484,10 @@ void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo && info)
   {
     std::lock_guard<std::mutex> lock(m_mutex);
 
+    // Data can arrive without a preceding per-MWM request (e.g. injected by
+    // an external traffic data source), so create the cache entry on demand.
+    m_mwmCache.try_emplace(info.GetMwmId(), steady_clock::now());
+
     auto it = m_mwmCache.find(info.GetMwmId());
     if (it == m_mwmCache.end())
       return;
@@ -387,6 +517,14 @@ void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo && info)
     // Update traffic colors for routing.
     m_observer.OnTrafficInfoAdded(std::move(info));
   }
+}
+
+void TrafficManager::ApplyTrafficColoring(MwmSet::MwmId const & mwmId, traffic::TrafficInfo::Coloring && coloring)
+{
+  if (!mwmId.IsAlive() || coloring.empty())
+    return;
+
+  OnTrafficDataResponse(traffic::TrafficInfo(mwmId, std::move(coloring)));
 }
 
 void TrafficManager::UniteActiveMwms(std::set<MwmSet::MwmId> & activeMwms) const

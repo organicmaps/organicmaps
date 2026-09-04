@@ -140,10 +140,10 @@ std::unique_ptr<DirectionsEngine> CreateDirectionsEngine(VehicleType vehicleType
   UNREACHABLE();
 }
 
-std::shared_ptr<TrafficStash> CreateTrafficStash(VehicleType, std::shared_ptr<NumMwmIds>, traffic::TrafficCache const &)
+std::shared_ptr<TrafficStash> CreateTrafficStash(VehicleType vehicleType, std::shared_ptr<NumMwmIds> numMwmIds,
+                                                 traffic::TrafficCache const & trafficCache)
 {
-  return nullptr;
-  // return (vehicleType == VehicleType::Car ? make_shared<TrafficStash>(trafficCache, numMwmIds) : nullptr);
+  return (vehicleType == VehicleType::Car ? make_shared<TrafficStash>(trafficCache, numMwmIds) : nullptr);
 }
 
 void PushPassedSubroutes(Checkpoints const & checkpoints, std::vector<Route::SubrouteAttrs> & subroutes)

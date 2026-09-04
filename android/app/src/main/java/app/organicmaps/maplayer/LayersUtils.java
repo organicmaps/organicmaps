@@ -15,6 +15,10 @@ public class LayersUtils
     availableLayers.add(Mode.HIKING);
     availableLayers.add(Mode.CYCLING);
     availableLayers.add(Mode.SUBWAY);
+    // The Traffic toggle is a quick on/off for the layer; the data source key lives in Settings, so
+    // only offer the button once a key is set.
+    if (!Framework.nativeGetTrafficApiKey().isEmpty())
+      availableLayers.add(Mode.TRAFFIC);
     // The Satellite toggle is a quick on/off for an already-configured source; configuration lives in
     // Settings, so only offer the button once a server URL is set.
     if (!Framework.nativeGetBackgroundTilesUrl().isEmpty())

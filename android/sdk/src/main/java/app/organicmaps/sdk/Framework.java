@@ -189,6 +189,15 @@ public class Framework
   public static native int nativeGetBackgroundTilesCacheSizeMB();
   public static native boolean nativeIsBackgroundTilesEnabled();
   public static native int nativeGetBackgroundTilesAreaOpacity();
+
+  // Live traffic data source (Settings -> Live Traffic Data).
+  @NonNull
+  public static native String nativeGetTrafficApiKey();
+  // Persists the key and hot-swaps the running TrafficManager data source; an empty key restores
+  // the built-in traffic source.
+  public static native void nativeSetTrafficApiKey(@NonNull String apiKey);
+  // Basic check: non-empty, 8..128 ASCII letters and digits.
+  public static native boolean nativeIsWellFormedTrafficApiKey(@NonNull String apiKey);
   public static native ParsedSearchRequest nativeGetParsedSearchRequest();
   public static native @Nullable String nativeGetParsedAppName();
   public static native @Nullable String nativeGetParsedOAuth2Code();

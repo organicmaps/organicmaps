@@ -23,6 +23,8 @@ set(SRC
   extrapolation/extrapolator.hpp
   features_fetcher.cpp
   features_fetcher.hpp
+  flow_tiles_provider.cpp
+  flow_tiles_provider.hpp
   framework.cpp
   framework.hpp
   gps_track_collection.cpp
@@ -71,6 +73,7 @@ set(SRC
   track_mark.hpp
   traffic_manager.cpp
   traffic_manager.hpp
+  traffic_provider.hpp
   transit/transit_display.cpp
   transit/transit_display.hpp
   transit/transit_reader.cpp
