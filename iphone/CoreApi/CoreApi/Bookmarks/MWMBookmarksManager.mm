@@ -300,19 +300,6 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
   return @(self.bm.GetCategoryData(groupId).m_authorId.c_str());
 }
 
-- (MWMBookmarkGroupType)getCategoryGroupType:(MWMMarkGroupID)groupId
-{
-  if (self.bm.IsCompilation(groupId) == false)
-    return MWMBookmarkGroupTypeRoot;
-  switch (self.bm.GetCompilationType(groupId))
-  {
-  case kml::CompilationType::Category: return MWMBookmarkGroupTypeCategory;
-  case kml::CompilationType::Collection: return MWMBookmarkGroupTypeCollection;
-  case kml::CompilationType::Day: return MWMBookmarkGroupTypeDay;
-  }
-  return MWMBookmarkGroupTypeRoot;
-}
-
 - (nullable NSURL *)getCategoryImageUrl:(MWMMarkGroupID)groupId
 {
   NSString * urlString = @(self.bm.GetCategoryData(groupId).m_imageUrl.c_str());
@@ -672,26 +659,6 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
 
   for (auto trackId : trackIds)
     [result addObject:[[MWMTrack alloc] initWithTrackId:trackId trackData:self.bm.GetTrack(trackId)]];
-  return result;
-}
-
-- (NSArray<MWMBookmarkGroup *> *)collectionsForGroup:(MWMMarkGroupID)groupId
-{
-  auto const & collectionIds = self.bm.GetChildrenCollections(groupId);
-  NSMutableArray * result = [[NSMutableArray alloc] initWithCapacity:collectionIds.size()];
-
-  for (auto collectionId : collectionIds)
-    [result addObject:[[MWMBookmarkGroup alloc] initWithCategoryId:collectionId bookmarksManager:self]];
-  return result;
-}
-
-- (NSArray<MWMBookmarkGroup *> *)categoriesForGroup:(MWMMarkGroupID)groupId
-{
-  auto const & categoryIds = self.bm.GetChildrenCategories(groupId);
-  NSMutableArray * result = [[NSMutableArray alloc] initWithCapacity:categoryIds.size()];
-
-  for (auto categoryId : categoryIds)
-    [result addObject:[[MWMBookmarkGroup alloc] initWithCategoryId:categoryId bookmarksManager:self]];
   return result;
 }
 

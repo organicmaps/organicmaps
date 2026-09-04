@@ -1,11 +1,5 @@
 import Foundation
 
-enum BookmarksListVisibilityButtonState {
-  case hidden
-  case hideAll
-  case showAll
-}
-
 enum BookmarkToolbarButtonSource {
   case sort
   case more
@@ -24,7 +18,6 @@ enum BookmarksListItemId: Hashable {
 protocol IBookmarksListSectionViewModel {
   var numberOfItems: Int { get }
   var sectionTitle: String { get }
-  var visibilityButtonState: BookmarksListVisibilityButtonState { get }
   var canEdit: Bool { get }
   var editableItems: [IBookmarksListItemViewModel] { get }
 }
@@ -37,23 +30,12 @@ protocol ITracksSectionViewModel: IBookmarksListSectionViewModel {
   var tracks: [IBookmarksListItemViewModel] { get }
 }
 
-protocol ISubgroupsSectionViewModel: IBookmarksListSectionViewModel {
-  var subgroups: [ISubgroupViewModel] { get }
-  var type: BookmarkGroupType { get }
-}
-
 protocol IBookmarksListItemViewModel {
   var itemId: BookmarksListItemId { get }
   var name: String { get }
   var subtitle: String { get }
   var image: UIImage { get }
   var colorDidTapAction: ((_ anchor: UIView?) -> Void)? { get }
-}
-
-protocol ISubgroupViewModel {
-  var subgroupName: String { get }
-  var subtitle: String { get }
-  var isVisible: Bool { get }
 }
 
 protocol IBookmarksListMenuItem {
@@ -90,8 +72,6 @@ protocol IBookmarksListPresenter {
   func changeColor(of itemIds: Set<BookmarksListItemId>)
   func editItem(in section: IBookmarksListSectionViewModel, at index: Int)
   func selectItem(in section: IBookmarksListSectionViewModel, at index: Int)
-  func checkItem(in section: IBookmarksListSectionViewModel, at index: Int, checked: Bool)
-  func toggleVisibility(in section: IBookmarksListSectionViewModel)
   func showDescription()
 }
 
@@ -113,7 +93,6 @@ protocol IBookmarksListInteractor {
   func viewOnMap()
   func viewBookmarkOnMap(_ bookmarkId: MWMMarkID)
   func viewTrackOnMap(_ trackId: MWMTrackID)
-  func setGroup(_ groupId: MWMMarkGroupID, visible: Bool)
   func sort(_ sortingType: BookmarksListSortingType,
             location: CLLocation?,
             completion: @escaping ([BookmarksSection]) -> Void)
@@ -132,7 +111,6 @@ protocol IBookmarksListRouter {
   func listSettings(_ bookmarkGroup: BookmarkGroup, delegate: CategorySettingsViewControllerDelegate?)
   func viewOnMap(_ bookmarkGroup: BookmarkGroup)
   func showDescription(_ bookmarkGroup: BookmarkGroup)
-  func showSubgroup(_ subgroupId: MWMMarkGroupID)
   func selectGroup(currentGroupId groupId: MWMMarkGroupID,
                    delegate: SelectBookmarkGroupViewControllerDelegate?)
   func editBookmark(bookmarkId: MWMMarkID, completion: @escaping (Bool) -> Void)
