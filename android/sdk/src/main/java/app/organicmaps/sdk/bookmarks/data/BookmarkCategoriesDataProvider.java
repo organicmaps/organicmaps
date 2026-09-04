@@ -9,7 +9,5 @@ public interface BookmarkCategoriesDataProvider
   List<BookmarkCategory> getCategories();
   int getCategoriesCount();
   @NonNull
-  List<BookmarkCategory> getChildrenCategories(long parentId);
-  @NonNull
   BookmarkCategory getCategoryById(long categoryId);
 }
