@@ -35,7 +35,7 @@ struct EverywhereSearchParams;
 
 namespace android
 {
-// Keep in sync `public @interface ChoosePositionMode`in Framework.java.
+// Keep in sync with app.organicmaps.sdk.ChoosePositionMode.
 enum class ChoosePositionMode
 {
   None = 0,

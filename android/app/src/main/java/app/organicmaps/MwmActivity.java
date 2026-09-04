@@ -670,7 +670,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         RoutingController.get().onPoiSelected(MapObject.createMapObject(
             MapObject.POI, Framework.nativeGetAddress(routePoint[0], routePoint[1]), "", routePoint[0], routePoint[1]));
         break;
-      case None: throw new IllegalStateException("Unexpected Framework.nativeGetChoosePositionMode()");
+      case None: throw new IllegalStateException("Unexpected position chooser mode");
       }
       closePositionChooser();
     });
@@ -717,10 +717,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (isFullscreen())
       exitFullscreen();
-    // closeFloatingToolbarsAndPanels() split apart: hiding an open chooser would clear the flag, while
-    // closing the search sheet re-shows the routing one, whose buttons row only hides on a HIDDEN callback
-    // that never fires for a sheet already hidden. Re-entering the same mode must not close it: for Routing
-    // that would cancel the very pick we are about to commit into.
+    // Re-entering the same mode must keep the chooser open: closing Routing would cancel the pending pick.
+    // Mark the chooser active before closing panels so the routing sheet stays hidden as search closes.
     if (ChoosePositionMode.get() != mode)
       closePositionChooser();
     mRoutingPlanViewModel.setIsPointChooserActive(true);

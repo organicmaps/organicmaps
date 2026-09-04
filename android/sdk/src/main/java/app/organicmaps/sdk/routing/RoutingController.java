@@ -424,6 +424,8 @@ public class RoutingController
     {
       if (mContainer != null)
         mContainer.onStopPointLimitReached();
+      // Rejection completes the pending pick too, so its overlay is dismissed with the controls it owns.
+      finalizePendingPoiPick();
       return;
     }
 
