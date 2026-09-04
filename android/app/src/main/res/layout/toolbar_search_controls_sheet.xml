@@ -9,8 +9,33 @@
   android:baselineAligned="false"
   android:gravity="center_vertical"
   android:background="@android:color/transparent"
-  android:padding="0dp"
-  android:layout_margin="0dp">
+  android:layout_margin="0dp"
+  android:paddingStart="@dimen/margin_half">
+  <LinearLayout
+    android:id="@+id/picker_actions"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/search_input_height"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingStart="@dimen/margin_half"
+    android:layout_marginTop="@dimen/margin_base"
+    android:layout_marginBottom="@dimen/margin_half_plus"
+    android:visibility="gone"
+    tools:visibility="visible">
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/your_location"
+      style="@style/MwmWidget.SearchAction"
+      android:layout_marginEnd="@dimen/margin_half"
+      android:contentDescription="@string/p2p_your_location"
+      android:visibility="gone"
+      app:icon="@drawable/ic_search_my_position"
+      tools:visibility="visible" />
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/choose_on_map"
+      style="@style/MwmWidget.SearchAction"
+      android:contentDescription="@string/choose_on_map"
+      app:icon="@drawable/ic_show_on_map" />
+  </LinearLayout>
   <LinearLayout
     android:id="@+id/search_container"
     android:layout_width="0dp"
@@ -21,7 +46,7 @@
     android:gravity="center_vertical"
     android:background="@drawable/bg_search_rounded_rect"
     android:paddingHorizontal="@dimen/margin_half"
-    android:layout_marginStart="@dimen/margin_base"
+    android:layout_marginStart="@dimen/margin_half"
     android:layout_marginEnd="@dimen/margin_half"
     android:layout_marginTop="@dimen/margin_base"
     android:layout_marginBottom="@dimen/margin_half_plus">
