@@ -1,6 +1,8 @@
 import WebKit
 
 final class PlacePageUserDescriptionWebView: UIView {
+  typealias HTMLLoader = (WKWebView, String, URL?) -> WKNavigation?
+
   private enum Constants {
     static let previewHeight: CGFloat = 70
     static let baseURL = URL(string: "https://organicmaps.app")
@@ -20,20 +22,23 @@ final class PlacePageUserDescriptionWebView: UIView {
   private var contentSizeObservation: NSKeyValueObservation?
   private var webViewConstraints = [NSLayoutConstraint]()
   private var isLoadingHTMLString = false
-  private var isHTMLNavigationInProgress = false
-  private var needsHTMLReload = true
+  private var loadedHTMLString: String?
   private var currentNavigation: WKNavigation?
   private var finishedNavigation: WKNavigation?
   private var measuredHTMLHeight: CGFloat = 0
   private var htmlString: String
+  private let htmlLoader: HTMLLoader
   private var networkPolicy: NetworkPolicy
 
   var contentView: UIView { self }
   var onContentHeightChanged: (() -> Void)?
 
-  init(networkPolicy: NetworkPolicy = .shared(), htmlString: String) {
+  init(networkPolicy: NetworkPolicy = .shared(),
+       htmlString: String,
+       htmlLoader: @escaping HTMLLoader = { $0.loadHTMLString($1, baseURL: $2) }) {
     self.networkPolicy = networkPolicy
     self.htmlString = htmlString
+    self.htmlLoader = htmlLoader
     super.init(frame: .zero)
     setupView()
   }
@@ -58,7 +63,11 @@ final class PlacePageUserDescriptionWebView: UIView {
     let contentSizeCategoryChanged = previousTraitCollection?.preferredContentSizeCategory !=
       traitCollection.preferredContentSizeCategory
     guard userInterfaceStyleChanged || contentSizeCategoryChanged else { return }
-    loadHTML(htmlString)
+    if loadedHTMLString == nil {
+      loadHTMLIfNeeded()
+    } else {
+      applyAppearance(compatibleWith: traitCollection)
+    }
   }
 
   private func setupView() {
@@ -102,36 +111,45 @@ final class PlacePageUserDescriptionWebView: UIView {
     Self.webViewPool.release(webView)
   }
 
-  private func loadHTML(_ htmlString: String) {
-    // Preserve the last height during same-content trait reloads so the section keeps its layout while re-rendering.
-    if self.htmlString != htmlString {
-      self.htmlString = htmlString
-      measuredHTMLHeight = 0
-    }
-    needsHTMLReload = true
-    loadHTMLIfNeeded()
-  }
-
   private func loadHTMLIfNeeded() {
-    guard window != nil, needsHTMLReload, !isHTMLNavigationInProgress else { return }
-    needsHTMLReload = false
-    isHTMLNavigationInProgress = true
+    guard window != nil, loadedHTMLString != htmlString else { return }
     let webView = attachWebView()
     isLoadingHTMLString = true
     finishedNavigation = nil
     let html = Self.htmlDocumentBuilder.buildHTML(with: htmlString, compatibleWith: traitCollection)
-    currentNavigation = webView.loadHTMLString(html, baseURL: Constants.baseURL)
-    assert(currentNavigation != nil, "WebKit refused to start the description load")
+    guard let navigation = htmlLoader(webView, html, Constants.baseURL) else {
+      isLoadingHTMLString = false
+      currentNavigation = nil
+      loadedHTMLString = nil
+      assertionFailure("WebKit refused to start the description load")
+      return
+    }
+    currentNavigation = navigation
+    loadedHTMLString = htmlString
   }
 
-  private func completeHTMLNavigation(_ webView: WKWebView, navigation: WKNavigation, didFinish: Bool) {
-    guard self.webView === webView, navigation === currentNavigation else { return }
-    isHTMLNavigationInProgress = false
-    if didFinish {
-      finishedNavigation = navigation
-      updateContentHeight()
+  private func failHTMLNavigation(_ webView: WKWebView, navigation: WKNavigation?) {
+    guard self.webView === webView else { return }
+    if let navigation {
+      guard navigation === currentNavigation else { return }
     }
-    loadHTMLIfNeeded()
+    isLoadingHTMLString = false
+    currentNavigation = nil
+    finishedNavigation = nil
+    loadedHTMLString = nil
+  }
+
+  func applyAppearance(compatibleWith traitCollection: UITraitCollection) {
+    guard let webView, let navigation = finishedNavigation else { return }
+    let assignments = Self.htmlDocumentBuilder.appearanceVariables(compatibleWith: traitCollection)
+      .sorted { $0.key < $1.key }
+      .map { "style.setProperty('\($0.key)', '\($0.value)');" }
+      .joined()
+    let script = "(() => { const style = document.documentElement.style; \(assignments) })()"
+    webView.evaluateJavaScript(script) { [weak self] _, _ in
+      guard let self, self.webView === webView, self.finishedNavigation === navigation else { return }
+      self.updateContentHeight()
+    }
   }
 
   private func applyMeasuredHeight(_ height: CGFloat) {
@@ -175,18 +193,28 @@ final class PlacePageUserDescriptionWebView: UIView {
 
 extension PlacePageUserDescriptionWebView: WKNavigationDelegate {
   func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-    guard let navigation else { return }
-    completeHTMLNavigation(webView, navigation: navigation, didFinish: true)
+    guard self.webView === webView, let navigation, navigation === currentNavigation else { return }
+    isLoadingHTMLString = false
+    currentNavigation = nil
+    finishedNavigation = navigation
+    applyAppearance(compatibleWith: traitCollection)
   }
 
   func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError _: Error) {
-    guard let navigation else { return }
-    completeHTMLNavigation(webView, navigation: navigation, didFinish: false)
+    failHTMLNavigation(webView, navigation: navigation)
   }
 
   func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError _: Error) {
-    guard let navigation else { return }
-    completeHTMLNavigation(webView, navigation: navigation, didFinish: false)
+    failHTMLNavigation(webView, navigation: navigation)
+  }
+
+  func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+    guard self.webView === webView else { return }
+    isLoadingHTMLString = false
+    currentNavigation = nil
+    finishedNavigation = nil
+    loadedHTMLString = nil
+    loadHTMLIfNeeded()
   }
 
   func webView(_ webView: WKWebView,
@@ -214,8 +242,12 @@ extension PlacePageUserDescriptionWebView: WKNavigationDelegate {
 
 extension PlacePageUserDescriptionWebView: ExpandableTextContainer {
   func configure(with text: String) {
-    guard htmlString != text else { return }
-    loadHTML(text)
+    guard htmlString != text || loadedHTMLString == nil else { return }
+    if htmlString != text {
+      htmlString = text
+      measuredHTMLHeight = 0
+    }
+    loadHTMLIfNeeded()
   }
 
   func updateContentHeight() {
