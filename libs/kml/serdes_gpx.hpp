@@ -76,8 +76,6 @@ private:
   void CheckAndCorrectTimestamps();
 
   FileData & m_data;
-  CategoryData m_compilationData;
-  CategoryData * m_categoryData;  // never null
 
   std::vector<std::string> m_tags;
   GeometryType m_geometryType;
