@@ -79,10 +79,6 @@ extension BookmarksListInteractor: IBookmarksListInteractor {
     FrameworkHelper.showTrack(trackId)
   }
 
-  func setGroup(_ groupId: MWMMarkGroupID, visible: Bool) {
-    bookmarksManager.setCategory(groupId, isVisible: visible)
-  }
-
   func sort(_ sortingType: BookmarksListSortingType,
             location: CLLocation?,
             completion: @escaping ([BookmarksSection]) -> Void) {

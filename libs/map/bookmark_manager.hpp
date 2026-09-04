@@ -279,8 +279,6 @@ public:
   kml::MarkGroupId CreateBookmarkCategory(std::string const & name, bool autoSave = true);
   void UpdateBookmarkCategory(kml::MarkGroupId groupId, kml::CategoryData && data, bool autoSave);
 
-  BookmarkCategory * CreateBookmarkCompilation(kml::CategoryData && data);
-
   std::string GetCategoryName(kml::MarkGroupId categoryId) const;
   std::string GetCategoryFileName(kml::MarkGroupId categoryId) const;
   kml::MarkGroupId GetCategoryByFileName(std::string const & fileName) const;
@@ -430,12 +428,6 @@ public:
   void OnTrackSelected(kml::TrackId trackId);
   void OnTrackDeselected();
 
-  kml::GroupIdCollection GetChildrenCategories(kml::MarkGroupId parentCategoryId) const;
-  kml::GroupIdCollection GetChildrenCollections(kml::MarkGroupId parentCategoryId) const;
-
-  bool IsCompilation(kml::MarkGroupId id) const;
-  kml::CompilationType GetCompilationType(kml::MarkGroupId id) const;
-
   kml::TrackId SaveTrackRecording(std::string trackName);
   std::string GenerateTrackRecordingName() const;
   dp::Color GenerateTrackRecordingColor() const;
@@ -510,8 +502,6 @@ private:
                                GroupMarkIdSet & setToErase);
     static bool HasBookmarkCategories(kml::GroupIdSet const & groupIds);
 
-    void InferVisibility(BookmarkCategory * const group);
-
     BookmarkManager * m_bmManager;
 
     kml::MarkIdSet m_createdMarks;
@@ -583,7 +573,6 @@ private:
   void DetachBookmark(kml::MarkId bmId, kml::MarkGroupId groupId);
   void DeleteBookmark(kml::MarkId bmId);
   void DetachUserMark(kml::MarkId bmId, kml::MarkGroupId catId);
-  void DeleteCompilations(kml::GroupIdCollection const & compilations);
 
   Track * CreateTrack(kml::TrackData && trackData);
 
@@ -664,8 +653,7 @@ private:
   KMLDataCollectionPtr PrepareToSaveBookmarksForTrack(kml::TrackId trackId);
 
   bool HasDuplicatedIds(kml::FileData const & fileData) const;
-  template <typename UniquityChecker>
-  void SetUniqueName(kml::CategoryData & data, UniquityChecker checker);
+  void SetUniqueName(kml::CategoryData & data);
   bool CheckVisibility(bool isVisible) const;
 
   struct SortBookmarkData
@@ -734,8 +722,6 @@ private:
   void UpdateTrackMarksMinZoom();
   void UpdateTrackMarksVisibility(kml::MarkGroupId groupId);
   void RequestSymbolSizes();
-
-  kml::GroupIdCollection GetCompilationOfType(kml::MarkGroupId parentId, kml::CompilationType type) const;
 
   ThreadChecker m_threadChecker;
 
@@ -843,8 +829,6 @@ private:
 
   // Switch some operations in bookmark manager to synchronous mode to simplify unit-testing.
   bool m_testModeEnabled = false;
-
-  CategoriesCollection m_compilations;
 
   DISALLOW_COPY_AND_MOVE(BookmarkManager);
 };

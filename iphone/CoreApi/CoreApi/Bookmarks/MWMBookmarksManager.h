@@ -80,7 +80,6 @@ NS_SWIFT_NAME(BookmarksManager)
 - (NSString *)getCategoryDescription:(MWMMarkGroupID)groupId;
 - (NSString *)getCategoryAuthorName:(MWMMarkGroupID)groupId;
 - (NSString *)getCategoryAuthorId:(MWMMarkGroupID)groupId;
-- (MWMBookmarkGroupType)getCategoryGroupType:(MWMMarkGroupID)groupId;
 - (nullable NSURL *)getCategoryImageUrl:(MWMMarkGroupID)groupId;
 - (BOOL)hasExtraInfo:(MWMMarkGroupID)groupId;
 - (BOOL)isHtmlDescription:(MWMMarkGroupID)groupId;
@@ -121,8 +120,6 @@ NS_SWIFT_NAME(BookmarksManager)
 - (MWMTrack *)trackWithId:(MWMTrackID)trackId;
 - (NSArray<MWMBookmark *> *)bookmarksForGroup:(MWMMarkGroupID)groupId;
 - (NSArray<MWMTrack *> *)tracksForGroup:(MWMMarkGroupID)groupId;
-- (NSArray<MWMBookmarkGroup *> *)collectionsForGroup:(MWMMarkGroupID)groupId;
-- (NSArray<MWMBookmarkGroup *> *)categoriesForGroup:(MWMMarkGroupID)groupId;
 - (void)searchBookmarksGroup:(MWMMarkGroupID)groupId
                         text:(NSString *)text
                   completion:(SearchBookmarksCompletionBlock)completion;

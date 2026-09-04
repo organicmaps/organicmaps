@@ -63,16 +63,6 @@ final class BookmarksListPresenter {
       sections.append(TracksSectionViewModel(tracks: tracks))
     }
 
-    let collections = bookmarkGroup.collections.map { SubgroupViewModel($0) }
-    if !collections.isEmpty {
-      sections.append(SubgroupsSectionViewModel(title: L("collections"), subgroups: collections, type: .collection))
-    }
-
-    let categories = bookmarkGroup.categories.map { SubgroupViewModel($0) }
-    if !categories.isEmpty {
-      sections.append(SubgroupsSectionViewModel(title: L("categories"), subgroups: categories, type: .category))
-    }
-
     let bookmarks = mapBookmarks(bookmarkGroup.bookmarks)
     if !bookmarks.isEmpty {
       sections.append(BookmarksSectionViewModel(title: L("bookmarks"), bookmarks: bookmarks))
@@ -314,14 +304,6 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
       let track = tracksSection.tracks[index] as! TrackViewModel
       interactor.viewTrackOnMap(track.trackId)
       router.viewOnMap(bookmarkGroup)
-    case let subgroupsSection as ISubgroupsSectionViewModel:
-      let subgroup = subgroupsSection.subgroups[index] as! SubgroupViewModel
-      router.showSubgroup(subgroup.groupId)
-      if subgroup.type == .collection {
-      } else if subgroup.type == .category {
-      } else {
-        assertionFailure()
-      }
     default:
       fatalError("Wrong section type: \(section.self)")
     }
@@ -329,39 +311,6 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
 
   func showDescription() {
     router.showDescription(bookmarkGroup)
-  }
-
-  func checkItem(in section: IBookmarksListSectionViewModel, at index: Int, checked: Bool) {
-    switch section {
-    case let subgroupsSection as ISubgroupsSectionViewModel:
-      let subgroup = subgroupsSection.subgroups[index] as! SubgroupViewModel
-      interactor.setGroup(subgroup.groupId, visible: checked)
-      reload()
-    default:
-      fatalError("Wrong section type: \(section.self)")
-    }
-  }
-
-  func toggleVisibility(in section: IBookmarksListSectionViewModel) {
-    switch section {
-    case let subgroupsSection as ISubgroupsSectionViewModel:
-      let visible: Bool
-      switch subgroupsSection.visibilityButtonState {
-      case .hidden:
-        fatalError("Unexpected visibility button state")
-      case .hideAll:
-        visible = false
-      case .showAll:
-        visible = true
-      }
-      for item in subgroupsSection.subgroups {
-        let subgroup = item as! SubgroupViewModel
-        interactor.setGroup(subgroup.groupId, visible: visible)
-      }
-      reload()
-    default:
-      fatalError("Wrong section type: \(section.self)")
-    }
   }
 }
 
@@ -389,8 +338,7 @@ extension BookmarksListPresenter: SelectBookmarkGroupViewControllerDelegate {
     interactor.moveItems(with: itemIds, toGroupId: groupId)
     view?.finishEditing()
 
-    let hasSubgroups = !bookmarkGroup.collections.isEmpty || !bookmarkGroup.categories.isEmpty
-    if bookmarkGroup.isEmpty, !hasSubgroups {
+    if bookmarkGroup.isEmpty {
       // Avoid briefly showing an empty group between dismissing the picker and returning to the parent list.
       if let rootNavigationController = viewController.presentingViewController as? UINavigationController {
         rootNavigationController.popViewController(animated: false)
@@ -403,7 +351,6 @@ extension BookmarksListPresenter: SelectBookmarkGroupViewControllerDelegate {
 
 extension IBookmarksSectionViewModel {
   var numberOfItems: Int { bookmarks.count }
-  var visibilityButtonState: BookmarksListVisibilityButtonState { .hidden }
   var canEdit: Bool { true }
   var editableItems: [IBookmarksListItemViewModel] { bookmarks }
 }
@@ -411,19 +358,8 @@ extension IBookmarksSectionViewModel {
 extension ITracksSectionViewModel {
   var numberOfItems: Int { tracks.count }
   var sectionTitle: String { L("tracks_title") }
-  var visibilityButtonState: BookmarksListVisibilityButtonState { .hidden }
   var canEdit: Bool { true }
   var editableItems: [IBookmarksListItemViewModel] { tracks }
-}
-
-extension ISubgroupsSectionViewModel {
-  var numberOfItems: Int { subgroups.count }
-  var visibilityButtonState: BookmarksListVisibilityButtonState {
-    subgroups.reduce(false) { $0 ? $0 : $1.isVisible } ? .hideAll : .showAll
-  }
-
-  var canEdit: Bool { false }
-  var editableItems: [IBookmarksListItemViewModel] { [] }
 }
 
 private struct BookmarkViewModel: IBookmarksListItemViewModel {
@@ -472,22 +408,6 @@ private struct TrackViewModel: IBookmarksListItemViewModel {
   }
 }
 
-private struct SubgroupViewModel: ISubgroupViewModel {
-  let groupId: MWMMarkGroupID
-  let subgroupName: String
-  let subtitle: String
-  let isVisible: Bool
-  let type: BookmarkGroupType
-
-  init(_ bookmarkGroup: BookmarkGroup) {
-    groupId = bookmarkGroup.categoryId
-    subgroupName = bookmarkGroup.title
-    subtitle = bookmarkGroup.placesCountTitle()
-    isVisible = bookmarkGroup.isVisible
-    type = bookmarkGroup.type
-  }
-}
-
 private struct BookmarksSectionViewModel: IBookmarksSectionViewModel {
   let sectionTitle: String
   let bookmarks: [IBookmarksListItemViewModel]
@@ -500,18 +420,6 @@ private struct BookmarksSectionViewModel: IBookmarksSectionViewModel {
 
 private struct TracksSectionViewModel: ITracksSectionViewModel {
   let tracks: [IBookmarksListItemViewModel]
-}
-
-private struct SubgroupsSectionViewModel: ISubgroupsSectionViewModel {
-  let subgroups: [ISubgroupViewModel]
-  let sectionTitle: String
-  var type: BookmarkGroupType
-
-  init(title: String, subgroups: [ISubgroupViewModel], type: BookmarkGroupType) {
-    sectionTitle = title
-    self.type = type
-    self.subgroups = subgroups
-  }
 }
 
 private struct BookmarksListMenuItem: IBookmarksListMenuItem {

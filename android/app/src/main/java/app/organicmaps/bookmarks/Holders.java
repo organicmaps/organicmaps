@@ -21,7 +21,6 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.adapter.OnItemClickListener;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkInfo;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
@@ -134,7 +133,6 @@ public class Holders
     private final TextView mButton;
     @NonNull
     private final TextView mText;
-    private boolean mSkipDivider;
 
     HeaderViewHolder(@NonNull View itemView)
     {
@@ -161,26 +159,6 @@ public class Holders
       mButton.setOnClickListener(new ToggleShowAllClickListener(action, showAll));
     }
 
-    void setAction(@NonNull HeaderActionChildCategories action, final boolean showAll)
-    {
-      mButton.setText(showAll ? R.string.bookmark_lists_show_all : R.string.bookmark_lists_hide_all);
-      mButton.setOnClickListener(new ToggleShowAllChildCategoryClickListener(action, showAll));
-    }
-
-    /**
-     * Opt-in for the card-grouped bookmark list, where a header is a label above the card and must not be underlined.
-     */
-    void setSkipDivider(boolean skip)
-    {
-      mSkipDivider = skip;
-    }
-
-    @Override
-    public boolean skipDivider()
-    {
-      return mSkipDivider;
-    }
-
     @Override
     public boolean useFullWidthDivider()
     {
@@ -192,34 +170,6 @@ public class Holders
       void onHideAll();
 
       void onShowAll();
-    }
-
-    public interface HeaderActionChildCategories
-    {
-      void onHideAll();
-
-      void onShowAll();
-    }
-
-    private static class ToggleShowAllChildCategoryClickListener implements View.OnClickListener
-    {
-      private final HeaderActionChildCategories mAction;
-      private final boolean mShowAll;
-
-      ToggleShowAllChildCategoryClickListener(@NonNull HeaderActionChildCategories action, boolean showAll)
-      {
-        mAction = action;
-        mShowAll = showAll;
-      }
-
-      @Override
-      public void onClick(View view)
-      {
-        if (mShowAll)
-          mAction.onShowAll();
-        else
-          mAction.onHideAll();
-      }
     }
 
     private static class ToggleShowAllClickListener implements View.OnClickListener
@@ -309,46 +259,6 @@ public class Holders
     private String getQuantified(Resources resources, @PluralsRes int plural, int size)
     {
       return resources.getQuantityString(plural, size, size);
-    }
-  }
-  static class CollectionViewHolder extends CategoryViewHolderBase
-  {
-    @NonNull
-    private final View mView;
-    @NonNull
-    private final TextView mName;
-    @NonNull
-    private final CheckBox mVisibilityMarker;
-
-    CollectionViewHolder(@NonNull View root)
-    {
-      super(root);
-      mView = root;
-      mName = root.findViewById(R.id.name);
-      mVisibilityMarker = root.findViewById(R.id.checkbox);
-    }
-
-    void setOnClickListener(@Nullable OnItemClickListener<BookmarkCategory> listener)
-    {
-      mView.setOnClickListener(v -> {
-        if (listener != null && mEntity != null)
-          listener.onItemClick(v, mEntity);
-      });
-    }
-
-    void setVisibilityState(boolean visible)
-    {
-      mVisibilityMarker.setChecked(visible);
-    }
-
-    void setVisibilityListener(@Nullable View.OnClickListener listener)
-    {
-      mVisibilityMarker.setOnClickListener(listener);
-    }
-
-    void setName(@NonNull String name)
-    {
-      mName.setText(name);
     }
   }
 

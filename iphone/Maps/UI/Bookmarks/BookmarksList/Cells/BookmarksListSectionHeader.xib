@@ -17,7 +17,7 @@
                     <rect key="frame" x="16" y="12" width="343" height="48"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Bookmarks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yNv-Yr-Hkr">
-                            <rect key="frame" x="0.0" y="0.0" width="287" height="48"/>
+                            <rect key="frame" x="0.0" y="0.0" width="343" height="48"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -25,17 +25,6 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="bold20:blackPrimaryText"/>
                             </userDefinedRuntimeAttributes>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zdf-Q0-3xO">
-                            <rect key="frame" x="287" y="0.0" width="56" height="48"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <state key="normal" title="Hide All"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="linkBlueText"/>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="onVisibilityButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="w2u-1a-M9u"/>
-                            </connections>
-                        </button>
                     </subviews>
                 </stackView>
             </subviews>
@@ -48,7 +37,6 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="titleLabel" destination="yNv-Yr-Hkr" id="2D1-wr-wFj"/>
-                <outlet property="visibilityButton" destination="zdf-Q0-3xO" id="Z64-hc-gnc"/>
             </connections>
             <point key="canvasLocation" x="138.40000000000001" y="201.94902548725639"/>
         </view>

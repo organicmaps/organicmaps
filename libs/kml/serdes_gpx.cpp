@@ -46,10 +46,7 @@ std::string_view constexpr kGpxFooter = "</gpx>";
 int constexpr kInvalidColor = 0;
 }  // namespace
 
-GpxParser::GpxParser(FileData & data)
-  : m_data{data}
-  , m_categoryData{&m_data.m_categoryData}
-  , m_globalColor{kInvalidColor}
+GpxParser::GpxParser(FileData & data) : m_data{data}, m_globalColor{kInvalidColor}
 {
   ResetPoint();
 }
@@ -381,12 +378,12 @@ void GpxParser::ParseDescription(std::string const & value, std::string const & 
   else if (prevTag == kTrk || prevTag == kRte)
   {
     m_description = value;
-    if (m_categoryData->m_description[kDefaultLang].empty())
-      m_categoryData->m_description[kDefaultLang] = value;
+    if (m_data.m_categoryData.m_description[kDefaultLang].empty())
+      m_data.m_categoryData.m_description[kDefaultLang] = value;
   }
   else if (prevTag == kMetadata)
   {
-    m_categoryData->m_description[kDefaultLang] = value;
+    m_data.m_categoryData.m_description[kDefaultLang] = value;
   }
 }
 
@@ -399,12 +396,12 @@ void GpxParser::ParseName(std::string const & value, std::string const & prevTag
   else if (prevTag == kTrk || prevTag == kRte)
   {
     m_name = value;
-    if (m_categoryData->m_name[kDefaultLang].empty())
-      m_categoryData->m_name[kDefaultLang] = value;
+    if (m_data.m_categoryData.m_name[kDefaultLang].empty())
+      m_data.m_categoryData.m_name[kDefaultLang] = value;
   }
   else if (prevTag == kMetadata)
   {
-    m_categoryData->m_name[kDefaultLang] = value;
+    m_data.m_categoryData.m_name[kDefaultLang] = value;
   }
 }
 

@@ -58,9 +58,9 @@ public:
     header.m_tracksOffset = sink.Pos() - startPos;
     SerializeTracks(sink);
 
-    // Serialize compilations.
+    // Serialize the (always empty) compilations section, see SerializeEmptyCompilations.
     header.m_compilationsOffset = sink.Pos() - startPos;
-    SerializeCompilations(sink);
+    SerializeEmptyCompilations(sink);
 
     // Serialize strings.
     header.m_stringsOffset = sink.Pos() - startPos;
@@ -81,7 +81,10 @@ public:
     std::vector<BookmarkDataV8> bookmarksDataV8;
     bookmarksDataV8.reserve(m_data.m_bookmarksData.size());
     for (BookmarkData const & bm : m_data.m_bookmarksData)
+    {
+      ASSERT(bm.m_unusedCompilations.empty(), (bm.m_id));
       bookmarksDataV8.push_back(BookmarkDataV8(bm));
+    }
     visitor(bookmarksDataV8);
   }
 };

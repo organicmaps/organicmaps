@@ -12,6 +12,9 @@
 
 #include "coding/text_storage.hpp"
 
+#include "base/logging.hpp"
+
+#include <algorithm>
 #include <string>
 #include <vector>
 
@@ -68,9 +71,9 @@ public:
     header.m_tracksOffset = sink.Pos() - startPos;
     SerializeTracks(sink);
 
-    // Serialize compilations.
+    // Serialize the (always empty) compilations section, see SerializeEmptyCompilations.
     header.m_compilationsOffset = sink.Pos() - startPos;
-    SerializeCompilations(sink);
+    SerializeEmptyCompilations(sink);
 
     // Serialize strings.
     header.m_stringsOffset = sink.Pos() - startPos;
@@ -86,6 +89,8 @@ public:
   template <typename Sink>
   void SerializeCategory(Sink & sink)
   {
+    ASSERT_EQUAL(m_data.m_categoryData.m_unusedCompilationId, kUnusedCompilationId, ());
+    ASSERT_EQUAL(m_data.m_categoryData.m_unusedCompilationType, kUnusedCompilationType, ());
     CategorySerializerVisitor<Sink> visitor(sink, kDoubleBits);
     visitor(m_data.m_categoryData);
   }
@@ -93,6 +98,10 @@ public:
   template <typename Sink>
   void SerializeBookmarks(Sink & sink)
   {
+    ASSERT(std::all_of(m_data.m_bookmarksData.begin(), m_data.m_bookmarksData.end(),
+                       [](auto const & bookmark) { return bookmark.m_unusedCompilations.empty(); }),
+           ());
+
     BookmarkSerializerVisitor<Sink> visitor(sink, kDoubleBits);
     visitor(m_data.m_bookmarksData);
   }
@@ -104,11 +113,12 @@ public:
     visitor(m_data.m_tracksData);
   }
 
+  // Collections (MAPS.ME compilations) are not supported, but V8/V9 files must still have the
+  // section: an empty one is just a zero element count.
   template <typename Sink>
-  void SerializeCompilations(Sink & sink)
+  void SerializeEmptyCompilations(Sink & sink)
   {
-    CategorySerializerVisitor<Sink> visitor(sink, kDoubleBits);
-    visitor(m_data.m_compilationsData);
+    WriteVarUint(sink, 0U);
   }
 
   // Serializes texts in a compressed storage with block access.
@@ -124,15 +134,6 @@ protected:
   FileData const & m_data;
   std::vector<std::string> m_strings;
 };
-
-template <typename T, typename = void>
-struct HasCompilationsData : std::false_type
-{};
-
-template <typename T>
-struct HasCompilationsData<T, std::void_t<decltype(T::m_compilationsData)>>
-  : std::is_same<decltype(T::m_compilationsData), std::vector<CategoryData>>
-{};
 
 class DeserializerKml
 {
@@ -243,6 +244,8 @@ public:
       UNREACHABLE();
     }
     }
+
+    DropCompilationReferences();
   }
 
 private:
@@ -344,8 +347,8 @@ private:
     DeserializeCategory(subReader, data);
     DeserializeBookmarks(subReader, data);
     DeserializeTracks(subReader, data);
-    if constexpr (HasCompilationsData<FileDataType>::value)
-      DeserializeCompilations(subReader, data);
+    if (m_header.HasCompilationsSection())
+      WarnAboutDroppedCompilations(*subReader);
     DeserializeStrings(subReader, data);
   }
 
@@ -382,13 +385,25 @@ private:
     visitor(data.m_tracksData);
   }
 
-  template <typename FileDataType>
-  void DeserializeCompilations(std::unique_ptr<Reader> & subReader, FileDataType & data)
+  // Collections are not supported: the section is skipped, only its element count is read to log
+  // what was dropped.
+  template <typename ReaderType>
+  void WarnAboutDroppedCompilations(ReaderType const & reader)
   {
-    auto compilationsSubReader = CreateCompilationsSubReader(*subReader);
+    auto compilationsSubReader = CreateCompilationsSubReader(reader);
     NonOwningReaderSource src(*compilationsSubReader);
-    CategoryDeserializerVisitor<decltype(src)> visitor(src, m_doubleBits);
-    visitor(data.m_compilationsData);
+    if (auto const count = ReadVarUint<uint32_t>(src); count > 0)
+      LOG(LWARNING, ("Ignored", count, "unsupported collections in a KMB file"));
+  }
+
+  // Forgets the references to the skipped section, so that a file we save later does not keep ids
+  // pointing into the empty compilations section we write.
+  void DropCompilationReferences()
+  {
+    m_data.m_categoryData.m_unusedCompilationId = kUnusedCompilationId;
+    m_data.m_categoryData.m_unusedCompilationType = kUnusedCompilationType;
+    for (auto & bookmark : m_data.m_bookmarksData)
+      bookmark.m_unusedCompilations = {};
   }
 
   template <typename FileDataType>

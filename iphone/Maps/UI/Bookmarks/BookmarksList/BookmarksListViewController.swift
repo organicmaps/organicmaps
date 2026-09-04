@@ -90,12 +90,6 @@ final class BookmarksListViewController: MWMViewController {
 
     tableView.allowsMultipleSelectionDuringEditing = true
     cellStrategy.registerCells(tableView)
-    cellStrategy.cellCheckHandler = { [weak self] viewModel, index, checked in
-      self?.presenter.checkItem(in: viewModel, at: index, checked: checked)
-    }
-    cellStrategy.cellVisibilityHandler = { [weak self] viewModel in
-      self?.presenter.toggleVisibility(in: viewModel)
-    }
     presenter.viewDidLoad()
     MWMKeyboard.add(self)
   }
