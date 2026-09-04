@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "Nerodyti";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "Rinkiniai";
 "categories" = "Kategorijos";
 "history" = "Žurnalas";
 "search_not_found" = "Deja, rezultatų nerasta.";
@@ -874,12 +877,6 @@
 "popular_place" = "Populiarūs";
 "hide_from_map" = "Nerodyti žemėlapyje";
 "tags_loading_error_subtitle" = "Įvyko klaida įkeliant gaires, bandykite iš naujo";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Dešinėje";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Apačioje";
 "trip_start" = "Pirmyn";
 "pick_destination" = "Tikslas";
 "follow_my_position" = "Centruoti";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Jei norite naudotis šia funkcija, įjunkite „iCloud“ įrenginio nustatymuose.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Įjungti";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

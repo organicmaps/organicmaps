@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "Fela";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "Söfn";
 "categories" = "Flokkar";
 "history" = "Breytingaferill";
 "search_not_found" = "Úbbs, engar niðurstöður fundust.";
@@ -874,12 +877,6 @@
 "popular_place" = "Vinsælt";
 "hide_from_map" = "Fela á korti";
 "tags_loading_error_subtitle" = "Villa kom upp við að hlaða inn merkjum, reyndu aftur";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Hægri";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Neðst";
 "trip_start" = "Hefjumst handa";
 "pick_destination" = "Ákvörðunarstaður";
 "follow_my_position" = "Endurmiðja";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Virkjaðu iCloud í stillingum tækisins þíns til að nota þennan eiginleika.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Virkja";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

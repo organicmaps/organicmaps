@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "Amaga";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "Col·leccions";
 "categories" = "Categories";
 "history" = "Historial";
 "search_not_found" = "No s’ha trobat cap resultat.";
@@ -874,12 +877,6 @@
 "popular_place" = "Popular";
 "hide_from_map" = "Amaga-ho en el mapa";
 "tags_loading_error_subtitle" = "S'ha produït un error en carregar les etiquetes, torneu-ho a intentar";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Dret";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Baix";
 "trip_start" = "Som-hi";
 "pick_destination" = "Destinació";
 "follow_my_position" = "Centra";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Activeu l’iCloud a la configuració del dispositiu per utilitzar aquesta funció.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Activa";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "ซ่อน";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "คอลเลกชัน";
 "categories" = "หมวดหมู่";
 "history" = "ประวัติ";
 "search_not_found" = "ขออภัย ฉันไม่พบสิ่งใด";
@@ -874,12 +877,6 @@
 "popular_place" = "ยอดนิยม";
 "hide_from_map" = "ซ่อนจากแผนที่";
 "tags_loading_error_subtitle" = "เกิดข้อผิดพลาดขณะโหลดแท็ก โปรดลองใหม่อีกครั้ง";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "ถูกต้อง";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "ด้านล่าง";
 "trip_start" = "ไปกันเลย";
 "pick_destination" = "จุดหมาย";
 "follow_my_position" = "รีเซ็นเตอร์";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "โปรดเปิดใช้งาน iCloud ในการตั้งค่าอุปกรณ์ของคุณเพื่อใช้คุณสมบัตินี้";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "เปิดใช้งาน";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

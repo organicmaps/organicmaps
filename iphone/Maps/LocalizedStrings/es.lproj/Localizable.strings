@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "Ocultar";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "Colecciones";
 "categories" = "Categorías";
 "history" = "Historial";
 "search_not_found" = "No se encontró ningún resultado.";
@@ -724,7 +727,7 @@
 "bookmarks_text_placement_title" = "Nombres de marcadores en el mapa";
 "bookmarks_text_placement_description" = "Si hay demasiados marcadores, mostrar sus nombres en el mapa puede ralentizar la aplicación.";
 "show_to_the_right" = "Mostrar a la derecha";
-"show_at_the_bottom" = "Mostrar en el fondo";
+"show_at_the_bottom" = "Mostrar abajo";
 "enable_logging_warning_message" = "Active esta opción temporalmente para grabar y enviar de forma manual registros para diagnosticar defectos enviados mediante la opción «Informar de un fallo» en el diálogo Ayuda. Los registros pueden incluir ubicaciones.";
 "driving_options_title" = "Opciones de enrutamiento";
 
@@ -874,12 +877,6 @@
 "popular_place" = "Popular";
 "hide_from_map" = "Ocultar del mapa";
 "tags_loading_error_subtitle" = "Se produjo un error al cargar las etiquetas; inténtelo de nuevo";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Derecha";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Inferior";
 "trip_start" = "Vamos";
 "pick_destination" = "Destino";
 "follow_my_position" = "Centrar";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Active iCloud en la configuración del dispositivo para utilizar esta función.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Activar";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "Sembunyikan";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "Koleksi";
 "categories" = "Kategori";
 "history" = "Riwayat";
 "search_not_found" = "Maaf, saya tidak menemukan apa pun.";
@@ -723,7 +726,7 @@
 /* Settings/Bookmark Text Placement */
 "bookmarks_text_placement_title" = "Menandai nama di peta";
 "bookmarks_text_placement_description" = "Jika ada terlalu banyak penanda, menampilkan nama mereka di peta dapat memperlambat aplikasi.";
-"show_to_the_right" = "Tunjukkan ke kanan";
+"show_to_the_right" = "Tampilkan di sebelah kanan";
 "show_at_the_bottom" = "Tampilkan di bagian bawah";
 "enable_logging_warning_message" = "Opsi ini mengaktifkan pencatatan untuk tujuan diagnostik. Bisa amat membantu bagi staf dukungan kami yang memecahkan masalah dalam aplikasi. Aktifkan opsi ini hanya saat diminta oleh dukungan Organic Maps.";
 "driving_options_title" = "Pilihan berkendara";
@@ -874,12 +877,6 @@
 "popular_place" = "Populer";
 "hide_from_map" = "Sembunyikan dari peta";
 "tags_loading_error_subtitle" = "Kesalahan terjadi saat memuat tag, silakan coba lagi";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Kasus";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Bawah";
 "trip_start" = "Ayo";
 "pick_destination" = "Tujuan";
 "follow_my_position" = "Pusatkan ulang";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Aktifkan iCloud di pengaturan perangkat Anda untuk menggunakan fitur ini.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Aktifkan";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "Сакриј";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "Колекције";
 "categories" = "Категорије";
 "history" = "Историја";
 "search_not_found" = "Упс, нема резултата.";
@@ -874,12 +877,6 @@
 "popular_place" = "Популарно";
 "hide_from_map" = "Сакриј на карти";
 "tags_loading_error_subtitle" = "Десила се грешка приликом учитавања тагова, покушајте поново";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Десно";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Доња";
 "trip_start" = "Крећемо";
 "pick_destination" = "Одредиште";
 "follow_my_position" = "Центрирај";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Молим Вас да укључите iCloud у подешавањима вашег уређаја да бисте користили ову опцију.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Укључи";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

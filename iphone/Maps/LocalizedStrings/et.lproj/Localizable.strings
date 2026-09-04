@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "Peida";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "Kogud";
 "categories" = "Kategooriad";
 "history" = "Ajalugu";
 "search_not_found" = "Vabandust, tulemusi ei leidu.";
@@ -723,8 +726,8 @@
 /* Settings/Bookmark Text Placement */
 "bookmarks_text_placement_title" = "Kaardil leiduvate järjehoidjate nimed";
 "bookmarks_text_placement_description" = "Kui kaardil on palu järjehoidjaid, siis nende nimede kuvamine aeglustab kaardi joonistamist.";
-"show_to_the_right" = "Näita paremale";
-"show_at_the_bottom" = "Näita alla";
+"show_to_the_right" = "Näita paremal";
+"show_at_the_bottom" = "Näita all";
 "enable_logging_warning_message" = "Kasuta seda võimalust üksikasjaliku logi ajutiseks salvestamiseks ja meile käsitsi saatmiseks Abiteabe „Teata veast“ vaatest. Andmed võivad sisaldada sinu asukoha teavet.";
 "driving_options_title" = "Tee juhatamise valikud";
 
@@ -874,12 +877,6 @@
 "popular_place" = "Populaarne";
 "hide_from_map" = "Peida kaardilt";
 "tags_loading_error_subtitle" = "Siltide laadimisel tekkis viga, palun proovi uuesti";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Paremal";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "All";
 "trip_start" = "Läksime";
 "pick_destination" = "Sihtkoht";
 "follow_my_position" = "Säti keskele";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Selle funktsionaalsuse kasutamiseks luba nutiseadme seadistustes iCloud.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Luba";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

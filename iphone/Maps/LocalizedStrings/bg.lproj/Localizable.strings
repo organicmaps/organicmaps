@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "Скриване";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "Колекции";
 "categories" = "Категории";
 "history" = "История";
 "search_not_found" = "За съжаление не са намерени резултати.";
@@ -874,12 +877,6 @@
 "popular_place" = "Популярно";
 "hide_from_map" = "Скриване от картата";
 "tags_loading_error_subtitle" = "Възникна грешка при зареждането на таговете, моля, опитайте отново";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Вдясно";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Дъно";
 "trip_start" = "Да вървим";
 "pick_destination" = "Дестинация";
 "follow_my_position" = "Повторно съсредоточаване на";
@@ -1092,8 +1089,8 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "За да използвате тази функция, разрешете iCloud в настройките на устройството си.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
-"enable" = "Активиране на";
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
+"enable" = "Активиране";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "Резервно копие";

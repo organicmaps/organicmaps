@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "ເຊື່ອງ";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "ຄໍເລັກຊັນ";
 "categories" = "ໝວດໝູ່";
 "history" = "ປະຫວັດ";
 "search_not_found" = "ຂໍອະໄພ, ບໍ່ພົບຜົນການຄົ້ນຫາ.";
@@ -874,12 +877,6 @@
 "popular_place" = "ຍອດນິຍົມ";
 "hide_from_map" = "ເຊື່ອງຈາກແຜນທີ່";
 "tags_loading_error_subtitle" = "ເກີດຂໍ້ຜິດພາດໃນການໂຫຼດແທັກ, ກະລຸນາລອງໃໝ່";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "ຂວາ";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "ລຸ່ມ";
 "trip_start" = "ໄປກັນເລີຍ";
 "pick_destination" = "ຈຸດໝາຍປາຍທາງ";
 "follow_my_position" = "ຈັດຕຳແໜ່ງກາງໃໝ່";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "ກະລຸນາເປີດໃຊ້ iCloud ໃນການຕັ້ງຄ່າອຸປະກອນຂອງທ່ານເພື່ອໃຊ້ຟີເຈີນີ້.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "ເປີດໃຊ້ງານ";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

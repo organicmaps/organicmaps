@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "مخفی کردن";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "مجموعه‌ها";
 "categories" = "دسته‌بندی‌ها";
 "history" = "تاریخچه";
 "search_not_found" = "اوه، نتیجه‌ای یافت نشد.";
@@ -723,7 +726,7 @@
 /* Settings/Bookmark Text Placement */
 "bookmarks_text_placement_title" = "نام‌ها را روی نقشه نشانه‌گذاری کنید";
 "bookmarks_text_placement_description" = "اگر نشانک‌ها زیاد باشند، نمایش نام آن‌ها روی نقشه ممکن است باعث کند شدن برنامه شود.";
-"show_to_the_right" = "نمایش به سمت راست";
+"show_to_the_right" = "در سمت راست نمایش دهید";
 "show_at_the_bottom" = "در پایین نمایش دهید";
 "enable_logging_warning_message" = "این گزینه ثبت گزارش را برای اهداف تشخیصی فعال می‌کند. برای کارکنان بخش پشتیبانی که مشکلات برنامه را عیب یابی می‌کنند، مفید باشد. این گزینه را تنها در صورت درخواست پشتیبانی Organic Maps فعال کنید.";
 "driving_options_title" = "گزینه‌های رانندگی";
@@ -874,12 +877,6 @@
 "popular_place" = "مشهور";
 "hide_from_map" = "پنهان کردن از نقشه";
 "tags_loading_error_subtitle" = "هنگام بارگذاری برچسب خطایی رخ داد، لطفا دوباره امتحان کنید";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "درست";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "پایین";
 "trip_start" = "برویم";
 "pick_destination" = "مقصد";
 "follow_my_position" = "نشان دادن مجدد در مرکز";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "لطفاً iCloud را در تنظیمات دستگاه خود فعال کنید تا از این ویژگی استفاده کنید.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "فعال کردن";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

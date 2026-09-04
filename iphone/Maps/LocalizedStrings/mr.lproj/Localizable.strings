@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "लपवा";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "संग्रह";
 "categories" = "प्रवर्ग";
 "history" = "इतिहास";
 "search_not_found" = "अरेच्चा, काहीच सापडले नाही.";
@@ -874,12 +877,6 @@
 "popular_place" = "लोकप्रिय";
 "hide_from_map" = "नकाशावरून लपवा";
 "tags_loading_error_subtitle" = "टॅग लोड करताना त्रुटी आढळली, कृपया पुन्हा प्रयत्न करा";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "उजवे";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "तळ";
 "trip_start" = "चल जाऊया";
 "pick_destination" = "गंतव्यस्थाना";
 "follow_my_position" = "पुनरकेंद्रित करा";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "कृपया हे वैशिष्ट्य वापरण्यासाठी तुमच्या डिव्हाइसच्या सेटिंग्जमध्ये iCloud सक्षम करा.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "सक्षम करा";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

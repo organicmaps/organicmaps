@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "Skjul";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "Samlinger";
 "categories" = "Kategorier";
 "history" = "Historik";
 "search_not_found" = "Ups, ingen resultater fundet.";
@@ -874,12 +877,6 @@
 "popular_place" = "Populær";
 "hide_from_map" = "Skjul på kort";
 "tags_loading_error_subtitle" = "Der skete en fejl under hentning af tags, prøv igen";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Højre";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Bund";
 "trip_start" = "Lad os komme i gang";
 "pick_destination" = "Destination";
 "follow_my_position" = "Centrer igen";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Aktivér iCloud i din enheds indstillinger for at bruge denne funktion.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Aktivér";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

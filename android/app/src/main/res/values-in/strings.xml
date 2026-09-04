@@ -657,7 +657,7 @@
     <!-- Settings/Bookmark Text Placement -->
     <string name="bookmarks_text_placement_title">Menandai nama di peta</string>
     <string name="bookmarks_text_placement_description">Jika ada terlalu banyak penanda, menampilkan nama mereka di peta dapat memperlambat aplikasi.</string>
-    <string name="show_to_the_right">Tunjukkan ke kanan</string>
+    <string name="show_to_the_right">Tampilkan di sebelah kanan</string>
     <string name="show_at_the_bottom">Tampilkan di bagian bawah</string>
     <string name="enable_logging_warning_message">Opsi ini mengaktifkan pencatatan untuk tujuan diagnostik. Bisa amat membantu bagi staf dukungan kami yang memecahkan masalah dalam aplikasi. Aktifkan opsi ini hanya saat diminta oleh dukungan Organic Maps.</string>
     <string name="driving_options_title">Pilihan berkendara</string>

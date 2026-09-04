@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "Slēpt";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "Kolekcijas";
 "categories" = "Kategorijas";
 "history" = "Vēsture";
 "search_not_found" = "Nekas nav atrasts.";
@@ -874,12 +877,6 @@
 "popular_place" = "Populāras";
 "hide_from_map" = "Slēpt kartē";
 "tags_loading_error_subtitle" = "Kļūda, ielādējot birkas. Mēģiniet vēlreiz.";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Tiesības";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Apakšējā daļa";
 "trip_start" = "Uz priekšu";
 "pick_destination" = "Galamērķis";
 "follow_my_position" = "Centrēt";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Ja vēlaties izmantot šo funkciju, ierīces iestatījumos ieslēdziet „iCloud“.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Ieslēgt";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

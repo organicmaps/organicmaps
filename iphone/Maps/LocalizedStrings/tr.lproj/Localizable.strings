@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "Gizle";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "Koleksiyonlar";
 "categories" = "Kategoriler";
 "history" = "Geçmiş";
 "search_not_found" = "Tüh, sonuç bulunamadı.";
@@ -723,7 +726,7 @@
 /* Settings/Bookmark Text Placement */
 "bookmarks_text_placement_title" = "Haritadaki yer imi adları";
 "bookmarks_text_placement_description" = "Eğer çok yer imi varsa, adlarını haritada göstermek uygulamayı yavaşlatabilir.";
-"show_to_the_right" = "Sağa doğru göster";
+"show_to_the_right" = "Sağda göster";
 "show_at_the_bottom" = "Altta göster";
 "enable_logging_warning_message" = "Bu seçenek tanılama amacıyla günlüğe kaydetmeyi açar. Ekibimizin uygulamayla ilgili sorunları gidermesine yardımcı olabilir. Sorununuzla ilgili ayrıntılı günlükleri kaydetmek ve bize göndermek için bu seçeneği geçici olarak etkinleştirin.";
 "driving_options_title" = "Yönlendirme seçenekleri";
@@ -874,12 +877,6 @@
 "popular_place" = "Popüler";
 "hide_from_map" = "Haritadan gizle";
 "tags_loading_error_subtitle" = "Etiketler yüklenirken bir hata oluştu, lütfen yeniden deneyin";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Sağ";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Alt";
 "trip_start" = "Haydi gidelim";
 "pick_destination" = "Hedef";
 "follow_my_position" = "Yeniden ortala";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Bu özelliği kullanmak için lütfen aygıtınızın ayarlarında iCloud'u etkinleştirin.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Etkinleştir";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
