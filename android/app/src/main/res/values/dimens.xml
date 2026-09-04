@@ -89,12 +89,12 @@
   <dimen name="corner_radius_medium">14dp</dimen>
   <dimen name="corner_radius_large">20dp</dimen>
   <dimen name="corner_radius_pill">28dp</dimen>
-  <!-- Clamped to half the view's height, whatever it grows to. -->
-  <dimen name="corner_radius_full">999dp</dimen>
   <dimen name="bottom_sheet_corner_radius">24dp</dimen>
   <dimen name="dialog_corner_radius">24dp</dimen>
   <!-- Matches the pill-rounded fields of the bookmark editor (MwmWidget.TextInput.Filled). -->
   <dimen name="bookmark_card_corner_radius">28dp</dimen>
+  <!-- Clamped to half the bar's height, whatever it grows to. -->
+  <dimen name="bookmark_selection_actions_corner_radius">999dp</dimen>
   <dimen name="bookmark_selection_actions_height">68dp</dimen>
 
   <!-- map widgets -->
