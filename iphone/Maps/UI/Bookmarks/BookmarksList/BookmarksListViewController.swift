@@ -90,12 +90,6 @@ final class BookmarksListViewController: MWMViewController {
 
     tableView.allowsMultipleSelectionDuringEditing = true
     cellStrategy.registerCells(tableView)
-    cellStrategy.cellCheckHandler = { [weak self] viewModel, index, checked in
-      self?.presenter.checkItem(in: viewModel, at: index, checked: checked)
-    }
-    cellStrategy.cellVisibilityHandler = { [weak self] viewModel in
-      self?.presenter.toggleVisibility(in: viewModel)
-    }
     cellStrategy.cellEditHandler = { [weak self] cell in
       self?.editItem(in: cell)
     }
@@ -305,14 +299,6 @@ extension BookmarksListViewController: UITableViewDelegate {
     return cellStrategy.headerView(tableView, for: section)
   }
 
-  func tableView(_: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-    if isEditing {
-      guard let section = sections?[indexPath.section] else { fatalError() }
-      return section.canEdit ? indexPath : nil
-    }
-    return indexPath
-  }
-
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     guard !isEditing else {
       if let itemId = itemId(at: indexPath) {
@@ -327,14 +313,8 @@ extension BookmarksListViewController: UITableViewDelegate {
     presenter.selectItem(in: section, at: indexPath.row)
   }
 
-  func tableView(_: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-    guard let section = sections?[indexPath.section] else { fatalError() }
-    return canEdit && section.canEdit
-  }
-
-  func tableView(_: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
-    guard let section = sections?[indexPath.section] else { fatalError() }
-    return section.canEdit
+  func tableView(_: UITableView, canEditRowAt _: IndexPath) -> Bool {
+    canEdit
   }
 
   func tableView(_: UITableView, didDeselectRowAt indexPath: IndexPath) {
