@@ -508,10 +508,6 @@
         android:windowSoftInputMode="adjustResize" />
 
     <activity
-        android:name="app.organicmaps.editor.ReportActivity"
-        android:parentActivityName="app.organicmaps.MwmActivity" />
-
-    <activity
         android:name="app.organicmaps.editor.OsmLoginActivity"
         android:parentActivityName="app.organicmaps.MwmActivity" />
 
