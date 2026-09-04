@@ -892,6 +892,10 @@
     <!-- Text for the showing track. -->
     <string name="show_track">Tampilkan jalur</string>
 
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. -->
+    <string name="you">Anda</string>
+
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Masuk dengan kata sandi</string>

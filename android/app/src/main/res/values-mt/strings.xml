@@ -899,6 +899,10 @@
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Biddel il-kulur</string>
 
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. -->
+    <string name="you">Int</string>
+
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Login bil-password</string>

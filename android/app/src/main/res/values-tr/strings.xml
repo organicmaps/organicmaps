@@ -908,6 +908,10 @@
     <!-- Text for the showing track. -->
     <string name="show_track">İzi göster</string>
 
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. -->
+    <string name="you">Siz</string>
+
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Şifre ile giriş yapın</string>
