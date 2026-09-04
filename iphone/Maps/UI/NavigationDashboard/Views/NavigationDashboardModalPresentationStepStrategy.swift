@@ -1,5 +1,4 @@
 enum NavigationDashboardModalPresentationStep: Int, CaseIterable, ModalPresentationStep {
-  case expanded
   case regular
   case halfScreen
   case compact
@@ -44,7 +43,7 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
   }
 
   var steps: [Step] {
-    var availableSteps: [Step] = [.expanded, .regular]
+    var availableSteps: [Step] = [.regular]
     if shouldShowHalfScreenStep {
       availableSteps.append(.halfScreen)
     }
@@ -58,11 +57,7 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
 
   func upperTo(_ step: Step) -> Step {
     switch step {
-    case .expanded:
-      return .expanded
-    case .regular:
-      return .expanded
-    case .halfScreen:
+    case .regular, .halfScreen:
       return .regular
     case .compact:
       return shouldShowHalfScreenStep ? .halfScreen : .regular
@@ -75,8 +70,6 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
 
   func lowerTo(_ step: Step) -> Step {
     switch step {
-    case .expanded:
-      return .regular
     case .regular:
       return shouldShowHalfScreenStep ? .halfScreen : .compact
     case .halfScreen:
@@ -115,8 +108,6 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
       frame.size.width = Constants.iPadWidth
       frame.origin.x = Constants.iPadLeadingOffset
       switch step {
-      case .expanded:
-        frame.origin.y = safeAreaInsets.top + Constants.topInset
       case .regular:
         if regularHeight != 0 {
           frame.origin.y = max(containerSize.height - regularHeight, safeAreaInsets.top + Constants.topInset)
@@ -149,8 +140,6 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
       let isPortraitOrientation = traitCollection.verticalSizeClass == .regular
       if isPortraitOrientation {
         switch step {
-        case .expanded:
-          frame.origin.y = safeAreaInsets.top + Constants.topInset
         case .regular:
           if regularHeight != 0 {
             frame.origin.y = max(containerSize.height - regularHeight, safeAreaInsets.top + Constants.topInset)
@@ -180,7 +169,7 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
         frame.size.width = Constants.iPadWidth
         frame.origin.x = safeAreaInsets.left
         switch step {
-        case .expanded, .regular, .halfScreen:
+        case .regular, .halfScreen:
           frame.origin.y = Constants.topInset
         case .compact:
           frame.origin.y = containerSize.height - (compactHeight != 0 ? compactHeight : Constants.compactHeightOffset)

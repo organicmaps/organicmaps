@@ -1,5 +1,4 @@
 protocol ModalPresentationStep: Equatable {
-  static var expanded: Self { get }
   static var hidden: Self { get }
 }
 
@@ -21,14 +20,15 @@ final class ModalPresentationStepsController<Step: ModalPresentationStep> {
   private weak var presentedView: UIView?
   private weak var containerViewController: UIViewController?
   private var currentStep: Step
-  private(set) var maxAvailableFrame: CGRect = .zero
 
   var stepStrategy: any ModalPresentationStepStrategy<Step>
   var didUpdateHandler: ((StepUpdate) -> Void)?
   var hiddenFrame: CGRect { frame(for: .hidden) }
+  var maxAvailableFrame: CGRect { frame(for: topStep) }
 
   private var initialTranslationY: CGFloat = .zero
   private var isPanning: Bool = false
+  private var topStep: Step { stepStrategy.steps.first ?? .hidden }
 
   init(presentedView: UIView,
        containerViewController: UIViewController,
@@ -57,14 +57,13 @@ final class ModalPresentationStepsController<Step: ModalPresentationStep> {
   }
 
   func handlePan(_ gesture: UIPanGestureRecognizer) {
-    guard let presentedView, let containerViewController else { return }
+    guard let presentedView, containerViewController != nil else { return }
     let translation = gesture.translation(in: presentedView)
     let velocity = gesture.velocity(in: presentedView)
     var currentFrame = presentedView.frame
 
     switch gesture.state {
     case .began:
-      maxAvailableFrame = stepStrategy.frame(.expanded, for: presentedView, in: containerViewController)
       initialTranslationY = presentedView.frame.origin.y
       isPanning = true
     case .changed:
@@ -77,7 +76,7 @@ final class ModalPresentationStepsController<Step: ModalPresentationStep> {
       if velocity.y > Constants.fastSwipeDownVelocity {
         nextStep = .hidden
       } else if velocity.y < -Constants.fastSwipeUpVelocity {
-        nextStep = .expanded
+        nextStep = topStep
       } else if abs(translation.y) > Constants.maxRecognizedTranslation {
         nextStep = nearestStep(for: currentFrame.origin.y)
       } else if velocity.y > Constants.slowSwipeVelocity && translation.y > Constants.minRecognizedTranslation {
