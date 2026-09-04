@@ -45,7 +45,6 @@
   <color name="shimmer_highlight">#33FFFFFF</color>
   <!-- Search sheet -->
   <color name="bg_search">#0AFFFFFF</color>
-  <color name="bg_pill_action">#0AFFFFFF</color>
   <color name="ripple_pill_action">#33FFFFFF</color>
 
   <!--  Routing-->

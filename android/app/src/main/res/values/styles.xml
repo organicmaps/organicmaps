@@ -303,7 +303,7 @@
     <item name="android:insetBottom">@dimen/dp_0</item>
     <item name="android:paddingStart">@dimen/dp_0</item>
     <item name="android:paddingEnd">@dimen/dp_0</item>
-    <item name="backgroundTint">@color/bg_pill_action</item>
+    <item name="backgroundTint">@color/bg_search</item>
     <item name="rippleColor">@color/ripple_pill_action</item>
     <item name="iconSize">@dimen/search_action_icon_size</item>
     <item name="iconPadding">@dimen/dp_0</item>
