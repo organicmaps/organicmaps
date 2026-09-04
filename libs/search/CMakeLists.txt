@@ -170,7 +170,8 @@ target_link_libraries(${PROJECT_NAME}
     openlocationcode
 )
 
-if(PLATFORM_DESKTOP)
+# The search quality tools link search_tests_support.
+if (PLATFORM_DESKTOP AND OMIM_TESTS_OR_TOOLS)
   add_subdirectory(search_tests_support)
   add_subdirectory(search_quality)
 endif()
