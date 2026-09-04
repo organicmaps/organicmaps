@@ -924,6 +924,10 @@
     <!-- Text for the showing track. -->
     <string name="show_track">عرض المسار</string>
 
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. -->
+    <string name="you">موقعي</string>
+
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">تسجيل الدخول باستخدام كلمة المرور</string>

@@ -909,6 +909,10 @@
     <!-- Text for the showing track. -->
     <string name="show_track">Route tonen</string>
 
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. -->
+    <string name="you">Je</string>
+
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Inloggen met wachtwoord</string>

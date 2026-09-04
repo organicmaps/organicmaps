@@ -892,6 +892,10 @@
     <!-- Text for the showing track. -->
     <string name="show_track">경로 표시</string>
 
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. -->
+    <string name="you">현재 위치</string>
+
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">비밀번호로 로그인</string>
