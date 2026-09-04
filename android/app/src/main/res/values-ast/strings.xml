@@ -175,7 +175,6 @@
     <string name="editor_example_values">Valores d’exemplu</string>
     <string name="editor_report_problem_send_button">Unviar</string>
     <string name="editor_report_problem_no_place_title">Esti llugar nun esiste</string>
-    <string name="editor_report_problem_duplicate_place_title">Llugar duplicáu</string>
     <string name="autodownload">Baxar mapes n’automático</string>
     <string name="twentyfour_seven">24/7</string>
     <string name="today">Güei</string>

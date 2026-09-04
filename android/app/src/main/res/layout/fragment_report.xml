@@ -41,19 +41,7 @@
         <TextView
           android:id="@+id/problem_not_exist"
           style="@style/MwmWidget.Editor.Problem"
-          android:text="@string/editor_report_problem_no_place_title"
-          android:tag="@string/problem_does_not_exist"/>
-
-        <!-- TODO: Uncomment when the multiple choices are supported -->
-        <!--<TextView-->
-          <!--android:id="@+id/problem_closed_repair"-->
-          <!--style="@style/MwmWidget.Editor.Problem"-->
-          <!--android:text="@string/editor_report_problem_under_construction_title"/>-->
-
-        <!--<TextView-->
-          <!--android:id="@+id/problem_duplicated_place"-->
-          <!--style="@style/MwmWidget.Editor.Problem"-->
-          <!--android:text="@string/editor_report_problem_duplicate_place_title"/>-->
+          android:text="@string/editor_report_problem_no_place_title"/>
 
         <TextView
           android:id="@+id/problem_other"

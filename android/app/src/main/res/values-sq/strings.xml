@@ -414,8 +414,6 @@
     <string name="editor_report_problem_send_button">Dërgo</string>
     <string name="editor_report_problem_title">Çështje</string>
     <string name="editor_report_problem_no_place_title">Ky vend nuk ekziston</string>
-    <string name="editor_report_problem_under_construction_title">Mbyllur për mirëmbajtje</string>
-    <string name="editor_report_problem_duplicate_place_title">Vend i dyfishtë</string>
     <string name="autodownload">Shkarko automatikisht hartat</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Çdo ditë</string>

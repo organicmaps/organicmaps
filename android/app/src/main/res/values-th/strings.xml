@@ -414,8 +414,6 @@
     <string name="editor_report_problem_send_button">ส่ง</string>
     <string name="editor_report_problem_title">ปัญหา</string>
     <string name="editor_report_problem_no_place_title">ไม่มีสถานที่นี้อยู่</string>
-    <string name="editor_report_problem_under_construction_title">ปิดปรับปรุง</string>
-    <string name="editor_report_problem_duplicate_place_title">สถานที่ซ้ำ</string>
     <string name="autodownload">ดาวน์โหลดอัตโนมัติ</string>
     <!-- Place Page opening hours text -->
     <string name="daily">ทุกวัน</string>

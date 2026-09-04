@@ -414,8 +414,6 @@
     <string name="editor_report_problem_send_button">Odoslať</string>
     <string name="editor_report_problem_title">Problém</string>
     <string name="editor_report_problem_no_place_title">Dané miesto neexistuje</string>
-    <string name="editor_report_problem_under_construction_title">Zatvorené kvôli prebiehajúcej údržbe</string>
-    <string name="editor_report_problem_duplicate_place_title">Duplicitné miesto</string>
     <string name="autodownload">Automaticky stiahnuť</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Denne</string>

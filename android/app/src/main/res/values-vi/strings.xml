@@ -414,8 +414,6 @@
     <string name="editor_report_problem_send_button">Gửi</string>
     <string name="editor_report_problem_title">Vấn đề</string>
     <string name="editor_report_problem_no_place_title">Địa điểm này không tồn tại</string>
-    <string name="editor_report_problem_under_construction_title">Tạm dừng để bảo trì</string>
-    <string name="editor_report_problem_duplicate_place_title">Địa điểm trùng lặp</string>
     <string name="autodownload">Tự động tải về</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Hàng ngày</string>
