@@ -130,6 +130,7 @@ public:
   void Move(double factorX, double factorY, bool isAnim);
   void Scroll(double distanceX, double distanceY);
   void Rotate(double azimuth, bool isAnim);
+  void Rotate(double delta);
 
   void MakeFrameActive();
 
