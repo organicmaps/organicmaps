@@ -11,6 +11,11 @@ final class BookmarksListCellStrategy {
   typealias VisibilityHandlerClosure = (IBookmarksListSectionViewModel) -> Void
   var cellVisibilityHandler: VisibilityHandlerClosure?
 
+  /// The cell is passed instead of an index path because the row can be moved or deleted while the
+  /// configured cell is alive.
+  typealias EditHandlerClosure = (UITableViewCell) -> Void
+  var cellEditHandler: EditHandlerClosure?
+
   func registerCells(_ tableView: UITableView) {
     tableView.register(cell: BookmarksListCell.self)
     tableView.register(UINib(nibName: "SubgroupCell", bundle: nil), forCellReuseIdentifier: CellId.subgroup)
@@ -25,12 +30,18 @@ final class BookmarksListCellStrategy {
     case let bookmarksSection as IBookmarksSectionViewModel:
       let bookmark = bookmarksSection.bookmarks[indexPath.row]
       let cell = tableView.dequeueReusableCell(withIdentifier: CellId.listItem, for: indexPath) as! BookmarksListCell
-      cell.configure(.bookmark(bookmark))
+      cell.configure(.bookmark(bookmark, infoAction: { [weak self, weak cell] _ in
+        guard let cell else { return }
+        self?.cellEditHandler?(cell)
+      }))
       return cell
     case let tracksSection as ITracksSectionViewModel:
       let track = tracksSection.tracks[indexPath.row]
       let cell = tableView.dequeueReusableCell(withIdentifier: CellId.listItem, for: indexPath) as! BookmarksListCell
-      cell.configure(.bookmark(track))
+      cell.configure(.bookmark(track, infoAction: { [weak self, weak cell] _ in
+        guard let cell else { return }
+        self?.cellEditHandler?(cell)
+      }))
       return cell
     case let subgroupsSection as ISubgroupsSectionViewModel:
       let subgroup = subgroupsSection.subgroups[indexPath.row]
