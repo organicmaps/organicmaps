@@ -409,13 +409,7 @@
     <string name="editor_example_values">ตัวอย่างของค่าที่ตั้งไว้</string>
     <string name="editor_correct_mistake">แก้ไขข้อผิดพลาด</string>
     <string name="editor_add_select_location">เลือกสถานที่</string>
-    <string name="editor_report_problem_desription_1">กรุณาอธิบายปัญหาโดยละเอียดเพื่อที่ชุมชน OpenStreetMap จะสามารถแก้ไขข้อผิดพลาดได้</string>
-    <string name="editor_report_problem_desription_2">หรือทำด้วยตัวคุณเองที่ https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">ส่ง</string>
-    <string name="editor_report_problem_title">ปัญหา</string>
-    <string name="editor_report_problem_no_place_title">ไม่มีสถานที่นี้อยู่</string>
-    <string name="editor_report_problem_under_construction_title">ปิดปรับปรุง</string>
-    <string name="editor_report_problem_duplicate_place_title">สถานที่ซ้ำ</string>
     <string name="autodownload">ดาวน์โหลดอัตโนมัติ</string>
     <!-- Place Page opening hours text -->
     <string name="daily">ทุกวัน</string>
@@ -476,8 +470,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">ตามที่เขียนเป็นภาษาท้องถิ่น</string>
     <string name="editor_edit_place_category_title">หมวดหมู่</string>
-    <string name="detailed_problem_description">คำอธิบายปัญหาอย่างละเอียด</string>
-    <string name="editor_report_problem_other_title">ปัญหาอีกอย่างหนึ่ง</string>
     <string name="placepage_add_business_button">เพิ่มองค์กร</string>
     <string name="message_invalid_feature_position">ไม่สามารถตั้งวัตถุได้ที่นี่</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->

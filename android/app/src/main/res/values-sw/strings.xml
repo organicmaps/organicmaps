@@ -409,13 +409,7 @@
     <string name="editor_example_values">Mifano ya Thamani</string>
     <string name="editor_correct_mistake">Sahihisha kosa</string>
     <string name="editor_add_select_location">Chagua Mahali</string>
-    <string name="editor_report_problem_desription_1">Tafadhali elezea tatizo kwa undani ili jamii ya OpenStreetMap iweze kulirekebisha.</string>
-    <string name="editor_report_problem_desription_2">Au fanya mwenyewe kwenye https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Tuma</string>
-    <string name="editor_report_problem_title">Tatizo</string>
-    <string name="editor_report_problem_no_place_title">Mahali hapa hakipo</string>
-    <string name="editor_report_problem_under_construction_title">Imefungwa kwa ajili ya matengenezo</string>
-    <string name="editor_report_problem_duplicate_place_title">Mahali maradufu</string>
     <string name="autodownload">Pakua ramani kiotomatiki</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Kila siku</string>
@@ -476,8 +470,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Kama ilivyoandikwa katika lugha ya kienyeji</string>
     <string name="editor_edit_place_category_title">Kategoria</string>
-    <string name="detailed_problem_description">Maelezo ya kina ya tatizo</string>
-    <string name="editor_report_problem_other_title">Tatizo tofauti</string>
     <string name="placepage_add_business_button">Ongeza biashara</string>
     <string name="message_invalid_feature_position">Hakuna kitu kinachoweza kupatikana hapa</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->

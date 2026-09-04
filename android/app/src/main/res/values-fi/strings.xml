@@ -409,13 +409,7 @@
     <string name="editor_example_values">Esimerkkiarvot</string>
     <string name="editor_correct_mistake">Korjaa virhe</string>
     <string name="editor_add_select_location">Valitse sijainti</string>
-    <string name="editor_report_problem_desription_1">Kuvaile ongelmaa yksityiskohtaisesti, jotta OpenStreetMap-yhteisö voi korjata vian.</string>
-    <string name="editor_report_problem_desription_2">Tai tee se itse osoitteessa https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Lähetä</string>
-    <string name="editor_report_problem_title">Ongelma</string>
-    <string name="editor_report_problem_no_place_title">Paikkaa ei ole olemassa</string>
-    <string name="editor_report_problem_under_construction_title">Suljettu huoltoa varten</string>
-    <string name="editor_report_problem_duplicate_place_title">Paikan kaksoiskappale</string>
     <string name="autodownload">Lataa kartat automaattisesti</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Päivittäin</string>
@@ -476,8 +470,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Paikallisella kielellä kirjoitettuna</string>
     <string name="editor_edit_place_category_title">Kategoria</string>
-    <string name="detailed_problem_description">Ongelman tarkka kuvaus</string>
-    <string name="editor_report_problem_other_title">Eri ongelma</string>
     <string name="placepage_add_business_button">Lisää organisaatio</string>
     <string name="message_invalid_feature_position">Kohdetta ei voida asettaa tänne</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
