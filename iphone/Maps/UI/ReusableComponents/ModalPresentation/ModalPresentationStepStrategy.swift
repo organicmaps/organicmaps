@@ -1,6 +1,7 @@
 protocol ModalPresentationStepStrategy<Step>: Equatable {
-  associatedtype Step: CaseIterable & Equatable
+  associatedtype Step: ModalPresentationStep & CaseIterable
 
+  /// Steps ordered from the topmost available position to hidden.
   var steps: [Step] { get }
 
   func upperTo(_ step: Step) -> Step
