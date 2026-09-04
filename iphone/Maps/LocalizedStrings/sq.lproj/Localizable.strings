@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "Fshih";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "Koleksionet";
 "categories" = "Kategoritë";
 "history" = "Historiku";
 "search_not_found" = "Ups, nuk u gjetën rezultate.";
@@ -874,12 +877,6 @@
 "popular_place" = "Popullore";
 "hide_from_map" = "Fshih nga harta";
 "tags_loading_error_subtitle" = "Ndodhi një gabim gjatë ngarkimit të etiketave, ju lutemi provoni përsëri";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Djathtas";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Poshtë";
 "trip_start" = "Le të shkojmë";
 "pick_destination" = "Destinacioni";
 "follow_my_position" = "Riqendro";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Ju lutemi aktivizoni iCloud në cilësimet e pajisjes suaj për të përdorur këtë veçori.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Aktivizo";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "Esconder";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "Coleções";
 "categories" = "Categorias";
 "history" = "História";
 "search_not_found" = "Sinto muito, nenhum resultado foi encontrado.";
@@ -874,12 +877,6 @@
 "popular_place" = "Popular";
 "hide_from_map" = "Esconder do mapa";
 "tags_loading_error_subtitle" = "Ocorreu um erro enquanto carregava as etiquetas, por favor, tente novamente";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Certo";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Parte inferior";
 "trip_start" = "Vamos";
 "pick_destination" = "Destino";
 "follow_my_position" = "Re-centralizar";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Ative o iCloud nos Ajustes do seu dispositivo para usar esse recurso.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Ativar";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

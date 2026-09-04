@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "הסתר";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "אוספים";
 "categories" = "קטגוריות";
 "history" = "היסטוריה";
 "search_not_found" = "אופס, לא נמצאו תוצאות.";
@@ -874,12 +877,6 @@
 "popular_place" = "פופולארי";
 "hide_from_map" = "הסתר מהמפה";
 "tags_loading_error_subtitle" = "אירעה שגיאה בטעינת התגיות, נא לנסות שנית";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "ימין";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "תחתית";
 "trip_start" = "נצא לדרך";
 "pick_destination" = "יעד";
 "follow_my_position" = "מרכוז";
@@ -1092,8 +1089,8 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "אנא הפעל את iCloud בהגדרות המכשיר שלך כדי להשתמש בתכונה זו.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
-"enable" = "לְאַפשֵׁר";
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
+"enable" = "הפעל";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "גיבוי";

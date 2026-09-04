@@ -666,7 +666,7 @@
     <string name="bookmarks_text_placement_title">Nazwy zakładek na mapie</string>
     <string name="bookmarks_text_placement_description">Jeśli zakładek jest zbyt wiele, wyświetlanie ich nazw na mapie może spowolnić działanie aplikacji.</string>
     <string name="show_to_the_right">Pokaż po prawej stronie</string>
-    <string name="show_at_the_bottom">Pokaż na środku</string>
+    <string name="show_at_the_bottom">Pokaż na dole</string>
     <string name="enable_logging_warning_message">Ta opcja zostaje włączona do zbierania danych działań w celach diagnostycznych. Pomaga to zespołowi zidentyfikować problemy z aplikacją. Włączaj opcję tylko na żądanie wsparcia technicznego Organic Maps.</string>
     <string name="driving_options_title">Ustawienia nawigacji</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

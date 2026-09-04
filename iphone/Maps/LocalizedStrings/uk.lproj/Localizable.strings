@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "Приховати";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "Колекції";
 "categories" = "Категорії";
 "history" = "Історія";
 "search_not_found" = "На жаль, нічого не знайдено.";
@@ -874,12 +877,6 @@
 "popular_place" = "Популярні";
 "hide_from_map" = "Приховати на мапі";
 "tags_loading_error_subtitle" = "Під час завантаження теґів сталася помилка, будь ласка, спробуйте ще раз";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Праворуч";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Вниз";
 "trip_start" = "Поїхали";
 "pick_destination" = "Ціль";
 "follow_my_position" = "Відцентрувати";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Щоб скористатися цією функцією, увімкніть iCloud у налаштуваннях вашого пристрою.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Увімкнути";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

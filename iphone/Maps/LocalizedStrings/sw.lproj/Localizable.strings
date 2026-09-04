@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "Ficha";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "Mikusanyiko";
 "categories" = "Vipengele";
 "history" = "Historia";
 "search_not_found" = "Lo, hakuna matokeo yaliyopatikana.";
@@ -874,12 +877,6 @@
 "popular_place" = "Maarufu";
 "hide_from_map" = "Ficha kwenye ramani";
 "tags_loading_error_subtitle" = "Kosa limetokea wakati wa kupakua vibandiko, tafadhali jaribu tena";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Sahihi";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Chini";
 "trip_start" = "Twende zetu";
 "pick_destination" = "Mahali";
 "follow_my_position" = "Weka kati tena";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Tafadhali wezesha iCloud katika mipangilio ya kifaa chako ili kutumia kipengele hiki.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Wezesha";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

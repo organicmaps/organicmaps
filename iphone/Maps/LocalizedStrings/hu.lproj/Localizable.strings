@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "Elrejtés";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "Gyűjtemények";
 "categories" = "Kategóriák";
 "history" = "Előzmények";
 "search_not_found" = "Nincs eredmény.";
@@ -874,12 +877,6 @@
 "popular_place" = "Népszerű";
 "hide_from_map" = "Elrejtés a térképről";
 "tags_loading_error_subtitle" = "Hiba történt a címkék betöltése közben, próbálja meg újra";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Jobb";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Alul";
 "trip_start" = "Gyerünk";
 "pick_destination" = "Célállomás";
 "follow_my_position" = "Középre";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "A funkció használatához engedélyezze az iCloudot a készülék beállításaiban.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Engedélyezés";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

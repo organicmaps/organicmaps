@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "Απόκρυψη";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "Συλλογές";
 "categories" = "Κατηγορίες";
 "history" = "Ιστορικό";
 "search_not_found" = "Ωχ, δε βρέθηκαν αποτελέσματα.";
@@ -874,12 +877,6 @@
 "popular_place" = "Δημοφιλή";
 "hide_from_map" = "Απόκρυψη από τον χάρτη";
 "tags_loading_error_subtitle" = "Ένα σφάλμα συνέβη κατά το φόρτωμα των ετικετών, παρακαλώ ξαναπροσπαθήστε";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Δεξιά";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Κάτω μέρος";
 "trip_start" = "Φύγαμε";
 "pick_destination" = "Προορισμός";
 "follow_my_position" = "Κεντράρισμα";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Ενεργοποιήστε το iCloud στις ρυθμίσεις της συσκευής σας για να χρησιμοποιήσετε αυτή τη λειτουργία.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Ενεργοποίηση";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

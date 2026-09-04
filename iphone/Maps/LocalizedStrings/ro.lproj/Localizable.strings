@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "Ascunde";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "Colecții";
 "categories" = "Categorii";
 "history" = "Cronologie";
 "search_not_found" = "Nu s-a găsit nimic.";
@@ -723,8 +726,8 @@
 /* Settings/Bookmark Text Placement */
 "bookmarks_text_placement_title" = "Nume de marcaje pe hartă";
 "bookmarks_text_placement_description" = "Dacă există prea multe marcaje, afișarea numelor acestora pe hartă poate încetini aplicația.";
-"show_to_the_right" = "Arată la dreapta";
-"show_at_the_bottom" = "Afișare în partea de jos";
+"show_to_the_right" = "Afișează în partea dreaptă";
+"show_at_the_bottom" = "Afișează în partea de jos";
 "enable_logging_warning_message" = "Opțiunea activează jurnalizarea în scopuri de diagnosticare. Aceasta poate fi utilă echipei noastre pentru a rezolva problemele cu aplicația. Activează temporar această opțiune pentru a înregistra și a ne trimite jurnale detaliate despre problema ta.";
 "driving_options_title" = "Opțiuni de ocolire";
 
@@ -874,12 +877,6 @@
 "popular_place" = "Populare";
 "hide_from_map" = "Ascunde de pe hartă";
 "tags_loading_error_subtitle" = "A apărut o eroare la încărcarea etichetelor, încearcă din nou";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Corect";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Fund";
 "trip_start" = "Să mergem";
 "pick_destination" = "Destinație";
 "follow_my_position" = "Centrează";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Vă rugăm să activați iCloud în setările dispozitivului dvs. pentru a utiliza această funcție.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Activați";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

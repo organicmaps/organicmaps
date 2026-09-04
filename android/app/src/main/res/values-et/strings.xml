@@ -662,8 +662,8 @@
     <!-- Settings/Bookmark Text Placement -->
     <string name="bookmarks_text_placement_title">Kaardil leiduvate järjehoidjate nimed</string>
     <string name="bookmarks_text_placement_description">Kui kaardil on palu järjehoidjaid, siis nende nimede kuvamine aeglustab kaardi joonistamist.</string>
-    <string name="show_to_the_right">Näita paremale</string>
-    <string name="show_at_the_bottom">Näita alla</string>
+    <string name="show_to_the_right">Näita paremal</string>
+    <string name="show_at_the_bottom">Näita all</string>
     <string name="enable_logging_warning_message">Kasuta seda võimalust üksikasjaliku logi ajutiseks salvestamiseks ja meile käsitsi saatmiseks Abiteabe „Teata veast“ vaatest. Andmed võivad sisaldada sinu asukoha teavet.</string>
     <string name="driving_options_title">Tee juhatamise valikud</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "Ẩn";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "Bộ sưu tập";
 "categories" = "Thể loại";
 "history" = "Lịch sử";
 "search_not_found" = "Xin lỗi, tôi không tìm thấy kết quả nào.";
@@ -874,12 +877,6 @@
 "popular_place" = "Phổ biến";
 "hide_from_map" = "Ẩn từ bản đồ";
 "tags_loading_error_subtitle" = "Đã xảy ra lỗi khi tải thẻ, vui lòng thử lại";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Bên phải";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Phía dưới";
 "trip_start" = "Đi nào";
 "pick_destination" = "Mục đích";
 "follow_my_position" = "Định tâm";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Vui lòng bật iCloud trong cài đặt thiết bị của bạn để sử dụng tính năng này.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Cho phép";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

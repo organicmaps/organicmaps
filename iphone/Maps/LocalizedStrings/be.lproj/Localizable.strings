@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "Схаваць";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "Калекцыі";
 "categories" = "Катэгорыі";
 "history" = "Гісторыя";
 "search_not_found" = "Нічога не знойдзена.";
@@ -874,12 +877,6 @@
 "popular_place" = "Папулярнае";
 "hide_from_map" = "Схаваць з мапы";
 "tags_loading_error_subtitle" = "Адбылася памылка падчас загрузкі метак, калі ласка паспрабуйце зноў";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Справа";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Знізу";
 "trip_start" = "Паехалі";
 "pick_destination" = "Пункт прызначэння";
 "follow_my_position" = "Па цэнтры";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Каб выкарыстоўваць гэту функцыю, уключыце iCloud у наладах прылады.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Уключыць";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "Aħbi";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "Kollezzjonijiet";
 "categories" = "Kategoriji";
 "history" = "Kronoloġija";
 "search_not_found" = "Oops, ma nstab l-ebda riżultat.";
@@ -874,12 +877,6 @@
 "popular_place" = "Popolari";
 "hide_from_map" = "Aħbi mill-mappa";
 "tags_loading_error_subtitle" = "Seħħ żball waqt it-tagħbija tat-tikketti, jekk jogħġbok ipprova mill-ġdid";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Lemin";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Qiegħ";
 "trip_start" = "Ejja mmorru";
 "pick_destination" = "Destinazzjoni";
 "follow_my_position" = "Irriċentra";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Jekk jogħġbok,attiva l-iCloud fl-issettjar tal-apparat tiegħek biex tuża din il-karatteristika.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Attiva";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

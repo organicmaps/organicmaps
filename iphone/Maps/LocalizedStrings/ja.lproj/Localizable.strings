@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "隠す";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "コレクション";
 "categories" = "カテゴリー";
 "history" = "履歴";
 "search_not_found" = "該当するものは見つかりませんでした。";
@@ -874,12 +877,6 @@
 "popular_place" = "人気";
 "hide_from_map" = "マップから隠す";
 "tags_loading_error_subtitle" = "タグのロード中にエラーが起きました発生しました。もう一度やり直してください";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "右";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "ボトム";
 "trip_start" = "出発";
 "pick_destination" = "目的地";
 "follow_my_position" = "リセンター";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "この機能を使うには、デバイスの設定でiCloudを有効にしてほしい。";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "有効にする";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "隐藏";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "收藏集";
 "categories" = "类别";
 "history" = "历史";
 "search_not_found" = "很抱歉，没有搜到任何地点。";
@@ -874,12 +877,6 @@
 "popular_place" = "受欢迎的";
 "hide_from_map" = "从地图上隐藏";
 "tags_loading_error_subtitle" = "加载标签时出错，请重试";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "右侧";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "底部";
 "trip_start" = "出发";
 "pick_destination" = "目的地";
 "follow_my_position" = "重新居中";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "请在您的设备设置中启用 iCloud，以使用此功能。";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "启用";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

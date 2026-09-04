@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "Թաքցնել";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "Հավաքածուներ";
 "categories" = "Կատեգորիաներ";
 "history" = "Պատմություն";
 "search_not_found" = "Ոչինչ չգտնվեց:";
@@ -723,8 +726,8 @@
 /* Settings/Bookmark Text Placement */
 "bookmarks_text_placement_title" = "Էջանիշների անունները քարտեզի վրա";
 "bookmarks_text_placement_description" = "Եթե էջանիշները շատ են, քարտեզի վրա դրանց անունների ցուցադրումը կարող է դանդաղեցնել հավելվածը:";
-"show_to_the_right" = "Ցուցադրել աջից";
-"show_at_the_bottom" = "Ցուցադրել ներքևից";
+"show_to_the_right" = "Ցուցադրել աջ կողմում";
+"show_at_the_bottom" = "Ցուցադրել ներքևում";
 "enable_logging_warning_message" = "Միացրեք այս ընտրանքը ժամանակավորապես՝ Ձեր խնդրի մասին մանրամասն ախտորոշիչ գրանցամատյանները գրանցելու և մեզ ձեռքով ուղարկելու համար՝ օգտագործելով «Զեկուցել սխալի մասին» Օգնության պատուհանում։ Գրանցամատյանները կարող են ներառել տեղադիրքի տվյալներ։";
 "driving_options_title" = "Երթուղու ընտրանքներ";
 
@@ -874,12 +877,6 @@
 "popular_place" = "Հայտնի";
 "hide_from_map" = "Թաքցնել քարտեզից";
 "tags_loading_error_subtitle" = "Պիտակների բեռնման ժամանակ սխալ տեղի ունեցավ, խնդրում ենք փորձել կրկին";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Աջ";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Ներքև";
 "trip_start" = "Գնացինք";
 "pick_destination" = "Նշանակման կետ";
 "follow_my_position" = "Կենտրոնացնել";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Այս գործառույթից օգտվելու համար խնդրում ենք միացնել iCloud-ը ձեր սարքի կարգավորումներում։";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Միացնել";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

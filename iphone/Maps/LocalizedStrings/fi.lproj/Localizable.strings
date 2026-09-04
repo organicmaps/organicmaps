@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "Piilota";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "Kokoelmat";
 "categories" = "Luokat";
 "history" = "Historia";
 "search_not_found" = "Pahoittelut, hakutuloksia ei ole.";
@@ -874,12 +877,6 @@
 "popular_place" = "Suosittu";
 "hide_from_map" = "Piilota kartalta";
 "tags_loading_error_subtitle" = "Tunnisteiden lataamisen aikana tapahtui virhe, yritä uudelleen";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Oikea";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Pohja";
 "trip_start" = "Mennään";
 "pick_destination" = "Määränpää";
 "follow_my_position" = "Kohdista";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Ota iCloud käyttöön laitteesi asetuksissa, jotta voit käyttää tätä ominaisuutta.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Ota käyttöön";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

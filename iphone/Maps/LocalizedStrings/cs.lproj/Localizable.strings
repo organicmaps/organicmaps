@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "Skrýt";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "Sbírky";
 "categories" = "Kategorie";
 "history" = "Historie";
 "search_not_found" = "Omlouváme se, nic nebylo nalezeno.";
@@ -874,12 +877,6 @@
 "popular_place" = "Populární";
 "hide_from_map" = "Neukazovat na mapě";
 "tags_loading_error_subtitle" = "Během nahrávání tagů se stala chyba, zkuste to prosím ještě jednou";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Vpravo";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Dole";
 "trip_start" = "Pojďme";
 "pick_destination" = "Destinace";
 "follow_my_position" = "Znovu vystředit";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Chcete-li tuto funkci používat, povolte v nastavení zařízení službu iCloud.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Povolit";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

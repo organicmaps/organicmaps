@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "Versteek";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "Versamelings";
 "categories" = "Kategorieë";
 "history" = "Geskiedenis";
 "search_not_found" = "Oeps, geen resultate gevind.";
@@ -874,12 +877,6 @@
 "popular_place" = "Gewild";
 "hide_from_map" = "Versteek van die kaart";
 "tags_loading_error_subtitle" = "’n Fout het voorgekom toe etikette gelaai word, probeer weer";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Regs";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Onderkant";
 "trip_start" = "Kom ons gaan";
 "pick_destination" = "Bestemming";
 "follow_my_position" = "Hersentreer";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Aktiveer asseblief iCloud in jou toestel se instellings om hierdie kenmerk te gebruik.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Aktiveer";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

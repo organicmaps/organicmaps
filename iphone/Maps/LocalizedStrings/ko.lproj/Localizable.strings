@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "숨기기";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "컬렉션";
 "categories" = "범주";
 "history" = "내역";
 "search_not_found" = "죄송합니다. 아무것도 찾지 못했습니다.";
@@ -874,12 +877,6 @@
 "popular_place" = "인기";
 "hide_from_map" = "지도에서 숨기기";
 "tags_loading_error_subtitle" = "태그를 불러오는 중 에러가 발생했습니다. 다시 시도해보세요";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "오른쪽";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "하단";
 "trip_start" = "가자";
 "pick_destination" = "목적지";
 "follow_my_position" = "내 위치 조정하기";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "이 기능을 사용하려면 기기 설정에서 iCloud를 활성화하세요.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "사용";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */

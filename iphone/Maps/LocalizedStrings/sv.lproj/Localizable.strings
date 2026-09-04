@@ -476,6 +476,9 @@
 
 /* «Hide» context menu */
 "hide" = "Dölj";
+
+/* Section title for bookmark collections nested inside a bookmark list. */
+"collections" = "Samlingar";
 "categories" = "Kategorier";
 "history" = "Historik";
 "search_not_found" = "Ledsen, jag hittade ingenting.";
@@ -874,12 +877,6 @@
 "popular_place" = "Populär";
 "hide_from_map" = "Dölj från karta";
 "tags_loading_error_subtitle" = "Ett fel uppstod när taggarna laddades, försök igen";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Rätt";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Botten";
 "trip_start" = "Nu åker vi";
 "pick_destination" = "Destination";
 "follow_my_position" = "Placera i mitten";
@@ -1092,7 +1089,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Aktivera iCloud i enhetens inställningar för att kunna använda denna funktion.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Aktivera";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
