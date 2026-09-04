@@ -1,6 +1,9 @@
-add_subdirectory(openlr)
-add_subdirectory(poly_borders)
-add_subdirectory(track_analyzing)
+# Libraries shared by the tools in these directories and by their tests.
+if (NOT SKIP_TOOLS OR BUILD_TESTING)
+  add_subdirectory(openlr)
+  add_subdirectory(poly_borders)
+  add_subdirectory(track_analyzing)
+endif()
 
 omim_add_tool_subdirectory(mwm_viewer)
 omim_add_tool_subdirectory(topography_generator)
