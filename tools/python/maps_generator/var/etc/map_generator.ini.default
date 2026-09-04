@@ -70,7 +70,6 @@ NEED_BUILD_WORLD_ROADS: false
 # Urls for production maps generation.
 # UGC_URL:
 # HOTELS_URL:
-# PROMO_CATALOG_CITIES:
 # POPULARITY_URL:
 # FOOD_URL:
 # FOOD_TRANSLATIONS_URL:
