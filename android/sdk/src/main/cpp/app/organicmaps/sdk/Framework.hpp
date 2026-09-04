@@ -41,6 +41,7 @@ enum class ChoosePositionMode
   None = 0,
   Editor = 1,
   Api = 2,
+  Routing = 3,
 };
 
 class Framework : private power_management::PowerManager::Subscriber

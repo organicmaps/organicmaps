@@ -15,6 +15,7 @@
 #include "map/everywhere_search_params.hpp"
 #include "map/framework.hpp"
 #include "map/place_page_info.hpp"
+#include "map/routing_mark.hpp"
 #include "map/user_mark.hpp"
 
 #include "storage/country_info_getter.hpp"
@@ -453,7 +454,10 @@ void Framework::SetChoosePositionMode(ChoosePositionMode mode, bool isBusiness, 
 {
   m_isChoosePositionMode = mode;
   m_work.BlockTapEvents(mode != ChoosePositionMode::None);
-  m_work.EnableChoosePositionMode(mode != ChoosePositionMode::None, isBusiness, optionalPosition);
+  // A route point is picked from the view the user already has, so recentring and zooming in to the
+  // add-place scale would throw away the very context they are choosing from.
+  m_work.EnableChoosePositionMode(mode != ChoosePositionMode::None, isBusiness, optionalPosition,
+                                  mode != ChoosePositionMode::Routing /* shouldChangeViewport */);
 }
 
 ChoosePositionMode Framework::GetChoosePositionMode()
@@ -1472,6 +1476,13 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveIntermediateRouteP
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeCouldAddIntermediatePoint(JNIEnv * env, jclass)
 {
   return frm()->GetRoutingManager().CouldAddIntermediatePoint();
+}
+
+// Unlike CouldAddIntermediatePoint(), which is also false while the routing session is inactive, this
+// reports only the condition on which RoutePointsLayout::AddRoutePoint silently drops the point.
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsRoutePointsLimitReached(JNIEnv * env, jclass)
+{
+  return frm()->GetRoutingManager().GetRoutePointsCount() >= RoutePointsLayout::kMaxRoutePointsCount;
 }
 
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetRoutePoints(JNIEnv * env, jclass)
