@@ -602,9 +602,6 @@
 "day" = "일";
 "second" = "초";
 "placepage_more_button" = "자세히";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "즐겨찾기 편집";
 "placepage_personal_notes_hint" = "개인 메모 (글자 혹은 html)";
 "editor_comment_hint" = "설명…";
 "editor_reset_edits_message" = "지역 변경 사항을 재설정하시겠습니까?";
@@ -835,7 +832,6 @@
 "location_services_disabled_on_device_3" = "3. 위치 서비스 선택";
 "location_services_disabled_on_device_4" = "4. 위치 서비스 켜기";
 "location_services_disabled_on_device_additional_message" = "또는 위치 정보 없이 Organic Maps을 계속 사용하세요";
-"book_button" = "예약";
 "placepage_call_button" = "전화";
 "placepage_bookmark_name_hint" = "즐겨찾기 이름";
 "placepage_delete_bookmark_button" = "즐겨찾기 삭제";

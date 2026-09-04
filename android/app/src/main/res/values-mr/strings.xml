@@ -518,7 +518,7 @@
     <string name="day">दि</string>
     <string name="second">सेकंद</string>
     <string name="placepage_more_button">अधिक</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">खूणपत्र संपादित करा</string>
     <string name="placepage_personal_notes_hint">वैयक्तिक चिठ्ठ्या (मजकूर किंवा html)</string>
     <string name="editor_comment_hint">टिप्पणी…</string>

@@ -57,7 +57,6 @@ enum GlobalStyleSheet: String, CaseIterable {
   case gray = "MWMGray"
   case separator = "MWMSeparator"
   case white = "MWMWhite"
-  case valueStepperView = "ValueStepperView"
   case grabber
   case modalSheetBackground
   case modalSheetContent
@@ -450,12 +449,6 @@ extension GlobalStyleSheet: IStyleSheet {
       return .add { s in
         s.tintColor = .whitePrimary
         s.coloring = MWMButtonColoring.white
-      }
-    case .valueStepperView:
-      return .add { s in
-        s.fontStyle = .dynamic(.regular16)
-        s.fontColor = .blackPrimaryText
-        s.coloring = MWMButtonColoring.blue
       }
     case .grabber:
       return .addFrom(Self.divider) { s in

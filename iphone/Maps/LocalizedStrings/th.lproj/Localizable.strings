@@ -602,9 +602,6 @@
 "day" = "วัน";
 "second" = "วิ";
 "placepage_more_button" = "เพิ่มเติม";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "แก้ไข Bookmark";
 "placepage_personal_notes_hint" = "ข้อความส่วนตัว (ข้อความหรือ html)";
 "editor_comment_hint" = "ข้อคิดเห็น…";
 "editor_reset_edits_message" = "ตั้งค่าการเปลี่ยนแปลงท้องถิ่นทั้งหมด";
@@ -835,7 +832,6 @@
 "location_services_disabled_on_device_3" = "3. เลือกบริการระบุตำแหน่ง";
 "location_services_disabled_on_device_4" = "4. เปิดบริการระบุตำแหน่ง";
 "location_services_disabled_on_device_additional_message" = "หรือใช้ต่อที่ Organic Maps โดยไม่ต้องระบุตำแหน่ง";
-"book_button" = "จอง";
 "placepage_call_button" = "โทร";
 "placepage_bookmark_name_hint" = "ชื่อของ Bookmark";
 "placepage_delete_bookmark_button" = "ลบ Bookmark";

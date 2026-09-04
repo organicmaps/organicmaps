@@ -19,7 +19,6 @@ enum MWMEditorCellType
   MWMEditorCellTypeStreet,
   MWMEditorCellTypeBuilding,
   MWMEditorCellTypeNote,
-  MWMEditorCellTypeBookingMore,
 };
 
 // Combines MetadataID and MWMEditorCellType.

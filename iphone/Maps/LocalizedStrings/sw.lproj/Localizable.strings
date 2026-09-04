@@ -602,9 +602,6 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Zaidi";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Hariri alama ya ukurasa";
 "placepage_personal_notes_hint" = "Vidokezo vya kibinafsi (maandishi au HTML)";
 "editor_comment_hint" = "Maoni…";
 "editor_reset_edits_message" = "Tupa mabadiliko yote ya ndani?";
@@ -835,7 +832,6 @@
 "location_services_disabled_on_device_3" = "3. Chagua Huduma za Mahali";
 "location_services_disabled_on_device_4" = "4. Washa Huduma za Mahali";
 "location_services_disabled_on_device_additional_message" = "Au endelea kutumia Organic Maps bila Mahali";
-"book_button" = "Kitabu";
 "placepage_call_button" = "Piga simu";
 "placepage_bookmark_name_hint" = "Jina la alama ya ukurasa";
 "placepage_delete_bookmark_button" = "Futa alama ya ukurasa";

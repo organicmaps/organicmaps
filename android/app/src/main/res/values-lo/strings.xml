@@ -472,7 +472,7 @@
     <string name="day">ມື້</string>
     <string name="second">ວິ</string>
     <string name="placepage_more_button">ເພີ່ມເຕີມ</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">ແກ້ໄຂບຸກມາກ</string>
     <string name="placepage_personal_notes_hint">ບັນທຶກສ່ວນຕົວ (ຂໍ້ຄວາມ ຫຼື html)</string>
     <string name="editor_comment_hint">ສະແດງຄວາມຄິດເຫັນ…</string>
