@@ -474,7 +474,7 @@
 
     <activity
         android:name="app.organicmaps.bookmarks.BookmarkCategoriesActivity"
-        android:theme="@style/MwmTheme.WindowBg"
+        android:theme="@style/MwmTheme.CardBg"
         android:configChanges="orientation|screenLayout|screenSize"
         android:screenOrientation="fullUser"
         android:label="@string/bookmarks_and_tracks"

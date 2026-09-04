@@ -198,12 +198,6 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     @Override
-    public boolean useFullWidthDivider()
-    {
-      return false;
-    }
-
-    @Override
     public boolean skipDivider()
     {
       return true;
@@ -268,12 +262,6 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
           mNoteEditText.setSelection(pendingNoteText.length());
       }
       mSendNoteButton.setEnabled(pendingNoteText != null && !pendingNoteText.trim().isEmpty());
-    }
-
-    @Override
-    public boolean useFullWidthDivider()
-    {
-      return false;
     }
 
     @Override

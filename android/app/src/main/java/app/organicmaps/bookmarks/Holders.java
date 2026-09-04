@@ -95,7 +95,7 @@ public class Holders
     }
   }
 
-  public static class GeneralViewHolder extends RecyclerView.ViewHolder implements DividerBehavior
+  public static class GeneralViewHolder extends CardViewHolderBase
   {
     @NonNull
     private final TextView mText;
@@ -120,12 +120,6 @@ public class Holders
     {
       return mImage;
     }
-
-    @Override
-    public boolean useFullWidthDivider()
-    {
-      return true;
-    }
   }
 
   public static class HeaderViewHolder extends RecyclerView.ViewHolder implements DividerBehavior
@@ -134,7 +128,6 @@ public class Holders
     private final TextView mButton;
     @NonNull
     private final TextView mText;
-    private boolean mSkipDivider;
 
     HeaderViewHolder(@NonNull View itemView)
     {
@@ -168,21 +161,10 @@ public class Holders
     }
 
     /**
-     * Opt-in for the card-grouped bookmark list, where a header is a label above the card and must not be underlined.
+     * A header is a label above the card, not a row inside it, so it must never be underlined.
      */
-    void setSkipDivider(boolean skip)
-    {
-      mSkipDivider = skip;
-    }
-
     @Override
     public boolean skipDivider()
-    {
-      return mSkipDivider;
-    }
-
-    @Override
-    public boolean useFullWidthDivider()
     {
       return true;
     }
@@ -256,12 +238,6 @@ public class Holders
     {
       super(root);
       mSize = root.findViewById(R.id.size);
-    }
-
-    @Override
-    public boolean useFullWidthDivider()
-    {
-      return false;
     }
 
     protected void setSize()
@@ -357,7 +333,7 @@ public class Holders
     @NonNull
     private final TextView mName;
     @NonNull
-    CheckBox mVisibilityMarker;
+    ImageView mVisibilityMarker;
     @NonNull
     ImageView mMoreButton;
 
@@ -365,13 +341,15 @@ public class Holders
     {
       super(root);
       mName = root.findViewById(R.id.name);
-      mVisibilityMarker = root.findViewById(R.id.checkbox);
+      mVisibilityMarker = root.findViewById(R.id.eye);
       mMoreButton = root.findViewById(R.id.more);
     }
 
     void setVisibilityState(boolean visible)
     {
-      mVisibilityMarker.setChecked(visible);
+      mVisibilityMarker.setSelected(visible);
+      mVisibilityMarker.setContentDescription(
+          mVisibilityMarker.getContext().getString(visible ? R.string.hide : R.string.show));
     }
 
     void setVisibilityListener(@Nullable View.OnClickListener listener)
@@ -455,12 +433,6 @@ public class Holders
           listener.onLongItemClick(v, getBindingAdapterPosition());
         return true;
       });
-    }
-
-    @Override
-    public boolean useFullWidthDivider()
-    {
-      return false;
     }
   }
 
