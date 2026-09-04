@@ -170,7 +170,9 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
         frame.origin.x = safeAreaInsets.left
         switch step {
         case .regular, .halfScreen:
-          frame.origin.y = Constants.topInset
+          frame.origin.y = regularHeight != 0
+            ? max(containerSize.height - regularHeight, Constants.topInset)
+            : Constants.topInset
         case .compact:
           frame.origin.y = containerSize.height - (compactHeight != 0 ? compactHeight : Constants.compactHeightOffset)
         case .estimates:
