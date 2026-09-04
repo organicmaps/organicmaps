@@ -86,7 +86,6 @@ if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
   endif()
 endif()
 
-add_subdirectory(agg)
 add_subdirectory(BLAKE3/c)
 add_subdirectory(bsdiff-courgette)
 add_subdirectory(glaze)

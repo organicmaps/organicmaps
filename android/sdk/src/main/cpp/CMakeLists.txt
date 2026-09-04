@@ -126,7 +126,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
   # succinct
   # stb_image
   # icu
-  # agg
   # vulkan_wrapper
 
   # Android libs
