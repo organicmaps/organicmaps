@@ -96,12 +96,6 @@ void Bookmark::SetAddress(search::ReverseGeocoder::RegionAddress const & address
   m_address = address;
 }
 
-void Bookmark::SetIsVisible(bool isVisible)
-{
-  SetDirty();
-  m_isVisible = isVisible;
-}
-
 drape_ptr<df::UserPointMark::TitlesInfo> Bookmark::GetTitleDeclEx(settings::Placement p, dp::Color outlineColor) const
 {
   if (p == settings::Placement::None)
@@ -324,16 +318,9 @@ void Bookmark::Attach(kml::MarkGroupId groupId)
   m_groupId = groupId;
 }
 
-void Bookmark::AttachCompilation(kml::MarkGroupId groupId)
-{
-  ASSERT(groupId != kml::kInvalidMarkGroupId, ());
-  m_compilationIds.push_back(groupId);
-}
-
 void Bookmark::Detach()
 {
   m_groupId = kml::kInvalidMarkGroupId;
-  m_compilationIds.clear();
 }
 
 BookmarkCategory::BookmarkCategory(std::string const & name, kml::MarkGroupId groupId, bool autoSave)
@@ -401,16 +388,6 @@ void BookmarkCategory::SetCustomProperty(std::string const & key, std::string co
 std::string BookmarkCategory::GetName() const
 {
   return GetPreferredBookmarkStr(m_data.m_name);
-}
-
-void BookmarkCategory::SetAuthor(std::string const & name, std::string const & id)
-{
-  if (m_data.m_authorName == name && m_data.m_authorId == id)
-    return;
-
-  SetDirty(true /* updateModificationTime */);
-  m_data.m_authorName = name;
-  m_data.m_authorId = id;
 }
 
 void BookmarkCategory::SetAccessRules(kml::AccessRules accessRules)
