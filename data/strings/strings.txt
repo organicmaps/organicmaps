@@ -19602,7 +19602,7 @@ zh-Hant = 樓層數量（最多 %d 層）
 [error_enter_correct_storey_number]
 comment = Error message in Editor when a user tries to set the number of floors for a building higher than %d floors
 tags = android-app,apple-maps
-en = The number of floors must non exceed %d
+en = The number of floors must not exceed %d
 af = Die aantal verdiepings mag nie %d oorskry nie
 ar = يجب ألا يتجاوز عدد طوابق المبنى %d
 az = Mərtəbələrin sayı %d-dən çox olmamalıdır
