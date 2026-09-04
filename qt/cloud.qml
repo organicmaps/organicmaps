@@ -141,7 +141,7 @@ Item {
 
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        visible: implicitContentHeight
+        visible: innerColumn.implicitHeight
         topPadding: 0
 
         Column {
