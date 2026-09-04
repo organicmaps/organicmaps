@@ -74,6 +74,9 @@
     <string name="minute">分</string>
     <string name="big_font">地図上のフォントサイズを大きくする</string>
     <string name="transliteration_title">ラテン文字への翻字</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">衛星</string>
+    <string name="layers_title">マップのスタイルとレイヤー</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">マップダウンローダー</string>
     <string name="driving_options_title">経路オプション</string>
@@ -100,6 +103,7 @@
     <string name="by_name">名前で</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
+    <string name="button_layer_isolines">地形</string>
     <string name="downloader_loading_ios">ダウンロード中</string>
     <string name="download_map_title">おおまかな世界地図をダウンロード</string>
     <!-- The text in the activity for location permission request. -->

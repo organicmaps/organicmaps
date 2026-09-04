@@ -74,6 +74,9 @@
     <string name="minute">min</string>
     <string name="big_font">Augmenta la mida de lletra del mapa</string>
     <string name="transliteration_title">Transliteració a l’alfabet llatí</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Satèl·lit</string>
+    <string name="layers_title">Estils i capes del mapa</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Baixada de mapes</string>
     <string name="driving_options_title">Opcions d’encaminament</string>
@@ -100,6 +103,7 @@
     <string name="by_name">Per nom</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
+    <string name="button_layer_isolines">Corbes de nivell</string>
     <string name="downloader_loading_ios">S’està baixant</string>
     <string name="download_map_title">Baixa el mapa general del món</string>
     <!-- The text in the activity for location permission request. -->

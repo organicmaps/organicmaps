@@ -16,6 +16,7 @@ import androidx.core.graphics.drawable.IconCompat;
 import app.organicmaps.car.R;
 import app.organicmaps.car.screens.bookmarks.BookmarkCategoriesScreen;
 import app.organicmaps.car.screens.search.SearchScreen;
+import app.organicmaps.car.screens.settings.LayersScreen;
 import app.organicmaps.car.screens.settings.SettingsScreen;
 import app.organicmaps.car.util.SuggestionsHelpers;
 import app.organicmaps.car.util.UiHelpers;
@@ -56,6 +57,13 @@ public class MapScreen extends BaseMapScreen
   @NonNull
   private ActionStrip createActionStrip()
   {
+    final Action.Builder layersScreenBuilder = new Action.Builder();
+    layersScreenBuilder.setIcon(
+        new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_layers)).build());
+    layersScreenBuilder.setOnClickListener(()
+                                               -> getScreenManager().push(new LayersScreen(
+                                                   getCarContext(), getOrganicMapsContext(), getSurfaceRenderer())));
+
     final Action.Builder freeDriveScreenBuilder = new Action.Builder();
     freeDriveScreenBuilder.setIcon(
         new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_steering_wheel)).build());
@@ -64,6 +72,7 @@ public class MapScreen extends BaseMapScreen
                                                       getCarContext(), getOrganicMapsContext(), getSurfaceRenderer())));
 
     final ActionStrip.Builder builder = new ActionStrip.Builder();
+    builder.addAction(layersScreenBuilder.build());
     builder.addAction(freeDriveScreenBuilder.build());
     return builder.build();
   }
