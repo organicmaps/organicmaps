@@ -20,6 +20,7 @@
 #include <CoreApi/TrackInfo+Core.h>
 
 #include "kml/type_utils.hpp"
+#include "map/routing_mark.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/localization.hpp"
 
@@ -196,6 +197,12 @@ using namespace routing;
 + (BOOL)canAddIntermediatePoint
 {
   return GetFramework().GetRoutingManager().CouldAddIntermediatePoint();
+}
+
++ (BOOL)isRoutePointsLimitReached
+{
+  // Unlike canAddIntermediatePoint, this also works before routing becomes active.
+  return GetFramework().GetRoutingManager().GetRoutePointsCount() >= RoutePointsLayout::kMaxRoutePointsCount;
 }
 
 - (instancetype)initRouter

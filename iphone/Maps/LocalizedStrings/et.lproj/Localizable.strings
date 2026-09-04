@@ -1189,3 +1189,30 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Radade värv on muudetud";
+
+/* Accessibility label of the icon-only button left of the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Vali kaardilt";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short: the field is narrow, with shortcut buttons on its left and the voice search button on its right */
+"choose_start_location" = "Alguskoht";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short: the field is narrow, with shortcut buttons on its left and the voice search button on its right */
+"choose_destination" = "Sihtkoht";
+
+/* Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short: the field is narrow, with shortcut buttons on its left and the voice search button on its right */
+"choose_stop_along_route" = "Lisa peatus";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short: the field is narrow, with shortcut buttons on its left and the voice search button on its right */
+"change_start_location" = "Muuda alguskohta";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short: the field is narrow, with shortcut buttons on its left and the voice search button on its right */
+"change_destination" = "Uus sihtkoht";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short: the field is narrow, with shortcut buttons on its left and the voice search button on its right */
+"change_stop_along_route" = "Muuda peatust";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Peatuste maksimaalne arv on saavutatud";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Liiguta ja suumi kaarti, et paigutada ristmärk õigesse kohta";

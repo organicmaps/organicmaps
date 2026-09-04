@@ -1189,3 +1189,30 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "สีแทร็กเปลี่ยนแล้ว";
+
+/* Accessibility label of the icon-only button left of the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "เลือกบนแผนที่";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short: the field is narrow, with shortcut buttons on its left and the voice search button on its right */
+"choose_start_location" = "จุดเริ่มต้น";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short: the field is narrow, with shortcut buttons on its left and the voice search button on its right */
+"choose_destination" = "จุดหมาย";
+
+/* Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short: the field is narrow, with shortcut buttons on its left and the voice search button on its right */
+"choose_stop_along_route" = "เพิ่มจุดหยุด";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short: the field is narrow, with shortcut buttons on its left and the voice search button on its right */
+"change_start_location" = "เปลี่ยนจุดเริ่มต้น";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short: the field is narrow, with shortcut buttons on its left and the voice search button on its right */
+"change_destination" = "จุดหมายใหม่";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short: the field is narrow, with shortcut buttons on its left and the voice search button on its right */
+"change_stop_along_route" = "เปลี่ยนจุดหยุด";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "ถึงจำนวนจุดหยุดสูงสุดแล้ว";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "เลื่อนและซูมแผนที่เพื่อวางจุดเล็ง";

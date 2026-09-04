@@ -1,5 +1,7 @@
 #import "MWMNavigationDashboardManager.h"
+#import "MWMLocationManager.h"
 #import "MWMNavigationDashboardView.h"
+#import "MWMRouter.h"
 #import "MWMSearch.h"
 #import "MapViewController.h"
 #import "SwiftBridge.h"
@@ -18,8 +20,7 @@
 @property(copy, nonatomic) NSDictionary * etaSecondaryAttributes;
 @property(copy, nonatomic) NSString * errorMessage;
 @property(copy, nonatomic) MWMNavigationDashboardEntity * entity;
-@property(nonatomic, readwrite, nullable) MWMRoutePoint * selectedRoutePoint;
-@property(nonatomic, readwrite) BOOL shouldAppendNewPoints;
+@property(nonatomic, strong, nullable) MWMRoutePointSelection * routePointSelection;
 
 @property(weak, nonatomic) id<NavigationDashboardView> navigationDashboardView;
 @property(weak, nonatomic) MapViewController * parentViewController;
@@ -177,6 +178,7 @@
 
 - (void)stateClosed
 {
+  [self cancelRoutePointSelection];
   [self.navigationDashboardView stateClosed];
 }
 
@@ -237,10 +239,112 @@
   [[MapViewController sharedController] openDrivingOptions];
 }
 
-- (void)routePreviewDidSelectPoint:(MWMRoutePoint * _Nullable)point shouldAppend:(BOOL)shouldAppend
+- (void)routePreviewDidSelect:(MWMRoutePointSelection *)selection
 {
-  self.selectedRoutePoint = point;
-  self.shouldAppendNewPoints = shouldAppend;
+  self.routePointSelection = selection;
+}
+
+- (void)routePreviewDidCancelPointSelection
+{
+  [self cancelRoutePointSelection];
+}
+
+- (NSString *)routePointSelectionTitle
+{
+  BOOL const isChanging = self.routePointSelection.point != nil;
+  switch (self.routePointSelection.type)
+  {
+  case MWMRoutePointTypeStart: return L(isChanging ? @"change_start_location" : @"choose_start_location");
+  case MWMRoutePointTypeFinish: return L(isChanging ? @"change_destination" : @"choose_destination");
+  case MWMRoutePointTypeIntermediate: return L(isChanging ? @"change_stop_along_route" : @"choose_stop_along_route");
+  }
+}
+
+- (MWMRoutePoint *)selectedRoutePoint
+{
+  return self.routePointSelection.point;
+}
+
+- (BOOL)shouldAppendNewPoints
+{
+  return self.routePointSelection.shouldAppend;
+}
+
+- (BOOL)isRoutePointSelectionActive
+{
+  return self.routePointSelection != nil;
+}
+
+- (BOOL)canSelectCurrentLocation
+{
+  if (!self.isRoutePointSelectionActive || ![MWMLocationManager lastLocation] ||
+      self.parentViewController.currentPositionMode == MWMMyPositionModeNotFollowNoPosition)
+  {
+    return NO;
+  }
+
+  // The core keeps a single current-location route mark, so adding another one would move the existing mark.
+  for (MWMRoutePoint * point in [MWMRouter points])
+    if (point.isMyPosition)
+      return NO;
+  return YES;
+}
+
+- (BOOL)selectCurrentLocationForRoute
+{
+  if (!self.canSelectCurrentLocation)
+    return NO;
+  MWMRoutePoint * point = [[MWMRoutePoint alloc] initWithLastLocationAndType:self.routePointSelection.type
+                                                           intermediateIndex:0];
+  return point && [self selectRoutePointForRoute:point];
+}
+
+- (BOOL)selectRoutePointAtPoint:(CGPoint)point title:(NSString *)title subtitle:(NSString *)subtitle
+{
+  MWMRoutePoint * routePoint = [[MWMRoutePoint alloc] initWithCGPoint:point
+                                                                title:title
+                                                             subtitle:subtitle
+                                                                 type:self.routePointSelection.type
+                                                    intermediateIndex:0];
+  return [self selectRoutePointForRoute:routePoint];
+}
+
+- (BOOL)selectRoutePointForRoute:(MWMRoutePoint *)point
+{
+  MWMRoutePointSelection * selection = self.routePointSelection;
+  // Both callers establish the selection before building the point, so a missing one is a programming error.
+  NSAssert(selection != nil, @"A route point can only be selected while the selection is active");
+  if (!selection)
+    return NO;
+
+  point.intermediateIndex = selection.point ? selection.point.intermediateIndex : 0;
+
+  if (self.shouldAppendNewPoints)
+  {
+    point.type = MWMRoutePointTypeFinish;
+    [MWMRouter continueRouteToPointAndRebuild:point];
+  }
+  else if (self.selectedRoutePoint)
+  {
+    [MWMRouter replacePointAndRebuild:self.selectedRoutePoint withPoint:point];
+  }
+  else
+  {
+    switch (selection.type)
+    {
+    case MWMRoutePointTypeStart: [MWMRouter buildFromPoint:point bestRouter:NO]; break;
+    case MWMRoutePointTypeFinish: [MWMRouter buildToPoint:point bestRouter:NO]; break;
+    case MWMRoutePointTypeIntermediate: [MWMRouter addPointAndRebuild:point]; break;
+    }
+  }
+
+  [self cancelRoutePointSelection];
+  return YES;
+}
+
+- (void)cancelRoutePointSelection
+{
+  self.routePointSelection = nil;
 }
 
 - (void)ttsButtonDidTap
