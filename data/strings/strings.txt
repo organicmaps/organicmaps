@@ -7812,7 +7812,7 @@ zh-Hans = 自动缩放
 zh-Hant = 自動縮放
 
 [placepage_distance]
-tags = android-app,apple-chart,apple-maps
+tags = android-app,apple-maps
 en = Distance
 af = Afstand
 ar = المسافة
@@ -44058,59 +44058,6 @@ vi = Bản đồ tàu điện ngầm không khả dụng
 zh-Hans = 地铁地图不可用
 zh-Hant = 捷運圖層不可用
 
-[you]
-tags = apple-chart
-en = You
-af = Jy
-ar = أنت
-az = Sən
-be = Вы
-bg = Вие
-ca = Tu
-cs = Vy
-da = Du
-de = Du
-el = Εσείς
-es = Usted
-et = Sa
-eu = Zuk
-fa = شما
-fi = Sinä
-fr = Vous
-he = אתה
-gl = Ti
-hr = Ti
-hi = आप
-hu = Ön
-hy = Դուք
-id = Anda
-is = Þú
-it = Voi
-ja = 君
-ko = 당신
-lt = Jūs
-lv = Jūs
-mr = तुम्ही
-mt = Int
-nb = Du
-nl = Je
-pl = Ty
-pt = Você
-ro = Tu
-ru = Вы
-sk = Vy
-sl = Vi
-sq = Ti
-sr = Ви
-sv = Du
-sw = Wewe
-th = คุณ
-tr = Sen
-uk = Ви
-vi = Bạn
-zh-Hans = 您
-zh-Hant = 您
-
 [show_downloaded_regions]
 comment = Settings/Highlight downloaded regions on the map
 tags = android-sdk,apple-maps
@@ -44345,7 +44292,7 @@ zh-Hant = 判定您目前的位置會用於導航與儲存您最近走過的軌�
 
 [login_osm_credentials]
 comment = Login to OSM button text
-tags = android-app,android-sdk,apple-chart,apple-infoplist,apple-maps
+tags = android-app,android-sdk,apple-infoplist,apple-maps
 en = Login with password
 af = Aanmelding met wagwoord
 ar = تسجيل الدخول باستخدام كلمة المرور
@@ -44403,7 +44350,7 @@ zh-Hant = 使用密碼登入
 
 [login_osm_browser]
 comment = Login to OSM button text
-tags = android-app,android-sdk,apple-chart,apple-infoplist,apple-maps
+tags = android-app,android-sdk,apple-infoplist,apple-maps
 en = Login using Browser
 af = Teken aan met blaaier
 ar = تسجيل الدخول باستخدام المتصفح
