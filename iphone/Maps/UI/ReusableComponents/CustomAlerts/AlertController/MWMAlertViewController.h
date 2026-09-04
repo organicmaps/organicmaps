@@ -19,7 +19,7 @@
 - (void)presentDeleteMapProhibitedAlert;
 - (void)presentUnsavedEditsAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock;
 - (void)presentNoWiFiAlertWithOkBlock:(nullable MWMVoidBlock)okBlock andCancelBlock:(nullable MWMVoidBlock)cancelBlock;
-- (void)presentIncorrectFeauturePositionAlert;
+- (void)presentIncorrectFeaturePositionAlertWithOkBlock:(nullable MWMVoidBlock)okBlock;
 - (void)presentNotEnoughSpaceAlert;
 - (void)presentInvalidUserNameOrPasswordAlert;
 - (void)presentDownloaderNoConnectionAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock

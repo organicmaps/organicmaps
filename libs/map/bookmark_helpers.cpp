@@ -798,7 +798,8 @@ std::string GetLocalizedBookmarkBaseType(BookmarkBaseType type)
   case BookmarkBaseType::Hotel: return platform::GetLocalizedString("hotels");
   case BookmarkBaseType::Animals: return platform::GetLocalizedString("animals");
   case BookmarkBaseType::Building: return platform::GetLocalizedString("buildings");
-  case BookmarkBaseType::Entertainment: return platform::GetLocalizedString("entertainment");
+  // No dedicated string; the search category name matches exactly.
+  case BookmarkBaseType::Entertainment: return platform::GetLocalizedString("category_entertainment");
   case BookmarkBaseType::Exchange: return platform::GetLocalizedString("money");
   case BookmarkBaseType::Food: return platform::GetLocalizedString("food_places");
   case BookmarkBaseType::Gas: return platform::GetLocalizedString("fuel_places");
@@ -811,7 +812,8 @@ std::string GetLocalizedBookmarkBaseType(BookmarkBaseType type)
   case BookmarkBaseType::Shop: return platform::GetLocalizedString("shops");
   case BookmarkBaseType::Sights: return platform::GetLocalizedString("tourist_places");
   case BookmarkBaseType::Swim: return platform::GetLocalizedString("swim_places");
-  case BookmarkBaseType::Water: return platform::GetLocalizedString("water");
+  // No dedicated string; the search category name matches exactly.
+  case BookmarkBaseType::Water: return platform::GetLocalizedString("category_water");
   case BookmarkBaseType::Count: CHECK(false, ("Invalid bookmark base type")); return {};
   }
   UNREACHABLE();

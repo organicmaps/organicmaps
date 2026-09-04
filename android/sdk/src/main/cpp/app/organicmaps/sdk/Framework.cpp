@@ -521,11 +521,6 @@ void Framework::Touch(int action, Finger const & f1, Finger const & f2, uint8_t 
   m_work.TouchEvent(event);
 }
 
-m2::PointD Framework::GetViewportCenter() const
-{
-  return m_work.GetViewportCenter();
-}
-
 void Framework::AddString(std::string const & name, std::string const & value)
 {
   m_work.AddString(name, value);

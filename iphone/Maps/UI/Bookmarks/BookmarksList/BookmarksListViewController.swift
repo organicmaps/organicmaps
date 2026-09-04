@@ -96,6 +96,9 @@ final class BookmarksListViewController: MWMViewController {
     cellStrategy.cellVisibilityHandler = { [weak self] viewModel in
       self?.presenter.toggleVisibility(in: viewModel)
     }
+    cellStrategy.cellEditHandler = { [weak self] cell in
+      self?.editItem(in: cell)
+    }
     presenter.viewDidLoad()
     MWMKeyboard.add(self)
   }
@@ -247,6 +250,14 @@ final class BookmarksListViewController: MWMViewController {
     return items[indexPath.row].itemId
   }
 
+  private func editItem(in cell: UITableViewCell) {
+    // A missing index path is legitimate: the cell can leave the table between the tap and its
+    // delivery. A missing section under a configured cell can only be a bug.
+    guard let indexPath = tableView.indexPath(for: cell) else { return }
+    guard let section = sections?[indexPath.section] else { fatalError() }
+    presenter.editItem(in: section, at: indexPath.row)
+  }
+
   private func restoreSelection() {
     guard isEditing, let sections else { return }
 
@@ -363,11 +374,6 @@ extension BookmarksListViewController: UITableViewDelegate {
       completion(true)
     }
     return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
-  }
-
-  func tableView(_: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-    guard let section = sections?[indexPath.section] else { fatalError() }
-    presenter.editItem(in: section, at: indexPath.row)
   }
 }
 
