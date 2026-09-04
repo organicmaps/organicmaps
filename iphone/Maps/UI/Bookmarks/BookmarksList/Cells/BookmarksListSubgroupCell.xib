@@ -72,6 +72,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="subgroupDisclosureImageView" destination="UOn-k5-sEA" id="dSc-Lo-sUr"/>
                 <outlet property="subgroupSubtitleLabel" destination="mcK-1H-ZBS" id="x96-KI-R0D"/>
                 <outlet property="subgroupTitleLabel" destination="L2V-JY-eeP" id="ZUX-Yy-zHY"/>
                 <outlet property="subgroupVisibleMark" destination="mAZ-hb-J9T" id="zrV-cz-C1i"/>
