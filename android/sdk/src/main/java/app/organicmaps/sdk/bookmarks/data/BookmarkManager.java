@@ -25,9 +25,6 @@ import java.util.List;
 public enum BookmarkManager {
   INSTANCE;
 
-  // These values have to match the values of kml::CompilationType from kml/types.hpp
-  public static final int CATEGORY = 0;
-
   private static final String[] BOOKMARKS_EXTENSIONS = Framework.nativeGetBookmarksFilesExts();
 
   private static final String TAG = BookmarkManager.class.getSimpleName();
@@ -600,21 +597,12 @@ public enum BookmarkManager {
   }
 
   @NonNull
-  public List<BookmarkCategory> getChildrenCategories(long catId)
-  {
-    return mCurrentDataProvider.getChildrenCategories(catId);
-  }
-
-  @NonNull
   native BookmarkCategory nativeGetBookmarkCategory(long catId);
 
   @NonNull
   native BookmarkCategory[] nativeGetBookmarkCategories();
 
   native int nativeGetBookmarkCategoriesCount();
-
-  @NonNull
-  native BookmarkCategory[] nativeGetChildrenCategories(long catId);
 
   public void setElevationActivePoint(long trackId, double distance)
   {

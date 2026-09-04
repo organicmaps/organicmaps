@@ -521,15 +521,6 @@ Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGetBookmarkCategor
   return static_cast<jint>(count);
 }
 
-JNIEXPORT jobjectArray Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGetChildrenCategories(
-    JNIEnv * env, jobject, jlong parentId)
-{
-  auto const & bm = frm()->GetBookmarkManager();
-  auto const ids = bm.GetChildrenCategories(static_cast<kml::MarkGroupId>(parentId));
-
-  return ToJavaBookmarkCategories(env, ids);
-}
-
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGetSortedCategory(
     JNIEnv * env, jobject, jlong catId, jint sortingType, jboolean hasMyPosition, jdouble lat, jdouble lon,
     jlong timestamp)
