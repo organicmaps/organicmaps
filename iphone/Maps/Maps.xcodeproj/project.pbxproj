@@ -372,7 +372,6 @@
 		ED82C6092F90180300FA103D /* SearchTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4C92F90180300FA103D /* SearchTabViewController.swift */; };
 		ED82C60A2F90180300FA103D /* MWMSearchNoResults.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4CC2F90180300FA103D /* MWMSearchNoResults.m */; };
 		ED82C60B2F90180300FA103D /* SearchNoResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4CE2F90180300FA103D /* SearchNoResultsViewController.swift */; };
-		ED82C60C2F90180300FA103D /* ValueStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4CF2F90180300FA103D /* ValueStepperView.swift */; };
 		ED82C60E2F90180300FA103D /* SettingsTableViewiCloudSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4D22F90180300FA103D /* SettingsTableViewiCloudSwitchCell.swift */; };
 		ED82C60F2F90180300FA103D /* SettingsTableViewLinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4D32F90180300FA103D /* SettingsTableViewLinkCell.swift */; };
 		ED82C6102F90180300FA103D /* SettingsTableViewSelectableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4D42F90180300FA103D /* SettingsTableViewSelectableCell.swift */; };
@@ -551,7 +550,6 @@
 		ED82C79B2F90186300FA103D /* UIViewControllerRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7192F90186300FA103D /* UIViewControllerRenderer.swift */; };
 		ED82C79C2F90186300FA103D /* UIViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C71A2F90186300FA103D /* UIViewRenderer.swift */; };
 		ED82C79D2F90186300FA103D /* UIWindowRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C71B2F90186300FA103D /* UIWindowRenderer.swift */; };
-		ED82C79E2F90186300FA103D /* ValueStepperViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C71C2F90186300FA103D /* ValueStepperViewRenderer.swift */; };
 		ED82C79F2F90186300FA103D /* SwizzleStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C71F2F90186300FA103D /* SwizzleStyle.m */; };
 		ED82C7A02F90186300FA103D /* BookmarksStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7212F90186300FA103D /* BookmarksStyleSheet.swift */; };
 		ED82C7A12F90186300FA103D /* CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7222F90186300FA103D /* CornerRadius.swift */; };
@@ -1410,7 +1408,6 @@
 		ED82C4CC2F90180300FA103D /* MWMSearchNoResults.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMSearchNoResults.m; sourceTree = "<group>"; };
 		ED82C4CD2F90180300FA103D /* MWMSearchNoResults.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMSearchNoResults.xib; sourceTree = "<group>"; };
 		ED82C4CE2F90180300FA103D /* SearchNoResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNoResultsViewController.swift; sourceTree = "<group>"; };
-		ED82C4CF2F90180300FA103D /* ValueStepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueStepperView.swift; sourceTree = "<group>"; };
 		ED82C4D22F90180300FA103D /* SettingsTableViewiCloudSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewiCloudSwitchCell.swift; sourceTree = "<group>"; };
 		ED82C4D32F90180300FA103D /* SettingsTableViewLinkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewLinkCell.swift; sourceTree = "<group>"; };
 		ED82C4D42F90180300FA103D /* SettingsTableViewSelectableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewSelectableCell.swift; sourceTree = "<group>"; };
@@ -1565,7 +1562,6 @@
 		ED82C7192F90186300FA103D /* UIViewControllerRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerRenderer.swift; sourceTree = "<group>"; };
 		ED82C71A2F90186300FA103D /* UIViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewRenderer.swift; sourceTree = "<group>"; };
 		ED82C71B2F90186300FA103D /* UIWindowRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindowRenderer.swift; sourceTree = "<group>"; };
-		ED82C71C2F90186300FA103D /* ValueStepperViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueStepperViewRenderer.swift; sourceTree = "<group>"; };
 		ED82C71E2F90186300FA103D /* SwizzleStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwizzleStyle.h; sourceTree = "<group>"; };
 		ED82C71F2F90186300FA103D /* SwizzleStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwizzleStyle.m; sourceTree = "<group>"; };
 		ED82C7212F90186300FA103D /* BookmarksStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksStyleSheet.swift; sourceTree = "<group>"; };
@@ -3429,7 +3425,6 @@
 				ED82C4CC2F90180300FA103D /* MWMSearchNoResults.m */,
 				ED82C4CD2F90180300FA103D /* MWMSearchNoResults.xib */,
 				ED82C4CE2F90180300FA103D /* SearchNoResultsViewController.swift */,
-				ED82C4CF2F90180300FA103D /* ValueStepperView.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -3844,7 +3839,6 @@
 				ED82C7192F90186300FA103D /* UIViewControllerRenderer.swift */,
 				ED82C71A2F90186300FA103D /* UIViewRenderer.swift */,
 				ED82C71B2F90186300FA103D /* UIWindowRenderer.swift */,
-				ED82C71C2F90186300FA103D /* ValueStepperViewRenderer.swift */,
 			);
 			path = Renderers;
 			sourceTree = "<group>";
@@ -4754,7 +4748,6 @@
 				ED82C79B2F90186300FA103D /* UIViewControllerRenderer.swift in Sources */,
 				ED82C79C2F90186300FA103D /* UIViewRenderer.swift in Sources */,
 				ED82C79D2F90186300FA103D /* UIWindowRenderer.swift in Sources */,
-				ED82C79E2F90186300FA103D /* ValueStepperViewRenderer.swift in Sources */,
 				ED82C79F2F90186300FA103D /* SwizzleStyle.m in Sources */,
 				ED82C7A02F90186300FA103D /* BookmarksStyleSheet.swift in Sources */,
 				ED82C7A12F90186300FA103D /* CornerRadius.swift in Sources */,
@@ -4948,7 +4941,6 @@
 				ED82C8162F90186900FA103D /* UIApplication+LoadingOverlay.swift in Sources */,
 				ED82C8172F90186900FA103D /* UIKitCategories.m in Sources */,
 				ED82C60B2F90180300FA103D /* SearchNoResultsViewController.swift in Sources */,
-				ED82C60C2F90180300FA103D /* ValueStepperView.swift in Sources */,
 				ED82C60E2F90180300FA103D /* SettingsTableViewiCloudSwitchCell.swift in Sources */,
 				ED82C60F2F90180300FA103D /* SettingsTableViewLinkCell.swift in Sources */,
 				ED82C6102F90180300FA103D /* SettingsTableViewSelectableCell.swift in Sources */,
