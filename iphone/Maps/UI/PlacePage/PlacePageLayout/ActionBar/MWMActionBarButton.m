@@ -10,9 +10,6 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
   switch (type)
   {
   case MWMActionBarButtonTypeDownload: return L(@"download");
-  case MWMActionBarButtonTypeBooking:
-  case MWMActionBarButtonTypeOpentable: return L(@"book_button");
-  case MWMActionBarButtonTypeBookingSearch: return L(@"booking_search");
   case MWMActionBarButtonTypeCall: return L(@"placepage_call_button");
   case MWMActionBarButtonTypeBookmark: return L(isSelected ? @"delete" : @"save");
   case MWMActionBarButtonTypeTrack: return L(@"delete");
@@ -36,7 +33,6 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
 @property(nonatomic) MWMCircularProgress * mapDownloadProgress;
 @property(weak, nonatomic) IBOutlet MWMButton * button;
 @property(weak, nonatomic) IBOutlet UILabel * label;
-@property(weak, nonatomic) IBOutlet UIView * extraBackground;
 @property(weak, nonatomic) id<MWMActionBarButtonDelegate> delegate;
 
 @end
@@ -46,7 +42,6 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
 - (void)configButton:(BOOL)isSelected enabled:(BOOL)isEnabled
 {
   self.label.text = titleForButton(self.type, isSelected);
-  self.extraBackground.hidden = YES;
   self.button.coloring = MWMButtonColoringBlack;
   [self.button.imageView setContentMode:UIViewContentModeScaleAspectFit];
 
@@ -67,36 +62,6 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
     [self.mapDownloadProgress setColoring:MWMButtonColoringBlue forStates:affectedStates];
     break;
   }
-  case MWMActionBarButtonTypeBooking:
-    [self.button setImage:[UIImage imageNamed:@"ic_booking_logo"] forState:UIControlStateNormal];
-    self.label.styleName = @"PPActionBarTitlePartner";
-    self.backgroundColor = [UIColor bookingBackground];
-    if (!IPAD)
-    {
-      self.extraBackground.backgroundColor = [UIColor bookingBackground];
-      self.extraBackground.hidden = NO;
-    }
-    break;
-  case MWMActionBarButtonTypeBookingSearch:
-    [self.button setImage:[UIImage imageNamed:@"ic_booking_search"] forState:UIControlStateNormal];
-    self.label.styleName = @"PPActionBarTitlePartner";
-    self.backgroundColor = [UIColor bookingBackground];
-    if (!IPAD)
-    {
-      self.extraBackground.backgroundColor = [UIColor bookingBackground];
-      self.extraBackground.hidden = NO;
-    }
-    break;
-  case MWMActionBarButtonTypeOpentable:
-    [self.button setImage:[UIImage imageNamed:@"ic_opentable"] forState:UIControlStateNormal];
-    self.label.styleName = @"PPActionBarTitlePartner";
-    self.backgroundColor = [UIColor opentableBackground];
-    if (!IPAD)
-    {
-      self.extraBackground.backgroundColor = [UIColor opentableBackground];
-      self.extraBackground.hidden = NO;
-    }
-    break;
   case MWMActionBarButtonTypeCall:
     [self.button setImage:[UIImage imageNamed:@"ic_placepage_phone_number"] forState:UIControlStateNormal];
     break;
