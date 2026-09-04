@@ -5,12 +5,9 @@ final class MailComposer: NSObject {
 
   override private init() {}
 
-  /// Composes an email with the provided subject, body and attachment file for the given recipients.
-  static func sendEmail(subject: String? = nil, body: String? = nil, toRecipients recipients: [String], attachmentFileURL: URL? = nil) {
-    sendEmailWith(subject: subject ?? "",
-                  body: body ?? "",
-                  toRecipients: recipients,
-                  attachmentFileURL: attachmentFileURL)
+  /// Composes an email with the provided subject and body for the given recipients.
+  static func sendEmail(subject: String? = nil, body: String? = nil, toRecipients recipients: [String]) {
+    sendEmailWith(subject: subject ?? "", body: body ?? "", toRecipients: recipients)
   }
 
   /// Composes an email with the additional app information and the log file attachment for the developers.
@@ -30,26 +27,50 @@ final class MailComposer: NSObject {
                     Locale.preferredLanguages.joined(separator: ", "))
     }
     UIApplication.shared.showLoadingOverlay {
-      let logFileURL = Logger.getLogFileURL()
-      UIApplication.shared.hideLoadingOverlay {
-        sendEmailWith(subject: subject(),
-                      body: body(),
-                      toRecipients: [SocialMedia.organicMapsEmail.link],
-                      attachmentFileURL: logFileURL)
+      // Archive creation and temporary-file cleanup finish on a background queue.
+      Logger.getLogArchive { archiveData, error in
+        DispatchQueue.main.async {
+          UIApplication.shared.hideLoadingOverlay {
+            if let error {
+              showLogArchiveError(error)
+              return
+            }
+            guard let archiveData else {
+              assertionFailure("Logger completed without archive data or an error")
+              let error = NSError(domain: "app.organicmaps.Logger",
+                                  code: 0,
+                                  userInfo: [NSLocalizedDescriptionKey: "The diagnostic archive is unavailable."])
+              showLogArchiveError(error)
+              return
+            }
+            sendEmailWith(subject: subject(),
+                          body: body(),
+                          toRecipients: [SocialMedia.organicMapsEmail.link],
+                          attachment: archiveData)
+          }
+        }
       }
     }
   }
 
-  private static func sendEmailWith(subject: String, body: String, toRecipients recipients: [String], attachmentFileURL: URL? = nil) {
-    // If the attachment file path is provided, the default mail composer should be used.
-    if let attachmentFileURL {
-      if MWMMailViewController.canSendMail(), let attachmentData = try? Data(contentsOf: attachmentFileURL) {
+  private static func showLogArchiveError(_ error: Error) {
+    let alert = UIAlertController(title: L("dialog_routing_system_error"),
+                                  message: error.localizedDescription,
+                                  preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: L("ok"), style: .default))
+    topViewController.present(alert, animated: true)
+  }
+
+  private static func sendEmailWith(subject: String, body: String, toRecipients recipients: [String], attachment: Data? = nil) {
+    // If the attachment is provided, the default mail composer should be used.
+    if let attachment {
+      if MWMMailViewController.canSendMail() {
         let mailViewController = MWMMailViewController()
         mailViewController.mailComposeDelegate = mailComposer
         mailViewController.setSubject(subject)
         mailViewController.setMessageBody(body, isHTML: false)
         mailViewController.setToRecipients(recipients)
-        mailViewController.addAttachmentData(attachmentData, mimeType: "application/zip", fileName: attachmentFileURL.lastPathComponent)
+        mailViewController.addAttachmentData(attachment, mimeType: "application/zip", fileName: "log.zip")
         topViewController.present(mailViewController, animated: true, completion: nil)
       } else {
         showMailComposingAlert(recipients: recipients)

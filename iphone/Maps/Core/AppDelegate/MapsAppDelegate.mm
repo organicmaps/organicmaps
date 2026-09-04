@@ -19,6 +19,7 @@
 #import <UserNotifications/UserNotifications.h>
 
 #import <CoreApi/Framework.h>
+#import <CoreApi/Logger.h>
 #import <CoreApi/MWMFrameworkHelper.h>
 
 #include "map/gps_tracker.hpp"
@@ -189,6 +190,7 @@ using namespace osm_auth_ios;
   [self.mapViewController onTerminate];
   // Global cleanup
   DeleteFramework();
+  [Logger flushSynchronously];
 }
 
 - (void)handleApplicationDidEnterBackground:(NSNotification *)notification
@@ -201,6 +203,27 @@ using namespace osm_auth_ios;
 
   [MWMRouter saveRouteIfNeeded];
   LOG(LINFO, ("applicationDidEnterBackground - end"));
+
+  [self drainDiagnosticLog];
+}
+
+/// A suspended app can be killed without any further notification, so the queued records are written
+/// out while a background task keeps the process alive.
+- (void)drainDiagnosticLog
+{
+  if (!Logger.fileLoggingEnabled)
+    return;
+
+  UIApplication * application = UIApplication.sharedApplication;
+  __block UIBackgroundTaskIdentifier taskId = UIBackgroundTaskInvalid;
+  dispatch_block_t endBackgroundTask = ^{
+    if (taskId == UIBackgroundTaskInvalid)
+      return;
+    [application endBackgroundTask:taskId];
+    taskId = UIBackgroundTaskInvalid;
+  };
+  taskId = [application beginBackgroundTaskWithName:@"Drain diagnostic log" expirationHandler:endBackgroundTask];
+  [Logger flushWithCompletion:^{ dispatch_async(dispatch_get_main_queue(), endBackgroundTask); }];
 }
 
 - (void)handleApplicationWillResignActive:(NSNotification *)notification

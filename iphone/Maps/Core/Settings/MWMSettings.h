@@ -79,7 +79,7 @@ NS_SWIFT_NAME(Settings)
 
 + (void)initializeLogging;
 + (BOOL)isFileLoggingEnabled;
-+ (void)setFileLoggingEnabled:(BOOL)fileLoggingEnabled;
++ (NSError * _Nullable)setFileLoggingEnabled:(BOOL)fileLoggingEnabled;
 + (uint64_t)logFileSize;
 
 + (BOOL)didShowICloudSynchronizationEnablingAlert;
