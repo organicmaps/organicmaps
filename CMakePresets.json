@@ -86,7 +86,10 @@
         "base",
         "ci-flags"
       ],
-      "binaryDir": "${sourceDir}/build"
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "BUILD_INTEGRATION_TESTS": "OFF"
+      }
     },
     {
       "name": "ci-xcode",
@@ -96,7 +99,10 @@
         "xcode",
         "ci-flags"
       ],
-      "binaryDir": "${sourceDir}/build-xcode"
+      "binaryDir": "${sourceDir}/build-xcode",
+      "cacheVariables": {
+        "BUILD_INTEGRATION_TESTS": "OFF"
+      }
     }
   ],
   "buildPresets": [

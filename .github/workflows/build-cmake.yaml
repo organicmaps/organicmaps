@@ -131,10 +131,14 @@ jobs:
           CMAKE_C_COMPILER_LAUNCHER: ccache
           CMAKE_CXX_COMPILER_LAUNCHER: ccache
           UNITY_BUILD: ${{ matrix.environment.unity || 'ON' }}
+          # The leg that runs no tests is the compile-only one: it keeps building
+          # the integration suites so they cannot bit-rot unnoticed.
+          INTEGRATION_TESTS: ${{ matrix.environment.run-tests == 'OFF' && 'ON' || 'OFF' }}
         run: |
           cmake --preset ci \
             -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} \
-            -DCMAKE_UNITY_BUILD=${UNITY_BUILD}
+            -DCMAKE_UNITY_BUILD=${UNITY_BUILD} \
+            -DBUILD_INTEGRATION_TESTS=${INTEGRATION_TESTS}
 
       # Surface gcc/clang warnings and errors as inline annotations on the PR diff.
       - name: Enable inline compiler annotations
@@ -174,6 +178,9 @@ jobs:
       #   routing_benchmarks, routing_quality_tests, search_quality_tests - benchmarks, not pass/fail tests
       #   storage_integration_tests - downloads real maps from planet.organicmaps.app (~28 min, ~690 MB);
       #     the offline part of that coverage lives in storage_tests
+      # Everything in that list except the three GL suites is also skipped at
+      # build time (BUILD_INTEGRATION_TESTS=OFF in the "ci" configure preset).
+      # The No Unity leg overrides that back to ON so they stay compile-checked.
       - name: Run tests
         if: ${{ matrix.environment.run-tests != 'OFF' }}
         run: ctest --preset ci -j$(nproc --all)

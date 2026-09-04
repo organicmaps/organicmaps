@@ -270,7 +270,7 @@ if (NOT SKIP_TOOLS OR BUILD_TESTING)
   add_subdirectory(generator_tests_support)
 endif()
 omim_add_test_subdirectory(generator_tests)
-omim_add_test_subdirectory(generator_integration_tests)
+omim_add_integration_test_subdirectory(generator_integration_tests)
 
 omim_add_tool_subdirectory(generator_tool)
 #omim_add_tool_subdirectory(complex_generator)
