@@ -154,82 +154,6 @@
       <mwm:value key="property1">value1</mwm:value>
       <mwm:value key="property2">value2</mwm:value>
     </mwm:properties>
-    <mwm:compilation id="1" type="Collection">
-      <mwm:name>
-        <mwm:lang code="ru">Тестовая коллекция</mwm:lang>
-        <mwm:lang code="default">Test collection</mwm:lang>
-      </mwm:name>
-      <mwm:annotation>
-        <mwm:lang code="en">Test collection annotation</mwm:lang>
-        <mwm:lang code="default">Test collection annotation</mwm:lang>
-      </mwm:annotation>
-      <mwm:description>
-        <mwm:lang code="ru">Тестовое описание коллекции</mwm:lang>
-        <mwm:lang code="default">Test collection description</mwm:lang>
-      </mwm:description>
-      <mwm:visibility>1</mwm:visibility>
-      <mwm:imageUrl>https://localhost/1234.png</mwm:imageUrl>
-      <mwm:author id="54321">Organic Maps</mwm:author>
-      <mwm:lastModified>1970-01-01T00:16:39Z</mwm:lastModified>
-      <mwm:rating>5.9</mwm:rating>
-      <mwm:reviewsNumber>333</mwm:reviewsNumber>
-      <mwm:accessRules>Public</mwm:accessRules>
-      <mwm:tags>
-        <mwm:value>mountains</mwm:value>
-        <mwm:value>ski</mwm:value>
-      </mwm:tags>
-      <mwm:toponyms>
-        <mwm:value>8</mwm:value>
-        <mwm:value>9</mwm:value>
-      </mwm:toponyms>
-      <mwm:languageCodes>
-        <mwm:value>en</mwm:value>
-        <mwm:value>ja</mwm:value>
-        <mwm:value>ru</mwm:value>
-      </mwm:languageCodes>
-      <mwm:properties>
-        <mwm:value key="property1">value1</mwm:value>
-        <mwm:value key="property2">value2</mwm:value>
-      </mwm:properties>
-    </mwm:compilation>
-    <mwm:compilation id="4" type="Category">
-      <mwm:name>
-        <mwm:lang code="ru">Тестовая категория</mwm:lang>
-        <mwm:lang code="default">Test category</mwm:lang>
-      </mwm:name>
-      <mwm:annotation>
-        <mwm:lang code="en">Test category annotation</mwm:lang>
-        <mwm:lang code="default">Test category annotation</mwm:lang>
-      </mwm:annotation>
-      <mwm:description>
-        <mwm:lang code="ru">Тестовое описание категории</mwm:lang>
-        <mwm:lang code="default">Test category description</mwm:lang>
-      </mwm:description>
-      <mwm:visibility>0</mwm:visibility>
-      <mwm:imageUrl>https://localhost/134.png</mwm:imageUrl>
-      <mwm:author id="11111">Organic Maps</mwm:author>
-      <mwm:lastModified>1970-01-01T00:05:23Z</mwm:lastModified>
-      <mwm:rating>3.3</mwm:rating>
-      <mwm:reviewsNumber>222</mwm:reviewsNumber>
-      <mwm:accessRules>Public</mwm:accessRules>
-      <mwm:tags>
-        <mwm:value>mountains</mwm:value>
-        <mwm:value>bike</mwm:value>
-      </mwm:tags>
-      <mwm:toponyms>
-        <mwm:value>10</mwm:value>
-        <mwm:value>11</mwm:value>
-      </mwm:toponyms>
-      <mwm:languageCodes>
-        <mwm:value>en</mwm:value>
-        <mwm:value>ja</mwm:value>
-        <mwm:value>ru</mwm:value>
-      </mwm:languageCodes>
-      <mwm:properties>
-        <mwm:value key="property1">value1</mwm:value>
-        <mwm:value key="property2">value2</mwm:value>
-      </mwm:properties>
-    </mwm:compilation>
   </ExtendedData>
   <Placemark>
     <name>Мое любимое место</name>
@@ -266,7 +190,6 @@
         <mwm:value key="bm_property2">value2</mwm:value>
         <mwm:value key="score">5</mwm:value>
       </mwm:properties>
-      <mwm:compilations>1,2,3,4,5</mwm:compilations>
     </ExtendedData>
   </Placemark>
   <Placemark>

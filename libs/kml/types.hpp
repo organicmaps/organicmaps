@@ -11,6 +11,7 @@
 
 #include "drape/color.hpp"
 
+#include <limits>
 #include <string>
 #include <vector>
 
@@ -162,26 +163,6 @@ inline std::string DebugPrint(AccessRules accessRules)
   case Paid: return "Paid";
   case AuthorOnly: return "AuthorOnly";
   case Count: return {};
-  }
-  UNREACHABLE();
-}
-
-enum class CompilationType : uint8_t
-{
-  // Do not change the order because of binary serialization.
-  Category = 0,
-  Collection,
-  Day,
-};
-
-inline std::string DebugPrint(CompilationType compilationType)
-{
-  switch (compilationType)
-  {
-    using enum kml::CompilationType;
-  case Category: return "Category";
-  case Collection: return "Collection";
-  case Day: return "Day";
   }
   UNREACHABLE();
 }
@@ -365,8 +346,8 @@ struct BookmarkData
                                   visitor(m_timestamp, "timestamp"), visitor(m_point, "point"),
                                   visitor(m_boundTracks, "boundTracks"), visitor(m_visible, "visible"),
                                   visitor(m_nearestToponym, "nearestToponym"), visitor(m_minZoom, "minZoom"),
-                                  visitor(m_compilations, "compilations"), visitor(m_properties, "properties"),
-                                  VISITOR_COLLECTABLE)
+                                  visitor(m_unusedCompilations, "unusedCompilations"),
+                                  visitor(m_properties, "properties"), VISITOR_COLLECTABLE)
 
   DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_description, m_customName, m_nearestToponym, m_properties)
 
@@ -378,7 +359,7 @@ struct BookmarkData
            m_featureTypes == data.m_featureTypes && m_customName == data.m_customName &&
            m_boundTracks == data.m_boundTracks && m_visible == data.m_visible &&
            m_nearestToponym == data.m_nearestToponym && m_minZoom == data.m_minZoom &&
-           m_compilations == data.m_compilations && m_properties == data.m_properties;
+           m_properties == data.m_properties;
   }
 
   bool operator!=(BookmarkData const & data) const { return !operator==(data); }
@@ -413,8 +394,8 @@ struct BookmarkData
   std::string m_nearestToponym;
   // Minimal zoom when bookmark is visible.
   int m_minZoom = 1;
-  // List of compilationIds.
-  std::vector<CompilationId> m_compilations;
+  // Vestigial "Collections" leftover, see CategoryData::m_unusedCompilationId. Always empty.
+  std::vector<uint64_t> m_unusedCompilations;
   // Key-value properties.
   Properties m_properties;
 };
@@ -520,21 +501,24 @@ struct TrackData
   Properties m_properties;
 };
 
+// The only values Organic Maps ever writes into the vestigial "Collections" slots, see below.
+uint64_t constexpr kUnusedCompilationId = std::numeric_limits<uint64_t>::max();
+uint8_t constexpr kUnusedCompilationType = 0;
+
 // This structure is used in FileDataV6 because
 // its binary format is the same as in kmb version 6.
 // Make a copy of this structure in a file types_v<n>.hpp
 // in case of any changes of its binary format.
 struct CategoryData
 {
-  DECLARE_VISITOR_AND_DEBUG_PRINT(CategoryData, visitor(m_id, "id"), visitor(m_compilationId, "compilationId"),
-                                  visitor(m_type, "type"), visitor(m_name, "name"), visitor(m_imageUrl, "imageUrl"),
-                                  visitor(m_annotation, "annotation"), visitor(m_description, "description"),
-                                  visitor(m_visible, "visible"), visitor(m_authorName, "authorName"),
-                                  visitor(m_authorId, "authorId"), visitor(m_rating, "rating"),
-                                  visitor(m_reviewsNumber, "reviewsNumber"), visitor(m_lastModified, "lastModified"),
-                                  visitor(m_accessRules, "accessRules"), visitor(m_tags, "tags"),
-                                  visitor(m_toponyms, "toponyms"), visitor(m_languageCodes, "languageCodes"),
-                                  visitor(m_properties, "properties"), VISITOR_COLLECTABLE)
+  DECLARE_VISITOR_AND_DEBUG_PRINT(
+      CategoryData, visitor(m_id, "id"), visitor(m_unusedCompilationId, "unusedCompilationId"),
+      visitor(m_unusedCompilationType, "unusedCompilationType"), visitor(m_name, "name"),
+      visitor(m_imageUrl, "imageUrl"), visitor(m_annotation, "annotation"), visitor(m_description, "description"),
+      visitor(m_visible, "visible"), visitor(m_authorName, "authorName"), visitor(m_authorId, "authorId"),
+      visitor(m_rating, "rating"), visitor(m_reviewsNumber, "reviewsNumber"), visitor(m_lastModified, "lastModified"),
+      visitor(m_accessRules, "accessRules"), visitor(m_tags, "tags"), visitor(m_toponyms, "toponyms"),
+      visitor(m_languageCodes, "languageCodes"), visitor(m_properties, "properties"), VISITOR_COLLECTABLE)
 
   DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_annotation, m_description, m_imageUrl, m_authorName, m_authorId,
                       m_tags, m_toponyms, m_properties)
@@ -542,10 +526,9 @@ struct CategoryData
   bool operator==(CategoryData const & data) const
   {
     double constexpr kEps = 1e-5;
-    return m_id == data.m_id && m_compilationId == data.m_compilationId && m_type == data.m_type &&
-           m_name == data.m_name && m_imageUrl == data.m_imageUrl && m_annotation == data.m_annotation &&
-           m_description == data.m_description && m_visible == data.m_visible && m_accessRules == data.m_accessRules &&
-           m_authorName == data.m_authorName && m_authorId == data.m_authorId &&
+    return m_id == data.m_id && m_name == data.m_name && m_imageUrl == data.m_imageUrl &&
+           m_annotation == data.m_annotation && m_description == data.m_description && m_visible == data.m_visible &&
+           m_accessRules == data.m_accessRules && m_authorName == data.m_authorName && m_authorId == data.m_authorId &&
            fabs(m_rating - data.m_rating) < kEps && m_reviewsNumber == data.m_reviewsNumber &&
            IsEqual(m_lastModified, data.m_lastModified) && m_tags == data.m_tags && m_toponyms == data.m_toponyms &&
            m_languageCodes == data.m_languageCodes && m_properties == data.m_properties;
@@ -555,21 +538,21 @@ struct CategoryData
 
   // Unique id (it will not be serialized in text files).
   MarkGroupId m_id = kInvalidMarkGroupId;
-  // Id unique within single kml (have to be serialized in text files).
-  CompilationId m_compilationId = kInvalidCompilationId;
-  // Unique ids of nested groups (it will not be serialized in text files).
-  GroupIdCollection m_compilationIds;
-  // Compilation's type
-  CompilationType m_type = CompilationType::Category;
+  // Vestigial leftovers of the MAPS.ME-only "Collections" feature. Organic Maps neither creates
+  // nor shows collections, but the fields keep their slots in the KMB layout (see
+  // kml::binary::Version) so that files stay compatible. They always hold the values below:
+  // whatever is read from a file is dropped by binary::DeserializerKml::DropCompilationReferences.
+  uint64_t m_unusedCompilationId = kUnusedCompilationId;
+  uint8_t m_unusedCompilationType = kUnusedCompilationType;
   // Category's name.
   LocalizableString m_name;
   // Image URL.
   std::string m_imageUrl;
-  // Category's description.
+  // Category's short annotation.
   LocalizableString m_annotation;
   // Category's description.
   LocalizableString m_description;
-  // Collection visibility.
+  // Category visibility.
   bool m_visible = true;
   // Author's name.
   std::string m_authorName;
@@ -596,14 +579,12 @@ struct CategoryData
 struct FileData
 {
   DECLARE_VISITOR_AND_DEBUG_PRINT(FileData, visitor(m_serverId, "serverId"), visitor(m_categoryData, "category"),
-                                  visitor(m_bookmarksData, "bookmarks"), visitor(m_tracksData, "tracks"),
-                                  visitor(m_compilationsData, "compilations"))
+                                  visitor(m_bookmarksData, "bookmarks"), visitor(m_tracksData, "tracks"))
 
   bool operator==(FileData const & data) const
   {
     return m_serverId == data.m_serverId && m_categoryData == data.m_categoryData &&
-           m_bookmarksData == data.m_bookmarksData && m_tracksData == data.m_tracksData &&
-           m_compilationsData == data.m_compilationsData;
+           m_bookmarksData == data.m_bookmarksData && m_tracksData == data.m_tracksData;
   }
 
   bool operator!=(FileData const & data) const { return !operator==(data); }
@@ -618,8 +599,6 @@ struct FileData
   std::vector<BookmarkData> m_bookmarksData;
   // Tracks collection.
   std::vector<TrackData> m_tracksData;
-  // Compilation collection.
-  std::vector<CategoryData> m_compilationsData;
 };
 
 void SetBookmarksMinZoom(FileData & fileData, double countPerTile, int maxZoom);

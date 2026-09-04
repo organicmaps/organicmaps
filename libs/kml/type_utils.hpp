@@ -44,7 +44,6 @@ using MarkGroupId = uint64_t;
 using MarkId = uint64_t;
 using TrackId = uint64_t;
 using LocalId = uint8_t;
-using CompilationId = uint64_t;
 
 using MarkIdCollection = std::vector<MarkId>;
 using TrackIdCollection = std::vector<TrackId>;
@@ -60,7 +59,6 @@ MarkId constexpr kInvalidMarkId = std::numeric_limits<MarkId>::max();
 MarkId constexpr kDebugMarkId = kInvalidMarkId - 1;
 TrackId constexpr kInvalidTrackId = std::numeric_limits<TrackId>::max();
 TrackId constexpr kTempRelationTrackId = kInvalidTrackId - 1;
-CompilationId constexpr kInvalidCompilationId = std::numeric_limits<CompilationId>::max();
 
 inline uint64_t ToSecondsSinceEpoch(Timestamp const & time)
 {
