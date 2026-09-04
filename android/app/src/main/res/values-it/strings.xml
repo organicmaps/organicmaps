@@ -409,13 +409,7 @@
     <string name="editor_example_values">Esempi</string>
     <string name="editor_correct_mistake">Correggi errore</string>
     <string name="editor_add_select_location">Seleziona la posizione</string>
-    <string name="editor_report_problem_desription_1">Descrivi il problema in dettaglio in modo che la comunità di OpenStreetMap possa correggere l’errore.</string>
-    <string name="editor_report_problem_desription_2">O fallo tu stesso su https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Invia</string>
-    <string name="editor_report_problem_title">Problema</string>
-    <string name="editor_report_problem_no_place_title">Questo luogo non esiste</string>
-    <string name="editor_report_problem_under_construction_title">Chiuso per manutenzione</string>
-    <string name="editor_report_problem_duplicate_place_title">Luogo duplicato</string>
     <string name="autodownload">Scaricamento automatico</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Tutti i giorni</string>
@@ -476,8 +470,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Come è scritto nella lingua locale</string>
     <string name="editor_edit_place_category_title">Categoria</string>
-    <string name="detailed_problem_description">Descrizione dettagliata del problema</string>
-    <string name="editor_report_problem_other_title">Un problema diverso</string>
     <string name="placepage_add_business_button">Aggiungi attività</string>
     <string name="message_invalid_feature_position">Nessun oggetto può essere posizionato qui</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->

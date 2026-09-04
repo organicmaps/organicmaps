@@ -409,13 +409,7 @@
     <string name="editor_example_values">Valors d’exemple</string>
     <string name="editor_correct_mistake">Corregeix un error</string>
     <string name="editor_add_select_location">Seleccioneu Ubicació</string>
-    <string name="editor_report_problem_desription_1">Descriviu el problema detalladament perquè la comunitat d\'OpenStreetMap pugui corregir l\'error.</string>
-    <string name="editor_report_problem_desription_2">O feu-ho vós mateix a https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Envia</string>
-    <string name="editor_report_problem_title">Problema</string>
-    <string name="editor_report_problem_no_place_title">El lloc no existeix</string>
-    <string name="editor_report_problem_under_construction_title">Tancat per manteniment</string>
-    <string name="editor_report_problem_duplicate_place_title">Lloc duplicat</string>
     <string name="autodownload">Baixada automàtica</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Diari</string>
@@ -476,8 +470,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Com està escrit en la llengua local</string>
     <string name="editor_edit_place_category_title">Categoria</string>
-    <string name="detailed_problem_description">Descripció detallada del problema</string>
-    <string name="editor_report_problem_other_title">Un altre problema</string>
     <string name="placepage_add_business_button">Afegeix un negoci</string>
     <string name="message_invalid_feature_position">No s’ha trobat cap objecte aquí</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->

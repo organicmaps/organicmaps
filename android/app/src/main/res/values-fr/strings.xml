@@ -409,13 +409,7 @@
     <string name="editor_example_values">Exemple de valeurs</string>
     <string name="editor_correct_mistake">Corriger l\'erreur</string>
     <string name="editor_add_select_location">Sélectionnez un lieu</string>
-    <string name="editor_report_problem_desription_1">Veuillez décrire le problème en détail pour permettre à la communauté OpenStreetMap de corriger l\'erreur.</string>
-    <string name="editor_report_problem_desription_2">Ou faites-le vous-même sur https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Envoyer</string>
-    <string name="editor_report_problem_title">Problème</string>
-    <string name="editor_report_problem_no_place_title">Le lieu n\'existe pas</string>
-    <string name="editor_report_problem_under_construction_title">Fermé pour cause de maintenance</string>
-    <string name="editor_report_problem_duplicate_place_title">Lieu en doublon</string>
     <string name="autodownload">Téléchargement automatique</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Quotidien</string>
@@ -476,8 +470,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Comme c\'est écrit dans la langue locale</string>
     <string name="editor_edit_place_category_title">Catégorie</string>
-    <string name="detailed_problem_description">Description détaillée du problème</string>
-    <string name="editor_report_problem_other_title">Autre problème</string>
     <string name="placepage_add_business_button">Ajouter une entreprise</string>
     <string name="message_invalid_feature_position">Aucun objet ne peut être localisé ici</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
