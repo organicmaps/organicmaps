@@ -14242,6 +14242,22 @@ vi = Lịch sử tìm kiếm
 zh-Hans = 搜索历史记录
 zh-Hant = 搜尋歷史紀錄
 
+[search_contacts_title]
+tags = android-app
+en = Contacts
+
+[search_contacts_summary]
+tags = android-app
+en = Show saved contact addresses in search results and on the map
+
+[search_contacts_permission_message]
+tags = android-app
+en = Allow Contacts access in system settings to search saved addresses.
+
+[search_estimated_location]
+tags = android-app,android-sdk,apple-maps
+en = Estimated location
+
 [search_history_text]
 tags = android-app,android-libs-car,apple-maps
 en = View your recent searches.

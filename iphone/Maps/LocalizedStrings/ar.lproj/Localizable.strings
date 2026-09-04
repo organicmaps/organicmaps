@@ -483,6 +483,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "قم بتنزيل المنطقة التي تبحث فيها أو حاول إضافة اسم بلدة/قرية قريبة.";
 "search_history_title" = "سجل البحث";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "عرض عمليات البحث الأخيرة.";
 "clear_search" = "مسح سجل البحث";
 

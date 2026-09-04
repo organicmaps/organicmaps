@@ -364,6 +364,7 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   m_stringsBundle.SetDefaultString("share_my_position", "I am here on Organic Maps");
   m_stringsBundle.SetDefaultString("share_open_in_om_or_browser", "Open in Organic Maps or in a browser");
   m_stringsBundle.SetDefaultString("share_get_om", "Get Organic Maps");
+  m_stringsBundle.SetDefaultString("search_estimated_location", "Estimated location");
 
   m_featuresFetcher.InitClassificator();
   m_featuresFetcher.SetOnMapDeregisteredCallback(std::bind(&Framework::OnMapDeregistered, this, _1));
@@ -1478,7 +1479,7 @@ search::DisplayedCategories const & Framework::GetDisplayedCategories()
   return *m_displayedCategories;
 }
 
-void Framework::SelectSearchResult(search::Result const & result, bool animation)
+void Framework::SelectSearchResult(search::Result const & result, bool animation, bool snapToBuilding)
 {
   using namespace search;
   place_page::BuildInfo info;
@@ -1497,6 +1498,15 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   case Result::Type::LatLon:
     info.m_mercator = result.GetFeatureCenter();
     info.m_match = place_page::BuildInfo::Match::Nothing;
+    if (result.IsEstimatedAddress() || snapToBuilding)
+    {
+      auto const building = FindNearestBuildingForAddress(info.m_mercator);
+      if (building.IsValid())
+      {
+        info.m_featureId = building;
+        info.m_isGeometrySelectionAllowed = true;
+      }
+    }
     scale = scales::GetUpperComfortScale();
     break;
 
@@ -1515,7 +1525,9 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
 
   m_currentPlacePageInfo = BuildPlacePageInfo(info);
 
-  if (result.GetResultType() == Result::Type::Postcode)
+  if (result.IsEstimatedAddress())
+    m_currentPlacePageInfo->SetCustomNames(result.GetString(), m_stringsBundle.GetString("search_estimated_location"));
+  else if (result.GetResultType() == Result::Type::Postcode)
     m_currentPlacePageInfo->SetCustomNames(result.GetString(), m_stringsBundle.GetString("postal_code"));
 
   if (m_drapeEngine)
@@ -1529,11 +1541,11 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   ActivateMapSelection();
 }
 
-void Framework::ShowSearchResult(search::Result const & res, bool animation)
+void Framework::ShowSearchResult(search::Result const & res, bool animation, bool snapToBuilding)
 {
   GetSearchAPI().CancelAllSearches();
   StopLocationFollow();
-  SelectSearchResult(res, animation);
+  SelectSearchResult(res, animation, snapToBuilding);
 }
 
 void Framework::SelectRoute(uint32_t relID)
@@ -1678,6 +1690,24 @@ void Framework::FillSearchResultsMarks(SearchResultsIterT beg, SearchResultsIter
       mark->SetFromType(r.GetFeatureType());
       mark->SetVisited(m_searchMarks.IsVisited(fID));
     }
+  }
+}
+
+void Framework::SetContactMarks(std::vector<ContactMarkData> const & marks)
+{
+  auto editSession = GetBookmarkManager().GetEditSession();
+  editSession.ClearGroup(UserMark::Type::CONTACT);
+  editSession.SetIsVisible(UserMark::Type::CONTACT, true);
+  for (auto const & mark : marks)
+  {
+    auto point = mark.m_point;
+    if (mark.m_estimated)
+    {
+      auto const building = FindNearestBuildingForAddress(point);
+      if (building.IsValid())
+        GetDataSource().ReadFeature([&point](FeatureType & ft) { point = feature::GetCenter(ft); }, building);
+    }
+    editSession.CreateUserMark<ContactMarkPoint>(point)->SetName(mark.m_name);
   }
 }
 
@@ -2414,6 +2444,13 @@ void Framework::UpdateMinBuildingsTapZoom()
   constexpr int kMinTapZoom = 16;
   m_minBuildingsTapZoom =
       std::max(kMinTapZoom, feature::GetDrawableScaleRange(classif().GetTypeByPath({"building"})).first);
+}
+
+FeatureID Framework::FindNearestBuildingForAddress(m2::PointD const & mercator) const
+{
+  double constexpr kBuildingSnapRadiusMeters = 20.0;
+  auto const rect = mercator::RectByCenterXYAndSizeInMeters(mercator, kBuildingSnapRadiusMeters);
+  return GetSelectionProcessor().FindNearestBuildingInRect(mercator, rect);
 }
 
 FeatureID Framework::FindBuildingAtPoint(m2::PointD const & mercator) const

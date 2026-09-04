@@ -1,6 +1,7 @@
 package app.organicmaps.sdk.search;
 
 import android.content.Context;
+import androidx.annotation.Keep;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +15,11 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
                                     BookmarkSearchListener
 {
   INSTANCE;
+
+  public interface ContactAddressListener
+  {
+    void onContactAddressResolved(long requestId, boolean found, double lat, double lon, boolean estimated);
+  }
 
   // Query, which results are shown on the map.
   @Nullable
@@ -73,6 +79,8 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
 
   private final ObserverList<BookmarkSearchListener> mBookmarkListeners = new ObserverList<>();
 
+  private final ObserverList<ContactAddressListener> mContactAddressListeners = new ObserverList<>();
+
   public void addListener(SearchListener listener)
   {
     mListeners.addObserver(listener);
@@ -103,6 +111,40 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
     mBookmarkListeners.removeObserver(listener);
   }
 
+  public void addContactAddressListener(ContactAddressListener listener)
+  {
+    mContactAddressListeners.addObserver(listener);
+  }
+
+  public void removeContactAddressListener(ContactAddressListener listener)
+  {
+    mContactAddressListeners.removeObserver(listener);
+  }
+
+  public void resolveContactAddress(@NonNull String query, @NonNull String locale, long requestId)
+  {
+    nativeResolveContactAddress(query.getBytes(StandardCharsets.UTF_8), locale, requestId);
+  }
+
+  public void cancelContactAddressResolution(long requestId)
+  {
+    nativeCancelContactAddressResolution(requestId);
+  }
+
+  public void selectContactAddress(double lat, double lon, @NonNull String address, boolean estimated, boolean show)
+  {
+    nativeSelectContactAddress(lat, lon, address, estimated, show);
+  }
+
+  @Keep
+  private void onContactAddressResolved(long requestId, boolean found, double lat, double lon, boolean estimated)
+  {
+    UiThread.run(() -> {
+      for (ContactAddressListener listener : mContactAddressListeners)
+        listener.onContactAddressResolved(requestId, found, lat, lon, estimated);
+    });
+  }
+
   /**
    *
    * @param context
@@ -124,8 +166,17 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   public boolean searchInteractive(@NonNull String query, boolean isCategory, @NonNull String locale, long timestamp,
                                    boolean isMapAndTable, boolean hasLocation, double lat, double lon)
   {
+    return searchInteractive(query, isCategory, locale, timestamp, isMapAndTable, hasLocation, lat, lon, false);
+  }
+
+  @MainThread
+  public boolean searchInteractive(@NonNull String query, boolean isCategory, @NonNull String locale, long timestamp,
+                                   boolean isMapAndTable, boolean hasLocation, double lat, double lon,
+                                   boolean allowNearbyHouseNumbers)
+  {
     final boolean started = nativeRunInteractiveSearch(query.getBytes(StandardCharsets.UTF_8), isCategory, locale,
-                                                       timestamp, isMapAndTable, hasLocation, lat, lon);
+                                                       timestamp, isMapAndTable, hasLocation, lat, lon,
+                                                       allowNearbyHouseNumbers);
     // Cache the search-bar query only for map+table searches. Viewport-only searches (e.g. the
     // navigation search wheel) don't deliver list results, so caching their query would pair it
     // with the previous search's cached results when the search fragment is recreated.
@@ -256,7 +307,7 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
    */
   private static native boolean nativeRunInteractiveSearch(byte[] bytes, boolean isCategory, String language,
                                                            long timestamp, boolean isMapAndTable, boolean hasLocation,
-                                                           double lat, double lon);
+                                                           double lat, double lon, boolean allowNearbyHouseNumbers);
 
   /**
    * @param bytes utf-8 formatted query bytes
@@ -264,6 +315,13 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   private static native void nativeRunSearchMaps(byte[] bytes, String language, long timestamp);
 
   private static native boolean nativeRunSearchInBookmarks(byte[] bytes, long categoryId, long timestamp);
+
+  private static native void nativeResolveContactAddress(byte[] bytes, String language, long requestId);
+
+  private static native void nativeCancelContactAddressResolution(long requestId);
+
+  private static native void nativeSelectContactAddress(double lat, double lon, String address, boolean estimated,
+                                                        boolean show);
 
   private static native void nativeShowResult(int index);
 
