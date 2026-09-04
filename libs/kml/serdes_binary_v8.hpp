@@ -58,9 +58,9 @@ public:
     header.m_tracksOffset = sink.Pos() - startPos;
     SerializeTracks(sink);
 
-    // Serialize compilations.
+    // Serialize the (always empty) compilations section, see SerializeEmptyCompilations.
     header.m_compilationsOffset = sink.Pos() - startPos;
-    SerializeCompilations(sink);
+    SerializeEmptyCompilations(sink);
 
     // Serialize strings.
     header.m_stringsOffset = sink.Pos() - startPos;
