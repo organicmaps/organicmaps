@@ -170,7 +170,9 @@ target_link_libraries(${PROJECT_NAME}
     openlocationcode
 )
 
-if(PLATFORM_DESKTOP)
+# The search quality tools link search_tests_support, so both are needed
+# whenever tests or tools are built.
+if (PLATFORM_DESKTOP AND (BUILD_TESTING OR NOT SKIP_TOOLS))
   add_subdirectory(search_tests_support)
   add_subdirectory(search_quality)
 endif()

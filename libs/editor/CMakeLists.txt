@@ -46,5 +46,9 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 omim_add_test_subdirectory(editor_tests)
-omim_add_test_subdirectory(editor_tests_support)
+# search_tests_support links this and the search quality tools link that, so it
+# is needed whenever tests or tools are built.
+if (BUILD_TESTING OR (PLATFORM_DESKTOP AND NOT SKIP_TOOLS))
+  add_subdirectory(editor_tests_support)
+endif()
 omim_add_test_subdirectory(osm_auth_tests)
