@@ -7,7 +7,9 @@
 
 /********** Uncategorized **********/
 
-"you" = "君";
+
+/* Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. */
+"you" = "現在地";
 
 
 /********** gps strings **********/
