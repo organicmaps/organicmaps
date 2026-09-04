@@ -73,4 +73,4 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 omim_add_test_subdirectory(storage_tests)
-omim_add_test_subdirectory(storage_integration_tests)
+omim_add_integration_test_subdirectory(storage_integration_tests)

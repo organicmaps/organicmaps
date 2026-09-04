@@ -306,6 +306,13 @@ Some tests [are known to be broken](https://github.com/organicmaps/organicmaps/i
 
 To skip building tests, configure with `-DBUILD_TESTING=OFF`.
 
+The suites that need real maps, real GTFS feeds or a live download server
+(`generator_integration_tests`, `routing_benchmarks`, `routing_consistency_tests`,
+`routing_integration_tests`, `routing_quality_tests`, `search_quality_tests`,
+`storage_integration_tests`, `world_feed_integration_tests`) are not run by the
+presets above -- they get a separate `omim-integration-test` ctest label.
+Configure with `-DBUILD_INTEGRATION_TESTS=OFF` to skip building them, too.
+
 ### Test Coverage
 
 To generate a test coverage report you'll need [gcovr](https://gcovr.com) and gcov tools installed.
