@@ -1,7 +1,7 @@
 final class BookmarksListCellStrategy {
   private enum CellId {
     static let listItem = "BookmarksListCell"
-    static let subgroup = "SubgroupCell"
+    static let subgroup = "BookmarksListSubgroupCell"
     static let sectionHeader = "SectionHeader"
   }
 
@@ -18,7 +18,7 @@ final class BookmarksListCellStrategy {
 
   func registerCells(_ tableView: UITableView) {
     tableView.register(cell: BookmarksListCell.self)
-    tableView.register(UINib(nibName: "SubgroupCell", bundle: nil), forCellReuseIdentifier: CellId.subgroup)
+    tableView.register(UINib(nibName: "BookmarksListSubgroupCell", bundle: nil), forCellReuseIdentifier: CellId.subgroup)
     tableView.register(UINib(nibName: "BookmarksListSectionHeader", bundle: nil),
                        forHeaderFooterViewReuseIdentifier: CellId.sectionHeader)
   }
@@ -45,7 +45,7 @@ final class BookmarksListCellStrategy {
       return cell
     case let subgroupsSection as ISubgroupsSectionViewModel:
       let subgroup = subgroupsSection.subgroups[indexPath.row]
-      let cell = tableView.dequeueReusableCell(withIdentifier: CellId.subgroup, for: indexPath) as! SubgroupCell
+      let cell = tableView.dequeueReusableCell(withIdentifier: CellId.subgroup, for: indexPath) as! BookmarksListSubgroupCell
       cell.config(subgroup)
       cell.checkHandler = { [weak self] checked in
         self?.cellCheckHandler?(viewModel, indexPath.row, checked)

@@ -1,4 +1,4 @@
-final class SubgroupCell: UITableViewCell {
+final class BookmarksListSubgroupCell: UITableViewCell {
   @IBOutlet private var subgroupTitleLabel: UILabel!
   @IBOutlet private var subgroupSubtitleLabel: UILabel!
   @IBOutlet private var subgroupVisibleMark: Checkmark!
