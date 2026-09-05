@@ -143,9 +143,14 @@ public class TrackRecordingService extends Service implements LocationListener
     Logger.d(TAG);
     mNotificationBuilder = null;
     mWarningBuilder = null;
-    if (TrackRecorder.nativeIsTrackRecordingEnabled())
-      TrackRecorder.nativeStopTrackRecording();
-    MwmApplication.from(this).getLocationHelper().removeListener(this);
+    // onStartCommand() bails out with stopSelf() when the core is not initialized: Android re-delivers a start
+    // command that was in flight when the process crashed, even for START_NOT_STICKY.
+    if (MwmApplication.from(this).getOrganicMaps().arePlatformAndCoreInitialized())
+    {
+      if (TrackRecorder.nativeIsTrackRecordingEnabled())
+        TrackRecorder.nativeStopTrackRecording();
+      MwmApplication.from(this).getLocationHelper().removeListener(this);
+    }
     sIsRecording.setValue(false);
     // The notification is cancelled automatically by the system.
   }
@@ -173,8 +178,8 @@ public class TrackRecordingService extends Service implements LocationListener
 
     if (!LocationUtils.checkFineLocationPermission(this))
     {
-      // In a hypothetical scenario, the user could revoke location permissions after the app's process crashed,
-      // but before the service with START_STICKY was restarted by the system.
+      // The user could have revoked the location permission while the process was dead, before Android
+      // re-delivered the start command that was in flight when it crashed.
       Logger.w(TAG, "Permission ACCESS_FINE_LOCATION is not granted, skipping TrackRecordingService");
       stopSelf();
       return START_NOT_STICKY; // The service will be stopped by stopSelf().
