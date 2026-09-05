@@ -82,6 +82,7 @@ be:Дзе паесці|паесці|ежа
 bg:Места за хапване|ядене|храна|ястие|манджа|гозба
 ca:On menjar|Menjar
 cs:Kde se najíst|Jídlo
+cy:Ble i fwyta|bwyta|bwyd
 da:Spisesteder|Mad
 de:Essmöglichkeiten|Essen|5Essensmöglichkeiten
 el:Μέρη για φαγητό|Φαγητό
@@ -128,6 +129,7 @@ be:4Прадукты|Ежа
 bg:4Продукти|Храна
 ca:Queviures|Provisions
 cs:Potraviny|Jídlo
+cy:4Nwyddau groser|groser|bwyd|siop fwyd
 da:Dagligvarer|Mad
 de:4Lebensmittel|Essen
 el:Παντοπωλεία|Φαγητό
@@ -174,6 +176,7 @@ be:5Транспарт
 bg:5Транспорт
 ca:Transport
 cs:Doprava
+cy:5Trafnidiaeth|cludiant
 da:5Transport
 de:Verkehr
 el:Συγκοινωνία
@@ -221,6 +224,7 @@ be:АЗС|3бензін|3дызель|4паліва|газ
 bg:Гориво|Бензиностанция
 ca:Benzinera
 cs:2Čerpací stanice|Benzinová pumpa|benzinka
+cy:Tanwydd|3petrol|4diesel|disel|nwy
 da:Benzin|brændstof
 de:3Tankstelle|4Benzin|4Diesel|4Sprit
 el:Βενζινάδικο|Υγρά Καύσιμα
@@ -268,6 +272,7 @@ be:4Паркоўка
 bg:4Паркинг
 ca:Aparcament
 cs:4Parkoviště
+cy:4Parcio|maes parcio
 da:4Parkering
 de:4Parkplatz|Parkhaus|Tiefgarage
 el:Χώρος στάθμευσης
@@ -314,6 +319,7 @@ be:3Шопінг|4Закупы
 bg:3Шопинг
 ca:Compres
 cs:Nákupy
+cy:4Siopa
 da:Indkøb
 de:Einkaufen|4shopping
 el:Ψώνια
@@ -361,6 +367,7 @@ be:4Гатэль|гатэлі
 bg:Хотел|хотели
 ca:Hotel|Hotels
 cs:Hotel|Hotely
+cy:Gwesty|gwestai|llety
 da:Hotel|Hoteller
 de:Hotel|Hotels
 el:4Ξενοδοχείο|Διαμονή|Ξενοδοχεία
@@ -407,6 +414,7 @@ be:4Славутасці|4турызм
 bg:5Забележителности|4Туризъм
 ca:Turisme
 cs:Památky|pamětihodnost
+cy:3Twristiaeth|3Atyniadau|3Golygfeydd
 da:5Seværdigheder|4Turisme|3sightseeing
 de:4Sehenswürdigkeit|4Attraktion|4Tourismus|Touristenattraktion|Sehenswürdigkeiten
 el:4Αξιοθέατα
@@ -453,6 +461,7 @@ be:Забавы
 bg:Развлечения
 ca:Entreteniment
 cs:Zábava
+cy:Adloniant
 da:Underholdning
 de:Unterhaltung
 el:Ψυχαγωγία
@@ -499,6 +508,7 @@ be:Начное жыццё|патусіць
 bg:Нощен живот|С приятели
 ca:Vida nocturna
 cs:Noční život
+cy:Bywyd Nos|clybiau nos
 da:Natteliv
 de:Nachtleben
 el:Νυχτερινή ζωή
@@ -546,6 +556,7 @@ be:Сямейны адпачынак
 bg:Семейна почивка
 ca:Oci familiar
 cs:Dovolená s dětmi
+cy:Gwyliau teuluol|plant|teulu
 da:Familieferie
 de:Freizeit mit Kindern
 el:Οικογενειακές διακοπές
@@ -593,6 +604,7 @@ be:3Банкамат
 bg:3Банкомат
 ca:Caixer automàtic
 cs:3Bankomat
+cy:Peiriant Arian Parod|peiriant arian|twll yn y wal|ATM
 da:3Hæveautomat
 de:3Geldautomat|4Bankautomat|7Bargeldautomat
 el:ΑΤΜ|ATM
@@ -640,6 +652,7 @@ be:Для аўтадамоў|5Аўтадом|5Трэйлер|5Караван|Д�
 bg:За RV
 ca:Caravanes|Autocaravana
 cs:Pro RV
+cy:2Carafanio|4Carafán|cartref modur|5Fan wersylla|camperfan
 da:Til RV
 de:Einrichtungen für Wohnmobile|4Wohnmobile
 el:Για RV
@@ -687,6 +700,7 @@ ar:ماكينة صراف آلي|الأموال|فلوس|صرافة آلية|نق
 bg:Банкомат|пари
 ca:Caixer automàtic|diners
 cs:Bankomat|spořitelna|peníze
+cy:Peiriant arian parod|arian|ATM|twll yn y wal
 da:Hæveautomat|penge
 de:Geldautomat|5bankomat|geld
 el:ΑΤΜ|χρήματα|ATM
@@ -731,6 +745,7 @@ be:2Банк
 bg:2Банка
 ca:2Banc
 cs:2Banka
+cy:2Banc
 da:2Bank
 de:2Bank
 el:3Τράπεζα
@@ -778,6 +793,7 @@ be:4Сэканд-хэнд
 bg:Втора употреба
 ca:Segona mà
 cs:Second-hand
+cy:4Ail-law|ail law
 da:Genbrugsbutikker|brugt
 de:Second-hand
 el:Μεταχειρισμένα
@@ -825,6 +841,7 @@ ar:بنك|الأموال|فلوس|نقود|مال
 bg:Банка|пари
 ca:Banc|diners
 cs:Banka|peníze
+cy:Banc|arian
 da:Bank|3penge
 de:3Bankfiliale|Geld
 el:Τράπεζα|χρήματα
@@ -867,6 +884,7 @@ be:5Перапрацоўка адходаў|перапрацоўка|утылі�
 bg:Рециклиране|Преизползване|Разделно събиране|Сепаратор
 ca:Reciclatge|Reciclatge de residus|Eliminació de residus|Materials reciclables|Recollida selectiva d’escombraries|Classificació de residus|Reutilització
 cs:Recyklace|Využití odpadu|Recyklovatelné|Oddělený sběr odpadků|Třídění odpadu|Opětovné použití
+cy:4Ailgylchu|gwastraff|sbwriel|ailddefnyddio
 da:Recirkulering|Genbrug|Affaldsudnyttelse|Genanvendelig|Separate dagrenovationer|Affaldssortering
 de:Recycling|Abfallverwertung|Recyclebares Material|Getrennte Müllsammlung|Müllsortierung|Wiederverwendung
 el:Ανακύκλωση|Ανακύκλωση απορριμμάτων|Ανακυκλώσιμα|Ξεχωριστή συλλογή απορριμμάτων|Διαλογή απορριμμάτων|Επαναχρησιμοποίηση
@@ -912,6 +930,7 @@ ar:تحويل عملات|تغيير عملات|الصرف|الأموال|صرف 
 bg:Чейндж бюро|пари|обмяна|валути|валутен обмен
 ca:Canvi de divises|diners
 cs:3Směnárna|peníze
+cy:3Cyfnewid Arian|3cyfnewid|arian
 da:3Vekselbureau|3penge|valutaveksling
 de:3Geldwechselstelle|Wechselstube|Geld|Geldumtausch
 el:Συνάλλαγμα|ανταλλακτήριο|χρήματα
@@ -949,6 +968,7 @@ zh-Hant:1匯率|理財|外幣|兌換|貨幣|換錢
 
 amenity-studio
 en:Studio
+cy:Stiwdio
 lt:5Studija|5Ateljė
 sl:4Studio|Atelje
 
@@ -958,6 +978,7 @@ ar:بار|حانة|خمارة|بيرة|شراب
 bg:2Бар|кръчма|бира|питие|напитка|таверна|коктейл|пиво|алкохол
 ca:Bar|taverna
 cs:2Bar|hospoda|pivo|pití|tekutiny
+cy:2Bar|2tafarn|cwrw|diod|bariau a thafarnau|tafarn fragu|lolfa goctels
 da:2Bar|værtshus|kro|øl|pub|drink
 de:2Bar|2Pub|4Kneipe|Bier|Trinken|4Gaststätte|4Bars und Kneipen|Brauhaus|Cocktail-Lounge
 el:Μπαρ|Παμπ|μπύρα|ποτό|φαγητό
@@ -1001,6 +1022,7 @@ ar:مقهى|مطعم|طعام|قهوة|كافتيريا
 bg:3Кафе|3ресторант|кафене
 ca:Cafè|Cafeteria
 cs:3Kavárna|restaurace|hospoda
+cy:3Caffi|3bwyty|coffi|caffeteria
 da:3Café|restaurant
 de:3Café|3Restaurant|4Kaffee|6Kaffeehaus|Kaffeebar|Cafeteria
 el:Καφετέρια|εστιατόριο|φαγητό
@@ -1045,6 +1067,7 @@ ar:وجبات سريعة|مطعم|مقهى|وجبة جاهزة|طعام
 bg:Бързо хранене|Фастфууд|кафе|храна|за вкъщи|ресторант|закусвалня
 ca:Menjar ràpid
 cs:2Rychlé občerstvení|4fastfood|kavárna|restaurace
+cy:4Bwyd Cyflym|3bwyty|3caffi|tecawê|bwyd i fynd|bwyd sothach
 da:4Fastfood|restaurant|café|takeaway|hurtigmad
 de:4Fast-Food|Takeaway|Restaurant|Café|Pizzeria|3Imbiss|5Essen zum Mitnehmen|Junkfood|7Schnellimbiss
 el:Ταχυφαγίο|καφετέρια|φαγητό για το σπίτι|φαγητό|ταχυφαγείο
@@ -1088,6 +1111,7 @@ ar:2مطعم|مقهى|طعام
 bg:3Ресторант|3кафе|заведение
 ca:Restaurant
 cs:3Restaurace|hospoda|kavárna
+cy:3Bwyty|3caffi
 da:3Restaurant|café
 de:3Restaurant|3Café|4Gasthaus|Gaststube|6Speiselokal|Gastwirtschaft
 el:Εστιατόριο|καφετέρια|φαγητό
@@ -1132,6 +1156,7 @@ ar:محطة وقود|بترول
 be:АЗС|АГЗС|АНГКС|бензакалонка|бензазапраўка|4аўтазапраўка|3запраўка
 bg:Бензиностанция|Гориво|бензин|дизел|газ
 cs:2Pumpa|čerpací stanice
+cy:Gorsaf Betrol|petrol|3Gorsaf Danwydd|garej
 da:3Tankstation
 de:Tankstation|3Tankstelle
 el:Βενζινάδικο|καύσιμο|βενζίνη|πρατήριο
@@ -1174,6 +1199,7 @@ be:4Магазін|Крама
 bg:4Магазин
 ca:Botiga|Tenda
 cs:Obchod
+cy:Siop|storfa
 da:Butik|forretning
 de:3Verbrauchermarkt|5Geschäft|5Laden
 el:Κατάστημα
@@ -1219,6 +1245,7 @@ be:3Булачная|3пякарня|торт|3тарты|хлеб|кандыт�
 bg:3Пекарна|тестени изделия
 ca:Fleca
 cs:3Pekárna|pekařství|pečivo
+cy:3Becws|3popty|cacen|3teisennau|bara
 da:3Bager|bageri|bagværk
 de:3Bäckerei|Bäckerladen|Bäcker|4Konditorei
 el:Αρτοποιείο|φούρνος|κατάστημα|πατισερί
@@ -1259,9 +1286,11 @@ zh-Hant:1麵包店|2蛋糕店|烘焙|麵包|蛋糕|購物|糕點
 # Add at least one lang not to be skipped.
 shop|@shop
 en:Shop
+cy:Siop
 
 shop-cannabis|@shop
 en:Cannabis
+cy:Canabis
 lt:5Kanapiai|5kanabisas|kanapių parduotuvė
 nl:Coffeeshop|cannabis winkel
 sl:Kanabis
@@ -1274,6 +1303,7 @@ be:4Касметыка
 bg:4Козметика
 ca:Cosmetics
 cs:4Kosmetika
+cy:4Colur|4gofal harddwch|cosmetigau|siop golur
 da:4Kosmetik|kosmetiker
 de:4Kosmetikgeschäft|Kosmetik|Schönheitspflege
 el:Καλλυντικά
@@ -1318,6 +1348,7 @@ ar:متجر صغير
 be:4Прадуктовы|харчаванне|крама
 bg:4Продукти|хранителен магазин|пазар|лавка|Магазинче|пазарче
 cs:Smíšené zboží|koloniál
+cy:4Siop Gornel|siop fach|siop gyfleus
 da:Døgnbutik|døgnkiosk|kiosk
 de:5Gemischtwarenladen|Lebensmittelhändler|Lebensmittelhandlung|Lebensmittelgeschäft|4Greißler|4Tante-Emma-Laden
 el:Ψιλικατζίδικο|κατάστημα
@@ -1361,6 +1392,7 @@ ar:أطعمة مبردة|محل جواهز
 be:Дэлікатэсы|дэлікатэсная крама
 bg:Деликатеси
 cs:Lahůdky|prodejna lahůdek
+cy:4Delicatessen|deli
 da:Delikatessebutik
 de:4Feinkostladen|Feinkostgeschäft
 el:Εκλεκτά τρόφιμα|κατάστημα delicatessen
@@ -1399,6 +1431,7 @@ zh-Hant:熟食店
 shop-farm|@category_food|@shop
 en:Farm food
 ca:Granja|agrobotiga
+cy:Bwyd fferm|siop fferm
 de:4Hofladen|4Bauernhofladen
 es:4Granja|productos de granja
 et:Talutoit|talutoitude pood
@@ -1415,6 +1448,7 @@ en:4Garden Centre|U+1F3E1|garden center
 ar:حضانة|روضة|مشتل
 bg:Градински магазин
 cs:Školka|zahradní centrum
+cy:4Canolfan Arddio|planhigion
 da:Planteskole|havecenter|plantecenter|havebutik
 de:4Gartencenter|Gärtnerei
 el:Κατάστημα ειδών κήπου|κατάστημα
@@ -1453,6 +1487,7 @@ zh-Hant:園藝店|購物
 
 shop-grocery|@category_food|@shop
 en:Grocery|grocery store
+cy:Siop fwyd|groser|nwyddau groser
 de:Lebensmittelkonserven
 es:Tienda de comestibles|Almacén|Provisión
 et:Toidukaubad|toidukauplus
@@ -1467,6 +1502,7 @@ tr:Market
 
 shop-health_food|@category_food|@shop
 en:Health food
+cy:Bwyd iach
 de:4Reformhaus|5Naturkostladen|4Bioladen
 es:Alimentos saludables
 et:Tervisetoit
@@ -1487,6 +1523,7 @@ be:Слыхавыя апараты
 bg:Слухови апарати
 ca:Audiòfons
 cs:Sluchadla
+cy:Cymhorthion Clyw
 da:Høreapparater|høreapparatbutik
 de:Hörgeräte|hörgeräteladen
 el:Βοηθήματα ακοής
@@ -1528,6 +1565,7 @@ en:4Cell Phones|4Mobile Phones|6smartphones|electronics store|U+1F4F1|U+1F4F2
 ar:متجر هواتف محمولة|متجر إلكترونيات|متجر هواتف خلوية|هاتف
 bg:4Мобилни телефони|Мобифони|Телефони|електроника|смартфони
 cs:Mobily|Obchod s mobilními telefony|obchod s elektronikou
+cy:4Ffonau Symudol|4ffôn symudol|6ffonau clyfar|siop electroneg
 da:4Mobiltelefonbutik|elektronikforretning
 de:4Handyladen|Eletronikgeschäft|Mobiltelefone
 el:Κινητή Τηλεφωνία|Κινητά|κατάστημα ηλεκτρονικών|κατάστημα
@@ -1572,6 +1610,7 @@ be:Тэлекамунікацыйная крама
 bg:Магазин за телекомуникации
 ca:Botiga de telecomunicacions
 cs:Telekomunikační obchod
+cy:Siop telathrebu
 da:Butik for telekommunikation
 de:Geschäft für Telekommunikation
 el:Κατάστημα τηλεπικοινωνιών
@@ -1615,6 +1654,7 @@ ar:متجر زهور|متجر
 be:4Кветкі|кветак|фларыст
 bg:Цветарски магазин|4цветя|букет
 cs:Květinářství
+cy:4Siop Flodau|4blodau|gwerthwr blodau|trefniadau blodau|tusw
 da:Blomsterbutik|blomsterforretning|blomsterhandel|blomsterhandler
 de:4Florist|Gestecke|Blumengeschäft|4Blumenladen|Blumenhändler|Blumen|Blumenstrauß|Taggleiche Blumen
 el:Ανθοπωλείο|κατάστημα
@@ -1657,6 +1697,7 @@ ar:جزار|جزارة|متجر لحوم|متجر|قصابة
 be:Мяса|мясны|мясная крама
 bg:Месарски магазин|месо|месарница|месни продукти|месар
 cs:Řeznictví
+cy:4Cigydd
 da:Slagter|slagterbutik
 de:5Metzgerei|Metzger|Schlachter|4Fleischhauer
 el:Κρεοπωλείο|κατάστημα
@@ -1699,6 +1740,7 @@ ar:معرض أثاث|أثاث|متجر|متجر أثاث
 be:4Мэбля|мэблі|мэблевая крама
 bg:Магазин за мебели
 cs:Nábytek
+cy:4Dodrefn|siop ddodrefn
 da:Møbelbutik|møbelforretning|møbelhandler
 de:5Möbelhaus|Möbelgeschäft
 el:Κατάστημα επίπλων|κατάστημα
@@ -1741,6 +1783,7 @@ ar:متجر مطابخ
 be:Кухні|кухань
 bg:Магазин за кухня
 cs:Prodejna kuchyní
+cy:Cegin|siop gegin|stiwdio gegin
 da:Køkkenforretning
 de:6Küchenstudio|Küchengeschäft
 el:Κατάστημα κουζίνας
@@ -1783,6 +1826,7 @@ en:4Liquor|4alcohol|U+1F377|liquor shop
 ar:متجر مشروبات كحولية|خمور|خمر|متجر
 be:4Алкаголь|спіртныя напоі
 cs:Obchod s alkoholem
+cy:4Gwirodydd|4alcohol|siop win|cwrw
 da:4Alkohol|vinhandel|sprut|spiritus|alkoholforhandler
 de:5Spirituosengeschäft|Spirituosen
 el:Κάβα|ποτά|κατάστημα
@@ -1827,6 +1871,7 @@ ar:مكتبة لبيع الكتب|متجر|متجر كتب
 be:Кнігі|кнігарня
 bg:3Книжарница|книги
 cs:Knihkupectví
+cy:Siop lyfrau|3llyfrau
 da:Boghandel|boghandler|boglade
 de:Büchergeschäft|4Buchhandlung|Buchladen|Bücher
 el:Βιβλιοπωλείο|κατάστημα
@@ -1869,6 +1914,7 @@ ar:متجر أحذية|متجر
 be:3Абутак|абутку|абутковая крама
 bg:3Обувки
 cs:3Obuv
+cy:Esgid|3esgidiau|siop esgidiau
 da:Skobutik
 de:4Schuhgeschäft|Schuhe|Schuhladen|Schuhhandlung|Fußbekleidung
 el:Υποδηματοπωλείο|κατάστημα
@@ -1913,6 +1959,7 @@ ar:متجر إلكترونيات|متجر
 be:Электратэхніка|4электроніка|крама электронікі
 bg:4Електроника
 cs:4Elektronika
+cy:4Electroneg|siop electroneg
 da:4Elektronikbutik|elektronik
 de:4Elektrofachgeschäft|Elektronikgeschäft|Elektrofachhandel
 el:Ηλεκτρονικά|κατάστημα|μαγαζί ηλεκτρονικών
@@ -1956,6 +2003,7 @@ be:Гаспадарчы|будаўнічы|гаспадарчая крама|б�
 bg:НСС|строителни материали|железария|строителен маркет
 ca:Ferreteria
 cs:Železářství|domácí potřeby
+cy:4Nwyddau Haearn|4DIY|offer|siop galedwedd|gwella'r cartref
 da:Isenkræmmer|Byggemarked
 de:5Eisenwarengeschäft|3Baumarkt|4Heimwerkermarkt|Eisenwarenhandlung
 el:Είδη κιγκαλερίας|DIY|κάν'το μόνος σου|κατάστημα|κατάστημα υλικού
@@ -1998,6 +2046,7 @@ be:4Пасуда|4Бытавыя тавары
 bg:Домакински стоки
 ca:Articles de la llar
 cs:Domácí potřeby
+cy:4Nwyddau tŷ|siop nwyddau tŷ|nwyddau cartref
 da:Husholdningsartikler|husholdningsartikler butik
 de:4Haushaltswaren|haushaltswarengeschäft
 el:Οικιακά αγαθά
@@ -2041,6 +2090,7 @@ ar:مجوهرات|متجر مجوهرات
 bg:4Бижутерия|скъпоценни камъни
 ca:Joieria
 cs:Klenotnictví
+cy:4Gemwaith|siop emwaith|tlysau
 da:Smykkebutik|smykker|4juveler
 de:4Juwelier|Juweliergeschäft|Schmuck
 el:Κοσμηματοπωλείο|κατάστημα
@@ -2084,6 +2134,7 @@ ar:مركز بصريات|نظارات|متجر
 be:4Оптыка|Акуляры
 bg:4Оптика
 cs:4Optika
+cy:4Optegydd
 da:4Optiker
 de:4Optiker|5Brillengeschäft|5Augenoptiker
 el:Κατάστημα οπτικών
@@ -2127,6 +2178,7 @@ ar:متجر هدايا|متجر
 be:4Падарункі|сувенірная крама
 bg:4Сувенири|4подарък
 cs:Obchod s dárkovým zbožím
+cy:Anrheg|cofrodd|4cofroddion|3anrhegion|siop anrhegion
 da:Gavebutik|4souvenirbutik
 de:5Geschenkeladen|Geschenke|Geschenkartikelladen|5Andenkenladen|Andenken|Präsente|4Mitbringsel|4Souvenirladen
 el:Είδη δώρου|κατάστημα
@@ -2168,6 +2220,7 @@ ar:صالون تجميل|كوافير|متجر
 be:5Салон прыгажосці
 bg:5Салон за красота|фризьорски салон|козметичен салон|маникюр|педикюр|подстригване|кола маска
 cs:4Kosmetický salon
+cy:4Siop Harddwch|barbwr|harddwr|triniwr gwallt|trin gwallt|torri gwallt|salon harddwch|salon gwallt|salon ewinedd|lliwio gwallt
 da:Skønhedssalon
 de:5Schönheitssalon|Schönheitsshop|Kosmetiker|Friseur|Frisör|Haarschnitt|Kosmetikstudio|Friseursalon|Kosmetiksalon|Nagelstudio|Färbung
 el:Σαλόνι αισθητικής
@@ -2212,6 +2265,7 @@ ar:متجر خضروات وفواكه|خضار|فاكهة|متجر|محل خضا
 be:Садавіна|агародніна
 bg:Плод и зеленчук|4плодове|4зеленчуци
 cs:Ovoce a zelenina
+cy:4Siop Lysiau|ffrwythau a llysiau|siop ffrwythau
 da:Grønthandler|grønthandel|frugt og grønt
 de:5Gemüseladen|Gemüsehändler
 el:Μανάβικο|οπωροπωλείο|παντοπωλείο|κατάστημα
@@ -2253,6 +2307,7 @@ ar:أدوات رياضية|رياضة|متجر
 be:4Спартыўны|спартыўная крама
 bg:4Спортни стоки|спортен магазин
 cs:4Sportovní zboží
+cy:4Nwyddau Chwaraeon|siop chwaraeon
 da:4Sportsudstyr|sport
 de:4Sportgeschäft|Sportartikel|Fitnessgeschäft
 el:Αθλητικά είδη|κατάστημα
@@ -2295,6 +2350,7 @@ ar:سوبر ماركت|بقالة|متجر
 be:3Супермаркет
 bg:3Супермаркет|Хипермаркет|Мегамаркет|Пазар
 cs:3Supermarket
+cy:3Archfarchnad
 da:3Supermarked|dagligvarebutik
 de:3Supermarkt
 el:Σούπερ μάρκετ|κατάστημα
@@ -2338,6 +2394,7 @@ ar:مركز تسوق|مجمع تجاري|مول|متجر
 be:4Гандлевы цэнтр|гандлёвы цэнтр
 bg:4Търговски център|търговски комплекс|пазаруване|мол
 cs:Obchoďák
+cy:Canolfan siopa|arcêd siopa|canolfan adloniant|manwerthu
 da:Indkøbscenter|butikscenter|storcenter|center
 de:5Einkaufszentrum|Ladenstraße|Einkaufsgalerie|Einkaufen|Einkaufspassage|Kaufhalle|Vergnügungszentrum|Einzelhandel
 el:Εμπορικό κέντρο|μαγαζί
@@ -2383,6 +2440,7 @@ ar:متجر شامل|مركز تجاري
 be:4Універмаг|4універсам|універсальная крама
 bg:мол|пазаруване|търговски център
 cs:Obchodní dům
+cy:4Siop Adrannol
 da:Stormagasin|varehus
 de:4Kaufhaus|Einkaufen|Einkaufszentrum|Einkaufspassage
 el:Πολυκατάστημα|κατάστημα
@@ -2425,6 +2483,7 @@ ar:مشروبات|عصائر
 be:4Напоі|3сокі|сакаў
 bg:4напитки|питиета
 cs:4Nápoje
+cy:4Diodydd
 da:4Drikkevarer|drikkevarehandel
 de:5Getränkemarkt
 el:Οινοπνευματώδη|ποτά|κατάστημα
@@ -2466,6 +2525,7 @@ en:4Computer|U+1F4BB|computer store
 ar:متجر كمبيوتر
 bg:Компютърен магазин|4компютри|електроника
 cs:Obchod s počítači
+cy:4Cyfrifiadur|siop gyfrifiaduron
 da:Computerforretning|4computerbutik|computer
 de:4Computerfachgeschäft
 el:Κατάστημα πληροφορικής|κατάστημα υπολογιστών
@@ -2508,6 +2568,7 @@ ar:متجر حلويات|حلويات|حلوى|متجر|حلواني
 be:4Кандытарская|цукерня|кандытар
 bg:Сладки|сладкарница|бонбони|сладкиши|сладкарски изделия
 cs:Cukrárna|cukrářské výrobky
+cy:4Melysion|4losin|da-da|fferins|siop losin|siop felysion
 da:Slikbutik|slikforretning|konfektureforretning|slik|konfekt|konfekturehandler
 de:3Süßwarenladen|Süßwarengeschäft|Süßwaren|4Süßigkeiten|4Konfiserie
 el:Γλυκά|ζαχαροπλαστική|ζαχαροπλαστείο|κατάστημα|ζαχαροπλάστης
@@ -2550,6 +2611,7 @@ en:4Laundry|Laundrette|laundromat
 ar:مغسلة ملابس|غسيل ملابس|تنظيف
 bg:Пране|простир
 cs:4Prádelna|veřejná prádelna
+cy:4Golchdy|londri
 da:4Vaskeri|møntvask
 de:5Wäscherei|5Waschsalon
 el:Άπλυτα|κατάστημα με πλυντήρια ρούχων
@@ -2592,6 +2654,7 @@ ar:متجر ألعاب|متجر|متجر لعبات
 be:Цацкі|цацак|крама цацак
 bg:3Играчки|магазин за играчки|детски магазин|деца
 cs:Hračkářství
+cy:Tegan|siop deganau|plant|teganau|teganau plant
 da:Legetøjsbutik|legetøj
 de:5Spielwarengeschäft|Spielzeuggeschäft
 el:Κατάστημα παιχνιδιών|κατάστημα
@@ -2634,6 +2697,7 @@ ar:سوق|السوق|متجر
 bg:3Пазар
 ca:Mercat
 cs:4Tržiště|samoobsluha|market
+cy:3Marchnad
 da:3Markedsplads|marked
 de:3Marktplatz|Markt
 el:Αγορά|κατάστημα
@@ -2675,6 +2739,7 @@ be:Грашовыя пераводы|Грошы
 bg:Паричен превод
 ca:Transferència de diners
 cs:Převod peněz
+cy:Trosglwyddo Arian
 da:Pengeoverførsel
 de:Geldtransfer
 el:Μεταφορά χρημάτων
@@ -2719,6 +2784,7 @@ ar:متجر ملابس|ملابس|متجر
 bg:3Дрехи|магазин за дрехи
 ca:Botiga de roba|Roba
 cs:Oblečení
+cy:3Dillad|gwisgoedd
 da:Tøjbutik|tøjforretning|tøj
 de:5Bekleidungsgeschäft|Kleidung|Bekleidung|Kleidungsgeschäft|5Kleiderladen|Einkaufen
 el:Κατάστημα ρούχων|ρούχα|κατάστημα
@@ -2759,9 +2825,11 @@ zh-Hant:1買衣服|衣服|購物
 # Add at least one lang not to be skipped.
 shop-clothes|@clothes|@category_shopping|@shop
 en:Clothes|clothes shop
+cy:Dillad|siop ddillad
 
 shop-clothes-women|@clothes|@category_shopping|@shop
 en:3Women Clothes|women fashion
+cy:3Dillad Merched|ffasiwn merched|dillad menywod
 de:Damenbekleidung|damenmode|damenbekleidungsgeschäft
 es:Ropa de mujer|moda femenina
 fr:Vêtements femme|mode femme
@@ -2774,6 +2842,7 @@ zh-Hans:女装|女装店
 
 shop-clothes-underwear|@clothes|@category_shopping|@shop
 en:4Underwear|lingerie|underwear shop
+cy:4Dillad isaf|siop ddillad isaf
 de:Unterwäsche|lingerie|dessousgeschäft
 es:Ropa interior|lencería
 fr:Sous-vêtements|lingerie
@@ -2785,6 +2854,7 @@ uk:Нижня білизна
 
 shop-clothes-men|@clothes|@category_shopping|@shop
 en:3Men Clothes|men fashion
+cy:3Dillad Dynion|ffasiwn dynion
 de:Herrenbekleidung|herrenmode|herrenbekleidungsgeschäft
 es:Ropa de hombre|moda masculina
 fr:Vêtements homme|mode homme
@@ -2797,6 +2867,7 @@ zh-Hans:男装|男装店
 
 shop-clothes-children|@clothes|@category_shopping|@shop
 en:4Children Clothes|baby clothes|kids clothes
+cy:4Dillad Plant|dillad babi
 de:Kinderbekleidung|kindermode|babykleidung|kinderbekleidungsgeschäft
 es:Ropa infantil|ropa de niños|ropa bebé
 fr:Vêtements enfants|vêtements bébé
@@ -2809,6 +2880,7 @@ zh-Hans:童装|童装店
 
 shop-clothes-wedding|@clothes|@category_shopping|@shop
 en:4Wedding Clothes|bridal shop|wedding dress
+cy:4Dillad Priodas|siop briodas|ffrog briodas
 de:Hochzeitsbekleidung|brautmode|brautmodengeschäft
 es:Ropa de boda|vestidos de novia
 fr:Vêtements de mariée|robe de mariée
@@ -2820,6 +2892,7 @@ uk:Весільний одяг|Весільний салон
 
 shop-clothes-sports|@clothes|@category_shopping|@shop
 en:4Sports Clothes|sportswear
+cy:4Dillad Chwaraeon
 de:Sportbekleidung|sportbekleidungsgeschäft
 es:Ropa deportiva
 fr:Vêtements de sport
@@ -2831,6 +2904,7 @@ uk:Спортивний одяг
 
 shop-clothes-suits|@clothes|@category_shopping|@shop
 en:4Suits|suit shop|suits shop
+cy:4Siwtiau|siop siwtiau
 de:Anzüge|Anzuggeschäft
 es:Trajes|Sastrería
 fr:Costumes|tailleurs
@@ -2842,6 +2916,7 @@ uk:Костюми|діловий одяг|магазин костюмів
 
 shop-clothes-hats|@clothes|@category_shopping|@shop
 en:Hats|Hat shop|Caps
+cy:Hetiau|siop hetiau|capiau
 de:Hüte|mützen|kopfbedeckungen|hutgeschäft
 es:Sombreros|gorras|sombrerería
 fr:Chapeaux|casquettes|chapellerie
@@ -2853,6 +2928,7 @@ uk:Капелюхи|головні убори
 
 shop-clothes-fashion|@clothes|@category_shopping|@shop
 en:4Fashion|Fashion boutique
+cy:4Ffasiwn|bwtîc ffasiwn
 de:Mode|Modeboutique
 es:Moda|Boutique de moda
 fr:Mode|Boutique de mode
@@ -2866,6 +2942,7 @@ shop-caravan|@category_rv|@shop
 en:2RV dealership|4Caravan dealership|Motorhome dealership
 be:Аўтадом|Продаж аўтадамоў
 ca:Venda de caravanas|venda de autocaravanas|venda de motorhomes
+cy:2Delwriaeth carafanau|4Carafanau|cartrefi modur
 de:5Wohnmobilhändler|5Wohnwagenhändler
 es:Venta de caravanas|venta de autocaravanas|venta de motorhomes
 et:Haagiselamute müük
@@ -2885,6 +2962,7 @@ be:4Аўтасалон|Машыны
 bg:Майстор|автомонтьор|автосалон
 ca:Venda de cotxes|concesionari
 cs:Obchod s auty
+cy:3Delwriaeth Geir|gwerthwr ceir|garej
 da:Bilforhandler
 de:4Autohaus|Autohändler
 el:Αντιπροσωπεία αυτοκινήτων|κατάστημα
@@ -2931,6 +3009,7 @@ be:Веламагазін|веласіпеды|крама ровараў
 bg:4Веломагазин|велосипед|колело
 ca:Botiga de bicicletes|4bicicleta|bici
 cs:3Cyklistický obchod|jízdní kolo|3kolo
+cy:4Beic|beiciau|siop feiciau
 da:3Cykelforretning|cykelhandler|cykler|cykelhandel
 de:3Fahrradladen|Fahrrad|Velo|Radladen
 el:Κατάστημα ποδηλάτων|ποδηλασία|ποδήλατο|κατάστημα
@@ -2975,6 +3054,7 @@ be:Кіеск|шапік|кіёск
 bg:3Киоск
 ca:Quiosc
 cs:3Kiosk|kiosek
+cy:3Ciosg
 da:3Kiosk|pølsevogn
 de:3Kiosk
 el:Περίπτερο|κατάστημα
@@ -3015,6 +3095,7 @@ ar:موقف حافلة|باص|حافلة|مواصلات|موقف حافلات
 bg:4автобусна спирка|4спирка|тролейбус
 ca:Parada d'autobús|parada|parada d’autobús
 cs:4Autobusová zastávka|autobus|2bus|4zastávka|stanice
+cy:2Arhosfan Bws|bws|safle bws
 da:3Busstoppested|bus
 de:3Bushaltestelle|Haltestelle|2Bus|Autobus|ÖPNV|Omnibushaltestelle
 el:Στάση λεωφορείου|λεωφορείο|στάση|μεταφορές
@@ -3057,6 +3138,7 @@ ar:موقف ترام|مواصلات
 bg:4трамвайна спирка|4спирка
 ca:Parada de tramvia|Parada
 cs:4Tramvajová zastávka|tramvaj|4zastávka|stanice
+cy:3Arhosfan Tram|tram
 da:3Sporvogn|station|sporvognsstoppested
 de:4Straßenbahnhaltestelle|4Tramhaltestelle|3Haltestelle|Tram|ÖPNV
 el:Στάση τραμ|τραμ|στάση|μεταφορές
@@ -3095,6 +3177,7 @@ en:2Bus Station|bus|U+1F68C|U+1F68F|U+1F68D
 ar:محطة حافلات|باص|حافلة|مواصلات
 bg:4Автобусна спирка|автобуси|4автобусна станция|автобусна гара
 cs:4Autobusové nádraží|4zastávka|bus
+cy:2Gorsaf Fysiau|bws|gorsaf fws
 da:2Busstation|2bus|station|rutebilstation
 de:3Busbahnhof|Bushaltestelle|Haltestelle|Bus|Autobus|ÖPNV
 el:Σταθμός λεωφορείων|λεωφορείο|σταθμός|μεταφορές
@@ -3137,6 +3220,7 @@ en:3Train Station|trainstation|4railway|railroad|4station|U+1F684|U+1F685|U+1F68
 ar:محطة سكك حديدية|محطة قطار|قطار|محطة|مواصلات|مبنى المحطة
 bg:ЖП|влак|спирка|станция
 cs:3Železniční stanice|vlakové nádraží|2vlak|staniční budova
+cy:3Gorsaf Drenau|gorsaf reilffordd|4rheilffordd|4gorsaf|trên|arhosfan reilffordd
 da:4Togstation|4station|3jernbane|stationsbygning
 de:4Bahnhof|3haltepunkt|3station|zug|bahn|ÖPNV|hbf|bahnhofsgebäude
 el:Σιδηροδρομικός σταθμός|σιδηρόδρομος|σιδηροδρομικό|τρένο|σταθμός|μεταφορές|σιδηροδρομική στάση|κτίριο σταθμού
@@ -3181,6 +3265,7 @@ be:Фунікулёр
 bg:Фуникуляр
 ca:Funicular
 cs:Lanovka
+cy:Ffwnicwlar
 da:Funicular|kabelbane
 de:Standseilbahn
 el:Μονωτικό τρενάκι
@@ -3223,6 +3308,7 @@ en:3Subway Station|3tube|3metro|3underground|U+1F687
 ar:محطة مترو|القطار الكهربائي النفقي|قطار الأنفاق|مترو|تحت الأرض
 bg:3Метро|подземие
 cs:3Metro|3podzemka
+cy:3Gorsaf Danddaearol|3metro|3tanddaearol|tiwb
 da:3Metro|3undergrundsbane|3undergrund|metrostation
 de:2U-Bahn|3metro|ÖPNV|4ubahn|u-Bahn-Station
 el:Μετρό|υπόγειος|ηλεκτρικός|σιδηρόδρομος|μεταφορές|συγκοινωνίες|σταθμός μετρό
@@ -3264,6 +3350,7 @@ en:3Ferry|terminal|U+1F6A2|U+1F6A4|U+2693
 ar:محطة عبّارات|مركب|محطة|مواصلات
 bg:4ферибот
 cs:3Trajekt
+cy:3Fferi|terfynfa fferi
 da:2Færge|færgehavn|terminal
 de:2Fähre|Fähranleger|Terminal
 el:Πορθμείο|τερματικό|μεταφορές
@@ -3306,6 +3393,7 @@ en:3Taxi|Taxi Stand|Taxi Rank|U+1F695|U+1F696
 ar:سيارة أجرة|تاكسي|مواصلات
 bg:3такси|шофьор
 cs:3Taxi|stanoviště taxislužby
+cy:3Tacsi|Safle Tacsi
 da:3Taxi|taxa|taxaholdeplads
 de:3Taxi|Taxistand|Taxe|ÖPNV
 el:Ταξί|πιάτσα|μεταφορές|πιάτσα ταξί
@@ -3349,6 +3437,7 @@ ar:مبنى البلدية|مناظر|سياحة
 be:4Адміністрацыя|4ратуша
 bg:Община|кмет
 cs:3Radnice
+cy:3Neuadd y Dref|neuadd y ddinas|neuadd bentref|canolfan ddinesig|cyngor
 da:3Rådhus
 de:3Rathaus|4Gemeindeamt
 el:Δημαρχείο|τουρισμός|αξιοθέατα
@@ -3390,6 +3479,7 @@ en:4Attraction|U+1F3A0|U+1F3A1|U+1F3A2|U+1F3AA
 ar:أماكن جذابة|سياحة|مناظر|مكان جذاب
 bg:Забележителност
 cs:3Atrakce|3pamětihodnost|3zajímavost
+cy:4Atyniad
 da:3Attraktioner|3turisme|3sightseeing|3seværdigheder|attraktion
 de:3Attraktion|3Sehenswürdigkeit
 el:Αξιοθέατα|τουρισμός|περιηγήσεις|αξιοθέατο
@@ -3432,6 +3522,7 @@ en:3Artwork|U+1F3A8
 ar:عمل فني|سياحة
 bg:Изкуство|произведение|галерия|художник
 cs:3Umělecké dílo
+cy:3Gwaith celf|celf
 da:3Kunstværk
 de:3Kunstwerk|4Skulptur|4Gemälde|Statue
 el:Έργα τέχνης|τουρισμός|αξιοθέατα
@@ -3474,6 +3565,7 @@ ar:أماكن مشاهدة سياحية|سياحة|مناظر|نقطة منظر
 be:4Аглядальная пляцоўка
 bg:пейзаж|гледка|забележителност
 cs:3Vyhlídka|zajímavost
+cy:4Golygfan|golygfa|4man gwylio
 da:Udsigtspunkt|sightseeing
 de:3Panorama|Ausblick|4Aussichtspunkt
 el:Θέα|ξάγναντο|τουρισμός|αξιοθέατα
@@ -3516,6 +3608,7 @@ en:4Tourist Information|4information|U+1F481
 ar:معلومات سياحية|معلومات|سياحة|مناظر
 bg:3Информация|туринформация
 cs:4Infocentrum|4turistické informace|Íčko
+cy:4Gwybodaeth i Dwristiaid|4gwybodaeth
 da:Turistinformation|4information
 de:4Tourist-Information|Information|7Touristeninformation
 el:Τουριστικές πληροφορίες|πληροφορίες|αξιοθέατα
@@ -3558,6 +3651,7 @@ en:3Picnic Site|Barbecue Grill|Picnic Table
 ar:مكان نزهة|سياحة|مناظر|موقع نزهة|شواية شواء|طاولة نزهة
 bg:3Пикник|тревна площ|грил
 cs:3Piknik|picnic|picnik|grilování|piknikový stůl
+cy:3Safle Picnic|barbeciw|bwrdd picnic
 da:3Picnic|grill|picnic bord
 de:3Picknickplatz|5Grillplatz|Picknicktisch
 el:Χώρος εκδρομής|χώρος πικνίκ|ψησταριά μπάρμπεκιου|τραπέζι πικ-νικ
@@ -3602,6 +3696,7 @@ be:3Храм
 bg:Храм|молитва|църква|черква|поп|свещеник|светилище
 ca:3Temple
 cs:4Posvátné místo|3chrám
+cy:Lle Addoli|3teml|addoldy
 da:3Tempel|3kultsted|tilbedelsessted
 de:3Anbetungsstätte|Tempel|Gotteshaus
 el:Χώρος λατρείας|ναός|αξιοθέατα
@@ -3644,6 +3739,7 @@ en:4Church|place of worship|temple|4cathedral|basilica|U+1F64F|U+26EA|U+271D|U+2
 ar:كنيسة|مكان عبادة|معبد
 bg:Храм|молитва|4църква|червка|свещеник|поп|християни
 cs:Chrám|kostel|posvátné místo|bazilika
+cy:4Eglwys|addoldy|capel|4eglwys gadeiriol|basilica
 da:4Kirke|tempel|kultsted
 de:4Kirche|Dom|3Kathedrale|4Münster|Anbetungsstätte
 el:Εκκλησία|τόπος λατρείας|ναός|αξιοθέατα
@@ -3685,6 +3781,7 @@ en:4Mosque|tekke|place of worship|temple|U+1F64F|U+262A|U+1F54B|U+1F54C
 ar:مسجد|جامع|مكان عبادة|مسلم|معبد
 bg:Храм|джамия|мюсюлмани
 cs:Mešita|chrám|posvátné místo
+cy:4Mosg|addoldy|teml
 da:4Moske|tempel|kultsted
 de:4Moschee|Tekke|Anbetungsstätte
 el:Τζαμί|τεκκέ|τόπος λατρείας|ναός|αξιοθέατα
@@ -3726,6 +3823,7 @@ en:3Temple|place of worship|U+1F64F|U+26EA|u+2638|buddhist temple
 ar:معبد بوذي|مكان عبادة|بوذا|معبد
 bg:Храм|будисти|будистки храм
 cs:Chrám|posvátné místo|buddhistický chrám
+cy:3Teml|addoldy|teml Fwdhaidd
 da:Tempel|kultsted|buddhistisk tempel
 de:Buddhistischer Tempel|Tempel|Anbetungsstätte
 el:Ναός|τόπος λατρείας|αξιοθέατα|βουδιστικός ναός
@@ -3767,6 +3865,7 @@ en:3Temple|place of worship|U+1F64F|U+1F549|hindu temple
 ar:معبد هندوسي|مكان عبادة|معبد
 bg:Храм|индуисти
 cs:Chrám|posvátné místo|hinduistický chrám
+cy:3Teml|addoldy|teml Hindŵaidd
 da:Tempel|kultsted|hinduistisk tempel
 de:Hinduistischer Tempel|Tempel|Anbetungsstätte
 el:Ναός|τόπος λατρείας|αξιοθέατα|ινδουιστικός ναός
@@ -3808,6 +3907,7 @@ en:Shrine|place of worship|3temple|U+1F64F|U+26E9|shinto shrine
 ar:معبد شنتو|مكان عبادة|معبد
 bg:храм|светилище
 cs:Posvátné místo|chrám|šintoistická svatyně
+cy:Cysegr|addoldy|3teml|cysegr Shinto
 da:Helligdom|tempel|kultsted|shinto-tempel
 de:Schrein|Anbetungsstätte|Tempel
 el:Ιερό|τόπος λατρείας|ναός|αξιοθέατα|σιντοϊστικό ιερό
@@ -3848,6 +3948,7 @@ en:4Synagogue|place of worship|temple|U+1F64F|U+1F54D|U+2721
 ar:معبد يهودي|مكان عبادة|معبد
 bg:храм|4синагога|юдаизъм
 cs:4Synagoga|chrám|posvátné místo
+cy:4Synagog|addoldy|teml
 da:4Synagoge|tempel|kultsted
 de:4Synagoge|Anbetungsstätte|Tempel
 el:Συναγωγή|τόπος λατρείας|ναός|αξιοθέατα
@@ -3889,6 +3990,7 @@ en:3Temple|place of worship|U+1F64F|U+262F|taoist temple
 ar:معبد طاوي|مكان عبادة|معبد
 bg:Храм|даоизъм
 cs:Chrám|posvátné místo|taoistický chrám
+cy:3Teml|addoldy|teml Taoaidd
 da:Tempel|kultsted|taoistisk tempel
 de:Tempel|Anbetungsstätte
 el:Ναός|τόπος λατρείας|αξιοθέατα|ταοϊκός ναός
@@ -3929,6 +4031,7 @@ en:2Museum|3exhibition|3gallery|U+1F3A8
 ar:متحف|أماكن جذابة|سياحة|مناظر
 bg:3Музей|3експозиция|3галерия
 cs:2Muzeum|zajímavost
+cy:2Amgueddfa|3arddangosfa|3oriel
 da:2Museum
 de:2Museum|Ausstellung|3Galerie|Sehenswürdigkeit
 el:Μουσείο|θέαμα|τουρισμός|αξιοθέατα
@@ -3971,6 +4074,7 @@ en:2Waterfall
 ar:شلال|مناظر|سياحة|شلّال
 bg:2Водопад
 cs:2Vodopád|zajímavost
+cy:2Rhaeadr
 da:2Vandfald
 de:2Wasserfall
 el:Καταρράκτης|αξιοθέατα
@@ -4014,6 +4118,7 @@ ar:موقع أثري|أماكن جذابة|سياحة|مناظر
 be:3Археалагічны помнік
 bg:3Археологически сайт|Архелогически разкопки|разкопки
 cs:Vykopávky|zajímavost
+cy:4Safle Archeolegol|archaeoleg
 da:3Arkæologisk sted|arkæologisk fundsted
 de:Ausgrabungen|4Ausgrabungsstätte|4Archäologische Stätte
 el:Αρχαιολογικός χώρος|θέαμα|τουρισμός|αξιοθέατα
@@ -4058,6 +4163,7 @@ ar:ساحة معركة تاريخية
 be:Поле бітвы
 bg:Бойно поле
 cs:Bojiště
+cy:Maes brwydr|maes y gad
 da:Slagmark
 de:4Schlachtfeld
 el:Πεδίο μάχης
@@ -4102,6 +4208,7 @@ be:Гістарычны камень
 bg:Исторически камък
 ca:Pedra històrica
 cs:Historický kámen
+cy:Carreg Hanesyddol|maen hir
 da:Historisk sten
 de:Historischer Stein
 el:Ιστορική Πέτρα
@@ -4144,6 +4251,7 @@ ar:حجر لتحديد الحدود
 be:Межавы камень
 bg:Граничен камък
 cs:Hraniční kámen
+cy:Carreg Ffin
 da:Grænsesten
 de:4Grenzstein|4Markstein
 el:Οριακή πέτρα
@@ -4186,6 +4294,7 @@ ar:قلعة|سياحة|أماكن جذابة|مناظر|كاسترا|الكني�
 be:Замак|Каструм|Крэпасць|Гарадзішча|Крэмль|Сядзіба|Палац
 bg:3Замък|4Дворец|4крепост|Каструм|Градище|Кремъл|Усадба
 cs:3Zámek|zajímavost|Hrad|Castrum|Pevnost|Hradiště|Kreml|Panský dům|Palác
+cy:4Castell|4Palas|4Caer|bryngaer|Creml|maenordy|plas
 da:Slot|borg|Fæstningsværk|Voldsted|Kreml|Herregård|Palads
 de:3Burg|4Schloss|Festung|3Palast|Wallburg|Kreml|4Herrenhaus|Palais|3Ruine
 el:Κάστρο|θέαμα|τουρισμός|αξιοθέατα|Ρωμαϊκό κάστρο|Οχυρωμένη εκκλησία|Φρούριο|Κρεμλίνο|Αρχοντικό|Παλάτι
@@ -4229,6 +4338,7 @@ ar:بوابة مدينة|بوابة المدينة
 be:Гарадская брама
 bg:Градска порта
 cs:Městská brána
+cy:Porth y ddinas
 da:Byport
 de:4Stadttor
 el:Πύλη της πόλης
@@ -4272,6 +4382,7 @@ be:Цырыманіяльная брама
 bg:Церемониална порта
 ca:Porta cerimonial
 cs:Obřadní brána
+cy:Porth Seremonïol
 da:Ceremoniel port
 de:Zeremonielles Tor
 el:Τελετουργική πύλη
@@ -4315,6 +4426,7 @@ ar:جدار المدينة
 be:Гарадскі вал
 bg:Градска стена
 cs:Městská zeď
+cy:Mur y ddinas|waliau'r dref
 da:Bymur
 de:4Stadtmauer
 el:Τείχος της πόλης
@@ -4357,6 +4469,7 @@ ar:قلعة|حصن
 be:Форт
 bg:Форт
 cs:Fort
+cy:Caer
 da:Fort
 de:Fort
 el:Φορτ|οχυρό
@@ -4399,6 +4512,7 @@ ar:مشنقة
 be:Шыбеніца
 bg:Бесилка
 cs:Šibenice
+cy:Crocbren
 da:Galge
 de:3Galgen
 el:Αγχόνη
@@ -4439,6 +4553,7 @@ ar:نصب تذكاري|معالم|آثار|أماكن جذابة|سياحة
 be:Мемарыял
 bg:4Паметник|4мемориал
 cs:4Pomník|památka|zajímavost
+cy:4Cofeb|cofadail
 da:Mindesmærke|mindesten
 de:4Denkmal|3Gedenkstätte
 el:Μνημείο|θέαμα|τουρισμός|αξιοθέατα
@@ -4481,6 +4596,7 @@ ar:الصليب التذكاري|صليب تذكاري
 be:Памятны крыж
 bg:Мемориален кръст
 cs:Pamětní kříž
+cy:Croes goffa
 da:Mindesmærkekors
 de:3Gedenkkreuz
 el:Σταυρός μνήμης
@@ -4522,6 +4638,7 @@ ar:لوحة تذكارية
 be:Памятная дошка
 bg:Паметна плоча
 cs:Pomník
+cy:Plac coffa
 da:Mindesmærke
 de:3Gedenktafel
 el:Μνημείο|αναμνηστική πλακέτα
@@ -4565,6 +4682,7 @@ ar:منحوتة تذكارية
 be:Скульптура
 bg:Скулптура
 cs:Pomník
+cy:Cerflunwaith|cerflun
 da:Mindesmærke
 de:4Skulptur
 el:Μνημείο|γλυπτό
@@ -4607,6 +4725,7 @@ ar:تمثال تذكاري|تمثال
 be:Статуя
 bg:Статуя
 cs:Pomník
+cy:Cerflun
 da:Mindesmærke
 de:4Statue
 el:Μνημείο|άγαλμα
@@ -4650,6 +4769,7 @@ ar:حجر عثرة
 be:Камяні спатыкнення
 bg:Спънка|щолперщайн
 cs:Stolperstein|kámen zmizelých
+cy:Stolperstein
 da:Stolpersten
 de:3Stolperstein
 el:Λίθοι Μνήμης
@@ -4691,6 +4811,7 @@ ar:نصب حرب
 be:Ваенны мемарыял
 bg:Военен паметник
 cs:Válečný památník
+cy:Cofeb ryfel|cofeb rhyfel
 da:Krigsmindesmærke
 de:4Kriegerdenkmal|Kriegsdenkmal
 el:Μνημείο του Αγνώστου Στρατιώτη|πολεμικό μνημείο
@@ -4733,6 +4854,7 @@ ar:صرح|معالم|سياحة|مناظر|نصب تذكاري
 be:4Помнік
 bg:4монумент|паметник
 cs:Zajímavost|pomník|památka
+cy:4Cofadail|cofeb
 da:4Monument
 de:4Monument
 el:Μνημείο|θέαμα|τουρισμός|αξιοθέατα
@@ -4775,6 +4897,7 @@ ar:مشهرة
 be:Пазорны слуп
 bg:Позорен стълб
 cs:Pranýř
+cy:Rhigod
 da:Kag
 de:Pranger
 el:Κύφωνας
@@ -4817,6 +4940,7 @@ be:Гармата
 bg:Оръдие
 ca:Canó
 cs:Dělo
+cy:Canon
 da:Kanon
 de:Kanone
 el:Κανόνι
@@ -4860,6 +4984,7 @@ be:Гістарычны якар
 bg:Историческа котва
 ca:Àncora històrica
 cs:Historická kotva
+cy:Angor Hanesyddol
 da:Historisk anker
 de:Historischer Anker
 el:Ιστορική Άγκυρα
@@ -4901,6 +5026,7 @@ ar:آثار|أماكن جذابة|مناظر|سياحة|آثار تاريخية
 be:Руіны
 bg:3Руини|съборетини|останки|развалини|развалина
 cs:3Ruiny|zřícenina
+cy:4Adfeilion Hanesyddol|3Adfeilion|murddun
 da:3Ruiner
 de:4Historische Ruine|3Ruine
 el:Ερείπια|χαλάσματα|θέαμα|τουρισμός|αξιοθέατα
@@ -4944,6 +5070,7 @@ be:Гістарычная шахта
 bg:Историческа мина
 ca:Mina històrica
 cs:Historický důl
+cy:Mwynglawdd Hanesyddol|hen bwll glo|chwarel
 da:Historisk mine
 de:Historische Mine
 el:Ιστορικό Ορυχείο
@@ -4985,6 +5112,7 @@ ar:سفينة تاريخية|سفينة
 be:Судна
 bg:Кораб|лодка
 cs:Pamětihodnost
+cy:Llong|cwch
 de:4Schiff|Boot
 el:Αξιοθέατο|πλοίο
 es:Barco|Navío
@@ -5027,6 +5155,7 @@ be:Караблекрушэнне
 bg:корабокрушение
 ca:Naufragi
 cs:Vrak
+cy:Llongddrylliad
 da:Forlis
 de:Schiffswrack
 el:Ναυάγιο
@@ -5069,6 +5198,7 @@ be:Гістарычны паравоз
 bg:Исторически Локомотив
 ca:Locomotora històrica
 cs:Historická lokomotiva
+cy:Locomotif Hanesyddol|injan stêm
 da:Historisk lokomotiv
 de:Historische Lokomotive
 el:Ιστορική Ατμομηχανή
@@ -5111,6 +5241,7 @@ be:Гістарычны танк
 bg:Исторически танк
 ca:Tanc històric
 cs:Historický tank
+cy:Tanc Hanesyddol
 da:Historisk tank
 de:Historischer Panzer
 el:Ιστορική δεξαμενή
@@ -5153,6 +5284,7 @@ be:Гістарычныя самалёты
 bg:Исторически самолет
 ca:Avions històrics
 cs:Historická letadla
+cy:Awyren Hanesyddol
 da:Historiske fly|historisk fly
 de:Historisches Flugzeug
 el:Ιστορικό αεροσκάφος
@@ -5194,6 +5326,7 @@ ar:قبر
 be:Склеп|магіла
 bg:4Гробница|гробище|могила|погребани
 cs:Pamětihodnost
+cy:Beddrod|bedd|cofeb
 da:Grav
 de:Historische Grabstätte|Grab
 el:Αξιοθέατο|τάφος
@@ -5232,6 +5365,7 @@ zh-Hant:陵墓
 
 man_made-cross
 en:Cross
+cy:Croes
 lt:5Kryžius
 sl:4Križ
 
@@ -5241,6 +5375,7 @@ ar:صليب مسيحي
 be:Прыдарожны крыж
 bg:Крайпътен кръст
 cs:Přícestný kříž
+cy:Croes ymyl ffordd
 da:Kors ved vejsiden
 de:4Wegkreuz|4Flurkreuz
 el:Σταυρός στην άκρη του δρόμου
@@ -5282,6 +5417,7 @@ ar:ضريح
 be:Прыдарожная святыня
 bg:Крайпътно светилище
 cs:Drobná sakrální památka
+cy:Cysegrfa ymyl ffordd
 da:Skrin ved vejsiden
 de:4Bildstock|4Marterl|4Wegstock|4Helgenstöckli
 el:Εικονοστάσιο στην άκρη του δρόμου
@@ -5322,6 +5458,7 @@ leisure-dog_park
 en:3Dog area|Dog park
 bg:Кучешка зона|домашни любимци
 cs:3Psí hřiště
+cy:3Ardal cŵn|Parc cŵn
 de:4Hundezone|Hundeauslaufzone|Hundeauslauffläche
 es:Parque para perros
 et:3Koerte ala|koerte park|koertepark
@@ -5344,6 +5481,7 @@ tr:3Köpek parkı|köpek alanı
 
 leisure-dance|@category_entertainment
 en:4Dance|dancing school|dance hall
+cy:4Dawns|ysgol ddawns|neuadd ddawns
 lt:5Šokis|5šokių mokykla|šokių salė
 sl:3Ples|4plesna šola|plesna dvorana
 
@@ -5352,6 +5490,7 @@ en:3Garden
 ar:بستان|مناظر|سياحة|حديقة
 bg:3Градина
 cs:2Zahrada|zajímavost
+cy:3Gardd
 da:2Have
 de:2Garten
 el:Κήπος αναψυχής|αξιοθέατα|κήπος
@@ -5390,6 +5529,7 @@ zh-Hant:1花園|旅遊景點
 
 leisure-firepit
 en:5Firepit
+cy:5Pwll tân
 lt:5Laužavietė|5Laužas
 sl:5Kurišče|Ognjena jama
 
@@ -5398,6 +5538,7 @@ en:Bench
 ar:مقعد طويل|مصطبة
 bg:Пейка|скамейка
 cs:Lavička
+cy:Mainc
 da:Bænk
 de:4Sitzbank|4Parkbank
 el:Παγκάκι
@@ -5440,6 +5581,7 @@ en:4Bicycle Rental|cycle|bike|3rental|bicycle hire|bike rental|U+1F6B2|U+1F6B4|U
 ar:تأجير دراجات
 bg:велосипеди|колелета|под наем
 cs:2Půjčovna kol|4jízdní kolo|3kolo|3pronájem|3nájemné
+cy:4Llogi Beiciau|beic|3llogi|rhentu beiciau
 da:4Cykeludlejning|udlejning|cykel
 de:4Fahrradverleih|Fahrrad|Fahrradvermietung|Radfahren|Radverleih|Velo|3Verleih
 el:Ενοικιάσεις ποδηλάτων|δίκυκλο|ποδήλατο|ενοικιάσεις
@@ -5481,6 +5623,7 @@ amenity-bicycle_repair_station
 en:4Bicycle Repair Station|cycle|bike|4repair of bicycles
 ar:تصليح الدراجات
 cs:Oprava jízdních kol|4jízdní kolo|3kolo|oprava
+cy:4Gorsaf Drwsio Beiciau|beic|4trwsio beiciau
 da:4Cykel reparation|cykelreparationsstation
 de:4Fahrradreparatur|radservicestation|radreparatur|fahrrad-Reparaturstation
 es:Reparación de bicicletas|4bicicleta|reparación de bicis
@@ -5513,6 +5656,7 @@ be:Арэнда лодкі
 bg:Лодка под наем
 ca:Lloguer de vaixells
 cs:Půjčovna lodí
+cy:Llogi Cychod
 da:Udlejning af båd
 de:Boot mieten
 el:Ενοικίαση σκάφους
@@ -5557,6 +5701,7 @@ be:3Сліп|сліпвей|спуск для лодак
 bg:3Слипове|рампа за лодки|спуск за лодки
 ca:3Rampa de vaixells|rampa|llançament de vaixells
 cs:3Skluz|rampa pro lodě|spouštěcí rampa
+cy:3Llithrfa|4Ramp Cychod|5Lansio|ramp|lansio cychod
 da:3Bådrampe|slip|rampe
 de:3Slipanlage|Bootsrampe|Sliprampe
 el:3Ράμπα σκαφών|ράμπα|εκτόξευση σκαφών
@@ -5597,6 +5742,7 @@ en:Car Share|3carsharing|car|sharing|carpool|carsharing services|car sharing|4ri
 ar:مشاركة السيارة|تقاسم السيارة
 bg:Споделяне|автомобил|кола|превоз
 cs:Sdílení aut
+cy:Rhannu Ceir|3rhannu car|car|rhannu|cyd-deithio
 da:Delebiler
 de:3Carsharing|Car-Sharing|Carsharing-Dienste|Auto teilen|Auto|Teilen|Fahrgemeinschaft|Mitfahrzentrale
 el:Παραχώρηση αυτοκινήτου
@@ -5637,6 +5783,7 @@ en:3Car Rental|car|rental|car hire|rent a car|auto rental|vehicle rent|U+1F697|U
 ar:تأجير سيارات|سيارة|تأجير|إيجار
 bg:Кола|под наем|рент а кар|автопаркинг
 cs:3Půjčovna aut|auto|pronájem|nájemné
+cy:3Llogi Ceir|car|llogi|rhentu car|hurio car
 da:4Biludlejning|bil
 de:3Autovermietung|Autoverleih|Mietauto|Auto|Fahrzeug Mieten|Verleih|KFZ-Vermietung|Fahrzeugvermietung
 el:Ενοικίαση αυτοκινήτου|αυτοκίνητο|ενοικιάσεις|κοινή χρήση
@@ -5681,6 +5828,7 @@ be:Пракат матацыклаў
 bg:Мотоциклети под наем
 ca:Lloguer de motos
 cs:Půjčovna motocyklů
+cy:4Llogi Beiciau Modur|beic modur|llogi|4sgwter
 da:Udlejning af motorcykler|motorcykeludlejning
 de:Motorradvermietung
 el:Ενοικίαση μοτοσικλέτας
@@ -5723,6 +5871,7 @@ en:3Cinema|Film|U+1F3A6|U+1F3AC
 ar:سينما
 bg:3Кино|кинотеатър|филм|прожекция
 cs:3Kino|biograf
+cy:3Sinema|Ffilm|pictiwrs
 da:3Biograf
 de:3Kino|Cinema|Filmtheater|Lichtspielhaus
 el:Κινηματογράφος
@@ -5768,6 +5917,7 @@ be:Боўлінг
 bg:Боулинг писта
 ca:Bolera
 cs:Bowlingová dráha
+cy:4Ali Fowlio|bowlio
 da:Bowling bane|bowlinghal
 de:Bowlingbahn
 el:Αίθουσα σφαιρίσεως
@@ -5811,6 +5961,7 @@ en:4Theatre|U+1F3AD
 ar:مسرح
 bg:3Театър|постановка|актьор
 cs:3Divadlo
+cy:4Theatr
 da:3Teater
 de:3Theater
 el:Θέατρο
@@ -5854,6 +6005,7 @@ en:3Nightclub|night club|4disco|dance|club|nightspot|night bar|U+1F378|U+1F379|U
 ar:نادي ليلي|رقص
 bg:3Нощен клуб|4Дискотека|нощен бар|танци
 cs:4Noční klub|3disco|3klub
+cy:3Clwb nos|4disgo|dawns|clwb|bar nos
 da:3Natklub|dans|danseklub
 de:3Nachtclub|Nachtklub|Nachtbar|Nachtlokal|Disko|Tanzen|Club
 el:Νυχτερινό κέντρο διασκέδασης|ντίσκο|μπουζούκια|χορός
@@ -5896,6 +6048,7 @@ en:Brothel|whorehouse|bordello|U+1F3E9
 ar:دعارة
 bg:Публичен дом|бордей
 cs:Nevěstinec
+cy:Puteindy
 da:Bordel
 de:Bordell
 el:Πορνείο|οίκος ανοχής
@@ -5933,6 +6086,7 @@ zh-Hant:妓院
 
 amenity-love_hotel|@category_hotel
 en:4Love Hotel|3Sex Hotel|4Adult Hotel
+cy:4Gwesty Cariad|3Gwesty Rhyw|4Gwesty i Oedolion
 lt:5Meilės viešbutis|5Suaugusiųjų viešbutis
 sl:4Hotel za zaljubljence|4hotel za odrasle|ljubezenski hotel
 
@@ -5943,6 +6097,7 @@ be:Азартныя гульні
 bg:Хазарт
 ca:Jocs d'atzar
 cs:Hazardní hry
+cy:Gamblo|hapchwarae|betio
 da:Gambling
 de:Glücksspiel
 el:ΤΥΧΕΡΑ ΠΑΙΧΝΙΔΙΑ
@@ -5987,6 +6142,7 @@ en:Casino|U+1F3B0|U+1F3B2|U+1F3B4
 ar:كازينو
 bg:Казино|хазарт|машинки|слот машина
 cs:Casino|kasino
+cy:Casino
 da:Kasino|spillehal
 de:Casino|Kasino|Spielkasino|Spielhalle
 el:Καζίνο
@@ -6028,6 +6184,7 @@ be:Гульнявы цэнтр для дарослых
 bg:Център за игри за възрастни
 ca:Centre de joc per a adults
 cs:Centrum her pro dospělé
+cy:Canolfan Chwarae i Oedolion
 da:Spillecenter for voksne
 de:Gaming-Zentrum für Erwachsene
 el:Κέντρο παιχνιδιών ενηλίκων
@@ -6070,6 +6227,7 @@ be:Аркада
 bg:Аркада
 ca:Arcade
 cs:Pasáž
+cy:Arcêd
 da:Arcade|arkadespil
 de:Arkade
 el:Στοά|ηλεκτρονικά παιχνίδια
@@ -6112,6 +6270,7 @@ ar:كلية
 bg:4Колеж
 ca:Col·legi|estudis postobligatoris
 cs:Vysoká škola
+cy:4Coleg
 da:Universitet|4college|gymnasium
 de:4Hochschule|4Fachschule|4Kolleg
 el:Κολέγιο
@@ -6155,6 +6314,7 @@ ar:محطة إطفاء
 be:4Пажарная частка|Пажарная станцыя|Пажарныя
 bg:4Пожарна|пожарникар|станция
 cs:Hasiči
+cy:4Gorsaf Dân
 da:2Brandstation
 de:5Feuerwehr|Feuerwache
 el:Σταθμός πυρόσβεσης|πυροσβεστικός σταθμός
@@ -6197,6 +6357,7 @@ en:3Fountain|U+26F2
 ar:نافورة
 bg:3фонтан
 cs:Kašna|4fontána
+cy:3Ffynnon
 da:3Springvand|4fontæne
 de:4Springbrunnen|4Fontäne
 el:Συντριβάνι
@@ -6239,6 +6400,7 @@ ar:مقبرة
 be:5Могілкі
 bg:5Гробище|гробове
 cs:Hřbitov
+cy:5Mynwent|4Claddfa|maes claddu
 da:Kirkegård|gravplads
 de:5Friedhof|Gottesacker|Kirchhof
 el:Νεκροταφείο|κοιμητήριο
@@ -6280,6 +6442,7 @@ en:4Funeral Directors|Undertakers|Mortician|Funeral Parlor|Funeral Home
 ar:منظموا الجنازات
 be:4Рытуальныя паслугі|Пахавальнае бюро
 cs:4Pohřební služba
+cy:4Trefnwyr Angladdau|ymgymerwyr|angladd
 da:Bedemand
 de:7Bestattungsinstitut|Bestatter|5Beerdigungsunternehmer|Beerdigungsinstitut|Leichenbestatter
 el:Γραφεία τελετών
@@ -6323,6 +6486,7 @@ ar:مستشفى
 be:4Бальніца
 bg:4Болница
 cs:4Nemocnice
+cy:4Ysbyty
 da:4Hospital
 de:4Krankenhaus
 el:Νοσοκομείο
@@ -6366,6 +6530,7 @@ en:Hospital|clinic|3doctor|medical center|health services|4first aid|U+1F691|U+1
 ar:عيادة|طبيب|دكتور|مستشفى
 bg:Болница|клиника|4доктор|медик|медицински център|лекар|помощ|бърза помощ
 cs:Klinika|pohotovost|zdravotnické centrum|3lékař|4doktor|nemocnice
+cy:Ysbyty|clinig|3meddyg|canolfan feddygol|gwasanaethau iechyd|4cymorth cyntaf
 da:Sygehus|hospital
 de:Krankenhaus|4spital|klinik|3arzt|doktor|medizinische einrichtung|medizinisches zentrum|gesundheitswesen|3ambulanz|gesundheitsdienstleistungen|erste hilfe
 el:Κλινική|γιατρός|νοσοκομείο
@@ -6402,6 +6567,7 @@ en:4Clinic|hospital|3doctor|diagnostics|health services|U+1F3E5|U+1F489
 ar:عيادة|مستشفى|طبيب|دكتور
 bg:5Поликлиника|клиника|лекар|диагностика|4доктор|амбулаторно лечение|медик
 cs:4Klinika|nemocnice
+cy:4Clinig|ysbyty|3meddyg|meddygfa|gwasanaethau iechyd
 da:4Klinik|hospital
 de:4Klinik|Krankenhaus|Ambulanz|Arzt|Diagnostik|Gesundheitsdienstleistungen|4Doktor
 el:Κλινική|νοσοκομείο|γιατρός
@@ -6441,6 +6607,7 @@ en:4Doctor|clinic|U+1F489|U+1F3E5|U+1F691
 ar:طبيب|عيادة|مستشفى
 bg:4Доктор|болница|клиника|поликлиника|лекар
 cs:Lékařská ordinace|Klinika|nemocnice
+cy:4Meddyg|clinig|meddygfa
 da:Lægekontor|lægehus|klinik|hospital|læge
 de:Arztpraxis|Klinik|Krankenhaus
 el:Γιατροί|ιατροί|κλινική|νοσοκομείο|γιατρός
@@ -6483,6 +6650,7 @@ ar:طبيب أسنان
 be:4Стаматолаг|Стаматалогія
 bg:4Зъболекар|4стоматолог
 cs:Zubař
+cy:4Deintydd
 da:Tandlæge
 de:4Zahnarzt
 el:Οδοντίατρος
@@ -6525,6 +6693,7 @@ ar:ﺔﻴﺒﻄﻟﺍ ﺕﺍﺮﺒﺘﺨﻤﻟﺍ|مختبر طبي
 be:Медыцынская лабараторыя
 bg:Медицинска лаборатория
 cs:Lékařská laboratoř
+cy:Labordy Meddygol|lab|labordy
 da:Medicinsk laboratorium
 de:5Medizinisches Labor|3Labor
 el:Ιατρικό Εργαστήριο
@@ -6569,6 +6738,7 @@ ar:اخصائي علاج طبيعي
 be:Фізіятэрапеўт
 bg:Физиотерапевт
 cs:Fyzioterapeut
+cy:Ffisiotherapydd
 da:Fysioterapeut
 de:4Physiotherapie|Physiotherapeut|Physiotherapeutin
 el:Φυσικοθεραπευτής
@@ -6612,6 +6782,7 @@ ar:الطب البديل
 be:Альтэрнатыўная медыцына
 bg:Алтернативна медицина
 cs:Alternativní medicína
+cy:meddyginiaeth amgen
 da:Alternativ medicin
 de:5Alternative Medizin
 el:Εναλλακτική ιατρική
@@ -6656,6 +6827,7 @@ ar:السمع|السمعيات|علم السمع
 be:Аўдыялогія|Аўдыёлаг
 bg:Аудиология|Аудиолог
 cs:Audiologie|Audiolog
+cy:Awdioleg|Awdiolegydd
 da:Audiologi|Audiolog
 de:4Audiologie|Audiologin|Audiologe
 el:Ακοολογία|Ακουολόγος
@@ -6698,6 +6870,7 @@ healthcare-blood_donation
 en:Blood donation
 ar:مركز التبرع بالدم
 be:Донарства крыві
+cy:Rhoi gwaed
 de:4Blutspendezentrum|Blutspende
 el:Αιμοδοσία|κέντρο αιμοδοσίας
 es:Donación de sangre
@@ -6741,6 +6914,7 @@ ar:قياس البصر|طبيب العيون|تصحيح البصر
 be:Оптаметрыя|Акуліст
 bg:Оптометрия|Оптометрист
 cs:Optometrie|Optometrista
+cy:Optometreg|Optometrydd
 da:Optometri|Optometrist
 de:4Optometrie
 el:Οπτομετρία|Οπτομέτρης
@@ -6784,6 +6958,7 @@ ar:علاج الأرجل|طبيب الأرجل
 be:Подологія|Артапед
 bg:Подиология|Подиатрист
 cs:Podiatrie|Podiatr
+cy:Podiatreg|Podiatrydd
 da:Fodterapi|Fodterapeut
 de:4Podologie|Podologe|Podologin
 el:Ποδιατρική|Ποδίατρος
@@ -6828,6 +7003,7 @@ ar:العلاج النفسي|معالج نفسي
 be:Псіхатэрапія|Псіхатэрапеўт
 bg:Психотерапия|Психотерапевт
 cs:Psychoterapie|Psychoterapeut
+cy:Seicotherapydd
 da:Psykoterapi|Psykoterapeut
 de:4Psychotherapie|Psychotherapeutin|Psychotherapeut
 el:Ψυχοθεραπεία|Ψυχοθεραπευτής
@@ -6869,6 +7045,7 @@ zh-Hant:心理治療|心理治療師
 healthcare-sample_collection
 en:Sample collection
 be:Аналізы|збор аналізаў
+cy:Casglu samplau
 de:Probenahme
 lt:5Mėginių ėmimas|5analizės
 hi:नमूना संग्रह केंद्र
@@ -6882,6 +7059,7 @@ ar:علاج النطق|معالج النطق
 be:лагапедыя|Лагапед
 bg:Логопедия|Логопед
 cs:Logopedie|Logoped
+cy:Therapydd lleferydd|therapi lleferydd|therapydd iaith
 da:Tale terapi|Talepædagog|Talerapi
 de:4Logopädie|Logopädin|Logopäde
 el:Λογοθεραπεία|Λογοθεραπευτής
@@ -6925,6 +7103,7 @@ en:Hunting Stand
 ar:منصة صيد
 bg:Чакал|лов|ловджийска пусия
 cs:Lovecké stanoviště|posed
+cy:Cuddfan hela
 da:Jagtsted|hochsitz|jagttårn
 de:4Hochsitz|Anstand|4Jägerstand
 el:Βάση σκόπευσης|καρτέρι
@@ -6967,6 +7146,7 @@ ar:حضانة أطفال|روضة أطفال
 be:Дзіцячы садок|сад|дзіцячы сад
 bg:4Детска градина|деца|ясла
 cs:Školka|mateřská škola|dětská školka|mateřská školka
+cy:5Ysgol Feithrin|meithrinfa|4Gofal Plant|cylch meithrin
 da:4Børnehave
 de:5Kindergarten|Kinderkrippe|Krippe|Tagesstätte|Hort|Kinderbetreuung|Kinderbetreuungseinrichtung|Vorschule
 el:Νηπιαγωγείο
@@ -7010,6 +7190,7 @@ en:3Library|U+1F4D6
 ar:مكتبة
 bg:3Библиотека|книги
 cs:3Knihovna
+cy:3Llyfrgell
 da:3Bibliotek
 de:3Bibliothek|4Bücherei
 el:Βιβλιοθήκη
@@ -7052,6 +7233,7 @@ en:U+1F697|U+1F17F|U+1F698|U+1F699|parking|parking entrance
 ar:موقف سيارات
 be:Аўтастаянка|паркоўка
 bg:Паркинг|престой
+cy:parcio|mynedfa parcio|maes parcio
 da:3Parkeringsplads|parkering|parkeringsindkørsel
 de:3Parkplatz|parking|parkhaus|tiefgarage|parkplatzeinfahrt
 el:Στάθμευση|χώρος στάθμευσης|είσοδος στάθμευσης
@@ -7086,6 +7268,7 @@ be:3Аптэка
 bg:3Аптека|лекарства|дрогерия
 ca:Farmàcia
 cs:3Lékárna
+cy:3Fferyllfa
 da:3Apotek
 de:3Apotheke|Pharmazie
 el:Φαρμακείο
@@ -7129,6 +7312,7 @@ en:Pharmacy|4drugstore|apothecary|4dispensary|U+1F489|U+1F48A
 ar:متجر أدوية|صيدلية
 bg:Аптека|дрогерия|лекарства
 ca:Farmàcia
+cy:Fferyllfa|4fferyllydd|siop cemist|4cemist
 de:Apotheke|Drogerie
 el:φαρμακείο|φαρμακοποιός|χορήγηση φαρμάκων
 en-AU:4Chemist|pharmacist
@@ -7169,6 +7353,7 @@ be:3Пошта
 bg:Поща|пощенска кутия
 ca:Oficina postal
 cs:3Pošta
+cy:Post
 da:Post
 de:Post
 el:Ταχυδρομείο
@@ -7213,6 +7398,7 @@ be:3Паштовая скрыня
 bg:Поща|пощенска кутия
 ca:Bústia de correus|Bústia
 cs:3Poštovní schránka|3schránka
+cy:3Blwch Post|4blwch postio|bocs post
 da:3Postboks|postkasse|p/o|post
 de:3Briefkasten|3Postfach|post
 el:Ταχυδρομική θυρίδα|ταχυδρομείο
@@ -7256,6 +7442,7 @@ ar:مكتب بريد|شريك البريد
 be:3Паштовае аддзяленне|паштовы партнёр
 bg:Поща
 ca:Oficina de correus
+cy:3Swyddfa'r Post|swyddfa bost|partner post
 da:3Postkontor|posthus|postpartner
 de:3Postfiliale|postamt|post partner
 es:3Post|oficina de correos
@@ -7290,6 +7477,7 @@ be:Тэхагляд аўтамабіля
 bg:Проверка на автомобила
 ca:Inspecció de vehicles
 cs:Kontrola vozidla
+cy:Archwilio Cerbydau|MOT
 da:Bilsyn
 de:Fahrzeuginspektion
 el:Έλεγχος οχήματος
@@ -7331,6 +7519,7 @@ en:4Dumpster|4Trash bin|4garbage bin|waste disposal|U+1F6AE
 ar:قمامة|مهملات|سلة مهملات|صندوق قمامة|حاوية قمامة
 bg:Боклук|кош|контейнер|отпадък|бунище|кофа
 cs:Odpadky|koš|popelnice|uložiště odpadu
+cy:4Sgip|4Bin sbwriel|gwaredu gwastraff
 da:Bortskaffelse af affald|skraldespand|skrald|affaldsbeholder
 de:4Müllcontainer|Mülltonne|Abfälle|Müll|Müllentsorgung
 el:Διαχείριση απορριμμάτων|σκουπίδια
@@ -7374,6 +7563,7 @@ ar:مركز إعادة تدوير
 be:5Пункт прыёму другаснай сыравіны|прыём другсыравіны
 bg:Рециклиране|разделно събиране|преработвателно средище
 cs:Recyklační středisko
+cy:4Canolfan Ailgylchu|tip|domen
 da:Genbrugsplads
 de:4Recyclinghof|Recyclingzentrum
 el:Κέντρο ανακύκλωσης
@@ -7417,6 +7607,7 @@ ar:حاوية لإعادة التدوير
 be:Кантэйнер для другаснай сыравіны
 bg:Контейнер|разделно|събиране
 cs:Recyklační nádoba
+cy:4Cynhwysydd Ailgylchu|bin ailgylchu
 da:Genbrugscontainer
 de:5Wertstoffcontainer|5Recyclingbehälter
 el:Κάδος ανακύκλωσης
@@ -7460,6 +7651,7 @@ ar:ﺕﺎﻳﺭﺎﻄﺑ|بطاريات
 be:5Прыём батарэек|Утылізацыя батарэек|5Перапрацоўка батарэек|5Здаць батарэйкі|4Збор батарэек|5Батарэйкі
 bg:Батерии
 cs:Baterie
+cy:4Ailgylchu Batris|4gwaredu batris|batris
 da:Batterier
 de:Batterien
 el:Μπαταρίες
@@ -7503,6 +7695,7 @@ ar:إعادة تدوير الملابس القديم|ملابس قديمة|مل�
 be:5Прыём адзення|старае адзенне|здаць непатрэбныя рэчы|здаць рэчы|5здаць адзенне|адзенне
 bg:Стари дрехи|рециклиране|дрехи
 cs:Staré oblečení|Recyklujte staré oblečení
+cy:4Ailgylchu Dillad|ailgylchu tecstilau|rhoi dillad|banc dillad|dillad
 da:Gammelt tøj|genbrug gammelt tøj|tekstil
 de:4Altkleider|Alte Kleidung|Sachen spenden
 el:Παλιά ρούχα|Ανακύκλωση παλαιών ρούχων
@@ -7545,6 +7738,7 @@ ar:زجاجات زجاجية|قنينات زجاجية
 be:5Прыём шклатары|Прыём шкла|5Перапрацоўка шкла|5Здаць шклатару|Здаць бутэлькі|4Збор шклотары|5Шклатара|Шклабало|Шкляныя бутэлькі
 bg:Стъкло|шише|рециклиране|стъклени бутилки
 cs:Skleněné lahve
+cy:4Ailgylchu Poteli Gwydr|4ailgylchu gwydr|banc poteli|gwydr
 da:Glasflasker
 de:4Glas-Container|glasflaschen|glas
 el:Γυάλινα μπουκάλια
@@ -7587,6 +7781,7 @@ ar:نفايات ورقية
 be:5Прыём паперы|прыём макулатуры|5перапрацоўка паперы|5здаць паперу|здаць макулатуру|4збор паперы|збор макулатуры|5макулатура|папера
 bg:хартия|рециклиране|кашон
 cs:Papírový odpad
+cy:4Ailgylchu Papur|papur
 da:Papiraffald|papir
 de:4Altpapier|papier
 el:Απορρίμματα χαρτιού|χαρτί
@@ -7629,6 +7824,7 @@ ar:نفايات بلاستيكية
 be:5Прыём пластыка|5Перапрацоўка пластыка|5Здаць пластык|4Збор пластыка|5Пластык
 bg:Пластмаса|рециклиране|отпадък|полимер
 cs:Plastový odpad
+cy:4Ailgylchu Plastig|plastig
 da:Plastaffald|plastik
 de:Plastik-Müll|kunststoff
 el:Πλαστικά απορρίμματα|πλαστικό
@@ -7671,6 +7867,7 @@ ar:زجاجات بلاستيكية|قنينات بلاستيكية
 be:5Прыём пластыкавых бутэлек|5Перапрацоўка пластыкавых бутэлек|5Здаць пластыкавыя бутэлькі|4Збор пластыкавых бутэлек|5Пластыкавыя бутэлькі
 bg:Пластмасови бутилки|пластмаса|бутилки|шишета|рециклиране
 cs:Plastové lahve
+cy:4Ailgylchu Poteli Plastig|poteli plastig
 da:Plastik flasker|plastikflasker
 de:Plastikflaschen
 el:Πλαστικά μπουκάλια
@@ -7713,6 +7910,7 @@ ar:نفايات معدنية
 be:5Прыём металалому|5Перапрацоўка металалому|Утылізацыя металалому|5Здаць металалом|4Збор металалому|5Металалом
 bg:скрап|метал|стари|рециклиране
 cs:Kovový šrot
+cy:4Ailgylchu Metel Sgrap|4metel sgrap|sgrap
 da:Skrot metal|metal
 de:4Altmetall|Schrott
 el:Παλιοσίδερα
@@ -7755,6 +7953,7 @@ ar:نفايات الكترونية
 be:5Прыём электронікі|5перапрацоўка электронікі|утылізацыя электронікі|5здаць электроніку|4збор электронікі|электраадходы|электроннае смецце
 bg:Електроника|рециклиране|боклук
 cs:Elektronický odpad
+cy:4Ailgylchu Electroneg|3e-wastraff|gwastraff electronig|ailgylchu offer
 da:Elektronik affald|elektronik
 de:Elektroschrott
 el:Ηλεκτρονικά απορρίμματα
@@ -7794,6 +7993,7 @@ zh-Hant:電子垃圾
 recycling-cardboard|@category_recycling
 en:4Recycling of Cardboard|5cardboard recycling|cardboard waste|cardboard
 be:5Прыём кардона|прыём макулатуры|5перапрацоўка кардона|5здаць кардон|здаць макулатуру|4збор кардона|збор макулатуры|5макулатура|кардон
+cy:4Ailgylchu Cardbord|cardbord
 es:Cartón
 et:Lainepapi taaskasutus|papp
 lt:5Kartono perdirbimas|5kartono atliekos|kartonas
@@ -7808,6 +8008,7 @@ uk:5Прийом картону|прийом макулатури|5переро�
 recycling-cans|@category_recycling
 en:4Recycling of Cans|4cans recycling|4aluminium cans recycling|3tin cans recycling|cans
 be:5Прыём бляшаных і алюмініевых слоікаў|5перапрацоўка бляшаных і алюмініевых слоікаў|5здаць бляшаныя і алюмініевыя банкі|4збор бляшаных і алюмініевых слоікаў|6кансервовыя банкі|5бляшаныя банкі|5алюмініевыя банкі|піўныя банкі
+cy:4Ailgylchu Caniau|4caniau alwminiwm|3caniau tun|caniau
 es:Latas de aluminio|latas
 et:Purkide taaskasutus|purgid
 lt:5Skardžių perdirbimas|5Skardinės
@@ -7822,6 +8023,7 @@ uk:5Прийом жерстяних та алюмінієвих банок|5пе
 recycling-shoes|@category_recycling
 en:4Recycling of Shoes|shoes recycling|donate shoes|shoes
 be:5Прыём абутку|стары абутак|5здаць абутак|абутак
+cy:4Ailgylchu Esgidiau|rhoi esgidiau|esgidiau
 et:Jalanõude taaskasutus|jalanõud
 lt:5Avalynės perdirbimas|5senos batelės|avalynė
 lv:Apavu pārstrāde|apavu nodošana|apavu konteiners
@@ -7835,6 +8037,7 @@ uk:5Прийом взуття|старе взуття|5здати взуття|�
 recycling-green_waste|@category_recycling
 en:4Recycling of Green Waste|5organic waste recycling|5green waste recycling|food waste|garden waste|green/organic waste
 be:5Прыём арганічных адходаў|прыём харчовых адходаў|5здаць арганічныя адходы|4збор арганічных адходаў|збор харчовых адходаў|5харчовыя адходы|6садовыя адходы
+cy:4Ailgylchu Gwastraff Gwyrdd|5gwastraff organig|gwastraff bwyd|gwastraff gardd|compost
 et:Rohejäätmete taaskasutus|komposteeritavad jäätmed
 lt:5Žaliųjų atliekų perdirbimas|5maisto atliekos|5sodo atliekos|žaliosios atliekos
 lv:Bioloģiskie atkritumi|bioloģisko atkritumu nodošana
@@ -7847,6 +8050,7 @@ uk:5Прийом органічних відходів|прийом харчов
 recycling-cartons|@category_recycling
 en:4Recycling of Bewerage Cartons|5cartons recycling|5bewerage cartons recycling|cartons
 be:5Прыём тетрапака|5здаць тетрапак|4збор тетрапака|5тетрапак
+cy:4Ailgylchu Cartonau Diod|5ailgylchu cartonau|cartonau
 et:Tetrapakkide taaskasutus|joogipakendid
 lt:5Gėrimų kartono perdirbimas|5tetrapakės|kartoninės pakuotės
 lv:Tetrapaku pārstrāde|tetrapaku nodošana
@@ -7858,6 +8062,7 @@ uk:5Прийом тетрапака|5здати тетрапак|4збір те�
 amenity-sanitary_dump_station|@category_rv
 en:2RV Dump Station|5Holding Tank Dump Station|4Dump Station|sanitary dump station|sewage|RV waste|5motorhome dump station|5camper dump station|4caravan dump station
 be:4Зліў нечыстотаў для аўтадамоў|сліў прыбіральні|сліў для туалета|нечыстоты|каналізація
+cy:2Gorsaf Wagio Carafanau|5Gorsaf Wagio Tanciau|4Gorsaf Wagio|carthion|gwastraff carafán|5gwagio cartref modur
 de:3VE-Station|4Entsorgungsstation|4Versorgungsstation|2RV Dump
 es:Estación de vaciado para caravanas
 et:Haagiselamute jäätmepunkt|heitvee purgimiskoht
@@ -7875,6 +8080,7 @@ en:3School|U+1F392|U+1F3EB
 ar:مدرسة
 bg:Училище|гимназия|даскало
 cs:3Škola
+cy:3Ysgol
 da:2Skole
 de:3Schule|Schulgebäude
 el:Σχολείο
@@ -7919,6 +8125,7 @@ be:4Прытулак|навес
 bg:4Подслон|Убежище|4заслон
 ca:Refugi
 cs:Přístřešek|úkryt
+cy:4Lloches|cysgodfan
 da:Shelter|læskur|hytte|ly
 de:5Unterstand|Wetterschutz|Schutzhütte
 el:Καταφύγιο
@@ -7963,6 +8170,7 @@ be:Хаціна-бівак
 bg:Колибка за бивак
 ca:Cabana Bivac
 cs:Bivakovací Chata
+cy:3Cwt Biwac|bothi|cwt
 da:Bivuakhytte|primitiv hytte
 de:4Biwakschachtel
 el:Καταφύγιο bivouac|καταφύγιο μπιβουάκ
@@ -8008,6 +8216,7 @@ be:Бівальны навес
 bg:Подслон за бивак
 ca:Rafal|Refugi
 cs:Přístřešek|úkryt|otevřený přístřešek
+cy:3Cysgodfan|4Lloches
 da:Shelter|læskur|hytte
 de:Lean-to Wetterschutz|Wetterschutz|Schutzhütte
 el:Καταφύγιο|στεγασμένο καταφύγιο
@@ -8052,6 +8261,7 @@ be:Стрыптыз-клуб
 bg:Стриптийз клуб
 ca:Club de striptease
 cs:Stripcklub|stripklub
+cy:Clwb stripio
 da:Stripklub
 de:Stripclub
 el:Stripclub|στριπτιζάδικο
@@ -8095,6 +8305,7 @@ ar:هاتف
 bg:3Телефон|мобифон|обаждане
 ca:Telèfon
 cs:2Telefon|telefonní budka|telefonní automat
+cy:2Ffôn|5Teleffon
 da:2Telefon
 de:2Telefon|Fernsprecher
 el:Τηλέφωνο
@@ -8140,6 +8351,7 @@ be:4Прыбіральня|3Туалет
 bg:4Тоалетна
 ca:Lavabos
 cs:3Záchody
+cy:3Toiled
 da:3Toilet
 de:3Toilette
 el:Τουαλέτα
@@ -8184,6 +8396,7 @@ ar:مرحاض
 bg:тоалетна|ВЦ
 ca:Lavabos|vàter
 cs:Wc|toalety|záchody
+cy:Toiled|tŷ bach|5toiledau|lle chwech|4ystafell ymolchi
 de:Toilette|WC
 el:Μπάνιο|χώρος ανάγκης|αποχωρητήριο|wc|τουαλέτα
 es:3Baños|aseos|3lavabo|inodoro|baño|wc
@@ -8217,6 +8430,7 @@ en:4University|U+1F393|Uni
 ar:جامعة
 bg:4Университет|ВУЗ|кампус|4институт|корпус
 cs:4Univerzita|universita
+cy:4Prifysgol|coleg
 da:4Universitet
 de:4Universität|Uni|Hochschule|Institut
 el:Πανεπιστήμιο
@@ -8259,6 +8473,7 @@ en:Continent|U+1F30D|U+1F30E|U+1F30F
 ar:قارة
 bg:Континент
 cs:Kontinent
+cy:Cyfandir
 da:Kontinent
 de:Kontinent|Festland
 el:Ήπειρος
@@ -8301,6 +8516,7 @@ en:Country
 ar:دولة
 bg:Държава|страна
 cs:Země
+cy:Gwlad
 da:Land|stat
 de:Land|staat
 el:Χώρα
@@ -8343,6 +8559,7 @@ en:City|town
 ar:مدينة
 bg:град
 cs:Velkoměsto
+cy:Dinas|tref
 da:By|stad
 de:Großstadt
 el:Πόλη|κωμόπολη
@@ -8385,6 +8602,7 @@ en:Town|city
 ar:بلدة
 bg:Град|градче
 cs:Město
+cy:Tref|dinas
 da:By|stad
 de:Stadt|kleinstadt
 el:Κωμόπολη|πόλη
@@ -8426,6 +8644,7 @@ en:Capital|city
 ar:عاصمة|مدينة
 bg:Столица|град
 cs:Hlavní město|metropole
+cy:Prifddinas|dinas
 da:Kapital
 de:Hauptstadt|Metropole|Stadt
 el:Πρωτεύουσα|πόλη
@@ -8468,6 +8687,7 @@ en:County
 ar:مقاطعة
 bg:Графствто|графство
 cs:Země
+cy:Sir
 da:Amt
 de:Kreis|Bezirk
 el:Δήμος|κομητεία
@@ -8509,6 +8729,7 @@ en:State|province
 ar:محافظة
 bg:Щат|провинция|федерален щат
 cs:Země|provincie|kraj
+cy:Talaith|rhanbarth
 da:Stat|provins
 de:Land|staat|kanton|provinz|bundesland
 el:Πολιτεία|επαρχία
@@ -8551,6 +8772,7 @@ en:Region
 ar:منطقة
 bg:Район|Регион
 cs:Region|oblast|zóna|sektor
+cy:Rhanbarth
 da:Region
 de:Region
 el:Περιοχή
@@ -8592,6 +8814,7 @@ en:Island|islet
 ar:جزيرة
 bg:Остров|острови
 cs:Ostrov
+cy:Ynys|ynysig
 da:Ø
 de:Insel|kleine insel
 el:Νησί|νησίδα
@@ -8633,6 +8856,7 @@ en:Suburb|district|quarter|neighbourhood|neighborhood|residential area
 ar:حي سكني|ضاحية|الحي|منطقة سكنية
 bg:Район|микрорайон|окръг|квартал|предградие|съседство
 cs:Předměstí|městská část|městská zóna|čtvrť|sousedství|obytná oblast
+cy:Maestref|ardal|chwarter|cymdogaeth|ardal breswyl
 da:Forstad|distrikt|kvarter|nabolag|boligområde
 de:Stadtteil|stadtviertel|wohnviertel|wohnbezirk|siedlung|wohngebiet
 el:Προάστιο|συνοικία|γειτονιά|οικιστική περιοχή
@@ -8675,6 +8899,7 @@ en:Hamlet|village
 ar:قرية صغيرة|قرية
 bg:Село|махала
 cs:Vesnička
+cy:Pentrefan|pentref
 da:Landsby
 de:Weiler|Dorf
 el:Χωριουδάκι|χωριό
@@ -8717,6 +8942,7 @@ en:Village|hamlet
 ar:قرية|قرية صغيرة
 bg:Село
 cs:Vesnice
+cy:Pentref|pentrefan
 da:Landsby
 de:Dorf|Weiler
 el:Χωριό|χωριουδάκι
@@ -8759,6 +8985,7 @@ en:Locality
 ar:منطقة مجاورة
 bg:Местност|регион|място
 cs:Lokalita
+cy:Lleoliad|ardal
 da:Lokalitet|sted
 de:Örtlichkeit|Lokalität|Region|Ort
 el:Τοποθεσία
@@ -8800,6 +9027,7 @@ en:Farm|U+1F411|U+1F414|U+1F417|U+1F42E|U+1F404|U+1F430|U+1F407|U+1F40F|U+1F410|
 ar:مزرعة
 bg:ферма
 cs:Farma
+cy:Fferm
 da:Gård
 de:4Bauernhof|Farm
 el:Αγρόκτημα|φάρμα
@@ -8841,6 +9069,7 @@ en:Racetrack|U+1F3C1
 ar:مسار سباق
 bg:Писта|състезание|състезателен път
 cs:Závodiště
+cy:Trac rasio
 da:Væddeløbsbane
 de:Rennbahn
 el:Πίστα αγώνων
@@ -8881,6 +9110,7 @@ en:Path|foot path|stairs|cycle path
 ar:مسار|مسار للمشاة|درج|مسار للدراجات
 bg:Пътека|път|стълби
 cs:Cesta|cyklostezka
+cy:Llwybr|llwybr troed|grisiau|llwybr beicio
 da:Sti|gangsti|trin|trappe|cykelsti
 de:Weg|fußweg|pfad|treppe|radweg
 el:Διαδρομή|μονοπάτι|μονοπάτι πεζών|σκαλιά|ποδηλατόδρομος
@@ -8923,6 +9153,7 @@ en:Street|road|drive|lane|avenue|pedestrian street|primary road|primary road ram
 ar:شارع|شارع للمشاة|شارع رئيسي|شارع سكني|شارع ثانوي|شارع خدمي|طريق|شارع وطني|شارع صغير|طريق سريع|مسار للدراجات
 bg:Улица|пешеходна улица|главен път|жилищна улица|второстепенен пър|третостепенен път|обслужващ път|път|пътека|автомагистрала|изход от магистрала|малък път|магистрала
 cs:Ulice|cyklostezka
+cy:Stryd|ffordd|lôn|rhodfa|heol|stryd gerddwyr|prif ffordd|ffordd ymuno|stryd breswyl|ffordd eilaidd|ffordd drydyddol|ffordd wasanaeth|trac|cefnffordd|stryd fyw|ffordd fach|traffordd|llwybr beicio
 da:Gade|vej|gågade|hovedvej|hovedvejsforbindelse|sækunder hovedvej|sekundær hovedvejsforbindelse|tertiær hovedvej|tertiær hovedvejsforbindelse|servicevej|hjulspor|motortrafikvej|motortrafikvejsforbindelse|legegade|motorvejsrampe|motorvej|cykelsti
 de:Straße|fußgängerzone|hauptstraße|wohnstraße|zufahrtsweg|forst-/Feldweg|schnellstraße|spielstraße|nebenstraße|autobahnauffahrt|autobahn|radweg
 el:Δρόμος|πεζόδρομος|πρωτεύων δρόμος|ράμπα πρωτεύοντος δρόμου|οικιστική οδός|δευτερεύων δρόμος|ράμπα δευτερεύοντος δρόμου|τριτεύων δρόμος|ράμπα τριτεύοντος δρόμου|δρόμος εξυπηρέτησης|αγροτικός δρόμος|κύρια οδική αρτηρία|ράμπα εξόδου|οδός ήπιας κυκλοφορίας|τοπικός δρόμος|ράμπα αυτοκινητόδρομου|αυτοκινητόδρομος|ποδηλατόδρομος
@@ -8964,6 +9195,7 @@ en:3Exit|3junction|road exit
 ar:مخرج|تقاطع
 bg:Изход|разклонение
 cs:Dopravní uzel|3dálnice
+cy:3Allanfa|3cyffordd|allanfa ffordd
 da:2Motorvejsafkørsel|afkørsel
 de:4Ausfahrt|abfahrt|autobahnausfahrt
 el:Έξοδος|διασταύρωση
@@ -9002,6 +9234,7 @@ zh-Hant:1交流道|出口處|高速公路|公路
 
 highway-elevator
 en:Lift|elevator
+cy:Lifft
 hi:उत्थापक
 lt:5Keltuvas|5Liftas
 lv:lifts
@@ -9016,6 +9249,7 @@ en:Peak|mountain|mount|U+1F5FB|U+1F304
 ar:قمة|جبل
 bg:Гора|планина|връх|пик
 cs:Hora|pohoří
+cy:Copa|mynydd|moel
 da:2Bjerg|bjergtop|tinde|bakketop
 de:Berg|Gebirge|Gipfel|Spitze|Pik
 el:Κορυφή|βουνό
@@ -9056,11 +9290,13 @@ zh-Hant:1山峰|1山脈|山|峰
 # Add at least one lang not to be skipped.
 natural-peak|@mountain
 en:Peak
+cy:Copa
 sl:Vrh
 
 natural-saddle|mountain_pass
 en:4Saddle|pass|mountain saddle|mountain pass
 be:4Седлавіна|5Перавал
+cy:4Bwlch|bwlch mynydd
 et:Sadul|mäesadul|mäekuru
 fr:Col
 it:4Sella|passo
@@ -9077,6 +9313,7 @@ en:Strait
 ar:مضيق
 bg:Пролив|проток
 cs:Průliv
+cy:Culfor
 da:Stræde
 de:Meerenge
 el:Πορθμός
@@ -9121,6 +9358,7 @@ be:Узгорак
 bg:Хълм
 ca:Turó
 cs:Kopec
+cy:Bryn|allt
 da:Bakke
 de:Hügel
 el:Λόφος
@@ -9165,6 +9403,7 @@ be:Скальны арк
 bg:Скална арка
 ca:Arc rocós
 cs:Skalní oblouk
+cy:Arch Graig|bwa craig
 da:Klippebuen
 de:Felsenbogen
 el:Βραχώδης Αψίδα
@@ -9209,6 +9448,7 @@ en:Forest|U+1F332|U+1F333
 ar:غابة
 bg:Гора
 cs:Les
+cy:Coedwig|coed
 da:Skov|plantage
 de:Wald|Urwald|Nadelwald|Laubwald|Mischwald|Forst
 el:Δάσος
@@ -9252,6 +9492,7 @@ ar:حديقة|متنزه
 bg:Парк|отдих
 ca:Parc
 cs:Park
+cy:Parc
 da:Park
 de:Park
 el:Πάρκο
@@ -9296,6 +9537,7 @@ be:Акварыум
 bg:Аквариум
 ca:Aquari
 cs:Akvárium
+cy:Acwariwm
 da:Akvarium
 de:Aquarium
 el:Ενυδρείο
@@ -9337,6 +9579,7 @@ en:3Hostel|motel|backpack|backpacking|U+1F3E8
 ar:نزُل|فندق|فندق رخيص|نزُل مشتركة
 bg:3Хостел|мотел|раница|поход|гостилница
 cs:3Hostel|ubytovna|motel
+cy:3Hostel|motel|llety|bacpacio
 da:3Hostel|kro|vandrerhjem|motel|herberg
 de:3Herberge|Hostel|Gasthaus|Unterkunft
 el:Πανδοχείο|ξενοδοχείο|μοτέλ
@@ -9379,6 +9622,7 @@ en:Motel|tourist court|U+1F3E8|U+1F62A|U+1F634|hotel
 ar:فندق|فندق رخيص
 bg:мотел|туризъм|хотел
 cs:Ubytovna|motel|hotel
+cy:Motel|gwesty|llety
 da:Motel|hotel
 de:Gasthaus|hotel
 el:Μοτέλ|ξενοδοχείο
@@ -9414,6 +9658,7 @@ en:4Guest House|hostel|U+1F3E8
 ar:دار الضيافة|فندق|نزُل
 bg:гости|къща|хостел|отдих|туризъм
 cs:Penzion|hostel|ubytovna
+cy:4Tŷ Gwesteion|hostel|gwely a brecwast|llety
 da:Gæstehus|gæstehjem|hostel
 de:3Pension|Unterkunft|Herberge|Wohnheim|Gästehaus
 el:Ξενοδοχείο|ξενώνας
@@ -9455,6 +9700,7 @@ en:3Motel|hostel|U+1F3E8
 ar:فندق رخيص|فندق|نزُل|موتيل
 bg:мотел|гостилница|хостел|туризъм
 cs:3Motel|penzion|hostel|ubytovna
+cy:3Motel|hostel
 da:Motel|hostel
 de:3Motel|Gasthaus|Wohnheim
 el:Μοτέλ|ξενοδοχείο|ξενώνας
@@ -9496,6 +9742,7 @@ ar:مساكن جبلية|فندق|الفندق|لودج الجبل
 be:4Горны прытулак|4турыстычная хатка|турыстычны прытулак|4прытулак
 bg:4Планинска хижа|4туристическа хижа|3хижа|кабина|къща
 cs:4Ubytování v horách|Horská chata|horský hotel|hotel
+cy:5Llety'r Mynydd|5cwt mynydd|cwt|llety|hafod
 da:Bjerg logi|hotel|bjerghytte
 de:4Berghütte|Almhütte|Berghotel|Hotel|Unterkunft|Bergunterkunft|Herberge|Lager
 el:Ορεινό καταφύγιο|ξενοδοχείο|ξενώνας|αλπική καλύβα
@@ -9534,6 +9781,7 @@ ar:مصفف شعر|حلاق
 be:4Цырулья|цырульнік|цырульня
 bg:подстрижка|фризьор|салон|красота|маникюр|педикюр|стилист
 cs:4Kadeřnictví|4holičství
+cy:3Siop Trin Gwallt|salon gwallt|barbwr|torri gwallt|trin gwallt|lliwio gwallt
 da:3Frisør
 de:3Friseur|Frisiersalon|Frisör|4Coiffeur
 el:Κομμωτής
@@ -9576,6 +9824,7 @@ en:3Airport|3plane|U+2708
 ar:مطار|طائرة
 bg:4Летище|4самолет
 cs:3Letiště
+cy:3Maes awyr|3awyren
 da:3Lufthavn|flyveplads|fly
 de:3Flughafen|4Flugzeug|Flugplatz
 el:3Αεροδρόμιο|αεροπλάνο
@@ -9616,6 +9865,7 @@ zh-Hant:1機場|2航空站|3航空公司|2飛機場
 aeroway-aerodrome|@airport
 en:Airport
 bg:Летище
+cy:Maes awyr
 fr:Aéroport
 id:Bandar udara
 ja:空港
@@ -9639,6 +9889,7 @@ be:Вакзал|тэрмінал
 bg:Терминал
 ca:Terminal
 cs:Terminál
+cy:Terfynfa
 da:Terminal
 de:Terminal
 el:Τερματικό|τερματικός σταθμός
@@ -9681,6 +9932,7 @@ en:4Stadium|4sport|olympic stadium|sports stadium|sports complex|arena|U+26BD|U+
 ar:استاد|رياضة|ملعب
 bg:4Стадион|спорт|мач|арена|шампионат|спортен комплекс
 cs:4Stadion|4sport
+cy:4Stadiwm|4chwaraeon|stadiwm chwaraeon|arena
 da:4Stadium|sport|stadion
 de:4Stadion|4Sport|Olympiastadion|Sportstadion|Sportkomplex|Arena
 el:Γήπεδο|στάδιο|αθλητισμός|σπορ
@@ -9724,6 +9976,7 @@ ar:ملعب|ملعب أطفال
 bg:4Детска площадка|игрище
 ca:Parc infantil
 cs:Hřiště
+cy:4Maes chwarae|lle chwarae
 da:Legeplads
 de:Spielplatz
 el:Παιδική χαρά
@@ -9768,6 +10021,7 @@ be:Гульнявы цэнтр
 bg:Център за игра
 ca:Play Center
 cs:Hrací centrum
+cy:Canolfan Chwarae
 da:Legecenter
 de:Spielzentrum
 el:Κέντρο παιχνιδιού
@@ -9809,6 +10063,7 @@ en:4Sports Center|sport|sports complex|sports forum|U+26BD|U+26BE|U+1F3BE|U+1F4A
 ar:رياضة|مركز رياضي
 bg:4Спортен комплекс|спорт|арена
 cs:4Sportovní centrum|sport
+cy:4Canolfan Chwaraeon|chwaraeon|canolfan hamdden
 da:Idrætscenter|sportshal|sport
 de:4Sportzentrum|Sport|Fitness-Zentrum|Fitness-Center
 el:Αθλητικό κέντρο|Αθλητισμός
@@ -9851,6 +10106,7 @@ en:Golf Course|U+26F3
 ar:ملعب جولف|ملعب غولف
 bg:Голф|площадка
 cs:Golf
+cy:Cwrs Golff
 da:Golf|golfbane
 de:Golfplatz
 el:Γήπεδο γκολφ|Αθλητισμός
@@ -9893,6 +10149,7 @@ be:Мінігольф
 bg:Миниголф
 ca:Minigolf
 cs:Minigolf
+cy:4Minigolff|golff bach|golff gwallgof
 da:Minigolf
 de:Minigolf
 es:Minigolf
@@ -9928,6 +10185,7 @@ en:4Hackerspace
 ar:هاكرزبيس
 be:Хакерская прастора
 bg:Хакерско пространство|Хакерспейс|Хакспейс
+cy:4Gofod Haciwyr
 es-MX:Espacio hacker
 fa:فضای هکرها
 he:האקרספייס
@@ -9948,6 +10206,7 @@ en:4Sports Ground|sport|U+26BD|U+26BE|U+1F3BE|U+1F3C0|U+1F3C8|U+1F3C9|U+1F3C3|sp
 ar:ملعب رياضي|رياضة|ملاعب رياضية
 bg:площадка|спорт|игрище
 cs:4Sportovní hřiště|sport
+cy:4Cae Chwaraeon|chwaraeon|cae
 da:4Sportsplads|fodboldbane|tennisbane|bane
 de:4Sportplatz|Feld|Sport
 el:Γήπεδο αθλοπαιδιών|Αθλητισμός
@@ -9989,6 +10248,7 @@ en:4Swimming Pool|sport|U+1F3CA
 ar:حوض سباحة|رياضة|مسبح
 bg:4басейн|спорт|плуване
 cs:4Koupaliště|3bazén|aquapark|4lázně
+cy:4Pwll Nofio|chwaraeon|nofio
 da:2Svømmebassin|swimmingpool|sport
 de:4Schwimmbecken|Sport
 el:Πισίνα|Αθλητισμός
@@ -10034,6 +10294,7 @@ en:American Football
 ar:كرة القدم الأمريكية
 be:Амерыканскі футбол
 cs:Americký fotbal
+cy:Pêl-droed Americanaidd
 da:Amerikansk fodbold
 de:Amerikanischer Fußball|american football
 el:αμερικάνικο ποδόσφαιρο
@@ -10078,6 +10339,7 @@ en:Archery
 ar:الرماية|رماية
 be:Стральба з лука
 cs:Lukostřelba
+cy:Saethyddiaeth
 da:Bueskydning
 de:Bogenschießen
 el:Τοξοβολία
@@ -10123,6 +10385,7 @@ ar:ألعاب القوى|العاب رياضية
 be:Лёгкая атлетыка
 bg:Атлетика|лека
 cs:Atletika
+cy:Athletau
 da:Atletik
 de:Leichtathletik
 el:Στίβος
@@ -10163,6 +10426,7 @@ ar:كرة القدم الأسترالية
 be:Аўстралійскі футбол
 bg:Австралийски футбол
 cs:Australský fotbal
+cy:Pêl-droed Awstralia
 da:Australsk fodbold
 de:Australian Football
 el:Αυστραλιανό ποδόσφαιρο
@@ -10202,6 +10466,7 @@ en:Baseball
 ar:البيسبول|كرة القاعدة
 be:Бейсбол
 cs:Baseball
+cy:Pêl fas
 da:Baseball
 de:Baseball
 el:Μπέιζμπολ
@@ -10246,6 +10511,7 @@ en:Basketball
 ar:كرة سلة|كرة السلة
 be:Баскетбол
 bg:Баскетбол|игрище
+cy:Pêl-fasged
 da:Basketball
 de:Basketball
 el:Καλαθόσφαιρα|μπάσκετ
@@ -10286,6 +10552,7 @@ ar:كرة طائرة شاطئية
 be:Пляжны валейбол
 bg:Плажен волейбол
 cs:Plážový volejbal
+cy:Pêl-foli traeth
 da:Beachvolley
 de:Beachvolleyball
 el:Μπιτς βόλεϊ
@@ -10327,6 +10594,7 @@ sport-bowls
 en:Bowls
 ar:لعبة البولينج|بولنغ المخضرة
 be:Боўлз
+cy:Bowlio lawnt|bowls
 de:Bowls
 es:Bolos sobre hierba
 et:Murukeegel
@@ -10361,6 +10629,7 @@ ar:شطرنج
 be:Шахматы
 bg:Шахмат
 cs:Šachy
+cy:Gwyddbwyll
 da:Skak
 de:Schach
 el:Σκάκι
@@ -10403,6 +10672,7 @@ en:Cricket
 ar:كريكت
 be:Крикет
 cs:Kriket
+cy:Criced
 de:Cricket
 es:Críquet
 et:Kriket
@@ -10439,6 +10709,7 @@ en:Curling
 ar:كيرلنغ|كرلنغ
 be:Кёрлінг
 cs:Curling
+cy:Cyrlio
 da:Curling
 de:Eisstockschießen|Curling
 el:Κέρλινγκ
@@ -10482,6 +10753,7 @@ en:Equestrian Sports|horse riding
 ar:فروسية|رياضة الفروسية
 be:Конны спорт
 bg:Коне|спорт|езда|конен спорт
+cy:Chwaraeon Marchogaeth|marchogaeth|ceffylau
 da:Ridesport
 de:Reitsport
 el:Ιππασία
@@ -10520,6 +10792,7 @@ en:Golf
 ar:الجولف|غولف
 be:Гольф
 cs:Golf
+cy:Golff
 da:Golf
 de:Golf
 el:Γκολφ
@@ -10564,6 +10837,7 @@ en:Gymnastics
 ar:رياضة بدنية|جمباز
 be:Гімнастыка
 cs:Gymnastika
+cy:Gymnasteg
 da:Gymnastik
 de:Gymnastik
 el:Γυμναστική
@@ -10608,6 +10882,7 @@ en:Handball
 ar:كرة اليد
 be:Гандбол
 cs:Házená
+cy:Pêl-law
 da:Håndbold
 de:Handball
 el:Τόπι|χειροσφαίριση
@@ -10653,6 +10928,7 @@ en:Scuba diving site
 ar:الغوص
 be:Месца для дайвінга
 cs:Potápění
+cy:Safle deifio sgwba|deifio
 da:Scuba dykning
 de:Gerätetauchen
 el:Κατάδυση|χώρος καταδύσεων
@@ -10695,6 +10971,7 @@ en:Shooting
 ar:رماية
 be:Стральба
 cs:Střílení|Střelba
+cy:Saethu
 da:Skydning
 de:Schießen
 el:Κυνήγι|σκοποβολή
@@ -10740,6 +11017,7 @@ ar:تزلج على اللوح
 be:Скейтбордынг|скейтборд|скейт
 bg:Скейтбординг|скейтборд|скейт
 cs:Skateboarding|skateboard
+cy:Sglefrfyrddio|sglefrfwrdd|sglefrio
 da:Skateboarding|skateboard
 de:Skateboarding|skateboard|skateboarden
 el:Σκέιτμπορντινγκ
@@ -10781,6 +11059,7 @@ en:Skiing
 ar:التزحلق|تزحلف
 be:Катанне на лыжах
 cs:Lyžování
+cy:Sgïo
 da:Stå på ski
 de:Skifahren
 el:Χιονοδρόμια
@@ -10825,6 +11104,7 @@ en:Soccer
 ar:كرة القدم
 be:Футбол
 cs:Fotbal
+cy:Pêl-droed|ffwtbol
 da:Fodbold
 de:Fußball
 el:Ποδόσφαιρο
@@ -10870,6 +11150,7 @@ ar:سباحة
 be:Плаванне
 bg:Плуване
 cs:Plavání
+cy:Nofio
 da:Svømning
 de:Schwimmen
 el:Κολύμβηση
@@ -10913,6 +11194,7 @@ ar:كرة الطاولة
 be:Настольны тэніс
 bg:Тенис на маса
 cs:Stolní tenis
+cy:Tenis bwrdd|ping-pong
 da:Bordtennis
 de:Tischtennis
 el:Επιτραπέζια αντισφαίριση
@@ -10956,6 +11238,7 @@ en:Tennis|tennis court
 ar:تنس|ملعب تنس
 be:Тэніс|тэнісны корт
 cs:Tenis|tenisový kurt
+cy:Tenis|cwrt tenis
 da:Tennis|tennisbane
 de:Tennis|tennisplatz
 el:Τένις|γήπεδο τένις
@@ -11002,6 +11285,7 @@ be:Падэль
 bg:Падел
 ca:Pàdel
 cs:Padel
+cy:Padel
 da:Padel
 de:Padel
 el:Padel|πάντελ
@@ -11045,6 +11329,7 @@ ar:كرة الطائرة
 be:Валейбол
 bg:Волейбол
 cs:Volejbal
+cy:Pêl-foli
 da:Volleyball
 de:Volleyball
 el:Πετοσφαίριση
@@ -11088,6 +11373,7 @@ ar:لعبة البولنج|بولينج بعشرة دبابيس|بولنغ
 be:Кеглі|Боўлінг
 bg:Skittles|Боулинг
 cs:Kuželky|Bowling
+cy:Bowlio deg|bowlio
 da:Keglespil|Bowling
 de:Kegeln|Bowling
 el:Μπόουλινγκ με εννέα κορίνες|Μπόουλινγκ
@@ -11131,6 +11417,7 @@ be:Боўлс|Петанк
 bg:Петанк|боул|бочи
 ca:5Petanca|bocce
 cs:Pétanque|bocce|kuželky
+cy:Boules|petanque|bocce
 da:Boule|petanque|bocce
 de:Boule|Pétanque|Boccia
 el:Πετάνκ|μπότσε
@@ -11176,6 +11463,7 @@ be:Веласпорт|велатрэк
 bg:Колоездене|велодрум
 ca:Ciclisme|velòdrom
 cs:Cyklistika|velodrom
+cy:Beicio|felodrom|rasio beiciau
 da:Cykling|cykelbane|velodrom
 de:Radsport|Velodrom|Radrennen
 el:Ποδηλασία|βελοδρόμιο
@@ -11221,6 +11509,7 @@ be:Чатыры квадраты
 bg:Четири квадрата
 ca:5Quatre quadrats
 cs:Čtyři čtverce
+cy:Pedwar Sgwâr|4 sgwâr
 da:Fire firkanter
 de:Vier-Felder-Ball|Vier Quadrate
 el:Τέσσερα τετράγωνα
@@ -11266,6 +11555,7 @@ be:Конныя скачкі|іпадром
 bg:Конни надбягвания|хиподрум
 ca:5Curses de cavalls|hipòdrom
 cs:Dostihy|závodiště|hipodrom
+cy:Rasio Ceffylau|cwrs rasio|trac rasio
 da:Hestevæddeløb|hippodrom|væddeløbsbane
 de:Pferderennen|Pferderennbahn|Hippodrom
 el:Ιπποδρομίες|ιππόδρομος
@@ -11311,6 +11601,7 @@ be:Картынг
 bg:Картинг
 ca:Karting|kart
 cs:Motokáry|karting
+cy:Cartio|go-cart|rasio cartiau|trac cartio
 da:Gokart|karting
 de:Kartsport|Gokart|Kartbahn
 el:Καρτ|καρτινγκ
@@ -11356,6 +11647,7 @@ be:Мотакрос
 bg:Мотокрос
 ca:Motocròs
 cs:Motokros
+cy:Motocross
 da:Motocross
 de:Motocross
 el:Μοτοκρός
@@ -11401,6 +11693,7 @@ be:Аўтаспорт|аўтадром|трэк
 bg:Моторни спортове|автомобилен спорт|писта
 ca:5Esports de motor|circuit
 cs:Motoristický sport|motosport|závodní okruh
+cy:Chwaraeon modur|trac rasio|cylchdaith rasio
 da:Motorsport|racerbane
 de:Motorsport|Rennstrecke
 el:Μηχανοκίνητος αθλητισμός|πίστα αγώνων
@@ -11446,6 +11739,7 @@ be:Нетбол|Нэтбол
 bg:Нетбол
 ca:Netball
 cs:Netball
+cy:Pêl-rwyd
 da:Netball
 de:Netball
 el:Νέτμπολ
@@ -11491,6 +11785,7 @@ be:Піклбол
 bg:Пиклбол
 ca:Pickleball
 cs:Pickleball
+cy:Pickleball
 da:Pickleball
 de:Pickleball
 el:Πίκλμπολ
@@ -11536,6 +11831,7 @@ be:Рэгбі-юніён|рэгбі
 bg:Ръгби юнион|ръгби
 ca:Rugbi a quinze|rugbi
 cs:Ragby|rugby
+cy:Rygbi'r Undeb|rygbi
 da:Rugby union|rugby
 de:Rugby Union|Rugby
 el:Ράγκμπι γιούνιον|ράγκμπι
@@ -11581,6 +11877,7 @@ be:Бег
 bg:Бягане|джогинг
 ca:3Cursa a peu|córrer|jòguing
 cs:5Běh|běhání|jogging
+cy:Rhedeg|loncian
 da:Løb|jogging
 de:Laufen|Joggen
 el:Τρέξιμο|τζόκινγκ
@@ -11626,6 +11923,7 @@ be:Софтбол
 bg:Софтбол
 ca:Softbol
 cs:Softbal
+cy:Pêl-feddal
 da:Softball
 de:Softball
 el:Σόφτμπολ
@@ -11669,6 +11967,7 @@ en:Building|U+1F3E0|U+1F3E1|U+1F3E2
 ar:مبنى
 bg:Сграда
 cs:Stavba
+cy:Adeilad
 da:2Bygning
 de:Gebäude
 el:Κτίριο
@@ -11714,6 +12013,7 @@ be:4Паліцыя|міліція
 bg:4Полиция
 ca:Policia
 cs:4Policie
+cy:4Heddlu|plismon
 da:4Politi
 de:Polizeistation|4Polizei
 el:Αστυνομία
@@ -11758,6 +12058,7 @@ ar:الشرطة|شرطة
 bg:Полиция|милиция
 ca:Policia
 cs:4Bezpečnost|policie
+cy:Heddlu
 de:Polizeistation|polizeiwache|polizei
 el:Αστυνομία
 et:Politsei
@@ -11789,6 +12090,7 @@ en:4Embassy
 ar:سفارة
 bg:4Посолство|Консолство
 cs:4Velvyslanectví|4ambasáda
+cy:4Llysgenhadaeth
 da:Ambassade
 de:4Botschaft|4Konsulat|4Verbindungsbüro
 el:Πρεσβεία
@@ -11831,6 +12133,7 @@ en:Bay
 ar:خليج
 bg:залив
 cs:Záliv
+cy:Bae
 da:Bugt|havbugt
 de:Bucht|Bai
 el:Κόλπος
@@ -11887,6 +12190,7 @@ be:Вада|крыніца
 bg:Вода
 ca:Aigua
 cs:Voda
+cy:3Dŵr|ffynhonnell dŵr
 da:Vand
 de:3Wasser
 el:Νερό
@@ -11932,6 +12236,7 @@ be:3Пітная вада
 bg:3Питейна вода
 ca:3Aigua potable|Font d'aigua potable
 cs:4Pitná voda
+cy:4Dŵr Yfed|3Dŵr Yfadwy
 da:4Drikkevand
 de:4Trinkwasser
 el:4Πόσιμο νερό
@@ -11975,6 +12280,7 @@ be:4Гарачая крыніца|4Геатэрмальная крыніца
 bg:Горещ извор|геотермален извор
 ca:Font termal|Font calenta|Deu termal
 cs:Termální pramen
+cy:3Ffynnon Boeth
 da:Varm kilde
 de:Heiße Quelle|Thermalquelle
 el:Θερμή πηγή|Ιαματική πηγή
@@ -12018,6 +12324,7 @@ be:4Крыніца
 bg:Извор
 ca:Manantial|font natural
 cs:Pramen
+cy:3Ffynnon|4Ffynnon Naturiol|tarddell
 da:Kilde|kildevæld
 de:Quelle
 el:Πηγή νερού
@@ -12062,6 +12369,7 @@ be:4Калодзеж|студня
 bg:5Кладенец
 ca:Pou|pou d’aigua
 cs:Studna
+cy:Ffynnon Ddŵr|pydew
 da:Brønd
 de:Brunnen
 el:Πηγάδι νερού
@@ -12104,6 +12412,7 @@ ar:نقطة مائية|الماء للقافلة
 be:Запраўка вадой|вада для каравану|вада для аўтадома
 bg:водна точка|вода за каравана
 cs:Vodní zdroj|voda pro karavanu
+cy:Man Ail-lenwi Tanc Dŵr|2Pwynt Dŵr Carafanau|dŵr i garafán|dŵr i gamperfan
 da:Vandstation|vandpost
 de:6Wasseranschluss
 el:Παροχή νερού
@@ -12146,6 +12455,7 @@ ar:حنفية مياه
 be:5Вадаправодны кран|вадзяны кран
 bg:кран за вода|чешмяна вода
 cs:Vodovodní kohoutek
+cy:Tap Dŵr
 da:Vandhane
 de:6Wasserhahn
 el:Βρύση νερού
@@ -12194,6 +12504,7 @@ ar:مسطح مائي
 be:Вадаём
 bg:Воден басейн
 cs:Vodní plocha
+cy:Corff dŵr|wyneb dŵr
 da:Vandmasse
 de:Wasserfläche|Gewässer
 es:Cuerpo de agua
@@ -12233,6 +12544,7 @@ ar:حوض المياه|حوض مياه
 be:Рэзервуар
 bg:Резервоар|езерце
 cs:Vodní nádrž
+cy:Basn
 da:Vandbassin
 de:Wasserbecken
 el:Μια λεκάνη νερού|λεκανοπέδιο
@@ -12277,6 +12589,7 @@ ar:بركة|مياه
 be:5Сажалка
 bg:локва|езерце|басейн
 cs:Rybník
+cy:Pwll|llyn bach
 da:Dam|vandhul
 de:Teich|Wasserbecken
 el:Δεξαμενή
@@ -12321,6 +12634,7 @@ ar:بحيرة|مياه
 be:Возера
 bg:Езеро
 cs:Jezero
+cy:Llyn
 da:1Sø
 de:See|Wasserbecken
 el:Λίμνη
@@ -12365,6 +12679,7 @@ ar:خزان
 be:5Вадасховішча
 bg:5Резервоар
 cs:Nádrž|voda
+cy:5Cronfa ddŵr|cronfa
 da:5Reservoir|vandreservoir
 de:5Reservoir|wasserfläche
 el:Δεξαμενή|ταμιευτήρας
@@ -12407,6 +12722,7 @@ ar:نهر|تيار مائي
 be:Рака|ручай
 bg:Река|течение|рекичка|поток
 cs:Řeka
+cy:Afon|nant|ffrwd
 da:Flod
 de:Fluss|strom|bach
 el:Ποταμός|ρυάκι|ρέμα
@@ -12451,6 +12767,7 @@ be:Пункт доступу да вадаёма
 bg:Точка за достъп до водния път
 ca:Punt d'accés a la via navegable
 cs:Přístupový bod k vodním cestám
+cy:Pwynt Mynediad i Lwybrau Dŵr
 da:Adgangspunkt til vandvejen
 de:Wasserstraße Zugangspunkt
 el:Σημείο πρόσβασης σε υδατοδρόμιο
@@ -12496,6 +12813,7 @@ en:Canal
 ar:قناة
 bg:канал
 cs:Kanál
+cy:Camlas
 da:Kanal
 de:Kanal
 el:Κανάλι
@@ -12538,6 +12856,7 @@ en:3Car Repair Workshop|4service station|auto|garage|4mechanic|U+1F527
 ar:محل صيانة السيارات|محطة خدمات
 bg:4Автосервиз|монтьор|автомобил|гараж|сервиз|3механик|поправка
 cs:3Auto opravna|auto|auta|Půjčení
+cy:3Gweithdy Trwsio Ceir|4garej|mecanic|trwsio ceir|4gorsaf wasanaeth
 da:3Garage|3bilværksted|service station
 de:3Autowerkstatt|Kfz|Reparaturwerkstatt|Auto|4Werkstatt
 el:Συνεργείο αυτοκινήτων|φανοποιείο|γκαράζ
@@ -12580,6 +12899,7 @@ en:4Camping|campsite|campground|4tent spot|U+26FA
 ar:تخييم|مكان التخييم|أرض التخييم|مخيّم
 bg:4Къмпинг
 cs:4Kempování|camping|kemp|camp
+cy:4Gwersylla|maes gwersylla|gwersyll|4lle pabell
 da:4Camping|campingplads|teltplads|lejrplads
 de:4Campingplatz|Camping|Zeltplatz|Zelten
 el:Κάμπινγκ|χώρος κάμπινγκ|χώρος κατασκήνωσης
@@ -12622,6 +12942,7 @@ ar:موقع البيت المتنقل
 be:4Аўтакемпінг|4кемпінг для аўтадамоў|4стаянка для аўтадамоў
 bg:4къмпинг|4стоянка|каравана|паркинг
 cs:Kemp pro obytné přívěsy
+cy:2Parc Carafanau|4Safle Carafanau|maes carafannau
 da:5Autocamperplads|husvogn
 de:4Wohnmobilstellplatz|Wohnmobilpark|Wohnwagenstellplatz|Wohnwagenplatz|Campingplatz
 el:Χώρος για τροχόσπιτα|Χώρος για οχήματα RV
@@ -12662,6 +12983,7 @@ ar:مكتب|شركة
 bg:Офис|компания|кантора|фирма|бизнес|бюро|учреждение
 ca:Oficina
 cs:Kancelář
+cy:Swyddfa|cwmni|biwro|swyddfa weinyddol|busnes|corfforaeth
 da:Kontor|firma|virksomhed
 de:Büro|Amt|Unternehmen|Agentur|Dienststelle|Firma|Geschäft|Gesellschaft
 el:Γραφείο|εταιρεία
@@ -12701,6 +13023,7 @@ zh-Hant:辦公室|1辦事處
 
 office-architect
 en:4Architect|architecture office|architect office
+cy:4Pensaer|swyddfa pensaer|pensaernïaeth
 de:Architekt|Architekturbüro
 es:Arquitecto|Estudio de arquitectura
 fr:Architecte|Cabinet d'architecte
@@ -12715,6 +13038,7 @@ en:Company Office
 ar:مكتب شركة
 bg:Организация|компания|офис
 cs:Kancelář společnosti
+cy:Swyddfa'r Cwmni
 da:Selskabskontor
 de:Firmenbüro|Niederlassung
 el:Γραφείο επιχείρησης
@@ -12756,6 +13080,7 @@ en:Government Office
 ar:مكتب حكومي
 bg:офис|администрация|правителство
 cs:Úřad vlády
+cy:Swyddfa'r Llywodraeth
 da:Regeringskontor
 de:3Regierungsstelle|Amt|3Behörde|4Verwaltung
 el:Κυβερνητικό γραφείο
@@ -12798,6 +13123,7 @@ en:3Lawyer|advocate|attorney|4barrister|counsel|councellor|4solicitor
 ar:مكتب محامي|مكتب محاماة
 bg:3адвокат|4нотариус|юрист|право|защита|консултация|услуга|кантора
 cs:Právní kancelář
+cy:3Cyfreithiwr|bargyfreithiwr|twrnai|4cyfreithwyr|cyngor cyfreithiol
 da:4Advokatkontor
 de:5Anwaltskanzlei|Anwaltsbüro|Anwalt|Rechtsanwalt|Jurist|Gerichtsanwalt|Rechtsbeistand|Rechtsberater|Verteidiger
 el:Δικηγόρος|υπεράσπιση|πληρεξούσιος|συνήγορος|σύνεδρος|σύμβουλος|νομικός
@@ -12839,6 +13165,7 @@ en:Telecom Company|telecommunications
 ar:شركة اتصالات|شركة محمول
 bg:Телекомуникационна компания
 cs:Mobilní operátor
+cy:Cwmni Telathrebu|telathrebu
 da:Mobiloperatør
 de:5Mobilfunkbetreiber|Mobilfunkanbieter
 el:Εταιρεία κινητής τηλεφωνίας
@@ -12881,6 +13208,7 @@ ar:نحال
 be:Пчаляр
 bg:Пчелар
 cs:Včelař
+cy:Gwenynwr
 da:Biavler
 de:3Imker
 el:Μελισσοκόμος
@@ -12924,6 +13252,7 @@ ar:حداد
 be:Кузня
 bg:Ковачница
 cs:Kovář
+cy:Gof|efail
 da:Smed
 de:Schmied
 el:Σιδηρουργός
@@ -12967,6 +13296,7 @@ ar:مصنع جعة
 be:Крафтавы бровар
 bg:Пива|5пововарна|пивоварна
 cs:5Pivovar
+cy:Bragdy crefft|4Bragdy|tŷ bragu|cwrw|bar cwrw|cwrw crefft
 da:Bryggeri|mikrobryggeri
 de:4Brauerei|Brauhaus|Hausbrauerei|Bier|Bierausschank|Hausbräu
 el:Ζυθοποιείο
@@ -13012,6 +13342,7 @@ be:Кейтэрынг
 bg:Кетъринг
 ca:Càtering
 cs:Cateringová společnost
+cy:Arlwywr|arlwyo
 da:Caterer|cateringfirma
 de:Caterer|partyservice
 el:Τροφοδότης
@@ -13056,6 +13387,7 @@ be:Цясляр
 bg:4Дърводелство|дървар|марангоз
 ca:Fuster
 cs:Truhlář
+cy:4Saer coed|saer
 da:Tømrer
 de:4Zimmermann
 el:Ξυλουργός
@@ -13099,6 +13431,7 @@ ar:حلواني
 be:Кандытар
 bg:Сладкарски изделия
 cs:Cukrářské výrobky
+cy:Melysion|gwneuthurwr melysion
 da:Konfekture|konfekturehandler
 de:Süßwarenladen
 el:Ζαχαροπλάστης
@@ -13141,6 +13474,7 @@ ar:كهربائي|عامل كهربائي
 be:Электрык
 bg:4Електричар|електротехник
 cs:4Elektrikář
+cy:4Trydanwr
 da:4Elektriker
 de:4Elektriker
 el:Ηλεκτρολόγος
@@ -13184,6 +13518,7 @@ ar:إصلاح الإلكترونيات
 be:Рамонт электронікі
 bg:Ремонт на електроника
 cs:Opravy elektroniky
+cy:Trwsio electroneg
 da:Reparation af elektronik|elektronikreparation
 de:4Elektrogerätereparatur
 el:Επισκευή ηλεκτρονικών
@@ -13228,6 +13563,7 @@ ar:مهندس مناظر|بستاني
 be:Садоўнік
 bg:Градинар
 cs:Zahradník
+cy:Garddwr
 da:Gartner
 de:Landschaftsgärtner|4Gärtnerei
 el:Κηπουρός
@@ -13271,6 +13607,7 @@ be:Млын
 bg:Мелница
 ca:Molí
 cs:Mlýn
+cy:Melin Falu|melin
 da:Mølle
 de:Mühle
 el:Μύλος|μύλος λείανσης
@@ -13313,6 +13650,7 @@ ar:مشغولات يدوية
 be:Рамесніцтва
 bg:Занаят
 cs:Ruční práce
+cy:Crefft law|crefftau
 da:Kunsthåndværk
 de:4Kunsthandwerk
 el:Χειροτεχνία
@@ -13356,6 +13694,7 @@ ar:تكييف|محل تكييف
 be:Ацяпленне, вентыляцыя і кандыцыянаванне
 bg:Отопление, вентилация и климатизация
 cs:HVAC
+cy:HVAC|gwresogi|awyru
 da:Blikkenslager|VVS
 de:4Heizung, Lüftung und Klimatisierung
 el:Ψυκτικός
@@ -13400,6 +13739,7 @@ be:5Металаканструкцыі
 bg:5Метални конструкции|металургия|ковач|метал|занаят
 ca:Ferrer
 cs:Kovodílna
+cy:5Gweithiwr Metel
 da:5Metalarbejder
 de:5Metallverarbeitung|4Schlosser
 el:5Μεταλλουργός
@@ -13443,6 +13783,7 @@ be:Выраб ключоў
 bg:Рязане на ключове
 ca:Tall de claus
 cs:Řezání klíčů
+cy:Torri Allweddi
 da:Nøgleskæring|nøgleskærer
 de:4Schlüssel-Nachmachdienst
 el:Κοπή κλειδιού
@@ -13487,6 +13828,7 @@ be:Слесар
 bg:Ключар
 ca:Serraller
 cs:Zámečník
+cy:Saer cloeau|cloeau
 da:Låsesmed
 de:4Schlüsseldienst
 el:Κλειδαράς
@@ -13531,6 +13873,7 @@ be:Мастак
 bg:Бояджия
 ca:Pintor
 cs:Malíř
+cy:Peintiwr Tai|peintiwr|addurnwr
 da:Maler
 de:Maler
 el:Μπογιατζής
@@ -13574,6 +13917,7 @@ be:Фатограф
 bg:4фотограф|албум|снимка|студио
 ca:Fotògraf
 cs:4Fotograf|fotografické studio
+cy:4Ffotograffydd|stiwdio ffotograffiaeth
 da:4Fotograf|studio
 de:4Fotograf|Fotostudio
 el:Φωτογράφος|Στούντιο φωτογραφίας
@@ -13617,6 +13961,7 @@ ar:سمكري|سباك
 be:Вадаправодчык
 bg:Водопроводчик
 cs:Instalatér
+cy:Plymwr
 da:VVS-mand|blikkenslager
 de:5Installateur
 el:Υδραυλικός
@@ -13661,6 +14006,7 @@ ar:منشرة
 be:Лесапільня
 bg:Дъскорезница
 cs:Pila
+cy:Melin lifio
 da:Savværk
 de:4Sägewerk
 el:Πριστήριο
@@ -13704,6 +14050,7 @@ ar:تصليح الاحذية
 be:Шавец
 bg:Ремонт|обувки|майстор|обущар
 cs:Opravna obuvi
+cy:4Trwsio Esgidiau|crydd
 da:Skomager|skoreparation
 de:Schuhreparatur|4Schuhmacher|Schuster
 el:Υποδηματοποιός|τσαγκάρης
@@ -13748,6 +14095,7 @@ ar:مصنع الخمرة
 be:Вінакурня
 bg:Винарна
 cs:Vinařství
+cy:4Gwindy|gwin
 da:Vingård
 de:4Kellerei|4Weingut|3Winzer|Weinbauer
 el:Οινοποιείο
@@ -13791,6 +14139,7 @@ ar:خياط|ترزي
 be:Кравец
 bg:шивач|4ателие|ремонт|дрехи|майстор
 cs:Krejčí
+cy:4Teiliwr|addasu dillad|addasiadau
 da:Skrædder
 de:4Schneider
 el:Ράφτης|ράπτης
@@ -13831,6 +14180,7 @@ zh-Hant:裁縫師
 
 area:highway-footway|area:highway-pedestrian|area:highway-steps|place-square
 en:Square
+cy:Sgwâr
 ru:Площадь
 bg:Площад
 ar:ساحة
@@ -13874,6 +14224,7 @@ en:Sea|U+1F30A
 ar:يكون|بحر
 bg:Море
 cs:Moře
+cy:Môr
 da:Er|hav
 de:Meer
 el:Θάλασσα
@@ -13916,6 +14267,7 @@ en:Ocean|U+1F30A
 ar:المحيط|محيط
 bg:Океан
 cs:Oceán
+cy:Cefnfor
 da:Ocean|verdenshave
 de:Ozean
 el:Ωκεανός
@@ -13960,6 +14312,7 @@ ar:إنترنت لا سلكي|وايفاي
 be:WiFi|Wi-Fi
 bg:WiFi|Wi-Fi
 cs:Wi-Fi|wiFi
+cy:Di-wifr|WiFi|Wi-Fi
 da:WiFi|Wi-Fi
 de:WLAN|WiFi|Wi-Fi
 el:WiFi|Wi-Fi
@@ -14001,6 +14354,7 @@ en:3Internet|U+1F4F6
 ar:واي فاي|الإنترنت|wiFi|3internet|إنترنت
 bg:3Интернет|уайфай|мрежа
 cs:3Internet
+cy:3Rhyngrwyd
 da:3Internet|trådløst internet
 de:3Internet|Internetzugang
 el:Ίντερνετ|διαδίκτυο
@@ -14043,6 +14397,7 @@ en:Beach|U+1F459|sandy beach|gravel beach|beach resort
 ar:شاطئ|شاطئ رملي|شاطئ حصى|منتجع شاطئي
 bg:Плаж|пясъчен плаж|чакълест плаж
 cs:Pláž|písečná pláž|štěrková pláž|plážový areál
+cy:Traeth|traeth tywodlyd|traeth graean|cyrchfan traeth
 da:Strand|sandet strand|grus strand|strandferieområde
 de:Strand|sandstrand|kiesstrand|beach resort
 el:Παραλία|ακρογιαλιά|αμμουδιά|παραλία χαλίκι|παραθαλάσσιο θέρετρο
@@ -14084,6 +14439,7 @@ en:Lighthouse
 ar:منارة
 bg:Фар
 cs:Maják
+cy:Goleudy
 da:Fyrtårn
 de:Leuchtturm
 el:Φάρος
@@ -14124,6 +14480,7 @@ man_made-survey_point
 en:4Survey Point|survey marker|survey benchmark|4geodetic mark|geodetic vertex|4triangulation station|4trigonometrical point|trig point|trig pillar|4trig station|trig beacon|trig
 be:4Геадэзічны пункт
 ca:Punt geodèsic
+cy:4Pwynt Arolwg|4pwynt trig|piler trig|4gorsaf driongli|4pwynt trigonometrig|trig
 de:4Vermessungspunkt
 el:4Γεωδαιτικό σημείο
 es:punto geodésico
@@ -14143,6 +14500,7 @@ man_made-flagpole
 en:Flagpole
 ar:سارية علم
 be:Флагшток
+cy:Polyn baner
 de:Fahnenmast
 es:Mástil de bandera
 et:Lipumast
@@ -14166,6 +14524,7 @@ man_made-mast
 en:Mast|pole
 ar:عمود برج
 be:Мачта|вышка|мачта/вышка
+cy:Mast|polyn
 de:Mast
 es:Mástil
 et:Mast
@@ -14189,6 +14548,7 @@ be:Вежа сувязі|вышка сувязі|сотавая вышка
 bg:Комуникационна кула
 ca:Torre de comunicacions
 cs:Komunikační věž
+cy:Tŵr Cyfathrebu|mast ffôn|tŵr ffôn symudol|mast
 da:Kommunikationstårn
 de:Funkturm|Kommunikationsturm
 el:Πύργος Επικοινωνιών
@@ -14233,6 +14593,7 @@ ar:بئر النفط
 be:4Нафтавая свідравіна|свідравіна
 bg:4Нефтено находище|сондаж
 cs:4Ropný vrt
+cy:Ffynnon Olew|ffynnon nwy|olew
 da:4Oliebrønd
 de:4Erdölbohrung|Ölquelle
 el:Πετρελαιοπηγή
@@ -14276,6 +14637,7 @@ ar:بيولوجي|صحي|بيئي|طبيعي|عضوي
 be:эка|5натуральная|5арганічная|5біялагічная|5экалагічная|біо|біа|бія|5здаровая
 bg:еко|био|здравословен|биологичен|екологичен|природен|органичен
 cs:ekologické|bio|zdravé|biologické|environmentální|přírodní|organické
+cy:4organig|bio|eco|ecolegol|iach
 da:Øko|bio|sundt|biologisk|miljømæssigt|naturligt|organisk|økologisk
 de:Biologische|biologisch|5ökologische|ökologisches|öko|bio|4organische|organisch|naturnah|natürliches|natürlich|gesundes|gesund|umweltfreundlich
 el:Οικολογικό|βιολογικό|υγιεινό|φυσικό|οργανικά
@@ -14319,6 +14681,7 @@ ar:محل نسخ|طباعة|محل طباعة
 bg:4Копирен център|4печат|полиграфия|принтер
 ca:Copisteria|còpies
 cs:4Kopírovací obchod|4Tiskárny
+cy:4Siop Gopïo|4argraffu|4llungopïo|copïo
 da:4Kopieringsbutik|4Trykkeri
 de:4Kopierladen|4Drucker|Copyshop
 el:Φωτοτυπείο|Εκτυπωτής
@@ -14361,6 +14724,7 @@ ar:محل صور|إطارات|محل|محل تصوير
 be:Фотатавары|фотамагазін
 bg:Фотограф|рамки
 cs:Fotografický obchod|rámy
+cy:4Llun|fframiau|siop ffotograffau
 da:4Fotobutik|rammer
 de:4Fotofachgeschäft|Foto|Rahmen
 el:Φωτογραφείο|πλαίσια|κατάστημα
@@ -14403,6 +14767,7 @@ be:Фотаапараты|крама фотаапаратаў
 bg:Магазин за фотоапарати
 ca:Botiga de càmeres
 cs:Obchod s fotoaparáty
+cy:3Camera|siop gamerâu
 da:Kamera butik|kamerabutik
 de:Kamerageschäft
 el:Κατάστημα φωτογραφικών μηχανών
@@ -14446,6 +14811,7 @@ en:4Travel Agency|tours|4tour agency|trips|journeys|travel bureau|holidays|trave
 ar:وكيل سفريات|جولات
 bg:Турист|агенция|пътешествие|пътуване|билети
 cs:Cestovní kancelář|cesty
+cy:4Asiant Teithio|teithiau|4asiantaeth deithio|gwyliau|swyddfa deithio
 da:Rejsebureau|rundrejser
 de:5Reisebüro|Reisen|Rundreisen|Reisevermittlung|Reisevermittler|Reiseagentur|Touren|Ausflüge|Urlaub|Touristeninformation|Last-Minute-Tour
 el:Ταξιδιωτικό γραφείο|Τουριστικός πράκτορας|Περιηγήσεις
@@ -14488,6 +14854,7 @@ ar:معدات خارجية|ترحال|تسلق|تخييم|محل
 be:Турыстычны
 bg:3туристически|катерене|къмпингуване
 cs:Venkovní vybavení|trekking|lezení|kempování
+cy:4Offer Awyr Agored|cerdded|heicio|dringo|gwersylla
 da:Fritidsudstyr|vandring|klatring|camping
 de:4Outdoor-Ausrüstungs-Laden|Outdoor-Ausrüstung|Trekking|Klettern|Camping
 el:Εξοπλισμός υπαίθρου|πεζοπορία|αναρρίχηση|κάμπινγκ|κατάστημα
@@ -14529,6 +14896,7 @@ ar:غسيل جاف|غسيل|تنظيف جاف
 be:4Хімчыстка|хімічная чыстка
 bg:4Химическо|чистене
 cs:Chemické čištění|čistírna
+cy:3Sychlanhawyr|glanhau
 da:Renseri|vaskeri
 de:Chemische Reinigung|4Reinigung
 el:Στεγνό καθάρισμα|καθαρισμός
@@ -14571,6 +14939,7 @@ ar:محل إطارات|محل
 be:Шыны|шын|крама шын
 bg:Магазин за гуми|3гума|гуми
 cs:Obchod s pneumatikami
+cy:3Teiars|teiar|siop deiars
 da:Dækforretning
 de:4Reifenhändler|4Autoreifen|Reifen
 el:Βουλκανιζατέρ|κατάστημα ελαστικών
@@ -14613,6 +14982,7 @@ en:3Car Wash
 ar:مغسلة سيارات
 bg:4Автомивка
 cs:4Myčka aut
+cy:3Golchfa Geir|golchi car
 da:Bilvask
 de:4Autowaschanlage|Autowäsche
 el:Καθαρισμός αυτοκινήτων
@@ -14654,6 +15024,7 @@ en:Veterinary Doctor|4veterinary
 ar:طبيب بيطري
 bg:Ветеринарна клиника|4ветеринар
 cs:4Veterinář
+cy:Milfeddyg|4milfeddygol
 da:Dyrlæge
 de:4Tierarzt
 el:Κτηνίατρος
@@ -14697,6 +15068,7 @@ be:4Зарадная станцыя|зарадка|электразарадка|
 bg:4Зарядна станция|зареждане
 ca:Punt de recàrrega
 cs:Nabíjecí stanice|nabíjení
+cy:Gwefrydd|Gwefru|2Gorsaf wefru|pwynt gwefru
 da:Ladestation|ladestander|opladning
 de:4Ladestation|auf laden
 el:Σταθμός φόρτισης|φόρτιση
@@ -14746,6 +15118,7 @@ be:Зарадка ровара
 bg:Зареждане на велосипеди
 ca:Càrrega de bicicletes
 cs:Nabíjení jízdních kol
+cy:4Gwefru Beiciau|4gwefru beic
 da:Opladning af cykler|cykelladestander
 de:Fahrrad aufladen|fahrrad-Ladestation
 el:Φόρτιση ποδηλάτων
@@ -14784,6 +15157,7 @@ zh-Hant:自行車充電|自行車充電站
 
 amenity-charging_station-motorcar|@charging_station
 en:2EV Charger|EV Charging|4Motorcar Charging|3Car Charger|Car Charging|3Tesla|Ionity|ChargePoint
+cy:2Gwefrydd EV|gwefru EV|4gwefru ceir|3gwefrydd car|trydan|3Tesla|Ionity|ChargePoint
 en-GB:2EV Charger|EV Charging|4Motorcar Charging|3Car Charger|Car Charging|3Tesla|Ionity|ChargePoint|Pod Point
 ar:3شاحن سيارة|شحن سيارة كهربائية
 be:4Зарадка для электрамабіляў|4станцыя зарадкі электрамабіляў|MALANKA|МАЛАНКА|evika|эвіка
@@ -14831,6 +15205,7 @@ ar:حضانة|رعاية أطفال
 be:Яслі|дзіцячы пакой
 bg:3Ясла|деца
 cs:4Jesle|Péče o děti
+cy:Meithrinfa|4Gofal Plant|gwarchod plant
 da:Vuggestue|Børnehave
 de:Kindertagesstätte|Kindergarten|Kinderbetreuung
 el:Βρεφικός σταθμός|Φροντίδα παιδιών
@@ -14873,6 +15248,7 @@ ar:أماكن وقوف للدراجات|موقف دراجات
 be:4Велапаркоўка|веластаянка
 bg:4Велостоянка|паркинг|колело|велосипед
 cs:Parkování kol
+cy:4Parcio Beiciau|4parcio beic
 da:4Cykelparkering
 de:6Fahrradständer
 el:Χώρος στάθμευσης ποδηλάτων
@@ -14914,6 +15290,7 @@ en:4Trash Bin|4litter bin|waste basket
 ar:صندوق قمامة|سلة مهملات
 bg:Кошче|боклук|контейнер
 cs:Odpadkový koš
+cy:4Bin Sbwriel|4bin ysbwriel|basged sbwriel
 da:Skraldespand|affaldsspand
 de:6Abfalleimer|4Mülleimer|Papierkorb
 el:Κάδος απορριμμάτων|Δοχείο απορριμάτων|Καλάθι αποβλήτων
@@ -14957,6 +15334,7 @@ en:4Emergency Phone
 ar:هاتف الطوارئ
 bg:Спешна помощ|3телефон
 cs:Tísňového volání
+cy:4Ffôn Argyfwng
 da:4Nødtelefon
 de:4Notruftelefon|Nottelefon
 el:Τηλέφωνο έκτακτης ανάγκης
@@ -15000,6 +15378,7 @@ en:3Fitness Centre|gym|fitness|workout|fitness gym|fitness club|health club|fitn
 ar:مركز للياقة البدنية، نادي رياضي
 bg:3Фитнес|клуб|център|тренировка|спорт|зала
 cs:3Fitness|tělocvična
+cy:3Canolfan Ffitrwydd|campfa|ffitrwydd|ymarfer corff|clwb iechyd|stiwdio ffitrwydd
 da:Trænings- og motionscenter|3fitnesscenter
 de:3Fitnessstudio|Fitnesscenter|Fitness|Fitnessraum|Fitnessclub|Gesundheitsclub|Training|Trainingsraum|Turnhalle
 el:Κέντρο γυμναστικής|Γυμναστήριο
@@ -15042,6 +15421,7 @@ en:3Sauna|sweatbath|sweat lodge|steam room|steam sauna|sauna room
 ar:ساونا
 bg:3Сауна|3баня|комплекс|спа
 cs:3Sauna
+cy:3Sawna|ystafell stêm|baddon chwys
 da:3Sauna
 de:3Sauna|Schwitzbad|Schwitzhütte|Dampfbad|Dampfsauna|Saunakabine
 el:Σάουνα
@@ -15085,6 +15465,7 @@ ar:إصلاح إطارات
 be:Шынамантаж|рамонт шын
 bg:3Гуми|автомонтьор|поправка|спукана гума|гумаджия
 cs:4Pneuservis|auto opravna
+cy:3Trwsio Teiars|teiars|4trwsio twll|teiar fflat|newid teiar
 da:Dækreparation|bilværksted
 de:Reifenservice|reifen|6reifenreparatur|reifeninstandsetzung|reifenpannenreparatur|reifenpannenbehebung|reifenersatz|pneureparatur|pneu|pannenreparatur|autowerkstatt
 el:Βουλκανιζατέρ|επισκευή ελαστικών|ελαστικά|λάστιχα|συνεργείο αυτοκινήτων
@@ -15127,6 +15508,7 @@ en:4Chemist|Pharmacist
 ar:متجر كيماويات
 bg:4Битова химия|химик
 cs:4Drogerie
+cy:4Cemist|Fferyllydd|siop cemist
 da:Materialist
 de:4Drogerie
 el:Χημικά προϊόντα|φαρμακείο
@@ -15169,6 +15551,7 @@ en:3Pet|pet store
 ar:متجر للحيوانات الأليفة
 bg:домашни любимци
 cs:4Zverimex
+cy:3Anifail anwes|siop anifeiliaid anwes
 da:Dyrehandel
 de:4Tierhandlung
 el:Κατάστημα για κατοικίδια
@@ -15210,6 +15593,7 @@ ar:حديقة حيوان
 bg:3Зоопарк|Зоологическа градина
 ca:Zoo|Zoològic
 cs:3zoologická zahrada
+cy:2Sŵ
 da:3Zoo|zoologisk have
 de:Zoo
 el:Ζωολογικός κήπος
@@ -15255,6 +15639,7 @@ be:Вальера для жывёл
 bg:Заграждение за животни
 ca:Recinte d'animals|recinte d’animals
 cs:Ohrada pro zvířata
+cy:Lloc Anifeiliaid
 da:Indhegning til dyr
 de:Tiergehege
 el:Περίφραξη ζώων
@@ -15297,6 +15682,7 @@ en:4Tourist Office|ranger station
 ar:مكتب سياحة
 bg:3Туристически офис|туризъм|информация
 cs:Informační centrum|správci parku
+cy:4Swyddfa Dwristiaeth|gorsaf warden
 da:3Turistkontor
 de:Fremdenverkehrsamt|rangerstation
 el:Ενημέρωση τουριστών|πληροφορίες|σταθμός δασοφύλακα
@@ -15338,6 +15724,7 @@ ar:مركز الزوار
 be:Цэнтр для наведвальнікаў|станцыя рэйнджараў
 bg:Център за посетители
 cs:Návštěvnické centrum|správci parku
+cy:3Canolfan Ymwelwyr|gorsaf warden
 da:3Besøgscenter
 de:3Besucherzentrum|rangerstation
 el:Κέντρο Επισκεπτών|σταθμός δασοφύλακα
@@ -15380,6 +15767,7 @@ en:4Community Centre
 ar:مركز اجتماعي
 bg:Културен център|3дом на културата|обществено средище
 cs:4Kulturní centrum
+cy:4Canolfan Gymunedol|neuadd gymunedol
 da:Medborgerhus|forsamlingshus
 de:Bürgerhaus
 el:Κέντρο κοινότητας
@@ -15424,6 +15812,7 @@ be:Сціснутае паветра
 bg:Сгъстен въздух
 ca:Aire comprimit
 cs:Stlačený vzduch
+cy:Aer Cywasgedig|aer|pwmp teiars
 da:Trykluft
 de:Druckluft|Pressluft
 el:Πεπιεσμένος αέρας
@@ -15465,6 +15854,7 @@ en:4Courthouse
 ar:محكمة
 bg:Съд
 cs:Soud
+cy:4Llys Barn|llys
 da:Domhus|retsbygning
 de:Justizgebäude|Gerichtsgebäude
 el:Δικαστικό μέγαρο
@@ -15507,6 +15897,7 @@ ar:ماكينة بيع سجائر
 be:Аўтамат з цыгарэтамі|Цыгарэтны аўтамат|4Цыгарэты
 bg:Цигари|диспенсер|машина
 cs:Automat na cigarety
+cy:4Peiriant Sigaréts|sigaréts
 da:Cigaretautomat
 de:5Zigarettenautomat
 el:Αυτόματος πωλητής τσιγάρων
@@ -15546,6 +15937,7 @@ zh-Hant:香菸自動販賣機
 amenity-vending_machine-coffee
 en:4Coffee Dispenser|Coffee
 be:3Кававы аўтамат|кава
+cy:4Peiriant Coffi|Coffi
 de:6Kaffeeautomat
 es:Máquina expendedora de café|Café
 et:4Kohviautomaat|Kohvi
@@ -15565,6 +15957,7 @@ uk:3Кавовий автомат|кава
 amenity-vending_machine-condoms
 en:4Condoms Dispenser|Condoms|Condomat
 be:Аўтамат з прэзерватывамі|5прэзерватывы|5кандамат
+cy:4Peiriant Condomau|Condomau
 de:6Kondomautomat
 es:Máquina expendedora de condones|Condones
 et:4Kondoomiautomaat|Kondoomid|Kondomaat
@@ -15587,6 +15980,7 @@ ar:ماكينة بيع مشروبات
 be:Аўтамат з напоямі|Газіроўка|4Напоі|3Сокі
 bg:Диспенсър|напитки|машина
 cs:Automat na nápoje
+cy:4Peiriant Diodydd|4Diodydd
 da:Automat for drikkevarer|drikkevarer|drikkeautomat
 de:9Getränkeautomat
 el:Αυτόματος πωλητής ποτών
@@ -15626,6 +16020,7 @@ zh-Hant:飲料自動販賣機
 amenity-vending_machine-food|@category_food
 en:4Food Dispenser|Food|Snacks
 be:Аўтамат з ежай|5перакус|4снэкі
+cy:4Peiriant Bwyd|Bwyd|Byrbrydau
 de:5Essensautomat|9Lebensmittelautomat|Snacks|Knabbereien|Nahrungsmittelautomat
 es:Máquina expendedora de comida|Comida|Snacks
 et:Toiduautomaat|Toit|Suupisted
@@ -15648,6 +16043,7 @@ ar:ماكينة دفع تذاكر الموقف
 be:4Паркамат|Аплата паркоўкі
 bg:Паркинг|машина|билет|билети за паркиране|паркометър
 cs:4Parkovací automat
+cy:4Tocynnau Parcio|3Talu ac Arddangos|Mesurydd Parcio
 da:4Parkeringsbilletmaskine|parkeringsautomat
 de:4Parkautomat|Parkscheinautomat|Parkticketautomat
 el:Εισιτήρια στάθμευσης|παρκόμετρο
@@ -15689,6 +16085,7 @@ en:Ticket Machine|Transport Tickets|Tickets
 ar:آلة بيع تذاكر النقل العام
 be:Автомат по продаже билетов
 cs:Prodejní automat lístků na městskou dopravu
+cy:Peiriant Tocynnau|Tocynnau Trafnidiaeth|Tocynnau
 da:Billetautomat for offentlig transport|billetautomat
 de:5Fahrkartenautomat|5Fahrscheinautomat
 el:Μηχάνημα αυτόματης πώλησης εισιτηρίων για τα μέσα μαζικής μεταφοράς
@@ -15730,6 +16127,7 @@ zh-Hant:公共交通售票機
 amenity-vending_machine-newspapers
 en:4Newspaper Dispenser|Newspapers
 be:Газетны аўтамат|газетамат|3газеты|4прэса
+cy:4Peiriant Papurau Newydd|Papurau newydd
 de:Zeitungsautomat|Zeitungsständer
 es:Máquina expendedora de periódicos|Periódicos
 et:4Ajalehtede automaat|Ajalehed
@@ -15749,6 +16147,7 @@ amenity-vending_machine-sweets
 en:4Sweets Dispenser|Sweets|4Candies|Lollies
 be:Аўтамат з прысмакамі|4прысмакі|4цукеркі
 ca:Màquina expenedora de dolços
+cy:4Peiriant Melysion|Melysion|4Losin
 de:Süßigkeitenautomat|Süßwaren|Süßigkeiten
 es:Máquina expendedora de dulces|Dulces|Chuches|Chucherías
 et:4Maiustuste automaat|Maiustused|4Kommid|Pulgakommid
@@ -15767,6 +16166,7 @@ uk:Автомат із солодощами|4солодощі|4цукерки
 amenity-vending_machine-excrement_bags
 en:5Excrement Bags Dispenser|4Poop Bags|3Dog Poop Bags|Animal Waste
 be:5Мяшкі дзеля экскрыментаў|Какашкі|5Пакеты для какашак
+cy:5Peiriant Bagiau Baw|4Bagiau Baw Cŵn|Gwastraff Anifeiliaid
 de:Hundetütenspender|Hundekotsähuckchenspender|Hundekotbeutelspender|Hundekotbeutel
 et:4Koeraväljaheidete kottide automaat|loomade väljaheited|väljaheitekottide automaat
 fr:5Distributeur de sacs à excréments
@@ -15783,6 +16183,7 @@ amenity-parcel_locker|@category_post
 en:4Parcel Locker|4Parcel Pickup
 be:3Паштамат|5Атрыманне пасылак
 ca:Taquiller de paquets
+cy:4Locer Parseli|4Casglu Parseli
 de:5Paketstation|Paket Abholstation|Paket SB|Paket Versandstation
 et:4Pakiautomaat
 fr:Consigne automatique pour colis|3locker
@@ -15803,6 +16204,7 @@ be:Пункт самавывазу
 bg:Точка на вземане
 ca:Punt de recollida
 cs:Místo vyzvednutí
+cy:4Pwynt Casglu|4Casglu Parseli
 da:Afhentningssted
 de:Abholpunkt
 el:Σημείο παραλαβής
@@ -15843,6 +16245,7 @@ zh-Hant:接送的地點
 amenity-vending_machine-fuel|@category_fuel
 en:Fuel Dispenser|gas pump|fuel pump
 be:Паліўная калонка|бензакалонка|палівараздатачная калонка
+cy:Pwmp Tanwydd|pwmp petrol
 de:Zapfsäule|Tankautomat
 et:Tankimisautomaat|tankur
 hi:3ईंधन डिस्पेंसर
@@ -15861,6 +16264,7 @@ ar:جراج|مرآب
 bg:Гараж
 ca:Garatge
 cs:Garáž
+cy:Garej
 da:Garage
 de:Garage
 el:Γκαράζ
@@ -15902,6 +16306,7 @@ ar:استراحة|موقف الراحة
 be:4Зона адпачынку|зона абслугоўвання
 bg:Почивка|магистрала|почивна зона
 cs:Odpočívadlo
+cy:4Ardal Orffwys|ardal wasanaeth
 da:Rasteplads|holdeplads
 de:Rastplatz|raststätte
 el:Χώρος ανάπαυσης αυτοκινητιστών|περιοχή εξυπηρέτησης
@@ -15941,6 +16346,7 @@ highway-services
 en:4Service Area|service station
 be:4Зона абслугоўвання
 ca:Àrea de servei
+cy:4Ardal Wasanaeth|gwasanaethau|gorsaf wasanaeth
 de:Raststätte
 es:Área de servicio
 et:Teenindusala|maantee teenindusala
@@ -15966,6 +16372,7 @@ en:Factory Chimney|chimney
 ar:مدخنة مصنع|مدخنة
 bg:Фабрика|комин
 cs:Tovární komín
+cy:Simnai Ffatri|simnai
 da:Fabriksskorsten|skorsten
 de:Fabrikschornstein
 el:Καμινάδα εργοστασίου
@@ -16003,6 +16410,7 @@ zh-Hant:工廠煙囪
 
 man_made-crane
 en:Crane
+cy:Craen
 lt:5Kranas
 ru:Кран
 sl:4Dvigalo|Žerjav
@@ -16014,6 +16422,7 @@ be:Станцыя назірання
 bg:Станция за наблюдение
 ca:Estació de monitoratge
 cs:Monitorovací stanice
+cy:Gorsaf Fonitro
 da:Overvågningsstation
 de:Überwachungsstation
 el:Σταθμός παρακολούθησης
@@ -16056,6 +16465,7 @@ en:Tower|gas flare
 ar:برج|شعلة الغاز
 bg:Кула|газова факла
 cs:Věž|plynový hořák
+cy:Tŵr|fflêr nwy
 da:Tårn|gasflamme
 de:Hochhaus|turm|gasfackel
 el:Πύργος|φλόγα αερίου
@@ -16097,6 +16507,7 @@ en:Bookmaker
 ar:ناشر|مراهنة
 bg:Букмейкър|офис|кантора|пункт
 cs:Knihař
+cy:Bwci|betio
 da:Bookmaker|væddemålsagent
 de:Buchmacher|3Wettbüro
 el:Πράκτορας στοιχημάτων|Προποτζίδικο
@@ -16138,6 +16549,7 @@ ar:سماك|سمّاك
 be:Рыба|рыбны|рыбная крама
 bg:риба|морски дарове
 cs:Prodej ryb
+cy:4Gwerthwr Pysgod|4Bwyd Môr|marchnad bysgod|pysgod|pysgod cregyn
 da:Fiskehandler
 de:Fischhändler|5Fischmarkt|Fisch|Meeresfrüchte|Schalentier
 el:Κατάστημα με θαλασσινά|ιχθυοπωλείο
@@ -16179,6 +16591,7 @@ en:Thrift|flea market
 ar:متجر بضائع مستعملة
 bg:Магазин втора употреба
 cs:Obchod z druhé ruky
+cy:Ail-law|marchnad chwain|siop elusen
 da:Genbrugsbutik
 de:Second-Hand-Laden|5Gebrauchtwarenladen|Trödelladen
 el:Κατάστημα μεταχειρισμένων
@@ -16219,6 +16632,7 @@ ar:متجر خيري
 be:Дабрачынная|дабрачынная крама
 bg:Благотворителен магазин
 cs:Charitativní obchod
+cy:4Elusen|siop elusen
 da:Velgørenhedsbutik
 de:5Wohltätigkeitsladen
 el:Φιλανθρωπικό κατάστημα
@@ -16262,6 +16676,7 @@ ar:مكتب تذاكر
 be:4Білетная каса|білет|білеты|квіток|квіткі|браніраванне білетаў|продаж білетаў|квіткоў
 bg:билети|каса
 cs:Prodej vstupenek
+cy:4Siop Docynnau|tocynnau|archebu
 da:Billetkontor
 de:4Kartenverkauf|Fahrkartenschalter|Fahrkartengeschäft|Fahrkarten|Fahrkartenzentrum|Fahrkartenausgabe|Fahrkartenagentur|Fahrkartenhäuschen|Reisecenter|Kassenschalter|Zahlschalter
 el:Κατάστημα πώλησης εισιτηρίων|Γκισέ
@@ -16304,6 +16719,7 @@ ar:متجر مشروبات روحية|متجر نبيذ
 be:Віно|вінная крама
 bg:Вино
 cs:Vinařství
+cy:4Gwin|gwindy|siop win
 da:Vinhandel
 de:4Weinhandlung|Weinladen|Weingeschäft
 el:Οινοπωλείο
@@ -16346,6 +16762,7 @@ ar:ﺓﺭﺎﻴﺴﻟﺍ ءﺍﺰﺟﺃ
 bg:Автомобил|части|4авточасти
 ca:Peçes de cotxe
 cs:Autodíly
+cy:3Rhannau Ceir|4Rhannau Modur
 da:Bildele
 de:4Autoersatzteile|Autoteile
 el:Εξαρτήματα αυτοκινήτου|ανταλλακτικά
@@ -16391,6 +16808,7 @@ be:Катэдж для адпачынку
 bg:Ваканционна вила
 ca:Casa rural de vacances
 cs:Rekreační chata
+cy:5Bwthyn Gwyliau|5tŷ gwyliau
 da:Feriehus
 de:Ferienhäuschen|ferienhaus
 el:Εξοχικό σπίτι διακοπών
@@ -16434,6 +16852,7 @@ en:Information Board
 ar:لوحة معلومات
 bg:Информация|туризъм|бюро|табло|информационен щит
 cs:Nástěnka
+cy:Bwrdd Gwybodaeth
 da:Informationstavle
 de:Informationstafel
 el:Πίνακας πληροφοριών
@@ -16474,6 +16893,7 @@ en:Tourist Map
 ar:خريطة سياحية
 bg:Карта|информация|туризъм
 cs:Turistická mapa
+cy:Map Twristiaeth
 da:Turistkort
 de:Touristenkarte
 el:Τουριστικός χάρτης
@@ -16514,6 +16934,7 @@ en:Aerialway Station|Cable Car Station
 ar:محطة تلفريك
 bg:Лифт|аерогара
 cs:Stanice lanové dráhy
+cy:Gorsaf Ffordd Gebl|Gorsaf Car Cebl
 da:Kabelbanestation|svævebanestation
 de:Seilbahn|liftstation
 el:Σταθμός αερομεταφοράς|Σταθμός τελεφερίκ
@@ -16553,6 +16974,7 @@ en:Helipad
 ar:مهبط مروحيات
 bg:Хеликоптерна площадка|хеликоптер|въртолетна площадка
 cs:Helipad
+cy:Pad Hofrennydd
 da:Helikopterlandingsplads
 de:Hubschrauberlandeplatz
 el:Ελικοδρόμιο
@@ -16593,6 +17015,7 @@ en:4Border Control
 ar:أمن الحدود
 bg:4Граничен контрол|граница|пункт|КПП|гранична остановка
 cs:4Pohraniční kontrola
+cy:4Rheoli Ffiniau|ffin
 da:Grænsekontrol
 de:Grenzkontrolle
 el:Έλεγχος συνόρων|συνοριακός έλεγχος
@@ -16634,6 +17057,7 @@ ar:ملاهي مائية|مدينة مائية
 bg:3Аквапарк
 ca:Parc aquàtic
 cs:3Aquacentrum
+cy:Parc Dŵr|sleidiau dŵr
 da:5Vandpark
 de:Wasserpark|Freizeitbad|3Aquapark
 el:Υδάτινο πάρκο
@@ -16675,6 +17099,7 @@ en:Water Tower
 ar:برج مياه
 bg:Водна кула
 cs:Vodárna
+cy:Tŵr Dŵr
 da:Vandtårn
 de:Wasserturm
 el:Υδατόπυργος
@@ -16716,6 +17141,7 @@ en:Windmill
 ar:طاحونة هواء
 bg:Вятърна мелница
 cs:Větrný mlýn
+cy:Melin wynt
 da:Vindmølle
 de:Windmühle
 el:Ανεμόμυλος
@@ -16797,6 +17223,7 @@ en:Cave|cave entrance
 ar:كهف|مدخل الكهف
 bg:3Пещера
 cs:Jeskyně
+cy:Ogof|mynedfa ogof
 da:Hule
 de:Höhle|Höhleneingang
 el:Σπήλαιο|είσοδος σπηλαίου
@@ -16838,6 +17265,7 @@ en:4Volcano
 ar:بركان
 bg:4Вулкан
 cs:Sopka
+cy:4Llosgfynydd
 da:4Vulkan
 de:4Vulkan
 el:Ηφαίστειο
@@ -16881,6 +17309,7 @@ be:Актыўны вулкан
 bg:Активен вулкан
 ca:Volcà actiu
 cs:Aktivní sopka
+cy:Llosgfynydd Gweithredol
 da:Aktiv vulkan
 de:Aktiver Vulkan
 el:Ενεργό ηφαίστειο
@@ -16922,6 +17351,7 @@ zh-Hant:活火山
 # Do not mix with school, college, university.
 office-educational_institution
 en:Educational Institution
+cy:Sefydliad Addysgol
 de:Bildungseinrichtung
 es:Institución educativa|Centro educativo
 fr:Établissement d'enseignement
@@ -16936,6 +17366,7 @@ en:4Estate Agent|Realtor|4Real Estate
 ar:وكيل عقاري
 bg:Агент|недвижими имоти|офис
 cs:Realitní makléř
+cy:4Asiant Tai|4Eiddo|gwerthwr tai
 da:Ejendomsmægler
 de:4Immobilienmakler
 el:Κτηματομεσίτης|Μεσίτης
@@ -16976,6 +17407,7 @@ en:Lock Gate
 ar:بوابة هويس
 bg:Порта|Врата
 cs:Stavidlo
+cy:Giât Loc
 da:Låseport
 de:Schleuse|schleusentor
 el:Φράγμα|θυρόφραγμα
@@ -17015,6 +17447,7 @@ en:4Book Exchange|Book swap
 ar:مكتبة، تبادل كتب
 bg:4Книжен шкаф|книги|обмяна|рафт|книжен обмен
 cs:4Knihovna|směnárna knih|výměna knih
+cy:4Cyfnewid Llyfrau|cyfnewidfa lyfrau
 da:Bog udveksling|bogbytteskab
 de:Bücherregal|Büchertausch|Bücherschrank|Bücherbox|Bücherzelle
 el:Ανταλλαγή βιβλίων|Βιβλιοθήκη|Εναλλαγή βιβλίων
@@ -17055,6 +17488,7 @@ ar:مركز تسلق
 be:Скаладром
 bg:Стена|катерене
 cs:Horolezecké centrum
+cy:4Canolfan Ddringo|dringo
 da:Klatrecenter
 de:Kletterzentrum|Kletterhalle
 el:Κέντρο αναρρίχησης
@@ -17096,6 +17530,7 @@ ar:ملعب رماية|رماية
 be:Стральба
 bg:4Стрелбище
 cs:4Střelnice|střílení
+cy:4Maes saethu|saethu
 da:Skydebane|skydning
 de:Schießanlage|schießen
 el:Σκοπευτήριο|βεληνεκές|σκοποβολή
@@ -17136,6 +17571,7 @@ ar:مركز سباحة|سباحة
 be:Басейн|плаванне
 bg:Басейн|плуване
 cs:Plavecký bazén|plavání
+cy:Nofio
 da:Svømmecenter|svømning
 de:Schwimmhalle|schwimmen
 el:Κολυμβητήριο|πισίνα|κολύμβηση
@@ -17176,6 +17612,7 @@ ar:نادي يوغا
 be:Ёга
 bg:Йога
 cs:Studio jógy
+cy:Ioga|stiwdio ioga
 da:Yoga center
 de:Yoga Studio
 el:Στούντιο γιόγκα
@@ -17217,6 +17654,7 @@ en:4Holiday Apartment
 ar:شُقَق|شُقَق عطلة
 bg:5Апартаменти|туризъм|ваканционен апартамент
 cs:Byty|prázdninový apartmán
+cy:4Fflat Gwyliau
 da:Lejligheder|ferielejlighed
 de:4Ferienwohnung
 el:Διαμερίσματα|διαμέρισμα διακοπών
@@ -17258,6 +17696,7 @@ en:Resort
 ar:منتج|منتجع
 bg:Курорт
 cs:Letovisko
+cy:Cyrchfan
 da:Resort|ferieområde
 de:Resort
 el:Θέρετρο
@@ -17298,6 +17737,7 @@ en:5Biergarten
 ar:متجر بيرة
 bg:5Бирария
 cs:Hospoda se zahrádkou
+cy:5Gardd gwrw
 da:5Biergarten|traktørsted
 de:5Biergarten
 el:Μπυραρία
@@ -17339,6 +17779,7 @@ ar:مدرسة قيادة
 be:Аўташкола
 bg:4Автошкола|шофьорски курсове
 cs:4Autoškola
+cy:4Ysgol Yrru
 da:Køreskole
 de:Fahrschule
 el:Σχολή οδήγησης
@@ -17382,6 +17823,7 @@ ar:ﻰﻘﻴﺳﻮﻣ ﺔﺳﺭﺪﻣ|مدرسة موسيقى
 be:Музычная школа
 bg:Музикално училище
 cs:Hudební škola
+cy:Ysgol Gerdd
 da:Musikskolen|musikskole
 de:Musikschule
 el:Μουσική Σχολή
@@ -17424,6 +17866,7 @@ ar:ﺔﻐﻟ ﺔﺳﺭﺪﻣ|مدرسة لغة
 be:Моўная школа
 bg:Езиково училище
 cs:Jazyková škola
+cy:Ysgol Iaith
 da:Sprogskole
 de:Sprachschule
 el:Σχολή Γλωσσών
@@ -17466,6 +17909,7 @@ ar:كشك أيس كريم|كشك مثلجات
 be:4Марозіва
 bg:4Сладолед
 cs:Stánek se zmrzlinou
+cy:3Hufen Iâ|Gelato
 da:Isbod
 de:Eis|Eisstand|Eisdiele
 el:Παγωτατζίδικο
@@ -17508,6 +17952,7 @@ en:3Internet Cafe
 ar:مقهى إنترنت
 bg:3Интернет кафе
 cs:3Internetová kavárna
+cy:3Caffi Rhyngrwyd
 da:3Internetcafe
 de:3Internetcafé
 el:Καφετέρια με Ίντερνετ|ίντερνετ καφέ
@@ -17550,6 +17995,7 @@ en:4Motorcycle Parking
 ar:موقف دراجات نارية
 bg:Паркинг|мотоциклети|мотори
 cs:Parkování pro motocykly
+cy:4Parcio Beiciau Modur
 da:4Motorcykelparkering
 de:4Motorrad-Parkplatz|9Motorradparkplatz
 el:Χώρος στάθμευσης μοτοσικλετών
@@ -17593,6 +18039,7 @@ ar:ﺔﺻﺎﺨﻟﺍ ﺕﺎﺟﺎﻴﺘﺣﻻ﻿ﺍ ﻱﻭﺬﻟ ﺕﺍﺭﺎ�
 be:Паркоўка для інвалідаў
 bg:Паркомясто за инвалиди
 cs:Parkovací místo pro invalidy
+cy:Man Parcio i'r Anabl|parcio anabl
 da:Handicapparkeringsplads
 de:Behindertenparkplatz
 el:Χώρος στάθμευσης για ΑΜΕΑ
@@ -17634,6 +18081,7 @@ en:4Nursing Home
 ar:دار تمريض
 bg:4Старчески дом|възрастни
 cs:Dům s pečovatelskou službou
+cy:4Cartref Nyrsio|cartref gofal
 da:Plejehjem
 de:Pflegeheim
 el:Γηροκομείο
@@ -17676,6 +18124,7 @@ en:Payment Terminal
 ar:محطة دفع
 bg:Терминал|плащане|разплащане
 cs:Platební terminál
+cy:Terfynell Dalu
 da:Betalingsautomat
 de:Bezahlterminal
 el:Τερματικό πληρωμών
@@ -17720,6 +18169,7 @@ be:Грамадская лазня
 bg:Обществена баня
 ca:Bany Públic
 cs:Veřejné lázně
+cy:Baddon Cyhoeddus
 da:Offentligt bad
 de:Öffentliches Bad
 el:Δημόσιο Λουτρό
@@ -17761,6 +18211,7 @@ en:Shower
 ar:مرحاض|حمام
 bg:Душ|Баня
 cs:Sprcha
+cy:Cawod
 da:Bruser|brusebad
 de:Dusche
 el:Ντους
@@ -17805,6 +18256,7 @@ be:Аварыйны зборны пункт
 bg:Авариен сборен пункт
 ca:Punt de reunió d'emergència
 cs:Nouzové shromažďovací místo
+cy:Man Ymgynnull Argyfwng
 da:Nødsamlingssted|nødsituationssamlingspunkt
 de:Notfall-Sammelpunkt
 el:Σημείο συναρμολόγησης έκτακτης ανάγκης
@@ -17847,6 +18299,7 @@ ar:مزيل الرجفان
 be:4Дэфібрылятар
 bg:4Дефибрилатор
 cs:4Defibrilátor
+cy:4Diffibriliwr|AED
 da:Hjertestarter
 de:4Defibrillator
 el:Πρώτες βοήθειες|απινιδωτής
@@ -17890,6 +18343,7 @@ ar:صنبور الإطفاء
 be:4Пажарны гідрант|гідрант
 bg:4Хидрант|пожар|кран|пожарен кран
 cs:4Požární hydrant
+cy:4Hydrant Tân
 da:4Brandhane
 de:4Hydrant
 el:Πυροσβεστικός κρουνός
@@ -17933,6 +18387,7 @@ ar:منقذ الطوارئ|منقذ
 be:Ратавальнік
 bg:Спасител
 cs:Záchranář pohotovosti|plavčík
+cy:Achubwr Bywyd|achubwr
 da:Nødlivredder|livredder
 de:Notfall-Rettungsschwimmer|rettungsschwimmer
 el:Επείγον ναυαγοσώστης|ναυαγοσώστης
@@ -17976,6 +18431,7 @@ ar:الإنقاذ الجبلي الطارئ
 be:4Аварыйна-выратавальная служба ў гарах|горная выратавальная служба
 bg:4Спасителна служба в планината|планинско спасяване
 cs:4Horská záchranná služba
+cy:Gorsaf Achub Mynydd|Chwilio ac Achub
 da:4Nød-bjergredning|bjergredningsstation
 de:4Bergrettung Notdienst|bergrettungsstation
 el:Επείγουσα ορεινή διάσωση
@@ -18018,6 +18474,7 @@ en:3Fitness Station|street workout
 ar:مركز لياقة
 bg:Спортно оборудване|фитнес
 cs:Posilovna
+cy:3Gorsaf Ffitrwydd|ymarfer corff awyr agored
 da:3Fitness-station
 de:3Fitnessstation
 el:Γυμναστήριο
@@ -18061,6 +18518,7 @@ en:4Insurance Office
 ar:مكتب تأمين
 bg:5Застрахователна служба|Застрахователен офис|застраховки
 cs:Pojišťovací kancelář
+cy:4Swyddfa Yswiriant
 da:Forsikringskontor
 de:4Versicherungsbüro
 el:Ασφαλιστικό γραφείο
@@ -18103,6 +18561,7 @@ en:4Non-Governmental Organization|NGO
 ar:مكتب مؤسسة خيرية
 bg:НПО|офис|4неправителствена организация
 cs:Kancelář nevládní organizace
+cy:4Sefydliad Anllywodraethol|NGO|elusen
 da:3NGO-kontor
 de:5Nichtregierungsorganisation
 el:Γραφείο ΜΚΟ
@@ -18145,6 +18604,7 @@ en:4Erotic|4adult|3sex|erotic shop
 ar:متجر منتجات جنسية
 bg:4Секс-шоп|Еротика|4Еротичен
 cs:Obchod s erotickými pomůckami
+cy:4Erotig|4oedolion|3rhyw|siop erotig
 da:4Erotisk butik|erotikbutik
 de:Erotikladen|3Sexshop|4Erotikshop
 el:Κατάστημα ερωτικών ειδών
@@ -18186,6 +18646,7 @@ en:Massage salon|Massage Parlour|4massage|spa|massage center|massage therapy|mas
 ar:قاعة تدليك
 bg:4Масаж|спа|Масажен салон|красота|терапия
 cs:4Masážní salon
+cy:Salon tylino|Parlwr Tylino|4tylino|sba|therapi tylino
 da:4Massageklinik
 de:4Massagesalon|Massagezentrum|Massagetherapie|Massageanwendungen|Massagecenter|Wellness-Center|Wellnessbehandlung|Wellnessanwendungen
 el:Αίθουσα μασάζ
@@ -18228,6 +18689,7 @@ en:4Motorcycle|motorcycle shop
 ar:متجر دراجات نارية
 bg:4Мотоциклети|мотори
 cs:Prodejna motocyklů
+cy:4Beic modur|siop beiciau modur
 da:4Motorcykelforhandler
 de:4Motorradladen
 el:Κατάστημα μοτοσυκλετών
@@ -18272,6 +18734,7 @@ be:Рамонт матацыклаў
 bg:Ремонт на мотоциклети
 ca:Reparació de motos
 cs:Opravy motocyklů
+cy:4Trwsio Beiciau Modur
 da:Motorcykel reparation
 de:Motorradwerkstatt
 el:Επισκευή μοτοσυκλετών
@@ -18314,6 +18777,7 @@ en:Newspaper Stand|4newspapers
 ar:كشك الجرائد|كشك جرائد
 bg:Стойка за вестници|4вестници|киоск|бутка
 cs:Novinový stánek
+cy:Siop Bapurau|4papurau newydd
 da:Avis-kiosk
 de:4Zeitungskiosk|Zeitungsstand
 el:Εφημεριδοπώλης|πρακτορείο εφημερίδων
@@ -18356,6 +18820,7 @@ en:4Pawnbroker
 ar:سمسار تسليف|مُرتهِن
 bg:Заложна къща
 cs:Zastavárna
+cy:4Gwystlwr
 da:Pantelåner
 de:5Pfandleihe
 el:Ενεχυροδανειστήριο
@@ -18397,6 +18862,7 @@ en:5Stationery|stationery shop
 ar:متجر قرطاسية
 bg:Магазин за канцеларски материали
 cs:Papírnictví
+cy:5Deunydd ysgrifennu|siop ddeunydd ysgrifennu|papur ysgrifennu
 da:Kontorartikler
 de:7Schreibwarenladen
 el:Κατάστημα γραφικής ύλης|χαρτικά
@@ -18439,6 +18905,7 @@ en:Tattoo Parlour|4tattoos
 ar:قاعة رسم الوشم|محل وشوم
 bg:4татуировка|татус|Салон за татуировки
 cs:4Tetovací salon
+cy:Parlwr Tatŵ|4tatŵ
 da:4Tatovør
 de:4Tattoo-Studio
 el:4Τατουάζ|δερματοστιξία
@@ -18481,6 +18948,7 @@ en:Variety|variety store
 ar:متجر متنوع\N|متجر متنوع
 bg:Магазин за разнообразни стоки
 cs:Smíšené zboží
+cy:Siop Bob Dim|siop amrywiaeth
 da:Småtingsbutik
 de:5Billigladen|Niedrigpreisgeschäft
 el:Παντοπωλείο|Μπακάλικο|Ψιλικατζίδικο
@@ -18522,6 +18990,7 @@ en:4Video|3DVD|video shop
 ar:متجر فيديو
 bg:4Видео
 cs:4Videopůjčovna
+cy:4Fideo|3DVD|siop fideo
 da:4Videobutik
 de:4Videothek|3DVD
 el:Βίντεο Κλαμπ
@@ -18565,6 +19034,7 @@ en:4Videogames|video games|U+1F47E|U+1F579|U+1F3AE
 ar:متجر ألعاب فيديو
 bg:4Видеоигри|игри|магазин за видеоигри
 cs:Obchod s videohrami
+cy:4Gemau fideo
 da:4Computerspilbutik
 de:4Gameshop
 el:Κατάστημα βιντεοπαιχνιδιών
@@ -18609,6 +19079,7 @@ ar:كوخ برية
 be:Турыстычная хатка|турыстычны прытулак|прытулак
 bg:3Хижа-заслон|заслон|кабина|къща|хижа
 cs:Chata v divočině
+cy:4Cwt Anghysbell|5cwt mynydd|cwt|bothi|biwac
 da:Vildmarkshytte
 de:Selbstversorgerhütte|Wildnishütte
 el:Καλύβα|αγροικία
@@ -18647,6 +19118,7 @@ zh-Hant:山屋
 tourism-gallery|@category_tourism
 en:3Art Gallery|3Gallery|museum
 bg:3Галерия|музей|изложба|картини
+cy:3Oriel Gelf|3Oriel|amgueddfa
 de:4Kunstgalerie|3Galerie|Museum|Kunstausstellung
 es:3Galería de arte|museo|galería
 et:3Galerii|muuseum|kunstigalerii
@@ -18674,6 +19146,7 @@ tourism-theme_park|@category_tourism|@category_children
 en:Theme park|Amusement park
 bg:Увеселителен парк
 ca:Parc temàtic|Parc d'atraccions
+cy:Parc thema|parc difyrion|ffair
 de:Freizeitpark|Vergnügungspark
 es:Parque de atracciones|parque temático
 et:Teemapark|Lõbustuspark
@@ -18700,6 +19173,7 @@ en:National Park
 ar:منتزه وطني
 bg:Национален парк
 cs:Národní park
+cy:Parc Cenedlaethol
 da:National park|nationalpark
 de:5Naturschutzpark|Nationalpark
 el:Εθνικό πάρκο
@@ -18741,6 +19215,7 @@ en:Nature reserve
 ar:محمية|محمية طبيعية
 bg:Природен парк|Резерват
 cs:Rezervace
+cy:Gwarchodfa natur
 da:Reservat|naturreservat
 de:5Naturschutzgebiet
 el:Φυσικό απόθεμα|προστατευόμενος βιότοπος
@@ -18783,6 +19258,7 @@ ar:مخبأ لمراقبة الطيور
 be:Назіранне за птушкамі
 bg:Укритие за наблюдение на птици
 cs:Pozorovatelna ptáků
+cy:Cuddfan adar|gwylio adar
 da:Fugleskjul
 de:Vogelbeobachtungsstand
 el:Παρατηρητήριο πουλιών
@@ -18824,6 +19300,7 @@ en:Cape
 ar:رأس
 bg:Нос
 cs:Mys
+cy:Penrhyn|trwyn
 da:Tange
 de:Kap|Landzunge|Landspitze
 el:Ακρωτήρι
@@ -18865,6 +19342,7 @@ en:3Geyser
 ar:نبع ماء حار|حَمَّة
 bg:3Гейзер
 cs:3Gejzír
+cy:3Geiser
 da:3Gejser
 de:3Geysir
 el:Θερμοπίδακας
@@ -18906,6 +19384,7 @@ en:Glacier
 ar:كتلة جليدية
 bg:Ледник
 cs:Ledovec
+cy:Rhewlif
 da:Gletsjer
 de:Gletscher|Ferner|Kees|Firn
 el:Παγετώνας
@@ -18948,6 +19427,7 @@ en:Ford
 ar:مخاضة
 bg:Брод
 cs:Brod
+cy:Rhyd
 da:Vadested
 de:Furt
 el:Πέρασμα
@@ -18986,6 +19466,7 @@ zh-Hant:淺灘
 leisure-marina
 en:3Marina
 be:4Прычал|3Марына
+cy:3Marina|harbwr cychod
 de:5Jachthafen
 es:3Marina
 et:Randumiskoht|väikesadam
@@ -19009,6 +19490,7 @@ be:Лыжы|Лыжная траса
 bg:Ски|Ски писта
 ca:Esquí|Pista d'esquí
 cs:Lyžování|Lyžařská sjezdovka
+cy:Sgïo|3Llethr sgïo|4Piste
 da:Skiløb|Skiløjpe
 de:Skifahren|Skipiste
 el:Σκι|Πίστα σκι
@@ -19050,6 +19532,7 @@ ar:مكان الأحداث
 be:Месца правядзення мерапрыемстваў
 bg:Място за провеждане на събития
 cs:Místo konání akcí
+cy:Lleoliad Digwyddiadau|neuadd
 da:Sted for arrangementer|selskabslokale
 de:Veranstaltungszentrum
 el:Κέντρο εκδηλώσεων
@@ -19090,6 +19573,7 @@ zh-Hant:活動場所
 shop-chocolate|@category_food|@shop
 en:Chocolate|chocolate shop
 be:Шакалад|крама шакалада
+cy:Siocled|siop siocled
 de:4Schokoladengeschäft
 es:Tienda de chocolate|Chocolatería
 et:Šokolaadipood
@@ -19111,6 +19595,7 @@ tr:Çikolata mağazası|çikolata dükkanı
 shop-coffee|@category_food|@shop
 en:Coffee|coffee shop
 be:Кава|крама кавы
+cy:Coffi|siop goffi
 de:6Kaffeegeschäft
 et:Kohvipood
 fr:Boutique de cafés
@@ -19130,6 +19615,7 @@ tr:Kahve mağazası|kahve dükkanı
 
 shop-fabric|@shop
 en:Fabric|fabric shop
+cy:Ffabrig|siop ffabrig|defnydd
 de:4Textilgeschäft|Stoffgeschäft|Stoffladen|Stoffe
 es:Mercería
 et:Kangapood
@@ -19151,6 +19637,7 @@ lt:5Audinių parduotuvė|5tekstilė|audiniai
 shop-money_lender
 en:Money lender
 be:Ліхвяр
+cy:Benthyciwr arian
 de:4Geldverleiher
 et:Rahalaenutus|kiirlaenukontor
 hi:4हवलदार|4साहूकार
@@ -19167,6 +19654,7 @@ tr:Tefeci
 shop-music|@shop
 en:Record|vinyl|music|record store
 be:Музыка|музычная крама
+cy:Recordiau|finyl|cerddoriaeth|siop recordiau
 de:5Musikgeschäft|5Plattenladen
 es:Disquería|Tienda de discos
 et:Plaadipood
@@ -19189,6 +19677,7 @@ tr:Plak mağazası|müzik dükkanı
 shop-musical_instrument|@shop
 en:Musical instruments
 be:Музычныя інструменты
+cy:Offerynnau cerdd
 de:5Musikinstrumenteladen|Musikhaus
 es:Instrumentos musicales
 et:Muusikariistad|muusikariistade pood
@@ -19211,6 +19700,7 @@ tr:Enstrüman Mağazası
 shop-tea|@shop
 en:Tea|tea shop
 be:Гарбата|крама гарбаты
+cy:Te|siop de
 de:3Teegeschäft
 es:Tienda de té|Casa de té
 et:Teepood
@@ -19237,6 +19727,7 @@ ar:التحف|متجر تحفيات
 be:Антыкварыят
 bg:Антики
 cs:Starožitnosti
+cy:Hen bethau|siop hen bethau|antîcs
 da:Antikviteter|antikvitetsbutik
 de:5Antiquitäten
 el:Αντίκες
@@ -19280,6 +19771,7 @@ ar:متجر الفنون
 be:Мастацтва|мастацтваў|крама мастацтваў
 bg:Магазин за изкуства
 cs:Obchod s uměním
+cy:3Gwaith celf|celf|siop gelf
 da:Kunstbutik
 de:5Kunstgeschäft
 el:Κατάστημα Τεχνών
@@ -19324,6 +19816,7 @@ be:Дзіцячая|дзіцячая крама
 bg:Детски|бебешки|детски магазин
 ca:Nens|nadons
 cs:Dětský obchod
+cy:Nwyddau Babanod|babi
 da:Børnebutik
 de:Kinderladen|4Babybedarf
 el:Παιδικό κατάστημα|βρεφικά είδη
@@ -19367,6 +19860,7 @@ ar:متجر الحقائب
 be:Крама сумак
 bg:Магазин за чанти|Торбички
 cs:Obchod s taškami
+cy:Bagiau|siop fagiau
 da:Tasker butik|taskebutik
 de:5Taschen Shop
 el:Κατάστημα τσαντών
@@ -19410,6 +19904,7 @@ ar:متجر جبن
 be:Сыр|сырны|сырны магазін
 bg:Магазин за сирене|сирене
 cs:Prodejna sýrů
+cy:Caws|siop gaws
 da:Ostebutik
 de:3Käseladen
 el:Τυροκομείο
@@ -19453,6 +19948,7 @@ ar:متجر الألبان
 be:Малако|Малочныя прадукты
 bg:Млечни продукти|Мляко|Лактоза
 cs:Mléčné výrobky
+cy:Cynnyrch Llaeth|llaeth|llefrith|siop laeth
 da:Mejeriprodukter
 de:5Milchprodukte
 el:Γαλακτοκομικά προϊόντα
@@ -19498,6 +19994,7 @@ ar:متجر البضع الكهربائية
 be:4Электроніка|крама электратэхнікі
 bg:Електрически магазин
 cs:Elektro obchod
+cy:Cyflenwadau Trydanol|trydanol
 da:El-butik
 de:5Elektrogeschäft
 el:Μαγαζί ηλεκτρικών ειδών
@@ -19541,6 +20038,7 @@ ar:متجر صيد
 be:Рыбалоўны|рыбалоўны магазін
 bg:Риболовен|риболовен магазин
 cs:Rybářský obchod
+cy:Pysgota|siop bysgota
 da:Fiskeri butik|fiskeributik
 de:5Angelgeschäft|Angelladen
 el:Κατάστημα ψαρέματος
@@ -19584,6 +20082,7 @@ ar:محل ديكورات داخلية
 be:Ўпрыгажэнні інтэр'еру|Дэкор
 bg:Вътрешни декорации|Интериор
 cs:Interiérové dekorace
+cy:Addurniadau Mewnol|addurno
 da:Indvendige dekorationer|brugskunsthandel
 de:4Einrichtungsgeschäft|5Innendekorationen
 el:Διακοσμήσεις εσωτερικών χώρων
@@ -19623,6 +20122,7 @@ zh-Hant:室內裝飾
 
 shop-leather|@shop
 en:4Leather|leather shop
+cy:4Lledr|siop nwyddau lledr
 ru:4Кожаные изделия|кожа
 
 shop-lighting|@shop
@@ -19632,6 +20132,7 @@ be:Лямпы|крама асвятлення
 bg:Лампи
 ca:Làmpades
 cs:Lampy
+cy:4Goleuadau|4lampau|siop oleuadau
 da:Lamper|belysningsbutik
 de:Lampen|beleuchtungsgeschäft
 el:Λάμπες|κατάστημα φωτιστικών
@@ -19674,6 +20175,7 @@ ar:ﺐﻴﺼﻧﺎﻴﻟﺍ ﺮﻛﺍﺬﺗ|تذاكر يانصيب
 be:Латарэя|Латарэйныя білеты
 bg:Лотарийни билети|Лотария|Тото
 cs:Loterijní lístky
+cy:Tocynnau Loteri|loteri
 da:Lotterikuponer|lottobutik
 de:Lotteriescheine
 el:Λαχεία
@@ -19717,6 +20219,7 @@ ar:ﺔﻴﺒﻄﻟﺍ ﺕﺍﺩﺍﺪﻣﻹﺍ
 be:Медыцынскія прыналежнасці
 bg:Медицински изделия
 cs:Zdravotní zásoby
+cy:Cyflenwadau Meddygol
 da:Medicinske forsyninger|medicinaludstyrsforhandler
 de:4Sanitätshaus|4Medizinische Versorgung|5Heilbehelfe
 el:Ιατρικά Είδη
@@ -19761,6 +20264,7 @@ be:Харчовыя дабаўкі
 bg:Хранителни добавки
 ca:Suplements nutricionals
 cs:Doplňky výživy
+cy:Atchwanegiadau Maeth|fitaminau
 da:Kosttilskud|kosttilskudsbutik
 de:Nahrungsergänzungsmittel
 el:Συμπληρώματα Διατροφής
@@ -19805,6 +20309,7 @@ be:Фарбы
 bg:Бои|Боя
 ca:Pintures
 cs:Barvy
+cy:Paent|siop baent
 da:Maling|malerbutik
 de:Farben
 el:Βαφές|χρωματοπωλείο
@@ -19849,6 +20354,7 @@ be:Парфум|Парфумерыя
 bg:Парфюмерия|Парфюми|Одеколон
 ca:Perfumería|perfumeria
 cs:Parfumerie
+cy:Persawr|siop bersawr
 da:Parfumeri
 de:4Parfümerie
 el:Αρωματοποιία|αρωματοπωλείο
@@ -19888,6 +20394,7 @@ zh-Hant:香水
 
 shop-religion|@shop
 en:5Religion Shop
+cy:5Siop Nwyddau Crefyddol
 ja:宗教用品店
 ko:종교 용품점
 ru:5Религиозный Магазин
@@ -19899,6 +20406,7 @@ be:4Швейныя прыналежнасці
 bg:Шивашки консумативи
 ca:Material de costura|mercería
 cs:Šicí potřeby
+cy:3Cyflenwadau Gwnïo|4siop wnïo|edau
 da:Syudstyr|sybutik
 de:Nähzubehör
 el:Είδη Ραπτικής
@@ -19942,6 +20450,7 @@ ar:ﻦﻳﺰﺨﺘﻟﺍ ﺕﺍﺪﺣﻭ ﺮﻴﺟﺄﺗ
 be:Арэнда сховішчаў
 bg:Склад под наем|Наемен склад
 cs:Pronájem skladu
+cy:Llogi Storfa|storfa
 da:Lagerudlejning
 de:5Lagervermietung|Speichermiete
 el:Ενοικίαση αποθηκευτικού χώρου
@@ -19986,6 +20495,7 @@ be:Тытунь
 bg:Тютюн|Никотин|Пушене|Табако
 ca:Tabac|tabaqueria
 cs:Tabák
+cy:Tybaco|sigaréts|nicotin|siop dybaco|baco
 da:Tobak|tobaksforhandler
 de:5Tabakwarengeschäft|Tabak|4Trafik
 el:Καπνός
@@ -20029,6 +20539,7 @@ ar:ﺔﻳﺭﺎﺠﺘﻟﺍ ﺕﺍﺪﻳﺭﻮﺘﻟﺍ|معدات التجار�
 be:Гандлёвая прыналежнасць
 bg:Търговия с консумативи
 cs:Obchod se zásobami
+cy:Cyflenwadau Masnach
 da:Handler forsyninger|specialistleverandør
 de:Baustoffhandel|Handelsbedarf
 el:Εμπόριο Προμήθειες|προμήθειες εμπορίου
@@ -20072,6 +20583,7 @@ be:Гадзіннік
 bg:Часовници|Часовник
 ca:Rellotger|rellotgeria
 cs:Hodinky
+cy:Oriorau|siop oriorau|watsh
 da:Ure|urbutik
 de:Uhrengeschäft|Uhren
 el:Ρολόγια
@@ -20116,6 +20628,7 @@ be:Гадзіннікавы майстар
 bg:Часовникар
 ca:Rellotger
 cs:Hodinář
+cy:Gwneuthurwr oriorau
 da:Urmager
 de:Uhrmacher
 el:Ωρολογοποιός
@@ -20158,6 +20671,7 @@ be:Аптовая|аптовая крама
 bg:Магазин на едро
 ca:Magatzem de roba al per major
 cs:Velkoobchodní prodejna
+cy:Cyfanwerthu|siop gyfanwerthu
 da:Engros butik|engroshandel
 de:5Großhandelsgeschäft
 el:Κατάστημα χονδρικής
@@ -20202,6 +20716,7 @@ be:Трэк|бегавая дарожка
 bg:Спортна писта|писта за бягане|писта
 ca:Pista esportiva|pista de cursa
 cs:Trať|sportovní trať|běžecká dráha
+cy:Trac|trac rhedeg|trac rasio|cwrs rasio|trac chwaraeon
 da:Sportsbane|løbebane|væddeløbsbane
 de:Laufbahn|Rennbahn|Sportbahn
 el:Στίβος|αγωνιστική πίστα|πίστα
@@ -20247,6 +20762,7 @@ be:Электрастанцыя
 bg:Електроцентрала
 ca:Central elèctrica
 cs:Elektrárna
+cy:Gorsaf Bŵer|pwerdy
 da:Kraftværk
 de:Kraftwerk
 el:Εργοστάσιο ηλεκτρισμού
@@ -20291,6 +20807,7 @@ be:Аўкцыён
 bg:Търг
 ca:Subhasta
 cs:Aukce
+cy:4Arwerthiant|arwerthwr|tŷ arwerthu|ocsiwn
 da:Auktion|auktionshus
 de:Auktion
 el:Δημοπρασία
@@ -20334,6 +20851,7 @@ be:Калекцыянер|калекцыйныя прадметы
 bg:Колектор|събирач|колекционер|колекционерски стоки
 ca:Col·leccionista|col·leccionables
 cs:Collector|sběratelské předměty
+cy:Eitemau Casgladwy|casglwr
 da:Samler|samlerbutik
 de:Sammlerartikel|Sammlerstücke
 el:Συλλέκτης|συλλεκτικά αντικείμενα
@@ -20374,6 +20892,7 @@ zh-Hant:集電極|收藏品
 
 man_made-cairn
 en:4Cairn
+cy:4Carnedd
 de:Steinmännchen
 et:Karjäär|kivikangur
 ja:ケルン
@@ -20395,6 +20914,7 @@ be:Інвалідны вазок|5інвалід
 bg:Инвалидна количка
 ca:Cadira de rodes
 cs:Invalidní vozík
+cy:5Cadair olwyn
 da:Kørestol
 de:Rollstuhl
 el:Αναπηρικό αμαξίδιο
@@ -20439,6 +20959,7 @@ be:Сацыяльная ўстанова
 bg:Социално съоръжение
 ca:Equipament Social|servei social
 cs:Sociální zařízení
+cy:Cyfleuster Cymdeithasol
 da:Social facilitet
 de:Soziale Einrichtung
 el:Κοινωνική διευκόλυνση
@@ -20484,6 +21005,7 @@ be:Спартыўная зала
 bg:Спортна зала
 ca:Pavelló esportiu
 cs:Sportovní hala
+cy:Neuadd chwaraeon
 da:Sportshal
 de:Sporthalle
 el:Αθλητική αίθουσα
@@ -20528,6 +21050,7 @@ ar:مركز فن
 bg:Център за рисуване
 ca:Centre d’art
 cs:Umělecké centrum
+cy:Canolfan Gelfyddydau
 da:Kunsthus
 de:Kunstzentrum
 el:Κέντρο καλών τεχνών
@@ -20574,6 +21097,7 @@ be:турма
 bg:затвор|килия
 ca:presó
 cs:vězení
+cy:carchar
 da:Fængsel
 de:Gefängnis
 el:φυλακή
@@ -20617,6 +21141,7 @@ be:Выставачны цэнтр
 bg:Изложбен център
 ca:Centre d’exposicions
 cs:Výstaviště
+cy:Canolfan Arddangos
 da:Udstillingscenter
 de:Messezentrum|Ausstellungszentrum
 el:Εκθεσιακό Κέντρο
@@ -20661,6 +21186,7 @@ be:Мэбля для ванных пакояў
 bg:Обзавеждане за баня
 ca:Mobles de bany
 cs:Vybavení koupelny
+cy:Dodrefn Ystafell Ymolchi
 da:Badeværelsesindretning|badeværelsesbutik
 de:Badezimmerausstattung
 el:Έπιπλα μπάνιου
@@ -20705,6 +21231,7 @@ be:Крама ложкаў
 bg:Магазин за легла|легло
 ca:Botiga de llits
 cs:Prodejna postelí
+cy:Gwelyau|matresi|gobenyddion|cwiltiau|siop gwelyau
 da:Senge butik|sengebutik
 de:Bettengeschäft
 el:Κατάστημα κρεβατιών
@@ -20748,6 +21275,7 @@ ar:بوتيك
 be:Буцік
 bg:Бутик
 cs:Butik
+cy:Bwtîc
 da:Boutique|modebutik
 de:Boutique
 el:Μπουτίκ
@@ -20790,6 +21318,7 @@ en:Food Court
 ar:مكان تناول الطعام
 bg:Зона за хранене
 ca:Zona de restaurants
+cy:Neuadd Fwyd
 es:Zona de comidas
 et:Toiduväljak|toidutänav
 eu:Jantokia
@@ -20819,6 +21348,7 @@ be:Шторы
 bg:Пердета|Завеси
 ca:Cortines
 cs:Závěsy
+cy:Siop Lenni|llenni
 da:Gardiner|gardinhandel
 de:Gardinengeschäft
 el:Κουρτίνες
@@ -20863,6 +21393,7 @@ be:Газавая крама
 bg:Магазин за газ|Газстанция
 ca:Botiga de gas
 cs:Obchod s plynem
+cy:Siop Nwy|nwy potel
 da:Gas butik
 de:Gas-Geschäft
 el:Κατάστημα υγραερίου
@@ -20902,6 +21433,7 @@ zh-Hant:煤氣庫
 
 shop-games|@shop
 en:Games Shop|Board games|Tabletop games
+cy:Siop Gemau|gemau bwrdd
 de:Spielegeschäft|Brettspiele
 es:Tienda de juegos|Juegos de mesa
 fr:Boutique de jeux|Jeux de société
@@ -20918,6 +21450,7 @@ be:Грумінг
 bg:Грижа за домашни любимци
 ca:Peluca de mascotes
 cs:Péče o domácí mazlíčky
+cy:Trin Anifeiliaid Anwes
 da:Kæledyrspleje
 de:Tiersalon|Haustierpflege
 el:Περιποίηση κατοικίδιων ζώων
@@ -20962,6 +21495,7 @@ be:HiFi аўдыё
 bg:HiFi аудио
 ca:Àudio HiFi
 cs:HiFi audio
+cy:Siop Sain HiFi
 da:HiFi lyd
 de:HiFi-Audio
 el:Ήχος HiFi
@@ -21006,6 +21540,7 @@ be:Канферэнц-цэнтр
 bg:Конферентен център
 ca:Centre de conferències
 cs:Konferenční centrum
+cy:Canolfan Gynadledda
 da:Konferencecenter
 de:Konferenzzentrum
 el:Συνεδριακό Κέντρο
@@ -21049,6 +21584,7 @@ be:Магазін траў
 bg:Магазин за билки|билкар
 ca:Botiga d'herbes|herbolari
 cs:Obchod s bylinkami
+cy:Llysieuydd
 da:Urtebutik
 de:Kräuterladen
 el:Κατάστημα με βότανα
@@ -21093,6 +21629,7 @@ be:Крама бытавой тэхнікі
 bg:Магазин за техника
 ca:Botiga d'electrodomèstics|botiga d’electrodomèstics
 cs:Obchod se spotřebiči
+cy:Siop Offer Cartref
 da:Hvidevarer butik
 de:Laden für Haushaltsgeräte
 el:Κατάστημα οικιακών συσκευών
@@ -21137,6 +21674,7 @@ be:Сельскагаспадарчы магазін
 bg:Селскостопански магазин
 ca:Botiga agrícola
 cs:Zemědělský obchod
+cy:Siop Amaethyddol
 da:Landbrugsbutik
 de:Landwirtschaftliches Geschäft
 el:Αγροτικό κατάστημα|γεωργικά είδη
@@ -21181,6 +21719,7 @@ be:Модныя аксэсуары
 bg:Модни аксесоари
 ca:Complements de moda
 cs:Módní doplňky
+cy:Ategolion Ffasiwn
 da:Mode tilbehør|tilbehørsbutik
 de:Mode-Accessoires
 el:Αξεσουάρ μόδας
@@ -21223,6 +21762,7 @@ en:Waste Transfer Station
 ar:محطة نقل النفايات
 be:Станцыя перавалкі адходаў
 ca:Estació de transferència de residus
+cy:Gorsaf Drosglwyddo Gwastraff
 de:Müllumladestation
 es:Estación de transferencia de residuos
 et:Jäätmete üleandmise jaam|jäätmetöötlusjaam
@@ -21251,6 +21791,7 @@ be:Дываны
 bg:Килими
 ca:Catifes
 cs:Koberce
+cy:Siop Garpedi|carpedi
 da:Tæpper|tæppehandel
 de:Teppichgeschäft
 el:Χαλιά
@@ -21292,6 +21833,7 @@ zh-Hant:地毯
 shop-craft|@shop
 en:Craft
 be:Рамяство|творчасць
+cy:Crefft|crefftau
 de:Künstlerbedarf
 es:Artesanía
 eu:eskulanak
@@ -21309,6 +21851,7 @@ be:Макароны|макаронная крама
 bg:Паста
 ca:Pasta
 cs:Těstoviny
+cy:Pasta|siop basta
 da:Pasta|pasta butik
 de:Nudelgeschäft
 el:Ζυμαρικά|κατάστημα ζυμαρικών
@@ -21349,6 +21892,7 @@ zh-Hant:義大利麵|義大利麵店
 
 attraction-amusement_ride|attraction-carousel|attraction-roller_coaster|attraction-maze|attraction-historic|attraction-big_wheel|attraction-bumper_car|@category_children
 en:Attraction|amusement ride|carousel|roller coaster|maze|historic attraction|big wheel|bumper car
+cy:Atyniad|reid|carwsél|ffigar-êt|drysfa|atyniad hanesyddol|olwyn fawr|ceir bwmpio
 lt:5Atrakcija|5pramogos|atrakcionų atrakcionas|karuselė|amerikietiški kalneliai|labirintas|istorinė atrakcija|apžvalgos ratas|autodromas
 ru:Аттракцион|карусель|американские горки|лабиринт|исторический аттракцион|колесо обозрения|автодром
 sl:4Varnostnik|vratarnica|zabaviščna vožnja|vrtiljak|vlak smrti|labirint|zgodovinska znamenitost|veliko kolo|avtočki
@@ -21360,6 +21904,7 @@ be:4Квест-пакой|квэст-пакой
 bg:Ескейп стая
 ca:Escape room|joc d’escapada
 cs:Úniková místnost|úniková hra
+cy:4Ystafell Ddianc|gêm
 da:Escape room
 de:Escape room
 el:Δωμάτιο απόδρασης
@@ -21404,6 +21949,7 @@ be:5Камера захоўвання|шафка|4багаж
 bg:Багажно шкафче
 ca:Armari d'equipatge
 cs:Skříňka na zavazadla|úschovná skříňka
+cy:Bagiau|locer|storfa|locer bagiau
 da:Bagageskab|bagageboks
 de:Gepäckschließfach|gepäckaufbewahrung
 el:Θυρίδα αποσκευών|ντουλάπι αποσκευών
@@ -21443,12 +21989,14 @@ zh-Hant:行李寄存櫃|行李保管箱
 
 office-security
 en:4Security Office
+cy:4Swyddfa Ddiogelwch
 lt:4Apsaugos tarnyba|5saugos tarnyba|apsauga
 ru:ЧОП|4Охрана
 sl:4Varnost|varnostna služba|varnostna pisarna
 
 building-guardhouse
 en:4Guard
+cy:4Tŷ Gwarchod|gwarchodwr
 ru:4Сторож|4Охрана
 sl:4Varnostnik|Vratarnica
 
@@ -21459,6 +22007,7 @@ be:Калядны кірмаш
 bg:Коледен пазар
 ca:Mercat de Nadal
 cs:Vánoční trh
+cy:4Marchnad Nadolig
 da:Julemarked
 de:Weihnachtsmarkt
 el:Χριστουγεννιάτικη αγορά
@@ -21500,6 +22049,7 @@ be:Калядная ёлка
 bg:Коледна елха
 ca:Arbre de Nadal
 cs:Vánoční stromek
+cy:4Coeden Nadolig
 da:Juletræ
 de:Weihnachtsbaum
 el:Χριστουγεννιάτικο δέντρο
@@ -21541,6 +22091,7 @@ be:4Кальянная
 bg:4Наргиле бар
 ca:4Bar de xixa
 cs:4Shisha bar
+cy:4Lolfa Hwca|4Bar shisha
 da:4Vandpibecafé
 de:4Shisha-Bar
 el:4Ναργιλέ μπαρ
@@ -21585,6 +22136,7 @@ be:Сцэна
 bg:Сцена
 ca:Escenari
 cs:Jeviště
+cy:Llwyfan
 da:Scene
 de:Bühne
 el:Σκηνή
