@@ -414,7 +414,7 @@ be:4Славутасці|4турызм
 bg:5Забележителности|4Туризъм
 ca:Turisme
 cs:Památky|pamětihodnost
-cy:3Twristiaeth|3Atyniadau|3Golygfeydd
+cy:3Golygfeydd|3Atyniadau|3Twristiaeth
 da:5Seværdigheder|4Turisme|3sightseeing
 de:4Sehenswürdigkeit|4Attraktion|4Tourismus|Touristenattraktion|Sehenswürdigkeiten
 el:4Αξιοθέατα
@@ -12767,7 +12767,7 @@ be:Пункт доступу да вадаёма
 bg:Точка за достъп до водния път
 ca:Punt d'accés a la via navegable
 cs:Přístupový bod k vodním cestám
-cy:Pwynt Mynediad i Lwybrau Dŵr
+cy:Pwynt Mynediad i Ddyfrffordd
 da:Adgangspunkt til vandvejen
 de:Wasserstraße Zugangspunkt
 el:Σημείο πρόσβασης σε υδατοδρόμιο
@@ -12856,7 +12856,7 @@ en:3Car Repair Workshop|4service station|auto|garage|4mechanic|U+1F527
 ar:محل صيانة السيارات|محطة خدمات
 bg:4Автосервиз|монтьор|автомобил|гараж|сервиз|3механик|поправка
 cs:3Auto opravna|auto|auta|Půjčení
-cy:3Gweithdy Trwsio Ceir|4garej|mecanic|trwsio ceir|4gorsaf wasanaeth
+cy:3Gweithdy Trwsio Ceir|4garej|mecanig|trwsio ceir|4gorsaf wasanaeth
 da:3Garage|3bilværksted|service station
 de:3Autowerkstatt|Kfz|Reparaturwerkstatt|Auto|4Werkstatt
 el:Συνεργείο αυτοκινήτων|φανοποιείο|γκαράζ
@@ -14811,7 +14811,7 @@ en:4Travel Agency|tours|4tour agency|trips|journeys|travel bureau|holidays|trave
 ar:وكيل سفريات|جولات
 bg:Турист|агенция|пътешествие|пътуване|билети
 cs:Cestovní kancelář|cesty
-cy:4Asiant Teithio|teithiau|4asiantaeth deithio|gwyliau|swyddfa deithio
+cy:4Asiantaeth Deithio|teithiau|4asiantaeth deithio|gwyliau|swyddfa deithio
 da:Rejsebureau|rundrejser
 de:5Reisebüro|Reisen|Rundreisen|Reisevermittlung|Reisevermittler|Reiseagentur|Touren|Ausflüge|Urlaub|Touristeninformation|Last-Minute-Tour
 el:Ταξιδιωτικό γραφείο|Τουριστικός πράκτορας|Περιηγήσεις
@@ -21892,7 +21892,7 @@ zh-Hant:義大利麵|義大利麵店
 
 attraction-amusement_ride|attraction-carousel|attraction-roller_coaster|attraction-maze|attraction-historic|attraction-big_wheel|attraction-bumper_car|@category_children
 en:Attraction|amusement ride|carousel|roller coaster|maze|historic attraction|big wheel|bumper car
-cy:Atyniad|reid|carwsél|ffigar-êt|drysfa|atyniad hanesyddol|olwyn fawr|ceir bwmpio
+cy:Atyniad|reid|carwsél|trên rola-bola|ffigar-êt|drysfa|atyniad hanesyddol|olwyn fawr|ceir bwmpio
 lt:5Atrakcija|5pramogos|atrakcionų atrakcionas|karuselė|amerikietiški kalneliai|labirintas|istorinė atrakcija|apžvalgos ratas|autodromas
 ru:Аттракцион|карусель|американские горки|лабиринт|исторический аттракцион|колесо обозрения|автодром
 sl:4Varnostnik|vratarnica|zabaviščna vožnja|vrtiljak|vlak smrti|labirint|zgodovinska znamenitost|veliko kolo|avtočki
