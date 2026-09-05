@@ -47,7 +47,7 @@
     <string name="core_entrance">Mynedfa</string>
     <string name="subway_data_unavailable">Nid yw map y trên tanddaearol ar gael</string>
     <!-- Settings/Highlight downloaded regions on the map -->
-    <string name="show_downloaded_regions">Rhanbarthau wedi\'u lawrlwytho\'n borffor</string>
+    <string name="show_downloaded_regions">Dangos rhanbarthau sydd wedi\'u lawrlwytho mewn porffor</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->

@@ -12,10 +12,10 @@
 "type.aerialway.gondola" = "Gondola";
 "type.aerialway.mixed_lift" = "Lifft Cymysg";
 "type.aerialway.station" = "Gorsaf Ffordd Gebl";
-"type.aeroway" = "Seilwaith Awyrennau";
+"type.aeroway" = "Seilwaith Gofod Awyr";
 "type.aeroway.aerodrome" = "Maes Awyr";
 "type.aeroway.aerodrome.international" = "Maes Awyr Rhyngwladol";
-"type.aeroway.apron" = "Apron";
+"type.aeroway.apron" = "Ffedog";
 "type.aeroway.gate" = "Giât";
 "type.aeroway.helipad" = "Pad Hofrennydd";
 "type.aeroway.runway" = "Rhedfa";
@@ -36,7 +36,7 @@
 "type.amenity.brothel" = "Puteindy";
 "type.amenity.love_hotel" = "Gwesty Cariad";
 "type.amenity.bureau_de_change" = "Cyfnewid Arian";
-"type.amenity.bus_station" = "Gorsaf Fws";
+"type.amenity.bus_station" = "Gorsaf Fysiau";
 "type.amenity.cafe" = "Caffi";
 "type.amenity.car_rental" = "Llogi Ceir";
 "type.amenity.motorcycle_rental" = "Llogi Beiciau Modur";
@@ -51,7 +51,7 @@
 "type.amenity.charging_station.motorcar" = "Gorsaf Wefru Ceir";
 "type.amenity.childcare" = "Meithrinfa";
 "type.amenity.cinema" = "Sinema";
-"type.amenity.studio" = "Stwdio";
+"type.amenity.studio" = "Stiwdio";
 "type.leisure.bowling_alley" = "Ali Fowlio";
 "type.amenity.clinic" = "Clinig";
 "type.amenity.college" = "Coleg";
@@ -633,7 +633,7 @@
 "type.historic.boundary_stone" = "Carreg Ffin";
 "type.historic.cannon" = "Canon";
 "type.historic.castle" = "Castell";
-"type.historic.castle.castrum" = "Castell Rhufeinig";
+"type.historic.castle.castrum" = "Caer Rufeinig";
 "type.historic.castle.defensive" = "Castell Amddiffynnol";
 "type.historic.castle.fortified_church" = "Eglwys Gaerog";
 "type.historic.castle.fortress" = "Caer";
@@ -774,7 +774,7 @@
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "Gwarchodfa Natur";
 "type.leisure.bird_hide" = "Cuddfan adar";
-"type.leisure.outdoor_seating" = "Seddau Awyr Agored";
+"type.leisure.outdoor_seating" = "Seddi Awyr Agored";
 "type.leisure.firepit" = "Pwll Tân";
 "type.leisure.park" = "Parc";
 "type.leisure.park.no.access" = "Parc Preifat";
@@ -788,7 +788,7 @@
 "type.leisure.slipway" = "Llithrfa";
 "type.leisure.sports_centre" = "Canolfan Chwaraeon";
 "type.sport.climbing" = "Canolfan Ddringo";
-"type.sport.yoga" = "Stwdio Ioga";
+"type.sport.yoga" = "Stiwdio Ioga";
 "type.leisure.stadium" = "Stadiwm";
 "type.leisure.swimming_pool" = "Pwll Nofio";
 "type.leisure.swimming_pool.private" = "Pwll Nofio";
@@ -1349,7 +1349,7 @@
 "type.shop.laundry" = "Golchdy";
 "type.shop.leather" = "Siop nwyddau lledr";
 "type.shop.mall" = "Canolfan Siopa";
-"type.shop.massage" = "Salŵn Tylino";
+"type.shop.massage" = "Salon Tylino";
 "type.shop.mobile_phone" = "Siop Ffôn Symudol";
 "type.shop.money_lender" = "Benthyciwr Arian";
 "type.shop.motorcycle" = "Siop Beiciau Modur";
@@ -1380,7 +1380,7 @@
 "type.shop.tea" = "Siop De";
 "type.shop.ticket" = "Siop Docynnau";
 "type.shop.toys" = "Siop Deganau";
-"type.shop.travel_agency" = "Asiant Teithio";
+"type.shop.travel_agency" = "Asiantaeth Deithio";
 "type.shop.tyres" = "Siop Teiars";
 "type.shop.variety_store" = "Siop Bob Dim";
 "type.shop.video" = "Siop Fideo";
@@ -1449,10 +1449,10 @@
 "type.sport.ice_hockey" = "Hoci Iâ";
 "type.sport.field_hockey" = "Hoci Maes";
 "type.sport.badminton" = "Badminton";
-"type.sport.pelota" = "Pêl-law Basgaidd";
+"type.sport.pelota" = "Pilota Basgaidd";
 "type.sport.boules" = "Boules";
 "type.sport.cycling" = "Beicio";
-"type.sport.four_square" = "Pedair Sgwâr";
+"type.sport.four_square" = "Pedwar Sgwâr";
 "type.sport.horse_racing" = "Rasio Ceffylau";
 "type.sport.karting" = "Cartio";
 "type.sport.motocross" = "Motocross";
@@ -1481,8 +1481,8 @@
 "type.attraction.carousel" = "Carwsél";
 "type.attraction.historic" = "Atyniad Hanesyddol";
 "type.attraction.maze" = "Drysfa";
-"type.attraction.roller_coaster" = "Ffigar-êt";
-"type.roller_coaster.track" = "Ffigar-êt";
+"type.attraction.roller_coaster" = "Trên Rola-bola";
+"type.roller_coaster.track" = "Trên Rola-bola";
 "type.attraction.water_slide" = "Sleid Dŵr";
 "type.tourism.attraction.specified" = "Atyniad";
 "type.tourism.camp_site" = "Maes Gwersylla";
@@ -1516,7 +1516,7 @@
 "type.traffic_calming.bump" = "Twmpath Cyflymder";
 "type.traffic_calming.hump" = "Twmpath Traffig";
 "type.waterway" = "Dyfrffordd";
-"type.waterway.access_point" = "Pwynt Mynediad i Lwybrau Dŵr";
+"type.waterway.access_point" = "Pwynt Mynediad i Ddyfrffordd";
 "type.waterway.canal" = "Camlas";
 "type.waterway.canal.tunnel" = "Twnnel Camlas";
 "type.waterway.fish_pass" = "Llwybr Pysgod";
@@ -1605,8 +1605,8 @@
 "type.amenity.kneipp_water_cure" = "Iachâd Dŵr Kneipp";
 "type.area_highway.traffic_island" = "Ynys Draffig";
 "type.man_made.monitoring_station" = "Gorsaf Fonitro";
-"type.man_made.monitoring_station.water_level" = "Gorsaf Monitro Lefel y Dŵr";
-"type.man_made.monitoring_station.weather" = "Gorsaf Monitro'r Tywydd";
+"type.man_made.monitoring_station.water_level" = "Gorsaf Fonitro Lefel y Dŵr";
+"type.man_made.monitoring_station.weather" = "Gorsaf Fonitro'r Tywydd";
 "type.amenity.student_accommodation" = "Llety Myfyrwyr";
 "type.craft.watchmaker" = "Gwneuthurwr Oriorau";
 "type.xmas_feature.market" = "Marchnad Nadolig";

@@ -52,7 +52,7 @@
 "add_new_set" = "Ychwanegu Rhestr Newydd";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
-"bookmark_set_name" = "Enw'r Rhestr Nod Tudalen";
+"bookmark_set_name" = "Enw'r rhestr nodau tudalen";
 
 /* Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. */
 "bookmarks" = "Nodau Tudalen";
@@ -113,7 +113,7 @@
 "category_hotel" = "Gwesty";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
-"category_tourism" = "Twristiaeth";
+"category_tourism" = "Golygfeydd";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! Also a bookmarks list group header when sorting by type. */
 "category_entertainment" = "Adloniant";
@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Helo!\n\nWedi'u hatodi mae fy nodau tudalen; agorwch nhw yn Organic Maps. Os nad oes gennych chi'r ap gallwch ei lawrlwytho yma: https://omaps.app/get?kmz\n\nMwynhewch deithio gyda Organic Maps!";
+"share_bookmarks_email_body" = "Helo!\n\nWedi'u hatodi mae fy nodau tudalen; agorwch nhw yn Organic Maps. Os nad oes gennych chi'r ap gallwch ei lawrlwytho yma: https://omaps.app/get?kmz\n\nMwynhewch deithio gydag Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Llwytho Nodau Tudalen";
@@ -166,7 +166,7 @@
 "load_kmz_successful" = "Llwythwyd nodau tudalen yn llwyddiannus! Gallwch ddod o hyd iddynt ar y map neu ar sgrin Rheolwr Nodau Tudalen.";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Methodd llwytho nodau tudalen. Efallai bod y ffeil yn ddiffygiol.";
+"load_kmz_failed" = "Methwyd llwytho'r nodau tudalen. Mae'n bosibl bod y ffeil wedi'i llygru neu'n ddiffygiol.";
 
 /* resource for context menu */
 "edit" = "Golygu";
@@ -286,9 +286,9 @@
 "faq" = "Cwestiynau Cyffredin";
 
 /* Button in the main menu */
-"donate" = "Rhoddion";
-"already_donated" = "Wedi'i roi eisoes";
-"remind_me_later" = "Atgoffa yn ddiweddarach";
+"donate" = "Cyfrannu";
+"already_donated" = "Wedi cyfrannu eisoes";
+"remind_me_later" = "Atgoffwch fi'n ddiweddarach";
 "support_organic_maps" = "Cefnogi Organic Maps";
 
 /* Button in the main Help dialog */
@@ -417,7 +417,7 @@
 "follow_us" = "Dilyn a chysylltu â ni:";
 
 /* Alert text */
-"email_error_body" = "Nid yw'r cleient e-bost wedi'i osod. Ffurfweddu'r cleient neu gysylltu â ni yn %@";
+"email_error_body" = "Nid yw'r cleient e-bost wedi'i osod. Ffurfweddwch ef neu cysylltwch â ni yn %@";
 
 /* Alert title */
 "email_error_title" = "Gwall wrth anfon e-bost";
@@ -427,7 +427,7 @@
 "downloader_search_results" = "Wedi'i Ganfod";
 
 /* Status of outdated country in the list */
-"downloader_status_outdated" = "Diweddariad";
+"downloader_status_outdated" = "Diweddaru";
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Methodd";
@@ -481,7 +481,7 @@
 "search_not_found" = "Wps, ni chanfuwyd unrhyw ganlyniadau.";
 
 /* The message when user did not find anything in the search. */
-"search_not_found_query" = "Lawrlwythwch y rhanbarth lle rydych chi'n chwilio neu ceisiwch ychwanegu enw tref/pentref cyfagos.";
+"search_not_found_query" = "Lawrlwythwch y rhanbarth lle rydych chi'n chwilio neu geisiwch ychwanegu enw tref/pentref cyfagos.";
 "search_history_title" = "Hanes Chwilio";
 "search_history_text" = "Gweld eich chwiliadau diweddar.";
 "clear_search" = "Clirio Hanes Chwilio";
@@ -548,12 +548,12 @@
 "level" = "Llawr";
 "downloader_delete_map_dialog" = "Bydd eich holl olygiadau map yn cael eu dileu gyda'r map.";
 "downloader_update_maps" = "Diweddaru Mapiau";
-"downloader_search_field_hint" = "Ffeindio map";
+"downloader_search_field_hint" = "Chwilio am fap";
 "common_check_internet_connection_dialog" = "Gwnewch yn siŵr bod eich dyfais wedi'i chysylltu â'r Rhyngrwyd.";
 "downloader_no_space_title" = "Dim digon o le";
 
 /* Message shown when there is not enough space to download maps */
-"downloader_no_space_message" = "Dileu unrhyw ddata diangen";
+"downloader_no_space_message" = "Dilëwch unrhyw ddata diangen";
 "editor_profile_changes" = "Newidiadau wedi'u Gwirio";
 "editor_focus_map_on_location" = "Llusgwch y map i osod y groes yn lleoliad y lle neu'r busnes.";
 "editor_edit_place_title" = "Golygu";
@@ -639,7 +639,7 @@
 "mobile_data" = "Rhyngrwyd Symudol";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
-"mobile_data_description" = "Mae angen rhyngrwyd symudol ar gyfer hysbysiadau diweddaru mapiau a lanlwytho golygiadau.";
+"mobile_data_description" = "Mae angen rhyngrwyd symudol ar gyfer hysbysiadau diweddaru mapiau ac uwchlwytho golygiadau.";
 "mobile_data_option_never" = "Peidiwch byth â Defnyddio";
 "mobile_data_option_ask" = "Gofyn Bob Amser";
 "traffic_update_maps_text" = "I arddangos data traffig, rhaid diweddaru mapiau.";
@@ -678,7 +678,7 @@
 "terms_of_use" = "Telerau defnydd";
 
 /* Hiking routes layer name in the Styles and Layers dialog */
-"button_layer_hiking" = "Cerdded";
+"button_layer_hiking" = "Heicio";
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "Beicio";
@@ -790,7 +790,7 @@
 "routing_arrive" = "Cyrraedd %@";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
-"dialog_routing_download_and_update_maps" = "Lawrlwythwch a diweddarwch yr holl fap ar hyd y llwybr arfaethedig i gyfrifo'r llwybr.";
+"dialog_routing_download_and_update_maps" = "Lawrlwythwch a diweddarwch yr holl fapiau ar hyd y llwybr arfaethedig i gyfrifo'r llwybr.";
 "editor_done_dialog_1" = "Rydych chi wedi newid map y byd! Peidiwch â'i gadw i chi'ch hun; dywedwch wrth eich ffrindiau a'i olygu gyda'ch gilydd.";
 "share_with_friends" = "Rhannwch gyda ffrindiau";
 
@@ -815,18 +815,18 @@
 "editor_add_select_category" = "Dewis categori";
 "editor_add_select_category_popular_subtitle" = "Poblogaidd";
 "editor_add_select_category_all_subtitle" = "Pob Categori";
-"whatsnew_editor_message_1" = "Ychwanegwch leoedd newydd at y map, a golygu rhai presennol yn uniongyrchol o'r ap.";
+"whatsnew_editor_message_1" = "Ychwanegwch leoedd newydd at y map, a golygwch y rhai sy'n bodoli eisoes yn uniongyrchol o'r ap.";
 "dialog_incorrect_feature_position" = "Newid lleoliad";
 
 /* Error dialog no space */
-"migration_no_space_message" = "I lawrlwytho, mae angen mwy o le arnoch. Dileu unrhyw ddata diangen.";
+"migration_no_space_message" = "I lawrlwytho, mae angen mwy o le arnoch. Dilëwch unrhyw ddata diangen.";
 "editor_sharing_title" = "Rwyf wedi gwella mapiau Organic Maps";
 "editor_detailed_description_hint" = "Sylw manwl";
 "editor_detailed_description" = "Bydd eich newidiadau map awgrymedig yn cael eu hanfon at gymuned OpenStreetMap. Disgrifiwch unrhyw fanylion ychwanegol na ellir eu golygu yn Organic Maps.";
 "current_location_unknown_error_message" = "Digwyddodd gwall wrth bennu eich lleoliad. Gwiriwch fod eich dyfais yn gweithio'n iawn a cheisiwch eto yn nes ymlaen.";
 "location_services_disabled_header" = "Mae gwasanaethau lleoliad wedi'u hanalluogi";
-"location_services_disabled_message" = "Galluogi mynediad at geoleoliad yng ngosodiadau'r ddyfais";
-"location_services_disabled_1" = "1. Agor Gosodiadau";
+"location_services_disabled_message" = "Galluogwch fynediad at geoleoliad yng ngosodiadau'r ddyfais";
+"location_services_disabled_1" = "1. Agorwch Gosodiadau";
 "location_services_disabled_2" = "2. Tapiwch Lleoliad";
 
 /* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
@@ -864,7 +864,7 @@
 "downloader_hide_screen" = "Cuddio'r Sgrin";
 "downloader_percent" = "%@ (%@ o %@)";
 "downloader_process" = "Wrthi'n lawrlwytho %@…";
-"downloader_applying" = "Wrthi'n defnyddio %@…";
+"downloader_applying" = "Wrthi'n gosod %@…";
 "bookmarks_error_title_list_name_too_long" = "Mae'r enw hwn yn rhy hir";
 "bookmarks_detect_title" = "Canfuwyd ffeiliau newydd";
 "button_convert" = "Trosi";
@@ -993,7 +993,7 @@
 "app_tip_08" = "Gallwch chi drwsio a gwella data'r map yn hawdd.";
 
 /* App tip #09 */
-"app_tip_09" = "Ein prif nod yw adeiladu mapiau cyflym, sy'n canolbwyntio ar breifatrwydd, ac sy'n hawdd eu defnyddio y byddwch chi'n eu caru.";
+"app_tip_09" = "Ein prif nod yw creu mapiau cyflym, hawdd eu defnyddio sy'n parchu eich preifatrwydd ac y byddwch yn eu caru.";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Rydych chi nawr yn defnyddio Organic Maps ar sgrin y ffôn";
@@ -1011,7 +1011,7 @@
 "button_layer_outdoor" = "Yr awyr agored";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
-"bookmarks_export" = "Allforio pob Nod Tudalen a Thrac";
+"bookmarks_export" = "Allforio'r holl nodau tudalen a thraciau";
 "drive_through" = "Gyrru trwodd";
 
 /* Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. */
@@ -1027,7 +1027,7 @@
 "self_service" = "Hunanwasanaeth";
 
 /* To indicate if restaurant or other place has outdoor seating */
-"outdoor_seating" = "Seddau awyr agored";
+"outdoor_seating" = "Seddi awyr agored";
 
 /* Prompt to start recording a track. */
 "start_track_recording" = "Recordio Trac";
@@ -1096,7 +1096,7 @@
 "enable" = "Galluogi";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
-"backup" = "Copïo Wrth Gefn";
+"backup" = "Gwneud copi wrth gefn";
 
 /* Title for the "iCloud synchronization failure" alert. */
 "icloud_synchronization_error_alert_title" = "Methiant cydamseru iCloud";
@@ -1169,7 +1169,7 @@
 "subway_data_unavailable" = "Nid yw map y trên tanddaearol ar gael";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "Rhanbarthau wedi'u lawrlwytho'n borffor";
+"show_downloaded_regions" = "Dangos rhanbarthau sydd wedi'u lawrlwytho mewn porffor";
 
 
 /********** gps strings **********/
@@ -1185,7 +1185,7 @@
 "editor_add_select_category_recent_subtitle" = "Defnyddiwyd yn ddiweddar";
 
 /* Toast message shown when bookmark colors are changed in category settings */
-"toast_bookmarks_color_changed" = "Lliw nodau tudalen wedi'i newid";
+"toast_bookmarks_color_changed" = "Newidiwyd lliw'r nodau tudalen";
 
 /* Toast message shown when track colors are changed in category settings */
-"toast_tracks_color_changed" = "Lliw traciau wedi'i newid";
+"toast_tracks_color_changed" = "Newidiwyd lliw'r traciau";

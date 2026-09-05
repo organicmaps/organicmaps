@@ -12,10 +12,10 @@
     <string name="type.aerialway.gondola">Gondola</string>
     <string name="type.aerialway.mixed_lift">Lifft Cymysg</string>
     <string name="type.aerialway.station">Gorsaf Ffordd Gebl</string>
-    <string name="type.aeroway">Seilwaith Awyrennau</string>
+    <string name="type.aeroway">Seilwaith Gofod Awyr</string>
     <string name="type.aeroway.aerodrome">Maes Awyr</string>
     <string name="type.aeroway.aerodrome.international">Maes Awyr Rhyngwladol</string>
-    <string name="type.aeroway.apron">Apron</string>
+    <string name="type.aeroway.apron">Ffedog</string>
     <string name="type.aeroway.gate">Giât</string>
     <string name="type.aeroway.helipad">Pad Hofrennydd</string>
     <string name="type.aeroway.runway">Rhedfa</string>
@@ -36,7 +36,7 @@
     <string name="type.amenity.brothel">Puteindy</string>
     <string name="type.amenity.love_hotel">Gwesty Cariad</string>
     <string name="type.amenity.bureau_de_change">Cyfnewid Arian</string>
-    <string name="type.amenity.bus_station">Gorsaf Fws</string>
+    <string name="type.amenity.bus_station">Gorsaf Fysiau</string>
     <string name="type.amenity.cafe">Caffi</string>
     <string name="type.amenity.car_rental">Llogi Ceir</string>
     <string name="type.amenity.motorcycle_rental">Llogi Beiciau Modur</string>
@@ -51,7 +51,7 @@
     <string name="type.amenity.charging_station.motorcar">Gorsaf Wefru Ceir</string>
     <string name="type.amenity.childcare">Meithrinfa</string>
     <string name="type.amenity.cinema">Sinema</string>
-    <string name="type.amenity.studio">Stwdio</string>
+    <string name="type.amenity.studio">Stiwdio</string>
     <string name="type.leisure.bowling_alley">Ali Fowlio</string>
     <string name="type.amenity.clinic">Clinig</string>
     <string name="type.amenity.college">Coleg</string>
@@ -561,7 +561,7 @@
     <string name="type.historic.boundary_stone">Carreg Ffin</string>
     <string name="type.historic.cannon">Canon</string>
     <string name="type.historic.castle">Castell</string>
-    <string name="type.historic.castle.castrum">Castell Rhufeinig</string>
+    <string name="type.historic.castle.castrum">Caer Rufeinig</string>
     <string name="type.historic.castle.defensive">Castell Amddiffynnol</string>
     <string name="type.historic.castle.fortified_church">Eglwys Gaerog</string>
     <string name="type.historic.castle.fortress">Caer</string>
@@ -659,7 +659,7 @@
     <string name="type.leisure.marina">Marina</string>
     <string name="type.leisure.nature_reserve">Gwarchodfa Natur</string>
     <string name="type.leisure.bird_hide">Cuddfan adar</string>
-    <string name="type.leisure.outdoor_seating">Seddau Awyr Agored</string>
+    <string name="type.leisure.outdoor_seating">Seddi Awyr Agored</string>
     <string name="type.leisure.firepit">Pwll Tân</string>
     <string name="type.leisure.park">Parc</string>
     <string name="type.leisure.park.no.access">Parc Preifat</string>
@@ -673,7 +673,7 @@
     <string name="type.leisure.slipway">Llithrfa</string>
     <string name="type.leisure.sports_centre">Canolfan Chwaraeon</string>
     <string name="type.sport.climbing">Canolfan Ddringo</string>
-    <string name="type.sport.yoga">Stwdio Ioga</string>
+    <string name="type.sport.yoga">Stiwdio Ioga</string>
     <string name="type.leisure.stadium">Stadiwm</string>
     <string name="type.leisure.swimming_pool">Pwll Nofio</string>
     <string name="type.leisure.swimming_pool.private">Pwll Nofio</string>
@@ -1211,7 +1211,7 @@
     <string name="type.shop.laundry">Golchdy</string>
     <string name="type.shop.leather">Siop nwyddau lledr</string>
     <string name="type.shop.mall">Canolfan Siopa</string>
-    <string name="type.shop.massage">Salŵn Tylino</string>
+    <string name="type.shop.massage">Salon Tylino</string>
     <string name="type.shop.mobile_phone">Siop Ffôn Symudol</string>
     <string name="type.shop.money_lender">Benthyciwr Arian</string>
     <string name="type.shop.motorcycle">Siop Beiciau Modur</string>
@@ -1242,7 +1242,7 @@
     <string name="type.shop.tea">Siop De</string>
     <string name="type.shop.ticket">Siop Docynnau</string>
     <string name="type.shop.toys">Siop Deganau</string>
-    <string name="type.shop.travel_agency">Asiant Teithio</string>
+    <string name="type.shop.travel_agency">Asiantaeth Deithio</string>
     <string name="type.shop.tyres">Siop Teiars</string>
     <string name="type.shop.variety_store">Siop Bob Dim</string>
     <string name="type.shop.video">Siop Fideo</string>
@@ -1309,10 +1309,10 @@
     <string name="type.sport.ice_hockey">Hoci Iâ</string>
     <string name="type.sport.field_hockey">Hoci Maes</string>
     <string name="type.sport.badminton">Badminton</string>
-    <string name="type.sport.pelota">Pêl-law Basgaidd</string>
+    <string name="type.sport.pelota">Pilota Basgaidd</string>
     <string name="type.sport.boules">Boules</string>
     <string name="type.sport.cycling">Beicio</string>
-    <string name="type.sport.four_square">Pedair Sgwâr</string>
+    <string name="type.sport.four_square">Pedwar Sgwâr</string>
     <string name="type.sport.horse_racing">Rasio Ceffylau</string>
     <string name="type.sport.karting">Cartio</string>
     <string name="type.sport.motocross">Motocross</string>
@@ -1340,8 +1340,8 @@
     <string name="type.attraction.carousel">Carwsél</string>
     <string name="type.attraction.historic">Atyniad Hanesyddol</string>
     <string name="type.attraction.maze">Drysfa</string>
-    <string name="type.attraction.roller_coaster">Ffigar-êt</string>
-    <string name="type.roller_coaster.track">Ffigar-êt</string>
+    <string name="type.attraction.roller_coaster">Trên Rola-bola</string>
+    <string name="type.roller_coaster.track">Trên Rola-bola</string>
     <string name="type.attraction.water_slide">Sleid Dŵr</string>
     <string name="type.tourism.attraction.specified">Atyniad</string>
     <string name="type.tourism.camp_site">Maes Gwersylla</string>
@@ -1373,7 +1373,7 @@
     <string name="type.traffic_calming.bump">Twmpath Cyflymder</string>
     <string name="type.traffic_calming.hump">Twmpath Traffig</string>
     <string name="type.waterway">Dyfrffordd</string>
-    <string name="type.waterway.access_point">Pwynt Mynediad i Lwybrau Dŵr</string>
+    <string name="type.waterway.access_point">Pwynt Mynediad i Ddyfrffordd</string>
     <string name="type.waterway.canal">Camlas</string>
     <string name="type.waterway.canal.tunnel">Twnnel Camlas</string>
     <string name="type.waterway.fish_pass">Llwybr Pysgod</string>
@@ -1458,8 +1458,8 @@
     <string name="type.amenity.kneipp_water_cure">Iachâd Dŵr Kneipp</string>
     <string name="type.area_highway.traffic_island">Ynys Draffig</string>
     <string name="type.man_made.monitoring_station">Gorsaf Fonitro</string>
-    <string name="type.man_made.monitoring_station.water_level">Gorsaf Monitro Lefel y Dŵr</string>
-    <string name="type.man_made.monitoring_station.weather">Gorsaf Monitro\'r Tywydd</string>
+    <string name="type.man_made.monitoring_station.water_level">Gorsaf Fonitro Lefel y Dŵr</string>
+    <string name="type.man_made.monitoring_station.weather">Gorsaf Fonitro\'r Tywydd</string>
     <string name="type.amenity.student_accommodation">Llety Myfyrwyr</string>
     <string name="type.craft.watchmaker">Gwneuthurwr Oriorau</string>
     <string name="type.xmas_feature.market">Marchnad Nadolig</string>

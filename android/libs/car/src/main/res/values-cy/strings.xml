@@ -12,7 +12,7 @@
     <string name="country_status_download_failed">Methodd y lawrlwythiad</string>
     <string name="close">Cau</string>
     <string name="download">Lawrlwytho</string>
-    <string name="download_resources">Cyn i chi ddechrau defnyddio\'r ap, lawrlwytho\'r map trosolwg byd i\'ch dyfais.\nBydd yn defnyddio %s o storfa.</string>
+    <string name="download_resources">Cyn i chi ddechrau defnyddio\'r ap, lawrlwythwch fap trosolwg y byd i\'ch dyfais.\nBydd yn defnyddio %s o storfa.</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Nodau Tudalen</string>
     <!-- Settings button in system menu -->

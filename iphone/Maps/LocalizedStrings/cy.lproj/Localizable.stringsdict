@@ -15,10 +15,18 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>Dim nodau tudalen</string>
 			<key>one</key>
-			<string>%d bookmark</string>
+			<string>%d nod tudalen</string>
+			<key>two</key>
+			<string>%d nod tudalen</string>
+			<key>few</key>
+			<string>%d nod tudalen</string>
+			<key>many</key>
+			<string>%d nod tudalen</string>
 			<key>other</key>
-			<string>%d bookmarks</string>
+			<string>%d nod tudalen</string>
 		</dict>
 	</dict>
 
@@ -32,10 +40,18 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>Ni chanfuwyd unrhyw ffeiliau.</string>
 			<key>one</key>
-			<string>%d file was found. You can see it after conversion.</string>
+			<string>Cafwyd hyd i %d ffeil. Gallwch ei gweld ar ôl ei throsi.</string>
+			<key>two</key>
+			<string>Cafwyd hyd i %d ffeil. Gallwch eu gweld ar ôl eu trosi.</string>
+			<key>few</key>
+			<string>Cafwyd hyd i %d ffeil. Gallwch eu gweld ar ôl eu trosi.</string>
+			<key>many</key>
+			<string>Cafwyd hyd i %d ffeil. Gallwch eu gweld ar ôl eu trosi.</string>
 			<key>other</key>
-			<string>%d files were found. You can see them after conversion.</string>
+			<string>Cafwyd hyd i %d ffeil. Gallwch eu gweld ar ôl eu trosi.</string>
 		</dict>
 	</dict>
 
@@ -49,10 +65,18 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>Dim traciau</string>
 			<key>one</key>
-			<string>%d track</string>
+			<string>%d trac</string>
+			<key>two</key>
+			<string>%d drac</string>
+			<key>few</key>
+			<string>%d thrac</string>
+			<key>many</key>
+			<string>%d thrac</string>
 			<key>other</key>
-			<string>%d tracks</string>
+			<string>%d trac</string>
 		</dict>
 	</dict>
 
