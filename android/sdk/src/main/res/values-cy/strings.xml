@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- Text shown before a shared "my position" link, and the email subject when sharing the current location. -->
+    <string name="share_my_position">Rwyf yma ar Organic Maps</string>
+    <!-- Shared email link text; opens the shared place in Organic Maps or in a web browser. -->
+    <string name="share_open_in_om_or_browser">Agor mewn Organic Maps neu mewn porwr</string>
+    <!-- Shared email link text; leads to the Organic Maps download page. -->
+    <string name="share_get_om">Cael Organic Maps</string>
+    <!-- Title for the "Open in Another App" button on the PlacePage; also shared email link text: opens the shared place in another (geo:) maps app. -->
+    <string name="open_in_app">Agor mewn Ap Arall</string>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Fy Safle</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Fy Lleoedd</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Storio preifat mewnol</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Storio a rennir yn fewnol</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">Cerdyn SD</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">Storio a rennir yn allanol</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">Di-wifr</string>
+    <string name="postal_code">Cod Post</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Pwynt Map</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">milltir</string>
+    <!-- A unit of measure -->
+    <string name="ft">troedfedd</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">I arddangos llwybrau, rhaid diweddaru mapiau.</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Allanfa</string>
+    <string name="core_entrance">Mynedfa</string>
+    <string name="subway_data_unavailable">Nid yw map y trên tanddaearol ar gael</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Rhanbarthau wedi\'u lawrlwytho\'n borffor</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Mewngofnodi gyda chyfrinair</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Mewngofnodi gan ddefnyddio Porwr</string>
+</resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Dim ond llwybrau sydd wedi\'u cynnwys yn llawn o fewn map o un rhanbarth y gellir eu creu.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Diweddaru Map</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Lawrlwytho\'r holl fapiau ar hyd eich llwybr</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Er mwyn creu llwybr, mae angen i ni lawrlwytho a diweddaru\'r holl fapiau o\'ch lleoliad i ben eich taith.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">Gwiriwch signal GPS</string>
+    <string name="dialog_routing_error_location_not_found">Methwyd creu llwybr. Ni ellid nodi cyfesurynnau GPS cyfredol.</string>
+    <string name="dialog_routing_location_turn_wifi">Gwiriwch eich signal GPS. Bydd galluogi di-wifr yn gwella cywirdeb eich lleoliad.</string>
+    <string name="dialog_routing_location_turn_on">Galluogi gwasanaethau lleoliad</string>
+    <string name="dialog_routing_location_unknown_turn_on">Methwyd dod o hyd i gyfesurynnau GPS cyfredol. Galluogi gwasanaethau lleoliad i gyfrifo\'r llwybr.</string>
+    <string name="dialog_routing_unable_locate_route">Methwyd dod o hyd i\'r llwybr</string>
+    <string name="dialog_routing_cant_build_route">Methwyd creu llwybr.</string>
+    <string name="dialog_routing_change_start_or_end">Addaswch eich man cychwyn neu\'ch cyrchfan.</string>
+    <string name="dialog_routing_change_start">Addaswch y man cychwyn</string>
+    <string name="dialog_routing_start_not_determined">Ni chrëwyd y llwybr. Ni ellid dod o hyd i\'r man cychwyn.</string>
+    <string name="dialog_routing_select_closer_start">Dewiswch bwynt cychwyn yn agosach at ffordd.</string>
+    <string name="dialog_routing_change_end">Addaswch ben y daith</string>
+    <string name="dialog_routing_end_not_determined">Ni chrëwyd y llwybr. Ni ellid dod o hyd i ben y daith.</string>
+    <string name="dialog_routing_select_closer_end">Dewiswch ben y daith sy\'n agosach at ffordd.</string>
+    <string name="dialog_routing_change_intermediate">Methu dod o hyd i\'r pwynt rhyngol.</string>
+    <string name="dialog_routing_intermediate_not_determined">Addaswch eich pwynt rhyngol.</string>
+    <string name="dialog_routing_system_error">Gwall system</string>
+    <string name="dialog_routing_application_error">Methu creu llwybr oherwydd gwall yn y rhaglen.</string>
+    <string name="dialog_routing_try_again">Rhowch gynnig arall arni</string>
+    <string name="dialog_routing_download_and_build_cross_route">Hoffech chi lawrlwytho\'r map a chreu llwybr mwy effeithiol sy\'n ymestyn i fwy nag un map?</string>
+    <string name="dialog_routing_download_cross_route">Lawrlwytho mapiau ychwanegol i greu llwybr gwell sy\'n croesi ffiniau\'r map hwn.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Diweddaru Mapiau</string>
+    <string name="downloader_mwm_migration_dialog">I greu llwybr, mae angen i chi ddiweddaru\'r holl fapiau ac yna cynllunio\'r llwybr eto.</string>
+    <string name="navigation_stop_button">Stopio</string>
+    <string name="ok">Iawn</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">Nid yw llywio trên tanddaearol yn y rhanbarth hwn ar gael eto</string>
+    <string name="dialog_pedestrian_route_is_long_header">Ni chanfuwyd unrhyw lwybr trên tanddaearol</string>
+    <string name="dialog_pedestrian_route_is_long_message">Dewiswch bwynt cychwyn neu derfyn yn agosach at orsaf trên tanddaearol</string>
+</resources>

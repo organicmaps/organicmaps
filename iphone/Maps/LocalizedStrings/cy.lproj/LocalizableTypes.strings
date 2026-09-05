@@ -1,0 +1,1614 @@
+
+
+/********** Types **********/
+
+"type.addr_interpolation" = "Cyfeiriad/Bloc";
+"type.addr_interpolation.even" = "Cyfeiriad/Bloc";
+"type.addr_interpolation.odd" = "Cyfeiriad/Bloc";
+"type.aerialway" = "Ffordd Gebl";
+"type.aerialway.cable_car" = "Car Cebl";
+"type.aerialway.chair_lift" = "Lifft Cadair";
+"type.aerialway.drag_lift" = "Lifft Llusgo";
+"type.aerialway.gondola" = "Gondola";
+"type.aerialway.mixed_lift" = "Lifft Cymysg";
+"type.aerialway.station" = "Gorsaf Ffordd Gebl";
+"type.aeroway" = "Seilwaith Awyrennau";
+"type.aeroway.aerodrome" = "Maes Awyr";
+"type.aeroway.aerodrome.international" = "Maes Awyr Rhyngwladol";
+"type.aeroway.apron" = "Apron";
+"type.aeroway.gate" = "Giât";
+"type.aeroway.helipad" = "Pad Hofrennydd";
+"type.aeroway.runway" = "Rhedfa";
+"type.aeroway.taxiway" = "Llwybr Tacsio";
+"type.aeroway.terminal" = "Terfynfa";
+"type.amenity" = "Cyfleuster";
+"type.amenity.arts_centre" = "Canolfan Gelfyddydau";
+"type.amenity.atm" = "Peiriant Arian Parod";
+"type.amenity.bank" = "Banc";
+"type.amenity.bar" = "Bar";
+"type.amenity.bbq" = "Gril Barbeciw";
+"type.amenity.bench" = "Mainc";
+"type.amenity.bicycle_parking" = "Parcio Beiciau";
+"type.amenity.bicycle_parking.covered" = "Parcio Beiciau dan Do";
+"type.amenity.bicycle_rental" = "Llogi Beiciau";
+"type.amenity.bicycle_repair_station" = "Gorsaf Drwsio Beiciau";
+"type.amenity.biergarten" = "Gardd Gwrw";
+"type.amenity.brothel" = "Puteindy";
+"type.amenity.love_hotel" = "Gwesty Cariad";
+"type.amenity.bureau_de_change" = "Cyfnewid Arian";
+"type.amenity.bus_station" = "Gorsaf Fws";
+"type.amenity.cafe" = "Caffi";
+"type.amenity.car_rental" = "Llogi Ceir";
+"type.amenity.motorcycle_rental" = "Llogi Beiciau Modur";
+"type.amenity.car_sharing" = "Rhannu Ceir";
+"type.amenity.car_wash" = "Golchfa Geir";
+"type.amenity.casino" = "Casino";
+"type.amenity.gambling" = "Gamblo";
+"type.leisure.adult_gaming_centre" = "Canolfan Chwarae i Oedolion";
+"type.leisure.amusement_arcade" = "Arcêd";
+"type.amenity.charging_station" = "Gorsaf Wefru";
+"type.amenity.charging_station.bicycle" = "Gorsaf Wefru Beiciau";
+"type.amenity.charging_station.motorcar" = "Gorsaf Wefru Ceir";
+"type.amenity.childcare" = "Meithrinfa";
+"type.amenity.cinema" = "Sinema";
+"type.amenity.studio" = "Stwdio";
+"type.leisure.bowling_alley" = "Ali Fowlio";
+"type.amenity.clinic" = "Clinig";
+"type.amenity.college" = "Coleg";
+"type.amenity.community_centre" = "Canolfan Gymunedol";
+"type.amenity.compressed_air" = "Aer Cywasgedig";
+"type.amenity.conference_centre" = "Canolfan Gynadledda";
+"type.amenity.courthouse" = "Llys Barn";
+"type.amenity.dentist" = "Deintydd";
+"type.amenity.doctors" = "Meddyg";
+"type.amenity.drinking_water" = "Dŵr Yfed";
+"type.drinking_water.yes" = "Dŵr Yfed";
+"type.amenity.driving_school" = "Ysgol Yrru";
+"type.amenity.exhibition_centre" = "Canolfan Arddangos";
+"type.amenity.money_transfer" = "Trosglwyddo Arian";
+"type.amenity.music_school" = "Ysgol Gerdd";
+"type.amenity.language_school" = "Ysgol Iaith";
+"type.office.diplomatic" = "Llysgenhadaeth";
+"type.amenity.fast_food" = "Bwyd Cyflym";
+"type.amenity.ferry_terminal" = "Fferi";
+"type.amenity.fire_station" = "Gorsaf Dân";
+"type.amenity.food_court" = "Neuadd Fwyd";
+"type.amenity.fountain" = "Ffynnon";
+"type.amenity.fuel" = "Gorsaf Betrol";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.amenity.grave_yard" = "Mynwent";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.amenity.grave_yard.christian" = "Mynwent Gristnogol";
+"type.amenity.hospital" = "Ysbyty";
+"type.amenity.hunting_stand" = "Cuddfan Hela";
+"type.amenity.ice_cream" = "Hufen Iâ";
+"type.amenity.internet_cafe" = "Caffi Rhyngrwyd";
+"type.amenity.kindergarten" = "Ysgol Feithrin";
+"type.amenity.library" = "Llyfrgell";
+"type.amenity.loading_dock" = "Doc Llwytho";
+"type.amenity.luggage_locker" = "Locer Bagiau";
+"type.amenity.marketplace" = "Marchnad";
+"type.amenity.motorcycle_parking" = "Parcio Beiciau Modur";
+"type.amenity.nightclub" = "Clwb Nos";
+"type.amenity.nursing_home" = "Cartref Nyrsio";
+"type.amenity.parking" = "Parcio";
+"type.amenity.parking.fee" = "Parcio";
+"type.amenity.parking.multi.storey" = "Maes Parcio Aml-lawr";
+"type.amenity.parking.multi.storey.fee" = "Maes Parcio Aml-lawr";
+"type.amenity.parking.no.access" = "Parcio Preifat";
+"type.amenity.parking.permissive" = "Parcio Preifat";
+"type.amenity.parking.private" = "Parcio Preifat";
+"type.amenity.parking.park_and_ride" = "Parcio a Theithio";
+"type.amenity.parking.underground" = "Parcio Tanddaearol";
+"type.amenity.parking.underground.fee" = "Parcio Tanddaearol";
+"type.amenity.parking.underground.private" = "Parcio Tanddaearol Preifat";
+"type.amenity.parking.street_side" = "Parcio ar Ochr y Stryd";
+"type.amenity.parking.street_side.fee" = "Parcio ar Ochr y Stryd";
+"type.amenity.parking.street_side.private" = "Parcio Preifat ar Ochr y Stryd";
+"type.amenity.parking.lane" = "Parcio ar y Lôn";
+"type.amenity.parking.lane.fee" = "Parcio ar y Lôn";
+"type.amenity.parking.lane.private" = "Parcio Preifat ar y Lôn";
+"type.amenity.parking_entrance" = "Mynedfa Parcio";
+"type.amenity.parking_entrance.private" = "Mynedfa Parcio Preifat";
+"type.amenity.parking_entrance.permissive" = "Mynedfa Parcio";
+"type.amenity.parking_space" = "Man Parcio";
+"type.amenity.parking_space.permissive" = "Man Parcio";
+"type.amenity.parking_space.private" = "Man Parcio";
+"type.amenity.parking_space.underground" = "Man Parcio";
+"type.amenity.parking_space.disabled" = "Man Parcio i'r Anabl";
+"type.amenity.payment_terminal" = "Terfynell Dalu";
+"type.amenity.pharmacy" = "Fferyllfa";
+"type.amenity.place_of_worship" = "Lle Addoli";
+"type.amenity.place_of_worship.buddhist" = "Teml Fwdhaidd";
+"type.amenity.place_of_worship.christian" = "Eglwys";
+"type.amenity.place_of_worship.christian.mormon" = "Eglwys Iesu Grist o Saint y Dyddiau Diwethaf";
+"type.amenity.place_of_worship.christian.jehovahs_witness" = "Neuadd Deyrnas Tystion Jehofa";
+"type.amenity.place_of_worship.hindu" = "Teml Hindŵaidd";
+"type.amenity.place_of_worship.jewish" = "Synagog";
+"type.amenity.place_of_worship.muslim" = "Mosg";
+"type.amenity.place_of_worship.shinto" = "Cysegr Shinto";
+"type.amenity.place_of_worship.taoist" = "Teml Taoaidd";
+"type.amenity.police" = "Heddlu";
+"type.amenity.post_box" = "Blwch Post";
+"type.amenity.post_office" = "Swyddfa'r Post";
+"type.post_office.post_partner" = "Partner Post";
+"type.amenity.prison" = "Carchar";
+"type.amenity.pub" = "Tafarn";
+"type.amenity.public_bookcase" = "Cyfnewidfa Lyfrau";
+
+
+/********** Types: Recycling **********/
+
+"type.amenity.recycling.centre" = "Canolfan Ailgylchu";
+"type.amenity.recycling" = "Cynhwysydd Ailgylchu";
+"type.amenity.recycling.container" = "Cynhwysydd Ailgylchu";
+"type.recycling.batteries" = "Batris";
+"type.recycling.clothes" = "Dillad";
+"type.recycling.glass_bottles" = "Poteli Gwydr";
+"type.recycling.paper" = "Papur";
+"type.recycling.plastic" = "Plastig";
+"type.recycling.plastic_bottles" = "Poteli Plastig";
+"type.recycling.scrap_metal" = "Metel Sgrap";
+"type.recycling.small_appliances" = "Gwastraff Electronig";
+"type.recycling.cardboard" = "Cardbord";
+"type.recycling.cans" = "Caniau";
+"type.recycling.shoes" = "Esgidiau";
+"type.recycling.green_waste" = "Gwastraff Gwyrdd/Organig";
+"type.recycling.cartons" = "Cartonau";
+"type.amenity.restaurant" = "Bwyty";
+"type.amenity.sanitary_dump_station" = "Gorsaf Wagio Tanciau";
+"type.amenity.school" = "Ysgol";
+
+/* Weather shelter (including sun shelters and natural rock shelters). */
+"type.amenity.shelter" = "Lloches";
+
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "Lloches";
+
+/* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
+"type.amenity.shelter.basic_hut" = "Cwt Biwac";
+
+/* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
+"type.amenity.shelter.lean_to" = "Cysgodfan";
+"type.amenity.public_bath" = "Baddon Cyhoeddus";
+"type.amenity.shower" = "Cawod";
+"type.amenity.stripclub" = "Clwb Stripio";
+"type.amenity.taxi" = "Safle Tacsi";
+"type.amenity.telephone" = "Ffôn";
+"type.amenity.theatre" = "Theatr";
+"type.amenity.toilets" = "Toiled";
+"type.toilets.yes" = "Toiled";
+"type.amenity.townhall" = "Neuadd y Dref";
+"type.amenity.university" = "Prifysgol";
+"type.amenity.vending_machine" = "Peiriant Gwerthu";
+"type.amenity.vending_machine.cigarettes" = "Peiriant Sigaréts";
+"type.amenity.vending_machine.coffee" = "Peiriant Coffi";
+"type.amenity.vending_machine.condoms" = "Peiriant Condomau";
+"type.amenity.vending_machine.drinks" = "Peiriant Diodydd";
+"type.amenity.vending_machine.food" = "Peiriant Bwyd";
+"type.amenity.vending_machine.newspapers" = "Peiriant Papurau Newydd";
+"type.amenity.vending_machine.parking_tickets" = "Mesurydd Parcio";
+"type.amenity.vending_machine.public_transport_tickets" = "Peiriant Tocynnau";
+"type.amenity.vending_machine.sweets" = "Peiriant Melysion";
+"type.amenity.vending_machine.excrement_bags" = "Peiriant Bagiau Baw";
+"type.amenity.parcel_locker" = "Locer Parseli";
+"type.amenity.vehicle_inspection" = "Archwilio Cerbydau";
+"type.amenity.vending_machine.fuel" = "Pwmp Tanwydd";
+"type.amenity.veterinary" = "Milfeddyg";
+"type.amenity.waste_basket" = "Bin Sbwriel";
+"type.amenity.waste_disposal" = "Sgip";
+"type.amenity.waste_transfer_station" = "Gorsaf Drosglwyddo Gwastraff";
+"type.amenity.water_point" = "Man Ail-lenwi Tanc Dŵr";
+"type.amenity.water_point.drinking_water_no" = "Man Ail-lenwi Tanc Dŵr";
+"type.barrier" = "Rhwystr";
+"type.barrier.block" = "Bloc";
+"type.barrier.bollard" = "Bolard";
+"type.barrier.border_control" = "Rheoli Ffiniau";
+"type.barrier.chain" = "Cadwyn";
+"type.barrier.city_wall" = "Mur y Ddinas";
+"type.barrier.cycle_barrier" = "Rhwystr Beiciau";
+"type.waterway.ditch" = "Ffos Ddraenio";
+"type.natural.water.moat" = "Ffos Amddiffynnol";
+"type.natural.water.wastewater" = "Dŵr Gwastraff";
+"type.barrier.entrance" = "Mynedfa";
+"type.barrier.fence" = "Ffens";
+"type.barrier.guard_rail" = "Rheilen Ddiogelwch";
+"type.barrier.gate" = "Giât";
+"type.barrier.hedge" = "Gwrych";
+"type.barrier.kissing_gate" = "Giât Fochyn";
+"type.barrier.lift_gate" = "Gât Godi";
+"type.barrier.retaining_wall" = "Wal Gynnal";
+"type.barrier.stile" = "Camfa";
+"type.barrier.turnstile" = "Camfa Dro";
+"type.barrier.swing_gate" = "Giât Siglo";
+"type.barrier.toll_booth" = "Bwth Tollau";
+"type.barrier.wall" = "Wal";
+"type.boundary" = "Ffin";
+"type.boundary.administrative" = "Ffin Weinyddol";
+
+/* Borders between countries. */
+"type.boundary.administrative.2" = "Ffin Genedlaethol";
+
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Ffin Ranbarthol";
+
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Ffin Ranbarthol";
+"type.boundary.national_park" = "Parc Cenedlaethol";
+"type.boundary.aboriginal_lands" = "Tiroedd Brodorol";
+"type.boundary.protected_area" = "Ardal Warchodedig";
+"type.boundary.protected_area.1" = "Ardal Warchodedig";
+"type.boundary.protected_area.2" = "Ardal Warchodedig";
+"type.boundary.protected_area.3" = "Ardal Warchodedig";
+"type.boundary.protected_area.4" = "Ardal Warchodedig";
+"type.boundary.protected_area.5" = "Ardal Warchodedig";
+"type.boundary.protected_area.6" = "Ardal Warchodedig";
+"type.building" = "Adeilad";
+
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Cyfeiriad";
+"type.building.construction" = "Adeilad yn cael ei Adeiladu";
+"type.building.has_parts" = "Adeilad";
+"type.building_part" = "Adeilad";
+"type.building.garage" = "Garej";
+"type.building.train_station" = "Adeilad Gorsaf";
+"type.building.warehouse" = "Warws";
+"type.cemetery.grave" = "Bedd";
+"type.craft" = "Crefft";
+"type.craft.beekeeper" = "Gwenynwr";
+"type.craft.blacksmith" = "Gof";
+"type.craft.brewery" = "Bragdy Crefft";
+"type.craft.caterer" = "Arlwywr";
+"type.craft.carpenter" = "Saer Coed";
+"type.craft.confectionery" = "Gwneuthurwr Melysion";
+"type.craft.electrician" = "Trydanwr";
+"type.craft.electronics_repair" = "Trwsio Electroneg";
+"type.craft.gardener" = "Garddwr";
+"type.craft.grinding_mill" = "Melin Falu";
+"type.craft.handicraft" = "Crefft Llaw";
+
+/* Heating, Ventilation, and Air Conditioning */
+"type.craft.hvac" = "HVAC";
+"type.craft.key_cutter" = "Torri Allweddi";
+"type.craft.locksmith" = "Saer Cloeau";
+"type.craft.metal_construction" = "Gweithiwr Metel";
+"type.craft.painter" = "Peintiwr Tai";
+"type.craft.photographer" = "Ffotograffydd";
+"type.shop.camera" = "Siop Gamerâu";
+"type.craft.plumber" = "Plymwr";
+"type.craft.sawmill" = "Melin Lifio";
+"type.craft.shoemaker" = "Trwsio Esgidiau";
+"type.craft.winery" = "Gwindy";
+"type.craft.tailor" = "Teiliwr";
+"type.cuisine.african" = "Affricanaidd";
+"type.cuisine.american" = "Americanaidd";
+"type.cuisine.arab" = "Arabaidd";
+"type.cuisine.argentinian" = "Archentaidd";
+"type.cuisine.asian" = "Asiaidd";
+"type.cuisine.austrian" = "Awstriaidd";
+"type.cuisine.bagel" = "Bagel";
+"type.cuisine.balkan" = "Balcanaidd";
+"type.cuisine.barbecue" = "Barbeciw";
+"type.cuisine.bavarian" = "Bafaraidd";
+"type.cuisine.beef_bowl" = "Powlen Cig Eidion";
+"type.cuisine.brazilian" = "Brasilaidd";
+"type.cuisine.breakfast" = "Brecwast";
+"type.cuisine.bubble_tea" = "Te Swigod";
+"type.cuisine.burger" = "Byrgyr";
+"type.cuisine.buschenschank" = "Buschenschank";
+"type.cuisine.cake" = "Cacen";
+"type.cuisine.caribbean" = "Caribïaidd";
+"type.cuisine.chicken" = "Cyw Iâr";
+"type.cuisine.chinese" = "Tsieineaidd";
+"type.cuisine.coffee_shop" = "Coffi";
+"type.cuisine.crepe" = "Crêp";
+"type.cuisine.croatian" = "Croataidd";
+"type.cuisine.curry" = "Cyri";
+"type.cuisine.deli" = "Deli";
+"type.cuisine.diner" = "Diner";
+"type.cuisine.donut" = "Toesen";
+"type.cuisine.ethiopian" = "Etiopiaidd";
+"type.cuisine.filipino" = "Ffilipinaidd";
+"type.cuisine.fine_dining" = "Bwyta Cain";
+"type.cuisine.fish" = "Pysgod";
+"type.cuisine.fish_and_chips" = "Pysgod a Sglodion";
+"type.cuisine.french" = "Ffrengig";
+"type.cuisine.friture" = "Sglodion";
+"type.cuisine.georgian" = "Georgaidd";
+"type.cuisine.german" = "Almaenig";
+"type.cuisine.greek" = "Groegaidd";
+"type.cuisine.grill" = "Gril";
+"type.cuisine.heuriger" = "Heuriger";
+"type.cuisine.hotdog" = "Ci Poeth";
+"type.cuisine.hungarian" = "Hwngaraidd";
+"type.cuisine.ice_cream" = "Hufen Iâ";
+"type.cuisine.indian" = "Indiaidd";
+"type.cuisine.indonesian" = "Indonesaidd";
+"type.cuisine.international" = "Rhyngwladol";
+"type.cuisine.irish" = "Gwyddelig";
+"type.cuisine.italian" = "Eidalaidd";
+"type.cuisine.italian_pizza" = "Eidalaidd, Pitsa";
+"type.cuisine.japanese" = "Japaneaidd";
+"type.cuisine.kebab" = "Cebab";
+"type.cuisine.korean" = "Coreaidd";
+"type.cuisine.lao" = "Lao";
+"type.cuisine.lebanese" = "Libanesaidd";
+"type.cuisine.local" = "Lleol";
+"type.cuisine.malagasy" = "Malagasi";
+"type.cuisine.malaysian" = "Maleisiaidd";
+"type.cuisine.mediterranean" = "Môr y Canoldir";
+"type.cuisine.mexican" = "Mecsicanaidd";
+"type.cuisine.moroccan" = "Morocoaidd";
+"type.cuisine.noodle" = "Nwdls";
+"type.cuisine.oriental" = "Dwyrain Asia";
+"type.cuisine.pancake" = "Crempog";
+"type.cuisine.pasta" = "Pasta";
+"type.cuisine.persian" = "Persiaidd";
+"type.cuisine.peruvian" = "Periwaidd";
+"type.cuisine.pizza" = "Pitsa";
+"type.cuisine.polish" = "Pwylaidd";
+"type.cuisine.portuguese" = "Portiwgeaidd";
+"type.cuisine.ramen" = "Ramen";
+"type.cuisine.regional" = "Rhanbarthol";
+"type.cuisine.russian" = "Rwsiaidd";
+"type.cuisine.sandwich" = "Brechdan";
+"type.cuisine.sausage" = "Selsig";
+"type.cuisine.savory_pancakes" = "Crempogau Sawrus";
+"type.cuisine.seafood" = "Bwyd Môr";
+"type.cuisine.shawarma" = "Shawarma";
+"type.cuisine.soba" = "Soba";
+"type.cuisine.spanish" = "Sbaenaidd";
+"type.cuisine.steak_house" = "Tŷ Stêc";
+"type.cuisine.sushi" = "Sushi";
+"type.cuisine.tapas" = "Tapas";
+"type.cuisine.tea" = "Te";
+"type.cuisine.thai" = "Thai";
+"type.cuisine.turkish" = "Twrcaidd";
+"type.cuisine.uzbek" = "Wsbecaidd";
+"type.cuisine.vegan" = "Fegan";
+"type.cuisine.vegetarian" = "Llysieuol";
+"type.cuisine.vietnamese" = "Fietnamaidd";
+"type.emergency" = "Argyfwng";
+"type.emergency.assembly_point" = "Man Ymgynnull Argyfwng";
+"type.emergency.defibrillator" = "Diffibriliwr";
+"type.emergency.fire_hydrant" = "Hydrant Tân";
+"type.emergency.phone" = "Ffôn Argyfwng";
+
+/* A place where a lifeguard is on duty. */
+"type.emergency.lifeguard" = "Achubwr Bywyd";
+
+/* A mountain rescue base for search and rescue activities. */
+"type.emergency.mountain_rescue" = "Gorsaf Achub Mynydd";
+
+/* This is for secondary entrances, for main entrances see type.entrance.main */
+"type.entrance" = "Mynedfa";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Prif Fynedfa";
+"type.entrance.exit" = "Allanfa";
+"type.fee.yes" = "$";
+"type.fee.no" = "Am Ddim";
+"type.healthcare.laboratory" = "Labordy Meddygol";
+"type.healthcare.physiotherapist" = "Ffisiotherapydd";
+"type.healthcare.alternative" = "Meddyginiaeth Amgen";
+"type.healthcare.audiologist" = "Awdiolegydd";
+"type.healthcare.blood_donation" = "Canolfan Rhoi Gwaed";
+"type.healthcare.optometrist" = "Optometrydd";
+"type.healthcare.podiatrist" = "Podiatrydd";
+"type.healthcare.psychotherapist" = "Seicotherapydd";
+"type.healthcare.sample_collection" = "Canolfan Casglu Samplau";
+"type.healthcare.speech_therapist" = "Therapydd Lleferydd";
+
+
+/********** Types: Roads **********/
+
+"type.highway" = "Priffordd";
+"type.highway.bridleway" = "Llwybr Ceffylau";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Pont";
+"type.highway.bridleway.permissive" = "Llwybr Ceffylau";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Twnnel";
+"type.highway.busway" = "Ffordd Fysiau";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Pont";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Twnnel";
+"type.highway.bus_stop" = "Arhosfan Bws";
+"type.highway.construction" = "Ffordd yn cael ei Hadeiladu";
+"type.highway.cycleway" = "Llwybr Beicio";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Pont";
+"type.highway.cycleway.permissive" = "Llwybr Beicio";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Twnnel";
+"type.highway.elevator" = "Lifft";
+"type.highway.footway" = "Llwybr Troed";
+"type.highway.footway.sidewalk" = "Palmant";
+"type.highway.footway.crossing" = "Croesfan Gerddwyr";
+"type.highway.footway.area" = "Ardal Gerddwyr";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Pont Gerddwyr";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Twnnel Cerddwyr";
+"type.highway.ford" = "Rhyd";
+"type.highway.living_street" = "Stryd Fyw";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Pont";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Twnnel";
+"type.highway.motorway" = "Traffordd";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Pont Traffordd";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Twnnel Traffordd";
+"type.highway.motorway_junction" = "Allanfa";
+"type.highway.motorway_link" = "Ffordd Ymuno Traffordd";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Pont";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Twnnel";
+"type.highway.path" = "Llwybr";
+
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Llwybr Anodd neu Annelwig";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Llwybr Arbenigol neu Aneglur";
+"type.highway.path.bicycle" = "Llwybr Beicio a Cherdded";
+"type.highway.footway.bicycle" = "Llwybr Beicio a Cherdded";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Pont";
+"type.highway.path.horse" = "Llwybr Ceffylau";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Twnnel";
+"type.highway.pedestrian" = "Stryd Gerddwyr";
+"type.highway.pedestrian.area" = "Ardal Gerddwyr";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Pont Gerddwyr";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Twnnel Cerddwyr";
+"type.highway.platform" = "Platfform";
+"type.highway.primary" = "Prif Ffordd";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Pont";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Twnnel";
+"type.highway.primary_link" = "Ffordd Ymuno Prif Ffordd";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Pont";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Twnnel";
+"type.highway.raceway" = "Trac Rasio";
+"type.highway.residential" = "Stryd Breswyl";
+"type.highway.residential.area" = "Stryd Breswyl";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Pont";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Twnnel";
+"type.highway.rest_area" = "Ardal Orffwys";
+"type.highway.road" = "Ffordd";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Pont";
+
+/* A bridge structure outline. */
+"type.man_made.bridge" = "Pont";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Twnnel";
+"type.highway.secondary" = "Ffordd Eilaidd";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Pont";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Twnnel";
+"type.highway.secondary_link" = "Ramp Ffordd Eilaidd";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Pont";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Twnnel";
+"type.highway.service" = "Ffordd Wasanaeth";
+"type.highway.service.area" = "Ffordd Wasanaeth";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Pont";
+"type.highway.service.driveway" = "Dreif";
+"type.highway.service.parking_aisle" = "Lôn Maes Parcio";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Twnnel";
+"type.highway.services" = "Ardal Wasanaeth";
+"type.highway.speed_camera" = "Camera Cyflymder";
+"type.highway.steps" = "Grisiau";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Pont";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Twnnel";
+"type.highway.ladder" = "Ysgol";
+"type.highway.tertiary" = "Ffordd Drydyddol";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Pont";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Twnnel";
+"type.highway.tertiary_link" = "Ffordd Ymuno Ffordd Drydyddol";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Pont";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Twnnel";
+"type.highway.track" = "Trac";
+"type.highway.track.area" = "Trac";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Pont";
+"type.highway.track.grade1" = "Trac";
+"type.highway.track.no.access" = "Trac";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Twnnel";
+"type.highway.traffic_signals" = "Goleuadau Traffig";
+"type.highway.trunk" = "Cefnffordd";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Pont";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Twnnel";
+"type.highway.trunk_link" = "Ffordd Ymuno Cefnffordd";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Pont";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Twnnel";
+"type.highway.unclassified" = "Ffordd Fach";
+"type.highway.unclassified.area" = "Ffordd Fach";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Pont";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Twnnel";
+"type.area_highway.cycleway" = "Llwybr Beicio";
+"type.area_highway.footway" = "Llwybr Troed";
+"type.area_highway.living_street" = "Stryd Fyw";
+"type.area_highway.motorway" = "Traffordd";
+"type.area_highway.path" = "Llwybr";
+"type.area_highway.pedestrian" = "Stryd Gerddwyr";
+"type.area_highway.primary" = "Prif Ffordd";
+"type.area_highway.residential" = "Stryd Breswyl";
+"type.area_highway.secondary" = "Ffordd Eilaidd";
+"type.area_highway.service" = "Ffordd Wasanaeth";
+"type.area_highway.tertiary" = "Ffordd Drydyddol";
+"type.area_highway.steps" = "Grisiau";
+"type.area_highway.track" = "Trac";
+"type.area_highway.trunk" = "Cefnffordd";
+"type.area_highway.unclassified" = "Ffordd Fach";
+"type.highway.world_level" = "highway-world_level";
+"type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
+
+"type.historic" = "Gwrthrych Hanesyddol";
+"type.historic.aircraft" = "Awyren Hanesyddol";
+"type.historic.anchor" = "Angor Hanesyddol";
+"type.historic.archaeological_site" = "Safle Archeolegol";
+"type.historic.battlefield" = "Maes Brwydr Hanesyddol";
+"type.historic.boundary_stone" = "Carreg Ffin";
+"type.historic.cannon" = "Canon";
+"type.historic.castle" = "Castell";
+"type.historic.castle.castrum" = "Castell Rhufeinig";
+"type.historic.castle.defensive" = "Castell Amddiffynnol";
+"type.historic.castle.fortified_church" = "Eglwys Gaerog";
+"type.historic.castle.fortress" = "Caer";
+"type.historic.castle.hillfort" = "Bryngaer";
+"type.historic.castle.kremlin" = "Creml";
+"type.historic.castle.manor" = "Maenordy";
+"type.historic.castle.palace" = "Palas";
+"type.historic.castle.shiro" = "Castell Japaneaidd";
+"type.historic.castle.stately" = "Castell Urddasol";
+"type.historic.city_gate" = "Porth y Ddinas";
+"type.man_made.ceremonial_gate" = "Porth Seremonïol";
+"type.historic.citywalls" = "Mur y Ddinas";
+"type.historic.fort" = "Caer";
+"type.historic.gallows" = "Crocbren";
+"type.historic.locomotive" = "Locomotif Hanesyddol";
+"type.historic.memorial" = "Cofeb";
+"type.historic.memorial.cross" = "Croes Goffa";
+"type.historic.memorial.plaque" = "Plac Coffa";
+"type.historic.memorial.sculpture" = "Cerflunwaith";
+"type.historic.memorial.statue" = "Cerflun";
+"type.historic.memorial.stolperstein" = "Stolperstein";
+"type.historic.stone" = "Carreg Hanesyddol";
+"type.historic.memorial.war_memorial" = "Cofeb Ryfel";
+"type.historic.mine" = "Mwynglawdd Hanesyddol";
+"type.historic.monument" = "Cofeb";
+"type.historic.pillory" = "Rhigod";
+"type.historic.ruins" = "Adfeilion Hanesyddol";
+"type.historic.ship" = "Llong";
+"type.historic.tank" = "Tanc Hanesyddol";
+"type.historic.tomb" = "Beddrod";
+
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
+"type.man_made.cross" = "Croes";
+
+/* Usually a Christian historical cross placed along a road. */
+"type.historic.wayside_cross" = "Croes Ymyl Ffordd";
+"type.historic.wayside_shrine" = "Cysegrfa Ymyl Ffordd";
+"type.historic.wreck" = "Llongddrylliad";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag" = "hwtag";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.yesfoot" = "hwtag-yesfoot";
+"type.internet_access" = "Rhyngrwyd";
+"type.internet_access.wlan" = "Rhyngrwyd";
+"type.junction" = "Cyffordd";
+"type.junction.circular" = "Cylchfan";
+"type.junction.roundabout" = "Cylchfan";
+"type.landuse" = "Defnydd Tir";
+"type.landuse.allotments" = "Rhandiroedd";
+"type.landuse.basin" = "Basn";
+"type.landuse.brownfield" = "Tir Llwyd";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.landuse.cemetery" = "Mynwent";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.landuse.cemetery.christian" = "Mynwent Gristnogol";
+"type.landuse.religious" = "Mynwent Eglwys";
+"type.landuse.churchyard" = "Mynwent Eglwys";
+"type.landuse.commercial" = "Ardal Fasnachol";
+"type.landuse.construction" = "Ardal Adeiladu";
+"type.landuse.education" = "Cyfleuster Addysgol";
+"type.landuse.farmland" = "Tir Fferm";
+"type.landuse.farmyard" = "Buarth Fferm";
+"type.landuse.field" = "Cae";
+"type.landuse.flowerbed" = "Gwely Blodau";
+"type.landuse.forest" = "Coedwig";
+"type.landuse.forest.coniferous" = "Coedwig Gonifferaidd";
+"type.landuse.forest.deciduous" = "Coedwig Gollddail";
+"type.landuse.forest.mixed" = "Coedwig Gymysg";
+"type.landuse.garages" = "Garejau";
+"type.landuse.grass" = "Glaswellt";
+"type.landuse.greenfield" = "Tir Glas";
+"type.landuse.greenhouse_horticulture" = "Tŷ Gwydr";
+"type.landuse.industrial" = "Ardal Ddiwydiannol";
+"type.landuse.landfill" = "Safle Tirlenwi";
+"type.landuse.meadow" = "Dôl";
+"type.landuse.military" = "Ardal Filwrol";
+"type.landuse.orchard" = "Perllan";
+"type.landuse.quarry" = "Chwarel";
+"type.landuse.railway" = "Tir Rheilffordd";
+"type.landuse.recreation_ground" = "Maes Hamdden";
+"type.landuse.reservoir" = "Cronfa Ddŵr";
+"type.landuse.residential" = "Ardal Breswyl";
+"type.landuse.retail" = "Ardal Fanwerthu";
+"type.landuse.salt_pond" = "Pwll Halen";
+"type.landuse.village_green" = "Tir";
+"type.landuse.vineyard" = "Gwinllan";
+"type.landuse.plant_nursery" = "Meithrinfa Blanhigion";
+"type.leisure" = "Hamdden";
+"type.leisure.common" = "Tir Cyhoeddus";
+"type.leisure.dog_park" = "Parc Cŵn";
+"type.leisure.escape_game" = "Ystafell Ddianc";
+"type.leisure.fitness_centre" = "Canolfan Ffitrwydd";
+"type.leisure.fitness_station" = "Gorsaf Ffitrwydd";
+"type.leisure.dance" = "Neuadd Ddawns";
+"type.leisure.garden" = "Gardd";
+"type.leisure.garden.residential" = "Gardd Breswyl";
+"type.leisure.golf_course" = "Cwrs Golff";
+"type.leisure.miniature_golf" = "Minigolf";
+"type.leisure.hackerspace" = "Gofod Haciwyr";
+"type.leisure.ice_rink" = "Llawr Sglefrio";
+"type.leisure.marina" = "Marina";
+"type.leisure.nature_reserve" = "Gwarchodfa Natur";
+"type.leisure.bird_hide" = "Cuddfan adar";
+"type.leisure.outdoor_seating" = "Seddau Awyr Agored";
+"type.leisure.firepit" = "Pwll Tân";
+"type.leisure.park" = "Parc";
+"type.leisure.park.no.access" = "Parc Preifat";
+"type.leisure.park.permissive" = "Parc";
+"type.leisure.park.private" = "Parc Preifat";
+"type.leisure.picnic_table" = "Bwrdd Picnic";
+"type.leisure.pitch" = "Cae Chwaraeon";
+"type.leisure.playground" = "Maes Chwarae";
+"type.leisure.recreation_ground" = "Maes Hamdden";
+"type.leisure.sauna" = "Sawna";
+"type.leisure.slipway" = "Llithrfa";
+"type.leisure.sports_centre" = "Canolfan Chwaraeon";
+"type.sport.climbing" = "Canolfan Ddringo";
+"type.sport.yoga" = "Stwdio Ioga";
+"type.leisure.stadium" = "Stadiwm";
+"type.leisure.swimming_pool" = "Pwll Nofio";
+"type.leisure.swimming_pool.private" = "Pwll Nofio";
+"type.leisure.track" = "Trac chwaraeon";
+"type.leisure.track.area" = "Trac chwaraeon";
+"type.leisure.water_park" = "Parc Dŵr";
+"type.leisure.beach_resort" = "Cyrchfan Traeth";
+"type.man_made" = "Adeiladwaith";
+"type.man_made.breakwater" = "Morglawdd";
+"type.man_made.cairn" = "Carnedd";
+"type.man_made.chimney" = "Simnai";
+"type.man_made.cutline" = "Llain Doriad";
+"type.man_made.survey_point" = "Pwynt Arolwg";
+"type.man_made.flagpole" = "Polyn Baner";
+"type.man_made.lighthouse" = "Goleudy";
+"type.man_made.mast" = "Mast";
+"type.man_made.pier" = "Pier";
+"type.man_made.pipeline" = "Piblinell";
+"type.man_made.pipeline.overground" = "Piblinell Uwchben";
+"type.man_made.silo" = "Silo";
+"type.man_made.storage_tank" = "Tanc Storio";
+"type.man_made.surveillance" = "Camera Gwyliadwriaeth";
+"type.man_made.tower" = "Tŵr";
+
+/* A huge telecommunications tower. Often a local monument or a landmark. */
+"type.man_made.communications_tower" = "Tŵr Cyfathrebu";
+
+/* A regular telecommunications tower / mast. */
+"type.man_made.tower.communication" = "Tŵr Cyfathrebu";
+
+/* A deep hole drilled into the earth to extract oil or gas. */
+"type.man_made.petroleum_well" = "Ffynnon Olew neu Nwy";
+
+/* A tower/mast constructed to burn off excess gas. */
+"type.man_made.flare" = "Fflêr Nwy";
+"type.man_made.wastewater_plant" = "Gorsaf Trin Dŵr Gwastraff";
+"type.man_made.water_tap" = "Tap Dŵr";
+"type.man_made.water_tap.drinking_water_no" = "Tap Dŵr";
+"type.man_made.water_tower" = "Tŵr Dŵr";
+"type.man_made.water_well" = "Ffynnon Ddŵr";
+"type.man_made.water_well.drinking_water_no" = "Ffynnon Ddŵr";
+"type.man_made.windmill" = "Melin Wynt";
+"type.man_made.works" = "Gwaith Diwydiannol";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.mapswithme" = "mapswithme";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.mapswithme.grid" = "mapswithme-grid";
+"type.military" = "Milwrol";
+"type.military.bunker" = "Byncer";
+"type.mountain_pass" = "Bwlch Mynydd";
+"type.natural" = "Natur";
+
+/* A rocky land cover. */
+"type.natural.bare_rock" = "Creigiau Noeth";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Gro";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Sgrî";
+"type.natural.bay" = "Bae";
+"type.natural.beach" = "Traeth";
+"type.natural.beach.sand" = "Traeth Tywodlyd";
+"type.natural.beach.gravel" = "Traeth Graean";
+"type.natural.cape" = "Penrhyn";
+"type.natural.cave_entrance" = "Mynedfa Ogof";
+"type.natural.cliff" = "Clogwyn";
+"type.natural.earth_bank" = "Clawdd Pridd";
+"type.man_made.embankment" = "Arglawdd";
+"type.natural.coastline" = "Arfordir";
+"type.natural.desert" = "Anialwch";
+"type.natural.geyser" = "Geiser";
+"type.natural.glacier" = "Rhewlif";
+"type.natural.grassland" = "Glaswelltir";
+"type.natural.heath" = "Rhos";
+"type.natural.hot_spring" = "Ffynnon Boeth";
+"type.natural.water.lake" = "Llyn";
+"type.natural.water.lock" = "Loc";
+"type.natural.water.pond" = "Pwll";
+"type.natural.water.reservoir" = "Cronfa Ddŵr";
+"type.natural.water.basin" = "Basn";
+"type.natural.water.river" = "Afon";
+"type.natural.land" = "Tir";
+"type.natural.meadow" = "Dôl";
+"type.natural.orchard" = "Perllan";
+"type.natural.peak" = "Copa";
+"type.natural.hill" = "Bryn";
+"type.natural.arch" = "Arch Graig";
+"type.natural.saddle" = "Bwlch";
+"type.natural.rock" = "Craig";
+"type.natural.scrub" = "Prysgwydd";
+"type.natural.spring" = "Ffynnon Naturiol";
+"type.natural.spring.drinking_water_no" = "Ffynnon Naturiol";
+"type.natural.strait" = "Culfor";
+"type.natural.tree_row" = "Rhes Goed";
+"type.natural.vineyard" = "Gwinllan";
+"type.natural.volcano" = "Llosgfynydd";
+"type.natural.volcano.active" = "Llosgfynydd Gweithredol";
+"type.natural.water" = "Dŵr";
+"type.natural.wetland" = "Gwlybdir";
+"type.natural.wetland.bog" = "Mawnog";
+"type.natural.wetland.marsh" = "Cors";
+"type.noexit" = "Ffordd Bengaead";
+"type.office" = "Swyddfa";
+"type.office.architect" = "Swyddfa Pensaer";
+"type.office.company" = "Swyddfa'r Cwmni";
+"type.office.educational_institution" = "Sefydliad Addysgol";
+"type.office.estate_agent" = "Asiant Tai";
+"type.office.government" = "Swyddfa'r Llywodraeth";
+"type.office.insurance" = "Swyddfa Yswiriant";
+"type.office.lawyer" = "Cyfreithiwr";
+"type.office.ngo" = "Sefydliad Anllywodraethol";
+"type.office.telecommunication" = "Cwmni Telathrebu";
+"type.organic.only" = "Organig";
+"type.organic.yes" = "Organig";
+"type.place.city" = "Dinas";
+"type.place.city.capital" = "Prifddinas";
+"type.place.city.capital.10" = "Dinas";
+"type.place.city.capital.11" = "Dinas";
+"type.place.city.capital.2" = "Prifddinas";
+"type.place.city.capital.3" = "Dinas";
+"type.place.city.capital.4" = "Dinas";
+"type.place.city.capital.5" = "Dinas";
+"type.place.city.capital.6" = "Dinas";
+"type.place.city.capital.7" = "Dinas";
+"type.place.city.capital.8" = "Dinas";
+"type.place.city.capital.9" = "Dinas";
+"type.place.continent" = "Cyfandir";
+"type.place.country" = "Gwlad";
+"type.place.county" = "Sir";
+"type.place.farm" = "Fferm";
+"type.place.hamlet" = "Pentrefan";
+"type.place.island" = "Ynys";
+"type.place.islet" = "Ynysig";
+"type.place.isolated_dwelling" = "Annedd Anghysbell";
+"type.place.locality" = "Lleoliad";
+
+/* Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) */
+"type.place.quarter" = "Chwarter";
+
+/* Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) */
+"type.place.neighbourhood" = "Cymdogaeth";
+"type.place.ocean" = "Cefnfor";
+"type.place.region" = "Rhanbarth";
+"type.place.sea" = "Môr";
+"type.place.square" = "Sgwâr";
+"type.place.state" = "Talaith";
+"type.place.state.major" = "Talaith";
+
+/* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
+"type.place.suburb" = "Maestref";
+"type.place.town" = "Tref";
+"type.place.village" = "Pentref";
+"type.power" = "Pŵer";
+"type.power.generator" = "Generadur";
+"type.power.generator.solar" = "Generadur Solar";
+"type.power.generator.wind" = "Generadur Gwynt";
+"type.power.generator.gas" = "Gorsaf Bŵer Tyrbin Nwy";
+"type.power.generator.hydro" = "Gorsaf Bŵer Trydan Dŵr";
+"type.power.line" = "Llinell Bŵer";
+"type.power.line.underground" = "Llinell Bŵer Danddaearol";
+"type.power.minor_line" = "Llinell Bŵer Fach";
+"type.power.plant" = "Gorsaf Bŵer";
+"type.power.plant.coal" = "Gorsaf Bŵer Glo";
+"type.power.plant.gas" = "Gorsaf Bŵer Tyrbin Nwy";
+"type.power.plant.hydro" = "Gorsaf Bŵer Trydan Dŵr";
+"type.power.plant.solar" = "Gorsaf Bŵer Solar";
+"type.power.plant.wind" = "Gorsaf Bŵer Gwynt";
+"type.power.station" = "Gorsaf Bŵer";
+"type.power.substation" = "Is-orsaf";
+
+/* A tower or pylon carrying high voltage electricity cables. */
+"type.power.tower" = "Peilon";
+
+/* A single pole supporting minor power lines. */
+"type.power.pole" = "Polyn Pŵer";
+
+/* A single pole supporting various public utilities, such as lighting or telephony. */
+"type.man_made.utility_pole" = "Polyn Cyfleustodau";
+"type.psurface" = "psurface";
+"type.psurface.paved_bad" = "psurface-paved_bad";
+"type.psurface.paved_good" = "psurface-paved_good";
+"type.psurface.unpaved_bad" = "psurface-unpaved_bad";
+"type.psurface.unpaved_good" = "psurface-unpaved_good";
+"type.public_transport" = "Trafnidiaeth Gyhoeddus";
+"type.public_transport.platform" = "Platfform";
+"type.railway" = "Rheilffordd";
+"type.railway.abandoned" = "Rheilffordd wedi'i Gadael";
+"type.railway.abandoned.bridge" = "Pont Reilffordd wedi'i Gadael";
+"type.railway.abandoned.tunnel" = "Twnnel Rheilffordd wedi'i Adael";
+"type.railway.construction" = "Rheilffordd yn cael ei Hadeiladu";
+"type.railway.crossing" = "Croesfan Reilffordd";
+"type.railway.disused" = "Rheilffordd Segur";
+"type.railway.disused.bridge" = "Pont Reilffordd Segur";
+"type.railway.disused.tunnel" = "Twnnel rheilffordd segur";
+"type.railway.funicular" = "Ffwnicwlar";
+"type.railway.funicular.bridge" = "Pont Ffwnicwlar";
+"type.railway.funicular.tunnel" = "Twnnel Ffwnicwlar";
+"type.railway.halt" = "Arhosfan Reilffordd";
+"type.railway.level_crossing" = "Croesfan Lefel";
+"type.railway.light_rail" = "Rheilffordd Ysgafn";
+"type.railway.light_rail.bridge" = "Pont Rheilffordd Ysgafn";
+"type.railway.light_rail.tunnel" = "Twnnel Rheilffordd Ysgafn";
+"type.railway.monorail" = "Monoreil";
+"type.railway.monorail.bridge" = "Pont Monoreil";
+"type.railway.monorail.tunnel" = "Twnnel Monoreil";
+"type.railway.narrow_gauge" = "Rheilffordd Gul";
+"type.railway.narrow_gauge.bridge" = "Pont Reilffordd Gul";
+"type.railway.narrow_gauge.tunnel" = "Twnnel Rheilffordd Gul";
+"type.railway.platform" = "Platfform Rheilffordd";
+"type.railway.preserved" = "Rheilffordd Dreftadaeth";
+"type.railway.preserved.bridge" = "Pont Reilffordd Dreftadaeth";
+"type.railway.preserved.tunnel" = "Twnnel Rheilffordd Dreftadaeth";
+"type.railway.rail" = "Rheilffordd";
+"type.railway.rail.highspeed" = "Rheilffordd Cyflymder Uchel";
+"type.railway.rail.tourism" = "Rheilffordd Dwristaidd";
+"type.railway.rail.main" = "Rheilffordd";
+
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Cangen Reilffordd";
+
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Rheilffordd Gyfleustodau";
+"type.railway.rail.spur" = "Cangen Reilffordd";
+
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Trac Rheilffordd Gwasanaeth";
+"type.railway.rail.bridge" = "Pont Reilffordd";
+"type.railway.rail.highspeed.bridge" = "Pont Reilffordd";
+"type.railway.rail.tourism.bridge" = "Pont Reilffordd";
+"type.railway.rail.main.bridge" = "Pont Reilffordd";
+"type.railway.rail.branch.bridge" = "Pont Reilffordd";
+"type.railway.rail.utility.bridge" = "Pont Reilffordd";
+"type.railway.rail.spur.bridge" = "Pont Reilffordd";
+"type.railway.rail.service.bridge" = "Pont Reilffordd";
+"type.railway.rail.tunnel" = "Twnnel Rheilffordd";
+"type.railway.rail.highspeed.tunnel" = "Twnnel Rheilffordd";
+"type.railway.rail.tourism.tunnel" = "Twnnel Rheilffordd";
+"type.railway.rail.main.tunnel" = "Twnnel Rheilffordd";
+"type.railway.rail.branch.tunnel" = "Twnnel Rheilffordd";
+"type.railway.rail.utility.tunnel" = "Twnnel Rheilffordd";
+"type.railway.rail.spur.tunnel" = "Twnnel Rheilffordd";
+"type.railway.rail.service.tunnel" = "Twnnel Rheilffordd";
+"type.railway.station" = "Gorsaf Drenau";
+"type.railway.station.funicular" = "Ffwnicwlar";
+"type.railway.station.light_rail" = "Gorsaf Rheilffordd Ysgafn";
+"type.railway.station.light_rail.berlin" = "Gorsaf S-Bahn";
+"type.railway.station.light_rail.london" = "Gorsaf DLR";
+"type.railway.station.light_rail.porto" = "Metro Porto";
+"type.railway.station.monorail" = "Gorsaf Monoreil";
+"type.railway.station.subway" = "Gorsaf Danddaearol";
+"type.railway.station.subway.adana" = "Gorsaf Danddaearol";
+"type.railway.station.subway.algiers" = "Gorsaf Danddaearol";
+"type.railway.station.subway.almaty" = "Gorsaf Danddaearol";
+"type.railway.station.subway.amsterdam" = "Gorsaf Danddaearol";
+"type.railway.station.subway.ankara" = "Gorsaf Danddaearol";
+"type.railway.station.subway.athens" = "Gorsaf Danddaearol";
+"type.railway.station.subway.baku" = "Gorsaf Danddaearol";
+"type.railway.station.subway.bangkok" = "Gorsaf Danddaearol";
+"type.railway.station.subway.barcelona" = "Gorsaf Danddaearol";
+"type.railway.station.subway.beijing" = "Gorsaf Danddaearol";
+"type.railway.station.subway.bengalore" = "Gorsaf Danddaearol";
+"type.railway.station.subway.berlin" = "Gorsaf Danddaearol";
+"type.railway.station.subway.bilbao" = "Gorsaf Danddaearol";
+"type.railway.station.subway.brasilia" = "Gorsaf Danddaearol";
+"type.railway.station.subway.brescia" = "Gorsaf Danddaearol";
+"type.railway.station.subway.brussels" = "Gorsaf Danddaearol";
+"type.railway.station.subway.bucharest" = "Gorsaf Danddaearol";
+"type.railway.station.subway.budapest" = "Gorsaf Danddaearol";
+"type.railway.station.subway.buenos_aires" = "Gorsaf Danddaearol";
+"type.railway.station.subway.bursa" = "Gorsaf Danddaearol";
+"type.railway.station.subway.cairo" = "Gorsaf Danddaearol";
+"type.railway.station.subway.caracas" = "Gorsaf Danddaearol";
+"type.railway.station.subway.catania" = "Gorsaf Danddaearol";
+"type.railway.station.subway.changchun" = "Gorsaf Danddaearol";
+"type.railway.station.subway.chengdu" = "Gorsaf Danddaearol";
+"type.railway.station.subway.chicago" = "Gorsaf Danddaearol";
+"type.railway.station.subway.chongqing" = "Gorsaf Danddaearol";
+"type.railway.station.subway.dalian" = "Gorsaf Danddaearol";
+"type.railway.station.subway.delhi" = "Gorsaf Danddaearol";
+"type.railway.station.subway.dnepro" = "Gorsaf Danddaearol";
+"type.railway.station.subway.dubai" = "Gorsaf Danddaearol";
+"type.railway.station.subway.ekb" = "Gorsaf Danddaearol";
+"type.railway.station.subway.fukuoka" = "Gorsaf Danddaearol";
+"type.railway.station.subway.glasgow" = "Gorsaf Danddaearol";
+"type.railway.station.subway.guangzhou" = "Gorsaf Danddaearol";
+"type.railway.station.subway.hamburg" = "Gorsaf Danddaearol";
+"type.railway.station.subway.helsinki" = "Gorsaf Danddaearol";
+"type.railway.station.subway.hiroshima" = "Gorsaf Danddaearol";
+"type.railway.station.subway.hongkong" = "Gorsaf Danddaearol";
+"type.railway.station.subway.isfahan" = "Gorsaf Danddaearol";
+"type.railway.station.subway.istanbul" = "Gorsaf Danddaearol";
+"type.railway.station.subway.izmir" = "Gorsaf Danddaearol";
+"type.railway.station.subway.kazan" = "Gorsaf Danddaearol";
+"type.railway.station.subway.kharkiv" = "Gorsaf Danddaearol";
+"type.railway.station.subway.kiev" = "Gorsaf Danddaearol";
+"type.railway.station.subway.kobe" = "Gorsaf Danddaearol";
+"type.railway.station.subway.kolkata" = "Gorsaf Danddaearol";
+"type.railway.station.subway.kunming" = "Gorsaf Danddaearol";
+"type.railway.station.subway.kyoto" = "Gorsaf Danddaearol";
+"type.railway.station.subway.la" = "Gorsaf Danddaearol";
+"type.railway.station.subway.lausanne" = "Gorsaf Danddaearol";
+"type.railway.station.subway.lille" = "Gorsaf Danddaearol";
+"type.railway.station.subway.lima" = "Gorsaf Danddaearol";
+"type.railway.station.subway.lisboa" = "Gorsaf Danddaearol";
+"type.railway.station.subway.london" = "Gorsaf Danddaearol";
+"type.railway.station.subway.lyon" = "Gorsaf Danddaearol";
+"type.railway.station.subway.madrid" = "Gorsaf Danddaearol";
+"type.railway.station.subway.malaga" = "Gorsaf Danddaearol";
+"type.railway.station.subway.manila" = "Gorsaf Danddaearol";
+"type.railway.station.subway.maracaibo" = "Gorsaf Danddaearol";
+"type.railway.station.subway.mashhad" = "Gorsaf Danddaearol";
+"type.railway.station.subway.mecca" = "Gorsaf Danddaearol";
+"type.railway.station.subway.medellin" = "Gorsaf Danddaearol";
+"type.railway.station.subway.mexico" = "Gorsaf Danddaearol";
+"type.railway.station.subway.milan" = "Gorsaf Danddaearol";
+"type.railway.station.subway.minsk" = "Gorsaf Danddaearol";
+"type.railway.station.subway.montreal" = "Gorsaf Danddaearol";
+"type.railway.station.subway.moscow" = "Gorsaf Danddaearol";
+"type.railway.station.subway.munchen" = "Gorsaf Danddaearol";
+"type.railway.station.subway.nagoya" = "Gorsaf Danddaearol";
+"type.railway.station.subway.newyork" = "Gorsaf Danddaearol";
+"type.railway.station.subway.nnov" = "Gorsaf Danddaearol";
+"type.railway.station.subway.novosibirsk" = "Gorsaf Danddaearol";
+"type.railway.station.subway.osaka" = "Gorsaf Danddaearol";
+"type.railway.station.subway.oslo" = "Gorsaf Danddaearol";
+"type.railway.station.subway.palma" = "Gorsaf Danddaearol";
+"type.railway.station.subway.panama" = "Gorsaf Danddaearol";
+"type.railway.station.subway.paris" = "Gorsaf Danddaearol";
+"type.railway.station.subway.philadelphia" = "Gorsaf Danddaearol";
+"type.railway.station.subway.pyongyang" = "Gorsaf Danddaearol";
+
+/* TODO: add ref to "type.railway.station.subway" */
+"type.railway.station.subway.qingdao" = "Gorsaf Danddaearol";
+"type.railway.station.subway.rennes" = "Gorsaf Danddaearol";
+"type.railway.station.subway.rio" = "Gorsaf Danddaearol";
+"type.railway.station.subway.roma" = "Gorsaf Danddaearol";
+"type.railway.station.subway.rotterdam" = "Gorsaf Danddaearol";
+"type.railway.station.subway.samara" = "Gorsaf Danddaearol";
+"type.railway.station.subway.santiago" = "Gorsaf Danddaearol";
+"type.railway.station.subway.santo_domingo" = "Gorsaf Danddaearol";
+"type.railway.station.subway.saopaulo" = "Gorsaf Danddaearol";
+"type.railway.station.subway.sapporo" = "Gorsaf Danddaearol";
+"type.railway.station.subway.sendai" = "Gorsaf Danddaearol";
+"type.railway.station.subway.sf" = "Gorsaf Danddaearol";
+"type.railway.station.subway.shanghai" = "Gorsaf Danddaearol";
+"type.railway.station.subway.shenzhen" = "Gorsaf Danddaearol";
+"type.railway.station.subway.shiraz" = "Gorsaf Danddaearol";
+"type.railway.station.subway.singapore" = "Gorsaf Danddaearol";
+"type.railway.station.subway.sofia" = "Gorsaf Danddaearol";
+"type.railway.station.subway.spb" = "Gorsaf Danddaearol";
+"type.railway.station.subway.stockholm" = "Gorsaf Danddaearol";
+"type.railway.station.subway.tabriz" = "Gorsaf Danddaearol";
+"type.railway.station.subway.taipei" = "Gorsaf Danddaearol";
+"type.railway.station.subway.taoyuan" = "Gorsaf Danddaearol";
+"type.railway.station.subway.tashkent" = "Gorsaf Danddaearol";
+"type.railway.station.subway.tbilisi" = "Gorsaf Danddaearol";
+"type.railway.station.subway.tehran" = "Gorsaf Danddaearol";
+"type.railway.station.subway.tianjin" = "Gorsaf Danddaearol";
+"type.railway.station.subway.tokyo" = "Gorsaf Danddaearol";
+"type.railway.station.subway.valencia" = "Gorsaf Danddaearol";
+"type.railway.station.subway.vienna" = "Gorsaf Danddaearol";
+"type.railway.station.subway.warszawa" = "Gorsaf Danddaearol";
+"type.railway.station.subway.washington" = "Gorsaf Danddaearol";
+"type.railway.station.subway.wuhan" = "Gorsaf Danddaearol";
+"type.railway.station.subway.yerevan" = "Gorsaf Danddaearol";
+"type.railway.station.subway.yokohama" = "Gorsaf Danddaearol";
+"type.railway.subway" = "Llinell Danddaearol";
+"type.railway.subway.bridge" = "Pont Llinell Danddaearol";
+"type.railway.subway.tunnel" = "Twnnel Llinell Danddaearol";
+"type.railway.subway_entrance" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.adana" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.algiers" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.almaty" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.amsterdam" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.ankara" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.athens" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.baku" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.bangkok" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.barcelona" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.beijing" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.bengalore" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.berlin" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.bilbao" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.brasilia" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.brescia" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.brussels" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.bucharest" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.budapest" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.buenos_aires" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.bursa" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.cairo" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.caracas" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.catania" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.changchun" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.chengdu" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.chicago" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.chongqing" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.dalian" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.delhi" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.dnepro" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.dubai" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.ekb" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.fukuoka" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.glasgow" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.guangzhou" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.hamburg" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.helsinki" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.hiroshima" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.hongkong" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.isfahan" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.istanbul" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.izmir" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.kazan" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.kharkiv" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.kiev" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.kobe" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.kolkata" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.kunming" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.kyoto" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.la" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.lausanne" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.lille" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.lima" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.lisboa" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.london" = "Mynedfa Gorsaf Metro";
+"type.railway.subway_entrance.lyon" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.madrid" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.malaga" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.manila" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.maracaibo" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.mashhad" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.mecca" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.medellin" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.mexico" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.milan" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.minsk" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.montreal" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.moscow" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.munchen" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.nagoya" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.newyork" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.nnov" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.novosibirsk" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.osaka" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.oslo" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.palma" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.panama" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.paris" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.philadelphia" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.pyongyang" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.rennes" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.rio" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.roma" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.rotterdam" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.samara" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.santiago" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.santo_domingo" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.saopaulo" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.sapporo" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.sendai" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.sf" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.shanghai" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.shenzhen" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.shiraz" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.singapore" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.sofia" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.spb" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.stockholm" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.tabriz" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.taipei" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.taoyuan" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.tashkent" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.tbilisi" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.tehran" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.tianjin" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.tokyo" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.valencia" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.vienna" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.warszawa" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.washington" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.wuhan" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.yerevan" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.subway_entrance.yokohama" = "Mynedfa Rheilffordd Danddaearol";
+"type.railway.tram" = "Llinell Dram";
+"type.railway.tram.bridge" = "Pont Llinell Dram";
+"type.railway.tram.tunnel" = "Twnnel Llinell Dram";
+"type.railway.tram_stop" = "Arhosfan Tram";
+"type.route" = "Llwybr";
+"type.route.ferry" = "Fferi";
+"type.route.shuttle_train" = "route-shuttle_train";
+"type.shop" = "Siop";
+"type.shop.alcohol" = "Siop Wirodydd";
+"type.shop.bakery" = "Becws";
+"type.shop.bathroom_furnishing" = "Dodrefn Ystafell Ymolchi";
+"type.shop.beauty" = "Siop Harddwch";
+"type.shop.beverages" = "Diodydd";
+"type.shop.bicycle" = "Siop Feiciau";
+"type.shop.bookmaker" = "Bwci";
+"type.shop.books" = "Siop Lyfrau";
+"type.shop.butcher" = "Cigydd";
+"type.shop.cannabis" = "Siop Gannabis";
+"type.shop.car" = "Delwriaeth Geir";
+"type.shop.car_parts" = "Siop Rhannau Ceir";
+"type.shop.car_repair" = "Gweithdy Trwsio Ceir";
+"type.shop.car_repair.tyres" = "Trwsio Teiars";
+"type.shop.caravan" = "Delwriaeth Carafanau";
+"type.shop.carpet" = "Siop Garpedi";
+"type.shop.chemist" = "Fferyllfa";
+"type.shop.chocolate" = "Siop Siocled";
+"type.shop.clothes" = "Siop Ddillad";
+"type.shop.clothes.children" = "Siop Dillad Plant";
+"type.shop.clothes.fashion" = "Bwtîc Ffasiwn";
+"type.shop.clothes.hats" = "Siop Hetiau";
+"type.shop.clothes.men" = "Siop Dillad Dynion";
+"type.shop.clothes.sports" = "Siop Dillad Chwaraeon";
+"type.shop.clothes.suits" = "Siop Siwtiau";
+"type.shop.clothes.underwear" = "Siop Dillad Isaf";
+"type.shop.clothes.wedding" = "Siop Dillad Priodas";
+"type.shop.clothes.women" = "Siop Dillad Merched";
+"type.shop.coffee" = "Siop Goffi";
+"type.shop.computer" = "Siop Gyfrifiaduron";
+"type.shop.confectionery" = "Siop Losin";
+"type.shop.convenience" = "Siop Gornel";
+"type.shop.copyshop" = "Siop Gopïo";
+"type.shop.cosmetics" = "Siop Golur";
+"type.shop.curtain" = "Siop Lenni";
+"type.shop.deli" = "Delicatessen";
+"type.shop.department_store" = "Siop Adrannol";
+"type.shop.doityourself" = "Siop DIY";
+"type.shop.dry_cleaning" = "Sychlanhawyr";
+"type.shop.electronics" = "Siop Electroneg";
+"type.shop.erotic" = "Siop Erotig";
+"type.shop.fabric" = "Siop Ffabrig";
+"type.shop.farm" = "Siop Fwyd Fferm";
+"type.shop.fashion_accessories" = "Ategolion Ffasiwn";
+"type.shop.florist" = "Siop Flodau";
+"type.shop.funeral_directors" = "Trefnwyr Angladdau";
+"type.shop.furniture" = "Siop Ddodrefn";
+"type.shop.garden_centre" = "Canolfan Arddio";
+"type.shop.games" = "Siop Gemau";
+"type.shop.gas" = "Siop Nwy";
+"type.shop.gift" = "Siop Anrhegion";
+"type.shop.greengrocer" = "Siop Ffrwythau a Llysiau";
+"type.shop.grocery" = "Siop Fwyd";
+"type.shop.hairdresser" = "Siop Trin Gwallt";
+"type.shop.hardware" = "Siop Nwyddau Haearn";
+"type.shop.health_food" = "Siop Bwyd Iach";
+"type.shop.hearing_aids" = "Siop Cymhorthion Clyw";
+"type.shop.herbalist" = "Llysieuydd";
+"type.shop.hifi" = "Siop Sain HiFi";
+"type.shop.houseware" = "Siop Nwyddau Cartref";
+"type.shop.jewelry" = "Siop Emwaith";
+"type.shop.kiosk" = "Ciosg";
+"type.shop.kitchen" = "Siop Gegin";
+"type.shop.laundry" = "Golchdy";
+"type.shop.leather" = "Siop nwyddau lledr";
+"type.shop.mall" = "Canolfan Siopa";
+"type.shop.massage" = "Salŵn Tylino";
+"type.shop.mobile_phone" = "Siop Ffôn Symudol";
+"type.shop.money_lender" = "Benthyciwr Arian";
+"type.shop.motorcycle" = "Siop Beiciau Modur";
+"type.shop.motorcycle_repair" = "Trwsio Beiciau Modur";
+"type.shop.music" = "Siop Recordiau";
+"type.shop.musical_instrument" = "Siop Offerynnau Cerdd";
+"type.shop.newsagent" = "Siop Bapurau";
+"type.shop.optician" = "Optegydd";
+"type.shop.outdoor" = "Siop Offer Awyr Agored";
+"type.shop.outpost" = "Pwynt Casglu";
+"type.shop.pasta" = "Siop Pasta";
+"type.shop.pastry" = "Siop Deisennau";
+"type.shop.pawnbroker" = "Gwystlwr";
+"type.shop.pet" = "Siop Anifeiliaid Anwes";
+"type.shop.pet_grooming" = "Trin Anifeiliaid Anwes";
+"type.shop.photo" = "Siop Ffotograffau";
+"type.shop.religion" = "Siop Nwyddau Crefyddol";
+"type.shop.rental" = "Siop Logi";
+"type.shop.rental.bicycle" = "Siop Llogi Beiciau";
+"type.amenity.bicycle_rental.shop" = "Siop Llogi Beiciau";
+"type.shop.seafood" = "Gwerthwr Pysgod";
+"type.shop.second_hand" = "Siop Ail-law";
+"type.shop.shoes" = "Siop Esgidiau";
+"type.shop.sports" = "Siop Chwaraeon";
+"type.shop.stationery" = "Siop Ddeunydd Ysgrifennu";
+"type.shop.supermarket" = "Archfarchnad";
+"type.shop.tattoo" = "Parlwr Tatŵ";
+"type.shop.tea" = "Siop De";
+"type.shop.ticket" = "Siop Docynnau";
+"type.shop.toys" = "Siop Deganau";
+"type.shop.travel_agency" = "Asiant Teithio";
+"type.shop.tyres" = "Siop Teiars";
+"type.shop.variety_store" = "Siop Bob Dim";
+"type.shop.video" = "Siop Fideo";
+"type.shop.video_games" = "Siop Gemau Fideo";
+"type.shop.wine" = "Siop Win";
+"type.shop.agrarian" = "Siop Amaethyddol";
+"type.shop.antiques" = "Siop Hynafiaethau";
+"type.shop.appliance" = "Siop Offer Cartref";
+
+/* maybe change to Art Gallery for en-US when supported */
+"type.shop.art" = "Siop Gelf";
+"type.shop.baby_goods" = "Siop Nwyddau Babanod";
+"type.shop.bag" = "Siop Fagiau";
+"type.shop.bed" = "Siop Gwelyau";
+"type.shop.boutique" = "Bwtîc";
+"type.shop.charity" = "Siop Elusen";
+"type.shop.cheese" = "Siop Gaws";
+"type.shop.craft" = "Siop Cyflenwadau Crefft";
+"type.shop.dairy" = "Siop Laeth";
+"type.shop.electrical" = "Siop Cyflenwadau Trydanol";
+"type.shop.fishing" = "Siop Bysgota";
+"type.shop.interior_decoration" = "Siop Addurniadau Mewnol";
+"type.shop.lottery" = "Tocynnau Loteri";
+"type.shop.medical_supply" = "Siop Gyflenwadau Meddygol";
+"type.shop.nutrition_supplements" = "Siop Atchwanegiadau Maethol";
+"type.shop.paint" = "Siop Paent";
+"type.shop.perfumery" = "Siop Bersawr";
+"type.shop.sewing" = "Siop Cyflenwadau Gwnïo";
+"type.shop.storage_rental" = "Llogi Storfa";
+"type.shop.tobacco" = "Siop Dybaco";
+"type.shop.trade" = "Cyflenwadau Masnachol";
+"type.shop.watches" = "Siop Oriorau";
+"type.shop.wholesale" = "Siop Gyfanwerthu";
+"type.sport" = "Chwaraeon";
+"type.sport.american_football" = "Pêl-droed Americanaidd";
+"type.sport.archery" = "Saethyddiaeth";
+"type.sport.athletics" = "Athletau";
+"type.sport.australian_football" = "Pêl-droed Awstralia";
+"type.sport.baseball" = "Pêl Fas";
+"type.sport.basketball" = "Pêl-fasged";
+"type.sport.beachvolleyball" = "Pêl-foli Traeth";
+"type.sport.bowls" = "Bowlio Lawnt";
+"type.sport.chess" = "Gwyddbwyll";
+"type.sport.cricket" = "Criced";
+"type.sport.curling" = "Cyrlio";
+"type.sport.equestrian" = "Chwaraeon Marchogaeth";
+"type.sport.golf" = "Golff";
+"type.sport.gymnastics" = "Gymnasteg";
+"type.sport.handball" = "Pêl-law";
+"type.sport.multi" = "Chwaraeon Amrywiol";
+
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Safle Deifio Sgwba";
+"type.sport.shooting" = "Saethu";
+"type.sport.skateboard" = "Sglefrfyrddio";
+"type.sport.skiing" = "Sgïo";
+"type.sport.soccer" = "Pêl-droed";
+"type.sport.swimming" = "Nofio";
+"type.sport.table_tennis" = "Tenis Bwrdd";
+"type.sport.tennis" = "Cwrt Tenis";
+"type.sport.volleyball" = "Pêl-foli";
+"type.sport.10pin" = "Bowlio Deg";
+"type.sport.9pin" = "Bowlio Deg";
+"type.sport.padel" = "Padel";
+"type.sport.futsal" = "Futsal";
+"type.sport.ice_hockey" = "Hoci Iâ";
+"type.sport.field_hockey" = "Hoci Maes";
+"type.sport.badminton" = "Badminton";
+"type.sport.pelota" = "Pêl-law Basgaidd";
+"type.sport.boules" = "Boules";
+"type.sport.cycling" = "Beicio";
+"type.sport.four_square" = "Pedair Sgwâr";
+"type.sport.horse_racing" = "Rasio Ceffylau";
+"type.sport.karting" = "Cartio";
+"type.sport.motocross" = "Motocross";
+"type.sport.motor" = "Chwaraeon Modur";
+"type.sport.netball" = "Pêl-rwyd";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Rygbi'r Undeb";
+"type.sport.running" = "Rhedeg";
+"type.sport.softball" = "Pêl-feddal";
+"type.tourism" = "Twristiaeth";
+"type.tourism.aquarium" = "Acwariwm";
+
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "Llety'r Mynydd";
+"type.tourism.apartment" = "Fflat Gwyliau";
+"type.tourism.artwork" = "Gwaith Celf";
+"type.tourism.artwork.architecture" = "Gwaith Celf Pensaernïol";
+"type.tourism.artwork.painting" = "Paentiad";
+"type.tourism.artwork.sculpture" = "Cerflunwaith";
+"type.tourism.artwork.statue" = "Cerflun";
+"type.tourism.attraction" = "Atyniad";
+"type.attraction.amusement_ride" = "Reid Difyrrwch";
+"type.attraction.animal" = "Lloc Anifeiliaid";
+"type.attraction.bumper_car" = "Car Bwmper";
+"type.attraction.big_wheel" = "Olwyn Fawr";
+"type.attraction.carousel" = "Carwsél";
+"type.attraction.historic" = "Atyniad Hanesyddol";
+"type.attraction.maze" = "Drysfa";
+"type.attraction.roller_coaster" = "Ffigar-êt";
+"type.roller_coaster.track" = "Ffigar-êt";
+"type.attraction.water_slide" = "Sleid Dŵr";
+"type.tourism.attraction.specified" = "Atyniad";
+"type.tourism.camp_site" = "Maes Gwersylla";
+"type.tourism.caravan_site" = "Parc Carafanau";
+
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "Bwthyn Gwyliau";
+"type.tourism.gallery" = "Oriel Gelf";
+"type.tourism.guest_house" = "Tŷ Gwesteion";
+"type.tourism.hostel" = "Hostel";
+"type.tourism.hotel" = "Gwesty";
+"type.tourism.information" = "Gwybodaeth i Dwristiaid";
+"type.tourism.information.board" = "Bwrdd Gwybodaeth";
+"type.tourism.information.guidepost" = "Mynegbost";
+"type.tourism.information.map" = "Map Twristiaeth";
+"type.tourism.information.office" = "Swyddfa Dwristiaeth";
+"type.tourism.information.visitor_centre" = "Canolfan Ymwelwyr";
+"type.amenity.ranger_station" = "Gorsaf Warden";
+"type.tourism.motel" = "Motel";
+"type.tourism.museum" = "Amgueddfa";
+"type.tourism.picnic_site" = "Safle Picnic";
+"type.leisure.resort" = "Cyrchfan";
+"type.tourism.theme_park" = "Parc Thema";
+"type.tourism.viewpoint" = "Golygfan";
+
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
+"type.tourism.wilderness_hut" = "Cwt Anghysbell";
+"type.tourism.zoo" = "Sŵ";
+"type.tourism.zoo.petting" = "Sŵ Anwesu";
+"type.traffic_calming" = "Tawelu Traffig";
+"type.traffic_calming.bump" = "Twmpath Cyflymder";
+"type.traffic_calming.hump" = "Twmpath Traffig";
+"type.waterway" = "Dyfrffordd";
+"type.waterway.access_point" = "Pwynt Mynediad i Lwybrau Dŵr";
+"type.waterway.canal" = "Camlas";
+"type.waterway.canal.tunnel" = "Twnnel Camlas";
+"type.waterway.fish_pass" = "Llwybr Pysgod";
+"type.waterway.dam" = "Argae";
+"type.barrier.ditch" = "Ffos";
+"type.natural.water.ditch" = "Ffos Ddraenio";
+"type.waterway.ditch.tunnel" = "Cwlfert";
+"type.waterway.dock" = "Doc";
+"type.waterway.drain" = "Draen";
+"type.natural.water.drain" = "Draen";
+"type.waterway.drain.tunnel" = "Cwlfert";
+"type.waterway.lock_gate" = "Giât Loc";
+"type.waterway.river" = "Afon";
+"type.waterway.river.tunnel" = "Afon";
+"type.waterway.stream" = "Nant";
+"type.waterway.stream.ephemeral" = "Nant dros Dro";
+"type.waterway.stream.intermittent" = "Nant Ysbeidiol";
+"type.waterway.stream.tunnel" = "Nant";
+"type.waterway.waterfall" = "Rhaeadr";
+"type.waterway.weir" = "Cored";
+"type.wheelchair" = "Cadair Olwyn";
+"type.wheelchair.limited" = "Mynediad Cyfyngedig i Gadair Olwyn";
+"type.wheelchair.no" = "Dim Mynediad i Gadair Olwyn";
+"type.wheelchair.yes" = "Mynediad Llawn i Gadair Olwyn";
+"type.aerialway.j.bar" = "Lifft J-bar";
+"type.aerialway.magic_carpet" = "Carped Hud";
+"type.aerialway.platter" = "Lifft Platiau";
+"type.aerialway.rope_tow" = "Tynnu Â Rhaff";
+"type.aerialway.t.bar" = "Lifft T-bar";
+"type.piste_type.downhill" = "Llethr Sgïo";
+"type.piste_type.downhill.area" = "Llethr Sgïo";
+"type.piste_type.downhill.advanced" = "Llethr Sgïo Uwch";
+"type.piste_type.downhill.advanced.area" = "Llethr Sgïo Uwch";
+"type.piste_type.downhill.easy" = "Llethr Sgïo Hawdd";
+"type.piste_type.downhill.easy.area" = "Llethr Sgïo Hawdd";
+"type.piste_type.downhill.expert" = "Llethr Sgïo Arbenigol";
+"type.piste_type.downhill.expert.area" = "Llethr Sgïo Arbenigol";
+"type.piste_type.downhill.freeride" = "Llethr Sgïo Rhydd";
+"type.piste_type.downhill.intermediate" = "Llethr Sgïo Canolradd";
+"type.piste_type.downhill.intermediate.area" = "Llethr Sgïo Canolradd";
+"type.piste_type.downhill.novice" = "Llethr Sgïo i Ddechreuwyr";
+"type.piste_type.downhill.novice.area" = "Llethr Sgïo i Ddechreuwyr";
+"type.piste_type.nordic" = "Llwybr Sgïo Nordig";
+"type.piste_type.sled" = "Llethr Sledio";
+"type.piste_type.sled.area" = "Llethr Sledio";
+"type.piste_type.snow_park" = "Parc Eira";
+"type.piste_type.hike" = "Llwybr Cerdded Eira";
+"type.piste_type.connection" = "Cysylltiad Llethrau";
+"type.piste_type.skitour" = "Llwybr Sgi-deithio";
+"type.amenity.events_venue" = "Lleoliad Digwyddiadau";
+"type.shop.auction" = "Arwerthiant";
+"type.shop.collector" = "Eitemau Casgladwy";
+"type.self_service.yes" = "Hunanwasanaeth ar Gael";
+"type.self_service.only" = "Hunanwasanaeth yn Unig";
+"type.self_service.partially" = "Hunanwasanaeth Rhannol";
+"type.self_service.no" = "Dim Hunanwasanaeth";
+
+/* https://wiki.openstreetmap.org/wiki/Key:social_facility */
+"type.amenity.social_facility" = "Cyfleuster Cymdeithasol";
+"type.amenity.stage" = "Llwyfan";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
+"type.emergency.emergency_ward_entrance" = "Mynedfa'r Adran Frys";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Dojo";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Neuadd Chwaraeon";
+"type.sport.diving" = "Deifio";
+"type.man_made.crane" = "Craen";
+"type.barrier.wicket_gate" = "Giât Fach";
+"type.barrier.yes" = "Rhwystr";
+"type.building.guardhouse" = "Tŷ Gwarchod";
+"type.office.security" = "Swyddfa Ddiogelwch";
+"type.power.portal" = "Peilon (Porth)";
+"type.shop.lighting" = "Siop Oleuadau";
+"type.barrier.jersey_barrier" = "Bloc";
+"type.barrier.debris" = "Malurion";
+"type.barrier.log" = "Rhwystr Boncyff";
+"type.amenity.boat_rental" = "Llogi Cychod";
+"type.shop.telecommunication" = "Siop Telathrebu";
+"type.leisure.indoor_play" = "Canolfan Chwarae";
+"type.tourism.camp_pitch" = "Man Gwersylla";
+"type.railway.miniature" = "Rheilffordd Fach";
+"type.amenity.kneipp_water_cure" = "Iachâd Dŵr Kneipp";
+"type.area_highway.traffic_island" = "Ynys Draffig";
+"type.man_made.monitoring_station" = "Gorsaf Fonitro";
+"type.man_made.monitoring_station.water_level" = "Gorsaf Monitro Lefel y Dŵr";
+"type.man_made.monitoring_station.weather" = "Gorsaf Monitro'r Tywydd";
+"type.amenity.student_accommodation" = "Llety Myfyrwyr";
+"type.craft.watchmaker" = "Gwneuthurwr Oriorau";
+"type.xmas_feature.market" = "Marchnad Nadolig";
+"type.xmas_feature.tree" = "Coeden Nadolig";
+"type.amenity.hookah_lounge" = "Lolfa Hwca";
