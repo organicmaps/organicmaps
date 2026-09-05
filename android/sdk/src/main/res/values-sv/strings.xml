@@ -37,7 +37,7 @@
     <!-- abbreviation for kilometers -->
     <string name="km">km</string>
     <!-- abbreviation for mile(s) -->
-    <string name="mi">mile</string>
+    <string name="mi">mi</string>
     <!-- A unit of measure -->
     <string name="ft">fot</string>
     <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->

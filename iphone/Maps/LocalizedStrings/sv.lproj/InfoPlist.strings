@@ -7,7 +7,7 @@
 "search" = "Sök";
 
 /* "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. */
-"bookmarks_and_tracks" = "Bokmärken och rutter";
+"bookmarks_and_tracks" = "Bokmärken och spår";
 
 
 /********** Other translations **********/
@@ -28,10 +28,10 @@
 
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "Att fastställa aktuell position i bakgrunden är nödvändigt för att fullt ut använda funktionaliteten hos appen. Det används när en rutt ska följas och när din senaste resväg skall sparas.";
+"NSLocationAlwaysUsageDescription" = "Åtkomst till din plats i bakgrunden behövs för att appens funktioner ska fungera fullt ut. Den används för navigering och för att spara spåret från din senaste resa.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
-"NSLocationWhenInUseUsageDescription" = "Definitionen av aktuell plats används i vissa funktioner som t.ex. att spåra rutt eller att spara nyligen tillryggalagda rutter.";
+"NSLocationWhenInUseUsageDescription" = "Din plats behöver fastställas för navigering och för att spara spåret från din senaste resa.";
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Logga in med lösenord";
