@@ -151,6 +151,7 @@ public class TrackRecordingService extends Service implements LocationListener
       if (TrackRecorder.nativeIsTrackRecordingEnabled())
         TrackRecorder.nativeStopTrackRecording();
       MwmApplication.from(this).getLocationHelper().removeListener(this);
+      MwmApplication.from(this).onNavigationOrRecordingStopped();
     }
     sIsRecording.setValue(false);
     // The notification is cancelled automatically by the system.
