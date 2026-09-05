@@ -1659,6 +1659,7 @@
 		ED8A91E32D759B59009E063B /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
 		ED8A91E42D759B61009E063B /* az */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = az; path = az.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
 		ED8A91E52D759B6C009E063B /* eu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = eu; path = eu.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
+		072CAE8C5C960DE2A11D13EF /* cy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cy; path = cy.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
 		ED8A91E62D759B6D009E063B /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = be; path = be.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
 		ED8A91E72D759B6F009E063B /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
 		ED8A91E82D759B70009E063B /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
@@ -1779,8 +1780,11 @@
 		FA853BF226BC5DE50026D455 /* libshaders.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libshaders.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA85F632145DDDC20090E1A0 /* packed_polygons.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = packed_polygons.bin; path = ../../data/packed_polygons.bin; sourceTree = SOURCE_ROOT; };
 		FA9730AB28049F5B008722AC /* eu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = eu; path = eu.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EF08A25A7AB83AC0C2867A85 /* cy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cy; path = cy.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FA9730AC28049F5C008722AC /* eu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = eu; path = eu.lproj/Localizable.strings; sourceTree = "<group>"; };
+		44369F0EB71FE889A86AF4F7 /* cy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cy; path = cy.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA9730AD28049F5E008722AC /* eu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = eu; path = eu.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		0838498CE7B991E3B0BE1EBF /* cy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = cy; path = cy.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		FA9F050B26923D4C007849F1 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "pt-BR"; path = "pt-BR.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		FA9F050C26923D4D007849F1 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		FA9F050D26923D4E007849F1 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -4319,6 +4323,7 @@
 				sq,
 				hy,
 				lo,
+				cy,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
@@ -5094,6 +5099,7 @@
 				FAF8C67B278CEEA3006CAE66 /* fa */,
 				FAF8C67F278CEEA3006CAE66 /* es-MX */,
 				FAF8C681278CEEA3006CAE66 /* he */,
+				EF08A25A7AB83AC0C2867A85 /* cy */,
 				FA9730AB28049F5B008722AC /* eu */,
 				FA00953E286A48A10094B3ED /* mr */,
 				FA4F29DE28BC1B35001754FC /* ca */,
@@ -5152,6 +5158,7 @@
 				FAF8C678278CEEA2006CAE66 /* es-MX */,
 				FAF8C679278CEEA2006CAE66 /* sw */,
 				FAF8C67E278CEEA3006CAE66 /* he */,
+				44369F0EB71FE889A86AF4F7 /* cy */,
 				FA9730AC28049F5C008722AC /* eu */,
 				FA00953F286A48A20094B3ED /* mr */,
 				FA4F29DF28BC1B36001754FC /* ca */,
@@ -5210,6 +5217,7 @@
 				FAF8C67C278CEEA3006CAE66 /* fa */,
 				FAF8C67D278CEEA3006CAE66 /* he */,
 				FAF8C680278CEEA3006CAE66 /* es-MX */,
+				0838498CE7B991E3B0BE1EBF /* cy */,
 				FA9730AD28049F5E008722AC /* eu */,
 				FA009540286A48A30094B3ED /* mr */,
 				FA4F29E028BC1B36001754FC /* ca */,
@@ -5235,6 +5243,7 @@
 				ED8A91DF2D759B50009E063B /* en */,
 				ED8A91E32D759B59009E063B /* ar */,
 				ED8A91E42D759B61009E063B /* az */,
+				072CAE8C5C960DE2A11D13EF /* cy */,
 				ED8A91E52D759B6C009E063B /* eu */,
 				ED8A91E62D759B6D009E063B /* be */,
 				ED8A91E72D759B6F009E063B /* bg */,
