@@ -1,22 +1,13 @@
 package app.organicmaps.car;
 
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.car.app.Session;
 import androidx.car.app.SessionInfo;
-import androidx.car.app.notification.CarAppExtender;
-import androidx.car.app.notification.CarPendingIntent;
 import androidx.core.app.NotificationChannelCompat;
-import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import app.organicmaps.BuildConfig;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.api.Const;
 import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.car.CarType;
 import app.organicmaps.sdk.car.CarTypeHelper;
@@ -49,7 +40,7 @@ public final class AndroidAutoService extends CarAppServiceBase
 
   @NonNull
   @Override
-  public Session onCreateSession(@Nullable SessionInfo sessionInfo)
+  public Session onCreateSession(@NonNull SessionInfo sessionInfo)
   {
     mDisplayManager.init(DisplayType.Car);
     return new AndroidAutoSession(mOrganicMapsContext, mDisplayManager, sessionInfo, /* isDebug */ BuildConfig.DEBUG,
@@ -82,20 +73,6 @@ public final class AndroidAutoService extends CarAppServiceBase
 
     // TODO: Show dialog to the user
     Config.setFirstStartDialogSeen(getApplicationContext());
-  }
-
-  @Override
-  @NonNull
-  protected NotificationCompat.Extender buildCarNotificationExtender(@NonNull Context context)
-  {
-    final Intent intent = new Intent(Intent.ACTION_VIEW)
-                              .setComponent(new ComponentName(context, AndroidAutoService.class))
-                              .setData(Uri.fromParts(Const.API_SCHEME, CarAppServiceBase.API_CAR_HOST,
-                                                     CarAppServiceBase.ACTION_SHOW_NAVIGATION_SCREEN));
-    return new CarAppExtender.Builder()
-        .setImportance(NotificationManagerCompat.IMPORTANCE_MIN)
-        .setContentIntent(CarPendingIntent.getCarApp(context, intent.hashCode(), intent, 0))
-        .build();
   }
 
   private void createNotificationChannel()

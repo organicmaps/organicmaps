@@ -83,7 +83,7 @@ public final class IntentUtils
   public static PendingIntent createSearchIntent(@NonNull CarContext context, @NonNull String query)
   {
     final String uri = "geo:0,0?q=" + query.replace(" ", "+");
-    final ComponentName component = CarAppServiceManifestReader.getCarAppServiceClass(context);
+    final ComponentName component = new ComponentName(context, CarAppServiceBase.getCarServiceClass());
     final Intent intent = new Intent().setComponent(component).setData(Uri.parse(uri));
     return CarPendingIntent.getCarApp(context, 0, intent, 0);
   }
