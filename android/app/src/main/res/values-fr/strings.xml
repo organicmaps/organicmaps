@@ -871,7 +871,7 @@
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Enregistrement de la trace</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Arrêter sans enregistrer</string>
+    <string name="stop_without_saving">Arrêter sans sauvegarder</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Continuer l\'enregistrement</string>
     <!-- Title for the alert when saving a track recording. -->
@@ -937,4 +937,6 @@
     <string name="color_picker_grid">Grille</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Recherche vocale</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Arrêter et sauvegarder</string>
 </resources>

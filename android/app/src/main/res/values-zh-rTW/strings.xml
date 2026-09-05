@@ -868,7 +868,7 @@
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">軌跡記錄</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">停止而不保存</string>
+    <string name="stop_without_saving">停止而不儲存</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">繼續錄製</string>
     <!-- Title for the alert when saving a track recording. -->
@@ -934,4 +934,6 @@
     <string name="color_picker_grid">網格</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">語音搜尋</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">停止並儲存</string>
 </resources>
