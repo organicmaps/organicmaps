@@ -4,10 +4,6 @@ extension UIFont {
     UIFontMetrics(forTextStyle: bestStyle).scaledFont(for: self)
   }
 
-  func dynamic(compatibleWith traitCollection: UITraitCollection) -> UIFont {
-    UIFontMetrics(forTextStyle: bestStyle).scaledFont(for: self, compatibleWith: traitCollection)
-  }
-
   func dynamic(maxSize: CGFloat) -> UIFont {
     UIFontMetrics(forTextStyle: bestStyle).scaledFont(for: self, maximumPointSize: maxSize)
   }
