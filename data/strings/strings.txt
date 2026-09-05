@@ -3901,7 +3901,7 @@ zh-Hans = 旅游景点
 zh-Hant = 旅遊景點
 
 [category_entertainment]
-comment = Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment!
+comment = Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! Also a bookmarks list group header when sorting by type.
 tags = android-app,apple-maps
 en = Entertainment
 af = Vermaak
@@ -4508,7 +4508,7 @@ zh-Hans = 回收
 zh-Hant = 回收
 
 [category_water]
-comment = Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type
+comment = Search category for water; any changes should be duplicated in categories.txt @category_water! Also a bookmarks list group header when sorting by type.
 tags = android-app,apple-maps
 en = Water
 af = Water
@@ -19602,7 +19602,7 @@ zh-Hant = 樓層數量（最多 %d 層）
 [error_enter_correct_storey_number]
 comment = Error message in Editor when a user tries to set the number of floors for a building higher than %d floors
 tags = android-app,apple-maps
-en = The number of floors must non exceed %d
+en = The number of floors must not exceed %d
 af = Die aantal verdiepings mag nie %d oorskry nie
 ar = يجب ألا يتجاوز عدد طوابق المبنى %d
 az = Mərtəbələrin sayı %d-dən çox olmamalıdır

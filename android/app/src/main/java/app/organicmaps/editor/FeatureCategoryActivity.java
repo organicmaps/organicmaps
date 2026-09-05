@@ -32,9 +32,20 @@ public class FeatureCategoryActivity
   public void onFeatureCategorySelected(FeatureCategory category)
   {
     final Intent in = getIntent();
-    final double lat = in.getDoubleExtra(EXTRA_POSITION_LAT, 0);
-    final double lon = in.getDoubleExtra(EXTRA_POSITION_LON, 0);
-    Editor.createMapObject(category, lat, lon);
+    final double lat = in.getDoubleExtra(EXTRA_POSITION_LAT, Double.NaN);
+    final double lon = in.getDoubleExtra(EXTRA_POSITION_LON, Double.NaN);
+    if (Double.isNaN(lat) || Double.isNaN(lon))
+      throw new IllegalStateException("FeatureCategoryActivity missing position extras");
+
+    if (!Editor.createMapObject(category, lat, lon))
+    {
+      // The position was checked when the user confirmed it, but the map under it can be updated or
+      // deleted while the category is being picked. No other category can succeed at the same
+      // point, so return to the map.
+      InvalidFeaturePositionDialogFragment.show(getSupportFragmentManager());
+      return;
+    }
+
     final Intent intent = new Intent(this, EditorActivity.class);
     intent.putExtra(EXTRA_FEATURE_CATEGORY, category);
     intent.putExtra(EditorActivity.EXTRA_NEW_OBJECT, true);
