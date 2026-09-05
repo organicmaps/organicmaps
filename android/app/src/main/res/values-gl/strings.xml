@@ -932,4 +932,6 @@
     <string name="color_picker_grid">Reixa</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Busca por voz</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Deter e gardar</string>
 </resources>

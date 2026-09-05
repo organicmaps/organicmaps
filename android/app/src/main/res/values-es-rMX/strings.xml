@@ -466,7 +466,7 @@
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Grabación de pistas</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Parar sin ahorrar</string>
+    <string name="stop_without_saving">Parar sin guardar</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Seguir grabando</string>
     <!-- Title for the alert when saving a track recording. -->
