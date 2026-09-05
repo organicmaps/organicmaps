@@ -26,6 +26,8 @@ std::map<std::string, std::vector<std::string>> const kSynonyms = {
     /// @todo Should not duplicate Street synonyms defined in StreetsSynonymsHolder (avoid useless double queries).
     /// Remove "street" and "avenue" here, but should update GetNameScore.
     {"st", {"saint", "sankt", "street"}},
+    {"saint", {"sankt", "st"}},
+    {"sankt", {"saint", "st"}},
     {"dr", {"doctor"}},
 
     // widely used in LATAM, like "Ntra Sra Asuncion Zelaya"
