@@ -2962,7 +2962,7 @@ be:4Аўтасалон|Машыны
 bg:Майстор|автомонтьор|автосалон
 ca:Venda de cotxes|concesionari
 cs:Obchod s auty
-cy:3Gwerthwr Ceir|delwriaeth ceir|garej
+cy:3Gwerthwr Ceir|masnachwr ceir
 da:Bilforhandler
 de:4Autohaus|Autohändler
 el:Αντιπροσωπεία αυτοκινήτων|κατάστημα
@@ -3220,7 +3220,7 @@ en:3Train Station|trainstation|4railway|railroad|4station|U+1F684|U+1F685|U+1F68
 ar:محطة سكك حديدية|محطة قطار|قطار|محطة|مواصلات|مبنى المحطة
 bg:ЖП|влак|спирка|станция
 cs:3Železniční stanice|vlakové nádraží|2vlak|staniční budova
-cy:3Gorsaf Drenau|gorsaf reilffordd|4rheilffordd|4gorsaf|trên|arhosfan reilffordd
+cy:3Gorsaf Drenau|gorsaf reilffordd|4rheilffordd|4gorsaf|trên|arhosfan rheilffordd
 da:4Togstation|4station|3jernbane|stationsbygning
 de:4Bahnhof|3haltepunkt|3station|zug|bahn|ÖPNV|hbf|bahnhofsgebäude
 el:Σιδηροδρομικός σταθμός|σιδηρόδρομος|σιδηροδρομικό|τρένο|σταθμός|μεταφορές|σιδηροδρομική στάση|κτίριο σταθμού
@@ -3990,7 +3990,7 @@ en:3Temple|place of worship|U+1F64F|U+262F|taoist temple
 ar:معبد طاوي|مكان عبادة|معبد
 bg:Храм|даоизъм
 cs:Chrám|posvátné místo|taoistický chrám
-cy:3Teml|addoldy|teml Taoaidd
+cy:3Teml|addoldy|teml Daoaidd
 da:Tempel|kultsted|taoistisk tempel
 de:Tempel|Anbetungsstätte
 el:Ναός|τόπος λατρείας|αξιοθέατα|ταοϊκός ναός
@@ -4118,7 +4118,7 @@ ar:موقع أثري|أماكن جذابة|سياحة|مناظر
 be:3Археалагічны помнік
 bg:3Археологически сайт|Архелогически разкопки|разкопки
 cs:Vykopávky|zajímavost
-cy:4Safle Archeolegol|archaeoleg
+cy:4Safle Archaeolegol|archaeoleg
 da:3Arkæologisk sted|arkæologisk fundsted
 de:Ausgrabungen|4Ausgrabungsstätte|4Archäologische Stätte
 el:Αρχαιολογικός χώρος|θέαμα|τουρισμός|αξιοθέατα
@@ -6357,7 +6357,7 @@ en:3Fountain|U+26F2
 ar:نافورة
 bg:3фонтан
 cs:Kašna|4fontána
-cy:3Ffynnon
+cy:3Ffownten|ffynnon
 da:3Springvand|4fontæne
 de:4Springbrunnen|4Fontäne
 el:Συντριβάνι
@@ -7233,7 +7233,7 @@ en:U+1F697|U+1F17F|U+1F698|U+1F699|parking|parking entrance
 ar:موقف سيارات
 be:Аўтастаянка|паркоўка
 bg:Паркинг|престой
-cy:parcio|mynedfa parcio|maes parcio
+cy:Maes Parcio|parcio|mynedfa parcio
 da:3Parkeringsplads|parkering|parkeringsindkørsel
 de:3Parkplatz|parking|parkhaus|tiefgarage|parkplatzeinfahrt
 el:Στάθμευση|χώρος στάθμευσης|είσοδος στάθμευσης
@@ -9195,7 +9195,7 @@ en:3Exit|3junction|road exit
 ar:مخرج|تقاطع
 bg:Изход|разклонение
 cs:Dopravní uzel|3dálnice
-cy:3Allanfa|3cyffordd|allanfa ffordd
+cy:3Allanfa Ffordd|3cyffordd|allanfa
 da:2Motorvejsafkørsel|afkørsel
 de:4Ausfahrt|abfahrt|autobahnausfahrt
 el:Έξοδος|διασταύρωση
@@ -14312,7 +14312,7 @@ ar:إنترنت لا سلكي|وايفاي
 be:WiFi|Wi-Fi
 bg:WiFi|Wi-Fi
 cs:Wi-Fi|wiFi
-cy:Wi-Fi|WiFi|di-wifr
+cy:Wi-Fi|WiFi|diwifr|di-wifr
 da:WiFi|Wi-Fi
 de:WLAN|WiFi|Wi-Fi
 el:WiFi|Wi-Fi
@@ -14811,7 +14811,7 @@ en:4Travel Agency|tours|4tour agency|trips|journeys|travel bureau|holidays|trave
 ar:وكيل سفريات|جولات
 bg:Турист|агенция|пътешествие|пътуване|билети
 cs:Cestovní kancelář|cesty
-cy:4Asiantaeth Deithio|teithiau|4asiantaeth deithio|gwyliau|swyddfa deithio
+cy:4Asiantaeth Deithio|teithiau|4trefnydd teithiau|gwyliau|swyddfa deithio
 da:Rejsebureau|rundrejser
 de:5Reisebüro|Reisen|Rundreisen|Reisevermittlung|Reisevermittler|Reiseagentur|Touren|Ausflüge|Urlaub|Touristeninformation|Last-Minute-Tour
 el:Ταξιδιωτικό γραφείο|Τουριστικός πράκτορας|Περιηγήσεις
@@ -15508,7 +15508,7 @@ en:4Chemist|Pharmacist
 ar:متجر كيماويات
 bg:4Битова химия|химик
 cs:4Drogerie
-cy:4Cemist|Fferyllydd|siop gemist
+cy:4Cemist|siop nwyddau ymolchi|fferyllydd|siop gemist
 da:Materialist
 de:4Drogerie
 el:Χημικά προϊόντα|φαρμακείο
@@ -21433,7 +21433,7 @@ zh-Hant:煤氣庫
 
 shop-games|@shop
 en:Games Shop|Board games|Tabletop games
-cy:Siop Emau|gemau bwrdd|gemau
+cy:Gemau Bwrdd|gemau|siop gemau
 de:Spielegeschäft|Brettspiele
 es:Tienda de juegos|Juegos de mesa
 fr:Boutique de jeux|Jeux de société
@@ -21892,7 +21892,7 @@ zh-Hant:義大利麵|義大利麵店
 
 attraction-amusement_ride|attraction-carousel|attraction-roller_coaster|attraction-maze|attraction-historic|attraction-big_wheel|attraction-bumper_car|@category_children
 en:Attraction|amusement ride|carousel|roller coaster|maze|historic attraction|big wheel|bumper car
-cy:Atyniad|reid|carwsél|trên rola-bola|ffigar-êt|drysfa|atyniad hanesyddol|olwyn fawr|ceir bwmpio
+cy:Atyniad|reid|carwsél|ffigar-êt|drysfa|atyniad hanesyddol|olwyn fawr|ceir bwmpio
 lt:5Atrakcija|5pramogos|atrakcionų atrakcionas|karuselė|amerikietiški kalneliai|labirintas|istorinė atrakcija|apžvalgos ratas|autodromas
 ru:Аттракцион|карусель|американские горки|лабиринт|исторический аттракцион|колесо обозрения|автодром
 sl:4Varnostnik|vratarnica|zabaviščna vožnja|vrtiljak|vlak smrti|labirint|zgodovinska znamenitost|veliko kolo|avtočki
@@ -21949,7 +21949,7 @@ be:5Камера захоўвання|шафка|4багаж
 bg:Багажно шкафче
 ca:Armari d'equipatge
 cs:Skříňka na zavazadla|úschovná skříňka
-cy:Bagiau|locer|storfa|locer bagiau
+cy:Locer Bagiau|bagiau|locer|storfa
 da:Bagageskab|bagageboks
 de:Gepäckschließfach|gepäckaufbewahrung
 el:Θυρίδα αποσκευών|ντουλάπι αποσκευών
