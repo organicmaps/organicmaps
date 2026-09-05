@@ -5,13 +5,37 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
   }
 
   struct PointViewModel {
+    enum TrailingButton {
+      case close(() -> Void)
+      case swap(() -> Void)
+
+      var image: UIImage {
+        switch self {
+        case .close: UIImage.icSearchClear
+        case .swap: UIImage.icSwap
+        }
+      }
+
+      var style: GlobalStyleSheet {
+        switch self {
+        case .close: .gray
+        case .swap: .blue
+        }
+      }
+
+      var action: () -> Void {
+        switch self {
+        case .close(let action), .swap(let action): action
+        }
+      }
+    }
+
     let title: String
     let image: UIImage
-    let showCloseButton: Bool
+    let trailingButton: TrailingButton?
     let maskedCorners: CACornerMask
     let isPlaceholder: Bool
     let showSeparator: Bool
-    let onCloseHandler: (() -> Void)?
   }
 
   private enum Constants {
@@ -22,7 +46,7 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
     static let logoSize: CGFloat = 28
     static let logoImageLeadingInset: CGFloat = 12
     static let reorderButtonSize: CGFloat = 24
-    static let closeButtonSize: CGFloat = 24
+    static let actionButtonSize: CGFloat = 24
     static let horizontalSpacing: CGFloat = 12
     static let horizontalSpacingSmall: CGFloat = 5
   }
@@ -32,13 +56,14 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
   private let titleLabel = UILabel()
   private let textStackView = UIStackView()
   private let reorderButton = UIButton(type: .system)
-  private let closeButton = UIButton(type: .system)
+  private let actionButton = UIButton(type: .system)
   private lazy var separatorView: UIView = {
     let separatorInsets = UIEdgeInsets(top: 0, left: Constants.logoImageLeadingInset + Constants.logoSize + Constants.horizontalSpacing, bottom: 0, right: 0)
     return contentBackgroundView.addSeparator(.bottom, insets: separatorInsets)
   }()
 
-  private var didTapClose: (() -> Void)?
+  private var didTapTrailingButton: (() -> Void)?
+  private var actionButtonStyle: GlobalStyleSheet?
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -75,9 +100,7 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
     reorderButton.setImage(UIImage(resource: .icMoveList), for: .normal)
     reorderButton.setStyle(.gray)
 
-    closeButton.setImage(UIImage(resource: .icSearchClear), for: .normal)
-    closeButton.setStyle(.gray)
-    closeButton.addTarget(self, action: #selector(didTapCloseButton), for: .touchUpInside)
+    actionButton.addTarget(self, action: #selector(didTapActionButton), for: .touchUpInside)
   }
 
   private func layout() {
@@ -85,14 +108,14 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
     textStackView.addArrangedSubview(titleLabel)
     contentBackgroundView.addSubview(logoImageView)
     contentBackgroundView.addSubview(textStackView)
-    contentBackgroundView.addSubview(closeButton)
+    contentBackgroundView.addSubview(actionButton)
     contentBackgroundView.addSubview(reorderButton)
 
     logoImageView.translatesAutoresizingMaskIntoConstraints = false
     contentBackgroundView.translatesAutoresizingMaskIntoConstraints = false
     textStackView.translatesAutoresizingMaskIntoConstraints = false
     reorderButton.translatesAutoresizingMaskIntoConstraints = false
-    closeButton.translatesAutoresizingMaskIntoConstraints = false
+    actionButton.translatesAutoresizingMaskIntoConstraints = false
 
     NSLayoutConstraint.activate([
       contentBackgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -107,12 +130,12 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
 
       textStackView.leadingAnchor.constraint(equalTo: logoImageView.trailingAnchor, constant: Constants.horizontalSpacing),
       textStackView.centerYAnchor.constraint(equalTo: contentBackgroundView.centerYAnchor),
-      textStackView.trailingAnchor.constraint(lessThanOrEqualTo: closeButton.leadingAnchor, constant: -Constants.horizontalSpacing),
+      textStackView.trailingAnchor.constraint(lessThanOrEqualTo: actionButton.leadingAnchor, constant: -Constants.horizontalSpacing),
 
-      closeButton.trailingAnchor.constraint(equalTo: reorderButton.leadingAnchor, constant: -Constants.horizontalSpacingSmall),
-      closeButton.centerYAnchor.constraint(equalTo: contentBackgroundView.centerYAnchor),
-      closeButton.widthAnchor.constraint(equalToConstant: Constants.closeButtonSize),
-      closeButton.heightAnchor.constraint(equalToConstant: Constants.closeButtonSize),
+      actionButton.trailingAnchor.constraint(equalTo: reorderButton.leadingAnchor, constant: -Constants.horizontalSpacingSmall),
+      actionButton.centerYAnchor.constraint(equalTo: contentBackgroundView.centerYAnchor),
+      actionButton.widthAnchor.constraint(equalToConstant: Constants.actionButtonSize),
+      actionButton.heightAnchor.constraint(equalToConstant: Constants.actionButtonSize),
 
       reorderButton.trailingAnchor.constraint(equalTo: contentBackgroundView.trailingAnchor, constant: -Constants.horizontalSpacing),
       reorderButton.centerYAnchor.constraint(equalTo: contentBackgroundView.centerYAnchor),
@@ -127,9 +150,8 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
       titleLabel.text = viewModel.title
       logoImageView.image = viewModel.image
       logoImageView.setStyleAndApply(.black)
-      didTapClose = viewModel.onCloseHandler
       titleLabel.setFontStyleAndApply(Constants.fontStyle, color: viewModel.isPlaceholder ? .blackSecondary : .blackPrimary)
-      closeButton.isHidden = !viewModel.showCloseButton
+      configureTrailingButton(viewModel.trailingButton)
       reorderButton.isHidden = false
       contentBackgroundView.layer.maskedCorners = viewModel.maskedCorners
       separatorView.isHidden = !viewModel.showSeparator
@@ -138,16 +160,26 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
       logoImageView.image = UIImage(resource: .icAddButton)
       logoImageView.setStyleAndApply(.blue)
       titleLabel.setFontStyleAndApply(Constants.fontStyle, color: .linkBlue)
-      closeButton.isHidden = true
+      configureTrailingButton(nil)
       reorderButton.isHidden = true
       contentBackgroundView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
       separatorView.isHidden = true
     }
   }
 
+  private func configureTrailingButton(_ button: PointViewModel.TrailingButton?) {
+    actionButton.isHidden = button == nil
+    actionButton.setImage(button?.image, for: .normal)
+    didTapTrailingButton = button?.action
+
+    guard let style = button?.style, actionButtonStyle != style else { return }
+    actionButtonStyle = style
+    actionButton.setStyleAndApply(style)
+  }
+
   @objc
-  private func didTapCloseButton() {
-    didTapClose?()
+  private func didTapActionButton() {
+    didTapTrailingButton?()
   }
 
   static func height() -> CGFloat {
