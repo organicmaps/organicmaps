@@ -1982,6 +1982,20 @@ UNIT_CLASS_TEST(ProcessorTest, CountrySynonymsTest)
   }
 }
 
+// "St." is a common abbreviation of the German "Sankt" (St. Wendel, St. Gallen, St. Pölten).
+UNIT_CLASS_TEST(ProcessorTest, SanktSynonymTest)
+{
+  TestCity sanktWendel({0, 0}, "Sankt Wendel", "de", 100 /* rank */);
+
+  auto const worldId = BuildWorld([&](TestMwmBuilder & builder) { builder.Add(sanktWendel); });
+
+  SetViewport(m2::RectD(-1.0, -1.0, 1.0, 1.0));
+  Rules const rules = {ExactMatch(worldId, sanktWendel)};
+  TEST(ResultsMatch("sankt wendel ", rules), ());
+  TEST(ResultsMatch("st wendel ", rules), ());
+  TEST(ResultsMatch("St. Wendel", rules), ());
+}
+
 UNIT_CLASS_TEST(ProcessorTest, SynonymsTest)
 {
   TestStreet streetEn({{0.5, -0.5}, {0.0, 0.0}, {-0.5, 0.5}}, "Southwest street", "en");
