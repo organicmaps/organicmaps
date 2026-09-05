@@ -941,6 +941,8 @@
     <string name="transit_exit_at">Exit at %1$s</string>
     <!-- Label for a walking leg in transit details. -->
     <string name="transit_walk_label">Walk</string>
+    <!-- Final row of the transit route details, naming where the route ends (%1$s = destination). -->
+    <string name="transit_arrive_at">Arrive at %1$s</string>
     <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
     <string name="transit_waypoint_label">Stop %1$d</string>
     <!-- Number of stops ridden on a single transit line. -->

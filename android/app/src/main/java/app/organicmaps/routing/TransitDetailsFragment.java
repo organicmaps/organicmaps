@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.TransitRouteInfo;
 import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
@@ -48,9 +49,24 @@ public class TransitDetailsFragment extends BaseMwmToolbarFragment
       requireActivity().finish();
       return root;
     }
+    adapter.setDestination(destinationName());
     adapter.setItems(info.getTransitSteps());
 
     return root;
+  }
+
+  /**
+   * The route's end point, named as the routing panel names it. Null when the route has been torn down
+   * or the point has no title, in which case the timeline simply ends on its last leg.
+   */
+  @Nullable
+  private String destinationName()
+  {
+    final MapObject endPoint = RoutingController.get().getEndPoint();
+    if (endPoint == null)
+      return null;
+    final String title = endPoint.getTitle();
+    return title == null || title.isEmpty() ? null : title;
   }
 
   @Override
