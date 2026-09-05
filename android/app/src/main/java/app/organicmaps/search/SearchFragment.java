@@ -1,5 +1,8 @@
 package app.organicmaps.search;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -19,6 +22,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,9 +31,14 @@ import androidx.viewpager.widget.ViewPager;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.downloader.CountrySuggestFragment;
+import app.organicmaps.maplayer.MapButtonsViewModel;
+import app.organicmaps.routing.RoutePointLabels;
 import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.location.LocationListener;
+import app.organicmaps.sdk.location.LocationState;
+import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.sdk.search.SearchListener;
@@ -61,9 +70,20 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   private int mExpandedOffset = 0;
   private View mTabFrame;
   private View mAppBar;
+  private View mPickerActions;
+  private View mYourLocation;
+  private View mSearchIcon;
+  private int mSearchIconWidth;
+  @Nullable
+  private ValueAnimator mPickerActionsAnimator;
+  private boolean mPickerActionsShown;
   private PlaceholderView mResultsPlaceholder;
   private SearchShimmerView mShimmerView;
   private SearchPageViewModel mSearchViewModel;
+  private MapButtonsViewModel mMapButtonsViewModel;
+
+  // Matches the zoom the deep-link handlers use when centering on a single place.
+  private static final int PICKED_POINT_ZOOM = 16;
 
   // Debouncer for runSearch() — collapses bursts of keystrokes into a single engine invocation.
   // searchInteractive() fans out to both SearchInViewport + EverywhereSearch internally, so the
@@ -117,6 +137,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
         if (mToolbarController.hasQuery())
           mToolbarController.clear();
+        // The sheet is only translated off-screen and the view is never recreated.
+        resetPickerActions();
         // cancel() → cancelAllSearches() already resets the engine's stored query.
         SearchEngine.INSTANCE.cancel();
         return;
@@ -124,19 +146,21 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
       final SearchRequest request = mSearchViewModel.getPendingRequest();
       final String query = request != null ? request.query : null;
-      if (query == null || query.isEmpty())
-        return;
+      if (query != null && !query.isEmpty())
+      {
+        mSearchAdapter.clear();
+        stopSearch();
 
-      mSearchAdapter.clear();
-      stopSearch();
+        // setQuery() fires the text watcher, which schedules the debounced search; runSearch() consumes
+        // the pending request (locale). When the query already matches the toolbar the watcher won't
+        // fire, so go through the debouncer directly to keep the timing consistent.
+        if (query.equals(getQuery()))
+          runSearchDebounced();
+        else
+          setQuery(query, request.isCategory);
+      }
 
-      // setQuery() fires the text watcher, which schedules the debounced search; runSearch() consumes
-      // the pending request (locale). When the query already matches the toolbar the watcher won't
-      // fire, so go through the debouncer directly to keep the timing consistent.
-      if (query.equals(getQuery()))
-        runSearchDebounced();
-      else
-        setQuery(query, request.isCategory);
+      updatePickerRows();
     }
   };
   private final Observer<Integer> mBottomSheetStateObserver = new Observer<>() {
@@ -151,7 +175,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
       if (state != BottomSheetBehavior.STATE_EXPANDED)
         mToolbarController.deactivate();
-      else if (!mToolbarController.hasQuery())
+      // While a pick is pending the query exists to be edited: the row's prefilled name, or what was typed.
+      else if (!mToolbarController.hasQuery() || RoutingController.get().isWaitingPoiPick())
         activateToolbar();
     }
   };
@@ -163,8 +188,18 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     public void onLocationUpdated(@NonNull Location location)
     {
       mLastPosition.set(location.getLatitude(), location.getLongitude());
+      updatePickerRowsIfPicking();
+    }
+
+    @Override
+    public void onLocationDisabled()
+    {
+      updatePickerRowsIfPicking();
     }
   };
+  // Held as a field, not a lambda: onStart() runs again after every stop, and LiveData de-dups by
+  // observer instance, so a fresh lambda would stack up another observer on each foreground.
+  private final Observer<Integer> mMyPositionModeObserver = mode -> updatePickerRowsIfPicking();
   private boolean mSearchRunning;
 
   private static boolean doShowDownloadSuggest()
@@ -203,6 +238,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     UiUtils.showIf(hasQuery, mResultsFrame);
     UiUtils.showIf(!hasQuery, mTabFrame);
     UiUtils.showIf(!hasQuery, mPager);
+    updatePickerRows();
     if (hasQuery)
       hideDownloadSuggest();
     else if (doShowDownloadSuggest())
@@ -211,6 +247,130 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       hideDownloadSuggest();
     syncNestedScrollingState();
     updatePeekHeight();
+  }
+
+  // TextView.setHint() relayouts and invalidates unconditionally, so skip refreshes that cannot change
+  // anything: with no pick armed the rows stay hidden and the hint stays @string/search.
+  private void updatePickerRowsIfPicking()
+  {
+    if (RoutingController.get().isWaitingPoiPick())
+      updatePickerRows();
+  }
+
+  private void updatePickerRows()
+  {
+    final RoutingController controller = RoutingController.get();
+    // A pick stays armed while the map chooser is up, and the location listener keeps firing on the
+    // closed sheet, so the row would re-expand off-screen.
+    final boolean picking = Boolean.TRUE.equals(mSearchPreviouslyEnabled) && !mToolbarController.hasQuery()
+                         && controller.isWaitingPoiPick();
+    // Only while the row stays: dropping the shortcut as the row collapses makes the remaining one jump left.
+    if (picking)
+      UiUtils.showIf(hasUsableMyPosition(), mYourLocation);
+    animatePickerActions(picking);
+    final RouteMarkType pickType = controller.getWaitingPoiPickType();
+    mToolbarController.setHint(
+        pickType == null ? R.string.search : RoutePointLabels.pickTitle(pickType, controller.isPoiPickReplaceStop()));
+  }
+
+  // Not TransitionManager: ChangeBounds suppresses layout on the toolbar row while the sheet re-layouts
+  // underneath it, which left the field stuck at stale bounds.
+  private void animatePickerActions(boolean show)
+  {
+    // The target, not the current state: a still-collapsing row would restart the animation.
+    if (mPickerActionsShown == show)
+      return;
+    mPickerActionsShown = show;
+
+    // Read before cancelling, which settles the row to its previous target.
+    final boolean wasVisible = UiUtils.isVisible(mPickerActions);
+    final int fromWidth = wasVisible ? mPickerActions.getWidth() : 0;
+    final float fromAlpha = wasVisible ? mPickerActions.getAlpha() : 0f;
+    final int fromIconWidth = UiUtils.isVisible(mSearchIcon) ? mSearchIcon.getWidth() : 0;
+    if (mPickerActionsAnimator != null)
+      mPickerActionsAnimator.cancel();
+
+    // Asked of the parent: layout skips a GONE child, so the row's own isLaidOut() never turns true.
+    final View toolbarRow = (View) mPickerActions.getParent();
+    if (!toolbarRow.isLaidOut() || !toolbarRow.isShown())
+    {
+      settlePickerActions(show);
+      return;
+    }
+
+    // The magnifier is redundant next to the shortcut buttons and the hint needs its 40dp: shrink it
+    // in the same pass, otherwise the field jumps by that width when it is toggled on its own.
+    final int toIconWidth = show ? 0 : mSearchIconWidth;
+    mSearchIcon.getLayoutParams().width = fromIconWidth;
+    UiUtils.show(mSearchIcon);
+
+    UiUtils.show(mPickerActions);
+    final int unspecified = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+    mPickerActions.measure(unspecified, unspecified);
+    final int toWidth = show ? mPickerActions.getMeasuredWidth() : 0;
+    final float toAlpha = show ? 1f : 0f;
+
+    mPickerActionsAnimator = ValueAnimator.ofInt(fromWidth, toWidth);
+    mPickerActionsAnimator.setDuration(getResources().getInteger(R.integer.anim_default));
+    mPickerActionsAnimator.setInterpolator(new FastOutSlowInInterpolator());
+    mPickerActionsAnimator.addUpdateListener(animator -> {
+      final float fraction = animator.getAnimatedFraction();
+      mPickerActions.getLayoutParams().width = (int) animator.getAnimatedValue();
+      mPickerActions.setAlpha(fromAlpha + (toAlpha - fromAlpha) * fraction);
+      mSearchIcon.getLayoutParams().width = (int) (fromIconWidth + (toIconWidth - fromIconWidth) * fraction);
+      mSearchIcon.requestLayout();
+      mPickerActions.requestLayout();
+    });
+    // Fires on cancel too, so an interrupted run cannot leave the row holding width without content.
+    mPickerActionsAnimator.addListener(new AnimatorListenerAdapter() {
+      @Override
+      public void onAnimationEnd(Animator animation)
+      {
+        mPickerActionsAnimator = null;
+        settlePickerActions(show);
+      }
+    });
+    mPickerActionsAnimator.start();
+  }
+
+  private void resetPickerActions()
+  {
+    if (mPickerActionsAnimator != null)
+      mPickerActionsAnimator.cancel();
+    mPickerActionsShown = false;
+    settlePickerActions(false);
+  }
+
+  private void settlePickerActions(boolean show)
+  {
+    mPickerActions.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
+    mPickerActions.setAlpha(1f);
+    UiUtils.showIf(show, mPickerActions);
+    mPickerActions.requestLayout();
+    // Restore the width unconditionally: a cancelled animation would otherwise leave the icon at
+    // whatever intermediate width it held, and a GONE view keeps that stale width when shown again.
+    mSearchIcon.getLayoutParams().width = mSearchIconWidth;
+    UiUtils.showIf(!show, mSearchIcon);
+    mSearchIcon.requestLayout();
+  }
+
+  private boolean hasUsableMyPosition()
+  {
+    // Switching location off from the map button reaches us through the mode, before MwmActivity calls
+    // LocationHelper.stop() — until it does, getMyPosition() still reports the fix being switched off.
+    final Integer mode = mMapButtonsViewModel.getMyPositionMode().getValue();
+    if (mode != null && mode == LocationState.NOT_FOLLOW_NO_POSITION)
+      return false;
+    return MwmApplication.from(requireContext()).getLocationHelper().getMyPosition() != null;
+  }
+
+  private void onYourLocationClicked()
+  {
+    final MapObject myPosition = MwmApplication.from(requireContext()).getLocationHelper().getMyPosition();
+    if (myPosition == null)
+      return;
+
+    RoutingController.get().onPoiSelected(myPosition);
   }
 
   private void updatePeekHeight()
@@ -267,6 +427,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     super.onViewCreated(view, savedInstanceState);
     mSearchAdapter = new SearchAdapter(this);
     mSearchViewModel = new ViewModelProvider(requireActivity()).get(SearchPageViewModel.class);
+    mMapButtonsViewModel = new ViewModelProvider(requireActivity()).get(MapButtonsViewModel.class);
 
     ViewGroup root = (ViewGroup) view;
     mPager = root.findViewById(R.id.pages);
@@ -274,6 +435,12 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     mToolbarController = new ToolbarController(view);
     mTabLayout = root.findViewById(R.id.tabs);
     mTabFrame = root.findViewById(R.id.tab_frame);
+    mPickerActions = root.findViewById(R.id.picker_actions);
+    mSearchIcon = root.findViewById(R.id.search_icon);
+    mSearchIconWidth = mSearchIcon.getLayoutParams().width;
+    mYourLocation = root.findViewById(R.id.your_location);
+    mYourLocation.setOnClickListener(v -> onYourLocationClicked());
+    root.findViewById(R.id.choose_on_map).setOnClickListener(v -> mSearchFragmentListener.onChooseOnMapClicked());
     mResultsFrame = root.findViewById(R.id.results_frame);
     mResults = mResultsFrame.findViewById(R.id.recycler);
     setRecyclerScrollListener(mResults);
@@ -411,6 +578,9 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     super.onStart();
     mToolbarController.attach(requireActivity());
     mSearchViewModel.getSearchEnabled().observe(getViewLifecycleOwner(), mSearchEnabledObserver);
+    // LocationHelper.stop() notifies no listeners, so the my-position mode is the only signal that the
+    // user switched location off from the map button.
+    mMapButtonsViewModel.getMyPositionMode().observe(getViewLifecycleOwner(), mMyPositionModeObserver);
   }
 
   @Override
@@ -451,6 +621,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   {
     mSearchDebounceHandler.removeCallbacks(mDebouncedRunSearch);
     SearchEngine.INSTANCE.removeListener(this);
+    if (mPickerActionsAnimator != null)
+      mPickerActionsAnimator.cancel();
     super.onDestroyView();
   }
 
@@ -502,13 +674,25 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       mSearchViewModel.notifyHistoryChanged();
     }
     SearchEngine.INSTANCE.setQuery(query);
-
-    if (RoutingController.get().isWaitingPoiPick())
-      SearchEngine.INSTANCE.showResult(resultIndex);
-    else
-      SearchEngine.INSTANCE.selectResult(resultIndex);
-
     mToolbarController.deactivate();
+
+    // The pick is armed, so commit into its slot instead of selecting the result and opening a place page
+    // that asks the user to confirm the choice they just made.
+    final RoutingController controller = RoutingController.get();
+    if (controller.isWaitingPoiPick())
+    {
+      // Pass an unnamed result through with an empty title: the route point then shows the feature type
+      // once, instead of repeating it as its own subtitle.
+      final String subtitle = result.description == null ? "" : result.description.localizedFeatureType;
+      controller.onPoiSelected(
+          MapObject.createMapObject(MapObject.SEARCH, result.name, subtitle, result.lat, result.lon));
+      // Only a route build refits the viewport, and it needs both endpoints.
+      if (controller.getStartPoint() == null || controller.getEndPoint() == null)
+        Framework.nativeSetViewportCenter(result.lat, result.lon, PICKED_POINT_ZOOM);
+      return;
+    }
+
+    SearchEngine.INSTANCE.selectResult(resultIndex);
   }
 
   private void onSearchEnd()
@@ -636,10 +820,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     }
 
     mToolbarController.deactivate();
-    if (RoutingController.get().isWaitingPoiPick())
-    {
-      RoutingController.get().onPoiSelected(null);
-    }
+    RoutingController.get().onPoiSelected(null);
 
     return false;
   }
@@ -780,6 +961,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     // The "search" action on the keyboard: the sheet is minimized to show the results on the map.
     void onQuerySubmitted();
     void closeSearch();
+    void onChooseOnMapClicked();
   }
 
   private static class LastPosition
@@ -860,7 +1042,12 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     {
       super(root, SearchFragment.this.requireActivity());
       ViewCompat.setOnApplyWindowInsetsListener(getToolbar(), null);
-      root.findViewById(R.id.close_search).setOnClickListener(v -> mSearchFragmentListener.closeSearch());
+      root.findViewById(R.id.close_search).setOnClickListener(v -> {
+        // Back does this via onBackPressed(); without it the X would leave a pending pick armed for
+        // the next search. No-op when nothing is pending.
+        RoutingController.get().onPoiSelected(null);
+        mSearchFragmentListener.closeSearch();
+      });
     }
 
     @Override
@@ -896,6 +1083,11 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
         requireActivity().onBackPressed();
         return;
       }
+
+      // updateFrames() only runs once the debounced search fires, too late to hide the shortcuts. The
+      // guard keeps setHint()'s relayout to the one character that matters.
+      if (mPickerActionsShown)
+        updatePickerRows();
 
       runSearchDebounced();
     }

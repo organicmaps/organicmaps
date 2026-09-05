@@ -3141,12 +3141,14 @@ void Framework::SetCyclingEnabled(bool enabled)
   Invalidate();
 }
 
-void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, m2::PointD const * optionalPosition)
+void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, m2::PointD const * optionalPosition,
+                                         bool shouldChangeViewport)
 {
   if (m_drapeEngine != nullptr)
   {
-    m_drapeEngine->EnableChoosePositionMode(
-        enable, enableBounds ? GetSelectedFeatureTriangles() : std::vector<m2::TriangleD>(), optionalPosition);
+    m_drapeEngine->EnableChoosePositionMode(enable,
+                                            enableBounds ? GetSelectedFeatureTriangles() : std::vector<m2::TriangleD>(),
+                                            optionalPosition, shouldChangeViewport);
   }
 }
 

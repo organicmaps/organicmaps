@@ -147,6 +147,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mSheetVisible.addSource(mViewModel.getShowRoutingBottomSheet(), show -> updateSheetVisible());
     mSheetVisible.addSource(mViewModel.getIsPlacePageActive(), active -> updateSheetVisible());
     mSheetVisible.addSource(mViewModel.getIsSearchActive(), active -> updateSheetVisible());
+    mSheetVisible.addSource(mViewModel.getIsPointChooserActive(), active -> updateSheetVisible());
     mSheetVisible.observe(getViewLifecycleOwner(), this::showSheet);
     mViewModel.getMenuUpdateTrigger().observe(getViewLifecycleOwner(), mMenuUpdateObserver);
     mViewModel.getBuildProgress().observe(getViewLifecycleOwner(), mBuildProgressObserver);
@@ -229,7 +230,8 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     final boolean show = Boolean.TRUE.equals(mViewModel.getShowRoutingBottomSheet().getValue());
     final boolean placePageActive = Boolean.TRUE.equals(mViewModel.getIsPlacePageActive().getValue());
     final boolean searchActive = Boolean.TRUE.equals(mViewModel.getIsSearchActive().getValue());
-    mSheetVisible.setValue(show && !placePageActive && !searchActive);
+    final boolean pointChooserActive = Boolean.TRUE.equals(mViewModel.getIsPointChooserActive().getValue());
+    mSheetVisible.setValue(show && !placePageActive && !searchActive && !pointChooserActive);
   }
 
   private void showSheet(boolean show)
@@ -252,6 +254,10 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     {
       mSheetBehavior.setHideable(true);
       mSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+      // A sheet that is already hidden, or not yet laid out after a state restore, never reaches the
+      // STATE_HIDDEN callback. One that is on screen does, after sliding the anchored buttons out with it.
+      if (!mFrame.isShown() || mSheetBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN)
+        UiUtils.hide(mButtonsLayout);
     }
   }
 

@@ -800,7 +800,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     ref_ptr<SetAddNewPlaceModeMessage> msg = message;
     m_userEventStream.SetKineticScrollEnabled(msg->IsKineticScrollEnabled());
     m_dragBoundArea = msg->AcceptBoundArea();
-    if (msg->IsEnabled())
+    if (msg->IsEnabled() && msg->ShouldChangeViewport())
     {
       auto const pt = msg->GetOptionalPosition();
       if (pt || m_dragBoundArea.empty())
