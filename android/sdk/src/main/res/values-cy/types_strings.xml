@@ -15,7 +15,7 @@
     <string name="type.aeroway">Seilwaith Gofod Awyr</string>
     <string name="type.aeroway.aerodrome">Maes Awyr</string>
     <string name="type.aeroway.aerodrome.international">Maes Awyr Rhyngwladol</string>
-    <string name="type.aeroway.apron">Ffedog</string>
+    <string name="type.aeroway.apron">Arwyneb Awyrennau</string>
     <string name="type.aeroway.gate">Giât Fyrddio</string>
     <string name="type.aeroway.helipad">Pad Hofrennydd</string>
     <string name="type.aeroway.runway">Rhedfa</string>
@@ -73,7 +73,7 @@
     <string name="type.amenity.ferry_terminal">Fferi</string>
     <string name="type.amenity.fire_station">Gorsaf Dân</string>
     <string name="type.amenity.food_court">Neuadd Fwyd</string>
-    <string name="type.amenity.fountain">Ffynnon</string>
+    <string name="type.amenity.fountain">Ffownten</string>
     <string name="type.amenity.fuel">Gorsaf Betrol</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.amenity.grave_yard">Mynwent</string>
@@ -425,7 +425,7 @@
     <string name="type.highway.motorway.bridge">Pont Draffordd</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.motorway.tunnel">Twnnel Traffordd</string>
-    <string name="type.highway.motorway_junction">Allanfa</string>
+    <string name="type.highway.motorway_junction">Allanfa Ffordd</string>
     <string name="type.highway.motorway_link">Ffordd Ymuno Traffordd</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.motorway_link.bridge">Pont</string>
@@ -500,7 +500,7 @@
     <string name="type.highway.steps.bridge">Pont</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.steps.tunnel">Twnnel</string>
-    <string name="type.highway.ladder">Ysgol</string>
+    <string name="type.highway.ladder">Ysgol Ddringo</string>
     <string name="type.highway.tertiary">Ffordd Drydyddol</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.tertiary.bridge">Pont</string>
@@ -556,7 +556,7 @@
     <string name="type.historic">Gwrthrych Hanesyddol</string>
     <string name="type.historic.aircraft">Awyren Hanesyddol</string>
     <string name="type.historic.anchor">Angor Hanesyddol</string>
-    <string name="type.historic.archaeological_site">Safle Archeolegol</string>
+    <string name="type.historic.archaeological_site">Safle Archaeolegol</string>
     <string name="type.historic.battlefield">Maes Brwydr Hanesyddol</string>
     <string name="type.historic.boundary_stone">Carreg Ffin</string>
     <string name="type.historic.cannon">Canon</string>
@@ -855,7 +855,7 @@
     <string name="type.railway.funicular">Ffwnicwlar</string>
     <string name="type.railway.funicular.bridge">Pont Ffwnicwlar</string>
     <string name="type.railway.funicular.tunnel">Twnnel Ffwnicwlar</string>
-    <string name="type.railway.halt">Arhosfan Reilffordd</string>
+    <string name="type.railway.halt">Arhosfan Rheilffordd</string>
     <string name="type.railway.level_crossing">Croesfan Lefel</string>
     <string name="type.railway.light_rail">Rheilffordd Ysgafn</string>
     <string name="type.railway.light_rail.bridge">Pont Reilffordd Ysgafn</string>
@@ -871,14 +871,14 @@
     <string name="type.railway.preserved.bridge">Pont Reilffordd Dreftadaeth</string>
     <string name="type.railway.preserved.tunnel">Twnnel Rheilffordd Dreftadaeth</string>
     <string name="type.railway.rail">Rheilffordd</string>
-    <string name="type.railway.rail.highspeed">Rheilffordd Cyflymder Uchel</string>
+    <string name="type.railway.rail.highspeed">Rheilffordd Gyflymder Uchel</string>
     <string name="type.railway.rail.tourism">Rheilffordd Dwristaidd</string>
     <string name="type.railway.rail.main">Rheilffordd</string>
     <!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
     <string name="type.railway.rail.branch">Cangen Reilffordd</string>
     <!-- Non-passenger utility tracks: industrial, military, test. -->
     <string name="type.railway.rail.utility">Rheilffordd Gyfleustodau</string>
-    <string name="type.railway.rail.spur">Cangen Reilffordd</string>
+    <string name="type.railway.rail.spur">Rheilffordd Gyswllt</string>
     <!-- Short service tracks: siding, yard, crossover. -->
     <string name="type.railway.rail.service">Trac Rheilffordd Gwasanaeth</string>
     <string name="type.railway.rail.bridge">Pont Reilffordd</string>
@@ -1161,7 +1161,7 @@
     <string name="type.shop.car_repair.tyres">Trwsio Teiars</string>
     <string name="type.shop.caravan">Gwerthwr Carafanau</string>
     <string name="type.shop.carpet">Siop Garpedi</string>
-    <string name="type.shop.chemist">Fferyllfa</string>
+    <string name="type.shop.chemist">Siop Nwyddau Ymolchi</string>
     <string name="type.shop.chocolate">Siop Siocled</string>
     <string name="type.shop.clothes">Siop Ddillad</string>
     <string name="type.shop.clothes.children">Siop Ddillad Plant</string>
@@ -1193,7 +1193,7 @@
     <string name="type.shop.funeral_directors">Trefnwyr Angladdau</string>
     <string name="type.shop.furniture">Siop Ddodrefn</string>
     <string name="type.shop.garden_centre">Canolfan Arddio</string>
-    <string name="type.shop.games">Siop Emau</string>
+    <string name="type.shop.games">Siop Gemau Bwrdd</string>
     <string name="type.shop.gas">Siop Nwy</string>
     <string name="type.shop.gift">Siop Anrhegion</string>
     <string name="type.shop.greengrocer">Siop Ffrwythau a Llysiau</string>
@@ -1246,7 +1246,7 @@
     <string name="type.shop.tyres">Siop Deiars</string>
     <string name="type.shop.variety_store">Siop Bob Dim</string>
     <string name="type.shop.video">Siop Fideo</string>
-    <string name="type.shop.video_games">Siop Emau Fideo</string>
+    <string name="type.shop.video_games">Siop Gemau Fideo</string>
     <string name="type.shop.wine">Siop Win</string>
     <string name="type.shop.agrarian">Siop Amaethyddol</string>
     <string name="type.shop.antiques">Siop Hynafiaethau</string>
@@ -1340,8 +1340,8 @@
     <string name="type.attraction.carousel">Carwsél</string>
     <string name="type.attraction.historic">Atyniad Hanesyddol</string>
     <string name="type.attraction.maze">Drysfa</string>
-    <string name="type.attraction.roller_coaster">Trên Rola-bola</string>
-    <string name="type.roller_coaster.track">Trên Rola-bola</string>
+    <string name="type.attraction.roller_coaster">Ffigar-êt</string>
+    <string name="type.roller_coaster.track">Ffigar-êt</string>
     <string name="type.attraction.water_slide">Sleid Dŵr</string>
     <string name="type.tourism.attraction.specified">Atyniad</string>
     <string name="type.tourism.camp_site">Maes Gwersylla</string>

@@ -15,7 +15,7 @@
 "type.aeroway" = "Seilwaith Gofod Awyr";
 "type.aeroway.aerodrome" = "Maes Awyr";
 "type.aeroway.aerodrome.international" = "Maes Awyr Rhyngwladol";
-"type.aeroway.apron" = "Ffedog";
+"type.aeroway.apron" = "Arwyneb Awyrennau";
 "type.aeroway.gate" = "Giât Fyrddio";
 "type.aeroway.helipad" = "Pad Hofrennydd";
 "type.aeroway.runway" = "Rhedfa";
@@ -73,7 +73,7 @@
 "type.amenity.ferry_terminal" = "Fferi";
 "type.amenity.fire_station" = "Gorsaf Dân";
 "type.amenity.food_court" = "Neuadd Fwyd";
-"type.amenity.fountain" = "Ffynnon";
+"type.amenity.fountain" = "Ffownten";
 "type.amenity.fuel" = "Gorsaf Betrol";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -456,7 +456,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway.tunnel" = "Twnnel Traffordd";
-"type.highway.motorway_junction" = "Allanfa";
+"type.highway.motorway_junction" = "Allanfa Ffordd";
 "type.highway.motorway_link" = "Ffordd Ymuno Traffordd";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -556,7 +556,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Twnnel";
-"type.highway.ladder" = "Ysgol";
+"type.highway.ladder" = "Ysgol Ddringo";
 "type.highway.tertiary" = "Ffordd Drydyddol";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -628,7 +628,7 @@
 "type.historic" = "Gwrthrych Hanesyddol";
 "type.historic.aircraft" = "Awyren Hanesyddol";
 "type.historic.anchor" = "Angor Hanesyddol";
-"type.historic.archaeological_site" = "Safle Archeolegol";
+"type.historic.archaeological_site" = "Safle Archaeolegol";
 "type.historic.battlefield" = "Maes Brwydr Hanesyddol";
 "type.historic.boundary_stone" = "Carreg Ffin";
 "type.historic.cannon" = "Canon";
@@ -989,7 +989,7 @@
 "type.railway.funicular" = "Ffwnicwlar";
 "type.railway.funicular.bridge" = "Pont Ffwnicwlar";
 "type.railway.funicular.tunnel" = "Twnnel Ffwnicwlar";
-"type.railway.halt" = "Arhosfan Reilffordd";
+"type.railway.halt" = "Arhosfan Rheilffordd";
 "type.railway.level_crossing" = "Croesfan Lefel";
 "type.railway.light_rail" = "Rheilffordd Ysgafn";
 "type.railway.light_rail.bridge" = "Pont Reilffordd Ysgafn";
@@ -1005,7 +1005,7 @@
 "type.railway.preserved.bridge" = "Pont Reilffordd Dreftadaeth";
 "type.railway.preserved.tunnel" = "Twnnel Rheilffordd Dreftadaeth";
 "type.railway.rail" = "Rheilffordd";
-"type.railway.rail.highspeed" = "Rheilffordd Cyflymder Uchel";
+"type.railway.rail.highspeed" = "Rheilffordd Gyflymder Uchel";
 "type.railway.rail.tourism" = "Rheilffordd Dwristaidd";
 "type.railway.rail.main" = "Rheilffordd";
 
@@ -1014,7 +1014,7 @@
 
 /* Non-passenger utility tracks: industrial, military, test. */
 "type.railway.rail.utility" = "Rheilffordd Gyfleustodau";
-"type.railway.rail.spur" = "Cangen Reilffordd";
+"type.railway.rail.spur" = "Rheilffordd Gyswllt";
 
 /* Short service tracks: siding, yard, crossover. */
 "type.railway.rail.service" = "Trac Rheilffordd Gwasanaeth";
@@ -1299,7 +1299,7 @@
 "type.shop.car_repair.tyres" = "Trwsio Teiars";
 "type.shop.caravan" = "Gwerthwr Carafanau";
 "type.shop.carpet" = "Siop Garpedi";
-"type.shop.chemist" = "Fferyllfa";
+"type.shop.chemist" = "Siop Nwyddau Ymolchi";
 "type.shop.chocolate" = "Siop Siocled";
 "type.shop.clothes" = "Siop Ddillad";
 "type.shop.clothes.children" = "Siop Ddillad Plant";
@@ -1331,7 +1331,7 @@
 "type.shop.funeral_directors" = "Trefnwyr Angladdau";
 "type.shop.furniture" = "Siop Ddodrefn";
 "type.shop.garden_centre" = "Canolfan Arddio";
-"type.shop.games" = "Siop Emau";
+"type.shop.games" = "Siop Gemau Bwrdd";
 "type.shop.gas" = "Siop Nwy";
 "type.shop.gift" = "Siop Anrhegion";
 "type.shop.greengrocer" = "Siop Ffrwythau a Llysiau";
@@ -1384,7 +1384,7 @@
 "type.shop.tyres" = "Siop Deiars";
 "type.shop.variety_store" = "Siop Bob Dim";
 "type.shop.video" = "Siop Fideo";
-"type.shop.video_games" = "Siop Emau Fideo";
+"type.shop.video_games" = "Siop Gemau Fideo";
 "type.shop.wine" = "Siop Win";
 "type.shop.agrarian" = "Siop Amaethyddol";
 "type.shop.antiques" = "Siop Hynafiaethau";
@@ -1481,8 +1481,8 @@
 "type.attraction.carousel" = "Carwsél";
 "type.attraction.historic" = "Atyniad Hanesyddol";
 "type.attraction.maze" = "Drysfa";
-"type.attraction.roller_coaster" = "Trên Rola-bola";
-"type.roller_coaster.track" = "Trên Rola-bola";
+"type.attraction.roller_coaster" = "Ffigar-êt";
+"type.roller_coaster.track" = "Ffigar-êt";
 "type.attraction.water_slide" = "Sleid Dŵr";
 "type.tourism.attraction.specified" = "Atyniad";
 "type.tourism.camp_site" = "Maes Gwersylla";
