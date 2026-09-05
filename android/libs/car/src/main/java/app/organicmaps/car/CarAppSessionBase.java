@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.car.app.Screen;
 import androidx.car.app.ScreenManager;
 import androidx.car.app.Session;
@@ -40,7 +39,7 @@ public abstract class CarAppSessionBase
 
   @NonNull
   protected final OrganicMaps mOrganicMapsContext;
-  @Nullable
+  @NonNull
   protected final SessionInfo mSessionInfo;
   @NonNull
   protected final DisplayManager mDisplayManager;
@@ -57,7 +56,7 @@ public abstract class CarAppSessionBase
   protected CarSensorsManager mSensorsManager;
 
   public CarAppSessionBase(@NonNull OrganicMaps organicMapsContext, @NonNull DisplayManager displayManager,
-                           @Nullable SessionInfo sessionInfo, boolean isDebug)
+                           @NonNull SessionInfo sessionInfo, boolean isDebug)
   {
     mOrganicMapsContext = organicMapsContext;
     mSessionInfo = sessionInfo;
@@ -96,8 +95,7 @@ public abstract class CarAppSessionBase
 
     Logger.i(TAG, "Session info: " + mSessionInfo);
     Logger.i(TAG, "API Level: " + getCarContext().getCarAppApiLevel());
-    if (mSessionInfo != null)
-      Logger.i(TAG, "Supported templates: " + mSessionInfo.getSupportedTemplates(getCarContext().getCarAppApiLevel()));
+    Logger.i(TAG, "Supported templates: " + mSessionInfo.getSupportedTemplates(getCarContext().getCarAppApiLevel()));
     Logger.i(TAG, "Host info: " + getCarContext().getHostInfo());
     Logger.i(TAG, "Car configuration: " + getCarContext().getResources().getConfiguration());
 

@@ -1,7 +1,6 @@
 package app.organicmaps.car;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.car.app.Screen;
 import androidx.car.app.SessionInfo;
 import androidx.lifecycle.LifecycleOwner;
@@ -29,7 +28,7 @@ public final class AndroidAutoSession extends CarAppSessionBase implements Displ
   private final boolean mInitFailed;
 
   public AndroidAutoSession(@NonNull OrganicMaps organicMapsContext, @NonNull DisplayManager displayManager,
-                            @Nullable SessionInfo sessionInfo, boolean isDebug, boolean initFailed)
+                            @NonNull SessionInfo sessionInfo, boolean isDebug, boolean initFailed)
   {
     super(organicMapsContext, displayManager, sessionInfo, isDebug);
     mInitFailed = initFailed;
