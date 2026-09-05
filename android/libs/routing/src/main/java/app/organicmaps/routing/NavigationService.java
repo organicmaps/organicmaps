@@ -289,7 +289,6 @@ public class NavigationService extends Service implements LocationListener
     if (Framework.nativeIsRouteFinished())
     {
       routingController.cancel();
-      sOrganicMaps.getLocationHelper().restartWithNewMode();
       stopSelf();
       return;
     }
