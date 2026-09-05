@@ -306,6 +306,11 @@ Some tests [are known to be broken](https://github.com/organicmaps/organicmaps/i
 
 To skip building tests, configure with `-DBUILD_TESTING=OFF`.
 
+The integration suites (`*_integration_tests`, `routing_benchmarks`,
+`routing_consistency_tests`, `routing_quality_tests`, `search_quality_tests`)
+need real maps or a live download server and are not run by CI. Configure with
+`-DBUILD_INTEGRATION_TESTS=OFF` to skip building them.
+
 ### Test Coverage
 
 To generate a test coverage report you'll need [gcovr](https://gcovr.com) and gcov tools installed.

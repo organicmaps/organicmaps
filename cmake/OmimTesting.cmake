@@ -56,6 +56,17 @@ function(omim_add_test_subdirectory subdir)
   endif()
 endfunction()
 
+# Suites that need real maps, real GTFS feeds or a live download server. CI
+# cannot run them, so the "ci" preset does not build them either -- except on
+# the one compile-only leg that keeps them from bit-rotting.
+function(omim_add_integration_test_subdirectory subdir)
+  if (BUILD_INTEGRATION_TESTS)
+    omim_add_test_subdirectory(${subdir})
+  else()
+    message(STATUS "BUILD_INTEGRATION_TESTS is OFF: Skipping test subdirectory ${subdir}")
+  endif()
+endfunction()
+
 function(omim_add_test_target name src no_platform_init require_qt boost_test gtest)
   omim_add_executable(${name} ${src})
   if(NOT ${boost_test} AND NOT ${gtest})

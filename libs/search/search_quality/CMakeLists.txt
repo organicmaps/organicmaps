@@ -27,4 +27,4 @@ omim_add_tool_subdirectory(features_collector_tool)
 omim_add_tool_subdirectory(samples_generation_tool)
 omim_add_tool_subdirectory(search_quality_tool)
 
-omim_add_test_subdirectory(search_quality_tests)
+omim_add_integration_test_subdirectory(search_quality_tests)
