@@ -1,39 +1,32 @@
 struct UserDescriptionHTMLDocumentBuilder {
-  private static let adaptiveColorSchemeStyle = """
-  <style>
-    :root { color-scheme: light dark; }
-    html, body { background: transparent; }
-  </style>
-  """
-
-  func buildHTML(with htmlString: String, compatibleWith traitCollection: UITraitCollection) -> String {
+  func buildHTML(with htmlString: String) -> String {
     if isHTMLDocument(htmlString) {
-      return addingAdaptiveColorScheme(to: htmlString)
+      // Full documents keep their author-defined appearance.
+      return htmlString
     }
     // Convert fragment HTML to full document.
     let htmlBody = extractHTMLBody(from: htmlString)
-    let appearanceDeclarations = appearanceVariables(compatibleWith: traitCollection)
-      .map { "\($0.name): \($0.value);" }
-      .joined(separator: "\n          ")
     return """
       <!doctype html>
       <html>
       <head>
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
       <style>
-        :root {
-          \(appearanceDeclarations)
-        }
         html, body {
           margin: 0;
           padding: 0;
           background: transparent;
         }
         body {
-          color: var(--om-text-color);
-          font-size: var(--om-font-size);
+          color: \(UIColor.blackPrimaryText.resolvedColor(with: UITraitCollection(userInterfaceStyle: .light)).hexString);
+          font-size: \(UIFont.regular14.dynamic.pointSize)px;
           font-family: -apple-system, sans-serif;
           overflow-wrap: break-word;
+        }
+        @media (prefers-color-scheme: dark) {
+          body {
+            color: \(UIColor.blackPrimaryText.resolvedColor(with: UITraitCollection(userInterfaceStyle: .dark)).hexString);
+          }
         }
         img,
         video {
@@ -52,26 +45,9 @@ struct UserDescriptionHTMLDocumentBuilder {
     """
   }
 
-  func appearanceVariables(compatibleWith traitCollection: UITraitCollection) -> [(name: String, value: String)] {
-    let textColor = UIColor.blackPrimaryText.resolvedColor(with: traitCollection).hexString
-    let fontSize = UIFont.regular14.dynamic(compatibleWith: traitCollection).pointSize
-    return [("--om-text-color", textColor), ("--om-font-size", "\(fontSize)px")]
-  }
-
   private func isHTMLDocument(_ html: String) -> Bool {
     html.range(of: #"^\s*(?:<!doctype\s+html[^>]*>\s*)?<html\b"#,
                options: [.regularExpression, .caseInsensitive]) != nil
-  }
-
-  private func addingAdaptiveColorScheme(to html: String) -> String {
-    var result = html
-    let options: String.CompareOptions = [.regularExpression, .caseInsensitive]
-    if let headStart = html.range(of: #"<head\b[^>]*>"#, options: options) {
-      result.insert(contentsOf: Self.adaptiveColorSchemeStyle, at: headStart.upperBound)
-    } else if let htmlStart = html.range(of: #"<html\b[^>]*>"#, options: options) {
-      result.insert(contentsOf: "<head>\(Self.adaptiveColorSchemeStyle)</head>", at: htmlStart.upperBound)
-    }
-    return result
   }
 
   private func extractHTMLBody(from html: String) -> String {
