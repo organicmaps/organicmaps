@@ -28,7 +28,7 @@
     <!-- Generic external storage type in Maps Storage settings -->
     <string name="maps_storage_external">Storio a rennir yn allanol</string>
     <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
-    <string name="category_wifi">Di-wifr</string>
+    <string name="category_wifi">Wi-Fi</string>
     <string name="postal_code">Cod Post</string>
     <!-- Place Page title for long tap -->
     <string name="core_placepage_unknown_place">Pwynt Map</string>
@@ -37,9 +37,9 @@
     <!-- abbreviation for kilometers -->
     <string name="km">km</string>
     <!-- abbreviation for mile(s) -->
-    <string name="mi">milltir</string>
+    <string name="mi">mi</string>
     <!-- A unit of measure -->
-    <string name="ft">troedfedd</string>
+    <string name="ft">tr</string>
     <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
     <string name="routes_update_maps_text">I arddangos llwybrau, rhaid diweddaru mapiau.</string>
     <!-- Subway exits for public transport marks on the map -->

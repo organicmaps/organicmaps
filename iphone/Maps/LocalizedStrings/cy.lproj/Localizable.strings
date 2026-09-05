@@ -20,7 +20,7 @@
 "miles" = "Milltiroedd";
 
 /* Update maps later button text */
-"later" = "Hwyrach";
+"later" = "Nes ymlaen";
 
 /* View and button titles for accessibility. Also used in iPhone home screen quick actions. */
 "search" = "Chwilio";
@@ -372,7 +372,7 @@
 "cyan" = "Gwyrddlas";
 
 /* teal color */
-"teal" = "Glaswyrdd";
+"teal" = "Gwyrddlas Tywyll";
 
 /* lime color */
 "lime" = "Leim";
@@ -446,9 +446,9 @@
 "dialog_routing_disclaimer_beware" = "Byddwch yn effro ac yn ddiogel ar y ffyrdd!";
 "dialog_routing_check_gps" = "Gwiriwch signal GPS";
 "dialog_routing_error_location_not_found" = "Methwyd creu llwybr. Ni ellid nodi cyfesurynnau GPS cyfredol.";
-"dialog_routing_location_turn_wifi" = "Gwiriwch eich signal GPS. Bydd galluogi di-wifr yn gwella cywirdeb eich lleoliad.";
+"dialog_routing_location_turn_wifi" = "Gwiriwch eich signal GPS. Bydd galluogi Wi-Fi yn gwella cywirdeb eich lleoliad.";
 "dialog_routing_location_turn_on" = "Galluogi gwasanaethau lleoliad";
-"dialog_routing_location_unknown_turn_on" = "Methwyd dod o hyd i gyfesurynnau GPS cyfredol. Galluogi gwasanaethau lleoliad i gyfrifo'r llwybr.";
+"dialog_routing_location_unknown_turn_on" = "Methwyd dod o hyd i gyfesurynnau GPS cyfredol. Galluogwch wasanaethau lleoliad i gyfrifo'r llwybr.";
 "dialog_routing_unable_locate_route" = "Methwyd dod o hyd i'r llwybr";
 "dialog_routing_change_start_or_end" = "Addaswch eich man cychwyn neu'ch cyrchfan.";
 "dialog_routing_change_start" = "Addaswch y man cychwyn";
@@ -598,9 +598,9 @@
 "kilometers_per_hour" = "km/awr";
 "miles_per_hour" = "mya";
 "hour" = "awr";
-"minute" = "munud";
+"minute" = "mun";
 "day" = "d";
-"second" = "eiliad";
+"second" = "eil";
 "placepage_more_button" = "Mwy";
 
 /* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
@@ -640,7 +640,7 @@
 
 /* NOTE to translators: please synchronize your translation with the English one. */
 "mobile_data_description" = "Mae angen rhyngrwyd symudol ar gyfer hysbysiadau diweddaru mapiau ac uwchlwytho golygiadau.";
-"mobile_data_option_never" = "Peidiwch byth â Defnyddio";
+"mobile_data_option_never" = "Peidio byth â Defnyddio";
 "mobile_data_option_ask" = "Gofyn Bob Amser";
 "traffic_update_maps_text" = "I arddangos data traffig, rhaid diweddaru mapiau.";
 "big_font" = "Cynyddu maint ar gyfer labeli map";
@@ -651,8 +651,8 @@
 "transliteration_title" = "Trosi i'r wyddor Ladin";
 "planning_route_manage_route" = "Rheoli Llwybr";
 "button_plan" = "Cynllunio";
-"placepage_remove_stop" = "Dileu Arosfan";
-"placepage_add_stop" = "Ychwanegu Arosfan";
+"placepage_remove_stop" = "Dileu Pwynt Aros";
+"placepage_add_stop" = "Ychwanegu Pwynt Aros";
 "saved" = "Wedi'i Gadw";
 "error_enter_correct_name" = "Rhowch enw cywir";
 "bookmark_lists" = "Rhestrau";
@@ -742,17 +742,17 @@
 "define_to_avoid_btn" = "Diffinio ffyrdd i'w hosgoi";
 "change_driving_options_btn" = "Opsiynau llwybro wedi'u galluogi";
 "toll_road" = "Ffordd doll";
-"unpaved_road" = "Ffordd heb ei palmantu";
+"unpaved_road" = "Ffordd heb ei phalmantu";
 "ferry_crossing" = "Croesfan fferi";
 
 /* Route warning shown on the map for this obstacle type. */
 "road_warning_steps" = "Grisiau";
 
 /* Route warning shown on the map for this obstacle type. */
-"road_warning_gate" = "Gât";
+"road_warning_gate" = "Giât";
 
 /* Route warning shown on the map for this obstacle type. */
-"road_warning_lift_gate" = "Gât Godi";
+"road_warning_lift_gate" = "Giât Godi";
 
 /* A generic "Yes" button in dialogs */
 "yes" = "Ie";
@@ -844,16 +844,16 @@
 "refresh" = "Diweddaru";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
-"recent_track_background_dialog_title" = "Analluogi cofnodi eich llwybr a deithiwyd yn ddiweddar?";
+"recent_track_background_dialog_title" = "Analluogi recordio eich llwybr a deithiwyd yn ddiweddar?";
 "off_recent_track_background_button" = "Analluogi";
-"recent_track_background_dialog_message" = "Mae Organic Maps yn defnyddio eich lleoliad yn y cefndir i gofnodi eich llwybr a deithiwyd yn ddiweddar.";
+"recent_track_background_dialog_message" = "Mae Organic Maps yn defnyddio eich lleoliad yn y cefndir i recordio eich llwybr a deithiwyd yn ddiweddar.";
 "general_settings" = "Gosodiadau cyffredinol";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "I ddangos data traffig, rhaid diweddaru'r rhaglen.";
 "log_file_size" = "Maint ffeil log: %@";
 "planning_route_remove_title" = "Llusgwch yma i dynnu";
-"placepage_replace_stop" = "Disodli Arosfan";
+"placepage_replace_stop" = "Disodli Pwynt Aros";
 "start_from_my_position" = "Dechrau o";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -1142,7 +1142,7 @@
 "core_my_places" = "Fy Lleoedd";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
-"category_wifi" = "Di-wifr";
+"category_wifi" = "Wi-Fi";
 "postal_code" = "Cod Post";
 
 /* Place Page title for long tap */
@@ -1155,10 +1155,10 @@
 "km" = "km";
 
 /* abbreviation for mile(s) */
-"mi" = "milltir";
+"mi" = "mi";
 
 /* A unit of measure */
-"ft" = "troedfedd";
+"ft" = "tr";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "I arddangos llwybrau, rhaid diweddaru mapiau.";

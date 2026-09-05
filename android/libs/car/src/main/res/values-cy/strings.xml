@@ -71,7 +71,7 @@
     <string name="opens_in">Yn agor mewn %s</string>
     <string name="closes_in">Yn cau mewn %s</string>
     <string name="closed">Ar Gau</string>
-    <string name="minute">munud</string>
+    <string name="minute">mun</string>
     <string name="big_font">Cynyddu maint ar gyfer labeli map</string>
     <string name="transliteration_title">Trosi i\'r wyddor Ladin</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->

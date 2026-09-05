@@ -14,9 +14,9 @@
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_check_gps">Gwiriwch signal GPS</string>
     <string name="dialog_routing_error_location_not_found">Methwyd creu llwybr. Ni ellid nodi cyfesurynnau GPS cyfredol.</string>
-    <string name="dialog_routing_location_turn_wifi">Gwiriwch eich signal GPS. Bydd galluogi di-wifr yn gwella cywirdeb eich lleoliad.</string>
+    <string name="dialog_routing_location_turn_wifi">Gwiriwch eich signal GPS. Bydd galluogi Wi-Fi yn gwella cywirdeb eich lleoliad.</string>
     <string name="dialog_routing_location_turn_on">Galluogi gwasanaethau lleoliad</string>
-    <string name="dialog_routing_location_unknown_turn_on">Methwyd dod o hyd i gyfesurynnau GPS cyfredol. Galluogi gwasanaethau lleoliad i gyfrifo\'r llwybr.</string>
+    <string name="dialog_routing_location_unknown_turn_on">Methwyd dod o hyd i gyfesurynnau GPS cyfredol. Galluogwch wasanaethau lleoliad i gyfrifo\'r llwybr.</string>
     <string name="dialog_routing_unable_locate_route">Methwyd dod o hyd i\'r llwybr</string>
     <string name="dialog_routing_cant_build_route">Methwyd creu llwybr.</string>
     <string name="dialog_routing_change_start_or_end">Addaswch eich man cychwyn neu\'ch cyrchfan.</string>

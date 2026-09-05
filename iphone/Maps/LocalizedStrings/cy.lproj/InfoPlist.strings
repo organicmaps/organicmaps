@@ -28,10 +28,10 @@
 
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "Mae canfod lleoliad yn y cefndir yn angenrheidiol i fwynhau ymarferoldeb yr ap yn llawn. Fe'i defnyddir ar gyfer llywio ac arbed eich llwybr a deithiwyd yn ddiweddar.";
+"NSLocationAlwaysUsageDescription" = "Mae canfod lleoliad yn y cefndir yn angenrheidiol i fwynhau ymarferoldeb yr ap yn llawn. Fe'i defnyddir ar gyfer llywio ac arbed eich trac a recordiwyd yn ddiweddar.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
-"NSLocationWhenInUseUsageDescription" = "Mae pennu eich lleoliad yn angenrheidiol ar gyfer llywio ac ar gyfer arbed eich llwybr a deithiwyd yn ddiweddar.";
+"NSLocationWhenInUseUsageDescription" = "Mae pennu eich lleoliad yn angenrheidiol ar gyfer llywio ac ar gyfer arbed eich trac a recordiwyd yn ddiweddar.";
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Mewngofnodi gyda chyfrinair";

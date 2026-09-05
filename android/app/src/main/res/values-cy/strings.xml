@@ -18,7 +18,7 @@
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Milltiroedd</string>
     <!-- Update maps later button text -->
-    <string name="later">Hwyrach</string>
+    <string name="later">Nes ymlaen</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Chwilio</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
@@ -305,7 +305,7 @@
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">Dim digon o le</string>
     <!-- location service disabled -->
-    <string name="enable_location_services">Galluogi Gwasanaethau Lleoliad</string>
+    <string name="enable_location_services">Galluogwch Wasanaethau Lleoliad</string>
     <string name="save">Cadw</string>
     <string name="create">creu</string>
     <!-- red color -->
@@ -331,7 +331,7 @@
     <!-- cyan color -->
     <string name="cyan">Gwyrddlas</string>
     <!-- teal color -->
-    <string name="teal">Glaswyrdd</string>
+    <string name="teal">Gwyrddlas Tywyll</string>
     <!-- lime color -->
     <string name="lime">Leim</string>
     <!-- deep orange color -->
@@ -358,7 +358,7 @@
     <string name="dialog_routing_disclaimer_recommendations">— Dim ond argymhellion yw\'r llwybrau a awgrymir;</string>
     <string name="dialog_routing_disclaimer_borders">— Byddwch yn ofalus gyda llwybrau mewn parthau ffiniol: gall y llwybrau a grëwyd gan yr ap groesi ffiniau gwlad mewn mannau anawdurdodedig weithiau.</string>
     <string name="dialog_routing_disclaimer_beware">Byddwch yn effro ac yn ddiogel ar y ffyrdd!</string>
-    <string name="dialog_routing_location_turn_wifi">Gwiriwch eich signal GPS. Bydd galluogi di-wifr yn gwella cywirdeb eich lleoliad.</string>
+    <string name="dialog_routing_location_turn_wifi">Gwiriwch eich signal GPS. Bydd galluogi Wi-Fi yn gwella cywirdeb eich lleoliad.</string>
     <string name="dialog_routing_system_error">Gwall system</string>
     <string name="not_now">Ddim Nawr</string>
 
@@ -496,7 +496,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Nodyn i wirfoddolwyr OpenStreetMap (dewisol)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Disgrifiwch wallau ar y map neu bethau na ellir eu golygu gyda Organic Maps</string>
+    <string name="editor_note_hint">Disgrifiwch wallau ar y map neu bethau na ellir eu golygu gydag Organic Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Mae eich golygiadau\'n cael eu huwchlwytho i\'r gronfa ddata gyhoeddus <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. Peidiwch ag ychwanegu gwybodaeth bersonol na gwybodaeth hawlfraint.</string>
     <string name="editor_more_about_osm">Mwy am OpenStreetMap</string>
@@ -514,9 +514,9 @@
     <string name="kilometers_per_hour">km/awr</string>
     <string name="miles_per_hour">mya</string>
     <string name="hour">awr</string>
-    <string name="minute">munud</string>
+    <string name="minute">mun</string>
     <string name="day">d</string>
-    <string name="second">eiliad</string>
+    <string name="second">eil</string>
     <string name="placepage_more_button">Mwy</string>
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">Golygu Nod Tudalen</string>
@@ -548,7 +548,7 @@
     <string name="editor_share_to_all_dialog_message_2">Bydd golygyddion OpenStreetMap yn gwirio\'r newidiadau ac yn cysylltu â chi os oes ganddynt unrhyw gwestiynau.</string>
     <string name="navigation_stop_button">Stopio</string>
     <!-- Shown as toast when starting the recent track recording -->
-    <string name="track_recording">Cofnodi\'r trac</string>
+    <string name="track_recording">Recordio\'r trac</string>
     <!-- For the first routing -->
     <string name="accept">Derbyn</string>
     <!-- For the first routing -->
@@ -560,7 +560,7 @@
     <string name="mobile_data">Rhyngrwyd Symudol</string>
     <!-- NOTE to translators: please synchronize your translation with the English one. -->
     <string name="mobile_data_description">Mae angen rhyngrwyd symudol ar gyfer hysbysiadau diweddaru mapiau ac uwchlwytho golygiadau.</string>
-    <string name="mobile_data_option_never">Peidiwch byth â Defnyddio</string>
+    <string name="mobile_data_option_never">Peidio byth â Defnyddio</string>
     <string name="mobile_data_option_ask">Gofyn Bob Amser</string>
     <string name="big_font">Cynyddu maint ar gyfer labeli map</string>
     <string name="enable_logging">Galluogi logio</string>
@@ -573,8 +573,8 @@
     <string name="learn_more">Dysgu mwy</string>
     <string name="planning_route_manage_route">Rheoli Llwybr</string>
     <string name="button_plan">Cynllunio</string>
-    <string name="placepage_remove_stop">Dileu Arosfan</string>
-    <string name="placepage_add_stop">Ychwanegu Arosfan</string>
+    <string name="placepage_remove_stop">Dileu Pwynt Aros</string>
+    <string name="placepage_add_stop">Ychwanegu Pwynt Aros</string>
     <string name="drag_to_reorder">Aildrefnu</string>
     <string name="saved">Wedi\'i Gadw</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
@@ -687,14 +687,14 @@
     <string name="define_to_avoid_btn">Diffinio ffyrdd i\'w hosgoi</string>
     <string name="change_driving_options_btn">Opsiynau llwybro wedi\'u galluogi</string>
     <string name="toll_road">Ffordd doll</string>
-    <string name="unpaved_road">Ffordd heb ei palmantu</string>
+    <string name="unpaved_road">Ffordd heb ei phalmantu</string>
     <string name="ferry_crossing">Croesfan fferi</string>
     <!-- Route warning shown on the map for this obstacle type. -->
     <string name="road_warning_steps">Grisiau</string>
     <!-- Route warning shown on the map for this obstacle type. -->
-    <string name="road_warning_gate">Gât</string>
+    <string name="road_warning_gate">Giât</string>
     <!-- Route warning shown on the map for this obstacle type. -->
-    <string name="road_warning_lift_gate">Gât Godi</string>
+    <string name="road_warning_lift_gate">Giât Godi</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Ie</string>
     <!-- A generic "No" button in dialogs -->
@@ -736,7 +736,7 @@
     <string name="opens_at">Yn agor am %s</string>
     <string name="closes_at">Yn cau am %s</string>
     <string name="editor_add_select_category_all_subtitle">Pob Categori</string>
-    <string name="placepage_replace_stop">Disodli Arosfan</string>
+    <string name="placepage_replace_stop">Disodli Pwynt Aros</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Bwyd</string>
@@ -770,7 +770,7 @@
     <string name="elevation_profile_min_elevation">Uchder isaf</string>
     <string name="elevation_profile_max_elevation">Uchder uchaf</string>
     <string name="elevation_profile_difficulty">Anhawster</string>
-    <string name="elevation_profile_distance">Pellter:</string>
+    <string name="elevation_profile_distance">Pell.:</string>
     <string name="elevation_profile_time">Amser:</string>
     <string name="isolines_toast_zooms_1_10">Chwyddwch i mewn i archwilio\'r llinellau cyfuchlin</string>
     <string name="downloader_loading_ios">Wrthi\'n lawrlwytho</string>
@@ -920,7 +920,7 @@
     <!-- Tab label for the spectrum color picker mode -->
     <string name="color_picker_spectrum">Sbectrwm</string>
     <!-- Tab label for the RGB sliders color picker mode -->
-    <string name="color_picker_sliders">Sleidwyr</string>
+    <string name="color_picker_sliders">Llithryddion</string>
     <!-- Label for the red channel slider in the color picker -->
     <string name="color_picker_red">COCH</string>
     <!-- Label for the green channel slider in the color picker -->
