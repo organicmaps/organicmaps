@@ -919,4 +919,6 @@
     <string name="color_picker_grid">그리드</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">음성 검색</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">중지 및 저장</string>
 </resources>
