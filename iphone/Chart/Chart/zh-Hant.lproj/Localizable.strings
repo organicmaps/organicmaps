@@ -7,7 +7,9 @@
 
 /********** Uncategorized **********/
 
-"you" = "您";
+
+/* Short label of the user's position marker on the elevation profile chart. */
+"you" = "我的位置";
 
 
 /********** gps strings **********/

@@ -885,6 +885,10 @@
     <!-- Text for the showing track. -->
     <string name="show_track">मार्ग दिखाएँ</string>
 
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. -->
+    <string name="you">आप</string>
+
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">पासवर्ड से लॉगिन करें</string>
