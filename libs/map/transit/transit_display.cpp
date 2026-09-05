@@ -228,13 +228,18 @@ std::vector<m2::PointF> GetTransitMarkerSizes(float markerScale, float maxRouteW
 }  // namespace
 
 TransitStepInfo::TransitStepInfo(TransitType type, double distance, int time, std::string const & number,
-                                 uint32_t color, int intermediateIndex)
+                                 uint32_t color, int intermediateIndex, std::string const & startStopName,
+                                 std::string const & endStopName, std::string const & lineTerminusName)
   : m_type(type)
   , m_distanceInMeters(distance)
   , m_timeInSec(time)
   , m_number(number)
   , m_colorARGB(color)
   , m_intermediateIndex(intermediateIndex)
+  , m_startStopName(startStopName)
+  , m_endStopName(endStopName)
+  , m_stopCount(type != TransitType::Pedestrian && type != TransitType::IntermediatePoint ? 1 : 0)
+  , m_lineTerminusName(lineTerminusName)
 {}
 
 bool TransitStepInfo::IsEqualType(TransitStepInfo const & ts) const
@@ -251,8 +256,16 @@ void TransitRouteInfo::AddStep(TransitStepInfo const & step)
 {
   if (!m_steps.empty() && m_steps.back().IsEqualType(step))
   {
-    m_steps.back().m_distanceInMeters += step.m_distanceInMeters;
-    m_steps.back().m_timeInSec += step.m_timeInSec;
+    auto & back = m_steps.back();
+    back.m_distanceInMeters += step.m_distanceInMeters;
+    back.m_timeInSec += step.m_timeInSec;
+    if (!step.m_endStopName.empty())
+    {
+      if (!back.m_endStopName.empty())
+        back.m_intermediateStopNames.push_back(back.m_endStopName);
+      back.m_endStopName = step.m_endStopName;
+    }
+    back.m_stopCount += step.m_stopCount;
   }
   else
   {
@@ -377,6 +390,21 @@ TransitRouteInfo const & TransitRouteDisplay::GetRouteInfo()
   return m_routeInfo;
 }
 
+namespace
+{
+template <class Stop>
+std::string GetStopName(SubrouteSegmentParams const & ssp, Stop const & stop)
+{
+  if (stop.GetFeatureId() == kInvalidFeatureId)
+    return {};
+  auto const fid = FeatureID(ssp.m_mwmId, stop.GetFeatureId());
+  auto const it = ssp.m_displayInfo.m_features.find(fid);
+  if (it == ssp.m_displayInfo.m_features.end())
+    return {};
+  return it->second.m_title;
+}
+}  // namespace
+
 void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute,
                                                    SubrouteParams & sp, SubrouteSegmentParams & ssp, StopId legBoardId,
                                                    StopId legAlightId)
@@ -399,10 +427,28 @@ void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const &
   if (number.empty())
     number = line.GetNumber();
 
-  m_routeInfo.AddStep(TransitStepInfo(sp.m_transitType, ssp.m_distance, ssp.m_time, number, ColorToARGB(currentColor)));
-
   auto const & stop1 = ssp.m_displayInfo.m_stopsSubway.at(edge.m_stop1Id);
   auto const & stop2 = ssp.m_displayInfo.m_stopsSubway.at(edge.m_stop2Id);
+
+  // The line's terminus in the direction of travel: the far end of the line's stop sequence relative to
+  // this edge (stop1 -> stop2). Empty if the edge's stops aren't found in the line (defensive).
+  std::string directionName;
+  for (auto const & seq : line.GetStopIds())
+  {
+    auto const i1 = std::find(seq.begin(), seq.end(), edge.m_stop1Id);
+    auto const i2 = std::find(seq.begin(), seq.end(), edge.m_stop2Id);
+    if (i1 == seq.end() || i2 == seq.end())
+      continue;
+    auto const terminusId = (i2 >= i1) ? seq.back() : seq.front();
+    auto const itTerminus = ssp.m_displayInfo.m_stopsSubway.find(terminusId);
+    if (itTerminus != ssp.m_displayInfo.m_stopsSubway.end())
+      directionName = GetStopName(ssp, itTerminus->second);
+    break;
+  }
+
+  m_routeInfo.AddStep(TransitStepInfo(sp.m_transitType, ssp.m_distance, ssp.m_time, number, ColorToARGB(currentColor),
+                                      0 /* intermediateIndex */, GetStopName(ssp, stop1), GetStopName(ssp, stop2),
+                                      directionName));
   bool const isTransfer1 = stop1.GetTransferId() != routing::transit::kInvalidTransferId;
   bool const isTransfer2 = stop2.GetTransferId() != routing::transit::kInvalidTransferId;
 
@@ -530,11 +576,28 @@ void TransitRouteDisplay::AddEdgePTForSubroute(routing::RouteSegment const & seg
   auto const currentColor = df::GetTransitColorName(route.GetColor());
   sp.m_transitType = GetTransitType(route.GetType());
 
-  m_routeInfo.AddStep(
-      TransitStepInfo(sp.m_transitType, ssp.m_distance, ssp.m_time, route.GetTitle(), ColorToARGB(currentColor)));
-
   auto const & stop1 = ssp.m_displayInfo.m_stopsPT.at(edge.m_stop1Id);
   auto const & stop2 = ssp.m_displayInfo.m_stopsPT.at(edge.m_stop2Id);
+
+  // The line's terminus in the direction of travel: the far end of the line's stop sequence relative to
+  // this edge (stop1 -> stop2). Empty if the edge's stops aren't found in the line (defensive).
+  std::string directionName;
+  {
+    auto const & seq = line.GetStopIds();
+    auto const i1 = std::find(seq.begin(), seq.end(), edge.m_stop1Id);
+    auto const i2 = std::find(seq.begin(), seq.end(), edge.m_stop2Id);
+    if (i1 != seq.end() && i2 != seq.end())
+    {
+      auto const terminusId = (i2 >= i1) ? seq.back() : seq.front();
+      auto const itTerminus = ssp.m_displayInfo.m_stopsPT.find(terminusId);
+      if (itTerminus != ssp.m_displayInfo.m_stopsPT.end())
+        directionName = GetStopName(ssp, itTerminus->second);
+    }
+  }
+
+  m_routeInfo.AddStep(TransitStepInfo(sp.m_transitType, ssp.m_distance, ssp.m_time, route.GetTitle(),
+                                      ColorToARGB(currentColor), 0 /* intermediateIndex */, GetStopName(ssp, stop1),
+                                      GetStopName(ssp, stop2), directionName));
 
   bool const isTransfer1 = !stop1.GetTransferIds().empty();
   bool const isTransfer2 = !stop2.GetTransferIds().empty();

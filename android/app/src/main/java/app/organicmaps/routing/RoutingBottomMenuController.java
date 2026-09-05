@@ -15,6 +15,8 @@ import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import androidx.annotation.IdRes;
@@ -89,6 +91,7 @@ final class RoutingBottomMenuController
   private final DotDividerItemDecoration mTransitViewDecorator;
   @NonNull
   private final TransitStepAdapter mTransitAdapter;
+  // Compact leg-badge strip; tapping it (or the summary row above) opens the full-screen per-leg details.
   @NonNull
   private final RecyclerView mTransitRecyclerView;
   @NonNull
@@ -173,12 +176,7 @@ final class RoutingBottomMenuController
     mArrival = arrival;
     mSaveButton = saveButton;
     mListener = listener;
-    int dividerRes = ThemeUtils.getResource(mContext, R.attr.transitStepDivider);
-    Drawable dividerDrawable = ContextCompat.getDrawable(mContext, dividerRes);
-    Resources res = mContext.getResources();
-    mTransitViewDecorator =
-        new DotDividerItemDecoration(dividerDrawable, res.getDimensionPixelSize(R.dimen.margin_base),
-                                     res.getDimensionPixelSize(R.dimen.margin_half));
+    mTransitViewDecorator = newTransitDecorator();
     mManageRoutePanel = mContext.findViewById(R.id.manage_route_panel);
     if (mManageRoutePanel != null)
     {
@@ -214,6 +212,40 @@ final class RoutingBottomMenuController
     mTransitRecyclerView.setNestedScrollingEnabled(false);
     mTransitRecyclerView.addItemDecoration(mTransitViewDecorator);
     mTransitRecyclerView.setAdapter(mTransitAdapter);
+    attachStripTapListener(mTransitRecyclerView, mTransitTime);
+  }
+
+  // A tap anywhere on the strip opens the details, just like tapping the tile around it, since the strip
+  // would otherwise swallow the touch. Gated on the tile being clickable so it stays inert for ruler.
+  private void attachStripTapListener(@NonNull RecyclerView strip, @NonNull View tile)
+  {
+    final GestureDetector detector = new GestureDetector(mContext, new GestureDetector.SimpleOnGestureListener() {
+      @Override
+      public boolean onSingleTapUp(@NonNull MotionEvent e)
+      {
+        if (!tile.isClickable())
+          return false;
+        openTransitDetails();
+        return true;
+      }
+    });
+    strip.addOnItemTouchListener(new RecyclerView.SimpleOnItemTouchListener() {
+      @Override
+      public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e)
+      {
+        return detector.onTouchEvent(e);
+      }
+    });
+  }
+
+  @NonNull
+  private DotDividerItemDecoration newTransitDecorator()
+  {
+    int dividerRes = ThemeUtils.getResource(mContext, R.attr.transitStepDivider);
+    Drawable dividerDrawable = ContextCompat.getDrawable(mContext, dividerRes);
+    Resources res = mContext.getResources();
+    return new DotDividerItemDecoration(dividerDrawable, res.getDimensionPixelSize(R.dimen.margin_base),
+                                        res.getDimensionPixelSize(R.dimen.margin_half));
   }
 
   private void openSearchForRoutePick()
@@ -240,6 +272,8 @@ final class RoutingBottomMenuController
       showRouteAltitudeChart();
     showRoutingDetails();
     UiUtils.show(mAltitudeChartFrame);
+    // Restore the driving-options gear that the transit type hides.
+    UiUtils.show(mAltitudeChartFrame.findViewById(R.id.driving_options_btn_container));
     updateSaveButton();
     notifyVisibilityChanged();
     refreshManageRoute();
@@ -275,21 +309,43 @@ final class RoutingBottomMenuController
   {
     refreshManageRoute();
     updateSaveButton();
-    View transit_time = mAltitudeChartFrame.findViewById(R.id.transit_time);
     hideAltitudeChartAndRoutingDetails();
     UiUtils.hide(mError, mTimeElevationLine, mTimeVehicle);
     setStartState(StartState.DISABLED);
-    UiUtils.show(transit_time, mTransitRecyclerView);
-    mTransitAdapter.setItems(info.getTransitSteps());
+    // Driving options (avoid tolls/motorways/…) don't apply to transit, so hide the gear for this type.
+    UiUtils.hide(mAltitudeChartFrame.findViewById(R.id.driving_options_btn_container));
 
-    TextView totalTimeView = mAltitudeChartFrame.findViewById(R.id.total_time);
-    totalTimeView.setText(Utils.formatRoutingTime(mContext, info.getTotalTime(), R.dimen.text_size_routing_number));
-    View dotView = mAltitudeChartFrame.findViewById(R.id.dot);
-    View pedestrianIcon = mAltitudeChartFrame.findViewById(R.id.pedestrian_icon);
-    TextView distanceView = mAltitudeChartFrame.findViewById(R.id.total_distance);
-    UiUtils.showIf(info.getTotalPedestrianTimeInSec() > 0, dotView, pedestrianIcon, distanceView);
-    distanceView.setText(info.getTotalPedestrianDistance() + " " + info.getTotalPedestrianDistanceUnits());
+    bindRouteTile(info.getTotalTime(), info.getTotalPedestrianTimeInSec(), info.getTransitSteps());
+
     notifyVisibilityChanged();
+  }
+
+  // Binds the route tile: total duration + walk total + leg-badge strip, then reveals it. The whole tile
+  // is one tap target that opens the details.
+  private void bindRouteTile(int totalSec, int walkSec, @NonNull List<TransitStepInfo> legs)
+  {
+    mTransitAdapter.setItems(legs);
+
+    // Hero duration: big number, small "min".
+    ((TextView) mTransitTime.findViewById(R.id.total_time))
+        .setText(
+            Utils.formatRoutingTime(mContext, totalSec, R.dimen.text_size_routing_dimension, R.dimen.text_size_title));
+    TextView walkView = mTransitTime.findViewById(R.id.total_distance);
+    UiUtils.showIf(walkSec > 0, walkView, mTransitTime.findViewById(R.id.pedestrian_icon));
+    walkView.setText(Utils.formatRoutingTime(mContext, walkSec, R.dimen.text_size_body_3));
+
+    mTransitTime.setClickable(true);
+    mTransitTime.setOnClickListener(v -> openTransitDetails());
+    UiUtils.show(mTransitTime, mTransitRecyclerView, mTransitTime.findViewById(R.id.transit_topline),
+                 mTransitTime.findViewById(R.id.transit_details_chevron));
+  }
+
+  private void openTransitDetails()
+  {
+    // Ruler routes reuse the tile but have no per-leg details, so they clear clickability.
+    if (!mTransitTime.isClickable())
+      return;
+    TransitDetailsActivity.start(mContext);
   }
 
   @SuppressLint("SetTextI18n")
@@ -297,17 +353,26 @@ final class RoutingBottomMenuController
   {
     refreshManageRoute();
     updateSaveButton();
-    UiUtils.hide(mError, mTimeVehicle, mTransitTime, mTimeElevationLine, mAltitudeChart);
+    UiUtils.hide(mError, mTimeVehicle, mTimeElevationLine, mAltitudeChart);
     setStartState(StartState.DISABLED);
     hideAltitudeChartAndRoutingDetails();
-    UiUtils.show(mAltitudeChartFrame, mTransitRecyclerView, mTimeRuler);
+    UiUtils.show(mAltitudeChartFrame, mTimeRuler);
+    UiUtils.show(mAltitudeChartFrame.findViewById(R.id.driving_options_btn_container));
+
+    // The tile is shared with public transport routing, but a straight-line ruler route has no per-leg
+    // details, so make it inert and hide the summary top line. Only the (waypoint) strip is meaningful;
+    // clearing clickability suppresses the ripple and makes openTransitDetails() a no-op.
+    mTransitTime.setOnClickListener(null);
+    mTransitTime.setClickable(false);
+    UiUtils.hide(mAltitudeChartFrame.findViewById(R.id.transit_topline));
+
     if (points.length > 2)
     {
-      UiUtils.show(mTransitRecyclerView);
+      UiUtils.show(mTransitTime, mTransitRecyclerView);
       mTransitAdapter.setItems(pointsToRulerSteps(points));
     }
     else
-      UiUtils.hide(mTransitRecyclerView); // Show only distance between start and finish
+      UiUtils.hide(mTransitTime, mTransitRecyclerView); // Show only distance between start and finish
     mTimeRuler.setText(mContext.getString(R.string.placepage_distance) + ": " + totalLength.mDistanceStr + " "
                        + totalLength.getUnitsStr(mContext));
     notifyVisibilityChanged();
